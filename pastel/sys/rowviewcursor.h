@@ -1,8 +1,8 @@
 // Description: RowViewCursor class
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_ROWVIEWCURSOR_H
-#define PASTEL_ROWVIEWCURSOR_H
+#ifndef PASTELSYS_ROWVIEWCURSOR_H
+#define PASTELSYS_ROWVIEWCURSOR_H
 
 #include "pastel/sys/rowview.h"
 

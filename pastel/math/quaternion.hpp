@@ -1,5 +1,5 @@
-#ifndef PASTEL_QUATERNION_HPP
-#define PASTEL_QUATERNION_HPP
+#ifndef PASTELMATH_QUATERNION_HPP
+#define PASTELMATH_QUATERNION_HPP
 
 #include "pastel/math/quaternion.h"
 

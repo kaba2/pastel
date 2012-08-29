@@ -1,5 +1,5 @@
-#ifndef PASTEL_HASHED_TREE_HPP
-#define PASTEL_HASHED_TREE_HPP
+#ifndef PASTELSYS_HASHED_TREE_HPP
+#define PASTELSYS_HASHED_TREE_HPP
 
 #include "pastel/sys/hashed_tree.h"
 

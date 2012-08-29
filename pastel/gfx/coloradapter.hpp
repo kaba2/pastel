@@ -1,5 +1,5 @@
-#ifndef PASTEL_COLORADAPTER_HPP
-#define PASTEL_COLORADAPTER_HPP
+#ifndef PASTELGFX_COLORADAPTER_HPP
+#define PASTELGFX_COLORADAPTER_HPP
 
 #include "pastel/gfx/coloradapter.h"
 

@@ -1,7 +1,7 @@
 // Description: Triangle-distributed random numbers
 
-#ifndef PASTEL_RANDOM_TRIANGLE_H
-#define PASTEL_RANDOM_TRIANGLE_H
+#ifndef PASTELSYS_RANDOM_TRIANGLE_H
+#define PASTELSYS_RANDOM_TRIANGLE_H
 
 #include "pastel/sys/mytypes.h"
 

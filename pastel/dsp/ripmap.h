@@ -1,8 +1,8 @@
 // Description: RipMap class
 // Detail: A set of precomputed successive downsamplings of an image
 
-#ifndef PASTEL_RIPMAP_H
-#define PASTEL_RIPMAP_H
+#ifndef PASTELDSP_RIPMAP_H
+#define PASTELDSP_RIPMAP_H
 
 #include "pastel/dsp/filter.h"
 #include "pastel/dsp/gaussian_filter.h"

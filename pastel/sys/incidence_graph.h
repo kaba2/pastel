@@ -1,7 +1,7 @@
 // Description: Incidence graph
 
-#ifndef PASTEL_INCIDENCE_GRAPH_H
-#define PASTEL_INCIDENCE_GRAPH_H
+#ifndef PASTELSYS_INCIDENCE_GRAPH_H
+#define PASTELSYS_INCIDENCE_GRAPH_H
 
 #include "pastel/sys/incidence_graph_fwd.h"
 #include "pastel/sys/incidence_graph_incidence.h"

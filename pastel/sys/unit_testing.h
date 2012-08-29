@@ -1,7 +1,7 @@
 // Description: An aggregate file for unit testing
 
-#ifndef PASTEL_UNIT_TESTING_H
-#define PASTEL_UNIT_TESTING_H
+#ifndef PASTELSYS_UNIT_TESTING_H
+#define PASTELSYS_UNIT_TESTING_H
 
 #include "pastel/sys/testreport.h"
 #include "pastel/sys/testrunner.h"

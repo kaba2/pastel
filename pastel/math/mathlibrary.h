@@ -1,8 +1,8 @@
 // Description: Dll-keywords for PastelMath
 // Documentation: common.txt
 
-#ifndef PASTEL_MATHLIBRARY_H
-#define PASTEL_MATHLIBRARY_H
+#ifndef PASTELMATH_MATHLIBRARY_H
+#define PASTELMATH_MATHLIBRARY_H
 
 #include "pastel/sys/environment.h"
 

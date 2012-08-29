@@ -1,5 +1,5 @@
-#ifndef PASTEL_HARMONIC_HPP
-#define PASTEL_HARMONIC_HPP
+#ifndef PASTELSYS_HARMONIC_HPP
+#define PASTELSYS_HARMONIC_HPP
 
 #include "pastel/sys/harmonic.h"
 #include "pastel/sys/ensure.h"

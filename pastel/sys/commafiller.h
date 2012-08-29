@@ -1,8 +1,8 @@
 // Description: CommaFiller class
 // Detail: Assigns values to an iterator range using the comma operator.
 
-#ifndef PASTEL_COMMAFILLER_H
-#define PASTEL_COMMAFILLER_H
+#ifndef PASTELSYS_COMMAFILLER_H
+#define PASTELSYS_COMMAFILLER_H
 
 namespace Pastel
 {

@@ -1,5 +1,5 @@
-#ifndef PASTEL_POWERS_HPP
-#define PASTEL_POWERS_HPP
+#ifndef PASTELSYS_POWERS_HPP
+#define PASTELSYS_POWERS_HPP
 
 #include "pastel/sys/powers.h"
 

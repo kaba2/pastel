@@ -1,8 +1,8 @@
 // Description: Differential geometry
 // Documentation: pastelray.txt
 
-#ifndef PASTEL_DIFFERENTIAL_GEOMETRY_H
-#define PASTEL_DIFFERENTIAL_GEOMETRY_H
+#ifndef PASTELRAY_DIFFERENTIAL_GEOMETRY_H
+#define PASTELRAY_DIFFERENTIAL_GEOMETRY_H
 
 #include "pastel/ray/raylibrary.h"
 #include "pastel/ray/localgeometry.h"

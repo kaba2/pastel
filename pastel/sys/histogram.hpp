@@ -1,5 +1,5 @@
-#ifndef PASTEL_HISTOGRAM_HPP
-#define PASTEL_HISTOGRAM_HPP
+#ifndef PASTELSYS_HISTOGRAM_HPP
+#define PASTELSYS_HISTOGRAM_HPP
 
 #include "pastel/sys/histogram.h"
 #include "pastel/sys/math_functions.h"

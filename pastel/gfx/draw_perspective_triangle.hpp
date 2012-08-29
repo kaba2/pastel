@@ -1,5 +1,5 @@
-#ifndef PASTEL_DRAW_PERSPECTIVE_TRIANGLE_HPP
-#define PASTEL_DRAW_PERSPECTIVE_TRIANGLE_HPP
+#ifndef PASTELGFX_DRAW_PERSPECTIVE_TRIANGLE_HPP
+#define PASTELGFX_DRAW_PERSPECTIVE_TRIANGLE_HPP
 
 #include "pastel/gfx/draw_perspective_triangle.h"
 #include "pastel/gfx/assign_colormixer.h"

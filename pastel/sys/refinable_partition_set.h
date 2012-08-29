@@ -1,5 +1,5 @@
-#ifndef PASTEL_REFINABLE_PARTITION_SET_H
-#define PASTEL_REFINABLE_PARTITION_SET_H
+#ifndef PASTELSYS_REFINABLE_PARTITION_SET_H
+#define PASTELSYS_REFINABLE_PARTITION_SET_H
 
 #include "pastel/sys/refinable_partition.h"
 #include "pastel/sys/object_forwarding.h"

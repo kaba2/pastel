@@ -1,7 +1,7 @@
 // Description: Maximum bipartite matching
 
-#ifndef PASTEL_MAXIMUM_BIPARTITE_MATCHING_H
-#define PASTEL_MAXIMUM_BIPARTITE_MATCHING_H
+#ifndef PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
+#define PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
 
 #include "pastel/sys/as_pair_concept.h"
 #include "pastel/sys/reporter_concept.h"

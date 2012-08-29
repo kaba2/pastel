@@ -1,5 +1,5 @@
-#ifndef PASTEL_MATH_FUNCTIONS_HPP
-#define PASTEL_MATH_FUNCTIONS_HPP
+#ifndef PASTELSYS_MATH_FUNCTIONS_HPP
+#define PASTELSYS_MATH_FUNCTIONS_HPP
 
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/vector_tools.h"

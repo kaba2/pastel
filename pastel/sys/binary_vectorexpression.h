@@ -1,8 +1,8 @@
 // Description: Element-wise binary vector expressions
 // Documentation: vectorexpression.txt
 
-#ifndef PASTEL_BINARY_VECTOREXPRESSION_H
-#define PASTEL_BINARY_VECTOREXPRESSION_H
+#ifndef PASTELSYS_BINARY_VECTOREXPRESSION_H
+#define PASTELSYS_BINARY_VECTOREXPRESSION_H
 
 #include "pastel/sys/vectorexpression.h"
 #include "pastel/sys/binary_vectorexpression_detail.h"

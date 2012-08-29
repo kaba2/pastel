@@ -1,7 +1,7 @@
 // Description: An aggregate file for random variables
 
-#ifndef PASTEL_RANDOM_H
-#define PASTEL_RANDOM_H
+#ifndef PASTELSYS_RANDOM_H
+#define PASTELSYS_RANDOM_H
 
 #include "pastel/sys/random_discrete.h"
 #include "pastel/sys/random_continuous.h"

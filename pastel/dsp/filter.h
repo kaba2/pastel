@@ -2,8 +2,8 @@
 // Detail: Reconstruction filter abstraction
 // Documentation: filters.txt
 
-#ifndef PASTEL_FILTER_H
-#define PASTEL_FILTER_H
+#ifndef PASTELDSP_FILTER_H
+#define PASTELDSP_FILTER_H
 
 #include "pastel/dsp/dsplibrary.h"
 

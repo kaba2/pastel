@@ -1,5 +1,5 @@
-#ifndef PASTEL_STATREAL_TOOLS_H
-#define PASTEL_STATREAL_TOOLS_H
+#ifndef PASTELSYS_STATREAL_TOOLS_H
+#define PASTELSYS_STATREAL_TOOLS_H
 
 #include "pastel/sys/statreal.h"
 

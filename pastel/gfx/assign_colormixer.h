@@ -2,8 +2,8 @@
 // Detail: Replaces the background with the texture
 // Documentation: colormixers.txt
 
-#ifndef PASTEL_ASSIGN_COLORMIXER_H
-#define PASTEL_ASSIGN_COLORMIXER_H
+#ifndef PASTELGFX_ASSIGN_COLORMIXER_H
+#define PASTELGFX_ASSIGN_COLORMIXER_H
 
 #include "pastel/gfx/colormixer.h"
 

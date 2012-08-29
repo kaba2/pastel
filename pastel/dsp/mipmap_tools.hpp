@@ -1,5 +1,5 @@
-#ifndef PASTEL_MIPMAP_TOOLS_HPP
-#define PASTEL_MIPMAP_TOOLS_HPP
+#ifndef PASTELDSP_MIPMAP_TOOLS_HPP
+#define PASTELDSP_MIPMAP_TOOLS_HPP
 
 #include "pastel/dsp/mipmap_tools.h"
 

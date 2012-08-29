@@ -1,7 +1,7 @@
 // Description: Null reporter
 
-#ifndef PASTEL_NULL_REPORTER_H
-#define PASTEL_NULL_REPORTER_H
+#ifndef PASTELSYS_NULL_REPORTER_H
+#define PASTELSYS_NULL_REPORTER_H
 
 #include "pastel/sys/reporter_concept.h"
 

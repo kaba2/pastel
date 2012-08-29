@@ -1,8 +1,8 @@
 // Description: Algorithms for rational numbers
 // Detail: Pretty printing to a stream, etc.
 
-#ifndef PASTEL_RATIONAL_TOOLS_H
-#define PASTEL_RATIONAL_TOOLS_H
+#ifndef PASTELSYS_RATIONAL_TOOLS_H
+#define PASTELSYS_RATIONAL_TOOLS_H
 
 #include "pastel/sys/rational.h"
 

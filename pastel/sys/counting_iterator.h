@@ -2,8 +2,8 @@
 // Detail: An iterator adapter for dereferencing the adapted iterator
 // Documentation: iterators.txt
 
-#ifndef PASTEL_COUNTING_ITERATOR_H
-#define PASTEL_COUNTING_ITERATOR_H
+#ifndef PASTELSYS_COUNTING_ITERATOR_H
+#define PASTELSYS_COUNTING_ITERATOR_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -1,8 +1,8 @@
 // Description: Hash from hash() member function.
 // Documentation: hashes.txt
 
-#ifndef PASTEL_EMBEDDED_HASH_H
-#define PASTEL_EMBEDDED_HASH_H
+#ifndef PASTELSYS_EMBEDDED_HASH_H
+#define PASTELSYS_EMBEDDED_HASH_H
 
 #include "pastel/sys/hashing.h"
 

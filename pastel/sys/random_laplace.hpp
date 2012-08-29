@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_LAPLACE_HPP
-#define PASTEL_RANDOM_LAPLACE_HPP
+#ifndef PASTELSYS_RANDOM_LAPLACE_HPP
+#define PASTELSYS_RANDOM_LAPLACE_HPP
 
 #include "pastel/sys/random_laplace.h"
 #include "pastel/sys/random_uniform.h"

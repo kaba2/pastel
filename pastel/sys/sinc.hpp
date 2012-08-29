@@ -1,5 +1,5 @@
-#ifndef PASTEL_SINC_HPP
-#define PASTEL_SINC_HPP
+#ifndef PASTELSYS_SINC_HPP
+#define PASTELSYS_SINC_HPP
 
 #include "pastel/sys/sinc.h"
 #include "pastel/sys/constants.h"

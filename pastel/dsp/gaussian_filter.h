@@ -2,8 +2,8 @@
 // Detail: Clamped gaussian reconstruction filter
 // Documentation: filters.txt
 
-#ifndef PASTEL_GAUSSIAN_FILTER_H
-#define PASTEL_GAUSSIAN_FILTER_H
+#ifndef PASTELDSP_GAUSSIAN_FILTER_H
+#define PASTELDSP_GAUSSIAN_FILTER_H
 
 #include "pastel/dsp/dsplibrary.h"
 #include "pastel/dsp/filter.h"

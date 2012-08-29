@@ -1,8 +1,8 @@
 // Description: Matrix class
 // Detail: Static-sized implementation of the Matrix class.
 
-#ifndef PASTEL_MATRIX_STATIC_H
-#define PASTEL_MATRIX_STATIC_H
+#ifndef PASTELMATH_MATRIX_STATIC_H
+#define PASTELMATH_MATRIX_STATIC_H
 
 #include "pastel/math/matrix.h"
 

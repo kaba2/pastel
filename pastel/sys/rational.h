@@ -2,8 +2,8 @@
 // Detail: Allows to work with rational numbers
 // Tags: C++11
 
-#ifndef PASTEL_RATIONAL_H
-#define PASTEL_RATIONAL_H
+#ifndef PASTELSYS_RATIONAL_H
+#define PASTELSYS_RATIONAL_H
 
 #include <boost/operators.hpp>
 #include <boost/mpl/if.hpp>

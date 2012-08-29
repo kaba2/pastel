@@ -1,5 +1,5 @@
-#ifndef PASTEL_CLAMP_HPP
-#define PASTEL_CLAMP_HPP
+#ifndef PASTELSYS_CLAMP_HPP
+#define PASTELSYS_CLAMP_HPP
 
 #include "pastel/sys/clamp.h"
 #include "pastel/sys/ensure.h"

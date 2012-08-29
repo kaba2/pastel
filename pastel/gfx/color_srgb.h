@@ -2,8 +2,8 @@
 // Detail: Red-Green-Blue
 // Documentation: color_space.txt
 
-#ifndef PASTEL_COLOR_SRGB_H
-#define PASTEL_COLOR_SRGB_H
+#ifndef PASTELGFX_COLOR_SRGB_H
+#define PASTELGFX_COLOR_SRGB_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"

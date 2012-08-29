@@ -1,8 +1,8 @@
 // Description: ExtendedConstView class
 // Documentation: extendedconstviews.txt
 
-#ifndef PASTEL_EXTENDEDCONSTVIEW_H
-#define PASTEL_EXTENDEDCONSTVIEW_H
+#ifndef PASTELSYS_EXTENDEDCONSTVIEW_H
+#define PASTELSYS_EXTENDEDCONSTVIEW_H
 
 #include "pastel/sys/view.h"
 

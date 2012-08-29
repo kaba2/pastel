@@ -1,5 +1,5 @@
-#ifndef PASTEL_INTERVAL_HPP
-#define PASTEL_INTERVAL_HPP
+#ifndef PASTELMATH_INTERVAL_HPP
+#define PASTELMATH_INTERVAL_HPP
 
 #include "pastel/sys/interval.h"
 

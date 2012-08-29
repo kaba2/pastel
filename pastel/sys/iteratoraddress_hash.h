@@ -1,8 +1,8 @@
 // Description: Hashing of dereferenced address
 // Documentation: hashes.txt
 
-#ifndef PASTEL_ITERATORADDRESS_HASH_H
-#define PASTEL_ITERATORADDRESS_HASH_H
+#ifndef PASTELSYS_ITERATORADDRESS_HASH_H
+#define PASTELSYS_ITERATORADDRESS_HASH_H
 
 #include "pastel/sys/hashing.h"
 

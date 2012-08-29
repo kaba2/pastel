@@ -1,8 +1,8 @@
 // Description: Algorithms for polynomials
 // Detail: differentiate, derivative, trim, divide, randomPolynomial, etc.
 
-#ifndef PASTEL_POLYNOMIAL_TOOLS_H
-#define PASTEL_POLYNOMIAL_TOOLS_H
+#ifndef PASTELMATH_POLYNOMIAL_TOOLS_H
+#define PASTELMATH_POLYNOMIAL_TOOLS_H
 
 #include "pastel/math/polynomial.h"
 

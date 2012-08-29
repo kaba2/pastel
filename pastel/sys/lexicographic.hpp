@@ -1,5 +1,5 @@
-#ifndef PASTEL_LEXICOGRAPHIC_HPP
-#define PASTEL_LEXICOGRAPHIC_HPP
+#ifndef PASTELSYS_LEXICOGRAPHIC_HPP
+#define PASTELSYS_LEXICOGRAPHIC_HPP
 
 #include "pastel/sys/lexicographic.h"
 #include "pastel/sys/ensure.h"

@@ -2,8 +2,8 @@
 // Detail: Allows the control of the graphics device
 // Documentation: graphics.txt
 
-#ifndef PASTEL_GFXDEVICE_H
-#define PASTEL_GFXDEVICE_H
+#ifndef PASTELDEVICE_GFXDEVICE_H
+#define PASTELDEVICE_GFXDEVICE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/device/devicelibrary.h"

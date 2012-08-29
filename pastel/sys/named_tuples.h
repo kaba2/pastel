@@ -1,7 +1,7 @@
 // Description: Named tuples
 
-#ifndef PASTEL_NAMED_TUPLES_H
-#define PASTEL_NAMED_TUPLES_H
+#ifndef PASTELSYS_NAMED_TUPLES_H
+#define PASTELSYS_NAMED_TUPLES_H
 
 #include "pastel/sys/hashing.h"
 

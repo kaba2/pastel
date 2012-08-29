@@ -1,7 +1,7 @@
 // Description: An aggregate file for reconstruction filters
 
-#ifndef PASTEL_FILTERS_H
-#define PASTEL_FILTERS_H
+#ifndef PASTELDSP_FILTERS_H
+#define PASTELDSP_FILTERS_H
 
 #include "pastel/dsp/box_filter.h"
 #include "pastel/dsp/triangle_filter.h"

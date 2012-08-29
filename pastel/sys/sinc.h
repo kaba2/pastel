@@ -1,8 +1,8 @@
 // Description: Sinc function
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_SINC_H
-#define PASTEL_SINC_H
+#ifndef PASTELSYS_SINC_H
+#define PASTELSYS_SINC_H
 
 #include "pastel/sys/mytypes.h"
 

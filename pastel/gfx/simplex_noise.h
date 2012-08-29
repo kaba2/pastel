@@ -1,7 +1,7 @@
 // Description: Perlin's simplex noise
 
-#ifndef PASTEL_SIMPLEX_NOISE_H
-#define PASTEL_SIMPLEX_NOISE_H
+#ifndef PASTELGFX_SIMPLEX_NOISE_H
+#define PASTELGFX_SIMPLEX_NOISE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

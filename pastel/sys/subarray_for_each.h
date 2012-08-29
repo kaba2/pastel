@@ -1,5 +1,5 @@
-#ifndef PASTEL_SUBARRAY_FOR_EACH_H
-#define PASTEL_SUBARRAY_FOR_EACH_H
+#ifndef PASTELSYS_SUBARRAY_FOR_EACH_H
+#define PASTELSYS_SUBARRAY_FOR_EACH_H
 
 #include "pastel/sys/subarray.h"
 

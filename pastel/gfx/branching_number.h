@@ -1,8 +1,8 @@
 // Description: Branching number computation
 // Documentation: branching_number.txt
 
-#ifndef PASTEL_BRANCHING_NUMBER_H
-#define PASTEL_BRANCHING_NUMBER_H
+#ifndef PASTELGFX_BRANCHING_NUMBER_H
+#define PASTELGFX_BRANCHING_NUMBER_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"

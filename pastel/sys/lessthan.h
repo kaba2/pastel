@@ -1,8 +1,8 @@
 // Description: Less-than predicate
 // Documentation: predicates.txt
 
-#ifndef PASTEL_LESSTHAN_H
-#define PASTEL_LESSTHAN_H
+#ifndef PASTELSYS_LESSTHAN_H
+#define PASTELSYS_LESSTHAN_H
 
 #include "pastel/sys/predicate_concept.h"
 

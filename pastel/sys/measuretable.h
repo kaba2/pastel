@@ -1,8 +1,8 @@
 // Description: MeasureTable class
 // Detail: Stores values and the visual design of a table.
 
-#ifndef PASTEL_MEASURETABLE_H
-#define PASTEL_MEASURETABLE_H
+#ifndef PASTELSYS_MEASURETABLE_H
+#define PASTELSYS_MEASURETABLE_H
 
 #include "pastel/sys/array.h"
 

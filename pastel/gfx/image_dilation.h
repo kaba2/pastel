@@ -1,8 +1,8 @@
 // Description: Dilation of a binary image
 // Documentation: image_morphology.txt
 
-#ifndef PASTEL_IMAGE_DILATION_H
-#define PASTEL_IMAGE_DILATION_H
+#ifndef PASTELGFX_IMAGE_DILATION_H
+#define PASTELGFX_IMAGE_DILATION_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"

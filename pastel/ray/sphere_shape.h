@@ -1,7 +1,7 @@
 // Description: Sphere shape
 
-#ifndef PASTEL_SPHERE_SHAPE_H
-#define PASTEL_SPHERE_SHAPE_H
+#ifndef PASTELRAY_SPHERE_SHAPE_H
+#define PASTELRAY_SPHERE_SHAPE_H
 
 #include "pastel/ray/shape.h"
 

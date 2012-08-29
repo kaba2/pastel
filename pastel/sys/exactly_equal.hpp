@@ -1,5 +1,5 @@
-#ifndef PASTEL_EXACTLY_EQUAL_HPP
-#define PASTEL_EXACTLY_EQUAL_HPP
+#ifndef PASTELSYS_EXACTLY_EQUAL_HPP
+#define PASTELSYS_EXACTLY_EQUAL_HPP
 
 #include "pastel/sys/exactly_equal.h"
 

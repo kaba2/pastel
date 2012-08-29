@@ -1,8 +1,8 @@
 // Description: TupleBase class
 // Detail: CRTP base class for Tuple
 
-#ifndef PASTEL_TUPLEBASE_H
-#define PASTEL_TUPLEBASE_H
+#ifndef PASTELSYS_TUPLEBASE_H
+#define PASTELSYS_TUPLEBASE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"

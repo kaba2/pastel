@@ -1,7 +1,7 @@
 // Description: Uniformly-distributed random numbers
 
-#ifndef PASTEL_RANDOM_UNIFORM_H
-#define PASTEL_RANDOM_UNIFORM_H
+#ifndef PASTELSYS_RANDOM_UNIFORM_H
+#define PASTELSYS_RANDOM_UNIFORM_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

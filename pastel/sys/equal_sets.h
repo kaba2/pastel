@@ -1,8 +1,8 @@
 // Description: Comparison of sets
 // Documentation: sequence_algorithms.txt
 
-#ifndef PASTEL_EQUAL_SETS_H
-#define PASTEL_EQUAL_SETS_H
+#ifndef PASTELSYS_EQUAL_SETS_H
+#define PASTELSYS_EQUAL_SETS_H
 
 #include "pastel/sys/predicate_concept.h"
 

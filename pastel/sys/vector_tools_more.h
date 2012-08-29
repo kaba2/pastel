@@ -1,8 +1,8 @@
 // Description: Some array programming functions for vectors
 // Detail: min, minIndex, max, maxIndex, permute, clamp, ...
 
-#ifndef PASTEL_VECTOR_TOOLS_MORE_H
-#define PASTEL_VECTOR_TOOLS_MORE_H
+#ifndef PASTELSYS_VECTOR_TOOLS_MORE_H
+#define PASTELSYS_VECTOR_TOOLS_MORE_H
 
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/vector.h"

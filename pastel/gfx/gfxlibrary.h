@@ -1,8 +1,8 @@
 // Description: Dll-keywords for PastelGfx
 // Documentation: common.txt
 
-#ifndef PASTEL_GFXLIBRARY_H
-#define PASTEL_GFXLIBRARY_H
+#ifndef PASTELGFX_GFXLIBRARY_H
+#define PASTELGFX_GFXLIBRARY_H
 
 #include "pastel/sys/environment.h"
 

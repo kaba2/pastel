@@ -1,8 +1,8 @@
 // Description: Dll-keywords for PastelDsp
 // Documentation: miscellaneous.txt
 
-#ifndef PASTEL_DSPLIBRARY_H
-#define PASTEL_DSPLIBRARY_H
+#ifndef PASTELDSP_DSPLIBRARY_H
+#define PASTELDSP_DSPLIBRARY_H
 
 #include "pastel/sys/environment.h"
 

@@ -1,8 +1,8 @@
 // Description: Digamma function
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_DIGAMMA_H
-#define PASTEL_DIGAMMA_H
+#ifndef PASTELSYS_DIGAMMA_H
+#define PASTELSYS_DIGAMMA_H
 
 #include "pastel/sys/mytypes.h"
 

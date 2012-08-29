@@ -1,8 +1,8 @@
 // Description: Number tests
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_NUMBER_TESTS_H
-#define PASTEL_NUMBER_TESTS_H
+#ifndef PASTELSYS_NUMBER_TESTS_H
+#define PASTELSYS_NUMBER_TESTS_H
 
 #include "pastel/sys/mytypes.h"
 

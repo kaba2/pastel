@@ -1,7 +1,7 @@
 // Description: Gaussian-distributed random numbers
 
-#ifndef PASTEL_RANDOM_GAUSSIAN_H
-#define PASTEL_RANDOM_GAUSSIAN_H
+#ifndef PASTELSYS_RANDOM_GAUSSIAN_H
+#define PASTELSYS_RANDOM_GAUSSIAN_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

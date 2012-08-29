@@ -1,5 +1,5 @@
-#ifndef PASTEL_POLYNOMIAL_HPP
-#define PASTEL_POLYNOMIAL_HPP
+#ifndef PASTELMATH_POLYNOMIAL_HPP
+#define PASTELMATH_POLYNOMIAL_HPP
 
 #include "pastel/math/polynomial.h"
 

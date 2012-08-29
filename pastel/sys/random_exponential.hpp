@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_EXPONENTIAL_HPP
-#define PASTEL_RANDOM_EXPONENTIAL_HPP
+#ifndef PASTELSYS_RANDOM_EXPONENTIAL_HPP
+#define PASTELSYS_RANDOM_EXPONENTIAL_HPP
 
 #include "pastel/sys/random_exponential.h"
 #include "pastel/sys/random_uniform.h"

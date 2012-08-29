@@ -1,7 +1,7 @@
 // Description: Algorithms for aligned boxes
 
-#ifndef PASTEL_ALIGNEDBOX_TOOLS_H
-#define PASTEL_ALIGNEDBOX_TOOLS_H
+#ifndef PASTELSYS_ALIGNEDBOX_TOOLS_H
+#define PASTELSYS_ALIGNEDBOX_TOOLS_H
 
 #include "pastel/sys/alignedbox.h"
 

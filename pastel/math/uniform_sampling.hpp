@@ -1,5 +1,5 @@
-#ifndef PASTEL_UNIFORM_SAMPLING_HPP
-#define PASTEL_UNIFORM_SAMPLING_HPP
+#ifndef PASTELMATH_UNIFORM_SAMPLING_HPP
+#define PASTELMATH_UNIFORM_SAMPLING_HPP
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/random.h"

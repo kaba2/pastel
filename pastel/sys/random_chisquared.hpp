@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_CHISQUARED_HPP
-#define PASTEL_RANDOM_CHISQUARED_HPP
+#ifndef PASTELSYS_RANDOM_CHISQUARED_HPP
+#define PASTELSYS_RANDOM_CHISQUARED_HPP
 
 #include "pastel/sys/random_chisquared.h"
 #include "pastel/sys/random_gamma.h"

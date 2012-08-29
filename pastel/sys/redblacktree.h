@@ -1,7 +1,7 @@
 // Description: A red-black tree
 
-#ifndef PASTEL_REDBLACKTREE_H
-#define PASTEL_REDBLACKTREE_H
+#ifndef PASTELSYS_REDBLACKTREE_H
+#define PASTELSYS_REDBLACKTREE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/redblacktree_concepts.h"

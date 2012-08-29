@@ -1,8 +1,8 @@
 // Description: Connected components of a binary image
 // Documentation: labeling.txt
 
-#ifndef PASTEL_COMPONENT_LABELING_H
-#define PASTEL_COMPONENT_LABELING_H
+#ifndef PASTELGFX_COMPONENT_LABELING_H
+#define PASTELGFX_COMPONENT_LABELING_H
 
 #include "pastel/sys/view.h"
 

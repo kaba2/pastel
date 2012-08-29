@@ -1,8 +1,8 @@
 // Description: Typedefs for types used in Pastel
 // Documentation: environment.txt
 
-#ifndef PASTEL_MYTYPES_H
-#define PASTEL_MYTYPES_H
+#ifndef PASTELSYS_MYTYPES_H
+#define PASTELSYS_MYTYPES_H
 
 #include "pastel/sys/syslibrary.h"
 

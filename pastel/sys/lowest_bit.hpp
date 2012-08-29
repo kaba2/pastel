@@ -1,5 +1,5 @@
-#ifndef PASTEL_LOWEST_BIT_HPP
-#define PASTEL_LOWEST_BIT_HPP
+#ifndef PASTELSYS_LOWEST_BIT_HPP
+#define PASTELSYS_LOWEST_BIT_HPP
 
 #include "pastel/sys/lowest_bit.h"
 

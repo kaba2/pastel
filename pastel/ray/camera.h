@@ -1,8 +1,8 @@
 // Description: Camera
 // Documentation: pastelray.txt
 
-#ifndef PASTEL_CAMERA_H
-#define PASTEL_CAMERA_H
+#ifndef PASTELRAY_CAMERA_H
+#define PASTELRAY_CAMERA_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

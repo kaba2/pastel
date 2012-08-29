@@ -1,7 +1,7 @@
 // Description: Gradient field for noise algorithms
 
-#ifndef PASTEL_GRADIENTFIELD_H
-#define PASTEL_GRADIENTFIELD_H
+#ifndef PASTELGFX_GRADIENTFIELD_H
+#define PASTELGFX_GRADIENTFIELD_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

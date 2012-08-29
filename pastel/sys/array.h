@@ -2,8 +2,8 @@
 // Detail: An n-dimensional array
 // Tags: C++11
 
-#ifndef PASTEL_ARRAY_H
-#define PASTEL_ARRAY_H
+#ifndef PASTELSYS_ARRAY_H
+#define PASTELSYS_ARRAY_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

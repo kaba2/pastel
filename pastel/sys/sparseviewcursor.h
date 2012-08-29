@@ -1,8 +1,8 @@
 // Description: SparseViewCursor class
 // Documentation: views.txt
 
-#ifndef PASTEL_SPARSEVIEWCURSOR_H
-#define PASTEL_SPARSEVIEWCURSOR_H
+#ifndef PASTELSYS_SPARSEVIEWCURSOR_H
+#define PASTELSYS_SPARSEVIEWCURSOR_H
 
 #include "pastel/sys/sparseview.h"
 

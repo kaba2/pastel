@@ -1,7 +1,7 @@
 // Description: Depth-first traversal of a graph
 
-#ifndef PASTEL_DEPTH_FIRST_TRAVERSAL_H
-#define PASTEL_DEPTH_FIRST_TRAVERSAL_H
+#ifndef PASTELSYS_DEPTH_FIRST_TRAVERSAL_H
+#define PASTELSYS_DEPTH_FIRST_TRAVERSAL_H
 
 #include "pastel/sys/graph_traversal_concepts.h"
 

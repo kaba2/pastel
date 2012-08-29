@@ -1,8 +1,8 @@
 // Description: Real concept
 // Documentation: reals.txt
 
-#ifndef PASTEL_REAL_CONCEPT_H
-#define PASTEL_REAL_CONCEPT_H
+#ifndef PASTELSYS_REAL_CONCEPT_H
+#define PASTELSYS_REAL_CONCEPT_H
 
 namespace Pastel
 {

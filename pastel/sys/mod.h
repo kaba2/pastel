@@ -1,8 +1,8 @@
 // Description: Remainder
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_MOD_H
-#define PASTEL_MOD_H
+#ifndef PASTELSYS_MOD_H
+#define PASTELSYS_MOD_H
 
 #include "pastel/sys/mytypes.h"
 

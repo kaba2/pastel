@@ -1,8 +1,8 @@
 // Description: Dll-keywords for PastelSys
 // Documentation: building.txt
 
-#ifndef PASTEL_SYSLIBRARY_H
-#define PASTEL_SYSLIBRARY_H
+#ifndef PASTELSYS_SYSLIBRARY_H
+#define PASTELSYS_SYSLIBRARY_H
 
 #include "pastel/sys/environment.h"
 

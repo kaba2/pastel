@@ -1,8 +1,8 @@
 // Description: Equality of sequences
 // Documentation: sequence_algorithms.txt
 
-#ifndef PASTEL_EXACTLY_EQUAL_H
-#define PASTEL_EXACTLY_EQUAL_H
+#ifndef PASTELSYS_EXACTLY_EQUAL_H
+#define PASTELSYS_EXACTLY_EQUAL_H
 
 #include "pastel/sys/predicate_concept.h"
 #include "pastel/sys/equalto.h"

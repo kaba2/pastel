@@ -2,8 +2,8 @@
 // Detail: Stores a key-value pair, which orders lexicographically.
 // Documentation: miscellaneous.txt
 
-#ifndef PASTEL_KEYVALUE_H
-#define PASTEL_KEYVALUE_H
+#ifndef PASTELSYS_KEYVALUE_H
+#define PASTELSYS_KEYVALUE_H
 
 #include <boost/operators.hpp>
 

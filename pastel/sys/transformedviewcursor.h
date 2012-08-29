@@ -1,8 +1,8 @@
 // Description: TransformedViewCursor class
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_TRANSFORMEDVIEWCURSOR_H
-#define PASTEL_TRANSFORMEDVIEWCURSOR_H
+#ifndef PASTELSYS_TRANSFORMEDVIEWCURSOR_H
+#define PASTELSYS_TRANSFORMEDVIEWCURSOR_H
 
 #include "pastel/sys/transformedview.h"
 

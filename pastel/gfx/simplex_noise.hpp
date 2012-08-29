@@ -1,5 +1,5 @@
-#ifndef PASTEL_SIMPLEX_NOISE_HPP
-#define PASTEL_SIMPLEX_NOISE_HPP
+#ifndef PASTELGFX_SIMPLEX_NOISE_HPP
+#define PASTELGFX_SIMPLEX_NOISE_HPP
 
 #include "pastel/gfx/simplex_noise.h"
 #include "pastel/gfx/gradientfield.h"

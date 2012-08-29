@@ -1,8 +1,8 @@
 // Description: Eroding of a binary image
 // Documentation: image_morphology.txt
 
-#ifndef PASTEL_IMAGE_ERODING_H
-#define PASTEL_IMAGE_ERODING_H
+#ifndef PASTELGFX_IMAGE_ERODING_H
+#define PASTELGFX_IMAGE_ERODING_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"

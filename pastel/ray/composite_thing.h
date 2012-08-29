@@ -1,8 +1,8 @@
 // Description: Composite thing
 // Documentation: things.txt
 
-#ifndef PASTEL_COMPOSITE_THING_H
-#define PASTEL_COMPOSITE_THING_H
+#ifndef PASTELRAY_COMPOSITE_THING_H
+#define PASTELRAY_COMPOSITE_THING_H
 
 #include "pastel/ray/thing.h"
 

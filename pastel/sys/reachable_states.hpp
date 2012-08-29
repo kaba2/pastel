@@ -1,5 +1,5 @@
-#ifndef PASTEL_REACHABLE_STATES_HPP
-#define PASTEL_REACHABLE_STATES_HPP
+#ifndef PASTELSYS_REACHABLE_STATES_HPP
+#define PASTELSYS_REACHABLE_STATES_HPP
 
 #include "pastel/sys/reachable_states.h"
 #include "pastel/sys/depth_first_traversal.h"

@@ -1,8 +1,8 @@
 // Description: Greater-than predicate
 // Documentation: predicates.txt
 
-#ifndef PASTEL_GREATERTHAN_H
-#define PASTEL_GREATERTHAN_H
+#ifndef PASTELSYS_GREATERTHAN_H
+#define PASTELSYS_GREATERTHAN_H
 
 #include "pastel/sys/predicate_concept.h"
 

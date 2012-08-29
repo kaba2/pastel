@@ -1,5 +1,5 @@
-#ifndef PASTEL_SCALE_INTEGER_HPP
-#define PASTEL_SCALE_INTEGER_HPP
+#ifndef PASTELSYS_SCALE_INTEGER_HPP
+#define PASTELSYS_SCALE_INTEGER_HPP
 
 #include "pastel/sys/scale_integer.h"
 

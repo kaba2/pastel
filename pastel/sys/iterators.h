@@ -1,7 +1,7 @@
 // Description: An aggregate file for iterators
 
-#ifndef PASTEL_ITERATORS_H
-#define PASTEL_ITERATORS_H
+#ifndef PASTELSYS_ITERATORS_H
+#define PASTELSYS_ITERATORS_H
 
 #include "pastel/sys/constant_iterator.h"
 #include "pastel/sys/counting_iterator.h"

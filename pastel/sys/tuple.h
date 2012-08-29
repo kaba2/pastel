@@ -1,8 +1,8 @@
 // Description: Tuple class
 // Detail: Allows to work with n-tuples
 
-#ifndef PASTEL_TUPLE_H
-#define PASTEL_TUPLE_H
+#ifndef PASTELSYS_TUPLE_H
+#define PASTELSYS_TUPLE_H
 
 #include "pastel/sys/tuplebase.h"
 

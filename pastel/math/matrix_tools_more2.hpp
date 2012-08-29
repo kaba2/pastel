@@ -1,5 +1,5 @@
-#ifndef PASTEL_MATRIX_TOOLS_MORE2_HPP
-#define PASTEL_MATRIX_TOOLS_MORE2_HPP
+#ifndef PASTELMATH_MATRIX_TOOLS_MORE2_HPP
+#define PASTELMATH_MATRIX_TOOLS_MORE2_HPP
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/matrix.h"

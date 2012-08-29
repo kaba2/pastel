@@ -1,5 +1,5 @@
-#ifndef PASTEL_ANGLES_HPP
-#define PASTEL_ANGLES_HPP
+#ifndef PASTELSYS_ANGLES_HPP
+#define PASTELSYS_ANGLES_HPP
 
 #include "pastel/sys/angles.h"
 #include "pastel/sys/constants.h"

@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_INTEGER_HPP
-#define PASTEL_RANDOM_INTEGER_HPP
+#ifndef PASTELSYS_RANDOM_INTEGER_HPP
+#define PASTELSYS_RANDOM_INTEGER_HPP
 
 #include "pastel/sys/random_integer.h"
 #include "pastel/sys/mt19937.h"

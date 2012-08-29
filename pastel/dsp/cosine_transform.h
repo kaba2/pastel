@@ -1,7 +1,7 @@
 // Description: Discrete cosine transform
 
-#ifndef PASTEL_COSINE_TRANSFORM_H
-#define PASTEL_COSINE_TRANSFORM_H
+#ifndef PASTELDSP_COSINE_TRANSFORM_H
+#define PASTELDSP_COSINE_TRANSFORM_H
 
 #include "pastel/sys/range.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTEL_GFXRESOURCE_H
-#define PASTEL_GFXRESOURCE_H
+#ifndef PASTELGFX_GFXRESOURCE_H
+#define PASTELGFX_GFXRESOURCE_H
 
 #include "pastel/gfx/color.h"
 

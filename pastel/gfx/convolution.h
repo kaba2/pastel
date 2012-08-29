@@ -1,7 +1,7 @@
 // Description: Convolution on arrays
 
-#ifndef PASTEL_CONVOLUTION_H
-#define PASTEL_CONVOLUTION_H
+#ifndef PASTELGFX_CONVOLUTION_H
+#define PASTELGFX_CONVOLUTION_H
 
 #include "pastel/sys/view.h"
 

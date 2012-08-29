@@ -1,7 +1,7 @@
 // Description: Cursor for Array
 
-#ifndef PASTEL_ARRAY_CURSOR_H
-#define PASTEL_ARRAY_CURSOR_H
+#ifndef PASTELSYS_ARRAY_CURSOR_H
+#define PASTELSYS_ARRAY_CURSOR_H
 
 #include "pastel/sys/array.h"
 

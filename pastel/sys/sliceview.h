@@ -2,8 +2,8 @@
 // Detail: An adapter view for an (n-1)-dimensional subset
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_SLICEVIEW_H
-#define PASTEL_SLICEVIEW_H
+#ifndef PASTELSYS_SLICEVIEW_H
+#define PASTELSYS_SLICEVIEW_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/sliceviewcursor.h"

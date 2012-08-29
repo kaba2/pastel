@@ -1,8 +1,8 @@
 // Description: Turbulence texture
 // Documentation: synthetic_textures.txt
 
-#ifndef PASTEL_TURBULENCE_TEXTURE_H
-#define PASTEL_TURBULENCE_TEXTURE_H
+#ifndef PASTELGFX_TURBULENCE_TEXTURE_H
+#define PASTELGFX_TURBULENCE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/gfx/noise.h"

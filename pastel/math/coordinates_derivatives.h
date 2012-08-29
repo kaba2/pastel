@@ -1,7 +1,7 @@
 // Description: Derivatives of coordinate conversions
 
-#ifndef PASTEL_COORDINATES_DERIVATES_H
-#define PASTEL_COORDINATES_DERIVATES_H
+#ifndef PASTELMATH_COORDINATES_DERIVATES_H
+#define PASTELMATH_COORDINATES_DERIVATES_H
 
 #include "pastel/math/matrix.h"
 

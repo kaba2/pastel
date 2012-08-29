@@ -1,5 +1,5 @@
-#ifndef PASTEL_OPTICS_HPP
-#define PASTEL_OPTICS_HPP
+#ifndef PASTELRAY_OPTICS_HPP
+#define PASTELRAY_OPTICS_HPP
 
 #include "pastel/ray/optics.h"
 

@@ -1,7 +1,7 @@
 // Description: Hashed tree
 
-#ifndef PASTEL_HASHED_TREE_H
-#define PASTEL_HASHED_TREE_H
+#ifndef PASTELSYS_HASHED_TREE_H
+#define PASTELSYS_HASHED_TREE_H
 
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/lessthan.h"

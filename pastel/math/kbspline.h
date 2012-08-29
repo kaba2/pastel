@@ -1,8 +1,8 @@
 // Description: Kochanek-Bartels spline
 // Documentation: interpolation.txt
 
-#ifndef PASTEL_KBSPLINE_H
-#define PASTEL_KBSPLINE_H
+#ifndef PASTELMATH_KBSPLINE_H
+#define PASTELMATH_KBSPLINE_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -1,8 +1,8 @@
 // Description: Binomial coefficient
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_BINOMIAL_H
-#define PASTEL_BINOMIAL_H
+#ifndef PASTELSYS_BINOMIAL_H
+#define PASTELSYS_BINOMIAL_H
 
 #include "pastel/sys/mytypes.h"
 

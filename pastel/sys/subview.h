@@ -2,8 +2,8 @@
 // Detail: An adapter view for an n-dimensional subset
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_SUBVIEW_H
-#define PASTEL_SUBVIEW_H
+#ifndef PASTELSYS_SUBVIEW_H
+#define PASTELSYS_SUBVIEW_H
 
 #include "pastel/sys/alignedbox.h"
 

@@ -2,8 +2,8 @@
 // Detail: orthonormalize, perpendicular, etc.
 // Documentation: common.txt
 
-#ifndef PASTEL_ORTHONORMAL_H
-#define PASTEL_ORTHONORMAL_H
+#ifndef PASTELMATH_ORTHONORMAL_H
+#define PASTELMATH_ORTHONORMAL_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/math/matrix.h"

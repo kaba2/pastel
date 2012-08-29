@@ -1,8 +1,8 @@
 // Description: Absolute and relative error
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_ERROR_H
-#define PASTEL_ERROR_H
+#ifndef PASTELSYS_ERROR_H
+#define PASTELSYS_ERROR_H
 
 #include "pastel/sys/mytypes.h"
 

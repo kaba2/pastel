@@ -1,5 +1,5 @@
-#ifndef PASTEL_INDEXALLOCATOR_HPP
-#define PASTEL_INDEXALLOCATOR_HPP
+#ifndef PASTELSYS_INDEXALLOCATOR_HPP
+#define PASTELSYS_INDEXALLOCATOR_HPP
 
 #include "pastel/sys/indexallocator.h"
 

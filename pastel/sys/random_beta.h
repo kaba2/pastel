@@ -1,7 +1,7 @@
 // Description: Beta-distributed random numbers
 
-#ifndef PASTEL_RANDOM_BETA_H
-#define PASTEL_RANDOM_BETA_H
+#ifndef PASTELSYS_RANDOM_BETA_H
+#define PASTELSYS_RANDOM_BETA_H
 
 #include "pastel/sys/mytypes.h"
 

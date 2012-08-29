@@ -1,8 +1,8 @@
 // Description: Element-wise unary vector expressions
 // Documentation: vectorexpression.txt
 
-#ifndef PASTEL_UNARY_VECTOREXPRESSION_H
-#define PASTEL_UNARY_VECTOREXPRESSION_H
+#ifndef PASTELSYS_UNARY_VECTOREXPRESSION_H
+#define PASTELSYS_UNARY_VECTOREXPRESSION_H
 
 #include "pastel/sys/vectorexpression.h"
 #include "pastel/sys/unary_vectorexpression_detail.h"

@@ -1,5 +1,5 @@
-#ifndef PASTEL_HASHING_HPP
-#define PASTEL_HASHING_HPP
+#ifndef PASTELSYS_HASHING_HPP
+#define PASTELSYS_HASHING_HPP
 
 #include "pastel/sys/hashing.h"
 

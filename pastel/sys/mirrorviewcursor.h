@@ -1,8 +1,8 @@
 // Description: MirrorViewCursor class
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_MIRRORVIEWCURSOR_H
-#define PASTEL_MIRRORVIEWCURSOR_H
+#ifndef PASTELSYS_MIRRORVIEWCURSOR_H
+#define PASTELSYS_MIRRORVIEWCURSOR_H
 
 #include "pastel/sys/mirrorview.h"
 

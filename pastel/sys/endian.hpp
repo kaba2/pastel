@@ -1,5 +1,5 @@
-#ifndef PASTEL_ENDIAN_HPP
-#define PASTEL_ENDIAN_HPP
+#ifndef PASTELSYS_ENDIAN_HPP
+#define PASTELSYS_ENDIAN_HPP
 
 #include "pastel/sys/endian.h"
 #include "pastel/sys/mytypes.h"

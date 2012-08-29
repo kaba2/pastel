@@ -1,7 +1,7 @@
 // Description: Overlapping of memory regions
 
-#ifndef PASTEL_MEMORY_OVERLAPS_H
-#define PASTEL_MEMORY_OVERLAPS_H
+#ifndef PASTELSYS_MEMORY_OVERLAPS_H
+#define PASTELSYS_MEMORY_OVERLAPS_H
 
 #include "pastel/sys/ensure.h"
 

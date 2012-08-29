@@ -1,5 +1,5 @@
-#ifndef PASTEL_TREE_ITERATOR_H
-#define PASTEL_TREE_ITERATOR_H
+#ifndef PASTELSYS_TREE_ITERATOR_H
+#define PASTELSYS_TREE_ITERATOR_H
 
 #include "pastel/sys/tree.h"
 #include "pastel/sys/tree_node.h"

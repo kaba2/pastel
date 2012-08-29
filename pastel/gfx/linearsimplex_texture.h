@@ -1,8 +1,8 @@
 // Description: Simplex with linear coloring
 // Documentation: synthetic_textures.txt
 
-#ifndef PASTEL_LINEARSIMPLEX_TEXTURE_H
-#define PASTEL_LINEARSIMPLEX_TEXTURE_H
+#ifndef PASTELGFX_LINEARSIMPLEX_TEXTURE_H
+#define PASTELGFX_LINEARSIMPLEX_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 

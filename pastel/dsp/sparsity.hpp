@@ -1,5 +1,5 @@
-#ifndef PASTEL_SPARSITY_HPP
-#define PASTEL_SPARSITY_HPP
+#ifndef PASTELDSP_SPARSITY_HPP
+#define PASTELDSP_SPARSITY_HPP
 
 #include "pastel/dsp/sparsity.h"
 

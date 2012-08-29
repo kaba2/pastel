@@ -2,8 +2,8 @@
 // Detail: Stores configuration properties
 // Documentation: configuration.txt
 
-#ifndef PASTEL_CONFIG_H
-#define PASTEL_CONFIG_H
+#ifndef PASTELSYS_CONFIG_H
+#define PASTELSYS_CONFIG_H
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"

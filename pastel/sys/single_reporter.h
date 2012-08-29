@@ -1,7 +1,7 @@
 // Description: Single reporter
 
-#ifndef PASTEL_SINGLE_REPORTER_H
-#define PASTEL_SINGLE_REPORTER_H
+#ifndef PASTELSYS_SINGLE_REPORTER_H
+#define PASTELSYS_SINGLE_REPORTER_H
 
 #include "pastel/sys/reporter_concept.h"
 

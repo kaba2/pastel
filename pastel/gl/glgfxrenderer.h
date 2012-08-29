@@ -2,8 +2,8 @@
 // Detail: A 2d per-object renderer using OpenGl
 // Documentation: rendering.txt
 
-#ifndef PASTEL_GLGFXRENDERER_H
-#define PASTEL_GLGFXRENDERER_H
+#ifndef PASTELGL_GLGFXRENDERER_H
+#define PASTELGL_GLGFXRENDERER_H
 
 #include "pastel/gl/gllibrary.h"
 

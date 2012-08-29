@@ -1,5 +1,5 @@
-#ifndef PASTEL_CONFIG_TOOLS_HPP
-#define PASTEL_CONFIG_TOOLS_HPP
+#ifndef PASTELSYS_CONFIG_TOOLS_HPP
+#define PASTELSYS_CONFIG_TOOLS_HPP
 
 #include "pastel/sys/config_tools.h"
 #include "pastel/sys/log.h"

@@ -1,5 +1,5 @@
-#ifndef PASTEL_IMAGE_TOOLS_HPP
-#define PASTEL_IMAGE_TOOLS_HPP
+#ifndef PASTELGFX_IMAGE_TOOLS_HPP
+#define PASTELGFX_IMAGE_TOOLS_HPP
 
 #include "pastel/gfx/image_tools.h"
 

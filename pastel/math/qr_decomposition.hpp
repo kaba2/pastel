@@ -1,5 +1,5 @@
-#ifndef PASTEL_QR_DECOMPOSITION_HPP
-#define PASTEL_QR_DECOMPOSITION_HPP
+#ifndef PASTELMATH_QR_DECOMPOSITION_HPP
+#define PASTELMATH_QR_DECOMPOSITION_HPP
 
 #include "pastel/math/qr_decomposition.h"
 #include "pastel/math/matrix_tools.h"

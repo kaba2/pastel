@@ -1,8 +1,8 @@
 // Description: AbstractArray class
 // Detail: Allows to work with multidimensional arrays abstractly
 
-#ifndef PASTEL_ABSTRACTARRAY_H
-#define PASTEL_ABSTRACTARRAY_H
+#ifndef PASTELSYS_ABSTRACTARRAY_H
+#define PASTELSYS_ABSTRACTARRAY_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

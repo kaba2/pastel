@@ -2,8 +2,8 @@
 // Detail: A non-counting smart-pointer to breaking cyclic references
 // Documentation: countedptr.txt
 
-#ifndef PASTEL_WEAKPTR_H
-#define PASTEL_WEAKPTR_H
+#ifndef PASTELSYS_WEAKPTR_H
+#define PASTELSYS_WEAKPTR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

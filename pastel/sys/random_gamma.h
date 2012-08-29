@@ -1,7 +1,7 @@
 // Description: Gamma-distributed random numbers
 
-#ifndef PASTEL_RANDOM_GAMMA_H
-#define PASTEL_RANDOM_GAMMA_H
+#ifndef PASTELSYS_RANDOM_GAMMA_H
+#define PASTELSYS_RANDOM_GAMMA_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

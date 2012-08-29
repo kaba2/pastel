@@ -1,5 +1,5 @@
-#ifndef PASTEL_TRISTATE_HPP
-#define PASTEL_TRISTATE_HPP
+#ifndef PASTELSYS_TRISTATE_HPP
+#define PASTELSYS_TRISTATE_HPP
 
 #include "pastel/sys/tristate.h"
 

@@ -1,7 +1,7 @@
 // Description: Closure of automaton states
 
-#ifndef PASTEL_AUTOMATON_CLOSURE_H
-#define PASTEL_AUTOMATON_CLOSURE_H
+#ifndef PASTELSYS_AUTOMATON_CLOSURE_H
+#define PASTELSYS_AUTOMATON_CLOSURE_H
 
 #include "pastel/sys/automaton_closure_concepts.h"
 

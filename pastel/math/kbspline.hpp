@@ -1,5 +1,5 @@
-#ifndef PASTEL_KBSPLINE_HPP
-#define PASTEL_KBSPLINE_HPP
+#ifndef PASTELMATH_KBSPLINE_HPP
+#define PASTELMATH_KBSPLINE_HPP
 
 #include "pastel/math/kbspline.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTEL_RIPIMAGE_TEXTURE_HPP
-#define PASTEL_RIPIMAGE_TEXTURE_HPP
+#ifndef PASTELGFX_RIPIMAGE_TEXTURE_HPP
+#define PASTELGFX_RIPIMAGE_TEXTURE_HPP
 
 #include "pastel/gfx/ripimage_texture.h"
 #include "pastel/gfx/linearimage_texture.h"

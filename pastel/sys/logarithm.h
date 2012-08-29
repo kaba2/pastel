@@ -1,8 +1,8 @@
 // Description: Logarithms
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_LOGARITHM_H
-#define PASTEL_LOGARITHM_H
+#ifndef PASTELSYS_LOGARITHM_H
+#define PASTELSYS_LOGARITHM_H
 
 #include "pastel/sys/mytypes.h"
 

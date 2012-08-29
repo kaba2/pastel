@@ -1,8 +1,8 @@
 // Description: Actual memory address of an object
 // Documentation: memory.txt
 
-#ifndef PASTEL_ADDRESSOF_H
-#define PASTEL_ADDRESSOF_H
+#ifndef PASTELSYS_ADDRESSOF_H
+#define PASTELSYS_ADDRESSOF_H
 
 namespace Pastel
 {

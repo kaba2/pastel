@@ -1,5 +1,5 @@
-#ifndef PASTEL_RIPMAP_TOOLS_HPP
-#define PASTEL_RIPMAP_TOOLS_HPP
+#ifndef PASTELDSP_RIPMAP_TOOLS_HPP
+#define PASTELDSP_RIPMAP_TOOLS_HPP
 
 #include "pastel/dsp/ripmap_tools.h"
 

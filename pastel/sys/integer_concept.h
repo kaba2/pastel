@@ -1,8 +1,8 @@
 // Description: Integer concept
 // Documentation: integers.txt
 
-#ifndef PASTEL_INTEGER_CONCEPT_H
-#define PASTEL_INTEGER_CONCEPT_H
+#ifndef PASTELSYS_INTEGER_CONCEPT_H
+#define PASTELSYS_INTEGER_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 

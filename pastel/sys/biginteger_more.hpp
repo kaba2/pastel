@@ -1,5 +1,5 @@
-#ifndef PASTEL_BIGINTEGER_MORE_HPP
-#define PASTEL_BIGINTEGER_MORE_HPP
+#ifndef PASTELSYS_BIGINTEGER_MORE_HPP
+#define PASTELSYS_BIGINTEGER_MORE_HPP
 
 #include "pastel/sys/biginteger_more.h"
 

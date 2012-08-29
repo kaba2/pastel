@@ -1,8 +1,8 @@
 // Description: LuDecomposition class
 // Detail: Computes the PLU-decomposition of a matrix
 
-#ifndef PASTEL_LU_DECOMPOSITION_H
-#define PASTEL_LU_DECOMPOSITION_H
+#ifndef PASTELMATH_LU_DECOMPOSITION_H
+#define PASTELMATH_LU_DECOMPOSITION_H
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/mathlibrary.h"

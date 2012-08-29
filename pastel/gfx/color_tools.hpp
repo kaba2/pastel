@@ -1,5 +1,5 @@
-#ifndef PASTEL_COLOR_TOOLS_HPP
-#define PASTEL_COLOR_TOOLS_HPP
+#ifndef PASTELGFX_COLOR_TOOLS_HPP
+#define PASTELGFX_COLOR_TOOLS_HPP
 
 #include "pastel/gfx/color_tools.h"
 

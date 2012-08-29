@@ -1,8 +1,8 @@
 // Description: Array extender
 // Documentation: indexextenders.txt
 
-#ifndef PASTEL_ARRAYEXTENDER_H
-#define PASTEL_ARRAYEXTENDER_H
+#ifndef PASTELSYS_ARRAYEXTENDER_H
+#define PASTELSYS_ARRAYEXTENDER_H
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/indexextender.h"

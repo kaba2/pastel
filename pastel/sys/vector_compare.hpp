@@ -1,5 +1,5 @@
-#ifndef PASTEL_VECTOR_COMPARE_HPP
-#define PASTEL_VECTOR_COMPARE_HPP
+#ifndef PASTELSYS_VECTOR_COMPARE_HPP
+#define PASTELSYS_VECTOR_COMPARE_HPP
 
 #include "pastel/sys/vector_compare.h"
 #include "pastel/sys/tuple_tools.h"

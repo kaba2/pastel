@@ -1,8 +1,8 @@
 // Description: Lambertian brdf
 // Documentation: brdfs.txt
 
-#ifndef PASTEL_LAMBERTIAN_BRDF_H
-#define PASTEL_LAMBERTIAN_BRDF_H
+#ifndef PASTELRAY_LAMBERTIAN_BRDF_H
+#define PASTELRAY_LAMBERTIAN_BRDF_H
 
 #include "pastel/ray/raylibrary.h"
 #include "pastel/ray/brdf.h"

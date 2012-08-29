@@ -1,5 +1,5 @@
-#ifndef PASTEL_AUTOMATON_TRANSITION_LABEL_H
-#define PASTEL_AUTOMATON_TRANSITION_LABEL_H
+#ifndef PASTELSYS_AUTOMATON_TRANSITION_LABEL_H
+#define PASTELSYS_AUTOMATON_TRANSITION_LABEL_H
 
 #include "pastel/sys/automaton.h"
 #include "pastel/sys/optional.h"

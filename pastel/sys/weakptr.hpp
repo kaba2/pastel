@@ -1,5 +1,5 @@
-#ifndef PASTEL_WEAKPTR_HPP
-#define PASTEL_WEAKPTR_HPP
+#ifndef PASTELSYS_WEAKPTR_HPP
+#define PASTELSYS_WEAKPTR_HPP
 
 #include "pastel/sys/weakptr.h"
 

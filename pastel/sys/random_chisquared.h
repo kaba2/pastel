@@ -1,7 +1,7 @@
 // Description: Chi-squared-distributed random numbers
 
-#ifndef PASTEL_RANDOM_CHISQUARED_H
-#define PASTEL_RANDOM_CHISQUARED_H
+#ifndef PASTELSYS_RANDOM_CHISQUARED_H
+#define PASTELSYS_RANDOM_CHISQUARED_H
 
 #include "pastel/sys/mytypes.h"
 

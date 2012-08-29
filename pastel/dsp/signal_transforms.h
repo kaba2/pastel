@@ -1,7 +1,7 @@
 // Description: An aggregate file for signal transforms.
 
-#ifndef PASTEL_SIGNAL_TRANSFORMS_H
-#define PASTEL_SIGNAL_TRANSFORMS_H
+#ifndef PASTELDSP_SIGNAL_TRANSFORMS_H
+#define PASTELDSP_SIGNAL_TRANSFORMS_H
 
 #include "pastel/dsp/cosine_transform.h"
 #include "pastel/dsp/fourier_transform.h"

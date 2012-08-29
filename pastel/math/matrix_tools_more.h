@@ -1,8 +1,8 @@
 // Description: More algorithms for matrices.
 // Detail: transpose, inverse, solveLinear, solveLowerTriangular, etc.
 
-#ifndef PASTEL_MATRIX_TOOLS_MORE_H
-#define PASTEL_MATRIX_TOOLS_MORE_H
+#ifndef PASTELMATH_MATRIX_TOOLS_MORE_H
+#define PASTELMATH_MATRIX_TOOLS_MORE_H
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/mathlibrary.h"

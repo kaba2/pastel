@@ -1,8 +1,8 @@
 // Description: Rectangular subset of another texture
 // Documentation: distortion_textures.txt
 
-#ifndef PASTEL_SUB_TEXTURE_H
-#define PASTEL_SUB_TEXTURE_H
+#ifndef PASTELGFX_SUB_TEXTURE_H
+#define PASTELGFX_SUB_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 

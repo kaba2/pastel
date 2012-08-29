@@ -1,8 +1,8 @@
 // Description: An abstract object
 // Documentation: things.txt
 
-#ifndef PASTEL_THING_H
-#define PASTEL_THING_H
+#ifndef PASTELRAY_THING_H
+#define PASTELRAY_THING_H
 
 #include "pastel/ray/ray_fwd.h"
 #include "pastel/ray/localgeometry.h"

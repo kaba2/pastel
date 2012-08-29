@@ -1,5 +1,5 @@
-#ifndef PASTEL_FLOAT_REAL_HPP
-#define PASTEL_FLOAT_REAL_HPP
+#ifndef PASTELSYS_FLOAT_REAL_HPP
+#define PASTELSYS_FLOAT_REAL_HPP
 
 #include "pastel/sys/float_real.h"
 

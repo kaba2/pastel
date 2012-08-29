@@ -1,7 +1,7 @@
 // Description: Counting and examination of pixel neighbors
 
-#ifndef PASTEL_PIXELNEIGHBOURS_H
-#define PASTEL_PIXELNEIGHBOURS_H
+#ifndef PASTELGFX_PIXELNEIGHBOURS_H
+#define PASTELGFX_PIXELNEIGHBOURS_H
 
 #include "pastel/gfx/gfxlibrary.h"
 

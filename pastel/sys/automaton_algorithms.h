@@ -1,7 +1,7 @@
 // Description: An aggregate file for automaton algorithms.
 
-#ifndef PASTEL_AUTOMATON_ALGORITHMS_H
-#define PASTEL_AUTOMATON_ALGORITHMS_H
+#ifndef PASTELSYS_AUTOMATON_ALGORITHMS_H
+#define PASTELSYS_AUTOMATON_ALGORITHMS_H
 
 #include "pastel/sys/automaton_determinization.h"
 #include "pastel/sys/automaton_minimization.h"

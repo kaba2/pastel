@@ -1,7 +1,7 @@
 // Description: Range algorithm concept
 
-#ifndef PASTEL_RANGEALGORITHM_CONCEPT_H
-#define PASTEL_RANGEALGORITHM_CONCEPT_H
+#ifndef PASTELSYS_RANGEALGORITHM_CONCEPT_H
+#define PASTELSYS_RANGEALGORITHM_CONCEPT_H
 
 #include "pastel/sys/algorithm_concept.h"
 

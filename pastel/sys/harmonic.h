@@ -1,8 +1,8 @@
 // Description: Harmonic numbers
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_HARMONIC_H
-#define PASTEL_HARMONIC_H
+#ifndef PASTELSYS_HARMONIC_H
+#define PASTELSYS_HARMONIC_H
 
 #include "pastel/sys/mytypes.h"
 

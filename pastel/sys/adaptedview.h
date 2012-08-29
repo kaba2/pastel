@@ -1,8 +1,8 @@
 // Description: Adapted view
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_ADAPTEDVIEW_H
-#define PASTEL_ADAPTEDVIEW_H
+#ifndef PASTELSYS_ADAPTEDVIEW_H
+#define PASTELSYS_ADAPTEDVIEW_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/adaptedviewcursor.h"

@@ -1,8 +1,8 @@
 // Description: Kd-tree thing
 // Documentation: things.txt
 
-#ifndef PASTEL_KDTREE_THING_H
-#define PASTEL_KDTREE_THING_H
+#ifndef PASTELRAY_KDTREE_THING_H
+#define PASTELRAY_KDTREE_THING_H
 
 #include "pastel/ray/composite_thing.h"
 

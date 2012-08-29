@@ -1,8 +1,8 @@
 // Description: Destruction of objects
 // Documentation: sequence_algorithms.txt
 
-#ifndef PASTEL_DESTRUCT_H
-#define PASTEL_DESTRUCT_H
+#ifndef PASTELSYS_DESTRUCT_H
+#define PASTELSYS_DESTRUCT_H
 
 namespace Pastel
 {

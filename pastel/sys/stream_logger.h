@@ -1,8 +1,8 @@
 // Description: Stream_Logger class
 // Detail: Outputs logging information into a standard library stream
 
-#ifndef PASTEL_STREAM_LOGGER_H
-#define PASTEL_STREAM_LOGGER_H
+#ifndef PASTELSYS_STREAM_LOGGER_H
+#define PASTELSYS_STREAM_LOGGER_H
 
 #include "pastel/sys/logger.h"
 

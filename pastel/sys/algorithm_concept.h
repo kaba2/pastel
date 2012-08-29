@@ -1,8 +1,8 @@
 // Description: Algorithm concept
 // Documentation: algorithm_objects.txt
 
-#ifndef PASTEL_ALGORITHM_CONCEPT_H
-#define PASTEL_ALGORITHM_CONCEPT_H
+#ifndef PASTELSYS_ALGORITHM_CONCEPT_H
+#define PASTELSYS_ALGORITHM_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 

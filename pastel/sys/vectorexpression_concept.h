@@ -1,7 +1,7 @@
 // Description: Vector expression concept
 
-#ifndef PASTEL_VECTOREXPRESSION_CONCEPT_H
-#define PASTEL_VECTOREXPRESSION_CONCEPT_H
+#ifndef PASTELSYS_VECTOREXPRESSION_CONCEPT_H
+#define PASTELSYS_VECTOREXPRESSION_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 

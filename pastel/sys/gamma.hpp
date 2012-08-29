@@ -1,5 +1,5 @@
-#ifndef PASTEL_GAMMA_HPP
-#define PASTEL_GAMMA_HPP
+#ifndef PASTELSYS_GAMMA_HPP
+#define PASTELSYS_GAMMA_HPP
 
 #include "pastel/sys/gamma.h"
 #include "pastel/sys/constants.h"

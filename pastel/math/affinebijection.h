@@ -1,8 +1,8 @@
 // Description: AffineBijection class
 // Detail: Traces an affine transformation and its inverse.
 
-#ifndef PASTEL_AFFINEBIJECTION_H
-#define PASTEL_AFFINEBIJECTION_H
+#ifndef PASTELMATH_AFFINEBIJECTION_H
+#define PASTELMATH_AFFINEBIJECTION_H
 
 #include "pastel/math/affinetransformation.h"
 

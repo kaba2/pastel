@@ -1,8 +1,8 @@
 // Description: Rounding
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_ROUNDING_H
-#define PASTEL_ROUNDING_H
+#ifndef PASTELSYS_ROUNDING_H
+#define PASTELSYS_ROUNDING_H
 
 #include "pastel/sys/mytypes.h"
 

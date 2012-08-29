@@ -1,5 +1,5 @@
-#ifndef PASTEL_MAXIMUM_BIPARTITE_MATCHING_HPP
-#define PASTEL_MAXIMUM_BIPARTITE_MATCHING_HPP
+#ifndef PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_HPP
+#define PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_HPP
 
 #include "pastel/sys/maximum_bipartite_matching.h"
 #include "pastel/sys/ensure.h"

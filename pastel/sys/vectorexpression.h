@@ -1,7 +1,7 @@
 // Description: VectorExpression CRTP base class
 
-#ifndef PASTEL_VECTOREXPRESSION_H
-#define PASTEL_VECTOREXPRESSION_H
+#ifndef PASTELSYS_VECTOREXPRESSION_H
+#define PASTELSYS_VECTOREXPRESSION_H
 
 #include "pastel/sys/vectorbase.h"
 #include "pastel/sys/memory_overlaps.h"

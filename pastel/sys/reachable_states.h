@@ -1,7 +1,7 @@
 // Description: Traversal of reachable automaton states
 
-#ifndef PASTEL_REACHABLE_STATES_H
-#define PASTEL_REACHABLE_STATES_H
+#ifndef PASTELSYS_REACHABLE_STATES_H
+#define PASTELSYS_REACHABLE_STATES_H
 
 #include "pastel/sys/reachable_states_concepts.h"
 

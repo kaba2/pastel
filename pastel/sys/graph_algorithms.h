@@ -1,7 +1,7 @@
 // Description: An aggregate file graph algorithms
 
-#ifndef PASTEL_GRAPH_ALGORITHMS_H
-#define PASTEL_GRAPH_ALGORITHMS_H
+#ifndef PASTELSYS_GRAPH_ALGORITHMS_H
+#define PASTELSYS_GRAPH_ALGORITHMS_H
 
 #include "pastel/sys/graph_traversal.h"
 #include "pastel/sys/maximum_bipartite_matching.h"

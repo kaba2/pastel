@@ -1,8 +1,8 @@
 // Description: Conversion between coordinate systems
 // Detail: Cartesian, cylinder, and spherical coordinate systems.
 
-#ifndef PASTEL_COORDINATES_H
-#define PASTEL_COORDINATES_H
+#ifndef PASTELMATH_COORDINATES_H
+#define PASTELMATH_COORDINATES_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

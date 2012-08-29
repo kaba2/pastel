@@ -1,8 +1,8 @@
 // Description: Generation of a random subset
 // Documentation: sequence_algorithms.txt
 
-#ifndef PASTEL_RANDOM_SUBSET_H
-#define PASTEL_RANDOM_SUBSET_H
+#ifndef PASTELSYS_RANDOM_SUBSET_H
+#define PASTELSYS_RANDOM_SUBSET_H
 
 #include "pastel/sys/mytypes.h"
 

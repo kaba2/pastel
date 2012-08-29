@@ -1,7 +1,7 @@
 // Description: Breadth-first traversal of a graph
 
-#ifndef PASTEL_BREADTH_FIRST_TRAVERSAL_H
-#define PASTEL_BREADTH_FIRST_TRAVERSAL_H
+#ifndef PASTELSYS_BREADTH_FIRST_TRAVERSAL_H
+#define PASTELSYS_BREADTH_FIRST_TRAVERSAL_H
 
 #include "pastel/sys/graph_traversal_concepts.h"
 

@@ -1,8 +1,8 @@
 // Description: Interpolation based on Radial Basis Functions
 // Documentation: reconstruction.txt
 
-#ifndef PASTEL_RECONSTRUCT_RBF_H
-#define PASTEL_RECONSTRUCT_RBF_H
+#ifndef PASTELGFX_RECONSTRUCT_RBF_H
+#define PASTELGFX_RECONSTRUCT_RBF_H
 
 #include "pastel/sys/vector.h"
 

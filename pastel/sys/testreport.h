@@ -2,8 +2,8 @@
 // Detail: Stores error reports from unit tests.
 // Documentation: unit_testing.txt
 
-#ifndef PASTEL_TESTREPORT_H
-#define PASTEL_TESTREPORT_H
+#ifndef PASTELSYS_TESTREPORT_H
+#define PASTELSYS_TESTREPORT_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/log.h"

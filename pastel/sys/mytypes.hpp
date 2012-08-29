@@ -1,5 +1,5 @@
-#ifndef PASTEL_MYTYPES_HPP
-#define PASTEL_MYTYPES_HPP
+#ifndef PASTELSYS_MYTYPES_HPP
+#define PASTELSYS_MYTYPES_HPP
 
 #include "pastel/sys/mytypes.h"
 

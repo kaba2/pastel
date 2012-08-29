@@ -1,8 +1,8 @@
 // Description: Vector class
 // Detail: A vector in R^n
 
-#ifndef PASTEL_VECTOR_H
-#define PASTEL_VECTOR_H
+#ifndef PASTELSYS_VECTOR_H
+#define PASTELSYS_VECTOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vectorbase.h"

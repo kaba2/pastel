@@ -2,8 +2,8 @@
 // Detail: A view to a cursor range
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_CURSORVIEW_H
-#define PASTEL_CURSORVIEW_H
+#ifndef PASTELSYS_CURSORVIEW_H
+#define PASTELSYS_CURSORVIEW_H
 
 #include "pastel/sys/view.h"
 

@@ -1,8 +1,8 @@
 // Description: Algorithms for affine transformations.
 // Detail: inverse, conformalAffine, rotation2, etc. 
 
-#ifndef PASTEL_AFFINETRANSFORMATION_TOOLS_H
-#define PASTEL_AFFINETRANSFORMATION_TOOLS_H
+#ifndef PASTELMATH_AFFINETRANSFORMATION_TOOLS_H
+#define PASTELMATH_AFFINETRANSFORMATION_TOOLS_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -1,8 +1,8 @@
 // Description: SliceViewCursor class
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_SLICEVIEWCURSOR_H
-#define PASTEL_SLICEVIEWCURSOR_H
+#ifndef PASTELSYS_SLICEVIEWCURSOR_H
+#define PASTELSYS_SLICEVIEWCURSOR_H
 
 #include "pastel/sys/sliceview.h"
 

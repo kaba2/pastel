@@ -1,7 +1,7 @@
 // Description: An aggregate file for extended views
 
-#ifndef PASTEL_EXTENDEDCONSTVIEWS_H
-#define PASTEL_EXTENDEDCONSTVIEWS_H
+#ifndef PASTELSYS_EXTENDEDCONSTVIEWS_H
+#define PASTELSYS_EXTENDEDCONSTVIEWS_H
 
 #include "borderedconstview.h"
 #include "clampedconstview.h"

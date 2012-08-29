@@ -1,5 +1,5 @@
-#ifndef PASTEL_DRAW_TEXTURED_BOX_HPP
-#define PASTEL_DRAW_TEXTURED_BOX_HPP
+#ifndef PASTELGFX_DRAW_TEXTURED_BOX_HPP
+#define PASTELGFX_DRAW_TEXTURED_BOX_HPP
 
 #include "pastel/gfx/draw_textured_box.h"
 #include "pastel/gfx/assign_colormixer.h"

@@ -1,7 +1,7 @@
 // Description: Algorithms for MeasureTable
 
-#ifndef PASTEL_MEASURETABLE_TOOLS_H
-#define PASTEL_MEASURETABLE_TOOLS_H
+#ifndef PASTELSYS_MEASURETABLE_TOOLS_H
+#define PASTELSYS_MEASURETABLE_TOOLS_H
 
 #include "pastel/sys/measuretable.h"
 

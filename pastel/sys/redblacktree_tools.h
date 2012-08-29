@@ -1,5 +1,5 @@
-#ifndef PASTEL_REDBLACKTREE_TOOLS_H
-#define PASTEL_REDBLACKTREE_TOOLS_H
+#ifndef PASTELSYS_REDBLACKTREE_TOOLS_H
+#define PASTELSYS_REDBLACKTREE_TOOLS_H
 
 #include "pastel/sys/redblacktree.h"
 

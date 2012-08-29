@@ -1,5 +1,5 @@
-#ifndef PASTEL_PASTELOMP_HPP
-#define PASTEL_PASTELOMP_HPP
+#ifndef PASTELSYS_PASTELOMP_HPP
+#define PASTELSYS_PASTELOMP_HPP
 
 #include "pastel/sys/pastelomp.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTEL_RESAMPLE_HPP
-#define PASTEL_RESAMPLE_HPP
+#ifndef PASTELDSP_RESAMPLE_HPP
+#define PASTELDSP_RESAMPLE_HPP
 
 #include "pastel/dsp/resample.h"
 

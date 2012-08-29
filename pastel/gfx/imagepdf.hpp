@@ -1,5 +1,5 @@
-#ifndef PASTEL_IMAGEPDF_HPP
-#define PASTEL_IMAGEPDF_HPP
+#ifndef PASTELGFX_IMAGEPDF_HPP
+#define PASTELGFX_IMAGEPDF_HPP
 
 #include "pastel/gfx/imagepdf.h"
 

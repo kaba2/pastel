@@ -1,5 +1,5 @@
-#ifndef PASTEL_REFERENCECOUNTED_HPP
-#define PASTEL_REFERENCECOUNTED_HPP
+#ifndef PASTELSYS_REFERENCECOUNTED_HPP
+#define PASTELSYS_REFERENCECOUNTED_HPP
 
 #include "pastel/sys/referencecounted.h"
 #include "pastel/sys/ensure.h"

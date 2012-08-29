@@ -1,8 +1,8 @@
 // Description: Powers
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_POWERS_H
-#define PASTEL_POWERS_H
+#ifndef PASTELSYS_POWERS_H
+#define PASTELSYS_POWERS_H
 
 namespace Pastel
 {

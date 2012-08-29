@@ -1,7 +1,7 @@
 // Description: Affine transform of another texture
 
-#ifndef PASTEL_TRANSFORM_TEXTURE_H
-#define PASTEL_TRANSFORM_TEXTURE_H
+#ifndef PASTELGFX_TRANSFORM_TEXTURE_H
+#define PASTELGFX_TRANSFORM_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 

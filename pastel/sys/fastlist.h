@@ -1,8 +1,8 @@
 // Description: FastList class
 // Detail: Doubly-linked list using Pastel's allocators
 
-#ifndef PASTEL_FASTLIST_H
-#define PASTEL_FASTLIST_H
+#ifndef PASTELSYS_FASTLIST_H
+#define PASTELSYS_FASTLIST_H
 
 #include <iterator>
 #include <functional>

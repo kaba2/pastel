@@ -1,8 +1,8 @@
 // Description: String algorithms
 // Documentation: string_algorithms.txt
 
-#ifndef PASTEL_STRING_ALGORITHMS_H
-#define PASTEL_STRING_ALGORITHMS_H
+#ifndef PASTELSYS_STRING_ALGORITHMS_H
+#define PASTELSYS_STRING_ALGORITHMS_H
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"

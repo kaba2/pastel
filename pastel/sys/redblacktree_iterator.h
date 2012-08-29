@@ -1,5 +1,5 @@
-#ifndef PASTEL_REDBLACKTREE_ITERATOR_H
-#define PASTEL_REDBLACKTREE_ITERATOR_H
+#ifndef PASTELSYS_REDBLACKTREE_ITERATOR_H
+#define PASTELSYS_REDBLACKTREE_ITERATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/redblacktree.h"

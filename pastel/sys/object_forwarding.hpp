@@ -1,5 +1,5 @@
-#ifndef PASTEL_OBJECT_FORWARDING_HPP
-#define PASTEL_OBJECT_FORWARDING_HPP
+#ifndef PASTELSYS_OBJECT_FORWARDING_HPP
+#define PASTELSYS_OBJECT_FORWARDING_HPP
 
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/mytypes.h"

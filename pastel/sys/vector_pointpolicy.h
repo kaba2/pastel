@@ -2,8 +2,8 @@
 // Detail: Point from a Vector
 // Documentation: pointpolicies.txt
 
-#ifndef PASTEL_VECTOR_POINTPOLICY_H
-#define PASTEL_VECTOR_POINTPOLICY_H
+#ifndef PASTELSYS_VECTOR_POINTPOLICY_H
+#define PASTELSYS_VECTOR_POINTPOLICY_H
 
 #include "pastel/sys/pointpolicy_concept.h"
 

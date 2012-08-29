@@ -1,5 +1,5 @@
-#ifndef PASTEL_ENVIRONMENT_HPP
-#define PASTEL_ENVIRONMENT_HPP
+#ifndef PASTELSYS_ENVIRONMENT_HPP
+#define PASTELSYS_ENVIRONMENT_HPP
 
 #include "pastel/sys/environment.h"
 

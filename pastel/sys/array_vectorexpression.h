@@ -1,8 +1,8 @@
 // Description: A vector expression for a native array.
 // Documentation: vector.txt
 
-#ifndef PASTEL_ARRAY_VECTOREXPRESSION_H
-#define PASTEL_ARRAY_VECTOREXPRESSION_H
+#ifndef PASTELSYS_ARRAY_VECTOREXPRESSION_H
+#define PASTELSYS_ARRAY_VECTOREXPRESSION_H
 
 #include "pastel/sys/vectorexpression.h"
 

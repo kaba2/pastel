@@ -1,5 +1,5 @@
-#ifndef PASTEL_CONFIG_HPP
-#define PASTEL_CONFIG_HPP
+#ifndef PASTELSYS_CONFIG_HPP
+#define PASTELSYS_CONFIG_HPP
 
 #include "pastel/sys/config.h"
 #include "pastel/sys/ensure.h"

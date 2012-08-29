@@ -1,5 +1,5 @@
-#ifndef PASTEL_BINOMIAL_HPP
-#define PASTEL_BINOMIAL_HPP
+#ifndef PASTELSYS_BINOMIAL_HPP
+#define PASTELSYS_BINOMIAL_HPP
 
 #include "pastel/sys/binomial.h"
 #include "pastel/sys/ensure.h"

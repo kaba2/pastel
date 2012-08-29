@@ -1,8 +1,8 @@
 // Description: AlignedBox class
 // Detail: Allows to work with axis-aligned boxes
 
-#ifndef PASTEL_ALIGNEDBOX_H
-#define PASTEL_ALIGNEDBOX_H
+#ifndef PASTELSYS_ALIGNEDBOX_H
+#define PASTELSYS_ALIGNEDBOX_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

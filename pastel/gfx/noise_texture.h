@@ -1,8 +1,8 @@
 // Description: Perlin's classic noise texture
 // Documentation: synthetic_textures.txt
 
-#ifndef PASTEL_NOISE_TEXTURE_H
-#define PASTEL_NOISE_TEXTURE_H
+#ifndef PASTELGFX_NOISE_TEXTURE_H
+#define PASTELGFX_NOISE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/gfx/noise.h"

@@ -1,8 +1,8 @@
 // Description: MipImage_Texture class
 // Detail: Image-based texture with linear reconstruction and mip-filtering.
 
-#ifndef PASTEL_MIPIMAGE_TEXTURE_H
-#define PASTEL_MIPIMAGE_TEXTURE_H
+#ifndef PASTELGFX_MIPIMAGE_TEXTURE_H
+#define PASTELGFX_MIPIMAGE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 

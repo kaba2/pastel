@@ -1,8 +1,8 @@
 // Description: Index of the highest bit
 // Documentation: bit_tricks.txt
 
-#ifndef PASTEL_HIGHEST_BIT_H
-#define PASTEL_HIGHEST_BIT_H
+#ifndef PASTELSYS_HIGHEST_BIT_H
+#define PASTELSYS_HIGHEST_BIT_H
 
 #include "pastel/sys/mytypes.h"
 

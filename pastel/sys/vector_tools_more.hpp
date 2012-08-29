@@ -1,5 +1,5 @@
-#ifndef PASTEL_VECTOR_TOOLS_MORE_HPP
-#define PASTEL_VECTOR_TOOLS_MORE_HPP
+#ifndef PASTELSYS_VECTOR_TOOLS_MORE_HPP
+#define PASTELSYS_VECTOR_TOOLS_MORE_HPP
 
 #include "pastel/sys/vector_tools.h"
 

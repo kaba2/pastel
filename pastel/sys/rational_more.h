@@ -1,8 +1,8 @@
 // Description: More Algorithms for rational numbers
 // Detail: infinity, nan, fraction, remainder, floor, toFloat, etc.
 
-#ifndef PASTEL_RATIONAL_MORE_H
-#define PASTEL_RATIONAL_MORE_H
+#ifndef PASTELSYS_RATIONAL_MORE_H
+#define PASTELSYS_RATIONAL_MORE_H
 
 #include "pastel/sys/rational.h"
 

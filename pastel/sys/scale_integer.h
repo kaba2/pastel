@@ -1,8 +1,8 @@
 // Description: Integer scaling
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_SCALE_INTEGER_H
-#define PASTEL_SCALE_INTEGER_H
+#ifndef PASTELSYS_SCALE_INTEGER_H
+#define PASTELSYS_SCALE_INTEGER_H
 
 #include "pastel/sys/mytypes.h"
 

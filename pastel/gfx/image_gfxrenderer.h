@@ -2,8 +2,8 @@
 // Detail: A 2d per-object software renderer to render to arrays.
 // Documentation: renderer.txt
 
-#ifndef PASTEL_IMAGE_GFXRENDERER_H
-#define PASTEL_IMAGE_GFXRENDERER_H
+#ifndef PASTELGFX_IMAGE_GFXRENDERER_H
+#define PASTELGFX_IMAGE_GFXRENDERER_H
 
 #include "pastel/gfx/gfxrenderer.h"
 #include "pastel/dsp/mipmap.h"

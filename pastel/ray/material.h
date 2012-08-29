@@ -1,8 +1,8 @@
 // Description: An abstract material
 // Documentation: materials.txt
 
-#ifndef PASTEL_MATERIAL_H
-#define PASTEL_MATERIAL_H
+#ifndef PASTELRAY_MATERIAL_H
+#define PASTELRAY_MATERIAL_H
 
 #include "pastel/sys/countedptr.h"
 #include "pastel/sys/vector.h"

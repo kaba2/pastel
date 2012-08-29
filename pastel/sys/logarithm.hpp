@@ -1,5 +1,5 @@
-#ifndef PASTEL_LOGARITHM_HPP
-#define PASTEL_LOGARITHM_HPP
+#ifndef PASTELSYS_LOGARITHM_HPP
+#define PASTELSYS_LOGARITHM_HPP
 
 #include "pastel/sys/logarithm.h"
 #include "pastel/sys/constants.h"

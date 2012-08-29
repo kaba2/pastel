@@ -1,8 +1,8 @@
 // Description: Hashing of dereferenced value
 // Documentation: hashes.txt
 
-#ifndef PASTEL_DEREFERENCED_HASH_H
-#define PASTEL_DEREFERENCED_HASH_H
+#ifndef PASTELSYS_DEREFERENCED_HASH_H
+#define PASTELSYS_DEREFERENCED_HASH_H
 
 #include "pastel/sys/hashing.h"
 

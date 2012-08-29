@@ -1,8 +1,8 @@
 // Description: Identity function algorithm
 // Documentation: functions.txt
 
-#ifndef PASTEL_IDENTITY_FUNCTION_H
-#define PASTEL_IDENTITY_FUNCTION_H
+#ifndef PASTELSYS_IDENTITY_FUNCTION_H
+#define PASTELSYS_IDENTITY_FUNCTION_H
 
 #include "pastel/sys/algorithm_concept.h"
 

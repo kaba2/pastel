@@ -1,8 +1,8 @@
 // Description: BigInteger class
 // Detail: Arbitrary precision integer modeling the Integer concept.
 
-#ifndef PASTEL_BIGINTEGER_H
-#define PASTEL_BIGINTEGER_H
+#ifndef PASTELSYS_BIGINTEGER_H
+#define PASTELSYS_BIGINTEGER_H
 
 #include "pastel/sys/integer_concept.h"
 #include "pastel/sys/real_concept.h"

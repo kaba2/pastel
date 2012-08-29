@@ -1,8 +1,8 @@
 // Description: A beam of light
 // Documentation: pastelray.txt
 
-#ifndef PASTEL_BEAM_H
-#define PASTEL_BEAM_H
+#ifndef PASTELRAY_BEAM_H
+#define PASTELRAY_BEAM_H
 
 #include "pastel/ray/raylibrary.h"
 

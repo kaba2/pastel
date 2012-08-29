@@ -1,5 +1,5 @@
-#ifndef PASTEL_TREE_NODE_H
-#define PASTEL_TREE_NODE_H
+#ifndef PASTELSYS_TREE_NODE_H
+#define PASTELSYS_TREE_NODE_H
 
 #include "pastel/sys/tree.h"
 #include "pastel/sys/tuple.h"

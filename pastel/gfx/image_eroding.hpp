@@ -1,5 +1,5 @@
-#ifndef PASTEL_IMAGE_ERODING_HPP
-#define PASTEL_IMAGE_ERODING_HPP
+#ifndef PASTELGFX_IMAGE_ERODING_HPP
+#define PASTELGFX_IMAGE_ERODING_HPP
 
 #include "pastel/gfx/image_eroding.h"
 

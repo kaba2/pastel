@@ -2,8 +2,8 @@
 // Detail: Adds the texture to the background
 // Documentation: colormixers.txt
 
-#ifndef PASTEL_ADDITIVE_COLORMIXER_H
-#define PASTEL_ADDITIVE_COLORMIXER_H
+#ifndef PASTELGFX_ADDITIVE_COLORMIXER_H
+#define PASTELGFX_ADDITIVE_COLORMIXER_H
 
 #include "pastel/gfx/colormixer.h"
 

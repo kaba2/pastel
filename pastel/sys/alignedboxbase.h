@@ -1,8 +1,8 @@
 // Description: AlignedBoxBase class
 // Detail: CRTP base class for AlignedBox
 
-#ifndef PASTEL_ALIGNEDBOXBASE_H
-#define PASTEL_ALIGNEDBOXBASE_H
+#ifndef PASTELSYS_ALIGNEDBOXBASE_H
+#define PASTELSYS_ALIGNEDBOXBASE_H
 
 #include "pastel/sys/alignedbox.h"
 #include "pastel/sys/constants.h"

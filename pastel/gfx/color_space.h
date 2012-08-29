@@ -1,7 +1,7 @@
 // Description: An aggregate file for color spaces
 
-#ifndef PASTEL_COLOR_SPACE_H
-#define PASTEL_COLOR_SPACE_H
+#ifndef PASTELGFX_COLOR_SPACE_H
+#define PASTELGFX_COLOR_SPACE_H
 
 #include "pastel/gfx/color_hsv.h"
 #include "pastel/gfx/color_lab.h"

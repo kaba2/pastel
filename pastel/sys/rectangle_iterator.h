@@ -1,8 +1,8 @@
 // Description: Rectangle iterator
 // Documentation: iterators.txt
 
-#ifndef PASTEL_RECTANGLE_ITERATOR_H
-#define PASTEL_RECTANGLE_ITERATOR_H
+#ifndef PASTELSYS_RECTANGLE_ITERATOR_H
+#define PASTELSYS_RECTANGLE_ITERATOR_H
 
 #include "pastel/sys/vector_tools.h"
 

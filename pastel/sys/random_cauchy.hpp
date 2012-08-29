@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_CAUCHY_HPP
-#define PASTEL_RANDOM_CAUCHY_HPP
+#ifndef PASTELSYS_RANDOM_CAUCHY_HPP
+#define PASTELSYS_RANDOM_CAUCHY_HPP
 
 #include "pastel/sys/random_cauchy.h"
 #include "pastel/sys/random_gaussian.h"

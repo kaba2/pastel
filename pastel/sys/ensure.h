@@ -1,8 +1,8 @@
 // Description: Invariant checking
 // Detail: Contains ENSURE, PENSURE, and ASSERT macros.
 
-#ifndef PASTEL_ENSURE_H
-#define PASTEL_ENSURE_H
+#ifndef PASTELSYS_ENSURE_H
+#define PASTELSYS_ENSURE_H
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"

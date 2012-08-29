@@ -1,7 +1,7 @@
 // Description: An aggregate file for PastelSys
 
-#ifndef PASTEL_PASTELSYS_H
-#define PASTEL_PASTELSYS_H
+#ifndef PASTELSYS_PASTELSYS_H
+#define PASTELSYS_PASTELSYS_H
 
 #include "pastel/sys/algorithm_concept.h"
 

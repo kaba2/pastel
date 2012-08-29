@@ -1,5 +1,5 @@
-#ifndef PASTEL_QUADRATIC_HPP
-#define PASTEL_QUADRATIC_HPP
+#ifndef PASTELSYS_QUADRATIC_HPP
+#define PASTELSYS_QUADRATIC_HPP
 
 #include "pastel/sys/quadratic.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTEL_ORTHONORMAL_HPP
-#define PASTEL_ORTHONORMAL_HPP
+#ifndef PASTELMATH_ORTHONORMAL_HPP
+#define PASTELMATH_ORTHONORMAL_HPP
 
 #include "pastel/math/orthonormal.h"
 

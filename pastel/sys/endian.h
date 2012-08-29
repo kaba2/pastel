@@ -1,7 +1,7 @@
 // Description: Endian conversion
 
-#ifndef PASTEL_ENDIAN_H
-#define PASTEL_ENDIAN_H
+#ifndef PASTELSYS_ENDIAN_H
+#define PASTELSYS_ENDIAN_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

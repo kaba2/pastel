@@ -1,8 +1,8 @@
 // Description: Dll-keywords for PastelRay
 // Documentation: pastelray.txt
 
-#ifndef PASTEL_RAYLIBRARY_H
-#define PASTEL_RAYLIBRARY_H
+#ifndef PASTELRAY_RAYLIBRARY_H
+#define PASTELRAY_RAYLIBRARY_H
 
 #include "pastel/sys/environment.h"
 

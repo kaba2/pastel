@@ -1,8 +1,8 @@
 // Description: Beta function
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_BETA_H
-#define PASTEL_BETA_H
+#ifndef PASTELSYS_BETA_H
+#define PASTELSYS_BETA_H
 
 #include "pastel/sys/mytypes.h"
 

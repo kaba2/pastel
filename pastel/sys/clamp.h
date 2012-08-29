@@ -1,8 +1,8 @@
 // Description: Clamping
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_CLAMP_H
-#define PASTEL_CLAMP_H
+#ifndef PASTELSYS_CLAMP_H
+#define PASTELSYS_CLAMP_H
 
 namespace Pastel
 {

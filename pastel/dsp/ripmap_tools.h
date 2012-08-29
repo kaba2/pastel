@@ -1,7 +1,7 @@
 // Description: Algorithms for rip-maps
 
-#ifndef PASTEL_RIPMAP_TOOLS_H
-#define PASTEL_RIPMAP_TOOLS_H
+#ifndef PASTELDSP_RIPMAP_TOOLS_H
+#define PASTELDSP_RIPMAP_TOOLS_H
 
 #include "pastel/dsp/ripmap.h"
 

@@ -2,8 +2,8 @@
 // Detail: Point from a pointer to coordinates
 // Documentation: pointpolicies.txt
 
-#ifndef PASTEL_ARRAY_POINTPOLICY_H
-#define PASTEL_ARRAY_POINTPOLICY_H
+#ifndef PASTELSYS_ARRAY_POINTPOLICY_H
+#define PASTELSYS_ARRAY_POINTPOLICY_H
 
 #include "pastel/sys/pointpolicy_concept.h"
 #include "pastel/sys/array_vectorexpression.h"

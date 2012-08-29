@@ -1,5 +1,5 @@
-#ifndef PASTEL_DOUBLE_REAL_HPP
-#define PASTEL_DOUBLE_REAL_HPP
+#ifndef PASTELSYS_DOUBLE_REAL_HPP
+#define PASTELSYS_DOUBLE_REAL_HPP
 
 #include "pastel/sys/double_real.h"
 

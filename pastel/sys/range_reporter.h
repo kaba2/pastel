@@ -1,7 +1,7 @@
 // Description: Range reporter
 
-#ifndef PASTEL_RANGE_REPORTER_H
-#define PASTEL_RANGE_REPORTER_H
+#ifndef PASTELSYS_RANGE_REPORTER_H
+#define PASTELSYS_RANGE_REPORTER_H
 
 #include "pastel/sys/reporter_concept.h"
 

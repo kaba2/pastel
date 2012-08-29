@@ -1,5 +1,5 @@
-#ifndef PASTEL_BERNSTEIN_HPP
-#define PASTEL_BERNSTEIN_HPP
+#ifndef PASTELSYS_BERNSTEIN_HPP
+#define PASTELSYS_BERNSTEIN_HPP
 
 #include "pastel/sys/bernstein.h"
 #include "pastel/sys/ensure.h"

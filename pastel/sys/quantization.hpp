@@ -1,5 +1,5 @@
-#ifndef PASTEL_QUANTIZATION_HPP
-#define PASTEL_QUANTIZATION_HPP
+#ifndef PASTELSYS_QUANTIZATION_HPP
+#define PASTELSYS_QUANTIZATION_HPP
 
 #include "pastel/sys/quantization.h"
 

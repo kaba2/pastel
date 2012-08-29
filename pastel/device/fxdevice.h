@@ -2,8 +2,8 @@
 // Detail: Allows the control of the audio device
 // Documentation: sound.txt
 
-#ifndef PASTEL_FXDEVICE_H
-#define PASTEL_FXDEVICE_H
+#ifndef PASTELDEVICE_FXDEVICE_H
+#define PASTELDEVICE_FXDEVICE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/device/devicelibrary.h"

@@ -1,8 +1,8 @@
 // Description: Histograms
 // Documentation: maths.txt
 
-#ifndef PASTEL_HISTOGRAM_H
-#define PASTEL_HISTOGRAM_H
+#ifndef PASTELSYS_HISTOGRAM_H
+#define PASTELSYS_HISTOGRAM_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/range.h"

@@ -2,8 +2,8 @@
 // Detail: A norm bijection of the Manhattan norm
 // Documentation: normbijection.txt
 
-#ifndef PASTEL_MANHATTAN_NORMBIJECTION_H
-#define PASTEL_MANHATTAN_NORMBIJECTION_H
+#ifndef PASTELMATH_MANHATTAN_NORMBIJECTION_H
+#define PASTELMATH_MANHATTAN_NORMBIJECTION_H
 
 #include "pastel/sys/vector_tools.h"
 

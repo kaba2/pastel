@@ -1,8 +1,8 @@
 // Description: Not-equal-to predicate
 // Documentation: predicates.txt
 
-#ifndef PASTEL_NOTEQUALTO_H
-#define PASTEL_NOTEQUALTO_H
+#ifndef PASTELSYS_NOTEQUALTO_H
+#define PASTELSYS_NOTEQUALTO_H
 
 #include "pastel/sys/predicate_concept.h"
 

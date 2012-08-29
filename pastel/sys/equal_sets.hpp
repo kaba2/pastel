@@ -1,5 +1,5 @@
-#ifndef PASTEL_EQUAL_SETS_HPP
-#define PASTEL_EQUAL_SETS_HPP
+#ifndef PASTELSYS_EQUAL_SETS_HPP
+#define PASTELSYS_EQUAL_SETS_HPP
 
 #include "pastel/sys/equal_sets.h"
 #include "pastel/sys/mytypes.h"

@@ -1,5 +1,5 @@
-#ifndef PASTEL_CRSPLINE_HPP
-#define PASTEL_CRSPLINE_HPP
+#ifndef PASTELMATH_CRSPLINE_HPP
+#define PASTELMATH_CRSPLINE_HPP
 
 #include "pastel/math/crspline.h"
 #include "pastel/math/hermite.h"

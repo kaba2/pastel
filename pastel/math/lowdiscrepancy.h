@@ -1,8 +1,8 @@
 // Description: Low discrepancy sequences
 // Detail: Allows to produce van Der Corput, Halton, Hammersley etc sequences.
 
-#ifndef PASTEL_LOWDISCREPANCY_H
-#define PASTEL_LOWDISCREPANCY_H
+#ifndef PASTELMATH_LOWDISCREPANCY_H
+#define PASTELMATH_LOWDISCREPANCY_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

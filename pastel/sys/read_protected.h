@@ -1,7 +1,7 @@
 // Description: Read protection
 
-#ifndef PASTEL_READ_PROTECTED_H
-#define PASTEL_READ_PROTECTED_H
+#ifndef PASTELSYS_READ_PROTECTED_H
+#define PASTELSYS_READ_PROTECTED_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"

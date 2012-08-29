@@ -1,7 +1,7 @@
 // Description: An aggregate file for point policies
 
-#ifndef PASTEL_POINTPOLICIES_H
-#define PASTEL_POINTPOLICIES_H
+#ifndef PASTELSYS_POINTPOLICIES_H
+#define PASTELSYS_POINTPOLICIES_H
 
 #include "pastel/sys/pointpolicy_concept.h"
 

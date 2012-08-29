@@ -1,8 +1,8 @@
 // Description: Factorial
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_FACTORIAL_H
-#define PASTEL_FACTORIAL_H
+#ifndef PASTELSYS_FACTORIAL_H
+#define PASTELSYS_FACTORIAL_H
 
 #include "pastel/sys/mytypes.h"
 

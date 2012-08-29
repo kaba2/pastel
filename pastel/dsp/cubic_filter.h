@@ -2,8 +2,8 @@
 // Detail: Cardinal cubic spline reconstruction filter
 // Documentation: filters.txt
 
-#ifndef PASTEL_CUBIC_FILTER_H
-#define PASTEL_CUBIC_FILTER_H
+#ifndef PASTELDSP_CUBIC_FILTER_H
+#define PASTELDSP_CUBIC_FILTER_H
 
 #include "pastel/dsp/dsplibrary.h"
 #include "pastel/dsp/filter.h"

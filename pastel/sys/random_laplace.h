@@ -1,7 +1,7 @@
 // Description: Laplace-distributed random numbers
 
-#ifndef PASTEL_RANDOM_LAPLACE_H
-#define PASTEL_RANDOM_LAPLACE_H
+#ifndef PASTELSYS_RANDOM_LAPLACE_H
+#define PASTELSYS_RANDOM_LAPLACE_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -2,8 +2,8 @@
 // Detail: Mitchell-Netravali cubic spline reconstruction filter
 // Documentation: filters.txt
 
-#ifndef PASTEL_MITCHELL_FILTER_H
-#define PASTEL_MITCHELL_FILTER_H
+#ifndef PASTELDSP_MITCHELL_FILTER_H
+#define PASTELDSP_MITCHELL_FILTER_H
 
 #include "pastel/dsp/dsplibrary.h"
 #include "pastel/dsp/filter.h"

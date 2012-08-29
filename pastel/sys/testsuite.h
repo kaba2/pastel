@@ -2,8 +2,8 @@
 // Detail: Gathers the results of a unit test into a TestReport.
 // Documentation: unit_testing.txt
 
-#ifndef PASTEL_TESTSUITE_H
-#define PASTEL_TESTSUITE_H
+#ifndef PASTELSYS_TESTSUITE_H
+#define PASTELSYS_TESTSUITE_H
 
 #include "pastel/sys/testreport.h"
 #include "pastel/sys/ensure.h"

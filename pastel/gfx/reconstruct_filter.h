@@ -1,8 +1,8 @@
 // Description: Non-uniform reconstruction using normalized convolution
 // Documentation: reconstruction.txt
 
-#ifndef PASTEL_RECONSTRUCT_FILTER_H
-#define PASTEL_RECONSTRUCT_FILTER_H
+#ifndef PASTELGFX_RECONSTRUCT_FILTER_H
+#define PASTELGFX_RECONSTRUCT_FILTER_H
 
 #include "pastel/sys/view.h"
 

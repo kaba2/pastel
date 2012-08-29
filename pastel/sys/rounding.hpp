@@ -1,5 +1,5 @@
-#ifndef PASTEL_ROUNDING_HPP
-#define PASTEL_ROUNDING_HPP
+#ifndef PASTELSYS_ROUNDING_HPP
+#define PASTELSYS_ROUNDING_HPP
 
 #include "pastel/sys/rounding.h"
 #include "pastel/sys/ensure.h"

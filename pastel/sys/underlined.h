@@ -1,8 +1,8 @@
 // Description: An object for streaming underlined strings
 // Documentation: miscellaneous.txt
 
-#ifndef PASTEL_UNDERLINED_H
-#define PASTEL_UNDERLINED_H
+#ifndef PASTELSYS_UNDERLINED_H
+#define PASTELSYS_UNDERLINED_H
 
 #include <string>
 

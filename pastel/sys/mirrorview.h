@@ -2,8 +2,8 @@
 // Detail: An adapter view to mirror a specific dimension
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_MIRRORVIEW_H
-#define PASTEL_MIRRORVIEW_H
+#ifndef PASTELSYS_MIRRORVIEW_H
+#define PASTELSYS_MIRRORVIEW_H
 
 #include "pastel/sys/mirrorviewcursor.h"
 
