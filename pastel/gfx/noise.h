@@ -1,4 +1,4 @@
-// Description: An aggregate file noise functions
+// Description: An aggregate file noise functions.
 
 #ifndef PASTELGFX_NOISE_H
 #define PASTELGFX_NOISE_H
