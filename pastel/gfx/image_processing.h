@@ -8,7 +8,7 @@
 #include "pastel/gfx/discrete_poisson_disk_pattern.h"
 #include "pastel/gfx/image_quantization.h"
 #include "pastel/gfx/labeling.h"
-#include "pastel/gfx/morphology.h"
+#include "pastel/gfx/image_morphology.h"
 #include "pastel/gfx/structuring_elements.h"
 
 #endif

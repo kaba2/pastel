@@ -107,4 +107,6 @@ namespace Pastel
 
 #include "pastel/math/conformalaffine2d.hpp"
 
+#include "pastel/math/conformalaffine2d_tools.h"
+
 #endif

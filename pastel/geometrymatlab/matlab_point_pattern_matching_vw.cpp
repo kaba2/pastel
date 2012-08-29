@@ -1,12 +1,12 @@
-// Description: point_pattern_match
-// Documentation: point_pattern_match.txt
+// Description: point_pattern_matching_vw
+// Documentation: point_pattern_matching.txt
 
 #include "pastel/matlab/pastelmatlab.h"
 
 #include "pastel/geometry/point_pattern_matching_vw.h"
 #include "pastel/sys/array_pointpolicy.h"
 
-void force_linking_point_pattern_match() {}
+void force_linking_point_pattern_matching_vw() {}
 
 namespace Pastel
 {
@@ -14,7 +14,7 @@ namespace Pastel
 	namespace
 	{
 
-		void matlabPointPatternMatch(
+		void matlabPointPatternMatchVw(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -92,8 +92,8 @@ namespace Pastel
 		void addFunction()
 		{
 			matlabAddFunction(
-				"point_pattern_match",
-				matlabPointPatternMatch);
+				"point_pattern_matching_vw",
+				matlabPointPatternMatchVw);
 		}
 
 		CallFunction call(addFunction);

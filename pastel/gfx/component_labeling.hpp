@@ -12,7 +12,7 @@ namespace Pastel
 	>
 	void labelConnectedComponents(
 		const ConstView<2, bool, Image_ConstView>& image,
-		const View<2, uint32, Result_View>& result);
+		const View<2, uint32, Result_View>& result)
 	{
 		const integer width = image.width();
 		const integer height = image.height();

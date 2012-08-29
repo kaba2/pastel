@@ -1,4 +1,4 @@
-% DocumentationOf: pastel_point_pattern_matching_kr.m
+% DocumentationOf: point_pattern_matching_kr.m
 
 clear all;
 close all;
@@ -67,7 +67,7 @@ n = size(S, d);
 % pointsets using point-pattern matching.
 tic
 [pairSet, nTranslation, bias, success] = ...
-    pastel_point_pattern_matching_kr(M, S, ...
+    point_pattern_matching_kr(M, S, ...
     minMatchRatio, matchingDistance, maxBias, ...
     matchingMode);
 timeSpent = toc;
