@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	namespace Detail_VisitRows
+	namespace VisitRows_
 	{
 
 		template <int N, typename Contained_View, typename RowVisitorFunctor>
@@ -85,7 +85,7 @@ namespace Pastel
 
 		rectangle.max()[freeIndex] = 1;
 
-		const Detail_VisitRows::ConstRowViewVisitor<
+		const VisitRows_::ConstRowViewVisitor<
 			N, ConstView<N, Input_Element, Input_ConstView>, 
 			RowVisitorFunctor>
 			rowViewVisitor(rowVisitor, view, freeIndex);
@@ -113,7 +113,7 @@ namespace Pastel
 
 		rectangle.max()[freeIndex] = 1;
 
-		const Detail_VisitRows::RowViewVisitor<N, 
+		const VisitRows_::RowViewVisitor<N, 
 			View<N, Input_Element, Input_View>, 
 			RowVisitorFunctor>
 			rowViewVisitor(rowVisitor, view, freeIndex);
@@ -121,7 +121,7 @@ namespace Pastel
 		visit(rectangle, rowViewVisitor);
 	}
 
-	namespace Detail_VisitRows
+	namespace VisitRows_
 	{
 
 		template <int N, 
@@ -260,7 +260,7 @@ namespace Pastel
 
 		ENSURE(leftRectangle.max() == rightRectangle.max());
 
-		const Detail_VisitRows::RowViewVisitor2<N, 
+		const VisitRows_::RowViewVisitor2<N, 
 			View<N, Left_Element, Left_View>, 
 			View<N, Right_Element, Right_View>, 
 			RowVisitorFunctor>
@@ -301,7 +301,7 @@ namespace Pastel
 
 		ENSURE(leftRectangle.max() == rightRectangle.max());
 
-		const Detail_VisitRows::ConstRowViewVisitor2<N, 
+		const VisitRows_::ConstRowViewVisitor2<N, 
 			ConstView<N, Left_Element, Left_View>, 
 			View<N, Right_Element, Right_View>, 
 			RowVisitorFunctor>
@@ -342,7 +342,7 @@ namespace Pastel
 
 		ENSURE(leftRectangle.max() == rightRectangle.max());
 
-		const Detail_VisitRows::ConstConstRowViewVisitor2<N, 
+		const VisitRows_::ConstConstRowViewVisitor2<N, 
 			ConstView<N, Left_Element, Left_View>, 
 			ConstView<N, Right_Element, Right_View>, 
 			RowVisitorFunctor>

@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	namespace Detail_PackRange
+	namespace PackRange_
 	{
 
 		template <typename Real>
@@ -79,7 +79,7 @@ namespace Pastel
 		min = infinity<Real>();
 		max = -infinity<Real>();
 
-		Detail_PackRange::MinMaxFunctor<Real> minMaxFunctor(min, max);
+		PackRange_::MinMaxFunctor<Real> minMaxFunctor(min, max);
 		visit(image, minMaxFunctor);
 	}
 
@@ -106,7 +106,7 @@ namespace Pastel
 		{
 			const Real scale = newValueDelta / valueDelta;
 
-			Detail_PackRange::ScalingFunctor<Real> scalingFunctor(
+			PackRange_::ScalingFunctor<Real> scalingFunctor(
 				minValue, newMin, scale);
 
 			visit(image, scalingFunctor);

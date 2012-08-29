@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	namespace Detail_DrawView
+	namespace DrawView_
 	{
 
 		template <typename ColorMixer>
@@ -60,7 +60,7 @@ namespace Pastel
 			return;
 		}
 
-		Detail_DrawView::Visitor<ColorMixer> visitor(colorMixer);
+		DrawView_::Visitor<ColorMixer> visitor(colorMixer);
 
 		visit(constSubView(texture, clippedTextureBox - position),
 			subView(image, clippedTextureBox), visitor);

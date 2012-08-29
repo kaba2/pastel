@@ -16,7 +16,7 @@
 namespace Pastel
 {
 
-	namespace Detail_PointPatternMatch
+	namespace PointPatternMatch_
 	{
 
 		template <typename Real, int N, typename Model_PointPolicy, 
@@ -276,7 +276,7 @@ namespace Pastel
 		ENSURE_OP(maxBias, >=, 0);
 		ENSURE_OP(maxBias, <=, 1);
 
-		Detail_PointPatternMatch::PointPatternKr<
+		PointPatternMatch_::PointPatternKr<
 			Real, N, Model_PointPolicy, 
 			Scene_PointPolicy, SceneModel_Iterator,
 			NormBijection> 

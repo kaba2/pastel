@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	namespace Detail_Convolute
+	namespace Convolute_
 	{
 
 		template <typename Input, typename Output>
@@ -122,14 +122,14 @@ namespace Pastel
 
 		ENSURE(inputView.extent() == outputView.extent());
 
-		Detail_Convolute::ConvoluteFunctor<N, Input_RingElement, Input_ConstView, Filter_RingElement,
+		Convolute_::ConvoluteFunctor<N, Input_RingElement, Input_ConstView, Filter_RingElement,
 			Filter_ConstView, Output_RingElement, Output_View, ConvoluteProcessFunctor>
 			convoluteFunctor(inputView, filterView, outputView, processFunctor);
 
 		visitPosition(inputView, convoluteFunctor);
 	}
 
-	namespace Detail_Convolute
+	namespace Convolute_
 	{
 
 		template <typename Type>
@@ -157,12 +157,12 @@ namespace Pastel
 		const ConstView<N, Filter_RingElement, Filter_ConstView>& filterView,
 		const View<N, Output_RingElement, Output_View>& outputView)
 	{
-		Detail_Convolute::SkipZero<Input_RingElement> skipZero;
+		Convolute_::SkipZero<Input_RingElement> skipZero;
 
 		Pastel::convolute(inputView, filterView, outputView, skipZero);
 	}
 
-	namespace Detail_GeneralizedConvolute
+	namespace GeneralizedConvolute_
 	{
 
 		template <
@@ -244,7 +244,7 @@ namespace Pastel
 				{
 					const Radius_Element radius = *xyRadiusCursor;
 
-					Detail_GeneralizedConvolute::
+					GeneralizedConvolute_::
 						ColorMixer<Input_Element, Output_Element, Filter_Element>
 						colorMixer(height);
 
@@ -279,7 +279,7 @@ namespace Pastel
 		const ConstView<2, Radius_Element, Radius_ConstView>& radiusView,
 		const View<2, Output_Element, Output_View>& outputView)
 	{
-		Detail_Convolute::SkipZero<Input_Element> skipZero;
+		Convolute_::SkipZero<Input_Element> skipZero;
 
 		Pastel::generalizedConvolute(inputView, filterView,
 			radiusView, outputView, skipZero);

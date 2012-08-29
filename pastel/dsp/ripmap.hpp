@@ -3,7 +3,7 @@
 
 #include "pastel/dsp/ripmap.h"
 #include "pastel/dsp/filter.h"
-#include "pastel/dsp/resample.h"
+#include "pastel/dsp/resampling.h"
 
 #include "pastel/sys/clampextender.h"
 #include "pastel/sys/array.h"
@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	namespace Detail_ComputeRipMaps
+	namespace ComputeRipMaps_
 	{
 
 		template <typename Type, int N>
@@ -115,7 +115,7 @@ namespace Pastel
 				arrayView(imageArray(Vector<integer, N>(0))));
 		}
 
-		Detail_ComputeRipMaps::Visitor<Type, N> visitor(imageArray, filter);
+		ComputeRipMaps_::Visitor<Type, N> visitor(imageArray, filter);
 		visitPosition(arrayView(imageArray), visitor);
 
 		ripMapArray_.swap(imageArray);

@@ -16,7 +16,7 @@
 namespace Pastel
 {
 
-	namespace Detail_DrawTexturedTriangle
+	namespace DrawTexturedTriangle_
 	{
 
 		class TextureVertex
@@ -99,7 +99,7 @@ namespace Pastel
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
-		typedef Detail_DrawTexturedTriangle::TextureVertex Vertex;
+		typedef DrawTexturedTriangle_::TextureVertex Vertex;
 
 		// Order vertices vertically.
 
@@ -109,7 +109,7 @@ namespace Pastel
 		yVertex.push_back(Vertex(triangle[1], uvTriangle[1], 1));
 		yVertex.push_back(Vertex(triangle[2], uvTriangle[2], 2));
 		std::sort(yVertex.begin(), yVertex.end(),
-			Detail_DrawTexturedTriangle::VerticalComparison());
+			DrawTexturedTriangle_::VerticalComparison());
 
 		const Vertex& yMinVertex = yVertex[0];
 		const Vertex& yMidVertex = yVertex[1];
@@ -123,7 +123,7 @@ namespace Pastel
 		xVertex.push_back(Vertex(triangle[1], uvTriangle[1], 1));
 		xVertex.push_back(Vertex(triangle[2], uvTriangle[2], 2));
 		std::sort(xVertex.begin(), xVertex.end(),
-			Detail_DrawTexturedTriangle::HorizontalComparison());
+			DrawTexturedTriangle_::HorizontalComparison());
 
 		const Vertex& xMinVertex = xVertex[0];
 		const Vertex& xMidVertex = xVertex[1];

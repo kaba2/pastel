@@ -12,7 +12,7 @@ namespace Pastel
 
 	// ConstView
 
-	namespace Detail_View
+	namespace View_
 	{
 
 		template <int N, typename Type, typename Contained_ConstView>
@@ -71,10 +71,10 @@ namespace Pastel
 
 	template <int N, typename Type, typename Contained_ConstView>
 	class ConstView
-		: public Detail_View::ConstViewBase<N, Type, Contained_ConstView>
+		: public View_::ConstViewBase<N, Type, Contained_ConstView>
 	{
 	private:
-		typedef Detail_View::ConstViewBase<N, Type, Contained_ConstView> Base;
+		typedef View_::ConstViewBase<N, Type, Contained_ConstView> Base;
 
 	public:
 		typedef typename Contained_ConstView::ConstCursor ConstCursor;
@@ -99,10 +99,10 @@ namespace Pastel
 
 	template <typename Type, typename Contained_ConstView>
 	class ConstView<1, Type, Contained_ConstView>
-		: public Detail_View::ConstViewBase<1, Type, Contained_ConstView>
+		: public View_::ConstViewBase<1, Type, Contained_ConstView>
 	{
 	private:
-		typedef Detail_View::ConstViewBase<1, Type, Contained_ConstView> Base;
+		typedef View_::ConstViewBase<1, Type, Contained_ConstView> Base;
 
 	public:
 		typedef typename Contained_ConstView::ConstCursor ConstCursor;
@@ -145,10 +145,10 @@ namespace Pastel
 
 	template <typename Type, typename Contained_ConstView>
 	class ConstView<2, Type, Contained_ConstView>
-		: public Detail_View::ConstViewBase<2, Type, Contained_ConstView>
+		: public View_::ConstViewBase<2, Type, Contained_ConstView>
 	{
 	private:
-		typedef Detail_View::ConstViewBase<2, Type, Contained_ConstView> Base;
+		typedef View_::ConstViewBase<2, Type, Contained_ConstView> Base;
 
 	public:
 		typedef typename Contained_ConstView::ConstCursor ConstCursor;
@@ -196,10 +196,10 @@ namespace Pastel
 
 	template <typename Type, typename Contained_ConstView>
 	class ConstView<3, Type, Contained_ConstView>
-		: public Detail_View::ConstViewBase<3, Type, Contained_ConstView>
+		: public View_::ConstViewBase<3, Type, Contained_ConstView>
 	{
 	private:
-		typedef Detail_View::ConstViewBase<3, Type, Contained_ConstView> Base;
+		typedef View_::ConstViewBase<3, Type, Contained_ConstView> Base;
 
 	public:
 		typedef typename Contained_ConstView::ConstCursor ConstCursor;
@@ -259,7 +259,7 @@ namespace Pastel
 
 	// View
 
-	namespace Detail_View
+	namespace View_
 	{
 
 		template <int N, typename Type, typename Contained_View>
@@ -314,10 +314,10 @@ namespace Pastel
 
 	template <int N, typename Type, typename Contained_View>
 	class View
-		: public Detail_View::ViewBase<N, Type, Contained_View>
+		: public View_::ViewBase<N, Type, Contained_View>
 	{
 	private:
-		typedef Detail_View::ViewBase<N, Type, Contained_View> Base;
+		typedef View_::ViewBase<N, Type, Contained_View> Base;
 
 	public:
 		// Needed because base class is dependent on
@@ -351,10 +351,10 @@ namespace Pastel
 
 	template <typename Type, typename Contained_View>
 	class View<1, Type, Contained_View>
-		: public Detail_View::ViewBase<1, Type, Contained_View>
+		: public View_::ViewBase<1, Type, Contained_View>
 	{
 	private:
-		typedef Detail_View::ViewBase<1, Type, Contained_View> Base;
+		typedef View_::ViewBase<1, Type, Contained_View> Base;
 
 	public:
 		// Needed because base class is dependent on
@@ -403,10 +403,10 @@ namespace Pastel
 
 	template <typename Type, typename Contained_View>
 	class View<2, Type, Contained_View>
-		: public Detail_View::ViewBase<2, Type, Contained_View>
+		: public View_::ViewBase<2, Type, Contained_View>
 	{
 	private:
-		typedef Detail_View::ViewBase<2, Type, Contained_View> Base;
+		typedef View_::ViewBase<2, Type, Contained_View> Base;
 
 	public:
 		// Needed because base class is dependent on
@@ -460,10 +460,10 @@ namespace Pastel
 
 	template <typename Type, typename Contained_View>
 	class View<3, Type, Contained_View>
-		: public Detail_View::ViewBase<3, Type, Contained_View>
+		: public View_::ViewBase<3, Type, Contained_View>
 	{
 	private:
-		typedef Detail_View::ViewBase<3, Type, Contained_View> Base;
+		typedef View_::ViewBase<3, Type, Contained_View> Base;
 
 	public:
 		// Needed because base class is dependent on

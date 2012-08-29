@@ -1,7 +1,7 @@
-#ifndef PASTELDSP_RESAMPLE_HPP
-#define PASTELDSP_RESAMPLE_HPP
+#ifndef PASTELDSP_RESAMPLING_HPP
+#define PASTELDSP_RESAMPLING_HPP
 
-#include "pastel/dsp/resample.h"
+#include "pastel/dsp/resampling.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"

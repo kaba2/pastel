@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	namespace Detail_Linear
+	namespace Linear_
 	{
 
 		template <typename Type, int N, typename Vector_Range>
@@ -47,7 +47,7 @@ namespace Pastel
 		const integer n = position.size();
 		ENSURE_OP(data.size(), >=, ((integer)1 << n));
 
-		return Detail_Linear::linear<Type>(position, data, 0, 0);
+		return Linear_::linear<Type>(position, data, 0, 0);
 	}
 
 	template <

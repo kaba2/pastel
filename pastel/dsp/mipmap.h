@@ -95,4 +95,6 @@ namespace Pastel
 
 #include "pastel/dsp/mipmap.hpp"
 
+#include "pastel/dsp/mipmap_tools.h"
+
 #endif

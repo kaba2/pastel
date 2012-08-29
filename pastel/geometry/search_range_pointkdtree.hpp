@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	namespace Detail_SearchRange
+	namespace SearchRange_
 	{
 
 		template <typename OutputIterator>
@@ -55,7 +55,7 @@ namespace Pastel
 		Point_ConstIterator_Iterator result,
 		integer bucketSize)
 	{
-		Detail_SearchRange::Search_Reporter_SearchRange<Point_ConstIterator_Iterator>
+		SearchRange_::Search_Reporter_SearchRange<Point_ConstIterator_Iterator>
 			reporter(result);
 
 		searchRangeAlgorithm(kdTree, range, reporter, bucketSize);

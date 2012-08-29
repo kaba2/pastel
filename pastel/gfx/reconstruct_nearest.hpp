@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	namespace Detail_ReconstructNearest
+	namespace ReconstructNearest_
 	{
 
 		template <typename Real, int N, typename Data>
@@ -151,8 +151,8 @@ namespace Pastel
 		ENSURE_OP(kNearest, >, 0);
 		ENSURE2(points == dataList.size(), points, dataList.size());
 
-		typedef Detail_ReconstructNearest::DataPoint<Real, N, Data> DataPoint;
-		typedef Detail_ReconstructNearest::DataPolicy<Real, N, Data> DataPolicy;
+		typedef ReconstructNearest_::DataPoint<Real, N, Data> DataPoint;
+		typedef ReconstructNearest_::DataPolicy<Real, N, Data> DataPolicy;
 
 		DataPolicy pointPolicy(n);
 
@@ -176,7 +176,7 @@ namespace Pastel
 
 		kdTree.refine(SlidingMidpoint2_SplitRule());
 
-		Detail_ReconstructNearest::ReconstructFunctor<Real, N, DataPolicy>
+		ReconstructNearest_::ReconstructFunctor<Real, N, DataPolicy>
 			reconstructFunctor(kdTree, kNearest, maxRelativeError);
 
 		visitPosition(

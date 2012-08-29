@@ -176,7 +176,7 @@ namespace Pastel
 		return result;
 	}
 
-	namespace Detail_Norm2
+	namespace Norm2_
 	{
 
 		template <typename Real, typename NormBijection>
@@ -208,7 +208,7 @@ namespace Pastel
 	{
 		return std::accumulate(
 			matrix.begin(), matrix.end(), (Real)0,
-			Detail_Norm2::AddAxis<Real, NormBijection>(normBijection));
+			Norm2_::AddAxis<Real, NormBijection>(normBijection));
 		/*
 		return std::accumulate(
 			matrix.begin(), matrix.end(), (Real)0,

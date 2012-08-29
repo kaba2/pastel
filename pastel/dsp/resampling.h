@@ -1,7 +1,7 @@
 // Description: Signal resampling
 
-#ifndef PASTELDSP_RESAMPLE_H
-#define PASTELDSP_RESAMPLE_H
+#ifndef PASTELDSP_RESAMPLING_H
+#define PASTELDSP_RESAMPLING_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"
@@ -122,6 +122,6 @@ namespace Pastel
 
 }
 
-#include "pastel/dsp/resample.hpp"
+#include "pastel/dsp/resampling.hpp"
 
 #endif

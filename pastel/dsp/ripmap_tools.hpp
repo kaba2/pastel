@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	namespace Detail_RipMapTransform
+	namespace RipMapTransform_
 	{
 
 		template <typename Type, int N, typename TransformFunctor>
@@ -37,7 +37,7 @@ namespace Pastel
 		RipMap<Type, N>& ripMap,
 		const TransformFunctor& transform)
 	{
-		Detail_RipMapTransform::Visitor<Type, N, TransformFunctor> visitor(transform);
+		RipMapTransform_::Visitor<Type, N, TransformFunctor> visitor(transform);
 
 		visit(ripMap.view(), visitor);
 	}

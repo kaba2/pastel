@@ -16,7 +16,7 @@
 namespace Pastel
 {
 
-	namespace Detail_SolidTriangle
+	namespace SolidTriangle_
 	{
 
 		class Vertex
@@ -64,7 +64,7 @@ namespace Pastel
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
-		typedef Detail_SolidTriangle::Vertex Vertex;
+		typedef SolidTriangle_::Vertex Vertex;
 
 		std::vector<Vertex> vertex;
 		vertex.reserve(3);

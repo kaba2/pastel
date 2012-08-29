@@ -36,7 +36,7 @@ namespace Pastel
 			sceneSphere.radius() / (2 * std::sqrt((Real)pointSet.size()));
 	}
 
-	namespace Detail_PointPatternMatch
+	namespace PointPatternMatch_
 	{
 
 		template <typename Real, int N, typename ScenePolicy, typename ModelPolicy>
@@ -532,7 +532,7 @@ namespace Pastel
 		ENSURE_OP(confidence, >=, 0);
 		ENSURE_OP(confidence, <=, 1);
 
-		Detail_PointPatternMatch::PatternMatcher<Real, N, ScenePolicy, ModelPolicy>
+		PointPatternMatch_::PatternMatcher<Real, N, ScenePolicy, ModelPolicy>
 			patternMatcher(
 			sceneTree, modelTree,
 			minMatchRatio,

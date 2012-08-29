@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	namespace Detail_ComputeSummedAreaTable
+	namespace ComputeSummedAreaTable_
 	{
 
 		template <int N, typename Type, typename Image_ConstView, typename Sum_View>
@@ -62,7 +62,7 @@ namespace Pastel
 		const ConstView<N, Type, Image_ConstView>& image,
 		const View<N, Type, Sum_View>& sumImage)
 	{
-		Detail_ComputeSummedAreaTable::Visitor<N, Type, Image_ConstView, Sum_View>
+		ComputeSummedAreaTable_::Visitor<N, Type, Image_ConstView, Sum_View>
 			visitor(image, sumImage);
 		visitPosition(image, sumImage, visitor);
 	}

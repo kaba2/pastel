@@ -16,7 +16,7 @@
 namespace Pastel
 {
 
-	namespace Detail_SparseIterator
+	namespace SparseIterator_
 	{
 
 		template <typename Derived, typename Iterator>
@@ -32,10 +32,10 @@ namespace Pastel
 
 		template <typename Derived, typename Iterator>
 		class SparseIteratorBase
-			: public Detail_SparseIterator::SparseIteratorHelperBase<Derived, Iterator>
+			: public SparseIterator_::SparseIteratorHelperBase<Derived, Iterator>
 		{
 		private:
-			typedef Detail_SparseIterator::SparseIteratorHelperBase<Derived, Iterator>
+			typedef SparseIterator_::SparseIteratorHelperBase<Derived, Iterator>
 				Base;
 
 		public:
@@ -120,10 +120,10 @@ namespace Pastel
 
 	template <typename Iterator>
 	class SparseIterator
-		: public Detail_SparseIterator::SparseIteratorBase<SparseIterator<Iterator>, Iterator>
+		: public SparseIterator_::SparseIteratorBase<SparseIterator<Iterator>, Iterator>
 	{
 	private:
-		typedef Detail_SparseIterator::SparseIteratorBase<SparseIterator<Iterator>, Iterator>
+		typedef SparseIterator_::SparseIteratorBase<SparseIterator<Iterator>, Iterator>
 			Base;
 
 		template <typename ConstIterator>
@@ -145,10 +145,10 @@ namespace Pastel
 
 	template <typename ConstIterator>
 	class ConstSparseIterator
-		: public Detail_SparseIterator::SparseIteratorBase<ConstSparseIterator<ConstIterator>, ConstIterator>
+		: public SparseIterator_::SparseIteratorBase<ConstSparseIterator<ConstIterator>, ConstIterator>
 	{
 	private:
-		typedef Detail_SparseIterator::SparseIteratorBase<ConstSparseIterator<ConstIterator>, ConstIterator>
+		typedef SparseIterator_::SparseIteratorBase<ConstSparseIterator<ConstIterator>, ConstIterator>
 			Base;
 
 	public:

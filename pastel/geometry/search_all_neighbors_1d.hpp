@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	namespace Detail_SearchAllNeighbors1d
+	namespace SearchAllNeighbors1d_
 	{
 
 		template <typename Real, typename ConstIterator, typename NormBijection>
@@ -172,7 +172,7 @@ namespace Pastel
 					leftIter, rightIter, keyValue(position, index));
 				ASSERT(iter != rightIter);
 
-				Detail_SearchAllNeighbors1d::assignNearest<Real>(
+				SearchAllNeighbors1d_::assignNearest<Real>(
 					leftIter, rightIter, iter, i, kNearest,
 					normBijection,
 					nearestArray, distanceArray);
@@ -190,7 +190,7 @@ namespace Pastel
 					begin, end, keyValue(position, index));
 				ASSERT(iter != end);
 
-				Detail_SearchAllNeighbors1d::assignNearest<Real>(
+				SearchAllNeighbors1d_::assignNearest<Real>(
 					begin, end, iter, i, kNearest,
 					normBijection,
 					nearestArray, distanceArray);
@@ -299,7 +299,7 @@ namespace Pastel
 					position - leftIter->key());
 			}
 
-			Detail_SearchAllNeighbors1d::assignNearest<Real>(
+			SearchAllNeighbors1d_::assignNearest<Real>(
 				leftIter, rightIter, iter, iter->value(),
 				normBijection,
 				nearestArray, distanceArray);

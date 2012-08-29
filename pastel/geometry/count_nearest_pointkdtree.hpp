@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	namespace Detail_Count_Nearest
+	namespace Count_Nearest_
 	{
 
 		template <typename Real, int N, typename PointPolicy>
@@ -68,7 +68,7 @@ namespace Pastel
 			return kdTree.points();
 		}
 
-		typedef Detail_Count_Nearest::CandidateFunctor<Real, N, PointPolicy>
+		typedef Count_Nearest_::CandidateFunctor<Real, N, PointPolicy>
 			CandidateFunctor;
 
 		integer nearestCount = 0;

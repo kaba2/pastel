@@ -21,7 +21,7 @@ namespace Pastel
 		return adaptedView(arrayView(image), Rgb888Adapter());
 	}
 
-	namespace Detail_ScaleGrayScaleImage
+	namespace ScaleGrayScaleImage_
 	{
 
 		template <typename Type>
@@ -91,11 +91,11 @@ namespace Pastel
 		real32 min = infinity<real32>();
 		real32 max = -infinity<real32>();
 
-		Detail_ScaleGrayScaleImage::MinMaxVisitor<real32> minMaxVisitor(min, max);
+		ScaleGrayScaleImage_::MinMaxVisitor<real32> minMaxVisitor(min, max);
 
 		visit(image, minMaxVisitor);
 
-		Detail_ScaleGrayScaleImage::ScaleVisitor<real32> scaleVisitor(min, max);
+		ScaleGrayScaleImage_::ScaleVisitor<real32> scaleVisitor(min, max);
 
 		visit(image, scaleVisitor);
 	}

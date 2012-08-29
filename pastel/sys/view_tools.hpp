@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	namespace Detail_Clear
+	namespace Clear_
 	{
 
 		template <typename Type, typename Reference>
@@ -37,11 +37,11 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<N, Type, Image_View>& image)
 	{
-		Detail_Clear::Visitor<Type, typename Image_View::Reference> visitor(color);
+		Clear_::Visitor<Type, typename Image_View::Reference> visitor(color);
 		visit(image, visitor);
 	}
 
-	namespace Detail_Copy
+	namespace Copy_
 	{
 
 		template <typename Input_ConstReference, typename Output_Reference>
@@ -68,13 +68,13 @@ namespace Pastel
 		const ConstView<N, Input_Element, Input_ConstView>& input,
 		const View<N, Output_Element, Output_View>& output)
 	{
-		Detail_Copy::Visitor<
+		Copy_::Visitor<
 			typename Input_ConstView::ConstReference,
 			typename Output_View::Reference> visitor;
 		visit(input, output, visitor);
 	}
 
-	namespace Detail_Transform
+	namespace Transform_
 	{
 
 		template <typename Input_ConstReference, typename Output_Reference,
@@ -113,7 +113,7 @@ namespace Pastel
 		const View<N, Output_Element, Output_View>& output,
 		const TransformFunctor& transform)
 	{
-		Detail_Transform::Visitor<
+		Transform_::Visitor<
 			typename Input_ConstView::ConstReference,
 			typename Output_View::Reference, TransformFunctor>
 			visitor(transform);
