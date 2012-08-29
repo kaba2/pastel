@@ -3,5 +3,4 @@ Algorithms
 
 [[Parent]]: pastelsys.txt
 
-This section contains algorithms which work with the data structures
-of PastelSys or are otherwise fundamental.
+This section contains general-purpose algorithms.

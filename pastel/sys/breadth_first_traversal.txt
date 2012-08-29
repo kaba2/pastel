@@ -5,7 +5,7 @@ Breadth-first traversal
 
 The _breadth-first traversal_ is an algorithm for traversing the 
 vertices of a graph. The `BreadthFirst_GraphTraversal` class provides 
-algorithm-objects for breadth-first traversal.
+an algorithm-object for breadth-first traversal.
 
 Algorithm
 ---------

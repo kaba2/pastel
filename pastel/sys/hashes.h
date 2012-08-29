@@ -1,5 +1,4 @@
-// Description: An aggregate file for hashes.
-// Documentation: hashing.txt
+// Description: An aggregate file for hash objects.
 
 #ifndef PASTELSYS_HASHES_H
 #define PASTELSYS_HASHES_H

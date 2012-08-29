@@ -7,18 +7,6 @@
     <Filter Include="Data structures\Array">
       <UniqueIdentifier>{7f9f7c16-c4b0-4616-9514-2e07849f340f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data structures\FastList">
-      <UniqueIdentifier>{ed37438f-7c40-496b-bfe2-71e7ca4d8aeb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data structures\Views">
-      <UniqueIdentifier>{ab8e924c-50d9-4258-9358-b979ec1091b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data structures\Views\Extended ConstView">
-      <UniqueIdentifier>{2b4b1267-e624-4935-adef-b0565d5f6de2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data structures\Views\Concrete views">
-      <UniqueIdentifier>{aa4b59af-3b1c-4066-a47b-ac51d2dd592c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data structures\Binary trees">
       <UniqueIdentifier>{b47fa53d-445b-40ce-a24b-8b796db7adcb}</UniqueIdentifier>
     </Filter>
@@ -205,12 +193,6 @@
     <Filter Include="Generic programming\Algorithm objects\Predicates">
       <UniqueIdentifier>{d9ac788b-ed4a-4cef-b0cf-301a68e9198b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generic programming\As_Pair concept">
-      <UniqueIdentifier>{cf02d9d6-d132-4618-a097-aab59d48dd7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data structures\Binary trees\Generic tree">
-      <UniqueIdentifier>{ab79aac2-1d7f-4e12-ae5b-b8cf151be275}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Memory management\Cloning pointer">
       <UniqueIdentifier>{7a18128a-56dd-472e-ad6b-6b4f2f9a7aea}</UniqueIdentifier>
     </Filter>
@@ -271,9 +253,6 @@
     <Filter Include="Algorithms\Graph algorithms\Graph traversal\Depth-first traversal">
       <UniqueIdentifier>{b8fc0ab2-2d16-4f2d-9dec-c242d52820a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data structures\Minimal automaton">
-      <UniqueIdentifier>{ceae851e-7180-442d-9b65-d7de6a86012d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data structures\Automaton">
       <UniqueIdentifier>{99dc3905-0adb-4444-888f-d014bc0e2ea4}</UniqueIdentifier>
     </Filter>
@@ -304,6 +283,30 @@
     <Filter Include="Data structures\Hashing\Hash objects">
       <UniqueIdentifier>{a8a23c9f-15ee-47dd-8011-70c763235441}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Undocumented">
+      <UniqueIdentifier>{8e35614c-ec87-4132-9cd9-64ad307fb9ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Views">
+      <UniqueIdentifier>{ab8e924c-50d9-4258-9358-b979ec1091b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Views\Extended ConstView">
+      <UniqueIdentifier>{2b4b1267-e624-4935-adef-b0565d5f6de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Views\Concrete views">
+      <UniqueIdentifier>{aa4b59af-3b1c-4066-a47b-ac51d2dd592c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Minimal automaton">
+      <UniqueIdentifier>{ceae851e-7180-442d-9b65-d7de6a86012d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\FastList">
+      <UniqueIdentifier>{ed37438f-7c40-496b-bfe2-71e7ca4d8aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Generic tree">
+      <UniqueIdentifier>{ab79aac2-1d7f-4e12-ae5b-b8cf151be275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\As_Pair concept">
+      <UniqueIdentifier>{cf02d9d6-d132-4618-a097-aab59d48dd7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -322,121 +325,121 @@
       <Filter>Data structures\Array</Filter>
     </ClInclude>
     <ClInclude Include="fastlist.h">
-      <Filter>Data structures\FastList</Filter>
+      <Filter>Undocumented\FastList</Filter>
     </ClInclude>
     <ClInclude Include="fastlist.hpp">
-      <Filter>Data structures\FastList</Filter>
+      <Filter>Undocumented\FastList</Filter>
     </ClInclude>
     <ClInclude Include="fastlist_tools.h">
-      <Filter>Data structures\FastList</Filter>
+      <Filter>Undocumented\FastList</Filter>
     </ClInclude>
     <ClInclude Include="fastlist_tools.hpp">
-      <Filter>Data structures\FastList</Filter>
+      <Filter>Undocumented\FastList</Filter>
     </ClInclude>
     <ClInclude Include="fastlistprivate.hpp">
-      <Filter>Data structures\FastList</Filter>
+      <Filter>Undocumented\FastList</Filter>
     </ClInclude>
     <ClInclude Include="view.h">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_tools.h">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_tools.hpp">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit.h">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit.hpp">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit_more.h">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit_more.hpp">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit_more2.h">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit_more2.hpp">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="views.h">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </ClInclude>
     <ClInclude Include="borderedconstview.h">
-      <Filter>Data structures\Views\Extended ConstView</Filter>
+      <Filter>Undocumented\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="clampedconstview.h">
-      <Filter>Data structures\Views\Extended ConstView</Filter>
+      <Filter>Undocumented\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="extendedconstview.h">
-      <Filter>Data structures\Views\Extended ConstView</Filter>
+      <Filter>Undocumented\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="extendedconstviews.h">
-      <Filter>Data structures\Views\Extended ConstView</Filter>
+      <Filter>Undocumented\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="mirroredconstview.h">
-      <Filter>Data structures\Views\Extended ConstView</Filter>
+      <Filter>Undocumented\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="repeatedconstview.h">
-      <Filter>Data structures\Views\Extended ConstView</Filter>
+      <Filter>Undocumented\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="adaptedview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="adaptedviewcursor.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="arrayview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="concrete_views.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="cursorview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="mirrorview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="mirrorviewcursor.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="permutedview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="permutedviewcursor.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="rowview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="rowviewcursor.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="sliceview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="sliceviewcursor.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="sparseview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="sparseviewcursor.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="subview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="transformedview.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="transformedviewcursor.h">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="redblacktree.h">
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
@@ -466,13 +469,13 @@
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
     </ClInclude>
     <ClInclude Include="tree.h">
-      <Filter>Data structures\Binary trees\Generic tree</Filter>
+      <Filter>Undocumented\Generic tree</Filter>
     </ClInclude>
     <ClInclude Include="tree_iterator.h">
-      <Filter>Data structures\Binary trees\Generic tree</Filter>
+      <Filter>Undocumented\Generic tree</Filter>
     </ClInclude>
     <ClInclude Include="tree_node.h">
-      <Filter>Data structures\Binary trees\Generic tree</Filter>
+      <Filter>Undocumented\Generic tree</Filter>
     </ClInclude>
     <ClInclude Include="addressof.h">
       <Filter>Memory management</Filter>
@@ -1083,15 +1086,6 @@
     <ClInclude Include="anystorage.h">
       <Filter>Not sure if good ideas\AnyStorage</Filter>
     </ClInclude>
-    <ClInclude Include="isnan.h">
-      <Filter>Algorithms</Filter>
-    </ClInclude>
-    <ClInclude Include="syscommon.h">
-      <Filter>Algorithms</Filter>
-    </ClInclude>
-    <ClInclude Include="syscommon.hpp">
-      <Filter>Algorithms</Filter>
-    </ClInclude>
     <ClInclude Include="string_algorithms.h">
       <Filter>Algorithms\String algorithms</Filter>
     </ClInclude>
@@ -1243,16 +1237,16 @@
       <Filter>Generic programming\Algorithm objects\Predicates</Filter>
     </ClInclude>
     <ClInclude Include="as_pair_concept.h">
-      <Filter>Generic programming\As_Pair concept</Filter>
+      <Filter>Undocumented\As_Pair concept</Filter>
     </ClInclude>
     <ClInclude Include="keyvalue_as_pair.h">
-      <Filter>Generic programming\As_Pair concept</Filter>
+      <Filter>Undocumented\As_Pair concept</Filter>
     </ClInclude>
     <ClInclude Include="stdpair_as_pair.h">
-      <Filter>Generic programming\As_Pair concept</Filter>
+      <Filter>Undocumented\As_Pair concept</Filter>
     </ClInclude>
     <ClInclude Include="tuple_as_pair.h">
-      <Filter>Generic programming\As_Pair concept</Filter>
+      <Filter>Undocumented\As_Pair concept</Filter>
     </ClInclude>
     <ClInclude Include="pastelsys.h" />
     <ClInclude Include="biginteger.hpp">
@@ -1415,10 +1409,10 @@
       <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
     </ClInclude>
     <ClInclude Include="minimal_automaton.h">
-      <Filter>Data structures\Minimal automaton</Filter>
+      <Filter>Undocumented\Minimal automaton</Filter>
     </ClInclude>
     <ClInclude Include="minimal_automaton_fwd.h">
-      <Filter>Data structures\Minimal automaton</Filter>
+      <Filter>Undocumented\Minimal automaton</Filter>
     </ClInclude>
     <ClInclude Include="automaton_transition_label.h">
       <Filter>Data structures\Automaton</Filter>
@@ -1452,12 +1446,6 @@
     </ClInclude>
     <ClInclude Include="automaton_determinization_concepts.h">
       <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
-    </ClInclude>
-    <ClInclude Include="exactly_equal.h">
-      <Filter>Algorithms\Sequence algorithms</Filter>
-    </ClInclude>
-    <ClInclude Include="exactly_equal.hpp">
-      <Filter>Algorithms\Sequence algorithms</Filter>
     </ClInclude>
     <ClInclude Include="identity_function.h">
       <Filter>Generic programming\Algorithm objects\Functions</Filter>
@@ -1562,7 +1550,19 @@
       <Filter>Generic programming\Algorithm objects\Range algorithms</Filter>
     </ClInclude>
     <ClInclude Include="as_pair.h">
-      <Filter>Generic programming\As_Pair concept</Filter>
+      <Filter>Undocumented\As_Pair concept</Filter>
+    </ClInclude>
+    <ClInclude Include="syscommon.h">
+      <Filter>Undocumented</Filter>
+    </ClInclude>
+    <ClInclude Include="syscommon.hpp">
+      <Filter>Undocumented</Filter>
+    </ClInclude>
+    <ClInclude Include="isnan.h">
+      <Filter>Undocumented</Filter>
+    </ClInclude>
+    <ClInclude Include="trees.h">
+      <Filter>Data structures\Binary trees</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1573,16 +1573,16 @@
       <Filter>Data structures\Array</Filter>
     </None>
     <None Include="fastlist.txt">
-      <Filter>Data structures\FastList</Filter>
+      <Filter>Undocumented\FastList</Filter>
     </None>
     <None Include="views.txt">
-      <Filter>Data structures\Views</Filter>
+      <Filter>Undocumented\Views</Filter>
     </None>
     <None Include="extendedconstviews.txt">
-      <Filter>Data structures\Views\Extended ConstView</Filter>
+      <Filter>Undocumented\Views\Extended ConstView</Filter>
     </None>
     <None Include="concrete_views.txt">
-      <Filter>Data structures\Views\Concrete views</Filter>
+      <Filter>Undocumented\Views\Concrete views</Filter>
     </None>
     <None Include="redblacktree.txt">
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
@@ -1591,10 +1591,10 @@
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
     </None>
     <None Include="tree.txt">
-      <Filter>Data structures\Binary trees\Generic tree</Filter>
+      <Filter>Undocumented\Generic tree</Filter>
     </None>
     <None Include="tree_design.txt">
-      <Filter>Data structures\Binary trees\Generic tree</Filter>
+      <Filter>Undocumented\Generic tree</Filter>
     </None>
     <None Include="memory.txt">
       <Filter>Memory management</Filter>
@@ -1884,9 +1884,6 @@
     <None Include="incidence_graph.txt">
       <Filter>Data structures\Incidence graph</Filter>
     </None>
-    <None Include="incidence_graph_notes.txt">
-      <Filter>Data structures\Incidence graph</Filter>
-    </None>
     <None Include="automaton.txt">
       <Filter>Data structures\Automaton</Filter>
     </None>
@@ -1936,10 +1933,7 @@
       <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
     </None>
     <None Include="minimal_automaton.txt">
-      <Filter>Data structures\Minimal automaton</Filter>
-    </None>
-    <None Include="automaton_design.txt">
-      <Filter>Data structures\Automaton</Filter>
+      <Filter>Undocumented\Minimal automaton</Filter>
     </None>
     <None Include="techniques_customization.txt">
       <Filter>Documentation</Filter>
@@ -1987,7 +1981,7 @@
       <Filter>Generic programming\Algorithm objects\Range algorithms</Filter>
     </None>
     <None Include="as_pair.txt">
-      <Filter>Generic programming\As_Pair concept</Filter>
+      <Filter>Undocumented\As_Pair concept</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

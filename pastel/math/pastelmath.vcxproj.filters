@@ -40,9 +40,6 @@
     <Filter Include="Common">
       <UniqueIdentifier>{885a09f8-fe01-42cc-811e-3dc7474204ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Uniform distortion">
-      <UniqueIdentifier>{823fe47e-bb15-4ed1-8a4a-06408acbcd24}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Coordinate conversions">
       <UniqueIdentifier>{1856c0e1-f978-4a4a-8151-5d7ec58aee9d}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,9 @@
     </Filter>
     <Filter Include="Undocumented\Polynomials">
       <UniqueIdentifier>{d825242e-c60b-416d-ab3c-32472d496f99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Uniform distortions">
+      <UniqueIdentifier>{823fe47e-bb15-4ed1-8a4a-06408acbcd24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -199,10 +199,10 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="uniform_distortion.h">
-      <Filter>Uniform distortion</Filter>
+      <Filter>Uniform distortions</Filter>
     </ClInclude>
     <ClInclude Include="uniform_distortion.hpp">
-      <Filter>Uniform distortion</Filter>
+      <Filter>Uniform distortions</Filter>
     </ClInclude>
     <ClInclude Include="polynomial.h">
       <Filter>Undocumented\Polynomials</Filter>
@@ -355,7 +355,7 @@
       <Filter>Common</Filter>
     </None>
     <None Include="uniform_distortion.txt">
-      <Filter>Uniform distortion</Filter>
+      <Filter>Uniform distortions</Filter>
     </None>
     <None Include="polynomial.txt">
       <Filter>Undocumented\Polynomials</Filter>

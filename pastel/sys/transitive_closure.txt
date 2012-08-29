@@ -4,12 +4,12 @@ Functional transitive closure
 [[Parent]]: graph_algorithms.txt
 
 Let ''X'' be a set, ''(Y, +)'' be a commutative monoid, ''f : X -> Y'', 
-and ''~ subset X^2''. Then the transitive closure ''f^+ : X -> Y''
+and ''< subset X^2''. Then the transitive closure ''f^+ : X -> Y''
 of ''f'' is given by
 
-''f^+(x) = +{f(x'): x ~^+ x'},''
+''f^+(x) = +{f(x'): x <^+ x'},''
 
-where ''~^+'' is the transitive closure of ''~'' (i.e. the intersection
-of all transitive relations containing ''~''). We define ''+{} = I'',
+where ''<^+'' is the transitive closure of ''<'' (i.e. the intersection
+of all transitive relations containing ''<''). We define ''+emptyset = I'',
 where ''I'' is the identity of the monoid, and ''+{y} = y'', for
 all ''y in Y''.
