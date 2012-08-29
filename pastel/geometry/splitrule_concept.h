@@ -1,7 +1,7 @@
 // Description: SplitRule concept
 
-#ifndef PASTEL_SPLITRULE_CONCEPT_H
-#define PASTEL_SPLITRULE_CONCEPT_H
+#ifndef PASTELGEOMETRY_SPLITRULE_CONCEPT_H
+#define PASTELGEOMETRY_SPLITRULE_CONCEPT_H
 
 #include "pastel/geometry/pointkdtree.h"
 

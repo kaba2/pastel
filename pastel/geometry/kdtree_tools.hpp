@@ -1,5 +1,5 @@
-#ifndef PASTEL_KDTREETOOLS_HPP
-#define PASTEL_KDTREETOOLS_HPP
+#ifndef PASTELGEOMETRY_KDTREETOOLS_HPP
+#define PASTELGEOMETRY_KDTREETOOLS_HPP
 
 #include "pastel/geometry/kdtree_tools.h"
 #include "pastel/geometry/intersect_line_alignedbox.h"
@@ -120,12 +120,12 @@ namespace Pastel
 		return Detail::check(tree, tree.root(), tree.bound());
 	}
 
-	namespace Detail_EquivalentKdTree
+	namespace Equivalent_KdTree
 	{
 
 		template <typename CursorA, 
 			typename CursorB>
-			bool equivalentKdTree(
+			bool equivalent(
 			const CursorA& aTree,
 			const CursorB& bTree)
 		{
@@ -149,11 +149,11 @@ namespace Pastel
 					return false;
 				}
 
-				if (!equivalentKdTree(aTree.negative(), bTree.negative()))
+				if (!equivalent(aTree.negative(), bTree.negative()))
 				{
 					return false;
 				}
-				if (!equivalentKdTree(aTree.positive(), bTree.positive()))
+				if (!equivalent(aTree.positive(), bTree.positive()))
 				{
 					return false;
 				}
@@ -165,7 +165,7 @@ namespace Pastel
 	}
 	template <int N_A, typename Real, typename ObjectPolicy_A, 
 		int N_B, typename ObjectPolicy_B>
-	bool equivalentKdTree(const KdTree<Real, N_A, ObjectPolicy_A>& aTree,
+	bool equivalent(const KdTree<Real, N_A, ObjectPolicy_A>& aTree,
 	const KdTree<Real, N_B, ObjectPolicy_B>& bTree)
 	{
 		if (aTree.nodes() != bTree.nodes() ||
@@ -180,7 +180,7 @@ namespace Pastel
 			!allEqual(aTree.bound().max(), bTree.bound().max()))
 		*/
 
-		return Detail_EquivalentKdTree::equivalentKdTree(
+		return Equivalent_KdTree::equivalent(
 			aTree.root(), bTree.root());
 	}
 }

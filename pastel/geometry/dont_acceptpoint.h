@@ -2,8 +2,8 @@
 // Detail: Rejects a point with a given iterator but accepts otherwise.
 // Documentation: acceptpoint.txt
 
-#ifndef PASTEL_DONT_ACCEPTPOINT_H
-#define PASTEL_DONT_ACCEPTPOINT_H
+#ifndef PASTELGEOMETRY_DONT_ACCEPTPOINT_H
+#define PASTELGEOMETRY_DONT_ACCEPTPOINT_H
 
 #include "pastel/geometry/acceptpoint_concept.h"
 

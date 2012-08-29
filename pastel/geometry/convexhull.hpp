@@ -1,5 +1,5 @@
-#ifndef PASTEL_CONVEXHULL_HPP
-#define PASTEL_CONVEXHULL_HPP
+#ifndef PASTELGEOMETRY_CONVEXHULL_HPP
+#define PASTELGEOMETRY_CONVEXHULL_HPP
 
 #include "pastel/geometry/convexhull.h"
 #include "pastel/geometry/predicates.h"

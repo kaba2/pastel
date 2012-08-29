@@ -22,7 +22,7 @@ namespace Pastel
 
 		typedef typename Contained_ConstView::Element Element;
 		typedef typename Contained_ConstView::ConstReference ConstReference;
-		typedef Detail_RowView::ConstRowViewCursor<typename Contained_ConstView::ConstCursor>
+		typedef RowView_::ConstRowViewCursor<typename Contained_ConstView::ConstCursor>
 			ConstCursor;
 
 		ConstRowView(
@@ -90,7 +90,7 @@ namespace Pastel
 		using Base::constCursor;
 
 		typedef typename Contained_View::Reference Reference;
-		typedef Detail_RowView::RowViewCursor<typename Contained_View::Cursor>
+		typedef RowView_::RowViewCursor<typename Contained_View::Cursor>
 			Cursor;
 
 		RowView(

@@ -1,7 +1,7 @@
 // Description: Overlap tests between an aligned box and a triangle
 
-#ifndef PASTEL_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
-#define PASTEL_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
+#ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
+#define PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
 
 #include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/alignedbox.h"

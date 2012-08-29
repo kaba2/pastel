@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	namespace Detail_RowView
+	namespace RowView_
 	{
 
 		template <typename ConstCursor>

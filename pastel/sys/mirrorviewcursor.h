@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	namespace Detail_MirrorView
+	namespace MirrorView_
 	{
 
 		template <int N, int MirrorIndex, typename ConstCursor>

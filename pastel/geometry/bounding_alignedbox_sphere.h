@@ -1,7 +1,7 @@
 // Description: Bounding aligned box of a sphere
 
-#ifndef PASTEL_BOUNDING_ALIGNEDBOX_SPHERE_H
-#define PASTEL_BOUNDING_ALIGNEDBOX_SPHERE_H
+#ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_SPHERE_H
+#define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_SPHERE_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/sphere.h"

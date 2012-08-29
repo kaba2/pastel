@@ -1,5 +1,5 @@
-#ifndef PASTEL_SLIDINGMIDPOINT_SPLITRULE_HPP
-#define PASTEL_SLIDINGMIDPOINT_SPLITRULE_HPP
+#ifndef PASTELGEOMETRY_SLIDINGMIDPOINT_SPLITRULE_HPP
+#define PASTELGEOMETRY_SLIDINGMIDPOINT_SPLITRULE_HPP
 
 #include "pastel/geometry/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/pointkdtree.h"

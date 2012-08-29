@@ -1,7 +1,7 @@
 // Description: Overlap tests between two capsules
 
-#ifndef PASTEL_OVERLAPS_CAPSULE_CAPSULE_H
-#define PASTEL_OVERLAPS_CAPSULE_CAPSULE_H
+#ifndef PASTELGEOMETRY_OVERLAPS_CAPSULE_CAPSULE_H
+#define PASTELGEOMETRY_OVERLAPS_CAPSULE_CAPSULE_H
 
 #include "pastel/geometry/capsule.h"
 

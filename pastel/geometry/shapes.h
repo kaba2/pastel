@@ -1,7 +1,7 @@
 // Description: An aggregate file for geometric shapes
 
-#ifndef PASTEL_SHAPES_H
-#define PASTEL_SHAPES_H
+#ifndef PASTELGEOMETRY_SHAPES_H
+#define PASTELGEOMETRY_SHAPES_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/box.h"

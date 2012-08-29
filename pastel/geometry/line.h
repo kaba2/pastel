@@ -1,8 +1,8 @@
 // Description: Line class
 // Detail: Allows to work with lines
 
-#ifndef PASTEL_LINE_H
-#define PASTEL_LINE_H
+#ifndef PASTELGEOMETRY_LINE_H
+#define PASTELGEOMETRY_LINE_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/tuple.h"

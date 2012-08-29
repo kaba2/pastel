@@ -1,5 +1,5 @@
-#ifndef PASTEL_RAY_HPP
-#define PASTEL_RAY_HPP
+#ifndef PASTELGEOMETRY_RAY_HPP
+#define PASTELGEOMETRY_RAY_HPP
 
 #include "pastel/geometry/ray.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTEL_OVERLAPBOXSPHERE_HPP
-#define PASTEL_OVERLAPBOXSPHERE_HPP
+#ifndef PASTELGEOMETRY_OVERLAPBOXSPHERE_HPP
+#define PASTELGEOMETRY_OVERLAPBOXSPHERE_HPP
 
 #include "pastel/geometry/overlaps_box_sphere.h"
 #include "pastel/geometry/overlaps_alignedbox_sphere.h"

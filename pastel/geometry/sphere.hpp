@@ -1,5 +1,5 @@
-#ifndef PASTEL_SPHERE_HPP
-#define PASTEL_SPHERE_HPP
+#ifndef PASTELGEOMETRY_SPHERE_HPP
+#define PASTELGEOMETRY_SPHERE_HPP
 
 #include "pastel/geometry/sphere.h"
 

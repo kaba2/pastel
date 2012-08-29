@@ -1,5 +1,5 @@
-#ifndef PASTEL_DISTANCE_ALIGNEDBOX_ALIGNEDBOX_HPP
-#define PASTEL_DISTANCE_ALIGNEDBOX_ALIGNEDBOX_HPP
+#ifndef PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_ALIGNEDBOX_HPP
+#define PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_ALIGNEDBOX_HPP
 
 #include "pastel/geometry/distance_alignedbox_alignedbox.h"
 #include "pastel/geometry/distance_point_point.h"

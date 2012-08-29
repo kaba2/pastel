@@ -1,5 +1,5 @@
-#ifndef PASTEL_LINE_HPP
-#define PASTEL_LINE_HPP
+#ifndef PASTELGEOMETRY_LINE_HPP
+#define PASTELGEOMETRY_LINE_HPP
 
 #include "pastel/geometry/line.h"
 

@@ -1,4 +1,4 @@
 Box shape
 =========
 
-[[Parent]]: box_shape.txt
+[[Parent]]: shapes.txt

@@ -1,8 +1,8 @@
 // Description: Fair_SplitRule class
 // Detail: Fair splitting rule for PointKdTree
 
-#ifndef PASTEL_FAIR_SPLITRULE_H
-#define PASTEL_FAIT_SPLITRULE_H
+#ifndef PASTELGEOMETRY_FAIR_SPLITRULE_H
+#define PASTELGEOMETRY_FAIT_SPLITRULE_H
 
 #include "pastel/geometry/splitrule_concept.h"
 

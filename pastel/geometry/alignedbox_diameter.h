@@ -1,8 +1,8 @@
 // Description: Diameter of an aligned box
 // Documentation: diameter.txt
 
-#ifndef PASTEL_ALIGNEDBOX_DIAMETER_H
-#define PASTEL_ALIGNEDBOX_DIAMETER_H
+#ifndef PASTELGEOMETRY_ALIGNEDBOX_DIAMETER_H
+#define PASTELGEOMETRY_ALIGNEDBOX_DIAMETER_H
 
 #include "pastel/geometry/alignedbox.h"
 

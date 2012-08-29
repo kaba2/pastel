@@ -1,7 +1,7 @@
 // Description: Overlap tests between a box and a sphere
 
-#ifndef PASTEL_OVERLAPBOXSPHERE_H
-#define PASTEL_OVERLAPBOXSPHERE_H
+#ifndef PASTELGEOMETRY_OVERLAPBOXSPHERE_H
+#define PASTELGEOMETRY_OVERLAPBOXSPHERE_H
 
 #include "pastel/geometry/box.h"
 #include "pastel/geometry/sphere.h"

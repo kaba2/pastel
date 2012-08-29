@@ -1,7 +1,7 @@
 // Description: Bounding aligned box of a point-set
 
-#ifndef PASTEL_BOUNDING_ALIGNEDBOX_POINTSET_H
-#define PASTEL_BOUNDING_ALIGNEDBOX_POINTSET_H
+#ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_POINTSET_H
+#define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_POINTSET_H
 
 #include "pastel/geometry/alignedbox.h"
 

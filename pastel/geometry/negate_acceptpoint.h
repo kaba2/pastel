@@ -2,8 +2,8 @@
 // Detail: Accepts those points rejected by another AcceptPoint model.
 // Documentation: acceptpoint.txt
 
-#ifndef PASTEL_NEGATE_ACCEPTPOINT_H
-#define PASTEL_NEGATE_ACCEPTPOINT_H
+#ifndef PASTELGEOMETRY_NEGATE_ACCEPTPOINT_H
+#define PASTELGEOMETRY_NEGATE_ACCEPTPOINT_H
 
 #include "pastel/geometry/acceptpoint_concept.h"
 

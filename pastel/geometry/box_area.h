@@ -1,8 +1,8 @@
 // Description: Area of a box
 // Documentation: area.txt
 
-#ifndef PASTEL_BOX_AREA_H
-#define PASTEL_BOX_AREA_H
+#ifndef PASTELGEOMETRY_BOX_AREA_H
+#define PASTELGEOMETRY_BOX_AREA_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/box.h"

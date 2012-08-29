@@ -1,7 +1,7 @@
 // Description: An aggregate file for models of AcceptPoint concept
 
-#ifndef PASTEL_ACCEPTPOINT_H
-#define PASTEL_ACCEPTPOINT_H
+#ifndef PASTELGEOMETRY_ACCEPTPOINT_H
+#define PASTELGEOMETRY_ACCEPTPOINT_H
 
 #include "pastel/geometry/always_acceptpoint.h"
 #include "pastel/geometry/dont_acceptpoint.h"

@@ -1,9 +1,9 @@
 // Description: An aggregate file for overlap testing
 
-#ifndef PASTEL_OVERLAPS_H
-#define PASTEL_OVERLAPS_H
+#ifndef PASTELGEOMETRY_OVERLAPS_H
+#define PASTELGEOMETRY_OVERLAPS_H
 
-#include "pastel/geometry/overlaps_alignedbox_.h"
+#include "pastel/geometry/overlaps_alignedbox_alignedbox.h"
 #include "pastel/geometry/overlaps_alignedbox_box.h"
 #include "pastel/geometry/overlaps_alignedbox_plane.h"
 #include "pastel/geometry/overlaps_alignedbox_point.h"

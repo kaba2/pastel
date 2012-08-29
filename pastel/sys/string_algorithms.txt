@@ -1,7 +1,7 @@
 String algorithms
 =================
 
-[[Parent]]: basic_algorithms.txt
+[[Parent]]: algorithms.txt
 
 This section contains algorithms which work with strings,
 i.e., sequences of characters.

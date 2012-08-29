@@ -1,7 +1,7 @@
 // Description: An aggregate file for bounding with aligned boxes
 
-#ifndef PASTEL_BOUNDING_ALIGNEDBOX_H
-#define PASTEL_BOUNDING_ALIGNEDBOX_H
+#ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_H
+#define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_H
 
 #include "pastel/geometry/bounding_alignedbox_alignedbox.h"
 #include "pastel/geometry/bounding_alignedbox_box.h"

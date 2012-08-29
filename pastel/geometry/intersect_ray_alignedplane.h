@@ -1,7 +1,7 @@
 // Description: Intersection between a ray and an aligned plane
 
-#ifndef PASTEL_INTERSECT_RAY_ALIGNEDPLANE_H
-#define PASTEL_INTERSECT_RAY_ALIGNEDPLANE_H
+#ifndef PASTELGEOMETRY_INTERSECT_RAY_ALIGNEDPLANE_H
+#define PASTELGEOMETRY_INTERSECT_RAY_ALIGNEDPLANE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/ray.h"

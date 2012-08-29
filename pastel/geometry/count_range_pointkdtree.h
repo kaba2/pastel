@@ -1,8 +1,8 @@
 // Description: Orthogonal range counting using kd-tree
-// Documentation: search_range.txt
+// Documentation: range_searching.txt
 
-#ifndef PASTEL_COUNT_RANGE_POINTKDTREE_H
-#define PASTEL_COUNT_RANGE_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_COUNT_RANGE_POINTKDTREE_H
+#define PASTELGEOMETRY_COUNT_RANGE_POINTKDTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/alignedbox.h"

@@ -1,7 +1,7 @@
 // Description: Maximum clique of an aligned box graph
 
-#ifndef PASTEL_MAXIMUM_CLIQUE_ALIGNEDBOX_H
-#define PASTEL_MAXIMUM_CLIQUE_ALIGNEDBOX_H
+#ifndef PASTELGEOMETRY_MAXIMUM_CLIQUE_ALIGNEDBOX_H
+#define PASTELGEOMETRY_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 
 #include "pastel/sys/reporter_concept.h"
 #include "pastel/sys/range.h"

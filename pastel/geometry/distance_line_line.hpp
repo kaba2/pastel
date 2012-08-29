@@ -1,5 +1,5 @@
-#ifndef PASTEL_DISTANCE_LINE_LINE_HPP
-#define PASTEL_DISTANCE_LINE_LINE_HPP
+#ifndef PASTELGEOMETRY_DISTANCE_LINE_LINE_HPP
+#define PASTELGEOMETRY_DISTANCE_LINE_LINE_HPP
 
 #include "pastel/geometry/distance_line_line.h"
 #include "pastel/geometry/closest_line_line.h"

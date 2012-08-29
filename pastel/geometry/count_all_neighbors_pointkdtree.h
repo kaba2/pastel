@@ -1,7 +1,7 @@
 // Description: All-nearest-neighbors counting using PointKdTree
 
-#ifndef PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_H
-#define PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_COUNT_ALL_NEIGHBORS_POINTKDTREE_H
+#define PASTELGEOMETRY_COUNT_ALL_NEIGHBORS_POINTKDTREE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

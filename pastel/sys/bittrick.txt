@@ -1,5 +1,0 @@
-Bit tricks
-==========
-
-[[Parent]]: basic_algorithms.txt
-

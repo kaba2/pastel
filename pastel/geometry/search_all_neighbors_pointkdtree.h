@@ -1,7 +1,7 @@
 // Description: All-k-nearest-neighbors searching using PointKdTree
 
-#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_H
-#define PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_SEARCH_ALL_NEIGHBORS_POINTKDTREE_H
+#define PASTELGEOMETRY_SEARCH_ALL_NEIGHBORS_POINTKDTREE_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"

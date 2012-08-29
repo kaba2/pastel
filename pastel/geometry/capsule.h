@@ -1,8 +1,8 @@
 // Description: Capsule class
 // Detail: Allows to work with capsules
 
-#ifndef PASTEL_CAPSULE_H
-#define PASTEL_CAPSULE_H
+#ifndef PASTELGEOMETRY_CAPSULE_H
+#define PASTELGEOMETRY_CAPSULE_H
 
 #include "pastel/sys/vector.h"
 

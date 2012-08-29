@@ -247,11 +247,11 @@ namespace
 			{
 				Tree bTree(tree);
 				TEST_ENSURE(check(bTree));
-				TEST_ENSURE(equivalentKdTree(tree, bTree));
+				TEST_ENSURE(equivalent(tree, bTree));
 
 				tree.swap(bTree);
 				TEST_ENSURE(check(bTree));
-				TEST_ENSURE(equivalentKdTree(tree, bTree));
+				TEST_ENSURE(equivalent(tree, bTree));
 			}
 
 			tree.merge();
@@ -296,7 +296,7 @@ namespace
 			TEST_ENSURE_OP(tree.nodes(), ==, 1);
 			{
 				Tree emptyTree;
-				TEST_ENSURE(equivalentKdTree(tree, emptyTree));
+				TEST_ENSURE(equivalent(tree, emptyTree));
 			}
 		}
 
@@ -321,11 +321,11 @@ namespace
 			{
 				Tree bTree(tree);
 				TEST_ENSURE(check(tree));
-				TEST_ENSURE(equivalentKdTree(tree, bTree));
+				TEST_ENSURE(equivalent(tree, bTree));
 
 				tree.swap(bTree);
 				TEST_ENSURE(check(tree));
-				TEST_ENSURE(equivalentKdTree(tree, bTree));
+				TEST_ENSURE(equivalent(tree, bTree));
 			}
 		}
 

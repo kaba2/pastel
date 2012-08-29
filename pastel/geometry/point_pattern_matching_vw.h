@@ -1,7 +1,7 @@
 // Description: Point-pattern matching between point-sets
 
-#ifndef PASTEL_POINT_PATTERN_MATCHING_H
-#define PASTEL_POINT_PATTERN_MATCHING_H
+#ifndef PASTELGEOMETRY_POINT_PATTERN_MATCHING_VW_H
+#define PASTELGEOMETRY_POINT_PATTERN_MATCHING_VW_H
 
 #include "pastel/sys/tuple.h"
 
@@ -82,6 +82,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/point_pattern_matching.hpp"
+#include "pastel/geometry/point_pattern_matching_vw.hpp"
 
 #endif

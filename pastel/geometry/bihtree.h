@@ -1,8 +1,8 @@
 // Description: BihTree class
 // Detail: Bounding Interval Hierarchy tree
 
-#ifndef PASTEL_BIHTREE_H
-#define PASTEL_BIHTREE_H
+#ifndef PASTELGEOMETRY_BIHTREE_H
+#define PASTELGEOMETRY_BIHTREE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/alignedbox.h"

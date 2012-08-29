@@ -1,7 +1,7 @@
 // Description: Distance between two points
 
-#ifndef PASTEL_DISTANCE_POINT_POINT_H
-#define PASTEL_DISTANCE_POINT_POINT_H
+#ifndef PASTELGEOMETRY_DISTANCE_POINT_POINT_H
+#define PASTELGEOMETRY_DISTANCE_POINT_POINT_H
 
 #include "pastel/sys/vector.h"
 

@@ -1,8 +1,8 @@
 // Description: AlignedPlane class
 // Detail: Allows to work with axis-aligned planes
 
-#ifndef PASTEL_ALIGNEDPLANE_H
-#define PASTEL_ALIGNEDPLANE_H
+#ifndef PASTELGEOMETRY_ALIGNEDPLANE_H
+#define PASTELGEOMETRY_ALIGNEDPLANE_H
 
 #include "pastel/sys/mytypes.h"
 

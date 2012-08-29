@@ -1,7 +1,7 @@
 // Description: Intersection between an aligned box and a plane
 
-#ifndef PASTEL_INTERSECT_ALIGNEDBOX_PLANE_H
-#define PASTEL_INTERSECT_ALIGNEDBOX_PLANE_H
+#ifndef PASTELGEOMETRY_INTERSECT_ALIGNEDBOX_PLANE_H
+#define PASTELGEOMETRY_INTERSECT_ALIGNEDBOX_PLANE_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/plane.h"

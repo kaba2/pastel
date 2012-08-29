@@ -1,7 +1,7 @@
 // Description: Overlap tests between an aligned plane an a box
 
-#ifndef PASTEL_OVERLAPS_ALIGNEDPLANE_BOX_H
-#define PASTEL_OVERLAPS_ALIGNEDPLANE_BOX_H
+#ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDPLANE_BOX_H
+#define PASTELGEOMETRY_OVERLAPS_ALIGNEDPLANE_BOX_H
 
 #include "pastel/geometry/alignedplane.h"
 #include "pastel/geometry/box.h"

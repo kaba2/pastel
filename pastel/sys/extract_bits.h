@@ -1,7 +1,7 @@
-// Description: Bit tricks
+// Description: Bit extraction
 
-#ifndef PASTEL_BITTRICK_H
-#define PASTEL_BITTRICK_H
+#ifndef PASTEL_EXTRACT_BITS_H
+#define PASTEL_EXTRACT_BITS_H
 
 #include "pastel/sys/integer_concept.h"
 
@@ -28,6 +28,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/bittrick.hpp"
+#include "pastel/sys/extract_bits.hpp"
 
 #endif

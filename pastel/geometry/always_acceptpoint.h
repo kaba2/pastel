@@ -2,8 +2,8 @@
 // Detail: Accepts all points.
 // Documentation: acceptpoint.txt
 
-#ifndef PASTEL_ALWAYS_ACCEPTPOINT_H
-#define PASTEL_ALWAYS_ACCEPTPOINT_H
+#ifndef PASTELGEOMETRY_ALWAYS_ACCEPTPOINT_H
+#define PASTELGEOMETRY_ALWAYS_ACCEPTPOINT_H
 
 #include "pastel/geometry/acceptpoint_concept.h"
 #include "pastel/geometry/pointkdtree.h"

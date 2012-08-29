@@ -1,7 +1,7 @@
 // Description: Basic algorithms for PointKdTree
 
-#ifndef PASTEL_POINTKDTREE_TOOLS_H
-#define PASTEL_POINTKDTREE_TOOLS_H
+#ifndef PASTELGEOMETRY_POINTKDTREE_TOOLS_H
+#define PASTELGEOMETRY_POINTKDTREE_TOOLS_H
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/splitrules.h"
@@ -33,7 +33,7 @@ namespace Pastel
 
 	template <int N_A, typename Real, typename PointPolicy_A, 
 		int N_B, typename PointPolicy_B>
-	bool equivalentKdTree(
+	bool equivalent(
 		const PointKdTree<Real, N_A, PointPolicy_A>& aTree,
 		const PointKdTree<Real, N_B, PointPolicy_B>& bTree);
 

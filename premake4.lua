@@ -1,5 +1,5 @@
--- This is a Premake script for producing
--- build files for the Pastel library.
+-- Description: Premake build files for the Pastel library
+-- Documentation: building.txt
 
 -- Available external libraries
 -- ============================

@@ -1,5 +1,5 @@
 // Description: Check if a number is a NaN
-// Documentation: basic_algorithms.txt
+// Documentation: algorithms.txt
 
 #ifndef PASTEL_ISNAN_H
 #define PASTEL_ISNAN_H

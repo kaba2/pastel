@@ -1,7 +1,7 @@
 // Description: Algorithms for Box's
 
-#ifndef PASTEL_BOX_TOOLS_H
-#define PASTEL_BOX_TOOLS_H
+#ifndef PASTELGEOMETRY_BOX_TOOLS_H
+#define PASTELGEOMETRY_BOX_TOOLS_H
 
 #include "pastel/geometry/box.h"
 #include "pastel/math/affinetransformation.h"

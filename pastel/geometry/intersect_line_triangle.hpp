@@ -1,5 +1,5 @@
-#ifndef PASTEL_INTERSECT_LINE_TRIANGLE_HPP
-#define PASTEL_INTERSECT_LINE_TRIANGLE_HPP
+#ifndef PASTELGEOMETRY_INTERSECT_LINE_TRIANGLE_HPP
+#define PASTELGEOMETRY_INTERSECT_LINE_TRIANGLE_HPP
 
 #include "pastel/geometry/intersect_line_triangle.h"
 #include "pastel/geometry/line.h"

@@ -1,10 +1,9 @@
-// Description: An aggregate file for basic algorithms
+// Description: An aggregate file for algorithms
 
-#ifndef PASTEL_BASIC_ALGORITHMS_H
-#define PASTEL_BASIC_ALGORITHMS_H
+#ifndef PASTEL_ALGORITHMS_H
+#define PASTEL_ALGORITHMS_H
 
-#include "pastel/sys/bittrick.h"
-#include "pastel/sys/bitquery.h"
+#include "pastel/sys/bit_tricks.h"
 #include "pastel/sys/graph_algorithms.h"
 #include "pastel/sys/isnan.h"
 #include "pastel/sys/sequence_algorithms.h"

@@ -1,7 +1,7 @@
 // Description: Algorithms for ellipsoids
 
-#ifndef PASTEL_ELLIPSOID_H
-#define PASTEL_ELLIPSOID_H
+#ifndef PASTELGEOMETRY_ELLIPSOID_H
+#define PASTELGEOMETRY_ELLIPSOID_H
 
 #include "pastel/math/matrix.h"
 

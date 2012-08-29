@@ -1,8 +1,8 @@
 // Description: Split rules for KdTree
 // Documentation: kdtree.txt
 
-#ifndef PASTEL_KDTREE_REFINE_H
-#define PASTEL_KDTREE_REFINE_H
+#ifndef PASTELGEOMETRY_KDTREE_REFINE_H
+#define PASTELGEOMETRY_KDTREE_REFINE_H
 
 #include "pastel/geometry/kdtree.h"
 
@@ -24,7 +24,7 @@ namespace Pastel
 	checking and performance comparison purposes.
 	*/
 
-	class Fair_SplitRule;
+	class Fair_SplitRule_KdTree;
 
 	//! Refines a kd-tree using the sliding midpoint rule.
 	/*!
@@ -43,7 +43,7 @@ namespace Pastel
 	nearest neighbors for points.
 	*/
 
-	class SlidingMidpoint_SplitRule;
+	class SlidingMidpoint_SplitRule_KdTree;
 
 	//! Refines a kd-tree using the surface area heuristic.
 	/*!

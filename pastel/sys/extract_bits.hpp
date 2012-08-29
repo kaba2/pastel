@@ -1,7 +1,7 @@
-#ifndef PASTEL_BITTRICK_HPP
-#define PASTEL_BITTRICK_HPP
+#ifndef PASTEL_EXTRACT_BITS_HPP
+#define PASTEL_EXTRACT_BITS_HPP
 
-#include "pastel/sys/bittrick.h"
+#include "pastel/sys/extract_bits.h"
 
 namespace Pastel
 {

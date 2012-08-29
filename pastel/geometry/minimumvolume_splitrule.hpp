@@ -1,5 +1,5 @@
-#ifndef PASTEL_MINIMUMVOLUME_SPLITRULE_HPP
-#define PASTEL_MINIMUMVOLUME_SPLITRULE_HPP
+#ifndef PASTELGEOMETRY_MINIMUMVOLUME_SPLITRULE_HPP
+#define PASTELGEOMETRY_MINIMUMVOLUME_SPLITRULE_HPP
 
 #include "pastel/geometry/minimumvolume_splitrule.h"
 #include "pastel/geometry/pointkdtree.h"

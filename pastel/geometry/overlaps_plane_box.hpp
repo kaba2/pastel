@@ -1,5 +1,5 @@
-#ifndef PASTEL_OVERLAPS_PLANE_BOX_HPP
-#define PASTEL_OVERLAPS_PLANE_BOX_HPP
+#ifndef PASTELGEOMETRY_OVERLAPS_PLANE_BOX_HPP
+#define PASTELGEOMETRY_OVERLAPS_PLANE_BOX_HPP
 
 #include "pastel/geometry/overlaps_plane_box.h"
 #include "pastel/geometry/distance_plane_point.h"

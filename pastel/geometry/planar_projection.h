@@ -1,8 +1,8 @@
 // Description: Projections onto a plane
 // Documentation: projection.txt
 
-#ifndef PASTEL_PLANAR_PROJECTION_H
-#define PASTEL_PLANAR_PROJECTION_H
+#ifndef PASTELGEOMETRY_PLANAR_PROJECTION_H
+#define PASTELGEOMETRY_PLANAR_PROJECTION_H
 
 #include "pastel/sys/mytypes.h"
 

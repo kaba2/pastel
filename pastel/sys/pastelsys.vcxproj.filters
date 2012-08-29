@@ -1083,9 +1083,6 @@
     <ClInclude Include="anystorage.h">
       <Filter>Not sure if good ideas\AnyStorage</Filter>
     </ClInclude>
-    <ClInclude Include="basic_algorithms.h">
-      <Filter>Algorithms</Filter>
-    </ClInclude>
     <ClInclude Include="isnan.h">
       <Filter>Algorithms</Filter>
     </ClInclude>
@@ -1100,18 +1097,6 @@
     </ClInclude>
     <ClInclude Include="string_algorithms.hpp">
       <Filter>Algorithms\String algorithms</Filter>
-    </ClInclude>
-    <ClInclude Include="bitquery.h">
-      <Filter>Algorithms\Bit tricks</Filter>
-    </ClInclude>
-    <ClInclude Include="bitquery.hpp">
-      <Filter>Algorithms\Bit tricks</Filter>
-    </ClInclude>
-    <ClInclude Include="bittrick.h">
-      <Filter>Algorithms\Bit tricks</Filter>
-    </ClInclude>
-    <ClInclude Include="bittrick.hpp">
-      <Filter>Algorithms\Bit tricks</Filter>
     </ClInclude>
     <ClInclude Include="copy_n.h">
       <Filter>Algorithms\Sequence algorithms</Filter>
@@ -1543,6 +1528,42 @@
     <ClInclude Include="hashes.h">
       <Filter>Data structures\Hashing\Hash objects</Filter>
     </ClInclude>
+    <ClInclude Include="algorithms.h">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="extract_bits.h">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="extract_bits.hpp">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="highest_bit.h">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="highest_bit.hpp">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="lowest_bit.hpp">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="lowest_bit.h">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="bit_tricks.h">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="generic_programming.h">
+      <Filter>Generic programming</Filter>
+    </ClInclude>
+    <ClInclude Include="algorithm_objects.h">
+      <Filter>Generic programming\Algorithm objects</Filter>
+    </ClInclude>
+    <ClInclude Include="range_algorithms.h">
+      <Filter>Generic programming\Algorithm objects\Range algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="as_pair.h">
+      <Filter>Generic programming\As_Pair concept</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -1770,14 +1791,8 @@
     <None Include="indexextenders.txt">
       <Filter>Not sure if good ideas\IndexExtender</Filter>
     </None>
-    <None Include="basic_algorithms.txt">
-      <Filter>Algorithms</Filter>
-    </None>
     <None Include="string_algorithms.txt">
       <Filter>Algorithms\String algorithms</Filter>
-    </None>
-    <None Include="bittrick.txt">
-      <Filter>Algorithms\Bit tricks</Filter>
     </None>
     <None Include="sequence_algorithms.txt">
       <Filter>Algorithms\Sequence algorithms</Filter>
@@ -1845,17 +1860,8 @@
     <None Include="iterators.txt">
       <Filter>Generic programming\Iterators</Filter>
     </None>
-    <None Include="algorithm.txt">
-      <Filter>Generic programming\Algorithm objects</Filter>
-    </None>
-    <None Include="rangealgorithm.txt">
-      <Filter>Generic programming\Algorithm objects\Range algorithms</Filter>
-    </None>
     <None Include="predicates.txt">
       <Filter>Generic programming\Algorithm objects\Predicates</Filter>
-    </None>
-    <None Include="as_pair_concept.txt">
-      <Filter>Generic programming\As_Pair concept</Filter>
     </None>
     <None Include="trees.txt">
       <Filter>Data structures\Binary trees</Filter>
@@ -1967,6 +1973,21 @@
     </None>
     <None Include="hashes.txt">
       <Filter>Data structures\Hashing\Hash objects</Filter>
+    </None>
+    <None Include="algorithms.txt">
+      <Filter>Algorithms</Filter>
+    </None>
+    <None Include="bit_tricks.txt">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </None>
+    <None Include="algorithm_objects.txt">
+      <Filter>Generic programming\Algorithm objects</Filter>
+    </None>
+    <None Include="range_algorithms.txt">
+      <Filter>Generic programming\Algorithm objects\Range algorithms</Filter>
+    </None>
+    <None Include="as_pair.txt">
+      <Filter>Generic programming\As_Pair concept</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

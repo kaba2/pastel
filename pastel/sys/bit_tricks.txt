@@ -1,0 +1,5 @@
+Bit tricks
+==========
+
+[[Parent]]: algorithms.txt
+

@@ -1,5 +1,5 @@
-#ifndef PASTEL_POINTKDTREE_TOOLS_HPP
-#define PASTEL_POINTKDTREE_TOOLS_HPP
+#ifndef PASTELGEOMETRY_POINTKDTREE_TOOLS_HPP
+#define PASTELGEOMETRY_POINTKDTREE_TOOLS_HPP
 
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/intersect_line_alignedbox.h"
@@ -177,12 +177,12 @@ namespace Pastel
 		return Detail::check(tree, tree.root(), bound);
 	}
 
-	namespace Detail_EquivalentKdTree
+	namespace Equivalent_PointKdTree
 	{
 
 		template <typename CursorA, 
 			typename CursorB>
-			bool equivalentKdTree(
+			bool equivalent(
 			const CursorA& aTree,
 			const CursorB& bTree)
 		{
@@ -208,11 +208,11 @@ namespace Pastel
 					return false;
 				}
 
-				if (!equivalentKdTree(aTree.left(), bTree.left()))
+				if (!equivalent(aTree.left(), bTree.left()))
 				{
 					return false;
 				}
-				if (!equivalentKdTree(aTree.right(), bTree.right()))
+				if (!equivalent(aTree.right(), bTree.right()))
 				{
 					return false;
 				}
@@ -224,7 +224,7 @@ namespace Pastel
 	}
 	template <int N_A, typename Real, typename PointPolicy_A, 
 		int N_B, typename PointPolicy_B>
-	bool equivalentKdTree(const PointKdTree<Real, N_A, PointPolicy_A>& aTree,
+	bool equivalent(const PointKdTree<Real, N_A, PointPolicy_A>& aTree,
 	const PointKdTree<Real, N_B, PointPolicy_B>& bTree)
 	{
 		if (aTree.nodes() != bTree.nodes() ||
@@ -235,7 +235,7 @@ namespace Pastel
 			return false;
 		}
 
-		return Detail_EquivalentKdTree::equivalentKdTree(
+		return Equivalent_PointKdTree::equivalent(
 			aTree.root(), bTree.root());
 	}
 }

@@ -1,5 +1,5 @@
-#ifndef PASTEL_OVERLAPS_PLANE_SPHERE_HPP
-#define PASTEL_OVERLAPS_PLANE_SPHERE_HPP
+#ifndef PASTELGEOMETRY_OVERLAPS_PLANE_SPHERE_HPP
+#define PASTELGEOMETRY_OVERLAPS_PLANE_SPHERE_HPP
 
 #include "pastel/geometry/overlaps_plane_sphere.h"
 #include "pastel/geometry/distance_plane_point.h"
@@ -42,7 +42,7 @@ namespace Pastel
 	{
 		sphereOnPositiveSide = 
 			dot(plane.normal(),	
-			sphere.position() - plane.position() > 0;
+			sphere.position() - plane.position()) > 0;
 
 		return Pastel::overlaps(plane, sphere);
 	}

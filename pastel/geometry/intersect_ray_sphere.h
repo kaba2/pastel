@@ -1,7 +1,7 @@
 // Description: Intersection between a ray and a sphere
 
-#ifndef PASTEL_INTERSECT_RAY_SPHERE_H
-#define PASTEL_INTERSECT_RAY_SPHERE_H
+#ifndef PASTELGEOMETRY_INTERSECT_RAY_SPHERE_H
+#define PASTELGEOMETRY_INTERSECT_RAY_SPHERE_H
 
 #include "pastel/sys/mytypes.h"
 

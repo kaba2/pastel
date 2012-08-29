@@ -1,7 +1,7 @@
 // Description: Overlap tests between an aligned box and a point
 
-#ifndef PASTEL_ALIGNEDBOXPOINT_H
-#define PASTEL_ALIGNEDBOXPOINT_H
+#ifndef PASTELGEOMETRY_ALIGNEDBOXPOINT_H
+#define PASTELGEOMETRY_ALIGNEDBOXPOINT_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

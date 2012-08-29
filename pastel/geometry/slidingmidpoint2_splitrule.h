@@ -1,8 +1,8 @@
 // Description: SlidingMidpoint2_SplitRule class
 // Detail: Modified sliding midpoint splitting rule for PointKdTree
 
-#ifndef PASTEL_SLIDINGMIDPOINT2_SPLITRULE_H
-#define PASTEL_SLIDINGMIDPOINT2_SPLITRULE_H
+#ifndef PASTELGEOMETRY_SLIDINGMIDPOINT2_SPLITRULE_H
+#define PASTELGEOMETRY_SLIDINGMIDPOINT2_SPLITRULE_H
 
 #include "pastel/geometry/splitrule_concept.h"
 

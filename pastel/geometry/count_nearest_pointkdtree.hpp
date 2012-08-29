@@ -1,5 +1,5 @@
-#ifndef PASTEL_COUNT_NEAREST_POINTKDTREE_HPP
-#define PASTEL_COUNT_NEAREST_POINTKDTREE_HPP
+#ifndef PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_HPP
+#define PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_HPP
 
 #include "pastel/geometry/count_nearest_pointkdtree.h"
 #include "pastel/geometry/search_nearest_algorithm_pointkdtree.h"

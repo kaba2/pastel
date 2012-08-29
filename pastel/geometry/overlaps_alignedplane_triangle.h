@@ -1,7 +1,7 @@
 // Description: Overlap tests between an aligned plane an a triangle
 
-#ifndef PASTEL_OVERLAPS_ALIGNEDPLANE_TRIANGLE_H
-#define PASTEL_OVERLAPS_ALIGNEDPLANE_TRIANGLE_H
+#ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDPLANE_TRIANGLE_H
+#define PASTELGEOMETRY_OVERLAPS_ALIGNEDPLANE_TRIANGLE_H
 
 #include "pastel/geometry/alignedplane.h"
 #include "pastel/geometry/triangle.h"

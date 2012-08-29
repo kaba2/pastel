@@ -1,5 +1,5 @@
-#ifndef PASTEL_POISSON_DISK_PATTERN_HPP
-#define PASTEL_POISSON_DISK_PATTERN_HPP
+#ifndef PASTELGEOMETRY_POISSON_DISK_PATTERN_HPP
+#define PASTELGEOMETRY_POISSON_DISK_PATTERN_HPP
 
 #include "pastel/geometry/poisson_disk_pattern.h"
 #include "pastel/geometry/intersect_alignedbox_alignedbox.h"

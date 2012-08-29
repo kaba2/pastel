@@ -1,5 +1,5 @@
-#ifndef PASTEL_INTERSECT_LINE_BOX_HPP
-#define PASTEL_INTERSECT_LINE_BOX_HPP
+#ifndef PASTELGEOMETRY_INTERSECT_LINE_BOX_HPP
+#define PASTELGEOMETRY_INTERSECT_LINE_BOX_HPP
 
 #include "pastel/geometry/intersect_line_box.h"
 

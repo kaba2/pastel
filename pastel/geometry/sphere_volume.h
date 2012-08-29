@@ -2,8 +2,8 @@
 // Detail: Some different norms are included to define a sphere
 // Documentation: volume.txt
 
-#ifndef PASTEL_SPHERE_VOLUME_H
-#define PASTEL_SPHERE_VOLUME_H
+#ifndef PASTELGEOMETRY_SPHERE_VOLUME_H
+#define PASTELGEOMETRY_SPHERE_VOLUME_H
 
 #include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/sphere.h"

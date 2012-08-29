@@ -1,5 +1,5 @@
-#ifndef PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_HPP
-#define PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_HPP
+#ifndef PASTELGEOMETRY_COUNT_ALL_NEIGHBORS_BRUTEFORCE_HPP
+#define PASTELGEOMETRY_COUNT_ALL_NEIGHBORS_BRUTEFORCE_HPP
 
 #include "pastel/geometry/count_all_neighbors_bruteforce.h"
 #include "pastel/geometry/count_all_neighbors_1d.h"

@@ -1,8 +1,8 @@
 // Description: HalfMesh class
 // Detail: Allows topological modification of a polygon mesh
 
-#ifndef PASTEL_HALFMESH_H
-#define PASTEL_HALFMESH_H
+#ifndef PASTELGEOMETRY_HALFMESH_H
+#define PASTELGEOMETRY_HALFMESH_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/pool_allocator.h"
@@ -1129,5 +1129,7 @@ namespace Pastel
 }
 
 #include "pastel/geometry/halfmesh.hpp"
+
+#include "pastel/geometry/halfmesh_tools.h"
 
 #endif

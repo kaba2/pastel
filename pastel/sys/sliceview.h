@@ -22,7 +22,7 @@ namespace Pastel
 
 		typedef typename Contained_ConstView::Element Element;
 		typedef typename Contained_ConstView::ConstReference ConstReference;
-		typedef Detail_SliceView::ConstSliceViewCursor<N, typename Contained_ConstView::ConstCursor>
+		typedef SliceView_::ConstSliceViewCursor<N, typename Contained_ConstView::ConstCursor>
 			ConstCursor;
 
 		ConstSliceView(
@@ -92,7 +92,7 @@ namespace Pastel
 		using Base::constCursor;
 
 		typedef typename Contained_View::Reference Reference;
-		typedef Detail_SliceView::SliceViewCursor<N, typename Contained_View::Cursor>
+		typedef SliceView_::SliceViewCursor<N, typename Contained_View::Cursor>
 			Cursor;
 
 		SliceView(

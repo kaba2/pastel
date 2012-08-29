@@ -1,5 +1,5 @@
-#ifndef PASTEL_BOX_VOLUME_HPP
-#define PASTEL_BOX_VOLUME_HPP
+#ifndef PASTELGEOMETRY_BOX_VOLUME_HPP
+#define PASTELGEOMETRY_BOX_VOLUME_HPP
 
 #include "pastel/geometry/box_volume.h"
 

@@ -1,7 +1,7 @@
 Modified sliding midpoint splitting rule
 ========================================
 
-[[Parent]]: splitrule.txt
+[[Parent]]: splitrules.txt
 
 The modified sliding midpoint rule chooses to split along the 
 longest side of the node. It first places the splitting

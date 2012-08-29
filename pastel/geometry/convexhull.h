@@ -1,7 +1,7 @@
 // Description: Convex hull of a point-set
 
-#ifndef PASTEL_CONVEXHULL_H
-#define PASTEL_CONVEXHULL_H
+#ifndef PASTELGEOMETRY_CONVEXHULL_H
+#define PASTELGEOMETRY_CONVEXHULL_H
 
 #include "pastel/sys/vector.h"
 

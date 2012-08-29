@@ -1,5 +1,5 @@
-#ifndef PASTEL_NEAREST_MAIN_AXIS_HPP
-#define PASTEL_NEAREST_MAIN_AXIS_HPP
+#ifndef PASTELGEOMETRY_NEAREST_MAIN_AXIS_HPP
+#define PASTELGEOMETRY_NEAREST_MAIN_AXIS_HPP
 
 #include "pastel/geometry/nearest_main_axis.h"
 

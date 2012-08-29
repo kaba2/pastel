@@ -1,5 +1,5 @@
 // Description: KeyValue as a Pair
-// Documentation: as_pair_concept.txt
+// Documentation: as_pair.txt
 
 #ifndef PASTEL_KEYVALUE_AS_PAIR_H
 #define PASTEL_KEYVALUE_AS_PAIR_H

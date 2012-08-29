@@ -1,8 +1,8 @@
 // Description: Depth-first neighbor searching algorithm for PointKdTree
 // Documentation: searchalgorithm_pointkdtree.txt
 
-#ifndef PASTEL_DEPTHFIRST_SEARCHALGORITHM_POINTKDTREE_H
-#define PASTEL_DEPTHFIRST_SEARCHALGORITHM_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_DEPTHFIRST_SEARCHALGORITHM_POINTKDTREE_H
+#define PASTELGEOMETRY_DEPTHFIRST_SEARCHALGORITHM_POINTKDTREE_H
 
 #include "pastel/geometry/searchalgorithm_pointkdtree_concept.h"
 

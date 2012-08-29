@@ -1,5 +1,5 @@
-#ifndef PASTEL_INTERSECT_PLANE_SPHERE_HPP
-#define PASTEL_INTERSECT_PLANE_SPHERE_HPP
+#ifndef PASTELGEOMETRY_INTERSECT_PLANE_SPHERE_HPP
+#define PASTELGEOMETRY_INTERSECT_PLANE_SPHERE_HPP
 
 #include "pastel/geometry/intersect_plane_sphere.h"
 #include "pastel/geometry/intersect_line_plane.h"
@@ -23,7 +23,7 @@ namespace Pastel
 
 		Real t(0);
 
-		bool intersected = Pastel::intersect(line, plane, t));
+		bool intersected = Pastel::intersect(line, plane, t);
 		// There is no way to miss the plane.
 		ASSERT(intersected);
 

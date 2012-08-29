@@ -1,12 +1,12 @@
-#ifndef PASTEL_KDTREE_REFINE_HPP
-#define PASTEL_KDTREE_REFINE_HPP
+#ifndef PASTELGEOMETRY_KDTREE_REFINE_HPP
+#define PASTELGEOMETRY_KDTREE_REFINE_HPP
 
 #include "pastel/geometry/kdtree_refine.h"
 
 namespace Pastel
 {
 
-	class Fair_SplitRule
+	class Fair_SplitRule_KdTree
 	{
 	public:
 		template <
@@ -29,7 +29,7 @@ namespace Pastel
 		}
 	};
 
-	class SlidingMidpoint_SplitRule
+	class SlidingMidpoint_SplitRule_KdTree
 	{
 	public:
 		template <
@@ -84,7 +84,7 @@ namespace Pastel
 		}
 	};
 
-	class SlidingMidpoint_SplitRule2
+	class SlidingMidpoint_SplitRule_KdTree2
 	{
 	public:
 		template <

@@ -14,7 +14,7 @@
 #include <pastel/geometry/pointset_eigen.h>
 #include <pastel/geometry/pointkdtree_tools.h>
 #include <pastel/geometry/search_all_neighbors_pointkdtree.h>
-#include <pastel/geometry/windowedpointtree.h>
+#include <pastel/geometry/windowed_pointtree.h>
 
 #include <pastel/gfx/block_matching_bruteforce.h>
 #include <pastel/gfx/savepcx.h>

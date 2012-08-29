@@ -1,7 +1,7 @@
 // Description: Intersection between two triangles
 
-#ifndef PASTEL_INTERSECT_TRIANGLE_TRIANGLE_H
-#define PASTEL_INTERSECT_TRIANGLE_TRIANGLE_H
+#ifndef PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_H
+#define PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_H
 
 #include "pastel/geometry/triangle.h"
 #include "pastel/geometry/segment.h"

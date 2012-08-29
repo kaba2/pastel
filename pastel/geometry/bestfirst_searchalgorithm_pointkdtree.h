@@ -1,8 +1,8 @@
 // Description: Best-first neighbor searching algorithm for PointKdTree
 // Documentation: searchalgorithm_pointkdtree.txt
 
-#ifndef PASTEL_BESTFIRST_SEARCHALGORITHM_POINTKDTREE_H
-#define PASTEL_BESTFIRST_SEARCHALGORITHM_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_BESTFIRST_SEARCHALGORITHM_POINTKDTREE_H
+#define PASTELGEOMETRY_BESTFIRST_SEARCHALGORITHM_POINTKDTREE_H
 
 #include "pastel/geometry/searchalgorithm_pointkdtree_concept.h"
 

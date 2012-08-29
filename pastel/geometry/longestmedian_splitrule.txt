@@ -1,7 +1,7 @@
 Median-of-longest-side splitting rule
 =====================================
 
-[[Parent]]: splitrule.txt
+[[Parent]]: splitrules.txt
 
 The median-of-longest-side rule chooses to split along the longest
 side of the node. On this axis it chooses to split at the median of 

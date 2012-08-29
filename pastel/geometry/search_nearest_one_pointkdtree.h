@@ -1,8 +1,8 @@
 // Description: Nearest neighbor searching for PointKdTree
 // Documentation: nearest_neighbors.txt
 
-#ifndef PASTEL_SEARCH_NEAREST_ONE_POINTKDTREE_H
-#define PASTEL_SEARCH_NEAREST_ONE_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_SEARCH_NEAREST_ONE_POINTKDTREE_H
+#define PASTELGEOMETRY_SEARCH_NEAREST_ONE_POINTKDTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/acceptpoint_concept.h"

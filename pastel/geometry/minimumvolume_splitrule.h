@@ -1,8 +1,8 @@
 // Description: MinimumVolume_SplitRule class
 // Detail: Minimum-volume splitting rule for PointKdTree
 
-#ifndef PASTEL_MINIMUMVOLUME_SPLITRULE_H
-#define PASTEL_MINIMUMVOLUME_SPLITRULE_H
+#ifndef PASTELGEOMETRY_MINIMUMVOLUME_SPLITRULE_H
+#define PASTELGEOMETRY_MINIMUMVOLUME_SPLITRULE_H
 
 #include "pastel/geometry/splitrule_concept.h"
 

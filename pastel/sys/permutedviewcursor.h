@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	namespace Detail_PermutedView
+	namespace PermutedView_
 	{
 
 		template <int N, typename ConstCursor>

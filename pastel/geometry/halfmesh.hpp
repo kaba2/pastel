@@ -1,5 +1,5 @@
-#ifndef PASTEL_HALFMESH_HPP
-#define PASTEL_HALFMESH_HPP
+#ifndef PASTELGEOMETRY_HALFMESH_HPP
+#define PASTELGEOMETRY_HALFMESH_HPP
 
 #include "pastel/geometry/halfmesh.h"
 

@@ -1,7 +1,7 @@
 // Description: Intersection between a line segment and a half-space
 
-#ifndef PASTEL_INTERSECT_SEGMENT_HALFSPACE_H
-#define PASTEL_INTERSECT_SEGMENT_HALFSPACE_H
+#ifndef PASTELGEOMETRY_INTERSECT_SEGMENT_HALFSPACE_H
+#define PASTELGEOMETRY_INTERSECT_SEGMENT_HALFSPACE_H
 
 #include "pastel/geometry/segment.h"
 #include "pastel/geometry/plane.h"

@@ -1,7 +1,7 @@
 // Description: Closest points between an aligned box and a point
 
-#ifndef PASTEL_CLOSEST_ALIGNEDBOX_POINT_H
-#define PASTEL_CLOSEST_ALIGNEDBOX_POINT_H
+#ifndef PASTELGEOMETRY_CLOSEST_ALIGNEDBOX_POINT_H
+#define PASTELGEOMETRY_CLOSEST_ALIGNEDBOX_POINT_H
 
 #include "pastel/geometry/alignedbox.h"
 

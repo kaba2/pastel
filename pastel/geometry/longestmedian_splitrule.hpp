@@ -1,5 +1,5 @@
-#ifndef PASTEL_LONGESTMEDIAN_SPLITRULE_HPP
-#define PASTEL_LONGESTMEDIAN_SPLITRULE_HPP
+#ifndef PASTELGEOMETRY_LONGESTMEDIAN_SPLITRULE_HPP
+#define PASTELGEOMETRY_LONGESTMEDIAN_SPLITRULE_HPP
 
 #include "pastel/geometry/longestmedian_splitrule.h"
 #include "pastel/geometry/pointkdtree.h"

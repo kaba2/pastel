@@ -3,7 +3,7 @@
 
 #include "pastel/matlab/matlab.h"
 
-#include "pastel/geometry/point_pattern_matching.h"
+#include "pastel/geometry/point_pattern_matching_vw.h"
 #include "pastel/sys/array_pointpolicy.h"
 
 void force_linking_point_pattern_match() {}

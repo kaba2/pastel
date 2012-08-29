@@ -1,5 +1,5 @@
-Orthogonal range searching
-==========================
+Range searching
+===============
 
 [[Parent]]: subset_searches.txt
 

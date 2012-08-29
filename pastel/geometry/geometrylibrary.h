@@ -1,8 +1,8 @@
 // Description: Dll-keywords for PastelGeometry
 // Documentation: common.txt
 
-#ifndef PASTEL_GEOMETRYLIBRARY_H
-#define PASTEL_GEOMETRYLIBRARY_H
+#ifndef PASTELGEOMETRY_GEOMETRYLIBRARY_H
+#define PASTELGEOMETRY_GEOMETRYLIBRARY_H
 
 #include "pastel/sys/environment.h"
 
