@@ -1,8 +1,8 @@
 // Description: SubArray class
 // Documentation: array.txt
 
-#ifndef PASTEL_SUBARRAY_H
-#define PASTEL_SUBARRAY_H
+#ifndef PASTELSYS_SUBARRAY_H
+#define PASTELSYS_SUBARRAY_H
 
 #include "pastel/sys/sparse_iterator.h"
 #include "pastel/sys/memory_overlaps.h"

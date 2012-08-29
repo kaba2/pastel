@@ -1,5 +1,5 @@
-#ifndef PASTEL_CONVOLUTION_HPP
-#define PASTEL_CONVOLUTION_HPP
+#ifndef PASTELGFX_CONVOLUTION_HPP
+#define PASTELGFX_CONVOLUTION_HPP
 
 #include "pastel/gfx/convolution.h"
 #include "pastel/gfx/nearestimage_texture.h"

@@ -1,7 +1,7 @@
 // Description: Sparsity measures
 
-#ifndef PASTEL_SPARSITY_H
-#define PASTEL_SPARSITY_H
+#ifndef PASTELDSP_SPARSITY_H
+#define PASTELDSP_SPARSITY_H
 
 #include <boost/iterator/iterator_traits.hpp>
 

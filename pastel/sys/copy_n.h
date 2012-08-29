@@ -1,8 +1,8 @@
 // Description: copy_n
 // Documentation: sequence_algorithms.txt
 
-#ifndef PASTEL_COPY_N_H
-#define PASTEL_COPY_N_H
+#ifndef PASTELSYS_COPY_N_H
+#define PASTELSYS_COPY_N_H
 
 #include "pastel/sys/mytypes.h"
 

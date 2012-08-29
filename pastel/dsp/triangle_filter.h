@@ -2,8 +2,8 @@
 // Detail: Triangle reconstruction filter
 // Documentation: filters.txt
 
-#ifndef PASTEL_TRIANGLE_FILTER_H
-#define PASTEL_TRIANGLE_FILTER_H
+#ifndef PASTELDSP_TRIANGLE_FILTER_H
+#define PASTELDSP_TRIANGLE_FILTER_H
 
 #include "pastel/dsp/dsplibrary.h"
 #include "pastel/dsp/filter.h"

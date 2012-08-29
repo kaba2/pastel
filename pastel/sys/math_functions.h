@@ -1,7 +1,7 @@
 // Description: An aggregate file mathematical functions
 
-#ifndef PASTEL_MATH_FUNCTIONS_H
-#define PASTEL_MATH_FUNCTIONS_H
+#ifndef PASTELSYS_MATH_FUNCTIONS_H
+#define PASTELSYS_MATH_FUNCTIONS_H
 
 #include "pastel/sys/angles.h"
 #include "pastel/sys/bernstein.h"

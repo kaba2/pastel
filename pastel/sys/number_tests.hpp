@@ -1,5 +1,5 @@
-#ifndef PASTEL_NUMBER_TESTS_HPP
-#define PASTEL_NUMBER_TESTS_HPP
+#ifndef PASTELSYS_NUMBER_TESTS_HPP
+#define PASTELSYS_NUMBER_TESTS_HPP
 
 #include "pastel/sys/number_tests.h"
 #include "pastel/sys/ensure.h"

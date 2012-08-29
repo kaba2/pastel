@@ -2,8 +2,8 @@
 // Detail: pointSetMean, pointSetVariance, etc.
 // Documentation: common.txt
 
-#ifndef PASTEL_STATISTICS_H
-#define PASTEL_STATISTICS_H
+#ifndef PASTELMATH_STATISTICS_H
+#define PASTELMATH_STATISTICS_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/range.h"

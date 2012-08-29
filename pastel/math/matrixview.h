@@ -1,8 +1,8 @@
 // Description: SubMatrix class
 // Detail: Allows to refer to submatrices in a Matlab style
 
-#ifndef PASTEL_MATRIXVIEW_H
-#define PASTEL_MATRIXVIEW_H
+#ifndef PASTELMATH_MATRIXVIEW_H
+#define PASTELMATH_MATRIXVIEW_H
 
 #include "pastel/math/matrix.h"
 

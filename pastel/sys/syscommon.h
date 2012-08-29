@@ -1,8 +1,8 @@
 // Description: Miscellaneous tools
 // Documentation: algorithms.txt
 
-#ifndef PASTEL_SYSCOMMON_H
-#define PASTEL_SYSCOMMON_H
+#ifndef PASTELSYS_SYSCOMMON_H
+#define PASTELSYS_SYSCOMMON_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

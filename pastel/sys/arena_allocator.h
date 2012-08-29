@@ -1,8 +1,8 @@
 // Description: Arena allocator
 // Detail: A deallocate-once, arbitrary size memory allocator
 
-#ifndef PASTEL_ARENA_ALLOCATOR_H
-#define PASTEL_ARENA_ALLOCATOR_H
+#ifndef PASTELSYS_ARENA_ALLOCATOR_H
+#define PASTELSYS_ARENA_ALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

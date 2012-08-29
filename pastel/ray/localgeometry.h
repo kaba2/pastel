@@ -1,8 +1,8 @@
 // Description: Local geometry of a shape
 // Documentation: pastelray.txt
 
-#ifndef PASTEL_LOCALGEOMETRY_H
-#define PASTEL_LOCALGEOMETRY_H
+#ifndef PASTELRAY_LOCALGEOMETRY_H
+#define PASTELRAY_LOCALGEOMETRY_H
 
 #include "pastel/ray/raylibrary.h"
 #include "pastel/ray/shapeintersection.h"

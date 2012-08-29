@@ -1,7 +1,7 @@
 // Description: An aggregate file for integers
 
-#ifndef PASTEL_INTEGERS_H
-#define PASTEL_INTEGERS_H
+#ifndef PASTELSYS_INTEGERS_H
+#define PASTELSYS_INTEGERS_H
 
 #include "pastel/sys/integer_concept.h"
 

@@ -1,8 +1,8 @@
 // Description: Hash computation
 // Documentation: hashing.txt
 
-#ifndef PASTEL_HASHING_H
-#define PASTEL_HASHING_H
+#ifndef PASTELSYS_HASHING_H
+#define PASTELSYS_HASHING_H
 
 #include "pastel/sys/range.h"
 #include "pastel/sys/mytypes.h"

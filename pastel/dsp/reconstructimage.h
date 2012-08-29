@@ -1,8 +1,8 @@
 // Description: Reconstruction of missing pixels for an image
 // Documentation: miscellaneous.txt
 
-#ifndef PASTEL_RECONSTRUCTIMAGE_H
-#define PASTEL_RECONSTRUCTIMAGE_H
+#ifndef PASTELDSP_RECONSTRUCTIMAGE_H
+#define PASTELDSP_RECONSTRUCTIMAGE_H
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/array.h"

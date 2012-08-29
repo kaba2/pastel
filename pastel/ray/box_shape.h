@@ -1,7 +1,7 @@
 // Description: Box shape
 
-#ifndef PASTEL_BOX_SHAPE_H
-#define PASTEL_BOX_SHAPE_H
+#ifndef PASTELRAY_BOX_SHAPE_H
+#define PASTELRAY_BOX_SHAPE_H
 
 #include "pastel/ray/shape.h"
 

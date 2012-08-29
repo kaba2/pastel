@@ -1,5 +1,5 @@
-#ifndef PASTEL_VIEW_VISIT_MORE_HPP
-#define PASTEL_VIEW_VISIT_MORE_HPP
+#ifndef PASTELSYS_VIEW_VISIT_MORE_HPP
+#define PASTELSYS_VIEW_VISIT_MORE_HPP
 
 #include "pastel/sys/view_visit_more.h"
 

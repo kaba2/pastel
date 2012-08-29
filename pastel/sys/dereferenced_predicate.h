@@ -1,8 +1,8 @@
 // Description: Dereferenced predicates
 // Documentation: predicates.txt
 
-#ifndef PASTEL_DEREFERENCED_PREDICATE_H
-#define PASTEL_DEREFERENCED_PREDICATE_H
+#ifndef PASTELSYS_DEREFERENCED_PREDICATE_H
+#define PASTELSYS_DEREFERENCED_PREDICATE_H
 
 #include "pastel/sys/predicate_concept.h"
 

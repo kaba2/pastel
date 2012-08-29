@@ -1,5 +1,5 @@
-#ifndef PASTEL_REAL_CONCEPT_HPP
-#define PASTEL_REAL_CONCEPT_HPP
+#ifndef PASTELSYS_REAL_CONCEPT_HPP
+#define PASTELSYS_REAL_CONCEPT_HPP
 
 #include "pastel/sys/real_concept.h"
 

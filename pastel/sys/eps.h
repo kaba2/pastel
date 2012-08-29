@@ -1,8 +1,8 @@
 // Description: Next greater and next smaller floating point values
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_EPS_H
-#define PASTEL_EPS_H
+#ifndef PASTELSYS_EPS_H
+#define PASTELSYS_EPS_H
 
 #include "pastel/sys/mytypes.h"
 

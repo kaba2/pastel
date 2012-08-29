@@ -1,7 +1,7 @@
 // Description: Optional object
 
-#ifndef PASTEL_OPTIONAL_H
-#define PASTEL_OPTIONAL_H
+#ifndef PASTELSYS_OPTIONAL_H
+#define PASTELSYS_OPTIONAL_H
 
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/hashing.h"

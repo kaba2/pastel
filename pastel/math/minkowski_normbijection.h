@@ -2,8 +2,8 @@
 // Detail: A norm bijection of the Minkowski norm (p-norm)
 // Documentation: normbijection.txt
 
-#ifndef PASTEL_MINKOWSKI_NORMBIJECTION_H
-#define PASTEL_MINKOWSKI_NORMBIJECTION_H
+#ifndef PASTELMATH_MINKOWSKI_NORMBIJECTION_H
+#define PASTELMATH_MINKOWSKI_NORMBIJECTION_H
 
 #include "pastel/sys/vector_tools.h"
 

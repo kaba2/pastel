@@ -2,8 +2,8 @@
 // Detail: A norm bijection of the Euclidean norm
 // Documentation: normbijection.txt
 
-#ifndef PASTEL_EUCLIDEAN_NORMBIJECTION_H
-#define PASTEL_EUCLIDEAN_NORMBIJECTION_H
+#ifndef PASTELMATH_EUCLIDEAN_NORMBIJECTION_H
+#define PASTELMATH_EUCLIDEAN_NORMBIJECTION_H
 
 #include "pastel/sys/vector_tools.h"
 

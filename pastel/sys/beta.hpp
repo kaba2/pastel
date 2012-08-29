@@ -1,5 +1,5 @@
-#ifndef PASTEL_BETA_HPP
-#define PASTEL_BETA_HPP
+#ifndef PASTELSYS_BETA_HPP
+#define PASTELSYS_BETA_HPP
 
 #include "pastel/sys/beta.h"
 #include "pastel/sys/gamma.h"

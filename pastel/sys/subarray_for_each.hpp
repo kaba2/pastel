@@ -1,5 +1,5 @@
-#ifndef PASTEL_SUBARRAY_FOR_EACH_HPP
-#define PASTEL_SUBARRAY_FOR_EACH_HPP
+#ifndef PASTELSYS_SUBARRAY_FOR_EACH_HPP
+#define PASTELSYS_SUBARRAY_FOR_EACH_HPP
 
 #include "pastel/sys/subarray_for_each.h"
 #include "pastel/sys/sparse_iterator.h"

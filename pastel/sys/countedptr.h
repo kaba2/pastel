@@ -1,8 +1,8 @@
 // Description: CountedPtr class
 // Detail: A reference counted smart-pointer
 
-#ifndef PASTEL_COUNTEDPTR_H
-#define PASTEL_COUNTEDPTR_H
+#ifndef PASTELSYS_COUNTEDPTR_H
+#define PASTELSYS_COUNTEDPTR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

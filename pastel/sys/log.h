@@ -2,8 +2,8 @@
 // Detail: Outputs logging information to a set of Logger's.
 // Documentation: logging.txt
 
-#ifndef PASTEL_LOG_H
-#define PASTEL_LOG_H
+#ifndef PASTELSYS_LOG_H
+#define PASTELSYS_LOG_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/countedptr.h"

@@ -1,5 +1,5 @@
-#ifndef PASTEL_REDBLACKTREE_FWD_H
-#define PASTEL_REDBLACKTREE_FWD_H
+#ifndef PASTELSYS_REDBLACKTREE_FWD_H
+#define PASTELSYS_REDBLACKTREE_FWD_H
 
 #include "pastel/sys/object_forwarding.h"
 

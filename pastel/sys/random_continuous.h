@@ -1,7 +1,7 @@
 // Description: An aggregate file for continuous random variables
 
-#ifndef PASTEL_RANDOM_CONTINUOUS_H
-#define PASTEL_RANDOM_CONTINUOUS_H
+#ifndef PASTELSYS_RANDOM_CONTINUOUS_H
+#define PASTELSYS_RANDOM_CONTINUOUS_H
 
 #include "pastel/sys/random_uniform.h"
 #include "pastel/sys/random_triangle.h"

@@ -1,8 +1,8 @@
 // Description: Gamma function
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_GAMMA_H
-#define PASTEL_GAMMA_H
+#ifndef PASTELSYS_GAMMA_H
+#define PASTELSYS_GAMMA_H
 
 #include "pastel/sys/mytypes.h"
 

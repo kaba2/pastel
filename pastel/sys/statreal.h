@@ -1,7 +1,7 @@
 // Description: A real number which collects statistics of its use
 
-#ifndef PASTEL_STATREAL_H
-#define PASTEL_STATREAL_H
+#ifndef PASTELSYS_STATREAL_H
+#define PASTELSYS_STATREAL_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

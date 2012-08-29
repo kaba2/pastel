@@ -1,8 +1,8 @@
 // Description: Conditionally includes omp.h
 // Documentation: environment.txt
 
-#ifndef PASTEL_PASTELOMP_H
-#define PASTEL_PASTELOMP_H
+#ifndef PASTELSYS_PASTELOMP_H
+#define PASTELSYS_PASTELOMP_H
 
 #include "pastel/sys/mytypes.h"
 

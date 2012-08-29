@@ -1,8 +1,8 @@
 // Description: Quaternion class
 // Detail: Allows to work with quaternions
 
-#ifndef PASTEL_QUATERNION_H
-#define PASTEL_QUATERNION_H
+#ifndef PASTELMATH_QUATERNION_H
+#define PASTELMATH_QUATERNION_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/math/mathlibrary.h"

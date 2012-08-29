@@ -1,7 +1,7 @@
 // Description: An aggregate file for reporters.
 
-#ifndef PASTEL_REPORTERS_H
-#define PASTEL_REPORTERS_H
+#ifndef PASTELSYS_REPORTERS_H
+#define PASTELSYS_REPORTERS_H
 
 #include "pastel/sys/iterator_reporter.h"
 #include "pastel/sys/null_reporter.h"

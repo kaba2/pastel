@@ -1,8 +1,8 @@
 // Description: Array comparison for Vectors
 // Detail: allLess, anyLess, allEqual, anyEqual, etc.
 
-#ifndef PASTEL_VECTOR_COMPARE_H
-#define PASTEL_VECTOR_COMPARE_H
+#ifndef PASTELSYS_VECTOR_COMPARE_H
+#define PASTELSYS_VECTOR_COMPARE_H
 
 #include "pastel/sys/vector.h"
 

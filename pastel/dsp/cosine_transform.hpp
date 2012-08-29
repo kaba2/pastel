@@ -1,5 +1,5 @@
-#ifndef PASTEL_COSINE_TRANSFORM_HPP
-#define PASTEL_COSINE_TRANSFORM_HPP
+#ifndef PASTELDSP_COSINE_TRANSFORM_HPP
+#define PASTELDSP_COSINE_TRANSFORM_HPP
 
 #include "pastel/dsp/cosine_transform.h"
 #include "pastel/dsp/fourier_transform.h"

@@ -2,8 +2,8 @@
 // Detail: A high-quality random number generator
 // Documentation: random_discrete.txt
 
-#ifndef PASTEL_MT19937_H
-#define PASTEL_MT19937_H
+#ifndef PASTELSYS_MT19937_H
+#define PASTELSYS_MT19937_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

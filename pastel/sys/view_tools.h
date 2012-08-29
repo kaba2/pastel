@@ -1,7 +1,7 @@
 // Description: Algorithms for array views
 
-#ifndef PASTEL_VIEW_TOOLS_H
-#define PASTEL_VIEW_TOOLS_H
+#ifndef PASTELSYS_VIEW_TOOLS_H
+#define PASTELSYS_VIEW_TOOLS_H
 
 #include "pastel/sys/view.h"
 

@@ -1,8 +1,8 @@
 // Description: An extended view using a clamped border
 // Documentation: extendedconstviews.txt
 
-#ifndef PASTEL_CLAMPEDCONSTVIEW_H
-#define PASTEL_CLAMPEDCONSTVIEW_H
+#ifndef PASTELSYS_CLAMPEDCONSTVIEW_H
+#define PASTELSYS_CLAMPEDCONSTVIEW_H
 
 #include "pastel/sys/extendedconstview.h"
 #include "pastel/sys/view.h"

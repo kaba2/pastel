@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_ANDERSON_DARLING_HPP
-#define PASTEL_RANDOM_ANDERSON_DARLING_HPP
+#ifndef PASTELSYS_RANDOM_ANDERSON_DARLING_HPP
+#define PASTELSYS_RANDOM_ANDERSON_DARLING_HPP
 
 #include "pastel/sys/random_anderson_darling.h"
 #include "pastel/sys/ensure.h"

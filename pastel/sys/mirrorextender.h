@@ -1,8 +1,8 @@
 // Description: Mirroring index extender
 // Documentation: indexextenders.txt
 
-#ifndef PASTEL_MIRROREXTENDER_H
-#define PASTEL_MIRROREXTENDER_H
+#ifndef PASTELSYS_MIRROREXTENDER_H
+#define PASTELSYS_MIRROREXTENDER_H
 
 #include "pastel/sys/indexextender.h"
 

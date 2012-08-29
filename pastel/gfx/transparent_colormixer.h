@@ -2,8 +2,8 @@
 // Detail: Linearly interpolates between background and texture
 // Documentation: colormixers.txt
 
-#ifndef PASTEL_TRANSPARENT_COLORMIXER_H
-#define PASTEL_TRANSPARENT_COLORMIXER_H
+#ifndef PASTELGFX_TRANSPARENT_COLORMIXER_H
+#define PASTELGFX_TRANSPARENT_COLORMIXER_H
 
 #include "pastel/gfx/colormixer.h"
 

@@ -1,7 +1,7 @@
 // Description: Algorithms for LuDecomposition class
 
-#ifndef PASTEL_LU_DECOMPOSITION_TOOLS_H
-#define PASTEL_LU_DECOMPOSITION_TOOLS_H
+#ifndef PASTELMATH_LU_DECOMPOSITION_TOOLS_H
+#define PASTELMATH_LU_DECOMPOSITION_TOOLS_H
 
 #include "pastel/math/lu_decomposition.h"
 

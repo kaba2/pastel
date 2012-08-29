@@ -2,8 +2,8 @@
 // Detail: Turns initialization into a function call
 // Documentation: miscellaneous.txt
 
-#ifndef PASTEL_CALLFUNCTION_H
-#define PASTEL_CALLFUNCTION_H
+#ifndef PASTELSYS_CALLFUNCTION_H
+#define PASTELSYS_CALLFUNCTION_H
 
 #include "pastel/sys/mytypes.h"
 

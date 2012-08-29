@@ -1,8 +1,8 @@
 // Description: Drawing a view
 // Documentation: drawing.txt
 
-#ifndef PASTEL_DRAW_VIEW_H
-#define PASTEL_DRAW_VIEW_H
+#ifndef PASTELGFX_DRAW_VIEW_H
+#define PASTELGFX_DRAW_VIEW_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"

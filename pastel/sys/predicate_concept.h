@@ -1,8 +1,8 @@
 // Description: Predicate concept
 // Documentation: predicates.txt
 
-#ifndef PASTEL_PREDICATE_CONCEPT_H
-#define PASTEL_PREDICATE_CONCEPT_H
+#ifndef PASTELSYS_PREDICATE_CONCEPT_H
+#define PASTELSYS_PREDICATE_CONCEPT_H
 
 #include "pastel/sys/algorithm_concept.h"
 

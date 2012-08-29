@@ -1,7 +1,7 @@
 // Description: An aggregate file for textures
 
-#ifndef PASTEL_TEXTURES_H
-#define PASTEL_TEXTURES_H
+#ifndef PASTELGFX_TEXTURES_H
+#define PASTELGFX_TEXTURES_H
 
 // Image textures
 

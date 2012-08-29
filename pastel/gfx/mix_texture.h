@@ -1,8 +1,8 @@
 // Description: Interpolation of two textures with a third
 // Documentation: modifier_textures.txt
 
-#ifndef PASTEL_MIX_TEXTURE_H
-#define PASTEL_MIX_TEXTURE_H
+#ifndef PASTELGFX_MIX_TEXTURE_H
+#define PASTELGFX_MIX_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/gfx/colormixer.h"

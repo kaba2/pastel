@@ -1,7 +1,7 @@
 // Description: Discrete Hadamard transform
 
-#ifndef PASTEL_HADAMARD_TRANSFORM_H
-#define PASTEL_HADAMARD_TRANSFORM_H
+#ifndef PASTELDSP_HADAMARD_TRANSFORM_H
+#define PASTELDSP_HADAMARD_TRANSFORM_H
 
 #include "pastel/sys/range.h"
 

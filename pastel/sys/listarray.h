@@ -1,7 +1,7 @@
 // Documentation: notsure.txt
 
-#ifndef PASTEL_LISTARRAY_H
-#define PASTEL_LISTARRAY_H
+#ifndef PASTELSYS_LISTARRAY_H
+#define PASTELSYS_LISTARRAY_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/fastlist.h"

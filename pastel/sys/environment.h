@@ -1,7 +1,7 @@
 // Description: Environment-specific preprocessor definitions
 
-#ifndef PASTEL_ENVIRONMENT_H
-#define PASTEL_ENVIRONMENT_H
+#ifndef PASTELSYS_ENVIRONMENT_H
+#define PASTELSYS_ENVIRONMENT_H
 
 // PORTABILITY: dynamic libraries are not standard C++.
 

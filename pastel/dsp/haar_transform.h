@@ -1,7 +1,7 @@
 // Description: Discrete Haar transform
 
-#ifndef PASTEL_HAAR_TRANSFORM_H
-#define PASTEL_HAAR_TRANSFORM_H
+#ifndef PASTELDSP_HAAR_TRANSFORM_H
+#define PASTELDSP_HAAR_TRANSFORM_H
 
 #include "pastel/sys/range.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTEL_DRAW_FLOODFILL_HPP
-#define PASTEL_DRAW_FLOODFILL_HPP
+#ifndef PASTELGFX_DRAW_FLOODFILL_HPP
+#define PASTELGFX_DRAW_FLOODFILL_HPP
 
 #include "pastel/gfx/draw_floodfill.h"
 

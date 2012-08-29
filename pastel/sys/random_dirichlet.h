@@ -1,7 +1,7 @@
 // Description: Dirichlet-distributed random numbers
 
-#ifndef PASTEL_RANDOM_DIRICHLET_H
-#define PASTEL_RANDOM_DIRICHLET_H
+#ifndef PASTELSYS_RANDOM_DIRICHLET_H
+#define PASTELSYS_RANDOM_DIRICHLET_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

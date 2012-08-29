@@ -1,8 +1,8 @@
 // Description: Quantization
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_QUANTIZATION_H
-#define PASTEL_QUANTIZATION_H
+#ifndef PASTELSYS_QUANTIZATION_H
+#define PASTELSYS_QUANTIZATION_H
 
 #include "pastel/sys/mytypes.h"
 

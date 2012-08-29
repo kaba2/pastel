@@ -2,8 +2,8 @@
 // Detail: Allows controlling timing related stuff
 // Documentation: timing.txt
 
-#ifndef PASTEL_TIMEDEVICE_H
-#define PASTEL_TIMEDEVICE_H
+#ifndef PASTELDEVICE_TIMEDEVICE_H
+#define PASTELDEVICE_TIMEDEVICE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/device/devicelibrary.h"

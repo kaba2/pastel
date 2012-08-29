@@ -1,8 +1,8 @@
 // Description: Predicates for iterator-address's
 // Documentation: predicates.txt
 
-#ifndef PASTEL_ITERATORADDRESS_PREDICATE_H
-#define PASTEL_ITERATORADDRESS_PREDICATE_H
+#ifndef PASTELSYS_ITERATORADDRESS_PREDICATE_H
+#define PASTELSYS_ITERATORADDRESS_PREDICATE_H
 
 #include "pastel/sys/predicate_concept.h"
 

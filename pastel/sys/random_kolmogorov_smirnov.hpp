@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_KOLMOGOROV_SMIRNOV_HPP
-#define PASTEL_RANDOM_KOLMOGOROV_SMIRNOV_HPP
+#ifndef PASTELSYS_RANDOM_KOLMOGOROV_SMIRNOV_HPP
+#define PASTELSYS_RANDOM_KOLMOGOROV_SMIRNOV_HPP
 
 #include "pastel/sys/random_kolmogorov_smirnov.h"
 #include "pastel/sys/ensure.h"

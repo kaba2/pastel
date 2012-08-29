@@ -1,8 +1,8 @@
 // Description: Dll-keywords for PastelGfxUi
 // Documentation: common.txt
 
-#ifndef PASTEL_GFXUILIBRARY_H
-#define PASTEL_GFXUILIBRARY_H
+#ifndef PASTELGFXUI_GFXUILIBRARY_H
+#define PASTELGFXUI_GFXUILIBRARY_H
 
 #include "pastel/sys/environment.h"
 

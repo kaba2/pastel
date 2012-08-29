@@ -1,7 +1,7 @@
 // Description: Cauchy-distributed random numbers
 
-#ifndef PASTEL_RANDOM_CAUCHY_H
-#define PASTEL_RANDOM_CAUCHY_H
+#ifndef PASTELSYS_RANDOM_CAUCHY_H
+#define PASTELSYS_RANDOM_CAUCHY_H
 
 #include "pastel/sys/mytypes.h"
 

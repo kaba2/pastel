@@ -2,8 +2,8 @@
 // Detail: A norm bijection of the maximum norm
 // Documentation: normbijection.txt
 
-#ifndef PASTEL_MAXIMUM_NORMBIJECTION_H
-#define PASTEL_MAXIMUM_NORMBIJECTION_H
+#ifndef PASTELMATH_MAXIMUM_NORMBIJECTION_H
+#define PASTELMATH_MAXIMUM_NORMBIJECTION_H
 
 #include "pastel/sys/vector_tools.h"
 

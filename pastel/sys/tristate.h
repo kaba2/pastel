@@ -1,8 +1,8 @@
 // Description: Fuzzy 3-state logic
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_TRISTATE_H
-#define PASTEL_TRISTATE_H
+#ifndef PASTELSYS_TRISTATE_H
+#define PASTELSYS_TRISTATE_H
 
 namespace Pastel
 {

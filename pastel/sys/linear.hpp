@@ -1,5 +1,5 @@
-#ifndef PASTEL_LINEAR_HPP
-#define PASTEL_LINEAR_HPP
+#ifndef PASTELSYS_LINEAR_HPP
+#define PASTELSYS_LINEAR_HPP
 
 #include "pastel/sys/linear.h"
 

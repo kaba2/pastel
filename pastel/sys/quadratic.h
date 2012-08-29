@@ -1,8 +1,8 @@
 // Description: Quadratic equations
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_QUADRATIC_H
-#define PASTEL_QUADRATIC_H
+#ifndef PASTELSYS_QUADRATIC_H
+#define PASTELSYS_QUADRATIC_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -2,8 +2,8 @@
 // Detail: An abstract base class for reporting logging information
 // Documentation: loggers.txt
 
-#ifndef PASTEL_LOGGER_H
-#define PASTEL_LOGGER_H
+#ifndef PASTELSYS_LOGGER_H
+#define PASTELSYS_LOGGER_H
 
 #include "pastel/sys/syslibrary.h"
 

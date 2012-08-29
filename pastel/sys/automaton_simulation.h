@@ -1,7 +1,7 @@
 // Description: Simulation of an automaton
 
-#ifndef PASTEL_AUTOMATON_SIMULATION_H
-#define PASTEL_AUTOMATON_SIMULATION_H
+#ifndef PASTELSYS_AUTOMATON_SIMULATION_H
+#define PASTELSYS_AUTOMATON_SIMULATION_H
 
 //#include "pastel/sys/automaton_simulation_concepts.h"
 

@@ -2,8 +2,8 @@
 // Detail: Especially for dilation and eroding
 // Documentation: structuring_elements.txt
 
-#ifndef PASTEL_STRUCTURING_ELEMENTS_H
-#define PASTEL_STRUCTURING_ELEMENTS_H
+#ifndef PASTELGFX_STRUCTURING_ELEMENTS_H
+#define PASTELGFX_STRUCTURING_ELEMENTS_H
 
 #include "pastel/sys/view.h"
 

@@ -1,7 +1,7 @@
 // Description: Refinable partition
 
-#ifndef PASTEL_REFINABLE_PARTITION_H
-#define PASTEL_REFINABLE_PARTITION_H
+#ifndef PASTELSYS_REFINABLE_PARTITION_H
+#define PASTELSYS_REFINABLE_PARTITION_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/refinable_partition_fwd.h"

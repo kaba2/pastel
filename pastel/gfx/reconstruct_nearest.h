@@ -1,8 +1,8 @@
 // Description: Non-uniform reconstruction using the k:th nearest neighbor.
 // Documentation: reconstruction.txt
 
-#ifndef PASTEL_RECONSTRUCT_NEAREST_H
-#define PASTEL_RECONSTRUCT_NEAREST_H
+#ifndef PASTELGFX_RECONSTRUCT_NEAREST_H
+#define PASTELGFX_RECONSTRUCT_NEAREST_H
 
 #include "pastel/geometry/alignedbox.h"
 

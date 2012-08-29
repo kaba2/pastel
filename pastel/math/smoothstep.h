@@ -2,8 +2,8 @@
 // Detail: Cubic, quartic, and quintic smoothstep functions
 // Documentation: interpolation.txt
 
-#ifndef PASTEL_SMOOTHSTEP_H
-#define PASTEL_SMOOTHSTEP_H
+#ifndef PASTELMATH_SMOOTHSTEP_H
+#define PASTELMATH_SMOOTHSTEP_H
 
 namespace Pastel
 {

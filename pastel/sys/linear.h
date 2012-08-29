@@ -1,8 +1,8 @@
 // Description: Linear interpolation
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_LINEAR_H
-#define PASTEL_LINEAR_H
+#ifndef PASTELSYS_LINEAR_H
+#define PASTELSYS_LINEAR_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/tuple.h"

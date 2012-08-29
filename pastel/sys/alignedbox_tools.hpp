@@ -1,5 +1,5 @@
-#ifndef PASTEL_ALIGNEDBOX_TOOLS_HPP
-#define PASTEL_ALIGNEDBOX_TOOLS_HPP
+#ifndef PASTELSYS_ALIGNEDBOX_TOOLS_HPP
+#define PASTELSYS_ALIGNEDBOX_TOOLS_HPP
 
 #include "pastel/sys/alignedbox_tools.h"
 #include "pastel/sys/vector_tools.h"

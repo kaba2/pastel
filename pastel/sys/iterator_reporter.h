@@ -1,7 +1,7 @@
 // Description: Iterator reporter
 
-#ifndef PASTEL_ITERATOR_REPORTER_H
-#define PASTEL_ITERATOR_REPORTER_H
+#ifndef PASTELSYS_ITERATOR_REPORTER_H
+#define PASTELSYS_ITERATOR_REPORTER_H
 
 #include "pastel/sys/reporter_concept.h"
 

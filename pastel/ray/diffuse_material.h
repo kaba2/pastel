@@ -1,8 +1,8 @@
 // Description: Diffusee material
 // Documentation: materials.txt
 
-#ifndef PASTEL_DIFFUSE_MATERIAL_H
-#define PASTEL_DIFFUSE_MATERIAL_H
+#ifndef PASTELRAY_DIFFUSE_MATERIAL_H
+#define PASTELRAY_DIFFUSE_MATERIAL_H
 
 #include "pastel/ray/material.h"
 

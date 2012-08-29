@@ -1,7 +1,7 @@
 // Description: Log-normal-distributed random numbers
 
-#ifndef PASTEL_RANDOM_LOGNORMAL_H
-#define PASTEL_RANDOM_LOGNORMAL_H
+#ifndef PASTELSYS_RANDOM_LOGNORMAL_H
+#define PASTELSYS_RANDOM_LOGNORMAL_H
 
 #include "pastel/sys/mytypes.h"
 

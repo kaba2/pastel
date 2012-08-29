@@ -1,8 +1,8 @@
 // Description: Summed-area tables
 // Documentation: summedareatable.txt
 
-#ifndef PASTEL_SUMMEDAREATABLE_H
-#define PASTEL_SUMMEDAREATABLE_H
+#ifndef PASTELGFX_SUMMEDAREATABLE_H
+#define PASTELGFX_SUMMEDAREATABLE_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/alignedbox.h"

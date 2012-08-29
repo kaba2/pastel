@@ -1,8 +1,8 @@
 // Description: Uniformly-distributed random integers
 // Documentation: random_discrete.txt
 
-#ifndef PASTEL_RANDOM_INTEGER_H
-#define PASTEL_RANDOM_INTEGER_H
+#ifndef PASTELSYS_RANDOM_INTEGER_H
+#define PASTELSYS_RANDOM_INTEGER_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -1,8 +1,8 @@
 // Description: Set thing
 // Documentation: things.txt
 
-#ifndef PASTEL_SET_THING_H
-#define PASTEL_SET_THING_H
+#ifndef PASTELRAY_SET_THING_H
+#define PASTELRAY_SET_THING_H
 
 #include "pastel/ray/composite_thing.h"
 #include "pastel/ray/thing.h"

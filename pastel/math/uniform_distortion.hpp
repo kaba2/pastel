@@ -1,5 +1,5 @@
-#ifndef PASTEL_UNIFORM_DISTORTION_HPP
-#define PASTEL_UNIFORM_DISTORTION_HPP
+#ifndef PASTELMATH_UNIFORM_DISTORTION_HPP
+#define PASTELMATH_UNIFORM_DISTORTION_HPP
 
 #include "pastel/math/uniform_distortion.h"
 #include "pastel/math/coordinates.h"

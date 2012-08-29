@@ -1,7 +1,7 @@
 // Description: Cloning pointer
 
-#ifndef PASTEL_CLONE_PTR_H
-#define PASTEL_CLONE_PTR_H
+#ifndef PASTELSYS_CLONE_PTR_H
+#define PASTELSYS_CLONE_PTR_H
 
 #include "pastel/sys/clone_ptr_concepts.h"
 #include "pastel/sys/clone_ptr_private.h"

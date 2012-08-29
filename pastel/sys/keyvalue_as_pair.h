@@ -1,8 +1,8 @@
 // Description: KeyValue as a Pair
 // Documentation: as_pair.txt
 
-#ifndef PASTEL_KEYVALUE_AS_PAIR_H
-#define PASTEL_KEYVALUE_AS_PAIR_H
+#ifndef PASTELSYS_KEYVALUE_AS_PAIR_H
+#define PASTELSYS_KEYVALUE_AS_PAIR_H
 
 #include "pastel/sys/as_pair_concept.h"
 

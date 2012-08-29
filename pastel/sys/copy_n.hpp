@@ -1,5 +1,5 @@
-#ifndef PASTEL_COPY_N_HPP
-#define PASTEL_COPY_N_HPP
+#ifndef PASTELSYS_COPY_N_HPP
+#define PASTELSYS_COPY_N_HPP
 
 #include "pastel/sys/copy_n.h"
 

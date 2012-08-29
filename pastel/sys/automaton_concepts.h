@@ -1,5 +1,5 @@
-#ifndef PASTEL_AUTOMATON_CONCEPTS_H
-#define PASTEL_AUTOMATON_CONCEPTS_H
+#ifndef PASTELSYS_AUTOMATON_CONCEPTS_H
+#define PASTELSYS_AUTOMATON_CONCEPTS_H
 
 #include "pastel/sys/automaton_fwd.h"
 #include "pastel/sys/optional.h"

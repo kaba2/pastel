@@ -2,8 +2,8 @@
 // Detail: An adapter view to change the apparent type of the data.
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_TRANSFORMEDVIEW_H
-#define PASTEL_TRANSFORMEDVIEW_H
+#ifndef PASTELSYS_TRANSFORMEDVIEW_H
+#define PASTELSYS_TRANSFORMEDVIEW_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/transformedviewcursor.h"

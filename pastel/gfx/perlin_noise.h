@@ -1,7 +1,7 @@
 // Description: Perlin's classic noise
 
-#ifndef PASTEL_PERLIN_NOISE_H
-#define PASTEL_PERLIN_NOISE_H
+#ifndef PASTELGFX_PERLIN_NOISE_H
+#define PASTELGFX_PERLIN_NOISE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

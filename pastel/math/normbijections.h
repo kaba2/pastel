@@ -1,7 +1,7 @@
 // Description: An aggregate file for norm bijections
 
-#ifndef PASTEL_NORMBIJECTIONS_H
-#define PASTEL_NORMBIJECTIONS_H
+#ifndef PASTELMATH_NORMBIJECTIONS_H
+#define PASTELMATH_NORMBIJECTIONS_H
 
 #include "pastel/math/manhattan_normbijection.h"
 #include "pastel/math/euclidean_normbijection.h"

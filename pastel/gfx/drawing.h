@@ -1,7 +1,7 @@
 // Description: An aggregate file for traditional 2d drawing
 
-#ifndef PASTEL_DRAWING_H
-#define PASTEL_DRAWING_H
+#ifndef PASTELGFX_DRAWING_H
+#define PASTELGFX_DRAWING_H
 
 #include "pastel/gfx/draw_box.h"
 #include "pastel/gfx/draw_floodfill.h"

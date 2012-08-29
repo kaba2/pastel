@@ -1,7 +1,7 @@
 // Description: Algorithms for CholeskyDecomposition class
 
-#ifndef PASTEL_CHOLESKY_DECOMPOSITION_TOOLS_H
-#define PASTEL_CHOLESKY_DECOMPOSITION_TOOLS_H
+#ifndef PASTELMATH_CHOLESKY_DECOMPOSITION_TOOLS_H
+#define PASTELMATH_CHOLESKY_DECOMPOSITION_TOOLS_H
 
 #include "pastel/math/cholesky_decomposition.h"
 

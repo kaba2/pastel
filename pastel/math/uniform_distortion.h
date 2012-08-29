@@ -1,7 +1,7 @@
 // Description: Uniform distortion
 
-#ifndef PASTEL_UNIFORM_DISTORTION_H
-#define PASTEL_UNIFORM_DISTORTION_H
+#ifndef PASTELMATH_UNIFORM_DISTORTION_H
+#define PASTELMATH_UNIFORM_DISTORTION_H
 
 #include "pastel/sys/vector.h"
 

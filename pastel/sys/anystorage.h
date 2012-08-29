@@ -1,7 +1,7 @@
 // Description: An associative container for arbitrary data.
 
-#ifndef PASTEL_ANYSTORAGE_H
-#define PASTEL_ANYSTORAGE_H
+#ifndef PASTELSYS_ANYSTORAGE_H
+#define PASTELSYS_ANYSTORAGE_H
 
 #include <boost/any.hpp>
 

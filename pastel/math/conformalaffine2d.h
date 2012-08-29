@@ -1,7 +1,7 @@
 // Description: Conformal affine tranformation in 2D
 
-#ifndef PASTEL_CONFORMALAFFINE2D_H
-#define PASTEL_CONFORMALAFFINE2D_H
+#ifndef PASTELMATH_CONFORMALAFFINE2D_H
+#define PASTELMATH_CONFORMALAFFINE2D_H
 
 #include "pastel/sys/vector.h"
 

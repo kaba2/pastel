@@ -1,7 +1,7 @@
 // Description: An abstract user-interface
 
-#ifndef PASTEL_UI_H
-#define PASTEL_UI_H
+#ifndef PASTELDEVICE_UI_H
+#define PASTELDEVICE_UI_H
 
 #include "pastel/device/devicelibrary.h"
 

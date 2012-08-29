@@ -1,7 +1,7 @@
 // Description: An aggregate file for basic mathematics
 
-#ifndef PASTEL_MATHS_H
-#define PASTEL_MATHS_H
+#ifndef PASTELSYS_MATHS_H
+#define PASTELSYS_MATHS_H
 
 #include "pastel/sys/constants.h"
 #include "pastel/sys/math_functions.h"

@@ -1,8 +1,8 @@
 // Description: PermutedViewCursor class
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_PERMUTEDVIEWCURSOR_H
-#define PASTEL_PERMUTEDVIEWCURSOR_H
+#ifndef PASTELSYS_PERMUTEDVIEWCURSOR_H
+#define PASTELSYS_PERMUTEDVIEWCURSOR_H
 
 #include "pastel/sys/permutedview.h"
 

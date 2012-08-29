@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_DIRICHLET_HPP
-#define PASTEL_RANDOM_DIRICHLET_HPP
+#ifndef PASTELSYS_RANDOM_DIRICHLET_HPP
+#define PASTELSYS_RANDOM_DIRICHLET_HPP
 
 #include "pastel/sys/random_dirichlet.h"
 #include "pastel/sys/random_gamma.h"

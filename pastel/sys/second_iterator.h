@@ -1,7 +1,7 @@
 // Description: A 'second'-member pair-iterator facade
 
-#ifndef PASTEL_SECOND_ITERATOR_H
-#define PASTEL_SECOND_ITERATOR_H
+#ifndef PASTELSYS_SECOND_ITERATOR_H
+#define PASTELSYS_SECOND_ITERATOR_H
 
 #include <boost/operators.hpp>
 

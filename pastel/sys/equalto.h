@@ -1,8 +1,8 @@
 // Description: Equal-to predicate
 // Documentation: predicates.txt
 
-#ifndef PASTEL_EQUALTO_H
-#define PASTEL_EQUALTO_H
+#ifndef PASTELSYS_EQUALTO_H
+#define PASTELSYS_EQUALTO_H
 
 #include "pastel/sys/predicate_concept.h"
 

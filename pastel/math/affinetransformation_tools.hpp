@@ -1,5 +1,5 @@
-#ifndef PASTEL_AFFINETRANSFORMATION_TOOLS_HPP
-#define PASTEL_AFFINETRANSFORMATION_TOOLS_HPP
+#ifndef PASTELMATH_AFFINETRANSFORMATION_TOOLS_HPP
+#define PASTELMATH_AFFINETRANSFORMATION_TOOLS_HPP
 
 #include "pastel/math/affinetransformation_tools.h"
 #include "pastel/math/matrix_tools.h"

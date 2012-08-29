@@ -1,7 +1,7 @@
 // Description: Packing of a scalar image to [0, 1] range
 
-#ifndef PASTEL_PACKRANGE_H
-#define PASTEL_PACKRANGE_H
+#ifndef PASTELGFX_PACKRANGE_H
+#define PASTELGFX_PACKRANGE_H
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view_visit.h"

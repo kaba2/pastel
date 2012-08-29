@@ -2,8 +2,8 @@
 // Detail: Mutual exclusion in a concurrent program
 // Documentation: multithreading.txt
 
-#ifndef PASTEL_MUTEX_H
-#define PASTEL_MUTEX_H
+#ifndef PASTELDEVICE_MUTEX_H
+#define PASTELDEVICE_MUTEX_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/device/devicelibrary.h"

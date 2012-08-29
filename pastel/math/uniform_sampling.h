@@ -1,7 +1,7 @@
 // Description: Uniform sampling
 
-#ifndef PASTEL_UNIFORM_SAMPLING_H
-#define PASTEL_UNIFORM_SAMPLING_H
+#ifndef PASTELMATH_UNIFORM_SAMPLING_H
+#define PASTELMATH_UNIFORM_SAMPLING_H
 
 #include "pastel/sys/vector.h"
 

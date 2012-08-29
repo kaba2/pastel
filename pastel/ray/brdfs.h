@@ -1,7 +1,7 @@
 // Description: An aggregate file for BRDFs.
 
-#ifndef PASTEL_BRDFS_H
-#define PASTEL_BRDFS_H
+#ifndef PASTELRAY_BRDFS_H
+#define PASTELRAY_BRDFS_H
 
 #include "pastel/ray/brdf.h"
 

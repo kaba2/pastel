@@ -2,8 +2,8 @@
 // Detail: Hue-Saturation-Value
 // Documentation: color_space.txt
 
-#ifndef PASTEL_COLOR_HSV_H
-#define PASTEL_COLOR_HSV_H
+#ifndef PASTELGFX_COLOR_HSV_H
+#define PASTELGFX_COLOR_HSV_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"

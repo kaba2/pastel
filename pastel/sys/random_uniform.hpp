@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_UNIFORM_HPP
-#define PASTEL_RANDOM_UNIFORM_HPP
+#ifndef PASTELSYS_RANDOM_UNIFORM_HPP
+#define PASTELSYS_RANDOM_UNIFORM_HPP
 
 #include "pastel/sys/random_uniform.h"
 #include "pastel/sys/syslibrary.h"

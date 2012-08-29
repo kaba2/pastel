@@ -1,8 +1,8 @@
 // Description: Hashing of std::pair
 // Documentation: hashes.txt
 
-#ifndef PASTEL_PAIR_HASH_H
-#define PASTEL_PAIR_HASH_H
+#ifndef PASTELSYS_PAIR_HASH_H
+#define PASTELSYS_PAIR_HASH_H
 
 #include "pastel/sys/hashing.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTEL_GRADIENTFIELD_HPP
-#define PASTEL_GRADIENTFIELD_HPP
+#ifndef PASTELGFX_GRADIENTFIELD_HPP
+#define PASTELGFX_GRADIENTFIELD_HPP
 
 #include "pastel/gfx/gradientfield.h"
 

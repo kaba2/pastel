@@ -1,8 +1,8 @@
 // Description: BinaryFile class
 // Detail: Allows to conveniently handle binary files
 
-#ifndef PASTEL_BINARYFILE_H
-#define PASTEL_BINARYFILE_H
+#ifndef PASTELSYS_BINARYFILE_H
+#define PASTELSYS_BINARYFILE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

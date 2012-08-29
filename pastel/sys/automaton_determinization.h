@@ -1,7 +1,7 @@
 // Description: Automaton determinization
 
-#ifndef PASTEL_AUTOMATON_DETERMINIZATION_H
-#define PASTEL_AUTOMATON_DETERMINIZATION_H
+#ifndef PASTELSYS_AUTOMATON_DETERMINIZATION_H
+#define PASTELSYS_AUTOMATON_DETERMINIZATION_H
 
 #include "pastel/sys/automaton_determinization_concepts.h"
 

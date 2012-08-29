@@ -1,5 +1,5 @@
-#ifndef PASTEL_DRAW_VERTICAL_LINE_HPP
-#define PASTEL_DRAW_VERTICAL_LINE_HPP
+#ifndef PASTELGFX_DRAW_VERTICAL_LINE_HPP
+#define PASTELGFX_DRAW_VERTICAL_LINE_HPP
 
 #include "pastel/gfx/draw_vertical_line.h"
 #include "pastel/gfx/assign_colormixer.h"

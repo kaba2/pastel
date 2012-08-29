@@ -1,5 +1,5 @@
-#ifndef PASTEL_STATISTICS_HPP
-#define PASTEL_STATISTICS_HPP
+#ifndef PASTELMATH_STATISTICS_HPP
+#define PASTELMATH_STATISTICS_HPP
 
 #include "pastel/math/statistics.h"
 

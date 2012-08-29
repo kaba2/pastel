@@ -1,7 +1,7 @@
 // Description: An aggregate file for lenses.
 
-#ifndef PASTEL_LENSES_H
-#define PASTEL_LENSES_H
+#ifndef PASTELRAY_LENSES_H
+#define PASTELRAY_LENSES_H
 
 #include "pastel/ray/lens.h"
 

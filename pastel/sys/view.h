@@ -1,8 +1,8 @@
 // Description: View class
 // Documentation: views.txt
 
-#ifndef PASTEL_VIEW_H
-#define PASTEL_VIEW_H
+#ifndef PASTELSYS_VIEW_H
+#define PASTELSYS_VIEW_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

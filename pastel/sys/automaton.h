@@ -1,7 +1,7 @@
 // Description: Finite-state automaton
 
-#ifndef PASTEL_AUTOMATON_H
-#define PASTEL_AUTOMATON_H
+#ifndef PASTELSYS_AUTOMATON_H
+#define PASTELSYS_AUTOMATON_H
 
 #include "pastel/sys/automaton_concepts.h"
 

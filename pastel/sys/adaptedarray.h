@@ -1,8 +1,8 @@
 // Description: AdaptedArray class
 // Detail: An adapter for an AbstractArray to change data type to another
 
-#ifndef PASTEL_ADAPTEDARRAY_H
-#define PASTEL_ADAPTEDARRAY_H
+#ifndef PASTELSYS_ADAPTEDARRAY_H
+#define PASTELSYS_ADAPTEDARRAY_H
 
 #include "pastel/sys/abstractarray.h"
 

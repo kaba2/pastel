@@ -1,5 +1,5 @@
-#ifndef PASTEL_ERROR_HPP
-#define PASTEL_ERROR_HPP
+#ifndef PASTELSYS_ERROR_HPP
+#define PASTELSYS_ERROR_HPP
 
 #include "pastel/sys/error.h"
 

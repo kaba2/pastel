@@ -1,5 +1,5 @@
-#ifndef PASTEL_MOD_HPP
-#define PASTEL_MOD_HPP
+#ifndef PASTELSYS_MOD_HPP
+#define PASTELSYS_MOD_HPP
 
 #include "pastel/sys/mod.h"
 #include "pastel/sys/ensure.h"

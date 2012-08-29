@@ -1,7 +1,7 @@
 // Description: An aggregate file for concrete views
 
-#ifndef PASTEL_CONCRETE_VIEWS_H
-#define PASTEL_CONCRETE_VIEWS_H
+#ifndef PASTELSYS_CONCRETE_VIEWS_H
+#define PASTELSYS_CONCRETE_VIEWS_H
 
 #include "pastel/sys/adaptedview.h"
 #include "pastel/sys/arrayview.h"

@@ -1,8 +1,8 @@
 // Description: Common matrix forms
 // Detail: setRandomMatrix, setDiagonal, setRandomRotation, etc.
 
-#ifndef PASTEL_MATRIX_TOOLS_MORE2_H
-#define PASTEL_MATRIX_TOOLS_MORE2_H
+#ifndef PASTELMATH_MATRIX_TOOLS_MORE2_H
+#define PASTELMATH_MATRIX_TOOLS_MORE2_H
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/mathlibrary.h"

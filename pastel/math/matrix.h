@@ -1,8 +1,8 @@
 // Description: Matrix class
 // Detail: Allows to work with matrices over an ordered field
 
-#ifndef PASTEL_MATRIX_H
-#define PASTEL_MATRIX_H
+#ifndef PASTELMATH_MATRIX_H
+#define PASTELMATH_MATRIX_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"

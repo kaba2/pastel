@@ -1,8 +1,8 @@
 // Description: Spherical lens
 // Documentation: lenses.txt
 
-#ifndef PASTEL_SPHERICAL_LENS_H
-#define PASTEL_SPHERICAL_LENS_H
+#ifndef PASTELRAY_SPHERICAL_LENS_H
+#define PASTELRAY_SPHERICAL_LENS_H
 
 #include "pastel/ray/raylibrary.h"
 #include "pastel/ray/lens.h"

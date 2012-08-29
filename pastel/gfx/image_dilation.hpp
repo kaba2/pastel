@@ -1,5 +1,5 @@
-#ifndef PASTEL_DILATE_HPP
-#define PASTEL_DILATE_HPP
+#ifndef PASTELGFX_DILATE_HPP
+#define PASTELGFX_DILATE_HPP
 
 #include "pastel/gfx/image_dilation.h"
 

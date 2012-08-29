@@ -1,5 +1,5 @@
-#ifndef PASTEL_DIGAMMA_HPP
-#define PASTEL_DIGAMMA_HPP
+#ifndef PASTELSYS_DIGAMMA_HPP
+#define PASTELSYS_DIGAMMA_HPP
 
 #include "pastel/sys/digamma.h"
 #include "pastel/sys/ensure.h"

@@ -1,8 +1,8 @@
 // Description: Anderson-Darling statistic
 // Documentation: random_goodness.txt
 
-#ifndef PASTEL_RANDOM_ANDERSON_DARLING_H
-#define PASTEL_RANDOM_ANDERSON_DARLING_H
+#ifndef PASTELSYS_RANDOM_ANDERSON_DARLING_H
+#define PASTELSYS_RANDOM_ANDERSON_DARLING_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -1,8 +1,8 @@
 // Description: Angle measurement and conversion
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_ANGLES_H
-#define PASTEL_ANGLES_H
+#ifndef PASTELSYS_ANGLES_H
+#define PASTELSYS_ANGLES_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

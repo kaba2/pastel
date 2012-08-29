@@ -2,8 +2,8 @@
 // Detail: Combines background and texture using the supplied functor
 // Documentation: colormixers.txt
 
-#ifndef PASTEL_FUNCTOR_COLORMIXER_H
-#define PASTEL_FUNCTOR_COLORMIXER_H
+#ifndef PASTELGFX_FUNCTOR_COLORMIXER_H
+#define PASTELGFX_FUNCTOR_COLORMIXER_H
 
 #include "pastel/gfx/colormixer.h"
 

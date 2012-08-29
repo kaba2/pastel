@@ -1,7 +1,7 @@
 // Description: Concepts for ClonePtr
 
-#ifndef PASTEL_CLONE_PTR_CONCEPTS_H
-#define PASTEL_CLONE_PTR_CONCEPTS_H
+#ifndef PASTELSYS_CLONE_PTR_CONCEPTS_H
+#define PASTELSYS_CLONE_PTR_CONCEPTS_H
 
 #include "pastel/sys/clone_ptr.h"
 

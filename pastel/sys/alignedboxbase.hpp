@@ -1,5 +1,5 @@
-#ifndef PASTEL_ALIGNEDBOXBASE_HPP
-#define PASTEL_ALIGNEDBOXBASE_HPP
+#ifndef PASTELSYS_ALIGNEDBOXBASE_HPP
+#define PASTELSYS_ALIGNEDBOXBASE_HPP
 
 #include "pastel/sys/alignedboxbase.h"
 

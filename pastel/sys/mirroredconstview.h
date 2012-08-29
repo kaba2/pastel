@@ -1,8 +1,8 @@
 // Description: An extended view using repeated mirroring
 // Documentation: extendedconstviews.txt
 
-#ifndef PASTEL_MIRROREDCONSTVIEW_H
-#define PASTEL_MIRROREDCONSTVIEW_H
+#ifndef PASTELSYS_MIRROREDCONSTVIEW_H
+#define PASTELSYS_MIRROREDCONSTVIEW_H
 
 #include "pastel/sys/extendedconstview.h"
 #include "pastel/sys/view.h"

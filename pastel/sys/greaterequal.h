@@ -1,8 +1,8 @@
 // Description: Greater-than-or-equal-to predicate
 // Documentation: predicates.txt
 
-#ifndef PASTEL_GREATEREQUAL_H
-#define PASTEL_GREATEREQUAL_H
+#ifndef PASTELSYS_GREATEREQUAL_H
+#define PASTELSYS_GREATEREQUAL_H
 
 #include "pastel/sys/predicate_concept.h"
 

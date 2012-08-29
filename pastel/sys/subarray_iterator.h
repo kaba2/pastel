@@ -1,5 +1,5 @@
-#ifndef PASTEL_SUBARRAY_ITERATOR_H
-#define PASTEL_SUBARRAY_ITERATOR_H
+#ifndef PASTELSYS_SUBARRAY_ITERATOR_H
+#define PASTELSYS_SUBARRAY_ITERATOR_H
 
 #include "pastel/sys/subarray.h"
 

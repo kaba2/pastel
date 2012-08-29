@@ -1,5 +1,5 @@
-#ifndef PASTEL_HAAR_TRANSFORM_HPP
-#define PASTEL_HAAR_TRANSFORM_HPP
+#ifndef PASTELDSP_HAAR_TRANSFORM_HPP
+#define PASTELDSP_HAAR_TRANSFORM_HPP
 
 #include "pastel/dsp/haar_transform.h"
 

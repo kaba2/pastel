@@ -1,5 +1,5 @@
-#ifndef PASTEL_INCIDENCE_GRAPH_FWD_H
-#define PASTEL_INCIDENCE_GRAPH_FWD_H
+#ifndef PASTELSYS_INCIDENCE_GRAPH_FWD_H
+#define PASTELSYS_INCIDENCE_GRAPH_FWD_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/object_forwarding.h"

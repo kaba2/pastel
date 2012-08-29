@@ -1,5 +1,5 @@
-#ifndef PASTEL_EXTRACT_BITS_HPP
-#define PASTEL_EXTRACT_BITS_HPP
+#ifndef PASTELSYS_EXTRACT_BITS_HPP
+#define PASTELSYS_EXTRACT_BITS_HPP
 
 #include "pastel/sys/extract_bits.h"
 

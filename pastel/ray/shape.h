@@ -1,8 +1,8 @@
 // Description: An abstract shape
 // Documentation: shapes.txt
 
-#ifndef PASTEL_SHAPE_H
-#define PASTEL_SHAPE_H
+#ifndef PASTELRAY_SHAPE_H
+#define PASTELRAY_SHAPE_H
 
 #include "pastel/sys/countedptr.h"
 

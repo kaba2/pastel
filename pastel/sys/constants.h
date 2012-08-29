@@ -1,8 +1,8 @@
 // Description: Mathematical constants
 // Documentation: maths.txt
 
-#ifndef PASTEL_CONSTANTS_H
-#define PASTEL_CONSTANTS_H
+#ifndef PASTELSYS_CONSTANTS_H
+#define PASTELSYS_CONSTANTS_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -1,8 +1,8 @@
 // Description: Intersection of a ray and a shape
 // Documentation: pastelray.txt
 
-#ifndef PASTEL_SHAPEINTERSECTION_H
-#define PASTEL_SHAPEINTERSECTION_H
+#ifndef PASTELRAY_SHAPEINTERSECTION_H
+#define PASTELRAY_SHAPEINTERSECTION_H
 
 #include "pastel/sys/vector.h"
 

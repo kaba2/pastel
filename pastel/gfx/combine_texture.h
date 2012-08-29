@@ -1,8 +1,8 @@
 // Description: Point-wise combination of two textures
 // Documentation: modifier_textures.txt
 
-#ifndef PASTEL_COMBINE_TEXTURE_H
-#define PASTEL_COMBINE_TEXTURE_H
+#ifndef PASTELGFX_COMBINE_TEXTURE_H
+#define PASTELGFX_COMBINE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/gfx/colormixer.h"

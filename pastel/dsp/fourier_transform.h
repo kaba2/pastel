@@ -1,7 +1,7 @@
 // Description: Discrete Fourier transform
 
-#ifndef PASTEL_FOURIER_TRANSFORM_H
-#define PASTEL_FOURIER_TRANSFORM_H
+#ifndef PASTELDSP_FOURIER_TRANSFORM_H
+#define PASTELDSP_FOURIER_TRANSFORM_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"

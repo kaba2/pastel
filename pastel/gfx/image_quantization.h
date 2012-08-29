@@ -1,7 +1,7 @@
 // Description: Image quantization
 
-#ifndef PASTEL_IMAGE_QUANTIZATION_H
-#define PASTEL_IMAGE_QUANTIZATION_H
+#ifndef PASTELGFX_IMAGE_QUANTIZATION_H
+#define PASTELGFX_IMAGE_QUANTIZATION_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"

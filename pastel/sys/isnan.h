@@ -1,8 +1,8 @@
 // Description: Check if a number is a NaN
 // Documentation: algorithms.txt
 
-#ifndef PASTEL_ISNAN_H
-#define PASTEL_ISNAN_H
+#ifndef PASTELSYS_ISNAN_H
+#define PASTELSYS_ISNAN_H
 
 namespace Pastel
 {

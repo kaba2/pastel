@@ -2,8 +2,8 @@
 // Detail: A view to an Array
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_ARRAYVIEW_H
-#define PASTEL_ARRAYVIEW_H
+#ifndef PASTELSYS_ARRAYVIEW_H
+#define PASTELSYS_ARRAYVIEW_H
 
 #include "pastel/sys/view.h"
 

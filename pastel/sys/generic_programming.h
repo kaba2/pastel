@@ -1,7 +1,7 @@
 // Description: An aggregate file for generic programming.
 
-#ifndef PASTEL_GENERIC_PROGRAMMING_H
-#define PASTEL_GENERIC_PROGRAMMING_H
+#ifndef PASTELSYS_GENERIC_PROGRAMMING_H
+#define PASTELSYS_GENERIC_PROGRAMMING_H
 
 #include "pastel/sys/algorithm_objects.h"
 #include "pastel/sys/iterators.h"

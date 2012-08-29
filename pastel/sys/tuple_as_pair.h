@@ -1,8 +1,8 @@
 // Description: Tuple as a Pair
 // Documentation: as_pair.txt
 
-#ifndef PASTEL_TUPLE_AS_PAIR_H
-#define PASTEL_TUPLE_AS_PAIR_H
+#ifndef PASTELSYS_TUPLE_AS_PAIR_H
+#define PASTELSYS_TUPLE_AS_PAIR_H
 
 #include "pastel/sys/as_pair_concept.h"
 

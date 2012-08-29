@@ -2,8 +2,8 @@
 // Detail: Allows to measure the elapsed time between two events
 // Documentation: timing.txt
 
-#ifndef PASTEL_TIMER_H
-#define PASTEL_TIMER_H
+#ifndef PASTELDEVICE_TIMER_H
+#define PASTELDEVICE_TIMER_H
 
 #include "pastel/device/devicelibrary.h"
 

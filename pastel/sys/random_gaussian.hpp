@@ -1,5 +1,5 @@
-#ifndef PASTEL_RANDOM_GAUSSIAN_HPP
-#define PASTEL_RANDOM_GAUSSIAN_HPP
+#ifndef PASTELSYS_RANDOM_GAUSSIAN_HPP
+#define PASTELSYS_RANDOM_GAUSSIAN_HPP
 
 #include "pastel/sys/random_gaussian.h"
 #include "pastel/sys/random_uniform.h"

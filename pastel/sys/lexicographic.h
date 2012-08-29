@@ -1,8 +1,8 @@
 // Description: Lexicographic order
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_LEXICOGRAPHIC_H
-#define PASTEL_LEXICOGRAPHIC_H
+#ifndef PASTELSYS_LEXICOGRAPHIC_H
+#define PASTELSYS_LEXICOGRAPHIC_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

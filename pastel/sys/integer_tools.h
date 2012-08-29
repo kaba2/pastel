@@ -2,8 +2,8 @@
 // Detail: gcd, extendedGcd, etc.
 // Documentation: integers.txt
 
-#ifndef PASTEL_INTEGER_TOOLS_H
-#define PASTEL_INTEGER_TOOLS_H
+#ifndef PASTELSYS_INTEGER_TOOLS_H
+#define PASTELSYS_INTEGER_TOOLS_H
 
 namespace Pastel
 {

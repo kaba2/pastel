@@ -1,8 +1,8 @@
 // Description: AffineTransformation class
 // Detail: Allows to work with affine transformations in R^n
 
-#ifndef PASTEL_AFFINETRANSFORMATION_H
-#define PASTEL_AFFINETRANSFORMATION_H
+#ifndef PASTELMATH_AFFINETRANSFORMATION_H
+#define PASTELMATH_AFFINETRANSFORMATION_H
 
 #include "pastel/math/matrix.h"
 #include "pastel/sys/vector.h"

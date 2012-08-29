@@ -1,8 +1,8 @@
 // Description: PointPolicy concept
 // Documentation: pointpolicies.txt
 
-#ifndef PASTEL_POINTPOLICY_CONCEPT_H
-#define PASTEL_POINTPOLICY_CONCEPT_H
+#ifndef PASTELSYS_POINTPOLICY_CONCEPT_H
+#define PASTELSYS_POINTPOLICY_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vectorexpression_concept.h"

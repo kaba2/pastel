@@ -1,7 +1,7 @@
 // Description: NormBijection concept
 
-#ifndef PASTEL_NORMBIJECTION_CONCEPT_H
-#define PASTEL_NORMBIJECTION_CONCEPT_H
+#ifndef PASTELMATH_NORMBIJECTION_CONCEPT_H
+#define PASTELMATH_NORMBIJECTION_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTEL_AUTOMATON_DETERMINIZATION_HPP
-#define PASTEL_AUTOMATON_DETERMINIZATION_HPP
+#ifndef PASTELSYS_AUTOMATON_DETERMINIZATION_HPP
+#define PASTELSYS_AUTOMATON_DETERMINIZATION_HPP
 
 #include "pastel/sys/automaton_determinization.h"
 #include "pastel/sys/automaton_closure.h"

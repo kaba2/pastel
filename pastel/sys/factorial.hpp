@@ -1,5 +1,5 @@
-#ifndef PASTEL_FACTORIAL_HPP
-#define PASTEL_FACTORIAL_HPP
+#ifndef PASTELSYS_FACTORIAL_HPP
+#define PASTELSYS_FACTORIAL_HPP
 
 #include "pastel/sys/factorial.h"
 #include "pastel/sys/ensure.h"

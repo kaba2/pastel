@@ -1,5 +1,5 @@
-#ifndef PASTEL_FASTLIST_TOOLS_H
-#define PASTEL_FASTLIST_TOOLS_H
+#ifndef PASTELSYS_FASTLIST_TOOLS_H
+#define PASTELSYS_FASTLIST_TOOLS_H
 
 #include "pastel/sys/fastlist.h"
 

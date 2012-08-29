@@ -1,8 +1,8 @@
 // Description: Drawing a line segment
 // Documentation: drawing.txt
 
-#ifndef PASTEL_DRAW_SEGMENT_H
-#define PASTEL_DRAW_SEGMENT_H
+#ifndef PASTELGFX_DRAW_SEGMENT_H
+#define PASTELGFX_DRAW_SEGMENT_H
 
 #include "pastel/geometry/segment.h"
 

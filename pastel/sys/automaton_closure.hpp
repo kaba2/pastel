@@ -1,5 +1,5 @@
-#ifndef PASTEL_AUTOMATON_CLOSURE_HPP
-#define PASTEL_AUTOMATON_CLOSURE_HPP
+#ifndef PASTELSYS_AUTOMATON_CLOSURE_HPP
+#define PASTELSYS_AUTOMATON_CLOSURE_HPP
 
 #include "pastel/sys/automaton_closure.h"
 #include "pastel/sys/transitive_closure.h"

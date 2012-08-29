@@ -1,5 +1,5 @@
-#ifndef PASTEL_DRAW_PROJECTIVE_QUAD_HPP
-#define PASTEL_DRAW_PROJECTIVE_QUAD_HPP
+#ifndef PASTELGFX_DRAW_PROJECTIVE_QUAD_HPP
+#define PASTELGFX_DRAW_PROJECTIVE_QUAD_HPP
 
 #include "pastel/gfx/draw_projective_quad.h"
 #include "pastel/gfx/assign_colormixer.h"

@@ -1,8 +1,8 @@
 // Description: ColorMixer class
 // Detail: An abstract class for color mixers
 
-#ifndef PASTEL_COLORMIXER_H
-#define PASTEL_COLORMIXER_H
+#ifndef PASTELGFX_COLORMIXER_H
+#define PASTELGFX_COLORMIXER_H
 
 namespace Pastel
 {

@@ -1,7 +1,7 @@
 // Description: A function for executing graph-traversal algorithm-objects.
 
-#ifndef PASTEL_GENERIC_TRAVERSAL_H
-#define PASTEL_GENERIC_TRAVERSAL_H
+#ifndef PASTELSYS_GENERIC_TRAVERSAL_H
+#define PASTELSYS_GENERIC_TRAVERSAL_H
 
 #include "pastel/sys/graph_traversal_concepts.h"
 

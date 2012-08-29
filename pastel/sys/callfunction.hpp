@@ -1,5 +1,5 @@
-#ifndef PASTEL_CALLFUNCTION_HPP
-#define PASTEL_CALLFUNCTION_HPP
+#ifndef PASTELSYS_CALLFUNCTION_HPP
+#define PASTELSYS_CALLFUNCTION_HPP
 
 #include "pastel/sys/callfunction.h"
 

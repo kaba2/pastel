@@ -1,5 +1,5 @@
-#ifndef PASTEL_LU_DECOMPOSITION_HPP
-#define PASTEL_LU_DECOMPOSITION_HPP
+#ifndef PASTELMATH_LU_DECOMPOSITION_HPP
+#define PASTELMATH_LU_DECOMPOSITION_HPP
 
 #include "pastel/math/lu_decomposition.h"
 

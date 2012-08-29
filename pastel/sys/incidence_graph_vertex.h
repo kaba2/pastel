@@ -1,5 +1,5 @@
-#ifndef PASTEL_INCIDENCE_GRAPH_VERTEX_H
-#define PASTEL_INCIDENCE_GRAPH_VERTEX_H
+#ifndef PASTELSYS_INCIDENCE_GRAPH_VERTEX_H
+#define PASTELSYS_INCIDENCE_GRAPH_VERTEX_H
 
 #include "pastel/sys/incidence_graph.h"
 #include "pastel/sys/object_forwarding.h"

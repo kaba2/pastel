@@ -1,5 +1,5 @@
-#ifndef PASTEL_LOWDISCREPANCY_HPP
-#define PASTEL_LOWDISCREPANCY_HPP
+#ifndef PASTELMATH_LOWDISCREPANCY_HPP
+#define PASTELMATH_LOWDISCREPANCY_HPP
 
 #include "pastel/math/lowdiscrepancy.h"
 

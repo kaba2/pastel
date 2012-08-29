@@ -1,5 +1,5 @@
-#ifndef PASTEL_EPS_HPP
-#define PASTEL_EPS_HPP
+#ifndef PASTELSYS_EPS_HPP
+#define PASTELSYS_EPS_HPP
 
 #include "pastel/sys/eps.h"
 #include "pastel/sys/constants.h"

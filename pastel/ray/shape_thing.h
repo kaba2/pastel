@@ -1,8 +1,8 @@
 // Description: Shape thing
 // Documentation: things.txt
 
-#ifndef PASTEL_SHAPE_THING_H
-#define PASTEL_SHAPE_THING_H
+#ifndef PASTELRAY_SHAPE_THING_H
+#define PASTELRAY_SHAPE_THING_H
 
 #include "pastel/ray/thing.h"
 #include "pastel/ray/shape.h"

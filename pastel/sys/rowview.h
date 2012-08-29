@@ -2,8 +2,8 @@
 // Detail: An adapter view for a 1-dimensional subset
 // Documentation: concrete_views.txt
 
-#ifndef PASTEL_ROWVIEW_H
-#define PASTEL_ROWVIEW_H
+#ifndef PASTELSYS_ROWVIEW_H
+#define PASTELSYS_ROWVIEW_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/rowviewcursor.h"

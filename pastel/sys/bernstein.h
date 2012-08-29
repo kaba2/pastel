@@ -1,8 +1,8 @@
 // Description: Bernstein polynomials
 // Documentation: math_functions.txt
 
-#ifndef PASTEL_BERNSTEIN_H
-#define PASTEL_BERNSTEIN_H
+#ifndef PASTELSYS_BERNSTEIN_H
+#define PASTELSYS_BERNSTEIN_H
 
 #include "pastel/sys/mytypes.h"
 

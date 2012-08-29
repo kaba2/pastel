@@ -1,7 +1,7 @@
 // Description: An aggregate file for real numbers
 
-#ifndef PASTEL_REALS_H
-#define PASTEL_REALS_H
+#ifndef PASTELSYS_REALS_H
+#define PASTELSYS_REALS_H
 
 #include "pastel/sys/real_concept.h"
 

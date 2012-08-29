@@ -1,5 +1,5 @@
-#ifndef PASTEL_PERLIN_NOISE_HPP
-#define PASTEL_PERLIN_NOISE_HPP
+#ifndef PASTELGFX_PERLIN_NOISE_HPP
+#define PASTELGFX_PERLIN_NOISE_HPP
 
 #include "pastel/gfx/perlin_noise.h"
 #include "pastel/gfx/gradientfield.h"

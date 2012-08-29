@@ -1,5 +1,5 @@
-#ifndef PASTEL_PRODUCTIVE_STATES_HPP
-#define PASTEL_PRODUCTIVE_STATES_HPP
+#ifndef PASTELSYS_PRODUCTIVE_STATES_HPP
+#define PASTELSYS_PRODUCTIVE_STATES_HPP
 
 #include "pastel/sys/productive_states.h"
 

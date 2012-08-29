@@ -1,7 +1,7 @@
 // Description: Traversal of productive automaton states
 
-#ifndef PASTEL_PRODUCTIVE_STATES_H
-#define PASTEL_PRODUCTIVE_STATES_H
+#ifndef PASTELSYS_PRODUCTIVE_STATES_H
+#define PASTELSYS_PRODUCTIVE_STATES_H
 
 #include "pastel/sys/automaton.h"
 

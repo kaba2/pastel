@@ -1,7 +1,7 @@
 // Description: Distortion of a texture from cartesian to spherical space
 
-#ifndef PASTEL_RADIAL_TEXTURE_H
-#define PASTEL_RADIAL_TEXTURE_H
+#ifndef PASTELGFX_RADIAL_TEXTURE_H
+#define PASTELGFX_RADIAL_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/gfx/colormixer.h"

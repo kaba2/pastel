@@ -1,7 +1,7 @@
 // Description: Bit extraction
 
-#ifndef PASTEL_EXTRACT_BITS_H
-#define PASTEL_EXTRACT_BITS_H
+#ifndef PASTELSYS_EXTRACT_BITS_H
+#define PASTELSYS_EXTRACT_BITS_H
 
 #include "pastel/sys/integer_concept.h"
 

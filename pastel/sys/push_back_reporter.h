@@ -1,7 +1,7 @@
 // Description: Push-back-into-a-container reporter
 
-#ifndef PASTEL_PUSH_BACK_REPORTER_H
-#define PASTEL_PUSH_BACK_REPORTER_H
+#ifndef PASTELSYS_PUSH_BACK_REPORTER_H
+#define PASTELSYS_PUSH_BACK_REPORTER_H
 
 #include "pastel/sys/reporter_concept.h"
 

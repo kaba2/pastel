@@ -1,5 +1,5 @@
-#ifndef PASTEL_SET_THING_HPP
-#define PASTEL_SET_THING_HPP
+#ifndef PASTELRAY_SET_THING_HPP
+#define PASTELRAY_SET_THING_HPP
 
 #include "pastel/ray/set_thing.h"
 

@@ -1,8 +1,8 @@
 // Description: Loading and saving of configuration files
 // Documentation: configuration.txt
 
-#ifndef PASTEL_CONFIGFILE_H
-#define PASTEL_CONFIGFILE_H
+#ifndef PASTELSYS_CONFIGFILE_H
+#define PASTELSYS_CONFIGFILE_H
 
 #include "pastel/sys/config.h"
 #include "pastel/sys/syslibrary.h"

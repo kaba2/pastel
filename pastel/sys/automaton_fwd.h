@@ -1,5 +1,5 @@
-#ifndef PASTEL_AUTOMATON_FWD_H
-#define PASTEL_AUTOMATON_FWD_H
+#ifndef PASTELSYS_AUTOMATON_FWD_H
+#define PASTELSYS_AUTOMATON_FWD_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/incidence_graph.h"

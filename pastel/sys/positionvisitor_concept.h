@@ -1,7 +1,7 @@
 // Description: Position visitor concept
 
-#ifndef PASTEL_POSITIONVISITOR_CONCEPT_H
-#define PASTEL_POSITIONVISITOR_CONCEPT_H
+#ifndef PASTELSYS_POSITIONVISITOR_CONCEPT_H
+#define PASTELSYS_POSITIONVISITOR_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

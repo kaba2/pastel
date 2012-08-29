@@ -1,5 +1,5 @@
-#ifndef PASTEL_DRAW_TRIANGLE_HPP
-#define PASTEL_DRAW_TRIANGLE_HPP
+#ifndef PASTELGFX_DRAW_TRIANGLE_HPP
+#define PASTELGFX_DRAW_TRIANGLE_HPP
 
 #include "pastel/gfx/draw_triangle.h"
 #include "pastel/gfx/draw_horizontal_line.h"

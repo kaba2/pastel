@@ -1,7 +1,7 @@
 // Description: Transitive closure of a function
 
-#ifndef PASTEL_TRANSITIVE_CLOSURE_H
-#define PASTEL_TRANSITIVE_CLOSURE_H
+#ifndef PASTELSYS_TRANSITIVE_CLOSURE_H
+#define PASTELSYS_TRANSITIVE_CLOSURE_H
 
 #include "pastel/sys/transitive_closure_concepts.h"
 #include "pastel/sys/reporter_concept.h"

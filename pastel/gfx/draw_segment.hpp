@@ -1,5 +1,5 @@
-#ifndef PASTEL_DRAW_SEGMENT_HPP
-#define PASTEL_DRAW_SEGMENT_HPP
+#ifndef PASTELGFX_DRAW_SEGMENT_HPP
+#define PASTELGFX_DRAW_SEGMENT_HPP
 
 #include "pastel/gfx/draw_segment.h"
 #include "pastel/gfx/draw_pixel.h"

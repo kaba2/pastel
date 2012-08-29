@@ -1,8 +1,8 @@
 // Description: Segmentation of a binary image into boxes
 // Documentation: labeling.txt
 
-#ifndef PASTEL_BOX_LABELING_H
-#define PASTEL_BOX_LABELING_H
+#ifndef PASTELGFX_BOX_LABELING_H
+#define PASTELGFX_BOX_LABELING_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"

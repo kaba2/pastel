@@ -1,5 +1,5 @@
-#ifndef PASTEL_HIGHEST_BIT_HPP
-#define PASTEL_HIGHEST_BIT_HPP
+#ifndef PASTELSYS_HIGHEST_BIT_HPP
+#define PASTELSYS_HIGHEST_BIT_HPP
 
 #include "pastel/sys/highest_bit.h"
 

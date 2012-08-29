@@ -1,5 +1,5 @@
-#ifndef PASTEL_DRAW_VIEW_HPP
-#define PASTEL_DRAW_VIEW_HPP
+#ifndef PASTELGFX_DRAW_VIEW_HPP
+#define PASTELGFX_DRAW_VIEW_HPP
 
 #include "pastel/geometry/intersect_alignedbox_alignedbox.h"
 

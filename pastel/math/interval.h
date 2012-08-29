@@ -1,8 +1,8 @@
 // Description: Interval class
 // Detail: Allows to work with real intervals
 
-#ifndef PASTEL_INTERVAL_H
-#define PASTEL_INTERVAL_H
+#ifndef PASTELMATH_INTERVAL_H
+#define PASTELMATH_INTERVAL_H
 
 namespace Pastel
 {

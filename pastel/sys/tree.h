@@ -1,7 +1,7 @@
 // Description: A generic binary tree
 
-#ifndef PASTEL_TREE_H
-#define PASTEL_TREE_H
+#ifndef PASTELSYS_TREE_H
+#define PASTELSYS_TREE_H
 
 #include "pastel/sys/destruct.h"
 #include "pastel/sys/tree_node.h"

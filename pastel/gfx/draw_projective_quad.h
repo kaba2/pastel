@@ -1,8 +1,8 @@
 // Description: Drawing a quad in perspective
 // Documentation: drawing.txt
 
-#ifndef PASTEL_DRAW_PROJECTIVE_QUAD_H
-#define PASTEL_DRAW_PROJECTIVE_QUAD_H
+#ifndef PASTELGFX_DRAW_PROJECTIVE_QUAD_H
+#define PASTELGFX_DRAW_PROJECTIVE_QUAD_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"

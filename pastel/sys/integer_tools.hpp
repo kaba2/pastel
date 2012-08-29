@@ -1,5 +1,5 @@
-#ifndef PASTEL_INTEGER_TOOLS_HPP
-#define PASTEL_INTEGER_TOOLS_HPP
+#ifndef PASTELSYS_INTEGER_TOOLS_HPP
+#define PASTELSYS_INTEGER_TOOLS_HPP
 
 #include "pastel/sys/integer_tools.h"
 

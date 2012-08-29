@@ -1,5 +1,5 @@
-#ifndef PASTEL_REDBLACKTREE_NODE_H
-#define PASTEL_REDBLACKTREE_NODE_H
+#ifndef PASTELSYS_REDBLACKTREE_NODE_H
+#define PASTELSYS_REDBLACKTREE_NODE_H
 
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/object_forwarding.h"

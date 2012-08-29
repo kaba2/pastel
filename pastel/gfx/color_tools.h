@@ -1,7 +1,7 @@
 // Description: Algorithms for colors
 
-#ifndef PASTEL_COLOR_TOOLS_H
-#define PASTEL_COLOR_TOOLS_H
+#ifndef PASTELGFX_COLOR_TOOLS_H
+#define PASTELGFX_COLOR_TOOLS_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"

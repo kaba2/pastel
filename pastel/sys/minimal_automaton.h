@@ -1,5 +1,5 @@
-#ifndef PASTEL_MINIMAL_AUTOMATON_H
-#define PASTEL_MINIMAL_AUTOMATON_H
+#ifndef PASTELSYS_MINIMAL_AUTOMATON_H
+#define PASTELSYS_MINIMAL_AUTOMATON_H
 
 #include "pastel/sys/minimal_automaton_fwd.h"
 

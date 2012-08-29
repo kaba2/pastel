@@ -1,8 +1,8 @@
 // Description: Function algorithm concept
 // Documentation: functions.txt
 
-#ifndef PASTEL_FUNCTION_CONCEPT_H
-#define PASTEL_FUNCTION_CONCEPT_H
+#ifndef PASTELSYS_FUNCTION_CONCEPT_H
+#define PASTELSYS_FUNCTION_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 

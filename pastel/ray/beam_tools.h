@@ -1,8 +1,8 @@
 // Description: Geometric optics
 // Documentation: pastelray.txt
 
-#ifndef PASTEL_BEAM_TOOLS_H
-#define PASTEL_BEAM_TOOLS_H
+#ifndef PASTELRAY_BEAM_TOOLS_H
+#define PASTELRAY_BEAM_TOOLS_H
 
 #include "pastel/ray/raylibrary.h"
 #include "pastel/ray/beam.h"

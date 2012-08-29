@@ -1,8 +1,8 @@
 // Description: Algorithms for matrices
 // Detail: pretty printing to a stream
 
-#ifndef PASTEL_MATRIX_TOOLS_H
-#define PASTEL_MATRIX_TOOLS_H
+#ifndef PASTELMATH_MATRIX_TOOLS_H
+#define PASTELMATH_MATRIX_TOOLS_H
 
 #include "pastel/math/matrix.h"
 

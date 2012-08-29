@@ -1,8 +1,8 @@
 // Description: File_Logger class
 // Detail: Outputs logging information into a file
 
-#ifndef PASTEL_FILE_LOGGER_H
-#define PASTEL_FILE_LOGGER_H
+#ifndef PASTELSYS_FILE_LOGGER_H
+#define PASTELSYS_FILE_LOGGER_H
 
 #include "pastel/sys/logger.h"
 

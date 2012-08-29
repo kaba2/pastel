@@ -1,8 +1,8 @@
 // Description: Marching triangles
 // Documentation: drawing.txt
 
-#ifndef PASTEL_MARCHINGTRIANGLES_H
-#define PASTEL_MARCHINGTRIANGLES_H
+#ifndef PASTELGFX_MARCHINGTRIANGLES_H
+#define PASTELGFX_MARCHINGTRIANGLES_H
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/math_functions.h"

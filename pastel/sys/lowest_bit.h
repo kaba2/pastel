@@ -1,8 +1,8 @@
 // Description: Index of the lowest bit
 // Documentation: bit_tricks.txt
 
-#ifndef PASTEL_LOWEST_BIT_H
-#define PASTEL_LOWEST_BIT_H
+#ifndef PASTELSYS_LOWEST_BIT_H
+#define PASTELSYS_LOWEST_BIT_H
 
 #include "pastel/sys/mytypes.h"
 

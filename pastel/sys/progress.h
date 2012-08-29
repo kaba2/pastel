@@ -1,8 +1,8 @@
 // Description: Progress reporter
 // Documentation: progress.txt
 
-#ifndef PASTEL_PROGRESS_H
-#define PASTEL_PROGRESS_H
+#ifndef PASTELSYS_PROGRESS_H
+#define PASTELSYS_PROGRESS_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/log.h"

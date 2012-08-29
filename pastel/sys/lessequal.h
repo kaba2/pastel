@@ -1,8 +1,8 @@
 // Description: Less-than-or-equal-to predicate
 // Documentation: predicates.txt
 
-#ifndef PASTEL_LESSEQUAL_H
-#define PASTEL_LESSEQUAL_H
+#ifndef PASTELSYS_LESSEQUAL_H
+#define PASTELSYS_LESSEQUAL_H
 
 #include "pastel/sys/predicate_concept.h"
 

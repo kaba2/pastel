@@ -1,7 +1,7 @@
 // Description: An aggregate file memory-related stuff
 
-#ifndef PASTEL_MEMORY_H
-#define PASTEL_MEMORY_H
+#ifndef PASTELSYS_MEMORY_H
+#define PASTELSYS_MEMORY_H
 
 #include "pastel/sys/allocators.h"
 

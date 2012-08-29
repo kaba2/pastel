@@ -1,8 +1,8 @@
 // Description: Flood-filling
 // Documentation: drawing.txt
 
-#ifndef PASTEL_DRAW_FLOODFILL_H
-#define PASTEL_DRAW_FLOODFILL_H
+#ifndef PASTELGFX_DRAW_FLOODFILL_H
+#define PASTELGFX_DRAW_FLOODFILL_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"

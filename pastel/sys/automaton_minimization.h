@@ -1,7 +1,7 @@
 // Description: Minimization of a deterministic automaton
 
-#ifndef PASTEL_AUTOMATON_MINIMIZATION_H
-#define PASTEL_AUTOMATON_MINIMIZATION_H
+#ifndef PASTELSYS_AUTOMATON_MINIMIZATION_H
+#define PASTELSYS_AUTOMATON_MINIMIZATION_H
 
 #include "pastel/sys/automaton.h"
 

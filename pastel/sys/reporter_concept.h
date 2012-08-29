@@ -1,8 +1,8 @@
 // Description: Reporter concept
 // Documentation: reporters.txt
 
-#ifndef PASTEL_REPORTER_CONCEPT_H
-#define PASTEL_REPORTER_CONCEPT_H
+#ifndef PASTELSYS_REPORTER_CONCEPT_H
+#define PASTELSYS_REPORTER_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 

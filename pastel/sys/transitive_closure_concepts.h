@@ -1,7 +1,7 @@
 // Description: Concepts for the functional transitive closure
 
-#ifndef PASTEL_TRANSITIVE_CLOSURE_CONCEPTS_H
-#define PASTEL_TRANSITIVE_CLOSURE_CONCEPTS_H
+#ifndef PASTELSYS_TRANSITIVE_CLOSURE_CONCEPTS_H
+#define PASTELSYS_TRANSITIVE_CLOSURE_CONCEPTS_H
 
 #include "pastel/sys/transitive_closure.h"
 

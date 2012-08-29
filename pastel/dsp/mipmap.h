@@ -1,8 +1,8 @@
 // Description: MipMap class
 // Detail: A set of precomputed successive downsamplings of an image
 
-#ifndef PASTEL_MIPMAP_H
-#define PASTEL_MIPMAP_H
+#ifndef PASTELDSP_MIPMAP_H
+#define PASTELDSP_MIPMAP_H
 
 #include "pastel/dsp/filter.h"
 #include "pastel/dsp/gaussian_filter.h"

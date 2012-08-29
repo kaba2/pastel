@@ -1,8 +1,8 @@
 // Description: Texture class
 // Detail: An abstract class for textures
 
-#ifndef PASTEL_TEXTURE_H
-#define PASTEL_TEXTURE_H
+#ifndef PASTELGFX_TEXTURE_H
+#define PASTELGFX_TEXTURE_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/countedptr.h"

@@ -1,8 +1,8 @@
 // Description: Drawing a box
 // Documentation: drawing.txt
 
-#ifndef PASTEL_DRAW_BOX_H
-#define PASTEL_DRAW_BOX_H
+#ifndef PASTELGFX_DRAW_BOX_H
+#define PASTELGFX_DRAW_BOX_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"

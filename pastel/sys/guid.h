@@ -1,8 +1,8 @@
 // Description: Guid class
 // Detail: Stores a unique 128-bit identifier
 
-#ifndef PASTEL_GUID_H
-#define PASTEL_GUID_H
+#ifndef PASTELSYS_GUID_H
+#define PASTELSYS_GUID_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

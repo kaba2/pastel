@@ -1,8 +1,8 @@
 // Description: Drawing a textured triangle in perspective
 // Documentation: drawing.txt
 
-#ifndef PASTEL_DRAW_PERSPECTIVE_TRIANGLE_H
-#define PASTEL_DRAW_PERSPECTIVE_TRIANGLE_H
+#ifndef PASTELGFX_DRAW_PERSPECTIVE_TRIANGLE_H
+#define PASTELGFX_DRAW_PERSPECTIVE_TRIANGLE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"

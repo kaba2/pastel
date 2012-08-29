@@ -1,7 +1,7 @@
 // Description: An aggregate file for function algorithms
 
-#ifndef PASTEL_FUNCTIONS_H
-#define PASTEL_FUNCTIONS_H
+#ifndef PASTELSYS_FUNCTIONS_H
+#define PASTELSYS_FUNCTIONS_H
 
 #include "pastel/sys/function_concept.h"
 

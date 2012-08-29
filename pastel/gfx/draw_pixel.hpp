@@ -1,5 +1,5 @@
-#ifndef PASTEL_DRAW_PIXEL_HPP
-#define PASTEL_DRAW_PIXEL_HPP
+#ifndef PASTELGFX_DRAW_PIXEL_HPP
+#define PASTELGFX_DRAW_PIXEL_HPP
 
 #include "pastel/gfx/draw_pixel.h"
 #include "pastel/gfx/assign_colormixer.h"

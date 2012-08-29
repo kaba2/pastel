@@ -2,8 +2,8 @@
 // Detail: Iterates through all fixed-sized subsets of an integer interval.
 // Documentation: miscellaneous.txt
 
-#ifndef PASTEL_SUBSET_H
-#define PASTEL_SUBSET_H
+#ifndef PASTELSYS_SUBSET_H
+#define PASTELSYS_SUBSET_H
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"

@@ -1,8 +1,8 @@
 // Description: A base class for CountedPtr reference counted objects
 // Documentation: countedptr.txt
 
-#ifndef PASTEL_REFERENCECOUNTED_H
-#define PASTEL_REFERENCECOUNTED_H
+#ifndef PASTELSYS_REFERENCECOUNTED_H
+#define PASTELSYS_REFERENCECOUNTED_H
 
 #include "pastel/sys/syslibrary.h"
 

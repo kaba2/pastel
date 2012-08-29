@@ -1,8 +1,8 @@
 // Description: Catmull-Rom spline
 // Documentation: interpolation.txt
 
-#ifndef PASTEL_CRSPLINE_H
-#define PASTEL_CRSPLINE_H
+#ifndef PASTELMATH_CRSPLINE_H
+#define PASTELMATH_CRSPLINE_H
 
 #include "pastel/sys/mytypes.h"
 

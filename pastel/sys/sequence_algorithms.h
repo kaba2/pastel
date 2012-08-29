@@ -1,7 +1,7 @@
 // Description: An aggregate file for sequence algorithms
 
-#ifndef PASTEL_SEQUENCE_ALGORITHMS_H
-#define PASTEL_SEQUENCE_ALGORITHMS_H
+#ifndef PASTELSYS_SEQUENCE_ALGORITHMS_H
+#define PASTELSYS_SEQUENCE_ALGORITHMS_H
 
 #include "pastel/sys/copy_n.h"
 #include "pastel/sys/destruct.h"

@@ -1,7 +1,7 @@
 // Description: Object forwarding
 
-#ifndef PASTEL_OBJECT_FORWARDING_H
-#define PASTEL_OBJECT_FORWARDING_H
+#ifndef PASTELSYS_OBJECT_FORWARDING_H
+#define PASTELSYS_OBJECT_FORWARDING_H
 
 #include <type_traits>
 
