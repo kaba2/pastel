@@ -63,4 +63,6 @@ namespace Pastel
 
 #include "pastel/math/lu_decomposition.hpp"
 
+#include "pastel/math/lu_decomposition_tools.h"
+
 #endif

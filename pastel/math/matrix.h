@@ -71,4 +71,6 @@ namespace Pastel
 
 #include "pastel/math/matrix.hpp"
 
+#include "pastel/math/matrix_tools.h"
+
 #endif

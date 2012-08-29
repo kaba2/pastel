@@ -1,5 +1,4 @@
 Polynomials
 ===========
 
-[[Parent]]: pastelmath.txt
 

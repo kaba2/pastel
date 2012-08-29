@@ -142,6 +142,9 @@
     <ClInclude Include="interpolation.h" />
     <ClInclude Include="kbspline.h" />
     <ClInclude Include="kbspline.hpp" />
+    <ClInclude Include="linear_algebra.h" />
+    <ClInclude Include="matrix_decompositions.h" />
+    <ClInclude Include="pastelmath.h" />
     <ClInclude Include="smoothstep.h" />
     <ClInclude Include="smoothstep.hpp" />
     <ClInclude Include="affinetransformation.h" />
@@ -189,6 +192,7 @@
     <ClInclude Include="orthonormal.hpp" />
     <ClInclude Include="statistics.h" />
     <ClInclude Include="statistics.hpp" />
+    <ClInclude Include="transformations.h" />
     <ClInclude Include="uniform_distortion.h" />
     <ClInclude Include="uniform_distortion.hpp" />
     <ClInclude Include="polynomial.h" />

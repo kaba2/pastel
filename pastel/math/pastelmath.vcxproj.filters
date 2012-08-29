@@ -34,9 +34,6 @@
     <Filter Include="Transformations\Linear algebra\Matrix decompositions\Qr decomposition">
       <UniqueIdentifier>{6371bed2-b346-4c03-9ec2-6ea2894f84ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Transformations\Linear algebra\Matrix tools">
-      <UniqueIdentifier>{66118e9d-d46c-48e6-b121-13571a634ef2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Transformations\ConformalAffine2D">
       <UniqueIdentifier>{c937e2ec-4fa1-4d19-840c-87ba72bc6d80}</UniqueIdentifier>
     </Filter>
@@ -45,9 +42,6 @@
     </Filter>
     <Filter Include="Uniform distortion">
       <UniqueIdentifier>{823fe47e-bb15-4ed1-8a4a-06408acbcd24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Polynomials">
-      <UniqueIdentifier>{d825242e-c60b-416d-ab3c-32472d496f99}</UniqueIdentifier>
     </Filter>
     <Filter Include="Coordinate conversions">
       <UniqueIdentifier>{1856c0e1-f978-4a4a-8151-5d7ec58aee9d}</UniqueIdentifier>
@@ -61,8 +55,14 @@
     <Filter Include="Uniform sampling">
       <UniqueIdentifier>{b1408134-2262-4fbc-90d1-9a4f34c62607}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interval">
+    <Filter Include="Undocumented">
+      <UniqueIdentifier>{2da85a3b-5308-49b2-864b-4031354089bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Interval">
       <UniqueIdentifier>{f542cf26-9eab-4678-96fe-ee7896fe8e66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Polynomials">
+      <UniqueIdentifier>{d825242e-c60b-416d-ab3c-32472d496f99}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -171,36 +171,6 @@
     <ClInclude Include="qr_decomposition_tools.hpp">
       <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
     </ClInclude>
-    <ClInclude Include="matrix_tools.h">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools.hpp">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more.h">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more.hpp">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more2.h">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more2.hpp">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more3.h">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more3.hpp">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more4.h">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more4.hpp">
-      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
-    </ClInclude>
     <ClInclude Include="conformalaffine2d.h">
       <Filter>Transformations\ConformalAffine2D</Filter>
     </ClInclude>
@@ -235,16 +205,16 @@
       <Filter>Uniform distortion</Filter>
     </ClInclude>
     <ClInclude Include="polynomial.h">
-      <Filter>Polynomials</Filter>
+      <Filter>Undocumented\Polynomials</Filter>
     </ClInclude>
     <ClInclude Include="polynomial.hpp">
-      <Filter>Polynomials</Filter>
+      <Filter>Undocumented\Polynomials</Filter>
     </ClInclude>
     <ClInclude Include="polynomial_tools.h">
-      <Filter>Polynomials</Filter>
+      <Filter>Undocumented\Polynomials</Filter>
     </ClInclude>
     <ClInclude Include="polynomial_tools.hpp">
-      <Filter>Polynomials</Filter>
+      <Filter>Undocumented\Polynomials</Filter>
     </ClInclude>
     <ClInclude Include="coordinates.h">
       <Filter>Coordinate conversions</Filter>
@@ -289,16 +259,56 @@
       <Filter>Uniform sampling</Filter>
     </ClInclude>
     <ClInclude Include="interval.h">
-      <Filter>Interval</Filter>
+      <Filter>Undocumented\Interval</Filter>
     </ClInclude>
     <ClInclude Include="interval.hpp">
-      <Filter>Interval</Filter>
+      <Filter>Undocumented\Interval</Filter>
     </ClInclude>
     <ClInclude Include="interval_tools.h">
-      <Filter>Interval</Filter>
+      <Filter>Undocumented\Interval</Filter>
     </ClInclude>
     <ClInclude Include="interval_tools.hpp">
-      <Filter>Interval</Filter>
+      <Filter>Undocumented\Interval</Filter>
+    </ClInclude>
+    <ClInclude Include="pastelmath.h" />
+    <ClInclude Include="transformations.h">
+      <Filter>Transformations</Filter>
+    </ClInclude>
+    <ClInclude Include="linear_algebra.h">
+      <Filter>Transformations\Linear algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more4.hpp">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools.hpp">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more.hpp">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more2.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more2.hpp">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more3.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more3.hpp">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more4.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_decompositions.h">
+      <Filter>Transformations\Linear algebra\Matrix decompositions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -348,7 +358,7 @@
       <Filter>Uniform distortion</Filter>
     </None>
     <None Include="polynomial.txt">
-      <Filter>Polynomials</Filter>
+      <Filter>Undocumented\Polynomials</Filter>
     </None>
     <None Include="coordinates.txt">
       <Filter>Coordinate conversions</Filter>
@@ -366,7 +376,7 @@
       <Filter>Uniform sampling</Filter>
     </None>
     <None Include="interval.txt">
-      <Filter>Interval</Filter>
+      <Filter>Undocumented\Interval</Filter>
     </None>
     <None Include="pastelmath.txt" />
   </ItemGroup>

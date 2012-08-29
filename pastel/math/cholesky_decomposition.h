@@ -48,4 +48,6 @@ namespace Pastel
 
 #include "pastel/math/cholesky_decomposition.hpp"
 
+#include "pastel/math/cholesky_decomposition_tools.h"
+
 #endif

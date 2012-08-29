@@ -181,4 +181,6 @@ namespace Pastel
 
 #include "pastel/math/affinetransformation.hpp"
 
+#include "pastel/math/affinetransformation_tools.h"
+
 #endif

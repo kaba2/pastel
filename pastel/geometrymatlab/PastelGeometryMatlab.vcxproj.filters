@@ -84,15 +84,6 @@
     <None Include="test_pointkdtree.m">
       <Filter>PointKdTree</Filter>
     </None>
-    <None Include="pastel_point_pattern_match.m">
-      <Filter>Point pattern matching</Filter>
-    </None>
-    <None Include="pastel_point_pattern_match_gmo.m">
-      <Filter>Point pattern matching</Filter>
-    </None>
-    <None Include="point_pattern_match.txt">
-      <Filter>Point pattern matching</Filter>
-    </None>
     <None Include="test_point_pattern_match.m">
       <Filter>Point pattern matching</Filter>
     </None>
@@ -100,17 +91,29 @@
       <Filter>Point pattern matching</Filter>
     </None>
     <None Include="pastelgeometrymatlab.txt" />
+    <None Include="point_pattern_matching_vw.m">
+      <Filter>Point pattern matching</Filter>
+    </None>
+    <None Include="point_pattern_matching_kr.m">
+      <Filter>Point pattern matching</Filter>
+    </None>
+    <None Include="point_pattern_matching.txt">
+      <Filter>Point pattern matching</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="matlab_pointkdtree.cpp">
       <Filter>PointKdTree</Filter>
     </ClCompile>
-    <ClCompile Include="matlab_point_pattern_match.cpp">
-      <Filter>Point pattern matching</Filter>
-    </ClCompile>
-    <ClCompile Include="matlab_point_pattern_match_gmo.cpp">
-      <Filter>Point pattern matching</Filter>
-    </ClCompile>
     <ClCompile Include="pastelgeometrymatlab.cpp" />
+    <ClCompile Include="matlab_point_pattern_matching_vw.cpp">
+      <Filter>Point pattern matching</Filter>
+    </ClCompile>
+    <ClCompile Include="matlab_point_pattern_matching_kr.cpp">
+      <Filter>Point pattern matching</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pastelgeometrymatlab.h" />
   </ItemGroup>
 </Project>

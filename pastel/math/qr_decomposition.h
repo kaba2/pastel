@@ -112,4 +112,6 @@ namespace Pastel
 
 #include "pastel/math/qr_decomposition.hpp"
 
+#include "pastel/math/qr_decomposition_tools.h"
+
 #endif

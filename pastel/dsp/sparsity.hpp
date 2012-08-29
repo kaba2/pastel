@@ -9,10 +9,10 @@ namespace Pastel
 {
 
 	template <typename Real_Range>
-	typename boost::iterator_value<Real_Iterator>::type
+	typename boost::range_value<Real_Range>::type
 		sparsity2(const Real_Range& input)
 	{
-		typedef typename boost::iterator_value<Real_Iterator>::type
+		typedef typename boost::range_value<Real_Range>::type
 			Real;
 
 		// This is the squared 2-sparsity measure.

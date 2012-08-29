@@ -153,18 +153,21 @@
     <None Include="pointkdtree_search_nearest.m" />
     <None Include="pointkdtree_show.m" />
     <None Include="test_pointkdtree.m" />
-    <None Include="pastel_point_pattern_match.m" />
-    <None Include="pastel_point_pattern_match_gmo.m" />
-    <None Include="point_pattern_match.txt" />
+    <None Include="point_pattern_matching_vw.m" />
+    <None Include="point_pattern_matching_kr.m" />
+    <None Include="point_pattern_matching.txt" />
     <None Include="test_point_pattern_match.m" />
     <None Include="test_point_pattern_match_gmo.m" />
     <None Include="pastelgeometrymatlab.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="matlab_pointkdtree.cpp" />
-    <ClCompile Include="matlab_point_pattern_match.cpp" />
-    <ClCompile Include="matlab_point_pattern_match_gmo.cpp" />
+    <ClCompile Include="matlab_point_pattern_matching_vw.cpp" />
+    <ClCompile Include="matlab_point_pattern_matching_kr.cpp" />
     <ClCompile Include="pastelgeometrymatlab.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pastelgeometrymatlab.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

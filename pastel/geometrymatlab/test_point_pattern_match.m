@@ -1,4 +1,4 @@
-% DocumentationOf: pastel_point_pattern_match.m
+% DocumentationOf: point_pattern_matching_vw.m
 
 clear all;
 close all;
@@ -59,7 +59,7 @@ M = M(:, randperm(m));
 % pointsets using point-pattern matching.
 tic
 [similarity, success] = ...
-    pastel_point_pattern_match(M, S, ...
+    point_pattern_matching_vw(M, S, ...
     minMatchRatio, relativeMatchingDistance, ...
     confidence);
 timeSpent = toc;
