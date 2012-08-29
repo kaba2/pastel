@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	namespace Detail_EllipsoidElement
+	namespace EllipsoidElement_
 	{
 
 		template <int N>
@@ -49,7 +49,7 @@ namespace Pastel
 		const View<N, bool, Image_View>& image,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
-		Detail_EllipsoidElement::VisitFunctor<N> visitFunctor(
+		EllipsoidElement_::VisitFunctor<N> visitFunctor(
 			Vector<real, N>(image.extent()) / 2,
 			diameter / 2);
 		visitPosition(image, visitFunctor);
@@ -62,7 +62,7 @@ namespace Pastel
 		Pastel::ellipsoidElement(image, image.extent());
 	}
 
-	namespace Detail_DiamondElement
+	namespace DiamondElement_
 	{
 
 		template <int N>
@@ -101,7 +101,7 @@ namespace Pastel
 		const View<N, bool, Image_View>& image,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
-		Detail_DiamondElement::VisitFunctor<N> visitFunctor(
+		DiamondElement_::VisitFunctor<N> visitFunctor(
 			Vector<real, N>(image.extent()) / 2,
 			diameter / 2);
 		visitPosition(image, visitFunctor);
@@ -114,7 +114,7 @@ namespace Pastel
 		Pastel::diamondElement(image, image.extent());
 	}
 
-	namespace Detail_pEllipsoidElement
+	namespace pEllipsoidElement_
 	{
 
 		template <int N>
@@ -159,7 +159,7 @@ namespace Pastel
 	{
 		ENSURE_OP(power, >, 0);
 
-		Detail_pEllipsoidElement::VisitFunctor<N> visitFunctor(
+		pEllipsoidElement_::VisitFunctor<N> visitFunctor(
 			Vector<real, N>(image.extent()) / 2,
 			diameter / 2, power);
 		visitPosition(image, visitFunctor);
@@ -173,7 +173,7 @@ namespace Pastel
 		Pastel::pEllipsoidElement(image, power, image.extent());
 	}
 
-	namespace Detail_BoxElement
+	namespace BoxElement_
 	{
 
 		template <int N>
@@ -212,7 +212,7 @@ namespace Pastel
 		const View<N, bool, Image_View>& image,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
-		Detail_BoxElement::VisitFunctor<N> visitFunctor(
+		BoxElement_::VisitFunctor<N> visitFunctor(
 			Vector<real, N>(image.extent()) / 2,
 			diameter / 2);
 		visitPosition(image, visitFunctor);

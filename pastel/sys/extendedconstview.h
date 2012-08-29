@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	namespace Detail_ExtendedConstView
+	namespace ExtendedConstView_
 	{
 
 		template <int N, typename Contained_Element, typename Contained_ExtendedConstView>
@@ -58,10 +58,10 @@ namespace Pastel
 
 	template <int N, typename Contained_Element, typename Contained_ExtendedConstView>
 	class ExtendedConstView
-		: public Detail_ExtendedConstView::ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
+		: public ExtendedConstView_::ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
-		typedef Detail_ExtendedConstView::
+		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
 			Base;
 
@@ -89,7 +89,7 @@ namespace Pastel
 
 	template <typename Contained_Element, typename Contained_ExtendedConstView>
 	class ExtendedConstView<1, Contained_Element, Contained_ExtendedConstView>
-		: public Detail_ExtendedConstView::ExtendedConstViewBase<1, Contained_Element, Contained_ExtendedConstView>
+		: public ExtendedConstView_::ExtendedConstViewBase<1, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
 		enum
@@ -97,7 +97,7 @@ namespace Pastel
 			N = 1
 		};
 
-		typedef Detail_ExtendedConstView::
+		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
 			Base;
 
@@ -135,7 +135,7 @@ namespace Pastel
 
 	template <typename Contained_Element, typename Contained_ExtendedConstView>
 	class ExtendedConstView<2, Contained_Element, Contained_ExtendedConstView>
-		: public Detail_ExtendedConstView::ExtendedConstViewBase<2, Contained_Element, Contained_ExtendedConstView>
+		: public ExtendedConstView_::ExtendedConstViewBase<2, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
 		enum
@@ -143,7 +143,7 @@ namespace Pastel
 			N = 2
 		};
 
-		typedef Detail_ExtendedConstView::
+		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
 			Base;
 
@@ -186,7 +186,7 @@ namespace Pastel
 
 	template <typename Contained_Element, typename Contained_ExtendedConstView>
 	class ExtendedConstView<3, Contained_Element, Contained_ExtendedConstView>
-		: public Detail_ExtendedConstView::ExtendedConstViewBase<3, Contained_Element, Contained_ExtendedConstView>
+		: public ExtendedConstView_::ExtendedConstViewBase<3, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
 		enum
@@ -194,7 +194,7 @@ namespace Pastel
 			N = 3
 		};
 
-		typedef Detail_ExtendedConstView::
+		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
 			Base;
 

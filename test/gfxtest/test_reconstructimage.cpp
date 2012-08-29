@@ -20,7 +20,7 @@
 #include "pastel/gfx/reconstruct_filter.h"
 #include "pastel/gfx/reconstruct_rbf.h"
 
-#include "pastel/dsp/resample.h"
+#include "pastel/dsp/resampling.h"
 
 #include "pastel/sys/indexextenders.h"
 #include "pastel/sys/string_algorithms.h"

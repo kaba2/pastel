@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	namespace Detail_ReconstructFilter
+	namespace ReconstructFilter_
 	{
 
 		template <typename Real, int N, typename Data>
@@ -187,8 +187,8 @@ namespace Pastel
 
 		ENSURE2(points == dataList.size(), points, dataList.size());
 
-		typedef Detail_ReconstructFilter::DataPoint<Real, N, Data> DataPoint;
-		typedef Detail_ReconstructFilter::DataPolicy<Real, N, Data> DataPolicy;
+		typedef ReconstructFilter_::DataPoint<Real, N, Data> DataPoint;
+		typedef ReconstructFilter_::DataPolicy<Real, N, Data> DataPolicy;
 
 		DataPolicy pointPolicy(n);
 
@@ -211,7 +211,7 @@ namespace Pastel
 
 		kdTree.refine(SlidingMidpoint_SplitRule());
 
-		Detail_ReconstructFilter::ReconstructFunctor<Real, N, DataPolicy, Filter>
+		ReconstructFilter_::ReconstructFunctor<Real, N, DataPolicy, Filter>
 			reconstructFunctor(kdTree, filter, filterStretch);
 
 		visitPosition(

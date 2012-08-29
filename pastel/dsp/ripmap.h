@@ -90,4 +90,6 @@ namespace Pastel
 
 #include "pastel/dsp/ripmap.hpp"
 
+#include "pastel/dsp/ripmap_tools.h"
+
 #endif

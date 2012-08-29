@@ -8,7 +8,7 @@ namespace Pastel
 
 	// Traversal without a view
 
-	namespace Detail_VisitRectangle
+	namespace VisitRectangle_
 	{
 
 		class NormalTag {};
@@ -71,10 +71,10 @@ namespace Pastel
 	{
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_VisitRectangle::NormalTag,
-			Detail_VisitRectangle::TerminateTag>::type Tag;
+			VisitRectangle_::NormalTag,
+			VisitRectangle_::TerminateTag>::type Tag;
 
-		Detail_VisitRectangle::visitRectangleDimension<N - 1>(
+		VisitRectangle_::visitRectangleDimension<N - 1>(
 			evaluate(rectangle.extent()),
 			Vector<integer, N>(0),
 			visitor,
@@ -83,7 +83,7 @@ namespace Pastel
 
 	// Single view traversal
 
-	namespace Detail_Visit
+	namespace Visit_
 	{
 
 		class NormalTag {};
@@ -146,10 +146,10 @@ namespace Pastel
 	{
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_Visit::NormalTag,
-			Detail_Visit::TerminateTag>::type Tag;
+			Visit_::NormalTag,
+			Visit_::TerminateTag>::type Tag;
 
-		Detail_Visit::visitDimension<N - 1>(
+		Visit_::visitDimension<N - 1>(
 			input.extent(),
 			input.constCursor(Vector<integer, N>(0)),
 			visitor,
@@ -163,10 +163,10 @@ namespace Pastel
 	{
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_Visit::NormalTag,
-			Detail_Visit::TerminateTag>::type Tag;
+			Visit_::NormalTag,
+			Visit_::TerminateTag>::type Tag;
 
-		Detail_Visit::visitDimension<N - 1>(
+		Visit_::visitDimension<N - 1>(
 			input.extent(),
 			input.cursor(Vector<integer, N>(0)),
 			visitor,
@@ -175,7 +175,7 @@ namespace Pastel
 
 	// Two-view parallel traversal
 	
-	namespace Detail_Visit
+	namespace Visit_
 	{
 
 		template <int Index, int N,
@@ -253,10 +253,10 @@ namespace Pastel
 
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_Visit::NormalTag,
-			Detail_Visit::TerminateTag>::type Tag;
+			Visit_::NormalTag,
+			Visit_::TerminateTag>::type Tag;
 
-		Detail_Visit::visitDimension<N - 1>(
+		Visit_::visitDimension<N - 1>(
 			left.extent(),
 			left.constCursor(Vector<integer, N>(0)),
 			right.cursor(Vector<integer, N>(0)),
@@ -277,10 +277,10 @@ namespace Pastel
 
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_Visit::NormalTag,
-			Detail_Visit::TerminateTag>::type Tag;
+			Visit_::NormalTag,
+			Visit_::TerminateTag>::type Tag;
 
-		Detail_Visit::visitDimension<N - 1>(
+		Visit_::visitDimension<N - 1>(
 			left.extent(),
 			left.cursor(Vector<integer, N>(0)),
 			right.cursor(Vector<integer, N>(0)),
@@ -301,10 +301,10 @@ namespace Pastel
 
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_Visit::NormalTag,
-			Detail_Visit::TerminateTag>::type Tag;
+			Visit_::NormalTag,
+			Visit_::TerminateTag>::type Tag;
 
-		Detail_Visit::visitDimension<N - 1>(
+		Visit_::visitDimension<N - 1>(
 			left.extent(),
 			left.constCursor(Vector<integer, N>(0)),
 			right.constCursor(Vector<integer, N>(0)),

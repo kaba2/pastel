@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	namespace Detail_NullIterator
+	namespace NullIterator_
 	{
 
 		class NullObject
@@ -96,12 +96,12 @@ namespace Pastel
 	}
 
 	class NullIterator
-		: public Detail_NullIterator::NullIteratorBase<NullIterator, Detail_NullIterator::NullObject>
+		: public NullIterator_::NullIteratorBase<NullIterator, NullIterator_::NullObject>
 	{
 	};
 
 	class ConstNullIterator
-		: public Detail_NullIterator::NullIteratorBase<ConstNullIterator, const Detail_NullIterator::NullObject>
+		: public NullIterator_::NullIteratorBase<ConstNullIterator, const NullIterator_::NullObject>
 	{
 	public:
 		ConstNullIterator()

@@ -16,7 +16,7 @@
 namespace Pastel
 {
 
-	namespace Detail_DrawPerspectiveTriangle
+	namespace DrawPerspectiveTriangle_
 	{
 
 		class TextureVertex
@@ -144,7 +144,7 @@ namespace Pastel
 		// correction. The values are interpolated in a homogeneous
 		// space.
 
-		typedef Detail_DrawPerspectiveTriangle::TextureVertex Vertex;
+		typedef DrawPerspectiveTriangle_::TextureVertex Vertex;
 		typedef Vertex::tPoint tPoint;
 		typedef Vertex::tVector tVector;
 
@@ -156,7 +156,7 @@ namespace Pastel
 		yVertex.push_back(Vertex(triangle[1], uvTriangle[1], 1));
 		yVertex.push_back(Vertex(triangle[2], uvTriangle[2], 2));
 		std::sort(yVertex.begin(), yVertex.end(), 
-			Detail_DrawPerspectiveTriangle::VerticalComparison());
+			DrawPerspectiveTriangle_::VerticalComparison());
 
 		const Vertex& yMinVertex = yVertex[0];
 		const Vertex& yMidVertex = yVertex[1];
@@ -170,7 +170,7 @@ namespace Pastel
 		xVertex.push_back(Vertex(triangle[1], uvTriangle[1], 1));
 		xVertex.push_back(Vertex(triangle[2], uvTriangle[2], 2));
 		std::sort(xVertex.begin(), xVertex.end(),
-			Detail_DrawPerspectiveTriangle::HorizontalComparison());
+			DrawPerspectiveTriangle_::HorizontalComparison());
 
 		const Vertex& xMinVertex = xVertex[0];
 		const Vertex& xMidVertex = xVertex[1];

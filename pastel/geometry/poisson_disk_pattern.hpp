@@ -19,7 +19,7 @@
 namespace Pastel
 {
 
-	namespace Detail_PoissonDiskPattern
+	namespace PoissonDiskPattern_
 	{
 
 		template <typename Real, int N>
@@ -187,7 +187,7 @@ namespace Pastel
 
 					if (intersect(searchWindow, gridWindow, clippedSearchWindow))
 					{
-						Detail_PoissonDiskPattern::Visitor<Real, N> visitor(
+						PoissonDiskPattern_::Visitor<Real, N> visitor(
 							newPoint, minDistance2, validNewPoint);
 						visit(subView(arrayView(grid), clippedSearchWindow), visitor);
 					}

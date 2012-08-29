@@ -97,11 +97,9 @@
     <None Include="devices.txt">
       <Filter>Common</Filter>
     </None>
-    <None Include="pasteldevice.txt">
-      <Filter>Common</Filter>
-    </None>
     <None Include="ui.txt">
       <Filter>Ui</Filter>
     </None>
+    <None Include="pasteldevice.txt" />
   </ItemGroup>
 </Project>

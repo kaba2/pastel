@@ -128,12 +128,6 @@
     <ClInclude Include="ripmap_tools.hpp">
       <Filter>Precomputed filtering\RipMap</Filter>
     </ClInclude>
-    <ClInclude Include="resample.h">
-      <Filter>Resampling</Filter>
-    </ClInclude>
-    <ClInclude Include="resample.hpp">
-      <Filter>Resampling</Filter>
-    </ClInclude>
     <ClInclude Include="dsplibrary.h">
       <Filter>Miscellaneous</Filter>
     </ClInclude>
@@ -185,6 +179,19 @@
     <ClInclude Include="signal_transforms.h">
       <Filter>Signal transforms</Filter>
     </ClInclude>
+    <ClInclude Include="pasteldsp.h" />
+    <ClInclude Include="miscellaneous.h">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="resampling.h">
+      <Filter>Resampling</Filter>
+    </ClInclude>
+    <ClInclude Include="resampling.hpp">
+      <Filter>Resampling</Filter>
+    </ClInclude>
+    <ClInclude Include="precomputed_filtering.h">
+      <Filter>Precomputed filtering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="filters.txt">
@@ -198,12 +205,6 @@
     </None>
     <None Include="ripmap.txt">
       <Filter>Precomputed filtering\RipMap</Filter>
-    </None>
-    <None Include="resample.txt">
-      <Filter>Resampling</Filter>
-    </None>
-    <None Include="resample_optimal_order.txt">
-      <Filter>Resampling</Filter>
     </None>
     <None Include="miscellaneous.txt">
       <Filter>Miscellaneous</Filter>
@@ -226,6 +227,12 @@
     <None Include="pasteldsp.txt" />
     <None Include="signal_transforms.txt">
       <Filter>Signal transforms</Filter>
+    </None>
+    <None Include="resampling.txt">
+      <Filter>Resampling</Filter>
+    </None>
+    <None Include="resampling_order.txt">
+      <Filter>Resampling</Filter>
     </None>
   </ItemGroup>
 </Project>

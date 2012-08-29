@@ -135,6 +135,7 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="block_matching.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="color_tools.h" />
     <ClInclude Include="color_tools.hpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="noise.h" />
     <ClInclude Include="gradientfield.h" />
     <ClInclude Include="gradientfield.hpp" />
+    <ClInclude Include="pastelgfx.h" />
     <ClInclude Include="perlin_noise.h" />
     <ClInclude Include="perlin_noise.hpp" />
     <ClInclude Include="simplex_noise.h" />

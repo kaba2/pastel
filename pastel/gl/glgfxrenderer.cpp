@@ -4,7 +4,7 @@
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"
 
-#include "pastel/dsp/resample.h"
+#include "pastel/dsp/resampling.h"
 #include "pastel/dsp/gaussian_filter.h"
 #include "pastel/gfx/color_tools.h"
 

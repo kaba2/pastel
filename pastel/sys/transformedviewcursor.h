@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	namespace Detail_TransformedView
+	namespace TransformedView_
 	{
 
 		template <int N, typename TransformFunctor, typename ConstCursor>

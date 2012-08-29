@@ -33,4 +33,4 @@ a 1-dimensional reconstruction filter. It is defined as:
 See also
 --------
 
-[[Link]]: resample.txt
+[[Link]]: resampling.txt

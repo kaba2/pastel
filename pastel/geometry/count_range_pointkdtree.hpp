@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	namespace Detail_CountRange
+	namespace CountRange_
 	{
 
 		class Count_Reporter_SearchRange
@@ -52,7 +52,7 @@ namespace Pastel
 
 		integer count = 0;
 
-		Detail_CountRange::Count_Reporter_SearchRange
+		CountRange_::Count_Reporter_SearchRange
 			reporter(count);
 
 		searchRangeAlgorithm(kdTree, range, reporter, bucketSize);

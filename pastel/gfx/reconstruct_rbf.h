@@ -61,7 +61,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	namespace Detail_ReconstructRbf
+	namespace ReconstructRbf_
 	{
 
 		template <typename Real, int N, typename Data>
@@ -148,7 +148,7 @@ namespace Pastel
 		
 		const Vector<Real, Dynamic> w = solveLinear(a, b);
 
-		const Detail_ReconstructRbf::ReconstructFunctor<Real, N, Data>
+		const ReconstructRbf_::ReconstructFunctor<Real, N, Data>
 			reconstructFunctor(positionList, w, b, scaling, radialBasisFunction);
 		
 		visitPosition(view, reconstructFunctor);

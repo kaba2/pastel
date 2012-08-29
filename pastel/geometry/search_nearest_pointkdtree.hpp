@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	namespace Detail_Search_Nearest
+	namespace Search_Nearest_
 	{
 
 		template <typename Real, int N, typename PointPolicy,
@@ -99,7 +99,7 @@ namespace Pastel
 			return 0;
 		}
 
-		typedef Detail_Search_Nearest::CandidateFunctor<Real, N, PointPolicy, AcceptPoint>
+		typedef Search_Nearest_::CandidateFunctor<Real, N, PointPolicy, AcceptPoint>
 			CandidateFunctor;
 		typedef PointKdTree<Real, N, PointPolicy> Tree;
 		typedef typename Tree::Point_ConstIterator Point_ConstIterator;

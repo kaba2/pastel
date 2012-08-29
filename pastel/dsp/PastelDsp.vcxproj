@@ -151,7 +151,10 @@
     <ClInclude Include="cubic_filter.h" />
     <ClInclude Include="gaussian_filter.h" />
     <ClInclude Include="lanczos_filter.h" />
+    <ClInclude Include="miscellaneous.h" />
     <ClInclude Include="mitchell_filter.h" />
+    <ClInclude Include="pasteldsp.h" />
+    <ClInclude Include="precomputed_filtering.h" />
     <ClInclude Include="table_filter.h" />
     <ClInclude Include="triangle_filter.h" />
     <ClInclude Include="mipmap.h" />
@@ -162,8 +165,8 @@
     <ClInclude Include="ripmap.hpp" />
     <ClInclude Include="ripmap_tools.h" />
     <ClInclude Include="ripmap_tools.hpp" />
-    <ClInclude Include="resample.h" />
-    <ClInclude Include="resample.hpp" />
+    <ClInclude Include="resampling.h" />
+    <ClInclude Include="resampling.hpp" />
     <ClInclude Include="dsplibrary.h" />
     <ClInclude Include="reconstructimage.h" />
     <ClInclude Include="reconstructimage.hpp" />
@@ -187,8 +190,8 @@
     <None Include="precomputed_filtering.txt" />
     <None Include="mipmap.txt" />
     <None Include="ripmap.txt" />
-    <None Include="resample.txt" />
-    <None Include="resample_optimal_order.txt" />
+    <None Include="resampling.txt" />
+    <None Include="resampling_order.txt" />
     <None Include="miscellaneous.txt" />
     <None Include="signal_transforms.txt" />
     <None Include="cosine_transform.txt" />

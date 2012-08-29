@@ -39,7 +39,7 @@ namespace Pastel
 		typedef typename Contained_ConstView::Element Element;
 		typedef typename Contained_ConstView::ConstReference ConstReference;
 
-		typedef Detail_TransformedView::ConstTransformedViewCursor<N, TransformFunctor,
+		typedef TransformedView_::ConstTransformedViewCursor<N, TransformFunctor,
 			typename Contained_ConstView::ConstCursor> ConstCursor;
 
 		explicit ConstTransformedView(

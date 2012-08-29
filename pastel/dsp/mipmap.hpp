@@ -3,7 +3,7 @@
 
 #include "pastel/dsp/mipmap.h"
 #include "pastel/dsp/filter.h"
-#include "pastel/dsp/resample.h"
+#include "pastel/dsp/resampling.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/arrayview.h"

@@ -492,6 +492,10 @@
     <ClInclude Include="image_eroding.hpp">
       <Filter>Image processing\Morphology</Filter>
     </ClInclude>
+    <ClInclude Include="pastelgfx.h" />
+    <ClInclude Include="block_matching.h">
+      <Filter>Block matching</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color.txt">

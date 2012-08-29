@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	namespace Detail_AllNearestNeighborsBruteForce
+	namespace AllNearestNeighborsBruteForce_
 	{
 
 		template <typename Real>
@@ -82,7 +82,7 @@ namespace Pastel
 		}
 		
 		typedef typename PointPolicy::Real Real;
-		typedef Detail_AllNearestNeighborsBruteForce::Entry<Real> Entry;
+		typedef AllNearestNeighborsBruteForce_::Entry<Real> Entry;
 		typedef std::set<Entry> NearestSet;
 		typedef typename NearestSet::iterator NearestIterator;
 		typedef typename PointPolicy::ConstIterator RealIterator;

@@ -8,7 +8,7 @@ namespace Pastel
 
 	// Single view traversal
 
-	namespace Detail_VisitPosition
+	namespace VisitPosition_
 	{
 
 		class NormalTag {};
@@ -77,10 +77,10 @@ namespace Pastel
 	{
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_VisitPosition::NormalTag,
-			Detail_VisitPosition::TerminateTag>::type Tag;
+			VisitPosition_::NormalTag,
+			VisitPosition_::TerminateTag>::type Tag;
 
-		Detail_VisitPosition::visitPositionDimension<N - 1>(
+		VisitPosition_::visitPositionDimension<N - 1>(
 			input.extent(),
 			Vector<integer, N>(0),
 			input.constCursor(Vector<integer, N>(0)),
@@ -95,10 +95,10 @@ namespace Pastel
 	{
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_VisitPosition::NormalTag,
-			Detail_VisitPosition::TerminateTag>::type Tag;
+			VisitPosition_::NormalTag,
+			VisitPosition_::TerminateTag>::type Tag;
 
-		Detail_VisitPosition::visitPositionDimension<N - 1>(
+		VisitPosition_::visitPositionDimension<N - 1>(
 			input.extent(),
 			Vector<integer, N>(0),
 			input.cursor(Vector<integer, N>(0)),
@@ -108,7 +108,7 @@ namespace Pastel
 
 	// Two-view parallel traversal
 
-	namespace Detail_VisitPosition
+	namespace VisitPosition_
 	{
 
 		template <int Index, int N,
@@ -192,10 +192,10 @@ namespace Pastel
 
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_VisitPosition::NormalTag,
-			Detail_VisitPosition::TerminateTag>::type Tag;
+			VisitPosition_::NormalTag,
+			VisitPosition_::TerminateTag>::type Tag;
 
-		Detail_VisitPosition::visitPositionDimension<N - 1>(
+		VisitPosition_::visitPositionDimension<N - 1>(
 			left.extent(),
 			Vector<integer, N>(0),
 			left.constCursor(Vector<integer, N>(0)),
@@ -217,10 +217,10 @@ namespace Pastel
 
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_VisitPosition::NormalTag,
-			Detail_VisitPosition::TerminateTag>::type Tag;
+			VisitPosition_::NormalTag,
+			VisitPosition_::TerminateTag>::type Tag;
 
-		Detail_VisitPosition::visitPositionDimension<N - 1>(
+		VisitPosition_::visitPositionDimension<N - 1>(
 			left.extent(),
 			Vector<integer, N>(0),
 			left.cursor(Vector<integer, N>(0)),
@@ -242,10 +242,10 @@ namespace Pastel
 
 		typedef typename boost::mpl::if_c<
 			(N > 1),
-			Detail_VisitPosition::NormalTag,
-			Detail_VisitPosition::TerminateTag>::type Tag;
+			VisitPosition_::NormalTag,
+			VisitPosition_::TerminateTag>::type Tag;
 
-		Detail_VisitPosition::visitPositionDimension<N - 1>(
+		VisitPosition_::visitPositionDimension<N - 1>(
 			left.extent(),
 			Vector<integer, N>(0),
 			left.constCursor(Vector<integer, N>(0)),
