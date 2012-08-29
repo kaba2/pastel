@@ -19,7 +19,7 @@ namespace Pastel
 			Dimension = N
 		};
 
-		typedef Detail_AdaptedView::ConstAdaptedViewCursor<N, typename Contained_ConstView::ConstCursor, Adapter>
+		typedef AdaptedView_::ConstAdaptedViewCursor<N, typename Contained_ConstView::ConstCursor, Adapter>
 			ConstCursor;
 		typedef typename ConstCursor::Element Element;
 		typedef typename ConstCursor::ConstReference ConstReference;
@@ -77,7 +77,7 @@ namespace Pastel
 		using Base::extent;
 		using Base::constCursor;
 
-		typedef Detail_AdaptedView::AdaptedViewCursor<N, typename Contained_View::Cursor, Adapter>
+		typedef AdaptedView_::AdaptedViewCursor<N, typename Contained_View::Cursor, Adapter>
 			Cursor;
 		typedef typename Base::Element Element;
 		typedef typename Cursor::Reference Reference;

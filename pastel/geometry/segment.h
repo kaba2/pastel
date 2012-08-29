@@ -1,8 +1,8 @@
 // Description: Segment class
 // Detail: Allows to work with line segments
 
-#ifndef PASTEL_SEGMENT_H
-#define PASTEL_SEGMENT_H
+#ifndef PASTELGEOMETRY_SEGMENT_H
+#define PASTELGEOMETRY_SEGMENT_H
 
 #include "pastel/sys/vector.h"
 

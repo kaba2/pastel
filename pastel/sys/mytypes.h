@@ -253,28 +253,6 @@ namespace Pastel
 	//! Deallocates a raw memory block.
 	void deallocateRaw(const void* data);
 
-	//! Tests two variables for equivalence.
-	/*!
-	The elements 'left' and 'right' are equivalent 
-	under a comparison 'compare' if it holds that
-	!compare(left, right) && !compare(right, left).
-	*/
-	template <typename Type, typename Compare>
-	bool equivalent(
-		const Type& left, const Type& right,
-		const Compare& compare);
-
-	//! Tests two variables for equivalence.
-	/*!
-	This is a convenience function that uses
-	std::less<Type> as the comparison functor
-	for the more general equivalent() function.
-	See the documentation for that.
-	*/
-	template <typename Type>
-	bool equivalent(
-		const Type& left, const Type& right);
-
 }
 
 #include "pastel/sys/ensure.h"

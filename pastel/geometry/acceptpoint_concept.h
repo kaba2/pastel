@@ -1,7 +1,7 @@
 // Description: AcceptPoint concept
 
-#ifndef PASTEL_ACCEPTPOINT_CONCEPT_H
-#define PASTEL_ACCEPTPOINT_CONCEPT_H
+#ifndef PASTELGEOMETRY_ACCEPTPOINT_CONCEPT_H
+#define PASTELGEOMETRY_ACCEPTPOINT_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 

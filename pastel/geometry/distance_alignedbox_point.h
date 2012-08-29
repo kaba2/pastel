@@ -1,7 +1,7 @@
 // Description: Distance between an aligned box and a point
 
-#ifndef PASTEL_DISTANCE_ALIGNEDBOX_POINT_H
-#define PASTEL_DISTANCE_ALIGNEDBOX_POINT_H
+#ifndef PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_POINT_H
+#define PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_POINT_H
 
 #include "pastel/geometry/alignedbox.h"
 

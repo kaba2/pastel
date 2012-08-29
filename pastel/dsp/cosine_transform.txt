@@ -55,7 +55,7 @@ are provided, as well as both real and complex versions.
 Pastel also provides the in-place versions of the DCT as [range algorithms][Range],
 so that applying them to arrays is easy.
 
-[Range]: [[Ref]]: rangealgorithm.txt
+[Range]: [[Ref]]: rangealgorithm_objects.txtt
 
 See also
 --------

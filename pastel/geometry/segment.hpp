@@ -1,5 +1,5 @@
-#ifndef PASTEL_SEGMENT_HPP
-#define PASTEL_SEGMENT_HPP
+#ifndef PASTELGEOMETRY_SEGMENT_HPP
+#define PASTELGEOMETRY_SEGMENT_HPP
 
 #include "pastel/geometry/segment.h"
 

@@ -1,0 +1,28 @@
+Conformal-affine point-pattern matching
+=======================================
+
+[[Parent]]: transformation_fitting.txt
+
+This section contains an implementation of the algorithm given in
+the paper
+
+_A Fast Expected-Time 2d Point-Pattern Matching Algorithm_,
+P.B. Van Wamelen et al., Pattern Recognition 37 (2004), 1699-1711.
+
+This is an efficient randomized algorithm for point-pattern matching
+under the class of conformal affine transformations in ''RR^2''.
+It is based on examining local neighborhoods of the points of ''Q in RR^2'' and
+the points of ''P in RR^2''. Only if the local neighborhoods match, it is 
+checked if the match is also global. Such a technique is a fast way to reject
+transformation candidates. However, it has certain drawbacks:
+
+ * It might reject a valid transformation.
+ * If the point-patterns are highly self-similar (e.g. a grid of points),
+ then lots of local neighborhoods match and the algorithm slows down
+ remarkably.
+
+The first drawback is taken care by probabilistic arguments: it is accepted
+provided that it does not happen often. This is taken care by choosing
+the local neighborhood sizes carefully. The second drawback is a general 
+problem in point-pattern matching.
+

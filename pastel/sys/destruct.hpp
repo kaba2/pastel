@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	namespace Detail_Destruct
+	namespace Destruct_
 	{
 
 		class General_Version
@@ -44,8 +44,8 @@ namespace Pastel
 	{
 		typedef typename boost::mpl::if_<
 			std::has_trivial_destructor<Type>,
-			Detail_Destruct::Trivial_Version,
-			Detail_Destruct::General_Version>::type Destruct;
+			Destruct_::Trivial_Version,
+			Destruct_::General_Version>::type Destruct;
 
 		Destruct::work(begin, end);
 	}

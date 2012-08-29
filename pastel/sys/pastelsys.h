@@ -5,7 +5,7 @@
 
 #include "pastel/sys/algorithm_concept.h"
 
-#include "pastel/sys/basic_algorithms.h"
+#include "pastel/sys/algorithms.h"
 #include "pastel/sys/configuration.h"
 #include "pastel/sys/data_structures.h"
 #include "pastel/sys/iterators.h"

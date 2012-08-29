@@ -1,8 +1,8 @@
 // Description: Sphere class
 // Detail: Allows to work with spheres
 
-#ifndef PASTEL_SPHERE_H
-#define PASTEL_SPHERE_H
+#ifndef PASTELGEOMETRY_SPHERE_H
+#define PASTELGEOMETRY_SPHERE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

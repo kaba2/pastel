@@ -1,7 +1,7 @@
 // Description: An aggregate file for area computations
 
-#ifndef PASTEL_AREA_H
-#define PASTEL_AREA_H
+#ifndef PASTELGEOMETRY_AREA_H
+#define PASTELGEOMETRY_AREA_H
 
 // Area is defined as the (n-1)-dimensional
 // volume of the boundary of an object.

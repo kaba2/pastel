@@ -1,5 +1,5 @@
-#ifndef PASTEL_INTERSECT_RAY_PLANE_HPP
-#define PASTEL_INTERSECT_RAY_PLANE_HPP
+#ifndef PASTELGEOMETRY_INTERSECT_RAY_PLANE_HPP
+#define PASTELGEOMETRY_INTERSECT_RAY_PLANE_HPP
 
 #include "pastel/geometry/intersect_ray_plane.h"
 #include "pastel/geometry/intersect_line_plane.h"

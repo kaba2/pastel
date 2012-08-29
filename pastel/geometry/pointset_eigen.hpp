@@ -1,5 +1,5 @@
-#ifndef PASTEL_POINTSET_EIGEN_HPP
-#define PASTEL_POINTSET_EIGEN_HPP
+#ifndef PASTELGEOMETRY_POINTSET_EIGEN_HPP
+#define PASTELGEOMETRY_POINTSET_EIGEN_HPP
 
 #include "pastel/geometry/pointset_eigen.h"
 

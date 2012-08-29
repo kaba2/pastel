@@ -1,5 +1,5 @@
-#ifndef PASTEL_INTERSECT_RAY_ALIGNEDBOX_HPP
-#define PASTEL_INTERSECT_RAY_ALIGNEDBOX_HPP
+#ifndef PASTELGEOMETRY_INTERSECT_RAY_ALIGNEDBOX_HPP
+#define PASTELGEOMETRY_INTERSECT_RAY_ALIGNEDBOX_HPP
 
 #include "pastel/geometry/intersect_ray_alignedbox.h"
 #include "pastel/geometry/intersect_line_alignedbox.h"

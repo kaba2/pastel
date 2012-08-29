@@ -1,7 +1,7 @@
 // Description: Overlap tests between an aligned plane and a sphere
 
-#ifndef PASTEL_OVERLAPS_ALIGNEDPLANE_SPHERE_H
-#define PASTEL_OVERLAPS_ALIGNEDPLANE_SPHERE_H
+#ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDPLANE_SPHERE_H
+#define PASTELGEOMETRY_OVERLAPS_ALIGNEDPLANE_SPHERE_H
 
 #include "pastel/geometry/alignedplane.h"
 #include "pastel/geometry/sphere.h"

@@ -1,5 +1,5 @@
-#ifndef PASTEL_INTERSECT_RAY_SPHERE_HPP
-#define PASTEL_INTERSECT_RAY_SPHERE_HPP
+#ifndef PASTELGEOMETRY_INTERSECT_RAY_SPHERE_HPP
+#define PASTELGEOMETRY_INTERSECT_RAY_SPHERE_HPP
 
 #include "pastel/geometry/intersect_ray_sphere.h"
 #include "pastel/geometry/intersect_line_sphere.h"

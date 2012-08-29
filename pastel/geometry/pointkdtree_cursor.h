@@ -1,7 +1,7 @@
 // Detail: A cursor to traverse the nodes of a PointKdTree
 
-#ifndef PASTEL_POINTKDTREE_CURSOR_H
-#define PASTEL_POINTKDTREE_CURSOR_H
+#ifndef PASTELGEOMETRY_POINTKDTREE_CURSOR_H
+#define PASTELGEOMETRY_POINTKDTREE_CURSOR_H
 
 #include "pastel/geometry/pointkdtree.h"
 

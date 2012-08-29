@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	namespace Detail_AdaptedView
+	namespace AdaptedView_
 	{
 
 		template <typename Physical, typename Logical,

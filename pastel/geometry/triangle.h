@@ -1,7 +1,7 @@
 // Description: Triangle class
 
-#ifndef PASTEL_TRIANGLE_H
-#define PASTEL_TRIANGLE_H
+#ifndef PASTELGEOMETRY_TRIANGLE_H
+#define PASTELGEOMETRY_TRIANGLE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

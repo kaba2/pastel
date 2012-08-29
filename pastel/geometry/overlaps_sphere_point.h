@@ -1,7 +1,7 @@
 // Description: Overlap tests between a sphere and a point
 
-#ifndef PASTEL_OVERLAPS_SPHERE_POINT_H
-#define PASTEL_OVERLAPS_SPHERE_POINT_H
+#ifndef PASTELGEOMETRY_OVERLAPS_SPHERE_POINT_H
+#define PASTELGEOMETRY_OVERLAPS_SPHERE_POINT_H
 
 #include "pastel/geometry/sphere.h"
 

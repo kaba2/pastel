@@ -11,4 +11,4 @@ important technique of precondition checking is explained in the
 [here][Algorithm].
 
 [Precondition]: [[Ref]]: ensure.txt
-[Algorithm]: [[Ref]]: algorithm.txt
+[Algorithm]: [[Ref]]: algorithm_objects.txtt

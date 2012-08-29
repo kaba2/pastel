@@ -3,13 +3,13 @@
 
 #include "pastel/matlab/matlab.h"
 
-#include "pastel/geometry/point_pattern_match_gmo.h"
+#include "pastel/geometry/point_pattern_matching_kr.h"
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/slidingmidpoint_splitrule.h"
 
 #include "pastel/sys/array_pointpolicy.h"
 
-void force_linking_point_pattern_match_gmo() {}
+void force_linking_point_pattern_matching_kr() {}
 
 namespace Pastel
 {
@@ -17,7 +17,7 @@ namespace Pastel
 	namespace
 	{
 
-		void matlabPointPatternMatchGmo(
+		void matlabPointPatternMatchKr(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -109,7 +109,7 @@ namespace Pastel
 			// Compute the point pattern match.
 
 			Euclidean_NormBijection<real> normBijection;
-			const bool success = Pastel::pointPatternMatchGmo(
+			const bool success = Pastel::pointPatternMatchKr(
 				modelTree, sceneTree, 
 				minMatchRatio, matchingDistance, maxBias,
 				matchingMode, normBijection, translation, 
@@ -148,8 +148,8 @@ namespace Pastel
 		void addFunction()
 		{
 			matlabAddFunction(
-				"point_pattern_match_gmo",
-				matlabPointPatternMatchGmo);
+				"point_pattern_matching_kr",
+				matlabPointPatternMatchKr);
 		}
 
 		CallFunction run(addFunction);

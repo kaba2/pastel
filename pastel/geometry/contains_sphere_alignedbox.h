@@ -1,7 +1,7 @@
 // Description: Does a sphere contain an aligned box?
 
-#ifndef PASTEL_CONTAINS_SPHERE_ALIGNEDBOX_H
-#define PASTEL_CONTAINS_SPHERE_ALIGNEDBOX_H
+#ifndef PASTELGEOMETRY_CONTAINS_SPHERE_ALIGNEDBOX_H
+#define PASTELGEOMETRY_CONTAINS_SPHERE_ALIGNEDBOX_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/sphere.h"

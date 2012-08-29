@@ -1,7 +1,7 @@
 // Description: An aggregate file for bounding spheres
 
-#ifndef PASTEL_BOUNDING_SPHERE_H
-#define PASTEL_BOUNDING_SPHERE_H
+#ifndef PASTELGEOMETRY_BOUNDING_SPHERE_H
+#define PASTELGEOMETRY_BOUNDING_SPHERE_H
 
 #include "pastel/geometry/bounding_sphere_alignedbox.h"
 #include "pastel/geometry/bounding_sphere_box.h"

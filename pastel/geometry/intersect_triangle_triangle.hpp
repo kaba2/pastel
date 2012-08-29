@@ -1,5 +1,5 @@
-#ifndef PASTEL_INTERSECT_TRIANGLE_TRIANGLE_HPP
-#define PASTEL_INTERSECT_TRIANGLE_TRIANGLE_HPP
+#ifndef PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_HPP
+#define PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_HPP
 
 #include "pastel/geometry/intersect_triangle_triangle.h"
 #include "pastel/geometry/segment.h"

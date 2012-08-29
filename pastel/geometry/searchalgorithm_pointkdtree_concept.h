@@ -1,8 +1,8 @@
 // Description: SearchAlgorithm_PointKdTree concept
 // Documentation: searchalgorithm_pointkdtree.txt
 
-#ifndef PASTEL_SEARCHALGORITHM_POINTKDTREE_CONCEPT_HPP
-#define PASTEL_SEARCHALGORITHM_POINTKDTREE_CONCEPT_HPP
+#ifndef PASTELGEOMETRY_SEARCHALGORITHM_POINTKDTREE_CONCEPT_HPP
+#define PASTELGEOMETRY_SEARCHALGORITHM_POINTKDTREE_CONCEPT_HPP
 
 #include "pastel/sys/keyvalue.h"
 

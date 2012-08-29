@@ -1,5 +1,5 @@
-#ifndef PASTEL_POINTKDTREE_PRIVATE_HPP
-#define PASTEL_POINTKDTREE_PRIVATE_HPP
+#ifndef PASTELGEOMETRY_POINTKDTREE_PRIVATE_HPP
+#define PASTELGEOMETRY_POINTKDTREE_PRIVATE_HPP
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/longestmedian_splitrule.h"

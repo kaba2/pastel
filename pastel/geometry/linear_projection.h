@@ -1,8 +1,8 @@
 // Description: Projections onto a line
 // Documentation: projection.txt
 
-#ifndef PASTEL_LINEAR_PROJECTION_H
-#define PASTEL_LINEAR_PROJECTION_H
+#ifndef PASTELGEOMETRY_LINEAR_PROJECTION_H
+#define PASTELGEOMETRY_LINEAR_PROJECTION_H
 
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/vector.h"

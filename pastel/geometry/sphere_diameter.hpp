@@ -1,5 +1,5 @@
-#ifndef PASTEL_SPHERE_DIAMETER_HPP
-#define PASTEL_SPHERE_DIAMETER_HPP
+#ifndef PASTELGEOMETRY_SPHERE_DIAMETER_HPP
+#define PASTELGEOMETRY_SPHERE_DIAMETER_HPP
 
 #include "pastel/geometry/sphere_diameter.h"
 

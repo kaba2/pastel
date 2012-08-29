@@ -1,5 +1,5 @@
-#ifndef PASTEL_BOX_DIAMETER_HPP
-#define PASTEL_BOX_DIAMETER_HPP
+#ifndef PASTELGEOMETRY_BOX_DIAMETER_HPP
+#define PASTELGEOMETRY_BOX_DIAMETER_HPP
 
 #include "pastel/geometry/box_diameter.h"
 

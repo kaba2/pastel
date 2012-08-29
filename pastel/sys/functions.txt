@@ -1,7 +1,7 @@
 Function algorithms
 ===================
 
-[[Parent]]: algorithm.txt
+[[Parent]]: algorithm_objects.txtt
 
 A _function algorithm_ is an algorithm object which accepts exactly
 one parameter object, and returns an object.

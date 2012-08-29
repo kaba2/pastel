@@ -1,8 +1,8 @@
 // Description: Nearest neighbor counting for PointKdTree
 // Documentation: nearest_neighbors.txt
 
-#ifndef PASTEL_COUNT_NEAREST_POINTKDTREE_H
-#define PASTEL_COUNT_NEAREST_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_H
+#define PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
 

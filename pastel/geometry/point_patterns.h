@@ -1,7 +1,7 @@
 // Description: Generation and modification of point-sets
 
-#ifndef PASTEL_POINT_PATTERNS_H
-#define PASTEL_POINT_PATTERNS_H
+#ifndef PASTELGEOMETRY_POINT_PATTERNS_H
+#define PASTELGEOMETRY_POINT_PATTERNS_H
 
 #include "pastel/sys/vector.h"
 

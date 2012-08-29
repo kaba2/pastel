@@ -1,7 +1,7 @@
 // Description: Overlap tests between a 2-flat and a plane
 
-#ifndef PASTEL_OVERLAPS_FLAT_PLANE_H
-#define PASTEL_OVERLAPS_FLAT_PLANE_H
+#ifndef PASTELGEOMETRY_OVERLAPS_FLAT_PLANE_H
+#define PASTELGEOMETRY_OVERLAPS_FLAT_PLANE_H
 
 #include "pastel/geometry/flat.h"
 #include "pastel/geometry/plane.h"

@@ -1,8 +1,8 @@
 // Description: Algorithms for KdTree
 // Documentation: kdtree.txt
 
-#ifndef PASTEL_KDTREE_TOOLS_H
-#define PASTEL_KDTREE_TOOLS_H
+#ifndef PASTELGEOMETRY_KDTREE_TOOLS_H
+#define PASTELGEOMETRY_KDTREE_TOOLS_H
 
 #include "pastel/geometry/kdtree.h"
 #include "pastel/geometry/kdtree_refine.h"
@@ -38,7 +38,7 @@ namespace Pastel
 
 	template <int N_A, typename Real, typename ObjectPolicy_A, 
 		int N_B, typename ObjectPolicy_B>
-	bool equivalentKdTree(const KdTree<Real, N_A, ObjectPolicy_A>& aTree,
+	bool equivalent(const KdTree<Real, N_A, ObjectPolicy_A>& aTree,
 	const KdTree<Real, N_B, ObjectPolicy_B>& bTree);
 
 }

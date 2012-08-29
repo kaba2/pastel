@@ -1,8 +1,8 @@
 // Description: KdTree class
 // Detail: A kd-tree data structure for ray casting shapes
 
-#ifndef PASTEL_KDTREE_H
-#define PASTEL_KDTREE_H
+#ifndef PASTELGEOMETRY_KDTREE_H
+#define PASTELGEOMETRY_KDTREE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/fastlist.h"
@@ -446,5 +446,8 @@ namespace Pastel
 }
 
 #include "pastel/geometry/kdtree.hpp"
+
+#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/kdtree_refine.h"
 
 #endif

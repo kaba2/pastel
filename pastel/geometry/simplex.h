@@ -1,7 +1,7 @@
 // Description: Simplex class
 
-#ifndef PASTEL_SIMPLEX_H
-#define PASTEL_SIMPLEX_H
+#ifndef PASTELGEOMETRY_SIMPLEX_H
+#define PASTELGEOMETRY_SIMPLEX_H
 
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/vector.h"

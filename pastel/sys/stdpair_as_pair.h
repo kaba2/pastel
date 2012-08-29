@@ -1,5 +1,5 @@
 // Description: std::pair as a Pair
-// Documentation: as_pair_concept.txt
+// Documentation: as_pair.txt
 
 #ifndef PASTEL_STDPAIR_AS_PAIR_H
 #define PASTEL_STDPAIR_AS_PAIR_H

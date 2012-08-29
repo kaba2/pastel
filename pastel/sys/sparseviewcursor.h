@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	namespace Detail_SparseView
+	namespace SparseView_
 	{
 
 		template <int N, typename ConstCursor>

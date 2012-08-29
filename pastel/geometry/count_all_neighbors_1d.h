@@ -1,8 +1,8 @@
 // Description: All-nearest-neighbors counting in 1D
 // Detail: Implements a very fast algorithm that works only in 1D.
 
-#ifndef PASTEL_COUNT_ALL_NEIGHBORS_1D_H
-#define PASTEL_COUNT_ALL_NEIGHBORS_1D_H
+#ifndef PASTELGEOMETRY_COUNT_ALL_NEIGHBORS_1D_H
+#define PASTELGEOMETRY_COUNT_ALL_NEIGHBORS_1D_H
 
 #include "pastel/sys/vector.h"
 

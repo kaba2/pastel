@@ -1,5 +1,5 @@
-#ifndef PASTEL_OVERLAPS_SEGMENT_SEGMENT_HPP
-#define PASTEL_OVERLAPS_SEGMENT_SEGMENT_HPP
+#ifndef PASTELGEOMETRY_OVERLAPS_SEGMENT_SEGMENT_HPP
+#define PASTELGEOMETRY_OVERLAPS_SEGMENT_SEGMENT_HPP
 
 #include "pastel/geometry/overlaps_segment_segment.h"
 #include "pastel/geometry/predicates.h"

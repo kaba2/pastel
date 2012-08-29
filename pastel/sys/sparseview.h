@@ -22,7 +22,7 @@ namespace Pastel
 
 		typedef typename ConstView::Element Element;
 		typedef typename ConstView::ConstReference ConstReference;
-		typedef Detail_SparseView::ConstSparseViewCursor<N, typename ConstView::ConstCursor>
+		typedef SparseView_::ConstSparseViewCursor<N, typename ConstView::ConstCursor>
 			ConstCursor;
 
 		explicit ConstSparseView(
@@ -88,7 +88,7 @@ namespace Pastel
 		using Base::constCursor;
 
 		typedef typename Contained_View::Reference Reference;
-		typedef Detail_SparseView::SparseViewCursor<N, typename Contained_View::Cursor>
+		typedef SparseView_::SparseViewCursor<N, typename Contained_View::Cursor>
 			Cursor;
 
 		explicit SparseView(

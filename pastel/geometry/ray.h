@@ -1,8 +1,8 @@
 // Description: Ray class
 // Detail: Allows to work with rays
 
-#ifndef PASTEL_RAY_H
-#define PASTEL_RAY_H
+#ifndef PASTELGEOMETRY_RAY_H
+#define PASTELGEOMETRY_RAY_H
 
 #include "pastel/geometry/line.h"
 

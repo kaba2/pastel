@@ -1,8 +1,8 @@
 // Description: Area of a sphere
 // Documentation: area.txt
 
-#ifndef PASTEL_SPHERE_AREA_H
-#define PASTEL_SPHERE_AREA_H
+#ifndef PASTELGEOMETRY_SPHERE_AREA_H
+#define PASTELGEOMETRY_SPHERE_AREA_H
 
 #include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/sphere.h"

@@ -1,8 +1,8 @@
 // Description: Diameter of a box
 // Documentation: diameter.txt
 
-#ifndef PASTEL_BOX_DIAMETER_H
-#define PASTEL_BOX_DIAMETER_H
+#ifndef PASTELGEOMETRY_BOX_DIAMETER_H
+#define PASTELGEOMETRY_BOX_DIAMETER_H
 
 #include "pastel/geometry/box.h"
 

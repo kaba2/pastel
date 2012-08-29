@@ -1,7 +1,7 @@
 // Description: Does an aligned box contain a sphere?
 
-#ifndef PASTEL_CONTAINS_ALIGNEDBOX_SPHERE_H
-#define PASTEL_CONTAINS_ALIGNEDBOX_SPHERE_H
+#ifndef PASTELGEOMETRY_CONTAINS_ALIGNEDBOX_SPHERE_H
+#define PASTELGEOMETRY_CONTAINS_ALIGNEDBOX_SPHERE_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/sphere.h"
@@ -13,7 +13,7 @@ namespace Pastel
 	template <typename Real, int N>
 	bool contains(
 		const AlignedBox<Real, N>& outerBox,
-		const Sphere<Real, N>& innerSphere)
+		const Sphere<Real, N>& innerSphere);
 
 }
 

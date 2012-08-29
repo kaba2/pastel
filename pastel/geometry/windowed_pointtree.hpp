@@ -1,7 +1,7 @@
-#ifndef PASTEL_WINDOWEDPOINTTREE_HPP
-#define PASTEL_WINDOWEDPOINTTREE_HPP
+#ifndef PASTELGEOMETRY_WINDOWED_POINTTREE_HPP
+#define PASTELGEOMETRY_WINDOWED_POINTTREE_HPP
 
-#include "pastel/geometry/windowedpointtree.h"
+#include "pastel/geometry/windowed_pointtree.h"
 #include "pastel/geometry/difference_alignedbox_alignedbox.h"
 
 namespace Pastel

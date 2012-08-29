@@ -1,8 +1,8 @@
 // Description: Barycentric coordinates
 // Documentation: common.txt
 
-#ifndef PASTEL_BARYCENTRIC_H
-#define PASTEL_BARYCENTRIC_H
+#ifndef PASTELGEOMETRY_BARYCENTRIC_H
+#define PASTELGEOMETRY_BARYCENTRIC_H
 
 #include "pastel/sys/vector.h"
 

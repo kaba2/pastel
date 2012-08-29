@@ -1,8 +1,8 @@
 // Description: PointKdTree class
 // Detail: A multi-level point kd-tree
 
-#ifndef PASTEL_POINTKDTREE_H
-#define PASTEL_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_POINTKDTREE_H
+#define PASTELGEOMETRY_POINTKDTREE_H
 
 #include "pastel/sys/pointpolicy_concept.h"
 #include "pastel/sys/real_concept.h"
@@ -617,5 +617,8 @@ namespace Pastel
 
 #include "pastel/geometry/pointkdtree.hpp"
 #include "pastel/geometry/pointkdtree_private.hpp"
+
+#include "pastel/geometry/pointkdtree_tools.h"
+#include "pastel/geometry/splitrules.h"
 
 #endif

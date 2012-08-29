@@ -1,5 +1,5 @@
-#ifndef PASTEL_OVERLAPS_ALIGNEDBOX_TRIANGLE_HPP
-#define PASTEL_OVERLAPS_ALIGNEDBOX_TRIANGLE_HPP
+#ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_TRIANGLE_HPP
+#define PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_TRIANGLE_HPP
 
 #include "pastel/geometry/overlaps_alignedbox_triangle.h"
 #include "pastel/geometry/overlaps_alignedbox_plane.h"

@@ -1,5 +1,5 @@
-#ifndef PASTEL_DISTANCE_PLANE_SPHERE_HPP
-#define PASTEL_DISTANCE_PLANE_SPHERE_HPP
+#ifndef PASTELGEOMETRY_DISTANCE_PLANE_SPHERE_HPP
+#define PASTELGEOMETRY_DISTANCE_PLANE_SPHERE_HPP
 
 #include "pastel/geometry/distance_plane_sphere.h"
 #include "pastel/geometry/distance_plane_point.h"

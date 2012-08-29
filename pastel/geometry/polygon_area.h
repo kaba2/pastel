@@ -1,8 +1,8 @@
 // Description: Area of a polygon
 // Documentation: area.txt
 
-#ifndef PASTEL_POLYGON_AREA_H
-#define PASTEL_POLYGON_AREA_H
+#ifndef PASTELGEOMETRY_POLYGON_AREA_H
+#define PASTELGEOMETRY_POLYGON_AREA_H
 
 #include "pastel/geometry/polygon.h"
 

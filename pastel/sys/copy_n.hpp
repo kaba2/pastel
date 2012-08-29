@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	namespace Detail_Copy_n
+	namespace CopyN_
 	{
 
 		class RandomAccess_Version
@@ -63,8 +63,8 @@ namespace Pastel
 			std::is_same<
 			typename std::iterator_traits<Source_ForwardIterator>::iterator_category,
 			std::random_access_iterator_tag>,
-			Detail_Copy_n::RandomAccess_Version,
-			Detail_Copy_n::General_Version>::type Copy_n;
+			CopyN_::RandomAccess_Version,
+			CopyN_::General_Version>::type Copy_n;
 		
 		Copy_n::work(sourceBegin, count, targetBegin);
 	}

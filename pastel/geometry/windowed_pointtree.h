@@ -1,7 +1,7 @@
 // Description: Point kd-tree on a windowed point-set
 
-#ifndef PASTEL_WINDOWEDPOINTTREE_H
-#define PASTEL_WINDOWEDPOINTTREE_H
+#ifndef PASTELGEOMETRY_WINDOWED_POINTTREE_H
+#define PASTELGEOMETRY_WINDOWED_POINTTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/alignedbox.h"
@@ -80,6 +80,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/windowedpointtree.hpp"
+#include "pastel/geometry/windowed_pointtree.hpp"
 
 #endif

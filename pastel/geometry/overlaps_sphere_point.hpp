@@ -1,5 +1,5 @@
-#ifndef PASTEL_OVERLAPS_SPHERE_POINT_HPP
-#define PASTEL_OVERLAPS_SPHERE_POINT_HPP
+#ifndef PASTELGEOMETRY_OVERLAPS_SPHERE_POINT_HPP
+#define PASTELGEOMETRY_OVERLAPS_SPHERE_POINT_HPP
 
 #include "pastel/geometry/overlaps_sphere_point.h"
 #include "pastel/geometry/sphere.h"

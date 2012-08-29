@@ -1,5 +1,5 @@
-#ifndef PASTEL_POLYGON_AREA_HPP
-#define PASTEL_POLYGON_AREA_HPP
+#ifndef PASTELGEOMETRY_POLYGON_AREA_HPP
+#define PASTELGEOMETRY_POLYGON_AREA_HPP
 
 #include "pastel/geometry/polygon_area.h"
 

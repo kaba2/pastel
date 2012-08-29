@@ -1,7 +1,7 @@
 // Description: Closest points between line segments
 
-#ifndef PASTEL_CLOSEST_SEGMENT_SEGMENT_H
-#define PASTEL_CLOSEST_SEGMENT_SEGMENT_H
+#ifndef PASTELGEOMETRY_CLOSEST_SEGMENT_SEGMENT_H
+#define PASTELGEOMETRY_CLOSEST_SEGMENT_SEGMENT_H
 
 #include "pastel/geometry/segment.h"
 

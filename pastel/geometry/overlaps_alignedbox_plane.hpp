@@ -1,5 +1,5 @@
-#ifndef PASTEL_ALIGNEDBOXPLANE_HPP
-#define PASTEL_ALIGNEDBOXPLANE_HPP
+#ifndef PASTELGEOMETRY_ALIGNEDBOXPLANE_HPP
+#define PASTELGEOMETRY_ALIGNEDBOXPLANE_HPP
 
 #include "pastel/geometry/overlaps_alignedbox_plane.h"
 #include "pastel/geometry/alignedbox.h"

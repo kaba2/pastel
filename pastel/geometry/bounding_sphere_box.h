@@ -1,7 +1,7 @@
 // Description: Bounding sphere of a box
 
-#ifndef PASTEL_BOUNDING_SPHERE_BOX_H
-#define PASTEL_BOUNDING_SPHERE_BOX_H
+#ifndef PASTELGEOMETRY_BOUNDING_SPHERE_BOX_H
+#define PASTELGEOMETRY_BOUNDING_SPHERE_BOX_H
 
 #include "pastel/geometry/sphere.h"
 #include "pastel/geometry/box.h"

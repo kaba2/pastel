@@ -1,7 +1,7 @@
 // Description: Closest points between two lines
 
-#ifndef PASTEL_CLOSEST_LINE_LINE_H
-#define PASTEL_CLOSEST_LINE_LINE_H
+#ifndef PASTELGEOMETRY_CLOSEST_LINE_LINE_H
+#define PASTELGEOMETRY_CLOSEST_LINE_LINE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tuple.h"

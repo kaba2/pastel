@@ -304,7 +304,7 @@ namespace Pastel
 			blurFactor);
 	}
 
-	namespace Detail_Resample
+	namespace Resample_
 	{
 
 		template <typename Computation_Element, typename Input_Element>
@@ -395,12 +395,12 @@ namespace Pastel
 
 		// Find out the mostly-optimal order.
 
-		std::vector<Detail_Resample::AxisValue> axisSet;
+		std::vector<Resample_::AxisValue> axisSet;
 		axisSet.reserve(N);
 		for (integer i = 0;i < N;++i)
 		{
 			axisSet.push_back(
-				Detail_Resample::AxisValue((filter->radius() * output.extent()[i]) 
+				Resample_::AxisValue((filter->radius() * output.extent()[i]) 
 				/ input.extent()[i], i));
 		}
 
@@ -416,7 +416,7 @@ namespace Pastel
 		{
 			const ArrayExtender<1, Input_Element> arrayExtender1D(
 				arrayExtender.extender(0), arrayExtender.border());
-			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
+			const Resample_::ResampleFunctor<Computation_Element, Input_Element> 
 				resampleFunctor(arrayExtender1D, filter, blurFactor);
 			visitRows(input, arrayView(tempArray), axisSet[0].axis_, resampleFunctor);
 		}
@@ -431,7 +431,7 @@ namespace Pastel
 
 			const ArrayExtender<1, Computation_Element> arrayExtender1D(
 				arrayExtender.extender(i), arrayExtender.border());
-			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
+			const Resample_::ResampleFunctor<Computation_Element, Input_Element> 
 				resampleFunctor(arrayExtender1D, filter, blurFactor);
 
 			visitRows(constArrayView(tempArray), arrayView(tempArray2), 
@@ -445,7 +445,7 @@ namespace Pastel
 		{
 			const ArrayExtender<1, Computation_Element> arrayExtender1D(
 				arrayExtender.extender(N - 1), arrayExtender.border());
-			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
+			const Resample_::ResampleFunctor<Computation_Element, Input_Element> 
 				resampleFunctor(arrayExtender1D, filter, blurFactor);
 
 			visitRows(constArrayView(tempArray), output, axisSet[N - 1].axis_, resampleFunctor);

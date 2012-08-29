@@ -1,5 +1,5 @@
-#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_HPP
-#define PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_HPP
+#ifndef PASTELGEOMETRY_SEARCH_ALL_NEIGHBORS_POINTKDTREE_HPP
+#define PASTELGEOMETRY_SEARCH_ALL_NEIGHBORS_POINTKDTREE_HPP
 
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_1d.h"

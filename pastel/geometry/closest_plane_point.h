@@ -1,7 +1,7 @@
 // Description: Closest points between a plane and a point
 
-#ifndef PASTEL_CLOSEST_PLANE_POINT_H
-#define PASTEL_CLOSEST_PLANE_POINT_H
+#ifndef PASTELGEOMETRY_CLOSEST_PLANE_POINT_H
+#define PASTELGEOMETRY_CLOSEST_PLANE_POINT_H
 
 #include "pastel/geometry/plane.h"
 

@@ -1,7 +1,7 @@
-#ifndef PASTEL_POINT_PATTERN_MATCH_GMO_HPP
-#define PASTEL_POINT_PATTERN_MATCH_GMO_HPP
+#ifndef PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_HPP
+#define PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_HPP
 
-#include "pastel/geometry/point_pattern_match_gmo.h"
+#include "pastel/geometry/point_pattern_matching_kr.h"
 #include "pastel/geometry/search_nearest_one_pointkdtree.h"
 
 #include "pastel/sys/counting_iterator.h"
@@ -22,7 +22,7 @@ namespace Pastel
 		template <typename Real, int N, typename Model_PointPolicy, 
 			typename Scene_PointPolicy, typename Scene_Model_Reporter,
 			typename NormBijection>
-		class PointPatternGmo
+		class PointPatternKr
 		{
 		public:
 			typedef PointKdTree<Real, N, Model_PointPolicy> ModelTree;
@@ -74,6 +74,12 @@ namespace Pastel
 				Real& outBias,
 				const Scene_Model_Reporter& report)
 			{
+				/*
+				This function implements my algorithm from an upcoming paper
+				'Quantitative analysis of dynamic association in live biological 
+				fluorescent samples'.
+				*/
+
 				const integer d = modelTree.dimension();
 
 				outTranslation = Vector<Real, N>(ofDimension(d), 0);
@@ -252,7 +258,7 @@ namespace Pastel
 	template <typename Real, int N, typename Model_PointPolicy, 
 		typename Scene_PointPolicy, typename SceneModel_Iterator,
 		typename NormBijection>
-	bool pointPatternMatchGmo(
+	bool pointPatternMatchKr(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
@@ -270,7 +276,7 @@ namespace Pastel
 		ENSURE_OP(maxBias, >=, 0);
 		ENSURE_OP(maxBias, <=, 1);
 
-		Detail_PointPatternMatch::PointPatternGmo<
+		Detail_PointPatternMatch::PointPatternKr<
 			Real, N, Model_PointPolicy, 
 			Scene_PointPolicy, SceneModel_Iterator,
 			NormBijection> 

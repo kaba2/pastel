@@ -1,7 +1,7 @@
 // Description: Overlap tests between two line segments
 
-#ifndef PASTEL_OVERLAPS_SEGMENT_SEGMENT_H
-#define PASTEL_OVERLAPS_SEGMENT_SEGMENT_H
+#ifndef PASTELGEOMETRY_OVERLAPS_SEGMENT_SEGMENT_H
+#define PASTELGEOMETRY_OVERLAPS_SEGMENT_SEGMENT_H
 
 #include "pastel/geometry/segment.h"
 

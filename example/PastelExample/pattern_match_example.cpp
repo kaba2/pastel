@@ -4,8 +4,8 @@
 #include "pastel_example.h"
 
 #include "pastel/geometry/pointkdtree_tools.h"
-#include "pastel/geometry/point_pattern_matching.h"
-#include "pastel/geometry/point_pattern_match_gmo.h"
+#include "pastel/geometry/point_pattern_matching_vw.h"
+#include "pastel/geometry/point_pattern_matching_kr.h"
 #include "pastel/geometry/bounding_alignedbox.h"
 
 #include "pastel/gfx/savepcx.h"

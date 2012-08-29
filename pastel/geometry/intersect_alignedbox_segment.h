@@ -1,7 +1,7 @@
 // Description: Intersection between an aligned box and a line segment
 
-#ifndef PASTEL_INTERSECT_ALIGNEDBOX_SEGMENT_H
-#define PASTEL_INTERSECT_ALIGNEDBOX_SEGMENT_H
+#ifndef PASTELGEOMETRY_INTERSECT_ALIGNEDBOX_SEGMENT_H
+#define PASTELGEOMETRY_INTERSECT_ALIGNEDBOX_SEGMENT_H
 
 #include "pastel/geometry/segment.h"
 #include "pastel/geometry/alignedbox.h"

@@ -2,8 +2,8 @@
 // Detail: Runs no additional code run besides construction and destruction.
 // Documentation: halfmesh.txt
 
-#ifndef PASTEL_SIMPLEHALFMESH_H
-#define PASTEL_SIMPLEHALFMESH_H
+#ifndef PASTELGEOMETRY_SIMPLEHALFMESH_H
+#define PASTELGEOMETRY_SIMPLEHALFMESH_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/indexallocator.h"

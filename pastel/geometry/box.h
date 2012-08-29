@@ -1,8 +1,8 @@
 // Description: Box class
 // Detail: Allows to work with oriented boxes
 
-#ifndef PASTEL_BOX_H
-#define PASTEL_BOX_H
+#ifndef PASTELGEOMETRY_BOX_H
+#define PASTELGEOMETRY_BOX_H
 
 #include "pastel/sys/vector.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTEL_POINTKDTREE_NODE_H
-#define PASTEL_POINTKDTREE_NODE_H
+#ifndef PASTELGEOMETRY_POINTKDTREE_NODE_H
+#define PASTELGEOMETRY_POINTKDTREE_NODE_H
 
 #include "pastel/geometry/pointkdtree.h"
 

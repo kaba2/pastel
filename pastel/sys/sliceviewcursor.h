@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	namespace Detail_SliceView
+	namespace SliceView_
 	{
 
 		template <int N, typename ConstCursor>

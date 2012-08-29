@@ -1,7 +1,7 @@
 // Description: All-nearest-neighbors counting using a brute-force algorithm
 
-#ifndef PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
-#define PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
+#ifndef PASTELGEOMETRY_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
+#define PASTELGEOMETRY_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

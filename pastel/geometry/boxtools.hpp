@@ -1,5 +1,5 @@
-#ifndef PASTEL_BOX_TOOLS_HPP
-#define PASTEL_BOX_TOOLS_HPP
+#ifndef PASTELGEOMETRY_BOX_TOOLS_HPP
+#define PASTELGEOMETRY_BOX_TOOLS_HPP
 
 #include "pastel/geometry/box_tools.h"
 

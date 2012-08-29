@@ -61,23 +61,8 @@
     <Filter Include="Data structures\Meshes\HalfMesh">
       <UniqueIdentifier>{999ffa7f-9d75-4a18-8eb3-db4741da3da8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data structures\BihTree">
-      <UniqueIdentifier>{87336d6f-f7ea-4d2c-b109-410efbc03f58}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data structures\Bsp trees">
       <UniqueIdentifier>{1dbefa8b-1118-4885-919f-477ab732982b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data structures\Bsp trees\KdTree">
-      <UniqueIdentifier>{63c52d91-b2d2-43ce-a63a-306d32517c5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data structures\Bsp trees\PointKdTree">
-      <UniqueIdentifier>{4c17e715-0757-49de-ae1f-c82842e98e63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data structures\Bsp trees\PointKdTree\Split rules">
-      <UniqueIdentifier>{058370e8-0bd3-4357-b4c3-d2b14fbea86f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Data structures\Bsp trees\WindowedPointTree">
-      <UniqueIdentifier>{35880c9e-d989-453b-8885-97a9eae63c71}</UniqueIdentifier>
     </Filter>
     <Filter Include="Algorithms">
       <UniqueIdentifier>{2f148393-a110-4b4c-932d-c96912003154}</UniqueIdentifier>
@@ -111,9 +96,6 @@
     </Filter>
     <Filter Include="Algorithms\Subset searches">
       <UniqueIdentifier>{7b149f4a-a9d1-4e5c-8b49-27bd267d97ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Subset searches\Orthogonal range searching">
-      <UniqueIdentifier>{5f98dbf1-0a1f-4766-a80c-bf3898f3ab00}</UniqueIdentifier>
     </Filter>
     <Filter Include="Algorithms\Subset searches\Nearest neighbors searching">
       <UniqueIdentifier>{b9d0d562-920d-4b24-a6f3-b91a28ca5dc0}</UniqueIdentifier>
@@ -193,6 +175,24 @@
     <Filter Include="Algorithms\Shape measurements\Eigenstructure">
       <UniqueIdentifier>{ce172e75-1ba6-4bc7-9cf2-8787af548afb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Algorithms\Subset searches\Range searching">
+      <UniqueIdentifier>{5f98dbf1-0a1f-4766-a80c-bf3898f3ab00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\BihTree">
+      <UniqueIdentifier>{87336d6f-f7ea-4d2c-b109-410efbc03f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Bsp trees\Windowed point tree">
+      <UniqueIdentifier>{35880c9e-d989-453b-8885-97a9eae63c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Bsp trees\Point kd-tree">
+      <UniqueIdentifier>{4c17e715-0757-49de-ae1f-c82842e98e63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Bsp trees\Point kd-tree\Split rules">
+      <UniqueIdentifier>{058370e8-0bd3-4357-b4c3-d2b14fbea86f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Bsp trees\Kd-tree">
+      <UniqueIdentifier>{63c52d91-b2d2-43ce-a63a-306d32517c5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -207,22 +207,16 @@
     <None Include="bihtree.txt">
       <Filter>Data structures\BihTree</Filter>
     </None>
-    <None Include="bsp_tree.txt">
-      <Filter>Data structures\Bsp trees</Filter>
-    </None>
     <None Include="kdtree.txt">
-      <Filter>Data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\Kd-tree</Filter>
     </None>
     <None Include="pointkdtree.txt">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </None>
     <None Include="pointkdtree_design.txt">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </None>
     <None Include="common.txt">
-      <Filter>Common</Filter>
-    </None>
-    <None Include="pastelgeometry.txt">
       <Filter>Common</Filter>
     </None>
     <None Include="shapes.txt">
@@ -303,9 +297,6 @@
     <None Include="subset_searches.txt">
       <Filter>Algorithms\Subset searches</Filter>
     </None>
-    <None Include="search_range.txt">
-      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
-    </None>
     <None Include="nearest_neighbors.txt">
       <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </None>
@@ -332,9 +323,6 @@
     </None>
     <None Include="transformation_fitting.txt">
       <Filter>Algorithms\Transformation fitting</Filter>
-    </None>
-    <None Include="point_pattern_matching.txt">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
     </None>
     <None Include="projection.txt">
       <Filter>Algorithms\Transformation fitting\Projection</Filter>
@@ -376,22 +364,38 @@
       <Filter>Algorithms\Shape measurements\Eigenstructure</Filter>
     </None>
     <None Include="fair_splitrule.txt">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </None>
     <None Include="longestmedian_splitrule.txt">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </None>
     <None Include="minimumvolume_splitrule.txt">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </None>
     <None Include="slidingmidpoint2_splitrule.txt">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </None>
     <None Include="slidingmidpoint_splitrule.txt">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </None>
     <None Include="splitrules.txt">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
+    </None>
+    <None Include="range_searching.txt">
+      <Filter>Algorithms\Subset searches\Range searching</Filter>
+    </None>
+    <None Include="point_pattern_matching_kr.txt">
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+    </None>
+    <None Include="point_pattern_matching_vw.txt">
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+    </None>
+    <None Include="point_pattern_matching.txt">
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+    </None>
+    <None Include="pastelgeometry.txt" />
+    <None Include="bsp_trees.txt">
+      <Filter>Data structures\Bsp trees</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -429,58 +433,52 @@
       <Filter>Data structures\BihTree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree.h">
-      <Filter>Data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\Kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree.hpp">
-      <Filter>Data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\Kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_raytraversal.h">
-      <Filter>Data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\Kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_raytraversal.hpp">
-      <Filter>Data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\Kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_refine.h">
-      <Filter>Data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\Kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_refine.hpp">
-      <Filter>Data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\Kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_tools.h">
-      <Filter>Data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\Kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_tools.hpp">
-      <Filter>Data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\Kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree.h">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree.hpp">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_cursor.h">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_node.h">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_private.hpp">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_splitpredicate.h">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_tools.h">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_tools.hpp">
-      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
-    </ClInclude>
-    <ClInclude Include="windowedpointtree.h">
-      <Filter>Data structures\Bsp trees\WindowedPointTree</Filter>
-    </ClInclude>
-    <ClInclude Include="windowedpointtree.hpp">
-      <Filter>Data structures\Bsp trees\WindowedPointTree</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
     </ClInclude>
     <ClInclude Include="barycentric.h">
       <Filter>Common</Filter>
@@ -728,12 +726,6 @@
     <ClInclude Include="intersect_line_plane.hpp">
       <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
-    <ClInclude Include="intersect_line_polygon.h">
-      <Filter>Algorithms\Shape generation\Intersection</Filter>
-    </ClInclude>
-    <ClInclude Include="intersect_line_polygon.hpp">
-      <Filter>Algorithms\Shape generation\Intersection</Filter>
-    </ClInclude>
     <ClInclude Include="intersect_line_sphere.h">
       <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
@@ -795,22 +787,22 @@
       <Filter>Algorithms\Shape generation\Poisson-disk pattern</Filter>
     </ClInclude>
     <ClInclude Include="count_range_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="count_range_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_algorithm_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_algorithm_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="count_nearest_pointkdtree.h">
       <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
@@ -916,18 +908,6 @@
     </ClInclude>
     <ClInclude Include="maximum_clique_alignedbox.hpp">
       <Filter>Algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
-    </ClInclude>
-    <ClInclude Include="point_pattern_match_gmo.h">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
-    </ClInclude>
-    <ClInclude Include="point_pattern_match_gmo.hpp">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
-    </ClInclude>
-    <ClInclude Include="point_pattern_matching.h">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
-    </ClInclude>
-    <ClInclude Include="point_pattern_matching.hpp">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="linear_projection.h">
       <Filter>Algorithms\Transformation fitting\Projection</Filter>
@@ -1275,40 +1255,116 @@
       <Filter>Not sure</Filter>
     </ClInclude>
     <ClInclude Include="fair_splitrule.h">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="fair_splitrule.hpp">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="longestmedian_splitrule.h">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="longestmedian_splitrule.hpp">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="minimumvolume_splitrule.h">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="minimumvolume_splitrule.hpp">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="slidingmidpoint2_splitrule.h">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="slidingmidpoint2_splitrule.hpp">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="slidingmidpoint_splitrule.h">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="slidingmidpoint_splitrule.hpp">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="splitrule_concept.h">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="splitrules.h">
-      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="geometric_algorithms.h">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_generation.h">
+      <Filter>Algorithms\Shape generation</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_measurements.h">
+      <Filter>Algorithms\Shape measurements</Filter>
+    </ClInclude>
+    <ClInclude Include="volume.h">
+      <Filter>Algorithms\Shape measurements\Volume</Filter>
+    </ClInclude>
+    <ClInclude Include="distance.h">
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
+    </ClInclude>
+    <ClInclude Include="closest.h">
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_relations.h">
+      <Filter>Algorithms\Shape relations</Filter>
+    </ClInclude>
+    <ClInclude Include="contains.h">
+      <Filter>Algorithms\Shape relations\Containment testing</Filter>
+    </ClInclude>
+    <ClInclude Include="intersection_graph.h">
+      <Filter>Algorithms\Subset searches\Intersection graph</Filter>
+    </ClInclude>
+    <ClInclude Include="subset_searches.h">
+      <Filter>Algorithms\Subset searches</Filter>
+    </ClInclude>
+    <ClInclude Include="range_searching.h">
+      <Filter>Algorithms\Subset searches\Range searching</Filter>
+    </ClInclude>
+    <ClInclude Include="nearest_neighbors.h">
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+    </ClInclude>
+    <ClInclude Include="projection.h">
+      <Filter>Algorithms\Transformation fitting\Projection</Filter>
+    </ClInclude>
+    <ClInclude Include="point_pattern_matching_vw.h">
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+    </ClInclude>
+    <ClInclude Include="point_pattern_matching_vw.hpp">
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+    </ClInclude>
+    <ClInclude Include="point_pattern_matching.h">
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+    </ClInclude>
+    <ClInclude Include="point_pattern_matching_kr.h">
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+    </ClInclude>
+    <ClInclude Include="point_pattern_matching_kr.hpp">
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+    </ClInclude>
+    <ClInclude Include="transformation_fitting.h">
+      <Filter>Algorithms\Transformation fitting</Filter>
+    </ClInclude>
+    <ClInclude Include="pastelgeometry.h" />
+    <ClInclude Include="common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="data_structures.h">
+      <Filter>Data structures</Filter>
+    </ClInclude>
+    <ClInclude Include="bsp_trees.h">
+      <Filter>Data structures\Bsp trees</Filter>
+    </ClInclude>
+    <ClInclude Include="windowed_pointtree.h">
+      <Filter>Data structures\Bsp trees\Windowed point tree</Filter>
+    </ClInclude>
+    <ClInclude Include="windowed_pointtree.hpp">
+      <Filter>Data structures\Bsp trees\Windowed point tree</Filter>
+    </ClInclude>
+    <ClInclude Include="meshes.h">
+      <Filter>Data structures\Meshes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

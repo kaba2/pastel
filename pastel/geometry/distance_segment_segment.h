@@ -1,7 +1,7 @@
 // Description: Distance between two line segments
 
-#ifndef PASTEL_DISTANCE_SEGMENT_SEGMENT_H
-#define PASTEL_DISTANCE_SEGMENT_SEGMENT_H
+#ifndef PASTELGEOMETRY_DISTANCE_SEGMENT_SEGMENT_H
+#define PASTELGEOMETRY_DISTANCE_SEGMENT_SEGMENT_H
 
 #include "pastel/geometry/segment.h"
 

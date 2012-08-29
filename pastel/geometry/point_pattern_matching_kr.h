@@ -1,8 +1,8 @@
 // Description: Point pattern matching under translations
-// Documentation: point_pattern_matching.txt
+// Documentation: point_pattern_matching_kr.txt
 
-#ifndef PASTEL_POINT_PATTERN_MATCH_GMO_H
-#define PASTEL_POINT_PATTERN_MATCH_GMO_H
+#ifndef PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_H
+#define PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_H
 
 #include "pastel/sys/reporter_concept.h"
 #include "pastel/sys/vector.h"
@@ -25,7 +25,7 @@ namespace Pastel
 	template <typename Real, int N, typename Model_PointPolicy, 
 		typename Scene_PointPolicy, typename Scene_Model_Reporter,
 		typename NormBijection>
-	bool pointPatternMatchGmo(
+	bool pointPatternMatchKr(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
@@ -39,6 +39,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/point_pattern_match_gmo.hpp"
+#include "pastel/geometry/point_pattern_matching_kr.hpp"
 
 #endif

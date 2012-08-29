@@ -1,7 +1,7 @@
 // Description: Bounding aligned box of aligned boxes
 
-#ifndef PASTEL_BOUNDING_ALIGNEDBOX_ALIGNEDBOX_H
-#define PASTEL_BOUNDING_ALIGNEDBOX_ALIGNEDBOX_H
+#ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_ALIGNEDBOX_H
+#define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_ALIGNEDBOX_H
 
 #include "pastel/geometry/alignedbox.h"
 

@@ -1,7 +1,7 @@
 // Description: Intersection between a 2-flat and a plane
 
-#ifndef PASTEL_INTERSECT_FLAT_PLANE_H
-#define PASTEL_INTERSECT_FLAT_PLANE_H
+#ifndef PASTELGEOMETRY_INTERSECT_FLAT_PLANE_H
+#define PASTELGEOMETRY_INTERSECT_FLAT_PLANE_H
 
 #include "pastel/geometry/flat.h"
 #include "pastel/geometry/plane.h"

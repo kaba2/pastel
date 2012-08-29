@@ -1,8 +1,8 @@
 // Description: Diameter of a sphere
 // Documentation: diameter.txt
 
-#ifndef PASTEL_SPHERE_DIAMETER_H
-#define PASTEL_SPHERE_DIAMETER_H
+#ifndef PASTELGEOMETRY_SPHERE_DIAMETER_H
+#define PASTELGEOMETRY_SPHERE_DIAMETER_H
 
 #include "pastel/geometry/sphere.h"
 

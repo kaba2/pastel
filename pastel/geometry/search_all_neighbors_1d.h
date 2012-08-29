@@ -1,8 +1,8 @@
 // Description: All-k-nearest-neighbors searching in 1D
 // Detail: Implements an optimal algorithm that only works in 1D
 
-#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_1D_H
-#define PASTEL_SEARCH_ALL_NEIGHBORS_1D_H
+#ifndef PASTELGEOMETRY_SEARCH_ALL_NEIGHBORS_1D_H
+#define PASTELGEOMETRY_SEARCH_ALL_NEIGHBORS_1D_H
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/vector.h"

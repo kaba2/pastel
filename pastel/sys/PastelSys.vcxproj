@@ -137,9 +137,11 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="algorithm_objects.h" />
     <ClInclude Include="arena_allocator.h" />
     <ClInclude Include="arena_allocator.hpp" />
     <ClInclude Include="array_cursor.h" />
+    <ClInclude Include="as_pair.h" />
     <ClInclude Include="automaton.h" />
     <ClInclude Include="automaton_algorithms.h" />
     <ClInclude Include="automaton_concepts.h" />
@@ -153,6 +155,7 @@
     <ClInclude Include="automaton_minimization.hpp" />
     <ClInclude Include="automaton_state_label.h" />
     <ClInclude Include="biginteger.hpp" />
+    <ClInclude Include="bit_tricks.h" />
     <ClInclude Include="breadth_first_traversal.h" />
     <ClInclude Include="breadth_first_traversal.hpp" />
     <ClInclude Include="clone_ptr.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="exactly_equal.hpp" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="function_concept.h" />
+    <ClInclude Include="generic_programming.h" />
     <ClInclude Include="generic_traversal.h" />
     <ClInclude Include="graph_algorithms.h" />
     <ClInclude Include="graph_traversal.h" />
@@ -182,6 +186,8 @@
     <ClInclude Include="hashed_tree.h" />
     <ClInclude Include="hashed_tree.hpp" />
     <ClInclude Include="hashes.h" />
+    <ClInclude Include="highest_bit.h" />
+    <ClInclude Include="highest_bit.hpp" />
     <ClInclude Include="identity_function.h" />
     <ClInclude Include="incidence_graph.h" />
     <ClInclude Include="incidence_graph_edge.h" />
@@ -200,6 +206,7 @@
     <ClInclude Include="object_forwarding.hpp" />
     <ClInclude Include="optional.h" />
     <ClInclude Include="pair_hash.h" />
+    <ClInclude Include="range_algorithms.h" />
     <ClInclude Include="range_reporter.h" />
     <ClInclude Include="redblacktree_fwd.h" />
     <ClInclude Include="pool_allocator.h" />
@@ -486,16 +493,16 @@
     <ClInclude Include="mirrorextender.h" />
     <ClInclude Include="repeatextender.h" />
     <ClInclude Include="anystorage.h" />
-    <ClInclude Include="basic_algorithms.h" />
+    <ClInclude Include="algorithms.h" />
     <ClInclude Include="isnan.h" />
     <ClInclude Include="syscommon.h" />
     <ClInclude Include="syscommon.hpp" />
     <ClInclude Include="string_algorithms.h" />
     <ClInclude Include="string_algorithms.hpp" />
-    <ClInclude Include="bitquery.h" />
-    <ClInclude Include="bitquery.hpp" />
-    <ClInclude Include="bittrick.h" />
-    <ClInclude Include="bittrick.hpp" />
+    <ClInclude Include="lowest_bit.h" />
+    <ClInclude Include="lowest_bit.hpp" />
+    <ClInclude Include="extract_bits.h" />
+    <ClInclude Include="extract_bits.hpp" />
     <ClInclude Include="copy_n.h" />
     <ClInclude Include="copy_n.hpp" />
     <ClInclude Include="destruct.h" />
@@ -664,9 +671,9 @@
     <None Include="..\..\techniques_warnings.txt" />
     <None Include="notsure.txt" />
     <None Include="indexextenders.txt" />
-    <None Include="basic_algorithms.txt" />
+    <None Include="algorithms.txt" />
     <None Include="string_algorithms.txt" />
-    <None Include="bittrick.txt" />
+    <None Include="bit_tricks.txt" />
     <None Include="sequence_algorithms.txt" />
     <None Include="graph_algorithms.txt" />
     <None Include="maximum_bipartite_matching.txt" />
@@ -689,10 +696,10 @@
     <None Include="reporters.txt" />
     <None Include="single_reporter.txt" />
     <None Include="iterators.txt" />
-    <None Include="algorithm.txt" />
-    <None Include="rangealgorithm.txt" />
+    <None Include="algorithm_objects.txt" />
+    <None Include="range_algorithms.txt" />
     <None Include="predicates.txt" />
-    <None Include="as_pair_concept.txt" />
+    <None Include="as_pair.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="arena_allocator.cpp" />

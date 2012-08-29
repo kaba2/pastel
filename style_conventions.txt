@@ -20,14 +20,18 @@ Principles
 Naming
 ------
 
-* Types, namespaces: `LikeThis`
+* Types: `LikeThis`
+
+* Public namespaces: `LikeThis`
+
+* Private namespaces: 'LikeThis_'
 
 * Macros: `PASTEL_LIKE_THIS`
 
 * Functions, variables: `likeThis`
 
 * Program-time constants: `LikeThis`
-	A program-time constant is a variable identifier
+	A _program-time_ constant is a variable identifier
 	whose value stays the same no matter when the
 	value is considered during the program run.
 	For example: `const real ShortPi = 3.14;`.
@@ -38,7 +42,7 @@ Naming
 	because they would then risk colliding with macros.
 
 * Scope-time constants: `likeThis`
-	A scope-time constant is an object identifier
+	A _scope-time_ constant is an object identifier
 	whose value stays the same from its construction to its destruction
 	but can not be guaranteed to be the same at all times during the 
 	program run. For example: `const integer width = image.width();`.
@@ -61,13 +65,13 @@ trailing underscore.
 
 * Files: `intersect_alignedbox_alignedbox.h`
 
-* Aggregation files: `filters.h` or `reconstruction.h`.
+* Aggregation files: `filters.h`
 
 * Directories: `pastel/sys/`
 
 * Libraries: `PastelSys`
 
-* Header file guards: `PASTEL_LIKETHIS_H`
+* Header file guards: `PASTELSYS_LIKETHIS_H`
 
 * Setters: `setRadius()`
 
@@ -97,7 +101,7 @@ For example, if `NormBijection` is a concept, then
 `Euclidean_NormBijection` could be one of its models.
 
 * When using the Curiously Recurring Template Pattern with the
-class `MyClass`, name the super class `MyClassBase`
+class `MyClass`, name the super class `MyClass_Base`
 
 Statements
 ----------

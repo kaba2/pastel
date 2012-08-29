@@ -1,8 +1,8 @@
 // Description: Eigenvectors and eigenvalues of point-sets
 // Detail: Eigenstructure of the covariance matrix of a point-set
 
-#ifndef PASTEL_POINTSET_EIGEN_H
-#define PASTEL_POINTSET_EIGEN_H
+#ifndef PASTELGEOMETRY_POINTSET_EIGEN_H
+#define PASTELGEOMETRY_POINTSET_EIGEN_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/range.h"

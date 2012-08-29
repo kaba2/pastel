@@ -1,7 +1,7 @@
 // Description: Intersection in a line segment set
 
-#ifndef PASTEL_OVERLAPS_SEGMENTS_H
-#define PASTEL_OVERLAPS_SEGMENTS_H
+#ifndef PASTELGEOMETRY_OVERLAPS_SEGMENTS_H
+#define PASTELGEOMETRY_OVERLAPS_SEGMENTS_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

@@ -1,7 +1,7 @@
 // Description: Distance between two lines
 
-#ifndef PASTEL_DISTANCE_LINE_LINE_H
-#define PASTEL_DISTANCE_LINE_LINE_H
+#ifndef PASTELGEOMETRY_DISTANCE_LINE_LINE_H
+#define PASTELGEOMETRY_DISTANCE_LINE_LINE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/line.h"

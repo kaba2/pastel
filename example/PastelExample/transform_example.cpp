@@ -1,5 +1,5 @@
 // Description: Signal transform example
-// Documentation: signals_transforms.txt
+// Documentation: signal_transforms.txt
 
 #include "pastel_example.h"
 

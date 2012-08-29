@@ -1,5 +1,5 @@
 // Description: Dll-keywords for PastelSys
-// Documentation: miscellaneous.txt
+// Documentation: building.txt
 
 #ifndef PASTEL_SYSLIBRARY_H
 #define PASTEL_SYSLIBRARY_H

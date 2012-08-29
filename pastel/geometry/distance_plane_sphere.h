@@ -1,7 +1,7 @@
 // Description: Distance between a plane and a sphere
 
-#ifndef PASTEL_DISTANCE_PLANE_SPHERE_H
-#define PASTEL_DISTANCE_PLANE_SPHERE_H
+#ifndef PASTELGEOMETRY_DISTANCE_PLANE_SPHERE_H
+#define PASTELGEOMETRY_DISTANCE_PLANE_SPHERE_H
 
 #include "pastel/geometry/plane.h"
 #include "pastel/geometry/sphere.h"

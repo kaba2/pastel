@@ -1,4 +1,5 @@
 // Description: As_Pair concept
+// Documentation: as_pair.txt
 
 #ifndef PASTEL_AS_PAIR_CONCEPT_H
 #define PASTEL_AS_PAIR_CONCEPT_H

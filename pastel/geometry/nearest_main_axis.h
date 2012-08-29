@@ -1,8 +1,8 @@
 // Description: Find the nearest standard basis axis for a given vector.
 // Documentation: common.txt
 
-#ifndef PASTEL_NEAREST_MAIN_AXIS_H
-#define PASTEL_NEAREST_MAIN_AXIS_H
+#ifndef PASTELGEOMETRY_NEAREST_MAIN_AXIS_H
+#define PASTELGEOMETRY_NEAREST_MAIN_AXIS_H
 
 #include "pastel/sys/vector.h"
 

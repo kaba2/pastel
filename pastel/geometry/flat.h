@@ -1,7 +1,7 @@
 // Description: Flat class
 
-#ifndef PASTEL_FLAT_H
-#define PASTEL_FLAT_H
+#ifndef PASTELGEOMETRY_FLAT_H
+#define PASTELGEOMETRY_FLAT_H
 
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/vector.h"
