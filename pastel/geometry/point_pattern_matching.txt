@@ -1,0 +1,26 @@
+Point-pattern matching
+======================
+
+[[Parent]]: transformation_fitting.txt
+
+Let ''P = {p_1, ..., p_m}'' and ''Q = {q_1, ..., q_s}'' be
+two finite point-sets in ''RR^n''. Given some class of 
+transformations, such as the class of affine, conformal affine, 
+rigid, or projective transformations, the problem of
+_point-pattern matching_ is to find a transformation in that class 
+which maps ''P'' to ''Q'' _well enough_. 
+
+Theory
+------
+
+Ideally, one would give an
+''epsilon in RR'' as a parameter such that a transformation is good 
+enough if the image of each point ''p_i'' has a unique nearest neighbor 
+''q_{j(i)}'' in its ''epsilon''-neighborhood (under some chosen metric). 
+The ''epsilon'' is called the _matching distance_. 
+If there is no solution, then the algorithm should report so, and if 
+there are multiple such solutions, then any of them will do. 
+However, in practical problems both ''P'' and ''Q'' can be missing some 
+points, or have some extraneous points. Thus the condition for a good 
+transformation is relaxed by requiring only a percentage of the points of
+''P'' to satisfy the ''epsilon''-criterion.
