@@ -4,7 +4,7 @@
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_bruteforce.h"
 
-#include "pastel/matlab/matlab.h"
+#include "pastel/matlab/pastelmatlab.h"
 
 #include "pastel/sys/pointpolicies.h"
 #include "pastel/sys/pool_allocator.h"

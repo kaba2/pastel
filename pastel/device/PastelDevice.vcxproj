@@ -148,13 +148,16 @@
   <ItemGroup>
     <ClInclude Include="fxdevice.h" />
     <ClInclude Include="gfxdevice.h" />
+    <ClInclude Include="multithreading.h" />
     <ClInclude Include="mutex.h" />
     <ClInclude Include="mutex.hpp" />
+    <ClInclude Include="pasteldevice.h" />
     <ClInclude Include="thread.h" />
     <ClInclude Include="timedevice.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="devicelibrary.h" />
     <ClInclude Include="devicesystem.h" />
+    <ClInclude Include="timing.h" />
     <ClInclude Include="ui.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 // Description: Matlab function registration
 
-#ifndef PASTEL_MATLAB_FUNCTION_H
-#define PASTEL_MATLAB_FUNCTION_H
+#ifndef PASTELMATLAB_MATLAB_FUNCTION_H
+#define PASTELMATLAB_MATLAB_FUNCTION_H
 
 #include "pastel/sys/callfunction.h"
 

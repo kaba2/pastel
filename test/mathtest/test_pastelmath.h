@@ -1,4 +1,4 @@
-// Description: Unit testing for PastelMath
+// Description: Testing for PastelMath
 
 #ifndef PASTEL_TEST_PASTELMATH_H
 #define PASTEL_TEST_PASTELMATH_H

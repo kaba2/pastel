@@ -1,4 +1,4 @@
-// Description: Unit testing for PastelGeometry
+// Description: Testing for PastelGeometry
 
 #ifndef PASTEL_TEST_PASTELGEOMETRY_H
 #define PASTEL_TEST_PASTELGEOMETRY_H

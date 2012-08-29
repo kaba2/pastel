@@ -1,7 +1,7 @@
 // Description: point_pattern_match
 // Documentation: point_pattern_match.txt
 
-#include "pastel/matlab/matlab.h"
+#include "pastel/matlab/pastelmatlab.h"
 
 #include "pastel/geometry/point_pattern_matching_kr.h"
 #include "pastel/geometry/pointkdtree.h"

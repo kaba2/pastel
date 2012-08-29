@@ -32,5 +32,6 @@
     <ClInclude Include="glgfxrenderer.h">
       <Filter>GlGfxRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="pastelgl.h" />
   </ItemGroup>
 </Project>

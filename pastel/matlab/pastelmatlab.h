@@ -1,8 +1,8 @@
-// Description: An aggregate file for Matlab stuff
+// Description: An aggregate file for PastelMatlab.
 // Documentation: pastelmatlab.txt
 
-#ifndef PASTEL_MATLAB_H
-#define PASTEL_MATLAB_H
+#ifndef PASTELMATLAB_PASTELMATLAB_H
+#define PASTELMATLAB_PASTELMATLAB_H
 
 #include "pastel/matlab/matlab_function.h"
 #include "pastel/matlab/matlab_argument.h"

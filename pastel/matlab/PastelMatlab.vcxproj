@@ -131,7 +131,7 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="matlab.h" />
+    <ClInclude Include="pastelmatlab.h" />
     <ClInclude Include="matlab_argument.h" />
     <ClInclude Include="matlab_argument.hpp" />
     <ClInclude Include="matlab_function.h" />

@@ -1,7 +1,7 @@
 Predicates
 ==========
 
-[[Parent]]: algorithm_objects.txtt
+[[Parent]]: algorithm_objects.txt
 
 The _predicate_ concept is a refinement of the algorithm concept.
 It requires additionally that the algorithm takes two arbitrary 

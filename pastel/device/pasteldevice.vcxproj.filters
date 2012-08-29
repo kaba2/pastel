@@ -80,6 +80,13 @@
     <ClInclude Include="ui.h">
       <Filter>Ui</Filter>
     </ClInclude>
+    <ClInclude Include="pasteldevice.h" />
+    <ClInclude Include="multithreading.h">
+      <Filter>Multithreading</Filter>
+    </ClInclude>
+    <ClInclude Include="timing.h">
+      <Filter>Timing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="sound.txt">

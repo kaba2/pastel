@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="gllibrary.h" />
     <ClInclude Include="glgfxrenderer.h" />
+    <ClInclude Include="pastelgl.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\device\pasteldevice.vcxproj">
