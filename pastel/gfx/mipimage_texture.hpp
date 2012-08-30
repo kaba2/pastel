@@ -4,7 +4,7 @@
 #include "pastel/gfx/mipimage_texture.h"
 #include "pastel/gfx/linearimage_texture.h"
 
-#include "pastel/dsp/mipmap.h"
+#include "pastel/gfx/mipmap.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/repeatedconstview.h"

@@ -9,12 +9,6 @@
 -- needed since the linking is done from Matlab.
 gotMatlab = true
 
--- Whether you have Glew 1.7.0 include files and binaries.
-gotGlew = true
-
--- Whether you have SDL 1.2.15 include files and binaries.
-gotSdl = true
-
 -- Whether you have Boost 1.49 include files.
 gotBoost = true
 
@@ -35,9 +29,6 @@ buildLibraries = true
 -- Whether to build the test projects.
 buildTests = true
 
--- Whether to build the examples.
-buildExamples = true
-
 -- Whether to build dynamic libraries (vs static libraries)
 wantDynamicLibraries = false
 
@@ -50,38 +41,21 @@ wantLargeIntegers = false
 -- Requirements
 basicRequirements = gotBoost
 libraryRequirements = basicRequirements and buildLibraries
-testRequirements = basicRequirements and buildTests and gotSdl
-exampleRequirements = basicRequirements and buildExamples and gotGlew and gotSdl
+testRequirements = basicRequirements and buildTests
 
 -- Sub-libraries
-buildPastelDsp = true and libraryRequirements
 buildPastelMath = true and libraryRequirements
 buildPastelGeometry = true and libraryRequirements
 buildPastelGfx = true and libraryRequirements
-buildPastelRay = true and libraryRequirements
 buildPastelSys = true and libraryRequirements
-
-buildPastelGl = true and libraryRequirements and gotGlew
-
-buildPastelDevice = true and libraryRequirements and gotSdl
-buildPastelGfxUi = true and libraryRequirements and gotSdl
-
 buildPastelGeometryMatlab = true and libraryRequirements and gotMatlab
 buildPastelMatlab = true and libraryRequirements and gotMatlab
 
 -- Tests
 buildPastelSysTest = true and testRequirements
-buildPastelRayTest = true and testRequirements
 buildPastelMathTest = true and testRequirements
 buildPastelGfxTest = true and testRequirements
 buildPastelGeometryTest = true and testRequirements
-buildPastelDspTest = true and testRequirements
-buildPastelDeviceTest = true and testRequirements
-
--- Examples
-buildLeastSquares = true and exampleRequirements
-buildNearestNeighbour = true and exampleRequirements
-buildConvexHull = true and exampleRequirements
 
 -- Paths
 -- =====
@@ -93,16 +67,6 @@ buildConvexHull = true and exampleRequirements
 -- The directory of the Boost library's source code.
 -- The includes are of the form 'boost/static_assert.hpp'.
 boostIncludeDir = "../boost_1_49_0"
-
--- The directory of the SDL library's header files.
--- The includes are of the form 'SDL.h'.
-sdlIncludeDir = "../SDL-1.2.15/include"
-sdlLibraryDir = "../SDL-1.2.15/lib"
-
--- The directory of the GLEW library's header files.
--- The includes are of the form 'glew.h'.
-glewIncludeDir = "../glew-1.7.0-64bit/include"
-glewLibraryDir = "../glew-1.7.0-64bit/lib"
 
 -- The directory of the Matlab header files.
 -- The includes are of the form 'mex.h'.
@@ -183,40 +147,15 @@ solution "Pastel"
 		-- Enable optimizations.
 		flags {"Optimize"}
 
-	-- Determine the SDL library name.	
-	sdlLibrary = "SDL"
-	
-	-- Determine the OpenGL library name.
-	openGlLibrary = "GL"
-	if os.get() == "windows" then
-		-- Note the same file works for both
-		-- 32bit and 64bit development. The
-		-- naming is historical.
-		openGlLibrary = "opengl32"
-	end
-	
-	-- Determine the Glew library name.
-	glewLibrary = "GLEW"
-	if os.get() == "windows" then
-		-- Note the same file works for both
-		-- 32bit and 64bit development. The
-		-- naming is historical.
-		glewLibrary = "glew32"
-	end
-	
 	includeDirectorySet = 
 	{
 		"./",
 		boostIncludeDir,
-		sdlIncludeDir,
-		glewIncludeDir,
 		matlabIncludeDir
 	}
 
 	libraryDirectorySet =
 	{
-		sdlLibraryDir,
-		glewLibraryDir
 	}
 	
 	fileSet = 
@@ -352,16 +291,7 @@ solution "Pastel"
 			libdirs(libraryDirectorySet)
 			files(addPrefix("pastel/math/", fileSet))
 	end
-		
-	if buildPastelDevice
-	then
-	project "PastelDevice"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/device/", fileSet))
-	end
-		
+	
 	if buildPastelGeometry
 	then
 		project "PastelGeometry"
@@ -380,15 +310,6 @@ solution "Pastel"
 			files(addPrefix("pastel/geometrymatlab/", fileSet))
 	end
 
-	if buildPastelDsp
-	then
-		project "PastelDsp"
-			kind(libKind)
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("pastel/dsp/", fileSet))
-	end
-
 	if buildPastelGfx
 	then
 		project "PastelGfx"
@@ -396,33 +317,6 @@ solution "Pastel"
 			includedirs(includeDirectorySet)
 			libdirs(libraryDirectorySet)
 			files(addPrefix("pastel/gfx/", fileSet))
-	end
-
-	if buildPastelRay
-	then
-		project "PastelRay"
-			kind(libKind)
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("pastel/ray/", fileSet))
-	end
-
-	if buildPastelGl
-	then
-		project "PastelGl"
-			kind(libKind)
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("pastel/gl/", fileSet))
-	end
-
-	if buildPastelGfxUi
-	then
-		project "PastelGfxUi"
-			kind(libKind)
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("pastel/gfxui/", fileSet))
 	end
 
 	if buildPastelSysTest
@@ -434,30 +328,11 @@ solution "Pastel"
 			files(addPrefix("test/systest/", fileSet))
 			links 
 			{
-				"PastelDsp",
 				"PastelGfx", 
 				"PastelSys"  
 			}
 	end
 	
-	if buildPastelRayTest
-	then
-		project "PastelRayTest"
-			kind("ConsoleApp")
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("test/raytest/", fileSet))
-			links 
-			{
-				"PastelRay",
-				"PastelGfx", 
-				"PastelGeometry",
-				"PastelDsp",
-				"PastelMath",
-				"PastelSys" 
-			}
-	end
-
 	if buildPastelMathTest
 	then
 		project "PastelMathTest"
@@ -482,10 +357,7 @@ solution "Pastel"
 			files(addPrefix("test/gfxtest/", fileSet))
 			links 
 			{
-				"PastelDevice",
-				sdlLibrary,
 				"PastelGfx", 
-				"PastelDsp",
 				"PastelGeometry",
 				"PastelMath",
 				"PastelSys"
@@ -501,70 +373,10 @@ solution "Pastel"
 			files(addPrefix("test/geometrytest/", fileSet))
 			links 
 			{
-				"PastelDevice",
-				sdlLibrary,
 				"PastelGfx", 
-				"PastelDsp",
 				"PastelGeometry",
 				"PastelMath",
 				"PastelSys"
 			}
 	end
 
-	if buildPastelDspTest
-	then
-		project "PastelDspTest"
-			kind("ConsoleApp")
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("test/dsptest/", fileSet))
-			links 
-			{
-				"PastelDevice",
-				sdlLibrary,
-				"PastelRay",
-				"PastelGfx", 
-				"PastelDsp",
-				"PastelGeometry",
-				"PastelMath",
-				"PastelSys"
-			}
-	end
-
-	if buildPastelDeviceTest
-	then
-		project "PastelDeviceTest"
-			kind("ConsoleApp")
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("test/devicetest/", fileSet))
-			links 
-			{
-				"PastelDevice",
-				sdlLibrary,
-				"PastelSys"
-			}
-	end
-
-	if buildNearestNeighbour
-	then
-		project "NearestNeighbour"
-			kind("ConsoleApp")
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("example/NearestNeighbour/", fileSet))
-			links 
-			{
-				"PastelDevice",
-				sdlLibrary,
-				openGlLibrary,
-				glewLibrary,
-				"PastelGl",
-				"PastelGfxUi",
-				"PastelGfx",
-				"PastelDsp",
-				"PastelGeometry",
-				"PastelMath",
-				"PastelSys"
-			}
-	end

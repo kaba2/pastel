@@ -13,8 +13,8 @@
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/radial_texture.h"
 
-#include "pastel/dsp/mipmap_tools.h"
-#include "pastel/dsp/filters.h"
+#include "pastel/gfx/mipmap_tools.h"
+#include "pastel/gfx/filters.h"
 
 #include "pastel/math/uniform_sampling.h"
 

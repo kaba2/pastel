@@ -1,5 +1,6 @@
 // Description: ColorMixer class
 // Detail: An abstract class for color mixers
+// Documentation: colormixers.txt
 
 #ifndef PASTELGFX_COLORMIXER_H
 #define PASTELGFX_COLORMIXER_H

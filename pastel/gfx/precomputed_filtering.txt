@@ -1,0 +1,7 @@
+Precomputed filtering
+=====================
+
+[[Parent]]: image_processing.txt
+
+This section contains tools for precomputed filtering of 
+uniformly-sampled signals.

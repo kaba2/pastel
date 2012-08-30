@@ -1,5 +1,0 @@
-Graphics hardware
-=================
-
-[[Parent]]: pasteldevice.txt
-

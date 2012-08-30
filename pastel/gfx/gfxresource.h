@@ -1,3 +1,5 @@
+// Documentation: undocumented.txt
+
 #ifndef PASTELGFX_GFXRESOURCE_H
 #define PASTELGFX_GFXRESOURCE_H
 

@@ -1,4 +1,0 @@
-Shapes
-======
-
-[[Parent]]: pastelray.txt

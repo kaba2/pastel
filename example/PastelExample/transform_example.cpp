@@ -9,7 +9,7 @@
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/packrange.h"
 
-#include "pastel/dsp/signal_transforms.h"
+#include "pastel/gfx/signal_transforms.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"

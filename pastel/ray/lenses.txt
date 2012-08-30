@@ -1,5 +1,0 @@
-Lenses
-======
-
-[[Parent]]: pastelray.txt
-

@@ -1,4 +1,0 @@
-Devices and event loop
-======================
-
-[[Parent]]: pasteldevice.txt

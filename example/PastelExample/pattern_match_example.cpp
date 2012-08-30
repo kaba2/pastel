@@ -14,8 +14,6 @@
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_tools.h"
 
-#include "pastel/device/timer.h"
-
 #include "pastel/math/uniform_sampling.h"
 #include "pastel/math/conformalaffine2d_tools.h"
 
@@ -249,19 +247,12 @@ namespace
 
 			log() << "Computing point pattern match..." << logNewLine;
 
-			Timer timer;
-			timer.setStart();
-
 			ConformalAffine2 similarity;
 			const bool success = pointPatternMatch(
 				sceneTree, modelTree, 
 				minMatchRatio,  matchingDistance,
 				confidence,
 				similarity);
-
-			timer.store();
-
-			log() << "Matching took " << timer.seconds() << " seconds." << logNewLine;
 
 			if (success)
 			{
@@ -346,9 +337,6 @@ namespace
 				sceneSet.pop_back();
 			}
 
-			Timer timer;
-			timer.setStart();
-
 			ConformalAffine2 similarity;
 			const bool success = pointPatternMatch(
 				range(sceneSet.begin(), sceneSet.end()),
@@ -356,10 +344,6 @@ namespace
 				1,  minDistance,
 				0.99,
 				similarity);
-
-			timer.store();
-
-			log() << "Matching took " << timer.seconds() << " seconds." << logNewLine;
 
 			if (success)
 			{

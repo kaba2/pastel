@@ -10,9 +10,9 @@
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/clampextender.h"
 
-#include "pastel/dsp/triangle_filter.h"
-#include "pastel/dsp/lanczos_filter.h"
-#include "pastel/dsp/mipmap.h"
+#include "pastel/gfx/triangle_filter.h"
+#include "pastel/gfx/lanczos_filter.h"
+#include "pastel/gfx/mipmap.h"
 
 #include "pastel/math/matrix.h"
 

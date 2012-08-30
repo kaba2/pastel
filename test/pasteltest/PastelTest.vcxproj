@@ -127,8 +127,9 @@
     <PostBuildEvent>
       <Command>$(SolutionDir)lib\$(Platform)\$(Configuration)\PastelSysTest.exe -r
 $(SolutionDir)lib\$(Platform)\$(Configuration)\PastelMathTest.exe -r
-$(SolutionDir)lib\$(Platform)\$(Configuration)\PastelDspTest.exe -r
-$(SolutionDir)lib\$(Platform)\$(Configuration)\PastelGeometryTest.exe -r</Command>
+$(SolutionDir)lib\$(Platform)\$(Configuration)\PastelGeometryTest.exe -r
+$(SolutionDir)lib\$(Platform)\$(Configuration)\PastelGfxTest.exe -r
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

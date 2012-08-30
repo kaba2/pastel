@@ -6,7 +6,7 @@
 
 #include "pastel/gfx/texture.h"
 
-#include "pastel/dsp/mipmap.h"
+#include "pastel/gfx/mipmap.h"
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"

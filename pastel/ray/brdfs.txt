@@ -1,4 +1,0 @@
-Brdfs
-=====
-
-[[Parent]]: pastelray.txt

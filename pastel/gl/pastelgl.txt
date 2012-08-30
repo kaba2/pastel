@@ -1,6 +1,0 @@
-PastelGl
-========
-
-[[Parent]]: pastel.txt
-
-_PastelGl_ provides tools that rely on OpenGl.

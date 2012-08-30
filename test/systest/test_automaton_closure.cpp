@@ -83,9 +83,9 @@ namespace
 					std::end(correctClosure),
 					IteratorAddress_LessThan());
 				
-				TEST_ENSURE(exactlyEqual(correctClosure, closureMap[a]));
-				TEST_ENSURE(exactlyEqual(correctClosure, closureMap[b]));
-				TEST_ENSURE(exactlyEqual(correctClosure, closureMap[c]));
+				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[a]));
+				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[b]));
+				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[c]));
 			}
 
 			{
@@ -95,7 +95,7 @@ namespace
 					std::end(correctClosure),
 					IteratorAddress_LessThan());
 				
-				TEST_ENSURE(exactlyEqual(correctClosure, closureMap[d]));
+				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[d]));
 			}
 
 			{
@@ -105,7 +105,7 @@ namespace
 					std::end(correctClosure),
 					IteratorAddress_LessThan());
 				
-				TEST_ENSURE(exactlyEqual(correctClosure, closureMap[e]));
+				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[e]));
 			}
 		}
 	};

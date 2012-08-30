@@ -1,0 +1,8 @@
+Filters
+=======
+
+[[Parent]]: pastelgfx.txt
+
+In Pastel, a _filter_ is a piecewise continuous function ''RR -> RR'' 
+with bounded support.
+
