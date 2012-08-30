@@ -149,10 +149,6 @@
     <ClInclude Include="pastelgl.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\device\pasteldevice.vcxproj">
-      <Project>{3b35a8c9-e7e9-48b7-82f3-0511f38aa9d5}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\geometry\pastelgeometry.vcxproj">
       <Project>{0e7fd7e1-0fdf-4989-a1d1-1eaa03a8bb77}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

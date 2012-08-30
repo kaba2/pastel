@@ -213,10 +213,6 @@
     <None Include="test_pastelgeometry.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\pastel\device\pasteldevice.vcxproj">
-      <Project>{3b35a8c9-e7e9-48b7-82f3-0511f38aa9d5}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\..\pastel\dsp\PastelDsp.vcxproj">
       <Project>{785939e7-58e3-4e5d-9215-1ba393315cdb}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -225,24 +221,12 @@
       <Project>{0e7fd7e1-0fdf-4989-a1d1-1eaa03a8bb77}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\pastel\gfxui\PastelGfxUi.vcxproj">
-      <Project>{0b447abf-385f-475f-bf5f-88e4ee20bb98}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\..\pastel\gfx\pastelgfx.vcxproj">
       <Project>{9fe41360-16ba-48f4-af5a-90d7c5c2e13d}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\..\pastel\gl\pastelgl.vcxproj">
-      <Project>{b4da9d81-d551-43c4-9edf-2ae58a678de3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\..\pastel\math\pastelmath.vcxproj">
       <Project>{d866f479-947d-4a26-b3bc-9e75f78f828a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\pastel\ray\pastelray.vcxproj">
-      <Project>{f8f3a26a-3267-4f88-9614-4f32b6859c32}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\pastel\sys\pastelsys.vcxproj">
