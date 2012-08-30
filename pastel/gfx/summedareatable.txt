@@ -1,4 +1,0 @@
-Summed-area tables
-==================
-
-[Parent]: image_processing.txt
