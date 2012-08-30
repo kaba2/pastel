@@ -1,0 +1,50 @@
+Sparsity measures
+=================
+
+[[Parent]]: pastelgfx.txt
+
+Given a set of vectors in a finite dimensional vector space, _sparsity_ 
+is the property of there existing a basis in which most of the length 
+of the vectors are contributed by only a few coefficients. 
+
+Theory
+------
+
+Sparsity is quite general an idea, and can be made more concrete by 
+defining specific sparsity measures. As an example, natural images 
+and sounds often exhibit high sparsity, which is taken advantage of 
+in compression. In particular, the [discrete cosine transform][Dct] 
+is well-known for its ability to transform blocks of natural images 
+to sparse representations.
+
+In Pastel, a _sparsity measure_ is a function ''S: RR^n to [0, 1] sub RR'' 
+which satisfies that:
+
+* ''S'' is continuous in ''RR^n setminus {0}''.
+* If all the coordinates of a vector are equal and non-zero, then ''S'' 
+reaches its minimum and equals 0.
+* If only one coordinate of a vector is non-zero, then ''S'' reaches its
+maximum and equals 1.
+* ''S'' is invariant to the scaling of a vector by a _non-zero_ scalar.
+* ''S'' is invariant to the permutation of vector coordinates.
+* ''S(0) = 1''
+
+[Dct]: [[Ref]]: cosine_transform.txt
+
+### p-sparsity measure
+
+We shall define the _p-sparsity_ measure, ''p >= 1'', by
+
+''S_p(x) = (1 / C_p) ([(1 / (n - 1)) sum_{i = 1}^n |x_i - m|^p] / 
+    [(1 / n) sum_{i = 1}^n |x_i|^p]))^(1 / p),''
+
+where
+
+''m = (1 / n) sum_{i = 1}^n x_i''
+
+and
+
+''C_p = (((n - 1)^(p - 1) + 1) / (n^(p - 1)))^(1 / p)''
+
+In particular, ''C_1 = 2'', and ''C_2 = 1''.
+

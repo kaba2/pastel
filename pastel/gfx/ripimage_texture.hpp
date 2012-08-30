@@ -4,7 +4,7 @@
 #include "pastel/gfx/ripimage_texture.h"
 #include "pastel/gfx/linearimage_texture.h"
 
-#include "pastel/dsp/ripmap.h"
+#include "pastel/gfx/ripmap.h"
 
 #include "pastel/sys/vector_tools.h"
 

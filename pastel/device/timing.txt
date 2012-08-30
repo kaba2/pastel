@@ -1,5 +1,0 @@
-Timing
-======
-
-[[Parent]]: pasteldevice.txt
-

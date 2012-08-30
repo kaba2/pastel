@@ -1,4 +1,0 @@
-Box shape
-=========
-
-[[Parent]]: shapes.txt

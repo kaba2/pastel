@@ -10,9 +10,9 @@
 #include <pastel/gfx/noise.h>
 #include <pastel/gfx/colormixers.h>
 
-#include <pastel/dsp/resampling.h>
-#include <pastel/dsp/filters.h>
-#include <pastel/dsp/table_filter.h>
+#include <pastel/gfx/resampling.h>
+#include <pastel/gfx/filters.h>
+#include <pastel/gfx/table_filter.h>
 
 #include <pastel/sys/views.h>
 #include <pastel/sys/array.h>

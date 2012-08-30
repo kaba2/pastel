@@ -1,9 +1,0 @@
-PastelDsp
-=========
-
-[[Parent]]: pastel.txt
-
-The _PastelDsp_ sub-library provides tools for digital signal 
-processing. The tools that can be found here are mostly related 
-to resampling, filtering, and transforms between time and frequency 
-domains.

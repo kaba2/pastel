@@ -6,7 +6,7 @@
 
 #include "pastel/sys/vector.h"
 
-#include "pastel/dsp/filter.h"
+#include "pastel/gfx/filter.h"
 
 #include "pastel/geometry/alignedbox.h"
 

@@ -8,9 +8,9 @@
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/dsp/resampling.h"
+#include "pastel/gfx/resampling.h"
 #include "pastel/gfx/image_tools.h"
-#include "pastel/dsp/filters.h"
+#include "pastel/gfx/filters.h"
 
 #include "pastel/gfx/coloradapter.h"
 

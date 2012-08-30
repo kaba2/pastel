@@ -1,4 +1,5 @@
 // Description: Packing of a scalar image to [0, 1] range
+// Documentation: undocumented.txt
 
 #ifndef PASTELGFX_PACKRANGE_H
 #define PASTELGFX_PACKRANGE_H

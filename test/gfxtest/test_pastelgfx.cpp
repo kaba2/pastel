@@ -2,23 +2,13 @@
 
 #include "pastel/sys/logging.h"
 
-#include "pastel/gfx/pcx.h"
-#include "pastel/gfx/ewaimage_texture.h"
-#include "pastel/gfx/color_tools.h"
-
-#include "pastel/dsp/mipmap_tools.h"
-
-#include "pastel/sys/arrayextender.h"
-#include "pastel/sys/indexextenders.h"
+#include <iostream>
 
 using namespace Pastel;
 
-#include <string>
-#include <iostream>
+void initialize();
 
-using namespace std;
-
-int main()
+int main(integer argc, const char* argv[])
 {
 	Stream_Logger streamLogger(&std::cout);
 	File_Logger fileLogger("log.txt");
@@ -26,9 +16,39 @@ int main()
 	log().addLogger(&streamLogger);
 	log().addLogger(&fileLogger);
 
-	setInvariantFailureAction(
-		InvariantFailureAction::Throw);
+	initialize();
 
+	if (argc > 1 && argv[1] == std::string("-r"))
+	{
+		setInvariantFailureAction(
+			InvariantFailureAction::Throw);
+		testRunner().run();
+	}
+	else
+	{
+		testRunner().console();
+	}
+	
+	if (testReport().totalErrors() > 0)
+	{
+		generateTestReport(testReport(), log());
+	}
+
+	return testReport().totalErrors();
+}
+
+#include "pastel/gfx/pcx.h"
+#include "pastel/gfx/ewaimage_texture.h"
+#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/mipmap.h"
+
+#include "pastel/sys/arrayextender.h"
+#include "pastel/sys/indexextenders.h"
+
+using namespace Pastel;
+
+void initialize()
+{
 	Array<Color> textureImage;
 	loadPcx("lena.pcx", textureImage);
 
@@ -48,13 +68,5 @@ int main()
 	gfxStorage().set("lena_image", &textureImage);
 	gfxStorage().set("lena_mipmap", &mipMap);
 	gfxStorage().set("lena_texture", &texture);
-
-	testRunner().console();
-
-	generateTestReport(testReport(), log());
-
-	std::string tmp;
-	std::getline(std::cin, tmp);
-
-	return 0;
 }
+

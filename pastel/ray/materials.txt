@@ -1,4 +1,0 @@
-Materials
-=========
-
-[[Parent]]: pastelray.txt

@@ -13,7 +13,6 @@
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/mipimage_texture.h"
-#include "pastel/dsp/filterform.h"
 #include "pastel/gfx/convolution.h"
 #include "pastel/gfx/packrange.h"
 #include "pastel/gfx/noise.h"
@@ -30,8 +29,6 @@ namespace
 
 		Array<Color, 2> input(extent, Color(0));
 		Array<real32, 2> filter(filterExtent, 1);
-
-		setFilter(bartlettWindow<real32>, arrayView(filter));
 
 		saveGrayscalePcx(filter, "convolution_filter.pcx");
 
@@ -65,8 +62,6 @@ namespace
 
 		Array<Color, 3> input(extent, Color(0));
 		Array<real32, 3> filter(filterExtent, 1);
-
-		//setFilter(bartlettWindow<real32>, arrayView(filter));
 
 		const integer points = 1000;
 

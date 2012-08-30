@@ -11,7 +11,7 @@
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/drawing.h"
 
-#include "pastel/dsp/mipmap_tools.h"
+#include "pastel/gfx/mipmap_tools.h"
 
 using namespace Pastel;
 

@@ -1,8 +1,0 @@
-Gfx_Ui class
-============
-
-[[Parent]]: pastelgfxui.txt
-
-The Gfx_Ui class is a simple graphical user
-interface derived from PastelDevice library's
-Ui class.

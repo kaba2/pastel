@@ -1,5 +1,0 @@
-Resampling
-==========
-
-[[Parent]]: pasteldsp.txt
-

@@ -88,7 +88,7 @@
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>pastelsys.lib;pastelmath.lib;pastelgfx.lib;pastelgeometry.lib;pasteldevice.lib;pasteldsp.lib;SDL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>pastelsys.lib;pastelmath.lib;pastelgfx.lib;pastelgeometry.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -116,7 +116,7 @@
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>pastelsys.lib;pastelmath.lib;pastelgfx.lib;pastelgeometry.lib;pasteldevice.lib;pasteldsp.lib;SDL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>pastelsys.lib;pastelmath.lib;pastelgfx.lib;pastelgeometry.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -144,7 +144,7 @@
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>pastelsys.lib;pastelmath.lib;pastelgfx.lib;pastelgeometry.lib;pasteldevice.lib;pasteldsp.lib;SDL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>pastelsys.lib;pastelmath.lib;pastelgfx.lib;pastelgeometry.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -174,7 +174,7 @@
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>pastelsys.lib;pastelmath.lib;pastelgfx.lib;pastelgeometry.lib;pasteldevice.lib;pasteldsp.lib;SDL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>pastelsys.lib;pastelmath.lib;pastelgfx.lib;pastelgeometry.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -213,10 +213,6 @@
     <None Include="test_pastelgeometry.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\pastel\dsp\PastelDsp.vcxproj">
-      <Project>{785939e7-58e3-4e5d-9215-1ba393315cdb}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\..\pastel\geometry\pastelgeometry.vcxproj">
       <Project>{0e7fd7e1-0fdf-4989-a1d1-1eaa03a8bb77}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

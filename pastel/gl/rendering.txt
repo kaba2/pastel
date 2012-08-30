@@ -1,4 +1,0 @@
-Rendering
-=========
-
-[[Parent]]: pastelgl.txt

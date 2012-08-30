@@ -1,8 +1,0 @@
-PastelGfxUi
-===========
-
-[[Parent]]: pastel.txt
-
-_PastelGfxUi_ provides a simple graphical user interface. A separate 
-sub-library was needed because this component is dependent on both
-PastelGfx and PastelDevice, which are independent of each other.

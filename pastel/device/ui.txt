@@ -1,4 +1,0 @@
-User interface
-==============
-
-[[Parent]]: pasteldevice.txt

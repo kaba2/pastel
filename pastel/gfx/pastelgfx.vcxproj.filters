@@ -76,9 +76,6 @@
     <Filter Include="Reconstruction">
       <UniqueIdentifier>{c0bc89f3-5c72-41b7-952a-e45da5b029b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Block matching">
-      <UniqueIdentifier>{0be706ca-6055-4291-ac87-86f4f6a25d62}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Image processing">
       <UniqueIdentifier>{63f25d96-a027-4d15-b4ab-8aa2ae27bcee}</UniqueIdentifier>
     </Filter>
@@ -106,12 +103,6 @@
     <Filter Include="Undocumented">
       <UniqueIdentifier>{d5fc701b-6fb0-464f-9952-74d7d0d8c744}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Undocumented\Probability distribution from image">
-      <UniqueIdentifier>{7fed9de7-decd-4a9f-ad21-ce149729a531}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Image processing\Summed-area tables">
-      <UniqueIdentifier>{e1ea35ef-1d25-4718-9b29-0e4b43c4bb3b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Undocumented\Rendering">
       <UniqueIdentifier>{4e75b011-720f-4bf5-9d54-21c982cfb94a}</UniqueIdentifier>
     </Filter>
@@ -120,6 +111,39 @@
     </Filter>
     <Filter Include="Undocumented\Color mixers">
       <UniqueIdentifier>{0a65609f-ff5a-4948-9a75-a0f1969fd610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Resampling">
+      <UniqueIdentifier>{883d6378-5c91-492e-82a3-6340518a6305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Precomputed filtering">
+      <UniqueIdentifier>{127fd845-ed16-457b-a78d-ecd94f3a7773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Precomputed filtering\Ripmap">
+      <UniqueIdentifier>{45ad44cf-102f-4625-bb02-a5e8fa9f8fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Precomputed filtering\Mipmap">
+      <UniqueIdentifier>{09661380-06e4-4731-8275-7a3bbdf2864c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Filters">
+      <UniqueIdentifier>{d4673248-5165-4330-8189-04ca0b722e5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sparsity measures">
+      <UniqueIdentifier>{2f0d1a43-3350-4437-aaa9-7a4b89fdcb8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Signal transforms">
+      <UniqueIdentifier>{8319d54f-bbbb-4659-9045-8247c12eaf31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Signal transforms\Cosine transform">
+      <UniqueIdentifier>{7367710a-e69f-47ba-9b1b-922fa0c5ca16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Signal transforms\Haar transform">
+      <UniqueIdentifier>{f5b124b4-19c7-42c3-a0a5-f61a118b6b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Signal transforms\Fourier transform">
+      <UniqueIdentifier>{756dbbae-6ca5-4b70-9b25-60697676b88b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Signal transforms\Hadamard transform">
+      <UniqueIdentifier>{ac085004-54f3-4e9c-aade-2b63715bce89}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -378,12 +402,6 @@
     <ClInclude Include="discrete_poisson_disk_pattern.h">
       <Filter>Image processing\Discrete poisson disk pattern</Filter>
     </ClInclude>
-    <ClInclude Include="imagepdf.h">
-      <Filter>Undocumented\Probability distribution from image</Filter>
-    </ClInclude>
-    <ClInclude Include="imagepdf.hpp">
-      <Filter>Undocumented\Probability distribution from image</Filter>
-    </ClInclude>
     <ClInclude Include="gfxrenderer.h">
       <Filter>Undocumented\Rendering</Filter>
     </ClInclude>
@@ -413,18 +431,6 @@
     </ClInclude>
     <ClInclude Include="packrange.h">
       <Filter>Undocumented</Filter>
-    </ClInclude>
-    <ClInclude Include="summedareatable.h">
-      <Filter>Image processing\Summed-area tables</Filter>
-    </ClInclude>
-    <ClInclude Include="summedareatable.hpp">
-      <Filter>Image processing\Summed-area tables</Filter>
-    </ClInclude>
-    <ClInclude Include="block_matching_bruteforce.h">
-      <Filter>Block matching</Filter>
-    </ClInclude>
-    <ClInclude Include="block_matching_bruteforce.hpp">
-      <Filter>Block matching</Filter>
     </ClInclude>
     <ClInclude Include="image_quantization.h">
       <Filter>Image processing\Image quantization</Filter>
@@ -481,9 +487,6 @@
       <Filter>Image processing\Morphology</Filter>
     </ClInclude>
     <ClInclude Include="pastelgfx.h" />
-    <ClInclude Include="block_matching.h">
-      <Filter>Block matching</Filter>
-    </ClInclude>
     <ClInclude Include="image_processing.h">
       <Filter>Image processing</Filter>
     </ClInclude>
@@ -511,8 +514,101 @@
     <ClInclude Include="diffusion_quantization.hpp">
       <Filter>Image processing\Image quantization</Filter>
     </ClInclude>
+    <ClInclude Include="box_filter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="cubic_filter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="filter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="filters.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="haar_transform.h">
+      <Filter>Image processing\Signal transforms\Haar transform</Filter>
+    </ClInclude>
+    <ClInclude Include="haar_transform.hpp">
+      <Filter>Image processing\Signal transforms\Haar transform</Filter>
+    </ClInclude>
+    <ClInclude Include="cosine_transform.h">
+      <Filter>Image processing\Signal transforms\Cosine transform</Filter>
+    </ClInclude>
+    <ClInclude Include="cosine_transform.hpp">
+      <Filter>Image processing\Signal transforms\Cosine transform</Filter>
+    </ClInclude>
+    <ClInclude Include="fourier_transform.h">
+      <Filter>Image processing\Signal transforms\Fourier transform</Filter>
+    </ClInclude>
+    <ClInclude Include="fourier_transform.hpp">
+      <Filter>Image processing\Signal transforms\Fourier transform</Filter>
+    </ClInclude>
+    <ClInclude Include="hadamard_transform.h">
+      <Filter>Image processing\Signal transforms\Hadamard transform</Filter>
+    </ClInclude>
+    <ClInclude Include="hadamard_transform.hpp">
+      <Filter>Image processing\Signal transforms\Hadamard transform</Filter>
+    </ClInclude>
+    <ClInclude Include="lanczos_filter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="gaussian_filter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="mitchell_filter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="precomputed_filtering.h">
+      <Filter>Image processing\Precomputed filtering</Filter>
+    </ClInclude>
+    <ClInclude Include="ripmap.h">
+      <Filter>Image processing\Precomputed filtering\Ripmap</Filter>
+    </ClInclude>
+    <ClInclude Include="ripmap_tools.hpp">
+      <Filter>Image processing\Precomputed filtering\Ripmap</Filter>
+    </ClInclude>
+    <ClInclude Include="ripmap.hpp">
+      <Filter>Image processing\Precomputed filtering\Ripmap</Filter>
+    </ClInclude>
+    <ClInclude Include="ripmap_tools.h">
+      <Filter>Image processing\Precomputed filtering\Ripmap</Filter>
+    </ClInclude>
+    <ClInclude Include="mipmap.h">
+      <Filter>Image processing\Precomputed filtering\Mipmap</Filter>
+    </ClInclude>
+    <ClInclude Include="mipmap_tools.hpp">
+      <Filter>Image processing\Precomputed filtering\Mipmap</Filter>
+    </ClInclude>
+    <ClInclude Include="mipmap.hpp">
+      <Filter>Image processing\Precomputed filtering\Mipmap</Filter>
+    </ClInclude>
+    <ClInclude Include="mipmap_tools.h">
+      <Filter>Image processing\Precomputed filtering\Mipmap</Filter>
+    </ClInclude>
+    <ClInclude Include="resampling.h">
+      <Filter>Image processing\Resampling</Filter>
+    </ClInclude>
+    <ClInclude Include="resampling.hpp">
+      <Filter>Image processing\Resampling</Filter>
+    </ClInclude>
+    <ClInclude Include="signal_transforms.h">
+      <Filter>Image processing\Signal transforms</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle_filter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="table_filter.h">
+      <Filter>Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="sparsity.h">
+      <Filter>Sparsity measures</Filter>
+    </ClInclude>
+    <ClInclude Include="sparsity.hpp">
+      <Filter>Sparsity measures</Filter>
+    </ClInclude>
     <ClInclude Include="reconstruct_filter.h">
-      <Filter>Undocumented</Filter>
+      <Filter>Reconstruction</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -603,9 +699,6 @@
     <None Include="renderer.txt">
       <Filter>Undocumented\Rendering</Filter>
     </None>
-    <None Include="block_matching.txt">
-      <Filter>Block matching</Filter>
-    </None>
     <None Include="pastelgfx.txt" />
     <None Include="drawing.txt">
       <Filter>2d drawing</Filter>
@@ -634,8 +727,44 @@
     <None Include="image_morphology.txt">
       <Filter>Image processing\Morphology</Filter>
     </None>
-    <None Include="summedareatable.txt">
-      <Filter>Image processing\Summed-area tables</Filter>
+    <None Include="filters.txt">
+      <Filter>Filters</Filter>
+    </None>
+    <None Include="haar_transform.txt">
+      <Filter>Image processing\Signal transforms\Haar transform</Filter>
+    </None>
+    <None Include="cosine_transform.txt">
+      <Filter>Image processing\Signal transforms\Cosine transform</Filter>
+    </None>
+    <None Include="fourier_transform.txt">
+      <Filter>Image processing\Signal transforms\Fourier transform</Filter>
+    </None>
+    <None Include="hadamard_transform.txt">
+      <Filter>Image processing\Signal transforms\Hadamard transform</Filter>
+    </None>
+    <None Include="precomputed_filtering.txt">
+      <Filter>Image processing\Precomputed filtering</Filter>
+    </None>
+    <None Include="ripmap.txt">
+      <Filter>Image processing\Precomputed filtering\Ripmap</Filter>
+    </None>
+    <None Include="mipmap.txt">
+      <Filter>Image processing\Precomputed filtering\Mipmap</Filter>
+    </None>
+    <None Include="resampling_order.txt">
+      <Filter>Image processing\Resampling</Filter>
+    </None>
+    <None Include="resampling.txt">
+      <Filter>Image processing\Resampling</Filter>
+    </None>
+    <None Include="signal_transforms.txt">
+      <Filter>Image processing\Signal transforms</Filter>
+    </None>
+    <None Include="sparsity.txt">
+      <Filter>Sparsity measures</Filter>
+    </None>
+    <None Include="undocumented.txt">
+      <Filter>Undocumented</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -707,6 +836,30 @@
     </ClCompile>
     <ClCompile Include="labeling_to_image.cpp">
       <Filter>Image processing\Labeling</Filter>
+    </ClCompile>
+    <ClCompile Include="box_filter.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="cubic_filter.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="filter.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="gaussian_filter.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="lanczos_filter.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="mitchell_filter.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="table_filter.cpp">
+      <Filter>Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="triangle_filter.cpp">
+      <Filter>Filters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

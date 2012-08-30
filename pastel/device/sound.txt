@@ -1,5 +1,0 @@
-Sound hardware
-==============
-
-[[Parent]]: pasteldevice.txt
-

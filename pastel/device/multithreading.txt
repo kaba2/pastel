@@ -1,5 +1,0 @@
-Multithreading
-==============
-
-[[Parent]]: pasteldevice.txt
-
