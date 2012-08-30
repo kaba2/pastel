@@ -561,6 +561,7 @@
     <None Include="..\..\license.txt" />
     <None Include="..\..\techniques_constcast.txt" />
     <None Include="..\..\techniques_iterators.txt" />
+    <None Include="..\..\undocumented.txt" />
     <None Include="arena_allocator.txt" />
     <None Include="automaton.txt" />
     <None Include="automaton_algorithms.txt" />

@@ -41,20 +41,6 @@ Pastel only uses the template code found in Boost and
 thus requires no linking with object code.
 Boost is licensed under the Boost license.
 
-### SDL 1.2.15
-
-<http://www.libsdl.org/>
-
-Pastel refers to SDL's include files in the form `SDL.h`. 
-SDL is licensed under the GNU LGPL.
-
-### Glew 1.7.0
-
-<http://glew.sourceforge.net/>
-
-Pastel refers to Glew's include files in the form `GL/glew.h`. 
-Glew is licensed under a modified BSD license.
-
 ### Official Mersenne Twister source code
 
 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/emt19937ar.html>
@@ -63,7 +49,7 @@ Pastel integrates a minimally modified version of the official
 Mersenne Twister source code directly into the PastelSys library. 
 No installation is needed.
 
-### Remark 1.4
+### Remark 1.5
 
 <http://kaba.hilvi.org/remark>
 

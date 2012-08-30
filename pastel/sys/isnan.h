@@ -1,4 +1,5 @@
 // Description: Check if a number is a NaN
+// Documentation: undocumented.txt
 
 #ifndef PASTELSYS_ISNAN_H
 #define PASTELSYS_ISNAN_H
