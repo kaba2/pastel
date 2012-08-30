@@ -1,4 +1,5 @@
 // Description: Miscellaneous tools
+// Documentation: undocumented.txt
 
 #ifndef PASTELSYS_SYSCOMMON_H
 #define PASTELSYS_SYSCOMMON_H

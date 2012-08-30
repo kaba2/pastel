@@ -529,4 +529,7 @@ namespace Pastel
 
 }
 
+#include "pastel/sys/view_tools.h"
+#include "pastel/sys/view_visit.h"
+
 #endif

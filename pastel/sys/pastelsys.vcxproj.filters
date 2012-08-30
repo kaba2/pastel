@@ -286,15 +286,6 @@
     <Filter Include="Undocumented">
       <UniqueIdentifier>{8e35614c-ec87-4132-9cd9-64ad307fb9ea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Undocumented\Views">
-      <UniqueIdentifier>{ab8e924c-50d9-4258-9358-b979ec1091b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Undocumented\Views\Extended ConstView">
-      <UniqueIdentifier>{2b4b1267-e624-4935-adef-b0565d5f6de2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Undocumented\Views\Concrete views">
-      <UniqueIdentifier>{aa4b59af-3b1c-4066-a47b-ac51d2dd592c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Undocumented\Minimal automaton">
       <UniqueIdentifier>{ceae851e-7180-442d-9b65-d7de6a86012d}</UniqueIdentifier>
     </Filter>
@@ -306,6 +297,15 @@
     </Filter>
     <Filter Include="Undocumented\As_Pair concept">
       <UniqueIdentifier>{cf02d9d6-d132-4618-a097-aab59d48dd7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Views">
+      <UniqueIdentifier>{ab8e924c-50d9-4258-9358-b979ec1091b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Views\Extended ConstView">
+      <UniqueIdentifier>{2b4b1267-e624-4935-adef-b0565d5f6de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Views\Concrete views">
+      <UniqueIdentifier>{aa4b59af-3b1c-4066-a47b-ac51d2dd592c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -340,106 +340,106 @@
       <Filter>Undocumented\FastList</Filter>
     </ClInclude>
     <ClInclude Include="view.h">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_tools.h">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_tools.hpp">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit.h">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit.hpp">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit_more.h">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit_more.hpp">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit_more2.h">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="view_visit_more2.hpp">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="views.h">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </ClInclude>
     <ClInclude Include="borderedconstview.h">
-      <Filter>Undocumented\Views\Extended ConstView</Filter>
+      <Filter>Data structures\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="clampedconstview.h">
-      <Filter>Undocumented\Views\Extended ConstView</Filter>
+      <Filter>Data structures\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="extendedconstview.h">
-      <Filter>Undocumented\Views\Extended ConstView</Filter>
+      <Filter>Data structures\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="extendedconstviews.h">
-      <Filter>Undocumented\Views\Extended ConstView</Filter>
+      <Filter>Data structures\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="mirroredconstview.h">
-      <Filter>Undocumented\Views\Extended ConstView</Filter>
+      <Filter>Data structures\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="repeatedconstview.h">
-      <Filter>Undocumented\Views\Extended ConstView</Filter>
+      <Filter>Data structures\Views\Extended ConstView</Filter>
     </ClInclude>
     <ClInclude Include="adaptedview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="adaptedviewcursor.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="arrayview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="concrete_views.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="cursorview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="mirrorview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="mirrorviewcursor.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="permutedview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="permutedviewcursor.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="rowview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="rowviewcursor.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="sliceview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="sliceviewcursor.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="sparseview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="sparseviewcursor.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="subview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="transformedview.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="transformedviewcursor.h">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </ClInclude>
     <ClInclude Include="redblacktree.h">
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
@@ -1576,13 +1576,13 @@
       <Filter>Undocumented\FastList</Filter>
     </None>
     <None Include="views.txt">
-      <Filter>Undocumented\Views</Filter>
+      <Filter>Data structures\Views</Filter>
     </None>
     <None Include="extendedconstviews.txt">
-      <Filter>Undocumented\Views\Extended ConstView</Filter>
+      <Filter>Data structures\Views\Extended ConstView</Filter>
     </None>
     <None Include="concrete_views.txt">
-      <Filter>Undocumented\Views\Concrete views</Filter>
+      <Filter>Data structures\Views\Concrete views</Filter>
     </None>
     <None Include="redblacktree.txt">
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
@@ -1982,6 +1982,9 @@
     </None>
     <None Include="..\..\license.txt">
       <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\undocumented.txt">
+      <Filter>Undocumented</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
