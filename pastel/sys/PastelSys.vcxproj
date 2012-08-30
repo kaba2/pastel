@@ -558,6 +558,7 @@
     <ClInclude Include="pastelsys.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\license.txt" />
     <None Include="..\..\techniques_constcast.txt" />
     <None Include="..\..\techniques_iterators.txt" />
     <None Include="arena_allocator.txt" />
@@ -651,7 +652,6 @@
     <None Include="random_uniform.txt" />
     <None Include="random_discrete.txt" />
     <None Include="random_goodness.txt" />
-    <None Include="..\..\blog.txt" />
     <None Include="..\..\dependencies.txt" />
     <None Include="..\..\pastel.txt" />
     <None Include="..\..\pastel_license.txt" />

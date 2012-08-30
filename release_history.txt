@@ -21,32 +21,37 @@ than 1.1.3.
 Pastel 1.3.0
 ------------
 
-Release date 29.8.2012
+Release date 30.8.2012
 
 [Original webpage][Pastel-1.3.0]
 
 [Pastel-1.3.0]: http://kaba.hilvi.org/pastel-1.3.0
+
+### General
+
+ * Changed to use C++11.
+ * Changed to use the MIT license.
+ * Removed PastelDevice, PastelRay, PastelGl, and PastelGfxUi as
+ an attempt to focus the purpose of the library, and to reduce
+ dependencies.
+ * Merged PastelDsp into PastelGfx.
 
 ### PastelSys
 
  * Added maximum bipartite matching algorithm.
  * Added incidence graph data-structure.
  * Added generic tree data-structure.
- * Added automaton data-structure.
  * Added refinable partition data-structure.
+ * Added automaton data-structure.
  * Added automaton minimization algorithm.
  * Added automaton determinization algorithm.
- * Added generic depth-first and breadth first traversal algorithms.
- * Added named tuple data structure.
- * Added hashed tree data structure.
+ * Added generic depth-first and breadth-first traversal algorithms.
+ * Added named tuple data-structure.
+ * Added hashed tree data-structure.
  * Added cloning pointer.
  * Removed small containers.
  * Removed ranges, and replaced with iterator ranges.
  * Changed hashing to use hash-combination.
-
-### Others
-
- * Changed to use C++11.
 
 Pastel 1.2.0
 ------------
