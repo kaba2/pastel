@@ -177,7 +177,7 @@ namespace Pastel
 				// same strongly connected component as node x.
 
 				bool moreThanOneElement =
-					(*std::prev(workSet.end()) != x);
+					(workSet.back() != x);
 				
 				if (moreThanOneElement)
 				{
