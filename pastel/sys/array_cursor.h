@@ -19,7 +19,8 @@ namespace Pastel
 			: boost::equality_comparable<ConstCursor<Type, N> >
 		{
 		public:
-			friend class Array<Type, N>;
+			template <typename, int>
+			friend class Array;
 
 			typedef Type Element;
 			typedef Type const& ConstReference;
@@ -141,7 +142,8 @@ namespace Pastel
 			: public ConstCursor<Type, N>
 		{
 		private:
-			friend class Array<Type, N>;
+			template <typename, int>
+			friend class Array;
 
 			typedef ConstCursor<Type, N> Base;
 

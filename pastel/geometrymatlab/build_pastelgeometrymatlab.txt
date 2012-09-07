@@ -86,9 +86,13 @@ To enable OpenMP (support for multiple cores), do the following:
 
 * Add the OpenMP flag to the compiler flags.
 Since Matlab does not have a compiler-independent option for this,
-you must manually modify the Matlab options file for your compiler. 
-Consult the Matlab documentation on how to do this. 
+you must manually modify the Matlab options file for your compiler.
 On gcc the flag is `-fopenmp`, while for Visual Studio the flag is `/openmp`.
+Consult the Matlab documentation on how to do this; for example, on 
+Matlab 2011b 64-bit, with default installation directory, the 
+compiler-switch files are stored at
+
+	C:\Program Files\MATLAB\R2011b\bin\win64\mexopts
 
 * On Linux, add the `-lgomp` option in `build_pastelgeometrymatlab.m` 
 to include the OpenMP library.
