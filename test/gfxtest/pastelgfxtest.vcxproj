@@ -195,6 +195,11 @@
     <ClInclude Include="test_pastelgfx.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lena.pcx" />
+    <None Include="testpcx_1bit.pcx" />
+    <None Include="testpcx_4bit.pcx" />
+    <None Include="testpcx_8bit.pcx" />
+    <None Include="testpcx_rgb.pcx" />
     <None Include="test_pastelgfx.txt" />
   </ItemGroup>
   <ItemGroup>

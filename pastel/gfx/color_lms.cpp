@@ -1,6 +1,6 @@
 #include "pastel/gfx/color_lms.h"
 
-#include "pastel/math/matrix_tools.h"
+#include "pastel/math/matrix_inverse.h"
 
 namespace Pastel
 {

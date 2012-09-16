@@ -138,7 +138,6 @@ namespace Pastel
 					if (paletteCode == 12)
 					{
 						foundPalette = true;
-						log() << "VGA Palette available" << logNewLine;
 						uint8 red = 0;
 						uint8 green = 0;
 						uint8 blue = 0;
@@ -220,9 +219,6 @@ namespace Pastel
 		AbstractArray<2, uint8>& image,
 		std::vector<Color>* colorPalette)
 	{
-		log() << "Loading an indexed pcx image from "
-			<< fileName << "." << logNewLine;
-
 		BinaryFile file;
 		PcxHeader pcxHeader;
 		std::vector<Color> palette;
@@ -420,8 +416,6 @@ namespace Pastel
 			palette.swap(*colorPalette);
 		}
 
-		log() << "Indexed pcx image loading complete." << logNewLine;
-
 		return true;
 	}
 
@@ -429,9 +423,6 @@ namespace Pastel
 		const std::string& fileName,
 		AbstractArray<2, Color>& image)
 	{
-		//log() << "Loading a pcx image from "
-		//	<< fileName << "." << logNewLine;
-
 		BinaryFile file;
 		PcxHeader pcxHeader;
 		std::vector<Color> palette;
@@ -636,8 +627,6 @@ namespace Pastel
 		}
 
 		file.close();
-
-		//log() << "Pcx image loading complete." << logNewLine;
 
 		return true;
 	}

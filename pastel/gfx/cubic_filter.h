@@ -46,8 +46,8 @@ namespace Pastel
 		real d_;
 	};
 
-	typedef CountedPtr<Cubic_Filter> CubicFilterPtr;
-	typedef CountedPtr<const Cubic_Filter> ConstCubicFilterPtr;
+	typedef std::shared_ptr<Cubic_Filter> CubicFilterPtr;
+	typedef std::shared_ptr<const Cubic_Filter> ConstCubicFilterPtr;
 
 	inline CubicFilterPtr cubicFilter(real negativeLobeness = (real)1 / 3)
 	{

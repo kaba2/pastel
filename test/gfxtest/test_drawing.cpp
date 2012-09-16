@@ -137,13 +137,13 @@ namespace
 		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
 
-		log() << "Computing mipmaps.." << logNewLine;
+		//log() << "Computing mipmaps.." << logNewLine;
 		MipMap<Color, 2> mipMap(constArrayView(texture));
 		transform(mipMap, fitColor);
 
 		MipImage_Texture<Color> sampler(mipMap);
 
-		log() << "Rendering.." << logNewLine;
+		//log() << "Rendering.." << logNewLine;
 
 		const AlignedBox3 region(
 			Vector3(-100, -100, 0),
@@ -176,7 +176,7 @@ namespace
 		Array<Color, 2> textureImage;
 		loadPcx("lena.pcx", textureImage);
 
-		log() << "Rendering.." << logNewLine;
+		//log() << "Rendering.." << logNewLine;
 
 		const AlignedBox3 region(
 			Vector3(-width / 4, -height / 4, 0),
@@ -217,13 +217,13 @@ namespace
 		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
 
-		log() << "Computing mipmaps.." << logNewLine;
+		//log() << "Computing mipmaps.." << logNewLine;
 		MipMap<Color, 2> mipMap(constArrayView(texture));
 		transform(mipMap, fitColor);
 
 		MipImage_Texture<Color> sampler(mipMap);
 
-		log() << "Rendering.." << logNewLine;
+		//log() << "Rendering.." << logNewLine;
 
 		const AlignedBox2 region(
 			Vector2(-100, -100),
@@ -252,7 +252,7 @@ namespace
 		Array<Color, 2> textureImage;
 		loadPcx("lena.pcx", textureImage);
 
-		log() << "Rendering.." << logNewLine;
+		//log() << "Rendering.." << logNewLine;
 
 		const AlignedBox2 region(
 			Vector2(-100, -100),
@@ -286,7 +286,7 @@ namespace
 		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
 
-		log() << "Rendering.." << logNewLine;
+		//log() << "Rendering.." << logNewLine;
 
 		const AlignedBox2 region(
 			Vector2(-100, -100),

@@ -1,7 +1,7 @@
-#ifndef PASTELMATH_MATRIX_TOOLS_MORE4_HPP
-#define PASTELMATH_MATRIX_TOOLS_MORE4_HPP
+#ifndef PASTELMATH_MATRIX_EXPRESSION_MORE_HPP
+#define PASTELMATH_MATRIX_EXPRESSION_MORE_HPP
 
-#include "pastel/math/matrix_tools.h"
+#include "pastel/math/matrix_expression_more.h"
 
 namespace Pastel
 {

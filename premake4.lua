@@ -199,8 +199,7 @@ solution "Pastel"
 		-- Disable Microsoft's Secure STL
 		defines
 		{
-			"_SECURE_SCL=0",
-			"_HAS_ITERATOR_DEBUGGING=0"
+			"_ITERATOR_DEBUG_LEVEL=0"
 		}
 		
 	-- GCC specific build options.

@@ -5,7 +5,6 @@
 #define PASTELGFX_TEXTURE_H
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/countedptr.h"
 
 #include "pastel/math/matrix.h"
 
@@ -16,11 +15,8 @@ namespace Pastel
 
 	template <typename Type, int N = 2>
 	class Texture
-		: public ReferenceCounted
 	{
 	public:
-		typedef CountedPtr<Texture> Ptr;
-		typedef CountedPtr<const Texture> ConstPtr;
 		typedef Type Element;
 
 		virtual ~Texture() {}

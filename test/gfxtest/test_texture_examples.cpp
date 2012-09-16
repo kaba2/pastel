@@ -31,18 +31,19 @@ namespace
 
 		void testTransform()
 		{
-			Texture<Color>& inputTexture = 
-				*gfxStorage().get<EwaImage_Texture<Color>*>("lena_texture");			
+			Texture<Color>* inputTexture = 
+				gfxStorage().get<EwaImage_Texture<Color>*>("lena_texture");
+			ENSURE(inputTexture);
 
 			AffineTransformation2 transform = rotation2<real>(constantPi<real>() / 6);
 			transform.translation() += 0.25;
 
 			Transform_Texture<Color> distortedTexture =
-				transformTexture(inputTexture, transform);
+				transformTexture(*inputTexture, transform);
 
 			Array<Color> image(Vector2i(512, 512));
 			drawBox(AlignedBox2(Vector2(0, 0), Vector2(image.extent())),
-				distortedTexture,
+				*inputTexture,
 				arrayView(image));
 			
 			savePcx(image, "transform_texture.pcx");

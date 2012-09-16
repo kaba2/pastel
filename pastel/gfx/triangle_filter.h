@@ -30,8 +30,8 @@ namespace Pastel
 		Triangle_Filter& operator=(const Triangle_Filter& that) PASTEL_DELETE;
 	};
 
-	typedef CountedPtr<Triangle_Filter> TriangleFilterPtr;
-	typedef CountedPtr<const Triangle_Filter> ConstTriangleFilterPtr;
+	typedef std::shared_ptr<Triangle_Filter> TriangleFilterPtr;
+	typedef std::shared_ptr<const Triangle_Filter> ConstTriangleFilterPtr;
 
 	inline TriangleFilterPtr triangleFilter()
 	{

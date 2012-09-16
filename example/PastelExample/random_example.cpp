@@ -10,7 +10,6 @@
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 
-#include "pastel/sys/randomdistribution.h"
 #include "pastel/sys/random.h"
 #include "pastel/sys/views.h"
 #include "pastel/sys/histogram.h"

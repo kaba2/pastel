@@ -4,6 +4,7 @@
 #define PASTELMATH_LINEAR_ALGEBRA_H
 
 #include "pastel/math/matrix.h"
+#include "pastel/math/matrix_algorithms.h"
 #include "pastel/math/matrix_decompositions.h"
 
 #endif

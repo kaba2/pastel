@@ -59,8 +59,8 @@ namespace Pastel
 		real scaling_;
 	};
 
-	typedef CountedPtr<Table_Filter> TableFilterPtr;
-	typedef CountedPtr<const Table_Filter> ConstTableFilterPtr;
+	typedef std::shared_ptr<Table_Filter> TableFilterPtr;
+	typedef std::shared_ptr<const Table_Filter> ConstTableFilterPtr;
 
 	PASTELGFX TableFilterPtr tableFilter(const ConstFilterPtr& filter, integer samplesPerRadius = 16);
 

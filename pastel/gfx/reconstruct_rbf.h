@@ -55,7 +55,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/matrix_tools.h"
 #include "pastel/sys/vector_tools.h"
 
 namespace Pastel

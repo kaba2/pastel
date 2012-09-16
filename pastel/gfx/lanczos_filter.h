@@ -39,8 +39,8 @@ namespace Pastel
 		real invRadius_;
 	};
 
-	typedef CountedPtr<Lanczos_Filter> LanczosFilterPtr;
-	typedef CountedPtr<const Lanczos_Filter> ConstLanczosFilterPtr;
+	typedef std::shared_ptr<Lanczos_Filter> LanczosFilterPtr;
+	typedef std::shared_ptr<const Lanczos_Filter> ConstLanczosFilterPtr;
 
 	inline LanczosFilterPtr lanczosFilter(real radius = 2)
 	{

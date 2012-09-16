@@ -64,6 +64,9 @@
     <Filter Include="Uniform distortions">
       <UniqueIdentifier>{823fe47e-bb15-4ed1-8a4a-06408acbcd24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Transformations\Linear algebra\Matrix algorithms">
+      <UniqueIdentifier>{f6b710f3-c49b-49b8-aeb8-febbd83dc51b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crspline.h">
@@ -129,22 +132,10 @@
     <ClInclude Include="matrix_static.h">
       <Filter>Transformations\Linear algebra\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="matrixexpression.h">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrixview.h">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
     <ClInclude Include="cholesky_decomposition.h">
       <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
     </ClInclude>
     <ClInclude Include="cholesky_decomposition.hpp">
-      <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
-    </ClInclude>
-    <ClInclude Include="cholesky_decomposition_tools.h">
-      <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
-    </ClInclude>
-    <ClInclude Include="cholesky_decomposition_tools.hpp">
       <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
     </ClInclude>
     <ClInclude Include="lu_decomposition.h">
@@ -153,22 +144,10 @@
     <ClInclude Include="lu_decomposition.hpp">
       <Filter>Transformations\Linear algebra\Matrix decompositions\Lu decomposition</Filter>
     </ClInclude>
-    <ClInclude Include="lu_decomposition_tools.h">
-      <Filter>Transformations\Linear algebra\Matrix decompositions\Lu decomposition</Filter>
-    </ClInclude>
-    <ClInclude Include="lu_decomposition_tools.hpp">
-      <Filter>Transformations\Linear algebra\Matrix decompositions\Lu decomposition</Filter>
-    </ClInclude>
     <ClInclude Include="qr_decomposition.h">
       <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
     </ClInclude>
     <ClInclude Include="qr_decomposition.hpp">
-      <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
-    </ClInclude>
-    <ClInclude Include="qr_decomposition_tools.h">
-      <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
-    </ClInclude>
-    <ClInclude Include="qr_decomposition_tools.hpp">
       <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
     </ClInclude>
     <ClInclude Include="conformalaffine2d.h">
@@ -280,35 +259,89 @@
     <ClInclude Include="matrix_tools.h">
       <Filter>Transformations\Linear algebra\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="matrix_tools_more4.hpp">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
     <ClInclude Include="matrix_tools.hpp">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more.h">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more.hpp">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more2.h">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more2.hpp">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more3.h">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more3.hpp">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_tools_more4.h">
       <Filter>Transformations\Linear algebra\Matrix</Filter>
     </ClInclude>
     <ClInclude Include="matrix_decompositions.h">
       <Filter>Transformations\Linear algebra\Matrix decompositions</Filter>
+    </ClInclude>
+    <ClInclude Include="solve_linear.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="solve_linear.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_algorithms.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="random_matrix.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="random_matrix.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_trace.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_trace.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_diagonal_product.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_diagonal_product.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_determinant.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_determinant.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_norm.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_norm.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_adjugate.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_adjugate.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_cofactor.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_cofactor.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_inverse.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_inverse.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_eigen.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_eigen.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_expression.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_view.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_expression_more.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_expression_more.hpp">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_expression.hpp">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -379,6 +412,9 @@
       <Filter>Undocumented\Interval</Filter>
     </None>
     <None Include="pastelmath.txt" />
+    <None Include="matrix_algorithms.txt">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mathlibrary.cpp">

@@ -7,7 +7,6 @@
 
 #include "pastel/sys/indexextenders.h"
 
-#include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"
 
 namespace Pastel

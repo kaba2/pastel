@@ -8,8 +8,8 @@
 #include "pastel/gfx/gfxlibrary.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/countedptr.h"
 
+#include <memory>
 #include <string>
 
 namespace Pastel
@@ -28,7 +28,6 @@ namespace Pastel
 	*/
 
 	class PASTELGFX Filter
-		: public ReferenceCounted
 	{
 	public:
 		// Using default constructor.
@@ -65,8 +64,8 @@ namespace Pastel
 		std::string name_;
 	};
 
-	typedef CountedPtr<Filter> FilterPtr;
-	typedef CountedPtr<const Filter> ConstFilterPtr;
+	typedef std::shared_ptr<Filter> FilterPtr;
+	typedef std::shared_ptr<const Filter> ConstFilterPtr;
 
 }
 

@@ -1,15 +1,16 @@
-// Description: Some matrix expressions
-// Detail: min, max, abs, repeat, outerProduct, asMatrix, etc.
+// Description: More matrix expressions
+// Documentation: matrix.txt
 
-#ifndef PASTELMATH_MATRIX_TOOLS_MORE4_H
-#define PASTELMATH_MATRIX_TOOLS_MORE4_H
+#ifndef PASTELMATH_MATRIX_EXPRESSION_MORE_H
+#define PASTELMATH_MATRIX_EXPRESSION_MORE_H
 
-#include "pastel/math/matrix_tools.h"
+#include "pastel/math/matrix.h"
 
 #include "pastel/sys/view.h"
 
 namespace Pastel
 {
+
 	template <
 		typename Real,
 		int Height, int Width,
@@ -108,5 +109,7 @@ namespace Pastel
 		const VectorExpression<Real, N, Expression>& that);
 
 }
+
+#include "pastel/math/matrix_expression_more.hpp"
 
 #endif

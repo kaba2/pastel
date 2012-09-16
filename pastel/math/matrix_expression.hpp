@@ -1,12 +1,7 @@
-// Description: Basic matrix expressions
-// Detail: negation, addition, subtraction, multiplication etc.
+#ifndef PASTELMATH_MATRIX_EXPRESSION_HPP
+#define PASTELMATH_MATRIX_EXPRESSION_HPP
 
-#ifndef PASTELMATH_MATRIXEXPRESSION_H
-#define PASTELMATH_MATRIXEXPRESSION_H
-
-#include "pastel/math/matrix.h"
-
-#include "pastel/sys/ensure.h"
+#include "pastel/math/matrix_expression.h"
 
 namespace Pastel
 {
@@ -639,6 +634,83 @@ namespace Pastel
 		const integer height_;
 		const Real diagonal_;
 	};
+
+	template <typename Real, int Height, int Width>
+	MatrixDiagonal<Real, Height, Width> identityMatrix()
+	{
+		PASTEL_STATIC_ASSERT(Width != Dynamic && Height != Dynamic);
+
+		return Pastel::identityMatrix<Real, Height, Width>(Height, Width);
+	}
+
+	template <typename Real, int Height, int Width>
+	MatrixDiagonal<Real, Height, Width> identityMatrix(
+		integer height, integer width)
+	{
+		return MatrixDiagonal<Real, Height, Width>(height, width, 1);
+	}
+
+	template <
+		typename Real,
+		int Height, int Width,
+		typename Expression>
+	class MatrixTranspose
+		: public MatrixExpression<Real, Width, Height, 
+		MatrixTranspose<Real, Height, Width, Expression> >
+	{
+	public:
+		typedef const MatrixTranspose& StorageType;
+
+		explicit MatrixTranspose(
+			const Expression& data)
+			: data_(data)
+		{
+		}
+
+		Real operator()(integer y, integer x) const
+		{
+			return data_(x, y);
+		}
+
+		integer width() const
+		{
+			return data_.height();
+		}
+
+		integer height() const
+		{
+			return data_.width();
+		}
+
+		bool involves(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			return data_.involves(memoryBegin, memoryEnd);
+		}
+
+		bool evaluateBeforeAssignment(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			// With transpose the involvement
+			// of a subexpression becomes non-trivial,
+			// so any occurence will do.
+
+			return data_.involves(memoryBegin, memoryEnd);
+		}
+
+	private:
+		typename Expression::StorageType data_;
+	};
+
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixTranspose<Real, Height, Width, Expression> transpose(
+		const MatrixExpression<Real, Height, Width, Expression>& that)
+	{
+		return MatrixTranspose<Real, Height, Width, Expression>(
+			(const Expression&)that);
+	}
 
 }
 

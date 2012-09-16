@@ -42,7 +42,6 @@ namespace Pastel
 
 		friend class FastList;
 		friend class FastList::const_iterator;
-		friend struct std::hash<typename FastList<Type, UniformAllocator>::iterator>;
 
 		// Using default copy constructor
 		// Using default destructor
@@ -139,7 +138,6 @@ namespace Pastel
 		typedef typename FastList<Type, UniformAllocator>::iterator iterator;
 	public:
 		friend class FastList<Type, UniformAllocator>;
-		friend struct std::hash<typename FastList<Type, UniformAllocator>::const_iterator>;
 
 		typedef std::bidirectional_iterator_tag iterator_category;
 		typedef const Type value_type;
