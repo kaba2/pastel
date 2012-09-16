@@ -204,8 +204,7 @@ namespace Pastel
 			incidencesSet_.fill(0);
 		}
 
-		template <IncidenceType I>
-		void insert(Incidence* incidence)
+		void insert(integer I, Incidence* incidence)
 		{
 			// Find a proper place to insert the
 			// incidence.
@@ -243,8 +242,7 @@ namespace Pastel
 			++incidencesSet_[I];
 		}
 
-		template <IncidenceType I>
-		void release(Incidence* incidence)
+		void release(integer I, Incidence* incidence)
 		{
 			ASSERT_OP(I, <, IncidenceTypes);
 			ASSERT_OP(incidencesSet_[I], >, 0);
@@ -271,31 +269,28 @@ namespace Pastel
 			}
 		}
 
-		template <IncidenceType I>
-		void erase(Incidence* incidence)
+		void erase(integer I, Incidence* incidence)
 		{
-			release<I>(incidence);
+			release(I, incidence);
 
 			// Delete the incidence.
 			delete incidence;
 		}
 
-		template <IncidenceType From, IncidenceType To>
-		void move(
+		void move(integer From, integer To,
 			Incidence* incidence)
 		{
-			release<From>(incidence);
-			insert<To>(incidence);
+			release(From, incidence);
+			insert(To, incidence);
 		}
 
-		template <IncidenceType I>
-		void erase()
+		void erase(integer I)
 		{
 			Incidence* incidence = partitionSet_[I];
 			while(incidence != &sentinel_)
 			{
 				Incidence* next = incidence->next_;
-				erase<I>(incidence);
+				erase(I, incidence);
 				incidence = next;
 			}
 		}
@@ -328,14 +323,14 @@ namespace Pastel
 			sentinel->prev_ = sentinel;
 		}
 
-		template <int I>
+		template <integer I>
 		PASTEL_ENABLE_IF_C(I < IncidenceTypes, Incidence*) 
 			begin_() const
 		{
 			return partitionSet_[I];
 		}
 
-		template <int I>
+		template <integer I>
 		PASTEL_ENABLE_IF_C(I < IncidenceTypes, Incidence*) 
 			end_() const
 		{
@@ -353,7 +348,7 @@ namespace Pastel
 			return (Incidence*)&sentinel_;
 		}
 
-		template <int I>
+		template <integer I>
 		PASTEL_ENABLE_IF_C(I < IncidenceTypes, integer) 
 			incidences_() const
 		{

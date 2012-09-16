@@ -6,6 +6,7 @@
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/null_reporter.h"
+#include "pastel/sys/push_back_reporter.h"
 #include "pastel/sys/random_uniform.h"
 
 #include <boost/type_traits/is_same.hpp>

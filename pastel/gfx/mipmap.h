@@ -44,7 +44,8 @@ namespace Pastel
 		typedef View<N, Type, ArrayView<N, Array<Type, N> > >
 			MipView;
 		typedef ConstView<N, Type, ConstArrayView<N, Array<Type, N> > >
-			ConstMipView;		
+			ConstMipView;
+		typedef ArrayExtender<N, Type> ArrayExtender_;
 
 		// Using default copy constructor.
 		// Using default destructor.
@@ -54,13 +55,13 @@ namespace Pastel
 		template <typename Image_ConstView>
 		explicit MipMap(
 			const ConstView<N, Type, Image_ConstView>& image,
-			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>(clampExtender()),
+			const ArrayExtender_& extender = ArrayExtender_(clampExtender()),
 			const FilterPtr& filter = gaussianFilter(2));
 
 		template <typename Image_ConstView>
 		void setImage(
 			const ConstView<N, Type, Image_ConstView>& image,
-			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>(clampExtender()),
+			const ArrayExtender_& extender = ArrayExtender_(clampExtender()),
 			const FilterPtr& filter = gaussianFilter(2));
 
 		void swap(MipMap& that);
@@ -88,7 +89,7 @@ namespace Pastel
 
 	private:
 		std::vector<Array<Type, N> > mipMapArray_;
-		ArrayExtender<N, Type> extender_;
+		ArrayExtender_ extender_;
 	};
 
 }

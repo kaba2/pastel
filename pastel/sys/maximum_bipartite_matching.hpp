@@ -27,7 +27,7 @@ namespace Pastel
 		{
 		public:
 			typedef typename Vertex_Pair_ForwardRange::value_type Type;
-			typedef typename As_Pair::ConceptMap<Type> Type_As_Pair;
+			typedef typename As_Pair::template ConceptMap<Type> Type_As_Pair;
 			typedef typename Type_As_Pair::Left Left;
 			typedef typename Type_As_Pair::Right Right;
 
@@ -462,7 +462,7 @@ namespace Pastel
 		const As_Pair& asPair)
 	{
 		typedef typename Vertex_Pair_ForwardRange::value_type Type;
-		typedef typename As_Pair::ConceptMap<Type> Type_As_Pair;
+		typedef typename As_Pair::template ConceptMap<Type> Type_As_Pair;
 		typedef typename Type_As_Pair::Left Left;
 		typedef typename Type_As_Pair::Right Right;
 

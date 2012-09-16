@@ -15,8 +15,8 @@ namespace Pastel
 	public:
 		enum Enum
 		{
-			Tree_Child::Left,
-			Tree_Child::Right
+			Left,
+			Right
 		};
 	};
 

@@ -8,6 +8,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/referencecounted.h"
+#include "pastel/sys/hashing.h"
 
 #include <boost/operators.hpp>
 

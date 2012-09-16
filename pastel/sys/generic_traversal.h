@@ -23,7 +23,7 @@ namespace Pastel
 		const Marked& marked,
 		const GraphTraversal_Algorithm& algorithm)
 	{
-		algorithm.work<Vertex>(
+		algorithm.template work<Vertex>(
 			forEachSeedVertex,
 			forEachAdjacent,
 			mark,

@@ -6,6 +6,8 @@
 #include "pastel/sys/reporter_concept.h"
 #include "pastel/sys/range.h"
 
+#include "pastel/geometry/alignedbox.h"
+
 #include <vector>
 #include <iterator>
 

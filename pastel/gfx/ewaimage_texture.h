@@ -55,9 +55,11 @@ namespace Pastel
 		: public Texture<Type, N>
 	{
 	public:
+		typedef ArrayExtender<N, Type> ArrayExtender_;
+		
 		explicit EwaImage_Texture(
 			const MipMap<Type, N>& mipMap,
-			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>(),
+			const ArrayExtender_& extender = ArrayExtender_(),
 			const FilterPtr& maxFilter = lanczosFilter(2),
 			const FilterPtr& minFilter = triangleFilter())
 			: mipMap_(&mipMap)
@@ -93,7 +95,7 @@ namespace Pastel
 			return *mipMap_;
 		}
 
-		void setExtender(const ArrayExtender<N, Type>& extender)
+		void setExtender(const ArrayExtender_& extender)
 		{
 			extender_ = extender;
 		}
@@ -113,7 +115,7 @@ namespace Pastel
 			const Array<Type, N>& image) const;
 
 		const MipMap<Type, N>* mipMap_;
-		ArrayExtender<N, Type> extender_;
+		ArrayExtender_ extender_;
 		std::vector<real> minFilterTable_;
 		std::vector<real> maxFilterTable_;
 		integer filterTableSize_;

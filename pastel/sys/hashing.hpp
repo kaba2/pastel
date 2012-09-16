@@ -3,6 +3,8 @@
 
 #include "pastel/sys/hashing.h"
 
+#include <boost/type_traits/is_same.hpp>
+
 namespace Pastel
 {
 
@@ -14,7 +16,9 @@ namespace Pastel
 		return hasher(that);
 	}
 
-	inline uint32 combineHash(uint32 left, uint32 right)
+	template <typename Integer>
+	PASTEL_ENABLE_IF_C(sizeof(Integer) == sizeof(uint32), Integer) 
+		combineHash(Integer left, Integer right)
 	{ 
 		// This code is from the Boost library.
 
@@ -24,7 +28,7 @@ namespace Pastel
 		// of the golden ratio is that it is 
 		// irrational, supposedly giving bits 
 		// without a repeating pattern.
-		const uint32 magic = 0x9e3779b9;
+		const Integer magic = 0x9e3779b9;
 
 		left ^= 
 			right + 
@@ -35,7 +39,9 @@ namespace Pastel
 		return left;
 	} 
 
-	inline uint64 combineHash(uint64 left, uint64 right)
+	template <typename Integer>
+	PASTEL_ENABLE_IF_C(sizeof(Integer) == sizeof(uint64), Integer) 
+		combineHash(Integer left, Integer right)
 	{ 
 		// This is 2^64 / [(1 + sqrt(5)) / 2].
 		// See the combineHash32() function.
@@ -111,8 +117,8 @@ namespace Pastel
 
 			uint32 hash = currentHash;
 
-			Char_ConstIterator iter = boost::begin(input);
-			const Char_ConstIterator end = boost::end(input);
+			auto iter = boost::begin(input);
+			auto end = boost::end(input);
 			while(iter != end)
 			{
 				hash += *iter;

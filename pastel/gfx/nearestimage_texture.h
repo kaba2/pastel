@@ -20,6 +20,7 @@ namespace Pastel
 
 	public:
 		typedef typename Base::Element Element;
+		typedef ArrayExtender<N, Type> ArrayExtender_;
 
 		NearestImage_Texture()
 			: image_(0)
@@ -30,7 +31,7 @@ namespace Pastel
 
 		explicit NearestImage_Texture(
 			const Array<Type, N>& image,
-			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>())
+			const ArrayExtender_& extender = ArrayExtender_())
 			: image_(&image)
 			, extender_(extender)
 			, extent_(image.extent())
@@ -56,7 +57,7 @@ namespace Pastel
 			extent_ = Vector<real, N>(image.extent());
 		}
 
-		void setExtender(const ArrayExtender<N, Type>& extender)
+		void setExtender(const ArrayExtender_& extender)
 		{
 			extender_ = extender;
 		}
@@ -68,7 +69,7 @@ namespace Pastel
 
 	private:
 		const Array<Type, N>* image_;
-		ArrayExtender<N, Type> extender_;
+		ArrayExtender_ extender_;
 		Vector<real, N> extent_;
 	};
 

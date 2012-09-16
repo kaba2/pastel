@@ -21,6 +21,12 @@ namespace Pastel
 			: public AsClass<Data>::type
 		{
 		public:
+			template <typename, typename, typename, typename>
+			friend class Pastel::RedBlackTree;
+
+			template <typename, typename>
+			friend class Iterator;
+
 			typedef typename AsClass<Data>::type
 				Data_Class;
 
@@ -57,12 +63,6 @@ namespace Pastel
 			Node(const Node& that) PASTEL_DELETE;
 			Node(Node&& that) PASTEL_DELETE;
 			Node& operator=(Node that) PASTEL_DELETE;
-
-			template <typename, typename, typename, typename>
-			friend class RedBlackTree;
-
-			template <typename, typename>
-			friend class Iterator;
 
 			Node(Key key,
 				Data_Class data,

@@ -54,7 +54,7 @@ namespace Pastel
 				[&](const State_ConstIterator& state,
 				StateSet&& stateSet)
 			{
-				closureMap.emplace(
+				closureMap.insert(
 					std::make_pair(state, std::move(stateSet)));
 			};
 
@@ -112,8 +112,8 @@ namespace Pastel
 					closure.cend());
 			});
 
-			workSet.emplace_back(std::move(startStateSet));
-			existingSet.emplace(&workSet.back());
+			workSet.push_back(std::move(startStateSet));
+			existingSet.insert(&workSet.back());
 
 			// Report the start state-set.
 			reportState(
@@ -126,9 +126,9 @@ namespace Pastel
 			// the ready-set. Note that we preserve the
 			// memory address of the state-set.
 			readySet.splice(
-				readySet.cend(),
+				readySet.end(),
 				workSet,
-				workSet.cbegin());
+				workSet.begin());
 
 			const StateSet& stateSet = readySet.back();
 			ASSERT(existingSet.count(&stateSet));
@@ -193,8 +193,8 @@ namespace Pastel
 					// This state-set is a new one.
 
 					// Store the state-set in the work-set.
-					workSet.emplace_back(std::move(newStateSet));
-					existingSet.emplace(&workSet.back());
+					workSet.push_back(std::move(newStateSet));
+					existingSet.insert(&workSet.back());
 					
 					// Report the new state-set.
 					reportState(

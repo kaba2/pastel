@@ -1,4 +1,4 @@
-// Description: Testing for Tree
+// Description: Testing for Tree_
 // DocumentationOf: tree.h
 
 #include "test_pastelsys.h"
@@ -19,11 +19,11 @@ namespace
 		: public TestSuite
 	{
 	public:
-		typedef Tree<integer> Tree;
-		typedef Tree::Iterator Iterator;
-		typedef Tree::ConstIterator ConstIterator;
-		typedef Tree::Range Range;
-		typedef Tree::ConstRange ConstRange;
+		typedef Tree<integer> Tree_;
+		typedef Tree_::Iterator Iterator;
+		typedef Tree_::ConstIterator ConstIterator;
+		typedef Tree_::Range Range;
+		typedef Tree_::ConstRange ConstRange;
 
 		Test()
 			: TestSuite(&testReport())
@@ -39,19 +39,19 @@ namespace
 		}
 
 		template <int N>
-		bool same(const Tree& tree, integer (&correctSet)[N]) const
+		bool same(const Tree_& tree, integer (&correctSet)[N]) const
 		{
 			return boost::equal(range(correctSet), tree.crange(), EqualTo());
 		}
 
-		bool same(const Tree& tree, const Tree& that)
+		bool same(const Tree_& tree, const Tree_& that)
 		{
 			return boost::equal(tree.crange(), that.crange(), EqualTo());
 		}
 
 		void test()
 		{
-			Tree tree;
+			Tree_ tree;
 			{
 				TEST_ENSURE(tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 0);
@@ -93,7 +93,7 @@ namespace
 				TEST_ENSURE(same(tree, correctSet));
 			}
 
-			Tree copyTree(tree);
+			Tree_ copyTree(tree);
 			{
 				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
 				TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 5);
@@ -132,7 +132,7 @@ namespace
 			}
 
 			{
-				Tree anotherTree(std::move(copyTree));
+				Tree_ anotherTree(std::move(copyTree));
 				{
 					TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 1);
 					TEST_ENSURE_OP(tree.sentinelCount(), ==, 4);
@@ -152,7 +152,7 @@ namespace
 
 		void testInsert()
 		{
-			Tree tree;
+			Tree_ tree;
 			Iterator aIter = tree.insertRoot(0);
 			Iterator bIter = tree.insert(aIter, Tree_Child::Left, 1);
 			Iterator cIter = tree.insert(bIter, Tree_Child::Right, 2);
@@ -167,7 +167,7 @@ namespace
 				TEST_ENSURE(same(tree, correctSet));
 			}
 
-			Tree detached = tree.detach(newIter);
+			Tree_ detached = tree.detach(newIter);
 			{
 				integer correctSet[] = {1, 2, 0};
 				TEST_ENSURE(same(tree, correctSet));
@@ -180,7 +180,7 @@ namespace
 		template <typename Iter>
 		void testIterator()
 		{
-			Tree tree;
+			Tree_ tree;
 			Iter aIter = tree.insertRoot(0);
 			Iter bIter = tree.insert(aIter, Tree_Child::Left, 1);
 			Iter cIter = tree.insert(bIter, Tree_Child::Right, 2);
@@ -259,7 +259,7 @@ namespace
 			}
 		}
 
-		void print(const Tree& that)
+		void print(const Tree_& that)
 		{
 			ConstRange range = that.crange();
 			while(!range.empty())

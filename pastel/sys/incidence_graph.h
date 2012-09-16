@@ -21,7 +21,6 @@ namespace Pastel
 		typename VertexData = void, 
 		typename EdgeData = void>
 	class Incidence_Graph
-		: public Incidence_Graph_Fwd<Type, VertexData, EdgeData>
 	{
 	public:
 		typedef Incidence_Graph_Fwd<Type, VertexData, EdgeData> Fwd;
@@ -43,7 +42,13 @@ namespace Pastel
 		PASTEL_FWD(Incidence_Iterator);
 		PASTEL_FWD(Incidence_ConstIterator);
 
-		using Fwd::IncidenceType;
+		enum
+		{
+			Outgoing = Fwd::IncidenceType::Outgoing,
+			Incoming = Fwd::IncidenceType::Incoming,
+			Undirected = Fwd::IncidenceType::Undirected,
+			IncidenceTypes = Fwd::IncidenceType::IncidenceTypes
+		};
 
 		//! Constructs an empty graph.
 		/*!
@@ -180,7 +185,7 @@ namespace Pastel
 		{
 			while(!edgeSet_.empty())
 			{
-				removeEdge(edgeSet.cbegin());
+				removeEdge(edgeSet_.cbegin());
 			}
 		}
 
@@ -236,7 +241,8 @@ namespace Pastel
 			}
 
 			// Remove the vertex.
-			return vertexSet_.erase(vertex);
+			// The cast is needed for GCC's non-C++11 libraries.
+			return vertexSet_.erase(cast(vertex));
 		}
 
 		//! Casts away constness of a vertex.
@@ -276,7 +282,7 @@ namespace Pastel
 		*/
 		Vertex_ConstIterator cVertexBegin() const
 		{
-			return vertexSet_.cbegin();
+			return ((Incidence_Graph&)*this).vertexSet_.begin();
 		}
 
 		//! Returns the end-iterator of the vertex-set.
@@ -302,7 +308,7 @@ namespace Pastel
 		*/
 		Vertex_ConstIterator cVertexEnd() const
 		{
-			return vertexSet_.cend();
+			return ((Incidence_Graph&)*this).vertexSet_.end();
 		}
 
 		//! Returns the number of vertices in the graph.
@@ -372,16 +378,16 @@ namespace Pastel
 			{
 				if (edge->directed())
 				{
-					mutableFrom->insert<Outgoing>(
+					mutableFrom->insert(Outgoing,
 						fromIncidence.release());
-					mutableTo->insert<Incoming>(
+					mutableTo->insert(Incoming,
 						toIncidence.release());
 				}
 				else
 				{
-					mutableFrom->insert<Undirected>(
+					mutableFrom->insert(Undirected,
 						fromIncidence.release());
-					mutableTo->insert<Undirected>(
+					mutableTo->insert(Undirected,
 						toIncidence.release());
 				}
 			}
@@ -406,17 +412,17 @@ namespace Pastel
 			// Link the edge off from the vertices.
 			if (edge->directed())
 			{
-				from->erase<Outgoing>(edge->from_);
-				to->erase<Incoming>(edge->to_);
+				from->erase(Outgoing, edge->from_);
+				to->erase(Incoming, edge->to_);
 			}
 			else
 			{
-				from->erase<Undirected>(edge->from_);
-				to->erase<Undirected>(edge->to_);
+				from->erase(Undirected, edge->from_);
+				to->erase(Undirected, edge->to_);
 			}
 
 			// Remove the edge.
-			return edgeSet_.erase(edge);
+			return edgeSet_.erase(cast(edge));
 		}
 
 		//! Reverses the directionality of an edge.
@@ -437,9 +443,9 @@ namespace Pastel
 
 			if (edge->directed())
 			{
-				from->move<Outgoing, Incoming>(
+				from->move(Outgoing, Incoming,
 					cast(edge)->from_);
-				to->move<Incoming, Outgoing>(
+				to->move(Incoming, Outgoing,
 					cast(edge)->to_);
 			}
 
@@ -474,18 +480,18 @@ namespace Pastel
 			{
 				// Turn an undirected edge into 
 				// a directed edge.
-				from->move<Undirected, Outgoing>(
+				from->move(Undirected, Outgoing,
 					cast(edge)->from_);
-				to->move<Undirected, Incoming>(
+				to->move(Undirected, Incoming,
 					cast(edge)->to_);
 			}
 			else
 			{
 				// Turn a directed edge into 
 				// an undirected edge.
-				from->move<Outgoing, Undirected>(
+				from->move(Outgoing, Undirected,
 					cast(edge)->from_);
-				to->move<Incoming, Undirected>(
+				to->move(Incoming, Undirected,
 					cast(edge)->to_);
 			}
 
@@ -529,7 +535,7 @@ namespace Pastel
 		*/
 		Edge_ConstIterator cEdgeBegin() const
 		{
-			return edgeSet_.cbegin();
+			return ((Incidence_Graph&)*this).edgeSet_.begin();
 		}
 
 		//! Returns the end-iterator of the edge set.
@@ -555,7 +561,7 @@ namespace Pastel
 		*/
 		Edge_ConstIterator cEdgeEnd() const
 		{
-			return edgeSet_.cend();
+			return ((Incidence_Graph&)*this).edgeSet_.end();
 		}
 
 		//! Returns the number of edges.
@@ -585,12 +591,12 @@ namespace Pastel
 		{
 			// Merge the vertex sets.
 			vertexSet_.splice(
-				vertexSet_.cend(),
+				vertexSet_.end(),
 				that.vertexSet_);
 
 			// Merge the edge sets.
 			edgeSet_.splice(
-				edgeSet_.cend(),
+				edgeSet_.end(),
 				that.edgeSet_);
 		}
 
