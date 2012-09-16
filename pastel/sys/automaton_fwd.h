@@ -6,6 +6,7 @@
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/optional.h"
 #include "pastel/sys/second_iterator.h"
+#include "pastel/sys/hashing.h"
 
 namespace Pastel
 {
@@ -71,16 +72,26 @@ namespace Pastel
 			FinalSet;
 		typedef typename FinalSet::iterator
 			Final_Iterator;
+	#ifdef __GNUC__
+		typedef typename FinalSet::iterator
+			Final_ConstIterator;
+	#else
 		typedef typename FinalSet::const_iterator
 			Final_ConstIterator;
+	#endif
 
 		//! The set of start states.
 		typedef std::list<State_ConstIterator>
 			StartSet;
 		typedef typename StartSet::iterator
 			Start_Iterator;
+	#ifdef __GNUC__
+		typedef typename StartSet::iterator
+			Start_ConstIterator;
+	#else
 		typedef typename StartSet::const_iterator
 			Start_ConstIterator;
+	#endif
 
 		//! A set of branches.
 		/*!
@@ -96,19 +107,27 @@ namespace Pastel
 			BranchMap;
 		typedef typename BranchMap::iterator
 			Actual_Branch_Iterator;
+	#ifdef __GNUC__
+		typedef typename BranchMap::iterator
+			Actual_Branch_ConstIterator;
+	#else
 		typedef typename BranchMap::const_iterator
 			Actual_Branch_ConstIterator;
+	#endif
 		typedef Second_Iterator<Actual_Branch_Iterator, false>
 			Branch_Iterator;
+	#ifdef __GNUC__
+		typedef Branch_Iterator
+			Branch_ConstIterator;
+	#else
 		typedef Second_Iterator<Actual_Branch_ConstIterator, true>
 			Branch_ConstIterator;
+	#endif
 	
 	private:
 		template <
-			typename Symbol, 
-			typename StateData, 
-			typename TransitionData,
-			typename Customization>
+			typename, typename, 
+			typename, typename>
 		friend class Automaton;
 
 		class StateSymbol

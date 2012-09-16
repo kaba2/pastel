@@ -194,7 +194,7 @@ namespace Pastel
 		*/
 		void clear()
 		{
-			onClear();
+			this->onClear();
 
 			graph_.clear();
 			startSet_.clear();
@@ -216,7 +216,7 @@ namespace Pastel
 		*/
 		void clearTransitions()
 		{
-			onClearTransitions();
+			this->onClearTransitions();
 
 			graph_.clearEdges();
 			branchMapMap_.clear();
@@ -236,7 +236,7 @@ namespace Pastel
 		*/
 		void clearStart()
 		{
-			onClearStart();
+			this->onClearStart();
 
 			while(startStates() > 0)
 			{
@@ -256,7 +256,7 @@ namespace Pastel
 		*/
 		void clearFinal()
 		{
-			onClearFinal();
+			this->onClearFinal();
 
 			while(finalStates() > 0)
 			{
@@ -303,7 +303,7 @@ namespace Pastel
 
 			try
 			{
-				onAddState(state);
+				this->onAddState(state);
 			}
 			catch(...)
 			{
@@ -325,7 +325,7 @@ namespace Pastel
 		State_Iterator removeState(
 			const State_ConstIterator& state)
 		{
-			onRemoveState(state);
+			this->onRemoveState(state);
 
 			// Remove all transitions that are 
 			// incoming or outgoing at this vertex.
@@ -381,14 +381,14 @@ namespace Pastel
 			}
 			
 			Start_Iterator start = startSet_.insert(
-				startSet_.cend(), state);
+				startSet_.end(), state);
 
 			cast(state)->startPosition_ = start; 
 			cast(state)->setStart(true);
 
 			try
 			{
-				onAddStart(state);
+				this->onAddStart(state);
 			}
 			catch(...)
 			{
@@ -415,7 +415,7 @@ namespace Pastel
 				return state->startPosition_;
 			}
 			
-			onRemoveStart(state);
+			this->onRemoveStart(state);
 
 			Start_Iterator next =
 				startSet_.erase(state->startPosition_);
@@ -441,7 +441,7 @@ namespace Pastel
 		*/
 		Start_ConstIterator cStartBegin() const
 		{
-			return startSet_.cbegin();
+			return ((Automaton&)*this).startSet_.begin();
 		}
 
 		//! Returns the end-iterator of the start-states.
@@ -461,7 +461,7 @@ namespace Pastel
 		*/
 		Start_ConstIterator cStartEnd() const
 		{
-			return startSet_.cend();
+			return ((Automaton&)*this).startSet_.end();
 		}
 
 		//! Returns the number of start states.
@@ -493,14 +493,14 @@ namespace Pastel
 			}
 
 			Final_Iterator final = finalSet_.insert(
-				finalSet_.cend(), state);
+				finalSet_.end(), state);
 
 			cast(state)->finalPosition_ = final;
 			cast(state)->setFinal(true);
 
 			try
 			{
-				onAddFinal(state);
+				this->onAddFinal(state);
 			}
 			catch(...)
 			{
@@ -527,7 +527,7 @@ namespace Pastel
 				return state->finalPosition_;
 			}
 
-			onRemoveFinal(state);
+			this->onRemoveFinal(state);
 
 			Final_Iterator next = 
 				finalSet_.erase(state->finalPosition_);
@@ -554,7 +554,7 @@ namespace Pastel
 		*/
 		Final_ConstIterator cFinalBegin() const
 		{
-			return finalSet_.cbegin();
+			return ((Automaton&)*this).finalSet_.begin();
 		}
 
 		//! Returns the end-iterator of the final states.
@@ -574,7 +574,7 @@ namespace Pastel
 		*/
 		Final_ConstIterator cFinalEnd() const
 		{
-			return finalSet_.cend();
+			return ((Automaton&)*this).finalSet_.end();
 		}
 
 		//! Returns the number of final states.
@@ -655,7 +655,7 @@ namespace Pastel
 			const State_ConstIterator& toState,
 			TransitionData_Class transitionData = TransitionData_Class())
 		{
-			if (!canAddTransition(fromState, symbol, toState))
+			if (!this->canAddTransition(fromState, symbol, toState))
 			{
 				return transitionEnd();
 			}
@@ -724,7 +724,7 @@ namespace Pastel
 				}
 
 				// Call the customization.
-				onAddTransition(transition);
+				this->onAddTransition(transition);
 			}
 			catch(...)
 			{
@@ -768,7 +768,7 @@ namespace Pastel
 		Transition_Iterator removeTransition(
 			const Transition_ConstIterator& transition)
 		{
-			onRemoveTransition(transition);
+			this->onRemoveTransition(transition);
 
 			Symbol_BranchMap_Iterator branchMap =
 				branchMapMap_.find(StateSymbol(
@@ -956,7 +956,7 @@ namespace Pastel
 		*/
 		void merge(Automaton& that)
 		{
-			onMerge(that);
+			this->onMerge(that);
 
 			Symbol_BranchMap_Map branchMapMap;
 			
@@ -1001,11 +1001,12 @@ namespace Pastel
 			const State_ConstIterator& state,
 			const Optional<Symbol>& symbol) const
 		{
-			const BranchMap& map = branchMap(state, symbol);
+			BranchMap& map = 
+				(BranchMap&)branchMap(state, symbol);
 
 			return range(
-				Branch_ConstIterator(map.cbegin()),
-				Branch_ConstIterator(map.cend()));
+				Branch_ConstIterator(map.begin()),
+				Branch_ConstIterator(map.end()));
 		}
 
 		//! Returns whether there is a transition from 'state' with 'symbol'.
@@ -1066,7 +1067,7 @@ namespace Pastel
 			const State_ConstIterator& toState) const
 		{
 			const BranchMap& map =
-				branchMap(state, symbol);
+				branchMap(fromState, symbol);
 
 			const Branch_ConstIterator branch = 
 				map.find(toState);

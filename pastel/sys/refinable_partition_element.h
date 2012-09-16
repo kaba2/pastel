@@ -20,6 +20,12 @@ namespace Pastel
 		: public ElementData_Class
 	{
 	public:
+		template <typename, typename>
+		friend class RefinablePartition;
+
+		template <typename ElementData_, typename SetData_>
+		friend class RefinablePartition_Fwd<ElementData_, SetData_>::Set;
+
 		using ElementData_Class::operator=;
 
 		//! Move-constructs from another element.
@@ -68,12 +74,6 @@ namespace Pastel
 		}
 
 	private:
-		template <typename ElementData, typename SetData>
-		friend class RefinablePartition;
-
-		template <typename ElementData, typename SetData>
-		friend class RefinablePartition_Fwd<ElementData, SetData>::Set;
-
 		Element() PASTEL_DELETE;
 		Element(const Element& that) PASTEL_DELETE;
 		Element& operator=(Element that) PASTEL_DELETE;

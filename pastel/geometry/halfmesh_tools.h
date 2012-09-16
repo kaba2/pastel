@@ -170,7 +170,7 @@ namespace Pastel
 				next.empty() ||
 				pair.empty() ||
 				half.origin().empty() ||
-				half.edge().empty() |
+				half.edge().empty() ||
 				previous.next() != half ||
 				next.previous() != half ||
 				next.left() != half.left() ||

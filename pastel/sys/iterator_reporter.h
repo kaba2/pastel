@@ -20,8 +20,8 @@ namespace Pastel
 		template <typename That>
 		bool operator()(That&& that) const
 		{
-			*iter = std::forward<That>(that);
-			++iter;
+			*iter_ = std::forward<That>(that);
+			++iter_;
 			return true;
 		}
 

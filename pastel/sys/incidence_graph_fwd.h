@@ -83,8 +83,12 @@ namespace Pastel
 		typedef std::list<Vertex> VertexSet;
 		typedef typename VertexSet::iterator 
 			Vertex_Iterator;
+#ifndef __GNUC__
 		typedef typename VertexSet::const_iterator 
 			Vertex_ConstIterator;
+#else
+		typedef Vertex_Iterator Vertex_ConstIterator;
+#endif
 		typedef typename AsClass<VertexData>::type 
 			VertexData_Class;
 
@@ -94,8 +98,12 @@ namespace Pastel
 		typedef std::list<Edge> EdgeSet;
 		typedef typename EdgeSet::iterator 
 			Edge_Iterator;
+#ifndef __GNUC__
 		typedef typename EdgeSet::const_iterator 
 			Edge_ConstIterator;
+#else
+		typedef Edge_Iterator Edge_ConstIterator;
+#endif
 		typedef typename AsClass<EdgeData>::type 
 			EdgeData_Class;
 
@@ -108,7 +116,6 @@ namespace Pastel
 		typedef Incidence_Graph_::Incidence_Iterator<const Incidence*> 
 			Incidence_ConstIterator;
 
-	protected:
 		enum IncidenceType
 		{
 			IncidenceTypes = (Type == GraphType::Undirected) ? 1 : ((Type == GraphType::Directed) ? 2 : 3),

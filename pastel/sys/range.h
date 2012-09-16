@@ -18,7 +18,7 @@ namespace Pastel
 		const Iterator& begin,
 		integer size)
 	{
-		ENSURE_OP(size, >=, 0);
+		//ENSURE_OP(size, >=, 0);
 		return boost::make_iterator_range(
 			begin, std::next(begin, size));
 	}
