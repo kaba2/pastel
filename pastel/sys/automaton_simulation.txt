@@ -1,3 +1,4 @@
 Simulation of an automaton
 ==========================
 
+[[Parent]]: automaton_algorithms.txt

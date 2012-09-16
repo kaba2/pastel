@@ -87,9 +87,6 @@
     <None Include="test_point_pattern_match.m">
       <Filter>Point pattern matching</Filter>
     </None>
-    <None Include="test_point_pattern_match_gmo.m">
-      <Filter>Point pattern matching</Filter>
-    </None>
     <None Include="pastelgeometrymatlab.txt" />
     <None Include="point_pattern_matching_vw.m">
       <Filter>Point pattern matching</Filter>
@@ -98,6 +95,9 @@
       <Filter>Point pattern matching</Filter>
     </None>
     <None Include="point_pattern_matching.txt">
+      <Filter>Point pattern matching</Filter>
+    </None>
+    <None Include="test_point_pattern_match_kr.m">
       <Filter>Point pattern matching</Filter>
     </None>
   </ItemGroup>

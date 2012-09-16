@@ -1,5 +1,4 @@
-// Description: Matrix class
-// Detail: Allows to work with matrices over an ordered field
+// Description: Matrix
 
 #ifndef PASTELMATH_MATRIX_H
 #define PASTELMATH_MATRIX_H

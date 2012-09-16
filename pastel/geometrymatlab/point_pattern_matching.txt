@@ -1,4 +1,4 @@
-Point pattern matching
+Point-pattern matching
 ======================
 
 [[Parent]]: pastelgeometrymatlab.txt

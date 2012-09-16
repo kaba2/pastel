@@ -1,3 +1,4 @@
+% Description: Testing for point_pattern_match_kr.m.
 % DocumentationOf: point_pattern_matching_kr.m
 
 clear all;

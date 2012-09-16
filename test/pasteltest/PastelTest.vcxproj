@@ -158,6 +158,9 @@ $(SolutionDir)lib\$(Platform)\$(Configuration)\PastelGeometryTest.exe -r</Comman
   <ItemGroup>
     <ClCompile Include="test_pastel.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="test_pastel.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

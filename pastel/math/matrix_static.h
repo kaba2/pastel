@@ -1,5 +1,5 @@
-// Description: Matrix class
-// Detail: Static-sized implementation of the Matrix class.
+// Description: Matrix
+// Detail: Static-sized implementation
 
 #ifndef PASTELMATH_MATRIX_STATIC_H
 #define PASTELMATH_MATRIX_STATIC_H

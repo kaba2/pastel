@@ -1,6 +1,8 @@
 Pastel
 ======
 
+[[Parent]]:
+
 [Back to Homepage of Kalle Rutanen][Back]
 
 [Back]: http://kaba.hilvi.org

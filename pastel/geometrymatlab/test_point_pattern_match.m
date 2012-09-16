@@ -1,3 +1,4 @@
+% Description: Testing for point_pattern_match_vw.m.
 % DocumentationOf: point_pattern_matching_vw.m
 
 clear all;
