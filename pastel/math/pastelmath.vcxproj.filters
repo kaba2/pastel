@@ -415,6 +415,9 @@
     <None Include="matrix_algorithms.txt">
       <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
     </None>
+    <None Include="undocumented.txt">
+      <Filter>Undocumented</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mathlibrary.cpp">

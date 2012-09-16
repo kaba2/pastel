@@ -1,5 +1,8 @@
 % CHECK
 % Checks a variable for validity
+%
+% Description: Concept-checks for data
+% Documentation: pastelgeometrymatlab.txt
 
 function check(data, concept)
 

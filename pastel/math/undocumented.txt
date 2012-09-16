@@ -1,5 +1,5 @@
-Undocumented PastelSys code
-===========================
+Undocumented PastelMath code
+============================
 
 [[Parent]]:
 

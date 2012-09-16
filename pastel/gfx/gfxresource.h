@@ -1,3 +1,4 @@
+// Description: Gfx resource storage
 // Documentation: undocumented.txt
 
 #ifndef PASTELGFX_GFXRESOURCE_H

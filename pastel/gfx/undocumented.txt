@@ -1,4 +1,4 @@
-Undocumented PastelSys code
+Undocumented PastelGfx code
 ===========================
 
 [[Parent]]:

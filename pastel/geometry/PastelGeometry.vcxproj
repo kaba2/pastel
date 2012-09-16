@@ -199,6 +199,7 @@
     <None Include="shape_measurements.txt" />
     <None Include="area.txt" />
     <None Include="diameter.txt" />
+    <None Include="undocumented.txt" />
     <None Include="volume.txt" />
     <None Include="distance.txt" />
     <None Include="closest.txt" />

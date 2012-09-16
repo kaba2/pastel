@@ -49,9 +49,6 @@
     <Filter Include="Shapes\Triangle">
       <UniqueIdentifier>{050fe077-7e54-4015-aa1b-0a9295312038}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Not sure">
-      <UniqueIdentifier>{15a348e0-d81d-478f-92fa-a37f9421b6ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data structures">
       <UniqueIdentifier>{82fbcbe4-0a9d-408c-a805-99cb262fb0b7}</UniqueIdentifier>
     </Filter>
@@ -192,6 +189,9 @@
     </Filter>
     <Filter Include="Data structures\Bsp trees\Kd-tree">
       <UniqueIdentifier>{63c52d91-b2d2-43ce-a63a-306d32517c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented">
+      <UniqueIdentifier>{15a348e0-d81d-478f-92fa-a37f9421b6ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -396,6 +396,9 @@
     <None Include="pastelgeometry.txt" />
     <None Include="bsp_trees.txt">
       <Filter>Data structures\Bsp trees</Filter>
+    </None>
+    <None Include="undocumented.txt">
+      <Filter>Undocumented</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1249,10 +1252,10 @@
       <Filter>Algorithms\Shape measurements\Eigenstructure</Filter>
     </ClInclude>
     <ClInclude Include="point_patterns.h">
-      <Filter>Not sure</Filter>
+      <Filter>Undocumented</Filter>
     </ClInclude>
     <ClInclude Include="point_patterns.hpp">
-      <Filter>Not sure</Filter>
+      <Filter>Undocumented</Filter>
     </ClInclude>
     <ClInclude Include="fair_splitrule.h">
       <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
