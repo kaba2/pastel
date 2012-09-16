@@ -23,6 +23,8 @@ namespace Pastel
 		: public Texture<Type, N>
 	{
 	public:
+		typedef ArrayExtender<N, Type> ArrayExtender_;
+		
 		RipImage_Texture();
 
 		virtual ~RipImage_Texture()
@@ -31,7 +33,7 @@ namespace Pastel
 
 		explicit RipImage_Texture(
 			const RipMap<Type, N>& ripMap,
-			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>());
+			const ArrayExtender_& extender = ArrayExtender_());
 
 		virtual Type operator()(
 			const Vector<real, N>& uv,
@@ -42,7 +44,7 @@ namespace Pastel
 			ripMap_ = &ripMap;
 		}
 
-		void setExtender(const ArrayExtender<N, Type>& extender)
+		void setExtender(const ArrayExtender_& extender)
 		{
 			extender_ = extender;
 		}
@@ -54,7 +56,7 @@ namespace Pastel
 
 	private:
 		const RipMap<Type, N>* ripMap_;
-		ArrayExtender<N, Type> extender_;
+		ArrayExtender_ extender_;
 	};
 
 }

@@ -85,7 +85,7 @@ namespace Pastel
 		template <typename That>
 		bool operator!=(const Optional<That>& that) const
 		{
-			return !compare.that();
+			return !compare(that);
 		}
 
 		template <typename That>

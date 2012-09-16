@@ -34,8 +34,8 @@ namespace Pastel
 		// FIX: Delete after emplace becomes available in Visual Studio.
 		StateLabel(StateLabel&& that)
 			: StateData_Class(std::move((StateData_Class&&)that))
-			, startPosition_(std::move(that.startPosition_))
 			, finalPosition_(std::move(that.finalPosition_))
+			, startPosition_(std::move(that.startPosition_))
 			, flags_(std::move(that.flags_))
 		{
 		}
@@ -62,17 +62,15 @@ namespace Pastel
 
 	private:
 		template <
-			typename Symbol, 
-			typename StateData, 
-			typename TransitionData,
-			typename Customization>
+			typename, typename, 
+			typename, typename>
 		friend class Automaton;
 
 		StateLabel(
 			StateData_Class stateData)
 			: StateData_Class(std::move(stateData))
-			, startPosition_()
 			, finalPosition_()
+			, startPosition_()
 			, flags_(0)
 		{
 		}

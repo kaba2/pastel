@@ -22,7 +22,7 @@ namespace Pastel
 	{
 		typedef Automaton<Symbol, StateData, TransitionData, Customization>
 			Automaton;
-		typedef Automaton::State_ConstIterator
+		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
 		auto forEachSeedVertex = 

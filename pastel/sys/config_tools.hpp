@@ -17,8 +17,8 @@ namespace Pastel
 	{
 		bool allFound = true;
 
-		String_ConstIterator iter = propertySet.begin();
-		const String_ConstIterator iterEnd = propertySet.end();
+		auto iter = propertySet.begin();
+		auto iterEnd = propertySet.end();
 
 		while(iter != iterEnd)
 		{

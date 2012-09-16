@@ -29,7 +29,7 @@ namespace Pastel
 	{
 		typedef Automaton<Symbol, StateData, TransitionData, Customization>
 			Automaton;
-		typedef Automaton::State_ConstIterator
+		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
 		// The closure-set is computed for each state of the automaton.
@@ -60,11 +60,21 @@ namespace Pastel
 			[&](StateSet&& left, const StateSet& right)
 			-> StateSet
 		{
+			// This does not work in GCC 4.6; 
+			// GCC 4.6 has some bug in it.
+			/*
 			std::for_each(right.cbegin(), right.cend(),
 				[&](const State_ConstIterator& state)
 			{
 				insert(state, left);
 			});
+			*/
+			for (auto state = right.cbegin();
+				state != right.cend();
+				++state)
+			{
+				insert(*state, left);
+			}
 
 			return left;
 		};
@@ -92,26 +102,33 @@ namespace Pastel
 	{
 		typedef Automaton<Symbol, StateData, TransitionData, Customization>
 			Automaton;
-		typedef Automaton::State_ConstIterator
+		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
-		typedef Automaton::Transition_ConstIterator
+		typedef typename Automaton::Transition_ConstIterator
 			Transition_ConstIterator;
 
-		typedef Automaton::BranchMap BranchMap;
+		typedef typename Automaton::BranchMap BranchMap;
 
 		auto forEachRelated =
 			[&](const State_ConstIterator& state, 
 			const std::function<void(const State_ConstIterator&)>& visit)
 		{
 			auto branchRange = automaton.cBranchRange(state, Epsilon());
-
+			
 			std::for_each(
-				branchRange.begin(), 
+				branchRange.begin(),
 				branchRange.end(),
 				[&](const Transition_ConstIterator& transition)
 			{
 				visit(transition->to());
 			});
+			
+			/*for (auto branch = branchRange.begin();
+				branch != branchRange.end();
+				++branch)
+			{
+				visit((*branch)->to());
+			}*/
 		};
 
 		return automatonClosure(

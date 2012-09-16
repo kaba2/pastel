@@ -4,6 +4,9 @@
 #include "pastel/sys/refinable_partition.h"
 #include "pastel/sys/object_forwarding.h"
 
+// For swap, FIX: replace with utility once C++11 support improves.
+#include <algorithm>
+
 // Visual Studio generates "multiple assignment operators" warning,
 // because it does not implement the deletion of functions 
 // (which we simulate below).
@@ -134,11 +137,11 @@ namespace Pastel
 		}
 
 	private:
-		template <typename ElementData, typename SetData>
+		template <typename, typename>
 		friend class RefinablePartition;
 
-		template <typename ElementData, typename SetData>
-		friend class RefinablePartition_Fwd<ElementData, SetData>::Element;
+		template <typename ElementData_, typename SetData_>
+		friend class RefinablePartition_Fwd<ElementData_, SetData_>::Element;
 
 		Set() PASTEL_DELETE;
 		Set(const Set& that) PASTEL_DELETE;
@@ -293,18 +296,18 @@ namespace Pastel
 			ASSERT(&*element->set_ == this);
 			ASSERT(element->marked());
 
+			// Shrink the marked region to
+			// exclude the given element.
+			--unmarkedBegin_;
+			--marked_;
+
 			Element_Iterator& p = *element->member_;
 			Element_Iterator& q = *unmarkedBegin_;
 
 			// Swap the last marked element with
 			// the element to be unmarked.
-			std::swap(p, std::prev(q));
-			std::swap(p->member_, std::prev(q)->member_);
-
-			// Then shrink the marked region to
-			// exclude the given element.
-			--unmarkedBegin_;
-			--marked_;
+			std::swap(p, q);
+			std::swap(p->member_, q->member_);
 
 			// Unmark the element.
 			element->mark(false);

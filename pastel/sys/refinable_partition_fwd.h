@@ -17,8 +17,13 @@ namespace Pastel
 			ElementSet;
 		typedef typename ElementSet::iterator
 			Element_Iterator;
+	#ifdef __GNUC__
+		typedef typename ElementSet::iterator
+			Element_ConstIterator;
+	#else
 		typedef typename ElementSet::const_iterator
 			Element_ConstIterator;
+	#endif
 		typedef typename AsClass<ElementData>::type
 			ElementData_Class;
 
@@ -27,8 +32,13 @@ namespace Pastel
 			SetSet;
 		typedef typename SetSet::iterator
 			Set_Iterator;
+	#ifdef __GNUC__
+		typedef typename SetSet::iterator
+			Set_ConstIterator;
+	#else
 		typedef typename SetSet::const_iterator
 			Set_ConstIterator;
+	#endif
 		typedef typename AsClass<SetData>::type
 			SetData_Class;
 
@@ -36,15 +46,25 @@ namespace Pastel
 			MemberSet;
 		typedef typename MemberSet::iterator
 			Member_Iterator;
+	#ifdef __GNUC__
+		typedef typename MemberSet::iterator
+			Member_ConstIterator;
+	#else
 		typedef typename MemberSet::const_iterator
 			Member_ConstIterator;
+	#endif
 
 		typedef std::list<Set_Iterator>
 			SplitSet;
 		typedef typename SplitSet::iterator
 			Split_Iterator;
+	#ifdef __GNUC__
+		typedef typename SplitSet::iterator
+			Split_ConstIterator;
+	#else
 		typedef typename SplitSet::const_iterator
 			Split_ConstIterator;
+	#endif
 	};
 
 }

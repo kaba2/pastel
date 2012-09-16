@@ -10,7 +10,7 @@ namespace Pastel
 	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Incidence_Link
 	{
 	public:
-		template <typename Type>
+		template <typename>
 		friend class Incidence_Graph_::Incidence_Iterator;
 
 		friend class Vertex;

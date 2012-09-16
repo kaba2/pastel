@@ -4,6 +4,7 @@
 #include "pastel/geometry/halfmesh.h"
 
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/destruct.h"
 
 #include <unordered_map>
 
@@ -127,7 +128,7 @@ namespace Pastel
 	HalfMesh<DataPolicy>&
 		HalfMesh<DataPolicy>::operator=(HalfMesh that)
 	{
-		swap(copy);
+		swap(that);
 		return *this;
 	}
 
