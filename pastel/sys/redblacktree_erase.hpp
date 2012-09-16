@@ -175,18 +175,18 @@ namespace Pastel
 				// We know that:
 				// * 'node' exists because it is red.
 
-                //   |B           |B    
-                //   p            p    
-                // R/ \B   ==>  B/ \B
+				//   |B           |B    
+				//   p            p    
+				// R/ \B   ==>  B/ \B
 				// n   s        n   s
 
 				node->flipColor();
 
 				// The color of 'node' has changed.
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(node));
 				// The left child of 'parent' has changed.
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(parent));
 				break;
 			}
@@ -196,15 +196,15 @@ namespace Pastel
 				// * 'node' is black because of testing order.
 
 				//   |B    
-                //   p    
-                // B/    
+				//   p    
+				// B/    
 				// n    
 				
 				// Here we simply propagate the problem
 				// upwards the tree.
 
 				// The child of 'parent' has changed.
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(parent));
 			}
 			else if (a->red())
@@ -215,12 +215,12 @@ namespace Pastel
 				// * 'a' exists because it is red.
 
 				//   |B/R          |B/R     
-                //   p      r(s)   p
-                // B/ \B    ==>  B/ \B 
-                // n   s         n   a
-                //   R/ \1         B/ \R    
-                //   a   b             s	
-                // B/ \B             B/ \1
+				//   p      r(s)   p
+				// B/ \B    ==>  B/ \B 
+				// n   s         n   a
+				//   R/ \1         B/ \R    
+				//   a   b             s	
+				// B/ \B             B/ \1
 				//                       b
 				//
 				//           |B/R    flip(l)      |B/R
@@ -237,13 +237,13 @@ namespace Pastel
 				a->flipColor();
 
 				// The children of 'parent' have changed.
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(parent));
 				// The children of 'sibling' have changed.
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(sibling));
 				// The children of 'a' have changed.
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(a));
 				break;
 			}
@@ -272,10 +272,10 @@ namespace Pastel
 				sibling->flipColor();
 
 				// The children of 'parent' have changed.
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(parent));
 				// The children of 'sibling' have changed.
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(sibling));
 				break;
 			}
@@ -303,10 +303,10 @@ namespace Pastel
 
 				// The children of 'parent' have changed
 				// (as well as its color).
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(parent));
 				// The children of 'sibling' have changed.
-				updateHierarchical(
+				this->updateHierarchical(
 					Iterator(sibling));
 			}
 

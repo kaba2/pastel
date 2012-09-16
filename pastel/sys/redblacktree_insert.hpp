@@ -43,7 +43,7 @@ namespace Pastel
 				setMaximum(newNode);
 			}
 
-			updateHierarchical(
+			this->updateHierarchical(
 				Iterator(newNode));
 
 			return newNode;
@@ -72,7 +72,7 @@ namespace Pastel
 			return newNode;
 		}
 
-		updateHierarchical(
+		this->updateHierarchical(
 			Iterator(node));
 
 		if (node->left()->black() &&
@@ -86,9 +86,9 @@ namespace Pastel
 			// _not_ an invariant of the tree, although
 			// we make that choice here.
 
-			updateHierarchical(
+			this->updateHierarchical(
 				Iterator(node->left()));
-			updateHierarchical(
+			this->updateHierarchical(
 				Iterator(node));
 		}
 
@@ -100,9 +100,9 @@ namespace Pastel
 			// This fixes that locally.
 			node = rotate(node, Right);
 
-			updateHierarchical(
+			this->updateHierarchical(
 				Iterator(node->right()));
-			updateHierarchical(
+			this->updateHierarchical(
 				Iterator(node));
 		}
 
@@ -111,11 +111,11 @@ namespace Pastel
 		{
 			flipColors(node);
 
-			updateHierarchical(
+			this->updateHierarchical(
 				Iterator(node->left()));
-			updateHierarchical(
+			this->updateHierarchical(
 				Iterator(node->right()));
-			updateHierarchical(
+			this->updateHierarchical(
 				Iterator(node));
 		}
 

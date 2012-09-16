@@ -26,13 +26,13 @@ namespace
 			test();
 		}
 
-		typedef Automaton<integer, integer> Automaton;
-		typedef Automaton::State_ConstIterator State;
-		typedef Automaton::Transition_ConstIterator Transition;
+		typedef Automaton<integer, integer> Automaton_;
+		typedef Automaton_::State_ConstIterator State;
+		typedef Automaton_::Transition_ConstIterator Transition;
 
 		void test()
 		{
-			Automaton automaton;
+			Automaton_ automaton;
 
 			// Let us build the regular language
 			// (0 + 1)* 0 (0 + 1)
@@ -58,7 +58,7 @@ namespace
 				State, IteratorAddress_LessThan,
 				IteratorAddress_Hash>::type StateSet;
 
-			Automaton det;
+			Automaton_ det;
 
 			std::unordered_map<
 				const StateSet*, State> stateMap;
@@ -104,7 +104,7 @@ namespace
 
 			//std::cout << det << std::endl;
 
-			Automaton minimal = minimizeAutomaton(det);
+			Automaton_ minimal = minimizeAutomaton(det);
 			TEST_ENSURE(minimal.deterministic());
 
 			//std::cout << minimal << std::endl;

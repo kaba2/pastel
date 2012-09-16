@@ -4,6 +4,7 @@
 #include "test_pastelmath.h"
 
 #include "pastel/math/matrix_tools.h"
+#include "pastel/math/random_matrix.h"
 #include "pastel/math/lu_decomposition_tools.h"
 
 #include "pastel/math/uniform_sampling.h"

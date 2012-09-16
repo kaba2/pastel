@@ -7,9 +7,9 @@
 -- Whether you have Matlab include files 
 -- (say, for 2008a or newer). Note: Binaries are not
 -- needed since the linking is done from Matlab.
-gotMatlab = true
+gotMatlab = false
 
--- Whether you have Boost 1.49 include files.
+-- Whether you have Boost 1.51 include files.
 gotBoost = true
 
 -- Note: To succesfully _compile_ the libraries, 
@@ -66,7 +66,7 @@ buildPastelGeometryTest = true and testRequirements
 
 -- The directory of the Boost library's source code.
 -- The includes are of the form 'boost/static_assert.hpp'.
-boostIncludeDir = "../boost_1_49_0"
+boostIncludeDir = "../boost_1_51_0"
 
 -- The directory of the Matlab header files.
 -- The includes are of the form 'mex.h'.
@@ -210,6 +210,8 @@ solution "Pastel"
 		buildoptions { "-fPIC" }
 		-- Enables some additional warnings.
 		buildoptions { "-Wall" }
+		-- Enables C++11 support.
+		buildoptions { "-std=gnu++11" }
 		-- Disable some warnings.
 		buildoptions 
 		{ 
@@ -219,6 +221,14 @@ solution "Pastel"
 			"-Wno-sign-compare", 
 			-- Conversion between an unsigned and a signed integer.
 			"-Wno-sign-conversion",
+			-- Unused variables.
+			"-Wno-unused-variable",
+			-- Unused values.
+			"-Wno-unused-value",
+			-- Unused but set variable.
+			"-Wno-unused-but-set-variable",
+			-- Unused functions.
+			"-Wno-unused-function",
 			-- Breaking strict aliasing rules.
 			"-Wno-strict-aliasing",
 			-- Compiler warns that it optimizes code based on the 

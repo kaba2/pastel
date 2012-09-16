@@ -193,7 +193,7 @@ namespace Pastel
 			SetData_Class setData = SetData_Class())
 		{
 			return setSet_.emplace(
-				setSet_.cend(), 
+				setSet_.end(), 
 				Set(
 				memberSet_.end(),
 				memberSet_.end(),
@@ -312,7 +312,7 @@ namespace Pastel
 					// The marked part is the smaller part.
 					// Make it the new set.
 					newSet = setSet_.emplace(
-						setSet_.cend(),
+						setSet_.end(),
 						Set(set->begin_, set->unmarkedBegin_, 
 						splitSet_.end(), set->marked(),
 						!set->type(), *set));
@@ -326,7 +326,7 @@ namespace Pastel
 					// The unmarked part is the smaller part.
 					// Make it the new set.
 					newSet = setSet_.emplace(
-						setSet_.cend(),
+						setSet_.end(),
 						Set(set->unmarkedBegin_, cast(set->cend()),
 						splitSet_.end(), set->unmarked(),
 						set->type(),
@@ -367,7 +367,7 @@ namespace Pastel
 		*/
 		Set_ConstIterator cSetBegin() const
 		{
-			return setSet_.cbegin();
+			return ((RefinablePartition&)*this).setSet_.begin();
 		}
 
 		// Returns the end-iterator of the set-set.
@@ -387,7 +387,7 @@ namespace Pastel
 		*/
 		Set_ConstIterator cSetEnd() const
 		{
-			return setSet_.cend();
+			return ((RefinablePartition&)*this).setSet_.end();
 		}
 
 		//! Returns the number of sets in the partition.
@@ -428,7 +428,7 @@ namespace Pastel
 
 			Element_Iterator element =
 				elementSet_.emplace(
-				elementSet_.cend(),
+				elementSet_.end(),
 				Element(cast(set), 
 				memberSet_.end(),
 				std::move(elementData)));
@@ -570,7 +570,7 @@ namespace Pastel
 			const Element_ConstIterator& element, 
 			bool markIt)
 		{
-			PENSURE(element != elementSet_.cend());
+			PENSURE(element != elementSet_.end());
 
 			if (element->marked() == markIt)
 			{
@@ -591,7 +591,7 @@ namespace Pastel
 					// splitted later.
 					Split_Iterator split =
 						splitSet_.emplace(
-						splitSet_.cend(),
+						splitSet_.end(),
 						set);
 					
 					set->split_ = split;
@@ -634,7 +634,7 @@ namespace Pastel
 		*/
 		Element_ConstIterator cElementBegin() const
 		{
-			return elementSet_.cbegin();
+			return elementSet_.begin();
 		}
 
 		// Returns the end-iterator of the element-set.
@@ -654,7 +654,7 @@ namespace Pastel
 		*/
 		Element_ConstIterator cElementEnd() const
 		{
-			return elementSet_.cend();
+			return elementSet_.end();
 		}
 
 		//! Returns the number of elements.
@@ -686,7 +686,7 @@ namespace Pastel
 		*/
 		Split_ConstIterator splitBegin() const
 		{
-			return splitSet_.cbegin();
+			return splitSet_.begin();
 		}
 
 		//! Returns the end-iterator of the marked-set set.
@@ -696,7 +696,7 @@ namespace Pastel
 		*/
 		Split_ConstIterator splitEnd() const
 		{
-			return splitSet_.cend();
+			return splitSet_.end();
 		}
 
 		//! Returns the number of marked sets.

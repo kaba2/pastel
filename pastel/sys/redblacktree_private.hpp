@@ -70,7 +70,7 @@ namespace Pastel
 		Node* child = node;
 		while(node != sentinel_)
 		{
-			updateHierarchical(
+			this->updateHierarchical(
 				Iterator(node));
 			child = node;
 			node = node->parent();

@@ -22,8 +22,8 @@ namespace Pastel
 		void updateHierarchical(const Iterator& node)
 		{
 			node.data() = combineHash(
-				Hash()(node.key()),
-				combineHash(
+				(hash_integer)Hash()(node.key()),
+				(hash_integer)combineHash(
 				node.left().data(),
 				node.right().data()));
 		}

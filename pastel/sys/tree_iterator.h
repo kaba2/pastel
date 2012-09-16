@@ -212,7 +212,7 @@ namespace Pastel
 			Base::swap(that);
 		}
 
-		typedef Base::Node Node;
+		typedef typename Base::Node Node;
 		using Base::empty;
 
 		Tree_Iterator parent() const

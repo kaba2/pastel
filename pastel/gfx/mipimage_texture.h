@@ -23,11 +23,13 @@ namespace Pastel
 		: public Texture<Type, N>
 	{
 	public:
+		typedef ArrayExtender<N, Type> ArrayExtender_;
+		
 		MipImage_Texture();
 
 		explicit MipImage_Texture(
 			const MipMap<Type, N>& mipMap,
-			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>());
+			const ArrayExtender_& extender = ArrayExtender_());
 
 		Type operator()(
 			const Vector<real, N>& p,
@@ -38,7 +40,7 @@ namespace Pastel
 			mipMap_ = &mipMap;
 		}
 
-		void setExtender(const ArrayExtender<N, Type>& extender)
+		void setExtender(const ArrayExtender_& extender)
 		{
 			extender_ = extender;
 		}
@@ -50,7 +52,7 @@ namespace Pastel
 
 	private:
 		const MipMap<Type, N>* mipMap_;
-		ArrayExtender<N, Type> extender_;
+		ArrayExtender_ extender_;
 	};
 
 	template <typename Type, int N>

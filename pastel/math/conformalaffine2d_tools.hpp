@@ -126,9 +126,9 @@ namespace Pastel
 		typedef typename From_PointPolicy::Point FromPoint;
 		typedef typename To_PointPolicy::Point ToPoint;
 
-		typedef boost::range_iterator<From_Point_ConstRange>::type
+		typedef typename boost::range_iterator<From_Point_ConstRange>::type
 			From_Point_ConstIterator;
-		typedef boost::range_iterator<To_Point_ConstRange>::type
+		typedef typename boost::range_iterator<To_Point_ConstRange>::type
 			To_Point_ConstIterator;
 
 		enum

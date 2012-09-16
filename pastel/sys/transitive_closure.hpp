@@ -33,11 +33,11 @@ namespace Pastel
 			: identity(identity_)
 			, forEachDomain(forEachDomain_)
 			, forEachRelated(forEachRelated_)
+			, domainHash(domainHash_)
 			, function(function_)
 			, codomainOperator(codomainOperator_)
 			, report(report_)
 			, reflexiveClosure(reflexiveClosure_)
-			, domainHash(domainHash_)
 		{
 		}
 
@@ -51,7 +51,7 @@ namespace Pastel
 					// This node has not been visited
 					// yet. Visit it now.
 
-					traverse(x);
+					this->traverse(x);
 				}
 			};
 
@@ -121,7 +121,7 @@ namespace Pastel
 				if (!progressSet.count(y))
 				{
 					// ... traverse it now.
-					traverse(y);
+					this->traverse(y);
 				}
 
 				const Progress& yProgress = progressSet[y];
@@ -248,7 +248,6 @@ namespace Pastel
 			}
 		}
 
-	private:
 		class Progress
 		{
 		public:

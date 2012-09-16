@@ -86,7 +86,7 @@ namespace Pastel
 	template <typename Key, typename Compare, typename Data, typename Customization>
 	void RedBlackTree<Key, Compare, Data, Customization>::clear()
 	{
-		onClear();
+		this->onClear();
 
 		clear(root_);
 
@@ -127,7 +127,7 @@ namespace Pastel
 
 		Iterator element(newNode);
 
-		onInsert(element);
+		this->onInsert(element);
 		
 		return element;
 	}
@@ -150,7 +150,7 @@ namespace Pastel
 		RedBlackTree<Key, Compare, Data, Customization>::erase(
 		const ConstIterator& that)
 	{
-		onErase(that);
+		this->onErase(that);
 
 		return Iterator(erase(that.iter_.node_));
 	}

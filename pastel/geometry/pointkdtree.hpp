@@ -294,7 +294,7 @@ namespace Pastel
 			return;
 		}
 
-		typedef boost::range_iterator<Input_Point_ConstRange>::type
+		typedef typename boost::range_iterator<Input_Point_ConstRange>::type
 			Input_Point_ConstIterator;
 
 		const Input_Point_ConstIterator inputBegin = pointSet.begin();
@@ -352,6 +352,9 @@ namespace Pastel
 	void PointKdTree<Real, N, PointPolicy>::erase(
 		const Point_ConstIterator_ConstRange& pointSet)
 	{
+		typedef typename boost::range_iterator<Point_ConstIterator_ConstRange>::type
+			Point_ConstIterator_ConstIterator;
+		
 		Point_ConstIterator_ConstIterator iter = 
 			pointSet.begin();
 		const Point_ConstIterator_ConstIterator iterEnd = 
