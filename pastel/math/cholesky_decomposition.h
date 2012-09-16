@@ -1,5 +1,4 @@
-// Description: CholeskyDecomposition class
-// Detail: Computes the Cholesky decomposition of matrix
+// Description: Cholesky decomposition
 
 #ifndef PASTELMATH_CHOLESKY_DECOMPOSITION_H
 #define PASTELMATH_CHOLESKY_DECOMPOSITION_H
@@ -46,8 +45,14 @@ namespace Pastel
 
 }
 
-#include "pastel/math/cholesky_decomposition.hpp"
+namespace Pastel
+{
 
-#include "pastel/math/cholesky_decomposition_tools.h"
+	template <typename Real, int N>
+	Real determinant(const CholeskyDecomposition<Real, N>& that);
+
+}
+
+#include "pastel/math/cholesky_decomposition.hpp"
 
 #endif

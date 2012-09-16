@@ -50,8 +50,8 @@ namespace Pastel
 		real c_;
 	};
 
-	typedef CountedPtr<Mitchell_Filter> MitchellFilterPtr;
-	typedef CountedPtr<const Mitchell_Filter> ConstMitchellFilterPtr;
+	typedef std::shared_ptr<Mitchell_Filter> MitchellFilterPtr;
+	typedef std::shared_ptr<const Mitchell_Filter> ConstMitchellFilterPtr;
 
 	inline MitchellFilterPtr mitchellFilter(
 		real b = (real)1 / 3,

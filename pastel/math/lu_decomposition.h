@@ -1,10 +1,9 @@
-// Description: LuDecomposition class
-// Detail: Computes the PLU-decomposition of a matrix
+// Description: PLU decomposition
 
 #ifndef PASTELMATH_LU_DECOMPOSITION_H
 #define PASTELMATH_LU_DECOMPOSITION_H
 
-#include "pastel/math/matrix_tools.h"
+#include "pastel/math/matrix.h"
 #include "pastel/math/mathlibrary.h"
 
 #include "pastel/sys/mytypes.h"
@@ -61,8 +60,20 @@ namespace Pastel
 
 }
 
-#include "pastel/math/lu_decomposition.hpp"
+namespace Pastel
+{
 
-#include "pastel/math/lu_decomposition_tools.h"
+	template <typename Real, int N, typename Expression>
+	Vector<Real, N> solveLinear(
+		const LuDecomposition<Real, N>& lu,
+		const VectorExpression<Real, N, Expression>& b);
+
+	template <typename Real, int N>
+	Real determinant(
+		const LuDecomposition<Real, N>& lu);
+
+}
+
+#include "pastel/math/lu_decomposition.hpp"
 
 #endif

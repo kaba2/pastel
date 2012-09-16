@@ -27,6 +27,7 @@ using namespace Pastel;
 
 #include <boost/bind.hpp>
 
+#include <memory>
 #include <iostream>
 
 namespace
@@ -140,28 +141,30 @@ namespace
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 
-		std::vector<Texture<Color>::Ptr> textureList;
+		typedef std::shared_ptr<Texture<Color>> TexturePtr;
+
+		std::vector<TexturePtr> textureList;
 		textureList.push_back(
-			Texture<Color>::Ptr(new EwaImage_Texture<Color>(mipMap,
+			TexturePtr(new EwaImage_Texture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(1))));
 		textureList.push_back(
-			Texture<Color>::Ptr(new EwaImage_Texture<Color>(mipMap,
+			TexturePtr(new EwaImage_Texture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(2))));
 		textureList.push_back(
-			Texture<Color>::Ptr(new EwaImage_Texture<Color>(mipMap,
+			TexturePtr(new EwaImage_Texture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				lanczosFilter(2))));
 		textureList.push_back(
-			Texture<Color>::Ptr(new EwaImage_Texture<Color>(mipMap,
+			TexturePtr(new EwaImage_Texture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				boxFilter())));
 		textureList.push_back(
-			Texture<Color>::Ptr(new LinearImage_Texture<Color>(textureImage,
+			TexturePtr(new LinearImage_Texture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 		textureList.push_back(
-			Texture<Color>::Ptr(new NearestImage_Texture<Color>(textureImage,
+			TexturePtr(new NearestImage_Texture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 
 		const AlignedBox2 textureBox(0.4, 0.4, 0.6, 0.6);

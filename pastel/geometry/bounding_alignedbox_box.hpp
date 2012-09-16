@@ -3,8 +3,6 @@
 
 #include "pastel/geometry/bounding_alignedbox_box.h"
 
-#include "pastel/math/matrix_tools.h"
-
 namespace Pastel
 {
 

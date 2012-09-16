@@ -6,7 +6,6 @@
 #define PASTELSYS_LOG_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/countedptr.h"
 #include "pastel/sys/logger.h"
 
 #include <set>

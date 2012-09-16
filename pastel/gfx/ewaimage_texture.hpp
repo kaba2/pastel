@@ -4,6 +4,9 @@
 #include "pastel/gfx/ewaimage_texture.h"
 #include "pastel/gfx/linearimage_texture.h"
 
+#include "pastel/math/matrix_determinant.h"
+#include "pastel/math/matrix_eigen.h"
+
 #include "pastel/geometry/ellipsoid.h"
 
 namespace Pastel
@@ -14,7 +17,7 @@ namespace Pastel
 		const FilterPtr& maxFilter,
 		const FilterPtr& minFilter)
 	{
-		ENSURE(!maxFilter.empty() && !minFilter.empty());
+		ENSURE(maxFilter && minFilter);
 
 		const real filterRadius =
 			std::max(minFilter->radius(), maxFilter->radius());

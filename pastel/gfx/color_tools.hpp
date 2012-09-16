@@ -8,9 +8,6 @@
 #include "pastel/sys/random_uniform.h"
 #include "pastel/sys/vector_tools.h"
 
-#include "pastel/math/matrix.h"
-#include "pastel/math/matrix_tools.h"
-
 namespace Pastel
 {
 

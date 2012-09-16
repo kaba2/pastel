@@ -473,7 +473,6 @@
     <ClInclude Include="random_triangle.hpp" />
     <ClInclude Include="random_uniform.h" />
     <ClInclude Include="random_uniform.hpp" />
-    <ClInclude Include="randomdistribution.h" />
     <ClInclude Include="mt19937.h" />
     <ClInclude Include="random_discrete.h" />
     <ClInclude Include="random_integer.h" />

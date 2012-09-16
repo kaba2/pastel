@@ -2,13 +2,11 @@
 #define PASTELGEOMETRY_BOUNDING_SPHERE_HPP
 
 #include "pastel/geometry/bounding_sphere.h"
+#include "pastel/geometry/sphere.h"
 
 #include "pastel/sys/tuple_tools.h"
-
-#include "pastel/geometry/sphere.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
-#include "pastel/math/matrix_tools.h"
 #include "pastel/sys/math_functions.h"
 
 #include "pastel/geometry/bounding_alignedbox.h"

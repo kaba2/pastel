@@ -1029,9 +1029,6 @@
     <ClInclude Include="random_uniform.hpp">
       <Filter>Random variables\Continuous random variables</Filter>
     </ClInclude>
-    <ClInclude Include="randomdistribution.h">
-      <Filter>Random variables\Continuous random variables</Filter>
-    </ClInclude>
     <ClInclude Include="mt19937.h">
       <Filter>Random variables\Discrete random variables</Filter>
     </ClInclude>

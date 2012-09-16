@@ -1,7 +1,7 @@
 #ifndef PASTELMATH_RANDOM_MATRIX_HPP
 #define PASTELMATH_RANDOM_MATRIX_HPP
 
-#include "pastel/math/matrix.h"
+#include "pastel/math/random_matrix.h"
 #include "pastel/math/orthonormal.h"
 #include "pastel/math/qr_decomposition.h"
 #include "pastel/math/uniform_sampling.h"

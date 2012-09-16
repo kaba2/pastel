@@ -19,45 +19,6 @@ using namespace Pastel;
 namespace
 {
 
-	void testConstants()
-	{
-		std::cout << "Linear sRGB to XYZ transformation: " << std::endl
-			<< linearSrgbToXyzTransform() << std::endl;
-		std::cout << std::endl;
-		std::cout << "XYZ to linear sRGB transformation: " << std::endl
-			<< inverse(linearSrgbToXyzTransform()) << std::endl;
-
-		std::cout << "CIE illuminant E XYZ coordinates: " << std::endl
-			<< xyzIlluminantE() << std::endl;
-		std::cout << std::endl;
-
-		std::cout << "CIE illuminant D50 XYZ coordinates: " << std::endl
-			<< xyzIlluminantD50() << std::endl;
-		std::cout << std::endl;
-
-		std::cout << "CIE illuminant D65 XYZ coordinates: " << std::endl
-			<< xyzIlluminantD65() << std::endl;
-		std::cout << std::endl;
-
-		std::cout << "Rgb-to-luma weights: " << std::endl
-			<< lumaWeights() << std::endl;
-		std::cout << std::endl;
-
-		/*
-		const integer Width = 500;
-		const integer Height = 500;
-
-		Array<bool, 2> image(Vector2i(Width, Height));
-		for (integer x = 0;x < Width;++x)
-		{
-			const real t = (real)x / (Width - 1);
-			drawPixel(Vector2(x, LabDetail::labFunction(t) * Height), true, arrayView(image));
-		}
-
-		saveBinaryPcx(image, "lab_function.pcx");
-		*/
-	}
-
 	void testChromaticity()
 	{
 		const real Width = 500;
@@ -111,8 +72,6 @@ namespace
 
 			transform_ *= 
 				lmsToXyzTransform() * xyzToLinearSrgbTransform();
-
-			std::cout << transform_ << std::endl;
 		}
 
 		Color operator()(
@@ -139,7 +98,6 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("Color.Constants", testConstants);
 		testRunner().add("Color.ChromaticAdaptation", testChromaticAdaptation);
 	}
 

@@ -44,10 +44,10 @@ namespace Pastel
 
 		enum
 		{
-			Outgoing = Fwd::IncidenceType::Outgoing,
-			Incoming = Fwd::IncidenceType::Incoming,
-			Undirected = Fwd::IncidenceType::Undirected,
-			IncidenceTypes = Fwd::IncidenceType::IncidenceTypes
+			Outgoing = Fwd::Outgoing,
+			Incoming = Fwd::Incoming,
+			Undirected = Fwd::Undirected,
+			IncidenceTypes = Fwd::IncidenceTypes
 		};
 
 		//! Constructs an empty graph.

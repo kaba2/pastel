@@ -3,14 +3,13 @@
 
 #include "pastel/geometry/overlaps_box_box.h"
 #include "pastel/geometry/overlaps_alignedbox_box.h"
+#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/box.h"
 
 #include "pastel/sys/mytypes.h"
-
-#include "pastel/geometry/box.h"
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/math/matrix.h"
-#include "pastel/math/matrix_tools.h"
 #include "pastel/sys/vector.h"
+
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {

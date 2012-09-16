@@ -8,7 +8,6 @@
 #include "pastel/sys/vector.h"
 
 #include "pastel/math/matrix.h"
-#include "pastel/math/matrix_tools.h"
 
 namespace Pastel
 {

@@ -29,8 +29,8 @@ namespace Pastel
 		Gaussian_Filter& operator=(const Gaussian_Filter& that) PASTEL_DELETE;
 	};
 
-	typedef CountedPtr<Gaussian_Filter> GaussianFilterPtr;
-	typedef CountedPtr<const Gaussian_Filter> ConstGaussianFilterPtr;
+	typedef std::shared_ptr<Gaussian_Filter> GaussianFilterPtr;
+	typedef std::shared_ptr<const Gaussian_Filter> ConstGaussianFilterPtr;
 
 	inline GaussianFilterPtr gaussianFilter(real radius = 2)
 	{

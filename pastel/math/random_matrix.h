@@ -1,4 +1,5 @@
-// Description: Random matrix generation
+// Description: Generation of random matrices
+// Documentation: matrix_algorithms.txt
 
 #ifndef PASTELMATH_RANDOM_MATRIX_H
 #define PASTELMATH_RANDOM_MATRIX_H

@@ -20,10 +20,11 @@ namespace Pastel
 
 }
 
-#include "pastel/math/matrixexpression.h"
+#include "pastel/math/matrix_expression.h"
+#include "pastel/math/matrix_expression_more.h"
 #include "pastel/math/matrix_static.h"
 #include "pastel/math/matrix_dynamic.h"
-#include "pastel/math/matrixview.h"
+#include "pastel/math/matrix_view.h"
 
 namespace Pastel
 {

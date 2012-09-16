@@ -7,7 +7,7 @@
 #include "pastel/sys/tuple_tools.h"
 
 #include "pastel/sys/rational_tools.h"
-#include "pastel/math/lu_decomposition_tools.h"
+#include "pastel/math/lu_decomposition.h"
 #include "pastel/math/random_matrix.h"
 #include "pastel/math/uniform_sampling.h"
 
