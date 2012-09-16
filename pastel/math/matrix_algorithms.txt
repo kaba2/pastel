@@ -3,3 +3,4 @@ Matrix algorithms
 
 [[Parent]]: linear_algebra.txt
 
+This section contains algorithms for matrices.
