@@ -6,6 +6,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vectorbase.h"
+#include "pastel/sys/hashing.h"
 
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_integral.hpp>
