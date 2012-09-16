@@ -1,4 +1,5 @@
 // Description: An associative container for arbitrary data.
+// Documentation: undocumented.txt
 
 #ifndef PASTELSYS_ANYSTORAGE_H
 #define PASTELSYS_ANYSTORAGE_H

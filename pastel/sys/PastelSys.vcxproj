@@ -666,7 +666,6 @@
     <None Include="..\..\techniques_specialization.txt" />
     <None Include="..\..\techniques_unsigned.txt" />
     <None Include="..\..\techniques_warnings.txt" />
-    <None Include="notsure.txt" />
     <None Include="indexextenders.txt" />
     <None Include="algorithms.txt" />
     <None Include="string_algorithms.txt" />

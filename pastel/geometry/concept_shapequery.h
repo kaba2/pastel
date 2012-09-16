@@ -1,3 +1,6 @@
+// Description: Shape query
+// Documentation: bihtree.txt
+
 #ifndef PASTELGEOMETRY_CONCEPT_SHAPEQUERY_H
 #define PASTELGEOMETRY_CONCEPT_SHAPEQUERY_H
 

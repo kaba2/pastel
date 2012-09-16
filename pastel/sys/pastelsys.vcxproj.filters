@@ -127,21 +127,6 @@
     <Filter Include="Documentation">
       <UniqueIdentifier>{7ea3a8e3-c92e-4a19-a93f-f3da5f5b7b29}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Not sure if good ideas">
-      <UniqueIdentifier>{1c033986-6f87-4959-983f-9e39e7b534bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure if good ideas\ListArray">
-      <UniqueIdentifier>{c08488ab-f715-4814-87af-54f88d70ff45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure if good ideas\IndexExtender">
-      <UniqueIdentifier>{6b4d1ccd-16fe-461f-91db-0d9540fd652d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure if good ideas\IndexExtender\Concrete index extenders">
-      <UniqueIdentifier>{570defec-c8d4-4199-9872-7503ef8f658c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure if good ideas\AnyStorage">
-      <UniqueIdentifier>{35fdc2e2-ad82-4127-9767-661b32bc975b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Portability">
       <UniqueIdentifier>{5a0ae4e4-4b17-495e-84a3-1225cb2d4c84}</UniqueIdentifier>
     </Filter>
@@ -306,6 +291,18 @@
     </Filter>
     <Filter Include="Data structures\Views\Concrete views">
       <UniqueIdentifier>{aa4b59af-3b1c-4066-a47b-ac51d2dd592c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\AnyStorage">
+      <UniqueIdentifier>{35fdc2e2-ad82-4127-9767-661b32bc975b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\ListArray">
+      <UniqueIdentifier>{c08488ab-f715-4814-87af-54f88d70ff45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\IndexExtender">
+      <UniqueIdentifier>{6b4d1ccd-16fe-461f-91db-0d9540fd652d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\IndexExtender\Concrete index extenders">
+      <UniqueIdentifier>{570defec-c8d4-4199-9872-7503ef8f658c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1057,31 +1054,31 @@
       <Filter>Random variables\Goodness-of-fit</Filter>
     </ClInclude>
     <ClInclude Include="listarray.h">
-      <Filter>Not sure if good ideas\ListArray</Filter>
+      <Filter>Undocumented\ListArray</Filter>
     </ClInclude>
     <ClInclude Include="listarray.hpp">
-      <Filter>Not sure if good ideas\ListArray</Filter>
+      <Filter>Undocumented\ListArray</Filter>
     </ClInclude>
     <ClInclude Include="arrayextender.h">
-      <Filter>Not sure if good ideas\IndexExtender</Filter>
+      <Filter>Undocumented\IndexExtender</Filter>
     </ClInclude>
     <ClInclude Include="indexextender.h">
-      <Filter>Not sure if good ideas\IndexExtender</Filter>
+      <Filter>Undocumented\IndexExtender</Filter>
     </ClInclude>
     <ClInclude Include="indexextenders.h">
-      <Filter>Not sure if good ideas\IndexExtender</Filter>
+      <Filter>Undocumented\IndexExtender</Filter>
     </ClInclude>
     <ClInclude Include="clampextender.h">
-      <Filter>Not sure if good ideas\IndexExtender\Concrete index extenders</Filter>
+      <Filter>Undocumented\IndexExtender\Concrete index extenders</Filter>
     </ClInclude>
     <ClInclude Include="mirrorextender.h">
-      <Filter>Not sure if good ideas\IndexExtender\Concrete index extenders</Filter>
+      <Filter>Undocumented\IndexExtender\Concrete index extenders</Filter>
     </ClInclude>
     <ClInclude Include="repeatextender.h">
-      <Filter>Not sure if good ideas\IndexExtender\Concrete index extenders</Filter>
+      <Filter>Undocumented\IndexExtender\Concrete index extenders</Filter>
     </ClInclude>
     <ClInclude Include="anystorage.h">
-      <Filter>Not sure if good ideas\AnyStorage</Filter>
+      <Filter>Undocumented\AnyStorage</Filter>
     </ClInclude>
     <ClInclude Include="string_algorithms.h">
       <Filter>Algorithms\String algorithms</Filter>
@@ -1779,11 +1776,8 @@
     <None Include="..\..\techniques_warnings.txt">
       <Filter>Documentation</Filter>
     </None>
-    <None Include="notsure.txt">
-      <Filter>Not sure if good ideas</Filter>
-    </None>
     <None Include="indexextenders.txt">
-      <Filter>Not sure if good ideas\IndexExtender</Filter>
+      <Filter>Undocumented\IndexExtender</Filter>
     </None>
     <None Include="string_algorithms.txt">
       <Filter>Algorithms\String algorithms</Filter>

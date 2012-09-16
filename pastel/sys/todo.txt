@@ -1,5 +1,0 @@
-Todo
-====
-
-- Switch matrices to use column vectors rather than row vectors.
-- Switch matrix and vector expressions to use boost::proto.

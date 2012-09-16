@@ -1,4 +1,5 @@
-// Documentation: notsure.txt
+// Description: Array of lists
+// Documentation: undocumented.txt
 
 #ifndef PASTELSYS_LISTARRAY_H
 #define PASTELSYS_LISTARRAY_H

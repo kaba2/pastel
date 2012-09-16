@@ -244,6 +244,7 @@
     <None Include="qr_decomposition.txt" />
     <None Include="conformalaffine2d.txt" />
     <None Include="common.txt" />
+    <None Include="undocumented.txt" />
     <None Include="uniform_distortion.txt" />
     <None Include="polynomial.txt" />
     <None Include="coordinates.txt" />
