@@ -1,5 +1,5 @@
 // Description: Point-pattern matching example
-// Documentation: point_pattern_matching.txt
+// Documentation: geometry/point_pattern_matching.txt
 
 #include "pastel_example.h"
 

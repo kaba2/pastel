@@ -157,7 +157,7 @@
     <None Include="point_pattern_matching_kr.m" />
     <None Include="point_pattern_matching.txt" />
     <None Include="test_point_pattern_match.m" />
-    <None Include="test_point_pattern_match_gmo.m" />
+    <None Include="test_point_pattern_match_kr.m" />
     <None Include="pastelgeometrymatlab.txt" />
   </ItemGroup>
   <ItemGroup>

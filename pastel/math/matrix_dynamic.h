@@ -1,5 +1,5 @@
-// Description: Matrix class
-// Detail: Dynamic-sized implementation of the Matrix class.
+// Description: Matrix
+// Detail: Dynamic-sized implementation
 
 #ifndef PASTELMATH_MATRIX_DYNAMIC_H
 #define PASTELMATH_MATRIX_DYNAMIC_H

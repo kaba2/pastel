@@ -1,2 +1,4 @@
 PastelGfxTest
 =============
+
+[[Parent]]: test_pastel.txt

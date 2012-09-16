@@ -1,3 +1,5 @@
+// Description: Minimal automaton
+
 #ifndef PASTELSYS_MINIMAL_AUTOMATON_H
 #define PASTELSYS_MINIMAL_AUTOMATON_H
 
