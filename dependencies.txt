@@ -31,7 +31,7 @@ number that follows the library name is the one that the current
 version of Pastel was used to develop against. This is useful to know 
 in case a later version breaks backward compatibility.
 
-### Boost 1.49
+### Boost 1.51
 
 <http://www.boost.org/>
 

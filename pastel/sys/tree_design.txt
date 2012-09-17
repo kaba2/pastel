@@ -3,8 +3,8 @@ Generic binary tree design notes
 
 [[Parent]]: tree.txt
 
-This page contains the design considerations for the generic binary 
-tree.
+This section contains the design considerations for the generic 
+binary tree.
 
 Selecting the proper properties
 -------------------------------
