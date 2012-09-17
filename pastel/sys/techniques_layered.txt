@@ -3,6 +3,9 @@ Layered data-structures
 
 [[Parent]]: techniques.txt
 
+This section reviews some implementation principles of 
+layered data-structures.
+
 Definitions
 -----------
 
