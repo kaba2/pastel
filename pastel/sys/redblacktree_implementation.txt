@@ -3,8 +3,8 @@ RedBlackTree implementation notes
 
 [[Parent]]: redblacktree.txt
 
-This page summarizes the main decisions that have been made in the
-implementation of the RedBlackTree class.
+This section summarizes the main decisions that have been made 
+in the implementation of the RedBlackTree class.
 
 Requirements
 ------------
