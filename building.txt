@@ -5,11 +5,6 @@ Building the Pastel library
 
 This section describes how to build the Pastel library. 
 
-Pastel uses the [Premake][Premake] build-script generator to turn
-cross-platform building into a trivial task. Premake is a program, 
-contained in a single executable, which reads in a generic 
-build-script and outputs a tool-specific build-script. 
-
 Since Pastel uses C++11 features, it requires a recent compiler to
 be built. Pastel has been successfully built with Visual Studio 2010, 
 gcc 4.6.3, gcc 4.7.1, and clang 3.1.
@@ -32,6 +27,11 @@ See the [dependencies][Dependencies] page.
 [Dependencies]: [[Ref]]: dependencies.txt
 
 ### 2. Install Premake
+
+Pastel uses the [Premake][Premake] build-script generator to turn
+cross-platform building into a trivial task. Premake is a program, 
+contained in a single executable, which reads in a generic 
+build-script and outputs a tool-specific build-script. 
 
 Premake can be downloaded from [here][DownloadPremake]. You might want 
 to make it so that it can be invoked from any location, or alternatively 
