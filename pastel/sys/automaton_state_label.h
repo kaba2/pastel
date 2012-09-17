@@ -27,6 +27,12 @@ namespace Pastel
 			FINAL_FLAG = 0x00000001,
 			START_FLAG = 0x00000002
 		};
+		
+		typedef Automaton_Fwd<Symbol, StateData, TransitionData>
+			Fwd;
+		
+		PASTEL_FWD(Final_Iterator);
+		PASTEL_FWD(Start_Iterator);
 
 	public:
 		using StateData_Class::operator=;

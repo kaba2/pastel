@@ -30,7 +30,7 @@ namespace
 		: public A
 	{
 	public:
-		A* clone() const override
+		A* clone() const
 		{
 			return new B(*this);
 		}

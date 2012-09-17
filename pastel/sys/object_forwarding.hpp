@@ -15,8 +15,8 @@ namespace Pastel
 	class Class
 	{
 	public:
-		// Only non-class types are allowed to be forwarded.
-		PASTEL_STATIC_ASSERT(!std::is_class<Type>::value);
+		// Only scalar types are allowed to be forwarded.
+		PASTEL_STATIC_ASSERT(std::is_scalar<Type>::value);
 
 		Class()
 			: member_()

@@ -210,7 +210,7 @@ solution "Pastel"
 		-- Enables some additional warnings.
 		buildoptions { "-Wall" }
 		-- Enables C++11 support.
-		buildoptions { "-std=gnu++11" }
+		buildoptions { "-std=c++0x" }
 		-- Disable some warnings.
 		buildoptions 
 		{ 
