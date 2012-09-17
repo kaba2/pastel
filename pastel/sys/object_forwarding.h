@@ -10,9 +10,6 @@ namespace Pastel
 
 	//! A forwarding class for non-class types.
 	/*!
-	Preconditions:
-	!std::is_class<Type>
-
 	Note:
 	If Type is void, then the result is an empty class.
 	This is useful for empty-base class optimization.
@@ -39,9 +36,10 @@ namespace Pastel
 	{
 	public:
 		typedef typename std::conditional<
-			std::is_class<Type>::value,
-			Type,
-			Class<Type>>::type type;
+			std::is_scalar<Type>::value ||
+			std::is_void<Type>::value,
+			Class<Type>, Type
+			>::type type;
 	};
 
 }

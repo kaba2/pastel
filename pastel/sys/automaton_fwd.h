@@ -32,16 +32,23 @@ namespace Pastel
 		class TransitionLabel;
 
 		//! The underlying graph.
+		/*
+		The type-definitions below need to be given in terms
+		of Graph_Fwd, rather than Graph, because of a bug in 
+		gcc 4.6.
+		*/
 		typedef Incidence_Graph<GraphType::Directed, 
 			StateLabel, TransitionLabel> Graph;
+		typedef Incidence_Graph_Fwd<GraphType::Directed, 
+			StateLabel, TransitionLabel> Graph_Fwd;
 
 		//! The states.
 		/*!
 		The states are the vertices of the graph.
 		*/
-		typedef typename Graph::Vertex_Iterator
+		typedef typename Graph_Fwd::Vertex_Iterator
 			State_Iterator;
-		typedef typename Graph::Vertex_ConstIterator
+		typedef typename Graph_Fwd::Vertex_ConstIterator
 			State_ConstIterator;
 
 		//! The user-data for the states.
@@ -53,18 +60,18 @@ namespace Pastel
 		The transitions are the edges of the graph, 
 		labeled with symbols.
 		*/
-		typedef typename Graph::Edge_Iterator
+		typedef typename Graph_Fwd::Edge_Iterator
 			Transition_Iterator;
-		typedef typename Graph::Edge_ConstIterator
+		typedef typename Graph_Fwd::Edge_ConstIterator
 			Transition_ConstIterator;
 
 		//! The user-data for the transitions.
 		typedef typename AsClass<TransitionData>::type
 			TransitionData_Class;
 
-		typedef typename Graph::Incidence_Iterator
+		typedef typename Graph_Fwd::Incidence_Iterator
 			Incidence_Iterator;
-		typedef typename Graph::Incidence_ConstIterator
+		typedef typename Graph_Fwd::Incidence_ConstIterator
 			Incidence_ConstIterator;
 
 		//! The set of final states.
@@ -73,7 +80,12 @@ namespace Pastel
 		typedef typename FinalSet::iterator
 			Final_Iterator;
 	#ifdef __GNUC__
-		typedef typename FinalSet::iterator
+		/*
+		Since even gcc 4.7 does not implement the C++11 
+		container support for const_iterators properly,
+		we will have to use mutable iterators as a hack.
+		*/
+		typedef Final_Iterator
 			Final_ConstIterator;
 	#else
 		typedef typename FinalSet::const_iterator
@@ -86,7 +98,7 @@ namespace Pastel
 		typedef typename StartSet::iterator
 			Start_Iterator;
 	#ifdef __GNUC__
-		typedef typename StartSet::iterator
+		typedef Start_Iterator
 			Start_ConstIterator;
 	#else
 		typedef typename StartSet::const_iterator
@@ -108,7 +120,7 @@ namespace Pastel
 		typedef typename BranchMap::iterator
 			Actual_Branch_Iterator;
 	#ifdef __GNUC__
-		typedef typename BranchMap::iterator
+		typedef Actual_Branch_Iterator
 			Actual_Branch_ConstIterator;
 	#else
 		typedef typename BranchMap::const_iterator
