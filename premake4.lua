@@ -27,7 +27,7 @@ gotBoost = true
 buildLibraries = true
 
 -- Whether to build the test projects.
-buildTests = true
+buildTests = false
 
 -- Whether to build dynamic libraries (vs static libraries)
 wantDynamicLibraries = false
