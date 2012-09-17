@@ -7,7 +7,7 @@
 -- Whether you have Matlab include files 
 -- (say, for 2008a or newer). Note: Binaries are not
 -- needed since the linking is done from Matlab.
-gotMatlab = false
+gotMatlab = true
 
 -- Whether you have Boost 1.51 include files.
 gotBoost = true
