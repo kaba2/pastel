@@ -11,13 +11,12 @@ graphics.
 Source code
 -----------
 
-Pastel is licensed under the _GNU Lesser GPL_ license, which is 
-unrestrictive and non-viral. While this allows you to build your own 
-programs using Pastel, I do not recommend you do this. This is because 
-Pastel is still under development and is thus prone to break 
-backwards-compatibility. Rather, consider it from an educational 
-viewpoint containing implementations and documentations of useful data 
-structures and algorithms.
+Pastel is licensed under the MIT license, which is unrestrictive and 
+non-viral. While this allows you to build your own programs using Pastel, 
+I do not recommend you do this. This is because Pastel is still under 
+development and is thus prone to break backwards-compatibility. Rather, 
+consider it from an educational viewpoint containing implementations 
+and documentations of useful data structures and algorithms.
 
 ### [Download Pastel 1.3.0][Pastel-1.3.0]
 
@@ -36,13 +35,9 @@ Pastel divides into a number of sub-libraries. These are:
 	title
 
 [[set DocChildren.include]]:
-	file_name pasteldevice.txt
-	file_name pasteldsp.txt
 	file_name pastelgeometry.txt
 	file_name pastelgeometrymatlab.txt
 	file_name pastelgfx.txt
-	file_name pastelgfxui.txt
-	file_name pastelgl.txt
 	file_name pastelmath.txt
 	file_name pastelmatlab.txt
 	file_name pastelsys.txt
@@ -51,7 +46,6 @@ Pastel divides into a number of sub-libraries. These are:
 
 [[+set_outer DocChildren.exclude]]:
 	[[DocChildren.include]]
-	file_name pastelray.txt
 
 [[Comment]]:
 	The following is a javascript for Google Analytics by which we can
