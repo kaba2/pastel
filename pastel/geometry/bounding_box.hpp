@@ -10,10 +10,12 @@ namespace Pastel
 	template <typename Real, int N>
 	Box<Real, N> boundingBox(const AlignedBox<Real, N>& alignedBox)
 	{
+		const integer n = alignedBox.dimension();
+
 		return Box<Real, N>(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 			(alignedBox.max() - alignedBox.min()) * 0.5,
-			Matrix<Real, N, N>());
+			identityMatrix<Real>(n));
 	}
 
 }

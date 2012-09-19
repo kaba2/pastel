@@ -3,49 +3,12 @@
 
 #include "pastel/math/matrix_expression.h"
 
+#include "pastel/sys/vector.h"
+
 namespace Pastel
 {
 
-	template <
-		typename Real,
-		int Height, int Width,
-		typename Expression>
-	class MatrixNegation;
-
-	template <
-		typename Real,
-		int Height, int Width,
-		typename LeftExpression,
-		typename RightExpression>
-	class MatrixAddition;
-
-	template <
-		typename Real,
-		int Height, int Width,
-		typename LeftExpression,
-		typename RightExpression>
-	class MatrixSubtraction;
-
-	template <
-		typename Real,
-		int Height, int Width,
-		typename LeftExpression,
-		typename RightExpression>
-	class MatrixMultiplication;
-
-	template <
-		typename Real,
-		int Height, int Width,
-		typename Expression>
-	class MatrixScalarMultiplication;
-
-	template <
-		typename Real,
-		int Height, int Width,
-		typename Expression>
-	class MatrixScalarAddition;
-
-	template <typename Real, int Height, int Width, typename Expression>
+	template <typename Real, typename Expression>
 	class MatrixExpression
 	{
 	protected:
@@ -92,7 +55,7 @@ namespace Pastel
 
 		template <typename RightExpression>
 		bool operator==(
-			const MatrixExpression<Real, Height, Width, RightExpression>& right) const
+			const MatrixExpression<Real, RightExpression>& right) const
 		{
 			const Expression& left = (const Expression&)*this;
 
@@ -118,28 +81,28 @@ namespace Pastel
 
 		template <typename RightExpression>
 		bool operator!=(
-			const MatrixExpression<Real, Height, Width, RightExpression>& right) const
+			const MatrixExpression<Real, RightExpression>& right) const
 		{
 			return !(*this == right);
 		}
 
 		// Negation
 
-		const MatrixNegation<Real, Height, Width, Expression> operator-() const
+		const MatrixNegation<Real, Expression> operator-() const
 		{
-			return MatrixNegation<Real, Height, Width, Expression>((const Expression&)*this);
+			return MatrixNegation<Real, Expression>((const Expression&)*this);
 		}
 
 		// Summation
 
 		template <typename RightExpression>
-		const MatrixAddition<Real, Height, Width, Expression, 
+		const MatrixAddition<Real, Expression, 
 			RightExpression>
 			operator+(const MatrixExpression
-			<Real, Height, Width, RightExpression>& right) const
+			<Real, RightExpression>& right) const
 		{
 			return MatrixAddition
-				<Real, Height, Width, Expression, 
+				<Real, Expression, 
 				RightExpression >
 				((const Expression&)*this,
 				(const RightExpression&)right);
@@ -148,13 +111,13 @@ namespace Pastel
 		// Subtraction
 
 		template <typename RightExpression>
-		const MatrixSubtraction<Real, Height, Width, Expression, 
+		const MatrixSubtraction<Real, Expression, 
 			RightExpression>
 			operator-(const MatrixExpression
-			<Real, Height, Width, RightExpression>& right) const
+			<Real, RightExpression>& right) const
 		{
 			return MatrixSubtraction
-				<Real, Height, Width, Expression, 
+				<Real, Expression, 
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
@@ -162,78 +125,66 @@ namespace Pastel
 
 		// Multiplication
 
-		template <int RightWidth, typename RightExpression>
-		const MatrixMultiplication<Real, Height, RightWidth, Expression, 
-			RightExpression>
-			operator*(const MatrixExpression
-			<Real, Width, RightWidth, RightExpression>& right) const
+		template <typename RightExpression>
+		const MatrixMultiplication<Real, Expression, RightExpression>
+			operator*(const MatrixExpression<Real, RightExpression>& right) const
 		{
-			return MatrixMultiplication
-				<Real, Height, RightWidth, Expression, 
-				RightExpression>
+			return MatrixMultiplication<Real, Expression, RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
 		}
 
-		const MatrixScalarAddition<Real, Height, Width, Expression>
-			operator+(const Real& right) const
+		const MatrixScalarAddition<Real, Expression>
+			operator+(Real right) const
 		{
 			return MatrixScalarAddition
-				<Real, Height, Width, Expression>
+				<Real, Expression>
 				((const Expression&)*this, right);
 		}
 
-		friend const MatrixScalarAddition<Real, Height, Width, Expression>
-			operator+(const Real& left,
-			const MatrixExpression& right)
+		friend const MatrixScalarAddition<Real, Expression>
+			operator+(Real left, const MatrixExpression& right)
 		{
 			// Scalar addition is commutative.
 			return MatrixScalarAddition
-				<Real, Height, Width, Expression>
+				<Real, Expression>
 				((const Expression&)right, left);
 		}
 
-		const MatrixScalarAddition<Real, Height, Width, Expression>
-			operator-(const Real& right) const
+		const MatrixScalarAddition<Real, Expression>
+			operator-(Real right) const
 		{
-			return MatrixScalarAddition
-				<Real, Height, Width, Expression>
+			return MatrixScalarAddition<Real, Expression>
 				((const Expression&)*this, -right);
 		}
 
-		friend const MatrixScalarAddition<Real, Height, Width, Expression>
-			operator-(const Real& left,
-			const MatrixExpression& right)
+		friend const MatrixScalarAddition<Real, Expression>
+			operator-(Real left, const MatrixExpression& right)
 		{
 			// Scalar addition is commutative.
-			return MatrixScalarAddition
-				<Real, Height, Width, Expression>
+			return MatrixScalarAddition<Real, Expression>
 				((const Expression&)right, -left);
 		}
 
-		const MatrixScalarMultiplication<Real, Height, Width, Expression>
-			operator*(const Real& right) const
+		const MatrixScalarMultiplication<Real, Expression>
+			operator*(Real right) const
 		{
-			return MatrixScalarMultiplication
-				<Real, Height, Width, Expression>
+			return MatrixScalarMultiplication<Real, Expression>
 				((const Expression&)*this, right);
 		}
 
-		friend const MatrixScalarMultiplication<Real, Height, Width, Expression>
-			operator*(const Real& left,
-			const MatrixExpression& right)
+		friend const MatrixScalarMultiplication<Real, Expression>
+			operator*(Real left, const MatrixExpression& right)
 		{
 			// Scalar multiplication is commutative.
-			return MatrixScalarMultiplication
-				<Real, Height, Width, Expression>
+			return MatrixScalarMultiplication<Real, Expression>
 				((const Expression&)right, left);
 		}
 
-		const MatrixScalarMultiplication<Real, Height, Width, Expression>
-			operator/(const Real& right) const
+		const MatrixScalarMultiplication<Real, Expression>
+			operator/(Real right) const
 		{
-			return MatrixScalarMultiplication
-				<Real, Height, Width, Expression>
+			return MatrixScalarMultiplication<Real, Expression>
 				((const Expression&)*this, inverse(right));
 		}
 
@@ -242,13 +193,10 @@ namespace Pastel
 	
 	// Concrete expressions
 
-	template <
-		typename Real,
-		int Height, int Width,
-		typename Expression>
+	template <typename Real, typename Expression>
 	class MatrixNegation
-		: public MatrixExpression<Real, Height, Width, 
-		MatrixNegation<Real, Height, Width, Expression> >
+		: public MatrixExpression<Real, 
+		MatrixNegation<Real, Expression> >
 	{
 	public:
 		typedef const MatrixNegation& StorageType;
@@ -294,12 +242,11 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixAddition
-		: public MatrixExpression<Real, Height, Width, 
-		MatrixAddition<Real, Height, Width, 
+		: public MatrixExpression<Real, 
+		MatrixAddition<Real, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -351,12 +298,11 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixSubtraction
-		: public MatrixExpression<Real, Height, Width, 
-		MatrixSubtraction<Real, Height, Width, 
+		: public MatrixExpression<Real, 
+		MatrixSubtraction<Real, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -408,12 +354,11 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixMultiplication
-		: public MatrixExpression<Real, Height, Width, 
-		MatrixMultiplication<Real, Height, Width, 
+		: public MatrixExpression<Real, 
+		MatrixMultiplication<Real, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -475,20 +420,21 @@ namespace Pastel
 		typename RightExpression::StorageType right_;
 	};
 
-	template <typename Real, int Height, int Width,
-		typename Expression>
+	template <typename Real, typename Expression>
 	class MatrixScalarMultiplication
-		: public MatrixExpression<Real, Height, Width, 
-		MatrixScalarMultiplication<Real, Height, Width, Expression> >
+		: public MatrixExpression<Real, 
+		MatrixScalarMultiplication<Real, Expression> >
 	{
 	public:
-		typedef const MatrixScalarMultiplication& StorageType;
+		// Since this expression contains data,
+		// it must be stored by value.
+		typedef const MatrixScalarMultiplication StorageType;
 
 		MatrixScalarMultiplication(
 			const Expression& data,
-			const Real& factor)
+			Real factor)
 			: data_(data)
-			, factor_(factor)
+			, factor_(std::move(factor))
 		{
 		}
 
@@ -526,18 +472,19 @@ namespace Pastel
 		const Real factor_;
 	};
 
-	template <typename Real, int Height, int Width,
-		typename Expression>
+	template <typename Real, typename Expression>
 	class MatrixScalarAddition
-		: public MatrixExpression<Real, Height, Width, 
-		MatrixScalarAddition<Real, Height, Width, Expression> >
+		: public MatrixExpression<Real, 
+		MatrixScalarAddition<Real, Expression> >
 	{
 	public:
-		typedef const MatrixScalarAddition& StorageType;
+		// Since this expression contains data,
+		// it must be stored by value.
+		typedef const MatrixScalarAddition StorageType;
 
 		MatrixScalarAddition(
 			const Expression& data,
-			const Real& term)
+			Real term)
 			: data_(data)
 			, term_(term)
 		{
@@ -577,34 +524,85 @@ namespace Pastel
 		const Real term_;
 	};
 
-	template <typename Real, int Height, int Width>
+	template <typename Real, typename Expression>
 	class MatrixDiagonal
-		: public MatrixExpression<Real, Height, Width, 
-		MatrixDiagonal<Real, Height, Width> >
+		: public MatrixExpression<Real, MatrixDiagonal<Real, Expression>>
 	{
 	public:
-		// Since this expression contains data,
-		// it must be stored by value.
-		typedef const MatrixDiagonal StorageType;
+		typedef const MatrixDiagonal& StorageType;
 
-		MatrixDiagonal(
-			integer height,
-			integer width,
-			const Real& diagonal = 1)
-			: width_(width)
-			, height_(height)
+		explicit MatrixDiagonal(
+			integer m, integer n,
+			const Expression& diagonal)
+			: m_(m)
+			, n_(n)
 			, diagonal_(diagonal)
 		{
 		}
 
 		Real operator()(integer y, integer x) const
 		{
-			if (y == x)
+			if (y == x && x >= 0 && x < diagonal_.size())
 			{
-				return diagonal_;
+				return diagonal_[x];
 			}
 
 			return 0;
+		}
+
+		integer width() const
+		{
+			return n_;
+		}
+
+		integer height() const
+		{
+			return m_;
+		}
+
+		bool involves(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			return diagonal_.involves(memoryBegin, memoryEnd);
+		}
+
+		bool evaluateBeforeAssignment(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			return diagonal_.involves(memoryBegin, memoryEnd);
+		}
+
+	private:
+		const integer m_;
+		const integer n_;
+		typename Expression::StorageType diagonal_;
+	};
+
+	template <typename Real>
+	class MatrixConstant
+		: public MatrixExpression<Real, 
+		MatrixConstant<Real> >
+	{
+	public:
+		// Since this expression contains data,
+		// it must be stored by value.
+		typedef const MatrixConstant StorageType;
+
+		MatrixConstant(
+			integer height,
+			integer width,
+			Real value = 0)
+			: width_(width)
+			, height_(height)
+			, value_(std::move(value))
+		{
+			PENSURE_OP(height, >=, 0);
+			PENSURE_OP(width, >=, 0);
+		}
+
+		Real operator()(integer y, integer x) const
+		{
+			return value_;
 		}
 
 		integer width() const
@@ -632,31 +630,15 @@ namespace Pastel
 	private:
 		const integer width_;
 		const integer height_;
-		const Real diagonal_;
+		const Real value_;
 	};
-
-	template <typename Real, int Height, int Width>
-	MatrixDiagonal<Real, Height, Width> identityMatrix()
-	{
-		PASTEL_STATIC_ASSERT(Width != Dynamic && Height != Dynamic);
-
-		return Pastel::identityMatrix<Real, Height, Width>(Height, Width);
-	}
-
-	template <typename Real, int Height, int Width>
-	MatrixDiagonal<Real, Height, Width> identityMatrix(
-		integer height, integer width)
-	{
-		return MatrixDiagonal<Real, Height, Width>(height, width, 1);
-	}
 
 	template <
 		typename Real,
-		int Height, int Width,
 		typename Expression>
 	class MatrixTranspose
-		: public MatrixExpression<Real, Width, Height, 
-		MatrixTranspose<Real, Height, Width, Expression> >
+		: public MatrixExpression<Real,
+		MatrixTranspose<Real, Expression> >
 	{
 	public:
 		typedef const MatrixTranspose& StorageType;
@@ -704,13 +686,185 @@ namespace Pastel
 		typename Expression::StorageType data_;
 	};
 
-	template <typename Real, int Height, int Width, typename Expression>
-	MatrixTranspose<Real, Height, Width, Expression> transpose(
-		const MatrixExpression<Real, Height, Width, Expression>& that)
+	template <typename Real>
+	class ArrayMatrix
+		: public MatrixExpression<Real, ArrayMatrix<Real>>
 	{
-		return MatrixTranspose<Real, Height, Width, Expression>(
-			(const Expression&)that);
-	}
+	public:
+		typedef const ArrayMatrix& StorageType;
+
+		ArrayMatrix(
+			integer height, 
+			integer width,
+			const Real* data)
+			: data_(data)
+			, width_(width)
+			, height_(height)
+		{
+		}
+
+		Real operator()(integer y, integer x) const
+		{
+			PENSURE_OP(x, >=, 0);
+			PENSURE_OP(x, <, width_);
+			PENSURE_OP(y, >=, 0);
+			PENSURE_OP(y, <, height_);
+			return data_[(y * width) + x];
+		}
+
+		integer width() const
+		{
+			return width_;
+		}
+
+		integer height() const
+		{
+			return height_;
+		}
+
+		bool involves(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			return memoryOverlaps(
+				data_, data_ + height * width, 
+				memoryBegin, memoryEnd);
+		}
+
+		bool evaluateBeforeAssignment(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			return memoryOverlaps(
+				data_, data_ + height * width, 
+				memoryBegin, memoryEnd);
+		}
+
+	private:
+		const Real* data_;
+		integer width_;
+		integer height_;
+	};
+
+	// Matrices vs vectors
+
+	template <
+		typename Real,
+		int N,
+		typename LeftExpression,
+		typename RightExpression>
+	class MatrixVectorMultiplication
+		: public VectorExpression<Real, N, MatrixVectorMultiplication<Real, N,
+		LeftExpression, RightExpression> >
+	{
+	public:
+		typedef const MatrixVectorMultiplication& StorageType;
+
+		MatrixVectorMultiplication(
+			const LeftExpression& left,
+			const RightExpression& right)
+			: left_(left)
+			, right_(right)
+		{
+			PENSURE_OP(left.width(), ==, right.size());
+		}
+
+		Real operator[](integer index) const
+		{
+			const integer n = left_.width();
+			
+			Real sum = 0;
+			for (integer x = 0;x < n;++x)
+			{
+				sum += left_(index, x) * right_[x];
+			}
+
+			return sum;
+		}
+
+		integer size() const
+		{
+			return left_.height();
+		}
+
+		bool involves(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
+		}
+
+		bool evaluateBeforeAssignment(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			// This is a non-trivial expression.
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
+		}
+
+	private:
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
+	};
+
+	template <
+		typename Real,
+		int N,
+		typename LeftExpression,
+		typename RightExpression>
+	class VectorMatrixMultiplication
+		: public VectorExpression<Real, N, VectorMatrixMultiplication<Real, N, 
+		LeftExpression, RightExpression> >
+	{
+	public:
+		typedef const VectorMatrixMultiplication& StorageType;
+
+		VectorMatrixMultiplication(
+			const LeftExpression& left,
+			const RightExpression& right)
+			: left_(left)
+			, right_(right)
+		{
+			PENSURE_OP(left.size(), ==, right.height());
+		}
+
+		Real operator[](integer index) const
+		{
+			const integer n = right_.height();
+			
+			Real sum = 0;
+			for (integer y = 0;y < n;++y)
+			{
+				sum += left_[y] * right_(y, index);
+			}
+
+			return sum;
+		}
+
+		integer size() const
+		{
+			return right_.width();
+		}
+
+		bool involves(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
+		}
+
+		bool evaluateBeforeAssignment(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			// This is a non-trivial expression.
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
+		}
+
+	private:
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
+	};
 
 }
 

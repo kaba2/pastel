@@ -32,7 +32,7 @@ namespace Pastel
 	template <typename Type, int N>
 	Type MipImage_Texture<Type, N>::operator()(
 		const Vector<real, N>& uv,
-		const Matrix<real, N, N>& m) const
+		const Matrix<real>& m) const
 	{
 		if (!mipMap_ || mipMap_->empty())
 		{
@@ -54,7 +54,7 @@ namespace Pastel
 		real d = 0;
 		for (integer i = 0;i < n;++i)
 		{
-			const real dotMi = dot(m[i] * Vector<real, N>(mostDetailedImage.extent()));
+			const real dotMi = dot(m.cColumn(i) * Vector<real, N>(mostDetailedImage.extent()));
 			if (dotMi > d)
 			{
 				d = dotMi;

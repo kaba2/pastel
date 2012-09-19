@@ -16,44 +16,46 @@ namespace Pastel
 	bijection gives the Frobenius norm (without the square root).
 	See 'pastel/math/normbijections.h" for predefined norm bijections.
 	*/
-	template <typename Real,int Height, int Width,  
+	template <typename Real,  
 		typename Expression, typename NormBijection>
-	Real norm2(const MatrixExpression<Real, Height, Width, Expression>& matrix,
+	Real norm2(const MatrixExpression<Real, Expression>& matrix,
 		const NormBijection& normBijection);
 
 	//! Returns the induced manhattan matrix norm.
 	/*!
-	This matrix norm is given by the maximum absolute
-	column sum:
+	returns:
 	max(sum(abs(matrix)))
-
-	A matrix norm is a vector space norm with two
-	additional requirements for
-	1) |AB| <= |A||B| (sub-multiplicativity)
-	2) |A| = |A*| (norm unchanged by (conjugate) transpose)
-	A vector norm |x| induces a matrix norm by:
-	|A| = max{|Ax|/|x| : x != 0}
-	Induced matrix norms are by definition consistent
-	with their inducing vector norm:
-	for all x: |Ax| <= |A||x|
-	See 'norm2' for pointwise matrix norms.
 	*/
-	template <typename Real, int Height, int Width, typename Expression>
+	template <typename Real, typename Expression>
 	Real manhattanNorm(
-		const MatrixExpression<Real, Height, Width, Expression>& matrix);
+		const MatrixExpression<Real, Expression>& matrix);
+
+	//! Returns the squared Frobenius matrix norm.
+	/*!
+	returns:
+	norm2(matrix, Euclidean_NormBijection())
+	*/
+	template <typename Real, typename Expression>
+	Real frobeniusNorm2(
+		const MatrixExpression<Real, Expression>& matrix);
+
+	//! Returns the Frobenius matrix norm.
+	/*!
+	returns:
+	sqrt(frobeniusNorm2(matrix))
+	*/
+	template <typename Real, typename Expression>
+	Real frobeniusNorm(
+		const MatrixExpression<Real, Expression>& matrix);
 
 	//! Returns the induced infinity matrix norm.
 	/*!
-	This matrix norm is given by the maximum absolute
-	row sum:
+	returns:
 	max(sum(abs(transpose(matrix))))
-	See the documentation for 'manhattanNorm'
-	for more information. See 'norm2' for pointwise
-	matrix norms.
 	*/
-	template <typename Real, int Height, int Width, typename Expression>
+	template <typename Real, typename Expression>
 	Real maxNorm(
-		const MatrixExpression<Real, Height, Width, Expression>& matrix);
+		const MatrixExpression<Real, Expression>& matrix);
 
 }
 

@@ -497,7 +497,7 @@ namespace Pastel
 
 					image(x, y) =
 						colorMixer(image(x, y),
-						textureSampler(uv * w, Matrix2(dsDx, dsDy)));
+						textureSampler(uv * w, matrix2x2<real>(dsDx, dsDy)));
 
 					uv += dUvDx;
 					t += dtDx;
@@ -616,7 +616,7 @@ namespace Pastel
 
 					image(x, y) =
 						colorMixer(image(x, y),
-						textureSampler(uv * w, Matrix2(dsDx, dsDy)));
+						textureSampler(uv * w, matrix2x2<real>(dsDx, dsDy)));
 
 					uv += dUvDx;
 					t += dtDx;

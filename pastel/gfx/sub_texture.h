@@ -36,12 +36,12 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const
+			const Matrix<real>& m) const
 		{
-			Matrix<real, N, N> mNew(m);
+			Matrix<real> mNew(m);
 			for (integer i = 0;i < mNew.height();++i)
 			{
-				mNew[i] *= window_.extent(i);
+				mNew.column(i) *= window_.extent(i);
 			}
 
 			return (*texture_)(window_.at(p), mNew);

@@ -35,7 +35,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const
+			const Matrix<real>& m) const
 		{
 			const Vector<real, N> spherical =
 				sphericalStart_ + (sphericalEnd_ - sphericalStart_) * p;

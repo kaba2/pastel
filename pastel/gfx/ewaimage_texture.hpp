@@ -45,7 +45,7 @@ namespace Pastel
 	template <typename Type, int N>
 	Type EwaImage_Texture<Type, N>::operator()(
 		const Vector<real, N>& p_,
-		const Matrix<real, N, N>& m_) const
+		const Matrix<real>& m_) const
 	{
 		// Read ewaimatexture.txt for implementation documentation.
 
@@ -62,16 +62,16 @@ namespace Pastel
 		// transformation from the image plane to the texture plane.
 
 		const Vector<real, N> p(p_ * imageExtent);
-		Matrix<real, N, N> basis = m_;
+		Matrix<real> basis = m_;
 		for (integer i = 0;i < n;++i)
 		{
-			basis[i] *= imageExtent * filterRadius_;
+			basis.column(i) *= imageExtent * filterRadius_;
 		}
 
 		// Find the ellipse that is obtained by applying
 		// that affine transformation to a unit sphere.
 
-		Matrix<real, N, N> quadraticForm =
+		Matrix<real> quadraticForm =
 			ellipsoidQuadraticForm(basis);
 
 		// We do not use the coefficients as computed.
@@ -168,7 +168,7 @@ namespace Pastel
 			// the minor axis has changed.
 
 			quadraticForm = ellipsoidQuadraticForm(
-				Matrix<real, N, N>(minorAxis, majorAxis));
+				matrix2x2<real>(minorAxis, majorAxis));
 		}
 
 		// Select an appropriate mipmap level.
@@ -182,7 +182,7 @@ namespace Pastel
 
 		//return Type(level / (mipMap_->levels() - 1));
 
-		const AlignedBox2 bound =
+		const AlignedBoxD bound =
 			ellipsoidBoundingAlignedBox(quadraticForm) + p;
 
 		// We want 'f' to give the value of
@@ -242,8 +242,8 @@ namespace Pastel
 	template <typename Type, int N>
 	Type EwaImage_Texture<Type, N>::sampleEwa(
 		const Vector<real, N>& p,
-		const Matrix<real, N>& quadraticForm,
-		const AlignedBox<real, N>& bound,
+		const Matrix<real>& quadraticForm,
+		const AlignedBoxD& bound,
 		real scaling,
 		real tTransition,
 		const Array<Type, N>& image) const
@@ -262,7 +262,7 @@ namespace Pastel
 
 		real fLeft = dot(pStart * quadraticForm, pStart) * formScaling;
 		Vector<real, N> dfLeft = (2 * (pStart * quadraticForm) + diagonal(quadraticForm)) * formScaling;
-		const Matrix<real, N, N> ddf = (2 * formScaling) * quadraticForm;
+		const Matrix<real> ddf = (2 * formScaling) * quadraticForm;
 
 		Type imageSum(0);
 		real weightSum = 0;
@@ -290,7 +290,7 @@ namespace Pastel
 			}
 
 			fLeft += dfLeft.y();
-			dfLeft += ddf[1];
+			dfLeft += ddf.cColumn(1);
 		}
 
 		if (weightSum <= 0)

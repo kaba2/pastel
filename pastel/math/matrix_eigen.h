@@ -11,12 +11,12 @@ namespace Pastel
 
 	template <typename Real>
 	Vector<Real, 2> symmetricEigenValues(
-		const Matrix<Real, 2, 2>& matrix);
+		const Matrix<Real>& matrix);
 
 	template <typename Real>
 	void symmetricEigenDecomposition(
-		const Matrix<Real, 2, 2>& matrix,
-		Matrix<Real, 2, 2>& eigenVector,
+		const Matrix<Real>& matrix,
+		Matrix<Real>& eigenVector,
 		Vector<Real, 2>& eigenValue);
 
 }

@@ -192,6 +192,7 @@
     <ClCompile Include="test_matrix.cpp" />
     <ClCompile Include="test_cholesky_decomposition.cpp" />
     <ClCompile Include="test_lu_decomposition.cpp" />
+    <ClCompile Include="test_orthonormal.cpp" />
     <ClCompile Include="test_qr_decomposition.cpp" />
     <ClCompile Include="test_gcd.cpp" />
     <ClCompile Include="mathinstantiate.cpp" />

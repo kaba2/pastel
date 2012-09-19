@@ -25,36 +25,28 @@ namespace
 
 		virtual void run()
 		{
-			testQrCase<real, 1>();
-			testQrCase<real, 2>();
-			testQrCase<real, 3>();
-			testQrCase<real, 4>();
-			//testQrCase<real, Dynamic>();
+			testQrCase();
 		}
 
-		template <typename Real, int N>
 		void testQrCase()
 		{
-			const integer n = 
-				(N == Dynamic) ? 10 : N;
+			const integer n = 10;
 
 			const integer attempts = 10000;
 			integer errorCount = 0;
 
 			for (integer i = 0;i < attempts;++i)
 			{
-				Matrix<Real, N, N> a(n, n);
+				Matrix<real> a(n, n);
 				setRandomMatrix(a);
 
-				const Vector<Real, N> b = randomVectorCube<Real, N>(n);
-
-				const QrDecomposition<Real, N> qr(a);
-
-				const Vector<Real, N> qrSolution =
+				const Vector<real> b = randomVectorCube<real, Dynamic>(n);
+				const QrDecomposition<real> qr(a);
+				const Vector<real> qrSolution =
 					solveLinear(qr, b);
 
-				const Real error = 
-					norm(qrSolution * a  - b);
+				const real error = 
+					norm(a * qrSolution  - b);
 
 				if (error > 0.001)
 				{

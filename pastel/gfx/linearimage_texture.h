@@ -50,7 +50,7 @@ namespace Pastel
 
 		virtual Element operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const
+			const Matrix<real>& m) const
 		{
 			return sampleLinear(
 				evaluate(p * extent_),

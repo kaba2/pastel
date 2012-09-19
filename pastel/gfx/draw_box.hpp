@@ -52,7 +52,8 @@ namespace Pastel
 			inverse((real)width),
 			inverse((real)height));
 
-		const Matrix2 m(
+		const Matrix<real> m = 
+			matrix2x2<real>(
 			dp.x(), 0,
 			0, dp.y());
 

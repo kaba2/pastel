@@ -25,43 +25,112 @@ namespace
 		{
 		}
 
+		typedef Matrix<real> MatrixD;
+
 		virtual void run()
 		{
+			testNorm();
+			testTrace();
+			testDeterminant();
 			testMatrixExpressions();
 			testMatrixLowDimensional();
-
 			testMatrixSimpleArithmetic();
-
-			testMatrixSolve<1>();
-			testMatrixSolve<2>();
-			testMatrixSolve<3>();
-			testMatrixSolve<4>();
-			testMatrixSolve<5>();
-			testMatrixSolve<Dynamic>();
-
-			testMatrixInverse<1>();
-			testMatrixInverse<2>();
-			testMatrixInverse<3>();
-			testMatrixInverse<4>();
-			testMatrixInverse<5>();
-			testMatrixInverse<Dynamic>();
-
-			testMatrixMultiply<1>();
-			testMatrixMultiply<2>();
-			testMatrixMultiply<3>();
-			testMatrixMultiply<4>();
-			testMatrixMultiply<5>();
-			testMatrixMultiply<Dynamic>();
-
-			testMatrixAssigns<1>();
-			testMatrixAssigns<2>();
-			testMatrixAssigns<3>();
-			testMatrixAssigns<4>();
-			testMatrixAssigns<5>();
-			testMatrixAssigns<Dynamic>();
-
+			testMatrixSolve();
+			testInverse();
+			testMatrixMultiply();
+			testMatrixAssigns();
 			testSubMatrix();
 			testMatrixArray();
+		}
+
+		void testNorm()
+		{
+			MatrixD m(2, 3);
+			m |= -1, 2, 3,
+				 4, -5, 6;
+
+			{
+				real correct = 
+					square(-1) + square(2) + square(3) +
+					square(4) + square(-5) + square(6);
+				TEST_ENSURE_OP(frobeniusNorm2(m), ==, correct);
+				TEST_ENSURE_OP(frobeniusNorm(m), ==, std::sqrt(correct));
+			}
+
+			{
+				real correct = 4 + 5 + 6;
+				TEST_ENSURE_OP(maxNorm(m), ==, correct);
+			}
+
+			{
+				real correct = 3 + 6;
+				TEST_ENSURE_OP(manhattanNorm(m), ==, correct);
+			}
+		}
+
+		void testTrace()
+		{
+			MatrixD m(2, 3);
+			m |= -1, 2, 3,
+				 4, -5, 6;
+			
+			{
+				real correct = -1 + -5;
+				TEST_ENSURE_OP(trace(m), ==, correct);
+			}
+		}
+
+		void testDiagonalProduct()
+		{
+			MatrixD m(2, 3);
+			m |= -1, 2, 3,
+				 4, -5, 6;
+			
+			{
+				real correct = -1 * -5;
+				TEST_ENSURE_OP(diagonalProduct(m), ==, correct);
+			}
+		}
+
+		void testDeterminant()
+		{
+			{
+				MatrixD m(1, 1);
+				m |= -1;
+				{
+					real correct = -1;
+					TEST_ENSURE_OP(determinant(m), ==, correct);
+				}
+			}
+
+			{
+				MatrixD m(2, 2);
+				m |= -1, 2,
+					 4, -5;
+				{
+					real correct = (-1 * -5) - (2 * 4);
+					TEST_ENSURE_OP(determinant(m), ==, correct);
+				}
+			}
+
+			{
+				MatrixD m(3, 3);
+				m |= -1, 2, 3,
+					 4, -5, 5,
+					 2, 3, 4;
+				{
+					real correct = 89;
+					TEST_ENSURE_OP(std::abs(determinant(m) - 89), <, 0.0001);
+				}
+			}
+
+			{
+				MatrixD m(10, 10);
+				setRandomRotation(m);
+				{
+					TEST_ENSURE_OP(std::abs(determinant(m) - 1), <, 0.0001);
+				}
+			}
 		}
 
 		void testMatrixExpressions()
@@ -70,20 +139,237 @@ namespace
 			// order with the combination of |= and comma 
 			// operators. Extraneous values are ignored.
 
+			// Construct an empty matrix.
+			MatrixD empty;
+			{
+				TEST_ENSURE_OP(empty.size(), ==, 0);
+				TEST_ENSURE_OP(empty.width(), ==, 0);
+				TEST_ENSURE_OP(empty.height(), ==, 0);
+			}
+
+			// Constructs from a matrix expression.
+			MatrixD m = identityMatrix<real>(2, 3) * 2 + 5;
+			{
+				real correctSet[] = 
+				{
+					7, 5, 5,
+					5, 7, 5
+				};
+
+				TEST_ENSURE(boost::equal(m.cRange(), range(correctSet)));
+			}
+
+			{
+				MatrixD test(2, 3);
+				test |= 1, 2, 3,
+					    4, 5, 6;
+
+				// Adds a matrix expression.
+				test += identityMatrix<real>(2, 3);
+				{
+					real correctSet[] =
+					{
+						2, 2, 3,
+						4, 6, 6
+					};
+
+					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+				}
+
+				// Subtracts a matrix expression.
+				test -= identityMatrix<real>(2, 3);
+				{
+					real correctSet[] =
+					{
+						1, 2, 3,
+						4, 5, 6
+					};
+
+					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+				}
+
+				// Multiplies with a matrix expression.
+				test *= identityMatrix<real>(3, 2);
+				{
+					real correctSet[] =
+					{
+						1, 2,
+						4, 5
+					};
+
+					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+				}
+			}
+
+			// Constructs an mxn identity matrix.
 			MatrixD a(4, 6);
+			{
+				real correctSet[] =
+				{
+					1, 0, 0, 0, 0, 0,
+					0, 1, 0, 0, 0, 0,
+					0, 0, 1, 0, 0, 0,
+					0, 0, 0, 1, 0, 0
+				};
+
+				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+				TEST_ENSURE_OP(a.height(), ==, 4);
+				TEST_ENSURE_OP(a.width(), ==, 6);
+				TEST_ENSURE_OP(a.m(), ==, 4);
+				TEST_ENSURE_OP(a.n(), ==, 6);
+				TEST_ENSURE_OP(a.size(), ==, 4 * 6);
+			}
+
+			real dataSet[] = 
+			{
+				1, 2, 3,
+				4, 5, 6,
+				7, 8, 9,
+				10, 11, 12
+			};
+			
+			// Constructs from a shared array.
+			MatrixD shared(4, 3, withAliasing(dataSet));
+			{
+				TEST_ENSURE(boost::equal(shared.cRange(), range(dataSet)));
+			}
+
+			TEST_ENSURE(shared.valid(0, 0));
+			TEST_ENSURE(!shared.valid(-1, 0));
+			TEST_ENSURE(!shared.valid(0, -1));
+			TEST_ENSURE(!shared.valid(4, 3));
+			TEST_ENSURE(!shared.valid(3, 3));
+			TEST_ENSURE(shared.valid(3, 2));
+
+			TEST_ENSURE(shared.involves(
+				dataSet, dataSet + 1));
+			TEST_ENSURE(shared.involves(
+				dataSet + shared.size() - 1, 
+				dataSet + shared.size()));
+			TEST_ENSURE(!shared.involves(
+				dataSet + shared.size(), 
+				dataSet + shared.size() + 10));
+			TEST_ENSURE(!shared.involves(
+				dataSet - 10, dataSet));
+
+			// Element access
+			for (integer i = 0;i < 12;++i)
+			{
+				TEST_ENSURE(shared(i) == i + 1);
+				TEST_ENSURE(shared(i / 3, i % 3) == i + 1);
+			}
+
+			// Column ranges
+			{
+				real correctSet[] = 
+				{
+					2, 5, 8, 11
+				};
+
+				TEST_ENSURE(boost::equal(shared.cColumnRange(1), range(correctSet)));
+			}
+
+			// Row ranges
+			{
+				real correctSet[] = 
+				{
+					4, 5, 6
+				};
+
+				TEST_ENSURE(boost::equal(shared.cRowRange(1), range(correctSet)));
+			}
+
+			{
+				MatrixD test(3, 2);
+				test |= 1, 2, 3,
+					    4, 5, 6;
+				
+				// Subtracts a constant from all elements.
+				test -= 1;
+				{
+					real correctSet[] = 
+					{
+						0, 1, 2,
+						3, 4, 5
+					};
+
+					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+				}
+
+				// Adds a constant to all elements.
+				test += 1;
+				{
+					real correctSet[] = 
+					{
+						1, 2, 3,
+						4, 5, 6
+					};
+
+					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+				}
+
+				// Multiplies all elements with a constant.
+				test *= 2;
+				{
+					real correctSet[] = 
+					{
+						2, 4, 6,
+						8, 10, 12
+					};
+
+					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+				}
+
+				// Divides all elements by a constant.
+				test /= 2;
+				{
+					real correctSet[] = 
+					{
+						1, 2, 3,
+						4, 5, 6
+					};
+
+					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+				}
+			}
+
 			a |= 1, 0, 1, 0, 1, 0,
 				0, 1, 0, 1, 0, 1,
 				2, 0, 1, 0, 1, 0,
 				0, 2, 0, 1, 0, 1;
+			{
+				real correctSet[] = 
+				{
+					1, 0, 1, 0, 1, 0,
+					0, 1, 0, 1, 0, 1,
+					2, 0, 1, 0, 1, 0,
+					0, 2, 0, 1, 0, 1
+				};
+
+				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+			}
 			
+			// The 2x2 identity-matrix repeated 2 times vertically,
+			// and 3 times horizontally.
 			MatrixD b = repeat(
-				identityMatrix<real, Dynamic, Dynamic>(2, 2),
+				identityMatrix<real>(2, 2),
 				2, 3);
+			{
+				real correctSet[] = 
+				{
+					1, 0, 1, 0, 1, 0,
+					0, 1, 0, 1, 0, 1,
+					1, 0, 1, 0, 1, 0,
+					0, 1, 0, 1, 0, 1
+				};
+
+				TEST_ENSURE(boost::equal(b.cRange(), range(correctSet)));
+			}
 
 			// You can refer to a submatrix of a matrix.
 
 			b(Vector2i(2, 0), Vector2i(4, 2)) = 
-				identityMatrix<real, Dynamic, Dynamic>(2, 2) * 2;
+				identityMatrix<real>(2, 2) * 2;
 
 			TEST_ENSURE(a == b);
 
@@ -133,43 +419,21 @@ namespace
 			const integer width = 4;
 			const integer height = 4;
 
-			// A matrix can be accessed through
-			// a view interface. The convention
-			// for index ordering is opposite
-			// for the views.
-
-			Matrix<real32, Dynamic, Dynamic> a(height, width);
+			Matrix<real32> a(height, width);
 			for (integer y = 0;y < height;++y)
 			{
 				for (integer x = 0;x < width;++x)
 				{
-					const real32 value = x * y;
-					a.view()(x, y) = value;
-			
-					// The matrix can also be indexed
-					// directly.
-
-					TEST_ENSURE_OP(a(y, x), ==, value);
+					a(x, y) = x * y;
 				}
 			}
 			
-			// Demonstrating the modification of a matrix
-			// via view interface.
-
-			copy(constSubView(a.constView(), AlignedBox2i(0, 0, 2, 2)),
-				subView(a.view(), AlignedBox2i(2, 2, 4, 4)));
-			
-			TEST_ENSURE_OP(a(2, 2), ==, a(0, 0));
-			TEST_ENSURE_OP(a(3, 2), ==, a(1, 0));
-			TEST_ENSURE_OP(a(3, 3), ==, a(1, 1));
-			TEST_ENSURE_OP(a(2, 3), ==, a(0, 1));
-
 			// The matrix can also be viewed as a sequence
 			// of values, so that algorithms from the
 			// standard library can be used at will.
 
-			Matrix<real32, Dynamic, Dynamic>::Iterator iter = a.begin();
-			const Matrix<real32, Dynamic, Dynamic>::Iterator iterEnd = a.end();
+			Matrix<real32>::Iterator iter = a.begin();
+			const Matrix<real32>::Iterator iterEnd = a.end();
 
 			integer i = 0;
 			while(iter != iterEnd)
@@ -179,35 +443,61 @@ namespace
 				++i;
 				TEST_ENSURE_OP(i, <=, a.size());
 			}
+			{
+				real32 correctSet[] = 
+				{
+					0,  1,  2,  3,
+					4,  5,  6,  7,
+					8,  9,  10, 11,
+					12, 13, 14, 15,
+				};
+
+				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+			}
 
 			std::random_shuffle(a.begin(), a.end());
 			std::sort(a.begin(), a.end());
+			{
+				real32 correctSet[] = 
+				{
+					0,  1,  2,  3,
+					4,  5,  6,  7,
+					8,  9,  10, 11,
+					12, 13, 14, 15,
+				};
+
+				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+			}
 
 			i = 0;
 			iter = a.begin();
 			while(iter != iterEnd)
 			{
-				TEST_ENSURE_OP(*iter, ==, i);
 				++iter;
 				++i;
+			}
+			{
+				real32 correctSet[] = 
+				{
+					0,  1,  2,  3,
+					4,  5,  6,  7,
+					8,  9,  10, 11,
+					12, 13, 14, 15,
+				};
+
+				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
 			}
 
 			// Finally, a matrix can be viewed as
 			// a collection of row vectors.
 
-			for (integer j = 0;j < height;++j)
+			for (integer j = 0;j < width;++j)
 			{
-				a[j] = unitAxis<real32, Dynamic>(width, j) * 2;
-				TEST_ENSURE_OP(a[j][j], ==, 2);
-				a[j] = evaluate(unitAxis<real32, Dynamic>(width, j) * 3);
-				TEST_ENSURE_OP(a[j][j], ==, 3);
+				a.column(j) = unitAxis<real32, Dynamic>(height, j) * 2;
+				TEST_ENSURE_OP(a(j, j), ==, 2);
+				a.column(j) = evaluate(unitAxis<real32, Dynamic>(height, j) * 3);
+				TEST_ENSURE_OP(a(j, j), ==, 3);
 			}
-
-			// A const view can be adapted to a matrix expression:
-
-			Array<real32, 2> b(Vector2i(height, width));
-			
-			a *= asMatrix(constArrayView(b));
 
 			// Because of the way the matrix is stored,
 			// it's width and height can be varied
@@ -216,11 +506,26 @@ namespace
 			// The data retains its row-major ordering.
 
 			a.reshape(8, 2);
+			{
+				real32 correctSet[] = 
+				{
+					3, 0,
+					0, 0,
+					0, 3,
+					0, 0,
+					0, 0,
+					3, 0,
+					0, 0,
+					0, 3
+				};
+
+				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+			}
 		}
 
 		void testMatrixArray()
 		{
-			Matrix3 a;
+			MatrixD a(3, 3);
 			a |= 1, 2, 3,
 				 -2, 3, -4,
 				 7, -3, 2;
@@ -239,33 +544,35 @@ namespace
 		void testMatrixLowDimensional()
 		{
 			{
-				Matrix<real, 1, 1> a(5);
+				Matrix<real> a = matrix1x1<real>(5);
 				TEST_ENSURE(
 					a(0, 0) == 5);
 			}
 			{
-				Matrix<real, 2, 2> a(
+				Matrix<real> a = 
+					matrix2x2<real>(
 					1, 2,
 					3, 4);
 				TEST_ENSURE(
 					a(0, 0) == 1 && a(0, 1) == 2 &&
 					a(1, 0) == 3 && a(1, 1) == 4);
 
-				Matrix<real, 2, 2> b;
+				Matrix<real> b(2, 2);
 
 				b = a;
 				TEST_ENSURE(
 					b(0, 0) == 1 && b(0, 1) == 2 &&
 					b(1, 0) == 3 && b(1, 1) == 4);
 
-				Matrix<real, 2, 2> c(b);
+				Matrix<real> c(b);
 				TEST_ENSURE(
 					c(0, 0) == 1 && c(0, 1) == 2 &&
 					c(1, 0) == 3 && c(1, 1) == 4);
 			}
 
 			{
-				Matrix<real, 3, 3> a(
+				Matrix<real> a = 
+					matrix3x3<real>(
 					1, 2, 3,
 					4, 5, 6,
 					7, 8, 9);
@@ -274,7 +581,7 @@ namespace
 					a(1, 0) == 4 && a(1, 1) == 5 && a(1, 2) == 6 &&
 					a(2, 0) == 7 && a(2, 1) == 8 && a(2, 2) == 9);
 
-				Matrix<real, 3, 3> b;
+				Matrix<real> b(3, 3);
 
 				b = a;
 				TEST_ENSURE(
@@ -282,14 +589,15 @@ namespace
 					b(1, 0) == 4 && b(1, 1) == 5 && b(1, 2) == 6 &&
 					b(2, 0) == 7 && b(2, 1) == 8 && b(2, 2) == 9);
 
-				Matrix<real, 3, 3> c(b);
+				Matrix<real> c(b);
 				TEST_ENSURE(
 					c(0, 0) == 1 && c(0, 1) == 2 && c(0, 2) == 3 &&
 					c(1, 0) == 4 && c(1, 1) == 5 && c(1, 2) == 6 &&
 					c(2, 0) == 7 && c(2, 1) == 8 && c(2, 2) == 9);
 			}
 			{
-				Matrix<real, 4, 4> a(
+				Matrix<real> a =
+					matrix4x4<real>(
 					1, 2, 3, 4,
 					5, 6, 7, 8,
 					9, 10, 11, 12,
@@ -304,7 +612,7 @@ namespace
 					a(3, 0) == 13 && a(3, 1) == 14 &&
 					a(3, 2) == 15 && a(3, 3) == 16);
 
-				Matrix<real, 4, 4> b;
+				Matrix<real> b(4, 4);
 
 				b = a;
 				TEST_ENSURE(
@@ -317,7 +625,7 @@ namespace
 					b(3, 0) == 13 && b(3, 1) == 14 &&
 					b(3, 2) == 15 && b(3, 3) == 16);
 
-				Matrix<real, 4, 4> c(b);
+				Matrix<real> c(b);
 				TEST_ENSURE(
 					c(0, 0) == 1 && c(0, 1) == 2 &&
 					c(0, 2) == 3 && c(0, 3) == 4 &&
@@ -332,36 +640,37 @@ namespace
 
 		void testMatrixSimpleArithmetic()
 		{
-			Matrix<real, 2, 3> a;
+			Matrix<real> a(2, 3);
 
 			a |= 1, 2, 3,
 				4, 5, 6;
 
-			Matrix<real, 3, 2> b;
+			Matrix<real> b(3, 2);
 
 			b |= 7, 8,
 				4, 3,
 				3, 6;
 
-			Matrix<real, 2, 2> c(a * b);
+			Matrix<real> c(a * b);
 			TEST_ENSURE(
 				c(0, 0) == 1 * 7 + 2 * 4 + 3 * 3 &&
 				c(0, 1) == 1 * 8 + 2 * 3 + 3 * 6 &&
 				c(1, 0) == 4 * 7 + 5 * 4 + 6 * 3 &&
 				c(1, 1) == 4 * 8 + 5 * 3 + 6 * 6);
 
-			Matrix<real, 1, 3> d;
+			Matrix<real> d(1, 3);
 			d |= 5, 2, 6;
 
-			Matrix<real, 3, 1> e;
+			Matrix<real> e(3, 1);
 			e(0, 0) = -3;
 			e(1, 0) = 6;
 			e(2, 0) = -4;
-			Matrix<real, 1, 1> f(d * e);
+			Matrix<real> f(d * e);
 
 			TEST_ENSURE_OP(f(0, 0), ==, 5 * -3 + 2 * 6 + 6 * -4);
 
-			Matrix<real, 2, 2> g(
+			Matrix<real> g = 
+				matrix2x2<real>(
 				1, 2,
 				3, 4);
 
@@ -382,26 +691,24 @@ namespace
 				g(1, 0) == (real)3 / 4 && g(1, 1) == (real)4 / 4);
 		}
 
-		template <int N>
-		void testMatrixInverse()
+		void testInverse()
 		{
-			const integer n = (N == Dynamic) ? 10 : N;
-
-			const integer matrices = 1000;
+			const integer n = 10;
+			const integer matrices = 100;
 
 			integer count = 0;
 
 			for (integer i = 0;i < matrices;++i)
 			{
-				Matrix<real, N, N> m(n, n);
+				Matrix<real> m(n, n);
 				setRandomMatrix(m);
 
-				const Matrix<real, N, N> mInv = inverse(m);
+				const Matrix<real> mInv = inverse(m);
 
 				const real leftError = 
-					manhattanNorm(m * mInv - identityMatrix<real, N, N>(n, n));
+					manhattanNorm(m * mInv - identityMatrix<real>(n, n));
 				const real rightError = 
-					manhattanNorm(mInv * m - identityMatrix<real, N, N>(n, n));
+					manhattanNorm(mInv * m - identityMatrix<real>(n, n));
 				if (leftError > 0.001 ||
 					rightError > 0.001)
 				{
@@ -409,34 +716,32 @@ namespace
 				}
 			}
 
-			TEST_ENSURE_OP(count, <, 10);
+			TEST_ENSURE_OP(count, <, 3);
 		}
 
-		template <int N>
 		void testMatrixMultiply()
 		{
-			const integer n = (N == Dynamic) ? 10 : N;
-
-			const integer matrices = 1000;
+			const integer n = 10;
+			const integer matrices = 100;
 
 			integer count = 0;
 
 			for (integer i = 0;i < matrices;++i)
 			{
-				Matrix<real, N, N> a(n, n);
+				Matrix<real> a(n, n);
 				setRandomMatrix(a);
 
-				Matrix<real, N, N> b(n, n);
+				Matrix<real> b(n, n);
 				setRandomMatrix(b);
 
-				Vector<real, N> v = randomVectorCube<real, N>(n);
+				VectorD v = randomVectorCube<real, Dynamic>(n);
 
-				Vector<real, N> result1 = v * (a * b);
-				Vector<real, N> result2 = (v * a) * b;
+				VectorD result1 = v * (a * b);
+				VectorD result2 = (v * a) * b;
 
 				a *= b;
 
-				Vector<real, N> result3 = v * a;
+				VectorD result3 = v * a;
 
 				const real error1 = norm(result1 - result2);
 				const real error2 = norm(result3 - result2);
@@ -447,25 +752,23 @@ namespace
 				}
 			}
 
-			TEST_ENSURE_OP(count, <, 10);
+			TEST_ENSURE_OP(count, <, 3);
 		}
 
-		template <int N>
 		void testMatrixAssigns()
 		{
 			// The idea here is to test
 			// for an assignment with an expression
 			// which involves the matrix itself.
 
-			const integer n = (N == Dynamic) ? 10 : N;
-
-			const integer matrices = 1000;
+			const integer n = 10;
+			const integer matrices = 100;
 			for (integer i = 0;i < matrices;++i)
 			{
-				Matrix<real, N, N> a(n, n);
+				Matrix<real> a(n, n);
 				setRandomMatrix(a);
 
-				Matrix<real, N, N> b(n, n);
+				Matrix<real> b(n, n);
 				b = a;
 
 				TEST_ENSURE(b == a);
@@ -485,38 +788,36 @@ namespace
 				
 				TEST_ENSURE(a == b);
 
-				a += identityMatrix<real, N, N>(n, n) + (5 * b);
-				b += identityMatrix<real, N, N>(n, n) + (5 * b);
+				a += identityMatrix<real>(n, n) + (5 * b);
+				b += identityMatrix<real>(n, n) + (5 * b);
 				
 				TEST_ENSURE(a == b);
 
-				a += identityMatrix<real, N, N>(n, n) + (b * b);
-				b += identityMatrix<real, N, N>(n, n) + (b * b);
+				a += identityMatrix<real>(n, n) + (b * b);
+				b += identityMatrix<real>(n, n) + (b * b);
 
 				TEST_ENSURE(a == b);
 			}
 		}
 
-		template <int N>
 		void testMatrixSolve()
 		{
-			const integer iterations = 1000;
-
-			const integer n = (N == Dynamic) ? 10 : N;
+			const integer iterations = 100;
+			const integer n = 10;
 
 			integer count = 0;
 
 			for (integer i = 0;i < iterations;++i)
 			{
-				Matrix<real, N, N> a(n, n);
+				Matrix<real> a(n, n);
 				setRandomMatrix(a);
 
-				const Vector<real, N> b(randomVectorCube<real, N>(n));
+				const VectorD b(randomVectorCube<real, Dynamic>(n));
 
-				const Vector<real, N> x(solveLinear(a, b));
+				const VectorD x(solveLinear(a, b));
 
 				const real error =
-					norm(x * a - b);
+					norm(a * x - b);
 
 				if (error > 0.001)
 				{
@@ -524,7 +825,7 @@ namespace
 				}
 			}
 
-			TEST_ENSURE_OP(count, <, 10);
+			TEST_ENSURE_OP(count, <, 3);
 		}
 
 	};
@@ -543,3 +844,4 @@ namespace
 	CallFunction run(addTest);
 
 }
+

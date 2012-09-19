@@ -64,7 +64,7 @@ namespace Pastel
 			for (integer x = 0; x < width;++x)
 			{
 				*xyCursor = colorMixer(*xyCursor,
-					textureSampler(uv, Matrix2(duvDx, duvDy)));
+					textureSampler(uv, matrix2x2<real>(duvDx, duvDy)));
 
 				uv.x() += duvDxy.x();
 				xyCursor.xIncrement();

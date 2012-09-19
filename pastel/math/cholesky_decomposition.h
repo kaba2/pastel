@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N = Dynamic>
+	template <typename Real>
 	class CholeskyDecomposition
 	{
 	public:
@@ -18,38 +18,32 @@ namespace Pastel
 
 		CholeskyDecomposition();
 		explicit CholeskyDecomposition(
-			const Matrix<Real, N, N>& that);
+			const Matrix<Real>& that);
 
 		void swap(
 			CholeskyDecomposition& that);
 
-		const Matrix<Real, N, N>& lower() const;
+		const Matrix<Real>& lower() const;
 
 		bool succeeded() const;
 
 		bool decompose(
-			const Matrix<Real, N, N>& that);
+			const Matrix<Real>& that);
 
 	private:
 		bool decompose();
 
-		Matrix<Real, N, N> cholesky_;
+		Matrix<Real> cholesky_;
 		bool succeeded_;
 	};
-
-	typedef CholeskyDecomposition<real, 1> CholeskyDecomposition1;
-	typedef CholeskyDecomposition<real, 2> CholeskyDecomposition2;
-	typedef CholeskyDecomposition<real, 3> CholeskyDecomposition3;
-	typedef CholeskyDecomposition<real, 4> CholeskyDecomposition4;
-	typedef CholeskyDecomposition<real, Dynamic> CholeskyDecompositionD;
 
 }
 
 namespace Pastel
 {
 
-	template <typename Real, int N>
-	Real determinant(const CholeskyDecomposition<Real, N>& that);
+	template <typename Real>
+	Real determinant(const CholeskyDecomposition<Real>& that);
 
 }
 

@@ -9,261 +9,216 @@ namespace Pastel
 	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveLinear(
-		const MatrixExpression<Real, N, N, Expression_A>& a,
+		const MatrixExpression<Real, Expression_A>& a,
 		const VectorExpression<Real, N, Expression_B>& b)
 	{
-		// The linear system is solved by
-		// Gaussian elimination with back-substitution
-		// and partial pivoting.
+		// The linear system is solved by Gaussian elimination 
+		// with and partial pivoting and back-substitution.
+		ENSURE_OP(a.width(), ==, a.height());
+		ENSURE_OP(b.size(), ==, a.height());
 
-		const integer width = a.width();
-		const integer height = a.height();
+		const integer n = a.width();
+		const integer m = a.height();
 
-		Matrix<Real, N, N> a2(a);
-		Vector<Real, N> b2(b);
+		Matrix<Real> left(a);
+		Vector<Real, N> right(b);
 
 		// Reduce the system
-		// ax = b
+		// Ax = b
 		// to the system
-		// a'x = b'
-		// where a' is lower triangular
+		// A'x = b'
+		// where A' is upper triangular
 		// (and 1's on the diagonal).
-
-		for (integer k = 0;k < height;++k)
+		for (integer k = 0;k < n;++k)
 		{
-			// From this row, find the element with
-			// the maximum absolute value (with column >= k).
-
-			integer maxAbsColumn = k;
-			Real maxAbsValue = mabs(a2(k, k));
-			for (integer j = k + 1;j < width;++j)
+			// From this column, find the element with
+			// the maximum absolute value (with i >= k).
+			integer maxAbsRow = k;
+			Real maxAbsValue = mabs(left(k, k));
+			for (integer i = k + 1;i < m;++i)
 			{
-				const Real currentAbsValue = mabs(a2(k, j));
+				const Real currentAbsValue = mabs(left(i, k));
 				if (currentAbsValue > maxAbsValue)
 				{
-					maxAbsColumn = j;
+					maxAbsRow = i;
 					maxAbsValue = currentAbsValue;
 				}
 			}
 
-			// Now swap columns (if necessary) so that the maximum
+			// Swap rows (if necessary) so that the maximum
 			// absolute value will be at (k, k).
-
-			if (maxAbsColumn != k)
+			if (maxAbsRow != k)
 			{
 				using std::swap;
-
-				for (integer i = k;i < height;++i)
+				for (integer j = k;j < m;++j)
 				{
-					swap(a2(i, k), a2(i, maxAbsColumn));
+					swap(left(k, j), left(maxAbsRow, j));
 				}
-
-				swap(b2[k], b2[maxAbsColumn]);
+				swap(right[k], right[maxAbsRow]);
 			}
 
-			// Scale the column 'k'
-			// such that the value at (k, k) becomes 1.
-
-			const Real invValue = inverse(a2(k, k));
-
-			a2(k, k) = 1;
-			for (integer j = k + 1;j < height;++j)
+			// Use the k:th row to zero the lower
+			// part of the k:th column.
+			for (integer i = k + 1;i < m;++i)
 			{
-				a2(j, k) *= invValue;
-			}
-
-			b2[k] *= invValue;
-
-			// Use the column 'k' to clear out the
-			// matrix to zero for the rest of the k.
-
-			for (integer j = k + 1;j < width;++j)
-			{
-				const Real value = a2(k, j);
-				a2(k, j) = 0;
-				for (integer i = k + 1;i < height;++i)
+				const Real a = left(i, k) / left(k, k);
+				left(i, k) = 0;
+				for (integer j = k + 1;j < n;++j)
 				{
-					a2(i, j) -= a2(i, k) * value;
+					left(i, j) -= left(k, j) * a;
 				}
-
-				b2[j] -= b2[k] * value;
+				right[i] -= right[k] * a;
 			}
 		}
 
-		// Now the system is of the form:
-		// a'x = b'
-		// Where a' is lower triangular
-		// (and 1's on the diagonal).
-
-		return solveUnitLowerTriangular(a2, b2);
-	}
-
-	template <typename Real, 
-		typename Expression_A, typename Expression_B>
-	Vector<Real, 1> solveLinear(
-		const MatrixExpression<Real, 1, 1, Expression_A>& a,
-		const VectorExpression<Real, 1, Expression_B>& b)
-	{
-		return b * inverse(a(0, 0));
-	}
-
-	template <typename Real, 
-		typename Expression_A, typename Expression_B>
-	Vector<Real, 2> solveLinear(
-		const MatrixExpression<Real, 2, 2, Expression_A>& a,
-		const VectorExpression<Real, 2, Expression_B>& b)
-	{
-		// Using Cramers rule
-
-		const Real det = a(0, 0) * a(1, 1) - a(0, 1) * a(1, 0);
-		const Real invDet = inverse(det);
-
-		const Real det0 = b[0] * a(1, 1) - b[1] * a(1, 0);
-		const Real det1 = a(0, 0) * b[1] - a(0, 1) * b[0];
-
-		return Vector<Real, 2>(det0 * invDet, det1 * invDet);
+		// Now the system is of the form A'x = b',
+		// where A' is upper triangular. Solve it
+		// with back-substitution.
+		return solveUpperTriangular(left, right);
 	}
 
 	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveLowerTriangular(
-		const MatrixExpression<Real, N, N, Expression_A>& a,
+		const MatrixExpression<Real, Expression_A>& a,
 		const VectorExpression<Real, N, Expression_B>& b)
 	{
 		ENSURE_OP(a.width(), ==, a.height());
-		ENSURE_OP(b.size(), ==, a.width());
+		ENSURE_OP(b.size(), ==, a.height());
 
-		const integer n = a.height();
+		const integer n = a.width();
+		const integer m = a.height();
 
-		Vector<Real, N> b2 = b;
+		Vector<Real, N> right = b;
 		
 		// We want to solve the system
-		// x^T A = b^T
+		// Ax = b
 		// where A is lower triangular.
 
-		// Use back substitution to solve for x.
-
-		for (integer i = n - 1;i >= 0;--i)
+		// Use forward-substitution to solve for x.
+		for (integer j = 0;j < n - 1;++j)
 		{
-			b2[i] /= a(i, i);
-			
-			const Real factor = b2[i];
-
-			for (integer j = 0;j < i;++j)
+			const Real factor = right[j] / a(j, j);
+			for (integer i = j + 1;i < m;++i)
 			{
-				b2[j] -= a(i, j) * factor;
+				right[i] -= a(i, j) * factor;
 			}
+			right[j] /= a(j, j);
 		}
+		right[n - 1] /= a(n - 1, n - 1);
 
-		return b2;
+		return right;
 	}
 
 	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUnitLowerTriangular(
-		const MatrixExpression<Real, N, N, Expression_A>& a,
+		const MatrixExpression<Real, Expression_A>& a,
 		const VectorExpression<Real, N, Expression_B>& b)
 	{
 		ENSURE_OP(a.width(), ==, a.height());
-		ENSURE_OP(b.size(), ==, a.width());
+		ENSURE_OP(b.size(), ==, a.height());
 
-		const integer n = a.height();
+		const integer n = a.width();
+		const integer m = a.height();
 
-		Vector<Real, N> b2 = b;
+		Vector<Real, N> right = b;
 		
 		// We want to solve the system
-		// x^T A = b^T
-		// where A is unit lower triangular
-		// (1' on the diagonal).
+		// Ax = b
+		// where A is lower unit-triangular
+		// (1's on the diagonal).
 
-		// Use back substitution to solve for x.
-
-		for (integer i = n - 1;i > 0;--i)
+		// Use forward-substitution to solve for x.
+		for (integer j = 0;j < n - 1;++j)
 		{
-			const Real factor = b2[i];
-
-			for (integer j = 0;j < i;++j)
+			const Real factor = right[j];
+			for (integer i = j + 1;i < m;++i)
 			{
-				b2[j] -= a(i, j) * factor;
+				right[i] -= a(i, j) * factor;
 			}
 		}
 
-		return b2;
+		return right;
 	}
 
 	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUpperTriangular(
-		const MatrixExpression<Real, N, N, Expression_A>& a,
+		const MatrixExpression<Real, Expression_A>& a,
 		const VectorExpression<Real, N, Expression_B>& b)
 	{
 		ENSURE_OP(a.width(), ==, a.height());
-		ENSURE_OP(b.size(), ==, a.width());
+		ENSURE_OP(b.size(), ==, a.height());
 
-		const integer n = a.height();
-
-		Vector<Real, N> b2 = b;
-		
 		// We want to solve the system
-		// x^T A = b^T
-		// where A is unit upper triangular
-		// (1' on the diagonal).
+		// Ax = b
+		// where A is upper triangular.
 
-		// Use forward substitution to solve for x.
+		const integer n = a.width();
 
-		for (integer i = 0;i < n;++i)
+		Vector<Real, N> right = b;
+		if (n == 0)
 		{
-			b2[i] /= a(i, i);
-
-			const Real factor = b2[i];
-
-			for (integer j = i + 1;j < n;++j)
-			{
-				b2[j] -= a(i, j) * factor;
-			}
+			return right;
 		}
 
-		return b2;
-	}
+		// Use back-substitution to solve for x.
+		for (integer j = n - 1;j > 0;--j)
+		{
+			// As a loop-invariant, the 'right'
+			// contains solved x_i elements
+			// for i in [j + 1, n[ when entering
+			// this loop, and for i in [j, n[
+			// when at the end of the loop.
 
-	//! Solves a unit upper triangular linear system A^T x = b <=> x^T A = b^T.
-	/*!
-	A unit upper triangular matrix is one which has
-	1's on the diagonal. This makes for somewhat faster
-	computation than the more general 'solveUpperTriangular'.
-	*/
+			const Real factor = right[j] / a(j, j);
+			for (integer i = j - 1;i >= 0;--i)
+			{
+				right[i] -= a(i, j) * factor;
+			}
+			right[j] /= a(j, j);
+		}
+		// The x_1 only needs to be scaled to be solved.
+		right[0] /= a(0, 0);
+
+		return right;
+	}
 
 	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUnitUpperTriangular(
-		const MatrixExpression<Real, N, N, Expression_A>& a,
+		const MatrixExpression<Real, Expression_A>& a,
 		const VectorExpression<Real, N, Expression_B>& b)
 	{
 		ENSURE_OP(a.width(), ==, a.height());
-		ENSURE_OP(b.size(), ==, a.width());
+		ENSURE_OP(b.size(), ==, a.height());
 
-		const integer n = a.height();
-
-		Vector<Real, N> b2 = b;
-		
 		// We want to solve the system
-		// x^T A = b^T
+		// Ax = b
 		// where A is unit upper triangular
 		// (1' on the diagonal).
 
-		// Use forward substitution to solve for x.
+		const integer n = a.height();
 
-		for (integer i = 0;i < n - 1;++i)
+		// Use back-substitution to solve for x.
+		Vector<Real, N> right = b;
+		for (integer j = n - 1;j > 0;--j)
 		{
-			const Real factor = b2[i];
+			// As a loop-invariant, the 'right'
+			// contains solved x_i elements
+			// for i in [j, n[ when entering
+			// this loop, and for i in [j - 1, n[
+			// when at the end of the loop.
 
-			for (integer j = i + 1;j < n;++j)
+			const Real factor = right[j];
+			for (integer i = j - 1;i >= 0;--i)
 			{
-				b2[j] -= a(i, j) * factor;
+				right[i] -= a(i, j) * factor;
 			}
 		}
 
-		return b2;
+		return right;
 	}
 
 }

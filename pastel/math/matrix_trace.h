@@ -10,9 +10,9 @@ namespace Pastel
 {
 
 	//! Returns the trace of the matrix.
-	template <typename Real, int Height, int Width, typename Expression>
+	template <typename Real, typename Expression>
 	Real trace(
-		const MatrixExpression<Real, Height, Width, Expression>& that);
+		const MatrixExpression<Real, Expression>& matrix);
 
 }
 

@@ -31,6 +31,7 @@
     <ClCompile Include="test_polynomial.cpp" />
     <ClCompile Include="test_math_functions.cpp" />
     <ClCompile Include="test_pastelmath.cpp" />
+    <ClCompile Include="test_orthonormal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test_pastelmath.h" />

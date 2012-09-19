@@ -5,6 +5,7 @@
 #define PASTELSYS_ARRAY_VECTOREXPRESSION_H
 
 #include "pastel/sys/vectorexpression.h"
+#include "pastel/sys/sparse_iterator.h"
 
 #include <algorithm>
 
@@ -18,21 +19,25 @@ namespace Pastel
 	public:
 		typedef const ConstArray_VectorExpression StorageType;
 
-		typedef const Real* ConstIterator;
+		typedef ConstSparseIterator<const Real*> ConstIterator;
 
 		ConstArray_VectorExpression()
 			: data_(0)
 			, size_(0)
+			, stride_(0)
 		{
 		}
 
 		ConstArray_VectorExpression(
 			const Real* data,
-			integer size)
+			integer size,
+			integer stride = 1)
 			: data_(data)
 			, size_(size)
+			, stride_(stride)
 		{
 			PENSURE_OP(size, >=, 0);
+			PENSURE_OP(stride, >=, 0);
 			PENSURE2(N == Dynamic || size == N, N, size);
 		}
 
@@ -46,7 +51,7 @@ namespace Pastel
 		{
 			return Pastel::memoryOverlaps(
 				memoryBegin, memoryEnd,
-				data_, data_ + size_);
+				data_, data_ + size_ * stride_);
 		}
 
 		bool evaluateBeforeAssignment(
@@ -64,6 +69,7 @@ namespace Pastel
 		{
 			std::swap(data_, that.data_);
 			std::swap(size_, that.size_);
+			std::swap(stride_, that.stride_);
 		}
 
 		bool operator==(const ConstArray_VectorExpression& that) const
@@ -76,17 +82,17 @@ namespace Pastel
 			PENSURE2(index >= 0 && index < size_, 
 				index, size_);
 
-			return data_[index];
+			return data_[index * stride_];
 		}
 
 		ConstIterator begin() const
 		{
-			return data_;
+			return ConstIterator(data_, stride_);
 		}
 
 		ConstIterator end() const
 		{
-			return data_ + size_;
+			return ConstIterator(data_ + size_ * stride_, stride_);
 		}
 
 	protected:
@@ -95,13 +101,14 @@ namespace Pastel
 
 		const Real* data_;
 		integer size_;
+		integer stride_;
 	};
 
 	template <int N, typename Real>
 	ConstArray_VectorExpression<Real, N> 
-		constVectorExpression(const Real* data, integer size)
+		constVectorExpression(const Real* data, integer size, integer stride = 1)
 	{
-		return ConstArray_VectorExpression<Real, N>(data, size);
+		return ConstArray_VectorExpression<Real, N>(data, size, stride);
 	}
 
 	template <typename Real, int N>
@@ -122,7 +129,8 @@ namespace Pastel
 
 	public:
 		typedef const Array_VectorExpression StorageType;
-		typedef Real* Iterator;
+
+		typedef SparseIterator<Real*> Iterator;
 
 		using Base::size;
 
@@ -133,10 +141,12 @@ namespace Pastel
 
 		Array_VectorExpression(
 			const Real* data,
-			integer size)
-			: Base(data, size)
+			integer size,
+			integer stride = 1)
+			: Base(data, size, stride)
 		{
 			PENSURE_OP(size, >=, 0);
+			PENSURE_OP(stride, >=, 0);
 			PENSURE2(N == Dynamic || size == N, N, size);
 		}
 
@@ -144,22 +154,22 @@ namespace Pastel
 		// is deliberately not a reference,
 		// because the reference could point
 		// to this vector.
-		void set(const Real that) const
+		void set(Real that) const
 		{
 			std::fill(begin(), end(), that);
 		}
 
 		Iterator begin() const
 		{
-			return (Iterator)data_;
+			return Iterator((Real*)data_, stride_);
 		}
 
 		Iterator end() const
 		{
-			return (Iterator)(data_ + size_);
+			return Iterator((Real*)(data_ + size_ * stride_), stride_);
 		}
 
-		const Array_VectorExpression& operator=(const Real& that) const
+		const Array_VectorExpression& operator=(Real that) const
 		{
 			// We accept basic exception safety for performance.
 			set(that);
@@ -172,14 +182,14 @@ namespace Pastel
 		{
 			ENSURE_OP(size(), ==, that.size());
 
-			std::copy(begin(), end(), data_);
+			std::copy(that.begin(), that.end(), begin());
 
 			return *this;
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
+			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
 			ENSURE_OP(size(), ==, that.size());
 
@@ -194,7 +204,7 @@ namespace Pastel
 				// this vector as a non-trivial subexpression,
 				// we must copy construct anyway.
 
-				*this = Vector<Real, N>(that);
+				*this = evaluate(that);
 			}
 			else
 			{				
@@ -218,7 +228,7 @@ namespace Pastel
 			PENSURE2(index >= 0 && index < size_, 
 				index, size_);
 
-			return (Real&)data_[index];
+			return (Real&)data_[index * stride_];
 		}
 
 		// The parameter to this function
@@ -282,9 +292,9 @@ namespace Pastel
 			return (*this *= Pastel::inverse(that));
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator+=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
+			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
@@ -308,9 +318,9 @@ namespace Pastel
 			return *this;
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator-=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
+			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
@@ -334,9 +344,9 @@ namespace Pastel
 			return *this;
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator*=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
+			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
@@ -360,9 +370,9 @@ namespace Pastel
 			return *this;
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator/=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
+			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 

@@ -82,7 +82,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const;
+			const Matrix<real>& m) const;
 
 		void setMipMap(const MipMap<Type, N>& mipMap)
 		{
@@ -108,8 +108,8 @@ namespace Pastel
 	private:
 		Type sampleEwa(
 			const Vector<real, N>& uv,
-			const Matrix<real, N, N>& quadraticForm,
-			const AlignedBox<real, N>& bound,
+			const Matrix<real>& quadraticForm,
+			const AlignedBoxD& bound,
 			real scaling,
 			real tTransition,
 			const Array<Type, N>& image) const;

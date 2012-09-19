@@ -8,107 +8,46 @@
 namespace Pastel
 {
 
-	template <typename Real, int Height, int Width>
-	bool orthonormalize(
-		Matrix<Real, Height, Width>& vectorSet)
+	template <typename Real>
+	Matrix<Real> orthonormalize(Matrix<Real> matrix)
 	{
-		// Stabilized Gram-Schmidt orthonormalization
-		// This is numerically ok, however, a more stable
-		// way to do this is via QR decomposition using
-		// Householder transformations.
-
-		if (vectorSet.size() == 0)
+		if (matrix.size() == 0)
 		{
-			return true;
+			return matrix;
 		}
 
-		const integer height = vectorSet.height();
-		for (integer i = 0;i < height;++i)
+		const integer n = matrix.n();
+		for (integer i = 0;i < n;++i)
 		{
-			// From i:th vector, remove the contributions of the
-			// orthonormal set of vectors in vectorSet[0]..vectorSet[i - 1].
+			// We will retain the loop-invariant that the
+			// first i columns form an orthonormal set.
+
 			for (integer j = 0;j < i;++j)
 			{
+				// From the i:th column, remove the contributions of the
+				// vectors in matrix[0]..matrix[i - 1].
+
 				// Note: While equivalent mathematically, 
 				// it is important for numerical stability
 				// that we use the modified vectors in the dot product
 				// computation, rather than the original ones.
-				vectorSet[i] -= 
-					vectorSet[j] * dot(vectorSet[i], vectorSet[j]);
+				matrix.column(i) -= 
+					matrix.column(j) * dot(matrix.column(i), matrix.column(j));
 			}
 
-			const Real vNorm = norm(vectorSet[i]);
+			const Real vNorm = norm(matrix.column(i));
 
 			// EPSILON
 			if (vNorm == 0)
 			{
-				return false;
+				throw SingularMatrix_Exception();
 			}
 
 			// Normalize to unit length.
-			vectorSet[i] /= vNorm;
+			matrix.column(i) /= vNorm;
 		}
 
-		return true;
-	}
-
-
-	template <typename Real, int N>
-	bool orthonormalize(
-		const std::vector<Vector<Real, N> >& input,
-		std::vector<Vector<Real, N> >& result)
-	{
-		// Stabilized Gram-Schmidt orthonormalization
-
-		std::vector<Vector<Real, N> > output;
-
-		if (input.empty())
-		{
-			output.swap(result);
-			return true;
-		}
-
-		const integer vectors = input.size();
-
-		for (integer i = 0;i < vectors;++i)
-		{
-			Vector<Real, N> v(input[i]);
-
-			for (integer j = 0;j < i;++j)
-			{
-				v -= output[j] * dot(v, output[j]);
-			}
-
-			const Real vNorm = norm(v);
-
-			// EPSILON
-			if (vNorm == 0)
-			{
-				return false;
-			}
-
-			output.push_back(v / vNorm);
-		}
-
-		output.swap(result);
-
-		return true;
-	}
-
-	template <typename Real, int N>
-	bool orthonormalize(
-		std::vector<Vector<Real, N> >& vectorSet)
-	{
-		return orthonormalize(vectorSet, vectorSet);
-	}
-
-	template <typename Real, int N>
-	Vector<Real, N> perpendicular(
-		const std::vector<Vector<Real, N> >& orthonormalSet)
-	{
-		PASTEL_STATIC_ASSERT(N != Dynamic);
-		
-		return Pastel::perpendicular(N, orthonormalSet);
+		return matrix;
 	}
 
 	template <typename Real, int N>

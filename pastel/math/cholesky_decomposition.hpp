@@ -8,16 +8,16 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
-	CholeskyDecomposition<Real, N>::CholeskyDecomposition()
+	template <typename Real>
+	CholeskyDecomposition<Real>::CholeskyDecomposition()
 		: cholesky_()
 		, succeeded_(false)
 	{
 	}
 
-	template <typename Real, int N>
-	CholeskyDecomposition<Real, N>::CholeskyDecomposition(
-		const Matrix<Real, N, N>& that)
+	template <typename Real>
+	CholeskyDecomposition<Real>::CholeskyDecomposition(
+		const Matrix<Real>& that)
 		: cholesky_(that)
 		, succeeded_(false)
 	{
@@ -26,29 +26,29 @@ namespace Pastel
 		decompose();
 	}
 
-	template <typename Real, int N>
-	void CholeskyDecomposition<Real, N>::swap(
+	template <typename Real>
+	void CholeskyDecomposition<Real>::swap(
 		CholeskyDecomposition& that)
 	{
 		cholesky_.swap(that.cholesky_);
 		std::swap(succeeded_, that.succeeded_);
 	}
 
-	template <typename Real, int N>
-	const Matrix<Real, N, N>& CholeskyDecomposition<Real, N>::lower() const
+	template <typename Real>
+	const Matrix<Real>& CholeskyDecomposition<Real>::lower() const
 	{
 		return cholesky_;
 	}
 
-	template <typename Real, int N>
-	bool CholeskyDecomposition<Real, N>::succeeded() const
+	template <typename Real>
+	bool CholeskyDecomposition<Real>::succeeded() const
 	{
 		return succeeded_;
 	}
 
-	template <typename Real, int N>
-	bool CholeskyDecomposition<Real, N>::decompose(
-			const Matrix<Real, N, N>& that)
+	template <typename Real>
+	bool CholeskyDecomposition<Real>::decompose(
+			const Matrix<Real>& that)
 	{
 		// See "Numerical Recipes: The art of scientific
 		// computing", 3rd ed, section 2.9: Cholesky Decomposition.
@@ -61,8 +61,8 @@ namespace Pastel
 
 	// Private
 
-	template <typename Real, int N>
-	bool CholeskyDecomposition<Real, N>::decompose()
+	template <typename Real>
+	bool CholeskyDecomposition<Real>::decompose()
 	{
 		const integer n = cholesky_.width();
 
@@ -110,10 +110,10 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Real, int N>
-	Real determinant(const CholeskyDecomposition<Real, N>& that)
+	template <typename Real>
+	Real determinant(const CholeskyDecomposition<Real>& that)
 	{
-		const Matrix<Real, N, N>& lower = that.lower();
+		const Matrix<Real>& lower = that.lower();
 		
 		const integer n = lower.width();
 

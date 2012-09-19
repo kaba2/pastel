@@ -33,7 +33,7 @@ namespace Pastel
 
 		Type operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const;
+			const Matrix<real>& m) const;
 
 		void setMipMap(const MipMap<Type, N>& mipMap)
 		{

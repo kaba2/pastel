@@ -8,18 +8,23 @@
 namespace Pastel
 {
 
-	template <typename Real, int Height, int Width, typename Expression>
+	template <typename Real, typename Expression>
 	Real diagonalProduct(
-		const MatrixExpression<Real, Height, Width, Expression>& that)
+		const MatrixExpression<Real, Expression>& matrix)
 	{
-		const integer width = that.width();
-		const integer height = that.height();
-		const integer minSize = std::min(width, height);
+		const integer n = matrix.width();
+		const integer m = matrix.height();
+		const integer minSize = std::min(n, m);
 
-		Real result = that(0, 0);
+		if (minSize == 0)
+		{
+			return nan<Real>();
+		}
+
+		Real result = matrix(0, 0);
 		for (integer i = 1;i < minSize;++i)
 		{
-			result *= that(i, i);
+			result *= matrix(i, i);
 		}
 
 		return result;

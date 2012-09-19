@@ -28,7 +28,7 @@ namespace Pastel
 
 		virtual real operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const
+			const Matrix<real>& m) const
 		{
 			real scale = 1;
 			real value = 0;

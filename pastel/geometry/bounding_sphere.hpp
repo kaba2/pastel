@@ -332,7 +332,7 @@ namespace Pastel
 		// D^T D is invertible iff D has full rank, that is,
 		// the d_i are linearly independent.
 
-		Matrix<Real, M, N> d;
+		Matrix<Real> d(N, M);
 		Vector<Real, M> b;
 
 		for (integer i = 0;i < M;++i)
@@ -344,7 +344,7 @@ namespace Pastel
 			b[i] = dot(delta) * 0.5;
 		}
 
-		Matrix<Real, M, M> ddt;
+		Matrix<Real> ddt(M, M);
 
 		for (integer i = 0;i < M;++i)
 		{

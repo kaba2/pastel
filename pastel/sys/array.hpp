@@ -289,7 +289,7 @@ namespace Pastel
 		{
 			// Storage orders match, so simply
 			// copy all stuff.
-			std::copy(that.begin(), that.end(), 
+			std::copy(that.cbegin(), that.cend(), 
 				begin());
 		}
 		else
@@ -464,7 +464,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	typename Array<Type, N>::ConstIterator
-		Array<Type, N>::begin() const
+		Array<Type, N>::cbegin() const
 	{
 		return data_;
 	}
@@ -478,7 +478,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	typename Array<Type, N>::ConstIterator
-		Array<Type, N>::end() const
+		Array<Type, N>::cend() const
 	{
 		return data_ + size_;
 	}
@@ -492,9 +492,9 @@ namespace Pastel
 
 	template <typename Type, int N>
 	typename Array<Type, N>::ConstRange
-		Array<Type, N>::range() const
+		Array<Type, N>::cRange() const
 	{
-		return Pastel::range(begin(), end());
+		return Pastel::range(cbegin(), cend());
 	}
 
 	template <typename Type, int N>
@@ -513,7 +513,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	typename Array<Type, N>::ConstRowIterator 
-		Array<Type, N>::rowBegin(
+		Array<Type, N>::cRowBegin(
 		const Vector<integer, N>& position, 
 		integer axis) const
 	{
@@ -533,7 +533,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	typename Array<Type, N>::ConstRowIterator 
-		Array<Type, N>::rowEnd(
+		Array<Type, N>::cRowEnd(
 		const Vector<integer, N>& position, 
 		integer axis) const
 	{
@@ -554,13 +554,13 @@ namespace Pastel
 
 	template <typename Type, int N>
 	typename Array<Type, N>::ConstRowRange
-		Array<Type, N>::rowRange(
+		Array<Type, N>::cRowRange(
 		const Vector<integer, N>& position, 
 		integer axis) const
 	{
 		return Pastel::range(
-			rowBegin(position, axis), 
-			rowEnd(position, axis));
+			cRowBegin(position, axis), 
+			cRowEnd(position, axis));
 	}
 
 	template <typename Type, int N>

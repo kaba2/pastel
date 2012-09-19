@@ -37,20 +37,19 @@ namespace
 		{
 			integer bad = 0;
 
+			integer n = 10;
 			for (integer i = 0;i < 10000;++i)
 			{
-				Matrix<real, N, N> m;
+				Matrix<real> m(n, n);
 				setRandomMatrix(m);
 
-				LuDecomposition<real, N> lu(m);
+				LuDecomposition<real> lu(m);
 
 				if (!lu.singular())
 				{
-					const Vector<real, N> b = randomVectorCube<real, N>();
-
-					const Vector<real, N> x = solveLinear(lu, b);
-
-					const Vector<real, N> residual = x * m - b;
+					const Vector<real> b = randomVectorCube<real, Dynamic>(n);
+					const Vector<real> x = solveLinear(lu, b);
+					const Vector<real> residual = m * x - b;
 					const real normResidual = norm(residual);
 
 					if (normResidual > 0.0001)
@@ -66,13 +65,14 @@ namespace
 		void testLu()
 		{
 			{
-				const LuDecomposition<Real, 2> lu(
-					Matrix<Real, 2, 2>(
+				const LuDecomposition<Real> lu(
+					matrix2x2<Real>(
 					1, Real(1, 2), 
 					Real(1, 2), 1));
-				const Matrix<Real, 2, 2> correctPackedLu(
-						1, Real(1, 2), 
-						Real(1, 2), Real(3, 4));
+				const Matrix<Real> correctPackedLu =
+					matrix2x2<Real>(
+					1, Real(1, 2), 
+					Real(1, 2), Real(3, 4));
 				const Tuple<integer, 2> correctRowPermutation(
 					0, 1);
 				TEST_ENSURE(lu.packedLu() == correctPackedLu);
@@ -82,12 +82,13 @@ namespace
 				//std::cout << lu.rowPermutation() << std::endl;
 			}
 			{
-				const LuDecomposition<Real, 3> lu(
-					Matrix<Real, 3, 3>(
+				const LuDecomposition<Real> lu(
+					matrix3x3<Real>(
 					1, 2, 3,
 					4, 5, 6,
 					7, 8, 9));
-				const Matrix<Real, 3, 3> correctPackedLu(
+				const Matrix<Real> correctPackedLu =
+					matrix3x3<Real>(
 					7, 8, 9,
 					Real(1, 7), Real(6, 7), Real(12, 7),
 					Real(4, 7), Real(1, 2), 0);

@@ -37,7 +37,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const
+			const Matrix<real>& m) const
 		{
 			return linear(p, 
 				range(data_.begin(), data_.end()));

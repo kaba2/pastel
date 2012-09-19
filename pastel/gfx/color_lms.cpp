@@ -5,19 +5,22 @@
 namespace Pastel
 {
 
-	PASTELGFX Matrix<real32, 3, 3> xyzToLmsTransform()
+	PASTELGFX Matrix<real32> xyzToLmsTransform()
 	{
-		static const Matrix<real32, 3, 3> Conversion(
-			 0.7328, -0.7036, 0.0030,
-			 0.4296,  1.6975, 0.0136,
-			-0.1624,  0.0061, 0.9834);
+		// This is the chromatic adaptation matrix
+		// from the CIECAM02 model.
+		static const Matrix<real32> Conversion = 
+			matrix3x3<real32>(
+			 0.7328, 0.4296, -0.1624,
+		    -0.7036, 1.6975,  0.0061,
+			 0.0030, 0.0136,  0.9834);
 
 		return Conversion;
 	}
 
-	PASTELGFX Matrix<real32, 3, 3> lmsToXyzTransform()
+	PASTELGFX Matrix<real32> lmsToXyzTransform()
 	{
-		static const Matrix<real32, 3, 3> Conversion(
+		static const Matrix<real32> Conversion(
 			inverse(xyzToLmsTransform()));
 
 		return Conversion;
@@ -25,12 +28,12 @@ namespace Pastel
 
 	PASTELGFX Color xyzToLms(const Color& xyz)
 	{
-		return xyz * xyzToLmsTransform();
+		return xyzToLmsTransform() * xyz;
 	}
 
 	PASTELGFX Color lmsToXyz(const Color& lms)
 	{
-		return lms * lmsToXyzTransform();
+		return lmsToXyzTransform() * lms;
 	}
 
 }

@@ -20,10 +20,10 @@ namespace Pastel
 	PASTELGFX Color lmsToXyz(const Color& lms);
 
 	//! Return the transformation from XYZ to LMS.
-	PASTELGFX Matrix<real32, 3, 3> xyzToLmsTransform();
+	PASTELGFX Matrix<real32> xyzToLmsTransform();
 
 	//! Returns the transformation from LMS to XYZ.
-	PASTELGFX Matrix<real32, 3, 3> lmsToXyzTransform();
+	PASTELGFX Matrix<real32> lmsToXyzTransform();
 
 }
 

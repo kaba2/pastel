@@ -66,7 +66,7 @@ namespace
 				Vector2(minRadius, angleBegin), Vector2(maxRadius, angleEnd));
 
 			AffineTransformation2 textureFlip(
-				Matrix2(0, 1,
+				matrix2x2<real>(0, 1,
 						-1, 0),
 				Vector2(1, 0));
 

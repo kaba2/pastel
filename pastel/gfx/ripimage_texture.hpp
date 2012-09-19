@@ -30,7 +30,7 @@ namespace Pastel
 	template <typename Type, int N>
 	Type RipImage_Texture<Type, N>::operator()(
 		const Vector<real, N>& uv,
-		const Matrix<real, N, N>& m) const
+		const Matrix<real>& m) const
 	{
 		if (!ripMap_ || ripMap_->empty())
 		{
