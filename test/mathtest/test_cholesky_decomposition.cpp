@@ -28,12 +28,13 @@ namespace
 
 		void test()
 		{
-			const CholeskyDecomposition2 cholesky(
-				Matrix2(
+			const CholeskyDecomposition<real> cholesky(
+				matrix2x2<real>(
 				1, 0.5, 
 				0.5, 1));
 			{
-				const Matrix2 correctLower(
+				const Matrix<real> correctLower =
+					matrix2x2<real>(
 					1.000, 0.0000,
 					0.5000, 0.8660);
 

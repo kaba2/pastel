@@ -21,42 +21,35 @@ namespace Pastel
 	U is an nxn upper triangular matrix
 	*/
 
-	template <typename Real, int N>
+	template <typename Real>
 	class LuDecomposition
 	{
 	public:
 		// Using default copy constructor.
 		// Using default destructor.
 
-		LuDecomposition();
 		explicit LuDecomposition(integer dimension);
-		explicit LuDecomposition(const Matrix<Real, N, N>& matrix);
+		explicit LuDecomposition(const Matrix<Real>& matrix);
 
 		void swap(LuDecomposition& that);
 
-		LuDecomposition<Real, N>& operator=(const LuDecomposition& that);
+		LuDecomposition& operator=(const LuDecomposition& that);
 
-		bool decompose(const Matrix<Real, N, N>& matrix);
+		bool decompose(const Matrix<Real>& matrix);
 
-		const Matrix<Real, N, N>& packedLu() const;
-		const Tuple<integer, N>& rowPermutation() const;
+		const Matrix<Real>& packedLu() const;
+		const Tuple<integer>& rowPermutation() const;
 		bool evenPermutation() const;
 		bool singular() const;
 
 	private:
-		Matrix<Real, N, N> packedLu_;
-		Tuple<integer, N> rowPermutation_;
+		Matrix<Real> packedLu_;
+		Tuple<integer> rowPermutation_;
 		bool evenPermutation_;
 		bool singular_;
 
-		Vector<Real, N> invLargestInRow_;
+		Vector<Real> invLargestInRow_;
 	};
-
-	typedef LuDecomposition<real, 1> LuDecomposition1;
-	typedef LuDecomposition<real, 2> LuDecomposition2;
-	typedef LuDecomposition<real, 3> LuDecomposition3;
-	typedef LuDecomposition<real, 4> LuDecomposition4;
-	typedef LuDecomposition<real, Dynamic> LuDecompositionD;
 
 }
 
@@ -64,13 +57,13 @@ namespace Pastel
 {
 
 	template <typename Real, int N, typename Expression>
-	Vector<Real, N> solveLinear(
-		const LuDecomposition<Real, N>& lu,
+	Vector<Real> solveLinear(
+		const LuDecomposition<Real>& lu,
 		const VectorExpression<Real, N, Expression>& b);
 
-	template <typename Real, int N>
+	template <typename Real>
 	Real determinant(
-		const LuDecomposition<Real, N>& lu);
+		const LuDecomposition<Real>& lu);
 
 }
 

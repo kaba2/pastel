@@ -6,38 +6,70 @@
 
 #include "pastel/math/matrix.h"
 
+#include "pastel/sys/mytypes.h"
+
 namespace Pastel
 {
 
-	template <typename Real, int Height, int Width, typename Expression>
+	template <typename Real, typename Expression>
 	class MatrixExpression;
-
-	template <typename Real, 
-		int Height, int Width>
-	class MatrixDiagonal;
+	
+	template <typename Real, typename Expression>
+	class MatrixNegation;
 
 	template <
 		typename Real,
-		int Height, int Width,
-		typename Expression>
+		typename LeftExpression,
+		typename RightExpression>
+	class MatrixAddition;
+
+	template <
+		typename Real,
+		typename LeftExpression,
+		typename RightExpression>
+	class MatrixSubtraction;
+
+	template <
+		typename Real,
+		typename LeftExpression,
+		typename RightExpression>
+	class MatrixMultiplication;
+
+	template <typename Real, typename Expression>
+	class MatrixScalarMultiplication;
+
+	template <typename Real, typename Expression>
+	class MatrixScalarAddition;
+
+	template <typename Real, typename Expression>
+	class MatrixDiagonal;
+
+	template <typename Real>
+	class MatrixConstant;
+
+	template <typename Real, typename Expression>
 	class MatrixTranspose;
 
-	//! Returns the identity matrix.
-	template <typename Real, int Height, int Width>
-	MatrixDiagonal<Real, Height, Width> identityMatrix();
+	template <typename Real>
+	class ArrayMatrix;
 
-	//! Returns the identity matrix.
-	template <typename Real, int Height, int Width>
-	MatrixDiagonal<Real, Height, Width> identityMatrix(
-		integer height, integer width);
+	template <
+		typename Real,
+		int N,
+		typename LeftExpression,
+		typename RightExpression>
+	class MatrixVectorMultiplication;
 
-	//! Returns the transpose of the given matrix.
-	template <typename Real, int Height, int Width, typename Expression>
-	MatrixTranspose<Real, Height, Width, Expression> transpose(
-		const MatrixExpression<Real, Height, Width, Expression>& that);
+	template <
+		typename Real, int N,
+		typename VectorExpression,
+		typename MatrixExpression>
+	class VectorMatrixMultiplication;
 
 }
 
 #include "pastel/math/matrix_expression.hpp"
+
+#include "pastel/math/matrix_expression_more.h"
 
 #endif

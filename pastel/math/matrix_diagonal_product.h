@@ -10,9 +10,14 @@ namespace Pastel
 {
 
 	//! Returns the product of the diagonal elements.
-	template <typename Real, int Height, int Width, typename Expression>
+	/*!
+	returns:
+	The diagonal product, if the matrix is not empty,
+	nan<Real>() otherwise.
+	*/
+	template <typename Real, typename Expression>
 	Real diagonalProduct(
-		const MatrixExpression<Real, Height, Width, Expression>& that);
+		const MatrixExpression<Real, Expression>& matrix);
 
 }
 

@@ -31,7 +31,7 @@ Vector<real, 2>(vector<real, 2>(1, 2));
 Vector2{1, 2};
 Vector<real, 2>{1, 2};
 
-Matrix<real, 3, 3> a(3, 3); 
+Matrix<real> a(3, 3); 
  
 General principle
 -----------------

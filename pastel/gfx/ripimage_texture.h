@@ -37,7 +37,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<real, N>& uv,
-			const Matrix<real, N, N>& m) const;
+			const Matrix<real>& m) const;
 
 		void setRipMap(const RipMap<Type, N>& ripMap)
 		{

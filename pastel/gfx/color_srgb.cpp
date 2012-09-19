@@ -51,7 +51,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELGFX Matrix<real32, 3, 3> linearSrgbToXyzTransform()
+	PASTELGFX Matrix<real32> linearSrgbToXyzTransform()
 	{
 		// The sRGB standard chooses standard
 		// light emitters by specifying their
@@ -71,7 +71,7 @@ namespace Pastel
 		static const Color xyzWhite(
 			xyzIlluminantD65());
 
-		static const Matrix<real32, 3, 3> transformation(
+		static const Matrix<real32> transformation(
 			linearRgbToXyzTransform(
 			xyzRed, xyzGreen, xyzBlue,
 			xyzWhite));
@@ -79,15 +79,15 @@ namespace Pastel
 		return transformation;
 	}
 
-	PASTELGFX Matrix<real32, 3, 3> xyzToLinearSrgbTransform()
+	PASTELGFX Matrix<real32> xyzToLinearSrgbTransform()
 	{
-		static const Matrix<real32, 3, 3> Conversion(
+		static const Matrix<real32> Conversion(
 			inverse(linearSrgbToXyzTransform()));
 
 		return Conversion;
 	}
 
-	PASTELGFX Matrix<real32, 3, 3> linearRgbToXyzTransform(
+	PASTELGFX Matrix<real32> linearRgbToXyzTransform(
 		const Color& xyzRed,
 		const Color& xyzGreen,
 		const Color& xyzBlue,
@@ -117,10 +117,8 @@ namespace Pastel
 		//
 		// Which is a standard linear equation system.
 
-		const Matrix<real32, 3, 3> primaryMatrix(
-			xyzRed,
-			xyzGreen,
-			xyzBlue);
+		Matrix<real32> primaryMatrix =
+			matrix3x3<real32>(xyzRed, xyzGreen, xyzBlue);
 
 		const Color primaryWeights(
 			solveLinear(primaryMatrix, xyzWhite));
@@ -128,7 +126,7 @@ namespace Pastel
 		// Use the weights to form the final transformation
 		// matrix.
 
-		return Matrix<real32, 3, 3>(
+		return matrix3x3<real32>(
 			xyzRed * primaryWeights[0],
 			xyzGreen * primaryWeights[1],
 			xyzBlue * primaryWeights[2]);
@@ -136,7 +134,7 @@ namespace Pastel
 
 	PASTELGFX Color xyzToSrgb(const Color& xyz)
 	{
-		static const Matrix<real32, 3, 3> Conversion(
+		static const Matrix<real32> Conversion(
 			inverse(linearSrgbToXyzTransform()));
 
 		return linearSrgbToSrgb(fitNegativeColor(xyz * Conversion));
@@ -144,7 +142,7 @@ namespace Pastel
 
 	PASTELGFX Color srgbToXyz(const Color& rgb)
 	{
-		static const Matrix<real32, 3, 3> Conversion(
+		static const Matrix<real32> Conversion(
 			linearSrgbToXyzTransform());
 
 		return srgbToLinearSrgb(rgb) * Conversion;

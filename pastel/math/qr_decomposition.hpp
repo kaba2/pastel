@@ -8,59 +8,59 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
-	QrDecomposition<Real, N>::QrDecomposition()
+	template <typename Real>
+	QrDecomposition<Real>::QrDecomposition()
 		: q_()
 		, r_()
 	{
 	}
 
-	template <typename Real, int N>
+	template <typename Real>
 	template <typename Expression>
-	QrDecomposition<Real, N>::QrDecomposition(
-		const MatrixExpression<Real, N, N, Expression>& that)
+	QrDecomposition<Real>::QrDecomposition(
+		const MatrixExpression<Real, Expression>& that)
 		: q_()
 		, r_()
 	{
 		decompose(that);
 	}
 
-	template <typename Real, int N>
-	integer QrDecomposition<Real, N>::width() const
+	template <typename Real>
+	integer QrDecomposition<Real>::width() const
 	{
 		return q_.width();
 	}
 
-	template <typename Real, int N>
-	integer QrDecomposition<Real, N>::height() const
+	template <typename Real>
+	integer QrDecomposition<Real>::height() const
 	{
 		return q_.height();
 	}
 
-	template <typename Real, int N>
-	void QrDecomposition<Real, N>::swap(
+	template <typename Real>
+	void QrDecomposition<Real>::swap(
 		QrDecomposition& that)
 	{
 		q_.swap(that.q_);
 		r_.swap(that.r_);
 	}
 
-	template <typename Real, int N>
-	const Matrix<Real, N, N>& QrDecomposition<Real, N>::qTransposed() const
+	template <typename Real>
+	const Matrix<Real>& QrDecomposition<Real>::qTransposed() const
 	{
 		return q_;
 	}
 
-	template <typename Real, int N>
-	const Matrix<Real, N, N>& QrDecomposition<Real, N>::r() const
+	template <typename Real>
+	const Matrix<Real>& QrDecomposition<Real>::r() const
 	{
 		return r_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real>
 	template <typename Expression>
-	void QrDecomposition<Real, N>::decompose(
-		const MatrixExpression<Real, N, N, Expression>& that)
+	void QrDecomposition<Real>::decompose(
+		const MatrixExpression<Real, Expression>& that)
 	{
 		ENSURE_OP(that.width(), ==, that.height());
 
@@ -158,11 +158,11 @@ namespace Pastel
 		const integer n = that.width();
 
 		r_ = that;
-		q_ = identityMatrix<Real, N, N>(n, n);
+		q_ = identityMatrix<Real>(n, n);
 
 		// We will reuse the memory space for v
 		// to avoid reallocation.
-		Vector<Real, N> v(ofDimension(n));
+		Vector<Real> v(ofDimension(n));
 
 		for (integer k = 0;k < n - 1;++k)
 		{
@@ -271,32 +271,33 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real>
 	Real absDeterminant(
-		const QrDecomposition<Real, N>& qr)
+		const QrDecomposition<Real>& qr)
 	{
 		return mabs(diagonalProduct(qr.r()));
 	}
 
 	template <typename Real, int N, typename Expression>
-	Vector<Real, N> solveLinear(
-		const QrDecomposition<Real, N>& qr,
+	Vector<Real> solveLinear(
+		const QrDecomposition<Real>& qr,
 		const VectorExpression<Real, N, Expression>& b)
 	{
 		ENSURE_OP(qr.width(), ==, b.size());
-
-		// x^T QR = b^T
-		//
-		// Let
-		// y^T = x^T Q
-		//
-		// First solve for y:
-		// y^T R = b^T
-		//
-		// Then solve for x:
-		// x^T = y^T Q^T
 		
-		return solveUpperTriangular(qr.r(), b) * qr.qTransposed();
+		const integer n = b.size();
+
+		// QRx = b
+		
+		Vector<Real> x(ofDimension(n));
+
+		// First solve Qy = b.
+		x = qr.qTransposed() * b;
+		
+		// Then solve Rx = y.
+		x = solveUpperTriangular(qr.r(), x);
+
+		return x;
 	}
 
 }

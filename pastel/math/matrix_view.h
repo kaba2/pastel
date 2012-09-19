@@ -70,8 +70,7 @@ namespace Pastel
 
 	template <typename Real>
 	class ConstSubMatrix
-		: public MatrixExpression<Real, Dynamic, Dynamic, 
-		ConstSubMatrix<Real> >
+		: public MatrixExpression<Real, ConstSubMatrix<Real> >
 	{
 	public:
 		typedef const ConstSubMatrix& StorageType;
@@ -215,8 +214,7 @@ namespace Pastel
 
 	template <typename Real>
 	class SubMatrix
-		: public MatrixExpression<Real, Dynamic, Dynamic, 
-		SubMatrix<Real> >
+		: public MatrixExpression<Real, SubMatrix<Real> >
 	{
 	public:
 		typedef const SubMatrix& StorageType;
@@ -265,7 +263,7 @@ namespace Pastel
 				// as a subexpression. We thus need to evaluate
 				// the expression first.
 				
-				*this = Matrix<Real, Dynamic, Dynamic>(that);
+				*this = Matrix<Real>(that);
 			}
 			else
 			{
@@ -399,9 +397,9 @@ namespace Pastel
 			return result;
 		}
 
-		template <int Height, int Width, typename RightExpression>
+		template <typename RightExpression>
 		SubMatrix& operator=(
-			const MatrixExpression<Real, Height, Width, RightExpression>& right)
+			const MatrixExpression<Real, RightExpression>& right)
 		{
 			ENSURE(width() == right.width() &&
 				height() == right.height());
@@ -412,7 +410,7 @@ namespace Pastel
 				// as a subexpression. We thus need to evaluate
 				// the expression first.
 				
-				*this = Matrix<Real, Dynamic, Dynamic>(right);
+				*this = Matrix<Real>(right);
 			}
 			else
 			{
@@ -433,9 +431,9 @@ namespace Pastel
 			return *this;
 		}
 
-		template <int N, typename RightExpression>
+		template <typename RightExpression>
 		SubMatrix& operator*=(
-			const MatrixExpression<Real, N, N, RightExpression>& right)
+			const MatrixExpression<Real, RightExpression>& right)
 		{
 			PENSURE2(width() == right.height(), width(), right.height());
 
@@ -444,16 +442,16 @@ namespace Pastel
 			return *this;
 		}
 
-		template <int Height, int Width, typename RightExpression>
+		template <typename RightExpression>
 		SubMatrix& operator+=(
-			const MatrixExpression<Real, Height, Width, RightExpression>& right)
+			const MatrixExpression<Real, RightExpression>& right)
 		{
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());
 
 			if (right.evaluateBeforeAssignment(data_.dataBegin(), data_.dataEnd()))
 			{
-				*this += Matrix<Real, Dynamic, Dynamic>(right);
+				*this += Matrix<Real>(right);
 			}
 			else
 			{
@@ -474,16 +472,16 @@ namespace Pastel
 			return *this;
 		}
 
-		template <int Height, int Width, typename RightExpression>
+		template <typename RightExpression>
 		SubMatrix& operator-=(
-			const MatrixExpression<Real, Height, Width, RightExpression>& right)
+			const MatrixExpression<Real, RightExpression>& right)
 		{
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());
 
 			if (right.evaluateBeforeAssignment(data_.dataBegin(), data_.dataEnd()))
 			{
-				*this -= Matrix<Real, Dynamic, Dynamic>(right);
+				*this -= Matrix<Real>(right);
 			}
 			else
 			{

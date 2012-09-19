@@ -31,7 +31,7 @@ namespace Pastel
 
 		//! Constructs a given transformation.
 		AffineBijection(
-			const Matrix<Real, N, N>& transformation,
+			const Matrix<Real>& transformation,
 			const Vector<Real, N>& translation);
 
 		// Used for concept checking.
@@ -58,13 +58,13 @@ namespace Pastel
 		const AffineTransformation<Real, N>& inverse() const;
 
 		//! Sets the forward transformation.
-		void setMatrix(const Matrix<Real, N, N>& transformation);
+		void setMatrix(const Matrix<Real>& transformation);
 
 		//! Returns the forward transformation.
-		const Matrix<Real, N, N>& matrix() const;
+		const Matrix<Real>& matrix() const;
 
 		//! Returns the inverse transformation.
-		const Matrix<Real, N, N>& inverseMatrix() const;
+		const Matrix<Real>& inverseMatrix() const;
 
 		//! Sets the forward translation
 		void setTranslation(const Vector<Real, N>& translation);

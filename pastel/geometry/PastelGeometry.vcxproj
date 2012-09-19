@@ -532,7 +532,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="geometrylibrary.cpp" />
-    <ClCompile Include="planar_projection.cpp" />
     <ClCompile Include="sphere_area.cpp" />
     <ClCompile Include="sphere_volume.cpp" />
   </ItemGroup>

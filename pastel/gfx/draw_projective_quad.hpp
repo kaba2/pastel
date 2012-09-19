@@ -18,7 +18,7 @@ namespace Pastel
 		const Tuple<Vector2, 4>& textureQuad,
 		const ColorMixer& colorMixer)
 	{
-		const Matrix3 matrix = projectiveTransformation(textureQuad, quad);
+		const Matrix<real> matrix = projectiveTransformation(textureQuad, quad);
 
 		const Vector3 a(wDivide(evaluate(extend(textureQuad[0], 1) * matrix)));
 		const Vector3 b(wDivide(evaluate(extend(textureQuad[1], 1) * matrix)));

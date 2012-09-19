@@ -22,56 +22,40 @@ namespace Pastel
 
 		//! Constructs an identity transformation.
 		AffineTransformation()
-			: matrix_()
+			: matrix_(identityMatrix<Real>(N, N))
 			, translation_(0)
 		{
 			PASTEL_STATIC_ASSERT(N > 0);
 		}
 
 		//! Constructs an identity transformation.
-		explicit AffineTransformation(integer dimension)
-			: matrix_(dimension, dimension)
-			, translation_(ofDimension(dimension))
+		explicit AffineTransformation(integer n)
+			: matrix_(n, n)
+			, translation_(ofDimension(n))
 		{
-			PENSURE_OP(dimension, >, 0);
-			PENSURE2(dimension == N || N == Dynamic, dimension, N);
+			PENSURE_OP(n, >, 0);
+			PENSURE2(n == N || N == Dynamic, n, N);
 		}
 
 		//! Constructs using the given matrix and no translation.
 		template <typename Expression>
 		explicit AffineTransformation(
-			const MatrixExpression<Real, N, N, Expression>& matrix)
+			const MatrixExpression<Real, Expression>& matrix)
 			: matrix_(matrix)
-			, translation_(ofDimension(matrix.width()))
+			, translation_(ofDimension(matrix_.m()))
 		{
 		}
 
 		//! Constructs using the given matrix and translation.
 		template <typename Left_Expression, typename Right_Expression>
 		AffineTransformation(
-			const MatrixExpression<Real, N, N, Left_Expression>& matrix,
+			const MatrixExpression<Real, Left_Expression>& matrix,
 			const VectorExpression<Real, N, Right_Expression>& translation)
 			: matrix_(matrix)
 			, translation_(translation)
 		{
 			PASTEL_STATIC_ASSERT(N > 0);
-		}
-
-		//! Constructs using the given matrix and translation.
-		template <typename Left_Expression, typename Right_Expression>
-		AffineTransformation(
-			integer dimension,
-			const MatrixExpression<Real, N, N, Left_Expression>& matrix,
-			const VectorExpression<Real, N, Right_Expression>& translation)
-			: matrix_(matrix)
-			, translation_(translation)
-		{
-			PENSURE_OP(dimension, >, 0);
-			PENSURE2(dimension == N || N == Dynamic, dimension, N);
-
-			PENSURE_OP(translation.dimension(), ==, dimension);
-			PENSURE_OP(matrix.width(), ==, dimension);
-			PENSURE_OP(matrix.height(), ==, dimension);
+			PENSURE_OP(matrix_.m(), ==, translation_.size());
 		}
 
 		//! Swaps two transformations.
@@ -81,22 +65,29 @@ namespace Pastel
 			translation_.swap(that.translation_);
 		}
 
-		//! Combines together transformations of this and that.
+		//! Assigns f := f o g.
 		AffineTransformation& operator*=(
 			const AffineTransformation& that)
 		{
-			matrix_ *= that.matrix_;
-			translation_ = that.translation_ +
-				translation_ * that.matrix_;
+			// Let
+			// f : RR^n --> RR^n : f(x) = Ax + b
+			// g : RR^n --> RR^n : g(x) = Cx + d
+			//
+			// Then
+			// (f o g)(x) = A(Cx + d) + b
+			//            = ACx + (Ad + b)
 
-			return (AffineTransformation&)*this;
+			translation_ += matrix_ * that.translation_;
+			matrix_ *= that.matrix_;
+
+			return *this;
 		}
 
 		//! Returns the combined transformation of this and that.
 		AffineTransformation operator*(
 			const AffineTransformation& that) const
 		{
-			AffineTransformation result((AffineTransformation&)*this);
+			AffineTransformation result(*this);
 			result *= that;
 			return result;
 		}
@@ -104,7 +95,7 @@ namespace Pastel
 		//! Sets the matrix and translation.
 		template <typename Left_Expression, typename Right_Expression>
 		void set(
-			const MatrixExpression<Real, N, N, Left_Expression>& matrix,
+			const MatrixExpression<Real, Left_Expression>& matrix,
 			const VectorExpression<Real, N, Right_Expression>& translation)
 		{
 			PENSURE_OP(matrix_.width(), ==, matrix.width());
@@ -122,13 +113,13 @@ namespace Pastel
 		}
 
 		//! Returns the matrix.
-		Matrix<Real, N, N>& matrix()
+		Matrix<Real>& matrix()
 		{
 			return matrix_;
 		}
 
 		//! Returns the matrix.
-		const Matrix<Real, N, N>& matrix() const
+		const Matrix<Real>& matrix() const
 		{
 			return matrix_;
 		}
@@ -146,7 +137,7 @@ namespace Pastel
 		}
 
 	private:
-		Matrix<Real, N, N> matrix_;
+		Matrix<Real> matrix_;
 		Vector<Real, N> translation_;
 	};
 
@@ -159,7 +150,7 @@ namespace Pastel
 		AffineTransformation<Real, N>& right);
 
 	template <typename Real, int N>
-	Matrix<Real, ModifyN<N, N + 1>::Result, ModifyN<N, N + 1>::Result> asMatrix(
+	Matrix<Real> asMatrix(
 		const AffineTransformation<Real, N>& that);
 
 	template <typename Real, int N>

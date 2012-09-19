@@ -1374,9 +1374,6 @@
     <ClCompile Include="geometrylibrary.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="planar_projection.cpp">
-      <Filter>Algorithms\Transformation fitting\Projection</Filter>
-    </ClCompile>
     <ClCompile Include="sphere_area.cpp">
       <Filter>Algorithms\Shape measurements\Area</Filter>
     </ClCompile>

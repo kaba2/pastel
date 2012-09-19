@@ -17,11 +17,11 @@
 namespace Pastel
 {
 
-	template <typename Real, int Height, int Width>
+	template <typename Real>
 	void setRandomMatrix(
-		Matrix<Real, Height, Width>& matrix)
+		Matrix<Real>& matrix)
 	{
-		typedef typename Matrix<Real, Height, Width>::Iterator
+		typedef typename Matrix<Real>::Iterator
 			Iterator;
 
 		Iterator iter = matrix.begin();
@@ -33,9 +33,9 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N>
+	template <typename Real>
 	void setRandomRotation(
-		Matrix<Real, N, N>& result)
+		Matrix<Real>& result)
 	{
 		// See "How to Generate Random Matrices
 		// from the Classical Compact Groups",
@@ -50,7 +50,7 @@ namespace Pastel
 		const Real scaling = 
 			inverse(std::sqrt((Real)2));
 
-		typedef typename Matrix<Real, N, N>::Iterator 
+		typedef typename Matrix<Real>::Iterator 
 			Iterator;
 
 		Iterator iter = result.begin();
@@ -61,7 +61,7 @@ namespace Pastel
 			++iter;
 		}
 
-		QrDecomposition<Real, N> qr(result);
+		QrDecomposition<Real> qr(result);
 
 		result = qr.qTransposed();
 
@@ -69,39 +69,15 @@ namespace Pastel
 		{
 			if (qr.r()(i, i)  < 0)
 			{
-				result[i] = -result[i];
+				result.column(i) = -result.column(i);
 			}
 		}
 	}
 
-	template <typename Real, int Height, int Width>
-	void setRandomReducedRotation(
-		Matrix<Real, Height, Width>& result)
-	{
-		const integer height = result.height();
-		const integer width = result.width();
-
-		ENSURE_OP(height, <=, width);
-
-		std::vector<Vector<Real, Width> > orthonormalSet;
-		orthonormalSet.reserve(height);
-
-		orthonormalSet.push_back(
-			randomVectorSphere<Real, Width>(width));
-		result[0] = orthonormalSet.back();
-
-		for (integer i = 1;i < height;++i)
-		{
-			orthonormalSet.push_back(
-				perpendicular(width, orthonormalSet));
-			result[i] = orthonormalSet.back();
-		}
-	}
-
-	template <typename Real, int N>
+	template <typename Real>
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		Matrix<Real, N, N>& result)
+		Matrix<Real>& result)
 	{
 		/*
 		Problem:
@@ -198,12 +174,10 @@ namespace Pastel
 		std::sort(partitionSet.begin(), partitionSet.end());
 
 		// Generate a random rotation matrix.
-
 		setRandomRotation(result);
 
 		// Multiply the columns of the rotation matrix
 		// with square root of the diagonal element of D.
-
 		for (integer j = 0;j < n;++j)
 		{
 			const Real b = partitionSet[j + 1] - partitionSet[j];
@@ -216,11 +190,11 @@ namespace Pastel
 		result *= transpose(result);
 	}
 
-	template <typename Real, int N>
+	template <typename Real>
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
 		const PASTEL_NO_DEDUCTION(Real)& condition,
-		Matrix<Real, N, N>& result)
+		Matrix<Real>& result)
 	{
 		PASTEL_STATIC_ASSERT(N != 1);
 

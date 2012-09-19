@@ -123,15 +123,6 @@
     <ClInclude Include="matrix.h">
       <Filter>Transformations\Linear algebra\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="matrix.hpp">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_dynamic.h">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="matrix_static.h">
-      <Filter>Transformations\Linear algebra\Matrix</Filter>
-    </ClInclude>
     <ClInclude Include="cholesky_decomposition.h">
       <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
     </ClInclude>
@@ -417,6 +408,9 @@
     </None>
     <None Include="undocumented.txt">
       <Filter>Undocumented</Filter>
+    </None>
+    <None Include="matrix_norm.txt">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

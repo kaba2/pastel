@@ -3,6 +3,7 @@
 
 #include "pastel/math/matrix_eigen.h"
 #include "pastel/math/matrix_trace.h"
+#include "pastel/math/matrix_determinant.h"
 
 #include "pastel/sys/math_functions.h"
 
@@ -11,13 +12,14 @@ namespace Pastel
 
 	template <typename Real>
 	Vector<Real, 2> symmetricEigenValues(
-		const Matrix<Real, 2, 2>& matrix)
+		const Matrix<Real>& matrix)
 	{
 		// Let the matrix be
+		//
 		// [a b]
 		// [c d]
 		//
-		// For 2 x 2 matrices we can solve the eigenvalues k directly
+		// For 2 x 2 matrices we can solve the eigenvalues directly
 		// from the characteristic equation:
 		//
 		// det [a - k     b] = 0
@@ -40,8 +42,8 @@ namespace Pastel
 
 	template <typename Real>
 	void symmetricEigenDecomposition(
-		const Matrix<Real, 2, 2>& matrix,
-		Matrix<Real, 2, 2>& eigenVector,
+		const Matrix<Real>& matrix,
+		Matrix<Real>& eigenVector,
 		Vector<Real, 2>& eigenValue)
 	{
 		eigenValue = symmetricEigenValues(matrix);
@@ -81,7 +83,6 @@ namespace Pastel
 
 		// Because S is symmetric and real, the eigenvectors
 		// must be orthogonal to each other.
-
 		eigenVector[1] = cross(eigenVector[0]);
 	}
 

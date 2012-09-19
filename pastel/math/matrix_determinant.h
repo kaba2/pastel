@@ -10,24 +10,24 @@ namespace Pastel
 {
 
 	//! Returns the determinant of a matrix.
-	template <typename Real, int N, typename Expression>
-	Real determinant(
-		const MatrixExpression<Real, N, N, Expression>& that);
+	/*!
+	The determinant is computed	by using Gaussian elimination 
+	with partial pivoting to modify the matrix into upper-triangular 
+	form, and then computing the product of the diagonal elements,
+	divided by the determinants of the used elementary operations.
 
-	//! Returns the determinant of a 1 x 1 matrix.
+	Preconditions:
+	that.n() == that.m()
+
+	matrix:
+	Square matrix A.
+
+	returns:
+	The determinant of A, if that.n() > 0. Otherwise nan<Real>().
+	*/
 	template <typename Real, typename Expression>
 	Real determinant(
-		const MatrixExpression<Real, 1, 1, Expression>& that);
-
-	//! Returns the determinant of a 2 x 2 matrix.
-	template <typename Real, typename Expression>
-	Real determinant(
-		const MatrixExpression<Real, 2, 2, Expression>& that);
-
-	//! Returns the determinant of a 3 x 3 matrix.
-	template <typename Real, typename Expression>
-	Real determinant(
-		const MatrixExpression<Real, 3, 3, Expression>& that);
+		const MatrixExpression<Real, Expression>& matrix);
 
 }
 

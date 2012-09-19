@@ -8,9 +8,9 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
-	Matrix<Real, N, N> ellipsoidQuadraticForm(
-		const Matrix<Real, N, N>& basis)
+	template <typename Real>
+	Matrix<Real> ellipsoidQuadraticForm(
+		const Matrix<Real>& basis)
 	{
 		// An origin-centered ellipsoid Q is given by the set:
 		// Q = {p | f(p) = 1}
@@ -54,15 +54,15 @@ namespace Pastel
 		// and thus the correct matrix to return is
 		// ((L^T)^-T (L^T)^-1)^T = L^-1 L^-T.
 
-		Matrix<Real, N, N> result = inverse(basis);
+		Matrix<Real> result = inverse(basis);
 		result *= transpose(result);
 		
 		return result;
 	}
 
-	template <typename Real, int N>
-	AlignedBox<Real, N> ellipsoidBoundingAlignedBox(
-		const Matrix<Real, N, N>& quadraticForm)
+	template <typename Real>
+	AlignedBox<Real> ellipsoidBoundingAlignedBox(
+		const Matrix<Real>& quadraticForm)
 	{
 		// TODO: What if the 'quadraticForm'
 		// is not invertible?
@@ -140,13 +140,12 @@ namespace Pastel
 		// e_i^T x = +/- sqrt(e_i^T S^-1 e_i)
 		// = +/- sqrt(S^-1(i, i))
 
-		const Matrix<Real, N, N> invQuadraticForm =
+		const Matrix<Real> invQuadraticForm =
 			inverse(quadraticForm);
 
-		const Vector<Real, N> radius = sqrt(
-			diagonal(invQuadraticForm));
+		const Vector<Real> radius = sqrt(diagonal(invQuadraticForm));
 
-		const AlignedBox<Real, N> bound(-radius, radius);
+		const AlignedBox<Real> bound(-radius, radius);
 
 		return bound;
 	}

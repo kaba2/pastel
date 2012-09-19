@@ -22,15 +22,15 @@ namespace Pastel
 	the given linear transformation.
 	*/
 
-	template <typename Real, int N>
-	Matrix<Real, N, N> ellipsoidQuadraticForm(
-		const Matrix<Real, N, N>& basis);
+	template <typename Real>
+	Matrix<Real> ellipsoidQuadraticForm(
+		const Matrix<Real>& basis);
 
 	//! Returns a minimum volume aligned box bounding the given ellipse.
 
-	template <typename Real, int N>
-	AlignedBox<Real, N> ellipsoidBoundingAlignedBox(
-		const Matrix<Real, N, N>& quadraticForm);
+	template <typename Real>
+	AlignedBox<Real> ellipsoidBoundingAlignedBox(
+		const Matrix<Real>& quadraticForm);
 
 }
 

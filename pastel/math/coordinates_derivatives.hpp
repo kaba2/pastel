@@ -2,6 +2,7 @@
 #define PASTELMATH_COORDINATES_DERIVATIVES_HPP
 
 #include "pastel/math/coordinates_derivatives.h"
+#include "pastel/math/matrix.h"
 
 #include "pastel/sys/math_functions.h"
 
@@ -9,7 +10,7 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
-	Matrix<Real, N, N> cartesianToSphericalDerivative(
+	Matrix<Real> cartesianToSphericalDerivative(
 		const Vector<Real, N>& cartesian)
 	{
 		const integer n = cartesian.size();
@@ -24,7 +25,7 @@ namespace Pastel
 		// i:th row the derivative of the cartesianToSpherical
 		// function w.r.t. i:th cartesian coordinate.
 
-		Matrix<Real, N, N> result(n, n, 0);
+		Matrix<Real> result = constantMatrix<Real>(n, n, 0);
 
 		Real squareSum = square(cartesian[n - 1]) + square(cartesian[n - 2]);
 
@@ -59,14 +60,14 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Matrix<Real, N, N> sphericalToCartesianDerivative(
+	Matrix<Real> sphericalToCartesianDerivative(
 		const Vector<Real, N>& spherical)
 	{
 		const integer n = spherical.size();
 
 		ENSURE_OP(n, >=, 2);
 
-		Matrix<Real, N, N> result(n, n);
+		Matrix<Real> result(n, n);
 
 		const Vector<Real, N> cosSpherical = cos(spherical);
 		const Vector<Real, N> sinSpherical = sin(spherical);

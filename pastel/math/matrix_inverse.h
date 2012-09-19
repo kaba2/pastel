@@ -11,12 +11,28 @@ namespace Pastel
 
 	//! Returns the inverse of the given matrix.
 	/*!
-	If 'input' is non-singular, a warning is generated and
-	the identity matrix is returned.
+	The inverse is computed by Gaussian elimination with
+	partial pivoting.
+
+	Preconditions:
+	matrix.m() == matrix.n()
+
+	matrix:
+	Square matrix A.
+
+	returns:
+	The inverse of the matrix A.
+
+	throws:
+	SingularMatrix_Exception if the matrix is 
+	effectively singular.
+
+	Time complexity: O(n^3)
+	Exception safety: strong
 	*/
-	template <typename Real, int N, typename Expression>
-	Matrix<Real, N, N> inverse(
-		const MatrixExpression<Real, N, N, Expression>& a);
+	template <typename Real, typename Expression>
+	Matrix<Real> inverse(
+		const MatrixExpression<Real, Expression>& matrix);
 
 }
 

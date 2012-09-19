@@ -59,35 +59,35 @@ namespace
 			const Color lmsDesired(
 				xyzToLms(srgbToXyz(Color(1, 1, 1))));
 
-			transform_ =
-				linearSrgbToXyzTransform() * xyzToLmsTransform();
+			transform_ = 
+				 xyzToLinearSrgbTransform() * lmsToXyzTransform();
 
 			for (integer j = 0;j < 3;++j)
 			{
 				for (integer i = 0;i < 3;++i)
 				{
-					transform_(i, j) *= 0.1 * lmsDesired[j] / lmsObserved[j];
+					transform_(i, j) *= 0.1 * lmsDesired[i] / lmsObserved[i];
 				}
 			}
 
-			transform_ *= 
-				lmsToXyzTransform() * xyzToLinearSrgbTransform();
+			transform_ *=
+				xyzToLmsTransform() * linearSrgbToXyzTransform();
 		}
 
 		Color operator()(
 			const Color& that) const
 		{
 			return linearSrgbToSrgb(
-				fitColor(srgbToLinearSrgb(that) * transform_));
+				fitColor(transform_ * srgbToLinearSrgb(that)));
 		}
 
 	private:
-		Matrix<real32, 3, 3> transform_;
+		Matrix<real32> transform_;
 	};
 
 	void testChromaticAdaptation()
 	{
-		Array<Color, 2> image;
+		Array<Color> image;
 		loadPcx("lena.pcx", image);
 
 		const TransformVisitor transformVisitor;

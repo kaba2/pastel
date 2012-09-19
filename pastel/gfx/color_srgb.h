@@ -26,17 +26,17 @@ namespace Pastel
 	coordinates for the light emitters as well as for the
 	white point.
 	*/
-	PASTELGFX Matrix<real32, 3, 3> linearSrgbToXyzTransform();
+	PASTELGFX Matrix<real32> linearSrgbToXyzTransform();
 
 	//! Returns the XYZ to linear-sRGB transformation matrix.
 	/*!
 	This is the inverse matrix of the linearSrgbToXyzTransform()
 	matrix.
 	*/
-	PASTELGFX Matrix<real32, 3, 3> xyzToLinearSrgbTransform();
+	PASTELGFX Matrix<real32> xyzToLinearSrgbTransform();
 
 	//! Computes a linear-RGB to XYZ transformation matrix.
-	PASTELGFX Matrix<real32, 3, 3> linearRgbToXyzTransform(
+	PASTELGFX Matrix<real32> linearRgbToXyzTransform(
 		const Color& xyzRed,
 		const Color& xyzGreen,
 		const Color& xyzBlue,

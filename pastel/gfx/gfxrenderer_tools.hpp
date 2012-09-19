@@ -181,7 +181,7 @@ namespace Pastel
 		const Box2 box(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 			(alignedBox.max() - alignedBox.min()) * 0.5,
-			Matrix2(Vector2(1, 0), Vector2(0, 1)));
+			matrix2x2<real>(Vector2(1, 0), Vector2(0, 1)));
 
 		drawBox(renderer, box);
 	}
@@ -195,7 +195,7 @@ namespace Pastel
 		const Box2 box(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 			(alignedBox.max() - alignedBox.min()) * 0.5,
-			Matrix2(Vector2(1, 0), Vector2(0, 1)));
+			matrix2x2<real>(Vector2(1, 0), Vector2(0, 1)));
 
 		drawBox(renderer, box, textureQuad);
 	}
@@ -206,8 +206,8 @@ namespace Pastel
 		const Box2& box)
 	{
 		const Vector2& center = box.position();
-		const Vector2 x = box.rotation()[0] * box.width()[0];
-		const Vector2 y = box.rotation()[1] * box.width()[1];
+		const Vector2 x = box.rotation().cColumn(0) * box.width()[0];
+		const Vector2 y = box.rotation().cColumn(1) * box.width()[1];
 
 		const Vector2 leftBottom = center - x - y;
 		const Vector2 rightBottom = center + x - y;

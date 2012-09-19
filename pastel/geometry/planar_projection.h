@@ -41,32 +41,32 @@ namespace Pastel
 	The view volume will be mapped to the range	[-1, 1]^3.
 	*/
 
-	PASTELGEOMETRY void setPerspectiveProjection(
-		const AlignedBox2& window,
-		const real& zMin,
-		const real& zMax,
-		Matrix4& matrix);
+	template <typename Real>
+	Matrix<Real> perspectiveProjection(
+		const AlignedBox<Real, 2>& window,
+		const PASTEL_NO_DEDUCTION(Real)& zMin,
+		const PASTEL_NO_DEDUCTION(Real)& zMax);
 
 	//! Returns a homogeneous 3D orthogonal projection matrix.
 	/*!
 	Preconditions:
 	zMin < zMax
 	*/
-	PASTELGEOMETRY void setOrthogonalProjection(
-		const AlignedBox2& window,
-		const real& zMin,
-		const real& zMax,
-		Matrix4& matrix);
+	template <typename Real>
+	Matrix<Real> orthogonalProjection(
+		const AlignedBox<Real, 2>& window,
+		const PASTEL_NO_DEDUCTION(Real)& zMin,
+		const PASTEL_NO_DEDUCTION(Real)& zMax);
 
 	//! Returns a projective transformation relating the given quadrilaterals.
 	/*!
 	It is assumed that the points in the 'from' point set have
 	homogeneous coordinate 1.
 	*/
-
-	PASTELGEOMETRY Matrix3 projectiveTransformation(
-		const Tuple<Vector2, 4>& from,
-		const Tuple<Vector2, 4>& to);
+	template <typename Real>
+	Matrix<Real> projectiveTransformation(
+		const Tuple<Vector<Real, 2>, 4>& from,
+		const Tuple<Vector<Real, 2>, 4>& to);
 
 }
 

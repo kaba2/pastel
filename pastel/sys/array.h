@@ -246,19 +246,19 @@ namespace Pastel
 		Iterator begin();
 
 		//! An iterator to the first element.
-		ConstIterator begin() const;
+		ConstIterator cbegin() const;
 
 		//! An iterator to one-past-end element.
 		Iterator end();
 
 		//! An iterator to one-past-end element.
-		ConstIterator end() const;
+		ConstIterator cend() const;
 
 		//! An iterator range to all elements.
 		Range range();
 
 		//! An iterator range to all elements.
-		ConstRange range() const;
+		ConstRange cRange() const;
 
 		//! An iterator to the first element of a row.
 		RowIterator rowBegin(
@@ -266,7 +266,7 @@ namespace Pastel
 			integer axis);
 
 		//! An iterator to the first element of a row.
-		ConstRowIterator rowBegin(
+		ConstRowIterator cRowBegin(
 			const Vector<integer, N>& position, 
 			integer axis) const;
 
@@ -276,7 +276,7 @@ namespace Pastel
 			integer axis);
 
 		//! An iterator to the one-past end element of a row.
-		ConstRowIterator rowEnd(
+		ConstRowIterator cRowEnd(
 			const Vector<integer, N>& position, 
 			integer axis) const;
 
@@ -286,7 +286,7 @@ namespace Pastel
 			integer axis);
 
 		//! An iterator range to the elements of a row.
-		ConstRowRange rowRange(
+		ConstRowRange cRowRange(
 			const Vector<integer, N>& position, 
 			integer axis) const;
 
@@ -396,9 +396,9 @@ namespace Pastel
 			return rowRange(Vector<integer, N>(0, y), 0);
 		}
 
-		ConstRowRange rowRange(integer y) const
+		ConstRowRange cRowRange(integer y) const
 		{
-			return rowRange(Vector<integer, N>(0, y), 0);
+			return cRowRange(Vector<integer, N>(0, y), 0);
 		}
 
 		RowIterator rowBegin(integer y)
@@ -406,9 +406,9 @@ namespace Pastel
 			return rowBegin(Vector<integer, N>(0, y), 0);
 		}
 
-		ConstRowIterator rowBegin(integer y) const
+		ConstRowIterator cRowBegin(integer y) const
 		{
-			return rowBegin(Vector<integer, N>(0, y), 0);
+			return cRowBegin(Vector<integer, N>(0, y), 0);
 		}
 
 		RowIterator rowEnd(integer y)
@@ -416,9 +416,9 @@ namespace Pastel
 			return rowEnd(Vector<integer, N>(0, y), 0);
 		}
 
-		ConstRowIterator rowEnd(integer y) const
+		ConstRowIterator cRowEnd(integer y) const
 		{
-			return rowEnd(Vector<integer, N>(0, y), 0);
+			return cRowEnd(Vector<integer, N>(0, y), 0);
 		}
 
 		RowIterator columnBegin(integer x)
@@ -426,9 +426,9 @@ namespace Pastel
 			return rowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
-		ConstRowIterator columnBegin(integer x) const
+		ConstRowIterator cColumnBegin(integer x) const
 		{
-			return rowBegin(Vector<integer, N>(x, 0), 1);
+			return cRowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
 		RowIterator columnEnd(integer x)
@@ -436,9 +436,19 @@ namespace Pastel
 			return rowEnd(Vector<integer, N>(x, 0), 1);
 		}
 
-		ConstRowIterator columnEnd(integer x) const
+		ConstRowIterator cColumnEnd(integer x) const
 		{
-			return rowEnd(Vector<integer, N>(x, 0), 1);
+			return cRowEnd(Vector<integer, N>(x, 0), 1);
+		}
+
+		RowRange columnRange(integer x)
+		{
+			return rowRange(Vector<integer, N>(x, 0), 1);
+		}
+
+		ConstRowRange cColumnRange(integer x) const
+		{
+			return cRowRange(Vector<integer, N>(x, 0), 1);
 		}
 
 		// 3-dimensional special functions

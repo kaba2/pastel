@@ -15,47 +15,22 @@ namespace Pastel
 
 	//! Orthonormalizes the columns of a matrix.
 	/*!
-	Returns:
-	True if succeeded, false otherwise.
-	The process fails only if the columns of the 
-	matrix are effectively linearly dependent.
+	This is stabilized Gram-Schmidt orthonormalization.
+	It is numerically ok; if you need more stability, 
+	use the QR-decomposition instead. 
+
+	matrix:
+	An mxn-matrix Q.
+
+	returns:
+	A matrix Q such that Q^T Q = I.
+
+	throws:
+	SingularMatrix_Exception if the matrix has 
+	effectively linearly dependent columns.
 	*/
-	template <typename Real, int Height, int Width>
-	bool orthonormalize(
-		Matrix<Real, Height, Width>& vectorSet);
-
-	//! Orthonormalizes a linearly independent set of vectors.
-	/*!
-	Preconditions:
-	Vectors in 'input' are linearly independent.
-
-	If the vectors are not linearly independent, the function
-	returns false and 'result' is not modified.
-	Otherwise the function returns true and fills 'result'
-	with the orthonormalized vectors.
-
-	Note:
-	'input' and 'result' can be the same object. In this
-	case consider using the one-parameter form of this
-	function.
-	*/
-
-	template <typename Real, int N>
-	bool orthonormalize(
-		const std::vector<Vector<Real, N> >& input,
-		std::vector<Vector<Real, N> >& result);
-
-	//! Calls orthonormalize(vectorSet, vectorSet).
-	/*!
-	Preconditions:
-	Vectors in vectorSet are linearly independent.
-
-	See the documentation for the two-parameter
-	version of this function.
-	*/
-	template <typename Real, int N>
-	bool orthonormalize(
-		std::vector<Vector<Real, N> >& vectorSet);
+	template <typename Real>
+	Matrix<Real> orthonormalize(Matrix<Real> matrix);
 
 	//! Calculates a perpendicular to a set of vectors
 	/*!

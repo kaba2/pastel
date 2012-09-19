@@ -44,7 +44,7 @@ namespace Pastel
 
 		virtual Element operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const
+			const Matrix<real>& m) const
 		{
 			const Vector<integer, N> x(p * extent_);
 

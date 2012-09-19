@@ -27,7 +27,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	AffineBijection<Real, N>::AffineBijection(
-		const Matrix<Real, N, N>& transformation,
+		const Matrix<Real>& transformation,
 		const Vector<Real, N>& translation)
 		: transform_(transformation, translation)
 		, inverse_()
@@ -100,20 +100,20 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void AffineBijection<Real, N>::setMatrix(
-		const Matrix<Real, N, N>& transformation)
+		const Matrix<Real>& transformation)
 	{
 		transform_.matrix() = transformation;
 		update_ = true;
 	}
 
 	template <typename Real, int N>
-	const Matrix<Real, N, N>& AffineBijection<Real, N>::matrix() const
+	const Matrix<Real>& AffineBijection<Real, N>::matrix() const
 	{
 		return transform_.matrix();
 	}
 
 	template <typename Real, int N>
-	const Matrix<Real, N, N>&
+	const Matrix<Real>&
 		AffineBijection<Real, N>::inverseMatrix() const
 	{
 		if (update_)

@@ -43,18 +43,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	template class Matrix<real, Dynamic, Dynamic>;
-	template class Matrix<real, 1, 1>;
-	template class Matrix<real, 2, 2>;
-	template class Matrix<real, 3, 3>;
-	template class Matrix<real, 4, 4>;
-	template class Matrix<real, 2, 1>;
-	template class Matrix<real, 3, 1>;
-	template class Matrix<real, 4, 1>;
-	template class Matrix<real, 1, 2>;
-	template class Matrix<real, 1, 3>;
-	template class Matrix<real, 1, 4>;
-	template class Matrix<real, 7, 5>;
+	template class Matrix<real>;
 
 }
 

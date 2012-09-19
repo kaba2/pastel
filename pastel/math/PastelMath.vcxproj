@@ -176,9 +176,6 @@
     <ClInclude Include="affinebijection.h" />
     <ClInclude Include="affinebijection.hpp" />
     <ClInclude Include="matrix.h" />
-    <ClInclude Include="matrix.hpp" />
-    <ClInclude Include="matrix_dynamic.h" />
-    <ClInclude Include="matrix_static.h" />
     <ClInclude Include="matrix_expression.h" />
     <ClInclude Include="matrix_view.h" />
     <ClInclude Include="cholesky_decomposition.h" />
@@ -231,6 +228,7 @@
   <ItemGroup>
     <None Include="interpolation.txt" />
     <None Include="matrix_algorithms.txt" />
+    <None Include="matrix_norm.txt" />
     <None Include="transformations.txt" />
     <None Include="affinetransformation.txt" />
     <None Include="quaternion.txt" />

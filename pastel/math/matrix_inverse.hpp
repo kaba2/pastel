@@ -8,37 +8,79 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename Expression>
-	Matrix<Real, N, N> inverse(
-		const MatrixExpression<Real, N, N, Expression>& a)
+	template <typename Real, typename Expression>
+	Matrix<Real> inverse(
+		const MatrixExpression<Real, Expression>& matrix)
 	{
-		// The linear system is solved by
-		// Gaussian elimination with back-substitution
-		// and partial pivoting.
+		// Let A in RR^{n x n} be non-singular. Then by
+		// non-singularity of A the linear systems
+		//
+		//     A x_i = e_i, for all i in [1, n],
+		//
+		// where e_i is the i:th column of the nxn identity matrix,
+		// each have a unique solution x_i. These linear systems
+		// can be arranged into a combined linear system
+		//
+		//     AX = I, 
+		//
+		// where X = [x_1, ..., x_n]. Therefore X is the 
+		// right-inverse of A. To solve X, we start from the 
+		// augmented matrix [A | I], where the extent of the 
+		// identity matrix I is the same as A, and then multiply 
+		// from the left by elementary matrices such that we 
+		// end up [I | X]. This is Gauss-Jordan elimination.
 
-		const integer width = a.width();
-		const integer height = a.height();
+		const integer n = matrix.width();
+		const integer m = matrix.height();
 
-		if (width != height)
+		ENSURE_OP(m, ==, n);
+
+		// The original matrix, left part of [A | I].
+		Matrix<Real> left(matrix);
+
+		// The identity matrix, right part of [A | I].
+		Matrix<Real> right(m, n);
+
+		if (n <= 3)
 		{
-			return Matrix<Real, N, N>();
+			Real det = determinant(left);
+			if (det == 0)
+			{
+				throw SingularMatrix_Exception();
+			}
+
+			// Specialization for small matrices.
+			right = adjugate(left) / det;
+
+			return right;
 		}
 
-		Matrix<Real, N, N> a2(a);
-		Matrix<Real, N, N> b2(height, width);
-
-		for (integer k = 0;k < width;++k)
+		for (integer k = 0;k < n;++k)
 		{
-			// From this k, find the element with
+			// The strategy in Gauss-Jordan elimination is to modify
+			// [A | I] by elementary row-operations such that 
+			// at the end of the (k + 1):th iteration of this loop 
+			// the (k + 1) first columns of left are [e_1, ..., e_(k + 1)].
+			
+			// To do this, given the k:th column,
+			// 1) Pick a row i such that left(i, k) != 0 and i >= k.
+			// 2) If k != i, swap rows i and k.
+			// 3) Divide the k:th row by left(k, k).
+			// 4) Subtract the row k multiplied by left(j, k)
+			//    from each row j != k.
+			
+			// While we could pick any non-zero element from the
+			// column (with i >= k), for numerical stability it 
+			// is better to pick the one with the largest absolute
+			// value. This is called partial pivoting.
+
+			// From the k:th column, find the element with
 			// the maximum absolute value (with i >= k).
-
-			const integer currentRow = k;
-
-			integer maxAbsRow = currentRow;
-			Real maxAbsValue = mabs(a2(currentRow, k));
-			for (integer i = currentRow + 1;i < height;++i)
+			integer maxAbsRow = k;
+			Real maxAbsValue = mabs(left(k, k));
+			for (integer i = k + 1;i < m;++i)
 			{
-				const Real currentAbsValue = mabs(a2(i, k));
+				const Real currentAbsValue = mabs(left(i, k));
 				if (currentAbsValue > maxAbsValue)
 				{
 					maxAbsRow = i;
@@ -46,80 +88,69 @@ namespace Pastel
 				}
 			}
 
-			// Now swap is (if necessary) so that the maximum
+			// Swap (if necessary) so that the maximum
 			// absolute value will be at (k, k).
-
-			if (maxAbsRow != currentRow)
+			if (maxAbsRow != k)
 			{
 				using std::swap;
-
-				for (integer i = 0;i < width;++i)
+				for (integer j = 0;j < k;++j)
 				{
-					swap(a2(currentRow, i), a2(maxAbsRow, i));
-					swap(b2(currentRow, i), b2(maxAbsRow, i));
+					// By the loop invariant invariant 
+					// left(i, j) = 0, for j < k and i > k.
+					swap(right(k, j), right(maxAbsRow, j));
 				}
-
-			}
-
-			// Scale the i 'currentRow'
-			// such that the value at (currentRow, k) becomes 1.
-
-			const Real invValue = 1 / a2(currentRow, k);
-
-			for (integer j = 0;j < width;++j)
-			{
-				a2(currentRow, j) *= invValue;
-				b2(currentRow, j) *= invValue;
-			}
-
-			// Use the i 'currentRow' to clear out the
-			// matrix to zero for the rest of the k.
-
-			for (integer i = 0;i < currentRow;++i)
-			{
-				const Real value = a2(i, k);
-				for (integer j = 0;j < width;++j)
+				for (integer j = k;j < n;++j)
 				{
-					a2(i, j) -= a2(currentRow, j) * value;
-					b2(i, j) -= b2(currentRow, j) * value;
+					swap(left(k, j), left(maxAbsRow, j));
+					swap(right(k, j), right(maxAbsRow, j));
 				}
 			}
 
-			// Skip the i 'currentRow'.
-
-			for (integer i = currentRow + 1;i < height;++i)
+			if (left(k, k) == 0)
 			{
-				const Real value = a2(i, k);
-				for (integer j = 0;j < width;++j)
+				throw SingularMatrix_Exception();
+			}
+
+			// Use the k:th row to clear out the k:th column
+			// except for the k:th row. 
+			for (integer i = 0;i < m;++i)
+			{
+				if (i == k)
 				{
-					a2(i, j) -= a2(currentRow, j) * value;
-					b2(i, j) -= b2(currentRow, j) * value;
+					// Skip the k:th row.
+					continue;
 				}
+
+				const Real value = left(i, k) / left(k, k);
+				for (integer j = 0;j < k;++j)
+				{
+					// By the loop invariant invariant 
+					// left(i, j) = 0, for j < k.
+					right(i, j) -= right(k, j) * value;
+				}
+				for (integer j = k;j < n;++j)
+				{
+					left(i, j) -= left(k, j) * value;
+					right(i, j) -= right(k, j) * value;
+				}
+			}
+
+			// Scale the k:th row such that left(k, k) = 1.
+			const Real a = inverse(left(k, k));
+			for (integer j = 0;j < k;++j)
+			{
+				// By the loop invariant invariant 
+				// left(i, j) = 0, for j < k.
+				right(k, j) *= a;
+			}
+			for (integer j = k;j < n;++j)
+			{
+				left(k, j) *= a;
+				right(k, j) *= a;
 			}
 		}
 
-		return b2;
-	}
-
-	template <typename Real>
-	Matrix<Real, 3, 3> inverse(
-		const Matrix<Real, 3, 3>& matrix)
-	{
-		return Matrix<Real, 3, 3>(adjugate(matrix) / determinant(matrix));
-	}
-
-	template <typename Real>
-	Matrix<Real, 2, 2> inverse(
-		const Matrix<Real, 2, 2>& matrix)
-	{
-		return Matrix<Real, 2, 2>(adjugate(matrix) / determinant(matrix));
-	}
-
-	template <typename Real>
-	Matrix<Real, 1, 1> inverse(
-		const Matrix<Real, 1, 1>& matrix)
-	{
-		return Matrix<Real, 1, 1>(1 / scalar(matrix));
+		return right;
 	}
 
 }

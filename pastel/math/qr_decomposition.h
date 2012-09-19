@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N = Dynamic>
+	template <typename Real>
 	class QrDecomposition
 	{
 	public:
@@ -41,7 +41,7 @@ namespace Pastel
 		*/
 		template <typename Expression>
 		explicit QrDecomposition(
-			const MatrixExpression<Real, N, N, Expression>& that);
+			const MatrixExpression<Real, Expression>& that);
 
 		//! Returns the width of the decomposed matrix.
 		integer width() const;
@@ -74,7 +74,7 @@ namespace Pastel
 		*/
 		template <typename Expression>
 		void decompose(
-			const MatrixExpression<Real, N, N, Expression>& that);
+			const MatrixExpression<Real, Expression>& that);
 
 		//! Returns the transpose of the orthogonal matrix.
 		/*!
@@ -84,7 +84,7 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		const Matrix<Real, N, N>& qTransposed() const;
+		const Matrix<Real>& qTransposed() const;
 
 		//! Returns the upper triangular matrix.
 		/*!
@@ -94,18 +94,12 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		const Matrix<Real, N, N>& r() const;
+		const Matrix<Real>& r() const;
 
 	private:
-		Matrix<Real, N, N> q_;
-		Matrix<Real, N, N> r_;
+		Matrix<Real> q_;
+		Matrix<Real> r_;
 	};
-
-	typedef QrDecomposition<real, 1> QrDecomposition1;
-	typedef QrDecomposition<real, 2> QrDecomposition2;
-	typedef QrDecomposition<real, 3> QrDecomposition3;
-	typedef QrDecomposition<real, 4> QrDecomposition4;
-	typedef QrDecomposition<real, Dynamic> QrDecompositionD;
 
 }
 
@@ -119,16 +113,14 @@ namespace Pastel
 	absolute value of the determinant can be found quickly
 	from the upper triangular matrix.
 	*/
-
-	template <typename Real, int N>
+	template <typename Real>
 	Real absDeterminant(
-		const QrDecomposition<Real, N>& qr);
+		const QrDecomposition<Real>& qr);
 
-	//! Solves the linear system QRx = b <=> x^T R^T Q^T = b^T.
-
+	//! Solves the linear system QRx = b.
 	template <typename Real, int N, typename Expression>
-	Vector<Real, N> solveLinear(
-		const QrDecomposition<Real, N>& qr,
+	Vector<Real> solveLinear(
+		const QrDecomposition<Real>& qr,
 		const VectorExpression<Real, N, Expression>& b);
 
 }

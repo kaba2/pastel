@@ -33,7 +33,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const
+			const Matrix<real>& m) const
 		{
 			const integer n = p.size();
 			PENSURE_OP(n, ==, m.width());

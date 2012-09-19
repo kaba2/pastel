@@ -1,4 +1,4 @@
-// Description: Matrix cofactor
+// Description: Cofactor matrix
 // Documentation: matrix_algorithms.txt
 
 #ifndef PASTELMATH_MATRIX_COFACTOR_H
@@ -10,19 +10,14 @@ namespace Pastel
 {
 
 	//! Returns the cofactor matrix of the given matrix.
+	/*!
+	Preconditions:
+	matrix.n() == matrix.m()
+	matrix.m() <= 3
+	*/
 	template <typename Real>
-	Matrix<Real, 3, 3> cofactor(
-		const Matrix<Real, 3, 3>& matrix);
-
-	//! Returns the cofactor matrix of the given matrix.
-	template <typename Real>
-	Matrix<Real, 2, 2> cofactor(
-		const Matrix<Real, 2, 2>& matrix);
-
-	//! Returns the cofactor matrix of the given matrix.
-	template <typename Real>
-	Matrix<Real, 1, 1> cofactor(
-		const Matrix<Real, 1, 1>& matrix);
+	Matrix<Real> cofactor(
+		const Matrix<Real>& matrix);
 
 }
 

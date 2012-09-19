@@ -8,10 +8,9 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int Height, int Width,
 		typename Expression>
 	class MatrixSum
-		: public VectorExpression<Real, Width, MatrixSum<Real, Height, Width, Expression> >
+		: public VectorExpression<Real, Dynamic, MatrixSum<Real, Expression> >
 	{
 	public:
 		typedef const MatrixSum& StorageType;
@@ -60,20 +59,9 @@ namespace Pastel
 		typename Expression::StorageType data_;
 	};
 
-	template <typename Real, int Height, int Width, typename Expression>
-	MatrixSum<Real, Height, Width, Expression> sum(
-		const MatrixExpression<Real, Height, Width, Expression>& that)
-	{
-		return MatrixSum<Real, Height, Width, Expression>(
-			(const Expression&)that);
-	}
-
-	template <
-		typename Real,
-		int Height, int Width,
-		typename Expression>
+	template <typename Real, typename Expression>
 	class MatrixMin
-		: public VectorExpression<Real, Width, MatrixMin<Real, Height, Width, Expression> >
+		: public VectorExpression<Real, Dynamic, MatrixMin<Real, Expression> >
 	{
 	public:
 		typedef const MatrixMin& StorageType;
@@ -126,20 +114,9 @@ namespace Pastel
 		typename Expression::StorageType data_;
 	};
 
-	template <typename Real, int Height, int Width, typename Expression>
-	MatrixMin<Real, Height, Width, Expression> min(
-		const MatrixExpression<Real, Height, Width, Expression>& that)
-	{
-		return MatrixMin<Real, Height, Width, Expression>(
-			(const Expression&)that);
-	}
-
-	template <
-		typename Real,
-		int Height, int Width,
-		typename Expression>
+	template <typename Real, typename Expression>
 	class MatrixMax
-		: public VectorExpression<Real, Width, MatrixMax<Real, Height, Width, Expression> >
+		: public VectorExpression<Real, Dynamic, MatrixMax<Real, Expression> >
 	{
 	public:
 		typedef const MatrixMax& StorageType;
@@ -192,21 +169,10 @@ namespace Pastel
 		typename Expression::StorageType data_;
 	};
 
-	template <typename Real, int Height, int Width, typename Expression>
-	MatrixMax<Real, Height, Width, Expression> max(
-		const MatrixExpression<Real, Height, Width, Expression>& that)
-	{
-		return MatrixMax<Real, Height, Width, Expression>(
-			(const Expression&)that);
-	}
-
-	template <
-		typename Real,
-		int Height, int Width,
-		typename Expression>
+	template <typename Real, typename Expression>
 	class MatrixAbs
-		: public MatrixExpression<Real, Height, Width, 
-		MatrixAbs<Real, Height, Width, Expression> >
+		: public MatrixExpression<Real, 
+		MatrixAbs<Real, Expression> >
 	{
 	public:
 		typedef const MatrixAbs& StorageType;
@@ -250,21 +216,10 @@ namespace Pastel
 		typename Expression::StorageType data_;
 	};
 
-	template <typename Real, int Height, int Width, typename Expression>
-	MatrixAbs<Real, Height, Width, Expression> abs(
-		const MatrixExpression<Real, Height, Width, Expression>& that)
-	{
-		return MatrixAbs<Real, Height, Width, Expression>(
-			(const Expression&)that);
-	}
-
-	template <
-		typename Real,
-		int Height, int Width,
-		typename Expression>
+	template <typename Real, typename Expression>
 	class MatrixRepeat
-		: public MatrixExpression<Real, Height, Width, 
-		MatrixRepeat<Real, Height, Width, Expression> >
+		: public MatrixExpression<Real, 
+		MatrixRepeat<Real, Expression> >
 	{
 	public:
 		typedef const MatrixRepeat StorageType;
@@ -320,92 +275,13 @@ namespace Pastel
 		const integer height_;
 	};
 
-	template <typename Real, int Height, int Width, typename Expression>
-	MatrixRepeat<Real, Height, Width, Expression> repeat(
-		const MatrixExpression<Real, Height, Width, Expression>& that,
-		integer yBlocks, integer xBlocks)
-	{
-		return MatrixRepeat<Real, Height, Width, Expression>(
-			(const Expression&)that, yBlocks, xBlocks);
-	}
-
-
 	template <
 		typename Real,
-		typename Input_ConstView>
-	class ConstViewMatrix
-		: public MatrixExpression<Real, Dynamic, Dynamic, 
-		ConstViewMatrix<Real, Input_ConstView> >
-	{
-	public:
-		typedef const ConstViewMatrix StorageType;
-
-		explicit ConstViewMatrix(
-			const ConstView<2, Real, Input_ConstView>& data)
-			: data_(data)
-		{
-		}
-
-		Real operator()(integer y, integer x) const
-		{
-			return data_(x, y);
-		}
-
-		integer width() const
-		{
-			return data_.width();
-		}
-
-		integer height() const
-		{
-			return data_.height();
-		}
-
-		bool involves(
-			const void* memoryBegin, const void* memoryEnd) const
-		{
-			// TODO: FIX:
-			// It is possible that the
-			// view is from a matrix 
-			// in which case we should 
-			// have a check for the views
-			// also!
-
-			return false;
-		}
-
-		bool evaluateBeforeAssignment(
-			const void* memoryBegin, const void* memoryEnd) const
-		{
-			// TODO: FIX:
-			// It is possible that the
-			// view is from a matrix 
-			// in which case we should 
-			// have a check for the views
-			// also!
-
-			return false;
-		}
-
-	private:
-		const ConstView<2, Real, Input_ConstView> data_;
-	};
-
-	template <typename Real, typename Input_ConstView>
-	ConstViewMatrix<Real, Input_ConstView> asMatrix(
-		const ConstView<2, Real, Input_ConstView>& that)
-	{
-		return ConstViewMatrix<Real, Input_ConstView>(that);
-	}
-
-	template <
-		typename Real,
-		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class OuterProduct
-		: public MatrixExpression<Real, Height, Width, 
-		OuterProduct<Real, Height, Width, 
+		: public MatrixExpression<Real, 
+		OuterProduct<Real, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -453,26 +329,6 @@ namespace Pastel
 		typename LeftExpression::StorageType left_;
 		typename RightExpression::StorageType right_;
 	};
-
-	template <typename Real,int Height, int Width, 
-		typename LeftExpression,
-		typename RightExpression>
-		OuterProduct<Real, Height, Width, LeftExpression, RightExpression>
-		outerProduct(
-		const VectorExpression<Real, Height, LeftExpression>& left,
-		const VectorExpression<Real, Width, RightExpression>& right)
-	{
-		return OuterProduct<Real, Height, Width, LeftExpression, RightExpression>(
-			(const LeftExpression&)left, (const RightExpression&)right);
-	}
-
-	template <typename Real, int N, typename Expression>
-		OuterProduct<Real, N, N, Expression, Expression>
-		outerProduct(
-		const VectorExpression<Real, N, Expression>& that)
-	{
-		return Pastel::outerProduct(that, that);
-	}
 
 }
 

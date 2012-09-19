@@ -23,7 +23,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<real, N>& p,
-			const Matrix<real, N, N>& m) const = 0;
+			const Matrix<real>& m) const = 0;
 
 		virtual std::string name() const = 0;
 
