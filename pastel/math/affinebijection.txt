@@ -1,4 +1,0 @@
-AffineBijection
-===============
-
-[[Parent]]: transformations.txt
