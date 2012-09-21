@@ -58,7 +58,7 @@ namespace Pastel
 					dimension == N);
 			}
 
-			integer dimension() const
+			integer n() const
 			{
 				return (N != Dynamic) ? N : dimension_;
 			}
@@ -71,7 +71,7 @@ namespace Pastel
 			Expression operator()(const Point& point) const
 			{
 				return constVectorExpression<N>(
-					begin(point), dimension());
+					begin(point), n());
 			}
 
 			const Real& axis(const Point& point, integer index) const
@@ -86,7 +86,7 @@ namespace Pastel
 
 			ConstIterator end(const Point& point) const
 			{
-				return point.position_.rawBegin() + dimension();
+				return point.position_.rawBegin() + n();
 			}
 
 		private:
@@ -145,7 +145,7 @@ namespace Pastel
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
-		const integer n = region.dimension();
+		const integer n = region.n();
 		const integer points = positionList.size();
 
 		ENSURE_OP(kNearest, >, 0);

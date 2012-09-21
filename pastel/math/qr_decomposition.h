@@ -18,6 +18,9 @@ namespace Pastel
 
 		//! A qr decomposition of the identity.
 		/*!
+		Preconditions:
+		n >= 0
+
 		Both q and r are set to identity matrices.
 
 		Exception safety:
@@ -26,12 +29,12 @@ namespace Pastel
 		Time complexity:
 		O(n^2)
 		*/
-		QrDecomposition();
+		explicit QrDecomposition(integer n);
 		
-		//! Decomposes the given matrix expression.
+		//! Decomposes the given matrix.
 		/*!
 		Precondition:
-		that.width() == that.height()
+		that.n() == that.m()
 
 		Exception safety:
 		basic
@@ -39,15 +42,19 @@ namespace Pastel
 		Time complexity:
 		O(n^3)
 		*/
-		template <typename Expression>
-		explicit QrDecomposition(
-			const MatrixExpression<Real, Expression>& that);
+		QrDecomposition(Matrix<Real> that);
+
+		//! Copy-constructs from another decomposition.
+		QrDecomposition(const QrDecomposition& that);
+
+		//! Move-constructs from another decomposition.
+		QrDecomposition(QrDecomposition&& that);
 
 		//! Returns the width of the decomposed matrix.
-		integer width() const;
+		integer n() const;
 
 		//! Returns the height of the decomposed matrix.
-		integer height() const;
+		integer m() const;
 
 		//! Swaps two decompositions.
 		/*!
@@ -61,10 +68,13 @@ namespace Pastel
 		void swap(
 			QrDecomposition& that);
 
-		//! Decomposes the given matrix expression.
+		//! Assigns from another decomposition.
+		QrDecomposition& operator=(QrDecomposition that);
+
+		//! Decomposes the given matrix.
 		/*!
 		Precondition:
-		that.width() == that.height()
+		that.n() == that.m()
 
 		Exception safety:
 		basic
@@ -72,9 +82,7 @@ namespace Pastel
 		Time complexity:
 		O(n^3)
 		*/
-		template <typename Expression>
-		void decompose(
-			const MatrixExpression<Real, Expression>& that);
+		void decompose(Matrix<Real> that);
 
 		//! Returns the transpose of the orthogonal matrix.
 		/*!
@@ -97,6 +105,9 @@ namespace Pastel
 		const Matrix<Real>& r() const;
 
 	private:
+		QrDecomposition() PASTEL_DELETE;
+		void decompose();
+
 		Matrix<Real> q_;
 		Matrix<Real> r_;
 	};

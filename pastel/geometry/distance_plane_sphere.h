@@ -12,7 +12,7 @@ namespace Pastel
 	//! Computes the squared distance between a plane and a sphere.
 	/*!
 	Preconditions:
-	plane.dimension() == sphere.dimension()
+	plane.n() == sphere.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

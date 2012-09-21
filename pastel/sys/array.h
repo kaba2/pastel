@@ -157,7 +157,7 @@ namespace Pastel
 		integer size() const;
 
 		//! Returns the dimension of the array.
-		integer dimension() const;
+		integer n() const;
 
 		//! Copy-assigns from another array.
 		/*!
@@ -517,7 +517,7 @@ namespace Pastel
 		order_:
 		The storage order in which the data is
 		linearized. A permutation of integers
-		from 0 to dimension() - 1.			
+		from 0 to n() - 1.			
 		The order_[i] dimension changes 
 		faster than order_[i + 1], when increasing
 		a linear index.

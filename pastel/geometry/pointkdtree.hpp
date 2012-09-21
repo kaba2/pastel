@@ -25,11 +25,11 @@ namespace Pastel
 		, root_(0)
 		, leaves_(0)
 		, pointPolicy_(pointPolicy)
-		, bound_(pointPolicy.dimension())
+		, bound_(pointPolicy.n())
 		, simulateKdTree_(simulateKdTree)
 	{
 		ENSURE(N == Dynamic || 
-			N == pointPolicy.dimension());
+			N == pointPolicy.n());
 
 		initialize();
 	}
@@ -221,9 +221,9 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	integer PointKdTree<Real, N, PointPolicy>::dimension() const
+	integer PointKdTree<Real, N, PointPolicy>::n() const
 	{
-		return pointPolicy_.dimension();
+		return pointPolicy_.n();
 	}
 	
 	template <typename Real, int N, typename PointPolicy>
@@ -432,7 +432,7 @@ namespace Pastel
 		root_ = 0;
 		leaves_ = 0;
 		bound_ = AlignedBox<Real, N>(
-			ofDimension(dimension()));
+			ofDimension(n()));
 
 		initialize();
 	}

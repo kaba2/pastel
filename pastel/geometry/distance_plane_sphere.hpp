@@ -12,7 +12,7 @@ namespace Pastel
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere)
 	{
-		PENSURE_OP(plane.dimension(), ==, sphere.dimension());
+		PENSURE_OP(plane.n(), ==, sphere.n());
 
 		// Let
 		// s = distance from sphere's center to the plane.

@@ -14,7 +14,7 @@ namespace Pastel
 	/*!
 	Preconditions:
 	k >= 0
-	k <= cartesian.dimension()
+	k <= cartesian.n()
 
 	The generalized cylinder coordinates are computed as follows.
 	Given a Cartesian coordinate vector	(x, y) in R^n, with 
@@ -33,7 +33,7 @@ namespace Pastel
 	/*!
 	Preconditions:
 	k >= 0
-	k <= cylinder.dimension()
+	k <= cylinder.n()
 
 	Given generalized cylinder coordinates (s, y) in R^n
 	(s in R^k), the Cartesian coordinates (x, y) in R^n

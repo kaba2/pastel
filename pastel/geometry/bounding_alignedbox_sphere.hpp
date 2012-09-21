@@ -22,7 +22,7 @@ namespace Pastel
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere,
-		const AffineTransformation<Real, N>& transformation)
+		const AffineTransformation<Real>& transformation)
 	{
 		// One can show that:
 		//
@@ -58,7 +58,7 @@ namespace Pastel
 			transformation.matrix())) * sphere.radius();
 
 		const Vector<Real, N> center =
-			transformPoint(sphere.position(), transformation);
+			transformPoint(transformation, sphere.position());
 
 		const AlignedBox<Real, N> result(
 			center - radius, center + radius);

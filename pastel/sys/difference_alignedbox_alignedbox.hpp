@@ -17,7 +17,7 @@ namespace Pastel
 			N_A == N_B || 
 			N_A == Dynamic || 
 			N_B == Dynamic);
-		ENSURE_OP(aBox.dimension(), ==, bBox.dimension());
+		ENSURE_OP(aBox.n(), ==, bBox.n());
 
 		// We prefer to use a static dimension
 		// for the reported boxes.
@@ -29,7 +29,7 @@ namespace Pastel
 		// In case the dimension is static, this gives the compiler a 
 		// chance to unroll the loop.
 		const integer n = 
-			(N == Dynamic) ? aBox.dimension() : N;
+			(N == Dynamic) ? aBox.n() : N;
 
 		// The idea in this algorithm is to cut out a sub-box from 'aBox'
 		// one at a time, so that the cut-out box is given by the

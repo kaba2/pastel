@@ -10,7 +10,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Box<Real, N> boundingBox(const AlignedBox<Real, N>& alignedBox)
 	{
-		const integer n = alignedBox.dimension();
+		const integer n = alignedBox.n();
 
 		return Box<Real, N>(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),

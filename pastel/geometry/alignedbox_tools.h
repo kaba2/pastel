@@ -5,7 +5,7 @@
 
 #include "pastel/sys/alignedbox_tools.h"
 
-#include "pastel/math/affinetransformation.h"
+#include "pastel/math/affine_transformation.h"
 
 namespace Pastel
 {
@@ -13,7 +13,7 @@ namespace Pastel
 	template <typename Real>
 	AlignedBox<Real, 3> operator*(
 		const AlignedBox<Real, 3>& left,
-		const AffineTransformation<Real, 3>& right);
+		const AffineTransformation<Real>& right);
 
 }
 

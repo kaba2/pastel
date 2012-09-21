@@ -12,7 +12,7 @@ namespace Pastel
 	//! Computes the distance between an aligned box and a sphere.
 	/*!
 	Preconditions:
-	box.dimension() == sphere.dimension()
+	box.n() == sphere.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

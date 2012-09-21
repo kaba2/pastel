@@ -16,42 +16,40 @@ namespace Pastel
 	the compile-time dimension N, only the values
 	N == 2 and N == Dynamic are allowed. 
 	*/
-	template <typename Real, int N = 2>
+	template <typename Real>
 	class ConformalAffine2D
-		: boost::multipliable<ConformalAffine2D<Real, N> >
+		: boost::multipliable<ConformalAffine2D<Real> >
 	{
 	public:
-		PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
-
 		// Using default copy constructor.
 		// Using default destructor.
 
 		//! Constructs the specified transformation.
 		ConformalAffine2D(
-			const Real& scaling = 1,
-			const Real& rotation = 0);
+			Real scaling = 1,
+			Real rotation = 0);
 
 		//! Constructs the specified transformation.
 		ConformalAffine2D(
-			const Real& scaling,
-			const Real& rotation,
-			const Vector<Real, N>& translation);
+			Real scaling,
+			Real rotation,
+			Vector<Real> translation);
 
 		//! Copies another transformation.
 		/*!
 		Exception safety: nothrow
 		Time complexity: constant
 		*/
-		ConformalAffine2D<Real, N>& operator=(
-			const ConformalAffine2D<Real, N>& that);
+		ConformalAffine2D<Real>& operator=(
+			const ConformalAffine2D<Real>& that);
 
 		//! Forms the composition that o (*this).
 		/*!
 		Exception safety: nothrow
 		Time complexity: constant
 		*/
-		ConformalAffine2D<Real, N>& operator*=(
-			const ConformalAffine2D<Real, N>& that);
+		ConformalAffine2D<Real>& operator*=(
+			const ConformalAffine2D<Real>& that);
 
 		//! Returns the amount of scaling.
 		/*!
@@ -86,22 +84,19 @@ namespace Pastel
 		Exception safety: nothrow
 		Time complexity: constant
 		*/
-		Vector<Real, N>& translation();
+		Vector<Real>& translation();
 
 		//! Returns the translation.
 		/*!
 		See the documentation for the non-const version.
 		*/
-		const Vector<Real, N>& translation() const;
+		const Vector<Real>& translation() const;
 
 	private:
 		Real scaling_;
 		Real rotation_;
-		Vector<Real, N> translation_;
+		Vector<Real> translation_;
 	};
-
-	typedef ConformalAffine2D<real, 2> ConformalAffine2;
-
 
 }
 

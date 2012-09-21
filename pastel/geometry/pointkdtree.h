@@ -223,7 +223,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		integer dimension() const;
+		integer n() const;
 
 		//! Subdivides the tree.
 		/*!
@@ -443,7 +443,7 @@ namespace Pastel
 		Preconditions:
 		1) node->leaf() == true
 		2) 'node' points to a node in this tree.
-		3) 0 <= splitAxis < dimension()
+		3) 0 <= splitAxis < n()
 
 		Exception safety:
 		strong

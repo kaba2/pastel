@@ -15,11 +15,11 @@ namespace Pastel
 		const AlignedBox<Real, N>& bBox,
 		const NormBijection& normBijection)
 	{
-		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
+		PENSURE_OP(aBox.n(), ==, bBox.n());
 
 		Real result = 0;
 
-		const integer n = aBox.dimension();
+		const integer n = aBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			const Real& aMin = aBox.min()[i];

@@ -14,7 +14,7 @@ namespace Pastel
 		const Vector<Real, N>& point,
 		const NormBijection& normBijection)
 	{
-		PENSURE_OP(alignedBox.dimension(), ==, point.dimension());
+		PENSURE_OP(alignedBox.n(), ==, point.n());
 		
 		// The distance computation between an AlignedBox and a point can
 		// be decomposed into separate computations on each
@@ -30,7 +30,7 @@ namespace Pastel
 
 		Real result = 0;
 
-		const integer n = alignedBox.dimension();
+		const integer n = alignedBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			if (point[i] < alignedBox.min()[i])

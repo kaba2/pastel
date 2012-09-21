@@ -13,7 +13,7 @@ namespace Pastel
 	//! Tests if an aligned box and a triangle overlap.
 	/*!
 	Preconditions:
-	box.dimension() == triangle.dimension()
+	box.n() == triangle.n()
 
 	Returns:
 	Whether the box and the triangle intersect.

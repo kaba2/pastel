@@ -18,8 +18,8 @@ namespace Pastel
 		const Reporter_SearchRange& reporter,
 		integer bucketSize)
 	{
-		ENSURE_OP(range.dimension(), ==, kdTree.dimension());
-		ENSURE_OP(kdTree.dimension(), <=, 64);
+		ENSURE_OP(range.n(), ==, kdTree.n());
+		ENSURE_OP(kdTree.n(), <=, 64);
 		ENSURE_OP(bucketSize, >, 0);
 
 		typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
@@ -40,7 +40,7 @@ namespace Pastel
 
 		typedef uint64 Flags;
 
-		const integer n = kdTree.dimension();
+		const integer n = kdTree.n();
 		const Flags fullFlags = ((Flags)1 << n) - 1;
 
 		const Vector<Real, N>& rangeMin = range.min();

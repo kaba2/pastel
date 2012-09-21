@@ -343,7 +343,7 @@ namespace Pastel
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv)
 	{
-		const integer n = uv.dimension();
+		const integer n = uv.n();
 
 		std::vector<Real> partition;
 		partition.reserve(n + 2);

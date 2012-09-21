@@ -15,7 +15,7 @@ namespace Pastel
 		const AlignedBox<Real, N>& box,
 		const Sphere<Real, N>& sphere)
 	{
-		PENSURE_OP(box.dimension(), ==, sphere.dimension());
+		PENSURE_OP(box.n(), ==, sphere.n());
 
 		// Let
 		// s = distance from sphere's center to 'box'.
@@ -42,7 +42,7 @@ namespace Pastel
 		const AlignedBox<Real, N>& box,
 		const Sphere<Real, N>& sphere)
 	{
-		PENSURE_OP(box.dimension(), ==, sphere.dimension());
+		PENSURE_OP(box.n(), ==, sphere.n());
 
 		return square(Pastel::distance(box, sphere));
 	}

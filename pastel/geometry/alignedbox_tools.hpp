@@ -9,7 +9,7 @@ namespace Pastel
 	template <typename Real>
 	AlignedBox<Real, 3> operator*(
 		const AlignedBox<Real, 3>& left,
-		const AffineTransformation<Real, 3>& right)
+		const AffineTransformation<Real>& right)
 	{
 		Vector<Real, 3> aPoint(left.min());
 		Vector<Real, 3> bPoint(left.max());

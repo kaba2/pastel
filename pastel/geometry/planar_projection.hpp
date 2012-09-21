@@ -11,7 +11,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> wDivide(const Vector<Real, N>& that)
 	{
-		const integer dimension = that.dimension();
+		const integer dimension = that.n();
 
 		Vector<Real, N> result(that);
 		const Real& wInv = inverse(that[dimension - 1]);

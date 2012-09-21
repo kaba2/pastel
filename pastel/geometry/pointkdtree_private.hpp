@@ -98,7 +98,7 @@ namespace Pastel
 		const Point_ConstIterator& end) const
 	{
 		AlignedBox<Real, N> bound(
-			ofDimension(dimension()));
+			ofDimension(n()));
 
 		Point_ConstIterator iter = begin;
 		const Point_ConstIterator iterEnd = end;
@@ -346,7 +346,7 @@ namespace Pastel
 	{
 		ASSERT(node);
 		ASSERT(node->leaf());
-		ASSERT2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
+		ASSERT2(splitAxis >= 0 && splitAxis < n(), splitAxis, n());
 
 		const Point_ConstIterator nodeEnd = node->end();
 
@@ -571,7 +571,7 @@ namespace Pastel
 				// recurse deeper.
 
 				AlignedBox<Real, N> rightBound(
-					ofDimension(dimension()));
+					ofDimension(n()));
 				insert(
 					right, 
 					newRightFirst, newRightLast, 
@@ -686,7 +686,7 @@ namespace Pastel
 
 		// Send the points down the tree.
 		AlignedBox<Real, N> pointBound(
-			ofDimension(dimension()));
+			ofDimension(n()));
 		insert(root_, first, last, points, pointBound);
 
 		// Update the bounding box.
@@ -813,7 +813,7 @@ namespace Pastel
 
 			// Insert the point back.
 			AlignedBox<Real, N> bound(
-				ofDimension(dimension()));
+				ofDimension(n()));
 			insert(node, iter, iter, 1, bound);
 
 			// Update the path to the root.

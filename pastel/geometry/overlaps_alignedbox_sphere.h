@@ -12,7 +12,7 @@ namespace Pastel
 	//! Tests if an aligned box and a sphere overlap.
 	/*!
 	Preconditions:
-	alignedBox.dimension() == sphere.dimension()
+	alignedBox.n() == sphere.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

@@ -517,7 +517,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
-	integer KdTree<Real, N, ObjectPolicy>::dimension() const
+	integer KdTree<Real, N, ObjectPolicy>::n() const
 	{
 		return dimension_;
 	}
@@ -581,7 +581,7 @@ namespace Pastel
 		const Cursor& cursor,
 		const Real& splitPosition, integer splitAxis)
 	{
-		ENSURE2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
+		ENSURE2(splitAxis >= 0 && splitAxis < n(), splitAxis, n());
 		ENSURE(cursor.leaf());
 
 		LeafNode* node = (LeafNode*)cursor.node_;

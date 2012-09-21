@@ -80,7 +80,7 @@ namespace Pastel
 				fluorescent samples'.
 				*/
 
-				const integer d = modelTree.dimension();
+				const integer d = modelTree.n();
 
 				outTranslation = Vector<Real, N>(ofDimension(d), 0);
 				outBias = 0;

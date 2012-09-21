@@ -21,7 +21,7 @@ namespace Pastel
 
 		if (from != to)
 		{
-			PENSURE_OP(dimension, ==, from->dimension());
+			PENSURE_OP(dimension, ==, from->n());
 
 			InputIterator iter(from);
 			while (iter != to)

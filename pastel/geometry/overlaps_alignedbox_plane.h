@@ -13,7 +13,7 @@ namespace Pastel
 	//! Tests if an aligned box and a plane overlap.
 	/*!
 	Preconditions:
-	alignedBox.dimension() == plane.dimension()
+	alignedBox.n() == plane.n()
 
 	Returns:
 	Whether the box and the plane overlap.

@@ -35,7 +35,7 @@ namespace Pastel
 			the position of the splitting plane on the splitting axis.
 
 			Postconditions:
-			1) 0 <= splitAxis <= tree.dimension()
+			1) 0 <= splitAxis <= tree.n()
 			2) minBound[splitAxis] <= splitPosition <= maxBound[splitAxis]
 			3) The splitting plane has to split the node in such
 			a way that both sides get points. This guarantees an O(n)

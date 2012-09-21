@@ -51,7 +51,7 @@ namespace Pastel
 		Expression operator()(const Point& point) const
 		{
 			return constVectorExpression<N>(
-				point.rawBegin(), dimension());
+				point.rawBegin(), n());
 		}
 
 		const Real& axis(const Point& point, integer axis) const
@@ -59,7 +59,7 @@ namespace Pastel
 			return point[axis];
 		}
 
-		integer dimension() const
+		integer n() const
 		{
 			// The check here is to enable compile-time
 			// optimization when N is not Dynamic.

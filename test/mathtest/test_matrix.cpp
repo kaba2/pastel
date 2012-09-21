@@ -16,11 +16,13 @@ using namespace Pastel;
 namespace
 {
 
-	class TestMatrix
+	template class Matrix<real>;
+
+	class Test
 		: public TestSuite
 	{
 	public:
-		TestMatrix()
+		Test()
 			: TestSuite(&testReport())
 		{
 		}
@@ -41,6 +43,18 @@ namespace
 			testMatrixAssigns();
 			testSubMatrix();
 			testMatrixArray();
+			testImplicit();
+		}
+
+		void testImplicit()
+		{
+			auto f = [&](MatrixD matrix)
+			{
+			};
+
+			// The matrix is implicitly constructible
+			// from the matrix-expression.
+			f(identityMatrix<real>(3, 3));
 		}
 
 		void testNorm()
@@ -140,7 +154,7 @@ namespace
 			// operators. Extraneous values are ignored.
 
 			// Construct an empty matrix.
-			MatrixD empty;
+			MatrixD empty(0, 0);
 			{
 				TEST_ENSURE_OP(empty.size(), ==, 0);
 				TEST_ENSURE_OP(empty.width(), ==, 0);
@@ -830,15 +844,15 @@ namespace
 
 	};
 
-	void testMatrix()
+	void test()
 	{
-		TestMatrix test;
+		Test test;
 		test.run();
 	}
 
 	void addTest()
 	{
-		testRunner().add("Matrix", testMatrix);
+		testRunner().add("Matrix", test);
 	}
 
 	CallFunction run(addTest);

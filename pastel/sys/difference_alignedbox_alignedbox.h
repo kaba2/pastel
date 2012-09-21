@@ -13,7 +13,7 @@ namespace Pastel
 	//! Computes the set-difference between two aligned boxes.
 	/*!
 	Preconditions:
-	aBox.dimension() == bBox.dimension()
+	aBox.n() == bBox.n()
 
 	Returns:
 	The number of reported boxes.
@@ -33,7 +33,7 @@ namespace Pastel
 	//! Computes the symmetric set-difference between two aligned boxes.
 	/*!
 	Preconditions:
-	aBox.dimension() == bBox.dimension()
+	aBox.n() == bBox.n()
 
 	The symmetric set-difference A(+)B = A\B union B\A between two 
 	aligned boxes A and B is reported by at most 4n aligned boxes 

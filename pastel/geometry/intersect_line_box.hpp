@@ -17,7 +17,7 @@ namespace Pastel
 			const Box<Real, N>& box,
 			Vector<Real, 2>& hitList)
 	{
-		PENSURE_OP(line.dimension(), ==, box.dimension());
+		PENSURE_OP(line.n(), ==, box.n());
 
 		Real tMin = -infinity<Real>();
 		Real tMax = infinity<Real>();
@@ -29,7 +29,7 @@ namespace Pastel
 			box.position() -
 			line.position();
 
-		const integer dimension = line.dimension();
+		const integer dimension = line.n();
 
 		for (integer i = 0;i < dimension;++i)
 		{

@@ -134,7 +134,7 @@ namespace Pastel
 				return data_.size();
 			}
 
-			integer dimension() const
+			integer n() const
 			{
 				return data_.size();
 			}

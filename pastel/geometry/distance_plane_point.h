@@ -13,7 +13,7 @@ namespace Pastel
 	//! Computes the squared distance between a plane and a point.
 	/*!
 	Preconditions:
-	plane.dimension() == point.dimension()
+	plane.n() == point.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

@@ -21,7 +21,7 @@ namespace Pastel
 			If the dimension 'd' is a compile-time
 			constant, N == d. Otherwise, N == Dynamic,
 			and 'd' can be obtained for each point at run-time 
-			from the dimension() function.
+			from the n() function.
 			*/
 			enum {N = UserDefinedInteger};
 			
@@ -64,11 +64,11 @@ namespace Pastel
 			this function should return Dynamic. In this case
 			the dimensionality of each point can be obtained
 			from the dimension(point) function. Note:
-			it does not necessarily hold that dimension() == N,
+			it does not necessarily hold that n() == N,
 			because one can have N == Dynamic, but still a constant
-			dimension() != Dynamic.
+			n() != Dynamic.
 			*/
-			integer dimension() const;
+			integer n() const;
 
 			//! Returns the dimensionality of a given point.
 			/*!

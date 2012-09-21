@@ -12,7 +12,7 @@ namespace Pastel
 	//! Computes the squared distance between a line segment and a sphere.
 	/*!
 	Preconditions:
-	segment.dimension() == sphere.dimension()
+	segment.n() == sphere.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

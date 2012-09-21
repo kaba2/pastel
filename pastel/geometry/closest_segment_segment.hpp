@@ -13,7 +13,7 @@ namespace Pastel
 		const Segment<Real, N>& aSegment,
 		const Segment<Real, N>& bSegment)
 	{
-		ENSURE_OP(aSegment.dimension(), ==, bSegment.dimension());
+		ENSURE_OP(aSegment.n(), ==, bSegment.n());
 
 		// The following ideas are from the
 		// article "Distance between Lines and Segments

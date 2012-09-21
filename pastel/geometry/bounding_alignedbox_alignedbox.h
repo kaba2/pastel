@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/alignedbox.h"
 
-#include "pastel/math/affinetransformation.h"
+#include "pastel/math/affine_transformation.h"
 
 namespace Pastel
 {
@@ -22,7 +22,7 @@ namespace Pastel
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const AlignedBox<Real, N>& alignedBox,
-		const AffineTransformation<Real, N>& transformation);
+		const AffineTransformation<Real>& transformation);
 
 	//! Bounding aligned cube of an aligned box.
 

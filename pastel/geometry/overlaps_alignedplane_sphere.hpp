@@ -13,7 +13,7 @@ namespace Pastel
 		const AlignedPlane<Real, N>& plane,
 		const Sphere<Real, N>& sphere)
 	{
-		PENSURE_OP(plane.dimension(), ==, sphere.dimension());
+		PENSURE_OP(plane.n(), ==, sphere.n());
 
 		const Real distance = 
 			mabs(sphere.position()[plane.axis()] -
@@ -37,7 +37,7 @@ namespace Pastel
 		const Sphere<Real, N>& sphere,
 		bool& sphereOnPositiveSide)
 	{
-		PENSURE_OP(plane.dimension(), ==, sphere.dimension());
+		PENSURE_OP(plane.n(), ==, sphere.n());
 
 		const Real delta =
 			sphere.position()[plane.axis()] -

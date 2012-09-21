@@ -3,12 +3,12 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/math/affinetransformation_tools.h"
+#include "pastel/math/affine_transformation.h"
 #include "pastel/math/uniform_sampling.h"
 #include "pastel/math/conformalaffine2d_tools.h"
+#include "pastel/math/conformalaffine2d_least_squares.h"
 
 #include "pastel/sys/vector_pointpolicy.h"
-
 #include "pastel/sys/vector_tools.h"
 
 using namespace Pastel;
@@ -45,18 +45,18 @@ namespace
 				const real angle = random<real>() * 2 * constantPi<real>();
 				const Vector2 translation(random<real>() * 2 - 1, random<real>() * 2 - 1);
 
-				const ConformalAffine2 transformation(scale, angle, translation);
+				const ConformalAffine2D<real> transformation(scale, angle, translation);
 
 				for (integer i = 0;i < points;++i)
 				{
 					const Vector2 fromPoint(randomVectorSphere<real, 2>());
 					from.push_back(fromPoint);
 
-					const Vector2 toPoint(transformPoint(fromPoint, transformation));
+					const Vector2 toPoint(transformPoint(transformation, fromPoint));
 					to.push_back(toPoint);
 				}
 
-				const ConformalAffine2 similarity =
+				const ConformalAffine2D<real> similarity =
 					lsConformalAffine(
 					range(from.begin(), from.end()), 
 					range(to.begin(), to.end()),

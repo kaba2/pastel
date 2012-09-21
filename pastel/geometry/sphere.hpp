@@ -52,7 +52,7 @@ namespace Pastel
 		, inverseRadius_(inverse(radius))
 		, topology_(topology)
 	{
-		PENSURE_OP(dimension, ==, position.dimension());
+		PENSURE_OP(dimension, ==, position.n());
 	}
 
 	template <typename Real, int N>
@@ -74,16 +74,16 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	integer Sphere<Real, N>::dimension() const
+	integer Sphere<Real, N>::n() const
 	{
-		return position_.dimension();
+		return position_.n();
 	}
 
 	template <typename Real, int N>
 	void Sphere<Real, N>::setPosition(
 		const Vector<Real, N>& position)
 	{
-		PENSURE_OP(position_.dimension(), ==, position.dimension());
+		PENSURE_OP(position_.n(), ==, position.n());
 
 		position_ = position;
 	}

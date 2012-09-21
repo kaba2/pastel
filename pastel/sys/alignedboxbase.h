@@ -51,8 +51,8 @@ namespace Pastel
 		explicit AlignedBoxBase(const Vector<Real, N>& that)
 			: min_(that)
 			, max_(that)
-			, minTopology_(ofDimension(that.dimension()), Topology::Closed)
-			, maxTopology_(ofDimension(that.dimension()), Topology::Open)
+			, minTopology_(ofDimension(that.n()), Topology::Closed)
+			, maxTopology_(ofDimension(that.n()), Topology::Open)
 		{
 		}
 
@@ -62,8 +62,8 @@ namespace Pastel
 			const Vector<Real, N>& max)
 			: min_(min)
 			, max_(max)
-			, minTopology_(ofDimension(min.dimension()), Topology::Closed)
-			, maxTopology_(ofDimension(max.dimension()), Topology::Open)
+			, minTopology_(ofDimension(min.n()), Topology::Closed)
+			, maxTopology_(ofDimension(max.n()), Topology::Open)
 		{
 		}
 
@@ -77,7 +77,7 @@ namespace Pastel
 		bool empty(integer i) const
 		{
 			PENSURE_OP(i, >=, 0);
-			PENSURE_OP(i, <, dimension());
+			PENSURE_OP(i, <, n());
 
 			if (min_[i] >= max_[i])
 			{
@@ -95,8 +95,8 @@ namespace Pastel
 		//! Returns whether the box contains any points.
 		bool empty() const
 		{
-			const integer n = dimension();
-			for (integer i = 0;i < n;++i)
+			const integer d = n();
+			for (integer i = 0;i < d;++i)
 			{
 				if (empty(i))
 				{
@@ -118,7 +118,7 @@ namespace Pastel
 			maxTopology_.swap(that.maxTopology_);
 		}
 
-		integer dimension() const
+		integer n() const
 		{
 			return min_.size();
 		}

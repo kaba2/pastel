@@ -68,7 +68,7 @@ namespace Pastel
 		PENSURE(allGreaterEqual(bases, 2));
 
 		const integer dimension = 
-			ofDimension(bases.dimension());
+			ofDimension(bases.n());
 
 		Vector<Real, N> result(dimension);
 
@@ -88,7 +88,7 @@ namespace Pastel
 		PENSURE1(n >= 0 && n < size, n);
 		PENSURE(allGreaterEqual(bases, 2));
 
-		const integer dimension = bases.dimension();
+		const integer dimension = bases.n();
 
 		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(dimension + 1));
 

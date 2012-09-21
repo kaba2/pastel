@@ -14,7 +14,7 @@ namespace Pastel
 		const AlignedPlane<Real, N>& plane,
 		const AlignedBox<Real, N>& box)
 	{
-		PENSURE_OP(plane.dimension(), ==, box.dimension());
+		PENSURE_OP(plane.n(), ==, box.n());
 
 		if (plane.position() >= box.max()[plane.axis()])
 		{

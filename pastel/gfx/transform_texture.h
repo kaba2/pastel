@@ -5,7 +5,7 @@
 
 #include "pastel/gfx/texture.h"
 
-#include "pastel/math/affinetransformation_tools.h"
+#include "pastel/math/affine_transformation.h"
 
 namespace Pastel
 {
@@ -17,7 +17,7 @@ namespace Pastel
 	public:
 		Transform_Texture(
 			const Texture<Type, N>& texture,
-			const AffineTransformation2& transformation)
+			const AffineTransformation<real>& transformation)
 			: texture_(&texture)
 			, invTransformation_(inverse(transformation))
 		{
@@ -28,7 +28,7 @@ namespace Pastel
 			const Matrix<real>& m) const
 		{
 			return (*texture_)(
-				transformPoint(p, invTransformation_),
+				transformPoint(invTransformation_, p),
 				m * invTransformation_.matrix());
 		}
 
@@ -39,13 +39,13 @@ namespace Pastel
 
 	private:
 		const Texture<Type, N>* texture_;
-		AffineTransformation<real, N> invTransformation_;
+		AffineTransformation<real> invTransformation_;
 	};
 
 	template <typename Type, int N>
 	Transform_Texture<Type, N> transformTexture(
 		const Texture<Type, N>& texture,
-		const AffineTransformation<real, N>& transformation)
+		const AffineTransformation<real>& transformation)
 	{
 		return Transform_Texture<Type, N>(texture, transformation);
 	}

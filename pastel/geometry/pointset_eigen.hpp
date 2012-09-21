@@ -26,7 +26,7 @@ namespace Pastel
 		// Bin Yang, IEEE Transactions on Signal Processing,
 		// Vol 43., No. 1, January 1995.
 
-		const integer n = pointPolicy.dimension();
+		const integer n = pointPolicy.n();
 		ENSURE_OP(n, !=, Dynamic);
 
 		if (pointSet.empty())
@@ -91,7 +91,7 @@ namespace Pastel
 		ENSURE(!pointSet.empty());
 		ENSURE_OP(eigenvectors, >, 0);
 
-		const integer n = pointPolicy.dimension();
+		const integer n = pointPolicy.n();
 		ENSURE_OP(n, !=, Dynamic);
 
 		const real beta = 1;

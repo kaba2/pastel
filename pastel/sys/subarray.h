@@ -148,9 +148,9 @@ namespace Pastel
 			return extent_;
 		}
 
-		integer dimension() const
+		integer n() const
 		{
-			return extent_.dimension();
+			return extent_.n();
 		}
 
 		integer size() const
@@ -223,7 +223,7 @@ namespace Pastel
 			integer index) const
 		{
 			PENSURE_OP(axis, >=, 0);
-			PENSURE_OP(axis, <, dimension());
+			PENSURE_OP(axis, <, n());
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <, extent_[axis]);
 
@@ -247,11 +247,11 @@ namespace Pastel
 			ENSURE_OP(index, >=, 0);
 			ENSURE_OP(index, <=, size_);
 
-			const integer n = dimension();
+			const integer d = n();
 
 			Vector<integer, N> position(
 				ofDimension(n), 0);
-			for (integer i = n - 1;i >= 0;--i)
+			for (integer i = d - 1;i >= 0;--i)
 			{
 				position[i] = index / extentStride_[i];
 				index -= position[i] * extentStride_[i];
@@ -268,17 +268,17 @@ namespace Pastel
 		{
 			return Iterator(
 				data_, 
-				Vector<integer, N>(ofDimension(dimension()), 0),
+				Vector<integer, N>(ofDimension(n()), 0),
 				extent_,
 				stride_);
 		}
 
 		Iterator end() const
 		{
-			const integer n = dimension();
+			const integer d = n();
 			return Iterator(
 				data_,
-				Vector<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]),
+				Vector<integer, N>(unitAxis<integer, N>(d - 1) * extent_[d - 1]),
 				extent_,
 				stride_);
 		}
@@ -317,10 +317,10 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <, size());
 
-			const integer n = dimension();
+			const integer d = n();
 
 			Vector<integer, N> result(
-				ofDimension(n));
+				ofDimension(d));
 
 			for (integer i = n - 1;i > 0;--i)
 			{
@@ -338,10 +338,10 @@ namespace Pastel
 			PENSURE(allGreaterEqual(position, 0));
 			PENSURE(allLess(position, extent()));
 
-			const integer n = dimension();
+			const integer d = n();
 
 			integer index = position[0];
-			for (integer i = 1;i < n;++i)
+			for (integer i = 1;i < d;++i)
 			{
 				index += extentStride_[i] * position[i];
 			}
@@ -370,8 +370,8 @@ namespace Pastel
 			dataBegin_ = data_;
 			dataEnd_ = data_;
 
-			const integer n = dimension();
-			for (integer i = 0;i < n;++i)
+			const integer d = n();
+			for (integer i = 0;i < d;++i)
 			{
 				if (stride_[i] < 0)
 				{
@@ -385,7 +385,7 @@ namespace Pastel
 			++dataEnd_;
 
 			extentStride_[0] = 1;
-			for (integer i = 1;i < n;++i)
+			for (integer i = 1;i < d;++i)
 			{
 				extentStride_[i] = extentStride_[i - 1] * extent_[i - 1];
 			}
@@ -457,9 +457,9 @@ namespace Pastel
 			return subArray_.extent();
 		}
 
-		integer dimension() const
+		integer n() const
 		{
-			return subArray_.dimension();
+			return subArray_.n();
 		}
 
 		integer size() const

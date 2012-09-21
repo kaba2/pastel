@@ -12,7 +12,7 @@ namespace Pastel
 		const Sphere<Real, N>& aSphere,
 		const Sphere<Real, N>& bSphere)
 	{
-		PENSURE_OP(aSphere.dimension(), ==, bSphere.dimension());
+		PENSURE_OP(aSphere.n(), ==, bSphere.n());
 
 		// Two spheres intersect if the distance
 		// between their center points is

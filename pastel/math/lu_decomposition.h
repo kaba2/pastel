@@ -11,16 +11,7 @@
 namespace Pastel
 {
 
-	/*!
-	Let M be a nxn matrix. Then M
-	can be decomposed into
-	M = PLU
-	where
-	P is an nxn permutation matrix
-	L is an nxn lower triangular matrix
-	U is an nxn upper triangular matrix
-	*/
-
+	//! PLU decomposition
 	template <typename Real>
 	class LuDecomposition
 	{
@@ -28,21 +19,58 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default destructor.
 
-		explicit LuDecomposition(integer dimension);
-		explicit LuDecomposition(const Matrix<Real>& matrix);
+		//! Constructs with the decomposition of the identity matrix.
+		/*!
+		Preconditions:
+		n >= 0
+		*/
+		explicit LuDecomposition(integer n);
 
+		//! Constructs with the decomposition of the given matrix.
+		/*!
+		Preconditions:
+		matrix.m() == matrix.n()
+		*/
+		LuDecomposition(Matrix<Real> matrix);
+
+		//! Copy-constructs from another decomposition.
+		LuDecomposition(const LuDecomposition& that);
+
+		//! Move-constructs from another decomposition.
+		LuDecomposition(LuDecomposition&& that);
+
+		//! Swaps with another decomposition.
 		void swap(LuDecomposition& that);
 
-		LuDecomposition& operator=(const LuDecomposition& that);
+		//! Assigns from another decomposition.
+		LuDecomposition& operator=(LuDecomposition that);
 
-		bool decompose(const Matrix<Real>& matrix);
+		//! Decomposes the given matrix.
+		bool decompose(Matrix<Real> matrix);
 
+		integer n() const;
+
+		//! Returns L and U matrices packed together.
+		/*!
+		The diagonal belongs to the U matrix; the L has 1's 
+		on the diagonal.
+		*/
 		const Matrix<Real>& packedLu() const;
+
+		//! Returns the P as a permutation vector.
 		const Tuple<integer>& rowPermutation() const;
+
+		//! Returns whether the permutation in P is even.
 		bool evenPermutation() const;
+		
+		//! Returns whether the decomposed matrix was singular.
 		bool singular() const;
 
 	private:
+		LuDecomposition() PASTEL_DELETE;
+
+		bool decompose();
+
 		Matrix<Real> packedLu_;
 		Tuple<integer> rowPermutation_;
 		bool evenPermutation_;
@@ -56,11 +84,13 @@ namespace Pastel
 namespace Pastel
 {
 
+	//! Solves the linear system PLUx = b.
 	template <typename Real, int N, typename Expression>
 	Vector<Real> solveLinear(
 		const LuDecomposition<Real>& lu,
 		const VectorExpression<Real, N, Expression>& b);
 
+	//! Returns the determinant of PLU.
 	template <typename Real>
 	Real determinant(
 		const LuDecomposition<Real>& lu);

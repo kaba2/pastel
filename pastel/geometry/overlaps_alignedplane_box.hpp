@@ -13,7 +13,7 @@ namespace Pastel
 		const AlignedPlane<Real, N>& plane,
 		const Box<Real, N>& box)
 	{
-		PENSURE_OP(plane.dimension(), ==, box.dimension());
+		PENSURE_OP(plane.n(), ==, box.n());
 
 		// FIX: The topology of the box is not
 		// handled correctly. The box is assumed
@@ -24,7 +24,7 @@ namespace Pastel
 
 		Real radius = 0;
 
-		const integer n = plane.dimension();
+		const integer n = plane.n();
 		for (integer i = 0;i < n;++i)
 		{
 			// Move on the edges of the box

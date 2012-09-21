@@ -279,7 +279,7 @@ namespace Pastel
 				return N;
 			}
 
-			size_type dimension() const
+			size_type n() const
 			{
 				return N;
 			}
@@ -623,7 +623,7 @@ namespace Pastel
 				return size_;
 			}
 
-			size_type dimension() const
+			size_type n() const
 			{
 				return size_;
 			}

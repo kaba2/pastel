@@ -544,7 +544,7 @@ namespace
 				linearImageTexture(repeatedConstView(constArrayView(lenaTextureImage))),
 				colorTexture<Color>(Color(1)),
 				linearColorTexture<real>(0, 0, 1, 1)),
-				AffineTransformation2(identityMatrix<Real>(2, 2) * 10, Vector2())),
+				AffineTransformation<real>(identityMatrix<Real>(2, 2) * 10, Vector2())),
 				texture),
 				arrayView(image),
 				textureQuad);

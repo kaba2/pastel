@@ -92,7 +92,7 @@ namespace Pastel
 			return ((const Expression&)*this).size();
 		}
 
-		integer dimension() const
+		integer n() const
 		{
 			return ((const Expression&)*this).size();
 		}

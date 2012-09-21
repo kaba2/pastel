@@ -301,7 +301,7 @@ namespace Pastel
 	{
 		Real result = 0;
 
-		const integer n = that.dimension();
+		const integer n = that.n();
 		for (integer i = 0;i < n;++i)
 		{
 			result = normBijection.addAxis(

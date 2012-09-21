@@ -46,8 +46,8 @@ namespace Pastel
 		, direction_(unitDirection)
 		, inverseDirection_(inverse(unitDirection))
 	{
-		PENSURE_OP(dimension, ==, position.dimension());
-		PENSURE_OP(dimension, ==, unitDirection.dimension());
+		PENSURE_OP(dimension, ==, position.n());
+		PENSURE_OP(dimension, ==, unitDirection.n());
 	}
 
 	template <typename Real, int N>
@@ -68,9 +68,9 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	integer Line<Real, N>::dimension() const
+	integer Line<Real, N>::n() const
 	{
-		return position_.dimension();
+		return position_.n();
 	}
 
 	template <typename Real, int N>
@@ -86,7 +86,7 @@ namespace Pastel
 	void Line<Real, N>::setPosition(
 		const Vector<Real, N>& position)
 	{
-		PENSURE_OP(position_.dimension(), ==, position.dimension());
+		PENSURE_OP(position_.n(), ==, position.n());
 
 		position_ = position;
 	}
@@ -101,7 +101,7 @@ namespace Pastel
 	void Line<Real, N>::setDirection(
 		const Vector<Real, N>& unitDirection)
 	{
-		PENSURE_OP(direction_.dimension(), ==, unitDirection.dimension());
+		PENSURE_OP(direction_.n(), ==, unitDirection.n());
 
 		direction_ = unitDirection;
 

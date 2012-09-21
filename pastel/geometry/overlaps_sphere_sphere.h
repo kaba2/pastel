@@ -11,7 +11,7 @@ namespace Pastel
 	//! Tests if two solid spheres intersect.
 	/*!
 	Preconditions:
-	aSphere.dimension() == bSphere.dimension()
+	aSphere.n() == bSphere.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

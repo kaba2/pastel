@@ -90,12 +90,12 @@ namespace Pastel
 		const Vector<Real, N>& bPoint,
 		const NormBijection& normBijection)
 	{
-		PENSURE_OP(aPoint.dimension(), ==, bPoint.dimension());
+		PENSURE_OP(aPoint.n(), ==, bPoint.n());
 
 		return Pastel::distance2(
 			aPoint.rawBegin(),
 			bPoint.rawBegin(),
-			aPoint.dimension(),
+			aPoint.n(),
 			normBijection);
 	}
 
@@ -167,7 +167,7 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const PASTEL_NO_DEDUCTION(Real)& cullDistance)
 	{
-		PENSURE_OP(aPoint.dimension(), ==, bPoint.dimension());
+		PENSURE_OP(aPoint.n(), ==, bPoint.n());
 
 		return Pastel::distance2(
 			aPoint.rawBegin(),

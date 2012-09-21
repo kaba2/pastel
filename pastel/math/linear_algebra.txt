@@ -98,4 +98,4 @@ Leo Dorst, Daniel Fontijne, Stephen Mann, 2007.
 See also
 --------
 
-[[Link]]: affinetransformation.txt
+[[Link]]: affine_transformation.txt

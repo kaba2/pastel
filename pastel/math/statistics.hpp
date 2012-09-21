@@ -118,7 +118,7 @@ namespace Pastel
 			N = PointPolicy::N
 		};
 
-		const integer n = pointPolicy.dimension();
+		const integer n = pointPolicy.n();
 		ENSURE_OP(n, !=, Dynamic);
 	
 		Vector<Real, N> result(ofDimension(n), 0);
@@ -157,7 +157,7 @@ namespace Pastel
 			N = PointPolicy::N
 		};
 
-		const integer n = pointPolicy.dimension();
+		const integer n = pointPolicy.n();
 		ENSURE_OP(n, !=, Dynamic);
 
 		Vector<Real, N> result(ofDimension(n), 0);

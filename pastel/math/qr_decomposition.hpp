@@ -9,32 +9,49 @@ namespace Pastel
 {
 
 	template <typename Real>
-	QrDecomposition<Real>::QrDecomposition()
-		: q_()
-		, r_()
+	QrDecomposition<Real>::QrDecomposition(integer n)
+		: q_(n, n)
+		, r_(n, n)
 	{
+		PENSURE_OP(n, >=, 0);
 	}
 
 	template <typename Real>
-	template <typename Expression>
 	QrDecomposition<Real>::QrDecomposition(
-		const MatrixExpression<Real, Expression>& that)
-		: q_()
-		, r_()
+		Matrix<Real> that)
+		: q_(that.m(), that.n())
+		, r_(std::move(that))
 	{
-		decompose(that);
+		decompose();
 	}
 
 	template <typename Real>
-	integer QrDecomposition<Real>::width() const
+	QrDecomposition<Real>::QrDecomposition(
+		const QrDecomposition& that)
+		: q_(that.q_)
+		, r_(that.r_)
 	{
-		return q_.width();
 	}
 
 	template <typename Real>
-	integer QrDecomposition<Real>::height() const
+	QrDecomposition<Real>::QrDecomposition(
+		QrDecomposition&& that)
+		: q_(that.m(), that.m())
+		, r_(that.m(), that.n())
 	{
-		return q_.height();
+		swap(that);
+	}
+
+	template <typename Real>
+	integer QrDecomposition<Real>::m() const
+	{
+		return q_.m();
+	}
+
+	template <typename Real>
+	integer QrDecomposition<Real>::n() const
+	{
+		return r_.n();
 	}
 
 	template <typename Real>
@@ -43,6 +60,14 @@ namespace Pastel
 	{
 		q_.swap(that.q_);
 		r_.swap(that.r_);
+	}
+
+	template <typename Real>
+	QrDecomposition<Real>& QrDecomposition<Real>::operator=(
+		QrDecomposition that)
+	{
+		swap(that);
+		return *this;
 	}
 
 	template <typename Real>
@@ -58,12 +83,21 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	template <typename Expression>
-	void QrDecomposition<Real>::decompose(
-		const MatrixExpression<Real, Expression>& that)
+	void QrDecomposition<Real>::decompose(Matrix<Real> that)
 	{
-		ENSURE_OP(that.width(), ==, that.height());
+		ENSURE_OP(that.n(), ==, that.m());
 
+		r_ = std::move(that);
+		q_ = identityMatrix<Real>(n, n);
+
+		decompose();
+	}
+
+	// Private
+
+	template <typename Real>
+	void QrDecomposition<Real>::decompose()
+	{
 		/*
 		QR decomposition
 		================
@@ -155,10 +189,7 @@ namespace Pastel
 		as well.
 		*/
 		
-		const integer n = that.width();
-
-		r_ = that;
-		q_ = identityMatrix<Real>(n, n);
+		const integer n = r_.n();
 
 		// We will reuse the memory space for v
 		// to avoid reallocation.
@@ -283,7 +314,7 @@ namespace Pastel
 		const QrDecomposition<Real>& qr,
 		const VectorExpression<Real, N, Expression>& b)
 	{
-		ENSURE_OP(qr.width(), ==, b.size());
+		ENSURE_OP(qr.n(), ==, b.size());
 		
 		const integer n = b.size();
 

@@ -33,9 +33,9 @@ namespace Pastel
 			return *data_;
 		}
 
-		const integer dimension() const
+		const integer n() const
 		{
-			return extent_.dimension();
+			return extent_.n();
 		}
 
 		SubArray_Iterator& operator+=(integer amount)
@@ -62,14 +62,14 @@ namespace Pastel
 
 		SubArray_Iterator& operator++()
 		{
-			const integer n = dimension();
-			for (integer i = 0;i < n;++i)
+			const integer d = n();
+			for (integer i = 0;i < d;++i)
 			{
 				data_ += stride_[i];
 				index_ += extentStride_[i];
 				++position_[i];
 				if (position_[i] >= extent_[i] &&
-					i != n - 1)
+					i != d - 1)
 				{
 					data_ -= stride_[i] * position_[i];
 					index_ -= extentStride_[i] * position_[i];
@@ -86,8 +86,8 @@ namespace Pastel
 
 		SubArray_Iterator& operator--()
 		{
-			const integer n = dimension();
-			for (integer i = 0;i < n;++i)
+			const integer d = n();
+			for (integer i = 0;i < d;++i)
 			{
 				data_ -= stride_[i];
 				index_ -= extentStride_[i];
@@ -119,12 +119,12 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <=, size());
 
-			const integer n = dimension();
+			const integer d = n();
 
 			Vector<integer, N> result(
-				ofDimension(n));
+				ofDimension(d));
 
-			for (integer i = n - 1;i > 0;--i)
+			for (integer i = d - 1;i > 0;--i)
 			{
 				result[i] = index / extentStride_[i];
 				index -= result[i] * extentStride_[i];
@@ -140,10 +140,10 @@ namespace Pastel
 			PENSURE(allGreaterEqual(position, 0));
 			PENSURE(allLessEqual(position, extent_));
 
-			const integer n = dimension();
+			const integer d = n();
 
 			integer index = position[0];
-			for (integer i = 1;i < n;++i)
+			for (integer i = 1;i < d;++i)
 			{
 				index += extentStride_[i] * position[i];
 			}
@@ -188,10 +188,10 @@ namespace Pastel
 		{
 			if (size_ > 0)
 			{
-				const integer n = dimension();
+				const integer d = n();
 
 				extentStride_[0] = 1;
-				for (integer i = 1;i < n;++i)
+				for (integer i = 1;i < d;++i)
 				{
 					extentStride_[i] = 
 						extentStride_[i - 1] * extent_[i - 1];

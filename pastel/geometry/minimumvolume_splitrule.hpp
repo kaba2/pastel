@@ -29,7 +29,7 @@ namespace Pastel
 
 			const PointPolicy& pointPolicy = tree.pointPolicy();
 
-			const integer n = tree.dimension();
+			const integer n = tree.n();
 
 			Vector<Real, N> projectedArea(ofDimension(n), 1);
 			for (integer i = 0;i < n;++i)

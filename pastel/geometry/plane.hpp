@@ -49,8 +49,8 @@ namespace Pastel
 		: position_(position)
 		, normal_(unitNormal)
 	{
-		PENSURE_OP(dimension, ==, position.dimension());
-		PENSURE_OP(dimension, ==, unitNormal.dimension());
+		PENSURE_OP(dimension, ==, position.n());
+		PENSURE_OP(dimension, ==, unitNormal.n());
 	}
 
 	template <typename Real, int N>
@@ -68,9 +68,9 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	integer Plane<Real, N>::dimension() const
+	integer Plane<Real, N>::n() const
 	{
-		return position_.dimension();
+		return position_.n();
 	}
 
 	template <typename Real, int N>

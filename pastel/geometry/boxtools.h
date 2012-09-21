@@ -4,7 +4,7 @@
 #define PASTELGEOMETRY_BOX_TOOLS_H
 
 #include "pastel/geometry/box.h"
-#include "pastel/math/affinetransformation.h"
+#include "pastel/math/affine_transformation.h"
 
 namespace Pastel
 {
@@ -19,7 +19,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Box<Real, N>& operator*=(Box<Real, N>& box,
-		const AffineTransformation<Real, N>& rigidTransform);
+		const AffineTransformation<Real>& rigidTransform);
 
 	//! Returns an box transformed by the given transformation.
 	/*!
@@ -31,7 +31,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Box<Real, N> operator*(const Box<Real, N>& box,
-		const AffineTransformation<Real, N>& rigidTransform);
+		const AffineTransformation<Real>& rigidTransform);
 
 }
 

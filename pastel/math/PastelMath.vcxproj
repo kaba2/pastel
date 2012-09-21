@@ -135,6 +135,22 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="affine_algorithms.h" />
+    <ClInclude Include="affine_inverse.h" />
+    <ClInclude Include="affine_inverse.hpp" />
+    <ClInclude Include="affine_least_squares.h" />
+    <ClInclude Include="affine_least_squares.hpp" />
+    <ClInclude Include="affine_rotation.h" />
+    <ClInclude Include="affine_rotation.hpp" />
+    <ClInclude Include="affine_scaling.h" />
+    <ClInclude Include="affine_scaling.hpp" />
+    <ClInclude Include="affine_translation.h" />
+    <ClInclude Include="affine_translation.hpp" />
+    <ClInclude Include="conformalaffine2d_algorithms.h" />
+    <ClInclude Include="conformalaffine2d_inverse.h" />
+    <ClInclude Include="conformalaffine2d_inverse.hpp" />
+    <ClInclude Include="conformalaffine2d_least_squares.h" />
+    <ClInclude Include="conformalaffine2d_least_squares.hpp" />
     <ClInclude Include="crspline.h" />
     <ClInclude Include="crspline.hpp" />
     <ClInclude Include="hermite.h" />
@@ -167,14 +183,10 @@
     <ClInclude Include="random_matrix.hpp" />
     <ClInclude Include="smoothstep.h" />
     <ClInclude Include="smoothstep.hpp" />
-    <ClInclude Include="affinetransformation.h" />
-    <ClInclude Include="affinetransformation.hpp" />
-    <ClInclude Include="affinetransformation_tools.h" />
-    <ClInclude Include="affinetransformation_tools.hpp" />
+    <ClInclude Include="affine_transformation.h" />
+    <ClInclude Include="affine_transformation.hpp" />
     <ClInclude Include="quaternion.h" />
     <ClInclude Include="quaternion.hpp" />
-    <ClInclude Include="affinebijection.h" />
-    <ClInclude Include="affinebijection.hpp" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="matrix_expression.h" />
     <ClInclude Include="matrix_view.h" />
@@ -226,13 +238,15 @@
     <ClInclude Include="interval_tools.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="affine_algorithms.txt" />
+    <None Include="affine_least_squares.txt" />
+    <None Include="conformalaffine2d_algorithms.txt" />
     <None Include="interpolation.txt" />
     <None Include="matrix_algorithms.txt" />
     <None Include="matrix_norm.txt" />
     <None Include="transformations.txt" />
-    <None Include="affinetransformation.txt" />
+    <None Include="affine_transformation.txt" />
     <None Include="quaternion.txt" />
-    <None Include="affinebijection.txt" />
     <None Include="linear_algebra.txt" />
     <None Include="matrix.txt" />
     <None Include="matrix_notes.txt" />

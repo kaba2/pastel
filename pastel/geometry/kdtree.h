@@ -171,7 +171,7 @@ namespace Pastel
 		//! Extends the bounding box of the tree to cover the given box.
 		/*!
 		Time complexity:
-		O(dimension())
+		O(n())
 
 		Exception safety:
 		strong (FIX: make it nothrow)
@@ -274,7 +274,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		integer dimension() const;
+		integer n() const;
 
 		//! Refines the tree using the given splitting rule.
 		/*!
@@ -310,7 +310,7 @@ namespace Pastel
 		Preconditions:
 		cursor.leaf() == true
 		'cursor' points to a node in this tree.
-		0 <= splitAxis < dimension()
+		0 <= splitAxis < n()
 
 		Time complexity:
 		Linear on cursor.objects().

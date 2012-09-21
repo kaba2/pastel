@@ -13,9 +13,6 @@
     <Filter Include="Transformations\Quaternion">
       <UniqueIdentifier>{ac6dc408-4e76-4f84-b94a-a631ee0f7b18}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Transformations\AffineBijection">
-      <UniqueIdentifier>{3284e932-f496-4f8e-b0c8-297115f9cc71}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Transformations\Linear algebra">
       <UniqueIdentifier>{19147643-816d-4222-83fd-22e71ecaf547}</UniqueIdentifier>
     </Filter>
@@ -67,6 +64,12 @@
     <Filter Include="Transformations\Linear algebra\Matrix algorithms">
       <UniqueIdentifier>{f6b710f3-c49b-49b8-aeb8-febbd83dc51b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Transformations\Affine transformation\Affine algorithms">
+      <UniqueIdentifier>{c8814a60-359d-4c68-9d13-7a784cc61916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\ConformalAffine2D\Conformal affine algorithms">
+      <UniqueIdentifier>{ff5f804d-91dd-4eae-a309-6221b2279168}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crspline.h">
@@ -96,29 +99,11 @@
     <ClInclude Include="smoothstep.hpp">
       <Filter>Curve interpolation</Filter>
     </ClInclude>
-    <ClInclude Include="affinetransformation.h">
-      <Filter>Transformations\Affine transformation</Filter>
-    </ClInclude>
-    <ClInclude Include="affinetransformation.hpp">
-      <Filter>Transformations\Affine transformation</Filter>
-    </ClInclude>
-    <ClInclude Include="affinetransformation_tools.h">
-      <Filter>Transformations\Affine transformation</Filter>
-    </ClInclude>
-    <ClInclude Include="affinetransformation_tools.hpp">
-      <Filter>Transformations\Affine transformation</Filter>
-    </ClInclude>
     <ClInclude Include="quaternion.h">
       <Filter>Transformations\Quaternion</Filter>
     </ClInclude>
     <ClInclude Include="quaternion.hpp">
       <Filter>Transformations\Quaternion</Filter>
-    </ClInclude>
-    <ClInclude Include="affinebijection.h">
-      <Filter>Transformations\AffineBijection</Filter>
-    </ClInclude>
-    <ClInclude Include="affinebijection.hpp">
-      <Filter>Transformations\AffineBijection</Filter>
     </ClInclude>
     <ClInclude Include="matrix.h">
       <Filter>Transformations\Linear algebra\Matrix</Filter>
@@ -334,6 +319,60 @@
     <ClInclude Include="matrix_expression.hpp">
       <Filter>Transformations\Linear algebra\Matrix</Filter>
     </ClInclude>
+    <ClInclude Include="affine_transformation.h">
+      <Filter>Transformations\Affine transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_transformation.hpp">
+      <Filter>Transformations\Affine transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_inverse.h">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_inverse.hpp">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_least_squares.h">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_least_squares.hpp">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_scaling.h">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_scaling.hpp">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_translation.h">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_translation.hpp">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_algorithms.h">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_rotation.h">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_rotation.hpp">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="conformalaffine2d_inverse.h">
+      <Filter>Transformations\ConformalAffine2D\Conformal affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="conformalaffine2d_inverse.hpp">
+      <Filter>Transformations\ConformalAffine2D\Conformal affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="conformalaffine2d_least_squares.h">
+      <Filter>Transformations\ConformalAffine2D\Conformal affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="conformalaffine2d_least_squares.hpp">
+      <Filter>Transformations\ConformalAffine2D\Conformal affine algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="conformalaffine2d_algorithms.h">
+      <Filter>Transformations\ConformalAffine2D\Conformal affine algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="interpolation.txt">
@@ -342,14 +381,8 @@
     <None Include="transformations.txt">
       <Filter>Transformations</Filter>
     </None>
-    <None Include="affinetransformation.txt">
-      <Filter>Transformations\Affine transformation</Filter>
-    </None>
     <None Include="quaternion.txt">
       <Filter>Transformations\Quaternion</Filter>
-    </None>
-    <None Include="affinebijection.txt">
-      <Filter>Transformations\AffineBijection</Filter>
     </None>
     <None Include="linear_algebra.txt">
       <Filter>Transformations\Linear algebra</Filter>
@@ -411,6 +444,18 @@
     </None>
     <None Include="matrix_norm.txt">
       <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </None>
+    <None Include="affine_transformation.txt">
+      <Filter>Transformations\Affine transformation</Filter>
+    </None>
+    <None Include="affine_least_squares.txt">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </None>
+    <None Include="affine_algorithms.txt">
+      <Filter>Transformations\Affine transformation\Affine algorithms</Filter>
+    </None>
+    <None Include="conformalaffine2d_algorithms.txt">
+      <Filter>Transformations\ConformalAffine2D\Conformal affine algorithms</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

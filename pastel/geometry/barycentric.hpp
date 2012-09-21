@@ -13,10 +13,10 @@ namespace Pastel
 		const Vector<Real, N>& point,
 		Vector_Range simplexRange)
 	{
-		const integer n = point.dimension();
+		const integer n = point.n();
 
 		PENSURE_OP(simplexRange.size(), ==, n + 1);
-		PENSURE_OP(point.dimension(), ==, simplexRange.front().dimension());
+		PENSURE_OP(point.n(), ==, simplexRange.front().n());
 
 		Matrix<Real> m(n + 1, n + 1);
 		for (integer i = 0;i < n + 1;++i)
@@ -50,7 +50,7 @@ namespace Pastel
 		// u = 1 - v - w.
 		// Generalization to higher N is obvious.
 
-		const integer n = point.dimension();
+		const integer n = point.n();
 
 		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(n));
 

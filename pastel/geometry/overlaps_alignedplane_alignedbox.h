@@ -12,7 +12,7 @@ namespace Pastel
 	//! Tests if an aligned plane and an aligned box overlap.
 	/*!
 	Preconditions:
-	plane.dimension() == box.dimension()
+	plane.n() == box.n()
 
 	Time complexity:
 	O(1)

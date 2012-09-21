@@ -20,7 +20,7 @@ namespace Pastel
 
 		explicit RectangleIterator(
 			const Vector<integer, N>& max)
-			: position_(ofDimension(max.dimension()), 0)
+			: position_(ofDimension(max.n()), 0)
 			, min_(position_)
 			, max_(max)
 			, done_(anyLessEqual(max, 0))
@@ -44,12 +44,12 @@ namespace Pastel
 
 		RectangleIterator& operator++()
 		{
-			const integer n = dimension();
+			const integer d = n();
 			enum {Step = RowMajor ? 1 : -1};
 
-			integer i = RowMajor ? 0 : n - 1;
+			integer i = RowMajor ? 0 : d - 1;
 			while((!RowMajor && i >= 0) || 
-				(RowMajor && i < n))
+				(RowMajor && i < d))
 			{
 				++position_[i];
 				if (position_[i] >= max_[i])
@@ -67,19 +67,19 @@ namespace Pastel
 			
 			done_ = 
 				(!RowMajor && i == -1) ||
-				(RowMajor && i == n);
+				(RowMajor && i == d);
 
 			return *this;
 		}
 
 		RectangleIterator& operator--()
 		{
-			const integer n = dimension();
+			const integer d = n();
 			enum {Step = RowMajor ? 1 : -1};
 
-			integer i = RowMajor ? 0 : n - 1;
+			integer i = RowMajor ? 0 : d - 1;
 			while((!RowMajor && i >= 0) || 
-				(RowMajor && i < n))
+				(RowMajor && i < d))
 			{
 				--position_[i];
 				if (position_[i] < min_[i])
@@ -97,7 +97,7 @@ namespace Pastel
 
 			done_ = 
 				(!RowMajor && i == -1) ||
-				(RowMajor && i == n);
+				(RowMajor && i == d);
 
 			return *this;
 		}
@@ -117,9 +117,9 @@ namespace Pastel
 			return max_;
 		}
 
-		integer dimension() const
+		integer n() const
 		{
-			return position_.dimension();
+			return position_.n();
 		}
 
 	private:

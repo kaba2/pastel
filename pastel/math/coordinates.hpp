@@ -13,7 +13,7 @@ namespace Pastel
 	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian, integer k)
 	{
-		const integer dimension = cartesian.dimension();
+		const integer dimension = cartesian.n();
 
 		PENSURE_OP(k, >=, 0);
 		PENSURE_OP(k, <=, dimension);
@@ -60,7 +60,7 @@ namespace Pastel
 	Vector<Real, N> cylinderToCartesian(
 		const Vector<Real, N>& cylinder, integer k)
 	{
-		const integer dimension = cylinder.dimension();
+		const integer dimension = cylinder.n();
 
 		PENSURE_OP(k, >=, 0);
 		PENSURE_OP(k, <=, dimension);
@@ -106,7 +106,7 @@ namespace Pastel
 		const Vector<Real, N>& cartesian)
 	{
 		return Pastel::cartesianToCylinder(
-			cartesian, cartesian.dimension() - 1);
+			cartesian, cartesian.n() - 1);
 	}
 
 	template <typename Real, int N>
@@ -114,7 +114,7 @@ namespace Pastel
 		const Vector<Real, N>& cylinder)
 	{
 		return Pastel::cylinderToCartesian(cylinder,
-			cylinder.dimension() - 1);
+			cylinder.n() - 1);
 	}
 
 	template <typename Real, int N>
@@ -122,7 +122,7 @@ namespace Pastel
 		const Vector<Real, N>& cartesian)
 	{
 		return cartesianToCylinder(cartesian, 
-			cartesian.dimension());
+			cartesian.n());
 	}
 
 	template <typename Real, int N>
@@ -130,7 +130,7 @@ namespace Pastel
 		const Vector<Real, N>& spherical)
 	{
 		return cylinderToCartesian(spherical, 
-			spherical.dimension());
+			spherical.n());
 	}
 
 }

@@ -14,9 +14,9 @@ namespace Pastel
 		const Box<Real, N>& box,
 		const Vector<Real, N>& point)
 	{
-		PENSURE_OP(alignedBox.dimension(), ==, point.dimension());
+		PENSURE_OP(alignedBox.n(), ==, point.n());
 
-		const integer n = alignedBox.dimension();
+		const integer n = alignedBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			// When transformed to the box's coordinate

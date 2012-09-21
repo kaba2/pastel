@@ -4,6 +4,7 @@
 #include "test_pastelgeometry.h"
 
 #include "pastel/math/conformalaffine2d_tools.h"
+#include "pastel/math/conformalaffine2d_least_squares.h"
 #include "pastel/math/uniform_sampling.h"
 
 #include "pastel/sys/vector_tools.h"
@@ -33,7 +34,7 @@ namespace
 		{
 			for (integer i = 0;i < 10000;++i)
 			{
-				const ConformalAffine2 transformation(
+				const ConformalAffine2D<real> transformation(
 					random<real>() * 2 + 1,
 					random<real>() * 2 * constantPi<real>(),
 					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
@@ -41,10 +42,10 @@ namespace
 				const Vector2 aFrom(random<real>(), random<real>());
 				const Vector2 bFrom(random<real>(), random<real>());
 
-				const Vector2 aTo(transformPoint(aFrom, transformation));
-				const Vector2 bTo(transformPoint(bFrom, transformation));
+				const Vector2 aTo(transformPoint(transformation, aFrom));
+				const Vector2 bTo(transformPoint(transformation, bFrom));
 
-				const ConformalAffine2 matchedTransformation =
+				const ConformalAffine2D<real> matchedTransformation =
 					conformalAffine(aFrom, bFrom, aTo, bTo);
 
 				const real scalingDelta = absoluteError<real>(
@@ -68,7 +69,7 @@ namespace
 		{
 			for (integer i = 0;i < 10000;++i)
 			{
-				const ConformalAffine2 transformation(
+				const ConformalAffine2D<real> transformation(
 					random<real>() * 2 + 1,
 					random<real>() * 2 * constantPi<real>(),
 					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
@@ -80,10 +81,10 @@ namespace
 				{
 					pattern.push_back(randomVector<real, 2>());
 					transformedPattern.push_back(
-						transformPoint(pattern.back(), transformation));
+						transformPoint(transformation, pattern.back()));
 				}
 
-				const ConformalAffine2 matchedTransformation =
+				const ConformalAffine2D<real> matchedTransformation =
 					lsConformalAffine(
 					range(pattern.begin(), pattern.end()),
 					range(transformedPattern.begin(), transformedPattern.end()),
