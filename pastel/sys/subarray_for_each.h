@@ -13,7 +13,7 @@ namespace Pastel
 	/*!
 	Preconditions:
 	axis >= 0
-	axis < aArray.dimension()
+	axis < aArray.n()
 	*/
 	template <
 		typename Type, int N,
@@ -27,7 +27,7 @@ namespace Pastel
 	/*!
 	This is a convenience function that calls
 	forEachRow(subArray, axis, rangeAlgorithm)
-	successively with 'axis' increasing from 0 to subArray.dimension().
+	successively with 'axis' increasing from 0 to subArray.n().
 	*/
 	template <
 		typename Type, int N,
@@ -39,9 +39,9 @@ namespace Pastel
 	//! Applies a range algorithm to rows of arrays on a given axis.
 	/*!
 	Preconditions:
-	aArray.dimension() == bArray.dimension()
+	aArray.n() == bArray.n()
 	axis >= 0
-	axis < aArray.dimension()
+	axis < aArray.n()
 
 	The visited rows correspond to each other in position.
 	*/

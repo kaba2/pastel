@@ -14,7 +14,7 @@ namespace Pastel
 		const Capsule<Real, N>& aCapsule,
 		const Capsule<Real, N>& bCapsule)
 	{
-		PENSURE_OP(aCapsule.dimension(), ==, bCapsule.dimension());
+		PENSURE_OP(aCapsule.n(), ==, bCapsule.n());
 
 		// The capsules overlap if their
 		// associated line segments are closer

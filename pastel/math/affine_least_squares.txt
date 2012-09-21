@@ -1,0 +1,39 @@
+Least-squares affine transformation
+===================================
+
+[[Parent]]: affine_algorithms.txt
+
+[[set indent]]: EquationSet
+
+Given 
+
+	P = [p_1, ..., p_n] in RR^{m times n}
+	
+and
+
+	Q = [q_1, ..., q_n] in RR^{m times n}
+	
+The problem is to find an affine transformation 
+	
+	f : RR^m --> RR^m : f(x) = Ax + b
+
+where ''A in RR^{m times m}'', and ''b in RR^m'', such that the least-squares error
+
+	sum_{i = 1}^n |f(p_i) - q_i|^2 = |AP + b 1_{1 times n} - Q|^2
+
+is minimized, where ''|.|'' is the Frobenius norm. Denoting
+
+	p' = sum_{i = 1}^n p_i / n,
+	r' = sum_{i = 1}^n r_i / n,
+	P' = [p_1 - p', ..., p_n - p'], and
+	Q' = [q_1 - q', ..., q_n - q'],
+
+the answer is given by 
+
+	A = (PR^T) (PP^T)^{-1} and 
+	b = r' - Ap'.
+
+
+
+
+	

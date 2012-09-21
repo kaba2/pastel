@@ -15,8 +15,8 @@ namespace Pastel
 	//! Finds all points contained in an aligned box using a kd-tree.
 	/*!
 	Preconditions:
-	kdTree.dimension() == range.dimension()
-	kdTree.dimension() <= 32
+	kdTree.n() == range.n()
+	kdTree.n() <= 32
 	bucketSize >= 1
 	*/
 	template <typename Real, int N, typename PointPolicy, 

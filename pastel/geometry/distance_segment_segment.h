@@ -11,7 +11,7 @@ namespace Pastel
 	//! Computes the squared distance between line segments.
 	/*!
 	Preconditions:
-	aSegment.dimension() == bSegment.dimension()
+	aSegment.n() == bSegment.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

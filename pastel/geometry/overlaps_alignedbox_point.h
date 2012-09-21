@@ -14,7 +14,7 @@ namespace Pastel
 	//! Tests if an aligned box and a point overlap.
 	/*!
 	Preconditions:
-	alignedBox.dimension() == point.dimension()
+	alignedBox.n() == point.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

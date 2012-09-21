@@ -51,7 +51,7 @@ namespace
 	{
 	public:
 		TransformVisitor()
-			: transform_()
+			: transform_(3, 3)
 		{
 			const Color lmsObserved(
 				xyzToLms(srgbToXyz(Color(142, 98, 29) / 255)));

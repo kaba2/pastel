@@ -13,7 +13,7 @@ namespace Pastel
 	//! Tests if an box and a point overlap.
 	/*!
 	Preconditions:
-	box.dimension() == point.dimension()
+	box.n() == point.n()
 
 	Returns:
 	Whether the box and the point overlap.

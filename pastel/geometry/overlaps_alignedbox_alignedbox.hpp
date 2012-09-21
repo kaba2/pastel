@@ -13,9 +13,9 @@ namespace Pastel
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox)
 	{
-		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
+		PENSURE_OP(aBox.n(), ==, bBox.n());
 
-		const integer n = aBox.dimension();
+		const integer n = aBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			// Test for range-range overlap
@@ -59,8 +59,8 @@ namespace Pastel
 		const Vector<Real, N>& bVelocity,
 		Tuple<Real, 2>& intersectionRange)
 	{
-		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
-		PENSURE_OP(aBox.dimension(), ==, bVelocity.dimension());
+		PENSURE_OP(aBox.n(), ==, bBox.n());
+		PENSURE_OP(aBox.n(), ==, bVelocity.n());
 
 		// We want to find out two points in time.
 		// tStart, the first time instant the boxes
@@ -78,7 +78,7 @@ namespace Pastel
 		Real tMaxStart = -infinity<Real>();
 		Real tMinEnd = infinity<Real>();
 
-		const integer n = aBox.dimension();
+		const integer n = aBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			const Real aMin = aBox.min()[i];

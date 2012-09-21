@@ -12,8 +12,8 @@ namespace Pastel
 		, color_(1)
 		, texture_(0)
 		, resamplingMode_(ResamplingMode::Nearest)
-		, viewTransformation_()
-		, modelTransformation_()
+		, viewTransformation_(2)
+		, modelTransformation_(2)
 		, viewWindow_(-1, -1, 1, 1)
 	{
 	}
@@ -143,28 +143,28 @@ namespace Pastel
 
 	template <typename Type>
 	void GfxRenderer<Type>::setViewTransformation(
-		const AffineTransformation2& viewTransformation)
+		const AffineTransformation<real>& viewTransformation)
 	{
 		state_.viewTransformation_ = viewTransformation;
 		onSetViewTransformation();
 	}
 
 	template <typename Type>
-	AffineTransformation2 GfxRenderer<Type>::viewTransformation() const
+	AffineTransformation<real> GfxRenderer<Type>::viewTransformation() const
 	{
 		return state_.viewTransformation_;
 	}
 
 	template <typename Type>
 	void GfxRenderer<Type>::setModelTransformation(
-		const AffineTransformation2& modelTransformation)
+		const AffineTransformation<real>& modelTransformation)
 	{
 		state_.modelTransformation_ = modelTransformation;
 		onSetModelTransformation();
 	}
 
 	template <typename Type>
-	AffineTransformation2 GfxRenderer<Type>::modelTransformation() const
+	AffineTransformation<real> GfxRenderer<Type>::modelTransformation() const
 	{
 		return state_.modelTransformation_;
 	}

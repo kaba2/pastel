@@ -12,7 +12,7 @@ namespace Pastel
 		const Segment<Real, N>& segment,
 		const Vector<Real, N>& point)
 	{
-		PENSURE_OP(segment.dimension(), ==, point.dimension());
+		PENSURE_OP(segment.n(), ==, point.n());
 
 		const Real t = closest(segment, point);
 		const Vector<Real, N> delta = segment.at(t) - point;

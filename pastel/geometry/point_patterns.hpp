@@ -151,7 +151,7 @@ namespace Pastel
 		}
 
 		const integer points = pointSet.size();
-		const integer dimension = pointSet.front().dimension();
+		const integer dimension = pointSet.front().n();
 
 		Matrix<Real> rotation(dimension, dimension);
 		setRandomRotation(rotation);
@@ -169,7 +169,7 @@ namespace Pastel
 	{
 		ENSURE_OP(dimensionality, >, 0);
 
-		const integer dimension = pointSet.front().dimension();
+		const integer dimension = pointSet.front().n();
 
 		ENSURE_OP(dimensionality, <=, dimension);
 

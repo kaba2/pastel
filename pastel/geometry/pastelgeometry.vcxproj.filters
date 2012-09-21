@@ -109,12 +109,6 @@
     <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms">
       <UniqueIdentifier>{27472255-152d-4943-90c0-bfda2a427ac6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Subset searches\Intersection graph">
-      <UniqueIdentifier>{45abe6a3-2fca-4f7f-8ba8-bbc0f56d7ba8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Subset searches\Intersection graph\Maximum clique">
-      <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Algorithms\Transformation fitting">
       <UniqueIdentifier>{e6b253b5-9929-44a0-b1c0-69789dc376cb}</UniqueIdentifier>
     </Filter>
@@ -192,6 +186,9 @@
     </Filter>
     <Filter Include="Undocumented">
       <UniqueIdentifier>{15a348e0-d81d-478f-92fa-a37f9421b6ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches\Maximum clique of aligned boxes">
+      <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -315,11 +312,8 @@
     <None Include="searchalgorithm_pointkdtree.txt">
       <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </None>
-    <None Include="intersection_graph.txt">
-      <Filter>Algorithms\Subset searches\Intersection graph</Filter>
-    </None>
     <None Include="maximum_clique_alignedbox.txt">
-      <Filter>Algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
+      <Filter>Algorithms\Subset searches\Maximum clique of aligned boxes</Filter>
     </None>
     <None Include="transformation_fitting.txt">
       <Filter>Algorithms\Transformation fitting</Filter>
@@ -907,10 +901,10 @@
       <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="maximum_clique_alignedbox.h">
-      <Filter>Algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
+      <Filter>Algorithms\Subset searches\Maximum clique of aligned boxes</Filter>
     </ClInclude>
     <ClInclude Include="maximum_clique_alignedbox.hpp">
-      <Filter>Algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
+      <Filter>Algorithms\Subset searches\Maximum clique of aligned boxes</Filter>
     </ClInclude>
     <ClInclude Include="linear_projection.h">
       <Filter>Algorithms\Transformation fitting\Projection</Filter>
@@ -1316,9 +1310,6 @@
     </ClInclude>
     <ClInclude Include="contains.h">
       <Filter>Algorithms\Shape relations\Containment testing</Filter>
-    </ClInclude>
-    <ClInclude Include="intersection_graph.h">
-      <Filter>Algorithms\Subset searches\Intersection graph</Filter>
     </ClInclude>
     <ClInclude Include="subset_searches.h">
       <Filter>Algorithms\Subset searches</Filter>

@@ -14,7 +14,7 @@ namespace Pastel
 		const Sphere<Real, N>& sphere,
 		const Vector<Real, N>& point)
 	{
-		PENSURE_OP(sphere.dimension(), ==, point.dimension());
+		PENSURE_OP(sphere.n(), ==, point.n());
 
 		// A point intersects a sphere if
 		// the distance of the point from

@@ -33,8 +33,8 @@ namespace Pastel
 			return;
 		}
 
-		ENSURE1(pointSet.front().dimension() == 1,
-			pointSet.front().dimension());
+		ENSURE1(pointSet.front().n() == 1,
+			pointSet.front().n());
 
 		typedef std::vector<KeyValue<Real, integer> > SearchSet;
 		typedef typename SearchSet::iterator Iterator;

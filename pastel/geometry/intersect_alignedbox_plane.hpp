@@ -107,9 +107,9 @@ namespace Pastel
 		// Thus the whole algorithm is O(d) in time. 
 		// The additional storage requirements are O(1).
 
-		const integer dimension = box.dimension();
+		const integer dimension = box.n();
 		
-		ENSURE_OP(dimension, ==, plane.dimension());
+		ENSURE_OP(dimension, ==, plane.n());
 
 		if (!overlaps(box, plane))
 		{

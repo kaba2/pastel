@@ -16,7 +16,7 @@ namespace Pastel
 		integer axis)
 	{
 		ENSURE_OP(axis, >=, 0);
-		ENSURE_OP(axis, <, subArray.dimension());
+		ENSURE_OP(axis, <, subArray.n());
 
 		typedef SubArray<Type, ModifyN<N, N - 1>::Result>
 			InputSlice;
@@ -52,7 +52,7 @@ namespace Pastel
 		const SubArray<Type, N>& subArray,
 		const RangeAlgorithm& rangeAlgorithm)
 	{
-		const integer n = subArray.dimension();
+		const integer n = subArray.n();
 		for (integer i = 0;i < n;++i)
 		{
 			Pastel::forEachRow(subArray, rangeAlgorithm, i);
@@ -69,10 +69,10 @@ namespace Pastel
 		const RangeAlgorithm2& rangeAlgorithm2,
 		integer axis)
 	{
-		ENSURE_OP(aArray.dimension(), ==, bArray.dimension());
+		ENSURE_OP(aArray.n(), ==, bArray.n());
 		ENSURE(shrink(aArray.extent(), axis) == shrink(bArray.extent(), axis));
 
-		const integer dimension = aArray.dimension();
+		const integer dimension = aArray.n();
 
 		ENSURE_OP(axis, >=, 0);
 		ENSURE_OP(axis, <, dimension);

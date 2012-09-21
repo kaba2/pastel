@@ -17,7 +17,7 @@ namespace Pastel
 			//! Compile-time dimension.
 			/*!
 			Can be either Dynamic or a positive integer.
-			If N != Dynamic, then N == dimension().
+			If N != Dynamic, then N == n().
 			*/
 			enum {N = UserDefinedInteger};
 
@@ -40,7 +40,7 @@ namespace Pastel
 			/*!
 			Preconditions:
 			index >= 0
-			index < dimension()
+			index < n()
 
 			The requested element is computed lazily on the fly.
 			Because of this, the elements can't be modified.
@@ -52,7 +52,7 @@ namespace Pastel
 			Implemented automatically by the VectorExpression 
 			CRTP base class. Calls size().
 			*/
-			integer dimension() const;
+			integer n() const;
 
 			//! Returns whether the expression uses the given memory region.
 			/*!

@@ -14,10 +14,10 @@ namespace Pastel
 		const AlignedBox<Real, N>& bBox,
 		AlignedBox<Real, N>& result)
 	{
-		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
+		PENSURE_OP(aBox.n(), ==, bBox.n());
 
 		bool empty = false;
-		const integer n = aBox.dimension();
+		const integer n = aBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			if (aBox.min()[i] > bBox.min()[i] ||

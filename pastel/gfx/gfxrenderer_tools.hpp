@@ -6,7 +6,7 @@
 #include "pastel/sys/math_functions.h"
 
 #include "pastel/math/coordinates.h"
-#include "pastel/math/affinetransformation_tools.h"
+#include "pastel/math/affine_transformation.h"
 
 namespace Pastel
 {

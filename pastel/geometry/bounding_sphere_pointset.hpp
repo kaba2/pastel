@@ -40,7 +40,7 @@ namespace Pastel
 		// bounding sphere, but it does give something to
 		// that direction, and is fast.
 
-		const integer n = pointPolicy.dimension();
+		const integer n = pointPolicy.n();
 		ENSURE(n != Dynamic);
 
 		Sphere<Real, N> result(n);

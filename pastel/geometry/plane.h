@@ -73,7 +73,7 @@ namespace Pastel
 		void swap(Plane<Real, N>& that);
 
 		//! Returns the dimension of the plane.
-		integer dimension() const;
+		integer n() const;
 
 		//! Sets the position and normal of the plane.
 		void set(const Vector<Real, N>& position,

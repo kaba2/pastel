@@ -49,12 +49,12 @@ namespace Pastel
 
 		ConstIterator end(Point point) const
 		{
-			return point + dimension();
+			return point + n();
 		}
 
 		Expression operator()(Point point) const
 		{
-			return constVectorExpression<N>(point, dimension());
+			return constVectorExpression<N>(point, n());
 		}
 
 		const Real& axis(Point point, integer index) const
@@ -62,7 +62,7 @@ namespace Pastel
 			return point[index];
 		}
 
-		integer dimension() const
+		integer n() const
 		{
 			// The check here is to enable compile-time
 			// optimization when N is not Dynamic.
@@ -71,7 +71,7 @@ namespace Pastel
 
 		integer dimension(Point point) const
 		{
-			return dimension();
+			return n();
 		}
 
 	private:

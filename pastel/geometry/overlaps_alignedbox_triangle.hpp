@@ -25,8 +25,8 @@ namespace Pastel
 			const AlignedBox<Real, N_>& box,
 			const PASTEL_TRIANGLE(Real, N_)& triangle)
 		{
-			ENSURE_OP(box.dimension(), ==, 2);
-			ENSURE_OP(triangle.dimension(), ==, 2);
+			ENSURE_OP(box.n(), ==, 2);
+			ENSURE_OP(triangle.n(), ==, 2);
 
 			enum
 			{
@@ -152,8 +152,8 @@ namespace Pastel
 			const AlignedBox<Real, N_>& box,
 			const PASTEL_TRIANGLE(Real, N_)& triangle)
 		{
-			ENSURE_OP(box.dimension(), ==, 3);
-			ENSURE_OP(triangle.dimension(), ==, 3);
+			ENSURE_OP(box.n(), ==, 3);
+			ENSURE_OP(triangle.n(), ==, 3);
 
 			// To avoid dynamic allocations, we
 			// will create the temporaries using
@@ -388,9 +388,9 @@ namespace Pastel
 		// Only dimensions 2 and 3 are supported.
 		PASTEL_STATIC_ASSERT(N == Dynamic);
 
-		const integer n = box.dimension();
+		const integer n = box.n();
 
-		ENSURE_OP(n, ==, triangle.dimension());
+		ENSURE_OP(n, ==, triangle.n());
 		ENSURE1(n == 2 || n == 3, n);
 
 		if (n == 2)

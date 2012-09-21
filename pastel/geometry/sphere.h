@@ -61,7 +61,7 @@ namespace Pastel
 		void swap(Sphere& that);
 
 		//! Returns the dimension of the sphere.
-		integer dimension() const;
+		integer n() const;
 
 		//! Sets the position of the sphere.
 		void setPosition(const Vector<Real, N>& position);

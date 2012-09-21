@@ -13,7 +13,7 @@ namespace Pastel
 	//! Computes closest points between a plane and a point.
 	/*!
 	Preconditions:
-	plane.dimension() == point.dimension()
+	plane.n() == point.n()
 
 	Returns:
 	A parameter t such that 'point + t * plane.normal()' and

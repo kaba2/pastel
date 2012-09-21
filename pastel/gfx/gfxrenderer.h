@@ -6,7 +6,7 @@
 #define PASTELGFX_GFXRENDERER_H
 
 #include "pastel/geometry/alignedbox.h"
-#include "pastel/math/affinetransformation.h"
+#include "pastel/math/affine_transformation.h"
 #include "pastel/geometry/triangle.h"
 #include "pastel/geometry/segment.h"
 
@@ -51,8 +51,8 @@ namespace Pastel
 
 		// Transformation state
 
-		AffineTransformation2 viewTransformation_;
-		AffineTransformation2 modelTransformation_;
+		AffineTransformation<real> viewTransformation_;
+		AffineTransformation<real> modelTransformation_;
 		AlignedBox2 viewWindow_;
 	};
 
@@ -95,13 +95,13 @@ namespace Pastel
 		// Transformation state
 
 		void setViewTransformation(
-			const AffineTransformation2& viewTransformation);
-		AffineTransformation2 viewTransformation() const;
+			const AffineTransformation<real>& viewTransformation);
+		AffineTransformation<real> viewTransformation() const;
 		virtual void onSetViewTransformation() {}
 
 		void setModelTransformation(
-			const AffineTransformation2& modelTransformation);
-		AffineTransformation2 modelTransformation() const;
+			const AffineTransformation<real>& modelTransformation);
+		AffineTransformation<real> modelTransformation() const;
 		virtual void onSetModelTransformation() {}
 
 		void setViewWindow(

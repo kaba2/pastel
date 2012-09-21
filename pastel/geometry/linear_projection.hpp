@@ -27,9 +27,9 @@ namespace Pastel
 		const Box<Real, N>& box,
 		const Vector<Real, N>& unitAxis)
 	{
-		PENSURE_OP(box.dimension(), ==, unitAxis.dimension());
+		PENSURE_OP(box.n(), ==, unitAxis.n());
 
-		const integer dimension = box.dimension();
+		const integer dimension = box.n();
 
 		const Real position = dot(unitAxis, box.position());
 

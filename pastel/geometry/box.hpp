@@ -10,7 +10,7 @@ namespace Pastel
 	Box<Real, N>::Box()
 		: position_(0)
 		, width_(1)
-		, rotation_()
+		, rotation_(N, N)
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
@@ -19,7 +19,7 @@ namespace Pastel
 	Box<Real, N>::Box(integer dimension)
 		: position_(ofDimension(dimension), 0)
 		, width_(ofDimension(dimension), 1)
-		, rotation_()
+		, rotation_(dimension, dimension)
 	{
 	}
 
@@ -58,9 +58,9 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	integer Box<Real, N>::dimension() const
+	integer Box<Real, N>::n() const
 	{
-		return position_.dimension();
+		return position_.n();
 	}
 
 	template <typename Real, int N>

@@ -554,7 +554,7 @@ namespace Pastel
 			integer i = 0;
 			while(iter != iterEnd)
 			{
-				PENSURE(iter->dimension() == 2);
+				PENSURE(iter->n() == 2);
 
 				// First the minimum y-point.
 

@@ -134,7 +134,7 @@ namespace Pastel
 			return;
 		}
 
-		const integer dimension = pointSet.front().dimension();
+		const integer dimension = pointSet.front().n();
 
 		ENSURE_OP(dimension, ==, 1);
 
@@ -227,7 +227,7 @@ namespace Pastel
 			return;
 		}
 
-		const integer dimension = pointSet.front().dimension();
+		const integer dimension = pointSet.front().n();
 
 		ENSURE_OP(dimension, ==, 1);
 

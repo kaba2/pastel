@@ -60,7 +60,7 @@ namespace Pastel
 			return false;
 		}
 
-		integer dimension() const
+		integer n() const
 		{
 			return size_;
 		}

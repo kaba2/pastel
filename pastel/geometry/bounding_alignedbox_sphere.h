@@ -6,7 +6,7 @@
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/sphere.h"
 
-#include "pastel/math/affinetransformation.h"
+#include "pastel/math/affine_transformation.h"
 
 namespace Pastel
 {
@@ -22,7 +22,7 @@ namespace Pastel
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere,
-		const AffineTransformation<Real, N>& transformation);
+		const AffineTransformation<Real>& transformation);
 
 }
 

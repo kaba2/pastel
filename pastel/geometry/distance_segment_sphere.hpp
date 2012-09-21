@@ -14,7 +14,7 @@ namespace Pastel
 		const Segment<Real, N>& segment,
 		const Sphere<Real, N>& sphere)
 	{
-		PENSURE_OP(segment.dimension(), ==, sphere.dimension());
+		PENSURE_OP(segment.n(), ==, sphere.n());
 
 		const Real centerDistance2 =
 			Pastel::distance2(segment, sphere.position());

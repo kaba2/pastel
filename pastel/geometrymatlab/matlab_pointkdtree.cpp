@@ -63,7 +63,7 @@ namespace Pastel
 
 			Expression operator()(const Point& point) const
 			{
-				return Expression(begin(point), dimension());
+				return Expression(begin(point), n());
 			}
 
 			ConstRange range(const Point& point) const
@@ -91,7 +91,7 @@ namespace Pastel
 				return point.data[axis];
 			}
 
-			integer dimension() const
+			integer n() const
 			{
 				return dimension_;
 			}
@@ -124,14 +124,14 @@ namespace Pastel
 			explicit KdState(const KdState& that)
 				: tree(that.tree)
 				, indexMap()
-				, pointAllocator(that.tree.dimension() * sizeof(real))
+				, pointAllocator(that.tree.n() * sizeof(real))
 				, index(that.index)
 			{
 				// Remove points, but retain structure.
 				tree.erase(true);
 
 				const Tree& thatTree = that.tree;
-				const integer dimension = thatTree.dimension();
+				const integer dimension = thatTree.n();
 
 				// Copy point data.
 				{
@@ -222,7 +222,7 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 			IntegerArrayPtr idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
-			const integer d = state->tree.dimension();
+			const integer d = state->tree.n();
 			const integer n = idSet->size();
 
 			typedef Tree::PointPolicy_ PointPolicy;
@@ -392,10 +392,10 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			Tree& tree = state->tree;
-			const integer dimension = tree.dimension();
+			const integer dimension = tree.n();
 			const real* pointSet = mxGetPr(inputSet[PointSet]);
 			const integer elements = mxGetNumberOfElements(inputSet[PointSet]);
-			const integer points = elements / tree.dimension();
+			const integer points = elements / tree.n();
 
 			IntegerArrayPtr result =
 				createArray<integer>(points, 1, outputSet[IdSet]);
@@ -632,7 +632,7 @@ namespace Pastel
 
 			integer* outDimension = createScalar<integer>(
 				outputSet[Dimension]);
-			*outDimension = state->tree.dimension();
+			*outDimension = state->tree.n();
 		}
 
 		void kdPoints(

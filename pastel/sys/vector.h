@@ -96,10 +96,12 @@ namespace Pastel
 		{
 		}
 
+		//! Constructs from a vector-expression.
+		/*!
+		Note: Implicitly convertible.
+		*/
 		template <typename ThatReal, int ThatN, typename Expression>
-		Vector(
-			const VectorExpression
-			<ThatReal, ThatN, Expression>& that)
+		Vector(const VectorExpression<ThatReal, ThatN, Expression>& that)
 			: Base(that)
 		{
 		}

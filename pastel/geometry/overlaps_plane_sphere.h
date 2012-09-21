@@ -12,7 +12,7 @@ namespace Pastel
 	//! Tests if a plane and a sphere overlap.
 	/*!
 	Preconditions:
-	plane.dimension() == sphere.dimension()
+	plane.n() == sphere.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

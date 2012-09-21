@@ -52,7 +52,7 @@ namespace Pastel
 			const real confidence =
 				asScalar<real>(inputSet[Confidence]);
 
-			ConformalAffine2 similarity;
+			ConformalAffine2D<real> similarity;
 
 			const bool success = pointPatternMatch(
 				range(
@@ -77,8 +77,8 @@ namespace Pastel
 
 				(*result)(0) = similarity.scaling();
 				(*result)(1) = similarity.rotation();
-				(*result)(2) = similarity.translation().x();
-				(*result)(3) = similarity.translation().y();
+				(*result)(2) = similarity.translation()[0];
+				(*result)(3) = similarity.translation()[1];
 			}
 
 			// Output the success flag.

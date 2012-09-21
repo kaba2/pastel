@@ -7,7 +7,7 @@
 
 #include "pastel/sys/indexextenders.h"
 
-#include "pastel/math/affinetransformation_tools.h"
+#include "pastel/math/affine_transformation.h"
 
 namespace Pastel
 {
@@ -15,7 +15,7 @@ namespace Pastel
 	template <typename Type>
 	Image_GfxRenderer<Type>::Image_GfxRenderer(Array<Type, 2>* image)
 		: GfxRenderer<Type>()
-		, screenTransformation_()
+		, screenTransformation_(2)
 		, image_(image)
 		, textureImage_()
 		, mipMap_()
@@ -215,7 +215,7 @@ namespace Pastel
 	template <typename Type>
 	Vector2 Image_GfxRenderer<Type>::transform(const Vector2& point) const
 	{
-		const Vector2& viewPoint = transformPoint(point, screenTransformation_);
+		const Vector2& viewPoint = transformPoint(screenTransformation_, point);
 		const Vector2 uv = (viewPoint - Base::viewWindow().min()) /
 			Base::viewWindow().extent();
 		return Vector2(uv * Vector2(image_->width(), image_->height()));

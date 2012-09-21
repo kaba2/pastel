@@ -64,7 +64,7 @@ namespace Pastel
 			return unitAxis<Real, N>(dimension, 0);
 		}
 
-		ENSURE_OP(orthonormalSet.front().dimension(), ==, dimension);
+		ENSURE_OP(orthonormalSet.front().n(), ==, dimension);
 		
 		const integer vectors = orthonormalSet.size();
 

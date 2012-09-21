@@ -27,26 +27,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/affinetransformation.h"
-namespace Pastel
-{
-
-	template class AffineTransformation<real, 1>;
-	template class AffineTransformation<real, 2>;
-	template class AffineTransformation<real, 3>;
-	template class AffineTransformation<real, 4>;
-	template class AffineTransformation<real, 5>;
-
-}
-
-#include "pastel/math/matrix.h"
-namespace Pastel
-{
-
-	template class Matrix<real>;
-
-}
-
 #include "pastel/geometry/sphere.h"
 namespace Pastel
 {

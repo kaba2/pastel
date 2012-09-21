@@ -63,7 +63,7 @@ namespace Pastel
 			const Vector<Real, N>& unitDirection);
 
 		//! Returns the dimension of the line.
-		integer dimension() const;
+		integer n() const;
 
 		//! Sets the position of the line.
 		void setPosition(const Vector<Real, N>& position);

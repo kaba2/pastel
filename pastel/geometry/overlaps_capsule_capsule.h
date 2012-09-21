@@ -11,7 +11,7 @@ namespace Pastel
 	//! Tests if two capsules overlap.
 	/*!
 	Preconditions:
-	aCapsule.dimension() == bCapsule.dimension()
+	aCapsule.n() == bCapsule.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

@@ -24,8 +24,8 @@ namespace Pastel
 	template <typename Real, int N>
 	Real area(const Sphere<Real, N>& sphere)
 	{
-		return areaUnitSphere<Real, N>(sphere.dimension()) * 
-			std::pow(sphere.radius(), (Real)(sphere.dimension() - 1));
+		return areaUnitSphere<Real, N>(sphere.n()) * 
+			std::pow(sphere.radius(), (Real)(sphere.n() - 1));
 	}
 
 }

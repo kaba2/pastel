@@ -8,6 +8,7 @@
 namespace Pastel
 {
 
+	//! Cholesky decomposition
 	template <typename Real>
 	class CholeskyDecomposition
 	{
@@ -16,21 +17,47 @@ namespace Pastel
 		// Using default assignment.
 		// Using default destructor.
 
-		CholeskyDecomposition();
-		explicit CholeskyDecomposition(
-			const Matrix<Real>& that);
+		//! Constructs with the decomposition of the identity matrix.
+		/*!
+		Preconditions:
+		n >= 0
+		*/
+		explicit CholeskyDecomposition(integer n);
 
-		void swap(
-			CholeskyDecomposition& that);
+		//! Constructs with the decomposition of the given matrix.
+		/*!
+		Preconditions:
+		that.m() == that.n()
+		*/
+		CholeskyDecomposition(Matrix<Real> that);
 
+		//! Copy-constructs from another decomposition.
+		CholeskyDecomposition(const CholeskyDecomposition& that);
+
+		//! Move-constructs from another decomposition.
+		CholeskyDecomposition(CholeskyDecomposition&& that);
+
+		//! Assigns from another decomposition.
+		CholeskyDecomposition& operator=(CholeskyDecomposition that);
+
+		//! Swaps with another decomposition.
+		void swap(CholeskyDecomposition& that);
+
+		//! Returns the L matrix.
 		const Matrix<Real>& lower() const;
 
+		//! Returns whether the decomposition succeeded.
+		/*!
+		This decomposition succeeds if and only if the
+		matrix is effectively symmetric positive-definite.
+		*/
 		bool succeeded() const;
 
-		bool decompose(
-			const Matrix<Real>& that);
+		//! Decomposes the given matrix.
+		bool decompose(Matrix<Real> that);
 
 	private:
+		CholeskyDecomposition() PASTEL_DELETE;
 		bool decompose();
 
 		Matrix<Real> cholesky_;

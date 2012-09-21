@@ -67,7 +67,7 @@ namespace Pastel
 		}
 
 		//! Returns the dimension of the plane.
-		integer dimension() const
+		integer n() const
 		{
 			return N;
 		}
@@ -162,7 +162,7 @@ namespace Pastel
 		}
 
 		//! Returns the dimension of the plane.
-		integer dimension() const
+		integer n() const
 		{
 			return dimension_;
 		}

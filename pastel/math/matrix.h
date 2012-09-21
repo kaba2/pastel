@@ -57,24 +57,33 @@ namespace Pastel
 		typedef Array_VectorExpression<Real, Dynamic> Row;
 		typedef ConstArray_VectorExpression<Real, Dynamic> ConstRow;
 
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
+		//! Copy-constructs from another matrix.
+		/*!
+		Time complexity: O(that.size())
+		Exception safety: strong
+		*/
+		Matrix(const Matrix& that)
+			: data_(that.data_)
+		{
+		}
 
-		//! Constructs a 0x0-matrix.
+		//! Move-constructs from another matrix.
 		/*!
 		Time complexity: O(1)
 		Exception safety: strong
 		*/
-		Matrix()
+		Matrix(Matrix&& that)
 			: data_()
 		{
+			swap(that);
 		}
 
 		//! Constructs from a matrix expression.
 		/*!
 		Time complexity: O(that.width() * that.height()) * Real=
 		Exception safety: strong
+		
+		Note: implicit conversion allowed.
 		*/
 		template <typename Expression>
 		Matrix(const MatrixExpression<Real, Expression>& that)
@@ -396,13 +405,14 @@ namespace Pastel
 			return ConstRow(&data_(j, 0), m(), data_.stride()[1]);
 		}
 
-		//! Assigns from another matrix.
+		//! Copy-assigns from another matrix.
 		/*!
-		Note that we need to implement this operator= although we 
-		have a more general operator= for matrix expressions below.
-		Otherwise the default operator= would be generated.
+		1) If the extents do not match, do copy-construct-swap.
+		   Note: memory-address will be changed.
+		2) Otherwise copy values. 
+		   Note: memory-address will not be changed.
 
-		Time complexity: O(that.size()) * (Real-Construct + Real=)
+		Time complexity: O(that.size() + size())
 		Exception safety: basic
 		*/
 		Matrix& operator=(const Matrix& that)
@@ -418,10 +428,26 @@ namespace Pastel
 			else
 			{
 				// Otherwise we can assign the values
-				// directly.
+				// directly. This is the reason why 
+				// we want to separate move-assignment
+				// and copy-assignment.
 				data_ = that.data_;
 			}
 
+			return *this;
+		}
+
+		//! Move-assigns from another matrix.
+		/*!
+		Memory-addresses will be changed.
+
+		Time complexity: O(size())
+		Exception safety: basic
+		*/
+		Matrix& operator=(Matrix&& that)
+		{
+			swap(that);
+			that.clear();
 			return *this;
 		}
 
@@ -795,6 +821,12 @@ namespace Pastel
 		}
 
 	private:
+		// We will not allow to default-construct
+		// a 0x0 matrix, because it easily leads 
+		// to bugs caused by forgetting to specify 
+		// the extents.
+		Matrix() PASTEL_DELETE;
+
 		Array<Real> data_;
 	};
 

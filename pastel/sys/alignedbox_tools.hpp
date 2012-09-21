@@ -21,7 +21,7 @@ namespace Pastel
 		const Vector<integer, N>& stride,
 		const Vector<integer, N>& order)
 	{
-		const integer n = stride.dimension();
+		const integer n = stride.n();
 
 		Vector<integer, N> result(
 			ofDimension(n));
@@ -43,7 +43,7 @@ namespace Pastel
 		integer linearIndex,
 		const Vector<integer, N>& stride)
 	{
-		const integer n = stride.dimension();
+		const integer n = stride.n();
 
 		Vector<integer, N> result(
 			ofDimension(n));
@@ -70,7 +70,7 @@ namespace Pastel
 			return visited;
 		}
 
-		const integer n = region.dimension();
+		const integer n = region.n();
 		Vector<integer, N> position(
 			ofDimension(n), 0);
 		integer i = 0;

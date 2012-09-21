@@ -50,7 +50,7 @@ namespace Pastel
 				, cullDistance(maxDistance_)
 				, errorFactor(inverse(normBijection.scalingFactor(1 + maxRelativeError)))
  				, nodeCullDistance(cullDistance * errorFactor)
-				, dimension(kdTree_.dimension())
+				, dimension(kdTree_.n())
 				, bucketSize(bucketSize_)
 				, algorithm()
 			{

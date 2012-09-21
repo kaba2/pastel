@@ -102,7 +102,7 @@ namespace Pastel
 
 			// Find object spread.
 
-			const integer dimension = minBound.dimension();
+			const integer dimension = minBound.n();
 
 			AlignedBox<Real, N> objectBound(dimension);
 
@@ -269,7 +269,7 @@ namespace Pastel
 					Real minCost = infinity<Real>();
 					integer minAxis = 0;
 
-					const integer n = tree.dimension();
+					const integer n = tree.n();
 
 					for (integer axis = 0;axis < n;++axis)
 					{

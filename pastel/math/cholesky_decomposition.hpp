@@ -9,21 +9,47 @@ namespace Pastel
 {
 
 	template <typename Real>
-	CholeskyDecomposition<Real>::CholeskyDecomposition()
-		: cholesky_()
-		, succeeded_(false)
+	CholeskyDecomposition<Real>::CholeskyDecomposition(
+		integer n)
+		: cholesky_(n, n)
+		, succeeded_(true)
 	{
 	}
 
 	template <typename Real>
 	CholeskyDecomposition<Real>::CholeskyDecomposition(
-		const Matrix<Real>& that)
-		: cholesky_(that)
+		Matrix<Real> that)
+		: cholesky_(std::move(that))
 		, succeeded_(false)
 	{
 		ENSURE2(that.width() == that.height(), that.width(), that.height());
 
 		decompose();
+	}
+
+	template <typename Real>
+	CholeskyDecomposition<Real>::CholeskyDecomposition(
+		const CholeskyDecomposition& that)
+		: cholesky_(that.cholesky_)
+		, succeeded_(that.succeeded_)
+	{
+	}
+
+	template <typename Real>
+	CholeskyDecomposition<Real>::CholeskyDecomposition(
+		CholeskyDecomposition&& that)
+		: cholesky_(that.n(), that.n())
+		, succeeded_(true)
+	{
+		swap(that);
+	}
+
+	template <typename Real>
+	CholeskyDecomposition<Real>& CholeskyDecomposition<Real>::operator=(
+		CholeskyDecomposition that)
+	{
+		swap(that);
+		return *this;
 	}
 
 	template <typename Real>
@@ -48,14 +74,11 @@ namespace Pastel
 
 	template <typename Real>
 	bool CholeskyDecomposition<Real>::decompose(
-			const Matrix<Real>& that)
+		Matrix<Real> that)
 	{
-		// See "Numerical Recipes: The art of scientific
-		// computing", 3rd ed, section 2.9: Cholesky Decomposition.
+		ENSURE_OP(that.m(), ==, that.n());
 
-		ENSURE2(that.width() == that.height(), that.width(), that.height());
-
-		cholesky_ = that;
+		cholesky_ = std::move(that);
 		return decompose();
 	}
 
@@ -64,8 +87,12 @@ namespace Pastel
 	template <typename Real>
 	bool CholeskyDecomposition<Real>::decompose()
 	{
-		const integer n = cholesky_.width();
+		// See "Numerical Recipes: The art of scientific
+		// computing", 3rd ed, section 2.9: Cholesky Decomposition.
 
+		succeeded_ = false;
+
+		const integer n = cholesky_.n();
 		for (integer i = 0;i < n;++i)
 		{
 			for (integer j = 0;j < n;++j)
@@ -80,7 +107,6 @@ namespace Pastel
 					if (sum <= 0)
 					{
 						// The matrix is not positive definite.
-						succeeded_ = false;
 						return succeeded_;
 					}
 					cholesky_(i, i) = std::sqrt(sum);
@@ -114,8 +140,7 @@ namespace Pastel
 	Real determinant(const CholeskyDecomposition<Real>& that)
 	{
 		const Matrix<Real>& lower = that.lower();
-		
-		const integer n = lower.width();
+		const integer n = lower.n();
 
 		Real result = 1;
 		for (integer i = 0;i < n;++i)

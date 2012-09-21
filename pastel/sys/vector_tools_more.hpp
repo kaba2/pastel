@@ -14,7 +14,7 @@ namespace Pastel
 		const Tuple<integer, N>& permutation)
 	{
 		const integer n = that.size();
-		PENSURE_OP(n, ==, permutation.dimension());
+		PENSURE_OP(n, ==, permutation.n());
 
 		Vector<Real, N> result(
 			ofDimension(n));
@@ -31,7 +31,7 @@ namespace Pastel
 	integer minIndex(
 		const VectorExpression<Real, N, Expression>& that)
 	{
-		const integer dimension = that.dimension();
+		const integer dimension = that.n();
 
 		integer index = 0;
 		Real minValue = that[0];
@@ -60,7 +60,7 @@ namespace Pastel
 	integer maxIndex(
 		const VectorExpression<Real, N, Expression>& that)
 	{
-		const integer dimension = that.dimension();
+		const integer dimension = that.n();
 
 		integer index = 0;
 		Real maxValue = that[0];

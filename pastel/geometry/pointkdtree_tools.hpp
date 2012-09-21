@@ -171,8 +171,8 @@ namespace Pastel
 	bool check(const PointKdTree<Real, N, PointPolicy>& tree)
 	{
 		const AlignedBox<Real, N> bound(
-			Vector<Real, N>(ofDimension(tree.dimension()), -infinity<Real>()),
-			Vector<Real, N>(ofDimension(tree.dimension()), infinity<Real>()));;
+			Vector<Real, N>(ofDimension(tree.n()), -infinity<Real>()),
+			Vector<Real, N>(ofDimension(tree.n()), infinity<Real>()));;
 		
 		return Detail::check(tree, tree.root(), bound);
 	}
@@ -230,7 +230,7 @@ namespace Pastel
 		if (aTree.nodes() != bTree.nodes() ||
 			aTree.points() != bTree.points() ||
 			aTree.leaves() != bTree.leaves() ||
-			aTree.dimension() != bTree.dimension())
+			aTree.n() != bTree.n())
 		{
 			return false;
 		}

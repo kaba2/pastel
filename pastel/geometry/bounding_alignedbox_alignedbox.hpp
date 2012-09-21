@@ -24,7 +24,7 @@ namespace Pastel
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const AlignedBox<Real, N>& alignedBox,
-		const AffineTransformation<Real, N>& transformation)
+		const AffineTransformation<Real>& transformation)
 	{
 		// Let the affine transformation be given by
 		//
@@ -53,8 +53,7 @@ namespace Pastel
 			(alignedBox.extent() * abs(transformation.matrix())) * 0.5;
 		
 		const Vector<Real, N> center =
-			transformPoint(linear(alignedBox.min(), alignedBox.max(), 0.5), 
-			transformation);
+			transformPoint(transformation, linear(alignedBox.min(), alignedBox.max(), 0.5));
 		
 		const AlignedBox<Real, N> result(
 			center - radius, center + radius);
@@ -97,7 +96,7 @@ namespace Pastel
 		AlignedBox<Real, N>& boxToExtend)
 	{
 		const integer dimension = pointToCover.size();
-		PENSURE_OP(dimension, ==, boxToExtend.dimension());
+		PENSURE_OP(dimension, ==, boxToExtend.n());
 
 		Vector<Real, N>& min = boxToExtend.min();
 		Vector<Real, N>& max = boxToExtend.max();

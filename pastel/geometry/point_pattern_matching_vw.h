@@ -39,7 +39,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
-		ConformalAffine2D<Real, N>& similarityResult);
+		ConformalAffine2D<Real>& similarityResult);
 
 	//! Finds the given model point pattern from the scene point pattern.
 	/*!
@@ -47,7 +47,7 @@ namespace Pastel
 	and calls the more general 'pointPatternMatch()'.
 	*/
 
-	template <typename Real, int N, typename SceneRange, typename ModelRange,
+	template <typename Real, typename SceneRange, typename ModelRange,
 		typename Model_PointPolicy, typename Scene_PointPolicy>
 	bool pointPatternMatch(
 		const SceneRange& scene,
@@ -55,7 +55,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
-		ConformalAffine2D<Real, N>& similarityResult,
+		ConformalAffine2D<Real>& similarityResult,
 		const Model_PointPolicy& modelPointPolicy,
 		const Scene_PointPolicy& scenePointPolicy);
 
@@ -71,14 +71,14 @@ namespace Pastel
 		Vector_PointPolicy<Real, N>());
 	*/
 
-	template <typename Real, int N, typename SceneRange, typename ModelRange>
+	template <typename Real, typename SceneRange, typename ModelRange>
 	bool pointPatternMatch(
 		const SceneRange& scene,
 		const ModelRange& model,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
-		ConformalAffine2D<Real, N>& similarityResult);
+		ConformalAffine2D<Real>& similarityResult);
 
 }
 

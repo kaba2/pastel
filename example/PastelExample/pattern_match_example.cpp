@@ -34,7 +34,7 @@ namespace
 		const std::vector<Vector2>& modelSet,
 		const std::vector<Vector2>& sceneSet,
 		const std::vector<Vector2>& correctSet,
-		const AffineTransformation2 transform,
+		const AffineTransformation<real> transform,
 		const std::string& fileName)
 	{
 		//const real ratio = (real)4 / 3;
@@ -94,7 +94,7 @@ namespace
 
 			// Transform a model point with the found transformation.
 			const Vector2 transformed = 
-				transformPoint(modelSet[i], transform);
+				transformPoint(transform, modelSet[i]);
 
 			// Connect the distorted model point with the
 			// transformed model point with a green line segment.
@@ -164,7 +164,7 @@ namespace
 			modelSet.reserve(modelPoints);
 
 			// Generate a random conformal affine transformation.
-			ConformalAffine2 transformation(
+			ConformalAffine2D<real> transformation(
 				// Scaling in the range [0, 2].
 				2 * random<real>(),
 				// Rotation in the range [0, 2pi].
@@ -187,7 +187,7 @@ namespace
 				// Transform the point by the conformal affine
 				// transformation and add some noise.
 				const Vector2 transformedModelPoint =
-					transformPoint(modelSet.back(), transformation) +
+					transformPoint(transformation, modelSet.back()) +
 					randomVectorSphere<real, 2>() * noise;
 
 				// Store the distorted model point.
@@ -247,7 +247,7 @@ namespace
 
 			log() << "Computing point pattern match..." << logNewLine;
 
-			ConformalAffine2 similarity;
+			ConformalAffine2D<real> similarity;
 			const bool success = pointPatternMatch(
 				sceneTree, modelTree, 
 				minMatchRatio,  matchingDistance,
@@ -266,7 +266,7 @@ namespace
 				log() << "Failed to find the pattern from the background." << logNewLine;
 			}
 
-			AffineTransformation2 matchedTransform = 
+			AffineTransformation<real> matchedTransform = 
 				toAffine(similarity);
 
 			// Render the matching to an image file.
@@ -321,14 +321,14 @@ namespace
 			log() << "Angle = " << radiansToDegrees<real>(angle) << " degrees." << logNewLine;
 			log() << "Translation = (" << translation.x() << ", " << translation.y() << ")" << logNewLine;
 
-			const ConformalAffine2 transform(scaling, angle, translation);
+			const ConformalAffine2D<real> transform(scaling, angle, translation);
 
 			std::vector<Vector2> sceneSet;
 			std::vector<Vector2> correctSet;
 
 			for (integer i = 0;i < modelPoints;++i)
 			{
-				sceneSet.push_back(transformPoint(modelSet[i], transform));
+				sceneSet.push_back(transformPoint(transform, modelSet[i]));
 				correctSet.push_back(sceneSet.back());
 			}
 
@@ -337,7 +337,7 @@ namespace
 				sceneSet.pop_back();
 			}
 
-			ConformalAffine2 similarity;
+			ConformalAffine2D<real> similarity;
 			const bool success = pointPatternMatch(
 				range(sceneSet.begin(), sceneSet.end()),
 				range(modelSet.begin(), modelSet.end()),
@@ -357,7 +357,7 @@ namespace
 				log() << "Failed to find the pattern from the background" << logNewLine;
 			}
 
-			AffineTransformation2 matchedTransform = toAffine(similarity);
+			AffineTransformation<real> matchedTransform = toAffine(similarity);
 
 			render(modelSet, sceneSet, correctSet, matchedTransform, "patternmatch_" + name + ".pcx");
 		}

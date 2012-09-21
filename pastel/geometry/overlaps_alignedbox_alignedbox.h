@@ -11,7 +11,7 @@ namespace Pastel
 	//! Tests if two aligned boxes overlap.
 	/*!
 	Preconditions:
-	aAlignedBox.dimension == bAlignedBox.dimension()
+	aAlignedBox.dimension == bAlignedBox.n()
 	*/
 	template <typename Real, int N>
 	bool overlaps(

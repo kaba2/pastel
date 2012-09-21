@@ -171,7 +171,7 @@ namespace Pastel
 		if (aTree.nodes() != bTree.nodes() ||
 			aTree.objects() != bTree.objects() ||
 			aTree.leaves() != bTree.leaves() ||
-			aTree.dimension() != bTree.dimension())
+			aTree.n() != bTree.n())
 		{
 			return false;
 		}

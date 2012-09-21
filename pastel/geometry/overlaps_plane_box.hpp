@@ -19,9 +19,9 @@ namespace Pastel
 		const Plane<Real, N>& plane,
 		const Box<Real, N>& box)
 	{
-		ENSURE_OP(plane.dimension(), ==, box.dimension());
+		ENSURE_OP(plane.n(), ==, box.n());
 
-		const integer n = plane.dimension();
+		const integer n = plane.n();
 
 		// FIX: The topology of the box is not
 		// handled correctly. The box is assumed
@@ -59,7 +59,7 @@ namespace Pastel
 		const Box<Real, N>& box,
 		bool &boxOnPositiveSide)
 	{
-		ENSURE_OP(plane.dimension(), ==, box.dimension());
+		ENSURE_OP(plane.n(), ==, box.n());
 
 		// Check if the box's center point
 		// is on the positive side of the plane.

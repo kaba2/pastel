@@ -6,29 +6,31 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
-	ConformalAffine2D<Real, N>::ConformalAffine2D(
-		const Real& scaling, const Real& rotation)
-		: scaling_(scaling)
-		, rotation_(rotation)
-		, translation_(ofDimension(2), 0)
+	template <typename Real>
+	ConformalAffine2D<Real>::ConformalAffine2D(
+		Real scaling, 
+		Real rotation)
+		: scaling_(std::move(scaling))
+		, rotation_(std::move(rotation))
+		, translation_(ofDimension(2))
 	{
 	}
 
-	template <typename Real, int N>
-	ConformalAffine2D<Real, N>::ConformalAffine2D(
-		const Real& scaling, const Real& rotation,
-		const Vector<Real, N>& translation)
-		: scaling_(scaling)
-		, rotation_(rotation)
-		, translation_(translation)
+	template <typename Real>
+	ConformalAffine2D<Real>::ConformalAffine2D(
+		Real scaling, 
+		Real rotation,
+		Vector<Real> translation)
+		: scaling_(std::move(scaling))
+		, rotation_(std::move(rotation))
+		, translation_(std::move(translation))
 	{
 		PENSURE_OP(translation.size(), ==, 2);
 	}
 
-	template <typename Real, int N>
-	ConformalAffine2D<Real, N>& ConformalAffine2D<Real, N>::operator=(
-		const ConformalAffine2D<Real, N>& that)
+	template <typename Real>
+	ConformalAffine2D<Real>& ConformalAffine2D<Real>::operator=(
+		const ConformalAffine2D<Real>& that)
 	{
 		scaling_ = that.scaling_;
 		rotation_ = that.rotation_;
@@ -37,9 +39,9 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, int N>
-	ConformalAffine2D<Real, N>& ConformalAffine2D<Real, N>::operator*=(
-		const ConformalAffine2D<Real, N>& that)
+	template <typename Real>
+	ConformalAffine2D<Real>& ConformalAffine2D<Real>::operator*=(
+		const ConformalAffine2D<Real>& that)
 	{
 		// Note:
 		// It could be that '&that == this' and therefore
@@ -62,38 +64,38 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, int N>
-	Real& ConformalAffine2D<Real, N>::scaling()
+	template <typename Real>
+	Real& ConformalAffine2D<Real>::scaling()
 	{
 		return scaling_;
 	}
 
-	template <typename Real, int N>
-	const Real& ConformalAffine2D<Real, N>::scaling() const
+	template <typename Real>
+	const Real& ConformalAffine2D<Real>::scaling() const
 	{
 		return scaling_;
 	}
 
-	template <typename Real, int N>
-	Real& ConformalAffine2D<Real, N>::rotation()
+	template <typename Real>
+	Real& ConformalAffine2D<Real>::rotation()
 	{
 		return rotation_;
 	}
 
-	template <typename Real, int N>
-	const Real& ConformalAffine2D<Real, N>::rotation() const
+	template <typename Real>
+	const Real& ConformalAffine2D<Real>::rotation() const
 	{
 		return rotation_;
 	}
 
-	template <typename Real, int N>
-	Vector<Real, N>& ConformalAffine2D<Real, N>::translation()
+	template <typename Real>
+	Vector<Real>& ConformalAffine2D<Real>::translation()
 	{
 		return translation_;
 	}
 
-	template <typename Real, int N>
-	const Vector<Real, N>& ConformalAffine2D<Real, N>::translation() const
+	template <typename Real>
+	const Vector<Real>& ConformalAffine2D<Real>::translation() const
 	{
 		return translation_;
 	}

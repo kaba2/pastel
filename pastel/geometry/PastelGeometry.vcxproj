@@ -186,7 +186,6 @@
     <None Include="search_all_neighbors.txt" />
     <None Include="acceptpoint.txt" />
     <None Include="searchalgorithm_pointkdtree.txt" />
-    <None Include="intersection_graph.txt" />
     <None Include="maximum_clique_alignedbox.txt" />
     <None Include="transformation_fitting.txt" />
     <None Include="point_pattern_matching_vw.txt" />
@@ -216,7 +215,6 @@
     <ClInclude Include="halfmesh.h" />
     <ClInclude Include="halfmesh.hpp" />
     <ClInclude Include="halfmesh_tools.h" />
-    <ClInclude Include="intersection_graph.h" />
     <ClInclude Include="meshes.h" />
     <ClInclude Include="nearest_neighbors.h" />
     <ClInclude Include="pastelgeometry.h" />

@@ -1,0 +1,7 @@
+Conformal affine algorithms
+===========================
+
+[[Parent]]: conformalaffine2d.txt
+
+This section contains algorithms for conformal affine
+transformations.

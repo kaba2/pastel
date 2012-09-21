@@ -13,7 +13,7 @@ namespace Pastel
 	//! Computes the squared distance between a line segment and a point.
 	/*!
 	Preconditions:
-	segment.dimension() == point.dimension()
+	segment.n() == point.n()
 
 	Time complexity:
 	O(n), where n is the dimension.

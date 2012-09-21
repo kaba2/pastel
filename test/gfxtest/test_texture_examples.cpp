@@ -35,7 +35,7 @@ namespace
 				gfxStorage().get<EwaImage_Texture<Color>*>("lena_texture");
 			ENSURE(inputTexture);
 
-			AffineTransformation2 transform = rotation2<real>(constantPi<real>() / 6);
+			AffineTransformation<real> transform = affineRotation<real>(2, 0, 1, constantPi<real>() / 6);
 			transform.translation() += 0.25;
 
 			Transform_Texture<Color> distortedTexture =
@@ -65,7 +65,7 @@ namespace
 				radialTexture(texture, Vector2(0.5),
 				Vector2(minRadius, angleBegin), Vector2(maxRadius, angleEnd));
 
-			AffineTransformation2 textureFlip(
+			AffineTransformation<real> textureFlip(
 				matrix2x2<real>(0, 1,
 						-1, 0),
 				Vector2(1, 0));
@@ -92,11 +92,11 @@ namespace
 			drawCircle(renderer, Sphere2(Vector2(0.5), minRadius), 40);
 			drawCircle(renderer, Sphere2(Vector2(0.5), maxRadius), 40);
 			drawSegment(renderer, Vector2(0.5) + Segment2(
-				transformPoint(Vector2(minRadius, 0), rotation2<real>(angleBegin)), 
-				transformPoint(Vector2(maxRadius, 0), rotation2<real>(angleBegin))));
+				transformPoint(affineRotation<real>(2, 0, 1, angleBegin), Vector2(minRadius, 0)), 
+				transformPoint(affineRotation<real>(2, 0, 1, angleBegin), Vector2(maxRadius, 0))));
 			drawSegment(renderer, Vector2(0.5) + Segment2(
-				transformPoint(Vector2(minRadius, 0), rotation2<real>(angleEnd)), 
-				transformPoint(Vector2(maxRadius, 0), rotation2<real>(angleEnd))));
+				transformPoint(affineRotation<real>(2, 0, 1, angleEnd), Vector2(minRadius, 0)), 
+				transformPoint(affineRotation<real>(2, 0, 1, angleEnd), Vector2(maxRadius, 0))));
 
 			savePcx(image, "radial_texture_input.pcx");
 		}

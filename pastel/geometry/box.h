@@ -67,7 +67,7 @@ namespace Pastel
 		~Box();
 
 		//! Returns the dimensions of the box.
-		integer dimension() const;
+		integer n() const;
 
 		//! Sets the dimensions of the box.
 		void setWidth(const Vector<Real, N>& width);

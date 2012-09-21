@@ -14,7 +14,7 @@ namespace Pastel
 		const Plane<Real, N>& plane,
 		const Vector<Real, N>& point)
 	{
-		PENSURE_OP(plane.dimension(), ==, point.dimension());
+		PENSURE_OP(plane.n(), ==, point.n());
 
 		// Let
 		// D = plan.position() - point

@@ -16,9 +16,9 @@ namespace Pastel
 		const AlignedBox<Real, N>& alignedBox,
 		const Plane<Real, N>& plane)
 	{
-		PENSURE_OP(alignedBox.dimension(), ==, plane.dimension());
+		PENSURE_OP(alignedBox.n(), ==, plane.n());
 
-		const integer n = alignedBox.dimension();
+		const integer n = alignedBox.n();
 
 		// Find maximal and minimal signed distances
 		// of the vertices in V along the normal vector

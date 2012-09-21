@@ -529,7 +529,9 @@ namespace Pastel
 		: public MatrixExpression<Real, MatrixDiagonal<Real, Expression>>
 	{
 	public:
-		typedef const MatrixDiagonal& StorageType;
+		// Since this expression contains data,
+		// it must be stored by value.
+		typedef const MatrixDiagonal StorageType;
 
 		explicit MatrixDiagonal(
 			integer m, integer n,

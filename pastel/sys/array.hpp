@@ -34,8 +34,8 @@ namespace Pastel
 		const Alias<Type*>& dataAlias,
 		StorageOrder::Enum order)
 		: extent_(extent)
-		, stride_(ofDimension(extent.dimension()), 0)
-		, order_(ofDimension(extent.dimension()), 0)
+		, stride_(ofDimension(extent.n()), 0)
+		, order_(ofDimension(extent.n()), 0)
 		, size_(product(extent))
 		, data_(dataAlias)
 		, deleteData_(false)
@@ -51,8 +51,8 @@ namespace Pastel
 		const Type& defaultData,
 		StorageOrder::Enum order)
 		: extent_(extent)
-		, stride_(ofDimension(extent.dimension()), 0)
-		, order_(ofDimension(extent.dimension()), 0)
+		, stride_(ofDimension(extent.n()), 0)
+		, order_(ofDimension(extent.n()), 0)
 		, size_(0)
 		, data_(0)
 		, deleteData_(true)
@@ -76,9 +76,9 @@ namespace Pastel
 	Array<Type, N>::Array(
 		const Array& that,
 		StorageOrder::Enum order)
-		: extent_(ofDimension(that.dimension()), 0)
-		, stride_(ofDimension(that.dimension()), 0)
-		, order_(ofDimension(that.dimension()), 0)
+		: extent_(ofDimension(that.n()), 0)
+		, stride_(ofDimension(that.n()), 0)
+		, order_(ofDimension(that.n()), 0)
 		, size_(0)
 		, data_(0)
 		, deleteData_(true)
@@ -89,8 +89,8 @@ namespace Pastel
 	template <typename Type, int N>
 	Array<Type, N>::Array(
 		const Array& that)
-		: extent_(ofDimension(that.dimension()), 0)
-		, stride_(ofDimension(that.dimension()), 0)
+		: extent_(ofDimension(that.n()), 0)
+		, stride_(ofDimension(that.n()), 0)
 		, order_(that.order_)
 		, size_(0)
 		, data_(0)
@@ -119,8 +119,8 @@ namespace Pastel
 		const Vector<integer, N>& extent,
 		const Type& defaultData)
 		: extent_(extent)
-		, stride_(ofDimension(extent.dimension()), 0)
-		, order_(ofDimension(extent.dimension()), 0)
+		, stride_(ofDimension(extent.n()), 0)
+		, order_(ofDimension(extent.n()), 0)
 		, size_(0)
 		, data_(0)
 		, deleteData_(true)
@@ -135,8 +135,8 @@ namespace Pastel
 		const Type& defaultData,
 		StorageOrder::Enum order)
 		: extent_(extent)
-		, stride_(ofDimension(extent.dimension()), 0)
-		, order_(ofDimension(extent.dimension()), 0)
+		, stride_(ofDimension(extent.n()), 0)
+		, order_(ofDimension(extent.n()), 0)
 		, size_(0)
 		, data_(0)
 		, deleteData_(true)
@@ -182,9 +182,7 @@ namespace Pastel
 		const Vector<integer, N>& extent,
 		const Type& defaultData)
 	{
-		const integer n = dimension();
-
-		for (integer i = 0;i < n;++i)
+		for (integer i = 0;i < n();++i)
 		{
 			ENSURE_OP(extent[i], >=, 0);
 		}
@@ -242,9 +240,9 @@ namespace Pastel
 	}
 
 	template <typename Type, int N>
-	integer Array<Type, N>::dimension() const
+	integer Array<Type, N>::n() const
 	{
-		return extent_.dimension();
+		return extent_.n();
 	}
 
 	template <typename Type, int N>
@@ -348,10 +346,10 @@ namespace Pastel
 		PENSURE(allLessEqual(max, extent_));
 		PENSURE(allGreaterEqual(max, -1));
 
-		const integer n = dimension();
+		const integer d = n();
 
 		Vector<integer, N> newStride(stride_);
-		for (integer i = 0;i < n;++i)
+		for (integer i = 0;i < d;++i)
 		{
 			if (max[i] < min[i])
 			{
@@ -385,9 +383,9 @@ namespace Pastel
 		PENSURE(allGreaterEqual(max, -1));
 		PENSURE(!anyEqual(delta, 0));
 
-		const integer n = dimension();
+		const integer d = n();
 
-		for (integer i = 0;i < n;++i)
+		for (integer i = 0;i < d;++i)
 		{
 			PENSURE((min[i] < max[i]) == (delta[i] > 0));
 		}
@@ -607,7 +605,7 @@ namespace Pastel
 	void Array<Type, N>::setStorageOrder(
 		StorageOrder::Enum order)
 	{
-		const integer n = order_.dimension();
+		const integer n = order_.n();
 
 		if (order == StorageOrder::RowMajor)
 		{
@@ -722,10 +720,10 @@ namespace Pastel
 	template <typename Type, int N>
 	void Array<Type, N>::computeStride()
 	{
-		const integer n = dimension();
+		const integer d = n();
 
 		Vector<integer, N> stride(
-			ofDimension(n));
+			ofDimension(d));
 
 		// Case i = 0.
 		{
@@ -734,7 +732,7 @@ namespace Pastel
 		}
 
 		// Case i > 0.
-		for (integer i = 1;i < n;++i)
+		for (integer i = 1;i < d;++i)
 		{
 			const integer j = order_[i - 1];
 			const integer k = order_[i];
@@ -827,7 +825,7 @@ namespace Pastel
 		}
 
 		// Need a point-by-point copy construction.
-		const integer n = dimension();
+		const integer d = n();
 		const Vector<integer, N> minExtent = 
 			min(extent_, that.extent_);
 
@@ -844,10 +842,10 @@ namespace Pastel
 		// copy constructed, i.e. the difference of the
 		// whole region and the copy-region.
 		const AlignedBox<integer, N> wholeRegion(
-			Vector<integer, N>(ofDimension(n), 0),
+			Vector<integer, N>(ofDimension(d), 0),
 			extent_);
 		const AlignedBox<integer, N> copyRegion(
-			Vector<integer, N>(ofDimension(n), 0),
+			Vector<integer, N>(ofDimension(d), 0),
 			that.extent_);
 
 		// Mentioning RectangleIterator<N> inside the

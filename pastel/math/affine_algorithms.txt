@@ -1,0 +1,6 @@
+Affine transformation algorithms
+================================
+
+[[Parent]]: affine_transformation.txt
+
+This section contains algorithms for affine transformations.

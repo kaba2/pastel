@@ -6,8 +6,9 @@
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/bounding_sphere.h"
 
-#include "pastel/math/affinetransformation_tools.h"
+#include "pastel/math/affine_transformation.h"
 #include "pastel/math/conformalaffine2d_tools.h"
+#include "pastel/math/conformalaffine2d_least_squares.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/reporters.h"
@@ -158,7 +159,7 @@ namespace Pastel
 				return modelPointTries_;
 			}
 
-			bool operator()(ConformalAffine2D<Real, N>& similarityResult) const
+			bool operator()(ConformalAffine2D<Real>& similarityResult) const
 			{
 				bestLocalTry_ = 0;
 				bestGlobalTry_ = 0;
@@ -312,7 +313,7 @@ namespace Pastel
 			bool matchLocal(
 				const std::vector<ModelIterator>& modelSet,
 				const std::vector<SceneIterator>& sceneSet,
-				ConformalAffine2D<Real, N>& resultSimilarity) const
+				ConformalAffine2D<Real>& resultSimilarity) const
 			{
 				ASSERT2(modelSet.size() == sceneSet.size(),
 					modelSet.size(), sceneSet.size());
@@ -331,7 +332,7 @@ namespace Pastel
 				{
 					for (integer j = 0;j < k3_;++j)
 					{
-						const ConformalAffine2D<Real, N> similarity =
+						const ConformalAffine2D<Real> similarity =
 							conformalAffine(
 							modelPoint, modelPosition(modelSet[i - k3_ / 2]),
 							scenePoint, scenePosition(sceneSet[i - j]));
@@ -347,7 +348,7 @@ namespace Pastel
 						for (integer m = 1;m < k_ + 1;++m)
 						{
 							const Vector<Real, N> transformedModelPoint =
-								transformPoint(modelPosition(modelSet[m]), similarity);
+								transformPoint(similarity, modelPosition(modelSet[m]));
 
 							const KeyValue<Real, SceneIterator> closestScenePoint =
 								searchNearestOne(sceneTree_, transformedModelPoint);
@@ -392,7 +393,7 @@ namespace Pastel
 			bool improveGlobal(
 				const std::vector<Vector<Real, N> >& modelMatch,
 				const std::vector<Vector<Real, N> >& sceneMatch,
-				ConformalAffine2D<Real, N>& resultSimilarity) const
+				ConformalAffine2D<Real>& resultSimilarity) const
 			{
 				ASSERT_OP(sceneMatch.size(), ==, modelMatch.size());
 
@@ -408,7 +409,7 @@ namespace Pastel
 
 				integer matches = 0;
 
-				ConformalAffine2D<Real, N> lsSimilarity;
+				ConformalAffine2D<Real> lsSimilarity;
 				// We want to go through the improving process
 				// at least once even if we already had enough
 				// matching points. This is because at each
@@ -448,7 +449,7 @@ namespace Pastel
 							modelPosition(modelIter);
 
 						const Vector<Real, N> transformedModelPoint =
-							transformPoint(modelPoint, lsSimilarity);
+							transformPoint(lsSimilarity, modelPoint);
 
 						// See if the model point maps near to some
 						// scene point.
@@ -523,7 +524,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
-		ConformalAffine2D<Real, N>& similarityResult)
+		ConformalAffine2D<Real>& similarityResult)
 	{
 		ENSURE_OP(minMatchRatio, >=, 0); 
 		ENSURE_OP(minMatchRatio, <=, 1);
@@ -552,7 +553,7 @@ namespace Pastel
 		return succeeded;
 	}
 
-	template <typename Real, int N, typename SceneRange, typename ModelRange,
+	template <typename Real, typename SceneRange, typename ModelRange,
 		typename Model_PointPolicy, typename Scene_PointPolicy>
 	bool pointPatternMatch(
 		const SceneRange& scene,
@@ -560,15 +561,15 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
-		ConformalAffine2D<Real, N>& similarityResult,
+		ConformalAffine2D<Real>& similarityResult,
 		const Model_PointPolicy& modelPointPolicy,
 		const Scene_PointPolicy& scenePointPolicy)
 	{
-		ENSURE_OP(modelPointPolicy.dimension(), ==, 2);
-		ENSURE_OP(scenePointPolicy.dimension(), ==, 2);
+		ENSURE_OP(modelPointPolicy.n(), ==, 2);
+		ENSURE_OP(scenePointPolicy.n(), ==, 2);
 
-		typedef PointKdTree<Real, N, Model_PointPolicy> SceneTree;
-		typedef PointKdTree<Real, N, Scene_PointPolicy> ModelTree;
+		typedef PointKdTree<Real, 2, Model_PointPolicy> SceneTree;
+		typedef PointKdTree<Real, 2, Scene_PointPolicy> ModelTree;
 
 		SceneTree sceneTree(scenePointPolicy);
 		sceneTree.insertRange(scene);
@@ -585,14 +586,14 @@ namespace Pastel
 			confidence, similarityResult);
 	}
 
-	template <typename Real, int N, typename SceneRange, typename ModelRange>
+	template <typename Real, typename SceneRange, typename ModelRange>
 	bool pointPatternMatch(
 		const SceneRange& scene,
 		const ModelRange& model,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
-		ConformalAffine2D<Real, N>& similarityResult)
+		ConformalAffine2D<Real>& similarityResult)
 	{
 		return Pastel::pointPatternMatch(
 			scene, model,
@@ -600,8 +601,8 @@ namespace Pastel
 			relativeMatchingDistance,
 			confidence,
 			similarityResult,
-			Vector_PointPolicy<Real, N>(),
-			Vector_PointPolicy<Real, N>());
+			Vector_PointPolicy<Real, 2>(),
+			Vector_PointPolicy<Real, 2>());
 	}
 
 }
