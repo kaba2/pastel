@@ -15,7 +15,7 @@ and
 	
 The problem is to find an affine transformation 
 	
-	f : RR^m --> RR^m : f(x) = Ax + b
+	f : RR^m -> RR^m : f(x) = Ax + b,
 
 where ''A in RR^{m times m}'', and ''b in RR^m'', such that the least-squares error
 
@@ -28,7 +28,7 @@ is minimized, where ''|.|'' is the Frobenius norm. Denoting
 	P' = [p_1 - p', ..., p_n - p'], and
 	Q' = [q_1 - q', ..., q_n - q'],
 
-the answer is given by 
+the solution is given by 
 
 	A = (PR^T) (PP^T)^{-1} and 
 	b = r' - Ap'.

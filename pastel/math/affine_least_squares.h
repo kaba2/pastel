@@ -1,5 +1,4 @@
 // Description: Least-squares affine transformation
-// Documentation: affine_algorithms.txt
 
 #ifndef PASTEL_AFFINE_LEAST_SQUARES_H
 #define PASTEL_AFFINE_LEAST_SQUARES_H
