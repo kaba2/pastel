@@ -1,5 +1,4 @@
 // Description: Matrix norm
-// Documentation: matrix_algorithms.txt
 
 #ifndef PASTELMATH_MATRIX_NORM_H
 #define PASTELMATH_MATRIX_NORM_H
