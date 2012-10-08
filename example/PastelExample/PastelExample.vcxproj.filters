@@ -14,6 +14,7 @@
     <ClCompile Include="ripmap_example.cpp" />
     <ClCompile Include="pattern_match_example.cpp" />
     <ClCompile Include="transform_example.cpp" />
+    <ClCompile Include="draw_pointset_example.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastel_example.h" />

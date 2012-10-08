@@ -277,9 +277,6 @@
     <Filter Include="Undocumented\FastList">
       <UniqueIdentifier>{ed37438f-7c40-496b-bfe2-71e7ca4d8aeb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Undocumented\Generic tree">
-      <UniqueIdentifier>{ab79aac2-1d7f-4e12-ae5b-b8cf151be275}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Undocumented\As_Pair concept">
       <UniqueIdentifier>{cf02d9d6-d132-4618-a097-aab59d48dd7d}</UniqueIdentifier>
     </Filter>
@@ -303,6 +300,9 @@
     </Filter>
     <Filter Include="Undocumented\IndexExtender\Concrete index extenders">
       <UniqueIdentifier>{570defec-c8d4-4199-9872-7503ef8f658c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Tree">
+      <UniqueIdentifier>{ab79aac2-1d7f-4e12-ae5b-b8cf151be275}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -466,13 +466,13 @@
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
     </ClInclude>
     <ClInclude Include="tree.h">
-      <Filter>Undocumented\Generic tree</Filter>
+      <Filter>Undocumented\Tree</Filter>
     </ClInclude>
     <ClInclude Include="tree_iterator.h">
-      <Filter>Undocumented\Generic tree</Filter>
+      <Filter>Undocumented\Tree</Filter>
     </ClInclude>
     <ClInclude Include="tree_node.h">
-      <Filter>Undocumented\Generic tree</Filter>
+      <Filter>Undocumented\Tree</Filter>
     </ClInclude>
     <ClInclude Include="addressof.h">
       <Filter>Memory management</Filter>
@@ -1585,10 +1585,10 @@
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
     </None>
     <None Include="tree.txt">
-      <Filter>Undocumented\Generic tree</Filter>
+      <Filter>Undocumented\Tree</Filter>
     </None>
     <None Include="tree_design.txt">
-      <Filter>Undocumented\Generic tree</Filter>
+      <Filter>Undocumented\Tree</Filter>
     </None>
     <None Include="memory.txt">
       <Filter>Memory management</Filter>

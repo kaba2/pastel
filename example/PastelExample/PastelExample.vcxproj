@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="andersondarling_example.cpp" />
+    <ClCompile Include="draw_pointset_example.cpp" />
     <ClCompile Include="pastel_example.cpp" />
     <ClCompile Include="sphere_tracing_example.cpp" />
     <ClCompile Include="progress_example.cpp" />
