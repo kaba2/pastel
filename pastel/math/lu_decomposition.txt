@@ -1,47 +1,31 @@
-PLU decomposition
-=================
+LU decomposition
+================
 
 [[Parent]]: matrix_decompositions.txt
 
-The _PLU-decomposition_ is a factorization of an arbitrary 
-''m xx n'' matrix ''A'' into the product
+[[set indent]]: EquationSet
 
-''A = PLU''
+The _LU-decomposition_ of a matrix ''A in RR^{m xx n}'' is a factorization
+''A = PLU'', where ''P in RR^{m xx m}'' is a permutation matrix,
+''L in RR^{m xx m}'' is a unit lower triangular matrix (has 1's on the diagonal),
+and ''U in RR^{m xx n}'' is an upper triangular matrix.
 
-where
-
- * P is an ''m xx m'' permutation matrix.
-
- * L is an ''m xx m'' unit lower triangular matrix (has 1's on the diagonal).
-
- * U is an ''m xx n'' upper triangular matrix.
-
-Practice
---------
-
-Pastel implements an algorithm to compute the PLU
-decomposition of a square matrix (if it exists)
-The decomposition is encapsulated into a class because 
-the decomposition results are tightly connected to each others.
-
-Applications
-------------
+Solving linear systems
+----------------------
 
 Consider solving a linear system
 
-''Ax = b''
+	Ax = b,
 	
-Where ''A'' is invertible and has a PLU decomposition.
+where ''A'' is invertible and has an LU-decomposition.
 The problem can be solved in ''O(n^3)'' operations using gaussian
 elimination and back substitution (let us exclude
 the faster algorithms). This is ok if the matrix
 ''A'' is involved only once in such an equation. However,
-if ''b'' is varied and ''A'' stays constant, then there
-is a much faster ways to solve the problems.
-One can decompose ''A = PLU'', taking ''O(n^3)'' time. However,
-after the decomposition has been computed, solutions to varying ''b''s
-can be obtained in ''O(n^2)'' time. 
-
+if ''b'' is varied and ''A'' stays constant, then the
+LU-decomposition can aid in solving the problems faster.
+After LU-decomposing in ''O(n^3)'' time, solutions to varying 
+''b'' can be obtained in ''O(n^2)'' time. 
 If ''A'' is also positive definite, the linear system can be
 solved even faster, although only by a factor,
 by the Cholesky decomposition.

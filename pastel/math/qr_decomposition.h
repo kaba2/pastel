@@ -19,6 +19,7 @@ namespace Pastel
 		//! A qr decomposition of the identity.
 		/*!
 		Preconditions:
+		m >= 0
 		n >= 0
 
 		Both q and r are set to identity matrices.
@@ -29,13 +30,10 @@ namespace Pastel
 		Time complexity:
 		O(n^2)
 		*/
-		explicit QrDecomposition(integer n);
+		explicit QrDecomposition(integer m, integer n);
 		
 		//! Decomposes the given matrix.
 		/*!
-		Precondition:
-		that.n() == that.m()
-
 		Exception safety:
 		basic
 
@@ -73,9 +71,6 @@ namespace Pastel
 
 		//! Decomposes the given matrix.
 		/*!
-		Precondition:
-		that.n() == that.m()
-
 		Exception safety:
 		basic
 
@@ -84,7 +79,7 @@ namespace Pastel
 		*/
 		void decompose(Matrix<Real> that);
 
-		//! Returns the transpose of the orthogonal matrix.
+		//! Returns the orthogonal matrix Q^T.
 		/*!
 		Exception safety:
 		nothrow
@@ -94,7 +89,7 @@ namespace Pastel
 		*/
 		const Matrix<Real>& qTransposed() const;
 
-		//! Returns the upper triangular matrix.
+		//! Returns the upper triangular matrix R.
 		/*!
 		Exception safety:
 		nothrow

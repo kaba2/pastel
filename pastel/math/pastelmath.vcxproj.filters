@@ -373,6 +373,12 @@
     <ClInclude Include="conformalaffine2d_algorithms.h">
       <Filter>Transformations\ConformalAffine2D\Conformal affine algorithms</Filter>
     </ClInclude>
+    <ClInclude Include="householder_reflection.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="householder_reflection.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="interpolation.txt">
@@ -462,5 +468,10 @@
     <ClCompile Include="mathlibrary.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="householder_reflection.txt">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </Text>
   </ItemGroup>
 </Project>

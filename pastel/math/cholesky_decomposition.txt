@@ -3,3 +3,8 @@ Cholesky decomposition
 
 [[Parent]]: matrix_decompositions.txt
 
+The _Cholesky decomposition_ of a matrix ''A in RR^{m x m}'' is
+a factorization ''A = LL^T'', where ''L in RR^{m x m}'' is
+lower triangular. The Cholesky decomposition exists if and only
+if ''A'' is symmetric and positive-definite.
+
