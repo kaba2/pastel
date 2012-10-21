@@ -1,0 +1,115 @@
+Householder reflections
+=======================
+
+[[Parent]]: matrix_algorithms.txt
+
+[[set indent]]: EquationSet
+
+A _Householder reflection_ is an orthogonal, involutary matrix
+(i.e. a reflection), which is specified by the normal of the
+hyperplane w.r.t which the space is orthogonally reflected.
+
+Definition
+----------
+
+A Householder reflection ''Q in RR^{n xx n}'' w.r.t. 
+''v in RR^{1 xx n}'' is defined by
+		
+	Q = I - 2(v v^T) / (v^T v).
+
+Properties
+----------
+
+A Householder reflection ''Q'' is an orthogonal reflection 
+of a vector w.r.t. the hyperplane whose normal is ''v'':
+
+	Qx = (I - 2(v v^T) / (v^T v))x
+	= x - 2v (v^T x) / (v^T v)
+	= x - 2 v' (:v', x:),
+
+where
+
+	v' = v / |v|.
+
+''Q'' is symmetric:
+
+	Q^T = (I - 2(v v^T) / (v^T v))^T
+	= I - 2(v v^T) / (v^T v)
+	= Q.
+		
+''Q'' is orthogonal and involutary:
+
+	Q^T Q = Q^2
+	= (I - 2(v v^T) / (v^T v))^2
+	= I - 4(v v^T) / (v^T v) + (4v v^T v v^T) / (v^T v)^2
+	= I - 4(v v^T) / (v^T v) + (4v(v^T v)v^T) / (v^T v)^2
+	= I - 4(v v^T) / (v^T v) + 4(v v^T) / (v^T v)
+	= I.
+
+The orthogonality of ''Q'' implies that it preserves the 2-norm.
+
+Matrix decompositions
+---------------------
+
+The Householder reflections are used for factoring orthogonal matrices
+out of a general matrix ''A in RR^{m xx n}''. The QR-decomposition,
+for example, can be computed by repeated use of Householder reflections.
+
+A commonly reoccuring case is the following. Given a matrix ''A'', we would 
+like to factor ''A = Q^T Q A'', where ''Q'' is a Householder reflection 
+which sends the span of ''A( :, 1) = x in RR^m'' to the span of ''y in RR^m''. 
+For brevity, let us assume ''v^T v = 1''. Since ''Q'' preserves 2-norms, 
+we know that the ''v'' must also satisfy
+
+	(I - 2v v^T)x = +- (|x|/|y|) y
+	<=> x - 2v v^T x = +- (|x|/|y|) y
+	<=> x +- (|x|/|y|) y = 2v v^T x
+	<=> v = [x +- (|x|/|y|) y] / (2 v^T x).
+	
+Therefore, ''v'' is of the form
+
+	v = u / |u|,
+	
+where
+
+	u = x +- (|x|/|y|) y.
+
+This gives two choices for the reflection normal ''v''. While both of them
+do the specified job, one of the choices is better than the other from the
+numerical viewpoint, because it avoids cancellation. This choice is
+given by
+
+	u = x + sgn((:x, y:)) (|x|/|y|) y.
+
+Multiplying with the Householder reflection from the right can be used to
+transform the rows of ''A'', instead of columns.
+
+### QR decomposition
+	
+As an example of the use of the Householder reflection, we shall now consider the
+QR decomposition. Given a matrix ''A in RR^{m xx n}'', let its first column 
+be ''x in RR^m''. Form a Householder reflection ''Q_1'' such that the span of ''x''
+is mapped to the span of ''e_1'' (the i:th standard basis vector). Then 
+
+	Q_1^T Q_1 A = A, 
+	
+and ''Q_1 A'' has as its first column ''sgn(x_1) |x| e_1''. Now 
+recurse to consider the submatrix of ''Q_1 A'' which is obtained by removing
+the first row and the first column. Apply a Householder reflection ''Q_2^b in RR^{(m-1) xx (m-1)}'' to 
+again map the first column of the submatrix to the first standard basis vector.
+Finally, extend ''Q_2^b'' to a full block-diagonal matrix ''Q_2 in RR^{m xx m}'' 
+where the upper-left block is an identity matrix. By repeating this procedure,
+one obtains the factorization ''Q_1^T ... Q_n^T Q_n ... Q_1 A = A''. Denoting
+
+	Q = Q_1^T ... Q_n^T, and
+	R = Q_n ... Q_1 A
+
+yields the QR-decomposition. 
+
+### Bidiagonal decomposition
+
+Very similarly to the QR-decomposition, one can factor any matrix ''A''
+into a bidiagonal matrix surrounded by sequences of Householder reflections
+from both sides. This decomposition is used as an initial stage of computing
+the singular value decomposition.
+

@@ -21,6 +21,7 @@ namespace
 
 		virtual void run()
 		{
+			testSign();
 			test();
 		}
 
@@ -36,6 +37,29 @@ namespace
 			const real epsilon = 0.001;
 			return REPORT3((relativeError<real>(measured, correct) > epsilon),
 				measured, correct, epsilon);
+		}
+
+		void testSign()
+		{
+			TEST_ENSURE_OP(sign(-100), ==, -1);
+			TEST_ENSURE_OP(sign(100), ==, 1);
+
+			TEST_ENSURE_OP(sign(-1), ==, -1);
+			TEST_ENSURE_OP(sign(0), ==, 0);
+			TEST_ENSURE_OP(sign(1), ==, 1);
+
+			TEST_ENSURE_OP(sign(-1.0), ==, -1);
+			TEST_ENSURE_OP(sign(0.0), ==, 0);
+			TEST_ENSURE_OP(sign(1.0), ==, 1);
+
+			TEST_ENSURE_OP(sign(-1.0f), ==, -1);
+			TEST_ENSURE_OP(sign(0.0f), ==, 0);
+			TEST_ENSURE_OP(sign(1.0f), ==, 1);
+
+			TEST_ENSURE_OP(sign(infinity<float>()), ==, 1);
+			TEST_ENSURE_OP(sign(-infinity<float>()), ==, -1);
+			TEST_ENSURE_OP(sign(nan<float>()), ==, 0);
+			TEST_ENSURE_OP(sign(-0.0f), ==, 0);
 		}
 
 		void test()

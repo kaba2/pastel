@@ -1558,6 +1558,12 @@
     <ClInclude Include="trees.h">
       <Filter>Data structures\Binary trees</Filter>
     </ClInclude>
+    <ClInclude Include="sign.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="sign.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">

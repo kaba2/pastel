@@ -25,6 +25,7 @@
 #include "pastel/sys/quantization.h"
 #include "pastel/sys/rounding.h"
 #include "pastel/sys/scale_integer.h"
+#include "pastel/sys/sign.h"
 #include "pastel/sys/sinc.h"
 #include "pastel/sys/tristate.h"
 

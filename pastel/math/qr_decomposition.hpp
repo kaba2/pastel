@@ -2,6 +2,7 @@
 #define PASTELMATH_QR_DECOMPOSITION_HPP
 
 #include "pastel/math/qr_decomposition.h"
+#include "pastel/math/householder_reflection.h"
 
 #include "pastel/sys/vector_tools.h"
 
@@ -9,17 +10,18 @@ namespace Pastel
 {
 
 	template <typename Real>
-	QrDecomposition<Real>::QrDecomposition(integer n)
-		: q_(n, n)
-		, r_(n, n)
+	QrDecomposition<Real>::QrDecomposition(integer m, integer n)
+		: q_(m, m)
+		, r_(m, n)
 	{
-		PENSURE_OP(n, >=, 0);
+		ENSURE_OP(m, >=, 0);
+		ENSURE_OP(n, >=, 0);
 	}
 
 	template <typename Real>
 	QrDecomposition<Real>::QrDecomposition(
 		Matrix<Real> that)
-		: q_(that.m(), that.n())
+		: q_(that.m(), that.m())
 		, r_(std::move(that))
 	{
 		decompose();
@@ -85,10 +87,10 @@ namespace Pastel
 	template <typename Real>
 	void QrDecomposition<Real>::decompose(Matrix<Real> that)
 	{
-		ENSURE_OP(that.n(), ==, that.m());
+		const integer m = that.m();
 
+		q_ = identityMatrix<Real>(m, m);
 		r_ = std::move(that);
-		q_ = identityMatrix<Real>(n, n);
 
 		decompose();
 	}
@@ -101,46 +103,11 @@ namespace Pastel
 		/*
 		QR decomposition
 		================
-
-		A Householder reflection w.r.t. v is given by:
-		
-		Q = I - 2vv^T / (v^T v)
-
-		It is a reflection of a vector w.r.t. the hyperplane
-		whose normal is v:
-
-		Qx = (I - 2vv^T / (v^T v))x
-		= x - (2v v^T x / (v^T v))
-		= x - 2 v' <v', x>
-
-		where v' = v / |v|
-
-		The reflection property is confirmed by:
-
-		<Qx, v'> 
-		= <x, v'> - 2 <v', v'> <v', x>
-		= -<x, v'>
-
-		Q is symmetric:
-
-		Q^T 
-		= (I - 2vv^T / (v^T v))^T
-		= I - 2vv^T / (v^T v)
-		= Q
-		
-		Q is orthogonal:
-
-		Q^T Q 
-		= Q^2
-		= (I - 2vv^T / (v^T v))^2
-		= I - 4vv^T / (v^T v) + (4vv^T vv^T) / (v^T v)^2
-		= I - 4vv^T / (v^T v) + (4v(v^T v)v^T) / (v^T v)^2
-		= I - 4vv^T / (v^T v) + 4vv^T / v^T v
-		= I
 		
 		Let
 		alpha = -sign(x_1) |x|
 		v = x - alpha e_1
+		Q = I - 2vv^T.
 		
 		Then
 		Qx = alpha e_1
@@ -189,108 +156,29 @@ namespace Pastel
 		as well.
 		*/
 		
+		const integer m = r_.m();
 		const integer n = r_.n();
 
 		// We will reuse the memory space for v
 		// to avoid reallocation.
-		Vector<Real> v(ofDimension(n));
+		Vector<Real> v(ofDimension(m));
 
-		for (integer k = 0;k < n - 1;++k)
+		for (integer j = 0;j < n - 1;++j)
 		{
-			// Consider the (n - k) x (n - k) minor at
+			// Consider the (m - j) x (n - j) minor at
 			// the bottom right.
 
-			// Note that for each k we only use
-			// the components v[k], ..., v[n - 1]
-			// of v.
-			
-			// Compute v = x as well as dot(x, x).
-
-			Real xDot = 0;
-			for (integer i = k;i < n;++i)
+			// Note that for each j we only use
+			// the components v[j], ..., v[m - 1] of v.
+			for (integer i = j;i < m;++i)
 			{
-				const Real value = r_(i, k);
-				v[i] = value;
-				xDot += square(value);
+				v[i] = r_(i, j);
 			}
 
-			const Real xNorm = std::sqrt(xDot);
-			
-			// Compute alpha = -sign(|x|) |x|
-
-			const Real alpha =
-				v[k] >= 0 ? -xNorm : xNorm;
-			
-			// Compute v = x - alpha e_1.
-
-			v[k] -= alpha;
-
-			// <v>
-			// = <x - alpha e_1>
-			// = <x> - 2 alpha <x, e_1> + alpha^2 <e_1>
-			// = <x> - 2 alpha x_1 + alpha^2
-			// = 2(<x> - alpha x_1)
-			//
-			// c 
-			// = 2 / <v>
-			// = 1 / (<x> - alpha x_1)
-
-			const Real c = inverse(xDot - alpha * r_(k, k));
-
-			// We already know the multiplication
-			// result of the first column. It is
-			// alpha e_1.
-
-			r_(k, k) = alpha;
-			for (integer i = k + 1;i < n;++i)
-			{
-				r_(i, k) = 0;
-			}
-		
-			// The other columns need to multiplied
-			// in normal manner.
-
-			for (integer j = k + 1;j < n;++j)
-			{
-				// Compute <v, x>.
-				
-				Real vxDot = 0;
-				for (integer i = k;i < n;++i)
-				{
-					vxDot += v[i] * r_(i, j);
-				}
-				vxDot *= c;
-
-				// Compute x' = x - c v <v, x>.
-				for (integer i = k;i < n;++i)
-				{
-					r_(i, j) -= v[i] * vxDot;
-				}
-			}
-
-			// We also need to multiply the
-			// orthogonal matrix in parallel.
-			// Note that we actually end up
-			// with the transpose of the q
-			// we are seeking.
-			
-			for (integer j = 0;j < n;++j)
-			{
-				// Compute <v, x>.
-				
-				Real vxDot = 0;
-				for (integer i = k;i < n;++i)
-				{
-					vxDot += v[i] * q_(i, j);
-				}
-				vxDot *= c;
-
-				// Compute x' = x - c v <v, x>.
-				for (integer i = k;i < n;++i)
-				{
-					q_(i, j) -= v[i] * vxDot;
-				}
-			}
+			// Compute R := Q_{j + 1} ... Q_1 A.
+			householder(r_, v, j, j);
+			// Compute Q^T := Q_{j + 1} ... Q_1.
+			householder(q_, v, j, 0);
 		}
 	}
 

@@ -1,4 +1,4 @@
-// Description: PLU decomposition
+// Description: LU decomposition
 
 #ifndef PASTELMATH_LU_DECOMPOSITION_H
 #define PASTELMATH_LU_DECOMPOSITION_H
@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	//! PLU decomposition
+	//! LU decomposition
 	template <typename Real>
 	class LuDecomposition
 	{

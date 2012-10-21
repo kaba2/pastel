@@ -2,3 +2,8 @@ QR decomposition
 ================
 
 [[Parent]]: matrix_decompositions.txt
+
+The _QR-decomposition_ of a matrix ''A in RR^{m xx n}'' is
+a factorization ''A = QR'', where ''Q in RR^{m xx m}'' is an orthogonal 
+matrix, and ''R in RR^{m xx n}'' is an upper-triangular matrix. 
+The QR-decomposition exists always.

@@ -386,7 +386,7 @@ namespace
 				b[1] == std::acos(a[1]) &&
 				b[2] == std::acos(a[2]));
 
-			b = atan2(a, a);
+			b = Pastel::atan2(a, a);
 
 			TEST_ENSURE(
 				b[0] == std::atan2(a[0], a[0]) &&
