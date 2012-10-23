@@ -95,6 +95,12 @@ _Vector Calculus, Linear Algebra, and Differential Forms: A Unified Approach_,
 _Geometric Algebra for Computer Science_, 
 Leo Dorst, Daniel Fontijne, Stephen Mann, 2007.
 
+_Applied Numerical Linear Algebra_, 
+James W. Demmel, 1997.
+
+_Matrix Computations_, 3rd. edition,
+Gene H. Golub, Charles F. Van Loan, 1996.
+
 See also
 --------
 

@@ -72,13 +72,13 @@ namespace Pastel
 
 			if (outputs > 0)
 			{
-				RealArrayPtr result =
+				Array<real> result =
 					createArray<real>(4, 1, outputSet[Similarity]);
 
-				(*result)(0) = similarity.scaling();
-				(*result)(1) = similarity.rotation();
-				(*result)(2) = similarity.translation()[0];
-				(*result)(3) = similarity.translation()[1];
+				result(0) = similarity.scaling();
+				result(1) = similarity.rotation();
+				result(2) = similarity.translation()[0];
+				result(3) = similarity.translation()[1];
 			}
 
 			// Output the success flag.

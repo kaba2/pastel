@@ -28,13 +28,11 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	std::unique_ptr<Array<Type> > createArray(
+	Array<Type> createArray(
 		const Vector2i& extent,
 		mxArray*& output)
 	{
 		ENSURE(allGreaterEqual(extent, 0));
-
-		typedef std::unique_ptr<Array<Type> > Result;
 
 		const mwSize size[] = {extent.y(), extent.x()};
 
@@ -43,14 +41,15 @@ namespace Pastel
 		
 		Type* rawData = (Type*)mxGetData(output);
 
-		return Result(
-			new Array<Type>(extent, 
+		Array<Type> result(extent, 
 			withAliasing(rawData), 
-			StorageOrder::ColumnMajor));
+			StorageOrder::ColumnMajor);
+
+		return result;
 	}
 
 	template <typename Type>
-	std::unique_ptr<Array<Type> > createArray(
+	Array<Type> createArray(
 		integer width, integer height,
 		mxArray*& output)
 	{
@@ -127,7 +126,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	inline std::unique_ptr<Array<Type> > asArray(
+	Array<Type> asArray(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
@@ -136,9 +135,7 @@ namespace Pastel
 		const integer height = mxGetM(that);
 		const integer n = width * height;
 
-		typedef std::unique_ptr<Array<Type> > Result;
-		
-		Result result;
+		Array<Type> result;
 
 		if (typeToMatlabClassId<Type>() == mxGetClassID(that))
 		{
@@ -146,10 +143,11 @@ namespace Pastel
 			// the existing data.
 
 			Type* rawData = (Type*)mxGetData(that);
-			
-			result = Result(
-				new Array<Type>(Vector2i(width, height), withAliasing(rawData), 
-				StorageOrder::ColumnMajor));
+
+			result = Array<Type>(
+				Vector2i(width, height), 
+				withAliasing(rawData), 
+				StorageOrder::ColumnMajor);
 		}
 		else
 		{
@@ -163,27 +161,25 @@ namespace Pastel
 					<< logNewLine;
 			}
 
-			result = Result(
-				new Array<Type>(Vector2i(width, height),
-				StorageOrder::ColumnMajor));
+			result = Array<Type>(
+				Vector2i(width, height),
+				StorageOrder::ColumnMajor);
 
-			getScalars(that, result->begin());
+			getScalars(that, result.begin());
 		}
 
 		return result;
 	}
 
 	template <typename Type>
-	std::unique_ptr<Array<Type> > asLinearizedArray(
+	Array<Type> asLinearizedArray(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
 
 		const integer n = mxGetNumberOfElements(that);
 
-		typedef std::unique_ptr<Array<Type> > Result;
-		
-		Result result;
+		Array<Type> result;
 
 		if (typeToMatlabClassId<Type>() == mxGetClassID(that))
 		{
@@ -192,8 +188,9 @@ namespace Pastel
 
 			Type* rawData = (Type*)mxGetData(that);
 			
-			result = Result(
-				new Array<Type>(Vector2i(n, 1), withAliasing(rawData)));
+			result = Array<Type>(
+				Vector2i(n, 1), 
+				withAliasing(rawData));
 		}
 		else
 		{
@@ -207,19 +204,18 @@ namespace Pastel
 					<< logNewLine;
 			}
 
-			result = Result(
-				new Array<Type>(Vector2i(n, 1)));
+			result = Array<Type>(Vector2i(n, 1));
 
-			getScalars(that, result->begin());
+			getScalars(that, result.begin());
 		}
 
 		return result;
 	}
 
-	template <typename Type, typename ArrayPtr_Iterator>
+	template <typename Type, typename Array_Reporter>
 	integer getArrays(
 		const mxArray* cellArray,
-		ArrayPtr_Iterator output)
+		Array_Reporter report)
 	{
 		ENSURE(mxIsCell(cellArray));
 
@@ -229,8 +225,7 @@ namespace Pastel
 		for (integer i = 0;i < n;++i)
 		{
 			const mxArray* cell = mxGetCell(cellArray, i);
-			*output = asArray<Type>(cell);
-			++output;
+			report(asArray<Type>(cell));
 		}
 
 		return n;

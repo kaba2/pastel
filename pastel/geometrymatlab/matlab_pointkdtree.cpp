@@ -220,19 +220,19 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 
 			KdState* state = asState(inputSet[State]);
-			IntegerArrayPtr idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
 			const integer d = state->tree.n();
-			const integer n = idSet->size();
+			const integer n = idSet.size();
 
 			typedef Tree::PointPolicy_ PointPolicy;
 			const PointPolicy& pointPolicy = state->tree.pointPolicy();
 
-			RealArrayPtr pointSet = createArray<real>(
+			Array<real> pointSet = createArray<real>(
 				n, d, outputSet[PointSet]);
 			for (integer i = 0;i < n;++i)
 			{
-				const integer id = (*idSet)(i);
+				const integer id = idSet(i);
 				ConstIterator iter = state->indexMap.find(id);
 
 				if (iter != state->indexMap.end())
@@ -243,13 +243,13 @@ namespace Pastel
 					std::copy(
 						pointPolicy.begin(pointIter->point()),
 						pointPolicy.end(pointIter->point()),
-						pointSet->columnBegin(i));
+						pointSet.columnBegin(i));
 				}					
 				else
 				{
 					std::fill(
-						pointSet->columnBegin(i),
-						pointSet->columnEnd(i),
+						pointSet.columnBegin(i),
+						pointSet.columnEnd(i),
 						nan<real>());
 				}
 			}
@@ -397,7 +397,7 @@ namespace Pastel
 			const integer elements = mxGetNumberOfElements(inputSet[PointSet]);
 			const integer points = elements / tree.n();
 
-			IntegerArrayPtr result =
+			Array<integer> result =
 				createArray<integer>(points, 1, outputSet[IdSet]);
 			for (integer i = 0;i < points;++i)
 			{
@@ -410,7 +410,7 @@ namespace Pastel
 				state->indexMap.insert(std::make_pair(index, iter));
 				++state->index;
 
-				(*result)(i) = index;
+				result(i) = index;
 			}
 		}
 
@@ -442,12 +442,12 @@ namespace Pastel
 				return;
 			}
 
-			IntegerArrayPtr idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
-			const integer points = idSet->size();
+			const integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
 			{
-				const integer id = (*idSet)(i);
+				const integer id = idSet(i);
 				ConstIterator iter = 
 					state->indexMap.find(id);
 				if (iter != state->indexMap.end())
@@ -486,13 +486,13 @@ namespace Pastel
 				return;
 			}
 
-			IntegerArrayPtr idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
-			const integer points = idSet->size();
+			const integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
 			{
 				ConstIterator iter = 
-					state->indexMap.find((*idSet)(i));
+					state->indexMap.find(idSet(i));
 				if (iter != state->indexMap.end())
 				{
 					state->tree.hide(iter->second);
@@ -528,13 +528,13 @@ namespace Pastel
 				return;
 			}
 
-			IntegerArrayPtr idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
-			const integer points = idSet->size();
+			const integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
 			{
 				ConstIterator iter = 
-					state->indexMap.find((*idSet)(i));
+					state->indexMap.find(idSet(i));
 				if (iter != state->indexMap.end())
 				{
 					state->tree.show(iter->second);
@@ -687,9 +687,9 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
-			IntegerArrayPtr querySet = asArray<integer>(inputSet[QuerySet]);
-			RealArrayPtr maxDistanceSet = asLinearizedArray<real>(inputSet[MaxDistanceSet]);
-			const integer queries = querySet->size();
+			Array<integer> querySet = asArray<integer>(inputSet[QuerySet]);
+			Array<real> maxDistanceSet = asLinearizedArray<real>(inputSet[MaxDistanceSet]);
+			const integer queries = querySet.size();
 			const integer k = asScalar<integer>(inputSet[KNearest]);
 
 			std::vector<Point_ConstIterator> queryIterSet;
@@ -697,7 +697,7 @@ namespace Pastel
 			for (integer i = 0;i < queries;++i)
 			{			
 				const ConstIterator iter = 
-					indexMap.find((*querySet)(i));
+					indexMap.find(querySet(i));
 				if (iter != indexMap.end())
 				{
 					queryIterSet.push_back(iter->second);
@@ -712,9 +712,9 @@ namespace Pastel
 				0, k,
 				&nearestArray,
 				(Array<real>*)0,
-				maxDistanceSet->range());
+				maxDistanceSet.range());
 
-			IntegerArrayPtr result =
+			Array<integer> result =
 				createArray<integer>(k, queries, outputSet[IdSet]);
 			for (integer x = 0;x < nearestArray.width();++x)
 			{
@@ -723,11 +723,11 @@ namespace Pastel
 					Point_ConstIterator iter = nearestArray(x, y);
 					if (iter != state->tree.end())
 					{
-						(*result)(x, y) = iter->point().id;
+						result(x, y) = iter->point().id;
 					}
 					else
 					{
-						(*result)(x, y) = -1;
+						result(x, y) = -1;
 					}
 				}			
 			}

@@ -102,14 +102,14 @@ namespace Pastel
 	/*!
 	Here 'left' is v and 'right' is w.
 	*/
-	template <typename Real,
-		int N,
+	template <typename Real, 
+		int Height, int Width, 
 		typename LeftExpression,
 		typename RightExpression>
 		OuterProduct<Real, LeftExpression, RightExpression>
-		outerProduct(
-		const VectorExpression<Real, N, LeftExpression>& left,
-		const VectorExpression<Real, N, RightExpression>& right);
+	outerProduct(
+		const VectorExpression<Real, Height, LeftExpression>& left,
+		const VectorExpression<Real, Width, RightExpression>& right);
 
 	//! Computes the outer product v v^T.
 	/*!

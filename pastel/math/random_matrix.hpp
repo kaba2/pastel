@@ -196,8 +196,6 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& condition,
 		Matrix<Real>& result)
 	{
-		PASTEL_STATIC_ASSERT(N != 1);
-
 		/*
 		Problem:
 		Generate a random symmetric positive 
