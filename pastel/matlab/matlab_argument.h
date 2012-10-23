@@ -9,8 +9,6 @@
 
 #include "pastel/matlab/matlab_mex.h"
 
-#include <boost/shared_ptr.hpp>
-
 namespace Pastel
 {
 
@@ -25,7 +23,7 @@ namespace Pastel
 	allGreaterEqual(extent, 0)
 	*/
 	template <typename Type>
-	std::unique_ptr<Array<Type> > createArray(
+	Array<Type> createArray(
 		const Vector2i& extent,
 		mxArray*& output);
 
@@ -35,7 +33,7 @@ namespace Pastel
 	createArray(Vector2i(width, height), output)
 	*/
 	template <typename Type>
-	std::unique_ptr<Array<Type> > createArray(
+	Array<Type> createArray(
 		integer width, integer height,
 		mxArray*& output);
 
@@ -66,8 +64,7 @@ namespace Pastel
 	mxIsNumeric(that)
 	*/
 	template <typename Type>
-	std::unique_ptr<Array<Type> > asArray(
-		const mxArray* that);
+	Array<Type> asArray(const mxArray* that);
 
 	//! Retrieves a reference to a linearized real array.
 	/*!
@@ -75,8 +72,7 @@ namespace Pastel
 	mxIsNumeric(that)
 	*/
 	template <typename Type>
-	std::unique_ptr<Array<Type> > asLinearizedArray(
-		const mxArray* that);
+	Array<Type> asLinearizedArray(const mxArray* that);
 
 	//! Reports all real arrays in a cell-array.
 	/*!
@@ -84,16 +80,19 @@ namespace Pastel
 	mxIsCell(cellArray)
 	mxGetClassID(cell) == typeToMatlabClassId<Type>() 
 
-	Returns:
+	returns:
 	The number of cells in the array.
+
+	report:
+	A reporter for Array<Type>.
 
 	Note: The elements are reported in Matlab's linearized
 	order.
 	*/
-	template <typename Type, typename ArrayPtr_Iterator>
+	template <typename Type, typename Array_Reporter>
 	integer getArrays(
 		const mxArray* cellArray,
-		ArrayPtr_Iterator output);
+		Array_Reporter report);
 
 	//! Reports all elements in a numeric array.
 	/*!
@@ -121,42 +120,6 @@ namespace Pastel
 	//! Returns the Matlab class-id corresponding to 'Type'.
 	template <typename Type>
 	mxClassID typeToMatlabClassId();
-
-	typedef std::unique_ptr<Array<integer> > 
-		IntegerArrayPtr;
-
-	typedef std::unique_ptr<Array<real> > 
-		RealArrayPtr;
-
-	typedef std::unique_ptr<Array<real32> > 
-		Real32ArrayPtr;
-
-	typedef std::unique_ptr<Array<real64> > 
-		Real64ArrayPtr;
-
-	typedef std::unique_ptr<Array<int8> > 
-		Int8ArrayPtr;
-
-	typedef std::unique_ptr<Array<uint8> > 
-		UInt8ArrayPtr;
-
-	typedef std::unique_ptr<Array<int16> > 
-		Int16ArrayPtr;
-
-	typedef std::unique_ptr<Array<uint16> > 
-		UInt16ArrayPtr;
-
-	typedef std::unique_ptr<Array<int32> > 
-		Int32ArrayPtr;
-
-	typedef std::unique_ptr<Array<uint32> > 
-		UInt32ArrayPtr;
-
-	typedef std::unique_ptr<Array<int64> > 
-		Int64ArrayPtr;
-
-	typedef std::unique_ptr<Array<uint64> > 
-		UInt64ArrayPtr;
 
 }
 

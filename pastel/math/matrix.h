@@ -37,11 +37,14 @@ namespace Pastel
 		typedef Real* Iterator;
 		typedef const Real* ConstIterator;
 
-		typedef typename Array<Real, 2>::RowIterator RowIterator;
-		typedef typename Array<Real, 2>::ConstRowIterator ConstRowIterator;
+		typedef typename Array<Real>::Cursor Cursor;
+		typedef typename Array<Real>::ConstCursor ConstCursor;
 
-		typedef typename Array<Real, 2>::RowIterator ColumnIterator;
-		typedef typename Array<Real, 2>::ConstRowIterator ConstColumnIterator;
+		typedef typename Array<Real>::RowIterator RowIterator;
+		typedef typename Array<Real>::ConstRowIterator ConstRowIterator;
+
+		typedef typename Array<Real>::RowIterator ColumnIterator;
+		typedef typename Array<Real>::ConstRowIterator ConstColumnIterator;
 
 		// Iterator ranges
 		typedef boost::iterator_range<Iterator> Range;

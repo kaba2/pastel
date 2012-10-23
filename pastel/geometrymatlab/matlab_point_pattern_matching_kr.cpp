@@ -117,22 +117,22 @@ namespace Pastel
 
 			// Output the pairing.
 
-			Int32ArrayPtr outPairSet = createArray<int32>(
+			Array<int32> outPairSet = createArray<int32>(
 				Vector2i(pairSet.size(), 2), outputSet[PairSet]);
 
 			for (integer i = 0;i < pairSet.size();++i)
 			{
 				// The +1 is because Matlab has 1-based indexing.
-				(*outPairSet)(i, 0) = (pairSet[i].first->point() - sceneData) / n + 1;
-				(*outPairSet)(i, 1) = (pairSet[i].second->point() - modelData) / n + 1;
+				outPairSet(i, 0) = (pairSet[i].first->point() - sceneData) / n + 1;
+				outPairSet(i, 1) = (pairSet[i].second->point() - modelData) / n + 1;
 			}
 
 			// Output the translation.
 
-			RealArrayPtr outTranslation =
+			Array<real> outTranslation =
 				createArray<real>(Vector2i(1, n), outputSet[Translation]);
 			std::copy(translation.begin(), translation.end(),
-				outTranslation->begin());
+				outTranslation.begin());
 
 			// Output the bias.
 
