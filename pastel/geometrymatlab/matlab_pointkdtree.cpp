@@ -687,32 +687,77 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
-			Array<integer> querySet = asArray<integer>(inputSet[QuerySet]);
 			Array<real> maxDistanceSet = asLinearizedArray<real>(inputSet[MaxDistanceSet]);
-			const integer queries = querySet.size();
 			const integer k = asScalar<integer>(inputSet[KNearest]);
 
-			std::vector<Point_ConstIterator> queryIterSet;
-			queryIterSet.reserve(queries);
-			for (integer i = 0;i < queries;++i)
-			{			
-				const ConstIterator iter = 
-					indexMap.find(querySet(i));
-				if (iter != indexMap.end())
+			Array<Point_ConstIterator> nearestArray;
+			integer queries = 0;
+
+			mxClassID id = mxGetClassID(inputSet[QuerySet]);
+			if (id == mxSINGLE_CLASS ||
+				id == mxDOUBLE_CLASS)
+			{
+				// The queries are a set of points given explicitly
+				// by their coordinates. Each column is a query point.
+				Array<real> querySet = asArray<real>(inputSet[QuerySet]);
+				queries = querySet.width();
+				integer n = state->tree.n();
+
+				nearestArray.setExtent(
+					Vector2i(k, queries),
+					state->tree.end());
+
+				// Find the k-nearest-neighbors for each point.
+				Vector<real> query(ofDimension(n));
+				for (integer i = 0;i < queries;++i)
 				{
-					queryIterSet.push_back(iter->second);
+					std::copy(
+						querySet.cColumnBegin(i),
+						querySet.cColumnEnd(i),
+						query.begin());
+
+					searchNearest(
+						state->tree,
+						query, k,
+						rangeReporter(nearestArray.rowRange(i)),
+						nullReporter(),
+						maxDistanceSet(i));
 				}
 			}
+			else
+			{
+				// The queries are over the points in the kd-tree,
+				// given by their ids.
+				Array<integer> querySet = asLinearizedArray<integer>(inputSet[QuerySet]);
+				queries = querySet.size();
+
+				nearestArray.setExtent(
+					Vector2i(k, queries),
+					state->tree.end());
+
+				// Find the iterators corresponding to the
+				// point-ids.
+				std::vector<Point_ConstIterator> queryIterSet;
+				queryIterSet.reserve(queries);
+				for (integer i = 0;i < queries;++i)
+				{			
+					const ConstIterator iter = 
+						indexMap.find(querySet(i));
+					if (iter != indexMap.end())
+					{
+						queryIterSet.push_back(iter->second);
+					}
+				}
 			
-			Array<Point_ConstIterator> nearestArray(Vector2i(k, queries),
-				state->tree.end());
-			searchAllNeighbors(
-				state->tree, 
-				range(queryIterSet.begin(), queryIterSet.end()),
-				0, k,
-				&nearestArray,
-				(Array<real>*)0,
-				maxDistanceSet.range());
+				// Find the k-nearest-neighbors for each point.
+				searchAllNeighbors(
+					state->tree, 
+					range(queryIterSet.begin(), queryIterSet.end()),
+					0, k,
+					&nearestArray,
+					(Array<real>*)0,
+					maxDistanceSet.range());
+			}
 
 			Array<integer> result =
 				createArray<integer>(k, queries, outputSet[IdSet]);
