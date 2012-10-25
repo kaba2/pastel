@@ -9,6 +9,7 @@
 #include "pastel/sys/pointpolicies.h"
 #include "pastel/sys/pool_allocator.h"
 
+#include <boost/range/algorithm/fill.hpp>
 #include <unordered_map>
 
 void force_linking_pointkdtree() {}
@@ -676,11 +677,13 @@ namespace Pastel
 			enum
 			{
 				IdSet,
+				DistanceSet,
 				Outputs
 			};
 			
 			ENSURE_OP(inputs, ==, Inputs);
-			ENSURE_OP(outputs, ==, Outputs);
+			ENSURE_OP(outputs, >=, 1);
+			ENSURE_OP(outputs, <=, Outputs);
 
 			// nearestIdSet = matlab_pointkdtree('pointkdtree_search_nearest', ...
 			//		kdtree, querySet, maxDistanceSet, kNearest);
@@ -690,22 +693,38 @@ namespace Pastel
 			Array<real> maxDistanceSet = asLinearizedArray<real>(inputSet[MaxDistanceSet]);
 			const integer k = asScalar<integer>(inputSet[KNearest]);
 
-			Array<Point_ConstIterator> nearestArray;
-			integer queries = 0;
-
 			mxClassID id = mxGetClassID(inputSet[QuerySet]);
-			if (id == mxSINGLE_CLASS ||
-				id == mxDOUBLE_CLASS)
+			bool queriesAreCoordinates = 
+				id == mxSINGLE_CLASS ||
+				id == mxDOUBLE_CLASS;
+
+			integer queries = 0;
+			if (queriesAreCoordinates)
+			{
+				queries = mxGetN(inputSet[QuerySet]);
+			}
+			else
+			{
+				queries = mxGetNumberOfElements(inputSet[QuerySet]);
+			}
+
+			Array<Point_ConstIterator> nearestArray(
+					Vector2i(k, queries),
+					state->tree.end());
+
+			Array<real> distanceArray;
+			if (outputs >= 2)
+			{
+				distanceArray.swap(createArray<real>(k, queries, outputSet[DistanceSet]));
+				boost::fill(distanceArray.range(), infinity<real>());
+			}
+
+			if (queriesAreCoordinates)
 			{
 				// The queries are a set of points given explicitly
 				// by their coordinates. Each column is a query point.
 				Array<real> querySet = asArray<real>(inputSet[QuerySet]);
-				queries = querySet.width();
 				integer n = state->tree.n();
-
-				nearestArray.setExtent(
-					Vector2i(k, queries),
-					state->tree.end());
 
 				// Find the k-nearest-neighbors for each point.
 				Vector<real> query(ofDimension(n));
@@ -720,7 +739,7 @@ namespace Pastel
 						state->tree,
 						query, k,
 						rangeReporter(nearestArray.rowRange(i)),
-						nullReporter(),
+						rangeReporter(distanceArray.rowRange(i)),
 						maxDistanceSet(i));
 				}
 			}
@@ -729,11 +748,6 @@ namespace Pastel
 				// The queries are over the points in the kd-tree,
 				// given by their ids.
 				Array<integer> querySet = asLinearizedArray<integer>(inputSet[QuerySet]);
-				queries = querySet.size();
-
-				nearestArray.setExtent(
-					Vector2i(k, queries),
-					state->tree.end());
 
 				// Find the iterators corresponding to the
 				// point-ids.
@@ -755,7 +769,7 @@ namespace Pastel
 					range(queryIterSet.begin(), queryIterSet.end()),
 					0, k,
 					&nearestArray,
-					(Array<real>*)0,
+					(outputs >= 2) ? &distanceArray : (Array<real>*)0,
 					maxDistanceSet.range());
 			}
 

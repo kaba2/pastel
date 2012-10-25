@@ -8,23 +8,10 @@ threshold = 1e-11;
 
 fails = 0;
 for k = 1 : trials
-    % Generate a random rotation.
-    M = randn(m, m) / sqrt(2);
-    [Q, R] = qr(M);
-    for i = 1 : m
-        if R(i, i) < 0
-            Q(:, i) = -Q(:, i);
-        end
-    end
-
-    % Generate a random translation.
+    % Generate a random conformal-affine transformation.
+    Q = random_rotation(m);
     t = randn(m, 1) * 10;
-
-    % Generate a non-negative random scaling.
-    s = randn(1, 1) * 5;
-    if s < 0
-        s = -s;
-    end
+    s = abs(randn(1, 1) * 5);
 
     % Generate test point-sets.
     P = randn(m, n);

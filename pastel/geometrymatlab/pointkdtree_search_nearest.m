@@ -1,7 +1,7 @@
 % POINTKDTREE_SEARCH_NEAREST
 % Searches for k nearest neighbors in a kd-tree.
 %
-% neighborSet = pointkdtree_search_nearest(...
+% [neighborSet, distanceSet] = pointkdtree_search_nearest(...
 %		kdTree, querySet, maxDistanceSet, kNearest)
 %
 % where
@@ -18,21 +18,25 @@
 % the query point will not match as a nearest neighbor of itself.
 %
 % MAXDISTANCESET is a numeric array whose linearization contains the
-% maximum allowed (norm bijection) distance for the neighbors of each 
+% maximum allowed squared-distance for the neighbors of each 
 % query point. Use Inf for no restrictions. Native type: double.
 %
 % KNEAREST is the number of nearest neighbors to search.
 %
 % NEIGHBORSET is an (k x n) integer array, which contains k nearest
 % neighbors for each of the n query points.
+%
+% DISTANCESET is an (k x n) real array, which at (i, j) contains the
+% squared-distance of the j:th point in QUERYSET to its i:th neighbor.
 
 % Description: Searches for k nearest neighbors in a kd-tree.
 % Documentation: matlab_pointkdtree.txt
 
-function neighborSet = pointkdtree_search_nearest(...
+function [neighborSet, distanceSet] = pointkdtree_search_nearest(...
 	kdTree, querySet, maxDistanceSet, kNearest)
 
-neighborSet = pastelgeometrymatlab('pointkdtree_search_nearest', ...
+[neighborSet, distanceSet] = pastelgeometrymatlab(...
+	'pointkdtree_search_nearest', ...
 	kdTree, querySet, maxDistanceSet, kNearest);
 
 end
