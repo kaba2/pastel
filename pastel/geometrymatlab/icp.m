@@ -25,7 +25,7 @@
 % It is the ratio of points in MODELSET which to use for finding a
 % a pairing by closest points. This provides the trimming
 % for the Trimmed ICP. Setting ALPHA = 1 corresponds to the
-% original ICP algorithm. Default: 0.5.
+% original ICP algorithm. Default: 1.
 %
 % MATCHINGDISTANCE ('matchingDistance') is either a non-negative real 
 % number or an arbitrarily-dimensional real-matrix whose linearization 
@@ -96,7 +96,7 @@ modelCentroid = sum(modelSet, 2) / n;
 sceneCentroid = sum(sceneSet, 2) / m;
 
 % Optional input arguments
-matchingRatio = 0.5;
+matchingRatio = 1;
 matchingDistance = Inf;
 kNearest = 1;
 maxIterations = 100;
@@ -106,6 +106,12 @@ t0 = sceneCentroid - modelCentroid;
 eval(process_options({'matchingRatio', 'matchingDistance', ...
     'kNearest', 'maxIterations', 'minError', 'Q0', 't0'}, ...
     varargin));
+
+check(modelSet, 'pointset');
+check(sceneSet, 'pointset');
+check(matchingRatio, 'real');
+check(matchingDistance, 'real');
+check(minError, 'real');
 
 if kNearest < 1
     error('KNEAREST must be at least 1.')
@@ -148,12 +154,12 @@ for iteration = 1 : maxIterations
     % Compute the transformed model-set.
     transformedSet = Q * modelSet + t * ones(1, n);
     
-    figure;
-    scatter(transformedSet(1, :), transformedSet(2, :), 'r+');
-    axis([-10, 10, -10, 10]);
-    hold on;
-    scatter(sceneSet(1, :), sceneSet(2, :), 'go');
-    hold off;
+%     figure;
+%     scatter(transformedSet(1, :), transformedSet(2, :), 'r+');
+%     axis([-10, 10, -10, 10]);
+%     hold on;
+%     scatter(sceneSet(1, :), sceneSet(2, :), 'go');
+%     hold off;
         
     % Find nearest neighbors for each point in the
     % transformed model-set.
