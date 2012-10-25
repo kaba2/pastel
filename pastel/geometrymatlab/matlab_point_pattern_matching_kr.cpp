@@ -25,6 +25,7 @@ namespace Pastel
 			{
 				ModelSet,
 				SceneSet,
+				KNearest,
 				MinMatchRatio,
 				MatchingDistance,
 				MaxBias,
@@ -55,6 +56,7 @@ namespace Pastel
 			const integer modelPoints = mxGetN(inputSet[ModelSet]);
 			const real* sceneData = mxGetPr(inputSet[SceneSet]);
 			const integer scenePoints = mxGetN(inputSet[SceneSet]);
+			const integer kNearest = asScalar<integer>(inputSet[KNearest]);
 			const real minMatchRatio = asScalar<real>(inputSet[MinMatchRatio]);
 			const real matchingDistance = 
 				asScalar<real>(inputSet[MatchingDistance]);
@@ -110,7 +112,7 @@ namespace Pastel
 
 			Euclidean_NormBijection<real> normBijection;
 			const bool success = Pastel::pointPatternMatchKr(
-				modelTree, sceneTree, 
+				modelTree, sceneTree, kNearest,
 				minMatchRatio, matchingDistance, maxBias,
 				matchingMode, normBijection, translation, 
 				bias, pushBackReporter(pairSet));

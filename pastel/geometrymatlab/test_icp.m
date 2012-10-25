@@ -47,13 +47,16 @@ alpha = size(commonSet, 2) / size(P, 2);
 
 % Find the transformation from P to R using the ICP.
 [qIcp, tIcp] = icp(P, R, ...
-    'matchingRatio', alpha * 0.9, ...
-    'maxIterations', 10);
+    'matchingRatio', 1, ...
+    'maxIterations', 400);
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
 [pairSet, tPpm, stability, success] = ...
-    point_pattern_matching_kr(P, R, alpha * 0.9, 0.1, 0.2, 1);
+    point_pattern_matching_kr(P, R, 0.1, ...
+    'minMatchRatio', alpha * 0.9, ...
+    'maxBias', 0.2, ...,
+    'matchingMode', 1);
 qPpm = eye(m, m);
 rPpm = qPpm * P + tPpm * ones(1, size(P, 2));
 

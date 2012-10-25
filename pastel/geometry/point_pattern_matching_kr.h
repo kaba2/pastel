@@ -28,6 +28,7 @@ namespace Pastel
 	bool pointPatternMatchKr(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
+		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxBias,

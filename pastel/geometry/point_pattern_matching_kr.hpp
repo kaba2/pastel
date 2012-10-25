@@ -67,6 +67,7 @@ namespace Pastel
 				const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 				const Real& minMatchRatio,
 				const Real& actualMatchingDistance,
+				integer kNearest,
 				const Real& maxBias,
 				MatchingMode::Enum matchingMode,
 				const NormBijection& normBijection,
@@ -138,8 +139,6 @@ namespace Pastel
 							searchPoint = modelTree.pointPolicy()(
 								modelIter->point()) + 
 								translation;
-
-							const integer kNearest = 16;
 
 							searchNearest(
 								sceneTree, 
@@ -261,6 +260,7 @@ namespace Pastel
 	bool pointPatternMatchKr(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
+		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxBias,
@@ -270,6 +270,7 @@ namespace Pastel
 		PASTEL_NO_DEDUCTION(Real)& outBias,
 		SceneModel_Iterator output)
 	{
+		ENSURE_OP(kNearest, >, 0);
 		ENSURE_OP(minMatchRatio, >=, 0);
 		ENSURE_OP(minMatchRatio, <=, 1);
 		ENSURE_OP(matchingDistance, >=, 0);
@@ -283,7 +284,8 @@ namespace Pastel
 			pointPattern;
 
 		return pointPattern.match(
-			modelTree, sceneTree, 
+			modelTree, sceneTree,
+			kNearest,
 			minMatchRatio,
 			matchingDistance,
 			maxBias,

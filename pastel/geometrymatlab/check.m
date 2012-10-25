@@ -16,9 +16,6 @@ if strcmp(concept, 'real')
 	   size(data, 2) ~= 1
 		error('Type is not a real number.');
 	end
-    if ~isa(data, 'double')
-        error('A real number must have type double.');
-    end
     
     handled = 1;
 end
@@ -26,9 +23,6 @@ end
 if strcmp(concept, 'pointset')
     if ~isnumeric(data)
         error('A pointset must a real-array');
-    end
-    if ~isa(data, 'double')
-        error('A pointset must be of type double.');
     end
     
     handled = 1;
