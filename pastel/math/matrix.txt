@@ -11,68 +11,8 @@ Practice
 The Matrix class is declared by:
 
 [[CppCode]]:
-	template <typename Real, int Height = Dynamic, int Width = Height>
+	template <typename Real>
 	class Matrix;
-
-When the Height and the Width are positive integers, the Matrix
-stores its data directly to the class and its extents can't be
-changed. Such a Matrix is called _static-sized_. If on the
-other hand Height and Width are Dynamic, then the size of the Matrix 
-can be changed at run-time and it is called _dynamic-sized_.
-	
-### Static and dynamic-sized matrices
-
-Pastel implements both static (compile-time) and dynamic-sized
-matrices. When the dimensions of the matrix are known
-in compile-time (and are small), memory use and efficiency can be boosted 
-by storing the matrix elements directly
-in the matrix class, rather than accessible through
-a pointer to dynamically allocated memory. Compilers
-can possibly produce faster code because the length
-of the loops become known in advance. Both types
-of matrices fall under a generic template class, which
-makes it possible to use the same algorithms for both.
-
-Static sized matrices are useful in those geometric and computer
-graphics applications where the dimension stays constant
-and is low (<= 4). In contrast, dynamic-sized matrices are useful when
-solving larger linear equation systems or systems
-whose dimension is only known at run-time.
-
-### Vector embedding convention
-
-We choose the convention of embedding vectors to matrices
-by identifying vectors with row vectors. This is the opposite
-of the convention used in mathematics. The reason for
-doing this originates from the following dilemma.
-
-First, it is standard to index a matrix A as A[y, x], where y 
-gives the row and x the column. Also, it is standard to identify 
-vectors with column vectors, because then the matrix-vector 
-multiplication Ax resembles function evaluation A(x). Given the 
-column vector convention, the column vectors of the matrix are the 
-ones of importance because they represent the images of the standard 
-basis vectors. For a programmer it is very convenient to refer to the
-column vectors as a whole. A natural notation for this is A[x], 
-where x gives the column. However, now A[x][y] and A[y, x] refer 
-to the same element which is likely to cause confusion because 
-the indices come at a different order.
-This discrepancy can be corrected by either:
-
-1. indexing matrices as A[x, y]
-
-2. prohibiting column vector references
-
-3. switching to row vector convention
-
-The option 1 will not do because it would create more confusion 
-than it corrects by diverging from a world-wide standard.
-The option 2 will not do because it is of too great importance 
-for the usability of the library.
-The option 3 will create some confusion because most have
-been used to work with column vectors. However, the connection
-between using column or row vectors is trivial.
-In this library we will use the row vector convention.
 
 ### Operator overloading
 
@@ -166,16 +106,18 @@ matrix without actually creating a temporary one in memory.
 	
 ### Storage convention
 
-The matrix data is stored as a continuous array of numbers with
-the row-major convention. This means that the rows are
-stored one after each other in ascending order, and the
+The matrix data can be stored in either the row-major, or the
+column-major order. By default, the data is stored using the
+the row-major convention. This means that the rows are stored 
+one after each other in ascending order, and the
 elements in each row are stored in ascending order in
 column position. For example, the elements of
 a 2x2 matrix are stored in the order 
 (0, 0); (0, 1); (1, 0); (1, 1).
 This convention corresponds to the convention that
-programming language C (and C++) uses with its
-multi-dimensional tables. 
+programming language C (and C++) uses with its multi-dimensional 
+tables. The column-major convention is useful when interfacing
+with Matlab; there the storage convention is column-major.
 
 ### Aliasing
 

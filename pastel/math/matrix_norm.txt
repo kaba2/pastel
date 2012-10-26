@@ -3,18 +3,20 @@ Matrix norms
 
 [[Parent]]: matrix_algorithms.txt
 
+[[set indent]]: EquationSet
+
 A _matrix-norm_ is a vector-space-norm with two additional requirements:
 
- 1) ''|AB| <= |A||B|'' (sub-multiplicativity)
- 2) ''|A| = |A*|'' (norm unchanged by (conjugate) transpose)
+	|AB| <= |A||B|, "and"
+	|A| = |A*|.
 
 A vector-norm ''|x|'' _induces_ a matrix-norm by: 
 
-''|A| = max{|Ax|/|x| : x != 0}''
+	|A| = max{|Ax|/|x| : x != 0}.
   
 An induced matrix-norm is by definition _consistent_ with its
-inducing vector-norm: 
+inducing vector-norm
 
-''forall x: |Ax| <= |A||x|''
+	forall x: |Ax| <= |A||x|.
 
 Not all matrix-norms are induced by a vector-norm.
