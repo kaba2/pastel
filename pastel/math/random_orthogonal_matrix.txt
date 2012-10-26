@@ -1,0 +1,38 @@
+Uniform random orthogonal matrix
+================================
+
+[[Parent]]: random_matrix.txt
+
+[[set indent]]: EquationSet
+
+This section considers the generation of a uniform random matrix 
+''Q in RR^{n xx n}'' such that ''Q^T Q = I'' (then ''det(Q) = +- 1''). 
+In other words, of generating a random matrix ''Q in O(n)'', the 
+orthogonal group, such that the resulting distribution has the Haar 
+measure (the measures of subsets of ''O(n)'' are invariant to orthogonal 
+transformations):
+
+	forall A sub O(n): forall Gamma in O(n): P(Q in A) = P(Q in Gamma A).
+
+QR decomposition
+----------------
+
+The QR-decomposition is not unique. If 
+
+	M = QR
+
+is a QR-decomposition, then also
+
+	M = (Q D) (D^-1 R)
+
+is a QR-decomposition when ''D'' is a diagonal orthogonal matrix 
+(diagonal consist of +-1). To make the QR-decomposition unique, 
+the signs of the diagonal of ''R'' must be fixed. For example,
+to make the diagonal of ''R'' positive, ''D'' is chosen as
+
+	D = diag(sign(diag(R))).
+
+If ''M in RR^{n xx n}'' is generated from i.i.d. standard-normal real 
+random variables, then ''QD'' is distributed with the Haar measure in 
+''O(n)''.
+

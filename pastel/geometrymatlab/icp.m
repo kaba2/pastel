@@ -154,12 +154,15 @@ for iteration = 1 : maxIterations
     % Compute the transformed model-set.
     transformedSet = Q * modelSet + t * ones(1, n);
     
-%     figure;
-%     scatter(transformedSet(1, :), transformedSet(2, :), 'r+');
-%     axis([-10, 10, -10, 10]);
-%     hold on;
-%     scatter(sceneSet(1, :), sceneSet(2, :), 'go');
-%     hold off;
+%     if mod(iteration, maxIterations / 5) == 0
+%         figure;
+%         scatter(transformedSet(1, :), transformedSet(2, :), 'r.');
+%         %axis([-10, 10, -10, 10]);
+%         axis equal;
+%         hold on;
+%         scatter(sceneSet(1, :), sceneSet(2, :), 'g.');
+%         hold off;
+%     end
         
     % Find nearest neighbors for each point in the
     % transformed model-set.
@@ -176,8 +179,7 @@ for iteration = 1 : maxIterations
     
     % Compute the trimmed mean-square error.
     trimmedMse = sum(distanceSet(matchSet, 1)) / nTrimmed;
-    disp(num2str(trimmedMse));
-    
+   
     % Compute a new estimate for the optimal transformation.
     [Q, t] = ls_conformal_affine(...
         modelSet(:, matchSet), ...

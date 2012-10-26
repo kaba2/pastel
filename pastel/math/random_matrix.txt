@@ -1,0 +1,6 @@
+Random matrices
+===============
+
+[[Parent]]: matrix_algorithms.txt
+
+This section contains algorithms for generating random matrices.

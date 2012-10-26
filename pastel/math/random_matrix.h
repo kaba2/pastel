@@ -1,47 +1,19 @@
-// Description: Generation of random matrices
-// Documentation: matrix_algorithms.txt
+// Description: An aggregate file for random matrices.
 
 #ifndef PASTELMATH_RANDOM_MATRIX_H
 #define PASTELMATH_RANDOM_MATRIX_H
 
-#include "pastel/math/matrix.h"
+#include "pastel/math/random_orthogonal_matrix.h"
+#include "pastel/math/random_rotation_matrix.h"
+#include "pastel/math/random_spd_matrix.h"
 
 namespace Pastel
 {
-
-	// Common matrix formation.
 
 	//! Returns a random matrix with elements from [-1, 1].
 	template <typename Real>
 	void setRandomMatrix(
 		Matrix<Real>& matrix);
-
-	//! Generates a uniformly distributed random rotation matrix.
-	template <typename Real>
-	void setRandomRotation(
-		Matrix<Real>& result);
-
-	//! Generates random sym.pos.def. matrix S with given det(S).
-	/*!
-	Preconditions:
-	determinant > 0
-	*/
-	template <typename Real>
-	void setRandomSymmetricPositiveDefinite(
-		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		Matrix<Real>& result);
-
-	//! Generates random spd matrix S with given det(S) and cond(S).
-	/*!
-	Preconditions:
-	determinant > 0
-	condition >= 1
-	*/
-	template <typename Real>
-	void setRandomSymmetricPositiveDefinite(
-		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		const PASTEL_NO_DEDUCTION(Real)& condition,
-		Matrix<Real>& result);
 
 }
 

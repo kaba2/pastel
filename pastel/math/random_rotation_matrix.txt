@@ -1,0 +1,24 @@
+Uniform random rotation matrix
+==============================
+
+[[Parent]]: random_matrix.txt
+
+This section describes the generation of uniform random rotation
+matrices.
+
+Rejection sampling
+------------------
+
+Let ''Q'' be a [[Link: random_orthogonal_matrix.txt]].
+Since ''Q'' is uniformly distributed in ''O(n)'', it will have
+''det(Q) = -1'' with probability 0.5. Thus, one way to generate
+rotation matrices with uniform distribution is to reject 
+random orthogonal matrices until ''det(Q) = 1''.
+
+Reflection
+----------
+
+If ''det(Q) = -1'', one can get a ''Q'' with ''det(Q) = 1'' by negating 
+the first column of ''Q''. This seems to produce the same result as 
+rejection sampling (when plotting the density of eigenvalues). However, 
+I am lacking a proof for this. This is the current implementation.

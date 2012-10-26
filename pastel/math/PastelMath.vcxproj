@@ -187,6 +187,12 @@
     <ClInclude Include="pastelmath.h" />
     <ClInclude Include="random_matrix.h" />
     <ClInclude Include="random_matrix.hpp" />
+    <ClInclude Include="random_orthogonal_matrix.h" />
+    <ClInclude Include="random_orthogonal_matrix.hpp" />
+    <ClInclude Include="random_rotation_matrix.h" />
+    <ClInclude Include="random_rotation_matrix.hpp" />
+    <ClInclude Include="random_spd_matrix.h" />
+    <ClInclude Include="random_spd_matrix.hpp" />
     <ClInclude Include="smoothstep.h" />
     <ClInclude Include="smoothstep.hpp" />
     <ClInclude Include="affine_transformation.h" />
@@ -284,6 +290,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="householder_reflection.txt" />
+    <Text Include="random_matrix.txt" />
+    <Text Include="random_orthogonal_matrix.txt" />
+    <Text Include="random_rotation_matrix.txt" />
+    <Text Include="random_spd_matrix.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

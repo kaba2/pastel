@@ -1,0 +1,78 @@
+Random symmetric positive-definite matrices
+===========================================
+
+[[Parent]]: random_matrix.txt
+
+[[set indent]]: EquationSet
+
+This section describes the generation of random symmetric
+positive-definite (SPD) matrices.
+
+With a given determinant
+------------------------
+
+The problem is to generate a random symmetric positive definite matrix 
+''S in RR^{n xx n}'' with ''det(S) = d''. Let ''Q in RR^{n xx n}'' be an 
+orthogonal matrix, ''D in RR^{n xx n}'' be a positive diagonal matrix, 
+and ''S = QDQ^T''. Then ''S'' is symmetric:
+
+	S^T = (QDQ^T)^T = Q D^T Q^T = QDQ^T = S.
+
+''S'' is positive definite:
+
+	(forall x in RR^n:)
+	x^T S x > 0
+	<=>
+	x^T Q D Q^T x > 0
+	<=> (Q is invertible)
+	x^T D x > 0
+	<=> (D is positive diagonal)
+	true
+
+and
+
+	det(S) 
+	= det(QDQ^T) 
+	= det(Q) det(D) det(Q^T)
+	= det(D).
+
+Conversely, all symmetric positive definite matrices ''S'' can be 
+brought to the form of ''S = QDQ^T'' by eigen-decomposition. The 
+generation of a random orthogonal matrix ''Q'' is described in 
+[[Link: random_orthogonal_matrix.txt]]. Now we just need to generate 
+a diagonal matrix ''D'' such that ''det(D) = d''.
+
+### Random diagonal matrix with given positive determinant
+
+Let
+		
+	a_1 = 0,
+	a_(n+1) = -ln(d),
+
+and let
+
+	{a_2, ..., a_n}
+		
+be a set of n uniform random numbers in ''[0, -ln(d)]''. Sort this list to 
+ascending order with a permutation ''p''. Define
+
+	b_i = a_p(i + 1) - a_p(i).
+		
+Then
+		
+	sum b_i = -ln(D).
+
+We claim ''D'' can be formed by setting
+
+	D = diag(e^(-b_1), ..., e^(-b_n)).
+
+To check this claim, compute:
+		
+	det(D) 
+	= prod e^(-b_i)
+	= e^(sum -b_i)
+	= e^(-sum b_i)
+	= e^(ln(d))
+	= d.
+
+The diagonal elements of ''D'' are also positive.
