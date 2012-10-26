@@ -379,6 +379,24 @@
     <ClInclude Include="householder_reflection.hpp">
       <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
     </ClInclude>
+    <ClInclude Include="random_orthogonal_matrix.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="random_orthogonal_matrix.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="random_spd_matrix.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="random_spd_matrix.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="random_rotation_matrix.h">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="random_rotation_matrix.hpp">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="interpolation.txt">
@@ -471,6 +489,18 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="householder_reflection.txt">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </Text>
+    <Text Include="random_orthogonal_matrix.txt">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </Text>
+    <Text Include="random_matrix.txt">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </Text>
+    <Text Include="random_spd_matrix.txt">
+      <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
+    </Text>
+    <Text Include="random_rotation_matrix.txt">
       <Filter>Transformations\Linear algebra\Matrix algorithms</Filter>
     </Text>
   </ItemGroup>

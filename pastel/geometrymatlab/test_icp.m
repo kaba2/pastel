@@ -16,9 +16,16 @@ pAlpha = 1;
 rAlpha = 1;
 
 % Generate a random point-set P.
-P = randn(m, n);
+%P = randn(m, n);
 
-% Generate a random rotation.
+% Load a point-set from a SQUID file.
+file = fopen('fish.txt', 'rt');
+% Read the number of points.
+n = fscanf(file, '# %d');
+% Read the points.
+P = fscanf(file, ' %d %d');
+P = reshape(P, [2, n]);
+fclose(file);
 
 % Generate a random transformation.
 Q = random_rotation(m);
@@ -48,7 +55,7 @@ alpha = size(commonSet, 2) / size(P, 2);
 % Find the transformation from P to R using the ICP.
 [qIcp, tIcp] = icp(P, R, ...
     'matchingRatio', 1, ...
-    'maxIterations', 400);
+    'maxIterations', 500);
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
@@ -69,8 +76,8 @@ figure;
 scatter(R(1, :), R(2, :), 'r')
 hold on
 axis equal
-scatter(rIcp(1, :), rIcp(2, :), 'bx')
-scatter(rPpm(1, :), rPpm(2, :), 'g+')
+scatter(rIcp(1, :), rIcp(2, :), 'b.')
+scatter(rPpm(1, :), rPpm(2, :), 'g.')
 for i = 1 : size(R, 2)
     k = rPermutation(i);
     j = find(pPermutation == k);
