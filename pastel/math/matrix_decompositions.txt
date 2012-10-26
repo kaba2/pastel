@@ -11,7 +11,7 @@ point of view.
 Practice
 --------
 
-Pastel implements the PLU, QR, and Cholesky decompositions.
+Pastel implements the LU, QR, and Cholesky decompositions.
 
 References
 ----------
