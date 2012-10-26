@@ -3,7 +3,6 @@
 
 #include "pastel/math/random_rotation_matrix.h"
 #include "pastel/math/random_orthogonal_matrix.h"
-#include "pastel/math/matrix_determinant.h"
 
 namespace Pastel
 {
@@ -12,14 +11,7 @@ namespace Pastel
 	void setRandomRotation(
 		Matrix<Real>& q)
 	{
-		setRandomOrthogonal(q);
-		if (determinant(q) < 0)
-		{
-			for (integer i = 0;i < q.m();++i)
-			{
-				q(i, 0) = -q(i, 0);
-			}
-		}
+		setRandomOrthogonal(q, 1);
 	}
 
 	template <typename Real>
@@ -27,10 +19,7 @@ namespace Pastel
 		integer n)
 	{
 		ENSURE_OP(n, >=, 0);
-		
-		Matrix<Real> q(n);
-		setRandomRotation(q);
-		return q;
+		return randomOrthogonal(n, 1);
 	}
 
 }

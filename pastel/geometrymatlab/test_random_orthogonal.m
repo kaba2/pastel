@@ -6,8 +6,9 @@ n = 10000;
 
 angleSet = zeros(d, n);
 for i = 1 : n
-     Q = random_rotation(d);
-     assert(det(Q) > 0);
+     orientation = 1;
+     Q = random_orthogonal(d, 'orientation', orientation);
+     assert(sign(det(Q)) == sign(orientation));
      E = eig(Q);
      angleSet(:, i) = angle(E);
 end

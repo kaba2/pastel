@@ -9,7 +9,8 @@ threshold = 1e-11;
 fails = 0;
 for k = 1 : trials
     % Generate a random conformal-affine transformation.
-    Q = random_rotation(m);
+    orientation = 2 * randi([0, 1]) - 1;
+    Q = random_orthogonal(m, 'orientation', orientation);
     t = randn(m, 1) * 10;
     s = abs(randn(1, 1) * 5);
 
@@ -18,12 +19,13 @@ for k = 1 : trials
     R = s * Q * P + t * ones(1, n);
 
     % Compute the transformation back by least-squares.
-    [QE, tE, sE] = ls_conformal_affine(P, R);
+    [QE, tE, sE] = ls_conformal_affine(P, R, 'orientation', orientation);
 
     % Check that the errors are small.
     if norm(QE - Q) > threshold || ...
        norm(tE - t) > threshold || ...
-       norm(sE - s) > threshold
+       norm(sE - s) > threshold || ...
+       sign(det(QE)) ~= sign(orientation)
         fails = fails + 1;
     end
 end

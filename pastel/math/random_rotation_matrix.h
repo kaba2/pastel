@@ -14,6 +14,10 @@ namespace Pastel
 		Matrix<Real>& result);
 
 	//! Returns a uniformly distributed random rotation matrix.
+	/*!
+	Preconditions:
+	n >= 0
+	*/
 	template <typename Real>
 	Matrix<Real> randomRotationMatrix(
 		integer n);
