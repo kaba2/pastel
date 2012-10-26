@@ -189,7 +189,7 @@ for iteration = 0 : maxIterations - 1
         modelSet(:, matchSet), ...
         nearestSet, 'orientation', 1);
 
-    if trimmedMse < minError && iteration >= minIterations
+    if trimmedMse < minError && iteration >= minIterations - 1
         % Since the trimmed mean-square-error has dropped
         % below the required level, we can stop iterating.
         break

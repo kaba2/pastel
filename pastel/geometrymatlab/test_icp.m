@@ -4,10 +4,6 @@ close all;
 % Dimension of the point-sets.
 m = 2;
 
-% Generate a random point-set P.
-%n = 100;
-%P = randn(m, n);
-
 % Number of points to generate to the secondary cluster.
 %n2 = 0;
 n2 = 100;
@@ -19,7 +15,11 @@ pAlpha = 1;
 %rAlpha = 0.5;
 rAlpha = 1;
 
-% Load a point-set from a SQUID file.
+% Generate a random point-set P.
+%n = 100;
+%P = randn(m, n);
+
+% Load a point-set P from a SQUID file.
 file = fopen('fish.txt', 'rt');
 % Read the number of points.
 n = fscanf(file, '# %d');
@@ -29,14 +29,14 @@ P = reshape(P, [2, n]);
 fclose(file);
 
 % Generate a random transformation.
-%Q = random_rotation(m);
+%Q = random_orthogonal(m, 'orientation', 1);
+%t = zeros(m, 1);
 Q = eye(m, m);
 t = (2 * rand(m, 1) - 1) * 1000;
-%t = zeros(m, 1);
 
 % Transform P augmented with the secondary cluster
 % to get the point-set R.
-PP = [P, randn(m, n2) + [4; 0] * ones(1, n2)];
+PP = [P, randn(m, n2) * 100 + [400; 0] * ones(1, n2)];
 R = Q * PP + t * ones(1, size(PP, 2));
 
 % Permute R.
