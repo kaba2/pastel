@@ -1,7 +1,7 @@
 % LS_CONFORMAL_AFFINE
 % Conformal-affine transformation between paired point-sets.
 %
-% [Q, t, s] = ls_conformal_affine(fromSet, toSet, orientation)
+% [Q, t, s] = ls_conformal_affine(fromSet, toSet, 'key', value, ...)
 %
 % where
 %
@@ -11,12 +11,6 @@
 % TOSET is an (d x n) real matrix, where each column contains
 % the coordinates of a d-dimensional point.
 %
-% ORIENTATION is an integer which can be used to specify
-% restrictions for the determinant of Q. The options are:
-%    -1: det(Q) = -1.
-%     0: no restrictions (default),
-%     1: det(Q) = 1, or
-%
 % Q is a (d x d) real orthogonal matrix, containing the optimal
 % orthogonal transformation satisfying the possible orientation 
 % restriction.
@@ -24,6 +18,14 @@
 % T is a (d x 1) real vector containing the optimal translation.
 %
 % S is a non-negative real number containing the optimal scaling.
+%
+% Optional input arguments in 'key'-value pairs:
+%
+% ORIENTATION ('orientation') is an integer which can be used to 
+% specify restrictions for the determinant of Q. The options are:
+%    -1: det(Q) = -1,
+%     0: no restrictions (default), or
+%     1: det(Q) = 1.
 %
 % The Q, T, and S are chosen such that they minimize the following
 % Frobenius norm:
@@ -39,12 +41,12 @@
 %
 % Description: Conformal-affine transformation between paired point-sets.
 
-function [Q, t, s] = ls_conformal_affine(fromSet, toSet, orientation)
+function [Q, t, s] = ls_conformal_affine(fromSet, toSet, varargin)
 
-% By default, orientation = 0.
-if nargin < 3
-    orientation = 0;
-end
+% Optional input arguments
+orientation = 0;
+eval(process_options({'orientation'}, ...
+    varargin));
 
 % Check sufficient number of parameters.
 if nargin < 2
@@ -63,7 +65,7 @@ end
 
 % Check orientation requirements.
 orientationSet = [-1, 0, 1];
-if ~any(orientationSet)
+if ~any(orientationSet == orientation)
     error('ORIENTATION must be one of -1, 0, or 1.')
 end
 
@@ -109,7 +111,10 @@ Q = U * V';
 if orientation ~= 0
     % Compute the optimal oriented orthogonal Q.
     o = double(orientation);
-    Q = U * diag([ones(1, m - 1), o * det(Q)]) * V';
+    if sign(det(Q)) ~= sign(o)
+        Q = U * diag([ones(1, m - 1), -1]) * V';
+        assert(sign(det(Q)) == sign(o));
+    end
 end
 
 scale = 1;

@@ -3,20 +3,21 @@ close all;
 
 % Dimension of the point-sets.
 m = 2;
-% Number of points to generate to the primary cluster.
-n = 100;
+
+% Generate a random point-set P.
+%n = 100;
+%P = randn(m, n);
+
 % Number of points to generate to the secondary cluster.
-n2 = 0;
-%n2 = 100;
+%n2 = 0;
+n2 = 100;
+
 % Ratio of points to keep in P.
 %pAlpha = 0.8;
 pAlpha = 1;
 % Ratio of points to keep in R.
 %rAlpha = 0.5;
 rAlpha = 1;
-
-% Generate a random point-set P.
-%P = randn(m, n);
 
 % Load a point-set from a SQUID file.
 file = fopen('fish.txt', 'rt');
@@ -54,7 +55,7 @@ alpha = size(commonSet, 2) / size(P, 2);
 
 % Find the transformation from P to R using the ICP.
 [qIcp, tIcp] = icp(P, R, ...
-    'matchingRatio', 1, ...
+    'matchingRatio', 0.5, ...
     'minIterations', 100, ...
     'maxIterations', 100, ...
     't0', zeros(m, 1));
@@ -62,10 +63,10 @@ rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
 [pairSet, tPpm, stability, success] = ...
-    point_pattern_matching_kr(P, R, 0.1, ...
+    point_pattern_matching_kr(P, R, 10, ...
     'minMatchRatio', alpha * 0.9, ...
     'maxBias', 0.2, ...,
-    'matchingMode', 1);
+    'matchingMode', 0);
 qPpm = eye(m, m);
 rPpm = qPpm * P + tPpm * ones(1, size(P, 2));
 

@@ -11,12 +11,28 @@ namespace Pastel
 	//! Generates a uniformly distributed random orthogonal matrix.
 	template <typename Real>
 	void setRandomOrthogonal(
-		Matrix<Real>& result);
+		Matrix<Real>& q, integer orientation = 0);
 
 	//! Returns a uniformly distributed random orthogonal matrix.
+	/*!
+	Preconditions:
+	n >= 0
+
+	The returned matrix is Q in RR^{n x n} such that
+	Q^T Q = I. If orientation != 0, then also 
+	det(Q) = sign(orientation).
+
+	n:
+	The dimension of the matrix; Q in R^{n x n}.
+
+	orientation:
+	If zero, then det(Q) = +-1.
+	If negative, then det(Q) = -1.
+	If positive, then det(Q) = +1.
+	*/
 	template <typename Real>
 	Matrix<Real> randomOrthogonalMatrix(
-		integer n);
+		integer n, integer orientation = 0);
 
 }
 

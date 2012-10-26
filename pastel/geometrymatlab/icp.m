@@ -1,7 +1,6 @@
 % ICP
 % Conformal-affine transformation between unpaired point-sets.
 %
-% [Q, T] = icp(modelSet, sceneSet)
 % [Q, T] = icp(modelSet, sceneSet, 'key', value, ...)
 %
 % where
@@ -153,8 +152,6 @@ pointkdtree_refine(kdTree);
 Q = U * diag([ones(1, d - 1), det(U * V')]) * V';
 t = t0;
 
-Q
-
 nTrimmed = ceil(n * matchingRatio);
 for iteration = 0 : maxIterations - 1
     % Compute the transformed model-set.
@@ -190,7 +187,7 @@ for iteration = 0 : maxIterations - 1
     % Compute a new estimate for the optimal transformation.
     [Q, t] = ls_conformal_affine(...
         modelSet(:, matchSet), ...
-        nearestSet, 1);
+        nearestSet, 'orientation', 1);
 
     if trimmedMse < minError && iteration >= minIterations
         % Since the trimmed mean-square-error has dropped
