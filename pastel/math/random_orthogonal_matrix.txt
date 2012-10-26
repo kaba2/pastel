@@ -5,14 +5,14 @@ Uniform random orthogonal matrix
 
 [[set indent]]: EquationSet
 
-This section considers the generation of a uniform random matrix 
-''Q in RR^{n xx n}'' such that ''Q^T Q = I'' (then ''det(Q) = +- 1''). 
-In other words, of generating a random matrix ''Q in O(n)'', the 
-orthogonal group, such that the resulting distribution has the Haar 
-measure (the measures of subsets of ''O(n)'' are invariant to orthogonal 
-transformations):
+This section considers the generation of uniform random matrices
+''Q in RR^{n xx n}'' such that ''Q^T Q = I'' and ''det(Q) = +- 1''. 
+In other words, we would like to generate a random matrix ''Q in O(n)'', 
+such that the distribution of ''Q'' is given by the Haar measure ''P'':
 
-	forall A sub O(n): forall Gamma in O(n): P(Q in A) = P(Q in Gamma A).
+	forall Gamma, Q in O(n): P(Q in A) = P(Q in Gamma A),
+
+for all measurable ''A subset O(n)''.
 
 QR decomposition
 ----------------
@@ -26,7 +26,7 @@ is a QR-decomposition, then also
 	M = (Q D) (D^-1 R)
 
 is a QR-decomposition when ''D'' is a diagonal orthogonal matrix 
-(diagonal consist of +-1). To make the QR-decomposition unique, 
+(diagonal consists of ''+-1''). To make the QR-decomposition unique, 
 the signs of the diagonal of ''R'' must be fixed. For example,
 to make the diagonal of ''R'' positive, ''D'' is chosen as
 
@@ -36,3 +36,8 @@ If ''M in RR^{n xx n}'' is generated from i.i.d. standard-normal real
 random variables, then ''QD'' is distributed with the Haar measure in 
 ''O(n)''.
 
+References
+----------
+
+_How to Generate Random Matrices from the Classical Compact Groups_,
+Francesco Mezzadri, Notices of the AMS, Volume 54, Number 5, 2007.

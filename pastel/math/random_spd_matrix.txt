@@ -12,22 +12,22 @@ With a given determinant
 ------------------------
 
 The problem is to generate a random symmetric positive definite matrix 
-''S in RR^{n xx n}'' with ''det(S) = d''. Let ''Q in RR^{n xx n}'' be an 
-orthogonal matrix, ''D in RR^{n xx n}'' be a positive diagonal matrix, 
-and ''S = QDQ^T''. Then ''S'' is symmetric:
+''S in RR^{n xx n}'' with ''det(S) = d''. Let ''Q in RR^{n xx n}'' be a
+[uniform random orthogonal matrix][RandomOrthogonal], ''D in RR^{n xx n}'' 
+be a positive diagonal matrix, and 
+
+	S = QDQ^T. 
+	
+Then ''S'' is symmetric:
 
 	S^T = (QDQ^T)^T = Q D^T Q^T = QDQ^T = S.
 
 ''S'' is positive definite:
 
-	(forall x in RR^n:)
-	x^T S x > 0
-	<=>
-	x^T Q D Q^T x > 0
-	<=> (Q is invertible)
-	x^T D x > 0
-	<=> (D is positive diagonal)
-	true
+	forall x in RR^n: x^T S x > 0
+	<=>	forall x in RR^n: x^T Q D Q^T x > 0
+	<=>	forall x in RR^n: x^T D x > 0
+	<=> true
 
 and
 
@@ -41,6 +41,8 @@ brought to the form of ''S = QDQ^T'' by eigen-decomposition. The
 generation of a random orthogonal matrix ''Q'' is described in 
 [[Link: random_orthogonal_matrix.txt]]. Now we just need to generate 
 a diagonal matrix ''D'' such that ''det(D) = d''.
+
+[RandomOrthogonal]: [[Ref]]: random_orthogonal_matrix.txt
 
 ### Random diagonal matrix with given positive determinant
 
@@ -76,3 +78,91 @@ To check this claim, compute:
 	= d.
 
 The diagonal elements of ''D'' are also positive.
+
+With given determinant and condition number
+-------------------------------------------
+
+The problem is to generate a random symmetric positive-definite matrix 
+''S in RR^{n xx n}'' with ''det(S) = d'' and ''cond(S) = c''.
+Let ''Q in RR^{n xx n}'' be a uniform random orthogonal matrix, 
+''D in RR^{n xx n}'' be a positive diagonal matrix, and
+
+	S = QDQ^T.
+
+This matrix has the properties as above. Now we just need to generate ''D'' 
+such that ''det(S) = d'', and ''cond(S) = c''. Let 
+
+	D = diag(e^(-a), e^(-b), e^(-b), ..., e^(-b)).
+
+and assume ''a >= b''. Then
+
+	cond(S) 
+	= cond(D) 
+	= e^(-b) / e^(-a)
+	= e^a / e^b
+	= e^(a - b)
+
+and
+
+	det(S)
+	= det(D)
+	= e^(-a) e^(-b(n - 1)).
+		
+Thus we get the pair of equations:
+
+	cond(S) = e^(a - b) = c "   " (1) 
+	det(S) = e^(-a) e^(-b(n - 1)) = d "   " (2) 
+
+Now
+		
+	(1)
+	<=>
+	a - b = ln(c)
+	<=>
+	b = a - ln(c)
+
+and
+
+	(2)
+	<=>
+	-a - b(n - 1) = ln(d)
+	<=>
+	a + b(n - 1) = -ln(d)
+	(3).
+
+Therefore
+
+	(1) -> (3)
+	<=>
+	a + (a - ln(c))(n - 1) = -ln(d)
+	<=>
+	an - (n - 1) ln(c) = -ln(d)
+	<=>
+	a = [(n - 1) ln(c) - ln(d)] / n
+	<=>
+	(4)
+
+and
+
+	(4) -> (1)
+	<=>
+	b = [(n - 1) ln(c) - ln(d) - n ln(c)] / n
+	= [-ln(c) - ln(d)] / n
+	= -[ln(c) + ln(d)] / n.
+		
+Thus the solution is:
+
+	a = [(n - 1) ln(c) - ln(d)] / n
+	b = -[ln(c) + ln(d)] / n
+
+We assumed 
+
+	a >= b
+	<=>
+	a - b >= 0
+	<=>
+	ln(c) >= 0
+	<=>
+	c >= 1
+
+This is the only restriction.

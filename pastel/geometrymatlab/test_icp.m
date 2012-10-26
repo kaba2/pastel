@@ -28,10 +28,10 @@ P = reshape(P, [2, n]);
 fclose(file);
 
 % Generate a random transformation.
-Q = random_rotation(m);
-%Q = eye(m, m);
-%t = (2 * rand(m, 1) - 1) * 10;
-t = zeros(m, 1);
+%Q = random_rotation(m);
+Q = eye(m, m);
+t = (2 * rand(m, 1) - 1) * 1000;
+%t = zeros(m, 1);
 
 % Transform P augmented with the secondary cluster
 % to get the point-set R.
@@ -55,7 +55,9 @@ alpha = size(commonSet, 2) / size(P, 2);
 % Find the transformation from P to R using the ICP.
 [qIcp, tIcp] = icp(P, R, ...
     'matchingRatio', 1, ...
-    'maxIterations', 500);
+    'minIterations', 100, ...
+    'maxIterations', 100, ...
+    't0', zeros(m, 1));
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.

@@ -39,6 +39,10 @@
 % nearest neighbors allows flexibility for finding bijective pairings (as 
 % used in Biunique ICP). Default: 1.
 %
+% MINITERATIONS ('minIterations') is a non-negative integer which 
+% specifies the minimum number of iterations for the algorithm to take. 
+% Default: 0.
+%
 % MAXITERATIONS ('maxIterations') is a non-negative integer which 
 % specifies the maximum number of iterations for the algorithm to take. 
 % Default: 100.
@@ -99,12 +103,14 @@ sceneCentroid = sum(sceneSet, 2) / m;
 matchingRatio = 1;
 matchingDistance = Inf;
 kNearest = 1;
+minIterations = 0;
 maxIterations = 100;
 minError = 1e-11;
 Q0 = eye(d, d);
 t0 = sceneCentroid - modelCentroid;
 eval(process_options({'matchingRatio', 'matchingDistance', ...
-    'kNearest', 'maxIterations', 'minError', 'Q0', 't0'}, ...
+    'kNearest', 'minIterations', 'maxIterations', ...
+    'minError', 'Q0', 't0'}, ...
     varargin));
 
 check(modelSet, 'pointset');
@@ -147,22 +153,23 @@ pointkdtree_refine(kdTree);
 Q = U * diag([ones(1, d - 1), det(U * V')]) * V';
 t = t0;
 
-assert(det(Q) > 0);
+Q
 
 nTrimmed = ceil(n * matchingRatio);
-for iteration = 1 : maxIterations
+for iteration = 0 : maxIterations - 1
     % Compute the transformed model-set.
     transformedSet = Q * modelSet + t * ones(1, n);
     
-%     if mod(iteration, maxIterations / 5) == 0
-%         figure;
-%         scatter(transformedSet(1, :), transformedSet(2, :), 'r.');
-%         %axis([-10, 10, -10, 10]);
-%         axis equal;
-%         hold on;
-%         scatter(sceneSet(1, :), sceneSet(2, :), 'g.');
-%         hold off;
-%     end
+    if iteration * 2 < 8 || ...
+       iteration == maxIterations - 1
+        figure;
+        scatter(transformedSet(1, :), transformedSet(2, :), 'r.');
+        %axis([-10, 10, -10, 10]);
+        axis equal;
+        hold on;
+        scatter(sceneSet(1, :), sceneSet(2, :), 'g.');
+        hold off;
+    end
         
     % Find nearest neighbors for each point in the
     % transformed model-set.
@@ -185,7 +192,7 @@ for iteration = 1 : maxIterations
         modelSet(:, matchSet), ...
         nearestSet, 1);
 
-    if trimmedMse < minError
+    if trimmedMse < minError && iteration >= minIterations
         % Since the trimmed mean-square-error has dropped
         % below the required level, we can stop iterating.
         break
