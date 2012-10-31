@@ -133,11 +133,7 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="build_pastelgeometrymatlab.m" />
     <None Include="build_pastelgeometrymatlab.txt" />
-    <None Include="build_pastelgeometrymatlab_debug.m" />
-    <None Include="build_pastelgeometrymatlab_develop.m" />
-    <None Include="build_pastelgeometrymatlab_release_without_openmp.m" />
     <None Include="check.m" />
     <None Include="icp.m" />
     <None Include="ls_conformal_affine.m" />

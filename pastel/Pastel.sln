@@ -37,7 +37,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelTest", "..\test\Paste
 		{DA2BF3E7-22C9-4850-AD55-B9E860441710} = {DA2BF3E7-22C9-4850-AD55-B9E860441710}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelSysMatlab", "PastelSysMatlab\PastelSysMatlab.vcxproj", "{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelSysMatlab", "sysmatlab\PastelSysMatlab.vcxproj", "{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -195,12 +195,14 @@ Global
 		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Debug|Win32.ActiveCfg = Debug|Win32
 		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Debug|Win32.Build.0 = Debug|Win32
-		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Debug|x64.ActiveCfg = Debug|Win32
-		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|Mixed Platforms.ActiveCfg = Release|x64
-		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|Mixed Platforms.Build.0 = Release|x64
+		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Debug|x64.ActiveCfg = Debug|x64
+		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Debug|x64.Build.0 = Debug|x64
+		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|Win32.ActiveCfg = Release|Win32
 		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|Win32.Build.0 = Release|Win32
-		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|x64.ActiveCfg = Release|Win32
+		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|x64.ActiveCfg = Release|x64
+		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

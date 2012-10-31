@@ -27,19 +27,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="build_pastelgeometrymatlab.m">
-      <Filter>Build files</Filter>
-    </None>
     <None Include="build_pastelgeometrymatlab.txt">
-      <Filter>Build files</Filter>
-    </None>
-    <None Include="build_pastelgeometrymatlab_debug.m">
-      <Filter>Build files</Filter>
-    </None>
-    <None Include="build_pastelgeometrymatlab_develop.m">
-      <Filter>Build files</Filter>
-    </None>
-    <None Include="build_pastelgeometrymatlab_release_without_openmp.m">
       <Filter>Build files</Filter>
     </None>
     <None Include="check.m">
