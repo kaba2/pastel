@@ -30,9 +30,6 @@
     <None Include="build_pastelgeometrymatlab.txt">
       <Filter>Build files</Filter>
     </None>
-    <None Include="check.m">
-      <Filter>Build files</Filter>
-    </None>
     <None Include="matlab_pointkdtree.txt">
       <Filter>PointKdTree</Filter>
     </None>
@@ -103,9 +100,6 @@
     <None Include="test_icp.m">
       <Filter>Transformation fitting\Iterated closest points</Filter>
     </None>
-    <None Include="test_random_orthogonal.m" />
-    <None Include="random_orthogonal.m" />
-    <None Include="process_options.m" />
     <None Include="point_pattern_matching_vw.m">
       <Filter>Transformation fitting\Point pattern matching\Conformal-affine</Filter>
     </None>

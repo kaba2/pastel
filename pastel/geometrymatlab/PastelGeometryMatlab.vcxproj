@@ -134,7 +134,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="build_pastelgeometrymatlab.txt" />
-    <None Include="check.m" />
     <None Include="icp.m" />
     <None Include="ls_conformal_affine.m" />
     <None Include="matlab_pointkdtree.txt" />
@@ -156,8 +155,6 @@
     <None Include="pointkdtree_show.m" />
     <None Include="point_pattern_matching_kr.m" />
     <None Include="point_pattern_matching_vw.m" />
-    <None Include="process_options.m" />
-    <None Include="random_orthogonal.m" />
     <None Include="test_icp.m" />
     <None Include="test_ls_conformal_affine.m" />
     <None Include="test_pointkdtree.m" />
@@ -165,7 +162,6 @@
     <None Include="pastelgeometrymatlab.txt" />
     <None Include="test_point_pattern_matching_kr.m" />
     <None Include="test_point_pattern_matching_vw.m" />
-    <None Include="test_random_orthogonal.m" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="matlab_pointkdtree.cpp" />

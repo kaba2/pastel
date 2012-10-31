@@ -1,26 +1,22 @@
 % PROCESS_OPTIONS
-% A function pre-preprocessing optional input arguments. This function is
-% required by multiple functions of TIM Matlab interface
+% Preprocessing for optional input arguments.
 %
 % [command, remove] = process_options(keySet, argumentSet)
 %
 % where
 %
-% KEYSET is a cell array with the names of the optional input arguments, 
+% KEYSET is a cell-array with the names of the optional input arguments, 
 % e.g. {'threads', 'lags'}
 %
-% ARGUMENTSET is the varargin argument at the calling function, e.g.
+% ARGUMENTSET is the varargin argument of the calling function, e.g.
 % {'threads', 4, 'lags', [1 10 20]}
 %
 % COMMAND is the string that should be evaluated by the calling function in
 % order to assign the provided values to the corresponding argument names,
-% e.g. COMMAND would be 'threads=argumentSet{4};lags={argumentSet{2};' if
+% e.g. COMMAND would be 'threads = argumentSet{4}; lags = argumentSet{2};' if
 % argumentSet = {'lags', [1 10 20], 'threads', 4}
-%
-% Type 'help tim' for more documentation
 
-% Description: Input arguments pre-processing
-% Documentation: tim_matlab_impl.txt
+% Description: Preprocessing for optional input arguments
 
 function [command, remove] = process_options(keySet, argumentSet)
 
@@ -41,11 +37,12 @@ while i < arguments
         error('MISC:process_options:invalidInput', ...
             'Optional input arguments must be given in key-value pairs.');
     end
-    
+
+	% See if the option is supported.
     [ignore, loc] = ismember(key, keySet);
     
     if loc > 0 
-        % The option is supported.
+        % This option is supported.
         if ~all(isempty(argumentSet{i + 1}))
             command = [command, key, ' = varargin{', num2str(i + 1), '};'];
             remove(i : i + 1) = true;
