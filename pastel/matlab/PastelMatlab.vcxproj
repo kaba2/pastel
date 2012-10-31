@@ -142,9 +142,11 @@
     <ClInclude Include="matlab_mex.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="check.m" />
     <None Include="matlab_argument.txt" />
     <None Include="matlab_function.txt" />
     <None Include="pastelmatlab.txt" />
+    <None Include="process_options.m" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="matlab_function.cpp" />

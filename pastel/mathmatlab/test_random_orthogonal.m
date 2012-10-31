@@ -1,3 +1,6 @@
+% Description: Testing for random_orthogonal.m.
+% DocumentationOf: random_orthogonal.m
+
 clear all;
 close all;
 

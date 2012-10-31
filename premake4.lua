@@ -29,6 +29,9 @@ buildLibraries = true
 -- Whether to build the test projects.
 buildTests = false
 
+-- Whether to build the example projects.
+buildExamples = false
+
 -- Whether to build dynamic libraries (vs static libraries)
 wantDynamicLibraries = false
 
@@ -42,20 +45,27 @@ wantLargeIntegers = false
 basicRequirements = gotBoost
 libraryRequirements = basicRequirements and buildLibraries
 testRequirements = basicRequirements and buildTests
+exampleRequirements = libraryRequirements
 
 -- Sub-libraries
 buildPastelMath = true and libraryRequirements
 buildPastelGeometry = true and libraryRequirements
 buildPastelGfx = true and libraryRequirements
 buildPastelSys = true and libraryRequirements
-buildPastelGeometryMatlab = true and libraryRequirements and gotMatlab
 buildPastelMatlab = true and libraryRequirements and gotMatlab
+buildPastelSysMatlab = true and libraryRequirements and gotMatlab
+buildPastelMathMatlab = true and libraryRequirements and gotMatlab
+buildPastelGeometryMatlab = true and libraryRequirements and gotMatlab
 
 -- Tests
 buildPastelSysTest = true and testRequirements
 buildPastelMathTest = true and testRequirements
 buildPastelGfxTest = true and testRequirements
 buildPastelGeometryTest = true and testRequirements
+
+-- Examples
+buildPastelExample = true and buildExamples and buildPastelMath and 
+		buildPastelGeometry and buildPastelGfx and buildPastelSys
 
 -- Paths
 -- =====
@@ -283,6 +293,15 @@ solution "Pastel"
 			files(addPrefix("pastel/sys/", fileSet))
 	end
 	
+	if buildPastelSysMatlab
+	then
+		project "PastelSysMatlab"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/sysmatlab/", fileSet))
+	end
+
 	if buildPastelMatlab
 	then
 		project "PastelMatlab"
@@ -301,6 +320,15 @@ solution "Pastel"
 			files(addPrefix("pastel/math/", fileSet))
 	end
 	
+	if buildPastelMathMatlab
+	then
+		project "PastelMathMatlab"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/mathmatlab/", fileSet))
+	end
+
 	if buildPastelGeometry
 	then
 		project "PastelGeometry"
@@ -389,3 +417,18 @@ solution "Pastel"
 			}
 	end
 
+	if buildPastelExample
+	then
+		project "PastelExample"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("example/PastelExample/", fileSet))
+			links 
+			{
+				"PastelGfx", 
+				"PastelGeometry",
+				"PastelMath",
+				"PastelSys"
+			}
+	end

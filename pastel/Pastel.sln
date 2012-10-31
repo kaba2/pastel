@@ -39,6 +39,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelTest", "..\test\Paste
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelSysMatlab", "sysmatlab\PastelSysMatlab.vcxproj", "{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelMathMatlab", "mathmatlab\PastelMathMatlab.vcxproj", "{4D4FE958-534A-414A-9F1D-89EBDA553FD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -203,6 +205,16 @@ Global
 		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|Win32.Build.0 = Release|Win32
 		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|x64.ActiveCfg = Release|x64
 		{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}.Release|x64.Build.0 = Release|x64
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Debug|Win32.Build.0 = Debug|Win32
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Debug|x64.ActiveCfg = Debug|Win32
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Release|Win32.ActiveCfg = Release|Win32
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Release|Win32.Build.0 = Release|Win32
+		{4D4FE958-534A-414A-9F1D-89EBDA553FD1}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
