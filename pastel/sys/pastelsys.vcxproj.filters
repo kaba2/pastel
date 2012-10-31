@@ -2086,4 +2086,9 @@
       <Filter>Memory management\Allocators\Pool allocator</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="maximum_bipartite_matching_design.txt">
+      <Filter>Algorithms\Graph algorithms\Maximum bipartite matching</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

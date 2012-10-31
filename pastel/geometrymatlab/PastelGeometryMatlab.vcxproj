@@ -139,6 +139,8 @@
     <None Include="build_pastelgeometrymatlab_develop.m" />
     <None Include="build_pastelgeometrymatlab_release_without_openmp.m" />
     <None Include="check.m" />
+    <None Include="icp.m" />
+    <None Include="ls_conformal_affine.m" />
     <None Include="matlab_pointkdtree.txt" />
     <None Include="pointkdtree_as_points.m" />
     <None Include="pointkdtree_clear.m" />
@@ -156,22 +158,32 @@
     <None Include="pointkdtree_refine.m" />
     <None Include="pointkdtree_search_nearest.m" />
     <None Include="pointkdtree_show.m" />
-    <None Include="test_pointkdtree.m" />
-    <None Include="point_pattern_matching_vw.m" />
     <None Include="point_pattern_matching_kr.m" />
+    <None Include="point_pattern_matching_vw.m" />
+    <None Include="process_options.m" />
+    <None Include="random_orthogonal.m" />
+    <None Include="test_icp.m" />
+    <None Include="test_ls_conformal_affine.m" />
+    <None Include="test_pointkdtree.m" />
     <None Include="point_pattern_matching.txt" />
-    <None Include="test_point_pattern_match.m" />
-    <None Include="test_point_pattern_match_kr.m" />
     <None Include="pastelgeometrymatlab.txt" />
+    <None Include="test_point_pattern_matching_kr.m" />
+    <None Include="test_point_pattern_matching_vw.m" />
+    <None Include="test_random_orthogonal.m" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="matlab_pointkdtree.cpp" />
-    <ClCompile Include="matlab_point_pattern_matching_vw.cpp" />
     <ClCompile Include="matlab_point_pattern_matching_kr.cpp" />
+    <ClCompile Include="matlab_point_pattern_matching_vw.cpp" />
     <ClCompile Include="pastelgeometrymatlab.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastelgeometrymatlab.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="icp.txt" />
+    <Text Include="ls_conformal_affine.txt" />
+    <Text Include="transformation_fitting.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

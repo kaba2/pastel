@@ -1,5 +1,4 @@
 // Description: Householder reflection
-// Documentation: householder.txt
 
 #ifndef PASTELMATH_HOUSEHOLDER_REFLECTION_H
 #define PASTELMATH_HOUSEHOLDER_REFLECTION_H

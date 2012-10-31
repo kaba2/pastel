@@ -1,4 +1,4 @@
-Point-pattern matching
-======================
+Point-pattern matching (Matlab)
+===============================
 
-[[Parent]]: pastelgeometrymatlab.txt
+[[Parent]]: transformation_fitting.txt

@@ -67,7 +67,7 @@
 % with an extraneous point near an embedded model point.
 
 % Description: Finds a matching translation between unordered pointsets
-% Documentation: point_pattern_matching.txt
+% Documentation: point_pattern_matching_kr.txt
 
 function [pairSet, translation, bias, success] = ...
     point_pattern_matching_kr(...

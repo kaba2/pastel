@@ -1,5 +1,5 @@
 // Description: point_pattern_matching_kr
-// Documentation: point_pattern_matching.txt
+// DocumentationOf: point_pattern_matching_kr.m
 
 #include "pastel/matlab/pastelmatlab.h"
 

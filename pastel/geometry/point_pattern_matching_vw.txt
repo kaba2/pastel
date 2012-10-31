@@ -1,7 +1,7 @@
 Conformal-affine point-pattern matching
 =======================================
 
-[[Parent]]: transformation_fitting.txt
+[[Parent]]: point_pattern_matching.txt
 
 This section contains an implementation of the algorithm given in
 the paper

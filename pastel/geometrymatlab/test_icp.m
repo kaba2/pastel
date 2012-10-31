@@ -1,3 +1,6 @@
+% Description: Testing for icp.m.
+% DocumentationOf: icp.m
+
 clear all;
 close all;
 
@@ -5,15 +8,15 @@ close all;
 m = 2;
 
 % Number of points to generate to the secondary cluster.
-%n2 = 0;
-n2 = 100;
+n2 = 0;
+%n2 = 100;
 
 % Ratio of points to keep in P.
-%pAlpha = 0.8;
-pAlpha = 1;
+pAlpha = 0.1;
+%pAlpha = 1;
 % Ratio of points to keep in R.
 %rAlpha = 0.5;
-rAlpha = 1;
+rAlpha = 0.9;
 
 % Generate a random point-set P.
 %n = 100;
@@ -41,12 +44,12 @@ R = Q * PP + t * ones(1, size(PP, 2));
 
 % Permute R.
 rPermutation = randperm(size(R, 2));
-rPermutation = rPermutation(:, 1 : floor(size(R, 2) * rAlpha));
+rPermutation = rPermutation(1 : floor(size(R, 2) * rAlpha));
 R = R(:, rPermutation);
 
 % Permute P.
 pPermutation = randperm(size(P, 2));
-pPermutation = pPermutation(:, 1 : floor(size(P, 2) * pAlpha));
+pPermutation = pPermutation(1 : floor(size(P, 2) * pAlpha));
 P = P(:, pPermutation);
 
 % Find the common points in P and R.
@@ -55,15 +58,15 @@ alpha = size(commonSet, 2) / size(P, 2);
 
 % Find the transformation from P to R using the ICP.
 [qIcp, tIcp] = icp(P, R, ...
-    'matchingRatio', 0.5, ...
+    'matchingRatio', 1, ...
     'minIterations', 100, ...
     'maxIterations', 100, ...
     't0', zeros(m, 1));
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
-[pairSet, tPpm, stability, success] = ...
-    point_pattern_matching_kr(P, R, 10, ...
+[pairSet, tPpm, bias, success] = ...
+    point_pattern_matching_kr(P, R, 50, ...
     'minMatchRatio', alpha * 0.9, ...
     'maxBias', 0.2, ...,
     'matchingMode', 0);
