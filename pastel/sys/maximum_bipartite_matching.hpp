@@ -4,7 +4,6 @@
 #include "pastel/sys/maximum_bipartite_matching.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/keyvalue.h"
-#include "pastel/sys/tuple_as_pair.h"
 
 #include <vector>
 #include <queue>
@@ -18,40 +17,43 @@ namespace Pastel
 	{
 
 		template <
-			typename Vertex_Pair_ForwardRange, 
+			typename Left_Vertex_Range, 
+			typename Right_Vertex_Range, 
 			typename Vertex_Pair_Reporter,
-			typename As_Pair,
-			typename LeftHash,
-			typename RightHash>
+			typename Left_Hash,
+			typename Right_Hash>
 		class Algorithm
 		{
 		public:
-			typedef typename Vertex_Pair_ForwardRange::value_type Type;
-			typedef typename As_Pair::template ConceptMap<Type> Type_As_Pair;
-			typedef typename Type_As_Pair::Left Left;
-			typedef typename Type_As_Pair::Right Right;
+			typedef typename boost::range_value<Left_Vertex_Range>::type Left;
+			typedef typename boost::range_value<Right_Vertex_Range>::type Right;
+			typedef typename boost::range_iterator<Left_Vertex_Range>::type
+				Left_Iterator;
+			typedef typename boost::range_iterator<Right_Vertex_Range>::type
+				Right_Iterator;
 
-			typedef std::unordered_map<Left, integer, LeftHash> LeftMap;
-			typedef std::unordered_map<Right, integer, RightHash> RightMap;
+			typedef std::unordered_map<Left, integer, Left_Hash> LeftMap;
+			typedef std::unordered_map<Right, integer, Right_Hash> RightMap;
 			typedef std::unordered_map<integer, Left> InverseLeftMap;
 			typedef std::unordered_map<integer, Right> InverseRightMap;
 
 			void work(
-				Vertex_Pair_ForwardRange range,
+				Left_Vertex_Range leftRange,
+				Right_Vertex_Range rightRange,
 				const Vertex_Pair_Reporter& reporter,
-				const As_Pair& asPair,
-				const LeftHash& leftHash,
-				const RightHash& rightHash)
+				const Left_Hash& leftHash,
+				const Right_Hash& rightHash)
 			{
 				// This is the Hopcroft-Karp algorithm for 
 				// maximum bipartite matching.
 
-				if (range.empty())
+				ENSURE_OP(boost::size(leftRange), ==, boost::size(rightRange));
+				if (leftRange.empty() && rightRange.empty())
 				{
 					return;
 				}
 
-				initialize(range, asPair);
+				initialize(leftRange, rightRange);
 
 				leftHash_ = leftHash;
 				rightHash_ = rightHash;
@@ -208,18 +210,19 @@ namespace Pastel
 			}
 
 			void initialize(
-				Vertex_Pair_ForwardRange range,
-				const As_Pair& ignoreAsPair)
+				Left_Vertex_Range leftRange,
+				Right_Vertex_Range rightRange)
 			{
-				Type_As_Pair asPair;
-
-				// * Throw away duplicate edges.
+				// Throw away duplicate edges
+				// --------------------------
 
 				// The left vertices and right vertices
 				// are disjoint sets. Since we allow to use equal
 				// objects for both vertex sets, the disjointness
 				// must be guaranteed by separate identification 
-				// maps.
+				// maps. Separate maps are also needed because we
+				// allow the types of the left and right vertices
+				// to differ.
 
 				// Associates each left vertex with an integer.
 				LeftMap leftMap(1, leftHash_);
@@ -231,11 +234,15 @@ namespace Pastel
 
 				// The 0 index is reserved to the sentinel 
 				// vertex here.
+				Left_Iterator leftIter = boost::begin(leftRange);
+				Left_Iterator leftEnd = boost::end(leftRange);
+				Right_Iterator rightIter = boost::begin(rightRange);
+
 				integer vertices = 1;
-				while(!range.empty())
+				while(leftIter != leftEnd)
 				{
-					const Left& left = asPair.left(range.front());
-					const Right& right = asPair.right(range.front());
+					const Left& left = *leftIter;
+					const Right& right = *rightIter;
 
 					integer i = vertices;
 					if (leftMap.count(left))
@@ -280,7 +287,8 @@ namespace Pastel
 					edgeSet.push_back(keyValue(i, j));
 					edgeSet.push_back(keyValue(j, i));
 
-					range.pop_front();
+					++leftIter;
+					++rightIter;
 				}
 
 				// Sort the edge-set of each vertex to an interval.
@@ -427,58 +435,45 @@ namespace Pastel
 			InverseLeftMap inverseLeftMap_;
 			InverseRightMap inverseRightMap_;
 
-			LeftHash leftHash_;
-			RightHash rightHash_;
+			Left_Hash leftHash_;
+			Right_Hash rightHash_;
 		};
 
 	}
 
 	template <
-		typename Vertex_Pair_ForwardRange, 
+		typename Left_Vertex_Range, 
+		typename Right_Vertex_Range, 
 		typename Vertex_Pair_Reporter,
-		typename As_Pair,
-		typename LeftHash,
-		typename RightHash>
+		typename Left_Hash,
+		typename Right_Hash>
 	void maximumBipartiteMatching(
-		Vertex_Pair_ForwardRange range,
+		Left_Vertex_Range leftRange,
+		Right_Vertex_Range rightRange,
 		const Vertex_Pair_Reporter& reporter,
-		const As_Pair& asPair,
-		const LeftHash& leftHash,
-		const RightHash& rightHash)
+		const Left_Hash& leftHash,
+		const Right_Hash& rightHash)
 	{
-		MaximumBipartiteMatching::Algorithm<Vertex_Pair_ForwardRange,
-			Vertex_Pair_Reporter, As_Pair, LeftHash, RightHash> algorithm;
+		MaximumBipartiteMatching::Algorithm<Left_Vertex_Range, Right_Vertex_Range,
+			Vertex_Pair_Reporter, Left_Hash, Right_Hash> algorithm;
 
-		algorithm.work(range, reporter, asPair, leftHash, rightHash);
+		algorithm.work(leftRange, rightRange, reporter, leftHash, rightHash);
 	}
 
 	template <
-		typename Vertex_Pair_ForwardRange, 
-		typename Vertex_Pair_Reporter,
-		typename As_Pair>
-	void maximumBipartiteMatching(
-		Vertex_Pair_ForwardRange range,
-		const Vertex_Pair_Reporter& reporter,
-		const As_Pair& asPair)
-	{
-		typedef typename Vertex_Pair_ForwardRange::value_type Type;
-		typedef typename As_Pair::template ConceptMap<Type> Type_As_Pair;
-		typedef typename Type_As_Pair::Left Left;
-		typedef typename Type_As_Pair::Right Right;
-
-		Pastel::maximumBipartiteMatching(range, reporter, asPair,
-			std::hash<Left>(), std::hash<Right>());
-	}
-
-	template <
-		typename Tuple2_ForwardRange,
+		typename Left_Vertex_Range, 
+		typename Right_Vertex_Range, 
 		typename Vertex_Pair_Reporter>
 	void maximumBipartiteMatching(
-		Tuple2_ForwardRange range,
+		Left_Vertex_Range leftRange,
+		Right_Vertex_Range rightRange,
 		const Vertex_Pair_Reporter& reporter)
 	{
-		Pastel::maximumBipartiteMatching(
-			range, reporter, Tuple_As_Pair());
+		typedef typename boost::range_value<Left_Vertex_Range>::type Left;
+		typedef typename boost::range_value<Right_Vertex_Range>::type Right;
+
+		Pastel::maximumBipartiteMatching(leftRange, rightRange, reporter, 
+			std::hash<Left>(), std::hash<Right>());
 	}
 
 }

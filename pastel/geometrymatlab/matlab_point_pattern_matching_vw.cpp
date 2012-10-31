@@ -1,5 +1,5 @@
 // Description: point_pattern_matching_vw
-// Documentation: point_pattern_matching.txt
+// DocumentationOf: point_pattern_matching_vw.m
 
 #include "pastel/matlab/pastelmatlab.h"
 

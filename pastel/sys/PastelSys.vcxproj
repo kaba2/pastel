@@ -739,6 +739,9 @@
     <ClCompile Include="measuretable.cpp" />
     <ClCompile Include="measuretable_tools.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="maximum_bipartite_matching_design.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

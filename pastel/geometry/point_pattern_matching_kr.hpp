@@ -11,6 +11,7 @@
 #include "pastel/sys/stdpair_as_pair.h"
 #include "pastel/sys/iteratoraddress_hash.h"
 
+#include <boost/range/adaptor/transformed.hpp>
 #include <map>
 
 namespace Pastel
@@ -35,8 +36,8 @@ namespace Pastel
 				Scene_ConstIterator;
 			typedef typename SceneTree::Point ScenePoint;
 
-			typedef std::vector<std::pair<Scene_ConstIterator, Model_ConstIterator> > 
-				PairSet;
+			typedef std::pair<Scene_ConstIterator, Model_ConstIterator> Pair;
+			typedef std::vector<Pair> PairSet;
 			typedef typename PairSet::iterator Pair_Iterator;
 			typedef typename PairSet::const_iterator Pair_ConstIterator;
 
@@ -156,11 +157,22 @@ namespace Pastel
 						
 						}
 
+						using namespace boost::adaptors;
+
+						// FIX: It's a bit inefficient to use polymorphic function
+						// objects. But the Boost::Range adaptor can not currently
+						// deal with lambdas directly.
+						std::function<Scene_ConstIterator(const Pair&)> firstElement =
+							[](const Pair& pair) {return pair.first;};
+
+						std::function<Model_ConstIterator(const Pair&)> secondElement =
+							[](const Pair& pair) {return pair.second;};
+
 						PairSet pairSet;
 						maximumBipartiteMatching(
-							range(candidatePairSet.begin(), candidatePairSet.end()),
+							candidatePairSet | transformed(firstElement),
+							candidatePairSet | transformed(secondElement),
 							pushBackReporter(pairSet),
-							StdPair_As_Pair(),
 							IteratorAddress_Hash(),
 							IteratorAddress_Hash());
 

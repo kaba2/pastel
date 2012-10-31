@@ -157,14 +157,16 @@ for iteration = 0 : maxIterations - 1
     % Compute the transformed model-set.
     transformedSet = Q * modelSet + t * ones(1, n);
     
-    if iteration * 2 < 8 || ...
+    if (mod(iteration, 2) == 0 && iteration < 8) || ...
        iteration == maxIterations - 1
         figure;
-        scatter(transformedSet(1, :), transformedSet(2, :), 'r.');
+        scatter(transformedSet(1, :), transformedSet(2, :), 'g.');
         %axis([-10, 10, -10, 10]);
         axis equal;
         hold on;
-        scatter(sceneSet(1, :), sceneSet(2, :), 'g.');
+        scatter(sceneSet(1, :), sceneSet(2, :), 'r.');
+        title(['ICP iteration ', int2str(iteration)]);
+        legend('Model', 'Scene');
         hold off;
     end
         

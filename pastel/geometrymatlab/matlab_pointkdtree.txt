@@ -1,5 +1,5 @@
-PointKdTree
-===========
+PointKdTree (Matlab)
+====================
 
-[[Parent]]: pastelgeometrymatlab.txt
+[[Parent]]: pointkdtree.txt
 

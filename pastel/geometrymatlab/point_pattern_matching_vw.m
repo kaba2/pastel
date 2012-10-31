@@ -96,7 +96,7 @@
 % I'm not sure if this is the expected behaviour.
 
 % Description: Finds a similarity between unordered 2d pointsets
-% Documentation: point_pattern_matching.txt
+% Documentation: point_pattern_matching_vw.txt
 
 function [similarity, success] = point_pattern_matching_vw(...
     modelPointSet, scenePointSet, ...

@@ -9,6 +9,8 @@
 #include "pastel/sys/random_subset.h"
 #include "pastel/sys/random.h"
 
+#include <boost/range/adaptor/transformed.hpp>
+
 using namespace Pastel;
 using namespace std;
 
@@ -167,10 +169,20 @@ namespace
 		{
 			const integer n = edgeSet.size();
 
-			std::vector<std::pair<integer, integer> > matchSet;
-			
+			typedef std::pair<integer, integer> Pair;
+			std::vector<Pair> matchSet;
+
+			using namespace boost::adaptors;
+
+			std::function<integer(const Integer2&)> firstElement = 
+				[](const Integer2& pair) {return pair[0];};
+
+			std::function<integer(const Integer2&)> secondElement = 
+				[](const Integer2& pair) {return pair[1];};
+
 			maximumBipartiteMatching(
-				edgeSet,
+				edgeSet | transformed(firstElement),
+				edgeSet | transformed(secondElement),
 				pushBackReporter(matchSet));
 
 			if (maximumMatchSize > 0 && matchSet.size() != maximumMatchSize)
