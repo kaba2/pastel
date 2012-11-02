@@ -54,14 +54,14 @@
 %      conformal: x |--> Qx + t. (default)
 %      translation: x |--> x + t.
 %
-% Q0 ('q0') is a (d x d) special-orthogonal matrix, containing the
-% initial guess on the matching rotation. If Q0 is not special-orthogonal,
-% the closest special-orthogonal matrix will be used instead.
-% Default: eye(d, d).
+% Q0 ('q0') is a (d x d) real matrix, containing the initial guess on 
+% the matching transformation Q. Default: eye(d, d).
 %
 % T0 ('t0') is a (d x 1) vector, containing the initial guess on
-% the matching translation. Default: s - m, where m and s are
-% the centroids of the model and scene point-sets, respectively.
+% the matching translation T. Default: s - Q0 * m, where s and m are
+% the centroids of the scene and model point-sets, respectively. This
+% is the optimal translation assuming SCENESET and MODELSET match
+% bijectively and Q0 = Q.
 %
 % It should approximately be true that 
 % 
@@ -114,11 +114,15 @@ maxIterations = 100;
 minError = 1e-11;
 transformType = 'conformal';
 Q0 = eye(d, d);
-t0 = sceneCentroid - modelCentroid;
+t0 = {};
 eval(process_options({'matchingRatio', 'matchingDistance', ...
     'kNearest', 'minIterations', 'maxIterations', ...
     'minError', 'transformType', 'Q0', 't0'}, ...
     varargin));
+
+if iscell(t0)
+    t0 = sceneCentroid - Q0 * modelCentroid;
+end
 
 check(modelSet, 'pointset');
 check(sceneSet, 'pointset');
@@ -159,13 +163,10 @@ kdTree = pointkdtree_construct(d);
 pointkdtree_insert(kdTree, sceneSet);
 pointkdtree_refine(kdTree);
 
-% Make sure the initial guess Q0 is special-orthogonal;
-% find the closest special-orthogonal matrix Q.
-[U, S, V] = svd(Q0);
-Q = U * diag([ones(1, d - 1), det(U * V')]) * V';
-t = t0;
-
 conformal = strcmp(transformType, 'conformal');
+
+Q = Q0;
+t = t0;
 
 nTrimmed = ceil(n * matchingRatio);
 for iteration = 0 : maxIterations - 1

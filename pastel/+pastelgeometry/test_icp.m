@@ -10,8 +10,8 @@ eval(import_pastel);
 m = 2;
 
 % Number of points to generate to the secondary cluster.
-n2 = 0;
-%n2 = 100;
+%n2 = 0;
+n2 = 200;
 
 % Ratio of points to keep in P.
 pAlpha = 0.1;
@@ -19,6 +19,7 @@ pAlpha = 0.1;
 % Ratio of points to keep in R.
 %rAlpha = 0.5;
 rAlpha = 0.9;
+%rAlpha = 1;
 
 % Generate a random point-set P.
 %n = 100;
@@ -41,7 +42,7 @@ t = (2 * rand(m, 1) - 1) * 1000;
 
 % Transform P augmented with the secondary cluster
 % to get the point-set R.
-PP = [P, randn(m, n2) * 100 + [400; 0] * ones(1, n2)];
+PP = [P, randn(m, n2) * 100 + [700; 0] * ones(1, n2)];
 R = Q * PP + t * ones(1, size(PP, 2));
 
 % Permute R.
@@ -63,8 +64,7 @@ alpha = size(commonSet, 2) / size(P, 2);
     'matchingRatio', 1, ...
     'minIterations', 100, ...
     'maxIterations', 100, ...
-    'transformType', 'translation', ...
-    't0', zeros(m, 1));
+    'transformType', 'translation');
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
