@@ -563,6 +563,7 @@
     <ClInclude Include="pastelsys.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\+pastelsys\process_options.m" />
     <None Include="..\..\license.txt" />
     <None Include="..\..\techniques_constcast.txt" />
     <None Include="..\..\techniques_iterators.txt" />

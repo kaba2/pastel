@@ -4,6 +4,8 @@
 clear all;
 close all;
 
+eval(import_pastel);
+
 d = 2;
 n = 200;
 kNearest = 8;

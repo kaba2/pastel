@@ -24,6 +24,8 @@
 
 function pointkdtree_hide(kdTree, idSet)
 
+eval(import_pastel);
+
 if nargin < 2
    pastelgeometrymatlab('pointkdtree_hide', kdTree);
 else

@@ -12,6 +12,8 @@
 
 function pointkdtree_destruct(kdTree)
 
+eval(import_pastel);
+
 pastelgeometrymatlab('pointkdtree_destruct', kdTree)
 
 end

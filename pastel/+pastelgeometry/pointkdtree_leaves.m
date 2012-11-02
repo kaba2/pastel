@@ -14,6 +14,8 @@
 
 function L = pointkdtree_leaves(kdTree)
 
+eval(import_pastel);
+
 L = pastelgeometrymatlab('pointkdtree_leaves', kdTree);
 
 end

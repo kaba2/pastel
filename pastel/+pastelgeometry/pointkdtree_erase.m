@@ -18,6 +18,8 @@
 
 function pointkdtree_erase(kdTree, idSet)
 
+eval(import_pastel);
+
 if nargin < 2
     pastelgeometrymatlab('pointkdtree_erase', kdTree);
 else

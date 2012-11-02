@@ -20,6 +20,8 @@
 
 function [command, remove] = process_options(keySet, argumentSet)
 
+eval(import_pastel);
+
 command = '';
 
 if nargin < 2,

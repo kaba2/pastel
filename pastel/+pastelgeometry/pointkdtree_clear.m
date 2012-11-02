@@ -12,6 +12,8 @@
 
 function pointkdtree_clear(kdTree)
 
+eval(import_pastel);
+
 pastelgeometrymatlab('pointkdtree_clear', kdTree)
 
 end

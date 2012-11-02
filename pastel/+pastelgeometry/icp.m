@@ -85,7 +85,7 @@
 
 function [Q, t] = icp(modelSet, sceneSet, varargin)
 
-import([pastelgeometry_package, '.*']);
+eval(import_pastel);
 
 % Check that the dimensions of the point-sets are equal.
 if size(modelSet, 1) ~= size(sceneSet, 1)

@@ -12,6 +12,8 @@
 
 function pointkdtree_merge(kdTree)
 
+eval(import_pastel);
+
 pastelgeometrymatlab('pointkdtree_merge', kdTree)
 
 end

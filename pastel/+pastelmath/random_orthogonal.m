@@ -22,6 +22,8 @@
 
 function Q = random_orthogonal(n, varargin)
 
+eval(import_pastel);
+
 % Optional input arguments
 orientation = 0;
 eval(process_options({'orientation'}, ...

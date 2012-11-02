@@ -19,6 +19,8 @@
 
 function idSet = pointkdtree_insert(kdTree, pointSet)
 
+eval(import_pastel);
+
 if pointkdtree_dimension(kdTree) ~= size(pointSet, 1)
     error('Dimensions of the kd-tree and the point-set do not match.');
 end

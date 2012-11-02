@@ -4,6 +4,8 @@
 clear all;
 close all;
 
+eval(import_pastel);
+
 % This program demonstrates the use of the point-pattern matching
 % algorithm.
 

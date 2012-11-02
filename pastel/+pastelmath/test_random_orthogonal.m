@@ -4,6 +4,8 @@
 clear all;
 close all;
 
+eval(import_pastel);
+
 d = 8;
 n = 10000;
 

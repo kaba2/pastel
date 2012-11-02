@@ -4,7 +4,7 @@
 clear all;
 close all;
 
-import pastelgeometry.*;
+eval(import_pastel);
 
 % Dimension of the point-sets.
 m = 2;

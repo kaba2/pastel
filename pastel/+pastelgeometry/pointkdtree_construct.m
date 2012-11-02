@@ -13,6 +13,8 @@
 
 function kdTree = pointkdtree_construct(dimension)
 
+eval(import_pastel);
+
 if dimension <= 0
     error('dimension must be a positive integer');
 end
