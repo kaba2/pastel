@@ -38,7 +38,7 @@
 %
 % Therefore, this same function can be used to obtain an optimal
 % rigid affine transformation between point-sets by ignoring S.
-%
+
 % Description: Conformal-affine transformation between paired point-sets.
 
 function [Q, t, s] = ls_conformal_affine(fromSet, toSet, varargin)

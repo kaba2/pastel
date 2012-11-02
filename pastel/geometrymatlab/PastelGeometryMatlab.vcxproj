@@ -161,6 +161,7 @@
     <None Include="..\+pastelgeometry\test_point_pattern_matching_kr.m" />
     <None Include="..\+pastelgeometry\test_point_pattern_matching_vw.m" />
     <None Include="build_pastelgeometrymatlab.txt" />
+    <None Include="ls_translation.m" />
     <None Include="matlab_pointkdtree.txt" />
     <None Include="point_pattern_matching.txt" />
     <None Include="pastelgeometrymatlab.txt" />
@@ -177,6 +178,7 @@
   <ItemGroup>
     <Text Include="icp.txt" />
     <Text Include="ls_conformal_affine.txt" />
+    <Text Include="ls_translation.txt" />
     <Text Include="transformation_fitting.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
