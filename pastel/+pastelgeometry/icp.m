@@ -38,12 +38,13 @@
 % nearest neighbors allows flexibility for finding bijective pairings (as 
 % used in Biunique ICP). Default: 1.
 %
-% MINITERATIONS ('minIterations') is a non-negative integer which 
-% specifies the minimum number of iterations for the algorithm to take. 
-% Default: 0.
+% MINITERATIONS ('minIterations') is a positive integer which 
+% specifies the minimum number of iterations for the algorithm to take.
+% Default: 1.
 %
-% MAXITERATIONS ('maxIterations') is a non-negative integer which 
+% MAXITERATIONS ('maxIterations') is a positive integer which 
 % specifies the maximum number of iterations for the algorithm to take. 
+% It has to hold that MINITERATIONS < MAXITERATIONS.
 % Default: 100.
 %
 % MINERROR ('minError') is the minimum trimmed-mean-square error under 
@@ -84,7 +85,7 @@
 %         kNearest = k
 %         matchingRatio = 1
 %         matchingDistance = eps
-%
+
 % Description: Locally optimal transformation between unpaired point-sets.
 % Detail: Generalizes Original, Trimmed, and Biunique ICP algorithms.
 
@@ -109,7 +110,7 @@ sceneCentroid = sum(sceneSet, 2) / m;
 matchingRatio = 1;
 matchingDistance = Inf;
 kNearest = 1;
-minIterations = 0;
+minIterations = 1;
 maxIterations = 100;
 minError = 1e-11;
 transformType = 'conformal';
@@ -132,6 +133,10 @@ check(minError, 'real');
 
 if kNearest < 1
     error('KNEAREST must be at least 1.')
+end
+
+if minIterations > maxIterations
+    error('It must hold that MINITERATIONS <= MAXITERATIONS.');
 end
 
 if matchingRatio < 0 || matchingRatio > 1
