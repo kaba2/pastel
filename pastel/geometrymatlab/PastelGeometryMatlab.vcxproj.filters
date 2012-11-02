@@ -37,7 +37,6 @@
     <None Include="point_pattern_matching.txt">
       <Filter>Transformation fitting\Point pattern matching</Filter>
     </None>
-    <None Include="pastelgeometry_package.m" />
     <None Include="..\+pastelgeometry\pastelgeometrymatlab.mexw64" />
     <None Include="..\+pastelgeometry\icp.m">
       <Filter>Transformation fitting\Iterated closest points</Filter>
@@ -113,6 +112,9 @@
     </None>
     <None Include="..\+pastelgeometry\test_pointkdtree.m">
       <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\check.m">
+      <Filter>Build files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

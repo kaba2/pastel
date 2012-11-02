@@ -25,7 +25,7 @@ rAlpha = 0.9;
 %P = randn(m, n);
 
 % Load a point-set P from a SQUID file.
-file = fopen('fish.txt', 'rt');
+file = fopen('+pastelgeometry\fish.txt', 'rt');
 % Read the number of points.
 n = fscanf(file, '# %d');
 % Read the points.

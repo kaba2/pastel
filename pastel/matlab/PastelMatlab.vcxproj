@@ -143,7 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\import_pastel.m" />
-    <None Include="check.m" />
     <None Include="matlab_argument.txt" />
     <None Include="matlab_function.txt" />
     <None Include="pastelmatlab.txt" />
