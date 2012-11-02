@@ -69,7 +69,7 @@ boostIncludePath = '..\external\boost_1_51_0';
 pastelLibraryPath = ['build\vs2010\lib\', mode];
 
 inputPath = ['pastel\', libraryName, 'matlab'];
-outputPath = inputPath;
+outputPath = ['pastel\', libraryName, 'matlab\+pastel', libraryName];
 
 % Paths
 % -----

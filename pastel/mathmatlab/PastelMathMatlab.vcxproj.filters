@@ -4,7 +4,7 @@
     <ClCompile Include="pastelmathmatlab.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="random_orthogonal.m" />
-    <None Include="test_random_orthogonal.m" />
+    <None Include="+pastelmath\random_orthogonal.m" />
+    <None Include="+pastelmath\test_random_orthogonal.m" />
   </ItemGroup>
 </Project>
