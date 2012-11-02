@@ -133,6 +133,7 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\+pastelgeometry\check.m" />
     <None Include="..\+pastelgeometry\icp.m" />
     <None Include="..\+pastelgeometry\ls_conformal_affine.m" />
     <None Include="..\+pastelgeometry\pastelgeometrymatlab.mexw64" />
@@ -161,7 +162,6 @@
     <None Include="..\+pastelgeometry\test_point_pattern_matching_vw.m" />
     <None Include="build_pastelgeometrymatlab.txt" />
     <None Include="matlab_pointkdtree.txt" />
-    <None Include="pastelgeometry_package.m" />
     <None Include="point_pattern_matching.txt" />
     <None Include="pastelgeometrymatlab.txt" />
   </ItemGroup>
