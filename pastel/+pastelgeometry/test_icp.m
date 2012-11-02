@@ -4,6 +4,8 @@
 clear all;
 close all;
 
+import pastelgeometry.*;
+
 % Dimension of the point-sets.
 m = 2;
 

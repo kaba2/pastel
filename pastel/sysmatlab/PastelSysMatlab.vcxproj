@@ -26,7 +26,7 @@
     <ClInclude Include="pastelsysmatlab.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="+pastelsys\maximum_bipartite_matching.m" />
+    <None Include="..\+pastelsys\maximum_bipartite_matching.m" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D8D8A6EB-3AA4-45B0-8B41-C963E1FE7B16}</ProjectGuid>
