@@ -116,6 +116,9 @@
     <None Include="..\+pastelgeometry\check.m">
       <Filter>Build files</Filter>
     </None>
+    <None Include="ls_translation.m">
+      <Filter>Transformation fitting\Least squares</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="matlab_pointkdtree.cpp">
@@ -140,6 +143,9 @@
       <Filter>Transformation fitting</Filter>
     </Text>
     <Text Include="ls_conformal_affine.txt">
+      <Filter>Transformation fitting\Least squares</Filter>
+    </Text>
+    <Text Include="ls_translation.txt">
       <Filter>Transformation fitting\Least squares</Filter>
     </Text>
   </ItemGroup>

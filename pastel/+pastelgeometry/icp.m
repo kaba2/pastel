@@ -1,5 +1,5 @@
 % ICP
-% Conformal-affine transformation between unpaired point-sets.
+% Locally optimal transformation between unpaired point-sets.
 %
 % [Q, T] = icp(modelSet, sceneSet, 'key', value, ...)
 %
@@ -49,6 +49,11 @@
 % MINERROR ('minError') is the minimum trimmed-mean-square error under 
 % which to accept the transformation and stop iteration. Default: 1e-11.
 %
+% TRANSFORMTYPE ('transformType') is a string which specifies the class of
+% transformations to search the optimal transformation in. Must be one of
+%      conformal: x |--> Qx + t. (default)
+%      translation: x |--> x + t.
+%
 % Q0 ('q0') is a (d x d) special-orthogonal matrix, containing the
 % initial guess on the matching rotation. If Q0 is not special-orthogonal,
 % the closest special-orthogonal matrix will be used instead.
@@ -80,7 +85,7 @@
 %         matchingRatio = 1
 %         matchingDistance = eps
 %
-% Description: Iterated closest points algorithm
+% Description: Locally optimal transformation between unpaired point-sets.
 % Detail: Generalizes Original, Trimmed, and Biunique ICP algorithms.
 
 function [Q, t] = icp(modelSet, sceneSet, varargin)
@@ -107,11 +112,12 @@ kNearest = 1;
 minIterations = 0;
 maxIterations = 100;
 minError = 1e-11;
+transformType = 'conformal';
 Q0 = eye(d, d);
 t0 = sceneCentroid - modelCentroid;
 eval(process_options({'matchingRatio', 'matchingDistance', ...
     'kNearest', 'minIterations', 'maxIterations', ...
-    'minError', 'Q0', 't0'}, ...
+    'minError', 'transformType', 'Q0', 't0'}, ...
     varargin));
 
 check(modelSet, 'pointset');
@@ -134,6 +140,11 @@ else
     matchingDistanceSet = matchingDistance(:).^2;
 end
 
+transformTypeSet = {'conformal', 'translation'};
+if ~ismember(transformType, transformTypeSet)
+    error('TRANSFORMTYPE must be either conformal or translation.');
+end
+
 if size(Q0, 1) ~= d || size(Q0, 2) ~= d
     error(['Q0 must be of size d x d, where d is ', ...
         'the dimension of the point-sets.']);
@@ -153,6 +164,8 @@ pointkdtree_refine(kdTree);
 [U, S, V] = svd(Q0);
 Q = U * diag([ones(1, d - 1), det(U * V')]) * V';
 t = t0;
+
+conformal = strcmp(transformType, 'conformal');
 
 nTrimmed = ceil(n * matchingRatio);
 for iteration = 0 : maxIterations - 1
@@ -189,9 +202,13 @@ for iteration = 0 : maxIterations - 1
     trimmedMse = sum(distanceSet(matchSet, 1)) / nTrimmed;
    
     % Compute a new estimate for the optimal transformation.
-    [Q, t] = ls_conformal_affine(...
-        modelSet(:, matchSet), ...
-        nearestSet, 'orientation', 1);
+    if conformal
+        [Q, t] = ls_conformal_affine(...
+            modelSet(:, matchSet), ...
+            nearestSet, 'orientation', 1);
+    else
+        t = ls_translation(modelSet(:, matchSet), nearestSet);
+    end
 
     if trimmedMse < minError && iteration >= minIterations - 1
         % Since the trimmed mean-square-error has dropped
