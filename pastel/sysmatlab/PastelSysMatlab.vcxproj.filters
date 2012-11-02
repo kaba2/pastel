@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="+pastelsys\maximum_bipartite_matching.m">
+    <None Include="..\+pastelsys\maximum_bipartite_matching.m">
       <Filter>Graph algorithms</Filter>
     </None>
   </ItemGroup>

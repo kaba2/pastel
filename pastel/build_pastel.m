@@ -64,12 +64,12 @@ disp(['Building a mex file for pastel', libraryName, 'matlab in ', ...
     mode, ' mode.']);
 disp(' ');
 
-pastelIncludePath = '.';
-boostIncludePath = '..\external\boost_1_51_0';
-pastelLibraryPath = ['build\vs2010\lib\', mode];
+pastelIncludePath = '..';
+boostIncludePath = '..\..\external\boost_1_51_0';
+pastelLibraryPath = ['..\build\vs2010\lib\', mode];
 
-inputPath = ['pastel\', libraryName, 'matlab'];
-outputPath = ['pastel\', libraryName, 'matlab\+pastel', libraryName];
+inputPath = [libraryName, 'matlab'];
+outputPath = ['+pastel', libraryName];
 
 % Paths
 % -----
