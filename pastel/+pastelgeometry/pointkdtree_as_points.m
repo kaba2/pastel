@@ -22,5 +22,7 @@
 
 function pointSet = poindktree_as_points(kdTree, idSet)
 
+eval(import_pastel);
+
 pointSet = pastelgeometrymatlab(...
 	'pointkdtree_as_points', kdTree, idSet);

@@ -23,6 +23,8 @@
 
 function pointkdtree_show(kdTree, idSet)
 
+eval(import_pastel);
+
 if nargin < 2
     pastelgeometrymatlab('pointkdtree_show', kdTree);
 else

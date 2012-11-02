@@ -1,7 +1,7 @@
 % MAXIMUM_BIPARTITE_MATCHING
 % Maximum bipartite matching
 %
-% matchSet = maximumBipartiteMatching(edgeSet)
+% matchSet = maximum_bipartite_matching(edgeSet)
 %
 % where
 %
@@ -19,7 +19,9 @@
 % Description: Maximum bipartite matching
 % Documentation: maximum_bipartite_matching.txt
 
-function matchSet = maximumBipartiteMatching(edgeSet)
+function matchSet = maximum_bipartite_matching(edgeSet)
+
+eval(import_pastel);
 
 if size(edgeSet, 1) ~= 2
 	error('The height of EDGESET must be 2.');

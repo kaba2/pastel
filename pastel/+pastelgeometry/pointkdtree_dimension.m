@@ -14,6 +14,8 @@
 
 function D = pointkdtree_dimension(kdTree)
 
+eval(import_pastel);
+
 D = pastelgeometrymatlab('pointkdtree_dimension', kdTree);
 
 end

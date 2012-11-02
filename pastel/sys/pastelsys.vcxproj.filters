@@ -1986,6 +1986,9 @@
     <None Include="..\build_pastel.m">
       <Filter>Build system</Filter>
     </None>
+    <None Include="..\+pastelsys\process_options.m">
+      <Filter>Build system</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="countedptr.cpp">

@@ -103,6 +103,8 @@ function [similarity, success] = point_pattern_matching_vw(...
     minMatchRatio, relativeMatchingDistance, ...
     confidence)
 
+eval(import_pastel);
+
 if nargin < 5
     confidence = 0.99;
 end

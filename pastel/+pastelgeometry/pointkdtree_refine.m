@@ -15,6 +15,8 @@
 
 function pointkdtree_refine(kdTree, bucketSize)
 
+eval(import_pastel);
+
 if nargin < 2
     bucketSize = 8;
 end

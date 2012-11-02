@@ -73,6 +73,8 @@ function [pairSet, translation, bias, success] = ...
     point_pattern_matching_kr(...
     modelPointSet, scenePointSet, matchingDistance, varargin)
 
+eval(import_pastel);
+
 % Optional input arguments
 kNearest = 16;
 minMatchRatio = 1;

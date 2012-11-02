@@ -4,6 +4,8 @@
 clear all;
 close all;
 
+eval(import_pastel);
+
 m = 10;
 n = 100;
 trials = 1000;
