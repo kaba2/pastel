@@ -33,84 +33,84 @@
     <None Include="matlab_pointkdtree.txt">
       <Filter>PointKdTree</Filter>
     </None>
-    <None Include="pointkdtree_as_points.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_clear.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_construct.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_copy.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_destruct.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_dimension.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_erase.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_hide.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_insert.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_leaves.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_merge.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_nodes.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_points.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_refine.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_search_nearest.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="pointkdtree_show.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="test_pointkdtree.m">
-      <Filter>PointKdTree</Filter>
-    </None>
     <None Include="pastelgeometrymatlab.txt" />
     <None Include="point_pattern_matching.txt">
       <Filter>Transformation fitting\Point pattern matching</Filter>
     </None>
-    <None Include="ls_conformal_affine.m">
-      <Filter>Transformation fitting\Least squares</Filter>
+    <None Include="+pastelgeometry\pointkdtree_as_points.m">
+      <Filter>PointKdTree</Filter>
     </None>
-    <None Include="test_ls_conformal_affine.m">
-      <Filter>Transformation fitting\Least squares</Filter>
+    <None Include="+pastelgeometry\pointkdtree_clear.m">
+      <Filter>PointKdTree</Filter>
     </None>
-    <None Include="icp.m">
-      <Filter>Transformation fitting\Iterated closest points</Filter>
+    <None Include="+pastelgeometry\pointkdtree_construct.m">
+      <Filter>PointKdTree</Filter>
     </None>
-    <None Include="test_icp.m">
-      <Filter>Transformation fitting\Iterated closest points</Filter>
+    <None Include="+pastelgeometry\pointkdtree_copy.m">
+      <Filter>PointKdTree</Filter>
     </None>
-    <None Include="point_pattern_matching_vw.m">
+    <None Include="+pastelgeometry\pointkdtree_destruct.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_dimension.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_erase.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_hide.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_insert.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_leaves.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_merge.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_nodes.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_points.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_refine.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_search_nearest.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\pointkdtree_show.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\test_pointkdtree.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="+pastelgeometry\test_point_pattern_matching_vw.m">
       <Filter>Transformation fitting\Point pattern matching\Conformal-affine</Filter>
     </None>
-    <None Include="test_point_pattern_matching_vw.m">
+    <None Include="+pastelgeometry\test_point_pattern_matching_kr.m">
+      <Filter>Transformation fitting\Point pattern matching\Translation</Filter>
+    </None>
+    <None Include="+pastelgeometry\point_pattern_matching_vw.m">
       <Filter>Transformation fitting\Point pattern matching\Conformal-affine</Filter>
     </None>
-    <None Include="point_pattern_matching_kr.m">
+    <None Include="+pastelgeometry\point_pattern_matching_kr.m">
       <Filter>Transformation fitting\Point pattern matching\Translation</Filter>
     </None>
-    <None Include="test_point_pattern_matching_kr.m">
-      <Filter>Transformation fitting\Point pattern matching\Translation</Filter>
+    <None Include="+pastelgeometry\ls_conformal_affine.m">
+      <Filter>Transformation fitting\Least squares</Filter>
+    </None>
+    <None Include="+pastelgeometry\icp.m">
+      <Filter>Transformation fitting\Iterated closest points</Filter>
+    </None>
+    <None Include="+pastelgeometry\test_icp.m">
+      <Filter>Transformation fitting\Iterated closest points</Filter>
+    </None>
+    <None Include="+pastelgeometry\test_ls_conformal_affine.m">
+      <Filter>Transformation fitting\Least squares</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
