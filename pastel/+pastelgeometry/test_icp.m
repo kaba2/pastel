@@ -21,7 +21,7 @@ pAlpha = 0.1;
 rAlpha = 0.9;
 %rAlpha = 1;
 
-useFish = false;
+useFish = true;
 if useFish
     % Load a point-set P from a SQUID file.
     file = fopen('+pastelgeometry\fish.txt', 'rt');
