@@ -118,7 +118,7 @@ namespace Pastel
 				: tree(TreePoint_PointPolicy(dimension))
 				, indexMap()
 				, pointAllocator(dimension * sizeof(real))
-				, index(0)
+				, index(1)
 			{
 			}
 
@@ -184,8 +184,6 @@ namespace Pastel
 			{
 				pointAllocator.clear();
 			}
-
-			typedef std::vector<TreePoint> PointSet;
 
 			Tree tree;
 			// Mapping from integer identifiers to point iterators.
@@ -786,7 +784,7 @@ namespace Pastel
 					}
 					else
 					{
-						result(i, j) = -1;
+						result(i, j) = 0;
 					}
 				}
 			}

@@ -10,18 +10,18 @@ eval(import_pastel);
 m = 2;
 
 % Number of points to generate to the secondary cluster.
-n2 = 0;
-%n2 = 200;
+%n2 = 0;
+n2 = 200;
 
 % Ratio of points to keep in P.
-pAlpha = 0.1;
+pAlpha = 0.2;
 %pAlpha = 1;
 % Ratio of points to keep in R.
-%rAlpha = 0.5;
+rAlpha = 0.5;
 %rAlpha = 0.9;
-rAlpha = 1;
+%rAlpha = 1;
 
-useFish = false;
+useFish = true;
 if useFish
     % Load a point-set P from a SQUID file.
     file = fopen('+pastelgeometry\fish.txt', 'rt');
@@ -64,10 +64,9 @@ alpha = size(commonSet, 2) / size(P, 2);
 
 % Find the transformation from P to R using the ICP.
 [qIcp, tIcp] = icp(P, R, ...
-    'matchingRatio', 1, ...
     'minIterations', 100, ...
     'maxIterations', 100, ...
-    'kNearest', 1, ...
+    'kNearest', 8, ...
     'transformType', 'translation', ...
     'matchingType', 'biunique', ...
     't0', zeros(m, 1));
@@ -75,9 +74,9 @@ rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
 [pairSet, tPpm, bias, success] = ...
-    point_pattern_matching_kr(P, R, 10, ...
+    point_pattern_matching_kr(P, R, 5, ...
     'minMatchRatio', alpha * 0.9, ...
-    'maxBias', 0.2, ...,
+    'maxBias', 0.1, ...,
     'matchingMode', 0);
 qPpm = eye(m, m);
 rPpm = qPpm * P + tPpm * ones(1, size(P, 2));

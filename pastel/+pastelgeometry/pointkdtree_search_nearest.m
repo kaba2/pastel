@@ -23,11 +23,13 @@
 %
 % KNEAREST is the number of nearest neighbors to search.
 %
-% NEIGHBORSET is an (n x k) integer array, which at (i, j) contains the
-% j:th nearest neighbor of querySet(i).
+% NEIGHBORSET is an (n x k) non-negative integer array, which at (i, j) 
+% contains the j:th nearest neighbor of querySet(i). The value 0
+% denotes a missing neighbor.
 %
 % DISTANCESET is an (n x k) real array, which at (i, j) contains the
 % squared-distance of the i:th point in QUERYSET to its j:th neighbor.
+% The value Inf denotes a missing neighbor.
 
 % Description: Searches for k nearest neighbors in a kd-tree.
 % Documentation: matlab_pointkdtree.txt
