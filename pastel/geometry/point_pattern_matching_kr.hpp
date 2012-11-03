@@ -66,9 +66,9 @@ namespace Pastel
 			bool match(
 				const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 				const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
+				integer kNearest,
 				const Real& minMatchRatio,
 				const Real& actualMatchingDistance,
-				integer kNearest,
 				const Real& maxBias,
 				MatchingMode::Enum matchingMode,
 				const NormBijection& normBijection,
