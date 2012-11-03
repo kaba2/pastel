@@ -11,8 +11,8 @@
 % of dimension m. The m must match with the dimension
 % of the kd-tree. Native type: real.
 %
-% IDSET is an integer array containing the identifiers of the
-% inserted points in the kd-tree.
+% IDSET is a positive integer array containing the identifiers of 
+% the inserted points in the kd-tree.
 
 % Description: Inserts points into a kd-tree
 % Documentation: matlab_pointkdtree.txt
