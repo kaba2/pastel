@@ -55,7 +55,7 @@ maxDistanceSet = Inf(1, size(querySet, 2));
 neighborSet = pointkdtree_search_nearest(kdTree, querySet, ...
     maxDistanceSet, kNearest);
 
-if correctSet ~= neighborSet
+if ~isequal(correctSet, neighborSet)
     error('Kd-tree did not find the same points as brute-force.');
 end
 

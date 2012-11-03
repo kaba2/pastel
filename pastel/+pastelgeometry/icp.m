@@ -213,11 +213,11 @@ for iteration = 0 : maxIterations - 1
 
     % Form a bipartite neighbor graph from the neighbor-relation.
     neighbors = 0;
-    for j = 1 : n
-        for i = 1 : kNearest
+    for i = 1 : n
+        for j = 1 : kNearest
             if neighborSet(i, j) >= 0
                 neighbors = neighbors + 1;
-                neighborGraph(1, neighbors) = j;
+                neighborGraph(1, neighbors) = i;
                 neighborGraph(2, neighbors) = neighborSet(i, j);
             else
                 break;
