@@ -57,7 +57,8 @@
 % to remove nearest neighbor pairs from being used in the estimation of
 % the transformation in an iteration. Must be one of
 %      closest: closest point pairing (default)
-%      maximum: maximum matching in the k-neighbor graph
+%      biunique: approximate minimum-distance maximum matching
+%                in the k-neighbor graph
 %
 % Q0 ('q0') is a (d x d) real matrix, containing the initial guess on 
 % the matching transformation Q. Default: eye(d, d).
@@ -79,16 +80,19 @@
 %         kNearest = 1
 %         matchingRatio = 1
 %         matchingDistance = Inf
+%         matchingType = 'closest'
 %
 %     Trimmed ICP: 
 %         kNearest = 1
 %         matchingRatio = r
 %         matchingDistance = Inf
+%         matchingType = 'closest'
 %
 %     Biunique ICP: 
 %         kNearest = k
 %         matchingRatio = 1
 %         matchingDistance = Inf
+%         matchingType = 'biunique'
 
 % Description: Locally optimal transformation between unpaired point-sets.
 % Detail: Generalizes Original, Trimmed, and Biunique ICP algorithms.
@@ -159,6 +163,11 @@ if ~ismember(transformType, transformTypeSet)
     error('TRANSFORMTYPE must be either conformal or translation.');
 end
 
+matchingTypeSet = {'closest', 'biunique'};
+if ~ismember(matchingType, matchingTypeSet)
+    error('MATCHINGTYPE must be either closest or biunique.');
+end
+
 if size(Q0, 1) ~= d || size(Q0, 2) ~= d
     error(['Q0 must be of size d x d, where d is ', ...
         'the dimension of the point-sets.']);
@@ -170,7 +179,7 @@ if size(t0, 1) ~= d || size(t0, 2) ~= 1
 end
 
 conformal = strcmp(transformType, 'conformal');
-maximumMatching = strcmp(matchingType, 'maximum');
+biuniqueMatching = strcmp(matchingType, 'biunique');
 
 if strcmp(matchingType, 'closest') && kNearest > 1
     % When closest-point matching is used, using
@@ -211,30 +220,45 @@ for iteration = 0 : maxIterations - 1
         kdTree, transformedSet, ...
         matchingDistanceSet, kNearest);
 
-    % Form a bipartite neighbor graph from the neighbor-relation.
-    neighbors = 0;
-    for i = 1 : n
-        for j = 1 : kNearest
-            if neighborSet(i, j) >= 0
-                neighbors = neighbors + 1;
-                neighborGraph(1, neighbors) = i;
-                neighborGraph(2, neighbors) = neighborSet(i, j);
-            else
-                break;
+    if biuniqueMatching
+        % This is a greedy algorithm to approximate minimum weight
+        % maximum bipartite matching. It is the one given in the
+        % Biunique ICP paper.
+        neighbors = 0;
+        reservedSet = false(1, m);
+        for i = 1 : n
+            for j = 1 : kNearest
+                neighbor = neighborSet(i, j);
+                if neighbor < 0
+                    break;
+                end
+                if ~reservedSet(neighbor + 1)
+                    neighbors = neighbors + 1;
+                    neighborGraph(1, neighbors) = i;
+                    neighborGraph(2, neighbors) = neighbor;
+                    reservedSet(neighbor + 1) = true;
+                    break;
+                end
+            end
+        end
+    else
+        % Form a bipartite neighbor graph from the neighbor-relation.
+        neighbors = 0;
+        for i = 1 : n
+            for j = 1 : kNearest
+                if neighborSet(i, j) >= 0
+                    neighbors = neighbors + 1;
+                    neighborGraph(1, neighbors) = i;
+                    neighborGraph(2, neighbors) = neighborSet(i, j);
+                else
+                    break;
+                end
             end
         end
     end
     
-    % Closest-point pairing.
+    % Matching pairs.
     matchSet = neighborGraph(:, 1 : neighbors);
-    
-    if maximumMatching
-        % Biunique ICP, kind of; instead of using a heuristic
-        % algorithm, we use maximum bipartite matching.
-        
-        % Compute the maximum bipartite matching in the neighbor graph.
-        matchSet = maximum_bipartite_matching(matchSet);
-    end
     
     % Compute the positions of the corresponding points.
     aSet = modelSet(:, matchSet(1, :));
