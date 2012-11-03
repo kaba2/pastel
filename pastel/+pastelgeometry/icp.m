@@ -60,6 +60,22 @@
 % is the optimal translation assuming SCENESET and MODELSET match
 % bijectively and Q0 = Q.
 %
+% INLIERTHRESHOLD ('inlierThreshold') is a real number in the range 
+% [0, 1] which specifies a threshold for the ratio of model points taking
+% part on estimation (the inlier ratio). When the inlier ratio exceeds 
+% the inlier threshold, the KNEAREST is decrement by 1 (if > 1). This
+% coarse-to-fine strategy helps the algorithm to get over possible local 
+% minima. Default: 0.25 (obtained by experimentation)
+%
+% LAMBDATHRESHOLD ('lambdaThreshold') is a real number in the range
+% [0, 1] which specifies a threshold for the ratio of NC-outliers in the
+% model set (lambda). When lambda exceeds the lambda threshold, then
+% the strategy for distance-rejection changes.
+%
+% DRAWPICTURES ('drawPictures') is a boolean which specifies whether
+% the algorithm should draw pictures of the process (useful for 
+% debugging). Default: false
+%
 % It should approximately be true that 
 % 
 %     Q * modelSet + T * ones(1, n)
@@ -109,10 +125,14 @@ transformType = 'conformal';
 matchingType = 'biunique';
 Q0 = eye(d, d);
 t0 = {};
+inlierThreshold = 0.25;
+lambdaThreshold = 0.1;
+drawPictures = false;
 eval(process_options({...
     'kNearest', 'minIterations', 'maxIterations', ...
     'minError', 'transformType', 'matchingType', ...
-    'Q0', 't0'}, ...
+    'Q0', 't0', 'inlierThreshold', 'lambdaThreshold', ...
+    'drawPictures'}, ...
     varargin));
 
 if iscell(t0)
@@ -235,9 +255,13 @@ for iteration = 0 : maxIterations - 1
     % Compute the threshold for rejecting pairs based on
     % their distance.
     t = meanDistance;
-    cLambda = 0.1;
-    if lambda > cLambda
-        t = t * (kNearest^lambda);
+    if lambda > lambdaThreshold
+        % Compute centroids for both point-sets.
+        aCentroid = sum(aSet, 2) / size(aSet, 2);
+        bCentroid = sum(bSet, 2) / size(bSet, 2);
+        centroidDistance2 = sum((bCentroid - aCentroid).^2);
+        
+        t = t * (kNearest^lambda) + centroidDistance2;
     end
     
     % Reject those pairs which are too far apart.
@@ -249,7 +273,7 @@ for iteration = 0 : maxIterations - 1
     distanceSet = distanceSet(acceptSet);
     meanDistance = mean(distanceSet);
     matchSet = matchSet(:, acceptSet);
-    
+
     % Compute a new estimate for the optimal transformation.
     if conformal
         % The class of conformal-affine transformations.
@@ -260,24 +284,37 @@ for iteration = 0 : maxIterations - 1
         t = ls_translation(aSet, bSet);
     end
 
-    % Draw a nice picture.
-    if (mod(iteration, 2) == 0 && iteration < 8) || ...
-       iteration == maxIterations - 1
-        figure;
-        scatter(transformedSet(1, :), transformedSet(2, :), 'g.');
-        %axis([-10, 10, -10, 10]);
-        axis equal;
-        hold on;
-        scatter(sceneSet(1, :), sceneSet(2, :), 'r.');
-        for i = 1 : size(matchSet, 2)
-            u = matchSet(1, i);
-            v = matchSet(2, i);
-            line([transformedSet(1, u), sceneSet(1, v)], ...
-                [transformedSet(2, u), sceneSet(2, v)]);
-        end        
-        title(['ICP iteration ', int2str(iteration)]);
-        legend('Model', 'Scene');
-        hold off;
+    if drawPictures
+        % Draw a nice picture.
+        if (mod(iteration, 2) == 0 && iteration < 8) || ...
+           iteration == maxIterations - 1
+            figure;
+            scatter(transformedSet(1, :), transformedSet(2, :), 'g.');
+            %axis([-10, 10, -10, 10]);
+            axis equal;
+            hold on;
+            scatter(sceneSet(1, :), sceneSet(2, :), 'r.');
+            for i = 1 : size(matchSet, 2)
+                u = matchSet(1, i);
+                v = matchSet(2, i);
+                line([transformedSet(1, u), sceneSet(1, v)], ...
+                    [transformedSet(2, u), sceneSet(2, v)]);
+            end        
+            title(['ICP iteration ', int2str(iteration)]);
+            legend('Model', 'Scene');
+            hold off;
+        end
+    end
+
+    % Compute the inlier ratio. It is the ratio of model points
+    % taking part on the estimation phase.
+    inlierRatio = size(matchSet, 2) / n;
+    if inlierRatio > inlierThreshold
+        % Since almost all points are inlier, we can afford
+        % to decrease the number of nearest neighbors. This
+        % also helps the algorithm to not to get stuck on
+        % local minima.
+        kNearest = max(kNearest - 1, 1);
     end
     
     if meanDistance < minError && iteration >= minIterations - 1

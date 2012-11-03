@@ -11,7 +11,7 @@ m = 2;
 
 % Number of points to generate to the secondary cluster.
 %n2 = 0;
-n2 = 200;
+n2 = 100;
 
 % Ratio of points to keep in P.
 pAlpha = 0.2;
@@ -64,12 +64,9 @@ alpha = size(commonSet, 2) / size(P, 2);
 
 % Find the transformation from P to R using the ICP.
 [qIcp, tIcp] = icp(P, R, ...
-    'minIterations', 100, ...
     'maxIterations', 100, ...
-    'kNearest', 8, ...
     'transformType', 'translation', ...
-    'matchingType', 'biunique', ...
-    't0', zeros(m, 1));
+    'drawPictures', true);
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
