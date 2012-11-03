@@ -55,6 +55,12 @@
 %      conformal: x |--> Qx + t. (default)
 %      translation: x |--> x + t.
 %
+% MATCHINGTYPE ('matchingType') is a string which specifies the strategy 
+% to remove nearest neighbor pairs from being used in the estimation of
+% the transformation in an iteration. Must be one of
+%      closest: closest point pairing (default)
+%      maximum: maximum matching in the k-neighbor graph
+%
 % Q0 ('q0') is a (d x d) real matrix, containing the initial guess on 
 % the matching transformation Q. Default: eye(d, d).
 %
@@ -114,11 +120,12 @@ minIterations = 1;
 maxIterations = 100;
 minError = 1e-11;
 transformType = 'conformal';
+matchingType = 'closest';
 Q0 = eye(d, d);
 t0 = {};
 eval(process_options({'matchingRatio', 'matchingDistance', ...
     'kNearest', 'minIterations', 'maxIterations', ...
-    'minError', 'transformType', 'Q0', 't0'}, ...
+    'minError', 'transformType', 'matchingType', 'Q0', 't0'}, ...
     varargin));
 
 if iscell(t0)
@@ -164,15 +171,24 @@ if size(t0, 1) ~= d || size(t0, 2) ~= 1
         'the dimension of the point-sets.']);
 end
 
+conformal = strcmp(transformType, 'conformal');
+maximumMatching = strcmp(matchingType, 'maximum');
+
+if strcmp(matchingType, 'closest') && kNearest > 1
+    % When closest-point matching is used, using
+    % more than one nearest neighbor is redundant.
+    kNearest = 1;
+    warning('KNEAREST forced to 1 since MATCHINGTYPE = closest.')
+end
+
 kdTree = pointkdtree_construct(d);
 pointkdtree_insert(kdTree, sceneSet);
 pointkdtree_refine(kdTree);
 
-conformal = strcmp(transformType, 'conformal');
-
 Q = Q0;
 t = t0;
 
+neighborGraph = int32(zeros(2, kNearest * n));
 nTrimmed = ceil(n * matchingRatio);
 for iteration = 0 : maxIterations - 1
     % Compute the transformed model-set.
@@ -193,28 +209,69 @@ for iteration = 0 : maxIterations - 1
         
     % Find nearest neighbors for each point in the
     % transformed model-set.
-    [neighborSet, distanceSet] = pointkdtree_search_nearest(...
+    neighborSet = pointkdtree_search_nearest(...
         kdTree, transformedSet, ...
         matchingDistanceSet, kNearest);
+
+    % Form a bipartite neighbor graph from the neighbor-relation.
+    neighbors = 0;
+    for j = 1 : n
+        for i = 1 : kNearest
+            if neighborSet(i, j) >= 0
+                neighbors = neighbors + 1;
+                neighborGraph(1, neighbors) = j;
+                neighborGraph(2, neighbors) = neighborSet(i, j);
+            else
+                break;
+            end
+        end
+    end
     
-    % Sort model-points by the distance to the first neighbor.
-    [ignore, I] = sort(distanceSet(:, 1));
+    % Closest-point pairing.
+    matchSet = neighborGraph(:, 1 : neighbors);
     
-    % Pick an alpha-ratio of the model-points with smallest distances.
-    matchSet = I(1 : nTrimmed);
-    nearestSet = pointkdtree_as_points(kdTree, neighborSet(matchSet, 1));
+    if maximumMatching
+        % Biunique ICP, kind of; instead of using a heuristic
+        % algorithm, we use maximum bipartite matching.
+        
+        % Compute the maximum bipartite matching in the neighbor graph.
+        matchSet = maximum_bipartite_matching(matchSet);
+    end
     
-    % Compute the trimmed mean-square error.
-    trimmedMse = sum(distanceSet(matchSet, 1)) / nTrimmed;
-   
+    % Compute the positions of the corresponding points.
+    aSet = modelSet(:, matchSet(1, :));
+    bSet = pointkdtree_as_points(kdTree, matchSet(2, :));
+
+    % Compute the distances between matched pairs.
+    distanceSet = sum((aSet - bSet).^2);
+
+    if matchingRatio < 1
+        % Trimmed ICP: only keep a percentage of all pairs.
+        
+        % Sort model-points by the distance to the matched pair.
+        [ignore, I] = sort(distanceSet);
+
+        % Pick an alpha-ratio of the model-points with smallest distances.
+        trimSet = I(1 : min(nTrimmed, numel(I)));
+        
+        % Recompute the positions.
+        aSet = aSet(:, trimSet);
+        bSet = bSet(:, trimSet);
+        distanceSet = sum((aSet - bSet).^2);
+    end
+    
     % Compute a new estimate for the optimal transformation.
     if conformal
-        [Q, t] = ls_conformal_affine(...
-            modelSet(:, matchSet), ...
-            nearestSet, 'orientation', 1);
+        % The class of conformal-affine transformations.
+        [Q, t] = ls_conformal_affine(aSet, bSet, ...
+            'orientation', 1);
     else
-        t = ls_translation(modelSet(:, matchSet), nearestSet);
+        % The class of translations.
+        t = ls_translation(aSet, bSet);
     end
+
+    % Compute the trimmed mean-square error.
+    trimmedMse = mean(distanceSet);
 
     if trimmedMse < minError && iteration >= minIterations - 1
         % Since the trimmed mean-square-error has dropped

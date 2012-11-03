@@ -709,13 +709,13 @@ namespace Pastel
 			}
 
 			Array<Point_ConstIterator> nearestArray(
-					Vector2i(k, queries),
+					Vector2i(queries, k),
 					state->tree.end());
 
 			Array<real> distanceArray;
 			if (outputs >= 2)
 			{
-				distanceArray.swap(createArray<real>(k, queries, outputSet[DistanceSet]));
+				distanceArray.swap(createArray<real>(queries, k, outputSet[DistanceSet]));
 				boost::fill(distanceArray.range(), infinity<real>());
 			}
 
@@ -738,8 +738,8 @@ namespace Pastel
 					searchNearest(
 						state->tree,
 						query, k,
-						rangeReporter(nearestArray.rowRange(i)),
-						rangeReporter(distanceArray.rowRange(i)),
+						rangeReporter(nearestArray.columnRange(i)),
+						rangeReporter(distanceArray.columnRange(i)),
 						maxDistanceSet(i));
 				}
 			}
@@ -774,21 +774,18 @@ namespace Pastel
 			}
 
 			Array<integer> result =
-				createArray<integer>(k, queries, outputSet[IdSet]);
-			for (integer x = 0;x < nearestArray.width();++x)
+				createArray<integer>(queries, k, outputSet[IdSet]);
+			for (integer i = 0;i < nearestArray.size();++i)
 			{
-				for (integer y = 0;y < nearestArray.height();++y)
+				Point_ConstIterator iter = nearestArray(i);
+				if (iter != state->tree.end())
 				{
-					Point_ConstIterator iter = nearestArray(x, y);
-					if (iter != state->tree.end())
-					{
-						result(x, y) = iter->point().id;
-					}
-					else
-					{
-						result(x, y) = -1;
-					}
-				}			
+					result(i) = iter->point().id;
+				}
+				else
+				{
+					result(i) = -1;
+				}
 			}
 		}
 
