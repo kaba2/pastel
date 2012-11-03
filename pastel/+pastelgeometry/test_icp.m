@@ -10,8 +10,8 @@ eval(import_pastel);
 m = 2;
 
 % Number of points to generate to the secondary cluster.
-%n2 = 0;
-n2 = 200;
+n2 = 0;
+%n2 = 200;
 
 % Ratio of points to keep in P.
 pAlpha = 0.1;
@@ -21,18 +21,21 @@ pAlpha = 0.1;
 rAlpha = 0.9;
 %rAlpha = 1;
 
-% Generate a random point-set P.
-%n = 100;
-%P = randn(m, n);
-
-% Load a point-set P from a SQUID file.
-file = fopen('+pastelgeometry\fish.txt', 'rt');
-% Read the number of points.
-n = fscanf(file, '# %d');
-% Read the points.
-P = fscanf(file, ' %d %d');
-P = reshape(P, [2, n]);
-fclose(file);
+useFish = false;
+if useFish
+    % Load a point-set P from a SQUID file.
+    file = fopen('+pastelgeometry\fish.txt', 'rt');
+    % Read the number of points.
+    n = fscanf(file, '# %d');
+    % Read the points.
+    P = fscanf(file, ' %d %d');
+    P = reshape(P, [2, n]);
+    fclose(file);
+else
+    % Generate a random point-set P.
+    n = 100;
+    P = randn(m, n) * 100;
+end
 
 % Generate a random transformation.
 %Q = random_orthogonal(m, 'orientation', 1);
@@ -64,8 +67,10 @@ alpha = size(commonSet, 2) / size(P, 2);
     'matchingRatio', 1, ...
     'minIterations', 100, ...
     'maxIterations', 100, ...
+    'kNearest', 16, ...
     'transformType', 'translation', ...
-    'matchingType', 'maximum');
+    'matchingType', 'maximum', ...
+    't0', zeros(m, 1));
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
@@ -86,18 +91,18 @@ figure;
 scatter(R(1, :), R(2, :), 'r')
 hold on
 axis equal
-scatter(rIcp(1, :), rIcp(2, :), 'b.')
-scatter(rPpm(1, :), rPpm(2, :), 'g.')
-for i = 1 : size(R, 2)
-    k = rPermutation(i);
-    j = find(pPermutation == k);
-    if ~isempty(j)
-        L = line([R(1, i); rIcp(1, j)], [R(2, i), rIcp(2, j)]);
-        set(L, 'Color', [0, 0, 1]);
-        L = line([R(1, i); rPpm(1, j)], [R(2, i), rPpm(2, j)]);
-        set(L, 'Color', [0, 1, 0]);
-    end
-end
+scatter(rIcp(1, :), rIcp(2, :), 'g.')
+scatter(rPpm(1, :), rPpm(2, :), 'b.')
+% for i = 1 : size(R, 2)
+%     k = rPermutation(i);
+%     j = find(pPermutation == k);
+%     if ~isempty(j)
+%         L = line([R(1, i); rIcp(1, j)], [R(2, i), rIcp(2, j)]);
+%         set(L, 'Color', [0, 1, 0]);
+%         L = line([R(1, i); rPpm(1, j)], [R(2, i), rPpm(2, j)]);
+%         set(L, 'Color', [0, 0, 1]);
+%     end
+% end
 title('ICP vs PPM')
 legend('Goal', 'ICP', 'PPM')
 hold off

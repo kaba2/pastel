@@ -7,7 +7,7 @@
 %
 % MODELSET is an (d x n) numeric array, where each column
 % contains the coordinates of a d-dimensional point. The
-% points in the MODELSET are tried to match to points
+% points in the MODELSET are attempted to match to the points
 % in the SCENESET.
 %
 % SCENESET is an (d x m) numeric array, where each column
@@ -21,10 +21,8 @@
 % Optional input arguments in 'key'-value pairs:
 %
 % MATCHINGRATIO ('matchingRatio') is a real-number in the range [0, 1]. 
-% It is the ratio of points in MODELSET which to use for finding a
-% a pairing by closest points. This provides the trimming
-% for the Trimmed ICP. Setting ALPHA = 1 corresponds to the
-% original ICP algorithm. Default: 1.
+% It is the ratio of matched pairs to use for computing the transformation
+% in each iteration. Default: 1.
 %
 % MATCHINGDISTANCE ('matchingDistance') is either a non-negative real 
 % number or an arbitrarily-dimensional real-matrix whose linearization 
@@ -33,18 +31,18 @@
 % searched. In case the MATCHINGDISTANCE is a real number, the same 
 % distance is assumed for all points. Default: Inf.
 %
-% KNEAREST ('kNearest') is an integer which specifies the number of 
-% nearest neighbors to search for each point. Having a greater number of 
-% nearest neighbors allows flexibility for finding bijective pairings (as 
-% used in Biunique ICP). Default: 1.
+% KNEAREST ('kNearest') is a positive integer which specifies the number 
+% of nearest neighbors to search for each model point in each iteration. 
+% Having a greater number of nearest neighbors allows flexibility for 
+% finding bijective pairings (when MATCHINGMODE = closest). Default: 1.
 %
-% MINITERATIONS ('minIterations') is a positive integer which 
-% specifies the minimum number of iterations for the algorithm to take.
+% MINITERATIONS ('minIterations') is a positive integer which specifies 
+% the minimum number of iterations for the algorithm to take.
 % Default: 1.
 %
 % MAXITERATIONS ('maxIterations') is a positive integer which 
 % specifies the maximum number of iterations for the algorithm to take. 
-% It has to hold that MINITERATIONS < MAXITERATIONS.
+% It must hold that MINITERATIONS < MAXITERATIONS.
 % Default: 100.
 %
 % MINERROR ('minError') is the minimum trimmed-mean-square error under 
@@ -75,7 +73,7 @@
 %     Q * modelSet + T * ones(1, n)
 %
 % matches sceneSet. The parameter choices correspond to known 
-% algorithms as follows:
+% algorithms roughly as follows:
 %
 %     Original ICP: 
 %         kNearest = 1
@@ -90,7 +88,7 @@
 %     Biunique ICP: 
 %         kNearest = k
 %         matchingRatio = 1
-%         matchingDistance = eps
+%         matchingDistance = Inf
 
 % Description: Locally optimal transformation between unpaired point-sets.
 % Detail: Generalizes Original, Trimmed, and Biunique ICP algorithms.
