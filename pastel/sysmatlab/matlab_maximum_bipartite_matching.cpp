@@ -24,8 +24,7 @@ namespace Pastel
 		{
 			enum
 			{
-				LeftSet,
-				RightSet,
+				Graph,
 				Inputs
 			};
 
@@ -38,15 +37,14 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 			ENSURE_OP(outputs, <=, Outputs);
 
-			Array<integer> leftSet = asLinearizedArray<integer>(inputSet[LeftSet]);
-			Array<integer> rightSet = asLinearizedArray<integer>(inputSet[RightSet]);
+			Array<integer> graph = asArray<integer>(inputSet[Graph]);
 
 			std::vector<integer> leftMatchSet;
 			std::vector<integer> rightMatchSet;
 
 			maximumBipartiteMatching(
-				leftSet.cRange(),
-				rightSet.cRange(),
+				graph.cRowRange(0),
+				graph.cRowRange(1),
 				[&](const std::pair<integer, integer>& that)
 			{
 				leftMatchSet.push_back(that.first);
