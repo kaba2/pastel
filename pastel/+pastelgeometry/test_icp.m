@@ -13,6 +13,8 @@ m = 2;
 %n2 = 0;
 n2 = 100;
 
+matchingDistance = 5;
+
 % Ratio of points to keep in P.
 pAlpha = 0.2;
 %pAlpha = 1;
@@ -63,14 +65,14 @@ commonSet = intersect(pPermutation, rPermutation);
 alpha = size(commonSet, 2) / size(P, 2);
 
 % Find the transformation from P to R using the ICP.
-[qIcp, tIcp] = icp(P, R, ...
+[qIcp, tIcp, pairSetIcp] = icp(P, R, matchingDistance, ...
     'transformType', 'translation', ...
     'drawPictures', true);
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
-[pairSet, tPpm, bias, success] = ...
-    point_pattern_matching_kr(P, R, 5, ...
+[pairSetPpm, tPpm, bias, success] = ...
+    point_pattern_matching_kr(P, R, matchingDistance, ...
     'minMatchRatio', alpha * 0.9, ...
     'maxBias', 0.1, ...,
     'matchingMode', 0);

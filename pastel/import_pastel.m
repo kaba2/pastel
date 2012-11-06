@@ -1,7 +1,7 @@
 % IMPORT_PASTEL
 % Imports from Pastel packages with a matching version.
 %
-% import_pastel(nameSet, idSet)
+% command = import_pastel(nameSet, idSet)
 %
 % where
 %
