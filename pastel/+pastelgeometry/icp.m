@@ -49,7 +49,7 @@
 %
 % TRANSFORMTYPE ('transformType') is a string which specifies the class of
 % transformations to search the optimal transformation in. Must be one of
-%      conformal: x |--> Qx + t. (default)
+%      rigid: x |--> Qx + t. (default)
 %      translation: x |--> x + t.
 %
 % MATCHINGTYPE ('matchingType') is a string which specifies the strategy 
@@ -131,7 +131,7 @@ kNearest = 10;
 minIterations = 1;
 maxIterations = 100;
 minError = 1e-11;
-transformType = 'conformal';
+transformType = 'rigid';
 matchingType = 'biunique';
 Q0 = eye(d, d);
 t0 = {};
@@ -149,10 +149,11 @@ if iscell(t0)
     t0 = sceneCentroid - Q0 * modelCentroid;
 end
 
-check(modelSet, 'pointset');
-check(sceneSet, 'pointset');
-check(minError, 'real');
-check(matchingDistance, 'real');
+concept_check(...
+    modelSet, 'pointset', ...
+    sceneSet, 'pointset', ...
+    minError, 'real', ...
+    matchingDistance, 'real');
 
 if kNearest < 1
     error('KNEAREST must be at least 1.')
@@ -162,9 +163,9 @@ if minIterations > maxIterations
     error('It must hold that MINITERATIONS <= MAXITERATIONS.');
 end
 
-transformTypeSet = {'conformal', 'translation'};
+transformTypeSet = {'rigid', 'translation'};
 if ~ismember(transformType, transformTypeSet)
-    error('TRANSFORMTYPE must be either conformal or translation.');
+    error('TRANSFORMTYPE must be either rigid or translation.');
 end
 
 matchingTypeSet = {'closest', 'biunique'};
@@ -186,7 +187,7 @@ if size(t0, 1) ~= d || size(t0, 2) ~= 1
         'the dimension of the point-sets.']);
 end
 
-conformal = strcmp(transformType, 'conformal');
+rigid = strcmp(transformType, 'rigid');
 biunique = strcmp(matchingType, 'biunique');
 
 if strcmp(matchingType, 'closest') && kNearest > 1
@@ -294,8 +295,8 @@ for iteration = 0 : maxIterations - 1
     meanDistance = mean(distanceSet);
 
     % Compute a new estimate for the optimal transformation.
-    if conformal
-        % The class of conformal-affine transformations.
+    if rigid
+        % The class of rigid transformations.
         [Q, t] = ls_conformal_affine(aSet, bSet, ...
             'orientation', 1);
     else
