@@ -109,11 +109,12 @@ if nargin < 5
     confidence = 0.99;
 end
 
-check(modelPointSet, 'pointset');
-check(scenePointSet, 'pointset');
-check(minMatchRatio, 'real');
-check(relativeMatchingDistance, 'real');
-check(confidence, 'real');
+concept_check(...
+    modelPointSet, 'pointset', ...
+    scenePointSet, 'pointset', ...
+    minMatchRatio, 'real', ...
+    relativeMatchingDistance, 'real', ...
+    confidence, 'real');
 
 if minMatchRatio < 0 || minMatchRatio > 1
     error('minMatchRatio must be in the range [0, 1].');

@@ -45,6 +45,10 @@ function [Q, t, s] = ls_conformal_affine(fromSet, toSet, varargin)
 
 eval(import_pastel);
 
+concept_check(...
+    fromSet, 'pointset', ...
+    toSet, 'pointset');
+
 % Optional input arguments
 orientation = 0;
 eval(process_options({'orientation'}, ...
