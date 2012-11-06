@@ -1,7 +1,8 @@
 % ICP
 % Locally optimal transformation between unpaired point-sets.
 %
-% [Q, T] = icp(modelSet, sceneSet, 'key', value, ...)
+% [Q, T, pairSet] = icp(modelSet, sceneSet, matchingDistance, ...
+%                       'key', value, ...)
 %
 % where
 %
@@ -13,10 +14,17 @@
 % SCENESET is an (d x m) numeric array, where each column
 % contains the coordinates of a d-dimensional point.
 %
+% MATCHINGDISTANCE ('matchingDistance') is a non-negative real number
+% which specifies the distance over which to accept points being matched.
+%
 % Q is a (d x d) special-orthogonal matrix, containing the
 % matching rotation.
 %
 % T is a (d x 1) vector, containing the matching translation.
+%
+% PAIRSET is a (2 x k)-integer-array of indices, where each column is
+% a pair (i, j), where i is the index of a scene point, and j is the index
+% of its matched model point. 
 %
 % Optional input arguments in 'key'-value pairs:
 %
@@ -63,7 +71,7 @@
 % INLIERTHRESHOLD ('inlierThreshold') is a real number in the range 
 % [0, 1] which specifies a threshold for the ratio of model points taking
 % part on estimation (the inlier ratio). When the inlier ratio exceeds 
-% the inlier threshold, the KNEAREST is decrement by 1 (if > 1). This
+% the inlier threshold, the KNEAREST is decremented by 1 (if > 1). This
 % coarse-to-fine strategy helps the algorithm to get over possible local 
 % minima. Default: 0.25 (obtained by experimentation)
 %
@@ -71,6 +79,7 @@
 % [0, 1] which specifies a threshold for the ratio of NC-outliers in the
 % model set (lambda). When lambda exceeds the lambda threshold, then
 % the strategy for distance-rejection changes.
+% Default: 0.1
 %
 % DRAWPICTURES ('drawPictures') is a boolean which specifies whether
 % the algorithm should draw pictures of the process (useful for 
@@ -94,7 +103,8 @@
 % Description: Locally optimal transformation between unpaired point-sets.
 % Detail: Original and Biunique ICP algorithms.
 
-function [Q, t] = icp(modelSet, sceneSet, varargin)
+function [Q, t, pairSet] = icp(modelSet, sceneSet, ...
+    matchingDistance, varargin)
 
 % See _Robust ICP Registration using Biunique Correspondence_,
 % Lei Zhang, Sung-In Choi, Soon-Yong Park
@@ -142,6 +152,7 @@ end
 check(modelSet, 'pointset');
 check(sceneSet, 'pointset');
 check(minError, 'real');
+check(matchingDistance, 'real');
 
 if kNearest < 1
     error('KNEAREST must be at least 1.')
@@ -159,6 +170,10 @@ end
 matchingTypeSet = {'closest', 'biunique'};
 if ~ismember(matchingType, matchingTypeSet)
     error('MATCHINGTYPE must be either closest or biunique.');
+end
+
+if matchingDistance < 0
+    error('MATCHINGDISTANCE must a non-negative real number.');
 end
 
 if size(Q0, 1) ~= d || size(Q0, 2) ~= d
@@ -242,10 +257,10 @@ for iteration = 0 : maxIterations - 1
     matchSet = neighborGraph(:, 1 : neighbors);
     
     % Compute the positions of the corresponding points.
-    aSet = modelSet(:, matchSet(1, :));
-    bSet = pointkdtree_as_points(kdTree, matchSet(2, :));
+    aSet = transformedSet(:, matchSet(1, :));
+    bSet = sceneSet(:, matchSet(2, :));
     distanceSet = sum((aSet - bSet).^2);
-    
+        
     % The ratio of NC-outliers w.r.t. model points.
     lambda = 1 - (neighbors / n);
     
@@ -267,12 +282,16 @@ for iteration = 0 : maxIterations - 1
     % Reject those pairs which are too far apart.
     acceptSet = distanceSet <= t;
     
+    acceptPairSet = distanceSet <= matchingDistance^2;
+    pairSet = matchSet([2, 1], acceptPairSet);
+    
     % Compute the positions of the corresponding points.
-    aSet = aSet(:, acceptSet);
-    bSet = bSet(:, acceptSet);
-    distanceSet = distanceSet(acceptSet);
-    meanDistance = mean(distanceSet);
     matchSet = matchSet(:, acceptSet);
+    distanceSet = distanceSet(acceptSet);
+    aSet = modelSet(:, matchSet(1, :));
+    bSet = sceneSet(:, matchSet(2, :));
+
+    meanDistance = mean(distanceSet);
 
     % Compute a new estimate for the optimal transformation.
     if conformal
@@ -310,7 +329,7 @@ for iteration = 0 : maxIterations - 1
     % taking part on the estimation phase.
     inlierRatio = size(matchSet, 2) / n;
     if inlierRatio > inlierThreshold
-        % Since almost all points are inlier, we can afford
+        % Since almost all points are inliers, we can afford
         % to decrease the number of nearest neighbors. This
         % also helps the algorithm to not to get stuck on
         % local minima.
