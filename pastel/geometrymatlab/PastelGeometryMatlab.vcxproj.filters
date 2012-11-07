@@ -113,9 +113,6 @@
     <None Include="..\+pastelgeometry\test_pointkdtree.m">
       <Filter>PointKdTree</Filter>
     </None>
-    <None Include="..\+pastelgeometry\check.m">
-      <Filter>Build files</Filter>
-    </None>
     <None Include="..\+pastelgeometry\ls_translation.m">
       <Filter>Transformation fitting\Least squares</Filter>
     </None>

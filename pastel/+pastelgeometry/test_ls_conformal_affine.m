@@ -1,8 +1,7 @@
 % Description: Testing for ls_conformal_affine.m.
 % DocumenationOf: ls_conformal_affine.m
 
-clear all;
-close all;
+function test_ls_conformal_affine()
 
 eval(import_pastel);
 
