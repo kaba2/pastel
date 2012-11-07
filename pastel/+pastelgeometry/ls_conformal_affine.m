@@ -27,6 +27,18 @@
 %     0: no restrictions (default), or
 %     1: det(Q) = 1.
 %
+% SCALING ('scaling') is a string which specifies whether scaling
+% is included in the class of possible transformations. 
+% Must be one of
+%     conformal: S is free (default)
+%     rigid: S = 1
+%
+% TRANSLATION ('translation') is a string which specifies whether
+% translation is included in the class of possible transformations.
+% Must be one of
+%     affine: T is free (default)
+%     linear: T = zeros(1, d)
+%
 % The Q, T, and S are chosen such that they minimize the following
 % Frobenius norm:
 %
@@ -51,7 +63,10 @@ concept_check(...
 
 % Optional input arguments
 orientation = 0;
-eval(process_options({'orientation'}, ...
+scaling = 'conformal';
+translation = 'affine';
+eval(process_options({...
+    'orientation', 'scaling', 'translation'}, ...
     varargin));
 
 % Check sufficient number of parameters.
@@ -71,42 +86,54 @@ end
 
 % Check orientation requirements.
 orientationSet = [-1, 0, 1];
-if ~any(orientationSet == orientation)
+if ~any(orientation == orientationSet)
     error('ORIENTATION must be one of -1, 0, or 1.')
 end
 
-% For the optimal transformation it holds that
-%
-%    sQp' + t = q'
-%
-% where p' and q' are centroids of fromSet and toSet, respectively.
-% Therefore,
-%
-%    t = q' - sQp'.
-%
+% Check scaling.
+scalingSet = {'conformal', 'rigid'};
+if ~ismember(scaling, scalingSet)
+    error('SCALING must be either conformal or rigid.');
+end
+
+% Check translation.
+translationSet = {'affine', 'linear'};
+if ~ismember(translation, translationSet)
+    error('TRANSLATION must be either affine or linear.');
+end
+
+d = size(fromSet, 1);
+n = size(fromSet, 2);
+
+P = fromSet;
+R = toSet;
+
+if strcmp(translation, 'affine')
+    % For the optimal transformation it holds that
+    %
+    %    sQp' + t = q'
+    %
+    % where p' and q' are centroids of fromSet and toSet, 
+    % respectively. Therefore,
+    %
+    %    t = q' - sQp'.
+    
+    % Compute the centroids of the point-sets.
+    fromCentroid = sum(fromSet, 2) / n;
+    toCentroid = sum(toSet, 2) / n;
+    
+    % Form the centered point-sets. The optimal transformation
+    % will map fromCentroid to toCentroid.
+    P = P - fromCentroid * ones(1, n);
+    R = R - toCentroid * ones(1, n);
+end
+
 % Now we only need to minimize w.r.t. Q. If P and R are the centered
 % versions of fromSet and toSet, respectively, then Q is given by:
 %
 %    Q = UV^T,
 %
 % where USV^T is the singular value decomposition of RP^T. 
-% If orientation is to be forced at det(Q) = s, where s = +- 1,
-% Then Q is given by:
-%
-%    Q = UDV^T, where
-%    D = [1, ..., 1, s det(UV^T)].
-
-m = size(fromSet, 1);
-n = size(fromSet, 2);
-
-% Compute the centroids of the point-sets.
-fromCentroid = sum(fromSet, 2) / n;
-toCentroid = sum(toSet, 2) / n;
-
-% Form the centered point-sets. The optimal transformation
-% will map fromCentroid to toCentroid.
-P = fromSet - fromCentroid * ones(1, n);
-R = toSet - toCentroid * ones(1, n);
 
 % Compute the svd of RP^T.
 [U, D, V] = svd(R * P');
@@ -115,22 +142,29 @@ R = toSet - toCentroid * ones(1, n);
 Q = U * V';
 
 if orientation ~= 0
+    % If orientation is to be forced at det(Q) = s, where s = +- 1,
+    % Then Q is given by:
+    %
+    %    Q = UDV^T, where
+    %    D = [1, ..., 1, s det(UV^T)].
+    
     % Compute the optimal oriented orthogonal Q.
     o = double(orientation);
     if sign(det(Q)) ~= sign(o)
-        Q = U * diag([ones(1, m - 1), -1]) * V';
+        Q = U * diag([ones(1, d - 1), -1]) * V';
         %assert(sign(det(Q)) == sign(o));
     end
 end
 
-scale = 1;
-if nargout >= 3
+s = 1;
+if strcmp(scaling, 'conformal')
     % Compute the optimal scaling parameter.
-    scale = trace(D) / sum(P(:).^2);
-    s = scale;
+    s = trace(D) / sum(P(:).^2);
 end
 
-% Compute the optimal translation.
-t = toCentroid - scale * Q * fromCentroid;
-
+t = zeros(d, 1);
+if strcmp(translation, 'affine')
+    % Compute the optimal translation.
+    t = toCentroid - s * Q * fromCentroid;
+end
 
