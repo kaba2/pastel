@@ -133,7 +133,6 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\+pastelgeometry\check.m" />
     <None Include="..\+pastelgeometry\icp.m" />
     <None Include="..\+pastelgeometry\ls_conformal_affine.m" />
     <None Include="..\+pastelgeometry\ls_translation.m" />

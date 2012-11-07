@@ -109,7 +109,7 @@ P = fromSet - fromCentroid * ones(1, n);
 R = toSet - toCentroid * ones(1, n);
 
 % Compute the svd of RP^T.
-[U, S, V] = svd(R * P');
+[U, D, V] = svd(R * P');
 
 % Compute the optimal orthogonal transformation Q.
 Q = U * V';
@@ -119,17 +119,15 @@ if orientation ~= 0
     o = double(orientation);
     if sign(det(Q)) ~= sign(o)
         Q = U * diag([ones(1, m - 1), -1]) * V';
-        assert(sign(det(Q)) == sign(o));
+        %assert(sign(det(Q)) == sign(o));
     end
 end
 
 scale = 1;
 if nargout >= 3
     % Compute the optimal scaling parameter.
-    Lr = sum(sum(R .* (Q * P)));
-    Lp = sum(sum(P.^2));
-    s = Lr / Lp;
-    scale = s;
+    scale = trace(D) / sum(P(:).^2);
+    s = scale;
 end
 
 % Compute the optimal translation.
