@@ -17,6 +17,14 @@
 % T is a (d x 1) real vector containing the translation part of the
 % optimal affine translation.
 %
+% Optional input arguments in 'key'-value pairs:
+%
+% TRANSLATION ('translation') is a string which specifies whether
+% translation is included in the class of possible transformations.
+% Must be one of
+%     affine: T is free (default)
+%     linear: T = zeros(1, d)
+%
 % The A and T are chosen such that they minimize the following
 % Frobenius norm:
 %
@@ -24,7 +32,7 @@
 
 % Description: Optimal affine transformation between paired point-sets.
 
-function [A, t] = ls_affine(fromSet, toSet)
+function [A, t] = ls_affine(fromSet, toSet, varargin)
 
 eval(import_pastel);
 
@@ -32,10 +40,13 @@ concept_check(...
     fromSet, 'pointset', ...
     toSet, 'pointset');
 
-m = size(fromSet, 2);
-n = size(toSet, 2);
+% Optional input arguments
+translation = 'affine';
+eval(process_options({...
+    'translation'}, ...
+    varargin));
 
-if n ~= m
+if size(fromSet, 2) ~= size(toSet, 2)
     error('FROMSET and TOSET must have the same number of points.');
 end
 
@@ -43,11 +54,26 @@ if size(fromSet, 1) ~= size(toSet, 1)
     error('FROMSET and TOSET must have the same dimension.');
 end
 
-fromCentroid = sum(fromSet, 2) / m;
-toCentroid = sum(toSet, 2) / n;
+d = size(fromSet, 1);
+n = size(fromSet, 2);
 
-A = ls_linear(...
-    fromSet - fromCentroid * ones(1, m), ...
-    toSet - toCentroid * ones(1, n));
+P = fromSet;
+R = toSet;
 
-t = toCentroid - A * fromCentroid;
+if strcmp(translation, 'affine')
+    % Compute the centroids of both point-sets.
+    fromCentroid = sum(fromSet, 2) / n;
+    toCentroid = sum(toSet, 2) / n;
+    
+    P = P - fromCentroid * ones(1, n);
+    R = R - toCentroid * ones(1, n);
+end
+
+% Compute the optimal transformation.
+A = (R * P') / (P * P');
+
+t = zeros(d, 1);
+if strcmp(translation, 'affine')
+    % Compute the optimal translation.
+    t = toCentroid - A * fromCentroid;
+end

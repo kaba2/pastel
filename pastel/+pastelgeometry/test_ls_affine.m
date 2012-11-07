@@ -7,7 +7,7 @@ eval(import_pastel);
 
 m = 10;
 n = 100;
-trials = 1000;
+trials = 100;
 threshold = 1e-11;
 
 fails = 0;
