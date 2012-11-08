@@ -133,10 +133,6 @@ d = size(sceneSet, 1);
 n = size(modelSet, 2);
 m = size(sceneSet, 2);
 
-% Compute centroids for both point-sets.
-modelCentroid = sum(modelSet, 2) / n;
-sceneCentroid = sum(sceneSet, 2) / m;
-
 % Optional input arguments
 kNearest = 10;
 minIterations = 1;
@@ -160,6 +156,10 @@ eval(process_options({...
     varargin));
 
 if iscell(t0)
+    % Compute centroids for both point-sets.
+    modelCentroid = sum(modelSet, 2) / n;
+    sceneCentroid = sum(sceneSet, 2) / m;
+    
     t0 = sceneCentroid - Q0 * modelCentroid;
 end
 
@@ -243,26 +243,8 @@ for iteration = 0 : maxIterations - 1
         matchingDistanceSet, kNearest);
 
     if biunique
-        % This is a greedy algorithm to approximate minimum weight
-        % maximum bipartite matching. It is the one given in the
-        % Biunique ICP paper.
-        neighbors = 0;
-        reservedSet = false(1, m);
-        for i = 1 : n
-            for j = 1 : kNearest
-                neighbor = neighborSet(i, j);
-                if neighbor == 0
-                    break;
-                end
-                if ~reservedSet(neighbor)
-                    neighbors = neighbors + 1;
-                    neighborGraph(1, neighbors) = i;
-                    neighborGraph(2, neighbors) = neighbor;
-                    reservedSet(neighbor) = true;
-                    break;
-                end
-            end
-        end
+        neighborGraph = biunique_matching(neighborSet');
+        neighbors = size(neighborGraph, 2);
     else
         % Form a bipartite neighbor graph from the neighbor-relation.
         neighbors = 0;
