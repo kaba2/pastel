@@ -3,6 +3,9 @@
 
 function test_ls_affine()
 
+clear all;
+close all;
+
 eval(import_pastel);
 
 m = 10;
@@ -13,6 +16,7 @@ threshold = 1e-11;
 fails = 0;
 for k = 1 : trials
     % Generate a random affine transformation.
+    s = 1;
     A = randn(m, m);
     t = randn(m, 1) * 10;
 
@@ -21,11 +25,12 @@ for k = 1 : trials
     R = A * P + t * ones(1, n);
 
     % Compute the transformation back by least-squares.
-    [AE, tE] = ls_affine(P, R);
+    [AE, tE, sE] = ls_affine(P, R);
 
     % Check that the errors are small.
     if norm(AE - A) > threshold || ...
-       norm(tE - t) > threshold
+       norm(tE - t) > threshold || ...
+       norm(sE - s) > threshold
         fails = fails + 1;
     end
 end

@@ -1,6 +1,8 @@
 % Description: A test for PointKdTree Matlab interface
 % Documentation: matlab_pointkdtree.txt
 
+function test_pointkdtree()
+
 clear all;
 close all;
 

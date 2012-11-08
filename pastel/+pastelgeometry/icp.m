@@ -47,10 +47,21 @@
 % which to accept the transformation and stop iteration. 
 % Default: 1e-11.
 %
-% TRANSFORMTYPE ('transformType') is a string which specifies the class of
-% transformations to search the optimal transformation in. Must be one of
-%      rigid: x |--> Qx + t. (default)
-%      translation: x |--> x + t.
+% MATRIX ('matrix') is a string which specifies constraints 
+% for the matrix Q. Must be one of
+%     orthogonal: Q^T Q = I (default)
+%     identity: Q = I
+%
+% TRANSLATION ('translation') is a string which specifies constraints 
+% for the translation t. Must be one of
+%     free: T free (default)
+%     identity: T = 0
+%
+% ORIENTATION ('orientation') is an integer which specifies constraints
+% for the determinant of Q. Must be one of
+%    -1: det(Q) < 0,
+%     0: det(Q) free, or
+%     1: det(Q) > 0 (default).
 %
 % MATCHINGTYPE ('matchingType') is a string which specifies the strategy 
 % to remove nearest neighbor pairs from being used in the estimation of
@@ -131,7 +142,9 @@ kNearest = 10;
 minIterations = 1;
 maxIterations = 100;
 minError = 1e-11;
-transformType = 'rigid';
+matrix = 'orthogonal';
+translation = 'free';
+orientation = 1;
 matchingType = 'biunique';
 Q0 = eye(d, d);
 t0 = {};
@@ -140,7 +153,8 @@ lambdaThreshold = 0.1;
 drawPictures = false;
 eval(process_options({...
     'kNearest', 'minIterations', 'maxIterations', ...
-    'minError', 'transformType', 'matchingType', ...
+    'minError', 'matrix', 'translation', ...
+    'orientation', 'matchingType', ...
     'Q0', 't0', 'inlierThreshold', 'lambdaThreshold', ...
     'drawPictures'}, ...
     varargin));
@@ -163,11 +177,6 @@ if minIterations > maxIterations
     error('It must hold that MINITERATIONS <= MAXITERATIONS.');
 end
 
-transformTypeSet = {'rigid', 'translation'};
-if ~ismember(transformType, transformTypeSet)
-    error('TRANSFORMTYPE must be either rigid or translation.');
-end
-
 matchingTypeSet = {'closest', 'biunique'};
 if ~ismember(matchingType, matchingTypeSet)
     error('MATCHINGTYPE must be either closest or biunique.');
@@ -187,7 +196,24 @@ if size(t0, 1) ~= d || size(t0, 2) ~= 1
         'the dimension of the point-sets.']);
 end
 
-rigid = strcmp(transformType, 'rigid');
+% Check matrix.
+matrixSet = {'orthogonal', 'identity'};
+if ~ismember(matrix, matrixSet)
+    error('MATRIX must be either orthogonal, or identity.');
+end
+
+% Check translation.
+translationSet = {'free', 'identity'};
+if ~ismember(translation, translationSet)
+    error('TRANSLATION must be either free or identity.');
+end
+
+% Check orientation.
+orientationSet = [-1, 0, 1];
+if ~any(orientation == orientationSet)
+    error('ORIENTATION must be one of -1, 0, or 1.')
+end
+
 biunique = strcmp(matchingType, 'biunique');
 
 if strcmp(matchingType, 'closest') && kNearest > 1
@@ -295,14 +321,11 @@ for iteration = 0 : maxIterations - 1
     meanDistance = mean(distanceSet);
 
     % Compute a new estimate for the optimal transformation.
-    if rigid
-        % The class of rigid transformations.
-        [Q, t] = ls_conformal_affine(aSet, bSet, ...
-            'orientation', 1);
-    else
-        % The class of translations.
-        t = ls_translation(aSet, bSet);
-    end
+    [Q, t] = ls_affine(aSet, bSet, ...
+        'matrix', matrix, ...
+        'scaling', 'rigid', ...
+        'translation', translation, ...
+        'orientation', orientation);
 
     if drawPictures
         % Draw a nice picture.
