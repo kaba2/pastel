@@ -1,6 +1,8 @@
 % Description: Testing for icp.m.
 % DocumentationOf: icp.m
 
+function test_icp()
+
 clear all;
 close all;
 
@@ -66,7 +68,7 @@ alpha = size(commonSet, 2) / size(P, 2);
 
 % Find the transformation from P to R using the ICP.
 [qIcp, tIcp, pairSetIcp] = icp(P, R, matchingDistance, ...
-    'transformType', 'translation', ...
+    'matrix', 'identity', ...
     'drawPictures', true);
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 

@@ -1,4 +1,0 @@
-Least-squares translation
-=========================
-
-[[Parent]]: transformation_fitting.txt

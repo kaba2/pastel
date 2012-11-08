@@ -1,7 +1,10 @@
 % Description: Testing for ls_conformal_affine.m.
-% DocumenationOf: ls_conformal_affine.m
+% DocumentationOf: ls_conformal_affine.m
 
 function test_ls_conformal_affine()
+
+clear all;
+close all;
 
 eval(import_pastel);
 
@@ -23,7 +26,9 @@ for k = 1 : trials
     R = s * Q * P + t * ones(1, n);
 
     % Compute the transformation back by least-squares.
-    [QE, tE, sE] = ls_conformal_affine(P, R, 'orientation', orientation);
+    [QE, tE, sE] = ls_affine(P, R, ...
+        'orientation', orientation, ...
+        'matrix', 'orthogonal');
 
     % Check that the errors are small.
     if norm(QE - Q) > threshold || ...
