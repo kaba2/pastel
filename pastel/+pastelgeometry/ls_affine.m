@@ -1,5 +1,5 @@
 % LS_AFFINE
-% Optimal affine transformation between paired point-sets.
+% Optimal affine transformation between point-sets.
 %
 % [A, t, s] = ls_affine(fromSet, toSet, 'key', value, ...)
 %
@@ -9,7 +9,8 @@
 % the coordinates of a d-dimensional point.
 %
 % TOSET is an (d x n) real matrix, where each column contains
-% the coordinates of a d-dimensional point.
+% the coordinates of a d-dimensional point. If W is not specified,
+% it must hold that m = n.
 %
 % A is a (d x d) real matrix, containing the matrix-part of the
 % optimal transformation.
@@ -45,14 +46,18 @@
 % W ('W') is a (m x n) non-negative real matrix, which contains the 
 % weights for the least-squares error metric.
 %
-% The A, T, and S are chosen such that they minimize the following
-% Frobenius norm
+% The A, T, and S are chosen such that they minimize the error metric
 %
-%      ||(s * A * fromSet + t * ones(1, n)) - toSet||
+%      sum_{i = 1}^m sum_{j = 1}^n w_{ij} ||(s * A * p_i + t) - r_j||^2
 %
 % subject to the given constraints.
+%
+% If W is not given, then it is required that m = n, and it is assumed
+% that W = eye(m, n). Then the error metric simplifies to
+%
+%      sum_{i = 1}^m ||(s * A * p_i + t) - r_i||^2.
 
-% Description: Optimal affine transformation between paired point-sets.
+% Description: Optimal affine transformation between point-sets.
 
 function [A, t, s] = ls_affine(fromSet, toSet, varargin)
 
@@ -84,8 +89,9 @@ if size(fromSet, 1) ~= size(toSet, 1)
 end
 
 % Check equal number of points requirement.
-if size(fromSet, 2) ~= size(toSet, 2)
-    error('The number of points in FROMSET and TOSET must be equal.');
+if iscell(W) && size(fromSet, 2) ~= size(toSet, 2)
+    error(['Since W is not specified, the number of points in ', ...
+        'FROMSET and TOSET must be equal.']);
 end
 
 % Check matrix.
