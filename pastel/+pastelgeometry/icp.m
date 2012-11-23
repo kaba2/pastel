@@ -49,7 +49,7 @@
 %
 % MATRIX ('matrix') is a string which specifies constraints 
 % for the matrix Q. Must be one of
-%     orthogonal: Q^T Q = I (default)
+%     free: Q^T Q = I (default)
 %     identity: Q = I
 %
 % TRANSLATION ('translation') is a string which specifies constraints 
@@ -197,9 +197,9 @@ if size(t0, 1) ~= d || size(t0, 2) ~= 1
 end
 
 % Check matrix.
-matrixSet = {'orthogonal', 'identity'};
+matrixSet = {'free', 'identity'};
 if ~ismember(matrix, matrixSet)
-    error('MATRIX must be either orthogonal, or identity.');
+    error('MATRIX must be either free, or identity.');
 end
 
 % Check translation.
@@ -303,7 +303,7 @@ for iteration = 0 : maxIterations - 1
     meanDistance = mean(distanceSet);
 
     % Compute a new estimate for the optimal transformation.
-    [Q, t] = ls_affine(aSet, bSet, ...
+    [Q, S, t] = ls_affine(aSet, bSet, ...
         'matrix', matrix, ...
         'scaling', 'rigid', ...
         'translation', translation, ...
