@@ -125,7 +125,9 @@ if strcmp(scaling, 'free') && orientation ~= 0
 end
 
 if strcmp(matrix, 'identity') && orientation ~= 0
-    warning('Orientation can not be forced when MATRIX is identity.');
+    if ~(strcmp(scaling, 'rigid') && orientation == 1)
+        warning('Orientation can not be forced when MATRIX is identity.');
+    end
 end
 
 d = size(fromSet, 1);
