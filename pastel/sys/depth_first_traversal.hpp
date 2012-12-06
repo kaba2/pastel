@@ -3,6 +3,8 @@
 
 #include "pastel/sys/depth_first_traversal.h"
 
+#include <boost/bind.hpp>
+
 #include <functional>
 
 namespace Pastel
@@ -49,18 +51,14 @@ namespace Pastel
 				, mark(mark_)
 				, marked(marked_)
 			{
-				using namespace std::placeholders;
-
 				// Traverse each seed-vertex depth-first.
 				forEachSeedVertex(
-					std::bind(&Work::visit, 
-					std::ref(*this), _1));
+					boost::bind(&Work::visit, 
+					boost::ref(*this), _1));
 			}
 
 			void visit(const Vertex& vertex)
 			{
-				using namespace std::placeholders;
-
 				// Avoid visiting the same vertex twice.
 				if (!marked(vertex))
 				{
@@ -70,8 +68,8 @@ namespace Pastel
 					// Traverse the edges.
 					forEachAdjacent(
 						vertex,
-						std::bind(&Work::visit, 
-						std::ref(*this), _1));
+						boost::bind(&Work::visit, 
+						boost::ref(*this), _1));
 				}
 			}
 
