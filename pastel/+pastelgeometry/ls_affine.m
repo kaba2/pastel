@@ -137,13 +137,19 @@ n = size(toSet, 2);
 P = fromSet;
 R = toSet;
 
+% Defaults for Q and S.
+Q = eye(d, d);
+S = eye(d, d);
+
 if strcmp(translation, 'free')
     % Compute the centroids of the point-sets.
     if ~iscell(W)
+        % With weighting.
         totalWeight = sum(W(:));
         fromCentroid = fromSet * W * (ones(n, 1) / totalWeight);
         toCentroid = toSet * W' * (ones(m, 1) / totalWeight);
     else
+        % Without weighting.
         fromCentroid = sum(fromSet, 2) / m;
         toCentroid = sum(toSet, 2) / n;
     end
@@ -156,29 +162,31 @@ if strcmp(translation, 'free')
 end
 
 if ~iscell(W)
+    % With weighting.
     c = sum(W, 2);
+    RP = R * W' * P';
+    PP = P * diag(c) * P';
+else
+    % Without weighting.
+    RP = R * P';
+    PP = P * P';
 end
-
-% Defaults for Q and S.
-Q = eye(d, d);
-S = eye(d, d);
 
 if strcmp(scaling, 'free') && strcmp(matrix, 'identity')
     % f(x) = Sx
     
     % Find the optimal scaling.
-    S = lyap(P * P', -(R * P' + P * R'));
+    S = lyap(PP, -(RP + RP'));
 end
 
 if strcmp(scaling, 'free') && strcmp(matrix, 'free')
     % f(x) = Ax
     
     % Compute the optimal linear transformation.
-    if ~iscell(W)
-        A = (R * W' * P') / (P * diag(c) * P');
-    else
-        A = (R * P') / (P * P');
-    end
+    [UP, UR, X, DP, DR] = gsvd(PP, RP);
+    
+    A = UR * (DR * pinv(DP)) * UP';
+    %A = RP / PP;
     
     % Compute Q and S from A such that
     % A = QS and S is symmetric positive semi-definite.
@@ -191,11 +199,7 @@ if ~strcmp(scaling, 'free') && strcmp(matrix, 'free')
     % f(x) = sQx
     
     % Compute the optimal orthogonal transformation.
-    if ~iscell(W)
-        [U, D, V] = svd(R * W' * P');
-    else
-        [U, D, V] = svd(R * P');
-    end
+    [U, D, V] = svd(RP);
     Q = U * V';
 
     if orientation ~= 0
@@ -224,7 +228,7 @@ if strcmp(scaling, 'conformal')
     end
     
     % Compute the optimal scaling parameter.
-    s = trace(Q' * R * P') / tracePtp;
+    s = trace(Q' * RP) / tracePtp;
     S = s * eye(d, d);
 end
 
