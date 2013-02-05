@@ -183,9 +183,10 @@ if strcmp(scaling, 'free') && strcmp(matrix, 'free')
     % f(x) = Ax
     
     % Compute the optimal linear transformation.
-    [UP, UR, X, DP, DR] = gsvd(PP, RP);
-    
-    A = UR * (DR * pinv(DP)) * UP';
+    %[UP, UR, X, DP, DR] = gsvd(PP, RP);
+    %A = UR * (DR * pinv(DP)) * UP';
+    A = RP * pinv(PP);
+    A
     
     % Compute Q and S from A such that
     % A = QS and S is symmetric positive semi-definite.
