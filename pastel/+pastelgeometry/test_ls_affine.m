@@ -8,13 +8,16 @@ close all;
 
 eval(import_pastel);
 
-m = 10;
-n = 100;
 trials = 400;
 threshold = 1e-11;
 
+% Randomly chosen cases.
+
 fails = 0;
 for k = 1 : trials
+    m = randi(10);
+    n = randi(100) + 10;
+
     matrixSet = {'free', 'identity'};
     matrix = matrixSet{randi([1, numel(matrixSet)])};
     scalingSet = {'free', 'conformal', 'rigid'};
