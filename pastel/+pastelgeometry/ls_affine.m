@@ -186,7 +186,6 @@ if strcmp(scaling, 'free') && strcmp(matrix, 'free')
     [UP, UR, X, DP, DR] = gsvd(PP, RP);
     
     A = UR * (DR * pinv(DP)) * UP';
-    %A = RP / PP;
     
     % Compute Q and S from A such that
     % A = QS and S is symmetric positive semi-definite.
@@ -220,15 +219,8 @@ end
 if strcmp(scaling, 'conformal')
     % f(x) = sQx
     
-    % Compute tr(P^T diag(c) P).
-    if ~iscell(W)
-        tracePtp = sum(sum((P * diag(c)).^2));
-    else
-        tracePtp = sum(P(:).^2);
-    end
-    
     % Compute the optimal scaling parameter.
-    s = trace(Q' * RP) / tracePtp;
+    s = trace(Q' * RP) / trace(PP);
     S = s * eye(d, d);
 end
 
