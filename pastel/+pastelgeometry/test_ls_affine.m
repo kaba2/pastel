@@ -17,6 +17,7 @@ fails = 0;
 for k = 1 : trials
     m = randi(10);
     n = randi(100) + 10;
+    W = eye(n) * rand() * 10;
 
     matrixSet = {'free', 'identity'};
     matrix = matrixSet{randi([1, numel(matrixSet)])};
@@ -67,7 +68,8 @@ for k = 1 : trials
         'orientation', orientation, ...
         'matrix', matrix, ...
         'scaling', scaling, ...
-        'translation', translation);
+        'translation', translation, ...
+        'W', W);
 
     % Check that the errors are small.
     if norm(QE - Q) > threshold || ...
