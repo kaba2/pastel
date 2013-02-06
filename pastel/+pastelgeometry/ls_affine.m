@@ -46,18 +46,17 @@
 %     1: det(QS) > 0.
 %
 % W ('W') is a (m x n) non-negative real matrix, which contains the 
-% weights for the least-squares error metric.
+% weights for the least-squares error metric. If W is not given, then 
+% it is required that m = n, and it is assumed that W = eye(m, n). 
 %
 % The Q, S, and T are chosen such that they minimize the error metric
 %
 %      sum_{i = 1}^m sum_{j = 1}^n w_{ij} ||(QS p_i + t) - r_j||^2
 %
-% subject to the given constraints.
+% subject to the given constraints. If m = n, and W is diagonal,
+% then the error metric simplifies to
 %
-% If W is not given, then it is required that m = n, and it is assumed
-% that W = eye(m, n). Then the error metric simplifies to
-%
-%      sum_{i = 1}^m ||(QS p_i + t) - r_i||^2.
+%      sum_{i = 1}^m w_{ii} ||(QS p_i + t) - r_i||^2.
 
 % Description: Optimal affine transformation between point-sets.
 
@@ -141,11 +140,18 @@ R = toSet;
 Q = eye(d, d);
 S = eye(d, d);
 
+% Compute the sum of all weights.
+if ~iscell(W)
+    % With weighting.
+    totalWeight = sum(W(:));
+    if totalWeight <= 0
+        error('W = 0 is not allowed.');
+    end
+end
+
 if strcmp(translation, 'free')
     % Compute the centroids of the point-sets.
     if ~iscell(W)
-        % With weighting.
-        totalWeight = sum(W(:));
         fromCentroid = fromSet * W * (ones(n, 1) / totalWeight);
         toCentroid = toSet * W' * (ones(m, 1) / totalWeight);
     else
@@ -163,13 +169,12 @@ end
 
 if ~iscell(W)
     % With weighting.
-    c = sum(W, 2);
+    PP = P * diag(sum(W, 2)) * P';
     RP = R * W' * P';
-    PP = P * diag(c) * P';
 else
     % Without weighting.
-    RP = R * P';
     PP = P * P';
+    RP = R * P';
 end
 
 if strcmp(scaling, 'free') && strcmp(matrix, 'identity')
@@ -186,7 +191,6 @@ if strcmp(scaling, 'free') && strcmp(matrix, 'free')
     %[UP, UR, X, DP, DR] = gsvd(PP, RP);
     %A = UR * (DR * pinv(DP)) * UP';
     A = RP * pinv(PP);
-    A
     
     % Compute Q and S from A such that
     % A = QS and S is symmetric positive semi-definite.

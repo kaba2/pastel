@@ -14,26 +14,20 @@
 % SCENESET is an (d x m) numeric array, where each column
 % contains the coordinates of a d-dimensional point.
 %
-% Q is a (d x d) orthogonal matrix.
+% Q is a (d x d) orthogonal matrix, giving the estimated 
+% rotation/reflection.
 %
-% S is a (d x d) symmetric matrix.
+% S is a (d x d) symmetric matrix, giving the estimated scaling.
 %
-% T is a (d x 1) matrix.
+% T is a (d x 1) matrix, giving the estimated translation.
 %
 % Optional input arguments in 'key'-value pairs:
 %
-% MINITERATIONS ('minIterations') is a positive integer which specifies 
-% the minimum number of iterations for the algorithm to take.
-% Default: 1.
-%
-% MAXITERATIONS ('maxIterations') is a positive integer which 
-% specifies the maximum number of iterations for the algorithm to take. 
-% It must hold that MINITERATIONS < MAXITERATIONS.
-% Default: 100.
-%
-% MINERROR ('minError') is the minimum trimmed-mean-square error under 
-% which to accept the transformation and stop iteration. 
-% Default: 1e-11.
+% NOISERATIO ('noiseRatio') is a real number between (0, 1), which
+% gives the weight for an additive uniform distribution component for
+% the Gaussian mixture model. Larger noise-ratio makes the algorithm
+% more tolerant to noise, but declines convergence rate when the
+% actual noise level is lower. Default: 0.2.
 %
 % MATRIX ('matrix') is a string which specifies constraints 
 % for the matrix Q. Must be one of
@@ -69,6 +63,19 @@
 % is the optimal translation assuming SCENESET and MODELSET match
 % bijectively and Q0 = Q, and S0 = S.
 %
+% MINITERATIONS ('minIterations') is a positive integer which specifies 
+% the minimum number of iterations for the algorithm to take.
+% Default: 1.
+%
+% MAXITERATIONS ('maxIterations') is a positive integer which 
+% specifies the maximum number of iterations for the algorithm to take. 
+% It must hold that MINITERATIONS <= MAXITERATIONS.
+% Default: 100.
+%
+% MINERROR ('minError') is the minimum error under 
+% which to accept the transformation and stop iteration. 
+% Default: 1e-11.
+%
 % DRAWPICTURES ('drawPictures') is a boolean which specifies whether
 % the algorithm should draw pictures of the process (useful for 
 % debugging). Default: false
@@ -102,6 +109,7 @@ m = size(modelSet, 2);
 n = size(sceneSet, 2);
 
 % Optional input arguments
+noiseRatio = 0.2;
 minIterations = 1;
 maxIterations = 100;
 minError = 1e-11;
@@ -114,6 +122,7 @@ S0 = eye(d, d);
 t0 = {};
 drawPictures = false;
 eval(process_options({...
+    'noiseRatio', ...
     'minIterations', 'maxIterations', ...
     'minError', 'matrix', 'scaling', 'translation', ...
     'orientation', 'Q0', 'S0', 't0', ...
@@ -131,7 +140,12 @@ end
 concept_check(...
     modelSet, 'pointset', ...
     sceneSet, 'pointset', ...
-    minError, 'real');
+    minError, 'real', ...
+    noiseRatio, 'real');
+
+if noiseRatio <= 0 || noiseRatio >= 1
+    error('It must hold that 0 < NOISERATIO < 1.');
+end
 
 if minIterations > maxIterations
     error('It must hold that MINITERATIONS <= MAXITERATIONS.');
@@ -174,24 +188,27 @@ end
 Q = Q0;
 S = S0;
 t = t0;
-w = 0.5;
-
-sigma2 = 0;
-for i = 1 : m
-    sigma2 = sigma2 + sum(sum((sceneSet - modelSet(:, i) * ones(1, n)).^2));
-end
-sigma2 = sigma2 / (d * m * n);
 
 % Compute the transformed model-set.
 transformedSet = Q * S * modelSet + t * ones(1, m);
 
+sigma2 = 0;
+for j = 1 : n
+    distanceSet = sum((transformedSet - sceneSet(:, j) * ones(1, m)).^2);
+    sigma2 = sigma2 + sum(distanceSet);
+end
+sigma2 = sigma2 / (d * m * n);
+
+figuresDrawn = 0;
+figuresToDraw = 4;
+
 W = zeros(m, n);
-f = (2 * pi * sigma2)^(d / 2) * (w / (1 - w)) * (m / n);
+f = (2 * pi * sigma2)^(d / 2) * ...
+    (noiseRatio / (1 - noiseRatio)) * (m / n);
 for iteration = 0 : maxIterations - 1
     if drawPictures
         % Draw a nice picture.
-        if (mod(iteration, 2) == 0 && iteration < 8) || ...
-           iteration == maxIterations - 1
+        if mod(iteration, 5) == 0 && figuresDrawn < figuresToDraw
             figure;
             scatter(transformedSet(1, :), transformedSet(2, :), 'g.');
             %axis([-10, 10, -10, 10]);
@@ -201,6 +218,7 @@ for iteration = 0 : maxIterations - 1
             title(['CPD iteration ', int2str(iteration)]);
             legend('Model', 'Scene');
             hold off;
+            figuresDrawn = figuresDrawn + 1;
         end
     end
     
@@ -210,7 +228,9 @@ for iteration = 0 : maxIterations - 1
         expSet = exp(-distanceSet / (2 * sigma2));
         W(:, j) = expSet / (sum(expSet) + f);
     end
-    
+
+    totalWeight = sum(W(:));
+
     qPrev = Q;
     sPrev = S;
     tPrev = t;
@@ -230,9 +250,10 @@ for iteration = 0 : maxIterations - 1
     % Compute a new estimate for sigma2.
     sigma2 = 0;
     for j = 1 : n
-        sigma2 = sigma2 + sum(W(:, j)' .* sum((transformedSet - sceneSet(:, j) * ones(1, m)).^2));
+        distanceSet = sum((transformedSet - sceneSet(:, j) * ones(1, m)).^2);
+        sigma2 = sigma2 + sum(W(:, j)' .* distanceSet);
     end
-    sigma2 = sigma2 / (d * m);
+    sigma2 = sigma2 / (totalWeight * d);
     
     if norm(sPrev - S) < minError && ...
        norm(qPrev - Q) < minError && ...
@@ -242,3 +263,4 @@ for iteration = 0 : maxIterations - 1
        break;
     end
 end
+
