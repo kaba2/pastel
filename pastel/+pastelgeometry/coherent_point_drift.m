@@ -85,17 +85,19 @@
 %     Q * S * modelSet + t * ones(1, n)
 %
 % matches sceneSet.
+%
+% Reference:
+%
+% Point Set Registration: Coherent Point Drift,
+% Andriy Myronenko, Xubo Song,
+% IEEE Transactions on Pattern Analysis and Machine Intelligence,
+% Volume 32, Number 12, December 2010.
 
-% Description: Locally optimal transformation between unpaired point-sets.
+% Description: Point-set registration between unpaired point-sets.
 % Detail: Coherent Point Drift algorithm.
 
 function [Q, S, t] = coherent_point_drift(...
     modelSet, sceneSet, varargin)
-
-% See _Point Set Registration: Coherent Point Drift_,
-% Andriy Myronenko, Xubo Song,
-% IEEE Transactions on Pattern Analysis and Machine Intelligence,
-% Volume 32, Number 12, December 2010.
 
 eval(import_pastel);
 
@@ -192,6 +194,7 @@ t = t0;
 % Compute the transformed model-set.
 transformedSet = Q * S * modelSet + t * ones(1, m);
 
+% Compute an initial estimate for sigma^2.
 sigma2 = 0;
 for j = 1 : n
     distanceSet = sum((transformedSet - sceneSet(:, j) * ones(1, m)).^2);
@@ -229,8 +232,7 @@ for iteration = 0 : maxIterations - 1
         W(:, j) = expSet / (sum(expSet) + f);
     end
 
-    totalWeight = sum(W(:));
-
+    % Store the previous transformation for comparison.
     qPrev = Q;
     sPrev = S;
     tPrev = t;
@@ -247,14 +249,18 @@ for iteration = 0 : maxIterations - 1
     % Compute the transformed model-set.
     transformedSet = Q * S * modelSet + t * ones(1, m);
 
-    % Compute a new estimate for sigma2.
+    % Compute a new estimate for sigma^2.
     sigma2 = 0;
     for j = 1 : n
         distanceSet = sum((transformedSet - sceneSet(:, j) * ones(1, m)).^2);
         sigma2 = sigma2 + sum(W(:, j)' .* distanceSet);
     end
+    totalWeight = sum(W(:));
     sigma2 = sigma2 / (totalWeight * d);
     
+    % When the change to the previous transformation falls 
+    % below the given error threshold, we will stop, provided that 
+    % a minimum number of iterations has been performed.
     if norm(sPrev - S) < minError && ...
        norm(qPrev - Q) < minError && ...
        norm(tPrev - t) < minError && ...
