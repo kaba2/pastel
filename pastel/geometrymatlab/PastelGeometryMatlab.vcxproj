@@ -133,9 +133,9 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\+pastelgeometry\coherent_point_drift.m" />
     <None Include="..\+pastelgeometry\icp.m" />
-    <None Include="..\+pastelgeometry\ls_conformal_affine.m" />
-    <None Include="..\+pastelgeometry\ls_translation.m" />
+    <None Include="..\+pastelgeometry\ls_affine.m" />
     <None Include="..\+pastelgeometry\pastelgeometrymatlab.mexw64" />
     <None Include="..\+pastelgeometry\pointkdtree_as_points.m" />
     <None Include="..\+pastelgeometry\pointkdtree_clear.m" />
@@ -153,10 +153,11 @@
     <None Include="..\+pastelgeometry\pointkdtree_refine.m" />
     <None Include="..\+pastelgeometry\pointkdtree_search_nearest.m" />
     <None Include="..\+pastelgeometry\pointkdtree_show.m" />
+    <None Include="..\+pastelgeometry\pointset_concept.m" />
     <None Include="..\+pastelgeometry\point_pattern_matching_kr.m" />
     <None Include="..\+pastelgeometry\point_pattern_matching_vw.m" />
     <None Include="..\+pastelgeometry\test_icp.m" />
-    <None Include="..\+pastelgeometry\test_ls_conformal_affine.m" />
+    <None Include="..\+pastelgeometry\test_ls_affine.m" />
     <None Include="..\+pastelgeometry\test_pointkdtree.m" />
     <None Include="..\+pastelgeometry\test_point_pattern_matching_kr.m" />
     <None Include="..\+pastelgeometry\test_point_pattern_matching_vw.m" />
@@ -175,7 +176,6 @@
     <ClInclude Include="pastelgeometrymatlab.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\+pastelgeometry\ls_translation.txt" />
     <Text Include="icp.txt" />
     <Text Include="ls_conformal_affine.txt" />
     <Text Include="transformation_fitting.txt" />
