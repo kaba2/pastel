@@ -41,9 +41,6 @@
     <None Include="..\+pastelgeometry\icp.m">
       <Filter>Transformation fitting\Iterated closest points</Filter>
     </None>
-    <None Include="..\+pastelgeometry\ls_conformal_affine.m">
-      <Filter>Transformation fitting\Least squares</Filter>
-    </None>
     <None Include="..\+pastelgeometry\point_pattern_matching_kr.m">
       <Filter>Transformation fitting\Point pattern matching\Translation</Filter>
     </None>
@@ -101,9 +98,6 @@
     <None Include="..\+pastelgeometry\test_icp.m">
       <Filter>Transformation fitting\Iterated closest points</Filter>
     </None>
-    <None Include="..\+pastelgeometry\test_ls_conformal_affine.m">
-      <Filter>Transformation fitting\Least squares</Filter>
-    </None>
     <None Include="..\+pastelgeometry\test_point_pattern_matching_kr.m">
       <Filter>Transformation fitting\Point pattern matching\Translation</Filter>
     </None>
@@ -113,7 +107,16 @@
     <None Include="..\+pastelgeometry\test_pointkdtree.m">
       <Filter>PointKdTree</Filter>
     </None>
-    <None Include="..\+pastelgeometry\ls_translation.m">
+    <None Include="..\+pastelgeometry\coherent_point_drift.m">
+      <Filter>Transformation fitting\Least squares</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\ls_affine.m">
+      <Filter>Transformation fitting\Least squares</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\pointset_concept.m">
+      <Filter>Transformation fitting\Least squares</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\test_ls_affine.m">
       <Filter>Transformation fitting\Least squares</Filter>
     </None>
   </ItemGroup>
@@ -140,9 +143,6 @@
       <Filter>Transformation fitting</Filter>
     </Text>
     <Text Include="ls_conformal_affine.txt">
-      <Filter>Transformation fitting\Least squares</Filter>
-    </Text>
-    <Text Include="..\+pastelgeometry\ls_translation.txt">
       <Filter>Transformation fitting\Least squares</Filter>
     </Text>
   </ItemGroup>
