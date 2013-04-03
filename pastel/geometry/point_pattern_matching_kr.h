@@ -22,10 +22,30 @@ namespace Pastel
 		};
 	};
 
+	template <typename Real, int N>
+	struct Result_PointPatternMatchKr
+	{
+		// TODO: Remove after uniform initialization 
+		// becomes available in Visual Studio 2012.
+		Result_PointPatternMatchKr(
+			bool success_,
+			Vector<Real, N> translation_,
+			Real bias_)
+			: success(success_)
+			, translation(translation_)
+			, bias(bias_)
+		{
+		}
+
+		bool success;
+		Vector<Real, N> translation;
+		Real bias;
+	};
+
 	template <typename Real, int N, typename Model_PointPolicy, 
 		typename Scene_PointPolicy, typename Scene_Model_Reporter,
 		typename NormBijection>
-	bool pointPatternMatchKr(
+	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 		integer kNearest,
@@ -34,8 +54,6 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxBias,
 		MatchingMode::Enum matchingMode,
 		const NormBijection& normBijection,
-		Vector<Real, N>& translation,
-		PASTEL_NO_DEDUCTION(Real)& bias,
 		Scene_Model_Reporter report);
 
 }

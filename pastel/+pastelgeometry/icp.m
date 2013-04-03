@@ -1,7 +1,7 @@
 % ICP
 % Locally optimal transformation between unpaired point-sets.
 %
-% [Q, T, pairSet] = icp(modelSet, sceneSet, matchingDistance, ...
+% [Q, t, pairSet] = icp(modelSet, sceneSet, matchingDistance, ...
 %                       'key', value, ...)
 %
 % where
@@ -23,8 +23,8 @@
 % T is a (d x 1) vector, containing the matching translation.
 %
 % PAIRSET is a (2 x k)-integer-array of indices, where each column is
-% a pair (i, j), where i is the index of a scene point, and j is the index
-% of its matched model point. 
+% a pair (i, j), where i is the index of a model point, and j is the index
+% of its matched scene point. 
 %
 % Optional input arguments in 'key'-value pairs:
 %
@@ -92,13 +92,26 @@
 % the strategy for distance-rejection changes.
 % Default: 0.1
 %
-% DRAWPICTURES ('drawPictures') is a boolean which specifies whether
-% the algorithm should draw pictures of the process (useful for 
-% debugging). Default: false
+% REPORTER ('reporter') is a lambda function which takes a single
+% struct argument. The reporter is called after each iteration with
+% the currently found transformation. This can be used to visualize
+% or debug the workings of the algorithm. The reported struct consists
+% of the following fields:
+%
+%     modelSet, sceneSet: The input values.
+%     Q, t, pairSet: As in return values.
+%     transformedSet: Q * modelSet + ones(1, n) * t
+%     iteration: The iteration number, an integer.
+%     lambda
+%     meanDistance: The mean-squared distance between the paired points.
+%     inlierRatio
+%
+% Return values
+% -------------
 %
 % It should approximately be true that 
 % 
-%     Q * modelSet + T * ones(1, n)
+%     Q * modelSet + t * ones(1, n)
 %
 % matches sceneSet. The parameter choices correspond to known 
 % algorithms roughly as follows:
@@ -146,13 +159,13 @@ Q0 = eye(d, d);
 t0 = {};
 inlierThreshold = 0.25;
 lambdaThreshold = 0.1;
-drawPictures = false;
+reporter = {};
 eval(process_options({...
     'kNearest', 'minIterations', 'maxIterations', ...
     'minError', 'matrix', 'translation', ...
     'orientation', 'matchingType', ...
     'Q0', 't0', 'inlierThreshold', 'lambdaThreshold', ...
-    'drawPictures'}, ...
+    'reporter'}, ...
     varargin));
 
 if iscell(t0)
@@ -167,7 +180,8 @@ concept_check(...
     modelSet, 'pointset', ...
     sceneSet, 'pointset', ...
     minError, 'real', ...
-    matchingDistance, 'real');
+    matchingDistance, 'real', ...
+    reporter, 'lambda_function');
 
 if kNearest < 1
     error('KNEAREST must be at least 1.')
@@ -292,7 +306,7 @@ for iteration = 0 : maxIterations - 1
     acceptSet = distanceSet <= t;
     
     acceptPairSet = distanceSet <= matchingDistance^2;
-    pairSet = matchSet([2, 1], acceptPairSet);
+    pairSet = matchSet(:, acceptPairSet);
     
     % Compute the positions of the corresponding points.
     matchSet = matchSet(:, acceptSet);
@@ -309,28 +323,6 @@ for iteration = 0 : maxIterations - 1
         'translation', translation, ...
         'orientation', orientation);
 
-    if drawPictures
-        % Draw a nice picture.
-        if (mod(iteration, 2) == 0 && iteration < 8) || ...
-           iteration == maxIterations - 1
-            figure;
-            scatter(transformedSet(1, :), transformedSet(2, :), 'g.');
-            %axis([-10, 10, -10, 10]);
-            axis equal;
-            hold on;
-            scatter(sceneSet(1, :), sceneSet(2, :), 'r.');
-            for i = 1 : size(matchSet, 2)
-                u = matchSet(1, i);
-                v = matchSet(2, i);
-                line([transformedSet(1, u), sceneSet(1, v)], ...
-                    [transformedSet(2, u), sceneSet(2, v)]);
-            end        
-            title(['ICP iteration ', int2str(iteration)]);
-            legend('Model', 'Scene');
-            hold off;
-        end
-    end
-
     % Compute the inlier ratio. It is the ratio of model points
     % taking part on the estimation phase.
     inlierRatio = size(matchSet, 2) / n;
@@ -340,6 +332,20 @@ for iteration = 0 : maxIterations - 1
         % also helps the algorithm to not to get stuck on
         % local minima.
         kNearest = max(kNearest - 1, 1);
+    end
+    
+    if ~iscell(reporter)
+        reporter(struct(...,
+            'Q', Q, ...
+            't', t, ...
+            'pairSet', pairSet, ...
+            'modelSet', modelSet, ...
+            'sceneSet', sceneSet, ...
+            'transformedSet', transformedSet, ...
+            'iteration', iteration, ...
+            'meanDistance', meanDistance, ...
+            'lambda', lambda, ...
+            'inlierRatio', inlierRatio));
     end
     
     if meanDistance < minError && iteration >= minIterations - 1
