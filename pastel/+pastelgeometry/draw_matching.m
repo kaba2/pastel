@@ -2,7 +2,7 @@ function draw_matching(aSet, bSet, pairSet)
 
 % Draw a nice picture.
 figure;
-scatter(aSet(1, :), aSet(2, :), 'g.');
+scatter(aSet(1, :), aSet(2, :), 'b.');
 %axis([-10, 10, -10, 10]);
 axis equal;
 hold on;
