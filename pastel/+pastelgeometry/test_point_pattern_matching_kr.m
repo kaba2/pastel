@@ -69,16 +69,21 @@ n = size(S, d);
 % Attempt to recover the similarity from the two
 % pointsets using point-pattern matching.
 tic
-[pairSet, nTranslation, bias, success] = ...
-    point_pattern_matching_kr(M, S, matchingDistance, ...
+match = point_pattern_matching_kr(...
+    M, S, matchingDistance, ...
     'minMatchRatio', minMatchRatio, ...
     'maxBias', maxBias, ...
     'matchingMode', matchingMode);
 timeSpent = toc;
 
+pairSet = match.pairSet;
+nTranslation = match.translation;
+bias = match.bias;
+success = match.success;
+
 foundPairSet = zeros(1, m);
-foundPairSet(modelPermutation(pairSet(2, :))) = ...
-    scenePermutation(pairSet(1, :));
+foundPairSet(modelPermutation(pairSet(1, :))) = ...
+    scenePermutation(pairSet(2, :));
 
 correctPairSet = 1 : m;
 correctPairs = sum(foundPairSet == correctPairSet);
@@ -135,8 +140,8 @@ scatter(nM(1, :), nM(2, :), 100, 'r.');
 
 % Draw some useful line segments.
 for i = 1 : matchSize
-    sceneIndex = pairSet(1, i);
-    modelIndex = pairSet(2, i);
+    modelIndex = pairSet(1, i);
+    sceneIndex = pairSet(2, i);
     correctModelIndex = modelPermutationInv(...
         scenePermutation(sceneIndex));
 

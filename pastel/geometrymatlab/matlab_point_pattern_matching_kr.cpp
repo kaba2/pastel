@@ -111,11 +111,11 @@ namespace Pastel
 			// Compute the point pattern match.
 
 			Euclidean_NormBijection<real> normBijection;
-			const bool success = Pastel::pointPatternMatchKr(
+			auto match = Pastel::pointPatternMatchKr(
 				modelTree, sceneTree, kNearest,
 				minMatchRatio, matchingDistance, maxBias,
-				matchingMode, normBijection, translation, 
-				bias, pushBackReporter(pairSet));
+				matchingMode, normBijection, 
+				pushBackReporter(pairSet));
 
 			// Output the pairing.
 
@@ -125,26 +125,26 @@ namespace Pastel
 			for (integer i = 0;i < pairSet.size();++i)
 			{
 				// The +1 is because Matlab has 1-based indexing.
-				outPairSet(i, 0) = (pairSet[i].first->point() - sceneData) / n + 1;
-				outPairSet(i, 1) = (pairSet[i].second->point() - modelData) / n + 1;
+				outPairSet(i, 0) = (pairSet[i].second->point() - modelData) / n + 1;
+				outPairSet(i, 1) = (pairSet[i].first->point() - sceneData) / n + 1;
 			}
 
 			// Output the translation.
 
 			Array<real> outTranslation =
 				createArray<real>(Vector2i(1, n), outputSet[Translation]);
-			std::copy(translation.begin(), translation.end(),
+			std::copy(match.translation.begin(), match.translation.end(),
 				outTranslation.begin());
 
 			// Output the bias.
 
 			real* outBias = createScalar<real>(outputSet[Bias]);
-			*outBias = bias;
+			*outBias = match.bias;
 
 			// Output the success flag.
 
 			int32* outSuccess = createScalar<int32>(outputSet[Success]);
-			*outSuccess = success ? 1 : 0;
+			*outSuccess = match.success ? 1 : 0;
 		}
 
 		void addFunction()

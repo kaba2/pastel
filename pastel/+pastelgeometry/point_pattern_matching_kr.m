@@ -1,23 +1,24 @@
 % POINT_PATTERN_MATCHING_KR
-% Finds a translation between unpaired point-sets.
+% Finds a matching translation between unpaired point-sets.
 %
-% [pairSet, translation, bias, success] = ...
-%     point_pattern_matching_kr(modelPointSet, scenePointSet, 
+% match = point_pattern_matching_kr(
+%         modelSet, sceneSet,
 %         matchingDistance, 'key', value, ...)
 %
 % where
 %
-% MODELPOINTSET is a (d x m)-real-array, where each column contains
+% MODELSET is a (d x m)-real-array, where each column contains
 % a d-dimensional point.
 %
-% SCENEPOINTSET is a (d x n)-real-array, where each column contains
+% SCENESET is a (d x n)-real-array, where each column contains
 % a d-dimensional point.
 %
 % MATCHINGDISTANCE ('matchingDistance') is a non-negative real number 
 % which gives the distance under which a mapped point from the 
-% 'modelPointSet' is considered to match a point from the 'scenePointSet'.
+% 'modelSet' is considered to match a point from the 'sceneSet'.
 %
-% Optional input arguments in 'key'-value pairs:
+% Optional input arguments in 'key'-value pairs
+% ---------------------------------------------
 %
 % KNEAREST ('kNearest') is a positive integer which specifies the number
 % of nearest neighbor to search for each model point. The additional
@@ -26,8 +27,8 @@
 % from the available neighbors. Default: 16.
 %
 % MINMATCHRATIO ('minMatchRatio') is a real number in the range [0, 1]. 
-% It gives the fraction of points in 'modelPointSet' that a translation 
-% must match with points in 'scenePointSet' to be accepted. For example,
+% It gives the fraction of points in 'modelSet' that a translation 
+% must match with points in 'sceneSet' to be accepted. For example,
 % 0.8 means that 80% of the points must match. Default: 1.
 %
 % MAXBIAS ('maxBias') is a real number in the range [0, 1] which gives 
@@ -40,18 +41,24 @@
 %     1: the best match (of maximum size, of minimum bias)
 % Default: 0.
 %
-% PAIRSET is a (2 x k)-integer-array of indices, where each column is
-% a pair (i, j), where i is the index of a scene point, and j is the index
-% of its matched model point. 
+% Return values
+% -------------
 %
-% TRANSLATION is a (d x 1)-real-array which gives the matching translation
-% in case such is found ('success' is 1).
+% The results are returned in a structure which contains the following
+% fields.
 %
-% BIAS is a real number in the range [0, 1] which gives the bias of the
-% found match. See below for the definition of bias.
+% PAIRSET ('pairSet') is a (2 x k)-integer-array of indices, where each 
+% column is a pair (i, j), where i is the index of a model point, and j 
+% is the index of its matched scene point. 
 %
-% SUCCESS is a real number, which is 1 if a match was found, and 0
-% otherwise.
+% TRANSLATION ('translation') is a (d x 1)-real-array which gives the 
+% matching translation in case such is found ('success' is 1).
+%
+% BIAS ('bias') is a real number in the range [0, 1] which gives the bias 
+% of the found match. See below for the definition of bias.
+%
+% SUCCESS ('success') is a real number, which is 1 if a match was found, 
+% and 0 otherwise.
 %
 % A transformed model-point is said to match if it has a unique scene 
 % point in its matching distance, where distance is measured by the
@@ -69,9 +76,8 @@
 % Description: Finds a matching translation between unordered pointsets
 % Documentation: point_pattern_matching_kr.txt
 
-function [pairSet, translation, bias, success] = ...
-    point_pattern_matching_kr(...
-    modelPointSet, scenePointSet, matchingDistance, varargin)
+function match = point_pattern_matching_kr(...
+    modelSet, sceneSet, matchingDistance, varargin)
 
 eval(import_pastel);
 
@@ -85,8 +91,8 @@ eval(process_options({'kNearest', 'minMatchRatio', ...
     varargin));
 
 concept_check(...
-    modelPointSet, 'pointset', ...
-    scenePointSet, 'pointset', ...
+    modelSet, 'pointset', ...
+    sceneSet, 'pointset', ...
     minMatchRatio, 'real', ...
     matchingDistance, 'real', ...
     maxBias, 'real');
@@ -111,14 +117,21 @@ if matchingMode ~= 0 && matchingMode ~= 1
     error('matchingMode must be 0 or 1.');
 end
 
-if size(modelPointSet, 1) ~= size(scenePointSet, 1)
-    error('The dimensions of modelPointSet and scenePointSet must be equal.');
+if size(modelSet, 1) ~= size(sceneSet, 1)
+    error('The dimensions of modelSet and sceneSet must be equal.');
 end
 
 [pairSet, translation, bias, success] = ...
     pastelgeometrymatlab('point_pattern_matching_kr', ...
-    modelPointSet, scenePointSet, kNearest, ...
+    modelSet, sceneSet, kNearest, ...
     minMatchRatio, matchingDistance, maxBias, ...
     matchingMode);
+
+match = struct(...
+    'pairSet', pairSet, ...
+    'translation', translation, ...
+    'bias', bias, ...
+    'success', success);
+
 
 

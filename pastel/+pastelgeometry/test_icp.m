@@ -82,15 +82,20 @@ alpha = size(commonSet, 2) / size(P, 2);
 % Find the transformation from P to R using the ICP.
 [qIcp, tIcp, pairSetIcp] = icp(P, R, matchingDistance, ...
     'matrix', 'identity', ...
-    'drawPictures', true);
+    'reporter', @test_icp_reporter);
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
-[pairSetPpm, tPpm, bias, success] = ...
-    point_pattern_matching_kr(P, R, matchingDistance, ...
+match = point_pattern_matching_kr(P, R, matchingDistance, ...
     'minMatchRatio', alpha * 0.9, ...
     'maxBias', 0.1, ...,
     'matchingMode', 0);
+
+pairSetPpm = match.pairSet;
+tPpm = match.translation;
+bias = match.bias;
+success = match.success;
+
 qPpm = eye(m, m);
 rPpm = qPpm * P + tPpm * ones(1, size(P, 2));
 

@@ -26,6 +26,8 @@ namespace Pastel
 		class PointPatternKr
 		{
 		public:
+			typedef Result_PointPatternMatchKr<Real, N> Match;
+
 			typedef PointKdTree<Real, N, Model_PointPolicy> ModelTree;
 			typedef typename ModelTree::Point_ConstIterator 
 				Model_ConstIterator;
@@ -63,7 +65,7 @@ namespace Pastel
 				Model_ConstIterator model_;
 			};
 
-			bool match(
+			Match match(
 				const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 				const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 				integer kNearest,
@@ -72,8 +74,6 @@ namespace Pastel
 				const Real& maxBias,
 				MatchingMode::Enum matchingMode,
 				const NormBijection& normBijection,
-				Vector<Real, N>& outTranslation,
-				Real& outBias,
 				const Scene_Model_Reporter& report)
 			{
 				/*
@@ -83,9 +83,6 @@ namespace Pastel
 				*/
 
 				const integer d = modelTree.n();
-
-				outTranslation = Vector<Real, N>(ofDimension(d), 0);
-				outBias = 0;
 
 				std::vector<Model_ConstIterator> modelSet(
 					countingIterator(modelTree.begin()),
@@ -243,9 +240,11 @@ namespace Pastel
 					}
 				}
 
+				bool success = false;
 				if (!bestPairSet.empty())
 				{
 					// A match was found. Report it.
+					success = true;
 
 					std::for_each(
 						bestPairSet.begin(), bestPairSet.end(),
@@ -253,23 +252,19 @@ namespace Pastel
 					{
 						report(that);
 					});
-
-					outTranslation = bestTranslation;
-					outBias = bestBias;
-
-					return true;
 				}
 
-				return false;
+				// TODO: Replace with uniform initialization later.
+				return Match(success, bestTranslation, bestBias);
 			}
 		};
 	
 	}
 
 	template <typename Real, int N, typename Model_PointPolicy, 
-		typename Scene_PointPolicy, typename SceneModel_Iterator,
+		typename Scene_PointPolicy, typename Scene_Model_Reporter,
 		typename NormBijection>
-	bool pointPatternMatchKr(
+	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 		integer kNearest,
@@ -278,9 +273,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxBias,
 		MatchingMode::Enum matchingMode,
 		const NormBijection& normBijection,
-		Vector<Real, N>& outTranslation,
-		PASTEL_NO_DEDUCTION(Real)& outBias,
-		SceneModel_Iterator output)
+		Scene_Model_Reporter report)
 	{
 		ENSURE_OP(kNearest, >, 0);
 		ENSURE_OP(minMatchRatio, >=, 0);
@@ -291,7 +284,7 @@ namespace Pastel
 
 		PointPatternMatch_::PointPatternKr<
 			Real, N, Model_PointPolicy, 
-			Scene_PointPolicy, SceneModel_Iterator,
+			Scene_PointPolicy, Scene_Model_Reporter,
 			NormBijection> 
 			pointPattern;
 
@@ -303,9 +296,7 @@ namespace Pastel
 			maxBias,
 			matchingMode,
 			normBijection,
-			outTranslation, 
-			outBias,
-			output);
+			report);
 	}
 
 }
