@@ -1,8 +1,8 @@
 % ICP
 % Locally optimal transformation between unpaired point-sets.
 %
-% [Q, t, pairSet] = icp(modelSet, sceneSet, matchingDistance, ...
-%                       'key', value, ...)
+% match = icp(modelSet, sceneSet, matchingDistance, ...
+%             'key', value, ...)
 %
 % where
 %
@@ -16,15 +16,6 @@
 %
 % MATCHINGDISTANCE ('matchingDistance') is a non-negative real number
 % which specifies the distance over which to accept points being matched.
-%
-% Q is a (d x d) special-orthogonal matrix, containing the
-% matching rotation.
-%
-% T is a (d x 1) vector, containing the matching translation.
-%
-% PAIRSET is a (2 x k)-integer-array of indices, where each column is
-% a pair (i, j), where i is the index of a model point, and j is the index
-% of its matched scene point. 
 %
 % Optional input arguments in 'key'-value pairs:
 %
@@ -109,6 +100,17 @@
 % Return values
 % -------------
 %
+% The returned MATCH object is a struct containing the following fields.
+%
+% Q ('Q') is a (d x d) special-orthogonal matrix, containing the
+% matching rotation.
+%
+% T ('t') is a (d x 1) vector, containing the matching translation.
+%
+% PAIRSET ('pairSet') is a (2 x k)-integer-array of indices, where each 
+% column is a pair (i, j), where i is the index of a model point, and j
+% is the index of its matched scene point. 
+%
 % It should approximately be true that 
 % 
 %     Q * modelSet + t * ones(1, n)
@@ -127,7 +129,7 @@
 % Description: Locally optimal transformation between unpaired point-sets.
 % Detail: Original and Biunique ICP algorithms.
 
-function [Q, t, pairSet] = icp(modelSet, sceneSet, ...
+function match = icp(modelSet, sceneSet, ...
     matchingDistance, varargin)
 
 % See _Robust ICP Registration using Biunique Correspondence_,
@@ -359,3 +361,9 @@ for iteration = 0 : maxIterations - 1
 end
 
 pointkdtree_destruct(kdTree);
+
+match = struct();
+match.Q = Q;
+match.t = t;
+match.pairSet = pairSet;
+

@@ -80,9 +80,11 @@ alpha = size(commonSet, 2) / size(P, 2);
     'drawPictures', true);
 
 % Find the transformation from P to R using the ICP.
-[qIcp, tIcp, pairSetIcp] = icp(P, R, matchingDistance, ...
+match = icp(P, R, matchingDistance, ...
     'matrix', 'identity', ...
     'reporter', @test_icp_reporter);
+qIcp = match.Q;
+tIcp = match.t;
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
 
 % Find the transformation from P to R using our PPM.
