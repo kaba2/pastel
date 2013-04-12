@@ -16,10 +16,10 @@ kNearest = 8;
 pointSet = randn(d, n);
 
 % Construct a kd-tree.
-kdTree = pointkdtree_construct(d);
+kdTree = PointKdTree(d);
 
 % Insert the points into the kd-tree.
-idSet = pointkdtree_insert(kdTree, pointSet);
+idSet = kdTree.insert(pointSet);
 
 % Compute the correct nearest neighbors by brute-force.
 correctSet = int32(zeros(n, kNearest));
@@ -34,18 +34,18 @@ for i = 1 : n
 end
 
 % Refine the subdivision of the kd-tree.
-pointkdtree_refine(kdTree);
+kdTree.refine();
 
 % Print out some statistics.
-disp(['Points = ', int2str(pointkdtree_points(kdTree))]);
-disp(['Leaf nodes = ', int2str(pointkdtree_leaves(kdTree))]);
-disp(['Nodes = ', int2str(pointkdtree_nodes(kdTree))]);
+disp(['Points = ', int2str(kdTree.points())]);
+disp(['Leaf nodes = ', int2str(kdTree.leaves())]);
+disp(['Nodes = ', int2str(kdTree.nodes())]);
 
 % Make a copy of the tree.
-copyTree = pointkdtree_copy(kdTree);
+copyTree = kdTree.copy();
 
 % Destruct the copy.
-pointkdtree_destruct(copyTree);
+clear copyTree;
 
 % Use all of the points as query points.
 querySet = idSet;
@@ -54,14 +54,14 @@ querySet = idSet;
 maxDistanceSet = Inf(1, size(querySet, 2));
 
 % Search for k nearest neighbors.
-neighborSet = pointkdtree_search_nearest(kdTree, querySet, ...
+neighborSet = kdTree.search_nearest(querySet, ...
     maxDistanceSet, kNearest);
 
 if ~isequal(correctSet, neighborSet)
     error('Kd-tree did not find the same points as brute-force.');
 end
 
-nearestSet = pointkdtree_as_points(kdTree, neighborSet(:, 1));
+nearestSet = kdTree.as_points(neighborSet(:, 1));
 
 % Draw a picture.
 figure;
@@ -77,9 +77,9 @@ hold off
 % Search using queries in component form.
 querySet = randn(d, 100);
 maxDistanceSet = Inf(1, size(querySet, 2));
-neighborSet = pointkdtree_search_nearest(kdTree, querySet, ...
+neighborSet = kdTree.search_nearest(querySet, ...
     maxDistanceSet, kNearest);
-nearestSet = pointkdtree_as_points(kdTree, neighborSet(:, 1));
+nearestSet = kdTree.as_points(neighborSet(:, 1));
 
 % Draw a picture.
 figure;
@@ -94,38 +94,38 @@ end
 hold off
 
 % Hide some of the points.
-pointkdtree_hide(kdTree, idSet(101 : 200));
+kdTree.hide(idSet(101 : 200));
 
 disp(['Points after hiding 100 of them = ', ...
-    int2str(pointkdtree_points(kdTree))]);
+    int2str(kdTree.points())]);
 
 % Bring back the hided points.
-pointkdtree_show(kdTree, idSet(101 : 200));
+kdTree.show(idSet(101 : 200));
 
 disp(['Points after showing the 100 hided points = ', ...
-    int2str(pointkdtree_points(kdTree))]);
+    int2str(kdTree.points())]);
 
 % Remove some of the points completely.
-pointkdtree_erase(kdTree, idSet(1 : 100));
+kdTree.erase(idSet(1 : 100));
 
 disp(['Points after erasing 100 of them = ', ...
-    int2str(pointkdtree_points(kdTree))]);
+    int2str(kdTree.points())]);
 
 % Hide all points.
-pointkdtree_hide(kdTree);
+kdTree.hide();
 
 % Show all points.
-pointkdtree_hide(kdTree);
+kdTree.hide();
 
 % Flatten the kd-tree.
-pointkdtree_merge(kdTree);
+kdTree.merge();
 
 % Remove all points, but not the subdivision.
-pointkdtree_erase(kdTree);
+kdTree.erase();
 
 % Remove everything.
-pointkdtree_clear(kdTree);
+kdTree.clear();
 
 % Destruct the kd-tree.
-pointkdtree_destruct(kdTree);
+clear kdTree;
 
