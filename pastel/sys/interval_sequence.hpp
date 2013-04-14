@@ -2,6 +2,7 @@
 #define PASTELSYS_INTERVAL_SEQUENCE_HPP
 
 #include "pastel/sys/interval_sequence.h"
+#include "pastel/sys/number_tests.h"
 
 namespace Pastel
 {
@@ -12,6 +13,9 @@ namespace Pastel
 		const std::vector<Integer>& bSet,
 		Reporter report)
 	{
+		PENSURE(isIntervalSequence(aSet));
+		PENSURE(isIntervalSequence(bSet));
+
 		if (aSet.empty())
 		{
 			// Since A is empty, there is nothing to report.
@@ -112,6 +116,27 @@ namespace Pastel
 			}
 			i += 2;
 		}
+	}
+
+	template <typename Integer>
+	bool isIntervalSequence(
+		const std::vector<Integer>& aSet)
+	{
+		if (!even(aSet.size()))
+		{
+			return false;
+		}
+
+		const integer n = aSet.size();
+		for (integer i = 0;i < n - 1;++i)
+		{
+			if (aSet[i] > aSet[i + 1])
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }

@@ -11,11 +11,22 @@
 namespace Pastel
 {
 
+	//! Set-difference A\B between interval sequences.
+	/*!
+	Preconditions:
+	aSet is an interval sequence.
+	bSet is an interval sequence.
+	*/
 	template <typename Integer, typename Reporter>
 	void difference(
 		const std::vector<Integer>& aSet,
 		const std::vector<Integer>& bSet,
 		Reporter report);
+
+	//! Returns whether the given sequence is an interval sequence.
+	template <typename Integer>
+	bool isIntervalSequence(
+		const std::vector<Integer>& aSet);
 
 }
 
