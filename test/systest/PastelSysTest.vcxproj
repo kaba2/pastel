@@ -225,6 +225,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="test_interval_sequence.cpp" />
     <ClCompile Include="test_pastelsys.cpp" />
     <ClCompile Include="test_arenaallocator.cpp" />
     <ClCompile Include="test_array.cpp" />

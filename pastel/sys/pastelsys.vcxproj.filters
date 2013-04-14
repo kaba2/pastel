@@ -304,6 +304,9 @@
     <Filter Include="Undocumented\Tree">
       <UniqueIdentifier>{ab79aac2-1d7f-4e12-ae5b-b8cf151be275}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mathematics\Interval sequence">
+      <UniqueIdentifier>{7c1e66e6-a1c3-48db-a801-699009601a4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1564,6 +1567,12 @@
     <ClInclude Include="sign.hpp">
       <Filter>Mathematics\Functions</Filter>
     </ClInclude>
+    <ClInclude Include="interval_sequence.h">
+      <Filter>Mathematics\Interval sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="interval_sequence.hpp">
+      <Filter>Mathematics\Interval sequence</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -2095,6 +2104,9 @@
   <ItemGroup>
     <Text Include="maximum_bipartite_matching_design.txt">
       <Filter>Algorithms\Graph algorithms\Maximum bipartite matching</Filter>
+    </Text>
+    <Text Include="interval_sequence.txt">
+      <Filter>Mathematics\Interval sequence</Filter>
     </Text>
   </ItemGroup>
 </Project>

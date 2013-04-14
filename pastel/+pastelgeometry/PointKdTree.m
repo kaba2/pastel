@@ -40,6 +40,9 @@ classdef PointKdTree < handle
             %
             % KNEAREST is the number of nearest neighbors to search.
             %
+            % Return values
+            % -------------
+            %
             % NEIGHBORSET is an (n x k) non-negative integer array, which at (i, j) 
             % contains the j:th nearest neighbor of querySet(i). The value 0
             % denotes a missing neighbor.
@@ -118,7 +121,8 @@ classdef PointKdTree < handle
             %
             % N = points()
             %
-            % where
+            % Return values
+            % -------------
             %
             % N is the number of points in the kd-tree.
             
@@ -135,7 +139,8 @@ classdef PointKdTree < handle
             %
             % N = nodes()
             %
-            % where
+            % Return values
+            % -------------
             %
             % N is the number of nodes in the kd-tree.
             
@@ -165,6 +170,9 @@ classdef PointKdTree < handle
             %
             % L = leaves()
             %
+            % Return values
+            % -------------
+            %
             % L is the number of leaf nodes in the kd-tree.
             
             eval(import_pastel);
@@ -185,6 +193,9 @@ classdef PointKdTree < handle
             % POINTSET is an (m x n) numeric array which contains n points
             % of dimension m. The m must match with the dimension
             % of the kd-tree. Native type: real.
+            %
+            % Return values
+            % -------------
             %
             % IDSET is a positive integer array containing the identifiers 
             % of the inserted points in the kd-tree.
@@ -266,7 +277,8 @@ classdef PointKdTree < handle
             %
             % D = dimension()
             %
-            % where
+            % Return values
+            % -------------
             %
             % D is the dimension of the tree.
             
@@ -283,7 +295,8 @@ classdef PointKdTree < handle
             %
             % kdTreeCopy = copy()
             %
-            % where
+            % Return values
+            % -------------
             %
             % KDTREECOPY is a copy of 'kdTree'.
             
@@ -320,6 +333,9 @@ classdef PointKdTree < handle
             % IDSET is a numeric array whose linearization contains
             % n point identifiers, whose coordinates are to be 
             % returned. Native type: integer.
+            %
+            % Return values
+            % -------------
             %
             % POINTSET is an (m x n) real array, which contains n
             % points of dimension m.
