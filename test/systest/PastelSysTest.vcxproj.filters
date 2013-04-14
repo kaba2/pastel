@@ -94,6 +94,9 @@
     <ClCompile Include="test_automaton_determinization.cpp">
       <Filter>Algorithms\Automaton algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="test_interval_sequence.cpp">
+      <Filter>Data structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="poolspeed.txt" />

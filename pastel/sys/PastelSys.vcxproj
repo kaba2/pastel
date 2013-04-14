@@ -197,6 +197,8 @@
     <ClInclude Include="incidence_graph_incidence.h" />
     <ClInclude Include="incidence_graph_vertex.h" />
     <ClInclude Include="automaton_minimization.h" />
+    <ClInclude Include="interval_sequence.h" />
+    <ClInclude Include="interval_sequence.hpp" />
     <ClInclude Include="iteratoraddress_hash.h" />
     <ClInclude Include="minimal_automaton.h" />
     <ClInclude Include="minimal_automaton_fwd.h" />
@@ -742,6 +744,7 @@
     <ClCompile Include="measuretable_tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="interval_sequence.txt" />
     <Text Include="maximum_bipartite_matching_design.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
