@@ -242,9 +242,9 @@ if strcmp(matchingType, 'closest') && kNearest > 1
     warning('KNEAREST set to 1 since MATCHINGTYPE = closest.')
 end
 
-kdTree = pointkdtree_construct(d);
-pointkdtree_insert(kdTree, sceneSet);
-pointkdtree_refine(kdTree);
+kdTree = PointKdTree(d);
+kdTree.insert(sceneSet);
+kdTree.refine();
 
 Q = Q0;
 t = t0;
@@ -257,8 +257,8 @@ for iteration = 0 : maxIterations - 1
     % Find nearest neighbors for each point in the
     % transformed model-set.
     matchingDistanceSet = Inf(1, n);
-    neighborSet = pointkdtree_search_nearest(...
-        kdTree, transformedSet, ...
+    neighborSet = kdTree.search_nearest(...
+        transformedSet, ...
         matchingDistanceSet, kNearest);
 
     if biunique
@@ -359,8 +359,6 @@ for iteration = 0 : maxIterations - 1
         break
     end
 end
-
-pointkdtree_destruct(kdTree);
 
 match = struct();
 match.Q = Q;
