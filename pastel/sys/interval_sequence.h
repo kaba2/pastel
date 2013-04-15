@@ -5,6 +5,7 @@
 
 #include "pastel/sys/integer_concept.h"
 #include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/range.h"
 
 #include <vector>
 
@@ -17,16 +18,19 @@ namespace Pastel
 	aSet is an interval sequence.
 	bSet is an interval sequence.
 	*/
-	template <typename Integer, typename Reporter>
+	template <
+		typename A_Range, 
+		typename B_Range,
+		typename Reporter>
 	void difference(
-		const std::vector<Integer>& aSet,
-		const std::vector<Integer>& bSet,
+		const A_Range& aSet,
+		const B_Range& bSet,
 		Reporter report);
 
 	//! Returns whether the given sequence is an interval sequence.
-	template <typename Integer>
+	template <typename A_Range>
 	bool isIntervalSequence(
-		const std::vector<Integer>& aSet);
+		const A_Range& aSet);
 
 }
 

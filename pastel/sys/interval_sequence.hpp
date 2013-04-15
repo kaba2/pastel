@@ -7,10 +7,13 @@
 namespace Pastel
 {
 
-	template <typename Integer, typename Reporter>
+	template <
+		typename A_Range, 
+		typename B_Range,
+		typename Reporter>
 	void difference(
-		const std::vector<Integer>& aSet,
-		const std::vector<Integer>& bSet,
+		const A_Range& aSet,
+		const B_Range& bSet,
 		Reporter report)
 	{
 		PENSURE(isIntervalSequence(aSet));
@@ -22,45 +25,48 @@ namespace Pastel
 			return;
 		}
 
-		const integer n = aSet.size();
-		const integer m = bSet.size();
+		auto a = boost::begin(aSet);
+		auto aEnd = boost::end(aSet);
 
-		integer i = 0;
-		integer j = 0;
-		integer t = aSet[i];
-		while(i < n)
+		auto b = boost::begin(bSet);
+		auto bEnd = boost::end(bSet);
+
+		integer t = *a;
+		while(a != aEnd)
 		{
 			// Skip over those intervals in A which
 			// have already been reported.
-			while(i < n && aSet[i + 1] <= t)
-			{
-				i += 2;
+			while(a != aEnd && *std::next(a) <= t)
+			{				
+				std::advance(a, 2);
 			}
 
-			if (i == n)
+			if (a == aEnd)
 			{
 				// No more intervals in A left.
 				// There is nothing more to report.
 				break;
 			}
 
-			if (t < aSet[i])
+			auto aNext = std::next(a);
+
+			if (t < *a)
 			{
-				t = aSet[i];
+				t = *a;
 			}
 
-			ASSERT_OP(aSet[i], <=, t)
-			ASSERT_OP(t, <, aSet[i + 1]);
+			ASSERT_OP(*a, <=, t)
+			ASSERT_OP(t, <, *aNext);
 
 			// Skip over those intervals in B
 			// which precede the current 
 			// time position t.
-			while(j < m && bSet[j + 1] <= t)
+			while(b != bEnd && *std::next(b) <= t)
 			{
-				j += 2;
+				std::advance(b, 2);
 			}
 
-			if (j == m)
+			if (b == bEnd)
 			{
 				// No more intervals in B left.
 				// We may simply report all the
@@ -68,30 +74,32 @@ namespace Pastel
 				break;
 			}
 
-			bool bActive = (bSet[j] <= t);
-			ASSERT_OP(t, <, bSet[j + 1]);
+			auto bNext = std::next(b);
+
+			bool bActive = (*b <= t);
+			ASSERT_OP(t, <, *bNext);
 			
 			integer tNext = t;
 			if (bActive)
 			{
 				// Both interval A and interval B are active.
 				// Skip over; no reporting.
-				if (aSet[i + 1] < bSet[j + 1])
+				if (*aNext < *bNext)
 				{
 					// Interval A ends first.
-					tNext = aSet[i + 1];
+					tNext = *aNext;
 				}
 				else
 				{
 					// Interval B ends first.
-					tNext = bSet[j + 1];
+					tNext = *bNext;
 				}
 			}
 			else
 			{
 				// Interval A is active, interval B is not active.
 				// Report a fragment of interval A.
-				tNext = std::min(aSet[i + 1], bSet[j]);
+				tNext = std::min(*aNext, *b);
 
 				report(std::make_pair(t, tNext));
 			}
@@ -99,41 +107,56 @@ namespace Pastel
 			t = tNext;
 		}
 
-		if (i < n && t < aSet[i + 1])
+		if (a != aEnd && t < *std::next(a))
 		{
-			// Report the remaining fragment.
-			integer tNext = aSet[i + 1];
-			report(std::make_pair(t, tNext));
-			i += 2;
+			// Report a possible remaining fragment.
+			report(std::make_pair(t, *std::next(a)));
+
+			std::advance(a, 2);
 		}
 
-		while (i < n)
+		while (a != aEnd)
 		{
 			// Report every non-empty interval left in A.
-			if (aSet[i] < aSet[i + 1])
+			auto aNext = std::next(a);
+			if (*a  < *aNext)
 			{
-				report(std::make_pair(aSet[i], aSet[i + 1]));
+				report(std::make_pair(*a, *aNext));
 			}
-			i += 2;
+
+			std::advance(a, 2);
 		}
 	}
 
-	template <typename Integer>
+	template <typename A_Range>
 	bool isIntervalSequence(
-		const std::vector<Integer>& aSet)
+		const A_Range& aSet)
 	{
-		if (!even(aSet.size()))
+		auto a = boost::begin(aSet);
+		auto iEnd = boost::end(aSet);
+
+		if (a == iEnd)
 		{
-			return false;
+			// An empty sequence.
+			return true;
 		}
 
-		const integer n = aSet.size();
-		for (integer i = 0;i < n - 1;++i)
+		while(a != iEnd)
 		{
-			if (aSet[i] > aSet[i + 1])
+			auto aNext = std::next(a);
+			if (aNext == iEnd)
 			{
+				// The sequence has an odd number of elements.
 				return false;
 			}
+
+			if (*a > *aNext)
+			{
+				// The sequence is not non-decreasing.
+				return false;
+			}
+
+			std::advance(a, 2);
 		}
 
 		return true;
