@@ -133,18 +133,12 @@ namespace Pastel
 		const A_Range& aSet)
 	{
 		auto a = boost::begin(aSet);
-		auto iEnd = boost::end(aSet);
+		auto aEnd = boost::end(aSet);
 
-		if (a == iEnd)
-		{
-			// An empty sequence.
-			return true;
-		}
-
-		while(a != iEnd)
+		while(a != aEnd)
 		{
 			auto aNext = std::next(a);
-			if (aNext == iEnd)
+			if (aNext == aEnd)
 			{
 				// The sequence has an odd number of elements.
 				return false;
