@@ -65,9 +65,7 @@ namespace
 					10, 11
 				};
 
-				TEST_ENSURE(boost::equal(
-					Pastel::range(cSet.cbegin(), cSet.cend()), 
-					Pastel::range(correctSet)));
+				TEST_ENSURE(boost::equal(cSet, correctSet));
 			}
 			
 			std::vector<integer> emptySet;
@@ -98,9 +96,7 @@ namespace
 					10, 11
 				};
 
-				TEST_ENSURE(boost::equal(
-					Pastel::range(cSet.cbegin(), cSet.cend()), 
-					Pastel::range(correctSet)));
+				TEST_ENSURE(boost::equal(cSet, correctSet));
 			}
 		}
 	};
