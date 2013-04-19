@@ -109,15 +109,6 @@
     <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms">
       <UniqueIdentifier>{27472255-152d-4943-90c0-bfda2a427ac6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Transformation fitting">
-      <UniqueIdentifier>{e6b253b5-9929-44a0-b1c0-69789dc376cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Transformation fitting\Point pattern matching">
-      <UniqueIdentifier>{bef91569-428b-4fb7-9ce5-eaa314234778}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Transformation fitting\Projection">
-      <UniqueIdentifier>{d96c16f9-25e0-48ea-826a-28d7c4f68e09}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Algorithms\Shape relations">
       <UniqueIdentifier>{faa39d9a-04b2-428e-aa19-cb7e11fc8b64}</UniqueIdentifier>
     </Filter>
@@ -189,6 +180,15 @@
     </Filter>
     <Filter Include="Algorithms\Subset searches\Maximum clique of aligned boxes">
       <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Point pattern matching">
+      <UniqueIdentifier>{bef91569-428b-4fb7-9ce5-eaa314234778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Projection">
+      <UniqueIdentifier>{d96c16f9-25e0-48ea-826a-28d7c4f68e09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Point-set registration">
+      <UniqueIdentifier>{141875f7-3488-4355-b65a-48f7342d0f92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -315,11 +315,8 @@
     <None Include="maximum_clique_alignedbox.txt">
       <Filter>Algorithms\Subset searches\Maximum clique of aligned boxes</Filter>
     </None>
-    <None Include="transformation_fitting.txt">
-      <Filter>Algorithms\Transformation fitting</Filter>
-    </None>
     <None Include="projection.txt">
-      <Filter>Algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Projection</Filter>
     </None>
     <None Include="shape_relations.txt">
       <Filter>Algorithms\Shape relations</Filter>
@@ -379,13 +376,13 @@
       <Filter>Algorithms\Subset searches\Range searching</Filter>
     </None>
     <None Include="point_pattern_matching_kr.txt">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Point pattern matching</Filter>
     </None>
     <None Include="point_pattern_matching_vw.txt">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Point pattern matching</Filter>
     </None>
     <None Include="point_pattern_matching.txt">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Point pattern matching</Filter>
     </None>
     <None Include="pastelgeometry.txt" />
     <None Include="bsp_trees.txt">
@@ -907,16 +904,16 @@
       <Filter>Algorithms\Subset searches\Maximum clique of aligned boxes</Filter>
     </ClInclude>
     <ClInclude Include="linear_projection.h">
-      <Filter>Algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Projection</Filter>
     </ClInclude>
     <ClInclude Include="linear_projection.hpp">
-      <Filter>Algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Projection</Filter>
     </ClInclude>
     <ClInclude Include="planar_projection.h">
-      <Filter>Algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Projection</Filter>
     </ClInclude>
     <ClInclude Include="planar_projection.hpp">
-      <Filter>Algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Projection</Filter>
     </ClInclude>
     <ClInclude Include="contains_alignedbox_alignedbox.h">
       <Filter>Algorithms\Shape relations\Containment testing</Filter>
@@ -1321,25 +1318,22 @@
       <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="projection.h">
-      <Filter>Algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Projection</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching_vw.h">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching_vw.hpp">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching.h">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching_kr.h">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching_kr.hpp">
-      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
-    </ClInclude>
-    <ClInclude Include="transformation_fitting.h">
-      <Filter>Algorithms\Transformation fitting</Filter>
+      <Filter>Algorithms\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="pastelgeometry.h" />
     <ClInclude Include="common.h">
@@ -1371,5 +1365,10 @@
     <ClCompile Include="sphere_volume.cpp">
       <Filter>Algorithms\Shape measurements\Volume</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="pointset_registration.txt">
+      <Filter>Algorithms\Point-set registration</Filter>
+    </Text>
   </ItemGroup>
 </Project>

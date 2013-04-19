@@ -2108,5 +2108,8 @@
     <Text Include="interval_sequence.txt">
       <Filter>Mathematics\Interval sequence</Filter>
     </Text>
+    <Text Include="blog.txt">
+      <Filter>Documentation</Filter>
+    </Text>
   </ItemGroup>
 </Project>

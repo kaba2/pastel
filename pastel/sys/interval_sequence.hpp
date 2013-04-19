@@ -19,14 +19,14 @@ namespace Pastel
 		PENSURE(isIntervalSequence(aSet));
 		PENSURE(isIntervalSequence(bSet));
 
-		if (aSet.empty())
+		auto a = boost::begin(aSet);
+		auto aEnd = boost::end(aSet);
+
+		if (a == aEnd)
 		{
 			// Since A is empty, there is nothing to report.
 			return;
 		}
-
-		auto a = boost::begin(aSet);
-		auto aEnd = boost::end(aSet);
 
 		auto b = boost::begin(bSet);
 		auto bEnd = boost::end(bSet);
