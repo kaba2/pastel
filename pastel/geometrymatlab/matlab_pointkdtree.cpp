@@ -182,6 +182,7 @@ namespace Pastel
 
 			~KdState()
 			{
+				tree.clear();
 				pointAllocator.clear();
 			}
 
