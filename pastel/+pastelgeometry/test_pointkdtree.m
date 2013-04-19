@@ -115,7 +115,7 @@ disp(['Points after erasing 100 of them = ', ...
 kdTree.hide();
 
 % Show all points.
-kdTree.hide();
+kdTree.show();
 
 % Flatten the kd-tree.
 kdTree.merge();

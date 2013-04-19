@@ -357,7 +357,7 @@ classdef PointKdTree < handle
             % delete()
             
             eval(import_pastel);
-
+            
             pastelgeometrymatlab(...
                 'pointkdtree_destruct', ...
                 self.kdTree)
