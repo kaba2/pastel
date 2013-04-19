@@ -27,7 +27,7 @@ namespace
 
 		void testSimple()
 		{
-			const integer aSetData[] = 
+			const integer aSet[] = 
 			{
 				0, 2,
 				2, 2,
@@ -35,9 +35,8 @@ namespace
 				6, 8,
 				10, 11
 			};
-			std::vector<integer> aSet(std::begin(aSetData), std::end(aSetData));
 
-			const integer bSetData[] = 
+			const integer bSet[] = 
 			{
 				-1, -1,
 				0, 1,
@@ -46,7 +45,6 @@ namespace
 				6, 9,
 				11, 12
 			};
-			std::vector<integer> bSet(std::begin(bSetData), std::end(bSetData));
 
 			{
 				std::vector<integer> cSet;

@@ -1,4 +1,4 @@
 Point-pattern matching (Matlab)
 ===============================
 
-[[Parent]]: transformation_fitting.txt
+[[Parent]]: point_pattern_matching.txt

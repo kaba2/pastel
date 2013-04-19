@@ -7,6 +7,5 @@
 #include "pastel/geometry/shape_measurements.h"
 #include "pastel/geometry/shape_relations.h"
 #include "pastel/geometry/subset_searches.h"
-#include "pastel/geometry/transformation_fitting.h"
 
 #endif

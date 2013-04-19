@@ -1,8 +1,0 @@
-Transformation fitting
-======================
-
-[[Parent]]: geometric_algorithms.txt
-
-This section contains algorithms which attempt to find a
-transformation between two shapes from a prespecified class
-of transformations based on a given geometric configuration.
