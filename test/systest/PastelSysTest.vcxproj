@@ -248,6 +248,7 @@
     <ClCompile Include="test_minmax.cpp" />
     <ClCompile Include="test_object_forwarding.cpp" />
     <ClCompile Include="test_optional.cpp" />
+    <ClCompile Include="test_pointrep.cpp" />
     <ClCompile Include="test_poolallocator.cpp" />
     <ClCompile Include="test_rational.cpp" />
     <ClCompile Include="test_redblacktree.cpp" />

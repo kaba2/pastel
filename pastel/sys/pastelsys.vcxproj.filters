@@ -310,6 +310,9 @@
     <Filter Include="Generic programming\Inputs">
       <UniqueIdentifier>{38af366d-d3be-4c9b-8da7-76a903770584}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mathematics\Point representation">
+      <UniqueIdentifier>{3697504a-0a95-4447-ab65-1d940c6a8e28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1582,6 +1585,15 @@
     <ClInclude Include="inputs.h">
       <Filter>Generic programming\Inputs</Filter>
     </ClInclude>
+    <ClInclude Include="pointrep_concept.h">
+      <Filter>Mathematics\Point representation</Filter>
+    </ClInclude>
+    <ClInclude Include="pointer_pointrep.h">
+      <Filter>Mathematics\Point representation</Filter>
+    </ClInclude>
+    <ClInclude Include="pointreps.h">
+      <Filter>Mathematics\Point representation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -2122,6 +2134,9 @@
     </Text>
     <Text Include="inputs.txt">
       <Filter>Generic programming\Inputs</Filter>
+    </Text>
+    <Text Include="pointreps.txt">
+      <Filter>Mathematics\Point representation</Filter>
     </Text>
   </ItemGroup>
 </Project>

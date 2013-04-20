@@ -223,6 +223,9 @@
     <ClInclude Include="pastelgeometry.h" />
     <ClInclude Include="point_pattern_matching.h" />
     <ClInclude Include="projection.h" />
+    <ClInclude Include="rangetree.h" />
+    <ClInclude Include="rangetree.hpp" />
+    <ClInclude Include="rangetree_concepts.h" />
     <ClInclude Include="range_searching.h" />
     <ClInclude Include="shape_generation.h" />
     <ClInclude Include="shape_measurements.h" />
@@ -547,6 +550,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="pointset_registration.txt" />
+    <Text Include="rangetree.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
