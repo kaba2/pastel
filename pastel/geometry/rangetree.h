@@ -20,22 +20,51 @@ namespace Pastel
 		typedef typename RangeTree_Types::PointRep PointRep;
 		typedef typename PointRep::Real Real;
 		typedef typename PointRep::Point Point;
+		typedef typename std::unique_ptr<RangeTree> TreePtr;
 
 		explicit RangeTree(const PointRep& pointRep)
 			: pointRep_(pointRep)
+			, maxBucketSize_(8)
 		{
 		}
-
-		class Node;
-		typedef std::unique_ptr<Node> NodePtr;
 
 		class Node
 		{
 		public:
-			Node(Real splitPosition,
+			explicit Node(
+				TreePtr&& nextTree,
+				bool leaf)
+				: nextTree_(std::move(nextTree))
+				, leaf_(leaf)
+			{
+			}
+
+			bool leaf() const
+			{
+				return leaf_;
+			}
+
+		private:
+			// Next axis.
+			TreePtr nextTree_;
+			// Whether this is a leaf node 
+			// (and not a split node).
+			bool leaf_;
+		};
+
+		typedef std::unique_ptr<Node> NodePtr;
+
+		class SplitNode
+			: public Node
+		{
+		public:
+			SplitNode(
+				Real splitPosition,
 				NodePtr&& left,
-				NodePtr&& right)
-				: splitPosition_(splitPosition)
+				NodePtr&& right,
+				TreePtr&& nextTree)
+				: Node(std::move(nextTree), false)
+				, splitPosition_(splitPosition)
 				, left_(std::move(left))
 				, right_(std::move(right))
 			{
@@ -43,18 +72,39 @@ namespace Pastel
 
 			// Split position on the current axis.
 			Real splitPosition_;
-
 			// Points with position < splitPosition_.
 			NodePtr left_;
 			// Points with position >= splitPosition_.
 			NodePtr right_;
+		};
 
-			// Next axis.
-			Node* down_;
+		class LeafNode
+			: public Node
+		{
+		public:
+			LeafNode(
+				integer begin,
+				integer end,
+				TreePtr&& nextTree)
+				: Node(std::move(nextTree), true)
+				, begin_(begin)
+				, end_(end)
+			{
+			}
+
+			integer begin_;
+			integer end_;
 		};
 
 		template <typename Point_Input>
 		void construct(Point_Input pointInput)
+		{
+			construct(pointInput, 0);
+		}
+
+	private:
+		template <typename Point_Input>
+		void construct(Point_Input pointInput, integer axis)
 		{
 			pointSet_.reserve(pointInput.nHint());
 			while(!pointInput.empty())
@@ -64,52 +114,78 @@ namespace Pastel
 			}
 			
 			integer n = pointSet_.size();
-			root_ = construct(0, n, 0);
+			root_ = construct(0, n, axis);
 		}
-	
-	private:
+
 		NodePtr construct(integer begin, integer end, integer axis)
 		{
 			ASSERT_OP(begin, <=, end);
 			ASSERT_OP(axis, >=, 0);
 			ASSERT_OP(axis, <, pointRep_.n());
 
-			auto coordinateLess = [&](const Point& left, const Point& right)
+			TreePtr nextTree;
+			if (axis < pointRep_.n() - 1)
 			{
-				return pointRep_(left, axis) < pointRep_(right, axis);
-			};
-
-			integer iMedian = begin + (end - begin) / 2;
-			std::nth_element(
-				pointSet_.begin() + begin, 
-				pointSet_.begin() + iMedian, 
-				pointSet_.begin() + end, 
-				coordinateLess);
-
-			Real median = pointRep_(pointSet_[iMedian], axis);
-
-			NodePtr left;
-			if (begin != iMedian)
-			{
-				left = construct(
-					begin, iMedian, axis);
+				nextTree.reset(new RangeTree(pointRep_));
+				nextTree->construct(
+					rangeInput(
+					pointSet_.begin() + begin,
+					pointSet_.begin() + end), axis + 1);
 			}
 
-			NodePtr right;
-			if (iMedian != end)
+			NodePtr node;
+			integer n = end - begin;
+			if (n <= maxBucketSize_)
 			{
-				right = construct(
-					iMedian, end, axis);
+				// Create a leaf node.				
+				node.reset(new LeafNode(begin, end, std::move(nextTree)));
 			}
+			else
+			{
+				// Subdivide the node into two.
 
-			NodePtr node(new Node(median, std::move(left), std::move(right)));
-			
+				auto coordinateLess = 
+					[&](const Point& left, const Point& right)
+				{
+					return pointRep_(left, axis) < pointRep_(right, axis);
+				};
+
+				integer iMedian = begin + n / 2;
+				std::nth_element(
+					pointSet_.begin() + begin, 
+					pointSet_.begin() + iMedian, 
+					pointSet_.begin() + end, 
+					coordinateLess);
+
+				Real median = pointRep_(pointSet_[iMedian], axis);
+
+				NodePtr left;
+				if (begin != iMedian)
+				{
+					left = construct(
+						begin, iMedian, axis);
+				}
+
+				NodePtr right;
+				if (iMedian != end)
+				{
+					right = construct(
+						iMedian, end, axis);
+				}
+
+				node.reset(new SplitNode(
+					median, 
+					std::move(left), std::move(right), 
+					std::move(nextTree)));
+			}
+		
 			return node;
 		}
 
 		std::vector<Point> pointSet_;
 		NodePtr root_;
 		PointRep pointRep_;
+		integer maxBucketSize_;
 	};
 
 }
