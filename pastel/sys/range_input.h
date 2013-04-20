@@ -58,6 +58,13 @@ namespace Pastel
 		return Range_Input<Range>(range);
 	}
 
+	template <typename Iterator>
+	Range_Input<boost::iterator_range<Iterator>> rangeInput(
+		Iterator begin, Iterator end)
+	{
+		return Pastel::rangeInput(range(begin, end));
+	}
+
 }
 
 #endif

@@ -54,7 +54,7 @@ namespace
 				auto pointRange = 
 					sparseRange(
 					countingIterator(&pointSet.front()), 
-					countingIterator(&pointSet.front() + n), 2);
+					countingIterator(&pointSet.front() + 2 * n), 2);
 
 				rangeTree.construct(rangeInput(pointRange));
 			}
