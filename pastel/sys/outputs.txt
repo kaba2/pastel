@@ -1,11 +1,11 @@
-Reporters
-=========
+Outputs
+=======
 
 [[Parent]]: generic_programming.txt
 
-A _reporter_ is any object which can be called like a function,
+An _output_ is any object which can be called like a function,
 taking a single object as an argument and returning a boolean. In 
-generic functions it works as an abstraction for transmitting a 
+generic functions it works as an abstraction for reporting a 
 sequence of unspecified length back to the caller.
 
 The returned boolean tells the surrounding algorithm whether it should
@@ -15,15 +15,15 @@ occurence of an element in a sequence, instead of all). The algorithm
 may choose to follow this advice or not.
 
 In C++11, the best way to specify reporters is by lambda functions.
-The reporters provided here were created under the restrictions of
+The outputs provided here were created under the restrictions of
 C++98 which does not have lambdas. The user may choose to use either
-these types or lambdas. In any case, the provided reporters at least
+these types or lambdas. In any case, the provided outputs at least
 work as examples.
 
-Reporters vs output iterators
------------------------------
+Outputs vs output iterators
+---------------------------
 
-In C++ STL, _output iterators_ are used to transmit sequences 
+In C++ STL, _output iterators_ are used to report sequences 
 generically out of functions. However, output iterators have a lot
 of extraneous functionality which is not essential to the task.
 For example, its position, or the requirement that to report 

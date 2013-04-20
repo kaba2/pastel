@@ -7,7 +7,7 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/fastlist_tools.h"
 #include "pastel/sys/constant_iterator.h"
-#include "pastel/sys/null_reporter.h"
+#include "pastel/sys/null_output.h"
 
 #include <boost/operators.hpp>
 
@@ -55,7 +55,7 @@ namespace Pastel
 		insertRange(that.asPointData(that.range()));
 
 		// Insert the hidden points.
-		insertRange(that.asPointData(that.hiddenRange()), Null_Reporter(), true);
+		insertRange(that.asPointData(that.hiddenRange()), Null_Output(), true);
 
 		// Insert the insertion points.
 		insertRange(that.asPointData(
@@ -282,10 +282,10 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	template <
 		typename Input_Point_ConstRange,
-		typename Point_ConstIterator_Reporter>
+		typename Point_ConstIterator_Output>
 	void PointKdTree<Real, N, PointPolicy>::insertRange(
 		const Input_Point_ConstRange& pointSet, 
-		const Point_ConstIterator_Reporter& report,
+		const Point_ConstIterator_Output& report,
 		bool hidden)
 	{
 		if (pointSet.empty())
@@ -337,7 +337,7 @@ namespace Pastel
 	{
 		// Insert the points, and get rid of the reported iterators.
 		// Note: the reporting is optimized away entirely.
-		insertRange(pointSet, Null_Reporter());
+		insertRange(pointSet, Null_Output());
 	}
 
 	template <typename Real, int N, typename PointPolicy>

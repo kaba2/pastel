@@ -5,8 +5,8 @@
 
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/counting_iterator.h"
-#include "pastel/sys/null_reporter.h"
-#include "pastel/sys/push_back_reporter.h"
+#include "pastel/sys/null_output.h"
+#include "pastel/sys/push_back_output.h"
 #include "pastel/sys/random_uniform.h"
 
 #include <boost/type_traits/is_same.hpp>
@@ -389,10 +389,10 @@ namespace Pastel
 			return iter;
 		}
 
-		template <typename Iterator, typename Direction_Reporter>
+		template <typename Iterator, typename Direction_Output>
 		Iterator findSomeMaximumClique(
 			const Iterator& root,
-			const Direction_Reporter& report)
+			const Direction_Output& report)
 		{
 			// The augmented red-black tree is traversed
 			// from the root downwards to find _a_ maximum clique.
@@ -489,12 +489,12 @@ namespace Pastel
 
 	template <
 		typename AlignedBox_ConstRange,
-		typename AlignedBox_Reporter>
+		typename AlignedBox_Output>
 		typename boost::range_value<AlignedBox_ConstRange>::type 
 		maximumClique(
 		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection,
-		const AlignedBox_Reporter& report)
+		const AlignedBox_Output& report)
 	{
 		// This is a sweepline algorithm to compute an
 		// aligned box of maximum overlap in a set of aligned 
@@ -659,7 +659,7 @@ namespace Pastel
 							std::vector<Direction::Enum> directionSet;
 							Event_ConstIterator cliqueIter = 
 								findSomeMaximumClique(tree.root(),
-								pushBackReporter(directionSet));
+								pushBackOutput(directionSet));
 
 							const Real xMinNew = cliqueIter.key().position;
 							++cliqueIter;
@@ -750,7 +750,7 @@ namespace Pastel
 		clique.max()[y] = yMax;
 
 		const bool reportBoxes = 
-			!std::is_same<AlignedBox_Reporter, Null_Reporter>::value;
+			!std::is_same<AlignedBox_Output, Null_Output>::value;
 		if (!reportBoxes)
 		{
 			return clique;
@@ -805,7 +805,7 @@ namespace Pastel
 		integer sweepDirection)
 	{
 		return Pastel::maximumClique(
-			boxSet, sweepDirection, Null_Reporter());
+			boxSet, sweepDirection, Null_Output());
 	}
 
 }

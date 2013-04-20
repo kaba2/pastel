@@ -19,7 +19,7 @@ namespace Pastel
 		template <
 			typename Left_Vertex_Range, 
 			typename Right_Vertex_Range, 
-			typename Vertex_Pair_Reporter,
+			typename Vertex_Pair_Output,
 			typename Left_Hash,
 			typename Right_Hash>
 		class Algorithm
@@ -40,7 +40,7 @@ namespace Pastel
 			void work(
 				Left_Vertex_Range leftRange,
 				Right_Vertex_Range rightRange,
-				const Vertex_Pair_Reporter& reporter,
+				const Vertex_Pair_Output& reporter,
 				const Left_Hash& leftHash,
 				const Right_Hash& rightHash)
 			{
@@ -444,18 +444,18 @@ namespace Pastel
 	template <
 		typename Left_Vertex_Range, 
 		typename Right_Vertex_Range, 
-		typename Vertex_Pair_Reporter,
+		typename Vertex_Pair_Output,
 		typename Left_Hash,
 		typename Right_Hash>
 	void maximumBipartiteMatching(
 		Left_Vertex_Range leftRange,
 		Right_Vertex_Range rightRange,
-		const Vertex_Pair_Reporter& reporter,
+		const Vertex_Pair_Output& reporter,
 		const Left_Hash& leftHash,
 		const Right_Hash& rightHash)
 	{
 		MaximumBipartiteMatching::Algorithm<Left_Vertex_Range, Right_Vertex_Range,
-			Vertex_Pair_Reporter, Left_Hash, Right_Hash> algorithm;
+			Vertex_Pair_Output, Left_Hash, Right_Hash> algorithm;
 
 		algorithm.work(leftRange, rightRange, reporter, leftHash, rightHash);
 	}
@@ -463,11 +463,11 @@ namespace Pastel
 	template <
 		typename Left_Vertex_Range, 
 		typename Right_Vertex_Range, 
-		typename Vertex_Pair_Reporter>
+		typename Vertex_Pair_Output>
 	void maximumBipartiteMatching(
 		Left_Vertex_Range leftRange,
 		Right_Vertex_Range rightRange,
-		const Vertex_Pair_Reporter& reporter)
+		const Vertex_Pair_Output& reporter)
 	{
 		typedef typename boost::range_value<Left_Vertex_Range>::type Left;
 		typedef typename boost::range_value<Right_Vertex_Range>::type Right;

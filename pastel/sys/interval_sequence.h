@@ -4,7 +4,7 @@
 #define PASTELSYS_INTERVAL_SEQUENCE_H
 
 #include "pastel/sys/integer_concept.h"
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 #include "pastel/sys/range.h"
 
 #include <vector>
@@ -21,11 +21,11 @@ namespace Pastel
 	template <
 		typename A_Range, 
 		typename B_Range,
-		typename Reporter>
+		typename Output>
 	void difference(
 		const A_Range& aSet,
 		const B_Range& bSet,
-		Reporter report);
+		Output report);
 
 	//! Returns whether the given sequence is an interval sequence.
 	template <typename A_Range>

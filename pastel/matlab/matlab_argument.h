@@ -89,10 +89,10 @@ namespace Pastel
 	Note: The elements are reported in Matlab's linearized
 	order.
 	*/
-	template <typename Type, typename Array_Reporter>
+	template <typename Type, typename Array_Output>
 	integer getArrays(
 		const mxArray* cellArray,
-		Array_Reporter report);
+		Array_Output report);
 
 	//! Reports all elements in a numeric array.
 	/*!

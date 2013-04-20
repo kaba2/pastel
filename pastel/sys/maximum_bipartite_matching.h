@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
 #define PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
 
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 
 namespace Pastel
 {
@@ -40,13 +40,13 @@ namespace Pastel
 	template <
 		typename Left_Vertex_Range, 
 		typename Right_Vertex_Range, 
-		typename Vertex_Pair_Reporter,
+		typename Vertex_Pair_Output,
 		typename Left_Hash,
 		typename Right_Hash>
 	void maximumBipartiteMatching(
 		Left_Vertex_Range leftRange,
 		Right_Vertex_Range rightRange,
-		const Vertex_Pair_Reporter& reporter,
+		const Vertex_Pair_Output& reporter,
 		const Left_Hash& leftHash,
 		const Right_Hash& rightHash);
 
@@ -63,11 +63,11 @@ namespace Pastel
 	template <
 		typename Left_Vertex_Range, 
 		typename Right_Vertex_Range, 
-		typename Vertex_Pair_Reporter>
+		typename Vertex_Pair_Output>
 	void maximumBipartiteMatching(
 		Left_Vertex_Range leftRange,
 		Right_Vertex_Range rightRange,
-		const Vertex_Pair_Reporter& reporter);
+		const Vertex_Pair_Output& reporter);
 
 }
 

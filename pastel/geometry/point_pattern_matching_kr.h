@@ -4,7 +4,7 @@
 #ifndef PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_H
 #define PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_H
 
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 #include "pastel/sys/vector.h"
 
 #include "pastel/geometry/pointkdtree.h"
@@ -88,7 +88,7 @@ namespace Pastel
 	std::make_pair(modelIter, sceneIter).
 	*/
 	template <typename Real, int N, typename Model_PointPolicy, 
-		typename Scene_PointPolicy, typename Scene_Model_Reporter,
+		typename Scene_PointPolicy, typename Scene_Model_Output,
 		typename NormBijection>
 	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
@@ -99,7 +99,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxBias,
 		MatchingMode::Enum matchingMode,
 		const NormBijection& normBijection,
-		Scene_Model_Reporter report);
+		Scene_Model_Output report);
 
 }
 

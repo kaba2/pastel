@@ -1,18 +1,18 @@
 // Description: Iterator reporter
 
-#ifndef PASTELSYS_ITERATOR_REPORTER_H
-#define PASTELSYS_ITERATOR_REPORTER_H
+#ifndef PASTELSYS_ITERATOR_OUTPUT_H
+#define PASTELSYS_ITERATOR_OUTPUT_H
 
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 
 namespace Pastel
 {
 
 	template <typename Iterator>
-	class Iterator_Reporter
+	class Iterator_Output
 	{
 	public:
-		explicit Iterator_Reporter(Iterator& iter)
+		explicit Iterator_Output(Iterator& iter)
 			: iter_(iter)
 		{
 		}
@@ -30,10 +30,10 @@ namespace Pastel
 	};
 
 	template <typename Iterator>
-	Iterator_Reporter<Iterator> iteratorReporter(
+	Iterator_Output<Iterator> iteratorOutput(
 		Iterator& iter)
 	{
-		return Iterator_Reporter<Iterator>(iter);
+		return Iterator_Output<Iterator>(iter);
 	}
 
 }

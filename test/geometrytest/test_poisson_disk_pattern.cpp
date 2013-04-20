@@ -25,10 +25,10 @@ using namespace Pastel;
 namespace
 {
 
-	class PoissonDiskReporter
+	class PoissonDiskOutput
 	{
 	public:
-		explicit PoissonDiskReporter(Array<Color, 2>& data)
+		explicit PoissonDiskOutput(Array<Color, 2>& data)
 			: data_(data)
 		{
 		}
@@ -65,14 +65,14 @@ namespace
 
 		Array<Color, 2> image;
 
-		PoissonDiskReporter poissonDiskReporter(image);
+		PoissonDiskOutput poissonDiskOutput(image);
 
 		image.setExtent(Vector2i(width, 100), Color(0));
 		clear(Color(0), arrayView(image));
 
 		poissonDiskPattern(
 			AlignedBox1(0, width),
-			5, poissonDiskReporter);
+			5, poissonDiskOutput);
 
 		savePcx(image, "testpointpattern_poissondisk_1d.pcx");
 
@@ -81,7 +81,7 @@ namespace
 
 		poissonDiskPattern(
 			AlignedBox2(Vector2(0), Vector2(width, height)),
-			5, poissonDiskReporter);
+			5, poissonDiskOutput);
 
 		savePcx(image, "testpointpattern_poissondisk_2d.pcx");
 
@@ -89,7 +89,7 @@ namespace
 
 		poissonDiskPattern(
 			AlignedBox3(Vector3(0), Vector3(width, height, 500)),
-			35, poissonDiskReporter);
+			35, poissonDiskOutput);
 
 		savePcx(image, "testpointpattern_poissondisk_3d.pcx");
 
@@ -97,7 +97,7 @@ namespace
 
 		poissonDiskPattern(
 			AlignedBox4(Vector4(0), Vector4(width, height, 500, 500)),
-			70, poissonDiskReporter);
+			70, poissonDiskOutput);
 
 		savePcx(image, "testpointpattern_poissondisk_4d.pcx");
 	}

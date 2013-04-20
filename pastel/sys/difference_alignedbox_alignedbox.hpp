@@ -7,11 +7,11 @@ namespace Pastel
 {
 
 	template <typename Real, int N_A, int N_B,
-		typename AlignedBox_Reporter>
+		typename AlignedBox_Output>
 	integer difference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Reporter report)
+		AlignedBox_Output report)
 	{
 		PASTEL_STATIC_ASSERT(
 			N_A == N_B || 
@@ -159,11 +159,11 @@ namespace Pastel
 
 	template <
 		typename Real, int N_A, int N_B,
-		typename AlignedBox_Reporter>
+		typename AlignedBox_Output>
 	integer symmetricDifference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Reporter report)
+		AlignedBox_Output report)
 	{
 		integer reported = 0;
 		

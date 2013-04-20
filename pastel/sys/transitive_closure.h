@@ -4,7 +4,7 @@
 #define PASTELSYS_TRANSITIVE_CLOSURE_H
 
 #include "pastel/sys/transitive_closure_concepts.h"
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 #include "pastel/sys/hashing.h"
 
 namespace Pastel
@@ -68,7 +68,7 @@ namespace Pastel
 		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename Closure_Reporter,
+		typename Closure_Output,
 		typename Domain_Hash>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
@@ -76,7 +76,7 @@ namespace Pastel
 		const ForEachRelated& forEachRelated,
 		const Function& function,
 		const CodomainOperator& codomainOperator,
-		const Closure_Reporter& report,
+		const Closure_Output& report,
 		bool reflexiveClosure,
 		const Domain_Hash& domainHash);
 
@@ -101,14 +101,14 @@ namespace Pastel
 		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename Closure_Reporter>
+		typename Closure_Output>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
 		const ForEachDomain& forEachDomain,
 		const ForEachRelated& forEachRelated,
 		const Function& function,
 		const CodomainOperator& codomainOperator,
-		const Closure_Reporter& report,
+		const Closure_Output& report,
 		bool reflexiveClosure = false);
 
 }

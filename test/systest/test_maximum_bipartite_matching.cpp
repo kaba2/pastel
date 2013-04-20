@@ -5,7 +5,7 @@
 
 #include "pastel/sys/maximum_bipartite_matching.h"
 #include "pastel/sys/tuple_tools.h"
-#include "pastel/sys/reporters.h"
+#include "pastel/sys/outputs.h"
 #include "pastel/sys/random_subset.h"
 #include "pastel/sys/random.h"
 
@@ -183,7 +183,7 @@ namespace
 			maximumBipartiteMatching(
 				edgeSet | transformed(firstElement),
 				edgeSet | transformed(secondElement),
-				pushBackReporter(matchSet));
+				pushBackOutput(matchSet));
 
 			if (maximumMatchSize > 0 && matchSet.size() != maximumMatchSize)
 			{

@@ -1,18 +1,18 @@
 // Description: Single reporter
 
-#ifndef PASTELSYS_SINGLE_REPORTER_H
-#define PASTELSYS_SINGLE_REPORTER_H
+#ifndef PASTELSYS_SINGLE_OUTPUT_H
+#define PASTELSYS_SINGLE_OUTPUT_H
 
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 
 namespace Pastel
 {
 
 	template <typename Type>
-	class Single_Reporter
+	class Single_Output
 	{
 	public:
-		explicit Single_Reporter(Type& data)
+		explicit Single_Output(Type& data)
 			: data_(data)
 		{
 		}
@@ -29,10 +29,10 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	Single_Reporter<Type> singleReporter(
+	Single_Output<Type> singleOutput(
 		Type& data)
 	{
-		return Single_Reporter<Type>(data);
+		return Single_Output<Type>(data);
 	}
 
 }

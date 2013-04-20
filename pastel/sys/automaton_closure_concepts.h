@@ -3,7 +3,7 @@
 
 #include "pastel/sys/automaton_closure.h"
 
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 #include "pastel/sys/automaton_fwd.h"
 #include "pastel/sys/optional.h"
 
@@ -32,7 +32,7 @@ namespace Pastel
 				const std::function<void(const State_ConstIterator&)>& visit) const;
 		};
 
-		class Closure_Reporter
+		class Closure_Output
 		{
 		public:
 			//! Reports the closure of a state.

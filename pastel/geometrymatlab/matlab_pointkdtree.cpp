@@ -737,8 +737,8 @@ namespace Pastel
 					searchNearest(
 						state->tree,
 						query, k,
-						rangeReporter(nearestArray.rowRange(i)),
-						rangeReporter(distanceArray.rowRange(i)),
+						rangeOutput(nearestArray.rowRange(i)),
+						rangeOutput(distanceArray.rowRange(i)),
 						maxDistanceSet(i));
 				}
 			}

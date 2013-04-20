@@ -13,7 +13,7 @@
 #include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/constant_iterator.h"
 #include "pastel/sys/copy_n.h"
-#include "pastel/sys/reporters.h"
+#include "pastel/sys/outputs.h"
 
 namespace Pastel
 {
@@ -83,8 +83,8 @@ namespace Pastel
 				searchNearest(
 				kdTree, querySet[i], 
 				kNearestEnd,
-				rangeReporter(range(nearestSet.begin(), nearestSet.end())), 
-				rangeReporter(range(distanceSet.begin(), distanceSet.end())),
+				rangeOutput(range(nearestSet.begin(), nearestSet.end())), 
+				rangeOutput(range(distanceSet.begin(), distanceSet.end())),
 				maxDistanceSet[i], maxRelativeError,
 				dontAcceptPoint(querySet[i]),
 				bucketSize,

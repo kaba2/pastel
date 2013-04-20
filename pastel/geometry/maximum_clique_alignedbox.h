@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 #define PASTELGEOMETRY_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 #include "pastel/sys/range.h"
 
 #include "pastel/geometry/alignedbox.h"
@@ -45,17 +45,17 @@ namespace Pastel
 	*/
 	template <
 		typename AlignedBox_ConstRange,
-		typename AlignedBox_Reporter>
+		typename AlignedBox_Output>
 	typename boost::range_value<AlignedBox_ConstRange>::type 
 		maximumClique(
 		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection,
-		const AlignedBox_Reporter& result);
+		const AlignedBox_Output& result);
 
 	//! Finds an aligned box of maximum intersection among aligned boxes.
 	/*!
 	This is a convenience function that calls:
-	maximumClique(boxSet, sweepDirection, Null_Reporter())
+	maximumClique(boxSet, sweepDirection, Null_Output())
 
 	See the documentation for the general function.
 	*/

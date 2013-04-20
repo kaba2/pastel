@@ -1,0 +1,9 @@
+Null output
+===========
+
+[[Parent]]: outputs.txt
+
+A _null output_ does not do anything with the reported object.
+This is useful when a certain information is not of interest. 
+Not only is this convenient, but it also enables the compiler 
+to optimize away some portions of algorithms.

@@ -253,10 +253,10 @@ namespace Pastel
 		*/
 		template <
 			typename Input_Point_ConstRange,
-			typename Point_ConstIterator_Reporter>
+			typename Point_ConstIterator_Output>
 		void insertRange(
 			const Input_Point_ConstRange& pointSet, 
-			const Point_ConstIterator_Reporter& report,
+			const Point_ConstIterator_Output& report,
 			bool hidden = false);
 
 		//! Insert points into the tree.

@@ -38,13 +38,13 @@ namespace Pastel
 		typename StateSet,
 		typename ForEachRelated,
 		typename Insert_State,
-		typename Closure_Reporter>
+		typename Closure_Output>
 	void automatonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
 		const StateSet& emptySet,
 		const ForEachRelated& forEachRelated,
 		const Insert_State& insert,
-		const Closure_Reporter& report);
+		const Closure_Output& report);
 
 	//! Compures the epsilon-closure of each state in the automaton.
 	/*!
@@ -58,12 +58,12 @@ namespace Pastel
 		typename Customization,
 		typename StateSet,
 		typename Insert_State,
-		typename Closure_Reporter>
+		typename Closure_Output>
 	void epsilonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
 		const StateSet& emptySet,
 		const Insert_State& insert,
-		const Closure_Reporter& report);
+		const Closure_Output& report);
 }
 
 #include "pastel/sys/automaton_closure.hpp"

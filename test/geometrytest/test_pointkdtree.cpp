@@ -13,7 +13,7 @@
 #include "pastel/math/uniform_sampling.h"
 
 #include "pastel/sys/iterators.h"
-#include "pastel/sys/reporters.h"
+#include "pastel/sys/outputs.h"
 
 using namespace Pastel;
 
@@ -114,7 +114,7 @@ namespace
 			Tree tree;
 			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()),
-				pushBackReporter(iteratorSet));
+				pushBackOutput(iteratorSet));
 			TEST_ENSURE(check(tree));
 
 			tree.refine(SlidingMidpoint_SplitRule(), 1);
@@ -231,7 +231,7 @@ namespace
 			Tree tree;
 			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()),
-				pushBackReporter(iteratorSet));
+				pushBackOutput(iteratorSet));
 			TEST_ENSURE(check(tree));
 			TEST_ENSURE_OP(tree.points(), ==, m);
 			TEST_ENSURE_OP(tree.leaves(), ==, 1);
@@ -283,7 +283,7 @@ namespace
 
 			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()),
-				pushBackReporter(iteratorSet));
+				pushBackOutput(iteratorSet));
 			TEST_ENSURE(check(tree));
 
 			tree.clear();
@@ -357,8 +357,8 @@ namespace
 				const integer count = searchNearest(
 					tree, Vector<real, N>(0), 
 					m, 
-					pushBackReporter(neighborSet), 
-					pushBackReporter(distanceSet));
+					pushBackOutput(neighborSet), 
+					pushBackOutput(distanceSet));
 				
 				TEST_ENSURE_OP(count, ==, m);
 				TEST_ENSURE_OP(neighborSet.size(), ==, m);

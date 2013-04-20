@@ -1,18 +1,18 @@
-// Description: Reporter concept
-// Documentation: reporters.txt
+// Description: Output concept
+// Documentation: outputs.txt
 
-#ifndef PASTELSYS_REPORTER_CONCEPT_H
-#define PASTELSYS_REPORTER_CONCEPT_H
+#ifndef PASTELSYS_OUTPUT_CONCEPT_H
+#define PASTELSYS_OUTPUT_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 
 namespace Pastel
 {
 
-	namespace Reporter_Concept
+	namespace Output_Concept
 	{
 
-		class Reporter
+		class Output
 		{
 		public:
 			//! Reports 'that'. Returns whether to continue reporting.
