@@ -190,6 +190,9 @@
     <Filter Include="Algorithms\Point-set registration">
       <UniqueIdentifier>{141875f7-3488-4355-b65a-48f7342d0f92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data structures\Bsp trees\Range tree">
+      <UniqueIdentifier>{d8c3b4ef-3577-431d-bbad-88266441568b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -1354,6 +1357,15 @@
     <ClInclude Include="meshes.h">
       <Filter>Data structures\Meshes</Filter>
     </ClInclude>
+    <ClInclude Include="rangetree.h">
+      <Filter>Data structures\Bsp trees\Range tree</Filter>
+    </ClInclude>
+    <ClInclude Include="rangetree.hpp">
+      <Filter>Data structures\Bsp trees\Range tree</Filter>
+    </ClInclude>
+    <ClInclude Include="rangetree_concepts.h">
+      <Filter>Data structures\Bsp trees\Range tree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="geometrylibrary.cpp">
@@ -1369,6 +1381,9 @@
   <ItemGroup>
     <Text Include="pointset_registration.txt">
       <Filter>Algorithms\Point-set registration</Filter>
+    </Text>
+    <Text Include="rangetree.txt">
+      <Filter>Data structures\Bsp trees\Range tree</Filter>
     </Text>
   </ItemGroup>
 </Project>

@@ -97,6 +97,9 @@
     <ClCompile Include="test_interval_sequence.cpp">
       <Filter>Data structures</Filter>
     </ClCompile>
+    <ClCompile Include="test_pointrep.cpp">
+      <Filter>Mathematics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="poolspeed.txt" />

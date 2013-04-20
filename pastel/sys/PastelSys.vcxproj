@@ -212,6 +212,9 @@
     <ClInclude Include="object_forwarding.hpp" />
     <ClInclude Include="optional.h" />
     <ClInclude Include="pair_hash.h" />
+    <ClInclude Include="pointer_pointrep.h" />
+    <ClInclude Include="pointreps.h" />
+    <ClInclude Include="pointrep_concept.h" />
     <ClInclude Include="range_algorithms.h" />
     <ClInclude Include="range_output.h" />
     <ClInclude Include="redblacktree_fwd.h" />
@@ -750,6 +753,7 @@
     <Text Include="inputs.txt" />
     <Text Include="interval_sequence.txt" />
     <Text Include="maximum_bipartite_matching_design.txt" />
+    <Text Include="pointreps.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
