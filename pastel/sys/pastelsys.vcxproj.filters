@@ -1594,6 +1594,9 @@
     <ClInclude Include="pointreps.h">
       <Filter>Mathematics\Point representation</Filter>
     </ClInclude>
+    <ClInclude Include="range_input.h">
+      <Filter>Generic programming\Inputs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">

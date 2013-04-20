@@ -208,6 +208,7 @@
     <ClCompile Include="test_pastelgeometry.cpp" />
     <ClCompile Include="test_leastsquares.cpp" />
     <ClCompile Include="test_poisson_disk_pattern.cpp" />
+    <ClCompile Include="test_rangetree.cpp" />
     <ClCompile Include="test_transformation.cpp" />
   </ItemGroup>
   <ItemGroup>

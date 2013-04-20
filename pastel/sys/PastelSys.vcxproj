@@ -216,6 +216,7 @@
     <ClInclude Include="pointreps.h" />
     <ClInclude Include="pointrep_concept.h" />
     <ClInclude Include="range_algorithms.h" />
+    <ClInclude Include="range_input.h" />
     <ClInclude Include="range_output.h" />
     <ClInclude Include="redblacktree_fwd.h" />
     <ClInclude Include="pool_allocator.h" />
