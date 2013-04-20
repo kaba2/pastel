@@ -28,11 +28,15 @@ namespace Pastel
 		/*!
 		Returns:
 		N, if N != Dynamic, and
-		something else, otherwise.
+		non-negative integer, otherwise.
 		*/
 		integer n() const;
 
 		//! Returns the i:th coordinate of the given point.
+		/*!
+		Preconditions:
+		0 <= i < n()
+		*/
 		Real operator()(const Point& point, integer i) const;
 	};
 

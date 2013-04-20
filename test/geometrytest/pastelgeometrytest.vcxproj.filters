@@ -76,6 +76,9 @@
     <ClCompile Include="test_transformation.cpp" />
     <ClCompile Include="test_poisson_disk_pattern.cpp" />
     <ClCompile Include="test_pastelgeometry.cpp" />
+    <ClCompile Include="test_rangetree.cpp">
+      <Filter>Data structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="test_pastelgeometry.h" />
