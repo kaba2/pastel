@@ -1,18 +1,18 @@
 // Description: Push-back-into-a-container reporter
 
-#ifndef PASTELSYS_PUSH_BACK_REPORTER_H
-#define PASTELSYS_PUSH_BACK_REPORTER_H
+#ifndef PASTELSYS_PUSH_BACK_OUTPUT_H
+#define PASTELSYS_PUSH_BACK_OUTPUT_H
 
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 
 namespace Pastel
 {
 
 	template <typename Container>
-	class PushBack_Reporter
+	class PushBack_Output
 	{
 	public:
-		explicit PushBack_Reporter(Container& container)
+		explicit PushBack_Output(Container& container)
 			: container_(container)
 		{
 		}
@@ -29,10 +29,10 @@ namespace Pastel
 	};
 
 	template <typename Container>
-	PushBack_Reporter<Container> pushBackReporter(
+	PushBack_Output<Container> pushBackOutput(
 		Container& container)
 	{
-		return PushBack_Reporter<Container>(container);
+		return PushBack_Output<Container>(container);
 	}
 
 }

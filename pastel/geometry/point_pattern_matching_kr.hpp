@@ -6,7 +6,7 @@
 
 #include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/maximum_bipartite_matching.h"
-#include "pastel/sys/reporters.h"
+#include "pastel/sys/outputs.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/stdpair_as_pair.h"
 #include "pastel/sys/iteratoraddress_hash.h"
@@ -21,7 +21,7 @@ namespace Pastel
 	{
 
 		template <typename Real, int N, typename Model_PointPolicy, 
-			typename Scene_PointPolicy, typename Scene_Model_Reporter,
+			typename Scene_PointPolicy, typename Scene_Model_Output,
 			typename NormBijection>
 		class PointPatternKr
 		{
@@ -43,10 +43,10 @@ namespace Pastel
 			typedef typename PairSet::iterator Pair_Iterator;
 			typedef typename PairSet::const_iterator Pair_ConstIterator;
 
-			class Neighbor_Reporter
+			class Neighbor_Output
 			{
 			public:
-				explicit Neighbor_Reporter(
+				explicit Neighbor_Output(
 					PairSet& pairSet,
 					const Model_ConstIterator& model)
 					: pairSet_(pairSet)
@@ -74,7 +74,7 @@ namespace Pastel
 				const Real& maxBias,
 				MatchingMode::Enum matchingMode,
 				const NormBijection& normBijection,
-				const Scene_Model_Reporter& report)
+				const Scene_Model_Output& report)
 			{
 				/*
 				This function implements my algorithm from an upcoming paper
@@ -142,8 +142,8 @@ namespace Pastel
 								sceneTree, 
 								searchPoint,
 								kNearest,
-								Neighbor_Reporter(candidatePairSet, modelIter),
-								nullReporter(),
+								Neighbor_Output(candidatePairSet, modelIter),
+								nullOutput(),
 								matchingDistance,
 								maxRelativeError,
 								Always_AcceptPoint<Scene_ConstIterator>(),
@@ -169,7 +169,7 @@ namespace Pastel
 						maximumBipartiteMatching(
 							candidatePairSet | transformed(firstElement),
 							candidatePairSet | transformed(secondElement),
-							pushBackReporter(pairSet),
+							pushBackOutput(pairSet),
 							IteratorAddress_Hash(),
 							IteratorAddress_Hash());
 
@@ -262,7 +262,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename Model_PointPolicy, 
-		typename Scene_PointPolicy, typename Scene_Model_Reporter,
+		typename Scene_PointPolicy, typename Scene_Model_Output,
 		typename NormBijection>
 	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
@@ -273,7 +273,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxBias,
 		MatchingMode::Enum matchingMode,
 		const NormBijection& normBijection,
-		Scene_Model_Reporter report)
+		Scene_Model_Output report)
 	{
 		ENSURE_OP(kNearest, >, 0);
 		ENSURE_OP(minMatchRatio, >=, 0);
@@ -284,7 +284,7 @@ namespace Pastel
 
 		PointPatternMatch_::PointPatternKr<
 			Real, N, Model_PointPolicy, 
-			Scene_PointPolicy, Scene_Model_Reporter,
+			Scene_PointPolicy, Scene_Model_Output,
 			NormBijection> 
 			pointPattern;
 

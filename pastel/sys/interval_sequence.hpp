@@ -10,11 +10,11 @@ namespace Pastel
 	template <
 		typename A_Range, 
 		typename B_Range,
-		typename Reporter>
+		typename Output>
 	void difference(
 		const A_Range& aSet,
 		const B_Range& bSet,
-		Reporter report)
+		Output report)
 	{
 		PENSURE(isIntervalSequence(aSet));
 		PENSURE(isIntervalSequence(bSet));

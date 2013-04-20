@@ -1,18 +1,18 @@
 // Description: Range reporter
 
-#ifndef PASTELSYS_RANGE_REPORTER_H
-#define PASTELSYS_RANGE_REPORTER_H
+#ifndef PASTELSYS_RANGE_OUTPUT_H
+#define PASTELSYS_RANGE_OUTPUT_H
 
-#include "pastel/sys/reporter_concept.h"
+#include "pastel/sys/output_concept.h"
 
 namespace Pastel
 {
 
 	template <typename Iterator>
-	class Range_Reporter
+	class Range_Output
 	{
 	public:
-		explicit Range_Reporter(
+		explicit Range_Output(
 			Iterator begin,
 			Iterator end)
 			: begin_(begin)
@@ -38,13 +38,13 @@ namespace Pastel
 	};
 
 	template <typename Range>
-	Range_Reporter<typename boost::range_iterator<Range>::type> rangeReporter(
+	Range_Output<typename boost::range_iterator<Range>::type> rangeOutput(
 		const Range& range)
 	{
 		typedef typename boost::range_iterator<Range>::type
 			Iterator;
 
-		return Range_Reporter<Iterator>(
+		return Range_Output<Iterator>(
 			range.begin(), range.end());
 	}
 

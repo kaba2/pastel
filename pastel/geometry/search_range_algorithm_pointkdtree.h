@@ -20,11 +20,11 @@ namespace Pastel
 	bucketSize > 0
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename Reporter_SearchRange>
+		typename Output_SearchRange>
 	void searchRangeAlgorithm(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
-		const Reporter_SearchRange& reporter,
+		const Output_SearchRange& reporter,
 		integer bucketSize = 8);
 
 }

@@ -18,12 +18,12 @@ namespace Pastel
 		typename StateData, 
 		typename TransitionData,
 		typename Customization,
-		typename State_Reporter,
-		typename Transition_Reporter>
+		typename State_Output,
+		typename Transition_Output>
 	void determinizeAutomaton(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
-		const State_Reporter& reportState,
-		const Transition_Reporter& reportTransition)
+		const State_Output& reportState,
+		const Transition_Output& reportTransition)
 	{
 		typedef Automaton<Symbol, StateData, TransitionData, Customization> 
 			Automaton;

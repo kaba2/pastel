@@ -212,10 +212,10 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Type, typename Array_Reporter>
+	template <typename Type, typename Array_Output>
 	integer getArrays(
 		const mxArray* cellArray,
-		Array_Reporter report)
+		Array_Output report)
 	{
 		ENSURE(mxIsCell(cellArray));
 

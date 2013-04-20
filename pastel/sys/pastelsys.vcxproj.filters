@@ -163,9 +163,6 @@
     <Filter Include="Generic programming">
       <UniqueIdentifier>{12ec9aec-c46f-495d-8f12-8946eb61fee2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generic programming\Reporters">
-      <UniqueIdentifier>{0404dc87-241c-42a6-b314-b2f35d5411a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generic programming\Iterators">
       <UniqueIdentifier>{7f27277d-6a22-45a4-a252-6bf580272444}</UniqueIdentifier>
     </Filter>
@@ -306,6 +303,12 @@
     </Filter>
     <Filter Include="Mathematics\Interval sequence">
       <UniqueIdentifier>{7c1e66e6-a1c3-48db-a801-699009601a4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Outputs">
+      <UniqueIdentifier>{0404dc87-241c-42a6-b314-b2f35d5411a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Inputs">
+      <UniqueIdentifier>{38af366d-d3be-4c9b-8da7-76a903770584}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1182,24 +1185,6 @@
     <ClInclude Include="measuretable_tools.h">
       <Filter>Reporting\MeasureTable</Filter>
     </ClInclude>
-    <ClInclude Include="iterator_reporter.h">
-      <Filter>Generic programming\Reporters</Filter>
-    </ClInclude>
-    <ClInclude Include="null_reporter.h">
-      <Filter>Generic programming\Reporters</Filter>
-    </ClInclude>
-    <ClInclude Include="push_back_reporter.h">
-      <Filter>Generic programming\Reporters</Filter>
-    </ClInclude>
-    <ClInclude Include="reporter_concept.h">
-      <Filter>Generic programming\Reporters</Filter>
-    </ClInclude>
-    <ClInclude Include="reporters.h">
-      <Filter>Generic programming\Reporters</Filter>
-    </ClInclude>
-    <ClInclude Include="single_reporter.h">
-      <Filter>Generic programming\Reporters</Filter>
-    </ClInclude>
     <ClInclude Include="iterators.h">
       <Filter>Generic programming\Iterators</Filter>
     </ClInclude>
@@ -1480,9 +1465,6 @@
     <ClInclude Include="named_tuples.h">
       <Filter>Data structures\Named tuples</Filter>
     </ClInclude>
-    <ClInclude Include="range_reporter.h">
-      <Filter>Generic programming\Reporters</Filter>
-    </ClInclude>
     <ClInclude Include="range.h">
       <Filter>Generic programming\Iterators</Filter>
     </ClInclude>
@@ -1572,6 +1554,33 @@
     </ClInclude>
     <ClInclude Include="interval_sequence.hpp">
       <Filter>Mathematics\Interval sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="iterator_output.h">
+      <Filter>Generic programming\Outputs</Filter>
+    </ClInclude>
+    <ClInclude Include="null_output.h">
+      <Filter>Generic programming\Outputs</Filter>
+    </ClInclude>
+    <ClInclude Include="push_back_output.h">
+      <Filter>Generic programming\Outputs</Filter>
+    </ClInclude>
+    <ClInclude Include="range_output.h">
+      <Filter>Generic programming\Outputs</Filter>
+    </ClInclude>
+    <ClInclude Include="output_concept.h">
+      <Filter>Generic programming\Outputs</Filter>
+    </ClInclude>
+    <ClInclude Include="outputs.h">
+      <Filter>Generic programming\Outputs</Filter>
+    </ClInclude>
+    <ClInclude Include="single_output.h">
+      <Filter>Generic programming\Outputs</Filter>
+    </ClInclude>
+    <ClInclude Include="input_concept.h">
+      <Filter>Generic programming\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="inputs.h">
+      <Filter>Generic programming\Inputs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1845,21 +1854,6 @@
     <None Include="generic_programming.txt">
       <Filter>Generic programming</Filter>
     </None>
-    <None Include="iterator_reporter.txt">
-      <Filter>Generic programming\Reporters</Filter>
-    </None>
-    <None Include="null_reporter.txt">
-      <Filter>Generic programming\Reporters</Filter>
-    </None>
-    <None Include="push_back_reporter.txt">
-      <Filter>Generic programming\Reporters</Filter>
-    </None>
-    <None Include="reporters.txt">
-      <Filter>Generic programming\Reporters</Filter>
-    </None>
-    <None Include="single_reporter.txt">
-      <Filter>Generic programming\Reporters</Filter>
-    </None>
     <None Include="iterators.txt">
       <Filter>Generic programming\Iterators</Filter>
     </None>
@@ -1959,9 +1953,6 @@
     <None Include="named_tuples.txt">
       <Filter>Data structures\Named tuples</Filter>
     </None>
-    <None Include="range_reporter.txt">
-      <Filter>Generic programming\Reporters</Filter>
-    </None>
     <None Include="optional.txt">
       <Filter>Data structures\Optional objects</Filter>
     </None>
@@ -1997,6 +1988,24 @@
     </None>
     <None Include="..\+pastelsys\process_options.m">
       <Filter>Build system</Filter>
+    </None>
+    <None Include="iterator_output.txt">
+      <Filter>Generic programming\Outputs</Filter>
+    </None>
+    <None Include="null_output.txt">
+      <Filter>Generic programming\Outputs</Filter>
+    </None>
+    <None Include="push_back_output.txt">
+      <Filter>Generic programming\Outputs</Filter>
+    </None>
+    <None Include="range_output.txt">
+      <Filter>Generic programming\Outputs</Filter>
+    </None>
+    <None Include="outputs.txt">
+      <Filter>Generic programming\Outputs</Filter>
+    </None>
+    <None Include="single_output.txt">
+      <Filter>Generic programming\Outputs</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -2110,6 +2119,9 @@
     </Text>
     <Text Include="blog.txt">
       <Filter>Documentation</Filter>
+    </Text>
+    <Text Include="inputs.txt">
+      <Filter>Generic programming\Inputs</Filter>
     </Text>
   </ItemGroup>
 </Project>

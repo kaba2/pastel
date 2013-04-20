@@ -11,7 +11,7 @@
 #include "pastel/math/conformalaffine2d_least_squares.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/reporters.h"
+#include "pastel/sys/outputs.h"
 #include "pastel/sys/random_subset.h"
 
 namespace Pastel
@@ -231,8 +231,8 @@ namespace Pastel
 								sceneTree_,
 								sceneIter,
 								k_,
-								rangeReporter(sceneNearest.rowRange(j)),
-								nullReporter(),
+								rangeOutput(sceneNearest.rowRange(j)),
+								nullOutput(),
 								infinity<Real>(), 0,
 								dontAcceptPoint(sceneIter));
 						}
@@ -252,8 +252,8 @@ namespace Pastel
 							modelTree_,
 							modelIter,
 							k_,
-							rangeReporter(range(modelSet.begin() + 1, modelSet.end())),
-							nullReporter(),
+							rangeOutput(range(modelSet.begin() + 1, modelSet.end())),
+							nullOutput(),
 							infinity<Real>(), 0,
 							dontAcceptPoint(modelIter));
 

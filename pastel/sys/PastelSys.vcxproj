@@ -197,6 +197,8 @@
     <ClInclude Include="incidence_graph_incidence.h" />
     <ClInclude Include="incidence_graph_vertex.h" />
     <ClInclude Include="automaton_minimization.h" />
+    <ClInclude Include="inputs.h" />
+    <ClInclude Include="input_concept.h" />
     <ClInclude Include="interval_sequence.h" />
     <ClInclude Include="interval_sequence.hpp" />
     <ClInclude Include="iteratoraddress_hash.h" />
@@ -211,7 +213,7 @@
     <ClInclude Include="optional.h" />
     <ClInclude Include="pair_hash.h" />
     <ClInclude Include="range_algorithms.h" />
-    <ClInclude Include="range_reporter.h" />
+    <ClInclude Include="range_output.h" />
     <ClInclude Include="redblacktree_fwd.h" />
     <ClInclude Include="pool_allocator.h" />
     <ClInclude Include="pool_allocator.hpp" />
@@ -540,12 +542,12 @@
     <ClInclude Include="progress.h" />
     <ClInclude Include="measuretable.h" />
     <ClInclude Include="measuretable_tools.h" />
-    <ClInclude Include="iterator_reporter.h" />
-    <ClInclude Include="null_reporter.h" />
-    <ClInclude Include="push_back_reporter.h" />
-    <ClInclude Include="reporter_concept.h" />
-    <ClInclude Include="reporters.h" />
-    <ClInclude Include="single_reporter.h" />
+    <ClInclude Include="iterator_output.h" />
+    <ClInclude Include="null_output.h" />
+    <ClInclude Include="push_back_output.h" />
+    <ClInclude Include="output_concept.h" />
+    <ClInclude Include="outputs.h" />
+    <ClInclude Include="single_output.h" />
     <ClInclude Include="range.h" />
     <ClInclude Include="iterators.h" />
     <ClInclude Include="algorithm_concept.h" />
@@ -594,7 +596,7 @@
     <None Include="optional.txt" />
     <None Include="pool_allocator.txt" />
     <None Include="pool_allocator_notes.txt" />
-    <None Include="range_reporter.txt" />
+    <None Include="range_output.txt" />
     <None Include="read_protected.txt" />
     <None Include="refinable_partition.txt" />
     <None Include="second_iterator.txt" />
@@ -696,11 +698,11 @@
     <None Include="progress.txt" />
     <None Include="measuretable.txt" />
     <None Include="generic_programming.txt" />
-    <None Include="iterator_reporter.txt" />
-    <None Include="null_reporter.txt" />
-    <None Include="push_back_reporter.txt" />
-    <None Include="reporters.txt" />
-    <None Include="single_reporter.txt" />
+    <None Include="iterator_output.txt" />
+    <None Include="null_output.txt" />
+    <None Include="push_back_output.txt" />
+    <None Include="outputs.txt" />
+    <None Include="single_output.txt" />
     <None Include="iterators.txt" />
     <None Include="algorithm_objects.txt" />
     <None Include="range_algorithms.txt" />
@@ -745,6 +747,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="blog.txt" />
+    <Text Include="inputs.txt" />
     <Text Include="interval_sequence.txt" />
     <Text Include="maximum_bipartite_matching_design.txt" />
   </ItemGroup>

@@ -67,7 +67,7 @@ namespace Pastel
 				const std::function<void(const Domain&)>& visit) const;
 		};
 
-		class Closure_Reporter
+		class Closure_Output
 		{
 		public:
 			//! Reports the value of the closure-function at x.

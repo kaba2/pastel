@@ -115,7 +115,7 @@ namespace Pastel
 				modelTree, sceneTree, kNearest,
 				minMatchRatio, matchingDistance, maxBias,
 				matchingMode, normBijection, 
-				pushBackReporter(pairSet));
+				pushBackOutput(pairSet));
 
 			// Output the pairing.
 

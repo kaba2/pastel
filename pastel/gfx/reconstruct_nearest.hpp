@@ -9,7 +9,7 @@
 
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/view_visit.h"
-#include "pastel/sys/reporters.h"
+#include "pastel/sys/outputs.h"
 
 namespace Pastel
 {
@@ -122,8 +122,8 @@ namespace Pastel
 					kdtree_, 
 					evaluate(Vector<Real, N>(position) + 0.5), 
 					kNearest_, 
-					pushBackReporter(nearestSet),
-					nullReporter(),
+					pushBackOutput(nearestSet),
+					nullOutput(),
 					infinity<Real>(), maxRelativeError_);
 
 				data = nearestSet.back()->point().data_;

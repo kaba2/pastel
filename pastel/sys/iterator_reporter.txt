@@ -1,7 +1,0 @@
-Iterator reporter
-=================
-
-[[Parent]]: reporters.txt
-
-An _iterator reporter_ assigns the reported object to a dereferenced
-iterator, and then increments that iterator.

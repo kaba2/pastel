@@ -8,7 +8,7 @@
 #include "pastel/geometry/overlaps_alignedbox_point.h"
 
 #include "pastel/sys/view_visit.h"
-#include "pastel/sys/reporters.h"
+#include "pastel/sys/outputs.h"
 
 namespace Pastel
 {
@@ -128,8 +128,8 @@ namespace Pastel
 					kdTree_, 
 					evaluate(Vector<real, N>(position) + 0.5),
 					kdTree_.points(),
-					pushBackReporter(nearestSet),
-					nullReporter(),
+					pushBackOutput(nearestSet),
+					nullOutput(),
 					filter_.radius() * filterStretch_, 0,
 					alwaysAcceptPoint(kdTree_),
 					8,

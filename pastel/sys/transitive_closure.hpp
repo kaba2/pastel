@@ -16,7 +16,7 @@ namespace Pastel
 		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename Closure_Reporter,
+		typename Closure_Output,
 		typename Domain_Hash>
 	class TransitiveClosure
 	{
@@ -27,7 +27,7 @@ namespace Pastel
 			const ForEachRelated& forEachRelated_,
 			const Function& function_,
 			const CodomainOperator& codomainOperator_,
-			const Closure_Reporter& report_,
+			const Closure_Output& report_,
 			bool reflexiveClosure_,
 			const Domain_Hash& domainHash_)
 			: identity(identity_)
@@ -287,7 +287,7 @@ namespace Pastel
 		const Domain_Hash& domainHash;
 		const Function& function;
 		const CodomainOperator& codomainOperator;
-		const Closure_Reporter& report;
+		const Closure_Output& report;
 		bool reflexiveClosure;
 
 		typedef std::unordered_map<Domain, Progress, Domain_Hash> ProgressSet;
@@ -305,7 +305,7 @@ namespace Pastel
 		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename Closure_Reporter,
+		typename Closure_Output,
 		typename Domain_Hash>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
@@ -313,14 +313,14 @@ namespace Pastel
 		const ForEachRelated& forEachRelated,
 		const Function& function,
 		const CodomainOperator& codomainOperator,
-		const Closure_Reporter& report,
+		const Closure_Output& report,
 		bool reflexiveClosure,
 		const Domain_Hash& domainHash)
 	{
 		TransitiveClosure<Domain, Codomain, 
 			ForEachDomain, ForEachRelated, 
 			Function, CodomainOperator,
-			Closure_Reporter, Domain_Hash> algorithm(
+			Closure_Output, Domain_Hash> algorithm(
 				identity,
 				forEachDomain,
 				forEachRelated,
@@ -340,14 +340,14 @@ namespace Pastel
 		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename Closure_Reporter>
+		typename Closure_Output>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
 		const ForEachDomain& forEachDomain,
 		const ForEachRelated& forEachRelated,
 		const Function& function,
 		const CodomainOperator& codomainOperator,
-		const Closure_Reporter& report,
+		const Closure_Output& report,
 		bool reflexiveClosure)
 	{
 		return Pastel::transitiveClosure<Domain, Codomain>(

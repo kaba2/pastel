@@ -12,10 +12,10 @@ namespace Pastel
 	{
 
 		template <typename OutputIterator>
-		class Search_Reporter_SearchRange
+		class Search_Output_SearchRange
 		{
 		public:
-			explicit Search_Reporter_SearchRange(
+			explicit Search_Output_SearchRange(
 				OutputIterator& output)
 				: output_(output)
 			{
@@ -55,7 +55,7 @@ namespace Pastel
 		Point_ConstIterator_Iterator result,
 		integer bucketSize)
 	{
-		SearchRange_::Search_Reporter_SearchRange<Point_ConstIterator_Iterator>
+		SearchRange_::Search_Output_SearchRange<Point_ConstIterator_Iterator>
 			reporter(result);
 
 		searchRangeAlgorithm(kdTree, range, reporter, bucketSize);

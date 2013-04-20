@@ -28,7 +28,7 @@ namespace Pastel
 			IteratorAddress_Hash>::type
 			StateSet;
 
-		class State_Reporter
+		class State_Output
 		{
 		public:
 			//! Reports a state of the deterministic automaton.
@@ -46,7 +46,7 @@ namespace Pastel
 				bool startState) const;
 		};
 
-		class Transition_Reporter
+		class Transition_Output
 		{
 		public:
 			//! Reports a transition of the deterministic automaton.

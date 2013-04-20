@@ -32,11 +32,11 @@ namespace Pastel
 	kNearest:
 	The number of nearest neighbors to search.
 
-	nearestReporter:
+	nearestOutput:
 	A reporter to which the found neighbors 
 	(Point_ConstIterator of 'kdTree') are reported to.
 
-	distanceReporter:
+	distanceOutput:
 	A reporter to which the distances of the found
 	neighbors (Real) are reported to.
 
@@ -67,15 +67,15 @@ namespace Pastel
 	The number of found neighbors.
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Reporter, 
-		typename Real_Reporter, typename AcceptPoint,
+		typename SearchPoint, typename Nearest_Output, 
+		typename Real_Output, typename AcceptPoint,
 		typename NormBijection, typename SearchAlgorithm_PointKdTree>
 	integer searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
-		const Nearest_Reporter& nearestReporter,
-		const Real_Reporter& distanceReporter,
+		const Nearest_Output& nearestOutput,
+		const Real_Output& distanceOutput,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
@@ -87,21 +87,21 @@ namespace Pastel
 	/*!
 	This is a convenience function that calls:
 	searchNearest(kdTree, searchPoint,
-		kNearest, nearestReporter, distanceReporter,
+		kNearest, nearestOutput, distanceOutput,
 		maxDistance, maxRelativeError, acceptPoint,
 		normBijection,
 		DepthFirst_SearchAlgorithm_PointKdTree());
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Reporter, 
-		typename Real_Reporter, typename AcceptPoint,
+		typename SearchPoint, typename Nearest_Output, 
+		typename Real_Output, typename AcceptPoint,
 		typename NormBijection>
 	integer searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
-		const Nearest_Reporter& nearestReporter,
-		const Real_Reporter& distanceReporter,
+		const Nearest_Output& nearestOutput,
+		const Real_Output& distanceOutput,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
@@ -112,19 +112,19 @@ namespace Pastel
 	/*!
 	This is a convenience function that calls:
 	searchNearest(kdTree, searchPoint,
-		kNearest, nearestReporter, distanceReporter,
+		kNearest, nearestOutput, distanceOutput,
 		maxDistance, maxRelativeError, acceptPoint,
 		bucketSize,	Euclidean_NormBijection<Real>());
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Reporter, 
-		typename Real_Reporter, typename AcceptPoint>
+		typename SearchPoint, typename Nearest_Output, 
+		typename Real_Output, typename AcceptPoint>
 	integer searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
-		const Nearest_Reporter& nearestReporter,
-		const Real_Reporter& distanceReporter,
+		const Nearest_Output& nearestOutput,
+		const Real_Output& distanceOutput,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
@@ -134,18 +134,18 @@ namespace Pastel
 	/*!
 	This is a convenience function that calls:
 	searchNearest(kdTree, searchPoint,
-		kNearest, nearestReporter, distanceReporter,
+		kNearest, nearestOutput, distanceOutput,
 		maxDistance, maxRelativeError, acceptPoint, 1);
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Reporter, 
-		typename Real_Reporter, typename AcceptPoint>
+		typename SearchPoint, typename Nearest_Output, 
+		typename Real_Output, typename AcceptPoint>
 	integer searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
-		const Nearest_Reporter& nearestReporter,
-		const Real_Reporter& distanceReporter,
+		const Nearest_Output& nearestOutput,
+		const Real_Output& distanceOutput,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint);
@@ -154,19 +154,19 @@ namespace Pastel
 	/*!
 	This is a convenience function that calls:
 	searchNearest(kdTree, searchPoint,
-		kNearest, nearestReporter, distanceReporter,
+		kNearest, nearestOutput, distanceOutput,
 		maxDistance, maxRelativeError, 
 		alwaysAcceptPoint(kdTree));
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Reporter, 
-		typename Real_Reporter>
+		typename SearchPoint, typename Nearest_Output, 
+		typename Real_Output>
 	integer searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
-		const Nearest_Reporter& nearestReporter,
-		const Real_Reporter& distanceReporter,
+		const Nearest_Output& nearestOutput,
+		const Real_Output& distanceOutput,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
 
@@ -174,36 +174,36 @@ namespace Pastel
 	/*!
 	This is a convenience function that calls:
 	searchNearest(kdTree, searchPoint,
-		kNearest, nearestReporter, distanceReporter,
+		kNearest, nearestOutput, distanceOutput,
 		maxDistance, 0);
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Reporter, 
-		typename Real_Reporter>
+		typename SearchPoint, typename Nearest_Output, 
+		typename Real_Output>
 	integer searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
-		const Nearest_Reporter& nearestReporter,
-		const Real_Reporter& distanceReporter,
+		const Nearest_Output& nearestOutput,
+		const Real_Output& distanceOutput,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
 
 	//! Finds nearest neighbors for a point in a kdTree.
 	/*!
 	This is a convenience function that calls:
 	searchNearest(kdTree, searchPoint,
-		kNearest, nearestReporter, distanceReporter,
+		kNearest, nearestOutput, distanceOutput,
 		infinity<Real>());
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Reporter, 
-		typename Real_Reporter>
+		typename SearchPoint, typename Nearest_Output, 
+		typename Real_Output>
 	integer searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
-		const Nearest_Reporter& nearestReporter,
-		const Real_Reporter& distanceReporter);
+		const Nearest_Output& nearestOutput,
+		const Real_Output& distanceOutput);
 
 }
 
