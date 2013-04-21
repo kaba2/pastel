@@ -1,7 +1,7 @@
 Maximum clique of aligned boxes
 ===============================
 
-[[Parent]]: subset_searches.txt
+[[Parent]]: searching.txt
 
 Given is a set ''P'' of (axis-aligned) boxes in ''RR^d''. 
 A _clique box_ is a box which is contained in the intersection of 

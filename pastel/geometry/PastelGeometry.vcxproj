@@ -182,7 +182,7 @@
     <None Include="difference.txt" />
     <None Include="intersect.txt" />
     <None Include="poisson_disk_pattern.txt" />
-    <None Include="subset_searches.txt" />
+    <None Include="searching.txt" />
     <None Include="range_searching.txt" />
     <None Include="nearest_neighbors.txt" />
     <None Include="nearest_neighbors_semidynamic.txt" />
@@ -266,7 +266,7 @@
     <ClInclude Include="slidingmidpoint_splitrule.hpp" />
     <ClInclude Include="splitrules.h" />
     <ClInclude Include="splitrule_concept.h" />
-    <ClInclude Include="subset_searches.h" />
+    <ClInclude Include="searching.h" />
     <ClInclude Include="volume.h" />
     <ClInclude Include="windowed_pointtree.h" />
     <ClInclude Include="windowed_pointtree.hpp" />
@@ -551,6 +551,7 @@
   <ItemGroup>
     <Text Include="pointset_registration.txt" />
     <Text Include="rangetree.txt" />
+    <Text Include="time_series.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

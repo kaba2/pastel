@@ -91,24 +91,6 @@
     <Filter Include="Algorithms\Shape generation\Poisson-disk pattern">
       <UniqueIdentifier>{916f2df8-8ff5-40ed-a014-239596ae668e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Subset searches">
-      <UniqueIdentifier>{7b149f4a-a9d1-4e5c-8b49-27bd267d97ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching">
-      <UniqueIdentifier>{b9d0d562-920d-4b24-a6f3-b91a28ca5dc0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting">
-      <UniqueIdentifier>{37e4e4c7-8798-417c-84be-e158e762fcde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching">
-      <UniqueIdentifier>{3abc2870-266a-4115-a4eb-5efbc2f17acf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint">
-      <UniqueIdentifier>{e4037b2c-6b64-4725-8ae7-9376c4e32999}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms">
-      <UniqueIdentifier>{27472255-152d-4943-90c0-bfda2a427ac6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Algorithms\Shape relations">
       <UniqueIdentifier>{faa39d9a-04b2-428e-aa19-cb7e11fc8b64}</UniqueIdentifier>
     </Filter>
@@ -157,9 +139,6 @@
     <Filter Include="Algorithms\Shape measurements\Eigenstructure">
       <UniqueIdentifier>{ce172e75-1ba6-4bc7-9cf2-8787af548afb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Subset searches\Range searching">
-      <UniqueIdentifier>{5f98dbf1-0a1f-4766-a80c-bf3898f3ab00}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data structures\BihTree">
       <UniqueIdentifier>{87336d6f-f7ea-4d2c-b109-410efbc03f58}</UniqueIdentifier>
     </Filter>
@@ -178,9 +157,6 @@
     <Filter Include="Undocumented">
       <UniqueIdentifier>{15a348e0-d81d-478f-92fa-a37f9421b6ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Subset searches\Maximum clique of aligned boxes">
-      <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Algorithms\Point pattern matching">
       <UniqueIdentifier>{bef91569-428b-4fb7-9ce5-eaa314234778}</UniqueIdentifier>
     </Filter>
@@ -192,6 +168,33 @@
     </Filter>
     <Filter Include="Data structures\Bsp trees\Range tree">
       <UniqueIdentifier>{d8c3b4ef-3577-431d-bbad-88266441568b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Time series">
+      <UniqueIdentifier>{00071c9e-e758-4ecd-9b3e-493918bf92eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Searching">
+      <UniqueIdentifier>{7b149f4a-a9d1-4e5c-8b49-27bd267d97ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Searching\Nearest neighbors searching">
+      <UniqueIdentifier>{b9d0d562-920d-4b24-a6f3-b91a28ca5dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting">
+      <UniqueIdentifier>{37e4e4c7-8798-417c-84be-e158e762fcde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching">
+      <UniqueIdentifier>{3abc2870-266a-4115-a4eb-5efbc2f17acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Searching\Nearest neighbors searching\AcceptPoint">
+      <UniqueIdentifier>{e4037b2c-6b64-4725-8ae7-9376c4e32999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms">
+      <UniqueIdentifier>{27472255-152d-4943-90c0-bfda2a427ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Searching\Range searching">
+      <UniqueIdentifier>{5f98dbf1-0a1f-4766-a80c-bf3898f3ab00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Searching\Maximum clique of aligned boxes">
+      <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -294,29 +297,26 @@
     <None Include="poisson_disk_pattern.txt">
       <Filter>Algorithms\Shape generation\Poisson-disk pattern</Filter>
     </None>
-    <None Include="subset_searches.txt">
-      <Filter>Algorithms\Subset searches</Filter>
-    </None>
     <None Include="nearest_neighbors.txt">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </None>
     <None Include="nearest_neighbors_semidynamic.txt">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </None>
     <None Include="count_all_neighbors.txt">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </None>
     <None Include="search_all_neighbors.txt">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </None>
     <None Include="acceptpoint.txt">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
     </None>
     <None Include="searchalgorithm_pointkdtree.txt">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </None>
     <None Include="maximum_clique_alignedbox.txt">
-      <Filter>Algorithms\Subset searches\Maximum clique of aligned boxes</Filter>
+      <Filter>Algorithms\Searching\Maximum clique of aligned boxes</Filter>
     </None>
     <None Include="projection.txt">
       <Filter>Algorithms\Projection</Filter>
@@ -376,7 +376,7 @@
       <Filter>Data structures\Bsp trees\Point kd-tree\Split rules</Filter>
     </None>
     <None Include="range_searching.txt">
-      <Filter>Algorithms\Subset searches\Range searching</Filter>
+      <Filter>Algorithms\Searching\Range searching</Filter>
     </None>
     <None Include="point_pattern_matching_kr.txt">
       <Filter>Algorithms\Point pattern matching</Filter>
@@ -393,6 +393,9 @@
     </None>
     <None Include="undocumented.txt">
       <Filter>Undocumented</Filter>
+    </None>
+    <None Include="searching.txt">
+      <Filter>Algorithms\Searching</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -784,127 +787,127 @@
       <Filter>Algorithms\Shape generation\Poisson-disk pattern</Filter>
     </ClInclude>
     <ClInclude Include="count_range_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Range searching</Filter>
+      <Filter>Algorithms\Searching\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="count_range_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Range searching</Filter>
+      <Filter>Algorithms\Searching\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_algorithm_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Range searching</Filter>
+      <Filter>Algorithms\Searching\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_algorithm_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Range searching</Filter>
+      <Filter>Algorithms\Searching\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Range searching</Filter>
+      <Filter>Algorithms\Searching\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Range searching</Filter>
+      <Filter>Algorithms\Searching\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="count_nearest_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="count_nearest_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_algorithm_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_algorithm_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_one_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_one_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_1d.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_1d.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_bruteforce.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_bruteforce.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_1d.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_1d.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_bruteforce.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_bruteforce.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="acceptpoint.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="acceptpoint_concept.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="always_acceptpoint.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="dont_acceptpoint.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="negate_acceptpoint.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="objectdont_acceptpoint.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="bestfirst_searchalgorithm_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="bestfirst_searchalgorithm_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="depthfirst_searchalgorithm_pointkdtree.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="depthfirst_searchalgorithm_pointkdtree.hpp">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="searchalgorithm_pointkdtree_concept.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="maximum_clique_alignedbox.h">
-      <Filter>Algorithms\Subset searches\Maximum clique of aligned boxes</Filter>
+      <Filter>Algorithms\Searching\Maximum clique of aligned boxes</Filter>
     </ClInclude>
     <ClInclude Include="maximum_clique_alignedbox.hpp">
-      <Filter>Algorithms\Subset searches\Maximum clique of aligned boxes</Filter>
+      <Filter>Algorithms\Searching\Maximum clique of aligned boxes</Filter>
     </ClInclude>
     <ClInclude Include="linear_projection.h">
       <Filter>Algorithms\Projection</Filter>
@@ -1311,14 +1314,11 @@
     <ClInclude Include="contains.h">
       <Filter>Algorithms\Shape relations\Containment testing</Filter>
     </ClInclude>
-    <ClInclude Include="subset_searches.h">
-      <Filter>Algorithms\Subset searches</Filter>
-    </ClInclude>
     <ClInclude Include="range_searching.h">
-      <Filter>Algorithms\Subset searches\Range searching</Filter>
+      <Filter>Algorithms\Searching\Range searching</Filter>
     </ClInclude>
     <ClInclude Include="nearest_neighbors.h">
-      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="projection.h">
       <Filter>Algorithms\Projection</Filter>
@@ -1366,6 +1366,9 @@
     <ClInclude Include="rangetree_concepts.h">
       <Filter>Data structures\Bsp trees\Range tree</Filter>
     </ClInclude>
+    <ClInclude Include="searching.h">
+      <Filter>Algorithms\Searching</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="geometrylibrary.cpp">
@@ -1384,6 +1387,9 @@
     </Text>
     <Text Include="rangetree.txt">
       <Filter>Data structures\Bsp trees\Range tree</Filter>
+    </Text>
+    <Text Include="time_series.txt">
+      <Filter>Data structures\Time series</Filter>
     </Text>
   </ItemGroup>
 </Project>

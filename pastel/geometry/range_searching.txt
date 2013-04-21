@@ -1,7 +1,7 @@
 Range searching
 ===============
 
-[[Parent]]: subset_searches.txt
+[[Parent]]: searching.txt
 
 Given a finite point-set ''P sub RR^n'' and a shape ''B sub RR^n'', 
 the _range searching_ problem asks to report all the points in ''P'' that
