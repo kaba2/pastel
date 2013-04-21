@@ -810,18 +810,6 @@
     <ClInclude Include="search_nearest_algorithm_pointkdtree.hpp">
       <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
-    <ClInclude Include="search_nearest_one_pointkdtree.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
-    </ClInclude>
-    <ClInclude Include="search_nearest_one_pointkdtree.hpp">
-      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
-    </ClInclude>
-    <ClInclude Include="search_nearest_pointkdtree.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
-    </ClInclude>
-    <ClInclude Include="search_nearest_pointkdtree.hpp">
-      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
-    </ClInclude>
     <ClInclude Include="count_all_neighbors.h">
       <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
@@ -1344,6 +1332,12 @@
     </ClInclude>
     <ClInclude Include="searching.h">
       <Filter>Algorithms\Searching</Filter>
+    </ClInclude>
+    <ClInclude Include="search_nearest_pointkdtree.h">
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
+    </ClInclude>
+    <ClInclude Include="search_nearest_pointkdtree.hpp">
+      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

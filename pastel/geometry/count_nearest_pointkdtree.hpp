@@ -29,15 +29,11 @@ namespace Pastel
 			{
 			}
 
-			void operator()(
+			Real operator()(
 				const Real& distance,
 				const Point_ConstIterator& iter) const
 			{
 				++nearestCount_;
-			}
-
-			Real suggestCullDistance() const
-			{
 				return infinity<Real>();
 			}
 

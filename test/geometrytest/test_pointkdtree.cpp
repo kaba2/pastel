@@ -189,9 +189,8 @@ namespace
 			{
 				{
 					const KeyValue<real, Point_ConstIterator> result = 
-						searchNearestOne(tree, iteratorSet[i],
-						All_Indicator(), normBijection, 
-						searchAlgorithm)
+						searchNearest(tree, iteratorSet[i], Null_Output(),
+						All_Indicator(), normBijection, searchAlgorithm)
 						.bucketSize(1);
 
 					const real distance2 = result.key();
@@ -203,7 +202,7 @@ namespace
 				
 				{
 					const KeyValue<real, Point_ConstIterator> result = 
-						searchNearestOne(tree, iteratorSet[i],
+						searchNearest(tree, iteratorSet[i], Null_Output(),
 						allExceptIndicator(iteratorSet[i]),
 						normBijection, searchAlgorithm)
 						.bucketSize(1);
@@ -356,12 +355,21 @@ namespace
 				std::vector<Point_ConstIterator> neighborSet;
 				std::vector<real> distanceSet;
 
-				const integer count = searchNearest(
+				auto nearestOutput = [&](
+					real distance,
+					Point_ConstIterator point)
+				{
+					distanceSet.push_back(distance);
+					neighborSet.push_back(point);
+				};
+
+				searchNearest(
 					tree, Vector<real, N>(0), 
-					m, 
-					pushBackOutput(neighborSet), 
-					pushBackOutput(distanceSet));
-				
+					nearestOutput)
+					.kNearest(m);
+			
+				integer count = distanceSet.size();
+
 				TEST_ENSURE_OP(count, ==, m);
 				TEST_ENSURE_OP(neighborSet.size(), ==, m);
 				TEST_ENSURE_OP(distanceSet.size(), ==, m);

@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_HPP
 
 #include "pastel/geometry/point_pattern_matching_kr.h"
-#include "pastel/geometry/search_nearest_one_pointkdtree.h"
+#include "pastel/geometry/search_nearest_pointkdtree.h"
 
 #include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/maximum_bipartite_matching.h"
@@ -42,28 +42,6 @@ namespace Pastel
 			typedef std::vector<Pair> PairSet;
 			typedef typename PairSet::iterator Pair_Iterator;
 			typedef typename PairSet::const_iterator Pair_ConstIterator;
-
-			class Neighbor_Output
-			{
-			public:
-				explicit Neighbor_Output(
-					PairSet& pairSet,
-					const Model_ConstIterator& model)
-					: pairSet_(pairSet)
-					, model_(model)
-				{
-				}
-
-				void operator()(const Scene_ConstIterator& scene) const
-				{
-					pairSet_.push_back(
-						std::make_pair(scene, model_));
-				}
-
-			private:
-				PairSet& pairSet_;
-				Model_ConstIterator model_;
-			};
 
 			Match match(
 				const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
@@ -138,17 +116,21 @@ namespace Pastel
 								modelIter->point()) + 
 								translation;
 
+							auto neighborOutput = [&](
+								const Real& distance,
+								const Scene_ConstIterator& scene)
+							{
+								candidatePairSet.push_back(
+									std::make_pair(scene, modelIter));
+							};
+
 							searchNearest(
-								sceneTree, 
-								searchPoint,
-								kNearest,
-								Neighbor_Output(candidatePairSet, modelIter),
-								nullOutput(),
-								matchingDistance,
-								maxRelativeError,
-								All_Indicator(),
-								16,
-								normBijection);
+								sceneTree, searchPoint,
+								neighborOutput,	All_Indicator(),
+								normBijection)
+								.kNearest(kNearest)
+								.maxDistance(matchingDistance)
+								.maxRelativeError(maxRelativeError);
 
 							//log() << "Distance " << neighbor.key() << logNewLine;
 						
