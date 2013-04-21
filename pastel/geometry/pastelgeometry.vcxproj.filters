@@ -193,6 +193,9 @@
     <Filter Include="Algorithms\Searching\Maximum clique of aligned boxes">
       <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Algorithms\Searching\Range counting">
+      <UniqueIdentifier>{15e141fa-a635-48df-b718-b90d6fda3f42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -780,12 +783,6 @@
     <ClInclude Include="poisson_disk_pattern.hpp">
       <Filter>Algorithms\Shape generation\Poisson-disk pattern</Filter>
     </ClInclude>
-    <ClInclude Include="count_range_pointkdtree.h">
-      <Filter>Algorithms\Searching\Range searching</Filter>
-    </ClInclude>
-    <ClInclude Include="count_range_pointkdtree.hpp">
-      <Filter>Algorithms\Searching\Range searching</Filter>
-    </ClInclude>
     <ClInclude Include="search_range_algorithm_pointkdtree.h">
       <Filter>Algorithms\Searching\Range searching</Filter>
     </ClInclude>
@@ -797,12 +794,6 @@
     </ClInclude>
     <ClInclude Include="search_range_pointkdtree.hpp">
       <Filter>Algorithms\Searching\Range searching</Filter>
-    </ClInclude>
-    <ClInclude Include="count_nearest_pointkdtree.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
-    </ClInclude>
-    <ClInclude Include="count_nearest_pointkdtree.hpp">
-      <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_algorithm_pointkdtree.h">
       <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
@@ -1339,6 +1330,18 @@
     <ClInclude Include="search_nearest_pointkdtree.hpp">
       <Filter>Algorithms\Searching\Nearest neighbors searching</Filter>
     </ClInclude>
+    <ClInclude Include="count_range_pointkdtree.h">
+      <Filter>Algorithms\Searching\Range counting</Filter>
+    </ClInclude>
+    <ClInclude Include="count_range_pointkdtree.hpp">
+      <Filter>Algorithms\Searching\Range counting</Filter>
+    </ClInclude>
+    <ClInclude Include="count_nearest_pointkdtree.h">
+      <Filter>Algorithms\Searching\Range counting</Filter>
+    </ClInclude>
+    <ClInclude Include="count_nearest_pointkdtree.hpp">
+      <Filter>Algorithms\Searching\Range counting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="geometrylibrary.cpp">
@@ -1360,6 +1363,9 @@
     </Text>
     <Text Include="time_series.txt">
       <Filter>Data structures\Time series</Filter>
+    </Text>
+    <Text Include="range_counting.txt">
+      <Filter>Algorithms\Searching\Range counting</Filter>
     </Text>
   </ItemGroup>
 </Project>
