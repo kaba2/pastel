@@ -2049,6 +2049,9 @@
     <None Include="single_output.txt">
       <Filter>Generic programming\Outputs</Filter>
     </None>
+    <None Include="..\..\build_docs.bat">
+      <Filter>Build system</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="countedptr.cpp">

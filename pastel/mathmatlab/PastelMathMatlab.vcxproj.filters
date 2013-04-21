@@ -7,4 +7,7 @@
     <None Include="..\+pastelmath\random_orthogonal.m" />
     <None Include="..\+pastelmath\test_random_orthogonal.m" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pastelmathmatlab.h" />
+  </ItemGroup>
 </Project>

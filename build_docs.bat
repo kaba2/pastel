@@ -1,0 +1,1 @@
+remark.py . /docs *.txt *.cpp *.h *.hpp *.m *.py *.png *.pdf *.svg *.zip

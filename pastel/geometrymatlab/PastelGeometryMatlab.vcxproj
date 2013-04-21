@@ -133,21 +133,8 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\+pastelgeometry\coherent_point_drift.m" />
-    <None Include="..\+pastelgeometry\icp.m" />
-    <None Include="..\+pastelgeometry\ls_affine.m" />
-    <None Include="..\+pastelgeometry\pastelgeometrymatlab.mexw64" />
-    <None Include="..\+pastelgeometry\pointset_concept.m" />
-    <None Include="..\+pastelgeometry\point_pattern_matching_kr.m" />
-    <None Include="..\+pastelgeometry\point_pattern_matching_vw.m" />
-    <None Include="..\+pastelgeometry\test_icp.m" />
-    <None Include="..\+pastelgeometry\test_ls_affine.m" />
-    <None Include="..\+pastelgeometry\test_pointkdtree.m" />
-    <None Include="..\+pastelgeometry\test_point_pattern_matching_kr.m" />
-    <None Include="..\+pastelgeometry\test_point_pattern_matching_vw.m" />
     <None Include="build_pastelgeometrymatlab.txt" />
     <None Include="matlab_pointkdtree.txt" />
-    <None Include="point_pattern_matching.txt" />
     <None Include="pastelgeometrymatlab.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -158,11 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastelgeometrymatlab.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="icp.txt" />
-    <Text Include="ls_conformal_affine.txt" />
-    <Text Include="transformation_fitting.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

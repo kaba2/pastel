@@ -95,6 +95,7 @@
 
 % Description: Point-set registration between unpaired point-sets.
 % Detail: Coherent Point Drift algorithm.
+% Documentation: coherent_point_drift.txt
 
 function [Q, S, t] = coherent_point_drift(...
     modelSet, sceneSet, varargin)

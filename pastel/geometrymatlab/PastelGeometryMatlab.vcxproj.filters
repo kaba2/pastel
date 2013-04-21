@@ -7,24 +7,6 @@
     <Filter Include="PointKdTree">
       <UniqueIdentifier>{320b432f-93f8-4f3a-ba22-d692b9fb8f95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Transformation fitting">
-      <UniqueIdentifier>{460f6e60-80cc-4f5f-a51f-b3db923f7133}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Transformation fitting\Point pattern matching">
-      <UniqueIdentifier>{1ae2b953-6d16-42f9-bb9e-9baf272235ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Transformation fitting\Least squares">
-      <UniqueIdentifier>{b786f0c2-ee96-45e0-92be-5f5b9cd98f05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Transformation fitting\Iterated closest points">
-      <UniqueIdentifier>{ed690903-d77a-4e19-adc9-c9a3a210763f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Transformation fitting\Point pattern matching\Conformal-affine">
-      <UniqueIdentifier>{72a05380-4766-4c73-a98f-9fdbb180347d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Transformation fitting\Point pattern matching\Translation">
-      <UniqueIdentifier>{61778f0a-2a64-4a23-a871-786925cdfeb6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="build_pastelgeometrymatlab.txt">
@@ -34,68 +16,16 @@
       <Filter>PointKdTree</Filter>
     </None>
     <None Include="pastelgeometrymatlab.txt" />
-    <None Include="point_pattern_matching.txt">
-      <Filter>Transformation fitting\Point pattern matching</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\pastelgeometrymatlab.mexw64" />
-    <None Include="..\+pastelgeometry\icp.m">
-      <Filter>Transformation fitting\Iterated closest points</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\point_pattern_matching_kr.m">
-      <Filter>Transformation fitting\Point pattern matching\Translation</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\point_pattern_matching_vw.m">
-      <Filter>Transformation fitting\Point pattern matching\Conformal-affine</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\test_icp.m">
-      <Filter>Transformation fitting\Iterated closest points</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\test_point_pattern_matching_kr.m">
-      <Filter>Transformation fitting\Point pattern matching\Translation</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\test_point_pattern_matching_vw.m">
-      <Filter>Transformation fitting\Point pattern matching\Conformal-affine</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\test_pointkdtree.m">
-      <Filter>PointKdTree</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\coherent_point_drift.m">
-      <Filter>Transformation fitting\Least squares</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\ls_affine.m">
-      <Filter>Transformation fitting\Least squares</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\pointset_concept.m">
-      <Filter>Transformation fitting\Least squares</Filter>
-    </None>
-    <None Include="..\+pastelgeometry\test_ls_affine.m">
-      <Filter>Transformation fitting\Least squares</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="matlab_pointkdtree.cpp">
       <Filter>PointKdTree</Filter>
     </ClCompile>
     <ClCompile Include="pastelgeometrymatlab.cpp" />
-    <ClCompile Include="matlab_point_pattern_matching_vw.cpp">
-      <Filter>Transformation fitting\Point pattern matching\Conformal-affine</Filter>
-    </ClCompile>
-    <ClCompile Include="matlab_point_pattern_matching_kr.cpp">
-      <Filter>Transformation fitting\Point pattern matching\Translation</Filter>
-    </ClCompile>
+    <ClCompile Include="matlab_point_pattern_matching_kr.cpp" />
+    <ClCompile Include="matlab_point_pattern_matching_vw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastelgeometrymatlab.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="icp.txt">
-      <Filter>Transformation fitting\Iterated closest points</Filter>
-    </Text>
-    <Text Include="transformation_fitting.txt">
-      <Filter>Transformation fitting</Filter>
-    </Text>
-    <Text Include="ls_conformal_affine.txt">
-      <Filter>Transformation fitting\Least squares</Filter>
-    </Text>
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
 #define PASTELGEOMETRY_GEOMETRIC_ALGORITHMS_H
 
 #include "pastel/geometry/shape_generation.h"
-#include "pastel/geometry/shape_measurements.h"
+#include "pastel/geometry/measures.h"
 #include "pastel/geometry/shape_relations.h"
 #include "pastel/geometry/searching.h"
 

@@ -59,6 +59,7 @@
 %      sum_{i = 1}^m w_{ii} ||(QS p_i + t) - r_i||^2.
 
 % Description: Optimal affine transformation between point-sets.
+% Documentation: ls_transformations.txt
 
 function [Q, S, t] = ls_affine(fromSet, toSet, varargin)
 

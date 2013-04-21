@@ -1,8 +1,8 @@
-Closest points between shapes
-=============================
+Closest points
+==============
 
-[[Parent]]: shape_measurements.txt
+[[Parent]]: measures.txt
 
-A _closest point pair_ between a shape of type A and a shape of type B
+The _closest points_ between a shape of type A and a shape of type B
 is a pair of points ''(a, b) in A xx B'' such that the distance between 
 ''a'' and ''b'' equals the distance between the shapes.
