@@ -542,6 +542,7 @@
   <ItemGroup>
     <Text Include="pointset_registration.txt" />
     <Text Include="rangetree.txt" />
+    <Text Include="range_counting.txt" />
     <Text Include="time_series.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
