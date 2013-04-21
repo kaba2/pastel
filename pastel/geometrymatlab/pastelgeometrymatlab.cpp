@@ -10,3 +10,4 @@
 FORCE_LINKING(point_pattern_matching_vw);
 FORCE_LINKING(point_pattern_matching_kr);
 FORCE_LINKING(pointkdtree);
+

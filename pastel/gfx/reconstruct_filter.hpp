@@ -131,7 +131,7 @@ namespace Pastel
 					pushBackOutput(nearestSet),
 					nullOutput(),
 					filter_.radius() * filterStretch_, 0,
-					alwaysAcceptPoint(kdTree_),
+					All_Indicator(),
 					8,
 					Maximum_NormBijection<Real>());
 

@@ -1,22 +1,22 @@
-// Description: PointDont_AcceptPoint
+// Description: ObjectDont_Indicator
 // Detail: Rejects a given point but accepts otherwise.
-// Documentation: acceptpoint.txt
+// Documentation: indicators.txt
 
-#ifndef PASTELGEOMETRY_POINTDONT_ACCEPTPOINT_H
-#define PASTELGEOMETRY_POINTDONT_ACCEPTPOINT_H
+#ifndef PASTELSYS_OBJECTDONT_INDICATOR_H
+#define PASTELSYS_OBJECTDONT_INDICATOR_H
 
-#include "pastel/geometry/acceptpoint_concept.h"
+#include "pastel/geometry/indicator_concept.h"
 
 namespace Pastel
 {
 
 	template <typename Type, typename DerefType>
-	class PointDont_AcceptPoint
+	class ObjectDont_Indicator
 	{
 	public:
 		typedef Type Point;
 
-		explicit PointDont_AcceptPoint(
+		explicit ObjectDont_Indicator(
 			const DerefType& exception)
 			: exception_(exception)
 		{

@@ -189,9 +189,10 @@ namespace
 			{
 				{
 					const KeyValue<real, Point_ConstIterator> result = 
-						searchNearestOne(tree, iteratorSet[i], infinity<real>(),
-						0, alwaysAcceptPoint(tree),
-						1, normBijection, searchAlgorithm);
+						searchNearestOne(tree, iteratorSet[i],
+						All_Indicator(), normBijection, 
+						searchAlgorithm)
+						.bucketSize(1);
 
 					const real distance2 = result.key();
 					const Point_ConstIterator iter = result.value();
@@ -202,9 +203,10 @@ namespace
 				
 				{
 					const KeyValue<real, Point_ConstIterator> result = 
-						searchNearestOne(tree, iteratorSet[i], infinity<real>(),
-						0, dontAcceptPoint(iteratorSet[i]),
-						1, normBijection, searchAlgorithm);
+						searchNearestOne(tree, iteratorSet[i],
+						dontIndicator(iteratorSet[i]),
+						normBijection, searchAlgorithm)
+						.bucketSize(1);
 					
 					const real distance2 = result.key();
 					const Point_ConstIterator iter = result.value();
