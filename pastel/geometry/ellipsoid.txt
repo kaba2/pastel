@@ -2,21 +2,22 @@ Ellipsoid
 =========
 
 [[Parent]]: shapes.txt
+[[set indent]]: EquationSet
 
 An _ellipsoid_ is an affine transform of a sphere.
 
 Theory
 ------
 
-Alternatively, a subset ''Q sub RR^n'' is called
-an ellipsoid if
+Alternatively, a subset ''Q sub RR^n'' is called an ellipsoid if there
+exists ''c in RR^n'', and ''S in RR^{n xx n}'' symmetric positive-semi-definite, 
+such that
 
-''\exists c in RR^n, S in RR^{n xx n}: Q = {x in RR^n : (x - c)^T S (x - c) <= 1}''
+	Q = {x in RR^n : (x - c)^T S (x - c) <= 1}.
 
-where ''S'' is symmetric and positive-semi-definite.
-If such ''c'' and ''S'' can be found, then ''c'' is called the _center_
-of the ellipsoid, and ''S'' is called the _quadratic form matrix_
-of the ellipsoid.
+The ''c'' is called the _center_ of the ellipsoid, and the ''S'' 
+is called the _quadratic form matrix_ of the ellipsoid. This is a closed
+ellipsoid; an open ellipsoid is defined with the condition ''< 1''.
 
 See also
 --------

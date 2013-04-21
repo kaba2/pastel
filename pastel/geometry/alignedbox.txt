@@ -2,6 +2,7 @@ Axis-aligned box
 ================
 
 [[Parent]]: shapes.txt
+[[set indent]]: EquationSet
 
 An _axis-aligned box_ ''S'' in ''RR^n'' is a Cartesian product of 
 ''n'' intervals. 
@@ -12,7 +13,7 @@ Theory
 An axis-aligned box can be described by two points 
 ''A'' and ''B'' in ''RR^n'', such that 
 
-''S = {x in RR^n | \forall i in [1, n] : A_i <= x_i < B_i}''.
+	S = {x in RR^n | \forall i in [1, n] : A_i <= x_i < B_i}.
 
 In this representation, ''A'' is called the _minimum point_, and 
 ''B'' is called the _maximum point_. Here we have used half-open

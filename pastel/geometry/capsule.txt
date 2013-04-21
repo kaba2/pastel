@@ -2,12 +2,14 @@ Capsule
 =======
 
 [[Parent]]: shapes.txt
+[[set indent]]: EquationSet
 
-A _capsule_ ''S'' in ''RR^n'' is a Minkowski sum of a closed line segment 
-''L'' and a closed ''r''-radius ball. Alternatively,
-if ''A'' and ''B'' are the end-points of ''L'', then 
+A _capsule_ ''S'' in ''RR^n'' is a Minkowski sum of a line segment 
+''L'' and an ''r''-radius ball. If ''A'' and ''B'' are the end-points 
+of ''L'', then 
 
-''S = {x in RR^n | exists t in [0, 1] sub RR: |(A + t(B - A)) - x| <= r}''
+	S = {x in RR^n | exists t in [0, 1] sub RR: |(A + t(B - A)) - x| <= r},
 
-where the norm is Euclidean.
+where the norm is Euclidean. Here the ''S'' is closed; whether the boundary of 
+''S'' is part of ''S'' can be controlled explicitly.
 
