@@ -1618,6 +1618,12 @@
     <ClInclude Include="indicator_concept.h">
       <Filter>Generic programming\Indicators</Filter>
     </ClInclude>
+    <ClInclude Include="empty_indicator.h">
+      <Filter>Generic programming\Indicators</Filter>
+    </ClInclude>
+    <ClInclude Include="single_indicator.h">
+      <Filter>Generic programming\Indicators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
