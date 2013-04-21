@@ -1,7 +1,7 @@
-Distance between shapes
-=======================
+Distance
+========
 
-[[Parent]]: shape_measurements.txt
+[[Parent]]: measures.txt
 
 The _distance_ between two shapes ''A, B sub RR^n''
 is defined by

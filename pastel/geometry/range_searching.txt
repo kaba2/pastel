@@ -4,6 +4,6 @@ Range searching
 [[Parent]]: searching.txt
 
 Given a finite point-set ''P sub RR^n'' and a shape ''B sub RR^n'', 
-the _range searching_ problem is to report the set ''P intersect B''. 
+the _range searching_ problem is to report the set ''P cap B''. 
 When the shape ''B'' is an axis-aligned box, the problem is called 
 _orthogonal range searching_.

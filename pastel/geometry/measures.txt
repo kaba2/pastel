@@ -1,0 +1,7 @@
+Geometric measures
+==================
+
+[[Parent]]: geometric_algorithms.txt
+
+This section contains geometric measures, such
+as distances, areas, and volumes.

@@ -128,6 +128,7 @@
 
 % Description: Locally optimal transformation between unpaired point-sets.
 % Detail: Original and Biunique ICP algorithms.
+% Documentation: icp.txt
 
 function match = icp(modelSet, sceneSet, ...
     matchingDistance, varargin)

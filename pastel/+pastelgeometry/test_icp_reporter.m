@@ -1,3 +1,5 @@
+% DocumentationOf: test_icp.m
+
 function test_icp_reporter(match)
 
 eval(import_pastel);

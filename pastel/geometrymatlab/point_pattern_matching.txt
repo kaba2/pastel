@@ -1,4 +1,0 @@
-Point-pattern matching (Matlab)
-===============================
-
-[[Parent]]: point_pattern_matching.txt

@@ -157,9 +157,6 @@
     <Filter Include="Undocumented">
       <UniqueIdentifier>{15a348e0-d81d-478f-92fa-a37f9421b6ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Point pattern matching">
-      <UniqueIdentifier>{bef91569-428b-4fb7-9ce5-eaa314234778}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Algorithms\Projection">
       <UniqueIdentifier>{d96c16f9-25e0-48ea-826a-28d7c4f68e09}</UniqueIdentifier>
     </Filter>
@@ -195,6 +192,18 @@
     </Filter>
     <Filter Include="Algorithms\Searching\Range counting">
       <UniqueIdentifier>{15e141fa-a635-48df-b718-b90d6fda3f42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Least-squares transformations">
+      <UniqueIdentifier>{858f9d4b-78f5-4b68-a440-eba78a84b778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Point-set registration\Coherent point drift">
+      <UniqueIdentifier>{d99e052e-2320-4ba2-acff-78d88d0f8ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Point-set registration\Iterated closest points">
+      <UniqueIdentifier>{a35d73c6-97f8-4325-9621-caac09e72523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Point-pattern matching">
+      <UniqueIdentifier>{bef91569-428b-4fb7-9ce5-eaa314234778}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -333,9 +342,6 @@
     <None Include="overlaps_alignedbox_plane.txt">
       <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </None>
-    <None Include="shape_measurements.txt">
-      <Filter>Algorithms\Shape measurements</Filter>
-    </None>
     <None Include="area.txt">
       <Filter>Algorithms\Shape measurements\Area</Filter>
     </None>
@@ -376,13 +382,13 @@
       <Filter>Algorithms\Searching\Range searching</Filter>
     </None>
     <None Include="point_pattern_matching_kr.txt">
-      <Filter>Algorithms\Point pattern matching</Filter>
+      <Filter>Algorithms\Point-pattern matching</Filter>
     </None>
     <None Include="point_pattern_matching_vw.txt">
-      <Filter>Algorithms\Point pattern matching</Filter>
+      <Filter>Algorithms\Point-pattern matching</Filter>
     </None>
     <None Include="point_pattern_matching.txt">
-      <Filter>Algorithms\Point pattern matching</Filter>
+      <Filter>Algorithms\Point-pattern matching</Filter>
     </None>
     <None Include="pastelgeometry.txt" />
     <None Include="bsp_trees.txt">
@@ -393,6 +399,45 @@
     </None>
     <None Include="searching.txt">
       <Filter>Algorithms\Searching</Filter>
+    </None>
+    <None Include="measures.txt">
+      <Filter>Algorithms\Shape measurements</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\ls_affine.m">
+      <Filter>Algorithms\Least-squares transformations</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\test_ls_affine.m">
+      <Filter>Algorithms\Least-squares transformations</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\point_pattern_matching_kr.m">
+      <Filter>Algorithms\Point-pattern matching</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\point_pattern_matching_vw.m">
+      <Filter>Algorithms\Point-pattern matching</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\test_point_pattern_matching_kr.m">
+      <Filter>Algorithms\Point-pattern matching</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\test_point_pattern_matching_vw.m">
+      <Filter>Algorithms\Point-pattern matching</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\test_pointkdtree.m">
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\PointKdTree.m">
+      <Filter>Data structures\Bsp trees\Point kd-tree</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\coherent_point_drift.m">
+      <Filter>Algorithms\Point-set registration\Coherent point drift</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\icp.m">
+      <Filter>Algorithms\Point-set registration\Iterated closest points</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\test_icp.m">
+      <Filter>Algorithms\Point-set registration\Iterated closest points</Filter>
+    </None>
+    <None Include="..\+pastelgeometry\test_icp_reporter.m">
+      <Filter>Algorithms\Point-set registration\Iterated closest points</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1251,9 +1296,6 @@
     <ClInclude Include="shape_generation.h">
       <Filter>Algorithms\Shape generation</Filter>
     </ClInclude>
-    <ClInclude Include="shape_measurements.h">
-      <Filter>Algorithms\Shape measurements</Filter>
-    </ClInclude>
     <ClInclude Include="volume.h">
       <Filter>Algorithms\Shape measurements\Volume</Filter>
     </ClInclude>
@@ -1279,19 +1321,19 @@
       <Filter>Algorithms\Projection</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching_vw.h">
-      <Filter>Algorithms\Point pattern matching</Filter>
+      <Filter>Algorithms\Point-pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching_vw.hpp">
-      <Filter>Algorithms\Point pattern matching</Filter>
+      <Filter>Algorithms\Point-pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching.h">
-      <Filter>Algorithms\Point pattern matching</Filter>
+      <Filter>Algorithms\Point-pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching_kr.h">
-      <Filter>Algorithms\Point pattern matching</Filter>
+      <Filter>Algorithms\Point-pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching_kr.hpp">
-      <Filter>Algorithms\Point pattern matching</Filter>
+      <Filter>Algorithms\Point-pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="pastelgeometry.h" />
     <ClInclude Include="common.h">
@@ -1342,6 +1384,9 @@
     <ClInclude Include="count_nearest_pointkdtree.hpp">
       <Filter>Algorithms\Searching\Range counting</Filter>
     </ClInclude>
+    <ClInclude Include="measures.h">
+      <Filter>Algorithms\Shape measurements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="geometrylibrary.cpp">
@@ -1366,6 +1411,15 @@
     </Text>
     <Text Include="range_counting.txt">
       <Filter>Algorithms\Searching\Range counting</Filter>
+    </Text>
+    <Text Include="ls_transformations.txt">
+      <Filter>Algorithms\Least-squares transformations</Filter>
+    </Text>
+    <Text Include="coherent_point_drift.txt">
+      <Filter>Algorithms\Point-set registration\Coherent point drift</Filter>
+    </Text>
+    <Text Include="icp.txt">
+      <Filter>Algorithms\Point-set registration\Iterated closest points</Filter>
     </Text>
   </ItemGroup>
 </Project>

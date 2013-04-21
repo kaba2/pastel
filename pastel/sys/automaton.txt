@@ -2,6 +2,7 @@ Finite-state automaton
 ======================
 
 [[Parent]]: data_structures.txt
+[[set indent]]: EquationSet
 
 The `Automaton` is a data structure for storing and manipulating 
 finite-state automata.
@@ -25,19 +26,20 @@ A finite-state automaton is called _deterministic_ if and only if it
 has at most one start-state, and the transition relation is a partial
 function. The _language_ recognized by a finite-state automaton ''A'' 
 is defined by 
-''L(A) = {x in Sigma^* : exists q in S: exists p in F: (q, x) -> p}''.
+
+	L(A) = {x in Sigma^* : exists q in S: exists p in F: (q, x) -> p}.
 
 ### Single start-state vs a set of start-states
 
 Sometimes finite-state automata are defined as having exactly one
 start-state. This is problematic, because one can not then represent 
 the minimal automaton for the empty language, and the construction of 
-the cup of two automata becomes cumbersome. In contrast, when using
+the union of two automata becomes cumbersome. In contrast, when using
 a set of start-states, one can
 
  * represent the minimal automaton for the empty language as 
  ''Q = S = F = T = emptyset'', and
- * represent the cup of two automata as ''Q = Q_1 cup Q_2'', 
+ * represent the union of two automata as ''Q = Q_1 cup Q_2'', 
  ''S = S_1 cup S_2'', ''F = F_1 cup F_2'',
  ''Sigma = Sigma_1 cup Sigma_2'', and ''T = T_1 cup T_2''.
 

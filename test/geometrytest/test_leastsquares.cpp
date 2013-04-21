@@ -1,5 +1,5 @@
 // Description: Testing for least-squares conformal affine transformation
-// DocumentationOf: conformalaffine2d.h"
+// DocumentationOf: conformalaffine2d.h
 
 #include "test_pastelgeometry.h"
 

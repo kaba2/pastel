@@ -1,5 +1,0 @@
-Least-squares conformal-affine transformation
-=============================================
-
-[[Parent]]: geometric_algorithms.txt
-

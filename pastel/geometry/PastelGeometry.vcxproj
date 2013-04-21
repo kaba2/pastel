@@ -139,6 +139,18 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\+pastelgeometry\coherent_point_drift.m" />
+    <None Include="..\+pastelgeometry\icp.m" />
+    <None Include="..\+pastelgeometry\ls_affine.m" />
+    <None Include="..\+pastelgeometry\PointKdTree.m" />
+    <None Include="..\+pastelgeometry\point_pattern_matching_kr.m" />
+    <None Include="..\+pastelgeometry\point_pattern_matching_vw.m" />
+    <None Include="..\+pastelgeometry\test_icp.m" />
+    <None Include="..\+pastelgeometry\test_icp_reporter.m" />
+    <None Include="..\+pastelgeometry\test_ls_affine.m" />
+    <None Include="..\+pastelgeometry\test_pointkdtree.m" />
+    <None Include="..\+pastelgeometry\test_point_pattern_matching_kr.m" />
+    <None Include="..\+pastelgeometry\test_point_pattern_matching_vw.m" />
     <None Include="data_structures.txt" />
     <None Include="meshes.txt" />
     <None Include="halfmesh.txt" />
@@ -197,7 +209,7 @@
     <None Include="overlaps.txt" />
     <None Include="overlaps_design.txt" />
     <None Include="overlaps_alignedbox_plane.txt" />
-    <None Include="shape_measurements.txt" />
+    <None Include="measures.txt" />
     <None Include="area.txt" />
     <None Include="diameter.txt" />
     <None Include="undocumented.txt" />
@@ -227,7 +239,7 @@
     <ClInclude Include="rangetree_concepts.h" />
     <ClInclude Include="range_searching.h" />
     <ClInclude Include="shape_generation.h" />
-    <ClInclude Include="shape_measurements.h" />
+    <ClInclude Include="measures.h" />
     <ClInclude Include="shape_relations.h" />
     <ClInclude Include="simplehalfmesh.h" />
     <ClInclude Include="simplehalfmesh.hpp" />
@@ -540,6 +552,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="coherent_point_drift.txt" />
+    <Text Include="icp.txt" />
+    <Text Include="ls_transformations.txt" />
     <Text Include="pointset_registration.txt" />
     <Text Include="rangetree.txt" />
     <Text Include="range_counting.txt" />

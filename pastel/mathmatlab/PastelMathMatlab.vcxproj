@@ -25,6 +25,9 @@
     <None Include="..\+pastelmath\random_orthogonal.m" />
     <None Include="..\+pastelmath\test_random_orthogonal.m" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pastelmathmatlab.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4D4FE958-534A-414A-9F1D-89EBDA553FD1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

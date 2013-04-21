@@ -1,7 +1,7 @@
-// Description: An aggregate file for shape measurements.
+// Description: An aggregate file for geometric measures.
 
-#ifndef PASTELGEOMETRY_SHAPE_MEASUREMENTS_H
-#define PASTELGEOMETRY_SHAPE_MEASUREMENTS_H
+#ifndef PASTELGEOMETRY_MEASURES_H
+#define PASTELGEOMETRY_MEASURES_H
 
 #include "pastel/geometry/area.h"
 #include "pastel/geometry/closest.h"
