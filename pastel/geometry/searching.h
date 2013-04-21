@@ -1,7 +1,7 @@
-// Description: An aggregate file subset searches.
+// Description: An aggregate file searching.
 
-#ifndef PASTELGEOMETRY_SUBSET_SEARCHES_H
-#define PASTELGEOMETRY_SUBSET_SEARCHES_H
+#ifndef PASTELGEOMETRY_SEARCHING_H
+#define PASTELGEOMETRY_SEARCHING_H
 
 #include "pastel/geometry/maximum_clique_alignedbox.h"
 #include "pastel/geometry/nearest_neighbors.h"

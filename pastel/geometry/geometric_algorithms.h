@@ -6,6 +6,6 @@
 #include "pastel/geometry/shape_generation.h"
 #include "pastel/geometry/shape_measurements.h"
 #include "pastel/geometry/shape_relations.h"
-#include "pastel/geometry/subset_searches.h"
+#include "pastel/geometry/searching.h"
 
 #endif

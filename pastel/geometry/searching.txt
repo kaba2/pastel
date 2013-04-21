@@ -1,5 +1,5 @@
-Subset searches
-===============
+Searching
+=========
 
 [[Parent]]: geometric_algorithms.txt
 
