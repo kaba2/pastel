@@ -1387,6 +1387,12 @@
     <ClInclude Include="measures.h">
       <Filter>Algorithms\Shape measurements</Filter>
     </ClInclude>
+    <ClInclude Include="timeseries.h">
+      <Filter>Data structures\Time series</Filter>
+    </ClInclude>
+    <ClInclude Include="timeseries_concepts.h">
+      <Filter>Data structures\Time series</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="geometrylibrary.cpp">
@@ -1406,9 +1412,6 @@
     <Text Include="rangetree.txt">
       <Filter>Data structures\Bsp trees\Range tree</Filter>
     </Text>
-    <Text Include="time_series.txt">
-      <Filter>Data structures\Time series</Filter>
-    </Text>
     <Text Include="range_counting.txt">
       <Filter>Algorithms\Searching\Range counting</Filter>
     </Text>
@@ -1420,6 +1423,9 @@
     </Text>
     <Text Include="icp.txt">
       <Filter>Algorithms\Point-set registration\Iterated closest points</Filter>
+    </Text>
+    <Text Include="timeseries.txt">
+      <Filter>Data structures\Time series</Filter>
     </Text>
   </ItemGroup>
 </Project>

@@ -56,7 +56,7 @@ namespace Pastel
 			read_.reset();
 		}
 
-		int readCount() const
+		integer readCount() const
 		{
 			return read_.use_count();
 		}
@@ -113,7 +113,7 @@ namespace Pastel
 			ENSURE_OP(readCount(), ==, 1);
 		}
 
-		int readCount() const
+		integer readCount() const
 		{
 			return read_.readCount();
 		}

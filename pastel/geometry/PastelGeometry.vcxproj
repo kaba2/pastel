@@ -278,6 +278,8 @@
     <ClInclude Include="splitrules.h" />
     <ClInclude Include="splitrule_concept.h" />
     <ClInclude Include="searching.h" />
+    <ClInclude Include="timeseries.h" />
+    <ClInclude Include="timeseries_concepts.h" />
     <ClInclude Include="volume.h" />
     <ClInclude Include="windowed_pointtree.h" />
     <ClInclude Include="windowed_pointtree.hpp" />
@@ -558,7 +560,7 @@
     <Text Include="pointset_registration.txt" />
     <Text Include="rangetree.txt" />
     <Text Include="range_counting.txt" />
-    <Text Include="time_series.txt" />
+    <Text Include="timeseries.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
