@@ -1,5 +1,5 @@
-// Description: Nearest neighbor counting for PointKdTree
-// Documentation: nearest_neighbors.txt
+// Description: Ball range counting for PointKdTree
+// Documentation: range_counting.txt
 
 #ifndef PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_H
 #define PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_H
@@ -18,7 +18,7 @@
 namespace Pastel
 {
 
-	//! Counts the number of points in a given distance in a PointKdTree.
+	//! Counts the number of points in a ball in a PointKdTree.
 	/*!
 	A point is counted in if it is accepted by 'acceptPoint'
 	and its norm-bijection distance is less than or equal to 
@@ -77,14 +77,14 @@ namespace Pastel
 		typename Indicator = All_Indicator,  
 		typename NormBijection = Euclidean_NormBijection<Real>, 
 		typename SearchAlgorithm_PointKdTree = DepthFirst_SearchAlgorithm_PointKdTree>
-	CountNearest_<Real, N, PointPolicy, SearchPoint, Indicator, 
-	NormBijection, SearchAlgorithm_PointKdTree>
-		countNearest(
+	auto countNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const Indicator& acceptPoint = Indicator(),
 		const NormBijection& normBijection = NormBijection(),
 		const SearchAlgorithm_PointKdTree& searchAlgorithm = SearchAlgorithm_PointKdTree())
+		-> 	CountNearest_<Real, N, PointPolicy, SearchPoint, 
+		Indicator, NormBijection, SearchAlgorithm_PointKdTree>
 	{
 		return CountNearest_<Real, N, PointPolicy, SearchPoint, Indicator, 
 			NormBijection, SearchAlgorithm_PointKdTree>(kdTree, searchPoint, acceptPoint,
