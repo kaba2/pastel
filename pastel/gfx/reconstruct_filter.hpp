@@ -123,17 +123,20 @@ namespace Pastel
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;
+				auto nearestOutput = [&](
+					Real distance, ConstIterator point)
+				{
+					nearestSet.push_back(point);
+				};
 
 				searchNearest(
 					kdTree_, 
 					evaluate(Vector<real, N>(position) + 0.5),
-					kdTree_.points(),
-					pushBackOutput(nearestSet),
-					nullOutput(),
-					filter_.radius() * filterStretch_, 0,
+					nearestOutput,
 					All_Indicator(),
-					8,
-					Maximum_NormBijection<Real>());
+					Maximum_NormBijection<Real>())
+					.kNearest(kdTree_.points())
+					.maxDistance(filter_.radius() * filterStretch_);
 
 				const integer points = nearestSet.size();
 

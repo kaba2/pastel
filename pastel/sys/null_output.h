@@ -11,8 +11,8 @@ namespace Pastel
 	class Null_Output
 	{
 	public:
-		template <typename That>
-		bool operator()(That&&) const
+		template <typename... That>
+		bool operator()(That&&...) const
 		{
 			return false;
 		}

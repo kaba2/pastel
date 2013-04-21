@@ -78,18 +78,25 @@ namespace Pastel
 			ENSURE_OP(maxDistanceSet[i], >=, 0);
 
 			integer nearestCount = 0;
+			auto nearestOutput = [&](
+				Real distance,
+				Point_ConstIterator point)
+			{
+				distanceSet[nearestCount] = distance;
+				nearestSet[nearestCount] = point;
+				++nearestCount;
+			};
 
-			nearestCount = 
-				searchNearest(
+			searchNearest(
 				kdTree, querySet[i], 
-				kNearestEnd,
-				rangeOutput(range(nearestSet.begin(), nearestSet.end())), 
-				rangeOutput(range(distanceSet.begin(), distanceSet.end())),
-				maxDistanceSet[i], maxRelativeError,
+				nearestOutput,
 				allExceptIndicator(querySet[i]),
-				bucketSize,
 				normBijection, 
-				searchAlgorithm);
+				searchAlgorithm)
+				.kNearest(kNearestEnd)
+				.maxRelativeError(maxRelativeError)
+				.bucketSize(bucketSize)
+				.maxDistance(maxDistanceSet[i]);
 
 			if (nearestArray)
 			{

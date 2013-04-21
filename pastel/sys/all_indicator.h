@@ -13,8 +13,8 @@ namespace Pastel
 	class All_Indicator
 	{
 	public:
-		template <typename Type>
-		bool operator()(const Type&) const
+		template <typename... Type>
+		bool operator()(Type&&...) const
 		{
 			return true;
 		}

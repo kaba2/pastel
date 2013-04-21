@@ -227,14 +227,20 @@ namespace Pastel
 							// for the scene point. Cache the
 							// result.
 
+							integer t = 0;
+							auto nearestOutput = [&](
+								const Real& distance,
+								SceneIterator point)
+							{
+								sceneNearest(t, j) = point;
+								++t;
+							};
+
 							searchNearest(
-								sceneTree_,
-								sceneIter,
-								k_,
-								rangeOutput(sceneNearest.rowRange(j)),
-								nullOutput(),
-								infinity<Real>(), 0,
-								allExceptIndicator(sceneIter));
+								sceneTree_, sceneIter,
+								nearestOutput,
+								allExceptIndicator(sceneIter))
+								.kNearest(k_);
 						}
 
 						// Get the k-nearest neighbors from the cache.
@@ -248,14 +254,22 @@ namespace Pastel
 						// need to cache them.
 
 						modelSet.front() = modelIter;
-						searchNearest(
-							modelTree_,
-							modelIter,
-							k_,
-							rangeOutput(range(modelSet.begin() + 1, modelSet.end())),
-							nullOutput(),
-							infinity<Real>(), 0,
-							allExceptIndicator(modelIter));
+						{
+							integer t = 0;
+							auto nearestOutput = [&](
+								const Real& distance,
+								SceneIterator point)
+							{
+								modelSet[t + 1] = point;
+								++t;
+							};
+
+							searchNearest(
+								modelTree_, modelIter,
+								nearestOutput,
+								allExceptIndicator(modelIter))
+								.kNearest(k_);
+						}
 
 						// Try to match the nearest neighbours.
 						// If they match, then try to improve the
@@ -351,7 +365,7 @@ namespace Pastel
 								transformPoint(similarity, modelPosition(modelSet[m]));
 
 							const KeyValue<Real, SceneIterator> closestScenePoint =
-								searchNearestOne(sceneTree_, transformedModelPoint);
+								searchNearest(sceneTree_, transformedModelPoint);
 
 							// A transformed model point M' matches a scene point S
 							// if the distance between M' and S is below
@@ -455,7 +469,7 @@ namespace Pastel
 						// scene point.
 
 						const KeyValue<Real, SceneIterator> closestScenePoint =
-							searchNearestOne(sceneTree_, transformedModelPoint);
+							searchNearest(sceneTree_, transformedModelPoint);
 
 						if (closestScenePoint.key() <= matchingDistance_ &&
 							usedSet.find(closestScenePoint.value()) == usedSet.end())

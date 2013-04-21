@@ -241,13 +241,12 @@ namespace Pastel
 					// Here it is enforced again.
                     if (currentDistance < cullDistance && acceptPoint(iter))
                     {
-                        candidateFunctor(currentDistance, iter);
 						// Note that if there are multiple points at the same 
 						// distance, then the points after the first should _not_
 						// be culled away. We attempt to deal with this
 						// by expanding the culling radius by a protective factor.
-                        const Real cullSuggestion = 
-                            candidateFunctor.suggestCullDistance() * protectiveFactor;
+                        Real cullSuggestion = 
+							candidateFunctor(currentDistance, iter) * protectiveFactor;
                         if (cullSuggestion < cullDistance)
                         {
 							cullDistance = cullSuggestion;

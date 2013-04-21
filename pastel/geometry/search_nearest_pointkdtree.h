@@ -1,4 +1,4 @@
-// Description: K-nearest-neighbors searching for PointKdTree
+// Description: Nearest neighbor searching for PointKdTree
 // Documentation: nearest_neighbors.txt
 
 #ifndef PASTELGEOMETRY_SEARCH_NEAREST_POINTKDTREE_H
@@ -6,21 +6,23 @@
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/sys/indicator_concept.h"
-
 #include "pastel/math/normbijection_concept.h"
 
+#include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
+#include "pastel/sys/all_indicator.h"
+#include "pastel/sys/allexcept_indicator.h"
+
+#include "pastel/math/euclidean_normbijection.h"
+
 #include "pastel/sys/keyvalue.h"
+
+#include "pastel/geometry/search_nearest_pointkdtree.hpp"
 
 namespace Pastel
 {
 
-	//! Finds k nearest neighbors for a point in a PointKdTree.
+	//! Finds the nearest neighbors of a point in a PointKdTree.
 	/*!
-	Preconditions:
-	maxDistance >= 0
-	maxRelativeError >= 0
-	kNearest >= 0
-
 	kdTree:
 	The PointKdTree to search neighbors in.
 
@@ -29,30 +31,9 @@ namespace Pastel
 	This can be either a Vector<Real, N>, or
 	a Point_ConstIterator of 'kdTree'.
 	
-	kNearest:
-	The number of nearest neighbors to search.
-
-	nearestOutput:
-	A reporter to which the found neighbors 
-	(Point_ConstIterator of 'kdTree') are reported to.
-
-	distanceOutput:
-	A reporter to which the distances of the found
-	neighbors (Real) are reported to.
-
-	maxDistance:
-	The distance after which points are not considered neighbors
-	anymore. Can be set to infinity<Real>(). The distance is
-	in terms of the norm bijection.
-
-	maxRelativeError:
-	Maximum allowed relative error in the distance of the k:th 
-	result point to the true k:th nearest neighbor. Allowing error
-	increases performance. Use 0 for exact matches. 
-
 	acceptPoint:
-	An indicator stating whether a Point_ConstIterator
-	should be accepted or not. See 'indicators.txt'.
+	A functor that determines whether to accept a point
+	as a neighbor or not. See 'indicators.txt'.
 
 	normBijection:
 	The norm used to measure distance.
@@ -62,152 +43,72 @@ namespace Pastel
 	The search algorithm to use for searching the 'kdTree'.
 	See 'searchalgorithm_pointkdtree.txt'.
 
-	returns:
-	The number of found neighbors.
-	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Output, 
-		typename Real_Output, typename Indicator,
-		typename NormBijection, typename SearchAlgorithm_PointKdTree>
-	integer searchNearest(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		integer kNearest,
-		const Nearest_Output& nearestOutput,
-		const Real_Output& distanceOutput,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const Indicator& acceptPoint,
-		integer bucketSize,
-		const NormBijection& normBijection,
-		const SearchAlgorithm_PointKdTree& searchAlgorithm);
+	Optional arguments
+	------------------
 
-	//! Finds nearest neighbors for a point in a kdTree.
-	/*!
-	This is a convenience function that calls:
-	searchNearest(kdTree, searchPoint,
-		kNearest, nearestOutput, distanceOutput,
-		maxDistance, maxRelativeError, acceptPoint,
-		normBijection,
-		DepthFirst_SearchAlgorithm_PointKdTree());
-	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Output, 
-		typename Real_Output, typename Indicator,
-		typename NormBijection>
-	integer searchNearest(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		integer kNearest,
-		const Nearest_Output& nearestOutput,
-		const Real_Output& distanceOutput,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const Indicator& acceptPoint,
-		integer bucketSize,
-		const NormBijection& normBijection);
+	maxDistance (>= 0):
+	The distance after which points are not considered neighbors
+	anymore. Can be set to infinity<Real>(). This distance
+	is in terms of the used norm bijection.
+	Default: infinity<Real>()
 
-	//! Finds nearest neighbors for a point in a kdTree.
-	/*!
-	This is a convenience function that calls:
-	searchNearest(kdTree, searchPoint,
-		kNearest, nearestOutput, distanceOutput,
-		maxDistance, maxRelativeError, acceptPoint,
-		bucketSize,	Euclidean_NormBijection<Real>());
-	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Output, 
-		typename Real_Output, typename Indicator>
-	integer searchNearest(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		integer kNearest,
-		const Nearest_Output& nearestOutput,
-		const Real_Output& distanceOutput,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const Indicator& acceptPoint,
-		integer bucketSize);
+	maxRelativeError (>= 0):
+	Maximum allowed relative error in the distance of the  
+	result point to the true nearest neighbor. Allowing error
+	increases performance. Use 0 for exact matches. 
+	Default: 0
 
-	//! Finds nearest neighbors for a point in a kdTree.
-	/*!
-	This is a convenience function that calls:
-	searchNearest(kdTree, searchPoint,
-		kNearest, nearestOutput, distanceOutput,
-		maxDistance, maxRelativeError, acceptPoint, 1);
-	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Output, 
-		typename Real_Output, typename Indicator>
-	integer searchNearest(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		integer kNearest,
-		const Nearest_Output& nearestOutput,
-		const Real_Output& distanceOutput,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const Indicator& acceptPoint);
+	bucketSize (> 0):
+	The number of points under which to start a brute-force
+	search in a node.
+	Default: 16
 
-	//! Finds nearest neighbors for a point in a kdTree.
-	/*!
-	This is a convenience function that calls:
-	searchNearest(kdTree, searchPoint,
-		kNearest, nearestOutput, distanceOutput,
-		maxDistance, maxRelativeError, 
-		All_Indicator());
-	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Output, 
-		typename Real_Output>
-	integer searchNearest(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		integer kNearest,
-		const Nearest_Output& nearestOutput,
-		const Real_Output& distanceOutput,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
+	kNearest (> 0):
+	The number of nearest neighbors to search.
 
-	//! Finds nearest neighbors for a point in a kdTree.
-	/*!
-	This is a convenience function that calls:
-	searchNearest(kdTree, searchPoint,
-		kNearest, nearestOutput, distanceOutput,
-		maxDistance, 0);
-	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Output, 
-		typename Real_Output>
-	integer searchNearest(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		integer kNearest,
-		const Nearest_Output& nearestOutput,
-		const Real_Output& distanceOutput,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
+	nearestOutput:
+	A reporter to which the found neighbors 
+	(Point_ConstIterator of 'kdTree') are reported to.
+	The reporting is done in the form
+	nearestOutput(distance, point).
 
-	//! Finds nearest neighbors for a point in a kdTree.
-	/*!
-	This is a convenience function that calls:
-	searchNearest(kdTree, searchPoint,
-		kNearest, nearestOutput, distanceOutput,
-		infinity<Real>());
+	Returns (by implicit conversion)
+	--------------------------------
+
+	Real:
+	The distance (in terms of the norm bijection) to 
+	the nearest neighbor. If no neighbor is found, 
+	returns infinity<Real>().
+
+	Point_ConstIterator:
+	The nearest neighbor. If no neighbor is found,
+	returns kdTree.end().
+
+	KeyValue<Real, Point_ConstIterator>:
+	A combination of the previous two.
 	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename Nearest_Output, 
-		typename Real_Output>
-	integer searchNearest(
+	template <
+		typename Real, int N, typename PointPolicy, 
+		typename SearchPoint,
+		typename NearestOutput = Null_Output,
+		typename Indicator = All_Indicator, 
+		typename NormBijection = Euclidean_NormBijection<Real>, 
+		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
+	SearchNearest_<Real, N, PointPolicy, SearchPoint, NearestOutput,
+		Indicator, NormBijection, SearchAlgorithm>
+		searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
-		integer kNearest,
-		const Nearest_Output& nearestOutput,
-		const Real_Output& distanceOutput);
+		const NearestOutput& nearestOutput = Null_Output(),
+		const Indicator& acceptPoint = All_Indicator(),
+		const NormBijection& normBijection = Euclidean_NormBijection<Real>(),
+		const SearchAlgorithm& searchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree())
+	{
+		return SearchNearest_<Real, N, PointPolicy, SearchPoint, NearestOutput,
+			Indicator, NormBijection, SearchAlgorithm>(kdTree, searchPoint,
+			nearestOutput, acceptPoint, normBijection, searchAlgorithm);
+	}
 
 }
-
-#include "pastel/geometry/search_nearest_one_pointkdtree.h"
-
-#include "pastel/geometry/search_nearest_pointkdtree.hpp"
 
 #endif

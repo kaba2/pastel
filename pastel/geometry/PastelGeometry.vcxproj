@@ -381,8 +381,6 @@
     <ClInclude Include="count_nearest_pointkdtree.hpp" />
     <ClInclude Include="search_nearest_algorithm_pointkdtree.h" />
     <ClInclude Include="search_nearest_algorithm_pointkdtree.hpp" />
-    <ClInclude Include="search_nearest_one_pointkdtree.h" />
-    <ClInclude Include="search_nearest_one_pointkdtree.hpp" />
     <ClInclude Include="search_nearest_pointkdtree.h" />
     <ClInclude Include="search_nearest_pointkdtree.hpp" />
     <ClInclude Include="count_all_neighbors.h" />

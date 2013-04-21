@@ -734,12 +734,19 @@ namespace Pastel
 						querySet.cColumnEnd(i),
 						query.begin());
 
-					searchNearest(
-						state->tree,
-						query, k,
-						rangeOutput(nearestArray.rowRange(i)),
-						rangeOutput(distanceArray.rowRange(i)),
-						maxDistanceSet(i));
+					integer j = 0;
+					auto nearestOutput = [&](
+						real distance,
+						Point_ConstIterator point)
+					{
+						distanceArray(j, i) = distance;
+						nearestArray(j, i) = point;
+						++j;
+					};
+
+					searchNearest(state->tree, query, nearestOutput)
+						.kNearest(k)
+						.maxDistance(maxDistanceSet(i));
 				}
 			}
 			else
