@@ -49,12 +49,10 @@ namespace Pastel
 				kdTree.pointPolicy()(querySet[i]->point());
 
 			result[i] = countNearest(
-				kdTree, 
-				queryPoint, 
-				maxDistanceSet[i], 
-				All_Indicator(),
-				bucketSize,
-				normBijection);
+				kdTree, queryPoint, 
+				All_Indicator(), normBijection)
+				.maxDistance(maxDistanceSet[i])
+				.bucketSize(bucketSize);
 		}
 	}
 

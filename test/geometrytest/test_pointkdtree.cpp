@@ -381,12 +381,12 @@ namespace
 				}
 			}
 			{
-				const integer outerCount = countNearest(
-					tree, Vector<real, N>(0), normBijection.toBijection(2.001));
+				const integer outerCount = countNearest(tree, Vector<real, N>(0))
+					.maxDistance(normBijection.toBijection(2.001));
 				TEST_ENSURE_OP(outerCount, ==, m);
 
-				const integer innerCount = countNearest(
-					tree, Vector<real, N>(0), normBijection.toBijection(1.999));
+				const integer innerCount = countNearest(tree, Vector<real, N>(0))
+					.maxDistance(normBijection.toBijection(1.999));
 				TEST_ENSURE_OP(innerCount, ==, 0);
 			}
 		}
