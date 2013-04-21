@@ -193,9 +193,6 @@
     <Filter Include="Algorithms\Searching\Maximum clique of aligned boxes">
       <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Searching\Nearest neighbors searching\Indicator">
-      <UniqueIdentifier>{e4037b2c-6b64-4725-8ae7-9376c4e32999}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -393,9 +390,6 @@
     </None>
     <None Include="searching.txt">
       <Filter>Algorithms\Searching</Filter>
-    </None>
-    <None Include="indicators.txt">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1350,24 +1344,6 @@
     </ClInclude>
     <ClInclude Include="searching.h">
       <Filter>Algorithms\Searching</Filter>
-    </ClInclude>
-    <ClInclude Include="indicator_concept.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
-    </ClInclude>
-    <ClInclude Include="objectdont_indicator.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
-    </ClInclude>
-    <ClInclude Include="allexcept_indicator.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
-    </ClInclude>
-    <ClInclude Include="all_indicator.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
-    </ClInclude>
-    <ClInclude Include="complement_indicator.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
-    </ClInclude>
-    <ClInclude Include="indicators.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@
 #ifndef PASTELSYS_COMPLEMENT_INDICATOR_H
 #define PASTELSYS_COMPLEMENT_INDICATOR_H
 
-#include "pastel/geometry/indicator_concept.h"
+#include "pastel/sys/indicator_concept.h"
 
 namespace Pastel
 {

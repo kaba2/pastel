@@ -313,6 +313,9 @@
     <Filter Include="Mathematics\Point representation">
       <UniqueIdentifier>{3697504a-0a95-4447-ab65-1d940c6a8e28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Generic programming\Indicators">
+      <UniqueIdentifier>{5547a5cb-7c5e-4c98-96ec-5c132b99e405}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1597,6 +1600,24 @@
     <ClInclude Include="range_input.h">
       <Filter>Generic programming\Inputs</Filter>
     </ClInclude>
+    <ClInclude Include="all_indicator.h">
+      <Filter>Generic programming\Indicators</Filter>
+    </ClInclude>
+    <ClInclude Include="allexcept_indicator.h">
+      <Filter>Generic programming\Indicators</Filter>
+    </ClInclude>
+    <ClInclude Include="complement_indicator.h">
+      <Filter>Generic programming\Indicators</Filter>
+    </ClInclude>
+    <ClInclude Include="objectdont_indicator.h">
+      <Filter>Generic programming\Indicators</Filter>
+    </ClInclude>
+    <ClInclude Include="indicators.h">
+      <Filter>Generic programming\Indicators</Filter>
+    </ClInclude>
+    <ClInclude Include="indicator_concept.h">
+      <Filter>Generic programming\Indicators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -2140,6 +2161,9 @@
     </Text>
     <Text Include="pointreps.txt">
       <Filter>Mathematics\Point representation</Filter>
+    </Text>
+    <Text Include="indicators.txt">
+      <Filter>Generic programming\Indicators</Filter>
     </Text>
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@
 #define PASTELGEOMETRY_SEARCH_NEAREST_POINTKDTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/indicator_concept.h"
+#include "pastel/sys/indicator_concept.h"
 
 #include "pastel/math/normbijection_concept.h"
 
