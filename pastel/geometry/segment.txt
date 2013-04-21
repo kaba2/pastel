@@ -2,9 +2,10 @@ Line segment
 ============
 
 [[Parent]]: shapes.txt
+[[set indent]]: EquationSet
 
-A _line segment_ ''S'' in ''RR^n'' is the convex hull of 
-two points ''A'' and ''B''. That is:
+A _line segment_ ''S sub RR^n'' is the convex hull of 
+two points ''A, B in RR^n'':
 
-''S = {x in RR^n: exists t in [0, 1] sub RR: x = A + t(B - A)}''.
+	S = {x in RR^n: exists t in [0, 1] sub RR: x = A + t(B - A)}.
 

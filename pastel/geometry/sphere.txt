@@ -2,11 +2,13 @@ Sphere
 ======
 
 [[Parent]]: shapes.txt
+[[set indent]]: EquationSet
 
-A _sphere_ ''S'' in ''RR^n'' is any set which can be 
-described by a point ''c in RR^n'' and ''r in RR, r >= 0'' such that 
+A subset ''S sub RR^n'' is called a _sphere_, if there exists
+a point ''c in RR^n'' and ''r in RR, r >= 0'' such that 
 
-''S = {x in RR^n: |x - c| <= r}''
+	S = {x in RR^n: |x - c| <= r},
 
-where the norm is Euclidean.
+where the norm is Euclidean. This is a closed sphere; an open
+sphere is given by the condition ''< r''.
 
