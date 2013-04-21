@@ -21,6 +21,9 @@ namespace Pastel
 		typedef typename PointRep::Real Real;
 		typedef typename PointRep::Point Point;
 		typedef typename std::unique_ptr<RangeTree> TreePtr;
+		typedef std::vector<Point> PointSet;
+		typedef typename PointSet::iterator Point_Iterator;
+		typedef typename PointSet::const_iterator Point_ConstIterator;
 
 		explicit RangeTree(const PointRep& pointRep)
 			: pointRep_(pointRep)
@@ -52,7 +55,22 @@ namespace Pastel
 			bool leaf_;
 		};
 
-		typedef std::unique_ptr<Node> NodePtr;
+		struct Node_Delete
+		{
+			void operator()(Node* node)
+			{
+				if (node->leaf())
+				{
+					delete (LeafNode*)node;
+				}
+				else
+				{
+					delete (SplitNode*)node;
+				}
+			}
+		};
+
+		typedef std::unique_ptr<Node, Node_Delete> NodePtr;
 
 		class SplitNode
 			: public Node
@@ -142,7 +160,7 @@ namespace Pastel
 			}
 			else
 			{
-				// Subdivide the node into two.
+				// Split the node into two.
 
 				auto coordinateLess = 
 					[&](const Point& left, const Point& right)
@@ -182,7 +200,7 @@ namespace Pastel
 			return node;
 		}
 
-		std::vector<Point> pointSet_;
+		PointSet pointSet_;
 		NodePtr root_;
 		PointRep pointRep_;
 		integer maxBucketSize_;
