@@ -11,10 +11,7 @@
 #include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/sys/all_indicator.h"
 #include "pastel/sys/allexcept_indicator.h"
-
 #include "pastel/math/euclidean_normbijection.h"
-
-#include "pastel/sys/keyvalue.h"
 
 #include "pastel/geometry/search_nearest_pointkdtree.hpp"
 
@@ -99,10 +96,10 @@ namespace Pastel
 		searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
-		const NearestOutput& nearestOutput = Null_Output(),
-		const Indicator& acceptPoint = All_Indicator(),
-		const NormBijection& normBijection = Euclidean_NormBijection<Real>(),
-		const SearchAlgorithm& searchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree())
+		const NearestOutput& nearestOutput = NearestOutput(),
+		const Indicator& acceptPoint = Indicator(),
+		const NormBijection& normBijection = NormBijection(),
+		const SearchAlgorithm& searchAlgorithm = SearchAlgorithm())
 	{
 		return SearchNearest_<Real, N, PointPolicy, SearchPoint, NearestOutput,
 			Indicator, NormBijection, SearchAlgorithm>(kdTree, searchPoint,
