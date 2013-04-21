@@ -5,7 +5,7 @@
 #include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
-#include "pastel/geometry/dont_acceptpoint.h"
+#include "pastel/geometry/allexcept_indicator.h"
 
 #include "pastel/math/euclidean_normbijection.h"
 
@@ -86,7 +86,7 @@ namespace Pastel
 				rangeOutput(range(nearestSet.begin(), nearestSet.end())), 
 				rangeOutput(range(distanceSet.begin(), distanceSet.end())),
 				maxDistanceSet[i], maxRelativeError,
-				dontAcceptPoint(querySet[i]),
+				dontIndicator(querySet[i]),
 				bucketSize,
 				normBijection, 
 				searchAlgorithm);

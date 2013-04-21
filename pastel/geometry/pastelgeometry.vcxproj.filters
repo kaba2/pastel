@@ -184,9 +184,6 @@
     <Filter Include="Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching">
       <UniqueIdentifier>{3abc2870-266a-4115-a4eb-5efbc2f17acf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Searching\Nearest neighbors searching\AcceptPoint">
-      <UniqueIdentifier>{e4037b2c-6b64-4725-8ae7-9376c4e32999}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms">
       <UniqueIdentifier>{27472255-152d-4943-90c0-bfda2a427ac6}</UniqueIdentifier>
     </Filter>
@@ -195,6 +192,9 @@
     </Filter>
     <Filter Include="Algorithms\Searching\Maximum clique of aligned boxes">
       <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Searching\Nearest neighbors searching\Indicator">
+      <UniqueIdentifier>{e4037b2c-6b64-4725-8ae7-9376c4e32999}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -309,9 +309,6 @@
     <None Include="search_all_neighbors.txt">
       <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </None>
-    <None Include="acceptpoint.txt">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
-    </None>
     <None Include="searchalgorithm_pointkdtree.txt">
       <Filter>Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </None>
@@ -396,6 +393,9 @@
     </None>
     <None Include="searching.txt">
       <Filter>Algorithms\Searching</Filter>
+    </None>
+    <None Include="indicators.txt">
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -869,24 +869,6 @@
     </ClInclude>
     <ClInclude Include="search_all_neighbors_pointkdtree.hpp">
       <Filter>Algorithms\Searching\Nearest neighbors searching\All nearest neighbors searching</Filter>
-    </ClInclude>
-    <ClInclude Include="acceptpoint.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
-    </ClInclude>
-    <ClInclude Include="acceptpoint_concept.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
-    </ClInclude>
-    <ClInclude Include="always_acceptpoint.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
-    </ClInclude>
-    <ClInclude Include="dont_acceptpoint.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
-    </ClInclude>
-    <ClInclude Include="negate_acceptpoint.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
-    </ClInclude>
-    <ClInclude Include="objectdont_acceptpoint.h">
-      <Filter>Algorithms\Searching\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="bestfirst_searchalgorithm_pointkdtree.h">
       <Filter>Algorithms\Searching\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
@@ -1368,6 +1350,24 @@
     </ClInclude>
     <ClInclude Include="searching.h">
       <Filter>Algorithms\Searching</Filter>
+    </ClInclude>
+    <ClInclude Include="indicator_concept.h">
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
+    </ClInclude>
+    <ClInclude Include="objectdont_indicator.h">
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
+    </ClInclude>
+    <ClInclude Include="allexcept_indicator.h">
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
+    </ClInclude>
+    <ClInclude Include="all_indicator.h">
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
+    </ClInclude>
+    <ClInclude Include="complement_indicator.h">
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
+    </ClInclude>
+    <ClInclude Include="indicators.h">
+      <Filter>Algorithms\Searching\Nearest neighbors searching\Indicator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

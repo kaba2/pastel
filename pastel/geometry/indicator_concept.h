@@ -1,17 +1,17 @@
-// Description: AcceptPoint concept
+// Description: Indicator concept
 
-#ifndef PASTELGEOMETRY_ACCEPTPOINT_CONCEPT_H
-#define PASTELGEOMETRY_ACCEPTPOINT_CONCEPT_H
+#ifndef PASTELSYS_INDICATOR_CONCEPT_H
+#define PASTELSYS_INDICATOR_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 
 namespace Pastel
 {
 
-	namespace AcceptPoint_Concept
+	namespace Indicator_Concept
 	{
 
-		class AcceptPoint
+		class Indicator
 		{
 		public:
 			typedef UserDefinedType Point;

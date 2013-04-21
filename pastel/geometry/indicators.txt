@@ -1,0 +1,12 @@
+Indicators
+==========
+
+[[Parent]]: nearest_neighbors.txt
+
+An _indicator function_ is a function ''f : S --> {0, 1}'', where 
+''S'' is a set. Indicator functions can be thought to represent the
+subset of ''S'' given by the preimage of 1. An _indicator_ is any
+callable object in C++, which takes in a single argument,
+and returns a boolean. Indicators are used in Pastel to filter out
+candidates, for example in nearest neighbors searching, where it
+is often desirable to ignore the searched point itself.

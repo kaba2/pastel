@@ -5,7 +5,7 @@
 #include "pastel/geometry/search_nearest_algorithm_pointkdtree.h"
 #include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
-#include "pastel/geometry/always_acceptpoint.h"
+#include "pastel/geometry/all_indicator.h"
 
 #include "pastel/math/euclidean_normbijection.h"
 
@@ -48,14 +48,14 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy, 
-		typename AcceptPoint, 
+		typename Indicator, 
 		typename NormBijection, 
 		typename SearchAlgorithm_PointKdTree>
 	integer countNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const AcceptPoint& acceptPoint,
+		const Indicator& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
 		const SearchAlgorithm_PointKdTree& searchAlgorithm)
@@ -83,13 +83,13 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy, 
-		typename AcceptPoint, 
+		typename Indicator, 
 		typename NormBijection>
 	integer countNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const AcceptPoint& acceptPoint,
+		const Indicator& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection)
 	{
@@ -101,12 +101,12 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy,
-	typename AcceptPoint>
+	typename Indicator>
 	integer countNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const AcceptPoint& acceptPoint, 
+		const Indicator& acceptPoint, 
 		integer bucketSize)
 	{
 		return Pastel::countNearest(
@@ -116,12 +116,12 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy,
-	typename AcceptPoint>
+	typename Indicator>
 	integer countNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const AcceptPoint& acceptPoint)
+		const Indicator& acceptPoint)
 	{
 		return Pastel::countNearest(
 			kdTree, searchPoint, maxDistance, acceptPoint, 1);
@@ -138,7 +138,7 @@ namespace Pastel
 
 		return Pastel::countNearest(
 			kdTree, searchPoint, maxDistance,
-			alwaysAcceptPoint(kdTree));
+			All_Indicator());
 	}
 
 }

@@ -5,21 +5,24 @@
 #define PASTELGEOMETRY_SEARCH_NEAREST_ONE_POINTKDTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/acceptpoint_concept.h"
-
+#include "pastel/geometry/indicator_concept.h"
 #include "pastel/math/normbijection_concept.h"
 
+#include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
+#include "pastel/geometry/all_indicator.h"
+#include "pastel/geometry/allexcept_indicator.h"
+
+#include "pastel/math/euclidean_normbijection.h"
+
 #include "pastel/sys/keyvalue.h"
+
+#include "pastel/geometry/search_nearest_one_pointkdtree.hpp"
 
 namespace Pastel
 {
 
-	//! Finds the nearest neighbor for a point in a kdTree.
+	//! Finds the nearest neighbor for a point in a PointKdTree.
 	/*!
-	Preconditions:
-	maxDistance >= 0
-	maxRelativeError >= 0
-
 	kdTree:
 	The PointKdTree to search neighbors in.
 
@@ -28,19 +31,9 @@ namespace Pastel
 	This can be either a Vector<Real, N>, or
 	a Point_ConstIterator of 'kdTree'.
 	
-	maxDistance:
-	The distance after which points are not considered neighbors
-	anymore. Can be set to infinity<Real>(). This distance
-	is in terms of the used norm bijection.
-
-	maxRelativeError:
-	Maximum allowed relative error in the distance of the  
-	result point to the true nearest neighbor. Allowing error
-	increases performance. Use 0 for exact matches. 
-
 	acceptPoint:
 	A functor that determines whether to accept a point
-	as a neighbor or not. See 'acceptpoint.txt'.
+	as a neighbor or not. See 'indicators.txt'.
 
 	normBijection:
 	The norm used to measure distance.
@@ -50,153 +43,82 @@ namespace Pastel
 	The search algorithm to use for searching the 'kdTree'.
 	See 'searchalgorithm_pointkdtree.txt'.
 
-	returns:
-	A key-value pair, where the key is the distance
-	(in terms of the norm-bijection), and the value 
-	is a Point_ConstIterator to 'kdTree', denoting
-	the nearest neighbor.
+	Optional arguments
+	------------------
+
+	maxDistance (>= 0):
+	The distance after which points are not considered neighbors
+	anymore. Can be set to infinity<Real>(). This distance
+	is in terms of the used norm bijection.
+	Default: infinity<Real>()
+
+	maxRelativeError (>= 0):
+	Maximum allowed relative error in the distance of the  
+	result point to the true nearest neighbor. Allowing error
+	increases performance. Use 0 for exact matches. 
+	Default: 0
+
+	bucketSize (> 0):
+	The number of points under which to start a brute-force
+	search in a node.
+	Default: 16
+
+	Returns (by implicit conversion)
+	--------------------------------
+
+	Real:
+	The distance (in terms of the norm bijection) to 
+	the nearest neighbor. If no neighbor is found, 
+	returns infinity<Real>().
+
+	Point_ConstIterator:
+	The nearest neighbor. If no neighbor is found,
+	returns kdTree.end().
+
+	KeyValue<Real, Point_ConstIterator>:
+	A combination of the previous two.
 	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename AcceptPoint, 
-		typename NormBijection, typename SearchAlgorithm>
-	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>
+	template <
+		typename Real, int N, typename PointPolicy, 
+		typename SearchPoint, 
+		typename Indicator = All_Indicator, 
+		typename NormBijection = Euclidean_NormBijection<Real>, 
+		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
+	SearchNearestOne_<Real, N, PointPolicy, SearchPoint, 
+		Indicator, NormBijection, SearchAlgorithm>
 		searchNearestOne(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const AcceptPoint& acceptPoint,
-		integer bucketSize,
-		const NormBijection& normBijection,
-		const SearchAlgorithm& searchAlgorithm);
+		const Indicator& acceptPoint = All_Indicator(),
+		const NormBijection& normBijection = Euclidean_NormBijection<Real>(),
+		const SearchAlgorithm& searchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree())
+	{
+		return SearchNearestOne_<Real, N, PointPolicy, SearchPoint, 
+			Indicator, NormBijection, SearchAlgorithm>(kdTree, searchPoint,
+			acceptPoint, normBijection, searchAlgorithm);
+	}
 
-	//! Finds the nearest neighbor for a point in a kdTree.
-	/*!
-	This is a convenience function that calls
+	template <
+		typename Real, int N, typename PointPolicy, 
+		typename Indicator = AllExcept_Indicator<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>, 
+		typename NormBijection = Euclidean_NormBijection<Real>, 
+		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
+	SearchNearestOne_<Real, N, PointPolicy, 
+		typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 
+		Indicator, NormBijection, SearchAlgorithm>
 	searchNearestOne(
-		kdTree, searchPoint,
-		maxDistance, maxRelativeError,
-		acceptPoint, bucketSize,
-		normBijection,
-		DepthFirst_SearchAlgorithm_PointKdTree());
-	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename AcceptPoint, 
-		typename NormBijection>
-	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>
-		searchNearestOne(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const AcceptPoint& acceptPoint,
-		integer bucketSize,
-		const NormBijection& normBijection);
-
-	//! Finds the nearest neighbor for a point in a kdTree.
-	/*!
-	This is a convenience function that calls
-	searchNearestOne(
-		kdTree, searchPoint,
-		maxDistance, maxRelativeError,
-		acceptPoint, 
-		bucketSize,
-		Euclidean_NormBijection<Real>());
-	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename AcceptPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>
-		searchNearestOne(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const AcceptPoint& acceptPoint,
-		integer bucketSize);
-
-	//! Finds the nearest neighbor for a point in a kdTree.
-	/*!
-	This is a convenience function that calls
-	searchNearestOne(
-		kdTree, searchPoint,
-		maxDistance, maxRelativeError,
-		acceptPoint, 
-		16);
-	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename SearchPoint, typename AcceptPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>
-		searchNearestOne(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const AcceptPoint& acceptPoint);
-
-	//! Finds the nearest neighbor for a point in a kdTree.
-	/*!
-	This is a convenience function that calls
-	searchNearestOne(
-		kdTree, searchPoint,
-		maxDistance, maxRelativeError,
-		alwaysAcceptPoint(kdTree));
-	*/
-	template <typename Real, int N, typename PointPolicy,
-		typename SearchPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>
-		searchNearestOne(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
-
-	//! Finds the nearest neighbor for a point in a kdTree.
-	/*!
-	This is a convenience function that calls
-	searchNearestOne(
-		kdTree, searchPoint,
-		maxDistance, maxRelativeError,
-		dontAcceptPoint(searchPoint));
-	*/
-	template <typename Real, int N, typename PointPolicy>
-	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>
-		searchNearestOne(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
-
-	//! Finds the nearest neighbor for a point in a kdTree.
-	/*!
-	This is a convenience function that calls
-	searchNearestOne(
-		kdTree, searchPoint,
-		maxDistance, 0);
-	*/
-	template <typename Real, int N, typename PointPolicy,
-		typename SearchPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>
-		searchNearestOne(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
-
-	//! Finds the nearest neighbor for a point in a kdTree.
-	/*!
-	This is a convenience function that calls
-	searchNearestOne(
-		kdTree, searchPoint,
-		infinity<Real>());
-	*/
-	template <typename Real, int N, typename PointPolicy,
-		typename SearchPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>
-		searchNearestOne(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const SearchPoint& searchPoint);
+		const Indicator& acceptPoint = dontIndicator(searchPoint),
+		const NormBijection& normBijection = Euclidean_NormBijection<Real>(),
+		const SearchAlgorithm& searchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree())
+	{
+		return SearchNearestOne_<Real, N, PointPolicy, 
+			typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 
+			Indicator, NormBijection, SearchAlgorithm>(kdTree, searchPoint,
+			acceptPoint, normBijection, searchAlgorithm);
+	}
 
 }
-
-#include "pastel/geometry/search_nearest_one_pointkdtree.hpp"
 
 #endif

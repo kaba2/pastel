@@ -33,7 +33,7 @@ namespace Pastel
 
 	acceptPoint:
 	A predicate which allows to ignore some points.
-	See 'pastel/geometry/acceptpoint.txt'.
+	See 'pastel/geometry/indicators.txt'.
 
 	normBijection:
 	The norm bijection to use for distance measures.
@@ -43,28 +43,28 @@ namespace Pastel
 	See 'pastel/geometry/searchalgorithm_pointkdtree.txt'.
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename AcceptPoint, typename NormBijection, 
+		typename Indicator, typename NormBijection, 
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 	void searchNearestAlgorithm(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const AcceptPoint& acceptPoint,
+		const Indicator& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor,
 		const SearchAlgorithm_PointKdTree& searchAlgorithm);
 
 	template <typename Real, int N, typename PointPolicy, 
-		typename AcceptPoint, typename NormBijection, 
+		typename Indicator, typename NormBijection, 
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 	void searchNearestAlgorithm(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const AcceptPoint& acceptPoint,
+		const Indicator& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor,

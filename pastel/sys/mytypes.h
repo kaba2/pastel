@@ -16,6 +16,14 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/if.hpp>
 
+#define PASTEL_PARAMETER(Type, name) \
+	Self& name(Type name##__) \
+	{ \
+		name##_ = name##__; \
+		return *this; \
+	} \
+	Type name##_
+
 #define PASTEL_REMOVE_BRACKETS(x) typename Pastel::RemoveBrackets<void (x)>::Type
 // FIX: Remove this version after C++11 typename-fix becomes available in Visual Studio.
 #define PASTEL_REMOVE_BRACKETS_(x) Pastel::RemoveBrackets<void (x)>::Type

@@ -39,7 +39,7 @@ namespace Pastel
 	to consider points.
 
 	acceptPoint:
-	See 'pastel/geometry/acceptpoint_concept.txt'.
+	See 'pastel/geometry/indicator_concept.txt'.
 
 	normBijection:
 	See 'pastel/math/normbijection_concept.txt'.
@@ -48,14 +48,14 @@ namespace Pastel
 	See 'pastel/geometry/searchalgorithm_pointkdtree.txt'.
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename AcceptPoint, 
+		typename Indicator, 
 		typename NormBijection, 
 		typename SearchAlgorithm_PointKdTree>
 	integer countNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const AcceptPoint& acceptPoint,
+		const Indicator& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
 		const SearchAlgorithm_PointKdTree& searchAlgorithm);
@@ -68,13 +68,13 @@ namespace Pastel
 		DepthFirst_SearchAlgorithm_PointKdTree());
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename AcceptPoint, 
+		typename Indicator, 
 		typename NormBijection>
 	integer countNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const AcceptPoint& acceptPoint,
+		const Indicator& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection);
 
@@ -87,12 +87,12 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, typename PointPolicy,
-	typename AcceptPoint>
+	typename Indicator>
 	integer countNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const AcceptPoint& acceptPoint,
+		const Indicator& acceptPoint,
 		integer bucketSize);
 
 	//! Counts nearest neighbors for a point in a kd-tree.
@@ -103,12 +103,12 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, typename PointPolicy,
-	typename AcceptPoint>
+	typename Indicator>
 	integer countNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const AcceptPoint& acceptPoint);
+		const Indicator& acceptPoint);
 
 	//! Counts nearest neighbors for a point in a kd-tree.
 	/*!

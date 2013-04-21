@@ -146,7 +146,7 @@ namespace Pastel
 								nullOutput(),
 								matchingDistance,
 								maxRelativeError,
-								Always_AcceptPoint<Scene_ConstIterator>(),
+								All_Indicator(),
 								16,
 								normBijection);
 

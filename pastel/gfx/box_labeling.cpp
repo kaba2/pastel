@@ -54,7 +54,7 @@ namespace Pastel
 		integer roundCounter = 1;
 
 		bool stillWorkTodo = true;
-		integer maxAcceptPointedDimension = 0;
+		integer maxIndicatoredDimension = 0;
 
 		while(stillWorkTodo)
 		{
@@ -62,7 +62,7 @@ namespace Pastel
 				<< ": min dimension " << minMinDimension << logNewLine;
 
 			stillWorkTodo = false;
-			maxAcceptPointedDimension = 0;
+			maxIndicatoredDimension = 0;
 
 			for (integer y = 0;y < height;++y)
 			{
@@ -167,9 +167,9 @@ namespace Pastel
 
 						if (minDimension >= minMinDimension)
 						{
-							if (minDimension > maxAcceptPointedDimension)
+							if (minDimension > maxIndicatoredDimension)
 							{
-								maxAcceptPointedDimension = minDimension;
+								maxIndicatoredDimension = minDimension;
 							}
 							drawBox(AlignedBox2(x, y, x + boxWidth, y + boxHeight), labelCounter,
 								arrayView(labelImage));
@@ -186,11 +186,11 @@ namespace Pastel
 				}
 			}
 
-			if (maxAcceptPointedDimension > 0)
+			if (maxIndicatoredDimension > 0)
 			{
-				if ((maxAcceptPointedDimension >> 1) < (minMinDimension >> 1))
+				if ((maxIndicatoredDimension >> 1) < (minMinDimension >> 1))
 				{
-					minMinDimension = maxAcceptPointedDimension >> 1;
+					minMinDimension = maxIndicatoredDimension >> 1;
 				}
 				else
 				{

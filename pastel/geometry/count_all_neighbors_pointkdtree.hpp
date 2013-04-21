@@ -52,7 +52,7 @@ namespace Pastel
 				kdTree, 
 				queryPoint, 
 				maxDistanceSet[i], 
-				alwaysAcceptPoint(kdTree),
+				All_Indicator(),
 				bucketSize,
 				normBijection);
 		}
