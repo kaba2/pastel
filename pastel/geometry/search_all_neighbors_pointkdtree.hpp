@@ -5,7 +5,7 @@
 #include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
-#include "pastel/geometry/allexcept_indicator.h"
+#include "pastel/sys/allexcept_indicator.h"
 
 #include "pastel/math/euclidean_normbijection.h"
 

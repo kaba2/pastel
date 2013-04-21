@@ -5,12 +5,12 @@
 #define PASTELGEOMETRY_SEARCH_NEAREST_ONE_POINTKDTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/indicator_concept.h"
+#include "pastel/sys/indicator_concept.h"
 #include "pastel/math/normbijection_concept.h"
 
 #include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
-#include "pastel/geometry/all_indicator.h"
-#include "pastel/geometry/allexcept_indicator.h"
+#include "pastel/sys/all_indicator.h"
+#include "pastel/sys/allexcept_indicator.h"
 
 #include "pastel/math/euclidean_normbijection.h"
 

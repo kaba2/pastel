@@ -188,7 +188,6 @@
     <None Include="nearest_neighbors_semidynamic.txt" />
     <None Include="count_all_neighbors.txt" />
     <None Include="search_all_neighbors.txt" />
-    <None Include="indicators.txt" />
     <None Include="searchalgorithm_pointkdtree.txt" />
     <None Include="maximum_clique_alignedbox.txt" />
     <None Include="point_pattern_matching_vw.txt" />
@@ -400,12 +399,6 @@
     <ClInclude Include="search_all_neighbors_bruteforce.hpp" />
     <ClInclude Include="search_all_neighbors_pointkdtree.h" />
     <ClInclude Include="search_all_neighbors_pointkdtree.hpp" />
-    <ClInclude Include="indicators.h" />
-    <ClInclude Include="indicator_concept.h" />
-    <ClInclude Include="all_indicator.h" />
-    <ClInclude Include="allexcept_indicator.h" />
-    <ClInclude Include="complement_indicator.h" />
-    <ClInclude Include="objectdont_indicator.h" />
     <ClInclude Include="bestfirst_searchalgorithm_pointkdtree.h" />
     <ClInclude Include="bestfirst_searchalgorithm_pointkdtree.hpp" />
     <ClInclude Include="depthfirst_searchalgorithm_pointkdtree.h" />
