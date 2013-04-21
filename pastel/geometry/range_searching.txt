@@ -4,8 +4,6 @@ Range searching
 [[Parent]]: searching.txt
 
 Given a finite point-set ''P sub RR^n'' and a shape ''B sub RR^n'', 
-the _range searching_ problem asks to report all the points in ''P'' that
-intersect with ''B''. The _range counting_ problem
-asks instead to report the number of points a range search would find,
-which is an easier problem. When the shape ''B'' is an axis-aligned box, 
-the problems are prefixed with the term _orthogonal_.
+the _range searching_ problem is to report the set ''P intersect B''. 
+When the shape ''B'' is an axis-aligned box, the problem is called 
+_orthogonal range searching_.

@@ -91,15 +91,15 @@ namespace Pastel
 		typename Indicator = All_Indicator, 
 		typename NormBijection = Euclidean_NormBijection<Real>, 
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
-	SearchNearest_<Real, N, PointPolicy, SearchPoint, NearestOutput,
-		Indicator, NormBijection, SearchAlgorithm>
-		searchNearest(
+	auto searchNearest(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const NearestOutput& nearestOutput = NearestOutput(),
 		const Indicator& acceptPoint = Indicator(),
 		const NormBijection& normBijection = NormBijection(),
 		const SearchAlgorithm& searchAlgorithm = SearchAlgorithm())
+		-> SearchNearest_<Real, N, PointPolicy, SearchPoint, 
+		NearestOutput, Indicator, NormBijection, SearchAlgorithm>
 	{
 		return SearchNearest_<Real, N, PointPolicy, SearchPoint, NearestOutput,
 			Indicator, NormBijection, SearchAlgorithm>(kdTree, searchPoint,

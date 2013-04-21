@@ -1,5 +1,5 @@
-// Description: Orthogonal range counting using kd-tree
-// Documentation: range_searching.txt
+// Description: Orthogonal range counting in PointKdTree
+// Documentation: range_counting.txt
 
 #ifndef PASTELGEOMETRY_COUNT_RANGE_POINTKDTREE_H
 #define PASTELGEOMETRY_COUNT_RANGE_POINTKDTREE_H

@@ -1,0 +1,10 @@
+Range counting
+==============
+
+[[Parent]]: searching.txt
+
+Given a finite point-set ''P sub RR^n'' and a shape ''B sub RR^n'', 
+the _range counting_ problem is to return the number ''|P intersect B|''.
+When the shape ''B'' is an axis-aligned box, the problem is called
+_orthogonal range counting_.
+ 

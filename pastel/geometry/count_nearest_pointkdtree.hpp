@@ -20,7 +20,6 @@ namespace Pastel
 		typedef CountNearest_ Self;
 		typedef PointKdTree<Real, N, PointPolicy> Tree;
 		typedef typename Tree::Point_ConstIterator Point_ConstIterator;
-		typedef KeyValue<Real, Point_ConstIterator> Result;
 
 		CountNearest_(
 			const Tree& kdTree,
