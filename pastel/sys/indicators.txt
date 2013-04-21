@@ -1,7 +1,7 @@
 Indicators
 ==========
 
-[[Parent]]: nearest_neighbors.txt
+[[Parent]]: generic_programming.txt
 
 An _indicator function_ is a function ''f : S --> {0, 1}'', where 
 ''S'' is a set. Indicator functions can be thought to represent the

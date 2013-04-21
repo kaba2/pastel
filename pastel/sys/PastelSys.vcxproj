@@ -179,6 +179,7 @@
     <ClInclude Include="automaton_closure.hpp" />
     <ClInclude Include="automaton_closure_concepts.h" />
     <ClInclude Include="embedded_hash.h" />
+    <ClInclude Include="empty_indicator.h" />
     <ClInclude Include="equal_sets.h" />
     <ClInclude Include="equal_sets.hpp" />
     <ClInclude Include="functions.h" />
@@ -241,6 +242,7 @@
     <ClInclude Include="array.hpp" />
     <ClInclude Include="sign.h" />
     <ClInclude Include="sign.hpp" />
+    <ClInclude Include="single_indicator.h" />
     <ClInclude Include="sparse_iterator.h" />
     <ClInclude Include="subarray.h" />
     <ClInclude Include="subarray_iterator.h" />

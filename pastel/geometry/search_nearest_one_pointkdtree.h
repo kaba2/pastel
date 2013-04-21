@@ -109,7 +109,7 @@ namespace Pastel
 	searchNearestOne(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchPoint,
-		const Indicator& acceptPoint = dontIndicator(searchPoint),
+		const Indicator& acceptPoint = allExceptIndicator(searchPoint),
 		const NormBijection& normBijection = Euclidean_NormBijection<Real>(),
 		const SearchAlgorithm& searchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree())
 	{

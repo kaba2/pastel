@@ -1,9 +1,9 @@
-// Description: Co-singleton indicator
-// Detail: Rejects a single object.
+// Description: Singleton indicator
+// Detail: Accepts a single object.
 // Documentation: indicators.txt
 
-#ifndef PASTELSYS_ALLEXCEPT_INDICATOR_H
-#define PASTELSYS_ALLEXCEPT_INDICATOR_H
+#ifndef PASTELSYS_SINGLE_INDICATOR_H
+#define PASTELSYS_SINGLE_INDICATOR_H
 
 #include "pastel/sys/indicator_concept.h"
 
@@ -11,10 +11,10 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class AllExcept_Indicator
+	class Single_Indicator
 	{
 	public:
-		explicit AllExcept_Indicator(
+		explicit Single_Indicator(
 			const Type& object)
 			: object_(object)
 		{
@@ -31,10 +31,10 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	AllExcept_Indicator<Type> allExceptIndicator(
-		const Type& that)
+	Single_Indicator<Type> singleIndicator(
+		const Type& object)
 	{
-		return AllExcept_Indicator<Type>(that);
+		return Single_Indicator<Type>(object);
 	}
 
 }

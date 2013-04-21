@@ -1,22 +1,22 @@
-// Description: All indicator
-// Detail: Accepts all objects.
+// Description: Empty indicator
+// Detail: Rejects all objects.
 // Documentation: indicators.txt
 
-#ifndef PASTELSYS_ALL_INDICATOR_H
-#define PASTELSYS_ALL_INDICATOR_H
+#ifndef PASTELSYS_EMPTY_INDICATOR_H
+#define PASTELSYS_EMPTY_INDICATOR_H
 
 #include "pastel/sys/indicator_concept.h"
 
 namespace Pastel
 {
 
-	class All_Indicator
+	class Empty_Indicator
 	{
 	public:
 		template <typename Type>
 		bool operator()(const Type&) const
 		{
-			return true;
+			return false;
 		}
 	};
 

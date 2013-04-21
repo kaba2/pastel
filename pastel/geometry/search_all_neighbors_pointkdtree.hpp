@@ -86,7 +86,7 @@ namespace Pastel
 				rangeOutput(range(nearestSet.begin(), nearestSet.end())), 
 				rangeOutput(range(distanceSet.begin(), distanceSet.end())),
 				maxDistanceSet[i], maxRelativeError,
-				dontIndicator(querySet[i]),
+				allExceptIndicator(querySet[i]),
 				bucketSize,
 				normBijection, 
 				searchAlgorithm);
