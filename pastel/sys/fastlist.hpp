@@ -10,7 +10,6 @@
 
 #include <boost/mpl/if.hpp>
 #include <boost/operators.hpp>
-#include <boost/type_traits/has_trivial_destructor.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
 #include <vector>
@@ -709,7 +708,7 @@ namespace Pastel
 			// then so does the whole DataNode,
 			// and the destruction can be avoided.
 
-			if (!std::has_trivial_destructor<Type>::value)
+			if (!std::is_trivially_destructible<Type>::value)
 			{
 				Node* node = head_->next_;
 				while (node != head_)

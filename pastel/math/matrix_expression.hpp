@@ -711,7 +711,7 @@ namespace Pastel
 			PENSURE_OP(x, <, width_);
 			PENSURE_OP(y, >=, 0);
 			PENSURE_OP(y, <, height_);
-			return data_[(y * width) + x];
+			return data_[(y * width_) + x];
 		}
 
 		integer width() const
@@ -729,7 +729,7 @@ namespace Pastel
 			const void* memoryEnd) const
 		{
 			return memoryOverlaps(
-				data_, data_ + height * width, 
+				data_, data_ + height_ * width_, 
 				memoryBegin, memoryEnd);
 		}
 
@@ -738,7 +738,7 @@ namespace Pastel
 			const void* memoryEnd) const
 		{
 			return memoryOverlaps(
-				data_, data_ + height * width, 
+				data_, data_ + height_ * width_, 
 				memoryBegin, memoryEnd);
 		}
 

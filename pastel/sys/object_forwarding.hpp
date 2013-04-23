@@ -48,7 +48,7 @@ namespace std
 {
 
 	template <typename Type>
-	class hash<Pastel::Class<Type>>
+	struct hash<Pastel::Class<Type>>
 	{
 	public:
 		Pastel::hash_integer operator()(
@@ -59,7 +59,7 @@ namespace std
 	};
 
 	template <>
-	class hash<Pastel::Class<void>>
+	struct hash<Pastel::Class<void>>
 	{
 	public:
 		Pastel::hash_integer operator()(

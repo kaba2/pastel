@@ -817,7 +817,7 @@ namespace std
 {
 
 	template <typename Real, int N>
-	class hash<Pastel::Vector<Real, N>>
+	struct hash<Pastel::Vector<Real, N>>
 	{
 	public:
 		Pastel::hash_integer operator()(

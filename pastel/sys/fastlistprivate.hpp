@@ -260,7 +260,7 @@ namespace Pastel
 		// If 'Type' has a trivial destructor,
 		// then so does the whole DataNode,
 		// and the destruction can be avoided.
-		if (!std::has_trivial_destructor<Type>::value)
+		if (!std::is_trivially_destructible<Type>::value)
 		{
 			destruct(node);
 		}

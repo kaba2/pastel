@@ -43,7 +43,7 @@ namespace Pastel
 	void destruct(Type* begin, Type* end)
 	{
 		typedef typename boost::mpl::if_<
-			std::has_trivial_destructor<Type>,
+			std::is_trivially_destructible<Type>,
 			Destruct_::Trivial_Version,
 			Destruct_::General_Version>::type Destruct;
 
@@ -53,7 +53,7 @@ namespace Pastel
 	template <typename Type>
 	void destruct(Type* that)
 	{
-		if (!std::has_trivial_destructor<Type>::value && that)
+		if (!std::is_trivially_destructible<Type>::value && that)
 		{
 			that->~Type();
 		}

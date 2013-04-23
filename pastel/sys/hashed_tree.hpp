@@ -66,7 +66,7 @@ namespace std
 {
 
 	template <typename Element, typename Compare, typename Hash>
-	class hash<Pastel::RedBlackTree<Element, Compare, Pastel::hash_integer,
+	struct hash<Pastel::RedBlackTree<Element, Compare, Pastel::hash_integer,
 		Pastel::Hash_RedBlackTree_Customization<Element, Compare, Hash>>>
 	{
 	public:

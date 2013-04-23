@@ -181,7 +181,7 @@ namespace std
 {
 
 	template <typename Type>
-	class hash<Pastel::WeakPtr<Type>>
+	struct hash<Pastel::WeakPtr<Type>>
 	{
 	public:
 		Pastel::hash_integer operator()(
