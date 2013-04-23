@@ -34,7 +34,7 @@ namespace Pastel
 	{
 		ENSURE(allGreaterEqual(extent, 0));
 
-		const mwSize size[] = {extent.y(), extent.x()};
+		const mwSize size[] = {(mwSize)extent.y(), (mwSize)extent.x()};
 
 		output = mxCreateNumericArray(2, size, 
 			typeToMatlabClassId<Type>(), mxREAL);

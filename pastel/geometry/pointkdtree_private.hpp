@@ -80,7 +80,7 @@ namespace Pastel
 	void PointKdTree<Real, N, PointPolicy>::destructSubtree(
 		Node* node)
 	{
-		if (!std::has_trivial_destructor<Real>::value)
+		if (!std::is_trivially_destructible<Real>::value)
 		{
 			if (!node->leaf())
 			{
@@ -218,7 +218,7 @@ namespace Pastel
 		}
 
 		// Destruct the node.
-		if (!std::has_trivial_destructor<Real>::value)
+		if (!std::is_trivially_destructible<Real>::value)
 		{
 			destruct(node);
 		}

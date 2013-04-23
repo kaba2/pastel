@@ -189,7 +189,7 @@ namespace std
 {
 
 	template <typename Type>
-	class hash<Pastel::CountedPtr<Type>>
+	struct hash<Pastel::CountedPtr<Type>>
 	{
 	public:
 		Pastel::hash_integer operator()(

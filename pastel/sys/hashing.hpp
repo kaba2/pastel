@@ -85,7 +85,7 @@ namespace std
 	// but not for the types in the STL itself.
 
 	template <typename Key, typename Value>
-	class hash<Pastel::KeyValue<Key, Value>>
+	struct hash<Pastel::KeyValue<Key, Value>>
 	{
 	public:
 		Pastel::hash_integer operator()(

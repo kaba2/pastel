@@ -19,8 +19,8 @@ namespace Pastel
 		integer n = 0;
 		Real mean = 0;
 
-		Real_ConstIterator iter = inputSet.begin();
-		const Real_ConstIterator end = inputSet.end();
+		auto iter = inputSet.begin();
+		auto end = inputSet.end();
 		while(iter != end)
 		{
 			mean += *iter - mean;
@@ -44,8 +44,8 @@ namespace Pastel
 		integer n = 0;
 		Real variance = 0;
 
-		Real_ConstIterator iter = inputSet.begin();
-		const Real_ConstIterator end = inputSet.end();
+		auto iter = inputSet.begin();
+		auto end = inputSet.end();
 		while(iter != end)
 		{
 			variance += square(*iter - mean);
@@ -79,10 +79,10 @@ namespace Pastel
 		integer n = 0;
 		Real covariance = 0;
 
-		A_Real_ConstIterator aIter = aSet.begin();
-		B_Real_ConstIterator bIter = bSet.begin();
-		const A_Real_ConstIterator aEnd = aSet.end();
-		const B_Real_ConstIterator bEnd = bSet.end();
+		auto aIter = aSet.begin();
+		auto bIter = bSet.begin();
+		auto aEnd = aSet.end();
+		auto bEnd = bSet.end();
 		while(aIter != aEnd)
 		{
 			PENSURE(bIter != bEnd);
@@ -194,10 +194,10 @@ namespace Pastel
 		Real result = 0;
 		integer n = 0;
 
-		A_ConstIterator aIter = aSet.begin();
-		B_ConstIterator bIter = bSet.begin();
-		const A_ConstIterator aEnd = aSet.end();
-		const A_ConstIterator bEnd = bSet.end();
+		auto aIter = aSet.begin();
+		auto bIter = bSet.begin();
+		auto aEnd = aSet.end();
+		auto bEnd = bSet.end();
 		while(aIter != aEnd)
 		{
 			PENSURE(bIter != bEnd);

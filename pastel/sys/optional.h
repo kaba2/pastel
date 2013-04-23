@@ -162,7 +162,7 @@ namespace std
 {
 
 	template <typename Type>
-	class hash<Pastel::Optional<Type>>
+	struct hash<Pastel::Optional<Type>>
 	{
 	public:
 		Pastel::hash_integer operator()(

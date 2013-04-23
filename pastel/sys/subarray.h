@@ -322,7 +322,7 @@ namespace Pastel
 			Vector<integer, N> result(
 				ofDimension(d));
 
-			for (integer i = n - 1;i > 0;--i)
+			for (integer i = d - 1;i > 0;--i)
 			{
 				result[i] = index / extentStride_[i];
 				index -= result[i] * extentStride_[i];

@@ -76,11 +76,11 @@ buildPastelExample = true and buildExamples and buildPastelMath and
 
 -- The directory of the Boost library's source code.
 -- The includes are of the form 'boost/static_assert.hpp'.
-boostIncludeDir = "../boost_1_51_0"
+boostIncludeDir = "../boost_1_53_0"
 
 -- The directory of the Matlab header files.
 -- The includes are of the form 'mex.h'.
-matlabIncludeDir = "C:/Program Files/MATLAB/R2011b/extern/include"
+matlabIncludeDir = "/Applications/MATLAB_R2013a.app/extern/include"
 
 -- No need to give a library path for Matlab:
 -- Mex files are built from within Matlab.
@@ -220,7 +220,10 @@ solution "Pastel"
 		-- Enables some additional warnings.
 		buildoptions { "-Wall" }
 		-- Enables C++11 support.
-		buildoptions { "-std=c++0x" }
+		buildoptions { "-std=c++11" }
+		-- Enables the Clang C++11 Standard Library.
+		buildoptions { "-stdlib=libc++ " }
+
 		-- Disable some warnings.
 		buildoptions 
 		{ 
@@ -235,7 +238,8 @@ solution "Pastel"
 			-- Unused values.
 			"-Wno-unused-value",
 			-- Unused but set variable.
-			"-Wno-unused-but-set-variable",
+			-- Commented out; Clang does not recognize this.
+			-- "-Wno-unused-but-set-variable",
 			-- Unused functions.
 			"-Wno-unused-function",
 			-- Breaking strict aliasing rules.

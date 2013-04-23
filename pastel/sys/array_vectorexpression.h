@@ -126,6 +126,7 @@ namespace Pastel
 		typedef ConstArray_VectorExpression<Real, N> Base;
 		using Base::data_;
 		using Base::size_;
+		using Base::stride_;
 
 	public:
 		typedef const Array_VectorExpression StorageType;

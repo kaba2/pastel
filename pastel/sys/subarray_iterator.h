@@ -93,7 +93,7 @@ namespace Pastel
 				index_ -= extentStride_[i];
 				--position_[i];
 				if (position_[i] < 0 &&
-					i != n - 1)
+					i != d - 1)
 				{
 					data_ += stride_[i] * position_[i];
 					index_ += extentStride_[i] * position_[i];
