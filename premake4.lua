@@ -222,8 +222,8 @@ solution "Pastel"
 		-- Enables C++11 support.
 		buildoptions { "-std=c++11" }
 		-- Enables the Clang C++11 Standard Library.
-		buildoptions { "-stdlib=libc++ " }
-
+		buildoptions { "-stdlib=libc++" }
+		linkoptions { "-stdlib=libc++" }
 		-- Disable some warnings.
 		buildoptions 
 		{ 

@@ -19,7 +19,7 @@ namespace Pastel
 		integer n)
 	{
 		ENSURE_OP(n, >=, 0);
-		return randomOrthogonal(n, 1);
+		return randomOrthogonalMatrix<Real>(n, 1);
 	}
 
 }
