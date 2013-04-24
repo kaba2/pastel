@@ -714,7 +714,11 @@ namespace Pastel
 			Array<real> distanceArray;
 			if (outputs >= 2)
 			{
-				distanceArray.swap(createArray<real>(k, queries, outputSet[DistanceSet]));
+				// Having the createArray<real>() call directly
+				// inside the swap() function triggers an
+				// internal compiler error in Clang.
+				auto copyArray = createArray<real>(k, queries, outputSet[DistanceSet]);
+				distanceArray.swap(copyArray);
 				boost::fill(distanceArray.range(), infinity<real>());
 			}
 

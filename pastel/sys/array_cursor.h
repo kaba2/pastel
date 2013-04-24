@@ -125,14 +125,15 @@ namespace Pastel
 				move(2, amount);
 			}
 
-		protected:
+		//protected:
 			ConstCursor(Type const* data,
 				const Vector<integer, N>& factor)
 				: data_(data)
 				, factor_(factor)
 			{
 			}
-
+			
+		protected:
 			Type const* data_;
 			Vector<integer, N> factor_;
 		};
@@ -181,7 +182,7 @@ namespace Pastel
 					(const ConstCursor<Type, N>&)that;
 			}
 
-		protected:
+		//protected:
 			Cursor(Type* data,
 				const Vector<integer, N>& factor)
 				: Base(data, factor)
