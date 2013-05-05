@@ -1,4 +1,4 @@
 project (PastelSys)
 
 file (GLOB SourceSet ${PastelSourceGlobSet})
-add_library (pastelsys ${SourceSet})
+add_library (pastelsys ${PastelLibraryType} ${SourceSet})
