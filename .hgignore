@@ -21,3 +21,13 @@ syntax: glob
 *.cache
 *.unsuccessfulbuild
 log.txt
+*.o
+*.d
+*.cmake
+*.make
+*CMakeFiles*
+build*
+CMakeCache.txt
+Makefile
+*.a
+.DS_Store
