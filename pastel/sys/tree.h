@@ -154,21 +154,23 @@ namespace Pastel
 
 			if (this != &that)
 			{
-				// Detach the current tree.
-				Tree temporary(std::move(*this));
+				return *this;
+			}
 
-				try
-				{
-					// Create a copy of 'that'.
-					insert(end(), Tree_Child::Right, that);
-				}
-				catch(...)
-				{
-					// Attach the old tree back.
-					*this = std::move(temporary);
+			// Detach the current tree.
+			Tree temporary(std::move(*this));
 
-					throw;
-				}
+			try
+			{
+				// Create a copy of 'that'.
+				insert(end(), Tree_Child::Right, that);
+			}
+			catch(...)
+			{
+				// Attach the old tree back.
+				*this = std::move(temporary);
+
+				throw;
 			}
 
 			return *this;
@@ -187,22 +189,24 @@ namespace Pastel
 		{
 			// Note that we want to preserve the sentinel nodes.
 
-			if (this != &that)
+			if (this == &that)
 			{
-				// Destruct the current tree.
-				clear();
-
-				// Move the stuff from 'that' to this tree.
-				root_ = that.root_;
-				// Preserve the local sentinel as a parent of root.
-				root_->parent = sentinel_;
-				leftMost_ = that.leftMost_;
-				setRightMost(that.rightMost());
-				size_ = that.size_;
-
-				// Forget that 'that' ever owned the stuff.
-				that.forget();
+				return *this;
 			}
+
+			// Destruct the current tree.
+			clear();
+
+			// Move the stuff from 'that' to this tree.
+			root_ = that.root_;
+			// Preserve the local sentinel as a parent of root.
+			root_->parent = sentinel_;
+			leftMost_ = that.leftMost_;
+			setRightMost(that.rightMost());
+			size_ = that.size_;
+
+			// Forget that 'that' ever owned the stuff.
+			that.forget();
 
 			return *this;
 		}
@@ -869,12 +873,41 @@ namespace Pastel
 		//! Traverses left (right) as much as possible.
 		/*!
 		Time complexity:
-		O(size(node))
+		O(size(node)), if node != root_,
+		O(1), if node == root_.
 
 		Exception safety:
 		nothrow
 		*/
 		Node* extremum(
+			Node* node,
+			Tree_Child::Enum direction)
+		{
+			ASSERT(!node->empty());
+
+			if (node == root_)
+			{
+				// We optimize for the case when the
+				// node is the root-node. In this case
+				// we already know the left-most and
+				// right-most nodes.
+
+				return (direction == Tree_Child::Left) ? 
+					leftMost() : rightMost();
+			}
+			
+			return extremumSubtree(node, direction);
+		}
+
+		//! Traverses left (right) as much as possible.
+		/*!
+		Time complexity:
+		O(size(node))
+
+		Exception safety:
+		nothrow
+		*/
+		Node* extremumSubtree(
 			Node* node,
 			Tree_Child::Enum direction)
 		{
@@ -891,6 +924,30 @@ namespace Pastel
 			return node;
 		}
 
+		//! Computes the size of a subtree.
+		/*!
+		Time complexity:
+		O(size(node)), if node != root_,
+		O(1), if node == root_.
+
+		Exception safety:
+		nothrow
+		*/
+		integer size(Node* node) const
+		{
+			ASSERT(node);
+
+			if (node == root_)
+			{
+				// We optimize for the case when
+				// the node is the root node; we already
+				// know the size of the whole tree.
+				return size_;
+			}
+
+			return sizeSubtree(node);
+		}
+
 		//! Computes the size of a subtree recursively.
 		/*!
 		Time complexity:
@@ -899,7 +956,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		integer size(Node* node) const
+		integer sizeSubtree(Node* node) const
 		{
 			ASSERT(node);
 
@@ -1105,6 +1162,19 @@ namespace Pastel
 			{
 				node->setChild(Tree_Child::Right, sentinel_);
 			}
+		}
+
+		//! Returns the leftmost node.
+		/*!
+		Time complexity:
+		O(1)
+
+		Exception safety:
+		nothrow
+		*/
+		Node* leftMost() const
+		{
+			return leftMost_;
 		}
 
 		//! Returns the rightmost node.

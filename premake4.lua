@@ -27,7 +27,7 @@ gotBoost = true
 buildLibraries = true
 
 -- Whether to build the test projects.
-buildTests = false
+buildTests = true
 
 -- Whether to build the example projects.
 buildExamples = false
@@ -246,7 +246,10 @@ solution "Pastel"
 			"-Wno-strict-aliasing",
 			-- Compiler warns that it optimizes code based on the 
 			-- assumption that signed integer overflows do not occur.
-			"-Wno-strict-overflow"
+			"-Wno-strict-overflow",
+			-- Compiler warns 'that >= 0' is always true for an 
+			-- unsigned integer.
+			"-Wtautological-compare"
 		}
 
 	-- Enable dynamic libraries if requested

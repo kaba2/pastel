@@ -11,10 +11,15 @@
 
 using namespace Pastel;
 
-namespace
+namespace Pastel
 {
 
 	template class AffineTransformation<real>;
+
+}
+
+namespace
+{
 
 	class Test
 		: public TestSuite

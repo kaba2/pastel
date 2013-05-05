@@ -5,6 +5,8 @@
 
 #include "pastel/geometry/rangetree_concepts.h"
 
+#include "pastel/sys/range_input.h"
+
 #include <boost/range/algorithm/sort.hpp>
 
 #include <memory>
