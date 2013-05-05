@@ -7,8 +7,6 @@ if (BuildLibraries)
 	add_subdirectory ("gfx")
 endif()
 
-message (STATUS ${BuildMatlab})
-
 if (BuildMatlab)
 	add_subdirectory ("matlab")
 	add_subdirectory ("sysmatlab")
