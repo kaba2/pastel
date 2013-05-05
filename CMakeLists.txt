@@ -1,29 +1,22 @@
 # Description: Main CMake build file for the Pastel library
 # Documentation: building.txt
 
-# Pastel build script
-# ===================
-
 cmake_minimum_required (VERSION 2.8)
 
 # Force to use an out-of-source build
 # -----------------------------------
 
 if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
-   message(SEND_ERROR 
+   message (SEND_ERROR 
    		"Pastel does not allow in-source builds (e.g. 'cmake .'); you should do an "
    		"out-of-source build instead (e.g. 'cmake ..' in 'build/' directory). "
    		"Ignore the error messages that follow; they are a result of "
    		"protecting the source-tree from being cluttered with CMake's "
-   		"intermediate files.")
-endif()
+   		"intermediate files."
+   	)
 
-# These CMake options are currently undocumented.
-# They prohibit CMake from creating files and directories in the 
-# source tree when doing an in-source build. This is not complete; 
-# a few files are still created.
-set (CMAKE_DISABLE_SOURCE_CHANGES ON)
-set (CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+   return()
+endif()
 
 project (PastelSolution)
 
