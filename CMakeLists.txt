@@ -3,10 +3,12 @@
 
 cmake_minimum_required (VERSION 2.8)
 
+project (PastelSolution)
+
 # Force to use an out-of-source build
 # -----------------------------------
 
-if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
+if ("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
 	message (SEND_ERROR 
    		"Pastel does not allow in-source builds (e.g. 'cmake .'); you should do an "
    		"out-of-source build instead (e.g. 'cmake ..' in 'build/' directory). "
@@ -17,8 +19,6 @@ if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
 
    return()
 endif()
-
-project (PastelSolution)
 
 # Paths
 # -----
