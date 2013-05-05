@@ -1,0 +1,10 @@
+project (Pastel)
+
+add_subdirectory ("sys")
+add_subdirectory ("math")
+add_subdirectory ("geometry")
+add_subdirectory ("gfx")
+add_subdirectory ("matlab")
+add_subdirectory ("sysmatlab")
+add_subdirectory ("mathmatlab")
+add_subdirectory ("geometrymatlab")
