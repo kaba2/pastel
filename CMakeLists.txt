@@ -7,13 +7,13 @@ cmake_minimum_required (VERSION 2.8)
 # -----------------------------------
 
 if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
-   message (SEND_ERROR 
+	message (SEND_ERROR 
    		"Pastel does not allow in-source builds (e.g. 'cmake .'); you should do an "
    		"out-of-source build instead (e.g. 'cmake ..' in 'build/' directory). "
-   		"Ignore the error messages that follow; they are a result of "
-   		"protecting the source-tree from being cluttered with CMake's "
-   		"intermediate files."
-   	)
+   		"This call produced the file 'CMakeCache.txt' and the 'CMakeFiles' directory. "
+   		"You must remove them for the out-of-source build to work; otherwise "
+   		"CMake attempts an in-source build again."
+	)
 
    return()
 endif()
