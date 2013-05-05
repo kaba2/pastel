@@ -28,7 +28,7 @@ namespace Pastel
 		integer nHint() const
 		{
 			if (boost::is_same<
-				boost::iterator_traversal<Iterator>::type,
+				typename boost::iterator_traversal<Iterator>::type,
 				boost::random_access_traversal_tag>::value)
 			{
 				return std::distance(begin_, end_);

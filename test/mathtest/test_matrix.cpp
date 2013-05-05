@@ -13,10 +13,15 @@
 
 using namespace Pastel;
 
-namespace
+namespace Pastel
 {
 
 	template class Matrix<real>;
+	
+}
+
+namespace
+{
 
 	class Test
 		: public TestSuite
