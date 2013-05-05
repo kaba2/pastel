@@ -2,5 +2,10 @@ project (PastelGfx)
 
 file (GLOB SourceSet ${PastelSourceGlobSet})
 add_library (pastelgfx ${PastelLibraryType} ${SourceSet})
-add_dependencies(pastelgfx pastelsys pastelmath pastelgeometry)
+target_link_libraries (
+	pastelgfx 
+	pastelsys 
+	pastelmath 
+	pastelgeometry
+)
 
