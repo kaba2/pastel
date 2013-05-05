@@ -1,10 +1,12 @@
 project (PastelSysMatlab)
 
 file (GLOB SourceSet ${PastelSourceGlobSet})
-add_library (pastelsysmatlab ${PastelLibraryType} ${SourceSet})
-add_dependencies(pastelsysmatlab 
+add_library (pastelsysmatlab ${SourceSet})
+target_link_libraries (
+	pastelsysmatlab 
 	pastelsys 
 	pastelmath 
 	pastelgeometry 
-	pastelmatlab)
+	pastelmatlab
+)
 
