@@ -80,13 +80,11 @@ namespace Pastel
 			return Tree_ConstIterator(node_->child(index));
 		}
 
-		const Data& operator*() const
+		const Data_Node& operator*() const
 		{
 			ASSERT(node_);
 			PENSURE(!node_->empty());
-			ASSERT(((Data_Node*)node_)->data());
-
-			return *(((Data_Node*)node_)->data());
+            return *(Data_Node*)node_;
 		}
 
 		Tree_ConstIterator& operator++()

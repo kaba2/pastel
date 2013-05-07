@@ -1,1 +1,1 @@
-remark.py . /docs *.txt *.cpp *.h *.hpp *.m *.py *.png *.pdf *.svg *.zip -q
+remark.py . ~/pastel_docs "*.txt" "*.cpp" "*.h" "*.hpp" "*.m" "*.py" "*.png" "*.pdf" "*.svg" "*.zip"

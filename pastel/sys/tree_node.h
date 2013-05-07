@@ -3,6 +3,7 @@
 
 #include "pastel/sys/tree.h"
 #include "pastel/sys/tuple.h"
+#include "pastel/sys/object_forwarding.h"
 
 namespace Pastel
 {
@@ -158,52 +159,23 @@ namespace Pastel
 		template <typename Type>
 		class Data_Node
 			: public Node
+			, public AsClass<Type>::type
 		{
 		public:
-			explicit Data_Node(Sentinel_Node* sentinel)
+			typedef typename AsClass<Type>::type Data_Class;
+
+		    using Data_Class::operator=;
+
+    		explicit Data_Node(
+    			Sentinel_Node* sentinel,
+    			Data_Class data)
 				: Node(sentinel)
-				, data_()
+				, Data_Class(std::move(data))
 			{
-			}
-
-			Type* data()
-			{
-				return (Type*)data_;
-			}
-
-			const Type* data() const
-			{
-				return (Type*)data_;
 			}
 
 		private:
-			char data_[sizeof(Type)];
-		};
-
-		template <>
-		class Data_Node<EmptyClass>
-			: public Node
-		{
-		public:
-			Data_Node()
-				: Node()
-			{
-			}
-
-			explicit Data_Node(Sentinel_Node* sentinel)
-				: Node(sentinel)
-			{
-			}
-
-			EmptyClass* data()
-			{
-				return 0;
-			}
-
-			const EmptyClass* data() const
-			{
-				return 0;
-			}
+		    Data_Node& operator=(Data_Node that) PASTEL_DELETE;
 		};
 
 	}
