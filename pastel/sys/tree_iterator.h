@@ -23,6 +23,8 @@ namespace Pastel
 		> >
 	{
 	private:
+		typedef typename AsClass<Data>::type Data_Class;
+
 		typedef Tree_::Node Node;
 		typedef Tree_::Data_Node<Data> Data_Node;
 		friend class Tree_Iterator<Data>;
@@ -31,10 +33,10 @@ namespace Pastel
 		friend class Tree;
 
 	public:
-		typedef const Data value_type;
+		typedef const Data_Class value_type;
 		typedef pointer_integer difference_type;
-		typedef const Data* pointer;
-		typedef const Data& reference;
+		typedef const Data_Class* pointer;
+		typedef const Data_Class& reference;
 		typedef std::bidirectional_iterator_tag iterator_category;
 
 		// Using default copy constructor.
@@ -80,7 +82,7 @@ namespace Pastel
 			return Tree_ConstIterator(node_->child(index));
 		}
 
-		const Data_Node& operator*() const
+		const Data_Class& operator*() const
 		{
 			ASSERT(node_);
 			PENSURE(!node_->empty());
@@ -210,6 +212,7 @@ namespace Pastel
 			Base::swap(that);
 		}
 
+		typedef typename Base::Data_Class Data_Class;
 		typedef typename Base::Node Node;
 		using Base::empty;
 
@@ -233,14 +236,14 @@ namespace Pastel
 			return Tree_Iterator((Node*)Base::child(index).node_);
 		}
 
-		Data& operator*() const
+		Data_Class& operator*() const
 		{
-			return (Data&)Base::operator*();
+			return (Data_Class&)Base::operator*();
 		}
 
-		Data* operator->() const
+		Data_Class* operator->() const
 		{
-			return (Data*)Base::operator->();
+			return (Data_Class*)Base::operator->();
 		}
 
 		Tree_Iterator& operator++()
@@ -298,6 +301,11 @@ namespace Pastel
 			return (Node*)Base::node_;
 		}
 	};
+
+}
+
+namespace Pastel
+{
 
 	template <typename Data>
 	Tree_Iterator<Data> root(Tree_Iterator<Data> that)

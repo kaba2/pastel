@@ -50,6 +50,7 @@ namespace
 		{
 			test();
 			testInsert();
+			testNoData();
 			testData();
 			testIterator<ConstIterator>();
 			testIterator<Iterator>();
@@ -192,6 +193,12 @@ namespace
 				TEST_ENSURE(same(detached, correctSet));
 				TEST_ENSURE_OP(detached.size(), ==, 3);
 			}
+		}
+
+		void testNoData()
+		{
+			Tree<void> tree;
+			tree.insertRoot();
 		}
 
 		void testData()
