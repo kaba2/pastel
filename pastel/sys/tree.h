@@ -27,6 +27,7 @@ namespace Pastel
 	{
 	public:
 		typedef Type Data;
+        typedef typename AsClass<Data>::type Data_Class;
 
 		typedef Tree_Iterator<Data> Iterator;
 		typedef Tree_ConstIterator<Data> ConstIterator;
@@ -38,7 +39,6 @@ namespace Pastel
 		typedef Tree_::Node Node;
 		typedef Tree_::Data_Node<Data> Data_Node;
 		typedef Tree_::Sentinel_Node Sentinel_Node;
-        typedef typename AsClass<Data>::type Data_Class;
 
 	public:
 		//! Construct an empty tree.
@@ -1183,42 +1183,6 @@ namespace Pastel
 		Node* root_;
 		integer size_;
 	};
-
-	template <typename Type>
-	Tree_Iterator<Type> begin(Tree<Type>& tree)
-	{
-		return tree.begin();
-	}
-
-	template <typename Type>
-	Tree_ConstIterator<Type> begin(const Tree<Type>& tree)
-	{
-		return tree.begin();
-	}
-
-	template <typename Type>
-	Tree_ConstIterator<Type> cbegin(const Tree<Type>& tree)
-	{
-		return tree.cbegin();
-	}
-
-	template <typename Type>
-	Tree_Iterator<Type> end(Tree<Type>& tree)
-	{
-		return tree.end();
-	}
-
-	template <typename Type>
-	Tree_ConstIterator<Type> end(const Tree<Type>& tree)
-	{
-		return tree.end();
-	}
-
-	template <typename Type>
-	Tree_ConstIterator<Type> cend(const Tree<Type>& tree)
-	{
-		return tree.cend();
-	}
 
 }
 
