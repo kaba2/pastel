@@ -1,5 +1,3 @@
-project (Pastel)
-
 if (BuildLibraries)
 	add_subdirectory ("sys")
 	add_subdirectory ("math")

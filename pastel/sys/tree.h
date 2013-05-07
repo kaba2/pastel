@@ -152,7 +152,7 @@ namespace Pastel
 		{
 			// Note that we want to preserve the sentinel nodes.
 
-			if (this != &that)
+			if (this == &that)
 			{
 				return *this;
 			}
