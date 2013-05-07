@@ -1,3 +1,5 @@
+// Description: Y-fast trie
+
 #ifndef PASTELSYS_YFASTTRIE_H
 #define PASTELSYS_YFASTTRIE_H
 
@@ -15,7 +17,7 @@ namespace Pastel
 	Preconditions:
 	isPowerOfTwo(N).
 
-	N:
+	N:	
 	The number of bits in a stored integer.
 
 	References
@@ -138,7 +140,7 @@ namespace Pastel
 		*/
 		ConstIterator findLongestSuffix(const Integer& that) const
 		{
-			
+						
 
 			return node;
 		}
