@@ -40,7 +40,7 @@ dependencies between algorithms and data-structures form a directed
 acyclic graph.
 
 For this article, an _algorithm_ is any function written in C++, together 
-with an ambiguous description of the relationship between its input data 
+with an unambiguous description of the relationship between its input data 
 and output data, and its time- and space-complexity. Algorithms are
 identified by all of these properties. An algorithm is called _trivial_ 
 if it uses only trivial data-structures. For example, by this definition 
@@ -279,7 +279,7 @@ encapsulates its state. This is necessary for any data-structure which
 is to preserve invariants. In particular, it is not possible for the 
 user to directly change the next and previous pointers of the nodes. 
 Since the data-structure encapsulates its state, it means that it needs
-to provide some protected way of accesing and traversing its parts. 
+to provide some protected way of accessing and traversing its parts. 
 This is achieved by an iterator. Iterators are not relevant only for
 sequences; in general, an iterator refers to any object which gives a 
 controlled access to the parts of the data-structure, and allows to
@@ -292,7 +292,7 @@ in C++ Standard Library algorithms.
 
 Let us briefly mention the approach we took to implement the iterators.
 Implementing iterators that conform to the C++ Standard Library iterators
-can be a very verbose business. However, there is a way to cut through
+can get verbose. However, there is a way to cut through
 all this redundancy. A particularly often occuring use-case is that
 an existing iterator is to be simply wrapped in an object, and then
 the iterator machinery added on top of that, changing some small
@@ -353,11 +353,11 @@ and the Link. This is useful because it does not make sense to store
 data in the sentinel node. By only allocating a Link object, instead
 of a Node object, for the sentinel solves the problem of how to
 initialize the sentinel node data. In terms of generic programming,
-this may even reduce the number of requirements for the data-type.
+this also reduces the number of requirements for the data-type.
 
 ### Exception-safety
 
-A function is called _exception-safe_, or have the _basic_ exception 
+A function is called _exception-safe_, or has the _basic_ exception 
 safety, if it never leaks resources, even in the presence of exceptions. 
 A function is said to be _strongly_ exception-safe if it either succeeds 
 or does not result in any observable behaviour (commit or rollback).

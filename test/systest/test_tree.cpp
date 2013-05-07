@@ -19,7 +19,23 @@ namespace
 		: public TestSuite
 	{
 	public:
-		typedef Tree<integer> Tree_;
+		class Label
+		{
+		public:
+			Label(integer label_)
+			: label(label_)
+			{
+			}
+
+			operator integer() const
+			{
+				return label;
+			}
+
+			integer label;
+		};
+
+		typedef Tree<Label> Tree_;
 		typedef Tree_::Iterator Iterator;
 		typedef Tree_::ConstIterator ConstIterator;
 		typedef Tree_::Range Range;
@@ -34,6 +50,7 @@ namespace
 		{
 			test();
 			testInsert();
+			testData();
 			testIterator<ConstIterator>();
 			testIterator<Iterator>();
 		}
@@ -174,6 +191,16 @@ namespace
 				TEST_ENSURE_OP(tree.size(), ==, 3);
 				TEST_ENSURE(same(detached, correctSet));
 				TEST_ENSURE_OP(detached.size(), ==, 3);
+			}
+		}
+
+		void testData()
+		{
+			Tree_ tree;
+			Iterator aIter = tree.insertRoot(0);
+			{
+				TEST_ENSURE_OP(*aIter, ==, 0);
+				TEST_ENSURE_OP(aIter->label, ==, 0);
 			}
 		}
 

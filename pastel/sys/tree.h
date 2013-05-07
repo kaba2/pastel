@@ -6,6 +6,7 @@
 #include "pastel/sys/destruct.h"
 #include "pastel/sys/tree_node.h"
 #include "pastel/sys/tree_iterator.h"
+#include "pastel/sys/object_forwarding.h"
 
 namespace Pastel
 {
@@ -37,6 +38,7 @@ namespace Pastel
 		typedef Tree_::Node Node;
 		typedef Tree_::Data_Node<Data> Data_Node;
 		typedef Tree_::Sentinel_Node Sentinel_Node;
+        typedef typename AsClass<Data>::type Data_Class;
 
 	public:
 		//! Construct an empty tree.
@@ -445,14 +447,14 @@ namespace Pastel
 		returns:
 		An iterator to the root node.
 		*/
-		Iterator insertRoot(const Data& data = Data())
+		Iterator insertRoot(Data_Class data = Data_Class())
 		{
 			ENSURE(empty());
 
 			// The children of the sentinel node always
 			// refer to itself. Thus we do not set the
 			// child pointer here.
-			Node* node = allocate(data);
+			Node* node = allocate(std::move(data));
 
 			// Since this is the first actual node in
 			// the tree, it is leftmost, rightmost and
@@ -478,7 +480,7 @@ namespace Pastel
 		Iterator insert(
 			const ConstIterator& here, 
 			integer childIndex,
-			const Data& data = Data())
+			Data_Class data = Data_Class())
 		{
 			ENSURE_OP(childIndex, >=, 0);
 			ENSURE_OP(childIndex, <, 2);
@@ -489,7 +491,7 @@ namespace Pastel
 
 			Node* parent = (Node*)here.node_;
 
-			Node* node = allocate(data);
+			Node* node = allocate(std::move(data));
 			node->parent = parent;
 
 			Node* parentChild = parent->child(childIndex);
@@ -1062,34 +1064,10 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Data_Node* allocate(const Data& data)
+		Data_Node* allocate(Data_Class data)
 		{
-			integer rollBack = 0;
-			Data_Node* node = 0;
-
-			try
-			{
-				node = new Data_Node(sentinel_);
-				++rollBack;
-			
-				if (node->data())
-				{
-					new (node->data()) Data(data);
-					++rollBack;
-				}
-			}
-			catch(...)
-			{
-				switch(rollBack)
-				{
-				case 1:
-					delete node;
-					break;
-				};
-
-				throw;
-			}
-
+			Data_Node* node =
+                new Data_Node(sentinel_, std::move(data));
 			++size_;
 
 			return node;
@@ -1107,16 +1085,10 @@ namespace Pastel
 		{
 			ASSERT(node);
 			ASSERT(!node->empty());
+            ASSERT_OP(size_, >, 0);
 
-			if (node->data())
-			{
-				destruct(node->data());
-			}
 			delete node;
-
 			--size_;
-
-			ASSERT_OP(size_, >=, 0);
 		}
 
 		void copyConstruct(
