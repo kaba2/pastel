@@ -1,0 +1,5 @@
+Geometrically-distributed random numbers
+========================================
+
+[[Parent]]: random_discrete.txt
+
