@@ -6,8 +6,8 @@ Building the Pastel library
 This section describes how to build the Pastel library. 
 
 Since Pastel uses C++11 features, it requires a recent compiler to
-be built. Pastel has been successfully built with Visual Studio 2010, 
-gcc 4.6.3, gcc 4.7.1, and clang 3.1.
+be built. Pastel has been successfully built with Visual Studio 2012
+(+ Update 2 + Compiler Update), gcc 4.6.3, gcc 4.7.1, and clang 3.1.
 
 __Note__: While the source code contains Visual Studio specific 
 build files, you should ignore them, and follow the build process 
@@ -26,77 +26,84 @@ See the [dependencies][Dependencies] page.
 
 [Dependencies]: [[Ref]]: dependencies.txt
 
-### 2. Install Premake
+### 2. Install CMake
 
-Pastel uses the [Premake][Premake] build-script generator to turn
-cross-platform building into a trivial task. Premake is a program, 
-contained in a single executable, which reads in a generic 
-build-script and outputs a tool-specific build-script. 
+Pastel uses the [CMake][CMake] build-script generator to turn
+cross-platform builds into a trivial task. CMake is a program
+which reads in a generic build-script and outputs a tool-specific 
+build-script (e.g. Unix makefiles, Visual Studio projects, etc.)
 
-Premake can be downloaded from [here][DownloadPremake]. You might want 
-to make it so that it can be invoked from any location, or alternatively 
-just copy it to the Pastel root directory.
+CMake can be downloaded from [here][DownloadCMake]. 
 
 ### 3. Set the external library directories
 
-In the Pastel root directory, open the file `premake4.lua`, and modify
+In the Pastel root directory, open the file `CMakeLists.cmake`, and modify
 the directories to refer to the locations you installed the external 
 libraries at in step 1.
 
-	-- The directory of the Boost library's source code.
-	-- The includes are of the form 'boost/static_assert.hpp'.
-	boostIncludeDir = "../boost_1_51_0"
+	# The directory of the Boost library's source code.
+	# The includes are of the form 'boost/static_assert.hpp'.
+	set (BoostIncludeDirectory ../boost_1_53_0)
 
-### 4. Generate tool-specific build-scripts using Premake. 
+	# The directory of the Matlab header files.
+	# The includes are of the form 'mex.h'.
+	set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
 
-In the Pastel root directory, type
+### 4. Generate tool-specific build-scripts using CMake. 
 
-	premake4 action
+In the Pastel `build/` directory, type
 
-where `action` describes the tool-set you want to generate
-the build-scripts for (Visual Studio, gcc and makefiles, etc.). 
-To see the supported tool-sets, type
+	cmake 
 
-	premake4 --help
+to see the supported tool-sets (generators) on your platform.
+Then call cmake similarly to:
 
-### 5. Choose configuration and build
-	
-Go to the generated directory `build/action/`, where `action`
-is the tool-set you chose in step 4, choose the desired configuration,
-and start the build.
+	cmake .. -G "Unix Makefiles"
+
+where the `G` option specifies the tool-set to generate
+the build-scripts for (here demonstrated for makefiles).
+
+Note: If you want to generate build-scripts for other tool-sets
+later, you need to first remove the `CMakeCache.txt` file.
+The purpose of this file is to remember options so that they
+need not specified repeatedly.
 
 Configurations
 --------------
 
-Pastel comes with four different build configurations. These are:
+Pastel comes with two different build configurations. These are:
 
  * debug
- * develop
  * release
- * release-without-openmp
 
 The `debug` configuration enables debugging information and turns on all
-[ASSERTs and PENSUREs][InvariantChecking]. All other configurations 
-disable debugging information. The `develop` version retains `ASSERT`s and 
-`PENSURE`s, while `release` and `release-without-openmp` removes them. The 
-`release-without-openmp` configuration is otherwise equivalent to `release` 
-configuration, but disables OpenMP (e.g. when your tool-set does not
-support it, as is the case with Express versions of Visual Studio). Only
-the `release` configuration enables OpenMP.
+[ASSERTs and PENSUREs][InvariantChecking]. The `release` configuration 
+disables debugging information, and enables multi-core processing for
+some algorithms.
 
-Property / Config  | debug | develop | release | release-without-openmp
--------------------|-------|---------|---------|-----------------------
-ASSERT and PENSURE | x     | x       |         |
-OpenMP             |       |         | x       |
-Debug information  | x     |         |         |
+Property / Config  | debug |release |
+-------------------|-------|--------|
+ASSERT and PENSURE | x     |        |
+Debug information  | x     |        |
+Multiple cores     |       | x      |
 
 [InvariantChecking]: [[Ref]]: ensure.txt
 
 Building
 --------
 
-When Premake has generated you the build-scripts, you probably already
+When CMake has generated you the build-scripts, you probably already
 know how to proceed. However, here are some specific examples:
+
+### Makefiles
+
+In the `build/` directory, run
+
+	make -j 8
+
+The `j` option specifies the number of threads to use in
+the building process. On multi-core machines this shortens the
+build-times dramatically.
 
 ### Visual Studio
 
@@ -105,28 +112,16 @@ To build Pastel using Visual Studio:
  * Open the solution file `Pastel.sln`. 
  * Right click on the solution in Solution Explorer, and choose 
  Configuration Manager. 
- * Select the desired Active Solution Configuration.
+ * Select the desired Active Solution Configuration as Release
+ (or Debug if you want to do debugging).
  * Build solution.
-
-### Makefiles
-
-To build Pastel using makefiles, type 
-	
-	make config=configuration
-
-Where `configuration` is one of the configurations listed in the
-previous section. To obtain further information, type 
-
-	make help 
 
 Output files
 ------------
 
-The libraries and executables will be written to the `lib/`
-sub-directory of the `build/action/` directory. The intermediate
-files, such as object files, will be written to the `obj/`
-sub-directory of the `build/action` directory.
+The libraries and executables will be written under the `build/`
+directory.
 
-[Premake]: http://industriousone.com/premake
+[CMake]: http://www.cmake.org/
 
-[DownloadPremake]: http://industriousone.com/premake/download
+[DownloadCMake]: http://www.cmake.org/cmake/resources/software.html
