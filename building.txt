@@ -49,6 +49,10 @@ libraries at in step 1.
 	# The includes are of the form 'mex.h'.
 	set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
 
+If you also want to build the Matlab libraries, then open `build_pastel.m`
+in the `pastel/` sub-directory, and modify the Boost include path 
+correspondingly.
+
 ### 4. Generate tool-specific build-scripts using CMake. 
 
 * In the Pastel root directory, create the `build/` directory.
