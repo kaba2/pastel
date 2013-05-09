@@ -53,36 +53,33 @@ libraries at in step 1.
 
 * In the Pastel root directory, create the `build/` directory.
 * In the Pastel `build/` directory, type
-
-	cmake-gui ..
-
+		cmake-gui ..
 * Press the `Configure` button.
 * Select the tool-set to generate build-scripts for
 from the menu.
-* Press the `Configure` button again.
 * Make sure the `Advanced` button is not checked.
-* Select the desired build options. They are:
+* Select the desired build options.
+* Press the `Configure` button again.
 
-	BuildExamples
-	: Whether to build Pastel's example executables.
+The build options are:
 
-	BuildLibraries
-	: Whether to build Pastel's core libraries.
+BuildExamples
+: Whether to build Pastel's example executables.
 
-	BuildMatlab
-	: Whether to build Pastel's Matlab libraries.
+BuildLibraries
+: Whether to build Pastel's core libraries.
 
-	BuildTests
-	: Whether to build Pastel's test executables.
+BuildMatlab
+: Whether to build Pastel's Matlab libraries.
 
-	LargeIntegers
-	: Whether to make integers at least as large
-	as pointers.
+BuildTests
+: Whether to build Pastel's test executables.
 
-	SharedLibraries
-	: Whether to build shared libraries rather than
-	static libraries. The Matlab libraries will always
-	be built as static libraries.
+LargeIntegers
+: Whether to make integers at least as large as pointers.
+
+SharedLibraries
+: Whether to build shared libraries rather than static libraries. The Matlab libraries will always be built as static libraries.
 
 Note: If you want to change the tool-set later, you need
 to remove the `CMakeCache.txt` file, and run these 
