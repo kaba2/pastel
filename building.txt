@@ -64,6 +64,7 @@ from the menu.
 * Make sure the `Advanced` button is not checked.
 * Select the desired build options.
 * Press the `Configure` button again.
+* Press the `Generate` button.
 
 The build options are:
 
