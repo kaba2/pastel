@@ -37,7 +37,7 @@ CMake can be downloaded from [here][DownloadCMake].
 
 ### 3. Set the external library directories
 
-In the Pastel root directory, open the file `CMakeLists.cmake`, and modify
+In the Pastel root directory, open the file `CMakeLists.txt`, and modify
 the directories to refer to the locations you installed the external 
 libraries at in step 1.
 
@@ -84,6 +84,12 @@ LargeIntegers
 
 SharedLibraries
 : Whether to build shared libraries rather than static libraries. The Matlab libraries will always be built as static libraries.
+
+Parallel
+: Whether to parallelize some of the algorithms. Currently
+this requires OpenMp; the aim is to switch use Intel Threading
+Building Blocks. Note: Express versions of Visual Studio do 
+not support OpenMp.
 
 Note: If you want to change the tool-set later, you need
 to remove the `CMakeCache.txt` file, and run these 
