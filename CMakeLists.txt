@@ -71,6 +71,48 @@ set (PastelLibraryType STATIC)
 # The source files to include in the build.
 set (PastelSourceGlobSet *.cpp *.h *.hpp)
 
+# Set a default build type if none was specified.
+# This only applies to single-configuration tool-sets,
+# such as Unix Makefiles.
+if (NOT CMAKE_BUILD_TYPE AND 
+	NOT CMAKE_CONFIGURATION_TYPES)
+	message(STATUS 
+		"Setting build type to 'Release' as none was specified.")
+	set(CMAKE_BUILD_TYPE Release CACHE STRING 
+		"Choose the type of build." FORCE)
+	# Set the possible values of build types for cmake-gui.
+	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS 
+ 		"Debug" 
+  		"Release")
+endif()
+
+string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
+
+# The directory to place the static libraries.
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY 
+	${CMAKE_BINARY_DIR}/${LOWER_CMAKE_BUILD_TYPE}/lib)
+
+# The directory to place the shared libraries.
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY 
+	${CMAKE_BINARY_DIR}/${LOWER_CMAKE_BUILD_TYPE}/lib)
+
+# The directory to place the built executables.
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY 
+	${CMAKE_BINARY_DIR}/${LOWER_CMAKE_BUILD_TYPE}/bin)
+
+# This is for the multi-configuration build-scripts
+# (such as Visual Studio or XCode).
+foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+    string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
+    string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
+    	${CMAKE_BINARY_DIR}/${LOWER_OUTPUTCONFIG}/bin)
+    set (CMAKE_LIBRARY_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
+    	${CMAKE_BINARY_DIR}/${LOWER_OUTPUTCONFIG}/lib)
+    set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
+    	${CMAKE_BINARY_DIR}/${LOWER_OUTPUTCONFIG}/lib)
+endforeach()
+
 # Pastel's global definitions
 # ---------------------------
 

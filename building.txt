@@ -51,22 +51,43 @@ libraries at in step 1.
 
 ### 4. Generate tool-specific build-scripts using CMake. 
 
-In the Pastel `build/` directory, type
+* In the Pastel root directory, create the `build/` directory.
+* In the Pastel `build/` directory, type
 
-	cmake 
+	cmake-gui ..
 
-to see the supported tool-sets (generators) on your platform.
-Then call cmake similarly to:
+* Press the `Configure` button.
+* Select the tool-set to generate build-scripts for
+from the menu.
+* Press the `Configure` button again.
+* Make sure the `Advanced` button is not checked.
+* Select the desired build options. They are:
 
-	cmake .. -G "Unix Makefiles"
+	BuildExamples
+	: Whether to build Pastel's example executables.
 
-where the `G` option specifies the tool-set to generate
-the build-scripts for (here demonstrated for makefiles).
+	BuildLibraries
+	: Whether to build Pastel's core libraries.
 
-Note: If you want to generate build-scripts for other tool-sets
-later, you need to first remove the `CMakeCache.txt` file.
-The purpose of this file is to remember options so that they
-need not specified repeatedly.
+	BuildMatlab
+	: Whether to build Pastel's Matlab libraries.
+
+	BuildTests
+	: Whether to build Pastel's test executables.
+
+	LargeIntegers
+	: Whether to make integers at least as large
+	as pointers.
+
+	SharedLibraries
+	: Whether to build shared libraries rather than
+	static libraries. The Matlab libraries will always
+	be built as static libraries.
+
+Note: If you want to change the tool-set later, you need
+to remove the `CMakeCache.txt` file, and run these 
+instructions again. The purpose of this file is to remember 
+options so that they need not specified repeatedly.
 
 Configurations
 --------------
@@ -114,13 +135,26 @@ To build Pastel using Visual Studio:
  Configuration Manager. 
  * Select the desired Active Solution Configuration as Release
  (or Debug if you want to do debugging).
- * Build solution.
+ * Build the solution (F7).
+
+### XCode
+
+To build Pastel in XCode 4:
+
+ * Open the solution file `Pastel.xcodeproj`.
+ * In the menu at the top of the screen, choose 
+ `Product` --> `Scheme` --> `Edit scheme...`.
+ * Select the Build Configuration as Release
+ (or Debub if you want to do debugging).
+ * Build the solution (Shift + Command + R, or the play button).
 
 Output files
 ------------
 
-The libraries and executables will be written under the `build/`
-directory.
+The libraries will be placed in the `build/config/lib/` directory, and
+the executables will be placed in the `build/config/bin/` directory,
+where the `config` corresponds to either `debug` or `release`, depending
+on the chosen configuration.
 
 [CMake]: http://www.cmake.org/
 
