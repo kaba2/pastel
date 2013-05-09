@@ -81,9 +81,9 @@ classdef PointKdTree < handle
             % is that here the point already exists, but was hided previously. 
             % Hiding and showing are the preferred way to implement a 
             % semi-dymamic point-set.
+            
             eval(import_pastel);
             
-
             if nargin < 2
                 pastelgeometrymatlab(...
                     'pointkdtree_show', self.kdTree);

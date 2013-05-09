@@ -44,6 +44,7 @@ option (BuildMatlab "Build Pastel's Matlab-libraries." OFF)
 option (BuildTests "Build Pastel's tests." OFF)
 option (BuildExamples "Build Pastel's examples." OFF)
 option (SharedLibraries "Produce shared libraries." OFF)
+option (Parallel "Parallelize some of the algorithms." ON)
 # Whether the 'integer'-type should be as large as a pointer (vs 32-bit).
 option (LargeIntegers "Use pointer-sized integers." OFF)
 
@@ -64,6 +65,15 @@ endif()
 
 # Global variables for the build-script
 # -------------------------------------
+
+# Do-it-yourself clang detection
+# Under Mac Os X the clang compiler is aliased to c++
+# (or something like that; I don't know why cmake
+# finds my compiler as /usr/bin/c++).
+if (CMAKE_CXX_COMPILER MATCHES "(.*clang)|(.*c\\+\\+)")
+	set (CMAKE_COMPILER_IS_CLANGXX 1)
+	set (CMAKE_COMPILER_ID Clang)
+endif ()
 
 # By default, the libraries are built static.
 set (PastelLibraryType STATIC)
@@ -131,33 +141,27 @@ if (LargeIntegers)
 	)
 endif()
 
-# Enable ASSERTs and PENSUREs in debug mode.
-set_property (GLOBAL APPEND PROPERTY 
-	COMPILE_DEFINITIONS_DEBUG
-	PASTEL_DEBUG_MODE
-	PASTEL_ENABLE_PENSURES)
+# Debug-mode definitions.
+set (CMAKE_CXX_FLAGS_DEBUG 
+	"${CMAKE_CXX_FLAGS_DEBUG} -DPASTEL_DEBUG_MODE -DPASTEL_ENABLE_PENSURES"
+)
 
-# Visual Studio
-# -------------
+if (CMAKE_COMPILER_IS_CLANGXX)
+	if (Parallel)
+		message (STATUS 
+			"Clang does not support OpenMp yet; disabling the Parallel option.")
+		set (Parallel OFF)
+	endif()
+endif()
 
-if ("${CMAKE_COMPILER_ID}" STREQUAL "MSVC")
-	add_definitions (
-		# Disable Microsoft's Secure STL
-		_ITERATOR_DEBUG_LEVEL=0
+if (Parallel)
+	set (CMAKE_CXX_FLAGS_RELEASE 
+		"${CMAKE_CXX_FLAGS_RELEASE} -DPASTEL_ENABLE_OPENMP"
 	)
 endif()
 
 # clang and g++
 # -------------
-
-# Do-it-yourself clang detection
-# Under Mac Os X the clang compiler is aliased to c++
-# (or something like that; I don't know why cmake
-# finds my compiler as /usr/bin/c++).
-if (CMAKE_CXX_COMPILER MATCHES "(.*clang)|(.*c\\+\\+)")
-	set (CMAKE_COMPILER_IS_CLANGXX 1)
-	set (CMAKE_COMPILER_ID Clang)
-endif ()
 
 if (CMAKE_COMPILER_IS_GNUGXX OR CMAKE_COMPILER_IS_CLANGXX) 
 	# Same flags apply to both g++ and clang.
@@ -171,8 +175,20 @@ if (CMAKE_COMPILER_IS_GNUGXX OR CMAKE_COMPILER_IS_CLANGXX)
 	)
 
 	# Enables C++11 linker support.
-	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
-	set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
+	set (CMAKE_EXE_LINKER_FLAGS 
+		"${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
+	set (CMAKE_SHARED_LINKER_FLAGS 
+		"${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
+
+	if (Parallel)
+		# Enable OpenMp support.
+		set (CMAKE_CXX_FLAGS_RELEASE 
+			"${CMAKE_CXX_FLAGS_RELEASE} -fopenmp")
+		set (CMAKE_EXE_LINKER_FLAGS_RELEASE
+			"${CMAKE_EXE_LINKER_FLAGS_RELEASE} -lgomp")
+		set (CMAKE_SHARED_LINKER_FLAGS_RELEASE
+			"${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -lgomp")
+	endif()
 
 	# Disable some warnings.
 	add_definitions (
@@ -200,6 +216,54 @@ if (CMAKE_COMPILER_IS_GNUGXX OR CMAKE_COMPILER_IS_CLANGXX)
 		# unsigned integer.
 		-Wno-tautological-compare
 	)
+endif()
+
+# Visual Studio
+# -------------
+
+if (MSVC)
+	if (Parallel)
+		# Enable OpenMp support.
+		set (CMAKE_CXX_FLAGS_RELEASE 
+			${CMAKE_CXX_FLAGS_RELEASE} 
+			/openmp
+		)
+	endif()
+
+	add_definitions (
+		# Disable Microsoft's Secure STL
+		_ITERATOR_DEBUG_LEVEL=0
+	)
+
+	# Disable some warnings.
+	add_definitions (
+		/openmp
+		# "'identifier' : truncation from 'type1' to 'type2'"
+		/wd4305
+		# "'argument' : conversion from 'type1' to 'type2', possible loss of data."
+		/wd4244
+		# "'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'"
+		/wd4251 
+		# "new behavior: elements of array 'array' will be default initialized"
+		/wd4351
+		# "'function': was declared deprecated" (referring to STL functions)
+		/wd4996
+		# "'var' : conversion from 'size_t' to 'type', possible loss of data"
+		/wd4267
+		# "'expression' : signed/unsigned mismatch"
+		/wd4018 
+		# "'operation' : conversion from 'type1' to 'type2' of greater size"
+		/wd4312
+		# "nonstandard extension used : formal parameter 'identifier' was previously defined as a type"
+		/wd4224
+		# "qualifier applied to function type has no meaning; ignored"
+		/wd4180
+		# "'type' : forcing value to bool 'true' or 'false' (performance warning)"
+		/wd4800 
+		# "'operation' : unsafe use of type 'bool' in operation"
+   		/wd4804
+	)
+
 endif()
 
 # Recurse to sub-projects
