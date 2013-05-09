@@ -4,5 +4,6 @@
 #define PASTELSYS_RANDOM_DISCRETE_H
 
 #include "pastel/sys/random_integer.h"
+#include "pastel/sys/random_geometric.h"
 
 #endif
