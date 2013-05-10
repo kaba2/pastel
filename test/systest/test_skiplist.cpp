@@ -1,0 +1,141 @@
+// Description: Testing for SkipList
+// DocumentationOf: skiplist.h
+
+#include "test_pastelsys.h"
+
+#include "pastel/sys/skiplist.h"
+
+#include <boost/range/adaptor/reversed.hpp> 
+
+#include <iostream>
+#include <list>
+
+using namespace Pastel;
+
+namespace
+{
+
+	class Test
+		: public TestSuite
+	{
+	public:
+		Test()
+			: TestSuite(&testReport())
+		{
+		}
+
+		virtual void run()
+		{
+			testRandom();
+			testSimple();
+		}
+
+		typedef SkipList<integer> List;
+		typedef List::Iterator Iterator;
+		typedef List::ConstIterator ConstIterator;
+
+		void testRandom()
+		{
+			List list;
+
+			std::list<integer> dataSet;
+
+			const integer listSizeSet[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1000};
+			const integer listSizes = sizeof(listSizeSet) / sizeof(integer);
+
+			for (integer k = 0;k < listSizes;++k)
+			{
+				const integer listSize = listSizeSet[k];
+				list.clear();
+				dataSet.clear();
+				for (integer i = 0;i < listSize;++i)
+				{
+					const integer n = randomInteger();
+					dataSet.push_back(n);
+
+					list.insert(n);
+
+					if (list.size() > listSize)
+					{
+						list.erase(dataSet.front());
+						dataSet.pop_front();
+					}
+				}
+			}
+
+			{
+				List copyList(list);
+				copyList.swap(list);
+			}
+		}
+
+		void testSimple()
+		{
+			List list;
+
+			list.insert(1);
+			list.insert(5);
+			list.insert(3);
+			list.insert(4);
+			list.insert(8);
+			list.insert(7);
+			list.insert(6);
+			list.insert(9);
+			list.insert(2);
+			{
+				integer correctSet[] = 
+				{
+					1, 2, 3, 4, 5, 6, 7, 8, 9
+				};
+				TEST_ENSURE(boost::equal(
+					range(list.cbegin(), list.cend()), 
+					range(correctSet)));
+			}
+
+			{
+				// The iterator should stay on end().
+				ConstIterator copyIter = list.cend();
+				++copyIter;
+				TEST_ENSURE(copyIter == list.cend());
+			}
+
+			{
+				integer correctSet[] = 
+				{
+					9, 8, 7, 6, 5, 4, 3, 2, 1
+				};
+
+				TEST_ENSURE(boost::equal(
+					range(list.cbegin(), list.cend()) | boost::adaptors::reversed, 
+					range(correctSet)));
+			}
+
+			{
+				// The iterator should stay on begin().
+				ConstIterator copyIter = list.cbegin();
+				--copyIter;
+				TEST_ENSURE(copyIter == list.cbegin());
+			}
+
+			TEST_ENSURE(list.find(3) != list.end());
+			TEST_ENSURE(list.find(-1) == list.end());
+			TEST_ENSURE(list.find(10) == list.end());
+			TEST_ENSURE(list.find(9) != list.end());
+			TEST_ENSURE(list.find(1) != list.end());
+		}
+	};
+
+	void testRedBlackList()
+	{
+		Test test;
+		test.run();
+	}
+
+	void addTest()
+	{
+		testRunner().add("RedBlackList", testRedBlackList);
+	}
+
+	CallFunction run(addTest);
+
+}
