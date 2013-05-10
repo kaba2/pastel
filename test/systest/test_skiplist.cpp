@@ -26,8 +26,8 @@ namespace
 
 		virtual void run()
 		{
-			testRandom();
 			testSimple();
+			//testRandom();
 		}
 
 		typedef SkipList<integer> List;
@@ -125,7 +125,7 @@ namespace
 		}
 	};
 
-	void testRedBlackList()
+	void test()
 	{
 		Test test;
 		test.run();
@@ -133,7 +133,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("RedBlackList", testRedBlackList);
+		testRunner().add("SkipList", test);
 	}
 
 	CallFunction run(addTest);

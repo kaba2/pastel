@@ -144,7 +144,7 @@ namespace
 		}
 	};
 
-	void testRedBlackTree()
+	void test()
 	{
 		Test test;
 		test.run();
@@ -152,7 +152,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("RedBlackTree", testRedBlackTree);
+		testRunner().add("RedBlackTree", test);
 	}
 
 	CallFunction run(addTest);

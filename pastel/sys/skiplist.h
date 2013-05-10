@@ -156,13 +156,13 @@ namespace Pastel
 			integer n = sentinel_->size();
 			for (integer i = 0;i < n;++i)
 			{
-				if (sentinel_->link<true>(i) != sentinel_)
+				if (sentinel_->link<true>(i) != sentinel_.get())
 				{
 					// Splice the non-empty lists into this
 					// skip-list.
-					link(sentinel_, that.sentinel_->link<true>(i), i);
-					link(that.sentinel_->link<false>(i), sentinel_);
-					link(that.sentinel_, that.sentinel_, i);
+					link(sentinel_.get(), that.sentinel_->link<true>(i), i);
+					link(that.sentinel_->link<false>(i), sentinel_.get(), i);
+					link(that.sentinel_.get(), that.sentinel_.get(), i);
 				}
 			}
 
@@ -232,7 +232,7 @@ namespace Pastel
 			// Choose the number of levels in a node
 			// as a geometrically-distributed random
 			// number.
-			integer levels = std::max(
+			integer levels = std::min(
 					randomGeometric<real>(levelRatio_) + 1,
 					maxLevels());
 
@@ -245,9 +245,10 @@ namespace Pastel
 			{
 				Node* next = node->link<true>(i);
 				while (next != end && 
-					Compare()(that, *(Data_Node*)next))
+					Compare()(*(Data_Node*)next, that))
 				{
 					node = next;
+					next = node->link<true>(i);
 				}
 				if (i < levels)
 				{
@@ -402,7 +403,7 @@ namespace Pastel
 			ConstIterator result = lower_bound(that);
 			if (Compare()(that, *result))
 			{
-				return end();
+				return cend();
 			}
 			
 			return result;
@@ -571,8 +572,18 @@ namespace Pastel
 		void initialize()
 		{
 			ASSERT(!sentinel_.get());
-			const integer maxLevels = 64;
+			const integer maxLevels = 1;
+
 			sentinel_.reset(new Node(maxLevels));
+
+			// Link the sentinel node to itself.
+			Node* node = sentinel_.get();
+			integer n = node->size();
+			for (integer i = 0;i < n;++i)
+			{
+				link(node, node, i);
+			}
+
 		}
 
 		template <bool Direction>
@@ -587,7 +598,7 @@ namespace Pastel
 				Node* next = node->link<Direction>(i);
 				while (next != end && 
 					SkipList_::Directed_Compare<Compare, Direction>()(
-						that, (const Type_Class&)*next))
+						(const Type_Class&)*next, that))
 				{
 					node = next;
 				}
