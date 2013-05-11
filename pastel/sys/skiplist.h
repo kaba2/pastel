@@ -12,33 +12,52 @@
 namespace Pastel
 {
 
-	template <typename Type_>
 	class Default_SkipList_Settings
 	{
 	public:
-		typedef Type_ Type;
 		typedef LessThan Compare;
 	};
 
+	//! Skip list
+	/*!
+	Space complexity:
+	O(size()) expected
+
+	Key:
+	The type of the key by which elements are ordered.
+
+	Value:
+	The type of the data associated with a given key. 
+	Setting this to void avoids allocating any memory 
+	for the associated data. In addition, while normally
+	skip list iterators dereference to the value, 
+	after setting Value to void iterators dereference 
+	to the key.
+
+	Settings:
+	A type implementing the SkipList_Settings concept.
+	*/
 	template <
-		typename Type_, 
-		typename Settings_ = Default_SkipList_Settings<Type_>>
+		typename Key_, 
+		typename Value_ = void,
+		typename Settings_ = Default_SkipList_Settings>
 	class SkipList
 	{
 	public:
-		typedef Type_ Type;
+		typedef Key_ Key;
+		typedef Value_ Value;
 		typedef Settings_ Settings;
 		typedef typename Settings::Compare Compare;
-		typedef typename AsClass<Type>::type Type_Class;
+		typedef typename AsClass<Value>::type Value_Class;
 
 	private:
 		typedef SkipList_::Node Node;
-		typedef SkipList_::Data_Node<Type_Class> Data_Node;
+		typedef SkipList_::Data_Node<Key, Value_Class> Data_Node;
 
 	public:
-		typedef SkipList_::Iterator<Node*, Type_Class> 
+		typedef SkipList_::Iterator<Node*, Key, Value_Class> 
 			Iterator;
-		typedef SkipList_::Iterator<const Node*, Type_Class> 
+		typedef SkipList_::Iterator<const Node*, Key, Value_Class> 
 			ConstIterator;
 
 		// These are aliases for compatibility between boost ranges.
@@ -78,9 +97,9 @@ namespace Pastel
 
 			try
 			{
-				for (const Type_Class& element : that)
+				for (auto iter = that.cbegin();iter != that.cend();++iter)
 				{
-					insert(element);
+					insert(iter.key(), iter.value());
 				}
 			}
 			catch(...)
@@ -108,7 +127,7 @@ namespace Pastel
 			initialize();
 
 			// We want to preserve the sentinel
-			// node in 'that'. This is why we
+			// node in 'key'. This is why we
 			// don't use the usual swap() here.
 			*this = std::move(that);
 		}
@@ -249,7 +268,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Iterator insert(Type_Class that)
+		Iterator insert(Key key, Value_Class value = Value_Class())
 		{
 			// Choose the number of levels in a node
 			// as a geometrically-distributed random
@@ -267,7 +286,7 @@ namespace Pastel
 			{
 				Node* next = node->link<true>(i);
 				while (next != end && 
-					Compare()(*(Data_Node*)next, that))
+					Compare()(((Data_Node*)next)->key(), key))
 				{
 					node = next;
 					next = node->link<true>(i);
@@ -282,7 +301,7 @@ namespace Pastel
 			// Create a new node with the given number
 			// of levels and the given data.
 			Data_Node* newNode =
-				new Data_Node(levels, std::move(that));
+				new Data_Node(levels, std::move(key), std::move(value));
 
 			for (integer i = 0;i < levels;++i)
 			{
@@ -302,12 +321,12 @@ namespace Pastel
 			return Iterator(newNode);
 		}
 
-		//! Removes all elements equivalent to 'that'.
+		//! Removes all elements equivalent to 'key'.
 		/*!
 		Time complexity:
 		O(k)
 		where
-		k is the number of elements equivalent to 'that'.
+		k is the number of elements equivalent to 'key'.
 
 		An element x is equivalent to element y if
 		!(x < y) && !(y < x), where < is the comparison
@@ -316,18 +335,18 @@ namespace Pastel
 		returns:
 		The iterator following the last removed element.
 		*/
-		Iterator erase(Type_Class that)
+		Iterator erase(Key key)
 		{
-			// Note that we take 'that' by value;
+			// Note that we take 'key' by value;
 			// a reference could point to one of
 			// the nodes being removed.
 
-			ConstIterator iter = lower_bound(that);
+			ConstIterator iter = lower_bound(key);
 
-			// Remove all elements equivalent to 'that'.
+			// Remove all elements equivalent to 'key'.
 			while(iter != cend() && 
-				!Compare()(*iter, that) &&
-				!Compare()(that, *iter))
+				!Compare()(iter.key(), key) &&
+				!Compare()(key, iter.key()))
 			{
 				iter = erase(iter);
 			}
@@ -344,7 +363,7 @@ namespace Pastel
 		nothrow
 
 		returns:
-		The iterator following 'that'.
+		The iterator following 'key'.
 		*/
 		Iterator erase(const ConstIterator& that)
 		{
@@ -386,7 +405,7 @@ namespace Pastel
 			return Iterator((Node*)that.base());
 		}
 
-		//! Returns the first element == 'that'.
+		//! Returns the first element == 'key'.
 		/*!
 		Time complexity:
 		O(log(size())) expected
@@ -398,11 +417,11 @@ namespace Pastel
 		An iterator to the element, if found,
 		end(), otherwise.
 		*/
-		Iterator find(const Type_Class& that)
+		Iterator find(const Key& key)
 		{
-			Iterator result = lower_bound(that);
+			Iterator result = lower_bound(key);
 			if (result == end() ||
-				Compare()(that, *result))
+				Compare()(key, result.key()))
 			{
 				return end();
 			}
@@ -410,7 +429,7 @@ namespace Pastel
 			return result;
 		}
 
-		//! Returns the first element equivalent to 'that'.
+		//! Returns the first element equivalent to 'key'.
 		/*!
 		Time complexity:
 		O(log(size())) expected
@@ -422,11 +441,11 @@ namespace Pastel
 		An iterator to the element, if found,
 		cend(), otherwise.
 		*/
-		ConstIterator find(const Type_Class& that) const
+		ConstIterator find(const Key& key) const
 		{
-			ConstIterator result = lower_bound(that);
+			ConstIterator result = lower_bound(key);
 			if (result == cend() ||
-				Compare()(that, *result))
+				Compare()(key, result->key()))
 			{
 				return cend();
 			}
@@ -434,7 +453,7 @@ namespace Pastel
 			return result;
 		}
 
-		//! Returns the first element >= 'that'.
+		//! Returns the first element >= 'key'.
 		/*!
 		Time complexity:
 		O(log(size())) expected
@@ -442,12 +461,12 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		Iterator lower_bound(const Type_Class& that)
+		Iterator lower_bound(const Key& key)
 		{
-			return Iterator(nodeBound<true>(that));
+			return Iterator(nodeBound<true>(key));
 		}
 
-		//! Returns the first element >= 'that'.
+		//! Returns the first element >= 'key'.
 		/*!
 		Time complexity:
 		O(log(size())) expected
@@ -455,12 +474,12 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		ConstIterator lower_bound(const Type_Class& that) const
+		ConstIterator lower_bound(const Key& key) const
 		{
-			return ConstIterator(nodeBound<true>(that));
+			return ConstIterator(nodeBound<true>(key));
 		}
 
-		//! Returns the first element > 'that'.
+		//! Returns the first element > 'key'.
 		/*!
 		Time complexity:
 		O(log(size())) expected
@@ -468,12 +487,12 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		Iterator upper_bound(const Type_Class& that)
+		Iterator upper_bound(const Key& key)
 		{
-			return Iterator(nodeBound<false>(that));
+			return Iterator(nodeBound<false>(key));
 		}
 
-		//! Returns the first element > 'that'.
+		//! Returns the first element > 'key'.
 		/*!
 		Time complexity:
 		O(log(size())) expected
@@ -481,9 +500,9 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		ConstIterator upper_bound(const Type_Class& that) const
+		ConstIterator upper_bound(const Key& key) const
 		{
-			return ConstIterator(nodeBound<false>(that));
+			return ConstIterator(nodeBound<false>(key));
 		}
 
 		//! Returns the number of elements in the skip list.
@@ -617,7 +636,7 @@ namespace Pastel
 				node = node->link_[i].next[1];
 				while(node != list.end_)
 				{
-					std::cout << *(Data_Node*)node << ", ";
+					std::cout << ((Data_Node*)node)->key() << ", ";
 					node = node->link<true>(i);
 				}
 				std::cout << std::endl;
@@ -649,15 +668,14 @@ namespace Pastel
 			delete end_;
 		}
 
-		const Type_Class& nodeData(Node* node) const
+		const Key& nodeKey(Node* node) const
 		{
 			ASSERT(node != end_);
-			return (const Type_Class&)*(Data_Node*)node;
+			return ((Data_Node*)node)->key();
 		}
 
 		template <bool Direction>
-		Node* nodeBound(
-			const Type_Class& that) const
+		Node* nodeBound(const Key& key) const
 		{
 			typedef SkipList_::Directed_Compare<Compare, Direction>
 				Directed_Compare;
@@ -670,7 +688,7 @@ namespace Pastel
 				Node* next = node->link<Direction>(i);
 
 				while (next != end && 
-					Directed_Compare()(nodeData(next), that))
+					Directed_Compare()(nodeKey(next), key))
 				{
 					node = next;
 					next = node->link<Direction>(i);

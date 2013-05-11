@@ -35,12 +35,11 @@ Pastel divides into a number of sub-libraries. These are:
 	title
 
 [[set DocChildren.include]]:
-	file_name pastelgeometry.txt
-	file_name pastelgeometrymatlab.txt
-	file_name pastelgfx.txt
-	file_name pastelmath.txt
-	file_name pastelmatlab.txt
 	file_name pastelsys.txt
+	file_name pastelmath.txt
+	file_name pastelgeometry.txt
+	file_name pastelgfx.txt
+	file_name pastelmatlab.txt
 
 [[DocChildren]]
 

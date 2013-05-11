@@ -49,17 +49,41 @@ namespace Pastel
 			std::vector<Link> link_;
 		};
 
-		template <typename Type_Class>
+		template <
+			typename Key, 
+			typename Value_Class>
 		class Data_Node
 		: public Node
-		, public Type_Class
+		, public Value_Class
 		{
 		public:
-			Data_Node(integer levels, Type_Class data)
+			Data_Node(
+				integer levels, 
+				Key key,
+				Value_Class data)
 			: Node(levels)
-			, Type_Class(std::move(data))
+			, Value_Class(std::move(data))
+			, key_(std::move(key))
 			{
 			}
+
+			const Key& key() const
+			{
+				return key_;
+			}
+
+			Value_Class& value()
+			{
+				return *this;
+			}
+
+			const Value_Class& value() const
+			{
+				return *this;
+			}
+
+		private:
+			Key key_;
 		};
 
 		template <typename Compare, bool Direction>

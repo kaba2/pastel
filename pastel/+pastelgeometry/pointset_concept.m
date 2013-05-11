@@ -1,3 +1,5 @@
+% Description: PointSet concept (Matlab)
+
 function messageSet = pointset_concept(data)
 
 messageSet = {};

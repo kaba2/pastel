@@ -26,8 +26,8 @@ namespace
 
 		virtual void run()
 		{
-			testEmpty();
 			testSimple();
+			testValue();
 			testRandom();
 		}
 
@@ -62,14 +62,35 @@ namespace
 			}
 		}
 
-		void testEmpty()
+		void testValue()
 		{
-			SkipList<void> list;
+			SkipList<integer, integer> list;
 
 			{
 				TEST_ENSURE(list.empty());
 				TEST_ENSURE_OP(list.size(), ==, 0);
 				TEST_ENSURE(list.cbegin() == list.cend());
+			}
+
+			list.insert(1, 1);
+			list.insert(5, 2);
+			list.insert(3, 3);
+			list.insert(4, 4);
+			list.insert(8, 5);
+			list.insert(7, 6);
+			list.insert(6, 7);
+			list.insert(9, 8);
+			list.insert(2, 9);
+
+			integer correctSet[] = 
+			{
+				1, 9, 3, 4, 2, 7, 6, 5, 8
+			};
+
+			{
+				TEST_ENSURE(!list.empty());
+				TEST_ENSURE_OP(list.size(), ==, 9);
+				TEST_ENSURE(boost::equal(list, correctSet));
 			}
 		}
 
