@@ -7,23 +7,43 @@
 
 #include <boost/iterator/iterator_adaptor.hpp>
 
+#include <type_traits>
+
 namespace Pastel
 {
 
 	namespace SkipList_
 	{
 
+		template <typename Key, typename Value_Class>
+		struct Iterator_Value
+		{
+			typedef Value_Class type;
+			static const bool UseValue = true;
+		};
+
+		template <typename Key>
+		struct Iterator_Value<Key, Class<void>>
+		{
+			typedef const Key type;
+			static const bool UseValue = false;
+		};
+
 		template <
-			typename NodePtr, 
-			typename Type_Class>
+			typename NodePtr,
+			typename Key,
+			typename Value_Class>
 		class Iterator
 			: public boost::iterator_adaptor<
-			Iterator<NodePtr, Type_Class>, NodePtr,
-			Type_Class,
+			Iterator<NodePtr, Key, Value_Class>, NodePtr,
+			typename Iterator_Value<Key, Value_Class>::type,
 			boost::bidirectional_traversal_tag>
 		{
 		private:
 			struct enabler {};
+
+			typedef SkipList_::Data_Node<Key, Value_Class>
+				Data_Node;
 
 		public:
 			Iterator()
@@ -38,7 +58,7 @@ namespace Pastel
 
 			template <typename That>
 			Iterator(
-				const Iterator<That, Type_Class>& that,
+				const Iterator<That, Key, Value_Class>& that,
 				typename boost::enable_if<
 				boost::is_convertible<That, NodePtr>, 
 				enabler>::type = enabler())
@@ -46,13 +66,50 @@ namespace Pastel
 			{
 			}
 
+			const Key& key() const
+			{
+				return ((Data_Node*)this->base())->key();
+			}
+
+			Value_Class& value()
+			{
+				return ((Data_Node*)this->base())->value();
+			}
+
+			const Value_Class& value() const
+			{
+				return ((Data_Node*)this->base())->value();
+			}
+
 		private:
 			friend class boost::iterator_core_access;
 
-			Type_Class& dereference() const
+			typedef Iterator_Value<Key, Value_Class>
+				Dereference;
+
+			typedef typename Dereference::type DereferenceType;
+
+			struct KeyTag {};
+			struct ValueTag {};
+
+			typedef typename std::conditional<
+				Dereference::UseValue, 
+				ValueTag,
+				KeyTag>::type DereferenceTag;
+
+			const Key& dereference(KeyTag) const
 			{
-				return *(SkipList_::Data_Node<Type_Class>*)(
-					this->base());
+				return key();
+			}
+
+			Value_Class& dereference(ValueTag) const
+			{
+				return (Value_Class&)value();
+			}
+
+			DereferenceType& dereference() const
+			{
+				return dereference(DereferenceTag());
 			}
 
 			void increment() 

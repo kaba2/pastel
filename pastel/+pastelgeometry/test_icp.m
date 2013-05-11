@@ -1,4 +1,4 @@
-% Description: Testing for icp.m.
+% Description: Testing for ICP
 % DocumentationOf: icp.m
 
 function test_icp()
