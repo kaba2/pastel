@@ -19,7 +19,8 @@ namespace Pastel
 		class Iterator
 			: public boost::iterator_adaptor<
 			Iterator<NodePtr, Type_Class>, NodePtr,
-			Type_Class>
+			Type_Class,
+			boost::bidirectional_traversal_tag>
 		{
 		private:
 			struct enabler {};
