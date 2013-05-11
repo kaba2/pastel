@@ -35,7 +35,8 @@ namespace Pastel
 			typename Value_Class>
 		class Iterator
 			: public boost::iterator_adaptor<
-			Iterator<NodePtr, Key, Value_Class>, NodePtr,
+			Iterator<NodePtr, Key, Value_Class>, 
+			NodePtr,
 			typename Iterator_Value<Key, Value_Class>::type,
 			boost::bidirectional_traversal_tag>
 		{
