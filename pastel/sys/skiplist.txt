@@ -3,3 +3,14 @@ Skip list
 
 [[Parent]]: data_structures.txt
 
+A _skip-list_ is a probabilistic data structure for storing 
+an ordered set, which supports
+
+* inserting an element in expected ''O(log(n))'' time,
+* removing an element by a value in expected ''O(log(n))'' time,
+* removing an element by an iterator in ''O(1)'' time, and
+* searching for the first element greater-than-or-equal-to/greater-than/equivalent-to a given element in expected ''O(log(n))'' time.
+
+The space consumption of the skip-list is ''O(n)''. The [red-black tree][RedBlack] improves on these times by removing the expectations. However, skip-lists still have their uses in specialized algorithms.
+
+[RedBlack]: [[Ref]]: redblacktree.txt
