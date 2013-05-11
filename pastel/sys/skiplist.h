@@ -9,8 +9,6 @@
 #include "pastel/sys/random_geometric.h"
 #include "pastel/sys/lessthan.h"
 
-#include <memory>
-
 namespace Pastel
 {
 
@@ -56,7 +54,7 @@ namespace Pastel
 		strong
 		*/
 		SkipList()
-		: sentinel_()
+		: end_(0)
 		, levelRatio_(0.5)
 		, size_(0)
 		{
@@ -72,7 +70,7 @@ namespace Pastel
 		strong
 		*/
 		SkipList(const SkipList& that)
-		: sentinel_()
+		: end_(0)
 		, levelRatio_(0.5)
 		, size_(0)
 		{
@@ -90,7 +88,7 @@ namespace Pastel
 				// The destructor will not be run,
 				// so remember to clean up in case
 				// of an exception.
-				clear();
+				deinitialize();
 			}
 		}
 
@@ -103,13 +101,21 @@ namespace Pastel
 		strong
 		*/
 		SkipList(SkipList&& that)
-		: sentinel_()
+		: end_(0)
 		, levelRatio_(0.5)
 		, size_(0)
 		{
 			initialize();
 
-			swap(that);
+			// We want to preserve the sentinel
+			// node in 'that'. This is why we
+			// don't use the usual swap() here.
+			*this = std::move(that);
+		}
+
+		~SkipList()
+		{
+			deinitialize();
 		}
 
 		//! Copy-assigns from another skip list.
@@ -157,16 +163,19 @@ namespace Pastel
 
 			// We want to preserve the sentinel node.
 			// This is why we splice rather than swap().
-			integer n = sentinel_->size();
+			integer n = end_->size();
 			for (integer i = 0;i < n;++i)
 			{
-				if (sentinel_->link<true>(i) != sentinel_.get())
+				if (that.end_->link_[i].next[1] != that.end_)
 				{
 					// Splice the non-empty lists into this
 					// skip-list.
-					link(sentinel_.get(), that.sentinel_->link<true>(i), i);
-					link(that.sentinel_->link<false>(i), sentinel_.get(), i);
-					link(that.sentinel_.get(), that.sentinel_.get(), i);
+					Node* thatNext = that.end_->link_[i].next[1];
+					Node* thatPrev = that.end_->link_[i].next[0];;
+
+					link(end_, thatNext, i);
+					link(thatPrev, end_, i);
+					link(that.end_, that.end_, i);
 				}
 			}
 
@@ -187,7 +196,7 @@ namespace Pastel
 		void swap(SkipList& that)
 		{
 			using std::swap;
-			swap(sentinel_, that.sentinel_);
+			swap(end_, that.end_);
 			swap(levelRatio_, that.levelRatio_);
 			swap(size_, that.size_);
 		}
@@ -203,8 +212,8 @@ namespace Pastel
 			// there is no need to take care of the links.
 
 			// Delete every node, except the sentinel node.
-			Node* node = sentinel_->link<true>(0);
-			Node* end = sentinel_.get();
+			Node* node = end_->link<true>(0);
+			Node* end = end_;
 			while(node != end)
 			{
 				Node* next = node->link<true>(0);
@@ -213,7 +222,7 @@ namespace Pastel
 			}
 
 			// Update the links in the sentinel node.
-			integer n = sentinel_->size();
+			integer n = end_->size();
 			for (integer i = 0;i < n;++i)
 			{
 				link(end, end, i);
@@ -242,7 +251,7 @@ namespace Pastel
 
 			// Find the predecessor node from the
 			// linked list at each level.
-			Node* end = sentinel_.get();
+			Node* end = end_;
 			Node* node = end;
 			std::vector<Node*> beforeSet(levels);
 			for (integer i = maxLevels() - 1;i >= 0;--i)
@@ -509,7 +518,7 @@ namespace Pastel
 		*/
 		integer maxLevels() const
 		{
-			return sentinel_->size();
+			return end_->size();
 		}
 
 		//! Returns the level-ratio.
@@ -539,7 +548,7 @@ namespace Pastel
 		*/
 		Iterator begin()
 		{
-			return Iterator(sentinel_->link<true>(0));
+			return Iterator(end_->link<true>(0));
 		}
 
 		ConstIterator begin() const
@@ -549,7 +558,7 @@ namespace Pastel
 
 		ConstIterator cbegin() const
 		{
-			return ConstIterator(sentinel_->link<true>(0));
+			return ConstIterator(end_->link<true>(0));
 		}
 
 		//! Returns the end-iterator of the skip list.
@@ -562,7 +571,7 @@ namespace Pastel
 		*/
 		Iterator end()
 		{
-			return Iterator(sentinel_.get());
+			return Iterator(end_);
 		}
 
 		ConstIterator end() const
@@ -572,16 +581,16 @@ namespace Pastel
 
 		ConstIterator cend() const
 		{
-			return ConstIterator(sentinel_.get());
+			return ConstIterator(end_);
 		}
 
 		friend void print(const SkipList& list)
 		{
 			for (integer i = 0;i < list.maxLevels();++i)
 			{
-				Node* node = list.sentinel_.get();
+				Node* node = list.end_;
 				node = node->link_[i].next[1];
-				while(node != list.sentinel_.get())
+				while(node != list.end_)
 				{
 					std::cout << *(Data_Node*)node << ", ";
 					node = node->link<true>(i);
@@ -594,13 +603,14 @@ namespace Pastel
 	private:
 		void initialize()
 		{
-			ASSERT(!sentinel_.get());
+			ASSERT(!end_);
 			const integer maxLevels = 4;
 
-			sentinel_.reset(new Node(maxLevels));
+			// Create the sentinel node.
+			end_ = new Node(maxLevels);
 
 			// Link the sentinel node to itself.
-			Node* node = sentinel_.get();
+			Node* node = end_;
 			integer n = node->size();
 			for (integer i = 0;i < n;++i)
 			{
@@ -608,9 +618,15 @@ namespace Pastel
 			}
 		}
 
+		void deinitialize()
+		{
+			clear();
+			delete end_;
+		}
+
 		const Type_Class& nodeData(Node* node) const
 		{
-			ASSERT(node != sentinel_.get());
+			ASSERT(node != end_);
 			return (const Type_Class&)*(Data_Node*)node;
 		}
 
@@ -621,7 +637,7 @@ namespace Pastel
 			typedef SkipList_::Directed_Compare<Compare, Direction>
 				Directed_Compare;
 
-			Node* end = sentinel_.get();
+			Node* end = end_;
 			Node* node = end;
 			integer n = node->size();
 			for (integer i = n - 1;i >= 0;--i)
@@ -650,7 +666,7 @@ namespace Pastel
 			right->link<false>(i) = left;
 		}
 
-		std::unique_ptr<Node> sentinel_;
+		Node* end_;
 		real levelRatio_;
 		integer size_;
 	};

@@ -1,4 +1,4 @@
-// Description: Testing for SkipList
+// Description: Testing for skip lists.
 // DocumentationOf: skiplist.h
 
 #include "test_pastelsys.h"
@@ -60,24 +60,30 @@ namespace
 					}
 				}
 			}
-
-			{
-				List copyList(list);
-				copyList.swap(list);
-			}
-			{
-				List moveList(std::move(list));
-			}
 		}
 
 		void testEmpty()
 		{
 			SkipList<void> list;
+
+			{
+				TEST_ENSURE(list.empty());
+				TEST_ENSURE_OP(list.size(), ==, 0);
+				TEST_ENSURE(list.cbegin() == list.cend());
+			}
 		}
 
 		void testSimple()
 		{
 			List list;
+
+			// Test default-construction.
+			{
+				TEST_ENSURE(list.empty());
+				TEST_ENSURE_OP(list.size(), ==, 0);
+				TEST_ENSURE(list.cbegin() == list.cend());
+			}
+
 			list.insert(1);
 			list.insert(5);
 			list.insert(3);
@@ -88,6 +94,7 @@ namespace
 			list.insert(9);
 			list.insert(2);
 
+			// Test insert.
 			{
 				integer correctSet[] = 
 				{
@@ -104,6 +111,14 @@ namespace
 				TEST_ENSURE_OP(boost::distance(list), ==, 9);
 				TEST_ENSURE(boost::equal(list, correctSet));
 
+				// Test iterator decrement.
+				TEST_ENSURE(boost::equal(
+					list | boost::adaptors::reversed, 
+					correctSet | boost::adaptors::reversed));
+			}
+
+			// Test lower_bound, upper_bound, and find.
+			{
 				TEST_ENSURE_OP(*list.lower_bound(0), ==, 1);
 				TEST_ENSURE_OP(*list.lower_bound(1), ==, 1);
 				TEST_ENSURE_OP(*list.lower_bound(2), ==, 2);
@@ -116,24 +131,66 @@ namespace
 				TEST_ENSURE_OP(*list.upper_bound(2), ==, 3);
 				TEST_ENSURE_OP(*list.upper_bound(8), ==, 9);
 				TEST_ENSURE(list.upper_bound(9) == list.cend());
+
+				TEST_ENSURE(list.find(0) == list.end());
+				TEST_ENSURE(
+					list.find(1) != list.end() &&
+					*list.find(1) == 1);
+				TEST_ENSURE(
+					list.find(2) != list.end() &&
+					*list.find(2) == 2);
+				TEST_ENSURE(
+					list.find(8) != list.end() &&
+					*list.find(8) == 8);
+				TEST_ENSURE(
+					list.find(9) != list.end() &&
+					*list.find(9) == 9);
+				TEST_ENSURE(list.find(10) == list.end());
 			}
 
+			// Test copy-construction, move-construction, and
+			// swap.
 			{
 				integer correctSet[] = 
 				{
-					9, 8, 7, 6, 5, 4, 3, 2, 1
+					1, 2, 3, 4, 5, 6, 7, 8, 9
 				};
 
-				TEST_ENSURE(boost::equal(
-					list | boost::adaptors::reversed, 
-					correctSet));
-			}
+				ConstIterator listEnd = list.cend();
 
-			TEST_ENSURE(list.find(3) != list.end());
-			TEST_ENSURE(list.find(-1) == list.end());
-			TEST_ENSURE(list.find(10) == list.end());
-			TEST_ENSURE(list.find(9) != list.end());
-			TEST_ENSURE(list.find(1) != list.end());
+				List copyList(list);
+				
+				TEST_ENSURE_OP(list.size(), ==, 9);
+				TEST_ENSURE(!list.empty());
+				TEST_ENSURE(listEnd == list.cend());
+				TEST_ENSURE(boost::equal(list, correctSet));
+				
+				TEST_ENSURE_OP(copyList.size(), ==, 9);
+				TEST_ENSURE(!copyList.empty());
+				TEST_ENSURE(listEnd != copyList.cend());
+				TEST_ENSURE(boost::equal(copyList, correctSet));
+
+				List moveList(std::move(list));
+
+				TEST_ENSURE_OP(list.size(), ==, 0);
+				TEST_ENSURE(list.empty());
+				TEST_ENSURE(listEnd == list.cend());
+				
+				TEST_ENSURE_OP(moveList.size(), ==, 9);
+				TEST_ENSURE(!moveList.empty());
+				TEST_ENSURE(listEnd != moveList.cend());
+				TEST_ENSURE(boost::equal(moveList, correctSet));
+
+				moveList.swap(list);
+
+				TEST_ENSURE_OP(list.size(), ==, 9);
+				TEST_ENSURE(!list.empty());
+				TEST_ENSURE(listEnd != list.cend());
+				
+				TEST_ENSURE_OP(moveList.size(), ==, 0);
+				TEST_ENSURE(moveList.empty());
+				TEST_ENSURE(listEnd == moveList.cend());
+			}
 		}
 	};
 
