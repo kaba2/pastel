@@ -76,6 +76,7 @@ namespace
 		void testSimple()
 		{
 			List list;
+			ConstIterator listEnd = list.cend();
 
 			// Test default-construction.
 			{
@@ -94,13 +95,13 @@ namespace
 			list.insert(9);
 			list.insert(2);
 
+			integer correctSet[] = 
+			{
+				1, 2, 3, 4, 5, 6, 7, 8, 9
+			};
+
 			// Test insert.
 			{
-				integer correctSet[] = 
-				{
-					1, 2, 3, 4, 5, 6, 7, 8, 9
-				};
-
 				// When I adapted Node* by the boost::iterator_adaptor,
 				// it was adapted as a random-access iterator; then
 				// the distance was given by the pointer difference,
@@ -148,17 +149,10 @@ namespace
 				TEST_ENSURE(list.find(10) == list.end());
 			}
 
-			// Test copy-construction, move-construction, and
-			// swap.
+			// Test copy-construction, and move-construction.
 			{
-				integer correctSet[] = 
-				{
-					1, 2, 3, 4, 5, 6, 7, 8, 9
-				};
-
-				ConstIterator listEnd = list.cend();
-
 				List copyList(list);
+				ConstIterator copyEnd = copyList.cend();
 				
 				TEST_ENSURE_OP(list.size(), ==, 9);
 				TEST_ENSURE(!list.empty());
@@ -170,7 +164,35 @@ namespace
 				TEST_ENSURE(listEnd != copyList.cend());
 				TEST_ENSURE(boost::equal(copyList, correctSet));
 
-				List moveList(std::move(list));
+				List moveList(std::move(copyList));
+
+				TEST_ENSURE_OP(copyList.size(), ==, 0);
+				TEST_ENSURE(copyList.empty());
+				TEST_ENSURE(copyEnd == copyList.cend());
+				
+				TEST_ENSURE_OP(moveList.size(), ==, 9);
+				TEST_ENSURE(!moveList.empty());
+				TEST_ENSURE(copyEnd != moveList.cend());
+				TEST_ENSURE(boost::equal(moveList, correctSet));
+			}
+
+			// Test copy-assign, move-assign, and swap.
+			{
+				List copyList;
+				copyList = list;
+
+				TEST_ENSURE_OP(list.size(), ==, 9);
+				TEST_ENSURE(!list.empty());
+				TEST_ENSURE(listEnd == list.cend());
+				TEST_ENSURE(boost::equal(list, correctSet));
+				
+				TEST_ENSURE_OP(copyList.size(), ==, 9);
+				TEST_ENSURE(!copyList.empty());
+				TEST_ENSURE(listEnd != copyList.cend());
+				TEST_ENSURE(boost::equal(copyList, correctSet));
+
+				List moveList;
+				moveList = std::move(list);
 
 				TEST_ENSURE_OP(list.size(), ==, 0);
 				TEST_ENSURE(list.empty());

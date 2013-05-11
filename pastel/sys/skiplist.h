@@ -124,7 +124,7 @@ namespace Pastel
 		O(1)
 
 		Exception safety:
-		nothrow
+		strong
 
 		The end() iterator will be preserved.
 		*/
@@ -135,8 +135,9 @@ namespace Pastel
 				return *this;
 			}
 
-			SkipList copy(that);
-			swap(copy);
+			// We want to preserve the end() iterator,
+			// so we do not use swap().
+			*this = std::move(SkipList(that));
 
 			return *this;
 		}
