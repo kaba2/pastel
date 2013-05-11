@@ -595,7 +595,7 @@ namespace Pastel
 		void initialize()
 		{
 			ASSERT(!sentinel_.get());
-			const integer maxLevels = 1;
+			const integer maxLevels = 4;
 
 			sentinel_.reset(new Node(maxLevels));
 
