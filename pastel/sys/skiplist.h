@@ -43,6 +43,10 @@ namespace Pastel
 		typedef SkipList_::Iterator<const Node*, Type_Class> 
 			ConstIterator;
 
+		// These are aliases for compatibility between boost ranges.
+		typedef Iterator iterator;
+		typedef ConstIterator const_iterator;
+
 		//! Constructs a skip list.
 		/*!
 		Time complexity:
@@ -250,6 +254,7 @@ namespace Pastel
 					node = next;
 					next = node->link<true>(i);
 				}
+
 				if (i < levels)
 				{
 					beforeSet[i] = node;
@@ -378,15 +383,16 @@ namespace Pastel
 		Iterator find(const Type_Class& that)
 		{
 			Iterator result = lower_bound(that);
-			if (Compare()(that, *result))
+			if (result == end() ||
+				Compare()(that, *result))
 			{
 				return end();
 			}
-			
+
 			return result;
 		}
 
-		//! Returns the first element == 'that'.
+		//! Returns the first element equivalent to 'that'.
 		/*!
 		Time complexity:
 		O(log(size())) expected
@@ -401,11 +407,12 @@ namespace Pastel
 		ConstIterator find(const Type_Class& that) const
 		{
 			ConstIterator result = lower_bound(that);
-			if (Compare()(that, *result))
+			if (result == cend() ||
+				Compare()(that, *result))
 			{
 				return cend();
 			}
-			
+
 			return result;
 		}
 
@@ -419,7 +426,7 @@ namespace Pastel
 		*/
 		Iterator lower_bound(const Type_Class& that)
 		{
-			return Iterator(nodeLowerBound(that));
+			return Iterator(nodeBound<true>(that));
 		}
 
 		//! Returns the first element >= 'that'.
@@ -432,7 +439,7 @@ namespace Pastel
 		*/
 		ConstIterator lower_bound(const Type_Class& that) const
 		{
-			return ConstIterator(nodeLowerBound(that));
+			return ConstIterator(nodeBound<true>(that));
 		}
 
 		//! Returns the first element > 'that'.
@@ -445,7 +452,7 @@ namespace Pastel
 		*/
 		Iterator upper_bound(const Type_Class& that)
 		{
-			return Iterator(nodeUpperBound(that));
+			return Iterator(nodeBound<false>(that));
 		}
 
 		//! Returns the first element > 'that'.
@@ -458,7 +465,7 @@ namespace Pastel
 		*/
 		ConstIterator upper_bound(const Type_Class& that) const
 		{
-			return ConstIterator(nodeUpperBound(that));
+			return ConstIterator(nodeBound<false>(that));
 		}
 
 		//! Returns the number of elements in the skip list.
@@ -568,6 +575,22 @@ namespace Pastel
 			return ConstIterator(sentinel_.get());
 		}
 
+		friend void print(const SkipList& list)
+		{
+			for (integer i = 0;i < list.maxLevels();++i)
+			{
+				Node* node = list.sentinel_.get();
+				node = node->link_[i].next[1];
+				while(node != list.sentinel_.get())
+				{
+					std::cout << *(Data_Node*)node << ", ";
+					node = node->link<true>(i);
+				}
+				std::cout << std::endl;
+			}
+		}
+
+
 	private:
 		void initialize()
 		{
@@ -583,41 +606,42 @@ namespace Pastel
 			{
 				link(node, node, i);
 			}
+		}
 
+		const Type_Class& nodeData(Node* node) const
+		{
+			ASSERT(node != sentinel_.get());
+			return (const Type_Class&)*(Data_Node*)node;
 		}
 
 		template <bool Direction>
-		Node* nodePredecessor(
+		Node* nodeBound(
 			const Type_Class& that) const
 		{
+			typedef SkipList_::Directed_Compare<Compare, Direction>
+				Directed_Compare;
+
 			Node* end = sentinel_.get();
 			Node* node = end;
 			integer n = node->size();
 			for (integer i = n - 1;i >= 0;--i)
 			{
 				Node* next = node->link<Direction>(i);
+
 				while (next != end && 
-					SkipList_::Directed_Compare<Compare, Direction>()(
-						(const Type_Class&)*next, that))
+					Directed_Compare()(nodeData(next), that))
 				{
 					node = next;
+					next = node->link<Direction>(i);
 				}
+			}
+			
+			if (Direction)
+			{
+				node = node->link<Direction>(0);
 			}
 
 			return node;
-		}
-
-		Node* nodeLowerBound(
-			const Type_Class& that) const
-		{
-			Node* node = nodePredecessor<true>(that);
-			return node->link<true>(0);
-		}
-
-		Node* nodeUpperBound(
-			const Type_Class& that) const
-		{
-			return nodePredecessor<false>(that);
 		}
 
 		void link(Node* left, Node* right, integer i)

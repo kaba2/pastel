@@ -72,7 +72,6 @@ namespace
 		void testSimple()
 		{
 			List list;
-
 			list.insert(1);
 			list.insert(5);
 			list.insert(3);
@@ -82,21 +81,35 @@ namespace
 			list.insert(6);
 			list.insert(9);
 			list.insert(2);
+
 			{
 				integer correctSet[] = 
 				{
 					1, 2, 3, 4, 5, 6, 7, 8, 9
 				};
-				TEST_ENSURE(boost::equal(
-					range(list.cbegin(), list.cend()), 
-					range(correctSet)));
-			}
 
-			{
-				// The iterator should stay on end().
-				ConstIterator copyIter = list.cend();
-				++copyIter;
-				TEST_ENSURE(copyIter == list.cend());
+				// When I adapted Node* by the boost::iterator_adaptor,
+				// it was adapted as a random-access iterator; then
+				// the distance was given by the pointer difference,
+				// which is a bug. This also affected boost::equal,
+				// which compares the sizes of the ranges first.
+				// Adding the bidirectional-traversal tag fixed the
+				// bug. This line tests for that.
+				TEST_ENSURE_OP(boost::distance(list), ==, 9);
+				TEST_ENSURE(boost::equal(list, correctSet));
+
+				TEST_ENSURE_OP(*list.lower_bound(0), ==, 1);
+				TEST_ENSURE_OP(*list.lower_bound(1), ==, 1);
+				TEST_ENSURE_OP(*list.lower_bound(2), ==, 2);
+				TEST_ENSURE_OP(*list.lower_bound(8), ==, 8);
+				TEST_ENSURE_OP(*list.lower_bound(9), ==, 9);
+				TEST_ENSURE(list.lower_bound(10) == list.cend());
+
+				TEST_ENSURE_OP(*list.upper_bound(0), ==, 1);
+				TEST_ENSURE_OP(*list.upper_bound(1), ==, 2);
+				TEST_ENSURE_OP(*list.upper_bound(2), ==, 3);
+				TEST_ENSURE_OP(*list.upper_bound(8), ==, 9);
+				TEST_ENSURE(list.upper_bound(9) == list.cend());
 			}
 
 			{
@@ -106,15 +119,8 @@ namespace
 				};
 
 				TEST_ENSURE(boost::equal(
-					range(list.cbegin(), list.cend()) | boost::adaptors::reversed, 
-					range(correctSet)));
-			}
-
-			{
-				// The iterator should stay on begin().
-				ConstIterator copyIter = list.cbegin();
-				--copyIter;
-				TEST_ENSURE(copyIter == list.cbegin());
+					list | boost::adaptors::reversed, 
+					correctSet));
 			}
 
 			TEST_ENSURE(list.find(3) != list.end());
