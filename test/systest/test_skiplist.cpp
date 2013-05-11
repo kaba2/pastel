@@ -26,8 +26,9 @@ namespace
 
 		virtual void run()
 		{
+			testEmpty();
 			testSimple();
-			//testRandom();
+			testRandom();
 		}
 
 		typedef SkipList<integer> List;
@@ -37,15 +38,12 @@ namespace
 		void testRandom()
 		{
 			List list;
-
 			std::list<integer> dataSet;
+			const integer listSizeSet[] = 
+				{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1000};
 
-			const integer listSizeSet[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1000};
-			const integer listSizes = sizeof(listSizeSet) / sizeof(integer);
-
-			for (integer k = 0;k < listSizes;++k)
+			for (integer listSize : listSizeSet)
 			{
-				const integer listSize = listSizeSet[k];
 				list.clear();
 				dataSet.clear();
 				for (integer i = 0;i < listSize;++i)
@@ -67,6 +65,14 @@ namespace
 				List copyList(list);
 				copyList.swap(list);
 			}
+			{
+				List moveList(std::move(list));
+			}
+		}
+
+		void testEmpty()
+		{
+			SkipList<void> list;
 		}
 
 		void testSimple()
