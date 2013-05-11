@@ -1,3 +1,5 @@
+// Description: Tree node
+
 #ifndef PASTELSYS_TREE_NODE_H
 #define PASTELSYS_TREE_NODE_H
 
@@ -156,14 +158,12 @@ namespace Pastel
 			}
 		}
 
-		template <typename Type>
+		template <typename Data_Class>
 		class Data_Node
 			: public Node
-			, public AsClass<Type>::type
+			, public Data_Class
 		{
 		public:
-			typedef typename AsClass<Type>::type Data_Class;
-
 		    using Data_Class::operator=;
 
     		explicit Data_Node(

@@ -3,9 +3,9 @@
 #ifndef PASTELSYS_TREE_H
 #define PASTELSYS_TREE_H
 
-#include "pastel/sys/destruct.h"
 #include "pastel/sys/tree_node.h"
 #include "pastel/sys/tree_iterator.h"
+#include "pastel/sys/destruct.h"
 #include "pastel/sys/object_forwarding.h"
 
 namespace Pastel
@@ -25,20 +25,19 @@ namespace Pastel
 	template <typename Type>
 	class Tree
 	{
-	public:
+	private:
 		typedef Type Data;
         typedef typename AsClass<Data>::type Data_Class;
+		typedef Tree_::Node Node;
+		typedef Tree_::Data_Node<Data_Class> Data_Node;
+		typedef Tree_::Sentinel_Node Sentinel_Node;
 
-		typedef Tree_Iterator<Data> Iterator;
-		typedef Tree_ConstIterator<Data> ConstIterator;
+	public:
+		typedef Tree_::Iterator<Node*, Data_Class> Iterator;
+		typedef Tree_::Iterator<const Node*, Data_Class> ConstIterator;
 
 		typedef boost::iterator_range<Iterator> Range;
 		typedef boost::iterator_range<ConstIterator> ConstRange;
-
-	private:
-		typedef Tree_::Node Node;
-		typedef Tree_::Data_Node<Data> Data_Node;
-		typedef Tree_::Sentinel_Node Sentinel_Node;
 
 	public:
 		//! Construct an empty tree.
@@ -489,7 +488,7 @@ namespace Pastel
 				here.empty();
 			ENSURE(!insertAtSentinel);
 
-			Node* parent = (Node*)here.node_;
+			Node* parent = (Node*)here.base();
 
 			Node* node = allocate(std::move(data));
 			node->parent = parent;
@@ -626,7 +625,7 @@ namespace Pastel
 			}
 			else
 			{			
-				Node* thereNode = (Node*)there.node_;
+				Node* thereNode = (Node*)there.base();
 
 				Node* child = thereNode->child(childIndex);
 				
@@ -678,7 +677,7 @@ namespace Pastel
 		{
 			PENSURE(!that.empty());
 
-			erase((Data_Node*)that.node_);
+			erase((Data_Node*)that.base());
 		}
 
 		//! Detaches a sub-tree to its own tree.
@@ -693,7 +692,7 @@ namespace Pastel
 		{
 			PENSURE(!that.empty());
 
-			Node* detachedRoot = (Node*)that.node_;
+			Node* detachedRoot = (Node*)that.base();
 			Node* oldParent = detachedRoot->parent;
 
 			// Compute leftmost node, rightmost node,
@@ -783,9 +782,9 @@ namespace Pastel
 				!rightLeft.empty();
 			ENSURE(rotationWellDefined);
 
-			Node* thatNode = (Node*)that.node_;
-			Node* rightNode = (Node*)right.node_;
-			Node* rightLeftNode = (Node*)rightLeft.node_;
+			Node* thatNode = (Node*)that.base();
+			Node* rightNode = (Node*)right.base();
+			Node* rightLeftNode = (Node*)rightLeft.base();
 			Node* thatParent = thatNode->parent;
 
 			thatNode->setChild(R, rightLeftNode);
@@ -812,7 +811,7 @@ namespace Pastel
 		*/
 		Iterator cast(const ConstIterator& that)
 		{
-			return Iterator((Node*)that.node_);
+			return Iterator((Node*)that.base());
 		}
 
 		//! Returns the reference count of the sentinel node.

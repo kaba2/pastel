@@ -221,60 +221,60 @@ namespace
 
 			// Finding the leftmost.
 			{
-				Iter iter = leftMost(aIter);
+				Iter iter = aIter.leftMost();
 				TEST_ENSURE(iter == bIter);
 			}
 			{
-				Iter iter = leftMost(bIter);
+				Iter iter = bIter.leftMost();
 				TEST_ENSURE(iter == bIter);
 			}
 			{
-				Iter iter = leftMost(tree.end());
+				Iter iter = tree.end().leftMost();
 				TEST_ENSURE(iter == tree.end());
 			}
 			{
-				Iter iter = leftMost(cIter);
+				Iter iter = cIter.leftMost();
 				TEST_ENSURE(iter == cIter);
 			}
 			
 			// Finding the rightmost.
 			{
-				Iter iter = rightMost(aIter);
+				Iter iter = aIter.rightMost();
 				TEST_ENSURE(iter == aIter);
 			}
 			{
-				Iter iter = rightMost(bIter);
+				Iter iter = bIter.rightMost();
 				TEST_ENSURE(iter == cIter);
 			}
 			{
-				Iter iter = rightMost(tree.end());
+				Iter iter = tree.end().rightMost();
 				TEST_ENSURE(iter == tree.end());
 			}
 			{
-				Iter iter = rightMost(cIter);
+				Iter iter = cIter.rightMost();
 				TEST_ENSURE(iter == cIter);
 			}
 
 			// Finding the root.
 			{
-				Iter iter = root(cIter);
+				Iter iter = cIter.root();
 				TEST_ENSURE(iter == tree.root());
 			}
 			{
-				Iter iter = root(bIter);
+				Iter iter = bIter.root();
 				TEST_ENSURE(iter == tree.root());
 			}
 			{
-				Iter iter = root(aIter);
+				Iter iter = aIter.root();
 				TEST_ENSURE(iter == tree.root());
 			}
 			{
-				Iter iter = root(tree.end());
+				Iter iter = tree.end().root();
 				++iter;
 				TEST_ENSURE(iter == tree.end());
 			}
 			{
-				Iter iter = root(tree.end());
+				Iter iter = tree.end().root();
 				TEST_ENSURE(iter == tree.end());
 			}
 
