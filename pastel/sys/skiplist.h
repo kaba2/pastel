@@ -113,6 +113,14 @@ namespace Pastel
 			*this = std::move(that);
 		}
 
+		//! Destructs a skip list.
+		/*!
+		Time complexity:
+		O(size())
+
+		Exception safety:
+		nothrow
+		*/
 		~SkipList()
 		{
 			deinitialize();
@@ -522,7 +530,7 @@ namespace Pastel
 			return end_->size();
 		}
 
-		//! Returns the level-ratio.
+		//! Sets the level ratio.
 		/*!
 		Time complexity:
 		O(1)
@@ -533,6 +541,22 @@ namespace Pastel
 		The level-ratio is the success-probability of the
 		geometric distribution from which the random number 
 		of levels is drawn for each element.
+		*/
+		void setLevelRatio(real levelRatio)
+		{
+			ENSURE_OP(levelRatio, >, 0);
+			ENSURE_OP(levelRatio, <, 0);
+
+			levelRatio_ = levelRatio;
+		}
+
+		//! Returns the level-ratio.
+		/*!
+		Time complexity:
+		O(1)
+
+		Exception safety:
+		nothrow
 		*/
 		real levelRatio() const
 		{
@@ -605,7 +629,7 @@ namespace Pastel
 		void initialize()
 		{
 			ASSERT(!end_);
-			const integer maxLevels = 4;
+			const integer maxLevels = 64;
 
 			// Create the sentinel node.
 			end_ = new Node(maxLevels);
