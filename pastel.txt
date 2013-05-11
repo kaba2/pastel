@@ -5,8 +5,8 @@ Pastel
 
 [Back]: http://kaba.hilvi.org
 
-_Pastel_ is a cross-platform C++11 library for geometry and computer 
-graphics.
+_Pastel_ is a cross-platform C++11 library for geometry and 
+computer graphics.
 
 Source code
 -----------
@@ -18,9 +18,9 @@ development and is thus prone to break backwards-compatibility. Rather,
 consider it from an educational viewpoint containing implementations 
 and documentations of useful data structures and algorithms.
 
-### [Download Pastel 1.3.0][Pastel-1.3.0]
+### [Download Pastel 1.4.0][Pastel-1.4.0]
 
-[Pastel-1.3.0]: files/pastel-1.3.0.zip
+[Pastel-1.4.0]: files/pastel-1.4.0.zip
 
 For previous versions, see the [release history][History]
 
