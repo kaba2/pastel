@@ -310,7 +310,7 @@ namespace Pastel
 			// There is a maximum clique in the left subtree, 
 			// if the maxCliqueSize was computed as it is for
 			// the left subtree.
-			if (!iter.left().sentinel() && 
+			if (!iter.left().isSentinel() && 
 				iter.data().maxCliqueSize == 
 				iter.left().data().maxCliqueSize)
 			{
@@ -328,7 +328,7 @@ namespace Pastel
 			// There is a maximum clique in the right subtree, 
 			// if the maxCliqueSize was computed as it is for
 			// the right subtree.
-			if (!iter.right().sentinel() &&
+			if (!iter.right().isSentinel() &&
 				iter.data().maxCliqueSize == 
 				iter.left().data().actives + v +
 				iter.right().data().maxCliqueSize)
@@ -363,7 +363,7 @@ namespace Pastel
 			const Direction_Iterator directionEnd = directionSet.end();
 			while(directionIter != directionEnd)
 			{
-				ASSERT(!iter.sentinel());
+				ASSERT(!iter.isSentinel());
 
 				const Direction::Enum direction =
 					*directionIter;
@@ -406,14 +406,14 @@ namespace Pastel
 
 			Direction::Enum candidateSet[3];
 
-			ASSERT(!root.sentinel());
+			ASSERT(!root.isSentinel());
 
 			// Start from the root of the tree.
 			Iterator iter = root;
 
 			// While we are not in a leaf node...
-			while(!iter.left().sentinel() ||
-				!iter.right().sentinel()) 
+			while(!iter.left().isSentinel() ||
+				!iter.right().isSentinel()) 
 			{
 				// A maximum clique can be in the current node,
 				// in the left subtree, or in the right subtree.

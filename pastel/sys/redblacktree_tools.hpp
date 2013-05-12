@@ -3,24 +3,29 @@
 
 #include "pastel/sys/redblacktree_tools.h"
 
+#include <iostream>
+
 namespace Pastel
 {
 
 	namespace RedBlackTree_
 	{
 
-		template <typename ConstIterator>
+		template <typename Settings, typename Customization>
 		bool check(
-			const ConstIterator& iter,
+			const RedBlackTree<Settings, Customization>& tree,
+			const typename RedBlackTree<Settings, Customization>::ConstIterator& iter,
 			integer& blackHeight)
 		{
-			if (iter.sentinel())
+			using Compare = typename Settings::Compare;
+
+			if (iter.isSentinel())
 			{
 				blackHeight = 0;
 				return true;
 			}
 
-			if (!iter.left().sentinel() &&
+			if (!iter.left().isSentinel() &&
 				iter.left().parent() != iter)
 			{
 				// The parent of the left child must be
@@ -29,7 +34,7 @@ namespace Pastel
 				return false;
 			}
 
-			if (!iter.right().sentinel() &&
+			if (!iter.right().isSentinel() &&
 				iter.right().parent() != iter)
 			{
 				// The parent of the right child must be
@@ -46,14 +51,31 @@ namespace Pastel
 				return false;
 			}
 
+			if (!iter.left().isSentinel() &&
+				!Compare()(iter.left().key(), iter.key()))
+			{
+				// The key on the left must be smaller
+				// than the current key.
+				return false;
+			}
+
+			if (!iter.right().isSentinel() &&
+				Compare()(iter.right().key(), iter.key()))
+			{
+				// The key on the right must be
+				// greater-than-or-equal-to the  
+				// current key.
+				return false;
+			}
+
 			integer leftBlackHeight = blackHeight;
-			if (!check(iter.left(), leftBlackHeight))
+			if (!check(tree, iter.left(), leftBlackHeight))
 			{
 				return false;
 			}
 
 			integer rightBlackHeight = blackHeight;
-			if (!check(iter.right(), rightBlackHeight))
+			if (!check(tree, iter.right(), rightBlackHeight))
 			{
 				return false;
 			}
@@ -87,7 +109,7 @@ namespace Pastel
 		}
 
 		integer blackHeight = 0;
-		return RedBlackTree_::check(tree.croot(), blackHeight);
+		return RedBlackTree_::check(tree, tree.croot(), blackHeight);
 	}
 
 }

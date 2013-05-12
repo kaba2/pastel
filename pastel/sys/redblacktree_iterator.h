@@ -1,3 +1,5 @@
+// Description: Red-black tree iterator
+
 #ifndef PASTELSYS_REDBLACKTREE_ITERATOR_H
 #define PASTELSYS_REDBLACKTREE_ITERATOR_H
 
@@ -5,61 +7,135 @@
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/redblacktree_node.h"
 
-#include <boost/operators.hpp>
-#include <boost/iterator.hpp>
+#include <boost/iterator/iterator_adaptor.hpp>
+
+#include <type_traits>
 
 namespace Pastel
 {
 
-	template <typename, typename>
-	class RedBlackTree;
-	
 	namespace RedBlackTree_
 	{
 
-		template <typename Key, typename Data>
-		class ConstIterator;
-
-		template <typename Key, typename Data>
+		template <
+			typename NodePtr,
+			typename Key,
+			typename Data_Class,
+			bool DereferenceToData>
 		class Iterator
-			: public boost::bidirectional_iterator_helper<
-			Iterator<Key, Data>, Key, integer>
+			: public boost::iterator_adaptor<
+			Iterator<NodePtr, Key, Data_Class, DereferenceToData>, 
+			NodePtr,
+			typename std::conditional<DereferenceToData, Data_Class, const Key>::type,
+			boost::bidirectional_traversal_tag>
 		{
+		private:
+			struct enabler {};
+
 		public:
-			template <typename, typename>
-			friend class ConstIterator;
-
-			template <typename, typename>
-			friend class Pastel::RedBlackTree;
-
-			typedef RedBlackTree_::Node<Key, Data> Node;
-
-			typedef typename AsClass<Data>::type Data_Class;
-
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
 			Iterator()
-				: node_(0)
+				: Iterator::iterator_adaptor_(0) 
 			{
 			}
 
-			bool operator==(const Iterator& that) const
+			Iterator(NodePtr that)
+				: Iterator::iterator_adaptor_(that) 
 			{
-				return node_ == that.node_;
 			}
 
-			bool operator<(const Iterator& that) const
+			template <
+				typename That_NodePtr, 
+				bool That_DereferenceToData>
+			Iterator(
+				const Iterator<That_NodePtr, Key, Data_Class, That_DereferenceToData>& that,
+				typename boost::enable_if<
+				boost::is_convertible<That_NodePtr, NodePtr>, 
+				enabler>::type = enabler())
+				: Iterator::iterator_adaptor_(that.base()) 
 			{
-				return node_ < that.node_;
 			}
-			
-			Iterator& operator++()
+
+			const Key& key() const
 			{
-				if (node_->right()->sentinel())
+				return node()->key();
+			}
+
+			Data_Class& data() const
+			{
+				return (Data_Class&)node()->data();
+			}
+
+			bool isSentinel() const
+			{
+				return node()->isSentinel();
+			}
+
+			Iterator parent() const
+			{
+				return Iterator(node()->parent());
+			}
+
+			Iterator left() const
+			{
+				return Iterator(node()->left());
+			}
+
+			Iterator right() const
+			{
+				return Iterator(node()->right());
+			}
+
+			bool red() const
+			{
+				return node()->red();
+			}
+
+			bool black() const
+			{
+				return !red();
+			}
+
+		private:
+			friend class boost::iterator_core_access;
+
+			using DereferenceType = typename std::conditional<
+				DereferenceToData,
+				Data_Class, const Key>::type;
+
+			struct KeyTag {};
+			struct DataTag {};
+
+			using DereferenceTag = typename std::conditional<
+				DereferenceToData, 
+				DataTag, KeyTag>::type;
+
+			NodePtr node() const
+			{
+				return this->base();
+			}
+
+			const Key& dereference(KeyTag) const
+			{
+				return node()->key();
+			}
+
+			Data_Class& dereference(DataTag) const
+			{
+				return (Data_Class&)data();
+			}
+
+			DereferenceType& dereference() const
+			{
+				return dereference(DereferenceTag());
+			}
+
+			void increment() 
+			{ 
+				NodePtr& node_ = this->base_reference();
+
+				if (node_->right()->isSentinel())
 				{
-					Node* prevNode = node_;
+					NodePtr prevNode = node_;
 					do
 					{
 						prevNode = node_;
@@ -70,21 +146,21 @@ namespace Pastel
 				else
 				{
 					node_ = node_->right();
-					while(!node_->left()->sentinel())
+					while(!node_->left()->isSentinel())
 					{
 						node_ = node_->left();
 					}
 				}
-
-				return *this;
 			}
 
-			Iterator& operator--()
-			{
-				if (node_->left()->sentinel())
+			void decrement() 
+			{ 
+				NodePtr& node_ = this->base_reference();
+
+				if (node_->left()->isSentinel())
 				{
-					Node* originalNode = node_;
-					Node* prevNode = node_;
+					NodePtr originalNode = node_;
+					NodePtr prevNode = node_;
 					do
 					{
 						prevNode = node_;
@@ -96,10 +172,10 @@ namespace Pastel
 						// prevNode != node->right(). The
 						// latter is the correct test.
 					}
-					while (!node_->sentinel() && 
+					while (!node_->isSentinel() && 
 						prevNode != node_->right());
 					
-					if (node_->sentinel())
+					if (node_->isSentinel())
 					{
 						node_ = originalNode;
 					}
@@ -107,173 +183,14 @@ namespace Pastel
 				else
 				{
 					node_ = node_->left();
-					while(!node_->right()->sentinel())
+					while(!node_->right()->isSentinel())
 					{
 						node_ = node_->right();
 					}
 				}
-
-				return *this;
 			}
-
-			const Key& operator*() const
-			{
-				return node_->key();
-			}
-
-			const Key& key() const
-			{
-				return node_->key();
-			}
-
-			Data_Class& data() const
-			{
-				return *node_;
-			}
-
-			bool sentinel() const
-			{
-				return node_->sentinel();
-			}
-
-			Iterator parent() const
-			{
-				return Iterator(node_->parent());
-			}
-
-			Iterator left() const
-			{
-				return Iterator(node_->left());
-			}
-
-			Iterator right() const
-			{
-				return Iterator(node_->right());
-			}
-
-			bool red() const
-			{
-				return node_->red();
-			}
-
-			bool black() const
-			{
-				return !red();
-			}
-
-		private:
-			explicit Iterator(Node* node)
-				: node_(node)
-			{
-			}
-
-			Node* node_;
 		};
-
-		template <typename Key, typename Data>
-		class ConstIterator
-			: public boost::bidirectional_iterator_helper<
-			ConstIterator<Key, Data>, const Key, integer>
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			template <typename, typename>
-			friend class Pastel::RedBlackTree;
-
-			typedef RedBlackTree_::Iterator<Key, Data> Iterator;
-			typedef RedBlackTree_::Node<Key, Data> Node;
-			
-			typedef typename AsClass<Data>::type Data_Class;
-
-			ConstIterator()
-				: iter_()
-			{
-			}
-
-			ConstIterator(const Iterator& that)
-				: iter_(that)
-			{
-			}
-
-			bool operator==(const ConstIterator& that) const
-			{
-				return iter_ == that.iter_;
-			}
-
-			bool operator<(const ConstIterator& that) const
-			{
-				return iter_ < that.iter_;
-			}
-			
-			ConstIterator& operator++()
-			{
-				++iter_;
-				return *this;
-			}
-
-			ConstIterator& operator--()
-			{
-				--iter_;
-				return *this;
-			}
-
-			const Key& operator*() const
-			{
-				return *iter_;
-			}
-
-			const Key& key() const
-			{
-				return iter_.key();
-			}
-
-			const Data_Class& data() const
-			{
-				return iter_.data();
-			}
-
-			bool sentinel() const
-			{
-				return iter_.sentinel();
-			}
-
-			ConstIterator parent() const
-			{
-				return iter_.parent();
-			}
-
-			ConstIterator left() const
-			{
-				return iter_.left();
-			}
-
-			ConstIterator right() const
-			{
-				return iter_.right();
-			}
-
-			bool red() const
-			{
-				return iter_.red();
-			}
-
-			bool black() const
-			{
-				return !red();
-			}
-
-		private:
-			explicit ConstIterator(const Node* node)
-				: iter_((Node*)node)
-			{
-			}
-
-			Iterator iter_;
-		};
-
+	
 	}
 
 }

@@ -6,6 +6,8 @@
 #include "pastel/sys/automaton_determinization.h"
 #include "pastel/sys/automaton_minimization.h"
 
+#include <boost/range/algorithm/for_each.hpp>
+
 using namespace Pastel;
 using namespace std;
 
@@ -70,9 +72,7 @@ namespace
 				stateMap[&stateSet] = det.addState();
 
 				bool allStartStates = true;
-				std::for_each(
-					stateSet.cbegin(),
-					stateSet.cend(),
+				boost::for_each(stateSet.crange(),
 					[&](const State& state)
 				{
 					if (state->final())

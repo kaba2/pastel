@@ -133,10 +133,10 @@ namespace Pastel
 	}
 	
 	template <typename Settings, typename Customization>
-	template <typename Key_ConstIterator>
+	template <typename Key_ConstIterator_>
 	void RedBlackTree<Settings, Customization>::insertMany(
-		Key_ConstIterator begin,
-		Key_ConstIterator end)
+		Key_ConstIterator_ begin,
+		Key_ConstIterator_ end)
 	{
 		while(begin != end)
 		{
@@ -152,7 +152,7 @@ namespace Pastel
 	{
 		this->onErase(that);
 
-		return Iterator(erase(that.iter_.node_));
+		return Iterator(erase((Node*)that.base()));
 	}
 
 	template <typename Settings, typename Customization>
@@ -173,7 +173,7 @@ namespace Pastel
 
 		// Cast constness away. This is ok, since
 		// we own the data.
-		Node* node = (Node*)iter.iter_.node_;
+		Node* node = (Node*)iter.base();
 
 		// Return the iterator.
 		return Iterator(node);
@@ -208,62 +208,6 @@ namespace Pastel
 		}
 
 		return cend();
-	}
-
-	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Iterator 
-	RedBlackTree<Settings, Customization>::begin()
-	{
-		return Iterator(minimum());
-	}
-
-	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::ConstIterator 
-	RedBlackTree<Settings, Customization>::cbegin() const
-	{
-		return ConstIterator(minimum());
-	}
-
-	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Iterator 
-	RedBlackTree<Settings, Customization>::end()
-	{
-		return Iterator(sentinel_);
-	}
-
-	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::ConstIterator 
-	RedBlackTree<Settings, Customization>::cend() const
-	{
-		return ConstIterator(sentinel_);
-	}
-
-	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Iterator 
-	RedBlackTree<Settings, Customization>::last()
-	{
-		return Iterator(maximum());
-	}
-
-	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::ConstIterator 
-	RedBlackTree<Settings, Customization>::clast() const
-	{
-		return ConstIterator(maximum());
-	}
-
-	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Iterator 
-	RedBlackTree<Settings, Customization>::root()
-	{
-		return Iterator(root_);
-	}
-
-	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::ConstIterator 
-	RedBlackTree<Settings, Customization>::croot() const
-	{
-		return ConstIterator(root_);
 	}
 
 }

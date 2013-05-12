@@ -193,7 +193,7 @@ comparison might be needed when storing the iterators
 in containers.
 
 As otherwise, detecting a sentinel node is done by testing 
-for a local criterion, as in `if (iter.sentinel())`. The
+for a local criterion, as in `if (iter.isSentinel())`. The
 test `if (iter == tree.end())` is also correct when using the
 iterators as a sequence, but not when traversing the tree
 in free manner, since then the sentinel references might not

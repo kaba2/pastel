@@ -19,7 +19,7 @@ namespace Pastel
 
 		Iterator next(node);
 		++next;
-		Node* successor = next.node_;
+		Node* successor = next.base();
 
 		if (node == minimum())
 		{
@@ -36,7 +36,7 @@ namespace Pastel
 
 			Iterator prev(node);
 			--prev;
-			Node* predecessor = prev.node_;
+			Node* predecessor = prev.base();
 
 			setMaximum(predecessor);
 		}
