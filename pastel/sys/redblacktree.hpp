@@ -215,7 +215,7 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	template <int Direction>
+	template <bool Direction>
 	auto RedBlackTree<Settings, Customization>::bound(const Key& key) const
 	-> ConstIterator
 	{
@@ -276,7 +276,7 @@ namespace Pastel
 			node = nextNode;
 		}
 
-		if (Direction == Left)
+		if (!Direction)
 		{
 			if (result == cend())
 			{
