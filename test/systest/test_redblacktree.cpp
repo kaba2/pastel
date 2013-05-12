@@ -95,26 +95,74 @@ namespace
 		void testSimple()
 		{
 			Tree tree(0, 0);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 0);
+				TEST_ENSURE(check(tree));
+			}
 
 			tree.insert(1, 1);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 1);
+				TEST_ENSURE(check(tree));
+			}
+			
 			tree.insert(5, 2);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 2);
+				TEST_ENSURE(check(tree));
+			}
+
 			tree.insert(3, 3);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 3);
+				TEST_ENSURE(check(tree));
+			}
+
 			tree.insert(4, 4);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 4);
+				TEST_ENSURE(check(tree));
+			}
+
 			tree.insert(8, 5);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 5);
+				TEST_ENSURE(check(tree));
+			}
+
 			tree.insert(7, 6);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 6);
+				TEST_ENSURE(check(tree));
+			}
+
 			tree.insert(6, 7);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 7);
+				TEST_ENSURE(check(tree));
+			}
+
 			tree.insert(9, 8);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 8);
+				TEST_ENSURE(check(tree));
+			}
+
 			tree.insert(2, 9);
-			TEST_ENSURE(check(tree));
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 9);
+				TEST_ENSURE(check(tree));
+			}
 
 			integer correctDataSet[] = 
 			{
@@ -158,17 +206,64 @@ namespace
 			}
 
 			{
-				// The iterator should stay on begin().
 				ConstIterator copyIter = tree.cbegin();
 				--copyIter;
-				TEST_ENSURE(copyIter == tree.cbegin());
+				TEST_ENSURE(copyIter == tree.cend());
 			}
 
-			TEST_ENSURE(tree.find(3) != tree.end());
-			TEST_ENSURE(tree.find(-1) == tree.end());
-			TEST_ENSURE(tree.find(10) == tree.end());
-			TEST_ENSURE(tree.find(9) != tree.end());
-			TEST_ENSURE(tree.find(1) != tree.end());
+			// Test find().
+			{
+				TEST_ENSURE(
+					tree.find(-1) == tree.cend());
+				TEST_ENSURE(
+					tree.find(1) != tree.cend() &&
+					tree.find(1).key() == 1);
+				TEST_ENSURE(
+					tree.find(3) != tree.cend() &&
+					tree.find(3).key() == 3);
+				TEST_ENSURE(
+					tree.find(9) != tree.cend() &&
+					tree.find(9).key() == 9);
+				TEST_ENSURE(
+					tree.find(10) == tree.cend());
+			}
+
+			// Test lower_bound().
+			{
+				TEST_ENSURE(
+					tree.lower_bound(-1) != tree.cend() &&
+					tree.lower_bound(-1).key() == 1);
+				TEST_ENSURE(
+					tree.lower_bound(1) != tree.cend() &&
+					tree.lower_bound(1).key() == 1);
+				TEST_ENSURE(
+					tree.lower_bound(3) != tree.cend() &&
+					tree.lower_bound(3).key() == 3);
+				TEST_ENSURE(
+					tree.lower_bound(9) != tree.cend() &&
+					tree.lower_bound(9).key() == 9);
+				TEST_ENSURE(
+					tree.lower_bound(10) == tree.cend());
+			}
+
+			// Test upper_bound().
+			{
+				TEST_ENSURE(
+					tree.upper_bound(-1) != tree.cend());
+				TEST_ENSURE(
+					tree.upper_bound(-1) != tree.cend() &&
+					tree.upper_bound(-1).key() == 1);
+				TEST_ENSURE(
+					tree.upper_bound(1) != tree.cend() &&
+					tree.upper_bound(1).key() == 2);
+				TEST_ENSURE(
+					tree.upper_bound(3) != tree.cend() &&
+					tree.upper_bound(3).key() == 4);
+				TEST_ENSURE(
+					tree.upper_bound(9) == tree.cend());
+				TEST_ENSURE(
+					tree.upper_bound(10) == tree.cend());
+			}
 		}
 	};
 

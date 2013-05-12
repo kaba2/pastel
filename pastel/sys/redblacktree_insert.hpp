@@ -49,14 +49,14 @@ namespace Pastel
 			return newNode;
 		}
 
-		if (compare_(key, node->key()))
+		if (Compare()(key, node->key()))
 		{
 			// Smaller elements are located at the left child.
 			node->left() = insert(
                 std::move(key), std::move(data), node->left(),
 				node, true, newNode);
 		}
-		else if (compare_(node->key(), key))
+		else if (Compare()(node->key(), key))
 		{
 			// Greater elements are located at the right child.
 			node->right() = insert(

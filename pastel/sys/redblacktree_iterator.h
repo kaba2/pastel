@@ -174,11 +174,6 @@ namespace Pastel
 					}
 					while (!node_->isSentinel() && 
 						prevNode != node_->right());
-					
-					if (node_->isSentinel())
-					{
-						node_ = originalNode;
-					}
 				}
 				else
 				{

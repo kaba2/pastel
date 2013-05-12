@@ -151,12 +151,48 @@ namespace Pastel
 		*/
 		Iterator erase(const Key& key);
 
-		//! Searches for a node with the given key.
+		//! Searches for the first element with key == 'key'.
 		/*!
-		See the documentation for the const version.
+		Time complexity: 
+		O(log(size()))
+		
+		Exception safety:
+		nothrow
 		*/
 		Iterator find(const Key& key);
 		ConstIterator find(const Key& key) const;
+
+		//! Searches for the first element with key >= 'key'.
+		/*!
+		Time complexity: 
+		O(log(size()))
+		
+		Exception safety:
+		nothrow
+		*/
+		Iterator lower_bound(const Key& key);
+		ConstIterator lower_bound(const Key& key) const;
+
+		//! Searches for the first element with key > 'key'.
+		/*!
+		Time complexity: 
+		O(log(size()))
+		
+		Exception safety:
+		nothrow
+		*/
+		Iterator upper_bound(const Key& key);
+		ConstIterator upper_bound(const Key& key) const;
+
+		//! Casts away iterator constness.
+		/*!
+		Time complexity: 
+		O(1)
+		
+		Exception safety:
+		nothrow
+		*/
+		Iterator cast(const ConstIterator& that);
 
 		//! Returns the iterator to the smallest element.
 		PASTEL_ITERATOR_FUNCTIONS(begin, minimum PASTEL_CALL_BRACKETS);
@@ -344,6 +380,9 @@ namespace Pastel
 		*/
 		Node* maximum() const;
 
+		template <int Direction>
+		ConstIterator bound(const Key& key) const;
+
 		//! The root-node of the tree.
 		Node* root_;
 
@@ -369,9 +408,6 @@ namespace Pastel
 
 		//! The number of stored elements in the tree.
 		integer size_;
-
-		//! The comparison functor.
-		Compare compare_;
 	};
 
 }

@@ -8,6 +8,7 @@
 #include "pastel/sys/skiplist_iterator.h"
 #include "pastel/sys/random_geometric.h"
 #include "pastel/sys/lessthan.h"
+#include "pastel/sys/directed_predicate.h"
 
 namespace Pastel
 {
@@ -677,7 +678,7 @@ namespace Pastel
 		template <bool Direction>
 		Node* nodeBound(const Key& key) const
 		{
-			typedef SkipList_::Directed_Compare<Compare, Direction>
+			typedef Directed_Predicate<Compare, Direction>
 				Directed_Compare;
 
 			Node* end = end_;
