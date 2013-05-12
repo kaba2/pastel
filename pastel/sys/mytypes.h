@@ -175,6 +175,8 @@ namespace Pastel
 	#	else
 			typedef int32 integer;
 	#	endif
+
+		typedef std::make_unsigned<integer>::type uinteger;
 	
 		//! Abstract native real type
 		/*!

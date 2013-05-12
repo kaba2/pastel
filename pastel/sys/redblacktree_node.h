@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
+	template <typename Settings, typename Customization>
 	class RedBlackTree;
 
 	namespace RedBlackTree_
@@ -21,7 +21,7 @@ namespace Pastel
 			: public AsClass<Data>::type
 		{
 		public:
-			template <typename, typename, typename, typename>
+			template <typename, typename>
 			friend class Pastel::RedBlackTree;
 
 			template <typename, typename>

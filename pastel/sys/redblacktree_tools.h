@@ -6,8 +6,8 @@
 namespace Pastel
 {
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	bool check(const RedBlackTree<Key, Compare, Data, Customization>& tree);
+	template <typename Settings, typename Customization>
+	bool check(const RedBlackTree<Settings, Customization>& tree);
 
 }
 

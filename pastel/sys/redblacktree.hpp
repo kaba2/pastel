@@ -5,8 +5,8 @@
 
 namespace Pastel
 {
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	RedBlackTree<Key, Compare, Data, Customization>::RedBlackTree(
+	template <typename Settings, typename Customization>
+	RedBlackTree<Settings, Customization>::RedBlackTree(
 		Key sentinelKey,
 		Data_Class sentinelData)
 		: root_(0)
@@ -19,8 +19,8 @@ namespace Pastel
 		initialize();
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	RedBlackTree<Key, Compare, Data, Customization>::RedBlackTree(
+	template <typename Settings, typename Customization>
+	RedBlackTree<Settings, Customization>::RedBlackTree(
 		const RedBlackTree& that)
 		: root_(0)
 		, sentinel_(0)
@@ -39,8 +39,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	RedBlackTree<Key, Compare, Data, Customization>::RedBlackTree(
+	template <typename Settings, typename Customization>
+	RedBlackTree<Settings, Customization>::RedBlackTree(
 		RedBlackTree&& that)
 		: root_(0)
 		, sentinel_(0)
@@ -54,24 +54,24 @@ namespace Pastel
 		swap(that);
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	RedBlackTree<Key, Compare, Data, Customization>&
-	RedBlackTree<Key, Compare, Data, Customization>::operator=(
+	template <typename Settings, typename Customization>
+	RedBlackTree<Settings, Customization>&
+	RedBlackTree<Settings, Customization>::operator=(
 		RedBlackTree that)
 	{
 		swap(that);
 		return *this;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	RedBlackTree<Key, Compare, Data, Customization>::~RedBlackTree()
+	template <typename Settings, typename Customization>
+	RedBlackTree<Settings, Customization>::~RedBlackTree()
 	{
 		clear();
 		deallocateSentinel();
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::swap(
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::swap(
 		RedBlackTree& that)
 	{
 		using std::swap;
@@ -83,8 +83,8 @@ namespace Pastel
 		swap(compare_, that.compare_);
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::clear()
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::clear()
 	{
 		this->onClear();
 
@@ -93,21 +93,21 @@ namespace Pastel
 		initialize();
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	integer RedBlackTree<Key, Compare, Data, Customization>::size() const
+	template <typename Settings, typename Customization>
+	integer RedBlackTree<Settings, Customization>::size() const
 	{
 		return size_;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	bool RedBlackTree<Key, Compare, Data, Customization>::empty() const
+	template <typename Settings, typename Customization>
+	bool RedBlackTree<Settings, Customization>::empty() const
 	{
 		return root_ == sentinel_;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Iterator 
-	RedBlackTree<Key, Compare, Data, Customization>::insert(
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Iterator 
+	RedBlackTree<Settings, Customization>::insert(
 	Key key, Data_Class data)
 	{
 		Node* newNode = sentinel_;
@@ -132,9 +132,9 @@ namespace Pastel
 		return element;
 	}
 	
-	template <typename Key, typename Compare, typename Data, typename Customization>
+	template <typename Settings, typename Customization>
 	template <typename Key_ConstIterator>
-	void RedBlackTree<Key, Compare, Data, Customization>::insertMany(
+	void RedBlackTree<Settings, Customization>::insertMany(
 		Key_ConstIterator begin,
 		Key_ConstIterator end)
 	{
@@ -145,9 +145,9 @@ namespace Pastel
 		}
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Iterator 
-		RedBlackTree<Key, Compare, Data, Customization>::erase(
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Iterator 
+		RedBlackTree<Settings, Customization>::erase(
 		const ConstIterator& that)
 	{
 		this->onErase(that);
@@ -155,17 +155,17 @@ namespace Pastel
 		return Iterator(erase(that.iter_.node_));
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Iterator 
-		RedBlackTree<Key, Compare, Data, Customization>::erase(
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Iterator 
+		RedBlackTree<Settings, Customization>::erase(
 		const Key& key)
 	{
 		return erase(find(key));
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Iterator 
-		RedBlackTree<Key, Compare, Data, Customization>::find(const Key& key)
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Iterator 
+		RedBlackTree<Settings, Customization>::find(const Key& key)
 	{
 		// Use the const-version to do the find.
 		const ConstIterator iter = 
@@ -179,9 +179,9 @@ namespace Pastel
 		return Iterator(node);
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::ConstIterator 
-	RedBlackTree<Key, Compare, Data, Customization>::find(const Key& key) const
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::ConstIterator 
+	RedBlackTree<Settings, Customization>::find(const Key& key) const
 	{
 		Node* node = root_;
 		while(node != sentinel_)
@@ -210,58 +210,58 @@ namespace Pastel
 		return cend();
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Iterator 
-	RedBlackTree<Key, Compare, Data, Customization>::begin()
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Iterator 
+	RedBlackTree<Settings, Customization>::begin()
 	{
 		return Iterator(minimum());
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::ConstIterator 
-	RedBlackTree<Key, Compare, Data, Customization>::cbegin() const
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::ConstIterator 
+	RedBlackTree<Settings, Customization>::cbegin() const
 	{
 		return ConstIterator(minimum());
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Iterator 
-	RedBlackTree<Key, Compare, Data, Customization>::end()
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Iterator 
+	RedBlackTree<Settings, Customization>::end()
 	{
 		return Iterator(sentinel_);
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::ConstIterator 
-	RedBlackTree<Key, Compare, Data, Customization>::cend() const
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::ConstIterator 
+	RedBlackTree<Settings, Customization>::cend() const
 	{
 		return ConstIterator(sentinel_);
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Iterator 
-	RedBlackTree<Key, Compare, Data, Customization>::last()
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Iterator 
+	RedBlackTree<Settings, Customization>::last()
 	{
 		return Iterator(maximum());
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::ConstIterator 
-	RedBlackTree<Key, Compare, Data, Customization>::clast() const
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::ConstIterator 
+	RedBlackTree<Settings, Customization>::clast() const
 	{
 		return ConstIterator(maximum());
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Iterator 
-	RedBlackTree<Key, Compare, Data, Customization>::root()
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Iterator 
+	RedBlackTree<Settings, Customization>::root()
 	{
 		return Iterator(root_);
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::ConstIterator 
-	RedBlackTree<Key, Compare, Data, Customization>::croot() const
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::ConstIterator 
+	RedBlackTree<Settings, Customization>::croot() const
 	{
 		return ConstIterator(root_);
 	}

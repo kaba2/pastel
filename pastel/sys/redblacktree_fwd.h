@@ -17,16 +17,13 @@ namespace Pastel
 
 	}
 
-	template <
-		typename Key,
-		typename Compare,
-		typename Data>
+	template <typename Settings>
 	class RedBlackTree_Fwd
 	{
 	public:
-		typedef Key Key_;
-		typedef Compare Compare_;
-		typedef Data Data_;
+		typedef typename Settings::Key Key;
+		typedef typename Settings::Data Data;
+		typedef typename Settings::Compare Compare;
 
 		typedef typename AsClass<Data>::type Data_Class;
 

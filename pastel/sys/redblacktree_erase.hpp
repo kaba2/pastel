@@ -6,9 +6,9 @@
 namespace Pastel
 {
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Node* 
-		RedBlackTree<Key, Compare, Data, Customization>::erase(
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Node* 
+		RedBlackTree<Settings, Customization>::erase(
 		Node* node)
 	{
 		if (node == sentinel_)
@@ -117,8 +117,8 @@ namespace Pastel
 		return successor;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::rebalance(
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::rebalance(
 		Node* toRebalance, bool leftLowOnBlack)
 	{
 		if (toRebalance == sentinel_)

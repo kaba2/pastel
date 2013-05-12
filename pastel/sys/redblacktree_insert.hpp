@@ -6,9 +6,9 @@
 namespace Pastel
 {
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
-	RedBlackTree<Key, Compare, Data, Customization>::insert(
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Node*
+	RedBlackTree<Settings, Customization>::insert(
 	Key key, Data_Class data, Node* node,
 	Node* parent, bool fromLeft, Node*& newNode)
 	{

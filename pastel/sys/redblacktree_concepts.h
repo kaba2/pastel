@@ -1,7 +1,8 @@
+// Description: Concepts for the red-black tree
+
 #ifndef PASTELSYS_REDBLACKTREE_CONCEPTS_H
 #define PASTELSYS_REDBLACKTREE_CONCEPTS_H
 
-#include "pastel/sys/redblacktree.h"
 #include "pastel/sys/redblacktree_fwd.h"
 
 namespace Pastel
@@ -10,19 +11,42 @@ namespace Pastel
 	namespace RedBlackTree_Concepts
 	{
 
-		template <
-			typename Key,
-			typename Compare,
-			typename Data>
+		//! RedBlackTree_Settings concept
+		class Settings
+		{
+		public:
+			//! The type of the keys.
+			using Key = UserDefinedType;
+
+			//! The type of the data.
+			/*!
+			Settings this to void avoids allocating any
+			memory for the data.
+			*/
+			using Data = UserDefinedType;
+
+			//! The type of the predicate to use for comparing keys.
+			/*!
+			The comparison is done as Compare()(left, right).
+			*/
+			using Compare = UserDefinedType;
+		};
+
+		//! RedBlackTree_Customization concept
+		template <typename Settings>
 		class Customization
 		{
 		private:
-			typedef RedBlackTree_Fwd<Key, Compare, Data> 
-				Fwd;
-
+			using Fwd = RedBlackTree_Fwd<Settings>;
+			
 			PASTEL_FWD(Iterator);
 			PASTEL_FWD(ConstIterator);
 
+		/*
+		The customization functions should be protected
+		so that they can only be called by the RedBlackTree
+		implementation.
+		*/
 		protected:
 			//! Constructs an empty customization.
 			/*!

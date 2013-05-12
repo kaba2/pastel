@@ -31,9 +31,10 @@ namespace
 			testSimple();
 		}
 
+		using Tree_Settings = Map_Settings<integer, integer>;
+
 		class Counting_Customization
-			: public RedBlackTree_Concepts::Customization<
-			integer, LessThan, integer>
+			: public Empty_RedBlackTree_Customization<Tree_Settings>
 		{
 		public:
 			template <typename Iterator>
@@ -46,7 +47,7 @@ namespace
 			}
 		};
 
-		typedef RedBlackTree<integer, std::less<integer>, integer, Counting_Customization> Tree;
+		typedef RedBlackTree<Tree_Settings, Counting_Customization> Tree;
 		typedef Tree::Iterator Iterator;
 		typedef Tree::ConstIterator ConstIterator;
 

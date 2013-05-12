@@ -1,30 +1,35 @@
-// Description: A red-black tree
+// Description: Red-black tree
 
 #ifndef PASTELSYS_REDBLACKTREE_H
 #define PASTELSYS_REDBLACKTREE_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/redblacktree_fwd.h"
 #include "pastel/sys/redblacktree_concepts.h"
 #include "pastel/sys/redblacktree_node.h"
 #include "pastel/sys/redblacktree_iterator.h"
-#include "pastel/sys/object_forwarding.h"
 
 namespace Pastel
 {
 
-	//! A red-black tree
+	template <typename Settings>
+	using Empty_RedBlackTree_Customization =
+		RedBlackTree_Concepts::Customization<Settings>;
+
+	//! Red-black tree
 	template <
-		typename Key,
-		typename Compare = LessThan,
-		typename Data = void,
-		typename Customization = RedBlackTree_Concepts::Customization<Key, Compare, Data>>
+		typename Settings_,
+		typename Customization = Empty_RedBlackTree_Customization<Settings_>>
 	class RedBlackTree
 		: public Customization
 	{
 	public:
-		typedef RedBlackTree_Fwd<Key, Compare, Data> Fwd;
-		typedef Customization Customization_;
+		using Settings = Settings_;
+		using Fwd = RedBlackTree_Fwd<Settings>;
 
+		PASTEL_FWD(Key);
+		PASTEL_FWD(Data);
+		PASTEL_FWD(Compare);
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
 		PASTEL_FWD(Data_Class);
@@ -377,11 +382,59 @@ namespace Pastel
 
 }
 
+// Map
+
+namespace Pastel
+{
+
+	template <
+		typename Key_, 
+		typename Data_,
+		typename Compare_ = LessThan>
+	class Map_Settings
+	{
+	public:
+		using Key = Key_;
+		using Data = Data_;
+		using Compare = Compare_;
+	};
+
+	template <
+		typename Key, 
+		typename Data,
+		typename Compare = LessThan,
+		typename Customization = Empty_RedBlackTree_Customization<
+		Map_Settings<Key, Data, Compare>>>
+	using Map = 
+		RedBlackTree<Map_Settings<Key, Data, Compare>, Customization>;
+
+}
+
+// Set
+
+namespace Pastel
+{
+
+	template <
+		typename Key, 
+		typename Compare = LessThan>
+	using Set_Settings = 
+		Map_Settings<Key, void, Compare>;
+
+	template <
+		typename Key, 
+		typename Compare = LessThan,
+		typename Customization = Empty_RedBlackTree_Customization<
+		Set_Settings<Key, Compare>>>
+	using Set = 
+		RedBlackTree<Set_Settings<Key, Compare>, Customization>;;
+
+}
+
 #include "pastel/sys/redblacktree.hpp"
 #include "pastel/sys/redblacktree_private.hpp"
 #include "pastel/sys/redblacktree_erase.hpp"
 #include "pastel/sys/redblacktree_insert.hpp"
-
 #include "pastel/sys/redblacktree_tools.h"
 
 #endif

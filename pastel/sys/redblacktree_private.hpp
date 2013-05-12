@@ -6,8 +6,8 @@
 namespace Pastel
 {
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::allocateSentinel(
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::allocateSentinel(
 		Key key,
 		Data_Class data)
 	{
@@ -23,15 +23,15 @@ namespace Pastel
 		sentinel_->right() = sentinel_;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::deallocateSentinel()
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::deallocateSentinel()
 	{
 		delete sentinel_;
 		sentinel_ = 0;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::initialize()
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::initialize()
 	{
 		// This function is called both in construction
 		// and in clear().
@@ -47,9 +47,9 @@ namespace Pastel
 		size_ = 0;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
-	RedBlackTree<Key, Compare, Data, Customization>::allocateNode(
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Node*
+	RedBlackTree<Settings, Customization>::allocateNode(
 	Key key, Data_Class data, Node* parent, bool red)
 	{
 		Node* node = new Node(std::move(key), std::move(data), 
@@ -58,8 +58,8 @@ namespace Pastel
 		return node;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::updateToRoot(
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::updateToRoot(
 		Node* node)
 	{
 		if (node == sentinel_)
@@ -79,9 +79,9 @@ namespace Pastel
 		root_ = child;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Node* 
-		RedBlackTree<Key, Compare, Data, Customization>::copyConstruct(
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Node* 
+		RedBlackTree<Settings, Customization>::copyConstruct(
 		Node* parent, Node* thatNode)
 	{
 		if (thatNode->sentinel())
@@ -129,8 +129,8 @@ namespace Pastel
 		return node;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::clear(
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::clear(
 		Node* node)
 	{
 		// The sentinel should not be destructed
@@ -149,8 +149,8 @@ namespace Pastel
 		// be done at higher level all at once.
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::link(
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::link(
 		Node* parent, Node* child, integer direction)
 	{
 		if (parent != sentinel_)
@@ -167,9 +167,9 @@ namespace Pastel
 		}
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
-		RedBlackTree<Key, Compare, Data, Customization>::rotate(
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Node*
+		RedBlackTree<Settings, Customization>::rotate(
 		Node* node, integer direction)
 	{
 		ASSERT(node != sentinel_);
@@ -198,8 +198,8 @@ namespace Pastel
 		return x;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::flipColors(
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::flipColors(
 		Node* node)
 	{
 		ASSERT(node != sentinel_);
@@ -215,30 +215,30 @@ namespace Pastel
 		}
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::setMinimum(
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::setMinimum(
 		Node* node)
 	{
 		minimum_ = node;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
-		RedBlackTree<Key, Compare, Data, Customization>::minimum() const
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Node*
+		RedBlackTree<Settings, Customization>::minimum() const
 	{
 		return minimum_;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	void RedBlackTree<Key, Compare, Data, Customization>::setMaximum(
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::setMaximum(
 		Node* node)
 	{
 		sentinel_->parent() = node;
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
-		RedBlackTree<Key, Compare, Data, Customization>::maximum() const
+	template <typename Settings, typename Customization>
+	typename RedBlackTree<Settings, Customization>::Node*
+		RedBlackTree<Settings, Customization>::maximum() const
 	{
 		return sentinel_->parent();
 	}

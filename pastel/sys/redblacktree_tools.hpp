@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	namespace RedBlackTreeTools_
+	namespace RedBlackTree_
 	{
 
 		template <typename ConstIterator>
@@ -77,8 +77,8 @@ namespace Pastel
 
 	}
 
-	template <typename Key, typename Compare, typename Data, typename Customization>
-	bool check(const RedBlackTree<Key, Compare, Data, Customization>& tree)
+	template <typename Settings, typename Customization>
+	bool check(const RedBlackTree<Settings, Customization>& tree)
 	{
 		if (!tree.croot().black())
 		{
@@ -87,7 +87,7 @@ namespace Pastel
 		}
 
 		integer blackHeight = 0;
-		return RedBlackTreeTools_::check(tree.croot(), blackHeight);
+		return RedBlackTree_::check(tree.croot(), blackHeight);
 	}
 
 }
