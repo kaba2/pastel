@@ -52,8 +52,8 @@ namespace Pastel
 
 		//! Constructs an empty tree.
 		/*!
-		Exception safety: strong
 		Time complexity: O(1)
+		Exception safety: strong
 		*/
 		explicit RedBlackTree(
 			Key sentinelKey = Key(), 
@@ -61,64 +61,64 @@ namespace Pastel
 
 		//! Copy-constructs from another tree.
 		/*!
-		Exception safety: strong
 		Time complexity: O(that.size()) * insert()
+		Exception safety: strong
 		*/
 		RedBlackTree(const RedBlackTree& that);
 
 		//! Move-constructs from another tree.
 		/*!
-		Exception safety: nothrow
 		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		RedBlackTree(RedBlackTree&& that);
 
 		//! Replaces this tree with a copy of another tree.
 		/*!
-		Exception safety: strong
 		Time complexity: move/copy-construction
+		Exception safety: strong
 		*/
 		RedBlackTree& operator=(RedBlackTree that);
 
 		//! Destructs the tree.
 		/*!
-		Exception safety: nothrow
 		Time complexity: clear()
+		Exception safety: nothrow
 		*/
 		~RedBlackTree();
 
 		//! Swaps two trees.
 		/*!
-		Exception safety: nothrow
 		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		void swap(RedBlackTree& that);
 
 		//! Removes all elements from the tree.
 		/*!
-		Exception safety: nothrow
 		Time complexity: O(size()) + onClear()
+		Exception safety: nothrow
 		*/
 		void clear();
 
 		//! Returns the number of elements in the tree.
 		/*!
-		Exception safety: nothrow
 		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		integer size() const;
 
 		//! Returns true if the tree is empty.
 		/*!
-		Exception safety: nothrow
 		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		bool empty() const;
 
 		//! Inserts an element into the tree.
 		/*!
-		Exception safety: strong + onInsert()
 		Time complexity: O(log n) * updateHieararchicalData() + onInsert()
+		Exception safety: strong + onInsert()
 
 		Here f(n) is the time spent computing the
 		user-specified hierarchical data (usually O(1)).
@@ -129,68 +129,56 @@ namespace Pastel
 
 		//! Inserts elements into the tree.
 		/*!
-		Exception safety: basic
 		Time complexity: insert() * std::distance(begin, end)
+		Exception safety: basic
 		*/
 		template <typename Key_ConstIterator_>
 		void insertMany(
 			Key_ConstIterator_ begin,
 			Key_ConstIterator_ end);
 
-		//! Removes an element from the tree.
+		//! Removes an element from the tree by its iterator.
 		/*!
-		Exception safety: nothrow
 		Time complexity: O(log n) * updateHierarchicalData() + onErase()
+		Exception safety: nothrow
 		*/
 		Iterator erase(const ConstIterator& that);
 
-		//! Removes an element from the tree.
+		//! Removes an element from the tree by its key.
 		/*!
-		This is a convenience function that calls
-		erase(find(key)).
+		Time complexity: erase(find(key))
+		Exception safety: nothrow
 		*/
 		Iterator erase(const Key& key);
 
 		//! Searches for the first element with key == 'key'.
 		/*!
-		Time complexity: 
-		O(log(size()))
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
 		*/
 		Iterator find(const Key& key);
 		ConstIterator find(const Key& key) const;
 
 		//! Searches for the first element with key >= 'key'.
 		/*!
-		Time complexity: 
-		O(log(size()))
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
 		*/
 		Iterator lower_bound(const Key& key);
 		ConstIterator lower_bound(const Key& key) const;
 
 		//! Searches for the first element with key > 'key'.
 		/*!
-		Time complexity: 
-		O(log(size()))
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
 		*/
 		Iterator upper_bound(const Key& key);
 		ConstIterator upper_bound(const Key& key) const;
 
 		//! Casts away iterator constness.
 		/*!
-		Time complexity: 
-		O(1)
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Iterator cast(const ConstIterator& that);
 
@@ -380,7 +368,14 @@ namespace Pastel
 		*/
 		Node* maximum() const;
 
-		template <int Direction>
+		//! Find either the lower or the upper bound of a key.
+		/*!
+		The lower bound is the first element with key >= 'key';
+		it is given by Direction = Right.
+		The upper bound is the first element with key > 'key';
+		it is given by Direction = Left.
+		*/
+		template <bool Direction>
 		ConstIterator bound(const Key& key) const;
 
 		//! The root-node of the tree.
