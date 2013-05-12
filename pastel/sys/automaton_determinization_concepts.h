@@ -22,11 +22,10 @@ namespace Pastel
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
-		typedef typename AsHashedTree<
+		using StateSet = HashedTree<
 			State_ConstIterator, 
 			IteratorAddress_LessThan,
-			IteratorAddress_Hash>::type
-			StateSet;
+			IteratorAddress_Hash>;
 
 		class State_Output
 		{

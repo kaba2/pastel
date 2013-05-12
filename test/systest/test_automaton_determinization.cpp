@@ -54,9 +54,9 @@ namespace
 
 			//std::cout << automaton << std::endl;
 
-			typedef AsHashedTree<
+			using StateSet = HashedTree<
 				State, IteratorAddress_LessThan,
-				IteratorAddress_Hash>::type StateSet;
+				IteratorAddress_Hash>;
 
 			Automaton_ det;
 

@@ -194,15 +194,12 @@ namespace Pastel
 			integer maxCliqueSize;
 		};
 
-		template <
-			typename Key,
-			typename Compare,
-			typename Data>
+		template <typename Settings>
 		class MaximumClique_Customization
-			: public RedBlackTree_Concepts::Customization<Key, Compare, Data>
+			: public Empty_RedBlackTree_Customization<Settings>
 		{
 		protected:
-			typedef RedBlackTree_Fwd<Key, Compare, Data> Tree;
+			typedef RedBlackTree_Fwd<Settings> Tree;
 			typedef typename Tree::Iterator
 				Iterator;
 			typedef typename Tree::ConstIterator
@@ -521,9 +518,10 @@ namespace Pastel
 
 		typedef Event<Real, AlignedBox_ConstIterator> Event;
 		typedef MaximumCliqueAlignedBox_::Data Data;
-		typedef MaximumClique_Customization<Event, LessThan, Data> Customization;
+		typedef Map_Settings<Event, Data> Settings;
+		typedef MaximumClique_Customization<Settings> Customization;
 
-		typedef RedBlackTree<Event, LessThan, Data, Customization> Tree;
+		typedef RedBlackTree<Settings, Customization> Tree;
 		typedef typename Tree::ConstIterator Event_ConstIterator;
 
 		ENSURE_OP(sweepDirection, >=, 0);

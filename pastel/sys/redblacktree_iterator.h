@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename, typename, typename, typename>
+	template <typename, typename>
 	class RedBlackTree;
 	
 	namespace RedBlackTree_
@@ -29,7 +29,7 @@ namespace Pastel
 			template <typename, typename>
 			friend class ConstIterator;
 
-			template <typename, typename, typename, typename>
+			template <typename, typename>
 			friend class Pastel::RedBlackTree;
 
 			typedef RedBlackTree_::Node<Key, Data> Node;
@@ -180,7 +180,7 @@ namespace Pastel
 			// Using default assignment.
 			// Using default destructor.
 
-			template <typename, typename, typename, typename>
+			template <typename, typename>
 			friend class Pastel::RedBlackTree;
 
 			typedef RedBlackTree_::Iterator<Key, Data> Iterator;

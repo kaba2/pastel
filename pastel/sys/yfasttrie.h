@@ -3,7 +3,6 @@
 #ifndef PASTELSYS_YFASTTRIE_H
 #define PASTELSYS_YFASTTRIE_H
 
-#include "pastel/sys/tree.h"
 #include "pastel/sys/number_tests.h"
 
 #include <bitset>
@@ -11,6 +10,26 @@
 
 namespace Pastel
 {
+
+	namespace YFastTrie_
+	{
+
+		class Node
+		{
+		public:
+			Node* parent_;
+			Node* left_;
+			Node* right_;
+		};
+	
+		template <typename Integer>
+		class Leaf_Node
+		: public Node
+		{
+		public:
+		}		
+
+	}
 
 	//! Y-fast trie
 	/*!
@@ -30,9 +49,12 @@ namespace Pastel
 	"Fast Local Searches and Updates in Bounded Universes",
 	Prosenjit Bose et al., CCCG 2010 (2010).
 	*/
-	template <int N>
+	template <int N, typename Value = void>
 	class YFastTrie
 	{
+	private:
+		typedef YFastTrie_::Node Node;
+
 	public:
 		PASTEL_STATIC_ASSERT(N > 0);
 
@@ -145,7 +167,7 @@ namespace Pastel
 			return node;
 		}
 
-		IntegerTree tree_;
+		Node* root_;
 		std::array<IntegerSet, N> elementSetSet_;
 	};
 

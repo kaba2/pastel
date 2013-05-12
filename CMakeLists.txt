@@ -190,6 +190,11 @@ if (CMAKE_COMPILER_IS_GNUGXX OR CMAKE_COMPILER_IS_CLANGXX)
 			"${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -lgomp")
 	endif()
 
+	# List at most 2 errors.
+	add_definitions (
+		-ferror-limit = 1
+	)
+
 	# Disable some warnings.
 	add_definitions (
 		# Pragma warnings caused by OpenMP support not being enabled.
