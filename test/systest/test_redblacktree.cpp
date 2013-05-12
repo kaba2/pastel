@@ -31,8 +31,11 @@ namespace
 			testSimple();
 		}
 
-		using Tree_Settings = Map_Settings<integer, integer>;
+		typedef Map<integer, integer> Tree;
+		typedef Tree::Iterator Iterator;
+		typedef Tree::ConstIterator ConstIterator;
 
+		using Tree_Settings = Map_Settings<integer, integer>;
 		class Counting_Customization
 			: public Empty_RedBlackTree_Customization<Tree_Settings>
 		{
@@ -47,9 +50,9 @@ namespace
 			}
 		};
 
-		typedef RedBlackTree<Tree_Settings, Counting_Customization> Tree;
-		typedef Tree::Iterator Iterator;
-		typedef Tree::ConstIterator ConstIterator;
+		typedef RedBlackTree<Tree_Settings, Counting_Customization> Counting_Tree;
+		typedef Counting_Tree::Iterator Counting_Iterator;
+		typedef Counting_Tree::ConstIterator Counting_ConstIterator;
 
 		void testRandom()
 		{
@@ -92,24 +95,45 @@ namespace
 		void testSimple()
 		{
 			Tree tree(0, 0);
+			TEST_ENSURE(check(tree));
 
 			tree.insert(1, 1);
-			tree.insert(5, 1);
-			tree.insert(3, 1);
-			tree.insert(4, 1);
-			tree.insert(8, 1);
-			tree.insert(7, 1);
-			tree.insert(6, 1);
-			tree.insert(9, 1);
-			tree.insert(2, 1);
+			TEST_ENSURE(check(tree));
+			tree.insert(5, 2);
+			TEST_ENSURE(check(tree));
+			tree.insert(3, 3);
+			TEST_ENSURE(check(tree));
+			tree.insert(4, 4);
+			TEST_ENSURE(check(tree));
+			tree.insert(8, 5);
+			TEST_ENSURE(check(tree));
+			tree.insert(7, 6);
+			TEST_ENSURE(check(tree));
+			tree.insert(6, 7);
+			TEST_ENSURE(check(tree));
+			tree.insert(9, 8);
+			TEST_ENSURE(check(tree));
+			tree.insert(2, 9);
+			TEST_ENSURE(check(tree));
+
+			integer correctDataSet[] = 
 			{
-				integer correctSet[] = 
-				{
-					1, 2, 3, 4, 5, 6, 7, 8, 9
-				};
-				TEST_ENSURE(boost::equal(
-					range(tree.cbegin(), tree.cend()), 
-					range(correctSet)));
+				1, 9, 3, 4, 2, 7, 6, 5, 8
+			};
+
+			integer correctKeySet[] = 
+			{
+				1, 2, 3, 4, 5, 6, 7, 8, 9
+			};
+
+			{
+				TEST_ENSURE_OP(boost::distance(tree), ==, 9)
+				TEST_ENSURE_OP(boost::distance(tree.cdataRange()), ==, 9)
+				TEST_ENSURE_OP(boost::distance(tree.ckeyRange()), ==, 9)
+
+				TEST_ENSURE(boost::equal(tree, correctDataSet));
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
 			}
 
 			{
@@ -120,14 +144,17 @@ namespace
 			}
 
 			{
-				integer correctSet[] = 
-				{
-					9, 8, 7, 6, 5, 4, 3, 2, 1
-				};
+				TEST_ENSURE(boost::equal(
+					tree | boost::adaptors::reversed, 
+					correctDataSet | boost::adaptors::reversed));
 
 				TEST_ENSURE(boost::equal(
-					range(tree.cbegin(), tree.cend()) | boost::adaptors::reversed, 
-					range(correctSet)));
+					tree.cdataRange() | boost::adaptors::reversed, 
+					correctDataSet | boost::adaptors::reversed));
+
+				TEST_ENSURE(boost::equal(
+					tree.ckeyRange() | boost::adaptors::reversed, 
+					correctKeySet | boost::adaptors::reversed));
 			}
 
 			{

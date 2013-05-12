@@ -34,6 +34,41 @@
 // FIX: Remove this version after C++11 typename-fix becomes available in Visual Studio.
 #define PASTEL_FWD_(member) typedef Fwd::member member
 
+#define PASTEL_ITERATOR_FUNCTIONS_PREFIX(prefix, name, assign) \
+	prefix##Iterator name() \
+	{ \
+		return prefix##Iterator(assign); \
+	} \
+	\
+	prefix##ConstIterator name() const \
+	{ \
+		return prefix##ConstIterator(assign); \
+	} \
+	\
+	prefix##ConstIterator c##name() const \
+	{ \
+		return prefix##ConstIterator(assign); \
+	}
+
+#define PASTEL_ITERATOR_FUNCTIONS(name, assign) \
+	PASTEL_ITERATOR_FUNCTIONS_PREFIX(, name, assign)
+
+#define PASTEL_RANGE_FUNCTIONS_PREFIX(prefix, name, begin_, end_) \
+	prefix##Range name() \
+	{ \
+		return Pastel::range( begin_ (), end_ ()); \
+	} \
+	\
+	prefix##ConstRange c##name() const \
+	{ \
+		return Pastel::range( c##begin_ (), c##end_ ()); \
+	}
+
+#define PASTEL_RANGE_FUNCTIONS(name, begin, end) \
+	PASTEL_RANGE_FUNCTIONS_PREFIX(, name, begin, end)
+	
+#define PASTEL_CALL_BRACKETS ()
+
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 
 #if (defined _WIN32 || defined _WIN64)

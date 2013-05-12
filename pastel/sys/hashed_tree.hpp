@@ -12,7 +12,7 @@ namespace Pastel
 	{
 	protected:
 		using Fwd = RedBlackTree_Fwd<Settings>;
-
+		
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
 

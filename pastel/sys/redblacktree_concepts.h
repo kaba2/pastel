@@ -30,6 +30,23 @@ namespace Pastel
 			The comparison is done as Compare()(left, right).
 			*/
 			using Compare = UserDefinedType;
+
+			//! To which type iterators should dereference to.
+			/*!
+			RedBlackTree_Dereference_Default: 
+			When Data != void, dereference to the Data. Otherwise
+			dereference to the Key.
+
+			RedBlackTree_Dereference_Key:
+			Always dereference to the Key.
+
+			RedBlackTree_Dereference_Data:
+			Always dereference to the Data.
+			*/
+			enum
+			{
+				DereferenceType = RedBlackTree_Dereference_Default
+			};
 		};
 
 		//! RedBlackTree_Customization concept

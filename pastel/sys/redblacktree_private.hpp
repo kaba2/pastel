@@ -84,7 +84,7 @@ namespace Pastel
 		RedBlackTree<Settings, Customization>::copyConstruct(
 		Node* parent, Node* thatNode)
 	{
-		if (thatNode->sentinel())
+		if (thatNode->isSentinel())
 		{
 			return sentinel_;
 		}

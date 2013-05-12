@@ -40,9 +40,9 @@ include_directories (${MatlabIncludeDirectory})
 # -------------------
 
 option (BuildLibraries "Build Pastel's main libraries." ON)
-option (BuildMatlab "Build Pastel's Matlab-libraries." OFF)
-option (BuildTests "Build Pastel's tests." OFF)
-option (BuildExamples "Build Pastel's examples." OFF)
+option (BuildMatlab "Build Pastel's Matlab-libraries." ON)
+option (BuildTests "Build Pastel's tests." ON)
+option (BuildExamples "Build Pastel's examples." ON)
 option (SharedLibraries "Produce shared libraries." OFF)
 option (Parallel "Parallelize some of the algorithms." ON)
 # Whether the 'integer'-type should be as large as a pointer (vs 32-bit).
@@ -189,11 +189,6 @@ if (CMAKE_COMPILER_IS_GNUGXX OR CMAKE_COMPILER_IS_CLANGXX)
 		set (CMAKE_SHARED_LINKER_FLAGS_RELEASE
 			"${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -lgomp")
 	endif()
-
-	# List at most 2 errors.
-	add_definitions (
-		-ferror-limit = 1
-	)
 
 	# Disable some warnings.
 	add_definitions (

@@ -60,20 +60,9 @@ namespace Pastel
 			[&](StateSet&& left, const StateSet& right)
 			-> StateSet
 		{
-			// This does not work in GCC 4.6; 
-			// GCC 4.6 has some bug in it.
-			/*
-			std::for_each(right.cbegin(), right.cend(),
-				[&](const State_ConstIterator& state)
+			for (const auto& state : right)
 			{
 				insert(state, left);
-			});
-			*/
-			for (auto state = right.cbegin();
-				state != right.cend();
-				++state)
-			{
-				insert(*state, left);
 			}
 
 			return left;

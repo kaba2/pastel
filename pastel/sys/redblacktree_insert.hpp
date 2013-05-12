@@ -9,7 +9,7 @@ namespace Pastel
 	template <typename Settings, typename Customization>
 	typename RedBlackTree<Settings, Customization>::Node*
 	RedBlackTree<Settings, Customization>::insert(
-	Key key, Data_Class data, Node* node,
+	Key&& key, Data_Class&& data, Node* node,
 	Node* parent, bool fromLeft, Node*& newNode)
 	{
 		if (node == sentinel_)
@@ -53,14 +53,14 @@ namespace Pastel
 		{
 			// Smaller elements are located at the left child.
 			node->left() = insert(
-				key, std::move(data), node->left(), 
+                std::move(key), std::move(data), node->left(),
 				node, true, newNode);
 		}
 		else if (compare_(node->key(), key))
 		{
 			// Greater elements are located at the right child.
 			node->right() = insert(
-				key, std::move(data), node->right(), 
+                std::move(key), std::move(data), node->right(),
 				node, false, newNode);
 		}
 		else

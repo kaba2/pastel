@@ -3,7 +3,6 @@
 #ifndef PASTELSYS_REDBLACKTREE_H
 #define PASTELSYS_REDBLACKTREE_H
 
-#include "pastel/sys/mytypes.h"
 #include "pastel/sys/redblacktree_fwd.h"
 #include "pastel/sys/redblacktree_concepts.h"
 #include "pastel/sys/redblacktree_node.h"
@@ -30,9 +29,26 @@ namespace Pastel
 		PASTEL_FWD(Key);
 		PASTEL_FWD(Data);
 		PASTEL_FWD(Compare);
+
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
+		PASTEL_FWD(Range);
+		PASTEL_FWD(ConstRange);
+
+		PASTEL_FWD(Key_Iterator);
+		PASTEL_FWD(Key_ConstIterator);
+		PASTEL_FWD(Key_Range);
+		PASTEL_FWD(Key_ConstRange);
+
+		PASTEL_FWD(Data_Iterator);
+		PASTEL_FWD(Data_ConstIterator);
+		PASTEL_FWD(Data_Range);
+		PASTEL_FWD(Data_ConstRange);
+
 		PASTEL_FWD(Data_Class);
+
+		using iterator = Iterator;
+		using const_iterator = ConstIterator;
 
 		//! Constructs an empty tree.
 		/*!
@@ -116,10 +132,10 @@ namespace Pastel
 		Exception safety: basic
 		Time complexity: insert() * std::distance(begin, end)
 		*/
-		template <typename Key_ConstIterator>
+		template <typename Key_ConstIterator_>
 		void insertMany(
-			Key_ConstIterator begin,
-			Key_ConstIterator end);
+			Key_ConstIterator_ begin,
+			Key_ConstIterator_ end);
 
 		//! Removes an element from the tree.
 		/*!
@@ -140,65 +156,43 @@ namespace Pastel
 		See the documentation for the const version.
 		*/
 		Iterator find(const Key& key);
-
-		//! Searches for a node with the given key.
-		/*!
-		Exception safety: nothrow
-		Time complexity: O(log n)
-		*/
 		ConstIterator find(const Key& key) const;
 
 		//! Returns the iterator to the smallest element.
-		/*!
-		See the documentation for the const version.
-		*/
-		Iterator begin();
+		PASTEL_ITERATOR_FUNCTIONS(begin, minimum PASTEL_CALL_BRACKETS);
+
+		//! Returns the iterator to the one-past-greatest element.
+		PASTEL_ITERATOR_FUNCTIONS(end, sentinel_);
+
+		//! Returns an iterator range.
+		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 		//! Returns the iterator to the smallest element.
-		/*!
-		Exception safety: nothrow
-		Time complexity: constant
-		*/
-		ConstIterator cbegin() const;
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyBegin, minimum PASTEL_CALL_BRACKETS);
 
 		//! Returns the iterator to the one-past-greatest element.
-		/*!
-		See the documentation for the const version.
-		*/
-		Iterator end();
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, sentinel_);
+
+		//! Returns an iterator range.
+		PASTEL_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
+
+		//! Returns the iterator to the smallest element.
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataBegin, minimum PASTEL_CALL_BRACKETS);
 
 		//! Returns the iterator to the one-past-greatest element.
-		/*!
-		Exception safety: nothrow
-		Time complexity: constant
-		*/
-		ConstIterator cend() const;
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataEnd, sentinel_);
+
+		//! Returns an iterator range.
+		PASTEL_RANGE_FUNCTIONS_PREFIX(Data_, dataRange, dataBegin, dataEnd);
 
 		//! Returns the iterator to the greatest element.
-		/*!
-		See the documentation for the const version.
-		*/
-		Iterator last();
-
-		//! Returns the iterator to the greatest element.
-		/*!
-		Exception safety: nothrow
-		Time complexity: constant
-		*/
-		ConstIterator clast() const;
+		PASTEL_ITERATOR_FUNCTIONS(last, maximum PASTEL_CALL_BRACKETS);
 
 		//! Returns the iterator to the root element.
 		/*!
 		See the documentation for the const version.
 		*/
-		Iterator root();
-
-		//! Returns the iterator to the root element.
-		/*!
-		Exception safety: nothrow
-		Time complexity: constant
-		*/
-		ConstIterator croot() const;
+		PASTEL_ITERATOR_FUNCTIONS(root, root_);
 
 	private:
 		enum
@@ -207,7 +201,7 @@ namespace Pastel
 			Right = 1
 		};
 
-		typedef RedBlackTree_::Node<Key, Data> Node;
+		typedef RedBlackTree_::Node<Key, Data_Class> Node;
 
 		//! Allocates the sentinel node.
 		/*!
@@ -248,8 +242,8 @@ namespace Pastel
 
 		//! Inserts a new node.
 		Node* insert(
-			Key key, 
-			Data_Class data, 
+			Key&& key, 
+			Data_Class&& data, 
 			Node* node,
 			Node* parent,
 			bool fromLeft,
@@ -390,23 +384,29 @@ namespace Pastel
 	template <
 		typename Key_, 
 		typename Data_,
-		typename Compare_ = LessThan>
+		typename Compare_ = LessThan,
+		integer DereferenceType_ = RedBlackTree_Dereference_Default>
 	class Map_Settings
 	{
 	public:
 		using Key = Key_;
 		using Data = Data_;
 		using Compare = Compare_;
+		enum
+		{
+			DereferenceType = DereferenceType_
+		};
 	};
 
 	template <
 		typename Key, 
 		typename Data,
 		typename Compare = LessThan,
+		integer DereferenceType_ = RedBlackTree_Dereference_Default,
 		typename Customization = Empty_RedBlackTree_Customization<
-		Map_Settings<Key, Data, Compare>>>
+		Map_Settings<Key, Data, Compare, DereferenceType_>>>
 	using Map = 
-		RedBlackTree<Map_Settings<Key, Data, Compare>, Customization>;
+		RedBlackTree<Map_Settings<Key, Data, Compare, DereferenceType_>, Customization>;
 
 }
 
@@ -417,17 +417,19 @@ namespace Pastel
 
 	template <
 		typename Key, 
-		typename Compare = LessThan>
+		typename Compare = LessThan,
+		integer DereferenceType_ = RedBlackTree_Dereference_Default>
 	using Set_Settings = 
-		Map_Settings<Key, void, Compare>;
+		Map_Settings<Key, void, Compare, DereferenceType_>;
 
 	template <
 		typename Key, 
 		typename Compare = LessThan,
+		integer DereferenceType_ = RedBlackTree_Dereference_Default,
 		typename Customization = Empty_RedBlackTree_Customization<
-		Set_Settings<Key, Compare>>>
+		Set_Settings<Key, Compare, DereferenceType_>>>
 	using Set = 
-		RedBlackTree<Set_Settings<Key, Compare>, Customization>;;
+		RedBlackTree<Set_Settings<Key, Compare, DereferenceType_>, Customization>;;
 
 }
 

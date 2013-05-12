@@ -17,7 +17,7 @@ namespace Pastel
 		typename Element, 
 		typename Compare = LessThan,
 		typename Hash = std::hash<Element>>
-	using HashedTree = Map<Element, hash_integer, Compare,
+	using HashedTree = Map<Element, hash_integer, Compare, RedBlackTree_Dereference_Key,
 		Hash_RedBlackTree_Customization<
 		Map_Settings<Element, hash_integer, Compare>, Hash>>;
 

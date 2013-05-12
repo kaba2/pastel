@@ -13,22 +13,16 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename Key, typename Data>
-		class ConstIterator;
-
-		template <typename Key, typename Data>
+		template <typename Key, typename Data_Class>
 		class Node
-			: public AsClass<Data>::type
+			: public Data_Class
 		{
 		public:
 			template <typename, typename>
 			friend class Pastel::RedBlackTree;
 
-			template <typename, typename>
+			template <typename, typename, typename, bool>
 			friend class Iterator;
-
-			typedef typename AsClass<Data>::type
-				Data_Class;
 
 			enum
 			{
@@ -41,6 +35,16 @@ namespace Pastel
 				return key_;
 			}
 
+			Data_Class& data()
+			{
+				return *this;
+			}
+
+			const Data_Class& data() const
+			{
+				return *this;
+			}
+
 			bool red() const
 			{
 				return red_;
@@ -51,7 +55,7 @@ namespace Pastel
 				return !red_;
 			}
 			
-			bool sentinel() const
+			bool isSentinel() const
 			{
 				// A sentinel is identified by the unique property
 				// that its children point to itself.
@@ -82,19 +86,19 @@ namespace Pastel
 
 			void setRed()
 			{
-				ASSERT(!sentinel());
+				ASSERT(!isSentinel());
 				red_ = true;
 			}
 
 			void setBlack()
 			{
-				ASSERT(!sentinel());
+				ASSERT(!isSentinel());
 				red_ = false;
 			}
 
 			void setRed(bool red)
 			{
-				ASSERT(!sentinel());
+				ASSERT(!isSentinel());
 				red_ = red;
 			}
 
@@ -129,7 +133,7 @@ namespace Pastel
 
 			Node* left() const
 			{
-				return child_[Right];
+				return child_[Left];
 			}
 
 			Node*& right()
@@ -144,7 +148,7 @@ namespace Pastel
 
 			void flipColor()
 			{
-				ASSERT(!sentinel());
+				ASSERT(!isSentinel());
 				red_ = !red_;
 			}
 
