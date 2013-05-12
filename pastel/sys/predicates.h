@@ -11,5 +11,6 @@
 #include "pastel/sys/greaterthan.h"
 #include "pastel/sys/iterator_address_predicate.h"
 #include "pastel/sys/dereferenced_predicate.h"
+#include "pastel/sys/directed_predicate.h"
 
 #endif

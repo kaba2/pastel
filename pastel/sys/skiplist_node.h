@@ -86,35 +86,6 @@ namespace Pastel
 			Key key_;
 		};
 
-		template <typename Compare, bool Direction>
-		class Directed_Compare;
-
-		template <typename Compare>
-		class Directed_Compare<Compare, false>
-		{
-		public:
-			template <typename Left, typename Right>
-			bool operator()(
-				const Left& left,
-				const Right& right)
-			{
-				return Compare()(right, left);
-			}
-		};
-
-		template <typename Compare>
-		class Directed_Compare<Compare, true>
-		{
-		public:
-			template <typename Left, typename Right>
-			bool operator()(
-				const Left& left,
-				const Right& right)
-			{
-				return Compare()(left, right);
-			}
-		};
-
 	}
 
 }

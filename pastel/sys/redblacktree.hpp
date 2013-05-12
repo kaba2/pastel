@@ -2,6 +2,7 @@
 #define PASTELSYS_REDBLACKTREE_HPP
 
 #include "pastel/sys/redblacktree.h"
+#include "pastel/sys/directed_predicate.h"
 
 namespace Pastel
 {
@@ -13,7 +14,6 @@ namespace Pastel
 		, sentinel_(0)
 		, minimum_(0)
 		, size_(0)
-		, compare_()
 	{
 		allocateSentinel(std::move(sentinelKey), std::move(sentinelData));
 		initialize();
@@ -26,7 +26,6 @@ namespace Pastel
 		, sentinel_(0)
 		, minimum_(0)
 		, size_(0)
-		, compare_()
 	{
 		allocateSentinel(that.sentinel_->key(), *that.sentinel_);
 		initialize();
@@ -46,7 +45,6 @@ namespace Pastel
 		, sentinel_(0)
 		, minimum_(0)
 		, size_(0)
-		, compare_()
 	{
 		allocateSentinel(that.sentinel_->key(), *that.sentinel_);
 		initialize();
@@ -80,7 +78,6 @@ namespace Pastel
 		swap(sentinel_, that.sentinel_);
 		swap(minimum_, that.minimum_);
 		swap(size_, that.size_);
-		swap(compare_, that.compare_);
 	}
 
 	template <typename Settings, typename Customization>
@@ -106,9 +103,9 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Iterator 
-	RedBlackTree<Settings, Customization>::insert(
+	auto RedBlackTree<Settings, Customization>::insert(
 	Key key, Data_Class data)
+	-> Iterator
 	{
 		Node* newNode = sentinel_;
 		root_ = insert(std::move(key), std::move(data), 
@@ -135,8 +132,7 @@ namespace Pastel
 	template <typename Settings, typename Customization>
 	template <typename Key_ConstIterator_>
 	void RedBlackTree<Settings, Customization>::insertMany(
-		Key_ConstIterator_ begin,
-		Key_ConstIterator_ end)
+		Key_ConstIterator_ begin, Key_ConstIterator_ end)
 	{
 		while(begin != end)
 		{
@@ -146,9 +142,8 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Iterator 
-		RedBlackTree<Settings, Customization>::erase(
-		const ConstIterator& that)
+	auto RedBlackTree<Settings, Customization>::erase(const ConstIterator& that)
+	-> Iterator
 	{
 		this->onErase(that);
 
@@ -156,58 +151,144 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Iterator 
-		RedBlackTree<Settings, Customization>::erase(
-		const Key& key)
+	auto RedBlackTree<Settings, Customization>::erase(const Key& key)
+	-> Iterator
 	{
 		return erase(find(key));
 	}
 
 	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Iterator 
-		RedBlackTree<Settings, Customization>::find(const Key& key)
+	auto RedBlackTree<Settings, Customization>::cast(
+		const ConstIterator& that)
+	-> Iterator
 	{
-		// Use the const-version to do the find.
-		const ConstIterator iter = 
-			((const RedBlackTree&)*this).find(key);
-
-		// Cast constness away. This is ok, since
-		// we own the data.
-		Node* node = (Node*)iter.base();
-
-		// Return the iterator.
-		return Iterator(node);
+		return Iterator((Node*)that.base());
 	}
 
 	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::ConstIterator 
-	RedBlackTree<Settings, Customization>::find(const Key& key) const
+	auto RedBlackTree<Settings, Customization>::find(const Key& key)
+	-> Iterator
 	{
+		return cast(((const RedBlackTree&)*this).find(key));
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::find(const Key& key) const
+	-> ConstIterator
+	{
+		ConstIterator result = lower_bound(key);
+		if (result != cend() &&
+			Compare()(key, result.key()))
+		{
+			result = cend();
+		}
+
+		return result;
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::lower_bound(const Key& key)
+	-> Iterator
+	{
+		return cast(((const RedBlackTree&)*this).lower_bound(key));
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::lower_bound(const Key& key) const
+	-> ConstIterator
+	{
+		return bound<Right>(key);
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::upper_bound(const Key& key)
+	-> Iterator
+	{
+		return cast(((const RedBlackTree&)*this).upper_bound(key));
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::upper_bound(const Key& key) const
+	-> ConstIterator
+	{
+		return bound<Left>(key);
+	}
+
+	template <typename Settings, typename Customization>
+	template <int Direction>
+	auto RedBlackTree<Settings, Customization>::bound(const Key& key) const
+	-> ConstIterator
+	{
+		using Directed_Compare = 
+			Directed_Predicate<Compare, Direction>;
+
+		ConstIterator result = cend();
+
 		Node* node = root_;
 		while(node != sentinel_)
 		{
-			if (compare_(key, node->key()))
+			Node* nextNode = 0;
+			if (Directed_Compare()(key, node->key()))
 			{
 				// Elements less than the key
 				// in this node are on the left.
-				node = node->left();
+				nextNode = node->child(!Direction);
+				if (nextNode == sentinel_)
+				{
+					// The searched element does not
+					// exist in the tree; the current 
+					// node is the successor of 'key'.
+					result = ConstIterator(node);
+					break;
+				}
 			}
-			else if (compare_(node->key(), key))
+			else if (Directed_Compare()(node->key(), key))
 			{
 				// Elements greater than the key
 				// in this node are on the right.
-				node = node->right();
+				nextNode = node->child(Direction);
+				if (nextNode == sentinel_)
+				{
+					// The searched element does not
+					// exist in the tree; the next node
+					// in the in-order traversal is the
+					// successor of 'key'.
+					result = ConstIterator(node);
+					if (Direction)
+					{
+						++result;
+					}
+					else
+					{
+						--result;
+					}
+				}
 			}
 			else
 			{
 				// The key in this node is equivalent
-				// to the finded element. 
+				// to the searched element. 
 				// Return an iterator to it.
-				return ConstIterator(node);
+				result = ConstIterator(node);
+				break;
+			}
+
+			node = nextNode;
+		}
+
+		if (Direction == Left)
+		{
+			if (result == cend())
+			{
+				result = cbegin();
+			}
+			else if (!Compare()(key, result.key()))
+			{
+				++result;
 			}
 		}
 
-		return cend();
+		return result;
 	}
 
 }
