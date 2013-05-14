@@ -45,17 +45,6 @@ namespace
 				tree.insert(key, 0);
 				hashSet.push_back(tree.hash());
 			}
-
-			for (integer i = 0;i < 10;++i)
-			{
-				hash_integer x = computeHash(randomInteger());
-				hash_integer y = computeHash(randomInteger());
-				hash_integer z = computeHash(randomInteger());
-
-				TEST_ENSURE(
-					combineHash(x, combineHash(y, z)) ==
-					combineHash(combineHash(x, y), z));
-			}
 		}
 	};
 
