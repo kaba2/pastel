@@ -20,11 +20,24 @@ namespace Pastel
 
 		void updateHierarchical(const Iterator& node)
 		{
-			node.data().hash_ = combineHash(
-				(hash_integer)Hash()(node.key()),
-				(hash_integer)combineHash(
-				node.left().data().hash(),
-				node.right().data().hash()));
+			// Note: the hash combination function
+			// must be associative. This is because
+			// the red-black tree might perform tree
+			// rotations.
+
+			// Currently, the hash combination function
+			// below is just the addition. This is
+			// probably a very bad hash combination
+			// function; the hash at the root is just the
+			// sum of all elements.
+			// One could also use Tillich-Zemor
+			// hashing (then the hash combination function
+			// is the matrix-multiplication), but I think 
+			// that would be too slow.
+			node.data().hash_ = 
+				(hash_integer)Hash()(node.key()) +
+				node.left().data().hash() +
+				node.right().data().hash();
 		}
 
 	private:
