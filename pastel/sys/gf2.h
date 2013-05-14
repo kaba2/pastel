@@ -1,5 +1,4 @@
 // Description: Finite field arithmetic in GF(2^n).
-// Documentation: numbers.txt
 
 #ifndef PASTELSYS_GF2_H
 #define PASTELSYS_GF2_H
