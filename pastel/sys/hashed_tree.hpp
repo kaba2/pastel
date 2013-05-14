@@ -20,23 +20,40 @@ namespace Pastel
 
 		void updateHierarchical(const Iterator& node)
 		{
-			node.data() = combineHash(
+			node.data().hash_ = combineHash(
 				(hash_integer)Hash()(node.key()),
 				(hash_integer)combineHash(
-				node.left().data(),
-				node.right().data()));
+				node.left().data().hash(),
+				node.right().data().hash()));
 		}
 
 	private:
+		typedef RedBlackTree<Settings, Hash_RedBlackTree_Customization>
+			Derived;
+
 		Hash_RedBlackTree_Customization(const Hash_RedBlackTree_Customization&) PASTEL_DELETE;
 		Hash_RedBlackTree_Customization(Hash_RedBlackTree_Customization&&) PASTEL_DELETE;
 		Hash_RedBlackTree_Customization& operator=(Hash_RedBlackTree_Customization) PASTEL_DELETE;
+
+	public:
+		//! Returns the combined hash of all elements in the tree.
+		hash_integer hash() const
+		{
+			const Derived& tree = (const Derived&)*this;
+
+			if (tree.empty())
+			{
+				return 0;
+			}
+
+			return tree.croot().data().hash();
+		}
 	};
 
-	template <typename Key, typename Compare, typename Hash>
+	template <typename Key, typename Data, typename Compare, typename Hash>
 	bool operator==(
-		const HashedTree<Key, Compare, Hash>& left,
-		const HashedTree<Key, Compare, Hash>& right)
+		const HashedTree<Key, Data, Compare, Hash>& left,
+		const HashedTree<Key, Data, Compare, Hash>& right)
 	{
 		bool result = false;
 
@@ -57,10 +74,10 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Key, typename Compare, typename Hash>
+	template <typename Key, typename Data, typename Compare, typename Hash>
 	bool operator!=(
-		const HashedTree<Key, Compare, Hash>& left,
-		const HashedTree<Key, Compare, Hash>& right)
+		const HashedTree<Key, Data, Compare, Hash>& left,
+		const HashedTree<Key, Data, Compare, Hash>& right)
 	{
 		return !(left == right);
 	}
@@ -70,16 +87,16 @@ namespace Pastel
 namespace std
 {
 
-	template <typename Key, typename Compare, typename Hash>
-	struct hash<Pastel::HashedTree<Key, Compare, Hash>>
+	template <typename Key, typename Data, typename Compare, typename Hash>
+	struct hash<Pastel::HashedTree<Key, Data, Compare, Hash>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::HashedTree<Key, Compare, Hash>& that) const
+			const Pastel::HashedTree<Key, Data, Compare, Hash>& that) const
 		{
 			// The hashed tree stores the hash of all elements
 			// in the root element data.
-			return that.croot().data();
+			return that.croot().data().hash();
 		}
 	};
 

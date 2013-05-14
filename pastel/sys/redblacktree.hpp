@@ -27,7 +27,7 @@ namespace Pastel
 		, minimum_(0)
 		, size_(0)
 	{
-		allocateSentinel(that.sentinel_->key(), *that.sentinel_);
+		allocateSentinel(that.sentinel_->key(), (Data_Class&)*that.sentinel_);
 		initialize();
 
 		for (auto iter = that.cbegin();
@@ -46,7 +46,7 @@ namespace Pastel
 		, minimum_(0)
 		, size_(0)
 	{
-		allocateSentinel(that.sentinel_->key(), *that.sentinel_);
+		allocateSentinel(that.sentinel_->key(), (Data_Class&)*that.sentinel_);
 		initialize();
 
 		swap(that);
