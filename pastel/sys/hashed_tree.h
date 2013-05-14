@@ -7,19 +7,65 @@
 #include "pastel/sys/lessthan.h"
 #include "pastel/sys/hashing.h"
 
+#include <utility>
+
 namespace Pastel
 {
 
 	template <typename Settings, typename Hash>
 	class Hash_RedBlackTree_Customization;
 
+	template <typename Data>
+	class HashedTree_Data
+	: public AsClass<Data>::type
+	{
+	public:
+		typedef typename AsClass<Data>::type
+			Data_Class;
+
+		HashedTree_Data()
+		: Data_Class()
+		, hash_(0)
+		{
+		}
+
+		template <typename That>
+		HashedTree_Data(That that)
+		: Data_Class(std::move(that))
+		, hash_(0)
+		{
+		}
+
+		operator const Data_Class&() const
+		{
+			return *this;
+		}
+
+		operator Data_Class&()
+		{
+			return *this;
+		}
+
+		hash_integer hash() const
+		{
+			return hash_;
+		}
+
+	private:
+		template <typename Settings, typename Hash>
+		friend class Hash_RedBlackTree_Customization;
+
+		hash_integer hash_;
+	};
+
 	template <
-		typename Element, 
+		typename Key,
+		typename Data = void,
 		typename Compare = LessThan,
-		typename Hash = std::hash<Element>>
-	using HashedTree = Map<Element, hash_integer, Compare, RedBlackTree_Dereference_Key,
+		typename Key_Hash = std::hash<Key>>
+	using HashedTree = Map<Key, HashedTree_Data<Data>, Compare, RedBlackTree_Dereference_Key,
 		Hash_RedBlackTree_Customization<
-		Map_Settings<Element, hash_integer, Compare>, Hash>>;
+		Map_Settings<Key, HashedTree_Data<Data>, Compare>, Key_Hash>>;
 
 }
 

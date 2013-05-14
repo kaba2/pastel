@@ -23,7 +23,8 @@ namespace Pastel
 			State_ConstIterator;
 
 		using StateSet = HashedTree<
-			State_ConstIterator, 
+			State_ConstIterator,
+			void,
 			IteratorAddress_LessThan,
 			IteratorAddress_Hash>;
 

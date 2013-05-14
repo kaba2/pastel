@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/redblacktree_tools.h"
+#include "pastel/sys/redblacktree.h"
 #include "pastel/sys/random_uniform.h"
 
 #include <boost/range/adaptor/reversed.hpp> 

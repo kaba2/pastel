@@ -1,0 +1,23 @@
+Y-fast trie design notes
+========================
+
+[[Parent]]: yfasttrie.txt
+
+Two levels
+----------
+
+A y-fast trie has two levels: the trie itself, and the binary search
+trees (buckets) which hang from the leaf nodes of this trie. How should this be exposed to outside?
+
+### Abstracted iterators
+
+In this option the trie is abstracted as a sequence. Here an iterator holds both the current leaf node (a leaf node iterator), and the current position inside the bucket of that leaf node (a bucket iterator).
+
+### Separated iterators
+
+In this option the trie interface also divides into two. There are iterators for the trie nodes (not just leaf nodes), and there are iterators inside a bucket.
+
+### Both
+
+In this option the trie offers both kinds of iterators.
+

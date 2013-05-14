@@ -36,7 +36,8 @@ namespace Pastel
 		// and so associatively searched efficiently 
 		// in a hash table.
 		using StateSet = HashedTree<
-			State_ConstIterator, 
+			State_ConstIterator,
+			void,
 			IteratorAddress_LessThan,
 			IteratorAddress_Hash>;
 
