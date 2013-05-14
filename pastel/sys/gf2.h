@@ -14,8 +14,9 @@ namespace Pastel
 	template <int N>
 	class Gf2
 	: boost::ring_operators<Gf2<N>
-	, boost::left_shiftable<Gf2<N>
-	> >
+	, boost::left_shiftable2<Gf2<N>, integer
+	, boost::equality_comparable<Gf2<N>
+	> > >
 	{
 	public:
 		PASTEL_STATIC_ASSERT(1 <= N && N <= 64);
@@ -26,6 +27,7 @@ namespace Pastel
 		explicit Gf2(uint64 polynomial = 0)
 		: polynomial_(polynomial)
 		{
+			PENSURE_OP(polynomial & ValidMask, ==, polynomial);
 		}
 
 		Gf2(const Gf2& that)
@@ -125,6 +127,12 @@ namespace Pastel
 			return *this;
 		}
 
+		//! Returns whether 'that' is equal to this.
+		bool operator==(const Gf2& that) const
+		{
+			return polynomial_ == that.polynomial_;
+		}
+
 		//! Returns the polynomial representation.
 		/*!
 		An element of GF(2^n) is represented by a
@@ -147,7 +155,7 @@ namespace Pastel
 					(uint64)1 << (uint64)i;
 				if (right.polynomial() & ithBitMask)
 				{
-					result ^= left;
+					result += left;
 				}
 
 				left <<= 1;
