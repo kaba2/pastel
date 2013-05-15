@@ -1,7 +1,7 @@
 // Description: A fixed-size integer.
 
-#ifndef PASTELSYS_LARGEINTEGER_H
-#define PASTELSYS_LARGEINTEGER_H
+#ifndef PASTELSYS_INTEGER_H
+#define PASTELSYS_INTEGER_H
 
 #include "pastel/sys/mytypes.h"
 
@@ -13,9 +13,10 @@
 
 #include <array>
 #include <string>
+#include <type_traits>
 
-#define PASTEL_LARGEINTEGER_ASSIGN_OPERATOR(op) \
-	LargeInteger& operator op(const LargeInteger& that) \
+#define PASTEL_INTEGER_ASSIGN_OPERATOR(op) \
+	Integer& operator op(const Integer& that) \
 	{ \
 		for (integer i = 0;i < N;++i) \
 		{ \
@@ -32,47 +33,55 @@ namespace Pastel
 	/*!
 	N:
 	The minimum number of bits that the bit-set has to contain.
-		*/
-	template <int N>
-	class LargeInteger
-	: boost::bitwise<LargeInteger<N>
-	, boost::additive<LargeInteger<N>
-	, boost::unit_steppable<LargeInteger<N>
-	, boost::totally_ordered<LargeInteger<N>
+	*/
+	template <int N, typename Word_ = uinteger>
+	class Integer
+	: boost::bitwise<Integer<N, Word_>
+	, boost::additive<Integer<N, Word_>
+	, boost::unit_steppable<Integer<N, Word_>
+	, boost::totally_ordered<Integer<N, Word_>
 	> > > >
 	{
 	public:
+		using Word = Word_;
+
 		PASTEL_STATIC_ASSERT(N >= 0);
+		PASTEL_STATIC_ASSERT(std::is_unsigned<Word_>::value);
+		PASTEL_STATIC_ASSERT(sizeof(Word) <= sizeof(uint64));
 
 		static const integer BitsInWord = 
-			sizeof(uinteger) * 8;
-		// Compute ceil(N / bits-in-uinteger).
+			sizeof(Word) * 8;
+		static const uint64 WordMask = 
+			((uint64)1 << BitsInWord) - 1;
+		// Compute ceil(N / BitsInWord).
 		static const integer Words = 
 			(N + BitsInWord - 1) / BitsInWord;
 		static const integer TotalBits = 
 			Words * BitsInWord;
 		static const integer BitsInLastWord = 
 			N % BitsInWord;
-		static const uinteger LastWordMask = 
-			((uinteger)1 << BitsInLastWord) - 1;
+		static const Word LastWordMask = 
+			((Word)1 << BitsInLastWord) - 1;
 
-		typedef std::array<uinteger, Words> WordSet;
-		typedef typename WordSet::iterator Word_Iterator;
-		typedef typename WordSet::const_iterator Word_ConstIterator;
-		typedef boost::iterator_range<Word_Iterator>
-			Word_Range;
-		typedef boost::iterator_range<Word_ConstIterator>
-			Word_ConstRange;
+		using WordSet = std::array<Word, Words>;
+		using Word_Iterator = typename WordSet::iterator;
+		using Word_ConstIterator = typename WordSet::const_iterator; 
+		using Word_Range = boost::iterator_range<Word_Iterator>;
+		using Word_ConstRange = boost::iterator_range<Word_ConstIterator>;
 
 		//! Constructs an integer from 'that'.
 		/*!
 		Time complexity: O(N)
 		Exception safety: strong
 		*/
-		LargeInteger(uinteger that = 0)
+		Integer(uint64 that = 0)
 		: wordSet_()
 		{
-			wordSet_.front() = that;
+			for (integer i = 0;i < N && that != 0;++i)
+			{
+				wordSet_[i] = that & WordMask;
+				that >>= BitsInWord;
+			}
 			clearLast();
 		}
 
@@ -81,7 +90,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		LargeInteger& operator=(const LargeInteger& that)
+		Integer& operator=(const Integer& that)
 		{
 			boost::copy(that.wordSet_, wordSet_);
 			return *this;
@@ -124,7 +133,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		void swap(LargeInteger& that)
+		void swap(Integer& that)
 		{
 			wordSet_.swap(that.wordSet_);
 		}
@@ -190,7 +199,7 @@ namespace Pastel
 			integer result = 0;
 			for (integer i = 0;i < Words;++i)
 			{
-				uinteger word = wordSet_[i];
+				Word word = wordSet_[i];
 				while(word != 0)
 				{
 					result += bitCountSet[word & 0xF];
@@ -206,11 +215,11 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		LargeInteger& flip()
+		Integer& flip()
 		{
 			for (integer i = 0;i < Words;++i)
 			{
-				wordSet_[i] ^= (uinteger)-1;
+				wordSet_[i] ^= (Word)-1;
 			}
 			clearLast();
 
@@ -222,14 +231,14 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		LargeInteger& flip(integer i)
+		Integer& flip(integer i)
 		{
 			PENSURE_OP(i, >=, 0);
 			PENSURE_OP(i, <, size());
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			uinteger mask = (uinteger)1 << (uinteger)bit;
+			Word mask = (Word)1 << (Word)bit;
 
 			wordSet_[word] ^= mask;
 
@@ -241,9 +250,9 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		LargeInteger& set()
+		Integer& set()
 		{
-			boost::fill(wordSet_, (uinteger)-1);
+			boost::fill(wordSet_, (Word)-1);
 			clearLast();
 			return *this;
 		}
@@ -253,14 +262,14 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		LargeInteger& set(integer i)
+		Integer& set(integer i)
 		{
 			PENSURE_OP(i, >=, 0);
 			PENSURE_OP(i, <, size());
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			uinteger mask = (uinteger)1 << (uinteger)bit;
+			Word mask = (Word)1 << (Word)bit;
 			
 			wordSet_[word] |= mask;
 
@@ -272,7 +281,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		LargeInteger& set(integer i, bool value)
+		Integer& set(integer i, bool value)
 		{
 			PENSURE_OP(i, >=, 0);
 			PENSURE_OP(i, <, size());
@@ -294,9 +303,9 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		LargeInteger& reset()
+		Integer& reset()
 		{
-			boost::fill(wordSet_, (uinteger)0);
+			boost::fill(wordSet_, (Word)0);
 			return *this;
 		}
 
@@ -305,14 +314,14 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		LargeInteger& reset(integer i)
+		Integer& reset(integer i)
 		{
 			PENSURE_OP(i, >=, 0);
 			PENSURE_OP(i, <, size());
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			uinteger mask = (uinteger)1 << (uinteger)bit;
+			Word mask = (Word)1 << (Word)bit;
 			
 			wordSet_[word] &= ~mask;
 
@@ -331,7 +340,7 @@ namespace Pastel
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			uinteger mask = (uinteger)1 << (uinteger)bit;
+			Word mask = (Word)1 << (Word)bit;
 
 			return (wordSet_[word] & mask) != 0;
 		}
@@ -342,7 +351,7 @@ namespace Pastel
 		Exception safety: nothrow
 
 		The number of words is given by
-		ceil(N / bits-in-uinteger)
+		ceil(N / bits-in-Word)
 		*/
 		integer words() const
 		{
@@ -380,7 +389,7 @@ namespace Pastel
 		The comparison is done by interpreting the bit-set
 		as a binary integer.
 		*/
-		bool operator<(const LargeInteger& that) const
+		bool operator<(const Integer& that) const
 		{
 			return boost::lexicographical_compare(
 				wordSet_, that.wordSet_);
@@ -391,7 +400,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		bool operator==(const LargeInteger& that) const
+		bool operator==(const Integer& that) const
 		{
 			return boost::equal(wordSet_, that.wordSet_);
 		}
@@ -401,12 +410,12 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		LargeInteger& operator+=(const LargeInteger& that)
+		Integer& operator+=(const Integer& that)
 		{
-			uinteger carry = 0;
+			Word carry = 0;
 			for (integer i = 0;i < Words;++i)
 			{
-				uinteger before = wordSet_[i];
+				Word before = wordSet_[i];
 				wordSet_[i] += that.wordSet_[i] + carry;
 				carry = (wordSet_[i] < before) ? 1 : 0;
 			}
@@ -420,12 +429,12 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		LargeInteger& operator-=(const LargeInteger& that)
+		Integer& operator-=(const Integer& that)
 		{
-			uinteger borrow = 0;
+			Word borrow = 0;
 			for (integer i = 0;i < Words;++i)
 			{
-				uinteger before = wordSet_[i];
+				Word before = wordSet_[i];
 				wordSet_[i] -= that.wordSet_[i] + borrow;
 				borrow = (wordSet_[i] > before) ? 1 : 0;
 			}
@@ -439,7 +448,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		LargeInteger& operator++()
+		Integer& operator++()
 		{
 			for (integer i = 0;i < Words;++i)
 			{
@@ -459,7 +468,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		LargeInteger& operator--()
+		Integer& operator--()
 		{
 			for (integer i = 0;i < Words;++i)
 			{
@@ -484,12 +493,12 @@ namespace Pastel
 			std::string result;
 			result.reserve(N);
 
-			uinteger mask = (uinteger)1 << (uinteger)(BitsInWord - 1);
+			Word mask = (Word)1 << (Word)(BitsInWord - 1);
 
 			for (integer i = Words - 1;i >= 0;--i)
 			{
-				uinteger word = wordSet_[i];
-				for (integer j = N - 1;j >= 0;--j)
+				Word word = wordSet_[i];
+				for (integer j = BitsInWord - 1;j >= 0;--j)
 				{
 					if (word & mask)
 					{
@@ -507,9 +516,9 @@ namespace Pastel
 			return result;
 		}
 
-		PASTEL_LARGEINTEGER_ASSIGN_OPERATOR(|=);
-		PASTEL_LARGEINTEGER_ASSIGN_OPERATOR(^=);
-		PASTEL_LARGEINTEGER_ASSIGN_OPERATOR(&=);
+		PASTEL_INTEGER_ASSIGN_OPERATOR(|=);
+		PASTEL_INTEGER_ASSIGN_OPERATOR(^=);
+		PASTEL_INTEGER_ASSIGN_OPERATOR(&=);
 
 	private:
 		void clearLast()
@@ -531,11 +540,11 @@ namespace std
 {
 
 	template <int N>
-	struct hash<Pastel::LargeInteger<N>>
+	struct hash<Pastel::Integer<N>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::LargeInteger<N>& that) const
+			const Pastel::Integer<N>& that) const
 		{
 			return Pastel::computeHashMany(
 				that.cWordBegin(), that.cWordEnd());
