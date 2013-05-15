@@ -539,15 +539,15 @@ namespace Pastel
 namespace std
 {
 
-	template <int N>
-	struct hash<Pastel::Integer<N>>
+	template <int N, typename Type>
+	struct hash<Pastel::Integer<N, Type>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::Integer<N>& that) const
+			const Pastel::Integer<N, Type>& that) const
 		{
 			return Pastel::computeHashMany(
-				that.cWordBegin(), that.cWordEnd());
+				that.cwordBegin(), that.cwordEnd());
 		}
 	};
 
