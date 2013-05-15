@@ -239,7 +239,7 @@ namespace Pastel
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			Word mask = (Word)1 << (Word)bit;
+			Word mask = (Word)1 << bit;
 
 			wordSet_[word] ^= mask;
 
@@ -270,7 +270,7 @@ namespace Pastel
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			Word mask = (Word)1 << (Word)bit;
+			Word mask = (Word)1 << bit;
 			
 			wordSet_[word] |= mask;
 
@@ -322,7 +322,7 @@ namespace Pastel
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			Word mask = (Word)1 << (Word)bit;
+			Word mask = (Word)1 << bit;
 			
 			wordSet_[word] &= ~mask;
 
@@ -341,7 +341,7 @@ namespace Pastel
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			Word mask = (Word)1 << (Word)bit;
+			Word mask = (Word)1 << bit;
 
 			return (wordSet_[word] & mask) != 0;
 		}
@@ -494,7 +494,7 @@ namespace Pastel
 			std::string result;
 			result.reserve(N);
 
-			Word mask = (Word)1 << (Word)(BitsInWord - 1);
+			Word mask = (Word)1 << (BitsInWord - 1);
 
 			for (integer i = Words - 1;i >= 0;--i)
 			{
