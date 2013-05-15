@@ -1,9 +1,9 @@
-// Description: Testing for LargeInteger
-// DocumentationOf: largeinteger.h
+// Description: Testing for Integer
+// DocumentationOf: integer.h
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/largeinteger.h"
+#include "pastel/sys/integer.h"
 
 using namespace Pastel;
 using namespace std;
@@ -28,7 +28,7 @@ namespace
 		void test()
 		{
 			{
-				using F = LargeInteger<1>;
+				using F = Integer<1, uint8>;
 
 				TEST_ENSURE(F(0) + F(0) == F(0));
 				TEST_ENSURE(F(0) + F(1) == F(1));
@@ -48,7 +48,7 @@ namespace
 			}
 
 			{
-				using F = LargeInteger<2>;
+				using F = Integer<2, uint8>;
 
 				TEST_ENSURE(F(0) + F(0) == F(0));
 				TEST_ENSURE(F(0) + F(1) == F(1));
@@ -75,7 +75,7 @@ namespace
 			}
 
 			{
-				using F = LargeInteger<32>;
+				using F = Integer<32, uint8>;
 
 				TEST_ENSURE_OP(F(0x12345678).count(), ==, 
 					1 + 1 + 2 + 1 + 2 + 2 + 3 + 1);
@@ -97,7 +97,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("LargeInteger", test);
+		testRunner().add("Integer", test);
 	}
 
 	CallFunction run(addTest);
