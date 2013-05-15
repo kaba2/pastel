@@ -7,14 +7,14 @@ namespace Pastel
 {
 
 	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Node* 
-		RedBlackTree<Settings, Customization>::erase(
-		Node* node)
+	auto RedBlackTree<Settings, Customization>::erase(
+		Node* node) 
+	-> std::pair<Node*, Node*>
 	{
 		if (node == sentinel_)
 		{
 			// Nothing to do.
-			return node;
+			return std::make_pair(node, node);
 		}
 
 		Iterator next(node);
@@ -76,8 +76,7 @@ namespace Pastel
 
 		const bool detachedWasRed = toDetach->red();
 
-		// Free the memory of 'node'.
-		delete node;
+		// Update the size of the tree.
 		--size_;
 
 		if (detachedWasRed)
@@ -113,8 +112,10 @@ namespace Pastel
 			}
 		}
 
-		// Return the successor of the deleted element.
-		return successor;
+		// Return the erased node and its successor.
+		// Note that we did not deallocate the memory
+		// of node yet.
+		return std::make_pair(node, successor);
 	}
 
 	template <typename Settings, typename Customization>

@@ -94,7 +94,25 @@ namespace Pastel
 			/*!
 			Exception safety: nothrow
 			*/
-			void onErase(const ConstIterator& element) {}
+			void onErase(const Iterator& element) {}
+
+			//! Called at the start of that.splice().
+			/*!
+			Exception safety: nothrow
+
+			The element at the given position is going to
+			be spliced to 'that' tree.
+			*/
+			void onSpliceFrom(const Iterator& element) {}
+
+			//! Called at the start of splice().
+			/*!
+			Exception safety: nothrow
+
+			The element at the give position was spliced 
+			to this tree.
+			*/
+			void onSplice(const Iterator& element) {}
 
 			//! Updates the hierarchical data in a node.
 			/*!

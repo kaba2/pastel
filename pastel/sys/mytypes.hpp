@@ -15,6 +15,18 @@ namespace Pastel
 	}
 
 	template <typename Type>
+	const Type& addConst(Type& that)
+	{
+		return (const Type&)that;
+	}
+
+	template <typename Type>
+	Type& removeConst(const Type& that)
+	{
+		return (Type&)that;
+	}
+
+	template <typename Type>
 	inline PASTEL_ENABLE_IF(std::is_arithmetic<Type>, Type) 
 		mabs(Type that)
 	{

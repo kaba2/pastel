@@ -104,12 +104,23 @@ namespace Pastel
 
 	template <typename Settings, typename Customization>
 	auto RedBlackTree<Settings, Customization>::insert(
-	Key key, Data_Class data)
+		Key key, Data_Class data)
 	-> Iterator
 	{
-		Node* newNode = sentinel_;
-		root_ = insert(std::move(key), std::move(data), 
-			root_, sentinel_, true, newNode);
+		Iterator element = find(key);
+		if (element != cend())
+		{
+			// The key already exists in the tree.
+			return element;
+		}
+
+		// Create the new node.
+		Node* newNode = 
+			allocateNode(std::move(key), std::move(data), true);
+		element = Iterator(newNode);
+
+		// Attach the new node into the tree.
+		root_ = insert(newNode, root_, sentinel_, true);
 
 		// It is an invariant of the red-black tree that 
 		// the root-node is black. Simply changing the color from
@@ -119,13 +130,13 @@ namespace Pastel
 		// * It has no effect on the left-leaning property.
 		// * It removes the possible last invariant violation of two 
 		//   subsequent red nodes next to the root.
-
 		root_->setBlack();
 
-		Iterator element(newNode);
-
+		// Notify the customization of this tree of the
+		// insertion.
 		this->onInsert(element);
-		
+
+		// Return the new element.
 		return element;
 	}
 	
@@ -142,12 +153,21 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::erase(const ConstIterator& that)
+	auto RedBlackTree<Settings, Customization>::erase(
+		const ConstIterator& that)
 	-> Iterator
 	{
-		this->onErase(that);
+		// Notify the customization of the tree.
+		this->onErase(cast(that));
+	
+		// Detach the element from the tree.
+		auto erasedAndSuccessor = erase((Node*)that.base());
 
-		return Iterator(erase((Node*)that.base()));
+		// Deallocate the element.
+		delete erasedAndSuccessor.first;
+
+		// Return the successor of the erased element.
+		return Iterator(erasedAndSuccessor.second);
 	}
 
 	template <typename Settings, typename Customization>
@@ -155,6 +175,41 @@ namespace Pastel
 	-> Iterator
 	{
 		return erase(find(key));
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::splice(
+		RedBlackTree& that,
+		const ConstIterator& thatFrom)
+	-> Iterator
+	{
+		ENSURE(thatFrom != that.cend());
+
+		if (this == &that)
+		{
+			// Splicing inside the same tree does not
+			// affect anything.
+			return cast(thatFrom);
+		}
+
+		// Notify the customization of 'that' tree.
+		that.onSpliceFrom(that.cast(thatFrom));
+
+		// Detach the node from 'that' tree.
+		Node* detached = that.erase((Node*)thatFrom.base()).first;
+		Iterator element(detached);
+
+		// Attach the new node into this tree.
+		root_ = insert(detached, root_, sentinel_, true);
+
+		// See the insert() function for this.
+		root_->setBlack();
+
+		// Notify the customization of this tree.
+		this->onSplice(element);
+
+		// Return an iterator to the new element.
+		return element;
 	}
 
 	template <typename Settings, typename Customization>

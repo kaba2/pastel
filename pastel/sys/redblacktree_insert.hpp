@@ -7,18 +7,14 @@ namespace Pastel
 {
 
 	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Node*
-	RedBlackTree<Settings, Customization>::insert(
-	Key&& key, Data_Class&& data, Node* node,
-	Node* parent, bool fromLeft, Node*& newNode)
+	auto RedBlackTree<Settings, Customization>::insert(
+		Node* newNode, Node* node, Node* parent, bool fromLeft)
+	-> Node*
 	{
 		if (node == sentinel_)
 		{
-			// The key does not exist, so insert it as a leaf node.
-			// New nodes are created red.
-			newNode = allocateNode(std::move(key), std::move(data), parent, true);
-			++size_;
-
+			// Attach the new node into the tree.
+			newNode->parent_ = parent;
 			if (parent != sentinel_)
 			{
 				if (fromLeft)
@@ -43,33 +39,27 @@ namespace Pastel
 				setMaximum(newNode);
 			}
 
+			// Update the size of the tree.
+			++size_;
+
 			this->updateHierarchical(
 				Iterator(newNode));
 
 			return newNode;
 		}
 
-		if (Compare()(key, node->key()))
+		if (Compare()(newNode->key(), node->key()))
 		{
 			// Smaller elements are located at the left child.
 			node->left() = insert(
-                std::move(key), std::move(data), node->left(),
-				node, true, newNode);
-		}
-		else if (Compare()(node->key(), key))
-		{
-			// Greater elements are located at the right child.
-			node->right() = insert(
-                std::move(key), std::move(data), node->right(),
-				node, false, newNode);
+                newNode, node->left(), node, true);
 		}
 		else
 		{
-			// The key already exists. 
-			// We return it.
-
-			newNode = node;
-			return newNode;
+			// Greater-than-or-equal-to elements are located at 
+			// the right child.
+			node->right() = insert(
+                newNode, node->right(), node, false);
 		}
 
 		this->updateHierarchical(
