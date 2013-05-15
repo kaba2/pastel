@@ -18,10 +18,11 @@
 #define PASTEL_INTEGER_ASSIGN_OPERATOR(op) \
 	Integer& operator op(const Integer& that) \
 	{ \
-		for (integer i = 0;i < N;++i) \
+		for (integer i = 0;i < Words;++i) \
 		{ \
 			wordSet_[i] op that.wordSet_[i]; \
 		} \
+		clearLast(); \
 	\
 		return *this; \
 	}
@@ -77,7 +78,7 @@ namespace Pastel
 		Integer(uint64 that = 0)
 		: wordSet_()
 		{
-			for (integer i = 0;i < N && that != 0;++i)
+			for (integer i = 0;i < Words && that != 0;++i)
 			{
 				wordSet_[i] = that & WordMask;
 				that >>= BitsInWord;
