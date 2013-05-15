@@ -48,12 +48,12 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	typename RedBlackTree<Settings, Customization>::Node*
-	RedBlackTree<Settings, Customization>::allocateNode(
-	Key key, Data_Class data, Node* parent, bool red)
+	auto RedBlackTree<Settings, Customization>::allocateNode(
+		Key&& key, Data_Class&& data, bool red)
+	-> Node*
 	{
 		Node* node = new Node(std::move(key), std::move(data), 
-			parent, sentinel_, sentinel_, red);
+			sentinel_, sentinel_, sentinel_, red);
 
 		return node;
 	}

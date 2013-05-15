@@ -151,6 +151,19 @@ namespace Pastel
 		*/
 		Iterator erase(const Key& key);
 
+		//! Splices an element from 'that' tree to this tree.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
+		No constructors or destructors are performed in this
+		process; the node containing the element is moved
+		from 'that' tree to this tree.
+		*/
+		Iterator splice(
+			RedBlackTree& that, 
+			const ConstIterator& thatFrom);
+
 		//! Searches for the first element with key == 'key'.
 		/*!
 		Time complexity: O(log(size()))
@@ -256,25 +269,22 @@ namespace Pastel
 		//! Allocates a node.
 		/*!
 		Exception safety: strong
-		Time complexity:	constant
+		Time complexity: constant
 		*/
 		Node* allocateNode(
-			Key key, 
-			Data_Class data,
-			Node* parent,
+			Key&& key, 
+			Data_Class&& data,
 			bool red);
 
 		//! Inserts a new node.
 		Node* insert(
-			Key&& key, 
-			Data_Class&& data, 
+			Node* newNode,
 			Node* node,
 			Node* parent,
-			bool fromLeft,
-			Node*& newNode);
+			bool fromLeft);
 
 		//! Removes a node.
-		Node* erase(Node* node);
+		std::pair<Node*, Node*> erase(Node* node);
 
 		//! Updates hierarhical data on the path to root.
 		/*!

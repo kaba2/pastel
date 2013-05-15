@@ -334,7 +334,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		bool test(integer i) const
+		bool bit(integer i) const
 		{
 			PENSURE_OP(i, >=, 0);
 			PENSURE_OP(i, <, size());
@@ -344,6 +344,16 @@ namespace Pastel
 			Word mask = (Word)1 << bit;
 
 			return (wordSet_[word] & mask) != 0;
+		}
+
+		//! Returns the i:th bit.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		bool test(integer i) const
+		{
+			return bit(i);
 		}
 
 		//! Returns the number of words.

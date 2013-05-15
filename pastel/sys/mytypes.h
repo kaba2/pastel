@@ -282,6 +282,14 @@ namespace Pastel
 	template <typename Type>
 	void unused(const Type&);
 
+	//! Casts a reference to a const-reference.
+	template <typename Type>
+	const Type& addConst(Type& that);
+
+	//! Casts a const-reference to a reference.
+	template <typename Type>
+	const Type& removeConst(Type& that);
+
 	template <typename Type>
 	PASTEL_ENABLE_IF(std::is_arithmetic<Type>, Type) mabs(Type that);
 
