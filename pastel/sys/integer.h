@@ -14,6 +14,7 @@
 #include <array>
 #include <string>
 #include <type_traits>
+#include <algorithm>
 
 #define PASTEL_INTEGER_ASSIGN_OPERATOR(op) \
 	Integer& operator op(const Integer& that) \
@@ -40,8 +41,9 @@ namespace Pastel
 	: boost::bitwise<Integer<N, Word_>
 	, boost::additive<Integer<N, Word_>
 	, boost::unit_steppable<Integer<N, Word_>
+	, boost::shiftable2<Integer<N, Word_>, integer
 	, boost::totally_ordered<Integer<N, Word_>
-	> > > >
+	> > > > >
 	{
 	public:
 		using Word = Word_;
@@ -474,7 +476,7 @@ namespace Pastel
 			return *this;
 		}
 
-		//! Subtract 1 from this.
+		//! Subtracts 1 from this.
 		/*!
 		Time complexity: O(N)
 		Exception safety: nothrow
@@ -494,12 +496,83 @@ namespace Pastel
 			return *this;
 		}
 
+		//! Shifts the bits to the left.
+		/*!
+		Time complexity: O(N)
+		Exception safety: nothrow
+		*/
+		Integer& operator<<=(integer amount)
+		{
+			PENSURE_OP(amount, >=, 0);
+
+			if (amount >= N)
+			{
+				return reset();
+			}
+
+			integer wordsToShift = amount / BitsInWord;
+			integer bitsToShift = amount % BitsInWord;
+
+			for (integer i = Words - 1; i > wordsToShift; --i)
+			{
+				wordSet_[i] = 
+					(wordSet_[i - wordsToShift] << bitsToShift) + 
+					(wordSet_[i - wordsToShift - 1] >> (BitsInWord - bitsToShift));
+			}
+			wordSet_[wordsToShift] = 
+				(wordSet_[0] << bitsToShift);
+			clearLast();
+
+			// Pad with zero-words from the right.
+			std::fill(
+				&wordSet_.front() + 0, 
+				&wordSet_.front() + wordsToShift, 
+				(Word)0);
+
+			return *this;
+		}
+
+		//! Shifts the bits to the right.
+		/*!
+		Time complexity: O(N)
+		Exception safety: nothrow
+		*/
+		Integer& operator>>=(integer amount)
+		{
+			PENSURE_OP(amount, >=, 0);
+
+			if (amount >= N)
+			{
+				return reset();
+			}
+
+			integer wordsToShift = amount / BitsInWord;
+			integer bitsToShift = amount % BitsInWord;
+
+			for (integer i = 0; i < Words - wordsToShift - 1; ++i)
+			{
+				wordSet_[i] = 
+					(wordSet_[i + wordsToShift] >> bitsToShift) + 
+					(wordSet_[i + wordsToShift + 1] << (BitsInWord - bitsToShift));
+			}
+			wordSet_[Words - wordsToShift - 1] = 
+				(wordSet_[Words - 1] >> bitsToShift);
+
+			// Pad with zero-words from the left.
+			std::fill(
+				&wordSet_.front() + (Words - wordsToShift), 
+				&wordSet_.front() + Words, 
+				(Word)0);
+
+			return *this;
+		}
+
 		//! Converts the number to a string of zeros and ones.
 		/*!
 		Time complexity: O(N)
 		Exception safety: strong
 		*/
-		std::string to_string() const
+		std::string toString() const
 		{
 			std::string result;
 			result.reserve(N);
@@ -509,7 +582,7 @@ namespace Pastel
 			for (integer i = Words - 1;i >= 0;--i)
 			{
 				Word word = wordSet_[i];
-				for (integer j = BitsInWord - 1;j >= 0;--j)
+				for (integer j = BitsInWord - 1;j >= 0 && result.size() < N;--j)
 				{
 					if (word & mask)
 					{
@@ -525,6 +598,11 @@ namespace Pastel
 			}
 
 			return result;
+		}
+
+		std::string to_string() const
+		{
+			return toString();
 		}
 
 		PASTEL_INTEGER_ASSIGN_OPERATOR(|=);

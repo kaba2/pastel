@@ -1,0 +1,24 @@
+*.txt 
+*.cpp
+*.h
+*.hpp
+*.m
+*.py
+*.png
+*.pdf
+*.svg
+*.zip
+index.htm
+-x docs* 
+-x build*
+-x *CMake*
+-x .hg*
+-x .DS_Store
+-x *vcxproj*
+-x *.sln
+-x *.orig
+-x *.mexmaci64
+-x *.props
+-x *.vsd
+-x *.pcx
+-x remark_options
