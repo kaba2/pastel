@@ -24,17 +24,6 @@ If `PASTEL_DYNAMIC_LIBRARIES` is defined, then, under Windows-based compilers,
 the `declspec(dllexport)` and `declspec(dllimport)` keywords are sprinkled all 
 around the code.
 
-### PASTEL\_LARGE\_INTEGER
-
-By default, the `integer` native type in Pastel is 32-bit.
-If `PASTEL_LARGE_INTEGER` is defined, and the pointer size
-is greater than 32-bit, then the `integer` type is made 
-64-bit. This allows the data structures to work with 
-the number of elements exceeding 2^31. This may or may not 
-be useful; such a need seems to be rare. If the number of 
-elements keeps low, then memory can be saved by staying in 
-32-bit integers.
-
 [Neighbors]: [[Ref]]: nearest_neighbors.txt 
 
 Global type definitions

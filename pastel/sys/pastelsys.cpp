@@ -49,12 +49,6 @@ namespace Pastel
 			PASTEL_STATIC_ASSERT(
 				boost::is_signed<integer>::value);
 			
-#			ifdef PASTEL_LARGE_INTEGER
-			// Check that 'integer' is of the same size as a pointer.
-			PASTEL_STATIC_ASSERT(
-				sizeof(integer) == sizeof(void*));
-#			endif
-
 			// Check that 'pointer_integer' is of the same size as a pointer.
 			PASTEL_STATIC_ASSERT(
 				sizeof(pointer_integer) == sizeof(void*));
