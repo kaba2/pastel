@@ -60,23 +60,6 @@ the explanation for the warning 4267 below to see why this is.
 
 `4267 'var' : conversion from 'size_t' to 'type', possible loss of data`
 
-In general, this warning appears because the size of `std::size_t` depends
-on the environment. In a 64-bit environment it is probable to be a 64-bit
-integer. Therefore, if the assigned-to variable is only 32-bit, this warning
-catches that. In particular, this warning should trigger often when 
-`PASTEL_LARGE_INTEGER` is not defined, since the `integer` is then 32-bit.
-
-Two things need to be noted here. First, we use the `integer` type exclusively
-to denote amounts. Therefore the `std::size_t` to `integer` conversion 
-should form almost all of these warnings. However, if the `integer` is 
-chosen 32-bit (by not defining `PASTEL_LARGE_INTEGER`), then this is a 
-deliberate memory-saving choice based on the assumption of amounts smaller 
-than 2^31. Under this assumption, the conversions are never lossy.
-On the other hand, if `PASTEL_LARGE_INTEGER` is defined, then this warning
-disappears since `std::size_t` and `integer` are then of the same size;
-again the conversions are never lossy. Therefore this warning can be
-disabled.
-
 `4305 'identifier' : truncation from 'type1' to 'type2'`
 
 [[CppCode]]:

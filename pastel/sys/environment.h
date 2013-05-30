@@ -20,11 +20,6 @@
 
 #if (defined _WIN32 || defined _WIN64)
 #	pragma detect_mismatch("PASTEL_VERSION", "1.3")
-#ifdef PASTEL_LARGE_INTEGER
-#	pragma detect_mismatch("PASTEL_LARGE_INTEGER", "1")
-#else
-#	pragma detect_mismatch("PASTEL_LARGE_INTEGER", "0")
-#endif
 #endif
 
 #include "pastel/sys/environment.hpp"
