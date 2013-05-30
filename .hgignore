@@ -31,3 +31,5 @@ CMakeCache.txt
 Makefile
 *.a
 .DS_Store
+*.orig
+*.mexmaci64
