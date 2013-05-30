@@ -86,6 +86,30 @@ namespace
 				TEST_ENSURE_OP(F(0x9ABCDEF0).count(), ==, 
 					2 + 2 + 3 + 2 + 3 + 3 + 4 + 0);
 			}
+
+			{
+				using F = Integer<32, uint8>;
+
+				uint32 a = 0x12345678;
+				for (integer i = 0;i < 32;++i)
+				{
+					// Interesting fact:
+					// if i ranges up to 33, then the following
+					// tests fail for i == 32. This probably has 
+					// to do with the shifts (a << i) and (a >> i) 
+					// being undefined in this case.
+
+					TEST_ENSURE(
+						(F(a) << i) == F(a << i));
+
+					TEST_ENSURE(
+						(F(a) >> i) == F(a >> i));
+				}
+
+				// We define the out-of-range shift anyway.
+				TEST_ENSURE((F(a) << 33) == F(0));
+				TEST_ENSURE((F(a) >> 33) == F(0));
+			}
 		}
 	};
 

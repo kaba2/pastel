@@ -1,5 +1,29 @@
-Y-fast trie
+Y-fast trie 
 ===========
 
 [[Parent]]: data_structures.txt
+
+[[set indent]]: EquationSet
+
+Let ''I_n = {0, 1}^n'', where ''n in NN'', i.e. the set of
+''n''-length sequences of ''{0, 1}'', and let
+
+	I = union_{n in NN} I_n.
+
+The _join_ of the elements ''f, g in I'' is the element 
+''h in I'' which is the maximal suffix of both ''f'' and 
+''g''. Since the empty sequence is a suffix of every element of 
+''I'', the join is well-defined. The join of ''f'' and ''g'' is 
+unique, and is denoted by ''f \/ g''. An _x-fast trie_ on 
+''S subset I_n'' is the join-semi-lattice on ''I'' produced by the 
+closure of ''S'' under the join. Here is an x-fast trie on the set 
+''S = {01, 10, 11} subset I_2''.
+
+[[Verbatim]]:
+        -
+       / \
+      /   \
+     0     1
+      \   / \
+      01 10 11
 
