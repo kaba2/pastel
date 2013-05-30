@@ -130,14 +130,6 @@ end
 
 defineSet{end + 1} = '_ITERATOR_DEBUG_LEVEL=0';
 
-if strcmp(mode, 'release')
-    defineSet{end + 1} = 'PASTEL_ENABLE_OMP';
-end
-
-if strcmp(mode, 'debug')
-    defineSet{end + 1} = 'PASTEL_ENABLE_PENSURES';
-end
-
 % Form the build-command
 % ----------------------
 

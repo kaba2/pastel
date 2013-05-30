@@ -31,7 +31,7 @@ set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
 # No need to give a library path for Matlab:
 # Mex files are built from within Matlab.
 
-# For Pastel, the include are of the form 'pastel/sys/mytypes.h'.
+# For Pastel, the includes are of the form 'pastel/sys/mytypes.h'.
 include_directories (.)
 include_directories (${BoostIncludeDirectory})
 include_directories (${MatlabIncludeDirectory})
@@ -44,9 +44,6 @@ option (BuildMatlab "Build Pastel's Matlab-libraries." ON)
 option (BuildTests "Build Pastel's tests." ON)
 option (BuildExamples "Build Pastel's examples." ON)
 option (SharedLibraries "Produce shared libraries." OFF)
-option (Parallel "Parallelize some of the algorithms." ON)
-# Whether the 'integer'-type should be as large as a pointer (vs 32-bit).
-option (LargeIntegers "Use pointer-sized integers." OFF)
 
 # Force to use an out-of-source build
 # -----------------------------------
@@ -54,7 +51,7 @@ option (LargeIntegers "Use pointer-sized integers." OFF)
 if ("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
 	message (SEND_ERROR 
    		"Pastel does not allow in-source builds (e.g. 'cmake .'); you should do an "
-   		"out-of-source build instead (e.g. 'cmake ..' in 'build/' directory). "
+   		"out-of-source build instead (e.g. 'cmake ..' in 'release/' directory). "
    		"This call produced the file 'CMakeCache.txt' and the 'CMakeFiles' directory "
    		"in the Pastel's source directory. You must remove them for the out-of-source "
    		" build to work; otherwise CMake attempts an in-source build again."
@@ -134,31 +131,10 @@ if (SharedLibraries)
 	set (PastelLibraryType SHARED)
 endif()
 	
-# Enable large integers if requested
-if (LargeIntegers)
-	add_definitions(
-		-DPASTEL_LARGE_INTEGERS
-	)
-endif()
-
 # Debug-mode definitions.
 set (CMAKE_CXX_FLAGS_DEBUG 
-	"${CMAKE_CXX_FLAGS_DEBUG} -DPASTEL_DEBUG_MODE -DPASTEL_ENABLE_PENSURES"
+	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG"
 )
-
-if (CMAKE_COMPILER_IS_CLANGXX)
-	if (Parallel)
-		message (STATUS 
-			"Clang does not support OpenMp yet; disabling the Parallel option.")
-		set (Parallel OFF)
-	endif()
-endif()
-
-if (Parallel)
-	set (CMAKE_CXX_FLAGS_RELEASE 
-		"${CMAKE_CXX_FLAGS_RELEASE} -DPASTEL_ENABLE_OPENMP"
-	)
-endif()
 
 # clang and g++
 # -------------
@@ -179,16 +155,6 @@ if (CMAKE_COMPILER_IS_GNUGXX OR CMAKE_COMPILER_IS_CLANGXX)
 		"${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 	set (CMAKE_SHARED_LINKER_FLAGS 
 		"${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
-
-	if (Parallel)
-		# Enable OpenMp support.
-		set (CMAKE_CXX_FLAGS_RELEASE 
-			"${CMAKE_CXX_FLAGS_RELEASE} -fopenmp")
-		set (CMAKE_EXE_LINKER_FLAGS_RELEASE
-			"${CMAKE_EXE_LINKER_FLAGS_RELEASE} -lgomp")
-		set (CMAKE_SHARED_LINKER_FLAGS_RELEASE
-			"${CMAKE_SHARED_LINKER_FLAGS_RELEASE} -lgomp")
-	endif()
 
 	# Disable some warnings.
 	add_definitions (
@@ -222,14 +188,6 @@ endif()
 # -------------
 
 if (MSVC)
-	if (Parallel)
-		# Enable OpenMp support.
-		set (CMAKE_CXX_FLAGS_RELEASE 
-			${CMAKE_CXX_FLAGS_RELEASE} 
-			/openmp
-		)
-	endif()
-
 	add_definitions (
 		# Disable Microsoft's Secure STL
 		_ITERATOR_DEBUG_LEVEL=0
@@ -237,7 +195,6 @@ if (MSVC)
 
 	# Disable some warnings.
 	add_definitions (
-		/openmp
 		# "'identifier' : truncation from 'type1' to 'type2'"
 		/wd4305
 		# "'argument' : conversion from 'type1' to 'type2', possible loss of data."

@@ -17,42 +17,6 @@ In the following we list the global preprocessor switches which
 should be defined at the level of the build-system, not at the source
 code level.
 
-### PASTEL\_ENABLE\_PENSURES
-
-`ENSURE`s are runtime checks used to [check preconditions][Ensure] for 
-functions. The triggering of such a check signals the presence 
-of a bug on the user's side.
-However, some of these checks can cause relatively severe
-performance degradation, notably when the function is of low complexity.
-These checks are marked as `PENSURE`s, for _Performance `ENSURE`_.
-This build switch controls the code generation for `PENSURE`s.
-If `PASTEL_ENABLE_PENSURES` is defined, the tests are generated,
-otherwise they are not.
-
-[Ensure]: [[Ref]]: ensure.txt
-
-### PASTEL\_DEBUG\_MODE
-
-The `ASSERT`s form another class of runtime checks which are
-used internally to check invariants in the Pastel library.
-The triggering of such check always signals a presence of a bug
-on the part of the implementation. They can possibly interfere 
-with optimization and therefore this switch allows to control
-whether their code is generated or not.
-If `PASTEL_DEBUG_MODE` is defined, the tests are generated, 
-otherwise they are not.
-
-### PASTEL\_ENABLE\_OMP
-
-Pastel uses the OpenMp library for parallelizing some sections
-of the code, such as [all-nearest neighbors searching][Neighbors]. 
-The OpenMp library comes with a header file omp.h, which however might not
-always be available on a given building environment. To solve
-this problem, Pastel has a redirection file named [[FileLink: pastelomp.h]],
-which includes `omp.h` conditionally based on this build switch.
-If `PASTEL_ENABLE_OMP` is defined, then `omp.h` is included in `pastelomp.h`,
-otherwise it is not included. 
-
 ### PASTEL\_DYNAMIC\_LIBRARIES
 
 Pastel can be built into dynamic libraries instead of static libraries. 
@@ -80,10 +44,5 @@ Pastel includes some global type definitions in the file [[FileLink: mytypes.h]]
 which is included in practically every file in Pastel. In that file
 there is particularly the definition of `real` type which you might
 want to change to either `float` or `double` based on your specific
-requirements. The other types should be chosen such that they meet
-the obvious requirements (e.g. the size of `uint16` is 16 bits).
-These requirements are checked automatically in [[FileLink: pastelsys.cpp]] in
-the PastelSys library. Compilation of that file fails if the 
-requirements are not met. In this case you might need to change the
-types in [[FileLink: mytypes.h]] to proper types.
+requirements.
 

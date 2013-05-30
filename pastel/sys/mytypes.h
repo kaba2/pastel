@@ -126,15 +126,14 @@ namespace Pastel
 
 		// Shortened native types
 
-		typedef signed char        schar;
-
-		typedef long long          longlong;
-
-		typedef unsigned char      uchar;
-		typedef unsigned short     ushort;
-		typedef unsigned int       uint;
-		typedef unsigned long      ulong;
-		typedef unsigned long long ulonglong;
+		using schar = signed char;
+		using longlong = long long;
+		
+		using uchar = unsigned char;
+		using ushort = unsigned short;
+		using uint = unsigned int;
+		using ulong = unsigned long;
+		using ulonglong = unsigned long long;
 
 		// Absolute size types
 
@@ -143,20 +142,20 @@ namespace Pastel
 		// We check these assumptions at compile-time
 		// in pastelsys.cpp.
 
-		typedef char               int8;
-		typedef short              int16;
-		typedef int                int32;
-		typedef long long          int64;
+		using int8 = char;
+		using int16 = short;
+		using int32 = int;
+		using int64 = long long;
 
-		typedef unsigned char      uint8;
-		typedef unsigned short     uint16;
-		typedef unsigned int       uint32;
-		typedef unsigned long long uint64;
+		using uint8 = std::make_unsigned<int8>::type;
+		using uint16 = std::make_unsigned<int16>::type;
+		using uint32 = std::make_unsigned<int32>::type;
+		using uint64 = std::make_unsigned<int64>::type;
 
-		typedef float              real32;
-		typedef double             real64;
-		typedef float              real32_ieee;
-		typedef double             real64_ieee;
+		using real32 = float;
+		using real64 = double;
+		using real32_ieee = real32;
+		using real64_ieee = real64;
 
 		namespace MyTypes_
 		{
@@ -190,42 +189,30 @@ namespace Pastel
 		sizeof(void*) == sizeof(pointer_integer)
 		'pointer_integer' is a native signed integer type.
 		*/
-		typedef MyTypes_::IntegerOfSize<sizeof(void*)>::type 
-			pointer_integer;
+		using pointer_integer = std::ptrdiff_t;
 
 		//! Abstract native integer type
 		/*!
-		Preconditions:
-		sizeof(integer) >= sizeof(int32)
-		sizeof(integer) <= sizeof(int64)
-		'integer' is a native signed integer type.
-	
-		If PASTEL_LARGE_INTEGER is defined, then additionally:
-		sizeof(integer) >= min(sizeof(void*), sizeof(int64)) 
+		This should be the native integer type on the computer.
+		For example, on 32-bit computers we expect this to be 32-bit,
+		and on 64-bit computers we expect this to be 64-bit.
 		*/
-	#	ifdef PASTEL_LARGE_INTEGER
-			typedef std::conditional<
-				sizeof(void*) <= sizeof(int64),
-				pointer_integer, int64>::type integer;
-	#	else
-			typedef int32 integer;
-	#	endif
-
-		typedef std::make_unsigned<integer>::type uinteger;
+		using integer = std::make_signed<std::size_t>::type;
+		using uinteger = std::size_t;
 	
 		//! Abstract native real type
 		/*!
 		Preconditions:
 		'real' is a native floating point type.
 		*/
-		typedef real64 real;
+		using real = real64;
 
 		//! Integer for holding hash integers.
 		/*!
 		An integer of this type is used to hold hash
 		values.
 		*/
-		typedef std::size_t hash_integer;
+		using hash_integer = std::size_t;
 
 		//! Removes brackets around a type.
 		/*!
@@ -263,7 +250,7 @@ namespace Pastel
 		// A type for documenting concepts.
 		class PASTELSYS UserDefinedType {};
 
-		static const integer Dynamic = -1;
+		static const int Dynamic = -1;
 		//enum {Dynamic = -1};
 
 		class PASTELSYS EmptyClass {};

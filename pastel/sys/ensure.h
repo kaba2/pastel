@@ -47,7 +47,7 @@
 
 // PENSURES
 
-#ifdef PASTEL_ENABLE_PENSURES
+#if defined(DEBUG) || defined(_DEBUG)
 
 #define PENSURE(expr) ENSURE(expr)
 #define PENSURE1(expr, a) ENSURE1(expr, a)
@@ -69,7 +69,7 @@
 
 // Assertions
 
-#ifdef PASTEL_DEBUG_MODE
+#if defined(DEBUG) || defined(_DEBUG)
 
 #define ASSERT(expr)\
 {if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__);}}
