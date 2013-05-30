@@ -16,7 +16,7 @@ using namespace Pastel;
 
 using namespace Pastel;
 
-int main(integer argc, const char* argv[])
+int main(int argc, const char* argv[])
 {
 	Stream_Logger streamLogger(&std::cout);
 	File_Logger fileLogger("log.txt");
