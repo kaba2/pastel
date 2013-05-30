@@ -79,17 +79,8 @@ BuildMatlab
 BuildTests
 : Whether to build Pastel's test executables.
 
-LargeIntegers
-: Whether to make integers at least as large as pointers.
-
 SharedLibraries
 : Whether to build shared libraries rather than static libraries. The Matlab libraries will always be built as static libraries.
-
-Parallel
-: Whether to parallelize some of the algorithms. Currently
-this requires OpenMp; the aim is to switch use Intel Threading
-Building Blocks. Note: Express versions of Visual Studio do 
-not support OpenMp. Neither does the current version of Clang.
 
 Note: If you want to change the tool-set later, you need
 to remove the `CMakeCache.txt` file, and run these 
