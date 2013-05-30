@@ -113,11 +113,12 @@ The `debug` configuration enables debugging information and turns on all
 disables debugging information, and enables multi-core processing for
 some algorithms.
 
-Property / Config  | debug |release |
--------------------|-------|--------|
-ASSERT and PENSURE | x     |        |
-Debug information  | x     |        |
-Multiple cores     |       | x      |
+Property / Config  | debug |release 
+-------------------|-------|--------
+ASSERT and PENSURE | x     |        
+ENSURE             | x     | x       
+Debug information  | x     |        
+Multiple cores     |       | x      
 
 [InvariantChecking]: [[Ref]]: ensure.txt
 
