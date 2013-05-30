@@ -1,1 +1,0 @@
-remark.py . ~/pastel_docs -q "*.txt" "*.cpp" "*.h" "*.hpp" "*.m" "*.py" "*.png" "*.pdf" "*.svg" "*.zip" -x "docs/*" -x "build/*" -x "*CMake*"
