@@ -26,7 +26,9 @@ log.txt
 *.cmake
 *.make
 *CMakeFiles*
-build*
+release/*
+debug/*
+docs/*
 CMakeCache.txt
 Makefile
 *.a

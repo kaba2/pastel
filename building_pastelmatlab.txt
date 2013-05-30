@@ -1,0 +1,95 @@
+Building the Pastel Matlab interface
+====================================
+
+[[Parent]]: building.txt
+
+This section describes how to build the Pastel Matlab interface. 
+Before doing this, you must first [build the Pastel library][Core].
+
+[Core]: [[Ref]]: building.txt
+
+Build process
+-------------
+
+Matlab uses special kinds of shared libraries to extend it. These
+are called _mex files_. The building process for such files must be 
+driven from Matlab, because this is the only way that the approriate
+libraries will get linked into the resulting mex library, no matter
+what the Matlab version. Matlab redirects the compilation and linking
+to an external compiler, such as Visual Studio or gcc. 
+
+### 1. Select a compiler
+
+To select the compiler Matlab uses, type
+
+	mex -setup
+	
+on the Matlab command line, and follow the instructions. 
+A compiler can be used to build the Pastel Matlab 
+interface if
+ 
+ * The compiler is [supported by Matlab][MatlabSupported], meaning also 
+   that the compiler has been used to build the Matlab external interface
+   libraries (i.e. it is not ok to change the used gcc version 
+   manually). The used C++ standard libraries must match across 
+   all libraries.
+ 
+ * The same compiler is used to build the Pastel libraries.
+ 
+ * The architectures of the libraries match: 
+ 32-bit libraries against 32-bit libraries,
+ and 64-bit libraries against 64-bit libraries.
+ 
+__Note__: Matlab 32-bit is required to build 32-bit mex files, and
+Matlab 64-bit is required to build 64-bit mex files. In particular, it 
+is not possible to do 32-bit builds from Matlab 64-bit.
+
+[MatlabSupported]: http://www.mathworks.com/support/compilers
+
+### 2. Set the external library directories
+
+In `pastel/` directory, open the file `build_pastel.m`,
+which will read something like this:
+
+	% Change this to the boost include path.
+	boostIncludePath = '../../boost_1_53_0';
+	
+Replace the directory to reflect the location of the Boost library.
+
+### 3. Build
+
+To build Pastel Matlab interface in release mode, 
+type in Matlab command line:
+
+	>> build_pastel
+
+To build the Pastel Matlab interface in debug mode,
+type in Matlab command line:
+
+	>> build_pastel('mode', 'debug')
+
+Output files
+------------
+
+The output will be a set of dynamic libraries (mex files), 
+whose names without file-extensions are
+
+ * `pastelsysmatlab`
+ * `pastelmathmatlab`
+ * `pastelgeometrymatlab`
+
+The file-extension depends on the operating system,
+and whether the Matlab that is being used to build the
+mex file is 32-bit or 64-bit. The file-extensions are:
+
+ * Mac (64-bit): `.mexmaci64`
+ * Linux (64-bit): `.mexa64`
+ * Linux (32-bit): `.mexglx`
+ * Windows (64-bit): `.mexw64`
+ * Windows (32-bit): `.mexw32`
+
+Ideally, you would have all of these variations built, so 
+that you have a version of Pastel Matlab which works in any
+operating system, and whether Matlab is 32-bit or 64-bit.
+The prebuilt Pastel Matlab is published this way.
+

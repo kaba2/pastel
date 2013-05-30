@@ -24,7 +24,7 @@
 #define REPORT4(expr, a, b, c, d)\
 	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d)), true))
 
-#define REPORT_OP(x, op, y) REPORT2(x op y, x, y)
+#define REPORT_OP(x, op, y) REPORT2((x) op (y), x, y)
 
 // Errors
 
@@ -43,7 +43,7 @@
 #define ENSURE4(expr, a, b, c, d)\
 {if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
-#define ENSURE_OP(x, op, y) ENSURE2(x op y, x, y)
+#define ENSURE_OP(x, op, y) ENSURE2((x) op (y), x, y)
 
 // PENSURES
 
@@ -86,7 +86,7 @@
 #define ASSERT4(expr, a, b, c, d)\
 {if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
-#define ASSERT_OP(x, op, y) ASSERT2(x op y, x, y)
+#define ASSERT_OP(x, op, y) ASSERT2((x) op (y), x, y)
 
 #else
 

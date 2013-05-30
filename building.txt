@@ -28,8 +28,8 @@ See the [dependencies][Dependencies] page.
 
 ### 2. Install CMake
 
-Pastel uses the [CMake][CMake] build-script generator to turn
-cross-platform builds into a trivial task. CMake is a program
+Pastel uses the [CMake][CMake] build-script generator to abstract
+away the specifics of a given build-environment. CMake is a program
 which reads in a generic build-script and outputs a tool-specific 
 build-script (e.g. Unix makefiles, Visual Studio projects, etc.)
 
@@ -55,12 +55,11 @@ correspondingly.
 
 ### 4. Generate tool-specific build-scripts using CMake. 
 
-* In the Pastel root directory, create the `build/` directory.
-* In the Pastel `build/` directory, type
+* In the Pastel root directory, create the `release/` directory.
+* In the Pastel `release/` directory, type
 		cmake-gui ..
 * Press the `Configure` button.
-* Select the tool-set to generate build-scripts for
-from the menu.
+* Select the tool-set to generate build-scripts for from the menu.
 * Make sure the `Advanced` button is not checked.
 * Select the desired build options.
 * Press the `Configure` button again.
@@ -96,6 +95,10 @@ Note: If you want to change the tool-set later, you need
 to remove the `CMakeCache.txt` file, and run these 
 instructions again. The purpose of this file is to remember 
 options so that they need not specified repeatedly.
+
+Note: You can follow similar instructions to create a debug build
+instead. The only difference is that you create a `debug/` directory,
+and to choose `Debug` as the `CMAKE_BUILD_TYPE` in `cmake-gui`.  
 
 Configurations
 --------------
@@ -159,8 +162,8 @@ To build Pastel in XCode 4:
 Output files
 ------------
 
-The libraries will be placed in the `build/config/lib/` directory, and
-the executables will be placed in the `build/config/bin/` directory,
+The libraries will be placed in the `lib/config` directory, and
+the executables will be placed in the `bin/config` directory,
 where the `config` corresponds to either `debug` or `release`, depending
 on the chosen configuration.
 

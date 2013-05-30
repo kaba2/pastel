@@ -1,5 +1,5 @@
 % BUILD_PASTEL
-% Builds a Matlab mex-library for a Pastel's sub-library.
+% Builds Pastel Matlab mex-libraries.
 %
 % build_pastel('key', value, ...)
 %
@@ -27,8 +27,8 @@
 % or 'off'.
 % Default: off
 
-% Description: Builds a Matlab mex-library for a Pastel's sub-library.
-% Documentation: building.txt
+% Description: Builds Pastel Matlab mex-libraries
+% Documentation: building_pastelmatlab.txt
 
 function build_pastel(varargin)
 
@@ -75,7 +75,7 @@ disp(['Building a mex file for pastel', libraryName, 'matlab in ', ...
 disp(' ');
 
 pastelIncludePath = '..';
-pastelLibraryPath = ['../build/', mode, '/lib'];
+pastelLibraryPath = ['../lib/', mode];
 
 inputPath = [libraryName, 'matlab'];
 outputPath = ['+pastel', libraryName];
