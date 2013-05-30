@@ -9,8 +9,11 @@
 *.svg
 *.zip
 index.htm
--x docs* 
--x build*
+-x docs/* 
+-x debug/*
+-x release/*
+-x lib/*
+-x bin/*
 -x *CMake*
 -x .hg*
 -x .DS_Store
@@ -22,3 +25,5 @@ index.htm
 -x *.vsd
 -x *.pcx
 -x remark_options
+-x pastel_license*
+-x license.txt
