@@ -1,0 +1,19 @@
+% COPY
+% Makes a copy of a kd-tree.
+%
+% kdTreeCopy = copy()
+%
+% Return values
+% -------------
+%
+% KDTREECOPY is a copy of 'kdTree'.
+
+function kdTreeCopy = copy(self)
+    eval(import_pastel);
+    
+    kdTreeCopy = pastelgeometry.PointKdTree(self.dimension());
+
+    kdTreeCopy.kdTree = pastelgeometrymatlab(...
+        'pointkdtree_copy', ...
+        self.kdTree);
+end
