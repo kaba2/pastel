@@ -4,6 +4,7 @@
 #define PASTELSYS_INTEGER_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/hashing.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -86,6 +87,39 @@ namespace Pastel
 				that >>= BitsInWord;
 			}
 			clearLast();
+		}
+
+		//! Copy-constructs only a range of bits.
+		/*!
+		Time complexity: O(N)
+		Exception safety: strong
+		*/
+		Integer(const Integer& that, 
+			integer beginBit, integer endBit)
+		: wordSet_()
+		{
+			PENSURE_OP(0, <=, beginBit);
+			PENSURE_OP(beginBit, <=, endBit);
+			PENSURE_OP(endBit, <=, Bits);
+
+			if (beginBit == endBit)
+			{
+				return;
+			}
+
+			integer firstWord = beginBit / BitsInWord;
+			integer lastWord = (endBit - 1) / BitsInWord;
+
+			std::copy(
+				&that.wordSet_.front() + firstWord,
+				&that.wordSet_.front() + lastWord + 1, 
+				&wordSet_.front() + firstWord);
+
+			Word firstMask = ((Word)1 << (beginBit - firstWord * BitsInWord)) - (Word)1;
+			wordSet_[firstWord] &= ~firstMask;
+
+			Word lastMask = ((Word)1 << (endBit - lastWord * BitsInWord)) - (Word)1;
+			wordSet_[lastWord] &= lastMask;
 		}
 
 		//! Assigns 'that' to this.
@@ -636,7 +670,7 @@ namespace std
 			const Pastel::Integer<N, Type>& that) const
 		{
 			return Pastel::computeHashMany(
-				that.cwordBegin(), that.cwordEnd());
+				Pastel::range(that.cwordBegin(), that.cwordEnd()));
 		}
 	};
 
