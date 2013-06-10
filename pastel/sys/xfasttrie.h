@@ -15,6 +15,7 @@
 namespace Pastel
 {
 
+	//! X-fast trie
 	template <typename XFastTrie_Settings>
 	class XFastTrie
 	{
@@ -40,8 +41,9 @@ namespace Pastel
 		: public Value_Class
 		{
 		public:
-			explicit Data(Value_Class value)
+			explicit Data(Key key, Value_Class value)
 			: Value_Class(std::move(value))
+			, key_(key)
 			{
 			}
 
@@ -61,6 +63,9 @@ namespace Pastel
 		using ConstIterator = typename DataSet::const_iterator;
 		using Iterator = typename DataSet::iterator;
 
+		using const_iterator = ConstIterator;
+		using iterator = Iterator;
+
 		using Node = XFastTrie_::Node<Key, Iterator>;
 
 		using NodeSet = std::unordered_map<Key, Node>;
@@ -79,7 +84,6 @@ namespace Pastel
 			integer endBit = Bits)
 		: beginBit_(beginBit)
 		, endBit_(endBit)
-		, root_(0)
 		, nodeSetSet_()
 		, dataSet_()
 		{
@@ -98,7 +102,6 @@ namespace Pastel
 		~XFastTrie()
 		{
 			clear();
-			deinitialize();
 		}
 
 		//! Swaps two tries.
@@ -112,7 +115,6 @@ namespace Pastel
 
 			swap(beginBit_, that.beginBit_);
 			swap(endBit_, that.endBit_);
-			swap(root_, that.root_);
 			nodeSetSet_.swap(nodeSetSet_);
 			dataSet_.swap(that.dataSet_);
 		}
@@ -124,20 +126,21 @@ namespace Pastel
 		*/
 		void clear()
 		{
-			// We preserve beginBit_, endBit_,
-			// and root_.
-
-			clearNode(root_->left());
-			clearNode(root_->right());
-
-			root_->child_[0] = 0;
-			root_->child_[1] = 0;
-
+			// Clear all elements.
 			dataSet_.clear();
-			for (integer i = beginBit_;i < endBit_;++i)
+
+			// Clear all nodes, except the root.
+			for (integer i = 0;i < bits();++i)
 			{
 				nodeSetSet_[i].clear();
 			}
+
+			// Reset the root node.
+			Node* root = &(nodeSetSet_.front().begin()->second);
+			root->child_[0] = 0;
+			root->child_[1] = 0;
+			root->shortcut_ = 0;
+			root->element_ = dataSet_.end();
 		}
 
 		//! Inserts an element.
@@ -162,8 +165,8 @@ namespace Pastel
 			Node_Iterator node = result.first;
 			integer level = result.second;
 
-			ASSERT_OP(level, >=, beginBit_);
-			ASSERT_OP(level, <, endBit_);
+			ASSERT_OP(beginBit_, <=, level);
+			ASSERT_OP(level, <=, endBit_);
 
 			if (level == beginBit_)
 			{
@@ -176,12 +179,21 @@ namespace Pastel
 			// We will add the nodes that lead to the new
 			// element.
 
+			// We will store the iterators to newly-created 
+			// nodes in 'nodeSet', so that we can rollback 
+			// in case of an exception.
 			std::vector<Node_Iterator> nodeSet;
+			
+			// We preallocate the memory, so that push_back()
+			// can not throw an exception.
 			nodeSet.reserve(level - beginBit_);
+
+			// The newly-created element will be stored here.
 			Iterator element;
 
 			try
 			{
+				// Create the new nodes.
 				for (integer i = beginBit_;i < level;++i)
 				{
 					auto result = nodeSetSet_[i - beginBit_].insert(
@@ -190,9 +202,11 @@ namespace Pastel
 					nodeSet.push_back(result.first);
 				}
 
+				// Find where the new element should be
+				// inserted in 'dataSet_'. The insertion
+				// position is either the element of the
+				// shortcut, or its successor.
 				auto shortcut = node->second.shortcut();
-				ASSERT(shortcut != nodeSetSet_[level].end());
-				
 				Iterator position = shortcut->element_;
 				if (node->second.left())
 				{
@@ -232,7 +246,7 @@ namespace Pastel
 				// Insert the new element to the appropriate
 				// position.
 				element = dataSet_.insert(
-					position, Data(std::move(value)));
+					position, Data(key, std::move(value)));
 			}
 			catch(...)
 			{
@@ -260,7 +274,6 @@ namespace Pastel
 
 				parent->second.child(branch) = &child->second;
 				parent->second.shortcut() = &leaf->second;
-				child->second.parent() = &parent->second;
 			}
 
 			// Link the newly created sub-tree to the trie.
@@ -275,7 +288,6 @@ namespace Pastel
 				{
 					parent->second.shortcut() = &leaf->second;
 				}
-				child->second.parent() = &parent->second;
 			}
 
 			leaf->second.element_ = element;
@@ -299,7 +311,7 @@ namespace Pastel
 		ConstIterator find(const Key& key) const
 		{
 			ConstIterator iter = lowestAncestor(key);
-			if (!iter.isLeaf())
+			if (!iter->element_ == end())
 			{
 				// If the lowest ancestor of this key is 
 				// not a leaf node, then the bucket is not
@@ -336,7 +348,7 @@ namespace Pastel
 		ConstIterator lowerBound(const Key& key) const
 		{
 			ConstIterator iter = lowestAncestor(key);
-			if (iter.isLeaf())
+			if (iter->element_ == end())
 			{
 				// Since the lowest ancestor is a leaf node,
 				// the element is in the trie. Return the
@@ -476,19 +488,26 @@ namespace Pastel
 	    		 / \     / \
 	    	   00   01 10   11
 
-	    	Then bits() = 2, log(bits()) = 1, and the number
-	    	of search levels is log(bits()) + 1. This is
+	    	Then bits() = 2, and the height of the
+	    	node tree is bits() + 1. This is
 	    	also the general formula. 
 			*/
-			integer levels = (integer)std::log((real)bits()) + 1;
-			nodeSetSet_.resize(levels);
+			nodeSetSet_.resize(bits() + 1);
 
-			root_ = new Node;
-		}
+			// Create the root node.
+			auto result = nodeSetSet_[bits()].insert(
+				std::make_pair(Key(), Node()));
 
-		void deinitialize()
-		{
-			delete root_;
+			// Suppose there are no elements in the trie.
+			// Then the root node is the only node. We
+			// make its shortcut point to the root node
+			// itself, and make the element point to the
+			// one-past-end of the 'dataSet_', so that the
+			// insert() algorithm flows without special
+			// cases.
+			Node* root = &result.first->second;
+			root->element_ = dataSet_.end();
+			root->shortcut_ = root;
 		}
 
 		//! Returns the lowest ancestor node of the given key.
@@ -504,14 +523,13 @@ namespace Pastel
 		-> std::pair<Node_Iterator, integer>
 		{
 			// Check whether 'key' already exists in the trie.
-			// In this case we are able to return the result in O(1)
+			// If so, the result can be returned in O(1)
 			// average time.
 			{
-				Key keySuffix(key, beginBit_, endBit_);
-
 				Node_Iterator iter = 
-					nodeSetSet_.front().find(keySuffix);
-				if (iter != nodeSetSet_.front().cend())
+					nodeSetSet_.front().find(
+						Key(key, beginBit_, endBit_));
+				if (iter != nodeSetSet_.front().end())
 				{
 					return std::make_pair(iter, beginBit_);
 				}
@@ -537,18 +555,11 @@ namespace Pastel
 				// can not equal 'top'.
 				integer middle = (bottom + top) / 2;
 				
-				// Find out the suffix of the key at 
-				// the 'middle' level. For example,
-				// at level zero the whole key would
-				// be the suffix, while at the (Bits - 1):th
-				// level only the last bit would be the 
-				// suffix.
-				Key keySuffix(key, middle, endBit_);
-
 				// Find out whether the key-suffix can be
 				// found at the 'middle' level.
 				Node_Iterator iter =
-					nodeSetSet_[middle - beginBit_].find(keySuffix);
+					nodeSetSet_[middle - beginBit_].find(
+						Key(key, middle, endBit_));
 				if (iter == nodeSetSet_[middle - beginBit_].end())
 				{
 					// The suffix was not found at this level.
@@ -571,7 +582,6 @@ namespace Pastel
 			// Since we already checked that the tree
 			// is not empty, the lowest ancestor must
 			// exist.
-			ASSERT(lowest);
 
 			// The node can not have both children;
 			// otherwise it would not be the lowest 
@@ -580,22 +590,6 @@ namespace Pastel
 
 			// Return the lowest ancestor.
 			return std::make_pair(lowest, bottom);
-		}
-
-		void clearNode(Node* node)
-		{
-			if (!node)
-			{
-				return;
-			}
-
-			if (!node->isLeaf())
-			{
-				clearNode(node->left());
-				clearNode(node->right());
-			}
-
-			delete node;
 		}
 
 		//! The bits to use in a key.
@@ -609,20 +603,24 @@ namespace Pastel
 		integer beginBit_;
 		integer endBit_;
 
-		//! The root node of the trie.
+		//! Nodes stored in level-search structures.
 		/*!
-		The root node represents all the elements in 
-		the trie. That is, those elements which have
-		the empty sequence as a suffix.
-		*/
-		Node* root_;
-
-		//! Node-search structures.
-		/*!
-		There are as many levels as there are bits().
-		The nodeSetSet[i] can be used to efficiently
-		answer whether the trie contains an element
-		with a [beginBit_ + i, endBit_)-suffix.
+		Each node represents integers with a specified
+		bit-suffix. The root node represents all 
+		integers, since they all share the same empty 
+		bit-suffix. The root node always exists.
+		Other than the root, if a node exists, then it 
+		is because there exists at least one element 
+		in the trie with that suffix. The nodes form
+		a binary tree with height bits() + 1. The leaf 
+		nodes are all at level 0, and the root node is
+		at level bits(). The elements in the subtree
+		determined by a node a level i are required 
+		to match in the [i, endBit_) index-range of bits. 
+		Apart from actually storing the nodes at level 
+		(beginBit_ + i), the nodeSetSet[i] can be used 
+		to efficiently answer whether the trie contains a
+		n element with a [beginBit_ + i, endBit_)-suffix.
 		*/
 		NodeSetSet nodeSetSet_;
 
