@@ -19,7 +19,6 @@ namespace Pastel
 		public:
 			Node()
 			: child_()
-			, parent_(0)
 			, shortcut_(0)
 			, element_()
 			{
@@ -63,24 +62,13 @@ namespace Pastel
 
 			bool isLeaf() const
 			{
-				return (left() == right()) &&
-					(parent() != left());
+				return left() == right();
 			}
 
 			bool splitsBoth() const
 			{
 				return (left() != shortcut()) &&
 					(right() != shortcut());
-			}
-
-			Node*& parent()
-			{
-				return parent_;
-			}
-
-			Node* parent() const
-			{
-				return parent_;
 			}
 
 			Node*& shortcut()
@@ -94,7 +82,6 @@ namespace Pastel
 			}
 
 			std::array<Node*, 2> child_;
-			Node* parent_;
 			Node* shortcut_;
 			Iterator element_;
 		};

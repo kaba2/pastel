@@ -28,9 +28,34 @@ namespace
 		void test()
 		{
 			using Set = XFastTrie_Set<64>;
+			using Key = Set::Key;
+			using Data = Set::Data;
 
 			Set a;
-			a.insert(1);
+
+			{
+				a.insert(1);
+				a.insert(9);
+				a.insert(5);
+				a.insert(4);
+				a.insert(6);
+				a.insert(3);
+				a.insert(7);
+				a.insert(8);
+				a.insert(2);
+				a.insert(0);
+
+				integer correctSet[] = 
+				{
+					0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+				};
+
+				TEST_ENSURE(boost::equal(a, correctSet, 
+					[&](const Data& left, integer right)
+					{
+						return left.key() == right;
+					}));
+			}
 		}
 	};
 
