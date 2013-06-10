@@ -1,7 +1,7 @@
 % PointKdTree
 
 % Description: Point kd-tree (Matlab)
-% Documentation: pointkdtree.txt
+% Documentation: pointkdtree_matlab.txt
 
 classdef PointKdTree < handle
     properties (Access = 'private')

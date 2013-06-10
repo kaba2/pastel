@@ -1,30 +1,55 @@
-// Description: Y-fast trie
+// Description: Sequence
 
-#ifndef PASTELSYS_YFASTTRIE_H
-#define PASTELSYS_YFASTTRIE_H
+#ifndef PASTELSYS_SEQUENCE_H
+#define PASTELSYS_SEQUENCE_H
 
-#include "pastel/sys/yfasttrie_concepts.h"
-#include "pastel/sys/yfasttrie_node.h"
+#include "pastel/sys/sequence_concepts.h"
+#include "pastel/sys/sequence_node.h"
 #include "pastel/sys/number_tests.h"
-#include "pastel/sys/redblacktree.h"
+#include "pastel/sys/skiplist.h"
 
 #include <boost/integer/static_log2.hpp>
 
 #include <bitset>
 #include <array>
-#include <list>
+#include <vector>
+#include <unordered_map>
 
 namespace Pastel
 {
 
-	class Default_YFastTrie_Settings
+	class YFastTrie
 	{
 	public:
-		static const integer Bits = 64;
+		using LevelSet = 
+			std::unordered_map<Integer, Node*>;
+		using Level_Iterator = 
+			typename YLevelSet::iterator;
+		using Level_ConstIterator = 
+			typename YLevelSet::const_iterator;
+		using LevelSetSet = std::vector<LevelSet>;
+
+		explicit YFastTrie(integer levels)
+		{
+			levelSetSet_.resize(levels);
+		}
+
+		LevelSetSet levelSetSet_; 
+	};
+
+}
+
+namespace Pastel
+{
+
+	class Default_Sequence_Settings
+	{
+	public:
+		static const integer Bits = sizeof(integer) * 8;
 		using Value = void;
 	};
 
-	//! Y-fast trie
+	//! Sequence
 	/*!
 	Preconditions:
 	isPowerOfTwo(Bits).
@@ -42,48 +67,73 @@ namespace Pastel
 	"Fast Local Searches and Updates in Bounded Universes",
 	Prosenjit Bose et al., CCCG 2010 (2010).
 	*/
-	template <typename Settings = Default_YFastTrie_Settings>
-	class YFastTrie
+	template <typename Sequence_Settings = Default_Sequence_Settings>
+	class Sequence
 	{
 	private:
+		using Settings = Sequence_Settings;
+
+		enum
+		{
+			Bits = Settings::Bits
+		};
+
 		PASTEL_STATIC_ASSERT(Bits > 0);
+
+		enum
+		{
+			NIsPowerOfTwo = (Bits & (Bits - 1) == 0)
+		};
 
 		// FIX: Replace with isPowerOfTwo constexpr
 		// after constexpr becomes available in
 		// Visual Studio.
-		enum
-		{
-			NIsPowerOfTwo = (Bits & (Bits - 1) == 0),
-			LogBits = boost::static_log2<Bits>::value,
-			M = Bits - LogBits
-		};
 		PASTEL_STATIC_ASSERT(NIsPowerOfTwo);
 		// PASTEL_STATIC_ASSERT(isPowerOfTwo(Bits));
 
-		using Node = YFastTrie_::Node;
-		using Leaf_Node = YFastTrie_::Leaf_Node;
-		using Split_Node = YFastTrie_::Split_Node;
+		//    B | log(B) | ceil(log(log(B)))
+		// ---------------------------------
+		//   16 | 4      | 3
+		//   32 | 5      | 3
+		//   64 | 6      | 3
+		//  128 | 7      | 3
+		//  256 | 8      | 3
+		//  512 | 9      | 4
+		enum
+		{
+			LogBits = boost::static_log2<Bits>::value,
+			FloorLogLogBits = boost::static_log2<LogBits>::value,
+			// ceil(log(log(Bits)))
+			CeilLogLogBits = NIsPowerOfTwo ? 
+				FloorLogLogBits : (FloorLogLogBits + 1)
+		};
 
-		using Trie_Iterator = YFastTrie_::Trie_Iterator;
-		using Trie_ConstIterator = YFastTrie_::Trie_ConstIterator;
+		// The levels to visit in the double-exponential search,
+		// after level 0, are of the form 2^(2^i), up until to 
+		// ceil(log(log(Bits))). For example, when Bits = 64, 
+		// this means that the levels are 0, 2, 4, 16, 64.
+		// The M gives the number of levels.
+		enum
+		{
+			M = CeilLogLogBits + 2
+		};
 
+		using Value = typename Settings::Value;
+		using Node = Sequence_::Node;
+		using Leaf_Node = Sequence_::Leaf_Node<DataSet>;
 		using Integer = Pastel::Integer<Bits>;
-		using IntegerSet = std::unordered_map<Integer, Node*>;
-		using IntegerSet_Iterator = typename IntegerSet::iterator;
-		using IntegerSet_ConstIterator = typename IntegerSet::const_iterator;
 
-		using Bucket = Map<Integer, Value>;
-		using Bucket_ConstIterator = typename IntegerTree::ConstIterator;
-		using Bucket_Iterator = typename IntegerTree::Iterator;
+		using DataSet = SkipList_Map<Integer, Value>;
+		using Iterator = typename DataSet::Iterator;
+		using ConstIterator = typename DataSet::ConstIterator;
 
-		using BucketSet = std::list<Bucket>;
-		using BucketSet_ConstIterator = typename BucketSet::ConstIterator;
-		using BucketSet_Iterator = typename BucketSet::Iterator;
-
-		using ElementSetSet = std::array<IntegerSet, M>;
+		using LevelSet = std::unordered_map<Integer, YFastTrie*>;
+		using Level_Iterator = typename LevelSet::iterator;
+		using Level_ConstIterator = typename LevelSet::const_iterator;
+		using LevelSetSet = std::array<LevelSet, M>;
 
 	public:
-		YFastTrie()
+		Sequence()
 		: root_(0)
 		, size_(0)
 		, nodes_(0)
@@ -97,7 +147,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		void swap(YFastTrie& that)
+		void swap(Sequence& that)
 		{
 			using std::swap;
 			swap(root_, that.root_);
@@ -108,14 +158,14 @@ namespace Pastel
 
 		//! Inserts an element.
 		/*!
-		Time complexity: O(log(log(Bits)))
+		Time complexity: O(log(log(Delta)))
 		Exception safety: strong
 
 		returns:
 		The leaf node which contains the bucket 
 		which contains the element.
 		*/
-		Trie_ConstIterator insert(
+		ConstIterator insert(
 			Integer key, 
 			Value_Class value = Value_Class())
 		{
@@ -476,37 +526,44 @@ namespace Pastel
 
 		//! Level-search structures.
 		/*!
-		The nodes at the (LogBits + i):th level of the trie
-		are stored in elementSetSet_[i]; lower levels are
-		not stored at all in the trie. The elementSetSet_[i] 
-		is a hash-table which allows to efficiently find 
-		whether a [LogBits + i, Bits)-suffix of the searched key
-		is present at the i:th level of the trie.
+		The levelSetSet_[i] is a hash-table which allows to 
+		efficiently find whether a suffix of the searched 
+		key is stored in the sequence. These level-search
+		structures cover M levels: 
+		* the level 0, which compares the full keys, 
+		stored in levelSetSet_[0]. The y-fast tries on this
+		level are all trivial.
+		* the levels 2^(2^i), for i in [0, M - 2], which
+		compares the [2^(2^i), Bits) suffixes of the keys, 
+		stored in levelSetSet_[i + 1], and
+		* the level (Bits - 1), which compares empty suffixes
+		of the keys, stored in levelSetSet_[M - 1]. This level
+		has only a single element; it is the y-fast trie to
+		all elements.
 		*/
-		ElementSetSet elementSetSet_;
+		LevelSetSet levelSetSet_;
 	};
 
 }
 
 {
 
-	template <
-		integer N_, 
-		typename Value_>
-	class YFastTrie_Map_Settings
+	template <integer Bits_, typename Value_>
+	class Sequence_Map_Settings
 	{
 	public:
-		static const integer Bits = N_;
+		static const integer Bits = Bits_;
 		using Value = Value_;
 	};
 
-	template <
-		integer Bits, 
-		typename Value = void>
-	using YFastTrie_Map = YFastTrie<YFastTrie_Map_Settings<Bits, Value>>;
+	template <integer Bits, typename Value>
+	using Sequence_Map = Sequence<Sequence_Map_Settings<Bits, Value>>;
+
+	template <integer Bits> 
+	using Sequence_Set_Settings = Sequence_Map_Settings<Bits, void>;
 
 	template <integer Bits>
-	using YFastTrie_Set = YFastTrie<YFastTrie_Map_Settings<Bits, void>>;
+	using Sequence_Set = Sequence<Sequence_Set_Settings<Bits>>;
 
 }
 

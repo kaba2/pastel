@@ -16,7 +16,9 @@ namespace Pastel
 		class Settings
 		{
 		public:
-			typedef UserDefinedType Type;
+			using Key = UserDefinedType;
+			using Value = UserDefinedType;
+			using Compare = UserDefinedType;
 		};
 
 	}

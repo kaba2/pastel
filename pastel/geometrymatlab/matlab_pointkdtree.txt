@@ -1,5 +1,0 @@
-PointKdTree (Matlab)
-====================
-
-[[Parent]]: pointkdtree.txt
-

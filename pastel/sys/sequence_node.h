@@ -1,15 +1,15 @@
-// Description: Y-fast trie node
+// Description: Sequence node
 
-#ifndef PASTELSYS_YFASTTRIE_NODE_H
-#define PASTELSYS_YFASTTRIE_NODE_H
+#ifndef PASTELSYS_SEQUENCE_NODE_H
+#define PASTELSYS_SEQUENCE_NODE_H
 
-#include "pastel/sys/yfasttrie.h"
+#include "pastel/sys/sequence.h"
 #include "pastel/sys/redblacktree.h"
 
 namespace Pastel
 {
 
-	namespace YFastTrie_
+	namespace Sequence_
 	{
 
 		class Node
@@ -93,16 +93,14 @@ namespace Pastel
 			Leaf_Node* shortcut_;
 		};
 
-		template <typename Integer, typename Value_Class>
+		template <typename SkipList>
 		class Leaf_Node
 		: public Node
 		{
 		public:
 			Leaf_node()
 			: Node()
-			, map_()
-			, next_(0)
-			, prev_(0)
+			, nearby_()
 			{				
 			}
 			
@@ -110,9 +108,7 @@ namespace Pastel
 			{
 			}
 
-			Map<Integer, Value_Class> map_;
-			Leaf_Node* next_;
-			Leaf_Node* prev_;
+			typename SkipList::Iterator nearby;
 		};	
 
 	}

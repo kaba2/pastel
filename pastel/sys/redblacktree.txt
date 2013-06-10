@@ -1,14 +1,14 @@
 Augmented red-black tree
 ========================
 
-[[Parent]]: trees.txt
+[[Parent]]: data_structures.txt
 
-A _red-black tree_ is a certain kind of a balanced binary search tree.
+A _red-black tree_ is a self-balancing binary search tree.
 An _augmented red-black tree_ is a red-black tree which automatically
 updates extra hierarchical information in its nodes.
 
-Theory
-------
+Properties
+----------
 
 The red-black tree is a data structure to contain arbitrary elements, 
 given that those elements can be totally ordered by their _keys_. 
@@ -31,9 +31,6 @@ efficient for this task. For example, the STL library containers `set` and
 `map` are most commonly implemented with red-black trees. But red-black trees
 are more than dictionaries: the tree structure itself is important for many
 algorithms, and specifically those which use an augmented tree.
-
-Practice
---------
 
 Pastel provides an efficient and generic implementation of augmented 
 red-black trees. Pastel's implementation generalizes on the properties of 
@@ -86,3 +83,17 @@ The RedBlackTree automatically keeps hierarchical data up to date,
 given that the user provides the local computation for a single 
 node in the updateHierarchicalData() function.
  
+Theory
+------
+
+A _tree_ is a connected graph without cycles. A tree is called _rooted_
+if some node, called the _root_, is chosen specifically to measure 
+distances in the tree. The root induces a partial order ''<'' for the nodes
+by the subset relation for the paths from a node to the root. If for nodes
+A and B it holds that ''A < B'', then B is called a _descendant_ of A and 
+A is called an _ancestor_ of B. If ''A < B'' and there is no other node C 
+such that ''A < C < B'', then B is called a _child_ of A, and A is called 
+the _parent_ of B. If a node does not have any descendants, it is called 
+a _leaf_ node. The root node is the only node which does not have any 
+ancestors. A tree is called _n-ary_, if every node has at most n 
+children. The _binary tree_ is a synonym for a 2-ary tree.

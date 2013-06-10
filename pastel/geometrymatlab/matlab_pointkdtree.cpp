@@ -1,4 +1,5 @@
 // Description: PointKdTree Matlab interface
+// Documentation: pointkdtree_matlab.txt
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
