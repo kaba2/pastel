@@ -110,6 +110,49 @@ namespace
 				TEST_ENSURE((F(a) << 33) == F(0));
 				TEST_ENSURE((F(a) >> 33) == F(0));
 			}
+
+			{
+				using F = Integer<32, uint8>;
+				F a(0x12345678);
+
+				TEST_ENSURE(F(a, 0, 0) == F(0x00000000));
+				TEST_ENSURE(F(a, 0, 1) == F(0x00000000));
+				TEST_ENSURE(F(a, 0, 2) == F(0x00000000));
+				TEST_ENSURE(F(a, 0, 3) == F(0x00000000));
+				TEST_ENSURE(F(a, 0, 4) == F(0x00000008));
+				TEST_ENSURE(F(a, 0, 5) == F(0x00000018));
+				TEST_ENSURE(F(a, 0, 6) == F(0x00000038));
+				TEST_ENSURE(F(a, 0, 7) == F(0x00000078));
+				
+				TEST_ENSURE(F(a, 0, 8) == F(0x00000078));
+				TEST_ENSURE(F(a, 0, 9) == F(0x00000078));
+				TEST_ENSURE(F(a, 0, 10) == F(0x00000278));
+				TEST_ENSURE(F(a, 0, 11) == F(0x00000678));
+				TEST_ENSURE(F(a, 0, 12) == F(0x00000678));
+				TEST_ENSURE(F(a, 0, 13) == F(0x00001678));
+				TEST_ENSURE(F(a, 0, 14) == F(0x00001678));
+				TEST_ENSURE(F(a, 0, 15) == F(0x00005678));
+
+				TEST_ENSURE(F(a, 0, 16) == F(0x00005678));
+				TEST_ENSURE(F(a, 1, 16) == F(0x00005678));
+				TEST_ENSURE(F(a, 2, 16) == F(0x00005678));
+				TEST_ENSURE(F(a, 3, 16) == F(0x00005678));
+				TEST_ENSURE(F(a, 4, 16) == F(0x00005670));
+				TEST_ENSURE(F(a, 5, 16) == F(0x00005660));
+				TEST_ENSURE(F(a, 6, 16) == F(0x00005640));
+				TEST_ENSURE(F(a, 7, 16) == F(0x00005600));
+
+				TEST_ENSURE(F(a, 8, 16) == F(0x00005600));
+				TEST_ENSURE(F(a, 9, 16) == F(0x00005600));
+				TEST_ENSURE(F(a, 10, 16) == F(0x00005400));
+				TEST_ENSURE(F(a, 11, 16) == F(0x00005000));
+				TEST_ENSURE(F(a, 12, 16) == F(0x00005000));
+				TEST_ENSURE(F(a, 13, 16) == F(0x00004000));
+				TEST_ENSURE(F(a, 14, 16) == F(0x00004000));
+				TEST_ENSURE(F(a, 15, 16) == F(0x00000000));
+				
+				TEST_ENSURE(F(a, 16, 16) == F(0x00000000));
+			}
 		}
 	};
 
