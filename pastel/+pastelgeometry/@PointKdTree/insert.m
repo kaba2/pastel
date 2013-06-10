@@ -15,6 +15,9 @@
 % IDSET is a positive integer array containing the identifiers 
 % of the inserted points in the kd-tree.
 
+% Description: Inserts points into a kd-tree
+% DocumentationOf: PointKdTree.m
+
 function idSet = insert(self, pointSet)
     eval(import_pastel);
 

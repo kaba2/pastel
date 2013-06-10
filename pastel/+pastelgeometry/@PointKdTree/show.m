@@ -16,6 +16,9 @@
 % Hiding and showing are the preferred way to implement a 
 % semi-dymamic point-set.
 
+% Description: Unhides a set of points in a kd-tree.
+% DocumentationOf: PointKdTree.m
+
 function show(self, idSet)
     eval(import_pastel);
    

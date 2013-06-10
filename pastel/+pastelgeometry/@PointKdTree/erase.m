@@ -11,6 +11,9 @@
 %
 % If 'idSet' is not given, then all points are removed.
 
+% Description: Removes a set of points from a kd-tree.
+% DocumentationOf: PointKdTree.m
+
 function erase(self, idSet)
     eval(import_pastel);
 

@@ -1,0 +1,48 @@
+Sequence
+========
+
+[[Parent]]: data_structures.txt
+
+A _sequence_ is a function ''T --> V'', where ''T subset ZZ'', and
+''V'' is a set. The `Sequence` is a data-structure for storing and
+manipulating a sequence. The set ''T'' is called _time_, and the set
+''V'' is called the set of _values_. An element  ''(t, v) in T times
+V'' is called an _element_ of the sequence; it is then said that
+''(t, v)'' _occurs_ at time ''t''. The  _predecessor_ of an element
+''(t, v)'', if it exists, is  an element ''(s, w)'' of the sequence
+such that ''s'' is maximal subject to ''s < t''. Similarly for the
+_successor_ of an element.
+
+Properties
+----------
+
+For the following,  let ''Delta = |s - t|'', where ''(s, w)'' is
+either the predecessor of successor of ''(t, v) in T times V'',
+which ever is nearer in time. The `Sequence` has the properties that,
+
+  * an element can be added to it in ''O(log(log(Delta)))'' 
+  expected time,
+  * an element can be removed from it in ''O(log(log(Delta)))'' 
+  expected time,
+  * an element occurring at time ''t'' can be searched for in 
+  ''O(1)'' expected time, and
+  * a predecessor or a successor of an element can be searched for 
+  in ''O(log(log(Delta)))'' expected time.
+
+To the outside, the `Sequence` appears as a bidirectional 
+linked list with additional search features. In particular,
+
+  * elements can be traversed as an increasing sequence by 
+  bidirectional iterators,
+  * a predecessor or a successor of an element, pointed to by
+  an iterator, can be found in ''O(1))'' worst-case time, and
+  * the minimum-time element or the maximum-time element can be found
+  in ''O(1)'' worst-case time.
+
+References
+----------
+
+_Fast local searches and updates in bounded universes_,
+Prosenjit Bose et al, Computational Geometry: Theory and 
+Applications, Volume 46, pp. 181-189, 2013.
+

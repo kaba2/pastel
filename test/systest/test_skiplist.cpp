@@ -31,7 +31,7 @@ namespace
 			testRandom();
 		}
 
-		typedef SkipList<integer> List;
+		typedef SkipList_Set<integer> List;
 		typedef List::Iterator Iterator;
 		typedef List::ConstIterator ConstIterator;
 
@@ -64,7 +64,7 @@ namespace
 
 		void testValue()
 		{
-			SkipList<integer, integer> list;
+			SkipList_Map<integer, integer> list;
 
 			{
 				TEST_ENSURE(list.empty());

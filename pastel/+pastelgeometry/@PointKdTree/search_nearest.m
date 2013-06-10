@@ -32,6 +32,9 @@
 % squared-distance of the i:th point in QUERYSET to its j:th neighbor.
 % The value Inf denotes a missing neighbor.
 
+% Description: Searches for k nearest neighbors in a kd-tree.
+% DocumentationOf: PointKdTree.m
+
 function [neighborSet, distanceSet] = search_nearest(...
     self, querySet, maxDistanceSet, kNearest)
    

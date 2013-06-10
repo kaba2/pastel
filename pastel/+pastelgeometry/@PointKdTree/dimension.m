@@ -8,6 +8,9 @@
 %
 % D is the dimension of the tree.
 
+% Description: Returns the dimension of a kd-tree.
+% DocumentationOf: PointKdTree.m
+
 function D = dimension(self)
     eval(import_pastel);
 

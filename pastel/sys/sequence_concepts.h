@@ -1,17 +1,17 @@
-// Description: Concepts for YFastTrie
+// Description: Concepts for Sequence
 
-#ifndef PASTELSYS_YFASTTRIE_CONCEPTS_H
-#define PASTELSYS_YFASTTRIE_CONCEPTS_H
+#ifndef PASTELSYS_SEQUENCE_CONCEPTS_H
+#define PASTELSYS_SEQUENCE_CONCEPTS_H
 
 #include "pastel/sys/mytypes.h"
 
 namespace Pastel
 {
 
-	namespace YFastTrie_Concepts
+	namespace Sequence_Concepts
 	{
 
-		class YFastTrie_Settings
+		class Sequence_Settings
 		{
 		public:
 			//! The number of bits to use for keys.

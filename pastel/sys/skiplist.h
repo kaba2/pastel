@@ -7,17 +7,10 @@
 #include "pastel/sys/skiplist_node.h"
 #include "pastel/sys/skiplist_iterator.h"
 #include "pastel/sys/random_geometric.h"
-#include "pastel/sys/lessthan.h"
 #include "pastel/sys/directed_predicate.h"
 
 namespace Pastel
 {
-
-	class Default_SkipList_Settings
-	{
-	public:
-		typedef LessThan Compare;
-	};
 
 	//! Skip list
 	/*!
@@ -38,18 +31,15 @@ namespace Pastel
 	Settings:
 	A type implementing the SkipList_Settings concept.
 	*/
-	template <
-		typename Key_, 
-		typename Value_ = void,
-		typename Settings_ = Default_SkipList_Settings>
+	template <typename SkipList_Settings>
 	class SkipList
 	{
 	public:
-		typedef Key_ Key;
-		typedef Value_ Value;
-		typedef Settings_ Settings;
-		typedef typename Settings::Compare Compare;
-		typedef typename AsClass<Value>::type Value_Class;
+		using Settings = SkipList_Settings;
+		using Key = typename Settings::Key;
+		using Value = typename Settings::Value;
+		using Compare = typename Settings::Compare;
+		using Value_Class = typename AsClass<Value>::type;
 
 	private:
 		typedef SkipList_::Node Node;
@@ -714,6 +704,34 @@ namespace Pastel
 		real levelRatio_;
 		integer size_;
 	};
+
+}
+
+#include "pastel/sys/lessthan.h"
+
+namespace Pastel
+{
+
+	template <
+		typename Key_, 
+		typename Value_, 
+		typename Compare_ = LessThan>
+	class SkipList_Map_Settings
+	{
+	public:
+		using Key = Key_;
+		using Value = Value_;
+		using Compare = Compare_;
+	};
+
+	template <typename Key, typename Value, typename Compare = LessThan>
+	using SkipList_Map = SkipList<SkipList_Map_Settings<Key, Value, Compare>>;
+
+	template <typename Key, typename Compare = LessThan>
+	using SkipList_Set_Settings = SkipList_Map_Settings<Key, void, Compare>;
+
+	template <typename Key, typename Compare = LessThan>
+	using SkipList_Set = SkipList<SkipList_Set_Settings<Key, Compare>>;
 
 }
 

@@ -18,6 +18,9 @@
 % If a point identifier is not part of the kd-tree, a
 % NaN vector is returned for that point.
 
+% Description: Returns the coordinates of an identifier point-set.
+% DocumentationOf: PointKdTree.m
+
 function pointSet = as_points(self, idSet)
     eval(import_pastel);
 

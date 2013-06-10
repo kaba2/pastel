@@ -17,6 +17,9 @@
 %
 % If 'idSet' is not given, then all points are hided.
 
+% Description: Hides a set of points in a kd-tree.
+% DocumentationOf: PointKdTree.m
+
 function hide(self, idSet)
     eval(import_pastel);
 
