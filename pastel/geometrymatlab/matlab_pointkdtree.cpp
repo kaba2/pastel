@@ -271,8 +271,8 @@ namespace Pastel
 			const integer dimension = asScalar<integer>(inputSet[Dimension]);
 
 			// Get enough memory to hold a KdState pointer.
-			const mwSize extent[] = {1, sizeof(KdState*)};
-			outputSet[0] = mxCreateCharArray(2, extent);
+			outputSet[0] = mxCreateNumericMatrix(1, 1, 
+				typeToMatlabClassId<pointer_integer>(), mxREAL);
 			KdState** rawResult = (KdState**)mxGetPr(outputSet[0]);
 
 			// Create a new KdState and store the pointer to
