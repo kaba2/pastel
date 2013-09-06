@@ -7,9 +7,6 @@
 #include "pastel/sys/pastelomp.h"
 #include "pastel/sys/copy_n.h"
 
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_same.hpp>
-
 namespace Pastel
 {
 
@@ -17,12 +14,8 @@ namespace Pastel
 	Type* createScalar(
 		mxArray*& output)
 	{
-		const mwSize size[] = {1, 1};
-
-		output = mxCreateNumericArray(
-			2, size, 
-			typeToMatlabClassId<Type>(),
-			mxREAL);
+		output = mxCreateNumericMatrix(1, 1,
+			typeToMatlabClassId<Type>(), mxREAL);
 
 		return (Type*)mxGetData(output);
 	}
@@ -34,9 +27,7 @@ namespace Pastel
 	{
 		ENSURE(allGreaterEqual(extent, 0));
 
-		const mwSize size[] = {(mwSize)extent.y(), (mwSize)extent.x()};
-
-		output = mxCreateNumericArray(2, size, 
+		output = mxCreateNumericMatrix(extent.y(), extent.x(), 
 			typeToMatlabClassId<Type>(), mxREAL);
 		
 		Type* rawData = (Type*)mxGetData(output);
@@ -291,29 +282,24 @@ namespace Pastel
 		return n;
 	}
 
-	namespace Matlab_
+	template <typename Type>
+	mxClassID typeToMatlabClassId()
 	{
+		PASTEL_STATIC_ASSERT(
+			std::is_pointer<Type>::value ||
+			std::is_integral<Type>::value || 
+			std::is_floating_point<Type>::value)
 
-#define PASTEL_TYPE_TO_MATLAB_CLASSID(Type, Id) \
-		template <> \
-		class TypeToMatlabClassId<Type> \
-		{ \
-		public: \
-			mxClassID operator()() const \
-			{ \
-				return Id; \
-			} \
-		}
-
-		template <typename Type>
-		class TypeToMatlabClassId
+		if (std::is_pointer<Type>::value)
 		{
-		public:
-			mxClassID operator()() const
+			switch(sizeof(Type))
 			{
-				return mxUNKNOWN_CLASS;
-			}
-		};
+			case 8:
+				return mxUINT64_CLASS;
+			case 4:
+				return mxUINT32_CLASS;
+			};
+		}
 
 		// Note: the mxCHAR_CLASS coincides in type with
 		// mxINT8_CLASS. Therefore, we leave it out here:
@@ -321,26 +307,54 @@ namespace Pastel
 		// numeric types. The mxCHAR_CLASS is handled
 		// specially for strings.
 
-        PASTEL_TYPE_TO_MATLAB_CLASSID(void, mxVOID_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(real64, mxDOUBLE_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(real32, mxSINGLE_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(int8, mxINT8_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(uint8, mxUINT8_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(int16, mxINT16_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(uint16, mxUINT16_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(int32, mxINT32_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(uint32, mxUINT32_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(int64, mxINT64_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(uint64, mxUINT64_CLASS);
-        PASTEL_TYPE_TO_MATLAB_CLASSID(pointer_integer, mxUINT64_CLASS);
+		if (std::is_integral<Type>::value)
+		{
+			if (std::is_signed<Type>::value)
+			{
+				switch(sizeof(Type))
+				{
+				case 8:
+					return mxINT64_CLASS;
+				case 4:
+					return mxINT32_CLASS;
+				case 2:
+					return mxINT16_CLASS;
+				case 1:
+					return mxINT8_CLASS;
+				};
+			}
+			else
+			{
+				switch(sizeof(Type))
+				{
+				case 8:
+					return mxUINT64_CLASS;
+				case 4:
+					return mxUINT32_CLASS;
+				case 2:
+					return mxUINT16_CLASS;
+				case 1:
+					return mxUINT8_CLASS;
+				};
+			}
+		}
 
-	}
+		if (std::is_floating_point<Type>::value)
+		{
+			if (std::is_same<float, typename std::remove_cv<Type>::type>::value)
+			{
+				return mxSINGLE_CLASS;
+			}
+			if (std::is_same<double, typename std::remove_cv<Type>::type>::value)
+			{
+				return mxDOUBLE_CLASS;
+			}
+		}
 
-	template <typename Type>
-	mxClassID typeToMatlabClassId()
-	{
-		Matlab_::TypeToMatlabClassId<Type> f;
-		return f();
+		const bool reachedHere = true;
+		ENSURE(!reachedHere);
+
+		return mxUNKNOWN_CLASS;
 	}
 
 }

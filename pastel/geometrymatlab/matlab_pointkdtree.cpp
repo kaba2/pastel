@@ -198,7 +198,7 @@ namespace Pastel
 
 		KdState* asState(const mxArray* matlabArray)
 		{
-			return *((KdState**)mxGetPr(matlabArray));
+			return *((KdState**)mxGetData(matlabArray));
 		}
 
 		void kdAsPoints(
@@ -271,9 +271,7 @@ namespace Pastel
 			const integer dimension = asScalar<integer>(inputSet[Dimension]);
 
 			// Get enough memory to hold a KdState pointer.
-			outputSet[0] = mxCreateNumericMatrix(1, 1, 
-				typeToMatlabClassId<pointer_integer>(), mxREAL);
-			KdState** rawResult = (KdState**)mxGetPr(outputSet[0]);
+			KdState** rawResult = createScalar<KdState*>(outputSet[0]);
 
 			// Create a new KdState and store the pointer to
 			// the returned array.
@@ -312,9 +310,7 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 
 			// Get enough memory to hold a KdState pointer.
-			const mwSize extent[] = {1, sizeof(KdState*)};
-			outputSet[0] = mxCreateCharArray(2, extent);
-			KdState** rawResult = (KdState**)mxGetPr(outputSet[0]);
+			KdState** rawResult = createScalar<KdState*>(outputSet[0]);
 
 			// Create a new KdState and store the pointer to
 			// the returned array.
@@ -394,17 +390,16 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 			Tree& tree = state->tree;
 			const integer dimension = tree.n();
-			const real* pointSet = mxGetPr(inputSet[PointSet]);
-			const integer elements = mxGetNumberOfElements(inputSet[PointSet]);
-			const integer points = elements / tree.n();
+
+			Array<real> pointSet = asArray<real>(inputSet[PointSet]);
+			const integer points = pointSet.width();
 
 			Array<integer> result =
 				createArray<integer>(points, 1, outputSet[IdSet]);
 			for (integer i = 0;i < points;++i)
 			{
 				real* data = (real*)state->pointAllocator.allocate();
-				std::copy(pointSet, pointSet + dimension, data);
-				pointSet += dimension;
+				std::copy(pointSet.cColumnBegin(i), pointSet.cColumnEnd(i), data);
 
 				const integer index = state->index;
 				Point_ConstIterator iter = tree.insert(TreePoint(data, index));
