@@ -74,6 +74,13 @@ namespace Pastel
 
 	template <typename Type, int N>
 	Array<Type, N>::Array(
+		const Array& that)
+		: Array(that, that.storageOrder())
+	{
+	}
+
+	template <typename Type, int N>
+	Array<Type, N>::Array(
 		const Array& that,
 		StorageOrder::Enum order)
 		: extent_(ofDimension(that.n()), 0)
@@ -87,29 +94,9 @@ namespace Pastel
 	}
 
 	template <typename Type, int N>
-	Array<Type, N>::Array(
-		const Array& that)
-		: extent_(ofDimension(that.n()), 0)
-		, stride_(ofDimension(that.n()), 0)
-		, order_(that.order_)
-		, size_(0)
-		, data_(0)
-		, deleteData_(true)
-	{
-		copyConstruct(that, that.storageOrder());
-	}
-
-	template <typename Type, int N>
 	Array<Type, N>::Array(Array&& that)
-		: extent_(0)
-		, stride_(0)
-		, order_(0)
-		, size_(0)
-		, data_(0)
-		, deleteData_(true)
+		: Array()
 	{
-		setStorageOrder(StorageOrder::RowMajor);
-
 		swap(that);
 	}
 
@@ -118,14 +105,8 @@ namespace Pastel
 		const Array& that,
 		const Vector<integer, N>& extent,
 		const Type& defaultData)
-		: extent_(extent)
-		, stride_(ofDimension(extent.n()), 0)
-		, order_(ofDimension(extent.n()), 0)
-		, size_(0)
-		, data_(0)
-		, deleteData_(true)
+		: Array(that, extent, defaultData, that.storageOrder())
 	{
-		copyConstructLarger(that, defaultData, that.storageOrder());
 	}
 
 	template <typename Type, int N>
