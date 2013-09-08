@@ -1,9 +1,8 @@
-// Description: Integer algorithms
-// Detail: gcd, extendedGcd, etc.
+// Description: Greatest common divisor
 // Documentation: integers.txt
 
-#ifndef PASTELSYS_INTEGER_TOOLS_H
-#define PASTELSYS_INTEGER_TOOLS_H
+#ifndef PASTELSYS_GCD_H
+#define PASTELSYS_GCD_H
 
 namespace Pastel
 {
@@ -15,9 +14,10 @@ namespace Pastel
 	x a + y b = gcd(a, b)
 	*/
 
-	integer extendedGcd(
-		integer a, integer b,
-		integer& x, integer& y);
+	template <typename Integer>
+	Integer extendedGcd(
+		Integer a, Integer b,
+		Integer& x, Integer& y);
 
 	//! Returns the greatest common divisor of 'mabs(left)' and 'mabs(right)'.
 	/*!
@@ -29,6 +29,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/integer_tools.hpp"
+#include "pastel/sys/gcd.hpp"
 
 #endif

@@ -1,5 +1,5 @@
 // Description: A vector expression for a native array.
-// Documentation: vector.txt
+// Documentation: vectorexpression.txt
 
 #ifndef PASTELSYS_ARRAY_VECTOREXPRESSION_H
 #define PASTELSYS_ARRAY_VECTOREXPRESSION_H

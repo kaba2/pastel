@@ -5,8 +5,6 @@
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/biginteger.h"
-#include "pastel/sys/rational_tools.h"
-#include "pastel/sys/biginteger_tools.h"
 
 #include <iostream>
 

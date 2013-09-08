@@ -120,9 +120,19 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/biginteger_tools.h"
+#include <iostream>
 
-#include "pastel/sys/biginteger_more.h"
+namespace Pastel
+{
+
+	PASTELSYS std::ostream& operator<<(
+		std::ostream& stream,
+		const BigInteger& number);
+
+
+	void swap(BigInteger& left, BigInteger& right);
+
+}
 
 #include "pastel/sys/biginteger.hpp"
 

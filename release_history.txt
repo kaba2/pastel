@@ -35,6 +35,7 @@ Release date xx.x.2013
 * Renamed the Reporter concept to the Output concept.
 * Added the Input concept.
 * Added algorithms for interval sequences.
+* Removed the use of CRTP from Vector and Alignedbox.
 
 ### PastelGeometryMatlab
 

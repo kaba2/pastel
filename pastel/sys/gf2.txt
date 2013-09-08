@@ -1,6 +1,7 @@
-Finite field arithmetic in GF(2^n)
-==================================
+Finite fields
+=============
 
 [[Parent]]: numbers.txt
 
+This section contains tools for computing in ''GF(2^n)'', where ''n in [1, 64]''.
 

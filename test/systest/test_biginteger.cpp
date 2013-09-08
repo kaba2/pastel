@@ -4,7 +4,6 @@
 #include "test_pastelsys.h"
 
 #include <pastel/sys/biginteger.h>
-#include <pastel/sys/biginteger_tools.h>
 
 namespace
 {

@@ -6,7 +6,6 @@
 #include "pastel/geometry/contains_alignedbox_alignedbox.h"
 
 #include "pastel/sys/rational.h"
-#include "pastel/sys/rational_tools.h"
 
 #include <iostream>
 using std::cout;

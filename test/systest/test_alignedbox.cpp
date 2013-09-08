@@ -4,7 +4,6 @@
 #include "test_pastelsys.h"
 
 #include <pastel/sys/alignedbox.h>
-#include <pastel/sys/rational.h>
 
 using namespace Pastel;
 using namespace std;
