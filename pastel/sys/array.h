@@ -347,133 +347,182 @@ namespace Pastel
 		StorageOrder::Enum storageOrder() const;
 
 		// 1-dimensional special functions.
-		// If only we had static_if...
 
-		integer width() const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 1, integer) 
+			width() const
 		{
 			return extent()[0];
 		}
 
-		Cursor cursor(integer x)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 1, Cursor) 
+			cursor(integer x)
 		{
 			return cursor(Vector<integer, N>(x));
 		}
 
-		ConstCursor constCursor(integer x) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 1, ConstCursor) 
+			constCursor(integer x) const
 		{
 			return constCursor(Vector<integer, N>(x));
 		}
 
 		// 2-dimensional special functions
 
-		integer height() const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 2, 
+				integer) height() const
 		{
 			return extent()[1];
 		}
 
-		Type& operator()(integer x, integer y)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, Type&) 
+			operator()(integer x, integer y)
 		{
 			return operator()(Vector<integer, N>(x, y));
 		}
 
-		const Type& operator()(integer x, integer y) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, const Type&) 
+			operator()(integer x, integer y) const
 		{
 			return operator()(Vector<integer, N>(x, y));
 		}
 
-		Cursor cursor(integer x, integer y)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, Cursor) 
+			cursor(integer x, integer y)
 		{
 			return cursor(Vector<integer, N>(x, y));
 		}
 
-		ConstCursor constCursor(integer x, integer y) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, ConstCursor) 
+			constCursor(integer x, integer y) const
 		{
 			return constCursor(Vector<integer, N>(x, y));
 		}
 
-		RowRange rowRange(integer y)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, RowRange) 
+			rowRange(integer y)
 		{
 			return rowRange(Vector<integer, N>(0, y), 0);
 		}
 
-		ConstRowRange cRowRange(integer y) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, ConstRowRange) 
+			cRowRange(integer y) const
 		{
 			return cRowRange(Vector<integer, N>(0, y), 0);
 		}
 
-		RowIterator rowBegin(integer y)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, RowIterator) 
+			rowBegin(integer y)
 		{
 			return rowBegin(Vector<integer, N>(0, y), 0);
 		}
 
-		ConstRowIterator cRowBegin(integer y) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, ConstRowIterator) 
+			cRowBegin(integer y) const
 		{
 			return cRowBegin(Vector<integer, N>(0, y), 0);
 		}
 
-		RowIterator rowEnd(integer y)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, RowIterator) 
+			rowEnd(integer y)
 		{
 			return rowEnd(Vector<integer, N>(0, y), 0);
 		}
 
-		ConstRowIterator cRowEnd(integer y) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, ConstRowIterator) 
+			cRowEnd(integer y) const
 		{
 			return cRowEnd(Vector<integer, N>(0, y), 0);
 		}
 
-		RowIterator columnBegin(integer x)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, RowIterator) 
+			columnBegin(integer x)
 		{
 			return rowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
-		ConstRowIterator cColumnBegin(integer x) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, ConstRowIterator) 
+			cColumnBegin(integer x) const
 		{
 			return cRowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
-		RowIterator columnEnd(integer x)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, RowIterator) 
+			columnEnd(integer x)
 		{
 			return rowEnd(Vector<integer, N>(x, 0), 1);
 		}
 
-		ConstRowIterator cColumnEnd(integer x) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, ConstRowIterator) 
+			cColumnEnd(integer x) const
 		{
 			return cRowEnd(Vector<integer, N>(x, 0), 1);
 		}
 
-		RowRange columnRange(integer x)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, RowRange) 
+			columnRange(integer x)
 		{
 			return rowRange(Vector<integer, N>(x, 0), 1);
 		}
 
-		ConstRowRange cColumnRange(integer x) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, ConstRowRange) 
+			cColumnRange(integer x) const
 		{
 			return cRowRange(Vector<integer, N>(x, 0), 1);
 		}
 
 		// 3-dimensional special functions
 
-		integer depth() const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 3, integer) 
+			depth() const
 		{
 			return extent()[2];
 		}
 
-		Type& operator()(integer x, integer y, integer z)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 3, Type&) 
+			operator()(integer x, integer y, integer z)
 		{
 			return operator()(Vector<integer, N>(x, y, z));
 		}
 
-		const Type& operator()(integer x, integer y, integer z) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 3, const Type&) 
+			operator()(integer x, integer y, integer z) const
 		{
 			return operator()(Vector<integer, N>(x, y, z));
 		}
 
-		Cursor cursor(integer x, integer y, integer z)
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 3, Cursor) 
+			cursor(integer x, integer y, integer z)
 		{
 			return cursor(Vector<integer, N>(x, y, z));
 		}
 
-		ConstCursor constCursor(integer x, integer y, integer z) const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 3, ConstCursor) 
+			constCursor(integer x, integer y, integer z) const
 		{
 			return constCursor(Vector<integer, N>(x, y, z));
 		}

@@ -12,11 +12,15 @@ of its intervals.
 An interval sequence is useful because it can be used to represent
 arbitrary subsets of a totally ordered set, and because there exists 
 efficient algorithms for computing set-operations between interval 
-sequences (such as difference, union, and intersection). The motivation
-for this data structure was originally to represent a sliding window 
-over a time-series. When the window was moved, only the symmetric 
-difference between the old window and the new window needed to be 
-updated. Since the window needed to be of such a shape that the 
+sequences (such as difference, union, and intersection). 
+
+History
+-------
+
+The motivation for this data structure was originally to represent a 
+sliding window over a time-series. When the window was moved, only the 
+symmetric difference between the old window and the new window needed 
+to be updated. Since the window needed to be of such a shape that the 
 center of the window needed to be excluded, something more general
 was needed rather than just intervals.
 
