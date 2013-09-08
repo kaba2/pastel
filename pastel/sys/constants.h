@@ -12,31 +12,24 @@ namespace Pastel
 {
 
 	//! Converts a text string to number.
-
-	// Too big for inlining.
-
 	template <typename Real>
 	Real constant(const std::string& number);
 
 	//! Returns pi constant.
-
 	template <typename Real>
-	inline Real constantPi();
+	Real constantPi();
 
 	//! Returns neper constant.
-
 	template <typename Real>
-	inline Real constantNeper();
+	Real constantNeper();
 
 	//! Returns ln(2) constant.
-
 	template <typename Real>
-	inline Real constantLn2();
+	Real constantLn2();
 
 	//! Returns Euler-Mascheroni constant.
-
 	template <typename Real>
-	inline Real constantEulerMascheroni();
+	Real constantEulerMascheroni();
 
 }
 

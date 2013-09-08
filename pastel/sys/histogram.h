@@ -1,5 +1,4 @@
 // Description: Histograms
-// Documentation: maths.txt
 
 #ifndef PASTELSYS_HISTOGRAM_H
 #define PASTELSYS_HISTOGRAM_H

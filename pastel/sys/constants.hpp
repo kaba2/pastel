@@ -126,7 +126,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	inline Real constantEulerMascheroni()
+	Real constantEulerMascheroni()
 	{
 		static const Real EulerMascheroni(
 			constant<Real>("0.57721566490153286060651209008240"));

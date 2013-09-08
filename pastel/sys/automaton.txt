@@ -57,10 +57,10 @@ is a start- or a final-state,
 * can give a list of all transitions from a given state with a given
 symbol in average O(1) time,
 * can check whether there is a transition between two states with a
-given symbol in average O(1),
+given symbol in average O(1) time,
 * can check whether the automaton is deterministic in O(1) time,
-* can be fully [customized][Customization] to add extra functionality,
-* can associate user-data at with states and transitions,
+* can be fully [customized][Customization] to add extra functionality, and
+* can associate user-data with states and transitions.
 
 [Customization]: [[Ref]]: techniques_customization.txt
 

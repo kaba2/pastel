@@ -1,0 +1,5 @@
+Histograms
+==========
+
+[[Parent]]: maths.txt
+
