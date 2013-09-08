@@ -24,7 +24,7 @@ Naming
 
 * Public namespaces: `LikeThis`
 
-* Private namespaces: 'LikeThis_'
+* Private namespaces: `LikeThis_`
 
 * Macros: `PASTEL_LIKE_THIS`
 
@@ -81,7 +81,7 @@ trailing underscore.
 	In particular, the `is` prefix is not used.
 	Exception: `is` prefix can be used for disambiguation if the
 	property can be interpreted both as a verb and an adjective.
-	For example: `open` -> `isOpen`
+	For example: `open` as `isOpen`
 
 * Collections: `shapeSet`. In particular, the plural `shapes` is
 not used, because it collides with quantities. In addition, more
