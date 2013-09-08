@@ -1,5 +1,5 @@
 // Description: Testing for AlignedBox
-// Documentation: unit_testing.txt
+// DocumentationOf: alignedbox.h
 
 #include "test_pastelsys.h"
 

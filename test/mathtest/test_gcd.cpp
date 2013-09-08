@@ -1,5 +1,5 @@
 // Description: Testing for gcd
-// DocumentationOf: integer_tools.h
+// DocumentationOf: gcd.h
 
 #include "test_pastelmath.h"
 

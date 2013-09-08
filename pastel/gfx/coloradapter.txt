@@ -9,7 +9,7 @@ Bit-packed RGB colors
 Especially when dealing with hardware and file formats,
 it is common to encode a color in a compact-sized integer.
 Here are some examples of such encodings
-(- = unused bit or an alpha bit, R = red bit, G = green bit, B = blue bit):
+(`-` = unused bit or an alpha bit, `R` = red bit, `G` = green bit, `B` = blue bit):
 
  * 16bit RGB 5-6-5: `BBBBBGGG GGGRRRRR`
  * 16bit RGB 5-5-5: `-BBBBBGG GGGRRRRR`

@@ -11,7 +11,7 @@ sequence of unspecified length back to the caller.
 The returned boolean tells the surrounding algorithm whether it should
 continue reporting or not. This allows for an early exit in the reporting
 process in case not all information is needed (say, finding the first
-occurence of an element in a sequence, instead of all). The algorithm 
+occurrence of an element in a sequence, instead of all). The algorithm 
 may choose to follow this advice or not.
 
 In C++11, the best way to specify reporters is by lambda functions.
@@ -28,6 +28,6 @@ generically out of functions. However, output iterators have a lot
 of extraneous functionality which is not essential to the task.
 For example, its position, or the requirement that to report 
 something through an iterator, it needs to be dereferenced.
-This is in contradiction to the goal of generic programming, that 
+This is in contradiction to the goal of generic programming; 
 algorithms should work at a maximally wide range of types while 
 minimizing requirements. 

@@ -11,9 +11,7 @@ Example
 
 [[Gallery]]:
 	transform_texture.png
-	- Radial texture
-
-_The result of rotating and translating the Lena image 
-with the transform texture distortion. We used mirroring 
-for the texture extension and EWA filtering for the image 
-resampling._
+	- The result of rotating and translating the Lena image 
+	- with the transform texture distortion. We used mirroring 
+	- for the texture extension and EWA filtering for the image 
+	- resampling.

@@ -97,7 +97,7 @@ constant value.
 	
 The saturation varies along the y-axis from the
 bottom 0 to top 1. The hue varies along the x-axis from the
-left 0 to top 1._
+left 0 to top 1.
 
 Practice
 --------

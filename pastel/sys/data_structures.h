@@ -8,9 +8,11 @@
 #include "pastel/sys/fastlist_tools.h"
 #include "pastel/sys/hashing.h"
 #include "pastel/sys/incidence_graph.h"
+#include "pastel/sys/named_tuples.h"
 #include "pastel/sys/optional.h"
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/refinable_partition.h"
+#include "pastel/sys/skiplist.h"
 #include "pastel/sys/views.h"
 
 #endif

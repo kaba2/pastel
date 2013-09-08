@@ -14,7 +14,10 @@ is then enforced at those times when there exists at least one
 a run-time assertion when immutability would be violated. The 
 `ReadProtected<A>` is implicitly convertible to `ReadPtr<A>`. This
 is the only way to obtain original `ReadPtr<A>`'s; the remaining ones
-are copies of other `ReadPtr<A>`'s. Example:
+are copies of other `ReadPtr<A>`'s. 
+
+Example
+-------
 
 [[CppCode]]:
 	#include "pastel/sys/read_protected.h"
