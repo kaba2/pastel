@@ -1,5 +1,5 @@
 // Description: Testing for automaton closure
-// Documentation: unit_testing.txt
+// DocumentationOf: automaton_closure.h
 
 #include "test_pastelsys.h"
 

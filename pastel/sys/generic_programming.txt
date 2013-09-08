@@ -20,10 +20,9 @@ which are triggered when a type does not conform to the required
 concept. The problem is that the unfilled requirement is often detected 
 very late in a deep instantiation stack of generic code, thus
 exposing lots of implementation details, none of which clearly states
-what the missing requirement for a type was. Unfortunately, proper 
-support for (checking) concepts requires language support, such as 
-was planned for the C++11 standard, but revoked at the 
-last moments.
+what the missing requirement for a type was. Proper support for 
+(checking) concepts requires language support; this will be
+available shortly after C++14 is published.
 
 Ideally generic programming frees one from having to worry about which 
 of the _equivalent_ data structures to use (say, two implementations of 
@@ -37,5 +36,5 @@ allows transforming the syntactical face of a type to another form.
 
 Most of Pastel is based on generic programming. In Pastel, we 
 attempt to describe the concepts and concept maps in C++ itself, although 
-that code is only of documentary nature. When the concepts are part of 
-the code base, they are easy to keep updated and to refer to.
+that code is currently only of documentary nature. When the concepts are 
+part of the code base, they are easy to keep updated and to refer to.

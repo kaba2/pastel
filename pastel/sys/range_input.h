@@ -1,4 +1,5 @@
 // Description: Range input
+// Documentation: inputs.txt
 
 #ifndef PASTELSYS_RANGE_INPUT_H
 #define PASTELSYS_RANGE_INPUT_H
