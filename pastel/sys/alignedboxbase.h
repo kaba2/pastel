@@ -194,8 +194,8 @@ namespace Pastel
 
 		//! Returns max() - min().
 		const VectorSubtraction<Real, N, 
-			Detail::VectorBase<Real, N>, 
-			Detail::VectorBase<Real, N> >
+			Vector<Real, N>, 
+			Vector<Real, N> >
 			extent() const
 		{
 			return max_ - min_;

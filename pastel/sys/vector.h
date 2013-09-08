@@ -5,485 +5,528 @@
 #define PASTELSYS_VECTOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/vectorbase.h"
 #include "pastel/sys/hashing.h"
+#include "pastel/sys/tuple.h"
+#include "pastel/sys/ensure.h"
+#include "pastel/sys/commafiller.h"
+#include "pastel/sys/memory_overlaps.h"
+#include "pastel/sys/vectorexpression.h"
 
+#include <boost/operators.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_integral.hpp>
+
+#include <algorithm>
 
 namespace Pastel
 {
 
-	//! A vector in R^n.
-	/*!
-	Note that we are using the Curiously Recurring
-	Template Pattern so that we can implement the
-	common functionality in the VectorBase base class.
-	*/
-	template <typename Real, int N>
+	template <typename Real, int N = Dynamic>
 	class Vector
-		: public Detail::VectorBase<Real, N>
+		: public VectorExpression<Real, N, Vector<Real, N>>
 	{
 	private:
-		typedef Detail::VectorBase<Real, N> Base;
+		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
+
+		template <typename, int>
+		friend class Vector;
+
+		struct Enabler {};
 
 	public:
-		// Using default copy constructor
-		// Using default assignment
-		// Using default destructor
+		typedef const Vector& StorageType;
+		//using ExpressionBase::operator-;
+
+		typedef typename Tuple<Real, N>::Iterator Iterator;
+		typedef typename Tuple<Real, N>::ConstIterator ConstIterator;
 
 		Vector()
-			: Base()
+			: data_(ofDimension((N == Dynamic) ? 0 : N), 0)
 		{
 		}
 
 		explicit Vector(
 			const Dimension& dimension,
 			const Real& that = Real())
-			: Base(dimension, that)
-		{
-		}
-
-		Vector(
-			const Dimension& dimension,
-			const Copy<const Real*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		Vector(
-			const Dimension& dimension,
-			const Alias<Real*>& that)
-			: Base(dimension, Copy<const Real*>(that))
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		explicit Vector(const Tuple<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		Vector(const Vector<Real, N>& that)
-			: Base(that)
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		Vector(const Vector<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		explicit Vector(const Real& that)
-			: Base(that)
-		{
-		}
-
-		// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Vector(const Alias<Real*>& that)
-			: Base(Copy<const Real*>(that))
-		{
-		}
-
-		explicit Vector(const Copy<const Real*>& that)
-			: Base(that)
-		{
-		}
-
-		//! Constructs from a vector-expression.
-		/*!
-		Note: Implicitly convertible.
-		*/
-		template <typename ThatReal, int ThatN, typename Expression>
-		Vector(const VectorExpression<ThatReal, ThatN, Expression>& that)
-			: Base(that)
-		{
-		}
-
-		Vector& operator=(const Vector& that)
-		{
-			return Base::assign(that);
-		}
-
-		template <typename Type>
-		Vector& operator=(const Type& that)
-		{
-			return Base::assign(that);
-		}
-	};
-
-	// Specialization for dimension 1
-
-	template <typename Real>
-	class Vector<Real, 1>
-		: public Detail::VectorBase<Real, 1>
-	{
-	private:
-		enum
-		{
-			N = 1
-		};
-
-		typedef Detail::VectorBase<Real, N> Base;
-
-	public:
-		// Using default copy constructor
-		// Using default assignment
-		// Using default destructor
-
-		Vector()
-			: Base()
+			: data_(dimension, that)
 		{
 		}
 
 		explicit Vector(
 			const Dimension& dimension,
-			const Real& that = Real())
-			: Base(dimension, that)
-		{
-		}
-
-		// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		Vector(
-			const Dimension& dimension,
-			const Alias<Real*>& that)
-			: Base(dimension, Copy<const Real*>(that))
-		{
-		}
-
-		Vector(
-			const Dimension& dimension,
 			const Copy<const Real*>& that)
-			: Base(dimension, that)
+			: data_(dimension, that)
+		{
+		}
+
+		explicit Vector(
+			const Dimension& dimension,
+			const Alias<Real*> alias)
+			: data_(dimension, alias)
 		{
 		}
 
 		template <typename ThatReal, int ThatN>
 		explicit Vector(const Tuple<ThatReal, ThatN>& that)
-			: Base(that)
+			: data_(that)
 		{
-		}
-
-		Vector(const Vector<Real, N>& that)
-			: Base(that)
-		{
+			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
 		}
 
 		template <typename ThatReal, int ThatN>
 		Vector(const Vector<ThatReal, ThatN>& that)
-			: Base(that)
+			: data_(that.data_)
+		{
+			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
+		}
+
+		Vector(const Vector& that)
+			: data_(that.data_)
 		{
 		}
 
-		// Implicit conversion allowed
-		// only for 1d version.
-		Vector(const Real& x)
-			: Base(x)
+		template <int N_ = N>
+		explicit Vector(const Real& that, 
+			PASTEL_ENABLE_IF_C(N_ > 1, Enabler) = Enabler())
+			: data_(that)
 		{
 		}
 
-		// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Vector(const Alias<Real*>& that)
-			: Base(Copy<const Real*>(that))
+		// Allow implicit conversion for 1-d vectors.
+		template <int N_ = N>
+		Vector(const Real& that, 
+			PASTEL_ENABLE_IF_C(N_ == 1, Enabler) = Enabler())
+			: data_(that)
 		{
 		}
 
 		explicit Vector(const Copy<const Real*>& that)
-			: Base(that)
+			: data_(that)
 		{
+			PASTEL_STATIC_ASSERT(N != Dynamic);
 		}
 
 		template <typename ThatReal, int ThatN, typename Expression>
 		Vector(
 			const VectorExpression
 			<ThatReal, ThatN, Expression>& that)
-			: Base(that)
+			: data_(ofDimension(that.size()))
 		{
+			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
+
+			const integer n = that.size();
+			Iterator iter = begin();
+			for (integer i = 0;i < n;++i)
+			{
+				*iter = that[i];
+				++iter;
+			}
 		}
 
-		Vector& operator=(const Vector& that)
-		{
-			return Base::assign(that);
-		}
-
-		template <typename Type>
-		Vector& operator=(const Type& that)
-		{
-			return Base::assign(that);
-		}
-
-		Real& x()
-		{
-			return (*this)[0];
-		}
-
-		const Real& x() const
-		{
-			return (*this)[0];
-		}
-	};
-
-	// Specialization for dimension 2
-
-	template <typename Real>
-	class Vector<Real, 2>
-		: public Detail::VectorBase<Real, 2>
-	{
-	private:
-		enum
-		{
-			N = 2
-		};
-
-		typedef Detail::VectorBase<Real, N> Base;
-
-	public:
-		// Using default copy constructor
-		// Using default assignment
-		// Using default destructor
-
-		using Base::set;
-
-		Vector()
-			: Base()
-		{
-		}
-
-		explicit Vector(
-			const Dimension& dimension,
-			const Real& that = Real())
-			: Base(dimension, that)
-		{
-		}
-
-		// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		Vector(
-			const Dimension& dimension,
-			const Alias<Real*>& that)
-			: Base(dimension, Copy<const Real*>(that))
-		{
-		}
-
-		Vector(
-			const Dimension& dimension,
-			const Copy<const Real*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		explicit Vector(const Tuple<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		Vector(const Vector<Real, N>& that)
-			: Base(that)
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		Vector(const Vector<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		explicit Vector(const Real& x)
-			: Base(x)
-		{
-		}
-
-		// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Vector(const Alias<Real*>& that)
-			: Base(Copy<const Real*>(that))
-		{
-		}
-
-		explicit Vector(const Copy<const Real*>& that)
-			: Base(that)
-		{
-		}
-
-		Vector(const Real& x, const Real& y)
-			: Base()
+		template <int N_ = N>
+		Vector(const Real& x, const Real& y, 
+			PASTEL_ENABLE_IF_C(N_ == 2, Enabler) = Enabler())
 		{
 			set(x, y);
 		}
 
-		template <typename ThatReal, int ThatN, typename Expression>
-		Vector(
-			const VectorExpression
-			<ThatReal, ThatN, Expression>& that)
-			: Base(that)
+		template <int N_ = N>
+		Vector(const Real& x, const Real& y, const Real& z, 
+			PASTEL_ENABLE_IF_C(N_ == 3, Enabler) = Enabler())
 		{
+			set(x, y, z);
+		}
+
+		template <int N_ = N>
+		Vector(const Real& x, const Real& y, 
+			const Real& z, const Real& w,
+			PASTEL_ENABLE_IF_C(N_ == 4, Enabler) = Enabler())
+		{
+			set(x, y, z, w);
 		}
 
 		Vector& operator=(const Vector& that)
 		{
-			return Base::assign(that);
+			return assign(that);
 		}
 
 		template <typename Type>
 		Vector& operator=(const Type& that)
 		{
-			return Base::assign(that);
+			return assign(that);
 		}
 
-		void set(const Real& x, const Real& y)
+		void setSize(integer size, const Real& that = Real())
+		{
+			data_.setSize(size, that);
+		}
+
+		integer size() const
+		{
+			return data_.size();
+		}
+
+		integer n() const
+		{
+			return data_.size();
+		}
+
+		Iterator begin()
+		{
+			return data_.begin();
+		}
+
+		ConstIterator begin() const
+		{
+			return data_.begin();
+		}
+
+		Iterator end()
+		{
+			return data_.end();
+		}
+
+		ConstIterator end() const
+		{
+			return data_.end();
+		}
+
+		bool involves(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			return Pastel::memoryOverlaps(
+				memoryBegin, memoryEnd,
+				&*begin(), &*end());
+		}
+
+		bool evaluateBeforeAssignment(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			return false;
+		}
+
+		void swap(Vector<Real, N>& that)
+		{
+			data_.swap(that.data_);
+		}
+
+		void set(const Real& that)
+		{
+			data_.set(that);
+		}
+
+		// The parameter to this function
+		// is deliberately not a reference,
+		// because the reference could point
+		// to this vector.
+		Vector<Real, N>& assign(const Real that)
+		{
+			// We accept basic exception safety for performance.
+			data_.set(that);
+
+			return (Vector<Real, N>&)*this;
+		}
+
+		CommaFiller<Real, Iterator> operator|=(
+			const Real& that)
+		{
+			return data_ |= that;
+		}
+
+		// This function can't be inherited as operator=().
+		Vector<Real, N>& assign(
+			const Vector<Real, N>& that)
+		{
+			// We allow the size of the vector to be
+			// changed by an assignment.
+
+			const integer n = that.size();
+			if (n != size())
+			{
+				// In the case we must reallocate, we can
+				// as well copy construct, so that there
+				// is no redundant initialization.
+
+				Vector<Real, N> copy(that);
+				swap(copy);
+			}
+			else
+			{				
+				// We accept basic exception safety for performance.
+
+				data_ = that.data_;
+			}
+
+			return *this;
+		}
+
+		template <typename ThatReal, int ThatN, typename Expression>
+		PASTEL_DISABLE_IF(
+			(std::is_same<Expression, Vector<ThatReal, ThatN> >),
+			(Vector<Real, N>&)) assign(
+			const VectorExpression<ThatReal, ThatN, Expression>& that)
+		/*
+		template <typename ThatReal, int ThatN, typename Expression>
+		Vector<Real, N>& assign(
+			const VectorExpression<ThatReal, ThatN, Expression>& that)
+		*/
+		{
+			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
+
+			// We allow the size of the vector to be
+			// changed by an assignment.
+
+			const integer n = that.size();
+			if (n != size() ||
+				that.evaluateBeforeAssignment(
+				&*data_.begin(), &*data_.end()))
+			{
+				// In the case we must reallocate, we can
+				// as well copy construct, so that there
+				// is no redundant initialization.
+				
+				// Of course, if the expression involves
+				// this vector as a non-trivial subexpression,
+				// we must copy construct anyway.
+
+				Vector<Real, N> copy(that);
+				swap(copy);
+			}
+			else
+			{				
+				// We accept basic exception safety for performance.
+
+				Iterator iter = begin();
+				for (integer i = 0;i < n;++i)
+				{
+					*iter = that[i];
+					++iter;
+				}
+			}
+
+			return (Vector<Real, N>&)*this;
+		}
+
+		Real& operator[](integer index)
+		{
+			return data_[index];
+		}
+
+		const Real& operator[](integer index) const
+		{
+			return data_[index];
+		}
+
+		//! Returns the address of the first element.
+		Real* rawBegin()
+		{
+			return data_.rawBegin();
+		}
+
+		//! Returns the address of the first element.
+		const Real* rawBegin() const
+		{
+			return data_.rawBegin();
+		}
+
+		//! Returns the address of the one-past last element.
+		Real* rawEnd()
+		{
+			return data_.rawEnd();
+		}
+
+		//! Returns the address of the one-past last element.
+		const Real* rawEnd() const
+		{
+			return data_.rawEnd();
+		}
+
+		// The parameter to this function
+		// is deliberately not a reference,
+		// because the reference could point
+		// to this vector.
+		Vector<Real, N>& operator+=(const Real that)
+		{
+			Iterator iter = begin();
+			const Iterator iterEnd = end();
+
+			while(iter != iterEnd)
+			{
+				*iter += that;
+				++iter;
+			}
+
+			return (Vector<Real, N>&)*this;
+		}
+
+		// The parameter to this function
+		// is deliberately not a reference,
+		// because the reference could point
+		// to this vector.
+		Vector<Real, N>& operator-=(const Real that)
+		{
+			Iterator iter = begin();
+			const Iterator iterEnd = end();
+
+			while(iter != iterEnd)
+			{
+				*iter -= that;
+				++iter;
+			}
+
+			return (Vector<Real, N>&)*this;
+		}
+
+		// The parameter to this function
+		// is deliberately not a reference,
+		// because the reference could point
+		// to this vector.
+		Vector<Real, N>& operator*=(const Real that)
+		{
+			Iterator iter = begin();
+			const Iterator iterEnd = end();
+
+			while(iter != iterEnd)
+			{
+				*iter *= that;
+				++iter;
+			}
+
+			return (Vector<Real, N>&)*this;
+		}
+
+		// Here the reference is ok because we actually
+		// use the parameter's inverse.
+		Vector<Real, N>& operator/=(const Real& that)
+		{
+			return (*this *= Pastel::inverse(that));
+		}
+
+		template <typename ThatReal, int ThatN, typename Expression>
+		Vector<Real, N>& operator+=(
+			const VectorExpression<ThatReal, ThatN, Expression>& that)
+		{
+			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
+			PENSURE2(that.size() == size(), that.size(), size());
+
+			if (that.evaluateBeforeAssignment(&*data_.begin(), &*data_.end()))
+			{
+				*this += Vector<Real, N>(that);
+			}
+			else
+			{
+				Iterator iter = begin();
+				const integer n = size();
+				for (integer i = 0;i < n;++i)
+				{
+					*iter += that[i];
+					++iter;
+				}
+			}
+
+			return (Vector<Real, N>&)*this;
+		}
+
+		template <typename ThatReal, int ThatN, typename Expression>
+		Vector<Real, N>& operator-=(
+			const VectorExpression<ThatReal, ThatN, Expression>& that)
+		{
+			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
+			PENSURE2(that.size() == size(), that.size(), size());
+
+			if (that.evaluateBeforeAssignment(&*data_.begin(), &*data_.end()))
+			{
+				*this -= Vector<Real, N>(that);
+			}
+			else
+			{
+				Iterator iter = begin();
+				const integer n = size();
+				for (integer i = 0;i < n;++i)
+				{
+					*iter -= that[i];
+					++iter;
+				}
+			}
+
+			return (Vector<Real, N>&)*this;
+		}
+
+		template <typename ThatReal, int ThatN, typename Expression>
+		Vector<Real, N>& operator*=(
+			const VectorExpression<ThatReal, ThatN, Expression>& that)
+		{
+			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
+			PENSURE2(that.size() == size(), that.size(), size());
+
+			if (that.evaluateBeforeAssignment(&*data_.begin(), &*data_.end()))
+			{
+				*this *= Vector<Real, N>(that);
+			}
+			else
+			{
+				Iterator iter = begin();
+				const integer n = size();
+				for (integer i = 0;i < n;++i)
+				{
+					*iter *= that[i];
+					++iter;
+				}
+			}
+
+			return (Vector<Real, N>&)*this;
+		}
+
+		template <typename ThatReal, int ThatN, typename Expression>
+		Vector<Real, N>& operator/=(
+			const VectorExpression<ThatReal, ThatN, Expression>& that)
+		{
+			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
+			PENSURE2(that.size() == size(), that.size(), size());
+
+			if (that.evaluateBeforeAssignment(&*data_.begin(), &*data_.end()))
+			{
+				*this /= Vector<Real, N>(that);
+			}
+			else
+			{
+				Iterator iter = begin();
+				const integer n = size();
+				for (integer i = 0;i < n;++i)
+				{
+					*iter /= that[i];
+					++iter;
+				}
+			}
+
+			return (Vector<Real, N>&)*this;
+		}
+
+		Tuple<Real, N>& asTuple()
+		{
+			return data_;
+		}
+
+		const Tuple<Real, N>& asTuple() const
+		{
+			return data_;
+		}
+
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, void) set(
+			const Real& x, const Real& y)
 		{
 			Vector& v = *this;
 			v[0] = x;
 			v[1] = y;
 		}
 
-		Real& x()
-		{
-			return (*this)[0];
-		}
-
-		const Real& x() const
-		{
-			return (*this)[0];
-		}
-
-		Real& y()
-		{
-			return (*this)[1];
-		}
-
-		const Real& y() const
-		{
-			return (*this)[1];
-		}
-	};
-
-	// Specialization for dimension 3
-
-	template <typename Real>
-	class Vector<Real, 3>
-		: public Detail::VectorBase<Real, 3>
-	{
-	private:
-		enum
-		{
-			N = 3
-		};
-
-		typedef Detail::VectorBase<Real, N> Base;
-
-	public:
-		// Using default copy constructor
-		// Using default assignment
-		// Using default destructor
-
-		using Base::set;
-
-		Vector()
-			: Base()
-		{
-		}
-
-		explicit Vector(
-			const Dimension& dimension,
-			const Real& that = Real())
-			: Base(dimension, that)
-		{
-		}
-
-				// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		Vector(
-			const Dimension& dimension,
-			const Alias<Real*>& that)
-			: Base(dimension, Copy<const Real*>(that))
-		{
-		}
-
-		Vector(
-			const Dimension& dimension,
-			const Copy<const Real*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		explicit Vector(const Tuple<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		Vector(const Vector<Real, N>& that)
-			: Base(that)
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		Vector(const Vector<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-			PASTEL_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
-		}
-
-		explicit Vector(const Real& x)
-			: Base(x)
-		{
-		}
-
-		// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Vector(const Alias<Real*>& that)
-			: Base(Copy<const Real*>(that))
-		{
-		}
-
-		explicit Vector(const Copy<const Real*>& that)
-			: Base(that)
-		{
-		}
-
-		Vector(const Real& x, const Real& y,
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 3, void) set(
+			const Real& x, const Real& y, 
 			const Real& z)
-			: Base()
-		{
-			set(x, y, z);
-		}
-
-		template <typename ThatReal, int ThatN, typename Expression>
-		Vector(
-			const VectorExpression
-			<ThatReal, ThatN, Expression>& that)
-			: Base(that)
-		{
-		}
-
-		Vector& operator=(const Vector& that)
-		{
-			return Base::assign(that);
-		}
-
-		template <typename Type>
-		Vector& operator=(const Type& that)
-		{
-			return Base::assign(that);
-		}
-
-		void set(const Real& x, const Real& y, const Real& z)
 		{
 			Vector& v = *this;
 			v[0] = x;
@@ -491,150 +534,10 @@ namespace Pastel
 			v[2] = z;
 		}
 
-		Real& x()
-		{
-			return (*this)[0];
-		}
-
-		const Real& x() const
-		{
-			return (*this)[0];
-		}
-
-		Real& y()
-		{
-			return (*this)[1];
-		}
-
-		const Real& y() const
-		{
-			return (*this)[1];
-		}
-
-		Real& z()
-		{
-			return (*this)[2];
-		}
-
-		const Real& z() const
-		{
-			return (*this)[2];
-		}
-	};
-
-	// Specialization for dimension 4
-
-	template <typename Real>
-	class Vector<Real, 4>
-		: public Detail::VectorBase<Real, 4>
-	{
-	private:
-		enum
-		{
-			N = 4
-		};
-
-		typedef Detail::VectorBase<Real, N> Base;
-
-	public:
-		// Using default copy constructor
-		// Using default assignment
-		// Using default destructor
-
-		using Base::set;
-
-		Vector()
-			: Base()
-		{
-		}
-
-		explicit Vector(
-			const Dimension& dimension,
-			const Real& that = Real())
-			: Base(dimension, that)
-		{
-		}
-
-		// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		Vector(
-			const Dimension& dimension,
-			const Alias<Real*>& that)
-			: Base(dimension, Copy<const Real*>(that))
-		{
-		}
-
-		Vector(
-			const Dimension& dimension,
-			const Copy<const Real*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		explicit Vector(const Tuple<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		Vector(const Vector<Real, N>& that)
-			: Base(that)
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		Vector(const Vector<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		explicit Vector(const Real& x)
-			: Base(x)
-		{
-		}
-
-		// Alias for static vector is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Vector(const Alias<Real*>& that)
-			: Base(Copy<const Real*>(that))
-		{
-		}
-
-		explicit Vector(const Copy<const Real*>& that)
-			: Base(that)
-		{
-		}
-
-		Vector(const Real& x, const Real& y,
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 4, void) set(
+			const Real& x, const Real& y, 
 			const Real& z, const Real& w)
-			: Base()
-		{
-			set(x, y, z, w);
-		}
-
-		template <typename ThatReal, int ThatN, typename Expression>
-		Vector(
-			const VectorExpression
-			<ThatReal, ThatN, Expression>& that)
-			: Base(that)
-		{
-		}
-
-		Vector& operator=(const Vector& that)
-		{
-			return Base::assign(that);
-		}
-
-		template <typename Type>
-		Vector& operator=(const Type& that)
-		{
-			return Base::assign(that);
-		}
-
-		void set(const Real& x, const Real& y, const Real& z,
-			const Real& w)
 		{
 			Vector& v = *this;
 			v[0] = x;
@@ -643,139 +546,56 @@ namespace Pastel
 			v[3] = w;
 		}
 
-		Real& x()
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 1, Real&) x()
 		{
 			return (*this)[0];
 		}
 
-		const Real& x() const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 1, const Real&) x() const
 		{
 			return (*this)[0];
 		}
 
-		Real& y()
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 2, Real&) y()
 		{
 			return (*this)[1];
 		}
 
-		const Real& y() const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 2, const Real&) y() const
 		{
 			return (*this)[1];
 		}
 
-		Real& z()
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 3, Real&) z()
 		{
 			return (*this)[2];
 		}
 
-		const Real& z() const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 3, const Real&) z() const
 		{
 			return (*this)[2];
 		}
 
-		Real& w()
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 4, Real&) w()
 		{
 			return (*this)[3];
 		}
 
-		const Real& w() const
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 4, const Real&) w() const
 		{
 			return (*this)[3];
 		}
-	};
 
-	// Specialization for unbounded dimensions
-
-	template <typename Real>
-	class Vector<Real, Dynamic>
-		: public Detail::VectorBase<Real, Dynamic>
-	{
-	private:
-		enum
-		{
-			N = Dynamic
-		};
-
-		typedef Detail::VectorBase<Real, N> Base;
-		using Base::data_;
-
-	public:
-		// Using default copy constructor
-		// Using default assignment
-		// Using default destructor
-
-		Vector()
-			: Base()
-		{
-		}
-
-		explicit Vector(
-			const Dimension& dimension,
-			const Real& that = Real())
-			: Base(dimension, that)
-		{
-		}
-
-		explicit Vector(
-			const Dimension& dimension,
-			const Copy<const Real*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		explicit Vector(
-			const Dimension& dimension,
-			const Alias<Real*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		explicit Vector(const Tuple<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		Vector(const Vector<Real, N>& that)
-			: Base(that)
-		{
-		}
-
-		template <typename ThatReal, int ThatN>
-		Vector(const Vector<ThatReal, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		// We don't want to provide this function
-		// for unbounded vectors since it makes no
-		// sense, and could be misinterpreted
-		// as taking in the dimension of the vector.
-		/*
-		explicit Vector(const Real& x)
-			: Base(x)
-		{
-		}
-		*/
-
-		template <typename ThatReal, int ThatN, typename Expression>
-		Vector(
-			const VectorExpression
-			<ThatReal, ThatN, Expression>& that)
-			: Base(that)
-		{
-		}
-
-		Vector& operator=(const Vector& that)
-		{
-			return Base::assign(that);
-		}
-
-		template <typename Type>
-		Vector& operator=(const Type& that)
-		{
-			return Base::assign(that);
-		}
+	protected:
+		Tuple<Real, N> data_;
 	};
 
 	typedef Vector<real, 1> Vector1;

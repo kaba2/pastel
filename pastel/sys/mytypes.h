@@ -225,22 +225,20 @@ namespace Pastel
 		brackets using RemoveBrackets.
 		*/
 		template <typename T>
-		class RemoveBrackets
-		{
-		};
+		class RemoveBrackets {};
 
 		template <typename T>
 		class RemoveBrackets<void (T)>
 		{
 		public:
-			typedef T Type;
+			using Type = T;
 		};
 
 		template <>
 		class RemoveBrackets<void ()>
 		{
 		public:
-			typedef void Type;
+			using Type = void;
 		};
 
 		// An integer literal for documenting concepts.
