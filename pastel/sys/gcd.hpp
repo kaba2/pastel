@@ -1,27 +1,27 @@
-#ifndef PASTELSYS_INTEGER_TOOLS_HPP
-#define PASTELSYS_INTEGER_TOOLS_HPP
+#ifndef PASTELSYS_GCD_HPP
+#define PASTELSYS_GCD_HPP
 
-#include "pastel/sys/integer_tools.h"
-
-#include "pastel/sys/math_functions.h"
+#include "pastel/sys/gcd.h"
+#include "pastel/sys/number_tests.h"
 
 namespace Pastel
 {
 
-	inline integer extendedGcd(
-		integer a, integer b,
-		integer& x, integer& y)
+	template <typename Integer>
+	Integer extendedGcd(
+		Integer a, Integer b,
+		Integer& x, Integer& y)
 	{
 		x = 0;
 		y = 1;
-		integer xLast = 1;
-		integer yLast = 0;
+		Integer xLast = 1;
+		Integer yLast = 0;
 
 		while (b != 0)
 		{
-			const integer quotient = a / b;
+			Integer quotient = a / b;
 	        
-			integer temp = b;
+			Integer temp = b;
 			b = a % b;
 			a = temp;
 	        
@@ -101,8 +101,6 @@ namespace Pastel
 
 		do
 		{
-			//std::cout << u << " : " << v << std::endl;
-
 			// If u is odd and v is even:
 			// GCD(u, v / 2) = GCD(u, v)
 

@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/rational_tools.h"
+#include "pastel/sys/rational.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/biginteger.h"

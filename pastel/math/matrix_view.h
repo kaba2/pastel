@@ -10,8 +10,6 @@
 #include "pastel/sys/sparse_iterator.h"
 #include "pastel/sys/memory_overlaps.h"
 
-#include "pastel/sys/integer_tools.h"
-
 namespace Pastel
 {
 

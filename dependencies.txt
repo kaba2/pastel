@@ -48,7 +48,7 @@ Pastel integrates a minimally modified version of the official
 Mersenne Twister source code directly into the PastelSys library. 
 No installation is needed.
 
-### Remark 1.5
+### Remark 1.6
 
 <http://kaba.hilvi.org/remark>
 

@@ -3,4 +3,4 @@ Integers
 
 [[Parent]]: numbers.txt
 
-
+This section contains data-structures and algorithms for integers.
