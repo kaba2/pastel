@@ -6,305 +6,357 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
+#include "pastel/sys/constants.h"
+#include "pastel/sys/vector.h"
+#include "pastel/sys/topology.h"
 
-#include "pastel/sys/alignedboxbase.h"
+#include <boost/operators.hpp>
 
 namespace Pastel
 {
 
+	//! An axis-aligned box
 	template <typename Real, int N = Dynamic>
 	class AlignedBox
-		: public AlignedBoxBase<Real, N>
+		: boost::multipliable<AlignedBox<Real, N>, Real
+		, boost::dividable<AlignedBox<Real, N>, Real
+		, boost::addable<AlignedBox<Real, N>, Vector<Real, N>
+		, boost::subtractable<AlignedBox<Real, N>, Vector<Real, N>
+		> > > >
 	{
 	private:
-		typedef AlignedBoxBase<Real, N> Base;
+		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 
 	public:
-		AlignedBox()
-			: Base()
-		{
-		}
-
-		explicit AlignedBox(integer dimension)
-			: Base(dimension)
-		{
-		}
-
-		explicit AlignedBox(const Vector<Real, N>& that)
-			: Base(that)
-		{
-		}
-
-		AlignedBox(const Vector<Real, N>& min,
-			const Vector<Real, N>& max)
-			: Base(min, max)
-		{
-		}
-	};
-
-	template <typename Real>
-	class AlignedBox<Real, 1>
-		: public AlignedBoxBase<Real, 1>
-	{
-	private:
+		typedef Real Real_;
 		enum
 		{
-			N = 1
+			N_ = N
 		};
 
-		typedef AlignedBoxBase<Real, N> Base;
+		// Using default copy constructor.
+		// Using default assignment.
 
-	public:
-		AlignedBox()
-			: Base()
+		//! Constructs a unit box centered at the origin.
+		explicit AlignedBox(integer dimension = N)
+			: min_(Dimension(dimension), infinity<Real>())
+			, max_(Dimension(dimension), -infinity<Real>())
+			, minTopology_(ofDimension(dimension), Topology::Closed)
+			, maxTopology_(ofDimension(dimension), Topology::Open)
 		{
+			PENSURE2((N == Dynamic && dimension > 0) || 
+				(N != Dynamic && dimension == N), dimension, N);
 		}
 
-		explicit AlignedBox(integer dimension)
-			: Base(dimension)
-		{
-		}
-
+		//! Constructs a singular box (min = max = that).
 		explicit AlignedBox(const Vector<Real, N>& that)
-			: Base(that)
+			: min_(that)
+			, max_(that)
+			, minTopology_(ofDimension(that.n()), Topology::Closed)
+			, maxTopology_(ofDimension(that.n()), Topology::Open)
 		{
 		}
 
-		AlignedBox(const Real& xMin, const Real& xMax)
-			: Base(Vector<Real, N>(xMin),
-			Vector<Real, N>(xMax))
-		{
-		}
-
-		AlignedBox(const Vector<Real, N>& min,
+		//! Constructs a box using the given points.
+		AlignedBox(
+			const Vector<Real, N>& min,
 			const Vector<Real, N>& max)
-			: Base(min, max)
+			: min_(min)
+			, max_(max)
+			, minTopology_(ofDimension(min.n()), Topology::Closed)
+			, maxTopology_(ofDimension(max.n()), Topology::Open)
 		{
 		}
 
-		using Base::set;
-
-		void set(const Real& xMin, const Real& xMax)
-		{
-			set(Vector<Real, N>(xMin), Vector<Real, N>(xMax));
-		}
-
-		Real width() const
-		{
-			return Base::extent()[0];
-		}
-	};
-
-	template <typename Real>
-	class AlignedBox<Real, 2>
-		: public AlignedBoxBase<Real, 2>
-	{
-	private:
-		enum
-		{
-			N = 2
-		};
-
-		typedef AlignedBoxBase<Real, N> Base;
-
-	public:
-		AlignedBox()
-			: Base()
+		template <int N_ = N>
+		AlignedBox(
+			const Real& xMin, 
+			const Real& xMax,
+			PASTEL_ENABLE_IF_C_P(N_ == 1))
+			: min_(xMin)
+			, max_(xMax)
+			, minTopology_(ofDimension(min_.n()), Topology::Closed)
+			, maxTopology_(ofDimension(max_.n()), Topology::Open)
 		{
 		}
 
-		explicit AlignedBox(integer dimension)
-			: Base(dimension)
+		template <int N_ = N>
+		AlignedBox(
+			const Real& xMin, const Real& yMin,
+			const Real& xMax, const Real& yMax,
+			PASTEL_ENABLE_IF_C_P(N_ == 2))
+			: min_(xMin, yMin)
+			, max_(xMax, yMax)
+			, minTopology_(ofDimension(min_.n()), Topology::Closed)
+			, maxTopology_(ofDimension(max_.n()), Topology::Open)
 		{
 		}
 
-		explicit AlignedBox(const Vector<Real, N>& that)
-			: Base(that)
+		template <int N_ = N>
+		AlignedBox(
+			const Real& xMin, const Real& yMin, const Real& zMin,
+			const Real& xMax, const Real& yMax, const Real& zMax,
+			PASTEL_ENABLE_IF_C_P(N_ == 3))
+			: min_(xMin, yMin, zMin)
+			, max_(xMax, yMax, zMax)
+			, minTopology_(ofDimension(min_.n()), Topology::Closed)
+			, maxTopology_(ofDimension(max_.n()), Topology::Open)
 		{
 		}
 
-		AlignedBox(const Real& xMin, const Real& yMin, const Real& xMax, const Real& yMax)
-			: Base(Vector<Real, N>(xMin, yMin),
-			Vector<Real, N>(xMax, yMax))
+		template <int N_ = N>
+		AlignedBox(
+			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
+			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax,
+			PASTEL_ENABLE_IF_C_P(N_ == 4))
+			: min_(xMin, yMin, zMin, wMin)
+			, max_(xMax, yMax, zMax, wMax)
+			, minTopology_(ofDimension(min_.n()), Topology::Closed)
+			, maxTopology_(ofDimension(max_.n()), Topology::Open)
 		{
 		}
 
-		AlignedBox(const Vector<Real, N>& min,
+		//! Returns whether the i:th projection contains any points.
+		bool empty(integer i) const
+		{
+			PENSURE_OP(i, >=, 0);
+			PENSURE_OP(i, <, n());
+
+			if (min_[i] >= max_[i])
+			{
+				if (min_[i] > max_[i] ||
+					minTopology_[i] == Topology::Open ||
+					maxTopology_[i] == Topology::Open)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		//! Returns whether the box contains any points.
+		bool empty() const
+		{
+			const integer d = n();
+			for (integer i = 0;i < d;++i)
+			{
+				if (empty(i))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		//! Swaps two aligned boxes.
+		void swap(AlignedBox<Real, N>& that)
+		{
+			using std::swap;
+
+			min_.swap(that.min_);
+			max_.swap(that.max_);
+			minTopology_.swap(that.minTopology_);
+			maxTopology_.swap(that.maxTopology_);
+		}
+
+		integer n() const
+		{
+			return min_.size();
+		}
+
+		//! Sets the corner points of the box.
+		void set(
+			const Vector<Real, N>& min,
 			const Vector<Real, N>& max)
-			: Base(min, max)
 		{
+			min_ = min;
+			max_ = max;
 		}
 
-		using Base::set;
+		//! Sets the minimum point of the box.
+		void setMin(const Vector<Real, N>& min)
+		{
+			min_ = min;
+		}
 
-		void set(const Real& xMin, const Real& yMin,
+		//! Returns the minimum point of the box.
+		Vector<Real, N>& min()
+		{
+			return min_;
+		}
+
+		//! Returns the minimum point of the box.
+		const Vector<Real, N>& min() const
+		{
+			return min_;
+		}
+
+		//! Sets the maximum point of the box.
+		void setMax(const Vector<Real, N>& max)
+		{
+			max_ = max;
+		}
+
+		//! Returns the maximum point of the box.
+		Vector<Real, N>& max()
+		{
+			return max_;
+		}
+
+		//! Returns the maximum point of the box.
+		const Vector<Real, N>& max() const
+		{
+			return max_;
+		}
+
+		//! Returns the topology of the minimums.
+		Tuple<Topology::Enum, N>& minTopology()
+		{
+			return minTopology_;
+		}
+
+		//! Returns the topology of the minimums.
+		const Tuple<Topology::Enum, N>& minTopology() const
+		{
+			return minTopology_;
+		}
+
+		//! Returns the topology of the maximums.
+		Tuple<Topology::Enum, N>& maxTopology()
+		{
+			return maxTopology_;
+		}
+
+		//! Returns the topology of the maximums.
+		const Tuple<Topology::Enum, N>& maxTopology() const
+		{
+			return maxTopology_;
+		}
+
+		//! Returns max() - min().
+		const VectorSubtraction<Real, N, 
+			Vector<Real, N>, 
+			Vector<Real, N> >
+			extent() const
+		{
+			return max_ - min_;
+		}
+
+		Real extent(integer index) const
+		{
+			return max_[index] - min_[index];
+		}
+
+		Vector<Real, N> at(
+			const Vector<Real, N>& coordinates) const
+		{
+			return Vector<Real, N>(
+				(1 - coordinates) * min_ +
+				coordinates * max_);
+		}
+
+		//! Translates the box by the given vector.
+		AlignedBox<Real, N>& operator+=(
+			const Vector<Real, N>& right)
+		{
+			min_ += right;
+			max_ += right;
+
+			return *this;
+		}
+
+		//! Translates the box backwards by the given vector.
+		AlignedBox<Real, N>& operator-=(
+			const Vector<Real, N>& right)
+		{
+			min_ -= right;
+			max_ -= right;
+
+			return *this;
+		}
+
+		//! Scales up the box without affecting position.
+		AlignedBox<Real, N>& operator*=(
+			const Real& that)
+		{
+			const Vector<Real, N> translation =
+				(max_ - min_) * ((that - 1) / 2);
+		
+			min_ -= translation;
+			max_ += translation;
+
+			return *this;
+		}
+
+		//! Scales down the box without affecting position.
+		AlignedBox<Real, N>& operator/=(
+			const Real& that)
+		{
+			return (*this *= inverse(that));
+		}
+
+
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 1, void) set(
+			const Real& xMin,
+			const Real& xMax)
+		{
+			set(Vector<Real, N>(xMin),
+				Vector<Real, N>(xMax));
+		}
+
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 2, void) set(
+			const Real& xMin, const Real& yMin,
 			const Real& xMax, const Real& yMax)
 		{
 			set(Vector<Real, N>(xMin, yMin),
 				Vector<Real, N>(xMax, yMax));
 		}
 
-		Real width() const
-		{
-			return Base::extent()[0];
-		}
-
-		Real height() const
-		{
-			return Base::extent()[1];
-		}
-	};
-
-	template <typename Real>
-	class AlignedBox<Real, 3>
-		: public AlignedBoxBase<Real, 3>
-	{
-	private:
-		enum
-		{
-			N = 3
-		};
-
-		typedef AlignedBoxBase<Real, N> Base;
-
-	public:
-		AlignedBox()
-			: Base()
-		{
-		}
-
-		explicit AlignedBox(integer dimension)
-			: Base(dimension)
-		{
-		}
-
-		explicit AlignedBox(const Vector<Real, N>& that)
-			: Base(that)
-		{
-		}
-
-		AlignedBox(const Real& xMin, const Real& yMin, const Real& zMin,
-			const Real& xMax, const Real& yMax, const Real& zMax)
-			: Base(Vector<Real, N>(xMin, yMin, zMin),
-			Vector<Real, N>(xMax, yMax, zMax))
-		{
-		}
-
-		AlignedBox(const Vector<Real, N>& min,
-			const Vector<Real, N>& max)
-			: Base(min, max)
-		{
-		}
-
-		using Base::set;
-
-		void set(const Real& xMin, const Real& yMin, const Real& zMin,
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 3, void) set(
+			const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
 		{
 			set(Vector<Real, N>(xMin, yMin, zMin),
 				Vector<Real, N>(xMax, yMax, zMax));
 		}
 
-		Real width() const
-		{
-			return Base::extent()[0];
-		}
-
-		Real height() const
-		{
-			return Base::extent()[1];
-		}
-
-		Real depth() const
-		{
-			return Base::extent()[2];
-		}
-	};
-
-	template <typename Real>
-	class AlignedBox<Real, 4>
-		: public AlignedBoxBase<Real, 4>
-	{
-	private:
-		enum
-		{
-			N = 4
-		};
-
-		typedef AlignedBoxBase<Real, N> Base;
-
-	public:
-		AlignedBox()
-			: Base()
-		{
-		}
-
-		explicit AlignedBox(integer dimension)
-			: Base(dimension)
-		{
-		}
-
-		explicit AlignedBox(const Vector<Real, N>& that)
-			: Base(that)
-		{
-		}
-
-		AlignedBox(const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
-			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
-			: Base(Vector<Real, N>(xMin, yMin, zMin, wMin),
-			Vector<Real, N>(xMax, yMax, zMax, wMax))
-		{
-		}
-
-		AlignedBox(const Vector<Real, N>& min,
-			const Vector<Real, N>& max)
-			: Base(min, max)
-		{
-		}
-
-		using Base::set;
-
-		void set(const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ == 4, void) set(
+			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
 		{
 			set(Vector<Real, N>(xMin, yMin, zMin, wMin),
 				Vector<Real, N>(xMax, yMax, zMax, wMax));
 		}
-	};
 
-	template <typename Real>
-	class AlignedBox<Real, Dynamic>
-		: public AlignedBoxBase<Real, Dynamic>
-	{
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 1, Real) width() const
+		{
+			return extent()[0];
+		}
+
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 2, Real) height() const
+		{
+			return extent()[1];
+		}
+
+		template <int N_ = N>
+		PASTEL_ENABLE_IF_C(N_ >= 3, Real) depth() const
+		{
+			return extent()[2];
+		}
+
 	private:
-		enum
-		{
-			N = Dynamic
-		};
-
-		typedef AlignedBoxBase<Real, N> Base;
-
-		// We require the dimension to be
-		// specified at construction for
-		// unbounded vectors.
-		AlignedBox() PASTEL_DELETE;
-	public:
-
-		explicit AlignedBox(integer dimension)
-			: Base(dimension)
-		{
-		}
-
-		explicit AlignedBox(const Vector<Real, N>& that)
-			: Base(that)
-		{
-		}
-
-		AlignedBox(const Vector<Real, N>& min,
-			const Vector<Real, N>& max)
-			: Base(min, max)
-		{
-		}
+		Vector<Real, N> min_;
+		Vector<Real, N> max_;
+		Tuple<Topology::Enum, N> minTopology_;
+		Tuple<Topology::Enum, N> maxTopology_;
 	};
 
 	template <typename Real, int N>

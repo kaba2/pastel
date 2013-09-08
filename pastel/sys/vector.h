@@ -125,14 +125,14 @@ namespace Pastel
 
 		template <int N_ = N>
 		Vector(const Real& x, const Real& y, 
-			PASTEL_ENABLE_IF_C(N_ == 2, Enabler) = Enabler())
+			PASTEL_ENABLE_IF_C_P(N_ == 2))
 		{
 			set(x, y);
 		}
 
 		template <int N_ = N>
 		Vector(const Real& x, const Real& y, const Real& z, 
-			PASTEL_ENABLE_IF_C(N_ == 3, Enabler) = Enabler())
+			PASTEL_ENABLE_IF_C_P(N_ == 3))
 		{
 			set(x, y, z);
 		}
@@ -140,7 +140,7 @@ namespace Pastel
 		template <int N_ = N>
 		Vector(const Real& x, const Real& y, 
 			const Real& z, const Real& w,
-			PASTEL_ENABLE_IF_C(N_ == 4, Enabler) = Enabler())
+			PASTEL_ENABLE_IF_C_P(N_ == 4))
 		{
 			set(x, y, z, w);
 		}
