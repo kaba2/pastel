@@ -6,6 +6,8 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/keyvalue.h"
 
+#include <tbb/parallel_for.h>
+
 namespace Pastel
 {
 
@@ -155,46 +157,59 @@ namespace Pastel
 		const ConstIterator begin = searchSet.begin();
 		const ConstIterator end = searchSet.end();
 
+		using IndexRange = tbb::blocked_range<integer>;
+
 		if (maxDistance < infinity<Real>())
 		{
 			const Real radius = normBijection.toNorm(maxDistance);
-#			pragma omp parallel for
-			for (integer i = 0;i < indices;++i)
-			{
-				const integer index = indexSetBegin[i];
-				const Real position = pointSet[index][0];
-		
-				const ConstIterator leftIter = std::lower_bound(
-					begin, end, keyValue(position - radius, index));
-				const ConstIterator rightIter = std::upper_bound(
-					begin, end, keyValue(position + radius, index));
-				const ConstIterator iter = std::find(
-					leftIter, rightIter, keyValue(position, index));
-				ASSERT(iter != rightIter);
 
-				SearchAllNeighbors1d_::assignNearest<Real>(
-					leftIter, rightIter, iter, i, kNearest,
-					normBijection,
-					nearestArray, distanceArray);
-			}
+			auto searchNeighbors = [&](const IndexRange& range)
+			{
+				for (integer i = range.begin();i < range.end();++i)
+				{
+					const integer index = indexSetBegin[i];
+					const Real position = pointSet[index][0];
+			
+					const ConstIterator leftIter = std::lower_bound(
+						begin, end, keyValue(position - radius, index));
+					const ConstIterator rightIter = std::upper_bound(
+						begin, end, keyValue(position + radius, index));
+					const ConstIterator iter = std::find(
+						leftIter, rightIter, keyValue(position, index));
+					ASSERT(iter != rightIter);
+
+					SearchAllNeighbors1d_::assignNearest<Real>(
+						leftIter, rightIter, iter, i, kNearest,
+						normBijection,
+						nearestArray, distanceArray);
+				}
+			};
+
+			tbb::parallel_for(IndexRange(0, indices),
+				searchNeighbors);
 		}
 		else
 		{
-#			pragma omp parallel for
-			for (integer i = 0;i < indices;++i)
+			auto searchNeighbors = [&](const IndexRange& range)
 			{
-				const integer index = indexSetBegin[i];
-				const Real position = pointSet[index][0];
-		
-				const ConstIterator iter = std::find(
-					begin, end, keyValue(position, index));
-				ASSERT(iter != end);
+				for (integer i = range.begin();i < range.end();++i)
+				{
+					const integer index = indexSetBegin[i];
+					const Real position = pointSet[index][0];
+			
+					const ConstIterator iter = std::find(
+						begin, end, keyValue(position, index));
+					ASSERT(iter != end);
 
-				SearchAllNeighbors1d_::assignNearest<Real>(
-					begin, end, iter, i, kNearest,
-					normBijection,
-					nearestArray, distanceArray);
-			}
+					SearchAllNeighbors1d_::assignNearest<Real>(
+						begin, end, iter, i, kNearest,
+						normBijection,
+						nearestArray, distanceArray);
+				}
+			};
+
+			tbb::parallel_for(IndexRange(0, indices),
+				searchNeighbors);
 		}
 	}
 

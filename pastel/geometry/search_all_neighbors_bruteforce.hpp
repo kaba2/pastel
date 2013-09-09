@@ -5,7 +5,7 @@
 #include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/distance_point_point.h"
 
-#include "pastel/sys/pastelomp.h"
+#include <tbb/parallel_for.h>
 
 #include <set>
 #include <algorithm>
@@ -87,6 +87,8 @@ namespace Pastel
 		typedef typename NearestSet::iterator NearestIterator;
 		typedef typename PointPolicy::ConstIterator RealIterator;
 
+		using IndexRange = tbb::blocked_range<integer>;
+
 		// Due to rounding errors exact comparisons can miss
 		// reporting some of the points, giving incorrect results.
 		// For example, consider n > k points on a 2d circle and make a 
@@ -96,66 +98,67 @@ namespace Pastel
 		const Real protectiveFactor = 
 			normBijection.scalingFactor(1.01);
 
-#		pragma omp parallel
+		auto searchNeighbors = [&](const IndexRange& range)
 		{
 			NearestSet nearestSet;
-
-#		pragma omp for
-		for (integer i = 0;i < indices;++i)
-		{
-			RealIterator iPoint = pointPolicy.begin(*indexSet[i]);
-
-			const Real maxDistance = maxDistanceSet[i];
-			Real cullDistance = maxDistance;
-			nearestSet.clear();
-
-			for (integer j = 0;j < points;++j)
+			for (integer i = range.begin();i < range.end();++i)
 			{
-				if (j != i)
+				RealIterator iPoint = pointPolicy.begin(*indexSet[i]);
+
+				const Real maxDistance = maxDistanceSet[i];
+				Real cullDistance = maxDistance;
+				nearestSet.clear();
+
+				for (integer j = 0;j < points;++j)
 				{
-					RealIterator jPoint = pointPolicy.begin(pointSet[j]);
-
-					const Real distance = 
-						distance2(iPoint, jPoint, dimension,
-						normBijection, cullDistance);
-
-					if (distance < cullDistance)
+					if (j != i)
 					{
-						nearestSet.insert(Entry(distance, j));
-						if (nearestSet.size() > kNearest)
+						RealIterator jPoint = pointPolicy.begin(pointSet[j]);
+
+						const Real distance = 
+							distance2(iPoint, jPoint, dimension,
+							normBijection, cullDistance);
+
+						if (distance < cullDistance)
 						{
-							nearestSet.erase(
-								std::prev(nearestSet.end()));
-						}
-						if (nearestSet.size() == kNearest)
-						{
-							cullDistance = std::min(
-								std::prev(nearestSet.end())->distance_ * protectiveFactor,
-								maxDistanceSet[i]);
+							nearestSet.insert(Entry(distance, j));
+							if (nearestSet.size() > kNearest)
+							{
+								nearestSet.erase(
+									std::prev(nearestSet.end()));
+							}
+							if (nearestSet.size() == kNearest)
+							{
+								cullDistance = std::min(
+									std::prev(nearestSet.end())->distance_ * protectiveFactor,
+									maxDistanceSet[i]);
+							}
 						}
 					}
 				}
-			}
 
-			integer nearestIndex = 0;
-			NearestIterator iter = nearestSet.begin();
-			const NearestIterator iterEnd = nearestSet.end();
-			while(iter != iterEnd)
-			{
-				nearestArray(nearestIndex, i) = pointSet.begin() + iter->index_;
-				++nearestIndex;
-				++iter;
-			}
+				integer nearestIndex = 0;
+				NearestIterator iter = nearestSet.begin();
+				const NearestIterator iterEnd = nearestSet.end();
+				while(iter != iterEnd)
+				{
+					nearestArray(nearestIndex, i) = pointSet.begin() + iter->index_;
+					++nearestIndex;
+					++iter;
+				}
 
-			ASSERT2(maxDistance != infinity<Real>() ||
-				nearestIndex == kNearest, nearestIndex, kNearest);
+				ASSERT2(maxDistance != infinity<Real>() ||
+					nearestIndex == kNearest, nearestIndex, kNearest);
 
-			for (;nearestIndex < kNearest;++nearestIndex)
-			{
-				nearestArray(nearestIndex, i) = pointSet.end();
+				for (;nearestIndex < kNearest;++nearestIndex)
+				{
+					nearestArray(nearestIndex, i) = pointSet.end();
+				}
 			}
-		}
-		}
+		};
+
+		tbb::parallel_for(IndexRange(0, indices), 
+			searchNeighbors);
 	}
 
 }

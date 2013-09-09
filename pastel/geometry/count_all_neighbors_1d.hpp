@@ -4,8 +4,9 @@
 #include "pastel/geometry/count_all_neighbors_1d.h"
 
 #include "pastel/sys/keyvalue.h"
-#include "pastel/sys/pastelomp.h"
 #include "pastel/sys/ensure.h"
+
+#include <tbb/parallel_for.h>
 
 #include <algorithm>
 
@@ -54,26 +55,32 @@ namespace Pastel
 		const ConstIterator begin = searchSet.begin();
 		const ConstIterator end = searchSet.end();
 
-#		pragma omp parallel for
-		for (integer i = 0;i < indices;++i)
+		using IndexRange = tbb::blocked_range<integer>;
+
+		auto countNeighbors = [&](const IndexRange& range)
 		{
-			PENSURE_OP(maxDistanceBegin[i], >=, 0);
+			for (integer i = range.begin();i < range.end();++i)
+			{
+				PENSURE_OP(maxDistanceBegin[i], >=, 0);
 
-			const integer index = indexBegin[i];
-			const Real position = pointSet[index][0];
-			const Real radius = normBijection.toNorm(maxDistanceBegin[i]);
-			
-			const ConstIterator leftIter = std::lower_bound(
-				begin, end, 
-				keyValue(position - radius, index));
-			const ConstIterator rightIter = std::upper_bound(
-				begin, end,
-				keyValue(position + radius, index));
+				const integer index = indexBegin[i];
+				const Real position = pointSet[index][0];
+				const Real radius = normBijection.toNorm(maxDistanceBegin[i]);
+				
+				const ConstIterator leftIter = std::lower_bound(
+					begin, end, 
+					keyValue(position - radius, index));
+				const ConstIterator rightIter = std::upper_bound(
+					begin, end,
+					keyValue(position + radius, index));
 
-			neighborsBegin[i] = rightIter - leftIter;
-		}
+				neighborsBegin[i] = rightIter - leftIter;
+			}
+		};
+
+		tbb::parallel_for(IndexRange(0, indices), 
+			countNeighbors);
 	}
-
 
 }
 

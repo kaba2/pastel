@@ -9,11 +9,12 @@
 
 #include "pastel/math/euclidean_normbijection.h"
 
-#include "pastel/sys/pastelomp.h"
 #include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/constant_iterator.h"
 #include "pastel/sys/copy_n.h"
 #include "pastel/sys/outputs.h"
+
+#include <tbb/parallel_for.h>
 
 namespace Pastel
 {
@@ -60,76 +61,79 @@ namespace Pastel
 		}
 
 		const integer bucketSize = 8;
+		const integer queries = querySet.size();
 
 		typedef PointKdTree<Real, N, PointPolicy> KdTree;
 		typedef typename KdTree::Point_ConstIterator Point_ConstIterator;
 
-#		pragma omp parallel
+		using IndexRange = tbb::blocked_range<integer>;
+
+		auto searchNeighbors = [&](const IndexRange& range)
 		{
-		typedef std::vector<Point_ConstIterator> NearestSet;
-		typedef std::vector<Real> DistanceSet;
-		NearestSet nearestSet(kNearestEnd);
-		DistanceSet distanceSet(kNearestEnd);
-		const integer queries = querySet.size();
+			typedef std::vector<Point_ConstIterator> NearestSet;
+			typedef std::vector<Real> DistanceSet;
+			NearestSet nearestSet(kNearestEnd);
+			DistanceSet distanceSet(kNearestEnd);
 
-#		pragma omp for 
-		for (integer i = 0;i < queries;++i)
-		{
-			ENSURE_OP(maxDistanceSet[i], >=, 0);
-
-			integer nearestCount = 0;
-			auto nearestOutput = [&](
-				Real distance,
-				Point_ConstIterator point)
+			for (integer i = range.begin();i < range.end();++i)
 			{
-				distanceSet[nearestCount] = distance;
-				nearestSet[nearestCount] = point;
-				++nearestCount;
-			};
+				ENSURE_OP(maxDistanceSet[i], >=, 0);
 
-			searchNearest(
-				kdTree, querySet[i], 
-				nearestOutput,
-				allExceptIndicator(querySet[i]),
-				normBijection, 
-				searchAlgorithm)
-				.kNearest(kNearestEnd)
-				.maxRelativeError(maxRelativeError)
-				.bucketSize(bucketSize)
-				.maxDistance(maxDistanceSet[i]);
-
-			if (nearestArray)
-			{
-				if (nearestCount > kNearestBegin)
+				integer nearestCount = 0;
+				auto nearestOutput = [&](
+					Real distance,
+					Point_ConstIterator point)
 				{
-					std::copy(
-						nearestSet.begin() + kNearestBegin,
-						nearestSet.begin() + nearestCount,
-						nearestArray->rowBegin(i));
-				}
-				const integer fillStart = std::max(nearestCount - kNearestBegin, (integer)0);
-				std::fill(
-					nearestArray->rowBegin(i) + fillStart,
-					nearestArray->rowEnd(i),
-					kdTree.end());
-			}
-			if (distanceArray)
-			{
-				if (nearestCount > kNearestBegin)
-				{
-					std::copy(
-						distanceSet.begin() + kNearestBegin,
-						distanceSet.begin() + nearestCount,
-						distanceArray->rowBegin(i));
-				}
-				const integer fillStart = std::max(nearestCount - kNearestBegin, (integer)0);
-				std::fill(
-					distanceArray->rowBegin(i) + fillStart,
-					distanceArray->rowEnd(i), infinity<Real>());
-			}
-		}
+					distanceSet[nearestCount] = distance;
+					nearestSet[nearestCount] = point;
+					++nearestCount;
+				};
 
-		}
+				searchNearest(
+					kdTree, querySet[i], 
+					nearestOutput,
+					allExceptIndicator(querySet[i]),
+					normBijection, 
+					searchAlgorithm)
+					.kNearest(kNearestEnd)
+					.maxRelativeError(maxRelativeError)
+					.bucketSize(bucketSize)
+					.maxDistance(maxDistanceSet[i]);
+
+				if (nearestArray)
+				{
+					if (nearestCount > kNearestBegin)
+					{
+						std::copy(
+							nearestSet.begin() + kNearestBegin,
+							nearestSet.begin() + nearestCount,
+							nearestArray->rowBegin(i));
+					}
+					const integer fillStart = std::max(nearestCount - kNearestBegin, (integer)0);
+					std::fill(
+						nearestArray->rowBegin(i) + fillStart,
+						nearestArray->rowEnd(i),
+						kdTree.end());
+				}
+				if (distanceArray)
+				{
+					if (nearestCount > kNearestBegin)
+					{
+						std::copy(
+							distanceSet.begin() + kNearestBegin,
+							distanceSet.begin() + nearestCount,
+							distanceArray->rowBegin(i));
+					}
+					const integer fillStart = std::max(nearestCount - kNearestBegin, (integer)0);
+					std::fill(
+						distanceArray->rowBegin(i) + fillStart,
+						distanceArray->rowEnd(i), infinity<Real>());
+				}
+			}
+		};
+
+		tbb::parallel_for(IndexRange(0, queries),
+			searchNeighbors);
 	}
 
 	template <typename Real, int N, typename PointPolicy,

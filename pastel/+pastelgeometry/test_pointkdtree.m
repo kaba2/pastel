@@ -9,7 +9,7 @@ close all;
 eval(import_pastel);
 
 d = 2;
-n = 200;
+n = 2000000;
 kNearest = 8;
 
 % Generate a point-set.
@@ -22,16 +22,18 @@ kdTree = PointKdTree(d);
 idSet = kdTree.insert(pointSet);
 
 % Compute the correct nearest neighbors by brute-force.
-correctSet = int32(zeros(n, kNearest));
-for i = 1 : n
-    distanceSet = zeros(1, n);
-    for j = 1 : n
-        distanceSet(j) = sum((pointSet(:, i) - pointSet(:, j)).^2);
-    end
-    distanceSet(i) = Inf;
-    [Y, I] = sort(distanceSet);
-    correctSet(i, :) = idSet(I(1 : kNearest));
-end
+% correctSet = int32(zeros(n, kNearest));
+% for i = 1 : n
+%     distanceSet = zeros(1, n);
+%     for j = 1 : n
+%         distanceSet(j) = sum((pointSet(:, i) - pointSet(:, j)).^2);
+%     end
+%     distanceSet(i) = Inf;
+%     [Y, I] = sort(distanceSet);
+%     correctSet(i, :) = idSet(I(1 : kNearest));
+% end
+
+disp('Ny jakaa.')
 
 % Refine the subdivision of the kd-tree.
 kdTree.refine();
@@ -53,9 +55,13 @@ querySet = idSet;
 % No maximum distance requirements.
 maxDistanceSet = Inf(1, size(querySet, 2));
 
+disp('Ny alkaa.');
+
 % Search for k nearest neighbors.
 neighborSet = kdTree.search_nearest(querySet, ...
     maxDistanceSet, kNearest);
+
+error('muu');
 
 if ~isequal(correctSet, neighborSet)
     error('Kd-tree did not find the same points as brute-force.');

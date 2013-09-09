@@ -7,6 +7,8 @@
 
 #include <map>
 
+#include <tbb/task_scheduler_init.h>
+
 namespace Pastel
 {
 
@@ -121,6 +123,42 @@ namespace Pastel
 			}
 		}
 
+		void matlabSetNumberOfThreads(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				NumberOfThreads,
+				Inputs
+			};
+
+			ENSURE_OP(inputs, ==, Inputs);
+
+			integer numberOfThreads = asScalar<integer>(
+				inputSet[NumberOfThreads]);
+
+			ENSURE_OP(numberOfThreads, >=, 0);
+
+			// This doesn't work.
+			// The problem is probably that Matlab uses TBB
+			// itself and initializes the scheduler before we 
+			// do. This initialization is then ignored.
+
+			static tbb::task_scheduler_init theTbbInit(
+				tbb::task_scheduler_init::deferred);
+
+			if (numberOfThreads > 0)
+			{
+				theTbbInit.initialize(numberOfThreads);
+			}
+			else
+			{
+				theTbbInit.initialize(
+					tbb::task_scheduler_init::automatic);
+			}
+		}
+
 		void matlabInitialize()
 		{
 			// If std::abort() is called in a mex file,
@@ -139,12 +177,13 @@ namespace Pastel
 			static Pastel::Matlab_Logger matlabLogger;
 			log().addLogger(&matlabLogger);
 
-			// We will add one callable function automatically.
-			// This one lists all the callable functions,
-			// including itself.
 			matlabAddFunction(
 				"list_functions",
 				matlabListFunctions);
+
+			matlabAddFunction(
+				"set_number_of_threads",
+				matlabSetNumberOfThreads);
 
 			// This function call is needed because
 			// of a bug in some versions of Matlab (e.g. 2008a).
