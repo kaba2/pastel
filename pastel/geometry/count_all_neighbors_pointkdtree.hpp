@@ -7,8 +7,9 @@
 
 #include "pastel/math/euclidean_normbijection.h"
 
-#include "pastel/sys/pastelomp.h"
 #include "pastel/sys/ensure.h"
+
+#include <tbb/parallel_for.h>
 
 namespace Pastel
 {
@@ -40,20 +41,26 @@ namespace Pastel
 		typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
 			Point_ConstIterator;
 
-#		pragma omp parallel for
-		for (integer i = 0;i < queries;++i)
+		using IndexRange = tbb::blocked_range<integer>;
+
+		auto countNeighbors = [&](const IndexRange& range)
 		{
-			PENSURE_OP(maxDistanceSet[i], >=, 0);
+			for (integer i = range.begin();i < range.end();++i)
+			{
+				PENSURE_OP(maxDistanceSet[i], >=, 0);
 
-			const Vector<Real, N> queryPoint =
-				kdTree.pointPolicy()(querySet[i]->point());
+				const Vector<Real, N> queryPoint =
+					kdTree.pointPolicy()(querySet[i]->point());
 
-			result[i] = countNearest(
-				kdTree, queryPoint, 
-				All_Indicator(), normBijection)
-				.maxDistance(maxDistanceSet[i])
-				.bucketSize(bucketSize);
-		}
+				result[i] = countNearest(
+					kdTree, queryPoint, 
+					All_Indicator(), normBijection)
+					.maxDistance(maxDistanceSet[i])
+					.bucketSize(bucketSize);
+			}
+		};
+
+		tbb::parallel_for(IndexRange(0, queries), countNeighbors);
 	}
 
 	template <typename Real, int N, typename PointPolicy,

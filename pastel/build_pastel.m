@@ -32,8 +32,16 @@
 
 function build_pastel(varargin)
 
-% Change this to the boost include path.
+% Change this to the Boost include path.
 boostIncludePath = '../../boost_1_53_0';
+
+% Change this to the Threading Building Blocks 
+% include path.
+tbbIncludePath = '../../tbb42/include';
+
+% Change this to the Threading Building Blocks 
+% library path.
+tbbLibraryPath = '../../tbb42/lib';
 
 % Optional input arguments
 libraryName = {'sys', 'math', 'geometry'};
@@ -77,6 +85,11 @@ disp(' ');
 pastelIncludePath = '..';
 pastelLibraryPath = ['../lib/', mode];
 
+tbbName = 'tbb';
+if strcmp(mode, 'debug')
+    tbbName = 'tbb_debug';
+end
+
 inputPath = [libraryName, 'matlab'];
 outputPath = ['+pastel', libraryName];
 
@@ -84,16 +97,12 @@ outputPath = ['+pastel', libraryName];
 % -----
 
 defineSet = {};
-includePathSet = {};
-libraryPathSet = {};
-
-includePathSet{end + 1} = pastelIncludePath;
-includePathSet{end + 1} = boostIncludePath;
-libraryPathSet{end + 1} = pastelLibraryPath;
+includePathSet = {pastelIncludePath, boostIncludePath, tbbIncludePath};
+libraryPathSet = {pastelLibraryPath, tbbLibraryPath};
 
 % Libraries
 
-librarySet = {};
+librarySet = {tbbName};
 
 if strcmp(libraryName, 'geometry')
     librarySet = [librarySet, ...

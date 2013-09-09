@@ -4,10 +4,11 @@
 #include "pastel/geometry/count_all_neighbors_bruteforce.h"
 #include "pastel/geometry/count_all_neighbors_1d.h"
 
-#include "pastel/sys/pastelomp.h"
 #include "pastel/sys/ensure.h"
 
 #include "pastel/geometry/distance_point_point.h"
+
+#include <tbb/parallel_for.h>
 
 #include <algorithm>
 
@@ -26,9 +27,9 @@ namespace Pastel
 		const CountIterator& neighborsBegin)
 	{
 		const integer points = pointSet.size();
-		const integer indices = indexEnd - indexBegin;
+		const integer queries = indexEnd - indexBegin;
 
-		if (points == 0 || indices == 0)
+		if (points == 0 || queries == 0)
 		{
 			return;
 		}
@@ -48,24 +49,38 @@ namespace Pastel
 			return;
 		}
 
-		std::fill(neighborsBegin, neighborsBegin + indices, 0);
+		using IndexRange = tbb::blocked_range<integer>;
 
-#		pragma omp parallel for
-		for (integer i = 0;i < indices;++i)
+		auto fillWithZeros = [&](const IndexRange& range)
 		{
-			const integer index = indexBegin[i];
-			const Vector<Real, N>& iPoint = pointSet[index];
-			const Real maxDistance = maxDistanceBegin[i];
-			for (integer j = 0;j < points;++j)
+			std::fill(
+				neighborsBegin + range.begin(), 
+				neighborsBegin + range.end(), 0);
+		};
+
+		tbb::parallel_for(IndexRange(0, queries), 
+			fillWithZeros)
+
+		auto countNeighbors = [&](const IndexRange& range)
+		{
+			for (integer i = range.begin();i < range.end();++i)
 			{
-				if (distance2(iPoint, pointSet[j], normBijection) < maxDistance)
+				const integer index = indexBegin[i];
+				const Vector<Real, N>& iPoint = pointSet[index];
+				const Real maxDistance = maxDistanceBegin[i];
+				for (integer j = 0;j < points;++j)
 				{
-					++neighborsBegin[i];
+					if (distance2(iPoint, pointSet[j], normBijection) < maxDistance)
+					{
+						++neighborsBegin[i];
+					}
 				}
 			}
-		}
-	}
+		};
 
+		tbb::parallel_for(IndexRange(0, queries),
+			countNeighbors);
+	}
 
 }
 
