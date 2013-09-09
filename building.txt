@@ -56,8 +56,7 @@ correspondingly.
 ### 4. Generate tool-specific build-scripts using CMake. 
 
 * In the Pastel root directory, create the `release/` directory.
-* In the Pastel `release/` directory, type
-		cmake-gui ..
+* In the Pastel `release/` directory, type `cmake-gui ..`
 * Press the `Configure` button.
 * Select the tool-set to generate build-scripts for from the menu.
 * Make sure the `Advanced` button is not checked.
@@ -89,7 +88,7 @@ options so that they need not specified repeatedly.
 
 Note: You can follow similar instructions to create a debug build
 instead. The only difference is that you create a `debug/` directory,
-and to choose `Debug` as the `CMAKE_BUILD_TYPE` in `cmake-gui`.  
+and choose `Debug` as the `CMAKE_BUILD_TYPE` in `cmake-gui`.  
 
 Configurations
 --------------
