@@ -40,6 +40,16 @@ Pastel only uses the template code found in Boost and
 thus requires no linking with object code.
 Boost is licensed under the Boost license.
 
+### Threading Building Blocks 4.2
+
+<https://www.threadingbuildingblocks.org/>
+
+Pastel refer's to Threading Building Blocks's include files in the form 
+`tbb/parallel_for.h`. Threading Building Blocks is licensed under the GPLv2 
+license, with the run-time exception. The latter specifically means that 
+Pastel need not be made GPLv2 although it uses code from the TBB. This is 
+similar to how the license of `libstdc++` works.
+
 ### Official Mersenne Twister source code
 
 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/emt19937ar.html>
