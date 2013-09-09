@@ -5,26 +5,47 @@ Pastel
 
 [Back]: http://kaba.hilvi.org
 
-_Pastel_ is a cross-platform C++11 library for geometry and 
+_Pastel_ is a cross-platform C++ / Matlab library for geometry and 
 computer graphics.
 
 Source code
 -----------
 
-Pastel is licensed under the MIT license, which is unrestrictive and 
-non-viral. While this allows you to build your own programs using Pastel, 
+The source code for TIM is hosted on [BitBucket][] in a [Mercurial][] 
+repository. Assuming you have Mercurial installed, the repository can 
+be cloned from the command-line by
+
+	hg clone https://bitbucket.org/kaba2/pastel
+
+The source code always reflects the current development; it is unstable. 
+To obtain the source code corresponding to this version, write
+
+[[+Verbatim]]:
+	hg update -r 1.4.0
+
+For previous versions, see the [release history][History]
+
+[BitBucket]: http://bitbucket.org/kaba2/pastel
+[Mercurial]: http://mercurial.selenic.com
+[History]: [[Ref]]: release_history.txt
+
+License
+-------
+
+Pastel is licensed under the MIT license. 
+
+While this allows you to build your own programs using Pastel, 
 I do not recommend you do this. This is because Pastel is still under 
 development and is thus prone to break backwards-compatibility. Rather, 
 consider it from an educational viewpoint containing implementations 
 and documentations of useful data structures and algorithms.
 
-### [Download Pastel 1.4.0][Pastel-1.4.0]
+Issue tracker
+-------------
 
-[Pastel-1.4.0]: files/pastel-1.4.0.zip
+The issue tracker for Pastel is hosted on Bitbucket in [here][PastelBugs].
 
-For previous versions, see the [release history][History]
-
-[History]: [[Ref]]: release_history.txt
+[PastelBugs]: https://bitbucket.org/kaba2/pastel/issues
 
 Sub-libraries
 ------------
