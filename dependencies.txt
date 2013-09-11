@@ -30,25 +30,25 @@ number that follows the library name is the one that the current
 version of Pastel was used to develop against. This is useful to know 
 in case a later version breaks backward compatibility.
 
-### Boost 1.51
+### Boost 1.54
 
 <http://www.boost.org/>
 
-Pastel refers to Boost's include files in the form
-`boost/operators.hpp`.
+Boost is licensed under the Boost license.
 Pastel only uses the template code found in Boost and
 thus requires no linking with object code.
-Boost is licensed under the Boost license.
+Pastel refers to Boost's include files in the form
+`boost/operators.hpp`.
 
 ### Threading Building Blocks 4.2
 
 <https://www.threadingbuildingblocks.org/>
 
-Pastel refer's to Threading Building Blocks's include files in the form 
-`tbb/parallel_for.h`. Threading Building Blocks is licensed under the GPLv2 
+Threading Building Blocks is licensed under the GPLv2 
 license, with the run-time exception. The latter specifically means that 
 Pastel need not be made GPLv2 although it uses code from the TBB. This is 
-similar to how the license of `libstdc++` works.
+similar to how the license of `libstdc++` works. Pastel refer's to Threading 
+Building Blocks's include files in the form `tbb/parallel_for.h`. 
 
 ### Official Mersenne Twister source code
 
