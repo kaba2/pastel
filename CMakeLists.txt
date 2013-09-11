@@ -146,6 +146,10 @@ if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") OR
 		-std=c++11 
 		# Enables some additional warnings.
 		-Wall 
+		# Enables position-independent code.
+		# This is needed to build the Matlab 
+		# libraries.
+		-fPIC
 	)
 
 	# Disable some warnings.
