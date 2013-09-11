@@ -4,6 +4,8 @@
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/longestmedian_splitrule.h"
 
+#include <boost/type_traits/has_trivial_destructor.hpp>
+
 namespace Pastel
 {
 
@@ -80,7 +82,7 @@ namespace Pastel
 	void PointKdTree<Real, N, PointPolicy>::destructSubtree(
 		Node* node)
 	{
-		if (!std::is_trivially_destructible<Real>::value)
+		if (!boost::has_trivial_destructor<Real>::value)
 		{
 			if (!node->leaf())
 			{
@@ -218,7 +220,7 @@ namespace Pastel
 		}
 
 		// Destruct the node.
-		if (!std::is_trivially_destructible<Real>::value)
+		if (!boost::has_trivial_destructor<Real>::value)
 		{
 			destruct(node);
 		}
