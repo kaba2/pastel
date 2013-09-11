@@ -32,13 +32,15 @@ For previous versions, see the [release history][History]
 License
 -------
 
-Pastel is licensed under the MIT license. 
+Pastel is licensed under the [MIT license][MIT]. 
 
 While this allows you to build your own programs using Pastel, 
 I do not recommend you do this. This is because Pastel is still under 
 development and is thus prone to break backwards-compatibility. Rather, 
 consider it from an educational viewpoint containing implementations 
 and documentations of useful data structures and algorithms.
+
+[MIT]: http://opensource.org/licenses/mit-license.php
 
 Issue tracker
 -------------
