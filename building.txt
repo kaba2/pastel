@@ -5,18 +5,20 @@ Building the Pastel library
 
 This section describes how to build the Pastel library. 
 
-Since Pastel uses C++11 features, it requires a recent compiler to
+Compiler
+--------
+
+Since Pastel uses C++11, it requires a recent compiler to
 be built. Make sure you have one of the following:
 
- * Visual Studio: 2013 or later
+ * Clang: 3.2 or later
  * GCC: 4.7 or later
- * Clang: 3.3 or later
+ * Xcode: 4.6 or later
+ * Visual Studio: 2013 or later
 
-__Note__: While the source code contains Visual Studio specific 
-build files, you should ignore them, and follow the build process 
-described here.
-
-[Main]: [[Ref]]: pastel.txt
+If you also want to build the Matlab libraries, then the compiler
+version must _match_ the version of the supported compiler in Matlab.
+For example, Matlab 2013b supports GCC 4.7; GCC 4.8 will not work.
 
 Build process
 -------------
