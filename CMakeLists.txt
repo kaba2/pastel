@@ -14,7 +14,7 @@ project (Pastel)
 
 # The directory of the Boost library's source code.
 # The includes are of the form 'boost/static_assert.hpp'.
-set (BoostIncludeDirectory ../boost_1_53_0)
+set (BoostIncludeDirectory ../boost_1_54_0)
 
 # The directory of the Threading Building Blocks library's 
 # source code. The includes are of the form 'tbb/parallel_for.h'.
@@ -67,15 +67,6 @@ endif()
 
 # Global variables for the build-script
 # -------------------------------------
-
-# Do-it-yourself clang detection
-# Under Mac Os X the clang compiler is aliased to c++
-# (or something like that; I don't know why cmake
-# finds my compiler as /usr/bin/c++).
-if (CMAKE_CXX_COMPILER MATCHES "(.*clang)|(.*c\\+\\+)")
-	set (CMAKE_COMPILER_IS_CLANGXX 1)
-	set (CMAKE_COMPILER_ID Clang)
-endif ()
 
 # By default, the libraries are built static.
 set (PastelLibraryType STATIC)
@@ -145,25 +136,17 @@ set (CMAKE_CXX_FLAGS_DEBUG
 	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG"
 )
 
-# clang and g++
+# Clang and g++
 # -------------
 
-if (CMAKE_COMPILER_IS_GNUGXX OR CMAKE_COMPILER_IS_CLANGXX) 
-	# Same flags apply to both g++ and clang.
-
+if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") OR 
+	("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")) 
 	add_definitions (
 		# Enables C++11 compiler support.
 		-std=c++11 
-		-stdlib=libc++
 		# Enables some additional warnings.
 		-Wall 
 	)
-
-	# Enables C++11 linker support.
-	set (CMAKE_EXE_LINKER_FLAGS 
-		"${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
-	set (CMAKE_SHARED_LINKER_FLAGS 
-		"${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
 
 	# Disable some warnings.
 	add_definitions (
@@ -177,9 +160,6 @@ if (CMAKE_COMPILER_IS_GNUGXX OR CMAKE_COMPILER_IS_CLANGXX)
 		-Wno-unused-variable
 		# Unused values.
 		-Wno-unused-value
-		# Unused but set variable.
-		# Commented out; Clang does not recognize this.
-		# "-Wno-unused-but-set-variable",
 		# Unused functions.
 		-Wno-unused-function
 		# Breaking strict aliasing rules.
@@ -187,6 +167,39 @@ if (CMAKE_COMPILER_IS_GNUGXX OR CMAKE_COMPILER_IS_CLANGXX)
 		# Compiler warns that it optimizes code based on the 
 		# assumption that signed integer overflows do not occur.
 		-Wno-strict-overflow
+	)
+endif()
+
+# g++
+# ---
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") 
+	# Disable some warnings.
+	add_definitions (
+		# Unused but set variable.
+		-Wno-unused-but-set-variable
+		# Unused local typedef
+		-Wno-unused-local-typedefs
+	)
+endif()
+
+# Clang
+# -----
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang") 
+	add_definitions (
+		# Enables C++11 compiler support.
+		-stdlib=libc++
+	)
+
+	# Enables C++11 linker support.
+	set (CMAKE_EXE_LINKER_FLAGS 
+		"${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
+	set (CMAKE_SHARED_LINKER_FLAGS 
+		"${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
+
+	# Disable some warnings.
+	add_definitions (
 		# Compiler warns 'that >= 0' is always true for an 
 		# unsigned integer.
 		-Wno-tautological-compare
