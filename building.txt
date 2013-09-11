@@ -6,8 +6,11 @@ Building the Pastel library
 This section describes how to build the Pastel library. 
 
 Since Pastel uses C++11 features, it requires a recent compiler to
-be built. Pastel has been successfully built with Visual Studio 2012
-(+ Update 2 + Compiler Update), gcc 4.6.3, gcc 4.7.1, and clang 3.1.
+be built. Make sure you have one of the following:
+
+ * Visual Studio: 2013 or later
+ * GCC: 4.7 or later
+ * Clang: 3.3 or later
 
 __Note__: While the source code contains Visual Studio specific 
 build files, you should ignore them, and follow the build process 
