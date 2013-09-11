@@ -27,6 +27,12 @@ Release date xx.x.2013
 
 [Pastel-1.4.0]: http://kaba.hilvi.org/pastel-1.4.0
 
+### General
+
+* Started using more features of C++11.
+* Changed to use the CMake build system (from Premake).
+* Changed to use Threading Building Blocks (from OpenMP).
+
 ### PastelSys
 
 * Added skip list data structure.
@@ -40,10 +46,6 @@ Release date xx.x.2013
 ### PastelGeometryMatlab
 
 * Encapsulated the Matlab PointKdTree interface into a class.
-
-### Build system
-
-* Changed to use the CMake build system.
 
 Pastel 1.3.0
 ------------
