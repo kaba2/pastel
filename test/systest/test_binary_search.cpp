@@ -46,6 +46,24 @@ namespace
 
 					TEST_ENSURE_OP(a, ==, 7);
 			}
+
+			{
+				for (integer b = 0;b < 7;++b)
+				{
+					integer a = exponentialBinarySearch(
+						0, 7,
+						predicateIndicator(b, LessThan()));
+
+					TEST_ENSURE_OP(a, ==, b);
+				}
+			}
+			{
+					integer a = exponentialBinarySearch(
+						0, 7,
+						predicateIndicator(7, LessThan()));
+
+					TEST_ENSURE_OP(a, ==, 7);
+			}
 		}
 
 		void testIterator()
@@ -66,6 +84,29 @@ namespace
 			}
 			{
 				integer* a = binarySearch(
+					std::begin(aSet), std::end(aSet),
+					[&](integer* level)
+				{
+					return *level < 7;
+				});
+
+				TEST_ENSURE_OP(a - aSet, ==, 7);
+			}
+			{
+				for (integer* b = aSet;b != std::end(aSet);++b)
+				{
+					integer* a = exponentialBinarySearch(
+						std::begin(aSet), std::end(aSet),
+						[&](integer* level)
+					{
+						return *level < *b;
+					});
+
+					TEST_ENSURE_OP(a - aSet, ==, b - aSet);
+				}
+			}
+			{
+				integer* a = exponentialBinarySearch(
 					std::begin(aSet), std::end(aSet),
 					[&](integer* level)
 				{
