@@ -14,8 +14,6 @@ namespace Pastel
 	class Complement_Indicator
 	{
 	public:
-		typedef typename Indicator::Point Point;
-
 		Complement_Indicator()
 			: inner_()
 		{
@@ -27,7 +25,8 @@ namespace Pastel
 		{
 		}
 
-		bool operator()(const Point& that) const
+		template <typename Type>
+		bool operator()(const Type& that) const
 		{
 			return !inner_(that);
 		}

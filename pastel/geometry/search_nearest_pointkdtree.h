@@ -10,7 +10,6 @@
 
 #include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/sys/all_indicator.h"
-#include "pastel/sys/allexcept_indicator.h"
 #include "pastel/math/euclidean_normbijection.h"
 
 #include "pastel/geometry/search_nearest_pointkdtree.hpp"

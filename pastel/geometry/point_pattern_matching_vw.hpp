@@ -13,6 +13,8 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/outputs.h"
 #include "pastel/sys/random_subset.h"
+#include "pastel/sys/predicate_indicator.h"
+#include "pastel/sys/notequalto.h"
 
 namespace Pastel
 {
@@ -239,7 +241,7 @@ namespace Pastel
 							searchNearest(
 								sceneTree_, sceneIter,
 								nearestOutput,
-								allExceptIndicator(sceneIter))
+								predicateIndicator(sceneIter, NotEqualTo()))
 								.kNearest(k_);
 						}
 
@@ -267,7 +269,7 @@ namespace Pastel
 							searchNearest(
 								modelTree_, modelIter,
 								nearestOutput,
-								allExceptIndicator(modelIter))
+								predicateIndicator(modelIter, NotEqualTo()))
 								.kNearest(k_);
 						}
 
