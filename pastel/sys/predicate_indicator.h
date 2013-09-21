@@ -24,7 +24,7 @@ namespace Pastel
 		bool operator()(
 			const Type& that) const
 		{
-			return Predicate()(object_, that);
+			return Predicate()(that, object_);
 		}
 
 	private:
