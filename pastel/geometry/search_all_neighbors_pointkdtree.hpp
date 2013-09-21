@@ -5,7 +5,6 @@
 #include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
-#include "pastel/sys/allexcept_indicator.h"
 
 #include "pastel/math/euclidean_normbijection.h"
 
@@ -13,6 +12,8 @@
 #include "pastel/sys/constant_iterator.h"
 #include "pastel/sys/copy_n.h"
 #include "pastel/sys/outputs.h"
+#include "pastel/sys/predicate_indicator.h"
+#include "pastel/sys/notequalto.h"
 
 #include <tbb/parallel_for.h>
 
@@ -92,7 +93,7 @@ namespace Pastel
 				searchNearest(
 					kdTree, querySet[i], 
 					nearestOutput,
-					allExceptIndicator(querySet[i]),
+					predicateIndicator(querySet[i], NotEqualTo()),
 					normBijection, 
 					searchAlgorithm)
 					.kNearest(kNearestEnd)
