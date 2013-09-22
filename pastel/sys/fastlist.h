@@ -42,8 +42,8 @@ namespace Pastel
 			Node* previous_;
 
 		private:
-			Node(const Node&) PASTEL_DELETE;
-			Node& operator=(const Node&) PASTEL_DELETE;
+			Node(const Node&) = delete;
+			Node& operator=(const Node&) = delete;
 		};
 
 		class DataNode
@@ -64,8 +64,8 @@ namespace Pastel
 
 			Type data_;
 		private:
-			DataNode(const DataNode&) PASTEL_DELETE;
-			DataNode& operator=(const DataNode&) PASTEL_DELETE;
+			DataNode(const DataNode&) = delete;
+			DataNode& operator=(const DataNode&) = delete;
 		};
 
 	public:

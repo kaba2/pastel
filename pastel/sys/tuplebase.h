@@ -34,7 +34,7 @@ namespace Pastel
 		}
 
 	private:
-		Dimension() PASTEL_DELETE;
+		Dimension() = delete;
 
 		integer dimension_;
 	};
@@ -54,7 +54,7 @@ namespace Pastel
 		}
 
 	private:
-		Alias() PASTEL_DELETE;
+		Alias() = delete;
 
 		Type data_;
 	};
@@ -74,7 +74,7 @@ namespace Pastel
 		}
 
 	private:
-		Copy() PASTEL_DELETE;
+		Copy() = delete;
 
 		Type data_;
 	};
@@ -782,7 +782,7 @@ namespace Pastel
 				};
 			}
 
-			TupleBase() PASTEL_DELETE;
+			TupleBase() = delete;
 
 			Type* data_;
 			integer size_;

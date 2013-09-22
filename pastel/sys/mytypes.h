@@ -25,14 +25,10 @@
 	Type name##_
 
 #define PASTEL_REMOVE_BRACKETS(x) typename Pastel::RemoveBrackets<void (x)>::Type
-// FIX: Remove this version after C++11 typename-fix becomes available in Visual Studio.
-#define PASTEL_REMOVE_BRACKETS_(x) Pastel::RemoveBrackets<void (x)>::Type
 
 #define PASTEL_NO_DEDUCTION(x) PASTEL_REMOVE_BRACKETS(x)
 
 #define PASTEL_FWD(member) typedef typename Fwd::member member
-// FIX: Remove this version after C++11 typename-fix becomes available in Visual Studio.
-#define PASTEL_FWD_(member) typedef Fwd::member member
 
 #define PASTEL_ITERATOR_FUNCTIONS_PREFIX(prefix, name, assign) \
 	prefix##Iterator name() \
@@ -70,8 +66,6 @@
 #define PASTEL_CALL_BRACKETS ()
 
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
-
-#define PASTEL_DELETE = delete
 
 #define PASTEL_ENABLE_IF(Condition, ReturnType) \
 	typename boost::enable_if< \

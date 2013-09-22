@@ -27,9 +27,9 @@ namespace Pastel
 		explicit CallFunction(Function function);
 
 	private:
-		CallFunction() PASTEL_DELETE;
-		CallFunction(const CallFunction&) PASTEL_DELETE;
-		CallFunction operator=(const CallFunction&) PASTEL_DELETE;
+		CallFunction() = delete;
+		CallFunction(const CallFunction&) = delete;
+		CallFunction operator=(const CallFunction&) = delete;
 	};
 
 }

@@ -100,7 +100,7 @@ namespace Pastel
 		const Matrix<Real>& r() const;
 
 	private:
-		QrDecomposition() PASTEL_DELETE;
+		QrDecomposition() = delete;
 		void decompose();
 
 		Matrix<Real> q_;

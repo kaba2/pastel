@@ -38,8 +38,8 @@ namespace Pastel
 		}
 
 	private:
-		MultiQuadric_Rbf(const MultiQuadric_Rbf& that) PASTEL_DELETE;
-		MultiQuadric_Rbf& operator=(const MultiQuadric_Rbf& that) PASTEL_DELETE;
+		MultiQuadric_Rbf(const MultiQuadric_Rbf& that) = delete;
+		MultiQuadric_Rbf& operator=(const MultiQuadric_Rbf& that) = delete;
 
 		real beta_;
 	};

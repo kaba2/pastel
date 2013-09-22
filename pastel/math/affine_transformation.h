@@ -159,7 +159,7 @@ namespace Pastel
 		// a 0-dimensional affine-transformation,
 		// because it easily leads to bugs caused
 		// by forgetting to specify the dimension.
-		AffineTransformation() PASTEL_DELETE;
+		AffineTransformation() = delete;
 
 		Matrix<Real> matrix_;
 		Vector<Real> translation_;

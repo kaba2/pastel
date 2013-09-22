@@ -56,9 +56,9 @@ namespace Pastel
 		PASTEL_PARAMETER(integer, kNearest);
 
 	private:
-		//SearchNearest_(const SearchNearest_&) PASTEL_DELETE;
-		//SearchNearest_(SearchNearest_&& that) PASTEL_DELETE;
-		SearchNearest_& operator=(const SearchNearest_&) PASTEL_DELETE;
+		//SearchNearest_(const SearchNearest_&) = delete;
+		//SearchNearest_(SearchNearest_&& that) = delete;
+		SearchNearest_& operator=(const SearchNearest_&) = delete;
 
 		mutable bool used_;
 

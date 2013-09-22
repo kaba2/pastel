@@ -54,22 +54,15 @@ namespace Pastel
 	{
 		PENSURE_OP(that, >=, 0);
 
-		// NOTE: Assumes at most a 64-bit integer.
-		PASTEL_STATIC_ASSERT(sizeof(integer) <= 8);
+		if (that == 0)
+		{
+			return 1;
+		}
 
 		--that;
-
-		that |= that >> 1;
-		that |= that >> 2;
-		that |= that >> 4;
-		that |= that >> 8;
-		that |= that >> 16;
-		
-		if (sizeof(integer) > 4)
+		for (integer i = 1; i < sizeof(integer) * 8;i <<= 1)
 		{
-			// It is undefined to shift a 32-bit
-			// integer by 32 bits.
-			that |= that >> 32;
+			that |= that >> i;
 		}
 
 		return that + 1;

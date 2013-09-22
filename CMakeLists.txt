@@ -3,6 +3,10 @@
 
 cmake_minimum_required (VERSION 2.8)
 
+# Interpret relative paths w.r.t. the source directory in
+# in link_directories().
+cmake_policy(SET CMP0015 NEW)
+ 
 project (Pastel)
 
 # Paths
@@ -14,17 +18,21 @@ project (Pastel)
 
 # The directory of the Boost library's source code.
 # The includes are of the form 'boost/static_assert.hpp'.
-set (BoostIncludeDirectory ../boost_1_54_0)
+set (BoostIncludeDirectory ../boost)
 
 # The directory of the Threading Building Blocks library's 
 # source code. The includes are of the form 'tbb/parallel_for.h'.
 set (TbbIncludeDirectory ../tbb42/include)
 
+# The directory of the Threading Building Blocks library's 
+# dynamic libraries.
+set (TbbLibraryDirectory ../tbb42/lib/intel64/vc11)
+
 # The directory of the Matlab header files.
 # The includes are of the form 'mex.h'.
-set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
+set (MatlabIncludeDirectory "C:/Program Files/MATLAB/R2013a/extern/include")
 
-# Note: To succesfully _compile_ Pastel's Matlab-libraries, 
+# Note: To successfully _compile_ Pastel's Matlab-libraries, 
 # you only need the header files for Matlab. 
 # This allows you to try the compilation
 # even if you do not have the external library
@@ -40,6 +48,8 @@ include_directories (.)
 include_directories (${BoostIncludeDirectory})
 include_directories (${TbbIncludeDirectory})
 include_directories (${MatlabIncludeDirectory})
+
+link_directories (${TbbLibraryDirectory})
 
 # CMake build options
 # -------------------
@@ -216,7 +226,7 @@ endif()
 if (MSVC)
 	add_definitions (
 		# Disable Microsoft's Secure STL
-		_ITERATOR_DEBUG_LEVEL=0
+		/D_ITERATOR_DEBUG_LEVEL=0
 	)
 
 	# Disable some warnings.

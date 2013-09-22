@@ -46,8 +46,6 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next power of 2.
 	/*!
-	[Round up to power of 2]
-
 	Preconditions:
 	that >= 0
 	sizeof(integer) <= 8

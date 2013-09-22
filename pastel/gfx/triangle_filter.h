@@ -26,8 +26,8 @@ namespace Pastel
 		virtual real evaluateInRange(real position) const;
 
 	private:
-		Triangle_Filter(const Triangle_Filter& that) PASTEL_DELETE;
-		Triangle_Filter& operator=(const Triangle_Filter& that) PASTEL_DELETE;
+		Triangle_Filter(const Triangle_Filter& that) = delete;
+		Triangle_Filter& operator=(const Triangle_Filter& that) = delete;
 	};
 
 	typedef std::shared_ptr<Triangle_Filter> TriangleFilterPtr;

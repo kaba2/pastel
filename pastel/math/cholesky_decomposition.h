@@ -57,7 +57,7 @@ namespace Pastel
 		bool decompose(Matrix<Real> that);
 
 	private:
-		CholeskyDecomposition() PASTEL_DELETE;
+		CholeskyDecomposition() = delete;
 		bool decompose();
 
 		Matrix<Real> cholesky_;

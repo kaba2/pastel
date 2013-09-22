@@ -13,11 +13,15 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename Key, typename Data_Class>
+		template <typename Key, typename Data_Class_>
 		class Node
-			: public Data_Class
+			: public Data_Class_
 		{
 		public:
+			// We need this to get around a bug in the 
+			// Visual Studio 2013 RC compiler.
+			using Data_Class = Data_Class_;
+
 			template <typename, typename>
 			friend class Pastel::RedBlackTree;
 
@@ -63,10 +67,10 @@ namespace Pastel
 			}
 
 		private:
-			Node() PASTEL_DELETE;
-			Node(const Node& that) PASTEL_DELETE;
-			Node(Node&& that) PASTEL_DELETE;
-			Node& operator=(Node that) PASTEL_DELETE;
+			Node() = delete;
+			Node(const Node& that) = delete;
+			Node(Node&& that) = delete;
+			Node& operator=(Node that) = delete;
 
 			Node(Key key,
 				Data_Class data,
@@ -74,7 +78,7 @@ namespace Pastel
 				Node* left,
 				Node* right,
 				bool red)
-				: Data_Class(std::move(data))
+				: Data_Class_(std::move(data))
 				, key_(std::move(key))
 				, parent_(parent)
 				, child_()

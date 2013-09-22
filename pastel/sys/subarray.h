@@ -579,7 +579,7 @@ namespace Pastel
 		SubArray<Type, N> subArray_;
 
 		ConstSubArray& operator=(
-			const ConstSubArray& that) PASTEL_DELETE;
+			const ConstSubArray& that) = delete;
 	};
 
 }

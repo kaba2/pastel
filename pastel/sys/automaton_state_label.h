@@ -57,14 +57,14 @@ namespace Pastel
 		}
 
 	private:
-		StateLabel() PASTEL_DELETE;
-		StateLabel(const StateLabel& that) PASTEL_DELETE;
+		StateLabel() = delete;
+		StateLabel(const StateLabel& that) = delete;
 		
 		// Making the operator= private would give the error
 		// C2876: "not all overloads are accessible".
 		// FIX: Remove public when 'delete' becomes available.
 	public:
-		StateLabel& operator=(StateLabel that) PASTEL_DELETE;
+		StateLabel& operator=(StateLabel that) = delete;
 
 	private:
 		template <

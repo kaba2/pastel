@@ -100,7 +100,7 @@ namespace Pastel
 		{
 			PENSURE_OP(0, <=, beginBit);
 			PENSURE_OP(beginBit, <=, endBit);
-			PENSURE_OP(endBit, <=, Bits);
+			PENSURE_OP(endBit, <=, N);
 
 			if (beginBit == endBit)
 			{

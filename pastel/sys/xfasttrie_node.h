@@ -6,6 +6,7 @@
 #include "pastel/sys/xfasttrie.h"
 
 #include <unordered_map>
+#include <array>
 
 namespace Pastel
 {

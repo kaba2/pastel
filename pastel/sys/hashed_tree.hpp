@@ -44,9 +44,9 @@ namespace Pastel
 		typedef RedBlackTree<Settings, Hash_RedBlackTree_Customization>
 			Derived;
 
-		Hash_RedBlackTree_Customization(const Hash_RedBlackTree_Customization&) PASTEL_DELETE;
-		Hash_RedBlackTree_Customization(Hash_RedBlackTree_Customization&&) PASTEL_DELETE;
-		Hash_RedBlackTree_Customization& operator=(Hash_RedBlackTree_Customization) PASTEL_DELETE;
+		Hash_RedBlackTree_Customization(const Hash_RedBlackTree_Customization&) = delete;
+		Hash_RedBlackTree_Customization(Hash_RedBlackTree_Customization&&) = delete;
+		Hash_RedBlackTree_Customization& operator=(Hash_RedBlackTree_Customization) = delete;
 
 	public:
 		//! Returns the combined hash of all elements in the tree.

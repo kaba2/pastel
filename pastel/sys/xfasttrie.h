@@ -54,7 +54,7 @@ namespace Pastel
 
 		private:
 			// The key must never be overwritten.
-			Data& operator=(Data) PASTEL_DELETE;
+			Data& operator=(Data) = delete;
 
 			Key key_;
 		};
