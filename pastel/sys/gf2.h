@@ -26,7 +26,7 @@ namespace Pastel
 		explicit Gf2(uint64 polynomial = 0)
 		: polynomial_(polynomial)
 		{
-			PENSURE_OP(polynomial & ValidMask, ==, polynomial);
+			PENSURE_OP((polynomial & ValidMask), ==, polynomial);
 		}
 
 		Gf2(const Gf2& that)

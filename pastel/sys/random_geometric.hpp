@@ -13,8 +13,8 @@ namespace Pastel
 	integer randomGeometric(
 		const PASTEL_NO_DEDUCTION(Real)& success)
 	{
-		PENSURE_OP(success, >, 0);
-		PENSURE_OP(success, <, 1);
+		PENSURE(success > 0);
+		PENSURE(success < 1);
 
 		// Generates an exponentially distributed
 		// random number, and rounds it down.
@@ -27,12 +27,19 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& k,
 		const PASTEL_NO_DEDUCTION(Real)& success)
 	{
-		PENSURE_OP(success, >, 0);
-		PENSURE_OP(success, <, 1);
+		PENSURE(k >= 0);
+		PENSURE(success > 0);
+		PENSURE(success < 1);
 
 		// The probability of having a k consecutive
 		// failures before the first success in a
-		// Bernoulli process.
+		// Bernoulli process is 
+		//
+		//     P(X = k) = (1 - p)^k p.
+
+		// Note that when success is either 0 or 1,
+		// P is not a probability mass function.
+
 		return std::pow(1 - success, k) * success;
 	}
 
@@ -41,12 +48,21 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& k,
 		const PASTEL_NO_DEDUCTION(Real)& success)
 	{
-		PENSURE_OP(success, >, 0);
-		PENSURE_OP(success, <, 1);
+		PENSURE(k >= 0);
+		PENSURE(success > 0);
+		PENSURE(success < 1);
 
 		// The probability of having at most k
 		// consecutive failures before the first
-		// success in a Bernoulli process.
+		// success in a Bernoulli process is
+		//
+		//   P(X <= k)
+		//   = sum_{i = 0}^k P(X = i)
+		//   = sum_{i = 0}^k (1 - p)^i p
+		//   = p sum_{i = 0}^k (1 - p)^i
+		//   = p (1 - (1 - p)^{k + 1}) / (1 - (1 - p))
+		//   = 1 - (1 - p)^{k + 1}.
+
 		return 1 - std::pow(1 - success, k + 1);
 	}
 

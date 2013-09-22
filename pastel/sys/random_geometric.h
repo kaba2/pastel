@@ -13,18 +13,34 @@ namespace Pastel
 	The returned random number is distributed as the number 
 	of failures before the first success in a Bernoulli process;
 	its support is {0, 1, 2, ...}.
+
+	Preconditions:
+	success > 0
+	success < 1
 	*/
 	template <typename Real>
 	integer randomGeometric(
 		const PASTEL_NO_DEDUCTION(Real)& success);
 
 	//! Probability mass function of the geometric distribution.
+	/*!
+	Preconditions:
+	k >= 0
+	success > 0
+	success < 1
+	*/
 	template <typename Real>
 	Real geometricPdf(
 		const PASTEL_NO_DEDUCTION(Real)& k,
 		const PASTEL_NO_DEDUCTION(Real)& success);
 
 	//! Cumulative distribution function of the geometric distribution.
+	/*!
+	Preconditions:
+	k >= 0
+	success > 0
+	success < 1
+	*/
 	template <typename Real>
 	Real geometricCdf(
 		const PASTEL_NO_DEDUCTION(Real)& k,

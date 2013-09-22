@@ -35,65 +35,6 @@ namespace
 		typedef List::Iterator Iterator;
 		typedef List::ConstIterator ConstIterator;
 
-		void testRandom()
-		{
-			List list;
-			std::list<integer> dataSet;
-			const integer listSizeSet[] = 
-				{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1000};
-
-			for (integer listSize : listSizeSet)
-			{
-				list.clear();
-				dataSet.clear();
-				for (integer i = 0;i < listSize;++i)
-				{
-					const integer n = randomInteger();
-					dataSet.push_back(n);
-
-					list.insert(n);
-
-					if (list.size() > listSize)
-					{
-						list.erase(dataSet.front());
-						dataSet.pop_front();
-					}
-				}
-			}
-		}
-
-		void testValue()
-		{
-			SkipList_Map<integer, integer> list;
-
-			{
-				TEST_ENSURE(list.empty());
-				TEST_ENSURE_OP(list.size(), ==, 0);
-				TEST_ENSURE(list.cbegin() == list.cend());
-			}
-
-			list.insert(1, 1);
-			list.insert(5, 2);
-			list.insert(3, 3);
-			list.insert(4, 4);
-			list.insert(8, 5);
-			list.insert(7, 6);
-			list.insert(6, 7);
-			list.insert(9, 8);
-			list.insert(2, 9);
-
-			integer correctSet[] = 
-			{
-				1, 9, 3, 4, 2, 7, 6, 5, 8
-			};
-
-			{
-				TEST_ENSURE(!list.empty());
-				TEST_ENSURE_OP(list.size(), ==, 9);
-				TEST_ENSURE(boost::equal(list, correctSet));
-			}
-		}
-
 		void testSimple()
 		{
 			List list;
@@ -109,14 +50,15 @@ namespace
 			list.insert(1);
 			list.insert(5);
 			list.insert(3);
-			list.insert(4);
+
+			ConstIterator four = list.insert(4);
 			list.insert(8);
 			list.insert(7);
 			list.insert(6);
 			list.insert(9);
 			list.insert(2);
 
-			integer correctSet[] = 
+			integer correctSet[] =
 			{
 				1, 2, 3, 4, 5, 6, 7, 8, 9
 			};
@@ -148,11 +90,24 @@ namespace
 				TEST_ENSURE_OP(*list.lower_bound(9), ==, 9);
 				TEST_ENSURE(list.lower_bound(10) == list.cend());
 
+				TEST_ENSURE_OP(*list.lower_bound(0, four), ==, 1);
+				TEST_ENSURE_OP(*list.lower_bound(1, four), ==, 1);
+				TEST_ENSURE_OP(*list.lower_bound(2, four), ==, 2);
+				TEST_ENSURE_OP(*list.lower_bound(8, four), ==, 8);
+				TEST_ENSURE_OP(*list.lower_bound(9, four), ==, 9);
+				TEST_ENSURE(list.lower_bound(10, four) == list.cend());
+
 				TEST_ENSURE_OP(*list.upper_bound(0), ==, 1);
 				TEST_ENSURE_OP(*list.upper_bound(1), ==, 2);
 				TEST_ENSURE_OP(*list.upper_bound(2), ==, 3);
 				TEST_ENSURE_OP(*list.upper_bound(8), ==, 9);
 				TEST_ENSURE(list.upper_bound(9) == list.cend());
+
+				TEST_ENSURE_OP(*list.upper_bound(0, four), ==, 1);
+				TEST_ENSURE_OP(*list.upper_bound(1, four), ==, 2);
+				TEST_ENSURE_OP(*list.upper_bound(2, four), ==, 3);
+				TEST_ENSURE_OP(*list.upper_bound(8, four), ==, 9);
+				TEST_ENSURE(list.upper_bound(9, four) == list.cend());
 
 				TEST_ENSURE(list.find(0) == list.end());
 				TEST_ENSURE(
@@ -233,6 +188,65 @@ namespace
 				TEST_ENSURE_OP(moveList.size(), ==, 0);
 				TEST_ENSURE(moveList.empty());
 				TEST_ENSURE(listEnd == moveList.cend());
+			}
+		}
+
+		void testValue()
+		{
+			SkipList_Map<integer, integer> list;
+
+			{
+				TEST_ENSURE(list.empty());
+				TEST_ENSURE_OP(list.size(), ==, 0);
+				TEST_ENSURE(list.cbegin() == list.cend());
+			}
+
+			list.insert(1, 1);
+			list.insert(5, 2);
+			list.insert(3, 3);
+			list.insert(4, 4);
+			list.insert(8, 5);
+			list.insert(7, 6);
+			list.insert(6, 7);
+			list.insert(9, 8);
+			list.insert(2, 9);
+
+			integer correctSet[] = 
+			{
+				1, 9, 3, 4, 2, 7, 6, 5, 8
+			};
+
+			{
+				TEST_ENSURE(!list.empty());
+				TEST_ENSURE_OP(list.size(), ==, 9);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+		}
+
+		void testRandom()
+		{
+			List list;
+			std::list<integer> dataSet;
+			const integer listSizeSet[] = 
+				{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1000};
+
+			for (integer listSize : listSizeSet)
+			{
+				list.clear();
+				dataSet.clear();
+				for (integer i = 0;i < listSize;++i)
+				{
+					const integer n = randomInteger();
+					dataSet.push_back(n);
+
+					list.insert(n);
+
+					if (list.size() > listSize)
+					{
+						list.erase(dataSet.front());
+						dataSet.pop_front();
+					}
+				}
 			}
 		}
 	};

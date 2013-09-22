@@ -72,24 +72,29 @@ namespace Pastel
 		std::stable_sort(sortedList.begin(), sortedList.end(), 
 			SortErrorByFileName());
 
+		std::string prevFileName;
 		for (integer i = 0;i < errors;++i)
 		{
-			output << "--" << logNewLine;
-
 			const TestReport::ErrorInfo& errorInfo =
 				*sortedList[i];
 
 			if (!errorInfo.fileName().empty())
 			{
-				output << errorInfo.fileName();
-
-				if (errorInfo.lineNumber() >= 0)
+				if (errorInfo.fileName() != prevFileName)
 				{
-					output << " (" << errorInfo.lineNumber() << "):";
+					output << errorInfo.fileName() << logNewLine;
+					prevFileName = errorInfo.fileName();
 				}
-	
+
 				output << logNewLine;
 			}
+
+			output << "--";
+			if (errorInfo.lineNumber() >= 0)
+			{
+				output << " " << errorInfo.lineNumber() << " --";
+			}
+			output << logNewLine;
 
 			if (errorInfo.hitCount() > 1)
 			{

@@ -14,10 +14,14 @@ namespace Pastel
 		class Indicator
 		{
 		public:
-			typedef UserDefinedType Point;
-
-			//! Return whether to accept an object.
-			bool operator()(const Point& point) const;
+			//! Returns whether an element is in the true-set.
+			/*!
+			The true-set is the set of those elements which the
+			indicator maps to true. Similarly for the false-set.
+			The false-set is the complement of the true-set.
+			*/
+			template <typename Type>
+			bool operator()(const Type& element) const;
 		};
 
 	}

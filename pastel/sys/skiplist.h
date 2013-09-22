@@ -7,7 +7,9 @@
 #include "pastel/sys/skiplist_node.h"
 #include "pastel/sys/skiplist_iterator.h"
 #include "pastel/sys/random_geometric.h"
-#include "pastel/sys/directed_predicate.h"
+#include "pastel/sys/binary_search.h"
+
+#include <memory>
 
 namespace Pastel
 {
@@ -17,19 +19,8 @@ namespace Pastel
 	Space complexity:
 	O(size()) expected
 
-	Key:
-	The type of the key by which elements are ordered.
-
-	Value:
-	The type of the data associated with a given key. 
-	Setting this to void avoids allocating any memory 
-	for the associated data. In addition, while normally
-	skip list iterators dereference to the value, 
-	after setting Value to void iterators dereference 
-	to the key.
-
-	Settings:
-	A type implementing the SkipList_Settings concept.
+	SkipList_Settings:
+	A type implementing the SkipList_Concepts::Settings concept.
 	*/
 	template <typename SkipList_Settings>
 	class SkipList
@@ -42,18 +33,19 @@ namespace Pastel
 		using Value_Class = typename AsClass<Value>::type;
 
 	private:
-		typedef SkipList_::Node Node;
-		typedef SkipList_::Data_Node<Key, Value_Class> Data_Node;
+		using Node = SkipList_::Node;
+		using Data_Node = SkipList_::Data_Node<Key, Value_Class>;
+		using SuperNode = SkipList_::SuperNode;
 
 	public:
-		typedef SkipList_::Iterator<Node*, Key, Value_Class> 
-			Iterator;
-		typedef SkipList_::Iterator<const Node*, Key, Value_Class> 
-			ConstIterator;
+		using Iterator = 
+			SkipList_::Iterator<Node*, Key, Value_Class>;
+		using ConstIterator = 
+			SkipList_::Iterator<const Node*, Key, Value_Class>;
 
 		// These are aliases for compatibility between boost ranges.
-		typedef Iterator iterator;
-		typedef ConstIterator const_iterator;
+		using iterator = Iterator;
+		using const_iterator = ConstIterator;
 
 		//! Constructs a skip list.
 		/*!
@@ -67,6 +59,7 @@ namespace Pastel
 		: end_(0)
 		, levelRatio_(0.5)
 		, size_(0)
+		, uniqueKeys_(0)
 		{
 			initialize();
 		}
@@ -80,12 +73,8 @@ namespace Pastel
 		strong
 		*/
 		SkipList(const SkipList& that)
-		: end_(0)
-		, levelRatio_(0.5)
-		, size_(0)
+		: SkipList()
 		{
-			initialize();
-
 			try
 			{
 				for (auto iter = that.cbegin();iter != that.cend();++iter)
@@ -99,6 +88,7 @@ namespace Pastel
 				// so remember to clean up in case
 				// of an exception.
 				deinitialize();
+				throw;
 			}
 		}
 
@@ -111,12 +101,8 @@ namespace Pastel
 		strong
 		*/
 		SkipList(SkipList&& that)
-		: end_(0)
-		, levelRatio_(0.5)
-		, size_(0)
+		: SkipList()
 		{
-			initialize();
-
 			// We want to preserve the sentinel
 			// node in 'key'. This is why we
 			// don't use the usual swap() here.
@@ -155,7 +141,7 @@ namespace Pastel
 
 			// We want to preserve the end() iterator,
 			// so we do not use swap().
-			*this = std::move(SkipList(that));
+			*this = SkipList(that);
 
 			return *this;
 		}
@@ -199,7 +185,9 @@ namespace Pastel
 			}
 
 			size_ = that.size_;
+			uniqueKeys_ = that.uniqueKeys_;
 			that.size_ = 0;
+			that.uniqueKeys_ = 0;
 
 			return *this;
 		}
@@ -218,6 +206,7 @@ namespace Pastel
 			swap(end_, that.end_);
 			swap(levelRatio_, that.levelRatio_);
 			swap(size_, that.size_);
+			swap(uniqueKeys_, that.uniqueKeys_);
 		}
 
 		//! Removes all elements from the skip list.
@@ -235,6 +224,15 @@ namespace Pastel
 			Node* end = end_;
 			while(node != end)
 			{
+				if (node->isRepresentative())
+				{
+					// This node is the representative
+					// of its equivalence class.
+					// Delete the equivalence class.
+					delete node->super();
+				}
+
+				// Delete the node.
 				Node* next = node->link<true>(0);
 				delete node;
 				node = next;
@@ -247,8 +245,9 @@ namespace Pastel
 				link(end, end, i);
 			}
 
-			// Update the size.
+			// Update the sizes.
 			size_ = 0;
+			uniqueKeys_ = 0;
 		}
 
 		//! Inserts an element into the skip list.
@@ -259,57 +258,102 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Iterator insert(Key key, Value_Class value = Value_Class())
+		Iterator insert(
+			Key key, 
+			Value_Class value = Value_Class())
 		{
+			// The skip-list may contain equivalent elements,
+			// i.e. keys x and y such that !(x < y) and !(y < x).
+			// This divides the set of elements in the skip-list
+			// into equivalence classes. We let the first element 
+			// of each equivalence class work as a representative.
+
+			// The levels of the skip-list are as follows:
+			// 0) All elements.
+			// 1) All representatives.
+			// n) A sampling of the elements in the level (n - 1).
+
+			// We call the levels > 0 _skip_ levels, and
+			// the level 0 the _basic_ level.
+
 			// Choose the number of levels in a node
 			// as a geometrically-distributed random
-			// number.
+			// number. The number of levels has to be at 
+			// least 2, since every element may have to 
+			// act as a representative at some point.
 			integer levels = std::min(
-					randomGeometric<real>(levelRatio_) + 1,
+					randomGeometric<real>(1 - levelRatio_) + 2,
 					maxLevels());
 
-			// Find the predecessor node from the
-			// linked list at each level.
-			Node* end = end_;
-			Node* node = end;
-			std::vector<Node*> beforeSet(levels);
-			for (integer i = maxLevels() - 1;i >= 0;--i)
-			{
-				Node* next = node->link<true>(i);
-				while (next != end && 
-					Compare()(((Data_Node*)next)->key(), key))
-				{
-					node = next;
-					next = node->link<true>(i);
-				}
+			// Find the element before which to insert
+			// the new element.
+			Iterator nextIter = upper_bound(key);
 
-				if (i < levels)
-				{
-					beforeSet[i] = node;
-				}
+			// Check if there already is an equivalent
+			// key in the skip-list.
+			bool keyAlreadyExists = false;
+			if (nextIter != begin())
+			{
+				Iterator prevNextIter = std::prev(nextIter);
+				keyAlreadyExists = !Compare()(prevNextIter.key(), key);
 			}
 
 			// Create a new node with the given number
 			// of levels and the given data.
-			Data_Node* newNode =
-				new Data_Node(levels, std::move(key), std::move(value));
+			std::unique_ptr<Data_Node> nodePtr(
+				new Data_Node(levels, 0, 
+					std::move(key), std::move(value)));
+			Data_Node* node = nodePtr.get();
 
-			for (integer i = 0;i < levels;++i)
+			SuperNode* super = 0;
+			if (keyAlreadyExists)
 			{
-				// Link the new node into the linked list
-				// at the i:th level.
-				Node* next = beforeSet[i]->link<true>(i);
-				Node* prev = beforeSet[i];
+				// At least one equivalent key exists in the
+				// skip-list already. Refer to its equivalence
+				// class.
+				Iterator prevNextIter = std::prev(nextIter);
+				super = prevNextIter.base()->super();
+			}
+			else
+			{
+				// Since the key is unique, create a 
+				// new equivalence class for it.
+				super = new SuperNode(node);
+			}
+			node->super() = super;
 
-				link(newNode, next, i);
-				link(prev, newNode, i);
+			// No exceptions beyond this point.
+			nodePtr.release();
+
+			// Link the basic level.
+			{
+				Node* next = (Node*)nextIter.base();
+				Node* prev = next->link<false>(0);
+				link(prev, node, 0);
+				link(node, next, 0);
+			}
+
+			if (!keyAlreadyExists)
+			{
+				// The inserted key is unique to the skip-list.
+				// Link the skip-levels.
+				linkSkipLevels(node);
+				++uniqueKeys_;
+			}
+			else
+			{
+				// The skip-list contains keys 
+				// which are equivalent to the
+				// inserted key. We will make the
+				// new element invisible to the
+				// skip-levels by not linking them.
 			}
 
 			// Update the size.
 			++size_;
 
 			// Return an iterator to the new node.
-			return Iterator(newNode);
+			return Iterator(node);
 		}
 
 		//! Removes all elements equivalent to 'key'.
@@ -333,11 +377,10 @@ namespace Pastel
 			// the nodes being removed.
 
 			ConstIterator iter = lower_bound(key);
+			ConstIterator iterEnd = upper_bound(key, iter);
 
 			// Remove all elements equivalent to 'key'.
-			while(iter != cend() && 
-				!Compare()(iter.key(), key) &&
-				!Compare()(key, iter.key()))
+			while(iter != iterEnd)
 			{
 				iter = erase(iter);
 			}
@@ -361,9 +404,7 @@ namespace Pastel
 			PENSURE(that != cend());
 
 			Node* node = (Node*)that.base();
-
-			Iterator result(node);
-			++result;
+			Node* next = node->link<true>(0);
 
 			// Link the node off from the list.
 			integer n = node->size();
@@ -375,12 +416,43 @@ namespace Pastel
 				link(prev, next, i);
 			}
 
+			if (node->isRepresentative())
+			{
+				// The deleted node is a representative of
+				// its equivalence class.
+				if (next == end_ ||
+					Compare()(nodeKey(node), nodeKey(next)))
+				{
+					// The deleted element is unique.
+
+					// Delete the equivalence class.
+					delete node->super();
+					--uniqueKeys_;
+				}
+				else
+				{
+					// There are additional equivalent elements
+					// in the skip-list. Link the skip-levels 
+					// of the next element to make it a new
+					// representative.
+					linkSkipLevels(next);
+					node->super()->repr() = next;
+				}
+			}
+			else
+			{
+				// There are multiple equivalent elements
+				// in the skip-list, but the deleted element
+				// is not a representative of its equivalence
+				// class.
+			}
+
 			// Delete the node.
 			delete node;
 			--size_;
 
 			// Return the next iterator.
-			return result;
+			return Iterator(next);
 		}
 
 		//! Casts a const-iterator to an iterator.
@@ -398,32 +470,38 @@ namespace Pastel
 
 		//! Returns the first element == 'key'.
 		/*!
-		Time complexity:
-		O(log(size())) expected
+		See the documentation for find() const.
+		*/
+		Iterator find(
+			const Key& key, 
+			const ConstIterator& hint)
+		{
+			return cast(addConst(*this).find(key, hint));
+		}
 
-		Exception safety:
-		nothrow
-
-		returns:
-		An iterator to the element, if found,
-		end(), otherwise.
+		//! Returns the first element == 'key'.
+		/*!
+		See the documentation for find() const.
 		*/
 		Iterator find(const Key& key)
 		{
-			Iterator result = lower_bound(key);
-			if (result == end() ||
-				Compare()(key, result.key()))
-			{
-				return end();
-			}
-
-			return result;
+			return cast(addConst(*this).find(key));
 		}
 
 		//! Returns the first element equivalent to 'key'.
 		/*!
 		Time complexity:
-		O(log(size())) expected
+		O(log(Delta + 2)) expected,
+		where
+		Delta is the distance between the elements
+		iterator and the hint iterator. If the element
+		does not exist, then Delta = size().
+
+		key:
+		The element the search for.
+
+		hint:
+		An iterator from which to start searching from.
 
 		Exception safety:
 		nothrow
@@ -432,11 +510,13 @@ namespace Pastel
 		An iterator to the element, if found,
 		cend(), otherwise.
 		*/
-		ConstIterator find(const Key& key) const
+		ConstIterator find(
+			const Key& key, 
+			const ConstIterator& hint) const
 		{
-			ConstIterator result = lower_bound(key);
+			ConstIterator result = lower_bound(key, hint);
 			if (result == cend() ||
-				Compare()(key, result->key()))
+				Compare()(key, result.key()))
 			{
 				return cend();
 			}
@@ -444,17 +524,34 @@ namespace Pastel
 			return result;
 		}
 
+		//! Returns the first element == 'key'.
+		/*!
+		This is a convenience function which calls
+		find(key, cend())
+		*/
+		ConstIterator find(const Key& key) const
+		{
+			return find(key, cend());
+		}
+
 		//! Returns the first element >= 'key'.
 		/*!
-		Time complexity:
-		O(log(size())) expected
+		See the documentation for lower_bound() const.
+		*/
+		Iterator lower_bound(
+			const Key& key, 
+			const ConstIterator& hint)
+		{
+			return cast(addConst(*this).lower_bound(key, hint));
+		}
 
-		Exception safety:
-		nothrow
+		//! Returns the first element >= 'key'.
+		/*!
+		See the documentation for lower_bound() const.
 		*/
 		Iterator lower_bound(const Key& key)
 		{
-			return Iterator(nodeBound<true>(key));
+			return cast(addConst(*this).lower_bound(key));
 		}
 
 		//! Returns the first element >= 'key'.
@@ -462,25 +559,50 @@ namespace Pastel
 		Time complexity:
 		O(log(size())) expected
 
+		key:
+		The element the search for.
+
+		hint:
+		An iterator from which to start searching from.
+
 		Exception safety:
 		nothrow
+		*/
+		ConstIterator lower_bound(
+			const Key& key,
+			const ConstIterator& hint) const
+		{
+			return ConstIterator(nodeLowerBound(key, hint));
+		}
+
+		//! Returns the first element >= 'key'.
+		/*!
+		This is a convenience function which calls
+		lower_bound(key, cend()) const
 		*/
 		ConstIterator lower_bound(const Key& key) const
 		{
-			return ConstIterator(nodeBound<true>(key));
+			return lower_bound(key, cend());
 		}
 
 		//! Returns the first element > 'key'.
 		/*!
-		Time complexity:
-		O(log(size())) expected
+		See the documentation for upper_bound() const.
+		*/
+		Iterator upper_bound(
+			const Key& key,
+			const ConstIterator& hint)
+		{
+			return cast(addConst(*this).upper_bound(key, hint));
+		}
 
-		Exception safety:
-		nothrow
+		//! Returns the first element > 'key'.
+		/*!
+		See the documentation for upper_bound() const.
 		*/
 		Iterator upper_bound(const Key& key)
 		{
-			return Iterator(nodeBound<false>(key));
+			return cast(addConst(*this).upper_bound(key));
 		}
 
 		//! Returns the first element > 'key'.
@@ -488,12 +610,30 @@ namespace Pastel
 		Time complexity:
 		O(log(size())) expected
 
+		key:
+		The element the search for.
+
+		hint:
+		An iterator from which to start searching from.
+
 		Exception safety:
 		nothrow
 		*/
+		ConstIterator upper_bound(
+			const Key& key,
+			const ConstIterator& hint) const
+		{
+			return ConstIterator(nodeUpperBound(key, hint));
+		}
+
+		//! Returns the first element > 'key'.
+		/*!
+		This is a convenience function which calls
+		upper_bound(key, cend()) const
+		*/
 		ConstIterator upper_bound(const Key& key) const
 		{
-			return ConstIterator(nodeBound<false>(key));
+			return upper_bound(key, cend());
 		}
 
 		//! Returns the number of elements in the skip list.
@@ -507,6 +647,19 @@ namespace Pastel
 		integer size() const
 		{
 			return size_;
+		}
+
+		//! Returns the number of unique keys in the skip list.
+		/*!
+		Time complexity:
+		O(1)
+
+		Exception safety:
+		nothrow
+		*/
+		integer uniqueKeys() const
+		{
+			return uniqueKeys_;
 		}
 
 		//! Returns whether the skip list is empty.
@@ -542,6 +695,10 @@ namespace Pastel
 
 		//! Sets the level ratio.
 		/*!
+		Preconditions:
+		levelRatio > 0
+		levelRatio < 1
+
 		Time complexity:
 		O(1)
 
@@ -555,7 +712,7 @@ namespace Pastel
 		void setLevelRatio(real levelRatio)
 		{
 			ENSURE_OP(levelRatio, >, 0);
-			ENSURE_OP(levelRatio, <, 0);
+			ENSURE_OP(levelRatio, <, 1);
 
 			levelRatio_ = levelRatio;
 		}
@@ -624,7 +781,11 @@ namespace Pastel
 			for (integer i = 0;i < list.maxLevels();++i)
 			{
 				Node* node = list.end_;
-				node = node->link_[i].next[1];
+				node = node->link<true>(i);
+				if (node == list.end_)
+				{
+					break;
+				}
 				while(node != list.end_)
 				{
 					std::cout << ((Data_Node*)node)->key() << ", ";
@@ -642,7 +803,17 @@ namespace Pastel
 			const integer maxLevels = 64;
 
 			// Create the sentinel node.
-			end_ = new Node(maxLevels);
+			std::unique_ptr<Node> endPtr(
+				new Node(maxLevels, 0));
+			end_ = endPtr.get();
+
+			// Create the equivalence class
+			// for the sentinel node.
+			end_->super() = new SuperNode(end_);
+			ASSERT(end_->repr() == end_)
+
+			// No exceptions beyond this point.
+			endPtr.release();
 
 			// Link the sentinel node to itself.
 			Node* node = end_;
@@ -656,6 +827,7 @@ namespace Pastel
 		void deinitialize()
 		{
 			clear();
+			delete end_->super();
 			delete end_;
 		}
 
@@ -665,33 +837,168 @@ namespace Pastel
 			return ((Data_Node*)node)->key();
 		}
 
-		template <bool Direction>
-		Node* nodeBound(const Key& key) const
+		void linkSkipLevels(Node* node)
 		{
-			typedef Directed_Predicate<Compare, Direction>
-				Directed_Compare;
+			ASSERT(node != end_);
 
-			Node* end = end_;
-			Node* node = end;
-			integer n = node->size();
-			for (integer i = n - 1;i >= 0;--i)
+			// We will find the predecessors 
+			// at each skip-level, and then link the 
+			// node between the predecessor and its
+			// successor.
+			integer levels = node->size();
+			integer i = 1;
+
+			// Find the representative of the previous element.
+			// Only representatives have the skip-levels linked.
+			Node* prev = node->link<false>(0)->repr();
+			while(i < levels)
 			{
-				Node* next = node->link<Direction>(i);
-
-				while (next != end && 
-					Directed_Compare()(nodeKey(next), key))
+				while (i < prev->size() && i < levels)
 				{
-					node = next;
-					next = node->link<Direction>(i);
+					// The node should not be linked before.
+					ASSERT(!node->link<false>(i));
+					ASSERT(!node->link<true>(i));
+
+					Node* next = prev->link<true>(i);
+					link(prev, node, i);
+					link(node, next, i);
+					++i;
+				}
+
+				prev = prev->link<false>(prev->size() - 1);
+			}
+		}
+
+		Node* nodeLowerBound(
+			const Key& key,
+			const ConstIterator& hint) const
+		{
+			// Get the representative for 'hint'.
+			Node* node = ((Node*)hint.base())->repr();
+
+			bool direction = true;
+			Node* end = end_;
+			if (node != end)
+			{
+				if (Compare()(nodeKey(node), key))
+				{
+					// Failing this invariant means that
+					// Compare() is not a strict weak order;
+					// this is an error in the user's code.
+					PENSURE(!Compare()(key, nodeKey(node)));
+
+					// The 'key' is to the right of 'hint'. 
+					direction = true;
+				}
+				else if (Compare()(key, nodeKey(node)))
+				{
+					// The 'key' is to the left from 'hint'.
+					direction = false;
+				}
+				else
+				{
+					// The 'key' is equivalent to 'hint'.
+					Node* lowerBound = node;
+					return lowerBound;
 				}
 			}
-			
-			if (Direction)
+
+			// We know that 'node' is a representative.
+			// Therefore it contains level-1 links.
+			integer level = 1;
+			integer minLevel = 1;
+
+			auto validMoveTest = [&](integer level)
 			{
-				node = node->link<Direction>(0);
+				Node* next = node->link(level, direction);
+				// We call 'next' an overshoot, if
+				// 1) it is the sentinel node,
+				// 2) it is not the sentinel node, and 
+				// 'key' is smaller than the key of 'next',
+				// 3) it is not the sentinel node, and
+				// 'key' is equivalent to the key of 'next'.
+				bool overshoots = (next == end ||
+					Compare()(nodeKey(next), key) != direction);
+				return !overshoots;
+			};
+
+			// Ascend towards the key.
+			while(true)
+			{
+				integer overshootLevel = 
+					binarySearch(minLevel, node->size(), validMoveTest);
+
+				if (overshootLevel == minLevel)
+				{
+					// The link overshoots on all levels up
+					// from 'minLevel'. Start descending.
+					break;
+				}
+
+				minLevel = overshootLevel - 1;
+				node = node->link(minLevel, direction);
+			}
+
+			// Descend towards the key.
+			integer maxLevel = minLevel;
+			while(true)
+			{
+				integer overshootLevel = 
+					binarySearch((integer)1, maxLevel, validMoveTest);
+
+				if (overshootLevel == 1)
+				{
+					// The link overshoots on all levels up from 1.
+					break;
+				}
+
+				maxLevel = overshootLevel;
+				node = node->link(maxLevel - 1, direction);
+			}
+
+			if (direction)
+			{
+				// The next node gives the lower-bound.
+				node = node->link(0, direction);
 			}
 
 			return node;
+		}
+
+		Node* nodeUpperBound(
+			const Key& key,
+			const ConstIterator& hint) const
+		{
+			Node* lowerBound = nodeLowerBound(key, hint);
+			ASSERT(lowerBound->isRepresentative());
+
+			if (lowerBound == end_)
+			{
+				// If the key does not have a lower-bound,
+				// then it does not have an upper-bound 
+				// either.
+				return end_;
+			}
+			
+			Node* upperBound = lowerBound;
+			if (!Compare()(key, nodeKey(upperBound)))
+			{
+				// The lower bound is equivalent to the
+				// key. Therefore the upper-bound is given 
+				// by the next unique key. Since 
+				// 'lowerBound' is a representative,
+				// it is linked on level 1, which
+				// directly gives the node with the
+				// next unique key.
+				upperBound = upperBound->link<true>(1);
+			}
+			else
+			{
+				// Since the lower-bound is not equivalent
+				// to the key, it is also an upper-bound.
+			}
+
+			return upperBound;
 		}
 
 		void link(Node* left, Node* right, integer i)
@@ -703,6 +1010,7 @@ namespace Pastel
 		Node* end_;
 		real levelRatio_;
 		integer size_;
+		integer uniqueKeys_;
 	};
 
 }
