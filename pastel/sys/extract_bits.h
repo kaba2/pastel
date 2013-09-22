@@ -1,4 +1,5 @@
 // Description: Bit extraction
+// Documentation: bit_tricks.txt
 
 #ifndef PASTELSYS_EXTRACT_BITS_H
 #define PASTELSYS_EXTRACT_BITS_H
