@@ -43,8 +43,8 @@ namespace Pastel
 		virtual real evaluateInRange(real x) const;
 
 	private:
-		Mitchell_Filter(const Mitchell_Filter& that) PASTEL_DELETE;
-		Mitchell_Filter& operator=(const Mitchell_Filter& that) PASTEL_DELETE;
+		Mitchell_Filter(const Mitchell_Filter& that) = delete;
+		Mitchell_Filter& operator=(const Mitchell_Filter& that) = delete;
 
 		real b_;
 		real c_;

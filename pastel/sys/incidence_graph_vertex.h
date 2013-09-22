@@ -184,14 +184,14 @@ namespace Pastel
 		}
 
 	private:
-		Vertex() PASTEL_DELETE;
-		Vertex(const Vertex& that) PASTEL_DELETE;
+		Vertex() = delete;
+		Vertex(const Vertex& that) = delete;
 
 		// Making the operator= private would give the error
 		// C2876: "not all overloads are accessible".
 		// FIX: Remove public when 'delete' becomes available.
 	public:
-		Vertex& operator=(Vertex that) PASTEL_DELETE;
+		Vertex& operator=(Vertex that) = delete;
 
 	private:
 		explicit Vertex(VertexData_Class data)

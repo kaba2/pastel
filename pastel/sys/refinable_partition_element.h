@@ -74,9 +74,9 @@ namespace Pastel
 		}
 
 	private:
-		Element() PASTEL_DELETE;
-		Element(const Element& that) PASTEL_DELETE;
-		Element& operator=(Element that) PASTEL_DELETE;
+		Element() = delete;
+		Element(const Element& that) = delete;
+		Element& operator=(Element that) = delete;
 
 		//! Constructs the element.
 		/*!

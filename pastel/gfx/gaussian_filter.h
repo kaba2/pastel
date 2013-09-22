@@ -25,8 +25,8 @@ namespace Pastel
 		virtual real evaluateInRange(real x) const;
 
 	private:
-		Gaussian_Filter(const Gaussian_Filter& that) PASTEL_DELETE;
-		Gaussian_Filter& operator=(const Gaussian_Filter& that) PASTEL_DELETE;
+		Gaussian_Filter(const Gaussian_Filter& that) = delete;
+		Gaussian_Filter& operator=(const Gaussian_Filter& that) = delete;
 	};
 
 	typedef std::shared_ptr<Gaussian_Filter> GaussianFilterPtr;

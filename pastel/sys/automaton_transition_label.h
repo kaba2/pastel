@@ -38,14 +38,14 @@ namespace Pastel
 		}
 
 	private:
-		TransitionLabel() PASTEL_DELETE;
-		TransitionLabel(const TransitionLabel& that) PASTEL_DELETE;
+		TransitionLabel() = delete;
+		TransitionLabel(const TransitionLabel& that) = delete;
 
 		// Making the operator= private would give the error
 		// C2876: "not all overloads are accessible".
 		// FIX: Remove public when 'delete' becomes available.
 	public:
-		TransitionLabel& operator=(TransitionLabel that) PASTEL_DELETE;
+		TransitionLabel& operator=(TransitionLabel that) = delete;
 
 	private:
 		template <

@@ -193,7 +193,7 @@ namespace Pastel
 		}
 
 	private:
-		AlignedPlane() PASTEL_DELETE;
+		AlignedPlane() = delete;
 
 		integer dimension_;
 		Real position_;

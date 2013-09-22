@@ -13,8 +13,8 @@
 	{ \
 	public: \
 		Type( \
-			PASTEL_REMOVE_BRACKETS_(A) a##_, \
-			PASTEL_REMOVE_BRACKETS_(B) b##_) \
+			PASTEL_REMOVE_BRACKETS(A) a##_, \
+			PASTEL_REMOVE_BRACKETS(B) b##_) \
 			: a(std::move(a##_)) \
 			, b(std::move(b##_)) \
 		{ \
@@ -34,8 +34,8 @@
 				Pastel::computeHash(b)); \
 		} \
 		\
-		PASTEL_REMOVE_BRACKETS_(A) a; \
-		PASTEL_REMOVE_BRACKETS_(B) b; \
+		PASTEL_REMOVE_BRACKETS(A) a; \
+		PASTEL_REMOVE_BRACKETS(B) b; \
 	}
 
 #define PASTEL_NAMED_TUPLE3(Type, A, a, B, b, C, c) \
@@ -44,9 +44,9 @@
 	{ \
 	public: \
 		Type( \
-			PASTEL_REMOVE_BRACKETS_(A) a##_, \
-			PASTEL_REMOVE_BRACKETS_(B) b##_, \
-			PASTEL_REMOVE_BRACKETS_(C) c##_) \
+			PASTEL_REMOVE_BRACKETS(A) a##_, \
+			PASTEL_REMOVE_BRACKETS(B) b##_, \
+			PASTEL_REMOVE_BRACKETS(C) c##_) \
 			: a(std::move(a##_)) \
 			, b(std::move(b##_)) \
 			, c(std::move(c##_)) \
@@ -70,9 +70,9 @@
 				Pastel::computeHash(c)); \
 		} \
 		\
-		PASTEL_REMOVE_BRACKETS_(A) a; \
-		PASTEL_REMOVE_BRACKETS_(B) b; \
-		PASTEL_REMOVE_BRACKETS_(C) c; \
+		PASTEL_REMOVE_BRACKETS(A) a; \
+		PASTEL_REMOVE_BRACKETS(B) b; \
+		PASTEL_REMOVE_BRACKETS(C) c; \
 	}
 
 #endif

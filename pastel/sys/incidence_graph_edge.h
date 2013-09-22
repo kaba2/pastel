@@ -48,10 +48,10 @@ namespace Pastel
 			}
 
 		private:
-			Directed_EdgeData() PASTEL_DELETE;
-			Directed_EdgeData(Directed_EdgeData&& that) PASTEL_DELETE;
-			Directed_EdgeData(const Directed_EdgeData& that) PASTEL_DELETE;
-			Directed_EdgeData& operator=(Directed_EdgeData that) PASTEL_DELETE;
+			Directed_EdgeData() = delete;
+			Directed_EdgeData(Directed_EdgeData&& that) = delete;
+			Directed_EdgeData(const Directed_EdgeData& that) = delete;
+			Directed_EdgeData& operator=(Directed_EdgeData that) = delete;
 		};
 
 		template <typename Data>
@@ -81,10 +81,10 @@ namespace Pastel
 			}
 
 		private:
-			Directed_EdgeData() PASTEL_DELETE;
-			Directed_EdgeData(Directed_EdgeData&& that) PASTEL_DELETE;
-			Directed_EdgeData(const Directed_EdgeData& that) PASTEL_DELETE;
-			Directed_EdgeData& operator=(Directed_EdgeData that) PASTEL_DELETE;
+			Directed_EdgeData() = delete;
+			Directed_EdgeData(Directed_EdgeData&& that) = delete;
+			Directed_EdgeData(const Directed_EdgeData& that) = delete;
+			Directed_EdgeData& operator=(Directed_EdgeData that) = delete;
 		};
 
 		template <typename Data>
@@ -116,10 +116,10 @@ namespace Pastel
 			}
 
 		private:
-			Directed_EdgeData() PASTEL_DELETE;
-			Directed_EdgeData(Directed_EdgeData&& that) PASTEL_DELETE;
-			Directed_EdgeData(const Directed_EdgeData& that) PASTEL_DELETE;
-			Directed_EdgeData& operator=(Directed_EdgeData that) PASTEL_DELETE;
+			Directed_EdgeData() = delete;
+			Directed_EdgeData(Directed_EdgeData&& that) = delete;
+			Directed_EdgeData(const Directed_EdgeData& that) = delete;
+			Directed_EdgeData& operator=(Directed_EdgeData that) = delete;
 		
 		private:
 			bool directed_;
@@ -179,14 +179,14 @@ namespace Pastel
 		}
 
 	private:
-		Edge() PASTEL_DELETE;
-		Edge(const Edge& that) PASTEL_DELETE;
+		Edge() = delete;
+		Edge(const Edge& that) = delete;
 		
 		// Making the operator= private would give the error
 		// C2876: "not all overloads are accessible".
 		// FIX: Remove public when 'delete' becomes available.
 	public:
-		Edge& operator=(Edge that) PASTEL_DELETE;
+		Edge& operator=(Edge that) = delete;
 	
 	private:
 		explicit Edge(EdgeData_Class data, bool directed)

@@ -133,9 +133,9 @@ namespace Pastel
 		private:
 			// These functions will not be used, and so should
 			// be deleted to avoid accidental splicing.
-			Customization(const Customization& that) PASTEL_DELETE;
-			Customization(Customization&& that) PASTEL_DELETE;
-			Customization& operator=(Customization) PASTEL_DELETE;
+			Customization(const Customization& that) = delete;
+			Customization(Customization&& that) = delete;
+			Customization& operator=(Customization) = delete;
 		};
 
 	}

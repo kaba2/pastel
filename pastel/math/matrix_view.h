@@ -205,7 +205,7 @@ namespace Pastel
 
 	private:
 		ConstSubMatrix& operator=(
-			const ConstSubMatrix& that) PASTEL_DELETE;
+			const ConstSubMatrix& that) = delete;
 
 		ConstSubArray<Real> data_;
 	};

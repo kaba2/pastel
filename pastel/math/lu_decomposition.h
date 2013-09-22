@@ -67,7 +67,7 @@ namespace Pastel
 		bool singular() const;
 
 	private:
-		LuDecomposition() PASTEL_DELETE;
+		LuDecomposition() = delete;
 
 		bool decompose();
 

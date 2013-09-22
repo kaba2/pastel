@@ -828,7 +828,7 @@ namespace Pastel
 		// a 0x0 matrix, because it easily leads 
 		// to bugs caused by forgetting to specify 
 		// the extents.
-		Matrix() PASTEL_DELETE;
+		Matrix() = delete;
 
 		Array<Real> data_;
 	};

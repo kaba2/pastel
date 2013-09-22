@@ -26,8 +26,8 @@ namespace Pastel
 		virtual real evaluateInRange(real x) const;
 
 	private:
-		Box_Filter(const Box_Filter& that) PASTEL_DELETE;
-		Box_Filter& operator=(const Box_Filter& that) PASTEL_DELETE;
+		Box_Filter(const Box_Filter& that) = delete;
+		Box_Filter& operator=(const Box_Filter& that) = delete;
 	};
 
 	typedef std::shared_ptr<Box_Filter> BoxFilterPtr;

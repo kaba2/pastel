@@ -49,9 +49,9 @@ namespace Pastel
 		PASTEL_PARAMETER(integer, bucketSize);
 
 	private:
-		//CountNearest_(const CountNearest_&) PASTEL_DELETE;
-		//CountNearest_(CountNearest_&& that) PASTEL_DELETE;
-		CountNearest_& operator=(const CountNearest_&) PASTEL_DELETE;
+		//CountNearest_(const CountNearest_&) = delete;
+		//CountNearest_(CountNearest_&& that) = delete;
+		CountNearest_& operator=(const CountNearest_&) = delete;
 
 	public:
 		operator integer() const

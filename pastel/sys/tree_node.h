@@ -175,7 +175,7 @@ namespace Pastel
 			}
 
 		private:
-		    Data_Node& operator=(Data_Node that) PASTEL_DELETE;
+		    Data_Node& operator=(Data_Node that) = delete;
 		};
 
 	}
