@@ -51,7 +51,9 @@ namespace
 			list.insert(5);
 			list.insert(3);
 
+			list.insert(4);
 			ConstIterator four = list.insert(4);
+			list.insert(4);
 			list.insert(8);
 			list.insert(7);
 			list.insert(6);
@@ -60,7 +62,7 @@ namespace
 
 			integer correctSet[] =
 			{
-				1, 2, 3, 4, 5, 6, 7, 8, 9
+				1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9
 			};
 
 			// Test insert.
@@ -72,7 +74,7 @@ namespace
 				// which compares the sizes of the ranges first.
 				// Adding the bidirectional-traversal tag fixed the
 				// bug. This line tests for that.
-				TEST_ENSURE_OP(boost::distance(list), ==, 9);
+				TEST_ENSURE_OP(boost::distance(list), ==, 11);
 				TEST_ENSURE(boost::equal(list, correctSet));
 
 				// Test iterator decrement.
@@ -86,6 +88,7 @@ namespace
 				TEST_ENSURE_OP(*list.lower_bound(0), ==, 1);
 				TEST_ENSURE_OP(*list.lower_bound(1), ==, 1);
 				TEST_ENSURE_OP(*list.lower_bound(2), ==, 2);
+				TEST_ENSURE_OP(*list.lower_bound(4), ==, 4);
 				TEST_ENSURE_OP(*list.lower_bound(8), ==, 8);
 				TEST_ENSURE_OP(*list.lower_bound(9), ==, 9);
 				TEST_ENSURE(list.lower_bound(10) == list.cend());
@@ -93,6 +96,7 @@ namespace
 				TEST_ENSURE_OP(*list.lower_bound(0, four), ==, 1);
 				TEST_ENSURE_OP(*list.lower_bound(1, four), ==, 1);
 				TEST_ENSURE_OP(*list.lower_bound(2, four), ==, 2);
+				TEST_ENSURE_OP(*list.lower_bound(4, four), ==, 4);
 				TEST_ENSURE_OP(*list.lower_bound(8, four), ==, 8);
 				TEST_ENSURE_OP(*list.lower_bound(9, four), ==, 9);
 				TEST_ENSURE(list.lower_bound(10, four) == list.cend());
@@ -100,12 +104,14 @@ namespace
 				TEST_ENSURE_OP(*list.upper_bound(0), ==, 1);
 				TEST_ENSURE_OP(*list.upper_bound(1), ==, 2);
 				TEST_ENSURE_OP(*list.upper_bound(2), ==, 3);
+				TEST_ENSURE_OP(*list.upper_bound(4), ==, 5);
 				TEST_ENSURE_OP(*list.upper_bound(8), ==, 9);
 				TEST_ENSURE(list.upper_bound(9) == list.cend());
 
 				TEST_ENSURE_OP(*list.upper_bound(0, four), ==, 1);
 				TEST_ENSURE_OP(*list.upper_bound(1, four), ==, 2);
 				TEST_ENSURE_OP(*list.upper_bound(2, four), ==, 3);
+				TEST_ENSURE_OP(*list.upper_bound(4, four), ==, 5);
 				TEST_ENSURE_OP(*list.upper_bound(8, four), ==, 9);
 				TEST_ENSURE(list.upper_bound(9, four) == list.cend());
 
@@ -116,6 +122,9 @@ namespace
 				TEST_ENSURE(
 					list.find(2) != list.end() &&
 					*list.find(2) == 2);
+				TEST_ENSURE(
+					list.find(4) != list.end() &&
+					*list.find(4) == 4);
 				TEST_ENSURE(
 					list.find(8) != list.end() &&
 					*list.find(8) == 8);
@@ -130,12 +139,12 @@ namespace
 				List copyList(list);
 				ConstIterator copyEnd = copyList.cend();
 				
-				TEST_ENSURE_OP(list.size(), ==, 9);
+				TEST_ENSURE_OP(list.size(), ==, 11);
 				TEST_ENSURE(!list.empty());
 				TEST_ENSURE(listEnd == list.cend());
 				TEST_ENSURE(boost::equal(list, correctSet));
 				
-				TEST_ENSURE_OP(copyList.size(), ==, 9);
+				TEST_ENSURE_OP(copyList.size(), ==, 11);
 				TEST_ENSURE(!copyList.empty());
 				TEST_ENSURE(listEnd != copyList.cend());
 				TEST_ENSURE(boost::equal(copyList, correctSet));
@@ -146,7 +155,7 @@ namespace
 				TEST_ENSURE(copyList.empty());
 				TEST_ENSURE(copyEnd == copyList.cend());
 				
-				TEST_ENSURE_OP(moveList.size(), ==, 9);
+				TEST_ENSURE_OP(moveList.size(), ==, 11);
 				TEST_ENSURE(!moveList.empty());
 				TEST_ENSURE(copyEnd != moveList.cend());
 				TEST_ENSURE(boost::equal(moveList, correctSet));
@@ -157,12 +166,12 @@ namespace
 				List copyList;
 				copyList = list;
 
-				TEST_ENSURE_OP(list.size(), ==, 9);
+				TEST_ENSURE_OP(list.size(), ==, 11);
 				TEST_ENSURE(!list.empty());
 				TEST_ENSURE(listEnd == list.cend());
 				TEST_ENSURE(boost::equal(list, correctSet));
 				
-				TEST_ENSURE_OP(copyList.size(), ==, 9);
+				TEST_ENSURE_OP(copyList.size(), ==, 11);
 				TEST_ENSURE(!copyList.empty());
 				TEST_ENSURE(listEnd != copyList.cend());
 				TEST_ENSURE(boost::equal(copyList, correctSet));
@@ -174,14 +183,14 @@ namespace
 				TEST_ENSURE(list.empty());
 				TEST_ENSURE(listEnd == list.cend());
 				
-				TEST_ENSURE_OP(moveList.size(), ==, 9);
+				TEST_ENSURE_OP(moveList.size(), ==, 11);
 				TEST_ENSURE(!moveList.empty());
 				TEST_ENSURE(listEnd != moveList.cend());
 				TEST_ENSURE(boost::equal(moveList, correctSet));
 
 				moveList.swap(list);
 
-				TEST_ENSURE_OP(list.size(), ==, 9);
+				TEST_ENSURE_OP(list.size(), ==, 11);
 				TEST_ENSURE(!list.empty());
 				TEST_ENSURE(listEnd != list.cend());
 				
@@ -205,15 +214,15 @@ namespace
 			list.insert(5, 2);
 			list.insert(3, 3);
 			list.insert(4, 4);
-			list.insert(8, 5);
-			list.insert(7, 6);
-			list.insert(6, 7);
-			list.insert(9, 8);
-			list.insert(2, 9);
+			list.insert(4, 5);
+			list.insert(4, 6);
+			list.insert(2, 7);
+			list.insert(7, 8);
+			list.insert(6, 9);
 
 			integer correctSet[] = 
 			{
-				1, 9, 3, 4, 2, 7, 6, 5, 8
+				1, 7, 3, 4, 5, 6, 2, 9, 8
 			};
 
 			{
