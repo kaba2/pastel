@@ -18,7 +18,7 @@ project (Pastel)
 
 # The directory of the Boost library's source code.
 # The includes are of the form 'boost/static_assert.hpp'.
-set (BoostIncludeDirectory ../boost)
+set (BoostIncludeDirectory ../boost_1_54_0)
 
 # The directory of the Threading Building Blocks library's 
 # source code. The includes are of the form 'tbb/parallel_for.h'.
@@ -26,11 +26,13 @@ set (TbbIncludeDirectory ../tbb42/include)
 
 # The directory of the Threading Building Blocks library's 
 # dynamic libraries.
-set (TbbLibraryDirectory ../tbb42/lib/intel64/vc11)
+#set (TbbLibraryDirectory ../tbb42/lib/intel64/vc11)
+set (TbbLibraryDirectory "")
 
 # The directory of the Matlab header files.
 # The includes are of the form 'mex.h'.
-set (MatlabIncludeDirectory "C:/Program Files/MATLAB/R2013a/extern/include")
+#set (MatlabIncludeDirectory "C:/Program Files/MATLAB/R2013a/extern/include")
+set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
 
 # Note: To successfully _compile_ Pastel's Matlab-libraries, 
 # you only need the header files for Matlab. 

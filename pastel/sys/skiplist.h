@@ -959,7 +959,7 @@ namespace Pastel
 			if (direction)
 			{
 				// The next node gives the lower-bound.
-				node = node->link(0, direction);
+				node = node->link(1, direction);
 			}
 
 			return node;
