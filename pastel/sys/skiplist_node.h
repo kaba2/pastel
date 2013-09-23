@@ -22,6 +22,7 @@ namespace Pastel
 		public:
 			explicit SuperNode(Node* repr)
 			: repr_(repr)
+			, keys_(1)
 			{
 			}
 
@@ -35,7 +36,18 @@ namespace Pastel
 				return repr_;
 			}
 
+			integer& keys()
+			{
+				return keys_;
+			}
+
+			integer keys() const
+			{
+				return keys_;
+			}
+
 			Node* repr_;
+			integer keys_;
 		};
 
 		class Node
@@ -101,6 +113,16 @@ namespace Pastel
 				}
 
 				return (Node*)this;
+			}
+
+			integer keys() const
+			{
+				if (super())
+				{
+					return super()->keys();
+				}
+				
+				return 1;
 			}
 
 			bool isRepresentative() const

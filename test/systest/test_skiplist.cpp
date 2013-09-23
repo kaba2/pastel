@@ -174,7 +174,7 @@ namespace
 				TEST_ENSURE(list.empty());
 			}
 
-			list.insert(1);
+			ConstIterator one = list.insert(1);
 			list.insert(5);
 			list.insert(3);
 			list.insert(4);
@@ -185,6 +185,11 @@ namespace
 			list.insert(6);
 			list.insert(9);
 			list.insert(2);
+
+			{
+				TEST_ENSURE_OP(four.equivalents(), ==, 3);
+				TEST_ENSURE_OP(one.equivalents(), ==, 1);
+			}
 
 			integer correctSet[] =
 			{

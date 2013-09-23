@@ -330,6 +330,7 @@ namespace Pastel
 				// Assign the equivalence class to the
 				// new element.
 				node->super() = super;
+				++super->keys();
 			}
 
 			// No exceptions beyond this point.
@@ -448,8 +449,8 @@ namespace Pastel
 					// of its equivalence class.
 				}
 
-				Node* nextNext = next->link<true>(0);
-				if (nextNext->repr() != node->repr())
+				--node->super()->keys();
+				if (node->super()->keys() == 1)
 				{
 					// After deletion there will be only
 					// one element in the equivalence class.
