@@ -1,5 +1,5 @@
-Augmented red-black tree
-========================
+Red-black tree
+==============
 
 [[Parent]]: data_structures.txt
 
