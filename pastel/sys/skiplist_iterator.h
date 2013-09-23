@@ -82,6 +82,11 @@ namespace Pastel
 				return ((Data_Node*)this->base())->value();
 			}
 
+			integer equivalents()
+			{
+				return this->base()->keys();
+			}
+
 		private:
 			friend class boost::iterator_core_access;
 
