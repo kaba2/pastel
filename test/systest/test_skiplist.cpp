@@ -44,13 +44,139 @@ namespace
 			{
 				TEST_ENSURE(list.empty());
 				TEST_ENSURE_OP(list.size(), ==, 0);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 0);
 				TEST_ENSURE(list.cbegin() == list.cend());
 			}
 
 			list.insert(1);
 			list.insert(5);
 			list.insert(3);
+			list.insert(4);
+			list.insert(4);
+			list.insert(4);
+			list.insert(8);
+			list.insert(7);
+			list.insert(6);
+			list.insert(9);
+			list.insert(2);
 
+			{
+				integer correctSet[] =
+				{
+					1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9
+				};
+
+				TEST_ENSURE_OP(list.size(), ==, 11);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 9);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+
+			list.erase(8);
+			{
+				integer correctSet[] =
+				{
+					1, 2, 3, 4, 4, 4, 5, 6, 7, 9
+				};
+
+				TEST_ENSURE_OP(list.size(), ==, 10);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 8);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+
+			list.erase(4);
+			{
+				integer correctSet[] =
+				{
+					1, 2, 3, 5, 6, 7, 9
+				};
+
+				TEST_ENSURE_OP(list.size(), ==, 7);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 7);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+
+			list.erase(2);
+			{
+				integer correctSet[] =
+				{
+					1, 3, 5, 6, 7, 9
+				};
+
+				TEST_ENSURE_OP(list.size(), ==, 6);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 6);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+
+			list.erase(1);
+			{
+				integer correctSet[] =
+				{
+					3, 5, 6, 7, 9
+				};
+
+				TEST_ENSURE_OP(list.size(), ==, 5);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 5);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+
+			list.erase(9);
+			{
+				integer correctSet[] =
+				{
+					3, 5, 6, 7
+				};
+
+				TEST_ENSURE_OP(list.size(), ==, 4);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 4);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+
+			list.erase(6);
+			{
+				integer correctSet[] =
+				{
+					3, 5, 7
+				};
+
+				TEST_ENSURE_OP(list.size(), ==, 3);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 3);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+
+			list.erase(5);
+			{
+				integer correctSet[] =
+				{
+					3, 7
+				};
+
+				TEST_ENSURE_OP(list.size(), ==, 2);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 2);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+
+			list.erase(7);
+			{
+				integer correctSet[] =
+				{
+					3
+				};
+
+				TEST_ENSURE_OP(list.size(), ==, 1);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 1);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+
+			list.erase(3);
+			{
+				TEST_ENSURE_OP(list.size(), ==, 0);
+				TEST_ENSURE_OP(list.uniqueKeys(), ==, 0);
+				TEST_ENSURE(list.empty());
+			}
+
+			list.insert(1);
+			list.insert(5);
+			list.insert(3);
 			list.insert(4);
 			ConstIterator four = list.insert(4);
 			list.insert(4);

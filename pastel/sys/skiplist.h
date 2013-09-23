@@ -224,10 +224,12 @@ namespace Pastel
 			Node* end = end_;
 			while(node != end)
 			{
-				if (node->isRepresentative())
+				if (node->isRepresentative() &&
+					node->super())
 				{
 					// This node is the representative
 					// of its equivalence class.
+
 					// Delete the equivalence class.
 					delete node->super();
 				}
@@ -301,26 +303,34 @@ namespace Pastel
 			// Create a new node with the given number
 			// of levels and the given data.
 			std::unique_ptr<Data_Node> nodePtr(
-				new Data_Node(levels, 0, 
+				new Data_Node(levels, 
 					std::move(key), std::move(value)));
 			Data_Node* node = nodePtr.get();
 
-			SuperNode* super = 0;
 			if (keyAlreadyExists)
 			{
 				// At least one equivalent key exists in the
-				// skip-list already. Refer to its equivalence
-				// class.
-				Iterator prevNextIter = std::prev(nextIter);
-				super = prevNextIter.base()->super();
+				// skip-list already. 
+
+				// The equivalence class is created if and only
+				// if it contains at least two elements.
+
+				Node* prevNext = std::prev(nextIter).base();
+				SuperNode* super = prevNext->super();
+				if (!super)
+				{
+					// Create the equivalence class.
+					// The representative is the first element
+					// in the equivalence class; it is the
+					// 'prevNext'.
+					super = new SuperNode(prevNext);
+					prevNext->super() = super;
+				}
+
+				// Assign the equivalence class to the
+				// new element.
+				node->super() = super;
 			}
-			else
-			{
-				// Since the key is unique, create a 
-				// new equivalence class for it.
-				super = new SuperNode(node);
-			}
-			node->super() = super;
 
 			// No exceptions beyond this point.
 			nodePtr.release();
@@ -416,35 +426,43 @@ namespace Pastel
 				link(prev, next, i);
 			}
 
-			if (node->isRepresentative())
+			if (next->repr() == node->repr())
 			{
-				// The deleted node is a representative of
-				// its equivalence class.
-				if (next == end_ ||
-					Compare()(nodeKey(node), nodeKey(next)))
-				{
-					// The deleted element is unique.
+				// There are multiple equivalent elements
+				// in the skip-list.
 
-					// Delete the equivalence class.
-					delete node->super();
-					--uniqueKeys_;
-				}
-				else
+				if (node->isRepresentative())
 				{
-					// There are additional equivalent elements
-					// in the skip-list. Link the skip-levels 
+					// The deleted element is a representative 
+					// of its equivalence class.
+
+					// Link the skip-levels 
 					// of the next element to make it a new
 					// representative.
 					linkSkipLevels(next);
-					node->super()->repr() = next;
+					next->super()->repr() = next;
+				}
+				else
+				{
+					// The deleted element is not a representative 
+					// of its equivalence class.
+				}
+
+				Node* nextNext = next->link<true>(0);
+				if (nextNext->repr() != node->repr())
+				{
+					// After deletion there will be only
+					// one element in the equivalence class.
+					
+					// Delete the equivalence class.
+					delete node->super();
+					next->super()->repr() = 0;
 				}
 			}
 			else
 			{
-				// There are multiple equivalent elements
-				// in the skip-list, but the deleted element
-				// is not a representative of its equivalence
-				// class.
+				// The deleted element is unique.
+				--uniqueKeys_;
 			}
 
 			// Delete the node.
@@ -804,13 +822,8 @@ namespace Pastel
 
 			// Create the sentinel node.
 			std::unique_ptr<Node> endPtr(
-				new Node(maxLevels, 0));
+				new Node(maxLevels));
 			end_ = endPtr.get();
-
-			// Create the equivalence class
-			// for the sentinel node.
-			end_->super() = new SuperNode(end_);
-			ASSERT(end_->repr() == end_)
 
 			// No exceptions beyond this point.
 			endPtr.release();
@@ -827,7 +840,6 @@ namespace Pastel
 		void deinitialize()
 		{
 			clear();
-			delete end_->super();
 			delete end_;
 		}
 
