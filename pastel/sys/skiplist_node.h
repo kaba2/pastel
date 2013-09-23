@@ -42,10 +42,9 @@ namespace Pastel
 		{
 		public:
 			explicit Node(
-				integer levels,
-				SuperNode* super)
+				integer levels)
 			: link_(levels)
-			, super_(super)
+			, super_(0)
 			{
 				ASSERT_OP(link_.size(), >= , 2);
 			}
@@ -93,12 +92,20 @@ namespace Pastel
 
 			Node* repr() const
 			{
-				return super()->repr();
+				// The equivalence class is stored
+				// if and only if there is more than
+				// one element in the equivalence class.
+				if (super())
+				{
+					return super()->repr();
+				}
+
+				return (Node*)this;
 			}
 
 			bool isRepresentative() const
 			{
-				return link<true>(1) != 0;
+				return repr() == this;
 			}
 
 		//private:
@@ -121,10 +128,9 @@ namespace Pastel
 		public:
 			Data_Node(
 				integer levels, 
-				SuperNode* super,
 				Key key,
 				Value_Class data)
-			: Node(levels, super)
+			: Node(levels)
 			, Value_Class(std::move(data))
 			, key_(std::move(key))
 			{
