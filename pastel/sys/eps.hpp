@@ -45,10 +45,9 @@ namespace Pastel
 		//
 		// 1) If the input is a NaN, infinity or -infinity, 
 		//    return it without changes
-		// 2) If the input is +/- 0, return 1. The -0 is
-		//    the problematic in that 0 can't be handled
-		//    simply as a subnormal number.
-		// 3) If the number is a subnormal (!= 0) and the sign 
+		// 2) If the input is -0, return 0. The -0 can't be handled
+		//    as other subnormal numbers.
+		// 3) If the number is a subnormal and the sign 
 		//    bit is zero, add one to the bit representation.
 		// 4) If the number is a subnormal (!= 0) and the sign 
 		//    bit is one, subtract one from the bit representation.
@@ -58,8 +57,9 @@ namespace Pastel
 		//
 		// -Infinity -> -Infinity (1)
 		// Greatest negative normal -> Smallest negative subnormal (4)
-		// Greatest negative subnormal -> Zero (4)
-		// Zero -> Smallest positive subnormal (2)
+		// Greatest negative subnormal (!= 0) -> -Zero (4)
+		// -Zero -> +Zero
+		// +Zero -> Smallest positive subnormal (2)
 		// Greatest positive subnormal -> Smallest positive normal (3)
 		// Greatest positive normal -> Infinity (3)
 		// Infinity -> Infinity (1)
@@ -73,12 +73,13 @@ namespace Pastel
 		}
 
 		uint64 bits = *((uint64*)&that);
-		const uint64 signBit = bits & ((uint64)1 << 63);
+		const uint64 lastBit = (uint64)1 << 63;
+		const uint64 signBit = bits & lastBit;
 
-		if (bits - signBit == 0)
+		if (bits == lastBit)
 		{
-			// Zero, case 2.
-			bits = 1;
+			// -Zero -> +Zero, case 2.
+			bits = 0;
 		}
 		else
 		{		
@@ -112,12 +113,13 @@ namespace Pastel
 		// of movement.
 
 		uint64 bits = *((uint64*)&that);
-		const uint64 signBit = bits & ((uint64)1 << 63);
+		const uint64 lastBit = (uint64)1 << 63;
+		const uint64 signBit = bits & lastBit;
 
-		if (bits - signBit == 0)
+		if (bits == 0)
 		{
-			// Zero.
-			bits = 1 + ((uint64)1 << 63);
+			// +Zero -> -Zero.
+			bits = lastBit;
 		}
 		else
 		{		
@@ -147,12 +149,13 @@ namespace Pastel
 		}
 
 		uint32 bits = *((uint32*)&that);
-		const uint32 signBit = bits & ((uint32)1 << 31);
+		const uint32 lastBit = (uint32)1 << 31;
+		const uint32 signBit = bits & lastBit;
 
-		if (bits - signBit == 0)
+		if (bits == lastBit)
 		{
-			// Zero.
-			bits = 1;
+			// -Zero -> +Zero.
+			bits = 0;
 		}
 		else
 		{		
@@ -186,12 +189,13 @@ namespace Pastel
 		// of movement.
 
 		uint32 bits = *((uint32*)&that);
-		const uint32 signBit = bits & ((uint32)1 << 31);
+		const uint32 lastBit = (uint32)1 << 31;
+		const uint32 signBit = bits & lastBit;
 
-		if (bits - signBit == 0)
+		if (bits == 0)
 		{
-			// Zero.
-			bits = 1 + ((uint32)1 << 31);
+			// +Zero -> -Zero.
+			bits = lastBit;
 		}
 		else
 		{		
