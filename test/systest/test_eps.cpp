@@ -32,9 +32,9 @@ namespace
 			TEST_ENSURE_OP(nextGreater((Type)1), >, 1);
 			TEST_ENSURE_OP(nextSmaller((Type)1), <, 1);
 			TEST_ENSURE_OP(nextGreater((Type)0), >, 0);
-			TEST_ENSURE_OP(nextSmaller((Type)0), <, 0);
-			TEST_ENSURE_OP(nextGreater((Type)minusZero), >, 0);
-			TEST_ENSURE_OP(nextSmaller((Type)minusZero), <, 0);
+			TEST_ENSURE_OP(nextSmaller((Type)0), ==, 0);
+			TEST_ENSURE_OP(nextGreater(minusZero), ==, 0);
+			TEST_ENSURE_OP(nextSmaller(minusZero), <, 0);
 			TEST_ENSURE_OP(nextGreater((Type)-1), >, -1);
 			TEST_ENSURE_OP(nextSmaller((Type)-1), <, -1);
 			TEST_ENSURE_OP(nextGreater(infinity<Type>()), ==, infinity<Type>());

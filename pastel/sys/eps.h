@@ -10,6 +10,11 @@ namespace Pastel
 {
 
 	//! Returns the next greater 64-bit floating point value.
+	/*!
+	This function in lossless in the sense that
+	nextGreater(nextSmaller(that)) == that, and 
+	nextSmaller(nextGreater(that)) == that.
+	*/
 	real64_ieee nextGreater(real64_ieee that);
 
 	//! Returns the next smaller 64-bit floating point value.
