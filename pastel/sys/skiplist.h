@@ -443,11 +443,14 @@ namespace Pastel
 				if (node->super()->keys() == 1)
 				{
 					// After deletion there will be only
-					// one element in the equivalence class.
+					// one element in the equivalence class;
+					// that's 'next'.
 					
 					// Delete the equivalence class.
 					delete node->super();
-					next->super()->repr() = 0;
+
+					// Update 'next's equivalence class.
+					next->super() = 0;
 				}
 			}
 			else
@@ -815,7 +818,7 @@ namespace Pastel
 			ASSERT_OP(level, >=, 1);
 
 			// Find the representative of the node.
-			node = node->repr();
+			node = node->link<false>(0)->repr();
 
 			// Find the first node on the left that
 			// links through 'node' on 'level'.
@@ -834,18 +837,16 @@ namespace Pastel
 			ASSERT(node != end_);
 
 			integer equals = 0;
-			while (true)
+			while (equals < 2)
 			{
 				Node* next = node->link<Direction>(level);
-				if (next != end_ &&
-					next->levels() == node->levels())
-				{
-					++equals;
-				}
-				else
+				if (next == end_ ||
+					next->levels() != node->levels())
 				{
 					break;
 				}
+
+				++equals;
 			}
 
 			return equals;
@@ -894,7 +895,7 @@ namespace Pastel
 
 				// The invariant is fixed locally by adding one 
 				// logical level to 'middle'.
-				integer newLevel = middle->levels() + 1;
+				integer newLevel = middle->levels();
 
 				// Find the node which will link to 'middle' on 
 				// the new level.
