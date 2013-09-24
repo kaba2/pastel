@@ -20,6 +20,10 @@ namespace Pastel
 		class SuperNode
 		{
 		public:
+			SuperNode() = delete;
+			SuperNode(const SuperNode&) = delete;
+			SuperNode(SuperNode&&) = delete;
+
 			explicit SuperNode(Node* repr)
 			: repr_(repr)
 			, keys_(1)
@@ -53,14 +57,15 @@ namespace Pastel
 		class Node
 		{
 		public:
-			explicit Node(
-				integer levels)
+			explicit Node(integer levels = 0) 
 			: link_(levels)
 			, super_(0)
 			{
-				ASSERT_OP(link_.size(), >= , 2);
 			}
 
+			Node(const Node&) = delete;
+			Node(Node&&) = delete;
+		
 			template <bool Direction>
 			Node*& link(integer i)
 			{
@@ -130,9 +135,53 @@ namespace Pastel
 				return repr() == this;
 			}
 
-		//private:
-			struct Link
+			void addLevel()
 			{
+				integer capacity = link_.capacity();
+				if (levels() == capacity)
+				{
+					// The addition of a new level causes
+					// a reallocation of the links.
+
+					// Double the physical levels of the node.
+					integer newCapacity = 
+						2 * capacity - 1;
+					link_.reserve(newCapacity);
+
+					// The std::vector's push_back does
+					// such an exponential growing 
+					// automatically. However, we want to
+					// be specific here that the number of
+					// levels multiplies by 2, and not
+					// by some other constant.
+				}
+
+				// Add the new logical level.
+				// The default of linking to itself is
+				// useful for the sentinel node. The other
+				// nodes immediately overwrite the links.
+				link_.push_back(Link(this, this));
+			}
+
+			integer levels() const
+			{
+				return link_.size();
+			}
+
+		//private:
+			class Link
+			{
+			public:
+				Link() = default;
+
+				Link(Node* next_,
+					Node* prev_)
+				: next()
+				{
+					next[0] = next_;
+					next[1] = prev_;
+				}
+
 				Node* next[2];
 			};
 			
@@ -148,10 +197,14 @@ namespace Pastel
 		, public Value_Class
 		{
 		public:
+			Data_Node() = delete;
+			Data_Node(const Data_Node&) = delete;
+			Data_Node(Data_Node&&) = delete;
+
 			Data_Node(
-				integer levels, 
 				Key key,
-				Value_Class data)
+				Value_Class data,
+				integer levels = 0)
 			: Node(levels)
 			, Value_Class(std::move(data))
 			, key_(std::move(key))

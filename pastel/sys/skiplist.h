@@ -1,4 +1,4 @@
-// Description: Skip list
+// Description: Deterministic skip list
 
 #ifndef PASTELSYS_SKIPLIST_H
 #define PASTELSYS_SKIPLIST_H
@@ -14,10 +14,12 @@
 namespace Pastel
 {
 
-	//! Skip list
+	//! Deterministic skip list
 	/*!
 	Space complexity:
-	O(size()) expected
+	O(n),
+	where
+	n is the number stored elements.
 
 	SkipList_Settings:
 	A type implementing the SkipList_Concepts::Settings concept.
@@ -57,7 +59,6 @@ namespace Pastel
 		*/
 		SkipList()
 		: end_(0)
-		, levelRatio_(0.5)
 		, size_(0)
 		, uniqueKeys_(0)
 		{
@@ -79,6 +80,7 @@ namespace Pastel
 			{
 				for (auto iter = that.cbegin();iter != that.cend();++iter)
 				{
+					// FIX: Add hint to insert for linear-time copy.
 					insert(iter.key(), iter.value());
 				}
 			}
@@ -125,7 +127,7 @@ namespace Pastel
 		//! Copy-assigns from another skip list.
 		/*!
 		Time complexity:
-		O(1)
+		O(that.size())
 
 		Exception safety:
 		strong
@@ -204,7 +206,6 @@ namespace Pastel
 		{
 			using std::swap;
 			swap(end_, that.end_);
-			swap(levelRatio_, that.levelRatio_);
 			swap(size_, that.size_);
 			swap(uniqueKeys_, that.uniqueKeys_);
 		}
@@ -213,6 +214,9 @@ namespace Pastel
 		/*!
 		Time complexity:
 		O(size())
+
+		Exception safety:
+		nothrow
 		*/
 		void clear()
 		{
@@ -241,6 +245,7 @@ namespace Pastel
 			}
 
 			// Update the links in the sentinel node.
+			end_->link_.resize(2);
 			integer n = end_->size();
 			for (integer i = 0;i < n;++i)
 			{
@@ -255,38 +260,15 @@ namespace Pastel
 		//! Inserts an element into the skip list.
 		/*!
 		Time complexity:
-		O(log(size())) expected
+		O(log(size()))
 
 		Exception safety:
-		strong
+		basic (due to rebalancing)
 		*/
 		Iterator insert(
 			Key key, 
 			Value_Class value = Value_Class())
 		{
-			// The skip-list may contain equivalent elements,
-			// i.e. keys x and y such that !(x < y) and !(y < x).
-			// This divides the set of elements in the skip-list
-			// into equivalence classes. We let the first element 
-			// of each equivalence class work as a representative.
-
-			// The levels of the skip-list are as follows:
-			// 0) All elements.
-			// 1) All representatives.
-			// n) A sampling of the elements in the level (n - 1).
-
-			// We call the levels > 0 _skip_ levels, and
-			// the level 0 the _basic_ level.
-
-			// Choose the number of levels in a node
-			// as a geometrically-distributed random
-			// number. The number of levels has to be at 
-			// least 2, since every element may have to 
-			// act as a representative at some point.
-			integer levels = std::min(
-					randomGeometric<real>(1 - levelRatio_) + 2,
-					maxLevels());
-
 			// Find the element before which to insert
 			// the new element.
 			Iterator nextIter = upper_bound(key);
@@ -300,11 +282,16 @@ namespace Pastel
 				keyAlreadyExists = !Compare()(prevNextIter.key(), key);
 			}
 
+			// If an equivalent element already exists in the
+			// skip-list, then we will only link it in the basic
+			// level. Otherwise we will also provide with a
+			// link in the first skip-level.
+			integer levels = keyAlreadyExists ? 1 : 2;
+
 			// Create a new node with the given number
 			// of levels and the given data.
 			std::unique_ptr<Data_Node> nodePtr(
-				new Data_Node(levels, 
-					std::move(key), std::move(value)));
+				new Data_Node(std::move(key), std::move(value), levels));
 			Data_Node* node = nodePtr.get();
 
 			if (keyAlreadyExists)
@@ -350,6 +337,9 @@ namespace Pastel
 				// Link the skip-levels.
 				linkSkipLevels(node);
 				++uniqueKeys_;
+
+				// Rebalance the skip-list.
+				rebalanceInsert(node);
 			}
 			else
 			{
@@ -694,61 +684,6 @@ namespace Pastel
 			return size_ == 0;
 		}
 
-		//! Returns the maximum number of levels in the skip list.
-		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
-
-		Note that this is not the maximum number of levels over
-		the elements in the skip list. This is the number that
-		limits the number of possible levels in a given element 
-		from above.
-		*/
-		integer maxLevels() const
-		{
-			return end_->size();
-		}
-
-		//! Sets the level ratio.
-		/*!
-		Preconditions:
-		levelRatio > 0
-		levelRatio < 1
-
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
-
-		The level-ratio is the success-probability of the
-		geometric distribution from which the random number 
-		of levels is drawn for each element.
-		*/
-		void setLevelRatio(real levelRatio)
-		{
-			ENSURE_OP(levelRatio, >, 0);
-			ENSURE_OP(levelRatio, <, 1);
-
-			levelRatio_ = levelRatio;
-		}
-
-		//! Returns the level-ratio.
-		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
-		*/
-		real levelRatio() const
-		{
-			return levelRatio_;
-		}
-
 		//! Returns the first element in the skip list.
 		/*!
 		Time complexity:
@@ -795,6 +730,19 @@ namespace Pastel
 			return ConstIterator(end_);
 		}
 
+		//! Returns the maximum number of levels in use.
+		/*!
+		Time complexity:
+		O(1)
+
+		Exception safety:
+		nothrow
+		*/
+		integer levels() const
+		{
+			return cend()->levels();
+		}
+
 		friend void print(const SkipList& list)
 		{
 			for (integer i = 0;i < list.maxLevels();++i)
@@ -819,23 +767,13 @@ namespace Pastel
 		void initialize()
 		{
 			ASSERT(!end_);
-			const integer maxLevels = 64;
 
 			// Create the sentinel node.
-			std::unique_ptr<Node> endPtr(
-				new Node(maxLevels));
-			end_ = endPtr.get();
-
-			// No exceptions beyond this point.
-			endPtr.release();
+			end_ = new Node(2);
 
 			// Link the sentinel node to itself.
-			Node* node = end_;
-			integer n = node->size();
-			for (integer i = 0;i < n;++i)
-			{
-				link(node, node, i);
-			}
+			link(end_, end_, 0);
+			link(end_, end_, 1);
 		}
 
 		void deinitialize()
@@ -854,31 +792,141 @@ namespace Pastel
 		{
 			ASSERT(node != end_);
 
-			// We will find the predecessors 
-			// at each skip-level, and then link the 
-			// node between the predecessor and its
-			// successor.
 			integer levels = node->size();
-			integer i = 1;
 
-			// Find the representative of the previous element.
-			// Only representatives have the skip-levels linked.
-			Node* prev = node->link<false>(0)->repr();
-			while(i < levels)
+			Node* prev = node;
+			for (integer i = 1;i < levels;++i)
 			{
-				while (i < prev->size() && i < levels)
-				{
-					// The node should not be linked before.
-					ASSERT(!node->link<false>(i));
-					ASSERT(!node->link<true>(i));
+				// We will find the predecessors 
+				// at each skip-level...
+				prev = findPrevious(prev, i);
 
-					Node* next = prev->link<true>(i);
-					link(prev, node, i);
-					link(node, next, i);
-					++i;
+				// ... and then link the 
+				// node between the predecessor and its
+				// successor.
+				Node* next = prev->link<true>(i);
+				link(prev, node, i);
+				link(node, next, i);
+			}
+		}
+
+		Node* findPrevious(Node* node, integer level) const
+		{
+			ASSERT_OP(level, >=, 1);
+
+			// Find the representative of the node.
+			node = node->repr();
+
+			// Find the first node on the left that
+			// links through 'node' on 'level'.
+			while(node != end_ &&
+				node->levels() <= level)
+			{
+				node = node->link<false>(node->size() - 1);
+			}
+
+			return node;
+		}
+
+		template <bool Direction>
+		integer equalLevels(Node* node, integer level) const
+		{
+			ASSERT(node != end_);
+
+			integer equals = 0;
+			while (true)
+			{
+				Node* next = node->link<Direction>(level);
+				if (next != end_ &&
+					next->levels() == node->levels())
+				{
+					++equals;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			return equals;
+		}
+
+		//! Rebalances the skip-list after insertion.
+		void rebalanceInsert(Node* node)
+		{
+			integer level = 1;
+			while(true)
+			{
+				ASSERT(node != end_);
+				ASSERT(node->isRepresentative());
+
+				integer equalsOnLeft = equalLevels<false>(node, level);
+				integer equalsOnRight = equalLevels<true>(node, level);
+				integer equals = equalsOnLeft + equalsOnRight + 1;
+				ASSERT_OP(equals, <=, 3);
+
+				if (equals < 3)
+				{
+					// The invariant now holds.
+					break;
 				}
 
-				prev = prev->link<false>(prev->size() - 1);
+				// The skip-list contains three subsequent
+				// elements on 'node's level. 
+				// This breaks the invariant of the deterministic
+				// skip-list to have at most two subsequent
+				// elements at a given level at the same level.
+
+				// Find out the middle of those.
+				Node* middle = 0;
+				switch(equalsOnRight)
+				{
+				case 0:
+					middle = node->link<false>(level);
+					break;
+				case 1:
+					middle = node;
+					break;
+				case 2:
+					middle = node->link<true>(level);
+					break;
+				};
+
+				// The invariant is fixed locally by adding one 
+				// logical level to 'middle'.
+				integer newLevel = middle->levels() + 1;
+
+				// Find the node which will link to 'middle' on 
+				// the new level.
+				Node* middlePrev = findPrevious(middle, newLevel);
+				if (middlePrev == end_)
+				{
+					// The link comes from the sentinel node.
+					// Make sure that the sentinel node has the
+					// necessary amount of levels.
+					if (end_->levels() <= newLevel)
+					{
+						// This implies that the sentinel node
+						// has always the greatest amount of
+						// levels.
+						end_->addLevel();
+					}
+					ASSERT_OP(newLevel, <, end_->levels());
+				}
+
+				// Add one to the logical level of the middle node.
+				middle->addLevel();
+
+				// Link the 'middle' on the new level.
+				Node* middleNext = middlePrev->link<true>(newLevel);
+				link(middlePrev, middle, newLevel);
+				link(middle, middleNext, newLevel);
+
+				// Adding the level to 'middle' may have 
+				// broken the invariant on level 'newLevel'.
+				// Recurse to rebalance 'middle'.
+				level = newLevel;
+				node = middle;
 			}
 		}
 
@@ -1021,7 +1069,6 @@ namespace Pastel
 		}
 
 		Node* end_;
-		real levelRatio_;
 		integer size_;
 		integer uniqueKeys_;
 	};
