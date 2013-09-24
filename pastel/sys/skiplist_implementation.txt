@@ -1,0 +1,57 @@
+Skip list notes
+===============
+
+[[Parent]]: skiplist.txt
+
+This section contains notes on the implementation of the 
+deterministic skip-list in Pastel. It helps to understand
+the corresponding code.
+
+Deterministic vs randomized
+---------------------------
+
+The implementation of the skip list in Pastel is deterministic,
+rather than randomized, as it was originally represented. 
+
+Equivalent elements
+-------------------
+
+We allow the skip-list to contain equivalent elements,
+i.e. keys x and y such that !(x < y) and !(y < x).
+This divides the set of elements in the skip-list
+into equivalence classes. We let the first element 
+of each equivalence class work as a representative.
+
+### Leveling
+
+To avoid degrading the performance of the skip-list
+because of equivalent elements, we will organize the
+levels of the skip-list as follows:
+
+* Level 0: All elements, called the _basic_ level.
+* Level 1: All representatives.
+* Level n > 1: A subset of the elements in the level (n - 1),
+
+We call the levels > 0 _skip_ levels. The idea is that
+whenever a search is done for an element, the interest
+is always on the first or the last matching element.
+When the non-representatives are linked only on the 
+basic level, they are invisible to the skip-levels,
+and thus we are able to search exclusively in the set
+of representatives.
+
+### Equivalence classes
+
+When a given search is started from a non-representative,
+we need a way to obtain the representative of its
+equivalence class in constant time. We could store a link
+to the representative with each element. However, this
+would lead to linear complexity updates when a 
+representative is removed from the skip-list. To avoid 
+this, we represent the equivalence classes explicitly.
+Each equivalence class points to its representative, 
+and each element points to its equivalence class. Thus
+when a representative is removed, we may simply replace
+the representative pointer in the equivalence class.
+
+

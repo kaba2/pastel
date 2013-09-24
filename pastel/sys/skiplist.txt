@@ -1,23 +1,30 @@
-Skip list
-=========
+Deterministic skip list
+=======================
 
 [[Parent]]: data_structures.txt
 
-A _skip list_ is a randomized data structure for storing 
-an ordered set, which
+The _deterministic skip list_ is a data structure which implements a dynamic 
+ordered dictionary. 
 
-* can insert an element in expected ''O(log(n + 2))'' time,
-* can remove an element by a value in expected ''O(k log(n + 2))'' time,
-where ''k'' is the number of equivalent elements,
-* can remove an element by an iterator in ''O(1)'' time,
-* can find the first element greater-than-or-equal-to/greater-than/equivalent-to a given element in expected ''O(log(n + 2))'' time, and
-* has expected space complexity of ''O(n + 1)''.
+Properties
+----------
 
-In addition, the skip list implementation in Pastel
+Let ''n in NN'' be the number of stored elements, ''m in NN'' be the 
+number of unique stored elements, and ''Delta in NN'' be the link-distance, 
+along unique elements, between a given stored element (a _finger_) and the 
+searched element. Then the implementation of the deterministic skip-list in 
+Pastel has the following properties:
 
-* supports finger-searches, where a search starts from a specified iterator. Then the search takes only expected ''O(log(Delta + 2))'' time, where ''Delta'' is the distance between the start-iterator and the returned iterator,
-* supports associated data, without using any memory if such is not needed,
-* supports multiple equivalent elements, stably stored in insertion order, 
-* has a performance independent of the number of equivalent elements (that is, in the time-complexities above ''n'' is the number of _unique_ keys), and
-* can report the number of equivalent elements for a given iterator in ''O(1)''.
+Property                             | Complexity
+------------------------------------ | -------------------------
+Insert an element                    | ''O(log(m))''
+Remove an element                    | ''O(log(m))''
+Find an element                      | ''O(log(Delta))''
+Find the predecessor of an element   | ''O(log(Delta))''
+Find the successor of an element     | ''O(log(Delta))''
+Count number of equivalent elements  | ''O(1)''
+Space                                | ''O(n)''
+
+The deterministic skip list implementation in Pastel supports associated data, without using any memory if such is not needed. If there are multiple equivalent elements in the skip list, then they are stored in the order they were inserted.
+
 

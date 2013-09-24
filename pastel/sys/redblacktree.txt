@@ -3,48 +3,32 @@ Red-black tree
 
 [[Parent]]: data_structures.txt
 
-A _red-black tree_ is a self-balancing binary search tree.
-An _augmented red-black tree_ is a red-black tree which automatically
-updates extra hierarchical information in its nodes.
+A _red-black tree_ is a self-balancing binary search tree. Among other things,
+it implements a dynamic ordered dictionary, provided the elements can be put 
+in a strict weak order. An _augmented red-black tree_ is a red-black tree which 
+automatically updates extra hierarchical information in its nodes.
 
 Properties
 ----------
 
-The red-black tree is a data structure to contain arbitrary elements, 
-given that those elements can be totally ordered by their _keys_. 
-Such a tree has the following attractive properties.
+Let ''n in NN'' be the number stored elements, and let ''f : NN -> NN'' be 
+the time it takes to run the user-defined hierarchical update for a single node 
+(usually ''O(1)''). The red-black tree implementation in Pastel has the 
+following properties:
 
- * It can be constructed in ''O(n)'' time and uses ''O(n)'' space.
- * An element can be inserted into it in ''O(log(n))'' time.
- * An element can be removed from it in ''O(log(n))'' time.
- * An element can be searched in it in ''O(log(n))'' time.
- * The next largest or the next smallest element can be
- found in ''O(1)'' amortized time (worst-case ''O(log(n))'').
+Property                           | Complexity
+---------------------------------- | -------------------------------------
+Insert an element                  | ''O(f(n) log(n))''
+Remove an element                  | ''O(f(n) log(n))''
+Find an element                    | ''O(log(n))''
+Find the predecessor of an element | ''O(log(n))''
+Find the successor of an element   | ''O(log(n))''
+Find the predecessor of a stored element | ''O(1)'' amortized
+Find the successor of a stored element   | ''O(1)'' amortized
+Find minimum element               | ''O(1)''
+Find maximum element               | ''O(1)''
+Space                              | ''O(n)''
 
-Many algorithms derive their efficiency from using an augmented version of 
-a balanced tree. For example, it is possible to augment each node of a binary
-tree with the number of nodes in its subtree, and keep this information up
-to date, without increase in complexity, under modifications of the tree.
-Red-black trees are strongly associated with implementations of the (ordered)
-dictionary abstract data type. This is rightly so, because they are very
-efficient for this task. For example, the STL library containers `set` and 
-`map` are most commonly implemented with red-black trees. But red-black trees
-are more than dictionaries: the tree structure itself is important for many
-algorithms, and specifically those which use an augmented tree.
-
-Pastel provides an efficient and generic implementation of augmented 
-red-black trees. Pastel's implementation generalizes on the properties of 
-those already listed for the red-black tree.
-
- * The tree can be augmented with value data.
- * Hierarchical data can be kept up to date automatically using a user-defined
- function which updates the data in a single node. Denote the complexity 
- of this function by ''f(n)'' (usually ''O(1)'').
- * An element can be inserted into it in ''O(f(n) log(n))'' time,
- * An element can be removed from it in ''O(f(n) log(n))'' time.
- * The minimum element can be found in ''O(1)'' time.
- * The maximum element can be found in ''O(1)'' time.
- 
 ### Value data
 
 In addition to the key, a node can store arbitrary extra
@@ -79,7 +63,7 @@ of the insert() and erase() functions of the RedBlackTree.
 For example, if the local computation takes O(log(n)), then the
 complexity of insert() will be O((log(n))^2).
 
-The RedBlackTree automatically keeps hierarchical data up to date, 
+The `RedBlackTree` automatically keeps hierarchical data up to date, 
 given that the user provides the local computation for a single 
 node in the updateHierarchicalData() function.
  

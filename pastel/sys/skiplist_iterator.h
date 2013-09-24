@@ -82,9 +82,14 @@ namespace Pastel
 				return ((Data_Node*)this->base())->value();
 			}
 
-			integer equivalents()
+			integer equivalents() const
 			{
 				return this->base()->keys();
+			}
+
+			integer levels() const
+			{
+				return this->base()->levels();
 			}
 
 		private:
