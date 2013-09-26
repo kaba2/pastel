@@ -1,0 +1,46 @@
+2-3 trees
+=========
+
+[[Parent]]: data_structures.txt
+
+[[set indent]]: EquationSet
+
+The _2-3-tree_ is a balanced search tree consisting of nodes with two and three children. Because its nodes are not homogeneous, it is rarely implemented in itself. However, at least two data structures, AA-trees and deterministic 1-2-skip-lists, can be thought to simulate 2-3-trees by a homogeneous data-structure. In these cases knowledge of the algorithms for the maintenance of 2-3-trees directly maps to knowledge of the algorithms for the simulating data-structures. In this section we provide the maintenance algorithms for 2-3-trees.
+
+Notation
+--------
+
+Let ''S'' be a set together with a strict weak order ''<'' in ''S''. If ''s in S'' and ''(a, b) in S^2'', then we will define ''(a, b) < s'' by ''a < s'' and ''b < s''. 
+
+Definition
+----------
+
+A _2-3-tree_ of height ''h'' over ''S'' is a rooted tree ''T = (V, E)'', where 
+
+ * ''V subset S cup S^2'',
+ * if ''h = 0'', then ''V = emptyset'',
+ * if ''v in S cap V'', then ''v'' has two children ''l(v), r(v) in V'', both roots of 2-3-trees of height ''h - 1'' over ''S'', such that ''w < v'' for all ''w in T(l(v))'', and ''w >= v'' for all ''w in T(r(v))'',
+ * if ''v = (a, b) in S^2 cap V'', then ''v'' has three children ''l(v), m(v), r(v) in V'', , all roots of 2-3-trees of height ''h - 1'' over ''S'', such that ''w < a'' for all ''w in T(l(v))'', ''a <= w < b'' for all ''w in T(m(v))'', and ''w >= b'' for all ''w in T(r(v))'',
+ 
+Properties
+----------
+
+The leaf nodes are all at the same depth in a 2-3-tree; it is always perfectly balanced. If a 2-3-tree contains ''n'' elements in ''V'', then the height ''h'' of the tree is bounded by
+
+	ceil(log_3(n + 1)) <= h <= ceil(log_2(n + 1)), 
+
+the bounds corresponding to the height of a balanced 3-ary search tree over ''V'', and the height of a balanced 2-ary search tree over ''V', respectively. Therefore, if one can show that the property of being a 2-3-tree can be efficiently maintained under insertions and removals, then the 2-3-tree offers an efficient solution to the dynamic dictionary problem. 
+
+This turns out to be the case. Even better, the algorithms to do so are relatively simple (compared to a red-black tree, say). However, 2-3-trees are not seen to be implemented very commonly. I suspect that the reason for this is that the nodes are not homogeneous. Indeed, there would need to be a way to distuingish 2-nodes from 3-nodes, and then algorithms would need to branch their action based on the number of children the node has. Furthermore, these inconveniences can be avoided by simulating the 2-3-tree with a data-structure which _is_ homogeneous.
+
+Simulation data-structures
+--------------------------
+
+A 2-3-tree can be simulated by an AA-tree (for Arne Andersson, their inventor). An AA-tree is a simpler version of the red-black tree; a red-black tree simulates a 2-3-4-tree. Knowing this, the prominence of the red-black trees immediately becomes questionable; why not always prefer AA-trees over red-black trees? I do not know the answer.
+
+A 2-3-tree can also be simulated by a deterministic 1-2-skip-list.
+
+Since both of these data-structures simulate the 2-3-tree, knowledge of the algorithms for its maintenance provides knowledge for the maintenance of the simulation data-structures. Since these algorithms are also simple, knowledge of the 2-3-tree is useful.
+
+
+
