@@ -92,6 +92,24 @@ namespace Pastel
 				return this->base()->levels();
 			}
 
+			Iterator next(integer level, bool direction) const
+			{
+				NodePtr node = this->base();
+				return Iterator(node->link(level, direction));
+			}
+
+			Iterator next(integer level) const
+			{
+				Node* node = (Node*)this->base();
+				return Iterator(node->link<true>(level));
+			}
+
+			Iterator prev(integer level) const
+			{
+				Node* node = (Node*)this->base();
+				return Iterator(node->link<false>(level));
+			}
+
 		private:
 			friend class boost::iterator_core_access;
 

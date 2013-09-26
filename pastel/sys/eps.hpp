@@ -45,25 +45,24 @@ namespace Pastel
 		//
 		// 1) If the input is a NaN, infinity or -infinity, 
 		//    return it without changes
-		// 2) If the input is -0, return 0. The -0 can't be handled
-		//    as other subnormal numbers.
-		// 3) If the number is a subnormal and the sign 
-		//    bit is zero, add one to the bit representation.
-		// 4) If the number is a subnormal (!= 0) and the sign 
-		//    bit is one, subtract one from the bit representation.
+		// 2) If the input is -0, convert it to +0, and continue from 3).
+		// 3) If the sign bit is zero, add one to the bit representation.
+		// 4) If the sign bit is one, subtract one from the bit representation.
 		//
 		// Convince yourself that all the following transitions
 		// work correctly:
 		//
 		// -Infinity -> -Infinity (1)
 		// Greatest negative normal -> Smallest negative subnormal (4)
-		// Greatest negative subnormal (!= 0) -> -Zero (4)
-		// -Zero -> +Zero
-		// +Zero -> Smallest positive subnormal (2)
+		// -/+ 0 -> Smallest positive subnormal (2)
 		// Greatest positive subnormal -> Smallest positive normal (3)
 		// Greatest positive normal -> Infinity (3)
 		// Infinity -> Infinity (1)
 		// Nan -> Nan (1)
+		//
+		// The -0 is not set to +0 because the intent of this function 
+		// is to produce an output which is greater than
+		// the input. By the ieee-floating-point, -0 = +0.
 
 		if (isNan(that) ||
 			that == infinity<real64_ieee>() ||
@@ -73,26 +72,25 @@ namespace Pastel
 		}
 
 		uint64 bits = *((uint64*)&that);
-		const uint64 lastBit = (uint64)1 << 63;
-		const uint64 signBit = bits & lastBit;
+		uint64 lastBit = (uint64)1 << 63;
+		uint64 signBit = bits & lastBit;
 
 		if (bits == lastBit)
 		{
-			// -Zero -> +Zero, case 2.
+			// Convert -0 to +0.
 			bits = 0;
+			signBit = 0;
+		}
+
+		if (signBit != 0)
+		{
+			// Negative, case 4.
+			--bits;
 		}
 		else
-		{		
-			if (signBit != 0)
-			{
-				// Negative, case 4.
-				--bits;
-			}
-			else
-			{
-				// Positive, case 3.
-				++bits;
-			}
+		{
+			// Positive, case 3.
+			++bits;
 		}
 
 		const real64_ieee result = *((real64_ieee*)&bits);
@@ -113,26 +111,25 @@ namespace Pastel
 		// of movement.
 
 		uint64 bits = *((uint64*)&that);
-		const uint64 lastBit = (uint64)1 << 63;
-		const uint64 signBit = bits & lastBit;
+		uint64 lastBit = (uint64)1 << 63;
+		uint64 signBit = bits & lastBit;
 
 		if (bits == 0)
 		{
-			// +Zero -> -Zero.
+			// Convert +0 to -0.
 			bits = lastBit;
+			signBit = lastBit;
+		}
+
+		if (signBit != 0)
+		{
+			// Negative.
+			++bits;
 		}
 		else
-		{		
-			if (signBit != 0)
-			{
-				// Negative.
-				++bits;
-			}
-			else
-			{
-				// Positive.
-				--bits;
-			}
+		{
+			// Positive.
+			--bits;
 		}
 
 		const real64_ieee result = *((real64_ieee*)&bits);
@@ -149,26 +146,25 @@ namespace Pastel
 		}
 
 		uint32 bits = *((uint32*)&that);
-		const uint32 lastBit = (uint32)1 << 31;
-		const uint32 signBit = bits & lastBit;
+		uint32 lastBit = (uint32)1 << 31;
+		uint32 signBit = bits & lastBit;
 
 		if (bits == lastBit)
 		{
-			// -Zero -> +Zero.
+			// Convert -0 to +0.
 			bits = 0;
+			signBit = 0;
+		}
+
+		if (signBit != 0)
+		{
+			// Negative.
+			--bits;
 		}
 		else
-		{		
-			if (signBit != 0)
-			{
-				// Negative.
-				--bits;
-			}
-			else
-			{
-				// Positive.
-				++bits;
-			}
+		{
+			// Positive.
+			++bits;
 		}
 
 		const real32_ieee result = *((real32_ieee*)&bits);
@@ -189,26 +185,25 @@ namespace Pastel
 		// of movement.
 
 		uint32 bits = *((uint32*)&that);
-		const uint32 lastBit = (uint32)1 << 31;
-		const uint32 signBit = bits & lastBit;
+		uint32 lastBit = (uint32)1 << 31;
+		uint32 signBit = bits & lastBit;
 
 		if (bits == 0)
 		{
-			// +Zero -> -Zero.
+			// Convert +0 to -0.
 			bits = lastBit;
+			signBit = lastBit;
+		}
+
+		if (signBit != 0)
+		{
+			// Negative.
+			++bits;
 		}
 		else
-		{		
-			if (signBit != 0)
-			{
-				// Negative.
-				++bits;
-			}
-			else
-			{
-				// Positive.
-				--bits;
-			}
+		{
+			// Positive.
+			--bits;
 		}
 
 		const real32_ieee result = *((real32_ieee*)&bits);
