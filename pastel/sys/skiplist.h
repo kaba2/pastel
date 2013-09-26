@@ -687,7 +687,7 @@ namespace Pastel
 			return size_ == 0;
 		}
 
-		//! Returns the first element in the skip list.
+		//! Returns the first element in the skip list on a given level.
 		/*!
 		Time complexity:
 		O(1)
@@ -695,19 +695,22 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		Iterator begin()
+		Iterator begin(integer level = 0)
 		{
-			return Iterator(end_->link<true>(0));
+			return Iterator((Node*)cbegin(level).base());
 		}
 
-		ConstIterator begin() const
+		ConstIterator begin(integer level = 0) const
 		{
-			return cbegin();
+			return cbegin(level);
 		}
 
-		ConstIterator cbegin() const
+		ConstIterator cbegin(integer level = 0) const
 		{
-			return ConstIterator(end_->link<true>(0));
+			PENSURE_OP(level, >= , 0);
+			PENSURE_OP(level, < , levels());
+
+			return ConstIterator(end_->link<true>(level));
 		}
 
 		//! Returns the end-iterator of the skip list.
@@ -743,7 +746,7 @@ namespace Pastel
 		*/
 		integer levels() const
 		{
-			return cend()->levels();
+			return cend().levels();
 		}
 
 		friend void print(const SkipList& list)
@@ -1074,6 +1077,10 @@ namespace Pastel
 		integer uniqueKeys_;
 	};
 
+	//! Checks that the skip-list invariants hold for 'that'.
+	template <typename SkipList_Settings>
+	bool validInvariants(const SkipList<SkipList_Settings>& that);
+
 }
 
 #include "pastel/sys/lessthan.h"
@@ -1103,5 +1110,7 @@ namespace Pastel
 	using SkipList_Set = SkipList<SkipList_Set_Settings<Key, Compare>>;
 
 }
+
+#include "pastel/sys/skiplist.hpp"
 
 #endif

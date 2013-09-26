@@ -29,11 +29,12 @@ namespace
 		{
 			const Type minusZero = (Type)-1 * 0;
 
+			TEST_ENSURE_OP(minusZero, == , 0);
 			TEST_ENSURE_OP(nextGreater((Type)1), >, 1);
 			TEST_ENSURE_OP(nextSmaller((Type)1), <, 1);
 			TEST_ENSURE_OP(nextGreater((Type)0), >, 0);
-			TEST_ENSURE_OP(nextSmaller((Type)0), ==, 0);
-			TEST_ENSURE_OP(nextGreater(minusZero), ==, 0);
+			TEST_ENSURE_OP(nextSmaller((Type)0), <, 0);
+			TEST_ENSURE_OP(nextGreater(minusZero), >, 0);
 			TEST_ENSURE_OP(nextSmaller(minusZero), <, 0);
 			TEST_ENSURE_OP(nextGreater((Type)-1), >, -1);
 			TEST_ENSURE_OP(nextSmaller((Type)-1), <, -1);
@@ -46,8 +47,8 @@ namespace
 
 		void test()
 		{
-			testCase<real64>();
-			testCase<real32>();
+			testCase<real64_ieee>();
+			testCase<real32_ieee>();
 		}
 	};
 

@@ -11,9 +11,9 @@ namespace Pastel
 
 	//! Returns the next greater 64-bit floating point value.
 	/*!
-	This function in lossless in the sense that
-	nextGreater(nextSmaller(that)) == that, and 
-	nextSmaller(nextGreater(that)) == that.
+	Postcondition:
+	that < nextGreater(that),
+	if 'that' is not +infinity or NaN.
 	*/
 	real64_ieee nextGreater(real64_ieee that);
 
