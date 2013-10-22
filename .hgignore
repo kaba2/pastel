@@ -35,5 +35,6 @@ Makefile
 .DS_Store
 *.orig
 *.mexmaci64
+*.mexw64
 *.vcxproj*
 *.sln
