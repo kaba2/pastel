@@ -28,7 +28,7 @@ namespace
 		{
 			testSimple();
 			testValue();
-			testRandom();
+			//testRandom();
 		}
 
 		typedef SkipList_Set<integer> List;

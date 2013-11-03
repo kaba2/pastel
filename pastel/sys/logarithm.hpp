@@ -4,6 +4,7 @@
 #include "pastel/sys/logarithm.h"
 #include "pastel/sys/constants.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/number_tests.h"
 
 #include <cmath>
 
@@ -49,6 +50,17 @@ namespace Pastel
 		}
 
 		return exponent;
+	}
+
+	inline integer integerCeilLog2(integer that)
+	{
+		ENSURE_OP(that, >, 0);
+		if (isPowerOfTwo(that))
+		{
+			return that;
+		}
+
+		return integerLog2(that) + 1;
 	}
 
 }

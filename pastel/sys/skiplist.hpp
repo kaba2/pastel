@@ -18,7 +18,7 @@ namespace Pastel
 
 			if (that.size() > 0)
 			{
-				// The skip-list is empty, but still it size
+				// The skip-list is empty, but still its size
 				// is reportedly positive.
 				return false;
 			}
@@ -42,8 +42,24 @@ namespace Pastel
 		for (integer i = 0;i < that.levels();++i)
 		{
 			ConstIterator iter = that.cbegin(i);
-			iter = iter.next(i);
 			ConstIterator end = that.cend();
+
+			// Check that the nodes are bidirectionally linked.
+			while (iter != end)
+			{
+				if (iter.prev(i).next(i) != iter ||
+					iter.next(i).prev(i) != iter)
+				{
+					// The nodes are not bidirectionally linked.
+					return false;
+				}
+
+				iter = iter.next(i);
+			}
+
+			iter = that.cbegin(i);
+
+			iter = iter.next(i);
 			integer sameLevels = 1;
 			while(iter != end)
 			{

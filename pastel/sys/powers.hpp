@@ -2,6 +2,7 @@
 #define PASTELSYS_POWERS_HPP
 
 #include "pastel/sys/powers.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
@@ -10,6 +11,13 @@ namespace Pastel
 	inline Type square(const Type& that)
 	{
 		return that * that;
+	}
+
+	inline integer powerOfTwo(integer i)
+	{
+		PENSURE_OP(i, >=, 0);
+
+		return (integer)1 << i;
 	}
 
 }

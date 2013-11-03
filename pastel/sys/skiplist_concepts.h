@@ -29,7 +29,7 @@ namespace Pastel
 			Setting this to void avoids allocating any memory 
 			for the associated data. In addition, while normally
 			skip list iterators dereference to the value, 
-			after setting Value to void iterators dereference 
+			after setting Value to void, iterators dereference 
 			to the key.
 			*/
 			using Value = UserDefinedType;

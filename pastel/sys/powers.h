@@ -8,11 +8,15 @@ namespace Pastel
 {
 
 	//! Squares the given variable.
-	/*!
-	[Squaring]
-	*/
 	template <typename Type>
 	Type square(const Type& that);
+
+	//! Returns 2^i.
+	/*!
+	Preconditions:
+	i >= 0
+	*/
+	integer powerOfTwo(integer i);
 
 }
 
