@@ -30,9 +30,16 @@ namespace Pastel
 	//! Returns floor(log_2(that)).
 	/*!
 	Preconditions:
-	that >= 0
+	that > 0
 	*/
 	integer integerLog2(integer that);
+
+	//! Returns ceil(log_2(that)).
+	/*!
+	Preconditions:
+	that > 0
+	*/
+	integer integerCeilLog2(integer that);
 
 }
 

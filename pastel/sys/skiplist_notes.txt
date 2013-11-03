@@ -3,15 +3,12 @@ Skip list notes
 
 [[Parent]]: skiplist.txt
 
-This section contains notes on the implementation of the 
-deterministic skip-list in Pastel. It helps to understand
-the corresponding code.
+This section contains notes on the implementation of the skip-list
+in Pastel. It helps to understand the corresponding code.
 
-Deterministic vs randomized
----------------------------
-
-The implementation of the skip list in Pastel is deterministic,
-rather than randomized, as it was originally represented. 
+We implement the alternating deterministic 1-2-skip-list,
+using the array-implementation. From now on, we will refer to this 
+variant as a skip-list.
 
 Equivalent elements
 -------------------
@@ -54,4 +51,255 @@ and each element points to its equivalence class. Thus
 when a representative is removed, we may simply replace
 the representative pointer in the equivalence class.
 
+Skip-link storage
+-----------------
 
+* We will use the array-implementation of the skip-list. The 
+array-implementation takes less memory than the linked-list 
+implementation because it need not store the vertical pointers.
+
+* Each node stores the skip-links for every level of its height
+in an array, as well as the height of the node.
+
+* The physical size of the link-array is always the logical height 
+of the node rounded up to the next power of two, so it need not
+be stored.
+
+* We do not store the link-array in an `std::vector`, because it
+also stores the physical size. 
+
+* It is fast to find out the next power of two. But it is even faster
+to test if an integer is a power of two. It is sufficient to use the
+the latter exclusively; when the logical size hits a power of two,
+the next physical size is the double of this.
+
+[[CppCode]]:
+	bool isPowerOfTwo(integer that)
+    {
+        return (that & (that - 1)) == 0;
+    }
+
+Alternating skip-links
+----------------------
+
+* The skip-links are unidirectional at every level. This saves memory
+over bidirectional linking, and does not sacrifice efficiency.
+
+* The direction of the skip-links alternate at every level,
+with the bottom level linking toward successors.
+
+* The predecessor link at level 0 is stored separately in the node, 
+so that the skip-list can be traversed efficiently in both directions.
+
+* The predecessor link at level 1 is stored separately in the node, 
+so that we can provide time-complexities which are independent of the
+number of equivalent elements. FIX: Not sure if needed, since we can
+get to the representative through the equivalence class.
+
+* This storage scheme provides uniformity in algorithms, so that
+the bottom level need not be handled specially.
+
+Insertion
+---------
+
+* Inserting a node may require several skip-link arrays to be 
+reallocated to greater physical sizes.
+
+* To guarantee strong exception safety, a skip-link array of every
+height of the form 2^i, up to the current maximum, is allocated 
+before the insertion, and these are then used when required.
+
+* When rebalancing, a link-set may be replaced by a bigger
+link-set. In this case the old link-set is put pack in the
+pre-allocation set, rather than deleted.
+
+Insertion algorithm
+-------------------
+
+* Find the correct place to insert the new element.
+
+* If the insertion results in 3 subsequent elements with the same 
+level, raise the level of the middle one, and recurse to rebalance
+the middle element, repeatedly raising the middle of 3 subsequent
+elements with the same level.
+
+Removal
+-------
+
+Removal from a skip-list works as follows:
+
+* If the element is not of level 1, swap the element with its
+successor (or predecessor, which ever is present). The elements
+will then be out-of-order, and the removed node will have level 1.
+
+The following cases cover, up to horizontal symmetry, for the 
+rebalancing after removing an element from a 1-2-skip-list. These 
+cases mirror those of removal for [2-3-trees][23]. However, skip-list
+removal is easier, since some of the cases merge together.
+
+[23]: [[Ref]]: 2-3-trees.txt
+
+The notation will be as follows:
+
+* A bar of width one represents a single element, with the
+height of the bar representing the level of the element.
+
+* A bar of width three represents a valid 1-2-skip-list 
+(without the implicit sentinel edges), with the height of 
+the bar representing the maximum level of the skip-list.
+
+* The cases can be identified by looking at the sequence of
+levels which can be reached through the links on level one higher
+than the currently offending skip-list.
+
+### Case 1
+
+This case
+
+	 _ _ 
+	|X|1|
+
+resolves as
+
+	 _
+	|1|
+
+### Case 2
+
+This case
+
+	 ^   _    
+	|1|_|2|_ _ 
+	| |X| |3|4|
+
+resolves as
+
+	 ^   _  
+	|1|_|3|_ 
+	| |2| |4|
+
+### Case 3
+
+This case
+
+	 ^
+	|1|  _   _
+	| |_|2|_|4|
+	| |X| |3| |
+
+resolves as
+
+	 ^
+	|1|    _
+	| |_ _|4|
+	| |2|3| |
+
+### Case 4
+
+This case
+
+	         ^
+	 _   _  |4|
+	|1|_|2|_| | 
+	| |X| |3| |
+
+resolves as
+
+	       ^
+	 _    |4|  
+	|1|_ _| |  
+	| |2|3| |  
+
+### Case 5
+
+This case
+
+	 _       ^
+	|1|  _  |4|
+	| |_|2|_| | 
+	| |X| |3| |
+
+partially resolves as
+
+	 _     ^
+	|1|   |4|  
+	| |_ _| |  
+	| |2|3| |  
+
+However, since 2 and 4 are too short, the skiplist needs to be rebalanced.
+
+### Case 6
+
+This case
+
+	 ^       _
+	|1|  _  |4|
+	| |_|2|_| | 
+	| |X| |3| |
+
+partially resolves as
+
+	 ^     _
+	|1|   |4|  
+	| |_ _| |  
+	| |2|3| |  
+
+However, since 2 and 4 are too short, the skiplist needs to be rebalanced.
+
+### Case 7
+
+This case
+
+	     _ 
+	 _  |2| 
+	|1|_| |_ _
+	| |X| |3|4|
+
+resolves as
+
+	     _
+	 _  |3|  
+	|1|_| |_  
+	| |2| |4|  
+
+### Case 8
+
+This case
+
+	     _ 
+	 _  |2|  _
+	|1|_| |_|4|
+	| |X| |3| |
+
+partially resolves as
+
+	 _     _ 
+	|1|_ _|4| 
+	| |2|3| |  
+
+However, since the output is shorter than the input, 
+the skiplist needs to be rebalanced.
+
+References
+----------
+
+The probabilistic skip-list was introduced in
+
+_Skip Lists: A Probabilistic Alternative to Balanced Trees_,
+W. Pugh, Communications of the ACM, vol. 33, no. 6, June 1990, 
+pp. 668-676.
+
+The deterministic skip-list was introduced in
+
+_Deterministic Skip Lists_,
+J. Ian Munro, Thomas Papadakis, Robert Sedgewick,
+Proceedings of the ACM-SIAM 
+Third Annual Symposium on Discrete Algorithms, 
+January 1992.
+
+The alternating skip-list was introduced in 
+
+_Alternating Skip Lists_, 
+Laurence Marrie,
+Dr Dobbs Journal,
+August 2000.

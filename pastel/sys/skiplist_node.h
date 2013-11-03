@@ -8,6 +8,7 @@
 #include "pastel/sys/named_tuples.h"
 
 #include <vector>
+#include <memory>
 
 namespace Pastel
 {
@@ -16,6 +17,25 @@ namespace Pastel
 	{
 
 		class Node;
+
+		class Link
+		{
+		public:
+			Node*& operator[](bool direction)
+			{
+				return link_[direction];
+			}
+
+			Node* const operator[](bool direction) const
+			{
+				return link_[direction];
+			}
+
+		private:
+			Node* link_[2];
+		};
+
+		using LinkSet = std::unique_ptr<Link[]>;
 
 		class SuperNode
 		{
@@ -57,44 +77,39 @@ namespace Pastel
 		class Node
 		{
 		public:
-			explicit Node(integer levels = 0) 
-			: link_(levels)
+			Node() 
+			: linkSet_()
+			, levels_(0)
 			, super_(0)
 			{
 			}
 
 			Node(const Node&) = delete;
 			Node(Node&&) = delete;
-		
-			template <bool Direction>
-			Node*& link(integer i)
+
+			~Node()
+			{
+				clear();
+			}
+
+			void clear()
+			{
+				linkSet_.reset();
+				levels_ = 0;
+			}
+
+			Link& link(integer i)
 			{
                 ASSERT_OP(i, >=, 0);
-                ASSERT_OP(i, <, link_.size());
-				return link_[i].next[Direction];
+                ASSERT_OP(i, <, levels_);
+				return linkSet_[i];
 			}
 
-			Node*& link(integer i, bool Direction)
+			const Link& link(integer i) const
 			{
                 ASSERT_OP(i, >=, 0);
-                ASSERT_OP(i, <, link_.size());
-				return link_[i].next[Direction];
-			}
-
-			template <bool Direction>
-			Node* link(integer i) const
-			{
-				return link_[i].next[Direction];
-			}
-
-			Node* link(integer i, bool Direction) const
-			{
-				return link_[i].next[Direction];
-			}
-
-			integer size() const
-			{
-				return link_.size();
+                ASSERT_OP(i, <, levels_);
+				return linkSet_[i];
 			}
 
 			SuperNode*& super()
@@ -130,62 +145,25 @@ namespace Pastel
 				return 1;
 			}
 
+			void setLinkSet(LinkSet&& linkSet, integer levels)
+			{
+				linkSet_ = std::move(linkSet);
+				levels_ = levels;
+			}
+
 			bool isRepresentative() const
 			{
 				return repr() == this;
 			}
 
-			void addLevel()
-			{
-				integer capacity = link_.capacity();
-				if (levels() == capacity)
-				{
-					// The addition of a new level causes
-					// a reallocation of the links.
-
-					// Double the physical levels of the node.
-					integer newCapacity = 
-						2 * capacity - 1;
-					link_.reserve(newCapacity);
-
-					// The std::vector's push_back does
-					// such an exponential growing 
-					// automatically. However, we want to
-					// be specific here that the number of
-					// levels multiplies by 2, and not
-					// by some other constant.
-				}
-
-				// Add the new logical level.
-				// The default of linking to itself is
-				// useful for the sentinel node. The other
-				// nodes immediately overwrite the links.
-				link_.push_back(Link(this, this));
-			}
-
 			integer levels() const
 			{
-				return link_.size();
+				return levels_;
 			}
 
 		//private:
-			class Link
-			{
-			public:
-				Link() = default;
-
-				Link(Node* next_,
-					Node* prev_)
-				: next()
-				{
-					next[0] = next_;
-					next[1] = prev_;
-				}
-
-				Node* next[2];
-			};
-			
-			std::vector<Link> link_;
+			LinkSet linkSet_;
+			integer levels_;
 			SuperNode* super_;
 		};
 
@@ -203,9 +181,8 @@ namespace Pastel
 
 			Data_Node(
 				Key key,
-				Value_Class data,
-				integer levels = 0)
-			: Node(levels)
+				Value_Class data)
+			: Node()
 			, Value_Class(std::move(data))
 			, key_(std::move(key))
 			{

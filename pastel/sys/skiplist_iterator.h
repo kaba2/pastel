@@ -95,19 +95,19 @@ namespace Pastel
 			Iterator next(integer level, bool direction) const
 			{
 				NodePtr node = this->base();
-				return Iterator(node->link(level, direction));
+				return Iterator(node->link(level)[direction]);
 			}
 
 			Iterator next(integer level) const
 			{
 				Node* node = (Node*)this->base();
-				return Iterator(node->link<true>(level));
+				return Iterator(node->link(level)[1]);
 			}
 
 			Iterator prev(integer level) const
 			{
 				Node* node = (Node*)this->base();
-				return Iterator(node->link<false>(level));
+				return Iterator(node->link(level)[0]);
 			}
 
 		private:
@@ -144,18 +144,13 @@ namespace Pastel
 			void increment() 
 			{ 
 				this->base_reference() = 
-					this->base()->link_[0].next[1];
+					this->base()->link(0)[1];
 			}
 
 			void decrement() 
 			{ 
-				// For some reason
-				// this->base()->link<false>(0)
-				// does not work. Perhaps a bug
-				// in Clang?
-
 				this->base_reference() = 
-					this->base()->link_[0].next[0];
+					this->base()->link(0)[0];
 			}
 		};
 

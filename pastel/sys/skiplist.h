@@ -8,8 +8,11 @@
 #include "pastel/sys/skiplist_iterator.h"
 #include "pastel/sys/random_geometric.h"
 #include "pastel/sys/binary_search.h"
+#include "pastel/sys/copy_n.h"
+#include "pastel/sys/powers.h"
 
 #include <memory>
+#include <vector>
 
 namespace Pastel
 {
@@ -36,8 +39,16 @@ namespace Pastel
 
 	private:
 		using Node = SkipList_::Node;
+		using Link = SkipList_::Link;
+		using LinkSet = SkipList_::LinkSet;
 		using Data_Node = SkipList_::Data_Node<Key, Value_Class>;
 		using SuperNode = SkipList_::SuperNode;
+
+		enum
+		{
+			Prev = 0,
+			Next = 1
+		};
 
 	public:
 		using Iterator = 
@@ -61,8 +72,21 @@ namespace Pastel
 		: end_(0)
 		, size_(0)
 		, uniqueKeys_(0)
+		, allocatedSet_()
+		, endSet_()
 		{
-			initialize();
+			// Create the link-set for the sentinel node.
+			// When creating the skip-list, the sentinel node
+			// has only the basic level. This link-level is needed
+			// to be able to iterate the empty skip-list.
+			endSet_.reset(new Link[1]);
+
+			// Create the sentinel node.
+			end_ = new Node;
+
+			// Link the sentinel node to itself.
+			end_->setLinkSet(std::move(endSet_), 1);
+			link(end_, end_, 0);
 		}
 
 		//! Copy-constructs a skip list.
@@ -76,21 +100,10 @@ namespace Pastel
 		SkipList(const SkipList& that)
 		: SkipList()
 		{
-			try
+			for (auto iter = that.cbegin();iter != that.cend();++iter)
 			{
-				for (auto iter = that.cbegin();iter != that.cend();++iter)
-				{
-					// FIX: Add hint to insert for linear-time copy.
-					insert(iter.key(), iter.value());
-				}
-			}
-			catch(...)
-			{
-				// The destructor will not be run,
-				// so remember to clean up in case
-				// of an exception.
-				deinitialize();
-				throw;
+				// FIX: Add hint to insert for linear-time copy.
+				insert(iter.key(), iter.value());
 			}
 		}
 
@@ -121,7 +134,14 @@ namespace Pastel
 		*/
 		~SkipList()
 		{
-			deinitialize();
+			// Delete the elements.
+			clear();
+
+			// Delete the sentinel node.
+			delete end_;
+
+			// The preallocated memory is deleted
+			// automatically.
 		}
 
 		//! Copy-assigns from another skip list.
@@ -170,19 +190,37 @@ namespace Pastel
 
 			// We want to preserve the sentinel node.
 			// This is why we splice rather than swap().
-			integer n = end_->size();
+
+			if (!that.endSet_)
+			{
+				// The 'that' is empty. 
+				ASSERT(that.empty());
+
+				// There is nothing to do.
+				return *this;
+			}
+
+			// Transfer the link-set.
+			end_->setLinkSet(std::move(that.end_->linkSet_), that.end_->levels());
+			that.end_->setLinkSet(std::move(that.endSet_), 1);
+
+			// Translate the links to the new sentinel node.
+			integer n = end_->levels();
 			for (integer i = 0;i < n;++i)
 			{
-				if (that.end_->link_[i].next[1] != that.end_)
+				if (end_->link(i)[Next] != that.end_)
 				{
 					// Splice the non-empty lists into this
 					// skip-list.
-					Node* thatNext = that.end_->link_[i].next[1];
-					Node* thatPrev = that.end_->link_[i].next[0];;
+					Node* thatFirst = end_->link(i)[Next];
+					Node* thatLast = end_->link(i)[Prev];
 
-					link(end_, thatNext, i);
-					link(thatPrev, end_, i);
-					link(that.end_, that.end_, i);
+					link(end_, thatFirst, i);
+					link(thatLast, end_, i);
+				}
+				else
+				{
+					link(end_, end_, i);
 				}
 			}
 
@@ -208,6 +246,8 @@ namespace Pastel
 			swap(end_, that.end_);
 			swap(size_, that.size_);
 			swap(uniqueKeys_, that.uniqueKeys_);
+			allocatedSet_.swap(that.allocatedSet_);
+			endSet_.swap(that.endSet_);
 		}
 
 		//! Removes all elements from the skip list.
@@ -223,10 +263,9 @@ namespace Pastel
 			// Since every element will be removed,
 			// there is no need to take care of the links.
 
-			// Delete every node, except the sentinel node.
-			Node* node = end_->link<true>(0);
-			Node* end = end_;
-			while(node != end)
+			// Delete every node except the sentinel node.
+			Node* node = end_->link(0)[Next];
+			while(node != end_)
 			{
 				if (node->isRepresentative() &&
 					node->super())
@@ -239,18 +278,18 @@ namespace Pastel
 				}
 
 				// Delete the node.
-				Node* next = node->link<true>(0);
+				Node* next = node->link(0)[Next];
 				delete node;
 				node = next;
 			}
 
-			// Update the links in the sentinel node.
-			end_->link_.resize(2);
-			integer n = end_->size();
-			for (integer i = 0;i < n;++i)
+			if (endSet_)
 			{
-				link(end, end, i);
+				end_->setLinkSet(std::move(endSet_), 1);
 			}
+
+			// Delete preallocated memory.
+			allocatedSet_.clear();
 
 			// Update the sizes.
 			size_ = 0;
@@ -263,12 +302,17 @@ namespace Pastel
 		O(log(size()))
 
 		Exception safety:
-		basic (due to rebalancing)
+		strong
 		*/
 		Iterator insert(
 			Key key, 
 			Value_Class value = Value_Class())
 		{
+			// Preallocate link-sets of sizes 2^i. This is needed
+			// to achieve strong exception safety, as well as to
+			// avoid additional calls to the memory manager.
+			preallocate();
+
 			// Find the element before which to insert
 			// the new element.
 			Iterator nextIter = upper_bound(key);
@@ -278,20 +322,22 @@ namespace Pastel
 			bool keyAlreadyExists = false;
 			if (nextIter != begin())
 			{
+				// Either every element is smaller than the inserted
+				// element, or some are smaller and some not-smaller.
+				// Find out which is the case.
 				Iterator prevNextIter = std::prev(nextIter);
 				keyAlreadyExists = !Compare()(prevNextIter.key(), key);
 			}
+			else
+			{
+				// Since the first element is greater than the 
+				// inserted element, every element is. The
+				// key does not exist in the skip-list.
+			}
 
-			// If an equivalent element already exists in the
-			// skip-list, then we will only link it in the basic
-			// level. Otherwise we will also provide with a
-			// link in the first skip-level.
-			integer levels = keyAlreadyExists ? 1 : 2;
-
-			// Create a new node with the given number
-			// of levels and the given data.
+			// Create a new node with the given data.
 			std::unique_ptr<Data_Node> nodePtr(
-				new Data_Node(std::move(key), std::move(value), levels));
+				new Data_Node(std::move(key), std::move(value)));
 			Data_Node* node = nodePtr.get();
 
 			if (keyAlreadyExists)
@@ -320,13 +366,21 @@ namespace Pastel
 				++super->keys();
 			}
 
+			// If an equivalent element already exists in the
+			// skip-list, then we will only link it in the basic
+			// level. Otherwise we will also provide with a
+			// link in the first skip-level.
+			integer i = keyAlreadyExists ? 0 : 1;
+			integer levels = powerOfTwo(i);
+			node->setLinkSet(std::move(allocatedSet_[i]), levels);
+
 			// No exceptions beyond this point.
 			nodePtr.release();
 
 			// Link the basic level.
 			{
 				Node* next = (Node*)nextIter.base();
-				Node* prev = next->link<false>(0);
+				Node* prev = next->link(0)[Prev];
 				link(prev, node, 0);
 				link(node, next, 0);
 			}
@@ -405,14 +459,14 @@ namespace Pastel
 			PENSURE(that != cend());
 
 			Node* node = (Node*)that.base();
-			Node* next = node->link<true>(0);
+			Node* next = node->link(0)[Next];
 
 			// Link the node off from the list.
-			integer n = node->size();
+			integer n = node->levels();
 			for (integer i = 0;i < n;++i)
 			{
-				Node* prev = node->link<false>(i);
-				Node* next = node->link<true>(i);
+				Node* prev = node->link(i)[Prev];
+				Node* next = node->link(i)[Next];
 				
 				link(prev, next, i);
 			}
@@ -710,7 +764,7 @@ namespace Pastel
 			PENSURE_OP(level, >= , 0);
 			PENSURE_OP(level, < , levels());
 
-			return ConstIterator(end_->link<true>(level));
+			return ConstIterator(end_->link(level)[Next]);
 		}
 
 		//! Returns the end-iterator of the skip list.
@@ -751,10 +805,10 @@ namespace Pastel
 
 		friend void print(const SkipList& list)
 		{
-			for (integer i = 0;i < list.maxLevels();++i)
+			for (integer i = 0;i < list.levels();++i)
 			{
 				Node* node = list.end_;
-				node = node->link<true>(i);
+				node = node->link(i)[Next];
 				if (node == list.end_)
 				{
 					break;
@@ -762,7 +816,7 @@ namespace Pastel
 				while(node != list.end_)
 				{
 					std::cout << ((Data_Node*)node)->key() << ", ";
-					node = node->link<true>(i);
+					node = node->link(i)[Next];
 				}
 				std::cout << std::endl;
 			}
@@ -770,24 +824,6 @@ namespace Pastel
 
 
 	private:
-		void initialize()
-		{
-			ASSERT(!end_);
-
-			// Create the sentinel node.
-			end_ = new Node(2);
-
-			// Link the sentinel node to itself.
-			link(end_, end_, 0);
-			link(end_, end_, 1);
-		}
-
-		void deinitialize()
-		{
-			clear();
-			delete end_;
-		}
-
 		const Key& nodeKey(Node* node) const
 		{
 			ASSERT(node != end_);
@@ -798,7 +834,7 @@ namespace Pastel
 		{
 			ASSERT(node != end_);
 
-			integer levels = node->size();
+			integer levels = node->levels();
 
 			Node* prev = node;
 			for (integer i = 1;i < levels;++i)
@@ -810,7 +846,7 @@ namespace Pastel
 				// ... and then link the 
 				// node between the predecessor and its
 				// successor.
-				Node* next = prev->link<true>(i);
+				Node* next = prev->link(i)[Next];
 				link(prev, node, i);
 				link(node, next, i);
 			}
@@ -818,17 +854,19 @@ namespace Pastel
 
 		Node* findPrevious(Node* node, integer level) const
 		{
+			ASSERT(node != end_);
 			ASSERT_OP(level, >=, 1);
 
-			// Find the representative of the node.
-			node = node->link<false>(0)->repr();
+			// Find the representative of the 
+			// previous node.
+			node = node->link(0)[Prev]->repr();
 
 			// Find the first node on the left that
 			// links through 'node' on 'level'.
 			while(node != end_ &&
 				node->levels() <= level)
 			{
-				node = node->link<false>(node->size() - 1);
+				node = node->link(node->levels() - 1)[Prev];
 			}
 
 			return node;
@@ -842,13 +880,14 @@ namespace Pastel
 			integer equals = 0;
 			while (equals < 2)
 			{
-				Node* next = node->link<Direction>(level);
+				Node* next = node->link(level)[Direction];
 				if (next == end_ ||
 					next->levels() != node->levels())
 				{
 					break;
 				}
 
+				node = next;
 				++equals;
 			}
 
@@ -886,13 +925,13 @@ namespace Pastel
 				switch(equalsOnRight)
 				{
 				case 0:
-					middle = node->link<false>(level);
+					middle = node->link(level)[Prev];
 					break;
 				case 1:
 					middle = node;
 					break;
 				case 2:
-					middle = node->link<true>(level);
+					middle = node->link(level)[Next];
 					break;
 				};
 
@@ -908,21 +947,21 @@ namespace Pastel
 					// The link comes from the sentinel node.
 					// Make sure that the sentinel node has the
 					// necessary amount of levels.
-					if (end_->levels() <= newLevel)
+					ASSERT_OP(newLevel, <, end_->levels());
+					if (newLevel == end_->levels() - 1)
 					{
 						// This implies that the sentinel node
-						// has always the greatest amount of
+						// always has the greatest amount of
 						// levels.
-						end_->addLevel();
+						increaseLevel(end_);
 					}
-					ASSERT_OP(newLevel, <, end_->levels());
 				}
 
 				// Add one to the logical level of the middle node.
-				middle->addLevel();
+				increaseLevel(middle);
 
 				// Link the 'middle' on the new level.
-				Node* middleNext = middlePrev->link<true>(newLevel);
+				Node* middleNext = middlePrev->link(newLevel)[Next];
 				link(middlePrev, middle, newLevel);
 				link(middle, middleNext, newLevel);
 
@@ -950,7 +989,9 @@ namespace Pastel
 					// Failing this invariant means that
 					// Compare() is not a strict weak order;
 					// this is an error in the user's code.
-					PENSURE(!Compare()(key, nodeKey(node)));
+					const bool isStrictWeakOrder = 
+						!Compare()(key, nodeKey(node));
+					PENSURE(isStrictWeakOrder);
 
 					// The 'key' is to the right of 'hint'. 
 					direction = true;
@@ -975,7 +1016,7 @@ namespace Pastel
 
 			auto validMoveTest = [&](integer level)
 			{
-				Node* next = node->link(level, direction);
+				Node* next = node->link(level)[direction];
 				// We call 'next' an overshoot, if
 				// 1) it is the sentinel node,
 				// 2) it is not the sentinel node, and 
@@ -991,7 +1032,7 @@ namespace Pastel
 			while(true)
 			{
 				integer overshootLevel = 
-					binarySearch(minLevel, node->size(), validMoveTest);
+					binarySearch(minLevel, node->levels(), validMoveTest);
 
 				if (overshootLevel == minLevel)
 				{
@@ -1001,7 +1042,7 @@ namespace Pastel
 				}
 
 				minLevel = overshootLevel - 1;
-				node = node->link(minLevel, direction);
+				node = node->link(minLevel)[direction];
 			}
 
 			// Descend towards the key.
@@ -1018,13 +1059,13 @@ namespace Pastel
 				}
 
 				maxLevel = overshootLevel;
-				node = node->link(maxLevel - 1, direction);
+				node = node->link(maxLevel - 1)[direction];
 			}
 
 			if (direction)
 			{
 				// The next node gives the lower-bound.
-				node = node->link(1, direction);
+				node = node->link(1)[direction];
 			}
 
 			return node;
@@ -1055,7 +1096,7 @@ namespace Pastel
 				// it is linked on level 1, which
 				// directly gives the node with the
 				// next unique key.
-				upperBound = upperBound->link<true>(1);
+				upperBound = upperBound->link(1)[Next];
 			}
 			else
 			{
@@ -1066,22 +1107,204 @@ namespace Pastel
 			return upperBound;
 		}
 
-		void link(Node* left, Node* right, integer i)
+		void preallocate()
 		{
-			left->link<true>(i) = right;
-			right->link<false>(i) = left;
+			if (!endSet_)
+			{
+				// The 'endSet_' is empty if and only if the skip-list
+				// is empty.
+				ASSERT(empty());
+
+				// The sentinel node is given 3 three levels,
+				// since the first inserted element has to have height 2,
+				// and the sentinel node has to have height one
+				// more than then the highest element.
+				integer levels = 3;
+
+				// The allocated amounts are always of the form 2^i.
+				LinkSet linkSet(new Link[4]);
+
+				// Store the one-level sentinel link-set 
+				// to wait for clear().
+				endSet_ = std::move(end_->linkSet_);
+
+				// Link the sentinel node to itself on all
+				// levels.
+				end_->setLinkSet(std::move(linkSet), levels);
+				for (integer i = 0;i < levels;++i)
+				{
+					link(end_, end_, i);
+				}
+			}
+
+			// Make sure the pre-allocated set
+			// can always extend the sentinel node.
+			//
+			// Let m be the size of the `allocatedSet_`,
+			// and h be the height of the sentinel node.
+			// Then h can be extended if
+			//
+			// 		2^{m - 1} >= h + 1
+			//  <=> m - 1 >= log_2(h + 1)
+			//  <=> m >= log_2(h + 1) + 1
+			//  <=  m >= ceil(log_2(h + 1)) + 1
+			//
+			// h  | h + 1 | ceil(log_2(h + 1)) | 2^[ceil(log_2(h + 1))]
+			// -- | ----- | ------------------ | ----------------------
+			// 0  |     1 |                  0 |                      1
+			// 1  |     2 |                  1 |                      2
+			// 2  |     3 |                  2 |                      4
+			// 3  |     4 |                  2 |                      4
+			// 4  |     5 |                  3 |                      8
+			// 5  |     6 |                  3 |                      8
+			// 6  |     7 |                  3 |                      8
+			// 7  |     8 |                  3 |                      8
+			// 8  |     9 |                  4 |                     16
+
+			integer m = allocatedSet_.size();
+			integer h = end_->levels();
+
+			// The height of the link-array at allocatedSet_[i] is 2^i.
+			if (allocatedSet_.empty() || 
+				powerOfTwo(m - 1) < h + 1)
+			{
+				m = integerCeilLog2(h + 1) + 1;
+				allocatedSet_.resize(m);
+			}
+
+			// Preallocate all missing sizes of skip-link arrays.
+			for (integer i = 0;i < m;++i)
+			{
+				if (!allocatedSet_[i])
+				{
+					integer levels = powerOfTwo(i);
+					allocatedSet_[i].reset(new Link[levels]);
+				}
+			}
 		}
 
+		//! Links subsequent nodes together at level i.
+		/*!
+		Time complexity:
+		O(1)
+
+		Exception safety:
+		nothrow
+		*/
+		void link(Node* left, Node* right, integer i)
+		{
+			left->link(i)[Next] = right;
+			right->link(i)[Prev] = left;
+		}
+
+		//! Increases the level of a node by one.
+		/*!
+		Time complexity:
+		O(node->levels()), if isPowerOfTwo(node->levels() + 1)
+		O(1), otherwise
+
+		Exception safety:
+		nothrow
+		*/
+		void increaseLevel(Node* node)
+		{
+			// A given node has a physical size of the form 2^i.
+			// If the number of levels in a node already is of
+			// this form, then we need to double the physical size.
+
+			integer n = node->levels();
+			if (isPowerOfTwo(n))
+			{
+				// The node needs to be physically resized
+				// to increase a level.
+
+				// Find out the index `i` such that 
+				// `allocatedSet_[i]` is a link-set
+				// of size 2 * n.
+				//
+				//		2^i = 2n
+				// <=>  i = log_2(n) + 1
+				integer i = integerLog2(n) + 1;
+				ASSERT_OP(i, <, allocatedSet_.size());
+
+				// This function attains a nothrow exception
+				// safety because it uses the preallocated memory,
+				// rather than allocating the memory now.
+				LinkSet& newLinkSet = allocatedSet_[i];
+				ASSERT(newLinkSet);
+
+				// Copy the links into the new link-set.
+				copy_n(node->linkSet_.get(), n, newLinkSet.get());
+
+				// Possibly return the previously allocated memory.
+				if (node->linkSet_ && 
+					i > 0 && 
+					!allocatedSet_[i - 1])
+				{
+					allocatedSet_[i - 1] = std::move(node->linkSet_);
+				}
+
+				// Move the new link-set into the node.
+				node->linkSet_ = std::move(newLinkSet);
+			}
+
+			// Increase the level of the node.
+			++node->levels_;
+
+			// Initialize the new link to point to the node itself.
+			// This is needed for the sentinel node.
+			link(node, node, n);
+		}
+
+		//! Sentinel node.
+		/*!
+		The skip-list is cyclic. The sentinel node divides
+		this cycle such that the next node from the sentinel
+		is the first element, and the previous node from the 
+		sentinel is the last element. This removes special
+		cases from the algorithms. At the same time the sentinel
+		node acts as the one-past-last iterator.
+		*/
 		Node* end_;
+
+		//! The number of elements in the skip-list.
 		integer size_;
+
+		//! The number of unique keys in the skip-list.
 		integer uniqueKeys_;
+
+		//! A preallocated set of link-sets.
+		/*!
+		To guarantee strong exception safety in insertion,
+		and also to reduce the number of calls to the memory
+		manager, the insertion algorithm preallocates link-sets
+		of sizes 2^i.
+		*/
+		std::vector<LinkSet> allocatedSet_;
+
+		//! A link-set for the sentinel node.
+		/*!
+		The link-set for the sentinel node must also be
+		preallocated. The reason is that in clear() we want
+		to back everything up to the state they are when creating
+		SkipList. However, because of the nothrow exception safety
+		for clear(), we are not able to allocate anything.
+		*/
+		LinkSet endSet_;
 	};
 
-	//! Checks that the skip-list invariants hold for 'that'.
+}
+
+namespace Pastel
+{
+
+	//! Returns whether the skip-list invariants hold for 'that'.
 	template <typename SkipList_Settings>
 	bool validInvariants(const SkipList<SkipList_Settings>& that);
 
 }
+
+#include "pastel/sys/skiplist.hpp"
 
 #include "pastel/sys/lessthan.h"
 
@@ -1110,7 +1333,5 @@ namespace Pastel
 	using SkipList_Set = SkipList<SkipList_Set_Settings<Key, Compare>>;
 
 }
-
-#include "pastel/sys/skiplist.hpp"
 
 #endif
