@@ -15,7 +15,7 @@ A _partition_ of a set ''S'' is a set of disjoint subsets
 can be given as a union of some sets in ''Q''. In such a case the ''Q''
 is called _finer than_ ''P'', and ''P'' is called _coarser than_ ''Q''.
 The coarsest partition is the singleton set ''{S}'', while the finest
-partition is the power-set ''power-set(S)''. The refinement relation
+partition is the set of singletons of ''S''. The refinement relation
 is a partial order on the set of partitions. 
 
 Data structure
@@ -26,7 +26,8 @@ partition is wanted to be split into two, this split is denoted
 by marking the elements of the other part. Multiple sets in the
 partition can be marked this way, perhaps incrementally. The actual
 refinement is committed by the `split()` function which splits all 
-those sets that have both marked and unmarked elements. 
+those sets that have both marked and unmarked elements. Such lazy
+splitting amortizes the cost of splitting.
 
 Properties
 ----------
