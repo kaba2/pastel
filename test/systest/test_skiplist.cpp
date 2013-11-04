@@ -4,6 +4,7 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/skiplist.h"
+#include "pastel/sys/random_integer.h"
 
 #include <boost/range/adaptor/reversed.hpp> 
 
@@ -27,7 +28,7 @@ namespace
 		virtual void run()
 		{
 			testSimple();
-			testValue();
+			//testValue();
 			//testRandom();
 		}
 

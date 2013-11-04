@@ -156,13 +156,18 @@ than the currently offending skip-list.
 
 This case
 
-	 _ _ 
-	|X|1|
+	 ^     _
+	|1|_ _|3|
+	| |2|X| |
 
 resolves as
 
-	 _
-	|1|
+	 ^   _
+	|1|_|3|
+	| |2| |
+
+Similarly for the cases obtained by independently switching 
+1 <-> 3 or 2 <-> X.
 
 ### Case 2
 
@@ -178,107 +183,30 @@ resolves as
 	|1|_|3|_ 
 	| |2| |4|
 
+That is, removing X results in two subsequent elements with
+height at least 2; they lack height-one element between them.
+The 2 is shortened, which results in three subsequent height-one 
+elements. This is resolved by lifting 3.
+
 ### Case 3
 
 This case
 
 	 ^
-	|1|  _   _
+	|1|  _   ^
 	| |_|2|_|4|
 	| |X| |3| |
 
-resolves as
+partially resolves as
 
 	 ^
-	|1|    _
+	|1|    ^
 	| |_ _|4|
 	| |2|3| |
 
-### Case 4
-
-This case
-
-	         ^
-	 _   _  |4|
-	|1|_|2|_| | 
-	| |X| |3| |
-
-resolves as
-
-	       ^
-	 _    |4|  
-	|1|_ _| |  
-	| |2|3| |  
-
-### Case 5
-
-This case
-
-	 _       ^
-	|1|  _  |4|
-	| |_|2|_| | 
-	| |X| |3| |
-
-partially resolves as
-
-	 _     ^
-	|1|   |4|  
-	| |_ _| |  
-	| |2|3| |  
-
-However, since 2 and 4 are too short, the skiplist needs to be rebalanced.
-
-### Case 6
-
-This case
-
-	 ^       _
-	|1|  _  |4|
-	| |_|2|_| | 
-	| |X| |3| |
-
-partially resolves as
-
-	 ^     _
-	|1|   |4|  
-	| |_ _| |  
-	| |2|3| |  
-
-However, since 2 and 4 are too short, the skiplist needs to be rebalanced.
-
-### Case 7
-
-This case
-
-	     _ 
-	 _  |2| 
-	|1|_| |_ _
-	| |X| |3|4|
-
-resolves as
-
-	     _
-	 _  |3|  
-	|1|_| |_  
-	| |2| |4|  
-
-### Case 8
-
-This case
-
-	     _ 
-	 _  |2|  _
-	|1|_| |_|4|
-	| |X| |3| |
-
-partially resolves as
-
-	 _     _ 
-	|1|_ _|4| 
-	| |2|3| |  
-
-However, since the output is shorter than the input, 
-the skiplist needs to be rebalanced.
+If 1 and 4 are both of height at least 3, then shorten the shorter
+(which must be of height 3). If this results in three subsequent 
+elements of height 2, then lenghten the middle of these.
 
 References
 ----------
