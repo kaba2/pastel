@@ -28,8 +28,8 @@ namespace
 		virtual void run()
 		{
 			testSimple();
-			//testValue();
-			//testRandom();
+			testValue();
+			testRandom();
 		}
 
 		typedef SkipList_Set<integer> List;

@@ -636,19 +636,34 @@ namespace Pastel
 
 		friend void print(const SkipList& list)
 		{
-			for (integer i = 0;i < list.levels();++i)
+			for (integer i = list.levels() - 1;i >= 0;--i)
 			{
 				Node* node = list.end_;
-				node = node->link(i)[Next];
-				if (node == list.end_)
+				do 
 				{
-					break;
-				}
-				while(node != list.end_)
-				{
-					std::cout << ((Data_Node*)node)->key() << ", ";
-					node = node->link(i)[Next];
-				}
+					if (i == 0)
+					{
+						if (node != list.end_)
+						{
+							std::cout << ((Data_Node*)node)->key();
+						}
+						else
+						{
+							std::cout << "-";
+						}
+						std::cout << " ";
+					}
+					else if (i < node->levels())
+					{
+						std::cout << "| ";
+					}
+					else
+					{
+						std::cout << "  ";
+					}
+					node = node->link(0)[Next];
+				} while (node != list.end_);
+
 				std::cout << std::endl;
 			}
 		}
@@ -674,6 +689,9 @@ namespace Pastel
 		//! Rebalances the skip-list after erase.
 		void rebalanceErase(Node* left, Node* right);
 
+		//! Deallocates a node.
+		void deallocateNode(Node* node);
+			
 		//! Finds the first element >= key.
 		Node* nodeLowerBound(
 			const Key& key,
