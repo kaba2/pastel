@@ -6,9 +6,7 @@ Skip list notes
 This section contains notes on the implementation of the skip-list
 in Pastel. It helps to understand the corresponding code.
 
-We implement the alternating deterministic 1-2-skip-list,
-using the array-implementation. From now on, we will refer to this 
-variant as a skip-list.
+We implement the deterministic 1-2-skip-list, using the array-implementation. From now on, we will refer to this variant as a skip-list.
 
 Equivalent elements
 -------------------
@@ -63,7 +61,7 @@ in an array, as well as the height of the node.
 
 * The physical size of the link-array is always the logical height 
 of the node rounded up to the next power of two, so it need not
-be stored.
+be stored. Growing the physical size exponentially is also needed to achieve logarithmic updates.
 
 * We do not store the link-array in an `std::vector`, because it
 also stores the physical size. 
@@ -79,25 +77,14 @@ the next physical size is the double of this.
         return (that & (that - 1)) == 0;
     }
 
-Alternating skip-links
+Alternating skip-lists
 ----------------------
 
-* The skip-links are unidirectional at every level. This saves memory
-over bidirectional linking, and does not sacrifice efficiency.
+* An alternating skip-list is an implementation strategy where every skip-link is unidirectional, but alternates at every level.
 
-* The direction of the skip-links alternate at every level,
-with the bottom level linking toward successors.
+* Alternation saves memory (by a constant) over bidirectional linking, but sacrifices efficiency (by a constant) in finger searches.
 
-* The predecessor link at level 0 is stored separately in the node, 
-so that the skip-list can be traversed efficiently in both directions.
-
-* The predecessor link at level 1 is stored separately in the node, 
-so that we can provide time-complexities which are independent of the
-number of equivalent elements. FIX: Not sure if needed, since we can
-get to the representative through the equivalence class.
-
-* This storage scheme provides uniformity in algorithms, so that
-the bottom level need not be handled specially.
+* We do not implement alternation because we favor finger-search efficiency over memory use.
 
 Insertion
 ---------
@@ -128,85 +115,19 @@ Removal
 
 Removal from a skip-list works as follows:
 
-* If the element is not of level 1, swap the element with its
-successor (or predecessor, which ever is present). The elements
-will then be out-of-order, and the removed node will have level 1.
+* If the element is not of height 2, pass its link-set to its successor or predecessor, whichever is present.
 
-The following cases cover, up to horizontal symmetry, for the 
-rebalancing after removing an element from a 1-2-skip-list. These 
-cases mirror those of removal for [2-3-trees][23]. However, skip-list
-removal is easier, since some of the cases merge together.
+* Remove the node.
 
-[23]: [[Ref]]: 2-3-trees.txt
+* Let n = 2.
 
-The notation will be as follows:
+* If an element of height n is present, then we are done.
 
-* A bar of width one represents a single element, with the
-height of the bar representing the level of the element.
+* Otherwise, there must be an element with height n + 1, which we shorten to height n.
 
-* A bar of width three represents a valid 1-2-skip-list 
-(without the implicit sentinel edges), with the height of 
-the bar representing the maximum level of the skip-list.
+* If there are now three subsequent elements of height n, raise the middle one, and we are done.
 
-* The cases can be identified by looking at the sequence of
-levels which can be reached through the links on level one higher
-than the currently offending skip-list.
-
-### Case 1
-
-This case
-
-	 ^     _
-	|1|_ _|3|
-	| |2|X| |
-
-resolves as
-
-	 ^   _
-	|1|_|3|
-	| |2| |
-
-Similarly for the cases obtained by independently switching 
-1 <-> 3 or 2 <-> X.
-
-### Case 2
-
-This case
-
-	 ^   _    
-	|1|_|2|_ _ 
-	| |X| |3|4|
-
-resolves as
-
-	 ^   _  
-	|1|_|3|_ 
-	| |2| |4|
-
-That is, removing X results in two subsequent elements with
-height at least 2; they lack height-one element between them.
-The 2 is shortened, which results in three subsequent height-one 
-elements. This is resolved by lifting 3.
-
-### Case 3
-
-This case
-
-	 ^
-	|1|  _   ^
-	| |_|2|_|4|
-	| |X| |3| |
-
-partially resolves as
-
-	 ^
-	|1|    ^
-	| |_ _|4|
-	| |2|3| |
-
-If 1 and 4 are both of height at least 3, then shorten the shorter
-(which must be of height 3). If this results in three subsequent 
-elements of height 2, then lenghten the middle of these.
+* Otherwise, the shortening may have removed the only element of height n + 1. Repeat the previous with height n + 1.
 
 References
 ----------

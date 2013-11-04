@@ -120,7 +120,7 @@ namespace Pastel
 	template <typename SkipList_Settings>
 	void SkipList<SkipList_Settings>::rebalanceInsert(Node* node)
 	{
-		ASSERT_OP(node->levels(), ==, 2);
+		ASSERT_OP(node->height(), ==, 2);
 		while(true)
 		{
 			ASSERT(node != end_);
@@ -206,7 +206,7 @@ namespace Pastel
 		// 8  |     9 |                  4 |                     16
 
 		integer m = allocatedSet_.size();
-		integer h = end_->levels();
+		integer h = end_->height();
 
 		// The height of the link-array at allocatedSet_[i] is 2^i.
 		if (allocatedSet_.empty() || 
@@ -234,7 +234,7 @@ namespace Pastel
 		// If the number of levels in a node already is of
 		// this form, then we need to double the physical size.
 
-		integer n = node->levels();
+		integer n = node->height();
 
 		// Find the node which will link to 'node' on 
 		// the new level.
@@ -249,8 +249,8 @@ namespace Pastel
 				// The link comes from the sentinel node.
 				// Make sure that the sentinel node has the
 				// necessary amount of levels.
-				ASSERT_OP(n, <, end_->levels());
-				if (n == end_->levels() - 1)
+				ASSERT_OP(n, <, end_->height());
+				if (n == end_->height() - 1)
 				{
 					// This implies that the sentinel node
 					// always has the greatest amount of
@@ -296,7 +296,7 @@ namespace Pastel
 		}
 
 		// Increase the level of the node.
-		++node->levels_;
+		++node->height_;
 
 		// Link the 'node' on the new level.
 		link(prev, node, n);

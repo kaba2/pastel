@@ -200,11 +200,11 @@ namespace Pastel
 			}
 
 			// Transfer the link-set.
-			end_->setLinkSet(std::move(that.end_->linkSet_), that.end_->levels());
+			end_->setLinkSet(std::move(that.end_->linkSet_), that.end_->height());
 			that.end_->setLinkSet(std::move(that.endSet_), 1);
 
 			// Translate the links to the new sentinel node.
-			integer n = end_->levels();
+			integer n = end_->height();
 			for (integer i = 0;i < n;++i)
 			{
 				if (end_->link(i)[Next] != that.end_)
@@ -593,7 +593,7 @@ namespace Pastel
 		ConstIterator cbegin(integer level = 0) const
 		{
 			PENSURE_OP(level, >= , 0);
-			PENSURE_OP(level, < , levels());
+			PENSURE_OP(level, < , height());
 
 			return ConstIterator(end_->link(level)[Next]);
 		}
@@ -629,14 +629,14 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		integer levels() const
+		integer height() const
 		{
-			return cend().levels();
+			return cend().height();
 		}
 
 		friend void print(const SkipList& list)
 		{
-			for (integer i = list.levels() - 1;i >= 0;--i)
+			for (integer i = list.height() - 1;i >= 0;--i)
 			{
 				Node* node = list.end_;
 				do 
@@ -653,7 +653,7 @@ namespace Pastel
 						}
 						std::cout << " ";
 					}
-					else if (i < node->levels())
+					else if (i < node->height())
 					{
 						std::cout << "| ";
 					}
@@ -718,7 +718,7 @@ namespace Pastel
 		//! Increases the level of a node by one.
 		/*!
 		Time complexity:
-		O(node->levels()), if isPowerOfTwo(node->levels())
+		O(node->height()), if isPowerOfTwo(node->height())
 		O(1), otherwise
 
 		Exception safety:
@@ -729,10 +729,10 @@ namespace Pastel
 		//! Decreases the level of a node by one.
 		/*!
 		Preconditions:
-		node->levels() > 2
+		node->height() > 2
 
 		Time complexity:
-		O(node->levels()), if isPowerOfTwo(node->levels() - 1)
+		O(node->height()), if isPowerOfTwo(node->height() - 1)
 		O(1), otherwise
 
 		Exception safety:

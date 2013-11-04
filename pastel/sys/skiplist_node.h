@@ -79,7 +79,7 @@ namespace Pastel
 		public:
 			Node() 
 			: linkSet_()
-			, levels_(0)
+			, height_(0)
 			, super_(0)
 			{
 			}
@@ -95,20 +95,20 @@ namespace Pastel
 			void clear()
 			{
 				linkSet_.reset();
-				levels_ = 0;
+				height_ = 0;
 			}
 
 			Link& link(integer i)
 			{
                 ASSERT_OP(i, >=, 0);
-                ASSERT_OP(i, <, levels_);
+                ASSERT_OP(i, <, height_);
 				return linkSet_[i];
 			}
 
 			const Link& link(integer i) const
 			{
                 ASSERT_OP(i, >=, 0);
-                ASSERT_OP(i, <, levels_);
+                ASSERT_OP(i, <, height_);
 				return linkSet_[i];
 			}
 
@@ -145,10 +145,10 @@ namespace Pastel
 				return 1;
 			}
 
-			void setLinkSet(LinkSet&& linkSet, integer levels)
+			void setLinkSet(LinkSet&& linkSet, integer height)
 			{
 				linkSet_ = std::move(linkSet);
-				levels_ = levels;
+				height_ = height;
 			}
 
 			bool isRepresentative() const
@@ -156,14 +156,14 @@ namespace Pastel
 				return repr() == this;
 			}
 
-			integer levels() const
+			integer height() const
 			{
-				return levels_;
+				return height_;
 			}
 
 		//private:
 			LinkSet linkSet_;
-			integer levels_;
+			integer height_;
 			SuperNode* super_;
 		};
 

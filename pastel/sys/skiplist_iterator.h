@@ -87,9 +87,9 @@ namespace Pastel
 				return this->base()->keys();
 			}
 
-			integer levels() const
+			integer height() const
 			{
-				return this->base()->levels();
+				return this->base()->height();
 			}
 
 			Iterator next(integer level, bool direction) const
