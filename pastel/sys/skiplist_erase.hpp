@@ -45,14 +45,21 @@ namespace Pastel
 
 			// Backup the sibling's link-set.
 			LinkSet siblingSet = std::move(sibling->linkSet_);
+			sibling->levels_ = 0;
 
 			// Pass the link-set of the node to the sibling.
 			sibling->setLinkSet(std::move(node->linkSet_), node->levels());
+			node->levels_ = 0;
 
 			// Copy the forward-links from the sibling's old link-set.
 			for (integer i = 0;i < m;++i)
 			{
 				sibling->link(i)[direction] = siblingSet[i][direction];
+			}
+
+			if (!allocatedSet_[1])
+			{
+				allocatedSet_[1] = std::move(siblingSet);
 			}
 
 			// Make neighboring links point to the sibling node.
@@ -80,11 +87,12 @@ namespace Pastel
 			}
 		}
 
-		SuperNode* super = node->super();
-		if (super)
+		bool multipleKeys = (node->super() != 0);
+		if (multipleKeys)
 		{
 			// There are multiple equivalent elements
 			// in the skip-list.
+			SuperNode* super = node->super();
 
 			if (node->isRepresentative())
 			{
@@ -106,36 +114,59 @@ namespace Pastel
 				delete super;
 			}
 		}
-		else
+
+		deallocateNode(node);
+
+		if (!multipleKeys)
 		{
 			// The deleted element is unique.
 			--uniqueKeys_;
 
+			Node* left = prev;
+			Node* right = next;
+
 			if (n > 2)
 			{
-				prev = sibling;
-				next = sibling->link(0)[direction];
+				left = sibling;
+				right = sibling->link(0)[direction];
 				if (!direction)
 				{
-					std::swap(prev, next);
+					std::swap(left, right);
 				}
 			}
 
-			rebalanceErase(prev, next);
+			rebalanceErase(left, right);
 		}
 
-		// Delete the node.
-		delete node;
-		--size_;
+		if (empty())
+		{
+			ASSERT(endSet_);
+			end_->setLinkSet(std::move(endSet_), 1);
+		}
 
 		// Return the next iterator.
 		return Iterator(next);
 	}
 
 	template <typename SkipList_Settings>
+	void SkipList<SkipList_Settings>::deallocateNode(Node* node)
+	{
+		ASSERT_OP(node->levels(), <= , 2);
+		integer i = node->levels() - 1;
+		if (i >= 0 && !allocatedSet_[i])
+		{
+			allocatedSet_[i] = std::move(node->linkSet_);
+		}
+
+		// Delete the node.
+		delete node;
+		--size_;
+	}
+
+	template <typename SkipList_Settings>
 	void SkipList<SkipList_Settings>::rebalanceErase(Node* left, Node* right)
 	{
-		integer expectedHeight = 3;
+		integer expectedHeight = 2;
 		while (true)
 		{
 			if (left->levels() == expectedHeight ||
@@ -181,6 +212,11 @@ namespace Pastel
 
 				// An element is shortened, and then an element
 				// is lengthened. All invariants now hold.
+				break;
+			}
+
+			if (borrow == end_)
+			{
 				break;
 			}
 

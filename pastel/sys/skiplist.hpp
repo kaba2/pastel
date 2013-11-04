@@ -64,8 +64,6 @@ namespace Pastel
 	template <bool Direction>
 	integer SkipList<SkipList_Settings>::equalLevels(Node* node) const
 	{
-		ASSERT(node != end_);
-
 		integer level = node->levels() - 1;
 
 		integer equals = 0;
