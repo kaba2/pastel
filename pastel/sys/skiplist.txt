@@ -11,8 +11,8 @@ Properties
 
 Let ''n in NN'' be the number of stored elements, ''m in NN'' be the 
 number of unique stored elements, and ''Delta in NN'' be the link-distance, 
-along unique elements, between a given stored element (a _finger_) and the 
-searched element. Then the implementation of the deterministic skip-list in 
+along unique elements, between a given stored element and the searched 
+element. Then the implementation of the deterministic skip-list in 
 Pastel has the following properties:
 
 Property                             | Complexity
@@ -25,6 +25,29 @@ Find the successor of an element     | ''O(log(Delta))''
 Count number of equivalent elements  | ''O(1)''
 Space                                | ''O(n)''
 
-The deterministic skip list implementation in Pastel supports associated data, without using any memory if such is not needed. If there are multiple equivalent elements in the skip list, then they are stored in the order they were inserted.
+Additional properties are as follows:
 
+* supports associated data. If such is not needed, the `void` type 
+can be used, and no memory will be used for the associated data. 
+While normally an iterator dereferences to the associated data, with 
+a `void` type an iterator dereferences to the key,
+
+* multiple equivalent elements are stored in the order they were inserted.
+
+References
+----------
+
+The probabilistic skip-list was introduced in
+
+_Skip Lists: A Probabilistic Alternative to Balanced Trees_,
+W. Pugh, Communications of the ACM, vol. 33, no. 6, June 1990, 
+pp. 668-676.
+
+The deterministic skip-list was introduced in
+
+_Deterministic Skip Lists_,
+J. Ian Munro, Thomas Papadakis, Robert Sedgewick,
+Proceedings of the ACM-SIAM 
+Third Annual Symposium on Discrete Algorithms, 
+January 1992.
 
