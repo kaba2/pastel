@@ -19,10 +19,10 @@ namespace Pastel
 	{
 		ASSERT(node != end_);
 
-		integer levels = node->levels();
+		integer height = node->height();
 
 		Node* prev = node;
-		for (integer i = 1;i < levels;++i)
+		for (integer i = 1;i < height;++i)
 		{
 			// We will find the predecessors 
 			// at each skip-level...
@@ -37,7 +37,6 @@ namespace Pastel
 		}
 	}
 
-	//! Finds the element preceding a given element on a given level.
 	template <typename SkipList_Settings>
 	SkipList_::Node* SkipList<SkipList_Settings>::findPrevious(Node* node, integer level) const
 	{
@@ -51,27 +50,26 @@ namespace Pastel
 		// Find the first node on the left that
 		// links through 'node' on 'level'.
 		while(node != end_ &&
-			node->levels() <= level)
+			node->height() <= level)
 		{
-			node = node->link(node->levels() - 1)[Prev];
+			node = node->link(node->height() - 1)[Prev];
 		}
 
 		return node;
 	}
 
-	//! Returns the number of elements with equal heights.
 	template <typename SkipList_Settings>
 	template <bool Direction>
 	integer SkipList<SkipList_Settings>::equalLevels(Node* node) const
 	{
-		integer level = node->levels() - 1;
+		integer level = node->height() - 1;
 
 		integer equals = 0;
 		while (true)
 		{
 			Node* next = node->link(level)[Direction];
 			if (next == end_ ||
-				next->levels() != node->levels())
+				next->height() != node->height())
 			{
 				break;
 			}
@@ -83,7 +81,6 @@ namespace Pastel
 		return equals;
 	}
 
-	//! Finds the middle of elements with equal levels.
 	template <typename SkipList_Settings>
 	SkipList_::Node* SkipList<SkipList_Settings>::findMiddleOfEqualLevels(Node* node)
 	{
@@ -101,7 +98,7 @@ namespace Pastel
 
 		// The skip-list contains three subsequent
 		// elements on 'node's level. 
-		integer level = node->levels() - 1;
+		integer level = node->height() - 1;
 
 		// Find out the middle of those.
 		Node* middle = 0;
@@ -181,7 +178,7 @@ namespace Pastel
 		while(true)
 		{
 			integer overshootLevel = 
-				binarySearch(minLevel, node->levels(), validMoveTest);
+				binarySearch(minLevel, node->height(), validMoveTest);
 
 			if (overshootLevel == minLevel)
 			{
@@ -257,14 +254,6 @@ namespace Pastel
 		return upperBound;
 	}
 
-	//! Links subsequent nodes together at level i.
-	/*!
-	Time complexity:
-	O(1)
-
-	Exception safety:
-	nothrow
-	*/
 	template <typename SkipList_Settings>
 	void SkipList<SkipList_Settings>::link(Node* left, Node* right, integer i)
 	{
@@ -310,7 +299,7 @@ namespace Pastel
 
 		integer size = 1;
 		integer uniqueKeys = 1;
-		for (integer i = 0;i < that.levels();++i)
+		for (integer i = 0;i < that.height();++i)
 		{
 			ConstIterator iter = that.cbegin(i);
 			ConstIterator end = that.cend();
@@ -348,7 +337,7 @@ namespace Pastel
 					return false;
 				}
 
-				if (iter.levels() == prev.levels())
+				if (iter.height() == prev.height())
 				{
 					++sameLevels;
 					if (sameLevels > 2)

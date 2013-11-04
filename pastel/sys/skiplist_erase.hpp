@@ -29,7 +29,7 @@ namespace Pastel
 
 		// If the node is linked on higher skip-levels,
 		// pass its links to its sibling.
-		integer n = node->levels();
+		integer n = node->height();
 		if (n > 2)
 		{
 			// Since the number of levels in the node is greater
@@ -40,16 +40,16 @@ namespace Pastel
 
 			// The sibling of a higher-than-two node must have
 			// height exactly two.
-			integer m = sibling->levels();
+			integer m = sibling->height();
 			ASSERT_OP(m, ==, 2);
 
 			// Backup the sibling's link-set.
 			LinkSet siblingSet = std::move(sibling->linkSet_);
-			sibling->levels_ = 0;
+			sibling->height_ = 0;
 
 			// Pass the link-set of the node to the sibling.
-			sibling->setLinkSet(std::move(node->linkSet_), node->levels());
-			node->levels_ = 0;
+			sibling->setLinkSet(std::move(node->linkSet_), node->height());
+			node->height_ = 0;
 
 			// Copy the forward-links from the sibling's old link-set.
 			for (integer i = 0;i < m;++i)
@@ -63,7 +63,7 @@ namespace Pastel
 			}
 
 			// Make neighboring links point to the sibling node.
-			for (integer i = 0;i < sibling->levels();++i)
+			for (integer i = 0;i < sibling->height();++i)
 			{
 				Node* prev = sibling->link(i)[!direction];
 				prev->link(i)[direction] = sibling;
@@ -151,8 +151,8 @@ namespace Pastel
 	template <typename SkipList_Settings>
 	void SkipList<SkipList_Settings>::deallocateNode(Node* node)
 	{
-		ASSERT_OP(node->levels(), <= , 2);
-		integer i = node->levels() - 1;
+		ASSERT_OP(node->height(), <= , 2);
+		integer i = node->height() - 1;
 		if (i >= 0 && !allocatedSet_[i])
 		{
 			allocatedSet_[i] = std::move(node->linkSet_);
@@ -169,8 +169,8 @@ namespace Pastel
 		integer expectedHeight = 2;
 		while (true)
 		{
-			if (left->levels() == expectedHeight ||
-				right->levels() == expectedHeight)
+			if (left->height() == expectedHeight ||
+				right->height() == expectedHeight)
 			{
 				// At least one of the surrounding elements
 				// have the expected height. All invariants 
@@ -184,8 +184,8 @@ namespace Pastel
 			// erase algorithm, at least one them must have
 			// height 'expectedHeight + 1'. Let us shorten
 			// that element to satisfy the expectancy.
-			Node* borrow = (left->levels() == expectedHeight + 1) ? left : right;
-			ASSERT_OP(borrow->levels(), ==, expectedHeight + 1);
+			Node* borrow = (left->height() == expectedHeight + 1) ? left : right;
+			ASSERT_OP(borrow->height(), ==, expectedHeight + 1);
 
 			Node* nextLeft = left;
 			Node* nextRight = right;
@@ -232,13 +232,13 @@ namespace Pastel
 	template <typename SkipList_Settings>
 	void SkipList<SkipList_Settings>::decreaseLevel(Node* node)
 	{
-		ASSERT_OP(node->levels(), >, 2);
+		ASSERT_OP(node->height(), >, 2);
 
 		// A given node has a physical size of the form 2^i.
 		// If the number of levels in a node already is of
 		// this form, then we need to double the physical size.
 
-		integer n = node->levels() - 1;
+		integer n = node->height() - 1;
 
 		// Link the 'node' off from the top level.
 		{
@@ -283,7 +283,7 @@ namespace Pastel
 		}
 
 		// Decrease the level of the node.
-		--node->levels_;
+		--node->height_;
 	}
 
 }
