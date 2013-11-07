@@ -21,10 +21,10 @@ namespace Pastel
 	meta-function below to form Class's conditionally.
 	*/
 	template <typename Type>
-	class Class;
+	class Class_Forward;
 
 	template <>
-	class Class<void> {};
+	class Class_Forward<void> {};
 
 	//! Turns a non-class type into a forwarding class.
 	/*!
@@ -38,9 +38,13 @@ namespace Pastel
 		typedef typename std::conditional<
 			std::is_scalar<Type>::value ||
 			std::is_void<Type>::value,
-			Class<Type>, Type
+			Class_Forward<Type>, Type
 			>::type type;
 	};
+
+	//! Turns a non-class type into a forwarding class.
+	template <typename Type>
+	using Class = typename AsClass<Type>::type;
 
 }
 

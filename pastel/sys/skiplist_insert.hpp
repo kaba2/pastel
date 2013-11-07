@@ -87,8 +87,7 @@ namespace Pastel
 		// level. Otherwise we will also provide with a
 		// link in the first skip-level.
 		integer i = keyAlreadyExists ? 0 : 1;
-		integer levels = powerOfTwo(i);
-		node->setLinkSet(std::move(allocatedSet_[i]), levels);
+		node->setLinkSet(std::move(allocatedSet_[i]));
 
 		// No exceptions beyond this point.
 		nodePtr.release();
@@ -176,7 +175,7 @@ namespace Pastel
 			integer levels = 3;
 
 			// The allocated amounts are always of the form 2^i.
-			LinkSet linkSet(new Link[4]);
+			LinkSet linkSet(new Link[4], levels);
 
 			// Store the one-level sentinel link-set 
 			// to wait for clear().
@@ -184,7 +183,7 @@ namespace Pastel
 
 			// Link the sentinel node to itself on all
 			// levels.
-			end_->setLinkSet(std::move(linkSet), levels);
+			end_->setLinkSet(std::move(linkSet));
 			for (integer i = 0;i < levels;++i)
 			{
 				link(end_, end_, i);
@@ -232,7 +231,7 @@ namespace Pastel
 			if (!allocatedSet_[i])
 			{
 				integer levels = powerOfTwo(i);
-				allocatedSet_[i].reset(new Link[levels]);
+				allocatedSet_[i].set(new Link[levels], levels);
 			}
 		}
 	}
@@ -290,6 +289,10 @@ namespace Pastel
 			LinkSet& newLinkSet = allocatedSet_[i];
 			ASSERT(newLinkSet);
 
+			// The number of links stays the same, although
+			// the physical size increases.
+			newLinkSet.resize(n);
+
 			// Copy the links into the new link-set.
 			copy_n(node->linkSet_.get(), n, newLinkSet.get());
 
@@ -298,7 +301,7 @@ namespace Pastel
 				i > 0 && 
 				!allocatedSet_[i - 1])
 			{
-				allocatedSet_[i - 1] = std::move(node->linkSet_);
+				allocatedSet_[i - 1] = std::move(node->linkSet());
 			}
 
 			// Move the new link-set into the node.
@@ -306,7 +309,7 @@ namespace Pastel
 		}
 
 		// Increase the level of the node.
-		++node->height_;
+		node->linkSet().resize(node->height() + 1);
 
 		// Link the 'node' on the new level.
 		link(prev, node, n);

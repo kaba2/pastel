@@ -7,8 +7,9 @@
 #include "pastel/sys/xfasttrie_node.h"
 #include "pastel/sys/integer.h"
 #include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/skiplist.h"
+#include "pastel/sys/binary_search.h"
 
-#include <list>
 #include <unordered_map>
 #include <vector>
 
@@ -30,43 +31,17 @@ namespace Pastel
 
 		using Key = Integer<Bits>;
 		using Value = typename Settings::Value;
-		using Value_Class = typename AsClass<Value>::type;
+		using Value_Class = Class<Value>;
 
-		/*!
-		We are making use of the empty base-class optimization,
-		so that if Value = void, then the value-data will not
-		use any memory.
-		*/
-		class Data
-		: public Value_Class
-		{
-		public:
-			explicit Data(Key key, Value_Class value)
-			: Value_Class(std::move(value))
-			, key_(key)
-			{
-			}
-
-			const Key& key() const
-			{
-				return key_;
-			}
-
-		private:
-			// The key must never be overwritten.
-			Data& operator=(Data) = delete;
-
-			Key key_;
-		};
-
-		using DataSet = std::list<Data>;
+		using DataSet = SkipList_Map<Key, Value>;
 		using ConstIterator = typename DataSet::const_iterator;
 		using Iterator = typename DataSet::iterator;
 
+		// These are for compatibility with Boost ranges.
 		using const_iterator = ConstIterator;
 		using iterator = Iterator;
 
-		using Node = XFastTrie_::Node<Key, Iterator>;
+		using Node = XFastTrie_::Node<Iterator>;
 
 		using NodeSet = std::unordered_map<Key, Node>;
 		using Node_ConstIterator = typename NodeSet::const_iterator;
@@ -91,7 +66,32 @@ namespace Pastel
 			ENSURE_OP(beginBit, <, endBit);
 			ENSURE_OP(endBit, <=, Bits);
 
-			initialize();
+			/*
+			Consider the following x-fast trie on
+			2-bit integers.
+
+			          -
+			       /     \
+			      0       1
+	    		 / \     / \
+	    	   00   01 10   11
+
+	    	Then bits() = 2, and the height of the
+	    	node tree is bits() + 1. This is
+	    	also the general formula. 
+			*/
+			nodeSetSet_.resize(bits() + 1);
+
+			// Create the root node.
+			Iterator root = nodeSetSet_[bits()].insert(Key(), Node()).second;
+
+			// Suppose there are no elements in the trie.
+			// Then the root node is the only node. We
+			// make its element point to the
+			// one-past-end of the 'dataSet_', so that the
+			// insert() algorithm flows without special
+			// cases.
+			root->element_ = dataSet_.end();
 		}
 
 		//! Destructs the trie.
@@ -136,16 +136,13 @@ namespace Pastel
 			}
 
 			// Reset the root node.
-			Node* root = &(nodeSetSet_.front().begin()->second);
-			root->child_[0] = 0;
-			root->child_[1] = 0;
-			root->shortcut_ = 0;
+			Iterator root = nodeSetSet_.front().begin()->second;
 			root->element_ = dataSet_.end();
 		}
 
 		//! Inserts an element.
 		/*!
-		Time complexity: O(log(log(bits())))
+		Time complexity: O(log(bits()))
 		Exception safety: strong
 
 		returns:
@@ -175,122 +172,6 @@ namespace Pastel
 				return node->second.element_;
 			}
 
-			// The element does not exist in the trie.
-			// We will add the nodes that lead to the new
-			// element.
-
-			// We will store the iterators to newly-created 
-			// nodes in 'nodeSet', so that we can rollback 
-			// in case of an exception.
-			std::vector<Node_Iterator> nodeSet;
-			
-			// We preallocate the memory, so that push_back()
-			// can not throw an exception.
-			nodeSet.reserve(level - beginBit_);
-
-			// The newly-created element will be stored here.
-			Iterator element;
-
-			try
-			{
-				// Create the new nodes.
-				for (integer i = beginBit_;i < level;++i)
-				{
-					auto result = nodeSetSet_[i - beginBit_].insert(
-						std::make_pair(key, Node()));
-					ASSERT(result.second);
-					nodeSet.push_back(result.first);
-				}
-
-				// Find where the new element should be
-				// inserted in 'dataSet_'. The insertion
-				// position is either the element of the
-				// shortcut, or its successor.
-				auto shortcut = node->second.shortcut();
-				Iterator position = shortcut->element_;
-				if (node->second.left())
-				{
-					ASSERT(!node->second.right());
-					
-					// The right child is missing.
-					// Therefore, the shortcut points
-					// to the largest element in the
-					// 'node' subtree. Since the new
-					// element is going to the right
-					// child, we want to insert the
-					// new element after the shortcut.
-
-					// So go past the shortcut, unless
-					// this is the first element in the
-					// trie.
-					if (position != end())
-					{
-						++position;
-					}
-				}
-				else
-				{
-					ASSERT(!node->second.left());
-
-					// The left child is missing.
-					// Therefore, the shortcut points
-					// to the smallest element in the
-					// 'node' subtree. Since the new
-					// element is going to the left
-					// child, we want to insert the
-					// new element before the shortcut.
-
-					// So do nothing.
-				}
-
-				// Insert the new element to the appropriate
-				// position.
-				element = dataSet_.insert(
-					position, Data(key, std::move(value)));
-			}
-			catch(...)
-			{
-				// Rollback for strong exception safety.
-				for (integer i = 0;i < nodeSet.size();++i)
-				{
-					nodeSetSet_[i].erase(nodeSet[i]);
-				}
-
-				throw;
-			}
-
-			Node_Iterator leaf = nodeSet.front();
-
-			// Link the newly created nodes together.
-			for (integer i = beginBit_;i <= level;++i)
-			{
-				// At level i + 1 the i:th bit is used
-				// to decide the child node. 
-				bool branch = key.test(i - 1);
-
-				// The nodeSet[0] has level 'beginBit_'.
-				Node_Iterator parent = nodeSet[i + 1 - beginBit_];
-				Node_Iterator child = nodeSet[i - beginBit_];
-
-				parent->second.child(branch) = &child->second;
-				parent->second.shortcut() = &leaf->second;
-			}
-
-			// Link the newly created sub-tree to the trie.
-			{
-				bool branch = key.test(level - 1);
-
-				Node_Iterator parent = node;
-				Node_Iterator child = nodeSet.back();
-
-				parent->second.child(branch) = &child->second;
-				if (!parent->second.child(!branch))
-				{
-					parent->second.shortcut() = &leaf->second;
-				}
-			}
-
-			leaf->second.element_ = element;
 
 			// Return an iterator to the element.
 			return element;
@@ -476,45 +357,10 @@ namespace Pastel
 		}
 
 	private:
-		void initialize()
-		{
-			/*
-			Consider the following x-fast trie on
-			2-bit integers.
-
-			          -
-			       /     \
-			      0       1
-	    		 / \     / \
-	    	   00   01 10   11
-
-	    	Then bits() = 2, and the height of the
-	    	node tree is bits() + 1. This is
-	    	also the general formula. 
-			*/
-			nodeSetSet_.resize(bits() + 1);
-
-			// Create the root node.
-			auto result = nodeSetSet_[bits()].insert(
-				std::make_pair(Key(), Node()));
-
-			// Suppose there are no elements in the trie.
-			// Then the root node is the only node. We
-			// make its shortcut point to the root node
-			// itself, and make the element point to the
-			// one-past-end of the 'dataSet_', so that the
-			// insert() algorithm flows without special
-			// cases.
-			Node* root = &result.first->second;
-			root->element_ = dataSet_.end();
-			root->shortcut_ = root;
-		}
-
 		//! Returns the lowest ancestor node of the given key.
 		/*!
 		Time complexity: 
-		O(log(Bits)) average, if the key does not exist in the trie,
-		O(1) average, otherwise.
+		O(log(bits())) average
 		
 		Exception safety: 
 		nothrow
@@ -522,74 +368,27 @@ namespace Pastel
 		auto lowestAncestor(const Key& key)
 		-> std::pair<Node_Iterator, integer>
 		{
-			// Check whether 'key' already exists in the trie.
-			// If so, the result can be returned in O(1)
-			// average time.
-			{
-				Node_Iterator iter = 
-					nodeSetSet_.front().find(
-						Key(key, beginBit_, endBit_));
-				if (iter != nodeSetSet_.front().end())
-				{
-					return std::make_pair(iter, beginBit_);
-				}
-			}
-
 			// We will be searching the key from the
 			// level-search structures by doing a 
 			// a binary search over the levels.
-			Node_Iterator lowest;
-			
-			// We already know from above that the key is not 
-			// contained at level 'beginBit_'.
-			integer bottom = beginBit_ + 1;
-			integer top = endBit_;
-			while (bottom != top)
+			auto noSuffix = [&](integer level)
 			{
-				// Pick the middle level from the level
-				// range [bottom, top). Note that the 
-				// implicit rounding-towards-zero with integer
-				// division is the correct thing to do
-				// with such a positive half-open interval;
-				// the 'middle' can equal 'bottom', but
-				// can not equal 'top'.
-				integer middle = (bottom + top) / 2;
-				
 				// Find out whether the key-suffix can be
-				// found at the 'middle' level.
-				Node_Iterator iter =
-					nodeSetSet_[middle - beginBit_].find(
-						Key(key, middle, endBit_));
-				if (iter == nodeSetSet_[middle - beginBit_].end())
-				{
-					// The suffix was not found at this level.
-					// It follows that longer suffixes won't be 
-					// found at lower levels either. Continue at
-					// higher levels.
-					bottom = middle + 1;
-				}
-				else
-				{
-					// The suffix was found at this level.
-					// However, descendants of this node may
-					// be lower ancestors than this node.
-					// Continue on lower levels.
-					top = middle;
-					lowest = iter;
-				}
-			}
-			
-			// Since we already checked that the tree
-			// is not empty, the lowest ancestor must
-			// exist.
+				// found at the level 'level'.
+				const NodeSet& nodeSet = nodeSetSet_[level - beginBit_]
+				return nodeSet.count(Key(key, level, endBit_)) == 0;
+			};
 
-			// The node can not have both children;
-			// otherwise it would not be the lowest 
-			// ancestor.
-			ASSERT(!lowest->second.splitsBoth());
+			integer level = binarySearch(beginBit_, endBit_, noSuffix)
+
+			// In case level == endBit_, that is, the trie is empty,
+			// the following will also work correctly, since then it
+			// returns the root node.
+			NodeSet& nodeSet = nodeSetSet_[level - beginBit_]
+			Node_Iterator node = nodeSet.find(Key(key, level, endBit_));
 
 			// Return the lowest ancestor.
-			return std::make_pair(lowest, bottom);
+			return std::make_pair(node, level);
 		}
 
 		//! The bits to use in a key.

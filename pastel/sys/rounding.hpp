@@ -2,6 +2,7 @@
 #define PASTELSYS_ROUNDING_HPP
 
 #include "pastel/sys/rounding.h"
+#include "pastel/sys/mod.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel

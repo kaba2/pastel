@@ -27,6 +27,7 @@ namespace
 
 		void test()
 		{
+			/*
 			using Set = XFastTrie_Set<64>;
 			using Key = Set::Key;
 			using Data = Set::Data;
@@ -56,6 +57,7 @@ namespace
 						return left.key() == right;
 					}));
 			}
+			*/
 		}
 	};
 

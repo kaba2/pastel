@@ -12,7 +12,14 @@ namespace Pastel
 	typename SkipList<SkipList_Settings>::Iterator 
 		SkipList<SkipList_Settings>::erase(const ConstIterator& that)
 	{
-		PENSURE(that != cend());
+		if (that == cend())
+		{
+			// Removing the end-iterator has no effect.
+			// It is important to handle this, so that it is
+			// possible to do, for example, list.erase(list.find(2))
+			// without special cases when 2 is not in the list.
+			return end();
+		}
 
 		Node* node = (Node*)that.base();
 		Node* prev = node->link(0)[Prev];
@@ -28,28 +35,36 @@ namespace Pastel
 		Node* sibling = node->link(0)[direction];
 
 		// If the node is linked on higher skip-levels,
-		// pass its links to its sibling.
+		// or the node is a representative of its multi-key
+		// equivalence class, pass its links to its sibling.
 		integer n = node->height();
-		if (n > 2)
+		bool multipleKeys = (node->super() != 0);
+		if (n > 2 || (multipleKeys && node->isRepresentative()))
 		{
-			// Since the number of levels in the node is greater
-			// than 2, there must be at least three elements in
-			// the skip-list. Therefore the node must have a
-			// sibling.
+			// By the conditions just testsed, there must be at 
+			// least two elements in the skip-list. Therefore the 
+			// node must have a sibling.
 			ASSERT(sibling != end_);
 
-			// The sibling of a higher-than-two node must have
-			// height exactly two.
 			integer m = sibling->height();
-			ASSERT_OP(m, ==, 2);
+			if (n > 2)
+			{
+				// The sibling of a higher-than-two node has
+				// height two.
+				ASSERT_OP(m, == , 2);
+			}
+			else
+			{
+				// The sibling of a representative of a multi-key
+				// equivalence class has height one.
+				ASSERT_OP(m, ==, 1);
+			}
 
 			// Backup the sibling's link-set.
 			LinkSet siblingSet = std::move(sibling->linkSet_);
-			sibling->height_ = 0;
 
 			// Pass the link-set of the node to the sibling.
-			sibling->setLinkSet(std::move(node->linkSet_), node->height());
-			node->height_ = 0;
+			sibling->setLinkSet(std::move(node->linkSet_));
 
 			// Copy the forward-links from the sibling's old link-set.
 			for (integer i = 0;i < m;++i)
@@ -57,10 +72,8 @@ namespace Pastel
 				sibling->link(i)[direction] = siblingSet[i][direction];
 			}
 
-			if (!allocatedSet_[1])
-			{
-				allocatedSet_[1] = std::move(siblingSet);
-			}
+			// Return the memory in the old link-set.
+			returnMemory(std::move(siblingSet));
 
 			// Make neighboring links point to the sibling node.
 			for (integer i = 0;i < sibling->height();++i)
@@ -87,7 +100,6 @@ namespace Pastel
 			}
 		}
 
-		bool multipleKeys = (node->super() != 0);
 		if (multipleKeys)
 		{
 			// There are multiple equivalent elements
@@ -115,6 +127,7 @@ namespace Pastel
 			}
 		}
 
+		// Deallocate the node.
 		deallocateNode(node);
 
 		if (!multipleKeys)
@@ -135,32 +148,20 @@ namespace Pastel
 				}
 			}
 
+			left = left->repr();
+			right = right->repr();
+
 			rebalanceErase(left, right);
 		}
 
 		if (empty())
 		{
 			ASSERT(endSet_);
-			end_->setLinkSet(std::move(endSet_), 1);
+			end_->setLinkSet(std::move(endSet_));
 		}
 
 		// Return the next iterator.
 		return Iterator(next);
-	}
-
-	template <typename SkipList_Settings>
-	void SkipList<SkipList_Settings>::deallocateNode(Node* node)
-	{
-		ASSERT_OP(node->height(), <= , 2);
-		integer i = node->height() - 1;
-		if (i >= 0 && !allocatedSet_[i])
-		{
-			allocatedSet_[i] = std::move(node->linkSet_);
-		}
-
-		// Delete the node.
-		delete node;
-		--size_;
 	}
 
 	template <typename SkipList_Settings>
@@ -267,6 +268,10 @@ namespace Pastel
 			LinkSet& newLinkSet = allocatedSet_[i];
 			ASSERT(newLinkSet);
 
+			// The number of links stays the same, although
+			// the physical size decreases.
+			newLinkSet.resize(node->height());
+
 			// Copy the links into the new link-set.
 			copy_n(node->linkSet_.get(), n, newLinkSet.get());
 
@@ -283,7 +288,7 @@ namespace Pastel
 		}
 
 		// Decrease the level of the node.
-		--node->height_;
+		node->linkSet().resize(node->height() - 1);
 	}
 
 }

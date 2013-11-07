@@ -89,7 +89,7 @@ namespace Pastel
 #else
 		typedef Vertex_Iterator Vertex_ConstIterator;
 #endif
-		typedef typename AsClass<VertexData>::type 
+		typedef Class<VertexData> 
 			VertexData_Class;
 
 		// Edges
@@ -104,7 +104,7 @@ namespace Pastel
 #else
 		typedef Edge_Iterator Edge_ConstIterator;
 #endif
-		typedef typename AsClass<EdgeData>::type 
+		typedef Class<EdgeData> 
 			EdgeData_Class;
 
 		// Incidences

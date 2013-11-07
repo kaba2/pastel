@@ -34,7 +34,7 @@ namespace Pastel
 		using Key = typename Settings::Key;
 		using Data = typename Settings::Data;
 		using Compare = typename Settings::Compare;
-		using Data_Class = typename AsClass<Data>::type;
+		using Data_Class = Class<Data>;
 		using Node = RedBlackTree_::Node<Key, Data_Class>;
 
 		using Key_Iterator = 

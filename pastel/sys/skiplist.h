@@ -34,7 +34,7 @@ namespace Pastel
 		using Key = typename Settings::Key;
 		using Value = typename Settings::Value;
 		using Compare = typename Settings::Compare;
-		using Value_Class = typename AsClass<Value>::type;
+		using Value_Class = Class<Value>;
 
 	private:
 		using Node = SkipList_::Node;
@@ -78,13 +78,13 @@ namespace Pastel
 			// When creating the skip-list, the sentinel node
 			// has only the basic level. This link-level is needed
 			// to be able to iterate the empty skip-list.
-			endSet_.reset(new Link[1]);
+			endSet_.set(new Link[1], 1);
 
 			// Create the sentinel node.
 			end_ = new Node;
 
 			// Link the sentinel node to itself.
-			end_->setLinkSet(std::move(endSet_), 1);
+			end_->setLinkSet(std::move(endSet_));
 			link(end_, end_, 0);
 		}
 
@@ -199,8 +199,8 @@ namespace Pastel
 			}
 
 			// Transfer the link-set.
-			end_->setLinkSet(std::move(that.end_->linkSet_), that.end_->height());
-			that.end_->setLinkSet(std::move(that.endSet_), 1);
+			end_->setLinkSet(std::move(that.end_->linkSet_));
+			that.end_->setLinkSet(std::move(that.endSet_));
 
 			// Translate the links to the new sentinel node.
 			integer n = end_->height();
@@ -283,7 +283,7 @@ namespace Pastel
 
 			if (endSet_)
 			{
-				end_->setLinkSet(std::move(endSet_), 1);
+				end_->setLinkSet(std::move(endSet_));
 			}
 
 			// Delete preallocated memory.
@@ -333,7 +333,7 @@ namespace Pastel
 		predicate.
 
 		returns:
-		The iterator following the last removed element.
+		upper_bound(key)
 		*/
 		Iterator erase(const Key& key)
 		{
@@ -356,13 +356,17 @@ namespace Pastel
 		//! Removes an element from the skip list.
 		/*!
 		Time complexity:
-		O(1)
+		O(log(size()))
 
 		Exception safety:
 		nothrow
 
+		that:
+		The element to remove. If that == cend(),
+		the removal has no effect.
+
 		returns:
-		The iterator following 'key'.
+		The iterator following 'that'.
 		*/
 		Iterator erase(const ConstIterator& that);
 
@@ -377,6 +381,39 @@ namespace Pastel
 		Iterator cast(const ConstIterator& that)
 		{
 			return Iterator((Node*)that.base());
+		}
+
+		//! Returns the number of elements equivalent to 'key'.
+		/*!
+		Time complexity:
+		O(log(delta)),
+		where
+		delta is the distance from 'hint' to the 'key'.
+
+		Exception safety:
+		nothrow
+		*/
+		integer count(
+			const Key& key, 
+			const ConstIterator& hint) const
+		{
+			ConstIterator iter = find(key, hint);
+			if (iter == cend())
+			{
+				return 0;
+			}
+
+			return iter.equivalents();
+		}
+
+		//! Returns the number of elements equivalent to 'key'.
+		/*!
+		This is a convenience function which calls
+		count(key, cend()).
+		*/
+		integer count(const Key& key) const
+		{
+			return count(key, cend());
 		}
 
 		//! Returns the first element == 'key'.
@@ -684,6 +721,9 @@ namespace Pastel
 
 	private:
 		const Key& nodeKey(Node* node) const;
+
+		//! Returns an allocated link-set to the cache.
+		void returnMemory(LinkSet&& linkSet);
 
 		void linkSkipLevels(Node* node);
 

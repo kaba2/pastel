@@ -52,7 +52,7 @@ namespace Pastel
 			State_ConstIterator;
 
 		//! The user-data for the states.
-		typedef typename AsClass<StateData>::type
+		typedef Class<StateData>
 			StateData_Class;
 
 		//! The transitions.
@@ -66,7 +66,7 @@ namespace Pastel
 			Transition_ConstIterator;
 
 		//! The user-data for the transitions.
-		typedef typename AsClass<TransitionData>::type
+		typedef Class<TransitionData>
 			TransitionData_Class;
 
 		typedef typename Graph_Fwd::Incidence_Iterator

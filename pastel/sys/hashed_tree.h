@@ -17,10 +17,10 @@ namespace Pastel
 
 	template <typename Data>
 	class HashedTree_Data
-	: public AsClass<Data>::type
+	: public Class<Data>
 	{
 	public:
-		typedef typename AsClass<Data>::type
+		typedef Class<Data>
 			Data_Class;
 
 		HashedTree_Data()
