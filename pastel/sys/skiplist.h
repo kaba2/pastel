@@ -101,7 +101,6 @@ namespace Pastel
 		{
 			for (auto iter = that.cbegin();iter != that.cend();++iter)
 			{
-				// FIX: Add hint to insert for linear-time copy.
 				insert(iter.key(), iter.value());
 			}
 		}
@@ -302,6 +301,21 @@ namespace Pastel
 
 		Exception safety:
 		strong
+
+		hint:
+		An iterator that is supposed to be close to the
+		insertion position. Close hints improve performance,
+		since searching is avoided.
+		*/
+		Iterator insert(
+			const ConstIterator& hint,
+			Key key, 
+			Value_Class value = Value_Class());
+
+		//! Inserts an element into the skip list.
+		/*!
+		This is a convenience function which calls
+		insert(cend(), std::move(key), std::move(value)).
 		*/
 		Iterator insert(
 			Key key, 
