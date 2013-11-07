@@ -11,8 +11,18 @@ namespace Pastel
 	template <typename SkipList_Settings>
 	typename SkipList<SkipList_Settings>::Iterator 
 		SkipList<SkipList_Settings>::insert(
-		Key key, 
-		Value_Class value = Value_Class())
+			Key key, 
+			Value_Class value)
+	{
+		return insert(cend(), std::move(key), std::move(value));
+	}
+
+	template <typename SkipList_Settings>
+	typename SkipList<SkipList_Settings>::Iterator 
+		SkipList<SkipList_Settings>::insert(
+			const ConstIterator& hint,
+			Key key, 
+			Value_Class value)
 	{
 		// Preallocate link-sets of sizes 2^i. This is needed
 		// to achieve strong exception safety, as well as to
@@ -21,7 +31,7 @@ namespace Pastel
 
 		// Find the element before which to insert
 		// the new element.
-		Iterator nextIter = upper_bound(key);
+		Iterator nextIter = upper_bound(key, hint);
 
 		// Check if there already is an equivalent
 		// key in the skip-list.

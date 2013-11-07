@@ -126,10 +126,14 @@ namespace Pastel
 		// Get the representative for 'hint'.
 		Node* node = ((Node*)hint.base())->repr();
 
-		bool direction = true;
-		Node* end = end_;
-		if (node != end)
+		// When hint == cend(), the search direction is 
+		// from end to beginning.
+		bool direction = false;
+		if (node != end_)
 		{
+			// Otherwise we will choose the direction which
+			// minimizes the distance from 'hint' to 'key'.
+
 			if (Compare()(nodeKey(node), key))
 			{
 				// Failing this invariant means that
@@ -150,15 +154,11 @@ namespace Pastel
 			else
 			{
 				// The 'key' is equivalent to 'hint'.
+				// The hint iterator is correct.
 				Node* lowerBound = node;
 				return lowerBound;
 			}
 		}
-
-		// We know that 'node' is a representative.
-		// Therefore it contains level-1 links.
-		integer level = 1;
-		integer minLevel = 1;
 
 		auto validMoveTest = [&](integer level)
 		{
@@ -169,10 +169,14 @@ namespace Pastel
 			// 'key' is smaller than the key of 'next',
 			// 3) it is not the sentinel node, and
 			// 'key' is equivalent to the key of 'next'.
-			bool overshoots = (next == end ||
+			bool overshoots = (next == end_ ||
 				Compare()(nodeKey(next), key) != direction);
 			return !overshoots;
 		};
+
+		// We know that 'node' is a representative.
+		// Therefore it contains level-1 links.
+		integer minLevel = 1;
 
 		// Ascend towards the key.
 		while(true)
