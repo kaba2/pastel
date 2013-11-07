@@ -6,9 +6,9 @@
 #include "pastel/sys/skiplist.h"
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/named_tuples.h"
+#include "pastel/sys/arrayptr.h"
 
 #include <vector>
-#include <memory>
 
 namespace Pastel
 {
@@ -35,7 +35,7 @@ namespace Pastel
 			Node* link_[2];
 		};
 
-		using LinkSet = std::unique_ptr<Link[]>;
+		using LinkSet = ArrayPtr<Link>;
 
 		class SuperNode
 		{
@@ -79,7 +79,6 @@ namespace Pastel
 		public:
 			Node() 
 			: linkSet_()
-			, height_(0)
 			, super_(0)
 			{
 			}
@@ -94,21 +93,16 @@ namespace Pastel
 
 			void clear()
 			{
-				linkSet_.reset();
-				height_ = 0;
+				linkSet_.clear();
 			}
 
 			Link& link(integer i)
 			{
-                ASSERT_OP(i, >=, 0);
-                ASSERT_OP(i, <, height_);
 				return linkSet_[i];
 			}
 
 			const Link& link(integer i) const
 			{
-                ASSERT_OP(i, >=, 0);
-                ASSERT_OP(i, <, height_);
 				return linkSet_[i];
 			}
 
@@ -145,10 +139,19 @@ namespace Pastel
 				return 1;
 			}
 
-			void setLinkSet(LinkSet&& linkSet, integer height)
+			void setLinkSet(LinkSet&& linkSet)
 			{
 				linkSet_ = std::move(linkSet);
-				height_ = height;
+			}
+
+			LinkSet& linkSet()
+			{
+				return linkSet_;
+			}
+
+			const LinkSet& linkSet() const
+			{
+				return linkSet_;
 			}
 
 			bool isRepresentative() const
@@ -158,12 +161,11 @@ namespace Pastel
 
 			integer height() const
 			{
-				return height_;
+				return linkSet_.size();
 			}
 
 		//private:
 			LinkSet linkSet_;
-			integer height_;
 			SuperNode* super_;
 		};
 

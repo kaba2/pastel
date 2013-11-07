@@ -12,19 +12,20 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class Class
+	class Class_Forward
 	{
 	public:
 		// Only scalar types are allowed to be forwarded.
 		PASTEL_STATIC_ASSERT(std::is_scalar<Type>::value);
 
-		Class()
+		Class_Forward()
 			: member_()
 		{
 		}
 
-		Class(Type that)
-			: member_(std::move(that))
+		template <typename That>
+		Class_Forward(That&& that)
+			: member_(std::forward<That>(that))
 		{
 		}
 
@@ -48,22 +49,22 @@ namespace std
 {
 
 	template <typename Type>
-	struct hash<Pastel::Class<Type>>
+	struct hash<Pastel::Class_Forward<Type>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::Class<Type>& that) const
+			const Pastel::Class_Forward<Type>& that) const
 		{
 			return Pastel::computeHash<Type>(that);
 		}
 	};
 
 	template <>
-	struct hash<Pastel::Class<void>>
+	struct hash<Pastel::Class_Forward<void>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::Class<void>& that) const
+			const Pastel::Class_Forward<void>& that) const
 		{
 			return Pastel::computeHash<void*>(0);
 		}

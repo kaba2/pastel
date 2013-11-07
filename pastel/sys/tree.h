@@ -27,7 +27,7 @@ namespace Pastel
 	{
 	private:
 		typedef Type Data;
-        typedef typename AsClass<Data>::type Data_Class;
+        typedef Class<Data> Data_Class;
 		typedef Tree_::Node Node;
 		typedef Tree_::Data_Node<Data_Class> Data_Node;
 		typedef Tree_::Sentinel_Node Sentinel_Node;

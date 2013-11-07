@@ -2,6 +2,8 @@
 #define PASTELSYS_SKIPLIST_HPP
 
 #include "pastel/sys/skiplist.h"
+#include "pastel/sys/rounding.h"
+#include "pastel/sys/logarithm.h"
 
 namespace Pastel
 {
@@ -12,6 +14,42 @@ namespace Pastel
 	{
 		ASSERT(node != end_);
 		return ((Data_Node*)node)->key();
+	}
+
+	template <typename SkipList_Settings>
+	void SkipList<SkipList_Settings>::returnMemory(LinkSet&& linkSet)
+	{
+		// The physical size is the node's height rounded up
+		// to the next power of two. 
+		integer physicalSize = roundUpToPowerOf2(linkSet.size());
+
+		// The `allocatedSet_[i]` stores link-sets of size 2^i.
+		integer i = integerLog2(physicalSize);
+
+		if (!allocatedSet_[i])
+		{
+			allocatedSet_[i] = std::move(linkSet);
+			allocatedSet_[i].resize(physicalSize);
+		}
+		else
+		{
+			// A link-set of the given size is already in
+			// the cache. Deallocate the memory.
+			linkSet.clear();
+		}
+	}
+
+	template <typename SkipList_Settings>
+	void SkipList<SkipList_Settings>::deallocateNode(Node* node)
+	{
+		ASSERT_OP(node->height(), <= , 2);
+
+		// Return the link-set memory.
+		returnMemory(std::move(node->linkSet()));
+
+		// Delete the node.
+		delete node;
+		--size_;
 	}
 
 	template <typename SkipList_Settings>

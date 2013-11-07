@@ -28,7 +28,9 @@ namespace
 		virtual void run()
 		{
 			testSimple();
-			testValue();
+			testValueSet();
+			testValueMap();
+			testCount();
 			testRandom();
 		}
 
@@ -238,7 +240,7 @@ namespace
 					correctSet | boost::adaptors::reversed));
 			}
 
-			// Test lower_bound, upper_bound, and find.
+			// Test lower_bound(), upper_bound(), and find().
 			{
 				TEST_ENSURE_OP(*list.lower_bound(0), ==, 1);
 				TEST_ENSURE_OP(*list.lower_bound(1), ==, 1);
@@ -370,7 +372,172 @@ namespace
 			}
 		}
 
-		void testValue()
+		void testCount()
+		{
+			List list;
+
+			list.insert(1);
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), == , 0);
+				TEST_ENSURE_OP(list.count(0), ==, 0);
+				TEST_ENSURE_OP(list.count(1), ==, 1);
+				TEST_ENSURE_OP(list.count(2), ==, 0);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.insert(2);
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), == , 0);
+				TEST_ENSURE_OP(list.count(0), ==, 0);
+				TEST_ENSURE_OP(list.count(1), ==, 1);
+				TEST_ENSURE_OP(list.count(2), ==, 1);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.insert(0);
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), == , 0);
+				TEST_ENSURE_OP(list.count(0), ==, 1);
+				TEST_ENSURE_OP(list.count(1), ==, 1);
+				TEST_ENSURE_OP(list.count(2), ==, 1);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.insert(1);
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), == , 0);
+				TEST_ENSURE_OP(list.count(0), ==, 1);
+				TEST_ENSURE_OP(list.count(1), ==, 2);
+				TEST_ENSURE_OP(list.count(2), ==, 1);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.insert(0);
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), == , 0);
+				TEST_ENSURE_OP(list.count(0), ==, 2);
+				TEST_ENSURE_OP(list.count(1), ==, 2);
+				TEST_ENSURE_OP(list.count(2), ==, 1);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.insert(2);
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), == , 0);
+				TEST_ENSURE_OP(list.count(0), ==, 2);
+				TEST_ENSURE_OP(list.count(1), ==, 2);
+				TEST_ENSURE_OP(list.count(2), ==, 2);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.insert(1);
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), == , 0);
+				TEST_ENSURE_OP(list.count(0), ==, 2);
+				TEST_ENSURE_OP(list.count(1), ==, 3);
+				TEST_ENSURE_OP(list.count(2), ==, 2);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.insert(0);
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), == , 0);
+				TEST_ENSURE_OP(list.count(0), ==, 3);
+				TEST_ENSURE_OP(list.count(1), ==, 3);
+				TEST_ENSURE_OP(list.count(2), ==, 2);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.erase(list.lower_bound(2));
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), == , 0);
+				TEST_ENSURE_OP(list.count(0), ==, 3);
+				TEST_ENSURE_OP(list.count(1), ==, 3);
+				TEST_ENSURE_OP(list.count(2), ==, 1);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.erase(list.lower_bound(0));
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), ==, 0);
+				TEST_ENSURE_OP(list.count(0), ==, 2);
+				TEST_ENSURE_OP(list.count(1), ==, 3);
+				TEST_ENSURE_OP(list.count(2), ==, 1);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.erase(list.lower_bound(2));
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), ==, 0);
+				TEST_ENSURE_OP(list.count(0), ==, 2);
+				TEST_ENSURE_OP(list.count(1), ==, 3);
+				TEST_ENSURE_OP(list.count(2), ==, 0);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.erase(list.lower_bound(0));
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), ==, 0);
+				TEST_ENSURE_OP(list.count(0), ==, 1);
+				TEST_ENSURE_OP(list.count(1), ==, 3);
+				TEST_ENSURE_OP(list.count(2), ==, 0);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.erase(list.lower_bound(0));
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), ==, 0);
+				TEST_ENSURE_OP(list.count(0), ==, 0);
+				TEST_ENSURE_OP(list.count(1), ==, 3);
+				TEST_ENSURE_OP(list.count(2), ==, 0);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.erase(list.lower_bound(1));
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), ==, 0);
+				TEST_ENSURE_OP(list.count(0), ==, 0);
+				TEST_ENSURE_OP(list.count(1), ==, 2);
+				TEST_ENSURE_OP(list.count(2), ==, 0);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.erase(list.lower_bound(1));
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), ==, 0);
+				TEST_ENSURE_OP(list.count(0), ==, 0);
+				TEST_ENSURE_OP(list.count(1), ==, 1);
+				TEST_ENSURE_OP(list.count(2), ==, 0);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+
+			list.erase(list.lower_bound(1));
+			{
+				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(list.count(-1), ==, 0);
+				TEST_ENSURE_OP(list.count(0), ==, 0);
+				TEST_ENSURE_OP(list.count(1), ==, 0);
+				TEST_ENSURE_OP(list.count(2), ==, 0);
+				TEST_ENSURE_OP(list.count(3), ==, 0);
+			}
+		}
+
+		void testValueMap()
 		{
 			SkipList_Map<integer, integer> list;
 			TEST_ENSURE(validInvariants(list));
@@ -400,6 +567,46 @@ namespace
 			};
 
 			{
+				// A skip-list with values has iterators
+				// which derereference to the value.
+				TEST_ENSURE(!list.empty());
+				TEST_ENSURE_OP(list.size(), ==, 9);
+				TEST_ENSURE(boost::equal(list, correctSet));
+			}
+		}
+
+		void testValueSet()
+		{
+			SkipList_Set<integer> list;
+			TEST_ENSURE(validInvariants(list));
+
+			list.insert(1);
+			TEST_ENSURE(validInvariants(list));
+			list.insert(5);
+			TEST_ENSURE(validInvariants(list));
+			list.insert(3);
+			TEST_ENSURE(validInvariants(list));
+			list.insert(4);
+			TEST_ENSURE(validInvariants(list));
+			list.insert(4);
+			TEST_ENSURE(validInvariants(list));
+			list.insert(4);
+			TEST_ENSURE(validInvariants(list));
+			list.insert(2);
+			TEST_ENSURE(validInvariants(list));
+			list.insert(7);
+			TEST_ENSURE(validInvariants(list));
+			list.insert(6);
+			TEST_ENSURE(validInvariants(list));
+
+			integer correctSet[] = 
+			{
+				1, 2, 3, 4, 4, 4, 5, 6, 7
+			};
+
+			{
+				// A skip-list without values has iterators
+				// which derereference to the key.
 				TEST_ENSURE(!list.empty());
 				TEST_ENSURE_OP(list.size(), ==, 9);
 				TEST_ENSURE(boost::equal(list, correctSet));

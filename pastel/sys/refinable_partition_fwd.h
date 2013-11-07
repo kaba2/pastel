@@ -24,7 +24,7 @@ namespace Pastel
 		typedef typename ElementSet::const_iterator
 			Element_ConstIterator;
 	#endif
-		typedef typename AsClass<ElementData>::type
+		typedef Class<ElementData>
 			ElementData_Class;
 
 		class Set;
@@ -39,7 +39,7 @@ namespace Pastel
 		typedef typename SetSet::const_iterator
 			Set_ConstIterator;
 	#endif
-		typedef typename AsClass<SetData>::type
+		typedef Class<SetData>
 			SetData_Class;
 
 		typedef std::list<Element_Iterator>
