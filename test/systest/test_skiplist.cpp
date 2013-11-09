@@ -27,20 +27,24 @@ namespace
 
 		virtual void run()
 		{
-			testSimple();
-			testValueSet();
-			testValueMap();
-			testCount();
-			testRandom();
+			for (integer i = 0; i < 10; ++i)
+			{
+				testSimple(i);
+				testValueSet(i);
+				testValueMap(i);
+				testCount(i);
+				testRandom(i);
+			}
 		}
 
 		typedef SkipList_Set<integer> List;
 		typedef List::Iterator Iterator;
 		typedef List::ConstIterator ConstIterator;
 
-		void testSimple()
+		void testSimple(integer maxHeight)
 		{
 			List list;
+			list.setMaxHeight(maxHeight);
 			TEST_ENSURE(validInvariants(list));
 
 			ConstIterator listEnd = list.cend();
@@ -296,6 +300,10 @@ namespace
 				List copyList(list);
 				TEST_ENSURE(validInvariants(copyList));
 				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(copyList.maxHeight(), == , list.maxHeight());
+				TEST_ENSURE_OP(copyList.height(), == , list.height());
+				TEST_ENSURE_OP(copyList.size(), == , list.size());
+				TEST_ENSURE_OP(copyList.uniqueKeys(), == , list.uniqueKeys());
 
 				ConstIterator copyEnd = copyList.cend();
 				
@@ -331,6 +339,10 @@ namespace
 				copyList = list;
 				TEST_ENSURE(validInvariants(copyList));
 				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(copyList.maxHeight(), == , list.maxHeight());
+				TEST_ENSURE_OP(copyList.height(), == , list.height());
+				TEST_ENSURE_OP(copyList.size(), == , list.size());
+				TEST_ENSURE_OP(copyList.uniqueKeys(), == , list.uniqueKeys());
 
 				TEST_ENSURE_OP(list.size(), ==, 11);
 				TEST_ENSURE(!list.empty());
@@ -348,6 +360,8 @@ namespace
 				moveList = std::move(list);
 				TEST_ENSURE(validInvariants(moveList));
 				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE_OP(moveList.maxHeight(), == , maxHeight);
+				TEST_ENSURE_OP(list.maxHeight(), == , maxHeight);
 
 				TEST_ENSURE_OP(list.size(), ==, 0);
 				TEST_ENSURE(list.empty());
@@ -372,9 +386,10 @@ namespace
 			}
 		}
 
-		void testCount()
+		void testCount(integer maxHeight)
 		{
 			List list;
+			list.setMaxHeight(maxHeight);
 
 			list.insert(1);
 			{
@@ -537,9 +552,11 @@ namespace
 			}
 		}
 
-		void testValueMap()
+		void testValueMap(integer maxHeight)
 		{
 			SkipList_Map<integer, integer> list;
+			list.setMaxHeight(maxHeight);
+
 			TEST_ENSURE(validInvariants(list));
 
 			list.insert(1, 1);
@@ -575,9 +592,11 @@ namespace
 			}
 		}
 
-		void testValueSet()
+		void testValueSet(integer maxHeight)
 		{
 			SkipList_Set<integer> list;
+			list.setMaxHeight(maxHeight);
+
 			TEST_ENSURE(validInvariants(list));
 
 			list.insert(1);
@@ -613,12 +632,14 @@ namespace
 			}
 		}
 
-		void testRandom()
+		void testRandom(integer maxHeight)
 		{
 			List list;
+			list.setMaxHeight(maxHeight);
+
 			std::list<integer> dataSet;
 			const integer listSizeSet[] = 
-				{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1000};
+				{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100};
 
 			for (integer listSize : listSizeSet)
 			{

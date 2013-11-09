@@ -135,6 +135,13 @@ namespace Pastel
 			ASSERT(node != end_);
 			ASSERT(node->isRepresentative());
 
+			if (maxHeight_ > 0 && node->height() == maxHeight_ + 1)
+			{
+				// We have reached the maximum height;
+				// all invariants now hold.
+				break;
+			}
+
 			Node* middle = findMiddleOfEqualLevels(node);
 			if (!middle)
 			{
@@ -239,10 +246,6 @@ namespace Pastel
 	template <typename SkipList_Settings>
 	void SkipList<SkipList_Settings>::increaseLevel(Node* node)
 	{
-		// A given node has a physical size of the form 2^i.
-		// If the number of levels in a node already is of
-		// this form, then we need to double the physical size.
-
 		integer n = node->height();
 
 		// Find the node which will link to 'node' on 
@@ -251,6 +254,13 @@ namespace Pastel
 		Node* next = end_;
 		if (node != end_)
 		{
+			if (maxHeight_ > 0 && n == maxHeight_ + 1)
+			{
+				// The node is already of the maximum height.
+				// Do nothing.
+				return;
+			}
+
 			prev = findPrevious(node, n);
 			next = prev->link(n)[Next];
 			if (prev == end_)
@@ -269,6 +279,9 @@ namespace Pastel
 			}
 		}
 
+		// A given node has a physical size of the form 2^i.
+		// If the number of levels in a node already is of
+		// this form, then we need to double the physical size.
 		if (isPowerOfTwo(n))
 		{
 			// The node needs to be physically resized
