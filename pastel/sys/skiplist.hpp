@@ -341,13 +341,19 @@ namespace Pastel
 			return true;
 		}
 
+		if (that.maxHeight() > 0 && that.height() > that.maxHeight() + 1)
+		{
+			// The skip list is higher than its allowed maximum height.
+			return false;
+		}
+
 		using List = SkipList<SkipList_Settings>;
 		using ConstIterator = typename List::ConstIterator;
 		using Compare = typename SkipList_Settings::Compare;
 
 		integer size = 1;
 		integer uniqueKeys = 1;
-		for (integer i = 0;i < that.height();++i)
+		for (integer i = 0;i <= that.height();++i)
 		{
 			ConstIterator iter = that.cbegin(i);
 			ConstIterator end = that.cend();
@@ -388,12 +394,14 @@ namespace Pastel
 				if (iter.height() == prev.height())
 				{
 					++sameLevels;
-					if (sameLevels > 2)
+					if (sameLevels > 2 && iter.height() != that.maxHeight() + 1)
 					{
 						// The deterministic 1-2-skip-list must
 						// have at most 2 subsequent elements
 						// at the same level, when following
-						// links on a given level.
+						// links on a given level. The exception to this
+						// is the top height, in case the skip list
+						// has a maximum height.
 						return false;
 					}
 				}
@@ -431,6 +439,38 @@ namespace Pastel
 
 		// No invariants were found to be broken.
 		return true;
+	}
+
+	template <typename SkipList_Settings>
+	std::ostream& operator<<(std::ostream& stream, const SkipList<SkipList_Settings>& list)
+	{
+		using ConstIterator = typename SkipList<SkipList_Settings>::ConstIterator;
+
+		for (integer i = list.height() - 1; i >= 0; --i)
+		{
+			ConstIterator node = list.cbegin();
+			while (node != list.cend())
+			{
+				if (i == 0)
+				{
+					stream << node.key();
+					stream << " ";
+				}
+				else if (i < node.height())
+				{
+					stream << "| ";
+				}
+				else
+				{
+					stream << "  ";
+				}
+				++node;
+			}
+
+			stream << std::endl;
+		}
+
+		return stream;
 	}
 
 }

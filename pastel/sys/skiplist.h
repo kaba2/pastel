@@ -71,6 +71,7 @@ namespace Pastel
 		: end_(0)
 		, size_(0)
 		, uniqueKeys_(0)
+		, maxHeight_(0)
 		, allocatedSet_()
 		, endSet_()
 		{
@@ -99,7 +100,8 @@ namespace Pastel
 		SkipList(const SkipList& that)
 		: SkipList()
 		{
-			for (auto iter = that.cbegin();iter != that.cend();++iter)
+			maxHeight_ = that.maxHeight_;
+			for (auto iter = that.cbegin(); iter != that.cend(); ++iter)
 			{
 				insert(iter.key(), iter.value());
 			}
@@ -107,11 +109,8 @@ namespace Pastel
 
 		//! Move-constructs a skip list.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		strong
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		SkipList(SkipList&& that)
 		: SkipList()
@@ -147,7 +146,7 @@ namespace Pastel
 		Time complexity:
 		O(that.size())
 
-		Exception safety:
+		Exception safety: 
 		strong
 
 		The end() iterator will be preserved.
@@ -168,11 +167,8 @@ namespace Pastel
 
 		//! Move-assigns from another skip list.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 
 		The end() iterator will be preserved.
 		*/
@@ -224,6 +220,7 @@ namespace Pastel
 
 			size_ = that.size_;
 			uniqueKeys_ = that.uniqueKeys_;
+			maxHeight_ = that.maxHeight_;
 			that.size_ = 0;
 			that.uniqueKeys_ = 0;
 
@@ -232,11 +229,8 @@ namespace Pastel
 
 		//! Swaps two skip lists.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		void swap(SkipList& that)
 		{
@@ -244,17 +238,15 @@ namespace Pastel
 			swap(end_, that.end_);
 			swap(size_, that.size_);
 			swap(uniqueKeys_, that.uniqueKeys_);
+			swap(maxHeight_, that.maxHeight_);
 			allocatedSet_.swap(that.allocatedSet_);
 			endSet_.swap(that.endSet_);
 		}
 
 		//! Removes all elements from the skip list.
 		/*!
-		Time complexity:
-		O(size())
-
-		Exception safety:
-		nothrow
+		Time complexity: O(size())
+		Exception safety: nothrow
 		*/
 		void clear()
 		{
@@ -372,11 +364,8 @@ namespace Pastel
 
 		//! Casts a const-iterator to an iterator.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Iterator cast(const ConstIterator& that)
 		{
@@ -586,11 +575,8 @@ namespace Pastel
 
 		//! Returns the number of elements in the skip list.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		integer size() const
 		{
@@ -599,11 +585,8 @@ namespace Pastel
 
 		//! Returns the number of unique keys in the skip list.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		integer uniqueKeys() const
 		{
@@ -612,11 +595,8 @@ namespace Pastel
 
 		//! Returns whether the skip list is empty.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		bool empty() const
 		{
@@ -625,11 +605,8 @@ namespace Pastel
 
 		//! Returns the first element in the skip list on a given level.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Iterator begin(integer level = 0)
 		{
@@ -644,18 +621,15 @@ namespace Pastel
 		ConstIterator cbegin(integer level = 0) const
 		{
 			PENSURE_OP(level, >= , 0);
-			PENSURE_OP(level, < , height());
+			PENSURE_OP(level, <= , height());
 
 			return ConstIterator(end_->link(level)[Next]);
 		}
 
 		//! Returns the end-iterator of the skip list.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Iterator end()
 		{
@@ -674,49 +648,39 @@ namespace Pastel
 
 		//! Returns the height of the highest stored element.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		integer height() const
 		{
-			return cend().height();
+			return cend().height() - 1;
 		}
 
-		friend void print(const SkipList& list)
-		{
-			for (integer i = list.height() - 1;i >= 0;--i)
-			{
-				Node* node = list.end_;
-				do 
-				{
-					if (i == 0)
-					{
-						if (node != list.end_)
-						{
-							std::cout << ((Data_Node*)node)->key();
-						}
-						else
-						{
-							std::cout << "-";
-						}
-						std::cout << " ";
-					}
-					else if (i < node->height())
-					{
-						std::cout << "| ";
-					}
-					else
-					{
-						std::cout << "  ";
-					}
-					node = node->link(0)[Next];
-				} while (node != list.end_);
+		//! Sets the maximum height of the skip-list.
+		/*!
+		Preconditions:
+		maxHeight >= 0
+		empty()
 
-				std::cout << std::endl;
-			}
+		A value of 0 means the skip-list has no maximum height.
+		*/
+		void setMaxHeight(integer maxHeight)
+		{
+			ENSURE_OP(maxHeight, >=, 0);
+			ENSURE(empty());
+			maxHeight_ = maxHeight;
+		}
+
+		//! Returns the maximum height of the skip-list.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		A value of 0 means the skip-list has no maximum height.
+		*/
+		integer maxHeight() const
+		{
+			return maxHeight_;
 		}
 
 	private:
@@ -761,11 +725,8 @@ namespace Pastel
 
 		//! Links subsequent nodes together at level i.
 		/*!
-		Time complexity:
-		O(1)
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		void link(Node* left, Node* right, integer i);
 
@@ -811,6 +772,23 @@ namespace Pastel
 		//! The number of unique keys in the skip-list.
 		integer uniqueKeys_;
 
+		//! The maximum height for the skip-list.
+		/*!
+		Preconditions:
+		maxHeight >= 0
+
+		Bounding the height from above provides 
+		O(maxHeight()) complexity for insertion, 
+		removal, and searching, provided the operation is
+		started from a nearby element, under the distance of
+		2^maxHeight(). On larger distances the complexities 
+		of these operations become linear to distance.
+
+		If maxHeight == 0, then it means there is no
+		restriction to the height of the skip-list.
+		*/
+		integer maxHeight_;
+
 		//! A preallocated set of link-sets.
 		/*!
 		To guarantee strong exception safety in insertion,
@@ -833,12 +811,17 @@ namespace Pastel
 
 }
 
+#include <iostream>
+
 namespace Pastel
 {
 
 	//! Returns whether the skip-list invariants hold for 'that'.
 	template <typename SkipList_Settings>
 	bool validInvariants(const SkipList<SkipList_Settings>& that);
+
+	template <typename SkipList_Settings>
+	std::ostream& operator<<(std::ostream& stream, const SkipList<SkipList_Settings>& list);
 
 }
 
