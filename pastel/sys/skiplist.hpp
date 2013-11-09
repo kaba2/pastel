@@ -198,7 +198,7 @@ namespace Pastel
 			}
 		}
 
-		auto validMoveTest = [&](integer level)
+		auto validMove = [&](integer level)
 		{
 			Node* next = node->link(level)[direction];
 			// We call 'next' an overshoot, if
@@ -214,40 +214,46 @@ namespace Pastel
 
 		// We know that 'node' is a representative.
 		// Therefore it contains level-1 links.
-		integer minLevel = 1;
+		integer level = 1;
 
 		// Ascend towards the key.
 		while(true)
 		{
-			integer overshootLevel = 
-				binarySearch(minLevel, node->height(), validMoveTest);
+			integer overshootLevel = level;
+			while (overshootLevel < node->height() && validMove(overshootLevel))
+			{
+				++overshootLevel;
+			}
 
-			if (overshootLevel == minLevel)
+			if (overshootLevel == level)
 			{
 				// The link overshoots on all levels up
-				// from 'minLevel'. Start descending.
+				// from 'level'. Start descending.
 				break;
 			}
 
-			minLevel = overshootLevel - 1;
-			node = node->link(minLevel)[direction];
+			level = overshootLevel - 1;
+			node = node->link(level)[direction];
 		}
 
+		ASSERT_OP(level, >, 0);
+		--level;
+
 		// Descend towards the key.
-		integer maxLevel = minLevel;
 		while(true)
 		{
-			integer overshootLevel = 
-				binarySearch((integer)1, maxLevel, validMoveTest);
-
-			if (overshootLevel == 1)
+			while(level > 0 && !validMove(level))
+			{
+				--level;
+			}
+			
+			if (level == 0)
 			{
 				// The link overshoots on all levels up from 1.
 				break;
 			}
 
-			maxLevel = overshootLevel;
-			node = node->link(maxLevel - 1)[direction];
+			node = node->link(level)[direction];
 		}
 
 		if (direction)
