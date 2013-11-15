@@ -9,32 +9,68 @@ namespace Pastel
 
 	template <typename Integer, typename Integer_Indicator>
 	Integer binarySearch(
-		Integer minLevel, Integer maxLevel,
+		const Integer& minLevel, 
+		const Integer& maxLevel,
 		Integer_Indicator indicator)
 	{
-		ENSURE_OP(maxLevel - minLevel, >=, 0);
+		ENSURE(minLevel <= maxLevel);
 
-		while(maxLevel - minLevel > 1)
-		{
-			Integer level = minLevel + 
-				(maxLevel - minLevel) / 2;
-			if (indicator(level))
-			{
-				minLevel = level;
-			}
-			else
-			{
-				maxLevel = level;
-			}
-		}
-
-		if (maxLevel - minLevel > 0 &&
-			indicator(minLevel))
+		// Handle the empty case.
+		if (minLevel == maxLevel)
 		{
 			return maxLevel;
 		}
 
-		return minLevel;
+		Integer min = minLevel;
+		Integer max = maxLevel;
+		while (min + 1 < max)
+		{
+			// We maintain the loop invariant that the range
+			// [min, max] contains the first element
+			// at which the indicator is false, where the
+			// indicator is taken to be false at 'maxLevel'.
+
+			// Pick 'mid' at the middle of the range.
+			// Note that, due to integer rounding, it 
+			// always holds that 'min <= mid < max'.
+			Integer mid = min + ((max - min) >> 1);
+
+			// See if the indicator holds at 'mid'.
+			if (indicator(mid))
+			{
+				// The indicator holds at 'mid'. Therefore
+				// we may sharpen our range to [mid + 1, max]
+				// without breaking the loop invariant. Note
+				// that we are excluding 'mid'.
+				min = mid + 1;
+			}
+			else
+			{
+				// The indicator does not hold at 'mid'.
+				// Therefore we may sharpen our range to
+				// [min, mid] without breaking the loop
+				// invariant. Note that we are including
+				// 'mid'.
+				max = mid;
+			}
+		}
+
+		// By the loop invariant, the first element at which
+		// the indicator is false is in the range [min, max],
+		// and max - min <= 1.
+
+		// Handle the case min < max.
+		if (min < max && indicator(min))
+		{
+			// The indicator is true at 'min', and
+			// false at 'max'.
+			return max;
+		}
+
+		// The indicator is false at 'min'. By the
+		// loop invariant 'min' is the first such
+		// element.
+		return min;
 	}
 
 }

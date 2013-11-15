@@ -11,36 +11,32 @@ namespace Pastel
 
 	//! Exponential binary-search over an integer range.
 	/*!
-	This algorithm improves the time complexity over the normal
-	binary search. The price to pay for this is that the algorithm
-	has a hidden constant of four compared to the normal binary
-	search. For example, it takes four times as much time to
-	search for the maximum element. On the other hand, it takes
-	only a constant time to find the minimum element.
-
 	Preconditions:
-	maxLevel - minLevel >= 0
+	minLevel <= maxLevel
 
 	Time complexity:
-	O(log(s - minLevel + 2)),
+	O(f log(k - minLevel + 2)),
 	where
-	s is the returned element.
+	k is the returned element, and
+	f is the time taken by a single indicator test.
 
 	minLevel, maxLevel:
 	The searched range is [minLevel, maxLevel).
 
 	indicator:
 	An indicator with the property that the
-	return element exists.
+	returned element exists. Each level will 
+	be tested at most once by the indicator.
 
 	returns:
-	An element s in [minLevel, maxLevel] such that 
-	the indicator is true on [minLevel, s) and 
-	false on [s, maxlevel).
+	An element k in [minLevel, maxLevel] such that 
+	the indicator is true on [minLevel, k) and 
+	false on [k, maxlevel).
 	*/
 	template <typename Integer, typename Integer_Indicator>
 	Integer exponentialBinarySearch(
-		Integer minLevel, Integer maxLevel,
+		const Integer& minLevel, 
+		const Integer& maxLevel,
 		Integer_Indicator indicator);
 
 }
