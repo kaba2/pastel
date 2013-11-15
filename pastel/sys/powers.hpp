@@ -8,16 +8,17 @@ namespace Pastel
 {
 
 	template <typename Type>
-	inline Type square(const Type& that)
+	Type square(const Type& that)
 	{
 		return that * that;
 	}
 
-	inline integer powerOfTwo(integer i)
+	template <typename Integer>
+	Integer powerOfTwo(const Integer& k)
 	{
-		PENSURE_OP(i, >=, 0);
+		PENSURE_OP(k, >=, 0);
 
-		return (integer)1 << i;
+		return (Integer)1 << k;
 	}
 
 }

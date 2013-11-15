@@ -2,121 +2,83 @@
 #define PASTELSYS_EXPONENTIAL_BINARY_SEARCH_HPP
 
 #include "pastel/sys/exponential_binary_search.h"
-#include "pastel/sys/logarithm.h"
+#include "pastel/sys/binary_search.h"
+#include "pastel/sys/powers.h"
 
 namespace Pastel
 {
 
 	template <typename Integer, typename Integer_Indicator>
 	Integer exponentialBinarySearch(
-		Integer minLevel, Integer maxLevel,
+		const Integer& minLevel, 
+		const Integer& maxLevel,
 		Integer_Indicator indicator)
 	{
-		// Let L = maxLevel - minLevel.
-		integer levels = maxLevel - minLevel;
+		ENSURE(minLevel <= maxLevel);
 
-		// Handle the trivial empty case.
-		if (levels == 0)
+		// Handle the empty case.
+		if (minLevel == maxLevel)
 		{
 			return maxLevel;
 		}
 
-		// We will now know that L > 0.
-
-		// Let N_k = 2^{2^k - 1}.
-		auto N = [&](integer k)
+		// This is deliberately the native integer,
+		// since we want to support Integer being
+		// a random-access iterator, and those can't
+		// compute the power of two.
+		integer k = 0;
+		Integer min = minLevel;
+		while (min < maxLevel)
 		{
-			return (1 << ((1 << k) - 1));
-		};
+			// We will maintain the loop invariant that
+			// the indicator is true on the range [minLevel, min).
 
-		// k | 2^k - 1 | 2^{2^k - 1}
-		// -------------------------
-		// 0 |  0      | 1
-		// 1 |  1      | 2
-		// 2 |  3      | 8
-		// 3 |  7      | 128
-
-		// We would like to search the levels using ranges 
-		// of the form
-		// 
-		//     [N_k, N_{k + 1}).
-		//
-		// On each such range we perform a binary search.
-		// How many such ranges do we need to cover all levels?
-		//
-		// Since L > 0,
-		//
-		//       N_k <= L
-		//    => k <= floor(log2(floor(log2(L)) + 1))
-		//
-		// By contraposition, if k > floor(log2(floor(log2(L)) + 1)), then
-		//
-		//    N_k > L.
-
-		// By choosing the number of ranges this way, the upper range
-		// may not get covered. We will handle this at the end.
-		integer stages = integerLog2(integerLog2(levels) + 1);
-
-		// If L = 16, then stages = 2, and the ranges
-		// consist of
-		//
-		//    [0, 1)
-		//    [1, 2)
-		//    [2, 8)
-		//    [8, 16)
-
-		// If the result of the search is s, how many steps does
-		// this algorithm take?
-		//
-		//    sum_{i = 0}^k log(2^{2^{i + 1} - 1} - 2^{2^i - 1})
-		//  = sum_{i = 0}^k [log(2^2^i (2^2^i - 1)) - 1]
-		//  = sum_{i = 0}^k [(2^i - 1) + log(2^2^i - 1)]
-		// <= sum_{i = 0}^k [2 2^i - 1]
-		//  = 2 (2^{k + 1} - 1) - (k + 1)
-		//  = 4 2^k - k - 3
-		// <= 4 2^k - 3
-		// <= 4 (floor(log(s)) + 1) - 3
-		//  = 4 floor(log(s)) + 1
-		//
-		// Therefore, this algorithm has a complexity of
-		// O(log(s)), rather than O(log(n)). The price we pay for
-		// this improvement is that for large s this algorithm 
-		// is about four times slower than the straightforward
-		// binary search. On the other, for small s the algorithm
-		// is constant time.
-
-		auto indexIndicator = [&](integer index)
-		{
-			return indicator(minLevel + index);
-		};
-
-		integer iMin = 0;
-		for (integer k = 0;k <= stages;++k)
-		{
-			integer iMax = N(k);
-			ASSERT_OP(iMax, <=, levels);
-
-			integer i = binarySearch(iMin, iMax, indexIndicator);
-			if (i < iMax)
+			// While searching for the first false element, we
+			// take doubly-exponential steps. Note that when 'k == 0',
+			// it holds that 'mid == minLevel', and thus 'minLevel' also 
+			// gets tested.
+			Integer mid = minLevel + powerOfTwo(powerOfTwo(k) - 1) - 1;
+			if (mid >= maxLevel)
 			{
-				return minLevel + i;
+				// This element will be correctly in range because
+				// we tested the empty case in the beginning.
+				mid = maxLevel - 1;
 			}
 
-			iMin = iMax;
+			// See if the indicator holds at 'mid'.
+			if (!indicator(mid))
+			{
+				// The indicator is false at 'mid'. By the
+				// the loop invariant, the indicator is true on 
+				// [minLevel, min). Thus there exists a smallest 
+				// element 'level' in the range [min, mid) such 
+				// that the indicator is true on [minLevel, level).
+
+				// Search the range [min, mid) using binary search. 
+				// Note that 'mid' is deliberately not part of the 
+				// range, since we tested 'mid' already.
+				Integer level = binarySearch(min, mid, indicator);
+				if (level < mid)
+				{
+					return level;
+				}
+
+				// By the binary search, and the loop invariant,
+				// the indicator is true on [minLevel, mid), and
+				// false at 'mid'.
+				return mid;
+			}
+
+			// The indicator is true at 'mid'. By the property
+			// of the used indicator-type, the indicator is also
+			// true on [minLevel, mid + 1).
+			min = mid + 1;
 			++k;
 		}
 
-		if (iMin < levels)
-		{
-			// Search the rest of the levels.
-			integer i = binarySearch(iMin, levels, indexIndicator);
-			if (i < levels)
-			{
-				return minLevel + i;
-			}
-		}
-
-		// The indicator holds for all elements.
+		// If we get here, then by the loop invariant the
+		// indicator is true on the range [minLevel, maxLevel),
+		// that is, for all elements.
 		return maxLevel;
 	}
 

@@ -11,12 +11,13 @@ namespace Pastel
 	template <typename Type>
 	Type square(const Type& that);
 
-	//! Returns 2^i.
+	//! Returns 2^k.
 	/*!
 	Preconditions:
-	i >= 0
+	k >= 0
 	*/
-	integer powerOfTwo(integer i);
+	template <typename Integer>
+	Integer powerOfTwo(const Integer& k);
 
 }
 
