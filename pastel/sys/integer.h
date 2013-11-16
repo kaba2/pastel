@@ -634,33 +634,39 @@ namespace Pastel
 		}
 
 		//! Computes a hash of the bits in the range [beginBit, endBit).
+		/*!
+		Time complexity: O(endBit - beginBit)
+		Exception safety: nothrow
+		*/
 		hash_integer hash(integer beginBit = 0, integer endBit = N) const
 		{
 			PENSURE_OP(beginBit, >=, 0);
 			PENSURE_OP(beginBit, <=, endBit);
 			PENSURE_OP(endBit, <=, N);
 
-			hash_integer result = 0;
 			if (beginBit == endBit)
 			{
-				return result;
+				return computeHash((Word)0);
 			}
 
-			integer beginWord = beginBit / BitsInWord;
 			integer lastBit = endBit - 1;
-			integer lastWord = divideAndRoundUp(lastBit, BitsInWord);
-
+			
+			integer beginWord = beginBit / BitsInWord;
 			integer localBeginBit = beginBit - beginWord * BitsInWord;
 			Word beginMask = ~bitMask<Word>(localBeginBit);
 
+			integer lastWord = lastBit / BitsInWord;
 			integer localLastBit = lastBit - lastWord * BitsInWord;
-			Word mask = bitMask<Word>(localLastBit);
+			Word lastMask = bitMask<Word>(localLastBit + 1);
 
-			// Hash the first, possibly partial, word.
+			if (beginWord == lastWord)
 			{
-				result = computeHash(wordSet_[beginWord] & mask);
+				beginMask &= lastMask;
 			}
 
+			// Hash the first, possibly partial, word.
+			hash_integer result = 
+				computeHash(wordSet_[beginWord] & beginMask);
 			
 			// Hash the middle words.
 			for (integer i = beginWord + 1;i < lastWord;++i)
@@ -673,7 +679,7 @@ namespace Pastel
 			if (beginWord != lastWord)
 			{
 				result = combineHash(result, 
-					computeHash(wordSet_[beginWord] & mask));
+					computeHash(wordSet_[lastWord] & lastMask));
 			}
 
 			return result;
