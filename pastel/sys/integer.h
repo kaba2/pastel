@@ -5,6 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hashing.h"
+#include "pastel/sys/bitmask.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -115,11 +116,8 @@ namespace Pastel
 				&that.wordSet_.front() + lastWord + 1, 
 				&wordSet_.front() + firstWord);
 
-			Word firstMask = ((Word)1 << (beginBit - firstWord * BitsInWord)) - (Word)1;
-			wordSet_[firstWord] &= ~firstMask;
-
-			Word lastMask = ((Word)1 << (endBit - lastWord * BitsInWord)) - (Word)1;
-			wordSet_[lastWord] &= lastMask;
+			wordSet_[firstWord] &= ~bitMask<Word>(beginBit - firstWord * BitsInWord);
+			wordSet_[lastWord] &= bitMask<Word>(endBit - lastWord * BitsInWord);
 		}
 
 		//! Assigns 'that' to this.
@@ -275,9 +273,8 @@ namespace Pastel
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			Word mask = (Word)1 << bit;
 
-			wordSet_[word] ^= mask;
+			wordSet_[word] ^= singleBitMask<Word>(bit);
 
 			return *this;
 		}
@@ -306,9 +303,8 @@ namespace Pastel
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			Word mask = (Word)1 << bit;
 			
-			wordSet_[word] |= mask;
+			wordSet_[word] |= singleBitMask<Word>(bit);
 
 			return *this;
 		}
@@ -358,9 +354,8 @@ namespace Pastel
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			Word mask = (Word)1 << bit;
 			
-			wordSet_[word] &= ~mask;
+			wordSet_[word] &= ~singleBitMask<Word>(bit);
 
 			return *this;
 		}
@@ -377,9 +372,8 @@ namespace Pastel
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			Word mask = (Word)1 << bit;
 
-			return (wordSet_[word] & mask) != 0;
+			return (wordSet_[word] & singleBitMask<Word>(bit)) != 0;
 		}
 
 		//! Returns the i:th bit.
@@ -611,7 +605,7 @@ namespace Pastel
 			std::string result;
 			result.reserve(N);
 
-			Word mask = (Word)1 << (BitsInWord - 1);
+			Word mask = singleBitMask<Word>(BitsInWord - 1);
 
 			for (integer i = Words - 1;i >= 0;--i)
 			{
@@ -639,6 +633,52 @@ namespace Pastel
 			return toString();
 		}
 
+		//! Computes a hash of the bits in the range [beginBit, endBit).
+		hash_integer hash(integer beginBit = 0, integer endBit = N) const
+		{
+			PENSURE_OP(beginBit, >=, 0);
+			PENSURE_OP(beginBit, <=, endBit);
+			PENSURE_OP(endBit, <=, N);
+
+			hash_integer result = 0;
+			if (beginBit == endBit)
+			{
+				return result;
+			}
+
+			integer beginWord = beginBit / BitsInWord;
+			integer lastBit = endBit - 1;
+			integer lastWord = divideAndRoundUp(lastBit, BitsInWord);
+
+			integer localBeginBit = beginBit - beginWord * BitsInWord;
+			Word beginMask = ~bitMask<Word>(localBeginBit);
+
+			integer localLastBit = lastBit - lastWord * BitsInWord;
+			Word mask = bitMask<Word>(localLastBit);
+
+			// Hash the first, possibly partial, word.
+			{
+				result = computeHash(wordSet_[beginWord] & mask);
+			}
+
+			
+			// Hash the middle words.
+			for (integer i = beginWord + 1;i < lastWord;++i)
+			{
+				result = combineHash(result, 
+					computeHash(wordSet_[i]));
+			}
+
+			// Hash the last, possibly partial, word.
+			if (beginWord != lastWord)
+			{
+				result = combineHash(result, 
+					computeHash(wordSet_[beginWord] & mask));
+			}
+
+			return result;
+		}
+
 		PASTEL_INTEGER_ASSIGN_OPERATOR(|=);
 		PASTEL_INTEGER_ASSIGN_OPERATOR(^=);
 		PASTEL_INTEGER_ASSIGN_OPERATOR(&=);
@@ -655,6 +695,30 @@ namespace Pastel
 		WordSet wordSet_;
 	};
 
+	template <int N, typename Word>
+	struct Integer_Hash
+	{
+	public:
+		explicit Integer_Hash(integer beginBit = 0, integer endBit = N)
+		: beginBit_(beginBit)
+		, endBit_(endBit)
+		{
+			PENSURE_OP(beginBit, >=, 0);
+			PENSURE_OP(beginBit, <=, endBit);
+			PENSURE_OP(endBit, <=, N);
+		}
+
+		hash_integer operator()(
+			const Integer<N, Word>& that) const
+		{
+			return that.hash(beginBit_, endBit_);
+		}
+
+	private:
+		integer beginBit_;
+		integer endBit_;
+	};
+
 }
 
 #include "pastel/sys/hashing.h"
@@ -662,16 +726,10 @@ namespace Pastel
 namespace std
 {
 
-	template <int N, typename Type>
-	struct hash<Pastel::Integer<N, Type>>
+	template <int N, typename Word>
+	struct hash<Pastel::Integer<N, Word>>
+	: Pastel::Integer_Hash<N, Word>
 	{
-	public:
-		Pastel::hash_integer operator()(
-			const Pastel::Integer<N, Type>& that) const
-		{
-			return Pastel::computeHashMany(
-				Pastel::range(that.cwordBegin(), that.cwordEnd()));
-		}
 	};
 
 }

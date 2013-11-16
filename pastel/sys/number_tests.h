@@ -4,16 +4,16 @@
 #ifndef PASTELSYS_NUMBER_TESTS_H
 #define PASTELSYS_NUMBER_TESTS_H
 
-#include "pastel/sys/mytypes.h"
+#include "pastel/sys/integer_concept.h"
 
 namespace Pastel
 {
 
-	//! Returns if the integer is [odd].
+	//! Returns if the integer is odd.
 	template <typename Integer>
 	bool odd(const Integer& x);
 
-	//! Returns if the integer is [even].
+	//! Returns if the integer is even.
 	template <typename Integer>
 	bool even(const Integer& x);
 
@@ -25,7 +25,8 @@ namespace Pastel
 	returns:
 	Whether that == 2^k, for some integer k >= 0.
 	*/
-	bool isPowerOfTwo(integer that);
+	template <typename Integer>
+	bool isPowerOfTwo(const Integer& that);
 
 }
 
