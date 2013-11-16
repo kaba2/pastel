@@ -22,10 +22,11 @@ namespace
 
 		virtual void run()
 		{
-			test();
+			testArithmetic();
+			testHashing();
 		}
 
-		void test()
+		void testArithmetic()
 		{
 			{
 				using F = Integer<1, uint8>;
@@ -152,6 +153,54 @@ namespace
 				TEST_ENSURE(F(a, 15, 16) == F(0x00000000));
 				
 				TEST_ENSURE(F(a, 16, 16) == F(0x00000000));
+			}
+		}
+
+		void testHashing()
+		{
+			{
+				Integer_Hash<32, uint8> hash(0, 1);
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543210));
+			}
+			{
+				Integer_Hash<32, uint8> hash(0, 2);
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543210));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543214));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543218));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x7654321C));
+			}
+			{
+				Integer_Hash<32, uint8> hash(0, 3);
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543210));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543218));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543220));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543228));
+			}
+			{
+				Integer_Hash<32, uint8> hash(1, 3);
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543210));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543211));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543218));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543219));
+			}
+			{
+				Integer_Hash<32, uint8> hash(4, 12);
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76503670));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76513671));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76523672));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76533673));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543674));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76553675));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76563676));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76573677));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76583678));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76593679));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x765A367A));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x765B367B));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x765C367C));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x765D367D));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x765E367E));
+				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x765F367F));
 			}
 		}
 	};
