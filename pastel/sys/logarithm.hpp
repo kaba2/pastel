@@ -57,7 +57,7 @@ namespace Pastel
 		ENSURE_OP(that, >, 0);
 		if (isPowerOfTwo(that))
 		{
-			return that;
+			return integerLog2(that);
 		}
 
 		return integerLog2(that) + 1;

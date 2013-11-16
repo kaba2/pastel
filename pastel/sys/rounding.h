@@ -11,8 +11,6 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next multiple of 'to'.
 	/*!
-	[Round up to a multiple]
-
 	Preconditions:
 	that >= 0
 	to >= 0
@@ -24,8 +22,6 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next odd number.
 	/*!
-	[Round up to odd]
-
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
@@ -35,8 +31,6 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next even number.
 	/*!
-	[Round up to even]
-
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
@@ -57,8 +51,6 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next multiple of power of 2.
 	/*!
-	[Round up to multiple of power of 2]
-
 	Preconditions:
 	that >= 0
 	power >= 0
@@ -67,6 +59,10 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	integer roundUpToPowerOf2(integer that, integer power);
+
+	//! Returns ceil(divide / byThis).
+	template <typename Integer>
+	Integer divideAndRoundUp(const Integer& divide, const Integer& byThis);
 
 }
 

@@ -4,6 +4,7 @@
 #include "pastel/sys/rounding.h"
 #include "pastel/sys/mod.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/number_tests.h"
 
 namespace Pastel
 {
@@ -83,6 +84,38 @@ namespace Pastel
 		}
 
 		return that;
+	}
+
+	template <typename Integer>
+	Integer divideAndRoundUp(const Integer& divide, const Integer& byThis)
+	{
+		PENSURE_OP(byThis, !=, 0);
+
+		if ((divide >= 0) ^ (byThis >= 0))
+		{
+			// If the signs differ, then the integer division
+			// computes ceil(a / b), which is what we want.
+			return divide / byThis;
+		}
+
+		if (divide >= 0)
+		{
+			// Both are non-negative, and the integer division
+			// computes floor(a / b). We use the formula
+			// ceil(a / b) = floor((a + (b - 1)) / b).
+			return (divide + byThis - 1) / byThis;
+		}
+
+		// Both are negative. Turn them positive,
+		// and do as above:
+		//
+		// ceil(a / b) = ceil((-a) / (-b))
+		//             = floor((-a + ((-b) - 1)) / (-b))
+		//             = floor((-a - b - 1) / (-b))
+		//             = floor(-(a + b + 1) / (-b))
+		//             = floor((a + b + 1) / b)
+
+		return (divide + byThis + 1) / byThis;
 	}
 
 }
