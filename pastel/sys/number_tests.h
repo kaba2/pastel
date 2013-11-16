@@ -17,10 +17,13 @@ namespace Pastel
 	template <typename Integer>
 	bool even(const Integer& x);
 
-	//! Returns if the integer is [a power of 2].
+	//! Returns if the integer is a power of 2.
 	/*!
 	Preconditions:
 	that >= 0
+
+	returns:
+	Whether that == 2^k, for some integer k >= 0.
 	*/
 	bool isPowerOfTwo(integer that);
 
