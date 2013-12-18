@@ -30,7 +30,7 @@ namespace Pastel
 	//! Returns floor(log_2(that)).
 	/*!
 	Time complexity:
-	O(log(log(that + 4))),
+	O(log(sizeof(integer) * 8)),
 
 	Preconditions:
 	that > 0
@@ -40,7 +40,7 @@ namespace Pastel
 	//! Returns ceil(log_2(that)).
 	/*!
 	Time complexity:
-	O(log(log(that + 4))),
+	O(log(sizeof(integer) * 8)),
 
 	Preconditions:
 	that > 0

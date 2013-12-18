@@ -1,0 +1,77 @@
+Binary search notes
+===================
+
+[[Parent]]: binary_search.txt
+
+Number of indicator tests for the binary search
+-----------------------------------------------
+
+Let
+
+	a_{0} = n,
+	a_{i + 1} = ceil(a_i / 2),
+
+and
+
+	b_{0} = n,
+	b_{i + 1} = floor(b_i / 2).
+
+It can be shown that
+
+	ceil(ceil(n / u) / v) = ceil(n / (uv)),
+	floor(floor(n / u) / v) = floor(n / (uv)),
+
+for all ''n, u, v in NN''. By induction,
+
+	a_{i} = ceil(n / 2^i).
+	b_{i} = floor(n / 2^i).
+
+Then
+
+	a_{k} <= 1
+	<=> ceil(n / 2^k) <= 1
+	<=> n / 2^k <= 1
+	<=> n < 2^k
+	<=> log(n) < k
+	<=> ceil(log(n)) <= k.
+
+Therefore ''ceil(log(n))'' tests are sufficient to pinpoint a single element. Similarly,
+
+	b_{k} <= 1
+	<=> floor(n / 2^k) <= 1
+	<=> n / 2^k < 2
+	<=> n < 2^{k + 1}
+	<=> log(n) < k + 1
+	<=> ceil(log(n)) <= k + 1
+	<=> ceil(log(n)) - 1 <= k.
+
+Therefore ''ceil(log(n)) - 1'' tests are necessary to pinpoint a single element.
+
+Number of indicator tests for the exponential binary search
+-----------------------------------------------------------
+
+Let
+
+	2^k - 1 < m <= 2^{k + 1} - 1.
+
+where ''k, m in NN'', and ''m'' is the searched element. The binary search performs
+
+	ceil(log((2^{k+1} - 1) - (2^k - 1)))
+	= ceil(log(2^k))
+	= k
+
+tests. The initial exponential search performs ''k + 2'' tests. Therefore the total number of tests is ''2k + 2''. We may then solve the inequalities as
+
+	ceil(2 log(m + 1)) <= 2k + 2 <= floor(2 log(2 m)).
+
+Comparison for a known search interval
+--------------------------------------
+
+We may now compare the number of comparisons made in the exponential binary search, and the binary search, if an upper bound ''n'' is known for the search interval ''[0, n)''. Let us compare the worst-case comparison counts approximately:
+
+	2 log(2 m) <= log(n)
+	<=> log(2 m) <= log(sqrt(n))
+	<=> 2m <= sqrt(n).
+	<=> m <= sqrt(n) / 2.
+
+Therefore, the exponential search uses less comparisons if the searched element ''m'' is at most ''sqrt(n)''. For example, if ''n = 2^64'', then that is ''m <= 2^31'', which seems reasonable. However, if ''n = 64'', such as in computing the base-2 logarithm for a 64-bit integer, then ''m <= 4'', which is not so reasonable; to compute the logarithm of ''2^63'' requires more than twice the comparisons than the binary search. It would be nice if the number of comparisons in the exponential binary search could be brought down close to that of the binary search; then we could consistently use the exponential binary search everywhere.

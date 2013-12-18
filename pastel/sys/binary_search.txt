@@ -3,6 +3,23 @@ Binary search
 
 [[Parent]]: algorithms.txt
 
-The _binary search_ is an algorithm for locating the boundary between two subsequent disjoint integer intervals ''A, B subset ZZ'', when one is only able to query whether a given point ''i in A cup B'' is in ''A'' or not. The algoritm works in ''O(f log(|A cup B| + 2))'' time, where ''O(f)'' is the time taken by a single query.
+[[set indent]]: EquationSet
 
-The _exponential binary search_ solves the same problem as the binary search with an improved time complexity of ''O(f log(|A| + 2))''.
+Let ''n in NN', and ''f_n : NN --> {0, 1}'' such that
+
+	f_n(i) = 1, if i < n,
+	         0, if i >= n.
+
+Given ''a in NN' such that ''a <= n'', the problem is to find ''n'' using only evaluations of ''f_n''. 
+
+This problem can be solved with the _exponential binary search_ in ''O(f log(n - a + 2))'' time. If in addition ''b in NN'' is given such that ''n < b'', then this simplified problem can be solved with the _binary search_ algorithm in ''O(f log((b - a) + 2))'' time, where ''O(f)'' is the time taken by a single evaluation of ''f_n''.
+
+If the search interval is bounded (i.e. ''b'' is given), then the exponential binary search is not always faster than the binary search; at worst the exponential binary search uses twice as many comparisons as the binary search; see the notes for details.
+
+References
+----------
+
+_An almost optimal algorithm for unbounded searching_,
+Jon Louis Bentley, Andrew Chi-Chic Yao,
+Information Processing Letters, Volume 5, Issue 3, August 1976,
+pp. 82-87.

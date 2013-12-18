@@ -34,10 +34,10 @@ namespace Pastel
 			// the indicator is true on the range [minLevel, min).
 
 			// While searching for the first false element, we
-			// take doubly-exponential steps. Note that when 'k == 0',
+			// take exponential steps. Note that when 'k == 0',
 			// it holds that 'mid == minLevel', and thus 'minLevel' also 
 			// gets tested.
-			Integer mid = minLevel + powerOfTwo<integer>(powerOfTwo<integer>(k) - 1) - 1;
+			Integer mid = minLevel + (powerOfTwo<integer>(k) - 1);
 			if (mid >= maxLevel)
 			{
 				// This element will be correctly in range because
