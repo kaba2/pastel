@@ -25,6 +25,9 @@ namespace Pastel
 			Integer(int32 that);
 			Integer(uint32 that);
 			
+			Integer(int64 that);
+			Integer(uint64 that);
+
 			// Additive operations.
 
 			Integer& operator+=(const Integer& that);

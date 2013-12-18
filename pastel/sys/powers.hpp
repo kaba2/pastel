@@ -14,7 +14,7 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	Integer powerOfTwo(const Integer& k)
+	Integer powerOfTwo(integer k)
 	{
 		PENSURE_OP(k, >=, 0);
 

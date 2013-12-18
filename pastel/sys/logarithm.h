@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_LOGARITHM_H
 #define PASTELSYS_LOGARITHM_H
 
-#include "pastel/sys/mytypes.h"
+#include "pastel/sys/integer_concept.h"
 
 namespace Pastel
 {
@@ -29,6 +29,9 @@ namespace Pastel
 
 	//! Returns floor(log_2(that)).
 	/*!
+	Time complexity:
+	O(log(log(that + 4))),
+
 	Preconditions:
 	that > 0
 	*/
@@ -36,6 +39,9 @@ namespace Pastel
 
 	//! Returns ceil(log_2(that)).
 	/*!
+	Time complexity:
+	O(log(log(that + 4))),
+
 	Preconditions:
 	that > 0
 	*/

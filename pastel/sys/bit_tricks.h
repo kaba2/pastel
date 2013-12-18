@@ -3,8 +3,10 @@
 #ifndef PASTELSYS_BIT_TRICKS_H
 #define PASTELSYS_BIT_TRICKS_H
 
+#include "pastel/sys/bitmask.h"
 #include "pastel/sys/extract_bits.h"
 #include "pastel/sys/lowest_bit.h"
 #include "pastel/sys/highest_bit.h"
+#include "pastel/sys/zero_higher_bits.h"
 
 #endif
