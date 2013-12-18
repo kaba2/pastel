@@ -226,7 +226,7 @@ namespace Pastel
 
 		// The height of the link-array at allocatedSet_[i] is 2^i.
 		if (allocatedSet_.empty() || 
-			powerOfTwo(m - 1) < h + 1)
+			powerOfTwo<integer>(m - 1) < h + 1)
 		{
 			m = integerCeilLog2(h + 1) + 1;
 			allocatedSet_.resize(m);
@@ -237,7 +237,7 @@ namespace Pastel
 		{
 			if (!allocatedSet_[i])
 			{
-				integer levels = powerOfTwo(i);
+				integer levels = powerOfTwo<integer>(i);
 				allocatedSet_[i].set(new Link[levels], levels);
 			}
 		}

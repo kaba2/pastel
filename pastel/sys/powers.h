@@ -17,7 +17,7 @@ namespace Pastel
 	k >= 0
 	*/
 	template <typename Integer>
-	Integer powerOfTwo(const Integer& k);
+	Integer powerOfTwo(integer k);
 
 }
 

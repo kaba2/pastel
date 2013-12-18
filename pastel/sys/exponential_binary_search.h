@@ -15,7 +15,7 @@ namespace Pastel
 	minLevel <= maxLevel
 
 	Time complexity:
-	O(f log(k - minLevel + 2)),
+	O(f log(min(k, maxLevel) - minLevel + 2)),
 	where
 	k is the returned element, and
 	f is the time taken by a single indicator test.
@@ -31,7 +31,7 @@ namespace Pastel
 	returns:
 	An element k in [minLevel, maxLevel] such that 
 	the indicator is true on [minLevel, k) and 
-	false on [k, maxlevel).
+	false on [k, maxLevel).
 	*/
 	template <typename Integer, typename Integer_Indicator>
 	Integer exponentialBinarySearch(

@@ -37,7 +37,7 @@ namespace Pastel
 			// take doubly-exponential steps. Note that when 'k == 0',
 			// it holds that 'mid == minLevel', and thus 'minLevel' also 
 			// gets tested.
-			Integer mid = minLevel + powerOfTwo(powerOfTwo(k) - 1) - 1;
+			Integer mid = minLevel + powerOfTwo<integer>(powerOfTwo<integer>(k) - 1) - 1;
 			if (mid >= maxLevel)
 			{
 				// This element will be correctly in range because
@@ -55,18 +55,11 @@ namespace Pastel
 				// that the indicator is true on [minLevel, level).
 
 				// Search the range [min, mid) using binary search. 
-				// Note that 'mid' is deliberately not part of the 
-				// range, since we tested 'mid' already.
-				Integer level = binarySearch(min, mid, indicator);
-				if (level < mid)
-				{
-					return level;
-				}
-
-				// By the binary search, and the loop invariant,
+				// If the indicator is true on [min, mid), then
+				// by the binary search, and the loop invariant,
 				// the indicator is true on [minLevel, mid), and
-				// false at 'mid'.
-				return mid;
+				// false at 'mid', so 'mid' is the correct result.
+				return binarySearch(min, mid, indicator);
 			}
 
 			// The indicator is true at 'mid'. By the property

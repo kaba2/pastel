@@ -10,7 +10,7 @@ namespace Pastel
 	template <typename Integer>
 	bool odd(const Integer& x)
 	{
-		return (x & 1) == 1;
+		return !even(x);
 	}
 
 	template <typename Integer>

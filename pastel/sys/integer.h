@@ -701,7 +701,7 @@ namespace Pastel
 		WordSet wordSet_;
 	};
 
-	template <int N, typename Word>
+	template <int N, typename Word = uinteger>
 	struct Integer_Hash
 	{
 	public:
