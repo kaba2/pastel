@@ -20,6 +20,12 @@ namespace Pastel
 	k is the returned element, and
 	f is the time taken by a single indicator test.
 
+	Number of indicator tests:
+	ceil(2 log(k + 1)) <= m <= floor(2 log(k) + 2),
+	where
+	k is the returned element, and
+	m is the number of performed indicator test.
+
 	minLevel, maxLevel:
 	The searched range is [minLevel, maxLevel).
 

@@ -14,9 +14,15 @@ namespace Pastel
 	minLevel <= maxLevel
 
 	Time complexity:
-	O(f log(maxLevel - minLevel + 2))
+	O(f log(delta + 2))
 	where
+	delta = maxLevel - minLevel,
 	f is the time taken by a single indicator test.
+
+	Number of indicator tests:
+	ceil(log(delta)) - 1 <= m <= ceil(log(delta)), if delta > 0
+	0, otherwise,
+	where m is the number of performed indicator tests.
 
 	minLevel, maxLevel:
 	The searched range is [minLevel, maxLevel).

@@ -6,7 +6,7 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/number_tests.h"
 #include "pastel/sys/integer_integer.h"
-#include "pastel/sys/exponential_binary_search.h"
+#include "pastel/sys/binary_search.h"
 
 #include <cmath>
 #include <iostream>
@@ -56,7 +56,15 @@ namespace Pastel
 
 		// PORTABILITY: Assumes bytes have 8 bits.
 		integer bits = sizeof(integer) * 8;
-		return exponentialBinarySearch(
+
+		// We do not use the exponential binary search here:
+		// it uses about 2 log(log(that)) comparisons, while the binary
+		// search takes only log(bits) comparisons. For bits = 64,
+		// and that >= 2^8, the exponential binary search takes
+		// >= 6 comparisons, and <= 12 comparisons, while 
+		// the binary search always takes 6 comparisons.
+
+		return binarySearch(
 			(integer)0, bits, 
 			nonZeroShift) - 1;
 	}
