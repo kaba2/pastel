@@ -31,9 +31,9 @@ namespace Pastel
 		while (min < maxLevel)
 		{
 			// We will maintain the loop invariant that
-			// the indicator is true on the range [minLevel, min).
+			// the indicator is false on the range [minLevel, min).
 
-			// While searching for the first false element, we
+			// While searching for the first true element, we
 			// take exponential steps. Note that when 'k == 0',
 			// it holds that 'mid == minLevel', and thus 'minLevel' also 
 			// gets tested.
@@ -46,31 +46,31 @@ namespace Pastel
 			}
 
 			// See if the indicator holds at 'mid'.
-			if (!indicator(mid))
+			if (indicator(mid))
 			{
-				// The indicator is false at 'mid'. By the
-				// the loop invariant, the indicator is true on 
+				// The indicator is true at 'mid'. By the
+				// the loop invariant, the indicator is false on 
 				// [minLevel, min). Thus there exists a smallest 
 				// element 'level' in the range [min, mid) such 
-				// that the indicator is true on [minLevel, level).
+				// that the indicator is false on [minLevel, level).
 
 				// Search the range [min, mid) using binary search. 
-				// If the indicator is true on [min, mid), then
+				// If the indicator is false on [min, mid), then
 				// by the binary search, and the loop invariant,
-				// the indicator is true on [minLevel, mid), and
-				// false at 'mid', so 'mid' is the correct result.
+				// the indicator is false on [minLevel, mid), and
+				// true at 'mid', so 'mid' is the correct result.
 				return binarySearch(min, mid, indicator);
 			}
 
-			// The indicator is true at 'mid'. By the property
+			// The indicator is false at 'mid'. By the property
 			// of the used indicator-type, the indicator is also
-			// true on [minLevel, mid + 1).
+			// false on [minLevel, mid + 1).
 			min = mid + 1;
 			++k;
 		}
 
 		// If we get here, then by the loop invariant the
-		// indicator is true on the range [minLevel, maxLevel),
+		// indicator is false on the range [minLevel, maxLevel),
 		// that is, for all elements.
 		return maxLevel;
 	}

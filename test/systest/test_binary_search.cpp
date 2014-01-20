@@ -31,39 +31,23 @@ namespace
 		void testInteger()
 		{
 			{
-				for (integer b = 0;b < 7;++b)
+				for (integer b = 0;b <= 7;++b)
 				{
 					integer a = binarySearch(
-						0, 7,
-						predicateIndicator(b, LessThan()));
+						0, 7, [&](integer n) {return n >= b;});
 
 					TEST_ENSURE_OP(a, ==, b);
 				}
 			}
-			{
-					integer a = binarySearch(
-						0, 7,
-						predicateIndicator(7, LessThan()));
-
-					TEST_ENSURE_OP(a, ==, 7);
-			}
 
 			{
-				for (integer b = 0;b < 7;++b)
+				for (integer b = 0;b <= 7;++b)
 				{
 					integer a = exponentialBinarySearch(
-						0, 7,
-						predicateIndicator(b, LessThan()));
+						0, 7, [&](integer n) {return n >= b;});
 
 					TEST_ENSURE_OP(a, ==, b);
 				}
-			}
-			{
-					integer a = exponentialBinarySearch(
-						0, 7,
-						predicateIndicator(7, LessThan()));
-
-					TEST_ENSURE_OP(a, ==, 7);
 			}
 		}
 
@@ -77,7 +61,7 @@ namespace
 						std::begin(aSet), std::end(aSet),
 						[&](integer* level)
 					{
-						return *level < *b;
+						return *level >= *b;
 					});
 
 					TEST_ENSURE_OP(a - aSet, ==, b - aSet);
@@ -88,7 +72,7 @@ namespace
 					std::begin(aSet), std::end(aSet),
 					[&](integer* level)
 				{
-					return *level < 7;
+					return *level >= 7;
 				});
 
 				TEST_ENSURE_OP(a - aSet, ==, 7);
@@ -100,7 +84,7 @@ namespace
 						std::begin(aSet), std::end(aSet),
 						[&](integer* level)
 					{
-						return *level < *b;
+						return *level >= *b;
 					});
 
 					TEST_ENSURE_OP(a - aSet, ==, b - aSet);
@@ -111,7 +95,7 @@ namespace
 					std::begin(aSet), std::end(aSet),
 					[&](integer* level)
 				{
-					return *level < 7;
+					return *level >= 7;
 				});
 
 				TEST_ENSURE_OP(a - aSet, ==, 7);

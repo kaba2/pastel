@@ -1,0 +1,229 @@
+Compact x-fast trie
+===================
+
+[[Parent]]: data_structures.txt
+
+[[set indent]]: EquationSet
+
+Notation
+--------
+
+Let ''S'' be a set. A _word_ over ''S'' is an element of the set
+
+	S* := union_{k in NN} S^k.
+
+We will write ''s_1 ... s_k := (s_1, ..., s_k) in S*''. The _alphabet_ is the set ''A = [0, 25] subset NN'', which we interpret as coding the alphabet (a, b, c, ...). A _name_ is an element of the set ''A*''. Let ''D := (((T_1, n_1), ..., (T_k, n_k)), C)'', where ''T_i'' is a set, called a _type_, ''n_i in A*'', called a _name_, and ''C subset T_1 x ... x T_k'', called the _invariant_. A _data-structure_ over ''D'' is the set of functions ''f : {n_1, ..., n_k} --> union_{i = 1}^k T_i'', such that
+
+	(f(n_1), .., f(n_k)) in C.
+
+We shall denote a data-structure by
+
+	[n_1 : T_1, ..., n_k : T_k | C],
+
+or by
+
+	[n_1 : T_1, ..., n_k : T_k],
+
+if ''C = T_1 x ... x T_k''. We shall specify ''C'' by the set-builder notation, i.e., by a logical condition on the set ''T_1 x ... x T_k''.
+
+The _right-shift_ is a function ''>> : NN^2 --> NN'' such that
+
+	k >> i := floor(k / 2^i).
+
+for all ''k, i in NN''. 
+
+X-fast trie
+-----------
+
+Let ''X subset NN''. An _x-fast trie_ over ''X'' is the set
+
+	[X] := union_{i in NN} ((X >> i) times {i}).
+
+The ''[X]_i := X >> i'' is called the i:th _level_ of ''[X]''. The height of ''[X]'' is 
+
+	w(X) := 1 + min {i in NN : [X]_i = {0}} 
+	      = ceil(log_2(max(X) + 1)),
+
+which is also the number of bits needed to represent all elements of ''X'' in base-2.
+
+Compact x-fast trie
+-------------------
+
+Let ''X subset NN''. The _separation-level_ is a function ''s : X --> NN'' such that
+
+	s(x) := min {i in NN: ((x >> i) (+) 1) in [X]_i}
+
+The _representative_ is a function ''r : X --> NN'' such that
+
+	r(x) := <x>_{s(x)}.
+
+The _chain-height_ is a function ''h : NN --> NN'' such that
+
+	h(x) := min {i in NN: <x>_i != x}.
+
+A _chain_ is an element of ''C := [split : NN, key : NN]''.
+
+A _compact x-fast trie_ is the data-structure ''X := [dataSet : NN -->> NN, chainSet : NN -->> C | dataSet is increasing and dom(dataSet) = dom(chainSet)]''.
+
+The _chain-encoded x-fast trie_ over ''X'' is the function ''<X> : NN --> C'' such that
+
+	<x>_{split} := sum_{i = 0}^{h(x) - 1} 2^{i + 1} [[X]_i](x >> i) [[X_i]]((x >> i) (+) 1)
+
+A _compact x-fast trie_ over ''X'' is a chain-encoded x-fast trie over ''r(X)''.
+
+Oddness
+-------
+
+odd(u):
+	return (u & 1) = 1
+
+Gap bounds
+----------
+
+bounds([S], k):
+	h <-- min {i in NN: 
+				(k >> i) in [S]_i or 
+				((k >> i) - 1) in [S]_i or 
+				((k >> i) + 1) in [S]_i}
+
+	v <-- k >> h
+	if v in [S]_h:
+		return boundsFromUpperGap(v, h)
+
+	a <-- (v + 1) in [S]_h
+	u <-- v + (a ? 1 : -1)
+	b <-- odd(u)
+
+	if a = b:
+		return boundsFromUpperGap(u, h)
+
+	G_b <-- u <<_b h
+	G_{!b} <-- b ? (G_b)_- : (G_b)_+
+
+	return (G_0, G_1)
+
+Successor
+---------
+
+successor([S], k):
+	if k in [S]_0:
+		if k <= k*:
+			return k*
+		return (k_+)*
+
+	(L, R) <-- bounds([S], k)
+
+	if k <= L*:
+		return L*
+	if k <= R*:
+		return R*
+
+	return (R_+)*
+
+Lowest ancestor
+---------------
+
+lowestAncestor([S], k):
+	h_{min} <-- 0
+	while true:
+		h <-- min {i in [h_{min], infinity) subset NN: 
+					(k >> i) in [S]_i or 
+					((k >> i) - 1) in [S]_i or 
+					((k >> i) + 1) in [S]_i}
+
+		v <-- k >> h
+		if v in [S]_h:
+			return h
+
+		a <-- (v + 1) in [S]_h
+		u <-- v + (a ? 1 : -1)
+		b <-- odd(u)
+
+		if a = b:
+			return h + 1
+
+		h_{min} <-- h + min {i in NN: odd(u >> i) != b}
+
+Bounds from upper gap node
+--------------------------
+ 
+boundsFromUpperGap([S], u, h):
+	b <-- odd(u)
+
+	s <-- min {s in NN: (u <<_b s, h - s) is a split-node}
+	G_b <-- (u <<_b s) <<_{!b} (h - s)
+	G_{!b} <-- b ? (G_b)_+ : (G_b)_-
+
+	return (G_0, G_1)
+
+Insert
+------
+
+insert([S], k):
+	h <-- lowestAncestor([S], k)
+	k' <-- k >> h
+	b <-- odd(k')
+	
+	if there are no split nodes under h:
+		s <-- (k' <<_b h)*
+		if s < k:
+			s <-> k
+			return insert([S], k)
+		elif s = k:
+			return s
+
+	(L, R) <-- boundsFromUpperGap([S], k', h)
+	K <-- k' <<_{!b} h
+	Link L <-> K <-> R
+	[S] <-- [S] union {(K >> i, i)}_{i in [0, h)}
+
+Blaa
+----
+
+The set of nodes in the subtree rooted at node ''n'' is denoted by ''T(n)''. The 0-subtree of node ''n'' is denoted by ''T_0(n)'', and the 1-subtree of ''n'' is denoted by ''T_1(n)''. A _split-node_ is a node with two children. If ''n'' is a node, then ''L(n) := max(T_0(n))'', and ''R(n) := min(T_1(n))''. The _gap-node_ of a key ''k'' is the lowest split-node ''g(k)'' such that ''L(g(k)) <= k <= R(g(k))''. The _lowest-ancestor_ of a key ''k'' is the lowest node ''a(k)'' whose replication equals the replication of ''k''.
+
+Gap-property
+------------
+
+The _gap-property_ holds for a stored key ''k'', if ''k in T(g(k))''.
+
+Lowest-ancestor -property
+-------------------------
+
+The _lowest-ancestor -property_ holds for a stored key 'k'', if ''k in T(a(k))''.
+
+Properties
+----------
+
+For every stored key in a compact x-fast trie, the gap-property holds. The lowest-ancestor -property does not necessary hold for all stored key. However, if the lowest-ancestor -property does not hold for a key ''k'', it will hold after the first re-insertion of ''k''.
+
+Insertion
+---------
+
+Let the inserted element be ''k''.
+
+* Compute the lowest ancestor ''c'' of ''k'''. This is ''O(log(h(c)))'', where ''h(c)'' is the height of ''c''; this in turn is ''O(log(phi))'', where ''phi'' is the smallest of the tree-distances to the predecessor or the successor. It holds that ''c'' has at most one child; otherwise ''c'' would not be the lowest ancestor. It holds that ''c'' is not a leaf node; otherwise ''k''' would exist in the trie.
+
+* If ''v(c) = k'', then the element already exists on the trie; return an iterator to ''v(c)''.
+
+* If there are no split nodes below ''c'', and ''c'' lies on a 0-spine (1-spine), and ''k < v(c)'' (''v(c) < k''), then swap ''v(c)'' with ''k'', and re-insert ''k''. Checking if there are any split nodes below ''c'' takes ''O(1)'' time; the information is packed into a single w-bit integer where the presence of 1-bits can be tested by a logical AND with a properly chosen bit-mask.
+
+* If ''c'' is on a 0-spine (1-spine), and there are no split-nodes below ''c'', let ''L(k) := v(c)'' (''R(k) := v(c)''). Otherwise, let ''n'' be the closest split-node below ''c''. If ''c'' is a 0-spine (1-spine), then let the 1-spine (0-spine) of ''n'' be ''L(k)'' (''R(k)''). Thus we can find ''L(k)'' and ''R(k)'' in ''O(log(h(c) - h(n)))'' time.
+
+* Insert ''k'' between ''L(k)'' and ''R(k)''.
+
+* If ''c'' is on a 0-spine (1-spine), then insert the 1-spine (0-spine) starting from ''c'', and store ''k'' there.
+
+* Set the membership bit for ''c'' in the ''c''-spine. This is ''O(1)''. 
+
+In total, the algorithm takes ''O(log(h(c)))'' amortized time, so that the insertion complexity is dominated by the need to find the lowest ancestor for the element, to join the spine in. This can be bounded by ''O(log(h(g)))'' where ''g'' is the gap node of the element. This in turn is ''O(log(delta))'', where ''delta'' is the tree-distance between the predecessor and the successor.
+
+Finding the lowest ancestor
+---------------------------
+
+* Using an exponential binary search over the replications of the key ''k'', we can find the lowest ancestor ''c'' of ''k'' in ''O(h(c))'' time.
+
+Finding the successor
+---------------------
+
+The successor can be found faster than the lowest ancestor, by using a neighbor-aware exponential binary search. This can be done in ''O(log(Delta))'', where ''Delta'' is the distance to the nearest neighbor of the key.
