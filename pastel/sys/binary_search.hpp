@@ -27,8 +27,8 @@ namespace Pastel
 		{
 			// We maintain the loop invariant that the range
 			// [min, max] contains the first element
-			// at which the indicator is false, where the
-			// indicator is taken to be false at 'maxLevel'.
+			// at which the indicator is true, where the
+			// indicator is taken to be true at 'maxLevel'.
 
 			// Pick 'mid' at the middle of the range.
 			// Note that, due to integer rounding, it 
@@ -38,25 +38,25 @@ namespace Pastel
 			// See if the indicator holds at 'mid'.
 			if (indicator(mid))
 			{
-				// The indicator holds at 'mid'. Therefore
-				// we may sharpen our range to [mid + 1, max]
-				// without breaking the loop invariant. Note
-				// that we are excluding 'mid'.
-				min = mid + 1;
-			}
-			else
-			{
-				// The indicator does not hold at 'mid'.
+				// The indicator holds at 'mid'. 
 				// Therefore we may sharpen our range to
 				// [min, mid] without breaking the loop
 				// invariant. Note that we are including
 				// 'mid'.
 				max = mid;
 			}
+			else
+			{
+				// The indicator does not hold at 'mid'.
+				// We may sharpen our range to [mid + 1, max]
+				// without breaking the loop invariant. Note
+				// that we are excluding 'mid'.
+				min = mid + 1;
+			}
 		}
 
 		// By the loop invariant, the first element at which
-		// the indicator is false is in the range [min, max],
+		// the indicator is true is in the range [min, max],
 		// and max - min <= 1.
 
 		// Handle the case min < max.
@@ -64,13 +64,13 @@ namespace Pastel
 		{
 			// The indicator is true at 'min', and
 			// false at 'max'.
-			return max;
+			return min;
 		}
 
 		// The indicator is false at 'min'. By the
-		// loop invariant 'min' is the first such
+		// loop invariant 'max' is the first true
 		// element.
-		return min;
+		return max;
 	}
 
 }

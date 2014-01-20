@@ -14,7 +14,7 @@ namespace Pastel
 		class Settings
 		{
 		public:
-			static const integer Bits = 64;
+			static const integer Bits = UserDefinedInteger;
 			using Value = UserDefinedType;
 		};
 

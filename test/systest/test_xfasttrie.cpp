@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/xfasttrie.h>
+//#include <pastel/sys/xfasttrie.h>
 
 using namespace Pastel;
 using namespace std;

@@ -34,8 +34,8 @@ namespace Pastel
 
 	returns:
 	An element k in [minLevel, maxLevel] such that 
-	the indicator is true on [minLevel, k) and 
-	false on [k, maxlevel).
+	the indicator is false on [minLevel, k) and 
+	true on [k, maxlevel).
 	*/
 	template <typename Integer, typename Integer_Indicator>
 	Integer binarySearch(
