@@ -4,6 +4,7 @@
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_bruteforce.h"
+#include "pastel/geometry/count_all_neighbors.h"
 
 #include "pastel/matlab/pastelmatlab.h"
 
@@ -656,7 +657,8 @@ namespace Pastel
 			*outPoints = state->tree.points();
 		}
 
-		void kdSearchNearest(
+		template <typename NormBijection>
+		void kdSearchNearest_(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -744,7 +746,8 @@ namespace Pastel
 						++j;
 					};
 
-					searchNearest(state->tree, query, nearestOutput)
+					searchNearest(state->tree, query, nearestOutput,
+						All_Indicator(), NormBijection())
 						.kNearest(k)
 						.maxDistance(maxDistanceSet(i));
 				}
@@ -776,7 +779,9 @@ namespace Pastel
 					0, k,
 					&nearestArray,
 					(outputs >= 2) ? &distanceArray : (Array<real>*)0,
-					maxDistanceSet.range());
+					maxDistanceSet.range(),
+					0,
+					NormBijection());
 			}
 
 			Array<integer> result =
@@ -795,6 +800,164 @@ namespace Pastel
 						result(i, j) = 0;
 					}
 				}
+			}
+		}
+
+		void kdSearchNearest(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				QuerySet,
+				MaxDistanceSet,
+				KNearest,
+				Norm,
+				Inputs
+			};
+
+			enum
+			{
+				IdSet,
+				DistanceSet,
+				Outputs
+			};
+			
+			ENSURE_OP(inputs, ==, Inputs);
+			ENSURE_OP(outputs, >=, 1);
+			ENSURE_OP(outputs, <=, Outputs);
+
+			// nearestIdSet = matlab_pointkdtree('pointkdtree_search_nearest', ...
+			//		kdtree, querySet, maxDistanceSet, kNearest, norm);
+
+			std::string norm = asString(inputSet[Norm]);
+			if (norm == "euclidean")
+			{
+				kdSearchNearest_<Euclidean_NormBijection<real>>(
+					outputs, outputSet,
+					inputs - 1, inputSet);
+			}
+			else if (norm == "maximum")
+			{
+				kdSearchNearest_<Maximum_NormBijection<real>>(
+					outputs, outputSet,
+					inputs - 1, inputSet);
+			}
+			else
+			{
+				bool AllowedNorm = false;
+				ENSURE(AllowedNorm);
+			}
+		}
+
+		template <typename NormBijection>
+		void kdCountNearest_(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				QuerySet,
+				MaxDistanceSet,
+				Inputs
+			};
+
+			enum
+			{
+				IdSet,
+				Outputs
+			};
+			
+			ENSURE_OP(inputs, ==, Inputs);
+			ENSURE_OP(outputs, >=, 1);
+			ENSURE_OP(outputs, <=, Outputs);
+
+			// nearestIdSet = matlab_pointkdtree('pointkdtree_count_nearest', ...
+			//		kdtree, querySet, maxDistanceSet, norm);
+
+			KdState* state = asState(inputSet[State]);
+			const IndexMap& indexMap = state->indexMap;
+			Array<real> maxDistanceSet = asLinearizedArray<real>(inputSet[MaxDistanceSet]);
+			integer queries = mxGetNumberOfElements(inputSet[QuerySet]);
+			ENSURE_OP(maxDistanceSet.size(), ==, queries);
+
+			// The queries are over the points in the kd-tree,
+			// given by their ids.
+			Array<integer> querySet = asLinearizedArray<integer>(inputSet[QuerySet]);
+
+			// Find the iterators corresponding to the
+			// point-ids.
+			std::vector<Point_ConstIterator> queryIterSet;
+			queryIterSet.reserve(queries);
+			for (integer i = 0;i < queries;++i)
+			{			
+				const ConstIterator iter = 
+					indexMap.find(querySet(i));
+				if (iter != indexMap.end())
+				{
+					queryIterSet.push_back(iter->second);
+				}
+			}
+		
+			// Create the result array.
+			Array<integer> result =
+				createArray<integer>(queries, 1, outputSet[IdSet]);
+
+			// Count the neighbors for each point.
+			countAllNeighbors(
+				state->tree, 
+				range(queryIterSet.begin(), queryIterSet.end()),
+				maxDistanceSet.range(),
+				result.begin(),
+				8,
+				NormBijection());
+		}
+
+		void kdCountNearest(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				QuerySet,
+				MaxDistanceSet,
+				Norm,
+				Inputs
+			};
+
+			enum
+			{
+				IdSet,
+				Outputs
+			};
+
+			ENSURE_OP(inputs, ==, Inputs);
+			ENSURE_OP(outputs, >=, 1);
+			ENSURE_OP(outputs, <=, Outputs);
+
+			// nearestIdSet = matlab_pointkdtree('pointkdtree_count_nearest', ...
+			//		kdtree, querySet, maxDistanceSet, norm);
+
+			std::string norm = asString(inputSet[Norm]);
+			if (norm == "euclidean")
+			{
+				kdCountNearest_<Euclidean_NormBijection<real>>(
+					outputs, outputSet,
+					inputs - 1, inputSet);
+			}
+			else if (norm == "maximum")
+			{
+				kdCountNearest_<Maximum_NormBijection<real>>(
+					outputs, outputSet,
+					inputs - 1, inputSet);
+			}
+			else
+			{
+				bool AllowedNorm = false;
+				ENSURE(AllowedNorm);
 			}
 		}
 
@@ -817,6 +980,7 @@ namespace Pastel
 			matlabAddFunction("pointkdtree_show", kdShow);
 			matlabAddFunction("pointkdtree_refine", kdRefine);
 			matlabAddFunction("pointkdtree_search_nearest", kdSearchNearest);
+			matlabAddFunction("pointkdtree_count_nearest", kdCountNearest);
 		}
 
 		CallFunction run(addStuff);

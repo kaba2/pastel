@@ -7,6 +7,8 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/range.h"
 
+#include "pastel/math/euclidean_normbijection.h"
+
 #include "pastel/geometry/pointkdtree.h"
 
 #include <vector>
@@ -48,34 +50,14 @@ namespace Pastel
 		typename Point_ConstIterator_RandomAccessRange,
 		typename Real_RandomAccessRange,
 		typename Integer_OutputIterator,
-		typename NormBijection>
+		typename NormBijection = Euclidean_NormBijection<Real>>
 	void countAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Point_ConstIterator_RandomAccessRange& querySet,
 		const Real_RandomAccessRange& maxDistanceSet,
 		Integer_OutputIterator result,
-		integer bucketSize,
-		const NormBijection& normBijection);
-
-	//! Counts the number of neighbors for all query points.
-	/*!
-	This is a convenience function that calls:
-	countAllNeighbors(
-		kdTree, querySet,
-		maxDistanceSet, result,
-		bucketSize,
-		Euclidean_NormBijection<Real>());
-	*/
-	template <typename Real, int N, typename PointPolicy,
-		typename Point_ConstIterator_RandomAccessRange,
-		typename Real_RandomAccessRange,
-		typename Integer_OutputIterator>
-	void countAllNeighbors(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const Point_ConstIterator_RandomAccessRange& querySet,
-		const Real_RandomAccessRange& maxDistanceSet,
-		Integer_OutputIterator result,
-		integer bucketSize = 8);
+		integer bucketSize = 8,
+		const NormBijection& normBijection = NormBijection());
 
 }
 

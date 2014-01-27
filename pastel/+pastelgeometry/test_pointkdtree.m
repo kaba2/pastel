@@ -50,12 +50,9 @@ clear copyTree;
 % Use all of the points as query points.
 querySet = idSet;
 
-% No maximum distance requirements.
-maxDistanceSet = Inf(1, size(querySet, 2));
-
 % Search for k nearest neighbors.
 neighborSet = kdTree.search_nearest(querySet, ...
-    maxDistanceSet, kNearest);
+    'kNearest', kNearest);
 
 if ~isequal(correctSet, neighborSet)
     error('Kd-tree did not find the same points as brute-force.');
@@ -76,9 +73,8 @@ hold off
 
 % Search using queries in component form.
 querySet = randn(d, 100);
-maxDistanceSet = Inf(1, size(querySet, 2));
 neighborSet = kdTree.search_nearest(querySet, ...
-    maxDistanceSet, kNearest);
+    'kNearest', kNearest);
 nearestSet = kdTree.as_points(neighborSet(:, 1));
 
 % Draw a picture.
@@ -95,6 +91,25 @@ hold off
 
 % Hide some of the points.
 kdTree.hide(idSet(101 : 200));
+
+% Test range counting.
+for i = 1 : 100
+    [nearest, distance] = kdTree.search_nearest(idSet(i), ...
+        'kNearest', 10);
+    count = kdTree.count_nearest(idSet(i), max(distance));
+    if count < 10
+        error('Range counting finds less points than nn-searching.')
+    end
+end
+
+% Test range counting some more.
+kdTree.count_nearest(idSet(1 : 10), 0^2);
+kdTree.count_nearest(idSet(1 : 10), 0.1^2);
+kdTree.count_nearest(idSet(1 : 10), 1^2);
+kdTree.count_nearest(idSet(1 : 10), 2^2, 'norm', 'euclidean');
+kdTree.count_nearest(idSet(1 : 10), 2, 'norm', 'maximum');
+kdTree.count_nearest(idSet(1 : 10), 10^2);
+kdTree.count_nearest(idSet(1 : 10), Inf);
 
 disp(['Points after hiding 100 of them = ', ...
     int2str(kdTree.points())]);
