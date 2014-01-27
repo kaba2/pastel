@@ -5,8 +5,6 @@
 #include "pastel/geometry/count_nearest_pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 
-#include "pastel/math/euclidean_normbijection.h"
-
 #include "pastel/sys/ensure.h"
 
 #include <tbb/parallel_for.h>
@@ -61,24 +59,6 @@ namespace Pastel
 		};
 
 		tbb::parallel_for(IndexRange(0, queries), countNeighbors);
-	}
-
-	template <typename Real, int N, typename PointPolicy,
-		typename Point_ConstIterator_RandomAccessRange,
-		typename Real_RandomAccessRange,
-		typename Integer_OutputIterator>
-	void countAllNeighbors(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const Point_ConstIterator_RandomAccessRange& querySet,
-		const Real_RandomAccessRange& maxDistanceSet,
-		Integer_OutputIterator result,
-		integer bucketSize)
-	{
-		Pastel::countAllNeighbors(
-			kdTree, querySet,
-			maxDistanceSet, result,
-			bucketSize,
-			Euclidean_NormBijection<Real>());
 	}
 
 }
