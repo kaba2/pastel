@@ -32,7 +32,7 @@ The _right-shift_ is a function ''>> : NN^2 --> NN'' such that
 
 for all ''k, i in NN''. 
 
-X-fast trie
+C-fast trie
 -----------
 
 Let ''X subset NN''. An _x-fast trie_ over ''X'' is the set

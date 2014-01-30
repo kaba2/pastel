@@ -3,13 +3,15 @@
 #ifndef PASTELSYS_CFASTTRIE_H
 #define PASTELSYS_CFASTTRIE_H
 
-#include "pastel/sys/xfasttrie_concepts.h"
-#include "pastel/sys/xfasttrie_chain.h"
+#include "pastel/sys/cfasttrie_concepts.h"
+#include "pastel/sys/cfasttrie_chain.h"
 #include "pastel/sys/integer.h"
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/skiplist.h"
 #include "pastel/sys/exponential_binary_search.h"
 #include "pastel/sys/bitmask.h"
+#include "pastel/sys/flip_leading_one_bits.h"
+#include "pastel/sys/flip_leading_zero_bits.h"
 
 #include <unordered_map>
 #include <vector>
@@ -19,8 +21,8 @@ namespace Pastel
 {
 
 	//! C-fast trie
-	template <typename XFastTrie_Settings>
-	class XFastTrie
+	template <typename CFastTrie_Settings>
+	class CFastTrie
 	{
 	public:
 		/*
@@ -38,7 +40,7 @@ namespace Pastel
 		N:
 		The set of natural numbers.
 		*/
-		using Settings = XFastTrie_Settings;
+		using Settings = CFastTrie_Settings;
 
 		enum
 		{
@@ -60,9 +62,9 @@ namespace Pastel
 		using const_iterator = ConstIterator;
 		using iterator = Iterator;
 
-		using Chain = XFastTrie_::Chain<Key, Iterator>;
+		using Chain = CFastTrie_::Chain<Key, Iterator>;
 
-		using ChainSet = std::unordered_map<Key, Chain, Key_Hash>
+		using ChainSet = std::unordered_map<Key, Chain, Key_Hash>;
 		using Chain_ConstIterator = typename ChainSet::const_iterator;
 		using Chain_Iterator = typename ChainSet::iterator;
 
@@ -71,10 +73,12 @@ namespace Pastel
 		{
 		public:
 			Element(
-				const Chain_Iterator& chain, 
+				const Chain_Iterator& chain,
+				Key key,
 				Value_Class&& value)
 			: Value_Class(std::move(value))
 			, chain_(chain)
+			, key_(key)
 			{
 			}
 
@@ -85,7 +89,7 @@ namespace Pastel
 
 			const Key& key() const
 			{
-				return chain_->first;
+				return key_;
 			}
 
 			Value_Class& value() const
@@ -94,7 +98,15 @@ namespace Pastel
 			}
 
 		private:
+			friend class CFastTrie<CFastTrie_Settings>;
+
+			Key& key()
+			{
+				return key_;
+			}
+
 			Chain_Iterator chain_;
+			Key key_;
 		};
 
 		//! Constructs an empty trie.
@@ -102,7 +114,7 @@ namespace Pastel
 		Time complexity: O(endBit - beginBit)
 		Exception safety: strong
 		*/
-		explicit XFastTrie(
+		explicit CFastTrie(
 			integer beginBit = 0, 
 			integer endBit = Bits)
 		: beginBit_(beginBit)
@@ -120,7 +132,7 @@ namespace Pastel
 		Time complexity: O(size())
 		Exception safety: nothrow
 		*/
-		~XFastTrie()
+		~CFastTrie()
 		{
 			clear();
 		}
@@ -130,7 +142,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		void swap(XFastTrie& that)
+		void swap(CFastTrie& that)
 		{
 			using std::swap;
 
@@ -170,7 +182,7 @@ namespace Pastel
 		{
 			if (empty())
 			{
-				return chainSet_.emplace(0, key);
+				return chainSet_.emplace(0, key).first->second.element();
 			}
 			
 			Iterator right = upperBound(key);
@@ -183,23 +195,30 @@ namespace Pastel
 
 			while (key <= left->key())
 			{
-				using std::swap;
-				swap(left->key(), key);
+				left->key().swap(key);
 				--left;
 				--right;
 			}
 
 			while (key >= right->key())
 			{
-				using std::swap;
-				swap(key, right->key());
+				key.swap(right->key());
 				++left;
 				++right;
 			}
 
 			integer j = lowestAncestor(key);
 			Key w = turn(key >> j, j);
-			return chainSet_.emplace(w, key);
+			return chainSet_.emplace(w, key).first->second.element();
+		}
+
+		Key turn(const Key& key, integer level) const
+		{
+			if (key[level])
+			{
+				return key & bitMask<Key>(level, bits());
+			}
+			return key | bitMask<Key>(level);
 		}
 
 		//! Returns an element with a given key.
@@ -233,17 +252,6 @@ namespace Pastel
 			return cast(removeConst(*this).find(key));
 		}
 
-		//! Returns the chain [(key up level, level)].
-		/*!
-		Time complexity: O(1) expected
-		Exception safety: nothrow
-		*/
-		Chain_ConstIterator findChain(
-			const Key& key, integer level) const
-		{
-			return chainSet_.find(replicate(key, level));
-		}
-
 		//! Returns whether (key up level, level) in R'.
 		/*!
 		Time complexity: O(1) expected
@@ -272,7 +280,7 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
-			ConstIterator right = compactUpperBound(key);
+			ConstIterator right = physicalUpperBound(key);
 			if (right == cbegin() || 
 				right == cend())
 			{
@@ -304,25 +312,27 @@ namespace Pastel
 			{
 				auto indicator = [&](integer i)
 				{
-					Iterator v = chainSet_.find(nextZeroChain(left, i));
-					return v->key() <= key;
+					Chain_ConstIterator v = chainSet_.find(nextZeroChain(left->key(), i));
+					ASSERT(v != chainSet_.cend());
+					return v->second.element()->key() <= key;
 				};
 
-				integer k = exponentialBinarySearch(1, Bits, indicator);
-				ConstIterator v = chainSet_.find(nextZeroChain(left, k));
-				return std::next(v);
+				integer k = exponentialBinarySearch((integer)1, (integer)Bits, indicator);
+				Chain_ConstIterator v = chainSet_.find(nextZeroChain(left->key(), k));
+				return std::next(v->second.element());
 			}
 			else if (key >= right->key())
 			{
 				auto indicator = [&](integer i)
 				{
-					Iterator v = chainSet_.find(nextOneChain(right, i));
-					return v->key() > key;
+					Chain_ConstIterator v = chainSet_.find(nextOneChain(right->key(), i));
+					ASSERT(v != chainSet_.cend());
+					return v->second.element()->key() > key;
 				};
 
-				integer k = exponentialBinarySearch(1, Bits, indicator);
-				ConstIterator v = chainSet_.find(nextOneChain(right, k));
-				return v;
+				integer k = exponentialBinarySearch((integer)1, (integer)Bits, indicator);
+				Chain_ConstIterator v = chainSet_.find(nextOneChain(right->key(), k));
+				return v->second.element();
 			}
 
 			return right;
@@ -393,6 +403,35 @@ namespace Pastel
 			return lowerBound(key);
 		}
 
+		//! Returns the chain [(key up level, level)].
+		/*!
+		Time complexity:
+		O(1) expected
+
+		Exception safety:
+		nothrow
+
+		returns:
+		An iterator to a chain such that (key up level, level)
+		is in the chain. The chain exists only if its contained
+		in S'.
+		*/
+		Chain_ConstIterator findChain(
+			const Key& key, integer level) const
+		{
+			return chainSet_.find(replicate(key, level));
+		}
+
+		//! Returns whether (key up level, level) in R'.
+		/*!
+		Time complexity: O(1) expected
+		Exception safety: nothrow
+		*/
+		bool prefixExists(const Key& key, integer level) const
+		{
+			return chainSet_.count(replicate(key, level)) > 0;
+		}
+
 		//! Returns whether the element exists.
 		/*!
 		Time complexity: O(1) expected
@@ -401,6 +440,185 @@ namespace Pastel
 		bool exists(const Key& key) const
 		{
 			return find(key) != cend();
+		}
+
+		//! Returns minimal k such that ((u, 0) up k) in R'.
+		/*!
+		Time complexity:
+		O(log(log(Delta + 4)))
+		where
+		Delta = |u - u'|,
+		u' is the nearest neighbor of u in R.
+
+		Exception safety:
+		nothrow
+
+		returns:
+		A minimal integer 'k', such that ((u, 0) up k) in R'.
+		*/
+		integer lowestAncestor(const Key& key) const
+		{
+			// The lowest ancestor is not defined when
+			// the trie is empty.
+			ASSERT(!empty());
+
+			integer minLevel = 0;
+			while (true)
+			{
+				auto nearby = [&](integer level)
+				{
+					return
+						prefixExists(key, level) ||
+						prefixExists(key - powerOfTwo<Key>(level), level) ||
+						prefixExists(key + powerOfTwo<Key>(level), level);
+				};
+
+				integer nearbyLevel =
+					exponentialBinarySearch(minLevel, bits(), nearby);
+
+				if (prefixExists(key, nearbyLevel))
+				{
+					// If a prefix of the key exists in the 'nearbyLevel'
+					// of the trie, then the corresponding node is the
+					// lowest ancestor of the key.
+					return nearbyLevel;
+				}
+
+				// Let j = nearbyLevel and v = key up j. Since
+				// (v, j) !in R', it can not occur that both
+				// (v + 1, j) in R' and (v - 1, j) in R'.
+				// Call the existing one w.
+				bool nextExists = prefixExists(
+					key + powerOfTwo<Key>(nearbyLevel),
+					nearbyLevel);
+
+				// Compute w.
+				Key nearbyKey = key;
+				if (nextExists)
+				{
+					nearbyKey += powerOfTwo<Key>(nearbyLevel);
+				}
+				else
+				{
+					nearbyKey -= powerOfTwo<Key>(nearbyLevel);
+				}
+
+				// Compute the chain of (w, j).
+				Key nearbyChain = replicate(nearbyKey, nearbyLevel);
+				if (nextExists == odd(nearbyChain))
+				{
+					// If the right neighbor is on the right 1-gap-path,
+					// then the level above must contain the lowest-ancestor
+					// of the key. Similarly for the left neighbor on 
+					// the left 0-gap-path.
+					return nearbyLevel + 1;
+				}
+
+				auto differentChain = [&](integer level)
+				{
+					return replicate(nearbyKey, level) != nearbyChain;
+				};
+
+				// Find the level above the top of the chain [nearbyKey].
+				minLevel = exponentialBinarySearch(
+					nearbyLevel + 1, bits(), differentChain);
+			}
+
+			return 0;
+		}
+
+		//! Returns the successor of 'key' in R.
+		/*!
+		Time complexity:
+		O(log(log(Delta + 4)))
+		where
+		Delta = |u - u'|,
+		u' is the nearest neighbor of u in R.
+
+		Exception safety:
+		nothrow
+
+		returns:
+		An iterator to an element with a minimal
+		physical key k such that k > key.
+		*/
+		ConstIterator physicalUpperBound(const Key& key) const
+		{
+			if (empty())
+			{
+				// There are no elements, so there isn't a 
+				// representative-successor either.
+				return cend();
+			}
+
+			auto nearby = [&](integer level)
+			{
+				return
+					prefixExists(key, level) ||
+					prefixExists(key - powerOfTwo<Key>(level), level) ||
+					prefixExists(key + powerOfTwo<Key>(level), level);
+			};
+
+			integer nearbyLevel =
+				exponentialBinarySearch((integer)0, (integer)bits(), nearby);
+
+			// Let j = nearbyLevel and v = key up j.
+			if (prefixExists(key, nearbyLevel))
+			{
+				// If (v, j) in R', then it is the 
+				// lowest ancestor of v. The lowest ancestor 
+				// is an upper gap-node.
+				return physicalSuccessorFromUpperGap(
+					key, nearbyLevel);
+			}
+
+			// If (v, j) !in R', then either 
+			// (v + 1, j) in R' or
+			// (v - 1, j) in R', but not both.
+			// Denote the existing one by w.
+			bool oddKey = odd(key);
+			bool nextExists = prefixExists(
+				key + powerOfTwo<Key>(nearbyLevel),
+				nearbyLevel);
+			if (oddKey == nextExists)
+			{
+				// If the next key exists, and it is
+				// on an odd chain, then it must be on
+				// an upper gap-node. Similarly for the
+				// previous key and an even chain.
+
+				// Compute w.
+				Key nearbyKey = key;
+				if (nextExists)
+				{
+					nearbyKey += powerOfTwo<Key>(nearbyLevel);
+				}
+				else
+				{
+					nearbyKey -= powerOfTwo<Key>(nearbyLevel);
+				}
+				return physicalSuccessorFromUpperGap(
+					nearbyKey, nearbyLevel);
+			}
+
+			// The (w, j) is a lower gap-node. Find its chain.
+			Chain_ConstIterator gapBoundChain =
+				findChain(key, nearbyLevel);
+			ASSERT(gapBoundChain != chainSet_.cend());
+
+			// Get the element associated with this chain.
+			ConstIterator gapBound = gapBoundChain->second.element();
+			if (oddKey)
+			{
+				// If we are on the odd lower-chain, then
+				// it is the successor of its key we are 
+				// looking for.
+				++gapBound;
+			}
+
+			// Return the element whose physical key
+			// is the successor of 'key'.
+			return gapBound;
 		}
 
 		//! Converts a const-iterator to an iterator.
@@ -473,13 +691,35 @@ namespace Pastel
 			return dataSet_.size();
 		}
 
+		//! Returns whether the trie is empty.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		bool empty() const
+		{
+			return size() == 0;
+		}
+
 	private:
+		Key nextOneChain(const Key& key, integer level) const
+		{
+			Key result = replicate(key, level);
+			return odd(result) ? result : flipLeadingZeroBits(result);
+		}
+
+		Key nextZeroChain(const Key& key, integer level) const
+		{
+			Key result = replicate(key, level);
+			return odd(result) ? result : flipLeadingOneBits(result);
+		}
+
 		//! Replicates the bit at index 'level' to lower bits.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Key replicate(const Key& key, integer level)
+		Key replicate(const Key& key, integer level) const
 		{
 			ASSERT_OP(level, >=, 0);
 			ASSERT_OP(level, <, bits());
@@ -501,16 +741,6 @@ namespace Pastel
 			return result;
 		}
 
-		//! Returns whether (key up level, level) in R'.
-		/*!
-		Time complexity: O(1) expected
-		Exception safety: nothrow
-		*/
-		bool prefixExists(const Key& key, integer level) const
-		{
-			return chainSet_.count(replicate(key, level)) > 0;
-		}
-
 		//! Returns the successor in R, given an upper gap-node.
 		/*!
 		Time complexity: 
@@ -524,16 +754,16 @@ namespace Pastel
 		is in the chain. The chain exists only if its contained
 		in S'.
 		*/
-		ConstIterator compactSuccessorFromUpperGap(
+		ConstIterator physicalSuccessorFromUpperGap(
 			const Key& key, integer level) const
 		{
 			// Let j = level and v = key up j. 
 			
 			// Find the chain that contains (v, j).
-			Chain_ConstIterator keyChain = findChain(key, nearbyLevel);
+			Chain_ConstIterator keyChain = findChain(key, level);
 			ASSERT(keyChain != chainSet_.cend());
 
-			const Key& key = keyChain->first;
+			const Key& physicalKey = keyChain->first;
 			const Chain& chain = keyChain->second;
 			const Key& split = chain.split();
 
@@ -547,9 +777,9 @@ namespace Pastel
 			// will return 'level', which is also correct for
 			// what follows.
 			integer splitOffset = 
-				exponentialBinarySearch(0, level, splitAtOrAbove);
+				exponentialBinarySearch((integer)0, (integer)level, splitAtOrAbove);
 
-			Key gapKey = key | bitmask<Key>(0, level);
+			Key gapKey = key | bitMask<Key>(0, level);
 			if (odd(key))
 			{
 				// Follow the upper 1-gap-path downwards 
@@ -582,25 +812,6 @@ namespace Pastel
 			return gapBound;
 		}
 
-		//! Returns the chain corresponding to (key up level, level).
-		/*!
-		Time complexity: 
-		O(1) expected
-		
-		Exception safety: 
-		nothrow
-
-		returns:
-		An iterator to a chain such that (key up level, level)
-		is in the chain. The chain exists only if its contained
-		in S'.
-		*/
-		Chain_ConstIterator findChain(
-			const Key& key, integer level) const
-		{
-			return chainSet_.find(replicate(key, level));
-		}
-
 		bool odd(const Key& key) const
 		{
 			return key[0];
@@ -610,185 +821,7 @@ namespace Pastel
 		{
 			return !odd(key);
 		}
-	
-		//! Returns the successor of 'key' among physical keys.
-		/*!
-		Time complexity: 
-		O(log(log(Delta + 4)))
-		where
-		Delta = |u - u'|,
-		u' is the nearest neighbor of u in R.
-		
-		Exception safety: 
-		nothrow
 
-		returns:
-		An iterator to an element with a minimal 
-		physical key k such that k > key.
-		*/
-		ConstIterator compactSuccessor(const Key& key) const
-		{
-			if (empty())
-			{
-				// There are no elements, so there isn't a 
-				// representative-successor either.
-				return cend();
-			}
-
-			auto nearby = [&](integer level)
-			{
-				return 
-					prefixExists(key, level) ||
-					prefixExists(key - powerOfTwo<Key>(level), level) ||
-					prefixExists(key + powerOfTwo<Key>(level), level);
-			};
-
-			integer nearbyLevel =
-				exponentialBinarySearch(0, bits(), nearby);
-
-			// Let j = nearbyLevel and v = key up j.
-			if (prefixExists(key, nearbyLevel))
-			{
-				// If (v, j) in R', then it is the 
-				// lowest ancestor of v. The lowest ancestor 
-				// is an upper gap-node.
-				return compactSuccessorFromUpperGap(
-					key, nearbyLevel);
-			}
-
-			// If (v, j) !in R', then either 
-			// (v + 1, j) in R' or
-			// (v - 1, j) in R', but not both.
-			// Denote the existing one by w.
-			bool oddKey = odd(key);
-			bool nextExists = prefixExists(
-				key + powerOfTwo<Key>(level), 
-				nearbyLevel);
-			if (oddKey == nextExists)
-			{
-				// If the next key exists, and it is
-				// on an odd chain, then it must be on
-				// an upper gap-node. Similarly for the
-				// previous key and an even chain.
-
-				// Compute w.
-				Key nearbyKey = key;
-				if (nextExists)
-				{
-					nearbyKey += powerOfTwo<Key>(level);
-				}
-				else
-				{
-					nearbyKey -= powerOfTwo<Key>(level);
-				}
-				return compactSuccessorFromUpperGap(
-					nearbyKey, nearbyLevel);
-			}
-
-			// The (w, j) is a lower gap-node. Find its chain.
-			Chain_ConstIterator gapBoundChain = 
-				findChain(key, nearbyLevel);
-			ASSERT(gapBoundChain != chainSet_.cend());
-
-			// Get the element associated with this chain.
-			ConstIterator gapBound = gapBoundChain->element();
-			if (oddKey)
-			{
-				// If we are on the odd lower-chain, then
-				// it is the successor of its key we are 
-				// looking for.
-				++gapBound;
-			}
-
-			// Return the element whose physical key
-			// is the successor of 'key'.
-			return gapBound;
-		}
-
-		//! Returns the lowest physical ancestor of u.
-		/*!
-		Time complexity: 
-		O(log(log(Delta + 4)))
-		where
-		Delta = |u - u'|,
-		u' is the nearest neighbor of u in R.
-		
-		Exception safety: 
-		nothrow
-
-		returns:
-		A minimal integer 'k', such that ((u, 0) up k) in S'.
-		*/
-		integer lowestAncestor(const Key& key) const
-		{
-			// The lowest ancestor is not defined when
-			// the trie is empty.
-			ASSERT(!empty());
-
-			integer minLevel = 0;
-			while(true)
-			{
-				auto nearby = [&](integer level)
-				{
-					return 
-						prefixExists(key, level) ||
-						prefixExists(key - powerOfTwo<Key>(level), level) ||
-						prefixExists(key + powerOfTwo<Key>(level), level);
-				};
-
-				integer nearbyLevel =
-					exponentialBinarySearch(minLevel, bits(), nearby);
-
-				if (prefixExists(key, nearbyLevel))
-				{
-					// If a prefix of the key exists in the 'nearbyLevel'
-					// of the trie, then the corresponding node is the
-					// lowest ancestor of the key.
-					return nearbyLevel;
-				}
-
-				// Let j = nearbyLevel and v = key up j. Since
-				// (v, j) !in R', it can not occur that both
-				// (v + 1, j) in R' and (v - 1, j) in R'.
-				// Call the existing one w.
-				bool nextExists = prefixExists(
-					key + powerOfTwo<Key>(nearbyLevel), 
-					nearbyLevel);
-
-				// Compute w.
-				Key nearbyKey = key;
-				if (nextExists)
-				{
-					nearbyKey += powerOfTwo<Key>(nearbyLevel);
-				}
-				else
-				{
-					nearbyKey -= powerOfTwo<Key>(nearbyLevel);
-				}
-
-				// Compute the chain of (w, j).
-				Key nearbyChain = replicate(nearbyKey, nearbyLevel);
-				if (nextExists == odd(nearbyChain))
-				{
-					// If the right neighbor is on the right 1-gap-path,
-					// then the level above must contain the lowest-ancestor
-					// of the key. Similarly for the left neighbor on 
-					// the left 0-gap-path.
-					return nearbyLevel + 1;
-				}
-
-				auto differentChain = [&](integer level)
-				{
-					return replicate(nearbyKey, level) != nearbyChain;
-				};
-
-				// Find the level above the top of the chain [nearbyKey].
-				minLevel = exponentialBinarySearch(
-					nearbyLevel + 1, bits(), differentChain);
-			}
-
-			return 0;
-		}
 
 		//! The bits to use in a key.
 		/*!
@@ -829,7 +862,7 @@ namespace Pastel
 {
 
 	template <integer Bits_, typename Value_>
-	class XFastTrie_Map_Settings
+	class CFastTrie_Map_Settings
 	{
 	public:
 		static const integer Bits = Bits_;
@@ -837,13 +870,13 @@ namespace Pastel
 	};
 
 	template <integer Bits, typename Value>
-	using XFastTrie_Map = XFastTrie<XFastTrie_Map_Settings<Bits, Value>>;
+	using CFastTrie_Map = CFastTrie<CFastTrie_Map_Settings<Bits, Value>>;
 
 	template <integer Bits> 
-	using XFastTrie_Set_Settings = XFastTrie_Map_Settings<Bits, void>;
+	using CFastTrie_Set_Settings = CFastTrie_Map_Settings<Bits, void>;
 
 	template <integer Bits>
-	using XFastTrie_Set = XFastTrie<XFastTrie_Set_Settings<Bits>>;
+	using CFastTrie_Set = CFastTrie<CFastTrie_Set_Settings<Bits>>;
 
 }
 

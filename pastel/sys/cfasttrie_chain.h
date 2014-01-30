@@ -1,9 +1,9 @@
-// Description: X-fast trie node
+// Description: C-fast trie node
 
-#ifndef PASTELSYS_XFASTTRIE_NODE_H
-#define PASTELSYS_XFASTTRIE_NODE_H
+#ifndef PASTELSYS_CFASTTRIE_NODE_H
+#define PASTELSYS_CFASTTRIE_NODE_H
 
-#include "pastel/sys/xfasttrie.h"
+#include "pastel/sys/cfasttrie.h"
 
 #include <unordered_map>
 #include <array>
@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	namespace XFastTrie_
+	namespace CFastTrie_
 	{
 
 		template <
@@ -28,17 +28,22 @@ namespace Pastel
 			{
 			}
 
-			integer& height()
+			integer height() const
 			{
 				return height_;
 			}
 
-			Key& split()
+			const Key& split() const
 			{
 				return split_;
 			}
 
 			Iterator& element()
+			{
+				return element_;
+			}
+
+			const Iterator& element() const
 			{
 				return element_;
 			}

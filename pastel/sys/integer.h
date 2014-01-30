@@ -56,8 +56,7 @@ namespace Pastel
 
 		static const integer BitsInWord = 
 			sizeof(Word) * 8;
-		static const uint64 WordMask = 
-			((uint64)1 << BitsInWord) - 1;
+		static const Word WordMask = -1;
 		// Compute ceil(N / BitsInWord).
 		static const integer Words = 
 			(N + BitsInWord - 1) / BitsInWord;
