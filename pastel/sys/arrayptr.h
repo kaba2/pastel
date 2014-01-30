@@ -120,7 +120,9 @@ namespace Pastel
 		void set(Type* data, integer size)
 		{
 			PENSURE_OP(size, >=, 0);
-			swap(ArrayPtr(data, size));
+			
+			ArrayPtr copy(data, size);
+			swap(copy);
 		}
 
 		//! Returns the stored raw-array-pointer.
