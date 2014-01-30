@@ -33,7 +33,7 @@
 function build_pastel(varargin)
 
 % Change this to the Boost include path.
-boostIncludePath = '../../boost_1_53_0';
+boostIncludePath = '../../boost_1_54_0';
 
 % Change this to the Threading Building Blocks 
 % include path.
@@ -41,7 +41,7 @@ tbbIncludePath = '../../tbb42/include';
 
 % Change this to the Threading Building Blocks 
 % library path.
-tbbLibraryPath = '../../tbb42/lib/intel64/vc11';
+tbbLibraryPath = '../../tbb42/lib';
 
 % Optional input arguments
 libraryName = {'sys', 'math', 'geometry'};

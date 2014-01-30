@@ -59,7 +59,7 @@ namespace Pastel
 		};
 
 		tbb::parallel_for(IndexRange(0, queries), 
-			fillWithZeros)
+			fillWithZeros);
 
 		auto countNeighbors = [&](const IndexRange& range)
 		{
