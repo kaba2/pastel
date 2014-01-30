@@ -5,6 +5,7 @@
 
 #include "pastel/sys/bitmask.h"
 #include "pastel/sys/extract_bits.h"
+#include "pastel/sys/flip_leading_one_bits.h"
 #include "pastel/sys/flip_leading_zero_bits.h"
 #include "pastel/sys/lowest_bit.h"
 #include "pastel/sys/highest_bit.h"

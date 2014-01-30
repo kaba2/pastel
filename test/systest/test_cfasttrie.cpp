@@ -1,9 +1,9 @@
-// Description: Testing for X-fast trie
-// DocumentationOf: xfasttrie.h
+// Description: Testing for c-fast trie
+// DocumentationOf: cfasttrie.h
 
 #include "test_pastelsys.h"
 
-//#include <pastel/sys/xfasttrie.h>
+#include <pastel/sys/cfasttrie.h>
 
 using namespace Pastel;
 using namespace std;
@@ -27,10 +27,9 @@ namespace
 
 		void test()
 		{
-			/*
-			using Set = XFastTrie_Set<64>;
+			using Set = CFastTrie_Set<64>;
 			using Key = Set::Key;
-			using Data = Set::Data;
+			using Value = Set::Value;
 
 			Set a;
 
@@ -51,13 +50,14 @@ namespace
 					0, 1, 2, 3, 4, 5, 6, 7, 8, 9
 				};
 
+				/*
 				TEST_ENSURE(boost::equal(a, correctSet, 
 					[&](const Data& left, integer right)
 					{
 						return left.key() == right;
 					}));
+				*/
 			}
-			*/
 		}
 	};
 
@@ -69,7 +69,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("XFastTrie", test);
+		testRunner().add("CFastTrie", test);
 	}
 
 	CallFunction run(addTest);

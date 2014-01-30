@@ -1,14 +1,14 @@
-// Description: Concepts for X-fast trie
+// Description: Concepts for C-fast trie
 
-#ifndef PASTELSYS_XFASTTRIE_CONCEPTS_H
-#define PASTELSYS_XFASTTRIE_CONCEPTS_H
+#ifndef PASTELSYS_CFASTTRIE_CONCEPTS_H
+#define PASTELSYS_CFASTTRIE_CONCEPTS_H
 
 #include "pastel/sys/mytypes.h"
 
 namespace Pastel
 {
 
-	namespace XFastTrie_Concepts
+	namespace CFastTrie_Concepts
 	{
 
 		class Settings
