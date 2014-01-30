@@ -5,7 +5,7 @@
 %
 % where
 %
-% QUERYSET is an integer array which whose linearization contains 
+% QUERYSET is an integer array whose linearization contains 
 % n ids of points in the KDTREE.
 %
 % MAXDISTANCESET is a numeric array whose i:th element contains the
@@ -24,7 +24,7 @@
 % -------------
 %
 % COUNTSET is an (1 x n) non-negative integer array, whose i:th element
-% contains the number of points in the open-ball around the i:th query
+% contains the number of points in the open ball around the i:th query
 % point.
 
 % Description: Counts points in an open ball in a kd-tree.
