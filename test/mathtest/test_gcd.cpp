@@ -4,6 +4,7 @@
 #include "test_pastelmath.h"
 
 #include "pastel/sys/biginteger.h"
+#include "pastel/sys/integer.h"
 #include "pastel/sys/gcd.h"
 
 namespace
@@ -22,7 +23,11 @@ namespace
 
 		virtual void run()
 		{
+			testSome<int16>();
+			testSome<int32>();
 			testSome<integer>();
+			testSome<Integer<16>>();
+			testSome<Integer<32>>();
 			testSome<BigInteger>();
 		}
 

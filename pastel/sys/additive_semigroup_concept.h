@@ -4,6 +4,8 @@
 #ifndef PASTELSYS_ADDITIVE_SEMIGROUP_CONCEPT_H
 #define PASTELSYS_ADDITIVE_SEMIGROUP_CONCEPT_H
 
+#include "pastel/sys/comparable_concept.h"
+
 namespace Pastel
 {
 
@@ -15,6 +17,7 @@ namespace Pastel
 		// commutative and associative.
 
 		class Additive_SemiGroup
+		: public Comparable_Concept::Comparable
 		{
 		public:
 			//! Adds 'that' to the element.

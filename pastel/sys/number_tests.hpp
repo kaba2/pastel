@@ -8,18 +8,6 @@ namespace Pastel
 {
 
 	template <typename Integer>
-	bool odd(const Integer& x)
-	{
-		return !even(x);
-	}
-
-	template <typename Integer>
-	bool even(const Integer& x)
-	{
-		return (x & 1) == 0;
-	}
-
-	template <typename Integer>
 	bool isPowerOfTwo(const Integer& that)
 	{
 		PENSURE_OP(that, >=, 0);
@@ -67,7 +55,7 @@ namespace Pastel
 		// With the same justification as above,
 		// the logical AND is non-zero.
 		
-		return (that & (that - 1)) == 0;
+		return zero(that & (that - 1));
 	}
 
 }

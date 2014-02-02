@@ -45,7 +45,7 @@ namespace Pastel
 	{
 		// This is the binary gcd algorithm.
 		// For integers 'left' and 'right' this function
-		// actually computes GCD(mabs(left), mabs(right)).
+		// actually computes GCD(abs(left), abs(right)).
 		// GCD(0, 0) is not defined and results in an error.
 
 		// The binary gcd algorithm works by applying
@@ -55,19 +55,19 @@ namespace Pastel
 		// For the following, keep in mind that GCD is symmetric:
 		// GCD(u, v) = GCD(v, u)
 
-		ENSURE(!(left == 0 && right == 0));
+		ENSURE(!(zero(left) && zero(right)));
 
-		Integer u(left < 0 ? -left : left);
-		Integer v(right < 0 ? -right : right);
+		Integer u = abs(left);
+		Integer v = abs(right);
 
 		// GCD(0, x) = GCD(x, 0) = x
 
-		if (u == 0)
+		if (zero(u))
 		{
 			return v;
 		}
 
-		if (v == 0)
+		if (zero(v))
 		{
 			return u;
 		}
