@@ -9,14 +9,6 @@
 namespace Pastel
 {
 
-	//! Returns if the integer is odd.
-	template <typename Integer>
-	bool odd(const Integer& x);
-
-	//! Returns if the integer is even.
-	template <typename Integer>
-	bool even(const Integer& x);
-
 	//! Returns if the integer is a power of 2.
 	/*!
 	Preconditions:

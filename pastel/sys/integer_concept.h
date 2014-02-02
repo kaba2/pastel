@@ -46,9 +46,6 @@ namespace Pastel
 
 			Integer& operator>>=(const Integer& that);
 			Integer operator>>(const Integer& that) const;
-
-			bool operator==(const Integer& that) const;
-			bool operator!=(const Integer& that) const;
 		};
 
 		//! Returns whether 'that' is even.

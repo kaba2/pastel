@@ -49,6 +49,18 @@ namespace Pastel
 		left.swap(right);
 	}
 
+	// Integer
+
+	inline bool even(const BigInteger& that)
+	{
+		return (that.digit(0) & 1) == 0;
+	}
+
+	inline bool odd(const BigInteger& that)
+	{
+		return !even(that);
+	}
+
 	// Real (partial)
 
 	template <>
@@ -76,7 +88,7 @@ namespace Pastel
 
 	inline BigInteger abs(const BigInteger& that)
 	{
-		return that.negative() ? -that : that;
+		return that.positive() ? that : -that;
 	}
 
 	inline bool negative(const BigInteger& that)

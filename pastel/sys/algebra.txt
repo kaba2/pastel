@@ -1,7 +1,7 @@
 Algebra
 =======
 
-[[Parent]]: pastelsys.txt
+[[Parent]]: maths.txt
 
 Algebra is a subfield of mathematics, concerned with structured sets, and the structure-preserving maps between such sets. From the viewpoint of generic programming, algebra provides a set of concepts which we can map directly to concept requirements.
 

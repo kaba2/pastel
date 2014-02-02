@@ -126,7 +126,10 @@ namespace Pastel
 		*/
 		Integer& operator=(const Integer& that)
 		{
-			boost::copy(that.wordSet_, wordSet_);
+			std::copy(
+				that.wordSet_.cbegin(),
+				that.wordSet_.cend(), 
+				wordSet_.begin());
 			return *this;
 		}
 
@@ -533,6 +536,16 @@ namespace Pastel
 			return Integer(*this).flip();
 		}
 
+		//! Returns the negation of the element.
+		/*!
+		Time complexity: O(N)
+		Exception safety: nothrow
+		*/
+		Integer operator-() const
+		{
+			return ~(*this) + 1;
+		}
+
 		//! Shifts the bits to the left.
 		/*!
 		Time complexity: O(N)
@@ -709,6 +722,66 @@ namespace Pastel
 
 		WordSet wordSet_;
 	};
+
+}
+
+namespace Pastel
+{
+
+	// Fixed integer
+
+	template <int N, typename Word>
+	integer bits(const Integer<N, Word>& that)
+	{
+		return that.bits();
+	}
+
+	// Integer
+
+	template <int N, typename Word>
+	bool odd(const Integer<N, Word>& that)
+	{
+		return that[0];
+	}
+
+	template <int N, typename Word>
+	bool even(const Integer<N, Word>& that)
+	{
+		return !odd(that);
+	}
+
+	// Ordered additive monoid
+
+	template <int N, typename Word>
+	Integer<N, Word> abs(const Integer<N, Word>& that)
+	{
+		return positive(that) ? that : -that;
+	}
+
+	template <int N, typename Word>
+	bool negative(const Integer<N, Word>& that)
+	{
+		return that < 0;
+	}
+
+	template <int N, typename Word>
+	bool positive(const Integer<N, Word>& that)
+	{
+		return that > 0;
+	}
+
+	// Additive monoid
+
+	template <int N, typename Word>
+	bool zero(const Integer<N, Word>& that)
+	{
+		return that == 0;
+	}
+
+}
+
+namespace Pastel
+{
 
 	template <int N, typename Word = uinteger>
 	struct Integer_Hash

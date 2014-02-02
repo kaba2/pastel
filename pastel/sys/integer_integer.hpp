@@ -20,6 +20,22 @@ namespace Pastel
 		return sizeof(Type) * 8;
 	}
 
+	// Integer
+
+	template <typename Type>
+	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+		even(const Type& that)
+	{
+		return (that & 1) == 0;
+	}
+
+	template <typename Type>
+	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+		odd(const Type& that)
+	{
+		return (that & 1) != 0;
+	}
+
 	// Real (partial)
 
 	template <>
