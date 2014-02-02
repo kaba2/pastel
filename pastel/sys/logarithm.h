@@ -4,7 +4,8 @@
 #ifndef PASTELSYS_LOGARITHM_H
 #define PASTELSYS_LOGARITHM_H
 
-#include "pastel/sys/integer_concept.h"
+#include "pastel/sys/finite_integer_concept.h"
+#include "pastel/sys/real_concept.h"
 
 namespace Pastel
 {
@@ -30,22 +31,24 @@ namespace Pastel
 	//! Returns floor(log_2(that)).
 	/*!
 	Time complexity:
-	O(log(sizeof(integer) * 8)),
+	O(log(bits(that))),
 
 	Preconditions:
 	that > 0
 	*/
-	integer integerLog2(integer that);
+	template <typename Finite_Integer>
+	integer integerLog2(const Finite_Integer& that);
 
 	//! Returns ceil(log_2(that)).
 	/*!
 	Time complexity:
-	O(log(sizeof(integer) * 8)),
+	O(log(bits(that))),
 
 	Preconditions:
 	that > 0
 	*/
-	integer integerCeilLog2(integer that);
+	template <typename Finite_Integer>
+	integer integerCeilLog2(const Finite_Integer& that);
 
 }
 

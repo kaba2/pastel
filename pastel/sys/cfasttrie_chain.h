@@ -4,6 +4,8 @@
 #define PASTELSYS_CFASTTRIE_NODE_H
 
 #include "pastel/sys/cfasttrie.h"
+#include "pastel/sys/logarithm.h"
+#include "pastel/sys/leading_zero_bits.h"
 
 #include <unordered_map>
 #include <array>
@@ -15,16 +17,24 @@ namespace Pastel
 	namespace CFastTrie_
 	{
 
+		template <typename Integer>
+		integer chainHeight(const Integer& that)
+		{
+			return even(that) ? 
+				leadingZeroBits() :
+				leadingOneBits();
+		}
+
 		template <
 			typename Key,
 			typename Iterator>
 		class Chain
 		{
 		public:
-			Chain()
-			: height_(0)
+			explicit Chain(Iterator element)
+			: height_(chainHeight(element->key()))
 			, split_(0)
-			, element_()
+			, element_(element)
 			{
 			}
 
@@ -51,26 +61,25 @@ namespace Pastel
 		private:
 			//! The height of the chain.
 			/*!
-			A chain is a chain of nodes where the
-			chain always follows either the 0-children,
-			or the 1-children. The chain spans the
-			heights [0, height_].
+			The height h of a chain is the number of
+			nodes in it, and takes O(log(h + 2)) time to 
+			compute. This value must be computed when 
+			inserting the chain, since the split-bit of 
+			the chain just above this chain needs to be 
+			set. By storing the height we save some time
+			when searching for the lowest ancestors.
 			*/
 			integer height_;
 
 			//! The split-node markers.
 			/*!
 			The i:th bit is 1 if and only if
-			the node at height i is a split 
-			node.
+			the node at level i of the chain is a 
+			split node.
 			*/
 			Key split_;
 
-			//! The key stored in this chain.
-			/*!
-			The stored key is close to the bottom
-			node of the chain.
-			*/
+			//! The element stored in this chain.
 			Iterator element_;
 		};
 

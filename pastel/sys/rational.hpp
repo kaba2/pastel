@@ -581,6 +581,8 @@ namespace Pastel
 namespace Pastel
 {
 
+	// Real
+
 	template <typename Integer>
 	class Real_Function<Rational<Integer> >
 	{
@@ -596,63 +598,82 @@ namespace Pastel
 		{
 			return Rational<Integer>(0, 0);
 		}
-
-		Rational<Integer> inverse(
-			const Rational<Integer>& that)
-		{
-			return Rational<Integer>(
-				that.denominator(),
-				that.numerator());
-		}
-
-		Rational<Integer> floor(
-			const Rational<Integer>& that)
-		{
-			// Note: Denominator is always >= 0.
-			if (that.denominator() == 1)
-			{
-				return that.numerator();
-			}
-
-			return that.numerator() / that.denominator();
-		}
-
-		Rational<Integer> ceil(
-			const Rational<Integer>& that)
-		{
-			// Note: Denominator is always >= 0.
-			if (that.denominator() == 1)
-			{
-				return that.numerator();
-			}
-
-			Integer result = floor(that);
-			if (result * that.denominator() != that.numerator())
-			{
-				++result;
-			}
-
-			return result;
-		}
-
-		bool zero(
-			const Rational<Integer>& that)
-		{
-			return Pastel::zero(that.numerator());
-		}
-
-		bool negative(
-			const Rational<Integer>& that)
-		{
-			return Pastel::negative(that.numerator());
-		}
-
-		bool positive(
-			const Rational<Integer>& that)
-		{
-			return Pastel::positive(that.numerator());
-		}
 	};
+
+	template <typename Integer>
+	Rational<Integer> floor(
+		const Rational<Integer>& that)
+	{
+		// Note: Denominator is always >= 0.
+		if (that.denominator() == 1)
+		{
+			return that.numerator();
+		}
+
+		return that.numerator() / that.denominator();
+	}
+
+	template <typename Integer>
+	Rational<Integer> ceil(
+		const Rational<Integer>& that)
+	{
+		// Note: Denominator is always >= 0.
+		if (that.denominator() == 1)
+		{
+			return that.numerator();
+		}
+
+		Integer result = floor(that);
+		if (result * that.denominator() != that.numerator())
+		{
+			++result;
+		}
+
+		return result;
+	}
+
+	// Field
+
+	template <typename Integer>
+	Rational<Integer> inverse(
+		const Rational<Integer>& that)
+	{
+		return Rational<Integer>(
+			that.denominator(),
+			that.numerator());
+	}
+
+	// Ordered additive monoid
+
+	template <typename Integer>
+	Rational<Integer> abs(
+		const Rational<Integer>& that)
+	{
+		return mabs(that);
+	}
+
+	template <typename Integer>
+	bool negative(
+		const Rational<Integer>& that)
+	{
+		return Pastel::negative(that.numerator());
+	}
+
+	template <typename Integer>
+	bool positive(
+		const Rational<Integer>& that)
+	{
+		return Pastel::positive(that.numerator());
+	}
+
+	// Additive monoid
+
+	template <typename Integer>
+	bool zero(
+		const Rational<Integer>& that)
+	{
+		return Pastel::zero(that.numerator());
+	}
 
 	template <typename Integer>
 	Rational<Integer> fraction(

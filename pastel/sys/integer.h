@@ -253,7 +253,7 @@ namespace Pastel
 		{
 			for (integer i = 0;i < Words;++i)
 			{
-				wordSet_[i] ^= (Word)-1;
+				wordSet_[i] = ~wordSet_[i];
 			}
 			clearLast();
 
@@ -521,6 +521,16 @@ namespace Pastel
 			clearLast();
 
 			return *this;
+		}
+
+		//! Returns the binary not of the element.
+		/*!
+		Time complexity: O(N)
+		Exception safety: nothrow
+		*/
+		Integer operator~() const
+		{
+			return Integer(*this).flip();
 		}
 
 		//! Shifts the bits to the left.

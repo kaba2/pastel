@@ -1,9 +1,10 @@
-// Description: Rational class
-// Detail: Allows to work with rational numbers
+// Description: Rational number
 // Tags: C++11
 
 #ifndef PASTELSYS_RATIONAL_H
 #define PASTELSYS_RATIONAL_H
+
+#include <pastel/sys/integer_concept.h>
 
 #include <boost/operators.hpp>
 #include <boost/mpl/if.hpp>
