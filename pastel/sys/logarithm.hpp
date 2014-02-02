@@ -39,7 +39,8 @@ namespace Pastel
 		return std::log(x) / constantLn2<Real>();
 	}
 
-	inline integer integerLog2(integer that)
+	template <typename Finite_Integer>
+	integer integerLog2(const Finite_Integer& that)
 	{
 		ENSURE_OP(that, >, 0);
 
@@ -48,15 +49,6 @@ namespace Pastel
 			return (that >> level) != 0;
 		};
 
-		// It is important to get the number of bits correct;
-		// right shift by a greater amount of bits is undefined. 
-		// In particular, such a right shift may not always be zero.
-		// I hit this problem while testing this function with an
-		// upper-bound of 64 and infinity<integer>().
-
-		// PORTABILITY: Assumes bytes have 8 bits.
-		integer bits = sizeof(integer) * 8;
-
 		// We do not use the exponential binary search here:
 		// it uses about 2 log(log(that)) comparisons, while the binary
 		// search takes only log(bits) comparisons. For bits = 64,
@@ -64,12 +56,19 @@ namespace Pastel
 		// >= 6 comparisons, and <= 12 comparisons, while 
 		// the binary search always takes 6 comparisons.
 
+		// It is important to get the number of bits correct;
+		// right shift by a greater amount of bits is undefined. 
+		// In particular, such a right shift may not always be zero.
+		// I hit this problem while testing this function with an
+		// upper-bound of 64 and infinity<integer>().
+
 		return binarySearch(
-			(integer)0, bits, 
+			(integer)0, bits(that), 
 			nonZeroShift) - 1;
 	}
 
-	inline integer integerCeilLog2(integer that)
+	template <typename Finite_Integer>
+	integer integerCeilLog2(const Finite_Integer& that)
 	{
 		ENSURE_OP(that, >, 0);
 		if (isPowerOfTwo(that))

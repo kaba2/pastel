@@ -1,4 +1,4 @@
-// Description: Native integer type modeling the Integer concept.
+// Description: integer type as a Finite_Integer
 
 #ifndef PASTELSYS_INTEGER_INTEGER_H
 #define PASTELSYS_INTEGER_INTEGER_H

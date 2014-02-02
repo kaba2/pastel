@@ -182,7 +182,17 @@ namespace Pastel
 		{
 			if (empty())
 			{
-				return chainSet_.emplace(0, key).first->second.element();
+				dataSet_.emplace_back(
+					chainSet_.end(),
+					key, std::move(value));
+				
+				Iterator element = std::prev(dataSet_.end());
+				
+				Chain_Iterator chain = 
+					chainSet_.emplace(Key(0), element).first;
+				element->chain_ = chain;
+
+				return element;
 			}
 			
 			Iterator right = upperBound(key);
@@ -795,21 +805,22 @@ namespace Pastel
 				gapKey ^= bitMask<Key>(level - splitOffset, level);
 			}
 
-			// Find the element corresponding to the gap-bound.
-			ConstIterator gapBound = dataSet_.find(gapKey);
+			// Find the chain corresponding to the gap-bound.
+			Chain_ConstIterator lowerChain = chainSet_.find(gapKey);
 			// By the properties of gap-paths, this element exists.
-			ASSERT(gapBound != dataSet_.end());
+			ASSERT(lowerChain != chainSet_.cend());
 
+			ConstIterator element = lowerChain->second.element();
 			if (even(key))
 			{
 				// Since we followed the even gap-path,
 				// we are now at the left gap-bound.
 				// The right gap-bound is its successor.
-				ASSERT(gapBound != cend());
-				++gapBound;
+				ASSERT(element != cend());
+				++element;
 			}
 
-			return gapBound;
+			return element;
 		}
 
 		bool odd(const Key& key) const

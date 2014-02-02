@@ -9,6 +9,8 @@
 namespace Pastel
 {
 
+	// Real
+
 	template <>
 	class Real_Function<float>
 	{
@@ -24,37 +26,42 @@ namespace Pastel
 		{
 			return std::numeric_limits<float>::quiet_NaN();
 		}
-
-		float inverse(float that)
-		{
-			return 1 / that;
-		}
-
-		float floor(float that)
-		{
-			return std::floor(that);
-		}
-
-		float ceil(float that)
-		{
-			return std::ceil(that);
-		}
-
-		bool zero(float that)
-		{
-			return that == 0;
-		}
-
-		bool negative(float that)
-		{
-			return that < 0;
-		}
-
-		bool positive(float that)
-		{
-			return that > 0;
-		}
 	};
+
+	using std::floor;
+	using std::ceil;
+
+	// Field
+
+	inline float inverse(float that)
+	{
+		return 1 / that;
+	}
+
+	// Ring
+
+	// Operators *= and * are built-in.
+
+	// Ordered additive monoid.
+
+	using std::abs;
+
+	inline bool negative(float that)
+	{
+		return that < 0;
+	}
+
+	inline bool positive(float that)
+	{
+		return that > 0;
+	}
+
+	// Additive monoid
+
+	inline bool zero(float that)
+	{
+		return that == 0;
+	}
 
 }
 

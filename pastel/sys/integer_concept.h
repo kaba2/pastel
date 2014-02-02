@@ -5,6 +5,7 @@
 #define PASTELSYS_INTEGER_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/ordered_ring_concept.h"
 
 namespace Pastel
 {
@@ -13,6 +14,7 @@ namespace Pastel
 	{
 
 		class Integer
+		: public Ordered_Ring_Concept::Ordered_Ring
 		{
 		public:
 			Integer();
@@ -27,28 +29,6 @@ namespace Pastel
 			
 			Integer(int64 that);
 			Integer(uint64 that);
-
-			// Additive operations.
-
-			Integer& operator+=(const Integer& that);
-			Integer operator+(const Integer& that) const;
-
-			Integer& operator-=(const Integer& that);
-			Integer operator-(const Integer& that) const;
-
-			Integer& operator++();
-			Integer& operator--();
-			
-			Integer operator++(int);
-			Integer operator--(int);
-
-			// Multiplicative operations.
-			
-			Integer& operator*=(const Integer& that);
-			Integer operator*(const Integer& that) const;
-
-			Integer& operator/=(const Integer& that);
-			Integer operator/(const Integer& that) const;
 
 			// Bitwise operations.
 
@@ -67,25 +47,15 @@ namespace Pastel
 			Integer& operator>>=(const Integer& that);
 			Integer operator>>(const Integer& that) const;
 
-			// Order relations.
-
-			bool operator<(const Integer& that) const;
-			bool operator>(const Integer& that) const;
-			bool operator<=(const Integer& that) const;
-			bool operator>=(const Integer& that) const;
-
 			bool operator==(const Integer& that) const;
 			bool operator!=(const Integer& that) const;
 		};
 
-		//! Returns that == 0.
-		bool zero(const Integer& that);
+		//! Returns whether 'that' is even.
+		bool even(const Integer& that);
 
-		//! Returns that < 0.
-		bool negative(const Integer& that);
-
-		//! Returns that > 0.
-		bool positive(const Integer& that);
+		//! Returns whether 'that' is odd.
+		bool odd(const Integer& that);
 
 	}
 

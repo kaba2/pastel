@@ -1,0 +1,8 @@
+Algebra
+=======
+
+[[Parent]]: pastelsys.txt
+
+Algebra is a subfield of mathematics, concerned with structured sets, and the structure-preserving maps between such sets. From the viewpoint of generic programming, algebra provides a set of concepts which we can map directly to concept requirements.
+
+Of particular interest to us is the formalization of different kinds of numbers; the integers, the rational numbers, and the real numbers. However, many algorithms which are familiar for integers generalize far further. It is here where algebra clarifies the minimal set of requirements for a given algorithm to work.

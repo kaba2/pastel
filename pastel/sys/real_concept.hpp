@@ -27,60 +27,6 @@ namespace Pastel
 		return f.nan();
 	}
 
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
-		inverse(const Real& that)
-	{
-		Real_Function<Real> f;
-		unused(f);
-		return f.inverse(that);
-	}
-
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
-		floor(const Real& that)
-	{
-		Real_Function<Real> f;
-		unused(f);
-		return f.floor(that);
-	}
-
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
-		ceil(const Real& that)
-	{
-		Real_Function<Real> f;
-		unused(f);
-		return f.ceil(that);
-	}
-
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, bool) 
-		zero(const Real& that)
-	{
-		Real_Function<Real> f;
-		unused(f);
-		return f.zero(that);
-	}
-
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, bool) 
-		negative(const Real& that)
-	{
-		Real_Function<Real> f;
-		unused(f);
-		return f.negative(that);
-	}
-
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, bool) 
-		positive(const Real& that)
-	{
-		Real_Function<Real> f;
-		unused(f);
-		return f.positive(that);
-	}
-
 }
 
 #endif

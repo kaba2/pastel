@@ -4,6 +4,8 @@
 #ifndef PASTELSYS_REAL_CONCEPT_H
 #define PASTELSYS_REAL_CONCEPT_H
 
+#include "pastel/sys/ordered_field_concept.h"
+
 namespace Pastel
 {
 
@@ -15,12 +17,6 @@ namespace Pastel
 
 		Real infinity();
 		Real nan();
-		Real inverse(const Real& that);
-		Real floor(const Real& that);
-		Real ceil(const Real& that);
-		bool zero(const Real& that);
-		bool negative(const Real& that);
-		bool positive(const Real& that);
 	};
 
 	namespace Real_Concept
@@ -30,6 +26,7 @@ namespace Pastel
 		// the Real_Function class template.
 
 		class Real
+		: public Ordered_Field_Concept::Ordered_Field
 		{
 		public:
 			//! Default-constructed Real's assume value 0.
@@ -58,34 +55,17 @@ namespace Pastel
 
 			//! Constructs from a double.
 			Real(double that);
-
-			// Additive operations.
-
-			Real& operator+=(const Real& that);
-			Real operator+(const Real& that) const;
-
-			Real& operator-=(const Real& that);
-			Real operator-(const Real& that) const;
-
-			// Multiplicative operations.
-
-			Real& operator*=(const Real& that);
-			Real operator*(const Real& that) const;
-
-			Real& operator/=(const Real& that);
-			Real operator/(const Real& that) const;
-
-			// Order relations.
-
-			bool operator<(const Real& that) const;
-			bool operator>(const Real& that) const;
-			bool operator<=(const Real& that) const;
-			bool operator>=(const Real& that) const;
-
-			bool operator==(const Real& that) const;
-			bool operator!=(const Real& that) const;
 		};
-	
+
+		//! Returns 1 / that.	
+		Real inverse(const Real& that);
+
+		//! Returns the greatest integer <= that.
+		Real floor(const Real& that);
+
+		//! Returns the least integer >= that.
+		Real ceil(const Real& that);
+
 	}
 
 	// Interestingly, if the following are uncommented, they
@@ -105,36 +85,6 @@ namespace Pastel
 	template <typename Real>
 	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
 		nan();
-
-	//! Returns the multiplicative inverse of 'that'.
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
-		inverse(const Real& that);
-
-	//! Returns the greatest integer less than or equal to 'that'.
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
-		floor(const Real& that);
-
-	//! Returns the smallest integer greater than or equal to 'that'.
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
-		ceil(const Real& that);
-
-	//! Returns if 'that' == 0.
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, bool) 
-		zero(const Real& that);
-
-	//! Returns if 'that' < 0.
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, bool) 
-		negative(const Real& that);
-
-	//! Returns if 'that' > 0.
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, bool) 
-		positive(const Real& that);
 	*/
 
 }
