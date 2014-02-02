@@ -26,7 +26,7 @@ namespace
 
 		void test()
 		{
-			TEST_ENSURE_OP(flipLeadingZeroBits(0x00000000), ==, 0x00000000);
+			TEST_ENSURE_OP(flipLeadingZeroBits(0x00000000), ==, 0xFFFFFFFF);
 			TEST_ENSURE_OP(flipLeadingZeroBits(0x00000001), ==, 0x00000001);
 			TEST_ENSURE_OP(flipLeadingZeroBits(0x00000002), ==, 0x00000003);
 			TEST_ENSURE_OP(flipLeadingZeroBits(0x00000004), ==, 0x00000007);
@@ -76,9 +76,9 @@ namespace
 			TEST_ENSURE_OP(flipLeadingZeroBits(0x8765432E), ==, 0x8765432F);
 			TEST_ENSURE_OP(flipLeadingZeroBits(0x8765432F), ==, 0x8765432F);
 
-			TEST_ENSURE_OP(flipLeadingZeroBits(0x3501), ==, 0x0001);
-			TEST_ENSURE_OP(flipLeadingZeroBits(0x3510), ==, 0x001F);
-			TEST_ENSURE_OP(flipLeadingZeroBits(0x3100), ==, 0x01FF);
+			TEST_ENSURE_OP(flipLeadingZeroBits(0x3501), ==, 0x3501);
+			TEST_ENSURE_OP(flipLeadingZeroBits(0x3510), ==, 0x351F);
+			TEST_ENSURE_OP(flipLeadingZeroBits(0x3100), ==, 0x31FF);
 		}
 	};
 

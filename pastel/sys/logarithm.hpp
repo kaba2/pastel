@@ -44,9 +44,9 @@ namespace Pastel
 	{
 		ENSURE_OP(that, >, 0);
 
-		auto nonZeroShift = [&](integer level)
+		auto zeroShift = [&](integer level)
 		{
-			return (that >> level) != 0;
+			return zero(that >> level);
 		};
 
 		// We do not use the exponential binary search here:
@@ -64,7 +64,7 @@ namespace Pastel
 
 		return binarySearch(
 			(integer)0, bits(that), 
-			nonZeroShift) - 1;
+			zeroShift) - 1;
 	}
 
 	template <typename Finite_Integer>
