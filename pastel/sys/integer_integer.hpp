@@ -5,16 +5,19 @@
 
 #include <limits>
 #include <cmath>
+#include <type_traits>
 
 namespace Pastel
 {
 
 	// Finite integer
 
-	inline integer bits(integer that)
+	template <typename Type>
+	PASTEL_ENABLE_IF(std::is_integral<Type>, integer) 
+		bits(const Type& that)
 	{
 		// PORTABILITY: Assumes byte = 8 bits.
-		return sizeof(integer) * 8;
+		return sizeof(Type) * 8;
 	}
 
 	// Real (partial)
@@ -34,36 +37,32 @@ namespace Pastel
 		// there is no sensible choice.
 	};
 
-	inline integer floor(integer that)
-	{
-		return that;
-	}
-
-	inline integer ceil(integer that)
-	{
-		return that;
-	}
+	using std::floor;
+	using std::ceil;
 
 	// Ordered additive monoid
 
-	inline integer abs(integer that)
-	{
-		return std::abs(that);
-	}
+	using std::abs;
 
-	inline bool negative(integer that)
+	template <typename Type>
+	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+		negative(const Type& that)
 	{
 		return that < 0;
 	}
 
-	inline bool positive(integer that)
+	template <typename Type>
+	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+		positive(const Type& that)
 	{
 		return that > 0;
 	}
 
 	// Additive monoid
 
-	inline bool zero(integer that)
+	template <typename Type>
+	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+		zero(const Type& that)
 	{
 		return that == 0;
 	}
