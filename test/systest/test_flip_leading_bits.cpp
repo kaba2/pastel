@@ -1,8 +1,10 @@
-// Description: Testing for flipping leading zero bits
+// Description: Testing for flipping leading bits
 // DocumentationOf: flip_leading_zero_bits.h
 
 #include "test_pastelsys.h"
+
 #include <pastel/sys/flip_leading_zero_bits.h>
+#include <pastel/sys/flip_leading_one_bits.h>
 
 using namespace Pastel;
 using namespace std;
@@ -21,10 +23,11 @@ namespace
 
 		virtual void run()
 		{
-			test();
+			testZero();
+			testOne();
 		}
 
-		void test()
+		void testZero()
 		{
 			TEST_ENSURE_OP(flipLeadingZeroBits(0x00000000), ==, 0xFFFFFFFF);
 			TEST_ENSURE_OP(flipLeadingZeroBits(0x00000001), ==, 0x00000001);
@@ -80,6 +83,63 @@ namespace
 			TEST_ENSURE_OP(flipLeadingZeroBits(0x3510), ==, 0x351F);
 			TEST_ENSURE_OP(flipLeadingZeroBits(0x3100), ==, 0x31FF);
 		}
+
+		void testOne()
+		{
+			TEST_ENSURE_OP(flipLeadingOneBits(0x86420000), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x86420001), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x86420003), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x86420007), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8642000F), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8642001F), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8642003F), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8642007F), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x864200FF), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x864201FF), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x864203FF), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x864207FF), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x86420FFF), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x86421FFF), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x86423FFF), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x86427FFF), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8642FFFF), ==, 0x86420000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8641FFFF), ==, 0x86400000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8643FFFF), ==, 0x86400000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8647FFFF), ==, 0x86400000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x864FFFFF), ==, 0x86400000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x861FFFFF), ==, 0x86000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x863FFFFF), ==, 0x86000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x867FFFFF), ==, 0x86000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x86FFFFFF), ==, 0x86000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x81FFFFFF), ==, 0x80000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x83FFFFFF), ==, 0x80000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87FFFFFF), ==, 0x80000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8FFFFFFF), ==, 0x80000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x1FFFFFFF), ==, 0x00000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x3FFFFFFF), ==, 0x00000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x7FFFFFFF), ==, 0x00000000);
+			TEST_ENSURE_OP(flipLeadingOneBits(0xFFFFFFFF), ==, 0x00000000);
+
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87654321), ==, 0x87654320);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87654322), ==, 0x87654322);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87654323), ==, 0x87654320);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87654324), ==, 0x87654324);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87654325), ==, 0x87654324);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87654326), ==, 0x87654326);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87654327), ==, 0x87654320);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87654328), ==, 0x87654328);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x87654329), ==, 0x87654328);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8765432A), ==, 0x8765432A);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8765432B), ==, 0x8765432A);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8765432C), ==, 0x8765432C);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8765432D), ==, 0x8765432C);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8765432E), ==, 0x8765432E);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x8765432F), ==, 0x87654320);
+
+			TEST_ENSURE_OP(flipLeadingOneBits(0x3501), ==, 0x3500);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x3510), ==, 0x3510);
+			TEST_ENSURE_OP(flipLeadingOneBits(0x3100), ==, 0x3100);
+		}
 	};
 
 	void test()
@@ -90,7 +150,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("flipLeadingZeroBits", test);
+		testRunner().add("flipLeadingBits", test);
 	}
 
 	CallFunction run(addTest);
