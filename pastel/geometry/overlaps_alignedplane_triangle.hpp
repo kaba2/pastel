@@ -46,7 +46,7 @@ namespace Pastel
 		bool bSide = (plane.position() > triangle[1][plane.axis()]);
 		bool cSide = (plane.position() > triangle[2][plane.axis()]);
 
-		return ((aSide ^ bSide) || (aSide ^ cSide));
+		return ((aSide != bSide) || (aSide != cSide));
 	}
 
 	template <typename Real, int N>
@@ -89,7 +89,7 @@ namespace Pastel
 
 		triangleOnPositiveSide = aSide;
 
-		return ((aSide ^ bSide) || (aSide ^ cSide));
+		return ((aSide != bSide) || (aSide != cSide));
 	}
 
 }

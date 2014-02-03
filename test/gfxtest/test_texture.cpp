@@ -116,7 +116,7 @@ namespace
 				const integer xMod = mod(x, 2 * CheckerWidth);
 				const integer yMod = mod(y, 2 * CheckerHeight);
 
-				if ((xMod < CheckerWidth) ^
+				if ((xMod < CheckerWidth) !=
 					(yMod >= CheckerHeight))
 				{
 					textureImage(x, y) = Color(1);
@@ -341,7 +341,7 @@ namespace
 				const integer xMod = mod(x, 2 * CheckerWidth);
 				const integer yMod = mod(y, 2 * CheckerHeight);
 
-				if ((xMod < CheckerWidth) ^
+				if ((xMod < CheckerWidth) !=
 					(yMod >= CheckerHeight))
 				{
 					textureImage(x, y) = Color(1);

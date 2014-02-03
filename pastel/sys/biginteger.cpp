@@ -430,7 +430,7 @@ namespace Pastel
 			result += digitProduct;
 		}
 
-		result.sign_ = !(negative() ^ that.negative());
+		result.sign_ = !(negative() != that.negative());
 		swap(result);
 
 		return *this;
@@ -498,7 +498,7 @@ namespace Pastel
 				}
 			}
 
-			middle.sign_ = !(negative() ^ that.negative());
+			middle.sign_ = !(negative() != that.negative());
 
 			swap(middle);
 		}

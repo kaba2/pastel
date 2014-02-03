@@ -266,7 +266,7 @@ namespace Pastel
 				Real tNegativeTo(tMax);
 
 				const bool negativeIntersection =
-					isMinInNegativeSide ^
+					isMinInNegativeSide !=
 					isMaxInNegativeSide;
 
 				if (negativeIntersection)
@@ -308,7 +308,7 @@ namespace Pastel
 				Real tPositiveTo(tMax);
 
 				const bool positiveIntersection =
-					isMinInPositiveSide ^
+					isMinInPositiveSide !=
 					isMaxInPositiveSide;
 
 				if (positiveIntersection)

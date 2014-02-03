@@ -91,7 +91,7 @@ namespace Pastel
 	{
 		PENSURE_OP(byThis, !=, 0);
 
-		if ((divide >= 0) ^ (byThis >= 0))
+		if ((divide >= 0) != (byThis >= 0))
 		{
 			// If the signs differ, then the integer division
 			// computes ceil(a / b), which is what we want.
