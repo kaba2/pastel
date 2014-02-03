@@ -6,9 +6,18 @@
 namespace Pastel
 {
 
-	template <typename Integer>
-	Integer flipLeadingZeroBits(const Integer& that)
+	template <typename Finite_Integer>
+	PASTEL_DISABLE_IF(std::is_signed<Finite_Integer>, Finite_Integer) 
+		flipLeadingZeroBits(const Finite_Integer& that)
 	{
+		if (zero(that))
+		{
+			// The generic case below does not work for the
+			// zero because for an unsigned integer the right
+			// shift is logical and not arithmetic.
+			return ~that;
+		}
+
 		// Proof:
 		// u     = x...x10...0
 		// u - 1 = x...x01...1

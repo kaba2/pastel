@@ -6,9 +6,22 @@
 namespace Pastel
 {
 
-	template <typename Integer>
-	Integer flipLeadingOneBits(const Integer& that)
+	template <typename Finite_Integer>
+	PASTEL_DISABLE_IF(std::is_signed<Finite_Integer>, Finite_Integer)  
+		flipLeadingOneBits(const Finite_Integer& that)
 	{
+		// Note: if Finite_Integer is native, then the
+		// Finite_Integer() implies zero-initialization.
+		// This wouldn't happen if we declared
+		// instead `Finite_Integer zero;`.
+		if (that == ~Finite_Integer())
+		{
+			// The generic case below does not work for all
+			// ones because for an unsigned integer the right
+			// shift is logical and not arithmetic.
+			return Finite_Integer();
+		}
+
 		// Proof:
 		// u     = x...x01...1
 		// u + 1 = x...x10...0

@@ -52,6 +52,8 @@ namespace Pastel
 		using Word = Word_;
 
 		PASTEL_STATIC_ASSERT(N >= 0);
+		// The underlying has to be unsigned to guarantee
+		// the portability of bitwise operations.
 		PASTEL_STATIC_ASSERT(std::is_unsigned<Word_>::value);
 		PASTEL_STATIC_ASSERT(sizeof(Word) <= sizeof(uint64));
 
