@@ -62,7 +62,7 @@ namespace Pastel
 		}
 
 		--that;
-		for (integer i = 1; i < sizeof(integer) * 8;i <<= 1)
+		for (integer i = 1; i < sizeInBits<integer>();i <<= 1)
 		{
 			that |= that >> i;
 		}
