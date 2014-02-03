@@ -280,6 +280,13 @@ namespace Pastel
 	template <typename Type>
 	const Type& removeConst(Type& that);
 
+	//! Returns the number of bits a type takes.
+	/*!
+	This is equal to sizeof(Type) * CHAR_BIT.
+	*/
+	template <typename Type>
+	integer sizeInBits();
+
 	template <typename Type>
 	PASTEL_ENABLE_IF(std::is_arithmetic<Type>, Type) mabs(Type that);
 

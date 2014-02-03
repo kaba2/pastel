@@ -4,6 +4,7 @@
 #include "pastel/sys/integer_integer.h"
 
 #include <limits>
+#include <climits>
 #include <cmath>
 #include <type_traits>
 
@@ -16,8 +17,7 @@ namespace Pastel
 	PASTEL_ENABLE_IF(std::is_integral<Type>, integer) 
 		bits(const Type& that)
 	{
-		// PORTABILITY: Assumes byte = 8 bits.
-		return sizeof(Type) * 8;
+		return sizeInBits<Type>();
 	}
 
 	// Integer

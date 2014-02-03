@@ -4,6 +4,7 @@
 #include "pastel/sys/mytypes.h"
 
 #include <functional>
+#include <climits>
 
 namespace Pastel
 {
@@ -24,6 +25,18 @@ namespace Pastel
 	Type& removeConst(const Type& that)
 	{
 		return (Type&)that;
+	}
+
+	template <typename Type>
+	integer sizeInBits()
+	{
+		// Note that 
+		// std::numeric_limits<Type>::digits is 
+		// CHAR_BIT for unsigned integers, and
+		// CHAR_BIT - 1 for signed integers.
+		// So CHAR_BIT is really what we want 
+		// to use here.
+		return sizeof(Type) * CHAR_BIT;
 	}
 
 	template <typename Type>

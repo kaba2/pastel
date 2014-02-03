@@ -14,6 +14,7 @@
 #include "boost/range/algorithm/lexicographical_compare.hpp"
 
 #include <array>
+#include <climits>
 #include <string>
 #include <type_traits>
 #include <algorithm>
@@ -54,8 +55,10 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(std::is_unsigned<Word_>::value);
 		PASTEL_STATIC_ASSERT(sizeof(Word) <= sizeof(uint64));
 
+		// FIX: Change to sizeInBits<Word>() after
+		// constexpr becomes available in Visual Studio.
 		static const integer BitsInWord = 
-			sizeof(Word) * 8;
+			sizeof(Word) * CHAR_BIT;
 		static const Word WordMask = -1;
 		// Compute ceil(N / BitsInWord).
 		static const integer Words = 
