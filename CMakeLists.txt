@@ -234,30 +234,32 @@ if (MSVC)
 
 	# Disable some warnings.
 	add_definitions (
-		# "'identifier' : truncation from 'type1' to 'type2'"
-		/wd4305
+		# "'expression' : signed/unsigned mismatch"
+		/wd4018 
+   		# unary minus operator applied to unsigned type, result still unsigned
+   		/wd4146
+		# "qualifier applied to function type has no meaning; ignored"
+		/wd4180
+		# "nonstandard extension used : formal parameter 'identifier' was previously defined as a type"
+		/wd4224
 		# "'argument' : conversion from 'type1' to 'type2', possible loss of data."
 		/wd4244
 		# "'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'"
 		/wd4251 
-		# "new behavior: elements of array 'array' will be default initialized"
-		/wd4351
-		# "'function': was declared deprecated" (referring to STL functions)
-		/wd4996
 		# "'var' : conversion from 'size_t' to 'type', possible loss of data"
 		/wd4267
-		# "'expression' : signed/unsigned mismatch"
-		/wd4018 
+		# "'identifier' : truncation from 'type1' to 'type2'"
+		/wd4305
 		# "'operation' : conversion from 'type1' to 'type2' of greater size"
 		/wd4312
-		# "nonstandard extension used : formal parameter 'identifier' was previously defined as a type"
-		/wd4224
-		# "qualifier applied to function type has no meaning; ignored"
-		/wd4180
+		# "new behavior: elements of array 'array' will be default initialized"
+		/wd4351
 		# "'type' : forcing value to bool 'true' or 'false' (performance warning)"
 		/wd4800 
 		# "'operation' : unsafe use of type 'bool' in operation"
    		/wd4804
+		# "'function': was declared deprecated" (referring to STL functions)
+		/wd4996
 	)
 
 endif()

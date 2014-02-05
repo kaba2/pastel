@@ -86,7 +86,7 @@ namespace Pastel
 
 		for (integer i = 0;i < N;++i)
 		{
-			topExtent[i] = roundUpToPowerOf2(originalExtent[i]);
+			topExtent[i] = roundUpToPowerOfTwo(originalExtent[i]);
 			levels[i] = integerLog2(topExtent[i]) + 1;
 		}
 

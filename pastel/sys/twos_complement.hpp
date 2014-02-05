@@ -5,6 +5,7 @@
 #define PASTELSYS_TWOS_COMPLEMENT_HPP
 
 #include "pastel/sys/twos_complement.h"
+#include "pastel/sys/bitmask.h"
 
 namespace Pastel
 {
@@ -47,7 +48,7 @@ namespace Pastel
 		// In two's complement form, an integer is 
 		// non-negative if and only if the last bit is 0.
 		bool nonNegative = 
-			((that & (1 << (bits(that) - 1))) == 0);
+			((that & singleBitMask<Finite_Integer>(bits(that) - 1)) == 0);
 
 		using Signed = std::make_signed<Finite_Integer>::type;
 		return nonNegative ? (Signed)that : -((Signed)(-that));

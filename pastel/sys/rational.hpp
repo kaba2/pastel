@@ -701,7 +701,7 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	Rational<Integer> multiplyByPowerOf2(
+	Rational<Integer> multiplyByPowerOfTwo(
 		const Rational<Integer>& that,
 		integer power)
 	{
@@ -717,7 +717,7 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	Rational<Integer> divideByPowerOf2(
+	Rational<Integer> divideByPowerOfTwo(
 		const Rational<Integer>& that,
 		integer power)
 	{

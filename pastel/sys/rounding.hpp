@@ -9,50 +9,48 @@
 namespace Pastel
 {
 
-	inline integer roundUpTo(integer that, integer to)
+	template <typename Integer>
+	Integer roundUpTo(
+		const Integer& that, const Integer& to)
 	{
-		PENSURE_OP(to, >=, 0);
+		PENSURE(!negative(to));
 
-		const integer remainder = mod(that, to);
-		if (remainder > 0)
+		Integer remainder = mod(that, to);
+		if (positive(remainder))
 		{
-			return that + (to - remainder);
+			return (that - remainder) + to;
 		}
 
 		return that;
 	}
 
-	inline integer roundUpToOdd(integer that)
+	template <typename Integer>
+	Integer roundUpToOdd(const Integer& that)
 	{
-		if (odd(that))
-		{
-			return that;
-		}
-
-		return that + 1;
+		return odd(that) ? that : (that + 1);
 	}
 
-	inline integer roundUpToOdd(real that)
+	template <typename Real>
+	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
+		roundUpToOdd(const Real& that)
 	{
 		return Pastel::roundUpToOdd((integer)std::ceil(that));
 	}
 
-	inline integer roundUpToEven(integer that)
+	template <typename Integer>
+	Integer roundUpToEven(const Integer& that)
 	{
-		if (odd(that))
-		{
-			return that + 1;
-		}
-
-		return that;
+		return even(that) ? that : (that + 1);
 	}
 
-	inline integer roundUpToEven(real that)
+	template <typename Real>
+	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
+		roundUpToEven(const Real& that)
 	{
 		return Pastel::roundUpToEven((integer)std::ceil(that));
 	}
 
-	inline integer roundUpToPowerOf2(integer that)
+	inline integer roundUpToPowerOfTwo(integer that)
 	{
 		PENSURE_OP(that, >=, 0);
 
@@ -70,35 +68,37 @@ namespace Pastel
 		return that + 1;
 	}
 
-	inline integer roundUpToPowerOf2(integer that, integer power)
+	template <typename Integer>
+	Integer roundUpToPowerOfTwo(
+		const Integer& that, 
+		integer power)
 	{
-		PENSURE_OP(that, >=, 0);
-		PENSURE_OP(power, >=, 0);
+		PENSURE(!negative(power));
 
-		const integer to = (1 << power);
-		const integer remainder = that & (to - 1);
-
-		if (remainder > 0)
+		Integer remainder = modPowerOfTwo(that, power);
+		if (positive(remainder))
 		{
-			return that + (to - remainder);
+			return (that - remainder) + powerOfTwo<Integer>(power);
 		}
 
 		return that;
 	}
 
 	template <typename Integer>
-	Integer divideAndRoundUp(const Integer& divide, const Integer& byThis)
+	Integer divideAndRoundUp(
+		const Integer& divide, 
+		const Integer& byThis)
 	{
-		PENSURE_OP(byThis, !=, 0);
+		PENSURE(!zero(byThis));
 
-		if ((divide >= 0) != (byThis >= 0))
+		if ((!negative(divide)) != (!negative(byThis)))
 		{
 			// If the signs differ, then the integer division
 			// computes ceil(a / b), which is what we want.
 			return divide / byThis;
 		}
 
-		if (divide >= 0)
+		if (!negative(divide))
 		{
 			// Both are non-negative, and the integer division
 			// computes floor(a / b). We use the formula
