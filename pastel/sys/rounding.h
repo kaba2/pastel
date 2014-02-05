@@ -6,37 +6,46 @@
 
 #include "pastel/sys/mytypes.h"
 
+#include <type_traits>
+
 namespace Pastel
 {
 
 	//! Rounds up 'that' to the next multiple of 'to'.
 	/*!
 	Preconditions:
-	that >= 0
-	to >= 0
+	!negative(to)
 
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
-	integer roundUpTo(integer that, integer to);
+	template <typename Integer>
+	Integer roundUpTo(
+		const Integer& that, const Integer& to);
 
 	//! Rounds up 'that' to the next odd number.
 	/*!
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
-	integer roundUpToOdd(integer that);
+	template <typename Integer>
+	Integer roundUpToOdd(const Integer& that);
 	
-	integer roundUpToOdd(real that);
+	template <typename Real>
+	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
+		roundUpToOdd(const Real& that);
 
 	//! Rounds up 'that' to the next even number.
 	/*!
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
-	integer roundUpToEven(integer that);
+	template <typename Integer>
+	Integer roundUpToEven(const Integer& that);
 
-	integer roundUpToEven(real that);
+	template <typename Real>
+	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
+		roundUpToEven(const Real& that);
 
 	//! Rounds up 'that' to the next power of 2.
 	/*!
@@ -47,22 +56,26 @@ namespace Pastel
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
-	integer roundUpToPowerOf2(integer that);
+	integer roundUpToPowerOfTwo(integer that);
 
 	//! Rounds up 'that' to the next multiple of power of 2.
 	/*!
 	Preconditions:
-	that >= 0
-	power >= 0
+	!negative(power)
 
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
-	integer roundUpToPowerOf2(integer that, integer power);
+	template <typename Integer>
+	Integer roundUpToPowerOfTwo(
+		const Integer& that, 
+		integer power);
 
 	//! Returns ceil(divide / byThis).
 	template <typename Integer>
-	Integer divideAndRoundUp(const Integer& divide, const Integer& byThis);
+	Integer divideAndRoundUp(
+		const Integer& divide, 
+		const Integer& byThis);
 
 }
 

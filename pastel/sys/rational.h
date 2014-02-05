@@ -234,12 +234,12 @@ namespace Pastel
 	// Optimization functions
 
 	template <typename Integer>
-	Rational<Integer> multiplyByPowerOf2(
+	Rational<Integer> multiplyByPowerOfTwo(
 		const Rational<Integer>& x,
 		integer power);
 
 	template <typename Integer>
-	Rational<Integer> divideByPowerOf2(
+	Rational<Integer> divideByPowerOfTwo(
 		const Rational<Integer>& x,
 		integer power);
 

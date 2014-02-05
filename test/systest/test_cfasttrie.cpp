@@ -69,7 +69,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("CFastTrie", test);
+		//testRunner().add("CFastTrie", test);
 	}
 
 	CallFunction run(addTest);

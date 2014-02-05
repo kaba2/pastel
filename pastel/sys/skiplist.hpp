@@ -21,7 +21,7 @@ namespace Pastel
 	{
 		// The physical size is the node's height rounded up
 		// to the next power of two. 
-		integer physicalSize = roundUpToPowerOf2(linkSet.size());
+		integer physicalSize = roundUpToPowerOfTwo(linkSet.size());
 
 		// The `allocatedSet_[i]` stores link-sets of size 2^i.
 		integer i = integerLog2(physicalSize);

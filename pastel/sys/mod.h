@@ -5,23 +5,48 @@
 #define PASTELSYS_MOD_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/integer_concept.h"
+
+#include <type_traits>
 
 namespace Pastel
 {
 
-	//! Computes the [remainder].
+	//! Returns x mod 2^n for signed integers.
+	/*!
+	Preconditions:
+	n >= 0
+
+	Here's what mod 2^2 computes:
+	-6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6
+	 2  3  0  1  2  3 0 1 2 3 0 1 2
+	*/
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
+		modPowerOfTwo(const Integer& x, integer n);
+
+	//! Returns x mod 2^n for unsigned integers.
+	/*!
+	Preconditions:
+	n >= 0
+
+	See the documentation for the signed version.
+	*/
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
+		modPowerOfTwo(const Integer& x, integer n);
+
+	//! Returns x mod n.
 	/*!
 	Preconditions:
 	n > 0
-	Postconditions:
-	0 <= x < n
 
-	Returns:
-	x mod n
-
-	mod(-1, n) = n - 1, and so on
+	Here's what mod 3 computes:
+	-6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6
+	 0  1  2  0  1  2 0 1 2 0 1 2 0
 	*/
-	integer mod(integer x, integer n);
+	template <typename Integer>
+	Integer mod(const Integer& x, const Integer& n);
 
 	//! Returns x mod 1.
 	/*!
@@ -29,21 +54,23 @@ namespace Pastel
 	0 <= x < 1
 
 	Returns:
-	x - floor(x)
+	x - std::floor(x)
 	*/
-	real mod(real x);
+	template <typename Real>
+	PASTEL_ENABLE_IF(std::is_floating_point<Real>, Real)
+		mod(const Real& x);
 
 	//! Returns x mod n.
 	/*!
 	Preconditions:
 	n > 0
-	Postconditions:
-	0 <= x < n
 
 	This is a convenience function that calls
 	mod(x / n) * n
 	*/
-	real mod(real x, real n);
+	template <typename Real>
+	PASTEL_ENABLE_IF(std::is_floating_point<Real>, Real)
+		mod(const Real& x, const Real& n);
 
 }
 

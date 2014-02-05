@@ -3,42 +3,92 @@
 
 #include "pastel/sys/mod.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/twos_complement.h"
+#include "pastel/sys/bitmask.h"
 
 #include <cmath>
 
 namespace Pastel
 {
 
-	inline integer mod(integer x, integer n)
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
+		modPowerOfTwo(const Integer& x, integer n)
 	{
-		PENSURE_OP(n, >, 0);
+		PENSURE(!negative(n));
 
-		const bool isNegative = x < 0;
+		// This is the portable way to do this.
+		// In contrast, the bit-representation of signed
+		// integers is implementation-defined.
 
-		if (isNegative)
+		using Unsigned = std::make_unsigned<Integer>::type;
+
+		Unsigned X = signedToTwosComplement(x);
+		Unsigned Mask = bitMask<Unsigned>(n);
+
+		if (!negative(x))
 		{
-			x = -x;
+			return twosComplementToSigned(X & Mask);
 		}
 
-		const integer periodicIndex = x % n;
-		if (isNegative && periodicIndex != 0)
+		// Compute mod(|x|, 2^n).
+		// Note that, by the C++ standard, -X is the two's 
+		// complement for an unsigned integer.
+		Unsigned absMod = (-X) & Mask;
+		if (zero(absMod))
 		{
-			return n - periodicIndex;
+			return 0;
 		}
 
-		return periodicIndex;
+		// Compute mod(x, n) = 2^n - mod(|x|, 2^n)
+		return twosComplementToSigned((Mask - absMod) + 1);
 	}
 
-	inline real mod(real x)
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
+		modPowerOfTwo(const Integer& x, integer n)
+	{
+		return x & bitMask<Integer>(n);
+	}
+
+	template <typename Integer>
+	Integer mod(const Integer& x, const Integer& n)
+	{
+		PENSURE(positive(n));
+
+		if (!negative(x))
+		{
+			// Since both numbers are non-negative,
+			// the % already does what we want.
+			return x % n;
+		}
+
+		// Compute mod(|x|, n).
+		Integer absMod = (-x) % n;
+		if (zero(absMod))
+		{
+			return 0;
+		}
+
+		// Compute mod(x, n) = n - mod(|x|, n)
+		return n - absMod;
+	}
+
+	template <typename Real>
+	PASTEL_ENABLE_IF(std::is_floating_point<Real>, Real)
+		mod(const Real& x)
 	{
 		return x - std::floor(x);
 	}
 
-	inline real mod(real x, real n)
+	template <typename Real>
+	PASTEL_ENABLE_IF(std::is_floating_point<Real>, Real)
+		mod(const Real& x, const Real& n)
 	{
 		PENSURE_OP(n, >, 0);
 		return Pastel::mod(x / n) * n;
 	}
+
 }
 
 #endif
