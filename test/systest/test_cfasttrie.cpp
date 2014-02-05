@@ -34,7 +34,6 @@ namespace
 			Set a;
 
 			{
-				/*				
 				a.insert(1);
 				a.insert(9);
 				a.insert(5);
@@ -45,7 +44,6 @@ namespace
 				a.insert(8);
 				a.insert(2);
 				a.insert(0);
-				*/
 
 				integer correctSet[] = 
 				{

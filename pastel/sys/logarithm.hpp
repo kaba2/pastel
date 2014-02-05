@@ -42,7 +42,7 @@ namespace Pastel
 	template <typename Finite_Integer>
 	integer integerLog2(const Finite_Integer& that)
 	{
-		ENSURE_OP(that, >, 0);
+		ENSURE(positive(that));
 
 		auto zeroShift = [&](integer level)
 		{

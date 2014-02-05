@@ -98,6 +98,10 @@ namespace Pastel
 		/*!
 		Time complexity: O(N)
 		Exception safety: strong
+
+		If y...y is the range of bits
+		in [beginBit, endBit), then
+		x...xy...yz...z ==> 0...0y...y0...0
 		*/
 		Integer(const Integer& that, 
 			integer beginBit, integer endBit)
