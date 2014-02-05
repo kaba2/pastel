@@ -6,6 +6,7 @@
 #include "pastel/sys/cfasttrie.h"
 #include "pastel/sys/logarithm.h"
 #include "pastel/sys/leading_zero_bits.h"
+#include "pastel/sys/leading_one_bits.h"
 
 #include <unordered_map>
 #include <array>
@@ -17,22 +18,16 @@ namespace Pastel
 	namespace CFastTrie_
 	{
 
-		template <typename Integer>
-		integer chainHeight(const Integer& that)
-		{
-			return even(that) ? 
-				leadingZeroBits() :
-				leadingOneBits();
-		}
-
 		template <
 			typename Key,
 			typename Iterator>
 		class Chain
 		{
 		public:
-			explicit Chain(Iterator element)
-			: height_(chainHeight(element->key()))
+			explicit Chain(
+				Iterator element,
+				integer height)
+			: height_(height)
 			, split_(0)
 			, element_(element)
 			{
@@ -68,6 +63,9 @@ namespace Pastel
 			the chain just above this chain needs to be 
 			set. By storing the height we save some time
 			when searching for the lowest ancestors.
+			
+			The number zero denotes an infinite height,
+			which is only possible for the 0-chain.
 			*/
 			integer height_;
 

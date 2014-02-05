@@ -92,6 +92,11 @@ namespace Pastel
 				return key_;
 			}
 
+			const Key& cKey() const
+			{
+				return key_;
+			}
+
 			Value_Class& value() const
 			{
 				return (Value_Class&)*this;
@@ -182,17 +187,10 @@ namespace Pastel
 		{
 			if (empty())
 			{
-				dataSet_.emplace_back(
-					chainSet_.end(),
-					key, std::move(value));
-				
-				Iterator element = std::prev(dataSet_.end());
-				
-				Chain_Iterator chain = 
-					chainSet_.emplace(Key(0), element).first;
-				element->chain_ = chain;
-
-				return element;
+				return reallyInsert(
+					dataSet_.cend(),
+					key, 0, 0,
+					std::move(value));
 			}
 			
 			Iterator right = upperBound(key);
@@ -217,18 +215,14 @@ namespace Pastel
 				++right;
 			}
 
-			integer j = lowestAncestor(key);
-			Key w = turn(key >> j, j);
-			return chainSet_.emplace(w, key).first->second.element();
-		}
+			integer height = lowestAncestor(key);
+			Key physicalKey = turn(key, height);
 
-		Key turn(const Key& key, integer level) const
-		{
-			if (key[level])
-			{
-				return key & bitMask<Key>(level, bits());
-			}
-			return key | bitMask<Key>(level);
+			return reallyInsert(
+				left, key, 
+				physicalKey, 
+				height,
+				std::move(value));
 		}
 
 		//! Returns an element with a given key.
@@ -350,7 +344,7 @@ namespace Pastel
 
 		Iterator upperBound(const Key& key)
 		{
-			return cast(removeConst(*this).upperBound(key));
+			return cast(addConst(*this).upperBound(key));
 		}
 
 		ConstIterator upper_bound(const Key& key) const
@@ -722,6 +716,48 @@ namespace Pastel
 		{
 			Key result = replicate(key, level);
 			return odd(result) ? result : flipLeadingOneBits(result);
+		}
+
+		Key turn(const Key& key, integer level) const
+		{
+			if (key[level])
+			{
+				return key & bitMask<Key>(level, bits());
+			}
+			return key | bitMask<Key>(level);
+		}
+
+		template <typename Finite_Integer>
+		integer chainHeight(const Finite_Integer& that)
+		{
+			return even(that) ?
+				leadingZeroBits(that) :
+				leadingOneBits(that);
+		}
+
+		Iterator reallyInsert(
+			const ConstIterator& before,
+			const Key& key,
+			const Key& physicalKey,
+			integer height,
+			Value_Class&& value)
+		{
+			ASSERT_OP(height, >= , 0);
+
+			Iterator element =
+				dataSet_.emplace(
+				before,
+				chainSet_.end(),
+				key, std::move(value));
+
+			Chain_Iterator chain =
+				chainSet_.insert(
+				std::make_pair(physicalKey,
+				Chain(element, height))).first;
+
+			element->chain_ = chain;
+
+			return element;
 		}
 
 		//! Replicates the bit at index 'level' to lower bits.

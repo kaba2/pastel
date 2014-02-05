@@ -278,7 +278,7 @@ namespace Pastel
 
 	//! Casts a const-reference to a reference.
 	template <typename Type>
-	const Type& removeConst(Type& that);
+	Type& removeConst(const Type& that);
 
 	//! Returns the number of bits a type takes.
 	/*!
