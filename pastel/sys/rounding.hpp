@@ -50,22 +50,34 @@ namespace Pastel
 		return Pastel::roundUpToEven((integer)std::ceil(that));
 	}
 
-	inline integer roundUpToPowerOfTwo(integer that)
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
+		roundUpToPowerOfTwo(const Integer& that)
 	{
-		PENSURE_OP(that, >=, 0);
+		PENSURE(!negative(that));
 
-		if (that == 0)
+		if (zero(that))
 		{
 			return 1;
 		}
 
-		--that;
-		for (integer i = 1; i < sizeInBits<integer>();i <<= 1)
+		using Unsigned = std::make_unsigned<Integer>::type;
+
+		Unsigned X = signedToTwosComplement(that);
+		return twosComplementToSigned(roundUpToPowerOfTwo(X));
+	}
+
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
+		roundUpToPowerOfTwo(const Integer& that)
+	{
+		Integer X = that - 1;
+		for (integer i = 1; i < sizeInBits<Integer>();i <<= 1)
 		{
-			that |= that >> i;
+			X |= X >> i;
 		}
 
-		return that + 1;
+		return X + 1;
 	}
 
 	template <typename Integer>
