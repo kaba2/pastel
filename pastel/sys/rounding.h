@@ -5,6 +5,7 @@
 #define PASTELSYS_ROUNDING_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/integer_concept.h"
 
 #include <type_traits>
 
@@ -16,54 +17,85 @@ namespace Pastel
 	Preconditions:
 	!negative(to)
 
-	Time complexity: constant
+	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
 	template <typename Integer>
 	Integer roundUpTo(
 		const Integer& that, const Integer& to);
 
-	//! Rounds up 'that' to the next odd number.
+	//! Rounds up to the next odd number.
 	/*!
-	Time complexity: constant
+	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
 	template <typename Integer>
 	Integer roundUpToOdd(const Integer& that);
 	
+	//! Rounds up to the next odd number.
+	/*!
+	Preconditions:
+	Real is a native floating point type.
+
+	Time complexity: O(1)
+	Exception safety: nothrow
+	*/
 	template <typename Real>
 	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
 		roundUpToOdd(const Real& that);
 
-	//! Rounds up 'that' to the next even number.
+	//! Rounds up to the next even number.
 	/*!
-	Time complexity: constant
+	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
 	template <typename Integer>
 	Integer roundUpToEven(const Integer& that);
 
+	//! Rounds up to the next even number.
+	/*!
+	Preconditions:
+	Real is a native floating point type.
+
+	Time complexity: O(1)
+	Exception safety: nothrow
+	*/
 	template <typename Real>
 	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
 		roundUpToEven(const Real& that);
 
-	//! Rounds up 'that' to the next power of 2.
+	//! Rounds up to the next power of 2 (signed integers).
 	/*!
 	Preconditions:
 	that >= 0
-	sizeof(integer) <= 8
+	Integer is a signed native integer.
 
-	Time complexity: constant
+	Time complexity: O(log(sizeInBits<Integer>()) + 1)
 	Exception safety: nothrow
 	*/
-	integer roundUpToPowerOfTwo(integer that);
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
+		roundUpToPowerOfTwo(const Integer& that);
+
+	//! Rounds up to the next power of 2 (unsigned integers).
+	/*!
+	Preconditions:
+	that >= 0
+	Integer is an unsigned native integer.
+
+	Time complexity: O(log(sizeInBits<Integer>()) + 1)
+	Exception safety: nothrow
+	*/
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
+		roundUpToPowerOfTwo(const Integer& that);
 
 	//! Rounds up 'that' to the next multiple of power of 2.
 	/*!
 	Preconditions:
 	!negative(power)
 
-	Time complexity: constant
+	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
 	template <typename Integer>
@@ -72,6 +104,10 @@ namespace Pastel
 		integer power);
 
 	//! Returns ceil(divide / byThis).
+	/*!
+	Time complexity: O(1)
+	Exception safety: nothrow
+	*/
 	template <typename Integer>
 	Integer divideAndRoundUp(
 		const Integer& divide, 
