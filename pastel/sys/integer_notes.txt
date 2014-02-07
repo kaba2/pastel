@@ -1,0 +1,22 @@
+Integer design notes
+====================
+
+[[Parent]]: integer.txt
+
+* This class simulate a two's complement signed integer 
+by using multiple unsigned native integers; this is portable.
+
+* The reason we require `Word` to be an unsigned
+native integer is that the bit-representation of signed 
+integers is not fixed by the C++ standard; it could be
+ones' complement, two's complement, or sign-magnitude, or
+whatever. 
+
+* By the C++ standard, all arithmetic on unsigned integers
+is modulo ''2^n'', where ''n'' is the number of bits in the integer.
+
+* For example, `(Word)-1` has all bits set to one,
+and ''-x'' is such that ''x + (-x) = 0'' (it's the two's complement
+negation). 
+
+

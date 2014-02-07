@@ -48,10 +48,10 @@ namespace Pastel
 		};
 		PASTEL_STATIC_ASSERT(Bits > 0);
 
-		using Key = Integer<Bits>;
+		using Key = Unsigned_Integer<Bits>;
 		using Value = typename Settings::Value;
 		using Value_Class = Class<Value>;
-		using Key_Hash = Integer_Hash<Bits>;
+		using Key_Hash = Integer_Hash<typename Key::Settings>;
 
 		class Element;
 		using DataSet = std::list<Element>;
@@ -720,7 +720,7 @@ namespace Pastel
 
 		Key turn(const Key& key, integer level) const
 		{
-			if (key[level])
+			if (key.bit(level))
 			{
 				return key & bitMask<Key>(level, bits());
 			}
@@ -771,7 +771,7 @@ namespace Pastel
 			ASSERT_OP(level, <, bits());
 
 			Key result(key, beginBit_, endBit_); 
-			if (result[level])
+			if (result.bit(level))
 			{
 				// The bit at level 'level' is 1.
 				// Make all lower bits 1.
@@ -858,17 +858,6 @@ namespace Pastel
 
 			return element;
 		}
-
-		bool odd(const Key& key) const
-		{
-			return key[0];
-		}
-
-		bool even(const Key& key) const
-		{
-			return !odd(key);
-		}
-
 
 		//! The bits to use in a key.
 		/*!
