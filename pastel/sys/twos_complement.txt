@@ -1,0 +1,49 @@
+Two's complement
+================
+
+[[Parent]]: bit_tricks.txt
+
+The _two's complement_ is a bit-representation of signed integers.
+Let ''p = (b_{n - 1}, ..., b_0)'' consists of ''n'' bits. If the highest 
+bit is zero, then the value of ''p'' is given by interpreting the bits 
+as the base-2 representation of ''p''. If the highest bit is one, then 
+the value of ''p'' is given by the negative of the interpretation of 
+''~p + 1'', where ''~'' is the binary not operator. 
+
+Signed integers
+---------------
+
+The bit-representation of signed integers in C++ is not specified.
+Some bit-representations include ones' complement, two's complement,
+and sign-magnitude. Therefore, bit-operations on the signed integers
+are implementation-defined, and present a common pit-fall. In this
+section we implement bit-operations that work portably as if the 
+signed integers were stored in two's complement form. One such 
+motivation is that this is required to portably implement a multi-word
+integer in two's complement form.
+
+C++ Standard
+------------
+
+The portability is achieve by the following parts from the C++ standard:
+
+	The range of nonnegative values of a signed integer 
+	type is a subrange of the corresponding unsigned 
+	integer type, and the value representation of each 
+	corresponding signed/unsigned type shall be the same.
+
+Therefore, if we have a non-negative signed integer, then we may
+obtain its two's complement form by casting it to its corresponding
+unsigned integer type. If we have a negative signed integer, then
+we may obtain its two's complement form by casting its negative
+to its corresponding unsigned integer type, and then taking the
+two's complement of that.
+
+	Unsigned integers, declared unsigned, shall obey the 
+	laws of arithmetic modulo 2^n where n is the number of 
+	bits in the value representation of that particular 
+	size of integer.
+
+Therefore, arithmetic on unsigned integers correspond to
+arithmetic with signed integers on the two's complement form.
+For example, the negation is the two's complement.

@@ -1,4 +1,4 @@
-// Description: A fixed-size integer.
+// Description: A fixed-size integer in twos complement form.
 
 #ifndef PASTELSYS_INTEGER_H
 #define PASTELSYS_INTEGER_H
@@ -6,6 +6,9 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hashing.h"
 #include "pastel/sys/bitmask.h"
+#include "pastel/sys/rounding.h"
+#include "pastel/sys/set_bits.h"
+#include "pastel/sys/integer_concepts.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -26,7 +29,7 @@
 		{ \
 			wordSet_[i] op that.wordSet_[i]; \
 		} \
-		clearLast(); \
+		signExtend(); \
 	\
 		return *this; \
 	}
@@ -34,41 +37,52 @@
 namespace Pastel
 {
 
-	// A fixed-size integer.
-	/*!
-	N:
-	The minimum number of bits that the bit-set has to contain.
-	*/
-	template <int N, typename Word_ = uinteger>
+	//! A fixed-size integer in two's complement form.
+	template <typename Integer_Settings>
 	class Integer
-	: boost::bitwise<Integer<N, Word_>
-	, boost::additive<Integer<N, Word_>
-	, boost::unit_steppable<Integer<N, Word_>
-	, boost::shiftable2<Integer<N, Word_>, integer
-	, boost::totally_ordered<Integer<N, Word_>
+	: boost::bitwise<Integer<Integer_Settings>
+	, boost::additive<Integer<Integer_Settings>
+	, boost::unit_steppable<Integer<Integer_Settings>
+	, boost::shiftable2<Integer<Integer_Settings>, integer
+	, boost::totally_ordered<Integer<Integer_Settings>
 	> > > > >
 	{
 	public:
-		using Word = Word_;
+		using Settings = Integer_Settings;
 
+		enum { N = Settings::N };
+		enum { Signed = Settings::Signed };
+		using Word = typename Settings::Word;
+
+		// The number of bits has to be non-negative.
 		PASTEL_STATIC_ASSERT(N >= 0);
-		// The underlying has to be unsigned to guarantee
-		// the portability of bitwise operations.
-		PASTEL_STATIC_ASSERT(std::is_unsigned<Word_>::value);
-		PASTEL_STATIC_ASSERT(sizeof(Word) <= sizeof(uint64));
 
-		// FIX: Change to sizeInBits<Word>() after
-		// constexpr becomes available in Visual Studio.
-		static const integer BitsInWord = 
-			sizeof(Word) * CHAR_BIT;
-		static const Word WordMask = -1;
+		// The Word has to be unsigned to guarantee
+		// the portability of bitwise operations.
+		PASTEL_STATIC_ASSERT(std::is_unsigned<Word>::value);
+
+		/* 
+		FIX: Change to sizeInBits<Word>() after
+		constexpr becomes available in Visual Studio.
+		*/
+		enum {BitsInWord = sizeof(Word) * CHAR_BIT};
+
 		// Compute ceil(N / BitsInWord).
+		/*
+		FIX: Change to divideAndRoundUp() after 
+		constexpr becomes available in Visual Studio.
+		*/
 		static const integer Words = 
 			(N + BitsInWord - 1) / BitsInWord;
+
+		// The number of physical bits.
 		static const integer TotalBits = 
 			Words * BitsInWord;
+
+		// The number of bits in the last word.
 		static const integer BitsInLastWord = 
 			N % BitsInWord;
+
 		static const Word LastWordMask = 
 			((Word)1 << BitsInLastWord) - 1;
 
@@ -78,20 +92,53 @@ namespace Pastel
 		using Word_Range = boost::iterator_range<Word_Iterator>;
 		using Word_ConstRange = boost::iterator_range<Word_ConstIterator>;
 
-		//! Constructs an integer from 'that'.
+		//! Constructs a zero integer.
 		/*!
 		Time complexity: O(N)
 		Exception safety: strong
 		*/
-		Integer(uint64 that = 0)
+		Integer()
+			: wordSet_()
+		{
+		}
+
+		//! Constructs from an unsigned native integer.
+		/*!
+		Time complexity: O(N)
+		Exception safety: strong
+
+		The assigned value is mod(that, 2^N).
+		*/
+		template <typename That_Integer>
+		Integer(That_Integer that,
+			PASTEL_ENABLE_IF_P(std::is_unsigned<That_Integer>))
 		: wordSet_()
 		{
-			for (integer i = 0;i < Words && that != 0;++i)
+			for (integer i = 0;i < Words;++i)
 			{
-				wordSet_[i] = that & WordMask;
-				that >>= BitsInWord;
+				// The C++ standard guarantees that the
+				// assignment is module 2^N; therefore this
+				// automatically extracts the lowest N bits.
+				wordSet_[i] = that;
+
+				// By using the arithmetic right-shift we 
+				// automatically sign-extend 'that'.
+				that = arihmeticShiftRight(that, BitsInWord);
 			}
-			clearLast();
+		}
+
+		//! Constructs from a signed native integer.
+		/*!
+		Time complexity: O(N)
+		Exception safety: strong
+
+		The assigned value is mod(signedToTwosComplement(that), 2^N).
+		*/
+		template <typename That_Integer>
+		Integer(That_Integer that,
+			PASTEL_ENABLE_IF_P(std::is_signed<That_Integer>))
+			: Integer(signedToTwosComplement(that))
+		{
 		}
 
 		//! Copy-constructs only a range of bits.
@@ -174,6 +221,32 @@ namespace Pastel
 
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Word_, word, wordBegin(), wordEnd());
 
+		//! Returns the i:th word of the integer.
+		/*!
+		Preconditions:
+		0 <= i < words()
+		*/
+		const Word& word(integer i) const
+		{
+			PENSURE_OP(i, >=, 0);
+			PENSURE_OP(i, <, words());
+
+			return wordSet_[i];
+		}
+
+		//! Returns the number of words.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		The number of words is given by
+		divideAndRoundUp(N, sizeInBits<Word>()).
+		*/
+		integer words() const
+		{
+			return Words;
+		}
+
 		//! Swaps two integers.
 		/*!
 		Time complexity: O(N)
@@ -184,50 +257,12 @@ namespace Pastel
 			wordSet_.swap(that.wordSet_);
 		}
 
-		//! Returns the i:th bit.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		bool operator[](integer i) const
-		{
-			return test(i);
-		}
-
-		//! Returns whether at least one bit is set.
-		/*!
-		Time complexity: O(N)
-		Exception safety: nothrow
-		*/
-		bool any() const
-		{
-			for (integer i = 0;i < Words;++i)
-			{
-				if (wordSet_[i] != 0)
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		//! Returns whether no bit is set.
-		/*!
-		Time complexity: O(N)
-		Exception safety: nothrow
-		*/
-		bool none() const
-		{
-			return !any();
-		}
-
 		//! Returns the number of 1-bits.
 		/*!
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		integer count() const
+		integer oneBits() const
 		{
 			// Number of bits in the first 16 numbers.
 			integer bitCountSet[] =
@@ -261,14 +296,12 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& flip()
+		Integer& flipBits()
 		{
-			for (integer i = 0;i < Words;++i)
+			for (Word& word : wordSet_)
 			{
-				wordSet_[i] = ~wordSet_[i];
+				word = ~word;
 			}
-			clearLast();
-
 			return *this;
 		}
 
@@ -277,10 +310,10 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Integer& flip(integer i)
+		Integer& flipBit(integer i)
 		{
 			PENSURE_OP(i, >=, 0);
-			PENSURE_OP(i, <, size());
+			PENSURE_OP(i, <, bits());
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
@@ -295,10 +328,80 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& set()
+		Integer& setBits()
 		{
 			boost::fill(wordSet_, (Word)-1);
-			clearLast();
+			return *this;
+		}
+
+		//! Sets the bits at range [begin, end) to the given value.
+		/*!
+		Preconditions:
+		0 <= begin <= end <= bits()
+
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Integer& setBits(
+			integer begin, integer end,
+			bool value = true)
+		{
+			PENSURE_OP(begin, >=, 0);
+			PENSURE_OP(begin, <=, end);
+			PENSURE_OP(end, <=, bits());
+
+			if (begin == end)
+			{
+				return *this;
+			}
+
+			// Set the bits in the first word.
+			{
+				integer firstWord = begin / BitsInWord;
+				integer localBegin = begin - firstWord * BitsInWord;
+				integer localEnd = end - firstWord * BitsInWord;
+				
+				integer cappedEnd = std::min((integer)BitsInWord, localEnd);
+				bool happensInSingleWord = (localEnd <= BitsInWord);
+
+				if (happensInSingleWord || localBegin > 0)
+				{
+					wordSet_[firstWord] = Pastel::setBits(
+						wordSet_[firstWord], localBegin, cappedEnd, value);
+				}
+
+				if (happensInSingleWord)
+				{
+					return *this;
+				}
+			}
+
+			// Set the words that are fully contained
+			// in the bit-range.
+			integer beginFullWord =
+				divideAndRoundUp(begin, (integer)BitsInWord);
+			integer endFullWord =
+				end / BitsInWord;
+
+			Word wordValue = value ? (Word)-1 : (Word)0;
+			std::fill(
+				wordSet_.begin() + beginFullWord,
+				wordSet_.begin() + endFullWord,
+				wordValue);
+
+			// Set the bits in the last word.
+			{
+				integer last = end - 1;
+				integer lastWord = last / BitsInWord;
+				integer localLast = last - lastWord * BitsInWord;
+
+				if (localLast < BitsInWord)
+				{		
+					wordSet_[lastWord] = Pastel::setBits(
+						wordSet_[lastWord], 0, localLast + 1, value);
+				}
+			}
+
 			return *this;
 		}
 
@@ -307,14 +410,14 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Integer& set(integer i)
+		Integer& setBit(integer i)
 		{
-			PENSURE_OP(i, >=, 0);
-			PENSURE_OP(i, <, size());
+			PENSURE_OP(i, >= , 0);
+			PENSURE_OP(i, <, bits());
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
-			
+
 			wordSet_[word] |= singleBitMask<Word>(bit);
 
 			return *this;
@@ -325,18 +428,18 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Integer& set(integer i, bool value)
+		Integer& setBit(integer i, bool value)
 		{
-			PENSURE_OP(i, >=, 0);
-			PENSURE_OP(i, <, size());
+			PENSURE_OP(i, >= , 0);
+			PENSURE_OP(i, <, bits());
 
 			if (value)
 			{
-				set(i);
+				setBit(i);
 			}
 			else
 			{
-				reset(i);
+				clearBit(i);
 			}
 
 			return *this;
@@ -347,10 +450,21 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& reset()
+		Integer& clearBits()
 		{
 			boost::fill(wordSet_, (Word)0);
 			return *this;
+		}
+
+		//! Sets the bits at range [begin, end) to 0.
+		/*!
+		This is a convenience function which calls
+		setBits(begin, end, false).
+		*/
+		Integer& clearBits(
+			integer begin, integer end)
+		{
+			return setBits(begin, end, false);
 		}
 
 		//! Sets the i:th bit to value 0.
@@ -358,10 +472,10 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Integer& reset(integer i)
+		Integer& clearBit(integer i)
 		{
 			PENSURE_OP(i, >=, 0);
-			PENSURE_OP(i, <, size());
+			PENSURE_OP(i, <, bits());
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
@@ -379,35 +493,12 @@ namespace Pastel
 		bool bit(integer i) const
 		{
 			PENSURE_OP(i, >=, 0);
-			PENSURE_OP(i, <, size());
+			PENSURE_OP(i, <, bits());
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;
 
 			return (wordSet_[word] & singleBitMask<Word>(bit)) != 0;
-		}
-
-		//! Returns the i:th bit.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		bool test(integer i) const
-		{
-			return bit(i);
-		}
-
-		//! Returns the number of words.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-
-		The number of words is given by
-		ceil(N / bits-in-Word)
-		*/
-		integer words() const
-		{
-			return Words;
 		}
 
 		//! Returns the number of bits.
@@ -420,31 +511,67 @@ namespace Pastel
 			return N;
 		}
 
-		//! Returns the number of bits.
+		//! Returns the last bit.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 
-		returns:
-		bits()
+		For signed integers the last bit corresponds
+		to whether the integer is negative (1) or 
+		non-negative (0).
 		*/
-		integer size() const
+		bool lastBit() const
 		{
-			return bits();
+			return bit(N - 1);
 		}
 
 		//! Returns whether this is smaller than 'that'.
 		/*!
 		Time complexity: O(N)
 		Exception safety: nothrow
-
-		The comparison is done by interpreting the bit-set
-		as a binary integer.
 		*/
 		bool operator<(const Integer& that) const
 		{
-			return boost::lexicographical_compare(
-				wordSet_, that.wordSet_);
+			bool sign = lastBit();
+
+			if (Signed && sign != that.lastBit())
+			{
+				// The numbers differs in sign. If this
+				// is negative, then 'that' is non-negative,
+				// and therefore this < that.
+				return sign;
+			}
+
+			if (!Signed || !sign)
+			{
+				// For non-negative values, we do lexicographical
+				// compare for the words with < starting from 
+				// the back.
+				for (integer i = Words - 1; i >= 0; --i)
+				{
+					if (wordSet_[i] != that.wordSet_[i])
+					{
+						return wordSet_[i] < that.wordSet_[i];
+					}
+				}
+			}
+			else
+			{
+				// For negative values, we do lexicographical
+				// compare for the words with > starting from 
+				// the back.
+				for (integer i = Words - 1; i >= 0; --i)
+				{
+					if (wordSet_[i] != that.wordSet_[i])
+					{
+						return wordSet_[i] > that.wordSet_[i];
+					}
+				}
+			}
+
+			// All words are equal. Therefore this is not less
+			// than 'that'.
+			return false;
 		}
 
 		//! Returns whether this is equal to 'that'.
@@ -471,7 +598,7 @@ namespace Pastel
 				wordSet_[i] += that.wordSet_[i] + carry;
 				carry = (wordSet_[i] < before) ? 1 : 0;
 			}
-			clearLast();
+			signExtend();
 
 			return *this;
 		}
@@ -490,7 +617,7 @@ namespace Pastel
 				wordSet_[i] -= that.wordSet_[i] + borrow;
 				borrow = (wordSet_[i] > before) ? 1 : 0;
 			}
-			clearLast();
+			signExtend();
 
 			return *this;
 		}
@@ -510,7 +637,7 @@ namespace Pastel
 					break;
 				}
 			}
-			clearLast();
+			signExtend();
 
 			return *this;
 		}
@@ -530,29 +657,52 @@ namespace Pastel
 					break;
 				}
 			}
-			clearLast();
+			signExtend();
 
 			return *this;
 		}
 
-		//! Returns the binary not of the element.
+		//! Returns the binary not of the integer.
 		/*!
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
 		Integer operator~() const
 		{
-			return Integer(*this).flip();
+			return Integer(*this).flipBits();
 		}
 
-		//! Returns the negation of the element.
+		//! Computes the negation of the integer.
 		/*!
 		Time complexity: O(N)
 		Exception safety: nothrow
+
+		This is an integer y such that x + y = 0. Since the
+		integer is in two's complement form, the negation is 
+		computed by the two's complement. The two's complement 
+		form implies a single exceptional case, the (10...0b) 
+		whose negation is itself, so that for this case it does
+		not hold that the negation changes sign.
+		*/
+		Integer& negate()
+		{
+			for (auto& word : wordSet_)
+			{
+				// For an unsigned integer, the negation
+				// computes the two's complement.
+				word = -word;
+			}
+
+			return *this;
+		}
+
+		//! Returns the negation of the integer.
+		/*!
+		See the documentation for negate().
 		*/
 		Integer operator-() const
 		{
-			return ~(*this) + 1;
+			return Integer(*this).negate();
 		}
 
 		//! Shifts the bits to the left.
@@ -566,7 +716,7 @@ namespace Pastel
 
 			if (amount >= N)
 			{
-				return reset();
+				return clearBits();
 			}
 
 			integer wordsToShift = amount / BitsInWord;
@@ -580,7 +730,7 @@ namespace Pastel
 			}
 			wordSet_[wordsToShift] = 
 				(wordSet_[0] << bitsToShift);
-			clearLast();
+			signExtend();
 
 			// Pad with zero-words from the right.
 			std::fill(
@@ -602,7 +752,7 @@ namespace Pastel
 
 			if (amount >= N)
 			{
-				return reset();
+				return clearBits();
 			}
 
 			integer wordsToShift = amount / BitsInWord;
@@ -721,16 +871,40 @@ namespace Pastel
 		PASTEL_INTEGER_ASSIGN_OPERATOR(&=);
 
 	private:
-		void clearLast()
+		void signExtend()
 		{
 			if (BitsInLastWord > 0)
 			{
-				wordSet_.back() &= LastWordMask;
+				if (Signed && lastBit())
+				{
+					// Negative. Set the higher bits.
+					wordSet_.back() |= (~LastWordMask);
+				}
+				else
+				{
+					// Non-negative. Zero the higher bits.
+					wordSet_.back() &= LastWordMask;
+				}
 			}
 		}
 
 		WordSet wordSet_;
 	};
+
+	template <int N_, typename Word_, bool Signed_>
+	class Integer_Settings
+	{
+	public:
+		enum { N = N_ };
+		using Word = Word_;
+		enum { Signed = Signed_ };
+	};
+
+	template <int N, typename Word = uinteger>
+	using Signed_Integer = Integer<Integer_Settings<N, Word, true>>;
+
+	template <int N, typename Word = uinteger>
+	using Unsigned_Integer = Integer<Integer_Settings<N, Word, false>>;
 
 }
 
@@ -739,52 +913,94 @@ namespace Pastel
 
 	// Fixed integer
 
-	template <int N, typename Word>
-	integer bits(const Integer<N, Word>& that)
+	//! Returns the number of bits in 'that'.
+	/*!
+	Time complexity: O(1)
+	Exception safety: nothrow
+	*/
+	template <typename Integer_Settings>
+	integer bits(const Integer<Integer_Settings>& that)
 	{
-		return that.bits();
+		return Integer_Settings::N;
 	}
 
 	// Integer
 
-	template <int N, typename Word>
-	bool odd(const Integer<N, Word>& that)
+	//! Returns whether 'that' is odd.
+	/*!
+	Time complexity: O(1)
+	Exception safety: nothrow
+	*/
+	template <typename Integer_Settings>
+	bool odd(const Integer<Integer_Settings>& that)
 	{
-		return that[0];
+		return that.bit(0);
 	}
 
-	template <int N, typename Word>
-	bool even(const Integer<N, Word>& that)
+	//! Returns whether 'that' is even.
+	/*!
+	Time complexity: O(1)
+	Exception safety: nothrow
+	*/
+	template <typename Integer_Settings>
+	bool even(const Integer<Integer_Settings>& that)
 	{
 		return !odd(that);
 	}
 
 	// Ordered additive monoid
 
-	template <int N, typename Word>
-	Integer<N, Word> abs(const Integer<N, Word>& that)
+	//! Returns the absolute value of 'that'.
+	/*!
+	Time complexity: O(N)
+	Exception safety: nothrow
+	*/
+	template <typename Integer_Settings>
+	Integer<Integer_Settings> abs(
+		const Integer<Integer_Settings>& that)
 	{
-		return positive(that) ? that : -that;
+		return (!Integer_Settings::Signed || positive(that)) ? that : -that;
 	}
 
-	template <int N, typename Word>
-	bool negative(const Integer<N, Word>& that)
+	//! Returns whether 'that' is negative.
+	/*!
+	Time complexity: O(1)
+	Exception safety: nothrow
+	*/
+	template <typename Integer_Settings>
+	bool negative(const Integer<Integer_Settings>& that)
 	{
-		return that < 0;
+		// Since the integer is in two's complement
+		// form, we may look at the last word.
+		return Integer_Settings::Signed &&
+			twosComplementToSigned(that.word(that.words() - 1)) < 0;
 	}
 
-	template <int N, typename Word>
-	bool positive(const Integer<N, Word>& that)
+	//! Returns whether 'that' is positive.
+	/*!
+	Time complexity: O(N)
+	Exception safety: nothrow
+	*/
+	template <typename Integer_Settings>
+	bool positive(const Integer<Integer_Settings>& that)
 	{
-		return that > 0;
+		return !negative(that) && !zero(that);
 	}
 
 	// Additive monoid
 
-	template <int N, typename Word>
-	bool zero(const Integer<N, Word>& that)
+	//! Returns whether 'that' is zero.
+	/*!
+	Time complexity: O(N)
+	Exception safety: nothrow
+	*/
+	template <typename Integer_Settings>
+	bool zero(const Integer<Integer_Settings>& that)
 	{
-		return that == 0;
+		using Word = typename Integer_Settings::Word;
+		return std::all_of(
+			that.cwordBegin(), that.cwordEnd(),
+			[](const Word& word) {return word == 0;});
 	}
 
 }
@@ -792,10 +1008,15 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Word = uinteger>
+	template <typename Integer_Settings>
 	struct Integer_Hash
 	{
 	public:
+		enum
+		{
+			N = Integer_Settings::N
+		};
+
 		explicit Integer_Hash(integer beginBit = 0, integer endBit = N)
 		: beginBit_(beginBit)
 		, endBit_(endBit)
@@ -806,7 +1027,7 @@ namespace Pastel
 		}
 
 		hash_integer operator()(
-			const Integer<N, Word>& that) const
+			const Integer<Integer_Settings>& that) const
 		{
 			return that.hash(beginBit_, endBit_);
 		}
@@ -823,9 +1044,9 @@ namespace Pastel
 namespace std
 {
 
-	template <int N, typename Word>
-	struct hash<Pastel::Integer<N, Word>>
-	: Pastel::Integer_Hash<N, Word>
+	template <typename Integer_Settings>
+	struct hash<Pastel::Integer<Integer_Settings>>
+	: Pastel::Integer_Hash<Integer_Settings>
 	{
 	};
 

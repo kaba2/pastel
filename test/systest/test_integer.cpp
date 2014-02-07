@@ -22,34 +22,171 @@ namespace
 
 		virtual void run()
 		{
+			testClearBits();
 			testArithmetic();
 			testHashing();
+		}
+
+		void testNegation()
+		{
+			using F = Signed_Integer<16, uint8>;
+			TEST_ENSURE(-F(16) == F(-16));
+		}
+
+		void testClearBits()
+		{
+				using F = Signed_Integer<16, uint8>;
+				auto f = [&](integer begin, integer end) -> F
+				{
+					return F(0xFFFF).clearBits(begin, end);
+				};
+
+				// Clear the front for multiple words.
+
+				TEST_ENSURE(f(0, 0) == F(0xFFFF));
+				TEST_ENSURE(f(0, 1) == F(0xFFFE));
+				TEST_ENSURE(f(0, 2) == F(0xFFFC));
+				TEST_ENSURE(f(0, 3) == F(0xFFF8));
+				TEST_ENSURE(f(0, 4) == F(0xFFF0));
+				TEST_ENSURE(f(0, 5) == F(0xFFE0));
+				TEST_ENSURE(f(0, 6) == F(0xFFC0));
+				TEST_ENSURE(f(0, 7) == F(0xFF80));
+				TEST_ENSURE(f(0, 8) == F(0xFF00));
+				TEST_ENSURE(f(0, 9) == F(0xFE00));
+				TEST_ENSURE(f(0, 10) == F(0xFC00));
+				TEST_ENSURE(f(0, 11) == F(0xF800));
+				TEST_ENSURE(f(0, 12) == F(0xF000));
+				TEST_ENSURE(f(0, 13) == F(0xE000));
+				TEST_ENSURE(f(0, 14) == F(0xC000));
+				TEST_ENSURE(f(0, 15) == F(0x8000));
+				TEST_ENSURE(f(0, 16) == F(0x0000));
+
+				// Clear the tail for multiple words.
+
+				TEST_ENSURE(f(16, 16) == F(0xFFFF));
+				TEST_ENSURE(f(15, 16) == F(0x7FFF));
+				TEST_ENSURE(f(14, 16) == F(0x3FFF));
+				TEST_ENSURE(f(13, 16) == F(0x1FFF));
+				TEST_ENSURE(f(12, 16) == F(0x0FFF));
+				TEST_ENSURE(f(11, 16) == F(0x07FF));
+				TEST_ENSURE(f(10, 16) == F(0x03FF));
+				TEST_ENSURE(f(9, 16) == F(0x01FF));
+				TEST_ENSURE(f(8, 16) == F(0x00FF));
+				TEST_ENSURE(f(7, 16) == F(0x007F));
+				TEST_ENSURE(f(6, 16) == F(0x003F));
+				TEST_ENSURE(f(5, 16) == F(0x001F));
+				TEST_ENSURE(f(4, 16) == F(0x000F));
+				TEST_ENSURE(f(3, 16) == F(0x0007));
+				TEST_ENSURE(f(2, 16) == F(0x0003));
+				TEST_ENSURE(f(1, 16) == F(0x0001));
+				TEST_ENSURE(f(0, 16) == F(0x0000));
+
+				// Clear the front inside a single word.
+
+				TEST_ENSURE(f(0, 0) == F(0xFFFF));
+				TEST_ENSURE(f(0, 1) == F(0xFFFE));
+				TEST_ENSURE(f(0, 2) == F(0xFFFC));
+				TEST_ENSURE(f(0, 3) == F(0xFFF8));
+				TEST_ENSURE(f(0, 4) == F(0xFFF0));
+				TEST_ENSURE(f(0, 5) == F(0xFFE0));
+				TEST_ENSURE(f(0, 6) == F(0xFFC0));
+				TEST_ENSURE(f(0, 7) == F(0xFF80));
+				TEST_ENSURE(f(0, 8) == F(0xFF00));
+
+				// Clear the tail inside a single word.
+
+				TEST_ENSURE(f(0, 8) == F(0xFF00));
+				TEST_ENSURE(f(1, 8) == F(0xFF01));
+				TEST_ENSURE(f(2, 8) == F(0xFF03));
+				TEST_ENSURE(f(3, 8) == F(0xFF07));
+				TEST_ENSURE(f(4, 8) == F(0xFF0F));
+				TEST_ENSURE(f(5, 8) == F(0xFF1F));
+				TEST_ENSURE(f(6, 8) == F(0xFF3F));
+				TEST_ENSURE(f(7, 8) == F(0xFF7F));
+				TEST_ENSURE(f(8, 8) == F(0xFFFF));
+
+				// Clear zero bits.
+
+				TEST_ENSURE(f(0, 0) == F(0xFFFF));
+				TEST_ENSURE(f(1, 1) == F(0xFFFF));
+				TEST_ENSURE(f(2, 2) == F(0xFFFF));
+				TEST_ENSURE(f(3, 3) == F(0xFFFF));
+				TEST_ENSURE(f(4, 4) == F(0xFFFF));
+				TEST_ENSURE(f(5, 5) == F(0xFFFF));
+				TEST_ENSURE(f(6, 6) == F(0xFFFF));
+				TEST_ENSURE(f(7, 7) == F(0xFFFF));
+				TEST_ENSURE(f(8, 8) == F(0xFFFF));
+				TEST_ENSURE(f(9, 9) == F(0xFFFF));
+				TEST_ENSURE(f(10, 10) == F(0xFFFF));
+				TEST_ENSURE(f(11, 11) == F(0xFFFF));
+				TEST_ENSURE(f(12, 12) == F(0xFFFF));
+				TEST_ENSURE(f(13, 13) == F(0xFFFF));
+				TEST_ENSURE(f(14, 14) == F(0xFFFF));
+				TEST_ENSURE(f(15, 15) == F(0xFFFF));
+				TEST_ENSURE(f(16, 16) == F(0xFFFF));
+
+				// Clear one bit.
+
+				TEST_ENSURE(f(0, 1) == F(0xFFFE));
+				TEST_ENSURE(f(1, 2) == F(0xFFFD));
+				TEST_ENSURE(f(2, 3) == F(0xFFFB));
+				TEST_ENSURE(f(3, 4) == F(0xFFF7));
+				TEST_ENSURE(f(4, 5) == F(0xFFEF));
+				TEST_ENSURE(f(5, 6) == F(0xFFDF));
+				TEST_ENSURE(f(6, 7) == F(0xFFBF));
+				TEST_ENSURE(f(7, 8) == F(0xFF7F));
+				TEST_ENSURE(f(8, 9) == F(0xFEFF));
+				TEST_ENSURE(f(9, 10) == F(0xFDFF));
+				TEST_ENSURE(f(10, 11) == F(0xFBFF));
+				TEST_ENSURE(f(11, 12) == F(0xF7FF));
+				TEST_ENSURE(f(12, 13) == F(0xEFFF));
+				TEST_ENSURE(f(13, 14) == F(0xDFFF));
+				TEST_ENSURE(f(14, 15) == F(0xBFFF));
+				TEST_ENSURE(f(15, 16) == F(0x7FFF));
+
+				// Clear two bits.
+
+				TEST_ENSURE(f(0, 2) == F(0xFFFC));
+				TEST_ENSURE(f(1, 3) == F(0xFFF9));
+				TEST_ENSURE(f(2, 4) == F(0xFFF3));
+				TEST_ENSURE(f(3, 5) == F(0xFFE7));
+				TEST_ENSURE(f(4, 6) == F(0xFFCF));
+				TEST_ENSURE(f(5, 7) == F(0xFF9F));
+				TEST_ENSURE(f(6, 8) == F(0xFF3F));
+				TEST_ENSURE(f(7, 9) == F(0xFE7F));
+				TEST_ENSURE(f(8, 10) == F(0xFCFF));
+				TEST_ENSURE(f(9, 11) == F(0xF9FF));
+				TEST_ENSURE(f(10, 12) == F(0xF3FF));
+				TEST_ENSURE(f(11, 13) == F(0xE7FF));
+				TEST_ENSURE(f(12, 14) == F(0xCFFF));
+				TEST_ENSURE(f(13, 15) == F(0x9FFF));
+				TEST_ENSURE(f(14, 16) == F(0x3FFF));
 		}
 
 		void testArithmetic()
 		{
 			{
-				using F = Integer<1, uint8>;
+				using F = Unsigned_Integer<1, uint8>;
 
 				TEST_ENSURE(F(0) + F(0) == F(0));
 				TEST_ENSURE(F(0) + F(1) == F(1));
 				TEST_ENSURE(F(1) + F(0) == F(1));
 				TEST_ENSURE(F(1) + F(1) == F(0));
 
-				TEST_ENSURE(!F(0).test(0));
-				TEST_ENSURE(F(1).test(0));
+				TEST_ENSURE(!F(0).bit(0));
+				TEST_ENSURE(F(1).bit(0));
 
-				TEST_ENSURE(F(0).set(0).test(0));
-				TEST_ENSURE(F(0).set(0, true).test(0));
-				TEST_ENSURE(!F(1).set(0, false).test(0));
-				TEST_ENSURE(!F(1).reset(0).test(0));
+				TEST_ENSURE(F(0).setBit(0).bit(0));
+				TEST_ENSURE(F(0).setBit(0, true).bit(0));
+				TEST_ENSURE(!F(1).setBit(0, false).bit(0));
+				TEST_ENSURE(!F(1).clearBit(0).bit(0));
 
-				TEST_ENSURE_OP(F(0).count(), ==, 0);
-				TEST_ENSURE_OP(F(1).count(), ==, 1);
+				TEST_ENSURE_OP(F(0).oneBits(), ==, 0);
+				TEST_ENSURE_OP(F(1).oneBits(), ==, 1);
 			}
 
 			{
-				using F = Integer<2, uint8>;
+				using F = Unsigned_Integer<2, uint8>;
 
 				TEST_ENSURE(F(0) + F(0) == F(0));
 				TEST_ENSURE(F(0) + F(1) == F(1));
@@ -67,29 +204,23 @@ namespace
 				TEST_ENSURE(F(3) + F(1) == F(0));
 				TEST_ENSURE(F(3) + F(2) == F(1));
 				TEST_ENSURE(F(3) + F(3) == F(2));
-
-				TEST_ENSURE(F(3).any());
-				TEST_ENSURE(!F(0).any());
-
-				TEST_ENSURE(!F(3).none());
-				TEST_ENSURE(F(0).none());
 			}
 
 			{
-				using F = Integer<32, uint8>;
+				using F = Signed_Integer<32, uint8>;
 
-				TEST_ENSURE_OP(F(0x12345678).count(), ==, 
+				TEST_ENSURE_OP(F(0x12345678).oneBits(), ==, 
 					1 + 1 + 2 + 1 + 2 + 2 + 3 + 1);
 
 				TEST_ENSURE(F(0x9ABCDEF0).to_string() ==
 					"10011010101111001101111011110000");
 
-				TEST_ENSURE_OP(F(0x9ABCDEF0).count(), ==, 
+				TEST_ENSURE_OP(F(0x9ABCDEF0).oneBits(), ==, 
 					2 + 2 + 3 + 2 + 3 + 3 + 4 + 0);
 			}
 
 			{
-				using F = Integer<32, uint8>;
+				using F = Signed_Integer<32, uint8>;
 
 				uint32 a = 0x12345678;
 				for (integer i = 0;i < 32;++i)
@@ -113,7 +244,7 @@ namespace
 			}
 
 			{
-				using F = Integer<32, uint8>;
+				using F = Signed_Integer<32, uint8>;
 				F a(0x12345678);
 
 				TEST_ENSURE(F(a, 0, 0) == F(0x00000000));
@@ -158,33 +289,35 @@ namespace
 
 		void testHashing()
 		{
+			using Settings = Integer_Settings<32, uint8, false>;
+
 			{
-				Integer_Hash<32, uint8> hash(0, 1);
+				Integer_Hash<Settings> hash(0, 1);
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543210));
 			}
 			{
-				Integer_Hash<32, uint8> hash(0, 2);
+				Integer_Hash<Settings> hash(0, 2);
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543210));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543214));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543218));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x7654321C));
 			}
 			{
-				Integer_Hash<32, uint8> hash(0, 3);
+				Integer_Hash<Settings> hash(0, 3);
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543210));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543218));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543220));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543228));
 			}
 			{
-				Integer_Hash<32, uint8> hash(1, 3);
+				Integer_Hash<Settings> hash(1, 3);
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543210));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543211));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543218));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76543219));
 			}
 			{
-				Integer_Hash<32, uint8> hash(4, 12);
+				Integer_Hash<Settings> hash(4, 12);
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76503670));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76513671));
 				TEST_ENSURE_OP(hash(0x12345670), ==, hash(0x76523672));

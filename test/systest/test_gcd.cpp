@@ -26,8 +26,8 @@ namespace
 			testSome<int16>();
 			testSome<int32>();
 			testSome<integer>();
-			testSome<Integer<16>>();
-			testSome<Integer<32>>();
+			testSome<Signed_Integer<16>>();
+			testSome<Signed_Integer<32>>();
 			testSome<BigInteger>();
 		}
 
