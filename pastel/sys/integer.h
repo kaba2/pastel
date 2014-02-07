@@ -21,6 +21,7 @@
 #include <string>
 #include <type_traits>
 #include <algorithm>
+#include <initializer_list>
 
 #define PASTEL_INTEGER_ASSIGN_OPERATOR(op) \
 	Integer& operator op(const Integer& that) \
@@ -38,6 +39,15 @@ namespace Pastel
 {
 
 	//! A fixed-size integer in two's complement form.
+	/*!
+	The integer is formed from a sequence of words,
+	where each word is an unsigned integer. Therefore the
+	physical number of bits in the words may be bigger
+	than the logical number of bits in the integer.
+	The class maintains the invariant that the 
+	interpretation of the physical bits is equal to
+	the interpretation of the logical bits.
+	*/
 	template <typename Integer_Settings>
 	class Integer
 	: boost::bitwise<Integer<Integer_Settings>
@@ -48,8 +58,8 @@ namespace Pastel
 	> > > > >
 	{
 	public:
+		// See the documentation for Integer_Settings_Concept.
 		using Settings = Integer_Settings;
-
 		enum { N = Settings::N };
 		enum { Signed = Settings::Signed };
 		using Word = typename Settings::Word;
@@ -61,23 +71,20 @@ namespace Pastel
 		// the portability of bitwise operations.
 		PASTEL_STATIC_ASSERT(std::is_unsigned<Word>::value);
 
+		//! Number of bits in a word.
 		/* 
 		FIX: Change to sizeInBits<Word>() after
 		constexpr becomes available in Visual Studio.
 		*/
 		enum {BitsInWord = sizeof(Word) * CHAR_BIT};
 
-		// Compute ceil(N / BitsInWord).
+		// The number of words is ceil(N / BitsInWord).
 		/*
 		FIX: Change to divideAndRoundUp() after 
 		constexpr becomes available in Visual Studio.
 		*/
 		static const integer Words = 
 			(N + BitsInWord - 1) / BitsInWord;
-
-		// The number of physical bits.
-		static const integer TotalBits = 
-			Words * BitsInWord;
 
 		// The number of bits in the last word.
 		static const integer BitsInLastWord = 
@@ -86,6 +93,12 @@ namespace Pastel
 		static const Word LastWordMask = 
 			((Word)1 << BitsInLastWord) - 1;
 
+		//! The storage for the words.
+		/*! 
+		The words are stored in a fixed-size array since we want
+		the space-requirement to be minimal. That is, we don't
+		want to store the size of the array.
+		*/
 		using WordSet = std::array<Word, Words>;
 		using Word_Iterator = typename WordSet::iterator;
 		using Word_ConstIterator = typename WordSet::const_iterator; 
@@ -100,6 +113,26 @@ namespace Pastel
 		Integer()
 			: wordSet_()
 		{
+		}
+
+		//! Constructs from a list of words.
+		/*!
+		Time complexity: O(N)
+		Exception safety: strong
+
+		The least-significant word is the last element 
+		of the initializer-list. The assignment is the
+		concatenation of the words modulo 2^N.
+		*/
+		Integer(std::initializer_list<Word> wordSet)
+			: wordSet_()
+		{
+			std::copy_n(
+				std::rbegin(wordSet),
+				std::min((integer)wordSet.size(), (integer)Words),
+				wordSet_.begin());
+
+			signExtend();
 		}
 
 		//! Constructs from an unsigned native integer.
@@ -125,6 +158,8 @@ namespace Pastel
 				// automatically sign-extend 'that'.
 				that = arihmeticShiftRight(that, BitsInWord);
 			}
+			
+			signExtend();
 		}
 
 		//! Constructs from a signed native integer.
@@ -143,6 +178,9 @@ namespace Pastel
 
 		//! Copy-constructs only a range of bits.
 		/*!
+		Preconditions:
+		0 <= beginBegin <= endBit <= bits()
+
 		Time complexity: O(N)
 		Exception safety: strong
 
@@ -156,7 +194,7 @@ namespace Pastel
 		{
 			PENSURE_OP(0, <=, beginBit);
 			PENSURE_OP(beginBit, <=, endBit);
-			PENSURE_OP(endBit, <=, N);
+			PENSURE_OP(endBit, <=, bits());
 
 			if (beginBit == endBit)
 			{
@@ -288,6 +326,16 @@ namespace Pastel
 				}
 			}
 
+			if (BitsInLastWord > 0 && Signed && lastBit())
+			{
+				// If the last word is not fully used,
+				// then the sign-extension produces excessive
+				// 1-bits when the last bit is 1. Subtract
+				// those off.
+				integer excess = BitsInWord - BitsInLastWord;
+				result -= excess;
+			}
+
 			return result;
 		}
 
@@ -302,6 +350,9 @@ namespace Pastel
 			{
 				word = ~word;
 			}
+
+			signExtend();
+
 			return *this;
 		}
 
@@ -320,6 +371,8 @@ namespace Pastel
 
 			wordSet_[word] ^= singleBitMask<Word>(bit);
 
+			signExtend();
+
 			return *this;
 		}
 
@@ -331,6 +384,7 @@ namespace Pastel
 		Integer& setBits()
 		{
 			boost::fill(wordSet_, (Word)-1);
+			signExtend();
 			return *this;
 		}
 
@@ -402,6 +456,8 @@ namespace Pastel
 				}
 			}
 
+			signExtend();
+
 			return *this;
 		}
 
@@ -419,6 +475,8 @@ namespace Pastel
 			integer bit = i - word * BitsInWord;
 
 			wordSet_[word] |= singleBitMask<Word>(bit);
+
+			signExtend();
 
 			return *this;
 		}
@@ -453,6 +511,7 @@ namespace Pastel
 		Integer& clearBits()
 		{
 			boost::fill(wordSet_, (Word)0);
+			signExtend();
 			return *this;
 		}
 
@@ -482,11 +541,16 @@ namespace Pastel
 			
 			wordSet_[word] &= ~singleBitMask<Word>(bit);
 
+			signExtend();
+
 			return *this;
 		}
 
 		//! Returns the i:th bit.
 		/*!
+		Preconditions:
+		0 <= i < bits()
+
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
@@ -522,7 +586,7 @@ namespace Pastel
 		*/
 		bool lastBit() const
 		{
-			return bit(N - 1);
+			return bit(bits() - 1);
 		}
 
 		//! Returns whether this is smaller than 'that'.
@@ -632,6 +696,15 @@ namespace Pastel
 			for (integer i = 0;i < Words;++i)
 			{
 				++wordSet_[i];
+
+				// Suppose wordSet_[i] is the maximum value
+				// that fits in the Word. Since the arithmetic
+				// on unsigned integers is modulo arithmetic,
+				// the result will be zero. This is the 
+				// correct result for the word in this case.
+				// In addition, if the result is zero,
+				// then that means that there is carry
+				// to be added to the next word.
 				if (wordSet_[i] > 0)
 				{
 					break;
@@ -652,6 +725,9 @@ namespace Pastel
 			for (integer i = 0;i < Words;++i)
 			{
 				--wordSet_[i];
+
+				// The idea here is the same as with addition,
+				// see the documentation there.
 				if (wordSet_[i] + 1 > 0)
 				{
 					break;
@@ -686,7 +762,7 @@ namespace Pastel
 		*/
 		Integer& negate()
 		{
-			for (auto& word : wordSet_)
+			for (Word& word : wordSet_)
 			{
 				// For an unsigned integer, the negation
 				// computes the two's complement.
@@ -767,11 +843,12 @@ namespace Pastel
 			wordSet_[Words - wordsToShift - 1] = 
 				(wordSet_[Words - 1] >> bitsToShift);
 
-			// Pad with zero-words from the left.
+			// Pad from the left.
+			Word padding = (Signed && lastBit()) ? -1 : 0;
 			std::fill(
 				&wordSet_.front() + (Words - wordsToShift), 
 				&wordSet_.front() + Words, 
-				(Word)0);
+				padding);
 
 			return *this;
 		}
@@ -871,6 +948,18 @@ namespace Pastel
 		PASTEL_INTEGER_ASSIGN_OPERATOR(&=);
 
 	private:
+		//! Correct the sign-extension of the last word.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		Since the operations work word-by-word, they
+		may leave the higher bits in the last word in 
+		a which doesn't correspond to the sign-extension 
+		of the N-bit prefix. For an unsigned integer the
+		highest bits should be kept zero. This function 
+		corrects these violations.
+		*/
 		void signExtend()
 		{
 			if (BitsInLastWord > 0)
@@ -888,6 +977,18 @@ namespace Pastel
 			}
 		}
 
+		//! The set of words.
+		/*!
+		When the words are concatenated as
+		
+			W_{Words-1} ... W_0,
+
+		they form a bit-representation of an integer.
+		If the Integer is signed, then this is interpreted
+		as a two's complement form of the integer. If the
+		Integer is unsigned, then this is interpreted as
+		the base-2 representation of the integer.
+		*/
 		WordSet wordSet_;
 	};
 

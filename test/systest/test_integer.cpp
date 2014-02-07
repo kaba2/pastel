@@ -22,9 +22,95 @@ namespace
 
 		virtual void run()
 		{
+			testConstruction();
 			testClearBits();
 			testArithmetic();
+			testBitOperators();
+			testCounting();
+			testSetBits();
 			testHashing();
+		}
+
+		void testConstruction()
+		{
+			using F = Unsigned_Integer<20, uint8>;
+			
+			TEST_ENSURE(F(0x12345678) == F({ 0x12, 0x34, 0x56, 0x78 }));
+			TEST_ENSURE(F(0x12345678) == F({ 0x34, 0x56, 0x78 }));
+			TEST_ENSURE(F(0x12345678) == F({ 0x04, 0x56, 0x78 }));
+
+			{
+				F a({ 0x04, 0x56, 0x78 });
+				TEST_ENSURE_OP(a.word(0), == , 0x78);
+				TEST_ENSURE_OP(a.word(1), == , 0x56);
+				TEST_ENSURE_OP(a.word(2), == , 0x04);
+			}
+
+			{
+				F a(0x12345678);
+				TEST_ENSURE_OP(a.word(0), == , 0x78);
+				TEST_ENSURE_OP(a.word(1), == , 0x56);
+				TEST_ENSURE_OP(a.word(2), == , 0x04);
+			}
+
+			TEST_ENSURE(F(0) == F());	
+
+			{
+				F a(-1);
+				TEST_ENSURE_OP(a.word(0), == , 0xFF);
+				TEST_ENSURE_OP(a.word(1), == , 0xFF);
+				TEST_ENSURE_OP(a.word(2), == , 0x0F);
+			}
+
+			{
+				F a(-16);
+				TEST_ENSURE_OP(a.word(0), == , 0xF0);
+				TEST_ENSURE_OP(a.word(1), == , 0xFF);
+				TEST_ENSURE_OP(a.word(2), == , 0x0F);
+			}
+
+			{
+				using F = Unsigned_Integer<20, uint8>;
+				F a(0x12345678);
+
+				TEST_ENSURE(F(a, 0, 0) == F(0x00000000));
+				TEST_ENSURE(F(a, 0, 1) == F(0x00000000));
+				TEST_ENSURE(F(a, 0, 2) == F(0x00000000));
+				TEST_ENSURE(F(a, 0, 3) == F(0x00000000));
+				TEST_ENSURE(F(a, 0, 4) == F(0x00000008));
+				TEST_ENSURE(F(a, 0, 5) == F(0x00000018));
+				TEST_ENSURE(F(a, 0, 6) == F(0x00000038));
+				TEST_ENSURE(F(a, 0, 7) == F(0x00000078));
+
+				TEST_ENSURE(F(a, 0, 8) == F(0x00000078));
+				TEST_ENSURE(F(a, 0, 9) == F(0x00000078));
+				TEST_ENSURE(F(a, 0, 10) == F(0x00000278));
+				TEST_ENSURE(F(a, 0, 11) == F(0x00000678));
+				TEST_ENSURE(F(a, 0, 12) == F(0x00000678));
+				TEST_ENSURE(F(a, 0, 13) == F(0x00001678));
+				TEST_ENSURE(F(a, 0, 14) == F(0x00001678));
+				TEST_ENSURE(F(a, 0, 15) == F(0x00005678));
+
+				TEST_ENSURE(F(a, 0, 16) == F(0x00005678));
+				TEST_ENSURE(F(a, 1, 16) == F(0x00005678));
+				TEST_ENSURE(F(a, 2, 16) == F(0x00005678));
+				TEST_ENSURE(F(a, 3, 16) == F(0x00005678));
+				TEST_ENSURE(F(a, 4, 16) == F(0x00005670));
+				TEST_ENSURE(F(a, 5, 16) == F(0x00005660));
+				TEST_ENSURE(F(a, 6, 16) == F(0x00005640));
+				TEST_ENSURE(F(a, 7, 16) == F(0x00005600));
+
+				TEST_ENSURE(F(a, 8, 16) == F(0x00005600));
+				TEST_ENSURE(F(a, 9, 16) == F(0x00005600));
+				TEST_ENSURE(F(a, 10, 16) == F(0x00005400));
+				TEST_ENSURE(F(a, 11, 16) == F(0x00005000));
+				TEST_ENSURE(F(a, 12, 16) == F(0x00005000));
+				TEST_ENSURE(F(a, 13, 16) == F(0x00004000));
+				TEST_ENSURE(F(a, 14, 16) == F(0x00004000));
+				TEST_ENSURE(F(a, 15, 16) == F(0x00000000));
+
+				TEST_ENSURE(F(a, 16, 16) == F(0x00000000));
+			}
 		}
 
 		void testNegation()
@@ -180,9 +266,6 @@ namespace
 				TEST_ENSURE(F(0).setBit(0, true).bit(0));
 				TEST_ENSURE(!F(1).setBit(0, false).bit(0));
 				TEST_ENSURE(!F(1).clearBit(0).bit(0));
-
-				TEST_ENSURE_OP(F(0).oneBits(), ==, 0);
-				TEST_ENSURE_OP(F(1).oneBits(), ==, 1);
 			}
 
 			{
@@ -207,20 +290,7 @@ namespace
 			}
 
 			{
-				using F = Signed_Integer<32, uint8>;
-
-				TEST_ENSURE_OP(F(0x12345678).oneBits(), ==, 
-					1 + 1 + 2 + 1 + 2 + 2 + 3 + 1);
-
-				TEST_ENSURE(F(0x9ABCDEF0).to_string() ==
-					"10011010101111001101111011110000");
-
-				TEST_ENSURE_OP(F(0x9ABCDEF0).oneBits(), ==, 
-					2 + 2 + 3 + 2 + 3 + 3 + 4 + 0);
-			}
-
-			{
-				using F = Signed_Integer<32, uint8>;
+				using F = Unsigned_Integer<32, uint8>;
 
 				uint32 a = 0x12345678;
 				for (integer i = 0;i < 32;++i)
@@ -229,7 +299,7 @@ namespace
 					// if i ranges up to 33, then the following
 					// tests fail for i == 32. This probably has 
 					// to do with the shifts (a << i) and (a >> i) 
-					// being undefined in this case.
+					// being implementation-defined in this case.
 
 					TEST_ENSURE(
 						(F(a) << i) == F(a << i));
@@ -242,49 +312,90 @@ namespace
 				TEST_ENSURE((F(a) << 33) == F(0));
 				TEST_ENSURE((F(a) >> 33) == F(0));
 			}
+		}
+
+		void testBitOperators()
+		{
+			using F = Unsigned_Integer<20, uint8>;
+			
+			TEST_ENSURE((F(0x12345678u) ^ F(0x45635603u)) == (0x12345678u ^ 0x45635603u));
+			TEST_ENSURE((F(0x12345678u) | F(0x45635603u)) == (0x12345678u | 0x45635603u));
+			TEST_ENSURE((F(0x12345678u) & F(0x45635603u)) == (0x12345678u & 0x45635603u));
+			TEST_ENSURE((~F(0x12345678u)) == (~0x12345678u));
+		}
+
+		void testCounting()
+		{
+			{
+				using F = Unsigned_Integer<1, uint8>;
+
+				TEST_ENSURE_OP(F(0).oneBits(), == , 0);
+				TEST_ENSURE_OP(F(1).oneBits(), == , 1);
+			}
 
 			{
-				using F = Signed_Integer<32, uint8>;
-				F a(0x12345678);
+				using F = Unsigned_Integer<32, uint8>;
 
-				TEST_ENSURE(F(a, 0, 0) == F(0x00000000));
-				TEST_ENSURE(F(a, 0, 1) == F(0x00000000));
-				TEST_ENSURE(F(a, 0, 2) == F(0x00000000));
-				TEST_ENSURE(F(a, 0, 3) == F(0x00000000));
-				TEST_ENSURE(F(a, 0, 4) == F(0x00000008));
-				TEST_ENSURE(F(a, 0, 5) == F(0x00000018));
-				TEST_ENSURE(F(a, 0, 6) == F(0x00000038));
-				TEST_ENSURE(F(a, 0, 7) == F(0x00000078));
-				
-				TEST_ENSURE(F(a, 0, 8) == F(0x00000078));
-				TEST_ENSURE(F(a, 0, 9) == F(0x00000078));
-				TEST_ENSURE(F(a, 0, 10) == F(0x00000278));
-				TEST_ENSURE(F(a, 0, 11) == F(0x00000678));
-				TEST_ENSURE(F(a, 0, 12) == F(0x00000678));
-				TEST_ENSURE(F(a, 0, 13) == F(0x00001678));
-				TEST_ENSURE(F(a, 0, 14) == F(0x00001678));
-				TEST_ENSURE(F(a, 0, 15) == F(0x00005678));
+				TEST_ENSURE_OP(F(0x12345678).oneBits(), == ,
+					1 + 1 + 2 + 1 + 2 + 2 + 3 + 1);
 
-				TEST_ENSURE(F(a, 0, 16) == F(0x00005678));
-				TEST_ENSURE(F(a, 1, 16) == F(0x00005678));
-				TEST_ENSURE(F(a, 2, 16) == F(0x00005678));
-				TEST_ENSURE(F(a, 3, 16) == F(0x00005678));
-				TEST_ENSURE(F(a, 4, 16) == F(0x00005670));
-				TEST_ENSURE(F(a, 5, 16) == F(0x00005660));
-				TEST_ENSURE(F(a, 6, 16) == F(0x00005640));
-				TEST_ENSURE(F(a, 7, 16) == F(0x00005600));
+				TEST_ENSURE_OP(F(0x9ABCDEF0).oneBits(), == ,
+					2 + 2 + 3 + 2 + 3 + 3 + 4 + 0);
 
-				TEST_ENSURE(F(a, 8, 16) == F(0x00005600));
-				TEST_ENSURE(F(a, 9, 16) == F(0x00005600));
-				TEST_ENSURE(F(a, 10, 16) == F(0x00005400));
-				TEST_ENSURE(F(a, 11, 16) == F(0x00005000));
-				TEST_ENSURE(F(a, 12, 16) == F(0x00005000));
-				TEST_ENSURE(F(a, 13, 16) == F(0x00004000));
-				TEST_ENSURE(F(a, 14, 16) == F(0x00004000));
-				TEST_ENSURE(F(a, 15, 16) == F(0x00000000));
-				
-				TEST_ENSURE(F(a, 16, 16) == F(0x00000000));
+				TEST_ENSURE(F(0x9ABCDEF0).to_string() ==
+					"10011010101111001101111011110000");
 			}
+		}
+
+		void testSetBits()
+		{
+			using F = Unsigned_Integer<20, uint8>;
+
+			F a;
+
+			a.setBit(0);
+			TEST_ENSURE(a == (1 << 0));
+			
+			a.setBit(1);
+			TEST_ENSURE(a == (1 << 0) + (1 << 1));
+
+			a.setBit(2);
+			TEST_ENSURE(a == (1 << 0) + (1 << 1) + (1 << 2));
+
+			a.setBit(7);
+			TEST_ENSURE(a == (1 << 0) + (1 << 1) + (1 << 2) + (1 << 7));
+
+			a.setBit(12);
+			TEST_ENSURE(a == (1 << 0) + (1 << 1) + (1 << 2) + (1 << 7) + (1 << 12));
+
+			a.clearBit(2);
+			TEST_ENSURE(a == (1 << 0) + (1 << 1) + (1 << 7) + (1 << 12));
+
+			a.clearBit(7);
+			TEST_ENSURE(a == (1 << 0) + (1 << 1) + (1 << 12));
+
+			a.clearBit(12);
+			TEST_ENSURE(a == (1 << 0) + (1 << 1));
+
+			a.clearBit(1);
+			TEST_ENSURE(a == (1 << 0));
+
+			a.clearBit(0);
+			TEST_ENSURE(a == 0);
+
+			a.setBit(19);
+			TEST_ENSURE(a == (1 << 19));
+
+			a.clearBit(19);
+			TEST_ENSURE(a == 0);
+
+			a = 0x12345678;
+			a.clearBits();
+			TEST_ENSURE(a == 0);
+			
+			a = 0x12345678;
+			a.setBits();
+			TEST_ENSURE(a == 0x000FFFFF);
 		}
 
 		void testHashing()
