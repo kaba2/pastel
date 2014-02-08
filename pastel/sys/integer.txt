@@ -3,14 +3,4 @@ Fixed-size integers
 
 [[Parent]]: integers.txt
 
-The `Integer` class is an integer whose number of bits can be set arbitrarily at compile-time. It works either as an unsigned integer, or as a signed integer in two's complement form, again selectable at compile-time.
-
-Unsigned integers
------------------
-
-For an unsigned integer the bit-representation is its base-2 representation. For an N-bit integer, the arithmetic is performed modulo ''2^N''.
-
-Signed integer
---------------
-
-For a signed integer, the bit-representation is in two's complement form, and near zero its arithmetic resembles integer arithmetic.
+The `Integer` class is an integer whose number of bits can be set arbitrarily at compile-time. It works either as an unsigned integer, or as a signed integer in two's complement form, selectable at compile-time. For an unsigned integer the bit-representation is its base-2 representation. For an n-bit integer, the arithmetic is performed modulo ''2^n''. For a signed integer, the bit-representation is in two's complement form.

@@ -1,6 +1,3 @@
-// Description: Two's complement
-// Documentation: bit_tricks.txt
-
 #ifndef PASTELSYS_TWOS_COMPLEMENT_HPP
 #define PASTELSYS_TWOS_COMPLEMENT_HPP
 

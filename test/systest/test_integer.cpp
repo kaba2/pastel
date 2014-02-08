@@ -23,6 +23,9 @@ namespace
 		virtual void run()
 		{
 			testConstruction();
+			testNegation();
+			testIncrementDecrement();
+			testComparison();
 			testClearBits();
 			testArithmetic();
 			testBitOperators();
@@ -115,13 +118,71 @@ namespace
 
 		void testNegation()
 		{
-			using F = Signed_Integer<16, uint8>;
-			TEST_ENSURE(-F(16) == F(-16));
+			{
+				using F = Signed_Integer<16, uint8>;
+
+				for (integer i = -512; i <= 512; ++i)
+				{
+					TEST_ENSURE(-F(i) == F(-i));
+					TEST_ENSURE(F(i) + (-F(i)) == 0);
+				} 
+			}
+
+			{
+				using F = Unsigned_Integer<16, uint8>;
+
+				for (integer i = -512; i < 512; ++i)
+				{
+					TEST_ENSURE(-F(i) == F(-i));
+					TEST_ENSURE(F(i) + (-F(i)) == 0);
+				}
+			}
+		}
+
+		void testIncrementDecrement()
+		{
+			using F = Signed_Integer<20, uint8>;
+
+			for (integer i = -512; i <= 512; ++i)
+			{
+				TEST_ENSURE(--F(i) == i - 1);
+				TEST_ENSURE(++F(i) == i + 1);
+			}
+
+			TEST_ENSURE(++F(0x7FFFF) == -0x80000);
+			TEST_ENSURE(--F(0x80000) == +0x7FFFF);
+			TEST_ENSURE(--F(0x10000) == +0x0FFFF);
+			TEST_ENSURE(++F(0x0FFFF) == +0x10000);
+		}
+
+		void testComparison()
+		{
+			using F = Signed_Integer<20, uint8>;
+			
+			TEST_ENSURE(negative(F(-0x00001)));
+			TEST_ENSURE(negative(F(-0x23456)));
+			TEST_ENSURE(negative(F(+0x83456u)));
+			TEST_ENSURE(negative(F(+0x80000u)));
+			TEST_ENSURE(positive(F(+0x00001)));
+			TEST_ENSURE(positive(F(+0x23456)));
+			TEST_ENSURE(positive(F(+0x7FFFF)));
+			TEST_ENSURE(positive(F(+0x7FFFFu)));
+			TEST_ENSURE(zero(F(0x000000)));
+			TEST_ENSURE(zero(F(0x000000u)));
+
+			TEST_ENSURE(F(-0x7FFFF) < F(0x12354));
+			TEST_ENSURE(F(-0x20000) < F(0x10000));
+			TEST_ENSURE(F(-0x10000) < F(0x00001));
+			TEST_ENSURE(F(0x00000) < F(0x00001));
+			TEST_ENSURE(F(0x00000) < F(0x04323));
+			TEST_ENSURE(F(0x04323) < F(0x10000));
+			TEST_ENSURE(F(0x100000) < F(0x20000));
+			TEST_ENSURE(F(0x23456) < F(0x34567));
 		}
 
 		void testClearBits()
 		{
-				using F = Signed_Integer<16, uint8>;
+				using F = Unsigned_Integer<16, uint8>;
 				auto f = [&](integer begin, integer end) -> F
 				{
 					return F(0xFFFF).clearBits(begin, end);
@@ -259,13 +320,10 @@ namespace
 				TEST_ENSURE(F(1) + F(0) == F(1));
 				TEST_ENSURE(F(1) + F(1) == F(0));
 
-				TEST_ENSURE(!F(0).bit(0));
-				TEST_ENSURE(F(1).bit(0));
-
-				TEST_ENSURE(F(0).setBit(0).bit(0));
-				TEST_ENSURE(F(0).setBit(0, true).bit(0));
-				TEST_ENSURE(!F(1).setBit(0, false).bit(0));
-				TEST_ENSURE(!F(1).clearBit(0).bit(0));
+				TEST_ENSURE(F(0) - F(0) == F(0));
+				TEST_ENSURE(F(0) - F(1) == F(-1));
+				TEST_ENSURE(F(1) - F(0) == F(1));
+				TEST_ENSURE(F(1) - F(1) == F(0));
 			}
 
 			{
@@ -287,6 +345,49 @@ namespace
 				TEST_ENSURE(F(3) + F(1) == F(0));
 				TEST_ENSURE(F(3) + F(2) == F(1));
 				TEST_ENSURE(F(3) + F(3) == F(2));
+
+				TEST_ENSURE(F(0) - F(0) == F(0));
+				TEST_ENSURE(F(0) - F(1) == F(-1));
+				TEST_ENSURE(F(0) - F(2) == F(-2));
+				TEST_ENSURE(F(0) - F(3) == F(-3));
+				TEST_ENSURE(F(1) - F(0) == F(1));
+				TEST_ENSURE(F(1) - F(1) == F(0));
+				TEST_ENSURE(F(1) - F(2) == F(-1));
+				TEST_ENSURE(F(1) - F(3) == F(-2));
+				TEST_ENSURE(F(2) - F(0) == F(2));
+				TEST_ENSURE(F(2) - F(1) == F(1));
+				TEST_ENSURE(F(2) - F(2) == F(0));
+				TEST_ENSURE(F(2) - F(3) == F(-1));
+				TEST_ENSURE(F(3) - F(0) == F(3));
+				TEST_ENSURE(F(3) - F(1) == F(2));
+				TEST_ENSURE(F(3) - F(2) == F(1));
+				TEST_ENSURE(F(3) - F(3) == F(0));
+			}
+
+			{
+				using F = Unsigned_Integer<20, uint8>;
+
+				auto f = [](integer a, integer b) -> bool
+				{
+					return (F(a) + F(b)) == (a + b);
+				};
+				
+				TEST_ENSURE(f(0x13413, 0x32432));
+				TEST_ENSURE(f(0x35486, 0x72234));
+				TEST_ENSURE(f(0x91847, 0xF4824));
+			}
+
+			{
+				using F = Unsigned_Integer<20, uint8>;
+
+				auto f = [](integer a, integer b) -> bool
+				{
+					return (F(a) - F(b)) == (a - b);
+				};
+
+				TEST_ENSURE(f(0x13413, 0x32432));
+				TEST_ENSURE(f(0x35486, 0x72234));
+				TEST_ENSURE(f(0x91847, 0xF4824));
 			}
 
 			{
@@ -350,6 +451,16 @@ namespace
 		void testSetBits()
 		{
 			using F = Unsigned_Integer<20, uint8>;
+
+			{
+				TEST_ENSURE(!F(0).bit(0));
+				TEST_ENSURE(F(1).bit(0));
+
+				TEST_ENSURE(F(0).setBit(0).bit(0));
+				TEST_ENSURE(F(0).setBit(0, true).bit(0));
+				TEST_ENSURE(!F(1).setBit(0, false).bit(0));
+				TEST_ENSURE(!F(1).clearBit(0).bit(0));
+			}
 
 			F a;
 

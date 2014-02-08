@@ -5,12 +5,12 @@ Binary search
 
 [[set indent]]: EquationSet
 
-Let ''n in NN', and ''f_n : NN --> {0, 1}'' such that
+Let ''n in NN'', and ''f_n : NN --> {0, 1}'' such that
 
 	f_n(i) = 1, if i < n,
 	         0, if i >= n.
 
-Given ''a in NN' such that ''a <= n'', the problem is to find ''n'' using only evaluations of ''f_n''. 
+Given ''a in NN'' such that ''a <= n'', the problem is to find ''n'' using only evaluations of ''f_n''. 
 
 This problem can be solved with the _exponential binary search_ in ''O(f log(n - a + 2))'' time. If in addition ''b in NN'' is given such that ''n < b'', then this simplified problem can be solved with the _binary search_ algorithm in ''O(f log((b - a) + 2))'' time, where ''O(f)'' is the time taken by a single evaluation of ''f_n''.
 
