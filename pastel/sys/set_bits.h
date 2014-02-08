@@ -1,5 +1,5 @@
 // Description: Sets bits in an unsigned integer.
-// Documentation: bit_tricks.h
+// Documentation: bit_tricks.txt
 
 #ifndef PASTELSYS_SET_BITS_H
 #define PASTELSYS_SET_BITS_H

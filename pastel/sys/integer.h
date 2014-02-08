@@ -3,12 +3,12 @@
 #ifndef PASTELSYS_INTEGER_H
 #define PASTELSYS_INTEGER_H
 
+#include "pastel/sys/integer_concepts.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hashing.h"
 #include "pastel/sys/bitmask.h"
 #include "pastel/sys/rounding.h"
 #include "pastel/sys/set_bits.h"
-#include "pastel/sys/integer_concepts.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -705,7 +705,7 @@ namespace Pastel
 				// In addition, if the result is zero,
 				// then that means that there is carry
 				// to be added to the next word.
-				if (wordSet_[i] > 0)
+				if (wordSet_[i] != (Word)0)
 				{
 					break;
 				}
@@ -728,7 +728,7 @@ namespace Pastel
 
 				// The idea here is the same as with addition,
 				// see the documentation there.
-				if (wordSet_[i] + 1 > 0)
+				if (wordSet_[i] != (Word)-1)
 				{
 					break;
 				}
@@ -762,14 +762,8 @@ namespace Pastel
 		*/
 		Integer& negate()
 		{
-			for (Word& word : wordSet_)
-			{
-				// For an unsigned integer, the negation
-				// computes the two's complement.
-				word = -word;
-			}
-
-			return *this;
+			// The two's complement of x is given by (~x + 1).
+			return ++flipBits();
 		}
 
 		//! Returns the negation of the integer.

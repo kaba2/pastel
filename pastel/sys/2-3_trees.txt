@@ -28,7 +28,7 @@ The leaf nodes are all at the same depth in a 2-3-tree; it is always perfectly b
 [[EquationSet]]:
 	ceil(log_3(n + 1)) <= h <= ceil(log_2(n + 1)), 
 
-the bounds corresponding to the height of a balanced 3-ary search tree over ''V'', and the height of a balanced 2-ary search tree over ''V', respectively. Therefore, if one can show that the property of being a 2-3-tree can be efficiently maintained under insertions and removals, then the 2-3-tree offers an efficient solution to the dynamic dictionary problem. 
+the bounds corresponding to the height of a balanced 3-ary search tree over ''V'', and the height of a balanced 2-ary search tree over ''V'', respectively. Therefore, if one can show that the property of being a 2-3-tree can be efficiently maintained under insertions and removals, then the 2-3-tree offers an efficient solution to the dynamic dictionary problem. 
 
 This turns out to be the case. Even better, the algorithms to do so are relatively simple (compared to a red-black tree, say). However, 2-3-trees are not seen to be implemented very commonly. I suspect that the reason for this is that the nodes are not homogeneous. Indeed, there would need to be a way to distinguish 2-nodes from 3-nodes, and then algorithms would need to branch their action based on the number of children the node has. Furthermore, these inconveniences can be avoided by simulating the 2-3-tree with a data-structure which _is_ homogeneous.
 
@@ -52,10 +52,10 @@ In the following, the round brackets denote a sub-tree of the same height, and s
 
 * If the parent-sibling neighborhood contains exactly 8 elements (there can not be more), then the tree can be reordered to the form
 
-	    |
-	   [2]
-	  /   \
-	(1)   (3)
+		    |
+		   [2]
+		  /   \
+		(1)   (3)
 
 * However, this sub-tree has height one more than its sibling, so the tree needs rebalancing. There are two cases, up to sibling symmetry, to consider.
 
@@ -113,8 +113,8 @@ Removal
 
 * Otherwise, if there are exactly 3 elements in the neighorhood, the neighborhood is organized into a single 3-node.
 
-	  |
-	[1|2]
+		  |
+		[1|2]
 
 Since this subtree has height one less than its sibling, the tree needs to be rebalanced as follows.
 

@@ -11,6 +11,7 @@
 #include "pastel/sys/leading_zero_bits.h"
 #include "pastel/sys/lowest_bit.h"
 #include "pastel/sys/highest_bit.h"
+#include "pastel/sys/set_bits.h"
 #include "pastel/sys/twos_complement.h"
 #include "pastel/sys/zero_higher_bits.h"
 

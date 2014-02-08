@@ -3,6 +3,8 @@ Binary search notes
 
 [[Parent]]: binary_search.txt
 
+[[set indent]]: EquationSet
+
 Number of indicator tests for the binary search
 -----------------------------------------------
 
