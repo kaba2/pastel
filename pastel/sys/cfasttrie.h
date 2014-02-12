@@ -71,7 +71,7 @@ namespace Pastel
 
 		// Chains
 
-		using Chain = CFastTrie_::Chain<Key, Iterator>;
+		using Chain = CFastTrie_::Chain<Key, Iterator, ConstIterator>;
 
 		using ChainSet = std::unordered_map<Key, Chain, Key_Hash>;
 		using Chain_ConstIterator = typename ChainSet::const_iterator;
@@ -91,7 +91,7 @@ namespace Pastel
 			{
 			}
 
-			const Chain_Iterator& chain() const
+			const Chain_ConstIterator& chain() const
 			{
 				return chain_;
 			}
@@ -101,23 +101,8 @@ namespace Pastel
 				return key_;
 			}
 
-			const Key& cKey() const
-			{
-				return key_;
-			}
-
-			Value_Class& value() const
-			{
-				return (Value_Class&)*this;
-			}
-
 		private:
 			friend class CFastTrie<CFastTrie_Settings>;
-
-			Key& key()
-			{
-				return key_;
-			}
 
 			Chain_Iterator chain_;
 			Key key_;
@@ -223,7 +208,7 @@ namespace Pastel
 		//! Inserts an element.
 		/*!
 		Time complexity: O(bits())
-		Exception safety: strong
+		Exception safety: strong (FIX: not even basic safety yet)
 
 		returns:
 		An iterator to the inserted element, if it did not
@@ -234,50 +219,102 @@ namespace Pastel
 			Key key, 
 			Value_Class value = Value_Class())
 		{
-			if (empty())
-			{
-				return reallyInsert(
-					dataSet_.cend(),
-					key, 0, 0,
-					std::move(value));
-			}
-			
+			// Find the smallest element > key.
 			Iterator right = upperBound(key);
 
+			// See if the element already exists.
 			if (right != cbegin())
 			{
+				// By the definition of 'right' above,
+				// if an element equal to 'key' exists
+				// in the trie, then it has to be the
+				// previous element of 'right'.
 				Iterator left = std::prev(right);
 				if (key == left->key())
 				{
 					// The key already exists in the trie.
+					// Return the existing element.
 					return left;
 				}
+			}
 
-				while (key <= left->chain()->first)
+			// Create the element.
+			// The element references its chain,
+			// and the chain references its element;
+			// we can't set the chain yet.
+			Iterator element =
+				dataSet_.emplace(
+				right,
+				chainSet_.end(),
+				key, std::move(value));
+
+			if (empty())
+			{
+				// If the trie is empty, the inserted chain has to
+				// be the zero chain. We give the zero chain a height
+				// of zero, by which we actually mean infinity.
+				return insertChain(0, 0, element);
+			}
+			
+			// While the goal is to insert 'element' into the
+			// trie, it may not be 'element' for which the
+			// new chain is created. Rather, in a general case
+			// 'element' is stored in an existing chain, and
+			// then the trie is reordered such that finally
+			// it is the 'elementToInsert' for which a new
+			// chain is created.
+			Iterator elementToInsert = 
+				element;
+
+			if (element != cbegin())
+			{
+				Iterator left = std::prev(element);
+				while (elementToInsert->key() <= left->chain()->first)
 				{
-					left->key().swap(key);
+					// If 'key' is not bounded by its neighboring
+					// chains, then we store it in the left chain,
+					// and reinsert the key that was in the left
+					// chain originally. The nice thing is that
+					// we already know the upper-bound of this new 
+					// key (it's 'left'), and can simply reiterate 
+					// the swaps until we have reduced the problem 
+					// to having a key which is bounded by its 
+					// neighboring chains.
+					Chain_Iterator chain = left->chain_;
+					elementToInsert->chain_ = chain;
+					std::swap(
+						chain->second.element_,
+						elementToInsert);
 					--left;
-					--right;
 				}
 			}
 
 			if (right != cend())
 			{
-				while (key >= right->chain()->first)
+				while (elementToInsert->key() >= right->chain()->first)
 				{
-					key.swap(right->key());
+					// This case is symmetric to the one above.
+					Chain_Iterator chain = right->chain_;
+					elementToInsert->chain_ = chain;
+					std::swap(
+						chain->second.element_,
+						elementToInsert);
 					++right;
 				}
 			}
 
-			integer height = lowestAncestor(key);
-			Key physicalKey = turn(key, height);
+			// Compute the chain in which to store the element.
+			integer height = lowestAncestor(elementToInsert->key());
+			Key chainKey = turn(elementToInsert->key(), height);
 
-			return reallyInsert(
-				right, key, 
-				physicalKey, 
+			// Insert the new chain.
+			insertChain(
+				chainKey,
 				height,
-				std::move(value));
+				elementToInsert);
+
+			// Return the element that was originally inserted.
+			return element;
 		}
 
 		//! Returns an element with a given key.
@@ -329,7 +366,7 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
-			ConstIterator right = physicalUpperBound(key);
+			ConstIterator right = chainUpperBound(key);
 			if (right == cbegin() || 
 				right == cend())
 			{
@@ -611,7 +648,7 @@ namespace Pastel
 		An iterator to an element with a minimal
 		physical key k such that k > key.
 		*/
-		ConstIterator physicalUpperBound(const Key& key) const
+		ConstIterator chainUpperBound(const Key& key) const
 		{
 			if (empty())
 			{
@@ -757,7 +794,7 @@ namespace Pastel
 		*/
 		integer size() const
 		{
-			return dataSet_.size();
+			return chainSet_.size();
 		}
 
 		//! Returns whether the trie is empty.
@@ -834,6 +871,26 @@ namespace Pastel
 			return std::make_pair(key & (~mask), true);
 		}
 
+		//! Replicates the bit at index 'level' to lower bits.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Key replicate(const Key& key, integer level) const
+		{
+			ASSERT_OP(level, >= , 0);
+			ASSERT_OP(level, <, bits());
+
+			Key result(key);
+			result.setBits(0, level, key.bit(level));
+			return result;
+		}
+
+		//!
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Key turn(const Key& key, integer level) const
 		{
 			ASSERT_OP(level, > , 0);
@@ -851,30 +908,18 @@ namespace Pastel
 				leadingOneBits(that);
 		}
 
-		Iterator reallyInsert(
-			const ConstIterator& before,
-			const Key& key,
-			const Key& physicalKey,
+		Iterator insertChain(
+			const Key& chainKey,
 			integer height,
-			Value_Class&& value)
+			const Iterator& element)
 		{
 			ASSERT_OP(height, >= , 0);
 			ASSERT_OP(height, <= , bits());
 
-			// Create the element.
-			// The element references its chain,
-			// and the chain references its element;
-			// we can't set the chain yet.
-			Iterator element =
-				dataSet_.emplace(
-				before,
-				chainSet_.end(),
-				key, std::move(value));
-
 			// Create the chain.
 			Chain_Iterator chain =
 				chainSet_.insert(
-				std::make_pair(physicalKey,
+				std::make_pair(chainKey,
 				Chain(element, height))).first;
 
 			// Now set the chain of the element.
@@ -888,30 +933,15 @@ namespace Pastel
 				// A chain has height 0 (meaning infinite), if
 				// and only if it is the zero chain.
 				Chain_Iterator chainAbove =
-					findChain(key, height);
+					findChain(chainKey, height);
 				ASSERT(chainAbove != chainSet_.cend());
 				
-				Key& split = chainAbove->second.split();
+				Key& split = chainAbove->second.split_;
 				ASSERT(!split.bit(height));
 				split.setBit(height);
 			}
 
 			return element;
-		}
-
-		//! Replicates the bit at index 'level' to lower bits.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		Key replicate(const Key& key, integer level) const
-		{
-			ASSERT_OP(level, >=, 0);
-			ASSERT_OP(level, <, bits());
-
-			Key result(key);
-			result.setBits(0, level, key.bit(level));
-			return result;
 		}
 
 		//! Returns the successor in R, given an upper gap-node.
