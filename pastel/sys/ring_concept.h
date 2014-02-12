@@ -12,6 +12,23 @@ namespace Pastel
 	namespace Ring_Concept
 	{
 
+		// A ring is a triple (X, +, *) such that
+		//
+		// 1) (X, +) is an additive group,
+		//
+		// 2) * : X^2 --> X, called multiplication, such
+		// that
+		//
+		//     (x + y) * z = x * z + y * z
+		//     z * (x + y) = z * x + z * y
+		//
+		// for all x, y, z in X, and
+		//
+		// 3) there exists an element 1 in X, called the 
+		// multiplicative identity, such that 
+		// 
+		//     1 * x = x = x * 1, for all x in X.
+
 		class Ring
 		: public Additive_Group_Concept::Additive_Group
 		{

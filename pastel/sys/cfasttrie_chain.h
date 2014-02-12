@@ -38,6 +38,11 @@ namespace Pastel
 				return height_;
 			}
 
+			Key& split()
+			{
+				return split_;
+			}
+
 			const Key& split() const
 			{
 				return split_;
