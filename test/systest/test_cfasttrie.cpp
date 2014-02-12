@@ -58,6 +58,10 @@ namespace
 				TEST_ENSURE(checkInvariants(a));
 				a.insert(10);
 				TEST_ENSURE(checkInvariants(a));
+				a.insert(15);
+				TEST_ENSURE(checkInvariants(a));
+				a.insert(16);
+				TEST_ENSURE(checkInvariants(a));
 				for (auto&& element : a)
 				{
 					std::cout << element.cKey().word(0) << " : "
