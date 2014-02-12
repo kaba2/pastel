@@ -53,14 +53,23 @@ namespace Pastel
 		using Value_Class = Class<Value>;
 		using Key_Hash = Integer_Hash<typename Key::Settings>;
 
+		// Elements
+
 		class Element;
 		using DataSet = std::list<Element>;
 		using ConstIterator = typename DataSet::const_iterator;
 		using Iterator = typename DataSet::iterator;
 
+		using Range = 
+			boost::iterator_range<Iterator>;
+		using ConstRange = 
+			boost::iterator_range<ConstIterator>;
+
 		// These are for compatibility with Boost ranges.
 		using const_iterator = ConstIterator;
 		using iterator = Iterator;
+
+		// Chains
 
 		using Chain = CFastTrie_::Chain<Key, Iterator>;
 
@@ -116,13 +125,40 @@ namespace Pastel
 
 		//! Constructs an empty trie.
 		/*!
-		Time complexity: O(bits())
+		Time complexity: O(1)
 		Exception safety: strong
 		*/
 		CFastTrie()
 		: chainSet_()
 		, dataSet_()
 		{
+		}
+
+		//! Copy-constructs from another trie.
+		/*!
+		Time complexity: O(1)
+		Exception safety: strong
+		*/
+		CFastTrie(const CFastTrie& that)
+		: chainSet_()
+		, dataSet_()
+		{
+			for (auto&& element : that)
+			{
+				insert(element.key());
+			}
+		}
+
+		//! Move-constructs from another trie.
+		/*!
+		Time complexity: O(1)
+		Exception safety: strong
+		*/
+		CFastTrie(CFastTrie&& that)
+		: chainSet_()
+		, dataSet_()
+		{
+			swap(that);
 		}
 
 		//! Destructs the trie.
@@ -133,6 +169,30 @@ namespace Pastel
 		~CFastTrie()
 		{
 			clear();
+		}
+
+		//! Copy-constructs from another trie.
+		/*!
+		Time complexity: O(that.size() + size())
+		Exception safety: strong
+		*/
+		CFastTrie& operator=(const CFastTrie& that)
+		{
+			CFastTrie copy(that);
+			swap(copy);
+			return *this;
+		}
+
+		//! Move-constructs from another trie.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		CFastTrie& operator=(CFastTrie&& that)
+		{
+			CFastTrie copy(std::move(that));
+			swap(copy);
+			return *this;
 		}
 
 		//! Swaps two tries.
@@ -251,16 +311,6 @@ namespace Pastel
 			return cast(removeConst(*this).find(key));
 		}
 
-		//! Returns whether (key up level, level) in R'.
-		/*!
-		Time complexity: O(1) expected
-		Exception safety: nothrow
-		*/
-		bool keyExists(const Key& key, integer level) const
-		{
-			return chainSet_.count(replicate(key, level)) != 0;
-		}
-
 		//! Returns an iterator to the smallest element > 'key'.
 		/*!
 		Time complexity: 
@@ -376,16 +426,6 @@ namespace Pastel
 			return cast(addConst(*this).upperBound(key));
 		}
 
-		ConstIterator upper_bound(const Key& key) const
-		{
-			return upperBound(key);
-		}
-
-		Iterator upper_bound(const Key& key)
-		{
-			return upperBound(key);
-		}
-
 		//! Returns an iterator to the smallest element >= 'key'.
 		/*!
 		Time complexity: 
@@ -426,17 +466,7 @@ namespace Pastel
 			return cast(removeConst(*this).lowerBound(key));
 		}
 
-		ConstIterator lower_bound(const Key& key) const
-		{
-			return lowerBound(key);
-		}
-
-		Iterator lower_bound(const Key& key)
-		{
-			return lowerBound(key);
-		}
-
-		//! Returns the chain [(key up level, level)].
+ 		//! Returns the chain [(key up level, level)].
 		/*!
 		Time complexity:
 		O(1) expected
@@ -466,7 +496,7 @@ namespace Pastel
 		Time complexity: O(1) expected
 		Exception safety: nothrow
 		*/
-		bool prefixExists(const Key& key, integer level) const
+		bool chainExists(const Key& key, integer level) const
 		{
 			return chainSet_.count(replicate(key, level)) > 0;
 		}
@@ -507,15 +537,15 @@ namespace Pastel
 				auto nearby = [&](integer level)
 				{
 					return
-						prefixExists(key, level) ||
-						prefixExists(key - powerOfTwo<Key>(level), level) ||
-						prefixExists(key + powerOfTwo<Key>(level), level);
+						chainExists(key, level) ||
+						chainExists(key - powerOfTwo<Key>(level), level) ||
+						chainExists(key + powerOfTwo<Key>(level), level);
 				};
 
 				integer nearbyLevel =
 					exponentialBinarySearch(minLevel, bits(), nearby);
 
-				if (prefixExists(key, nearbyLevel))
+				if (chainExists(key, nearbyLevel))
 				{
 					// If a prefix of the key exists in the 'nearbyLevel'
 					// of the trie, then the corresponding node is the
@@ -527,7 +557,7 @@ namespace Pastel
 				// (v, j) !in R', it can not occur that both
 				// (v + 1, j) in R' and (v - 1, j) in R'.
 				// Call the existing one w.
-				bool nextExists = prefixExists(
+				bool nextExists = chainExists(
 					key + powerOfTwo<Key>(nearbyLevel),
 					nearbyLevel);
 
@@ -593,16 +623,16 @@ namespace Pastel
 			auto nearby = [&](integer level)
 			{
 				return
-					prefixExists(key, level) ||
-					prefixExists(key - powerOfTwo<Key>(level), level) ||
-					prefixExists(key + powerOfTwo<Key>(level), level);
+					chainExists(key, level) ||
+					chainExists(key - powerOfTwo<Key>(level), level) ||
+					chainExists(key + powerOfTwo<Key>(level), level);
 			};
 
 			integer nearbyLevel =
 				exponentialBinarySearch((integer)0, (integer)bits(), nearby);
 
 			// Let j = nearbyLevel and v = key up j.
-			if (prefixExists(key, nearbyLevel))
+			if (chainExists(key, nearbyLevel))
 			{
 				// If (v, j) in R', then it is the 
 				// lowest ancestor of v. The lowest ancestor 
@@ -614,7 +644,7 @@ namespace Pastel
 			// If (v, j) !in R', then either 
 			// (v + 1, j) in R' or
 			// (v - 1, j) in R', but not both.
-			bool nextExists = prefixExists(
+			bool nextExists = chainExists(
 				key + powerOfTwo<Key>(nearbyLevel),
 				nearbyLevel);
 
@@ -739,6 +769,9 @@ namespace Pastel
 		{
 			return size() == 0;
 		}
+
+		//! Returns an iterator range.
+		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 	private:
 		std::pair<Key, bool> nextSplitChainKey(const Key& key, integer level) const
@@ -979,11 +1012,11 @@ namespace Pastel
 		using Value = Value_;
 	};
 
-	template <integer Bits, typename Value>
-	using CFastTrie_Map = CFastTrie<CFastTrie_Map_Settings<Bits, Value>>;
-
 	template <integer Bits> 
 	using CFastTrie_Set_Settings = CFastTrie_Map_Settings<Bits, void>;
+
+	template <integer Bits, typename Value>
+	using CFastTrie_Map = CFastTrie<CFastTrie_Map_Settings<Bits, Value>>;
 
 	template <integer Bits>
 	using CFastTrie_Set = CFastTrie<CFastTrie_Set_Settings<Bits>>;
@@ -993,6 +1026,11 @@ namespace Pastel
 namespace Pastel
 {
 
+	//! Returns whether the invariants hold for the trie.
+	/*!
+	This function is useful for debugging the implementation of the
+	c-fast trie, and so is used in testing.
+	*/
 	template <typename CFastTrie_Settings>
 	bool checkInvariants(const CFastTrie<CFastTrie_Settings>& trie);
 
