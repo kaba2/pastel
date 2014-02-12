@@ -27,7 +27,7 @@ namespace
 
 		void test()
 		{
-			using Set = CFastTrie_Map<5, integer>;
+			using Set = CFastTrie_Map<4, integer>;
 			using Key = Set::Key;
 			using Value = Set::Value;
 
