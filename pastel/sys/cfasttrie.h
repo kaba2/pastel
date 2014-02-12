@@ -116,20 +116,13 @@ namespace Pastel
 
 		//! Constructs an empty trie.
 		/*!
-		Time complexity: O(endBit - beginBit)
+		Time complexity: O(bits())
 		Exception safety: strong
 		*/
-		explicit CFastTrie(
-			integer beginBit = 0, 
-			integer endBit = Bits)
-		: beginBit_(beginBit)
-		, endBit_(endBit)
-		, chainSet_()
+		CFastTrie()
+		: chainSet_()
 		, dataSet_()
 		{
-			ENSURE_OP(0, <=, beginBit);
-			ENSURE_OP(beginBit, <, endBit);
-			ENSURE_OP(endBit, <=, Bits);
 		}
 
 		//! Destructs the trie.
@@ -149,10 +142,6 @@ namespace Pastel
 		*/
 		void swap(CFastTrie& that)
 		{
-			using std::swap;
-
-			swap(beginBit_, that.beginBit_);
-			swap(endBit_, that.endBit_);
 			chainSet_.swap(that.chainSet_);
 			dataSet_.swap(that.dataSet_);
 		}
@@ -194,32 +183,38 @@ namespace Pastel
 			}
 			
 			Iterator right = upperBound(key);
-			Iterator left = std::prev(right);
-			if (key == left->key())
+
+			if (right != cbegin())
 			{
-				// The key already exists in the trie.
-				return left;
+				Iterator left = std::prev(right);
+				if (key == left->key())
+				{
+					// The key already exists in the trie.
+					return left;
+				}
+
+				while (key <= left->chain()->first)
+				{
+					left->key().swap(key);
+					--left;
+					--right;
+				}
 			}
 
-			while (key <= left->key())
+			if (right != cend())
 			{
-				left->key().swap(key);
-				--left;
-				--right;
-			}
-
-			while (key >= right->key())
-			{
-				key.swap(right->key());
-				++left;
-				++right;
+				while (key >= right->chain()->first)
+				{
+					key.swap(right->key());
+					++right;
+				}
 			}
 
 			integer height = lowestAncestor(key);
 			Key physicalKey = turn(key, height);
 
 			return reallyInsert(
-				left, key, 
+				right, key, 
 				physicalKey, 
 				height,
 				std::move(value));
@@ -312,31 +307,65 @@ namespace Pastel
 			// than h elements in between, where h is the
 			// height of the lowest split-ancestor of the 
 			// successor in S.
-			if (key < left->key())
+			if (key < left->key() || key >= right->key())
 			{
-				auto indicator = [&](integer i)
+				bool goingRight = (key >= right->key());
+				const Key& chainKey = right->chain()->first;
+
+				// Finds the next split-node, at or above level i,
+				// that is an ancestor of chainKey.
+				auto nextSplitChain = [&](integer i)
 				{
-					Chain_ConstIterator v = chainSet_.find(nextZeroChain(left->key(), i));
-					ASSERT(v != chainSet_.cend());
-					return v->second.element()->key() <= key;
+					auto nextPair = nextSplitChainKey(chainKey, i);
+					
+					const Key& nextChainKey = nextPair.first;
+					bool found = nextPair.second;
+
+					if (!found)
+					{
+						return chainSet_.cend();
+					}
+
+					Chain_ConstIterator nextChain =
+						chainSet_.find(nextChainKey);
+					ASSERT(nextChain != chainSet_.cend());
+
+					return nextChain;
 				};
 
-				integer k = exponentialBinarySearch((integer)1, (integer)Bits, indicator);
-				Chain_ConstIterator v = chainSet_.find(nextZeroChain(left->key(), k));
-				return std::next(v->second.element());
-			}
-			else if (key >= right->key())
-			{
 				auto indicator = [&](integer i)
 				{
-					Chain_ConstIterator v = chainSet_.find(nextOneChain(right->key(), i));
-					ASSERT(v != chainSet_.cend());
-					return v->second.element()->key() > key;
+					Chain_ConstIterator nextChain = 
+						nextSplitChain(i);
+
+					if (nextChain == chainSet_.cend())
+					{
+						return true;
+					}
+
+					bool keyOver =
+						((nextChain->second.element()->key() > key) == goingRight) ||
+						(nextChain->first > key) == goingRight;
+
+					return keyOver;
 				};
 
-				integer k = exponentialBinarySearch((integer)1, (integer)Bits, indicator);
-				Chain_ConstIterator v = chainSet_.find(nextOneChain(right->key(), k));
-				return v->second.element();
+				// Search over the split-node ancestors of chainKey,
+				// and find the level k at which nextSplitChain(k)
+				// returns the chain which contains the successor
+				// of 'key'.
+				integer k = exponentialBinarySearch(
+					(integer)1, (integer)Bits, indicator);
+				
+				Chain_ConstIterator nextChain =
+					nextSplitChain(k);
+
+				if (nextChain == chainSet_.cend())
+				{
+					return dataSet_.cend();
+				}
+
+				return nextChain->second.element();
 			}
 
 			return right;
@@ -422,6 +451,12 @@ namespace Pastel
 		*/
 		Chain_ConstIterator findChain(
 			const Key& key, integer level) const
+		{
+			return chainSet_.find(replicate(key, level));
+		}
+
+		Chain_Iterator findChain(
+			const Key& key, integer level)
 		{
 			return chainSet_.find(replicate(key, level));
 		}
@@ -579,40 +614,40 @@ namespace Pastel
 			// If (v, j) !in R', then either 
 			// (v + 1, j) in R' or
 			// (v - 1, j) in R', but not both.
-			// Denote the existing one by w.
-			bool oddKey = odd(key);
 			bool nextExists = prefixExists(
 				key + powerOfTwo<Key>(nearbyLevel),
 				nearbyLevel);
-			if (oddKey == nextExists)
+
+			Key nearbyKey = key;
+			if (nextExists)
+			{
+				nearbyKey += powerOfTwo<Key>(nearbyLevel);
+			}
+			else
+			{
+				nearbyKey -= powerOfTwo<Key>(nearbyLevel);
+			}
+
+			bool oddChain = !key.bit(nearbyLevel);
+			if (oddChain == nextExists)
 			{
 				// If the next key exists, and it is
 				// on an odd chain, then it must be on
 				// an upper gap-node. Similarly for the
 				// previous key and an even chain.
 
-				// Compute w.
-				Key nearbyKey = key;
-				if (nextExists)
-				{
-					nearbyKey += powerOfTwo<Key>(nearbyLevel);
-				}
-				else
-				{
-					nearbyKey -= powerOfTwo<Key>(nearbyLevel);
-				}
 				return physicalSuccessorFromUpperGap(
-					nearbyKey, nearbyLevel);
+					nearbyKey, nearbyLevel + 1);
 			}
 
 			// The (w, j) is a lower gap-node. Find its chain.
 			Chain_ConstIterator gapBoundChain =
-				findChain(key, nearbyLevel);
+				findChain(nearbyKey, nearbyLevel);
 			ASSERT(gapBoundChain != chainSet_.cend());
 
 			// Get the element associated with this chain.
 			ConstIterator gapBound = gapBoundChain->second.element();
-			if (oddKey)
+			if (oddChain)
 			{
 				// If we are on the odd lower-chain, then
 				// it is the successor of its key we are 
@@ -682,7 +717,7 @@ namespace Pastel
 		*/
 		integer bits() const
 		{
-			return endBit_ - beginBit_;
+			return Bits;
 		}
 
 		//! Returns the number of elements.
@@ -706,25 +741,73 @@ namespace Pastel
 		}
 
 	private:
-		Key nextOneChain(const Key& key, integer level) const
+		std::pair<Key, bool> nextSplitChainKey(const Key& key, integer level) const
 		{
-			Key result = replicate(key, level);
-			return odd(result) ? result : flipLeadingZeroBits(result);
-		}
+			ASSERT_OP(level, >=, 0);
+			ASSERT_OP(level, <, bits());
+			ASSERT(!zero(key));
 
-		Key nextZeroChain(const Key& key, integer level) const
-		{
-			Key result = replicate(key, level);
-			return odd(result) ? result : flipLeadingOneBits(result);
+			// Find the chain which contains (key up level, level).
+			Chain_ConstIterator chain = findChain(key, level);
+			
+			Key mask = chain->second.split();
+			if (mask.bit(level))
+			{
+				// The (key up level, level) is a split-node.
+				// Return that chain which does not lead to
+				// the key.
+				Key result = key;
+				result.setBits(0, level, !key.bit(level - 1));
+				return std::make_pair(result, true);
+			}
+			
+			// We wish to find the chain of the next split-node
+			// at or _above_ the given level. Clear the lower 
+			// split-bits so that we will not find the lower 
+			// split-nodes.
+			mask.clearBits(0, level);
+			
+			if (zero(mask))
+			{
+				// There are no split-nodes at or above the given level
+				// in the current chain.
+
+				if (chain->second.height() > 0)
+				{
+					// The next split-node is directly above the current chain.
+					// Return the next chain above the current chain.
+					return std::make_pair(replicate(key, chain->second.height()), true);
+				}
+
+				// There are no split-nodes at or above the given level.
+				return std::make_pair(key, false);
+			}
+			
+			// Form the mask which has one-bits below the first 
+			// split-node above the given level.
+			mask = zeroHigherBits(mask);
+			--mask;
+
+			const Key& chainKey = chain->first;
+			if (even(chainKey))
+			{
+				// We are currently on an even chain. Therefore
+				// the next split-chain above splits as a 1-chain.
+				return std::make_pair(key | mask, true);
+			}
+			
+			// We are currently on an odd chain. Therefore
+			// the next split-chain above splits as a 0-chain.
+			return std::make_pair(key & (~mask), true);
 		}
 
 		Key turn(const Key& key, integer level) const
 		{
-			if (key.bit(level))
-			{
-				return key & bitMask<Key>(level, bits());
-			}
-			return key | bitMask<Key>(level);
+			ASSERT_OP(level, > , 0);
+
+			Key result = key;
+			result.setBits(0, level, !key.bit(level));
+			return result;
 		}
 
 		template <typename Finite_Integer>
@@ -743,19 +826,42 @@ namespace Pastel
 			Value_Class&& value)
 		{
 			ASSERT_OP(height, >= , 0);
+			ASSERT_OP(height, <= , bits());
 
+			// Create the element.
+			// The element references its chain,
+			// and the chain references its element;
+			// we can't set the chain yet.
 			Iterator element =
 				dataSet_.emplace(
 				before,
 				chainSet_.end(),
 				key, std::move(value));
 
+			// Create the chain.
 			Chain_Iterator chain =
 				chainSet_.insert(
 				std::make_pair(physicalKey,
 				Chain(element, height))).first;
 
+			// Now set the chain of the element.
 			element->chain_ = chain;
+
+			// Every insertion, except for the first chain
+			// (the zero chain), creates a new split node.
+			// Update the split information in the chain above.
+			if (height > 0 && height < bits())
+			{
+				// A chain has height 0 (meaning infinite), if
+				// and only if it is the zero chain.
+				Chain_Iterator chainAbove =
+					findChain(key, height);
+				ASSERT(chainAbove != chainSet_.cend());
+				
+				Key& split = chainAbove->second.split();
+				ASSERT(!split.bit(height));
+				split.setBit(height);
+			}
 
 			return element;
 		}
@@ -770,20 +876,8 @@ namespace Pastel
 			ASSERT_OP(level, >=, 0);
 			ASSERT_OP(level, <, bits());
 
-			Key result(key, beginBit_, endBit_); 
-			if (result.bit(level))
-			{
-				// The bit at level 'level' is 1.
-				// Make all lower bits 1.
-				result |= bitMask<Key>(level);
-			}
-			else
-			{
-				// The bit at level 'level' is 0.
-				// Make all lower bits 0.
-				result &= bitMask<Key>(level, bits());
-			}
-
+			Key result(key);
+			result.setBits(0, level, key.bit(level));
 			return result;
 		}
 
@@ -825,21 +919,12 @@ namespace Pastel
 			integer splitOffset = 
 				exponentialBinarySearch((integer)0, (integer)level, splitAtOrAbove);
 
-			Key gapKey = key | bitMask<Key>(0, level);
-			if (odd(key))
-			{
-				// Follow the upper 1-gap-path downwards 
-				// to the first split- or leaf-node, and
-				// then follow the lower 0-gap-path.
-				gapKey ^= bitMask<Key>(level - splitOffset);
-			}
-			else
-			{
-				// Follow the upper 0-gap-path downwards 
-				// to the first split- or leaf-node, and
-				// then follow the lower 1-gap-path.
-				gapKey ^= bitMask<Key>(level - splitOffset, level);
-			}
+			// Follow the upper gap-path downwards 
+			// to the first split- or leaf-node, and
+			// then follow the lower gap-path.
+			Key gapKey = key;
+			gapKey.setBits(level - splitOffset, level, key.bit(level));
+			gapKey.setBits(0, level - splitOffset, !key.bit(level));
 
 			// Find the chain corresponding to the gap-bound.
 			Chain_ConstIterator lowerChain = chainSet_.find(gapKey);
@@ -847,7 +932,7 @@ namespace Pastel
 			ASSERT(lowerChain != chainSet_.cend());
 
 			ConstIterator element = lowerChain->second.element();
-			if (even(key))
+			if (even(gapKey))
 			{
 				// Since we followed the even gap-path,
 				// we are now at the left gap-bound.
@@ -858,17 +943,6 @@ namespace Pastel
 
 			return element;
 		}
-
-		//! The bits to use in a key.
-		/*!
-		Preconditions:
-		0 <= beginBit_ < endBit_ <= Bits
-
-		The indices of the bits to use are in the range 
-		[beginBit_, endBit_).
-		*/
-		integer beginBit_;
-		integer endBit_;
 
 		//! The set of chains.
 		/*!
@@ -915,5 +989,15 @@ namespace Pastel
 	using CFastTrie_Set = CFastTrie<CFastTrie_Set_Settings<Bits>>;
 
 }
+
+namespace Pastel
+{
+
+	template <typename CFastTrie_Settings>
+	bool checkInvariants(const CFastTrie<CFastTrie_Settings>& trie);
+
+}
+
+#include "pastel/sys/cfasttrie.hpp"
 
 #endif

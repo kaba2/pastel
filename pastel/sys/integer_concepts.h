@@ -1,4 +1,4 @@
-// Description: Concepts for Integer<>.
+// Description: Concepts for Integer
 
 #ifndef PASTELSYS_INTEGER_CONCEPTS_H
 #define PASTELSYS_INTEGER_CONCEPTS_H

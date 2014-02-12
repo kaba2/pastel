@@ -35,28 +35,34 @@ namespace
 
 			{
 				a.insert(1);
+				TEST_ENSURE(checkInvariants(a));
 				a.insert(9);
+				TEST_ENSURE(checkInvariants(a));
 				a.insert(5);
+				TEST_ENSURE(checkInvariants(a));
 				a.insert(4);
+				TEST_ENSURE(checkInvariants(a));
 				a.insert(6);
+				TEST_ENSURE(checkInvariants(a));
 				a.insert(3);
+				TEST_ENSURE(checkInvariants(a));
 				a.insert(7);
+				TEST_ENSURE(checkInvariants(a));
 				a.insert(8);
+				TEST_ENSURE(checkInvariants(a));
 				a.insert(2);
+				TEST_ENSURE(checkInvariants(a));
 				a.insert(0);
-
-				integer correctSet[] = 
+				TEST_ENSURE(checkInvariants(a));
+				a.insert(9);
+				TEST_ENSURE(checkInvariants(a));
+				a.insert(10);
+				TEST_ENSURE(checkInvariants(a));
+				for (auto&& element : a)
 				{
-					0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-				};
-
-				/*
-				TEST_ENSURE(boost::equal(a, correctSet, 
-					[&](const Data& left, integer right)
-					{
-						return left.key() == right;
-					}));
-				*/
+					std::cout << element.cKey().word(0) << " : "
+						<< element.chain()->first.word(0) << std::endl;
+				}
 			}
 		}
 	};
@@ -69,7 +75,7 @@ namespace
 
 	void addTest()
 	{
-		//testRunner().add("CFastTrie", test);
+		testRunner().add("CFastTrie", test);
 	}
 
 	CallFunction run(addTest);
