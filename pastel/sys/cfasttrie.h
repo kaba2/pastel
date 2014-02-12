@@ -207,9 +207,6 @@ namespace Pastel
 
 		//! Inserts an element.
 		/*!
-		Preconditions:
-		!key.lastBit()
-
 		Time complexity: O(...) (FIX: Add complexity)
 		Exception safety: strong (FIX: not even basic safety yet)
 
@@ -222,8 +219,6 @@ namespace Pastel
 			Key key, 
 			Value_Class value = Value_Class())
 		{
-			ENSURE(!key.lastBit());
-
 			// Find the smallest element > key.
 			Iterator right = upperBound(key);
 
@@ -408,11 +403,6 @@ namespace Pastel
 				// that is an ancestor of chainKey.
 				auto nextSplitChain = [&](integer i)
 				{
-					if (i == Bits)
-					{
-						return chainSet_.cend();
-					}
-
 					auto nextPair = nextSplitChainKey(chainKey, i);
 					
 					const Key& nextChainKey = nextPair.first;
@@ -423,7 +413,7 @@ namespace Pastel
 						return chainSet_.cend();
 					}
 
-					Chain_ConstIterator nextChain =
+					Chain_ConstIterator nextChain = 
 						chainSet_.find(nextChainKey);
 					ASSERT(nextChain != chainSet_.cend());
 
@@ -452,10 +442,10 @@ namespace Pastel
 				// returns the chain which contains the successor
 				// of 'key'.
 				integer k = exponentialBinarySearch(
-					(integer)1, (integer)Bits, indicator);
+					(integer)1, (integer)Bits + 1, indicator);
 				
 				Chain_ConstIterator nextChain =
-					nextSplitChain(k);
+					k < Bits + 1 ? nextSplitChain(k) : chainSet_.cend();
 
 				if (nextChain == chainSet_.cend())
 				{
@@ -529,7 +519,7 @@ namespace Pastel
 		Chain_ConstIterator findChain(
 			const Key& key, integer level) const
 		{
-			return chainSet_.find(replicate(key, level));
+			return removeConst(*this).findChain(key, level);
 		}
 
 		Chain_Iterator findChain(
@@ -693,8 +683,10 @@ namespace Pastel
 				// an upper gap-node. Similarly for the
 				// previous key and an even chain.
 
+				//return physicalSuccessorFromUpperGap(
+				//	nearbyKey, nearbyLevel + 1);
 				return physicalSuccessorFromUpperGap(
-					nearbyKey, nearbyLevel + 1);
+					nearbyKey, nearbyLevel);
 			}
 
 			// The (w, j) is a lower gap-node. Find its chain.
@@ -801,17 +793,17 @@ namespace Pastel
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 	private:
-		std::pair<Key, bool> nextSplitChainKey(const Key& key, integer level) const
+		std::pair<Key, bool> nextSplitChainKey(
+			const Key& key, integer level) const
 		{
-			ASSERT_OP(level, >=, 0);
-			ASSERT_OP(level, <, bits());
+			ASSERT_OP(level, >, 0);
+			ASSERT_OP(level, <=, bits());
 			ASSERT(!zero(key));
 
 			// Find the chain which contains (key up level, level).
 			Chain_ConstIterator chain = findChain(key, level);
 			
-			Key mask = chain->second.split();
-			if (mask.bit(level))
+			if (chain->second.splitExists(level))
 			{
 				// The (key up level, level) is a split-node.
 				// Return that chain which does not lead to
@@ -825,7 +817,12 @@ namespace Pastel
 			// at or _above_ the given level. Clear the lower 
 			// split-bits so that we will not find the lower 
 			// split-nodes.
-			mask.clearBits(0, level);
+
+			// Here we will have to look at the split
+			// information directly, and remember that the
+			// split-information at level i is at position i - 1.
+			Key mask = chain->second.split();
+			mask.clearBits(0, level - 1);
 			
 			if (zero(mask))
 			{
@@ -848,6 +845,11 @@ namespace Pastel
 			mask = zeroHigherBits(mask);
 			--mask;
 
+			// The last bit of 'mask' must now be zero. We may
+			// thus remove the encoding offset.
+			mask <<= 1;
+			++mask;
+
 			const Key& chainKey = chain->first;
 			if (even(chainKey))
 			{
@@ -869,7 +871,11 @@ namespace Pastel
 		Key replicate(const Key& key, integer level) const
 		{
 			ASSERT_OP(level, >= , 0);
-			ASSERT_OP(level, <, bits());
+
+			if (level >= bits())
+			{
+				return 0;
+			}
 
 			Key result(key);
 			result.setBits(0, level, key.bit(level));
@@ -883,8 +889,12 @@ namespace Pastel
 		*/
 		Key turn(const Key& key, integer level) const
 		{
-			ASSERT_OP(level, > , 0);
-			ASSERT_OP(level, <, bits());
+			ASSERT_OP(level, >= , 0);
+			
+			if (level >= bits())
+			{
+				return Key(-1);
+			}
 
 			Key result = key;
 			result.setBits(0, level, !key.bit(level));
@@ -973,17 +983,15 @@ namespace Pastel
 			// Every insertion, except for the first chain
 			// (the zero chain), creates a new split node.
 			// Update the split information in the chain above.
-			if (height > 0 && height < bits())
+			if (height > 0)
 			{
 				// A chain has height 0 (meaning infinite), if
 				// and only if it is the zero chain.
 				Chain_Iterator chainAbove =
 					findChain(chainKey, height);
 				ASSERT(chainAbove != chainSet_.cend());
-				
-				Key& split = chainAbove->second.split_;
-				ASSERT(!split.bit(height));
-				split.setBit(height);
+
+				chainAbove->second.setSplit(height);
 			}
 
 			return element;
@@ -1013,11 +1021,10 @@ namespace Pastel
 
 			const Key& physicalKey = keyChain->first;
 			const Chain& chain = keyChain->second;
-			const Key& split = chain.split();
 
 			auto splitAtOrAbove = [&](integer offset)
 			{
-				return (split & bitMask<Key>(level - offset, level + 1)) != 0;
+				return chain.splitExists(level - offset, level + 1);
 			};
 
 			// Find the first split-node in the gap-path below the
