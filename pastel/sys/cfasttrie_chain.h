@@ -15,16 +15,20 @@
 namespace Pastel
 {
 
+	template <typename CFastTrie_Settings>
+	class CFastTrie;
+
 	namespace CFastTrie_
 	{
 
 		template <
 			typename Key,
-			typename Iterator>
+			typename Iterator,
+			typename Const_Iterator>
 		class Chain
 		{
 		public:
-			explicit Chain(
+			Chain(
 				Iterator element,
 				integer height)
 			: height_(height)
@@ -38,27 +42,20 @@ namespace Pastel
 				return height_;
 			}
 
-			Key& split()
-			{
-				return split_;
-			}
-
 			const Key& split() const
 			{
 				return split_;
 			}
 
-			Iterator& element()
-			{
-				return element_;
-			}
-
-			const Iterator& element() const
+			Const_Iterator element() const
 			{
 				return element_;
 			}
 
 		private:
+			template <typename CFastTrie_Settings>
+			friend class CFastTrie;
+
 			//! The height of the chain.
 			/*!
 			The height h of a chain is the number of

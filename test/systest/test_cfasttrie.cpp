@@ -64,7 +64,7 @@ namespace
 				TEST_ENSURE(checkInvariants(a));
 				for (auto&& element : a)
 				{
-					std::cout << element.cKey().word(0) << " : "
+					std::cout << element.key().word(0) << " : "
 						<< element.chain()->first.word(0) << std::endl;
 				}
 			}
