@@ -207,7 +207,10 @@ namespace Pastel
 
 		//! Inserts an element.
 		/*!
-		Time complexity: O(bits())
+		Preconditions:
+		!key.lastBit()
+
+		Time complexity: O(...) (FIX: Add complexity)
 		Exception safety: strong (FIX: not even basic safety yet)
 
 		returns:
@@ -219,6 +222,8 @@ namespace Pastel
 			Key key, 
 			Value_Class value = Value_Class())
 		{
+			ENSURE(!key.lastBit());
+
 			// Find the smallest element > key.
 			Iterator right = upperBound(key);
 
@@ -403,6 +408,11 @@ namespace Pastel
 				// that is an ancestor of chainKey.
 				auto nextSplitChain = [&](integer i)
 				{
+					if (i == Bits)
+					{
+						return chainSet_.cend();
+					}
+
 					auto nextPair = nextSplitChainKey(chainKey, i);
 					
 					const Key& nextChainKey = nextPair.first;
@@ -528,16 +538,6 @@ namespace Pastel
 			return chainSet_.find(replicate(key, level));
 		}
 
-		//! Returns whether (key up level, level) in R'.
-		/*!
-		Time complexity: O(1) expected
-		Exception safety: nothrow
-		*/
-		bool chainExists(const Key& key, integer level) const
-		{
-			return chainSet_.count(replicate(key, level)) > 0;
-		}
-
 		//! Returns whether the element exists.
 		/*!
 		Time complexity: O(1) expected
@@ -573,10 +573,7 @@ namespace Pastel
 			{
 				auto nearby = [&](integer level)
 				{
-					return
-						chainExists(key, level) ||
-						chainExists(key - powerOfTwo<Key>(level), level) ||
-						chainExists(key + powerOfTwo<Key>(level), level);
+					return chainNearby(key, level);
 				};
 
 				integer nearbyLevel =
@@ -594,9 +591,7 @@ namespace Pastel
 				// (v, j) !in R', it can not occur that both
 				// (v + 1, j) in R' and (v - 1, j) in R'.
 				// Call the existing one w.
-				bool nextExists = chainExists(
-					key + powerOfTwo<Key>(nearbyLevel),
-					nearbyLevel);
+				bool nextExists = chainOnRight(key, nearbyLevel);
 
 				// Compute w.
 				Key nearbyKey = key;
@@ -659,10 +654,7 @@ namespace Pastel
 
 			auto nearby = [&](integer level)
 			{
-				return
-					chainExists(key, level) ||
-					chainExists(key - powerOfTwo<Key>(level), level) ||
-					chainExists(key + powerOfTwo<Key>(level), level);
+				return chainNearby(key, level);
 			};
 
 			integer nearbyLevel =
@@ -681,9 +673,7 @@ namespace Pastel
 			// If (v, j) !in R', then either 
 			// (v + 1, j) in R' or
 			// (v - 1, j) in R', but not both.
-			bool nextExists = chainExists(
-				key + powerOfTwo<Key>(nearbyLevel),
-				nearbyLevel);
+			bool nextExists = chainOnRight(key, nearbyLevel);
 
 			Key nearbyKey = key;
 			if (nextExists)
@@ -894,6 +884,7 @@ namespace Pastel
 		Key turn(const Key& key, integer level) const
 		{
 			ASSERT_OP(level, > , 0);
+			ASSERT_OP(level, <, bits());
 
 			Key result = key;
 			result.setBits(0, level, !key.bit(level));
@@ -907,6 +898,60 @@ namespace Pastel
 				leadingZeroBits(that) :
 				leadingOneBits(that);
 		}
+
+		//! Returns whether (key up level, level) in R'.
+		/*!
+		Time complexity: O(1) expected
+		Exception safety: nothrow
+		*/
+		bool chainExists(const Key& key, integer level) const
+		{
+			return chainSet_.count(replicate(key, level)) > 0;
+		}
+
+		//! Returns whether there is a chain nearby at a given level.
+		/*!
+		Time complexity: O(1) expected
+		Exception safety: nothrow
+
+		Nearby means at distance one on the given level.
+		*/
+		bool chainNearby(const Key& key, integer level) const
+		{
+			return chainExists(key, level) ||
+				chainOnRight(key, level) ||
+				chainOnLeft(key, level);
+		};
+
+		//! Returns whether there is a chain on the right.
+		/*!
+		Time complexity: O(1) expected
+		Exception safety: nothrow
+		*/
+		bool chainOnRight(const Key& key, integer level) const
+		{
+			// What makes this function slightly tricky is that
+			// the nearby key's may wrap around by the modulo 
+			// arithmetic.
+
+			Key rightKey = key + powerOfTwo<Key>(level);
+			return rightKey > key &&
+				chainExists(rightKey, level);
+		};
+
+		//! Returns whether there is a chain on the left.
+		/*!
+		Time complexity: O(1) expected
+		Exception safety: nothrow
+		*/
+		bool chainOnLeft(const Key& key, integer level) const
+		{
+			// See the documentation for chainOnRight().
+
+			Key leftKey = key - powerOfTwo<Key>(level);
+			return leftKey < key &&
+				chainExists(leftKey, level);
+		};
 
 		Iterator insertChain(
 			const Key& chainKey,

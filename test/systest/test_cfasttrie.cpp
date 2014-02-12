@@ -27,46 +27,46 @@ namespace
 
 		void test()
 		{
-			using Set = CFastTrie_Set<64>;
+			using Set = CFastTrie_Map<5, integer>;
 			using Key = Set::Key;
 			using Value = Set::Value;
 
 			Set a;
 
 			{
-				a.insert(1);
+				a.insert(1, 11);
 				TEST_ENSURE(checkInvariants(a));
-				a.insert(9);
+				a.insert(9, 19);
 				TEST_ENSURE(checkInvariants(a));
-				a.insert(5);
+				a.insert(5, 15);
 				TEST_ENSURE(checkInvariants(a));
-				a.insert(4);
+				a.insert(4, 14);
 				TEST_ENSURE(checkInvariants(a));
-				a.insert(6);
+				a.insert(6, 16);
 				TEST_ENSURE(checkInvariants(a));
-				a.insert(3);
+				a.insert(3, 13);
 				TEST_ENSURE(checkInvariants(a));
-				a.insert(7);
+				a.insert(7, 17);
 				TEST_ENSURE(checkInvariants(a));
-				a.insert(8);
+				a.insert(8, 18);
 				TEST_ENSURE(checkInvariants(a));
-				a.insert(2);
+				a.insert(2, 12);
 				TEST_ENSURE(checkInvariants(a));
-				a.insert(0);
-				TEST_ENSURE(checkInvariants(a));
-				a.insert(9);
-				TEST_ENSURE(checkInvariants(a));
-				a.insert(10);
-				TEST_ENSURE(checkInvariants(a));
-				a.insert(15);
-				TEST_ENSURE(checkInvariants(a));
-				a.insert(16);
+				a.insert(0, 10);
 				TEST_ENSURE(checkInvariants(a));
 				for (auto&& element : a)
 				{
 					std::cout << element.key().word(0) << " : "
-						<< element.chain()->first.word(0) << std::endl;
+						<< element.chain()->first.word(0) << " : "
+						<< element
+						<< std::endl;
 				}
+				a.insert(9, 15);
+				TEST_ENSURE(checkInvariants(a));
+				a.insert(10, 20);
+				TEST_ENSURE(checkInvariants(a));
+				a.insert(15, 25);
+				TEST_ENSURE(checkInvariants(a));
 			}
 		}
 	};
