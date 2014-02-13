@@ -1,9 +1,8 @@
 // Description: C-fast trie node
 
-#ifndef PASTELSYS_CFASTTRIE_NODE_H
-#define PASTELSYS_CFASTTRIE_NODE_H
+#ifndef PASTELSYS_CFASTTRIE_CHAIN_H
+#define PASTELSYS_CFASTTRIE_CHAIN_H
 
-#include "pastel/sys/cfasttrie.h"
 #include "pastel/sys/logarithm.h"
 #include "pastel/sys/leading_zero_bits.h"
 #include "pastel/sys/leading_one_bits.h"
@@ -16,7 +15,9 @@
 namespace Pastel
 {
 
-	template <typename CFastTrie_Settings>
+	template <
+		typename Settings,
+		typename Customization>
 	class CFastTrie;
 
 	namespace CFastTrie_
@@ -93,7 +94,9 @@ namespace Pastel
 			}
 
 		private:
-			template <typename CFastTrie_Settings>
+			template <
+				typename Settings,
+				typename Customization>
 			friend class CFastTrie;
 
 			void setSplit(integer level)

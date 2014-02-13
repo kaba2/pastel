@@ -6,8 +6,11 @@
 namespace Pastel
 {
 
-	template <typename CFastTrie_Settings>
-	bool checkInvariants(const CFastTrie<CFastTrie_Settings>& trie)
+	template <
+		typename Settings,
+		typename Customization>
+	bool checkInvariants(
+		const CFastTrie<Settings, Customization>& trie)
 	{
 		if (trie.empty())
 		{
