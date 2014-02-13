@@ -10,10 +10,6 @@
 #include "pastel/sys/flip_leading_one_bits.h"
 #include "pastel/sys/flip_leading_zero_bits.h"
 
-#include <unordered_map>
-#include <vector>
-#include <memory>
-
 namespace Pastel
 {
 
@@ -23,6 +19,11 @@ namespace Pastel
 		CFastTrie_Concepts::Customization<Settings>;
 
 	//! C-fast trie
+	/*!
+	Space complexity: O(n)
+	where
+	n is the number of stored elements.
+	*/
 	template <
 		typename Settings_, 
 		typename Customization_ = Empty_CFastTrie_Customization<Settings_>>
@@ -396,7 +397,7 @@ namespace Pastel
 				// that is an ancestor of chainKey.
 				auto nextSplitChain = [&](integer i)
 				{
-					auto nextPair = nextSplitChainKey(chainKey, i);
+					auto nextPair = findNextChainKey(chainKey, i);
 					
 					const Key& nextChainKey = nextPair.first;
 					bool found = nextPair.second;
@@ -523,7 +524,7 @@ namespace Pastel
 
 		//! Returns whether the element exists.
 		/*!
-		Time complexity: O(1) expected
+		Time complexity: FIX: Add
 		Exception safety: nothrow
 		*/
 		bool exists(const Key& key) const
@@ -786,12 +787,16 @@ namespace Pastel
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 	private:
-		std::pair<Key, bool> nextSplitChainKey(
+		//! The chain-key of the next chain at or above a given node.
+		/*!
+		Preconditions:
+		0 <= level <= bits()
+		*/
+		std::pair<Key, bool> findNextChainKey(
 			const Key& key, integer level) const
 		{
 			ASSERT_OP(level, >, 0);
 			ASSERT_OP(level, <=, bits());
-			ASSERT(!zero(key));
 
 			// Find the chain which contains (key up level, level).
 			Chain_ConstIterator chain = findChain(key, level);
@@ -877,14 +882,18 @@ namespace Pastel
 
 		//!
 		/*!
+		Preconditions:
+		0 <= level <= bits()
+
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
 		Key turn(const Key& key, integer level) const
 		{
 			ASSERT_OP(level, >= , 0);
+			ASSERT_OP(level, <= , bits());
 			
-			if (level >= bits())
+			if (level == bits())
 			{
 				return Key(-1);
 			}
@@ -894,6 +903,23 @@ namespace Pastel
 			return result;
 		}
 
+		//! Returns the height of a chain-key.
+		/*!
+		Time complexity: O(h)
+		where
+		h is the height of the chain.
+
+		Exception safety: nothrow
+
+		The height of a chain-key k is the number of
+		elements in [k]. If k is even, it is the number
+		of leading zero bits, and if k is odd, it is
+		the number of leading one bits. This problem
+		can be reduced in O(1) time to the problem of
+		computing the logarithm of a power-of-two.
+		Thus O(h) is the optimal time complexity for
+		this function.
+		*/
 		template <typename Finite_Integer>
 		integer chainHeight(const Finite_Integer& that)
 		{
@@ -904,16 +930,24 @@ namespace Pastel
 
 		//! Returns whether (key up level, level) in R'.
 		/*!
+		Preconditions:
+		level >= 0
+
 		Time complexity: O(1) expected
 		Exception safety: nothrow
 		*/
 		bool chainExists(const Key& key, integer level) const
 		{
+			ASSERT_OP(level, >= , 0);
+
 			return chainSet_.count(replicate(key, level)) > 0;
 		}
 
 		//! Returns whether there is a chain nearby at a given level.
 		/*!
+		Preconditions:
+		level >= 0
+
 		Time complexity: O(1) expected
 		Exception safety: nothrow
 
@@ -921,6 +955,8 @@ namespace Pastel
 		*/
 		bool chainNearby(const Key& key, integer level) const
 		{
+			ASSERT_OP(level, >= , 0);
+
 			return chainExists(key, level) ||
 				chainOnRight(key, level) ||
 				chainOnLeft(key, level);
@@ -928,11 +964,16 @@ namespace Pastel
 
 		//! Returns whether there is a chain on the right.
 		/*!
+		Preconditions:
+		level >= 0
+
 		Time complexity: O(1) expected
 		Exception safety: nothrow
 		*/
 		bool chainOnRight(const Key& key, integer level) const
 		{
+			ASSERT_OP(level, >= , 0);
+
 			// What makes this function slightly tricky is that
 			// the nearby key's may wrap around by the modulo 
 			// arithmetic.
@@ -944,11 +985,16 @@ namespace Pastel
 
 		//! Returns whether there is a chain on the left.
 		/*!
+		Preconditions:
+		level >= 0
+
 		Time complexity: O(1) expected
 		Exception safety: nothrow
 		*/
 		bool chainOnLeft(const Key& key, integer level) const
 		{
+			ASSERT_OP(level, >= , 0);
+
 			// See the documentation for chainOnRight().
 
 			Key leftKey = key - powerOfTwo<Key>(level);
@@ -956,6 +1002,14 @@ namespace Pastel
 				chainExists(leftKey, level);
 		};
 
+		//! Inserts a new chain.
+		/*!
+		Preconditions:
+		0 <= height <= bits()
+
+		Time complexity: FIX: Add
+		Exception safety: strong
+		*/
 		Iterator insertChain(
 			const Key& chainKey,
 			integer height,
@@ -992,7 +1046,10 @@ namespace Pastel
 
 		//! Returns the successor in R, given an upper gap-node.
 		/*!
-		Time complexity: 
+		Preconditions:
+		level >= 0
+
+		Time complexity:
 		O(1) expected
 		
 		Exception safety: 
@@ -1006,6 +1063,8 @@ namespace Pastel
 		ConstIterator physicalSuccessorFromUpperGap(
 			const Key& key, integer level) const
 		{
+			ASSERT_OP(level, >= , 0);
+
 			// Let j = level and v = key up j. 
 			
 			// Find the chain that contains (v, j).
@@ -1071,6 +1130,11 @@ namespace Pastel
 		ChainSet chainSet_;
 
 		//! The elements stored in increasing order.
+		/*!
+		By a property of a c-fast trie, it also holds that
+		that the chain-keys of the associated chains are
+		in increasing order.
+		*/
 		DataSet dataSet_;
 	};
 	
@@ -1101,7 +1165,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	//! Returns whether the invariants hold for the trie.
+	//! Returns whether the invariants hold for the c-fast trie.
 	/*!
 	This function is useful for debugging the implementation of the
 	c-fast trie, and so is used in testing.
