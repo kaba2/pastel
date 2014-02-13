@@ -4,10 +4,7 @@
 #define PASTELSYS_CFASTTRIE_H
 
 #include "pastel/sys/cfasttrie_concepts.h"
-#include "pastel/sys/cfasttrie_chain.h"
-#include "pastel/sys/integer.h"
-#include "pastel/sys/object_forwarding.h"
-#include "pastel/sys/skiplist.h"
+#include "pastel/sys/cfasttrie_fwd.h"
 #include "pastel/sys/exponential_binary_search.h"
 #include "pastel/sys/bitmask.h"
 #include "pastel/sys/flip_leading_one_bits.h"
@@ -20,9 +17,17 @@
 namespace Pastel
 {
 
+	//! The default no-op customization for the c-fast trie.
+	template <typename Settings>
+	using Empty_CFastTrie_Customization =
+		CFastTrie_Concepts::Customization<Settings>;
+
 	//! C-fast trie
-	template <typename CFastTrie_Settings>
+	template <
+		typename Settings_, 
+		typename Customization_ = Empty_CFastTrie_Customization<Settings_>>
 	class CFastTrie
+	: public Customization_
 	{
 	public:
 		/*
@@ -40,73 +45,31 @@ namespace Pastel
 		N:
 		The set of natural numbers.
 		*/
-		using Settings = CFastTrie_Settings;
 
-		enum
-		{
-			Bits = Settings::Bits
-		};
-		PASTEL_STATIC_ASSERT(Bits > 0);
+		// See cfasttrie_fwd.h for the documentation 
+		// for the following types.
+		using Fwd = CFastTrie_Fwd<Settings_>;
+		using Customization = Customization_;
 
-		using Key = Unsigned_Integer<Bits>;
-		using Value = typename Settings::Value;
-		using Value_Class = Class<Value>;
-		using Key_Hash = Integer_Hash<typename Key::Settings>;
+		PASTEL_FWD(Settings);
+		PASTEL_FWD(Key);
+		PASTEL_FWD(Value);
+		PASTEL_FWD(Value_Class);
+		PASTEL_FWD(Key_Hash);
+		PASTEL_FWD(DataSet);
+		PASTEL_FWD(ConstIterator);
+		PASTEL_FWD(Iterator);
+		PASTEL_FWD(Range);
+		PASTEL_FWD(ConstRange);
+		PASTEL_FWD(Chain);
+		PASTEL_FWD(ChainSet);
+		PASTEL_FWD(Chain_ConstIterator);
+		PASTEL_FWD(Chain_Iterator);
+		PASTEL_FWD(Element);
+		PASTEL_FWD(const_iterator);
+		PASTEL_FWD(iterator);
 
-		// Elements
-
-		class Element;
-		using DataSet = std::list<Element>;
-		using ConstIterator = typename DataSet::const_iterator;
-		using Iterator = typename DataSet::iterator;
-
-		using Range = 
-			boost::iterator_range<Iterator>;
-		using ConstRange = 
-			boost::iterator_range<ConstIterator>;
-
-		// These are for compatibility with Boost ranges.
-		using const_iterator = ConstIterator;
-		using iterator = Iterator;
-
-		// Chains
-
-		using Chain = CFastTrie_::Chain<Key, Iterator, ConstIterator>;
-
-		using ChainSet = std::unordered_map<Key, Chain, Key_Hash>;
-		using Chain_ConstIterator = typename ChainSet::const_iterator;
-		using Chain_Iterator = typename ChainSet::iterator;
-
-		class Element
-		: public Value_Class
-		{
-		public:
-			Element(
-				const Chain_Iterator& chain,
-				Key key,
-				Value_Class&& value)
-			: Value_Class(std::move(value))
-			, chain_(chain)
-			, key_(key)
-			{
-			}
-
-			const Chain_ConstIterator& chain() const
-			{
-				return chain_;
-			}
-
-			const Key& key() const
-			{
-				return key_;
-			}
-
-		private:
-			friend class CFastTrie<CFastTrie_Settings>;
-
-			Chain_Iterator chain_;
-			Key key_;
-		};
+		enum {Bits = Settings::Bits};
 
 		//! Constructs an empty trie.
 		/*!
@@ -187,6 +150,7 @@ namespace Pastel
 		*/
 		void swap(CFastTrie& that)
 		{
+			Customization::swap(that);
 			chainSet_.swap(that.chainSet_);
 			dataSet_.swap(that.dataSet_);
 		}
@@ -198,6 +162,9 @@ namespace Pastel
 		*/
 		void clear()
 		{
+			// Notify the customization.
+			onClear();
+
 			// Clear all elements.
 			dataSet_.clear();
 
@@ -253,7 +220,12 @@ namespace Pastel
 				// If the trie is empty, the inserted chain has to
 				// be the zero chain. We give the zero chain a height
 				// of zero, by which we actually mean infinity.
-				return insertChain(0, 0, element);
+				insertChain(0, 0, element);
+
+				// Notify the customization.
+				onInsert(element);
+
+				return element;
 			}
 			
 			// While the goal is to insert 'element' into the
@@ -313,8 +285,29 @@ namespace Pastel
 				height,
 				elementToInsert);
 
+			// Notify the customization.
+			onInsert(element);
+
 			// Return the element that was originally inserted.
 			return element;
+		}
+
+		//! Removes an element.
+		/*!
+		Time complexity:
+		FIX: Add
+
+		Exception safety:
+		nothrow
+
+		returns:
+		An iterator to the element following the
+		removed element.
+		*/
+		Iterator erase(const ConstIterator& that)
+		{
+			onErase(that);
+			return that;
 		}
 
 		//! Returns an element with a given key.
@@ -1113,8 +1106,11 @@ namespace Pastel
 	This function is useful for debugging the implementation of the
 	c-fast trie, and so is used in testing.
 	*/
-	template <typename CFastTrie_Settings>
-	bool checkInvariants(const CFastTrie<CFastTrie_Settings>& trie);
+	template <
+		typename Settings,
+		typename Customization>
+	bool checkInvariants(
+		const CFastTrie<Settings, Customization>& trie);
 
 }
 
