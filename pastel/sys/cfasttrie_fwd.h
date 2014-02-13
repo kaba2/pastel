@@ -7,6 +7,9 @@
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/cfasttrie_chain.h"
 
+#include <unordered_map>
+#include <list>
+
 namespace Pastel
 {
 
