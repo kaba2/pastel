@@ -176,6 +176,26 @@ namespace Pastel
 		{
 		}
 
+		//! Copy-constructs from another integer.
+		/*!
+		Time complexity: O(N)
+		Exception safety: strong
+		*/
+		Integer(const Integer& that)
+		: wordSet_(that.wordSet_)
+		{
+		}
+
+		//! Move-constructs from another integer.
+		/*!
+		Time complexity: O(N)
+		Exception safety: strong
+		*/
+		Integer(Integer&& that)
+		: wordSet_(std::move(that.wordSet_))
+		{
+		}
+
 		//! Copy-constructs only a range of bits.
 		/*!
 		Preconditions:
@@ -213,7 +233,14 @@ namespace Pastel
 			wordSet_[lastWord] &= bitMask<Word>(endBit - lastWord * BitsInWord);
 		}
 
-		//! Assigns 'that' to this.
+		//! Destructs the integer.
+		/*!
+		Time complexity: O(N)
+		Exception safety: nothrow
+		*/
+		~Integer() = default;
+
+		//! Copy-assigns from another integer.
 		/*!
 		Time complexity: O(N)
 		Exception safety: nothrow
@@ -986,6 +1013,11 @@ namespace Pastel
 		WordSet wordSet_;
 	};
 
+}
+
+namespace Pastel
+{
+
 	template <int N_, typename Word_, bool Signed_>
 	class Integer_Settings
 	{
@@ -1100,51 +1132,30 @@ namespace Pastel
 
 }
 
+#include <iostream>
+#include <iomanip>
+
 namespace Pastel
 {
 
 	template <typename Integer_Settings>
-	struct Integer_Hash
+	std::ostream& operator<<(
+		std::ostream& stream, 
+		const Integer<Integer_Settings>& that)
 	{
-	public:
-		enum
+		for (integer i = that.words() - 1;i >= 0;--i)
 		{
-			N = Integer_Settings::N
-		};
-
-		explicit Integer_Hash(integer beginBit = 0, integer endBit = N)
-		: beginBit_(beginBit)
-		, endBit_(endBit)
-		{
-			PENSURE_OP(beginBit, >=, 0);
-			PENSURE_OP(beginBit, <=, endBit);
-			PENSURE_OP(endBit, <=, N);
+			stream << std::setw(that.BitsInWord / 4)
+				<< std::setfill('0')
+				<< std::hex
+				<< (uinteger)that.word(i);
 		}
 
-		hash_integer operator()(
-			const Integer<Integer_Settings>& that) const
-		{
-			return that.hash(beginBit_, endBit_);
-		}
-
-	private:
-		integer beginBit_;
-		integer endBit_;
-	};
+		return stream;
+	}
 
 }
 
-#include "pastel/sys/hashing.h"
-
-namespace std
-{
-
-	template <typename Integer_Settings>
-	struct hash<Pastel::Integer<Integer_Settings>>
-	: Pastel::Integer_Hash<Integer_Settings>
-	{
-	};
-
-}
+#include "pastel/sys/integer_hash.h"
 
 #endif

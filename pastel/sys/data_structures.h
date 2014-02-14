@@ -5,6 +5,7 @@
 
 #include "pastel/sys/automaton.h"
 #include "pastel/sys/array.h"
+#include "pastel/sys/cfasttrie.h"
 #include "pastel/sys/fastlist_tools.h"
 #include "pastel/sys/hashing.h"
 #include "pastel/sys/incidence_graph.h"

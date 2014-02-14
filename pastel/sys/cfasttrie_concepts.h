@@ -1,4 +1,4 @@
-// Description: Concepts for C-fast trie
+// Description: Concepts for the c-fast trie
 
 #ifndef PASTELSYS_CFASTTRIE_CONCEPTS_H
 #define PASTELSYS_CFASTTRIE_CONCEPTS_H

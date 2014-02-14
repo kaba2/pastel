@@ -37,6 +37,8 @@ namespace
 		void testConstruction()
 		{
 			using F = Unsigned_Integer<20, uint8>;
+
+			//std::cout << F(0x12345678) << std::endl;
 			
 			TEST_ENSURE(F(0x12345678) == F({ 0x12, 0x34, 0x56, 0x78 }));
 			TEST_ENSURE(F(0x12345678) == F({ 0x34, 0x56, 0x78 }));

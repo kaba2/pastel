@@ -1,4 +1,4 @@
-// Description: Testing for c-fast trie
+// Description: Testing for the c-fast trie
 // DocumentationOf: cfasttrie.h
 
 #include "test_pastelsys.h"

@@ -31,13 +31,7 @@ Space                              | ''O(n)''
 
 ### Value data
 
-In addition to the key, a node can store arbitrary extra
-data, called _value data_. In contrast to the keys, the
-values can be modified at any time. The type of the value
-data is specified in the `ValueType` member type in the `RbtPolicy` policy.
-If no extra data is needed, you should define this type 
-`EmptyClass`, and Pastel makes sure that no memory is spent on the 
-values.
+In addition to the key, an element can store arbitrary user-data. In contrast to the keys, the values can be modified at any time. In case user-data is not needed, it can be defined as `void`, and Pastel makes sure that no memory is spent on the values.
 
 ### Hierarchical data
 

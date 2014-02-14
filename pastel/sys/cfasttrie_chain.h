@@ -1,4 +1,4 @@
-// Description: C-fast trie node
+// Description: C-fast trie chain
 
 #ifndef PASTELSYS_CFASTTRIE_CHAIN_H
 #define PASTELSYS_CFASTTRIE_CHAIN_H
