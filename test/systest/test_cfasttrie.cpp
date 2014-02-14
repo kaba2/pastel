@@ -54,6 +54,38 @@ namespace
 				TEST_ENSURE(checkInvariants(a));
 				a.insert(0, 10);
 				TEST_ENSURE(checkInvariants(a));
+				a.insert(9, 15);
+				TEST_ENSURE(checkInvariants(a));
+				a.insert(10, 20);
+				TEST_ENSURE(checkInvariants(a));
+				a.insert(15, 25);
+				TEST_ENSURE(checkInvariants(a));
+			}
+			{
+				a.erase(9);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(0);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(6);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(7);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(8);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(2);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(3);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(4);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(5);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(1);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(15);
+				TEST_ENSURE(checkInvariants(a));
+				a.erase(10);
+				TEST_ENSURE(checkInvariants(a));
 				for (auto&& element : a)
 				{
 					std::cout << element.key().word(0) << " : "
@@ -61,12 +93,6 @@ namespace
 						<< element
 						<< std::endl;
 				}
-				a.insert(9, 15);
-				TEST_ENSURE(checkInvariants(a));
-				a.insert(10, 20);
-				TEST_ENSURE(checkInvariants(a));
-				a.insert(15, 25);
-				TEST_ENSURE(checkInvariants(a));
 			}
 		}
 	};
