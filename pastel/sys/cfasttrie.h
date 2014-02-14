@@ -575,31 +575,6 @@ namespace Pastel
 			return cast(removeConst(*this).lowerBound(key));
 		}
 
- 		//! Returns the chain [(key up level, level)].
-		/*!
-		Time complexity:
-		O(1) expected
-
-		Exception safety:
-		nothrow
-
-		returns:
-		An iterator to a chain such that (key up level, level)
-		is in the chain. The chain exists only if its contained
-		in S'.
-		*/
-		Chain_ConstIterator findChain(
-			const Key& key, integer level) const
-		{
-			return removeConst(*this).findChain(key, level);
-		}
-
-		Chain_Iterator findChain(
-			const Key& key, integer level)
-		{
-			return chainSet_.find(replicate(key, level));
-		}
-
 		//! Returns whether the element exists.
 		/*!
 		Time complexity: FIX: Add
@@ -690,6 +665,89 @@ namespace Pastel
 			return 0;
 		}
 
+		//! Converts a const-iterator to an iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Iterator cast(const ConstIterator& that)
+		{
+			return dataSet_.erase(that, that);
+		}
+
+		//! Returns an iterator to the smallest element.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_ITERATOR_FUNCTIONS(begin, dataSet_.begin());
+
+		//! Returns the one-past-last iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_ITERATOR_FUNCTIONS(end, dataSet_.end());
+
+		//! Returns an iterator range.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_RANGE_FUNCTIONS(range, begin, end);
+
+		//! Returns a key-iterator to the smallest element.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Key_, keyBegin, cbegin());
+
+		//! Returns the one-past-last key-iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, cend());
+
+		//! Returns a key-iterator range.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
+
+		//! Returns the number of used bits.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer bits() const
+		{
+			return Bits;
+		}
+
+		//! Returns the number of elements.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer size() const
+		{
+			return chainSet_.size();
+		}
+
+		//! Returns whether the trie is empty.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		bool empty() const
+		{
+			return size() == 0;
+		}
+
+	private:
 		//! Returns the successor of 'key' in R.
 		/*!
 		Time complexity:
@@ -781,89 +839,31 @@ namespace Pastel
 			return gapBound;
 		}
 
-		//! Converts a const-iterator to an iterator.
+ 		//! Returns the chain [(key up level, level)].
 		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
+		Time complexity:
+		O(1) expected
+
+		Exception safety:
+		nothrow
+
+		returns:
+		An iterator to a chain such that (key up level, level)
+		is in the chain. The chain exists only if its contained
+		in S'.
 		*/
-		Iterator cast(const ConstIterator& that)
+		Chain_ConstIterator findChain(
+			const Key& key, integer level) const
 		{
-			return dataSet_.erase(that, that);
+			return removeConst(*this).findChain(key, level);
 		}
 
-		//! Returns an iterator to the smallest element.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		PASTEL_ITERATOR_FUNCTIONS(begin, dataSet_.begin());
-
-		//! Returns the one-past-last iterator.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		PASTEL_ITERATOR_FUNCTIONS(end, dataSet_.end());
-
-		//! Returns an iterator range.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		PASTEL_RANGE_FUNCTIONS(range, begin, end);
-
-		//! Returns a key-iterator to the smallest element.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Key_, keyBegin, cbegin());
-
-		//! Returns the one-past-last key-iterator.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, cend());
-
-		//! Returns a key-iterator range.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
-
-		//! Returns the number of used bits.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		integer bits() const
+		Chain_Iterator findChain(
+			const Key& key, integer level)
 		{
-			return Bits;
+			return chainSet_.find(replicate(key, level));
 		}
 
-		//! Returns the number of elements.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		integer size() const
-		{
-			return chainSet_.size();
-		}
-
-		//! Returns whether the trie is empty.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		bool empty() const
-		{
-			return size() == 0;
-		}
-
-	private:
 		//! The chain-key of the next chain at or above a given node.
 		/*!
 		Preconditions:
