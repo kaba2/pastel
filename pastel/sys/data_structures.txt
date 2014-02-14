@@ -7,3 +7,29 @@ This section contains implementations for a set of fundamental data
 structures. In addition to being the everyday tools of a programmer,
 they also form a set of building blocks from which to form more 
 advanced data structures.
+
+Basic guarantees
+----------------
+
+Every data-structure in Pastel
+
+* is const-correct,
+* is exception-safe,
+* is documented for exception-safety,
+* is documented for time-complexity,
+* is documented for space-complexity, and
+* can embed user-data in its parts.
+
+Most of the data-structures are also
+
+* customizable.
+
+### User-data
+
+Whenever user-data can be embedded into a part of a data-structure, by defining the type of the user-data as `void` guarantees that no memory is used for the user-data.
+
+### Customizations
+
+A _customization_ is an object which injects code, by inheritance, to be run before or after a modifying operation is executed in a data-structure. The customization points are determined by the data-structure; common customization points include after inserting an element, and before removing an element. A customization can include state, and even add new functions into the interface of the customized data-structure. The customization has full access to the object it customizes. 
+
+An example of a customization is to modify a red-black tree such that, in each node, it maintains the number of elements that reside in the subtree rooted at that node. This information can be used to compute any quantile of a dynamic ordered set in logarithmic time.
