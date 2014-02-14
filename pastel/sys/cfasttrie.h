@@ -62,6 +62,8 @@ namespace Pastel
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(Range);
 		PASTEL_FWD(ConstRange);
+		PASTEL_FWD(Key_ConstIterator);
+		PASTEL_FWD(Key_ConstRange);
 		PASTEL_FWD(Chain);
 		PASTEL_FWD(ChainSet);
 		PASTEL_FWD(Chain_ConstIterator);
@@ -789,45 +791,47 @@ namespace Pastel
 			return dataSet_.erase(that, that);
 		}
 
-		//! Returns a const-iterator to the smallest element.
+		//! Returns an iterator to the smallest element.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		ConstIterator cbegin() const
-		{
-			return dataSet_.cbegin();
-		}
+		PASTEL_ITERATOR_FUNCTIONS(begin, dataSet_.begin());
 
-		Iterator begin()
-		{
-			return dataSet_.begin();
-		}
-
-		ConstIterator begin() const
-		{
-			return dataSet_.begin();
-		}
-
-		//! Returns the one-past-last const-iterator.
+		//! Returns the one-past-last iterator.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		ConstIterator cend() const
-		{
-			return dataSet_.cend();
-		}
+		PASTEL_ITERATOR_FUNCTIONS(end, dataSet_.end());
 
-		Iterator end()
-		{
-			return dataSet_.end();
-		}
+		//! Returns an iterator range.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
-		ConstIterator end() const
-		{
-			return dataSet_.end();
-		}
+		//! Returns a key-iterator to the smallest element.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Key_, keyBegin, cbegin());
+
+		//! Returns the one-past-last key-iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, cend());
+
+		//! Returns a key-iterator range.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
 
 		//! Returns the number of used bits.
 		/*!
@@ -858,9 +862,6 @@ namespace Pastel
 		{
 			return size() == 0;
 		}
-
-		//! Returns an iterator range.
-		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 	private:
 		//! The chain-key of the next chain at or above a given node.
