@@ -14,7 +14,18 @@ namespace Pastel
 		class Settings
 		{
 		public:
-			static const integer Bits = UserDefinedInteger;
+			//! The number of bits in the stored integers.
+			/*!
+			Preconditions:
+			Bits > 0
+			*/
+			enum {Bits = UserDefinedInteger};
+
+			//! The associated user-data.
+			/*!
+			Settings this to void avoids any memory
+			use for the user-data.
+			*/
 			using Value = UserDefinedType;
 		};
 
