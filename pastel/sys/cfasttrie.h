@@ -183,7 +183,7 @@ namespace Pastel
 		otherwise.
 		*/
 		Iterator insert(
-			Key key, 
+			const Key& key, 
 			Value_Class value = Value_Class())
 		{
 			// Find the smallest element > key.
@@ -370,10 +370,7 @@ namespace Pastel
 		//! Returns an element with a given key.
 		/*!
 		Time complexity: 
-		O(log(log(Delta))),
-		where
-		Delta is the distance to the nearest stored
-		neighbor of 'key'.
+		FIX: add
 
 		Exception safety:
 		nothrow
@@ -393,13 +390,10 @@ namespace Pastel
 			return cast(addConst(*this).find(key));
 		}
 
-		//! Returns an iterator to the smallest element > 'key'.
+		//! Returns the smallest element > 'key'.
 		/*!
 		Time complexity: 
-		O(log(log(Delta + 4))),
-		where
-		Delta is the distance between the searched key
-		and the key of the returned element.
+		FIX: add
 
 		Exception safety:
 		nothrow
@@ -411,7 +405,9 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
+			// Find the right gap-bound of the key.
 			ConstIterator right = rightGapBound(key);
+			
 			if (right == cbegin() || 
 				right == cend())
 			{
@@ -429,14 +425,22 @@ namespace Pastel
 				return right;
 			}
 
-			if (key == right->key())
+			// See if the right gap-bound is also the successor.
 			{
-				return std::next(right);
+				ConstIterator left = std::prev(right);
+				if (left->key() <= key && key < right->key())
+				{
+					return right;
+				}
 			}
 
-			// From now on we know that 'key' has both a
-			// predecessor and a successor in R.
-			ConstIterator left = std::prev(right);
+			if (key == right->key())
+			{
+				// The right gap-bound contains the key.
+				// Therefore the next element is the 
+				// upper-bound.
+				return std::next(right);
+			}
 
 			// By a property of c-fast tries, the successor
 			// in R is always 'near' the successor in S.
@@ -444,68 +448,62 @@ namespace Pastel
 			// than h elements in between, where h is the
 			// height of the lowest split-ancestor of the 
 			// successor in S.
-			if (key < left->key() || key > right->key())
+			bool goingRight = (key > right->key());
+			const Key& chainKey = right->chain()->first;
+
+			// Finds the next chain, at or above level i,
+			// that is an ancestor of chainKey.
+			auto nextSplitChain = [&](integer i)
 			{
-				bool goingRight = (key >= right->key());
-				const Key& chainKey = right->chain()->first;
-
-				// Finds the next split-node, at or above level i,
-				// that is an ancestor of chainKey.
-				auto nextSplitChain = [&](integer i)
-				{
-					auto nextPair = findNextChainKey(chainKey, i);
-					
-					const Key& nextChainKey = nextPair.first;
-					bool found = nextPair.second;
-
-					if (!found)
-					{
-						return chainSet_.cend();
-					}
-
-					Chain_ConstIterator nextChain = 
-						chainSet_.find(nextChainKey);
-					ASSERT(nextChain != chainSet_.cend());
-
-					return nextChain;
-				};
-
-				auto indicator = [&](integer i)
-				{
-					Chain_ConstIterator nextChain = 
-						nextSplitChain(i);
-
-					if (nextChain == chainSet_.cend())
-					{
-						return true;
-					}
-
-					bool keyOver =
-						((nextChain->second.element()->key() > key) == goingRight) ||
-						(nextChain->first > key) == goingRight;
-
-					return keyOver;
-				};
-
-				// Search over the split-node ancestors of chainKey,
-				// and find the level k at which nextSplitChain(k)
-				// returns the chain which contains the successor
-				// of 'key'.
-				integer k = exponentialBinarySearch(
-					(integer)1, (integer)Bits + 1, indicator);
+				auto nextPair = findNextChainKey(chainKey, i);
 				
-				Chain_ConstIterator nextChain =
-					k < Bits + 1 ? nextSplitChain(k) : chainSet_.cend();
+				bool found = nextPair.second;
+				if (!found)
+				{
+					return chainSet_.cend();
+				}
+
+				const Key& nextChainKey = nextPair.first;
+				Chain_ConstIterator nextChain = 
+					chainSet_.find(nextChainKey);
+				ASSERT(nextChain != chainSet_.cend());
+
+				return nextChain;
+			};
+
+			auto indicator = [&](integer i)
+			{
+				Chain_ConstIterator nextChain = 
+					nextSplitChain(i);
 
 				if (nextChain == chainSet_.cend())
 				{
-					return dataSet_.cend();
+					return true;
 				}
 
-				return nextChain->second.element();
+				bool keyOver =
+					((nextChain->second.element()->key() > key) == goingRight) ||
+					(nextChain->first > key) == goingRight;
+
+				return keyOver;
+			};
+
+			// Search over the split-node ancestors of chainKey,
+			// and find the level k at which nextSplitChain(k)
+			// returns the chain which contains the successor
+			// of 'key'.
+			integer k = exponentialBinarySearch(
+				(integer)1, (integer)Bits + 1, indicator);
+			
+			Chain_ConstIterator nextChain =
+				k < Bits + 1 ? nextSplitChain(k) : chainSet_.cend();
+
+			if (nextChain == chainSet_.cend())
+			{
+				return dataSet_.cend();
 			}
 
-			return right;
+			return nextChain->second.element();
 		}
 
 		Iterator upperBound(const Key& key)
@@ -1107,7 +1105,7 @@ namespace Pastel
 		Time complexity: O(1) expected
 		Exception safety: strong
 		*/
-		Iterator insertChain(
+		Chain_Iterator insertChain(
 			const Key& chainKey,
 			integer height,
 			const Iterator& element)
@@ -1138,7 +1136,7 @@ namespace Pastel
 				chainAbove->second.setSplit(height);
 			}
 
-			return element;
+			return chain;
 		}
 
 		//! Removes a chain.
