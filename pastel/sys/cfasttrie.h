@@ -117,10 +117,7 @@ namespace Pastel
 		Time complexity: O(size())
 		Exception safety: nothrow
 		*/
-		~CFastTrie()
-		{
-			clear();
-		}
+		~CFastTrie() = default;
 
 		//! Copy-constructs from another trie.
 		/*!
@@ -347,29 +344,9 @@ namespace Pastel
 				}
 			}
 
-			ASSERT(zero(chainToRemove->second.split()));
-				
-			if (chainToRemove->second.height() > 0)
-			{
-				// Update the split information for the chain 
-				// above the removed chain. We exclude the zero 
-				// chain does because it does not have any chain 
-				// above it.
-				Chain_Iterator chainAbove =
-					findChain(chainToRemove->first, chainToRemove->second.height());
-				chainAbove->second.setSplit(
-					chainToRemove->second.height(), false);
-			}
-			else
-			{
-				// The zero chain is removed if and only if 
-				// the removed element is the last one.
-				ASSERT_OP(size(), == , 1);
-			}
-
 			// Remove the chain.
-			chainSet_.erase(chainToRemove);
-
+			eraseChain(chainToRemove);
+				
 			// Find out the next element before 
 			// removing the current one.
 			Iterator nextElement = std::next(cast(element));
@@ -377,6 +354,7 @@ namespace Pastel
 			// Remove the element.
 			dataSet_.erase(element);
 
+			// Return the next element.
 			return nextElement;
 		}
 
@@ -433,7 +411,7 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
-			ConstIterator right = chainUpperBound(key);
+			ConstIterator right = rightGapBound(key);
 			if (right == cbegin() || 
 				right == cend())
 			{
@@ -748,7 +726,7 @@ namespace Pastel
 		}
 
 	private:
-		//! Returns the successor of 'key' in R.
+		//! Returns the right gap-bound of 'key' in R'.
 		/*!
 		Time complexity:
 		O(log(log(Delta + 4)))
@@ -760,10 +738,11 @@ namespace Pastel
 		nothrow
 
 		returns:
-		An iterator to an element with a minimal
-		physical key k such that k > key.
+		An iterator to a minimal element m such that
+
+			std::prev(m)->chain()->first < key.
 		*/
-		ConstIterator chainUpperBound(const Key& key) const
+		ConstIterator rightGapBound(const Key& key) const
 		{
 			if (empty())
 			{
@@ -786,7 +765,7 @@ namespace Pastel
 				// If (v, j) in R', then it is the 
 				// lowest ancestor of v. The lowest ancestor 
 				// is an upper gap-node.
-				return physicalSuccessorFromUpperGap(
+				return rightGapBoundFromUpperGap(
 					key, nearbyLevel);
 			}
 
@@ -813,9 +792,9 @@ namespace Pastel
 				// an upper gap-node. Similarly for the
 				// previous key and an even chain.
 
-				//return physicalSuccessorFromUpperGap(
+				//return rightGapBoundFromUpperGap(
 				//	nearbyKey, nearbyLevel + 1);
-				return physicalSuccessorFromUpperGap(
+				return rightGapBoundFromUpperGap(
 					nearbyKey, nearbyLevel);
 			}
 
@@ -834,9 +813,75 @@ namespace Pastel
 				++gapBound;
 			}
 
-			// Return the element whose physical key
+			// Return the element whose chain-key
 			// is the successor of 'key'.
 			return gapBound;
+		}
+
+		//! Returns the successor in R, given an upper gap-node.
+		/*!
+		Preconditions:
+		level >= 0
+
+		Time complexity:
+		O(1) expected
+		
+		Exception safety: 
+		nothrow
+
+		returns:
+		An iterator to a chain such that (key up level, level)
+		is in the chain. The chain exists only if its contained
+		in S'.
+		*/
+		ConstIterator rightGapBoundFromUpperGap(
+			const Key& key, integer level) const
+		{
+			ASSERT_OP(level, >= , 0);
+
+			// Let j = level and v = key up j. 
+			
+			// Find the chain that contains (v, j).
+			Chain_ConstIterator keyChain = findChain(key, level);
+			ASSERT(keyChain != chainSet_.cend());
+
+			const Chain& chain = keyChain->second;
+
+			auto splitAtOrAbove = [&](integer offset)
+			{
+				return chain.splitExists(level - offset, level + 1);
+			};
+
+			// Find the first split-node in the gap-path below the
+			// level 'level'. If there is no split-node, then this
+			// will return 'level', which is also correct for
+			// what follows.
+			integer splitOffset = 
+				exponentialBinarySearch((integer)0, (integer)level, splitAtOrAbove);
+
+			// Follow the upper gap-path downwards 
+			// to the first split- or leaf-node, and
+			// then follow the lower gap-path.
+			Key gapKey = key;
+			gapKey.setBits(level - splitOffset, level, key.bit(level));
+			gapKey.setBits(0, level - splitOffset, !key.bit(level));
+
+			// Find the chain corresponding to the gap-bound.
+			Chain_ConstIterator lowerChain = chainSet_.find(gapKey);
+			// By the properties of gap-paths, this element exists.
+			ASSERT(lowerChain != chainSet_.cend());
+
+			ConstIterator element = lowerChain->second.element();
+			if (even(gapKey))
+			{
+				// Since we followed the even gap-path,
+				// we are now at the left gap-bound.
+				// The right gap-bound is its successor.
+				ASSERT(element != cend());
+				++element;
+			}
+
+			return element;
 		}
 
  		//! Returns the chain [(key up level, level)].
@@ -980,31 +1025,6 @@ namespace Pastel
 			return result;
 		}
 
-		//! Returns the height of a chain-key.
-		/*!
-		Time complexity: O(h)
-		where
-		h is the height of the chain.
-
-		Exception safety: nothrow
-
-		The height of a chain-key k is the number of
-		elements in [k]. If k is even, it is the number
-		of leading zero bits, and if k is odd, it is
-		the number of leading one bits. This problem
-		can be reduced in O(1) time to the problem of
-		computing the logarithm of a power-of-two.
-		Thus O(h) is the optimal time complexity for
-		this function.
-		*/
-		template <typename Finite_Integer>
-		integer chainHeight(const Finite_Integer& that)
-		{
-			return even(that) ?
-				leadingZeroBits(that) :
-				leadingOneBits(that);
-		}
-
 		//! Returns whether (key up level, level) in R'.
 		/*!
 		Preconditions:
@@ -1052,8 +1072,8 @@ namespace Pastel
 			ASSERT_OP(level, >= , 0);
 
 			// What makes this function slightly tricky is that
-			// the nearby key's may wrap around by the modulo 
-			// arithmetic.
+			// the addition may cause the key to wrap around 
+			// due to modulo arithmetic.
 
 			Key rightKey = key + powerOfTwo<Key>(level);
 			return rightKey > key &&
@@ -1084,7 +1104,7 @@ namespace Pastel
 		Preconditions:
 		0 <= height <= bits()
 
-		Time complexity: FIX: Add
+		Time complexity: O(1) expected
 		Exception safety: strong
 		*/
 		Iterator insertChain(
@@ -1121,71 +1141,35 @@ namespace Pastel
 			return element;
 		}
 
-		//! Returns the successor in R, given an upper gap-node.
+		//! Removes a chain.
 		/*!
-		Preconditions:
-		level >= 0
-
-		Time complexity:
-		O(1) expected
-		
-		Exception safety: 
-		nothrow
-
-		returns:
-		An iterator to a chain such that (key up level, level)
-		is in the chain. The chain exists only if its contained
-		in S'.
+		Time complexity: O(1) expected
+		Exception safety: nothrow
 		*/
-		ConstIterator physicalSuccessorFromUpperGap(
-			const Key& key, integer level) const
+		void eraseChain(const Chain_ConstIterator& chain)
 		{
-			ASSERT_OP(level, >= , 0);
+			ASSERT(zero(chain->second.split()));
 
-			// Let j = level and v = key up j. 
-			
-			// Find the chain that contains (v, j).
-			Chain_ConstIterator keyChain = findChain(key, level);
-			ASSERT(keyChain != chainSet_.cend());
-
-			const Key& physicalKey = keyChain->first;
-			const Chain& chain = keyChain->second;
-
-			auto splitAtOrAbove = [&](integer offset)
+			if (chain->second.height() > 0)
 			{
-				return chain.splitExists(level - offset, level + 1);
-			};
-
-			// Find the first split-node in the gap-path below the
-			// level 'level'. If there is no split-node, then this
-			// will return 'level', which is also correct for
-			// what follows.
-			integer splitOffset = 
-				exponentialBinarySearch((integer)0, (integer)level, splitAtOrAbove);
-
-			// Follow the upper gap-path downwards 
-			// to the first split- or leaf-node, and
-			// then follow the lower gap-path.
-			Key gapKey = key;
-			gapKey.setBits(level - splitOffset, level, key.bit(level));
-			gapKey.setBits(0, level - splitOffset, !key.bit(level));
-
-			// Find the chain corresponding to the gap-bound.
-			Chain_ConstIterator lowerChain = chainSet_.find(gapKey);
-			// By the properties of gap-paths, this element exists.
-			ASSERT(lowerChain != chainSet_.cend());
-
-			ConstIterator element = lowerChain->second.element();
-			if (even(gapKey))
+				// Update the split information for the chain 
+				// above the removed chain. We exclude the zero 
+				// chain does because it does not have any chain 
+				// above it.
+				Chain_Iterator chainAbove =
+					findChain(chain->first, chain->second.height());
+				chainAbove->second.setSplit(
+					chain->second.height(), false);
+			}
+			else
 			{
-				// Since we followed the even gap-path,
-				// we are now at the left gap-bound.
-				// The right gap-bound is its successor.
-				ASSERT(element != cend());
-				++element;
+				// The zero chain is removed if and only if 
+				// the removed element is the last one.
+				ASSERT_OP(size(), == , 1);
 			}
 
-			return element;
+			// Remove the chain.
+			chainSet_.erase(chain);
 		}
 
 		//! Moves an element to the chains of another element.
