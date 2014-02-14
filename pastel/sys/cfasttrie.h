@@ -10,6 +10,8 @@
 #include "pastel/sys/flip_leading_one_bits.h"
 #include "pastel/sys/flip_leading_zero_bits.h"
 
+#include <map>
+
 namespace Pastel
 {
 
@@ -33,18 +35,10 @@ namespace Pastel
 	public:
 		/*
 		The notation in the comments is as follows:
-		
-		S:
-		The set of elements stored in the trie.
-
-		R:
-		The set of representatives of S.
-
-		R':
-		An x-fast trie over R.
-
-		N:
-		The set of natural numbers.
+		S: The set of elements stored in the trie.
+		R: The set of representatives of S.
+		R': An x-fast trie over R.
+		N: The set of natural numbers.
 		*/
 
 		// See cfasttrie_fwd.h for the documentation 
@@ -85,6 +79,39 @@ namespace Pastel
 		{
 		}
 
+		//! Constructs from a list of keys.
+		/*!
+		Time complexity: O(1)
+		Exception safety: strong
+
+		The user-data will be default-initialized.
+		*/
+		template <typename That_Key>
+		CFastTrie(std::initializer_list<That_Key> dataSet)
+			: chainSet_()
+			, dataSet_()
+		{
+			for (auto&& key : dataSet)
+			{
+				insert(key);
+			}
+		}
+
+		//! Constructs from a list of key-value pairs.
+		/*!
+		Time complexity: O(1)
+		Exception safety: strong
+		*/
+		CFastTrie(std::initializer_list<std::pair<Key, Value_Class>> dataSet)
+			: chainSet_()
+			, dataSet_()
+		{
+			for (auto&& keyValue : dataSet)
+			{
+				insert(keyValue.first, keyValue.second);
+			}
+		}
+
 		//! Copy-constructs from another trie.
 		/*!
 		Time complexity: O(1)
@@ -119,7 +146,7 @@ namespace Pastel
 		*/
 		~CFastTrie() = default;
 
-		//! Copy-constructs from another trie.
+		//! Copy-assigns from another trie.
 		/*!
 		Time complexity: O(that.size() + size())
 		Exception safety: strong
@@ -131,7 +158,7 @@ namespace Pastel
 			return *this;
 		}
 
-		//! Move-constructs from another trie.
+		//! Move-assigns from another trie.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
@@ -139,6 +166,19 @@ namespace Pastel
 		CFastTrie& operator=(CFastTrie&& that)
 		{
 			CFastTrie copy(std::move(that));
+			swap(copy);
+			return *this;
+		}
+
+		//! Assigns from an initializer list.
+		/*!
+		Time complexity: O(that.size() + size())
+		Exception safety: strong
+		*/
+		template <typename Type>
+		CFastTrie& operator=(std::initializer_list<Type> that)
+		{
+			CFastTrie copy(that);
 			swap(copy);
 			return *this;
 		}
@@ -548,7 +588,7 @@ namespace Pastel
 
 		Iterator lowerBound(const Key& key)
 		{
-			return cast(removeConst(*this).lowerBound(key));
+			return cast(addConst(*this).lowerBound(key));
 		}
 
 		//! Returns whether the element exists.
