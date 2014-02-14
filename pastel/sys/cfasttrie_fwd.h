@@ -6,6 +6,7 @@
 #include "pastel/sys/integer.h"
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/cfasttrie_chain.h"
+#include "pastel/sys/cfasttrie_iterator.h"
 
 #include <unordered_map>
 #include <list>
@@ -71,6 +72,12 @@ namespace Pastel
 		// These are for compatibility with Boost ranges.
 		using const_iterator = ConstIterator;
 		using iterator = Iterator;
+
+		//! Access to keys instead of elements.
+		using Key_ConstIterator = 
+			CFastTrie_::Key_ConstIterator<ConstIterator, Key>;
+		using Key_ConstRange = 
+			boost::iterator_range<Key_ConstIterator>;
 
 		// Chains
 
