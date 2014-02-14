@@ -271,7 +271,7 @@ namespace Pastel
 
 			// Compute the chain in which to store the element.
 			integer height = lowestAncestor(elementToInsert->key());
-			Key chainKey = turn(elementToInsert->key(), height);
+			Key chainKey = replicate(elementToInsert->key(), height, true);
 
 			// Insert the new chain.
 			insertChain(
@@ -727,10 +727,7 @@ namespace Pastel
 		//! Returns the right gap-bound of 'key' in R'.
 		/*!
 		Time complexity:
-		O(log(log(Delta + 4)))
-		where
-		Delta = |u - u'|,
-		u' is the nearest neighbor of u in R.
+		FIX: add
 
 		Exception safety:
 		nothrow
@@ -882,31 +879,6 @@ namespace Pastel
 			return element;
 		}
 
- 		//! Returns the chain [(key up level, level)].
-		/*!
-		Time complexity:
-		O(1) expected
-
-		Exception safety:
-		nothrow
-
-		returns:
-		An iterator to a chain such that (key up level, level)
-		is in the chain. The chain exists only if its contained
-		in S'.
-		*/
-		Chain_ConstIterator findChain(
-			const Key& key, integer level) const
-		{
-			return removeConst(*this).findChain(key, level);
-		}
-
-		Chain_Iterator findChain(
-			const Key& key, integer level)
-		{
-			return chainSet_.find(replicate(key, level));
-		}
-
 		//! The chain-key of the next chain at or above a given node.
 		/*!
 		Preconditions:
@@ -985,42 +957,53 @@ namespace Pastel
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
+
+		negate:
+		If this is true, then the replication is done
+		with the negation of the bit at level 'level'.
 		*/
-		Key replicate(const Key& key, integer level) const
+		Key replicate(
+			const Key& key, integer level, 
+			bool negate = false) const
 		{
 			ASSERT_OP(level, >= , 0);
 
 			if (level >= bits())
 			{
-				return 0;
+				return negate ? -1 : 0;
 			}
 
+			bool replicatedBit = 
+				(key.bit(level) != negate);
+
 			Key result(key);
-			result.setBits(0, level, key.bit(level));
+			result.setBits(0, level, replicatedBit);
 			return result;
 		}
 
-		//!
+ 		//! Returns the chain [(key up level, level)].
 		/*!
-		Preconditions:
-		0 <= level <= bits()
+		Time complexity:
+		O(1) expected
 
-		Time complexity: O(1)
-		Exception safety: nothrow
+		Exception safety:
+		nothrow
+
+		returns:
+		An iterator to a chain such that (key up level, level)
+		is in the chain. The chain exists only if its contained
+		in S'.
 		*/
-		Key turn(const Key& key, integer level) const
+		Chain_ConstIterator findChain(
+			const Key& key, integer level) const
 		{
-			ASSERT_OP(level, >= , 0);
-			ASSERT_OP(level, <= , bits());
-			
-			if (level == bits())
-			{
-				return Key(-1);
-			}
+			return removeConst(*this).findChain(key, level);
+		}
 
-			Key result = key;
-			result.setBits(0, level, !key.bit(level));
-			return result;
+		Chain_Iterator findChain(
+			const Key& key, integer level)
+		{
+			return chainSet_.find(replicate(key, level));
 		}
 
 		//! Returns whether (key up level, level) in R'.
@@ -1035,7 +1018,7 @@ namespace Pastel
 		{
 			ASSERT_OP(level, >= , 0);
 
-			return chainSet_.count(replicate(key, level)) > 0;
+			return findChain(key, level) != chainSet_.cend();
 		}
 
 		//! Returns whether there is a chain nearby at a given level.
@@ -1053,8 +1036,8 @@ namespace Pastel
 			ASSERT_OP(level, >= , 0);
 
 			return chainExists(key, level) ||
-				chainOnRight(key, level) ||
-				chainOnLeft(key, level);
+				chainOnLeft(key, level) ||
+				chainOnRight(key, level);
 		};
 
 		//! Returns whether there is a chain on the right.
