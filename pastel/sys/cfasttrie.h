@@ -253,11 +253,8 @@ namespace Pastel
 					// the swaps until we have reduced the problem 
 					// to having a key which is bounded by its 
 					// neighboring chains.
-					Chain_Iterator chain = left->chain_;
-					elementToInsert->chain_ = chain;
-					std::swap(
-						chain->second.element_,
-						elementToInsert);
+					moveChain(left, elementToInsert);
+					elementToInsert = left;
 					--left;
 				}
 			}
@@ -267,11 +264,8 @@ namespace Pastel
 				while (elementToInsert->key() >= right->chain()->first)
 				{
 					// This case is symmetric to the one above.
-					Chain_Iterator chain = right->chain_;
-					elementToInsert->chain_ = chain;
-					std::swap(
-						chain->second.element_,
-						elementToInsert);
+					moveChain(right, elementToInsert);
+					elementToInsert = right;
 					++right;
 				}
 			}
@@ -293,7 +287,7 @@ namespace Pastel
 			return element;
 		}
 
-		//! Removes an element.
+		//! Removes an element by its iterator.
 		/*!
 		Time complexity:
 		FIX: Add
@@ -301,14 +295,96 @@ namespace Pastel
 		Exception safety:
 		nothrow
 
+		If the element is end(), then nothing happens.
+
 		returns:
 		An iterator to the element following the
 		removed element.
 		*/
-		Iterator erase(const ConstIterator& that)
+		Iterator erase(const ConstIterator& element)
 		{
-			onErase(that);
-			return that;
+			if (element == cend())
+			{
+				// Do nothing.
+				return end();
+			}
+
+			// Notify the customization.
+			onErase(cast(element));
+
+			Chain_Iterator chainToRemove = element->chain_;
+
+			if (odd(chainToRemove->first))
+			{
+				while (!zero(chainToRemove->second.split()))
+				{
+					Chain_Iterator prevChain =
+						std::prev(chainToRemove->second.element_)->chain_;
+
+					Iterator left = prevChain->second.element_;
+					chainToRemove->second.element_ = left;
+					left->chain_ = chainToRemove;
+
+					chainToRemove = prevChain;
+				}
+			}
+			else
+			{
+				while (!zero(chainToRemove->second.split()))
+				{
+					// This case is symmetric to the one above.
+
+					Chain_Iterator nextChain =
+						std::next(chainToRemove->second.element_)->chain_;
+
+					Iterator right = nextChain->second.element_;
+					chainToRemove->second.element_ = right;
+					right->chain_ = chainToRemove;
+
+					chainToRemove = nextChain;
+				}
+			}
+
+			ASSERT(zero(chainToRemove->second.split()));
+				
+			if (chainToRemove->second.height() > 0)
+			{
+				// Update the split information for the chain 
+				// above the removed chain. We exclude the zero 
+				// chain does because it does not have any chain 
+				// above it.
+				Chain_Iterator chainAbove =
+					findChain(chainToRemove->first, chainToRemove->second.height());
+				chainAbove->second.setSplit(
+					chainToRemove->second.height(), false);
+			}
+			else
+			{
+				// The zero chain is removed if and only if 
+				// the removed element is the last one.
+				ASSERT_OP(size(), == , 1);
+			}
+
+			// Remove the chain.
+			chainSet_.erase(chainToRemove);
+
+			// Find out the next element before 
+			// removing the current one.
+			Iterator nextElement = std::next(cast(element));
+
+			// Remove the element.
+			dataSet_.erase(element);
+
+			return nextElement;
+		}
+
+		//! Removes an element by its key.
+		/*!
+		This is equivalent to erase(find(key)).
+		*/
+		Iterator erase(const Key& key)
+		{
+			return erase(find(key));
 		}
 
 		//! Returns an element with a given key.
@@ -329,17 +405,12 @@ namespace Pastel
 		ConstIterator find(const Key& key) const
 		{
 			ConstIterator iter = lowerBound(key);
-			if (key < iter->key())
-			{
-				return cend();
-			}
-
-			return iter;
+			return (key < iter->key()) ? cend() : iter;
 		}
 
 		Iterator find(const Key& key)
 		{
-			return cast(removeConst(*this).find(key));
+			return cast(addConst(*this).find(key));
 		}
 
 		//! Returns an iterator to the smallest element > 'key'.
@@ -378,6 +449,11 @@ namespace Pastel
 				return right;
 			}
 
+			if (key == right->key())
+			{
+				return std::next(right);
+			}
+
 			// From now on we know that 'key' has both a
 			// predecessor and a successor in R.
 			ConstIterator left = std::prev(right);
@@ -388,7 +464,7 @@ namespace Pastel
 			// than h elements in between, where h is the
 			// height of the lowest split-ancestor of the 
 			// successor in S.
-			if (key < left->key() || key >= right->key())
+			if (key < left->key() || key > right->key())
 			{
 				bool goingRight = (key >= right->key());
 				const Key& chainKey = right->chain()->first;
@@ -1109,6 +1185,17 @@ namespace Pastel
 			}
 
 			return element;
+		}
+
+		//! Moves an element to the chains of another element.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		void moveChain(const Iterator& from, const Iterator& to)
+		{
+			to->chain_ = from->chain_;		
+			to->chain_->second.element_ = to;
 		}
 
 		//! The set of chains.

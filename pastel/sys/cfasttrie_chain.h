@@ -99,10 +99,9 @@ namespace Pastel
 				typename Customization>
 			friend class CFastTrie;
 
-			void setSplit(integer level)
+			void setSplit(integer level, bool value = true)
 			{
-				ASSERT(!splitExists(level));
-				split_.setBit(level - 1);
+				split_.setBit(level - 1, value);
 			}
 
 			integer checkHeight() const
