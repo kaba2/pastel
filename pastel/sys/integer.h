@@ -1100,7 +1100,7 @@ namespace Pastel
 		// Since the integer is in two's complement
 		// form, we may look at the last word.
 		return Integer_Settings::Signed &&
-			twosComplementToSigned(that.word(that.words() - 1)) < 0;
+			twosComplementNegative(that.word(that.words() - 1));
 	}
 
 	//! Returns whether 'that' is positive.

@@ -17,9 +17,14 @@ namespace Pastel
 	returns:
 	An integer in whose bit-representation the
 	'bit' bit is one, while the other bits are zero.
+	In other words, mod(2^bit, 2^n), where n is the
+	number of bits in the integer.
 	*/
 	template <typename Integer>
-	Integer singleBitMask(integer bit);
+	PASTEL_DISABLE_IF(
+		std::is_signed<Integer>, 
+		Integer)  
+		singleBitMask(integer bit);
 
 	//! Returns an integer with lower bits set.
 	/*!
@@ -29,24 +34,33 @@ namespace Pastel
 	returns:
 	An integer in whose bit-representation the
 	bits in the range [0, endBit) are one, 
-	while the other bits are zero.
+	while the other bits are zero. In other words,
+	mod(2^endBit - 1, 2^n), where n is the number 
+	of bits.
 	*/
 	template <typename Integer>
-	Integer bitMask(integer endBit);
+	PASTEL_DISABLE_IF(
+		std::is_signed<Integer>, 
+		Integer)  
+		bitMask(integer endBit);
 
 	//! Returns an interval of bits set.
 	/*!
 	Preconditions:
-	beginBit >= 0
-	beginBit <= endBit
+	0 <= beginBit <= endBit
 
 	returns:
 	An integer in whose bit-representation the
 	bits in the range [beginBit, endBit) are one, 
-	while the other bits are zero.
+	while the other bits are zero. In other words,
+	mod(2^endBit - 2^beginBit, 2^n),
+	where n is the number of bits.
 	*/
 	template <typename Integer>
-	Integer bitMask(integer beginBit, integer endBit);
+	PASTEL_DISABLE_IF(
+		std::is_signed<Integer>, 
+		Integer)  
+		bitMask(integer beginBit, integer endBit);
 
 }
 

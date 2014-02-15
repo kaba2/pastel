@@ -17,8 +17,8 @@ namespace Pastel
 	{
 		PENSURE(!negative(n));
 
-		// This is the portable way to do this.
-		// In contrast, the bit-representation of signed
+		// This is the portable way to do this;
+		// the bit-representation of signed
 		// integers is implementation-defined.
 
 		using Unsigned = std::make_unsigned<Integer>::type;
@@ -28,6 +28,8 @@ namespace Pastel
 
 		if (!negative(x))
 		{
+			// This is well-defined since X is obtained
+			// from an existing signed integer.
 			return twosComplementToSigned(X & Mask);
 		}
 

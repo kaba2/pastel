@@ -34,9 +34,14 @@ namespace Pastel
 	/*!
 	Preconditions:
 	Finite_Integer is an unsigned native integer.
+	that != 2^{n - 1})
 
 	This is the inverse of signedToTwosComplement(), see its
-	documentation.
+	documentation. However, this function can not portably be 
+	defined for the two's complement form 2^{n - 1}, where n is 
+	the number of bits: in ones' complement and sign-magnitude
+	representations the corresponding number -2^{n - 1} does 
+	not exist.
 	*/	
 	template <typename Finite_Integer>
 	PASTEL_ENABLE_IF(
@@ -61,6 +66,8 @@ namespace Pastel
 
 	returns:
 	floor(that / 2^n)
+	where
+	that is interpreted by its two's complement value.
 	*/
 	template <typename Finite_Integer>
 	PASTEL_ENABLE_IF(std::is_unsigned<Finite_Integer>, Finite_Integer)  

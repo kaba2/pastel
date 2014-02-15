@@ -298,15 +298,13 @@ namespace Pastel
 				}
 			}
 
-			if (right != cend())
+			while (right != cend() && 
+				elementToInsert->key() >= right->chain()->first)
 			{
-				while (elementToInsert->key() >= right->chain()->first)
-				{
-					// This case is symmetric to the one above.
-					moveChain(right, elementToInsert);
-					elementToInsert = right;
-					++right;
-				}
+				// This case is symmetric to the one above.
+				moveChain(right, elementToInsert);
+				elementToInsert = right;
+				++right;
 			}
 
 			// Compute the chain in which to store the element.
@@ -448,21 +446,43 @@ namespace Pastel
 			// Find the right gap-bound of the key.
 			ConstIterator right = rightGapBound(key);
 			
-			if (right == cbegin() || 
-				right == cend())
+			if (right == cbegin())
 			{
 				// Suppose right == cbegin(). Then 
 				// key < R, and this also holds for every
 				// stored key. Therefore the upper-bound
 				// is given by the first element, which
 				// is 'right'.
-				//				
-				// Suppose right == cend(). Then R <= key,
-				// and this also holds for every stored key.
-				// Therefore the upper-bound is given by
-				// cend(), which is 'right'.
-
 				return right;
+			}
+
+			if (right == cend())
+			{
+				// Suppose right == cend(). There are
+				// three possibilities.
+				//
+				// 1) The trie is empty. In this
+				// case we should return cend(), which
+				// is 'right'.
+				// 
+				// 2) The trie has more than one 
+				// element. In this case the last element
+				// is stored in an odd chain, and therefore
+				// has its key at or left from it. Therefore
+				// we should return cend(), which is 'right'.
+				//
+				// 3) The trie has one element. If that element
+				// has a key greater than 'key', then that
+				// is the successor. Otherwise we should
+				// return cend(), which is 'right'.
+
+				if (size() != 1 ||
+					cbegin()->key() <= key)
+				{
+					return right;
+				}
+				
+				return cbegin();
 			}
 
 			// See if the right gap-bound is also the successor.
@@ -750,6 +770,12 @@ namespace Pastel
 		*/
 		integer size() const
 		{
+			// Although the number of elements in 
+			// dataSet_ and chainSet_ are equal, we
+			// deliberately avoid calling dataSet_.size(),
+			// because it used to not be guaranteed to be O(1)
+			// by the C++ standard. Although that changed in 
+			// C++11, we better be sure here. 
 			return chainSet_.size();
 		}
 
@@ -760,7 +786,7 @@ namespace Pastel
 		*/
 		bool empty() const
 		{
-			return size() == 0;
+			return chainSet_.empty();
 		}
 
 	private:
@@ -1181,12 +1207,6 @@ namespace Pastel
 					findChain(chain->first, chain->second.height());
 				chainAbove->second.setSplit(
 					chain->second.height(), false);
-			}
-			else
-			{
-				// The zero chain is removed if and only if 
-				// the removed element is the last one.
-				ASSERT_OP(size(), == , 1);
 			}
 
 			// Remove the chain.

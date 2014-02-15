@@ -64,23 +64,9 @@ namespace Pastel
 	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
 		roundUpToEven(const Real& that);
 
-	//! Rounds up to the next power of 2 (signed integers).
-	/*!
-	Preconditions:
-	that >= 0
-	Integer is a signed native integer.
-
-	Time complexity: O(log(sizeInBits<Integer>()) + 1)
-	Exception safety: nothrow
-	*/
-	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
-		roundUpToPowerOfTwo(const Integer& that);
-
 	//! Rounds up to the next power of 2 (unsigned integers).
 	/*!
 	Preconditions:
-	that >= 0
 	Integer is an unsigned native integer.
 
 	Time complexity: O(log(sizeInBits<Integer>()) + 1)
@@ -88,6 +74,19 @@ namespace Pastel
 	*/
 	template <typename Integer>
 	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
+		roundUpToPowerOfTwo(const Integer& that);
+
+	//! Rounds up to the next power of 2 (signed integers).
+	/*!
+	Preconditions:
+	Integer is a signed native integer.
+	The next power of 2 can be represented.
+
+	Time complexity: O(log(sizeInBits<Integer>()) + 1)
+	Exception safety: nothrow
+	*/
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
 		roundUpToPowerOfTwo(const Integer& that);
 
 	//! Rounds up 'that' to the next multiple of power of 2.

@@ -13,25 +13,19 @@ namespace Pastel
 		typename std::make_unsigned<Integer>::type)  
 		signedToTwosComplement(const Integer& that)
 	{
-		// Here's the relevant pieces from the C++ standard:
+		// C++ standard
+		// (Standard conversions --> Integral conversions):
 
-		// The range of nonnegative values of a signed integer 
-		// type is a subrange of the corresponding unsigned 
-		// integer type, and the value representation of each 
-		// corresponding signed/unsigned type shall be the same.
-
-		// Unsigned integers, declared unsigned, shall obey the 
-		// laws of arithmetic modulo 2^n where n is the number of 
-		// bits in the value representation of that particular 
-		// size of integer.
-
-		// Therefore the negative of an unsigned integer is
-		// its two's complement. Also, if that < 0, then its
-		// negation will fit into the corresponding unsigned
-		// integer.
+		// If the destination type is unsigned, the resulting 
+		// value is the least unsigned integer congruent to the 
+		// source integer (modulo 2^n where n is the number of 
+		// bits used to represent the unsigned type). [ Note: In 
+		// a two’s complement representation, this conversion is 
+		// conceptual and there is no change in the bit pattern 
+		// (if there is no truncation). — end note 
 
 		using Unsigned = std::make_unsigned<Integer>::type;
-		return (that >= 0) ? (Unsigned)that : -((Unsigned)(-that));
+		return (Unsigned)that;
 	}
 
 	template <typename Finite_Integer>
@@ -40,9 +34,65 @@ namespace Pastel
 		typename std::make_signed<Finite_Integer>::type)  
 		twosComplementToSigned(const Finite_Integer& that)
 	{
-		// See the signedToTwosComplement() for documentation.
+		// C++ standard
+		// (Standard conversions --> Integral conversions):
+
+		// If the destination type is signed, the value is 
+		// unchanged if it can be represented in the destination 
+		// type (and bit-ﬁeld width); otherwise, the value is 
+		// implementation-deﬁned.
+
+		// Unsigned integers, declared unsigned, shall obey the 
+		// laws of arithmetic modulo 2^n where n is the number of 
+		// bits in the value representation of that particular 
+		// size of integer.
+
+		// Due to modulo arithmetic the negative of an unsigned 
+		// integer is its two's complement. 
+
+		// The general strategy is to use the native conversion 
+		// for non-negative numbers, and two's complement-convert-negate
+		// for negative numbers.
+
+		// The only problematic case is the two's complement
+		// form 2^{n - 1}, which corresponds to -2^{n - 1}
+		// (e.g. 128 for n = 8). Let us analyze this using 
+		// some concrete examples.
+		//
+		// 1) If the signed representation is two's
+		// complement, then we can do 
+		// 
+		//     (Signed)(-(that - 1)) - 1
+		//
+		// although this is probably unnecessary;
+		// it would be odd for the implementation to 
+		// do anything else than map 2^{n - 1} to -2^{n - 1}
+		// (i.e. preserve the bits, just change their
+		// interpretation).
+		//
+		// 2) If the signed representation is sign
+		// magnitude, then the number can not be 
+		// represented.
+		//
+		// 3) If the signed representation is ones'
+		// complement, then the number can not
+		// be represented.
+		//
+		// The essential problem is that the two's complement
+		// form can represent one number more than the other
+		// two representations.
+	
 		using Signed = std::make_signed<Finite_Integer>::type;
-		return twosComplementNegative(that) ? -((Signed)(-that)) : (Signed)that;
+		if (twosComplementNegative(that))
+		{
+			// This is equivalent to that != 2^{n - 1}
+			// (because zero is not negative).
+			PENSURE(that != -that);
+
+			return -((Signed)(-that));
+		}
+
+		return (Signed)that;
 	}
 
 	template <typename Finite_Integer>

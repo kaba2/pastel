@@ -31,11 +31,11 @@ namespace
 			testSimple();
 		}
 
-		typedef Map<integer, integer> Tree;
+		typedef RedBlack_Map<integer, integer> Tree;
 		typedef Tree::Iterator Iterator;
 		typedef Tree::ConstIterator ConstIterator;
 
-		using Tree_Settings = Map_Settings<integer, integer>;
+		using Tree_Settings = RedBlack_Map_Settings<integer, integer>;
 		class Counting_Customization
 			: public Empty_RedBlackTree_Customization<Tree_Settings>
 		{
