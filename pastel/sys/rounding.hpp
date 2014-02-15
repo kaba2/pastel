@@ -51,26 +51,14 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
+	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
 		roundUpToPowerOfTwo(const Integer& that)
 	{
-		PENSURE(!negative(that));
-
 		if (zero(that))
 		{
 			return 1;
 		}
 
-		using Unsigned = std::make_unsigned<Integer>::type;
-
-		Unsigned X = signedToTwosComplement(that);
-		return twosComplementToSigned(roundUpToPowerOfTwo(X));
-	}
-
-	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
-		roundUpToPowerOfTwo(const Integer& that)
-	{
 		Integer X = that - 1;
 		for (integer i = 1; i < sizeInBits<Integer>();i <<= 1)
 		{
@@ -78,6 +66,14 @@ namespace Pastel
 		}
 
 		return X + 1;
+	}
+
+	template <typename Integer>
+	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
+		roundUpToPowerOfTwo(const Integer& that)
+	{
+		return twosComplementToSigned(
+			roundUpToPowerOfTwo(signedToTwosComplement(that)));
 	}
 
 	template <typename Integer>

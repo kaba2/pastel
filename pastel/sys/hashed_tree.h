@@ -63,9 +63,9 @@ namespace Pastel
 		typename Data = void,
 		typename Compare = LessThan,
 		typename Key_Hash = std::hash<Key>>
-	using HashedTree = Map<Key, HashedTree_Data<Data>, Compare, RedBlackTree_Dereference_Key,
+	using HashedTree = RedBlack_Map<Key, HashedTree_Data<Data>, Compare, RedBlackTree_Dereference_Key,
 		Hash_RedBlackTree_Customization<
-		Map_Settings<Key, HashedTree_Data<Data>, Compare>, Key_Hash>>;
+		RedBlack_Map_Settings<Key, HashedTree_Data<Data>, Compare>, Key_Hash>>;
 
 }
 

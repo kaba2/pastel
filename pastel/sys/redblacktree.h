@@ -427,7 +427,7 @@ namespace Pastel
 		typename Data_,
 		typename Compare_ = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default>
-	class Map_Settings
+	class RedBlack_Map_Settings
 	{
 	public:
 		using Key = Key_;
@@ -445,9 +445,9 @@ namespace Pastel
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
 		typename Customization = Empty_RedBlackTree_Customization<
-		Map_Settings<Key, Data, Compare, DereferenceType_>>>
-	using Map = 
-		RedBlackTree<Map_Settings<Key, Data, Compare, DereferenceType_>, Customization>;
+		RedBlack_Map_Settings<Key, Data, Compare, DereferenceType_ >> >
+	using RedBlack_Map = 
+		RedBlackTree<RedBlack_Map_Settings<Key, Data, Compare, DereferenceType_>, Customization>;
 
 }
 
@@ -460,17 +460,17 @@ namespace Pastel
 		typename Key, 
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default>
-	using Set_Settings = 
-		Map_Settings<Key, void, Compare, DereferenceType_>;
+	using RedBlack_Set_Settings = 
+		RedBlack_Map_Settings<Key, void, Compare, DereferenceType_>;
 
 	template <
 		typename Key, 
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
 		typename Customization = Empty_RedBlackTree_Customization<
-		Set_Settings<Key, Compare, DereferenceType_>>>
-	using Set = 
-		RedBlackTree<Set_Settings<Key, Compare, DereferenceType_>, Customization>;;
+		RedBlack_Set_Settings<Key, Compare, DereferenceType_>>>
+	using RedBlack_Set = 
+		RedBlackTree<RedBlack_Set_Settings<Key, Compare, DereferenceType_>, Customization>;;
 
 }
 

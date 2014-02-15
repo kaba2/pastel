@@ -23,17 +23,34 @@ namespace Pastel
 	// Integer
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+	PASTEL_ENABLE_IF(std::is_unsigned<Type>, bool) 
 		even(const Type& that)
 	{
 		return (that & 1) == 0;
 	}
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+	PASTEL_ENABLE_IF(std::is_signed<Type>, bool) 
+		even(const Type& that)
+	{
+		// This should read the following, but I can not 
+		// include twos_complement.h, because that would 
+		// create a circular dependency.
+		
+		// return even(signedToTwosComplement(that));
+
+		// This is the equivalent code.
+		using Unsigned = std::make_unsigned<Type>::type;
+		return even((Unsigned)that);
+	}
+
+	template <typename Type>
+	PASTEL_ENABLE_IF_C(
+		std::is_unsigned<Type>::value || 
+		std::is_signed<Type>::value, bool) 
 		odd(const Type& that)
 	{
-		return (that & 1) != 0;
+		return !even(that);
 	}
 
 	// Real (partial)

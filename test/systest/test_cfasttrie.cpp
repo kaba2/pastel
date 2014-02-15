@@ -25,21 +25,24 @@ namespace
 		{
 			testInsertErase();
 			testFind();
+			testSet();
 		}
 
-		using Set = CFastTrie_Map<4, integer>;
-		using Key = Set::Key;
-		using Value = Set::Value;
+		using Map = CFastTrie_Map<4, integer>;
+		using Set = CFastTrie_Set<4>;
+		using Key = Map::Key;
+		using Value = Map::Value;
 
+		template <typename Range>
 		bool keysEqual(
-			const Set& a, 
+			const Range& a, 
 			std::initializer_list<integer> b)
 		{
 				return boost::equal(a.ckeyRange(), b);
 		}
 
 		bool valuesEqual(
-			const Set& a, 
+			const Map& a, 
 			std::initializer_list<integer> b)
 		{
 				return boost::equal(a, b);
@@ -47,7 +50,7 @@ namespace
 
 		void testInsertErase()
 		{
-			Set a;
+			Map a;
 
 			{
 				a.insert(1, 11);
@@ -224,20 +227,32 @@ namespace
 				TEST_ENSURE(keysEqual(a, {}));
 				TEST_ENSURE(valuesEqual(a, {}));
 			}
+		}
+
+		void print(const Map& a)
+		{
+			for (auto&& element : a)
 			{
-				for (auto&& element : a)
-				{
-					std::cout << element.key().word(0) << " : "
-						<< element.chain()->first.word(0) << " : "
-						<< element
-						<< std::endl;
-				}
+				std::cout << element.key().word(0) << " : "
+					<< element.chain()->first.word(0) << " : "
+					<< element
+					<< std::endl;
+			}
+		}
+
+		void print(const Set& a)
+		{
+			for (auto&& element : a)
+			{
+				std::cout << element.key().word(0) << " : "
+					<< element.chain()->first.word(0)
+					<< std::endl;
 			}
 		}
 
 		void testFind()
 		{
-			Set a({1, 5, 4, 7, 8, 3, 8, 9});
+			Map a({1, 5, 4, 7, 8, 3, 8, 9});
 			
 			TEST_ENSURE(a.exists(1));
 			TEST_ENSURE(a.exists(3));
@@ -299,7 +314,37 @@ namespace
 			TEST_ENSURE(a.upperBound(14) == a.cend());
 			TEST_ENSURE(a.upperBound(15) == a.cend());
 
-			//Set b({ { 0, 10 }, { 1, 11 }, { 2, 12 } });
+			// Visual Studio 2013, even with the
+			// November 2013 CTP compiler, has a bug
+			// with using an initializer-list of pairs
+			// in the constructor, when using the 
+			// () form. This is fixed by removing ().
+
+			//Map b({ { 0, 10 }, { 1, 11 }, { 2, 12 } });
+			Map b { { 0, 10 }, { 1, 11 }, { 2, 12 } };
+
+			TEST_ENSURE(keysEqual(b, {0, 1, 2}));
+			TEST_ENSURE(valuesEqual(b, { 10, 11, 12 }));
+		}
+
+		void testSet()
+		{
+			{
+				Set a({ 3 });
+				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(keysEqual(a, { 3 }));
+			}
+
+			{
+				Set a({ 3, 2 });
+				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(keysEqual(a, { 2, 3 }));
+			}
+			{
+				Set a({ 3, 2, 0, 1 });
+				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3 }));
+				*(a.begin());
+			}
 		}
 	};
 
