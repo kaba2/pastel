@@ -26,10 +26,11 @@ namespace
 			testInsertErase();
 			testFind();
 			testSet();
+			testInsertMore();
 		}
 
-		using Map = CFastTrie_Map<4, integer>;
-		using Set = CFastTrie_Set<4>;
+		using Map = CFastTrie_Map<32, integer>;
+		using Set = CFastTrie_Set<32>;
 		using Key = Map::Key;
 		using Value = Map::Value;
 
@@ -229,7 +230,8 @@ namespace
 			}
 		}
 
-		void print(const Map& a)
+		template <int N>
+		void print(const CFastTrie_Map<N, integer>& a)
 		{
 			for (auto&& element : a)
 			{
@@ -240,7 +242,8 @@ namespace
 			}
 		}
 
-		void print(const Set& a)
+		template <int N>
+		void print(const CFastTrie_Set<N>& a)
 		{
 			for (auto&& element : a)
 			{
@@ -344,6 +347,20 @@ namespace
 				Set a({ 3, 2, 0, 1 });
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3 }));
 				*(a.begin());
+			}
+		}
+
+		void testInsertMore()
+		{
+			{
+				CFastTrie_Set<32> a{ 0, 1, 2, 3, 4, 5};
+				TEST_ENSURE(checkInvariants(a));
+			}
+
+			{
+				CFastTrie_Set<32> a{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+					12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 };
+				TEST_ENSURE(checkInvariants(a));
 			}
 		}
 	};

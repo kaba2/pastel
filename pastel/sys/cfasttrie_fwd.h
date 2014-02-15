@@ -41,13 +41,6 @@ namespace Pastel
 		using Value = typename Settings::Value;
 		using Value_Class = Class<Value>;
 
-		//! The hash function for the keys.
-		/*!
-		This is needed to store the chains in a hash table
-		by their chain-keys.
-		*/
-		using Key_Hash = Integer_Hash<typename Key::Settings>;
-
 		// Elements
 
 		class Element;
@@ -89,7 +82,7 @@ namespace Pastel
 		chain-keys. Each chain corresponds to an element and vice
 		versa.
 		*/
-		using ChainSet = std::unordered_map<Key, Chain, Key_Hash>;
+		using ChainSet = std::unordered_map<Key, Chain>;
 		using Chain_ConstIterator = typename ChainSet::const_iterator;
 		using Chain_Iterator = typename ChainSet::iterator;
 

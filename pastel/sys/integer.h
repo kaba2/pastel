@@ -917,51 +917,9 @@ namespace Pastel
 		Time complexity: O(endBit - beginBit)
 		Exception safety: nothrow
 		*/
-		hash_integer hash(integer beginBit = 0, integer endBit = N) const
+		hash_integer hash() const
 		{
-			PENSURE_OP(beginBit, >=, 0);
-			PENSURE_OP(beginBit, <=, endBit);
-			PENSURE_OP(endBit, <=, N);
-
-			if (beginBit == endBit)
-			{
-				return computeHash((Word)0);
-			}
-
-			integer lastBit = endBit - 1;
-			
-			integer beginWord = beginBit / BitsInWord;
-			integer localBeginBit = beginBit - beginWord * BitsInWord;
-			Word beginMask = ~bitMask<Word>(localBeginBit);
-
-			integer lastWord = lastBit / BitsInWord;
-			integer localLastBit = lastBit - lastWord * BitsInWord;
-			Word lastMask = bitMask<Word>(localLastBit + 1);
-
-			if (beginWord == lastWord)
-			{
-				beginMask &= lastMask;
-			}
-
-			// Hash the first, possibly partial, word.
-			hash_integer result = 
-				computeHash(wordSet_[beginWord] & beginMask);
-			
-			// Hash the middle words.
-			for (integer i = beginWord + 1;i < lastWord;++i)
-			{
-				result = combineHash(result, 
-					computeHash(wordSet_[i]));
-			}
-
-			// Hash the last, possibly partial, word.
-			if (beginWord != lastWord)
-			{
-				result = combineHash(result, 
-					computeHash(wordSet_[lastWord] & lastMask));
-			}
-
-			return result;
+			return computeHashMany(range(wordSet_.cbegin(), wordSet_.cend()));
 		}
 
 		PASTEL_INTEGER_ASSIGN_OPERATOR(|=);

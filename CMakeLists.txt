@@ -274,6 +274,6 @@ if (BuildTests)
 endif()
 
 if (BuildExamples)
-	#add_subdirectory (example)
+	add_subdirectory (example)
 endif()
 

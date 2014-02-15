@@ -50,7 +50,6 @@ namespace Pastel
 		PASTEL_FWD(Key);
 		PASTEL_FWD(Value);
 		PASTEL_FWD(Value_Class);
-		PASTEL_FWD(Key_Hash);
 		PASTEL_FWD(DataSet);
 		PASTEL_FWD(ConstIterator);
 		PASTEL_FWD(Iterator);
@@ -515,7 +514,7 @@ namespace Pastel
 			// that is an ancestor of chainKey.
 			auto nextSplitChain = [&](integer i)
 			{
-				auto nextPair = findNextChainKey(chainKey, i);
+				auto nextPair = findNextChainKey(chainKey, i, goingRight);
 				
 				bool found = nextPair.second;
 				if (!found)
@@ -542,8 +541,8 @@ namespace Pastel
 				}
 
 				bool keyOver =
-					((nextChain->second.element()->key() > key) == goingRight) ||
-					(nextChain->first > key) == goingRight;
+					((nextChain->first > key) == goingRight) &&
+					(nextChain->second.element()->key() > key);
 
 				return keyOver;
 			};
@@ -552,7 +551,7 @@ namespace Pastel
 			// and find the level k at which nextSplitChain(k)
 			// returns the chain which contains the successor
 			// of 'key'.
-			integer k = exponentialBinarySearch(
+			integer k = binarySearch(
 				(integer)1, (integer)Bits + 1, indicator);
 			
 			Chain_ConstIterator nextChain =
@@ -650,7 +649,7 @@ namespace Pastel
 				};
 
 				integer nearbyLevel =
-					exponentialBinarySearch(minLevel, bits(), nearby);
+					binarySearch(minLevel, bits(), nearby);
 
 				if (chainExists(key, nearbyLevel))
 				{
@@ -694,7 +693,7 @@ namespace Pastel
 				};
 
 				// Find the level above the top of the chain [nearbyKey].
-				minLevel = exponentialBinarySearch(
+				minLevel = binarySearch(
 					nearbyLevel + 1, bits(), differentChain);
 			}
 
@@ -818,7 +817,7 @@ namespace Pastel
 			};
 
 			integer nearbyLevel =
-				exponentialBinarySearch((integer)0, (integer)bits(), nearby);
+				binarySearch((integer)0, (integer)bits(), nearby);
 
 			// Let j = nearbyLevel and v = key up j.
 			if (chainExists(key, nearbyLevel))
@@ -918,14 +917,19 @@ namespace Pastel
 			// will return 'level', which is also correct for
 			// what follows.
 			integer splitOffset = 
-				exponentialBinarySearch((integer)0, (integer)level, splitAtOrAbove);
+				binarySearch((integer)0, (integer)level, splitAtOrAbove);
+
+			// It is possible that level == bits(), in which case we
+			// are the zero-chain, which is an even chain. Otherwise
+			// we determine the oddness of the chain from the key.
+			bool oddGapPath = level < bits() ? key.bit(level) : false;
 
 			// Follow the upper gap-path downwards 
 			// to the first split- or leaf-node, and
 			// then follow the lower gap-path.
 			Key gapKey = key;
-			gapKey.setBits(level - splitOffset, level, key.bit(level));
-			gapKey.setBits(0, level - splitOffset, !key.bit(level));
+			gapKey.setBits(level - splitOffset, level, oddGapPath);
+			gapKey.setBits(0, level - splitOffset, !oddGapPath);
 
 			// Find the chain corresponding to the gap-bound.
 			Chain_ConstIterator lowerChain = chainSet_.find(gapKey);
@@ -933,7 +937,7 @@ namespace Pastel
 			ASSERT(lowerChain != chainSet_.cend());
 
 			ConstIterator element = lowerChain->second.element();
-			if (even(gapKey))
+			if (!oddGapPath)
 			{
 				// Since we followed the even gap-path,
 				// we are now at the left gap-bound.
@@ -951,7 +955,7 @@ namespace Pastel
 		0 <= level <= bits()
 		*/
 		std::pair<Key, bool> findNextChainKey(
-			const Key& key, integer level) const
+			const Key& key, integer level, bool odd) const
 		{
 			ASSERT_OP(level, >, 0);
 			ASSERT_OP(level, <=, bits());
@@ -962,10 +966,9 @@ namespace Pastel
 			if (chain->second.splitExists(level))
 			{
 				// The (key up level, level) is a split-node.
-				// Return that chain which does not lead to
-				// the key.
+				// Return the desired chain-key.
 				Key result = key;
-				result.setBits(0, level, !key.bit(level - 1));
+				result.setBits(0, level, odd);
 				return std::make_pair(result, true);
 			}
 			
@@ -989,7 +992,9 @@ namespace Pastel
 				{
 					// The next split-node is directly above the current chain.
 					// Return the next chain above the current chain.
-					return std::make_pair(replicate(key, chain->second.height()), true);
+					Key result = key;
+					result.setBits(0, chain->second.height(), odd);
+					return std::make_pair(result, true);
 				}
 
 				// There are no split-nodes at or above the given level.
@@ -1006,17 +1011,17 @@ namespace Pastel
 			mask <<= 1;
 			++mask;
 
-			const Key& chainKey = chain->first;
-			if (even(chainKey))
+			Key result = key;
+			if (odd)
 			{
-				// We are currently on an even chain. Therefore
-				// the next split-chain above splits as a 1-chain.
-				return std::make_pair(key | mask, true);
+				result |= mask;
 			}
-			
-			// We are currently on an odd chain. Therefore
-			// the next split-chain above splits as a 0-chain.
-			return std::make_pair(key & (~mask), true);
+			else
+			{
+				result &= ~mask;
+			}
+
+			return std::make_pair(result, true);
 		}
 
 		//! Replicates the bit at index 'level' to lower bits.
@@ -1101,9 +1106,12 @@ namespace Pastel
 		{
 			ASSERT_OP(level, >= , 0);
 
+			return chainExists(key, level);
+			/*
 			return chainExists(key, level) ||
 				chainOnLeft(key, level) ||
 				chainOnRight(key, level);
+			*/
 		};
 
 		//! Returns whether there is a chain on the right.
