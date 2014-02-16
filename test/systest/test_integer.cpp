@@ -465,6 +465,13 @@ namespace
 
 			F a;
 
+			TEST_ENSURE(!a.bit(20));
+			TEST_ENSURE(!a.bit(21));
+			TEST_ENSURE(!a.bit(22));
+			TEST_ENSURE(!a.bit(32));
+			TEST_ENSURE(!a.bit(64));
+			TEST_ENSURE(!a.bit(128));
+
 			a.setBit(0);
 			TEST_ENSURE(a == (1 << 0));
 			
@@ -508,6 +515,25 @@ namespace
 			a = 0x12345678;
 			a.setBits();
 			TEST_ENSURE(a == 0x000FFFFF);
+
+			{
+				Signed_Integer<20, uint8> b(-1);
+				TEST_ENSURE(b.bit(20));
+				TEST_ENSURE(b.bit(21));
+				TEST_ENSURE(b.bit(22));
+				TEST_ENSURE(b.bit(32));
+				TEST_ENSURE(b.bit(64));
+				TEST_ENSURE(b.bit(128));
+			}
+			{
+				Signed_Integer<20, uint8> b(0);
+				TEST_ENSURE(!b.bit(20));
+				TEST_ENSURE(!b.bit(21));
+				TEST_ENSURE(!b.bit(22));
+				TEST_ENSURE(!b.bit(32));
+				TEST_ENSURE(!b.bit(64));
+				TEST_ENSURE(!b.bit(128));
+			}
 		}
 	};
 

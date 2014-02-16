@@ -31,7 +31,7 @@ namespace Pastel
 
 		// Find the element before which to insert
 		// the new element.
-		Iterator nextIter = upper_bound(key, hint);
+		Iterator nextIter = upperBound(key, hint);
 
 		// Check if there already is an equivalent
 		// key in the skip-list.

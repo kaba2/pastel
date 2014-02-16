@@ -231,7 +231,7 @@ namespace Pastel
 	auto RedBlackTree<Settings, Customization>::find(const Key& key) const
 	-> ConstIterator
 	{
-		ConstIterator result = lower_bound(key);
+		ConstIterator result = lowerBound(key);
 		if (result != cend() &&
 			Compare()(key, result.key()))
 		{
@@ -242,28 +242,28 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::lower_bound(const Key& key)
+	auto RedBlackTree<Settings, Customization>::lowerBound(const Key& key)
 	-> Iterator
 	{
-		return cast(((const RedBlackTree&)*this).lower_bound(key));
+		return cast(((const RedBlackTree&)*this).lowerBound(key));
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::lower_bound(const Key& key) const
+	auto RedBlackTree<Settings, Customization>::lowerBound(const Key& key) const
 	-> ConstIterator
 	{
 		return bound<Right>(key);
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::upper_bound(const Key& key)
+	auto RedBlackTree<Settings, Customization>::upperBound(const Key& key)
 	-> Iterator
 	{
-		return cast(((const RedBlackTree&)*this).upper_bound(key));
+		return cast(((const RedBlackTree&)*this).upperBound(key));
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::upper_bound(const Key& key) const
+	auto RedBlackTree<Settings, Customization>::upperBound(const Key& key) const
 	-> ConstIterator
 	{
 		return bound<Left>(key);
