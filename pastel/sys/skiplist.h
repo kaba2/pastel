@@ -325,12 +325,12 @@ namespace Pastel
 		predicate.
 
 		returns:
-		upper_bound(key)
+		upperBound(key)
 		*/
 		Iterator erase(const Key& key)
 		{
-			ConstIterator iter = lower_bound(key);
-			ConstIterator iterEnd = upper_bound(key, iter);
+			ConstIterator iter = lowerBound(key);
+			ConstIterator iterEnd = upperBound(key, iter);
 
 			// From now on the 'key' is not needed to check
 			// which elements to remove. This is why we can
@@ -451,7 +451,7 @@ namespace Pastel
 			const Key& key, 
 			const ConstIterator& hint) const
 		{
-			ConstIterator result = lower_bound(key, hint);
+			ConstIterator result = lowerBound(key, hint);
 			if (result == cend() ||
 				Compare()(key, result.key()))
 			{
@@ -473,22 +473,34 @@ namespace Pastel
 
 		//! Returns the first element >= 'key'.
 		/*!
-		See the documentation for lower_bound() const.
+		See the documentation for lowerBound() const.
 		*/
+		Iterator lowerBound(
+			const Key& key, 
+			const ConstIterator& hint)
+		{
+			return cast(addConst(*this).lowerBound(key, hint));
+		}
+
 		Iterator lower_bound(
 			const Key& key, 
 			const ConstIterator& hint)
 		{
-			return cast(addConst(*this).lower_bound(key, hint));
+			return lowerBound(key, hint);
 		}
 
 		//! Returns the first element >= 'key'.
 		/*!
-		See the documentation for lower_bound() const.
+		See the documentation for lowerBound() const.
 		*/
+		Iterator lowerBound(const Key& key)
+		{
+			return cast(addConst(*this).lowerBound(key));
+		}
+
 		Iterator lower_bound(const Key& key)
 		{
-			return cast(addConst(*this).lower_bound(key));
+			return lowerBound(key);
 		}
 
 		//! Returns the first element >= 'key'.
@@ -505,41 +517,65 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		ConstIterator lower_bound(
+		ConstIterator lowerBound(
 			const Key& key,
 			const ConstIterator& hint) const
 		{
 			return ConstIterator(nodeLowerBound(key, hint));
 		}
 
+		ConstIterator lower_bound(
+			const Key& key,
+			const ConstIterator& hint) const
+		{
+			return lowerBound(key, hint);
+		}
+
 		//! Returns the first element >= 'key'.
 		/*!
 		This is a convenience function which calls
-		lower_bound(key, cend()) const
+		lowerBound(key, cend()) const
 		*/
+		ConstIterator lowerBound(const Key& key) const
+		{
+			return lowerBound(key, cend());
+		}
+
 		ConstIterator lower_bound(const Key& key) const
 		{
-			return lower_bound(key, cend());
+			return lowerBound(key);
 		}
 
 		//! Returns the first element > 'key'.
 		/*!
-		See the documentation for upper_bound() const.
+		See the documentation for upperBound() const.
 		*/
+		Iterator upperBound(
+			const Key& key,
+			const ConstIterator& hint)
+		{
+			return cast(addConst(*this).upperBound(key, hint));
+		}
+
 		Iterator upper_bound(
 			const Key& key,
 			const ConstIterator& hint)
 		{
-			return cast(addConst(*this).upper_bound(key, hint));
+			return upperBound(key, hint);
 		}
 
 		//! Returns the first element > 'key'.
 		/*!
-		See the documentation for upper_bound() const.
+		See the documentation for upperBound() const.
 		*/
+		Iterator upperBound(const Key& key)
+		{
+			return cast(addConst(*this).upperBound(key));
+		}
+
 		Iterator upper_bound(const Key& key)
 		{
-			return cast(addConst(*this).upper_bound(key));
+			return upperBound(key);
 		}
 
 		//! Returns the first element > 'key'.
@@ -556,21 +592,33 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		ConstIterator upper_bound(
+		ConstIterator upperBound(
 			const Key& key,
 			const ConstIterator& hint) const
 		{
 			return ConstIterator(nodeUpperBound(key, hint));
 		}
 
+		ConstIterator upper_bound(
+			const Key& key,
+			const ConstIterator& hint) const
+		{
+			return upperBound(key, hint);
+		}
+
 		//! Returns the first element > 'key'.
 		/*!
 		This is a convenience function which calls
-		upper_bound(key, cend()) const
+		upperBound(key, cend()) const
 		*/
+		ConstIterator upperBound(const Key& key) const
+		{
+			return upperBound(key, cend());
+		}
+
 		ConstIterator upper_bound(const Key& key) const
 		{
-			return upper_bound(key, cend());
+			return upperBound(key);
 		}
 
 		//! Returns the number of elements in the skip list.

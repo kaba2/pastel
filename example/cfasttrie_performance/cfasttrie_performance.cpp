@@ -21,7 +21,9 @@ double measureTime(const Type& f)
 	f();
 	Time toc = Clock::now();
 
-	return Chrono::duration_cast<Chrono::milliseconds>(toc - tic).count();
+	double time = Chrono::duration_cast<Chrono::milliseconds>(toc - tic).count();
+	std::cout << time << "ms ";
+	return time;
 }
 
 template <int N>
@@ -40,14 +42,16 @@ void f(Set& a, integer n)
 {
 	for (integer i = 0; i < n; ++i)
 	{
-		//a.insert(randomInteger());
-		a.insert(i);
+		a.insert(randomInteger());
+		//a.insert(i);
+		/*
 		if (!checkInvariants(a))
 		{
 			std::cout << "Error: " << i << std::endl;
 			print(a);
 			return;
 		}
+		*/
 	}
 }
 
@@ -56,28 +60,51 @@ void g(const Set& a, integer n)
 {
 	for (integer i = 0; i < n; ++i)
 	{
-		a.lowerBound(randomInteger());
+		a.lower_bound(randomInteger());
 	}
 }
 
-int main()
+enum{ Bits = 64 };
+
+template <typename Set>
+void test()
 {
-	using Set = CFastTrie_Set<32>;
-	//using Set = std::set<Unsigned_Integer<32>>;
 	for (integer i = 1; i <= (1 << 18); i *= 2)
 	{
 		std::cout << i << " : ";
 
 		Set a;
-		f(a, i);
-				
-		double time = measureTime([&]()
+		measureTime([&]()
+		{
+			f(a, i);
+		});
+
+		measureTime([&]()
 		{
 			g(a, i);
 		});
-		
-		std::cout << time << "ms" << std::endl;
+
+		std::cout << std::endl;
+
 	}
+}
+
+int main()
+{
+	std::cout << "CFastTrie_Set" << std::endl;
+	test<CFastTrie_Set<Bits>>();
+
+	std::cout << "std::set" << std::endl;
+	test<std::set<Unsigned_Integer<Bits>>>();
+
+	std::cout << "std::set2" << std::endl;
+	test<std::set<integer>>();
+
+	std::cout << "SkipList_Set" << std::endl;
+	test<SkipList_Set<Unsigned_Integer<Bits>>>();
+
+	std::cout << "RedBlack_Set" << std::endl;
+	test<RedBlack_Set<Unsigned_Integer<Bits>>>();
 
 	return 0;
 }

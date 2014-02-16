@@ -244,37 +244,37 @@ namespace
 					correctSet | boost::adaptors::reversed));
 			}
 
-			// Test lower_bound(), upper_bound(), and find().
+			// Test lowerBound(), upperBound(), and find().
 			{
-				TEST_ENSURE_OP(*list.lower_bound(0), ==, 1);
-				TEST_ENSURE_OP(*list.lower_bound(1), ==, 1);
-				TEST_ENSURE_OP(*list.lower_bound(2), ==, 2);
-				TEST_ENSURE_OP(*list.lower_bound(4), ==, 4);
-				TEST_ENSURE_OP(*list.lower_bound(8), ==, 8);
-				TEST_ENSURE_OP(*list.lower_bound(9), ==, 9);
-				TEST_ENSURE(list.lower_bound(10) == list.cend());
+				TEST_ENSURE_OP(*list.lowerBound(0), ==, 1);
+				TEST_ENSURE_OP(*list.lowerBound(1), ==, 1);
+				TEST_ENSURE_OP(*list.lowerBound(2), ==, 2);
+				TEST_ENSURE_OP(*list.lowerBound(4), ==, 4);
+				TEST_ENSURE_OP(*list.lowerBound(8), ==, 8);
+				TEST_ENSURE_OP(*list.lowerBound(9), ==, 9);
+				TEST_ENSURE(list.lowerBound(10) == list.cend());
 
-				TEST_ENSURE_OP(*list.lower_bound(0, four), ==, 1);
-				TEST_ENSURE_OP(*list.lower_bound(1, four), ==, 1);
-				TEST_ENSURE_OP(*list.lower_bound(2, four), ==, 2);
-				TEST_ENSURE_OP(*list.lower_bound(4, four), ==, 4);
-				TEST_ENSURE_OP(*list.lower_bound(8, four), ==, 8);
-				TEST_ENSURE_OP(*list.lower_bound(9, four), ==, 9);
-				TEST_ENSURE(list.lower_bound(10, four) == list.cend());
+				TEST_ENSURE_OP(*list.lowerBound(0, four), ==, 1);
+				TEST_ENSURE_OP(*list.lowerBound(1, four), ==, 1);
+				TEST_ENSURE_OP(*list.lowerBound(2, four), ==, 2);
+				TEST_ENSURE_OP(*list.lowerBound(4, four), ==, 4);
+				TEST_ENSURE_OP(*list.lowerBound(8, four), ==, 8);
+				TEST_ENSURE_OP(*list.lowerBound(9, four), ==, 9);
+				TEST_ENSURE(list.lowerBound(10, four) == list.cend());
 
-				TEST_ENSURE_OP(*list.upper_bound(0), ==, 1);
-				TEST_ENSURE_OP(*list.upper_bound(1), ==, 2);
-				TEST_ENSURE_OP(*list.upper_bound(2), ==, 3);
-				TEST_ENSURE_OP(*list.upper_bound(4), ==, 5);
-				TEST_ENSURE_OP(*list.upper_bound(8), ==, 9);
-				TEST_ENSURE(list.upper_bound(9) == list.cend());
+				TEST_ENSURE_OP(*list.upperBound(0), ==, 1);
+				TEST_ENSURE_OP(*list.upperBound(1), ==, 2);
+				TEST_ENSURE_OP(*list.upperBound(2), ==, 3);
+				TEST_ENSURE_OP(*list.upperBound(4), ==, 5);
+				TEST_ENSURE_OP(*list.upperBound(8), ==, 9);
+				TEST_ENSURE(list.upperBound(9) == list.cend());
 
-				TEST_ENSURE_OP(*list.upper_bound(0, four), ==, 1);
-				TEST_ENSURE_OP(*list.upper_bound(1, four), ==, 2);
-				TEST_ENSURE_OP(*list.upper_bound(2, four), ==, 3);
-				TEST_ENSURE_OP(*list.upper_bound(4, four), ==, 5);
-				TEST_ENSURE_OP(*list.upper_bound(8, four), ==, 9);
-				TEST_ENSURE(list.upper_bound(9, four) == list.cend());
+				TEST_ENSURE_OP(*list.upperBound(0, four), ==, 1);
+				TEST_ENSURE_OP(*list.upperBound(1, four), ==, 2);
+				TEST_ENSURE_OP(*list.upperBound(2, four), ==, 3);
+				TEST_ENSURE_OP(*list.upperBound(4, four), ==, 5);
+				TEST_ENSURE_OP(*list.upperBound(8, four), ==, 9);
+				TEST_ENSURE(list.upperBound(9, four) == list.cend());
 
 				TEST_ENSURE(list.find(0) == list.end());
 				TEST_ENSURE(
@@ -471,7 +471,7 @@ namespace
 				TEST_ENSURE_OP(list.count(3), ==, 0);
 			}
 
-			list.erase(list.lower_bound(2));
+			list.erase(list.lowerBound(2));
 			{
 				TEST_ENSURE(validInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
@@ -481,7 +481,7 @@ namespace
 				TEST_ENSURE_OP(list.count(3), ==, 0);
 			}
 
-			list.erase(list.lower_bound(0));
+			list.erase(list.lowerBound(0));
 			{
 				TEST_ENSURE(validInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
@@ -491,7 +491,7 @@ namespace
 				TEST_ENSURE_OP(list.count(3), ==, 0);
 			}
 
-			list.erase(list.lower_bound(2));
+			list.erase(list.lowerBound(2));
 			{
 				TEST_ENSURE(validInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
@@ -501,7 +501,7 @@ namespace
 				TEST_ENSURE_OP(list.count(3), ==, 0);
 			}
 
-			list.erase(list.lower_bound(0));
+			list.erase(list.lowerBound(0));
 			{
 				TEST_ENSURE(validInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
@@ -511,7 +511,7 @@ namespace
 				TEST_ENSURE_OP(list.count(3), ==, 0);
 			}
 
-			list.erase(list.lower_bound(0));
+			list.erase(list.lowerBound(0));
 			{
 				TEST_ENSURE(validInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
@@ -521,7 +521,7 @@ namespace
 				TEST_ENSURE_OP(list.count(3), ==, 0);
 			}
 
-			list.erase(list.lower_bound(1));
+			list.erase(list.lowerBound(1));
 			{
 				TEST_ENSURE(validInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
@@ -531,7 +531,7 @@ namespace
 				TEST_ENSURE_OP(list.count(3), ==, 0);
 			}
 
-			list.erase(list.lower_bound(1));
+			list.erase(list.lowerBound(1));
 			{
 				TEST_ENSURE(validInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
@@ -541,7 +541,7 @@ namespace
 				TEST_ENSURE_OP(list.count(3), ==, 0);
 			}
 
-			list.erase(list.lower_bound(1));
+			list.erase(list.lowerBound(1));
 			{
 				TEST_ENSURE(validInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);

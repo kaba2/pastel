@@ -430,6 +430,7 @@ namespace Pastel
 		//! Returns the smallest element > 'key'.
 		/*!
 		Time complexity: 
+		O(1), if key < min(S) or key >= max(S) or empty()
 		FIX: add
 
 		Exception safety:
@@ -442,48 +443,36 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
-			// Find the right gap-bound of the key.
-			ConstIterator right = rightGapBound(key);
-			
-			if (right == cbegin())
+			if (empty())
 			{
-				// Suppose right == cbegin(). Then 
-				// key < R, and this also holds for every
-				// stored key. Therefore the upper-bound
-				// is given by the first element, which
-				// is 'right'.
-				return right;
+				// There are no elements.
+				return cend();
 			}
 
-			if (right == cend())
+			if (key < cbegin()->key())
 			{
-				// Suppose right == cend(). There are
-				// three possibilities.
-				//
-				// 1) The trie is empty. In this
-				// case we should return cend(), which
-				// is 'right'.
-				// 
-				// 2) The trie has more than one 
-				// element. In this case the last element
-				// is stored in an odd chain, and therefore
-				// has its key at or left from it. Therefore
-				// we should return cend(), which is 'right'.
-				//
-				// 3) The trie has one element. If that element
-				// has a key greater than 'key', then that
-				// is the successor. Otherwise we should
-				// return cend(), which is 'right'.
-
-				if (size() != 1 ||
-					cbegin()->key() <= key)
-				{
-					return right;
-				}
-				
+				// The key is less than the least element,
+				// so the least element is the upper-bound.
 				return cbegin();
 			}
 
+			if (key >= last()->key())
+			{
+				// The key is greater than the greatest element.
+				return cend();
+			}
+
+			// Note that the tests above imply size() > 1;
+			// therefore the chain of the last element is odd.
+			// This implies that 'key' is bounded by an even
+			// chain from the left, and by an odd chain from 
+			// the right.
+
+			// Find the right gap-bound of the key.
+			ConstIterator right = rightGapBound(key);
+			ASSERT(right != cbegin());
+			ASSERT(right != cend());
+			
 			// See if the right gap-bound is also the successor.
 			{
 				ConstIterator left = std::prev(right);
@@ -514,16 +503,19 @@ namespace Pastel
 			// that is an ancestor of chainKey.
 			auto nextSplitChain = [&](integer i)
 			{
-				auto nextPair = findNextChainKey(chainKey, i, goingRight);
+				auto levelFound = findNextSplit(chainKey, i, goingRight);
 				
-				bool found = nextPair.second;
+				integer splitLevel = levelFound.first;
+				bool found = levelFound.second;
 				if (!found)
 				{
 					return chainSet_.cend();
 				}
 
-				const Key& nextChainKey = nextPair.first;
-				Chain_ConstIterator nextChain = 
+				Key nextChainKey = chainKey;
+				nextChainKey.setBits(0, splitLevel, goingRight);
+
+				Chain_ConstIterator nextChain =
 					chainSet_.find(nextChainKey);
 				ASSERT(nextChain != chainSet_.cend());
 
@@ -540,11 +532,16 @@ namespace Pastel
 					return true;
 				}
 
-				bool keyOver =
-					((nextChain->first > key) == goingRight) &&
-					(nextChain->second.element()->key() > key);
+				ConstIterator element = nextChain->second.element();
 
-				return keyOver;
+				if (goingRight)
+				{
+					return (std::next(element) == cend() ||
+						std::next(element)->key() > key);
+				}
+				
+				return (element == cbegin() ||
+					std::prev(element)->key() <= key);
 			};
 
 			// Search over the split-node ancestors of chainKey,
@@ -552,22 +549,34 @@ namespace Pastel
 			// returns the chain which contains the successor
 			// of 'key'.
 			integer k = binarySearch(
-				(integer)1, (integer)Bits + 1, indicator);
+				(integer)1, bits() + 1, indicator);
 			
 			Chain_ConstIterator nextChain =
-				k < Bits + 1 ? nextSplitChain(k) : chainSet_.cend();
+				k < bits() + 1 ? nextSplitChain(k) : chainSet_.cend();
 
 			if (nextChain == chainSet_.cend())
 			{
 				return dataSet_.cend();
 			}
 
-			return nextChain->second.element();
+			return goingRight ? 
+				std::next(nextChain->second.element()) :
+				nextChain->second.element();
+		}
+
+		ConstIterator upper_bound(const Key& key) const
+		{
+			return upperBound(key);
 		}
 
 		Iterator upperBound(const Key& key)
 		{
 			return cast(addConst(*this).upperBound(key));
+		}
+
+		Iterator upper_bound(const Key& key)
+		{
+			return upperBound(key);
 		}
 
 		//! Returns an iterator to the smallest element >= 'key'.
@@ -605,9 +614,19 @@ namespace Pastel
 			return upper;
 		}
 
+		ConstIterator lower_bound(const Key& key) const
+		{
+			return lowerBound(key);
+		}
+
 		Iterator lowerBound(const Key& key)
 		{
 			return cast(addConst(*this).lowerBound(key));
+		}
+
+		Iterator lower_bound(const Key& key)
+		{
+			return lowerBound(key);
 		}
 
 		//! Returns whether the element exists.
@@ -640,6 +659,8 @@ namespace Pastel
 			// the trie is empty.
 			ASSERT(!empty());
 
+			integer searchBits = (key > last()->chain()->first) ? maxBits() : bits();
+
 			integer minLevel = 0;
 			while (true)
 			{
@@ -649,7 +670,7 @@ namespace Pastel
 				};
 
 				integer nearbyLevel =
-					binarySearch(minLevel, bits(), nearby);
+					binarySearch(minLevel, maxBits(), nearby);
 
 				if (chainExists(key, nearbyLevel))
 				{
@@ -694,7 +715,7 @@ namespace Pastel
 
 				// Find the level above the top of the chain [nearbyKey].
 				minLevel = binarySearch(
-					nearbyLevel + 1, bits(), differentChain);
+					nearbyLevel + 1, maxBits(), differentChain);
 			}
 
 			return 0;
@@ -723,6 +744,30 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		PASTEL_ITERATOR_FUNCTIONS(end, dataSet_.end());
+
+		//! Returns the last iterator.
+		/*!
+		Preconditions:
+		!empty()
+
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Iterator last()
+		{
+			PENSURE(!empty());
+			return std::prev(dataSet_.end());
+		}
+
+		ConstIterator last() const
+		{
+			return removeConst(*this).last();
+		}
+
+		ConstIterator clast() const
+		{
+			return last();
+		}
 
 		//! Returns an iterator range.
 		/*!
@@ -756,8 +801,26 @@ namespace Pastel
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
+
+		The number of least significant bits needed to
+		disambiguate the stored elements.
 		*/
 		integer bits() const
+		{
+			if (size() < 2)
+			{
+				return 0;
+			}
+			
+			return last()->chain()->second.height();
+		}
+
+		//! Returns the number of bits in an integer.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer maxBits() const
 		{
 			return Bits;
 		}
@@ -817,7 +880,7 @@ namespace Pastel
 			};
 
 			integer nearbyLevel =
-				binarySearch((integer)0, (integer)bits(), nearby);
+				binarySearch((integer)0, bits(), nearby);
 
 			// Let j = nearbyLevel and v = key up j.
 			if (chainExists(key, nearbyLevel))
@@ -919,10 +982,7 @@ namespace Pastel
 			integer splitOffset = 
 				binarySearch((integer)0, (integer)level, splitAtOrAbove);
 
-			// It is possible that level == bits(), in which case we
-			// are the zero-chain, which is an even chain. Otherwise
-			// we determine the oddness of the chain from the key.
-			bool oddGapPath = level < bits() ? key.bit(level) : false;
+			bool oddGapPath = key.bit(level);
 
 			// Follow the upper gap-path downwards 
 			// to the first split- or leaf-node, and
@@ -949,58 +1009,83 @@ namespace Pastel
 			return element;
 		}
 
-		//! The chain-key of the next chain at or above a given node.
+		//! Finds the next split-node at or above the given level.
 		/*!
 		Preconditions:
-		0 <= level <= bits()
+		0 <= level <= maxBits()
+
+		The 'next' means that the split-node
+		1) is an ancestor of 'key', and
+		2) is located at the top of an odd (even) 
+		chain (i.e. at level chain->second.height()), 
+		if 'odd' is true (false).
+
+		returns:
+		A pair (level, found), where 'level' gives the level
+		of the next split-node, and 'found' tells whether the
+		next split-node exists at all. In case 'found' is false,
+		then the 'level' provides no information and is set to 
+		zero.
 		*/
-		std::pair<Key, bool> findNextChainKey(
+		std::pair<integer, bool> findNextSplit(
 			const Key& key, integer level, bool odd) const
 		{
 			ASSERT_OP(level, >, 0);
-			ASSERT_OP(level, <=, bits());
+			ASSERT_OP(level, <=, maxBits());
 
 			// Find the chain which contains (key up level, level).
 			Chain_ConstIterator chain = findChain(key, level);
-			
-			if (chain->second.splitExists(level))
-			{
-				// The (key up level, level) is a split-node.
-				// Return the desired chain-key.
-				Key result = key;
-				result.setBits(0, level, odd);
-				return std::make_pair(result, true);
-			}
-			
-			// We wish to find the chain of the next split-node
-			// at or _above_ the given level. Clear the lower 
-			// split-bits so that we will not find the lower 
-			// split-nodes.
 
 			// Here we will have to look at the split
 			// information directly, and remember that the
 			// split-information at level i is at position i - 1.
+
+			// Clear the lower split-bits so that we will not 
+			// find the lower split-nodes.
 			Key mask = chain->second.split();
 			mask.clearBits(0, level - 1);
-			
-			if (zero(mask))
+
+			bool oddChain = key.bit(level);
+			if (oddChain != odd && zero(mask))
 			{
-				// There are no split-nodes at or above the given level
-				// in the current chain.
+				// The chain differs in oddness from the
+				// desired and there are no split-nodes at 
+				// or above the given level in the current
+				// chain. We may skip above this chain to
+				// a chain which agrees in oddness.
 
-				if (chain->second.height() > 0)
-				{
-					// The next split-node is directly above the current chain.
-					// Return the next chain above the current chain.
-					Key result = key;
-					result.setBits(0, chain->second.height(), odd);
-					return std::make_pair(result, true);
-				}
-
-				// There are no split-nodes at or above the given level.
-				return std::make_pair(key, false);
+				level = chain->second.height();
+				
+				// We don't return the level, because it
+				// is not at the top of a chain. Instead,
+				// we continue as if we were given this
+				// top node to begin with.
+				chain = findChain(key, level);
+				oddChain = key.bit(level);
 			}
-			
+
+			if ((oddChain != odd || level == bits()) && 
+				chain->second.splitExists(level))
+			{
+				// Since the chain differs in oddness, and
+				// we are on a split-node, we must be on top
+				// of a chain which agrees in oddness.
+				return std::make_pair(level, true);
+			}
+
+			if (oddChain == odd)
+			{
+				// The chain's oddness equals 'odd'. Since all
+				// the chains that split off the current chain must
+				// be of different oddness, we may skip them.
+
+				// In the case the current chain is the zero
+				// chain, there are no split-nodes above.
+				return std::make_pair(
+					chain->second.height(), 
+					chain->second.height() > 0);
+			}
+		
 			// Form the mask which has one-bits below the first 
 			// split-node above the given level.
 			mask = zeroHigherBits(mask);
@@ -1011,17 +1096,21 @@ namespace Pastel
 			mask <<= 1;
 			++mask;
 
-			Key result = key;
+			// Find the chain-key of the next odd (even) chain.
+			Key chainKey = key;
 			if (odd)
 			{
-				result |= mask;
+				chainKey |= mask;
 			}
 			else
 			{
-				result &= ~mask;
+				chainKey &= ~mask;
 			}
 
-			return std::make_pair(result, true);
+			Chain_ConstIterator nextChain = chainSet_.find(chainKey);
+			ASSERT(nextChain != chainSet_.cend());
+			
+			return std::make_pair(nextChain->second.height(), true);
 		}
 
 		//! Replicates the bit at index 'level' to lower bits.
@@ -1039,7 +1128,7 @@ namespace Pastel
 		{
 			ASSERT_OP(level, >= , 0);
 
-			if (level >= bits())
+			if (level >= maxBits())
 			{
 				return negate ? -1 : 0;
 			}
@@ -1106,12 +1195,10 @@ namespace Pastel
 		{
 			ASSERT_OP(level, >= , 0);
 
-			return chainExists(key, level);
-			/*
+			//return chainExists(key, level);
 			return chainExists(key, level) ||
 				chainOnLeft(key, level) ||
 				chainOnRight(key, level);
-			*/
 		};
 
 		//! Returns whether there is a chain on the right.
@@ -1157,7 +1244,7 @@ namespace Pastel
 		//! Inserts a new chain.
 		/*!
 		Preconditions:
-		0 <= height <= bits()
+		0 <= height <= maxBits()
 
 		Time complexity: O(1) expected
 		Exception safety: strong
@@ -1168,7 +1255,7 @@ namespace Pastel
 			const Iterator& element)
 		{
 			ASSERT_OP(height, >= , 0);
-			ASSERT_OP(height, <= , bits());
+			ASSERT_OP(height, <= , maxBits());
 
 			// Create the chain.
 			Chain_Iterator chain =

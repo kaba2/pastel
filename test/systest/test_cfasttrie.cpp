@@ -362,6 +362,16 @@ namespace
 					12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 };
 				TEST_ENSURE(checkInvariants(a));
 			}
+			{
+				CFastTrie_Set<5> a{ 5, 9, 23, 25, 26, 31};
+				a.insert(19);
+				TEST_ENSURE(checkInvariants(a));
+			}
+			{
+				CFastTrie_Set<5> a{ 1, 4, 12, 18, 24 };
+				a.insert(13);
+				TEST_ENSURE(checkInvariants(a));
+			}
 		}
 	};
 

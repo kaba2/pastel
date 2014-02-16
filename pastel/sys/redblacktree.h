@@ -177,16 +177,36 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		Iterator lower_bound(const Key& key);
-		ConstIterator lower_bound(const Key& key) const;
+		Iterator lowerBound(const Key& key);
+		ConstIterator lowerBound(const Key& key) const;
+
+		Iterator lower_bound(const Key& key)
+		{
+			return lowerBound(key);
+		}
+
+		ConstIterator lower_bound(const Key& key) const
+		{
+			return lowerBound(key);
+		}
 
 		//! Searches for the first element with key > 'key'.
 		/*!
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		Iterator upper_bound(const Key& key);
-		ConstIterator upper_bound(const Key& key) const;
+		Iterator upperBound(const Key& key);
+		ConstIterator upperBound(const Key& key) const;
+
+		Iterator upper_bound(const Key& key)
+		{
+			return upperBound(key);
+		}
+		
+		ConstIterator upper_bound(const Key& key) const
+		{
+			return upperBound(key);
+		}
 
 		//! Casts away iterator constness.
 		/*!

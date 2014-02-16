@@ -576,15 +576,26 @@ namespace Pastel
 		//! Returns the i:th bit.
 		/*!
 		Preconditions:
-		0 <= i < bits()
+		0 <= i
 
 		Time complexity: O(1)
 		Exception safety: nothrow
+
+		returns:
+		The i:th bit of the two's complement form
+		of the integer. In case i >= bits(), for
+		signed integers the result is the last bit
+		(the sign bit), and for unsigned integers
+		the result is false.
 		*/
 		bool bit(integer i) const
 		{
 			PENSURE_OP(i, >=, 0);
-			PENSURE_OP(i, <, bits());
+
+			if (i >= bits())
+			{
+				return Signed ? lastBit() : false;
+			}
 
 			integer word = i / BitsInWord;
 			integer bit = i - word * BitsInWord;

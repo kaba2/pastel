@@ -228,41 +228,41 @@ namespace
 					tree.find(10) == tree.cend());
 			}
 
-			// Test lower_bound().
+			// Test lowerBound().
 			{
 				TEST_ENSURE(
-					tree.lower_bound(-1) != tree.cend() &&
-					tree.lower_bound(-1).key() == 1);
+					tree.lowerBound(-1) != tree.cend() &&
+					tree.lowerBound(-1).key() == 1);
 				TEST_ENSURE(
-					tree.lower_bound(1) != tree.cend() &&
-					tree.lower_bound(1).key() == 1);
+					tree.lowerBound(1) != tree.cend() &&
+					tree.lowerBound(1).key() == 1);
 				TEST_ENSURE(
-					tree.lower_bound(3) != tree.cend() &&
-					tree.lower_bound(3).key() == 3);
+					tree.lowerBound(3) != tree.cend() &&
+					tree.lowerBound(3).key() == 3);
 				TEST_ENSURE(
-					tree.lower_bound(9) != tree.cend() &&
-					tree.lower_bound(9).key() == 9);
+					tree.lowerBound(9) != tree.cend() &&
+					tree.lowerBound(9).key() == 9);
 				TEST_ENSURE(
-					tree.lower_bound(10) == tree.cend());
+					tree.lowerBound(10) == tree.cend());
 			}
 
-			// Test upper_bound().
+			// Test upperBound().
 			{
 				TEST_ENSURE(
-					tree.upper_bound(-1) != tree.cend());
+					tree.upperBound(-1) != tree.cend());
 				TEST_ENSURE(
-					tree.upper_bound(-1) != tree.cend() &&
-					tree.upper_bound(-1).key() == 1);
+					tree.upperBound(-1) != tree.cend() &&
+					tree.upperBound(-1).key() == 1);
 				TEST_ENSURE(
-					tree.upper_bound(1) != tree.cend() &&
-					tree.upper_bound(1).key() == 2);
+					tree.upperBound(1) != tree.cend() &&
+					tree.upperBound(1).key() == 2);
 				TEST_ENSURE(
-					tree.upper_bound(3) != tree.cend() &&
-					tree.upper_bound(3).key() == 4);
+					tree.upperBound(3) != tree.cend() &&
+					tree.upperBound(3).key() == 4);
 				TEST_ENSURE(
-					tree.upper_bound(9) == tree.cend());
+					tree.upperBound(9) == tree.cend());
 				TEST_ENSURE(
-					tree.upper_bound(10) == tree.cend());
+					tree.upperBound(10) == tree.cend());
 			}
 		}
 	};
