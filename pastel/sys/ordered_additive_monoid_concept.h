@@ -13,9 +13,11 @@ namespace Pastel
 	namespace Ordered_Additive_Monoid_Concept
 	{
 
-		// An ordered additive monoid is an additive monoid
-		// which is also an ordered additive semigroup.
-
+		//! An ordered additive monoid.
+		/*! 
+		An ordered additive monoid is an additive monoid
+		which is also an ordered additive semigroup.
+		*/
 		class Ordered_Additive_Monoid
 		: public Ordered_Additive_SemiGroup_Concept::Ordered_Additive_SemiGroup
 		, public Additive_Monoid_Concept::Additive_Monoid

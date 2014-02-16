@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_ADDITIVE_SEMIGROUP_CONCEPT_H
 #define PASTELSYS_ADDITIVE_SEMIGROUP_CONCEPT_H
 
-#include "pastel/sys/comparable_concept.h"
+#include "pastel/sys/set_concept.h"
 
 namespace Pastel
 {
@@ -12,12 +12,14 @@ namespace Pastel
 	namespace Additive_SemiGroup_Concept
 	{
 
-		// An additive semi-group is a pair (X, +),
-		// where X is a set and + : X^2 --> X is 
-		// commutative and associative.
-
+		//! An additive semi-group.
+		/*!
+		An additive semi-group is a pair (X, +),
+		where X is a set and + : X^2 --> X is 
+		commutative and associative.
+		*/
 		class Additive_SemiGroup
-		: public Comparable_Concept::Comparable
+		: public Set_Concept::Set
 		{
 		public:
 			//! Adds 'that' to the element.

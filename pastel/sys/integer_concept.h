@@ -13,6 +13,7 @@ namespace Pastel
 	namespace Integer_Concept
 	{
 
+		//! An integer.
 		class Integer
 		: public Ordered_Ring_Concept::Ordered_Ring
 		{
