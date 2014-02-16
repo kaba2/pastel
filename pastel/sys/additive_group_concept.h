@@ -12,11 +12,13 @@ namespace Pastel
 	namespace Additive_Group_Concept
 	{
 
-		// An additive group is an additive monoid (X, +)
-		// such that for every x in X there exists y in X
-		// such that x + y = 0. Since the y is unique,
-		// it is denoted by -x.
-
+		//! An additive group.
+		/*!
+		An additive group is an additive monoid (X, +)
+		such that for every x in X there exists y in X
+		such that x + y = 0. Since the y is unique,
+		it is denoted by -x.
+		*/
 		class Additive_Group
 		: public Additive_Monoid_Concept::Additive_Monoid
 		{

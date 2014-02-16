@@ -13,10 +13,12 @@ namespace Pastel
 	namespace Ordered_Additive_Group_Concept
 	{
 
-		// An ordered additive group is
-		// an ordered additive monoid which
-		// is also a group.
-
+		//! An ordered additive group.
+		/*!
+		An ordered additive group is
+		an ordered additive monoid which
+		is also a group.
+		*/
 		class Ordered_Additive_Group
 		: public Ordered_Additive_Monoid_Concept::Ordered_Additive_Monoid
 		, public Additive_Group_Concept::Additive_Group

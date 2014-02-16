@@ -12,6 +12,11 @@ namespace Pastel
 	namespace Finite_Integer_Concept
 	{
 
+		//! A finite integer.
+		/*!
+		A finite integer is an integer with a finite
+		number of bits.
+		*/
 		class Finite_Integer
 			: public Integer_Concept::Integer
 		{

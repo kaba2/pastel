@@ -12,6 +12,10 @@ namespace Pastel
 	namespace Field_Concept
 	{
 
+		//! A field.
+		/*!
+		A field is a commutative division ring.
+		*/
 		class Field
 		: public Ring_Concept::Ring
 		{

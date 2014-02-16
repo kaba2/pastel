@@ -13,9 +13,11 @@ namespace Pastel
 	namespace Ordered_Field_Concept
 	{
 
-		// An ordered field is a field which is also
-		// an ordered ring.
-
+		//! An ordered field.
+		/*! 
+		An ordered field is a field which is also
+		an ordered ring.
+		*/
 		class Ordered_Field
 		: public Ordered_Ring_Concept::Ordered_Ring
 		, public Field_Concept::Field

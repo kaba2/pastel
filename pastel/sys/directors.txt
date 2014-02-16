@@ -1,0 +1,18 @@
+Directors
+=========
+
+[[Parent]]: generic_programming.txt
+
+[[set indent]]: EquationSet
+
+An _director function_ is a function ''f : ZZ --> ZZ'', such that there exists ''k in Z'' such that
+
+	f(n) in [k, n],  if n >= k, and
+	f(n) in (n, k],  if n <  k.
+
+A _director_ is any callable object in C++, which takes in a single integer argument, and returns an integer such that the resulting function is a director function. 
+
+Motivation
+----------
+
+A director function represents a unit-step function centered at ''k''; for every director function there exists a unique step-indicator function. The motivation for directors comes up because sometimes, when doing a binary search, one knows more about the underlying step-indicator than just the point-samples. A director allows the binary search to skip elements without crossing the ''k''. This improves the efficiency of the search; sometimes it may even improve the time-complexity of an algorithm.

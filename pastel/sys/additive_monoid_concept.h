@@ -12,10 +12,13 @@ namespace Pastel
 	namespace Additive_Monoid_Concept
 	{
 
-		// An additive monoid is an additive semi-group (X, +)
-		// such that there exist 0 in X such that 
-		// x + 0 = x, for all x in X.
-
+		//! An additive monoid.
+		/*!
+		An additive monoid is an additive semi-group (X, +)
+		such that there exist 0 in X such that 
+		
+		     x + 0 = x, for all x in X.
+		*/
 		class Additive_Monoid
 		: public Additive_SemiGroup_Concept::Additive_SemiGroup
 		{
