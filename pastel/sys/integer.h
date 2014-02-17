@@ -156,9 +156,9 @@ namespace Pastel
 
 				// By using the arithmetic right-shift we 
 				// automatically sign-extend 'that'.
-				that = arihmeticShiftRight(that, BitsInWord);
+				that = arithmeticShiftRight(that, BitsInWord);
 			}
-			
+
 			signExtend();
 		}
 
@@ -174,6 +174,16 @@ namespace Pastel
 			PASTEL_ENABLE_IF_P(std::is_signed<That_Integer>))
 			: Integer(signedToTwosComplement(that))
 		{
+			if (that < 0)
+			{
+				// Sign-extension for those cases where
+				// 'that' is smaller than one word.
+				integer n = Pastel::bits(that);
+				if (n < BitsInWord && n < bits())
+				{
+					setBits(n, bits());
+				}
+			}
 		}
 
 		//! Copy-constructs from another integer.

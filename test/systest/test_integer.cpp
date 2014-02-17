@@ -44,6 +44,11 @@ namespace
 			TEST_ENSURE(F(0x12345678) == F({ 0x04, 0x56, 0x78 }));
 
 			{
+				TEST_ENSURE(F((int8)-1) == F({0xFF, 0xFF, 0xFF}));
+				TEST_ENSURE(F((int8)-2) == F({0xFF, 0xFF, 0xFE}));
+				TEST_ENSURE(F((int8)-16) == F({0xFF, 0xFF, 0xF0}));
+			}
+			{
 				F a({ 0x04, 0x56, 0x78 });
 				TEST_ENSURE_OP(a.word(0), == , 0x78);
 				TEST_ENSURE_OP(a.word(1), == , 0x56);

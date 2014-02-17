@@ -7,6 +7,7 @@
 #include <pastel/sys/redblacktree.h>
 #include <pastel/sys/skiplist.h>
 #include <pastel/sys/random.h>
+#include <pastel/sys/logging.h>
 
 using namespace Pastel;
 
@@ -40,9 +41,10 @@ void print(const CFastTrie_Set<N>& a)
 template <typename Set>
 void f(Set& a, integer n)
 {
+	a.finds = 0;
 	for (integer i = 0; i < n; ++i)
 	{
-		a.insert(randomInteger());
+		a.insert(randomUinteger());
 		//a.insert(i);
 		/*
 		if (!checkInvariants(a))
@@ -54,16 +56,18 @@ void f(Set& a, integer n)
 		*/
 	}
 
-	std::cout << (real)a.finds / n << " average queries per element." << std::endl;
+	std::cout << (real)a.finds / n << " ";
 }
 
 template <typename Set>
 void g(const Set& a, integer n)
 {
+	a.finds = 0;
 	for (integer i = 0; i < n; ++i)
 	{
-		a.lower_bound(randomInteger());
+		a.lower_bound(randomUinteger());
 	}
+	std::cout << (real)a.finds / n << " ";
 }
 
 enum{ Bits = 64 };
@@ -73,7 +77,7 @@ void test()
 {
 	for (integer i = 1; i <= (1 << 18); i *= 2)
 	{
-		std::cout << i << " : ";
+		std::cout << i << std::endl;
 
 		Set a;
 		measureTime([&]()
@@ -93,6 +97,9 @@ void test()
 
 int main()
 {
+	Stream_Logger streamLogger(&std::cout);
+	log().addLogger(&streamLogger);
+
 	std::cout << "CFastTrie_Set" << std::endl;
 	test<CFastTrie_Set<Bits>>();
 

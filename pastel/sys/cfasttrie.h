@@ -307,8 +307,16 @@ namespace Pastel
 			}
 
 			// Compute the chain in which to store the element.
-			auto chainAndHeight = lowestAncestor(elementToInsert->key());
-			Key chainKey = replicate(elementToInsert->key(), 
+			auto gapRange = upperGapRange(
+				std::prev(elementToInsert), 
+				std::next(elementToInsert));
+
+			auto chainAndHeight = lowestAncestor(
+				elementToInsert->key(),
+				gapRange.first, gapRange.second);
+
+			Key chainKey = replicate(
+				elementToInsert->key(), 
 				chainAndHeight.second, true);
 
 			// Insert the new chain.
@@ -476,8 +484,6 @@ namespace Pastel
 			ASSERT(right != cbegin());
 			ASSERT(right != cend());
 
-			integer saveFinds = finds;
-			
 			// See if the right gap-bound is also the successor.
 			{
 				ConstIterator left = std::prev(right);
@@ -504,16 +510,10 @@ namespace Pastel
 			bool goingRight = (key > right->key());
 			const Key& chainKey = right->chain()->first;
 
-			// Finds the next chain, at or above level i,
-			// that is an ancestor of chainKey.
-			auto nextSplitChain = [&](integer i)
-			{
-				return findNextSplit(chainKey, i, goingRight);
-			};
-
 			auto director = [&](integer i)
 			{
-				Chain_ConstIterator nextChain =	nextSplitChain(i);
+				Chain_ConstIterator nextChain =	
+					findNextSplit(chainKey, i, goingRight);
 				if (nextChain == chainSet_.cend())
 				{
 					return i;
@@ -540,13 +540,11 @@ namespace Pastel
 			// and find the level k at which nextSplitChain(k)
 			// returns the chain which contains the successor
 			// of 'key'.
-			integer k = directedBinarySearch(
+			integer k = directedExponentialBinarySearch(
 				(integer)1, bits() + 1, director);
 			
 			Chain_ConstIterator nextChain =
-				k < bits() + 1 ? nextSplitChain(k) : chainSet_.cend();
-
-			finds = saveFinds;
+				findNextSplit(chainKey, k, goingRight);
 
 			if (nextChain == chainSet_.cend())
 			{
@@ -648,14 +646,17 @@ namespace Pastel
 		A minimal integer 'k', such that ((u, 0) up k) in R'.
 		*/
 		std::pair<Chain_ConstIterator, integer> 
-			lowestAncestor(const Key& key) const
+			lowestAncestor(
+				const Key& key, 
+				integer minLevel,
+				integer maxLevel) const
 		{
+			ASSERT_OP(minLevel, <= , maxLevel);
 			if (empty())
 			{
 				return std::make_pair(chainSet_.cend(), 0);
 			}
 
-			integer minLevel = 0;
 			while (true)
 			{
 				auto nearby = [&](integer level)
@@ -664,7 +665,7 @@ namespace Pastel
 				};
 
 				integer nearbyLevel =
-					binarySearch(minLevel, maxBits(), nearby);
+					binarySearch(minLevel, maxLevel, nearby);
 
 				Chain_ConstIterator chain = 
 					findChain(key, nearbyLevel);
@@ -845,6 +846,53 @@ namespace Pastel
 		}
 
 	private:
+		//! Computes the height of a gap on the right, given an element.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		std::pair<integer, integer> upperGapRange(
+			const ConstIterator& left,
+			const ConstIterator& right) const
+		{
+			ASSERT(left != cend());
+			if (right == cend())
+			{
+				if (size() == 1)
+				{
+					return std::make_pair(0, maxBits());
+				}
+				
+				return std::make_pair(
+					left->chain()->second.height() + 1, maxBits());
+			}
+
+			integer leftMin = 0;
+			integer leftMax = left->chain()->second.height();
+			if (odd(left->chain()->first))
+			{
+				leftMin = leftMax + 1;
+				leftMax = findChain(left->chain()->first, leftMax)->second.height();
+			}
+
+			integer rightMin = 0;
+			integer rightMax = right->chain()->second.height();
+			if (even(right->chain()->first))
+			{
+				rightMin = rightMax + 1;
+				rightMax = findChain(right->chain()->first, rightMax)->second.height();
+			}
+
+			integer gapMin = std::min(leftMin, rightMin);
+			integer gapMax = std::min(leftMax, rightMax);
+			if (leftMax == 0)
+			{
+				gapMax = rightMax;
+			}
+
+			return std::make_pair(gapMin, gapMax);
+		}
+
 		//! Returns the right gap-bound of 'key' in R'.
 		/*!
 		Time complexity:
@@ -1280,6 +1328,7 @@ namespace Pastel
 		{
 			ASSERT_OP(height, >= , 0);
 			ASSERT_OP(height, <= , maxBits());
+			ASSERT(height > 0 || zero(chainKey));
 
 			// Create the chain.
 			Chain_Iterator chain =

@@ -7,18 +7,49 @@
 namespace Pastel
 {
 
+	namespace Random_
+	{
+
+		template <integer Bits>
+		class RandomInteger
+		{
+		};
+
+		template <>
+		class RandomInteger<32>
+		{
+		public:
+			uinteger operator()() const
+			{
+				return Pastel::randomUint32();
+			}
+		};
+
+		template <>
+		class RandomInteger<64>
+		{
+		public:
+			uinteger operator()() const
+			{
+				return Pastel::randomUint64();
+			}
+		};
+	}
+
+	inline uinteger randomUinteger()
+	{
+		return Random_::RandomInteger<sizeof(uinteger)* CHAR_BIT>()();
+	}
+
 	inline integer randomInteger()
 	{
-		return (integer)(Pastel::randomUint32() >> 1);
+		return (integer)(randomUinteger() >> 1);
 	}
 
 	inline integer randomInteger(integer min, integer max)
 	{
-		// Note this works correctly even if
-		// min = 0 and max = 0x7fffffff, because
-		// of the 2-complement wrap-around.
-
-		return (integer)(Pastel::randomUint32() % (uint32)(max - min + 1)) + min;
+		// FIX: This is not uniformly distributed!
+		return min + (randomInteger() % (max - min + 1));
 	}
 
 }

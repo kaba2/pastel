@@ -106,7 +106,7 @@ namespace Pastel
 
 	template <typename Finite_Integer>
 	PASTEL_ENABLE_IF(std::is_unsigned<Finite_Integer>, Finite_Integer)  
-		arihmeticShiftRight(
+		arithmeticShiftRight(
 			const Finite_Integer& that, 
 			integer n)
 	{
@@ -117,8 +117,10 @@ namespace Pastel
 			// The right-shift by bits not less than
 			// the number of bits in Finite_Integer
 			// is implementation-defined by the C++ standard.
-			// We define it as zero.
-			return 0;
+			// We think of the integer as an infinite sequence
+			// where the sign bit is replicated.
+			return twosComplementNegative(that) ? 
+				-1 : 0;
 		}
 
 		// On unsigned integers, the right shift pushes
@@ -130,8 +132,12 @@ namespace Pastel
 		// This is achieved by first complementing, then
 		// shifting, and then complementing again.
 
-		return twosComplementNegative(that) ?
-			~((~that) >> n) : (that >> n);
+		if (twosComplementNegative(that))
+		{
+			return bitMask<Finite_Integer>(bits(that) - n, bits(that)) | (that >> n);
+		}
+
+		return that >> n;
 	}
 
 	template <typename Finite_Integer>
