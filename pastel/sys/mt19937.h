@@ -18,8 +18,17 @@ namespace Pastel
 	*/
 	PASTELSYS void randomSeed(uint32 seed);
 
-	//! Returns a uniformly distributed random integer in [0, 0xffffffff].
+	//! Returns a uniformly distributed random integer in [0, 2^32).
 	PASTELSYS uint32 randomUint32();
+
+	//! Returns a uniformly distributed random integer in [0, 2^64).
+	inline uint64 randomUint64()
+	{
+		uint64 result = Pastel::randomUint32();
+		result <<= 32;
+		result += Pastel::randomUint32();
+		return result;
+	}
 
 }
 

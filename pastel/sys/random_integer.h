@@ -9,7 +9,10 @@
 namespace Pastel
 {
 
-	//! Returns a uniformly distributed random integer in [0, 0x7fffffff].
+	//! Returns a uniformly distributed random unsigned integer.
+	uinteger randomUinteger();
+
+	//! Returns a uniformly distributed non-negative random integer.
 	integer randomInteger();
 
 	//! Returns a uniformly distributed random integer in [min, max].

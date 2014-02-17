@@ -26,6 +26,7 @@ namespace
 			testTwosComplementToSigned();
 			testInverse();
 			testOtherInverse();
+			testShifts();
 		}
 
 		void testSignedToTwosComplement()
@@ -200,6 +201,47 @@ namespace
 			uint8 a = signedToTwosComplement((int8)127);
 			int8 j = twosComplementToSigned(a);
 			TEST_ENSURE_OP((int8)127, == , j);
+		}
+
+		void testShifts()
+		{
+			auto F = [](uint8 a, integer i)
+			{
+				return arithmeticShiftRight(a, i);
+			};
+
+			TEST_ENSURE_OP(F(0xFF, 0), ==, 0xFF);
+			TEST_ENSURE_OP(F(0xFF, 1), ==, 0xFF);
+			TEST_ENSURE_OP(F(0xFF, 2), ==, 0xFF);
+			TEST_ENSURE_OP(F(0xFF, 3), ==, 0xFF);
+			TEST_ENSURE_OP(F(0xFF, 4), ==, 0xFF);
+			TEST_ENSURE_OP(F(0xFF, 5), ==, 0xFF);
+			TEST_ENSURE_OP(F(0xFF, 6), ==, 0xFF);
+			TEST_ENSURE_OP(F(0xFF, 7), ==, 0xFF);
+			TEST_ENSURE_OP(F(0xFF, 8), ==, 0xFF);
+			TEST_ENSURE_OP(F(0xFF, 9), ==, 0xFF);
+
+			TEST_ENSURE_OP(F(0x38, 0), ==, 0x38);
+			TEST_ENSURE_OP(F(0x38, 1), ==, 0x1C);
+			TEST_ENSURE_OP(F(0x38, 2), ==, 0x0E);
+			TEST_ENSURE_OP(F(0x38, 3), ==, 0x07);
+			TEST_ENSURE_OP(F(0x38, 4), ==, 0x03);
+			TEST_ENSURE_OP(F(0x38, 5), ==, 0x01);
+			TEST_ENSURE_OP(F(0x38, 6), ==, 0x00);
+			TEST_ENSURE_OP(F(0x38, 7), ==, 0x00);
+			TEST_ENSURE_OP(F(0x38, 8), ==, 0x00);
+			TEST_ENSURE_OP(F(0x38, 9), ==, 0x00);
+
+			TEST_ENSURE_OP(F(0x00, 0), ==, 0x00);
+			TEST_ENSURE_OP(F(0x00, 1), ==, 0x00);
+			TEST_ENSURE_OP(F(0x00, 2), ==, 0x00);
+			TEST_ENSURE_OP(F(0x00, 3), ==, 0x00);
+			TEST_ENSURE_OP(F(0x00, 4), ==, 0x00);
+			TEST_ENSURE_OP(F(0x00, 5), ==, 0x00);
+			TEST_ENSURE_OP(F(0x00, 6), ==, 0x00);
+			TEST_ENSURE_OP(F(0x00, 7), ==, 0x00);
+			TEST_ENSURE_OP(F(0x00, 8), ==, 0x00);
+			TEST_ENSURE_OP(F(0x00, 9), ==, 0x00);
 		}
 	};
 

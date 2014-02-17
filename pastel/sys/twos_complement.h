@@ -71,7 +71,7 @@ namespace Pastel
 	*/
 	template <typename Finite_Integer>
 	PASTEL_ENABLE_IF(std::is_unsigned<Finite_Integer>, Finite_Integer)  
-		arihmeticShiftRight(
+		arithmeticShiftRight(
 			const Finite_Integer& that, 
 			integer n);
 
