@@ -475,6 +475,8 @@ namespace Pastel
 			ConstIterator right = rightGapBound(key);
 			ASSERT(right != cbegin());
 			ASSERT(right != cend());
+
+			integer saveFinds = finds;
 			
 			// See if the right gap-bound is also the successor.
 			{
@@ -502,33 +504,20 @@ namespace Pastel
 			bool goingRight = (key > right->key());
 			const Key& chainKey = right->chain()->first;
 
-			auto sideChain = [&](integer level)
-			{
-				Key nextChainKey = chainKey;
-				nextChainKey.setBits(0, level, goingRight);
-				return findChain(nextChainKey);
-			};
-
 			// Finds the next chain, at or above level i,
 			// that is an ancestor of chainKey.
 			auto nextSplitChain = [&](integer i)
 			{
-				auto levelFound = findNextSplit(chainKey, i, goingRight);
-				return levelFound.second ? 
-					sideChain(levelFound.first) :
-					chainSet_.cend();
+				return findNextSplit(chainKey, i, goingRight);
 			};
 
 			auto director = [&](integer i)
 			{
-				auto levelFound = findNextSplit(chainKey, i, goingRight);
-				if (!levelFound.second)
+				Chain_ConstIterator nextChain =	nextSplitChain(i);
+				if (nextChain == chainSet_.cend())
 				{
 					return i;
 				}
-
-				Chain_ConstIterator nextChain =
-					sideChain(levelFound.first);
 
 				ConstIterator element = nextChain->second.element();
 
@@ -544,7 +533,7 @@ namespace Pastel
 						std::prev(element)->key() <= key);
 				}
 
-				return indicator ? i : (levelFound.first + 1);
+				return indicator ? i : (nextChain->second.height() + 1);
 			};
 
 			// Search over the split-node ancestors of chainKey,
@@ -556,6 +545,8 @@ namespace Pastel
 			
 			Chain_ConstIterator nextChain =
 				k < bits() + 1 ? nextSplitChain(k) : chainSet_.cend();
+
+			finds = saveFinds;
 
 			if (nextChain == chainSet_.cend())
 			{
@@ -1016,7 +1007,7 @@ namespace Pastel
 		then the 'level' provides no information and is set to 
 		zero.
 		*/
-		std::pair<integer, bool> findNextSplit(
+		Chain_ConstIterator findNextSplit(
 			const Key& key, integer level, bool odd) const
 		{
 			ASSERT_OP(level, >, 0);
@@ -1024,6 +1015,7 @@ namespace Pastel
 
 			// Find the chain which contains (key up level, level).
 			Chain_ConstIterator chain = findChain(key, level);
+			ASSERT(chain != chainSet_.cend());
 
 			// Here we will have to look at the split
 			// information directly, and remember that the
@@ -1042,7 +1034,6 @@ namespace Pastel
 				// or above the given level in the current
 				// chain. We may skip above this chain to
 				// a chain which agrees in oddness.
-
 				level = chain->second.height();
 				
 				// We don't return the level, because it
@@ -1059,7 +1050,9 @@ namespace Pastel
 				// Since the chain differs in oddness, and
 				// we are on a split-node, we must be on top
 				// of a chain which agrees in oddness.
-				return std::make_pair(level, true);
+				Key nextChainKey = key;
+				nextChainKey.setBits(0, level, odd);
+				return findChain(nextChainKey);
 			}
 
 			if (oddChain == odd)
@@ -1070,9 +1063,12 @@ namespace Pastel
 
 				// In the case the current chain is the zero
 				// chain, there are no split-nodes above.
-				return std::make_pair(
-					chain->second.height(), 
-					chain->second.height() > 0);
+				if (chain->second.height() == 0)
+				{
+					return chainSet_.cend();
+				}
+
+				return chain;
 			}
 		
 			// Form the mask which has one-bits below the first 
@@ -1086,20 +1082,20 @@ namespace Pastel
 			++mask;
 
 			// Find the chain-key of the next odd (even) chain.
-			Key chainKey = key;
+			Key nextChainKey = key;
 			if (odd)
 			{
-				chainKey |= mask;
+				nextChainKey |= mask;
 			}
 			else
 			{
-				chainKey &= ~mask;
+				nextChainKey &= ~mask;
 			}
 
-			Chain_ConstIterator nextChain = findChain(chainKey);
+			Chain_ConstIterator nextChain = findChain(nextChainKey);
 			ASSERT(nextChain != chainSet_.cend());
 			
-			return std::make_pair(nextChain->second.height(), true);
+			return nextChain;
 		}
 
 		//! Returns the next key on a given level.
@@ -1182,7 +1178,7 @@ namespace Pastel
 		}
 
 		public:
-		integer finds = 0;
+		mutable integer finds = 0;
 		private:
 
 		Chain_Iterator findChain(const Key& key)
