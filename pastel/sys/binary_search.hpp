@@ -3,15 +3,27 @@
 
 #include "pastel/sys/binary_search.h"
 #include "pastel/sys/logarithm.h"
+#include "pastel/sys/director.h"
 
 namespace Pastel
 {
 
-	template <typename Integer, typename Integer_Indicator>
+	template <typename Integer, typename Integer_Step_Indicator>
 	Integer binarySearch(
 		const Integer& minLevel, 
 		const Integer& maxLevel,
-		Integer_Indicator indicator)
+		Integer_Step_Indicator indicator)
+	{
+		return directedBinarySearch(
+			minLevel, maxLevel,
+			stepIndicatorDirector(indicator));
+	}
+
+	template <typename Integer, typename Integer_Director>
+	Integer directedBinarySearch(
+		const Integer& minLevel, 
+		const Integer& maxLevel,
+		Integer_Director director)
 	{
 		ENSURE(minLevel <= maxLevel);
 
@@ -34,24 +46,24 @@ namespace Pastel
 			// Note that, due to integer rounding, it 
 			// always holds that 'min <= mid < max'.
 			Integer mid = min + ((max - min) >> 1);
+			Integer directed = director(mid);
 
 			// See if the indicator holds at 'mid'.
-			if (indicator(mid))
+			if (directed <= mid)
 			{
-				// The indicator holds at 'mid'. 
+				// The indicator holds on [directed, mid]. 
 				// Therefore we may sharpen our range to
-				// [min, mid] without breaking the loop
-				// invariant. Note that we are including
-				// 'mid'.
-				max = mid;
+				// [min, directed] without breaking the loop
+				// invariant. 
+				max = directed;
 			}
 			else
 			{
-				// The indicator does not hold at 'mid'.
-				// We may sharpen our range to [mid + 1, max]
-				// without breaking the loop invariant. Note
-				// that we are excluding 'mid'.
-				min = mid + 1;
+				// The indicator does not hold on [mid, directed).
+				// Therfore we may sharpen our range to 
+				// [directed, max] without breaking the loop 
+				// invariant.
+				min = directed;
 			}
 		}
 
@@ -60,10 +72,10 @@ namespace Pastel
 		// and max - min <= 1.
 
 		// Handle the case min < max.
-		if (min < max && indicator(min))
+		if (min < max && director(min) <= min)
 		{
-			// The indicator is true at 'min', and
-			// false at 'max'.
+			// The indicator is true at 'min', so that is
+			// the first true element.
 			return min;
 		}
 
