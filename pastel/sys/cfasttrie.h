@@ -259,7 +259,7 @@ namespace Pastel
 				// If the trie is empty, the inserted chain has to
 				// be the zero chain. We give the zero chain a height
 				// of zero, by which we actually mean infinity.
-				insertChain(0, 0, element);
+				insertChain(0, chainSet_.end(), 0, element);
 
 				// Notify the customization.
 				onInsert(element);
@@ -307,13 +307,15 @@ namespace Pastel
 			}
 
 			// Compute the chain in which to store the element.
-			integer height = lowestAncestor(elementToInsert->key());
-			Key chainKey = replicate(elementToInsert->key(), height, true);
+			auto chainAndHeight = lowestAncestor(elementToInsert->key());
+			Key chainKey = replicate(elementToInsert->key(), 
+				chainAndHeight.second, true);
 
 			// Insert the new chain.
 			insertChain(
 				chainKey,
-				height,
+				cast(chainAndHeight.first),
+				chainAndHeight.second,
 				elementToInsert);
 
 			// Notify the customization.
@@ -458,7 +460,8 @@ namespace Pastel
 
 			if (key >= last()->key())
 			{
-				// The key is greater than the greatest element.
+				// The key is greater than or equal to
+				// the greatest element.
 				return cend();
 			}
 
@@ -499,57 +502,57 @@ namespace Pastel
 			bool goingRight = (key > right->key());
 			const Key& chainKey = right->chain()->first;
 
+			auto sideChain = [&](integer level)
+			{
+				Key nextChainKey = chainKey;
+				nextChainKey.setBits(0, level, goingRight);
+				return findChain(nextChainKey);
+			};
+
 			// Finds the next chain, at or above level i,
 			// that is an ancestor of chainKey.
 			auto nextSplitChain = [&](integer i)
 			{
 				auto levelFound = findNextSplit(chainKey, i, goingRight);
-				
-				integer splitLevel = levelFound.first;
-				bool found = levelFound.second;
-				if (!found)
-				{
-					return chainSet_.cend();
-				}
-
-				Key nextChainKey = chainKey;
-				nextChainKey.setBits(0, splitLevel, goingRight);
-
-				Chain_ConstIterator nextChain =
-					chainSet_.find(nextChainKey);
-				ASSERT(nextChain != chainSet_.cend());
-
-				return nextChain;
+				return levelFound.second ? 
+					sideChain(levelFound.first) :
+					chainSet_.cend();
 			};
 
-			auto indicator = [&](integer i)
+			auto director = [&](integer i)
 			{
-				Chain_ConstIterator nextChain = 
-					nextSplitChain(i);
-
-				if (nextChain == chainSet_.cend())
+				auto levelFound = findNextSplit(chainKey, i, goingRight);
+				if (!levelFound.second)
 				{
-					return true;
+					return i;
 				}
+
+				Chain_ConstIterator nextChain =
+					sideChain(levelFound.first);
 
 				ConstIterator element = nextChain->second.element();
 
+				bool indicator = true;
 				if (goingRight)
 				{
-					return (std::next(element) == cend() ||
+					indicator = (std::next(element) == cend() ||
 						std::next(element)->key() > key);
 				}
-				
-				return (element == cbegin() ||
-					std::prev(element)->key() <= key);
+				else
+				{
+					indicator = (element == cbegin() ||
+						std::prev(element)->key() <= key);
+				}
+
+				return indicator ? i : (levelFound.first + 1);
 			};
 
 			// Search over the split-node ancestors of chainKey,
 			// and find the level k at which nextSplitChain(k)
 			// returns the chain which contains the successor
 			// of 'key'.
-			integer k = binarySearch(
-				(integer)1, bits() + 1, indicator);
+			integer k = directedBinarySearch(
+				(integer)1, bits() + 1, director);
 			
 			Chain_ConstIterator nextChain =
 				k < bits() + 1 ? nextSplitChain(k) : chainSet_.cend();
@@ -653,13 +656,13 @@ namespace Pastel
 		returns:
 		A minimal integer 'k', such that ((u, 0) up k) in R'.
 		*/
-		integer lowestAncestor(const Key& key) const
+		std::pair<Chain_ConstIterator, integer> 
+			lowestAncestor(const Key& key) const
 		{
-			// The lowest ancestor is not defined when
-			// the trie is empty.
-			ASSERT(!empty());
-
-			integer searchBits = (key > last()->chain()->first) ? maxBits() : bits();
+			if (empty())
+			{
+				return std::make_pair(chainSet_.cend(), 0);
+			}
 
 			integer minLevel = 0;
 			while (true)
@@ -672,53 +675,42 @@ namespace Pastel
 				integer nearbyLevel =
 					binarySearch(minLevel, maxBits(), nearby);
 
-				if (chainExists(key, nearbyLevel))
+				Chain_ConstIterator chain = 
+					findChain(key, nearbyLevel);
+				if (chain != chainSet_.cend())
 				{
 					// If a prefix of the key exists in the 'nearbyLevel'
 					// of the trie, then the corresponding node is the
 					// lowest ancestor of the key.
-					return nearbyLevel;
+					return std::make_pair(chain, nearbyLevel);
 				}
+
+				bool oddNearbyChain = !key.bit(nearbyLevel);
 
 				// Let j = nearbyLevel and v = key up j. Since
 				// (v, j) !in R', it can not occur that both
 				// (v + 1, j) in R' and (v - 1, j) in R'.
 				// Call the existing one w.
 				bool nextExists = chainOnRight(key, nearbyLevel);
-
-				// Compute w.
-				Key nearbyKey = key;
-				if (nextExists)
-				{
-					nearbyKey += powerOfTwo<Key>(nearbyLevel);
-				}
-				else
-				{
-					nearbyKey -= powerOfTwo<Key>(nearbyLevel);
-				}
-
-				// Compute the chain of (w, j).
-				Key nearbyChain = replicate(nearbyKey, nearbyLevel);
-				if (nextExists == odd(nearbyChain))
+				
+				Key nearbyKey = nextKey(key, nearbyLevel, nextExists);
+				Chain_ConstIterator nearbyChain =
+					findChain(nearbyKey, nearbyLevel);
+				
+				if (nextExists == oddNearbyChain)
 				{
 					// If the right neighbor is on the right 1-gap-path,
 					// then the level above must contain the lowest-ancestor
 					// of the key. Similarly for the left neighbor on 
 					// the left 0-gap-path.
-					return nearbyLevel + 1;
+					return std::make_pair(nearbyChain, nearbyLevel + 1);
 				}
 
-				auto differentChain = [&](integer level)
-				{
-					return replicate(nearbyKey, level) != nearbyChain;
-				};
-
-				// Find the level above the top of the chain [nearbyKey].
-				minLevel = binarySearch(
-					nearbyLevel + 1, maxBits(), differentChain);
+				// Move above the nearby-chain.
+				minLevel = nearbyChain->second.height();
 			}
 
-			return 0;
+			return std::make_pair(chainSet_.cend(), 0);
 		}
 
 		//! Converts a const-iterator to an iterator.
@@ -729,6 +721,16 @@ namespace Pastel
 		Iterator cast(const ConstIterator& that)
 		{
 			return dataSet_.erase(that, that);
+		}
+
+		//! Converts a chain const-iterator to a chain iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Chain_Iterator cast(const Chain_ConstIterator& that)
+		{
+			return chainSet_.erase(that, that);
 		}
 
 		//! Returns an iterator to the smallest element.
@@ -867,10 +869,9 @@ namespace Pastel
 		*/
 		ConstIterator rightGapBound(const Key& key) const
 		{
-			if (empty())
+			if (size() < 2 ||
+				key > last()->key())
 			{
-				// There are no elements, so there isn't a 
-				// representative-successor either.
 				return cend();
 			}
 
@@ -883,31 +884,28 @@ namespace Pastel
 				binarySearch((integer)0, bits(), nearby);
 
 			// Let j = nearbyLevel and v = key up j.
-			if (chainExists(key, nearbyLevel))
+			Chain_ConstIterator chain = findChain(key, nearbyLevel);
+			if (chain != chainSet_.cend())
 			{
 				// If (v, j) in R', then it is the 
 				// lowest ancestor of v. The lowest ancestor 
 				// is an upper gap-node.
 				return rightGapBoundFromUpperGap(
-					key, nearbyLevel);
+					chain, nearbyLevel);
 			}
 
 			// If (v, j) !in R', then either 
 			// (v + 1, j) in R' or
 			// (v - 1, j) in R', but not both.
 			bool nextExists = chainOnRight(key, nearbyLevel);
-
-			Key nearbyKey = key;
-			if (nextExists)
-			{
-				nearbyKey += powerOfTwo<Key>(nearbyLevel);
-			}
-			else
-			{
-				nearbyKey -= powerOfTwo<Key>(nearbyLevel);
-			}
-
 			bool oddChain = !key.bit(nearbyLevel);
+			Key nearbyKey = nextKey(key, nearbyLevel, nextExists);
+
+			// The (w, j) is a lower gap-node. Find its chain.
+			Chain_ConstIterator gapBoundChain =
+				findChain(nearbyKey, nearbyLevel);
+			ASSERT(gapBoundChain != chainSet_.cend());
+
 			if (oddChain == nextExists)
 			{
 				// If the next key exists, and it is
@@ -915,16 +913,9 @@ namespace Pastel
 				// an upper gap-node. Similarly for the
 				// previous key and an even chain.
 
-				//return rightGapBoundFromUpperGap(
-				//	nearbyKey, nearbyLevel + 1);
 				return rightGapBoundFromUpperGap(
-					nearbyKey, nearbyLevel);
+					gapBoundChain, nearbyLevel);
 			}
-
-			// The (w, j) is a lower gap-node. Find its chain.
-			Chain_ConstIterator gapBoundChain =
-				findChain(nearbyKey, nearbyLevel);
-			ASSERT(gapBoundChain != chainSet_.cend());
 
 			// Get the element associated with this chain.
 			ConstIterator gapBound = gapBoundChain->second.element();
@@ -958,42 +949,40 @@ namespace Pastel
 		in S'.
 		*/
 		ConstIterator rightGapBoundFromUpperGap(
-			const Key& key, integer level) const
+			const Chain_ConstIterator& chain, integer level) const
 		{
 			ASSERT_OP(level, >= , 0);
+			ASSERT(chain != chainSet_.cend());
 
-			// Let j = level and v = key up j. 
-			
-			// Find the chain that contains (v, j).
-			Chain_ConstIterator keyChain = findChain(key, level);
-			ASSERT(keyChain != chainSet_.cend());
-
-			const Chain& chain = keyChain->second;
-
-			auto splitAtOrAbove = [&](integer offset)
+			integer splitOffset = level;
+			if (chain->second.splitExists(0, level + 1))
 			{
-				return chain.splitExists(level - offset, level + 1);
-			};
+				// There is a split-node below or at the level 'level'.
 
-			// Find the first split-node in the gap-path below the
-			// level 'level'. If there is no split-node, then this
-			// will return 'level', which is also correct for
-			// what follows.
-			integer splitOffset = 
-				binarySearch((integer)0, (integer)level, splitAtOrAbove);
+				// Find the first split-node in the gap-path below the
+				// level 'level'. If there is no split-node, then this
+				// will return 'level', which is also correct for
+				// what follows.
+				auto splitAtOrAbove = [&](integer offset)
+				{
+					return chain->second.splitExists(level - offset, level + 1);
+				};
 
-			bool oddGapPath = key.bit(level);
+				splitOffset = binarySearch(
+					(integer)0, (integer)level, 
+					splitAtOrAbove);
+			}
+
+			bool oddGapPath = chain->first.bit(level);
 
 			// Follow the upper gap-path downwards 
 			// to the first split- or leaf-node, and
 			// then follow the lower gap-path.
-			Key gapKey = key;
-			gapKey.setBits(level - splitOffset, level, oddGapPath);
+			Key gapKey = chain->first;
 			gapKey.setBits(0, level - splitOffset, !oddGapPath);
 
 			// Find the chain corresponding to the gap-bound.
-			Chain_ConstIterator lowerChain = chainSet_.find(gapKey);
-			// By the properties of gap-paths, this element exists.
+			Chain_ConstIterator lowerChain = findChain(gapKey);
 			ASSERT(lowerChain != chainSet_.cend());
 
 			ConstIterator element = lowerChain->second.element();
@@ -1107,10 +1096,31 @@ namespace Pastel
 				chainKey &= ~mask;
 			}
 
-			Chain_ConstIterator nextChain = chainSet_.find(chainKey);
+			Chain_ConstIterator nextChain = findChain(chainKey);
 			ASSERT(nextChain != chainSet_.cend());
 			
 			return std::make_pair(nextChain->second.height(), true);
+		}
+
+		//! Returns the next key on a given level.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Key nextKey(const Key& key, integer level, bool direction) const
+		{
+			ASSERT_OP(level, >=, 0);
+
+			Key next = key;
+			if (direction)
+			{
+				next += powerOfTwo<Key>(level);
+			}
+			else
+			{
+				next -= powerOfTwo<Key>(level);
+			}
+			return next;
 		}
 
 		//! Replicates the bit at index 'level' to lower bits.
@@ -1163,7 +1173,22 @@ namespace Pastel
 		Chain_Iterator findChain(
 			const Key& key, integer level)
 		{
-			return chainSet_.find(replicate(key, level));
+			return findChain(replicate(key, level));
+		}
+
+		Chain_ConstIterator findChain(const Key& key) const
+		{
+			return removeConst(*this).findChain(key);
+		}
+
+		public:
+		integer finds = 0;
+		private:
+
+		Chain_Iterator findChain(const Key& key)
+		{
+			++finds;
+			return chainSet_.find(key);
 		}
 
 		//! Returns whether (key up level, level) in R'.
@@ -1195,10 +1220,12 @@ namespace Pastel
 		{
 			ASSERT_OP(level, >= , 0);
 
-			//return chainExists(key, level);
+			return chainExists(key, level);
+			/*
 			return chainExists(key, level) ||
 				chainOnLeft(key, level) ||
 				chainOnRight(key, level);
+			*/
 		};
 
 		//! Returns whether there is a chain on the right.
@@ -1251,6 +1278,7 @@ namespace Pastel
 		*/
 		Chain_Iterator insertChain(
 			const Key& chainKey,
+			const Chain_Iterator& chainAbove,
 			integer height,
 			const Iterator& element)
 		{
@@ -1269,14 +1297,8 @@ namespace Pastel
 			// Every insertion, except for the first chain
 			// (the zero chain), creates a new split node.
 			// Update the split information in the chain above.
-			if (height > 0)
+			if (chainAbove != chainSet_.cend())
 			{
-				// A chain has height 0 (meaning infinite), if
-				// and only if it is the zero chain.
-				Chain_Iterator chainAbove =
-					findChain(chainKey, height);
-				ASSERT(chainAbove != chainSet_.cend());
-
 				chainAbove->second.setSplit(height);
 			}
 
