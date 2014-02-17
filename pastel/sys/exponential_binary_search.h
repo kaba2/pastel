@@ -9,7 +9,22 @@
 namespace Pastel
 {
 
-	//! Exponential binary-search over an integer range.
+	//! Exponential binary-search.
+	/*!
+	This is a convenience function which calls
+	
+	directedExponentialBinarySearch(minLevel, maxLevel, 
+		stepIndicatorDirector(indicator)).
+
+	See the documentation for directedBinarySearch().
+	*/
+	template <typename Integer, typename Integer_Indicator>
+	Integer exponentialBinarySearch(
+		const Integer& minLevel, 
+		const Integer& maxLevel,
+		Integer_Indicator indicator);
+
+	//! Directed exponential binary-search.
 	/*!
 	Preconditions:
 	minLevel <= maxLevel
@@ -18,32 +33,30 @@ namespace Pastel
 	O(f log(min(k, maxLevel) - minLevel + 2)),
 	where
 	k is the returned element, and
-	f is the time taken by a single indicator test.
+	f is the time taken by a single test.
 
-	Number of indicator tests:
+	Number of tests:
 	ceil(2 log(k + 1)) <= m <= floor(2 log(k) + 2),
 	where
 	k is the returned element, and
-	m is the number of performed indicator test.
+	m is the number of performed tests.
 
 	minLevel, maxLevel:
 	The searched range is [minLevel, maxLevel).
 
-	indicator:
-	An indicator with the property that the
-	returned element exists. Each level will 
-	be tested at most once by the indicator.
+	director:
+	Each level will be tested at most once by the director.
 
 	returns:
 	An element k in [minLevel, maxLevel] such that 
-	the indicator is false on [minLevel, k) and 
+	the induced indicator is false on [minLevel, k) and 
 	true on [k, maxLevel).
 	*/
-	template <typename Integer, typename Integer_Indicator>
-	Integer exponentialBinarySearch(
+	template <typename Integer, typename Integer_Director>
+	Integer directedExponentialBinarySearch(
 		const Integer& minLevel, 
 		const Integer& maxLevel,
-		Integer_Indicator indicator);
+		Integer_Director director);
 
 }
 

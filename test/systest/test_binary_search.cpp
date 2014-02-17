@@ -31,20 +31,20 @@ namespace
 		void testInteger()
 		{
 			{
-				for (integer b = 0;b <= 7;++b)
+				for (integer b = 0;b <= 256;++b)
 				{
 					integer a = binarySearch(
-						0, 7, [&](integer n) {return n >= b;});
+						0, 256, [&](integer n) {return n >= b;});
 
 					TEST_ENSURE_OP(a, ==, b);
 				}
 			}
 
 			{
-				for (integer b = 0;b <= 7;++b)
+				for (integer b = 0;b <= 256;++b)
 				{
 					integer a = exponentialBinarySearch(
-						0, 7, [&](integer n) {return n >= b;});
+						0, 256, [&](integer n) {return n >= b;});
 
 					TEST_ENSURE_OP(a, ==, b);
 				}
