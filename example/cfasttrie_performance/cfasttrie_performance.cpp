@@ -53,6 +53,8 @@ void f(Set& a, integer n)
 		}
 		*/
 	}
+
+	std::cout << (real)a.finds / n << " average queries per element." << std::endl;
 }
 
 template <typename Set>
@@ -94,6 +96,7 @@ int main()
 	std::cout << "CFastTrie_Set" << std::endl;
 	test<CFastTrie_Set<Bits>>();
 
+	/*
 	std::cout << "std::set" << std::endl;
 	test<std::set<Unsigned_Integer<Bits>>>();
 
@@ -105,6 +108,7 @@ int main()
 
 	std::cout << "RedBlack_Set" << std::endl;
 	test<RedBlack_Set<Unsigned_Integer<Bits>>>();
+	*/
 
 	return 0;
 }
