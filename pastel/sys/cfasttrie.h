@@ -80,7 +80,7 @@ namespace Pastel
 
 		//! Constructs from a list of keys.
 		/*!
-		Time complexity: O(1)
+		Time complexity: O(dataSet.size())
 		Exception safety: strong
 
 		The user-data will be default-initialized.
@@ -98,7 +98,7 @@ namespace Pastel
 
 		//! Constructs from a list of key-value pairs.
 		/*!
-		Time complexity: O(1)
+		Time complexity: O(dataSet.size())
 		Exception safety: strong
 		*/
 		CFastTrie(std::initializer_list<std::pair<Key, Value_Class>> dataSet)
@@ -749,18 +749,18 @@ namespace Pastel
 		*/
 		Iterator last()
 		{
-			PENSURE(!empty());
-			return std::prev(dataSet_.end());
+			return cast(addConst(*this).last());
 		}
 
 		ConstIterator last() const
 		{
-			return removeConst(*this).last();
+			return clast();
 		}
 
 		ConstIterator clast() const
 		{
-			return last();
+			PENSURE(!empty());
+			return std::prev(dataSet_.end());
 		}
 
 		//! Returns an iterator range.
@@ -1042,18 +1042,23 @@ namespace Pastel
 		Preconditions:
 		0 <= level <= maxBits()
 
+		Time complexity: 
+		O(1) expected
+		
+		Exception safety: 
+		nothrow
+
 		The 'next' means that the split-node
-		1) is an ancestor of 'key', and
+		1) is an ancestor of 'key', 
 		2) is located at the top of an odd (even) 
 		chain (i.e. at level chain->second.height()), 
-		if 'odd' is true (false).
+		if 'odd' is true (false), and
+		3) is located at a minimum such level at or above
+		the given level.
 
 		returns:
-		A pair (level, found), where 'level' gives the level
-		of the next split-node, and 'found' tells whether the
-		next split-node exists at all. In case 'found' is false,
-		then the 'level' provides no information and is set to 
-		zero.
+		An iterator to a chain, agreeing with oddness, whose
+		node above is the next split-node.
 		*/
 		Chain_ConstIterator findNextSplit(
 			const Key& key, integer level, bool odd) const
@@ -1150,6 +1155,8 @@ namespace Pastel
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
+
+		Note that we don't take care of wrap-around here.
 		*/
 		Key nextKey(const Key& key, integer level, bool direction) const
 		{
@@ -1182,16 +1189,13 @@ namespace Pastel
 		{
 			ASSERT_OP(level, >= , 0);
 
-			if (level >= maxBits())
-			{
-				return negate ? -1 : 0;
-			}
-
 			bool replicatedBit = 
 				(key.bit(level) != negate);
 
 			Key result(key);
-			result.setBits(0, level, replicatedBit);
+			result.setBits(
+				0, std::min(level, result.bits()), 
+				replicatedBit);
 			return result;
 		}
 
@@ -1211,28 +1215,28 @@ namespace Pastel
 		Chain_ConstIterator findChain(
 			const Key& key, integer level) const
 		{
-			return removeConst(*this).findChain(key, level);
+			return findChain(replicate(key, level));
 		}
 
 		Chain_Iterator findChain(
 			const Key& key, integer level)
 		{
-			return findChain(replicate(key, level));
-		}
-
-		Chain_ConstIterator findChain(const Key& key) const
-		{
-			return removeConst(*this).findChain(key);
+			return cast(addConst(*this).findChain(key, level));
 		}
 
 		public:
 		mutable integer finds = 0;
 		private:
 
-		Chain_Iterator findChain(const Key& key)
+		Chain_ConstIterator findChain(const Key& key) const
 		{
 			++finds;
 			return chainSet_.find(key);
+		}
+
+		Chain_Iterator findChain(const Key& key)
+		{
+			return cast(addConst(*this).findChain(key));
 		}
 
 		//! Returns whether (key up level, level) in R'.
@@ -1265,8 +1269,7 @@ namespace Pastel
 			ASSERT_OP(level, >= , 0);
 
 			return chainExists(key, level);
-			/*
-			return chainExists(key, level) ||
+			/*return chainExists(key, level) ||
 				chainOnLeft(key, level) ||
 				chainOnRight(key, level);
 			*/
@@ -1388,7 +1391,7 @@ namespace Pastel
 
 		//! The set of chains.
 		/*!
-		Each physical key 'k' is associated bijectively
+		Each element is associated bijectively
 		with a chain [k], which is defined by
 
 			[k] = {(u, i) in N^2 : forward(u, i) = k}
@@ -1396,17 +1399,16 @@ namespace Pastel
 		A compact x-fast trie is characterized by fulfilling
 		the chain-decomposition property:
 
-			S' = union_{s in S} [s]
+			S' = union_{s in R} [s]
 
-		Since a c-fast trie maintains a compact x-fast trie
-		over the physical keys, it can be stored in linear 
-		space.
+		Since the c-fast trie maintains a compact x-fast trie,
+		it can be stored in linear space.
 		*/
 		ChainSet chainSet_;
 
 		//! The elements stored in increasing order.
 		/*!
-		By a property of a c-fast trie, it also holds that
+		By a property of the c-fast trie, it also holds that
 		that the chain-keys of the associated chains are
 		in increasing order.
 		*/

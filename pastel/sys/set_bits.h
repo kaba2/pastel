@@ -23,7 +23,7 @@ namespace Pastel
 		const Integer& that,
 		integer begin,
 		integer end,
-		bool value);
+		bool value = true);
 
 }
 
