@@ -38,14 +38,17 @@ void print(const CFastTrie_Set<N>& a)
 	}
 }
 
+#define SKIP_ONLY
+
 template <typename Set>
 void f(Set& a, integer n)
 {
+#ifdef SKIP_ONLY
 	a.finds = 0;
+#endif
 	for (integer i = 0; i < n; ++i)
 	{
 		a.insert(randomUinteger());
-		//a.insert(i);
 		/*
 		if (!checkInvariants(a))
 		{
@@ -56,18 +59,25 @@ void f(Set& a, integer n)
 		*/
 	}
 
+#ifdef SKIP_ONLY
 	std::cout << (real)a.finds / n << " ";
+#endif
 }
 
 template <typename Set>
 void g(const Set& a, integer n)
 {
+#ifdef SKIP_ONLY
 	a.finds = 0;
+#endif
 	for (integer i = 0; i < n; ++i)
 	{
 		a.lower_bound(randomUinteger());
 	}
+
+#ifdef SKIP_ONLY
 	std::cout << (real)a.finds / n << " ";
+#endif
 }
 
 enum{ Bits = 64 };
@@ -77,7 +87,7 @@ void test()
 {
 	for (integer i = 1; i <= (1 << 18); i *= 2)
 	{
-		std::cout << i << std::endl;
+		std::cout << i << " : ";
 
 		Set a;
 		measureTime([&]()
@@ -103,7 +113,7 @@ int main()
 	std::cout << "CFastTrie_Set" << std::endl;
 	test<CFastTrie_Set<Bits>>();
 
-	/*
+#ifndef SKIP_ONLY
 	std::cout << "std::set" << std::endl;
 	test<std::set<Unsigned_Integer<Bits>>>();
 
@@ -115,7 +125,7 @@ int main()
 
 	std::cout << "RedBlack_Set" << std::endl;
 	test<RedBlack_Set<Unsigned_Integer<Bits>>>();
-	*/
+#endif
 
 	return 0;
 }

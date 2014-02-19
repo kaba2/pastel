@@ -3,6 +3,7 @@
 
 #include "pastel/sys/twos_complement.h"
 #include "pastel/sys/bitmask.h"
+#include "pastel/sys/set_bits.h"
 
 namespace Pastel
 {
@@ -37,15 +38,15 @@ namespace Pastel
 		// C++ standard
 		// (Standard conversions --> Integral conversions):
 
-		// If the destination type is signed, the value is 
+		// "If the destination type is signed, the value is 
 		// unchanged if it can be represented in the destination 
 		// type (and bit-ﬁeld width); otherwise, the value is 
-		// implementation-deﬁned.
+		// implementation-deﬁned."
 
-		// Unsigned integers, declared unsigned, shall obey the 
+		// "Unsigned integers, declared unsigned, shall obey the 
 		// laws of arithmetic modulo 2^n where n is the number of 
 		// bits in the value representation of that particular 
-		// size of integer.
+		// size of integer.""
 
 		// Due to modulo arithmetic the negative of an unsigned 
 		// integer is its two's complement. 
@@ -126,18 +127,16 @@ namespace Pastel
 		// On unsigned integers, the right shift pushes
 		// 0-bits to the most-significant bits. This is
 		// what we want when 'that' represents a non-negative
-		// value. However, when 'that' represents a negative
-		// value, then we want the arithmetic right-shift
-		// to push 1-bits to the most-significant bits.
-		// This is achieved by first complementing, then
-		// shifting, and then complementing again.
-
+		// value. 
+		Finite_Integer result = that >> n;
 		if (twosComplementNegative(that))
 		{
-			return bitMask<Finite_Integer>(bits(that) - n, bits(that)) | (that >> n);
+			// However, when 'that' represents a negative
+			// value, then we want the arithmetic right-shift
+			// to push 1-bits to the most-significant bits.
+			result = setBits(result, bits(that) - n, bits(that));
 		}
-
-		return that >> n;
+		return result;
 	}
 
 	template <typename Finite_Integer>
