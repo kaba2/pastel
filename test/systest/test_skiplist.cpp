@@ -37,7 +37,7 @@ namespace
 			}
 		}
 
-		typedef SkipList_Set<integer> List;
+		typedef SkipList_MultiSet<integer> List;
 		typedef List::Iterator Iterator;
 		typedef List::ConstIterator ConstIterator;
 
@@ -554,7 +554,7 @@ namespace
 
 		void testValueMap(integer maxHeight)
 		{
-			SkipList_Map<integer, integer> list;
+			SkipList_MultiMap<integer, integer> list;
 			list.setMaxHeight(maxHeight);
 
 			TEST_ENSURE(validInvariants(list));
@@ -594,7 +594,7 @@ namespace
 
 		void testValueSet(integer maxHeight)
 		{
-			SkipList_Set<integer> list;
+			SkipList_MultiSet<integer> list;
 			list.setMaxHeight(maxHeight);
 
 			TEST_ENSURE(validInvariants(list));
