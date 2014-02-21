@@ -24,11 +24,6 @@ namespace Pastel
 			Key key, 
 			Value_Class value)
 	{
-		// Preallocate link-sets of sizes 2^i. This is needed
-		// to achieve strong exception safety, as well as to
-		// avoid additional calls to the memory manager.
-		preallocate();
-
 		// Find the element before which to insert
 		// the new element.
 		Iterator nextIter = upperBound(key, hint);
@@ -50,6 +45,18 @@ namespace Pastel
 			// inserted element, every element is. The
 			// key does not exist in the skip-list.
 		}
+
+		if (keyAlreadyExists && !MultipleKeys)
+		{
+			// Multiple keys are not allowed. Return
+			// the existing element.
+			return std::prev(nextIter);
+		}
+
+		// Preallocate link-sets of sizes 2^i. This is needed
+		// to achieve strong exception safety, as well as to
+		// avoid additional calls to the memory manager.
+		preallocate();
 
 		// Create a new node with the given data.
 		std::unique_ptr<Data_Node> nodePtr(

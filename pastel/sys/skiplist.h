@@ -35,6 +35,7 @@ namespace Pastel
 		using Value = typename Settings::Value;
 		using Compare = typename Settings::Compare;
 		using Value_Class = Class<Value>;
+		enum {MultipleKeys = Settings::MultipleKeys};
 
 	private:
 		using Node = SkipList_::Node;
@@ -885,23 +886,28 @@ namespace Pastel
 	template <
 		typename Key_, 
 		typename Value_, 
-		typename Compare_ = LessThan>
+		typename Compare_ = LessThan,
+		bool MultipleKeys_ = false>
 	class SkipList_Map_Settings
 	{
 	public:
 		using Key = Key_;
 		using Value = Value_;
 		using Compare = Compare_;
+		enum {MultipleKeys = MultipleKeys_};
 	};
 
 	template <typename Key, typename Value, typename Compare = LessThan>
-	using SkipList_Map = SkipList<SkipList_Map_Settings<Key, Value, Compare>>;
+	using SkipList_Map = SkipList<SkipList_Map_Settings<Key, Value, Compare, false>>;
+
+	template <typename Key, typename Value, typename Compare = LessThan>
+	using SkipList_MultiMap = SkipList<SkipList_Map_Settings<Key, Value, Compare, true>>;
 
 	template <typename Key, typename Compare = LessThan>
-	using SkipList_Set_Settings = SkipList_Map_Settings<Key, void, Compare>;
+	using SkipList_Set = SkipList<SkipList_Map_Settings<Key, void, Compare, false>>;
 
 	template <typename Key, typename Compare = LessThan>
-	using SkipList_Set = SkipList<SkipList_Set_Settings<Key, Compare>>;
+	using SkipList_MultiSet = SkipList<SkipList_Map_Settings<Key, void, Compare, true>>;
 
 }
 

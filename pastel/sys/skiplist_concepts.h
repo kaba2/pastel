@@ -33,6 +33,9 @@ namespace Pastel
 			to the key.
 			*/
 			using Value = UserDefinedType;
+
+			//! Whether to allow multiple equal keys.
+			enum {MultipleKeys = UserDefinedInteger};
 		};
 
 	}
