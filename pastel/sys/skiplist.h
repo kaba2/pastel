@@ -12,6 +12,7 @@
 
 #include <memory>
 #include <vector>
+#include <initializer_list>
 
 namespace Pastel
 {
@@ -90,6 +91,37 @@ namespace Pastel
 			link(end_, end_, 0);
 		}
 
+		//! Constructs from a list of keys.
+		/*!
+		Time complexity: O(dataSet.size())
+		Exception safety: strong
+
+		The user-data will be default-initialized.
+		*/
+		template <typename That_Key>
+		SkipList(std::initializer_list<That_Key> dataSet)
+		: SkipList()
+		{
+			for (auto&& key : dataSet)
+			{
+				insert(key);
+			}
+		}
+
+		//! Constructs from a list of key-value pairs.
+		/*!
+		Time complexity: O(dataSet.size())
+		Exception safety: strong
+		*/
+		SkipList(std::initializer_list<std::pair<Key, Value_Class>> dataSet)
+		: SkipList()
+		{
+			for (auto&& keyValue : dataSet)
+			{
+				insert(keyValue.first, keyValue.second);
+			}
+		}
+
 		//! Copy-constructs a skip list.
 		/*!
 		Time complexity:
@@ -140,6 +172,19 @@ namespace Pastel
 
 			// The preallocated memory is deleted
 			// automatically.
+		}
+
+		//! Assigns from an initializer list.
+		/*!
+		Time complexity: O(that.size() + size())
+		Exception safety: strong
+		*/
+		template <typename Type>
+		SkipList& operator=(std::initializer_list<Type> that)
+		{
+			SkipList copy(that);
+			swap(copy);
+			return *this;
 		}
 
 		//! Copy-assigns from another skip list.
@@ -300,19 +345,53 @@ namespace Pastel
 		insertion position. Close hints improve performance,
 		since searching is avoided.
 		*/
-		Iterator insert(
+		template <typename... That>
+		Iterator insertAt(
 			const ConstIterator& hint,
 			Key key, 
-			Value_Class value = Value_Class());
+			That&&... value);
 
 		//! Inserts an element into the skip list.
 		/*!
 		This is a convenience function which calls
-		insert(cend(), std::move(key), std::move(value)).
+		insertAt(hint, std::move(key), Value_Class()).
 		*/
+		Iterator insertAt(
+			const ConstIterator& hint,
+			Key key)
+		{
+			return insertAt(
+				hint, std::move(key),
+				Value_Class());
+		}
+
+		//! Inserts an element into the skip list.
+		/*!
+		This is a convenience function which calls
+		insertAt(cend(), std::move(key), std::forward<That...>(value)).
+		*/
+		template <typename... That>
 		Iterator insert(
 			Key key, 
-			Value_Class value = Value_Class());
+			That&&... value)
+		{
+			return insertAt(
+				cend(), std::move(key),
+				std::forward<That>(value)...);
+		}
+
+		//! Inserts an element into the skip list.
+		/*!
+		This is a convenience function which calls
+		insertAt(cend(), std::move(key), Value_Class()).
+		*/
+		template <typename... That>
+		Iterator insert(Key key)
+		{
+			return insertAt(
+				cend(), std::move(key),
+				Value_Class());
+		}
 
 		//! Removes all elements equivalent to 'key'.
 		/*!

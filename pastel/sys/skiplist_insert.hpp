@@ -9,20 +9,12 @@ namespace Pastel
 {
 
 	template <typename SkipList_Settings>
+	template <typename... That>
 	typename SkipList<SkipList_Settings>::Iterator 
-		SkipList<SkipList_Settings>::insert(
-			Key key, 
-			Value_Class value)
-	{
-		return insert(cend(), std::move(key), std::move(value));
-	}
-
-	template <typename SkipList_Settings>
-	typename SkipList<SkipList_Settings>::Iterator 
-		SkipList<SkipList_Settings>::insert(
+		SkipList<SkipList_Settings>::insertAt(
 			const ConstIterator& hint,
 			Key key, 
-			Value_Class value)
+			That&&... value)
 	{
 		// Find the element before which to insert
 		// the new element.
@@ -60,7 +52,7 @@ namespace Pastel
 
 		// Create a new node with the given data.
 		std::unique_ptr<Data_Node> nodePtr(
-			new Data_Node(std::move(key), std::move(value)));
+			new Data_Node(std::move(key), std::forward<That>(value)...));
 		Data_Node* node = nodePtr.get();
 
 		if (keyAlreadyExists)

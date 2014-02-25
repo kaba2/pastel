@@ -181,11 +181,12 @@ namespace Pastel
 			Data_Node(const Data_Node&) = delete;
 			Data_Node(Data_Node&&) = delete;
 
+			template <typename... That>
 			Data_Node(
 				Key key,
-				Value_Class data)
+				That&&... value)
 			: Node()
-			, Value_Class(std::move(data))
+			, Value_Class(std::forward<That>(value)...)
 			, key_(std::move(key))
 			{
 			}

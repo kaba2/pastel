@@ -10,24 +10,6 @@ namespace Pastel
 {
 
 	template <typename Type>
-	void unused(const Type&)
-	{
-		// Do nothing.
-	}
-
-	template <typename Type>
-	const Type& addConst(Type& that)
-	{
-		return (const Type&)that;
-	}
-
-	template <typename Type>
-	Type& removeConst(const Type& that)
-	{
-		return (Type&)that;
-	}
-
-	template <typename Type>
 	integer sizeInBits()
 	{
 		// Note that 
