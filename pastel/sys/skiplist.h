@@ -346,7 +346,7 @@ namespace Pastel
 		since searching is avoided.
 		*/
 		template <typename... That>
-		Iterator insertAt(
+		std::pair<Iterator, bool> insertNear(
 			const ConstIterator& hint,
 			Key key, 
 			That&&... value);
@@ -354,13 +354,13 @@ namespace Pastel
 		//! Inserts an element into the skip list.
 		/*!
 		This is a convenience function which calls
-		insertAt(hint, std::move(key), Value_Class()).
+		insertNear(hint, std::move(key), Value_Class()).
 		*/
-		Iterator insertAt(
+		std::pair<Iterator, bool> insertNear(
 			const ConstIterator& hint,
 			Key key)
 		{
-			return insertAt(
+			return insertNear(
 				hint, std::move(key),
 				Value_Class());
 		}
@@ -368,14 +368,14 @@ namespace Pastel
 		//! Inserts an element into the skip list.
 		/*!
 		This is a convenience function which calls
-		insertAt(cend(), std::move(key), std::forward<That...>(value)).
+		insertNear(cend(), std::move(key), std::forward<That...>(value)).
 		*/
 		template <typename... That>
-		Iterator insert(
+		std::pair<Iterator, bool> insert(
 			Key key, 
 			That&&... value)
 		{
-			return insertAt(
+			return insertNear(
 				cend(), std::move(key),
 				std::forward<That>(value)...);
 		}
@@ -383,12 +383,12 @@ namespace Pastel
 		//! Inserts an element into the skip list.
 		/*!
 		This is a convenience function which calls
-		insertAt(cend(), std::move(key), Value_Class()).
+		insertNear(cend(), std::move(key), Value_Class()).
 		*/
 		template <typename... That>
-		Iterator insert(Key key)
+		std::pair<Iterator, bool> insert(Key key)
 		{
-			return insertAt(
+			return insertNear(
 				cend(), std::move(key),
 				Value_Class());
 		}

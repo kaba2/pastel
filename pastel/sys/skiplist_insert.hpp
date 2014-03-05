@@ -10,8 +10,8 @@ namespace Pastel
 
 	template <typename SkipList_Settings>
 	template <typename... That>
-	typename SkipList<SkipList_Settings>::Iterator 
-		SkipList<SkipList_Settings>::insertAt(
+	std::pair<typename SkipList<SkipList_Settings>::Iterator, bool>
+		SkipList<SkipList_Settings>::insertNear(
 			const ConstIterator& hint,
 			Key key, 
 			That&&... value)
@@ -42,7 +42,7 @@ namespace Pastel
 		{
 			// Multiple keys are not allowed. Return
 			// the existing element.
-			return std::prev(nextIter);
+			return std::make_pair(std::prev(nextIter), false);
 		}
 
 		// Preallocate link-sets of sizes 2^i. This is needed
@@ -122,7 +122,7 @@ namespace Pastel
 		++size_;
 
 		// Return an iterator to the new node.
-		return Iterator(node);
+		return std::make_pair(Iterator(node), true);
 	}
 
 	template <typename SkipList_Settings>

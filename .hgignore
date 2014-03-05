@@ -1,4 +1,6 @@
 syntax: glob
+*.sbr
+*.bsc
 *.user
 *.sdf
 *.opensdf
