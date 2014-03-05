@@ -194,7 +194,7 @@ namespace
 				TEST_ENSURE(list.empty());
 			}
 
-			ConstIterator one = list.insert(1);
+			ConstIterator one = list.insert(1).first;
 			TEST_ENSURE(validInvariants(list));
 			list.insert(5);
 			TEST_ENSURE(validInvariants(list));
@@ -202,7 +202,7 @@ namespace
 			TEST_ENSURE(validInvariants(list));
 			list.insert(4);
 			TEST_ENSURE(validInvariants(list));
-			ConstIterator four = list.insert(4);
+			ConstIterator four = list.insert(4).first;
 			TEST_ENSURE(validInvariants(list));
 			list.insert(4);
 			TEST_ENSURE(validInvariants(list));
