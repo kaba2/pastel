@@ -41,7 +41,7 @@ namespace Pastel
 
 			const Key& dereference() const
 			{
-				return base()->key();
+				return base().key();
 			}
 		};
 	

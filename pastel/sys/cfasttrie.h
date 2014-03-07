@@ -4,9 +4,16 @@
 #define PASTELSYS_CFASTTRIE_H
 
 #include "pastel/sys/cfasttrie_concepts.h"
+
 #include "pastel/sys/cfasttrie_fwd.h"
-#include "pastel/sys/exponential_binary_search.h"
+#include "pastel/sys/cfasttrie_bundle.h"
+#include "pastel/sys/cfasttrie_chain.h"
+#include "pastel/sys/cfasttrie_element.h"
+#include "pastel/sys/cfasttrie_fork.h"
+#include "pastel/sys/cfasttrie_iterator.h"
+
 #include "pastel/sys/bitmask.h"
+#include "pastel/sys/exponential_binary_search.h"
 #include "pastel/sys/flip_leading_one_bits.h"
 #include "pastel/sys/flip_leading_zero_bits.h"
 
@@ -50,20 +57,35 @@ namespace Pastel
 		PASTEL_FWD(Key);
 		PASTEL_FWD(Value);
 		PASTEL_FWD(Value_Class);
+		
+		PASTEL_FWD(Element);
 		PASTEL_FWD(DataSet);
 		PASTEL_FWD(ConstIterator);
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(Range);
 		PASTEL_FWD(ConstRange);
+		PASTEL_FWD(const_iterator);
+		PASTEL_FWD(iterator);
 		PASTEL_FWD(Key_ConstIterator);
 		PASTEL_FWD(Key_ConstRange);
+
+		PASTEL_FWD(Bundle);
+		PASTEL_FWD(BundlePtr);
+		PASTEL_FWD(Bundle_WeakPtr);
+
+		PASTEL_FWD(Fork);
+		PASTEL_FWD(Fork_ConstIterator);
+		PASTEL_FWD(Fork_Iterator);
+
 		PASTEL_FWD(Chain);
 		PASTEL_FWD(ChainSet);
 		PASTEL_FWD(Chain_ConstIterator);
 		PASTEL_FWD(Chain_Iterator);
-		PASTEL_FWD(Element);
-		PASTEL_FWD(const_iterator);
-		PASTEL_FWD(iterator);
+		PASTEL_FWD(Chain_ConstRange);
+
+		PASTEL_FWD(TrieSet);
+		PASTEL_FWD(Trie_ConstIterator);
+		PASTEL_FWD(Trie_Iterator);
 
 		enum {Bits = Settings::Bits};
 
@@ -73,9 +95,11 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		CFastTrie()
-		: chainSet_()
+		: trieSet_()
+		, chainSet_()
 		, dataSet_()
 		{
+			dataSet_.setMaxHeight(integerCeilLog2((integer)Bits));
 		}
 
 		//! Constructs from a list of keys.
@@ -87,8 +111,7 @@ namespace Pastel
 		*/
 		template <typename That_Key>
 		CFastTrie(std::initializer_list<That_Key> dataSet)
-			: chainSet_()
-			, dataSet_()
+		: CFastTrie()
 		{
 			for (auto&& key : dataSet)
 			{
@@ -102,8 +125,7 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		CFastTrie(std::initializer_list<std::pair<Key, Value_Class>> dataSet)
-			: chainSet_()
-			, dataSet_()
+		: CFastTrie()
 		{
 			for (auto&& keyValue : dataSet)
 			{
@@ -117,8 +139,7 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		CFastTrie(const CFastTrie& that)
-		: chainSet_()
-		, dataSet_()
+		: CFastTrie()
 		{
 			for (auto&& element : that)
 			{
@@ -132,8 +153,7 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		CFastTrie(CFastTrie&& that)
-		: chainSet_()
-		, dataSet_()
+		: CFastTrie()
 		{
 			swap(that);
 		}
@@ -190,6 +210,7 @@ namespace Pastel
 		void swap(CFastTrie& that)
 		{
 			Customization::swap(that);
+			trieSet_.swap(that.trieSet_);
 			chainSet_.swap(that.chainSet_);
 			dataSet_.swap(that.dataSet_);
 		}
@@ -204,133 +225,223 @@ namespace Pastel
 			// Notify the customization.
 			onClear();
 
-			// Clear all elements.
-			dataSet_.clear();
+			// Remove the trie.
+			trieSet_.clear();
 
-			// Clear all chains.
+			// Remove all chains.
 			chainSet_.clear();
+
+			// Remove all elements.
+			dataSet_.clear();
 		}
 
-		//! Inserts an element.
-		/*!
-		Time complexity: O(...) (FIX: Add complexity)
-		Exception safety: strong (FIX: not even basic safety yet)
-
-		returns:
-		An iterator to the inserted element, if it did not
-		exist before, or an iterator to the existing element,
-		otherwise.
-		*/
-		Iterator insert(
+		template <typename... Value>
+		std::pair<Iterator, bool> insert(
 			const Key& key, 
-			Value_Class value = Value_Class())
+			Value&&... value)
 		{
-			// Find the smallest element > key.
-			Iterator right = upperBound(key);
-
-			// See if the element already exists.
-			if (right != cbegin())
-			{
-				// By the definition of 'right' above,
-				// if an element equal to 'key' exists
-				// in the trie, then it has to be the
-				// previous element of 'right'.
-				Iterator left = std::prev(right);
-				if (key == left->key())
-				{
-					// The key already exists in the trie.
-					// Return the existing element.
-					return left;
-				}
-			}
-
-			// Create the element.
-			// The element references its chain,
-			// and the chain references its element;
-			// we can't set the chain yet.
-			Iterator element =
-				dataSet_.emplace(
-				right,
-				chainSet_.end(),
-				key, std::move(value));
-
 			if (empty())
 			{
-				// If the trie is empty, the inserted chain has to
-				// be the zero chain. We give the zero chain a height
-				// of zero, by which we actually mean infinity.
-				insertChain(0, chainSet_.end(), 0, element);
-
-				// Notify the customization.
-				onInsert(element);
-
-				return element;
+				// The trie is empty. This is a special case,
+				// since there are no chains or bundles, 
+				// whose existence the non-empty insertion 
+				// assumes.
+				return insertEmpty(key, std::forward<Value>(value)...);
 			}
-			
-			// While the goal is to insert 'element' into the
-			// trie, it may not be 'element' for which the
-			// new chain is created. Rather, in a general case
-			// 'element' is stored in an existing chain, and
-			// then the trie is reordered such that finally
-			// it is the 'elementToInsert' for which a new
-			// chain is created.
-			Iterator elementToInsert = 
-				element;
 
-			if (element != cbegin())
+			// Find the lowest ancestor of the key.
+			// The lowest-ancestor always exists, since
+			// the infinite zero chain exists.
+			auto aboveAndLevel = lowestAncestor(key);
+			Chain_Iterator above = cast(aboveAndLevel.first);
+			integer level = aboveAndLevel.second;
+
+			ASSERT(above != chainSet_.end());
+				
+			// By the definition of the lowest ancestor
+			// the node at the lowest ancestor can not
+			// be a split-node.
+			ASSERT(!above->splitExists(level));
+
+			// Find the gap-bounds.
+			// The right gap-bound may not exist;
+			// the left gap-bound always exists.
+			Chain_Iterator rightGap = 
+				cast(rightGapFromLowestAncestor(above, level));
+			Chain_Iterator leftGap =
+				std::prev(rightGap);
+
+			// Find the bundle of the key.
+			BundlePtr bundle = 
+				even(above->key()) ?
+					leftGap->bundle() :
+					rightGap->bundle();
+
+			// Find the fork below the element.
+			Fork_Iterator fork = 
+				bundle->cast(bundle->forkBelow(key));
+
+			// Create the element (or at least try to).
+			// This takes only O(log(w)), because of the
+			// localization by the 'nearby' element. On
+			// the other hand, this is also the best case,
+			// since the height of the truncated skip-list 
+			// is log(w).
+			auto elementAndIsNew =
+				dataSet_.insertNear(
+				fork->second.element, key, bundle,
+				std::forward<Value>(value)...);
+
+			Iterator element = elementAndIsNew.first;
+			bool isNew = elementAndIsNew.second;
+			if (!isNew)
 			{
-				Iterator left = std::prev(element);
-				while (elementToInsert->key() <= left->chain()->first)
+				// The element already exists;
+				// return the existing element.
+				return elementAndIsNew;
+			}
+
+			// Compute the new chain.
+			Key chainKey = key;
+			if (level == 0)
+			{
+				// The chain induced by the key already 
+				// exists. Insert the chain induced by 
+				// a neighbor instead.
+
+				Iterator newElement = element;
+				if (odd(key))
 				{
-					// If 'key' is not bounded by its neighboring
-					// chains, then we store it in the left chain,
-					// and reinsert the key that was in the left
-					// chain originally. The nice thing is that
-					// we already know the upper-bound of this new 
-					// key (it's 'left'), and can simply reiterate 
-					// the swaps until we have reduced the problem 
-					// to having a key which is bounded by its 
-					// neighboring chains.
-					moveChain(left, elementToInsert);
-					elementToInsert = left;
-					--left;
+					while (chainExists(newElement.key(), 0))
+					{
+						--newElement;
+					}
+				}
+				else
+				{
+					while (chainExists(newElement.key(), 0))
+					{
+						++newElement;
+					}
+				}
+
+				chainKey = newElement.key();
+
+				aboveAndLevel = lowestAncestor(chainKey);
+
+				above = cast(aboveAndLevel.first);
+				level = aboveAndLevel.second;
+
+				bundle = above->bundle();
+
+				rightGap =
+					cast(rightGapFromLowestAncestor(above, level));
+				leftGap =
+					std::prev(rightGap);
+			}
+			chainKey = turn(chainKey, level);
+
+			// Insert the chain induced by the key.
+			Chain_Iterator chain = insertChain(
+				chainKey, rightGap, above,
+				bundle, level, above->normal());
+
+			// See whether to create a new fork and
+			// to remove an old fork.
+			if (rightGap != chainSet_.end())
+			{
+				if (odd(leftGap->key()) == odd(rightGap->key()))
+				{
+					if (odd(chainKey) != odd(leftGap->key()))
+					{
+						// Fork creation
+
+						Chain_Iterator forkChain =
+							odd(chainKey) ? leftGap : chain;
+
+						// Add the new chain into the fork-set
+						// of the bundle.
+						bundle->insertFork(element, forkChain);
+
+						// Mark the new chain as abnormal.
+						chain->normal_ = false;
+					}
+				}
+				else if (odd(rightGap->key()) && even(chainKey))
+				{
+					// Fork refinement
+					bundle->removeFork(bundle->findFork(leftGap->key()));
+					bundle->insertFork(element, cast(chain));
 				}
 			}
 
-			while (right != cend() && 
-				elementToInsert->key() >= right->chain()->first)
+			bundle->insertChain(chain);
+			if (bundle->condition() == 0)
 			{
-				// This case is symmetric to the one above.
-				moveChain(right, elementToInsert);
-				elementToInsert = right;
-				++right;
+				// Refine the bundle.
+				refine(bundle);
 			}
-
-			// Compute the chain in which to store the element.
-			auto gapRange = upperGapRange(
-				std::prev(elementToInsert), 
-				std::next(elementToInsert));
-
-			auto chainAndHeight = lowestAncestor(
-				elementToInsert->key(),
-				gapRange.first, gapRange.second);
-
-			Key chainKey = replicate(
-				elementToInsert->key(), 
-				chainAndHeight.second, true);
-
-			// Insert the new chain.
-			insertChain(
-				chainKey,
-				cast(chainAndHeight.first),
-				chainAndHeight.second,
-				elementToInsert);
 
 			// Notify the customization.
 			onInsert(element);
 
-			// Return the element that was originally inserted.
-			return element;
+			return std::make_pair(element, true);
+		}
+
+		//! Refines a bundle to smaller bundles.
+		void refine(const BundlePtr& bundle)
+		{
+			// Skip the first fork; we will reuse the current
+			// bundle for the first fork.
+			Fork_Iterator fork = std::next(bundle->forkSet_.begin());
+			while (fork != bundle->forkSet_.end())
+			{
+				Chain_Iterator left = fork->second.chain;
+				ASSERT(even(left->key()));
+				
+				Chain_Iterator right = std::next(left);
+				ASSERT(right == chainSet_.end() ||
+					odd(right->key()));
+
+				// Create a new bundle to hold the fork.
+				BundlePtr newBundle = std::make_shared<Bundle>();
+
+				// Add the fork into the new bundle.
+				newBundle->forkSet_.emplace(
+					fork->second.chain->key(),
+					Fork(fork->second.element, fork->second.chain));
+
+				// Set the even chains on the left to refer
+				// to the new bundle.
+				while(even(left->key()))
+				{
+					left->bundle_ = newBundle;
+					left->normal_ = true;
+					newBundle->insertChain(left);
+					bundle->removeChain(left);
+					if (left == chainSet_.begin())
+					{
+						break;
+					}
+					--left;
+				}
+
+				// Set the odd chains on the right to refer
+				// to the new bundle.
+				while(right != chainSet_.end() &&
+					odd(right->key()))
+				{
+					right->bundle_ = newBundle;
+					right->normal_ = true;
+					newBundle->insertChain(right);
+					bundle->removeChain(right);
+					++right;
+				}
+
+				// Remove the fork from the old bundle
+				// and move on.
+				fork = bundle->forkSet_.erase(fork);
+			}
 		}
 
 		//! Removes an element by its iterator.
@@ -358,38 +469,13 @@ namespace Pastel
 			// Notify the customization.
 			onErase(cast(element));
 
-			Chain_Iterator chainToRemove = element->chain_;
+			// Find the lowest ancestor of the key.
+			auto chainAndLevel = lowestAncestor(element.key());
+			Chain_ConstIterator chain = chainAndLevel.first;
+			integer level = chainAndLevel.second;
 
-			if (odd(chainToRemove->first))
-			{
-				while (!zero(chainToRemove->second.split()))
-				{
-					Chain_Iterator prevChain =
-						std::prev(chainToRemove->second.element_)->chain_;
-
-					Iterator left = prevChain->second.element_;
-					chainToRemove->second.element_ = left;
-					left->chain_ = chainToRemove;
-
-					chainToRemove = prevChain;
-				}
-			}
-			else
-			{
-				while (!zero(chainToRemove->second.split()))
-				{
-					// This case is symmetric to the one above.
-
-					Chain_Iterator nextChain =
-						std::next(chainToRemove->second.element_)->chain_;
-
-					Iterator right = nextChain->second.element_;
-					chainToRemove->second.element_ = right;
-					right->chain_ = chainToRemove;
-
-					chainToRemove = nextChain;
-				}
-			}
+			Chain_ConstIterator chainToRemove =
+				chain->bundle()->forkBelow(element.key())->second.chain;
 
 			// Remove the chain.
 			eraseChain(chainToRemove);
@@ -429,7 +515,7 @@ namespace Pastel
 		ConstIterator find(const Key& key) const
 		{
 			ConstIterator iter = lowerBound(key);
-			return (key < iter->key()) ? cend() : iter;
+			return (key < iter.key()) ? cend() : iter;
 		}
 
 		Iterator find(const Key& key)
@@ -459,14 +545,14 @@ namespace Pastel
 				return cend();
 			}
 
-			if (key < cbegin()->key())
+			if (key < cbegin().key())
 			{
 				// The key is less than the least element,
 				// so the least element is the upper-bound.
 				return cbegin();
 			}
 
-			if (key >= last()->key())
+			if (key >= last().key())
 			{
 				// The key is greater than or equal to
 				// the greatest element.
@@ -474,86 +560,20 @@ namespace Pastel
 			}
 
 			// Note that the tests above imply size() > 1;
-			// therefore the chain of the last element is odd.
+			// therefore the last chain is odd.
 			// This implies that 'key' is bounded by an even
 			// chain from the left, and by an odd chain from 
 			// the right.
 
-			// Find the right gap-bound of the key.
-			ConstIterator right = rightGapBound(key);
-			ASSERT(right != cbegin());
-			ASSERT(right != cend());
+			auto chainAndLevel = lowestAncestor(key);
 
-			// See if the right gap-bound is also the successor.
-			{
-				ConstIterator left = std::prev(right);
-				if (left->key() <= key && key < right->key())
-				{
-					return right;
-				}
-			}
+			Chain_ConstIterator chain = chainAndLevel.first;
+			integer level = chainAndLevel.second;
 
-			if (key == right->key())
-			{
-				// The right gap-bound contains the key.
-				// Therefore the next element is the 
-				// upper-bound.
-				return std::next(right);
-			}
+			BundlePtr bundle = chain->bundle();
+			ConstIterator nearby = bundle->forkBelow(key)->second.element;
 
-			// By a property of c-fast tries, the successor
-			// in R is always 'near' the successor in S.
-			// Here near means that there will not be more
-			// than h elements in between, where h is the
-			// height of the lowest split-ancestor of the 
-			// successor in S.
-			bool goingRight = (key > right->key());
-			const Key& chainKey = right->chain()->first;
-
-			auto director = [&](integer i)
-			{
-				Chain_ConstIterator nextChain =	
-					findNextSplit(chainKey, i, goingRight);
-				if (nextChain == chainSet_.cend())
-				{
-					return i;
-				}
-
-				ConstIterator element = nextChain->second.element();
-
-				bool indicator = true;
-				if (goingRight)
-				{
-					indicator = (std::next(element) == cend() ||
-						std::next(element)->key() > key);
-				}
-				else
-				{
-					indicator = (element == cbegin() ||
-						std::prev(element)->key() <= key);
-				}
-
-				return indicator ? i : (nextChain->second.height() + 1);
-			};
-
-			// Search over the split-node ancestors of chainKey,
-			// and find the level k at which nextSplitChain(k)
-			// returns the chain which contains the successor
-			// of 'key'.
-			integer k = directedExponentialBinarySearch(
-				(integer)1, bits() + 1, director);
-			
-			Chain_ConstIterator nextChain =
-				findNextSplit(chainKey, k, goingRight);
-
-			if (nextChain == chainSet_.cend())
-			{
-				return dataSet_.cend();
-			}
-
-			return goingRight ? 
-				std::next(nextChain->second.element()) :
-				nextChain->second.element();
+			return dataSet_.upperBound(key, nearby);
 		}
 
 		ConstIterator upper_bound(const Key& key) const
@@ -598,7 +618,7 @@ namespace Pastel
 			}
 
 			ConstIterator lower = std::prev(upper);
-			if (lower->key() == key)
+			if (lower.key() == key)
 			{
 				return lower;
 			}
@@ -629,100 +649,6 @@ namespace Pastel
 		bool exists(const Key& key) const
 		{
 			return find(key) != cend();
-		}
-
-		//! Returns minimal k such that ((u, 0) up k) in R'.
-		/*!
-		Time complexity:
-		O(log(log(Delta + 4)))
-		where
-		Delta = |u - u'|,
-		u' is the nearest neighbor of u in R.
-
-		Exception safety:
-		nothrow
-
-		returns:
-		A minimal integer 'k', such that ((u, 0) up k) in R'.
-		*/
-		std::pair<Chain_ConstIterator, integer> 
-			lowestAncestor(
-				const Key& key, 
-				integer minLevel,
-				integer maxLevel) const
-		{
-			ASSERT_OP(minLevel, <= , maxLevel);
-			if (empty())
-			{
-				return std::make_pair(chainSet_.cend(), 0);
-			}
-
-			while (true)
-			{
-				auto nearby = [&](integer level)
-				{
-					return chainNearby(key, level);
-				};
-
-				integer nearbyLevel =
-					binarySearch(minLevel, maxLevel, nearby);
-
-				Chain_ConstIterator chain = 
-					findChain(key, nearbyLevel);
-				if (chain != chainSet_.cend())
-				{
-					// If a prefix of the key exists in the 'nearbyLevel'
-					// of the trie, then the corresponding node is the
-					// lowest ancestor of the key.
-					return std::make_pair(chain, nearbyLevel);
-				}
-
-				bool oddNearbyChain = !key.bit(nearbyLevel);
-
-				// Let j = nearbyLevel and v = key up j. Since
-				// (v, j) !in R', it can not occur that both
-				// (v + 1, j) in R' and (v - 1, j) in R'.
-				// Call the existing one w.
-				bool nextExists = chainOnRight(key, nearbyLevel);
-				
-				Key nearbyKey = nextKey(key, nearbyLevel, nextExists);
-				Chain_ConstIterator nearbyChain =
-					findChain(nearbyKey, nearbyLevel);
-				
-				if (nextExists == oddNearbyChain)
-				{
-					// If the right neighbor is on the right 1-gap-path,
-					// then the level above must contain the lowest-ancestor
-					// of the key. Similarly for the left neighbor on 
-					// the left 0-gap-path.
-					return std::make_pair(nearbyChain, nearbyLevel + 1);
-				}
-
-				// Move above the nearby-chain.
-				minLevel = nearbyChain->second.height();
-			}
-
-			return std::make_pair(chainSet_.cend(), 0);
-		}
-
-		//! Converts a const-iterator to an iterator.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		Iterator cast(const ConstIterator& that)
-		{
-			return dataSet_.erase(that, that);
-		}
-
-		//! Converts a chain const-iterator to a chain iterator.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		Chain_Iterator cast(const Chain_ConstIterator& that)
-		{
-			return chainSet_.erase(that, that);
 		}
 
 		//! Returns an iterator to the smallest element.
@@ -791,6 +717,27 @@ namespace Pastel
 		*/
 		PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
 
+		//! Returns an iterator to the smallest chain.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainBegin, chainSet_.cbegin());
+
+		//! Returns the one-past-last chain-iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainEnd, chainSet_.cend());
+
+		//! Returns an iterator range.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(Chain_, chainRange, chainBegin, chainEnd);
+
 		//! Returns the number of used bits.
 		/*!
 		Time complexity: O(1)
@@ -806,7 +753,7 @@ namespace Pastel
 				return 0;
 			}
 			
-			return last()->chain()->second.height();
+			return std::prev(chainSet_.cend())->height();
 		}
 
 		//! Returns the number of bits in an integer.
@@ -826,13 +773,11 @@ namespace Pastel
 		*/
 		integer size() const
 		{
-			// Although the number of elements in 
-			// dataSet_ and chainSet_ are equal, we
-			// deliberately avoid calling dataSet_.size(),
+			// We deliberately avoid calling std::list::size(),
 			// because it used to not be guaranteed to be O(1)
 			// by the C++ standard. Although that changed in 
 			// C++11, we better be sure here. 
-			return chainSet_.size();
+			return trieSet_.size();
 		}
 
 		//! Returns whether the trie is empty.
@@ -842,313 +787,248 @@ namespace Pastel
 		*/
 		bool empty() const
 		{
-			return chainSet_.empty();
+			return trieSet_.empty();
+		}
+
+		//! Returns whether the invariants hold for the trie.
+		/*!
+		Time complexity. O(size())
+		Exception safety: nothrow
+
+		This function is useful only for testing the 
+		implementation of the c-fast trie; a correct implementation
+		always return true.
+		*/
+		bool testInvariants() const
+		{
+			if (empty())
+			{
+				return true;
+			}
+
+			// The number of chains and elements must be equal.
+			if (chainSet_.size() != dataSet_.size() ||
+				trieSet_.size() != dataSet_.size())
+			{
+				return false;
+			}
+
+			// Check the chains.
+			{
+				Chain_ConstIterator iter = chainSet_.cbegin();
+
+				// If the c-fast trie is non-empty, then the
+				// first chain must be the zero-chain.
+				if (!zero(iter->key()))
+				{
+					return false;
+				}
+
+				Chain_ConstIterator next = std::next(iter);
+				while(next != chainSet_.cend())
+				{
+					// The chains must be in increasing order.
+					if (iter->key() >= next->key())
+					{
+						return false;
+					}
+					
+					++iter;
+					++next;
+				}
+			}
+
+			// Check the elements.
+			{
+				ConstIterator iter = cbegin();
+				ConstIterator next = std::next(iter);
+				while(next != cend())
+				{
+					// Each bundle always has at most log(w) elements.
+					if (iter->bundle()->forks() > 50 * Bits)
+					{
+						return false;
+					}
+
+					// The elements must be in increasing order.
+					if (iter.key() >= next.key())
+					{
+						return false;
+					}
+
+					++iter;
+					++next;
+				}
+			}
+
+			return true;
 		}
 
 	private:
-		//! Computes the height of a gap on the right, given an element.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		std::pair<integer, integer> upperGapRange(
-			const ConstIterator& left,
-			const ConstIterator& right) const
+		template <typename... Value>
+		std::pair<Iterator, bool> insertEmpty(
+			const Key& key, 
+			Value&&... value)
 		{
-			ASSERT(left != cend());
-			if (right == cend())
-			{
-				if (size() == 1)
-				{
-					return std::make_pair(0, maxBits());
-				}
-				
-				return std::make_pair(
-					left->chain()->second.height() + 1, maxBits());
-			}
+			ASSERT(empty());
 
-			integer leftMin = 0;
-			integer leftMax = left->chain()->second.height();
-			if (odd(left->chain()->first))
-			{
-				leftMin = leftMax + 1;
-				leftMax = findChain(left->chain()->first, leftMax)->second.height();
-			}
+			// Create a bundle.
+			BundlePtr bundle = std::make_shared<Bundle>();
 
-			integer rightMin = 0;
-			integer rightMax = right->chain()->second.height();
-			if (even(right->chain()->first))
-			{
-				rightMin = rightMax + 1;
-				rightMax = findChain(right->chain()->first, rightMax)->second.height();
-			}
+			// Create the zero chain.
+			Chain_Iterator chain = 
+				insertChain(0, 
+					chainSet_.cend(), 
+					chainSet_.cend(),
+					bundle, 0, true);
 
-			integer gapMin = std::min(leftMin, rightMin);
-			integer gapMax = std::min(leftMax, rightMax);
-			if (leftMax == 0)
-			{
-				gapMax = rightMax;
-			}
+			// Create the element.
+			Iterator element =
+				dataSet_.insert(
+				key, bundle,
+				std::forward<Value>(value)...).first;
 
-			return std::make_pair(gapMin, gapMax);
+			// Insert the fork into the bundle.
+			bundle->insertFork(element, chain);
+
+			return std::make_pair(element, true);
 		}
 
-		//! Returns the right gap-bound of 'key' in R'.
+		//! Returns minimal k such that ((u, 0) up k) in R'.
 		/*!
 		Time complexity:
-		FIX: add
+		O(log(log(Delta + 4)))
+		where
+		Delta = |u - u'|,
+		u' is the nearest neighbor of u in R.
 
 		Exception safety:
 		nothrow
 
 		returns:
-		An iterator to a minimal element m such that
-
-			std::prev(m)->chain()->first < key.
+		A minimal integer 'k', such that ((u, 0) up k) in R'.
 		*/
-		ConstIterator rightGapBound(const Key& key) const
+		std::pair<Chain_ConstIterator, integer> 
+			lowestAncestor(const Key& key) const
 		{
-			if (size() < 2 ||
-				key > last()->key())
+			if (empty())
 			{
-				return cend();
+				return std::make_pair(chainSet_.cend(), 0);
 			}
 
-			auto nearby = [&](integer level)
+			integer minLevel = 0;
+			integer maxLevel = maxBits();
+			while (true)
 			{
-				return chainNearby(key, level);
-			};
-
-			integer nearbyLevel =
-				binarySearch((integer)0, bits(), nearby);
-
-			// Let j = nearbyLevel and v = key up j.
-			Chain_ConstIterator chain = findChain(key, nearbyLevel);
-			if (chain != chainSet_.cend())
-			{
-				// If (v, j) in R', then it is the 
-				// lowest ancestor of v. The lowest ancestor 
-				// is an upper gap-node.
-				return rightGapBoundFromUpperGap(
-					chain, nearbyLevel);
-			}
-
-			// If (v, j) !in R', then either 
-			// (v + 1, j) in R' or
-			// (v - 1, j) in R', but not both.
-			bool nextExists = chainOnRight(key, nearbyLevel);
-			bool oddChain = !key.bit(nearbyLevel);
-			Key nearbyKey = nextKey(key, nearbyLevel, nextExists);
-
-			// The (w, j) is a lower gap-node. Find its chain.
-			Chain_ConstIterator gapBoundChain =
-				findChain(nearbyKey, nearbyLevel);
-			ASSERT(gapBoundChain != chainSet_.cend());
-
-			if (oddChain == nextExists)
-			{
-				// If the next key exists, and it is
-				// on an odd chain, then it must be on
-				// an upper gap-node. Similarly for the
-				// previous key and an even chain.
-
-				return rightGapBoundFromUpperGap(
-					gapBoundChain, nearbyLevel);
-			}
-
-			// Get the element associated with this chain.
-			ConstIterator gapBound = gapBoundChain->second.element();
-			if (oddChain)
-			{
-				// If we are on the odd lower-chain, then
-				// it is the successor of its key we are 
-				// looking for.
-				++gapBound;
-			}
-
-			// Return the element whose chain-key
-			// is the successor of 'key'.
-			return gapBound;
-		}
-
-		//! Returns the successor in R, given an upper gap-node.
-		/*!
-		Preconditions:
-		level >= 0
-
-		Time complexity:
-		O(1) expected
-		
-		Exception safety: 
-		nothrow
-
-		returns:
-		An iterator to a chain such that (key up level, level)
-		is in the chain. The chain exists only if its contained
-		in S'.
-		*/
-		ConstIterator rightGapBoundFromUpperGap(
-			const Chain_ConstIterator& chain, integer level) const
-		{
-			ASSERT_OP(level, >= , 0);
-			ASSERT(chain != chainSet_.cend());
-
-			integer splitOffset = level;
-			if (chain->second.splitExists(0, level + 1))
-			{
-				// There is a split-node below or at the level 'level'.
-
-				// Find the first split-node in the gap-path below the
-				// level 'level'. If there is no split-node, then this
-				// will return 'level', which is also correct for
-				// what follows.
-				auto splitAtOrAbove = [&](integer offset)
+				auto nearby = [&](integer level)
 				{
-					return chain->second.splitExists(level - offset, level + 1);
+					return chainNearby(key, level);
 				};
 
-				splitOffset = binarySearch(
-					(integer)0, (integer)level, 
-					splitAtOrAbove);
-			}
+				integer nearbyLevel =
+					binarySearch(minLevel, maxLevel, nearby);
 
-			bool oddGapPath = chain->first.bit(level);
-
-			// Follow the upper gap-path downwards 
-			// to the first split- or leaf-node, and
-			// then follow the lower gap-path.
-			Key gapKey = chain->first;
-			gapKey.setBits(0, level - splitOffset, !oddGapPath);
-
-			// Find the chain corresponding to the gap-bound.
-			Chain_ConstIterator lowerChain = findChain(gapKey);
-			ASSERT(lowerChain != chainSet_.cend());
-
-			ConstIterator element = lowerChain->second.element();
-			if (!oddGapPath)
-			{
-				// Since we followed the even gap-path,
-				// we are now at the left gap-bound.
-				// The right gap-bound is its successor.
-				ASSERT(element != cend());
-				++element;
-			}
-
-			return element;
-		}
-
-		//! Finds the next split-node at or above the given level.
-		/*!
-		Preconditions:
-		0 <= level <= maxBits()
-
-		Time complexity: 
-		O(1) expected
-		
-		Exception safety: 
-		nothrow
-
-		The 'next' means that the split-node
-		1) is an ancestor of 'key', 
-		2) is located at the top of an odd (even) 
-		chain (i.e. at level chain->second.height()), 
-		if 'odd' is true (false), and
-		3) is located at a minimum such level at or above
-		the given level.
-
-		returns:
-		An iterator to a chain, agreeing with oddness, whose
-		node above is the next split-node.
-		*/
-		Chain_ConstIterator findNextSplit(
-			const Key& key, integer level, bool odd) const
-		{
-			ASSERT_OP(level, >, 0);
-			ASSERT_OP(level, <=, maxBits());
-
-			// Find the chain which contains (key up level, level).
-			Chain_ConstIterator chain = findChain(key, level);
-			ASSERT(chain != chainSet_.cend());
-
-			// Here we will have to look at the split
-			// information directly, and remember that the
-			// split-information at level i is at position i - 1.
-
-			// Clear the lower split-bits so that we will not 
-			// find the lower split-nodes.
-			Key mask = chain->second.split();
-			mask.clearBits(0, level - 1);
-
-			bool oddChain = key.bit(level);
-			if (oddChain != odd && zero(mask))
-			{
-				// The chain differs in oddness from the
-				// desired and there are no split-nodes at 
-				// or above the given level in the current
-				// chain. We may skip above this chain to
-				// a chain which agrees in oddness.
-				level = chain->second.height();
-				
-				// We don't return the level, because it
-				// is not at the top of a chain. Instead,
-				// we continue as if we were given this
-				// top node to begin with.
-				chain = findChain(key, level);
-				oddChain = key.bit(level);
-			}
-
-			if ((oddChain != odd || level == bits()) && 
-				chain->second.splitExists(level))
-			{
-				// Since the chain differs in oddness, and
-				// we are on a split-node, we must be on top
-				// of a chain which agrees in oddness.
-				Key nextChainKey = key;
-				nextChainKey.setBits(0, level, odd);
-				return findChain(nextChainKey);
-			}
-
-			if (oddChain == odd)
-			{
-				// The chain's oddness equals 'odd'. Since all
-				// the chains that split off the current chain must
-				// be of different oddness, we may skip them.
-
-				// In the case the current chain is the zero
-				// chain, there are no split-nodes above.
-				if (chain->second.height() == 0)
+				Chain_ConstIterator chain = 
+					findChain(key, nearbyLevel);
+				if (chain != chainSet_.cend())
 				{
-					return chainSet_.cend();
+					// If a prefix of the key exists in the 'nearbyLevel'
+					// of the trie, then the corresponding node is the
+					// lowest ancestor of the key.
+					return std::make_pair(chain, nearbyLevel);
 				}
 
-				return chain;
+				bool oddNearbyChain = !key.bit(nearbyLevel);
+
+				// Let j = nearbyLevel and v = key up j. Since
+				// (v, j) !in R', it can not occur that both
+				// (v + 1, j) in R' and (v - 1, j) in R'.
+				// Call the existing one w.
+				bool nextExists = chainOnRight(key, nearbyLevel);
+				
+				Key nearbyKey = nextKey(key, nearbyLevel, nextExists);
+				Chain_ConstIterator nearbyChain =
+					findChain(nearbyKey, nearbyLevel);
+				
+				if (nextExists == oddNearbyChain)
+				{
+					// If the right neighbor is on the right 1-gap-path,
+					// then the level above must contain the lowest-ancestor
+					// of the key. Similarly for the left neighbor on 
+					// the left 0-gap-path.
+					return std::make_pair(nearbyChain, nearbyLevel + 1);
+				}
+
+				// Move above the nearby-chain.
+				minLevel = nearbyChain->height();
 			}
-		
-			// Form the mask which has one-bits below the first 
-			// split-node above the given level.
-			mask = zeroHigherBits(mask);
-			--mask;
 
-			// The last bit of 'mask' must now be zero. We may
-			// thus remove the encoding offset.
-			mask <<= 1;
-			++mask;
+			return std::make_pair(chainSet_.cend(), 0);
+		}
 
-			// Find the chain-key of the next odd (even) chain.
-			Key nextChainKey = key;
-			if (odd)
+		Chain_ConstIterator rightGapFromLowestAncestor(
+			const Chain_ConstIterator& lowestAncestor,
+			integer level) const
+		{
+			auto splitHereOrLower = [&](integer offset)
 			{
-				nextChainKey |= mask;
-			}
-			else
+				return lowestAncestor->splitExists(
+					level - offset, level + 1);
+			};
+
+			integer offset = level;
+			if (lowestAncestor->splitExists(0, level + 1))
 			{
-				nextChainKey &= ~mask;
+				offset = exponentialBinarySearch(
+					(integer)0, level, splitHereOrLower);
+			}
+			integer splitLevel = level - offset;
+
+			Key gapKey = turn(lowestAncestor->key(), splitLevel);
+
+			Chain_ConstIterator gap = findChain(gapKey);
+			if (even(lowestAncestor->key()))
+			{
+				++gap;
 			}
 
-			Chain_ConstIterator nextChain = findChain(nextChainKey);
-			ASSERT(nextChain != chainSet_.cend());
+			return gap;
+		}
+
+		std::pair<Chain_ConstIterator, integer> 
+			lowestAncestorFromGapBounds(
+			const Key& key, 
+			const Key& leftGap, 
+			const Key& rightGap) const
+		{
+			Key delta = std::min(
+				zeroHigherBits(leftGap ^ key),
+				zeroHigherBits(key ^ rightGap));
 			
-			return nextChain;
+			integer level = zero(delta) ? 
+				0 : (integerLog2(delta) + 1);
+
+			return std::make_pair(findChain(key, level), level);
+		}
+
+		//! Converts a const-iterator to an iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Iterator cast(const ConstIterator& that)
+		{
+			return dataSet_.cast(that);
+		}
+
+		//! Converts a chain const-iterator to a chain iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Chain_Iterator cast(const Chain_ConstIterator& that)
+		{
+			return chainSet_.erase(that, that);
 		}
 
 		//! Returns the next key on a given level.
@@ -1199,7 +1079,13 @@ namespace Pastel
 			return result;
 		}
 
- 		//! Returns the chain [(key up level, level)].
+		Key turn(
+			const Key& key, integer level) const
+		{
+			return replicate(key, level, true);
+		}
+		
+		//! Returns the chain [(key up level, level)].
 		/*!
 		Time complexity:
 		O(1) expected
@@ -1231,7 +1117,12 @@ namespace Pastel
 		Chain_ConstIterator findChain(const Key& key) const
 		{
 			++finds;
-			return chainSet_.find(key);
+			Trie_ConstIterator trie = trieSet_.find(key);
+			if (trie == trieSet_.cend())
+			{
+				return chainSet_.cend();
+			}
+			return trie->second;
 		}
 
 		Chain_Iterator findChain(const Key& key)
@@ -1325,29 +1216,32 @@ namespace Pastel
 		*/
 		Chain_Iterator insertChain(
 			const Key& chainKey,
-			const Chain_Iterator& chainAbove,
+			const Chain_ConstIterator& next,
+			const Chain_ConstIterator& above,
+			const BundlePtr& bundle,
 			integer height,
-			const Iterator& element)
+			bool normal)
 		{
 			ASSERT_OP(height, >= , 0);
 			ASSERT_OP(height, <= , maxBits());
 			ASSERT(height > 0 || zero(chainKey));
 
 			// Create the chain.
-			Chain_Iterator chain =
-				chainSet_.insert(
-				std::make_pair(chainKey,
-				Chain(element, height))).first;
+			Chain_Iterator chain = chainSet_.emplace(
+				next, chainKey, bundle, 
+				height, normal);
 
-			// Now set the chain of the element.
-			element->chain_ = chain;
+			// Create the trie part.
+			auto trieAndIsNew = trieSet_.emplace(
+				chainKey, chain);
+			ASSERT(trieAndIsNew.second);
 
 			// Every insertion, except for the first chain
 			// (the zero chain), creates a new split node.
 			// Update the split information in the chain above.
-			if (chainAbove != chainSet_.cend())
+			if (above != chainSet_.cend())
 			{
-				chainAbove->second.setSplit(height);
+				cast(above)->setSplit(height);
 			}
 
 			return chain;
@@ -1360,58 +1254,34 @@ namespace Pastel
 		*/
 		void eraseChain(const Chain_ConstIterator& chain)
 		{
-			ASSERT(zero(chain->second.split()));
+			ASSERT(zero(chain->split()));
 
-			if (chain->second.height() > 0)
+			if (chain->height() > 0)
 			{
 				// Update the split information for the chain 
 				// above the removed chain. We exclude the zero 
 				// chain does because it does not have any chain 
 				// above it.
-				Chain_Iterator chainAbove =
-					findChain(chain->first, chain->second.height());
-				chainAbove->second.setSplit(
-					chain->second.height(), false);
+				Chain_Iterator above =
+					findChain(chain->key(), chain->height());
+				above->setSplit(
+					chain->height(), false);
 			}
+
+			// Remove the trie chain.
+			trieSet_.erase(chain->key());
 
 			// Remove the chain.
 			chainSet_.erase(chain);
 		}
 
-		//! Moves an element to the chains of another element.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		void moveChain(const Iterator& from, const Iterator& to)
-		{
-			to->chain_ = from->chain_;		
-			to->chain_->second.element_ = to;
-		}
+		//! The compact x-fast trie over the chain-keys.
+		TrieSet trieSet_;
 
 		//! The set of chains.
-		/*!
-		Each element is associated bijectively
-		with a chain [k], which is defined by
-
-			[k] = {(u, i) in N^2 : forward(u, i) = k}
-
-		A compact x-fast trie is characterized by fulfilling
-		the chain-decomposition property:
-
-			S' = union_{s in R} [s]
-
-		Since the c-fast trie maintains a compact x-fast trie,
-		it can be stored in linear space.
-		*/
 		ChainSet chainSet_;
 
 		//! The elements stored in increasing order.
-		/*!
-		By a property of the c-fast trie, it also holds that
-		that the chain-keys of the associated chains are
-		in increasing order.
-		*/
 		DataSet dataSet_;
 	};
 	
@@ -1438,23 +1308,5 @@ namespace Pastel
 	using CFastTrie_Set = CFastTrie<CFastTrie_Set_Settings<Bits>>;
 
 }
-
-namespace Pastel
-{
-
-	//! Returns whether the invariants hold for the c-fast trie.
-	/*!
-	This function is useful for debugging the implementation of the
-	c-fast trie, and so is used in testing.
-	*/
-	template <
-		typename Settings,
-		typename Customization>
-	bool checkInvariants(
-		const CFastTrie<Settings, Customization>& trie);
-
-}
-
-#include "pastel/sys/cfasttrie.hpp"
 
 #endif

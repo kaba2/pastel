@@ -55,201 +55,211 @@ namespace
 
 			{
 				a.insert(1, 11);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1 }));
 				TEST_ENSURE(valuesEqual(a, { 11 }));
 			}
 			{
 				a.insert(9, 19);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 19 }));
 			}
 			{
 				a.insert(5, 15);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 5, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 15, 19 }));
 			}
 			{
 				a.insert(4, 14);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 4, 5, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 14, 15, 19 }));
 			}
 			{
 				a.insert(6, 16);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 				
 				TEST_ENSURE(keysEqual(a, { 1, 4, 5, 6, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 14, 15, 16, 19 }));
 			}
 			{
 				a.insert(3, 13);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 3, 4, 5, 6, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 13, 14, 15, 16, 19 }));
 			}
 			{
 				a.insert(7, 17);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 3, 4, 5, 6, 7, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 13, 14, 15, 16, 17, 19 }));
 			}
 			{
 				a.insert(8, 18);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 3, 4, 5, 6, 7, 8, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 13, 14, 15, 16, 17, 18, 19 }));
 			}
 			{
 				a.insert(2, 12);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 2, 3, 4, 5, 6, 7, 8, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 12, 13, 14, 15, 16, 17, 18, 19 }));
 			}
 			{
 				a.insert(0, 10);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }));
 			}
 			{
 				a.insert(9, 15);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }));
 			}
 			{
 				a.insert(10, 20);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 }));
 			}
 			{
 				a.insert(15, 25);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25 }));
 			}
+			/*
 			{
 				a.erase(9);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 25 }));
 			}
 			{
-				a.erase(0);
-				TEST_ENSURE(checkInvariants(a));
+				a.erase(Map::Key(0));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 2, 3, 4, 5, 6, 7, 8, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 12, 13, 14, 15, 16, 17, 18, 20, 25 }));
 			}
 			{
 				a.erase(6);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 2, 3, 4, 5, 7, 8, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 12, 13, 14, 15, 17, 18, 20, 25 }));
 			}
 			{
 				a.erase(7);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 2, 3, 4, 5, 8, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 12, 13, 14, 15, 18, 20, 25 }));
 			}
 			{
 				a.erase(8);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 2, 3, 4, 5, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 12, 13, 14, 15, 20, 25 }));
 			}
 			{
 				a.erase(2);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 3, 4, 5, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 13, 14, 15, 20, 25 }));
 			}
 			{
 				a.erase(3);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 4, 5, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 14, 15, 20, 25 }));
 			}
 			{
 				a.erase(4);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 5, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 15, 20, 25 }));
 			}
 			{
 				a.erase(5);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 1, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 20, 25 }));
 			}
 			{
 				a.erase(1);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 20, 25 }));
 			}
 			{
 				a.erase(15);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, { 10}));
 				TEST_ENSURE(valuesEqual(a, { 20 }));
 			}
 			{
 				a.erase(10);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 
 				TEST_ENSURE(keysEqual(a, {}));
 				TEST_ENSURE(valuesEqual(a, {}));
 			}
+			*/
 		}
 
 		template <int N>
 		void print(const CFastTrie_Map<N, integer>& a)
 		{
-			for (auto&& element : a)
+			auto element = a.cbegin();
+			auto chain = a.cchainBegin();
+			while (element != a.cend())
 			{
 				std::cout << element.key().word(0) << " : "
-					<< element.chain()->first.word(0) << " : "
-					<< element
+					<< chain->key().word(0) << " : "
+					<< *element
 					<< std::endl;
+				++element;
+				++chain;
 			}
 		}
 
 		template <int N>
 		void print(const CFastTrie_Set<N>& a)
 		{
-			for (auto&& element : a)
+			auto element = a.cbegin();
+			auto chain = a.cchainBegin();
+			while (element != a.cend())
 			{
 				std::cout << element.key().word(0) << " : "
-					<< element.chain()->first.word(0)
+					<< chain->key().word(0) << " : "
 					<< std::endl;
+				++element;
+				++chain;
 			}
 		}
 
@@ -283,16 +293,16 @@ namespace
 			TEST_ENSURE(a.find(8) == a.lowerBound(8));
 			TEST_ENSURE(a.find(9) == a.lowerBound(9));
 
-			TEST_ENSURE(a.lowerBound(0)->key() == 1);
-			TEST_ENSURE(a.lowerBound(1)->key() == 1);
-			TEST_ENSURE(a.lowerBound(2)->key() == 3);
-			TEST_ENSURE(a.lowerBound(3)->key() == 3);
-			TEST_ENSURE(a.lowerBound(4)->key() == 4);
-			TEST_ENSURE(a.lowerBound(5)->key() == 5);
-			TEST_ENSURE(a.lowerBound(6)->key() == 7);
-			TEST_ENSURE(a.lowerBound(7)->key() == 7);
-			TEST_ENSURE(a.lowerBound(8)->key() == 8);
-			TEST_ENSURE(a.lowerBound(9)->key() == 9);
+			TEST_ENSURE(a.lowerBound(0).key() == 1);
+			TEST_ENSURE(a.lowerBound(1).key() == 1);
+			TEST_ENSURE(a.lowerBound(2).key() == 3);
+			TEST_ENSURE(a.lowerBound(3).key() == 3);
+			TEST_ENSURE(a.lowerBound(4).key() == 4);
+			TEST_ENSURE(a.lowerBound(5).key() == 5);
+			TEST_ENSURE(a.lowerBound(6).key() == 7);
+			TEST_ENSURE(a.lowerBound(7).key() == 7);
+			TEST_ENSURE(a.lowerBound(8).key() == 8);
+			TEST_ENSURE(a.lowerBound(9).key() == 9);
 			TEST_ENSURE(a.lowerBound(10) == a.cend());
 			TEST_ENSURE(a.lowerBound(11) == a.cend());
 			TEST_ENSURE(a.lowerBound(12) == a.cend());
@@ -300,15 +310,15 @@ namespace
 			TEST_ENSURE(a.lowerBound(14) == a.cend());
 			TEST_ENSURE(a.lowerBound(15) == a.cend());
 
-			TEST_ENSURE(a.upperBound(0)->key() == 1);
-			TEST_ENSURE(a.upperBound(1)->key() == 3);
-			TEST_ENSURE(a.upperBound(2)->key() == 3);
-			TEST_ENSURE(a.upperBound(3)->key() == 4);
-			TEST_ENSURE(a.upperBound(4)->key() == 5);
-			TEST_ENSURE(a.upperBound(5)->key() == 7);
-			TEST_ENSURE(a.upperBound(6)->key() == 7);
-			TEST_ENSURE(a.upperBound(7)->key() == 8);
-			TEST_ENSURE(a.upperBound(8)->key() == 9);
+			TEST_ENSURE(a.upperBound(0).key() == 1);
+			TEST_ENSURE(a.upperBound(1).key() == 3);
+			TEST_ENSURE(a.upperBound(2).key() == 3);
+			TEST_ENSURE(a.upperBound(3).key() == 4);
+			TEST_ENSURE(a.upperBound(4).key() == 5);
+			TEST_ENSURE(a.upperBound(5).key() == 7);
+			TEST_ENSURE(a.upperBound(6).key() == 7);
+			TEST_ENSURE(a.upperBound(7).key() == 8);
+			TEST_ENSURE(a.upperBound(8).key() == 9);
 			TEST_ENSURE(a.upperBound(9) == a.cend());
 			TEST_ENSURE(a.upperBound(10) == a.cend());
 			TEST_ENSURE(a.upperBound(11) == a.cend());
@@ -334,13 +344,13 @@ namespace
 		{
 			{
 				Set a({ 3 });
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 				TEST_ENSURE(keysEqual(a, { 3 }));
 			}
 
 			{
 				Set a({ 3, 2 });
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 				TEST_ENSURE(keysEqual(a, { 2, 3 }));
 			}
 			{
@@ -354,23 +364,23 @@ namespace
 		{
 			{
 				CFastTrie_Set<32> a{ 0, 1, 2, 3, 4, 5};
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 			}
 
 			{
 				CFastTrie_Set<32> a{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
 					12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 };
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 			}
 			{
 				CFastTrie_Set<5> a{ 5, 9, 23, 25, 26, 31};
 				a.insert(19);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 			}
 			{
 				CFastTrie_Set<5> a{ 1, 4, 12, 18, 24 };
 				a.insert(13);
-				TEST_ENSURE(checkInvariants(a));
+				TEST_ENSURE(a.testInvariants());
 			}
 		}
 	};

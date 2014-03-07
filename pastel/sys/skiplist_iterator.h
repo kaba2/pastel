@@ -79,7 +79,7 @@ namespace Pastel
 
 			const Value_Class& value() const
 			{
-				return ((Data_Node*)this->base())->value();
+				return ((const Data_Node*)this->base())->value();
 			}
 
 			integer equivalents() const
