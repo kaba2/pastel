@@ -368,7 +368,7 @@ namespace Pastel
 		//! Inserts an element into the skip list.
 		/*!
 		This is a convenience function which calls
-		insertNear(cend(), std::move(key), std::forward<That...>(value)).
+		insertNear(cend(), std::move(key), std::forward<That>(value)...).
 		*/
 		template <typename... That>
 		std::pair<Iterator, bool> insert(

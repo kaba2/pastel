@@ -3,6 +3,7 @@
 #ifndef PASTELSYS_CFASTTRIE_CHAIN_H
 #define PASTELSYS_CFASTTRIE_CHAIN_H
 
+#include "pastel/sys/cfasttrie_fwd.h"
 #include "pastel/sys/logarithm.h"
 #include "pastel/sys/leading_zero_bits.h"
 #include "pastel/sys/leading_one_bits.h"
@@ -23,20 +24,32 @@ namespace Pastel
 	namespace CFastTrie_
 	{
 
-		template <
-			typename Key,
-			typename Iterator,
-			typename Const_Iterator>
+		//! C-fast trie chain
+		template <typename CFastTrie_Settings>
 		class Chain
 		{
 		public:
+			using Fwd = CFastTrie_Fwd<CFastTrie_Settings>;
+
+			PASTEL_FWD(Key);
+			PASTEL_FWD(BundlePtr);
+
 			Chain(
-				Iterator element,
-				integer height)
+				const Key& key,
+				const BundlePtr& bundle,
+				integer height,
+				bool normal)
 			: height_(height)
 			, split_(0)
-			, element_(element)
+			, bundle_(bundle)
+			, normal_(true)
+			, key_(key)
 			{
+			}
+
+			const Key& key() const
+			{
+				return key_;
 			}
 
 			//! Returns the height of the chain.
@@ -88,9 +101,15 @@ namespace Pastel
 				return split_;
 			}
 
-			Const_Iterator element() const
+			const BundlePtr& bundle() const
 			{
-				return element_;
+				return bundle_;
+			}
+
+			//! Returns whether the chain is normal.
+			bool normal() const
+			{
+				return normal_;
 			}
 
 		private:
@@ -134,8 +153,20 @@ namespace Pastel
 			*/
 			Key split_;
 
-			//! The element stored in this chain.
-			Iterator element_;
+			//! The chain bundle of the chain.
+			/*!
+			Each chain is connected to a chain bundle.
+			The purpose of a chain bundle is to redirect
+			to a nearby element in such a way that the
+			redirected element can be changed for all the
+			chains in constant time.
+			*/
+			BundlePtr bundle_;
+
+			//! Whether the chain is normal.
+			bool normal_;
+
+			Key key_;
 		};
 
 	}

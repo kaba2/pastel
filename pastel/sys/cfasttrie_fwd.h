@@ -5,11 +5,13 @@
 
 #include "pastel/sys/integer.h"
 #include "pastel/sys/object_forwarding.h"
-#include "pastel/sys/cfasttrie_chain.h"
 #include "pastel/sys/cfasttrie_iterator.h"
+#include "pastel/sys/skiplist.h"
 
-#include <unordered_map>
 #include <list>
+#include <map>
+#include <memory>
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -18,6 +20,23 @@ namespace Pastel
 		typename Settings,
 		typename Customization>
 	class CFastTrie;
+
+	namespace CFastTrie_
+	{
+
+		template <typename CFastTrie_Settings>
+		class Element;
+
+		template <typename CFastTrie_Settings>
+		class Fork;
+
+		template <typename CFastTrie_Settings>
+		class Chain;
+
+		template <typename CFastTrie_Settings>
+		class Bundle;
+
+	}
 
 	//! Types for the c-fast trie
 	template <typename CFastTrie_Settings>
@@ -41,11 +60,7 @@ namespace Pastel
 		using Value = typename Settings::Value;
 		using Value_Class = Class<Value>;
 
-		// Elements
-
-		class Element;
-
-		//! The storage for the elements.
+		//! Elements
 		/*!
 		The elements are stored in a doubly-linked list so
 		that an element can be inserted to or removed from
@@ -56,7 +71,8 @@ namespace Pastel
 		property of the c-fast trie the associated chains
 		are also in increasing order.
 		*/
-		using DataSet = std::list<Element>;
+		using Element = CFastTrie_::Element<CFastTrie_Settings>;
+		using DataSet = SkipList_Map<Key, Element>;
 		using ConstIterator = typename DataSet::const_iterator;
 		using Iterator = typename DataSet::iterator;
 		using Range = boost::iterator_range<Iterator>;
@@ -72,62 +88,46 @@ namespace Pastel
 		using Key_ConstRange = 
 			boost::iterator_range<Key_ConstIterator>;
 
-		// Chains
+		//! Bundles
+		using Bundle = CFastTrie_::Bundle<CFastTrie_Settings>;
+		using BundlePtr = std::shared_ptr<Bundle>;
+		using Bundle_WeakPtr = std::weak_ptr<Bundle>;
 
-		using Chain = CFastTrie_::Chain<Key, Iterator, ConstIterator>;
-
-		//! The storage for chains.
+		//! Chains
 		/*!
-		The chains are stored in a hash-table, accessed by their
-		chain-keys. Each chain corresponds to an element and vice
-		versa.
+		The chains are stored in a doubly-linked list, because
+		when a bundle is partioned, every chain in the bundle
+		needs to be redirected to its new bundle.
 		*/
-		using ChainSet = std::unordered_map<Key, Chain>;
+		using Chain = CFastTrie_::Chain<CFastTrie_Settings>;
+		using ChainSet = std::list<Chain>;
 		using Chain_ConstIterator = typename ChainSet::const_iterator;
 		using Chain_Iterator = typename ChainSet::iterator;
+		using Chain_ConstRange = boost::iterator_range<Chain_ConstIterator>;
 
-		//! An element
+		//! Forks
 		/*!
-		An element stores the key, the potential user-data, and
-		the corresponding chain. We make use of the empty base-class 
-		optimization to avoid memory-use if Value = void.
+		When removing an element, it must be determined
+		which fork has the element as its lowest ancestor.
+		Storing the fork-chains by their chain-keys in 
+		a map allows to solve this fast.
 		*/
-		class Element
-		: public Value_Class
-		{
-		public:
-			Element(
-				const Chain_Iterator& chain,
-				Key key,
-				Value_Class&& value)
-			: Value_Class(std::move(value))
-			, chain_(chain)
-			, key_(key)
-			{
-			}
+		using Fork = CFastTrie_::Fork<CFastTrie_Settings>;
+		using ForkSet = std::map<Key, Fork>;
+		using Fork_ConstIterator = 
+			typename ForkSet::const_iterator;
+		using Fork_Iterator = 
+			typename ForkSet::iterator;
 
-			//! Returns the chain corresponding to the element.
-			const Chain_ConstIterator& chain() const
-			{
-				return chain_;
-			}
-
-			//! Returns the actual element.
-			const Key& key() const
-			{
-				return key_;
-			}
-
-		private:
-			template <
-				typename Settings,
-				typename Customization>
-			friend class CFastTrie;
-
-			Chain_Iterator chain_;
-			Key key_;
-		};
-
+		//! The storage for the trie.
+		/*!
+		Each chain-key is paired to its chain. Using replicates,
+		this encodes the whole compact x-fast trie formed by
+		the chain-keys.
+		*/
+		using TrieSet = std::unordered_map<Key, Chain_Iterator>;
+		using Trie_ConstIterator = typename TrieSet::const_iterator;
+		using Trie_Iterator = typename TrieSet::iterator;
 	};
 
 }
