@@ -41,13 +41,13 @@ namespace Pastel
 			{
 			}
 
-			//! Returns the fork below the given key.
-			Fork_ConstIterator forkBelow(const Key& key) const
+			//! Returns the fork closest to the key in tree-distance.
+			Fork_ConstIterator closestFork(const Key& key) const
 			{
 				ASSERT(!forkSet_.empty());
 
-				// The fork is either the successor or
-				// the predecessor of the key.
+				// The closest fork is either the successor 
+				// or the predecessor of the key.
 				Fork_ConstIterator right = 
 					forkSet_.upper_bound(key);
 
@@ -64,9 +64,8 @@ namespace Pastel
 					return left;
 				}
 
-				// The fork below is the one having the smaller 
-				// tree-distance to the key. Interestingly, we
-				// can compute this without computing tree-distances.
+				// Interestingly, we can can compute the closest fork
+				// without computing tree-distances.
 				if (zeroHigherBits(left->second.chain->key() ^ key) <
 					zeroHigherBits(key ^ right->second.chain->key()))
 				{
@@ -114,7 +113,7 @@ namespace Pastel
 				}
 				else
 				{
-					ASSERT_OP(condition_, >=, 0);
+					ASSERT_OP(condition_, >, 0);
 					--condition_;
 				}
 			}
@@ -124,7 +123,7 @@ namespace Pastel
 			{
 				if (chain->normal())
 				{
-					ASSERT_OP(condition_, >=, 0);
+					//ASSERT_OP(condition_, >, 0);
 					--condition_;
 				}
 				else
