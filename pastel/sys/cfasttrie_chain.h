@@ -42,7 +42,7 @@ namespace Pastel
 			: height_(height)
 			, split_(0)
 			, bundle_(bundle)
-			, normal_(true)
+			, normal_(normal)
 			, key_(key)
 			{
 			}

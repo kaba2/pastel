@@ -272,14 +272,13 @@ namespace Pastel
 				std::prev(rightGap);
 
 			// Find the bundle of the key.
-			BundlePtr bundle = 
-				even(above->key()) ?
-					leftGap->bundle() :
-					rightGap->bundle();
+			BundlePtr bundle = even(above->key()) ?
+				leftGap->bundle() :
+				rightGap->bundle();
 
 			// Find the fork below the element.
 			Fork_Iterator fork = 
-				bundle->cast(bundle->forkBelow(key));
+				bundle->cast(bundle->closestFork(key));
 
 			// Create the element (or at least try to).
 			// This takes only O(log(w)), because of the
@@ -303,76 +302,81 @@ namespace Pastel
 
 			// Compute the new chain.
 			Key chainKey = key;
+			Iterator chainElement = element;
 			if (level == 0)
 			{
 				// The chain induced by the key already 
 				// exists. Insert the chain induced by 
 				// a neighbor instead.
 
-				Iterator newElement = element;
 				if (odd(key))
 				{
-					while (chainExists(newElement.key(), 0))
+					while (chainExists(chainElement.key(), 0))
 					{
-						--newElement;
+						--chainElement;
 					}
 				}
 				else
 				{
-					while (chainExists(newElement.key(), 0))
+					while (chainExists(chainElement.key(), 0))
 					{
-						++newElement;
+						++chainElement;
 					}
 				}
 
-				chainKey = newElement.key();
+				chainKey = chainElement.key();
 
 				aboveAndLevel = lowestAncestor(chainKey);
 
 				above = cast(aboveAndLevel.first);
 				level = aboveAndLevel.second;
 
-				bundle = above->bundle();
-
 				rightGap =
 					cast(rightGapFromLowestAncestor(above, level));
 				leftGap =
 					std::prev(rightGap);
+
+				bundle = even(above->key()) ?
+					leftGap->bundle() :
+					rightGap->bundle();
 			}
 			chainKey = turn(chainKey, level);
+
+			bool normal = leftGap->normal() &&
+				(rightGap == chainSet_.end() ||
+				rightGap->normal());
 
 			// Insert the chain induced by the key.
 			Chain_Iterator chain = insertChain(
 				chainKey, rightGap, above,
-				bundle, level, above->normal());
+				bundle, level, normal);
 
 			// See whether to create a new fork and
 			// to remove an old fork.
-			if (rightGap != chainSet_.end())
+			if (rightGap != chainSet_.end() &&
+				!above->splitExists(0, level))
 			{
-				if (odd(leftGap->key()) == odd(rightGap->key()))
-				{
-					if (odd(chainKey) != odd(leftGap->key()))
-					{
-						// Fork creation
+				Chain_Iterator forkChain =
+					odd(chainKey) ? leftGap : chain;
 
-						Chain_Iterator forkChain =
-							odd(chainKey) ? leftGap : chain;
+				Chain_Iterator backChain =
+					odd(chainKey) ? rightGap : leftGap;
 
-						// Add the new chain into the fork-set
-						// of the bundle.
-						bundle->insertFork(element, forkChain);
-
-						// Mark the new chain as abnormal.
-						chain->normal_ = false;
-					}
-				}
-				else if (odd(rightGap->key()) && even(chainKey))
+				if (odd(chainKey) == odd(backChain->key()))
 				{
 					// Fork refinement
+					// Remove the old fork.
 					bundle->removeFork(bundle->findFork(leftGap->key()));
-					bundle->insertFork(element, cast(chain));
 				}
+				else
+				{
+					// Fork creation
+					// Mark the new fork as abnormal.
+					chain->normal_ = false;
+				}
+
+				// Insert the new fork.
+				bundle->insertFork(chainElement, forkChain);
 			}
 
 			bundle->insertChain(chain);
@@ -391,9 +395,12 @@ namespace Pastel
 		//! Refines a bundle to smaller bundles.
 		void refine(const BundlePtr& bundle)
 		{
-			// Skip the first fork; we will reuse the current
-			// bundle for the first fork.
-			Fork_Iterator fork = std::next(bundle->forkSet_.begin());
+			//std::cout << "refine" << std::endl;
+			// An abnormal chain can only exist after at least
+			// one abnormal fork has been created.
+			ASSERT_OP(bundle->forks(), > , 1);
+
+			Fork_Iterator fork = bundle->forkSet_.begin();
 			while (fork != bundle->forkSet_.end())
 			{
 				Chain_Iterator left = fork->second.chain;
@@ -403,22 +410,27 @@ namespace Pastel
 				ASSERT(right == chainSet_.end() ||
 					odd(right->key()));
 
-				// Create a new bundle to hold the fork.
-				BundlePtr newBundle = std::make_shared<Bundle>();
+				BundlePtr newBundle = bundle;
+				if (fork != bundle->forkSet_.begin())
+				{
+					// Create a new bundle to hold the fork.
+					newBundle = std::make_shared<Bundle>();
 
-				// Add the fork into the new bundle.
-				newBundle->forkSet_.emplace(
-					fork->second.chain->key(),
-					Fork(fork->second.element, fork->second.chain));
+					// Add the fork into the new bundle.
+					newBundle->forkSet_.emplace(
+						fork->second.chain->key(),
+						Fork(fork->second.element, fork->second.chain));
+				}
 
 				// Set the even chains on the left to refer
 				// to the new bundle.
 				while(even(left->key()))
 				{
+					bundle->removeChain(left);
+
 					left->bundle_ = newBundle;
 					left->normal_ = true;
 					newBundle->insertChain(left);
-					bundle->removeChain(left);
 					if (left == chainSet_.begin())
 					{
 						break;
@@ -431,16 +443,25 @@ namespace Pastel
 				while(right != chainSet_.end() &&
 					odd(right->key()))
 				{
+					bundle->removeChain(right);
+
 					right->bundle_ = newBundle;
 					right->normal_ = true;
 					newBundle->insertChain(right);
-					bundle->removeChain(right);
 					++right;
 				}
 
-				// Remove the fork from the old bundle
-				// and move on.
-				fork = bundle->forkSet_.erase(fork);
+				if (fork != bundle->forkSet_.begin())
+				{
+					// Remove the fork from the old bundle
+					// and move on.
+					fork = bundle->forkSet_.erase(fork);
+				}
+				else
+				{
+					// Move on.
+					++fork;
+				}
 			}
 		}
 
@@ -475,7 +496,7 @@ namespace Pastel
 			integer level = chainAndLevel.second;
 
 			Chain_ConstIterator chainToRemove =
-				chain->bundle()->forkBelow(element.key())->second.chain;
+				chain->bundle()->closestFork(element.key())->second.chain;
 
 			// Remove the chain.
 			eraseChain(chainToRemove);
@@ -571,7 +592,7 @@ namespace Pastel
 			integer level = chainAndLevel.second;
 
 			BundlePtr bundle = chain->bundle();
-			ConstIterator nearby = bundle->forkBelow(key)->second.element;
+			ConstIterator nearby = bundle->closestFork(key)->second.element;
 
 			return dataSet_.upperBound(key, nearby);
 		}
@@ -845,7 +866,7 @@ namespace Pastel
 				while(next != cend())
 				{
 					// Each bundle always has at most log(w) elements.
-					if (iter->bundle()->forks() > 50 * Bits)
+					if (iter->bundle()->forks() > Bits)
 					{
 						return false;
 					}
@@ -890,6 +911,7 @@ namespace Pastel
 
 			// Insert the fork into the bundle.
 			bundle->insertFork(element, chain);
+			bundle->insertChain(chain);
 
 			return std::make_pair(element, true);
 		}

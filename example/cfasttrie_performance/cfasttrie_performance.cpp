@@ -36,7 +36,7 @@ void print(const CFastTrie_Set<N>& a)
 	}
 }
 
-#define SKIP_ONLY
+//#define SKIP_ONLY
 
 template <typename Set>
 void f(Set& a, integer n)
@@ -46,14 +46,18 @@ void f(Set& a, integer n)
 #endif
 	for (integer i = 0; i < n; ++i)
 	{
-		a.insert(randomUinteger());
+		uinteger key = randomUinteger();
+		//std::cout << key << " ";
+		a.insert(key);
 		//a.insert(n - i);
+		/*
 		if (!a.testInvariants())
 		{
 			std::cout << "Error: " << i << std::endl;
 			//print(a);
 			return;
 		}
+		*/
 	}
 
 #ifdef SKIP_ONLY
@@ -96,7 +100,7 @@ enum{ Bits = 64 };
 template <typename Set>
 void test()
 {
-	for (integer i = (1 << 14); i <= (1 << 14); i *= 2)
+	for (integer i = (1 << 18); i <= (1 << 18); i *= 2)
 	{
 		std::cout << i << " : ";
 
@@ -128,14 +132,15 @@ int main()
 	std::cout << "SkipList_Set" << std::endl;
 	test<SkipList_Set<Unsigned_Integer<Bits>>>();
 
+	std::cout << "RedBlack_Set" << std::endl;
+	test<RedBlack_Set<Unsigned_Integer<Bits>>>();
+
 	std::cout << "std::set" << std::endl;
 	test<std::set<Unsigned_Integer<Bits>>>();
 
 	std::cout << "std::unordered_set" << std::endl;
 	test<std::unordered_set<Unsigned_Integer<Bits>>>();
 
-	std::cout << "RedBlack_Set" << std::endl;
-	test<RedBlack_Set<Unsigned_Integer<Bits>>>();
 #endif
 
 	return 0;
