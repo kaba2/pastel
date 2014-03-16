@@ -939,24 +939,6 @@ namespace Pastel
 
 }
 
-#include <iostream>
-
-namespace Pastel
-{
-
-	//! Returns whether the skip-list invariants hold for 'that'.
-	template <typename SkipList_Settings>
-	bool validInvariants(const SkipList<SkipList_Settings>& that);
-
-	template <typename SkipList_Settings>
-	std::ostream& operator<<(std::ostream& stream, const SkipList<SkipList_Settings>& list);
-
-}
-
-#include "pastel/sys/skiplist_insert.hpp"
-#include "pastel/sys/skiplist_erase.hpp"
-#include "pastel/sys/skiplist.hpp"
-
 #include "pastel/sys/lessthan.h"
 
 namespace Pastel
@@ -989,5 +971,31 @@ namespace Pastel
 	using SkipList_MultiSet = SkipList<SkipList_Map_Settings<Key, void, Compare, true>>;
 
 }
+
+#include <iostream>
+
+namespace Pastel
+{
+
+	//! Returns whether the skip-list invariants hold for 'that'.
+	/*!
+	Time complexity: that.size()
+	Exception safety: nothrow
+
+	This function is useful only for testing. If the implementation
+	is correct, this function should always return true.
+	*/
+	template <typename SkipList_Settings>
+	bool testInvariants(const SkipList<SkipList_Settings>& that);
+
+	template <typename SkipList_Settings>
+	std::ostream& operator<<(std::ostream& stream, const SkipList<SkipList_Settings>& list);
+
+}
+
+#include "pastel/sys/skiplist_insert.hpp"
+#include "pastel/sys/skiplist_invariants.hpp"
+#include "pastel/sys/skiplist_erase.hpp"
+#include "pastel/sys/skiplist.hpp"
 
 #endif
