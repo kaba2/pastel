@@ -647,20 +647,23 @@ namespace Pastel
 			return upper;
 		}
 
+		/*
 		ConstIterator lower_bound(const Key& key) const
 		{
 			return lowerBound(key);
-		}
+		}*/
 
 		Iterator lowerBound(const Key& key)
 		{
 			return cast(addConst(*this).lowerBound(key));
 		}
 
+		/*
 		Iterator lower_bound(const Key& key)
 		{
 			return lowerBound(key);
 		}
+		*/
 
 		//! Returns whether the element exists.
 		/*!
@@ -885,7 +888,7 @@ namespace Pastel
 			return true;
 		}
 
-	private:
+	//private:
 		template <typename... Value>
 		std::pair<Iterator, bool> insertEmpty(
 			const Key& key, 
@@ -930,6 +933,11 @@ namespace Pastel
 		returns:
 		A minimal integer 'k', such that ((u, 0) up k) in R'.
 		*/
+		void lower_bound(const Key& key) const
+		{
+			lowestAncestor(key);
+		}
+
 		std::pair<Chain_ConstIterator, integer> 
 			lowestAncestor(const Key& key) const
 		{
