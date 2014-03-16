@@ -51,12 +51,24 @@ namespace Pastel
 				return false;
 			}
 
-			if (!iter.left().isSentinel() &&
-				!Compare()(iter.left().key(), iter.key()))
+			if (!iter.left().isSentinel())
 			{
-				// The key on the left must be smaller
-				// than the current key.
-				return false;
+				if (Settings::MultipleKeys)
+				{
+					if (Compare()(iter.key(), iter.left().key()))
+					{
+						// In the case multiple keys are allowed,
+						// the key on the left must be <= 
+						// the current key.
+						return false;
+					}
+				}
+				else if (!Compare()(iter.left().key(), iter.key()))
+				{
+					// In the case of multiple keys are not allowed,
+					// the key on the left must be < the current key.
+					return false;
+				}
 			}
 
 			if (!iter.right().isSentinel() &&

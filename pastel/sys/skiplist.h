@@ -148,19 +148,13 @@ namespace Pastel
 		SkipList(SkipList&& that)
 		: SkipList()
 		{
-			// We want to preserve the sentinel
-			// node in 'key'. This is why we
-			// don't use the usual swap() here.
-			*this = std::move(that);
+			swap(that);
 		}
 
 		//! Destructs a skip list.
 		/*!
-		Time complexity:
-		O(size())
-
-		Exception safety:
-		nothrow
+		Time complexity: O(size())
+		Exception safety: nothrow
 		*/
 		~SkipList()
 		{
@@ -174,102 +168,21 @@ namespace Pastel
 			// automatically.
 		}
 
-		//! Assigns from an initializer list.
+		//! Assigns from another skip list.
 		/*!
-		Time complexity: O(that.size() + size())
-		Exception safety: strong
-		*/
-		template <typename Type>
-		SkipList& operator=(std::initializer_list<Type> that)
-		{
-			SkipList copy(that);
-			swap(copy);
-			return *this;
-		}
-
-		//! Copy-assigns from another skip list.
-		/*!
-		Time complexity:
-		O(that.size())
+		Time complexity: 
+		O(that.size() + size()), for a copy assignment,
+		O(1), for a move assignment.
 
 		Exception safety: 
-		strong
+		strong, for a copy assignment,
+		nothrow, for a move assignment.
 
-		The end() iterator will be preserved.
+		Note that cend() is not preserved.
 		*/
-		SkipList& operator=(const SkipList& that)
+		SkipList& operator=(SkipList that)
 		{
-			if (this == &that)
-			{
-				return *this;
-			}
-
-			// We want to preserve the end() iterator,
-			// so we do not use swap().
-			*this = SkipList(that);
-
-			return *this;
-		}
-
-		//! Move-assigns from another skip list.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-
-		The end() iterator will be preserved.
-		*/
-		SkipList& operator=(SkipList&& that)
-		{
-			if (this == &that)
-			{
-				return *this;
-			}
-
-			// Delete the current contents.
-			clear();
-
-			// We want to preserve the sentinel node.
-			// This is why we splice rather than swap().
-
-			if (!that.endSet_)
-			{
-				// The 'that' is empty. 
-				ASSERT(that.empty());
-
-				// There is nothing to do.
-				return *this;
-			}
-
-			// Transfer the link-set.
-			end_->setLinkSet(std::move(that.end_->linkSet_));
-			that.end_->setLinkSet(std::move(that.endSet_));
-
-			// Translate the links to the new sentinel node.
-			integer n = end_->height();
-			for (integer i = 0;i < n;++i)
-			{
-				if (end_->link(i)[Next] != that.end_)
-				{
-					// Splice the non-empty lists into this
-					// skip-list.
-					Node* thatFirst = end_->link(i)[Next];
-					Node* thatLast = end_->link(i)[Prev];
-
-					link(end_, thatFirst, i);
-					link(thatLast, end_, i);
-				}
-				else
-				{
-					link(end_, end_, i);
-				}
-			}
-
-			size_ = that.size_;
-			uniqueKeys_ = that.uniqueKeys_;
-			maxHeight_ = that.maxHeight_;
-			that.size_ = 0;
-			that.uniqueKeys_ = 0;
-
+			swap(that);
 			return *this;
 		}
 
@@ -354,20 +267,6 @@ namespace Pastel
 		//! Inserts an element into the skip list.
 		/*!
 		This is a convenience function which calls
-		insertNear(hint, std::move(key), Value_Class()).
-		*/
-		std::pair<Iterator, bool> insertNear(
-			const ConstIterator& hint,
-			Key key)
-		{
-			return insertNear(
-				hint, std::move(key),
-				Value_Class());
-		}
-
-		//! Inserts an element into the skip list.
-		/*!
-		This is a convenience function which calls
 		insertNear(cend(), std::move(key), std::forward<That>(value)...).
 		*/
 		template <typename... That>
@@ -378,19 +277,6 @@ namespace Pastel
 			return insertNear(
 				cend(), std::move(key),
 				std::forward<That>(value)...);
-		}
-
-		//! Inserts an element into the skip list.
-		/*!
-		This is a convenience function which calls
-		insertNear(cend(), std::move(key), Value_Class()).
-		*/
-		template <typename... That>
-		std::pair<Iterator, bool> insert(Key key)
-		{
-			return insertNear(
-				cend(), std::move(key),
-				Value_Class());
 		}
 
 		//! Removes all elements equivalent to 'key'.

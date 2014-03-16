@@ -118,23 +118,12 @@ namespace Pastel
 		/*!
 		Time complexity: move/copy-construction
 		Exception safety: strong
+
+		Note that cend() is not preserved.
 		*/
 		RedBlackTree& operator=(RedBlackTree that)
 		{
 			swap(that);
-			return *this;
-		}
-
-		//! Assigns from an initializer list.
-		/*!
-		Time complexity: O(that.size() + size())
-		Exception safety: strong
-		*/
-		template <typename Type>
-		RedBlackTree& operator=(std::initializer_list<Type> that)
-		{
-			RedBlackTree copy(that);
-			swap(copy);
 			return *this;
 		}
 
@@ -183,17 +172,16 @@ namespace Pastel
 		/*!
 		Time complexity: O(log(size())) * updateHierarchicalData() + onInsert()
 		Exception safety: strong + onInsert()
+
+		returns:
+		If multiple keys are allowed, an iterator to the new element.
+		Otherwise an iterator-bool pair, where the boolean tells whether
+		the element was inserted. In case the element is not inserted,
+		the iterator points to the existing equivalent element.
 		*/
 		template <typename... Value>
 		InsertReturnType insert(
 			Key key, Value&&... value);
-
-		//! Inserts an element into the tree.
-		/*!
-		This is a convenience function which calls
-		insert(key, Data_Class()).
-		*/
-		InsertReturnType insert(Key key);
 
 		//! Inserts elements into the tree.
 		/*!

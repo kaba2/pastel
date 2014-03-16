@@ -323,11 +323,9 @@ namespace
 
 				TEST_ENSURE_OP(copyList.size(), ==, 0);
 				TEST_ENSURE(copyList.empty());
-				TEST_ENSURE(copyEnd == copyList.cend());
 				
 				TEST_ENSURE_OP(moveList.size(), ==, 11);
 				TEST_ENSURE(!moveList.empty());
-				TEST_ENSURE(copyEnd != moveList.cend());
 				TEST_ENSURE(boost::equal(moveList, correctSet));
 			}
 
@@ -346,12 +344,10 @@ namespace
 
 				TEST_ENSURE_OP(list.size(), ==, 11);
 				TEST_ENSURE(!list.empty());
-				TEST_ENSURE(listEnd == list.cend());
 				TEST_ENSURE(boost::equal(list, correctSet));
 				
 				TEST_ENSURE_OP(copyList.size(), ==, 11);
 				TEST_ENSURE(!copyList.empty());
-				TEST_ENSURE(listEnd != copyList.cend());
 				TEST_ENSURE(boost::equal(copyList, correctSet));
 
 				List moveList;
@@ -361,15 +357,12 @@ namespace
 				TEST_ENSURE(testInvariants(moveList));
 				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(moveList.maxHeight(), == , maxHeight);
-				TEST_ENSURE_OP(list.maxHeight(), == , maxHeight);
 
 				TEST_ENSURE_OP(list.size(), ==, 0);
 				TEST_ENSURE(list.empty());
-				TEST_ENSURE(listEnd == list.cend());
 				
 				TEST_ENSURE_OP(moveList.size(), ==, 11);
 				TEST_ENSURE(!moveList.empty());
-				TEST_ENSURE(listEnd != moveList.cend());
 				TEST_ENSURE(boost::equal(moveList, correctSet));
 
 				moveList.swap(list);
@@ -378,11 +371,9 @@ namespace
 
 				TEST_ENSURE_OP(list.size(), ==, 11);
 				TEST_ENSURE(!list.empty());
-				TEST_ENSURE(listEnd != list.cend());
 				
 				TEST_ENSURE_OP(moveList.size(), ==, 0);
 				TEST_ENSURE(moveList.empty());
-				TEST_ENSURE(listEnd == moveList.cend());
 			}
 		}
 

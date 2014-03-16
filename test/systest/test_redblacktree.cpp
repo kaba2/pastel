@@ -115,25 +115,31 @@ namespace
 			{
 				Tree tree;
 
-				auto test = [&]()
+				auto test = [&](integer that)
 				{
-					Iterator iter = tree.insert(1);
+					Iterator iter = tree.insert(that);
 					TEST_ENSURE(testInvariants(tree));
-					TEST_ENSURE_OP(*iter, == , 1);
+					TEST_ENSURE_OP(*iter, == , that);
 					TEST_ENSURE(iter == std::prev(tree.cend()));
 				};
 
-				test();
+				test(1);
 				TEST_ENSURE_OP(tree.size(), ==, 1);
 
-				test();
+				test(1);
 				TEST_ENSURE_OP(tree.size(), ==, 2);
 
-				test();
+				test(1);
 				TEST_ENSURE_OP(tree.size(), ==, 3);
 
-				test();
-				TEST_ENSURE_OP(tree.size(), ==, 4);
+				test(5);
+				TEST_ENSURE_OP(tree.size(), == , 4);
+
+				test(5);
+				TEST_ENSURE_OP(tree.size(), == , 5);
+
+				test(5);
+				TEST_ENSURE_OP(tree.size(), == , 6);
 			}
 		}
 
