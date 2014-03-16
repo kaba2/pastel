@@ -21,11 +21,13 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename, typename, typename, bool>
+		template <typename, typename, typename, typename, bool>
 		class Iterator;
 
-		template <typename, typename>
 		class Node;
+
+		template <typename, typename>
+		class Data_Node;
 
 	}
 
@@ -37,21 +39,22 @@ namespace Pastel
 		using Data = typename Settings::Data;
 		using Compare = typename Settings::Compare;
 		using Data_Class = Class<Data>;
-		using Node = RedBlackTree_::Node<Key, Data_Class>;
+		using Node = RedBlackTree_::Node;
+		using Data_Node = RedBlackTree_::Data_Node<Key, Data_Class>;
 
 		using Key_Iterator = 
-			RedBlackTree_::Iterator<Node*, Key, Data_Class, false>;
+			RedBlackTree_::Iterator<Node*, Data_Node*, Key, Data_Class, false>;
 		using Key_ConstIterator = 
-			RedBlackTree_::Iterator<const Node*, Key, Data_Class, false>;
+			RedBlackTree_::Iterator<const Node*, const Data_Node*, Key, Data_Class, false>;
 		using Key_Range = 
 			boost::iterator_range<Key_Iterator>;
 		using Key_ConstRange = 
 			boost::iterator_range<Key_ConstIterator>;
 
 		using Data_Iterator = 
-			RedBlackTree_::Iterator<Node*, Key, Data_Class, true>;
+			RedBlackTree_::Iterator<Node*, Data_Node*, Key, Data_Class, true>;
 		using Data_ConstIterator = 
-			RedBlackTree_::Iterator<const Node*, Key, Data_Class, true>;
+			RedBlackTree_::Iterator<const Node*, const Data_Node*, Key, Data_Class, true>;
 		using Data_Range = 
 			boost::iterator_range<Data_Iterator>;
 		using Data_ConstRange = 
@@ -62,14 +65,26 @@ namespace Pastel
 			(Settings::DereferenceType == RedBlackTree_Dereference_Default &&
 			!std::is_same<Data, void>::value);
 
+		static const bool MultipleKeys =
+			Settings::MultipleKeys;
+
 		using Iterator = 
-			RedBlackTree_::Iterator<Node*, Key, Data_Class, DereferenceToData>;
+			RedBlackTree_::Iterator<
+				Node*, Data_Node*, Key, 
+				Data_Class, DereferenceToData>;
 		using ConstIterator = 
-			RedBlackTree_::Iterator<const Node*, Key, Data_Class, DereferenceToData>;
+			RedBlackTree_::Iterator<
+				const Node*, const Data_Node*, 
+				Key, Data_Class, DereferenceToData>;
 		using Range = 
 			boost::iterator_range<Iterator>;
 		using ConstRange = 
 			boost::iterator_range<ConstIterator>;
+
+		using InsertReturnType =
+			typename std::conditional<MultipleKeys,
+			Iterator,
+			std::pair<Iterator, bool >>::type;
 	};
 
 }

@@ -36,7 +36,7 @@ namespace
 		{
 			integer keySet[] = {1, 5, 3, 2, 7};
 
-			Tree tree(0, 0);
+			Tree tree;
 			TEST_ENSURE_OP(tree.hash(), ==, 0);
 
 			std::vector<hash_integer> hashSet;

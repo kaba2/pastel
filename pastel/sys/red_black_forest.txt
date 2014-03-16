@@ -1,0 +1,17 @@
+Red-black forests
+=================
+
+A _red-black forest_ is a data-structure which implements a locally-ordered dictionary. In particular, it is a sequence of red-black trees. This allows sequential access to the union of the elements in the trees, and also allows fast local operations inside a single tree, provided an operation is given an iterator to a particular tree. When each tree in the forest is singular (consists of one element), the forest degenerates to a doubly-linked list (with an overhead of one unused link per node). When there is only one tree in the forest, the forest degenerates into a red-black tree.
+
+Versus a list of trees
+----------------------
+
+A red-black forest is better than a doubly-linked list of red-black trees, because
+
+* the size is stored for the whole forest, not for each tree, preserving memory,
+* the same sentinel node is used for all the trees, preserving memory and making traversal simple,
+* iteration through the elements as a sequence is simple and fast, in particular between the trees.
+
+The importance of the memory-preservation becomes clear when one considers the extreme case when the forest degenerates into a doubly-linked list. In addition, the normal use-case for the red-black forest is a sequence of many small-sized trees, with the operations being localized from the outside, such as when the red-black forest is used as a component in the c-fast trie.
+
+The most important point of the red-black forest is the simple iteration across the trees. With a list of trees one would somehow have to encode how to get to the next or the previous tree from the current tree. That has an effect both on performance (need to check for boundaries) and memory-use (need to encode boundaries, and their links).

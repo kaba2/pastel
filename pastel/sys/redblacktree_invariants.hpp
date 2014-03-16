@@ -1,7 +1,7 @@
-#ifndef PASTELSYS_REDBLACKTREE_TOOLS_HPP
-#define PASTELSYS_REDBLACKTREE_TOOLS_HPP
+#ifndef PASTELSYS_REDBLACKTREE_INVARIANTS_HPP
+#define PASTELSYS_REDBLACKTREE_INVARIANTS_HPP
 
-#include "pastel/sys/redblacktree_tools.h"
+#include "pastel/sys/redblacktree.h"
 
 #include <iostream>
 
@@ -12,7 +12,7 @@ namespace Pastel
 	{
 
 		template <typename Settings, typename Customization>
-		bool check(
+		bool testInvariants(
 			const RedBlackTree<Settings, Customization>& tree,
 			const typename RedBlackTree<Settings, Customization>::ConstIterator& iter,
 			integer& blackHeight)
@@ -69,13 +69,13 @@ namespace Pastel
 			}
 
 			integer leftBlackHeight = blackHeight;
-			if (!check(tree, iter.left(), leftBlackHeight))
+			if (!testInvariants(tree, iter.left(), leftBlackHeight))
 			{
 				return false;
 			}
 
 			integer rightBlackHeight = blackHeight;
-			if (!check(tree, iter.right(), rightBlackHeight))
+			if (!testInvariants(tree, iter.right(), rightBlackHeight))
 			{
 				return false;
 			}
@@ -100,7 +100,7 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	bool check(const RedBlackTree<Settings, Customization>& tree)
+	bool testInvariants(const RedBlackTree<Settings, Customization>& tree)
 	{
 		if (!tree.croot().black())
 		{
@@ -109,7 +109,7 @@ namespace Pastel
 		}
 
 		integer blackHeight = 0;
-		return RedBlackTree_::check(tree, tree.croot(), blackHeight);
+		return RedBlackTree_::testInvariants(tree, tree.croot(), blackHeight);
 	}
 
 }

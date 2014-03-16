@@ -69,7 +69,7 @@ iterator, when the tree is interpreted as an ordered sequence. When the
 parent of the sentinel node points to the maximum node, one is able
 to naturally get to the precedessor (the maximum node) from the 
 one-past-end iterator. The color of the sentinel node is black, and it
-does not have any children. The children of the entinel node point
+does not have any children. The children of the sentinel node point
 to itself, a unique property which can be used to identify a sentinel
 node. Using the sentinel node is a standard trick, but its connection
 to the one-past-end iterator is rarely mentioned.

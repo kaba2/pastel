@@ -65,7 +65,7 @@ namespace Pastel
 		typename Key_Hash = std::hash<Key>>
 	using HashedTree = RedBlack_Map<Key, HashedTree_Data<Data>, Compare, RedBlackTree_Dereference_Key,
 		Hash_RedBlackTree_Customization<
-		RedBlack_Map_Settings<Key, HashedTree_Data<Data>, Compare>, Key_Hash>>;
+		RedBlack_Settings<Key, HashedTree_Data<Data>, Compare, RedBlackTree_Dereference_Key, false>, Key_Hash>>;
 
 }
 

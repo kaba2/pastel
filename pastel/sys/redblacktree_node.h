@@ -13,19 +13,13 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename Key, typename Data_Class_>
 		class Node
-			: public Data_Class_
 		{
 		public:
-			// We need this to get around a bug in the 
-			// Visual Studio 2013 RC compiler.
-			using Data_Class = Data_Class_;
-
 			template <typename, typename>
 			friend class Pastel::RedBlackTree;
 
-			template <typename, typename, typename, bool>
+			template <typename, typename, typename, typename, bool>
 			friend class Iterator;
 
 			enum
@@ -33,21 +27,6 @@ namespace Pastel
 				Left = 0,
 				Right = 1
 			};
-
-			const Key& key() const
-			{
-				return key_;
-			}
-
-			Data_Class& data()
-			{
-				return *this;
-			}
-
-			const Data_Class& data() const
-			{
-				return *this;
-			}
 
 			bool red() const
 			{
@@ -66,26 +45,28 @@ namespace Pastel
 				return left() == this;
 			}
 
-		private:
-			Node() = delete;
+		protected:
 			Node(const Node& that) = delete;
 			Node(Node&& that) = delete;
 			Node& operator=(Node that) = delete;
 
-			Node(Key key,
-				Data_Class data,
-				Node* parent,
-				Node* left,
-				Node* right,
-				bool red)
-				: Data_Class_(std::move(data))
-				, key_(std::move(key))
-				, parent_(parent)
+			explicit Node(Node* sentinel)
+				: parent_(0)
 				, child_()
-				, red_(red)
+				, red_(sentinel != 0)
 			{
-				child_[Left] = left;
-				child_[Right] = right;
+				if (sentinel == 0)
+				{
+					// A null sentinel means that
+					// the node itself is the sentinel.
+					sentinel = this;
+				}
+
+				// The sentinel node is black.
+				// The leaf nodes are red.
+				parent_ = sentinel;
+				child_[Left] = sentinel;
+				child_[Right] = sentinel;
 			}
 
 			void setRed()
@@ -156,10 +137,70 @@ namespace Pastel
 				red_ = !red_;
 			}
 
-			Key key_;
 			Node* parent_;
 			Node* child_[2];
 			bool red_;
+		};
+
+		/*!
+		The empty base-class optimization does not work in
+		general in Visual Studio 2013 for multiple empty
+		base-classes in multiple inheritance. This is a 
+		long-standing bug. Since here we have only one
+		potentially empty base-class, this gets optimized 
+		correctly.
+		*/
+		template <typename Key, typename Data_Class_>
+		class Data_Node
+			: public Node
+			, public Data_Class_
+		{
+		public:
+			// We need this to get around a bug in the 
+			// Visual Studio 2013 RC compiler.
+			using Data_Class = Data_Class_;
+
+			template <typename, typename>
+			friend class Pastel::RedBlackTree;
+
+			template <typename, typename, typename, typename, bool>
+			friend class Iterator;
+
+			const Key& key() const
+			{
+				ASSERT(!isSentinel());
+				return key_;
+			}
+
+			Data_Class& data()
+			{
+				ASSERT(!isSentinel());
+				return *this;
+			}
+
+			const Data_Class& data() const
+			{
+				ASSERT(!isSentinel());
+				return *this;
+			}
+
+		private:
+			Data_Node(const Data_Node& that) = delete;
+			Data_Node(Data_Node&& that) = delete;
+			Data_Node& operator=(Data_Node that) = delete;
+
+			template <typename... Value>
+			Data_Node(
+				Node* sentinel,
+				Key&& key,
+				Value&&... value)
+				: Node(sentinel)
+				, Data_Class_(std::forward<Value>(value)...)
+				, key_(std::move(key))
+			{
+			}
+
+			Key key_;
 		};
 
 	}

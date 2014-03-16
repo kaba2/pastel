@@ -16,6 +16,11 @@ namespace Pastel
 		RedBlackTree_Concepts::Customization<Settings>;
 
 	//! Red-black tree
+	/*!
+	Space complexity: O(n)
+	where
+	n is the number of stored elements.
+	*/
 	template <
 		typename Settings_,
 		typename Customization = Empty_RedBlackTree_Customization<Settings_>>
@@ -23,6 +28,8 @@ namespace Pastel
 		: public Customization
 	{
 	public:
+		// See redblacktree_fwd.h for the documentation
+		// for the following types.
 		using Settings = Settings_;
 		using Fwd = RedBlackTree_Fwd<Settings>;
 
@@ -46,6 +53,7 @@ namespace Pastel
 		PASTEL_FWD(Data_ConstRange);
 
 		PASTEL_FWD(Data_Class);
+		PASTEL_FWD(InsertReturnType);
 
 		using iterator = Iterator;
 		using const_iterator = ConstIterator;
@@ -55,13 +63,11 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: strong
 		*/
-		explicit RedBlackTree(
-			Key sentinelKey = Key(), 
-			Data_Class sentinelData = Data_Class());
-
+		RedBlackTree();
+		
 		//! Copy-constructs from another tree.
 		/*!
-		Time complexity: O(that.size()) * insert()
+		Time complexity: O(that.size())
 		Exception safety: strong
 		*/
 		RedBlackTree(const RedBlackTree& that);
@@ -71,18 +77,70 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		RedBlackTree(RedBlackTree&& that);
+		RedBlackTree(RedBlackTree&& that)
+			: RedBlackTree()
+		{
+			swap(that);
+		}
 
-		//! Replaces this tree with a copy of another tree.
+		//! Constructs from a list of keys.
+		/*!
+		Time complexity: O(dataSet.size())
+		Exception safety: strong
+
+		The user-data will be default-initialized.
+		*/
+		template <typename That_Key>
+		RedBlackTree(std::initializer_list<That_Key> dataSet)
+		: RedBlackTree()
+		{
+			for (auto&& key : dataSet)
+			{
+				insert(key);
+			}
+		}
+
+		//! Constructs from a list of key-value pairs.
+		/*!
+		Time complexity: O(dataSet.size())
+		Exception safety: strong
+		*/
+		RedBlackTree(std::initializer_list<std::pair<Key, Data_Class>> dataSet)
+		: RedBlackTree()
+		{
+			for (auto&& keyValue : dataSet)
+			{
+				insert(keyValue.first, keyValue.second);
+			}
+		}
+
+		//! Assigns from another tree.
 		/*!
 		Time complexity: move/copy-construction
 		Exception safety: strong
 		*/
-		RedBlackTree& operator=(RedBlackTree that);
+		RedBlackTree& operator=(RedBlackTree that)
+		{
+			swap(that);
+			return *this;
+		}
+
+		//! Assigns from an initializer list.
+		/*!
+		Time complexity: O(that.size() + size())
+		Exception safety: strong
+		*/
+		template <typename Type>
+		RedBlackTree& operator=(std::initializer_list<Type> that)
+		{
+			RedBlackTree copy(that);
+			swap(copy);
+			return *this;
+		}
 
 		//! Destructs the tree.
 		/*!
-		Time complexity: clear()
+		Time complexity: O(size())
 		Exception safety: nothrow
 		*/
 		~RedBlackTree();
@@ -106,26 +164,36 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		integer size() const;
+		integer size() const
+		{
+			return size_;
+		}
 
 		//! Returns true if the tree is empty.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		bool empty() const;
+		bool empty() const
+		{
+			return root_ == sentinel_;
+		}
 
 		//! Inserts an element into the tree.
 		/*!
-		Time complexity: O(log n) * updateHieararchicalData() + onInsert()
+		Time complexity: O(log(size())) * updateHierarchicalData() + onInsert()
 		Exception safety: strong + onInsert()
-
-		Here f(n) is the time spent computing the
-		user-specified hierarchical data (usually O(1)).
 		*/
-		Iterator insert(
-			Key key, 
-			Data_Class data = Data_Class());
+		template <typename... Value>
+		InsertReturnType insert(
+			Key key, Value&&... value);
+
+		//! Inserts an element into the tree.
+		/*!
+		This is a convenience function which calls
+		insert(key, Data_Class()).
+		*/
+		InsertReturnType insert(Key key);
 
 		//! Inserts elements into the tree.
 		/*!
@@ -139,15 +207,19 @@ namespace Pastel
 
 		//! Removes an element from the tree by its iterator.
 		/*!
-		Time complexity: O(log n) * updateHierarchicalData() + onErase()
+		Time complexity: O(log(size())) * updateHierarchicalData() + onErase()
 		Exception safety: nothrow
+
+		If that == cend(), then nothing happens. This is
+		so that erase(find(key)) works even if the key is
+		not stored in the tree.
 		*/
 		Iterator erase(const ConstIterator& that);
 
 		//! Removes an element from the tree by its key.
 		/*!
-		Time complexity: erase(find(key))
-		Exception safety: nothrow
+		This is a convenience function which calls
+		erase(find(key)).
 		*/
 		Iterator erase(const Key& key);
 
@@ -160,14 +232,27 @@ namespace Pastel
 		process; the node containing the element is moved
 		from 'that' tree to this tree.
 		*/
-		Iterator splice(
+		InsertReturnType splice(
 			RedBlackTree& that, 
 			const ConstIterator& thatFrom);
+
+		//! Returns whether an element is contained in the tree.
+		/*!
+		This is a convenience function which returns
+		find(key) != cend().
+		*/
+		bool exists(const Key& key) const
+		{
+			return find(key) != cend();
+		}
 
 		//! Searches for the first element with key == 'key'.
 		/*!
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
+
+		If there are multiple elements equivalent to 'key',
+		then the first of them is returned (same as lowerBound()).
 		*/
 		Iterator find(const Key& key);
 		ConstIterator find(const Key& key) const;
@@ -213,7 +298,10 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Iterator cast(const ConstIterator& that);
+		Iterator cast(const ConstIterator& that)
+		{
+			return Iterator((Node*)that.base());			
+		}
 
 		//! Returns the iterator to the smallest element.
 		PASTEL_ITERATOR_FUNCTIONS(begin, minimum PASTEL_CALL_BRACKETS);
@@ -252,68 +340,141 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS(root, root_);
 
 	private:
+		PASTEL_FWD(Node);
+		PASTEL_FWD(Data_Node);
+
 		enum
 		{
 			Left = 0,
 			Right = 1
 		};
 
-		typedef RedBlackTree_::Node<Key, Data_Class> Node;
+		template <typename Type, bool MultipleKeys>
+		class As_InsertReturnType
+		{
+		public:
+			Type operator()(
+				const Iterator& that, bool success) const
+			{
+				return that;
+			}
+		};
 
-		//! Allocates the sentinel node.
-		/*!
-		Exception safety: strong
-		Time complexity: constant
-		*/
-		void allocateSentinel(
-			Key key,
-			Data_Class data);
+		template <typename Type>
+		class As_InsertReturnType<Type, false>
+		{
+		public:
+			Type operator()(
+				const Iterator& that, bool success) const
+			{
+				return Type(that, success);
+			}
+		};
 
-		//! Deallocates the sentinel node.
-		/*!
-		Exception safety: nothrow
-		Time complexity: constant
-		*/
-		void deallocateSentinel();
+		InsertReturnType insertReturnType(
+			const Iterator& that, bool success) const
+		{
+			return As_InsertReturnType<InsertReturnType, Settings::MultipleKeys>()(that, success);
+		}
 
 		//! Initializes some member variables.
 		/*!
+		Time complexity: O(1)
 		Exception safety: nothrow
-		Time complexity: constant
-
-		This function is to catch functionality
-		common to different constructors.
 		*/
 		void initialize();
 
-		//! Allocates a node.
+		//! Allocates a data-node, and increases the size.
 		/*!
+		Time complexity: O(1)
 		Exception safety: strong
-		Time complexity: constant
 		*/
-		Node* allocateNode(
-			Key&& key, 
-			Data_Class&& data,
-			bool red);
+		template <typename... Value>
+		Data_Node* allocateNode(
+			Key&& key,
+			Value&&... value);
 
-		//! Inserts a new node.
-		Node* insert(
-			Node* newNode,
+		//! Deallocates a data-node, and decreases the size.
+		/*!
+		Preconditions:
+		!node->isSentinel()
+
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		void deallocateNode(Data_Node* node);
+
+		//! Finds the node under which to insert the key.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
+		If there are multiple equivalent elements, then
+		the insertion position is chosen as the last in 
+		the in-order sequence of equivalent keys. Thus
+		the insertion always retains the order in which
+		the equivalent keys were added.
+
+		Note that the inserting the key under the returned
+		node can break the red-black invariants.
+
+		returns:
+		A pair of a node and a boolean, with the first being
+		the node under which to insert the key subject only to
+		the binary search tree property, and the second being 
+		whether to insert under the right child of that node or 
+		not. 
+		*/
+		std::pair<Node*, bool> findInsertParent(const Key& key) const;
+
+		//! Attaches a new node into the tree and rebalances.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
+		Preconditions:
+		node is not attached to any tree
+
+		node:
+		The node to attach into the tree.
+
+		parent, rightChild:
+		The initial attachment position as provided
+		by findInsertParent().
+		*/
+		void attach(
 			Node* node,
 			Node* parent,
-			bool fromLeft);
+			bool rightChild);
 
-		//! Removes a node.
-		std::pair<Node*, Node*> erase(Node* node);
+		//! Detaches a node from the tree and rebalances.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
+		returns:
+		The successor of the detached node.
+		*/
+		Node* detach(Node* node);
+
+		//! Rebalances the red-black tree after detaching a node.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		void rebalanceAfterDetach(
+			Node* toRebalance, 
+			bool leftLowOnBlack);
 
 		//! Updates hierarhical data on the path to root.
 		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
 		Calls updateHierarhical(node) for each node in 
 		the path to the root, including 'node' itself.
 		*/
 		void updateToRoot(Node* node);
-
-		void rebalance(Node* toRebalance, bool leftLowOnBlack);
 
 		//! Copy-constructs a subtree.
 		/*!
@@ -321,24 +482,19 @@ namespace Pastel
 		strong, except for not deallocating
 		memory in 'allocator', which must be
 		done later.
-
-		Time complexity:
-		O(n)
-
-		Here 'n' is the number of nodes in the
-		subtree of 'thatNode'.
 		*/
 		Node* copyConstruct(
 			Node* parent,
+			const RedBlackTree& that,
 			Node* thatNode);
 
 		//! Destructs the nodes of a subtree.
 		/*!
-		Exception safety: nothrow
-		Time complexity:	O(n)
+		Time complexity: O(n)
+		where 'n' is the number of nodes in the subtree
+		rooted at 'node'.
 
-		Here 'n' is the number of nodes in the subtree
-		of 'node'.
+		Exception safety: nothrow
 		*/
 		void clear(Node* node);
 
@@ -347,8 +503,8 @@ namespace Pastel
 		Preconditions:
 		d == Left || d == Right
 
+		Time complexity: O(1)
 		Exception safety: nothrow
-		Time complexity:	constant
 		*/
 		void link(Node* parent, Node* child, 
 			integer direction);
@@ -358,45 +514,57 @@ namespace Pastel
 		Preconditions:
 		d == Left || d == Right
 
+		Time complexity: O(1)
 		Exception safety: nothrow
-		Time complexity:	constant
 		*/
 		Node* rotate(Node* node, integer direction);
 
 		//! Flips the colors of a node and its children.
 		/*!
+		Time complexity: O(1)
 		Exception safety: nothrow
-		Time complexity:	constant
 		*/
 		void flipColors(Node* node);
 
 		//! Sets the minimum node.
 		/*!
+		Time complexity: O(1)
 		Exception safety: nothrow
-		Time complexity:	constant
 		*/
-		void setMinimum(Node* node);
+		void setMinimum(Node* node)
+		{
+			minimum_ = node;
+		}
 
 		//! Returns the minimum node.
 		/*!
+		Time complexity: O(1)
 		Exception safety: nothrow
-		Time complexity:	constant
 		*/
-		Node* minimum() const;
+		Node* minimum() const
+		{
+			return minimum_;
+		}
 
 		//! Sets the maximum node.
 		/*!
+		Time complexity: O(1)
 		Exception safety: nothrow
-		Time complexity:	constant
 		*/
-		void setMaximum(Node* node);
+		void setMaximum(Node* node)
+		{
+			sentinel_->parent() = node;
+		}
 
 		//! Returns the maximum node.
 		/*!
+		Time complexity: O(1)
 		Exception safety: nothrow
-		Time complexity:	constant
 		*/
-		Node* maximum() const;
+		Node* maximum() const
+		{
+			return sentinel_->parent();
+		}
 
 		//! Find either the lower or the upper bound of a key.
 		/*!
@@ -437,6 +605,22 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	//! Returns whether the red-black tree invariants hold for the tree.
+	/*!
+	Time complexity: O(tree.size())
+	Exception safety: nothrow
+
+	This function is useful only for testing. For a correct implementation
+	this function will always return true.
+	*/
+	template <typename Settings, typename Customization>
+	bool testInvariants(const RedBlackTree<Settings, Customization>& tree);
+
+}
+
 // Map
 
 namespace Pastel
@@ -446,8 +630,9 @@ namespace Pastel
 		typename Key_, 
 		typename Data_,
 		typename Compare_ = LessThan,
-		integer DereferenceType_ = RedBlackTree_Dereference_Default>
-	class RedBlack_Map_Settings
+		integer DereferenceType_ = RedBlackTree_Dereference_Default,
+		bool MultipleKeys_ = false>
+	class RedBlack_Settings
 	{
 	public:
 		using Key = Key_;
@@ -457,6 +642,7 @@ namespace Pastel
 		{
 			DereferenceType = DereferenceType_
 		};
+		enum {MultipleKeys = MultipleKeys_};
 	};
 
 	template <
@@ -465,9 +651,19 @@ namespace Pastel
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
 		typename Customization = Empty_RedBlackTree_Customization<
-		RedBlack_Map_Settings<Key, Data, Compare, DereferenceType_ >> >
+		RedBlack_Settings<Key, Data, Compare, DereferenceType_, false>> >
 	using RedBlack_Map = 
-		RedBlackTree<RedBlack_Map_Settings<Key, Data, Compare, DereferenceType_>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, Data, Compare, DereferenceType_, false>, Customization>;
+
+	template <
+		typename Key, 
+		typename Data,
+		typename Compare = LessThan,
+		integer DereferenceType_ = RedBlackTree_Dereference_Default,
+		typename Customization = Empty_RedBlackTree_Customization<
+		RedBlack_Settings<Key, Data, Compare, DereferenceType_, true>> >
+	using RedBlack_MultiMap = 
+		RedBlackTree<RedBlack_Settings<Key, Data, Compare, DereferenceType_, true>, Customization>;
 
 }
 
@@ -479,25 +675,29 @@ namespace Pastel
 	template <
 		typename Key, 
 		typename Compare = LessThan,
-		integer DereferenceType_ = RedBlackTree_Dereference_Default>
-	using RedBlack_Set_Settings = 
-		RedBlack_Map_Settings<Key, void, Compare, DereferenceType_>;
+		integer DereferenceType_ = RedBlackTree_Dereference_Default,
+		typename Customization = Empty_RedBlackTree_Customization<
+		RedBlack_Settings<Key, void, Compare, DereferenceType_, false>>>
+	using RedBlack_Set = 
+		RedBlackTree<RedBlack_Settings<Key, void, Compare, DereferenceType_, false>, Customization>;
 
 	template <
 		typename Key, 
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
 		typename Customization = Empty_RedBlackTree_Customization<
-		RedBlack_Set_Settings<Key, Compare, DereferenceType_>>>
-	using RedBlack_Set = 
-		RedBlackTree<RedBlack_Set_Settings<Key, Compare, DereferenceType_>, Customization>;;
+		RedBlack_Settings<Key, void, Compare, DereferenceType_, true>>>
+	using RedBlack_MultiSet = 
+		RedBlackTree<RedBlack_Settings<Key, void, Compare, DereferenceType_, true>, Customization>;
 
 }
 
 #include "pastel/sys/redblacktree.hpp"
-#include "pastel/sys/redblacktree_private.hpp"
+#include "pastel/sys/redblacktree_copy.hpp"
 #include "pastel/sys/redblacktree_erase.hpp"
 #include "pastel/sys/redblacktree_insert.hpp"
-#include "pastel/sys/redblacktree_tools.h"
+#include "pastel/sys/redblacktree_private.hpp"
+#include "pastel/sys/redblacktree_search.hpp"
+#include "pastel/sys/redblacktree_invariants.hpp"
 
 #endif

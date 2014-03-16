@@ -27,15 +27,121 @@ namespace
 
 		virtual void run()
 		{
+			testSet();
+			testMultiSet();
+			testInsert();
 			testRandom();
-			testSimple();
+		}
+
+		void testSet()
+		{
+			using Tree = RedBlack_Set<integer>;
+			using Iterator = Tree::Iterator;
+			using ConstIterator = Tree::ConstIterator;
+
+			Tree tree;
+
+			{
+				auto test = [&](integer that)
+				{
+					auto iterAndNew = tree.insert(that);
+					TEST_ENSURE(testInvariants(tree));
+					TEST_ENSURE(iterAndNew.second);
+					TEST_ENSURE_OP(*iterAndNew.first, == , that);
+					TEST_ENSURE(tree.find(that) == iterAndNew.first);
+					TEST_ENSURE(tree.lowerBound(that) == iterAndNew.first);
+					TEST_ENSURE(tree.exists(that));
+				};
+
+				test(1);
+				TEST_ENSURE_OP(tree.size(), == , 1);
+
+				test(5);
+				TEST_ENSURE_OP(tree.size(), == , 2);
+
+				test(3);
+				TEST_ENSURE_OP(tree.size(), == , 3);
+			}
+			{
+				auto iterAndNew = tree.insert(1);
+				TEST_ENSURE(!iterAndNew.second);
+				TEST_ENSURE_OP(*iterAndNew.first, == , 1);
+				TEST_ENSURE_OP(tree.size(), == , 3);
+			}
+			{
+				Tree tree({ 4, 2, 1, 1, 1, 3 });
+				integer correctSet[] = { 1, 2, 3, 4 };
+				TEST_ENSURE_OP(tree.size(), == , 4);
+				TEST_ENSURE(boost::equal(tree, correctSet));
+			}
+			{
+				Tree tree;
+				tree = { 4, 2, 1, 1, 1, 3 };
+				
+				integer correctSet[] = { 1, 2, 3, 4 };
+				TEST_ENSURE_OP(tree.size(), == , 4);
+				TEST_ENSURE(boost::equal(tree, correctSet));
+			}
+		}
+
+		void testMultiSet()
+		{
+			using Tree = RedBlack_MultiSet<integer>;
+			using Iterator = Tree::Iterator;
+			using ConstIterator = Tree::ConstIterator;
+
+			{
+				Tree tree;
+
+				auto test = [&](integer that)
+				{
+					Iterator iter = tree.insert(that);
+					TEST_ENSURE(testInvariants(tree));
+					TEST_ENSURE_OP(*iter, == , that);
+					TEST_ENSURE(tree.find(that) == iter);
+					TEST_ENSURE(tree.lowerBound(that) == iter);
+					TEST_ENSURE(tree.exists(that));
+				};
+
+				test(1);
+				TEST_ENSURE_OP(tree.size(), == , 1);
+
+				test(5);
+				TEST_ENSURE_OP(tree.size(), == , 2);
+
+				test(3);
+				TEST_ENSURE_OP(tree.size(), == , 3);
+			}
+			{
+				Tree tree;
+
+				auto test = [&]()
+				{
+					Iterator iter = tree.insert(1);
+					TEST_ENSURE(testInvariants(tree));
+					TEST_ENSURE_OP(*iter, == , 1);
+					TEST_ENSURE(iter == std::prev(tree.cend()));
+				};
+
+				test();
+				TEST_ENSURE_OP(tree.size(), ==, 1);
+
+				test();
+				TEST_ENSURE_OP(tree.size(), ==, 2);
+
+				test();
+				TEST_ENSURE_OP(tree.size(), ==, 3);
+
+				test();
+				TEST_ENSURE_OP(tree.size(), ==, 4);
+			}
 		}
 
 		typedef RedBlack_Map<integer, integer> Tree;
 		typedef Tree::Iterator Iterator;
 		typedef Tree::ConstIterator ConstIterator;
 
-		using Tree_Settings = RedBlack_Map_Settings<integer, integer>;
+		using Tree_Settings = RedBlack_Settings<integer, integer>;
 		class Counting_Customization
 			: public Empty_RedBlackTree_Customization<Tree_Settings>
 		{
@@ -56,7 +162,7 @@ namespace
 
 		void testRandom()
 		{
-			Tree tree(0, 0);
+			Tree tree;
 
 			std::list<integer> dataSet;
 
@@ -74,94 +180,160 @@ namespace
 					dataSet.push_back(n);
 
 					tree.insert(n, 1);
-					TEST_ENSURE(check(tree));
+					TEST_ENSURE(testInvariants(tree));
 
 					if (tree.size() > treeSize)
 					{
 						tree.erase(dataSet.front());
-						TEST_ENSURE(check(tree));
+						TEST_ENSURE(testInvariants(tree));
 						dataSet.pop_front();
 					}
 				}
-			}
 
-			{
-				Tree copyTree(tree);
-				copyTree.swap(tree);
-				TEST_ENSURE(check(tree));
+				{
+					Tree copyTree(tree);
+					TEST_ENSURE(testInvariants(copyTree));
+					TEST_ENSURE_OP(tree.size(), ==, copyTree.size());
+					TEST_ENSURE(boost::equal(tree, copyTree));
+					TEST_ENSURE(boost::equal(tree.ckeyRange(), copyTree.ckeyRange()));
+					TEST_ENSURE(boost::equal(tree.cdataRange(), copyTree.cdataRange()));
+				}
 			}
 		}
 
-		void testSimple()
+		void testInsert()
 		{
-			Tree tree(0, 0);
+			Tree tree;
 			{
 				TEST_ENSURE(tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 0);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
 			}
 
 			tree.insert(1, 1);
 			{
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 1);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
+
+				integer correctKeySet[] = { 1 };
+				TEST_ENSURE(boost::equal(tree, correctKeySet));
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
+
+				integer correctDataSet[] = { 1 };
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
 			}
 			
 			tree.insert(5, 2);
 			{
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 2);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
+
+				integer correctKeySet[] = { 1, 5 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
+
+				integer correctDataSet[] = { 1, 2 };
+				TEST_ENSURE(boost::equal(tree, correctDataSet));
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
 			}
 
 			tree.insert(3, 3);
 			{
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 3);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
+
+				integer correctKeySet[] = { 1, 3, 5 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
+
+				integer correctDataSet[] = { 1, 3, 2 };
+				TEST_ENSURE(boost::equal(tree, correctDataSet));
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
 			}
 
 			tree.insert(4, 4);
 			{
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 4);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
+
+				integer correctKeySet[] = { 1, 3, 4, 5 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
+
+				integer correctDataSet[] = { 1, 3, 4, 2 };
+				TEST_ENSURE(boost::equal(tree, correctDataSet));
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
 			}
 
 			tree.insert(8, 5);
 			{
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 5);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
+
+				integer correctKeySet[] = { 1, 3, 4, 5, 8 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
+
+				integer correctDataSet[] = { 1, 3, 4, 2, 5 };
+				TEST_ENSURE(boost::equal(tree, correctDataSet));
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
 			}
 
 			tree.insert(7, 6);
 			{
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 6);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
+
+				integer correctKeySet[] = { 1, 3, 4, 5, 7, 8 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
+
+				integer correctDataSet[] = { 1, 3, 4, 2, 6, 5 };
+				TEST_ENSURE(boost::equal(tree, correctDataSet));
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
 			}
 
 			tree.insert(6, 7);
 			{
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 7);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
+
+				integer correctKeySet[] = { 1, 3, 4, 5, 6, 7, 8 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
+
+				integer correctDataSet[] = { 1, 3, 4, 2, 7, 6, 5 };
+				TEST_ENSURE(boost::equal(tree, correctDataSet));
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
 			}
 
 			tree.insert(9, 8);
 			{
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 8);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
+
+				integer correctKeySet[] = { 1, 3, 4, 5, 6, 7, 8, 9 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
+
+				integer correctDataSet[] = { 1, 3, 4, 2, 7, 6, 5, 8 };
+				TEST_ENSURE(boost::equal(tree, correctDataSet));
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
 			}
 
 			tree.insert(2, 9);
 			{
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 9);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
+
+				integer correctKeySet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctKeySet));
+
+				integer correctDataSet[] = { 1, 9, 3, 4, 2, 7, 6, 5, 8 };
+				TEST_ENSURE(boost::equal(tree, correctDataSet));
+				TEST_ENSURE(boost::equal(tree.cdataRange(), correctDataSet));
 			}
 
 			integer correctDataSet[] = 

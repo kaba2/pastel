@@ -47,6 +47,9 @@ namespace Pastel
 			{
 				DereferenceType = RedBlackTree_Dereference_Default
 			};
+
+			//! Whether to allow multiple equal keys.
+			enum {MultipleKeys = UserDefinedInteger};
 		};
 
 		//! RedBlackTree_Customization concept
