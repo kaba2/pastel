@@ -42,13 +42,6 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::insert(Key key)
-	-> InsertReturnType
-	{
-		return insert(std::move(key), Data_Class());
-	}
-
-	template <typename Settings, typename Customization>
 	void RedBlackTree<Settings,  Customization>::attach(
 		Node* node, Node* parent, bool rightChild)
 	{

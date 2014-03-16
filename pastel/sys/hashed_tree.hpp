@@ -34,10 +34,18 @@ namespace Pastel
 			// hashing (then the hash combination function
 			// is the matrix-multiplication), but I think 
 			// that would be too slow.
-			node.data().hash_ = 
-				(hash_integer)Hash()(node.key()) +
-				node.left().data().hash() +
-				node.right().data().hash();
+
+			hash_integer newHash = Hash()(node.key());
+			if (!node.left().isSentinel())
+			{
+				newHash += node.left().data().hash();
+			}
+			if (!node.right().isSentinel())
+			{
+				newHash += node.right().data().hash();
+			}
+			
+			node.data().hash_ = newHash;
 		}
 
 	private:
