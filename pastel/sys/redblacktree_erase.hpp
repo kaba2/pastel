@@ -7,15 +7,69 @@ namespace Pastel
 {
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::erase(
-		Node* node) 
-	-> std::pair<Node*, Node*>
+	void RedBlackTree<Settings, Customization>::clear()
+	{
+		this->onClear();
+
+		clear(root_);
+
+		initialize();
+	}
+
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::clear(
+		Node* node)
 	{
 		if (node == sentinel_)
 		{
-			// Nothing to do.
-			return std::make_pair(node, node);
+			return;
 		}
+
+		clear(node->left());
+		node->left() = sentinel_;
+
+		clear(node->right());
+		node->right() = sentinel_;
+
+		deallocateNode((Data_Node*)node);
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::erase(
+		const ConstIterator& that)
+	-> Iterator
+	{
+		if (that == cend())
+		{
+			// Do nothing. This is so that
+			// erase(find(key)) 
+			// works even if the key does not 
+			// exist in the tree.
+			return cast(that);
+		}
+
+		// Notify the customization of the tree.
+		this->onErase(cast(that));
+
+		Node* toErase = (Node*)that.base();
+		Node* successor = detach(toErase);
+		deallocateNode((Data_Node*)toErase);
+		return Iterator(successor);
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::erase(const Key& key)
+	-> Iterator
+	{
+		return erase(find(key));
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::detach(
+		Node* node) 
+	-> Node*
+	{
+		ASSERT(node != sentinel_);
 
 		Iterator next(node);
 		++next;
@@ -76,9 +130,6 @@ namespace Pastel
 
 		const bool detachedWasRed = toDetach->red();
 
-		// Update the size of the tree.
-		--size_;
-
 		if (detachedWasRed)
 		{
 			// If a red node is detached from the tree, then no 
@@ -108,18 +159,18 @@ namespace Pastel
 				// The rebalance() function corrects the 
 				// black-depth violation. 
 
-				rebalance(parent, d == Left);
+				rebalanceAfterDetach(parent, d == Left);
 			}
 		}
 
 		// Return the erased node and its successor.
 		// Note that we did not deallocate the memory
 		// of node yet.
-		return std::make_pair(node, successor);
+		return successor;
 	}
 
 	template <typename Settings, typename Customization>
-	void RedBlackTree<Settings, Customization>::rebalance(
+	void RedBlackTree<Settings, Customization>::rebalanceAfterDetach(
 		Node* toRebalance, bool leftLowOnBlack)
 	{
 		if (toRebalance == sentinel_)
