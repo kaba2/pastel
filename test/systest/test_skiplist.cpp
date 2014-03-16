@@ -45,7 +45,7 @@ namespace
 		{
 			List list;
 			list.setMaxHeight(maxHeight);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 
 			ConstIterator listEnd = list.cend();
 
@@ -58,7 +58,7 @@ namespace
 				for (integer i : insertSet)
 				{
 					list.insert(i);
-					TEST_ENSURE(validInvariants(list));
+					TEST_ENSURE(testInvariants(list));
 				}
 			}
 
@@ -75,7 +75,7 @@ namespace
 
 			list.erase(8);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				integer correctSet[] =
 				{
@@ -89,7 +89,7 @@ namespace
 
 			list.erase(4);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				integer correctSet[] =
 				{
@@ -103,7 +103,7 @@ namespace
 
 			list.erase(2);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				integer correctSet[] =
 				{
@@ -117,7 +117,7 @@ namespace
 
 			list.erase(1);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				integer correctSet[] =
 				{
@@ -131,7 +131,7 @@ namespace
 
 			list.erase(9);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				integer correctSet[] =
 				{
@@ -145,7 +145,7 @@ namespace
 
 			list.erase(6);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				integer correctSet[] =
 				{
@@ -159,7 +159,7 @@ namespace
 
 			list.erase(5);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				integer correctSet[] =
 				{
@@ -173,7 +173,7 @@ namespace
 
 			list.erase(7);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				integer correctSet[] =
 				{
@@ -187,7 +187,7 @@ namespace
 
 			list.erase(3);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				TEST_ENSURE_OP(list.size(), ==, 0);
 				TEST_ENSURE_OP(list.uniqueKeys(), ==, 0);
@@ -195,27 +195,27 @@ namespace
 			}
 
 			ConstIterator one = list.insert(1).first;
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(5);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(3);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			ConstIterator four = list.insert(4).first;
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(8);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(7);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(6);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(9);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(2);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 
 			{
 				TEST_ENSURE_OP(four.equivalents(), ==, 3);
@@ -298,8 +298,8 @@ namespace
 			// Test copy-construction, and move-construction.
 			{
 				List copyList(list);
-				TEST_ENSURE(validInvariants(copyList));
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(copyList));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(copyList.maxHeight(), == , list.maxHeight());
 				TEST_ENSURE_OP(copyList.height(), == , list.height());
 				TEST_ENSURE_OP(copyList.size(), == , list.size());
@@ -318,8 +318,8 @@ namespace
 				TEST_ENSURE(boost::equal(copyList, correctSet));
 
 				List moveList(std::move(copyList));
-				TEST_ENSURE(validInvariants(moveList));
-				TEST_ENSURE(validInvariants(copyList));
+				TEST_ENSURE(testInvariants(moveList));
+				TEST_ENSURE(testInvariants(copyList));
 
 				TEST_ENSURE_OP(copyList.size(), ==, 0);
 				TEST_ENSURE(copyList.empty());
@@ -334,11 +334,11 @@ namespace
 			// Test copy-assign, move-assign, and swap.
 			{
 				List copyList;
-				TEST_ENSURE(validInvariants(copyList));
+				TEST_ENSURE(testInvariants(copyList));
 
 				copyList = list;
-				TEST_ENSURE(validInvariants(copyList));
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(copyList));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(copyList.maxHeight(), == , list.maxHeight());
 				TEST_ENSURE_OP(copyList.height(), == , list.height());
 				TEST_ENSURE_OP(copyList.size(), == , list.size());
@@ -355,11 +355,11 @@ namespace
 				TEST_ENSURE(boost::equal(copyList, correctSet));
 
 				List moveList;
-				TEST_ENSURE(validInvariants(moveList));
+				TEST_ENSURE(testInvariants(moveList));
 
 				moveList = std::move(list);
-				TEST_ENSURE(validInvariants(moveList));
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(moveList));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(moveList.maxHeight(), == , maxHeight);
 				TEST_ENSURE_OP(list.maxHeight(), == , maxHeight);
 
@@ -373,8 +373,8 @@ namespace
 				TEST_ENSURE(boost::equal(moveList, correctSet));
 
 				moveList.swap(list);
-				TEST_ENSURE(validInvariants(moveList));
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(moveList));
+				TEST_ENSURE(testInvariants(list));
 
 				TEST_ENSURE_OP(list.size(), ==, 11);
 				TEST_ENSURE(!list.empty());
@@ -393,7 +393,7 @@ namespace
 
 			list.insert(1);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
 				TEST_ENSURE_OP(list.count(0), ==, 0);
 				TEST_ENSURE_OP(list.count(1), ==, 1);
@@ -403,7 +403,7 @@ namespace
 
 			list.insert(2);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
 				TEST_ENSURE_OP(list.count(0), ==, 0);
 				TEST_ENSURE_OP(list.count(1), ==, 1);
@@ -413,7 +413,7 @@ namespace
 
 			list.insert(0);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
 				TEST_ENSURE_OP(list.count(0), ==, 1);
 				TEST_ENSURE_OP(list.count(1), ==, 1);
@@ -423,7 +423,7 @@ namespace
 
 			list.insert(1);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
 				TEST_ENSURE_OP(list.count(0), ==, 1);
 				TEST_ENSURE_OP(list.count(1), ==, 2);
@@ -433,7 +433,7 @@ namespace
 
 			list.insert(0);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
 				TEST_ENSURE_OP(list.count(0), ==, 2);
 				TEST_ENSURE_OP(list.count(1), ==, 2);
@@ -443,7 +443,7 @@ namespace
 
 			list.insert(2);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
 				TEST_ENSURE_OP(list.count(0), ==, 2);
 				TEST_ENSURE_OP(list.count(1), ==, 2);
@@ -453,7 +453,7 @@ namespace
 
 			list.insert(1);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
 				TEST_ENSURE_OP(list.count(0), ==, 2);
 				TEST_ENSURE_OP(list.count(1), ==, 3);
@@ -463,7 +463,7 @@ namespace
 
 			list.insert(0);
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
 				TEST_ENSURE_OP(list.count(0), ==, 3);
 				TEST_ENSURE_OP(list.count(1), ==, 3);
@@ -473,7 +473,7 @@ namespace
 
 			list.erase(list.lowerBound(2));
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), == , 0);
 				TEST_ENSURE_OP(list.count(0), ==, 3);
 				TEST_ENSURE_OP(list.count(1), ==, 3);
@@ -483,7 +483,7 @@ namespace
 
 			list.erase(list.lowerBound(0));
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
 				TEST_ENSURE_OP(list.count(0), ==, 2);
 				TEST_ENSURE_OP(list.count(1), ==, 3);
@@ -493,7 +493,7 @@ namespace
 
 			list.erase(list.lowerBound(2));
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
 				TEST_ENSURE_OP(list.count(0), ==, 2);
 				TEST_ENSURE_OP(list.count(1), ==, 3);
@@ -503,7 +503,7 @@ namespace
 
 			list.erase(list.lowerBound(0));
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
 				TEST_ENSURE_OP(list.count(0), ==, 1);
 				TEST_ENSURE_OP(list.count(1), ==, 3);
@@ -513,7 +513,7 @@ namespace
 
 			list.erase(list.lowerBound(0));
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
 				TEST_ENSURE_OP(list.count(0), ==, 0);
 				TEST_ENSURE_OP(list.count(1), ==, 3);
@@ -523,7 +523,7 @@ namespace
 
 			list.erase(list.lowerBound(1));
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
 				TEST_ENSURE_OP(list.count(0), ==, 0);
 				TEST_ENSURE_OP(list.count(1), ==, 2);
@@ -533,7 +533,7 @@ namespace
 
 			list.erase(list.lowerBound(1));
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
 				TEST_ENSURE_OP(list.count(0), ==, 0);
 				TEST_ENSURE_OP(list.count(1), ==, 1);
@@ -543,7 +543,7 @@ namespace
 
 			list.erase(list.lowerBound(1));
 			{
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 				TEST_ENSURE_OP(list.count(-1), ==, 0);
 				TEST_ENSURE_OP(list.count(0), ==, 0);
 				TEST_ENSURE_OP(list.count(1), ==, 0);
@@ -557,26 +557,26 @@ namespace
 			SkipList_MultiMap<integer, integer> list;
 			list.setMaxHeight(maxHeight);
 
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 
 			list.insert(1, 1);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(5, 2);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(3, 3);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(4, 4);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(4, 5);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(4, 6);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(2, 7);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(7, 8);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(6, 9);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 
 			integer correctSet[] = 
 			{
@@ -597,26 +597,26 @@ namespace
 			SkipList_MultiSet<integer> list;
 			list.setMaxHeight(maxHeight);
 
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 
 			list.insert(1);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(5);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(3);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(2);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(7);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 			list.insert(6);
-			TEST_ENSURE(validInvariants(list));
+			TEST_ENSURE(testInvariants(list));
 
 			integer correctSet[] = 
 			{
@@ -644,7 +644,7 @@ namespace
 			for (integer listSize : listSizeSet)
 			{
 				list.clear();
-				TEST_ENSURE(validInvariants(list));
+				TEST_ENSURE(testInvariants(list));
 
 				dataSet.clear();
 				for (integer i = 0;i < 2 * listSize;++i)
@@ -653,12 +653,12 @@ namespace
 					dataSet.push_back(n);
 
 					list.insert(n);
-					TEST_ENSURE(validInvariants(list));
+					TEST_ENSURE(testInvariants(list));
 
 					if (list.size() > listSize)
 					{
 						list.erase(dataSet.front());
-						TEST_ENSURE(validInvariants(list));
+						TEST_ENSURE(testInvariants(list));
 						dataSet.pop_front();
 					}
 				}
