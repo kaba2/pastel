@@ -3,27 +3,59 @@
 #include <set>
 #include <unordered_set>
 
+#include <boost/unordered_set.hpp>
+
 #include <pastel/sys/cfasttrie.h>
 #include <pastel/sys/redblacktree.h>
 #include <pastel/sys/skiplist.h>
 #include <pastel/sys/random.h>
 #include <pastel/sys/logging.h>
 
+#include <Windows.h>
+
 using namespace Pastel;
+
+struct HighResClock
+{
+	typedef long long                               rep;
+	typedef std::nano                               period;
+	typedef std::chrono::duration<rep, period>      duration;
+	typedef std::chrono::time_point<HighResClock>   time_point;
+	static const bool is_steady = true;
+
+	static time_point now();
+};
+
+namespace
+{
+	const long long g_Frequency = []() -> long long
+	{
+		LARGE_INTEGER frequency;
+		QueryPerformanceFrequency(&frequency);
+		return frequency.QuadPart;
+	}();
+}
+
+HighResClock::time_point HighResClock::now()
+{
+	LARGE_INTEGER count;
+	QueryPerformanceCounter(&count);
+	return time_point(duration(count.QuadPart * static_cast<rep>(period::den) / g_Frequency));
+}
 
 template <typename Type>
 double measureTime(const Type& f)
 {
 	namespace Chrono = std::chrono;
-	using Clock = Chrono::high_resolution_clock;
+	using Clock = HighResClock;
 	using Time = Chrono::time_point<Clock>;
 	
 	Time tic = Clock::now();
 	f();
 	Time toc = Clock::now();
 
-	double time = Chrono::duration_cast<Chrono::milliseconds>(toc - tic).count();
-	std::cout << time << "ms ";
+	double time = Chrono::duration_cast<Chrono::microseconds>(toc - tic).count();
+	std::cout << time << "us ";
 	return time;
 }
 
@@ -72,14 +104,19 @@ void g(const Set& a, integer n)
 	a.finds = 0;
 	integer maxFinds = 0;
 #endif
-	for (integer i = 0; i < n; ++i)
+	integer j = 0;
+	for (integer i = 0; i < (1 << 18); ++i)
 	{
 #ifdef SKIP_ONLY
 		integer prevFinds = a.finds;
 #endif
-		//a.find(randomUinteger());
-		a.lower_bound(randomUinteger());
-		//a.rightGapBound(randomUinteger());
+		uinteger key = randomUinteger();
+		if (a.find(key) != a.end())
+		{
+			++j;
+		}
+		//a.lower_bound(key);
+		//a.lowestAncestor(key);
 #ifdef SKIP_ONLY
 		integer delta = a.finds - prevFinds;
 		if (delta > maxFinds)
@@ -88,6 +125,8 @@ void g(const Set& a, integer n)
 		}
 #endif
 	}
+
+	//std::cout << "j = " << j << std::endl;
 
 #ifdef SKIP_ONLY
 	std::cout << (real)a.finds / n << " "
@@ -100,7 +139,7 @@ enum{ Bits = 64 };
 template <typename Set>
 void test()
 {
-	for (integer i = (1 << 18); i <= (1 << 18); i *= 2)
+	for (integer i = (1 << 1); i <= (1 << 16); i *= 2)
 	{
 		std::cout << i << " : ";
 
@@ -119,6 +158,16 @@ void test()
 
 	}
 }
+
+class Identity_Hasher
+{
+public:
+	template <typename Type>
+	hash_integer operator()(const Type& that) const
+	{
+		return that;
+	}
+};
 
 int main()
 {
@@ -139,7 +188,7 @@ int main()
 	test<std::set<Unsigned_Integer<Bits>>>();
 
 	std::cout << "std::unordered_set" << std::endl;
-	test<std::unordered_set<Unsigned_Integer<Bits>>>();
+	test<std::unordered_set<uinteger>>();
 
 #endif
 
