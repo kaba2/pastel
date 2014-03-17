@@ -12,11 +12,11 @@ namespace Pastel
 		Key key, Value&&... value)
 	-> InsertReturnType
 	{
-		auto parentAndRightChild = 
-			findInsertParent(key);
+		auto result = 
+			findInsertParent(key, root());
 
-		Node* parent = parentAndRightChild.first;
-		bool rightChild = parentAndRightChild.second;
+		Node* parent = (Node*)result.parent.base();
+		bool rightChild = result.rightChild;
 
 		bool elementExists = 
 			!parent->isSentinel() &&

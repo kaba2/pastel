@@ -242,23 +242,71 @@ namespace Pastel
 		If there are multiple elements equivalent to 'key',
 		then the first of them is returned (same as lowerBound()).
 		*/
-		Iterator find(const Key& key);
 		ConstIterator find(const Key& key) const;
 
-		//! Searches for the first element with key >= 'key'.
+		Iterator find(const Key& key)
+		{
+			return cast(addConst(*this).find(key));
+		}
+
+		//! Returns the elements equivalent to the given key.
 		/*!
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		Iterator lowerBound(const Key& key);
-		ConstIterator lowerBound(const Key& key) const;
+		std::pair<ConstIterator, ConstIterator> 
+			equalRange(const Key& key) const
+		{
+				return equalRange(key, Both);
+		}
 
-		Iterator lower_bound(const Key& key)
+		std::pair<ConstIterator, ConstIterator> 
+			equal_range(const Key& key) const
+		{
+			return equalRange(key);
+		}
+
+		//! Returns the elements equivalent to the given key.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		std::pair<Iterator, Iterator> 
+			equalRange(const Key& key)
+		{
+			auto lowerUpper = addConst(*this).equalRange(key);
+			return std::make_pair(
+				cast(lowerUpper.first), 
+				cast(lowerUpper.second));
+		}
+
+		std::pair<Iterator, Iterator> 
+			equal_range(const Key& key)
+		{
+			return equalRange(key);
+		}
+
+		//! Searches for the first element with key >= 'key'.
+		/*!
+		This is a convenience function which calls
+		equalRange(key).first
+		*/
+		ConstIterator lowerBound(const Key& key) const
+		{
+			return equalRange(key, OnlyLowerBound).first;
+		}
+
+		ConstIterator lower_bound(const Key& key) const
 		{
 			return lowerBound(key);
 		}
 
-		ConstIterator lower_bound(const Key& key) const
+		Iterator lowerBound(const Key& key)
+		{
+			return cast(addConst(*this).lowerBound(key));
+		}
+
+		Iterator lower_bound(const Key& key)
 		{
 			return lowerBound(key);
 		}
@@ -268,15 +316,22 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		Iterator upperBound(const Key& key);
-		ConstIterator upperBound(const Key& key) const;
+		ConstIterator upperBound(const Key& key) const
+		{
+			return equalRange(key, OnlyUpperBound).second;
+		}
 
-		Iterator upper_bound(const Key& key)
+		ConstIterator upper_bound(const Key& key) const
 		{
 			return upperBound(key);
 		}
-		
-		ConstIterator upper_bound(const Key& key) const
+
+		Iterator upperBound(const Key& key)
+		{
+			return cast(addConst(*this).upperBound(key));
+		}
+
+		Iterator upper_bound(const Key& key)
 		{
 			return upperBound(key);
 		}
@@ -335,6 +390,20 @@ namespace Pastel
 		{
 			Left = 0,
 			Right = 1
+		};
+
+		enum EqualRange
+		{
+			OnlyLowerBound,
+			OnlyUpperBound,
+			Both
+		};
+
+		struct FindInsert
+		{
+			ConstIterator parent;
+			bool rightChild;
+			ConstIterator upper;
 		};
 
 		template <typename Type, bool MultipleKeys>
@@ -413,7 +482,9 @@ namespace Pastel
 		whether to insert under the right child of that node or 
 		not. 
 		*/
-		std::pair<Node*, bool> findInsertParent(const Key& key) const;
+		FindInsert findInsertParent(
+			const Key& key, 
+			const ConstIterator& node) const;
 
 		//! Attaches a new node into the tree and rebalances.
 		/*!
@@ -444,6 +515,22 @@ namespace Pastel
 		The successor of the detached node.
 		*/
 		Node* detach(Node* node);
+
+		//! Returns the elements equivalent to the given key.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		std::pair<ConstIterator, ConstIterator>
+			equalRoot(const Key& key) const;
+
+		//! Returns the elements equivalent to the given key.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		std::pair<ConstIterator, ConstIterator>
+			equalRange(const Key& key, EqualRange compute) const;
 
 		//! Rebalances the red-black tree after detaching a node.
 		/*!
@@ -553,16 +640,6 @@ namespace Pastel
 		{
 			return sentinel_->parent();
 		}
-
-		//! Find either the lower or the upper bound of a key.
-		/*!
-		The lower bound is the first element with key >= 'key';
-		it is given by Direction = Right.
-		The upper bound is the first element with key > 'key';
-		it is given by Direction = Left.
-		*/
-		template <bool Direction>
-		ConstIterator bound(const Key& key) const;
 
 		//! The root-node of the tree.
 		Node* root_;
