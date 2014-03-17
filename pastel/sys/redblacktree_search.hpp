@@ -8,14 +8,8 @@ namespace Pastel
 {
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::find(const Key& key)
-	-> Iterator
-	{
-		return cast(((const RedBlackTree&)*this).find(key));
-	}
-
-	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::find(const Key& key) const
+	auto RedBlackTree<Settings, Customization>::find(
+		const Key& key) const
 	-> ConstIterator
 	{
 		ConstIterator result = lowerBound(key);
@@ -29,136 +23,119 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::lowerBound(const Key& key)
-	-> Iterator
+	auto RedBlackTree<Settings, Customization>::equalRoot(
+		const Key& key) const
+		-> std::pair<ConstIterator, ConstIterator>
 	{
-		return cast(((const RedBlackTree&)*this).lowerBound(key));
-	}
-
-	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::lowerBound(const Key& key) const
-	-> ConstIterator
-	{
-		return bound<Right>(key);
-	}
-
-	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::upperBound(const Key& key)
-	-> Iterator
-	{
-		return cast(((const RedBlackTree&)*this).upperBound(key));
-	}
-
-	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::upperBound(const Key& key) const
-	-> ConstIterator
-	{
-		return bound<Left>(key);
-	}
-
-	template <typename Settings, typename Customization>
-	template <bool Direction>
-	auto RedBlackTree<Settings, Customization>::bound(const Key& key) const
-	-> ConstIterator
-	{
-		using Directed_Compare = 
-			Directed_Predicate<Compare, Direction>;
-
-		ConstIterator result = cend();
-
-		Node* node = root_;
-		while(node != sentinel_)
+		ConstIterator node = croot();
+		ConstIterator upper = cend();
+		while (!node.isSentinel())
 		{
-			const Key& nodeKey = ((Data_Node*)node)->key();
+			if (Compare()(key, node.key()))
+			{
+				// Since this node is strictly greater than the
+				// key, it is an upper bound, although maybe not
+				// a smallest upper bound.
+				upper = node;
 
-			Node* nextNode = 0;
-			if (Directed_Compare()(key, nodeKey))
-			{
-				// Elements less than the key
-				// in this node are on the left.
-				nextNode = node->child(!Direction);
-				if (nextNode == sentinel_)
-				{
-					// The searched element does not
-					// exist in the tree; the current 
-					// node is the successor of 'key'.
-					result = ConstIterator(node);
-					break;
-				}
+				// The possible equivalent element lies in the
+				// left subtree.
+				node = node.left();
 			}
-			else if (Directed_Compare()(nodeKey, key))
+			else if (Compare()(node.key(), key))
 			{
-				// Elements greater than the key
-				// in this node are on the right.
-				nextNode = node->child(Direction);
-				if (nextNode == sentinel_)
-				{
-					// The searched element does not
-					// exist in the tree; the next node
-					// in the in-order traversal is the
-					// successor of 'key'.
-					result = ConstIterator(node);
-					if (Direction)
-					{
-						++result;
-					}
-					else
-					{
-						--result;
-					}
-				}
+				// The possible equivalent element lies in the
+				// right subtree.
+				node = node.right();
 			}
 			else
 			{
-				// The key in this node is equivalent
-				// to the searched element. 
-				// Return an iterator to it.
-				result = ConstIterator(node);
+				// The node is equivalent to the key, so
+				// we have found what we searched for.
 				break;
 			}
-
-			node = nextNode;
 		}
 
-		if (!Direction)
+		return std::make_pair(node, upper);
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::equalRange(
+		const Key& key, EqualRange compute) const
+		-> std::pair<ConstIterator, ConstIterator>
+	{
+		auto equalRootAndUpper = equalRoot(key);
+
+		ConstIterator equal = equalRootAndUpper.first;
+		ConstIterator upper = equalRootAndUpper.second;
+
+		bool keyExists = !equal.isSentinel();
+		if (!keyExists)
 		{
-			if (result == cend())
+			// The key does not exists in the tree.
+			// Therefore the lower bound is the same
+			// as the upper bound.
+			return std::make_pair(upper, upper);
+		}
+
+		// Although we have found an equivalent element,
+		// it may not be the first such.
+		ConstIterator lower = equal;
+		if (compute != OnlyUpperBound)
+		{
+			// Find the first of the equivalent elements.
+			auto leftIsEquivalent = [&](const ConstIterator& node)
 			{
-				result = cbegin();
-			}
-			else if (!Compare()(key, result.key()))
+				return !node.left().isSentinel() &&
+					!Compare()(node.left().key(), key);
+			};
+
+			while (leftIsEquivalent(lower))
 			{
-				++result;
+				lower = lower.left();
 			}
 		}
 
-		return result;
+		if (compute != OnlyLowerBound)
+		{
+			auto result = findInsertParent(key, equal);
+			if (!result.upper.isSentinel())
+			{
+				upper = result.upper;
+			}
+		}
+
+		return std::make_pair(
+			ConstIterator(lower),
+			ConstIterator(upper));
 	}
 
 	template <typename Settings, typename Customization>
 	auto RedBlackTree<Settings, Customization>::findInsertParent(
-		const Key& key) const
-	-> std::pair<Node*, bool>
+		const Key& key, const ConstIterator& node) const
+		-> FindInsert
 	{
-		// Find the place to insert the new element.
-		Node* parent = sentinel_;
-		Node* child = root_;
+		ConstIterator child = node;
+		ConstIterator parent = child.parent();
+		ConstIterator upper = cend();
 
-		// If the tree is empty, then any element should be
-		// inserted as the left child of the sentinel node.
 		bool rightChild = false;
-		while(!child->isSentinel())
+		while(!child.isSentinel())
 		{
 			parent = child;
-			rightChild = !Compare()(key, ((Data_Node*)parent)->key());
+			rightChild = !Compare()(key, parent.key());
+			if (!rightChild)
+			{
+				upper = parent;
+			}
 			// If the node key is equivalent
 			// to the searched key, then we will go right,
 			// so as to place the new element at the
 			// end of the equivalent range of elements.
-			child = parent->child(rightChild);
+			child = parent.child(rightChild);
 		}
 
-		return std::make_pair(parent, rightChild);
+		return FindInsert{parent, rightChild, upper};
 	}
 
 }

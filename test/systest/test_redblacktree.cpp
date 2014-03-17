@@ -490,6 +490,35 @@ namespace
 		}
 
 		template <typename Tree>
+		void print(const Tree& tree)
+		{
+			using ConstIterator = typename Tree::ConstIterator;
+			
+			std::list<std::pair<ConstIterator, integer>> nodeSet;
+			nodeSet.push_back(std::make_pair(tree.croot(), (integer)0));
+			while (!nodeSet.empty() && nodeSet.front().second < 4)
+			{
+				auto entry = nodeSet.front();
+				nodeSet.pop_front();
+				
+				if (entry.first != tree.cend())
+				{
+					std::cout << entry.second << " : " << entry.first.key() << std::endl;
+				}
+				else
+				{
+					std::cout << entry.second << " : -" << std::endl;
+				}
+
+				nodeSet.push_back(
+					std::make_pair(entry.first.left(), entry.second + 1));
+				nodeSet.push_back(
+					std::make_pair(entry.first.right(), entry.second + 1));
+			}
+			std::cout << std::endl;
+		}
+
+		template <typename Tree>
 		void testUpperBound()
 		{
 			Tree tree{ 0, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
@@ -512,6 +541,8 @@ namespace
 			{
 				TEST_ENSURE(tree.upperBound(that) == tree.cend());
 			};
+
+			//print(tree);
 
 			found(-1, 0);
 			found(0, 4);

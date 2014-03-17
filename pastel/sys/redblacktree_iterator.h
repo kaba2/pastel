@@ -87,6 +87,11 @@ namespace Pastel
 				return Iterator(node()->right());
 			}
 
+			Iterator child(bool rightChild) const
+			{
+				return Iterator(node()->child(rightChild));
+			}
+
 			bool red() const
 			{
 				return node()->red();
