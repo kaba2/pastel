@@ -13,13 +13,14 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		class Node
+		template <typename Node>
+		class Node_Base
 		{
 		public:
 			template <typename, typename>
 			friend class Pastel::RedBlackTree;
 
-			template <typename, typename, typename, typename, bool>
+			template <typename, typename, typename, bool>
 			friend class Iterator;
 
 			enum
@@ -46,11 +47,11 @@ namespace Pastel
 			}
 
 		protected:
-			Node(const Node& that) = delete;
-			Node(Node&& that) = delete;
-			Node& operator=(Node that) = delete;
+			Node_Base(const Node_Base& that) = delete;
+			Node_Base(Node_Base&& that) = delete;
+			Node_Base& operator=(Node_Base that) = delete;
 
-			explicit Node(Node* sentinel)
+			explicit Node_Base(Node_Base* sentinel)
 				: parent_(0)
 				, child_()
 				, red_(sentinel != 0)
@@ -64,9 +65,9 @@ namespace Pastel
 
 				// The sentinel node is black.
 				// The leaf nodes are red.
-				parent_ = sentinel;
-				child_[Left] = sentinel;
-				child_[Right] = sentinel;
+				parent_ = (Node*)sentinel;
+				child_[Left] = (Node*)sentinel;
+				child_[Right] = (Node*)sentinel;
 			}
 
 			void setRed()
@@ -77,13 +78,12 @@ namespace Pastel
 
 			void setBlack()
 			{
-				ASSERT(!isSentinel());
 				red_ = false;
 			}
 
 			void setRed(bool red)
 			{
-				ASSERT(!isSentinel());
+				ASSERT(!isSentinel() || !red);
 				red_ = red;
 			}
 
@@ -151,11 +151,13 @@ namespace Pastel
 		correctly.
 		*/
 		template <typename Key, typename Data_Class_>
-		class Data_Node
-			: public Node
+		class Node
+			: public Node_Base<Node<Key, Data_Class_>>
 			, public Data_Class_
 		{
 		public:
+			using Base = Node_Base<Node<Key, Data_Class_>>;
+
 			// We need this to get around a bug in the 
 			// Visual Studio 2013 RC compiler.
 			using Data_Class = Data_Class_;
@@ -163,7 +165,7 @@ namespace Pastel
 			template <typename, typename>
 			friend class Pastel::RedBlackTree;
 
-			template <typename, typename, typename, typename, bool>
+			template <typename, typename, typename, bool>
 			friend class Iterator;
 
 			const Key& key() const
@@ -185,16 +187,16 @@ namespace Pastel
 			}
 
 		private:
-			Data_Node(const Data_Node& that) = delete;
-			Data_Node(Data_Node&& that) = delete;
-			Data_Node& operator=(Data_Node that) = delete;
+			Node(const Node& that) = delete;
+			Node(Node&& that) = delete;
+			Node& operator=(Node that) = delete;
 
 			template <typename... Value>
-			Data_Node(
-				Node* sentinel,
+			Node(
+				Base* sentinel,
 				Key&& key,
 				Value&&... value)
-				: Node(sentinel)
+				: Base(sentinel)
 				, Data_Class_(std::forward<Value>(value)...)
 				, key_(std::move(key))
 			{

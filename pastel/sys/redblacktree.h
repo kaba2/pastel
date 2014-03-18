@@ -165,7 +165,7 @@ namespace Pastel
 		*/
 		bool empty() const
 		{
-			return root_ == sentinel_;
+			return size_ == 0;
 		}
 
 		//! Inserts an element into the tree.
@@ -216,9 +216,9 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 
-		No constructors or destructors are performed in this
-		process; the node containing the element is moved
-		from 'that' tree to this tree.
+		The result of the splicing is the same as subsequent
+		erase() and insert() calls, however, no constructors or 
+		destructors are performed for the data.
 		*/
 		InsertReturnType splice(
 			RedBlackTree& that, 
@@ -350,7 +350,7 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS(begin, minimum PASTEL_CALL_BRACKETS);
 
 		//! Returns the iterator to the one-past-greatest element.
-		PASTEL_ITERATOR_FUNCTIONS(end, sentinel_);
+		PASTEL_ITERATOR_FUNCTIONS(end, (Node*)sentinel_);
 
 		//! Returns an iterator range.
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
@@ -359,7 +359,7 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyBegin, minimum PASTEL_CALL_BRACKETS);
 
 		//! Returns the iterator to the one-past-greatest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, sentinel_);
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, (Node*)sentinel_);
 
 		//! Returns an iterator range.
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
@@ -368,7 +368,7 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataBegin, minimum PASTEL_CALL_BRACKETS);
 
 		//! Returns the iterator to the one-past-greatest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataEnd, sentinel_);
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataEnd, (Node*)sentinel_);
 
 		//! Returns an iterator range.
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Data_, dataRange, dataBegin, dataEnd);
@@ -383,8 +383,8 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS(root, root_);
 
 	private:
+		PASTEL_FWD(Node_Base);
 		PASTEL_FWD(Node);
-		PASTEL_FWD(Data_Node);
 
 		enum
 		{
@@ -447,7 +447,7 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		template <typename... Value>
-		Data_Node* allocateNode(
+		Node* allocateNode(
 			Key&& key,
 			Value&&... value);
 
@@ -459,7 +459,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		void deallocateNode(Data_Node* node);
+		void deallocateNode(Node* node);
 
 		//! Finds the node under which to insert the key.
 		/*!
@@ -659,7 +659,7 @@ namespace Pastel
 		which can be used to identify it).
 		The right child is also the sentinel itself.
 		*/
-		Node* sentinel_;
+		Node_Base* sentinel_;
 
 		//! The minimum node of the tree.
 		Node* minimum_;

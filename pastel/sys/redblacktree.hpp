@@ -14,7 +14,7 @@ namespace Pastel
 		, minimum_(0)
 		, size_(0)
 	{
-		sentinel_ = new Node(0);
+		sentinel_ = new Node_Base(0);
 		initialize();
 	}
 
@@ -25,7 +25,7 @@ namespace Pastel
 	{
 		try
 		{
-			root_ = copyConstruct(sentinel_, that, that.root_);
+			root_ = copyConstruct((Node*)sentinel_, that, that.root_);
 		}
 		catch(...)
 		{
@@ -73,14 +73,14 @@ namespace Pastel
 		// This function is called both in construction
 		// and in clear().
 
-		sentinel_->parent() = sentinel_;
-		sentinel_->left() = sentinel_;
-		sentinel_->right() = sentinel_;
+		sentinel_->parent() = (Node*)sentinel_;
+		sentinel_->left() = (Node*)sentinel_;
+		sentinel_->right() = (Node*)sentinel_;
 
-		setMinimum(sentinel_);
-		setMaximum(sentinel_);
+		setMinimum((Node*)sentinel_);
+		setMaximum((Node*)sentinel_);
 		
-		root_ = sentinel_;
+		root_ = (Node*)sentinel_;
 		size_ = 0;
 	}
 

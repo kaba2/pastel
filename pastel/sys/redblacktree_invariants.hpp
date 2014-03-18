@@ -3,7 +3,7 @@
 
 #include "pastel/sys/redblacktree.h"
 
-#include <iostream>
+#include <algorithm>
 
 namespace Pastel
 {
@@ -121,7 +121,21 @@ namespace Pastel
 		}
 
 		integer blackHeight = 0;
-		return RedBlackTree_::testInvariants(tree, tree.croot(), blackHeight);
+		if (!RedBlackTree_::testInvariants(tree, tree.croot(), blackHeight))
+		{
+			return false;
+		}
+
+		using Compare = typename Settings::Compare;
+
+		// Check that the keys are unique when multiple keys are not allowed.
+		if (!Settings::MultipleKeys && 
+			!std::is_sorted(tree.ckeyBegin(), tree.ckeyEnd(), Compare()))
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 }

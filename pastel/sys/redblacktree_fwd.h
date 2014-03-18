@@ -21,13 +21,14 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename, typename, typename, typename, bool>
+		template <typename, typename, typename, bool>
 		class Iterator;
 
-		class Node;
+		template <typename>
+		class Node_Base;
 
 		template <typename, typename>
-		class Data_Node;
+		class Node;
 
 	}
 
@@ -39,22 +40,22 @@ namespace Pastel
 		using Data = typename Settings::Data;
 		using Compare = typename Settings::Compare;
 		using Data_Class = Class<Data>;
-		using Node = RedBlackTree_::Node;
-		using Data_Node = RedBlackTree_::Data_Node<Key, Data_Class>;
+		using Node = RedBlackTree_::Node<Key, Data_Class>;
+		using Node_Base = RedBlackTree_::Node_Base<Node>;
 
 		using Key_Iterator = 
-			RedBlackTree_::Iterator<Node*, Data_Node*, Key, Data_Class, false>;
+			RedBlackTree_::Iterator<Node*, Key, Data_Class, false>;
 		using Key_ConstIterator = 
-			RedBlackTree_::Iterator<const Node*, const Data_Node*, Key, Data_Class, false>;
+			RedBlackTree_::Iterator<const Node*, Key, Data_Class, false>;
 		using Key_Range = 
 			boost::iterator_range<Key_Iterator>;
 		using Key_ConstRange = 
 			boost::iterator_range<Key_ConstIterator>;
 
 		using Data_Iterator = 
-			RedBlackTree_::Iterator<Node*, Data_Node*, Key, Data_Class, true>;
+			RedBlackTree_::Iterator<Node*, Key, Data_Class, true>;
 		using Data_ConstIterator = 
-			RedBlackTree_::Iterator<const Node*, const Data_Node*, Key, Data_Class, true>;
+			RedBlackTree_::Iterator<const Node*, Key, Data_Class, true>;
 		using Data_Range = 
 			boost::iterator_range<Data_Iterator>;
 		using Data_ConstRange = 
@@ -70,12 +71,12 @@ namespace Pastel
 
 		using Iterator = 
 			RedBlackTree_::Iterator<
-				Node*, Data_Node*, Key, 
+				Node*, Key, 
 				Data_Class, DereferenceToData>;
 		using ConstIterator = 
 			RedBlackTree_::Iterator<
-				const Node*, const Data_Node*, 
-				Key, Data_Class, DereferenceToData>;
+				const Node*, Key, 
+				Data_Class, DereferenceToData>;
 		using Range = 
 			boost::iterator_range<Iterator>;
 		using ConstRange = 
