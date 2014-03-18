@@ -11,53 +11,40 @@ namespace Pastel
 	auto RedBlackTree<Settings, Customization>::allocateNode(
 		Key&& key,
 		Value&&... value)
-	-> Data_Node*
+	-> Node*
 	{
-		Data_Node* node = new Data_Node(
+		Node* node = new Node(
 			sentinel_,
 			std::move(key), 
 			std::forward<Value>(value)...);
-		++size_;
 		return node;
 	}
 
 	template <typename Settings, typename Customization>
 	void RedBlackTree<Settings, Customization>::deallocateNode(
-		Data_Node* node)
+		Node* node)
 	{
 		ASSERT(!node->isSentinel());
-		delete (Data_Node*)node;
-
-		ASSERT_OP(size_, >, 0);
-		--size_;
+		delete node;
 	}
 
 	template <typename Settings, typename Customization>
 	void RedBlackTree<Settings, Customization>::updateToRoot(
 		Node* node)
 	{
-		if (node == sentinel_)
-		{
-			return;
-		}
-
-		Node* child = node;
-		while(node != sentinel_)
+		while(!node->isSentinel())
 		{
 			this->updateHierarchical(
 				Iterator(node));
-			child = node;
 			node = node->parent();
 		}
-
-		root_ = child;
 	}
 
 	template <typename Settings, typename Customization>
 	void RedBlackTree<Settings, Customization>::link(
 		Node* parent, Node* child, integer direction)
 	{
-		if (parent != sentinel_)
+		if (!parent->isSentinel())
 		{
 			parent->child(direction) = child;
 		}
@@ -65,7 +52,7 @@ namespace Pastel
 		{
 			root_ = child;
 		}
-		if (child != sentinel_)
+		if (!child->isSentinel())
 		{
 			child->parent() = parent;
 		}
@@ -78,28 +65,24 @@ namespace Pastel
 	{
 		ASSERT(node != sentinel_);
 
+		//     |            | 
+		//     n            l
+		//    / \   ==>    / \  
+		//   l                n
+		//  / \              / \
+		//     a            a    
+
 		Node* parent = node->parent();
-		Node* x = node->child(!direction);
-		Node* y = x->child(direction);
+		Node* left = node->child(!direction);
+		Node* leftRight = left->child(direction);
 
-		ASSERT(x != sentinel_);
+		ASSERT(!left->isSentinel());
 
-		if (node == parent->left())
-		{
-			link(parent, x, Left);
-		}
-		else
-		{
-			link(parent, x, Right);
-		}
+		link(parent, left, node == parent->right());
+		link(node, leftRight, !direction);
+		link(left, node, direction);
 
-		link(node, y, !direction);
-		link(x, node, direction);
-
-		x->setRed(node->red());
-		node->setRed();
-
-		return x;
+		return left;
 	}
 
 	template <typename Settings, typename Customization>

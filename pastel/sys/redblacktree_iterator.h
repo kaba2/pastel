@@ -19,13 +19,12 @@ namespace Pastel
 
 		template <
 			typename NodePtr,
-			typename Data_NodePtr,
 			typename Key,
 			typename Data_Class,
 			bool DereferenceToData>
 		class Iterator
 			: public boost::iterator_adaptor<
-			Iterator<NodePtr, Data_NodePtr, Key, Data_Class, DereferenceToData>, 
+			Iterator<NodePtr, Key, Data_Class, DereferenceToData>, 
 			NodePtr,
 			typename std::conditional<DereferenceToData, Data_Class, const Key>::type,
 			boost::bidirectional_traversal_tag>
@@ -46,10 +45,9 @@ namespace Pastel
 
 			template <
 				typename That_NodePtr,
-				typename That_Data_NodePtr,
 				bool That_DereferenceToData>
 			Iterator(
-				const Iterator<That_NodePtr, That_Data_NodePtr, Key, Data_Class, That_DereferenceToData>& that,
+				const Iterator<That_NodePtr, Key, Data_Class, That_DereferenceToData>& that,
 				typename boost::enable_if<
 				boost::is_convertible<That_NodePtr, NodePtr>, 
 				enabler>::type = enabler())
@@ -59,12 +57,12 @@ namespace Pastel
 
 			const Key& key() const
 			{
-				return ((Data_NodePtr)node())->key();
+				return node()->key();
 			}
 
 			Data_Class& data() const
 			{
-				return (Data_Class&)((Data_NodePtr)node())->data();
+				return (Data_Class&)node()->data();
 			}
 
 			bool isSentinel() const

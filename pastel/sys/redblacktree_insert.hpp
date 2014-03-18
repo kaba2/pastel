@@ -18,10 +18,7 @@ namespace Pastel
 		Node* parent = (Node*)result.parent.base();
 		bool rightChild = result.rightChild;
 
-		bool elementExists = 
-			!parent->isSentinel() &&
-			!Compare()(((Data_Node*)parent)->key(), key) == rightChild;
-
+		bool elementExists = exists(key);
 		if (!Settings::MultipleKeys && elementExists)
 		{
 			// The tree already contains an
@@ -45,102 +42,199 @@ namespace Pastel
 	void RedBlackTree<Settings,  Customization>::attach(
 		Node* node, Node* parent, bool rightChild)
 	{
+		ASSERT(!node->isSentinel());
+		ASSERT(node->left()->isSentinel());
+		ASSERT(node->right()->isSentinel());
+		ASSERT(parent->child(rightChild)->isSentinel());
+
+		bool isEmpty = empty();
+
 		Iterator element(node);
 
 		// Attach the new node into the tree.
-		node->parent_ = parent;
-		if (!parent->isSentinel())
-		{
-			parent->child(rightChild) = node;
-		}
+		link(parent, node, rightChild);
 
-		if (empty() || (parent == minimum() && !rightChild))
+		if (isEmpty || (parent == minimum() && !rightChild))
 		{
 			// This is the new minimum element.
 			setMinimum(node);
 		}
 
-		if (empty() || (parent == maximum() && rightChild))
+		if (isEmpty || (parent == maximum() && rightChild))
 		{
 			// This is the new maximum element.
 			setMaximum(node);
 		}
 
+		// Update the hierarchical information in subtree
+		// rooted at 'node'. See the loop invariant below.
 		this->updateHierarchical(
 			Iterator(node));
 
-		// Start climbing back up, fixing the violated
-		// red-black tree invariants.
-
-		root_ = node;
-		node = node->parent();
-		while (!node->isSentinel())
+		while (true)
 		{
-			this->updateHierarchical(
-				Iterator(node));
+			// The loop invariant is as follows:
 
-			if (node->left()->black() &&
-				node->right()->red())
+			// At the start of the loop 
+			// * the subtree rooted at 'node' is a red-black tree,
+			// except that 'node' is red, and
+			// * the hierarchical information is up-to-date in
+			// the subtree rooted at 'node'.
+
+			ASSERT(!node->isSentinel());
+			ASSERT(node->red());
+
+			Node* parent = node->parent();
+			if (parent->isSentinel())
 			{
-				// We want a left-leaning red-black tree.
-				// This fixes that locally.
-				node = rotate(node, Left);
+				//    |R         |B
+				//    n    ==>   n
+				//  B/ \B      B/ \B
+				//  1   2      1   2
 
-				// Note that being left-leaning is deliberately 
-				// _not_ an invariant of the tree, although
-				// we make that choice here.
+				// The node is the root node.
+				ASSERT(node == root_);
 
-				this->updateHierarchical(
-					Iterator(node->left()));
-				this->updateHierarchical(
-					Iterator(node));
-			}
+				// Marking it black turns the subtree
+				// rooted at 'node' a red-black tree,
+				// since marking the root black increases
+				// the black-counts on all paths by one.
+				node->setBlack();
 
-			if (node->left()->red() &&
-				node->left()->left()->red())
-			{
-				// An invariant of a red-black tree is that
-				// there are no two subsequent red nodes.
-				// This fixes that locally.
-				node = rotate(node, Right);
-
-				this->updateHierarchical(
-					Iterator(node->right()));
-				this->updateHierarchical(
-					Iterator(node));
-			}
-
-			if (node->left()->red() &&
-				node->right()->red())
-			{
-				flipColors(node);
-
-				this->updateHierarchical(
-					Iterator(node->left()));
-				this->updateHierarchical(
-					Iterator(node->right()));
-				this->updateHierarchical(
-					Iterator(node));
-			}
-
-			if (node->parent()->isSentinel())
-			{
-				root_ = node;
+				// We are done.
 				break;
 			}
 
-			node = node->parent();
+			// From now on, the parent exists.
+
+			if (parent->black())
+			{
+				//     |B 
+				//     p  
+				//   R/ \ 
+				//   n   3
+				// B/ \B  
+				// 1   2  
+
+				// We have fixed all the violations. It suffices
+				// to update the hierarchical information up
+				// to the root.
+				updateToRoot(parent);
+				break;
+			}
+
+			// From now on, the parent must be red. Since the 
+			// root can not be red, the parent can not be the root.
+			ASSERT(parent != root_);
+		
+			// From the previous it follows that the 
+			// grand-parent exists.
+			Node* grandParent = parent->parent();
+			ASSERT(!grandParent->isSentinel());
+
+			bool parentIsRight = (parent == grandParent->right());
+			Node* uncle = grandParent->child(!parentIsRight);
+
+			if (uncle->black())
+			{
+				// If the parent is red, and the uncle
+				// is black, then the violation is that
+				// 'parent' and 'node' are two consecutive
+				// red nodes.
+
+				bool nodeIsRight = (node == parent->right());
+				if (nodeIsRight != parentIsRight)
+				{
+					//        |B               |B
+					//        g                g
+					//      R/ \B            R/ \B
+					//     p     u    ==>   n     u
+					//   B/ \R  / \       R/ \B  / \ 
+					//   1   n 4   5      p   3 4   5
+					//     B/ \B        B/ \B         
+					//     2   3        1   2
+
+					// If the grandparent-parent-node forms
+					// a turn, then we reduce it to a chain.
+					// This does not yet get rid of the red-red
+					// violation, but reduces it so that
+					// the next case can handle it.
+
+					rotate(parent, !nodeIsRight);
+
+					this->updateHierarchical(
+						Iterator(parent));
+					this->updateHierarchical(
+						Iterator(node));
+
+					// Continue as if we were in the
+					// parent node.
+					std::swap(node, parent);
+				}
+
+				//        |B               |B
+				//        g                p
+				//      R/ \B            R/ \R
+				//     p     u    ==>   n     g
+				//   R/ \B  / \       B/ \B B/ \B
+				//   n   3 4   5      1   2 3   u
+				// B/ \B                       / \
+				// 1   2                      4   5
+
+				// The 'node' is the left child of the
+				// 'parent'. In this case we do as above.
+
+				rotate(grandParent, !parentIsRight);
+				parent->setBlack();
+				grandParent->setRed();
+				
+				this->updateHierarchical(
+					Iterator(grandParent));
+
+				// We have fixed all the violations. It suffices
+				// to update the hierarchical information up
+				// to the root.
+				updateToRoot(parent);
+				break;
+			}
+
+			// From now on, both the parent and the uncle
+			// must be red.
+
+			//        |B               |R
+			//        g                g
+			//      R/ \R            B/ \B
+			//     p     u    ==>   p     u
+			//   R/ \B B/ \B      R/ \B B/ \B
+			//   n   3 4   5      n   3 4   5
+			// B/ \B            B/ \B
+			// 1   2            1   2
+
+			// If the parent and the uncle are red,
+			// then the only violation is that 'node'
+			// is a red child of the red 'parent' node.
+			// This can be fixed by changing parent
+			// and uncle black, and grandparent red.
+
+			parent->setBlack();
+			uncle->setBlack();
+			grandParent->setRed();
+
+			this->updateHierarchical(
+				Iterator(parent));
+			this->updateHierarchical(
+				Iterator(uncle));
+			this->updateHierarchical(
+				Iterator(grandParent));
+
+			// This is the only case which recurses upwards.
+			// The loop invariant now holds for the grand-parent,
+			// so we will continue from there.
+			node = grandParent;
 		}
 
-		// It is an invariant of the red-black tree that 
-		// the root-node is black. Simply changing the color from
-		// red to black in the root can not break any invariant:
-		//
-		// * The number of black nodes increments by one on _every_ path.
-		// * It has no effect on the left-leaning property.
-		// * It removes the possible last invariant violation of two 
-		//   subsequent red nodes next to the root.
-		root_->setBlack();
+		// Update the size.
+		++size_;
 
 		// Notify the customization of this tree of the
 		// insertion.
