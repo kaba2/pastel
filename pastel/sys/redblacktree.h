@@ -579,6 +579,15 @@ namespace Pastel
 			const RedBlackTree& that,
 			Node* thatNode);
 
+		//! An optimized call for updating hierarchical information.
+		void update(Iterator element)
+		{
+			if (Customization::UpdateHierarchical)
+			{
+				this->updateHierarchical(element);
+			}
+		}
+
 		//! Destructs the nodes of a subtree.
 		/*!
 		Time complexity: O(n)
@@ -609,13 +618,6 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		Node* rotate(Node* node, integer direction);
-
-		//! Flips the colors of a node and its children.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		void flipColors(Node* node);
 
 		//! Sets the minimum node.
 		/*!

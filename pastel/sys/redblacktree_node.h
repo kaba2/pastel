@@ -137,12 +137,6 @@ namespace Pastel
 				return child_[Right];
 			}
 
-			void flipColor()
-			{
-				ASSERT(!isSentinel());
-				red_ = !red_;
-			}
-
 			Node* parent_;
 			Node* child_[2];
 			bool red_;

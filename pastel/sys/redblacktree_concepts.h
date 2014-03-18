@@ -133,6 +133,17 @@ namespace Pastel
 			*/
 			void updateHierarchical(const ConstIterator& node) {}
 
+			//! Whether to call the updateHierarchical() customization.
+			/*!
+			Keeping the hierarchical information up to date incurs
+			a small performance degradation in that all modifications
+			in the structure of the tree must always be propagated
+			to the root node. If the hierarchical data is not used,
+			then this flag can be set to false for a small performance
+			boost.
+			*/
+			enum { UpdateHierarchical = 0 };
+
 		private:
 			// These functions will not be used, and so should
 			// be deleted to avoid accidental splicing.

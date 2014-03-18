@@ -74,7 +74,7 @@ namespace Pastel
 
 		// Update the hierarchical information in subtree
 		// rooted at 'node'. See the loop invariant below.
-		this->updateHierarchical(
+		update(
 			Iterator(node));
 
 		while (true)
@@ -168,10 +168,8 @@ namespace Pastel
 
 					rotate(parent, !nodeIsRight);
 
-					this->updateHierarchical(
-						Iterator(parent));
-					this->updateHierarchical(
-						Iterator(node));
+					update(Iterator(parent));
+					update(Iterator(node));
 
 					// Continue as if we were in the
 					// parent node.
@@ -194,8 +192,7 @@ namespace Pastel
 				parent->setBlack();
 				grandParent->setRed();
 				
-				this->updateHierarchical(
-					Iterator(grandParent));
+				update(Iterator(grandParent));
 
 				// We have fixed all the violations. It suffices
 				// to update the hierarchical information up
@@ -226,12 +223,9 @@ namespace Pastel
 			uncle->setBlack();
 			grandParent->setRed();
 
-			this->updateHierarchical(
-				Iterator(parent));
-			this->updateHierarchical(
-				Iterator(uncle));
-			this->updateHierarchical(
-				Iterator(grandParent));
+			update(Iterator(parent));
+			update(Iterator(uncle));
+			update(Iterator(grandParent));
 
 			// This is the only case which recurses upwards.
 			// The loop invariant now holds for the grand-parent,

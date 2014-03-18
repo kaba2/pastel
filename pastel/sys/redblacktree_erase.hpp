@@ -310,8 +310,7 @@ namespace Pastel
 				//    / \
 				//   1   2
 
-				this->updateHierarchical(
-					Iterator(parent));
+				update(Iterator(parent));
 
 				// Propagate upwards.
 				parent = nextParent;
@@ -349,10 +348,8 @@ namespace Pastel
 				a->setRed(parent->red());
 				parent->setBlack();
 
-				this->updateHierarchical(
-					Iterator(parent));
-				this->updateHierarchical(
-					Iterator(sibling));
+				update(Iterator(parent));
+				update(Iterator(sibling));
 
 				// We are done.
 				parent = a;
@@ -375,8 +372,7 @@ namespace Pastel
 
 				rotate(parent, right);
 
-				this->updateHierarchical(
-					Iterator(parent));
+				update(Iterator(parent));
 
 				// We are done.
 				parent = sibling;
@@ -405,10 +401,8 @@ namespace Pastel
 				// a black node from the subtree with the
 				// higher black-count.
 
-				this->updateHierarchical(
-					Iterator(sibling));
-				this->updateHierarchical(
-					Iterator(parent));
+				update(Iterator(sibling));
+				update(Iterator(parent));
 
 				parent = nextParent;
 				right = nextRight;
@@ -429,9 +423,9 @@ namespace Pastel
 			rotate(parent, right);
 			b->setBlack();
 
-			this->updateHierarchical(
+			update(
 				Iterator(parent));
-			this->updateHierarchical(
+			update(
 				Iterator(sibling));
 
 			parent = sibling;
