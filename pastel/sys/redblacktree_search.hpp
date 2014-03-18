@@ -23,9 +23,9 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::equalRoot(
+	auto RedBlackTree<Settings, Customization>::findEqual(
 		const Key& key) const
-		-> std::pair<ConstIterator, ConstIterator>
+		-> FindEqual_Return
 	{
 		ConstIterator node = croot();
 		ConstIterator upper = cend();
@@ -56,18 +56,18 @@ namespace Pastel
 			}
 		}
 
-		return std::make_pair(node, upper);
+		return FindEqual_Return{node, upper};
 	}
 
 	template <typename Settings, typename Customization>
 	auto RedBlackTree<Settings, Customization>::equalRange(
-		const Key& key, EqualRange compute) const
-		-> std::pair<ConstIterator, ConstIterator>
+		const Key& key, 
+		const FindEqual_Return& equalAndUpper,
+		EqualRange compute) const
+		-> EqualRange_Return
 	{
-		auto equalRootAndUpper = equalRoot(key);
-
-		ConstIterator equal = equalRootAndUpper.first;
-		ConstIterator upper = equalRootAndUpper.second;
+		ConstIterator equal = equalAndUpper.equal;
+		ConstIterator upper = equalAndUpper.upper;
 
 		bool keyExists = !equal.isSentinel();
 		if (!keyExists)
@@ -75,7 +75,7 @@ namespace Pastel
 			// The key does not exists in the tree.
 			// Therefore the lower bound is the same
 			// as the upper bound.
-			return std::make_pair(upper, upper);
+			return EqualRange_Return{ upper, equal, upper };
 		}
 
 		// Although we have found an equivalent element,
@@ -98,33 +98,30 @@ namespace Pastel
 
 		if (compute != OnlyLowerBound)
 		{
-			auto result = findInsertParent(key, equal);
-			if (!result.upper.isSentinel())
-			{
-				upper = result.upper;
-			}
+			upper = findInsert(key, equalAndUpper).upper;
 		}
 
-		return std::make_pair(
-			ConstIterator(lower),
-			ConstIterator(upper));
+		return EqualRange_Return{lower, equal, upper};
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::findInsertParent(
-		const Key& key, const ConstIterator& node) const
-		-> FindInsert
+	auto RedBlackTree<Settings, Customization>::findInsert(
+		const Key& key, 
+		const FindEqual_Return& equalAndUpper) const
+		-> FindInsert_Return
 	{
-		ConstIterator child = node;
+		ConstIterator child = 
+			(equalAndUpper.equal == cend()) ? 
+			croot() : equalAndUpper.equal;
 		ConstIterator parent = child.parent();
-		ConstIterator upper = cend();
+		ConstIterator upper = equalAndUpper.upper;
 
-		bool rightChild = false;
+		bool right = false;
 		while(!child.isSentinel())
 		{
 			parent = child;
-			rightChild = !Compare()(key, parent.key());
-			if (!rightChild)
+			right = !Compare()(key, parent.key());
+			if (!right)
 			{
 				upper = parent;
 			}
@@ -132,10 +129,10 @@ namespace Pastel
 			// to the searched key, then we will go right,
 			// so as to place the new element at the
 			// end of the equivalent range of elements.
-			child = parent.child(rightChild);
+			child = parent.child(right);
 		}
 
-		return FindInsert{parent, rightChild, upper};
+		return FindInsert_Return{parent, right, upper};
 	}
 
 }

@@ -115,8 +115,7 @@ namespace Pastel
 
 		// Detach a node from the tree.
 		link(parent, child, rightChild);
-		detached->left() = (Node*)sentinel_;
-		detached->right() = (Node*)sentinel_;
+		detached->isolate(sentinel_);
 
 		//    |            | 
 		//    p            p

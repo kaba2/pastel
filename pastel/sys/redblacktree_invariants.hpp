@@ -120,6 +120,13 @@ namespace Pastel
 			return false;
 		}
 
+		if (tree.cend().parent().right() != tree.cend())
+		{
+			// The maximum node must be connected to
+			// the sentinel.
+			return false;
+		}
+
 		integer blackHeight = 0;
 		if (!RedBlackTree_::testInvariants(tree, tree.croot(), blackHeight))
 		{

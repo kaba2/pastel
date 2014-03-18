@@ -12,55 +12,60 @@ namespace Pastel
 		Key key, Value&&... value)
 	-> InsertReturnType
 	{
-		auto result = 
-			findInsertParent(key, root());
-
-		Node* parent = (Node*)result.parent.base();
-		bool rightChild = result.rightChild;
-
-		bool elementExists = exists(key);
+		auto equalAndUpper = findEqual(key);
+		bool elementExists = (equalAndUpper.equal != cend());
 		if (!Settings::MultipleKeys && elementExists)
 		{
+			ConstIterator lower = 
+				equalRange(key, equalAndUpper, OnlyLowerBound).lower;
+
 			// The tree already contains an
-			// equivalent element. Return that.
+			// equivalent element. Return the first
+			// of the equivalent elements.
 			return insertReturnType(
-				Iterator(parent), false);
+				cast(lower), false);
 		}
 
-		// Create a new node.
+		// Find the node under which to insert the element.
+		auto parentAndRight = 
+			findInsert(key, equalAndUpper);
+		Node* parent = (Node*)parentAndRight.parent.base();
+		bool right = parentAndRight.right;
+
+		// Create a new node for the element.
 		Node* node = allocateNode(
 			std::move(key), 
 			std::forward<Value>(value)...);
 
 		// Attach the node into the tree.
-		attach(node, parent, rightChild);
+		attach(node, parent, right);
 
 		return insertReturnType(Iterator(node), true);
 	}
 
 	template <typename Settings, typename Customization>
 	void RedBlackTree<Settings,  Customization>::attach(
-		Node* node, Node* parent, bool rightChild)
+		Node* node, Node* parent, bool right)
 	{
 		ASSERT(!node->isSentinel());
-		ASSERT(node->left()->isSentinel());
-		ASSERT(node->right()->isSentinel());
-		ASSERT(parent->child(rightChild)->isSentinel());
+		ASSERT(node->left() == sentinel_);
+		ASSERT(node->right() == sentinel_);
+		ASSERT(parent->child(right) == sentinel_);
 
 		bool isEmpty = empty();
 
 		Iterator element(node);
 
 		// Attach the new node into the tree.
-		link(parent, node, rightChild);
+		link(parent, node, right);
 
-		if (isEmpty || (parent == minimum() && !rightChild))
+		if (isEmpty || (parent == minimum() && !right))
 		{
 			// This is the new minimum element.
 			setMinimum(node);
 		}
 
-		if (isEmpty || (parent == maximum() && rightChild))
+		if (isEmpty || (parent == maximum() && right))
 		{
 			// This is the new maximum element.
 			setMaximum(node);

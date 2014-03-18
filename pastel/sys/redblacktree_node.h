@@ -56,6 +56,9 @@ namespace Pastel
 				, child_()
 				, red_(sentinel != 0)
 			{
+				// The sentinel node is black.
+				// The elements are created red.
+
 				if (sentinel == 0)
 				{
 					// A null sentinel means that
@@ -63,8 +66,11 @@ namespace Pastel
 					sentinel = this;
 				}
 
-				// The sentinel node is black.
-				// The leaf nodes are red.
+				isolate(sentinel);
+			}
+
+			void isolate(Node_Base* sentinel)
+			{
 				parent_ = (Node*)sentinel;
 				child_[Left] = (Node*)sentinel;
 				child_[Right] = (Node*)sentinel;

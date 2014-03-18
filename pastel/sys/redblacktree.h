@@ -226,12 +226,12 @@ namespace Pastel
 
 		//! Returns whether an element is contained in the tree.
 		/*!
-		This is a convenience function which returns
-		find(key) != cend().
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
 		*/
 		bool exists(const Key& key) const
 		{
-			return find(key) != cend();
+			return findEqual(key).equal != cend();
 		}
 
 		//! Searches for the first element with key == 'key'.
@@ -293,7 +293,7 @@ namespace Pastel
 		*/
 		ConstIterator lowerBound(const Key& key) const
 		{
-			return equalRange(key, OnlyLowerBound).first;
+			return equalRange(key, findEqual(key), OnlyLowerBound).lower;
 		}
 
 		ConstIterator lower_bound(const Key& key) const
@@ -318,7 +318,7 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
-			return equalRange(key, OnlyUpperBound).second;
+			return equalRange(key, findEqual(key), OnlyUpperBound).upper;
 		}
 
 		ConstIterator upper_bound(const Key& key) const
@@ -399,10 +399,23 @@ namespace Pastel
 			Both
 		};
 
-		struct FindInsert
+		struct FindEqual_Return
+		{
+			ConstIterator equal;
+			ConstIterator upper;
+		};
+
+		struct FindInsert_Return
 		{
 			ConstIterator parent;
-			bool rightChild;
+			bool right;
+			ConstIterator upper;
+		};
+
+		struct EqualRange_Return
+		{
+			ConstIterator lower;
+			ConstIterator equal;
 			ConstIterator upper;
 		};
 
@@ -461,31 +474,6 @@ namespace Pastel
 		*/
 		void deallocateNode(Node* node);
 
-		//! Finds the node under which to insert the key.
-		/*!
-		Time complexity: O(log(size()))
-		Exception safety: nothrow
-
-		If there are multiple equivalent elements, then
-		the insertion position is chosen as the last in 
-		the in-order sequence of equivalent keys. Thus
-		the insertion always retains the order in which
-		the equivalent keys were added.
-
-		Note that the inserting the key under the returned
-		node can break the red-black invariants.
-
-		returns:
-		A pair of a node and a boolean, with the first being
-		the node under which to insert the key subject only to
-		the binary search tree property, and the second being 
-		whether to insert under the right child of that node or 
-		not. 
-		*/
-		FindInsert findInsertParent(
-			const Key& key, 
-			const ConstIterator& node) const;
-
 		//! Attaches a new node into the tree and rebalances.
 		/*!
 		Time complexity: O(log(size()))
@@ -516,21 +504,49 @@ namespace Pastel
 		*/
 		Node* detach(Node* node);
 
-		//! Returns the elements equivalent to the given key.
+		//! Returns the top-most element equivalent to the key.
 		/*!
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		std::pair<ConstIterator, ConstIterator>
-			equalRoot(const Key& key) const;
+		FindEqual_Return
+			findEqual(const Key& key) const;
+
+		//! Finds the node under which to insert the key.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
+		If there are multiple equivalent elements, then
+		the insertion position is chosen as the last in 
+		the in-order sequence of equivalent keys. Thus
+		the insertion always retains the order in which
+		the equivalent keys were added.
+
+		Note that the inserting the key under the returned
+		node can break the red-black invariants.
+
+		returns:
+		A pair of a node and a boolean, with the first being
+		the node under which to insert the key subject only to
+		the binary search tree property, and the second being 
+		whether to insert under the right child of that node or 
+		not. 
+		*/
+		FindInsert_Return findInsert(
+			const Key& key, 
+			const FindEqual_Return& equalRoot) const;
 
 		//! Returns the elements equivalent to the given key.
 		/*!
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		std::pair<ConstIterator, ConstIterator>
-			equalRange(const Key& key, EqualRange compute) const;
+		EqualRange_Return
+			equalRange(
+				const Key& key, 
+				const FindEqual_Return& equalRoot,
+				EqualRange compute) const;
 
 		//! Rebalances the red-black tree after detaching a node.
 		/*!
