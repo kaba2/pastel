@@ -73,9 +73,10 @@ namespace Pastel
 		const ConstIterator& thatFrom)
 	-> InsertReturnType
 	{
-		if (thatFrom.isSentinel())
+		Iterator element = cast(thatFrom);
+		if (element.isSentinel())
 		{
-			ENSURE(thatFrom == that.cend());
+			ENSURE(element == that.end());
 			return insertReturnType(end(), false);
 		}
 
@@ -84,38 +85,41 @@ namespace Pastel
 			// The splicing is done inside this tree.
 			// Since in addition every key is unique, 
 			// this has no effect.
-			return insertReturnType(cast(thatFrom), false);
+			return insertReturnType(element, false);
 		}
 
 		// Notify the customization of 'that' tree.
-		that.onSpliceFrom(that.cast(thatFrom));
+		that.onSpliceFrom(element);
 
 		// Detach the node from 'that' tree.
-		Node* detached = that.detach((Node*)thatFrom.base());
-		Iterator element(detached);
+		that.detach(element.base());
 
-		auto findInsert = findInsertParent(element.key(), root());
-		Iterator parent = cast(findInsert.parent);
-		bool rightChild = findInsert.rightChild;
-
-		bool keyExists =
-			!parent.isSentinel() &&
-			!Compare()(parent.key(), element.key()) == rightChild;
-
+		auto equalAndUpper = findEqual(element.key());
+		bool keyExists = (equalAndUpper.equal != cend());
 		if (!Settings::MultipleKeys && keyExists)
 		{
 			// The tree already contains an
 			// equivalent element. 
 
+			// Compute the lower-bound for the element.
+			ConstIterator lower =
+				equalRange(element.key(), equalAndUpper, OnlyLowerBound).lower;
+
 			// Remove the detached element.
-			deallocateNode((Data_Node*)detached);
+			that.deallocateNode(element.base());
 
 			// Return the existing element.
-			return insertReturnType(parent, false);
+			return insertReturnType(cast(lower), false);
 		}
 
+		// Find the place where to insert the element.
+		auto parentAndRight = findInsert(element.key(), equalAndUpper);
+		Iterator parent = cast(parentAndRight.parent);
+		bool right = parentAndRight.right;
+
 		// Attach the new node into this tree.
-		attach(detached, parent.base(), rightChild);
+		element.base()->isolate(sentinel_);
+		attach(element.base(), parent.base(), right);
 
 		// Notify the customization of this tree.
 		this->onSplice(element);

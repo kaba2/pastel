@@ -74,7 +74,7 @@ namespace
 			testSearch<Map>();
 			testSearch<MultiMap>();
 
-			//testSplice<Set>();
+			testSplice<Set>();
 			//testSplice<MultiSet>();
 			//testSplice<Map>();
 			//testSplice<MultiMap>();
@@ -454,17 +454,37 @@ namespace
 		template <typename Tree>
 		void testSplice()
 		{
-			Tree a{ 0, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
-			Tree b{ 1, 1, 1, 2, 2, 6, 7, 8, 9, 10 };
+			Tree a{ 0, 1, 4, 5, 9, 15, 20 };
+			TEST_ENSURE(testInvariants(a));
+
+			Tree b{ 1, 2, 6, 7, 8, 9, 10 };
+			TEST_ENSURE(testInvariants(b));
 
 			{
 				a.splice(b, b.find(1));
-				TEST_ENSURE_OP(a.size(), == , 11);
-				TEST_ENSURE_OP(b.size(), == , 9);
-
-				integer aCorrectSet[] = { 0, 1, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
-				integer bCorrectSet[] = { 1, 1, 2, 2, 6, 7, 8, 9, 10 };
+				
+				TEST_ENSURE(testInvariants(a));
+				TEST_ENSURE_OP(a.size(), == , 7);
+				integer aCorrectSet[] = { 0, 1, 4, 5, 9, 15, 20 };
 				TEST_ENSURE(boost::equal(a.ckeyRange(), aCorrectSet));
+
+				TEST_ENSURE(testInvariants(b));
+				TEST_ENSURE_OP(b.size(), == , 6);
+				integer bCorrectSet[] = { 2, 6, 7, 8, 9, 10 };
+				TEST_ENSURE(boost::equal(b.ckeyRange(), bCorrectSet));
+			}
+
+			{
+				a.splice(b, b.find(10));
+
+				TEST_ENSURE(testInvariants(a));
+				TEST_ENSURE_OP(a.size(), == , 8);
+				integer aCorrectSet[] = { 0, 1, 4, 5, 9, 10, 15, 20 };
+				TEST_ENSURE(boost::equal(a.ckeyRange(), aCorrectSet));
+
+				TEST_ENSURE(testInvariants(b));
+				TEST_ENSURE_OP(b.size(), == , 5);
+				integer bCorrectSet[] = { 2, 6, 7, 8, 9};
 				TEST_ENSURE(boost::equal(b.ckeyRange(), bCorrectSet));
 			}
 		}
