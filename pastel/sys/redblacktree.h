@@ -626,7 +626,7 @@ namespace Pastel
 		*/
 		void setMinimum(Node* node)
 		{
-			minimum_ = node;
+			sentinel_->right() = node;
 		}
 
 		//! Returns the minimum node.
@@ -636,7 +636,7 @@ namespace Pastel
 		*/
 		Node* minimum() const
 		{
-			return minimum_;
+			return sentinel_->right();
 		}
 
 		//! Sets the maximum node.
@@ -678,9 +678,6 @@ namespace Pastel
 		The right child is also the sentinel itself.
 		*/
 		Node_Base* sentinel_;
-
-		//! The minimum node of the tree.
-		Node* minimum_;
 
 		//! The number of stored elements in the tree.
 		integer size_;

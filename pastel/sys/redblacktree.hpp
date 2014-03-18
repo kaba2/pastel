@@ -11,7 +11,6 @@ namespace Pastel
 	RedBlackTree<Settings, Customization>::RedBlackTree()
 		: root_(0)
 		, sentinel_(0)
-		, minimum_(0)
 		, size_(0)
 	{
 		sentinel_ = new Node_Base(0);
@@ -51,7 +50,6 @@ namespace Pastel
 		Customization::swap(that);
 		swap(root_, that.root_);
 		swap(sentinel_, that.sentinel_);
-		swap(minimum_, that.minimum_);
 		swap(size_, that.size_);
 	}
 

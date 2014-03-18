@@ -326,10 +326,9 @@ namespace
 			}
 
 			{
-				// The iterator should stay on end().
 				ConstIterator copyIter = tree.cend();
 				++copyIter;
-				TEST_ENSURE(copyIter == tree.cend());
+				TEST_ENSURE(copyIter == tree.cbegin());
 			}
 
 			{

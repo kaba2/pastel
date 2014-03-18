@@ -146,7 +146,8 @@ namespace Pastel
 						prevNode = node_;
 						node_ = node_->parent();
 					}
-					while (prevNode == node_->right());
+					while (!node_->isSentinel() && 
+						prevNode == node_->right());
 				}
 				else
 				{
