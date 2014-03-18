@@ -42,7 +42,7 @@ namespace Pastel
 			bool isSentinel() const
 			{
 				// A sentinel is identified by the unique property
-				// that its children point to itself.
+				// that its left child points to itself.
 				return left() == this;
 			}
 
