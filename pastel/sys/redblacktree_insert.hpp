@@ -48,6 +48,7 @@ namespace Pastel
 		Node* node, Node* parent, bool right)
 	{
 		ASSERT(!node->isSentinel());
+		ASSERT(node->red());
 		ASSERT(node->left() == sentinel_);
 		ASSERT(node->right() == sentinel_);
 		ASSERT(parent->child(right) == sentinel_);

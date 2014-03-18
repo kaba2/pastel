@@ -54,35 +54,19 @@ namespace
 			testSet();
 			testMultiSet();
 
-			testInsert<Set>();
-			testInsert<MultiSet>();
-			testInsert<Map>();
-			testInsert<MultiMap>();
-
-			testErase<Set>();
-			testErase<MultiSet>();
-			testErase<Map>();
-			testErase<MultiMap>();
-
-			testRandom<Set>();
-			testRandom<MultiSet>();
-			testRandom<Map>();
-			testRandom<MultiMap>();
-
-			testSearch<Set>();
-			testSearch<MultiSet>();
-			testSearch<Map>();
-			testSearch<MultiMap>();
-
-			testSplice<Set>();
-			//testSplice<MultiSet>();
-			//testSplice<Map>();
-			//testSplice<MultiMap>();
+			testManyThings<Set>();
+			testManyThings<MultiSet>();
+			testManyThings<Map>();
+			testManyThings<MultiMap>();
 		}
 
 		template <typename Tree>
-		void testSearch()
+		void testManyThings()
 		{
+			testInsert<Tree>();
+			testErase<Tree>();
+			testRandom<Tree>();
+			testSplice<Tree>();
 			testFind<Tree>();
 			testLowerBound<Tree>();
 			testUpperBound<Tree>();
@@ -461,16 +445,16 @@ namespace
 			TEST_ENSURE(testInvariants(b));
 
 			{
-				a.splice(b, b.find(1));
+				a.splice(b, b.find(6));
 				
 				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE_OP(a.size(), == , 7);
-				integer aCorrectSet[] = { 0, 1, 4, 5, 9, 15, 20 };
+				TEST_ENSURE_OP(a.size(), == , 8);
+				integer aCorrectSet[] = { 0, 1, 4, 5, 6, 9, 15, 20 };
 				TEST_ENSURE(boost::equal(a.ckeyRange(), aCorrectSet));
 
 				TEST_ENSURE(testInvariants(b));
 				TEST_ENSURE_OP(b.size(), == , 6);
-				integer bCorrectSet[] = { 2, 6, 7, 8, 9, 10 };
+				integer bCorrectSet[] = { 1, 2, 7, 8, 9, 10 };
 				TEST_ENSURE(boost::equal(b.ckeyRange(), bCorrectSet));
 			}
 
@@ -478,13 +462,13 @@ namespace
 				a.splice(b, b.find(10));
 
 				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE_OP(a.size(), == , 8);
-				integer aCorrectSet[] = { 0, 1, 4, 5, 9, 10, 15, 20 };
+				TEST_ENSURE_OP(a.size(), == , 9);
+				integer aCorrectSet[] = { 0, 1, 4, 5, 6, 9, 10, 15, 20 };
 				TEST_ENSURE(boost::equal(a.ckeyRange(), aCorrectSet));
 
 				TEST_ENSURE(testInvariants(b));
 				TEST_ENSURE_OP(b.size(), == , 5);
-				integer bCorrectSet[] = { 2, 6, 7, 8, 9};
+				integer bCorrectSet[] = { 1, 2, 7, 8, 9};
 				TEST_ENSURE(boost::equal(b.ckeyRange(), bCorrectSet));
 			}
 		}

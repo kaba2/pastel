@@ -119,6 +119,7 @@ namespace Pastel
 
 		// Attach the new node into this tree.
 		element.base()->isolate(sentinel_);
+		element.base()->setRed();
 		attach(element.base(), parent.base(), right);
 
 		// Notify the customization of this tree.
