@@ -675,7 +675,8 @@ namespace Pastel
 		is the maximum element, and the left child
 		is the sentinel node itself (a unique property
 		which can be used to identify it).
-		The right child is also the sentinel itself.
+		The right child of the sentinel node is 
+		the minimum element.
 		*/
 		Node_Base* sentinel_;
 
