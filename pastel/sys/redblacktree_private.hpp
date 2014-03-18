@@ -32,11 +32,14 @@ namespace Pastel
 	void RedBlackTree<Settings, Customization>::updateToRoot(
 		Node* node)
 	{
-		while(!node->isSentinel())
+		if (Customization::UpdateHierarchical)
 		{
-			this->updateHierarchical(
-				Iterator(node));
-			node = node->parent();
+			while(!node->isSentinel())
+			{
+				this->updateHierarchical(
+					Iterator(node));
+				node = node->parent();
+			}
 		}
 	}
 
@@ -84,24 +87,6 @@ namespace Pastel
 
 		return left;
 	}
-
-	template <typename Settings, typename Customization>
-	void RedBlackTree<Settings, Customization>::flipColors(
-		Node* node)
-	{
-		ASSERT(node != sentinel_);
-
-		node->flipColor();
-		if (node->left() != sentinel_)
-		{
-			node->left()->flipColor();
-		}
-		if (node->right() != sentinel_)
-		{
-			node->right()->flipColor();
-		}
-	}
-
 
 }
 
