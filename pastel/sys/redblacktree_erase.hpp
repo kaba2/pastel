@@ -11,7 +11,7 @@ namespace Pastel
 	{
 		this->onClear();
 
-		clear(root_);
+		clear(rootNode());
 
 		initialize();
 	}
@@ -132,7 +132,7 @@ namespace Pastel
 		const integer rightChild =
 			(parent->left() == detached) ? Left : Right;
 
-		bool detachedWasRoot = (detached == root_);
+		bool detachedWasRoot = (detached == rootNode());
 		const bool detachedWasRed = detached->red();
 
 		// Detach a node from the tree.
@@ -170,7 +170,7 @@ namespace Pastel
 			//  / \   ==>   / \    
 			// 1   2       1   2       
 
-			ASSERT(child == root_);
+			ASSERT(child == rootNode());
 
 			// The only invariant that can be broken is if the 
 			// child node is red, since the root must always be 

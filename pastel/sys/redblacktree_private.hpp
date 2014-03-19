@@ -53,7 +53,7 @@ namespace Pastel
 		}
 		else
 		{
-			root_ = child;
+			setRoot(child);
 		}
 		if (!child->isSentinel())
 		{

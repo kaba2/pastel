@@ -9,7 +9,7 @@ namespace Pastel
 
 	template <typename Settings, typename Customization>
 	RedBlackTree<Settings, Customization>::RedBlackTree()
-		: root_(0)
+		: minimum_(0)
 		, sentinel_(0)
 		, size_(0)
 	{
@@ -24,7 +24,8 @@ namespace Pastel
 	{
 		try
 		{
-			root_ = copyConstruct((Node*)sentinel_, that, that.root_);
+			Node* root = copyConstruct((Node*)sentinel_, that, that.rootNode());
+			setRoot(root);
 		}
 		catch(...)
 		{
@@ -48,7 +49,7 @@ namespace Pastel
 	{
 		using std::swap;
 		Customization::swap(that);
-		swap(root_, that.root_);
+		swap(minimum_, that.minimum_);
 		swap(sentinel_, that.sentinel_);
 		swap(size_, that.size_);
 	}
@@ -65,8 +66,8 @@ namespace Pastel
 
 		setMinimum((Node*)sentinel_);
 		setMaximum((Node*)sentinel_);
-		
-		root_ = (Node*)sentinel_;
+		setRoot((Node*)sentinel_);
+
 		size_ = 0;
 	}
 
