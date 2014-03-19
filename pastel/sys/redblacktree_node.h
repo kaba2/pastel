@@ -23,12 +23,6 @@ namespace Pastel
 			template <typename, typename, typename, bool>
 			friend class Iterator;
 
-			enum
-			{
-				Left = 0,
-				Right = 1
-			};
-
 			bool red() const
 			{
 				return red_;
@@ -72,8 +66,8 @@ namespace Pastel
 			void isolate(Node_Base* sentinel)
 			{
 				parent_ = (Node*)sentinel;
-				child_[Left] = (Node*)sentinel;
-				child_[Right] = (Node*)sentinel;
+				child_[0] = (Node*)sentinel;
+				child_[1] = (Node*)sentinel;
 			}
 
 			void setRed()
@@ -103,38 +97,34 @@ namespace Pastel
 				return parent_;
 			}
 
-			Node*& child(integer direction)
+			Node*& child(bool right)
 			{
-				ASSERT(direction == Left || 
-					direction == Right);
-				return child_[direction];
+				return child_[right];
 			}
 
-			Node* child(integer direction) const
+			Node* child(bool right) const
 			{
-				ASSERT(direction == Left || 
-					direction == Right);
-				return child_[direction];
+				return child_[right];
 			}
 
 			Node*& left()
 			{
-				return child_[Left];
+				return child_[0];
 			}
 
 			Node* left() const
 			{
-				return child_[Left];
+				return child_[0];
 			}
 
 			Node*& right()
 			{
-				return child_[Right];
+				return child_[1];
 			}
 
 			Node* right() const
 			{
-				return child_[Right];
+				return child_[1];
 			}
 
 			Node* parent_;

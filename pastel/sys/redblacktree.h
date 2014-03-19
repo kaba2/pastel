@@ -582,14 +582,14 @@ namespace Pastel
 		node:
 		The node to attach into the tree.
 
-		parent, rightChild:
+		parent, right:
 		The initial attachment position as provided
 		by findInsertParent().
 		*/
 		void attach(
 			Node* node,
 			Node* parent,
-			bool rightChild);
+			bool right);
 
 		//! Detaches a node from the tree and rebalances.
 		/*!
@@ -663,24 +663,17 @@ namespace Pastel
 
 		//! Links a parent and a child together.
 		/*!
-		Preconditions:
-		d == Left || d == Right
-
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		void link(Node* parent, Node* child, 
-			integer direction);
+		void link(Node* parent, Node* child, bool linkRight);
 
-		//! Tree-rotation
+		//! Rotates the tree around the 'node'.
 		/*!
-		Preconditions:
-		d == Left || d == Right
-
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Node* rotate(Node* node, integer direction);
+		Node* rotate(Node* node, bool rotateRight);
 
 		//! Sets the root node.
 		/*!

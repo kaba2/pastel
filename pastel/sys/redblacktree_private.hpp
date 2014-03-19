@@ -45,11 +45,11 @@ namespace Pastel
 
 	template <typename Settings, typename Customization>
 	void RedBlackTree<Settings, Customization>::link(
-		Node* parent, Node* child, integer direction)
+		Node* parent, Node* child, bool linkRight)
 	{
 		if (!parent->isSentinel())
 		{
-			parent->child(direction) = child;
+			parent->child(linkRight) = child;
 		}
 		else
 		{
@@ -64,7 +64,7 @@ namespace Pastel
 	template <typename Settings, typename Customization>
 	typename RedBlackTree<Settings, Customization>::Node*
 		RedBlackTree<Settings, Customization>::rotate(
-		Node* node, integer direction)
+		Node* node, bool rotateRight)
 	{
 		ASSERT(node != sentinel_);
 
@@ -76,14 +76,14 @@ namespace Pastel
 		//     a            a    
 
 		Node* parent = node->parent();
-		Node* left = node->child(!direction);
-		Node* leftRight = left->child(direction);
+		Node* left = node->child(!rotateRight);
+		Node* leftRight = left->child(rotateRight);
 
 		ASSERT(!left->isSentinel());
 
 		link(parent, left, node == parent->right());
-		link(node, leftRight, !direction);
-		link(left, node, direction);
+		link(node, leftRight, !rotateRight);
+		link(left, node, rotateRight);
 
 		return left;
 	}
