@@ -155,11 +155,10 @@ namespace Pastel
 		if (twoChildren)
 		{
 			// Replace 'node' with 'successor'.
-			link(successor, node->left(), Left);
-			link(successor, node->right(), Right);
-			const integer dNode = 
-				(node->parent()->left() == node) ? Left : Right;
-			link(node->parent(), successor, dNode);
+			link(successor, node->left(), false);
+			link(successor, node->right(), true);
+			bool dRight = (node == node->parent()->right());
+			link(node->parent(), successor, dRight);
 			successor->setRed(node->red());
 		}
 

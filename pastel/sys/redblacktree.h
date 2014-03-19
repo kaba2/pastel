@@ -497,12 +497,6 @@ namespace Pastel
 		PASTEL_FWD(Node_Base);
 		PASTEL_FWD(Node);
 
-		enum
-		{
-			Left = 0,
-			Right = 1
-		};
-
 		enum EqualRange
 		{
 			OnlyLowerBound,

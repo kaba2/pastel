@@ -27,8 +27,7 @@ namespace Pastel
 		}
 
 		// Find the node under which to insert the element.
-		auto parentAndRight = 
-			findInsert(key, equalAndUpper);
+		auto parentAndRight = findInsert(key, equalAndUpper);
 		Node* parent = (Node*)parentAndRight.parent.base();
 		bool right = parentAndRight.right;
 
