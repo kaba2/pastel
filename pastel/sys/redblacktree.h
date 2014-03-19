@@ -188,19 +188,44 @@ namespace Pastel
 
 		//! Removes an element from the tree by its iterator.
 		/*!
-		Time complexity: O(log(size())) * updateHierarchicalData() + onErase()
+		Time complexity: O(log(size()))
 		Exception safety: nothrow
 
 		If that == cend(), then nothing happens. This is
 		so that erase(find(key)) works even if the key is
 		not stored in the tree.
+
+		returns:
+		std::next(that)
 		*/
 		Iterator erase(const ConstIterator& that);
 
-		//! Removes an element from the tree by its key.
+		//! Removes elements in a range.
+		/*!
+		Time complexity: O(k log(size()))
+		where
+		k is the number of removed elements.
+
+		Exception safety: nothrow
+
+		returns:
+		cast(range.end())
+		*/
+		Iterator erase(const ConstRange& range);
+
+		//! Removes elements in a range.
 		/*!
 		This is a convenience function which calls
-		erase(find(key)).
+		erase(ConstRange(begin, end)).
+		*/
+		Iterator erase(
+			const ConstIterator& begin,
+			const ConstIterator& end);
+
+		//! Removes all elements equivalent to the key.
+		/*!
+		This is a convenience function which calls
+		erase(equalRange(key)).
 		*/
 		Iterator erase(const Key& key);
 
@@ -261,6 +286,16 @@ namespace Pastel
 			return cast(addConst(*this).findEqual(key));
 		}
 
+		//! Finds the top-most element equivalent to key, and an upper bound.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
+		The upper bound is the smallest upper-bound located above the
+		top-most element.
+		*/
+		FindEqual_Return findEqualAndUpper(const Key& key) const;
+
 		//! Finds the node under which to insert the key.
 		/*!
 		Time complexity: O(log(size()))
@@ -285,16 +320,16 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		std::pair<ConstIterator, ConstIterator> 
-			equalRange(const Key& key) const
+		ConstRange equalRange(const Key& key) const
 		{
-				return equalRange(key, Both);
+			return equalRange(key, findEqualAndUpper(key), Both).range;
 		}
 
 		std::pair<ConstIterator, ConstIterator> 
 			equal_range(const Key& key) const
 		{
-			return equalRange(key);
+			ConstRange range = equalRange(key).range;
+			return std::make_pair(range.begin(), range.end());
 		}
 
 		//! Returns the elements equivalent to the given key.
@@ -302,29 +337,26 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		std::pair<Iterator, Iterator> 
-			equalRange(const Key& key)
+		Range equalRange(const Key& key)
 		{
-			auto lowerUpper = addConst(*this).equalRange(key);
-			return std::make_pair(
-				cast(lowerUpper.first), 
-				cast(lowerUpper.second));
+			return cast(addConst(*this).equalRange(key));
 		}
 
 		std::pair<Iterator, Iterator> 
 			equal_range(const Key& key)
 		{
-			return equalRange(key);
+			Range range = equalRange(key);
+			return std::make_pair(range.begin(), range.end());
 		}
 
-		//! Searches for the first element with key >= 'key'.
+		//! Return the first element with key >= 'key'.
 		/*!
 		This is a convenience function which calls
 		equalRange(key).first
 		*/
 		ConstIterator lowerBound(const Key& key) const
 		{
-			return equalRange(key, findEqualAndUpper(key), OnlyLowerBound).lower;
+			return equalRange(key, findEqualAndUpper(key), OnlyLowerBound).range.begin();
 		}
 
 		ConstIterator lower_bound(const Key& key) const
@@ -342,6 +374,25 @@ namespace Pastel
 			return lowerBound(key);
 		}
 
+		//! Returns the first element with key >= 'key'.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		ConstIterator lowerBound(
+			const Key& key,
+			const FindEqual_Return& equalAndUpper) const
+		{
+			return equalRange(key, equalAndUpper, OnlyLowerBound).range.begin();
+		}
+
+		Iterator lowerBound(
+			const Key& key,
+			const FindEqual_Return& equalAndUpper)
+		{
+			return cast(addConst(*this).lowerBound(key, equalAndUpper));
+		}
+
 		//! Searches for the first element with key > 'key'.
 		/*!
 		Time complexity: O(log(size()))
@@ -349,7 +400,7 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
-			return equalRange(key, findEqualAndUpper(key), OnlyUpperBound).upper;
+			return equalRange(key, findEqualAndUpper(key), OnlyUpperBound).range.end();
 		}
 
 		ConstIterator upper_bound(const Key& key) const
@@ -367,6 +418,25 @@ namespace Pastel
 			return upperBound(key);
 		}
 
+		//! Returns the first element with key > 'key'.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		ConstIterator upperBound(
+			const Key& key,
+			const FindEqual_Return& equalAndUpper) const
+		{
+			return equalRange(key, equalAndUpper, OnlyUpperBound).range.end();
+		}
+
+		Iterator upperBound(
+			const Key& key,
+			const FindEqual_Return& equalAndUpper)
+		{
+			return cast(addConst(*this).upperBound(key, equalAndUpper));
+		}
+
 		//! Casts away iterator constness.
 		/*!
 		Time complexity: O(1)
@@ -375,6 +445,18 @@ namespace Pastel
 		Iterator cast(const ConstIterator& that)
 		{
 			return Iterator((Node*)that.base());			
+		}
+
+		//! Casts away range constness.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Range cast(const ConstRange& that)
+		{
+			return Range(
+				cast(that.begin()),
+				cast(that.end()));			
 		}
 
 		//! Returns the iterator to the smallest element.
@@ -432,9 +514,8 @@ namespace Pastel
 
 		struct EqualRange_Return
 		{
-			ConstIterator lower;
+			ConstRange range;
 			ConstIterator equal;
-			ConstIterator upper;
 		};
 
 		template <typename Type, bool MultipleKeys>
@@ -522,26 +603,15 @@ namespace Pastel
 		*/
 		Node* detach(Node* node);
 
-		//! Finds the top-most element equivalent to key, and an upper bound.
-		/*!
-		Time complexity: O(log(size()))
-		Exception safety: nothrow
-
-		The upper bound is the smallest upper-bound located above the
-		top-most element.
-		*/
-		FindEqual_Return findEqualAndUpper(const Key& key) const;
-
 		//! Returns the elements equivalent to the given key.
 		/*!
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		EqualRange_Return
-			equalRange(
-				const Key& key, 
-				const FindEqual_Return& equalRoot,
-				EqualRange compute) const;
+		EqualRange_Return equalRange(
+			const Key& key, 
+			const FindEqual_Return& equalAndUpper,
+			EqualRange compute) const;
 
 		//! Rebalances the red-black tree after detaching a node.
 		/*!

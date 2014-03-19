@@ -17,7 +17,7 @@ namespace Pastel
 		if (!Settings::MultipleKeys && elementExists)
 		{
 			ConstIterator lower = 
-				equalRange(key, equalAndUpper, OnlyLowerBound).lower;
+				lowerBound(key, equalAndUpper);
 
 			// The tree already contains an
 			// equivalent element. Return the first

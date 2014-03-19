@@ -59,10 +59,32 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::erase(
+		const ConstRange& range)
+	-> Iterator
+	{
+		ConstIterator iter = range.begin();
+		while(iter != range.end())
+		{
+			iter = erase(iter);
+		}
+		return cast(iter);
+	}
+
+	template <typename Settings, typename Customization>
+	auto RedBlackTree<Settings, Customization>::erase(
+		const ConstIterator& begin, 
+		const ConstIterator& end)
+	-> Iterator
+	{
+		return erase(ConstRange(begin, end));
+	}
+
+	template <typename Settings, typename Customization>
 	auto RedBlackTree<Settings, Customization>::erase(const Key& key)
 	-> Iterator
 	{
-		return erase(find(key));
+		return erase(equalRange(key));
 	}
 
 	template <typename Settings, typename Customization>

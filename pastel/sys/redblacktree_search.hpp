@@ -12,14 +12,12 @@ namespace Pastel
 		const Key& key) const
 	-> ConstIterator
 	{
-		ConstIterator result = lowerBound(key);
-		if (result != cend() &&
-			Compare()(key, result.key()))
+		auto equalAndUpper = findEqualAndUpper(key);
+		if (equalAndUpper.equal != cend())
 		{
-			result = cend();
+			return lowerBound(key, equalAndUpper);
 		}
-
-		return result;
+		return cend();
 	}
 
 	template <typename Settings, typename Customization>
@@ -75,7 +73,7 @@ namespace Pastel
 			// The key does not exists in the tree.
 			// Therefore the lower bound is the same
 			// as the upper bound.
-			return EqualRange_Return{ upper, equal, upper };
+			return EqualRange_Return{ ConstRange(upper, upper), equal };
 		}
 
 		// Although we have found an equivalent element,
@@ -101,7 +99,7 @@ namespace Pastel
 			upper = findInsert(key, equalAndUpper).upper;
 		}
 
-		return EqualRange_Return{lower, equal, upper};
+		return EqualRange_Return{ConstRange(lower, upper), equal};
 	}
 
 	template <typename Settings, typename Customization>
