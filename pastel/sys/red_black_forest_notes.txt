@@ -125,7 +125,7 @@ The searches concern `find`, `lowerBound`, and `upperBound`. We will use `find` 
 	find(near, key)
 	find(end, key)
 
-The first searches for a key in the first tree. The second searches for a key in the tree pointed to by `near`. The third never finds anything.
+The first searches for the first element equivalent to the key in the first tree. The second searches for a key in the tree pointed to by `near`. The third never finds anything.
 
 ### Removal
 
@@ -135,8 +135,11 @@ The calls are as follows:
 	erase(key)
 	erase(element)
 	erase(end)
+	erase(near, key)
+	erase(end, key)
 
-The first is equivalent to `erase(find(key))`. The second removes an element given to it. The third does not do anything.
+The first removes all elements equivalent to the key in the first tree. The second removes an element given to it.
+The third does not do anything. The fourth removes all elements equivalent to the key in the tree which contains 'near'. The fifth does not do anything.
 
 Hierarchical information
 ------------------------
@@ -160,7 +163,7 @@ In _root-max-min_ chaining, the right child of the maximum element of a tree is 
 
 In root-max-min chaining the transition from a maximum node of a tree to the minimum node of the next tree takes only constant time. It also encodes both the minimum and the maximum node in the sentinel node. By a careful formulation, the in-order traversal can be made to work with this chaining.
 
-Problem: the links can not be updated efficiently, for example when a new maximum node is inserted in a tree.
+Problem: the links can not be updated efficiently, for example when a new maximum node is inserted into a tree.
 
 ### Max-min chaining
 

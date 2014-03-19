@@ -103,7 +103,7 @@ namespace Pastel
 
 			// Compute the lower-bound for the element.
 			ConstIterator lower =
-				equalRange(element.key(), equalAndUpper, OnlyLowerBound).lower;
+				lowerBound(element.key(), equalAndUpper);
 
 			// Remove the detached element.
 			that.deallocateNode(element.base());
