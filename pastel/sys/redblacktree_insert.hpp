@@ -99,7 +99,7 @@ namespace Pastel
 				//  1   2      1   2
 
 				// The node is the root node.
-				ASSERT(node == root_);
+				ASSERT(node == rootNode());
 
 				// Marking it black turns the subtree
 				// rooted at 'node' a red-black tree,
@@ -131,7 +131,7 @@ namespace Pastel
 
 			// From now on, the parent must be red. Since the 
 			// root can not be red, the parent can not be the root.
-			ASSERT(parent != root_);
+			ASSERT(parent != rootNode());
 		
 			// From the previous it follows that the 
 			// grand-parent exists.

@@ -17,9 +17,7 @@ namespace Pastel
 
 	//! Red-black tree
 	/*!
-	Space complexity: O(n)
-	where
-	n is the number of stored elements.
+	Space complexity: O(size())
 	*/
 	template <
 		typename Settings_,
@@ -493,7 +491,7 @@ namespace Pastel
 		/*!
 		See the documentation for the const version.
 		*/
-		PASTEL_ITERATOR_FUNCTIONS(root, root_);
+		PASTEL_ITERATOR_FUNCTIONS(root, rootNode PASTEL_CALL_BRACKETS);
 
 	private:
 		PASTEL_FWD(Node_Base);
@@ -684,6 +682,26 @@ namespace Pastel
 		*/
 		Node* rotate(Node* node, integer direction);
 
+		//! Sets the root node.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		void setRoot(Node* node)
+		{
+			sentinel_->right() = node;
+		}
+
+		//! Returns the root node.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Node* rootNode() const
+		{
+			return sentinel_->right();
+		}
+
 		//! Sets the minimum node.
 		/*!
 		Time complexity: O(1)
@@ -691,7 +709,7 @@ namespace Pastel
 		*/
 		void setMinimum(Node* node)
 		{
-			sentinel_->right() = node;
+			minimum_ = node;
 		}
 
 		//! Returns the minimum node.
@@ -701,7 +719,7 @@ namespace Pastel
 		*/
 		Node* minimum() const
 		{
-			return sentinel_->right();
+			return minimum_;
 		}
 
 		//! Sets the maximum node.
@@ -724,8 +742,8 @@ namespace Pastel
 			return sentinel_->parent();
 		}
 
-		//! The root-node of the tree.
-		Node* root_;
+		//! The minimum node of the tree.
+		Node* minimum_;
 
 		//! The sentinel-node of the tree.
 		/*!
@@ -741,7 +759,7 @@ namespace Pastel
 		is the sentinel node itself (a unique property
 		which can be used to identify it).
 		The right child of the sentinel node is 
-		the minimum element.
+		the root node.
 		*/
 		Node_Base* sentinel_;
 
