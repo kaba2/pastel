@@ -129,14 +129,14 @@ namespace Pastel
 		Node* parent = detached->parent();
 		Node* child = detached->child(
 			!detached->right()->isSentinel());
-		const integer rightChild =
-			(parent->left() == detached) ? Left : Right;
+		const integer right =
+			(detached == parent->right());
 
 		bool detachedWasRoot = (detached == rootNode());
 		const bool detachedWasRed = detached->red();
 
 		// Detach a node from the tree.
-		link(parent, child, rightChild);
+		link(parent, child, right);
 		detached->isolate(sentinel_);
 
 		//    |            | 
@@ -240,7 +240,7 @@ namespace Pastel
 
 		// The rebalance() function corrects the 
 		// black-depth violation.
-		rebalanceAfterDetach(newParent, rightChild);
+		rebalanceAfterDetach(newParent, right);
 
 		// Return the successor.
 		return successor;
