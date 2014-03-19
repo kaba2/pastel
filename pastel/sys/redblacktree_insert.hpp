@@ -10,9 +10,9 @@ namespace Pastel
 	template <typename... Value>
 	auto RedBlackTree<Settings, Customization>::insert(
 		Key key, Value&&... value)
-	-> InsertReturnType
+	-> Insert_Return
 	{
-		auto equalAndUpper = findEqual(key);
+		auto equalAndUpper = findEqualAndUpper(key);
 		bool elementExists = (equalAndUpper.equal != cend());
 		if (!Settings::MultipleKeys && elementExists)
 		{

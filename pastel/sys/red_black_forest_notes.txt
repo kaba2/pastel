@@ -54,9 +54,9 @@ Starting a search from the minimum node
 In a complete binary tree of height ''h'', the expected number of moves in a search starting from the minimum (or maximum) node is
 
 [[Equation]]:
-	1 / (2^(h - 1)) sum_{k = 1}^{h - 1} 2 k 2^(k - 1),
+	1 / (2^(h - 1)) sum_{k = 1}^{h - 1} 2 k 2^(k - 1).
 
-which has an exact solution as
+This has an exact solution of
 
 [[Equation]]:
 	2 (h - 2) + 2^(2 - h).
@@ -66,7 +66,7 @@ Dividing this by ''h - 1'' gives the ratio of moves compared to the search start
 	1.0000    1.2500    1.4167    1.5313    1.6125    1.6719    1.7165    1.7510    1.7782    1.8002    
 	1.8183    1.8334    1.8462    1.8572    1.8667    1.8750    1.8824    1.8889    1.8947
 
-This sequence is incerasing, and its limit is 2. Therefore a good rule of thumb is that the search starting from the minimum node takes roughly twice the time the search takes from the root node.
+This sequence is increasing, and its limit is 2. Therefore a good rule of thumb is that the search starting from the minimum node takes roughly twice the time the search takes from the root node.
 
 Root nodes
 ----------
@@ -78,14 +78,14 @@ The root of each tree can be found in time proportional to the height of the tre
 
 When the forest contains multiple trees, storing the root with each tree seems like a waste of memory. To access the root in constant time, each node would have to store a reference to its tree, and the tree to store its root. That takes too much memory. This is taken to the extreme with a degenerated list.
 
-When the forest contains a single tree, the root is needed to guarantee that the generalization from a tree to a forest has the same search performance. The root of the first tree is stored in the sentinel node.
+When the forest contains a single tree, the root is needed to guarantee that the generalization from a tree to a forest has the same search performance. The root of the first tree is stored as the right child of the sentinel node. The minimum node is traced explicitly.
 
 Problem: can a root-node be identified locally without additional encoding? For a tree with at least two elements, a node is a root-node if the right-child of its parent is not the node itself? Not sure if works. For a singular tree, the problem seems even harder.
 
 Isolating trees during operations
 ---------------------------------
 
-The trees themselves are modified by the red-black tree algorithms. It is therefore problematic that the right child of the maximum node is a node in the next tree, and that the parent node of the tree is a node in the previous tree. 
+The trees themselves are modified by the red-black tree algorithms. It is therefore problematic that the right child of the maximum node is a node in the next tree, and that the parent node of each root is a node in the previous tree. 
 
 ### Solution 1
 
@@ -101,9 +101,9 @@ The interface is based on two principles:
 
 To this end, we offer three types of functions: 
 
-* those that do not localize are localized by the root node of the first tree,
-* those that do localize act on the tree the localization iterator is part of,
-* those that localize by the end-iterator operate on a yet non-existing tree at the end of the sequence.
+* those that the user does not localize are localized by the root node of the first tree,
+* those that the user localizes act on the tree the localization iterator is part of,
+* those that the user localizes by the end-iterator operate on a yet non-existing tree at the end of the sequence.
 
 ### Insertion
 
@@ -114,7 +114,7 @@ The corresponding calls are as follows:
 	insert(near, key)
 	insert(end, key)
 
-The first inserts a key into the first tree. The second inserts a key into the tree which the `near` iterator is part of. The third creates a new tree at the end of the sequence. We will also create the functions `pushBack` and `pushFront` which create a new tree at the start and at the end of the sequence, respectively. The `pushBack(key)` is equivalent to `insert(end, key)`.
+The first inserts a key into the first tree. The second inserts a key into the tree which the `near` iterator is part of. The third creates a new tree at the end of the sequence. We will also create the functions `pushBack` and `pushFront` which create a new tree at the start and at the end of the sequence, respectively. The `pushBack(key)` is equivalent to `insert(end, key)`. Note how all this is consistent with how `std::list` works.
 
 ### Searches
 

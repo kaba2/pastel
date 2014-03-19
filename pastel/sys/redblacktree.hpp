@@ -54,18 +54,6 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	template <typename Key_ConstIterator_>
-	void RedBlackTree<Settings, Customization>::insertMany(
-		Key_ConstIterator_ begin, Key_ConstIterator_ end)
-	{
-		while(begin != end)
-		{
-			insert(*begin);
-			++begin;
-		}
-	}
-
-	template <typename Settings, typename Customization>
 	void RedBlackTree<Settings, Customization>::initialize()
 	{
 		// This function is called both in construction

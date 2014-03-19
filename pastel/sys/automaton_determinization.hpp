@@ -108,9 +108,10 @@ namespace Pastel
 			{
 				const StateSet& closure =
 					closureMap[state];
-				startStateSet.insertMany(
-					closure.cbegin(),
-					closure.cend());
+				for (auto&& startState : closure)
+				{
+					startStateSet.insert(startState);
+				}
 			});
 
 			workSet.push_back(std::move(startStateSet));
@@ -170,9 +171,10 @@ namespace Pastel
 					// of 'state' into the 'toStateSet'.
 					const StateSet& closure =
 						closureMap[incidence->vertex()];
-					toStateSet.insertMany(
-						closure.cbegin(),
-						closure.cend());
+					for (auto&& toState : closure)
+					{
+						toStateSet.insert(toState);
+					}
 				}
 			});
 

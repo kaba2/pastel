@@ -53,7 +53,10 @@ namespace Pastel
 		PASTEL_FWD(Data_ConstRange);
 
 		PASTEL_FWD(Data_Class);
-		PASTEL_FWD(InsertReturnType);
+
+		PASTEL_FWD(Insert_Return);
+		PASTEL_FWD(FindEqual_Return);
+		PASTEL_FWD(FindInsert_Return);
 
 		using iterator = Iterator;
 		using const_iterator = ConstIterator;
@@ -180,18 +183,8 @@ namespace Pastel
 		the iterator points to the existing equivalent element.
 		*/
 		template <typename... Value>
-		InsertReturnType insert(
+		Insert_Return insert(
 			Key key, Value&&... value);
-
-		//! Inserts elements into the tree.
-		/*!
-		Time complexity: insert() * std::distance(begin, end)
-		Exception safety: basic
-		*/
-		template <typename Key_ConstIterator_>
-		void insertMany(
-			Key_ConstIterator_ begin,
-			Key_ConstIterator_ end);
 
 		//! Removes an element from the tree by its iterator.
 		/*!
@@ -220,18 +213,18 @@ namespace Pastel
 		erase() and insert() calls, however, no constructors or 
 		destructors are performed for the data.
 		*/
-		InsertReturnType splice(
+		Insert_Return splice(
 			RedBlackTree& that, 
 			const ConstIterator& thatFrom);
 
 		//! Returns whether an element is contained in the tree.
 		/*!
-		Time complexity: O(log(size()))
-		Exception safety: nothrow
+		This is a convenience function which returns
+		findEqual(key) != cend().
 		*/
 		bool exists(const Key& key) const
 		{
-			return findEqual(key).equal != cend();
+			return findEqual(key) != cend();
 		}
 
 		//! Searches for the first element with key == 'key'.
@@ -248,6 +241,44 @@ namespace Pastel
 		{
 			return cast(addConst(*this).find(key));
 		}
+
+		//! Returns the top-most element equivalent to the key.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
+		Equivalently, this is the first element equivalent to
+		the key when traversing the tree in pre-order. This
+		is the fastest way to find some equivalent element.
+		*/
+		ConstIterator findEqual(const Key& key) const
+		{
+			return findEqualAndUpper(key).equal;
+		}
+
+		Iterator findEqual(const Key& key)
+		{
+			return cast(addConst(*this).findEqual(key));
+		}
+
+		//! Finds the node under which to insert the key.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
+		If there are multiple equivalent elements, then
+		the insertion position is chosen as the last in 
+		the in-order sequence of equivalent keys. Thus
+		the insertion always retains the order in which
+		the equivalent keys were added.
+
+		returns:
+		See the documentation for FindInsert_Return
+		in redblacktree_fwd.h
+		*/
+		FindInsert_Return findInsert(
+			const Key& key, 
+			const FindEqual_Return& equalRoot) const;
 
 		//! Returns the elements equivalent to the given key.
 		/*!
@@ -293,7 +324,7 @@ namespace Pastel
 		*/
 		ConstIterator lowerBound(const Key& key) const
 		{
-			return equalRange(key, findEqual(key), OnlyLowerBound).lower;
+			return equalRange(key, findEqualAndUpper(key), OnlyLowerBound).lower;
 		}
 
 		ConstIterator lower_bound(const Key& key) const
@@ -318,7 +349,7 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
-			return equalRange(key, findEqual(key), OnlyUpperBound).upper;
+			return equalRange(key, findEqualAndUpper(key), OnlyUpperBound).upper;
 		}
 
 		ConstIterator upper_bound(const Key& key) const
@@ -399,19 +430,6 @@ namespace Pastel
 			Both
 		};
 
-		struct FindEqual_Return
-		{
-			ConstIterator equal;
-			ConstIterator upper;
-		};
-
-		struct FindInsert_Return
-		{
-			ConstIterator parent;
-			bool right;
-			ConstIterator upper;
-		};
-
 		struct EqualRange_Return
 		{
 			ConstIterator lower;
@@ -420,7 +438,7 @@ namespace Pastel
 		};
 
 		template <typename Type, bool MultipleKeys>
-		class As_InsertReturnType
+		class As_Insert_Return
 		{
 		public:
 			Type operator()(
@@ -431,7 +449,7 @@ namespace Pastel
 		};
 
 		template <typename Type>
-		class As_InsertReturnType<Type, false>
+		class As_Insert_Return<Type, false>
 		{
 		public:
 			Type operator()(
@@ -441,10 +459,10 @@ namespace Pastel
 			}
 		};
 
-		InsertReturnType insertReturnType(
+		Insert_Return insertReturnType(
 			const Iterator& that, bool success) const
 		{
-			return As_InsertReturnType<InsertReturnType, Settings::MultipleKeys>()(that, success);
+			return As_Insert_Return<Insert_Return, Settings::MultipleKeys>()(that, success);
 		}
 
 		//! Initializes some member variables.
@@ -504,38 +522,15 @@ namespace Pastel
 		*/
 		Node* detach(Node* node);
 
-		//! Returns the top-most element equivalent to the key.
-		/*!
-		Time complexity: O(log(size()))
-		Exception safety: nothrow
-		*/
-		FindEqual_Return
-			findEqual(const Key& key) const;
-
-		//! Finds the node under which to insert the key.
+		//! Finds the top-most element equivalent to key, and an upper bound.
 		/*!
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 
-		If there are multiple equivalent elements, then
-		the insertion position is chosen as the last in 
-		the in-order sequence of equivalent keys. Thus
-		the insertion always retains the order in which
-		the equivalent keys were added.
-
-		Note that the inserting the key under the returned
-		node can break the red-black invariants.
-
-		returns:
-		A pair of a node and a boolean, with the first being
-		the node under which to insert the key subject only to
-		the binary search tree property, and the second being 
-		whether to insert under the right child of that node or 
-		not. 
+		The upper bound is the smallest upper-bound located above the
+		top-most element.
 		*/
-		FindInsert_Return findInsert(
-			const Key& key, 
-			const FindEqual_Return& equalRoot) const;
+		FindEqual_Return findEqualAndUpper(const Key& key) const;
 
 		//! Returns the elements equivalent to the given key.
 		/*!

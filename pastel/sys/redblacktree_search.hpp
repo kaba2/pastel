@@ -23,7 +23,7 @@ namespace Pastel
 	}
 
 	template <typename Settings, typename Customization>
-	auto RedBlackTree<Settings, Customization>::findEqual(
+	auto RedBlackTree<Settings, Customization>::findEqualAndUpper(
 		const Key& key) const
 		-> FindEqual_Return
 	{
