@@ -71,7 +71,7 @@ namespace Pastel
 	auto RedBlackTree<Settings, Customization>::splice(
 		RedBlackTree& that,
 		const ConstIterator& thatFrom)
-	-> InsertReturnType
+	-> Insert_Return
 	{
 		Iterator element = cast(thatFrom);
 		if (element.isSentinel())
@@ -94,7 +94,7 @@ namespace Pastel
 		// Detach the node from 'that' tree.
 		that.detach(element.base());
 
-		auto equalAndUpper = findEqual(element.key());
+		auto equalAndUpper = findEqualAndUpper(element.key());
 		bool keyExists = (equalAndUpper.equal != cend());
 		if (!Settings::MultipleKeys && keyExists)
 		{

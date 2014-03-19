@@ -82,10 +82,45 @@ namespace Pastel
 		using ConstRange = 
 			boost::iterator_range<ConstIterator>;
 
-		using InsertReturnType =
+		using Insert_Return =
 			typename std::conditional<MultipleKeys,
 			Iterator,
 			std::pair<Iterator, bool >>::type;
+
+		struct FindEqual_Return
+		{
+			//! The top-most element equivalent to the key.
+			ConstIterator equal;
+
+			//! An element greater than the key.
+			/*!
+			This is the least element greater than the key,
+			subject to being an ancestor of 'equal'.
+			*/
+			ConstIterator upper;
+		};
+
+		struct FindInsert_Return
+		{
+			//! The element under which the key should be inserted.
+			/*!
+			The position is chosen subject only to the binary search
+			property. Simply linking the key under the returned
+			node preserves the binary-search property, but
+			usually breaks the red-black invariants.
+			*/
+			ConstIterator parent;
+			
+			//! Whether the insertion should be to the right child.
+			bool right;
+
+			//! An element greater than the key.
+			/*!
+			This is the least element greater than the key,
+			subject to being an ancestor of 'parent'.
+			*/
+			ConstIterator upper;
+		};
 	};
 
 }
