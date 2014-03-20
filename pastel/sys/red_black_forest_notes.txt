@@ -3,6 +3,12 @@ Red-black forest notes
 
 [[Parent]]: red_black_forest.txt
 
+Todo
+----
+
+* Searching starting from a given node.
+* Insertion starting from a given node.
+
 Sentinel node
 -------------
 
@@ -114,7 +120,7 @@ The corresponding calls are as follows:
 	insert(near, key)
 	insert(end, key)
 
-The first inserts a key into the first tree. The second inserts a key into the tree which the `near` iterator is part of. The third creates a new tree at the end of the sequence. We will also create the functions `pushBack` and `pushFront` which create a new tree at the start and at the end of the sequence, respectively. The `pushBack(key)` is equivalent to `insert(end, key)`. Note how all this is consistent with how `std::list` works.
+The first inserts a key into the first tree. The second inserts a key into the tree which contains `near`. If 'near' is equivalent to the key, then the key is inserted so that 'near' becomes its predecessor. The third creates a new tree at the end of the sequence. We will also create the functions `pushBack` and `pushFront` which create a new tree at the start and at the end of the sequence, respectively. The `pushBack(key)` is equivalent to `insert(end, key)`. Note how all this is consistent with how `std::list` works.
 
 ### Searches
 

@@ -37,14 +37,15 @@ namespace Pastel
 			std::forward<Value>(value)...);
 
 		// Attach the node into the tree.
-		attach(node, parent, right);
+		bool createRoot = empty();
+		attach(node, parent, right, createRoot);
 
 		return insertReturnType(Iterator(node), true);
 	}
 
 	template <typename Settings, typename Customization>
 	void RedBlackTree<Settings,  Customization>::attach(
-		Node* node, Node* parent, bool right)
+		Node* node, Node* parent, bool right, bool createRoot)
 	{
 		ASSERT(!node->isSentinel());
 		ASSERT(node->red());
@@ -52,30 +53,52 @@ namespace Pastel
 		ASSERT(node->right() == sentinel_);
 		ASSERT(parent->child(right) == sentinel_);
 
-		bool isEmpty = empty();
-
 		Iterator element(node);
 
 		// Attach the new node into the tree.
 		link(parent, node, right);
 
-		if (isEmpty || (parent == minimum() && !right))
+		if (empty() ||
+			(parent == minimum() && !right))
 		{
 			// This is the new minimum element.
 			setMinimum(node);
 		}
 
-		if (isEmpty || (parent == maximum() && right))
+		if (empty() ||
+			(parent->isLocalMaximum() && right))
 		{
-			// This is the new maximum element.
-			setMaximum(node);
+			if (!createRoot)
+			{
+				parent->setLocalMaximum(false);
+			}
+			node->setLocalMaximum(true);
+			if (parent == maximum())
+			{
+				// This is the new maximum element.
+				setMaximum(node);
+			}
 		}
 
 		// Update the hierarchical information in subtree
 		// rooted at 'node'. See the loop invariant below.
-		update(
-			Iterator(node));
+		update(Iterator(node));
 
+		// Fix the red-black violations.
+		rebalanceAfterAttach(node);
+
+		// Update the size.
+		++size_;
+
+		// Notify the customization of this tree of the
+		// insertion.
+		this->onInsert(element);
+	}
+
+	template <typename Settings, typename Customization>
+	void RedBlackTree<Settings, Customization>::rebalanceAfterAttach(
+		Node* node)
+	{
 		while (true)
 		{
 			// The loop invariant is as follows:
@@ -231,13 +254,6 @@ namespace Pastel
 			// so we will continue from there.
 			node = grandParent;
 		}
-
-		// Update the size.
-		++size_;
-
-		// Notify the customization of this tree of the
-		// insertion.
-		this->onInsert(element);
 	}
 
 }

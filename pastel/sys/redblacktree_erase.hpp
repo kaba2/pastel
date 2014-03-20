@@ -102,20 +102,24 @@ namespace Pastel
 		{
 			// The removed node is the minimum node.
 			// Set the minimum to the next smallest node.
-
 			setMinimum(successor);
 		}
 
-		if (node == maximum())
+		if (node->isLocalMaximum())
 		{
-			// The removed node is the maximum node.
-			// Set the maximum to the next greatest node.
-
+			// The detached node is a local maximum.
 			Iterator prev(node);
 			--prev;
 			Node* predecessor = prev.base();
 
-			setMaximum(predecessor);
+			node->setLocalMaximum(false);
+			predecessor->setLocalMaximum(true);
+
+			if (node == maximum())
+			{
+				// The detached node is the global maximum.
+				setMaximum(predecessor);
+			}
 		}
 
 		const bool twoChildren =
