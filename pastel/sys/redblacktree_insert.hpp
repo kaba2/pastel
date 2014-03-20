@@ -49,14 +49,19 @@ namespace Pastel
 	{
 		ASSERT(!node->isSentinel());
 		ASSERT(node->red());
-		ASSERT(node->left() == sentinel_);
-		ASSERT(node->right() == sentinel_);
+		ASSERT(!node->isLocalMaximum());
+		ASSERT(!node->parent());
+		ASSERT(!node->left());
+		ASSERT(!node->right());
 		ASSERT(parent->child(right) == sentinel_);
+		ASSERT(!createRoot || parent->isLocalMaximum());
 
 		Iterator element(node);
 
 		// Attach the new node into the tree.
 		link(parent, node, right);
+		node->left() = (Node*)sentinel_;
+		node->right() = (Node*)sentinel_;
 
 		if (empty() ||
 			(parent == minimum() && !right))
