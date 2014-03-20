@@ -13,7 +13,7 @@ namespace Pastel
 		, sentinel_(0)
 		, size_(0)
 	{
-		sentinel_ = new Node_Base(0);
+		sentinel_ = new Node_Base();
 		initialize();
 	}
 
@@ -63,6 +63,8 @@ namespace Pastel
 		sentinel_->parent() = (Node*)sentinel_;
 		sentinel_->left() = (Node*)sentinel_;
 		sentinel_->right() = (Node*)sentinel_;
+		sentinel_->setRed(false);
+		sentinel_->setLocalMaximum(true);
 
 		setMinimum((Node*)sentinel_);
 		setMaximum((Node*)sentinel_);

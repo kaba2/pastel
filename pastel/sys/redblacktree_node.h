@@ -62,31 +62,19 @@ namespace Pastel
 			Node_Base(Node_Base&& that) = delete;
 			Node_Base& operator=(Node_Base that) = delete;
 
-			explicit Node_Base(Node_Base* sentinel)
+			Node_Base()
 				: parent_(0)
 				, child_()
-				, red_(sentinel != 0)
-				, maximum_(sentinel == 0)
+				, red_(true)
+				, maximum_(false)
 			{
-				// The sentinel node is black, and
-				// is a local maximum. The elements are 
-				// created red, but not as local maxima.
-
-				if (sentinel == 0)
-				{
-					// A null sentinel means that
-					// the node itself is the sentinel.
-					sentinel = this;
-				}
-
-				isolate(sentinel);
 			}
 
-			void isolate(Node_Base* sentinel)
+			void isolate()
 			{
-				parent_ = (Node*)sentinel;
-				child_[0] = (Node*)sentinel;
-				child_[1] = (Node*)sentinel;
+				parent_ = 0;
+				child_[0] = 0;
+				child_[1] = 0;
 			}
 
 			void setRed()
@@ -208,10 +196,9 @@ namespace Pastel
 
 			template <typename... Value>
 			Node(
-				Base* sentinel,
 				Key&& key,
 				Value&&... value)
-				: Base(sentinel)
+				: Base()
 				, Data_Class_(std::forward<Value>(value)...)
 				, key_(std::move(key))
 			{

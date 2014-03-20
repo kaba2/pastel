@@ -14,7 +14,6 @@ namespace Pastel
 	-> Node*
 	{
 		Node* node = new Node(
-			sentinel_,
 			std::move(key), 
 			std::forward<Value>(value)...);
 		return node;

@@ -100,7 +100,7 @@ namespace Pastel
 
 		if (node == minimum())
 		{
-			// The removed node is the minimum node.
+			// The detached node is the minimum node.
 			// Set the minimum to the next smallest node.
 			setMinimum(successor);
 		}
@@ -126,22 +126,21 @@ namespace Pastel
 			!node->left()->isSentinel() &&
 			!node->right()->isSentinel();
 
-		Node* detached = twoChildren ? successor : node;
-		ASSERT(detached->left()->isSentinel() ||
-			detached->right()->isSentinel());
+		Node* moved = twoChildren ? successor : node;
+		ASSERT(moved->left()->isSentinel() ||
+			moved->right()->isSentinel());
 
-		Node* parent = detached->parent();
-		Node* child = detached->child(
-			!detached->right()->isSentinel());
+		Node* parent = moved->parent();
+		Node* child = moved->child(
+			!moved->right()->isSentinel());
 		const integer right =
-			(detached == parent->right());
+			(moved == parent->right());
 
-		bool detachedWasRoot = (detached == rootNode());
-		const bool detachedWasRed = detached->red();
+		bool movedWasRoot = (moved == rootNode());
+		const bool movedWasRed = moved->red();
 
-		// Detach a node from the tree.
+		// Detach the 'moved' node from the tree.
 		link(parent, child, right);
-		detached->isolate(sentinel_);
 
 		//    |            | 
 		//    p            p
@@ -166,7 +165,11 @@ namespace Pastel
 			successor->setRed(node->red());
 		}
 
-		if (detachedWasRoot)
+		node->isolate();
+		node->setRed();
+		node->setLocalMaximum(false);
+
+		if (movedWasRoot)
 		{
 			//   |           |B
 			//   c           c
@@ -187,13 +190,13 @@ namespace Pastel
 			return successor;
 		}
 
-		// From now on the detached node is not the root.
+		// From now on the moved node is not the root.
 		Node* newParent =
 			(parent == node) ? successor : parent;
 		ASSERT(child->isSentinel() ||
 			child->parent() == newParent);
 
-		if (detachedWasRed)
+		if (movedWasRed)
 		{
 			//    |B      
 			//    p       
@@ -212,7 +215,7 @@ namespace Pastel
 			return successor;
 		}
 
-		// From now on the detached node is black and 
+		// From now on the moved node is black and 
 		// not the root. Detaching a black node away
 		// from the root means that the equal black-count
 		// invariant is broken.

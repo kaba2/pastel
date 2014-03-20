@@ -681,7 +681,7 @@ namespace Pastel
 		*/
 		Node* rotate(Node* node, bool rotateRight);
 
-		//! Returns the child from the local viewpoint.
+		//! Returns the child in the local tree.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
@@ -697,7 +697,7 @@ namespace Pastel
 			return node->child(right);
 		}
 
-		//! Returns the parent from the local viewpoint.
+		//! Returns the parent in the local tree.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
@@ -711,6 +711,22 @@ namespace Pastel
 				return (Node*)sentinel_;
 			}
 			return parent;
+		}
+
+		// Finds the root of the local tree.
+		/*
+		Time complexity: O(h)
+		where
+		h is the height of the local tree.
+
+		Exception safety: nothrow
+		*/
+		Node* findRoot(Node* node) const
+		{
+			while (!localParent(node)->isSentinel())
+			{
+				node = node->parent();
+			}
 		}
 
 		//! Sets the root node.
