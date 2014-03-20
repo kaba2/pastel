@@ -579,11 +579,24 @@ namespace Pastel
 		parent, right:
 		The initial attachment position as provided
 		by findInsertParent().
+
+		createRoot:
+		Whether to create a root node, or attach
+		the node to an existing tree. A root node
+		can be created only under a local maximum.
 		*/
 		void attach(
 			Node* node,
 			Node* parent,
-			bool right);
+			bool right,
+			bool createRoot);
+
+		//! Rebalances the red-black tree after attaching a node.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		void rebalanceAfterAttach(Node* node);
 
 		//! Detaches a node from the tree and rebalances.
 		/*!
@@ -595,6 +608,14 @@ namespace Pastel
 		*/
 		Node* detach(Node* node);
 
+		//! Rebalances the red-black tree after detaching a node.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		void rebalanceAfterDetach(
+			Node* parent, bool right);
+
 		//! Returns the elements equivalent to the given key.
 		/*!
 		Time complexity: O(log(size()))
@@ -604,15 +625,6 @@ namespace Pastel
 			const Key& key, 
 			const FindEqual_Return& equalAndUpper,
 			EqualRange compute) const;
-
-		//! Rebalances the red-black tree after detaching a node.
-		/*!
-		Time complexity: O(log(size()))
-		Exception safety: nothrow
-		*/
-		void rebalanceAfterDetach(
-			Node* toRebalance, 
-			bool leftLowOnBlack);
 
 		//! Updates hierarhical data on the path to root.
 		/*!
@@ -669,6 +681,38 @@ namespace Pastel
 		*/
 		Node* rotate(Node* node, bool rotateRight);
 
+		//! Returns the child from the local viewpoint.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Node* localChild(Node* node, bool right) const
+		{
+			if (node->isLocalMaximum() &&
+				right)
+			{
+				return (Node*)sentinel_;
+			}
+
+			return node->child(right);
+		}
+
+		//! Returns the parent from the local viewpoint.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Node* localParent(Node* node) const
+		{
+			Node* parent = node->parent();
+			if (parent->isLocalMaximum() &&
+				node == parent->right())
+			{
+				return (Node*)sentinel_;
+			}
+			return parent;
+		}
+
 		//! Sets the root node.
 		/*!
 		Time complexity: O(1)
@@ -711,11 +755,15 @@ namespace Pastel
 
 		//! Sets the maximum node.
 		/*!
+		Preconditions:
+		node->isLocalMaximum()
+
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
 		void setMaximum(Node* node)
 		{
+			ASSERT(node->isLocalMaximum());
 			sentinel_->parent() = node;
 		}
 
@@ -847,8 +895,8 @@ namespace Pastel
 #include "pastel/sys/redblacktree_copy.hpp"
 #include "pastel/sys/redblacktree_erase.hpp"
 #include "pastel/sys/redblacktree_insert.hpp"
+#include "pastel/sys/redblacktree_invariants.hpp"
 #include "pastel/sys/redblacktree_private.hpp"
 #include "pastel/sys/redblacktree_search.hpp"
-#include "pastel/sys/redblacktree_invariants.hpp"
 
 #endif

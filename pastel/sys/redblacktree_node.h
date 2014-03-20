@@ -30,14 +30,31 @@ namespace Pastel
 
 			bool black() const
 			{
-				return !red_;
+				return !red();
 			}
 			
+			bool isLocalMaximum() const
+			{
+				return maximum_;
+			}
+
 			bool isSentinel() const
 			{
 				// A sentinel is identified by the unique property
 				// that its left child points to itself.
 				return left() == this;
+			}
+
+			bool parentExists() const
+			{
+				return !parent()->isLocalMaximum() ||
+					(this == parent()->left());
+			}
+
+			bool childExists(bool right) const
+			{
+				return !child(right)->isSentinel() &&
+					(!isLocalMaximum() || !right);
 			}
 
 		protected:
@@ -49,9 +66,11 @@ namespace Pastel
 				: parent_(0)
 				, child_()
 				, red_(sentinel != 0)
+				, maximum_(sentinel == 0)
 			{
-				// The sentinel node is black.
-				// The elements are created red.
+				// The sentinel node is black, and
+				// is a local maximum. The elements are 
+				// created red, but not as local maxima.
 
 				if (sentinel == 0)
 				{
@@ -72,19 +91,24 @@ namespace Pastel
 
 			void setRed()
 			{
-				ASSERT(!isSentinel());
-				red_ = true;
+				setRed(true);
 			}
 
 			void setBlack()
 			{
-				red_ = false;
+				setRed(false);
 			}
 
 			void setRed(bool red)
 			{
 				ASSERT(!isSentinel() || !red);
 				red_ = red;
+			}
+
+			void setLocalMaximum(bool maximum)
+			{
+				ASSERT(!isSentinel() || maximum);
+				maximum_ = maximum;
 			}
 
 			Node*& parent()
@@ -129,7 +153,8 @@ namespace Pastel
 
 			Node* parent_;
 			Node* child_[2];
-			bool red_;
+			uint8 red_ : 1;
+			uint8 maximum_ : 1;
 		};
 
 		/*!

@@ -26,9 +26,10 @@ namespace Pastel
 			node = allocateNode(std::move(key), data);
 			node->parent() = parent;
 			node->setRed(thatNode->red());
+			node->setLocalMaximum(thatNode->isLocalMaximum());
 			++size_;
 			++rollBackIndex;
-
+			
 			if (thatNode == that.minimum())
 			{
 				setMinimum(node);
@@ -118,9 +119,11 @@ namespace Pastel
 		bool right = parentAndRight.right;
 
 		// Attach the new node into this tree.
+		// FIX: When to create a root?
+		bool createRoot = empty();
 		element.base()->isolate(sentinel_);
 		element.base()->setRed();
-		attach(element.base(), parent.base(), right);
+		attach(element.base(), parent.base(), right, createRoot);
 
 		// Notify the customization of this tree.
 		this->onSplice(element);
