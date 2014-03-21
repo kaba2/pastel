@@ -59,15 +59,15 @@ namespace Pastel
 		private:
 			using Fwd = RedBlackTree_Fwd<Settings>;
 			
-			PASTEL_FWD(Iterator);
-			PASTEL_FWD(ConstIterator);
-
 		/*
 		The customization functions should be protected
 		so that they can only be called by the RedBlackTree
 		implementation.
 		*/
 		protected:
+			PASTEL_FWD(Iterator);
+			PASTEL_FWD(ConstIterator);
+
 			//! Constructs an empty customization.
 			/*!
 			Exception safety: strong
@@ -131,7 +131,7 @@ namespace Pastel
 			perform in O(1) (which is usually the case when the
 			hierarchical data is recursively defined).
 			*/
-			void updateHierarchical(const ConstIterator& node) {}
+			void updateHierarchical(const Iterator& node) {}
 
 			//! Whether to call the updateHierarchical() customization.
 			/*!

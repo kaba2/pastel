@@ -169,6 +169,22 @@ namespace Pastel
 			return size_ == 0;
 		}
 
+		//! Returns the black-height of the tree.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		
+		In a red-black tree, the paths from a given node to
+		its leaves have the same number of black nodes,
+		which is called the black-height of the node. The
+		black-height of the tree is the black-height of the
+		root. 
+		*/
+		integer blackHeight() const
+		{
+			return blackHeight_;
+		}
+
 		//! Inserts an element into the tree.
 		/*!
 		Time complexity: O(log(size())) * updateHierarchicalData() + onInsert()
@@ -579,17 +595,11 @@ namespace Pastel
 		parent, right:
 		The initial attachment position as provided
 		by findInsertParent().
-
-		createRoot:
-		Whether to create a root node, or attach
-		the node to an existing tree. A root node
-		can be created only under a local maximum.
 		*/
 		void attach(
 			Node* node,
 			Node* parent,
-			bool right,
-			bool createRoot);
+			bool right);
 
 		//! Rebalances the red-black tree after attaching a node.
 		/*!
@@ -681,54 +691,6 @@ namespace Pastel
 		*/
 		Node* rotate(Node* node, bool rotateRight);
 
-		//! Returns the child in the local tree.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		Node* localChild(Node* node, bool right) const
-		{
-			if (node->isLocalMaximum() &&
-				right)
-			{
-				return (Node*)sentinel_;
-			}
-
-			return node->child(right);
-		}
-
-		//! Returns the parent in the local tree.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		Node* localParent(Node* node) const
-		{
-			Node* parent = node->parent();
-			if (parent->isLocalMaximum() &&
-				node == parent->right())
-			{
-				return (Node*)sentinel_;
-			}
-			return parent;
-		}
-
-		// Finds the root of the local tree.
-		/*
-		Time complexity: O(h)
-		where
-		h is the height of the local tree.
-
-		Exception safety: nothrow
-		*/
-		Node* findRoot(Node* node) const
-		{
-			while (!localParent(node)->isSentinel())
-			{
-				node = node->parent();
-			}
-		}
-
 		//! Sets the root node.
 		/*!
 		Time complexity: O(1)
@@ -779,7 +741,6 @@ namespace Pastel
 		*/
 		void setMaximum(Node* node)
 		{
-			ASSERT(node->isLocalMaximum());
 			sentinel_->parent() = node;
 		}
 
@@ -816,6 +777,20 @@ namespace Pastel
 
 		//! The number of stored elements in the tree.
 		integer size_;
+
+		//! The black-height of the tree.
+		/*!
+		In a red-black tree, the paths from a given node to 
+		its leaves have the same number of black nodes,
+		which is called the black-height of the node. The
+		black-height of the tree is the black-height of the
+		root. Tracing the black-height of the tree is 
+		important because it allows to compute the join
+		and union of two red-black trees in logarithmic
+		time. Interestingly, the black-height of the tree 
+		can be traced incrementally with almost no overhead.
+		*/
+		integer blackHeight_;
 	};
 
 }

@@ -127,18 +127,16 @@ namespace Pastel
 			return false;
 		}
 
-		if (!tree.empty() &&
-			!std::prev(tree.cend()).isLocalMaximum() ||
-			!tree.cend().isLocalMaximum())
-		{
-			// The maximum and the sentinel must be 
-			// local maximum nodes.
-			return false;
-		}
-
 		integer blackHeight = 0;
 		if (!RedBlackTree_::testInvariants(tree, tree.croot(), blackHeight))
 		{
+			return false;
+		}
+
+		if (blackHeight != tree.blackHeight())
+		{
+			// The computed black-height must be equal to the
+			// black-height which is incrementally tracked by the tree.
 			return false;
 		}
 

@@ -37,24 +37,21 @@ namespace Pastel
 			std::forward<Value>(value)...);
 
 		// Attach the node into the tree.
-		bool createRoot = empty();
-		attach(node, parent, right, createRoot);
+		attach(node, parent, right);
 
 		return insertReturnType(Iterator(node), true);
 	}
 
 	template <typename Settings, typename Customization>
 	void RedBlackTree<Settings,  Customization>::attach(
-		Node* node, Node* parent, bool right, bool createRoot)
+		Node* node, Node* parent, bool right)
 	{
 		ASSERT(!node->isSentinel());
 		ASSERT(node->red());
-		ASSERT(!node->isLocalMaximum());
 		ASSERT(!node->parent());
 		ASSERT(!node->left());
 		ASSERT(!node->right());
 		ASSERT(parent->child(right) == sentinel_);
-		ASSERT(!createRoot || parent->isLocalMaximum());
 
 		Iterator element(node);
 
@@ -66,23 +63,15 @@ namespace Pastel
 		if (empty() ||
 			(parent == minimum() && !right))
 		{
-			// This is the new minimum element.
+			// This is the new minimum.
 			setMinimum(node);
 		}
 
 		if (empty() ||
-			(parent->isLocalMaximum() && right))
+			(parent == maximum() && right))
 		{
-			if (!createRoot)
-			{
-				parent->setLocalMaximum(false);
-			}
-			node->setLocalMaximum(true);
-			if (parent == maximum())
-			{
-				// This is the new maximum element.
-				setMaximum(node);
-			}
+			// This is the new maximum.
+			setMaximum(node);
 		}
 
 		// Update the hierarchical information in subtree
@@ -128,11 +117,16 @@ namespace Pastel
 				// The node is the root node.
 				ASSERT(node == rootNode());
 
-				// Marking it black turns the subtree
+				// Marking the 'node' black turns the subtree
 				// rooted at 'node' a red-black tree,
 				// since marking the root black increases
 				// the black-counts on all paths by one.
 				node->setBlack();
+				update(Iterator(node));
+
+				// This is the only case which increases
+				// the black-height of the tree.
+				++blackHeight_;
 
 				// We are done.
 				break;

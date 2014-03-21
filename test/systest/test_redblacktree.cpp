@@ -25,29 +25,62 @@ namespace
 		{
 		}
 
-		using Map_Settings = RedBlack_Settings<integer, integer>;
+
+		template <typename Settings_>
 		class Counting_Customization
-			: public Empty_RedBlackTree_Customization<Map_Settings>
 		{
-		public:
-			template <typename Iterator>
+		protected:
+			using Settings = RedBlackTree_Fwd<Settings_>;
+			using Iterator = typename Settings::Iterator;
+
+			Counting_Customization() {}
+			void swap(Counting_Customization& that) {}
+			void onClear() {}
+			void onInsert(const Iterator& element) {}
+			void onErase(const Iterator& element) {}
+			void onSpliceFrom(const Iterator& element) {}
+			void onSplice(const Iterator& element) {}
+
 			void updateHierarchical(const Iterator& iter)
 			{
-				iter.data() =
-					iter.left().data() +
-					iter.right().data() +
-					(iter.red() ? 1 : 0);
+				ENSURE(!iter.isSentinel());
+				
+				integer left = 0;
+				if (!iter.left().isSentinel())
+				{
+					left = iter.left().data();
+				}
+
+				integer right = 0;
+				if (!iter.right().isSentinel())
+				{
+					right = iter.right().data();
+				}
+				
+				iter.data() = std::max(left, right) + iter.black();
 			}
+
+			enum { UpdateHierarchical = 1 };
+
+		private:
+			Counting_Customization(const Counting_Customization& that) = delete;
+			Counting_Customization(Counting_Customization&& that) = delete;
+			Counting_Customization& operator=(Counting_Customization) = delete;
 		};
 
-		typedef RedBlackTree<Map_Settings, Counting_Customization> Counting_Map;
-		typedef Counting_Map::Iterator Counting_Iterator;
-		typedef Counting_Map::ConstIterator Counting_ConstIterator;
+		template <integer Dereference, bool MultipleKeys>
+		using Counting_Settings =
+			RedBlack_Settings<uinteger, integer, LessThan, Dereference, MultipleKeys>;
 
-		using Set = RedBlack_Set<uinteger>;
-		using MultiSet = RedBlack_MultiSet<uinteger>;
-		using Map = RedBlack_Map<uinteger, integer>;
-		using MultiMap = RedBlack_MultiMap<uinteger, integer>;
+		using Set_Settings = Counting_Settings<RedBlackTree_Dereference_Key, false>;
+		using MultiSet_Settings = Counting_Settings<RedBlackTree_Dereference_Key, true>;
+		using Map_Settings = Counting_Settings<RedBlackTree_Dereference_Data, false>;
+		using MultiMap_Settings = Counting_Settings<RedBlackTree_Dereference_Data, true>;
+
+		using Set = RedBlackTree<Set_Settings, Counting_Customization<Set_Settings>>;
+		using MultiSet = RedBlackTree<MultiSet_Settings, Counting_Customization<MultiSet_Settings>>;
+		using Map = RedBlackTree<Map_Settings, Counting_Customization<Map_Settings>>;
+		using MultiMap = RedBlackTree<MultiMap_Settings, Counting_Customization<MultiMap_Settings>>;
 
 		virtual void run()
 		{
@@ -64,6 +97,7 @@ namespace
 		void testManyThings()
 		{
 			testInsert<Tree>();
+			testBlackHeight<Tree>();
 			testErase<Tree>();
 			testRandom<Tree>();
 			testSplice<Tree>();
@@ -204,11 +238,35 @@ namespace
 				}
 
 				{
-					Tree copyMap(tree);
-					TEST_ENSURE(testInvariants(copyMap));
-					TEST_ENSURE_OP(tree.size(), ==, copyMap.size());
-					TEST_ENSURE(boost::equal(tree.ckeyRange(), copyMap.ckeyRange()));
+					Tree copy(tree);
+					TEST_ENSURE(testInvariants(copy));
+					TEST_ENSURE_OP(tree.size(), == , copy.size());
+					TEST_ENSURE(boost::equal(tree.ckeyRange(), copy.ckeyRange()));
 				}
+			}
+		}
+
+		template <typename Tree>
+		void testBlackHeight()
+		{
+			using ConstIterator = typename Tree::ConstIterator;
+
+			Tree tree;
+			{
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE_OP(tree.blackHeight(), == , 0);
+			}
+
+			std::vector<uinteger> keySet = 
+				{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+			std::vector<integer> blackHeightSet = 
+				{ 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3 };
+
+			for (integer i = 0; i < keySet.size(); ++i)
+			{
+				tree.insert(keySet[i]);
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE_OP(tree.blackHeight(), == , blackHeightSet[i]);
 			}
 		}
 
@@ -511,8 +569,11 @@ namespace
 
 				nodeSet.push_back(
 					std::make_pair(entry.first.left(), entry.second + 1));
+
+				ConstIterator right = entry.first.isSentinel() ?
+					tree.cend() : entry.first.right();
 				nodeSet.push_back(
-					std::make_pair(entry.first.right(), entry.second + 1));
+					std::make_pair(right, entry.second + 1));
 			}
 			std::cout << std::endl;
 		}

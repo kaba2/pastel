@@ -105,21 +105,12 @@ namespace Pastel
 			setMinimum(successor);
 		}
 
-		if (node->isLocalMaximum())
+		if (node == maximum())
 		{
-			// The detached node is a local maximum.
+			// The detached node is the global maximum.
 			Iterator prev(node);
 			--prev;
-			Node* predecessor = prev.base();
-
-			node->setLocalMaximum(false);
-			predecessor->setLocalMaximum(true);
-
-			if (node == maximum())
-			{
-				// The detached node is the global maximum.
-				setMaximum(predecessor);
-			}
+			setMaximum(prev.base());
 		}
 
 		const bool twoChildren =
@@ -167,21 +158,27 @@ namespace Pastel
 
 		node->isolate();
 		node->setRed();
-		node->setLocalMaximum(false);
 
 		if (movedWasRoot)
 		{
-			//   |           |B
-			//   c           c
-			//  / \   ==>   / \    
-			// 1   2       1   2       
-
 			ASSERT(child == rootNode());
 
-			// The only invariant that can be broken is if the 
-			// child node is red, since the root must always be 
-			// black. This can be fixed by changing it black.
-			child->setBlack();
+			if (child->red())
+			{
+				//   |R          |B
+				//   c           c
+				//  / \   ==>   / \    
+				// 1   2       1   2
+
+				// The root node must be black.
+				child->setBlack();
+			}
+			else
+			{
+				// If the child is black, then we have 
+				// decreased the black-height by one.
+				--blackHeight_;
+			}
 
 			// Update the hierarchical data.
 			updateToRoot(child);
@@ -200,13 +197,14 @@ namespace Pastel
 		{
 			//    |B      
 			//    p       
-			//     \B     
-			//      c     
+			//   / \B     
+			//  1   c     
 			//     / \ 
-			//    1   2
+			//    2   3
 
 			// No invariants are broken by detaching
-			// a red node with a single child.
+			// a red node with a single child. The
+			// black-height is also not affected.
 
 			// Update the hierarchical data.
 			updateToRoot(newParent);
@@ -216,22 +214,22 @@ namespace Pastel
 		}
 
 		// From now on the moved node is black and 
-		// not the root. Detaching a black node away
-		// from the root means that the equal black-count
-		// invariant is broken.
+		// not the root. Detaching a non-root black node
+		// means that the equal black-count invariant is 
+		// broken.
 
 		if (parent->red() && child->red())
 		{
-			//    |R           |R
-			//    p            p
-			//     \R     ==>   \B
-			//      c            c
-			//    B/ \B        B/ \B
-			//    1   2        1   2
+			//    |R             |R
+			//    p              p
+			//  B/ \R     ==>  B/ \B
+			//  1   c          1   c
+			//    B/ \B          B/ \B
+			//    2   3          2   3
 
 			// If 'parent' and 'child' are both red, then there 
 			// is in addition a red-red violation. We correct 
-			// both the red-red and the black-depth violation by 
+			// both the red-red and the black-height violation by 
 			// changing the color of 'child' to black.
 			child->setBlack();
 
@@ -245,7 +243,7 @@ namespace Pastel
 		// There are no red-red violations from now on.
 
 		// The rebalance() function corrects the 
-		// black-depth violation.
+		// black-height violation.
 		rebalanceAfterDetach(newParent, right);
 
 		// Return the successor.
@@ -288,8 +286,7 @@ namespace Pastel
 				// 1   2 3   4		1   2 3   4
 
 				node->setBlack();
-
-				// We are done.
+				update(Iterator(node));
 				break;
 			}
 
@@ -428,6 +425,11 @@ namespace Pastel
 				// it pushes the problem upwards by removing
 				// a black node from the subtree with the
 				// higher black-count.
+
+				if (parent == rootNode())
+				{
+					--blackHeight_;
+				}
 
 				update(Iterator(sibling));
 				update(Iterator(parent));

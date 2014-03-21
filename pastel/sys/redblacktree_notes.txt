@@ -74,5 +74,22 @@ to itself, a unique property which can be used to identify a sentinel
 node. Using the sentinel node is a standard trick, but its connection
 to the one-past-end iterator is rarely mentioned.
 
- 
+Starting a search from the minimum node
+---------------------------------------
 
+In a complete binary tree of height ''h'', the expected number of moves in a search starting from the minimum (or maximum) node is
+
+[[Equation]]:
+	1 / (2^(h - 1)) sum_{k = 1}^{h - 1} 2 k 2^(k - 1).
+
+This has an exact solution of
+
+[[Equation]]:
+	2 (h - 2) + 2^(2 - h).
+
+Dividing this by ''h - 1'' gives the ratio of moves compared to the search starting from the root. The first numbers in this sequence, starting from ''h = 2'', are
+
+	1.0000    1.2500    1.4167    1.5313    1.6125    1.6719    1.7165    1.7510    1.7782    1.8002    
+	1.8183    1.8334    1.8462    1.8572    1.8667    1.8750    1.8824    1.8889    1.8947
+
+This sequence is increasing, and its limit is 2. Therefore a good rule of thumb is that the search starting from the minimum node takes roughly twice the time the search takes from the root node.
