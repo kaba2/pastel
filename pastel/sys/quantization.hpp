@@ -26,10 +26,7 @@ namespace Pastel
 	{
 		PASTEL_STATIC_ASSERT(N >= 2 && N <= 32);
 
-		enum
-		{
-			Half = (1 << (N - 1)) - 1
-		};
+		PASTEL_CONSTEXPR int Half = (1 << (N - 1)) - 1;
 		
 		return clamp((real64)i / Half, -1, 1);
 	}
@@ -40,10 +37,7 @@ namespace Pastel
 	{
 		PASTEL_STATIC_ASSERT(N >= 2 && N <= 32);
 
-		enum
-		{
-			Half = (1 << (N - 1)) - 1
-		};
+		PASTEL_CONSTEXPR int Half = (1 << (N - 1)) - 1;
 		
 		real64 dither = random<real64>();
 		if (i <= -Half)
@@ -64,10 +58,7 @@ namespace Pastel
 	{
 		PASTEL_STATIC_ASSERT(N >= 2 && N <= 32);
 
-		enum
-		{
-			Half = (1 << (N - 1)) - 1
-		};
+		PASTEL_CONSTEXPR int Half = (1 << (N - 1)) - 1;
 
 		return (integer)clamp(std::floor(r * Half + (r + 1) / 2), -Half, Half);
 	}

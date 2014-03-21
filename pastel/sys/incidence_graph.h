@@ -42,13 +42,10 @@ namespace Pastel
 		PASTEL_FWD(Incidence_Iterator);
 		PASTEL_FWD(Incidence_ConstIterator);
 
-		enum
-		{
-			Outgoing = Fwd::Outgoing,
-			Incoming = Fwd::Incoming,
-			Undirected = Fwd::Undirected,
-			IncidenceTypes = Fwd::IncidenceTypes
-		};
+		PASTEL_CONSTEXPR int Outgoing = Fwd::Outgoing;
+		PASTEL_CONSTEXPR int Incoming = Fwd::Incoming;
+		PASTEL_CONSTEXPR int Undirected = Fwd::Undirected;
+		PASTEL_CONSTEXPR int IncidenceTypes = Fwd::IncidenceTypes;
 
 		//! Constructs an empty graph.
 		/*!

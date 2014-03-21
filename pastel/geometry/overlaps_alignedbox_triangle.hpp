@@ -28,10 +28,7 @@ namespace Pastel
 			ENSURE_OP(box.n(), ==, 2);
 			ENSURE_OP(triangle.n(), ==, 2);
 
-			enum
-			{
-				N = 2
-			};
+			PASTEL_CONSTEXPR int N = 2;
 
 			// Using the separating axis theorem.
 
@@ -158,10 +155,7 @@ namespace Pastel
 			// To avoid dynamic allocations, we
 			// will create the temporaries using
 			// a fixed dimension.
-			enum
-			{
-				N = 3
-			};
+			PASTEL_CONSTEXPR int N = 3;
 
 			// Using the separating axis theorem.
 

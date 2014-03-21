@@ -16,10 +16,7 @@ namespace Pastel
 	class Vector_PointPolicy
 	{
 	public:
-		enum
-		{
-			N = N_
-		};
+		PASTEL_CONSTEXPR int N = N_;
 
 		Vector_PointPolicy()
 			: dimension_(N)

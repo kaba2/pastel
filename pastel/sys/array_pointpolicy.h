@@ -15,10 +15,7 @@ namespace Pastel
 	class Array_PointPolicy
 	{
 	public:
-		enum
-		{
-			N = N_
-		};
+		PASTEL_CONSTEXPR int N = N_;
 
 		PASTEL_STATIC_ASSERT(N == Dynamic || N >= 0);
 

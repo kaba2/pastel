@@ -218,12 +218,9 @@ namespace Pastel
 	class Integer_To_Color
 	{
 	private:
-		enum
-		{
-			RedNumbers = 1 << RedBits,
-			GreenNumbers = 1 << GreenBits,
-			BlueNumbers = 1 << BlueBits
-		};
+		PASTEL_CONSTEXPR int RedNumbers = 1 << RedBits;
+		PASTEL_CONSTEXPR int GreenNumbers = 1 << GreenBits;
+		PASTEL_CONSTEXPR int BlueNumbers = 1 << BlueBits;
 
 	public:
 		typedef Color Logical;

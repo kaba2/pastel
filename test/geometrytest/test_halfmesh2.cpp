@@ -142,10 +142,7 @@ namespace
 				TEST_ENSURE(checkInvariants(halfMesh));
 			}
 			{
-				enum
-				{
-					Vertices = 100
-				};
+				PASTEL_CONSTEXPR int Vertices = 100;
 
 				PureHalfMesh halfMesh;
 				PureHalfMesh::Vertex vertices[Vertices];
@@ -225,11 +222,8 @@ namespace
 
 		void testComplexHalfMesh()
 		{
-			enum
-			{
-				Vertices = 1000,
-				Edges = 1000
-			};
+			PASTEL_CONSTEXPR int Vertices = 1000;
+			PASTEL_CONSTEXPR int Edges = 1000;
 
 			std::vector<PureHalfMesh::Vertex> vertices;
 			std::vector<PureHalfMesh::Edge> edges;

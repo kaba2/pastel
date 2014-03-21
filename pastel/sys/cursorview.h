@@ -14,10 +14,7 @@ namespace Pastel
 	class ConstCursorView
 	{
 	public:
-		enum
-		{
-			Dimension = N
-		};
+		PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef typename ViewConstCursor::Element Element;
 		typedef typename ViewConstCursor::ConstReference ConstReference;

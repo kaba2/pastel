@@ -113,10 +113,7 @@ namespace Pastel
 		const PointPolicy& pointPolicy)
 	{
 		typedef typename PointPolicy::Real Real;
-		enum
-		{
-			N = PointPolicy::N
-		};
+		PASTEL_CONSTEXPR int N = PointPolicy::N;
 
 		const integer n = pointPolicy.n();
 		ENSURE_OP(n, !=, Dynamic);
@@ -152,10 +149,7 @@ namespace Pastel
 		const PointPolicy& pointPolicy)
 	{
 		typedef typename PointPolicy::Real Real;
-		enum
-		{
-			N = PointPolicy::N
-		};
+		PASTEL_CONSTEXPR int N = PointPolicy::N;
 
 		const integer n = pointPolicy.n();
 		ENSURE_OP(n, !=, Dynamic);

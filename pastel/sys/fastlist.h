@@ -70,10 +70,7 @@ namespace Pastel
 
 	public:
 		/*
-		enum
-		{
-			AllocatorUnitSize = sizeof(DataNode)
-		};
+		PASTEL_CONSTEXPR int AllocatorUnitSize = sizeof(DataNode);
 		*/
 
 		typedef boost::shared_ptr<UniformAllocator>
@@ -678,10 +675,7 @@ namespace Pastel
 		// you can also subtract UnknownSize.
 		void subtractSize(size_type count);
 
-		enum
-		{
-			UnknownSize = -1
-		};
+		PASTEL_CONSTEXPR int UnknownSize = -1;
 
 		Node* head_;
 		mutable size_type size_;
