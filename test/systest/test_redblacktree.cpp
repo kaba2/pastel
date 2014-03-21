@@ -29,8 +29,8 @@ namespace
 		class Counting_Customization
 		{
 		protected:
-			using Settings = RedBlackTree_Fwd<Settings_>;
-			using Iterator = typename Settings::Iterator;
+			using Fwd = RedBlackTree_Fwd<Settings_>;
+			PASTEL_FWD(Iterator);
 
 			Counting_Customization() {}
 			void swap(Counting_Customization& that) {}

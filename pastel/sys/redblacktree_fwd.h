@@ -24,10 +24,13 @@ namespace Pastel
 		template <typename, typename, typename, bool>
 		class Iterator;
 
-		template <typename, typename>
+		template <typename, typename, bool>
 		class Node_Base;
 
-		template <typename, typename>
+		template <typename, typename, bool>
+		class Data_Node;
+		
+		template <typename, typename, bool>
 		class Node;
 
 	}
@@ -39,9 +42,24 @@ namespace Pastel
 		using Key = typename Settings::Key;
 		using Data = typename Settings::Data;
 		using Compare = typename Settings::Compare;
+
+		PASTEL_CONSTEXPR bool DereferenceToData =
+			(Settings::DereferenceType == RedBlackTree_Dereference_Data) ||
+			(Settings::DereferenceType == RedBlackTree_Dereference_Default &&
+			!std::is_same<Data, void>::value);
+
+		PASTEL_CONSTEXPR bool MultipleKeys =
+			Settings::MultipleKeys;
+
+		PASTEL_CONSTEXPR bool UseSentinelData =
+			Settings::UseSentinelData;
+
 		using Data_Class = Class<Data>;
-		using Node = RedBlackTree_::Node<Key, Data_Class>;
-		using Node_Base = RedBlackTree_::Node_Base<Key, Data_Class>;
+		using Node = RedBlackTree_::Node<Key, Data_Class, UseSentinelData>;
+		using Sentinel = typename std::conditional<
+			UseSentinelData,
+			RedBlackTree_::Data_Node<Key, Data_Class, UseSentinelData>,
+			RedBlackTree_::Node_Base<Key, Data_Class, UseSentinelData>>::type;
 
 		using Key_Iterator = 
 			RedBlackTree_::Iterator<Node*, Key, Data_Class, false>;
@@ -60,14 +78,6 @@ namespace Pastel
 			boost::iterator_range<Data_Iterator>;
 		using Data_ConstRange = 
 			boost::iterator_range<Data_ConstIterator>;
-
-		static const bool DereferenceToData =
-			(Settings::DereferenceType == RedBlackTree_Dereference_Data) ||
-			(Settings::DereferenceType == RedBlackTree_Dereference_Default &&
-			!std::is_same<Data, void>::value);
-
-		static const bool MultipleKeys =
-			Settings::MultipleKeys;
 
 		using Iterator = 
 			RedBlackTree_::Iterator<
