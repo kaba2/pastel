@@ -102,7 +102,7 @@ namespace Pastel
 					(cutBox.minTopology()[i] == Topology::Closed &&
 					bBox.minTopology()[i] == Topology::Open))
 				{
-					const Topology::Enum previousMaxTopology = 
+					const Topology previousMaxTopology = 
 						cutBox.maxTopology()[i];
 					const Real previousMax = 
 						cutBox.max()[i];
@@ -130,7 +130,7 @@ namespace Pastel
 					(cutBox.maxTopology()[i] == Topology::Closed &&
 					bBox.maxTopology()[i] == Topology::Open))
 				{
-					const Topology::Enum previousMinTopology = 
+					const Topology previousMinTopology = 
 						cutBox.minTopology()[i];
 					const Real previousMin = 
 						cutBox.min()[i];

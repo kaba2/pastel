@@ -43,13 +43,13 @@ namespace Pastel
 			const Vector<Real, N>& start,
 			const Vector<Real, N>& end,
 			const Real& radius,
-			Topology::Enum topology = Topology::Closed);
+			Topology topology = Topology::Closed);
 
 		//! Constructs a capsule with the given properties.
 		Capsule(
 			const Segment<Real, N>& segment,
 			const Real& radius,
-			Topology::Enum topology = Topology::Closed);
+			Topology topology = Topology::Closed);
 
 		//! Swaps two capsules.
 		void swap(Capsule& that);
@@ -70,10 +70,10 @@ namespace Pastel
 		const Real& radius() const;
 
 		//! Sets the topology of the capsule.
-		void setTopology(Topology::Enum topology);
+		void setTopology(Topology topology);
 
 		//! Returns the topology of the capsule.
-		Topology::Enum topology() const;
+		Topology topology() const;
 
 		//! Translates the capsule by the given vector.
 		Capsule<Real, N>& operator+=(const Vector<Real, N>& that);
@@ -90,7 +90,7 @@ namespace Pastel
 	private:
 		Segment<Real, N> segment_;
 		Real radius_;
-		Topology::Enum topology_;
+		Topology topology_;
 	};
 
 	typedef Capsule<real, 1> Capsule1;

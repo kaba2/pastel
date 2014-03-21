@@ -16,9 +16,9 @@ namespace Pastel
 			"Conversions"
 		};
 
-		PASTEL_STATIC_ASSERT(sizeof(name) / sizeof(const char*) == StatReal::Stat::Size);
+		PASTEL_STATIC_ASSERT(sizeof(name) / sizeof(const char*) == (int)StatReal::Stat::Enum::Size);
 
-		for (integer i = 0;i < StatReal::Stat::Size;++i)
+		for (integer i = 0;i < (integer)StatReal::Stat::Enum::Size;++i)
 		{
 			stream << name[i] << ": " << stats.statistic(i) << std::endl;
 		}

@@ -50,7 +50,7 @@ namespace Pastel
 				const Real& minMatchRatio,
 				const Real& actualMatchingDistance,
 				const Real& maxBias,
-				MatchingMode::Enum matchingMode,
+				MatchingMode matchingMode,
 				const NormBijection& normBijection,
 				const Scene_Model_Output& report)
 			{
@@ -253,7 +253,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxBias,
-		MatchingMode::Enum matchingMode,
+		MatchingMode matchingMode,
 		const NormBijection& normBijection,
 		Scene_Model_Output report)
 	{

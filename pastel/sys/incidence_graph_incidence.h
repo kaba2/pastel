@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
+	template <GraphType Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Incidence_Link
 	{
 	public:
@@ -28,7 +28,7 @@ namespace Pastel
 		Incidence* prev_;
 	};
 
-	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
+	template <GraphType Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Incidence
 		: public Incidence_Link
 	{

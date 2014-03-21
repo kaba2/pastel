@@ -16,7 +16,7 @@ namespace Pastel
 	{
 	public:
 		void initialize(
-			LoadConfig_Echo::Enum echoPolicy)
+			LoadConfig_Echo echoPolicy)
 		{
 			config_.clear();
 			key_ = "";
@@ -149,7 +149,7 @@ namespace Pastel
 		std::string key_;
 		integer count_;
 		integer size_;
-		LoadConfig_Echo::Enum echoPolicy_;
+		LoadConfig_Echo echoPolicy_;
 	};
 
 	ConfigSemantic configSemantic;
@@ -263,7 +263,7 @@ namespace Pastel
 	PASTELSYS bool loadConfig(
 		const std::string& fileName,
 		Config& config,
-		LoadConfig_Echo::Enum echoPolicy)
+		LoadConfig_Echo echoPolicy)
 	{
 		log() << "Loading config file " << fileName << "..." << logNewLine;
 

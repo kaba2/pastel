@@ -108,7 +108,7 @@ namespace
 			}
 			// Operation count 9, no other stats.
 			TEST_ENSURE(allEqual(evaluate(globalStats().statistics() - 
-				9 * unitAxis<integer, Stat::Size>(Stat::Operations)), 0));
+				9 * unitAxis<integer, Stat::Enum::Size>(Stat::Enum::Operations)), 0));
 		}
 
 		void testComparisons()
@@ -126,7 +126,7 @@ namespace
 			}
 			// Comparison count 6, no other stats.
 			TEST_ENSURE(allEqual(evaluate(globalStats().statistics() - 
-				6 * unitAxis<integer, Stat::Size>(Stat::Comparisons)), 0));
+				6 * unitAxis<integer, Stat::Enum::Size>(Stat::Enum::Comparisons)), 0));
 		}
 
 		real f(real x)
@@ -145,7 +145,7 @@ namespace
 				std::sin(a);
 			}
 			// Conversion count 2.
-			TEST_ENSURE_OP(globalStats().statistic<Stat::Conversions>(), ==, 2);
+			TEST_ENSURE_OP(globalStats().statistic<Stat::Enum::Conversions>(), ==, 2);
 		}
 
 	};

@@ -18,16 +18,12 @@
 namespace Pastel
 {
 
-	class ResamplingMode
+	enum class ResamplingMode : integer
 	{
-	public:
-		enum Enum
-		{
-			Nearest,
-			Bilinear,
-			Trilinear,
-			Anisotropic
-		};
+		Nearest,
+		Bilinear,
+		Trilinear,
+		Anisotropic
 	};
 
 	template <typename Type>
@@ -47,7 +43,7 @@ namespace Pastel
 		bool filled_;
 		Type color_;
 		integer texture_;
-		ResamplingMode::Enum resamplingMode_;
+		ResamplingMode resamplingMode_;
 
 		// Transformation state
 
@@ -88,8 +84,8 @@ namespace Pastel
 		integer texture() const;
 		virtual void onSetTexture() {}
 
-		void setResamplingMode(ResamplingMode::Enum resamplingMode);
-		ResamplingMode::Enum resamplingMode() const;
+		void setResamplingMode(ResamplingMode resamplingMode);
+		ResamplingMode resamplingMode() const;
 		virtual void onSetResamplingMode() {}
 
 		// Transformation state

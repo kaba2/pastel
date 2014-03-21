@@ -127,14 +127,14 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	void GfxRenderer<Type>::setResamplingMode(ResamplingMode::Enum resamplingMode)
+	void GfxRenderer<Type>::setResamplingMode(ResamplingMode resamplingMode)
 	{
 		state_.resamplingMode_ = resamplingMode;
 		onSetResamplingMode();
 	}
 
 	template <typename Type>
-	ResamplingMode::Enum GfxRenderer<Type>::resamplingMode() const
+	ResamplingMode GfxRenderer<Type>::resamplingMode() const
 	{
 		return state_.resamplingMode_;
 	}

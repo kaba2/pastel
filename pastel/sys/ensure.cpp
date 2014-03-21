@@ -9,18 +9,18 @@ namespace Pastel
 	namespace
 	{
 
-		InvariantFailureAction::Enum currentInvariantFailureAction = 
+		InvariantFailureAction currentInvariantFailureAction = 
 			InvariantFailureAction::AssertAndAbort;
 
 	}
 
 	PASTELSYS void setInvariantFailureAction(
-		InvariantFailureAction::Enum action)
+		InvariantFailureAction action)
 	{
 		currentInvariantFailureAction = action;
 	}
 
-	PASTELSYS InvariantFailureAction::Enum invariantFailureAction()
+	PASTELSYS InvariantFailureAction invariantFailureAction()
 	{
 		return currentInvariantFailureAction;
 	}

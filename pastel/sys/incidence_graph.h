@@ -17,7 +17,7 @@ namespace Pastel
 
 	//! Incidence graph
 	template <
-		GraphType::Enum Type = GraphType::Directed, 
+		GraphType Type = GraphType::Directed, 
 		typename VertexData = void, 
 		typename EdgeData = void>
 	class Incidence_Graph

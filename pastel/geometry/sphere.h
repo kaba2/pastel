@@ -46,13 +46,13 @@ namespace Pastel
 		Sphere(
 			const Vector<Real, N>& position,
 			const Real& radius,
-			Topology::Enum topology = Topology::Closed);
+			Topology topology = Topology::Closed);
 
 		//! Construct a sphere using given position and radius.
 		Sphere(integer dimension,
 			const Vector<Real, N>& position,
 			const Real& radius,
-			Topology::Enum topology = Topology::Closed);
+			Topology topology = Topology::Closed);
 
 		// Used for concept checking.
 		~Sphere();
@@ -76,10 +76,10 @@ namespace Pastel
 		const Real& radius() const;
 
 		//! Sets the topology of the sphere.
-		void setTopology(Topology::Enum topology);
+		void setTopology(Topology topology);
 
 		//! Returns the topology of the sphere.
-		Topology::Enum topology() const;
+		Topology topology() const;
 
 		//! Returns the inverse of the radius of the sphere.
 		/*!
@@ -104,7 +104,7 @@ namespace Pastel
 		Vector<Real, N> position_;
 		Real radius_;
 		Real inverseRadius_;
-		Topology::Enum topology_;
+		Topology topology_;
 	};
 
 	template <typename Real, int N>

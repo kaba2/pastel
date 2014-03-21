@@ -17,14 +17,10 @@
 namespace Pastel
 {
 
-	class StorageOrder
+	enum class StorageOrder : integer
 	{
-	public:
-		enum Enum
-		{
-			RowMajor,
-			ColumnMajor
-		};
+		RowMajor,
+		ColumnMajor
 	};
 
 	//! A multi-dimensional array.
@@ -65,13 +61,13 @@ namespace Pastel
 		Array(
 			const Vector<integer, N>& extent,
 			const Alias<Type*>& dataAlias,
-			StorageOrder::Enum order = StorageOrder::RowMajor);
+			StorageOrder order = StorageOrder::RowMajor);
 
 		//! Constructs an array of given extents filled with given data.
 		explicit Array(
 			const Vector<integer, N>& extent,
 			const Type& defaultData = Type(),
-			StorageOrder::Enum order = StorageOrder::RowMajor);
+			StorageOrder order = StorageOrder::RowMajor);
 
 		//! Copy-constructs an array.
 		/*!
@@ -82,7 +78,7 @@ namespace Pastel
 		
 		//! Copy-constructs an array.
 		Array(const Array& that,
-			StorageOrder::Enum order);
+			StorageOrder order);
 
 		//! Move-constructs an array.
 		Array(Array&& that);
@@ -102,7 +98,7 @@ namespace Pastel
 			const Array& that,
 			const Vector<integer, N>& extent,
 			const Type& defaultData,
-			StorageOrder::Enum order);
+			StorageOrder order);
 
 		//! Destruct an array.
 		~Array();
@@ -341,10 +337,10 @@ namespace Pastel
 
 		//! Sets the storage order.
 		void setStorageOrder(
-			StorageOrder::Enum order);
+			StorageOrder order);
 
 		//! Returns the storage order.
-		StorageOrder::Enum storageOrder() const;
+		StorageOrder storageOrder() const;
 
 		// 1-dimensional special functions.
 
@@ -531,7 +527,7 @@ namespace Pastel
 		//! Copy constructs an array.
 		void copyConstruct(
 			const Array& that,
-			StorageOrder::Enum order);
+			StorageOrder order);
 
 		template <bool ThisInRowOrder>
 		void copyInitialize(const Array& that);
@@ -550,7 +546,7 @@ namespace Pastel
 		void copyConstructLarger(
 			const Array& that,
 			const Type& defaultData,
-			StorageOrder::Enum order);
+			StorageOrder order);
 
 		/*
 		extent_:

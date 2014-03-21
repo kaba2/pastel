@@ -118,12 +118,9 @@ namespace Pastel
 				return iter;
 			}
 
-			Iterator child(integer index) const
+			Iterator child(bool right) const
 			{
-				ASSERT_OP(index, >=, 0);
-				ASSERT_OP(index, <, 2);
-
-				return Iterator(node()->child(index));
+				return Iterator(node()->child(right));
 			}
 
 			integer children() const

@@ -17,7 +17,7 @@
 namespace Pastel
 {
 
-	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
+	template <GraphType Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Vertex
 		: public VertexData_Class
 	{

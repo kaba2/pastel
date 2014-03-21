@@ -14,15 +14,11 @@ namespace Pastel
 	class PASTELSYS MeasureTable
 	{
 	public:
-		class Alignment
+		enum class Alignment : integer
 		{
-		public:
-			enum Enum
-			{
-				Left,
-				Right,
-				Center
-			};
+			Left,
+			Right,
+			Center
 		};
 
 		class Entry
@@ -35,12 +31,12 @@ namespace Pastel
 			}
 
 			void setAlignment(
-				Alignment::Enum alignment)
+				Alignment alignment)
 			{
 				alignment_ = alignment;
 			}
 
-			Alignment::Enum alignment() const
+			Alignment alignment() const
 			{
 				return alignment_;
 			}
@@ -56,7 +52,7 @@ namespace Pastel
 			}
 
 		private:
-			Alignment::Enum alignment_;
+			Alignment alignment_;
 			std::string text_;
 		};
 

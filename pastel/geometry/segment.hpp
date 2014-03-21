@@ -33,8 +33,8 @@ namespace Pastel
 	Segment<Real, N>::Segment(
 		const Vector<Real, N>& start,
 		const Vector<Real, N>& end,
-		Topology::Enum startTopology,
-		Topology::Enum endTopology)
+		Topology startTopology,
+		Topology endTopology)
 		: start_(start)
 		, end_(end)
 		, startTopology_(startTopology)
@@ -95,26 +95,26 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Segment<Real, N>::setStartTopology(
-		Topology::Enum startTopology)
+		Topology startTopology)
 	{
 		startTopology_ = startTopology;
 	}
 
 	template <typename Real, int N>
-	Topology::Enum Segment<Real, N>::startTopology() const
+	Topology Segment<Real, N>::startTopology() const
 	{
 		return startTopology_;
 	}
 
 	template <typename Real, int N>
 	void Segment<Real, N>::setEndTopology(
-		Topology::Enum endTopology)
+		Topology endTopology)
 	{
 		endTopology_ = endTopology;
 	}
 
 	template <typename Real, int N>
-	Topology::Enum Segment<Real, N>::endTopology() const
+	Topology Segment<Real, N>::endTopology() const
 	{
 		return endTopology_;
 	}

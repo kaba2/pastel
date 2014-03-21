@@ -381,7 +381,7 @@ namespace Pastel
 			{
 			}
 
-			TriState::Enum operator()(const Object& object) const
+			TriState operator()(const Object& object) const
 			{
 				// The kd-tree nodes are
 				// half-open boxes of the form [min, max[.

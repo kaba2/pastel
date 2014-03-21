@@ -11,15 +11,11 @@
 namespace Pastel
 {
 
-	class GraphType
+	enum class GraphType : integer
 	{
-	public:
-		enum Enum
-		{
-			Undirected,
-			Directed,
-			Mixed,
-		};
+		Undirected,
+		Directed,
+		Mixed,
 	};
 
 	namespace Incidence_Graph_
@@ -65,10 +61,10 @@ namespace Pastel
 
 	}
 
-	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
+	template <GraphType Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph;
 
-	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
+	template <GraphType Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph_Fwd
 	{
 	public:

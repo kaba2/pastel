@@ -12,14 +12,10 @@
 namespace Pastel
 {
 
-	class MatchingMode
+	enum class MatchingMode : integer
 	{
-	public:
-		enum Enum
-		{
-			FirstMatch,
-			MaximumMatch
-		};
+		FirstMatch,
+		MaximumMatch
 	};
 
 	template <typename Real, int N>
@@ -97,7 +93,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxBias,
-		MatchingMode::Enum matchingMode,
+		MatchingMode matchingMode,
 		const NormBijection& normBijection,
 		Scene_Model_Output report);
 

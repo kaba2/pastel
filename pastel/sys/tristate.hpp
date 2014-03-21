@@ -8,14 +8,14 @@
 namespace Pastel
 {
 
-	inline void swap(TriState::Enum& left, TriState::Enum& right)
+	inline void swap(TriState& left, TriState& right)
 	{
 		std::swap(left, right);
 	}
 
-	inline TriState::Enum triNot(TriState::Enum that)
+	inline TriState triNot(TriState that)
 	{
-		TriState::Enum result = TriState::Maybe;
+		TriState result = TriState::Maybe;
 
 		if (that == TriState::True)
 		{
@@ -29,9 +29,9 @@ namespace Pastel
 		return result;
 	}
 
-	inline TriState::Enum triMix(TriState::Enum left, TriState::Enum right)
+	inline TriState triMix(TriState left, TriState right)
 	{
-		TriState::Enum result = TriState::Maybe;
+		TriState result = TriState::Maybe;
 
 		if (left == right &&
 			left != TriState::Maybe)
@@ -42,9 +42,9 @@ namespace Pastel
 		return result;
 	}
 
-	inline TriState::Enum triEqual(TriState::Enum left, TriState::Enum right)
+	inline TriState triEqual(TriState left, TriState right)
 	{
-		TriState::Enum result = TriState::Maybe;
+		TriState result = TriState::Maybe;
 
 		// Note:
 		// equal(TriState::Maybe, TriState::Maybe) = TriState::Maybe
@@ -62,9 +62,9 @@ namespace Pastel
 		return result;
 	}
 
-	inline TriState::Enum triNotEqual(TriState::Enum left, TriState::Enum right)
+	inline TriState triNotEqual(TriState left, TriState right)
 	{
-		TriState::Enum result = TriState::Maybe;
+		TriState result = TriState::Maybe;
 
 		// Note:
 		// notEqual(TriState::Maybe, TriState::Maybe) = TriState::Maybe
@@ -82,9 +82,9 @@ namespace Pastel
 		return result;
 	}
 
-	inline TriState::Enum triAnd(TriState::Enum left, TriState::Enum right)
+	inline TriState triAnd(TriState left, TriState right)
 	{
-		TriState::Enum result = TriState::True;
+		TriState result = TriState::True;
 
 		if (left == TriState::False || right == TriState::False)
 		{
@@ -98,10 +98,10 @@ namespace Pastel
 		return result;
 	}
 
-	inline TriState::Enum triOr(
-		TriState::Enum left, TriState::Enum right)
+	inline TriState triOr(
+		TriState left, TriState right)
 	{
-		TriState::Enum result = TriState::False;
+		TriState result = TriState::False;
 
 		if (left == TriState::True || right == TriState::True)
 		{
@@ -115,9 +115,9 @@ namespace Pastel
 		return result;
 	}
 
-	inline TriState::Enum triXor(TriState::Enum left, TriState::Enum right)
+	inline TriState triXor(TriState left, TriState right)
 	{
-		TriState::Enum result = TriState::True;
+		TriState result = TriState::True;
 
 		if (left == TriState::Maybe || right == TriState::Maybe)
 		{
@@ -135,7 +135,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	TriState::Enum triLess(
+	TriState triLess(
 		const Type& left, const Type& right)
 	{
 		if (left < right)

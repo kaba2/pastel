@@ -26,10 +26,9 @@ namespace Pastel
 				Conversions,
 				Size
 			};
-
 		};
 
-		typedef Vector<integer, Stat::Size>
+		typedef Vector<integer, Stat::Enum::Size>
 			StatSet;
 
 		class GlobalStats
@@ -139,7 +138,7 @@ namespace Pastel
 
 			Number& operator=(const Number& that)
 			{
-				add<Stat::Operations>();
+				add<Stat::Enum::Operations>();
 
 				data_ = that.data_;
 				return *this;
@@ -153,14 +152,14 @@ namespace Pastel
 
 			operator const Real&() const
 			{
-				add<Stat::Conversions>();
+				add<Stat::Enum::Conversions>();
 
 				return data_;
 			}
 
 			Number& operator+=(const Number& that)
 			{
-				add<Stat::Operations>();
+				add<Stat::Enum::Operations>();
 
 				data_ += that.data_;
 				return *this;
@@ -168,7 +167,7 @@ namespace Pastel
 
 			Number& operator-=(const Number& that)
 			{
-				add<Stat::Operations>();
+				add<Stat::Enum::Operations>();
 
 				data_ -= that.data_;
 				return *this;
@@ -176,7 +175,7 @@ namespace Pastel
 
 			Number& operator*=(const Number& that)
 			{
-				add<Stat::Operations>();
+				add<Stat::Enum::Operations>();
 
 				data_ *= that.data_;
 				return *this;
@@ -184,7 +183,7 @@ namespace Pastel
 
 			Number& operator/=(const Number& that)
 			{
-				add<Stat::Operations>();
+				add<Stat::Enum::Operations>();
 
 				data_ /= that.data_;
 				return *this;
@@ -192,14 +191,14 @@ namespace Pastel
 
 			bool operator<(const Number& that) const
 			{
-				add<Stat::Comparisons>();
+				add<Stat::Enum::Comparisons>();
 
 				return data_ < that.data_;
 			}
 
 			bool operator==(const Number& that) const
 			{
-				add<Stat::Comparisons>();
+				add<Stat::Enum::Comparisons>();
 
 				return data_ == that.data_;
 			}

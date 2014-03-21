@@ -8,35 +8,30 @@ namespace Pastel
 {
 
 	//! A triple state variable.
-
-	class TriState
+	enum class TriState : integer
 	{
-	public:
-		enum Enum
-		{
-			False = 0,
-			Negative = 0,
-			True = 1,
-			Positive = 1,
-			Maybe = 2,
-			Both = 2,
-			Neither = 2,
-			Zero = 2
-		};
+		False = 0,
+		Negative = 0,
+		True = 1,
+		Positive = 1,
+		Maybe = 2,
+		Both = 2,
+		Neither = 2,
+		Zero = 2
 	};
 
-	void swap(TriState::Enum& left, TriState::Enum& right);
+	void swap(TriState& left, TriState& right);
 
-	TriState::Enum triNot(TriState::Enum that);
-	TriState::Enum triMix(TriState::Enum left, TriState::Enum right);
-	TriState::Enum triEqual(TriState::Enum left, TriState::Enum right);
-	TriState::Enum triNotEqual(TriState::Enum left, TriState::Enum right);
-	TriState::Enum triAnd(TriState::Enum left, TriState::Enum right);
-	TriState::Enum triOr(TriState::Enum left, TriState::Enum right);
-	TriState::Enum triXor(TriState::Enum left, TriState::Enum right);
+	TriState triNot(TriState that);
+	TriState triMix(TriState left, TriState right);
+	TriState triEqual(TriState left, TriState right);
+	TriState triNotEqual(TriState left, TriState right);
+	TriState triAnd(TriState left, TriState right);
+	TriState triOr(TriState left, TriState right);
+	TriState triXor(TriState left, TriState right);
 
 	template <typename Type>
-	TriState::Enum triLess(
+	TriState triLess(
 		const Type& left, const Type& right);
 
 }

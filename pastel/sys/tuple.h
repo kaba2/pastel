@@ -20,7 +20,6 @@ namespace Pastel
 	};
 
 	//! A fixed size array of the given type.
-
 	/*!
 	This class is a container for a fixed size
 	array of elements and directly models the
@@ -28,7 +27,6 @@ namespace Pastel
 	A tuple	has no associated arithmetic operators,
 	see Vector and Vector for such tuples.
 	*/
-
 	template <typename Type, int N>
 	class Tuple
 		: public Detail::TupleBase<Type, N>
