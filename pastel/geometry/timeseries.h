@@ -18,7 +18,7 @@ namespace Pastel
 		typedef typename Args::PointRep PointRep;
 		typedef typename PointRep::Real Real;
 		typedef typename PointRep::Point Point;
-		enum {N = PointRep::N};
+		PASTEL_CONSTEXPR int N = PointRep::N;
 
 	private:
 		class Node;

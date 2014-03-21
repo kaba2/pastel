@@ -87,7 +87,7 @@ namespace Pastel
 		PASTEL_FWD(Trie_ConstIterator);
 		PASTEL_FWD(Trie_Iterator);
 
-		enum {Bits = Settings::Bits};
+		PASTEL_CONSTEXPR int Bits = Settings::Bits;
 
 		//! Constructs an empty trie.
 		/*!
@@ -1324,7 +1324,7 @@ namespace Pastel
 	class CFastTrie_Map_Settings
 	{
 	public:
-		static const integer Bits = Bits_;
+		PASTEL_CONSTEXPR integer Bits = Bits_;
 		using Value = Value_;
 	};
 

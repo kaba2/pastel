@@ -12,7 +12,7 @@ namespace Pastel
 	class Pointer_PointRep
 	{
 	public:
-		enum {N = N_};
+		PASTEL_CONSTEXPR int N = N_;
 		typedef Real_ Real;
 		typedef const Real* Point;
 

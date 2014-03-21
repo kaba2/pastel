@@ -13,7 +13,7 @@ namespace Pastel
 	class Real_Function
 	{
 	public:
-		static const bool Exists = false;
+		PASTEL_CONSTEXPR bool Exists = false;
 
 		Real infinity();
 		Real nan();

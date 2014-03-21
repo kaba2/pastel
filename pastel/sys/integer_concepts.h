@@ -16,7 +16,7 @@ namespace Pastel
 		{
 		public:
 			//! The number of bits in the integer.
-			enum {N = UserDefinedInteger};
+			PASTEL_CONSTEXPR int N = UserDefinedInteger;
 
 			//! The type of the underlying word.
 			/*!
@@ -32,7 +32,7 @@ namespace Pastel
 			*/
 			using Word = UserDefinedType;
 
-			//! Interpretation of the integer.
+			//! Whether to interpret as a signed integer.
 			/*!
 			If Signed is true, then the integer is interpreted
 			as a signed integer in two's complement form.
@@ -41,7 +41,7 @@ namespace Pastel
 			positive, and the arithmetic works modulo 2^N,
 			except for the division.
 			*/
-			enum {Signed = UserDefinedInteger};
+			PASTEL_CONSTEXPR bool Signed = UserDefinedBoolean;
 		};
 
 	}

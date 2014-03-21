@@ -8,7 +8,7 @@ namespace Pastel
 
 	PASTELGFX Color xyzIlluminantE()
 	{
-		static const Color color(
+		PASTEL_CONSTEXPR Color color(
 			xyyToXyz(Color(
 			(real32)1 / 3, (real32)1 / 3, 1)));
 
@@ -17,7 +17,7 @@ namespace Pastel
 
 	PASTELGFX Color xyzIlluminantD50()
 	{
-		static const Color color(
+		PASTEL_CONSTEXPR Color color(
 			xyyToXyz(Color(
 			0.34567, 0.35850, 1)));
 
@@ -26,7 +26,7 @@ namespace Pastel
 
 	PASTELGFX Color xyzIlluminantD65()
 	{
-		static const Color color(
+		PASTEL_CONSTEXPR Color color(
 			xyyToXyz(Color(
 			0.31271, 0.32902, 1)));
 

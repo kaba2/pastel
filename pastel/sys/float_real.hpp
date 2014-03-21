@@ -15,7 +15,7 @@ namespace Pastel
 	class Real_Function<float>
 	{
 	public:
-		static const bool Exists = true;
+		PASTEL_CONSTEXPR bool Exists = true;
 
 		float infinity()
 		{

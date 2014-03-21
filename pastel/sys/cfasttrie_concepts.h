@@ -19,7 +19,7 @@ namespace Pastel
 			Preconditions:
 			Bits > 0
 			*/
-			enum {Bits = UserDefinedInteger};
+			PASTEL_CONSTEXPR int Bits = UserDefinedInteger;
 
 			//! The associated user-data.
 			/*!

@@ -16,7 +16,7 @@ namespace Pastel
 		{
 		public:
 			//! The compile-time dimension.
-			enum {N = UserDefinedInteger};
+			PASTEL_CONSTEXPR int N = UserDefinedInteger;
 
 			//! Visits the given position.
 			/*!

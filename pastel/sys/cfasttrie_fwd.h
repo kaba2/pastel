@@ -46,7 +46,7 @@ namespace Pastel
 		using Settings = CFastTrie_Settings;
 
 		//! The number of bits in an element.
-		enum {Bits = Settings::Bits};
+		PASTEL_CONSTEXPR int Bits = Settings::Bits;
 		PASTEL_STATIC_ASSERT(Bits > 0);
 
 		//! The type of a key.

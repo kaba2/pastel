@@ -587,7 +587,7 @@ namespace Pastel
 	class Real_Function<Rational<Integer> >
 	{
 	public:
-		static const bool Exists = true;
+		PASTEL_CONSTEXPR bool Exists = true;
 
 		Rational<Integer> infinity()
 		{
