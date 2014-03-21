@@ -3,14 +3,8 @@ Red-black forest notes
 
 [[Parent]]: red_black_forest.txt
 
-Todo
-----
-
-* Searching starting from a given node.
-* Insertion starting from a given node.
-
-Sentinel node
--------------
+Sentinel nodes
+--------------
 
 The _sentinel tree_ is a singular tree, which consists of a single node, the _sentinel node_. The sentinel node is used to denote a missing children for the nodes in the forest. This removes boundary cases from the problem, and the sentinel node also works as the one-past-end iterator. The left child of the sentinel node is the sentinel node itself. This property is unique to the sentinel node, and thus can be used to identify the sentinel node locally. In the following, we shall denote the sentinel tree, and also the sentinel node, by S. 
 
@@ -53,26 +47,6 @@ Here's a visualization of the root-min chaining:
 
 The max-root chaining is favorable to root-min chaining, because it provides constant-time complexity for moving between the sentinel node and the last node; in root-min chaining this would be proportional to the height of the last tree. This is important, because it is a common task to find the last node by backing out from the sentinel node. 
 From now on we will assume the use of max-root chaining.
-
-Starting a search from the minimum node
----------------------------------------
-
-In a complete binary tree of height ''h'', the expected number of moves in a search starting from the minimum (or maximum) node is
-
-[[Equation]]:
-	1 / (2^(h - 1)) sum_{k = 1}^{h - 1} 2 k 2^(k - 1).
-
-This has an exact solution of
-
-[[Equation]]:
-	2 (h - 2) + 2^(2 - h).
-
-Dividing this by ''h - 1'' gives the ratio of moves compared to the search starting from the root. The first numbers in this sequence, starting from ''h = 2'', are
-
-	1.0000    1.2500    1.4167    1.5313    1.6125    1.6719    1.7165    1.7510    1.7782    1.8002    
-	1.8183    1.8334    1.8462    1.8572    1.8667    1.8750    1.8824    1.8889    1.8947
-
-This sequence is increasing, and its limit is 2. Therefore a good rule of thumb is that the search starting from the minimum node takes roughly twice the time the search takes from the root node.
 
 Root nodes
 ----------

@@ -70,11 +70,6 @@ namespace Pastel
 				return node()->isSentinel();
 			}
 
-			bool isLocalMaximum() const
-			{
-				return node()->isLocalMaximum();
-			}
-
 			bool parentExists() const
 			{
 				return node()->parentExists();

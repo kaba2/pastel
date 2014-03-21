@@ -12,6 +12,7 @@ namespace Pastel
 		: minimum_(0)
 		, sentinel_(0)
 		, size_(0)
+		, blackHeight_(0)
 	{
 		sentinel_ = new Node_Base();
 		initialize();
@@ -26,6 +27,8 @@ namespace Pastel
 		{
 			Node* root = copyConstruct((Node*)sentinel_, that, that.rootNode());
 			setRoot(root);
+			size_ = that.size_;
+			blackHeight_ = that.blackHeight_;
 		}
 		catch(...)
 		{
@@ -52,6 +55,7 @@ namespace Pastel
 		swap(minimum_, that.minimum_);
 		swap(sentinel_, that.sentinel_);
 		swap(size_, that.size_);
+		swap(blackHeight_, that.blackHeight_);
 	}
 
 	template <typename Settings, typename Customization>
@@ -64,13 +68,13 @@ namespace Pastel
 		sentinel_->left() = (Node*)sentinel_;
 		sentinel_->right() = (Node*)sentinel_;
 		sentinel_->setRed(false);
-		sentinel_->setLocalMaximum(true);
 
 		setMinimum((Node*)sentinel_);
 		setMaximum((Node*)sentinel_);
 		setRoot((Node*)sentinel_);
 
 		size_ = 0;
+		blackHeight_ = 0;
 	}
 
 }
