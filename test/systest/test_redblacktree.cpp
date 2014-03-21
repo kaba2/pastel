@@ -25,7 +25,6 @@ namespace
 		{
 		}
 
-
 		template <typename Settings_>
 		class Counting_Customization
 		{

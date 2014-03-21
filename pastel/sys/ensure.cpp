@@ -53,6 +53,7 @@ namespace Pastel
 
 		PASTELSYS void report(
 			const char* testText,
+			const char* functionName,
 			const char* fileName, int lineNumber,
 			const char* info1Name, real64 info1,
 			const char* info2Name, real64 info2,
@@ -60,7 +61,6 @@ namespace Pastel
 			const char* info4Name, real64 info4)
 		{
 			log() << "File: ";
-
 			if (fileName)
 			{
 				log() << fileName;
@@ -69,11 +69,9 @@ namespace Pastel
 			{
 				log() << "Not available";
 			}
-
 			log() << logNewLine;
 
 			log() << "Line: ";
-
 			if (lineNumber >= 0)
 			{
 				log() << lineNumber;
@@ -82,11 +80,20 @@ namespace Pastel
 			{
 				log() << "Not available";
 			}
+			log() << logNewLine;
 
+			log() << "Function: ";
+			if (functionName)
+			{
+				log() << functionName;
+			}
+			else
+			{
+				log() << "Not available";
+			}
 			log() << logNewLine;
 
 			log() << "Expression: ";
-
 			if (testText)
 			{
 				log() << testText;
@@ -95,7 +102,6 @@ namespace Pastel
 			{
 				log() << "Not available";
 			}
-
 			log() << logNewLine;
 
 			if (info1Name ||
@@ -132,6 +138,7 @@ namespace Pastel
 
 		PASTELSYS void error(
 			const char* testText,
+			const char* functionName,
 			const char* fileName, int lineNumber,
 			const char* info1Name, real64 info1,
 			const char* info2Name, real64 info2,
@@ -143,6 +150,7 @@ namespace Pastel
 				<< logNewLine;
 
 			report(testText,
+				functionName,
 				fileName, lineNumber,
 				info1Name, info1,
 				info2Name, info2,
@@ -154,6 +162,7 @@ namespace Pastel
 
 		PASTELSYS void assertionError(
 			const char* testText,
+			const char* functionName,
 			const char* fileName, int lineNumber,
 			const char* info1Name, real64 info1,
 			const char* info2Name, real64 info2,
@@ -165,6 +174,7 @@ namespace Pastel
 				<< logNewLine;
 
 			report(testText,
+				functionName,
 				fileName, lineNumber,
 				info1Name, info1,
 				info2Name, info2,
