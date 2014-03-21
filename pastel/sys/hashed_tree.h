@@ -65,7 +65,7 @@ namespace Pastel
 		typename Hash_ = std::hash<Key>>
 	class HashedTree_Settings
 		: public RedBlack_Settings<Key, HashedTree_Data<Data>, 
-		Compare, RedBlackTree_Dereference_Key>
+		Compare, RedBlackTree_Dereference::Key>
 	{
 	public:
 		using Hash = Hash_;	

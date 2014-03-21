@@ -53,14 +53,14 @@ namespace
 			Counting_Customization& operator=(Counting_Customization) = delete;
 		};
 
-		template <integer Dereference, bool MultipleKeys>
+		template <RedBlackTree_Dereference Dereference, bool MultipleKeys>
 		using Counting_Settings =
 			RedBlack_Settings<uinteger, integer, LessThan, Dereference, MultipleKeys>;
 
-		using Set_Settings = Counting_Settings<RedBlackTree_Dereference_Key, false>;
-		using MultiSet_Settings = Counting_Settings<RedBlackTree_Dereference_Key, true>;
-		using Map_Settings = Counting_Settings<RedBlackTree_Dereference_Data, false>;
-		using MultiMap_Settings = Counting_Settings<RedBlackTree_Dereference_Data, true>;
+		using Set_Settings = Counting_Settings<RedBlackTree_Dereference::Key, false>;
+		using MultiSet_Settings = Counting_Settings<RedBlackTree_Dereference::Key, true>;
+		using Map_Settings = Counting_Settings<RedBlackTree_Dereference::Data, false>;
+		using MultiMap_Settings = Counting_Settings<RedBlackTree_Dereference::Data, true>;
 
 		using Set = RedBlackTree<Set_Settings, Counting_Customization>;
 		using MultiSet = RedBlackTree<MultiSet_Settings, Counting_Customization>;

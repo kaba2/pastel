@@ -11,11 +11,11 @@
 namespace Pastel
 {
 
-	enum
+	enum class RedBlackTree_Dereference
 	{
-		RedBlackTree_Dereference_Default,
-		RedBlackTree_Dereference_Key,
-		RedBlackTree_Dereference_Data
+		Default,
+		Key,
+		Data
 	};
 
 	namespace RedBlackTree_
@@ -44,8 +44,8 @@ namespace Pastel
 		using Compare = typename Settings::Compare;
 
 		PASTEL_CONSTEXPR bool DereferenceToData =
-			(Settings::DereferenceType == RedBlackTree_Dereference_Data) ||
-			(Settings::DereferenceType == RedBlackTree_Dereference_Default &&
+			(Settings::Dereference == RedBlackTree_Dereference::Data) ||
+			(Settings::Dereference == RedBlackTree_Dereference::Default &&
 			!std::is_same<Data, void>::value);
 
 		PASTEL_CONSTEXPR bool MultipleKeys =

@@ -33,23 +33,18 @@ namespace Pastel
 
 			//! To which type iterators should dereference to.
 			/*!
-			RedBlackTree_Dereference_Default: 
-			When Data != void, dereference to the Data. Otherwise
-			dereference to the Key.
+			Default: 
+			If Data != void, dereference to the Data. 
+			Otherwise dereference to the Key.
 
-			RedBlackTree_Dereference_Key:
-			Always dereference to the Key.
+			Key:
+			Dereference to the Key.
 
-			RedBlackTree_Dereference_Data:
-			Always dereference to the Data.
+			Data:
+			Dereference to the Data.
 			*/
-			enum
-			{
-				DereferenceType = RedBlackTree_Dereference_Default
-			};
-
-			// FIX
-			// constexpr RedBlackTree_Dereference DereferenceType;
+			PASTEL_CONSTEXPR RedBlackTree_Dereference Dereference = 
+				RedBlackTree_Dereference::Default;
 
 			//! Whether to allow multiple equal keys.
 			PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
