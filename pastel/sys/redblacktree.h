@@ -511,7 +511,7 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS(root, rootNode PASTEL_CALL_BRACKETS);
 
 	private:
-		PASTEL_FWD(Node_Base);
+		PASTEL_FWD(Sentinel);
 		PASTEL_FWD(Node);
 
 		enum EqualRange
@@ -771,7 +771,7 @@ namespace Pastel
 		The right child of the sentinel node is 
 		the root node.
 		*/
-		Node_Base* sentinel_;
+		Sentinel* sentinel_;
 
 		//! The number of stored elements in the tree.
 		integer size_;
@@ -819,7 +819,8 @@ namespace Pastel
 		typename Data_,
 		typename Compare_ = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
-		bool MultipleKeys_ = false>
+		bool MultipleKeys_ = false,
+		bool UseSentinelData_ = true>
 	class RedBlack_Settings
 	{
 	public:
@@ -830,7 +831,8 @@ namespace Pastel
 		{
 			DereferenceType = DereferenceType_
 		};
-		enum {MultipleKeys = MultipleKeys_};
+		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
+		PASTEL_CONSTEXPR bool UseSentinelData = UseSentinelData_;
 	};
 
 	template <
@@ -838,18 +840,22 @@ namespace Pastel
 		typename Data,
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
+		bool UseSentinelData_ = true,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Map = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Compare, DereferenceType_, false>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, Data, Compare, 
+		DereferenceType_, false, UseSentinelData_>, Customization>;
 
 	template <
 		typename Key, 
 		typename Data,
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
+		bool UseSentinelData_ = true,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiMap = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Compare, DereferenceType_, true>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, Data, Compare, 
+		DereferenceType_, true, UseSentinelData_>, Customization>;
 
 }
 

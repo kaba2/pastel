@@ -14,7 +14,7 @@ namespace Pastel
 		, size_(0)
 		, blackHeight_(0)
 	{
-		sentinel_ = new Node_Base();
+		sentinel_ = new Sentinel();
 		initialize();
 	}
 
