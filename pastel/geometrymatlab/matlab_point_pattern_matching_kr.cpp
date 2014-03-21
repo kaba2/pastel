@@ -29,7 +29,7 @@ namespace Pastel
 				MinMatchRatio,
 				MatchingDistance,
 				MaxBias,
-				MatchingMode,
+				MatchingModeId,
 				Inputs
 			};
 
@@ -44,13 +44,13 @@ namespace Pastel
 
 			ENSURE_OP(inputs, ==, Inputs);
 
-			MatchingMode::Enum matchingModeSet[] =
+			MatchingMode matchingModeSet[] =
 			{
 				MatchingMode::FirstMatch,
 				MatchingMode::MaximumMatch
 			};
 			const integer matchingModes = 
-				sizeof(matchingModeSet) / sizeof(MatchingMode::Enum);
+				sizeof(matchingModeSet) / sizeof(MatchingMode);
 
 			const real* modelData = mxGetPr(inputSet[ModelSet]);
 			const integer modelPoints = mxGetN(inputSet[ModelSet]);
@@ -62,12 +62,12 @@ namespace Pastel
 				asScalar<real>(inputSet[MatchingDistance]);
 			const real maxBias =
 				asScalar<real>(inputSet[MaxBias]);
-			const integer matchingModeId = asScalar<integer>(inputSet[MatchingMode]);
+			const integer matchingModeId = asScalar<integer>(inputSet[MatchingModeId]);
 
 			ENSURE_OP(matchingModeId, >=, 0);
 			ENSURE_OP(matchingModeId, <, matchingModes);
 			
-			const MatchingMode::Enum matchingMode = 
+			const MatchingMode matchingMode = 
 				matchingModeSet[matchingModeId];
 
 			const integer modelDimension = mxGetM(inputSet[ModelSet]);

@@ -292,8 +292,8 @@ namespace Pastel
 		-0 |    Num NaN +oo -oo
 		*/
 
-		typename NumberType::Enum thisType = classify();
-		typename NumberType::Enum thatType = that.classify();
+		typename NumberType thisType = classify();
+		typename NumberType thatType = that.classify();
 
 		Rational result;
 
@@ -358,8 +358,8 @@ namespace Pastel
 		0  |      0 NaN	0	0   0
 		*/
 
-		typename NumberType::Enum thisType = classify();
-		typename NumberType::Enum thatType = that.classify();
+		typename NumberType thisType = classify();
+		typename NumberType thatType = that.classify();
 
 		Rational result;
 
@@ -473,10 +473,10 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	typename Rational<Integer>::NumberType::Enum
+	typename Rational<Integer>::NumberType
 		Rational<Integer>::classify() const
 	{
-		typename NumberType::Enum result = NumberType::Normal;
+		typename NumberType result = NumberType::Normal;
 		if (!zero(denominator_))
 		{
 			if (zero(numerator_))

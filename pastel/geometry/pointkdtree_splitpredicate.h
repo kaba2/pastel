@@ -20,7 +20,7 @@ namespace Pastel
 		{
 		}
 		
-		TriState::Enum operator()(const PointInfo& point) const
+		TriState operator()(const PointInfo& point) const
 		{
 			return triLess(
 				pointPolicy_.axis(*point, splitAxis_),

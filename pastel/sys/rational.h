@@ -166,17 +166,13 @@ namespace Pastel
 		}
 
 	private:
-		class NumberType
+		enum class NumberType : integer
 		{
-		public:
-			enum Enum
-			{
-				Normal,
-				Nan,
-				Infinity,
-				MinusInfinity,
-				Zero
-			};
+			Normal,
+			Nan,
+			Infinity,
+			MinusInfinity,
+			Zero
 		};
 		
 		class SkipSimplify {};
@@ -201,7 +197,7 @@ namespace Pastel
 		*/
 		void simplify();
 
-		typename NumberType::Enum classify() const;
+		typename NumberType classify() const;
 
 		bool lessThan(const Rational& that) const;
 		bool equal(const Rational& that) const;

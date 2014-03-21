@@ -4,21 +4,19 @@
 #ifndef PASTELSYS_TOPOLOGY_H
 #define PASTELSYS_TOPOLOGY_H
 
+#include <iostream>
+
 namespace Pastel
 {
 
-	class Topology
+	enum class Topology : integer
 	{
-	public:
-		enum Enum
-		{
-			Open,
-			Closed
-		};
+		Open,
+		Closed
 	};
 
-	inline Topology::Enum switchTopology(
-		Topology::Enum topology)
+	inline Topology switchTopology(
+		Topology topology)
 	{
 		if (topology == Topology::Closed)
 		{
@@ -30,8 +28,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool containsPositiveHalfspace(
-		const Real& outerMin, Topology::Enum outerMinTopology,
-		const Real& innerMin, Topology::Enum innerMinTopology)
+		const Real& outerMin, Topology outerMinTopology,
+		const Real& innerMin, Topology innerMinTopology)
 	{
 		if (innerMin <= outerMin)
 		{
@@ -48,8 +46,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool containsNegativeHalfspace(
-		const Real& outerMax, Topology::Enum outerMaxTopology,
-		const Real& innerMax, Topology::Enum innerMaxTopology)
+		const Real& outerMax, Topology outerMaxTopology,
+		const Real& innerMax, Topology innerMaxTopology)
 	{
 		if (innerMax >= outerMax)
 		{
@@ -62,6 +60,22 @@ namespace Pastel
 		}
 		
 		return true;
+	}
+
+	inline std::ostream& operator<<(
+		std::ostream& stream, 
+		const Topology& topology)
+	{
+		switch(topology)
+		{
+		case Topology::Open:
+			std::cout << "open";
+			break;
+		case Topology::Closed:
+			std::cout << "closed";
+			break;
+		};
+		return stream;
 	}
 
 }

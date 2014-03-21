@@ -12,21 +12,17 @@
 namespace Pastel
 {
 
-	class LoadConfig_Echo
+	enum class LoadConfig_Echo : integer
 	{
-	public:
-		enum Enum
-		{
-			None,
-			OnlyFinite,
-			All,
-		};
+		None,
+		OnlyFinite,
+		All,
 	};
 
 	PASTELSYS bool loadConfig(
 		const std::string& fileName,
 		Config& configResult,
-		LoadConfig_Echo::Enum echoPolicy = LoadConfig_Echo::None);
+		LoadConfig_Echo echoPolicy = LoadConfig_Echo::None);
 
 	PASTELSYS bool saveConfig(
 		const Config& config,

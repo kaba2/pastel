@@ -1,7 +1,9 @@
 Scoped enums
 ============
 
-[[Parent]]: techniques.txt
+[[Parent]]: deprecated.txt
+
+This section is deprecated, since Visual Studio 2013 finally implemented strongly typed enums in C++11 (and was the last compiler to do so), and we have transitioned to use them. Below is the original text for historical reference.
 
 In this section we present a technique for scoping enum values, i.e.
 simulating strongly typed enums. C++11 has this feature, but at

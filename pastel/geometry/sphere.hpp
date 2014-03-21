@@ -32,7 +32,7 @@ namespace Pastel
 	Sphere<Real, N>::Sphere(
 		const Vector<Real, N>& position,
 		const Real& radius,
-		Topology::Enum topology)
+		Topology topology)
 		: position_(position)
 		, radius_(radius)
 		, inverseRadius_(inverse(radius))
@@ -46,7 +46,7 @@ namespace Pastel
 		integer dimension,
 		const Vector<Real, N>& position,
 		const Real& radius,
-		Topology::Enum topology)
+		Topology topology)
 		: position_(position)
 		, radius_(radius)
 		, inverseRadius_(inverse(radius))
@@ -108,13 +108,13 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	void Sphere<Real, N>::setTopology(Topology::Enum topology)
+	void Sphere<Real, N>::setTopology(Topology topology)
 	{
 		topology_ = topology;
 	}
 
 	template <typename Real, int N>
-	Topology::Enum Sphere<Real, N>::topology() const
+	Topology Sphere<Real, N>::topology() const
 	{
 		return topology_;
 	}

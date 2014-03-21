@@ -48,8 +48,27 @@ namespace Pastel
 				DereferenceType = RedBlackTree_Dereference_Default
 			};
 
+			// FIX
+			// constexpr RedBlackTree_Dereference DereferenceType;
+
 			//! Whether to allow multiple equal keys.
-			enum {MultipleKeys = UserDefinedInteger};
+			enum {MultipleKeys = UserDefinedBoolean};
+
+			// FIX
+			// constexpr bool MultipleKeys = UserDefinedBoolean;
+
+			//! Whether to allow user data in the sentinel node.
+			/*!
+			Allowing user data in the sentinel node is useful
+			for getting rid of boundary cases when updating
+			hierarchical information. For example, the base-case
+			for the number of nodes under a subtree is to
+			store 0 in the sentinel data.
+			*/
+			enum {DataInSentinel = UserDefinedBoolean};
+
+			// FIX
+			// constexpr bool DataInSentinel = UserDefinedBoolean;
 		};
 
 		//! RedBlackTree_Customization concept

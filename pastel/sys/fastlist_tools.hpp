@@ -43,7 +43,7 @@ namespace Pastel
 			ConstIterator next = iter;
 			++next;
 
-			TriState::Enum side = predicate(*iter);
+			TriState side = predicate(*iter);
 			if (side == TriState::True)
 			{
 				trueList.splice(trueList.end(), list, iter);
@@ -153,7 +153,7 @@ namespace Pastel
 			ConstIterator next = iter;
 			++next;
 
-			const TriState::Enum side = predicate(*iter);
+			const TriState side = predicate(*iter);
 			if (side == TriState::True)
 			{
 				trueList.splice(trueList.end(), list, iter);

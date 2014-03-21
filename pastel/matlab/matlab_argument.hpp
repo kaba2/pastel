@@ -154,6 +154,7 @@ namespace Pastel
 
 			result = Array<Type>(
 				Vector2i(width, height),
+				0,
 				StorageOrder::ColumnMajor);
 
 			getScalars(that, result.begin());

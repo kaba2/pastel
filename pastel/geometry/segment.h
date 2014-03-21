@@ -48,8 +48,8 @@ namespace Pastel
 		Segment(
 			const Vector<Real, N>& start,
 			const Vector<Real, N>& end,
-			Topology::Enum startTopology,
-			Topology::Enum endTopology);
+			Topology startTopology,
+			Topology endTopology);
 
 		// Used for concept checking.
 		~Segment();
@@ -74,16 +74,16 @@ namespace Pastel
 		const Vector<Real, N>& end() const;
 
 		//! Sets the topology of the start point.
-		void setStartTopology(Topology::Enum startTopology);
+		void setStartTopology(Topology startTopology);
 
 		//! Returns the topology of the start point.
-		Topology::Enum startTopology() const;
+		Topology startTopology() const;
 
 		//! Sets the topology of the end point.
-		void setEndTopology(Topology::Enum endTopology);
+		void setEndTopology(Topology endTopology);
 
 		//! Returns the topology of the end point.
-		Topology::Enum endTopology() const;
+		Topology endTopology() const;
 
 		Vector<Real, N> at(const Real& t) const;
 
@@ -102,8 +102,8 @@ namespace Pastel
 	private:
 		Vector<Real, N> start_;
 		Vector<Real, N> end_;
-		Topology::Enum startTopology_;
-		Topology::Enum endTopology_;
+		Topology startTopology_;
+		Topology endTopology_;
 	};
 
 	typedef Segment<real, 1> Segment1;

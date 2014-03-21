@@ -19,31 +19,27 @@ namespace Pastel
 	namespace MaximumCliqueAlignedBox_
 	{
 
-		class EventType
+		enum class EventType : integer
 		{
-		public:
-			enum Enum
-			{
-				// These numbers were chosen to make the l < r
-				// relation matrix have the following form:
-				//
-				//        r
-				//   < ( [ ] ) 
-				//   ( F F F F 
-				// l [ T F F F
-				//   ] T T F F 
-				//   ) T T T F
+			// These numbers were chosen to make the l < r
+			// relation matrix have the following form:
+			//
+			//        r
+			//   < ( [ ] ) 
+			//   ( F F F F 
+			// l [ T F F F
+			//   ] T T F F 
+			//   ) T T T F
 
-				OpenMin = 3,
-				ClosedMin = 2,
-				ClosedMax = 1,
-				OpenMax = 0
-			};
+			OpenMin = 3,
+			ClosedMin = 2,
+			ClosedMax = 1,
+			OpenMax = 0
 		};
 
 		inline bool compareType(
-			EventType::Enum left,
-			EventType::Enum right)
+			EventType left,
+			EventType right)
 		{
 			// A strict order relation < is irreflexive,
 			// antisymmetric, and transitive.
@@ -132,7 +128,7 @@ namespace Pastel
 
 			Event(const Real& position_,
 				integer index_,
-				EventType::Enum type_,
+				EventType type_,
 				const ConstIterator& box_)
 				: position(position_)
 				, index(index_)
@@ -171,7 +167,7 @@ namespace Pastel
 
 			Real position;
 			integer index;
-			EventType::Enum type;
+			EventType type;
 			ConstIterator box;
 		};
 
@@ -339,15 +335,11 @@ namespace Pastel
 			return false;
 		}
 
-		class Direction
+		enum class Direction : integer
 		{
-		public:
-			enum Enum
-			{
-				Current,
-				Left,
-				Right
-			};
+			Current,
+			Left,
+			Right
 		};
 
 		template <typename Iterator, typename Direction_Range>
@@ -365,7 +357,7 @@ namespace Pastel
 			{
 				ASSERT(!iter.isSentinel());
 
-				const Direction::Enum direction =
+				const Direction direction =
 					*directionIter;
 
 				ASSERT(
@@ -404,7 +396,7 @@ namespace Pastel
 			// * All active boxes before the ending point
 			// are part of the maximum clique.
 
-			Direction::Enum candidateSet[3];
+			Direction candidateSet[3];
 
 			ASSERT(!root.isSentinel());
 
@@ -461,7 +453,7 @@ namespace Pastel
 					index = randomInteger() % 3;
 				}
 				
-				const Direction::Enum direction = candidateSet[index];
+				const Direction direction = candidateSet[index];
 				if (direction == Direction::Current)
 				{
 					// There is a maximum clique in this node,
@@ -555,7 +547,7 @@ namespace Pastel
 
 				// First the minimum y-point.
 
-				const EventType::Enum minType = 
+				const EventType minType = 
 					iter->minTopology()[y] == Topology::Closed ?
 					EventType::ClosedMin : EventType::OpenMin;
 
@@ -564,7 +556,7 @@ namespace Pastel
 
 				// Then the maximum y-point.
 
-				const EventType::Enum maxType = 
+				const EventType maxType = 
 					iter->maxTopology()[y] == Topology::Closed ?
 					EventType::ClosedMax : EventType::OpenMax;
 
@@ -589,7 +581,7 @@ namespace Pastel
 		integer maxIndex = 0;
 		Real maxSize = 0;
 		Real maxArea = 0;
-		std::vector<Direction::Enum> maxDirectionSet;
+		std::vector<Direction> maxDirectionSet;
 
 		for (integer j = 0;j < 2;++j)
 		{
@@ -617,7 +609,7 @@ namespace Pastel
 				// in the _x_ direction.
 
 				// First the minimum x-point.
-				const EventType::Enum minType = 
+				const EventType minType = 
 					e.box->minTopology()[x] == Topology::Closed ?
 					EventType::ClosedMin : EventType::OpenMin;
 
@@ -625,7 +617,7 @@ namespace Pastel
 					e.box->min()[x], e.index, minType, e.box);
 
 				// Then the maximum x-point.
-				const EventType::Enum maxType = 
+				const EventType maxType = 
 					e.box->maxTopology()[x] == Topology::Closed ?
 					EventType::ClosedMax : EventType::OpenMax;
 
@@ -653,7 +645,7 @@ namespace Pastel
 						{
 							// Secondarily, we want to maximize the area
 							// of the maximum clique box.
-							std::vector<Direction::Enum> directionSet;
+							std::vector<Direction> directionSet;
 							Event_ConstIterator cliqueIter = 
 								findSomeMaximumClique(tree.root(),
 								pushBackOutput(directionSet));

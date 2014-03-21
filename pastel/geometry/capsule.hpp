@@ -19,7 +19,7 @@ namespace Pastel
 		const Vector<Real, N>& start,
 		const Vector<Real, N>& end,
 		const Real& radius,
-		Topology::Enum topology)
+		Topology topology)
 		: segment_(start, end)
 		, radius_(radius)
 		, topology_(topology)
@@ -31,7 +31,7 @@ namespace Pastel
 	Capsule<Real, N>::Capsule(
 		const Segment<Real, N>& segment,
 		const Real& radius,
-		Topology::Enum topology)
+		Topology topology)
 		: segment_(segment)
 		, radius_(radius)
 		, topology_(topology)
@@ -85,13 +85,13 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Capsule<Real, N>::setTopology(
-		Topology::Enum topology)
+		Topology topology)
 	{
 		topology_ = topology;
 	}
 
 	template <typename Real, int N>
-	Topology::Enum Capsule<Real, N>::topology() const
+	Topology Capsule<Real, N>::topology() const
 	{
 		return topology_;
 	}

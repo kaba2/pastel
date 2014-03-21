@@ -212,25 +212,25 @@ namespace Pastel
 		}
 
 		//! Returns the topology of the minimums.
-		Tuple<Topology::Enum, N>& minTopology()
+		Tuple<Topology, N>& minTopology()
 		{
 			return minTopology_;
 		}
 
 		//! Returns the topology of the minimums.
-		const Tuple<Topology::Enum, N>& minTopology() const
+		const Tuple<Topology, N>& minTopology() const
 		{
 			return minTopology_;
 		}
 
 		//! Returns the topology of the maximums.
-		Tuple<Topology::Enum, N>& maxTopology()
+		Tuple<Topology, N>& maxTopology()
 		{
 			return maxTopology_;
 		}
 
 		//! Returns the topology of the maximums.
-		const Tuple<Topology::Enum, N>& maxTopology() const
+		const Tuple<Topology, N>& maxTopology() const
 		{
 			return maxTopology_;
 		}
@@ -355,8 +355,8 @@ namespace Pastel
 	private:
 		Vector<Real, N> min_;
 		Vector<Real, N> max_;
-		Tuple<Topology::Enum, N> minTopology_;
-		Tuple<Topology::Enum, N> maxTopology_;
+		Tuple<Topology, N> minTopology_;
+		Tuple<Topology, N> maxTopology_;
 	};
 
 	template <typename Real, int N>

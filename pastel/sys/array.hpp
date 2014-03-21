@@ -32,7 +32,7 @@ namespace Pastel
 	Array<Type, N>::Array(
 		const Vector<integer, N>& extent,
 		const Alias<Type*>& dataAlias,
-		StorageOrder::Enum order)
+		StorageOrder order)
 		: extent_(extent)
 		, stride_(ofDimension(extent.n()), 0)
 		, order_(ofDimension(extent.n()), 0)
@@ -49,7 +49,7 @@ namespace Pastel
 	Array<Type, N>::Array(
 		const Vector<integer, N>& extent,
 		const Type& defaultData,
-		StorageOrder::Enum order)
+		StorageOrder order)
 		: extent_(extent)
 		, stride_(ofDimension(extent.n()), 0)
 		, order_(ofDimension(extent.n()), 0)
@@ -82,7 +82,7 @@ namespace Pastel
 	template <typename Type, int N>
 	Array<Type, N>::Array(
 		const Array& that,
-		StorageOrder::Enum order)
+		StorageOrder order)
 		: extent_(ofDimension(that.n()), 0)
 		, stride_(ofDimension(that.n()), 0)
 		, order_(ofDimension(that.n()), 0)
@@ -114,7 +114,7 @@ namespace Pastel
 		const Array& that,
 		const Vector<integer, N>& extent,
 		const Type& defaultData,
-		StorageOrder::Enum order)
+		StorageOrder order)
 		: extent_(extent)
 		, stride_(ofDimension(extent.n()), 0)
 		, order_(ofDimension(extent.n()), 0)
@@ -584,7 +584,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	void Array<Type, N>::setStorageOrder(
-		StorageOrder::Enum order)
+		StorageOrder order)
 	{
 		const integer n = order_.n();
 
@@ -607,7 +607,7 @@ namespace Pastel
 	}
 
 	template <typename Type, int N>
-	StorageOrder::Enum Array<Type, N>::storageOrder() const
+	StorageOrder Array<Type, N>::storageOrder() const
 	{
 		if (order_[0] == 0)
 		{
@@ -622,7 +622,7 @@ namespace Pastel
 	template <typename Type, int N>
 	void Array<Type, N>::copyConstruct(
 		const Array& that,
-		StorageOrder::Enum order)
+		StorageOrder order)
 	{
 		allocate(that.extent_);
 		setStorageOrder(order);
@@ -778,7 +778,7 @@ namespace Pastel
 	void Array<Type, N>::copyConstructLarger(
 		const Array& that,
 		const Type& defaultData,
-		StorageOrder::Enum order)
+		StorageOrder order)
 	{
 		allocate(extent());
 		setStorageOrder(order);

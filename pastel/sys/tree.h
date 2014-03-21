@@ -11,16 +11,6 @@
 namespace Pastel
 {
 
-	class Tree_Child
-	{
-	public:
-		enum Enum
-		{
-			Left,
-			Right
-		};
-	};
-
 	//! A generic binary tree
 	template <typename Type>
 	class Tree
@@ -164,7 +154,7 @@ namespace Pastel
 			try
 			{
 				// Create a copy of 'that'.
-				insert(end(), Tree_Child::Right, that);
+				insert(end(), true, that);
 			}
 			catch(...)
 			{
@@ -478,12 +468,9 @@ namespace Pastel
 		*/
 		Iterator insert(
 			const ConstIterator& here, 
-			integer childIndex,
+			bool right,
 			Data_Class data = Data_Class())
 		{
-			ENSURE_OP(childIndex, >=, 0);
-			ENSURE_OP(childIndex, <, 2);
-
 			const bool insertAtSentinel =
 				here.empty();
 			ENSURE(!insertAtSentinel);
@@ -493,15 +480,15 @@ namespace Pastel
 			Node* node = allocate(std::move(data));
 			node->parent = parent;
 
-			Node* parentChild = parent->child(childIndex);
+			Node* parentChild = parent->child(right);
 
 			const bool childAlreadyExists = 
 				!(parentChild->empty());
 			ENSURE(!childAlreadyExists);
 
-			parent->setChild(childIndex, node);
+			parent->setChild(right, node);
 
-			if (childIndex == Tree_Child::Left)
+			if (!right)
 			{
 				if (parent == leftMost_)
 				{
@@ -538,12 +525,9 @@ namespace Pastel
 		*/
 		Iterator insert(
 			const ConstIterator& there, 
-			integer childIndex,
+			bool right,
 			const Tree& that)
 		{
-			PENSURE_OP(childIndex, >=, 0);
-			PENSURE_OP(childIndex, <, 2);
-
 			if (that.empty())
 			{
 				return cast(there);
@@ -559,7 +543,7 @@ namespace Pastel
 				}
 				else
 				{
-					copyRoot = insert(there, childIndex, *that.root());
+					copyRoot = insert(there, right, *that.root());
 				}
 				++rollback;
 
@@ -585,7 +569,6 @@ namespace Pastel
 		/*!
 		Preconditions:
 		this != &that
-		0 <= childIndex < 2
 
 		Time complexity:
 		O(1)
@@ -598,12 +581,9 @@ namespace Pastel
 		*/
 		Iterator insert(
 			const ConstIterator& there, 
-			integer childIndex,
+			bool right,
 			Tree&& that)
 		{
-			PENSURE_OP(childIndex, >=, 0);
-			PENSURE_OP(childIndex, <, 2);
-
 			const bool tryingToMoveUnderItself =
 				(this == &that);
 			ENSURE(!tryingToMoveUnderItself);
@@ -627,18 +607,18 @@ namespace Pastel
 			{			
 				Node* thereNode = (Node*)there.base();
 
-				Node* child = thereNode->child(childIndex);
+				Node* child = thereNode->child(right);
 				
 				// Check that the child does not already exist.
 				const bool childAlreadyExists = !child->empty();
 				ENSURE(!childAlreadyExists);
 
 				// Link 'that' tree to 'there' node.
-				thereNode->setChild(childIndex, thatRoot);
+				thereNode->setChild(right, thatRoot);
 				thatRoot->parent = thereNode;
 
 				// Possibly update the leftmost node.
-				if (childIndex == Tree_Child::Left)
+				if (!right)
 				{
 					if (thereNode == leftMost_)
 					{
@@ -647,7 +627,7 @@ namespace Pastel
 				}
 
 				// Possibly update the rightmost node.
-				if (childIndex == Tree_Child::Right)		
+				if (right)		
 				{				
 					if (thereNode == rightMost())
 					{
@@ -706,8 +686,8 @@ namespace Pastel
 				// the node is not the root node. This
 				// is the common case, but we optimize
 				// the root case anyway.
-				detachedLeftMost = extremum(detachedRoot, Tree_Child::Left);
-				detachedRightMost = extremum(detachedRoot, Tree_Child::Right);
+				detachedLeftMost = extremum(detachedRoot, false);
+				detachedRightMost = extremum(detachedRoot, true);
 				detachedSize = size(detachedRoot);
 			}
 
@@ -757,7 +737,7 @@ namespace Pastel
 		/*!
 		Preconditions:
 		!that.child(R).child(L).empty()
-		where L = direction, and R = !L.
+		where L = rotateRight, and R = !L.
 
 		Time complexity:
 		O(1)
@@ -767,13 +747,10 @@ namespace Pastel
 		*/
 		void rotate(
 			const ConstIterator& that,
-			integer direction)
+			bool rotateRight)
 		{
-			PENSURE_OP(direction, >=, 0);
-			PENSURE_OP(direction, <, 2);
-
-			const integer L = direction;
-			const integer R = !L;
+			bool R = !rotateRight;
+			bool L = rotateRight;
 
 			ConstIterator right = that.child(R);
 			ConstIterator rightLeft = right.child(L);
@@ -880,9 +857,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		Node* extremum(
-			Node* node,
-			Tree_Child::Enum direction)
+		Node* extremum(Node* node, bool right)
 		{
 			ASSERT(!node->empty());
 
@@ -893,11 +868,11 @@ namespace Pastel
 				// we already know the left-most and
 				// right-most nodes.
 
-				return (direction == Tree_Child::Left) ? 
+				return !right ? 
 					leftMost() : rightMost();
 			}
 			
-			return extremumSubtree(node, direction);
+			return extremumSubtree(node, right);
 		}
 
 		//! Traverses left (right) as much as possible.
@@ -910,7 +885,7 @@ namespace Pastel
 		*/
 		Node* extremumSubtree(
 			Node* node,
-			Tree_Child::Enum direction)
+			bool right)
 		{
 			ASSERT(!node->empty());
 
@@ -918,7 +893,7 @@ namespace Pastel
 			do
 			{
 				node = next;
-				next = node->child(direction);
+				next = node->child(right);
 			}
 			while(!next->empty());
 
@@ -1131,7 +1106,7 @@ namespace Pastel
 			sentinel_->parent = node;
 			if (!node->empty())
 			{
-				node->setChild(Tree_Child::Right, sentinel_);
+				node->setChild(true, sentinel_);
 			}
 		}
 

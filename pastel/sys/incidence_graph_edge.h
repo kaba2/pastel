@@ -18,7 +18,7 @@ namespace Pastel
 	namespace Incidence_Graph_
 	{
 
-		template <GraphType::Enum Type, typename Data>
+		template <GraphType Type, typename Data>
 		class Directed_EdgeData;
 
 		template <typename Data>
@@ -127,7 +127,7 @@ namespace Pastel
 
 	}
 
-	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
+	template <GraphType Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Edge
 		: public Incidence_Graph_::Directed_EdgeData<Type, EdgeData>
 	{
