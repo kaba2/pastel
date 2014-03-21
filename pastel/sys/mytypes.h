@@ -31,6 +31,12 @@
 
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 
+#if (defined _WIN32 || defined _WIN64)
+#	define PASTEL_CONSTEXPR static const
+#else
+#	define PASTEL_CONSTEXPR constexpr
+#endif
+
 namespace Pastel
 {
 
@@ -107,14 +113,13 @@ namespace Pastel
 	{
 
 		// An integer literal for documenting concepts.
-		static const integer UserDefinedInteger = 0;
+		PASTEL_CONSTEXPR integer UserDefinedInteger = 0;
 		// A boolean literal for documenting concepts.
-		static const bool UserDefinedBoolean = true;
+		PASTEL_CONSTEXPR bool UserDefinedBoolean = true;
 		// A type for documenting concepts.
 		class PASTELSYS UserDefinedType {};
 
-		static const int Dynamic = -1;
-		//enum {Dynamic = -1};
+		PASTEL_CONSTEXPR int Dynamic = -1;
 
 		class PASTELSYS EmptyClass {};
 

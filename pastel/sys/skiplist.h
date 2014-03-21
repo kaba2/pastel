@@ -36,7 +36,7 @@ namespace Pastel
 		using Value = typename Settings::Value;
 		using Compare = typename Settings::Compare;
 		using Value_Class = Class<Value>;
-		enum {MultipleKeys = Settings::MultipleKeys};
+		PASTEL_CONSTEXPR bool MultipleKeys = Settings::MultipleKeys;
 
 	private:
 		using Node = SkipList_::Node;
@@ -841,7 +841,7 @@ namespace Pastel
 		using Key = Key_;
 		using Value = Value_;
 		using Compare = Compare_;
-		enum {MultipleKeys = MultipleKeys_};
+		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
 	};
 
 	template <typename Key, typename Value, typename Compare = LessThan>

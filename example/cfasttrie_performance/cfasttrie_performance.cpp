@@ -21,7 +21,7 @@ struct HighResClock
 	typedef std::nano                               period;
 	typedef std::chrono::duration<rep, period>      duration;
 	typedef std::chrono::time_point<HighResClock>   time_point;
-	static const bool is_steady = true;
+	PASTEL_CONSTEXPR bool is_steady = true;
 
 	static time_point now();
 };
@@ -134,7 +134,7 @@ void g(const Set& a, integer n)
 #endif
 }
 
-enum{ Bits = 64 };
+PASTEL_CONSTEXPR int Bits = 64;
 
 template <typename Set>
 void test()

@@ -67,7 +67,7 @@ namespace Pastel
 	class Real_Function<BigInteger>
 	{
 	public:
-		static const bool Exists = true;
+		PASTEL_CONSTEXPR bool Exists = true;
 
 		// infinity() and nan() deliberately
 		// not implemented because there are no

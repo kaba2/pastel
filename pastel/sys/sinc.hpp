@@ -23,7 +23,7 @@ namespace Pastel
 		// The sinc function is an even function.
 		const Real x = mabs(xInput * constantPi<Real>());
 
-		static const Real ApproximationBound = 0.1;
+		PASTEL_CONSTEXPR Real ApproximationBound = 0.1;
 
 		// Let E = ApproximationBound.
 		// For numerical robustness,
@@ -39,8 +39,8 @@ namespace Pastel
 		// Maximum absolute error
 		// of this approximation is of the order 2e-10.
 
-		static const Real Inverse6 = inverse(Real(6));
-		static const Real Inverse120 = inverse(Real(120));
+		PASTEL_CONSTEXPR Real Inverse6 = inverse(Real(6));
+		PASTEL_CONSTEXPR Real Inverse120 = inverse(Real(120));
 
 		Real result = 0;
 		if (x >= ApproximationBound)

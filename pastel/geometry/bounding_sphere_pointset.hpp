@@ -34,7 +34,7 @@ namespace Pastel
 		const PointPolicy& pointPolicy)
 	{
 		typedef typename PointPolicy::Real Real;
-		enum {N = PointPolicy::N};
+		PASTEL_CONSTEXPR int N = PointPolicy::N;
 
 		// This function does not give the minimum volume
 		// bounding sphere, but it does give something to

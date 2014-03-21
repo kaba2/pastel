@@ -101,7 +101,7 @@ namespace Pastel
 	template <typename Real>
 	Real constantPi()
 	{
-		static const Real Pi(
+		PASTEL_CONSTEXPR Real Pi(
 			constant<Real>("3.1415926535897932384626433832795"));
 
 		return Pi;
@@ -110,7 +110,7 @@ namespace Pastel
 	template <typename Real>
 	Real constantNeper()
 	{
-		static const Real Neper(
+		PASTEL_CONSTEXPR Real Neper(
 			constant<Real>("2.7182818284590452353602874713527"));
 
 		return Neper;
@@ -119,7 +119,7 @@ namespace Pastel
 	template <typename Real>
 	Real constantLn2()
 	{
-		static const Real Ln2(
+		PASTEL_CONSTEXPR Real Ln2(
 			constant<Real>("0.69314718055994530941723212145818"));
 
 		return Ln2;
@@ -128,7 +128,7 @@ namespace Pastel
 	template <typename Real>
 	Real constantEulerMascheroni()
 	{
-		static const Real EulerMascheroni(
+		PASTEL_CONSTEXPR Real EulerMascheroni(
 			constant<Real>("0.57721566490153286060651209008240"));
 
 		return EulerMascheroni;

@@ -59,7 +59,7 @@ namespace Pastel
 	class Real_Function<integer>
 	{
 	public:
-		static const bool Exists = true;
+		PASTEL_CONSTEXPR bool Exists = true;
 
 		integer infinity()
 		{

@@ -16,7 +16,7 @@ namespace Pastel
 		If the dimension is dynamic,
 		specify N = Dynamic.
 		*/
-		enum {N = UserDefinedInteger};
+		PASTEL_CONSTEXPR int N = UserDefinedInteger;
 
 		//! The type of the point coordinates.
 		typedef UserDefinedType Real;

@@ -23,7 +23,7 @@ namespace Pastel
 			and 'd' can be obtained for each point at run-time 
 			from the n() function.
 			*/
-			enum {N = UserDefinedInteger};
+			PASTEL_CONSTEXPR int N = UserDefinedInteger;
 			
 			//! The type of a coordinate.
 			typedef UserDefinedType Real;
