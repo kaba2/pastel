@@ -21,15 +21,16 @@ namespace Pastel
 	*/
 	template <
 		typename Settings_,
-		typename Customization = Empty_RedBlackTree_Customization<Settings_>>
+		template <typename> class Customization_ = Empty_RedBlackTree_Customization>
 	class RedBlackTree
-		: public Customization
+		: public Customization_<Settings_>
 	{
 	public:
 		// See redblacktree_fwd.h for the documentation
 		// for the following types.
 		using Settings = Settings_;
 		using Fwd = RedBlackTree_Fwd<Settings>;
+		using Customization = Customization_<Settings_>;
 
 		PASTEL_FWD(Key);
 		PASTEL_FWD(Data);
@@ -661,10 +662,7 @@ namespace Pastel
 		//! An optimized call for updating hierarchical information.
 		void update(Iterator element)
 		{
-			if (Customization::UpdateHierarchical)
-			{
-				this->updateHierarchical(element);
-			}
+			this->updateHierarchical(element);
 		}
 
 		//! Destructs the nodes of a subtree.
@@ -806,7 +804,7 @@ namespace Pastel
 	This function is useful only for testing. For a correct implementation
 	this function will always return true.
 	*/
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	bool testInvariants(const RedBlackTree<Settings, Customization>& tree);
 
 }
@@ -840,8 +838,7 @@ namespace Pastel
 		typename Data,
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
-		typename Customization = Empty_RedBlackTree_Customization<
-		RedBlack_Settings<Key, Data, Compare, DereferenceType_, false>> >
+		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Map = 
 		RedBlackTree<RedBlack_Settings<Key, Data, Compare, DereferenceType_, false>, Customization>;
 
@@ -850,8 +847,7 @@ namespace Pastel
 		typename Data,
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
-		typename Customization = Empty_RedBlackTree_Customization<
-		RedBlack_Settings<Key, Data, Compare, DereferenceType_, true>> >
+		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiMap = 
 		RedBlackTree<RedBlack_Settings<Key, Data, Compare, DereferenceType_, true>, Customization>;
 
@@ -866,8 +862,7 @@ namespace Pastel
 		typename Key, 
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
-		typename Customization = Empty_RedBlackTree_Customization<
-		RedBlack_Settings<Key, void, Compare, DereferenceType_, false>>>
+		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Set = 
 		RedBlackTree<RedBlack_Settings<Key, void, Compare, DereferenceType_, false>, Customization>;
 
@@ -875,8 +870,7 @@ namespace Pastel
 		typename Key, 
 		typename Compare = LessThan,
 		integer DereferenceType_ = RedBlackTree_Dereference_Default,
-		typename Customization = Empty_RedBlackTree_Customization<
-		RedBlack_Settings<Key, void, Compare, DereferenceType_, true>>>
+		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiSet = 
 		RedBlackTree<RedBlack_Settings<Key, void, Compare, DereferenceType_, true>, Customization>;
 

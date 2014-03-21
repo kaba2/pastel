@@ -6,12 +6,14 @@
 namespace Pastel
 {
 
-	template <typename Settings, typename Hash>
+
+	template <typename Settings>
 	class Hash_RedBlackTree_Customization
-	: public Empty_RedBlackTree_Customization<Settings>
+		: public Empty_RedBlackTree_Customization<Settings>
 	{
 	protected:
 		using Fwd = RedBlackTree_Fwd<Settings>;
+		using Hash = typename Settings::Hash;
 		
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
@@ -49,7 +51,7 @@ namespace Pastel
 		}
 
 	private:
-		typedef RedBlackTree<Settings, Hash_RedBlackTree_Customization>
+		typedef RedBlackTree<Settings, Pastel::Hash_RedBlackTree_Customization>
 			Derived;
 
 		Hash_RedBlackTree_Customization(const Hash_RedBlackTree_Customization&) = delete;

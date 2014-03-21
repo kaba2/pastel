@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	template <typename... Value>
 	auto RedBlackTree<Settings, Customization>::allocateNode(
 		Key&& key,
@@ -19,7 +19,7 @@ namespace Pastel
 		return node;
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::deallocateNode(
 		Node* node)
 	{
@@ -27,22 +27,19 @@ namespace Pastel
 		delete node;
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::updateToRoot(
 		Node* node)
 	{
-		if (Customization::UpdateHierarchical)
+		while(!node->isSentinel())
 		{
-			while(!node->isSentinel())
-			{
-				this->updateHierarchical(
-					Iterator(node));
-				node = node->parent();
-			}
+			this->updateHierarchical(
+				Iterator(node));
+			node = node->parent();
 		}
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::link(
 		Node* parent, Node* child, bool linkRight)
 	{
@@ -60,7 +57,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	typename RedBlackTree<Settings, Customization>::Node*
 		RedBlackTree<Settings, Customization>::rotate(
 		Node* node, bool rotateRight)

@@ -12,9 +12,9 @@
 namespace Pastel
 {
 
-	template <typename Settings, typename Hash>
+	template <typename Settings>
 	class Hash_RedBlackTree_Customization;
-
+	
 	template <typename Data>
 	class HashedTree_Data
 	: public Class<Data>
@@ -52,7 +52,7 @@ namespace Pastel
 		}
 
 	private:
-		template <typename Settings, typename Hash>
+		template <typename Settings>
 		friend class Hash_RedBlackTree_Customization;
 
 		hash_integer hash_;
@@ -62,10 +62,22 @@ namespace Pastel
 		typename Key,
 		typename Data = void,
 		typename Compare = LessThan,
-		typename Key_Hash = std::hash<Key>>
-	using HashedTree = RedBlack_Map<Key, HashedTree_Data<Data>, Compare, RedBlackTree_Dereference_Key,
-		Hash_RedBlackTree_Customization<
-		RedBlack_Settings<Key, HashedTree_Data<Data>, Compare, RedBlackTree_Dereference_Key, false>, Key_Hash>>;
+		typename Hash_ = std::hash<Key>>
+	class HashedTree_Settings
+		: public RedBlack_Settings<Key, HashedTree_Data<Data>, 
+		Compare, RedBlackTree_Dereference_Key>
+	{
+	public:
+		using Hash = Hash_;	
+	};
+
+	template <
+		typename Key,
+		typename Data = void,
+		typename Compare = LessThan,
+		typename Hash = std::hash<Key>>
+	using HashedTree = RedBlackTree<HashedTree_Settings<Key, HashedTree_Data<Data>, Compare, Hash>, 
+		Hash_RedBlackTree_Customization>;
 
 }
 

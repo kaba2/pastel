@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::clear()
 	{
 		this->onClear();
@@ -16,7 +16,7 @@ namespace Pastel
 		initialize();
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::clear(
 		Node* node)
 	{
@@ -35,7 +35,7 @@ namespace Pastel
 		--size_;
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::erase(
 		const ConstIterator& that)
 	-> Iterator
@@ -58,7 +58,7 @@ namespace Pastel
 		return Iterator(successor);
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::erase(
 		const ConstRange& range)
 	-> Iterator
@@ -71,7 +71,7 @@ namespace Pastel
 		return cast(iter);
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::erase(
 		const ConstIterator& begin, 
 		const ConstIterator& end)
@@ -80,14 +80,14 @@ namespace Pastel
 		return erase(ConstRange(begin, end));
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::erase(const Key& key)
 	-> Iterator
 	{
 		return erase(equalRange(key));
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::detach(
 		Node* node) 
 	-> Node*
@@ -250,7 +250,7 @@ namespace Pastel
 		return successor;
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::rebalanceAfterDetach(
 		Node* parent, bool right)
 	{

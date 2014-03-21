@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	template <typename... Value>
 	auto RedBlackTree<Settings, Customization>::insert(
 		Key key, Value&&... value)
@@ -42,7 +42,7 @@ namespace Pastel
 		return insertReturnType(Iterator(node), true);
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings,  Customization>::attach(
 		Node* node, Node* parent, bool right)
 	{
@@ -89,7 +89,7 @@ namespace Pastel
 		this->onInsert(element);
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::rebalanceAfterAttach(
 		Node* node)
 	{

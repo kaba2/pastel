@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::find(
 		const Key& key) const
 	-> ConstIterator
@@ -20,7 +20,7 @@ namespace Pastel
 		return cend();
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::findEqualAndUpper(
 		const Key& key) const
 		-> FindEqual_Return
@@ -57,7 +57,7 @@ namespace Pastel
 		return FindEqual_Return{node, upper};
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::equalRange(
 		const Key& key, 
 		const FindEqual_Return& equalAndUpper,
@@ -102,7 +102,7 @@ namespace Pastel
 		return EqualRange_Return{ConstRange(lower, upper), equal};
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::findInsert(
 		const Key& key, 
 		const FindEqual_Return& equalAndUpper) const

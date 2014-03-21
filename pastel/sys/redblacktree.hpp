@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	RedBlackTree<Settings, Customization>::RedBlackTree()
 		: minimum_(0)
 		, sentinel_(0)
@@ -18,7 +18,7 @@ namespace Pastel
 		initialize();
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	RedBlackTree<Settings, Customization>::RedBlackTree(
 		const RedBlackTree& that)
 		: RedBlackTree()
@@ -37,7 +37,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	RedBlackTree<Settings, Customization>::~RedBlackTree()
 	{
 		clear();
@@ -46,7 +46,7 @@ namespace Pastel
 		sentinel_ = 0;
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::swap(
 		RedBlackTree& that)
 	{
@@ -58,7 +58,7 @@ namespace Pastel
 		swap(blackHeight_, that.blackHeight_);
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::initialize()
 	{
 		// This function is called both in construction
