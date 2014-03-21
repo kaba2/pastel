@@ -43,21 +43,9 @@ namespace
 
 			void updateHierarchical(const Iterator& iter)
 			{
-				ENSURE(!iter.isSentinel());
-				
-				integer left = 0;
-				if (!iter.left().isSentinel())
-				{
-					left = iter.left().data();
-				}
-
-				integer right = 0;
-				if (!iter.right().isSentinel())
-				{
-					right = iter.right().data();
-				}
-				
-				iter.data() = std::max(left, right) + iter.black();
+				iter.data() = 
+					std::max(iter.left().data(), iter.right().data()) +
+					iter.black();
 			}
 
 		private:

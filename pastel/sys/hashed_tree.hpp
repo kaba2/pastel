@@ -37,17 +37,10 @@ namespace Pastel
 			// is the matrix-multiplication), but I think 
 			// that would be too slow.
 
-			hash_integer newHash = Hash()(node.key());
-			if (!node.left().isSentinel())
-			{
-				newHash += node.left().data().hash();
-			}
-			if (!node.right().isSentinel())
-			{
-				newHash += node.right().data().hash();
-			}
-			
-			node.data().hash_ = newHash;
+			node.data().hash_ = 
+				Hash()(node.key()) + 
+				node.left().data().hash() +
+				node.right().data().hash();
 		}
 
 	private:
@@ -119,7 +112,7 @@ namespace std
 		{
 			// The hashed tree stores the hash of all elements
 			// in the root element data.
-			return that.croot().data().hash();
+			return that.hash();
 		}
 	};
 
