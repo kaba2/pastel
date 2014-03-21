@@ -60,8 +60,6 @@ namespace
 				iter.data() = std::max(left, right) + iter.black();
 			}
 
-			enum { UpdateHierarchical = 1 };
-
 		private:
 			Counting_Customization(const Counting_Customization& that) = delete;
 			Counting_Customization(Counting_Customization&& that) = delete;
@@ -77,10 +75,10 @@ namespace
 		using Map_Settings = Counting_Settings<RedBlackTree_Dereference_Data, false>;
 		using MultiMap_Settings = Counting_Settings<RedBlackTree_Dereference_Data, true>;
 
-		using Set = RedBlackTree<Set_Settings, Counting_Customization<Set_Settings>>;
-		using MultiSet = RedBlackTree<MultiSet_Settings, Counting_Customization<MultiSet_Settings>>;
-		using Map = RedBlackTree<Map_Settings, Counting_Customization<Map_Settings>>;
-		using MultiMap = RedBlackTree<MultiMap_Settings, Counting_Customization<MultiMap_Settings>>;
+		using Set = RedBlackTree<Set_Settings, Counting_Customization>;
+		using MultiSet = RedBlackTree<MultiSet_Settings, Counting_Customization>;
+		using Map = RedBlackTree<Map_Settings, Counting_Customization>;
+		using MultiMap = RedBlackTree<MultiMap_Settings, Counting_Customization>;
 
 		virtual void run()
 		{

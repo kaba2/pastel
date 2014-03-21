@@ -11,7 +11,7 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename Settings, typename Customization>
+		template <typename Settings, template <typename> class Customization>
 		bool testInvariants(
 			const RedBlackTree<Settings, Customization>& tree,
 			const typename RedBlackTree<Settings, Customization>::ConstIterator& iter,
@@ -111,7 +111,7 @@ namespace Pastel
 
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	bool testInvariants(const RedBlackTree<Settings, Customization>& tree)
 	{
 		if (!tree.croot().black())

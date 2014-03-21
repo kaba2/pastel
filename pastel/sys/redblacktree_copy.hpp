@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	typename RedBlackTree<Settings, Customization>::Node* 
 		RedBlackTree<Settings, Customization>::copyConstruct(
 		Node* parent, const RedBlackTree& that, Node* thatNode)
@@ -66,7 +66,7 @@ namespace Pastel
 		return node;
 	}
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::splice(
 		RedBlackTree& that,
 		const ConstIterator& thatFrom)

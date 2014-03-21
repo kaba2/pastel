@@ -1,3 +1,5 @@
+// Description: Red-black tree node
+
 #ifndef PASTELSYS_REDBLACKTREE_NODE_H
 #define PASTELSYS_REDBLACKTREE_NODE_H
 
@@ -7,7 +9,7 @@
 namespace Pastel
 {
 
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	class RedBlackTree;
 
 	namespace RedBlackTree_
@@ -17,7 +19,7 @@ namespace Pastel
 		class Node_Base
 		{
 		public:
-			template <typename, typename>
+			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
 
 			template <typename, typename, typename, bool>
@@ -140,7 +142,7 @@ namespace Pastel
 			// Visual Studio 2013 RC compiler.
 			using Data_Class = Data_Class_;
 
-			template <typename, typename>
+			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
 
 			template <typename, typename, typename, bool>
