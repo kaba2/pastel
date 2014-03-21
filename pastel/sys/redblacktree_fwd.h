@@ -24,7 +24,7 @@ namespace Pastel
 		template <typename, typename, typename, bool>
 		class Iterator;
 
-		template <typename>
+		template <typename, typename>
 		class Node_Base;
 
 		template <typename, typename>
@@ -41,7 +41,7 @@ namespace Pastel
 		using Compare = typename Settings::Compare;
 		using Data_Class = Class<Data>;
 		using Node = RedBlackTree_::Node<Key, Data_Class>;
-		using Node_Base = RedBlackTree_::Node_Base<Node>;
+		using Node_Base = RedBlackTree_::Node_Base<Key, Data_Class>;
 
 		using Key_Iterator = 
 			RedBlackTree_::Iterator<Node*, Key, Data_Class, false>;

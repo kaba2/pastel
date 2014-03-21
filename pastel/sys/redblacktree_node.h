@@ -15,10 +15,31 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename Node>
+		template <typename, typename>
+		class Node;
+
+		//! The base of all nodes.
+		/*!
+		There are two kinds of nodes: sentinels and data nodes.
+		The difference between the two is that the sentinels do
+		not contain a key. However, the sentinels do contain
+		user data. This is important for usability because it 
+		reduces complexity when updating hierarchical information. 
+		Without data in sentinel nodes one has to check, in the
+		update procedure updateHierarchical(), for a sentinel, 
+		rather than relying on the default sentinel data.
+		*/
+		template <typename Key, typename Data_Class_>
 		class Node_Base
+			: public Data_Class_
 		{
 		public:
+			// We need this to get around a bug in the 
+			// Visual Studio 2013 Update 1 compiler.
+			using Data_Class = Data_Class_;
+
+			using Node = Pastel::RedBlackTree_::Node<Key, Data_Class>;
+
 			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
 
@@ -42,13 +63,26 @@ namespace Pastel
 				return left() == this;
 			}
 
+			Data_Class& data()
+			{
+				return *this;
+			}
+
+			const Data_Class& data() const
+			{
+				return *this;
+			}
+
 		protected:
 			Node_Base(const Node_Base& that) = delete;
 			Node_Base(Node_Base&& that) = delete;
 			Node_Base& operator=(Node_Base that) = delete;
 
-			Node_Base()
-				: parent_(0)
+			template <typename... Value>
+			explicit Node_Base(
+				Value&&... value)
+				: Data_Class(std::forward<Value>(value)...)
+				, parent_(0)
 				, child_()
 				, red_(true)
 			{
@@ -122,25 +156,13 @@ namespace Pastel
 			uint8 red_ : 1;
 		};
 
-		/*!
-		The empty base-class optimization does not work in
-		general in Visual Studio 2013 for multiple empty
-		base-classes in multiple inheritance. This is a 
-		long-standing bug. Since here we have only one
-		potentially empty base-class, this gets optimized 
-		correctly.
-		*/
+		//! Data node
 		template <typename Key, typename Data_Class_>
 		class Node
-			: public Node_Base<Node<Key, Data_Class_>>
-			, public Data_Class_
+			: public Node_Base<Key, Data_Class_>
 		{
 		public:
-			using Base = Node_Base<Node<Key, Data_Class_>>;
-
-			// We need this to get around a bug in the 
-			// Visual Studio 2013 RC compiler.
-			using Data_Class = Data_Class_;
+			using Base = Node_Base<Key, Data_Class_>;
 
 			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
@@ -154,18 +176,6 @@ namespace Pastel
 				return key_;
 			}
 
-			Data_Class& data()
-			{
-				ASSERT(!isSentinel());
-				return *this;
-			}
-
-			const Data_Class& data() const
-			{
-				ASSERT(!isSentinel());
-				return *this;
-			}
-
 		private:
 			Node(const Node& that) = delete;
 			Node(Node&& that) = delete;
@@ -175,8 +185,7 @@ namespace Pastel
 			Node(
 				Key&& key,
 				Value&&... value)
-				: Base()
-				, Data_Class_(std::forward<Value>(value)...)
+				: Base(std::forward<Value>(value)...)
 				, key_(std::move(key))
 			{
 			}
