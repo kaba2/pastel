@@ -339,10 +339,7 @@ namespace Pastel
 			}
 
 		private:
-			enum
-			{
-				Sentinel = 0
-			};
+			PASTEL_CONSTEXPR int Sentinel = 0;
 
 			class Vertex
 			{

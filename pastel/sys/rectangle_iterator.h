@@ -13,10 +13,7 @@ namespace Pastel
 	class RectangleIterator
 	{
 	public:
-		enum
-		{
-			N = N_
-		};
+		PASTEL_CONSTEXPR int N = N_;
 
 		explicit RectangleIterator(
 			const Vector<integer, N>& max)

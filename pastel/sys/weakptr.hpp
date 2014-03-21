@@ -129,11 +129,8 @@ namespace Pastel
 	template <typename Type>
 	integer WeakPtr<Type>::count() const
 	{
-		enum
-		{
-			IsBase = std::is_base_of<ReferenceCounted, Type>::value
-		};
-
+		PASTEL_CONSTEXPR bool IsBase = 
+			std::is_base_of<ReferenceCounted, Type>::value;
 		PASTEL_STATIC_ASSERT(IsBase);
 
 		if (!data_)

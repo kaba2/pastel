@@ -26,11 +26,8 @@ namespace Pastel
 	{
 	public:
 		typedef Real Real_;
-		enum 
-		{
-			N_ = N,
-			M_ = M
-		};
+		PASTEL_CONSTEXPR int N_ = N;
+		PASTEL_CONSTEXPR int M_ = M;
 
 		// Using default constructor.
 		// Using default copy constructor.

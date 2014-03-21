@@ -163,10 +163,8 @@ namespace Pastel
 	template <typename Type>
 	integer CountedPtr<Type>::count() const
 	{
-		enum
-		{
-			IsBase = std::is_base_of<ReferenceCounted, Type>::value
-		};
+		PASTEL_CONSTEXPR bool IsBase =
+			std::is_base_of<ReferenceCounted, Type>::value;
 
 		PASTEL_STATIC_ASSERT(IsBase);
 
@@ -196,10 +194,8 @@ namespace Pastel
 	template <typename Type>
 	void CountedPtr<Type>::increaseCount() const
 	{
-		enum
-		{
-			IsBase = std::is_base_of<ReferenceCounted, Type>::value
-		};
+		PASTEL_CONSTEXPR bool IsBase =
+			std::is_base_of<ReferenceCounted, Type>::value;
 
 		PASTEL_STATIC_ASSERT(IsBase);
 
@@ -217,10 +213,8 @@ namespace Pastel
 	template <typename Type>
 	void CountedPtr<Type>::decreaseCount() const
 	{
-		enum
-		{
-			IsBase = std::is_base_of<ReferenceCounted, Type>::value
-		};
+		PASTEL_CONSTEXPR bool IsBase =
+			std::is_base_of<ReferenceCounted, Type>::value;
 
 		PASTEL_STATIC_ASSERT(IsBase);
 

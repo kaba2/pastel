@@ -28,10 +28,8 @@ namespace Pastel
 	class PointKdTree
 	{
 	public:
-		enum
-		{
-			N_ = N
-		};
+		PASTEL_CONSTEXPR int N_ = N;
+
 		typedef Real Real_;
 		typedef PointPolicy PointPolicy_;
 

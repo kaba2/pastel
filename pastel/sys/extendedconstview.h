@@ -16,10 +16,7 @@ namespace Pastel
 		class ExtendedConstViewBase
 		{
 		public:
-			enum
-			{
-				Dimension = N
-			};
+			PASTEL_CONSTEXPR int Dimension = N;
 
 			typedef Contained_Element Element;
 
@@ -66,10 +63,7 @@ namespace Pastel
 			Base;
 
 	public:
-		enum
-		{
-			Dimension = N
-		};
+		PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef typename Base::Element Element;
 		using Base::extent;
@@ -92,20 +86,14 @@ namespace Pastel
 		: public ExtendedConstView_::ExtendedConstViewBase<1, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
-		enum
-		{
-			N = 1
-		};
+		PASTEL_CONSTEXPR int N = 1;
 
 		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
 			Base;
 
 	public:
-		enum
-		{
-			Dimension = N
-		};
+		PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef typename Base::Element Element;
 		using Base::extent;
@@ -138,20 +126,14 @@ namespace Pastel
 		: public ExtendedConstView_::ExtendedConstViewBase<2, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
-		enum
-		{
-			N = 2
-		};
+		PASTEL_CONSTEXPR int N = 2;
 
 		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
 			Base;
 
 	public:
-		enum
-		{
-			Dimension = N
-		};
+		PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef typename Base::Element Element;
 		using Base::extent;
@@ -189,20 +171,14 @@ namespace Pastel
 		: public ExtendedConstView_::ExtendedConstViewBase<3, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
-		enum
-		{
-			N = 3
-		};
+		PASTEL_CONSTEXPR int N = 3;
 
 		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
 			Base;
 
 	public:
-		enum
-		{
-			Dimension = N
-		};
+		PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef typename Base::Element Element;
 		using Base::extent;

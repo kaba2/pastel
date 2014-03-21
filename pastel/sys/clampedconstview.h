@@ -15,10 +15,7 @@ namespace Pastel
 	class ClampedConstView
 	{
 	public:
-		enum
-		{
-			Dimension = N
-		};
+		PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef typename Contained_ConstView::Element Element;
 

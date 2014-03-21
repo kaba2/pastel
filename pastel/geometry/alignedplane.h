@@ -106,10 +106,7 @@ namespace Pastel
 	class AlignedPlane<Real, Dynamic>
 	{
 	private:
-		enum
-		{
-			N = Dynamic
-		};
+		PASTEL_CONSTEXPR int N = Dynamic;
 
 	public:
 		// Using default copy constructor.

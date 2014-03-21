@@ -14,10 +14,7 @@ namespace Pastel
 	class ConstAdaptedView
 	{
 	public:
-		enum
-		{
-			Dimension = N
-		};
+		PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef AdaptedView_::ConstAdaptedViewCursor<N, typename Contained_ConstView::ConstCursor, Adapter>
 			ConstCursor;

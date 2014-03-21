@@ -16,12 +16,9 @@ namespace Pastel
 	public:
 		typedef UserDefinedType PointPolicy;
 
-		enum
-		{
-			// The compile-time dimension of the window.
-			// If M != Dynamic, M == queryDimension().
-			M = UserDefinedInteger
-		};
+		// The compile-time dimension of the window.
+		// If M != Dynamic, M == queryDimension().
+		PASTEL_CONSTEXPR int M = UserDefinedInteger;
 
 		const integer queryDimension() const;
 		const PointPolicy& pointPolicy() const;
@@ -40,11 +37,8 @@ namespace Pastel
 		typedef typename PointPolicy::Point Point;
 		typedef typename PointPolicy::Real Real;
 
-		enum
-		{
-			N = PointPolicy::N,
-			M = PointQuery::M
-		};
+		PASTEL_CONSTEXPR int N = PointPolicy::N;
+		PASTEL_CONSTEXPR int M = PointQuery::M;
 
 		typedef PointKdTree<Real, N, PointPolicy> Tree;
 		typedef typename Tree::Point_ConstIterator ConstIterator;

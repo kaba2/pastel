@@ -13,10 +13,8 @@ namespace Pastel
 	class ResultN
 	{
 	public:
-		enum
-		{
-			N = (LeftN == Dynamic) ? RightN : LeftN
-		};
+		PASTEL_CONSTEXPR int N = 
+			(LeftN == Dynamic) ? RightN : LeftN;
 	};
 
 	template <typename Real, int N>

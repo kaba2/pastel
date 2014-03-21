@@ -16,10 +16,7 @@ namespace Pastel
 		class ConstRowViewCursor
 		{
 		public:
-			enum
-			{
-				Dimension = 1
-			};
+			PASTEL_CONSTEXPR int Dimension = 1;
 
 			typedef typename ConstCursor::Element Element;
 			typedef typename ConstCursor::ConstReference ConstReference;

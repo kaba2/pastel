@@ -15,10 +15,7 @@ namespace Pastel
 	class ConstRowView
 	{
 	public:
-		enum
-		{
-			Dimension = 1
-		};
+		PASTEL_CONSTEXPR int Dimension = 1;
 
 		typedef typename Contained_ConstView::Element Element;
 		typedef typename Contained_ConstView::ConstReference ConstReference;

@@ -13,10 +13,8 @@ namespace Pastel
 	class ModifyN
 	{
 	public:
-		enum
-		{
-			Result = (N == Dynamic) ? Dynamic : NewN
-		};
+		PASTEL_CONSTEXPR int Result =
+			(N == Dynamic) ? Dynamic : NewN;
 	};
 
 	//! A fixed size array of the given type.
@@ -105,10 +103,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, 1>
 	{
 	private:
-		enum
-		{
-			N  = 1
-		};
+		PASTEL_CONSTEXPR int N = 1;
 
 		typedef Detail::TupleBase<Type, N> Base;
 
@@ -194,10 +189,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, 2>
 	{
 	private:
-		enum
-		{
-			N  = 2
-		};
+		PASTEL_CONSTEXPR int N = 2;
 
 		typedef Detail::TupleBase<Type, N> Base;
 
@@ -305,10 +297,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, 3>
 	{
 	private:
-		enum
-		{
-			N = 3
-		};
+		PASTEL_CONSTEXPR int N = 3;
 
 		typedef Detail::TupleBase<Type, N> Base;
 
@@ -428,10 +417,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, 4>
 	{
 	private:
-		enum
-		{
-			N = 4
-		};
+		PASTEL_CONSTEXPR int N = 4;
 
 		typedef Detail::TupleBase<Type, N> Base;
 
@@ -563,10 +549,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, Dynamic>
 	{
 	private:
-		enum
-		{
-			N = Dynamic
-		};
+		PASTEL_CONSTEXPR int N = Dynamic;
 
 		typedef Detail::TupleBase<Type, N> Base;
 
