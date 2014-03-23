@@ -180,7 +180,7 @@ namespace Pastel
 				--blackHeight_;
 			}
 
-			// Update the hierarchical data.
+			// Update the propagation data.
 			updateToRoot(child);
 
 			// We are done.
@@ -206,7 +206,7 @@ namespace Pastel
 			// a red node with a single child. The
 			// black-height is also not affected.
 
-			// Update the hierarchical data.
+			// Update the propagation data.
 			updateToRoot(newParent);
 
 			// We are done.
@@ -233,7 +233,7 @@ namespace Pastel
 			// changing the color of 'child' to black.
 			child->setBlack();
 
-			// Update the hierarchical data.
+			// Update the propagation data.
 			updateToRoot(child);
 
 			// We are done.
