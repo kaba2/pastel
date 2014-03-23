@@ -1,5 +1,3 @@
-// Description: Types for the red-black tree
-
 #ifndef PASTELSYS_REDBLACKTREE_FWD_H
 #define PASTELSYS_REDBLACKTREE_FWD_H
 

@@ -1,78 +1,32 @@
-RedBlackTree implementation notes
-=================================
+Red-black tree notes
+====================
 
 [[Parent]]: redblacktree.txt
 
-This section summarizes the main decisions that have been made 
-in the implementation of the RedBlackTree class.
+This section summarizes the main decisions that have been made in the implementation of the red-black tree.
 
 Requirements
 ------------
 
- * When erasing an element by an iterator, no key-comparisons
- must be done.
+ * When erasing an element by an iterator, no key-comparisons must be done.
 
 Techniques
 ----------
 
 ### Symmetry
 
-There is redundancy in the implementation of red-black trees, since for 
-many cases there is a similar mirrored case, which is solved exactly the 
-same as the non-mirrored case, except that left children are replaced 
-with right children and vice versa. This symmetry can be used in advantage 
-to cut off the code in the insertion and erase implementations into half, 
-by using the relative term _sibling_, rather than the absolute terms left 
-and right.
+There is redundancy in the implementation of red-black trees, since for many cases there is a similar mirrored case, which is solved exactly the same as the non-mirrored case, except that left children are replaced with right children and vice versa. This symmetry can be used in advantage to cut off the code in the insertion and erase implementations into half, by using the relative term _sibling_, rather than the absolute terms left and right.
 
-To take advantage of symmetry, one must make sure that the sibling node 
-can be retrieved efficiently. Directly related to this, the children can 
-be stored either separately (`left` and `right`), or in a two-element 
-array. The latter has the unexpected advantage of offering efficient access 
-to the sibling node, since the index of a child `i` can be denoted by an 
-integer 0 (left) or 1 (right), and its logical negation `!i` gives the sibling 
-index. I credit this technique to _Julienne Walker_ in her website named 
-Eternally Confuzzled, on her tutorial on red-black tree implementation. 
-Compare this logical negation with needing to compare which child node you 
-have in hand, and then choosing the other one.
+To take advantage of symmetry, one must make sure that the sibling node can be retrieved efficiently. Directly related to this, the children can be stored either separately (`left` and `right`), or in a two-element array. The latter has the unexpected advantage of offering efficient access to the sibling node, since the index of a child `i` can be denoted by an integer 0 (left) or 1 (right), and its logical negation `!i` gives the sibling index. I credit this technique to _Julienne Walker_ in her website named Eternally Confuzzled, on her tutorial on red-black tree implementation. Compare this logical negation with needing to compare which child node you have in hand, and then choosing the other one.
 
 ### Left-leaning red-black trees
 
-Robert Sedgewick has written a paper on left-leaning red-black trees, 
-where no right child can be red. He shows that, using a top-down 
-implementation, both removal and insertion can then be implemented in a few 
-lines of code (compared to a traditional implementation). Unfortunately,
-in that implementation the removal code needs to do use key-comparisons to 
-reach down from the root, even if we already knew the node to remove
-(as is usually the case when iterators are offered). However, we require
-from our implementation that key-comparisons must not be used in removal. 
-Because top-down algorithms can't be implemented without key-comparisons, 
-it follows that our implementation must use a bottom-up algorithm.
-
-A bottom-up removal algorithm for left-leaning red-black trees, which I 
-regrettedly have once implemented, are even more worksome to implement 
-than ordinary red-black trees, since the left-leaning requirement breaks 
-the symmetry of the algorithms. Thus, although the left-leaning property 
-seems tempting at first, we deliberately do not require it.
+Robert Sedgewick has written a paper on left-leaning red-black trees, where no right child can be red. He shows that, using a top-down implementation, both removal and insertion can then be implemented in a few lines of code (compared to a traditional implementation). Unfortunately, in that implementation the removal code needs to do use key-comparisons to reach down from the root, even if we already knew the node to remove (as is usually the case when iterators are offered). However, we require from our implementation that key-comparisons must not be used in removal. Because top-down algorithms can't be implemented without key-comparisons, it follows that our implementation must use a bottom-up algorithm. A bottom-up removal algorithm for left-leaning red-black trees, which I regrettedly have once implemented, are even more worksome to implement than ordinary red-black trees, since the left-leaning requirement breaks the symmetry of the algorithms. Thus, although the left-leaning property seems tempting at first, we deliberately do not require it.
 
 ### Sentinel node
 
-The _sentinel node_ plays an essential role in the RedBlackTree 
-implementation. The idea is that every parent link and child link
-points to some valid node, where the sentinel node is interpreted 
-as an empty node. Thus, for example, if a node does not have children,
-then the child pointers are assigned the sentinel node. This makes the
-implementation much more easier, since then we can stop worrying about
-boundary cases, and whether we are accessing a null-pointer or not.
-In addition to this, the sentinel node works as the one-past-end 
-iterator, when the tree is interpreted as an ordered sequence. When the
-parent of the sentinel node points to the maximum node, one is able
-to naturally get to the precedessor (the maximum node) from the 
-one-past-end iterator. The color of the sentinel node is black, and it
-does not have any children. The children of the sentinel node point
-to itself, a unique property which can be used to identify a sentinel
-node. Using the sentinel node is a standard trick, but its connection
-to the one-past-end iterator is rarely mentioned.
+The _sentinel node_ plays an essential role in the RedBlackTree implementation. The idea is that every parent link and child link points to some valid node, where the sentinel node is interpreted 
+as an empty node. Thus, for example, if a node does not have children, then the child pointers are assigned the sentinel node. This makes the implementation much more easier, since then we can stop worrying about boundary cases, and whether we are accessing a null-pointer or not. In addition to this, the sentinel node works as the one-past-end iterator, when the tree is interpreted as an ordered sequence. When the parent of the sentinel node points to the maximum node, one is able to naturally get to the precedessor (the maximum node) from the one-past-end iterator. The color of the sentinel node is black, and it does not have any children. The children of the sentinel node point to itself, a unique property which can be used to identify a sentinel node. Using the sentinel node is a standard trick, but its connection to the one-past-end iterator is rarely mentioned.
 
 Starting a search from the minimum node
 ---------------------------------------
