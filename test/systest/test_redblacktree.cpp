@@ -31,6 +31,7 @@ namespace
 		protected:
 			using Fwd = RedBlackTree_Fwd<Settings_>;
 			PASTEL_FWD(Iterator);
+			PASTEL_FWD(Propagation);
 
 			Counting_Customization() {}
 			void swap(Counting_Customization& that) {}
@@ -40,10 +41,12 @@ namespace
 			void onSpliceFrom(const Iterator& element) {}
 			void onSplice(const Iterator& element) {}
 
-			void updateHierarchical(const Iterator& iter)
+			void updatePropagation(
+				const Iterator& iter,
+				Propagation& propagation)
 			{
-				iter.data() = 
-					std::max(iter.left().data(), iter.right().data()) +
+				propagation = 
+					std::max(iter.left().propagation(), iter.right().propagation()) +
 					iter.black();
 			}
 
@@ -53,14 +56,14 @@ namespace
 			Counting_Customization& operator=(Counting_Customization) = delete;
 		};
 
-		template <RedBlackTree_Dereference Dereference, bool MultipleKeys>
+		template <typename Data, bool MultipleKeys>
 		using Counting_Settings =
-			RedBlack_Settings<uinteger, integer, LessThan, Dereference, MultipleKeys>;
+			RedBlack_Settings<uinteger, Data, LessThan, integer, MultipleKeys>;
 
-		using Set_Settings = Counting_Settings<RedBlackTree_Dereference::Key, false>;
-		using MultiSet_Settings = Counting_Settings<RedBlackTree_Dereference::Key, true>;
-		using Map_Settings = Counting_Settings<RedBlackTree_Dereference::Data, false>;
-		using MultiMap_Settings = Counting_Settings<RedBlackTree_Dereference::Data, true>;
+		using Set_Settings = Counting_Settings<void, false>;
+		using MultiSet_Settings = Counting_Settings<void, true>;
+		using Map_Settings = Counting_Settings<integer, false>;
+		using MultiMap_Settings = Counting_Settings<integer, true>;
 
 		using Set = RedBlackTree<Set_Settings, Counting_Customization>;
 		using MultiSet = RedBlackTree<MultiSet_Settings, Counting_Customization>;

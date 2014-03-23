@@ -15,33 +15,33 @@ namespace Pastel
 	template <typename Settings>
 	class Hash_RedBlackTree_Customization;
 	
-	template <typename Data>
-	class HashedTree_Data
-	: public Class<Data>
+	template <typename Propagation>
+	class Hash_Propagation
+	: public Class<Propagation>
 	{
 	public:
-		typedef Class<Data>
-			Data_Class;
+		typedef Class<Propagation>
+			Propagation_Class;
 
-		HashedTree_Data()
-		: Data_Class()
+		Hash_Propagation()
+		: Propagation_Class()
 		, hash_(0)
 		{
 		}
 
 		template <typename That>
-		HashedTree_Data(That that)
-		: Data_Class(std::move(that))
+		Hash_Propagation(That that)
+		: Propagation_Class(std::move(that))
 		, hash_(0)
 		{
 		}
 
-		operator const Data_Class&() const
+		operator const Propagation_Class&() const
 		{
 			return *this;
 		}
 
-		operator Data_Class&()
+		operator Propagation_Class&()
 		{
 			return *this;
 		}
@@ -59,25 +59,68 @@ namespace Pastel
 	};
 
 	template <
-		typename Key,
-		typename Data = void,
-		typename Compare = LessThan,
-		typename Hash_ = std::hash<Key>>
+		typename Settings_,
+		typename Hash_>
 	class HashedTree_Settings
-		: public RedBlack_Settings<Key, HashedTree_Data<Data>, 
-		Compare, RedBlackTree_Dereference::Key>
+		: public Settings_
 	{
 	public:
+		using Propagation = Hash_Propagation<typename Settings_::Propagation>;
 		using Hash = Hash_;	
 	};
 
+	template <typename Settings, typename Hash>
+	using HashedTree = RedBlackTree<
+		HashedTree_Settings<Settings, Hash>, 
+		Hash_RedBlackTree_Customization>; 
+
+}
+
+namespace Pastel
+{
+
 	template <
 		typename Key,
-		typename Data = void,
 		typename Compare = LessThan,
+		typename Propagation = void,
 		typename Hash = std::hash<Key>>
-	using HashedTree = RedBlackTree<HashedTree_Settings<Key, HashedTree_Data<Data>, Compare, Hash>, 
-		Hash_RedBlackTree_Customization>;
+	using Hashed_Set = HashedTree<
+		RedBlack_Settings<Key, void, Compare, Propagation, false>, 
+		Hash>;
+
+	template <
+		typename Key,
+		typename Compare = LessThan,
+		typename Propagation = void,
+		typename Hash = std::hash<Key>>
+	using Hashed_MultiSet = HashedTree<
+		RedBlack_Settings<Key, void, Compare, Propagation, true>, 
+		Hash>;
+
+}
+
+namespace Pastel
+{
+
+	template <
+		typename Key,
+		typename Data,
+		typename Compare = LessThan,
+		typename Propagation = void,
+		typename Hash = std::hash<Key>>
+	using Hashed_Map = HashedTree<
+		RedBlack_Settings<Key, Data, Compare, Propagation, false>,
+		Hash>;
+
+	template <
+		typename Key,
+		typename Data,
+		typename Compare = LessThan,
+		typename Propagation = void,
+		typename Hash = std::hash<Key>>
+	using Hashed_MultiMap = HashedTree<
+		RedBlack_Settings<Key, Data, Compare, Propagation, true>,
+		Hash>;
 
 }
 

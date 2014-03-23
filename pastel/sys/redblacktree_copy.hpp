@@ -20,10 +20,7 @@ namespace Pastel
 		Node* node = 0;
 		try
 		{
-			Key key = thatNode->key();
-			const Data_Class& data = thatNode->data();
-
-			node = allocateNode(std::move(key), data);
+			node = allocateNode(thatNode->key(), thatNode->data(), thatNode->propagation());
 			node->parent() = parent;
 			node->setRed(thatNode->red());
 			++rollBackIndex;

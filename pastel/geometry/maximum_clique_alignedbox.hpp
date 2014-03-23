@@ -195,15 +195,17 @@ namespace Pastel
 			: public Empty_RedBlackTree_Customization<Settings>
 		{
 		protected:
-			typedef RedBlackTree_Fwd<Settings> Tree;
-			typedef typename Tree::Iterator
-				Iterator;
-			typedef typename Tree::ConstIterator
-				ConstIterator;
+			using Fwd = RedBlackTree_Fwd<Settings>;
+
+			PASTEL_FWD(Iterator);
+			PASTEL_FWD(ConstIterator);
+			PASTEL_FWD(Propagation);
 
 			void swap(MaximumClique_Customization& that) {}
 
-			void updateHierarchical(const Iterator& iter)
+			void updatePropagation(
+				const Iterator& iter,
+				Propagation& propagation)
 			{
 				// The size of the clique in the current node
 				// is given simply by the number of active
@@ -234,9 +236,9 @@ namespace Pastel
 				// The difference between the number of ending 
 				// points and the number of starting points in
 				// a subtree is easily computed recursively.
-				iter.data().actives = 
-					iter.left().data().actives + 
-					iter.right().data().actives +
+				propagation.actives = 
+					iter.left().propagation().actives +
+					iter.right().propagation().actives +
 					v;
 
 				// The difference in the current node
@@ -244,7 +246,7 @@ namespace Pastel
 				// left node plus the 'v'-value of the current 
 				// node.
 				const integer currentDifference =
-					iter.left().data().actives + v;
+					iter.left().propagation().actives + v;
 
 				// The current difference might not mark
 				// the largest difference, since there can be 
@@ -255,7 +257,7 @@ namespace Pastel
 				// given our expanded view from a parent node,
 				// is unchanged.
 				const integer leftDifference =
-					iter.left().data().maxCliqueSize;
+					iter.left().propagation().maxCliqueSize;
 
 				// The maximum difference in the right subtree,
 				// given our expanded view from a parent node, is 
@@ -267,12 +269,12 @@ namespace Pastel
 				// that rightDifference >= currentDifference.
 				const integer rightDifference =
 					currentDifference +
-					iter.right().data().maxCliqueSize;
+					iter.right().propagation().maxCliqueSize;
 
 				// Finally, the maximum difference in the
 				// current subtree is the maximum among the
 				// three differences.
-				iter.data().maxCliqueSize = 
+				propagation.maxCliqueSize =
 					std::max(leftDifference,
 					std::max(currentDifference,
 					rightDifference));
@@ -291,8 +293,8 @@ namespace Pastel
 			// There is a maximum clique in the current node, 
 			// if the maxCliqueSize was computed as it is for
 			// the current node.
-			if (iter.data().maxCliqueSize == 
-				iter.left().data().actives + v)
+			if (iter.propagation().maxCliqueSize == 
+				iter.left().propagation().actives + v)
 			{
 				return true;
 			}
@@ -307,8 +309,8 @@ namespace Pastel
 			// if the maxCliqueSize was computed as it is for
 			// the left subtree.
 			if (!iter.left().isSentinel() && 
-				iter.data().maxCliqueSize == 
-				iter.left().data().maxCliqueSize)
+				iter.propagation().maxCliqueSize ==
+				iter.left().propagation().maxCliqueSize)
 			{
 				return true;
 			}
@@ -325,9 +327,9 @@ namespace Pastel
 			// if the maxCliqueSize was computed as it is for
 			// the right subtree.
 			if (!iter.right().isSentinel() &&
-				iter.data().maxCliqueSize == 
-				iter.left().data().actives + v +
-				iter.right().data().maxCliqueSize)
+				iter.propagation().maxCliqueSize ==
+				iter.left().propagation().actives + v +
+				iter.right().propagation().maxCliqueSize)
 			{
 				return true;
 			}
@@ -510,9 +512,7 @@ namespace Pastel
 
 		typedef Event<Real, AlignedBox_ConstIterator> Event;
 		typedef MaximumCliqueAlignedBox_::Data Data;
-		typedef RedBlack_Settings<Event, Data> Settings;
-
-		typedef RedBlackTree<Settings, MaximumClique_Customization> Tree;
+		typedef RedBlack_Set<Event, LessThan, Data, MaximumClique_Customization> Tree;
 		typedef typename Tree::ConstIterator Event_ConstIterator;
 
 		ENSURE_OP(sweepDirection, >=, 0);
@@ -639,7 +639,7 @@ namespace Pastel
 						// Primarily, we want to maximize the size of
 						// the maximum clique.
 						const integer maxCliqueSize = 
-							tree.root().data().maxCliqueSize;
+							tree.root().propagation().maxCliqueSize;
 
 						if (maxCliqueSize > 1 && maxCliqueSize >= maxMaxCliqueSize)
 						{

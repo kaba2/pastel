@@ -6,7 +6,6 @@
 namespace Pastel
 {
 
-
 	template <typename Settings>
 	class Hash_RedBlackTree_Customization
 		: public Empty_RedBlackTree_Customization<Settings>
@@ -17,10 +16,13 @@ namespace Pastel
 		
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
+		PASTEL_FWD(Propagation);
 
 		Hash_RedBlackTree_Customization() {}
 
-		void updateHierarchical(const Iterator& node)
+		void updatePropagation(
+			const Iterator& element,
+			Propagation& propagation)
 		{
 			// Note: the hash combination function
 			// must be associative. This is because
@@ -37,10 +39,10 @@ namespace Pastel
 			// is the matrix-multiplication), but I think 
 			// that would be too slow.
 
-			node.data().hash_ = 
-				Hash()(node.key()) + 
-				node.left().data().hash() +
-				node.right().data().hash();
+			propagation.hash_ = 
+				Hash()(element.key()) + 
+				element.left().propagation().hash() +
+				element.right().propagation().hash();
 		}
 
 	private:
@@ -62,14 +64,14 @@ namespace Pastel
 				return 0;
 			}
 
-			return tree.croot().data().hash();
+			return tree.croot().propagation().hash();
 		}
 	};
 
-	template <typename Key, typename Data, typename Compare, typename Hash>
+	template <typename Settings, typename Hash>
 	bool operator==(
-		const HashedTree<Key, Data, Compare, Hash>& left,
-		const HashedTree<Key, Data, Compare, Hash>& right)
+		const HashedTree<Settings, Hash>& left,
+		const HashedTree<Settings, Hash>& right)
 	{
 		bool result = false;
 
@@ -90,10 +92,10 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Key, typename Data, typename Compare, typename Hash>
+	template <typename Settings, typename Hash>
 	bool operator!=(
-		const HashedTree<Key, Data, Compare, Hash>& left,
-		const HashedTree<Key, Data, Compare, Hash>& right)
+		const HashedTree<Settings, Hash>& left,
+		const HashedTree<Settings, Hash>& right)
 	{
 		return !(left == right);
 	}
@@ -103,12 +105,12 @@ namespace Pastel
 namespace std
 {
 
-	template <typename Key, typename Data, typename Compare, typename Hash>
-	struct hash<Pastel::HashedTree<Key, Data, Compare, Hash>>
+	template <typename Settings, typename Hash>
+	struct hash<Pastel::HashedTree<Settings, Hash>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::HashedTree<Key, Data, Compare, Hash>& that) const
+			const Pastel::HashedTree<Settings, Hash>& that) const
 		{
 			// The hashed tree stores the hash of all elements
 			// in the root element data.

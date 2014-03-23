@@ -33,7 +33,12 @@ namespace Pastel
 		using Customization = Customization_<Settings_>;
 
 		PASTEL_FWD(Key);
+		PASTEL_STATIC_ASSERT((!std::is_same<Key, void>::value));
+
+		PASTEL_FWD(Propagation);
+		PASTEL_FWD(Propagation_Class);
 		PASTEL_FWD(Data);
+		PASTEL_FWD(Data_Class);
 		PASTEL_FWD(Compare);
 
 		PASTEL_FWD(Iterator);
@@ -50,8 +55,6 @@ namespace Pastel
 		PASTEL_FWD(Data_ConstIterator);
 		PASTEL_FWD(Data_Range);
 		PASTEL_FWD(Data_ConstRange);
-
-		PASTEL_FWD(Data_Class);
 
 		PASTEL_FWD(Insert_Return);
 		PASTEL_FWD(FindEqual_Return);
@@ -188,7 +191,7 @@ namespace Pastel
 
 		//! Inserts an element into the tree.
 		/*!
-		Time complexity: O(log(size())) * updateHierarchicalData() + onInsert()
+		Time complexity: O(log(size())) * updatePropagationData() + onInsert()
 		Exception safety: strong + onInsert()
 
 		returns:
@@ -197,9 +200,10 @@ namespace Pastel
 		the element was inserted. In case the element is not inserted,
 		the iterator points to the existing equivalent element.
 		*/
-		template <typename... Value>
 		Insert_Return insert(
-			Key key, Value&&... value);
+			const Key& key, 
+			const Data_Class& data = Data_Class(),
+			const Propagation_Class& propagation = Propagation_Class());
 
 		//! Removes an element from the tree by its iterator.
 		/*!
@@ -567,10 +571,10 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: strong
 		*/
-		template <typename... Value>
 		Node* allocateNode(
-			Key&& key,
-			Value&&... value);
+			const Key& key,
+			const Data_Class& data,
+			const Propagation_Class& propagation);
 
 		//! Deallocates a data-node, and decreases the size.
 		/*!
@@ -659,10 +663,12 @@ namespace Pastel
 			const RedBlackTree& that,
 			Node* thatNode);
 
-		//! An optimized call for updating hierarchical information.
-		void update(Iterator element)
+		//! Updates propagation data.
+		void update(const Iterator& element)
 		{
-			this->updateHierarchical(element);
+			this->updatePropagation(
+				element,
+				(Propagation_Class&)element.propagation());
 		}
 
 		//! Destructs the nodes of a subtree.
@@ -809,16 +815,14 @@ namespace Pastel
 
 }
 
-// Map
-
 namespace Pastel
 {
 
 	template <
 		typename Key_, 
-		typename Data_,
+		typename Data_ = void,
 		typename Compare_ = LessThan,
-		RedBlackTree_Dereference Dereference_ = RedBlackTree_Dereference::Default,
+		typename Propagation_ = void,
 		bool MultipleKeys_ = false,
 		bool UseSentinelData_ = true>
 	class RedBlack_Settings
@@ -827,32 +831,39 @@ namespace Pastel
 		using Key = Key_;
 		using Data = Data_;
 		using Compare = Compare_;
-		PASTEL_CONSTEXPR RedBlackTree_Dereference Dereference = Dereference_;
+		using Propagation = Propagation_;
 		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
 		PASTEL_CONSTEXPR bool UseSentinelData = UseSentinelData_;
 	};
 
-	template <
-		typename Key, 
-		typename Data,
-		typename Compare = LessThan,
-		RedBlackTree_Dereference Dereference_ = RedBlackTree_Dereference::Default,
-		bool UseSentinelData_ = true,
-		template <typename> class Customization = Empty_RedBlackTree_Customization>
-	using RedBlack_Map = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Compare, 
-		Dereference_, false, UseSentinelData_>, Customization>;
+}
+
+// Map
+
+namespace Pastel
+{
 
 	template <
 		typename Key, 
 		typename Data,
 		typename Compare = LessThan,
-		RedBlackTree_Dereference Dereference_ = RedBlackTree_Dereference::Default,
-		bool UseSentinelData_ = true,
+		typename Propagation = void,
+		bool UseSentinelData = true,
+		template <typename> class Customization = Empty_RedBlackTree_Customization>
+	using RedBlack_Map = 
+		RedBlackTree<RedBlack_Settings<Key, Data, Compare, Propagation,
+		false, UseSentinelData>, Customization>;
+
+	template <
+		typename Key, 
+		typename Data,
+		typename Compare = LessThan,
+		typename Propagation = void,
+		bool UseSentinelData = true,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiMap = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Compare, 
-		Dereference_, true, UseSentinelData_>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, Data, Compare, Propagation,
+		true, UseSentinelData>, Customization>;
 
 }
 
@@ -862,20 +873,20 @@ namespace Pastel
 {
 
 	template <
-		typename Key, 
+		typename Key,
 		typename Compare = LessThan,
-		RedBlackTree_Dereference Dereference_ = RedBlackTree_Dereference::Default,
+		typename Propagation = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Set = 
-		RedBlackTree<RedBlack_Settings<Key, void, Compare, Dereference_, false>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, void, Compare, Propagation, false>, Customization>;
 
 	template <
 		typename Key, 
 		typename Compare = LessThan,
-		RedBlackTree_Dereference Dereference_ = RedBlackTree_Dereference::Default,
+		typename Propagation = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiSet = 
-		RedBlackTree<RedBlack_Settings<Key, void, Compare, Dereference_, true>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, void, Compare, Propagation, true>, Customization>;
 
 }
 

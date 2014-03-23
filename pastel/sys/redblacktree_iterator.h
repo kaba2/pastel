@@ -19,20 +19,27 @@ namespace Pastel
 
 		template <
 			typename NodePtr,
-			typename Key,
-			typename Data_Class,
+			typename Node_Settings,
 			bool DereferenceToData>
 		class Iterator
 			: public boost::iterator_adaptor<
-			Iterator<NodePtr, Key, Data_Class, DereferenceToData>, 
+			Iterator<NodePtr, Node_Settings, DereferenceToData>, 
 			NodePtr,
-			typename std::conditional<DereferenceToData, Data_Class, const Key>::type,
+			typename std::conditional<DereferenceToData, 
+			typename Node_Settings::Data_Class, 
+			const typename Node_Settings::Key>::type,
 			boost::bidirectional_traversal_tag>
 		{
 		private:
 			struct enabler {};
 
 		public:
+			using Fwd = Node_Settings;
+
+			PASTEL_FWD(Key);
+			PASTEL_FWD(Data_Class);
+			PASTEL_FWD(Propagation_Class);
+
 			Iterator()
 				: Iterator::iterator_adaptor_(0) 
 			{
@@ -47,7 +54,7 @@ namespace Pastel
 				typename That_NodePtr,
 				bool That_DereferenceToData>
 			Iterator(
-				const Iterator<That_NodePtr, Key, Data_Class, That_DereferenceToData>& that,
+				const Iterator<That_NodePtr, Node_Settings, That_DereferenceToData>& that,
 				typename boost::enable_if<
 				boost::is_convertible<That_NodePtr, NodePtr>, 
 				enabler>::type = enabler())
@@ -58,6 +65,11 @@ namespace Pastel
 			const Key& key() const
 			{
 				return node()->key();
+			}
+
+			const Propagation_Class& propagation() const
+			{
+				return node()->propagation();
 			}
 
 			Data_Class& data() const

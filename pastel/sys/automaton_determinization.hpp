@@ -35,10 +35,10 @@ namespace Pastel
 		// is that it can be hashed in constant time
 		// and so associatively searched efficiently 
 		// in a hash table.
-		using StateSet = HashedTree<
+		using StateSet = Hashed_Set<
 			State_ConstIterator,
-			void,
 			IteratorAddress_LessThan,
+			void,
 			IteratorAddress_Hash>;
 
 		if (automaton.states() == 0)
