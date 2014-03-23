@@ -3,18 +3,12 @@ Red-black tree
 
 [[Parent]]: data_structures.txt
 
-A _red-black tree_ is a self-balancing binary search tree. Among other things,
-it implements a dynamic ordered dictionary, provided the elements can be put 
-in a strict weak order. An _augmented red-black tree_ is a red-black tree which 
-automatically updates extra hierarchical information in its nodes.
+A _red-black tree_ is a self-balancing binary search tree. Among other things, it implements a dynamic ordered dictionary, provided the elements can be put in a strict weak order. An _augmented red-black tree_ is a red-black tree which maintains propagation data in its nodes.
 
 Properties
 ----------
 
-Let ''n in NN'' be the number stored elements, and let ''f : NN -> NN'' be 
-the time it takes to run the user-defined hierarchical update for a single node 
-(usually ''O(1)''). The red-black tree implementation in Pastel has the 
-following properties:
+Let ''n in NN'' be the number stored elements, and let ''f : NN -> NN'' be the time it takes to run the user-defined propagation data update for a single node (usually ''O(1)''). The red-black tree implementation in Pastel has the following properties:
 
 Property                           | Complexity
 ---------------------------------- | -------------------------------------
@@ -33,12 +27,9 @@ Space                              | ''O(n)''
 
 In addition to the key, an element can store arbitrary user-data. In contrast to the keys, the values can be modified at any time. In case user-data is not needed, it can be defined as `void`, and Pastel makes sure that no memory is spent on the values.
 
-### Hierarchical data
+### Propagation data
 
-_Hierarchical data_ is any information that can be
-computed for a node from its subtree, assuming the
-hierarchical data of the children are up to date.
-Examples include:
+_Propagation data_ is any data that can be computed for a node from its subtree, assuming the propagation data of the children are up to date. Examples include:
 
 * the number of nodes in a subtree,
 * the sum of keys/values in a subtree,
@@ -46,32 +37,11 @@ Examples include:
 * the maximum/minimum of keys/values in a subtree, and
 * any associative binary operation of keys/values in a subtree.
 
-Such hierarchical data can be used, for example, to find _any_
-quantile of an element set in ''O(log(n))'' time. When the local 
-computation takes ''O(1)'' time, as in all of the
-examples above, the hierarchical data can be kept up 
-to date in insertions and removals without affecting the 
-asymptotic performance of the RedBlackTree. More generally, the
-local computation time acts multiplicatively on the complexity
-of the insert() and erase() functions of the RedBlackTree.
-For example, if the local computation takes O(log(n)), then the
-complexity of insert() will be O((log(n))^2).
+Such propagation data can be used, for example, to find _any_ quantile of an element set in ''O(log(n))'' time. When the local computation takes ''O(1)'' time, as in all of the examples above, the propagation data can be kept up to date in insertions and removals without affecting the asymptotic performance of the RedBlackTree. More generally, the local computation time acts multiplicatively on the complexity of the insert() and erase() functions of the RedBlackTree. For example, if the local computation takes O(log(n)), then the complexity of insert() will be O((log(n))^2).
 
-The `RedBlackTree` automatically keeps hierarchical data up to date, 
-given that the user provides the local computation for a single 
-node in the updateHierarchicalData() function.
+The `RedBlackTree` automatically keeps propagation data up to date, given that the user provides the local computation for a single node in the updateHierarchicalData() function.
  
 Theory
 ------
 
-A _tree_ is a connected graph without cycles. A tree is called _rooted_
-if some node, called the _root_, is chosen specifically to measure 
-distances in the tree. The root induces a partial order ''<'' for the nodes
-by the subset relation for the paths from a node to the root. If for nodes
-A and B it holds that ''A < B'', then B is called a _descendant_ of A and 
-A is called an _ancestor_ of B. If ''A < B'' and there is no other node C 
-such that ''A < C < B'', then B is called a _child_ of A, and A is called 
-the _parent_ of B. If a node does not have any descendants, it is called 
-a _leaf_ node. The root node is the only node which does not have any 
-ancestors. A tree is called _n-ary_, if every node has at most n 
-children. The _binary tree_ is a synonym for a 2-ary tree.
+A _tree_ is a connected graph without cycles. A tree is called _rooted_ if some node, called the _root_, is chosen specifically to measure distances in the tree. The root induces a partial order ''<'' for the nodes by the subset relation for the paths from a node to the root. If for nodes A and B it holds that ''A < B'', then B is called a _descendant_ of A and A is called an _ancestor_ of B. If ''A < B'' and there is no other node C such that ''A < C < B'', then B is called a _child_ of A, and A is called the _parent_ of B. If a node does not have any descendants, it is called a _leaf_ node. The root node is the only node which does not have any ancestors. A tree is called _n-ary_, if every node has at most n children. The _binary tree_ is a synonym for a 2-ary tree.

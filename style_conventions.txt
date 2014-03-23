@@ -12,10 +12,7 @@ Principles
 
 * Maximize readability of the code in English.
 
-* Use English everywhere.
-	Most computer-related terms have their roots in English 
-	and are well known, while their translations in other languages 
-	are probable to be less known and thus hard to decipher.
+* Use English everywhere. Most computer-related terms have their roots in English and are well known, while their translations in other languages are probable to be less known and thus hard to decipher.
 
 Naming
 ------
@@ -30,36 +27,15 @@ Naming
 
 * Functions, variables: `likeThis`
 
-* Program-time constants: `LikeThis`
-	A _program-time_ constant is a variable identifier
-	whose value stays the same no matter when the
-	value is considered during the program run.
-	For example: `const real ShortPi = 3.14;`.
-	This includes compile-time constants, such
-	as enumerations.
-	In particular, program-time constants are not named
-	with upper-case characters with underscore delimiters,
-	because they would then risk colliding with macros.
+* Program-time constants: `LikeThis`. A _program-time_ constant is a variable identifier whose value stays the same no matter when the value is considered during the program run. For example: `const real ShortPi = 3.14;`. This includes compile-time constants, such as enumerations. In particular, program-time constants are not named with upper-case characters with underscore delimiters, because they would then risk colliding with macros.
 
-* Scope-time constants: `likeThis`
-	A _scope-time_ constant is an object identifier
-	whose value stays the same from its construction to its destruction
-	but can not be guaranteed to be the same at all times during the 
-	program run. For example: `const integer width = image.width();`.
-	In particular, scope-time constants are named just
-	like normal variables.
+* Scope-time constants: `likeThis`. A _scope-time_ constant is an object identifier whose value stays the same from its construction to its destruction but can not be guaranteed to be the same at all times during the program run. For example: `const integer width = image.width();`. In particular, scope-time constants are named just like normal variables.
 
-* Class member variables: `likeThis_`
-	This convention avoids naming conflicts between function
-	parameters, the member variables of a class, and the
-	getters of member variables.
+* Class member variables: `likeThis_`. This convention avoids naming conflicts between function parameters, the member variables of a class, and the getters of member variables.
 	
-* Template parameters: `LikeThis_`.
-	This convention avoids naming conflicts between template 
-	parameters, class member types, and class member constants.
+* Template parameters: `LikeThis_`. This convention avoids naming conflicts between template parameters, class member types, and class member constants.
 	
-* The _user_ of the library must never need to use a name with a 
-trailing underscore.
+* The _user_ of the library must never need to use a name with a trailing underscore.
 
 * Class static variables: `likeThis__`
 
@@ -77,31 +53,17 @@ trailing underscore.
 
 * Getters: `radius()`
 
-* Boolean getters: `empty()`
-	In particular, the `is` prefix is not used.
-	Exception: `is` prefix can be used for disambiguation if the
-	property can be interpreted both as a verb and an adjective.
-	For example: `open` as `isOpen`
+* Boolean getters: `empty()`. In particular, the `is` prefix is not used. Exception: `is` prefix can be used for disambiguation if the property can be interpreted both as a verb and an adjective. For example: `open` as `isOpen`
 
-* Collections: `shapeSet`. In particular, the plural `shapes` is
-not used, because it collides with quantities. In addition, more
-detailed suffixes such as `Array` or `List` are not used. This
-allows to change the type of the container easily, say, when it 
-is noticed during development that a list is needed instead of an 
-array.
+* Collections: `shapeSet`. In particular, the plural `shapes` is not used, because it collides with quantities. In addition, more detailed suffixes such as `Array` or `List` are not used. This allows to change the type of the container easily, say, when it is noticed during development that a list is needed instead of an array.
 
 * Quantities: `shapes`, `leaves`.
 
-* Derived classes of an abstract class: `LikeThis_BaseClass`.
-For example, if `Filter` is an abstract class, then `Gaussian_Filter`
-could be one of its derived classes.
+* Derived classes of an abstract class: `LikeThis_BaseClass`. For example, if `Filter` is an abstract class, then `Gaussian_Filter` could be one of its derived classes.
 
-* A class modeling a concept: `ClassName_ConceptName`.
-For example, if `NormBijection` is a concept, then 
-`Euclidean_NormBijection` could be one of its models.
+* A class modeling a concept: `ClassName_ConceptName`. For example, if `NormBijection` is a concept, then `Euclidean_NormBijection` could be one of its models.
 
-* When using the Curiously Recurring Template Pattern with the
-class `MyClass`, name the super class `MyClass_Base`
+* When using the Curiously Recurring Template Pattern with the class `MyClass`, name the super class `MyClass_Base`
 
 Statements
 ----------
@@ -126,67 +88,43 @@ no better name.
 
 * Write a space after a comma: `a, b, c`
 
-* Separate binary operators with spaces from both sides:
-`a + b, a - b, a = b, a * b, a / b, a % b, a b`, ...
+* Separate binary operators with spaces from both sides: `a + b, a - b, a = b, a * b, a / b, a % b, a b`, ...
 
-* In a switch structure, if one case is meant to slip
-through to the handler of the next case, comment it
-with a `Fall-through`.
+* In a switch structure, if one case is meant to slip through to the handler of the next case, comment it with a `Fall-through`.
 
-* Specify variables const as often as possible.
-This makes the code easier to read since the reader
-can fix the meaning and value of a variable in his head
-for the rest of the code.
-For example: `const integer index = i * 5 + 1;`
-Exception: Do not specify function parameters given 
-by value as const. This makes function declarations look odd
-and thus harder to read because it is unconventional.
+* Specify variables const as often as possible. This makes the code easier to read since the reader can fix the meaning and value of a variable in his head for the rest of the code. For example: `const integer index = i * 5 + 1;`. Exception: Do not specify function parameters given by value as const. This makes function declarations look odd and thus harder to read because it is unconventional.
 
 Operators
 ---------
 
-* If relational operators are needed (`<`, `>` , `<=` , `>=`), 
-implement less-than and implement the rest of the operators in 
-terms of that.
+* If relational operators are needed (`<`, `>` , `<=` , `>=`), implement less-than and implement the rest of the operators in terms of that.
 
-* If equality operators are needed (`==`, `!=`), implement equality and 
-implement non-equality in terms of that.
+* If equality operators are needed (`==`, `!=`), implement equality and implement non-equality in terms of that.
 
-* If increment operators are needed (pre- and post-fix), implement 
-prefix increment and implement postfix increment in terms of that. 
-Similarly for decrement.
+* If increment operators are needed (pre- and post-fix), implement prefix increment and implement postfix increment in terms of that. Similarly for decrement.
 
 * Use the `boost::operators` library to accomplish these in an easy way.
 
-Text editors
-------------
+Indentation
+-----------
 
-* Do not write rows longer than 70 characters.
-Longer rows do not necessarily fit in other text editors.
+* Do not attempt to align for any other condition than indentation. In particular, do not place comments after a statement. The position of the comment changes with the length of the statement before it and thus changing the statement requires to reposition the comment. The comment is also likely to exceed the given maximum of 70 characters per row.
 
-* Do not attempt to align for any other condition than indentation.
-In particular, do not place comments after a statement.
-The position of the comment changes with the length of the
-statement before it and thus changing the statement requires to
-reposition the comment. The comment is also likely
-to exceed the given maximum of 70 characters per row.
+* Use hard tabs for indentation and only for indentation. Desired indentation amount is dependent on the programmer. Tabs make it possible to change it on the fly without modifying the source code. The problems with the tabs stem from the fact that it is often used incorrectly to match other boundary conditions than indentation (in the middle of a statement). 
 
-* Use hard tabs for indentation and only for indentation.
-Desired indentation amount is dependent on the programmer.
-Tabs make it possible to change it on the fly without modifying
-the source code.
-The much debated problems with the tabs stem from the fact that it
-is often used incorrectly to match other boundary conditions than 
-indentation (in the middle of a statement). 
+* A hard tab can be added only if preceded by another hard tab or the beginning of a row.
 
-* A hard tab can be added only if preceded by another hard tab 
-or the beginning of a row.
+Line-breaks
+-----------
+
+* For source code, limit the width of lines by manual line-breaks to a maximum of 70 characters. This is because the text editors in some IDEs (e.g. Visual Studio 2012) do not respect indentation on word-wrapping, which destructs the logical structure of the code. Moreover, using the IDE's text editor can not be avoided because compiling (fixing compilation errors) and debugging (fixing runtime errors) requires it. The 70 character limit is because readability requires text to cover a narrow width.
+
+* For documentation, use manual line-breaks for structure (e.g. paragraphs) and only for structure. In particular, do not use manual line-breaks to achieve a narrow representation. Instead, rely on the word-wrapping of the text viewer for an adaptive width. The difference to the source code is that here one is not bound to the IDE's text editor.
 
 File names
 ----------
 
-* Separate templates into two files: one for the function declarations
-(class definition) and one for the function definitions.
+* Separate templates into two files: one for the function declarations (class definition) and one for the function definitions.
 
 * Name class definition (function declaration) files .h.
 
@@ -203,15 +141,9 @@ Rejected rules
 
 For readability, the following have been explicitly rejected:
 
-* Hungarian notation, encoding the type of the variable
-into the variable name. For example `iSize` for variable
-named `size` of int type.
+* Hungarian notation, encoding the type of the variable into the variable name. For example `iSize` for variable named `size` of int type.
 
-* Using `get` prefix in getters. It is much clearer to read
-`if (cow.weight() > 5)` than `if (cow.getWeight() > 5)`.
+* Using `get` prefix in getters. It is much clearer to read `if (cow.weight() > 5)` than `if (cow.getWeight() > 5)`.
 
-* Using `is` prefix in boolean getters (except for the exception).
-This prefix leads to long and heavy inflections.
-For example, it is much more comfortable to read
-`if (overlaps(sphere, alignedBox))` than
-`if (isOverlapping(sphere, alignedBox))`.
+* Using `is` prefix in boolean getters (except for the exception). This prefix leads to long and heavy inflections.
+For example, it is much more comfortable to read `if (overlaps(sphere, alignedBox))` than `if (isOverlapping(sphere, alignedBox))`.

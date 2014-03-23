@@ -566,7 +566,7 @@ namespace Pastel
 		*/
 		void initialize();
 
-		//! Allocates a data-node, and increases the size.
+		//! Allocates a data-node.
 		/*!
 		Time complexity: O(1)
 		Exception safety: strong
@@ -576,7 +576,7 @@ namespace Pastel
 			const Data_Class& data,
 			const Propagation_Class& propagation);
 
-		//! Deallocates a data-node, and decreases the size.
+		//! Deallocates a data-node.
 		/*!
 		Preconditions:
 		!node->isSentinel()
@@ -592,7 +592,10 @@ namespace Pastel
 		Exception safety: nothrow
 
 		Preconditions:
-		node is not attached to any tree
+		!node->parent()
+		!node->left()
+		!node->right()
+		!parent->child(right)->isSentinel()
 
 		node:
 		The node to attach into the tree.
