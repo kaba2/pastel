@@ -23,25 +23,42 @@ Find minimum element               | ''O(1)''
 Find maximum element               | ''O(1)''
 Space                              | ''O(n)''
 
-### Value data
+Node data
+---------
 
-In addition to the key, an element can store arbitrary user-data. In contrast to the keys, the values can be modified at any time. In case user-data is not needed, it can be defined as `void`, and Pastel makes sure that no memory is spent on the values.
+### Keys
+
+The _key_ is node data which is used to arrange the elements in increasing order with respect to the given strict weak order.
 
 ### Propagation data
 
-_Propagation data_ is any data that can be computed for a node from its subtree, assuming the propagation data of the children are up to date. Examples include:
+The _propagation data_ is node data which is computed as a function of the subtree rooted at the node. The red-black tree automatically keeps propagation data up to date, given that the user provides the local computation for a single node in the `updatePropagation()` function. This function is the only way to modify the propagation data in any node.
+
+Examples of propagation data include:
 
 * the number of nodes in a subtree,
 * the sum of keys/values in a subtree,
-* the combined hash of the hashes of the keys in a subtree,
 * the maximum/minimum of keys/values in a subtree, and
 * any associative binary operation of keys/values in a subtree.
 
-Such propagation data can be used, for example, to find _any_ quantile of an element set in ''O(log(n))'' time. When the local computation takes ''O(1)'' time, as in all of the examples above, the propagation data can be kept up to date in insertions and removals without affecting the asymptotic performance of the RedBlackTree. More generally, the local computation time acts multiplicatively on the complexity of the insert() and erase() functions of the RedBlackTree. For example, if the local computation takes O(log(n)), then the complexity of insert() will be O((log(n))^2).
+The propagation data can be used, for example, to find _any_ quantile of an element set in ''O(log(n))'' time. When the local computation takes ''O(1)'' time, as in all of the examples above, the propagation data can be kept up to date in insertions and removals without affecting the asymptotic performance of the red-black tree. More generally, the local computation time acts multiplicatively on the complexity of the insert() and erase() functions of the red-black tree. For example, if the local computation takes O(log(n)), then the complexity of insert() will be O((log(n))^2).
 
-The `RedBlackTree` automatically keeps propagation data up to date, given that the user provides the local computation for a single node in the updateHierarchicalData() function.
+Definining the propagation data as `void` avoids allocating any memory for it. 
+
+### User data
+
+The _user data_ is node data which can be modified freely. Defining the user data as `void` avoids allocating any memory for it.
  
 Theory
 ------
 
 A _tree_ is a connected graph without cycles. A tree is called _rooted_ if some node, called the _root_, is chosen specifically to measure distances in the tree. The root induces a partial order ''<'' for the nodes by the subset relation for the paths from a node to the root. If for nodes A and B it holds that ''A < B'', then B is called a _descendant_ of A and A is called an _ancestor_ of B. If ''A < B'' and there is no other node C such that ''A < C < B'', then B is called a _child_ of A, and A is called the _parent_ of B. If a node does not have any descendants, it is called a _leaf_ node. The root node is the only node which does not have any ancestors. A tree is called _n-ary_, if every node has at most n children. The _binary tree_ is a synonym for a 2-ary tree.
+
+Let the children of a node in a binary tree be labeled as _left_ and _right_. Suppose for each node ''A'' there is associated a key ''k(A)'', and that the keys are ordered by the strict weak order ''<''. If it holds that ''k("left"(A)) <= k(A) <= k("right"(A))'', then the tree is said to be a _binary search tree_. A _red-black tree_ is a binary search tree where 
+
+* each node ''A'' has a color ''c(A)'', which is either red or black, 
+* the root is black,
+* the children of a red node are black, and
+* the number of black nodes in a path from the root node to a leaf node is invariant to the choice of the path.
+
+These properties guarantee that the height of the tree is ''O(log(n))'', where ''n'' is the number of elements in the tree.

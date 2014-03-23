@@ -3,12 +3,9 @@ Data structures
 
 [[Parent]]: pastelsys.txt
 
-This section contains implementations for a set of fundamental data
-structures. In addition to being the everyday tools of a programmer,
-they also form a set of building blocks from which to form more 
-advanced data structures.
+This section contains implementations for a set of fundamental data structures. In addition to being the everyday tools of a programmer, they also form a set of building blocks from which to form more advanced data structures.
 
-Basic guarantees
+Basic properties
 ----------------
 
 Every data-structure in Pastel
@@ -17,16 +14,13 @@ Every data-structure in Pastel
 * is exception-safe,
 * is documented for exception-safety,
 * is documented for time-complexity,
-* is documented for space-complexity, and
-* can embed user-data in its parts.
+* is documented for space-complexity,
+* can embed user data in its parts, and
+* can be customized.
 
-Most of the data-structures are also
+### User data
 
-* customizable.
-
-### User-data
-
-Whenever user-data can be embedded into a part of a data-structure, by defining the type of the user-data as `void` guarantees that no memory is used for the user-data.
+Whenever user data can be embedded into a part of a data-structure, by defining the type of the user-data as `void` guarantees that no memory is used for the user-data.
 
 ### Customizations
 
