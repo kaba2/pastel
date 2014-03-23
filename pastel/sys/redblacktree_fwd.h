@@ -11,26 +11,19 @@
 namespace Pastel
 {
 
-	enum class RedBlackTree_Dereference
-	{
-		Default,
-		Key,
-		Data
-	};
-
 	namespace RedBlackTree_
 	{
 
-		template <typename, typename, typename, bool>
+		template <typename, typename, bool>
 		class Iterator;
 
-		template <typename, typename, bool>
+		template <typename>
 		class Node_Base;
 
-		template <typename, typename, bool>
+		template <typename>
 		class Data_Node;
 		
-		template <typename, typename, bool>
+		template <typename>
 		class Node;
 
 	}
@@ -39,14 +32,15 @@ namespace Pastel
 	class RedBlackTree_Fwd
 	{
 	public:
-		using Key = typename Settings::Key;
-		using Data = typename Settings::Data;
-		using Compare = typename Settings::Compare;
+		using Fwd = Settings;
+		
+		PASTEL_FWD(Key);
+		PASTEL_FWD(Propagation);
+		PASTEL_FWD(Data);
+		PASTEL_FWD(Compare);
 
 		PASTEL_CONSTEXPR bool DereferenceToData =
-			(Settings::Dereference == RedBlackTree_Dereference::Data) ||
-			(Settings::Dereference == RedBlackTree_Dereference::Default &&
-			!std::is_same<Data, void>::value);
+			!std::is_same<Data, void>::value;
 
 		PASTEL_CONSTEXPR bool MultipleKeys =
 			Settings::MultipleKeys;
@@ -55,38 +49,46 @@ namespace Pastel
 			Settings::UseSentinelData;
 
 		using Data_Class = Class<Data>;
-		using Node = RedBlackTree_::Node<Key, Data_Class, UseSentinelData>;
+		using Propagation_Class = Class<Propagation>;
+
+		class Node_Settings
+		{
+		public:
+			PASTEL_FWD(Key);
+			using Propagation_Class = Propagation_Class;
+			using Data_Class = Data_Class;
+			PASTEL_CONSTEXPR bool UseSentinelData =
+				Settings::UseSentinelData;
+		};
+
+		using Node = RedBlackTree_::Node<Node_Settings>;
 		using Sentinel = typename std::conditional<
 			UseSentinelData,
-			RedBlackTree_::Data_Node<Key, Data_Class, UseSentinelData>,
-			RedBlackTree_::Node_Base<Key, Data_Class, UseSentinelData>>::type;
+			RedBlackTree_::Data_Node<Node_Settings>,
+			RedBlackTree_::Node_Base<Node_Settings>>::type;
 
 		using Key_Iterator = 
-			RedBlackTree_::Iterator<Node*, Key, Data_Class, false>;
+			RedBlackTree_::Iterator<Node*, Node_Settings, false>;
 		using Key_ConstIterator = 
-			RedBlackTree_::Iterator<const Node*, Key, Data_Class, false>;
+			RedBlackTree_::Iterator<const Node*, Node_Settings, false>;
 		using Key_Range = 
 			boost::iterator_range<Key_Iterator>;
 		using Key_ConstRange = 
 			boost::iterator_range<Key_ConstIterator>;
 
 		using Data_Iterator = 
-			RedBlackTree_::Iterator<Node*, Key, Data_Class, true>;
+			RedBlackTree_::Iterator<Node*, Node_Settings, true>;
 		using Data_ConstIterator = 
-			RedBlackTree_::Iterator<const Node*, Key, Data_Class, true>;
+			RedBlackTree_::Iterator<const Node*, Node_Settings, true>;
 		using Data_Range = 
 			boost::iterator_range<Data_Iterator>;
 		using Data_ConstRange = 
 			boost::iterator_range<Data_ConstIterator>;
 
 		using Iterator = 
-			RedBlackTree_::Iterator<
-				Node*, Key, 
-				Data_Class, DereferenceToData>;
+			RedBlackTree_::Iterator<Node*, Node_Settings, DereferenceToData>;
 		using ConstIterator = 
-			RedBlackTree_::Iterator<
-				const Node*, Key, 
-				Data_Class, DereferenceToData>;
+			RedBlackTree_::Iterator<const Node*, Node_Settings, DereferenceToData>;
 		using Range = 
 			boost::iterator_range<Iterator>;
 		using ConstRange = 

@@ -262,7 +262,7 @@ namespace Pastel
 			// * the 'parent' is not the sentinel,
 			// * the 'right' path of 'parent' has a black-count 
 			// one lower than the '!right' path of 'parent',
-			// * the hierarchical information in the both
+			// * the propagation data in the both
 			// children of 'parent' are up-to-date.
 
 			// The abbreviations in the following figures
@@ -286,7 +286,7 @@ namespace Pastel
 				// 1   2 3   4		1   2 3   4
 
 				node->setBlack();
-				update(Iterator(node));
+				update(node);
 				break;
 			}
 
@@ -309,7 +309,7 @@ namespace Pastel
 				sibling->setBlack();
 				parent->setRed();
 
-				// The hierarchical information is still 
+				// The propagation data is still 
 				// up-to-date below the 'parent'.
 
 				// The children of 'parent' are still unbalanced.
@@ -335,7 +335,7 @@ namespace Pastel
 				//    / \
 				//   1   2
 
-				update(Iterator(parent));
+				update(parent);
 
 				// Propagate upwards.
 				parent = nextParent;
@@ -373,8 +373,8 @@ namespace Pastel
 				a->setRed(parent->red());
 				parent->setBlack();
 
-				update(Iterator(parent));
-				update(Iterator(sibling));
+				update(parent);
+				update(sibling);
 
 				// We are done.
 				parent = a;
@@ -397,7 +397,7 @@ namespace Pastel
 
 				rotate(parent, right);
 
-				update(Iterator(parent));
+				update(parent);
 
 				// We are done.
 				parent = sibling;
@@ -431,8 +431,8 @@ namespace Pastel
 					--blackHeight_;
 				}
 
-				update(Iterator(sibling));
-				update(Iterator(parent));
+				update(sibling);
+				update(parent);
 
 				parent = nextParent;
 				right = nextRight;
@@ -462,7 +462,7 @@ namespace Pastel
 			break;
 		}
 
-		// Update the hierarchical information up
+		// Update the propagation data up
 		// to the root.
 		updateToRoot(parent);
 	}

@@ -7,9 +7,10 @@ namespace Pastel
 {
 
 	template <typename Settings, template <typename> class Customization>
-	template <typename... Value>
 	auto RedBlackTree<Settings, Customization>::insert(
-		Key key, Value&&... value)
+		const Key& key, 
+		const Data_Class& data,
+		const Propagation_Class& propagation)
 	-> Insert_Return
 	{
 		auto equalAndUpper = findEqualAndUpper(key);
@@ -32,9 +33,7 @@ namespace Pastel
 		bool right = parentAndRight.right;
 
 		// Create a new node for the element.
-		Node* node = allocateNode(
-			std::move(key), 
-			std::forward<Value>(value)...);
+		Node* node = allocateNode(key, data, propagation);
 
 		// Attach the node into the tree.
 		attach(node, parent, right);
@@ -74,9 +73,9 @@ namespace Pastel
 			setMaximum(node);
 		}
 
-		// Update the hierarchical information in subtree
+		// Update the propagation data in subtree
 		// rooted at 'node'. See the loop invariant below.
-		update(Iterator(node));
+		update(node);
 
 		// Fix the red-black violations.
 		rebalanceAfterAttach(node);
@@ -100,7 +99,7 @@ namespace Pastel
 			// At the start of the loop 
 			// * the subtree rooted at 'node' is a red-black tree,
 			// except that 'node' is red, and
-			// * the hierarchical information is up-to-date in
+			// * the propagation data is up-to-date in
 			// the subtree rooted at 'node'.
 
 			ASSERT(!node->isSentinel());
@@ -122,7 +121,7 @@ namespace Pastel
 				// since marking the root black increases
 				// the black-counts on all paths by one.
 				node->setBlack();
-				update(Iterator(node));
+				update(node);
 
 				// This is the only case which increases
 				// the black-height of the tree.
@@ -144,7 +143,7 @@ namespace Pastel
 				// 1   2  
 
 				// We have fixed all the violations. It suffices
-				// to update the hierarchical information up
+				// to update the propagation data up
 				// to the root.
 				updateToRoot(parent);
 				break;
@@ -189,8 +188,8 @@ namespace Pastel
 
 					rotate(parent, !nodeIsRight);
 
-					update(Iterator(parent));
-					update(Iterator(node));
+					update(parent);
+					update(node);
 
 					// Continue as if we were in the
 					// parent node.
@@ -213,10 +212,10 @@ namespace Pastel
 				parent->setBlack();
 				grandParent->setRed();
 				
-				update(Iterator(grandParent));
+				update(grandParent);
 
 				// We have fixed all the violations. It suffices
-				// to update the hierarchical information up
+				// to update the propagation data up
 				// to the root.
 				updateToRoot(parent);
 				break;
@@ -244,9 +243,9 @@ namespace Pastel
 			uncle->setBlack();
 			grandParent->setRed();
 
-			update(Iterator(parent));
-			update(Iterator(uncle));
-			update(Iterator(grandParent));
+			update(parent);
+			update(uncle);
+			update(grandParent);
 
 			// This is the only case which recurses upwards.
 			// The loop invariant now holds for the grand-parent,

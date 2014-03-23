@@ -15,20 +15,20 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename, typename, bool>
+		template <typename>
 		class Node;
 
 		//! The base node.
-		template <typename Key, typename Data_Class_, bool UseSentinelData>
+		template <typename Settings>
 		class Node_Base
 		{
 		public:
-			using Node = Pastel::RedBlackTree_::Node<Key, Data_Class_, UseSentinelData>;
+			using Node = Pastel::RedBlackTree_::Node<Settings>;
 
 			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
 
-			template <typename, typename, typename, bool>
+			template <typename, typename, bool>
 			friend class Iterator;
 
 			bool red() const
@@ -49,16 +49,16 @@ namespace Pastel
 			}
 
 		protected:
-			Node_Base(const Node_Base& that) = delete;
-			Node_Base(Node_Base&& that) = delete;
-			Node_Base& operator=(Node_Base that) = delete;
-
 			Node_Base()
 				: parent_(0)
 				, child_()
 				, red_(true)
 			{
 			}
+
+			Node_Base(const Node_Base& that) = delete;
+			Node_Base(Node_Base&& that) = delete;
+			Node_Base& operator=(Node_Base that) = delete;
 
 			void isolate()
 			{
@@ -135,21 +135,67 @@ namespace Pastel
 		empty base-class when using multiple inheritance. 
 		Fortunately, this is the case here.
 		*/
-		template <typename Key, typename Data_Class_, bool UseSentinelData>
+		template <typename Settings>
 		class Data_Node
-			: public Data_Class_
-			, public Node_Base<Key, Data_Class_, UseSentinelData>
+			: public Node_Base<Settings>
+			, public Settings::Propagation_Class
 		{
 		public:
-			// We need this to get around a bug in the 
-			// Visual Studio 2013 Update 1 compiler.
-			using Data_Class = Data_Class_;
+			using Fwd = Settings;
+			PASTEL_FWD(Propagation_Class);
 
-			template <typename... Value>
-			explicit Data_Node(
-				Value&&... value)
-				: Data_Class(std::forward<Value>(value)...)
+			using Base = Node_Base<Settings>;
+
+			Data_Node()
+			: Base()
+			, Propagation_Class()
 			{
+			}
+
+			explicit Data_Node(const Propagation_Class& propagation)
+			: Base()
+			, Propagation_Class(propagation)
+			{
+			}
+
+			const Propagation_Class& propagation() const
+			{
+				return *this;
+			}
+
+		private:
+			Data_Node(const Data_Node& that) = delete;
+			Data_Node(Data_Node&& that) = delete;
+			Data_Node& operator=(Data_Node that) = delete;
+		};
+
+		//! Key node
+		template <typename Settings>
+		class Node
+			: public Data_Node<Settings>
+			, public Settings::Data_Class
+		{
+		public:
+			using Fwd = Settings;
+
+			PASTEL_FWD(Key);
+			PASTEL_FWD(Propagation_Class);
+			PASTEL_FWD(Data_Class);
+			PASTEL_CONSTEXPR bool UseSentinelData = 
+				Settings::UseSentinelData;
+
+			using Base = Data_Node<Settings>;
+
+			template <typename, template <typename> class>
+			friend class Pastel::RedBlackTree;
+
+			template <typename, typename, bool>
+			friend class Iterator;
+
+			const Key& key() const
+			{
+				ASSERT(!isSentinel());
+				return key_;
 			}
 
 			Data_Class& data()
@@ -164,44 +210,19 @@ namespace Pastel
 			}
 
 		private:
-			Data_Node(const Data_Node& that) = delete;
-			Data_Node(Data_Node&& that) = delete;
-			Data_Node& operator=(Data_Node that) = delete;
-		};
-
-		//! Key node
-		template <typename Key, typename Data_Class_, bool UseSentinelData>
-		class Node
-			: public Data_Node<Key, Data_Class_, UseSentinelData>
-		{
-		public:
-			using Base = Data_Node<Key, Data_Class, UseSentinelData>;
-
-			template <typename, template <typename> class>
-			friend class Pastel::RedBlackTree;
-
-			template <typename, typename, typename, bool>
-			friend class Iterator;
-
-			const Key& key() const
+			explicit Node(
+				const Key& key,
+				const Data_Class& data,
+				const Propagation_Class& propagation)
+				: Base(propagation)
+				, Data_Class(data)
+				, key_(key)
 			{
-				ASSERT(!isSentinel());
-				return key_;
 			}
 
-		private:
 			Node(const Node& that) = delete;
 			Node(Node&& that) = delete;
 			Node& operator=(Node that) = delete;
-
-			template <typename... Value>
-			Node(
-				Key&& key,
-				Value&&... value)
-				: Base(std::forward<Value>(value)...)
-				, key_(std::move(key))
-			{
-			}
 
 			Key key_;
 		};

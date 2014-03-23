@@ -254,6 +254,8 @@ if (MSVC)
 		/wd4312
 		# "new behavior: elements of array 'array' will be default initialized"
 		/wd4351
+		# 'type' : base-class 'type2' is already a base-class of 'type3'
+		/wd4584
 		# "'type' : forcing value to bool 'true' or 'false' (performance warning)"
 		/wd4800 
 		# "'operation' : unsafe use of type 'bool' in operation"

@@ -7,16 +7,13 @@ namespace Pastel
 {
 
 	template <typename Settings, template <typename> class Customization>
-	template <typename... Value>
 	auto RedBlackTree<Settings, Customization>::allocateNode(
-		Key&& key,
-		Value&&... value)
+		const Key& key, 
+		const Data_Class& data,
+		const Propagation_Class& propagation)
 	-> Node*
 	{
-		Node* node = new Node(
-			std::move(key), 
-			std::forward<Value>(value)...);
-		return node;
+		return new Node(key, data, propagation);
 	}
 
 	template <typename Settings, template <typename> class Customization>
@@ -33,8 +30,7 @@ namespace Pastel
 	{
 		while(!node->isSentinel())
 		{
-			this->updateHierarchical(
-				Iterator(node));
+			update(node);
 			node = node->parent();
 		}
 	}
