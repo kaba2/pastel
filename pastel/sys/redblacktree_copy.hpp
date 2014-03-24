@@ -11,9 +11,14 @@ namespace Pastel
 		RedBlackTree<Settings, Customization>::copyConstruct(
 		Node* parent, const RedBlackTree& that, Node* thatNode)
 	{
-		if (thatNode->isSentinel())
+		if (thatNode == that.endSentinel())
 		{
-			return (Node*)sentinel_;
+			return endSentinel();
+		}
+
+		if (thatNode == that.childSentinel())
+		{
+			return childSentinel();
 		}
 
 		integer rollBackIndex = 0;

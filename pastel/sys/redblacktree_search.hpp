@@ -54,6 +54,11 @@ namespace Pastel
 			}
 		}
 
+		if (node == ConstIterator(childSentinel()))
+		{
+			node = endSentinel();
+		}
+
 		return FindEqual_Return{node, upper};
 	}
 
@@ -109,7 +114,7 @@ namespace Pastel
 		-> FindInsert_Return
 	{
 		ConstIterator child = 
-			(equalAndUpper.equal == cend()) ? 
+			equalAndUpper.equal.isSentinel() ? 
 			croot() : equalAndUpper.equal;
 		ConstIterator parent = child.parent();
 		ConstIterator upper = equalAndUpper.upper;

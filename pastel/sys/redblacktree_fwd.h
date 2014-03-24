@@ -5,6 +5,7 @@
 #include "pastel/sys/range.h"
 
 #include <type_traits>
+#include <memory>
 
 namespace Pastel
 {
@@ -37,9 +38,6 @@ namespace Pastel
 		PASTEL_FWD(Data);
 		PASTEL_FWD(Compare);
 
-		PASTEL_CONSTEXPR bool DereferenceToData =
-			!std::is_same<Data, void>::value;
-
 		PASTEL_CONSTEXPR bool MultipleKeys =
 			Settings::MultipleKeys;
 
@@ -48,6 +46,9 @@ namespace Pastel
 
 		using Data_Class = Class<Data>;
 		using Propagation_Class = Class<Propagation>;
+
+		PASTEL_CONSTEXPR bool DereferenceToData =
+			!std::is_same<Data, void>::value;
 
 		class Node_Settings
 		{
@@ -60,10 +61,13 @@ namespace Pastel
 		};
 
 		using Node = RedBlackTree_::Node<Node_Settings>;
-		using Sentinel = typename std::conditional<
+		using EndSentinel = typename std::conditional<
 			UseSentinelData,
 			RedBlackTree_::Data_Node<Node_Settings>,
 			RedBlackTree_::Node_Base<Node_Settings>>::type;
+		using EndSentinelPtr = std::unique_ptr<EndSentinel>;
+		using ChildSentinel = EndSentinel;
+		using ChildSentinelPtr = std::shared_ptr<ChildSentinel>;
 
 		using Key_Iterator = 
 			RedBlackTree_::Iterator<Node*, Node_Settings, false>;
