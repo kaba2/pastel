@@ -123,7 +123,20 @@ namespace Pastel
 		if (tree.cend().parent().right() != tree.cend())
 		{
 			// The maximum node must be connected to
-			// the sentinel.
+			// the end-sentinel.
+			return false;
+		}
+
+		if (tree.cend().right().left() != tree.cend())
+		{
+			// The minimum node must be connected to
+			// the end-sentinel.
+			return false;
+		}
+
+		if (tree.cend().left() != tree.cend())
+		{
+			// The left child of the end-sentinel must be itself.
 			return false;
 		}
 

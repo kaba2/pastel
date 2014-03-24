@@ -9,12 +9,12 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	RedBlackTree<Settings, Customization>::RedBlackTree()
-		: minimum_(0)
-		, sentinel_(0)
+		: root_(0)
+		, endSentinel_(new EndSentinel)
+		, childSentinel_(new ChildSentinel)
 		, size_(0)
 		, blackHeight_(0)
 	{
-		sentinel_ = new Sentinel();
 		initialize();
 	}
 
@@ -25,7 +25,7 @@ namespace Pastel
 	{
 		try
 		{
-			Node* root = copyConstruct((Node*)sentinel_, that, that.rootNode());
+			Node* root = copyConstruct(endSentinel(), that, that.rootNode());
 			setRoot(root);
 			size_ = that.size_;
 			blackHeight_ = that.blackHeight_;
@@ -41,9 +41,6 @@ namespace Pastel
 	RedBlackTree<Settings, Customization>::~RedBlackTree()
 	{
 		clear();
-
-		delete sentinel_;
-		sentinel_ = 0;
 	}
 
 	template <typename Settings, template <typename> class Customization>
@@ -52,8 +49,9 @@ namespace Pastel
 	{
 		using std::swap;
 		Customization::swap(that);
-		swap(minimum_, that.minimum_);
-		swap(sentinel_, that.sentinel_);
+		swap(root_, that.root_);
+		endSentinel_.swap(that.endSentinel_);
+		childSentinel_.swap(that.childSentinel_);
 		swap(size_, that.size_);
 		swap(blackHeight_, that.blackHeight_);
 	}
@@ -64,14 +62,19 @@ namespace Pastel
 		// This function is called both in construction
 		// and in clear().
 
-		sentinel_->parent() = (Node*)sentinel_;
-		sentinel_->left() = (Node*)sentinel_;
-		sentinel_->right() = (Node*)sentinel_;
-		sentinel_->setRed(false);
+		endSentinel_->parent() = endSentinel();
+		endSentinel_->left() = endSentinel();
+		endSentinel_->right() = endSentinel();
+		endSentinel_->setRed(false);
 
-		setMinimum((Node*)sentinel_);
-		setMaximum((Node*)sentinel_);
-		setRoot((Node*)sentinel_);
+		childSentinel_->parent() = childSentinel();
+		childSentinel_->left() = childSentinel();
+		childSentinel_->right() = childSentinel();
+		childSentinel_->setRed(false);
+
+		setMinimum(endSentinel());
+		setMaximum(endSentinel());
+		setRoot(endSentinel());
 
 		size_ = 0;
 		blackHeight_ = 0;

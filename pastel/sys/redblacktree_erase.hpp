@@ -20,16 +20,13 @@ namespace Pastel
 	void RedBlackTree<Settings, Customization>::clear(
 		Node* node)
 	{
-		if (node == sentinel_)
+		if (node->isSentinel())
 		{
 			return;
 		}
 
 		clear(node->left());
-		node->left() = (Node*)sentinel_;
-
 		clear(node->right());
-		node->right() = (Node*)sentinel_;
 
 		deallocateNode(node);
 		--size_;
@@ -108,9 +105,8 @@ namespace Pastel
 		if (node == maximum())
 		{
 			// The detached node is the global maximum.
-			Iterator prev(node);
-			--prev;
-			setMaximum(prev.base());
+			// Set the maximum to the next greater node.
+			setMaximum(std::prev(Iterator(node)).base());
 		}
 
 		const bool twoChildren =
@@ -122,8 +118,17 @@ namespace Pastel
 			moved->right()->isSentinel());
 
 		Node* parent = moved->parent();
+		/*
+		The 'moved' has at most one child.
+		If the right child exists, we pick that.
+		If the left child exists, we pick that.
+		If neither exists, but one of the children
+		is the end-sentinel, we pick that.
+		*/
 		Node* child = moved->child(
-			!moved->right()->isSentinel());
+			!moved->right()->isSentinel() ||
+			(moved->left()->isSentinel() &&
+			moved->right() == endSentinel()));
 		const integer right =
 			(moved == parent->right());
 
@@ -132,6 +137,11 @@ namespace Pastel
 
 		// Detach the 'moved' node from the tree.
 		link(parent, child, right);
+
+		// Make sure the minimum and maximum nodes
+		// refer back to the end-sentinel.
+		minimum()->left() = endSentinel();
+		maximum()->right() = endSentinel();
 
 		//    |            | 
 		//    p            p
@@ -246,7 +256,7 @@ namespace Pastel
 		// black-height violation.
 		rebalanceAfterDetach(newParent, right);
 
-		// Return the successor.
+		// Return the next element.
 		return successor;
 	}
 
@@ -453,10 +463,8 @@ namespace Pastel
 			rotate(parent, right);
 			b->setBlack();
 
-			update(
-				Iterator(parent));
-			update(
-				Iterator(sibling));
+			update(parent);
+			update(sibling);
 
 			parent = sibling;
 			break;

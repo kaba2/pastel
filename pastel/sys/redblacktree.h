@@ -191,7 +191,7 @@ namespace Pastel
 
 		//! Inserts an element into the tree.
 		/*!
-		Time complexity: O(log(size())) * updatePropagationData() + onInsert()
+		Time complexity: O(log(size())) * updatePropagation() + onInsert()
 		Exception safety: strong + onInsert()
 
 		returns:
@@ -482,7 +482,7 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS(begin, minimum PASTEL_CALL_BRACKETS);
 
 		//! Returns the iterator to the one-past-greatest element.
-		PASTEL_ITERATOR_FUNCTIONS(end, (Node*)sentinel_);
+		PASTEL_ITERATOR_FUNCTIONS(end, endSentinel());
 
 		//! Returns an iterator range.
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
@@ -491,7 +491,7 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyBegin, minimum PASTEL_CALL_BRACKETS);
 
 		//! Returns the iterator to the one-past-greatest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, (Node*)sentinel_);
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, endSentinel());
 
 		//! Returns an iterator range.
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
@@ -500,7 +500,7 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataBegin, minimum PASTEL_CALL_BRACKETS);
 
 		//! Returns the iterator to the one-past-greatest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataEnd, (Node*)sentinel_);
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataEnd, endSentinel());
 
 		//! Returns an iterator range.
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Data_, dataRange, dataBegin, dataEnd);
@@ -515,8 +515,11 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS(root, rootNode PASTEL_CALL_BRACKETS);
 
 	private:
-		PASTEL_FWD(Sentinel);
 		PASTEL_FWD(Node);
+		PASTEL_FWD(EndSentinel);
+		PASTEL_FWD(EndSentinelPtr);
+		PASTEL_FWD(ChildSentinel);
+		PASTEL_FWD(ChildSentinelPtr);
 
 		enum EqualRange
 		{
@@ -705,7 +708,7 @@ namespace Pastel
 		*/
 		void setRoot(Node* node)
 		{
-			sentinel_->right() = node;
+			root_ = node;
 		}
 
 		//! Returns the root node.
@@ -715,7 +718,7 @@ namespace Pastel
 		*/
 		Node* rootNode() const
 		{
-			return sentinel_->right();
+			return root_;
 		}
 
 		//! Sets the minimum node.
@@ -725,7 +728,7 @@ namespace Pastel
 		*/
 		void setMinimum(Node* node)
 		{
-			minimum_ = node;
+			endSentinel_->right() = node;
 		}
 
 		//! Returns the minimum node.
@@ -735,20 +738,17 @@ namespace Pastel
 		*/
 		Node* minimum() const
 		{
-			return minimum_;
+			return endSentinel_->right();
 		}
 
 		//! Sets the maximum node.
 		/*!
-		Preconditions:
-		node->isLocalMaximum()
-
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
 		void setMaximum(Node* node)
 		{
-			sentinel_->parent() = node;
+			endSentinel_->parent() = node;
 		}
 
 		//! Returns the maximum node.
@@ -758,29 +758,52 @@ namespace Pastel
 		*/
 		Node* maximum() const
 		{
-			return sentinel_->parent();
+			return endSentinel_->parent();
 		}
 
-		//! The minimum node of the tree.
-		Node* minimum_;
-
-		//! The sentinel-node of the tree.
+		//! Returns the end-sentinel node.
 		/*!
-		The children of leaf nodes and the parent of the
-		root node are set to the sentinel node. 
-		This simplifies the implementation by guaranteeing 
-		that for any node the children and
-		the parent exists. It also works as the
-		one-past-last node (end() iterator).
-		To make it possible to decrement an iterator
-		from end(), the parent of the sentinel node
-		is the maximum element, and the left child
-		is the sentinel node itself (a unique property
-		which can be used to identify it).
-		The right child of the sentinel node is 
-		the root node.
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
-		Sentinel* sentinel_;
+		Node* endSentinel() const
+		{
+			return (Node*)endSentinel_.get();
+		}
+
+		//! Returns the child-sentinel node.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Node* childSentinel() const
+		{
+			return (Node*)childSentinel_.get();
+		}
+
+		//! The root node.
+		Node* root_;
+
+		//! The end-sentinel node.
+		/*!
+		The parent of the root node and the right child
+		of the maximum node are denoted by the end-sentinel.
+		The parent of the end-sentinel is the maximum 
+		element, and the left child is the end-sentinel
+		itself. The right child of the end-sentinel node 
+		is the minimum node. The end-sentinel then works as 
+		the one-past-last node (end() iterator). 
+		*/
+		EndSentinelPtr endSentinel_;
+
+		//! The child-sentinel node.
+		/*!
+		The child-sentinel is used to denote a missing child node.
+		The only exception is that the right child of the maximum
+		node is denoted by the end-sentinel. The parent, the left
+		child, and the right child are the child-sentinel itself.
+		*/
+		ChildSentinelPtr childSentinel_;
 
 		//! The number of stored elements in the tree.
 		integer size_;

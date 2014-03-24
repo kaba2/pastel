@@ -58,7 +58,7 @@ namespace Pastel
 		RedBlackTree<Settings, Customization>::rotate(
 		Node* node, bool rotateRight)
 	{
-		ASSERT(node != sentinel_);
+		ASSERT(!node->isSentinel());
 
 		//     |            | 
 		//     n            l
