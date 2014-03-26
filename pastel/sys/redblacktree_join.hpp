@@ -11,7 +11,8 @@ namespace Pastel
 	-> RedBlackTree&
 	{
 		ENSURE(sharesBottom(that));
-		if (that.empty())
+
+		if (this == &that || that.empty())
 		{
 			// Nothing to do.
 			return *this;
@@ -23,6 +24,21 @@ namespace Pastel
 			return *this;
 		}
 
+		if (Settings::MultipleKeys)
+		{
+			bool disjointOpenIntervals = 
+				!Compare()(that.begin().key(), last().key()) ||
+				!Compare()(begin().key(), that.last().key());
+			ENSURE(disjointOpenIntervals);
+		}
+		else
+		{
+			bool disjointClosedIntervals =
+				Compare()(last().key(), that.begin().key()) ||
+				Compare()(that.last().key(), begin().key());
+			ENSURE(disjointClosedIntervals);
+		}
+
 		RedBlackTree& shorter = 
 			blackHeight() < that.blackHeight() ?
 			*this : that;
@@ -31,9 +47,9 @@ namespace Pastel
 			blackHeight() < that.blackHeight() ?
 			that : *this;
 
-		bool shorterIsLarger = Compare()(
-				taller.last().key(),
-				shorter.begin().key());
+		bool shorterIsLarger = !Compare()(
+			shorter.begin().key(),
+			taller.last().key());
 
 		// Detach the maximum/minimum key 
 		// of the taller tree.
@@ -55,6 +71,8 @@ namespace Pastel
 			node = node->child(shorterIsLarger);
 		}
 
+		bool nodeWasRoot = (node == taller.rootNode());
+
 		// The found node is necessarily a 
 		// black non-sentinel node.
 		ASSERT(!node->isSentinel());
@@ -73,6 +91,8 @@ namespace Pastel
 		// Attach the shorter tree as the right/left
 		// subtree of the 'middle' node.
 		link(middle, shorter.rootNode(), shorterIsLarger);
+		shorter.minNode()->left() = taller.bottomNode();
+		shorter.maxNode()->right() = taller.bottomNode();
 
 		// Update the minimum and maximum of the taller tree.
 		if (shorterIsLarger)
@@ -87,16 +107,20 @@ namespace Pastel
 		}
 
 		// Update the size of the taller tree.
-		taller.size_ += shorter.size();
+		// The + 1 is because of the 'middle' node.
+		taller.size_ += shorter.size() + 1;
 
 		// Release ownership from the shorter tree.
 		shorter.forget();
+
+		// Move the join result into this tree.
+		swapElements(taller);
 
 		// The only possible violations at this 
 		// point is that the red 'middle' causes
 		// a red-red violation, or a red root.
 
-		if (node == taller.rootNode())
+		if (nodeWasRoot)
 		{
 			//   |R 
 			//   m
@@ -109,6 +133,7 @@ namespace Pastel
 			// Changing the new root node black
 			// satisfies all red-black invariants.
 			middle->setBlack();
+			++blackHeight_;
 
 			updateToRoot(middle);
 
@@ -122,8 +147,8 @@ namespace Pastel
 		{
 			//     |B
 			//     p
-			//   R/ 
-			//   m
+			//   R/ \
+			//   m   3
 			// B/ \B
 			// 1   2
 
@@ -141,13 +166,13 @@ namespace Pastel
 
 		//     |R
 		//     p
-		//   R/ 
-		//   m
+		//   R/ \
+		//   m   3
 		// B/ \B
 		// 1   2
 
 		// We solve the red-red violation by
-		// changing parent black.
+		// changing the parent black.
 		parent->setBlack();
 
 		update(middle);
