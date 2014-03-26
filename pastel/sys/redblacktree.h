@@ -583,8 +583,11 @@ namespace Pastel
 		sharesBottom(that)
 		empty() || 
 		that.empty() ||
-		last().key() < that.begin().key() ||
-		that.last().key() < begin().key()
+		last().key() <= that.begin().key() ||
+		that.last().key() <= begin().key()
+
+		If multiple keys are not allowed, then the 
+		comparisons above are required to hold strictly (<).
 
 		Time complexity: O(log(min(size(), that.size()) + 2))
 		Exception safety: nothrow

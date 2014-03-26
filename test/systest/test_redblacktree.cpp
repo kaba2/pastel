@@ -143,8 +143,10 @@ namespace
 
 		void testMultiSet()
 		{
+			using Tree = MultiSet;
+
 			{
-				MultiSet tree;
+				Tree tree;
 
 				auto test = [&](integer that)
 				{
@@ -166,7 +168,7 @@ namespace
 				TEST_ENSURE_OP(tree.size(), == , 3);
 			}
 			{
-				MultiSet tree;
+				Tree tree;
 
 				auto test = [&](integer that)
 				{
@@ -193,6 +195,27 @@ namespace
 
 				test(5);
 				TEST_ENSURE_OP(tree.size(), == , 6);
+			}
+			{
+				Tree aTree = { 1, 1, 2, 3, 4, 5, 5, 5 };
+				TEST_ENSURE(testInvariants(aTree));
+				TEST_ENSURE_OP(aTree.size(), == , 8);
+
+				Tree bTree;
+				bTree.useBottomFrom(aTree);
+				bTree = { 5, 5, 6, 7, 7, 8 };
+				TEST_ENSURE(testInvariants(bTree));
+				TEST_ENSURE_OP(bTree.size(), == , 6);
+
+				aTree.join(bTree);
+				TEST_ENSURE(testInvariants(aTree));
+				TEST_ENSURE(testInvariants(bTree));
+				TEST_ENSURE_OP(aTree.size(), == , 14);
+				TEST_ENSURE(bTree.empty());
+
+				integer correctSet[] =
+					{ 1, 1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 7, 7, 8 };
+				TEST_ENSURE(boost::equal(aTree.ckeyRange(), correctSet));
 			}
 		}
 
@@ -247,7 +270,6 @@ namespace
 
 				Tree copy{ 11, 12, 13, 14, 15, 16, 17 };
 				copy = tree;
-				ENSURE(testInvariants(copy));
 				TEST_ENSURE(testInvariants(copy));
 				TEST_ENSURE(!copy.hasSeparateSentinels());
 				TEST_ENSURE(!copy.sharesBottom());
@@ -269,8 +291,6 @@ namespace
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
 
 				Tree moved(std::move(tree));
-				ENSURE(testInvariants(moved));
-				ENSURE(testInvariants(tree));
 				TEST_ENSURE(testInvariants(moved));
 				TEST_ENSURE(moved.hasSeparateSentinels());
 				TEST_ENSURE(moved.sharesBottom());
@@ -837,25 +857,59 @@ namespace
 		template <typename Tree>
 		void testJoin()
 		{
-			Tree aTree = {1, 2, 3, 4, 5};
-			TEST_ENSURE(testInvariants(aTree));
-			
-			Tree bTree;
-			TEST_ENSURE(testInvariants(bTree));
-	
 			{
+				Tree aTree = { 1, 2, 3, 4, 5 };
+				TEST_ENSURE(testInvariants(aTree));
+
+				Tree bTree;
 				bTree.useBottomFrom(aTree);
 				TEST_ENSURE(testInvariants(bTree));
 				TEST_ENSURE(bTree.sharesBottom(aTree));
-			}
 
-			{
-				bTree = {6, 7, 8};
+				aTree.join(bTree);
+				TEST_ENSURE(testInvariants(aTree));
 				TEST_ENSURE(testInvariants(bTree));
+				TEST_ENSURE(bTree.empty());
+
+				integer correctSet[] =
+					{ 1, 2, 3, 4, 5 };
+				TEST_ENSURE(boost::equal(aTree.ckeyRange(), correctSet));
+
+				bTree.join(aTree);
+				TEST_ENSURE(testInvariants(aTree));
+				TEST_ENSURE(testInvariants(bTree));
+				TEST_ENSURE(aTree.empty());
+				TEST_ENSURE(boost::equal(bTree.ckeyRange(), correctSet));
 			}
 
-			/*
 			{
+				Tree aTree = { 1, 2, 3, 4, 5 };
+				TEST_ENSURE(testInvariants(aTree));
+
+				Tree bTree;
+				bTree.useBottomFrom(aTree);
+				bTree = { 6, 7, 8 };
+				TEST_ENSURE(testInvariants(bTree));
+
+				bTree.join(aTree);
+				TEST_ENSURE(testInvariants(aTree));
+				TEST_ENSURE(testInvariants(bTree));
+				TEST_ENSURE(aTree.empty());
+
+				integer correctSet[] =
+					{ 1, 2, 3, 4, 5, 6, 7, 8 };
+				TEST_ENSURE(boost::equal(bTree.ckeyRange(), correctSet));
+			}
+
+			{
+				Tree aTree = { 1, 2, 3, 4, 5 };
+				TEST_ENSURE(testInvariants(aTree));
+
+				Tree bTree;
+				bTree.useBottomFrom(aTree);
+				bTree = { 6, 7, 8 };
+				TEST_ENSURE(testInvariants(bTree));
+
 				aTree.join(bTree);
 				TEST_ENSURE(testInvariants(aTree));
 				TEST_ENSURE(testInvariants(bTree));
@@ -863,9 +917,8 @@ namespace
 
 				integer correctSet[] = 
 					{1, 2, 3, 4, 5, 6, 7, 8};
-				TEST_ENSURE(boost::equal(aTree, correctSet));
+				TEST_ENSURE(boost::equal(aTree.ckeyRange(), correctSet));
 			}
-			*/
 		}
 	};
 
