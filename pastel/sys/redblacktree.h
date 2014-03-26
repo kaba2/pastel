@@ -67,25 +67,43 @@ namespace Pastel
 		/*!
 		Time complexity: O(1)
 		Exception safety: strong
+
+		The tree is given a single sentinel node.
+		The sentinel's propagation data, if exists, 
+		is default-constructed.
 		*/
-		RedBlackTree();
+		RedBlackTree() = default;
 		
 		//! Copy-constructs from another tree.
 		/*!
 		Time complexity: O(that.size())
 		Exception safety: strong
+
+		The tree is given separate sentinel nodes.
+		The bottom node is shared with 'that'.
+		The end node's propagation data, if exists, 
+		is copy-constructed from 'that'.
 		*/
-		RedBlackTree(const RedBlackTree& that);
+		RedBlackTree(const RedBlackTree& that)
+		: RedBlackTree(that, that.bottom_)
+		{
+		}
 
 		//! Move-constructs from another tree.
 		/*!
 		Time complexity: O(1)
-		Exception safety: nothrow
+		Exception safety: strong
+
+		The tree is given separate sentinel nodes.
+		The bottom node is shared with 'that'.
+		The end node's propagation data, if exists,
+		is copy-constructed from 'that'.
 		*/
 		RedBlackTree(RedBlackTree&& that)
-			: RedBlackTree()
+			: bottom_(that.bottom_)
+			, end_(new End(bottomNode()->propagation()))
 		{
-			swap(that);
+			*this = std::move(that);
 		}
 
 		//! Constructs from a list of keys.
@@ -93,43 +111,103 @@ namespace Pastel
 		Time complexity: O(dataSet.size())
 		Exception safety: strong
 
-		The user-data will be default-initialized.
+		The tree is given a single sentinel node.
+		The user-data is default-initialized.
+		The sentinel's propagation, if exists, 
+		is default-constructed.
 		*/
-		template <typename That_Key>
-		RedBlackTree(std::initializer_list<That_Key> dataSet)
-		: RedBlackTree()
+		template <typename Key_>
+		RedBlackTree(std::initializer_list<Key_> dataSet)
 		{
-			for (auto&& key : dataSet)
-			{
-				insert(key);
-			}
+			*this = dataSet;
 		}
 
 		//! Constructs from a list of key-value pairs.
 		/*!
 		Time complexity: O(dataSet.size())
 		Exception safety: strong
+
+		The tree is given a single sentinel node.
+		The sentinel's propagation, if exists, 
+		is default-constructed.
 		*/
-		RedBlackTree(std::initializer_list<std::pair<Key, Data_Class>> dataSet)
-		: RedBlackTree()
+		template <typename Key_, typename Data_>
+		RedBlackTree(std::initializer_list<std::pair<Key_, Data_>> dataSet)
 		{
-			for (auto&& keyValue : dataSet)
-			{
-				insert(keyValue.first, keyValue.second);
-			}
+			*this = dataSet;
 		}
 
-		//! Assigns from another tree.
+		//! Copy-assigns from another tree.
 		/*!
-		Time complexity: move/copy-construction
+		Time complexity: O(size() + that.size())
 		Exception safety: strong
 
-		Note that cend() is not preserved.
+		Preserves sentinels.
 		*/
-		RedBlackTree& operator=(RedBlackTree that)
+		RedBlackTree& operator=(const RedBlackTree& that)
 		{
-			swap(that);
+			RedBlackTree copy(that, bottom_);
+			swapElements(copy);
 			return *this;
+		}
+
+		//! Move-assigns from another tree.
+		/*!
+		Time complexity: O(size())
+		Exception safety: nothrow
+
+		Preserves the end node, shares 
+		the bottom node with 'that'.
+		*/
+		RedBlackTree& operator=(RedBlackTree&& that)
+		{
+			clear();
+			useBottomFrom(that);
+			swapElements(that);
+			return *this;
+		}
+
+		//! Assigns a list of keys.
+		/*!
+		Time complexity: O(size() + dataSet.size())
+		Exception safety: strong
+
+		Preserves sentinels.
+		The user-data will be default-initialized.
+		*/
+		template <typename Key_>
+		RedBlackTree& operator=(std::initializer_list<Key_> dataSet)
+		{
+			auto construct = [&](RedBlackTree& copy)
+			{
+				for (auto&& key : dataSet)
+				{
+					copy.insert(key);
+				}
+			};
+
+			return constructAndSwap(construct);
+		}
+
+		//! Assigns a list of key-value pairs.
+		/*!
+		Time complexity: O(size() + dataSet.size())
+		Exception safety: strong
+
+		Preserves sentinels.
+		*/
+		template <typename Key_, typename Data_>
+		RedBlackTree& operator=(std::initializer_list<std::pair<Key_, Data_>> dataSet)
+		{
+			auto construct = [&](RedBlackTree& copy)
+			{
+				for (auto&& keyValue : dataSet)
+				{
+					copy.insert(keyValue.first, keyValue.second);
+				}
+			};
+
+			return constructAndSwap(construct);
 		}
 
 		//! Destructs the tree.
@@ -137,7 +215,14 @@ namespace Pastel
 		Time complexity: O(size())
 		Exception safety: nothrow
 		*/
-		~RedBlackTree();
+		~RedBlackTree()
+		{
+			clear();
+			if (hasSeparateSentinels())
+			{
+				deallocateSentinel(end_);
+			}
+		}
 
 		//! Swaps two trees.
 		/*!
@@ -145,6 +230,19 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		void swap(RedBlackTree& that);
+
+		//! Swaps elements with another tree.
+		/*!
+		Preconditions:
+		sharesBottom(that)
+
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		Preserves the sentinels in both trees, 
+		but swaps everything else.
+		*/
+		void swapElements(RedBlackTree& that);
 
 		//! Removes all elements from the tree.
 		/*!
@@ -313,7 +411,8 @@ namespace Pastel
 		The upper bound is the smallest upper-bound located above the
 		top-most element.
 		*/
-		FindEqual_Return findEqualAndUpper(const Key& key) const;
+		FindEqual_Return findEqualAndUpper(
+			const Key& key) const;
 
 		//! Finds the node under which to insert the key.
 		/*!
@@ -478,48 +577,180 @@ namespace Pastel
 				cast(that.end()));			
 		}
 
-		//! Returns the iterator to the smallest element.
-		PASTEL_ITERATOR_FUNCTIONS(begin, minimum PASTEL_CALL_BRACKETS);
+		//! Appends the elements of another tree.
+		/*!
+		Preconditions:
+		sharesBottom(that)
+		empty() || 
+		that.empty() ||
+		last().key() < that.begin().key() ||
+		that.last().key() < begin().key()
 
-		//! Returns the iterator to the one-past-greatest element.
-		PASTEL_ITERATOR_FUNCTIONS(end, endSentinel());
+		Time complexity: O(log(min(size(), that.size()) + 2))
+		Exception safety: nothrow
+
+		The end nodes will be preserved.
+		*/
+		RedBlackTree& join(RedBlackTree& that);
+
+		//! Splits the sentinel node.
+		/*!
+		Preconditions:
+		empty() || hasSeparateSentinels()
+
+		Time complexity: O(1)
+		Exception safety: strong
+
+		The single sentinel node is split into an
+		end node and a bottom node.
+		This allows the bottom node to be
+		shared, which in turned allows trees to be
+		joined.
+		*/
+		void splitSentinels()
+		{
+			if (hasSeparateSentinels())
+			{
+				// Nothing to do.
+				return;
+			}
+
+			ENSURE(empty());
+
+			end_ = allocateSentinel();
+			rootNode() = endNode();
+		}
+
+		//! Merges the sentinel nodes.
+		/*!
+		Preconditions:
+		!sharesBottom()
+
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		The end node is removed and replaced
+		with the bottom node.
+		*/
+		void mergeSentinels()
+		{
+			if (!hasSeparateSentinels())
+			{
+				// Nothing to do.
+				return;
+			}
+
+			ENSURE(!sharesBottom());
+
+			if (!empty())
+			{
+				bottomNode()->parent() = endNode()->parent();
+				bottomNode()->right() = endNode()->right();
+			}
+			else
+			{
+				bottomNode()->isolateSelf();
+				rootNode() = bottomNode();
+			}
+
+			deallocateSentinel(endNode());
+			end_ = bottom_.get();
+		}
+
+		//! Returns whether the tree has separate sentinels.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		By default, the tree has only one sentinel node,
+		which works as both the bottom node and the end node.
+		*/
+		bool hasSeparateSentinels() const
+		{
+			return endNode() != bottomNode();
+		}
+
+		//! Shares the bottom node with another tree.
+		/*!
+		Preconditions:
+		empty()
+
+		Time complexity: O(1)
+		
+		Exception safety: 
+		nothrow, if hasSeparateSentinels()
+		strong, otherwise
+		*/
+		void useBottomFrom(const RedBlackTree& that) 
+		{
+			ENSURE(empty());
+
+			splitSentinels();
+			bottom_ = that.bottom_;
+		}
+
+		//! Returns whether the tree shares its bottom node.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		bool sharesBottom() const
+		{
+			return bottom_.use_count() > 1;
+		}
+
+		//! Returns whether the trees share the same bottom node.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		bool sharesBottom(const RedBlackTree& that) const
+		{
+			return bottom_ == that.bottom_;
+		}
+
+		//! Returns an iterator to the smallest element.
+		PASTEL_ITERATOR_FUNCTIONS(begin, minNode());
+
+		//! Returns an iterator to the end node.
+		PASTEL_ITERATOR_FUNCTIONS(end, endNode());
+
+		//! Returns the iterator to the greatest element.
+		PASTEL_ITERATOR_FUNCTIONS(last, maxNode());
+
+		//! Returns an iterator to the root node.
+		PASTEL_ITERATOR_FUNCTIONS(root, rootNode());
+
+		//! Returns an iterator to the bottom node.
+		PASTEL_ITERATOR_FUNCTIONS(bottom, bottomNode());
 
 		//! Returns an iterator range.
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
-		//! Returns the iterator to the smallest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyBegin, minimum PASTEL_CALL_BRACKETS);
+		//! Returns a key-iterator to the smallest element.
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyBegin, minNode());
 
-		//! Returns the iterator to the one-past-greatest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, endSentinel());
+		//! Returns a key-iterator to the end node.
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, endNode());
 
-		//! Returns an iterator range.
+		//! Returns a key-iterator range.
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
 
-		//! Returns the iterator to the smallest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataBegin, minimum PASTEL_CALL_BRACKETS);
+		//! Returns a data-iterator to the smallest element.
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataBegin, minNode());
 
-		//! Returns the iterator to the one-past-greatest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataEnd, endSentinel());
+		//! Returns a data-iterator to the end node.
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataEnd, endNode());
 
-		//! Returns an iterator range.
+		//! Returns a data-iterator range.
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Data_, dataRange, dataBegin, dataEnd);
-
-		//! Returns the iterator to the greatest element.
-		PASTEL_ITERATOR_FUNCTIONS(last, maximum PASTEL_CALL_BRACKETS);
-
-		//! Returns the iterator to the root element.
-		/*!
-		See the documentation for the const version.
-		*/
-		PASTEL_ITERATOR_FUNCTIONS(root, rootNode PASTEL_CALL_BRACKETS);
 
 	private:
 		PASTEL_FWD(Node);
-		PASTEL_FWD(EndSentinel);
-		PASTEL_FWD(EndSentinelPtr);
-		PASTEL_FWD(ChildSentinel);
-		PASTEL_FWD(ChildSentinelPtr);
+		PASTEL_FWD(End);
+		PASTEL_FWD(EndPtr);
+		PASTEL_FWD(Bottom);
+		PASTEL_FWD(BottomPtr);
 
 		enum EqualRange
 		{
@@ -562,12 +793,9 @@ namespace Pastel
 			return As_Insert_Return<Insert_Return, Settings::MultipleKeys>()(that, success);
 		}
 
-		//! Initializes some member variables.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		void initialize();
+		RedBlackTree(
+			const RedBlackTree& that,
+			const BottomPtr& bottom);
 
 		//! Allocates a data-node.
 		/*!
@@ -588,6 +816,30 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		void deallocateNode(Node* node);
+
+		//! Allocates a sentinel node.
+		/*!
+		Time complexity: O(1)
+		Exception safety: strong
+		*/
+		EndPtr allocateSentinel()
+		{
+			return new End();
+		}
+
+		//! Deallocates a sentinel node.
+		/*!
+		Preconditions:
+		node->isSentinel()
+
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		void deallocateSentinel(EndPtr node)
+		{
+			ASSERT(node->isSentinel());
+			delete node;
+		}
 
 		//! Attaches a new node into the tree and rebalances.
 		/*!
@@ -631,6 +883,11 @@ namespace Pastel
 
 		//! Rebalances the red-black tree after detaching a node.
 		/*!
+		Preconditions:
+		Propagation data in both children of 'parent' are up-to-date.
+		The parent->child(right) has a black-height one lower than
+		the black-height of parent->child(!right).
+
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
@@ -669,6 +926,26 @@ namespace Pastel
 			const RedBlackTree& that,
 			Node* thatNode);
 
+		//! Assigns a constructed tree.
+		/*!
+		Time complexity: construct()
+		Exception safety: strong
+
+		This function assigns a tree constructed with
+		the passed-in construct() function. The purpose
+		of this function is to guarantee that the
+		sentinel nodes are preserved in the process.
+		*/
+		template <typename Construct>
+		RedBlackTree& constructAndSwap(Construct construct)
+		{
+			RedBlackTree copy;
+			copy.useBottomFrom(*this);
+			construct(copy);
+			swapElements(copy);
+			return *this;
+		}
+
 		//! Updates propagation data.
 		void update(const Iterator& element)
 		{
@@ -701,14 +978,20 @@ namespace Pastel
 		*/
 		Node* rotate(Node* node, bool rotateRight);
 
-		//! Sets the root node.
+		//! Release the ownership of the nodes.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		void setRoot(Node* node)
+		void forget()
 		{
-			root_ = node;
+			minNode() = endNode();
+			maxNode() = endNode();
+			rootNode() = endNode();
+
+			end_->isolateSelf();
+			size_ = 0;
+			blackHeight_ = 0;
 		}
 
 		//! Returns the root node.
@@ -716,19 +999,9 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Node* rootNode() const
+		Node*& rootNode() const
 		{
-			return root_;
-		}
-
-		//! Sets the minimum node.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		void setMinimum(Node* node)
-		{
-			endSentinel_->right() = node;
+			return (Node*&)root_;
 		}
 
 		//! Returns the minimum node.
@@ -736,19 +1009,9 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Node* minimum() const
+		Node*& minNode() const
 		{
-			return endSentinel_->right();
-		}
-
-		//! Sets the maximum node.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		void setMaximum(Node* node)
-		{
-			endSentinel_->parent() = node;
+			return (Node*&)end_->right();
 		}
 
 		//! Returns the maximum node.
@@ -756,57 +1019,61 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Node* maximum() const
+		Node*& maxNode() const
 		{
-			return endSentinel_->parent();
+			return (Node*&)end_->parent();
 		}
 
-		//! Returns the end-sentinel node.
+		//! Returns the end node.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Node* endSentinel() const
+		Node* endNode() const
 		{
-			return (Node*)endSentinel_.get();
+			return (Node*)end_;
 		}
 
-		//! Returns the child-sentinel node.
+		//! Returns the bottom node.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Node* childSentinel() const
+		Node* bottomNode() const
 		{
-			return (Node*)childSentinel_.get();
+			return (Node*)bottom_.get();
 		}
 
-		//! The root node.
-		Node* root_;
+		//! The bottom node.
+		/*!
+		The bottom node is used to denote a missing child node.
+		The only exception is that the right child of the maximum
+		node is denoted by the end node. The parent, the left
+		child, and the right child are the bottom node itself.
+		*/
+		BottomPtr bottom_ = new Bottom();
 
-		//! The end-sentinel node.
+		// FIX: Visual Studio 2013 has a bug which does not allow 
+		// std::make_shared to be used as a member initializer.
+		// BottomPtr bottom_ = std::make_shared<Bottom>();
+
+		//! The end node.
 		/*!
 		The parent of the root node and the right child
-		of the maximum node are denoted by the end-sentinel.
-		The parent of the end-sentinel is the maximum 
-		element, and the left child is the end-sentinel
-		itself. The right child of the end-sentinel node 
-		is the minimum node. The end-sentinel then works as 
+		of the maximum node are denoted by the end node.
+		The parent of the end node is the maximum 
+		element, and the left child is the end node
+		itself. The right child of the end node 
+		is the minimum node. The end node then works as 
 		the one-past-last node (end() iterator). 
 		*/
-		EndSentinelPtr endSentinel_;
+		EndPtr end_ = bottom_.get();
 
-		//! The child-sentinel node.
-		/*!
-		The child-sentinel is used to denote a missing child node.
-		The only exception is that the right child of the maximum
-		node is denoted by the end-sentinel. The parent, the left
-		child, and the right child are the child-sentinel itself.
-		*/
-		ChildSentinelPtr childSentinel_;
+		//! The root node.
+		Node* root_ = (Node*)end_;
 
 		//! The number of stored elements in the tree.
-		integer size_;
+		integer size_ = 0;
 
 		//! The black-height of the tree.
 		/*!
@@ -820,7 +1087,7 @@ namespace Pastel
 		time. Interestingly, the black-height of the tree 
 		can be traced incrementally with almost no overhead.
 		*/
-		integer blackHeight_;
+		integer blackHeight_ = 0;
 	};
 
 }
@@ -921,7 +1188,8 @@ namespace Pastel
 #include "pastel/sys/redblacktree_erase.hpp"
 #include "pastel/sys/redblacktree_insert.hpp"
 #include "pastel/sys/redblacktree_invariants.hpp"
-#include "pastel/sys/redblacktree_private.hpp"
+#include "pastel/sys/redblacktree_join.hpp"
 #include "pastel/sys/redblacktree_search.hpp"
+#include "pastel/sys/redblacktree_splice.hpp"
 
 #endif

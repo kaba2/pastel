@@ -21,8 +21,50 @@ namespace Pastel
 
 			if (iter.isSentinel())
 			{
+				if (iter != tree.cbottom() &&
+					iter != tree.cend())
+				{
+					// If the node is a sentinel, it must be either
+					// the bottom node or the end node.
+					return false;
+				}
+			
 				blackHeight = 0;
 				return true;
+			}
+
+			if (iter == tree.cbegin() &&
+				iter.left() != tree.cend())
+			{
+				// The minimum node's left child must be
+				// the end node.
+				return false;
+			}
+
+			if (iter != tree.cbegin() && 
+				iter.left().isSentinel() &&
+				iter.left() != tree.cbottom())
+			{
+				// All other nodes must denote a missing
+				// left child by the bottom node.
+				return false;
+			}
+
+			if (iter == tree.clast() &&
+				iter.right() != tree.cend())
+			{
+				// The maximum node's right child must be
+				// the end node.
+				return false;
+			}
+
+			if (iter != tree.clast() && 
+				iter.right().isSentinel() &&
+				iter.right() != tree.cbottom())
+			{
+				// All other nodes must denote a missing
+				// right child by the bottom node.
+				return false;
 			}
 
 			if (!iter.left().isSentinel() &&
@@ -120,23 +162,23 @@ namespace Pastel
 			return false;
 		}
 
-		if (tree.cend().parent().right() != tree.cend())
+		if (tree.clast().right() != tree.cend())
 		{
 			// The maximum node must be connected to
-			// the end-sentinel.
+			// the end node.
 			return false;
 		}
 
-		if (tree.cend().right().left() != tree.cend())
+		if (tree.cbegin().left() != tree.cend())
 		{
 			// The minimum node must be connected to
-			// the end-sentinel.
+			// the end node.
 			return false;
 		}
 
 		if (tree.cend().left() != tree.cend())
 		{
-			// The left child of the end-sentinel must be itself.
+			// The left child of the end node must be itself.
 			return false;
 		}
 

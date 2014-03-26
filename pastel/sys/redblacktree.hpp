@@ -8,76 +8,100 @@ namespace Pastel
 {
 
 	template <typename Settings, template <typename> class Customization>
-	RedBlackTree<Settings, Customization>::RedBlackTree()
-		: root_(0)
-		, endSentinel_(new EndSentinel)
-		, childSentinel_(new ChildSentinel)
-		, size_(0)
-		, blackHeight_(0)
-	{
-		initialize();
-	}
-
-	template <typename Settings, template <typename> class Customization>
 	RedBlackTree<Settings, Customization>::RedBlackTree(
-		const RedBlackTree& that)
-		: RedBlackTree()
+		const RedBlackTree& that,
+		const BottomPtr& bottom)
+		: bottom_(bottom)
+		, end_(new End(bottom->propagation()))
 	{
 		try
 		{
-			Node* root = copyConstruct(endSentinel(), that, that.rootNode());
-			setRoot(root);
+			copyConstruct(endNode(), that, that.rootNode());
 			size_ = that.size_;
 			blackHeight_ = that.blackHeight_;
 		}
 		catch(...)
 		{
-			initialize();
+			forget();
 			throw;
 		}
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	RedBlackTree<Settings, Customization>::~RedBlackTree()
+	auto RedBlackTree<Settings, Customization>::allocateNode(
+		const Key& key, 
+		const Data_Class& data,
+		const Propagation_Class& propagation)
+	-> Node*
 	{
-		clear();
+		Node* node = new Node(key, data, propagation);
+		node->isolate();
+		node->setRed();
+		return node;
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	void RedBlackTree<Settings, Customization>::swap(
-		RedBlackTree& that)
+	void RedBlackTree<Settings, Customization>::deallocateNode(
+		Node* node)
 	{
-		using std::swap;
-		Customization::swap(that);
-		swap(root_, that.root_);
-		endSentinel_.swap(that.endSentinel_);
-		childSentinel_.swap(that.childSentinel_);
-		swap(size_, that.size_);
-		swap(blackHeight_, that.blackHeight_);
+		ASSERT(!node->isSentinel());
+		delete node;
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	void RedBlackTree<Settings, Customization>::initialize()
+	void RedBlackTree<Settings, Customization>::updateToRoot(
+		Node* node)
 	{
-		// This function is called both in construction
-		// and in clear().
+		while(!node->isSentinel())
+		{
+			update(node);
+			node = node->parent();
+		}
+	}
 
-		endSentinel_->parent() = endSentinel();
-		endSentinel_->left() = endSentinel();
-		endSentinel_->right() = endSentinel();
-		endSentinel_->setRed(false);
+	template <typename Settings, template <typename> class Customization>
+	void RedBlackTree<Settings, Customization>::link(
+		Node* parent, Node* child, bool linkRight)
+	{
+		if (!parent->isSentinel())
+		{
+			parent->child(linkRight) = child;
+		}
+		else
+		{
+			rootNode() = child;
+		}
+		if (!child->isSentinel())
+		{
+			child->parent() = parent;
+		}
+	}
 
-		childSentinel_->parent() = childSentinel();
-		childSentinel_->left() = childSentinel();
-		childSentinel_->right() = childSentinel();
-		childSentinel_->setRed(false);
+	template <typename Settings, template <typename> class Customization>
+	auto RedBlackTree<Settings, Customization>::rotate(
+		Node* node, bool rotateRight)
+	-> Node*
+	{
+		ASSERT(!node->isSentinel());
 
-		setMinimum(endSentinel());
-		setMaximum(endSentinel());
-		setRoot(endSentinel());
+		//     |            | 
+		//     n            l
+		//    / \   ==>    / \  
+		//   l                n
+		//  / \              / \
+		//     a            a    
 
-		size_ = 0;
-		blackHeight_ = 0;
+		Node* parent = node->parent();
+		Node* left = node->child(!rotateRight);
+		Node* leftRight = left->child(rotateRight);
+
+		ASSERT(!left->isSentinel());
+
+		link(parent, left, node == parent->right());
+		link(node, leftRight, !rotateRight);
+		link(left, node, rotateRight);
+
+		return left;
 	}
 
 }

@@ -61,13 +61,13 @@ namespace Pastel
 		};
 
 		using Node = RedBlackTree_::Node<Node_Settings>;
-		using EndSentinel = typename std::conditional<
+		using End = typename std::conditional<
 			UseSentinelData,
 			RedBlackTree_::Data_Node<Node_Settings>,
 			RedBlackTree_::Node_Base<Node_Settings>>::type;
-		using EndSentinelPtr = std::unique_ptr<EndSentinel>;
-		using ChildSentinel = EndSentinel;
-		using ChildSentinelPtr = std::shared_ptr<ChildSentinel>;
+		using EndPtr = End*;
+		using Bottom = End;
+		using BottomPtr = std::shared_ptr<Bottom>;
 
 		using Key_Iterator = 
 			RedBlackTree_::Iterator<Node*, Node_Settings, false>;
