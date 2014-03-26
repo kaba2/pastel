@@ -3,69 +3,90 @@ Red-black tree
 
 [[Parent]]: data_structures.txt
 
-A _red-black tree_ is a self-balancing binary search tree. Among other things, it implements a dynamic ordered dictionary, provided the elements can be put in a strict weak order. An _augmented red-black tree_ is a red-black tree which maintains propagation data in its nodes.
+A _red-black tree_ is a self-balancing binary search tree. Among other things, it implements a dynamic ordered dictionary, provided the elements can be put in a strict weak order. Using propagation data it can solve several other interesting problems, such as finding any quantile in logarithmic time, while being a completely dynamic set.
 
-Properties
+Definition
 ----------
 
-Let ''n in NN'' be the number stored elements, and let ''f : NN -> NN'' be the time it takes to run the user-defined propagation data update for a single node (usually ''O(1)''). The red-black tree implementation in Pastel has the following properties:
-
-Property                           | Complexity
----------------------------------- | -------------------------------------
-Insert an element                  | ''O(f(n) log(n))''
-Remove an element                  | ''O(f(n) log(n))''
-Find an element                    | ''O(log(n))''
-Find the predecessor of an element | ''O(log(n))''
-Find the successor of an element   | ''O(log(n))''
-Find the predecessor of a stored element | ''O(1)'' amortized
-Find the successor of a stored element   | ''O(1)'' amortized
-Find minimum element               | ''O(1)''
-Find maximum element               | ''O(1)''
-Space                              | ''O(n)''
-
-Node data
----------
-
-### Keys
-
-The _key_ is node data which is used to arrange the elements in increasing order with respect to the given strict weak order. The key can not be modified after insertion.
-
-### Propagation data
-
-The _propagation data_ is node data which is computed as a function of the subtree rooted at the node. The red-black tree automatically keeps propagation data up to date, given that the user provides the local computation for a single node in the `updatePropagation()` function. This function is the only way to modify the propagation data in any node.
-
-Examples of propagation data include:
-
-* the number of nodes in a subtree,
-* the sum of keys/values in a subtree,
-* the maximum/minimum of keys/values in a subtree, and
-* any associative binary operation of keys/values in a subtree.
-
-The propagation data can be used, for example, to find _any_ quantile of an element set in ''O(log(n))'' time. When the local computation takes ''O(1)'' time, as in all of the examples above, the propagation data can be kept up to date in insertions and removals without affecting the asymptotic performance of the red-black tree. More generally, the local computation time acts multiplicatively on the complexity of the insert() and erase() functions of the red-black tree. For example, if the local computation takes O(log(n)), then the complexity of insert() will be O((log(n))^2).
-
-Definining the propagation data as `void` avoids allocating any memory for it. 
-
-### User data
-
-The _user data_ is node data which can be modified freely. Defining the user data as `void` avoids allocating any memory for it.
- 
-Sentinel nodes
---------------
-
-In addition to the nodes corresponding to the elements, the red-black tree contains two additional nodes, the _end node_ and the _bottom node_. Together they are called _sentinels_. The bottom node represents a missing child, with the exception of the right child of the maximum. The end node represents the missing parent of the root, and the missing right child of the maximum node. This is so that the end node works naturally as the one-past-end iterator. For a single red-black tree the bottom node and the end node coincide, unless the bottom node is explicitly replaced. The end node is always unique to its tree.
-
-Taking the union of (the elements of) two red-black trees requires, for effiency reasons, that they share the same bottom node.
-
-Theory
-------
-
-A _tree_ is a connected graph without cycles. A tree is called _rooted_ if some node, called the _root_, is chosen specifically to measure distances in the tree. The root induces a partial order ''<'' for the nodes by the subset relation for the paths from a node to the root. If for nodes A and B it holds that ''A < B'', then B is called a _descendant_ of A and A is called an _ancestor_ of B. If ''A < B'' and there is no other node C such that ''A < C < B'', then B is called a _child_ of A, and A is called the _parent_ of B. If a node does not have any descendants, it is called a _leaf_ node. The root node is the only node which does not have any ancestors. A tree is called _n-ary_, if every node has at most n children. The _binary tree_ is a synonym for a 2-ary tree.
-
-Let the children of a node in a binary tree be labeled as _left_ and _right_. Suppose for each node ''A'' there is associated a key ''k(A)'', and that the keys are ordered by the strict weak order ''<''. If it holds that ''k("left"(A)) <= k(A) <= k("right"(A))'', for every node ''A'', then the tree is said to be a _binary search tree_. A _red-black tree_ is a binary search tree where 
+A _red-black tree_ is a binary search tree where 
 
 * each node ''A'' has a color ''c(A)'', which is either red or black, 
 * the root is black,
 * the children of a red node are black, and
 * the number of black nodes in a path from the root node to a leaf node is invariant to the choice of the path.
 
-These properties guarantee that the height of the tree is ''O(log(n))'', where ''n'' is the number of elements in the tree.
+These properties guarantee that the height of the tree is ''O(log(n))'', where ''n'' is the number of elements stored in the tree. The _black-height of a node_ is the number of black nodes on a path from the node to a leaf node in its subtree. The _black-height of a tree_ is the black-height of the root of the  tree.
+
+Properties
+----------
+
+Let ''n in NN'' be the number of stored elements, and let ''f : NN -> NN'' be the time it takes to run the user-defined propagation function for a single node (usually ''O(1)''). The red-black tree implementation in Pastel has the following properties:
+
+Property                           | Complexity
+---------------------------------- | -------------------------------------
+Insert an element                  | ''O(f(n) log(n))''
+Remove an element                  | ''O(f(n) log(n))''
+Find an element                    | ''O(log(n))''
+Find the next smaller element      | ''O(log(n))''
+Find the next greater element      | ''O(log(n))''
+Find the next smaller element given a stored element | ''O(1)'' amortized
+Find the next greater element given a stored element | ''O(1)'' amortized
+Find the minimum element           | ''O(1)''
+Find the maximum element           | ''O(1)''
+Find the root node                 | ''O(1)''
+Find the black-height of the tree  | ''O(1)''
+Space                              | ''O(n)''
+
+The next-smaller operation is amortized only over the repetitions of that operation; a sequence of next-smaller and next-greater operations has ''O(log(n))'' amortized complexity. Similarly for the next-greater operation.
+
+Node data
+---------
+
+Each node stores, along with other things related to tree-structure, a key, a propagation, and a user-data, together called _node data_. The types of these objects are defined by the user. 
+
+### Key
+
+A _key_ is used to arrange the elements in increasing order with respect to the given strict weak order. The key can not be modified after insertion.
+
+### Propagation
+
+A _propagation_ is the evaluation of the user-defined propagation function at a given node, with the guarantee that the propagation has already been computed for all the nodes in the left and the right subtree of the node. The propagation function is the only way to modify the propagation in a node. After each operation, the red-black tree guarantees that the propagation data is up-to-date. Whether the sentinel nodes contain a propagation can be controlled by the user. A propagation in a sentinel gets rid of the boundary cases in the propagation function, since then the sentinel propagation works as the base-case. Definining the type of the propagation data as `void` avoids allocating any memory for it. 
+
+### User data
+
+A _user data_ can be modified freely; the tree does not enforce any invariants on it. Defining the type of the user data as `void` avoids allocating any memory for it.
+
+Propagation functions
+---------------------
+
+A _propagation function_ is used to compute the propagation at a node, subject to knowing that the propagation function has already been computed for all the nodes in the left and the right subtree of the node. The time-complexity of the propagation function acts multiplicatively on the complexity of the `insert()` and `erase()` functions of the red-black tree. For example, if the propagation function takes ''O(log(n))'' time, then the time-complexity of `insert()` will be ''O((log(n))^2)''. In most cases, as in the examples below, the propagation function takes only ''O(1)'' time, in which case it does not affect the time complexities at all. 
+
+### Examples
+
+Name                             | Propagation type | Propagation function                                                                            | Sentinel propagation
+---------------------------------|------------------|-------------------------------------------------------------------------------------------------|-------------
+Number of elements in a subtree  | `integer`        |  `node.left().propagation() + 1 + node.right().propagation()`                                   | `0`
+The sum of keys in a subtree     | `Key`            | `node.left().propagation() + node.key() + node.right().propagation()`                           | `0`
+The maximum of keys in a subtree | `Key`            | `std::max(std::max(node.left().propagation(), node.right().propagation()), node.propagation())` | `-infinity<Key>()`
+Black-height of a node           | `integer`        | `std::max(node.left().propagation(), node.right().propagation()) + node.black()`                | `0`
+
+The number of elements in a subtree can be used to find any quantile in ''O(log(n))'' time. The sum of keys in a subtree can be used to draw a random sample from any finite distribution with `n` values in ''O(log(n))'' time. Computing the black-height is useful for testing the implementation of the red-black tree. 
+
+Black-height
+------------
+
+The red-black tree tracks the black-height of the tree, and thus can report it in ''O(1)'' time. This saves time, for example, when joining two red-black trees. 
+
+Sentinel nodes
+--------------
+
+In addition to the elements, the red-black tree contains two additional nodes, the _end node_ and the _bottom node_. Together they are called _sentinels_. The end node represents the missing parent of the root, and the missing right child of the maximum node. This is so that the end node works naturally as the one-past-end iterator. The bottom node represents a missing child, with the exception of the right child of the maximum. For a single red-black tree the bottom node and the end node coincide, unless they are split, explicitly or implicitly, by the user. The concept of a sentinel node is important because it removes boundary cases; the child node and the parent node always exist. This simplifies the algorithms that work with the red-black tree.
+
+While the end node is always unique to its tree, the bottom node can be shared between red-black trees. Sharing a bottom node is required for efficient joining and splitting of red-black trees. The whole concept of a separate bottom node is motivated by this need.
+
+Theory
+------
+
+A _tree_ is a connected graph without cycles. A tree is called _rooted_ if some node, called the _root_, is chosen specifically to measure distances in the tree. The root induces a partial order ''<'' for the nodes by the subset relation for the paths from a node to the root. If for nodes A and B it holds that ''A < B'', then B is called a _descendant_ of A and A is called an _ancestor_ of B. If ''A < B'' and there is no other node C such that ''A < C < B'', then B is called a _child_ of A, and A is called the _parent_ of B. If a node does not have any descendants, it is called a _leaf_ node. The root node is the only node which does not have any ancestors. A tree is called _n-ary_, if every node has at most n children. The _binary tree_ is a synonym for a 2-ary tree.
+
+Let the children of a node in a binary tree be labeled as _left_ and _right_. Suppose for each node ''A'' there is associated a key ''k(A)'', and that the keys are ordered by the strict weak order ''<''. If it holds that ''k("left"(A)) <= k(A) <= k("right"(A))'', for every node ''A'', then the tree is said to be a _binary search tree_. 

@@ -31,7 +31,6 @@ namespace
 		protected:
 			using Fwd = RedBlackTree_Fwd<Settings_>;
 			PASTEL_FWD(Iterator);
-			PASTEL_FWD(Propagation);
 
 			Counting_Customization() {}
 			void swap(Counting_Customization& that) {}
@@ -43,7 +42,7 @@ namespace
 
 			void updatePropagation(
 				const Iterator& iter,
-				Propagation& propagation)
+				integer& propagation)
 			{
 				propagation = 
 					std::max(iter.left().propagation(), iter.right().propagation()) +
