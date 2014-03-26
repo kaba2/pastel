@@ -1,4 +1,4 @@
-// Description: Testing for RedBlackTree
+// Description: Testing for red-black tree
 // DocumentationOf: redblacktree.h
 
 #include "test_pastelsys.h"

@@ -1194,5 +1194,6 @@ namespace Pastel
 #include "pastel/sys/redblacktree_join.hpp"
 #include "pastel/sys/redblacktree_search.hpp"
 #include "pastel/sys/redblacktree_splice.hpp"
+#include "pastel/sys/redblacktree_swap.hpp"
 
 #endif
