@@ -12,7 +12,7 @@ namespace Pastel
 		const RedBlackTree& that,
 		const BottomPtr& bottom)
 		: bottom_(bottom)
-		, end_(new End(bottom->propagation()))
+		, end_(new Sentinel(bottom->propagation()))
 	{
 		try
 		{
