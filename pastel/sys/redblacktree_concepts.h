@@ -1,4 +1,4 @@
-// Description: Concepts for the red-black tree
+// Description: Red-black tree concepts
 
 #ifndef PASTELSYS_REDBLACKTREE_CONCEPTS_H
 #define PASTELSYS_REDBLACKTREE_CONCEPTS_H

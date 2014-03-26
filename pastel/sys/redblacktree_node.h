@@ -1,3 +1,5 @@
+// Description: Red-black tree node
+
 #ifndef PASTELSYS_REDBLACKTREE_NODE_H
 #define PASTELSYS_REDBLACKTREE_NODE_H
 
