@@ -43,8 +43,8 @@ namespace Pastel
 		PASTEL_CONSTEXPR bool MultipleKeys =
 			Settings::MultipleKeys;
 
-		PASTEL_CONSTEXPR bool UseSentinelData =
-			Settings::UseSentinelData;
+		PASTEL_CONSTEXPR bool StoreSentinelPropagation =
+			Settings::StoreSentinelPropagation;
 
 		using Data_Class = Class<Data>;
 		using Propagation_Class = Class<Propagation>;
@@ -58,18 +58,17 @@ namespace Pastel
 			PASTEL_FWD(Key);
 			using Propagation_Class = Propagation_Class;
 			using Data_Class = Data_Class;
-			PASTEL_CONSTEXPR bool UseSentinelData =
-				Settings::UseSentinelData;
+			PASTEL_CONSTEXPR bool StoreSentinelPropagation =
+				Settings::StoreSentinelPropagation;
 		};
 
 		using Node = RedBlackTree_::Node<Node_Settings>;
-		using End = typename std::conditional<
-			UseSentinelData,
+		using Sentinel = typename std::conditional<
+			StoreSentinelPropagation,
 			RedBlackTree_::Data_Node<Node_Settings>,
 			RedBlackTree_::Node_Base<Node_Settings>>::type;
-		using EndPtr = End*;
-		using Bottom = End;
-		using BottomPtr = std::shared_ptr<Bottom>;
+		using EndPtr = Sentinel*;
+		using BottomPtr = std::shared_ptr<Sentinel>;
 
 		using Key_Iterator = 
 			RedBlackTree_::Iterator<Node*, Node_Settings, false>;

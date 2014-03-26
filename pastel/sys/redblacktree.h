@@ -101,7 +101,7 @@ namespace Pastel
 		*/
 		RedBlackTree(RedBlackTree&& that)
 			: bottom_(that.bottom_)
-			, end_(new End(bottomNode()->propagation()))
+			, end_(new Sentinel(bottomNode()->propagation()))
 		{
 			*this = std::move(that);
 		}
@@ -131,8 +131,7 @@ namespace Pastel
 		The sentinel's propagation, if exists, 
 		is default-constructed.
 		*/
-		template <typename Key_, typename Data_>
-		RedBlackTree(std::initializer_list<std::pair<Key_, Data_>> dataSet)
+		RedBlackTree(std::initializer_list<std::pair<Key, Data_Class>> dataSet)
 		{
 			*this = dataSet;
 		}
@@ -196,8 +195,7 @@ namespace Pastel
 
 		Preserves sentinels.
 		*/
-		template <typename Key_, typename Data_>
-		RedBlackTree& operator=(std::initializer_list<std::pair<Key_, Data_>> dataSet)
+		RedBlackTree& operator=(std::initializer_list<std::pair<Key, Data_Class>> dataSet)
 		{
 			auto construct = [&](RedBlackTree& copy)
 			{
@@ -750,9 +748,8 @@ namespace Pastel
 
 	private:
 		PASTEL_FWD(Node);
-		PASTEL_FWD(End);
+		PASTEL_FWD(Sentinel);
 		PASTEL_FWD(EndPtr);
-		PASTEL_FWD(Bottom);
 		PASTEL_FWD(BottomPtr);
 
 		enum EqualRange
@@ -827,7 +824,7 @@ namespace Pastel
 		*/
 		EndPtr allocateSentinel()
 		{
-			return new End();
+			return new Sentinel();
 		}
 
 		//! Deallocates a sentinel node.
@@ -1054,11 +1051,11 @@ namespace Pastel
 		node is denoted by the end node. The parent, the left
 		child, and the right child are the bottom node itself.
 		*/
-		BottomPtr bottom_ = new Bottom();
+		BottomPtr bottom_ = new Sentinel();
 
 		// FIX: Visual Studio 2013 has a bug which does not allow 
 		// std::make_shared to be used as a member initializer.
-		// BottomPtr bottom_ = std::make_shared<Bottom>();
+		// BottomPtr bottom_ = std::make_shared<Sentinel>();
 
 		//! The end node.
 		/*!
@@ -1120,7 +1117,7 @@ namespace Pastel
 		typename Compare_ = LessThan,
 		typename Propagation_ = void,
 		bool MultipleKeys_ = false,
-		bool UseSentinelData_ = true>
+		bool StoreSentinelPropagation_ = true>
 	class RedBlack_Settings
 	{
 	public:
@@ -1129,7 +1126,7 @@ namespace Pastel
 		using Compare = Compare_;
 		using Propagation = Propagation_;
 		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
-		PASTEL_CONSTEXPR bool UseSentinelData = UseSentinelData_;
+		PASTEL_CONSTEXPR bool StoreSentinelPropagation = StoreSentinelPropagation_;
 	};
 
 }
@@ -1144,22 +1141,22 @@ namespace Pastel
 		typename Data,
 		typename Compare = LessThan,
 		typename Propagation = void,
-		bool UseSentinelData = true,
+		bool StoreSentinelPropagation = true,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Map = 
 		RedBlackTree<RedBlack_Settings<Key, Data, Compare, Propagation,
-		false, UseSentinelData>, Customization>;
+		false, StoreSentinelPropagation>, Customization>;
 
 	template <
 		typename Key, 
 		typename Data,
 		typename Compare = LessThan,
 		typename Propagation = void,
-		bool UseSentinelData = true,
+		bool StoreSentinelPropagation = true,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiMap = 
 		RedBlackTree<RedBlack_Settings<Key, Data, Compare, Propagation,
-		true, UseSentinelData>, Customization>;
+		true, StoreSentinelPropagation>, Customization>;
 
 }
 

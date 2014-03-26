@@ -57,7 +57,7 @@ namespace
 
 		template <typename Data, bool MultipleKeys>
 		using Counting_Settings =
-			RedBlack_Settings<uinteger, Data, LessThan, integer, MultipleKeys>;
+			RedBlack_Settings<integer, Data, LessThan, integer, MultipleKeys>;
 
 		using Set_Settings = Counting_Settings<void, false>;
 		using MultiSet_Settings = Counting_Settings<void, true>;
@@ -73,6 +73,8 @@ namespace
 		{
 			testSet();
 			testMultiSet();
+			testMap();
+			testMultiMap();
 
 			testManyThings<Set>();
 			testManyThings<MultiSet>();
@@ -218,6 +220,40 @@ namespace
 			}
 		}
 
+		void testMap()
+		{
+			using Tree = Map;
+
+			{
+				Tree tree{ { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE_OP(tree.size(), == , 7);
+
+				integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), keySet));
+
+				integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
+				TEST_ENSURE(boost::equal(tree.cdataRange(), dataSet));
+			}
+		}
+
+		void testMultiMap()
+		{
+			using Tree = MultiMap;
+
+			{
+				Tree tree { { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE_OP(tree.size(), == , 7);
+
+				integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), keySet));
+
+				integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
+				TEST_ENSURE(boost::equal(tree.cdataRange(), dataSet));
+			}
+		}
+
 		template <typename Tree>
 		void testConstruction()
 		{
@@ -327,20 +363,6 @@ namespace
 				TEST_ENSURE_OP(tree.size(), == , 0);
 				TEST_ENSURE(tree.empty());
 			}
-
-			/*
-			{
-				Tree tree { { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE_OP(tree.size(), == , 7);
-
-				integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), keySet));
-
-				integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-				TEST_ENSURE(boost::equal(tree.cdataRange(), dataSet));
-			}
-			*/
 		}
 
 		template <typename Tree>

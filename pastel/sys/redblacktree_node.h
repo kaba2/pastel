@@ -223,8 +223,8 @@ namespace Pastel
 			PASTEL_FWD(Key);
 			PASTEL_FWD(Propagation_Class);
 			PASTEL_FWD(Data_Class);
-			PASTEL_CONSTEXPR bool UseSentinelData = 
-				Settings::UseSentinelData;
+			PASTEL_CONSTEXPR bool StoreSentinelPropagation = 
+				Settings::StoreSentinelPropagation;
 
 			using Base = Data_Node<Settings>;
 
@@ -242,7 +242,7 @@ namespace Pastel
 
 			Data_Class& data()
 			{
-				PENSURE(!isSentinel() || UseSentinelData);
+				PENSURE(!isSentinel() || StoreSentinelPropagation);
 				return *this;
 			}
 
