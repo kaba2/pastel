@@ -31,10 +31,14 @@
 
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 
-#if (defined _WIN32 || defined _WIN64)
+#if _MSC_VER <= 1800
 #	define PASTEL_CONSTEXPR static const
+#	define PASTEL_NOEXCEPT_C(x)
+#	define PASTEL_NOEXCEPT
 #else
 #	define PASTEL_CONSTEXPR constexpr
+#	define PASTEL_NOEXCEPT_C(x) noexcept(x)
+#	define PASTEL_NOEXCEPT noexcept
 #endif
 
 namespace Pastel

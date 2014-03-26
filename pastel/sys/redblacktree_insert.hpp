@@ -32,8 +32,6 @@ namespace Pastel
 		Node* parent = (Node*)parentAndRight.parent.base();
 		bool right = parentAndRight.right;
 
-		ASSERT(parent != childSentinel_.get());
-
 		// Create a new node for the element.
 		Node* node = allocateNode(key, data, propagation);
 
@@ -58,23 +56,23 @@ namespace Pastel
 
 		// Attach the new node into the tree.
 		link(parent, node, right);
-		node->left() = childSentinel();
-		node->right() = childSentinel();
+		node->left() = bottomNode();
+		node->right() = bottomNode();
 
 		if (empty() ||
-			(parent == minimum() && !right))
+			(parent == minNode() && !right))
 		{
 			// This is the new minimum.
-			setMinimum(node);
-			node->left() = endSentinel();
+			minNode() = node;
+			node->left() = endNode();
 		}
 
 		if (empty() ||
-			(parent == maximum() && right))
+			(parent == maxNode() && right))
 		{
 			// This is the new maximum.
-			setMaximum(node);
-			node->right() = endSentinel();
+			maxNode() = node;
+			node->right() = endNode();
 		}
 
 		// Update the propagation data in subtree

@@ -5,7 +5,7 @@
 #define PASTELSYS_ITERATOR_MACROS_H
 
 #define PASTEL_ITERATOR_FUNCTIONS_PREFIX(prefix, name, assign) \
-	prefix##Iterator name() \
+	prefix##Iterator name() PASTEL_NOEXCEPT \
 	{ \
 		return prefix##Iterator(assign); \
 	} \
@@ -13,12 +13,12 @@
 	PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(prefix, name, assign)
 
 #define PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(prefix, name, assign) \
-	prefix##ConstIterator name() const \
+	prefix##ConstIterator name() const PASTEL_NOEXCEPT \
 	{ \
 		return prefix##ConstIterator(assign); \
 	} \
 	\
-	prefix##ConstIterator c##name() const \
+	prefix##ConstIterator c##name() const PASTEL_NOEXCEPT \
 	{ \
 		return prefix##ConstIterator(assign); \
 	}
@@ -30,7 +30,7 @@
 	PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(, name, assign)
 
 #define PASTEL_RANGE_FUNCTIONS_PREFIX(prefix, name, begin_, end_) \
-	prefix##Range name() \
+	prefix##Range name() PASTEL_NOEXCEPT \
 	{ \
 		return Pastel::range( begin_ (), end_ ()); \
 	} \
@@ -38,7 +38,7 @@
 	PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(prefix, name, begin_, end_)
 
 #define PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(prefix, name, begin_, end_) \
-	prefix##ConstRange c##name() const \
+	prefix##ConstRange c##name() const PASTEL_NOEXCEPT \
 	{ \
 		return Pastel::range( c##begin_ (), c##end_ ()); \
 	}

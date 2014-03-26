@@ -52,9 +52,9 @@ The _user data_ is node data which can be modified freely. Defining the user dat
 Sentinel nodes
 --------------
 
-In addition to the nodes corresponding to the elements, the red-black tree contains two additional nodes, the _end-sentinel_ and the _child-sentinel_. Together they are called _sentinels_. The child-sentinel represents a missing child, with the exception of the right child of the maximum. The end-sentinel represents the missing parent of the root, and the missing right child of the maximum node. This is so that the end-sentinel works naturally as the one-past-end iterator. For a single red-black tree the child-sentinel and the end-sentinel coincide, unless the child-sentinel is explicitly replaced. The end-sentinel is always unique to its tree.
+In addition to the nodes corresponding to the elements, the red-black tree contains two additional nodes, the _end node_ and the _bottom node_. Together they are called _sentinels_. The bottom node represents a missing child, with the exception of the right child of the maximum. The end node represents the missing parent of the root, and the missing right child of the maximum node. This is so that the end node works naturally as the one-past-end iterator. For a single red-black tree the bottom node and the end node coincide, unless the bottom node is explicitly replaced. The end node is always unique to its tree.
 
-Taking the union of (the elements of) two red-black trees requires, for effiency reasons, that they share the same child-sentinel.
+Taking the union of (the elements of) two red-black trees requires, for effiency reasons, that they share the same bottom node.
 
 Theory
 ------

@@ -84,6 +84,7 @@ namespace
 		template <typename Tree>
 		void testManyThings()
 		{
+			testConstruction<Tree>();
 			testInsert<Tree>();
 			testBlackHeight<Tree>();
 			testErase<Tree>();
@@ -92,6 +93,7 @@ namespace
 			testFind<Tree>();
 			testLowerBound<Tree>();
 			testUpperBound<Tree>();
+			testJoin<Tree>();
 		}
 
 		void testSet()
@@ -192,6 +194,134 @@ namespace
 				test(5);
 				TEST_ENSURE_OP(tree.size(), == , 6);
 			}
+		}
+
+		template <typename Tree>
+		void testConstruction()
+		{
+			{
+				Tree tree;
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE(!tree.hasSeparateSentinels());
+				TEST_ENSURE(!tree.sharesBottom());
+				TEST_ENSURE(tree.sharesBottom(tree));
+				TEST_ENSURE_OP(tree.size(), == , 0);
+				TEST_ENSURE(tree.empty());
+			}
+
+			{
+				Tree tree({ 1, 2, 3, 4, 5, 6, 7 });
+				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
+
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE(!tree.hasSeparateSentinels());
+				TEST_ENSURE(!tree.sharesBottom());
+				TEST_ENSURE(tree.sharesBottom(tree));
+				TEST_ENSURE_OP(tree.size(), == , 7);
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+			}
+			{
+				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
+				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
+
+				Tree copy(tree);
+				TEST_ENSURE(testInvariants(copy));
+				TEST_ENSURE(copy.hasSeparateSentinels());
+				TEST_ENSURE(copy.sharesBottom());
+				TEST_ENSURE(copy.sharesBottom(copy));
+				TEST_ENSURE(copy.sharesBottom(tree));
+				TEST_ENSURE_OP(copy.size(), == , 7);
+				TEST_ENSURE(boost::equal(copy.ckeyRange(), correctSet));
+
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE(!tree.hasSeparateSentinels());
+				TEST_ENSURE(tree.sharesBottom());
+				TEST_ENSURE(tree.sharesBottom(tree));
+				TEST_ENSURE(tree.sharesBottom(copy));
+				TEST_ENSURE_OP(tree.size(), == , 7);
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+			}
+			{
+				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
+				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
+
+				Tree copy{ 11, 12, 13, 14, 15, 16, 17 };
+				copy = tree;
+				ENSURE(testInvariants(copy));
+				TEST_ENSURE(testInvariants(copy));
+				TEST_ENSURE(!copy.hasSeparateSentinels());
+				TEST_ENSURE(!copy.sharesBottom());
+				TEST_ENSURE(copy.sharesBottom(copy));
+				TEST_ENSURE(!copy.sharesBottom(tree));
+				TEST_ENSURE_OP(copy.size(), == , 7);
+				TEST_ENSURE(boost::equal(copy.ckeyRange(), correctSet));
+
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE(!tree.hasSeparateSentinels());
+				TEST_ENSURE(!tree.sharesBottom());
+				TEST_ENSURE(tree.sharesBottom(tree));
+				TEST_ENSURE(!tree.sharesBottom(copy));
+				TEST_ENSURE_OP(tree.size(), == , 7);
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+			}
+			{
+				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
+				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
+
+				Tree moved(std::move(tree));
+				ENSURE(testInvariants(moved));
+				ENSURE(testInvariants(tree));
+				TEST_ENSURE(testInvariants(moved));
+				TEST_ENSURE(moved.hasSeparateSentinels());
+				TEST_ENSURE(moved.sharesBottom());
+				TEST_ENSURE(moved.sharesBottom(moved));
+				TEST_ENSURE(moved.sharesBottom(tree));
+				TEST_ENSURE_OP(moved.size(), == , 7);
+				TEST_ENSURE(boost::equal(moved.ckeyRange(), correctSet));
+
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE(!tree.hasSeparateSentinels());
+				TEST_ENSURE(tree.sharesBottom());
+				TEST_ENSURE(tree.sharesBottom(tree));
+				TEST_ENSURE(tree.sharesBottom(moved));
+				TEST_ENSURE_OP(tree.size(), == , 0);
+				TEST_ENSURE(tree.empty());
+			}
+			{
+				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
+				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
+				Tree moved{ 11, 12, 13, 14, 15, 16, 17 };
+				moved = std::move(tree);
+				TEST_ENSURE(testInvariants(moved));
+				TEST_ENSURE(moved.hasSeparateSentinels());
+				TEST_ENSURE(moved.sharesBottom());
+				TEST_ENSURE(moved.sharesBottom(moved));
+				TEST_ENSURE(moved.sharesBottom(tree));
+				TEST_ENSURE_OP(moved.size(), == , 7);
+				TEST_ENSURE(boost::equal(moved.ckeyRange(), correctSet));
+
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE(!tree.hasSeparateSentinels());
+				TEST_ENSURE(tree.sharesBottom());
+				TEST_ENSURE(tree.sharesBottom(tree));
+				TEST_ENSURE(tree.sharesBottom(moved));
+				TEST_ENSURE_OP(tree.size(), == , 0);
+				TEST_ENSURE(tree.empty());
+			}
+
+			/*
+			{
+				Tree tree { { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE_OP(tree.size(), == , 7);
+
+				integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
+				TEST_ENSURE(boost::equal(tree.ckeyRange(), keySet));
+
+				integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
+				TEST_ENSURE(boost::equal(tree.cdataRange(), dataSet));
+			}
+			*/
 		}
 
 		template <typename Tree>
@@ -565,6 +695,12 @@ namespace
 					std::make_pair(right, entry.second + 1));
 			}
 			std::cout << std::endl;
+
+			for (auto&& key : tree.ckeyRange())
+			{
+				std::cout << key << ", ";
+			}
+			std::cout << std::endl;
 		}
 
 		template <typename Tree>
@@ -696,6 +832,40 @@ namespace
 			found(19, 20);
 			notFound(20);
 			notFound(21);
+		}
+
+		template <typename Tree>
+		void testJoin()
+		{
+			Tree aTree = {1, 2, 3, 4, 5};
+			TEST_ENSURE(testInvariants(aTree));
+			
+			Tree bTree;
+			TEST_ENSURE(testInvariants(bTree));
+	
+			{
+				bTree.useBottomFrom(aTree);
+				TEST_ENSURE(testInvariants(bTree));
+				TEST_ENSURE(bTree.sharesBottom(aTree));
+			}
+
+			{
+				bTree = {6, 7, 8};
+				TEST_ENSURE(testInvariants(bTree));
+			}
+
+			/*
+			{
+				aTree.join(bTree);
+				TEST_ENSURE(testInvariants(aTree));
+				TEST_ENSURE(testInvariants(bTree));
+				TEST_ENSURE(bTree.empty());
+
+				integer correctSet[] = 
+					{1, 2, 3, 4, 5, 6, 7, 8};
+				TEST_ENSURE(boost::equal(aTree, correctSet));
+			}
+			*/
 		}
 	};
 

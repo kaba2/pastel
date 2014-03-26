@@ -47,11 +47,18 @@ namespace Pastel
 			}
 
 		protected:
+			/*!
+			These settings correspond to those of sentinel
+			nodes. This is so that RedBlackTree's constructor
+			does not have to initialize the sentinel nodes
+			to refer to themselves.
+			*/
 			Node_Base()
-				: parent_(0)
+				: parent_(nullptr)
 				, child_()
-				, red_(true)
+				, red_(false)
 			{
+				isolateSelf();
 			}
 
 			Node_Base(const Node_Base& that) = delete;
@@ -60,9 +67,34 @@ namespace Pastel
 
 			void isolate()
 			{
-				parent_ = 0;
-				child_[0] = 0;
-				child_[1] = 0;
+				parent_ = nullptr;
+				child_[0] = nullptr;
+				child_[1] = nullptr;
+			}
+
+			void isolateSelf()
+			{
+				parent_ = (Node*)this;
+				child_[0] = parent_;
+				child_[1] = parent_;
+			}
+
+			void resetSentinel()
+			{
+				ASSERT(isSentinel());
+				
+				if (parent()->isSentinel())
+				{
+					parent_ = (Node*)this;
+				}
+				if (left()->isSentinel())
+				{
+					left() = (Node*)this;
+				}
+				if (right()->isSentinel())
+				{
+					right() = (Node*)this;
+				}
 			}
 
 			void setRed()
@@ -122,7 +154,17 @@ namespace Pastel
 			}
 
 			Node* parent_;
+			
+			/*
+			Visual Studio 2013 has a bug in that it can't
+			member-initialize arrays.
+			*/
 			Node* child_[2];
+			
+			/*
+			A bit-field can not be member-initialized in C++11.
+			This is probably a bug in the C++11 standard.
+			*/
 			uint8 red_ : 1;
 		};
 

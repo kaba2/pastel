@@ -13,7 +13,7 @@ namespace Pastel
 
 		clear(rootNode());
 
-		initialize();
+		forget();
 	}
 
 	template <typename Settings, template <typename> class Customization>
@@ -29,7 +29,6 @@ namespace Pastel
 		clear(node->right());
 
 		deallocateNode(node);
-		--size_;
 	}
 
 	template <typename Settings, template <typename> class Customization>
@@ -95,18 +94,18 @@ namespace Pastel
 		++next;
 		Node* successor = next.base();
 
-		if (node == minimum())
+		if (node == minNode())
 		{
 			// The detached node is the minimum node.
 			// Set the minimum to the next smallest node.
-			setMinimum(successor);
+			minNode() = successor;
 		}
 
-		if (node == maximum())
+		if (node == maxNode())
 		{
 			// The detached node is the global maximum.
 			// Set the maximum to the next greater node.
-			setMaximum(std::prev(Iterator(node)).base());
+			maxNode() = std::prev(Iterator(node)).base();
 		}
 
 		const bool twoChildren =
@@ -123,12 +122,12 @@ namespace Pastel
 		If the right child exists, we pick that.
 		If the left child exists, we pick that.
 		If neither exists, but one of the children
-		is the end-sentinel, we pick that.
+		is the end node, we pick that.
 		*/
 		Node* child = moved->child(
 			!moved->right()->isSentinel() ||
 			(moved->left()->isSentinel() &&
-			moved->right() == endSentinel()));
+			moved->right() == endNode()));
 		const integer right =
 			(moved == parent->right());
 
@@ -139,9 +138,9 @@ namespace Pastel
 		link(parent, child, right);
 
 		// Make sure the minimum and maximum nodes
-		// refer back to the end-sentinel.
-		minimum()->left() = endSentinel();
-		maximum()->right() = endSentinel();
+		// refer back to the end node.
+		minNode()->left() = endNode();
+		maxNode()->right() = endNode();
 
 		//    |            | 
 		//    p            p

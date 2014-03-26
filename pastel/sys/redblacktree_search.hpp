@@ -54,9 +54,9 @@ namespace Pastel
 			}
 		}
 
-		if (node == ConstIterator(childSentinel()))
+		if (node == ConstIterator(bottomNode()))
 		{
-			node = endSentinel();
+			node = endNode();
 		}
 
 		return FindEqual_Return{node, upper};
