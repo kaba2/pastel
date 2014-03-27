@@ -10,9 +10,9 @@ namespace Pastel
 	template <typename BidiIterator>
 	void insertionSort(BidiIterator begin, BidiIterator end);
 
-	template <typename BidiIterator, typename Compare>
+	template <typename BidiIterator, typename Less>
 	void insertionSort(BidiIterator begin, BidiIterator end,
-		Compare compare);
+		Less compare);
 
 }
 

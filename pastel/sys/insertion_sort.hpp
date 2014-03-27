@@ -15,9 +15,9 @@ namespace Pastel
 			std::less<typename BidiIterator::value_type>());
 	}
 
-	template <typename BidiIterator, typename Compare>
+	template <typename BidiIterator, typename Less>
 	void insertionSort(BidiIterator begin, BidiIterator end,
-		Compare compare)
+		Less compare)
 	{
 		if (begin == end)
 		{

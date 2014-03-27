@@ -2,8 +2,9 @@
 #define PASTELSYS_REDBLACKTREE_INVARIANTS_HPP
 
 #include "pastel/sys/redblacktree.h"
+#include "pastel/sys/pairwise_all_of.h"
 
-#include <algorithm>
+#include <iterator>
 
 namespace Pastel
 {
@@ -17,7 +18,7 @@ namespace Pastel
 			const typename RedBlackTree<Settings, Customization>::ConstIterator& iter,
 			integer& blackHeight)
 		{
-			using Compare = typename Settings::Compare;
+			using Less = typename Settings::Less;
 
 			if (iter.isSentinel())
 			{
@@ -97,7 +98,7 @@ namespace Pastel
 			{
 				if (Settings::MultipleKeys)
 				{
-					if (Compare()(iter.key(), iter.left().key()))
+					if (Less()(iter.key(), iter.left().key()))
 					{
 						// In the case multiple keys are allowed,
 						// the key on the left must be <= 
@@ -105,7 +106,7 @@ namespace Pastel
 						return false;
 					}
 				}
-				else if (!Compare()(iter.left().key(), iter.key()))
+				else if (!Less()(iter.left().key(), iter.key()))
 				{
 					// In the case of multiple keys are not allowed,
 					// the key on the left must be < the current key.
@@ -114,7 +115,7 @@ namespace Pastel
 			}
 
 			if (!iter.right().isSentinel() &&
-				Compare()(iter.right().key(), iter.key()))
+				Less()(iter.right().key(), iter.key()))
 			{
 				// The key on the right must be
 				// greater-than-or-equal-to the  
@@ -182,6 +183,30 @@ namespace Pastel
 			return false;
 		}
 
+		using Fwd = Settings;
+		PASTEL_FWD(Less);
+		PASTEL_FWD(Key);
+
+		if (!pairwiseAllOf(tree.ckeyRange(), 
+			notPredicate(transposePredicate(Less()))))
+		{
+			// The keys must be in sorted order.
+			return false;
+		}
+
+		if (!Settings::MultipleKeys && 
+			!pairwiseAllOf(tree.ckeyRange(), Less()))
+		{
+			// The keys must be unique when multiple keys are not allowed.
+			return false;
+		}
+
+		if (std::distance(tree.cbegin(), tree.cend()) != tree.size())
+		{
+			// The size() must equal the number of elements in the tree.
+			return false;
+		}
+
 		integer blackHeight = 0;
 		if (!RedBlackTree_::testInvariants(tree, tree.croot(), blackHeight))
 		{
@@ -192,15 +217,6 @@ namespace Pastel
 		{
 			// The computed black-height must be equal to the
 			// black-height which is incrementally tracked by the tree.
-			return false;
-		}
-
-		using Compare = typename Settings::Compare;
-
-		// Check that the keys are unique when multiple keys are not allowed.
-		if (!Settings::MultipleKeys && 
-			!std::is_sorted(tree.ckeyBegin(), tree.ckeyEnd(), Compare()))
-		{
 			return false;
 		}
 

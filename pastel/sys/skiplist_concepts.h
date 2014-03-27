@@ -22,7 +22,7 @@ namespace Pastel
 			using Key = UserDefinedType;
 
 			//! The predicate used to compare keys.
-			using Compare = Predicate_Concept::Predicate;
+			using Less = Predicate_Concept::Predicate;
 
 			//! The type of the data associated with a given key. 
 			/*!

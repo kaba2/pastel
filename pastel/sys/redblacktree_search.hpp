@@ -29,7 +29,7 @@ namespace Pastel
 		ConstIterator upper = cend();
 		while (!node.isSentinel())
 		{
-			if (Compare()(key, node.key()))
+			if (Less()(key, node.key()))
 			{
 				// Since this node is strictly greater than the
 				// key, it is an upper bound, although maybe not
@@ -40,7 +40,7 @@ namespace Pastel
 				// left subtree.
 				node = node.left();
 			}
-			else if (Compare()(node.key(), key))
+			else if (Less()(node.key(), key))
 			{
 				// The possible equivalent element lies in the
 				// right subtree.
@@ -90,7 +90,7 @@ namespace Pastel
 			auto leftIsEquivalent = [&](const ConstIterator& node)
 			{
 				return !node.left().isSentinel() &&
-					!Compare()(node.left().key(), key);
+					!Less()(node.left().key(), key);
 			};
 
 			while (leftIsEquivalent(lower))
@@ -123,7 +123,7 @@ namespace Pastel
 		while(!child.isSentinel())
 		{
 			parent = child;
-			right = !Compare()(key, parent.key());
+			right = !Less()(key, parent.key());
 			if (!right)
 			{
 				upper = parent;

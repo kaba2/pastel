@@ -95,6 +95,7 @@ namespace
 			testLowerBound<Tree>();
 			testUpperBound<Tree>();
 			testJoin<Tree>();
+			//testSplit<Tree>();
 		}
 
 		void testSet()
@@ -939,6 +940,20 @@ namespace
 				integer correctSet[] = 
 					{1, 2, 3, 4, 5, 6, 7, 8};
 				TEST_ENSURE(boost::equal(aTree.ckeyRange(), correctSet));
+			}
+		}
+
+		template <typename Tree>
+		void testSplit()
+		{
+			{
+				Tree aTree{ 1, 2, 3, 4, 5, 6, 7 };
+				Tree bTree = aTree.split(std::next(aTree.cbegin(), 3));
+				
+				TEST_ENSURE(testInvariants(aTree));
+				TEST_ENSURE_OP(aTree.size(), == , 3);
+				TEST_ENSURE(testInvariants(bTree));
+				TEST_ENSURE_OP(bTree.size(), == , 4);
 			}
 		}
 	};

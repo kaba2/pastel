@@ -34,7 +34,7 @@ namespace Pastel
 		using Settings = SkipList_Settings;
 		using Key = typename Settings::Key;
 		using Value = typename Settings::Value;
-		using Compare = typename Settings::Compare;
+		using Less = typename Settings::Less;
 		using Value_Class = Class<Value>;
 		PASTEL_CONSTEXPR bool MultipleKeys = Settings::MultipleKeys;
 
@@ -419,7 +419,7 @@ namespace Pastel
 		{
 			ConstIterator result = lowerBound(key, hint);
 			if (result == cend() ||
-				Compare()(key, result.key()))
+				Less()(key, result.key()))
 			{
 				return cend();
 			}
@@ -833,28 +833,28 @@ namespace Pastel
 	template <
 		typename Key_, 
 		typename Value_, 
-		typename Compare_ = LessThan,
+		typename Less_ = LessThan,
 		bool MultipleKeys_ = false>
 	class SkipList_Map_Settings
 	{
 	public:
 		using Key = Key_;
 		using Value = Value_;
-		using Compare = Compare_;
+		using Less = Less_;
 		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
 	};
 
-	template <typename Key, typename Value, typename Compare = LessThan>
-	using SkipList_Map = SkipList<SkipList_Map_Settings<Key, Value, Compare, false>>;
+	template <typename Key, typename Value, typename Less = LessThan>
+	using SkipList_Map = SkipList<SkipList_Map_Settings<Key, Value, Less, false>>;
 
-	template <typename Key, typename Value, typename Compare = LessThan>
-	using SkipList_MultiMap = SkipList<SkipList_Map_Settings<Key, Value, Compare, true>>;
+	template <typename Key, typename Value, typename Less = LessThan>
+	using SkipList_MultiMap = SkipList<SkipList_Map_Settings<Key, Value, Less, true>>;
 
-	template <typename Key, typename Compare = LessThan>
-	using SkipList_Set = SkipList<SkipList_Map_Settings<Key, void, Compare, false>>;
+	template <typename Key, typename Less = LessThan>
+	using SkipList_Set = SkipList<SkipList_Map_Settings<Key, void, Less, false>>;
 
-	template <typename Key, typename Compare = LessThan>
-	using SkipList_MultiSet = SkipList<SkipList_Map_Settings<Key, void, Compare, true>>;
+	template <typename Key, typename Less = LessThan>
+	using SkipList_MultiSet = SkipList<SkipList_Map_Settings<Key, void, Less, true>>;
 
 }
 

@@ -41,7 +41,7 @@ namespace Pastel
 
 		using List = SkipList<SkipList_Settings>;
 		using ConstIterator = typename List::ConstIterator;
-		using Compare = typename SkipList_Settings::Compare;
+		using Less = typename SkipList_Settings::Less;
 
 		integer size = 1;
 		integer uniqueKeys = 1;
@@ -70,14 +70,14 @@ namespace Pastel
 			while(iter != end)
 			{
 				ConstIterator prev = iter.prev(i);
-				if (Compare()(iter.key(), prev.key()))
+				if (Less()(iter.key(), prev.key()))
 				{
 					// The elements are not in non-decreasing 
 					// order of keys.
 					return false;
 				}
 
-				if (i == 1 && !Compare()(prev.key(), iter.key()))
+				if (i == 1 && !Less()(prev.key(), iter.key()))
 				{
 					// The level-1 does not contain unique keys.
 					return false;
