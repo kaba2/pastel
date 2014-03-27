@@ -1,4 +1,5 @@
 // Description: Pairwise all-of
+// Documentation: sequence_algorithms.txt
 
 #ifndef PASTELSYS_PAIRWISE_ALL_OF
 #define PASTELSYS_PAIRWISE_ALL_OF

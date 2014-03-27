@@ -116,84 +116,18 @@ namespace Pastel
 		// Move the join result into this tree.
 		swapElements(taller);
 
-		// The only possible violations at this 
-		// point is that the red 'middle' causes
-		// a red-red violation, or a red root.
-
-		if (nodeWasRoot)
-		{
-			//   |R 
-			//   m
-			// B/ \B
-			// 1   2
-
-			// The 'node' was the root node.
-			rootNode() = middle;
-
-			// Changing the new root node black
-			// satisfies all red-black invariants.
-			middle->setBlack();
-			++blackHeight_;
-
-			updateToRoot(middle);
-
-			return *this;
-		}
-
-		// From now on, the parent exists.
-		ASSERT(!parent->isSentinel());
-
-		if (parent->black())
-		{
-			//     |B
-			//     p
-			//   R/ \
-			//   m   3
-			// B/ \B
-			// 1   2
-
-			// If the parent node exists and is black, 
-			// then all red-black invariants are
-			// satisfied.
-
-			updateToRoot(middle);
-
-			return *this;
-		}
-
-		// From now on, the parent is red.
-		ASSERT(parent->red());
-
-		//     |R
-		//     p
-		//   R/ \
-		//   m   3
-		// B/ \B
-		// 1   2
-
-		// We solve the red-red violation by
-		// changing the parent black.
-		parent->setBlack();
-
+		// Update the propagation at 'middle'.
 		update(middle);
-		update(parent);
 
-		// In doing this, we have increased the
-		// black-height of the subtree rooted at
-		// 'parent', which means the grand-parent
-		// has a black-height violation. 
-		Node* grandParent = parent->parent();
-		bool parentRight = (parent == grandParent->right());
+		// At this point the subtree rooted at 'middle'
+		// is a red-black tree, except that 'middle'
+		// might not be black.
+		ASSERT(middle->left()->black());
+		ASSERT(middle->right()->black());
 
-		// The grand-parent exists, since parent is red.
-		ASSERT(!grandParent->isSentinel());
-
-		// The black-height violation can be solved
-		// by reusing the rebalancing for the detachment.
-		// Note that the rebalancing requires that child 
-		// which has the black-height one less than its 
-		// sibling.
-		rebalanceAfterDetach(grandParent, !parentRight);
+		// The above is the precondition for the
+		// attach-rebalancing to work.
+		rebalanceAfterAttach(middle);
 
 		return *this;
 	}

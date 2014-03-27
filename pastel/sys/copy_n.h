@@ -1,4 +1,4 @@
-// Description: copy_n
+// Description: Copying n elements
 // Documentation: sequence_algorithms.txt
 
 #ifndef PASTELSYS_COPY_N_H
