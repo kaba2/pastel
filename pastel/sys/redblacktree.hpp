@@ -28,6 +28,31 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
+	void RedBlackTree<Settings, Customization>::clear()
+	{
+		this->onClear();
+
+		clear(rootNode());
+
+		forget();
+	}
+
+	template <typename Settings, template <typename> class Customization>
+	void RedBlackTree<Settings, Customization>::clear(
+		Node* node)
+	{
+		if (node->isSentinel())
+		{
+			return;
+		}
+
+		clear(node->left());
+		clear(node->right());
+
+		deallocateNode(node);
+	}
+
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::allocateNode(
 		const Key& key, 
 		const Data_Class& data,
