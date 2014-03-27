@@ -916,18 +916,6 @@ namespace Pastel
 			Node* parent,
 			bool right);
 
-		//! Rebalances the red-black tree after attaching a node.
-		/*!
-		Preconditions:
-		Propagations in the subtree rooted at 'node' are up-to-date.
-		The subtree rooted at 'node' is a red-black tree, except
-		that 'node' is not required to be black.
-
-		Time complexity: O(log(size()))
-		Exception safety: nothrow
-		*/
-		void rebalanceAfterAttach(Node* node);
-
 		//! Detaches a node from the tree and rebalances.
 		/*!
 		Time complexity: O(log(size()))
@@ -938,18 +926,47 @@ namespace Pastel
 		*/
 		Node* detach(Node* node);
 
-		//! Rebalances the red-black tree after detaching a node.
+		//! Fixes a black-height loss.
 		/*!
 		Preconditions:
-		Propagation data in both children of 'parent' are up-to-date.
-		The parent->child(right) has a black-height one lower than
-		the black-height of parent->child(!right).
+		* Propagation data in both children of 'parent' are up-to-date.
+		* The number of black nodes on a simple path starting from 
+		'parent', or its ancestor, and ending in a leaf node in the 
+		'right' subtree of 'parent' is one less than it is on
+		a path that does not end in the 'right' subtree of 'parent'.
 
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		void rebalanceAfterDetach(
+		void rebalanceBlackLoss(
 			Node* parent, bool right);
+
+		//! Fixes a black-height excess.
+		/*!
+		Preconditions:
+		* Propagation data in both children of 'parent' are up-to-date.
+		* The number of black nodes on a simple path starting from 
+		'parent', or its ancestor, and ending in a leaf node in the 
+		'right' subtree of 'parent' is one greater than it is on
+		a path that does not end in the 'right' subtree of 'parent'.
+
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		void rebalanceBlackExcess(
+			Node* parent, bool right);
+
+		//! Fixes a red-red violation.
+		/*!
+		Preconditions:
+		* Propagations in the subtree rooted at 'node' are up-to-date.
+		* The subtree rooted at 'node' is a red-black tree, except
+		that 'node' is not required to be black.
+
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		void rebalanceRedViolation(Node* node);
 
 		//! Returns the elements equivalent to the given key.
 		/*!
@@ -1246,6 +1263,8 @@ namespace Pastel
 #include "pastel/sys/redblacktree_insert.hpp"
 #include "pastel/sys/redblacktree_invariants.hpp"
 #include "pastel/sys/redblacktree_join.hpp"
+#include "pastel/sys/redblacktree_rebalance_black_loss.hpp"
+#include "pastel/sys/redblacktree_rebalance_red_violation.hpp"
 #include "pastel/sys/redblacktree_search.hpp"
 #include "pastel/sys/redblacktree_splice.hpp"
 #include "pastel/sys/redblacktree_split.hpp"

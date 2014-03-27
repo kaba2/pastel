@@ -125,9 +125,8 @@ namespace Pastel
 		ASSERT(middle->left()->black());
 		ASSERT(middle->right()->black());
 
-		// The above is the precondition for the
-		// attach-rebalancing to work.
-		rebalanceAfterAttach(middle);
+		// Fix the possible red violation.
+		rebalanceRedViolation(middle);
 
 		return *this;
 	}
