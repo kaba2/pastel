@@ -601,12 +601,19 @@ namespace Pastel
 
 		returns:
 		A red-black tree which contains all the elements
-		greater-than-or-equal-to 'rightBegin', and shares
-		the bottom node with this tree.
+		greater-than-or-equal-to 'rightBegin', and which 
+		shares the bottom node with this tree.
 
 		The sentinel nodes are preserved.
 		*/
 		RedBlackTree split(const ConstIterator& rightBegin);
+
+		//! Splits the tree into two.
+		/*!
+		This is a convenience function which returns
+		split(lowerBound(key)).
+		*/
+		RedBlackTree split(const Key& key);
 
 		//! Splits the sentinel node.
 		/*!
@@ -911,6 +918,11 @@ namespace Pastel
 
 		//! Rebalances the red-black tree after attaching a node.
 		/*!
+		Preconditions:
+		Propagations in the subtree rooted at 'node' are up-to-date.
+		The subtree rooted at 'node' is a red-black tree, except
+		that 'node' is not required to be black.
+
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/

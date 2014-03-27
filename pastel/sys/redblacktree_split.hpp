@@ -11,23 +11,23 @@ namespace Pastel
 		const ConstIterator& rightBegin)
 	-> RedBlackTree
 	{
-		RedBlackTree& left = *this;
-		RedBlackTree right;
-		right.useBottomFrom(*this);
+		RedBlackTree& leftTree = *this;
+		RedBlackTree rightTree;
+		rightTree.useBottomFrom(*this);
 
 		if (rightBegin == cend())
 		{
 			// The left tree contains everything, 
 			// the right tree is empty.
-			return right;
+			return rightTree;
 		}
 
 		if (rightBegin == cbegin())
 		{
 			// The left tree is empty, 
 			// the right tree contains everything.
-			swapElements(right);
-			return right;
+			swapElements(rightTree);
+			return rightTree;
 		}
 
 		// The tree that subtrees are split off from.
@@ -39,11 +39,47 @@ namespace Pastel
 		tree.useBottomFrom(*this);
 		swapElements(tree);
 
-		ConstIterator leftPivot = tree.cend();
-		ConstIterator rightPivot = tree.cend();
-		
+		Node* node = rightBegin.base();
 
-		return right;
+		// Move the left and right subtree of 
+		// the 'rightBegin' to the left and right tree,
+		// respectively.
+		{
+			Node* leftRoot = node->left();
+			Node* rightRoot = node->right();
+			
+			detachSubtree(node, false, leftSize);
+			leftRoot->setblack();
+			attachSubtree(leftRoot, leftTree.endNode(), false, leftSize);
+
+			detachSubtree(node, true, rightSize);
+			rightRoot->setBlack();
+			attachSubtree(rightRoot, rightTree.endNode(), true, rightSize);			
+		}
+
+		Node* leftPivot = node->parent();
+		Node* rightPivot = node;
+
+		while (node != tree.rootNode())
+		{
+			bool right = (node == node->parent()->right());
+			Node* sibling = node->parent()->child(right);
+
+			RedBlackTree& siblingTree = 
+				right ? leftTree : rightTree;
+
+			
+		}
+
+		return rightTree;
+	}
+
+	template <typename Settings, template <typename> class Customization>
+	auto RedBlackTree<Settings, Customization>::split(
+		const Key& key)
+	-> RedBlackTree
+	{
+		return split(lowerBound(key));
 	}
 
 }
