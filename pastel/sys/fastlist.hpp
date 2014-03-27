@@ -802,9 +802,9 @@ namespace Pastel
 	template <
 		typename Type,
 		typename UniformAllocator>
-		template <typename Compare>
+		template <typename Less>
 	void FastList<Type, UniformAllocator>::unique(
-		Compare compare)
+		Less compare)
 	{
 		if (empty())
 		{
@@ -875,10 +875,10 @@ namespace Pastel
 	template <
 		typename Type,
 		typename UniformAllocator>
-		template <typename Compare>
+		template <typename Less>
 	void FastList<Type, UniformAllocator>::merge(
 		FastList& that,
-		Compare compare)
+		Less compare)
 	{
 		ENSURE(*allocator_ == *(that.allocator_));
 
@@ -929,9 +929,9 @@ namespace Pastel
 	template <
 		typename Type,
 		typename UniformAllocator>
-		template <typename Compare>
+		template <typename Less>
 	void FastList<Type, UniformAllocator>::sort(
-		Compare compare)
+		Less compare)
 	{
 		// Shamelessly copied from Microsoft Stl implementation:/
 

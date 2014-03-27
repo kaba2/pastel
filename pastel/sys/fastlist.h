@@ -603,9 +603,9 @@ namespace Pastel
 		elements in the lists, the ones in this list comes
 		before those in 'that'.
 		*/
-		template <typename Compare>
+		template <typename Less>
 		void merge(FastList& that,
-			Compare compare);
+			Less compare);
 
 		//! Sorts the list w.r.t. the operator<.
 		/*!
@@ -623,8 +623,8 @@ namespace Pastel
 
 		The sort is stable.
 		*/
-		template <typename Compare>
-		void sort(Compare compare);
+		template <typename Less>
+		void sort(Less compare);
 
 		//! Reverses the list.
 		/*!

@@ -13,6 +13,7 @@ namespace Pastel
 	-> Insert_Return
 	{
 		Iterator element = cast(thatFrom);
+		Node* node = element.base();
 		if (element.isSentinel())
 		{
 			ENSURE(element == that.end());
@@ -31,7 +32,7 @@ namespace Pastel
 		that.onSpliceFrom(element);
 
 		// Detach the node from 'that' tree.
-		that.detach(element.base());
+		that.detach(node);
 
 		auto equalAndUpper = findEqualAndUpper(element.key());
 		bool keyExists = (equalAndUpper.equal != cend());
@@ -45,7 +46,7 @@ namespace Pastel
 				lowerBound(element.key(), equalAndUpper);
 
 			// Remove the detached element.
-			that.deallocateNode(element.base());
+			that.deallocateNode(node);
 
 			// Return the existing element.
 			return insertReturnType(cast(lower), false);
@@ -57,7 +58,7 @@ namespace Pastel
 		bool right = parentAndRight.right;
 
 		// Attach the new node into this tree.
-		attach(element.base(), parent.base(), right);
+		attach(node, parent.base(), right);
 
 		// Notify the customization of this tree.
 		this->onSplice(element);

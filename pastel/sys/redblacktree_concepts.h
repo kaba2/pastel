@@ -23,7 +23,7 @@ namespace Pastel
 			The key is attached to every non-sentinel node,
 			and can be read, but not modified, through an iterator.
 			The key is used to order the data by the relation
-			determined by Compare.
+			determined by Less.
 			*/
 			using Key = UserDefinedType;
 
@@ -56,9 +56,9 @@ namespace Pastel
 
 			//! The type of the predicate to use for comparing keys.
 			/*!
-			The comparison is done as Compare()(left, right).
+			The comparison is done as Less()(left, right).
 			*/
-			using Compare = UserDefinedType;
+			using Less = UserDefinedType;
 
 			//! Whether to allow multiple equal keys.
 			PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;

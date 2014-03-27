@@ -172,19 +172,19 @@ namespace Pastel
 			// Otherwise we will choose the direction which
 			// minimizes the distance from 'hint' to 'key'.
 
-			if (Compare()(nodeKey(node), key))
+			if (Less()(nodeKey(node), key))
 			{
 				// Failing this invariant means that
-				// Compare() is not a strict weak order;
+				// Less() is not a strict weak order;
 				// this is an error in the user's code.
 				const bool isStrictWeakOrder = 
-					!Compare()(key, nodeKey(node));
+					!Less()(key, nodeKey(node));
 				PENSURE(isStrictWeakOrder);
 
 				// The 'key' is to the right of 'hint'. 
 				direction = true;
 			}
-			else if (Compare()(key, nodeKey(node)))
+			else if (Less()(key, nodeKey(node)))
 			{
 				// The 'key' is to the left from 'hint'.
 				direction = false;
@@ -208,7 +208,7 @@ namespace Pastel
 			// 3) it is not the sentinel node, and
 			// 'key' is equivalent to the key of 'next'.
 			bool overshoots = (next == end_ ||
-				Compare()(nodeKey(next), key) != direction);
+				Less()(nodeKey(next), key) != direction);
 			return !overshoots;
 		};
 
@@ -282,7 +282,7 @@ namespace Pastel
 		}
 		
 		Node* upperBound = lowerBound;
-		if (!Compare()(key, nodeKey(upperBound)))
+		if (!Less()(key, nodeKey(upperBound)))
 		{
 			// The lower bound is equivalent to the
 			// key. Therefore the upper-bound is given 

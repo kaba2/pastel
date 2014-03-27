@@ -5,23 +5,12 @@
 #define PASTELSYS_NOTEQUALTO_H
 
 #include "pastel/sys/predicate_concept.h"
+#include "pastel/sys/not_predicate.h"
 
 namespace Pastel
 {
 
-	class NotEqualTo
-	{
-	public:
-		template <
-			typename Left, 
-			typename Right>
-		bool operator()(
-			const Left& left, 
-			const Right& right) const
-		{
-			return left != right;
-		}
-	};
+	using NotEqualTo = Not_Predicate<EqualTo>;
 
 }
 

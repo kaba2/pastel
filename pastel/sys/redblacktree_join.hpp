@@ -27,15 +27,15 @@ namespace Pastel
 		if (Settings::MultipleKeys)
 		{
 			bool disjointOpenIntervals = 
-				!Compare()(that.begin().key(), last().key()) ||
-				!Compare()(begin().key(), that.last().key());
+				!Less()(that.begin().key(), last().key()) ||
+				!Less()(begin().key(), that.last().key());
 			ENSURE(disjointOpenIntervals);
 		}
 		else
 		{
 			bool disjointClosedIntervals =
-				Compare()(last().key(), that.begin().key()) ||
-				Compare()(that.last().key(), begin().key());
+				Less()(last().key(), that.begin().key()) ||
+				Less()(that.last().key(), begin().key());
 			ENSURE(disjointClosedIntervals);
 		}
 
@@ -47,7 +47,7 @@ namespace Pastel
 			blackHeight() < that.blackHeight() ?
 			that : *this;
 
-		bool shorterIsLarger = !Compare()(
+		bool shorterIsLarger = !Less()(
 			shorter.begin().key(),
 			taller.last().key());
 

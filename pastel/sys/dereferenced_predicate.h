@@ -38,6 +38,13 @@ namespace Pastel
 	typedef Dereferenced_Predicate<EqualTo> Dereferenced_EqualTo;
 	typedef Dereferenced_Predicate<NotEqualTo> Dereferenced_NotEqualTo;
 
+	template <typename Predicate>
+	Dereferenced_Predicate<Predicate> dereferencedPredicate(
+		const Predicate& predicate)
+	{
+		return Dereferenced_Predicate<Predicate>();
+	}
+
 }
 
 #endif

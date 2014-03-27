@@ -29,7 +29,7 @@ namespace Pastel
 			// element, or some are smaller and some not-smaller.
 			// Find out which is the case.
 			Iterator prevNextIter = std::prev(nextIter);
-			keyAlreadyExists = !Compare()(prevNextIter.key(), key);
+			keyAlreadyExists = !Less()(prevNextIter.key(), key);
 		}
 		else
 		{

@@ -38,7 +38,7 @@ namespace Pastel
 		PASTEL_FWD(Key);
 		PASTEL_FWD(Propagation);
 		PASTEL_FWD(Data);
-		PASTEL_FWD(Compare);
+		PASTEL_FWD(Less);
 
 		PASTEL_CONSTEXPR bool MultipleKeys =
 			Settings::MultipleKeys;

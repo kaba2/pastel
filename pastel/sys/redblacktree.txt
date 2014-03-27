@@ -13,9 +13,9 @@ A _red-black tree_ is a binary search tree where
 * each node ''A'' has a color ''c(A)'', which is either red or black, 
 * the root is black,
 * the children of a red node are black, and
-* the number of black nodes in a path from the root node to a leaf node is invariant to the choice of the path.
+* the number of black nodes in a simple path from a node to a leaf node is invariant to the choice of the path.
 
-These properties guarantee that the height of the tree is ''O(log(n))'', where ''n'' is the number of elements stored in the tree. The _black-height of a node_ is the number of black nodes on a path from the node to a leaf node in its subtree. The _black-height of a tree_ is the black-height of the root of the  tree.
+These properties guarantee that the height of the tree is ''O(log(n))'', where ''n'' is the number of elements stored in the tree. The _black-height of a node_ is the number of black nodes on a simple path from the node to a leaf node in its subtree. This is well-defined by the last property of the red-black tree. The _black-height of a tree_ is the black-height of the root of the tree.
 
 Properties
 ----------
@@ -26,6 +26,8 @@ Property                           | Complexity
 ---------------------------------- | -------------------------------------
 Insert an element                  | ''O(f(n) log(n))''
 Remove an element                  | ''O(f(n) log(n))''
+Catenate trees                     | ''O(log(n_2 / n_1)''
+Split tree                         | ''O(log(n_2 / n_1)''
 Find an element                    | ''O(log(n))''
 Find the next smaller element      | ''O(log(n))''
 Find the next greater element      | ''O(log(n))''
@@ -37,7 +39,7 @@ Find the root node                 | ''O(1)''
 Find the black-height of the tree  | ''O(1)''
 Space                              | ''O(n)''
 
-The next-smaller operation is amortized only over the repetitions of that operation; a sequence of next-smaller and next-greater operations has ''O(log(n))'' amortized complexity. Similarly for the next-greater operation.
+In the above, ''n_2'' and ''n_1'' refer to the number of elements in the larger tree and the smaller tree, respectively. The next-smaller operation is amortized only over the repetitions of that operation; a sequence of next-smaller and next-greater operations has ''O(log(n))'' amortized complexity. Similarly for the next-greater operation.
 
 Node data
 ---------

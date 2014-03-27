@@ -34,32 +34,50 @@ namespace Pastel
 
 		// Create a new node for the element.
 		Node* node = allocateNode(key, data, propagation);
+		Iterator element(node);
 
 		// Attach the node into the tree.
 		attach(node, parent, right);
 
-		return insertReturnType(Iterator(node), true);
+		// Notify the customization of this tree of the
+		// insertion.
+		this->onInsert(element);
+
+		return insertReturnType(element, true);
+	}
+
+	template <typename Settings, template <typename> class Customization>
+	void RedBlackTree<Settings,  Customization>::attachSubtree(
+		Node* node, Node* parent, bool right, integer size)
+	{
+		ASSERT(!node->isSentinel());
+		ASSERT(!node->parent());
+		ASSERT(parent->child(right)->isSentinel());
+		ASSERT_OP(size, > , 0);
+
+		// Attach the new node into the tree.
+		link(parent, node, right);
+
+		// Update the size.
+		size_ += size;
 	}
 
 	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings,  Customization>::attach(
 		Node* node, Node* parent, bool right)
 	{
-		ASSERT(!node->isSentinel());
 		ASSERT(node->red());
-		ASSERT(!node->parent());
 		ASSERT(!node->left());
 		ASSERT(!node->right());
-		ASSERT(parent->child(right)->isSentinel());
 
-		Iterator element(node);
-
-		// Attach the new node into the tree.
-		link(parent, node, right);
+		bool wasEmpty = empty();
 		node->left() = bottomNode();
 		node->right() = bottomNode();
 
-		if (empty() ||
+		// Attach the node.
+		attachSubtree(node, parent, right, 1);
+
+		if (wasEmpty ||
 			(parent == minNode() && !right))
 		{
 			// This is the new minimum.
@@ -67,7 +85,7 @@ namespace Pastel
 			node->left() = endNode();
 		}
 
-		if (empty() ||
+		if (wasEmpty ||
 			(parent == maxNode() && right))
 		{
 			// This is the new maximum.
@@ -81,13 +99,6 @@ namespace Pastel
 
 		// Fix the red-black violations.
 		rebalanceAfterAttach(node);
-
-		// Update the size.
-		++size_;
-
-		// Notify the customization of this tree of the
-		// insertion.
-		this->onInsert(element);
 	}
 
 	template <typename Settings, template <typename> class Customization>

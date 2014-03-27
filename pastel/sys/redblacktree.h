@@ -39,7 +39,7 @@ namespace Pastel
 		PASTEL_FWD(Propagation_Class);
 		PASTEL_FWD(Data);
 		PASTEL_FWD(Data_Class);
-		PASTEL_FWD(Compare);
+		PASTEL_FWD(Less);
 
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
@@ -587,12 +587,26 @@ namespace Pastel
 		If multiple keys are not allowed, then the 
 		comparisons above are required to hold strictly (<).
 
-		Time complexity: O(log(min(size(), that.size()) + 2))
+		Time complexity: O(log(n_2 / n_1))
 		Exception safety: nothrow
 
-		The end nodes will be preserved.
+		The sentinel nodes are preserved.
 		*/
 		RedBlackTree& join(RedBlackTree& that);
+
+		//! Splits the tree into two.
+		/*!
+		Time complexity: O(log(size()) + 2))
+		Exception safety: nothrow
+
+		returns:
+		A red-black tree which contains all the elements
+		greater-than-or-equal-to 'rightBegin', and shares
+		the bottom node with this tree.
+
+		The sentinel nodes are preserved.
+		*/
+		RedBlackTree split(const ConstIterator& rightBegin);
 
 		//! Splits the sentinel node.
 		/*!
@@ -841,6 +855,37 @@ namespace Pastel
 			delete node;
 		}
 
+		//! Attaches a new subtree into the tree.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		Preconditions:
+		!node->isSentinel()
+		!node->parent()
+		!parent->child(right)->isSentinel()
+		size > 0
+		Attaching the subtree preserves the binary search property.
+		The attached subtree shares the bottom node with this tree.
+
+		node:
+		The root of the subtree to attach into the tree.
+
+		parent, right:
+		The attachment position.
+
+		size:
+		The number of elements in the attached subtree.
+
+		No rebalancing or propagation updates are done 
+		after attaching.
+		*/
+		void attachSubtree(
+			Node* node,
+			Node* parent,
+			bool right,
+			integer size);
+
 		//! Attaches a new node into the tree and rebalances.
 		/*!
 		Time complexity: O(log(size()))
@@ -851,13 +896,13 @@ namespace Pastel
 		!node->left()
 		!node->right()
 		!parent->child(right)->isSentinel()
+		Attaching the node preserves the binary search property.
 
 		node:
 		The node to attach into the tree.
 
 		parent, right:
-		The initial attachment position as provided
-		by findInsertParent().
+		The attachment position.
 		*/
 		void attach(
 			Node* node,
@@ -1114,7 +1159,7 @@ namespace Pastel
 	template <
 		typename Key_, 
 		typename Data_ = void,
-		typename Compare_ = LessThan,
+		typename Less_ = LessThan,
 		typename Propagation_ = void,
 		bool MultipleKeys_ = false,
 		bool StoreSentinelPropagation_ = true>
@@ -1123,7 +1168,7 @@ namespace Pastel
 	public:
 		using Key = Key_;
 		using Data = Data_;
-		using Compare = Compare_;
+		using Less = Less_;
 		using Propagation = Propagation_;
 		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
 		PASTEL_CONSTEXPR bool StoreSentinelPropagation = StoreSentinelPropagation_;
@@ -1139,23 +1184,23 @@ namespace Pastel
 	template <
 		typename Key, 
 		typename Data,
-		typename Compare = LessThan,
+		typename Less = LessThan,
 		typename Propagation = void,
 		bool StoreSentinelPropagation = true,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Map = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Compare, Propagation,
+		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation,
 		false, StoreSentinelPropagation>, Customization>;
 
 	template <
 		typename Key, 
 		typename Data,
-		typename Compare = LessThan,
+		typename Less = LessThan,
 		typename Propagation = void,
 		bool StoreSentinelPropagation = true,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiMap = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Compare, Propagation,
+		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation,
 		true, StoreSentinelPropagation>, Customization>;
 
 }
@@ -1167,19 +1212,19 @@ namespace Pastel
 
 	template <
 		typename Key,
-		typename Compare = LessThan,
+		typename Less = LessThan,
 		typename Propagation = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Set = 
-		RedBlackTree<RedBlack_Settings<Key, void, Compare, Propagation, false>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, false>, Customization>;
 
 	template <
 		typename Key, 
-		typename Compare = LessThan,
+		typename Less = LessThan,
 		typename Propagation = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiSet = 
-		RedBlackTree<RedBlack_Settings<Key, void, Compare, Propagation, true>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, true>, Customization>;
 
 }
 
@@ -1191,6 +1236,7 @@ namespace Pastel
 #include "pastel/sys/redblacktree_join.hpp"
 #include "pastel/sys/redblacktree_search.hpp"
 #include "pastel/sys/redblacktree_splice.hpp"
+#include "pastel/sys/redblacktree_split.hpp"
 #include "pastel/sys/redblacktree_swap.hpp"
 
 #endif
