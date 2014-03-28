@@ -629,19 +629,7 @@ namespace Pastel
 		shared, which in turned allows trees to be
 		joined.
 		*/
-		void splitSentinels()
-		{
-			if (hasSeparateSentinels())
-			{
-				// Nothing to do.
-				return;
-			}
-
-			ENSURE(empty());
-
-			end_ = allocateSentinel();
-			rootNode() = endNode();
-		}
+		void splitSentinels();
 
 		//! Merges the sentinel nodes.
 		/*!
@@ -654,30 +642,7 @@ namespace Pastel
 		The end node is removed and replaced
 		with the bottom node.
 		*/
-		void mergeSentinels()
-		{
-			if (!hasSeparateSentinels())
-			{
-				// Nothing to do.
-				return;
-			}
-
-			ENSURE(!sharesBottom());
-
-			if (!empty())
-			{
-				bottomNode()->parent() = endNode()->parent();
-				bottomNode()->right() = endNode()->right();
-			}
-			else
-			{
-				bottomNode()->isolateSelf();
-				rootNode() = bottomNode();
-			}
-
-			deallocateSentinel(endNode());
-			end_ = bottom_.get();
-		}
+		void mergeSentinels();
 
 		//! Returns whether the tree has separate sentinels.
 		/*!
@@ -1293,6 +1258,7 @@ namespace Pastel
 #include "pastel/sys/redblacktree_rebalance_black_loss.hpp"
 #include "pastel/sys/redblacktree_rebalance_red_violation.hpp"
 #include "pastel/sys/redblacktree_search.hpp"
+#include "pastel/sys/redblacktree_sentinels.hpp"
 #include "pastel/sys/redblacktree_splice.hpp"
 #include "pastel/sys/redblacktree_split.hpp"
 #include "pastel/sys/redblacktree_swap.hpp"
