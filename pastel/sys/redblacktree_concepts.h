@@ -40,8 +40,7 @@ namespace Pastel
 			//! The type of the propagation data.
 			/*!
 			The propagation data is attached to every 
-			non-sentinel node, and also to sentinel nodes
-			if requested by StoreSentinelPropagation.
+			node, including sentinel nodes.
 			The propagation data can be read, but not modified,
 			through an iterator. The propagation data
 			is modified through the customization's
@@ -62,19 +61,6 @@ namespace Pastel
 
 			//! Whether to allow multiple equal keys.
 			PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
-
-			//! Whether to store propagation data in the sentinel nodes.
-			/*!
-			Storing propagation data in the sentinel nodes is useful
-			for getting rid of boundary cases when updating
-			propagation data. For example, the base-case
-			for the number of nodes under a subtree is to
-			store 0 in the sentinel data. However, this requires
-			that the propagation data be default-constructible, so
-			for genericy we will provide this switch to turn
-			this feature off.
-			*/
-			PASTEL_CONSTEXPR bool StoreSentinelPropagation = UserDefinedBoolean;
 		};
 
 		//! RedBlackTree_Customization concept
