@@ -95,6 +95,7 @@ namespace
 			testLowerBound<Tree>();
 			testUpperBound<Tree>();
 			testJoin<Tree>();
+			testQuantile<Tree>();
 			//testSplit<Tree>();
 		}
 
@@ -363,6 +364,12 @@ namespace
 				TEST_ENSURE(tree.sharesBottom(moved));
 				TEST_ENSURE_OP(tree.size(), == , 0);
 				TEST_ENSURE(tree.empty());
+			}
+			{
+				Tree tree;
+				Tree copy(tree);
+				TEST_ENSURE(testInvariants(tree));
+				TEST_ENSURE(testInvariants(copy));
 			}
 		}
 
@@ -955,6 +962,47 @@ namespace
 				TEST_ENSURE(testInvariants(bTree));
 				TEST_ENSURE_OP(bTree.size(), == , 4);
 			}
+		}
+
+		template <typename Tree>
+		void testQuantile()
+		{
+			Tree tree {0, 1, 2, 3, 4};
+
+			using ConstIterator = typename Tree::ConstIterator;
+
+			auto test = [&](real alpha, integer correct)
+			{
+				ConstIterator q = quantile(tree, alpha);
+				TEST_ENSURE(
+					q != tree.cend() && 
+					q.key() == correct);
+			};
+
+			test(-0.10, 0);
+			test(0.00, 0);
+			test(0.10, 0);
+			test(0.19, 0);
+			test(0.20, 1);
+			test(0.29, 1);
+			test(0.30, 1);
+			test(0.39, 1);
+			test(0.40, 2);
+			test(0.49, 2);
+			test(0.50, 2);
+			test(0.59, 2);
+			test(0.60, 3);
+			test(0.69, 3);
+			test(0.70, 3);
+			test(0.79, 3);
+			test(0.80, 4);
+			test(0.89, 4);
+			test(0.90, 4);
+			test(0.99, 4);
+			test(1.00, 4);
+			test(1.09, 4);
+			test(1.10, 4);
+			test(1.19, 4);
 		}
 	};
 
