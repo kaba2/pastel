@@ -126,10 +126,6 @@ namespace Pastel
 		//       / \
 		//      1   2
 
-		// Update the size.
-		ASSERT_OP(size_, >, 0);
-		--size_;
-
 		if (twoChildren)
 		{
 			// Replace 'node' with 'successor'.

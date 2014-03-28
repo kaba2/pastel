@@ -57,9 +57,6 @@ namespace Pastel
 
 		// Attach the new node into the tree.
 		link(parent, node, right);
-
-		// Update the size.
-		size_ += size;
 	}
 
 	template <typename Settings, template <typename> class Customization>

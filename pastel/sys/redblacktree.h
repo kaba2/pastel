@@ -256,7 +256,7 @@ namespace Pastel
 		*/
 		integer size() const
 		{
-			return size_;
+			return croot().size();
 		}
 
 		//! Returns true if the tree is empty.
@@ -266,7 +266,7 @@ namespace Pastel
 		*/
 		bool empty() const
 		{
-			return size_ == 0;
+			return croot().isSentinel();
 		}
 
 		//! Returns the black-height of the tree.
@@ -1023,9 +1023,16 @@ namespace Pastel
 		//! Updates propagation data.
 		void update(const Iterator& element)
 		{
+			ASSERT(!element.isSentinel());
+
 			this->updatePropagation(
 				element,
 				(Propagation_Class&)element.propagation());
+
+			Node* node = element.base();
+			node->setSize(
+				node->left()->size() + 1 + 
+				node->right()->size());
 		}
 
 		//! Destructs the nodes of a subtree.
@@ -1064,7 +1071,6 @@ namespace Pastel
 			rootNode() = endNode();
 
 			end_->isolateSelf();
-			size_ = 0;
 			blackHeight_ = 0;
 		}
 
@@ -1145,9 +1151,6 @@ namespace Pastel
 
 		//! The root node.
 		Node* root_ = (Node*)end_;
-
-		//! The number of stored elements in the tree.
-		integer size_ = 0;
 
 		//! The black-height of the tree.
 		/*!

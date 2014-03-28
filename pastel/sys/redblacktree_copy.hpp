@@ -26,6 +26,7 @@ namespace Pastel
 				thatNode->propagation());
 			node->parent() = parent;
 			node->setRed(thatNode->red());
+			node->setSize(thatNode->size());
 			++rollBackIndex;
 			
 			// Copy construct the left child.

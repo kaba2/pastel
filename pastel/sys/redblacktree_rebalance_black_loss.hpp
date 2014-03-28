@@ -16,6 +16,7 @@ namespace Pastel
 
 			// At the start of the loop,
 			// * the 'parent' is not the sentinel,
+			// * the tree does not have any red violations,
 			// * the number of black nodes on a simple path starting from 
 			// 'parent', or its ancestor, and ending in a leaf node in the 
 			// 'right' subtree of 'parent' is one less than it is on
@@ -37,11 +38,11 @@ namespace Pastel
 			if (node->red())
 			{ 
 				//      |B               |B   
-				//      p    		     p    
+				//      p                p    
 				//    /   \R    ==>	   /   \B  
-				//   s     n		  s     n
-				//  / \   / \		 / \   / \
-				// 1   2 3   4		1   2 3   4
+				//   s     n          s     n
+				//  / \  B/ \B       / \  B/ \B
+				// 1   2 3   4      1   2 3   4
 
 				node->setBlack();
 				update(node);
