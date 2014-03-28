@@ -23,27 +23,23 @@ It is common to require, in addition, that the root be black. We allow roots of 
 Properties
 ----------
 
-Let ''n in NN'' be the number of stored elements, and let ''f : NN -> NN'' be the time it takes to run the user-defined propagation function for a single node (usually ''O(1)''). The red-black tree implementation in Pastel has the following properties:
+Let ''n in NN'' be the number of stored elements, and let ''f : NN -> NN'' be the time it takes to run the propagation function for a single node (usually ''O(1)''). The red-black tree implementation in Pastel has the following complexities:
 
-Property                               | Complexity
+Operation / Property                   | Complexity
 ---------------------------------------| ----------------------------------------
-Insert an element                      | ''O(f(n) log(n))''
-Remove an element                      | ''O(f(n) log(n))''
+Insert/remove an element               | ''O(f(n) log(n))''
 Join trees                             | ''O(f(n_2) log(n_2) - f(n_1) log(n_1))''
 Split tree                             | ''O(f(n_2) log(n_2) - f(n_1) log(n_1))''
 Find an element                        | ''O(log(n))''
-Find the next smaller element          | ''O(log(n))''
-Find the next greater element          | ''O(log(n))''
+Find the next smaller/greater element  | ''O(log(n))''
 Find an alpha-quantile                 | ''O(log(n))''
 Find the number of equivalent elements | ''O(log(n)))''
-Find the minimum element               | ''O(1)''
-Find the maximum element               | ''O(1)''
+Find the minimum/maximum element       | ''O(1)''
 Find the root node                     | ''O(1)''
 Find the black-height of the tree      | ''O(1)''
 Find the size of a subtree             | ''O(1)''
-Increment iterator                     | ''O(1)'' amortized
-Decrement iterator                     | ''O(1)'' amortized
-Move iterator in the tree              | ''O(1)''
+Move an iterator in the tree           | ''O(1)''
+Decrement/increment an iterator        | ''O(1)'' amortized
 Space                                  | ''O(n)''
 
 In the above, ''n_2'' and ''n_1'' refer to the number of elements in the larger tree and the smaller tree, respectively. The iterator increment is amortized only over the repetitions of that operation; a sequence of increment and decrement operations has ''O(log(n))'' amortized complexity. Similarly for the iterator decrement.
