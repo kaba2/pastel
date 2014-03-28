@@ -157,12 +157,6 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	bool testInvariants(const RedBlackTree<Settings, Customization>& tree)
 	{
-		if (!tree.croot().black())
-		{
-			// The root of the tree must be black.
-			return false;
-		}
-
 		if (tree.clast().right() != tree.cend())
 		{
 			// The maximum node must be connected to

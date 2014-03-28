@@ -39,6 +39,9 @@ namespace Pastel
 			ENSURE(disjointClosedIntervals);
 		}
 
+		setRootBlack();
+		that.setRootBlack();
+
 		RedBlackTree& shorter = 
 			blackHeight() < that.blackHeight() ?
 			*this : that;
@@ -115,9 +118,7 @@ namespace Pastel
 		// Update the propagation at 'middle'.
 		update(middle);
 
-		// At this point the subtree rooted at 'middle'
-		// is a red-black tree, except that 'middle'
-		// might not be black.
+		// The subtree rooted at 'middle' is a red-black tree.
 		ASSERT(middle->left()->black());
 		ASSERT(middle->right()->black());
 

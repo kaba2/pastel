@@ -731,6 +731,23 @@ namespace Pastel
 			return bottom_ == that.bottom_;
 		}
 
+		//! Sets the root black.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		void setRootBlack()
+		{
+			if (rootNode()->black())
+			{
+				return;
+			}
+
+			rootNode()->setBlack();
+			update(rootNode());
+			++blackHeight_;
+		}
+
 		//! Returns an iterator to the smallest element.
 		PASTEL_ITERATOR_FUNCTIONS(begin, minNode());
 
@@ -929,8 +946,9 @@ namespace Pastel
 		//! Fixes a black-height loss.
 		/*!
 		Preconditions:
-		* Propagation data in both children of 'parent' are up-to-date.
-		* The number of black nodes on a simple path starting from 
+		* The left subtree and the right subtree of 'parent' are
+		red-black trees, with propagation data up-to-date.
+		* The number of black nodes on a simple path starting from
 		'parent', or its ancestor, and ending in a leaf node in the 
 		'right' subtree of 'parent' is one less than it is on
 		a path that does not end in the 'right' subtree of 'parent'.
@@ -941,27 +959,13 @@ namespace Pastel
 		void rebalanceBlackLoss(
 			Node* parent, bool right);
 
-		//! Fixes a black-height excess.
-		/*!
-		Preconditions:
-		* Propagation data in both children of 'parent' are up-to-date.
-		* The number of black nodes on a simple path starting from 
-		'parent', or its ancestor, and ending in a leaf node in the 
-		'right' subtree of 'parent' is one greater than it is on
-		a path that does not end in the 'right' subtree of 'parent'.
-
-		Time complexity: O(log(size()))
-		Exception safety: nothrow
-		*/
-		void rebalanceBlackExcess(
-			Node* parent, bool right);
-
 		//! Fixes a red-red violation.
 		/*!
 		Preconditions:
-		* Propagations in the subtree rooted at 'node' are up-to-date.
-		* The subtree rooted at 'node' is a red-black tree, except
-		that 'node' is not required to be black.
+		* The subtree rooted at 'node' is a red-black tree,
+		with propagation data up-to-date.
+		* node->red()
+		* !node->isSentinel()
 
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
