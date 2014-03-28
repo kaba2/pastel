@@ -11,11 +11,14 @@ Definition
 A _red-black tree_ is a binary search tree where 
 
 * each node ''A'' has a color ''c(A)'', which is either red or black, 
-* the root is black,
 * the children of a red node are black, and
 * the number of black nodes in a simple path from a node to a leaf node is invariant to the choice of the path.
 
-These properties guarantee that the height of the tree is ''O(log(n))'', where ''n'' is the number of elements stored in the tree. The _black-height of a node_ is the number of black nodes on a simple path from the node to a leaf node in its subtree. This is well-defined by the last property of the red-black tree. The _black-height of a tree_ is the black-height of the root of the tree.
+These properties guarantee that the height of the tree is ''O(log(n))'', where ''n'' is the number of elements stored in the tree. The _black-height of a node_ is the number of black nodes on a simple path from the node to a leaf node in its subtree. This is well-defined by the last property of the red-black tree. The _black-height of a tree_ is the black-height of the root of the tree. 
+
+### Color of the root
+
+It is common to require, in addition, that the root be black. This requirement is extraneous; all algorithms work with minimal changes with roots of either color. Allowing roots of both colors makes the theory simpler. In particular, it then follows that in a red-black tree every subtree under a given node is a red-black tree. 
 
 Properties
 ----------
@@ -26,17 +29,20 @@ Property                           | Complexity
 ---------------------------------- | -------------------------------------
 Insert an element                  | ''O(f(n) log(n))''
 Remove an element                  | ''O(f(n) log(n))''
-Catenate trees                     | ''O(log(n_2 / n_1)''
-Split tree                         | ''O(log(n_2 / n_1)''
+Join trees                         | ''O(f(n_2) log(n_2) - f(n_1) log(n_1))''
+Split tree                         | ''O(f(n_2) log(n_2) - f(n_1) log(n_1))''
 Find an element                    | ''O(log(n))''
 Find the next smaller element      | ''O(log(n))''
 Find the next greater element      | ''O(log(n))''
-Find the next smaller element given a stored element | ''O(1)'' amortized
-Find the next greater element given a stored element | ''O(1)'' amortized
+Find an alpha-quantile             | ''O(log(n))''
 Find the minimum element           | ''O(1)''
 Find the maximum element           | ''O(1)''
 Find the root node                 | ''O(1)''
 Find the black-height of the tree  | ''O(1)''
+Find the size of a subtree         | ''O(1)''
+Increment iterator                 | ''O(1)'' amortized
+Decrement iterator                 | ''O(1)'' amortized
+Move iterator in the tree          | ''O(1)''
 Space                              | ''O(n)''
 
 In the above, ''n_2'' and ''n_1'' refer to the number of elements in the larger tree and the smaller tree, respectively. The next-smaller operation is amortized only over the repetitions of that operation; a sequence of next-smaller and next-greater operations has ''O(log(n))'' amortized complexity. Similarly for the next-greater operation.
@@ -58,6 +64,14 @@ A _propagation_ is the evaluation of the user-defined propagation function at a 
 
 A _user data_ can be modified freely; the tree does not enforce any invariants on it. Defining the type of the user data as `void` avoids allocating any memory for it.
 
+### Color
+
+The _color_ of a node is either red or black. It can only be modified by the tree operations.
+
+### Size
+
+The _size_ of a node is the number of nodes in the subtree rooted at that node. It can only be modified by the tree operations, and is an internal propagation. The size of a subtree is needed when splitting red-black trees to track the sizes of the resulting trees in constant time. In addition, the size information can be used to compute any alpha-quantile in logarithmic time.
+
 Propagation functions
 ---------------------
 
@@ -66,11 +80,11 @@ A _propagation function_ is used to compute the propagation at a node, subject t
 ### Examples
 
 Name                             | Propagation type | Propagation function                                                                            | Sentinel propagation
----------------------------------|------------------|-------------------------------------------------------------------------------------------------|-------------
-Number of elements in a subtree  | `integer`        |  `node.left().propagation() + 1 + node.right().propagation()`                                   | `0`
+---------------------------------|------------------|-------------------------------------------------------------------------------------------------|---------------------
+Number of elements in a subtree  | `integer`        | `node.left().propagation() + 1 + node.right().propagation()`                                    | `0`
 The sum of keys in a subtree     | `Key`            | `node.left().propagation() + node.key() + node.right().propagation()`                           | `0`
 The maximum of keys in a subtree | `Key`            | `std::max(std::max(node.left().propagation(), node.right().propagation()), node.propagation())` | `-infinity<Key>()`
-Black-height of a node           | `integer`        | `std::max(node.left().propagation(), node.right().propagation()) + node.black()`                | `0`
+Black-height of a node           | `integer`        | `node.left().propagation() + node.black()`                                                      | `0`
 
 The number of elements in a subtree can be used to find any quantile in ''O(log(n))'' time. The sum of keys in a subtree can be used to draw a random sample from any finite distribution with `n` values in ''O(log(n))'' time. Computing the black-height is useful for testing the implementation of the red-black tree. 
 

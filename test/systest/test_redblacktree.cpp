@@ -427,7 +427,7 @@ namespace
 			std::vector<uinteger> keySet = 
 				{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 			std::vector<integer> blackHeightSet = 
-				{ 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3 };
+				{ 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3 };
 			ASSERT_OP(keySet.size(), == , blackHeightSet.size());
 
 			for (integer i = 0; i < keySet.size(); ++i)

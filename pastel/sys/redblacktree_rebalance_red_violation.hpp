@@ -15,8 +15,8 @@ namespace Pastel
 			// The loop invariant is as follows:
 
 			// At the start of the loop 
+			// * 'node' is red (and therefore not the sentinel),
 			// * the subtree rooted at 'node' is a red-black tree,
-			// except that 'node' is red, and
 			// * the propagation data is up-to-date in
 			// the subtree rooted at 'node'.
 
@@ -24,33 +24,6 @@ namespace Pastel
 			ASSERT(node->red());
 
 			Node* parent = node->parent();
-			if (parent->isSentinel())
-			{
-				//    |R         |B
-				//    n    ==>   n
-				//  B/ \B      B/ \B
-				//  1   2      1   2
-
-				// The node is the root node.
-				ASSERT(node == rootNode());
-
-				// Marking the 'node' black turns the subtree
-				// rooted at 'node' a red-black tree,
-				// since marking the root black increases
-				// the black-counts on all paths by one.
-				node->setBlack();
-				update(node);
-
-				// This is the only case which increases
-				// the black-height of the tree.
-				++blackHeight_;
-
-				// We are done.
-				break;
-			}
-
-			// From now on, the parent exists.
-
 			if (parent->black())
 			{
 				//     |B 
@@ -67,13 +40,36 @@ namespace Pastel
 				break;
 			}
 
-			// From now on, the parent must be red. Since the 
-			// root can not be red, the parent can not be the root.
-			ASSERT(parent != rootNode());
-		
-			// From the previous it follows that the 
-			// grand-parent exists.
+			// From now on the parent is red. 
+			ASSERT(parent->red());
+
+			// It follows that the parent exists.
+			ASSERT(!parent->isSentinel());
+
 			Node* grandParent = parent->parent();
+			if (grandParent->isSentinel())
+			{
+				//     ?             B
+				//     p		     p
+				//   R/ \B	==>	   R/ \B
+				//   n   3		   n   3
+				// B/ \B		 B/ \B
+				// 1   2		 1   2
+
+				if (parent->red())
+				{
+					parent->setBlack();
+
+					// This the only case where the 
+					// black-height increases.
+					++blackHeight_;
+				}
+				update(parent);
+
+				break;
+			}
+
+			// From now on the grand-parent exists.
 			ASSERT(!grandParent->isSentinel());
 
 			bool parentIsRight = (parent == grandParent->right());
