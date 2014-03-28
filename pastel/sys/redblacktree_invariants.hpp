@@ -181,7 +181,8 @@ namespace Pastel
 		PASTEL_FWD(Less);
 		PASTEL_FWD(Key);
 
-		if (!pairwiseAllOf(tree.ckeyRange(), 
+		if (Settings::MultipleKeys &&
+			!pairwiseAllOf(tree.ckeyRange(),
 			notPredicate(transposePredicate(Less()))))
 		{
 			// The keys must be in sorted order.

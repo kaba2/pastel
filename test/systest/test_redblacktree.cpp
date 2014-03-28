@@ -76,9 +76,14 @@ namespace
 			testMap();
 			testMultiMap();
 
+			testMultiLowerBound<MultiSet>();
+			testMultiLowerBound<MultiMap>();
+			testMultiCount<MultiSet>();
+			testMultiCount<MultiMap>();
+
 			testManyThings<Set>();
-			testManyThings<MultiSet>();
 			testManyThings<Map>();
+			testManyThings<MultiSet>();
 			testManyThings<MultiMap>();
 		}
 
@@ -219,6 +224,67 @@ namespace
 				integer correctSet[] =
 					{ 1, 1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 7, 7, 8 };
 				TEST_ENSURE(boost::equal(aTree.ckeyRange(), correctSet));
+			}
+		}
+
+		template <typename Tree>
+		void testMultiLowerBound()
+		{
+			{
+				Tree tree;
+
+				auto test = [&](integer that, integer index)
+				{
+					integer actualIndex =
+						std::distance(tree.begin(), tree.lowerBound(that));
+
+					return actualIndex == index;
+				};
+
+				{
+					tree = { 2, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
+					TEST_ENSURE(testInvariants(tree));
+
+					TEST_ENSURE(test(0, 0));
+					TEST_ENSURE(test(1, 0));
+					TEST_ENSURE(test(2, 0));
+					TEST_ENSURE(test(3, 1));
+					TEST_ENSURE(test(4, 1));
+					TEST_ENSURE(test(5, 3));
+					TEST_ENSURE(test(6, 7));
+					TEST_ENSURE(test(7, 7));
+					TEST_ENSURE(test(8, 7));
+					TEST_ENSURE(test(9, 7));
+					TEST_ENSURE(test(10, 8));
+					TEST_ENSURE(test(11, 8));
+					TEST_ENSURE(test(12, 8));
+					TEST_ENSURE(test(13, 8));
+					TEST_ENSURE(test(14, 8));
+					TEST_ENSURE(test(15, 8));
+					TEST_ENSURE(test(16, 9));
+					TEST_ENSURE(test(17, 9));
+					TEST_ENSURE(test(18, 9));
+					TEST_ENSURE(test(19, 9));
+					TEST_ENSURE(test(20, 9));
+					TEST_ENSURE(test(21, 10));
+					TEST_ENSURE(test(22, 10));
+				}
+
+				{
+					tree = { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
+					TEST_ENSURE(testInvariants(tree));
+
+					TEST_ENSURE(test(0, 0));
+					TEST_ENSURE(test(1, 0));
+					TEST_ENSURE(test(2, 0));
+					TEST_ENSURE(test(3, 0));
+					TEST_ENSURE(test(4, 1));
+					TEST_ENSURE(test(5, 2));
+					TEST_ENSURE(test(6, 9));
+					TEST_ENSURE(test(7, 10));
+					TEST_ENSURE(test(8, 11));
+					TEST_ENSURE(test(9, 11));
+				}
 			}
 		}
 
@@ -799,44 +865,7 @@ namespace
 		template <typename Tree>
 		void testLowerBound()
 		{
-			Tree tree{ 2, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
-			TEST_ENSURE(testInvariants(tree));
-
-			auto found = [&](integer that, integer bound)
-			{
-				TEST_ENSURE(
-					tree.lowerBound(that) != tree.cend() &&
-					tree.lowerBound(that).key() == bound);
-			};
-
-			auto notFound = [&](integer that)
-			{
-				TEST_ENSURE(tree.lowerBound(that) == tree.cend());
-			};
-
-			found(0, 2);
-			found(1, 2);
-			found(2, 2);
-			found(3, 4);
-			found(4, 4);
-			found(5, 5);
-			found(6, 9);
-			found(7, 9);
-			found(8, 9);
-			found(9, 9);
-			found(10, 15);
-			found(11, 15);
-			found(12, 15);
-			found(13, 15);
-			found(14, 15);
-			found(15, 15);
-			found(16, 20);
-			found(17, 20);
-			found(18, 20);
-			found(19, 20);
-			found(20, 20);
-			notFound(21);
-			notFound(22);
+			Tree tree;
 		}
 
 		template <typename Tree>
@@ -845,7 +874,7 @@ namespace
 			Tree tree{ 2, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
 			TEST_ENSURE(testInvariants(tree));
 
-			auto found = [&](integer that, integer bound)
+			auto test = [&](integer that, integer bound)
 			{
 				bool wasFound =
 					tree.upperBound(that) != tree.cend();
@@ -859,26 +888,26 @@ namespace
 				TEST_ENSURE(tree.upperBound(that) == tree.cend());
 			};
 
-			found(0, 2);
-			found(1, 2);
-			found(2, 4);
-			found(3, 4);
-			found(4, 5);
-			found(5, 9);
-			found(6, 9);
-			found(7, 9);
-			found(8, 9);
-			found(9, 15);
-			found(10, 15);
-			found(11, 15);
-			found(12, 15);
-			found(13, 15);
-			found(14, 15);
-			found(15, 20);
-			found(16, 20);
-			found(17, 20);
-			found(18, 20);
-			found(19, 20);
+			test(0, 2);
+			test(1, 2);
+			test(2, 4);
+			test(3, 4);
+			test(4, 5);
+			test(5, 9);
+			test(6, 9);
+			test(7, 9);
+			test(8, 9);
+			test(9, 15);
+			test(10, 15);
+			test(11, 15);
+			test(12, 15);
+			test(13, 15);
+			test(14, 15);
+			test(15, 20);
+			test(16, 20);
+			test(17, 20);
+			test(18, 20);
+			test(19, 20);
 			notFound(20);
 			notFound(21);
 		}
@@ -1003,6 +1032,22 @@ namespace
 			test(1.09, 4);
 			test(1.10, 4);
 			test(1.19, 4);
+		}
+
+		template <typename Tree>
+		void testMultiCount()
+		{
+			Tree tree = { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
+			TEST_ENSURE_OP(tree.count(0), ==, 0);
+			TEST_ENSURE_OP(tree.count(1), ==, 0);
+			TEST_ENSURE_OP(tree.count(2), ==, 0);
+			TEST_ENSURE_OP(tree.count(3), ==, 1);
+			TEST_ENSURE_OP(tree.count(4), ==, 1);
+			TEST_ENSURE_OP(tree.count(5), ==, 7);
+			TEST_ENSURE_OP(tree.count(6), ==, 1);
+			TEST_ENSURE_OP(tree.count(7), ==, 1);
+			TEST_ENSURE_OP(tree.count(8), ==, 0);
+			TEST_ENSURE_OP(tree.count(9), ==, 0);
 		}
 	};
 
