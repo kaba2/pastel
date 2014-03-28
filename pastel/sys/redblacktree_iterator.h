@@ -64,6 +64,7 @@ namespace Pastel
 
 			const Key& key() const
 			{
+				PENSURE(!isSentinel());
 				return node()->key();
 			}
 
@@ -74,6 +75,7 @@ namespace Pastel
 
 			Data_Class& data() const
 			{
+				PENSURE(!isSentinel());
 				return (Data_Class&)node()->data();
 			}
 

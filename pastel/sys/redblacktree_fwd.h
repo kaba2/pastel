@@ -19,10 +19,10 @@ namespace Pastel
 		class Iterator;
 
 		template <typename>
-		class Node_Base;
+		class Base_Node;
 
 		template <typename>
-		class Data_Node;
+		class Propagation_Node;
 		
 		template <typename>
 		class Node;
@@ -43,9 +43,6 @@ namespace Pastel
 		PASTEL_CONSTEXPR bool MultipleKeys =
 			Settings::MultipleKeys;
 
-		PASTEL_CONSTEXPR bool StoreSentinelPropagation =
-			Settings::StoreSentinelPropagation;
-
 		using Data_Class = Class<Data>;
 		using Propagation_Class = Class<Propagation>;
 
@@ -58,15 +55,10 @@ namespace Pastel
 			PASTEL_FWD(Key);
 			using Propagation_Class = Propagation_Class;
 			using Data_Class = Data_Class;
-			PASTEL_CONSTEXPR bool StoreSentinelPropagation =
-				Settings::StoreSentinelPropagation;
 		};
 
 		using Node = RedBlackTree_::Node<Node_Settings>;
-		using Sentinel = typename std::conditional<
-			StoreSentinelPropagation,
-			RedBlackTree_::Data_Node<Node_Settings>,
-			RedBlackTree_::Node_Base<Node_Settings>>::type;
+		using Sentinel = RedBlackTree_::Propagation_Node<Node_Settings>;
 		using EndPtr = Sentinel*;
 		using BottomPtr = std::shared_ptr<Sentinel>;
 

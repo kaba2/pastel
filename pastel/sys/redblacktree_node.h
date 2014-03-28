@@ -18,9 +18,9 @@ namespace Pastel
 		template <typename>
 		class Node;
 
-		//! The base node.
+		//! Base node
 		template <typename Settings>
-		class Node_Base
+		class Base_Node
 		{
 		public:
 			using Node = Pastel::RedBlackTree_::Node<Settings>;
@@ -54,7 +54,7 @@ namespace Pastel
 			}
 
 		protected:
-			Node_Base()
+			Base_Node()
 				: parent_(nullptr)
 				, child_()
 				, red_(false)
@@ -70,9 +70,9 @@ namespace Pastel
 				*/
 			}
 
-			Node_Base(const Node_Base& that) = delete;
-			Node_Base(Node_Base&& that) = delete;
-			Node_Base& operator=(Node_Base that) = delete;
+			Base_Node(const Base_Node& that) = delete;
+			Base_Node(Base_Node&& that) = delete;
+			Base_Node& operator=(Base_Node that) = delete;
 
 			void isolate()
 			{
@@ -165,7 +165,7 @@ namespace Pastel
 			integer size_;
 		};
 
-		//! Data node
+		//! Propagation node
 		/*!
 		A long-standing bug in Visual Studio 2013 is that
 		the empty base-class optimization only works for one 
@@ -173,23 +173,23 @@ namespace Pastel
 		Fortunately, this is the case here.
 		*/
 		template <typename Settings>
-		class Data_Node
-			: public Node_Base<Settings>
+		class Propagation_Node
+			: public Base_Node<Settings>
 			, public Settings::Propagation_Class
 		{
 		public:
 			using Fwd = Settings;
 			PASTEL_FWD(Propagation_Class);
 
-			using Base = Node_Base<Settings>;
+			using Base = Base_Node<Settings>;
 
-			Data_Node()
+			Propagation_Node()
 			: Base()
 			, Propagation_Class()
 			{
 			}
 
-			explicit Data_Node(const Propagation_Class& propagation)
+			explicit Propagation_Node(const Propagation_Class& propagation)
 			: Base()
 			, Propagation_Class(propagation)
 			{
@@ -201,15 +201,15 @@ namespace Pastel
 			}
 
 		private:
-			Data_Node(const Data_Node& that) = delete;
-			Data_Node(Data_Node&& that) = delete;
-			Data_Node& operator=(Data_Node that) = delete;
+			Propagation_Node(const Propagation_Node& that) = delete;
+			Propagation_Node(Propagation_Node&& that) = delete;
+			Propagation_Node& operator=(Propagation_Node that) = delete;
 		};
 
 		//! Key node
 		template <typename Settings>
 		class Node
-			: public Data_Node<Settings>
+			: public Propagation_Node<Settings>
 			, public Settings::Data_Class
 		{
 		public:
@@ -218,10 +218,8 @@ namespace Pastel
 			PASTEL_FWD(Key);
 			PASTEL_FWD(Propagation_Class);
 			PASTEL_FWD(Data_Class);
-			PASTEL_CONSTEXPR bool StoreSentinelPropagation = 
-				Settings::StoreSentinelPropagation;
 
-			using Base = Data_Node<Settings>;
+			using Base = Propagation_Node<Settings>;
 
 			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
@@ -237,12 +235,13 @@ namespace Pastel
 
 			Data_Class& data()
 			{
-				PENSURE(!isSentinel() || StoreSentinelPropagation);
+				ASSERT(!isSentinel());
 				return *this;
 			}
 
 			const Data_Class& data() const
 			{
+				ASSERT(!isSentinel());
 				return *this;
 			}
 

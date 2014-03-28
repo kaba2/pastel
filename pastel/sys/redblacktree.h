@@ -1182,8 +1182,7 @@ namespace Pastel
 		typename Data_ = void,
 		typename Less_ = LessThan,
 		typename Propagation_ = void,
-		bool MultipleKeys_ = false,
-		bool StoreSentinelPropagation_ = true>
+		bool MultipleKeys_ = false>
 	class RedBlack_Settings
 	{
 	public:
@@ -1192,7 +1191,6 @@ namespace Pastel
 		using Less = Less_;
 		using Propagation = Propagation_;
 		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
-		PASTEL_CONSTEXPR bool StoreSentinelPropagation = StoreSentinelPropagation_;
 	};
 
 }
@@ -1207,22 +1205,20 @@ namespace Pastel
 		typename Data,
 		typename Less = LessThan,
 		typename Propagation = void,
-		bool StoreSentinelPropagation = true,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Map = 
 		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation,
-		false, StoreSentinelPropagation>, Customization>;
+		false>, Customization>;
 
 	template <
 		typename Key, 
 		typename Data,
 		typename Less = LessThan,
 		typename Propagation = void,
-		bool StoreSentinelPropagation = true,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiMap = 
 		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation,
-		true, StoreSentinelPropagation>, Customization>;
+		true>, Customization>;
 
 }
 
