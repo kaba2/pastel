@@ -18,7 +18,7 @@ These properties guarantee that the height of the tree is ''O(log(n))'', where '
 
 ### Color of the root
 
-It is common to require, in addition, that the root be black. This requirement is extraneous; all algorithms work with minimal changes with roots of either color. Allowing roots of both colors makes the theory simpler. In particular, it then follows that in a red-black tree every subtree under a given node is a red-black tree. 
+It is common to require, in addition, that the root be black. We allow roots of both colors, so that in a red-black tree every subtree under a given node is a red-black tree. This results in a simpler theory of red-black trees.
 
 Properties
 ----------
