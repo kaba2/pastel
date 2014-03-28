@@ -22,14 +22,14 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::findEqualAndUpper(
-		const Key& key) const
+		const Key& key, const ConstIterator& start) const
 		-> FindEqual_Return
 	{
-		ConstIterator node = croot();
+		ConstIterator node = start;
 		ConstIterator upper = cend();
 		while (!node.isSentinel())
 		{
-			if (Less()(key, node.key()))
+			if (less(key, node.key()))
 			{
 				// Since this node is strictly greater than the
 				// key, it is an upper bound, although maybe not
@@ -40,7 +40,7 @@ namespace Pastel
 				// left subtree.
 				node = node.left();
 			}
-			else if (Less()(node.key(), key))
+			else if (less(node.key(), key))
 			{
 				// The possible equivalent element lies in the
 				// right subtree.
@@ -63,11 +63,10 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	auto RedBlackTree<Settings, Customization>::equalRange(
+	auto RedBlackTree<Settings, Customization>::lowerBound(
 		const Key& key, 
-		const FindEqual_Return& equalAndUpper,
-		EqualRange compute) const
-		-> EqualRange_Return
+		const FindEqual_Return& equalAndUpper) const
+		-> ConstIterator
 	{
 		ConstIterator equal = equalAndUpper.equal;
 		ConstIterator upper = equalAndUpper.upper;
@@ -78,33 +77,50 @@ namespace Pastel
 			// The key does not exists in the tree.
 			// Therefore the lower bound is the same
 			// as the upper bound.
-			return EqualRange_Return{ ConstRange(upper, upper), equal };
+			return upper;
 		}
 
-		// Although we have found an equivalent element,
-		// it may not be the first such.
 		ConstIterator lower = equal;
-		if (compute != OnlyUpperBound)
+		while(true)
 		{
-			// Find the first of the equivalent elements.
-			auto leftIsEquivalent = [&](const ConstIterator& node)
-			{
-				return !node.left().isSentinel() &&
-					!Less()(node.left().key(), key);
-			};
-
-			while (leftIsEquivalent(lower))
+			// Find the leftmost equivalent element.
+			while (!lower.left().isSentinel() &&
+  				   !less(lower.left().key(), key))
 			{
 				lower = lower.left();
 			}
+
+			if (lower.left().isSentinel())
+			{
+				// The 'lower' is the first of the
+				// equivalent elements.
+				break;
+			}
+
+			// See if there is an equivalent element 
+			// preceeding the current 'lower'.
+			ConstIterator iter = lower.left();
+			while (!iter.right().isSentinel() &&
+				less(iter.right().key(), key))
+			{
+				iter = iter.right();
+			}
+			
+			if (iter.right().isSentinel())
+			{
+				// The 'lower' is the first of the
+				// equivalent elements.
+				break;
+			}
+
+			lower = iter.right();
+
+			// We found a new 'lower' which is again 
+			// equivalent to the 'key'.
+			ASSERT(!less(key, lower.key()));
 		}
 
-		if (compute != OnlyLowerBound)
-		{
-			upper = findInsert(key, equalAndUpper).upper;
-		}
-
-		return EqualRange_Return{ConstRange(lower, upper), equal};
+		return lower;
 	}
 
 	template <typename Settings, template <typename> class Customization>
@@ -123,7 +139,7 @@ namespace Pastel
 		while(!child.isSentinel())
 		{
 			parent = child;
-			right = !Less()(key, parent.key());
+			right = !less(key, parent.key());
 			if (!right)
 			{
 				upper = parent;

@@ -391,9 +391,23 @@ namespace Pastel
 		the key when traversing the tree in pre-order. This
 		is the fastest way to find some equivalent element.
 		*/
+		ConstIterator findEqual(
+			const Key& key,
+			const ConstIterator& start) const
+		{
+			return findEqualAndUpper(key, start).equal;
+		}
+
+		Iterator findEqual(
+			const Key& key,
+			const ConstIterator& start)
+		{
+			return cast(addConst(*this).findEqual(key, start));;
+		}
+
 		ConstIterator findEqual(const Key& key) const
 		{
-			return findEqualAndUpper(key).equal;
+			return findEqual(key, croot());
 		}
 
 		Iterator findEqual(const Key& key)
@@ -410,7 +424,18 @@ namespace Pastel
 		top-most element.
 		*/
 		FindEqual_Return findEqualAndUpper(
-			const Key& key) const;
+			const Key& key, const ConstIterator& start) const;
+
+		//! Finds the top-most element equivalent to key, and an upper bound.
+		/*!
+		This is a convenience function which returns
+		findEqualAndUpper(key, croot()).
+		*/
+		FindEqual_Return findEqualAndUpper(
+			const Key& key) const
+		{
+			return findEqualAndUpper(key, croot());
+		}
 
 		//! Finds the node under which to insert the key.
 		/*!
@@ -438,13 +463,16 @@ namespace Pastel
 		*/
 		ConstRange equalRange(const Key& key) const
 		{
-			return equalRange(key, findEqualAndUpper(key), Both).range;
+			auto equalAndUpper = findEqualAndUpper(key);
+			return ConstRange(
+				lowerBound(key, equalAndUpper), 
+				upperBound(key, equalAndUpper));
 		}
 
 		std::pair<ConstIterator, ConstIterator> 
 			equal_range(const Key& key) const
 		{
-			ConstRange range = equalRange(key).range;
+			ConstRange range = equalRange(key);
 			return std::make_pair(range.begin(), range.end());
 		}
 
@@ -472,7 +500,7 @@ namespace Pastel
 		*/
 		ConstIterator lowerBound(const Key& key) const
 		{
-			return equalRange(key, findEqualAndUpper(key), OnlyLowerBound).range.begin();
+			return lowerBound(key, findEqualAndUpper(key));
 		}
 
 		ConstIterator lower_bound(const Key& key) const
@@ -497,10 +525,7 @@ namespace Pastel
 		*/
 		ConstIterator lowerBound(
 			const Key& key,
-			const FindEqual_Return& equalAndUpper) const
-		{
-			return equalRange(key, equalAndUpper, OnlyLowerBound).range.begin();
-		}
+			const FindEqual_Return& equalAndUpper) const;
 
 		Iterator lowerBound(
 			const Key& key,
@@ -516,7 +541,7 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
-			return equalRange(key, findEqualAndUpper(key), OnlyUpperBound).range.end();
+			return upperBound(key, findEqualAndUpper(key));
 		}
 
 		ConstIterator upper_bound(const Key& key) const
@@ -543,7 +568,7 @@ namespace Pastel
 			const Key& key,
 			const FindEqual_Return& equalAndUpper) const
 		{
-			return equalRange(key, equalAndUpper, OnlyUpperBound).range.end();
+			return findInsert(key, equalAndUpper).upper;
 		}
 
 		Iterator upperBound(
@@ -614,6 +639,13 @@ namespace Pastel
 		split(lowerBound(key)).
 		*/
 		RedBlackTree split(const Key& key);
+
+		//! Returns the number of equivalent elements.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		integer count(const Key& key) const;
 
 		//! Splits the sentinel node.
 		/*!
@@ -990,6 +1022,10 @@ namespace Pastel
 		}
 
 		//! Updates propagation data.
+		/*!
+		Time complexity: updatePropagation()
+		Exception safety: nothrow
+		*/
 		void update(const Iterator& element)
 		{
 			ASSERT(!element.isSentinel());
@@ -1002,6 +1038,16 @@ namespace Pastel
 			node->setSize(
 				node->left()->size() + 1 + 
 				node->right()->size());
+		}
+
+		//! Returns the result of comparing keys.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		bool less(const Key& left, const Key& right) const
+		{
+			return Less()(left, right);
 		}
 
 		//! Destructs the nodes of a subtree.
@@ -1247,6 +1293,7 @@ namespace Pastel
 
 #include "pastel/sys/redblacktree.hpp"
 #include "pastel/sys/redblacktree_copy.hpp"
+#include "pastel/sys/redblacktree_count.hpp"
 #include "pastel/sys/redblacktree_erase.hpp"
 #include "pastel/sys/redblacktree_insert.hpp"
 #include "pastel/sys/redblacktree_invariants.hpp"
