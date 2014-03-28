@@ -15,7 +15,6 @@ namespace Pastel
 		swap(root_, that.root_);
 		swap(end_, that.end_);
 		bottom_.swap(that.bottom_);
-		swap(size_, that.size_);
 		swap(blackHeight_, that.blackHeight_);
 	}
 

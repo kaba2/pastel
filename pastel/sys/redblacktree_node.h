@@ -48,19 +48,26 @@ namespace Pastel
 				return left() == this;
 			}
 
+			integer size() const
+			{
+				return size_;
+			}
+
 		protected:
-			/*!
-			These settings correspond to those of sentinel
-			nodes. This is so that RedBlackTree's constructor
-			does not have to initialize the sentinel nodes
-			to refer to themselves.
-			*/
 			Node_Base()
 				: parent_(nullptr)
 				, child_()
 				, red_(false)
+				, size_(0)
 			{
 				isolateSelf();
+
+				/*
+				These settings correspond to those of sentinel
+				nodes. This is so that RedBlackTree's constructor
+				does not have to initialize the sentinel nodes
+				to refer to themselves.
+				*/
 			}
 
 			Node_Base(const Node_Base& that) = delete;
@@ -72,6 +79,7 @@ namespace Pastel
 				parent_ = nullptr;
 				child_[0] = nullptr;
 				child_[1] = nullptr;
+				size_ = 0;
 			}
 
 			void isolateSelf()
@@ -79,24 +87,7 @@ namespace Pastel
 				parent_ = (Node*)this;
 				child_[0] = parent_;
 				child_[1] = parent_;
-			}
-
-			void resetSentinel()
-			{
-				ASSERT(isSentinel());
-				
-				if (parent()->isSentinel())
-				{
-					parent_ = (Node*)this;
-				}
-				if (left()->isSentinel())
-				{
-					left() = (Node*)this;
-				}
-				if (right()->isSentinel())
-				{
-					right() = (Node*)this;
-				}
+				size_ = 0;
 			}
 
 			void setRed()
@@ -115,59 +106,63 @@ namespace Pastel
 				red_ = red;
 			}
 
-			Node*& parent()
+			void setSize(integer size)
 			{
-				return parent_;
+				ASSERT_OP(size, >=, 0);
+				size_ = size;
 			}
 
-			Node* parent() const
+			Node*& parent() const
 			{
-				return parent_;
+				return (Node*&)parent_;
 			}
 
-			Node*& child(bool right)
+			Node*& child(bool right) const
 			{
-				return child_[right];
+				return (Node*&)child_[right];
 			}
 
-			Node* child(bool right) const
+			Node*& left() const
 			{
-				return child_[right];
+				return (Node*&)child_[0];
 			}
 
-			Node*& left()
+			Node*& right() const
 			{
-				return child_[0];
+				return (Node*&)child_[1];
 			}
 
-			Node* left() const
-			{
-				return child_[0];
-			}
-
-			Node*& right()
-			{
-				return child_[1];
-			}
-
-			Node* right() const
-			{
-				return child_[1];
-			}
-
+			//! The parent node.
 			Node* parent_;
 			
+			//! The child nodes.
 			/*
+			The child_[0] is the left child, while
+			child_[1] is the right child. The array 
+			representation is good because it can be indexed 
+			with a boolean, and that the boolean can be 
+			negated to get to the sibling.
+
 			Visual Studio 2013 has a bug in that it can't
 			member-initialize arrays.
 			*/
 			Node* child_[2];
 			
+			//! Whether the node is red.
 			/*
 			A bit-field can not be member-initialized in C++11.
 			This is probably a bug in the C++11 standard.
 			*/
 			uint8 red_ : 1;
+
+			//! The number of elements in the subtree.
+			/*!
+			The subtree refers to the subtree rooted at 
+			this node. This number is needed when splitting
+			a red-black tree; otherwise the size of the
+			resulting trees can not be computed efficiently.
+			*/
+			integer size_;
 		};
 
 		//! Data node

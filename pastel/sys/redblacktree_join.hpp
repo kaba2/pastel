@@ -106,10 +106,6 @@ namespace Pastel
 			taller.minNode()->left() = taller.endNode();
 		}
 
-		// Update the size of the taller tree.
-		// The + 1 is because of the 'middle' node.
-		taller.size_ += shorter.size() + 1;
-
 		// Release ownership from the shorter tree.
 		shorter.forget();
 

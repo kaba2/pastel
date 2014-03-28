@@ -122,6 +122,11 @@ namespace Pastel
 				return !red();
 			}
 
+			integer size() const
+			{
+				return node()->size();
+			}
+
 		private:
 			friend class boost::iterator_core_access;
 

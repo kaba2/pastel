@@ -17,7 +17,6 @@ namespace Pastel
 		try
 		{
 			copyConstruct(endNode(), that, that.rootNode());
-			size_ = that.size_;
 			blackHeight_ = that.blackHeight_;
 		}
 		catch(...)
