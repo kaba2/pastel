@@ -7,10 +7,34 @@ namespace Pastel
 {
 
 	template <typename Settings, template <typename> class Customization>
+	bool RedBlackTree<Settings, Customization>::canJoin(
+		const RedBlackTree& that) const
+	{
+		if (empty() || that.empty())
+		{
+			return true;
+		}
+
+		if (Settings::MultipleKeys)
+		{
+			bool disjointOpenIntervals = 
+				!less(that.begin().key(), last().key()) ||
+				!less(begin().key(), that.last().key());
+			return disjointOpenIntervals;
+		}
+
+		bool disjointClosedIntervals =
+			less(last().key(), that.begin().key()) ||
+			less(that.last().key(), begin().key());
+		return disjointClosedIntervals;
+	}
+
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::join(RedBlackTree& that)
 	-> RedBlackTree&
 	{
 		ENSURE(sharesBottom(that));
+		ENSURE(canJoin(that));
 
 		if (this == &that || that.empty())
 		{
@@ -20,112 +44,105 @@ namespace Pastel
 
 		if (empty())
 		{
-			swap(that);
+			swapElements(that);
 			return *this;
 		}
 
-		if (Settings::MultipleKeys)
-		{
-			bool disjointOpenIntervals = 
-				!less(that.begin().key(), last().key()) ||
-				!less(begin().key(), that.last().key());
-			ENSURE(disjointOpenIntervals);
-		}
-		else
-		{
-			bool disjointClosedIntervals =
-				less(last().key(), that.begin().key()) ||
-				less(that.last().key(), begin().key());
-			ENSURE(disjointClosedIntervals);
-		}
-
+		// Turn the roots of both trees black.
 		setRootBlack();
 		that.setRootBlack();
 
-		RedBlackTree& shorter = 
-			blackHeight() < that.blackHeight() ?
-			*this : that;
+		if (blackHeight() < that.blackHeight())
+		{
+			// Make it so that this tree does not
+			// have a smaller black-height than 'that' 
+			// tree.
+			swapElements(that);
+		}
 
-		RedBlackTree& taller = 
-			blackHeight() < that.blackHeight() ?
-			that : *this;
-
-		bool shorterIsLarger = !less(
-			shorter.begin().key(),
-			taller.last().key());
+		bool thatIsLarger = !less(
+			that.begin().key(),
+			last().key());
 
 		// Detach the maximum/minimum key 
 		// of the taller tree.
-		Node* middle = shorterIsLarger ?
-			taller.maxNode() : taller.minNode();
+		Node* middle = thatIsLarger ?
+			maxNode() : minNode();
 		detach(middle);
 		ASSERT(middle->red());
 
 		// Find the largest/smallest node in the
 		// taller tree subject to the node having
 		// a black-height equal to the black-height 
-		// of the shorter tree.
-		Node* node = taller.rootNode();
-		integer nodeBlackHeight = taller.blackHeight();
-		while(nodeBlackHeight > shorter.blackHeight() ||
+		// of 'that' tree.
+		Node* node = rootNode();
+		integer nodeBlackHeight = blackHeight();
+		while(nodeBlackHeight > that.blackHeight() ||
 			node->red())
 		{
 			nodeBlackHeight -= node->black();
-			node = node->child(shorterIsLarger);
+			node = node->child(thatIsLarger);
 		}
 
-		bool nodeWasRoot = (node == taller.rootNode());
+		that.minNode()->left() = bottomNode();
+		that.maxNode()->right() = bottomNode();
 
-		// The found node is necessarily a 
-		// black non-sentinel node.
-		ASSERT(!node->isSentinel());
-		ASSERT(node->black());
-		ASSERT_OP(nodeBlackHeight, >, 0);
-
-		// Replace the 'node' with the 'middle' node.
-		Node* parent = node->parent();
-		bool right = (node == parent->right());
-		link(parent, middle, right);
-
-		// Attach the subtree rooted at 'node' as 
-		// the left/right subtree of the 'middle' node.
-		link(middle, node, !shorterIsLarger);
-
-		// Attach the shorter tree as the right/left
-		// subtree of the 'middle' node.
-		link(middle, shorter.rootNode(), shorterIsLarger);
-		shorter.minNode()->left() = taller.bottomNode();
-		shorter.maxNode()->right() = taller.bottomNode();
-
-		// Update the minimum and maximum of the taller tree.
-		if (shorterIsLarger)
+		// Update the minimum and the maximum.
+		if (thatIsLarger)
 		{
-			taller.maxNode() = shorter.maxNode();
-			taller.maxNode()->right() = taller.endNode();
+			maxNode()->right() = bottomNode();
+			maxNode() = that.maxNode();
+			maxNode()->right() = endNode();
 		}
 		else
 		{
-			taller.minNode() = shorter.minNode();
-			taller.minNode()->left() = taller.endNode();
+			minNode()->left() = bottomNode();
+			minNode() = that.minNode();
+			minNode()->left() = endNode();
 		}
 
-		// Release ownership from the shorter tree.
-		shorter.forget();
+		// Join 'that' tree to this tree.
+		join(that.rootNode(), middle, node, thatIsLarger);
 
-		// Move the join result into this tree.
-		swapElements(taller);
+		// Release ownership from 'that' tree.
+		that.forget();
+
+		return *this;
+	}
+
+	template <typename Settings, template <typename> class Customization>
+	void RedBlackTree<Settings, Customization>::join(
+		Node* that, Node* middle, 
+		Node* node, bool thatRight)
+	{
+		ASSERT(that->black());
+		ASSERT(!that->isSentinel());
+		ASSERT(node->black());
+		ASSERT(!node->isSentinel());
+		ASSERT(!middle->isSentinel());
+		ASSERT(!middle->parent());
+		ASSERT(!middle->left());
+		ASSERT(!middle->right());
+		ASSERT(middle->red());
+
+		Node* parent = node->parent();
+
+		// Replace the 'node' with the 'middle' node.
+		link(parent, middle, (node == parent->right()));
+
+		// Attach the subtree rooted at 'node' as 
+		// the left/right subtree of the 'middle' node.
+		link(middle, node, !thatRight);
+
+		// Attach the that tree as the right/left
+		// subtree of the 'middle' node.
+		link(middle, that, thatRight);
 
 		// Update the propagation at 'middle'.
 		update(middle);
 
-		// The subtree rooted at 'middle' is a red-black tree.
-		ASSERT(middle->left()->black());
-		ASSERT(middle->right()->black());
-
 		// Fix the possible red violation.
 		rebalanceRedViolation(middle);
-
-		return *this;
 	}
 
 }
