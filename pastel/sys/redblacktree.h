@@ -1074,6 +1074,35 @@ namespace Pastel
 		*/
 		Node* rotate(Node* node, bool rotateRight);
 
+		//! Joins 'that' subtree to this tree.
+		/*!
+		Preconditions:
+		* The black-height of 'that' equals the black-height of 'node'.
+		* The operation preserves the binary-search property.
+		that->black()
+		!that->isSentinel()
+		node->black()
+		!node->isSentinel()
+		!middle->isSentinel()
+		!middle->parent()
+		!middle->left()
+		!middle->right()
+		middle->red()
+
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		Replaces 'node' with 'middle', makes
+		'node' as the '!thatRight' child of 'middle',
+		and 'that' as the 'thatRight' child of 'middle'.
+		Rebalances any red-violations. In case 'thatRight'
+		is true, the maximum will not be updated. Similarly
+		for the minimum if 'thatRight' is false.
+		*/
+		void join(
+			Node* that, Node* middle, 
+			Node* node, bool thatRight);
+
 		//! Release the ownership of the nodes.
 		/*!
 		Time complexity: O(1)
@@ -1088,6 +1117,22 @@ namespace Pastel
 			end_->isolateSelf();
 			blackHeight_ = 0;
 		}
+
+		//! Returns whether the tree can be joined with 'that'.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		Trees can be joined if
+		* either tree is empty, or
+		* multiple keys are not allowed and
+		[last.key() < that.begin().key() or
+		that.last().key() < begin().key()], or
+		* multiple keys are allowed and 
+		[last.key() <= that.begin().key() or
+		that.last().key() <= begin().key()].
+		*/
+		bool canJoin(const RedBlackTree& that) const;
 
 		//! Returns the root node.
 		/*!

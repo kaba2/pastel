@@ -30,6 +30,16 @@ namespace Pastel
 			return rightTree;
 		}
 
+		std::vector<ConstIterator> path;
+
+		ConstIterator node = rightBegin;
+		while(!node.isSentinel())
+		{
+			path.push_back(node);
+			node = node.parent();			
+		}
+
+
 		// The tree that subtrees are split off from.
 		// During this function 'tree' is in a state
 		// which violates the red-black invariants.
@@ -38,38 +48,6 @@ namespace Pastel
 		RedBlackTree tree;
 		tree.useBottomFrom(*this);
 		swapElements(tree);
-
-		Node* node = rightBegin.base();
-
-		// Move the left and right subtree of 
-		// the 'rightBegin' to the left and right tree,
-		// respectively.
-		{
-			Node* leftRoot = node->left();
-			Node* rightRoot = node->right();
-			
-			detachSubtree(node, false, leftSize);
-			leftRoot->setblack();
-			attachSubtree(leftRoot, leftTree.endNode(), false, leftSize);
-
-			detachSubtree(node, true, rightSize);
-			rightRoot->setBlack();
-			attachSubtree(rightRoot, rightTree.endNode(), true, rightSize);			
-		}
-
-		Node* leftPivot = node->parent();
-		Node* rightPivot = node;
-
-		while (node != tree.rootNode())
-		{
-			bool right = (node == node->parent()->right());
-			Node* sibling = node->parent()->child(right);
-
-			RedBlackTree& siblingTree = 
-				right ? leftTree : rightTree;
-
-			
-		}
 
 		return rightTree;
 	}
