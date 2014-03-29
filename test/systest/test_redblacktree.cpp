@@ -824,42 +824,42 @@ namespace
 			Tree tree{ 2, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
 			TEST_ENSURE(testInvariants(tree));
 
-			auto found = [&](integer that)
+			auto test = [&](integer that)
 			{
-				TEST_ENSURE(tree.exists(that));
-				TEST_ENSURE(
+				return tree.exists(that) &&
 					tree.find(that) != tree.cend() &&
-					tree.find(that).key() == that);
+					tree.find(that).key() == that;
 			};
 
 			auto notFound = [&](integer that)
 			{
-				TEST_ENSURE(tree.find(that) == tree.cend());
-				TEST_ENSURE(!tree.exists(that));
+				return (tree.find(that) == tree.cend()) &&
+					!tree.exists(that);
 			};
 
-			notFound(0);
-			notFound(1);
-			found(2);
-			notFound(3);
-			found(4);
-			found(5);
-			notFound(6);
-			notFound(7);
-			notFound(8);
-			found(9);
-			notFound(10);
-			notFound(11);
-			notFound(12);
-			notFound(13);
-			notFound(14);
-			found(15);
-			notFound(16);
-			notFound(17);
-			notFound(18);
-			notFound(19);
-			found(20);
-			notFound(21);
+			TEST_ENSURE(notFound(0));
+			TEST_ENSURE(notFound(1));
+			TEST_ENSURE(notFound(3));
+			TEST_ENSURE(notFound(6));
+			TEST_ENSURE(notFound(7));
+			TEST_ENSURE(notFound(8));
+			TEST_ENSURE(notFound(10));
+			TEST_ENSURE(notFound(11));
+			TEST_ENSURE(notFound(12));
+			TEST_ENSURE(notFound(13));
+			TEST_ENSURE(notFound(14));
+			TEST_ENSURE(notFound(16));
+			TEST_ENSURE(notFound(17));
+			TEST_ENSURE(notFound(18));
+			TEST_ENSURE(notFound(19));
+			TEST_ENSURE(notFound(21));
+
+			TEST_ENSURE(test(2));
+			TEST_ENSURE(test(4));
+			TEST_ENSURE(test(5));
+			TEST_ENSURE(test(9));
+			TEST_ENSURE(test(15));
+			TEST_ENSURE(test(20));
 		}
 
 		template <typename Tree>
@@ -876,40 +876,37 @@ namespace
 
 			auto test = [&](integer that, integer bound)
 			{
-				bool wasFound =
-					tree.upperBound(that) != tree.cend();
-				bool isCorrect = wasFound &&
+				return tree.upperBound(that) != tree.cend() &&
 					tree.upperBound(that).key() == bound;
-				TEST_ENSURE(wasFound && isCorrect);
 			};
 
 			auto notFound = [&](integer that)
 			{
-				TEST_ENSURE(tree.upperBound(that) == tree.cend());
+				return tree.upperBound(that) == tree.cend();
 			};
 
-			test(0, 2);
-			test(1, 2);
-			test(2, 4);
-			test(3, 4);
-			test(4, 5);
-			test(5, 9);
-			test(6, 9);
-			test(7, 9);
-			test(8, 9);
-			test(9, 15);
-			test(10, 15);
-			test(11, 15);
-			test(12, 15);
-			test(13, 15);
-			test(14, 15);
-			test(15, 20);
-			test(16, 20);
-			test(17, 20);
-			test(18, 20);
-			test(19, 20);
-			notFound(20);
-			notFound(21);
+			TEST_ENSURE(test(0, 2));
+			TEST_ENSURE(test(1, 2));
+			TEST_ENSURE(test(2, 4));
+			TEST_ENSURE(test(3, 4));
+			TEST_ENSURE(test(4, 5));
+			TEST_ENSURE(test(5, 9));
+			TEST_ENSURE(test(6, 9));
+			TEST_ENSURE(test(7, 9));
+			TEST_ENSURE(test(8, 9));
+			TEST_ENSURE(test(9, 15));
+			TEST_ENSURE(test(10, 15));
+			TEST_ENSURE(test(11, 15));
+			TEST_ENSURE(test(12, 15));
+			TEST_ENSURE(test(13, 15));
+			TEST_ENSURE(test(14, 15));
+			TEST_ENSURE(test(15, 20));
+			TEST_ENSURE(test(16, 20));
+			TEST_ENSURE(test(17, 20));
+			TEST_ENSURE(test(18, 20));
+			TEST_ENSURE(test(19, 20));
+			TEST_ENSURE(notFound(20));
+			TEST_ENSURE(notFound(21));
 		}
 
 		template <typename Tree>
@@ -1003,51 +1000,56 @@ namespace
 			auto test = [&](real alpha, integer correct)
 			{
 				ConstIterator q = quantile(tree, alpha);
-				TEST_ENSURE(
-					q != tree.cend() && 
-					q.key() == correct);
+				return q != tree.cend() && 
+					q.key() == correct;
 			};
 
-			test(-0.10, 0);
-			test(0.00, 0);
-			test(0.10, 0);
-			test(0.19, 0);
-			test(0.20, 1);
-			test(0.29, 1);
-			test(0.30, 1);
-			test(0.39, 1);
-			test(0.40, 2);
-			test(0.49, 2);
-			test(0.50, 2);
-			test(0.59, 2);
-			test(0.60, 3);
-			test(0.69, 3);
-			test(0.70, 3);
-			test(0.79, 3);
-			test(0.80, 4);
-			test(0.89, 4);
-			test(0.90, 4);
-			test(0.99, 4);
-			test(1.00, 4);
-			test(1.09, 4);
-			test(1.10, 4);
-			test(1.19, 4);
+			TEST_ENSURE(test(-0.10, 0));
+			TEST_ENSURE(test(0.00, 0));
+			TEST_ENSURE(test(0.10, 0));
+			TEST_ENSURE(test(0.19, 0));
+			TEST_ENSURE(test(0.20, 1));
+			TEST_ENSURE(test(0.29, 1));
+			TEST_ENSURE(test(0.30, 1));
+			TEST_ENSURE(test(0.39, 1));
+			TEST_ENSURE(test(0.40, 2));
+			TEST_ENSURE(test(0.49, 2));
+			TEST_ENSURE(test(0.50, 2));
+			TEST_ENSURE(test(0.59, 2));
+			TEST_ENSURE(test(0.60, 3));
+			TEST_ENSURE(test(0.69, 3));
+			TEST_ENSURE(test(0.70, 3));
+			TEST_ENSURE(test(0.79, 3));
+			TEST_ENSURE(test(0.80, 4));
+			TEST_ENSURE(test(0.89, 4));
+			TEST_ENSURE(test(0.90, 4));
+			TEST_ENSURE(test(0.99, 4));
+			TEST_ENSURE(test(1.00, 4));
+			TEST_ENSURE(test(1.09, 4));
+			TEST_ENSURE(test(1.10, 4));
+			TEST_ENSURE(test(1.19, 4));
 		}
 
 		template <typename Tree>
 		void testMultiCount()
 		{
 			Tree tree = { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
-			TEST_ENSURE_OP(tree.count(0), ==, 0);
-			TEST_ENSURE_OP(tree.count(1), ==, 0);
-			TEST_ENSURE_OP(tree.count(2), ==, 0);
-			TEST_ENSURE_OP(tree.count(3), ==, 1);
-			TEST_ENSURE_OP(tree.count(4), ==, 1);
-			TEST_ENSURE_OP(tree.count(5), ==, 7);
-			TEST_ENSURE_OP(tree.count(6), ==, 1);
-			TEST_ENSURE_OP(tree.count(7), ==, 1);
-			TEST_ENSURE_OP(tree.count(8), ==, 0);
-			TEST_ENSURE_OP(tree.count(9), ==, 0);
+
+			auto test = [&](integer key, integer count)
+			{
+				return tree.count(key) == count;
+			};
+
+			TEST_ENSURE(test(0, 0));
+			TEST_ENSURE(test(1, 0));
+			TEST_ENSURE(test(2, 0));
+			TEST_ENSURE(test(3, 1));
+			TEST_ENSURE(test(4, 1));
+			TEST_ENSURE(test(5, 7));
+			TEST_ENSURE(test(6, 1));
+			TEST_ENSURE(test(7, 1));
+			TEST_ENSURE(test(8, 0));
+			TEST_ENSURE(test(9, 0));
 		}
 	};
 
