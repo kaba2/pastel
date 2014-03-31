@@ -80,6 +80,7 @@ namespace Pastel
 				child_[0] = nullptr;
 				child_[1] = nullptr;
 				size_ = 0;
+				red_ = true;
 			}
 
 			void isolateSelf()
