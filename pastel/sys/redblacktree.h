@@ -456,6 +456,36 @@ namespace Pastel
 			const Key& key, 
 			const FindEqual_Return& equalRoot) const;
 
+		//! Finds the node at which to join another tree.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+		*/
+		ConstIterator findJoin(
+			integer joinBlackHeight,
+			bool right) const
+		{
+			PENSURE_OP(joinBlackHeight, >= , 0);
+
+			if (empty())
+			{
+				return endNode();
+			}
+
+			PENSURE_OP(joinBlackHeight, <= , blackHeight());
+
+			ConstIterator node = croot();
+			integer currentBlackHeight = blackHeight();
+			while (currentBlackHeight > joinBlackHeight ||
+				node.red())
+			{
+				currentBlackHeight -= node.black();
+				node = node.child(right);
+			}
+
+			return node;
+		}
+
 		//! Returns the elements equivalent to the given key.
 		/*!
 		Time complexity: O(log(size()))
@@ -1030,14 +1060,14 @@ namespace Pastel
 		{
 			ASSERT(!element.isSentinel());
 
+			Node* node = element.base();
+			node->setSize(
+				node->left()->size() + 1 +
+				node->right()->size());
+
 			this->updatePropagation(
 				element,
 				(Propagation_Class&)element.propagation());
-
-			Node* node = element.base();
-			node->setSize(
-				node->left()->size() + 1 + 
-				node->right()->size());
 		}
 
 		//! Returns the result of comparing keys.
@@ -1080,9 +1110,7 @@ namespace Pastel
 		* The black-height of 'that' equals the black-height of 'node'.
 		* The operation preserves the binary-search property.
 		that->black()
-		!that->isSentinel()
 		node->black()
-		!node->isSentinel()
 		!middle->isSentinel()
 		!middle->parent()
 		!middle->left()
@@ -1101,7 +1129,8 @@ namespace Pastel
 		*/
 		void join(
 			Node* that, Node* middle, 
-			Node* node, bool thatRight);
+			Node* node, bool thatRight,
+			integer thatBlackHeight);
 
 		//! Release the ownership of the nodes.
 		/*!

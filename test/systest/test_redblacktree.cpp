@@ -80,6 +80,7 @@ namespace
 			testMultiLowerBound<MultiMap>();
 			testMultiCount<MultiSet>();
 			testMultiCount<MultiMap>();
+			testMultiSplit();
 
 			testManyThings<Set>();
 			testManyThings<Map>();
@@ -91,6 +92,7 @@ namespace
 		void testManyThings()
 		{
 			testConstruction<Tree>();
+			testIterator<Tree>();
 			testInsert<Tree>();
 			testBlackHeight<Tree>();
 			testErase<Tree>();
@@ -101,7 +103,6 @@ namespace
 			testUpperBound<Tree>();
 			testJoin<Tree>();
 			testQuantile<Tree>();
-			testSplit<Tree>();
 		}
 
 		void testSet()
@@ -437,6 +438,27 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 				TEST_ENSURE(testInvariants(copy));
 			}
+		}
+
+		template <typename Tree>
+		void testIterator()
+		{
+			using ConstIterator = typename Tree::ConstIterator;
+			using Iterator = typename Tree::Iterator;
+
+			Tree tree{ 1, 2, 3, 4 };
+			
+			ConstIterator iter = tree.cend();
+			++iter;
+			TEST_ENSURE(iter == tree.cbegin());
+			--iter;
+			TEST_ENSURE(iter == tree.cend());
+			--iter;
+			TEST_ENSURE(iter.key() == 4);
+
+			Iterator bIter = tree.cast(iter);
+			iter = bIter;
+			TEST_ENSURE(iter == bIter);
 		}
 
 		template <typename Tree>
@@ -976,16 +998,16 @@ namespace
 			}
 		}
 
-		template <typename Tree>
-		void testSplit()
+		void testMultiSplit()
 		{
+			using Tree = MultiMap;
 			{
-				Tree aTree{ 1, 2, 3, 4, 5, 6, 7 };
+				Tree aTree{ { 3, 1 }, { 4, 1 }, { 5, 1 }, { 5, 2 }, { 5, 3 }, { 5, 4 }, { 5, 5 }, { 5, 6 }, { 5, 7 }, { 6, 1 }, { 7, 1 } };
 				/*
-				Tree bTree = aTree.split(std::next(aTree.cbegin(), 3));
+				Tree bTree = aTree.split(std::next(aTree.find(5), 4));
 				
 				TEST_ENSURE(testInvariants(aTree));
-				TEST_ENSURE_OP(aTree.size(), == , 3);
+				TEST_ENSURE_OP(aTree.size(), == , 7);
 				TEST_ENSURE(testInvariants(bTree));
 				TEST_ENSURE_OP(bTree.size(), == , 4);
 				*/

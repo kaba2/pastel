@@ -52,12 +52,10 @@ namespace Pastel
 
 			template <
 				typename That_NodePtr,
-				bool That_DereferenceToData>
+				bool That_DereferenceToData,
+				typename = PASTEL_ENABLE_IF((boost::is_convertible<That_NodePtr, NodePtr>), void)>
 			Iterator(
-				const Iterator<That_NodePtr, Node_Settings, That_DereferenceToData>& that,
-				typename boost::enable_if<
-				boost::is_convertible<That_NodePtr, NodePtr>, 
-				enabler>::type = enabler())
+				const Iterator<That_NodePtr, Node_Settings, That_DereferenceToData>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{
 			}
@@ -163,61 +161,45 @@ namespace Pastel
 				return dereference(DereferenceTag());
 			}
 
-			void increment() 
-			{ 
+			template <bool Right>
+			void increment_()
+			{
 				NodePtr& node_ = this->base_reference();
 
-				if (node_->right()->isSentinel())
+				if (node_->child(Right)->isSentinel())
 				{
 					NodePtr prevNode = node_;
 					do
 					{
 						prevNode = node_;
 						node_ = node_->parent();
-					}
-					while (!node_->isSentinel() && 
-						prevNode == node_->right());
+						// It is essential to test for 
+						// prevNode != node_->child(!Right)
+						// rather than 
+						// prevNode == node_->child(Right).
+						// The difference occurs when 'node'
+						// is the end-node.
+					} while (!node_->isSentinel() &&
+						prevNode != node_->child(!Right));
 				}
 				else
 				{
-					node_ = node_->right();
-					while(!node_->left()->isSentinel())
+					node_ = node_->child(Right);
+					while (!node_->child(!Right)->isSentinel())
 					{
-						node_ = node_->left();
+						node_ = node_->child(!Right);
 					}
 				}
 			}
 
+			void increment() 
+			{ 
+				increment_<true>();
+			}
+
 			void decrement() 
 			{ 
-				NodePtr& node_ = this->base_reference();
-
-				if (node_->left()->isSentinel())
-				{
-					NodePtr originalNode = node_;
-					NodePtr prevNode = node_;
-					do
-					{
-						prevNode = node_;
-						node_ = node_->parent();
-
-						// In case 'prevNode' is the sentinel
-						// node, it matters whether we test
-						// prevNode == node->left() or 
-						// prevNode != node->right(). The
-						// latter is the correct test.
-					}
-					while (!node_->isSentinel() && 
-						prevNode != node_->right());
-				}
-				else
-				{
-					node_ = node_->left();
-					while(!node_->right()->isSentinel())
-					{
-						node_ = node_->right();
-					}
-				}
+				increment_<false>();
 			}
 		};
 	

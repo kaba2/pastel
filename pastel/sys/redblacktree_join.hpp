@@ -75,14 +75,8 @@ namespace Pastel
 		// taller tree subject to the node having
 		// a black-height equal to the black-height 
 		// of 'that' tree.
-		Node* node = rootNode();
-		integer nodeBlackHeight = blackHeight();
-		while(nodeBlackHeight > that.blackHeight() ||
-			node->red())
-		{
-			nodeBlackHeight -= node->black();
-			node = node->child(thatIsLarger);
-		}
+		Node* node = (Node*)findJoin(
+			that.blackHeight(), thatIsLarger).base();
 
 		that.minNode()->left() = bottomNode();
 		that.maxNode()->right() = bottomNode();
@@ -102,7 +96,9 @@ namespace Pastel
 		}
 
 		// Join 'that' tree to this tree.
-		join(that.rootNode(), middle, node, thatIsLarger);
+		join(that.rootNode(), middle, 
+			node, thatIsLarger,
+			that.blackHeight());
 
 		// Release ownership from 'that' tree.
 		that.forget();
@@ -113,17 +109,19 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::join(
 		Node* that, Node* middle, 
-		Node* node, bool thatRight)
+		Node* node, bool thatRight,
+		integer thatBlackHeight)
 	{
 		ASSERT(that->black());
-		ASSERT(!that->isSentinel());
 		ASSERT(node->black());
-		ASSERT(!node->isSentinel());
-		ASSERT(!middle->isSentinel());
-		ASSERT(!middle->parent());
-		ASSERT(!middle->left());
-		ASSERT(!middle->right());
-		ASSERT(middle->red());
+		ASSERT(node->isSentinel() == middle->isSentinel());
+
+		if (node->isSentinel())
+		{
+			link(node, that, thatRight);
+			blackHeight_ = thatBlackHeight;
+			return;
+		}
 
 		Node* parent = node->parent();
 
