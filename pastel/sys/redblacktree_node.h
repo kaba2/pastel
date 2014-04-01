@@ -28,9 +28,6 @@ namespace Pastel
 			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
 
-			template <typename, typename, bool>
-			friend class Iterator;
-
 			bool red() const
 			{
 				return red_;

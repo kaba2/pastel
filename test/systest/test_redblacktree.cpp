@@ -1002,15 +1002,31 @@ namespace
 		{
 			using Tree = MultiMap;
 			{
-				Tree aTree{ { 3, 1 }, { 4, 1 }, { 5, 1 }, { 5, 2 }, { 5, 3 }, { 5, 4 }, { 5, 5 }, { 5, 6 }, { 5, 7 }, { 6, 1 }, { 7, 1 } };
-				/*
-				Tree bTree = aTree.split(std::next(aTree.find(5), 4));
-				
-				TEST_ENSURE(testInvariants(aTree));
-				TEST_ENSURE_OP(aTree.size(), == , 7);
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE_OP(bTree.size(), == , 4);
-				*/
+				integer keySet[] =  { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
+				integer dataSet[] = { 1, 1, 1, 2, 3, 4, 5, 6, 7, 1, 1 };
+				integer n = sizeof(keySet) / sizeof(integer);
+
+				Tree aTree;
+				for (integer i = 0; i < n; ++i)
+				{
+					aTree.insert(keySet[i], dataSet[i]);
+				}
+
+				for (integer i = 0; i < n; ++i)
+				{
+					Tree bTree = aTree.split(std::next(aTree.cbegin(), i));
+
+					TEST_ENSURE(testInvariants(aTree));
+					TEST_ENSURE_OP(aTree.size(), == , i);
+					TEST_ENSURE(testInvariants(bTree));
+					TEST_ENSURE_OP(bTree.size(), == , n - i);
+
+					aTree.join(bTree);
+					TEST_ENSURE(testInvariants(aTree));
+					TEST_ENSURE_OP(aTree.size(), == , 11);
+					TEST_ENSURE(testInvariants(bTree));
+					TEST_ENSURE_OP(bTree.size(), == , 0);
+				}
 			}
 		}
 
