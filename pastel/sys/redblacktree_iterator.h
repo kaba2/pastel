@@ -30,9 +30,6 @@ namespace Pastel
 			const typename Node_Settings::Key>::type,
 			boost::bidirectional_traversal_tag>
 		{
-		private:
-			struct enabler {};
-
 		public:
 			using Fwd = Node_Settings;
 

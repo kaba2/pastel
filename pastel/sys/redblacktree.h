@@ -463,28 +463,7 @@ namespace Pastel
 		*/
 		ConstIterator findJoin(
 			integer joinBlackHeight,
-			bool right) const
-		{
-			PENSURE_OP(joinBlackHeight, >= , 0);
-
-			if (empty())
-			{
-				return endNode();
-			}
-
-			PENSURE_OP(joinBlackHeight, <= , blackHeight());
-
-			ConstIterator node = croot();
-			integer currentBlackHeight = blackHeight();
-			while (currentBlackHeight > joinBlackHeight ||
-				node.red())
-			{
-				currentBlackHeight -= node.black();
-				node = node.child(right);
-			}
-
-			return node;
-		}
+			bool right) const;
 
 		//! Returns the elements equivalent to the given key.
 		/*!
@@ -1070,6 +1049,16 @@ namespace Pastel
 				(Propagation_Class&)element.propagation());
 		}
 
+		Node* findExtreme(bool right) const
+		{
+			Node* node = rootNode();
+			while (!node->child(right)->isSentinel())
+			{
+				node = node->child(right);
+			}
+			return node;
+		}
+
 		//! Returns the result of comparing keys.
 		/*!
 		Time complexity: O(1)
@@ -1128,9 +1117,10 @@ namespace Pastel
 		for the minimum if 'thatRight' is false.
 		*/
 		void join(
-			Node* that, Node* middle, 
-			Node* node, bool thatRight,
-			integer thatBlackHeight);
+			Node* that, 
+			integer thatBlackHeight,
+			Node* parent, bool right,
+			Node* middle);
 
 		//! Release the ownership of the nodes.
 		/*!

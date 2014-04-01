@@ -30,6 +30,28 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
+	auto RedBlackTree<Settings, Customization>::findJoin(
+		integer joinBlackHeight,
+		bool right) const
+	-> ConstIterator
+	{
+		PENSURE_OP(joinBlackHeight, > , 0);
+
+		ConstIterator node = croot();
+		ConstIterator parent = cend();
+		integer currentBlackHeight = blackHeight();
+		while (currentBlackHeight > joinBlackHeight ||
+			node.red())
+		{
+			currentBlackHeight -= node.black();
+			parent = node;
+			node = node.child(right);
+		}
+
+		return parent;
+	}
+
+	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::join(RedBlackTree& that)
 	-> RedBlackTree&
 	{
@@ -75,7 +97,7 @@ namespace Pastel
 		// taller tree subject to the node having
 		// a black-height equal to the black-height 
 		// of 'that' tree.
-		Node* node = (Node*)findJoin(
+		Node* parent = (Node*)findJoin(
 			that.blackHeight(), thatIsLarger).base();
 
 		that.minNode()->left() = bottomNode();
@@ -96,9 +118,9 @@ namespace Pastel
 		}
 
 		// Join 'that' tree to this tree.
-		join(that.rootNode(), middle, 
-			node, thatIsLarger,
-			that.blackHeight());
+		join(that.rootNode(), that.blackHeight(),
+			parent, thatIsLarger,
+			middle);
 
 		// Release ownership from 'that' tree.
 		that.forget();
@@ -108,33 +130,35 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::join(
-		Node* that, Node* middle, 
-		Node* node, bool thatRight,
-		integer thatBlackHeight)
+		Node* that, integer thatBlackHeight,
+		Node* parent, bool right,
+		Node* middle)
 	{
 		ASSERT(that->black());
-		ASSERT(node->black());
-		ASSERT(node->isSentinel() == middle->isSentinel());
+		ASSERT_OP(thatBlackHeight, > , 0);
 
-		if (node->isSentinel())
+		if (middle->isSentinel())
 		{
-			link(node, that, thatRight);
+			ASSERT(parent->isSentinel());
 			blackHeight_ = thatBlackHeight;
+			link(middle, that, right);
 			return;
 		}
 
-		Node* parent = node->parent();
+		Node* node = parent->isSentinel() ? 
+			rootNode() : parent->child(right);
+		ASSERT(node->black());
 
 		// Replace the 'node' with the 'middle' node.
-		link(parent, middle, (node == parent->right()));
+		link(parent, middle, right);
 
 		// Attach the subtree rooted at 'node' as 
 		// the left/right subtree of the 'middle' node.
-		link(middle, node, !thatRight);
+		link(middle, node, !right);
 
 		// Attach the that tree as the right/left
 		// subtree of the 'middle' node.
-		link(middle, that, thatRight);
+		link(middle, that, right);
 
 		// Update the propagation at 'middle'.
 		update(middle);

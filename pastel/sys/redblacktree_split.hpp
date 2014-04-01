@@ -39,13 +39,12 @@ namespace Pastel
 		tree.useBottomFrom(*this);
 		swapElements(tree);
 
-		Node* leftLast = (Node*)std::prev(rightBegin).base();
-		Node* leftSecondLast = (Node*)std::prev(rightBegin, 2).base();
-		Node* rightSecond = (Node*)std::next(rightBegin).base();
+		Node* rightFirst = (Node*)rightBegin.base();
  
 		std::vector<Node*> path;
 		{
 			Node* node = (Node*)rightBegin.base();
+			path.push_back(node);
 			while(!node->isSentinel())
 			{
 				path.push_back(node);
@@ -53,64 +52,76 @@ namespace Pastel
 			}
 		}
 
+		RedBlackTree* thatTree[] = {&leftTree, &rightTree};
+
 		integer blackHeight = tree.blackHeight();
 		Node* middle[2] = {leftTree.endNode(), rightTree.endNode()};
-		for (integer i = path.size() - 1;i > 0;--i)
+		for (integer i = path.size() - 1;i >= 0;--i)
 		{
 			Node* node = path[i];
-			bool right = !(path[i - 1] == node->right());
-			blackHeight -= node->black();
+			bool right = (i == 1);
+			if (i > 1)
+			{
+				right = !(path[i - 1] == node->right());
+			}				
+			
+			if (i > 0)
+			{
+				blackHeight -= node->black();
+			}
 
-			RedBlackTree& joinTree = right ? rightTree : leftTree;
-			Node* join = (Node*)joinTree.findJoin(blackHeight, !right).base();
+			Node* subtree = node->child(right);
+			if (subtree->isSentinel())
+			{
+				continue;
+			}
+			integer subtreeBlackHeight = blackHeight;
+			if (subtree->red())
+			{
+				subtree->setBlack();
+				++subtreeBlackHeight;
+			}
+
+			RedBlackTree& joinTree = *thatTree[right];
+			Node* join = (Node*)joinTree.findJoin(subtreeBlackHeight, !right).base();
 			joinTree.join(
-				node->child(right), middle[right],
-				join, !right, 
-				blackHeight);
-		
-			node->isolate();
-			middle[right] = node;
-		}
+				subtree, 
+				subtreeBlackHeight,
+				join, !right,
+				middle[right]);
 
-		Node* node = path.front();
-		blackHeight -= node->black();
-		
-		if (!node->child(false)->isSentinel())
-		{
-			Node* join = (Node*)leftTree.findJoin(blackHeight, true).base();
-			leftTree.join(
-				node->child(false), middle[false],
-				join, true,
-				blackHeight);
-			middle[false] = leftTree.endNode();
+			if (node != rightFirst)
+			{
+				node->isolate();
+				middle[right] = node;
+			}
+			else
+			{
+				middle[right] = endNode();
+			}
 		}
-
-		if (!node->child(true)->isSentinel())
-		{
-			Node* join = (Node*)rightTree.findJoin(blackHeight, false).base();
-			rightTree.join(
-				node->child(true), middle[true],
-				join, false,
-				blackHeight);
-			node->isolate();
-			middle[true] = node;
-		}
-		
-		leftTree.attach(middle[false], leftSecondLast, true);
-		rightTree.attach(middle[true], rightSecond, false);
 
 		// Update the minima and maxima.
 		leftTree.minNode() = tree.minNode();
 		leftTree.minNode()->left() = leftTree.endNode();
-		leftTree.maxNode() = leftSecondLast;
+		leftTree.maxNode() = leftTree.findExtreme(true);
 		leftTree.maxNode()->right() = leftTree.endNode();
-		rightTree.minNode() = rightSecond;
+		rightTree.minNode() = rightTree.findExtreme(false);
 		rightTree.minNode()->left() = rightTree.endNode();
 		rightTree.maxNode() = tree.maxNode();
 		rightTree.maxNode()->right() = rightTree.endNode();
 
-		ENSURE(testInvariants(leftTree));
-		ENSURE(testInvariants(rightTree));
+		if (!middle[false]->isSentinel())
+		{
+			leftTree.attach(middle[false], leftTree.maxNode(), true);
+		}
+		if (!middle[true]->isSentinel())
+		{
+			rightTree.attach(middle[true], rightTree.minNode(), false);
+		}
+
+		rightFirst->isolate();
+		rightTree.attach(rightFirst, rightTree.minNode(), false);
 
 		tree.forget();
 
