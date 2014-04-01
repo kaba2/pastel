@@ -52,10 +52,34 @@ namespace Pastel
 			}
 		}
 
-		RedBlackTree* thatTree[] = {&leftTree, &rightTree};
+		struct Join
+		{
+			RedBlackTree* tree;
+			Node* join;
+			integer blackHeight;
+			Node* middle;
+			Node* extremum;
+		};
+
+		Join joinSet[] = 
+		{
+			{
+				&leftTree,
+				leftTree.endNode(),
+				0,
+				leftTree.endNode(),
+				leftTree.endNode()
+			},
+			{
+				&rightTree,
+				rightTree.endNode(),
+				0,
+				rightTree.endNode(),
+				rightTree.endNode()
+			}
+		};
 
 		integer blackHeight = tree.blackHeight();
-		Node* middle[2] = {leftTree.endNode(), rightTree.endNode()};
 		for (integer i = path.size() - 1;i >= 0;--i)
 		{
 			Node* node = path[i];
@@ -65,6 +89,8 @@ namespace Pastel
 				right = !(path[i - 1] == node->right());
 			}				
 			
+			Join& join = joinSet[right];
+
 			if (i > 0)
 			{
 				blackHeight -= node->black();
@@ -82,42 +108,83 @@ namespace Pastel
 				++subtreeBlackHeight;
 			}
 
-			RedBlackTree& joinTree = *thatTree[right];
-			Node* join = (Node*)joinTree.findJoin(subtreeBlackHeight, !right).base();
-			joinTree.join(
+			if (!join.tree->empty())
+			{
+				if (join.join->isSentinel() && 
+					join.blackHeight > subtreeBlackHeight)
+				{
+					join.join = join.tree->rootNode();
+					join.blackHeight -= join.join->black();
+				}
+
+				ASSERT_OP(join.blackHeight, >= , subtreeBlackHeight);
+
+				while (join.blackHeight > subtreeBlackHeight ||
+					join.join->child(!right)->red())
+				{
+					join.join = join.join->child(!right);
+					join.blackHeight -= join.join->black();
+				}
+
+				ASSERT_OP(join.blackHeight, == , subtreeBlackHeight);
+			}
+			
+			join.tree->join(
 				subtree, 
 				subtreeBlackHeight,
-				join, !right,
-				middle[right]);
+				join.join, !right,
+				join.middle);
+
+			if (join.join->isSentinel() &&
+				join.blackHeight == 0)
+			{
+				join.blackHeight = join.tree->blackHeight();
+			}
 
 			if (node != rightFirst)
 			{
 				node->isolate();
-				middle[right] = node;
+				join.middle = node;
 			}
 			else
 			{
-				middle[right] = endNode();
+				join.middle = endNode();
 			}
+		}
+
+		// Find the new extrema.
+		for (integer i = 0; i < 2;++i)
+		{
+			Join& join = joinSet[i];
+			Node* extremum =
+				join.join->isSentinel() ?
+				join.tree->rootNode() :
+				join.join;
+			bool right = (i == 1);
+			while (!extremum->child(!right)->isSentinel())
+			{
+				extremum = extremum->child(!right);
+			}
+			join.extremum = extremum;
 		}
 
 		// Update the minima and maxima.
 		leftTree.minNode() = tree.minNode();
 		leftTree.minNode()->left() = leftTree.endNode();
-		leftTree.maxNode() = leftTree.findExtreme(true);
+		leftTree.maxNode() = joinSet[0].extremum;
 		leftTree.maxNode()->right() = leftTree.endNode();
-		rightTree.minNode() = rightTree.findExtreme(false);
+		rightTree.minNode() = joinSet[1].extremum;
 		rightTree.minNode()->left() = rightTree.endNode();
 		rightTree.maxNode() = tree.maxNode();
 		rightTree.maxNode()->right() = rightTree.endNode();
 
-		if (!middle[false]->isSentinel())
+		if (!joinSet[0].middle->isSentinel())
 		{
-			leftTree.attach(middle[false], leftTree.maxNode(), true);
+			leftTree.attach(joinSet[0].middle, leftTree.maxNode(), true);
 		}
-		if (!middle[true]->isSentinel())
+		if (!joinSet[1].middle->isSentinel())
 		{
-			rightTree.attach(middle[true], rightTree.minNode(), false);
+			rightTree.attach(joinSet[1].middle, rightTree.minNode(), false);
 		}
 
 		rightFirst->isolate();
