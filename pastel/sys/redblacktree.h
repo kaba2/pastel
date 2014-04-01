@@ -1049,16 +1049,6 @@ namespace Pastel
 				(Propagation_Class&)element.propagation());
 		}
 
-		Node* findExtreme(bool right) const
-		{
-			Node* node = rootNode();
-			while (!node->child(right)->isSentinel())
-			{
-				node = node->child(right);
-			}
-			return node;
-		}
-
 		//! Returns the result of comparing keys.
 		/*!
 		Time complexity: O(1)

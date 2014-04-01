@@ -1024,6 +1024,8 @@ namespace
 					aTree.join(bTree);
 					TEST_ENSURE(testInvariants(aTree));
 					TEST_ENSURE_OP(aTree.size(), == , 11);
+					TEST_ENSURE(boost::equal(aTree.keyRange(), keySet));
+					TEST_ENSURE(boost::equal(aTree.dataRange(), dataSet));
 					TEST_ENSURE(testInvariants(bTree));
 					TEST_ENSURE_OP(bTree.size(), == , 0);
 				}
