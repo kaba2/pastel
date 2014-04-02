@@ -787,7 +787,7 @@ namespace
 		}
 
 		template <typename Tree>
-		void print(const Tree& tree, integer height)
+		void print(const Tree& tree, integer height, bool key = true)
 		{
 			using ConstIterator = typename Tree::ConstIterator;
 
@@ -807,7 +807,14 @@ namespace
 
 				if (!entry.first.isSentinel())
 				{
-					std::cout << entry.first.key();
+					if (key)
+					{
+						std::cout << entry.first.key();
+					}
+					else
+					{
+						std::cout << entry.first.data();
+					}
 					if (entry.first.red())
 					{
 						std::cout << "R";
@@ -820,7 +827,7 @@ namespace
 				}
 				else
 				{
-					std::cout << "-B ";
+					std::cout << "- ";
 				}
 
 				nodeSet.push_back(
@@ -833,9 +840,19 @@ namespace
 			}
 			std::cout << std::endl;
 
-			for (auto&& key : tree.ckeyRange())
+			if (key)
 			{
-				std::cout << key << ", ";
+				for (auto&& key : tree.ckeyRange())
+				{
+					std::cout << key << ", ";
+				}
+			}
+			else
+			{
+				for (auto&& data : tree.cdataRange())
+				{
+					std::cout << data << ", ";
+				}
 			}
 			std::cout << std::endl;
 		}
@@ -1002,20 +1019,22 @@ namespace
 		{
 			using Tree = MultiMap;
 			{
-				integer keySet[] =  { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
-				integer dataSet[] = { 1, 1, 1, 2, 3, 4, 5, 6, 7, 1, 1 };
-				integer n = sizeof(keySet) / sizeof(integer);
-
-				Tree aTree;
-				for (integer i = 0; i < n; ++i)
+				Tree tree;
+				std::vector<integer> dataSet;
+				integer n = 100;
+				for (integer i = 0;i < n;++i)
 				{
-					aTree.insert(keySet[i], dataSet[i]);
+					tree.insert(0, i);
+					dataSet.push_back(i);
+					TEST_ENSURE(testInvariants(tree));
 				}
 
-				for (integer i = 0; i < n; ++i)
+				for (integer i = 0;i < n;++i)
 				{
+					Tree aTree = tree;
+					TEST_ENSURE(testInvariants(aTree));
+					
 					Tree bTree = aTree.split(std::next(aTree.cbegin(), i));
-
 					TEST_ENSURE(testInvariants(aTree));
 					TEST_ENSURE_OP(aTree.size(), == , i);
 					TEST_ENSURE(testInvariants(bTree));
@@ -1023,8 +1042,7 @@ namespace
 
 					aTree.join(bTree);
 					TEST_ENSURE(testInvariants(aTree));
-					TEST_ENSURE_OP(aTree.size(), == , 11);
-					TEST_ENSURE(boost::equal(aTree.keyRange(), keySet));
+					TEST_ENSURE_OP(aTree.size(), == , n);
 					TEST_ENSURE(boost::equal(aTree.dataRange(), dataSet));
 					TEST_ENSURE(testInvariants(bTree));
 					TEST_ENSURE_OP(bTree.size(), == , 0);

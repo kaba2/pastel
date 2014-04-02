@@ -35,7 +35,7 @@ namespace Pastel
 		bool right) const
 	-> ConstIterator
 	{
-		PENSURE_OP(joinBlackHeight, > , 0);
+		PENSURE_OP(joinBlackHeight, >= , 0);
 
 		ConstIterator node = croot();
 		ConstIterator parent = cend();
@@ -74,17 +74,14 @@ namespace Pastel
 		setRootBlack();
 		that.setRootBlack();
 
-		if (blackHeight() < that.blackHeight())
-		{
-			// Make it so that this tree does not
-			// have a smaller black-height than 'that' 
-			// tree.
-			swapElements(that);
-		}
-
 		bool thatIsLarger = !less(
 			that.begin().key(),
 			last().key());
+
+		Node* min = thatIsLarger ?
+			minNode() : that.minNode();
+		Node* max = thatIsLarger ?
+			that.maxNode() : maxNode();
 
 		// Detach the maximum/minimum key 
 		// of the taller tree.
@@ -92,6 +89,24 @@ namespace Pastel
 			maxNode() : minNode();
 		detach(middle);
 		ASSERT(middle->red());
+
+		if (blackHeight() < that.blackHeight())
+		{
+			// Make it so that this tree does not
+			// have a smaller black-height than 'that' 
+			// tree.
+			swapElements(that);
+			thatIsLarger = !thatIsLarger;
+		}
+
+		if (empty())
+		{
+			Node* extremum = thatIsLarger ?
+				that.minNode() : that.maxNode();
+			that.attach(middle, extremum, !thatIsLarger);
+			swapElements(that);
+			return *this;
+		}
 
 		// Find the largest/smallest node in the
 		// taller tree subject to the node having
@@ -103,24 +118,19 @@ namespace Pastel
 		that.minNode()->left() = bottomNode();
 		that.maxNode()->right() = bottomNode();
 
-		// Update the minimum and the maximum.
-		if (thatIsLarger)
-		{
-			maxNode()->right() = bottomNode();
-			maxNode() = that.maxNode();
-			maxNode()->right() = endNode();
-		}
-		else
-		{
-			minNode()->left() = bottomNode();
-			minNode() = that.minNode();
-			minNode()->left() = endNode();
-		}
+		minNode()->left() = bottomNode();
+		maxNode()->right() = bottomNode();
 
 		// Join 'that' tree to this tree.
 		join(that.rootNode(), that.blackHeight(),
 			parent, thatIsLarger,
 			middle);
+
+		minNode() = min;
+		minNode()->left() = endNode();
+
+		maxNode() = max;
+		maxNode()->right() = endNode();
 
 		// Release ownership from 'that' tree.
 		that.forget();
@@ -135,15 +145,19 @@ namespace Pastel
 		Node* middle)
 	{
 		ASSERT(that->black());
-		ASSERT_OP(thatBlackHeight, > , 0);
+		ASSERT_OP(thatBlackHeight, >= , 0);
 
-		if (middle->isSentinel())
+		if (empty())
 		{
 			ASSERT(parent->isSentinel());
+			ASSERT(middle->isSentinel());
+
 			blackHeight_ = thatBlackHeight;
 			link(middle, that, right);
 			return;
 		}
+
+		ASSERT(!middle->isSentinel());
 
 		Node* node = parent->isSentinel() ? 
 			rootNode() : parent->child(right);

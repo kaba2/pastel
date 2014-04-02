@@ -97,10 +97,6 @@ namespace Pastel
 			}
 
 			Node* subtree = node->child(right);
-			if (subtree->isSentinel())
-			{
-				continue;
-			}
 			integer subtreeBlackHeight = blackHeight;
 			if (subtree->red())
 			{
@@ -110,7 +106,7 @@ namespace Pastel
 
 			if (!join.tree->empty())
 			{
-				if (join.join->isSentinel() && 
+				if (join.join->isSentinel() &&
 					join.blackHeight > subtreeBlackHeight)
 				{
 					join.join = join.tree->rootNode();
@@ -128,12 +124,14 @@ namespace Pastel
 
 				ASSERT_OP(join.blackHeight, == , subtreeBlackHeight);
 			}
-			
+
 			join.tree->join(
-				subtree, 
+				subtree,
 				subtreeBlackHeight,
 				join.join, !right,
 				join.middle);
+
+			join.middle = join.tree->endNode();
 
 			if (join.join->isSentinel() &&
 				join.blackHeight == 0)
@@ -145,10 +143,6 @@ namespace Pastel
 			{
 				node->isolate();
 				join.middle = node;
-			}
-			else
-			{
-				join.middle = endNode();
 			}
 		}
 
@@ -169,14 +163,20 @@ namespace Pastel
 		}
 
 		// Update the minima and maxima.
-		leftTree.minNode() = tree.minNode();
-		leftTree.minNode()->left() = leftTree.endNode();
-		leftTree.maxNode() = joinSet[0].extremum;
-		leftTree.maxNode()->right() = leftTree.endNode();
-		rightTree.minNode() = joinSet[1].extremum;
-		rightTree.minNode()->left() = rightTree.endNode();
-		rightTree.maxNode() = tree.maxNode();
-		rightTree.maxNode()->right() = rightTree.endNode();
+		if (!leftTree.empty())
+		{
+			leftTree.minNode() = tree.minNode();
+			leftTree.minNode()->left() = leftTree.endNode();
+			leftTree.maxNode() = joinSet[0].extremum;
+			leftTree.maxNode()->right() = leftTree.endNode();
+		}
+		if (!rightTree.empty())
+		{
+			rightTree.minNode() = joinSet[1].extremum;
+			rightTree.minNode()->left() = rightTree.endNode();
+			rightTree.maxNode() = tree.maxNode();
+			rightTree.maxNode()->right() = rightTree.endNode();
+		}
 
 		if (!joinSet[0].middle->isSentinel())
 		{
