@@ -95,7 +95,12 @@ Sentinel nodes
 
 In addition to the elements, the red-black tree contains two additional nodes, the _end node_ and the _bottom node_. Together they are called _sentinels_. The end node represents the missing parent of the root, and the missing right child of the maximum node. This is so that the end node works naturally as the one-past-end iterator. The bottom node represents a missing child, with the exception of the right child of the maximum. For a single red-black tree the bottom node and the end node coincide, unless they are split, explicitly or implicitly, by the user. The concept of a sentinel node is important because it removes boundary cases; the child node and the parent node always exist. This simplifies the algorithms that work with the red-black tree.
 
-While the end node is always unique to its tree, the bottom node can be shared between red-black trees. Sharing a bottom node is required for efficient joining and splitting of red-black trees. The whole concept of a separate bottom node is motivated by this need.
+While the end node is always unique to its tree, the bottom node can be shared between red-black trees. Sharing a bottom node is required for efficiently joining and splitting red-black trees. The whole concept of a separate bottom node is motivated by this need.
+
+Linking
+-------
+
+The end node of each red-black tree has two additional links, `next()` and `prev()`, accessible through an end-iterator. These are the next and previous end-node in a doubly-linked list of end-nodes of trees. When a red-black tree is created, its end-node is linked to itself, forming a singular list. Using the functions `linkBefore()` and `removeLink()` the red-black trees can be linked together to form a loop. The purpose of this feature is to enable a data-structure for local searches.
 
 Theory
 ------
