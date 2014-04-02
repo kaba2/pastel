@@ -15,7 +15,6 @@ namespace Pastel
 {
 
 	//! A uniform sized memory allocator.
-
 	/*!
 	This allocator can be used to allocate constant
 	sized memory blocks in a fast and cache friendly manner.
@@ -23,7 +22,6 @@ namespace Pastel
 	guaranteeing that if there is space available then
 	it can also be allocated.
 	*/
-
 	class PASTELSYS PoolAllocator
 		: boost::equality_comparable<
 		PoolAllocator
