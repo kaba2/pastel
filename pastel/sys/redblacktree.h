@@ -273,16 +273,40 @@ namespace Pastel
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
-		
-		In a red-black tree, the paths from a given node to
-		its leaves have the same number of black nodes,
-		which is called the black-height of the node. The
-		black-height of the tree is the black-height of the
-		root. 
+
+		The black-height of the tree is the black-height
+		of the root node. If the tree is empty, then the
+		black-height is zero. Note that, since we do not
+		require the root to be black, a tree can have
+		black-height zero without being empty.
 		*/
 		integer blackHeight() const
 		{
 			return blackHeight_;
+		}
+
+		//! Returns the black-height of a node.
+		/*!
+		Time complexity: O(d)
+		where
+		d is the depth of the the node.
+
+		Exception safety: nothrow
+
+		The black-height of a node is the number of black nodes
+		on a downward path from that node to a sentinel node. This
+		is well-defined by the red-black invariants.
+		*/
+		integer blackHeight(const ConstIterator& node) const
+		{
+			integer result = blackHeight_;
+			while(!node->parent()->isSentinel())
+			{
+				node = node->parent();
+				result -= node->black();
+			}
+
+			return result;
 		}
 
 		//! Inserts an element into the tree.
@@ -954,8 +978,8 @@ namespace Pastel
 		Preconditions:
 		* The left subtree and the right subtree of 'parent' are
 		red-black trees, with propagation data up-to-date.
-		* The number of black nodes on a simple path starting from
-		'parent', or its ancestor, and ending in a leaf node in the 
+		* The number of black nodes on a downward path starting from
+		'parent', or its ancestor, and ending in a sentinel node in the 
 		'right' subtree of 'parent' is one less than it is on
 		a path that does not end in the 'right' subtree of 'parent'.
 
@@ -1223,10 +1247,10 @@ namespace Pastel
 
 		//! The black-height of the tree.
 		/*!
-		In a red-black tree, the paths from a given node to 
-		its leaves have the same number of black nodes,
-		which is called the black-height of the node. The
-		black-height of the tree is the black-height of the
+		In a red-black tree, the downward paths from a given 
+		node to a sentinel node have the same number of black 
+		nodes, which is called the black-height of the node. 
+		The black-height of the tree is the black-height of the
 		root. Tracing the black-height of the tree is 
 		important because it allows to compute the join
 		and union of two red-black trees in logarithmic

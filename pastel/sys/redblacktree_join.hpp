@@ -90,15 +90,6 @@ namespace Pastel
 		detach(middle);
 		ASSERT(middle->red());
 
-		if (blackHeight() < that.blackHeight())
-		{
-			// Make it so that this tree does not
-			// have a smaller black-height than 'that' 
-			// tree.
-			swapElements(that);
-			thatIsLarger = !thatIsLarger;
-		}
-
 		if (empty())
 		{
 			Node* extremum = thatIsLarger ?
@@ -106,6 +97,15 @@ namespace Pastel
 			that.attach(middle, extremum, !thatIsLarger);
 			swapElements(that);
 			return *this;
+		}
+
+		if (blackHeight() < that.blackHeight())
+		{
+			// Make it so that this tree does not
+			// have a smaller black-height than 'that' 
+			// tree.
+			swapElements(that);
+			thatIsLarger = !thatIsLarger;
 		}
 
 		// Find the largest/smallest node in the
@@ -158,6 +158,7 @@ namespace Pastel
 		}
 
 		ASSERT(!middle->isSentinel());
+		middle->setRed();
 
 		Node* node = parent->isSentinel() ? 
 			rootNode() : parent->child(right);
