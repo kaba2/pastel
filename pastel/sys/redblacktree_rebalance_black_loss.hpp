@@ -17,8 +17,8 @@ namespace Pastel
 			// At the start of the loop,
 			// * the 'parent' is not the sentinel,
 			// * the tree does not have any red violations,
-			// * the number of black nodes on a simple path starting from 
-			// 'parent', or its ancestor, and ending in a leaf node in the 
+			// * the number of black nodes on a downward path starting from 
+			// 'parent', or its ancestor, and ending in a sentinel node in the 
 			// 'right' subtree of 'parent' is one less than it is on
 			// a path that does not end in the 'right' subtree of 'parent'.
 			// * the propagation data in the both

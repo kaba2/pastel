@@ -12,9 +12,9 @@ A _red-black tree_ is a binary search tree where
 
 * each node ''A'' has a color ''c(A)'', which is either red or black, 
 * the children of a red node are black, and
-* the number of black nodes in a simple path from a node to a leaf node is invariant to the choice of the leaf node.
+* the number of black nodes on a downward path from a node to a sentinel node is invariant to the choice of the path.
 
-These properties guarantee that the height of the tree is ''O(log(n))'', where ''n'' is the number of elements stored in the tree. The _black-height of a node_ is the number of black nodes on a simple path from the node to a leaf node in its subtree. This is well-defined by the last property of the red-black tree. The _black-height of a tree_ is the black-height of the root of the tree. 
+These properties guarantee that the height of the tree is ''O(log(n))'', where ''n'' is the number of elements stored in the tree. The _black-height of a node_ is the number of black nodes on a downward path from that node to a sentinel node. This is well-defined by the last property of the red-black tree. The _black-height of a tree_ is the black-height of the root of the tree. 
 
 ### Color of the root
 

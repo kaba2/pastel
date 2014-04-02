@@ -9,7 +9,7 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::split(
 		const ConstIterator& rightBegin)
-	-> RedBlackTree
+		-> RedBlackTree
 	{
 		RedBlackTree& leftTree = *this;
 		RedBlackTree rightTree;
@@ -40,15 +40,15 @@ namespace Pastel
 		swapElements(tree);
 
 		Node* rightFirst = (Node*)rightBegin.base();
- 
+
 		std::vector<Node*> path;
 		{
 			Node* node = (Node*)rightBegin.base();
 			path.push_back(node);
-			while(!node->isSentinel())
+			while (!node->isSentinel())
 			{
 				path.push_back(node);
-				node = node->parent();			
+				node = node->parent();
 			}
 		}
 
@@ -61,7 +61,7 @@ namespace Pastel
 			Node* extremum;
 		};
 
-		Join joinSet[] = 
+		Join joinSet[] =
 		{
 			{
 				&leftTree,
@@ -80,15 +80,15 @@ namespace Pastel
 		};
 
 		integer blackHeight = tree.blackHeight();
-		for (integer i = path.size() - 1;i >= 0;--i)
+		for (integer i = path.size() - 1; i >= 0; --i)
 		{
 			Node* node = path[i];
 			bool right = (i == 1);
 			if (i > 1)
 			{
 				right = !(path[i - 1] == node->right());
-			}				
-			
+			}
+
 			Join& join = joinSet[right];
 
 			if (i > 0)
@@ -147,7 +147,7 @@ namespace Pastel
 		}
 
 		// Find the new extrema.
-		for (integer i = 0; i < 2;++i)
+		for (integer i = 0; i < 2; ++i)
 		{
 			Join& join = joinSet[i];
 			Node* extremum =
