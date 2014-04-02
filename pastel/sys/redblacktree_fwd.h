@@ -25,6 +25,9 @@ namespace Pastel
 		class Propagation_Node;
 		
 		template <typename>
+		class Sentinel_Node;
+
+		template <typename>
 		class Node;
 
 	}
@@ -58,9 +61,9 @@ namespace Pastel
 		};
 
 		using Node = RedBlackTree_::Node<Node_Settings>;
-		using Sentinel = RedBlackTree_::Propagation_Node<Node_Settings>;
-		using EndPtr = Sentinel*;
-		using BottomPtr = std::shared_ptr<Sentinel>;
+		using Sentinel_Node = RedBlackTree_::Sentinel_Node<Node_Settings>;
+		using EndPtr = Sentinel_Node*;
+		using BottomPtr = std::shared_ptr<Sentinel_Node>;
 
 		using Key_Iterator = 
 			RedBlackTree_::Iterator<Node*, Node_Settings, false>;

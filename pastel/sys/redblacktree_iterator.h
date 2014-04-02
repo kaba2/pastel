@@ -109,6 +109,18 @@ namespace Pastel
 				return Iterator(node()->child(right));
 			}
 
+			Iterator next() const
+			{
+				PENSURE(isSentinel());
+				return Iterator((NodePtr)((Sentinel_Node<Node_Settings>*)node())->next());
+			}
+
+			Iterator prev() const
+			{
+				PENSURE(isSentinel());
+				return Iterator((NodePtr)((Sentinel_Node<Node_Settings>*)node())->prev());
+			}
+
 			bool red() const
 			{
 				return node()->red();

@@ -101,7 +101,7 @@ namespace Pastel
 		*/
 		RedBlackTree(RedBlackTree&& that)
 			: bottom_(that.bottom_)
-			, end_(new Sentinel(bottomNode()->propagation()))
+			, end_(new Sentinel_Node(bottomNode()->propagation()))
 		{
 			*this = std::move(that);
 		}
@@ -778,6 +778,37 @@ namespace Pastel
 			++blackHeight_;
 		}
 
+		//! Links the tree with another tree.
+		/*!
+		Preconditions:
+		!linked()
+
+		Time complexity: O(1)
+		Exception safety: nothrow
+
+		Each red-black tree is part of exactly one doubly-linked
+		loop of trees. In the beginning each tree is the
+		only member in its loop. The tree-links are available
+		as the next() and prev() functions in the
+		iterator, provided that the iterator is in a 
+		sentinel node. 
+		*/
+		void linkBefore(RedBlackTree& that);
+
+		//! Removes the tree from a link-loop.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		void removeLink();
+
+		//! Returns whether the tree is part of some link-loop.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		bool linked() const;
+
 		//! Returns an iterator to the smallest element.
 		PASTEL_ITERATOR_FUNCTIONS(begin, minNode());
 
@@ -816,7 +847,7 @@ namespace Pastel
 
 	private:
 		PASTEL_FWD(Node);
-		PASTEL_FWD(Sentinel);
+		PASTEL_FWD(Sentinel_Node);
 		PASTEL_FWD(EndPtr);
 		PASTEL_FWD(BottomPtr);
 
@@ -892,7 +923,7 @@ namespace Pastel
 		*/
 		EndPtr allocateSentinel()
 		{
-			return new Sentinel();
+			return new Sentinel_Node();
 		}
 
 		//! Deallocates a sentinel node.
@@ -1224,11 +1255,11 @@ namespace Pastel
 		node is denoted by the end node. The parent, the left
 		child, and the right child are the bottom node itself.
 		*/
-		BottomPtr bottom_ = new Sentinel();
+		BottomPtr bottom_ = new Sentinel_Node();
 
 		// FIX: Visual Studio 2013 has a bug which does not allow 
 		// std::make_shared to be used as a member initializer.
-		// BottomPtr bottom_ = std::make_shared<Sentinel>();
+		// BottomPtr bottom_ = std::make_shared<Sentinel_Node>();
 
 		//! The end node.
 		/*!
@@ -1376,6 +1407,7 @@ namespace Pastel
 #include "pastel/sys/redblacktree_insert.hpp"
 #include "pastel/sys/redblacktree_invariants.hpp"
 #include "pastel/sys/redblacktree_join.hpp"
+#include "pastel/sys/redblacktree_link.hpp"
 #include "pastel/sys/redblacktree_rebalance_black_loss.hpp"
 #include "pastel/sys/redblacktree_rebalance_red_violation.hpp"
 #include "pastel/sys/redblacktree_search.hpp"

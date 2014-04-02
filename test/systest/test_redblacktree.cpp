@@ -103,6 +103,7 @@ namespace
 			testUpperBound<Tree>();
 			testJoin<Tree>();
 			testQuantile<Tree>();
+			testLink<Tree>();
 		}
 
 		void testSet()
@@ -1110,6 +1111,32 @@ namespace
 			TEST_ENSURE(test(7, 1));
 			TEST_ENSURE(test(8, 0));
 			TEST_ENSURE(test(9, 0));
+		}
+
+		template <typename Tree>
+		void testLink()
+		{
+			Tree aTree = { 1, 2, 3, 4 };
+			TEST_ENSURE(!aTree.linked());
+
+			Tree bTree = { 5, 6, 7, 8 };
+			TEST_ENSURE(!bTree.linked());
+
+			using ConstIterator = typename Tree::ConstIterator;
+
+			aTree.linkBefore(bTree);
+			TEST_ENSURE(aTree.linked());
+			TEST_ENSURE(bTree.linked());
+
+			ConstIterator iter = aTree.cend();
+			iter = iter.next();
+			TEST_ENSURE(iter == bTree.cend());
+			iter = iter.prev();
+			TEST_ENSURE(iter == aTree.cend());
+
+			bTree.removeLink();
+			TEST_ENSURE(!aTree.linked());
+			TEST_ENSURE(!bTree.linked());
 		}
 	};
 
