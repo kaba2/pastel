@@ -790,8 +790,8 @@ namespace Pastel
 		loop of trees. In the beginning each tree is the
 		only member in its loop. The tree-links are available
 		as the next() and prev() functions in the
-		iterator, provided that the iterator is in a 
-		sentinel node. 
+		iterator, provided that the iterator is in an
+		end-node.
 		*/
 		void linkBefore(RedBlackTree& that);
 

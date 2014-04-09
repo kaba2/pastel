@@ -10,20 +10,14 @@ Basic properties
 
 Every data-structure in Pastel
 
-* is const-correct,
-* is exception-safe,
+* is [const-correct][Layered],
+* is [exception-safe][Layered],
+* follows the [open-closed principle][Layered],
+* follows the [principle of minimal requirements and maximal information][Layered],
 * is documented for exception-safety,
 * is documented for time-complexity,
-* is documented for space-complexity,
-* can embed user data in its parts, and
-* can be customized.
+* is documented for space-complexity, and
+* can be [customized][Customization].
 
-### User data
-
-Whenever user data can be embedded into a part of a data-structure, by defining the type of the user-data as `void` guarantees that no memory is used for the user-data.
-
-### Customizations
-
-A _customization_ is an object which injects code, by inheritance, to be run before or after a modifying operation is executed in a data-structure. The customization points are determined by the data-structure; common customization points include after inserting an element, and before removing an element. A customization can include state, and even add new functions into the interface of the customized data-structure. The customization has full access to the object it customizes. 
-
-An example of a customization is to modify a red-black tree such that, in each node, it maintains the number of elements that reside in the subtree rooted at that node. This information can be used to compute any quantile of a dynamic ordered set in logarithmic time.
+[Layered]: [[Ref]]: techniques_layered.txt
+[Customization]: [[Ref]]: techniques_customization.txt
