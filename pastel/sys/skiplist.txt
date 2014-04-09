@@ -20,12 +20,12 @@ Pastel has the following properties:
 
 Property                             | Complexity
 ------------------------------------ | -------------------------
-Insert an element                    | ''O(log(m))''
-Remove an element                    | ''O(log(m))''
-Find an element                      | ''O(log(Delta))''
-Find the predecessor of an element   | ''O(log(Delta))''
-Find the successor of an element     | ''O(log(Delta))''
-Count number of equivalent elements  | ''O(1)''
+Insert an element.                   | ''O(log(m))''
+Remove an element.                   | ''O(log(m))''
+Find an element.                     | ''O(log(Delta))''
+Find the predecessor of an element.  | ''O(log(Delta))''
+Find the successor of an element.    | ''O(log(Delta))''
+Count number of equivalent elements. | ''O(1)''
 Space                                | ''O(n)''
 
 Additional properties are as follows:

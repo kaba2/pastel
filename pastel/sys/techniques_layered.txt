@@ -325,7 +325,8 @@ After this addition, the merge-sort algorithm can be implemented as a free funct
 The basic principles are summarized as follows. A data-structure should
 
 * encapsulate its state and provide controlled ways to modify and query the state, 
-* provide controlled access to its parts by iterators, * define its inner types separately from the actual data-structure, both away from inside the type, and away from the same file,
+* provide controlled access to its parts by iterators, 
+* define its inner types separately from the actual data-structure, both away from inside the type, and away from the same file,
 * use a sentinel node, if it is based on nodes,
 * be exception-safe,
 * be const-correct,
