@@ -1,60 +1,76 @@
-Iterators in interfaces
-=======================
+Adaptable iterators
+===================
 
 [[Parent]]: techniques.txt
 
-This technique is summarized as follows: if your data structure contains
-an `std::map` or `std::unordered_map` container, the value-elements of 
-which you must expose to the user, then provide an iterator wrapper to
-dereference the value-element instead of returning the pair-dereferencing
-original iterator.
+A container data-structure in the C++ Standard Library often provides only two types of iterators: a mutable iterator `iterator`, and a non-mutable iterator `const_iterator`. This selection is not convenient for all uses. For example, while an iterator of `std::map` dereferences to a key-value pair, sometimes it is convenient to dereference to the key, and sometimes it is convenient to dereference to the value. In this section we present a technique for supporting various types of iterators to access the same part of a data-structure in different ways.
 
 Problem
 -------
 
-Consider that there is a data structure A which stores a set of values
-in an `std::map` to enable fast associative searches by a key, and also 
-that the set of values in that map are exposed to the user of the data 
-structure. Then initially one might consider a design like the following.
+In general, a given part of a data-structure is desired to be accessed by an iterator with ''n'' orthogonal compile-time properties, with the ''i'':th property having ''m_i'' choices, for a total of ''m_1 ... m_n'' possible iterator-types. 
 
-[[CppCode]]:
-	class A
-	{
-	public:
-		typedef std::map<int, int> ValueSet;
-		typedef ValueSet::const_iterator ConstIterator;
+The varying types of iterators, for a given part, must interoperate; each of them must be equivalently usable for accessing the same part of a data-structure, except when explicitly disallowed by the data-structure (e.g. no mutation of the value through a const-iterator).
 
-		ConstIterator begin() const
-		{
-			return valueSet_.begin();
-		}
+What is the best way to support such varying iterators?
 
-		ConstIterator end() const
-		{
-			return valueSet_.end();
-		}
+### Examples
 
-	private:
-		ValueSet valueSet_;
-	};
-
-But there are now at least two problems:
-
- * Having the iterators dereference to an `std::pair` exposes an 
- implementation detail. It is not possible to change the underlying
- data structure afterwards.
-
- * While logically you simply have a set of values, physically you are 
- required to deal with `std::pair`s when dereferencing an iterator.
- This is extremely confusing to the user who might have no idea about 
- the meaning of the key. 
+For the `std::map`, ''n = 2'' (constness, dereferencing), ''m_1 = 2'' (const, non-const), and ''m_2 = 3'' (key-value, key, value), for a total of 6 iterator-types. For the `RedBlack_Map`, ''n = 3'' (constness, dereferencing, continuity), ''m_1 = 2'' (const, non-const), ''m_2 = 3'' (key-value, key, value), and ''m_3 = 2'' (continuous, discontinuous), for a total of 12 iterator types.
 
 Solution
 --------
 
-To solve these problems, replace the pair-iterator-interface with
-an iterator-adaptor which encapsulates the pair-iterator and offers
-access only to the value-field of the pair. This is exactly what is
-offered by the [Second_Iterator][Second_Iterator] adaptor.
+We solve the problem by using internal adaptation for our data-structures, and by using external adaptation for the other data-structures (such as the C++ Standard Library). The internal adaptation is to be used when the adaptation is meaningful only in that data-structure, or when the adaptation is expected to be common. The external adaptation is used for all the other use-cases.
+
+### Internal adaptation
+
+Parametrize the iterator (range) with respect to the orthogonal properties, ensuring interoperability, and choose one parameter combination as the basic version. Use the basic-version in the interface of the data-structure, and provide functions in the iterator (range) to adapt the iterator one property at a time.
+
+[[CppCode]]:
+	dataSet.begin().read().dereferenceData();
+	dataSet.range().read().dereferenceData();
+
+For compatibility with the C++ Standard Library, also provide the c-prefix functions (e.g. `cbegin()`) for added constness (corresponding to an implicit `.read()`).
+
+### External adaptation
+
+Create an iterator (range) adaptor which implements the changes by indirection to an underlying base-iterator (base-range).
+
+[[CppCode]]:
+	secondIterator(dataSet.begin());
+	secondRange(dataSet.range());
+
+#### Example
+
+For iterators which dereference to `std::pair`, create an iterator adaptor which dereferences to `iter->first` or `iter->second` instead. The latter is provided by the [Second_Iterator][Second_Iterator] adaptor. This is a transition-adaptor while waiting for the C++14 support to be implemented in compilers. 
+
+In C++14 it possible to create a generic iterator adaptor which takes in a generic lambda function to transform the dereferencing of the base iterator, with the resulting type deduced by `decltype`.
+
+Using Boost's iterator library, it is easy to define more general iterator adaptors, which adapt not only the dereferencing, but also the traversal.
 
 [Second_Iterator]: [[Ref]]: iterators.txt
+
+Rejected solutions
+------------------
+
+### Additional iterator functions
+
+Provide access to adapted iterators via additional iterator (range) functions. 
+
+[[CppCode]]:
+	dataSet.dataBegin();
+	dataSet.dataRange();
+
+This solution was rejected because the number of names that are needed grows in a combinatorial manner.
+
+### Parametrized iterator functions
+
+Provide access to adapted iterators via parametrized iterator (range) functions. 
+
+[[CppCode]]:
+	dataSet.begin<true, false>();
+	dataSet.range<true, false>();
+
+This solution was rejected, because it is hard to remember the meaning of the parameters. This could be remedied somewhat by using enums instead, but then invoking the function would require too much writing, such as in `dataSet.range<RedBlack_Map::Constness::True, RedBlack_Map::Dereference::Value>()`.
+

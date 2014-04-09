@@ -3,28 +3,11 @@ Second iterator
 
 [[Parent]]: iterators.txt
 
-The `SecondIterator` adapts the underlying iterator, provided
-that it dereferences to an `std::pair`. The only adaptation
-it does, is to dereference to the `second` field of the pair
-instead. This is important to being able to realize good
-[iterator interfaces][Iterator].
+The `SecondIterator` adapts the underlying iterator, provided that it dereferences to an `std::pair`. The only adaptation it does, is to dereference to the `second` field of the pair instead. This is important to being able to realize good [iterator interfaces][Iterator].
 
 [Iterator]: [[Ref]]: techniques_iterators.txt
 
 Genericy
 --------
 
-A word on genericy is in place. The Boost library
-contains a generic transform iterator which can be passed
-a functor to obtain such an adaptation of the dereferenced
-value. However, it has a bug in it which makes it incapable
-to work with incomplete types. We could create a similar
-transform iterator ourselves, but that would be laborous 
-because the implementation needs to be able to deduce the 
-return type of an arbitrary functor. In C++03,
-this can be approximated (laborously) but not fully realized. 
-In C++11, this can be fully realized by `decltype`, however,
-the current implementation of `decltype` in Visual Studio 2010 
-is incorrect. Therefore, for the time being we have chosen to
-create this very specific iterator adaptor instead and delay
-the implementation of more generic alternatives.
+The Boost library contains a generic transform iterator which can be passed a functor to obtain such an adaptation of the dereferenced value. However, it has a bug in it which makes it incapable to work with incomplete types. We could create a similar transform iterator ourselves, but that would be laborous because the implementation needs to be able to deduce the return type of an arbitrary functor. In C++03, this can be approximated (laborously) but not fully realized. In C++11, this can be fully realized by `decltype`, however, the current implementation of `decltype` in Visual Studio 2010 is incorrect. Therefore, for the time being we have chosen to create this very specific iterator adaptor instead and delay the implementation of more generic alternatives.
