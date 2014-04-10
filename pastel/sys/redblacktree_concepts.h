@@ -53,6 +53,16 @@ namespace Pastel
 			*/
 			using Propagation = UserDefinedType;
 
+			//! The type of the sentinel user data.
+			/*!
+			The sentinel user data is attached to every sentinel node,
+			and can be read and modified through a sentinel iterator.
+
+			Set to void to avoid allocating any memory
+			for the sentinel user data.
+			*/
+			using SentinelData = UserDefinedType;
+
 			//! The type of the predicate to use for comparing keys.
 			/*!
 			The comparison is done as Less()(left, right).
@@ -172,6 +182,8 @@ namespace Pastel
 			Customization(const Customization& that) = delete;
 			Customization(Customization&& that) = delete;
 			Customization& operator=(Customization) = delete;
+
+			// You can introduce customization state here.
 		};
 
 	}

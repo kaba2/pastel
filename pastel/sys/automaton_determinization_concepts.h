@@ -26,6 +26,7 @@ namespace Pastel
 			State_ConstIterator,
 			IteratorAddress_LessThan,
 			void,
+			void,
 			IteratorAddress_Hash>;
 
 		class State_Output

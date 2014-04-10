@@ -32,6 +32,9 @@ namespace Pastel
 
 	}
 
+	template <typename, template <typename> class>
+	class RedBlackTree;
+
 	template <typename Settings>
 	class RedBlackTree_Fwd
 	{
@@ -41,6 +44,7 @@ namespace Pastel
 		PASTEL_FWD(Key);
 		PASTEL_FWD(Propagation);
 		PASTEL_FWD(Data);
+		PASTEL_FWD(SentinelData);
 		PASTEL_FWD(Less);
 
 		PASTEL_CONSTEXPR bool MultipleKeys =
@@ -48,6 +52,7 @@ namespace Pastel
 
 		using Data_Class = Class<Data>;
 		using Propagation_Class = Class<Propagation>;
+		using SentinelData_Class = Class<SentinelData>;
 
 		PASTEL_CONSTEXPR bool DereferenceToData =
 			!std::is_same<Data, void>::value;
@@ -58,6 +63,7 @@ namespace Pastel
 			PASTEL_FWD(Key);
 			using Propagation_Class = Propagation_Class;
 			using Data_Class = Data_Class;
+			using SentinelData_Class = SentinelData_Class;
 		};
 
 		using Node = RedBlackTree_::Node<Node_Settings>;
