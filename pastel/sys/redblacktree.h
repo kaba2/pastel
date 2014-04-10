@@ -46,16 +46,6 @@ namespace Pastel
 		PASTEL_FWD(Range);
 		PASTEL_FWD(ConstRange);
 
-		PASTEL_FWD(Key_Iterator);
-		PASTEL_FWD(Key_ConstIterator);
-		PASTEL_FWD(Key_Range);
-		PASTEL_FWD(Key_ConstRange);
-
-		PASTEL_FWD(Data_Iterator);
-		PASTEL_FWD(Data_ConstIterator);
-		PASTEL_FWD(Data_Range);
-		PASTEL_FWD(Data_ConstRange);
-
 		PASTEL_FWD(Insert_Return);
 		PASTEL_FWD(FindEqual_Return);
 		PASTEL_FWD(FindInsert_Return);
@@ -795,24 +785,6 @@ namespace Pastel
 
 		//! Returns an iterator range.
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
-
-		//! Returns a key-iterator to the smallest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyBegin, minNode());
-
-		//! Returns a key-iterator to the end node.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Key_, keyEnd, endNode());
-
-		//! Returns a key-iterator range.
-		PASTEL_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
-
-		//! Returns a data-iterator to the smallest element.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataBegin, minNode());
-
-		//! Returns a data-iterator to the end node.
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Data_, dataEnd, endNode());
-
-		//! Returns a data-iterator range.
-		PASTEL_RANGE_FUNCTIONS_PREFIX(Data_, dataRange, dataBegin, dataEnd);
 
 	private:
 		PASTEL_FWD(Node);

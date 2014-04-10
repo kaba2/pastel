@@ -182,7 +182,7 @@ namespace Pastel
 		PASTEL_FWD(Key);
 
 		if (Settings::MultipleKeys &&
-			!pairwiseAllOf(tree.ckeyRange(),
+			!pairwiseAllOf(tree.crange().dereferenceKey(),
 			notPredicate(transposePredicate(Less()))))
 		{
 			// The keys must be in sorted order.
@@ -190,7 +190,7 @@ namespace Pastel
 		}
 
 		if (!Settings::MultipleKeys && 
-			!pairwiseAllOf(tree.ckeyRange(), Less()))
+			!pairwiseAllOf(tree.crange().dereferenceKey(), Less()))
 		{
 			// The keys must be unique when multiple keys are not allowed.
 			return false;

@@ -14,10 +14,12 @@ Every data-structure in Pastel
 * is [exception-safe][Layered],
 * follows the [open-closed principle][Layered],
 * follows the [principle of minimal requirements and maximal information][Layered],
+* uses [adaptable iterators][Adaptable],
 * is documented for exception-safety,
 * is documented for time-complexity,
 * is documented for space-complexity, and
 * can be [customized][Customization].
 
+[Adaptable]: [[Ref]]: techniques_iterators.txt
 [Layered]: [[Ref]]: techniques_layered.txt
 [Customization]: [[Ref]]: techniques_customization.txt
