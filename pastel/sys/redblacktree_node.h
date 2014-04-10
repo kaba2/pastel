@@ -208,11 +208,13 @@ namespace Pastel
 		template <typename Settings>
 		class Sentinel_Node
 			: public Propagation_Node<Settings>
+			, public Settings::SentinelData_Class
 		{
 		public:
 			using Fwd = Settings;
 
 			PASTEL_FWD(Propagation_Class);
+			PASTEL_FWD(SentinelData_Class);
 
 			using Base = Propagation_Node<Settings>;
 
@@ -224,40 +226,26 @@ namespace Pastel
 
 			Sentinel_Node()
 			: Base()
-			, next_(nullptr)
-			, prev_(nullptr)
+			, SentinelData_Class()
 			{
-				next_ = this;
-				prev_ = this;
 			}
 
 			explicit Sentinel_Node(
 				const Propagation_Class& propagation)
-				: Base(propagation)
-				, next_(nullptr)
-				, prev_(nullptr)
+			: Base(propagation)
+			, SentinelData_Class()
 			{
-				next_ = this;
-				prev_ = this;
 			}
 
-			Sentinel_Node*& next()
+			SentinelData_Class& sentinelData() const
 			{
-				return next_;
-			}
-
-			Sentinel_Node*& prev()
-			{
-				return prev_;
+				return (SentinelData_Class&)*this;
 			}
 
 		private:		
 			Sentinel_Node(const Sentinel_Node& that) = delete;
 			Sentinel_Node(Sentinel_Node&& that) = delete;
 			Sentinel_Node& operator=(Sentinel_Node that) = delete;
-
-			Sentinel_Node* next_;
-			Sentinel_Node* prev_;
 		};
 
 		//! Key node

@@ -47,19 +47,23 @@ In the above, ''n_2'' and ''n_1'' refer to the number of elements in the larger 
 Node data
 ---------
 
-Each node stores, along with other things related to tree-structure, a key, a propagation, and a user-data, together called _node data_. The types of these objects are defined by the user. 
+Each node stores, along with other things related to tree-structure, a key, a propagation, a user-data, and a sentinel data, together called _node data_. The types of these objects are defined by the user. 
 
 ### Key
 
 A _key_ is used to arrange the elements in increasing order with respect to the given strict weak order. The key can not be modified after insertion.
 
+### User data
+
+A _user data_ can be modified freely; the tree does not enforce any invariants on it. Defining the type of the user data as `void` avoids allocating any memory for it.
+
 ### Propagation
 
 A _propagation_ is the evaluation of the user-defined propagation function at a given node, with the guarantee that the propagation has already been computed for all the nodes in the left and the right subtree of the node. The propagation function is the only way to modify the propagation in a node. After each operation, the red-black tree guarantees that the propagation data is up-to-date. Whether the sentinel nodes contain a propagation can be controlled by the user. A propagation in a sentinel gets rid of the boundary cases in the propagation function, since then the sentinel propagation works as the base-case. Definining the type of the propagation data as `void` avoids allocating any memory for it. 
 
-### User data
+### Sentinel data
 
-A _user data_ can be modified freely; the tree does not enforce any invariants on it. Defining the type of the user data as `void` avoids allocating any memory for it.
+A _sentinel data_ can be modified freely. It is like user data, except it is only available on the sentinel nodes.
 
 ### Color
 
@@ -96,11 +100,6 @@ Sentinel nodes
 In addition to the elements, the red-black tree contains two additional nodes, the _end node_ and the _bottom node_. Together they are called _sentinels_. The end node represents the missing parent of the root, and the missing right child of the maximum node. This is so that the end node works naturally as the one-past-end iterator. The bottom node represents a missing child, with the exception of the right child of the maximum. For a single red-black tree the bottom node and the end node coincide, unless they are split, explicitly or implicitly, by the user. The concept of a sentinel node is important because it removes boundary cases; the child node and the parent node always exist. This simplifies the algorithms that work with the red-black tree.
 
 While the end node is always unique to its tree, the bottom node can be shared between red-black trees. Sharing a bottom node is required for efficiently joining and splitting red-black trees. The whole concept of a separate bottom node is motivated by this need.
-
-Linking
--------
-
-The end node of each red-black tree has two additional links, `next()` and `prev()`, accessible through an end-iterator. These are the next and previous end-node in a doubly-linked list of end-nodes of trees. When a red-black tree is created, its end-node is linked to itself, forming a singular list. Using the functions `linkBefore()` and `removeLink()` the red-black trees can be linked together to form a loop. The purpose of this feature is to enable a data-structure for local searches.
 
 Theory
 ------

@@ -57,7 +57,7 @@ namespace
 			//std::cout << automaton << std::endl;
 
 			using StateSet = Hashed_Set<
-				State, IteratorAddress_LessThan, void,
+				State, IteratorAddress_LessThan, void, void,
 				IteratorAddress_Hash>;
 
 			Automaton_ det;

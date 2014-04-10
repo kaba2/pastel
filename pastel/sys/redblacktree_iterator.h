@@ -36,6 +36,13 @@ namespace Pastel
 			PASTEL_FWD(Key);
 			PASTEL_FWD(Data_Class);
 			PASTEL_FWD(Propagation_Class);
+			PASTEL_FWD(SentinelData_Class);
+
+			template <bool DereferenceToData_>
+			using Other_Iterator = Iterator<NodePtr, Node_Settings, DereferenceToData_>;
+
+			using Key_Iterator = Other_Iterator<false>;
+			using Data_Iterator = Other_Iterator<true>;
 
 			Iterator()
 				: Iterator::iterator_adaptor_(0) 
@@ -55,6 +62,16 @@ namespace Pastel
 				const Iterator<That_NodePtr, Node_Settings, That_DereferenceToData>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{
+			}
+
+			Key_Iterator dereferenceKey() const
+			{
+				return Key_Iterator(*this);
+			}
+
+			Data_Iterator dereferenceData() const
+			{
+				return Data_Iterator(*this);
 			}
 
 			const Key& key() const
@@ -79,16 +96,6 @@ namespace Pastel
 				return node()->isSentinel();
 			}
 
-			bool parentExists() const
-			{
-				return node()->parentExists();
-			}
-
-			bool childExists(bool right) const
-			{
-				return node()->childExists(right);
-			}
-
 			Iterator parent() const
 			{
 				return Iterator(node()->parent());
@@ -109,16 +116,10 @@ namespace Pastel
 				return Iterator(node()->child(right));
 			}
 
-			Iterator next() const
+			SentinelData_Class& sentinelData() const
 			{
 				PENSURE(isSentinel());
-				return Iterator((NodePtr)((Sentinel_Node<Node_Settings>*)node())->next());
-			}
-
-			Iterator prev() const
-			{
-				PENSURE(isSentinel());
-				return Iterator((NodePtr)((Sentinel_Node<Node_Settings>*)node())->prev());
+				return ((Sentinel_Node<Node_Settings>*)node())->sentinelData();
 			}
 
 			bool red() const

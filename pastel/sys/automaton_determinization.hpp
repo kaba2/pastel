@@ -39,6 +39,7 @@ namespace Pastel
 			State_ConstIterator,
 			IteratorAddress_LessThan,
 			void,
+			void,
 			IteratorAddress_Hash>;
 
 		if (automaton.states() == 0)

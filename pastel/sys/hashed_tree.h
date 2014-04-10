@@ -83,18 +83,20 @@ namespace Pastel
 		typename Key,
 		typename Less = LessThan,
 		typename Propagation = void,
+		typename SentinelData = void,
 		typename Hash = std::hash<Key>>
 	using Hashed_Set = HashedTree<
-		RedBlack_Settings<Key, void, Less, Propagation, false>, 
+		RedBlack_Settings<Key, void, Less, Propagation, SentinelData, false>, 
 		Hash>;
 
 	template <
 		typename Key,
 		typename Less = LessThan,
 		typename Propagation = void,
+		typename SentinelData = void,
 		typename Hash = std::hash<Key>>
 	using Hashed_MultiSet = HashedTree<
-		RedBlack_Settings<Key, void, Less, Propagation, true>, 
+		RedBlack_Settings<Key, void, Less, Propagation, SentinelData, true>, 
 		Hash>;
 
 }
@@ -107,9 +109,10 @@ namespace Pastel
 		typename Data,
 		typename Less = LessThan,
 		typename Propagation = void,
+		typename SentinelData = void,
 		typename Hash = std::hash<Key>>
 	using Hashed_Map = HashedTree<
-		RedBlack_Settings<Key, Data, Less, Propagation, false>,
+		RedBlack_Settings<Key, Data, Less, Propagation, SentinelData, false>,
 		Hash>;
 
 	template <
@@ -117,9 +120,10 @@ namespace Pastel
 		typename Data,
 		typename Less = LessThan,
 		typename Propagation = void,
+		typename SentinelData = void,
 		typename Hash = std::hash<Key>>
 	using Hashed_MultiMap = HashedTree<
-		RedBlack_Settings<Key, Data, Less, Propagation, true>,
+		RedBlack_Settings<Key, Data, Less, Propagation, SentinelData, true>,
 		Hash>;
 
 }

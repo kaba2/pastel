@@ -778,37 +778,6 @@ namespace Pastel
 			++blackHeight_;
 		}
 
-		//! Links the tree with another tree.
-		/*!
-		Preconditions:
-		!linked()
-
-		Time complexity: O(1)
-		Exception safety: nothrow
-
-		Each red-black tree is part of exactly one doubly-linked
-		loop of trees. In the beginning each tree is the
-		only member in its loop. The tree-links are available
-		as the next() and prev() functions in the
-		iterator, provided that the iterator is in an
-		end-node.
-		*/
-		void linkBefore(RedBlackTree& that);
-
-		//! Removes the tree from a link-loop.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		void removeLink();
-
-		//! Returns whether the tree is part of some link-loop.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		bool linked() const;
-
 		//! Returns an iterator to the smallest element.
 		PASTEL_ITERATOR_FUNCTIONS(begin, minNode());
 
@@ -1337,6 +1306,7 @@ namespace Pastel
 		typename Data_ = void,
 		typename Less_ = LessThan,
 		typename Propagation_ = void,
+		typename SentinelData_ = void,
 		bool MultipleKeys_ = false>
 	class RedBlack_Settings
 	{
@@ -1345,6 +1315,7 @@ namespace Pastel
 		using Data = Data_;
 		using Less = Less_;
 		using Propagation = Propagation_;
+		using SentinelData = SentinelData_;
 		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
 	};
 
@@ -1360,20 +1331,22 @@ namespace Pastel
 		typename Data,
 		typename Less = LessThan,
 		typename Propagation = void,
+		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Map = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation,
-		false>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation, SentinelData, false>, 
+		Customization>;
 
 	template <
 		typename Key, 
 		typename Data,
 		typename Less = LessThan,
 		typename Propagation = void,
+		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiMap = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation,
-		true>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation, SentinelData, true>, 
+		Customization>;
 
 }
 
@@ -1386,17 +1359,21 @@ namespace Pastel
 		typename Key,
 		typename Less = LessThan,
 		typename Propagation = void,
+		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_Set = 
-		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, false>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, SentinelData, false>, 
+		Customization>;
 
 	template <
 		typename Key, 
 		typename Less = LessThan,
 		typename Propagation = void,
+		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlack_MultiSet = 
-		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, true>, Customization>;
+		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, SentinelData, true>, 
+		Customization>;
 
 }
 
@@ -1407,7 +1384,6 @@ namespace Pastel
 #include "pastel/sys/redblacktree_insert.hpp"
 #include "pastel/sys/redblacktree_invariants.hpp"
 #include "pastel/sys/redblacktree_join.hpp"
-#include "pastel/sys/redblacktree_link.hpp"
 #include "pastel/sys/redblacktree_rebalance_black_loss.hpp"
 #include "pastel/sys/redblacktree_rebalance_red_violation.hpp"
 #include "pastel/sys/redblacktree_search.hpp"

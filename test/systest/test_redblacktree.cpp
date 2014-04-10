@@ -57,7 +57,7 @@ namespace
 
 		template <typename Data, bool MultipleKeys>
 		using Counting_Settings =
-			RedBlack_Settings<integer, Data, LessThan, integer, MultipleKeys>;
+			RedBlack_Settings<integer, Data, LessThan, integer, void, MultipleKeys>;
 
 		using Set_Settings = Counting_Settings<void, false>;
 		using MultiSet_Settings = Counting_Settings<void, true>;
@@ -103,7 +103,6 @@ namespace
 			testUpperBound<Tree>();
 			testJoin<Tree>();
 			testQuantile<Tree>();
-			testLink<Tree>();
 		}
 
 		void testSet()
@@ -304,6 +303,11 @@ namespace
 
 				integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
 				TEST_ENSURE(boost::equal(tree.cdataRange(), dataSet));
+
+				TEST_ENSURE_OP(*tree.begin().dereferenceKey(), == , 1);
+				TEST_ENSURE_OP(*tree.begin().dereferenceData(), == , 1);
+				TEST_ENSURE_OP(*std::next(tree.begin().dereferenceKey()), == , 2);
+				TEST_ENSURE_OP(*std::next(tree.begin().dereferenceData()), == , 4);
 			}
 		}
 
@@ -447,17 +451,18 @@ namespace
 			using ConstIterator = typename Tree::ConstIterator;
 			using Iterator = typename Tree::Iterator;
 
-			Tree tree{ 1, 2, 3, 4 };
-			
-			ConstIterator iter = tree.cend();
+			Tree aTree{ 1, 2, 3, 4 };
+			Tree bTree{ 5, 6, 7 };
+
+			ConstIterator iter = aTree.cend();
 			++iter;
-			TEST_ENSURE(iter == tree.cbegin());
+			TEST_ENSURE(iter == aTree.cbegin());
 			--iter;
-			TEST_ENSURE(iter == tree.cend());
+			TEST_ENSURE(iter == aTree.cend());
 			--iter;
 			TEST_ENSURE(iter.key() == 4);
 
-			Iterator bIter = tree.cast(iter);
+			Iterator bIter = aTree.cast(iter);
 			iter = bIter;
 			TEST_ENSURE(iter == bIter);
 		}
@@ -1111,32 +1116,6 @@ namespace
 			TEST_ENSURE(test(7, 1));
 			TEST_ENSURE(test(8, 0));
 			TEST_ENSURE(test(9, 0));
-		}
-
-		template <typename Tree>
-		void testLink()
-		{
-			Tree aTree = { 1, 2, 3, 4 };
-			TEST_ENSURE(!aTree.linked());
-
-			Tree bTree = { 5, 6, 7, 8 };
-			TEST_ENSURE(!bTree.linked());
-
-			using ConstIterator = typename Tree::ConstIterator;
-
-			aTree.linkBefore(bTree);
-			TEST_ENSURE(aTree.linked());
-			TEST_ENSURE(bTree.linked());
-
-			ConstIterator iter = aTree.cend();
-			iter = iter.next();
-			TEST_ENSURE(iter == bTree.cend());
-			iter = iter.prev();
-			TEST_ENSURE(iter == aTree.cend());
-
-			bTree.removeLink();
-			TEST_ENSURE(!aTree.linked());
-			TEST_ENSURE(!bTree.linked());
 		}
 	};
 
