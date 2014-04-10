@@ -6,15 +6,10 @@ Incidence graph
 The _incidence graph_ is a data structure for storing and manipulating 
 labeled graphs. 
 
-Definitions
------------
-
-A _graph_ is a triple ''(V, E, I)'', where ''V'' and ''E'' are finite sets, called the _vertices_ and the _edges_, respectively, and ''I : E --> V^2 times {0, 1}'' is called the _incidence function_. The incidence function tells for each edge its end-vertices, and whether the edge is directed (1) or not (0). If an edge ''e'' is directed, then the first element and the second element of ''I(e)'' denote the origin vertex and the destination vertex, respectively. This generality is required to represent all of undirected graphs, directed graphs, and mixed graphs, possibly combined with self-loops and multi-edges. A _labeled graph_ is a graph together with _labeling functions_ ''L_V : V --> D_V'' and ''L_E : E --> D_E'', where ''D_V'' and ''D_E'' are arbitrary sets, called the _vertex labels_ and the _edge labels_, respectively.
-
 Properties
 ----------
 
-The following describes the properties of the incidence graph data structure:
+The incidence graph data structure has the following properties:
 
 Task / Property                                                          | Complexity
 -------------------------------------------------------------------------|-------------------
@@ -48,3 +43,12 @@ Here ''n'' is the number of vertices, and ''m'' is the number of edges.
 * can change the directionality of an edge without changing the identity of the edge, and
 * can change a directed edge to an undirected edge and vice versa without changing the identity of the edge.
 
+Definitions
+-----------
+
+A _graph_ is a triple ''(V, E, I)'', where ''V'' and ''E'' are finite sets, called the _vertices_ and the _edges_, respectively, and ''I : E --> V^2 times {0, 1}'' is called the _incidence function_. The incidence function tells for each edge its end-vertices, and whether the edge is directed (1) or not (0). If an edge ''e'' is directed, then the first element and the second element of ''I(e)'' denote the origin vertex and the destination vertex, respectively. This generality is required to represent all of undirected graphs, directed graphs, and mixed graphs, possibly combined with self-loops and multi-edges. A _labeled graph_ is a graph together with _labeling functions_ ''L_V : V --> D_V'' and ''L_E : E --> D_E'', where ''D_V'' and ''D_E'' are arbitrary sets, called the _vertex labels_ and the _edge labels_, respectively. A graph is called _directed_, if all its edges are directed. A graph is called _simple_ if it has at most one edge between any two vertices, and no loop-edges. 
+
+References
+----------
+
+_Graph Theory and its Applications_, 2nd. ed., Jonathan L. Gross, Jay Yellen, 2005.
