@@ -17,13 +17,14 @@
 namespace Pastel
 {
 
-	template <GraphType Type, typename VertexData, typename EdgeData>
-	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Vertex
+	template <typename Settings>
+	class IncidenceGraph_Fwd<Settings>::Vertex
 		: public VertexData_Class
 	{
 	public:
-		typedef Incidence_Graph_Fwd<Type, VertexData, EdgeData> Graph;
-		friend class Incidence_Graph<Type, VertexData, EdgeData>;
+		typedef IncidenceGraph_Fwd<Settings> Graph;
+		template <typename, template <typename> class>
+		friend class IncidenceGraph;
 
 		using VertexData_Class::operator=;
 

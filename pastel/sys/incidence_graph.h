@@ -3,6 +3,7 @@
 #ifndef PASTELSYS_INCIDENCE_GRAPH_H
 #define PASTELSYS_INCIDENCE_GRAPH_H
 
+#include "pastel/sys/incidence_graph_concepts.h"
 #include "pastel/sys/incidence_graph_fwd.h"
 #include "pastel/sys/incidence_graph_incidence.h"
 #include "pastel/sys/incidence_graph_vertex.h"
@@ -16,14 +17,23 @@ namespace Pastel
 {
 
 	//! Incidence graph
+	/*!
+	Space complexity: O(vertices() + edges())
+	*/
 	template <
-		GraphType Type = GraphType::Directed, 
-		typename VertexData = void, 
-		typename EdgeData = void>
-	class Incidence_Graph
+		typename Settings_, 
+		template <typename> class Customization_ = IncidenceGraph_Concepts::Customization>
+	class IncidenceGraph
+	: public Customization_<Settings_>
 	{
 	public:
-		typedef Incidence_Graph_Fwd<Type, VertexData, EdgeData> Fwd;
+		using Fwd = IncidenceGraph_Fwd<Settings_>;
+		using Customization = Customization_<Settings_>;
+
+		PASTEL_FWD(Settings);
+		PASTEL_CONSTEXPR GraphType Type = Fwd::Type;
+		PASTEL_FWD(VertexData);
+		PASTEL_FWD(EdgeData);
 
 		PASTEL_FWD(Vertex);
 		PASTEL_FWD(VertexSet);
@@ -49,13 +59,10 @@ namespace Pastel
 
 		//! Constructs an empty graph.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		strong
+		Time complexity: O(1)
+		Exception safety: strong
 		*/
-		Incidence_Graph()
+		IncidenceGraph()
 			: vertexSet_()
 			, edgeSet_()
 		{
@@ -72,7 +79,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Incidence_Graph(const Incidence_Graph& that)
+		IncidenceGraph(const IncidenceGraph& that)
 			: vertexSet_()
 			, edgeSet_()
 		{
@@ -81,7 +88,7 @@ namespace Pastel
 				Vertex_ConstIterator,
 				IteratorAddress_Hash> vertexMap;
 
-			Incidence_Graph copy;
+			IncidenceGraph copy;
 
 			for (auto vertex = that.cVertexBegin();
 				vertex != that.cVertexEnd();
@@ -106,13 +113,10 @@ namespace Pastel
 
 		//! Move-constructs from another graph.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		strong
+		Time complexity: O(1)
+		Exception safety: strong
 		*/
-		Incidence_Graph(Incidence_Graph&& that)
+		IncidenceGraph(IncidenceGraph&& that)
 			: vertexSet_()
 			, edgeSet_()
 		{
@@ -131,7 +135,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Incidence_Graph& operator=(Incidence_Graph that)
+		IncidenceGraph& operator=(IncidenceGraph that)
 		{
 			swap(that);
 			return *this;
@@ -139,14 +143,12 @@ namespace Pastel
 
 		//! Swaps two graphs.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
-		void swap(Incidence_Graph& that)
+		void swap(IncidenceGraph& that)
 		{
+			Customization::swap(that);
 			vertexSet_.swap(that.vertexSet_);
 			edgeSet_.swap(that.edgeSet_);
 		}
@@ -164,6 +166,9 @@ namespace Pastel
 		*/
 		void clear()
 		{
+			// Notify the customization.
+			onClear();
+
 			vertexSet_.clear();
 			edgeSet_.clear();
 		}
@@ -199,13 +204,17 @@ namespace Pastel
 		Vertex_Iterator addVertex(
 			VertexData_Class vertexData = VertexData_Class())
 		{
-			// Construct the vertex...
+			// Construct the vertex.
 			vertexSet_.emplace_back(
 				Vertex(std::move(vertexData)));
 
-			// ... and return it.
-			Vertex_Iterator vertex = vertexSet_.end();
-			--vertex;
+			// Get the vertex iterator.
+			Vertex_Iterator vertex = 
+				std::prev(vertexSet_.end());
+
+			// Notify the customization.
+			onAddVertex(vertex);
+
 			return vertex;
 		}
 
@@ -222,6 +231,9 @@ namespace Pastel
 		Vertex_Iterator removeVertex(
 			const Vertex_ConstIterator& vertex)
 		{
+			// Notify the customization.
+			onRemoveVertex(cast(vertex));
+
 			// Remove all edges incident to this vertex.
 			while(vertex->allEdges() > 0)
 			{
@@ -244,11 +256,8 @@ namespace Pastel
 
 		//! Casts away constness of a vertex.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Vertex_Iterator cast(
 			const Vertex_ConstIterator& vertex)
@@ -258,11 +267,8 @@ namespace Pastel
 
 		//! Returns the first iterator of the vertex set.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Vertex_Iterator vertexBegin()
 		{
@@ -271,24 +277,18 @@ namespace Pastel
 
 		//! Returns the first iterator of the vertex set.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Vertex_ConstIterator cVertexBegin() const
 		{
-			return ((Incidence_Graph&)*this).vertexSet_.begin();
+			return ((IncidenceGraph&)*this).vertexSet_.begin();
 		}
 
 		//! Returns the end-iterator of the vertex-set.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Vertex_Iterator vertexEnd()
 		{
@@ -297,24 +297,18 @@ namespace Pastel
 
 		//! Returns the end-iterator of the vertex-set.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Vertex_ConstIterator cVertexEnd() const
 		{
-			return ((Incidence_Graph&)*this).vertexSet_.end();
+			return ((IncidenceGraph&)*this).vertexSet_.end();
 		}
 
 		//! Returns the number of vertices in the graph.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		integer vertices() const
 		{
@@ -389,20 +383,23 @@ namespace Pastel
 				}
 			}
 
+			// Notify the customization.
+			onAddEdge(edge);
+
 			return edge;
 		}
 
 		//! Removes an edge from the graph.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Edge_Iterator removeEdge(
 			const Edge_ConstIterator& edge)
 		{
+			// Notify the customization.
+			onRemoveEdge(cast(edge));
+
 			Vertex_Iterator from = cast(edge)->from();
 			Vertex_Iterator to = cast(edge)->to();
 
@@ -424,11 +421,8 @@ namespace Pastel
 
 		//! Reverses the directionality of an edge.
 		/*!
-		Time complexity:
-		constant
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		void reverse(
 			const Edge_ConstIterator& edge)
@@ -449,13 +443,13 @@ namespace Pastel
 			std::swap(cast(edge)->from_, cast(edge)->to_);
 		}
 
-		//! Sets the directness of an edge.
+		//! Sets the directedness of an edge.
 		/*!
-		Time complexity:
-		constant
-		
-		Exception safety:
-		nothrow
+		Preconditions:
+		The graph is of mixed type.
+
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		void setDirected(
 			const Edge_ConstIterator& edge,
@@ -497,11 +491,8 @@ namespace Pastel
 
 		//! Casts away constness of an edge.
 		/*!
-		Time complexity:
-		constant
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Edge_Iterator cast(
 			const Edge_ConstIterator& edge)
@@ -511,11 +502,8 @@ namespace Pastel
 
 		//! Returns the first iterator of the edge set.
 		/*!
-		Time complexity:
-		constant
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Edge_Iterator edgeBegin()
 		{
@@ -524,24 +512,18 @@ namespace Pastel
 
 		//! Returns the first iterator of the edge set.
 		/*!
-		Time complexity:
-		constant
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Edge_ConstIterator cEdgeBegin() const
 		{
-			return ((Incidence_Graph&)*this).edgeSet_.begin();
+			return ((IncidenceGraph&)*this).edgeSet_.begin();
 		}
 
 		//! Returns the end-iterator of the edge set.
 		/*!
-		Time complexity:
-		constant
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Edge_Iterator edgeEnd()
 		{
@@ -550,24 +532,18 @@ namespace Pastel
 
 		//! Returns the end-iterator of the edge set.
 		/*!
-		Time complexity:
-		constant
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		Edge_ConstIterator cEdgeEnd() const
 		{
-			return ((Incidence_Graph&)*this).edgeSet_.end();
+			return ((IncidenceGraph&)*this).edgeSet_.end();
 		}
 
 		//! Returns the number of edges.
 		/*!
-		Time complexity:
-		constant
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		integer edges() const
 		{
@@ -578,13 +554,10 @@ namespace Pastel
 
 		//! Merges a graph into this graph.
 		/*!
-		Time complexity:
-		constant
-		
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
-		void merge(Incidence_Graph& that)
+		void merge(IncidenceGraph& that)
 		{
 			// Merge the vertex sets.
 			vertexSet_.splice(
@@ -601,6 +574,44 @@ namespace Pastel
 		VertexSet vertexSet_;
 		EdgeSet edgeSet_;
 	};
+
+}
+
+namespace Pastel
+{
+
+	template <
+		GraphType Type_, 
+		typename VertexData_ = void, 
+		typename EdgeData_ = void>
+	class IncidenceGraph_Settings
+	{
+	public:
+		PASTEL_CONSTEXPR GraphType Type = Type_;
+		using VertexData = VertexData_;
+		using EdgeData = EdgeData_;
+	};
+
+	template <
+		typename VertexData = void, 
+		typename EdgeData = void>
+	using Directed_Graph = 
+		IncidenceGraph<IncidenceGraph_Settings<
+		GraphType::Directed, VertexData, EdgeData>>;
+
+	template <
+		typename VertexData = void, 
+		typename EdgeData = void>
+	using Undirected_Graph = 
+		IncidenceGraph<IncidenceGraph_Settings<
+		GraphType::Undirected, VertexData, EdgeData>>;
+
+	template <
+		typename VertexData = void, 
+		typename EdgeData = void>
+	using Mixed_Graph = 
+		IncidenceGraph<IncidenceGraph_Settings<
+		GraphType::Mixed, VertexData, EdgeData>>;
 
 }
 

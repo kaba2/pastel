@@ -15,7 +15,7 @@
 namespace Pastel
 {
 
-	namespace Incidence_Graph_
+	namespace IncidenceGraph_
 	{
 
 		template <GraphType Type, typename Data>
@@ -127,13 +127,15 @@ namespace Pastel
 
 	}
 
-	template <GraphType Type, typename VertexData, typename EdgeData>
-	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Edge
-		: public Incidence_Graph_::Directed_EdgeData<Type, EdgeData>
+	template <typename Settings>
+	class IncidenceGraph_Fwd<Settings>::Edge
+		: public IncidenceGraph_::Directed_EdgeData<Type, EdgeData>
 	{
 	public:
-		friend class Incidence_Graph<Type, VertexData, EdgeData>;
-		typedef Incidence_Graph_::Directed_EdgeData<Type, EdgeData>
+		template <typename, template <typename> class>
+		friend class IncidenceGraph;
+
+		typedef IncidenceGraph_::Directed_EdgeData<Type, EdgeData>
 			Base;
 
 		using EdgeData_Class::operator=;

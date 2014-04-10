@@ -37,10 +37,10 @@ namespace Pastel
 		of Graph_Fwd, rather than Graph, because of a bug in 
 		gcc 4.6.
 		*/
-		typedef Incidence_Graph<GraphType::Directed, 
-			StateLabel, TransitionLabel> Graph;
-		typedef Incidence_Graph_Fwd<GraphType::Directed, 
-			StateLabel, TransitionLabel> Graph_Fwd;
+		typedef Directed_Graph<StateLabel, TransitionLabel> 
+			Graph;
+		typedef IncidenceGraph_Fwd<typename Graph::Settings> 
+			Graph_Fwd;
 
 		//! The states.
 		/*!

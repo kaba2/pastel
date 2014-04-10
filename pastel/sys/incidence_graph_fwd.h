@@ -1,3 +1,5 @@
+// Description: Types for the incidence graph
+
 #ifndef PASTELSYS_INCIDENCE_GRAPH_FWD_H
 #define PASTELSYS_INCIDENCE_GRAPH_FWD_H
 
@@ -18,7 +20,7 @@ namespace Pastel
 		Mixed,
 	};
 
-	namespace Incidence_Graph_
+	namespace IncidenceGraph_
 	{
 
 		template <typename Type>
@@ -26,9 +28,6 @@ namespace Pastel
 			: public boost::iterator_adaptor<
 			Incidence_Iterator<Type>, Type>
 		{
-		private:
-			struct enabler {};
-
 		public:
 			Incidence_Iterator()
 				: Incidence_Iterator::iterator_adaptor_(0) 
@@ -40,12 +39,10 @@ namespace Pastel
 			{
 			}
 
-			template <typename That>
-			Incidence_Iterator(
-				const Incidence_Iterator<That>& that,
-				typename boost::enable_if<
-				boost::is_convertible<That, Type>, 
-				enabler>::type = enabler())
+			template <
+				typename That, 
+				typename = PASTEL_ENABLE_IF((boost::is_convertible<That, Type>), void)>
+			Incidence_Iterator(const Incidence_Iterator<That>& that)
 				: Incidence_Iterator::iterator_adaptor_(that.base()) 
 			{
 			}
@@ -61,13 +58,23 @@ namespace Pastel
 
 	}
 
-	template <GraphType Type, typename VertexData, typename EdgeData>
-	class Incidence_Graph;
+	template <typename, template <typename> class>
+	class IncidenceGraph;
 
-	template <GraphType Type, typename VertexData, typename EdgeData>
-	class Incidence_Graph_Fwd
+	template <typename Settings_>
+	class IncidenceGraph_Fwd
 	{
 	public:
+		using Settings = Settings_;
+		using Fwd = Settings;
+
+		PASTEL_CONSTEXPR GraphType Type = Settings::Type;
+		PASTEL_FWD(VertexData);
+		PASTEL_FWD(EdgeData);
+
+		using VertexData_Class = Class<VertexData>;
+		using EdgeData_Class = Class<EdgeData>;
+
 		PASTEL_STATIC_ASSERT(
 			Type == GraphType::Undirected ||
 			Type == GraphType::Directed ||
@@ -76,41 +83,35 @@ namespace Pastel
 		// Vertices
 
 		class Vertex;
-		typedef std::list<Vertex> VertexSet;
-		typedef typename VertexSet::iterator 
-			Vertex_Iterator;
+		using VertexSet = std::list<Vertex>;
+		using Vertex_Iterator =	typename VertexSet::iterator;
+		using Vertex_ConstIterator = 
 #ifndef __GNUC__
-		typedef typename VertexSet::const_iterator 
-			Vertex_ConstIterator;
+			typename VertexSet::const_iterator;
 #else
-		typedef Vertex_Iterator Vertex_ConstIterator;
+			Vertex_Iterator;
 #endif
-		typedef Class<VertexData> 
-			VertexData_Class;
 
 		// Edges
 
 		class Edge;
-		typedef std::list<Edge> EdgeSet;
-		typedef typename EdgeSet::iterator 
-			Edge_Iterator;
+		using EdgeSet = std::list<Edge>;
+		using Edge_Iterator = typename EdgeSet::iterator;
+		using Edge_ConstIterator = 
 #ifndef __GNUC__
-		typedef typename EdgeSet::const_iterator 
-			Edge_ConstIterator;
+			typename EdgeSet::const_iterator;
 #else
-		typedef Edge_Iterator Edge_ConstIterator;
+			Edge_Iterator;
 #endif
-		typedef Class<EdgeData> 
-			EdgeData_Class;
 
 		// Incidences
 
 		class Incidence_Link;
 		class Incidence;
-		typedef Incidence_Graph_::Incidence_Iterator<Incidence*> 
-			Incidence_Iterator;
-		typedef Incidence_Graph_::Incidence_Iterator<const Incidence*> 
-			Incidence_ConstIterator;
+		using Incidence_Iterator = 
+			IncidenceGraph_::Incidence_Iterator<Incidence*>;
+		using Incidence_ConstIterator = 
+			IncidenceGraph_::Incidence_Iterator<const Incidence*>;
 
 		PASTEL_CONSTEXPR int IncidenceTypes = 
 			(Type == GraphType::Undirected) ? 
