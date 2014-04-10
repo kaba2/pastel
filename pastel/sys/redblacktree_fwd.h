@@ -71,32 +71,42 @@ namespace Pastel
 		using EndPtr = Sentinel_Node*;
 		using BottomPtr = std::shared_ptr<Sentinel_Node>;
 
-		using Key_Iterator = 
-			RedBlackTree_::Iterator<Node*, Node_Settings, false>;
-		using Key_ConstIterator = 
-			RedBlackTree_::Iterator<const Node*, Node_Settings, false>;
-		using Key_Range = 
-			boost::iterator_range<Key_Iterator>;
-		using Key_ConstRange = 
-			boost::iterator_range<Key_ConstIterator>;
+		template <
+			typename NodePtr, 
+			typename Node_Settings, 
+			bool DereferenceToData>
+		class Range_
+		: public boost::iterator_range<RedBlackTree_::Iterator<
+			NodePtr, Node_Settings, DereferenceToData>>
+		{
+		public:
+			using Base = boost::iterator_range<RedBlackTree_::Iterator<
+				NodePtr, Node_Settings, DereferenceToData>>;
 
-		using Data_Iterator = 
-			RedBlackTree_::Iterator<Node*, Node_Settings, true>;
-		using Data_ConstIterator = 
-			RedBlackTree_::Iterator<const Node*, Node_Settings, true>;
-		using Data_Range = 
-			boost::iterator_range<Data_Iterator>;
-		using Data_ConstRange = 
-			boost::iterator_range<Data_ConstIterator>;
+			using Base::Base;
+
+			using Key_Range = Range_<NodePtr, Node_Settings, false>;
+			using Data_Range = Range_<NodePtr, Node_Settings, true>;
+
+			Key_Range dereferenceKey() const
+			{
+				return *this;
+			}
+
+			Data_Range dereferenceData() const
+			{
+				return *this;
+			}
+		};
 
 		using Iterator = 
 			RedBlackTree_::Iterator<Node*, Node_Settings, DereferenceToData>;
 		using ConstIterator = 
 			RedBlackTree_::Iterator<const Node*, Node_Settings, DereferenceToData>;
 		using Range = 
-			boost::iterator_range<Iterator>;
+			Range_<Node*, Node_Settings, DereferenceToData>;
 		using ConstRange = 
-			boost::iterator_range<ConstIterator>;
+			Range_<const Node*, Node_Settings, DereferenceToData>;
 
 		using Insert_Return =
 			typename std::conditional<MultipleKeys,

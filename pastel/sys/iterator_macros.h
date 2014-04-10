@@ -32,7 +32,7 @@
 #define PASTEL_RANGE_FUNCTIONS_PREFIX(prefix, name, begin_, end_) \
 	prefix##Range name() PASTEL_NOEXCEPT \
 	{ \
-		return Pastel::range( begin_ (), end_ ()); \
+		return prefix##Range( begin_ (), end_ ()); \
 	} \
 	\
 	PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(prefix, name, begin_, end_)
@@ -40,7 +40,7 @@
 #define PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(prefix, name, begin_, end_) \
 	prefix##ConstRange c##name() const PASTEL_NOEXCEPT \
 	{ \
-		return Pastel::range( c##begin_ (), c##end_ ()); \
+		return prefix##ConstRange( c##begin_ (), c##end_ ()); \
 	}
 
 #define PASTEL_RANGE_FUNCTIONS(name, begin, end) \

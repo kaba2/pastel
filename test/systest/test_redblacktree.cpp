@@ -224,7 +224,7 @@ namespace
 
 				integer correctSet[] =
 					{ 1, 1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 7, 7, 8 };
-				TEST_ENSURE(boost::equal(aTree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
 			}
 		}
 
@@ -299,10 +299,10 @@ namespace
 				TEST_ENSURE_OP(tree.size(), == , 7);
 
 				integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), keySet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), keySet));
 
 				integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-				TEST_ENSURE(boost::equal(tree.cdataRange(), dataSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceData(), dataSet));
 
 				TEST_ENSURE_OP(*tree.begin().dereferenceKey(), == , 1);
 				TEST_ENSURE_OP(*tree.begin().dereferenceData(), == , 1);
@@ -321,10 +321,10 @@ namespace
 				TEST_ENSURE_OP(tree.size(), == , 7);
 
 				integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), keySet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), keySet));
 
 				integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-				TEST_ENSURE(boost::equal(tree.cdataRange(), dataSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceData(), dataSet));
 			}
 		}
 
@@ -350,7 +350,7 @@ namespace
 				TEST_ENSURE(!tree.sharesBottom());
 				TEST_ENSURE(tree.sharesBottom(tree));
 				TEST_ENSURE_OP(tree.size(), == , 7);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 			{
 				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
@@ -363,7 +363,7 @@ namespace
 				TEST_ENSURE(copy.sharesBottom(copy));
 				TEST_ENSURE(copy.sharesBottom(tree));
 				TEST_ENSURE_OP(copy.size(), == , 7);
-				TEST_ENSURE(boost::equal(copy.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(copy.crange().dereferenceKey(), correctSet));
 
 				TEST_ENSURE(testInvariants(tree));
 				TEST_ENSURE(!tree.hasSeparateSentinels());
@@ -371,7 +371,7 @@ namespace
 				TEST_ENSURE(tree.sharesBottom(tree));
 				TEST_ENSURE(tree.sharesBottom(copy));
 				TEST_ENSURE_OP(tree.size(), == , 7);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 			{
 				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
@@ -385,7 +385,7 @@ namespace
 				TEST_ENSURE(copy.sharesBottom(copy));
 				TEST_ENSURE(!copy.sharesBottom(tree));
 				TEST_ENSURE_OP(copy.size(), == , 7);
-				TEST_ENSURE(boost::equal(copy.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(copy.crange().dereferenceKey(), correctSet));
 
 				TEST_ENSURE(testInvariants(tree));
 				TEST_ENSURE(!tree.hasSeparateSentinels());
@@ -393,7 +393,7 @@ namespace
 				TEST_ENSURE(tree.sharesBottom(tree));
 				TEST_ENSURE(!tree.sharesBottom(copy));
 				TEST_ENSURE_OP(tree.size(), == , 7);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 			{
 				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
@@ -406,7 +406,7 @@ namespace
 				TEST_ENSURE(moved.sharesBottom(moved));
 				TEST_ENSURE(moved.sharesBottom(tree));
 				TEST_ENSURE_OP(moved.size(), == , 7);
-				TEST_ENSURE(boost::equal(moved.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(moved.crange().dereferenceKey(), correctSet));
 
 				TEST_ENSURE(testInvariants(tree));
 				TEST_ENSURE(!tree.hasSeparateSentinels());
@@ -427,7 +427,7 @@ namespace
 				TEST_ENSURE(moved.sharesBottom(moved));
 				TEST_ENSURE(moved.sharesBottom(tree));
 				TEST_ENSURE_OP(moved.size(), == , 7);
-				TEST_ENSURE(boost::equal(moved.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(moved.crange().dereferenceKey(), correctSet));
 
 				TEST_ENSURE(testInvariants(tree));
 				TEST_ENSURE(!tree.hasSeparateSentinels());
@@ -502,7 +502,7 @@ namespace
 					Tree copy(tree);
 					TEST_ENSURE(testInvariants(copy));
 					TEST_ENSURE_OP(tree.size(), == , copy.size());
-					TEST_ENSURE(boost::equal(tree.ckeyRange(), copy.ckeyRange()));
+					TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), copy.crange().dereferenceKey()));
 				}
 			}
 		}
@@ -551,7 +551,7 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 
 				integer correctSet[] = { 1 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(5);
@@ -561,7 +561,7 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 5 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(3);
@@ -571,7 +571,7 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 5 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(4);
@@ -581,7 +581,7 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(8);
@@ -591,7 +591,7 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5, 8 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(7);
@@ -601,7 +601,7 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5, 7, 8 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(6);
@@ -611,7 +611,7 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5, 6, 7, 8 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(9);
@@ -621,7 +621,7 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5, 6, 7, 8, 9 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(2);
@@ -631,7 +631,7 @@ namespace
 				TEST_ENSURE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			integer correctSet[] =
@@ -641,8 +641,8 @@ namespace
 
 			{
 				TEST_ENSURE_OP(boost::distance(tree), == , 9);
-				TEST_ENSURE_OP(boost::distance(tree.ckeyRange()), == , 9);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE_OP(boost::distance(tree.crange().dereferenceKey()), == , 9);
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			{
@@ -653,7 +653,7 @@ namespace
 
 			{
 				TEST_ENSURE(boost::equal(
-					tree.ckeyRange() | boost::adaptors::reversed,
+					tree.crange().dereferenceKey() | boost::adaptors::reversed,
 					correctSet | boost::adaptors::reversed));
 			}
 
@@ -671,7 +671,7 @@ namespace
 			{
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 				TEST_ENSURE_OP(tree.size(), == , 9);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 
@@ -679,14 +679,14 @@ namespace
 			{
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 				TEST_ENSURE_OP(tree.size(), == , 9);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 			tree.erase(4);
 			{
 				integer correctSet[] = { 1, 2, 3, 5, 6, 7, 8, 9 };
 				TEST_ENSURE_OP(tree.size(), == , 8);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 
@@ -694,7 +694,7 @@ namespace
 			{
 				integer correctSet[] = { 1, 2, 3, 5, 6, 8, 9 };
 				TEST_ENSURE_OP(tree.size(), == , 7);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 
@@ -702,7 +702,7 @@ namespace
 			{
 				integer correctSet[] = { 2, 3, 5, 6, 8, 9 };
 				TEST_ENSURE_OP(tree.size(), == , 6);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 
@@ -710,7 +710,7 @@ namespace
 			{
 				integer correctSet[] = { 2, 3, 5, 6, 8};
 				TEST_ENSURE_OP(tree.size(), == , 5);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 
@@ -718,7 +718,7 @@ namespace
 			{
 				integer correctSet[] = { 2, 3, 6, 8 };
 				TEST_ENSURE_OP(tree.size(), == , 4);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 
@@ -726,7 +726,7 @@ namespace
 			{
 				integer correctSet[] = { 2, 6, 8 };
 				TEST_ENSURE_OP(tree.size(), == , 3);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 
@@ -734,7 +734,7 @@ namespace
 			{
 				integer correctSet[] = { 6, 8 };
 				TEST_ENSURE_OP(tree.size(), == , 2);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 
@@ -742,7 +742,7 @@ namespace
 			{
 				integer correctSet[] = { 8 };
 				TEST_ENSURE_OP(tree.size(), == , 1);
-				TEST_ENSURE(boost::equal(tree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
 
@@ -769,12 +769,12 @@ namespace
 				TEST_ENSURE(testInvariants(a));
 				TEST_ENSURE_OP(a.size(), == , 8);
 				integer aCorrectSet[] = { 0, 1, 4, 5, 6, 9, 15, 20 };
-				TEST_ENSURE(boost::equal(a.ckeyRange(), aCorrectSet));
+				TEST_ENSURE(boost::equal(a.crange().dereferenceKey(), aCorrectSet));
 
 				TEST_ENSURE(testInvariants(b));
 				TEST_ENSURE_OP(b.size(), == , 6);
 				integer bCorrectSet[] = { 1, 2, 7, 8, 9, 10 };
-				TEST_ENSURE(boost::equal(b.ckeyRange(), bCorrectSet));
+				TEST_ENSURE(boost::equal(b.crange().dereferenceKey(), bCorrectSet));
 			}
 
 			{
@@ -783,12 +783,12 @@ namespace
 				TEST_ENSURE(testInvariants(a));
 				TEST_ENSURE_OP(a.size(), == , 9);
 				integer aCorrectSet[] = { 0, 1, 4, 5, 6, 9, 10, 15, 20 };
-				TEST_ENSURE(boost::equal(a.ckeyRange(), aCorrectSet));
+				TEST_ENSURE(boost::equal(a.crange().dereferenceKey(), aCorrectSet));
 
 				TEST_ENSURE(testInvariants(b));
 				TEST_ENSURE_OP(b.size(), == , 5);
 				integer bCorrectSet[] = { 1, 2, 7, 8, 9};
-				TEST_ENSURE(boost::equal(b.ckeyRange(), bCorrectSet));
+				TEST_ENSURE(boost::equal(b.crange().dereferenceKey(), bCorrectSet));
 			}
 		}
 
@@ -848,14 +848,14 @@ namespace
 
 			if (key)
 			{
-				for (auto&& key : tree.ckeyRange())
+				for (auto&& key : tree.crange().dereferenceKey())
 				{
 					std::cout << key << ", ";
 				}
 			}
 			else
 			{
-				for (auto&& data : tree.cdataRange())
+				for (auto&& data : tree.crange().dereferenceData())
 				{
 					std::cout << data << ", ";
 				}
@@ -973,13 +973,13 @@ namespace
 
 				integer correctSet[] =
 					{ 1, 2, 3, 4, 5 };
-				TEST_ENSURE(boost::equal(aTree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
 
 				bTree.join(aTree);
 				TEST_ENSURE(testInvariants(aTree));
 				TEST_ENSURE(testInvariants(bTree));
 				TEST_ENSURE(aTree.empty());
-				TEST_ENSURE(boost::equal(bTree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(bTree.crange().dereferenceKey(), correctSet));
 			}
 
 			{
@@ -998,7 +998,7 @@ namespace
 
 				integer correctSet[] =
 					{ 1, 2, 3, 4, 5, 6, 7, 8 };
-				TEST_ENSURE(boost::equal(bTree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(bTree.crange().dereferenceKey(), correctSet));
 			}
 
 			{
@@ -1017,7 +1017,7 @@ namespace
 
 				integer correctSet[] = 
 					{1, 2, 3, 4, 5, 6, 7, 8};
-				TEST_ENSURE(boost::equal(aTree.ckeyRange(), correctSet));
+				TEST_ENSURE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
 			}
 		}
 
@@ -1049,7 +1049,7 @@ namespace
 					aTree.join(bTree);
 					TEST_ENSURE(testInvariants(aTree));
 					TEST_ENSURE_OP(aTree.size(), == , n);
-					TEST_ENSURE(boost::equal(aTree.dataRange(), dataSet));
+					TEST_ENSURE(boost::equal(aTree.range().dereferenceData(), dataSet));
 					TEST_ENSURE(testInvariants(bTree));
 					TEST_ENSURE_OP(bTree.size(), == , 0);
 				}
