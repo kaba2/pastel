@@ -7,63 +7,42 @@ Finite-state automaton
 The `Automaton` is a data structure for storing and manipulating 
 finite-state automata.
 
+Properties
+----------
+
+The data structure underlying the automaton is the [[Link: incidence_graph.txt]]; the automaton has all the properties that the incidence graph has. In addition, it has the following properties:
+
+Task / Property                                                       | Complexity
+----------------------------------------------------------------------|--------------------
+Provide a list of transitions from a given state with a given symbol. | ''O(1)'' expected
+Provide a list (and number) of start-states / end-states.             | ''O(1)''
+Find out whether there is a transition between two states with a given symbol. | ''O(1)'' expected
+Find out whether the automaton is deterministic.                      | ''O(1)''
+Find out whether a given state is a start-state / end-state.          | ''O(1)''
+
+In addition, the automaton
+
+* can represent any non-deterministic automaton, with epsilon-transitions,
+* can be fully [customized][Customization] to add extra functionality, and
+* can associate user-data with states and transitions.
+
+[Customization]: [[Ref]]: techniques_customization.txt
+
 Definitions
 -----------
 
-A _finite-state_ automaton is a tuple ''(Q, Sigma, S, ->, F)'',
-where ''Q'' and ''Sigma'' are finite sets, called the _states_ and 
-the _symbols_, respectively, ''S subset Q'' and ''F subset Q'' are 
-finite sets, called the _start states_ and the _final states_, 
-respectively, and ''-> subset (Q times Sigma) times Q'' is a relation,
-called the _transition relation_. The transition relation is extended 
-to ''Q times Sigma^*'' by ''(q, epsilon) -> q'', and ''(q, xs) -> p'' 
-if and only if there exists ''r in Q'' such that ''(q, x) -> r'' 
-and ''(r, s) -> p''. Every transition relation can be represented 
-as a ''Sigma''-edge-labeled directed graph _without_ multiple transitions
-with the same symbol between two states, and vice versa.
+A _finite-state automaton_ is a tuple ''(Q, Sigma, S, ->, F)'', where ''Q'' and ''Sigma'' are finite sets, called the _states_ and the _symbols_, respectively, ''S subset Q'' and ''F subset Q'' are finite sets, called the _start states_ and the _final states_, respectively, and ''-> subset (Q times Sigma) times Q'' is a relation, called the _transition relation_. The transition relation is extended to ''Q times Sigma^*'' by ''(q, epsilon) -> q'', and ''(q, xs) -> p'' if and only if there exists ''r in Q'' such that ''(q, x) -> r''and ''(r, s) -> p''. Every transition relation can be represented as a ''Sigma''-edge-labeled directed graph without multiple transitions with the same symbol between two states, and vice versa.
 
-A finite-state automaton is called _deterministic_ if and only if it
-has at most one start-state, and the transition relation is a partial
-function. The _language_ recognized by a finite-state automaton ''A'' 
-is defined by 
+A finite-state automaton is called _deterministic_ if and only if it has at most one start-state, and the transition relation is a partial function. The _language_ recognized by a finite-state automaton ''A'' is defined by
 
 	L(A) = {x in Sigma^* : exists q in S: exists p in F: (q, x) -> p}.
 
 ### Single start-state vs a set of start-states
 
-Sometimes finite-state automata are defined as having exactly one
-start-state. This is problematic, because one can not then represent 
-the minimal automaton for the empty language, and the construction of 
-the union of two automata becomes cumbersome. In contrast, when using
-a set of start-states, one can
+Sometimes finite-state automata are defined as having exactly one start-state. This is problematic, because one can not then represent the minimal automaton for the empty language, and the construction of the union of two automata becomes cumbersome. In contrast, when using a set of start-states, one can
 
  * represent the minimal automaton for the empty language as 
  ''Q = S = F = T = emptyset'', and
  * represent the union of two automata as ''Q = Q_1 cup Q_2'', 
  ''S = S_1 cup S_2'', ''F = F_1 cup F_2'',
  ''Sigma = Sigma_1 cup Sigma_2'', and ''T = T_1 cup T_2''.
-
-Data structure
---------------
-
-The data structure underlying the automaton is the 
-[[Link: incidence_graph.txt]]; the automaton has all the 
-properties that the `IncidenceGraph` has. In addition, it
-
-* can represent any non-deterministic automaton, with epsilon-transitions,
-* stores the set of start-states and the set of final-states, and also 
-makes this information available so that a state can tell whether it
-is a start- or a final-state,
-* can give a list of all transitions from a given state with a given
-symbol in average O(1) time,
-* can check whether there is a transition between two states with a
-given symbol in average O(1) time,
-* can check whether the automaton is deterministic in O(1) time,
-* can be fully [customized][Customization] to add extra functionality, and
-* can associate user-data with states and transitions.
-
-[Customization]: [[Ref]]: techniques_customization.txt
-
-
-
-
