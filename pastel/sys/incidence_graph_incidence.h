@@ -6,12 +6,12 @@
 namespace Pastel
 {
 
-	template <GraphType Type, typename VertexData, typename EdgeData>
-	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Incidence_Link
+	template <typename Settings>
+	class IncidenceGraph_Fwd<Settings>::Incidence_Link
 	{
 	public:
 		template <typename>
-		friend class Incidence_Graph_::Incidence_Iterator;
+		friend class IncidenceGraph_::Incidence_Iterator;
 
 		friend class Vertex;
 
@@ -28,12 +28,13 @@ namespace Pastel
 		Incidence* prev_;
 	};
 
-	template <GraphType Type, typename VertexData, typename EdgeData>
-	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Incidence
+	template <typename Settings>
+	class IncidenceGraph_Fwd<Settings>::Incidence
 		: public Incidence_Link
 	{
 	public:
-		friend class Incidence_Graph<Type, VertexData, EdgeData>;
+		template <typename, template <typename> class>
+		friend class IncidenceGraph;
 
 		Incidence()
 			: vertex_()

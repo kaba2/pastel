@@ -1,4 +1,4 @@
-// Description: Testing for Incidence_Graph
+// Description: Testing for incidence graph
 // DocumentationOf: incidence_graph.h
 
 #include "test_pastelsys.h"
@@ -19,7 +19,7 @@ namespace
 		{
 		}
 
-		typedef Incidence_Graph<GraphType::Directed, integer, integer> Graph;
+		typedef Directed_Graph<integer, integer> Graph;
 		typedef Graph::Vertex_Iterator Vertex;
 		typedef Graph::Edge_Iterator Edge;
 
@@ -185,7 +185,7 @@ namespace
 
 		void testMixed()
 		{
-			typedef Incidence_Graph<GraphType::Mixed, integer, integer> Graph;
+			typedef Mixed_Graph<integer, integer> Graph;
 			typedef Graph::Vertex_Iterator Vertex;
 			typedef Graph::Edge_Iterator Edge;
 
@@ -242,7 +242,7 @@ namespace
 
 		void testPure()
 		{
-			typedef Incidence_Graph<GraphType::Directed> Graph;
+			typedef Directed_Graph<> Graph;
 			typedef Graph::Vertex_Iterator Vertex;
 			typedef Graph::Edge_Iterator Edge;
 
@@ -328,7 +328,7 @@ namespace
 
 	void addTests()
 	{
-		testRunner().add("Incidence_Graph", test);
+		testRunner().add("IncidenceGraph", test);
 	}
 
 	CallFunction run(addTests);

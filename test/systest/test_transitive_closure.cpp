@@ -34,7 +34,7 @@ namespace
 
 		void testTransitiveClosureAddition()
 		{
-			typedef Pastel::Incidence_Graph<GraphType::Directed, integer> Graph;
+			typedef Pastel::Directed_Graph<integer> Graph;
 			typedef Graph::Vertex Vertex;
 			typedef Graph::Edge Edge;
 			typedef Graph::Vertex_Iterator Vertex_Iterator;
@@ -159,7 +159,7 @@ namespace
 		{
 			typedef std::unordered_set<integer> Set;
 
-			typedef Pastel::Incidence_Graph<GraphType::Directed, Set> Graph;
+			typedef Pastel::Directed_Graph<Set> Graph;
 			typedef Graph::Vertex Vertex;
 			typedef Graph::Edge Edge;
 			typedef Graph::Vertex_Iterator Vertex_Iterator;
