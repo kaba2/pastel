@@ -184,6 +184,13 @@ namespace Pastel
 					ASSERT_OP(condition_, >, 0);
 					--condition_;
 				}
+
+				auto iter = elementSet_.find(chain->key());
+				if (iter != elementSet_.cend())
+				{
+					iter->equalToChain_ = true;
+					elementSet_.updateToRoot(iter);
+				}
 			}
 
 			void removeChain(

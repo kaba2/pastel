@@ -2,6 +2,8 @@
 #define PASTELSYS_CFASTTRIE_INVARIANTS_HPP
 
 #include "pastel/sys/cfasttrie.h"
+#include "pastel/sys/leading_one_bits.h"
+#include "pastel/sys/leading_zero_bits.h"
 
 namespace Pastel
 {
