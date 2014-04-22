@@ -59,15 +59,15 @@ A _user data_ can be modified freely; the tree does not enforce any invariants o
 
 ### Propagation
 
-A _propagation_ is the evaluation of the user-defined propagation function at a given node, with the guarantee that the propagation has already been computed for all the nodes in the left and the right subtree of the node. The propagation function is the only way to modify the propagation in a node. After each operation, the red-black tree guarantees that the propagation data is up-to-date. Whether the sentinel nodes contain a propagation can be controlled by the user. A propagation in a sentinel gets rid of the boundary cases in the propagation function, since then the sentinel propagation works as the base-case. Definining the type of the propagation data as `void` avoids allocating any memory for it. 
+A _propagation_ is the evaluation of a user-defined propagation function at a given node, with the guarantee that the propagation has already been computed for all the nodes in the left and the right subtree of the node. A propagation can only be modified through the propagation function. After each operation, the red-black tree guarantees that the propagation data is up-to-date. The propagation data is also present in the sentinel nodes, because this gets rid of the boundary cases in the propagation function. Definining the type of the propagation data as `void` avoids allocating any memory for it. 
 
 ### Sentinel data
 
-A _sentinel data_ can be modified freely. It is like user data, except it is only available on the sentinel nodes.
+A _sentinel data_ can be modified freely. It is like user data, except that it is only available on the sentinel nodes.
 
 ### Color
 
-The _color_ of a node is either red or black. It can only be modified by the tree operations.
+The _color_ of a node is either red or black. It can be read, but not modified.
 
 ### Size
 

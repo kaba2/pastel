@@ -62,7 +62,10 @@ namespace Pastel
 		The sentinel's propagation data, if exists, 
 		is default-constructed.
 		*/
-		RedBlackTree() = default;
+		RedBlackTree()
+		{
+			onConstruction();
+		}
 		
 		//! Copy-constructs from another tree.
 		/*!
@@ -94,6 +97,7 @@ namespace Pastel
 			, end_(new Sentinel_Node(bottomNode()->propagation()))
 		{
 			*this = std::move(that);
+			onConstruction();
 		}
 
 		//! Constructs from a list of keys.
@@ -110,6 +114,7 @@ namespace Pastel
 		RedBlackTree(std::initializer_list<Key_> dataSet)
 		{
 			*this = dataSet;
+			onConstruction();
 		}
 
 		//! Constructs from a list of key-value pairs.
@@ -766,6 +771,19 @@ namespace Pastel
 			rootNode()->setBlack();
 			update(rootNode());
 			++blackHeight_;
+		}
+
+		//! Updates hierarhical data on the path to root.
+		/*!
+		Time complexity: O(log(size()))
+		Exception safety: nothrow
+
+		Calls updateHierarhical(node) for each node in 
+		the path to the root, including 'node' itself.
+		*/
+		void updateToRoot(const ConstIterator& node)
+		{
+			updateToRoot((Node*)node.base());
 		}
 
 		//! Returns an iterator to the smallest element.

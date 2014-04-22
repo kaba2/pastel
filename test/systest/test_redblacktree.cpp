@@ -34,6 +34,7 @@ namespace
 
 			Counting_Customization() {}
 			void swap(Counting_Customization& that) {}
+			void onConstruction() {}
 			void onClear() {}
 			void onInsert(const Iterator& element) {}
 			void onErase(const Iterator& element) {}
