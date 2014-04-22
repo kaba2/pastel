@@ -26,6 +26,8 @@ namespace Pastel
 		public:
 			using Fwd = CFastTrie_Fwd<CFastTrie_Settings>;
 			
+			PASTEL_FWD(DataSet);
+			PASTEL_FWD(Element);
 			PASTEL_FWD(Iterator);
 			PASTEL_FWD(ConstIterator);
 			PASTEL_FWD(Chain_Iterator);
@@ -34,11 +36,77 @@ namespace Pastel
 			PASTEL_FWD(Fork_ConstIterator);
 			PASTEL_FWD(Fork_Iterator);
 			PASTEL_FWD(Key);
+			PASTEL_FWD(Value_Class);
+			PASTEL_FWD(BundlePtr);
 
 			Bundle()
 			: condition_(0)
 			, forkSet_()
+			, elementSet_()
 			{
+			}
+
+			std::pair<Iterator, bool> insert(
+				const BundlePtr& bundle,
+				bool equalToChain,
+				const Key& key,
+				const Value_Class& value)
+			{
+				return elementSet_.insert(key, Element(bundle, equalToChain, value));
+			}
+
+			Iterator erase(const ConstIterator& that)
+			{
+				return elementSet_.erase(that);
+			}
+
+			//! Finds the nearest element unequal to a chain.
+			/*!
+			Time complexity: O(log(size()))
+			Exception safety: nothrow
+
+			key:
+			An element from which to start the search.
+
+			direction:
+			Whether to search for the smallest greater element
+			(or the greatest smaller element).
+			*/
+			Iterator findNearestUnequalToChain(
+				const Key& key,
+				bool direction)
+			{
+				Iterator node = elementSet_.root();
+				Iterator candidate = elementSet_.end();
+
+				// Note that the sentinel node has
+				// 'false' propagation, so that we don't
+				// need to test for it.
+				while(node.base().propagation())
+				{
+					bool right = (key > node.key());
+					if (right != direction && 
+						!node.base().data().equalToChain())
+					{
+						candidate = node;
+					}
+					node = node.base().child(right);
+				}
+
+				ASSERT(candidate.isSentinel() ||
+					!candidate.base().data().equalToChain());
+
+				return candidate;
+			}
+
+			integer size() const
+			{
+				return elementSet_.size();
+			}
+
+			Iterator upperBound(const Key& key)
+			{
+				return elementSet_.upperBound(key);
 			}
 
 			//! Returns the fork closest to the key in tree-distance.
@@ -133,13 +201,12 @@ namespace Pastel
 			}
 
 			Fork_Iterator insertFork(
-				const Iterator& element,
 				const Chain_Iterator& chain)
 			{
 				ASSERT(even(chain->key()));
 
 				auto forkAndNew = 
-					forkSet_.emplace(chain->key(), Fork(element, chain));
+					forkSet_.emplace(chain->key(), Fork(chain));
 
 				Fork_Iterator fork = forkAndNew.first;
 				bool isNew = forkAndNew.second;
@@ -178,6 +245,14 @@ namespace Pastel
 			fork-chain or the next chain is a leaf-chain.
 			*/
 			ForkSet forkSet_;
+
+			//! The set of elements.
+			/*!
+			Each bundle contains a set of elements stored
+			in a red-black tree. These red-black trees
+			are linked to each other in an ordered sequence.
+			*/
+			DataSet elementSet_;
 		};
 
 	}

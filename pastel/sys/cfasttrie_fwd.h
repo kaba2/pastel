@@ -6,7 +6,8 @@
 #include "pastel/sys/integer.h"
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/cfasttrie_iterator.h"
-#include "pastel/sys/skiplist.h"
+#include "pastel/sys/cfasttrie_customization.h"
+#include "pastel/sys/redblacktree.h"
 
 #include <list>
 #include <map>
@@ -39,42 +40,54 @@ namespace Pastel
 	}
 
 	//! Types for the c-fast trie
-	template <typename CFastTrie_Settings>
+	template <typename Settings_>
 	class CFastTrie_Fwd
 	{
 	public:
-		using Settings = CFastTrie_Settings;
+		// See cfasttrie_concepts.h for the definitions
+		// of the types in the Settings.
+		using Settings = Settings_;
 
-		//! The number of bits in an element.
 		PASTEL_CONSTEXPR int Bits = Settings::Bits;
 		PASTEL_STATIC_ASSERT(Bits > 0);
 
-		//! The type of a key.
 		using Key = Unsigned_Integer<Bits>;
-
-		//! The user-data to associate with the key.
-		/*!
-		Settings this to void avoids any memory use for
-		the user-data.
-		*/
 		using Value = typename Settings::Value;
 		using Value_Class = Class<Value>;
 
+		class SentinelData;
+
 		//! Elements
-		/*!
-		The elements are stored in a doubly-linked list so
-		that an element can be inserted to or removed from
-		the list in constant time. In addition, this allows
-		the elements to be accessed as a sequential range.
-		The elements are stored in increasing order, which
-		is essential for the c-fast trie to work. By a 
-		property of the c-fast trie the associated chains
-		are also in increasing order.
+		using Element = CFastTrie_::Element<Settings>;
+
+		//! A bucket of elements.
+		/*
+		A bucket is a red-black tree, because then an element
+		can be searched, inserted, or removed efficiently.
+		In addition, a bucket can be split into two buckets,
+		or two buckets merged into a single bucket efficiently.
+
+		The progagation data is a boolean which tells whether
+		the key is equal to some chain in the c-fast trie.
+		This allows to efficiently find the next (previous) 
+		element which does not have that property.
+
+		The sentinel data stores links to neighboring
+		red-black tree buckets. 
+
+		The customization adds functions for linking the
+		buckets together, as well providing a function for
+		updating the propagation data.
 		*/
-		using Element = CFastTrie_::Element<CFastTrie_Settings>;
-		using DataSet = SkipList_Map<Key, Element>;
-		using ConstIterator = typename DataSet::const_iterator;
-		using Iterator = typename DataSet::iterator;
+		using DataSet = RedBlack_Map<Key, Element, 
+			Pastel::LessThan, bool, SentinelData,
+			CFastTrie_::Link_RedBlackTree_Customization>;
+
+		using Element_ConstIterator = typename DataSet::const_iterator;
+		using Element_Iterator = typename DataSet::iterator;
+
+		using ConstIterator = CFastTrie_::Continuous_Iterator<Element_ConstIterator, Key>;
+		using Iterator = CFastTrie_::Continuous_Iterator<Element_Iterator, Key>;
 		using Range = boost::iterator_range<Iterator>;
 		using ConstRange = boost::iterator_range<ConstIterator>;
 
@@ -89,17 +102,27 @@ namespace Pastel
 			boost::iterator_range<Key_ConstIterator>;
 
 		//! Bundles
-		using Bundle = CFastTrie_::Bundle<CFastTrie_Settings>;
+		/*!
+		A bundle consists of an interval of chains, and
+		of the elements that fall between the first chain
+		and the last chain in this interval. The bundles
+		are kept sufficiently small by splitting them.
+		*/
+		using Bundle = CFastTrie_::Bundle<Settings>;
 		using BundlePtr = std::shared_ptr<Bundle>;
 		using Bundle_WeakPtr = std::weak_ptr<Bundle>;
 
-		//! Chains
+		//! An ordered list of chains.
 		/*!
-		The chains are stored in a doubly-linked list, because
-		when a bundle is partioned, every chain in the bundle
-		needs to be redirected to its new bundle.
+		The chains are stored in a doubly-linked list. The
+		list is maintained in increasing order in the associated 
+		keys of the chains. The chain-list is needed because when a 
+		bundle is partioned, every chain in the bundle needs to 
+		be redirected to its new bundle. While this redirection takes
+		linear time in the number of chains in the bundle, we
+		amortize the cost by delaying the splitting of the bundles.
 		*/
-		using Chain = CFastTrie_::Chain<CFastTrie_Settings>;
+		using Chain = CFastTrie_::Chain<Settings>;
 		using ChainSet = std::list<Chain>;
 		using Chain_ConstIterator = typename ChainSet::const_iterator;
 		using Chain_Iterator = typename ChainSet::iterator;
@@ -107,27 +130,38 @@ namespace Pastel
 
 		//! Forks
 		/*!
-		When removing an element, it must be determined
-		which fork has the element as its lowest ancestor.
-		Storing the fork-chains by their chain-keys in 
-		a map allows to solve this fast.
+		A fork is a pair of subsequent chains (l, r),
+		where l is even and r is odd. When removing an element, 
+		it must be determined which fork has the element as its 
+		lowest ancestor. Storing the fork-chains by their 
+		chain-keys in  a map allows to solve this fast.
 		*/
-		using Fork = CFastTrie_::Fork<CFastTrie_Settings>;
+		using Fork = CFastTrie_::Fork<Settings>;
 		using ForkSet = std::map<Key, Fork>;
 		using Fork_ConstIterator = 
 			typename ForkSet::const_iterator;
 		using Fork_Iterator = 
 			typename ForkSet::iterator;
 
-		//! The storage for the trie.
+		//! The storage for the compact x-fast trie.
 		/*!
-		Each chain-key is paired to its chain. Using replicates,
-		this encodes the whole compact x-fast trie formed by
-		the chain-keys.
+		The compact x-fast trie is stored as a set of chains, where 
+		each chain is a maximal set of nodes with equal replications. 
+		Each chain is identified with the unique leaf node which is 
+		part of the chain. Rather than mapping a leaf node key
+		to a chain directly, we map it to a chain-iterator into a
+		chain-list. See the documentation for the chain-list.
 		*/
 		using TrieSet = std::unordered_map<Key, Chain_Iterator>;
 		using Trie_ConstIterator = typename TrieSet::const_iterator;
 		using Trie_Iterator = typename TrieSet::iterator;
+
+		class SentinelData
+		{
+		public:
+			DataSet* next;
+			DataSet* prev;
+		};
 	};
 
 }
