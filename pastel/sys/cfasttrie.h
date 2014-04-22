@@ -315,7 +315,7 @@ namespace Pastel
 				chainSet_.empty() ?
 				rightGap : std::prev(rightGap);
 			ASSERT(leftGap == chainSet_.cend() ||
-				leftGap->key() < key);
+				leftGap->key() <= key);
 
 			// Find the bundle of the key.
 			BundlePtr bundle =

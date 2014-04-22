@@ -97,7 +97,6 @@ namespace
 				TEST_ENSURE(keysEqual(a, { 1, 3, 4, 5, 6, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 13, 14, 15, 16, 19 }));
 			}
-			/*
 			{
 				a.insert(7, 17);
 				TEST_ENSURE(testInvariants(a));
@@ -127,12 +126,13 @@ namespace
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }));
 			}
 			{
-				a.insert(9, 15);
+				a.insert(9, 19);
 				TEST_ENSURE(testInvariants(a));
 
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }));
 			}
+			/*
 			{
 				a.insert(10, 20);
 				TEST_ENSURE(testInvariants(a));
