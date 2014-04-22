@@ -10,7 +10,12 @@ namespace Pastel
 	template <typename Finite_Integer>
 	integer leadingOneBits(const Finite_Integer& that)
 	{
-		return ~leadingZeroBits(~that);
+		// The ~ may perform integral promotions,
+		// and therefore be of another type. If that
+		// happens, this will take of converting back
+		// to the original type.
+		Finite_Integer negated = ~that;
+		return leadingZeroBits(negated);
 	}
 
 }

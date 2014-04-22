@@ -10,6 +10,11 @@ namespace Pastel
 	template <typename Finite_Integer>
 	integer leadingZeroBits(const Finite_Integer& that)
 	{
+		if (zero(that))
+		{
+			return bits(that);
+		}
+
 		return integerLog2(zeroHigherBits(that));
 	}
 

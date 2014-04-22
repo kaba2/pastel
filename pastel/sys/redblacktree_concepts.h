@@ -101,10 +101,16 @@ namespace Pastel
 
 			//! Swaps two customizations.
 			/*!
-			Time complexity: O(1).
+			Time complexity: O(1)
 			Exception safefy: nothrow
 			*/
 			void swap(Customization& that) {}
+
+			//! Called at the end of a constructor.
+			/*!
+			Exception safefy: nothrow
+			*/
+			void onConstruction() {};
 
 			//! Called at the start of clear().
 			/*!
