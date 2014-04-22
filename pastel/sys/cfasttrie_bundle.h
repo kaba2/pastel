@@ -13,7 +13,7 @@ namespace Pastel
 
 	template <
 		typename Settings,
-		typename Customization>
+		template <typename> class Customization>
 	class CFastTrie;
 
 	namespace CFastTrie_
@@ -152,7 +152,7 @@ namespace Pastel
 		private:
 			template <
 				typename Settings,
-				typename Customization>
+				template <typename> class Customization>
 			friend class CFastTrie;
 
 		private:

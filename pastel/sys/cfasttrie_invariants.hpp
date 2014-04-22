@@ -6,16 +6,7 @@
 namespace Pastel
 {
 
-	//! Returns whether the invariants hold for the trie.
-	/*!
-	Time complexity. O(size())
-	Exception safety: nothrow
-
-	This function is useful only for testing the 
-	implementation of the c-fast trie; a correct implementation
-	always return true.
-	*/
-	template <typename Settings, typename Customization>
+	template <typename Settings, template <typename> class Customization>
 	bool testInvariants(const CFastTrie<Settings, Customization>& that)
 	{
 		// The trie is empty if and only if its size is zero.
