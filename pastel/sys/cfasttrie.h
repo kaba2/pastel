@@ -89,6 +89,30 @@ namespace Pastel
 
 		PASTEL_CONSTEXPR int Bits = Settings::Bits;
 
+	private:
+		class Neighborhood
+		{
+		public:
+			Neighborhood(
+				const Chain_ConstIterator& above_,
+				integer level_,
+				const Chain_ConstIterator& rightGap_,
+				const BundlePtr& bundle_)
+				: above(above_)
+				, level(level_)
+				, rightGap(rightGap_)
+				, bundle(bundle_)
+			{
+			}
+
+			Chain_ConstIterator above;
+			integer level;
+			Chain_ConstIterator rightGap;
+			BundlePtr bundle;
+		};
+
+	public:
+
 		//! Constructs an empty trie.
 		/*!
 		Time complexity: O(1)
@@ -97,9 +121,8 @@ namespace Pastel
 		CFastTrie()
 		: trieSet_()
 		, chainSet_()
-		, dataSet_()
+		, emptySet_()
 		{
-			dataSet_.setMaxHeight(integerCeilLog2((integer)Bits));
 		}
 
 		//! Constructs from a list of keys.
@@ -165,40 +188,14 @@ namespace Pastel
 		*/
 		~CFastTrie() = default;
 
-		//! Copy-assigns from another trie.
+		//! Assigns from another trie.
 		/*!
 		Time complexity: O(that.size() + size())
 		Exception safety: strong
 		*/
-		CFastTrie& operator=(const CFastTrie& that)
+		CFastTrie& operator=(CFastTrie that)
 		{
-			CFastTrie copy(that);
-			swap(copy);
-			return *this;
-		}
-
-		//! Move-assigns from another trie.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		CFastTrie& operator=(CFastTrie&& that)
-		{
-			CFastTrie copy(std::move(that));
-			swap(copy);
-			return *this;
-		}
-
-		//! Assigns from an initializer list.
-		/*!
-		Time complexity: O(that.size() + size())
-		Exception safety: strong
-		*/
-		template <typename Type>
-		CFastTrie& operator=(std::initializer_list<Type> that)
-		{
-			CFastTrie copy(that);
-			swap(copy);
+			swap(that);
 			return *this;
 		}
 
@@ -212,7 +209,7 @@ namespace Pastel
 			Customization::swap(that);
 			trieSet_.swap(that.trieSet_);
 			chainSet_.swap(that.chainSet_);
-			dataSet_.swap(that.dataSet_);
+			emptySet_.swap(that.emptySet_);
 		}
 
 		//! Removes all elements.
@@ -230,66 +227,31 @@ namespace Pastel
 
 			// Remove all chains.
 			chainSet_.clear();
-
-			// Remove all elements.
-			dataSet_.clear();
 		}
 
-		template <typename... Value>
 		std::pair<Iterator, bool> insert(
 			const Key& key, 
-			Value&&... value)
+			const Value_Class& value = Value_Class())
 		{
 			if (empty())
 			{
 				// The trie is empty. This is a special case,
-				// since there are no chains or bundles, 
+				// since there are no chains or bundles 
 				// whose existence the non-empty insertion 
 				// assumes.
-				return insertEmpty(key, std::forward<Value>(value)...);
+				return insertEmpty(key, value);
 			}
 
-			// Find the lowest ancestor of the key.
-			// The lowest-ancestor always exists, since
-			// the infinite zero chain exists.
-			auto aboveAndLevel = lowestAncestor(key);
-			Chain_Iterator above = cast(aboveAndLevel.first);
-			integer level = aboveAndLevel.second;
+			Neighborhood keyNeighborhood =
+				findNeighborhood(key);
 
-			ASSERT(above != chainSet_.end());
-				
-			// By the definition of the lowest ancestor
-			// the node at the lowest ancestor can not
-			// be a split-node.
-			ASSERT(!above->splitExists(level));
-
-			// Find the gap-bounds.
-			// The right gap-bound may not exist;
-			// the left gap-bound always exists.
-			Chain_Iterator rightGap = 
-				cast(rightGapFromLowestAncestor(above, level));
-			Chain_Iterator leftGap =
-				std::prev(rightGap);
-
-			// Find the bundle of the key.
-			BundlePtr bundle = even(above->key()) ?
-				leftGap->bundle() :
-				rightGap->bundle();
-
-			// Find the fork below the element.
-			Fork_Iterator fork = 
-				bundle->cast(bundle->closestFork(key));
+			bool equalToChain = 
+				(keyNeighborhood.level == 0);
 
 			// Create the element (or at least try to).
-			// This takes only O(log(w)), because of the
-			// localization by the 'nearby' element. On
-			// the other hand, this is also the best case,
-			// since the height of the truncated skip-list 
-			// is log(w).
 			auto elementAndIsNew =
-				dataSet_.insertNear(
-				fork->second.element, key, bundle,
-				std::forward<Value>(value)...);
+				keyNeighborhood.bundle->insert(
+					keyNeighborhood.bundle, equalToChain, key, value);
 
 			Iterator element = elementAndIsNew.first;
 			bool isNew = elementAndIsNew.second;
@@ -300,96 +262,69 @@ namespace Pastel
 				return elementAndIsNew;
 			}
 
-			// Compute the new chain.
 			Key chainKey = key;
-			Iterator chainElement = element;
-			if (level == 0)
+			Neighborhood chainNeighborhood = 
+				keyNeighborhood;
+
+			if (equalToChain)
 			{
-				// The chain induced by the key already 
-				// exists. Insert the chain induced by 
-				// a neighbor instead.
-
-				if (odd(key))
-				{
-					while (chainExists(chainElement.key(), 0))
-					{
-						--chainElement;
-					}
-				}
-				else
-				{
-					while (chainExists(chainElement.key(), 0))
-					{
-						++chainElement;
-					}
-				}
-
-				chainKey = chainElement.key();
-
-				aboveAndLevel = lowestAncestor(chainKey);
-
-				above = cast(aboveAndLevel.first);
-				level = aboveAndLevel.second;
-
-				rightGap =
-					cast(rightGapFromLowestAncestor(above, level));
-				leftGap =
-					std::prev(rightGap);
-
-				bundle = even(above->key()) ?
-					leftGap->bundle() :
-					rightGap->bundle();
+				// There is a chain which is equal to the key.
+				// Search for the next key which is unequal 
+				// to a chain.
+				Chain_ConstIterator equalChain = 
+					keyNeighborhood.above;
+				Iterator nearestUnequalToChain = 
+					equalChain->bundle()->findNearestUnequalToChain(key, even(key));
+				chainKey = nearestUnequalToChain.key();
+				chainNeighborhood = findNeighborhood(chainKey);
 			}
-			chainKey = turn(chainKey, level);
-
-			bool normal = leftGap->normal() &&
-				(rightGap == chainSet_.end() ||
-				rightGap->normal());
 
 			// Insert the chain induced by the key.
 			Chain_Iterator chain = insertChain(
-				chainKey, rightGap, above,
-				bundle, level, normal);
-
-			// See whether to create a new fork and
-			// to remove an old fork.
-			if (rightGap != chainSet_.end() &&
-				!above->splitExists(0, level))
-			{
-				Chain_Iterator forkChain =
-					odd(chainKey) ? leftGap : chain;
-
-				Chain_Iterator backChain =
-					odd(chainKey) ? rightGap : leftGap;
-
-				if (odd(chainKey) == odd(backChain->key()))
-				{
-					// Fork refinement
-					// Remove the old fork.
-					bundle->removeFork(bundle->findFork(leftGap->key()));
-				}
-				else
-				{
-					// Fork creation
-					// Mark the new fork as abnormal.
-					chain->normal_ = false;
-				}
-
-				// Insert the new fork.
-				bundle->insertFork(chainElement, forkChain);
-			}
-
-			bundle->insertChain(chain);
-			if (bundle->condition() == 0)
-			{
-				// Refine the bundle.
-				refine(bundle);
-			}
+				turn(chainKey, chainNeighborhood.level), 
+				chainNeighborhood);
 
 			// Notify the customization.
 			onInsert(element);
 
 			return std::make_pair(element, true);
+		}
+
+		Neighborhood findNeighborhood(const Key& key)
+		{
+			// Find the lowest ancestor of the key.
+			// The lowest-ancestor always exists, since
+			// the infinite zero chain exists.
+			auto aboveAndLevel = lowestAncestor(key);
+			Chain_ConstIterator above = cast(aboveAndLevel.first);
+			integer level = aboveAndLevel.second;
+
+			// By the definition of the lowest ancestor
+			// the node at the lowest ancestor can not
+			// be a split-node.
+			ASSERT(!above->splitExists(level));
+
+			// Find the gap-bounds.
+			Chain_ConstIterator rightGap =
+				cast(rightGapFromLowestAncestor(above, level));
+			ASSERT(rightGap == chainSet_.cend() ||
+				key <= rightGap->key());
+
+			Chain_ConstIterator leftGap =
+				chainSet_.empty() ?
+				rightGap : std::prev(rightGap);
+			ASSERT(leftGap == chainSet_.cend() ||
+				leftGap->key() < key);
+
+			// Find the bundle of the key.
+			BundlePtr bundle =
+				even(above->key()) ?
+				leftGap->bundle() :
+				rightGap->bundle();
+
+			return Neighborhood(
+				above, level,
+				rightGap, bundle);
 		}
 
 		//! Refines a bundle to smaller bundles.
@@ -419,7 +354,7 @@ namespace Pastel
 					// Add the fork into the new bundle.
 					newBundle->forkSet_.emplace(
 						fork->second.chain->key(),
-						Fork(fork->second.element, fork->second.chain));
+						Fork(fork->second.chain));
 				}
 
 				// Set the even chains on the left to refer
@@ -490,13 +425,22 @@ namespace Pastel
 			// Notify the customization.
 			onErase(cast(element));
 
-			// Find the lowest ancestor of the key.
-			auto chainAndLevel = lowestAncestor(element.key());
-			Chain_ConstIterator chain = chainAndLevel.first;
-			integer level = chainAndLevel.second;
+			// Find the bundle of the key.
+			BundlePtr bundle = element->bundle();
 
+			// Find the chain to remove.
 			Chain_ConstIterator chainToRemove =
-				chain->bundle()->closestFork(element.key())->second.chain;
+				bundle->closestFork(element.key())->second.chain;
+
+			// Remove the element.
+			Iterator nextElement = bundle->erase(element);
+
+			if (nextElement.isSentinel())
+			{
+				// Possibly move on to the next tree.
+				nextElement = nextElement.next();
+				++nextElement;
+			}
 
 			// Remove the chain.
 			eraseChain(chainToRemove);
@@ -504,9 +448,6 @@ namespace Pastel
 			// Find out the next element before 
 			// removing the current one.
 			Iterator nextElement = std::next(cast(element));
-
-			// Remove the element.
-			dataSet_.erase(element);
 
 			// Return the next element.
 			return nextElement;
@@ -592,9 +533,18 @@ namespace Pastel
 			integer level = chainAndLevel.second;
 
 			BundlePtr bundle = chain->bundle();
-			ConstIterator nearby = bundle->closestFork(key)->second.element;
+			Iterator iter = bundle->upperBound(key);
+			if (iter.isSentinel())
+			{
+				// The global end-node is the only node
+				// whose right child points to itself.
+				if (!iter.isGlobalSentinel())
+				{
+					iter = iter.base().sentinelData().next->begin();
+				}
+			}
 
-			return dataSet_.upperBound(key, nearby);
+			return iter;
 		}
 
 		ConstIterator upper_bound(const Key& key) const
@@ -647,23 +597,20 @@ namespace Pastel
 			return upper;
 		}
 
-		/*
 		ConstIterator lower_bound(const Key& key) const
 		{
 			return lowerBound(key);
-		}*/
+		}
 
 		Iterator lowerBound(const Key& key)
 		{
 			return cast(addConst(*this).lowerBound(key));
 		}
 
-		/*
 		Iterator lower_bound(const Key& key)
 		{
 			return lowerBound(key);
 		}
-		*/
 
 		//! Returns whether the element exists.
 		/*!
@@ -680,14 +627,14 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		PASTEL_ITERATOR_FUNCTIONS(begin, dataSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS(begin, emptySet_.end().sentinelData().next->begin());
 
-		//! Returns the one-past-last iterator.
+		//! Returns the end-iterator.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		PASTEL_ITERATOR_FUNCTIONS(end, dataSet_.end());
+		PASTEL_ITERATOR_FUNCTIONS(end, emptySet_.end());
 
 		//! Returns the last iterator.
 		/*!
@@ -710,7 +657,7 @@ namespace Pastel
 		ConstIterator clast() const
 		{
 			PENSURE(!empty());
-			return std::prev(dataSet_.end());
+			return std::prev(cend());
 		}
 
 		//! Returns an iterator range.
@@ -797,8 +744,24 @@ namespace Pastel
 		*/
 		integer size() const
 		{
+			return chains();
+		}
+
+		//! Returns the number of chains.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer chains() const
+		{
+			// The number of chains in the list,
+			// the number of chains in the trie, and
+			// the number of elements in the trie
+			// are always equal.
+			ASSERT_OP(chainSet_.size(), == , trieSet_.size());
+
 			// We deliberately avoid calling std::list::size(),
-			// because it used to not be guaranteed to be O(1)
+			// because it used to not be guaranteed O(1)
 			// by the C++ standard. Although that changed in 
 			// C++11, we better be sure here. 
 			return trieSet_.size();
@@ -814,129 +777,127 @@ namespace Pastel
 			return trieSet_.empty();
 		}
 
-		//! Returns whether the invariants hold for the trie.
+		//! Converts a const-iterator to an iterator.
 		/*!
-		Time complexity. O(size())
+		Time complexity: O(1)
 		Exception safety: nothrow
-
-		This function is useful only for testing the 
-		implementation of the c-fast trie; a correct implementation
-		always return true.
 		*/
-		bool testInvariants() const
+		Iterator cast(const ConstIterator& that)
 		{
-			if (empty())
-			{
-				return true;
-			}
-
-			// The number of chains and elements must be equal.
-			if (chainSet_.size() != dataSet_.size() ||
-				trieSet_.size() != dataSet_.size())
-			{
-				return false;
-			}
-
-			// Check the chains.
-			{
-				Chain_ConstIterator iter = chainSet_.cbegin();
-
-				// If the c-fast trie is non-empty, then the
-				// first chain must be the zero-chain.
-				if (!zero(iter->key()))
-				{
-					return false;
-				}
-
-				Chain_ConstIterator next = std::next(iter);
-				while(next != chainSet_.cend())
-				{
-					// The chains must be in increasing order.
-					if (iter->key() >= next->key())
-					{
-						return false;
-					}
-					
-					++iter;
-					++next;
-				}
-			}
-
-			// Check the elements.
-			{
-				ConstIterator iter = cbegin();
-				ConstIterator next = std::next(iter);
-				while(next != cend())
-				{
-					// Each bundle always has at most log(w) elements.
-					if (iter->bundle()->forks() > Bits)
-					{
-						return false;
-					}
-
-					// The elements must be in increasing order.
-					if (iter.key() >= next.key())
-					{
-						return false;
-					}
-
-					++iter;
-					++next;
-				}
-			}
-
-			return true;
+			return emptySet_.cast(that.base());
 		}
 
-	//private:
-		template <typename... Value>
-		std::pair<Iterator, bool> insertEmpty(
-			const Key& key, 
-			Value&&... value)
-		{
-			ASSERT(empty());
+		mutable integer finds = 0;
 
-			// Create a bundle.
-			BundlePtr bundle = std::make_shared<Bundle>();
-
-			// Create the zero chain.
-			Chain_Iterator chain = 
-				insertChain(0, 
-					chainSet_.cend(), 
-					chainSet_.cend(),
-					bundle, 0, true);
-
-			// Create the element.
-			Iterator element =
-				dataSet_.insert(
-				key, bundle,
-				std::forward<Value>(value)...).first;
-
-			// Insert the fork into the bundle.
-			bundle->insertFork(element, chain);
-			bundle->insertChain(chain);
-
-			return std::make_pair(element, true);
-		}
-
-		//! Returns minimal k such that ((u, 0) up k) in R'.
+		//! Returns the chain [(key up level, level)].
 		/*!
 		Time complexity:
-		O(log(log(Delta + 4)))
-		where
-		Delta = |u - u'|,
-		u' is the nearest neighbor of u in R.
+		O(1) expected
 
 		Exception safety:
 		nothrow
 
 		returns:
-		A minimal integer 'k', such that ((u, 0) up k) in R'.
+		An iterator to a chain such that (key up level, level)
+		is in the chain. The chain exists only if its contained
+		in S'.
 		*/
-		void lower_bound(const Key& key) const
+		Chain_ConstIterator findChain(
+			const Key& key, integer level = 0) const
 		{
-			lowestAncestor(key);
+			Key actualKey = replicate(key, level);
+
+			++finds;
+			Trie_ConstIterator trie = trieSet_.find(actualKey);
+			if (trie == trieSet_.cend())
+			{
+				return chainSet_.cend();
+			}
+
+			return trie->second;
 		}
+
+		Chain_Iterator findChain(
+			const Key& key, integer level = 0)
+		{
+			return cast(addConst(*this).findChain(key, level));
+		}
+
+		//! Returns whether (key up level, level) in R'.
+		/*!
+		Preconditions:
+		level >= 0
+
+		Time complexity: O(1) expected
+		Exception safety: nothrow
+		*/
+		bool chainExists(const Key& key, integer level) const
+		{
+			ASSERT_OP(level, >= , 0);
+
+			return findChain(key, level) != chainSet_.cend();
+		}
+
+		//! Returns whether there is a chain nearby at a given level.
+		/*!
+		Preconditions:
+		level >= 0
+
+		Time complexity: O(1) expected
+		Exception safety: nothrow
+
+		Nearby means at distance one on the given level.
+		*/
+		bool chainNearby(const Key& key, integer level) const
+		{
+			ASSERT_OP(level, >= , 0);
+
+			return chainExists(key, level);
+			/*return chainExists(key, level) ||
+				chainOnLeft(key, level) ||
+				chainOnRight(key, level);
+			*/
+		};
+
+		//! Returns whether there is a chain on the right.
+		/*!
+		Preconditions:
+		level >= 0
+
+		Time complexity: O(1) expected
+		Exception safety: nothrow
+		*/
+		bool chainOnRight(const Key& key, integer level) const
+		{
+			ASSERT_OP(level, >= , 0);
+
+			// What makes this function slightly tricky is that
+			// the addition may cause the key to wrap around 
+			// due to modulo arithmetic.
+
+			Key rightKey = key + powerOfTwo<Key>(level);
+			return rightKey > key &&
+				chainExists(rightKey, level);
+		};
+
+		//! Returns whether there is a chain on the left.
+		/*!
+		Preconditions:
+		level >= 0
+
+		Time complexity: O(1) expected
+		Exception safety: nothrow
+		*/
+		bool chainOnLeft(const Key& key, integer level) const
+		{
+			ASSERT_OP(level, >= , 0);
+
+			// See the documentation for chainOnRight().
+
+			Key leftKey = key - powerOfTwo<Key>(level);
+			return leftKey < key &&
+				chainExists(leftKey, level);
+		};
 
 		std::pair<Chain_ConstIterator, integer> 
 			lowestAncestor(const Key& key) const
@@ -1041,14 +1002,72 @@ namespace Pastel
 			return std::make_pair(findChain(key, level), level);
 		}
 
-		//! Converts a const-iterator to an iterator.
+		//! Replicates the bit at index 'level' to lower bits.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
+
+		negate:
+		If this is true, then the replication is done
+		with the negation of the bit at level 'level'.
 		*/
-		Iterator cast(const ConstIterator& that)
+		Key replicate(
+			const Key& key, integer level, 
+			bool negate = false) const
 		{
-			return dataSet_.cast(that);
+			ASSERT_OP(level, >= , 0);
+
+			bool replicatedBit = 
+				(key.bit(level) != negate);
+
+			Key result(key);
+			result.setBits(
+				0, std::min(level, result.bits()), 
+				replicatedBit);
+			return result;
+		}
+
+		Key turn(
+			const Key& key, integer level) const
+		{
+			return replicate(key, level, true);
+		}
+
+	//private:
+		std::pair<Iterator, bool> insertEmpty(
+			const Key& key, 
+			const Value_Class& value)
+		{
+			ASSERT(empty());
+
+			// Create a bundle.
+			BundlePtr bundle = createBundle(emptySet_);
+
+			// Set up the zero chain neighborhood.
+			Neighborhood neighborhood(
+				chainSet_.cend(),
+				0,
+				chainSet_.cend(),
+				bundle);
+
+			// Create the zero chain.
+			Chain_Iterator chain =
+				insertChain(0, neighborhood);
+
+			// Create the element.
+			Iterator element =
+				bundle->insert(
+				bundle, zero(key), key, value).first;
+
+			return std::make_pair(element, true);
+		}
+
+		BundlePtr createBundle(
+			DataSet& beforeSet)
+		{
+			BundlePtr bundle = std::make_shared<Bundle>();
+			bundle->elementSet_.linkBefore(beforeSet);
+			return bundle;
 		}
 
 		//! Converts a chain const-iterator to a chain iterator.
@@ -1084,182 +1103,56 @@ namespace Pastel
 			return next;
 		}
 
-		//! Replicates the bit at index 'level' to lower bits.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-
-		negate:
-		If this is true, then the replication is done
-		with the negation of the bit at level 'level'.
-		*/
-		Key replicate(
-			const Key& key, integer level, 
-			bool negate = false) const
-		{
-			ASSERT_OP(level, >= , 0);
-
-			bool replicatedBit = 
-				(key.bit(level) != negate);
-
-			Key result(key);
-			result.setBits(
-				0, std::min(level, result.bits()), 
-				replicatedBit);
-			return result;
-		}
-
-		Key turn(
-			const Key& key, integer level) const
-		{
-			return replicate(key, level, true);
-		}
-		
-		//! Returns the chain [(key up level, level)].
-		/*!
-		Time complexity:
-		O(1) expected
-
-		Exception safety:
-		nothrow
-
-		returns:
-		An iterator to a chain such that (key up level, level)
-		is in the chain. The chain exists only if its contained
-		in S'.
-		*/
-		Chain_ConstIterator findChain(
-			const Key& key, integer level) const
-		{
-			return findChain(replicate(key, level));
-		}
-
-		Chain_Iterator findChain(
-			const Key& key, integer level)
-		{
-			return cast(addConst(*this).findChain(key, level));
-		}
-
-		public:
-		mutable integer finds = 0;
-		private:
-
-		Chain_ConstIterator findChain(const Key& key) const
-		{
-			++finds;
-			Trie_ConstIterator trie = trieSet_.find(key);
-			if (trie == trieSet_.cend())
-			{
-				return chainSet_.cend();
-			}
-			return trie->second;
-		}
-
-		Chain_Iterator findChain(const Key& key)
-		{
-			return cast(addConst(*this).findChain(key));
-		}
-
-		//! Returns whether (key up level, level) in R'.
-		/*!
-		Preconditions:
-		level >= 0
-
-		Time complexity: O(1) expected
-		Exception safety: nothrow
-		*/
-		bool chainExists(const Key& key, integer level) const
-		{
-			ASSERT_OP(level, >= , 0);
-
-			return findChain(key, level) != chainSet_.cend();
-		}
-
-		//! Returns whether there is a chain nearby at a given level.
-		/*!
-		Preconditions:
-		level >= 0
-
-		Time complexity: O(1) expected
-		Exception safety: nothrow
-
-		Nearby means at distance one on the given level.
-		*/
-		bool chainNearby(const Key& key, integer level) const
-		{
-			ASSERT_OP(level, >= , 0);
-
-			return chainExists(key, level);
-			/*return chainExists(key, level) ||
-				chainOnLeft(key, level) ||
-				chainOnRight(key, level);
-			*/
-		};
-
-		//! Returns whether there is a chain on the right.
-		/*!
-		Preconditions:
-		level >= 0
-
-		Time complexity: O(1) expected
-		Exception safety: nothrow
-		*/
-		bool chainOnRight(const Key& key, integer level) const
-		{
-			ASSERT_OP(level, >= , 0);
-
-			// What makes this function slightly tricky is that
-			// the addition may cause the key to wrap around 
-			// due to modulo arithmetic.
-
-			Key rightKey = key + powerOfTwo<Key>(level);
-			return rightKey > key &&
-				chainExists(rightKey, level);
-		};
-
-		//! Returns whether there is a chain on the left.
-		/*!
-		Preconditions:
-		level >= 0
-
-		Time complexity: O(1) expected
-		Exception safety: nothrow
-		*/
-		bool chainOnLeft(const Key& key, integer level) const
-		{
-			ASSERT_OP(level, >= , 0);
-
-			// See the documentation for chainOnRight().
-
-			Key leftKey = key - powerOfTwo<Key>(level);
-			return leftKey < key &&
-				chainExists(leftKey, level);
-		};
-
 		//! Inserts a new chain.
 		/*!
-		Preconditions:
-		0 <= height <= maxBits()
-
 		Time complexity: O(1) expected
 		Exception safety: strong
 		*/
 		Chain_Iterator insertChain(
 			const Key& chainKey,
-			const Chain_ConstIterator& next,
-			const Chain_ConstIterator& above,
-			const BundlePtr& bundle,
-			integer height,
-			bool normal)
+			const Neighborhood& neighborhood)
 		{
-			ASSERT_OP(height, >= , 0);
-			ASSERT_OP(height, <= , maxBits());
-			ASSERT(height > 0 || zero(chainKey));
+			ASSERT(!chainExists(chainKey, 0));
+
+			Chain_Iterator rightGap = cast(neighborhood.rightGap);
+			Chain_Iterator leftGap = std::prev(rightGap);
+			Chain_Iterator above = cast(neighborhood.above);
+			integer level = neighborhood.level;
+			BundlePtr bundle = neighborhood.bundle;
+
+			ASSERT_OP(level, >= , 0);
+			ASSERT_OP(level, <= , maxBits());
+			ASSERT(level > 0 || zero(chainKey));
+
+			bool leftOdd =
+				(leftGap == chainSet_.cend() || odd(leftGap->key()));
+			bool rightOdd =
+				(rightGap == chainSet_.cend() || odd(rightGap->key()));
+
+			bool createFork =
+				leftOdd == rightOdd &&
+				leftOdd != odd(chainKey);
+
+			bool refineFork =
+				!leftOdd && rightOdd;
+
+			// Compute the normality of the new chain.
+
+			bool leftNormal =
+				(leftGap == chainSet_.cend() || leftGap->normal());
+			bool rightNormal =
+				(rightGap == chainSet_.cend() || rightGap->normal());
+
+			bool refineAbnormal =
+				(even(chainKey) && !rightNormal) ||
+				(odd(chainKey) && !leftNormal);
+			
+			bool normal = empty() || !(refineAbnormal || createFork);
 
 			// Create the chain.
 			Chain_Iterator chain = chainSet_.emplace(
-				next, chainKey, bundle, 
-				height, normal);
+				rightGap, chainKey, bundle, 
+				level, normal);
 
 			// Create the trie part.
 			auto trieAndIsNew = trieSet_.emplace(
@@ -1271,7 +1164,39 @@ namespace Pastel
 			// Update the split information in the chain above.
 			if (above != chainSet_.cend())
 			{
-				cast(above)->setSplit(height);
+				cast(above)->setSplit(level);
+			}
+
+			if (refineFork)
+			{
+				// Fork refinement
+				// Remove the old fork.
+				bundle->removeFork(bundle->findFork(leftGap->key()));
+			}
+
+			if (createFork || refineFork)
+			{
+				// The chain either creates a fork, or refines one.
+
+				// A fork is identified by its even chain.
+				Chain_Iterator forkChain =
+					odd(chainKey) ? leftGap : chain;
+
+				// Insert the new fork.
+				bundle->insertFork(forkChain);
+			}
+			else
+			{
+				// The chain extends a fork;
+				// there are no changes to forks.
+			}
+
+			// Insert the new chain into the bundle.
+			bundle->insertChain(chain);
+			if (bundle->condition() == 0)
+			{
+				// Refine the bundle.
+				refine(bundle);
 			}
 
 			return chain;
@@ -1311,10 +1236,25 @@ namespace Pastel
 		//! The set of chains.
 		ChainSet chainSet_;
 
-		//! The elements stored in increasing order.
-		DataSet dataSet_;
+		//! An empty set of elements.
+		/*!
+		The role of this empty element-set is to store 
+		the global end-iterator. The element-sets in the
+		buckets are all non-empty, so the global end-iterator
+		can be identified locally by its right child pointing
+		to itself.
+		*/
+		DataSet emptySet_;
 	};
 	
+}
+
+namespace Pastel
+{
+
+	template <typename Settings, typename Customization>
+	bool testInvariants(const CFastTrie<Settings, Customization>& that);
+
 }
 
 namespace Pastel
@@ -1338,5 +1278,7 @@ namespace Pastel
 	using CFastTrie_Set = CFastTrie<CFastTrie_Set_Settings<Bits>>;
 
 }
+
+#include "pastel/sys/cfasttrie_invariants.hpp"
 
 #endif

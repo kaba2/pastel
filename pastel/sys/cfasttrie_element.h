@@ -43,13 +43,19 @@ namespace Pastel
 			{
 			}
 
-			template <typename... Value>
 			Element(
 				const BundlePtr& bundle,
-				Value&&... value)
-				: Value_Class_(std::forward<Value>(value)...)
+				bool equalToChain,
+				const Value_Class_& value)
+				: Value_Class_(value)
 				, bundle_(bundle)
+				, equalToChain_(equalToChain)
 			{
+			}
+
+			bool equalToChain() const
+			{
+				return equalToChain_;
 			}
 
 		private:
@@ -72,8 +78,14 @@ namespace Pastel
 			*/
 			BundlePtr bundle_;
 
-			//! The fork referencing this element.
-			Fork_Iterator fork_;
+			//! Whether this element is equal to some chain.
+			/*!
+			The insertion algorithm needs to know whether an
+			element is equal to a chain. If so, it needs to 
+			find the smallest next (greatest previous) element 
+			which is not equal to a chain.
+			*/
+			bool equalToChain_ = false;
 		};
 
 	}
