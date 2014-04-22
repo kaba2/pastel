@@ -64,6 +64,9 @@ namespace Pastel
 				template <typename> class Customization>
 			friend class CFastTrie;
 
+			template <typename CFastTrie_Settings>
+			friend class Bundle;
+				
 			//! Returns the bundle referencing this element.
 			const BundlePtr& bundle() const
 			{

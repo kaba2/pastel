@@ -50,9 +50,15 @@ namespace Pastel
 			*/
 			Customization() {}
 
+			//! Called after a constructor.
+			/*!
+			Exception safefy: strong
+			*/
+			void onConstruction() {}
+
 			//! Swaps two customizations.
 			/*!
-			Time complexity: O(1).
+			Time complexity: O(1)
 			Exception safefy: nothrow
 			*/
 			void swap(Customization& that) {}

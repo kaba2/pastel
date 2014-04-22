@@ -123,6 +123,7 @@ namespace Pastel
 		, chainSet_()
 		, emptySet_()
 		{
+			onConstruction();
 		}
 
 		//! Constructs from a list of keys.
