@@ -19,22 +19,22 @@ namespace Pastel
 
 	template <
 		typename Settings,
-		typename Customization>
+		template <typename> class Customization>
 	class CFastTrie;
 
 	namespace CFastTrie_
 	{
 
-		template <typename CFastTrie_Settings>
+		template <typename>
 		class Element;
 
-		template <typename CFastTrie_Settings>
+		template <typename>
 		class Fork;
 
-		template <typename CFastTrie_Settings>
+		template <typename>
 		class Chain;
 
-		template <typename CFastTrie_Settings>
+		template <typename>
 		class Bundle;
 
 	}

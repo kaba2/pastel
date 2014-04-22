@@ -18,7 +18,7 @@ namespace Pastel
 
 	template <
 		typename Settings,
-		typename Customization>
+		template <typename> class Customization>
 	class CFastTrie;
 
 	namespace CFastTrie_
@@ -115,7 +115,7 @@ namespace Pastel
 		private:
 			template <
 				typename Settings,
-				typename Customization>
+				template <typename> class Customization>
 			friend class CFastTrie;
 
 			void setSplit(integer level, bool value = true)

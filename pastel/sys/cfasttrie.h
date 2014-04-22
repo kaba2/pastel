@@ -35,9 +35,9 @@ namespace Pastel
 	*/
 	template <
 		typename Settings_, 
-		typename Customization_ = Empty_CFastTrie_Customization<Settings_>>
+		template <typename> class Customization_ = Empty_CFastTrie_Customization>
 	class CFastTrie
-	: public Customization_
+	: public Customization_<Settings_>
 	{
 	public:
 		/*
@@ -51,7 +51,7 @@ namespace Pastel
 		// See cfasttrie_fwd.h for the documentation 
 		// for the following types.
 		using Fwd = CFastTrie_Fwd<Settings_>;
-		using Customization = Customization_;
+		using Customization = Customization_<Settings_>;
 
 		PASTEL_FWD(Settings);
 		PASTEL_FWD(Key);
@@ -1252,7 +1252,16 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Settings, typename Customization>
+	//! Returns whether the invariants hold for the trie.
+	/*!
+	Time complexity. O(size())
+	Exception safety: nothrow
+
+	This function is useful only for testing the 
+	implementation of the c-fast trie; a correct implementation
+	always return true.
+	*/
+	template <typename Settings, template <typename> class Customization>
 	bool testInvariants(const CFastTrie<Settings, Customization>& that);
 
 }
