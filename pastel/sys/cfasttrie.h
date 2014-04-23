@@ -372,12 +372,14 @@ namespace Pastel
 
 				// Set the even chains on the left to refer
 				// to the new bundle.
+				Chain_ConstIterator firstOfNew = left;
 				while(even(left->key()))
 				{
 					bundle->removeChain(left);
 					left->bundle_ = newBundle;
 					left->normal_ = true;
 					newBundle->insertChain(left);
+					firstOfNew = left;
 
 					if (left == chainSet_.begin())
 					{
@@ -399,6 +401,17 @@ namespace Pastel
 
 					++right;
 				}
+
+				Bundle_Iterator splitBundle = newBundle;
+				if (fork != bundle->forkSet_.begin())
+				{
+					--splitBundle;
+				}
+
+				newBundle->elementSet_ = 
+					splitBundle->elementSet_.split(
+						splitBundle->elementSet_.lowerBound(firstOfNew->key()));
+				newBundle->end().base().sentinelData().bundle = newBundle;
 
 				if (fork != bundle->forkSet_.begin())
 				{
@@ -793,6 +806,16 @@ namespace Pastel
 			// by the C++ standard. Although that changed in 
 			// C++11, we better be sure here. 
 			return trieSet_.size();
+		}
+
+		//! Returns the number of bundles.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer bundles() const
+		{
+			return bundleSet_.size();
 		}
 
 		//! Returns whether the trie is empty.

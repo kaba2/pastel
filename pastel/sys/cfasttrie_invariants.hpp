@@ -82,6 +82,21 @@ namespace Pastel
 
 		// Check the bundles
 		{
+			// There are at least 2 bundles, the first 
+			// and the last bundle.
+			if (that.bundles() < 2)
+			{
+				return false;
+			}
+
+			// The first and the last bundle are 
+			// both empty.
+			if (!that.cbundleBegin()->empty() ||
+				!that.cbundleLast()->empty())
+			{
+				return false;
+			}
+
 			auto bundle = that.cbundleBegin();
 			while (bundle != that.cbundleEnd())
 			{
@@ -95,10 +110,16 @@ namespace Pastel
 				if (bundle != that.cbundleBegin() &&
 					bundle != that.cbundleLast())
 				{
-					auto prevBundle = std::prev(bundle);
+					// The intermediate bundles are never empty.
+					if (bundle->empty())
+					{
+						return false;
+					}
+
 					// The largest element of the previous bundle must
 					// be smaller than the smallest element of the
 					// current bundle.
+					auto prevBundle = std::prev(bundle);
 					if (!prevBundle->empty() &&
 						prevBundle->last().key() >= bundle->begin().key())
 					{
