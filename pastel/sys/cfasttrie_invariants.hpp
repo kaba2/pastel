@@ -80,6 +80,36 @@ namespace Pastel
 			}
 		}
 
+		// Check the bundles
+		{
+			auto bundle = that.cbundleBegin();
+			while (bundle != that.cbundleEnd())
+			{
+				// The element-set of each bundle stores its bundle 
+				// in the sentinel data of the end-node.
+				if (bundle->end().base().sentinelData().bundle != bundle)
+				{
+					return false;
+				}
+
+				if (bundle != that.cbundleBegin() &&
+					bundle != that.cbundleLast())
+				{
+					auto prevBundle = std::prev(bundle);
+					// The largest element of the previous bundle must
+					// be smaller than the smallest element of the
+					// current bundle.
+					if (!prevBundle->empty() &&
+						prevBundle->last().key() >= bundle->begin().key())
+					{
+						return false;
+					}
+				}
+
+				++bundle;
+			}
+		}
+
 		// Check the elements.
 		{
 			auto iter = that.cbegin();
