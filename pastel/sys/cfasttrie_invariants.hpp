@@ -84,7 +84,7 @@ namespace Pastel
 		{
 			auto iter = that.cbegin();
 			auto next = std::next(iter);
-			while (next != that.cend())
+			while (!next.isSentinel())
 			{
 				ASSERT(!iter.isSentinel());
 				ASSERT(!next.isSentinel());

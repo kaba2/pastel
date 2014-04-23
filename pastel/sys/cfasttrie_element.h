@@ -30,7 +30,7 @@ namespace Pastel
 			using Fwd = CFastTrie_Fwd<CFastTrie_Settings>;
 
 			PASTEL_FWD(Fork_Iterator);
-			PASTEL_FWD(BundlePtr);
+			PASTEL_FWD(Bundle_Iterator);
 
 			// Using the name Value_Class here triggers a
 			// bug in Visual Studio 2013.
@@ -44,7 +44,7 @@ namespace Pastel
 			}
 
 			Element(
-				const BundlePtr& bundle,
+				const Bundle_Iterator& bundle,
 				bool equalToChain,
 				const Value_Class_& value)
 				: Value_Class_(value)
@@ -68,7 +68,7 @@ namespace Pastel
 			friend class Bundle;
 				
 			//! Returns the bundle referencing this element.
-			const BundlePtr& bundle() const
+			const Bundle_Iterator& bundle() const
 			{
 				return bundle_;
 			}
@@ -79,7 +79,7 @@ namespace Pastel
 			the bundle references the element. Not every
 			element references a bundle.
 			*/
-			BundlePtr bundle_;
+			Bundle_Iterator bundle_;
 
 			//! Whether this element is equal to some chain.
 			/*!

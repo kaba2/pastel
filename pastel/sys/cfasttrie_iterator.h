@@ -113,7 +113,7 @@ namespace Pastel
 				++iter;
 				if (isSentinel() && !isGlobalSentinel())
 				{
-					iter = iter.sentinelData().next->begin();
+					iter = std::next(iter.sentinelData().bundle)->begin().base();
 				}
 			}
 
@@ -123,7 +123,7 @@ namespace Pastel
 				--iter;
 				if (isSentinel() && !isGlobalSentinel())
 				{
-					iter = iter.sentinelData().prev->begin();
+					iter = std::prev(iter.sentinelData().bundle)->last().base();
 				}
 			}
 		};

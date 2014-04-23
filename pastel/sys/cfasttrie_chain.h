@@ -32,11 +32,11 @@ namespace Pastel
 			using Fwd = CFastTrie_Fwd<CFastTrie_Settings>;
 
 			PASTEL_FWD(Key);
-			PASTEL_FWD(BundlePtr);
+			PASTEL_FWD(Bundle_Iterator);
 
 			Chain(
 				const Key& key,
-				const BundlePtr& bundle,
+				const Bundle_Iterator& bundle,
 				integer height,
 				bool normal)
 			: height_(height)
@@ -101,7 +101,7 @@ namespace Pastel
 				return split_;
 			}
 
-			const BundlePtr& bundle() const
+			const Bundle_Iterator& bundle() const
 			{
 				return bundle_;
 			}
@@ -161,7 +161,7 @@ namespace Pastel
 			redirected element can be changed for all the
 			chains in constant time.
 			*/
-			BundlePtr bundle_;
+			Bundle_Iterator bundle_;
 
 			//! Whether the chain is normal.
 			bool normal_;

@@ -15,62 +15,6 @@ namespace Pastel
 		public:
 			using Tree = RedBlackTree<Settings, CFastTrie_::Link_RedBlackTree_Customization>;
 
-			//! Links the tree with another tree.
-			/*!
-			Preconditions:
-			!linked()
-
-			Time complexity: O(1)
-			Exception safety: nothrow
-
-			Each red-black tree is part of exactly one doubly-linked
-			loop of trees. In the beginning each tree is the
-			only member in its loop. The tree-links are available
-			as the next() and prev() functions in the
-			iterator, provided that the iterator is in an
-			end-node.
-			*/
-			void linkBefore(Tree& that)
-			{
-				ENSURE(!linked());
-
-				Iterator thatEnd = that.end();
-				Iterator thisEnd = self().end();
-
-				Tree* thatPrev = thatEnd.sentinelData().prev;
-				
-				thatPrev->end().sentinelData().next = &self();
-				thisEnd.sentinelData().prev = thatPrev;
-				thisEnd.sentinelData().next = &that;
-				thatEnd.sentinelData().prev = &self();
-			}
-
-			//! Removes the tree from a link-loop.
-			/*!
-			Time complexity: O(1)
-			Exception safety: nothrow
-			*/
-			void removeLink()
-			{
-				Iterator thisEnd = self().end();
-				Tree* prev = thisEnd.sentinelData().prev;
-				Tree* next = thisEnd.sentinelData().next;
-				prev->end().sentinelData().next = next;
-				next->end().sentinelData().prev = prev;
-				thisEnd.sentinelData().next = &self();
-				thisEnd.sentinelData().prev = &self();
-			}
-
-			//! Returns whether the tree is part of some link-loop.
-			/*!
-			Time complexity: O(1)
-			Exception safety: nothrow
-			*/
-			bool linked() const
-			{
-				return self().end().sentinelData().next != &self();
-			}
-
 		protected:
 			// The customization functions should be protected
 			// so that they can only be called by the RedBlackTree
@@ -84,11 +28,7 @@ namespace Pastel
 
 			Link_RedBlackTree_Customization() {}
 
-			void onConstruction()
-			{
-				self().end().sentinelData().next = &self();
-				self().end().sentinelData().prev = &self();
-			}
+			void onConstruction() {}
 
 			void swap(Link_RedBlackTree_Customization& that) {}
 			void onClear() {}

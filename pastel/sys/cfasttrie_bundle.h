@@ -37,7 +37,7 @@ namespace Pastel
 			PASTEL_FWD(Fork_Iterator);
 			PASTEL_FWD(Key);
 			PASTEL_FWD(Value_Class);
-			PASTEL_FWD(BundlePtr);
+			PASTEL_FWD(Bundle_Iterator);
 
 			Bundle()
 			: condition_(0)
@@ -47,11 +47,29 @@ namespace Pastel
 			}
 
 			std::pair<Iterator, bool> insert(
-				const BundlePtr& bundle,
+				const Bundle_Iterator& bundle,
 				bool equalToChain,
 				const Key& key,
 				const Value_Class& value)
 			{
+				if (elementSet_.empty() || key < elementSet_.begin().key())
+				{
+					Bundle_Iterator prevBundle = std::prev(bundle);
+					if (!prevBundle->empty() && key == prevBundle->last().key())
+					{
+						return std::make_pair(prevBundle->last(), false);
+					}
+				}
+
+				if (elementSet_.empty() || key > elementSet_.last().key())
+				{
+					Bundle_Iterator nextBundle = std::next(bundle);
+					if (!nextBundle->empty() && key == nextBundle->begin().key())
+					{
+						return std::make_pair(nextBundle->begin(), false);
+					}
+				}
+
 				return elementSet_.insert(key, Element(bundle, equalToChain, value));
 			}
 
@@ -99,6 +117,11 @@ namespace Pastel
 				return candidate;
 			}
 
+			bool empty() const
+			{
+				return elementSet_.empty();
+			}
+
 			integer size() const
 			{
 				return elementSet_.size();
@@ -108,6 +131,10 @@ namespace Pastel
 			{
 				return elementSet_.upperBound(key);
 			}
+
+			PASTEL_ITERATOR_FUNCTIONS(begin, elementSet_.begin());
+			PASTEL_ITERATOR_FUNCTIONS(end, elementSet_.end());
+			PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
 
 			//! Returns the fork closest to the key in tree-distance.
 			Fork_ConstIterator closestFork(const Key& key) const
@@ -141,6 +168,11 @@ namespace Pastel
 				}
 
 				return right;
+			}
+
+			Iterator cast(const ConstIterator& that)
+			{
+				return elementSet_.cast(that.base());
 			}
 
 			//! Returns the condition number.
