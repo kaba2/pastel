@@ -68,7 +68,7 @@ void print(const CFastTrie_Set<N>& a)
 	}
 }
 
-//#define SKIP_ONLY
+#define SKIP_ONLY
 
 template <typename Set>
 void f(Set& a, integer n)
@@ -82,14 +82,12 @@ void f(Set& a, integer n)
 		//std::cout << key << " ";
 		a.insert(key);
 		//a.insert(n - i);
-		/*
-		if (!a.testInvariants())
+		if (!testInvariants(a))
 		{
 			std::cout << "Error: " << i << std::endl;
 			//print(a);
 			return;
 		}
-		*/
 	}
 
 #ifdef SKIP_ONLY

@@ -504,6 +504,10 @@ namespace Pastel
 		ConstIterator find(const Key& key) const
 		{
 			ConstIterator iter = lowerBound(key);
+			if (iter == cend())
+			{
+				return iter;
+			}
 			return (key < iter.key()) ? cend() : iter;
 		}
 
