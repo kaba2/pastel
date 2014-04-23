@@ -9,14 +9,19 @@ namespace Pastel
 	template <typename Integer>
 	Integer zeroHigherBits(const Integer& that)
 	{
-		// Proof:
+		if (zero(that))
+		{
+			return that;
+		}
+
 		// u     = x...x10...0
 		// u - 1 = x...x01...1
 		// u ^ (u - 1) = 0...011...1
-		// (u ^ (u - 1)) + 1 = 0...100...0
-		// ((u ^ (u - 1)) + 1) >> 1 = 0...010...0
+		// 
+		// (u ^ (u - 1)) >> 1 = 0...001...1
 
-		return ((that ^ (that - 1)) + 1) >> 1;
+		Integer a = (that ^ (that - 1));
+		return a ^ (a >> 1);
 	}
 
 }
