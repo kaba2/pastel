@@ -121,7 +121,7 @@ namespace Pastel
 			{
 				Iterator& iter = base_reference();
 				--iter;
-				if (isSentinel() && !isGlobalSentinel())
+				if (isSentinel())
 				{
 					iter = std::prev(iter.sentinelData().bundle)->last().base();
 				}
