@@ -127,9 +127,9 @@ namespace Pastel
 		, bundleSet_()
 		{
 			// The first bundle.
-			bundleSet_.emplace_back();
+			createBundle(bundleSet_.end());
 			// The last bundle.
-			bundleSet_.emplace_back();
+			createBundle(bundleSet_.end());
 
 			onConstruction();
 		}
@@ -362,7 +362,7 @@ namespace Pastel
 				if (fork != bundle->forkSet_.begin())
 				{
 					// Create a new bundle to hold the fork.
-					newBundle = bundleSet_.emplace(nextBundle);
+					newBundle = createBundle(nextBundle);
 
 					// Add the fork into the new bundle.
 					newBundle->forkSet_.emplace(
@@ -641,7 +641,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		PASTEL_ITERATOR_FUNCTIONS(begin, bundleBegin()->begin());
+		PASTEL_ITERATOR_FUNCTIONS(begin, std::next(bundleBegin())->begin());
 
 		//! Returns the end-iterator.
 		/*!
@@ -1097,7 +1097,9 @@ namespace Pastel
 
 		Bundle_Iterator createBundle(const Bundle_ConstIterator& before)
 		{
-			return bundleSet_.emplace(before);
+			Bundle_Iterator bundle = bundleSet_.emplace(before);
+			bundle->end().base().sentinelData().bundle = bundle;
+			return bundle;
 		}
 
 		//! Converts a chain const-iterator to a chain iterator.

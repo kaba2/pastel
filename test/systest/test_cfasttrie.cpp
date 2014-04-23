@@ -121,10 +121,12 @@ namespace
 			{
 				a.insert(0, 10);
 				TEST_ENSURE(testInvariants(a));
+				print(a);
 
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }));
 			}
+			/*
 			{
 				a.insert(9, 19);
 				TEST_ENSURE(testInvariants(a));
@@ -132,7 +134,6 @@ namespace
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }));
 			}
-			/*
 			{
 				a.insert(10, 20);
 				TEST_ENSURE(testInvariants(a));
@@ -255,7 +256,8 @@ namespace
 		{
 			auto element = a.cbegin();
 			auto chain = a.cchainBegin();
-			while (element != a.cend())
+			auto elementEnd = a.cend();
+			while (element != elementEnd)
 			{
 				std::cout << element.key().word(0) << " : "
 					<< chain->key().word(0) << " : "
