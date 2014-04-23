@@ -1,0 +1,15 @@
+C-fast trie notes
+=================
+
+[[Parent]]: cfasttrie.txt
+
+How should bundles be stored?
+-----------------------------
+
+* An empty element-set must be stored somewhere, so that its end-node can act as the global end-node.
+* Given a bundle, it must be possible to tell whether the previous or the next bundle exists.
+
+### Option 1: std::list
+
+* Create two empty bundles, the first one, and the last one.
+* The element-set of the last bundle contains the global end-node.

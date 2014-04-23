@@ -109,8 +109,11 @@ namespace Pastel
 		are kept sufficiently small by splitting them.
 		*/
 		using Bundle = CFastTrie_::Bundle<Settings>;
-		using BundlePtr = std::shared_ptr<Bundle>;
-		using Bundle_WeakPtr = std::weak_ptr<Bundle>;
+		using BundleSet = std::list<Bundle>;
+		using Bundle_ConstIterator = typename BundleSet::const_iterator;
+		using Bundle_Iterator = typename BundleSet::iterator;
+		using Bundle_ConstRange = boost::iterator_range<Bundle_ConstIterator>;
+		using Bundle_Range = boost::iterator_range<Bundle_Iterator>;
 
 		//! An ordered list of chains.
 		/*!
@@ -127,6 +130,7 @@ namespace Pastel
 		using Chain_ConstIterator = typename ChainSet::const_iterator;
 		using Chain_Iterator = typename ChainSet::iterator;
 		using Chain_ConstRange = boost::iterator_range<Chain_ConstIterator>;
+		using Chain_Range = boost::iterator_range<Chain_Iterator>;
 
 		//! Forks
 		/*!
@@ -159,8 +163,7 @@ namespace Pastel
 		class SentinelData
 		{
 		public:
-			DataSet* next;
-			DataSet* prev;
+			Bundle_Iterator bundle;
 		};
 	};
 

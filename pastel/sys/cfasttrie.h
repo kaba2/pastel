@@ -70,8 +70,11 @@ namespace Pastel
 		PASTEL_FWD(Key_ConstRange);
 
 		PASTEL_FWD(Bundle);
-		PASTEL_FWD(BundlePtr);
-		PASTEL_FWD(Bundle_WeakPtr);
+		PASTEL_FWD(BundleSet);
+		PASTEL_FWD(Bundle_ConstIterator);
+		PASTEL_FWD(Bundle_Iterator);
+		PASTEL_FWD(Bundle_ConstRange);
+		PASTEL_FWD(Bundle_Range);
 
 		PASTEL_FWD(Fork);
 		PASTEL_FWD(Fork_ConstIterator);
@@ -94,10 +97,10 @@ namespace Pastel
 		{
 		public:
 			Neighborhood(
-				const Chain_ConstIterator& above_,
+				const Chain_Iterator& above_,
 				integer level_,
-				const Chain_ConstIterator& rightGap_,
-				const BundlePtr& bundle_)
+				const Chain_Iterator& rightGap_,
+				const Bundle_Iterator& bundle_)
 				: above(above_)
 				, level(level_)
 				, rightGap(rightGap_)
@@ -105,10 +108,10 @@ namespace Pastel
 			{
 			}
 
-			Chain_ConstIterator above;
+			Chain_Iterator above;
 			integer level;
-			Chain_ConstIterator rightGap;
-			BundlePtr bundle;
+			Chain_Iterator rightGap;
+			Bundle_Iterator bundle;
 		};
 
 	public:
@@ -121,8 +124,13 @@ namespace Pastel
 		CFastTrie()
 		: trieSet_()
 		, chainSet_()
-		, emptySet_()
+		, bundleSet_()
 		{
+			// The first bundle.
+			bundleSet_.emplace_back();
+			// The last bundle.
+			bundleSet_.emplace_back();
+
 			onConstruction();
 		}
 
@@ -210,7 +218,7 @@ namespace Pastel
 			Customization::swap(that);
 			trieSet_.swap(that.trieSet_);
 			chainSet_.swap(that.chainSet_);
-			emptySet_.swap(that.emptySet_);
+			bundleSet_.swap(that.bundleSet_);
 		}
 
 		//! Removes all elements.
@@ -228,6 +236,9 @@ namespace Pastel
 
 			// Remove all chains.
 			chainSet_.clear();
+
+			// Remove all bundles.
+			bundleSet_.clear();
 		}
 
 		std::pair<Iterator, bool> insert(
@@ -252,7 +263,7 @@ namespace Pastel
 			// Create the element (or at least try to).
 			auto elementAndIsNew =
 				keyNeighborhood.bundle->insert(
-					keyNeighborhood.bundle, equalToChain, key, value);
+					cast(keyNeighborhood.bundle), equalToChain, key, value);
 
 			Iterator element = elementAndIsNew.first;
 			bool isNew = elementAndIsNew.second;
@@ -297,7 +308,7 @@ namespace Pastel
 			// The lowest-ancestor always exists, since
 			// the infinite zero chain exists.
 			auto aboveAndLevel = lowestAncestor(key);
-			Chain_ConstIterator above = cast(aboveAndLevel.first);
+			Chain_Iterator above = cast(aboveAndLevel.first);
 			integer level = aboveAndLevel.second;
 
 			// By the definition of the lowest ancestor
@@ -306,19 +317,19 @@ namespace Pastel
 			ASSERT(!above->splitExists(level));
 
 			// Find the gap-bounds.
-			Chain_ConstIterator rightGap =
+			Chain_Iterator rightGap =
 				cast(rightGapFromLowestAncestor(above, level));
 			ASSERT(rightGap == chainSet_.cend() ||
 				key <= rightGap->key());
 
-			Chain_ConstIterator leftGap =
+			Chain_Iterator leftGap =
 				chainSet_.empty() ?
 				rightGap : std::prev(rightGap);
 			ASSERT(leftGap == chainSet_.cend() ||
 				leftGap->key() <= key);
 
 			// Find the bundle of the key.
-			BundlePtr bundle =
+			Bundle_Iterator bundle =
 				even(above->key()) ?
 				leftGap->bundle() :
 				rightGap->bundle();
@@ -329,13 +340,14 @@ namespace Pastel
 		}
 
 		//! Refines a bundle to smaller bundles.
-		void refine(const BundlePtr& bundle)
+		void refine(const Bundle_Iterator& bundle)
 		{
-			//std::cout << "refine" << std::endl;
 			// An abnormal chain can only exist after at least
 			// one abnormal fork has been created.
 			ASSERT_OP(bundle->forks(), > , 1);
 
+			Bundle_Iterator nextBundle = cast(std::next(bundle));
+				
 			Fork_Iterator fork = bundle->forkSet_.begin();
 			while (fork != bundle->forkSet_.end())
 			{
@@ -345,12 +357,12 @@ namespace Pastel
 				Chain_Iterator right = std::next(left);
 				ASSERT(right == chainSet_.end() ||
 					odd(right->key()));
-
-				BundlePtr newBundle = bundle;
+				
+				Bundle_Iterator newBundle = bundle;
 				if (fork != bundle->forkSet_.begin())
 				{
 					// Create a new bundle to hold the fork.
-					newBundle = std::make_shared<Bundle>();
+					newBundle = bundleSet_.emplace(nextBundle);
 
 					// Add the fork into the new bundle.
 					newBundle->forkSet_.emplace(
@@ -363,14 +375,15 @@ namespace Pastel
 				while(even(left->key()))
 				{
 					bundle->removeChain(left);
-
 					left->bundle_ = newBundle;
 					left->normal_ = true;
 					newBundle->insertChain(left);
+
 					if (left == chainSet_.begin())
 					{
 						break;
 					}
+
 					--left;
 				}
 
@@ -380,10 +393,10 @@ namespace Pastel
 					odd(right->key()))
 				{
 					bundle->removeChain(right);
-
 					right->bundle_ = newBundle;
 					right->normal_ = true;
 					newBundle->insertChain(right);
+
 					++right;
 				}
 
@@ -533,7 +546,7 @@ namespace Pastel
 			Chain_ConstIterator chain = chainAndLevel.first;
 			integer level = chainAndLevel.second;
 
-			BundlePtr bundle = chain->bundle();
+			Bundle_Iterator bundle = chain->bundle();
 			Iterator iter = bundle->upperBound(key);
 			if (iter.isSentinel())
 			{
@@ -541,7 +554,7 @@ namespace Pastel
 				// whose right child points to itself.
 				if (!iter.isGlobalSentinel())
 				{
-					iter = iter.base().sentinelData().next->begin();
+					iter =  std::next(bundle)->begin();
 				}
 			}
 
@@ -628,14 +641,14 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		PASTEL_ITERATOR_FUNCTIONS(begin, emptySet_.end().sentinelData().next->begin());
+		PASTEL_ITERATOR_FUNCTIONS(begin, bundleBegin()->begin());
 
 		//! Returns the end-iterator.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		PASTEL_ITERATOR_FUNCTIONS(end, emptySet_.end());
+		PASTEL_ITERATOR_FUNCTIONS(end, bundleLast()->end());
 
 		//! Returns the last iterator.
 		/*!
@@ -645,21 +658,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Iterator last()
-		{
-			return cast(addConst(*this).last());
-		}
-
-		ConstIterator last() const
-		{
-			return clast();
-		}
-
-		ConstIterator clast() const
-		{
-			PENSURE(!empty());
-			return std::prev(cend());
-		}
+		PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
 
 		//! Returns an iterator range.
 		/*!
@@ -689,26 +688,54 @@ namespace Pastel
 		*/
 		PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(Key_, keyRange, keyBegin, keyEnd);
 
-		//! Returns an iterator to the smallest chain.
+		//! Returns the first chain iterator.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
 		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainBegin, chainSet_.cbegin());
 
-		//! Returns the one-past-last chain-iterator.
+		//! Returns the chain end-iterator.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
 		PASTEL_CONST_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainEnd, chainSet_.cend());
 
-		//! Returns an iterator range.
+		//! Returns an chain iterator-range.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
 		PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(Chain_, chainRange, chainBegin, chainEnd);
+
+		//! Returns the first bundle iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Bundle_, bundleBegin, bundleSet_.begin());
+
+		//! Returns the bundle end-iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Bundle_, bundleEnd, bundleSet_.end());
+
+		//! Returns the last bundle iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Bundle_, bundleLast, std::prev(bundleEnd()));
+
+		//! Returns a bundle iterator-range.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		PASTEL_CONST_RANGE_FUNCTIONS_PREFIX(Bundle_, bundleRange, bundleBegin, bundleEnd);
 
 		//! Returns the number of used bits.
 		/*!
@@ -785,7 +812,12 @@ namespace Pastel
 		*/
 		Iterator cast(const ConstIterator& that)
 		{
-			return emptySet_.cast(that.base());
+			return bundleLast()->cast(that.base());
+		}
+
+		Bundle_Iterator cast(const Bundle_ConstIterator& that)
+		{
+			return bundleSet_.erase(that, that);
 		}
 
 		mutable integer finds = 0;
@@ -1042,13 +1074,13 @@ namespace Pastel
 			ASSERT(empty());
 
 			// Create a bundle.
-			BundlePtr bundle = createBundle(emptySet_);
+			Bundle_Iterator bundle = createBundle(bundleLast());
 
 			// Set up the zero chain neighborhood.
 			Neighborhood neighborhood(
-				chainSet_.cend(),
+				chainSet_.end(),
 				0,
-				chainSet_.cend(),
+				chainSet_.end(),
 				bundle);
 
 			// Create the zero chain.
@@ -1063,12 +1095,9 @@ namespace Pastel
 			return std::make_pair(element, true);
 		}
 
-		BundlePtr createBundle(
-			DataSet& beforeSet)
+		Bundle_Iterator createBundle(const Bundle_ConstIterator& before)
 		{
-			BundlePtr bundle = std::make_shared<Bundle>();
-			bundle->elementSet_.linkBefore(beforeSet);
-			return bundle;
+			return bundleSet_.emplace(before);
 		}
 
 		//! Converts a chain const-iterator to a chain iterator.
@@ -1119,7 +1148,7 @@ namespace Pastel
 			Chain_Iterator leftGap = std::prev(rightGap);
 			Chain_Iterator above = cast(neighborhood.above);
 			integer level = neighborhood.level;
-			BundlePtr bundle = neighborhood.bundle;
+			Bundle_Iterator bundle = neighborhood.bundle;
 
 			ASSERT_OP(level, >= , 0);
 			ASSERT_OP(level, <= , maxBits());
@@ -1237,15 +1266,8 @@ namespace Pastel
 		//! The set of chains.
 		ChainSet chainSet_;
 
-		//! An empty set of elements.
-		/*!
-		The role of this empty element-set is to store 
-		the global end-iterator. The element-sets in the
-		buckets are all non-empty, so the global end-iterator
-		can be identified locally by its right child pointing
-		to itself.
-		*/
-		DataSet emptySet_;
+		//! The set of bundles.
+		BundleSet bundleSet_;
 	};
 	
 }

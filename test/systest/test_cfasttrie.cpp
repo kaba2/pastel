@@ -137,6 +137,20 @@ namespace
 				a.insert(10, 20);
 				TEST_ENSURE(testInvariants(a));
 
+				for (auto&& key : a.ckeyRange())
+				{
+					std::cout << key << " ";
+				}
+				std::cout << std::endl;
+
+				std::cout << std::dec;
+
+				for (auto&& value : a.crange())
+				{
+					std::cout << value << " ";
+				}
+				std::cout << std::endl;
+
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 }));
 			}
