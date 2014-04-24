@@ -263,7 +263,8 @@ namespace Pastel
 			// Create the element (or at least try to).
 			auto elementAndIsNew =
 				keyNeighborhood.bundle->insert(
-					cast(keyNeighborhood.bundle), equalToChain, key, value);
+					cast(keyNeighborhood.bundle), equalToChain, 
+					key, value);
 
 			Iterator element = elementAndIsNew.first;
 			bool isNew = elementAndIsNew.second;
@@ -274,27 +275,18 @@ namespace Pastel
 				return elementAndIsNew;
 			}
 
-			Key chainKey = key;
-			Neighborhood chainNeighborhood = 
-				keyNeighborhood;
-
-			if (equalToChain)
-			{
-				// There is a chain which is equal to the key.
-				// Search for the next key which is unequal 
-				// to a chain.
-				Chain_ConstIterator equalChain = 
-					keyNeighborhood.above;
-				Iterator nearestUnequalToChain = 
-					equalChain->bundle()->findNearestUnequalToChain(key, even(key));
-				chainKey = nearestUnequalToChain.key();
-				chainNeighborhood = findNeighborhood(chainKey);
-			}
+			Iterator nearestUnequalToChain = 
+				keyNeighborhood.bundle->findNearestUnequalToChain(key);
+			Key chainKey = nearestUnequalToChain.key();
+			Neighborhood chainNeighborhood =
+				findNeighborhood(chainKey);
 
 			// Insert the chain induced by the key.
 			Chain_Iterator chain = insertChain(
 				turn(chainKey, chainNeighborhood.level), 
 				chainNeighborhood);
+
+			std::cout << "Key " << key << ", chain " << chain->key() << std::endl;
 
 			// Notify the customization.
 			onInsert(element);
@@ -545,7 +537,7 @@ namespace Pastel
 				return cbegin();
 			}
 
-			if (key >= last().key())
+			if (key >= clast().key())
 			{
 				// The key is greater than or equal to
 				// the greatest element.
@@ -891,7 +883,7 @@ namespace Pastel
 		Time complexity: O(1) expected
 		Exception safety: nothrow
 		*/
-		bool chainExists(const Key& key, integer level) const
+		bool chainExists(const Key& key, integer level = 0) const
 		{
 			ASSERT_OP(level, >= , 0);
 

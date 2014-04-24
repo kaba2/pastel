@@ -24,15 +24,13 @@ namespace
 		virtual void run()
 		{
 			testInsertErase();
-			/*
 			testFind();
 			testSet();
 			testInsertMore();
-			*/
 		}
 
-		using Map = CFastTrie_Map<32, integer>;
-		using Set = CFastTrie_Set<32>;
+		using Map = CFastTrie_Map<5, integer>;
+		using Set = CFastTrie_Set<5>;
 		using Key = Map::Key;
 		using Value = Map::Value;
 
@@ -366,15 +364,95 @@ namespace
 		void testInsertMore()
 		{
 			{
-				CFastTrie_Set<32> a{ 0, 1, 2, 3, 4, 5};
+				CFastTrie_Set<1> a;
 				TEST_ENSURE(testInvariants(a));
+
+				auto test = [&](integer key, integer chain)
+				{
+					a.insert(key);
+					return testInvariants(a) &&
+						a.chainExists(chain);
+				};
+
+				TEST_ENSURE(test(0, 0));
+				TEST_ENSURE(test(1, 1));
+			}
+			{
+				CFastTrie_Set<2> a{ 0, 1, 2, 3 };
+				TEST_ENSURE(testInvariants(a));
+
+				auto test = [&](integer key, integer chain)
+				{
+					a.insert(key);
+					return testInvariants(a) &&
+						a.chainExists(chain);
+				};
+
+				TEST_ENSURE(test(0, 0));
+				TEST_ENSURE(test(1, 1));
+				TEST_ENSURE(test(2, 3));
+				TEST_ENSURE(test(3, 2));
+			}
+			{
+				CFastTrie_Set<3> a{ 0, 1, 2, 3, 4, 5, 6, 7 };
+				TEST_ENSURE(testInvariants(a));
+
+				auto test = [&](integer key, integer chain)
+				{
+					a.insert(key);
+					return testInvariants(a) &&
+						a.chainExists(chain);
+				};
+
+				TEST_ENSURE(test(0, 0));
+				TEST_ENSURE(test(1, 1));
+				TEST_ENSURE(test(2, 3));
+				TEST_ENSURE(test(3, 2));
+				TEST_ENSURE(test(4, 7));
+				TEST_ENSURE(test(5, 4));
+				TEST_ENSURE(test(6, 6));
+				TEST_ENSURE(test(7, 5));
+			}
+			{
+				CFastTrie_Set<4> a{ 0, 1, 2, 3, 4, 5, 6, 7,
+									8, 9, 10, 11, 12, 13, 14, 15};
+				TEST_ENSURE(testInvariants(a));
+
+				auto test = [&](integer key, integer chain)
+				{
+					a.insert(key);
+					return testInvariants(a) &&
+						a.chainExists(chain);
+				};
+
+				TEST_ENSURE(test(0, 0));
+				TEST_ENSURE(test(1, 1));
+				TEST_ENSURE(test(2, 3));
+				TEST_ENSURE(test(3, 2));
+				TEST_ENSURE(test(4, 7));
+				TEST_ENSURE(test(5, 4));
+				TEST_ENSURE(test(6, 6));
+				TEST_ENSURE(test(7, 5));
+				TEST_ENSURE(test(8, 15));
+				TEST_ENSURE(test(9, 8));
+				TEST_ENSURE(test(10, 11));
+				TEST_ENSURE(test(11, 10));
+				TEST_ENSURE(test(12, 12));
+				TEST_ENSURE(test(13, 13));
+				TEST_ENSURE(test(14, 14));
+				TEST_ENSURE(test(15, 9));
 			}
 
 			{
-				CFastTrie_Set<32> a{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-					12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 };
+				CFastTrie_Set<5> a{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+					12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 
+					25, 26, 27, 28, 29, 30};
+				TEST_ENSURE(testInvariants(a));
+
+				//a.insert(31);
 				TEST_ENSURE(testInvariants(a));
 			}
+			/*
 			{
 				CFastTrie_Set<5> a{ 5, 9, 23, 25, 26, 31};
 				a.insert(19);
@@ -385,6 +463,7 @@ namespace
 				a.insert(13);
 				TEST_ENSURE(testInvariants(a));
 			}
+			*/
 		}
 	};
 

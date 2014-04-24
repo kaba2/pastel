@@ -41,10 +41,16 @@ namespace Pastel
 				const Iterator& element,
 				Propagation_Class& propagation) 
 			{
-				propagation = 
-					!element.data().equalToChain() |
-					element.left().propagation() |
-					element.right().propagation();
+				integer complexity = infinity<integer>();
+				if (!element.data().equalToChain())
+				{
+					complexity = 
+						element.data().complexity();
+				}
+
+				propagation.minComplexity = std::min(std::min(
+					element.left().propagation().minComplexity, complexity), 
+					element.right().propagation().minComplexity);
 			}
 
 		private:

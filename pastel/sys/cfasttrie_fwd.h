@@ -54,6 +54,17 @@ namespace Pastel
 		using Key = Unsigned_Integer<Bits>;
 		using Value = typename Settings::Value;
 		using Value_Class = Class<Value>;
+		
+		class Propagation
+		{
+		public:
+			Propagation()
+			: minComplexity(infinity<integer>())
+			{
+			}
+
+			integer minComplexity;
+		};
 
 		class SentinelData;
 
@@ -80,7 +91,7 @@ namespace Pastel
 		updating the propagation data.
 		*/
 		using DataSet = RedBlack_Map<Key, Element, 
-			Pastel::LessThan, bool, SentinelData,
+			Pastel::LessThan, Propagation, SentinelData,
 			CFastTrie_::Link_RedBlackTree_Customization>;
 
 		using Element_ConstIterator = typename DataSet::const_iterator;
