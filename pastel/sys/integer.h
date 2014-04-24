@@ -264,37 +264,9 @@ namespace Pastel
 			return *this;
 		}
 
-		Word_Iterator wordBegin()
-		{
-			return wordSet_.begin();
-		}
-
-		Word_ConstIterator wordBegin() const
-		{
-			return cwordBegin();
-		}
-
-		Word_ConstIterator cwordBegin() const
-		{
-			return wordSet_.cbegin();
-		}
-
-		Word_Iterator wordEnd()
-		{
-			return wordSet_.end();
-		}
-
-		Word_ConstIterator wordEnd() const
-		{
-			return cwordEnd();
-		}
-
-		Word_ConstIterator cwordEnd() const
-		{
-			return wordSet_.cend();
-		}
-
-		PASTEL_RANGE_FUNCTIONS_PREFIX(Word_, word, wordBegin(), wordEnd());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Word_, wordBegin, wordSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Word_, wordEnd, wordSet_.end());
+		PASTEL_RANGE_FUNCTIONS_PREFIX(Word_, wordRange, wordBegin, wordEnd);
 
 		//! Returns the i:th word of the integer.
 		/*!
@@ -1107,6 +1079,29 @@ namespace Pastel
 		return std::all_of(
 			that.cwordBegin(), that.cwordEnd(),
 			[](const Word& word) {return word == 0;});
+	}
+
+}
+
+#include "pastel/sys/number_of_one_bits.h"
+
+namespace Pastel
+{
+
+	//! Returns the number of 1-bits in 'that'.
+	/*!
+	Time complexity: O(that.words())
+	Exception safety: nothrow
+	*/
+	template <typename Integer_Settings>
+	integer numberOfOneBits(const Integer<Integer_Settings>& that)
+	{
+		integer count = 0;
+		for (auto&& word : that.cwordRange())
+		{
+			count += numberOfOneBits(word);
+		}
+		return count;
 	}
 
 }
