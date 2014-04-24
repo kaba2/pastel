@@ -31,6 +31,7 @@ namespace
 			testBitOperators();
 			testCounting();
 			testSetBits();
+			testNumberOfOneBits();
 		}
 
 		void testConstruction()
@@ -539,6 +540,19 @@ namespace
 				TEST_ENSURE(!b.bit(64));
 				TEST_ENSURE(!b.bit(128));
 			}
+		}
+
+		void testNumberOfOneBits()
+		{
+			using F = Unsigned_Integer<20, uint8>;
+
+			auto test = [&](F that, integer correct)
+			{
+				return numberOfOneBits(that) == correct;
+			};
+
+			TEST_ENSURE(test(0xFFF34567ul, 10));
+			TEST_ENSURE(test(0x00034567ul, 10));
 		}
 	};
 
