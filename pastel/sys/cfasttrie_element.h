@@ -46,16 +46,23 @@ namespace Pastel
 			Element(
 				const Bundle_Iterator& bundle,
 				bool equalToChain,
+				integer complexity,
 				const Value_Class_& value)
 				: Value_Class_(value)
 				, bundle_(bundle)
 				, equalToChain_(equalToChain)
+				, complexity_(complexity)
 			{
 			}
 
 			bool equalToChain() const
 			{
 				return equalToChain_;
+			}
+
+			integer complexity() const
+			{
+				return complexity_;
 			}
 
 		private:
@@ -89,6 +96,14 @@ namespace Pastel
 			which is not equal to a chain.
 			*/
 			bool equalToChain_ = false;
+
+			//! The complexity of the element.
+			/*!
+			The complexity of an integer is the number of
+			01 and 10 pairs in its binary representation.
+			For example, c(1001_2) = 3.
+			*/
+			integer complexity_;
 		};
 
 	}

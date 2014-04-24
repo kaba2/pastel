@@ -28,6 +28,8 @@ namespace Pastel
 			
 			PASTEL_FWD(DataSet);
 			PASTEL_FWD(Element);
+			PASTEL_FWD(Element_Iterator);
+			PASTEL_FWD(Element_ConstIterator);
 			PASTEL_FWD(Iterator);
 			PASTEL_FWD(ConstIterator);
 			PASTEL_FWD(Chain_Iterator);
@@ -70,7 +72,11 @@ namespace Pastel
 					}
 				}
 
-				return elementSet_.insert(key, Element(bundle, equalToChain, value));
+				integer complexity = 
+					numberOfOneBits(key);
+
+				return elementSet_.insert(key, 
+					Element(bundle, equalToChain, complexity, value));
 			}
 
 			Iterator erase(const ConstIterator& that)
@@ -90,29 +96,53 @@ namespace Pastel
 			Whether to search for the smallest greater element
 			(or the greatest smaller element).
 			*/
-			Iterator findNearestUnequalToChain(
-				const Key& key,
-				bool direction)
+			Iterator findNearestUnequalToChain(const Key& key)
 			{
-				Iterator node = elementSet_.root();
-				Iterator candidate = elementSet_.end();
+				Element_Iterator node = elementSet_.root();
+				Element_Iterator candidate = elementSet_.end();
 
-				// Note that the sentinel node has
-				// 'false' propagation, so that we don't
-				// need to test for it.
-				while(node.base().propagation())
+				integer minComplexity = node.propagation().minComplexity;
+				if (minComplexity == infinity<integer>())
 				{
-					bool right = (key > node.key());
-					if (right != direction && 
-						!node.base().data().equalToChain())
+					// There are no free elements.
+					return candidate;
+				}
+
+				while(!node.isSentinel())
+				{
+					if (node.data().complexity() == minComplexity)
 					{
 						candidate = node;
+						if (node.key() == key)
+						{
+							break;
+						}
 					}
-					node = node.base().child(right);
+
+					bool leftViable = 
+						(node.left().propagation().minComplexity == minComplexity);
+					bool rightViable = 
+						(node.right().propagation().minComplexity == minComplexity);
+
+					if (!leftViable && !rightViable)
+					{
+						break;
+					}
+
+					bool right = rightViable;
+					if (leftViable && rightViable)
+					{
+						// When both sub-trees are viable,
+						// choose the one which gets closer
+						// to the key.
+						right = (node.key() < key);
+					}
+
+					node = node.child(right);
 				}
 
 				ASSERT(candidate.isSentinel() ||
-					!candidate.base().data().equalToChain());
+					candidate.data().complexity() == minComplexity);
 
 				return candidate;
 			}

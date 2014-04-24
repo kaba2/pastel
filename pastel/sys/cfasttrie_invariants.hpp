@@ -120,10 +120,14 @@ namespace Pastel
 					// be smaller than the smallest element of the
 					// current bundle.
 					auto prevBundle = std::prev(bundle);
-					if (!prevBundle->empty() &&
-						prevBundle->last().key() >= bundle->begin().key())
+					if (!prevBundle->empty())
 					{
-						return false;
+						const auto& lastOfPrev = prevBundle->last().key();
+						const auto& firstOfThis = bundle->begin().key();
+						if (lastOfPrev >= firstOfThis)
+						{
+							return false;
+						}
 					}
 				}
 

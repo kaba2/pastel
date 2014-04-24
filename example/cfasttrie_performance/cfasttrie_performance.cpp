@@ -85,7 +85,8 @@ void f(Set& a, integer n)
 		if (!testInvariants(a))
 		{
 			std::cout << "Error: " << i << std::endl;
-			//print(a);
+			std::cout << "Key: " << key << std::endl;
+			print(a);
 			return;
 		}
 	}
