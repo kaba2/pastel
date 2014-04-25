@@ -361,6 +361,22 @@ namespace
 			}
 		}
 
+		template <int N>
+		bool keyCreates(CFastTrie_Set<N>& a, integer key, integer chain)
+		{
+			bool chainExistsBefore =
+				a.chainExists(chain);
+
+			a.insert(key);
+
+			bool chainExistsAfter =
+				a.chainExists(chain);
+			bool chainCreated =
+				!chainExistsBefore && chainExistsAfter;
+
+			return testInvariants(a) && chainCreated;
+		};
+
 		void testInsertMore()
 		{
 			{
@@ -369,23 +385,19 @@ namespace
 
 				auto test = [&](integer key, integer chain)
 				{
-					a.insert(key);
-					return testInvariants(a) &&
-						a.chainExists(chain);
+					return keyCreates(a, key, chain);
 				};
 
 				TEST_ENSURE(test(0, 0));
 				TEST_ENSURE(test(1, 1));
 			}
 			{
-				CFastTrie_Set<2> a{ 0, 1, 2, 3 };
+				CFastTrie_Set<2> a;
 				TEST_ENSURE(testInvariants(a));
 
 				auto test = [&](integer key, integer chain)
 				{
-					a.insert(key);
-					return testInvariants(a) &&
-						a.chainExists(chain);
+					return keyCreates(a, key, chain);
 				};
 
 				TEST_ENSURE(test(0, 0));
@@ -394,14 +406,12 @@ namespace
 				TEST_ENSURE(test(3, 2));
 			}
 			{
-				CFastTrie_Set<3> a{ 0, 1, 2, 3, 4, 5, 6, 7 };
+				CFastTrie_Set<3> a;
 				TEST_ENSURE(testInvariants(a));
 
 				auto test = [&](integer key, integer chain)
 				{
-					a.insert(key);
-					return testInvariants(a) &&
-						a.chainExists(chain);
+					return keyCreates(a, key, chain);
 				};
 
 				TEST_ENSURE(test(0, 0));
@@ -414,15 +424,12 @@ namespace
 				TEST_ENSURE(test(7, 5));
 			}
 			{
-				CFastTrie_Set<4> a{ 0, 1, 2, 3, 4, 5, 6, 7,
-									8, 9, 10, 11, 12, 13, 14, 15};
+				CFastTrie_Set<4> a;
 				TEST_ENSURE(testInvariants(a));
 
 				auto test = [&](integer key, integer chain)
 				{
-					a.insert(key);
-					return testInvariants(a) &&
-						a.chainExists(chain);
+					return keyCreates(a, key, chain);
 				};
 
 				TEST_ENSURE(test(0, 0));
