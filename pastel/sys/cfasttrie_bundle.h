@@ -73,7 +73,7 @@ namespace Pastel
 				}
 
 				integer complexity = 
-					numberOfOneBits(key);
+					numberOfOneBits(key ^ (key >> 1));
 
 				return elementSet_.insert(key, 
 					Element(bundle, equalToChain, complexity, value));
