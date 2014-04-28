@@ -179,7 +179,7 @@ namespace Pastel
 
 		for (integer i = 1;i < count;++i)
 		{
-			const integer k = 1 + randomInteger() % (count - 1);
+			const integer k = 1 + randomInteger(count - 1);
 			std::swap(resultPalette[i], resultPalette[k]);
 		}
 

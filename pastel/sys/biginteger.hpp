@@ -63,17 +63,6 @@ namespace Pastel
 
 	// Real (partial)
 
-	template <>
-	class Real_Function<BigInteger>
-	{
-	public:
-		PASTEL_CONSTEXPR bool Exists = true;
-
-		// infinity() and nan() deliberately
-		// not implemented because there are no
-		// corresponding element.
-	};
-
 	inline const BigInteger& floor(const BigInteger& that)
 	{
 		return that;

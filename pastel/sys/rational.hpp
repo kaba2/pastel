@@ -583,22 +583,19 @@ namespace Pastel
 
 	// Real
 
-	template <typename Integer>
-	class Real_Function<Rational<Integer> >
+	template <typename Type>
+	PASTEL_ENABLE_IF((std::is_same<Rational<typename Type::Integer>, Type>), Type)
+		infinity()
 	{
-	public:
-		PASTEL_CONSTEXPR bool Exists = true;
+		return Type(1, 0);
+	}
 
-		Rational<Integer> infinity()
-		{
-			return Rational<Integer>(1, 0);
-		}
-
-		Rational<Integer> nan()
-		{
-			return Rational<Integer>(0, 0);
-		}
-	};
+	template <typename Type>
+	PASTEL_ENABLE_IF((std::is_same<Rational<typename Type::Integer>, Type>), Type)
+		nan()
+	{
+		return Type(0, 0);
+	}
 
 	template <typename Integer>
 	Rational<Integer> floor(

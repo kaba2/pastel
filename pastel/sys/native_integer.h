@@ -1,7 +1,10 @@
-#ifndef PASTELSYS_INTEGER_INTEGER_HPP
-#define PASTELSYS_INTEGER_INTEGER_HPP
+// Description: Native integer type as a finite integer.
 
-#include "pastel/sys/integer_integer.h"
+#ifndef PASTELSYS_NATIVE_INTEGER_H
+#define PASTELSYS_NATIVE_INTEGER_H
+
+#include "pastel/sys/integer_concept.h"
+#include "pastel/sys/real_concept.h"
 
 #include <limits>
 #include <climits>
@@ -45,30 +48,18 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	PASTEL_ENABLE_IF_C(
-		std::is_unsigned<Type>::value || 
-		std::is_signed<Type>::value, bool) 
+	PASTEL_ENABLE_IF_C(std::is_integral<Type>::value, bool) 
 		odd(const Type& that)
 	{
 		return !even(that);
 	}
 
-	// Real (partial)
-
-	template <>
-	class Real_Function<integer>
+	template <typename Type>
+	PASTEL_ENABLE_IF(std::is_integral<Type>, Type)
+		infinity()
 	{
-	public:
-		PASTEL_CONSTEXPR bool Exists = true;
-
-		integer infinity()
-		{
-			return std::numeric_limits<integer>::max();
-		}
-
-		// Support for nan() deliberately missing; 
-		// there is no sensible choice.
-	};
+		return std::numeric_limits<Type>::max();
+	}
 
 	using std::floor;
 	using std::ceil;

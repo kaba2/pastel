@@ -439,20 +439,10 @@ namespace Pastel
 
 				// If there is only one choice, pick that.
 				integer index = 0;
-				if (candidates == 2)
+				if (candidates >= 2)
 				{
-					// If there are two choices, pick one
-					// randomly.
-					// Here logical-and is used for an efficient
-					// mod 2.
-					index = randomInteger() & 1;
-				}
-				else if (candidates == 3)
-				{
-					// If there are three choices, pick one
-					// randomly. Here we must use the
-					// remainder operator.
-					index = randomInteger() % 3;
+					// If there is more one choice, pick one randomly.
+					index = randomInteger(candidates);
 				}
 				
 				const Direction direction = candidateSet[index];

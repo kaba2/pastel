@@ -132,7 +132,7 @@ namespace Pastel
 
 		while(!activeSet.empty())
 		{
-			const integer randomIndex = randomInteger() % activeSet.size();
+			const integer randomIndex = randomInteger(activeSet.size());
 			std::swap(activeSet[randomIndex], activeSet[activeSet.size() - 1]);
 
 			const Vector<integer, N> coordinates = activeSet.back();

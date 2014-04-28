@@ -246,8 +246,8 @@ namespace
 					PureHalfMesh::Edge edge;
 					while (edge.empty())
 					{
-						integer aIndex = randomInteger() % Vertices;
-						integer bIndex = randomInteger() % Vertices;
+						integer aIndex = randomInteger(Vertices);
+						integer bIndex = randomInteger(Vertices);
 
 						PureHalfMesh::Vertex a = vertices[aIndex];
 						PureHalfMesh::Vertex b = vertices[bIndex];

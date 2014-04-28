@@ -167,8 +167,8 @@ namespace
 				integer failings = 0;
 				for (integer i = 0;i < 10000;++i)
 				{
-					Poly poly = randomPolynomial<Real>(randomInteger() % (maxDegree + 1));
-					Poly divider = randomPolynomial<Real>(randomInteger() % (maxDegree + 1));
+					Poly poly = randomPolynomial<Real>(randomInteger(maxDegree + 1));
+					Poly divider = randomPolynomial<Real>(randomInteger(maxDegree + 1));
 
 					Poly quotient;
 					Poly remainder;
