@@ -122,9 +122,9 @@ namespace
 				for (integer j = 0;j < BucketSize;++j)
 				{
 					const integer aVertex =
-						randomInteger() % VertexCount;
+						randomInteger(VertexCount);
 					const integer bVertex =
-						randomInteger() % VertexCount;
+						randomInteger(VertexCount);
 					bool alreadyExisted = false;
 					Edge edge(
 						mesh.addEdge(vertex[aVertex], vertex[bVertex],
@@ -148,7 +148,7 @@ namespace
 
 			for (integer i = 0;i < EdgeCount;++i)
 			{
-				const integer index = randomInteger() % EdgeCount;
+				const integer index = randomInteger(EdgeCount);
 				if (!edgeList[index].empty())
 				{
 					mesh.removeEdge(edgeList[index]);

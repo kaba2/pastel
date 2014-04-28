@@ -164,9 +164,8 @@ namespace Pastel
 }
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/integer_integer.h"
-#include "pastel/sys/float_real.h"
-#include "pastel/sys/double_real.h"
+#include "pastel/sys/native_integer.h"
+#include "pastel/sys/native_real.h"
 #include "pastel/sys/predicates.h"
 #include "pastel/sys/range.h"
 

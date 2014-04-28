@@ -18,14 +18,17 @@ namespace Pastel
 {
 
 	//! A rational number.
-	template <typename Integer>
+	template <typename Integer_>
 	class Rational
 		: boost::totally_ordered<
-		Rational<Integer>
+		Rational<Integer_>
 		, boost::field_operators1<
-		Rational<Integer>
+		Rational<Integer_>
 		> >
 	{
+	public:
+		using Integer = Integer_;
+
 	private:
 		class Private {};
 

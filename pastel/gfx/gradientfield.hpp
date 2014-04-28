@@ -60,7 +60,6 @@ namespace Pastel
 
 			const integer permutationSize = 
 				std::max(roundUpToPowerOfTwo(gradients), (integer)256);
-			permutationMask_ = permutationSize - 1;
 			
 			// Generate the standard permutation.
 			permutation_.reserve(permutationSize * 2);
@@ -72,7 +71,7 @@ namespace Pastel
 			// Shuffle it to a random permutation.
 			for (integer i = 0;i < permutationSize;++i)
 			{
-				const integer u = randomInteger() & permutationMask_;
+				const integer u = randomInteger(permutationSize);
 				std::swap(permutation_[u], permutation_[i]);
 			}
 

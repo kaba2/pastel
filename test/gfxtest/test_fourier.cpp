@@ -224,7 +224,7 @@ namespace
 		{
 			for (integer i = 0;i < 100;++i)
 			{
-				const integer n = (1 << (randomInteger() % 9));
+				const integer n = (1 << randomInteger(9));
 
 				std::vector<real> input;
 				input.reserve(n);

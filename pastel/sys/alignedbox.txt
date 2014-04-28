@@ -28,7 +28,7 @@ The same class template is used to represent axis-aligned boxes in ''RR^n'',
 by providing a type modeling the [Real][Real] concept. The PastelGeometry 
 library takes [this view further][GeometryBox].
 
-[NativeInteger]: [[Ref]]: integer_integer.txt
+[NativeInteger]: [[Ref]]: native_integer.txt
 [GeometryBox]: [[Ref]]: geometry/alignedbox.txt
 [Real]: [[Ref]]: reals.txt
 

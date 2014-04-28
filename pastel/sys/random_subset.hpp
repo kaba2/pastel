@@ -34,7 +34,7 @@ namespace Pastel
 			// will be in the subset.
 			for (integer i = 0;i < k;++i)
 			{
-				const integer index = randomInteger(0, n - 1 - i);
+				const integer index = randomInteger(n - i);
 
 				using std::swap;
 				swap(*begin, *(begin + index));
@@ -48,7 +48,7 @@ namespace Pastel
 			// will _not_ be in the subset.
 			for (integer i = 0;i < n - k;++i)
 			{
-				const integer index = randomInteger(0, n - 1 - i);
+				const integer index = randomInteger(n - i);
 
 				--end;
 

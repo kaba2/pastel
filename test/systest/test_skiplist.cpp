@@ -640,7 +640,7 @@ namespace
 				dataSet.clear();
 				for (integer i = 0;i < 2 * listSize;++i)
 				{
-					const integer n = randomInteger();
+					const integer n = randomInteger(0);
 					dataSet.push_back(n);
 
 					list.insert(n);

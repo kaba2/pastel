@@ -105,7 +105,7 @@ namespace
 
 		for (int i = 0;i < Units;++i)
 		{
-			int index = randomInteger() % Units;
+			int index = randomInteger(Units);
 			if (memoryList[index] != 0)
 			{
 				allocator.deallocate(memoryList[index]);

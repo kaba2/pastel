@@ -196,7 +196,7 @@ namespace Pastel
 					std::back_inserter(sceneIndexList));
 				for (integer i = 0;i < scenePoints_ - 1;++i)
 				{
-					const integer j = i + 1 + (randomInteger() % (scenePoints_ - (i + 1)));
+					const integer j = i + 1 + randomInteger(scenePoints_ - (i + 1));
 					std::swap(sceneIndexList[i], sceneIndexList[j]);
 				}
 

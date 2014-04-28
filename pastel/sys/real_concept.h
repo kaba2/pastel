@@ -9,16 +9,6 @@
 namespace Pastel
 {
 
-	template <typename Real>
-	class Real_Function
-	{
-	public:
-		PASTEL_CONSTEXPR bool Exists = false;
-
-		Real infinity();
-		Real nan();
-	};
-
 	namespace Real_Concept
 	{
 
@@ -59,6 +49,16 @@ namespace Pastel
 			Real(double that);
 		};
 
+		//! Returns infinity.	
+		template <typename Type>
+		PASTEL_ENABLE_IF((std::is_same<Type, Real>), Type) 
+			infinity();
+
+		//! Returns not-a-number.	
+		template <typename Type>
+		PASTEL_ENABLE_IF((std::is_same<Type, Real>), Type) 
+			nan();
+
 		//! Returns 1 / that.	
 		Real inverse(const Real& that);
 
@@ -69,25 +69,6 @@ namespace Pastel
 		Real ceil(const Real& that);
 
 	}
-
-	// Interestingly, if the following are uncommented, they
-	// will collide with their definitions. I think this
-	// may have to do with how Visual Studio handles templates:
-	// the Real_Function<Real>::Exists is given a different
-	// value in each, because the declaration is treated right
-	// away and the definition is treated only at instantiation
-	// time.
-	/*
-	//! Returns the positive infinity.
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
-		infinity();
-
-	//! Returns a Not-A-Number.
-	template <typename Real>
-	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
-		nan();
-	*/
 
 }
 
