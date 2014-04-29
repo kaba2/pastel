@@ -1017,8 +1017,8 @@ namespace
 				std::vector<integer> correctSet = dataSet;
 				TEST_ENSURE(boost::equal(tree.range().dereferenceData(), correctSet));
 
-				//for (integer i = 0;i < n;++i)
-				integer i = 3071;
+				//integer i = 3071;
+				for (integer i = 0; i < n; ++i)
 				{
 					Tree aTree = tree;
 					TEST_ENSURE(testInvariants(aTree));

@@ -159,23 +159,76 @@ namespace Pastel
 				ASSERT_OP(join.blackHeight, >= , subtreeBlackHeight);
 
 				while (join.blackHeight > subtreeBlackHeight ||
-					join.join->child(!right)->red())
+					join.join->red())
 				{
-					join.join = join.join->child(!right);
 					join.blackHeight -= join.join->black();
+					join.join = join.join->child(!right);
 				}
 
 				ASSERT_OP(join.blackHeight, == , subtreeBlackHeight);
+				ASSERT(join.join->black());
 			}
 
 			ASSERT(firstJoin || !join.middle->isSentinel());
+
+			Node* parent = join.join;
+			if (!parent->isSentinel())
+			{
+				parent = parent->parent();
+			}
+
+#			if defined (DEBUG) || defined(_DEBUG)
+			// This code is for debugging purposes only.
+			if (!join.join->isSentinel())
+			{
+				// Check that the black-height of 'join.join'
+				// really equals join.blackHeight.
+				Node* node = join.join;
+				integer realBlackHeight = 
+					join.tree->blackHeight() + node->black();
+				while(!node->isSentinel())
+				{
+					realBlackHeight -= node->black();
+					node = node->parent();
+				}
+				ASSERT_OP(realBlackHeight, ==, join.blackHeight);
+			}
+
+			integer blackHeightBefore = join.tree->blackHeight();
+#			endif
 
 			// Join the 'subtree' into the target tree.
 			join.tree->join(
 				subtree,
 				subtreeBlackHeight,
-				join.join, !right,
+				parent, !right,
 				join.middle);
+
+			ASSERT(!join.tree->empty());
+			
+#			if defined (DEBUG) || defined(_DEBUG)
+			// This code is for debugging purposes only.
+			integer blackHeightAfter = join.tree->blackHeight();
+			if (blackHeightBefore != blackHeightAfter)
+			{
+				// Check that the black-height of the 'join.tree'
+				// changes only in a limited number of cases:
+				// the first join, and the last two joins. In
+				// these cases the change in the black-height
+				// does not matter; in the first join, the
+				// join.blackHeight will get overwritten below,
+				// and in the last two joins, there will be no
+				// more joins.
+				ASSERT(firstJoin || i <= 1);
+				if (!firstJoin)
+				{
+					// If the last two joins change the black-height,
+					// then it is necessarily by one, as a consequence
+					// of resolving red-red violations.
+					ASSERT_OP(blackHeightAfter - blackHeightBefore, ==, 1);
+				}
+			}
+#			endif
 
 			// Make sure the 'middle' node is not
 			// used again in a join.
@@ -186,7 +239,7 @@ namespace Pastel
 				// This was the first join into the
 				// target tree. Set the root node as the
 				// current 'join' node, together with
-				// with its black-height. This is how
+				// its black-height. This is how
 				// the incremental tracking of the 'join'
 				// node begins.
 				join.join = join.tree->rootNode();
