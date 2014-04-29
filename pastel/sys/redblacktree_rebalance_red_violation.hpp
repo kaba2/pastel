@@ -166,6 +166,11 @@ namespace Pastel
 			// so we will continue from there.
 			node = grandParent;
 		}
+
+		// We will maintain the invariant that the
+		// root node is black, although this is not
+		// part of our definition of a red-black tree.
+		setRootBlack();
 	}
 
 }

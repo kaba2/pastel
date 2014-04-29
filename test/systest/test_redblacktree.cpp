@@ -3,11 +3,13 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/redblacktree.h"
-#include "pastel/sys/random_uniform.h"
+#include <pastel/sys/redblacktree.h>
+#include <pastel/sys/random_uniform.h>
+#include <pastel/sys/random_integer.h>
 
 #include <boost/range/adaptor/reversed.hpp> 
 
+#include <algorithm>
 #include <iostream>
 #include <list>
 
@@ -82,6 +84,7 @@ namespace
 			testMultiCount<MultiSet>();
 			testMultiCount<MultiMap>();
 			testMultiSplit();
+			testMultiJoin();
 
 			testManyThings<Set>();
 			testManyThings<Map>();
@@ -95,7 +98,6 @@ namespace
 			testConstruction<Tree>();
 			testIterator<Tree>();
 			testInsert<Tree>();
-			testBlackHeight<Tree>();
 			testErase<Tree>();
 			testRandom<Tree>();
 			testSplice<Tree>();
@@ -505,31 +507,6 @@ namespace
 					TEST_ENSURE_OP(tree.size(), == , copy.size());
 					TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), copy.crange().dereferenceKey()));
 				}
-			}
-		}
-
-		template <typename Tree>
-		void testBlackHeight()
-		{
-			using ConstIterator = typename Tree::ConstIterator;
-
-			Tree tree;
-			{
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE_OP(tree.blackHeight(), == , 0);
-			}
-
-			std::vector<uinteger> keySet = 
-				{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-			std::vector<integer> blackHeightSet = 
-				{ 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3 };
-			ASSERT_OP(keySet.size(), == , blackHeightSet.size());
-
-			for (integer i = 0; i < keySet.size(); ++i)
-			{
-				tree.insert(keySet[i]);
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE_OP(tree.blackHeight(), == , blackHeightSet[i]);
 			}
 		}
 
@@ -1028,31 +1005,85 @@ namespace
 			{
 				Tree tree;
 				std::vector<integer> dataSet;
-				integer n = 100;
+				integer n = 5000;
 				for (integer i = 0;i < n;++i)
 				{
-					tree.insert(0, i);
-					dataSet.push_back(i);
-					TEST_ENSURE(testInvariants(tree));
+					integer data = randomInteger(65536);
+					tree.insert(0, data);
+					dataSet.push_back(data);
+					//TEST_ENSURE(testInvariants(tree));
 				}
 
-				for (integer i = 0;i < n;++i)
+				std::vector<integer> correctSet = dataSet;
+				TEST_ENSURE(boost::equal(tree.range().dereferenceData(), correctSet));
+
+				//for (integer i = 0;i < n;++i)
+				integer i = 3071;
 				{
 					Tree aTree = tree;
 					TEST_ENSURE(testInvariants(aTree));
-					
+
 					Tree bTree = aTree.split(std::next(aTree.cbegin(), i));
 					TEST_ENSURE(testInvariants(aTree));
 					TEST_ENSURE_OP(aTree.size(), == , i);
 					TEST_ENSURE(testInvariants(bTree));
 					TEST_ENSURE_OP(bTree.size(), == , n - i);
 
+					if (!testInvariants(aTree))
+					{
+						std::cout << i << std::endl;
+						testInvariants(aTree);
+						//break;
+					}
+
 					aTree.join(bTree);
 					TEST_ENSURE(testInvariants(aTree));
 					TEST_ENSURE_OP(aTree.size(), == , n);
-					TEST_ENSURE(boost::equal(aTree.range().dereferenceData(), dataSet));
+					TEST_ENSURE(boost::equal(aTree.range().dereferenceData(), correctSet));
 					TEST_ENSURE(testInvariants(bTree));
 					TEST_ENSURE_OP(bTree.size(), == , 0);
+				}
+			}
+		}
+
+		void testMultiJoin()
+		{
+			using Tree = MultiMap;
+			{
+				integer n = 50;
+				for (integer i = 0; i < n; ++i)
+				{
+					for (integer j = 0; j < n; ++j)
+					{
+						std::vector<integer> correctSet;
+
+						Tree aTree;
+						for (integer k = 0; k < i; ++k)
+						{
+							integer data = randomInteger(65536);
+							correctSet.push_back(data);
+
+							aTree.insert(0, data);
+							TEST_ENSURE(testInvariants(aTree));
+						}
+
+						Tree bTree;
+						bTree.useBottomFrom(aTree);
+
+						for (integer k = 0; k < j; ++k)
+						{
+							integer data = randomInteger(65536);
+							correctSet.push_back(data);
+
+							bTree.insert(0, data);
+							TEST_ENSURE(testInvariants(bTree));
+						}
+
+						aTree.join(bTree);
+						TEST_ENSURE(testInvariants(aTree));
+						TEST_ENSURE(testInvariants(bTree));
+						TEST_ENSURE(boost::equal(aTree.crange().dereferenceData(), correctSet));
+					}
 				}
 			}
 		}

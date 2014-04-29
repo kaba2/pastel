@@ -37,6 +37,11 @@ namespace Pastel
 	{
 		PENSURE_OP(joinBlackHeight, >= , 0);
 
+		if (blackHeight() < joinBlackHeight)
+		{
+			return cend();
+		}
+
 		ConstIterator node = croot();
 		ConstIterator parent = cend();
 		integer currentBlackHeight = blackHeight();
@@ -69,10 +74,6 @@ namespace Pastel
 			swapElements(that);
 			return *this;
 		}
-
-		// Turn the roots of both trees black.
-		setRootBlack();
-		that.setRootBlack();
 
 		bool thatIsLarger = !less(
 			that.begin().key(),
@@ -167,11 +168,11 @@ namespace Pastel
 		// Replace the 'node' with the 'middle' node.
 		link(parent, middle, right);
 
-		// Attach the subtree rooted at 'node' as 
-		// the left/right subtree of the 'middle' node.
+		// Attach the 'node'-subtree as the left/right 
+		// subtree of the 'middle' node.
 		link(middle, node, !right);
 
-		// Attach the that tree as the right/left
+		// Attach the 'that' subtree as the right/left
 		// subtree of the 'middle' node.
 		link(middle, that, right);
 
