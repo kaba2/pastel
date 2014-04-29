@@ -151,10 +151,11 @@ namespace Pastel
 		if (empty())
 		{
 			ASSERT(parent->isSentinel());
-			//ASSERT(middle->isSentinel());
+			ASSERT(middle->isSentinel());
 
 			blackHeight_ = thatBlackHeight;
 			link(middle, that, right);
+
 			return;
 		}
 
