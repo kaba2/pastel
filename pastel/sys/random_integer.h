@@ -25,7 +25,9 @@ namespace Pastel
 	Exception safety: nothrow
 
 	The n = 0 is interpreted as spanning the whole range [0, 2^w),
-	where w = sizeInBits<uinteger>().
+	where w = sizeInBits<uinteger>(). The excepted number of draws 
+	made from the underlying [0, 2^w)-random-number generator is always 
+	less than 2.
 	*/
 	uinteger randomUinteger(uinteger n);
 
