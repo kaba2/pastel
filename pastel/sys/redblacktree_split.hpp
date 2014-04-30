@@ -46,6 +46,15 @@ namespace Pastel
 		// indices). By storing the path bottom-up, 
 		// we avoid doing any comparisons. 
 		std::vector<Node*> path;
+		
+		// By the properties of the red-black tree,
+		// and since we also retain the root black,
+		// the height of the red-black tree is at
+		// most 2 times the black-height; this is
+		// achieved by alternating red and black
+		// nodes.
+		path.reserve(2 * tree.blackHeight());
+		
 		{
 			// We will store the first node twice
 			// in the path. This is so that the
@@ -80,8 +89,6 @@ namespace Pastel
 			integer blackHeight;
 			// A detached node whose key is an extremum of the 'tree'.
 			Node* middle;
-			// An extremum node of the 'tree'.
-			Node* extremum;
 		};
 
 		State stateSet[] =
@@ -90,14 +97,12 @@ namespace Pastel
 				&leftTree,
 				leftTree.endNode(),
 				0,
-				leftTree.endNode(),
 				leftTree.endNode()
 			},
 			{
 				&rightTree,
 				rightTree.endNode(),
 				0,
-				rightTree.endNode(),
 				rightTree.endNode()
 			}
 		};
@@ -258,49 +263,41 @@ namespace Pastel
 			}
 		}
 
-		// Find the new extrema.
 		for (integer i = 0; i < 2; ++i)
 		{
 			State& state = stateSet[i];
-			Node* extremum =
-				state.join->isSentinel() ?
-				state.tree->rootNode() :
-				state.join;
 			bool right = (i == 1);
-			while (!extremum->child(!right)->isSentinel())
+
+			if (!state.tree->empty())
 			{
-				extremum = extremum->child(!right);
+				// Find the new extremum.
+				Node* extremum =
+					state.join->isSentinel() ?
+					state.tree->rootNode() :
+					state.join;
+				while (!extremum->child(!right)->isSentinel())
+				{
+					extremum = extremum->child(!right);
+				}
+
+				// Update the new extremum.
+				state.tree->extremumNode(!right) = extremum;
+
+				// Update the other extremum, which is from the original tree.
+				state.tree->extremumNode(right) = tree.extremumNode(right);
+
+				// Make sure the left child of the minimum, and the right
+				// child of the maximum points to the end-node of 'state.tree'.
+				state.tree->extremumNode(right)->child(right) = state.tree->endNode();
+				state.tree->extremumNode(!right)->child(!right) = state.tree->endNode();
 			}
-			state.extremum = extremum;
-		}
 
-		// Update the minima and maxima.
-		if (!leftTree.empty())
-		{
-			leftTree.minNode() = tree.minNode();
-			leftTree.minNode()->left() = leftTree.endNode();
-			leftTree.maxNode() = stateSet[0].extremum;
-			leftTree.maxNode()->right() = leftTree.endNode();
-		}
-		if (!rightTree.empty())
-		{
-			rightTree.minNode() = stateSet[1].extremum;
-			rightTree.minNode()->left() = rightTree.endNode();
-			rightTree.maxNode() = tree.maxNode();
-			rightTree.maxNode()->right() = rightTree.endNode();
-		}
-
-		if (!stateSet[0].middle->isSentinel())
-		{
-			// A middle node from the left tree was 
-			// left unattached. Do that now.
-			leftTree.attach(stateSet[0].middle, leftTree.maxNode(), true);
-		}
-		if (!stateSet[1].middle->isSentinel())
-		{
-			// A middle node from the right tree was 
-			// left unattached. Do that now.
-			rightTree.attach(stateSet[1].middle, rightTree.minNode(), false);
+			if (!state.middle->isSentinel())
+			{
+				// A middle node was left unattached. Do that now.
+				state.tree->attach(state.middle, 
+					state.tree->extremumNode(!right), !right);
+			}
 		}
 
 		// Isolate the 'rightFirst' node for attaching.
