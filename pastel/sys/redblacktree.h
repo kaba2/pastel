@@ -640,7 +640,12 @@ namespace Pastel
 		If multiple keys are not allowed, then the 
 		comparisons above are required to hold strictly (<).
 
-		Time complexity: O(log(n_2 / n_1))
+		Time complexity: 
+		O(log(n_1 + 2) - log(n_2 + 2))
+		where
+		n_1 = std::max(size(), that.size()),
+		n_2 = std.:min(size(), that.size()).
+
 		Exception safety: nothrow
 
 		The sentinel nodes are preserved.
@@ -649,7 +654,7 @@ namespace Pastel
 
 		//! Splits the tree into two.
 		/*!
-		Time complexity: O(log(size()) + 2))
+		Time complexity: O(log^2(size()) + 2))
 		Exception safety: nothrow
 
 		returns:
@@ -658,6 +663,12 @@ namespace Pastel
 		shares the bottom node with this tree.
 
 		The sentinel nodes are preserved.
+
+		FIX: I am being conservative in the time-complexity 
+		above. It is possible that the complexity amortizes
+		to remove the square, as I have read elsewhere, but 
+		I am not able to see it at the moment. Figure this 
+		out.
 		*/
 		RedBlackTree split(const ConstIterator& rightBegin);
 
