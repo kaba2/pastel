@@ -36,8 +36,11 @@ Release date xx.x.2014
 ### PastelSys
 
 * Added the c-fast trie data structure.
-* Added the skip list data structure.
+* Refactored and fixed bugs in red-black tree.
+* Added splitting and merging into the red-black tree.
+* Added the deterministic skip list data structure.
 * Added geometrically-distributed random numbers.
+* Made integer random-number generation truly uniform.
 * Added fixed-size integers.
 * Added algebraic concepts.
 * Renamed the Reporter concept to the Output concept.
