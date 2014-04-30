@@ -1208,6 +1208,16 @@ namespace Pastel
 			return (Node*&)end_->parent();
 		}
 
+		//! Returns an extremum node.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Node*& extremumNode(bool right) const
+		{
+			return right ? maxNode() : minNode();
+		}
+
 		//! Returns the end node.
 		/*!
 		Time complexity: O(1)
