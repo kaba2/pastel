@@ -973,8 +973,19 @@ namespace Pastel
 		'right' subtree of 'parent' is one less than it is on
 		a path that does not end in the 'right' subtree of 'parent'.
 
-		Time complexity: O(log(size()))
+		Time complexity: 
+		O(log(size()))
+		Omega(d)
+		where
+		d is the depth of 'parent'.
+		
 		Exception safety: nothrow
+
+		The rebalancing uses either 0, 1, 2, or 3 rotations.
+		If it uses 2 rotations, then it is because of a double-rotation.
+		If it uses 3 rotations, then it is because of a rotation and
+		a double-rotation. The lower-bound is Omega(d), rather than 
+		Omega(1), because of the need to propagate propagations.
 		*/
 		void rebalanceBlackLoss(
 			Node* parent, bool right);
@@ -987,8 +998,18 @@ namespace Pastel
 		* node->red()
 		* !node->isSentinel()
 
-		Time complexity: O(log(size()))
+		Time complexity: 
+		O(log(size()))
+		Omega(d)
+		where
+		d is the depth of 'node'.
+
 		Exception safety: nothrow
+
+		The rebalancing uses either 0, 1, or 2 rotations.
+		If it uses 2 rotations, then it is because of a double-rotation.
+		The lower-bound is Omega(d), rather than Omega(1), because of the
+		need to propagate propagations.
 		*/
 		void rebalanceRedViolation(Node* node);
 

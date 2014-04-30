@@ -30,7 +30,7 @@ namespace Pastel
 			return rightTree;
 		}
 
-		// The tree that subtrees are split off from.
+		// The tree from which subtrees are split off.
 		// During this function 'tree' is in a state
 		// which violates the red-black invariants.
 		// However, they are fixed as soon as 'tree' 
@@ -41,14 +41,20 @@ namespace Pastel
 
 		Node* rightFirst = (Node*)rightBegin.base();
 
+		// The path from the 'rightBegin' node
+		// to the root (in increasing order of
+		// indices). By storing the path bottom-up, 
+		// we avoid doing any comparisons. 
 		std::vector<Node*> path;
 		{
-			Node* node = (Node*)rightBegin.base();
-
 			// We will store the first node twice
-			// in the path.
+			// in the path. This is so that the
+			// same code can be used to split off 
+			// both children of the 'rightBegin' node.
+			Node* node = (Node*)rightBegin.base();
 			path.push_back(node);
 
+			// Store the path.
 			while (!node->isSentinel())
 			{
 				path.push_back(node);
@@ -56,7 +62,15 @@ namespace Pastel
 			}
 		}
 
-		struct Join
+		// It would be nice if there were a way to
+		// do the split bottom-up, so as to avoid
+		// storing the path as above. However, I
+		// was unable to devise such an algorithm.
+		// The primary problem is possibly that the 
+		// subtrees do not then get splitted in
+		// decreasing order of height.
+
+		struct State
 		{
 			// The target tree where to place the splitted-off subtree.
 			RedBlackTree* tree;
@@ -70,7 +84,7 @@ namespace Pastel
 			Node* extremum;
 		};
 
-		Join joinSet[] =
+		State stateSet[] =
 		{
 			{
 				&leftTree,
@@ -100,26 +114,23 @@ namespace Pastel
 
 			// Find out which subtree to split off
 			// from the 'tree'.
-			bool right = false;
-			if (i > 0)
+			bool right = (i == 1);
+			if (i > 1)
 			{
 				// The subtree to split off is opposite
 				// to where the path is going.
 				right = !(path[i - 1] == node->right());
+			}
 
+			if (i > 0)
+			{
 				// Track the black-height of 'node' 
 				// as we descend down the path.
 				blackHeight -= node->black();
 			}
-			else
-			{
-				// We will also want to split off the 
-				// other subtree of the 'rightBegin' node.
-				right = (path[0] == node->right());
-			}
 
 			// The target tree is on the 'right'.
-			Join& join = joinSet[right];
+			State& state = stateSet[right];
 
 			// Retrieve the subtree to split off.
 			Node* subtree = node->child(right);
@@ -135,11 +146,21 @@ namespace Pastel
 				++subtreeBlackHeight;
 			}
 
-			bool firstJoin = join.tree->empty();
-			if (!firstJoin)
+			if (state.join->isSentinel())
 			{
-				// The target tree is not empty.
+				// Whenever we join to the root node, we
+				// reset the black-height of the state to
+				// the black-height of the tree. This is
+				// important, because previous joins to 
+				// the root node may increase the black-height.
+				state.blackHeight = state.tree->blackHeight();
+			}
 
+			ASSERT(!state.join->isSentinel() ||
+				state.blackHeight == state.tree->blackHeight());
+
+			if (!state.tree->empty())
+			{
 				// Find, in the target tree, a black node
 				// with black-height equal to the subtree's
 				// black-height. We call this the 'join' node.
@@ -149,102 +170,81 @@ namespace Pastel
 				// iteratively as parts are joined into
 				// the target tree. In addition, we track
 				// the black-height of the 'join' node.
+
 				// The incremental tracking is possible because 
 				// we split the subtrees in decreasing order of 
 				// height.
+				ASSERT_OP(subtreeBlackHeight, <=, state.tree->blackHeight());
 
 				// If we have done the incremental tracking right,
 				// then we never need to back down. This is important,
 				// because backing down risks O(log(n)^2) complexity.
-				ASSERT_OP(join.blackHeight, >= , subtreeBlackHeight);
+				ASSERT_OP(state.blackHeight, >= , subtreeBlackHeight);
 
-				while (join.blackHeight > subtreeBlackHeight ||
-					join.join->red())
+				if (state.blackHeight > subtreeBlackHeight ||
+					state.join->child(!right)->red())
 				{
-					join.blackHeight -= join.join->black();
-					join.join = join.join->child(!right);
+					// If the black-height of 'state.join' is too high,
+					// then descend down the '!right' spine of
+					// 'state.tree'.
+
+					if (state.join->isSentinel())
+					{
+						state.join = state.tree->rootNode();
+						state.blackHeight -= state.join->black();
+					}
+
+					while (state.blackHeight > subtreeBlackHeight ||
+						state.join->child(!right)->red())
+					{
+						state.join = state.join->child(!right);
+						state.blackHeight -= state.join->black();
+					}
+
+					ASSERT(!state.join->isSentinel());
 				}
 
-				ASSERT_OP(join.blackHeight, == , subtreeBlackHeight);
-				ASSERT(join.join->black());
+				ASSERT_OP(state.blackHeight, == , subtreeBlackHeight);
 			}
 
-			ASSERT(firstJoin || !join.middle->isSentinel());
+			ASSERT(state.join->child(!right)->black());
+			ASSERT(state.join->isSentinel() || 
+				state.join == state.tree->rootNode() ||
+				state.join == state.join->parent()->child(!right));
 
-			Node* parent = join.join;
-			if (!parent->isSentinel())
-			{
-				parent = parent->parent();
-			}
-
-#			if defined (DEBUG) || defined(_DEBUG)
+#			if defined(DEBUG) || defined(_DEBUG)
 			// This code is for debugging purposes only.
-			if (!join.join->isSentinel())
+			if (!state.join->isSentinel())
 			{
-				// Check that the black-height of 'join.join'
-				// really equals join.blackHeight.
-				Node* node = join.join;
+				// Check that the black-height of 'state.join'
+				// really equals state.blackHeight, and that
+				// it is on the '!right' spine of 'join.tree'.
+				Node* node = state.join;
 				integer realBlackHeight = 
-					join.tree->blackHeight() + node->black();
+					state.tree->blackHeight();
 				while(!node->isSentinel())
 				{
-					realBlackHeight -= node->black();
-					node = node->parent();
-				}
-				ASSERT_OP(realBlackHeight, ==, join.blackHeight);
-			}
+					Node* parent = node->parent();
+					ASSERT(parent->isSentinel() || 
+						node == parent->child(!right));
 
-			integer blackHeightBefore = join.tree->blackHeight();
+					realBlackHeight -= node->black();
+					node = parent;
+				}
+				ASSERT_OP(realBlackHeight, ==, state.blackHeight);
+			}
 #			endif
 
 			// Join the 'subtree' into the target tree.
-			join.tree->join(
+			state.tree->join(
 				subtree,
 				subtreeBlackHeight,
-				parent, !right,
-				join.middle);
-
-			ASSERT(!join.tree->empty());
-			
-#			if defined (DEBUG) || defined(_DEBUG)
-			// This code is for debugging purposes only.
-			integer blackHeightAfter = join.tree->blackHeight();
-			if (blackHeightBefore != blackHeightAfter)
-			{
-				// Check that the black-height of the 'join.tree'
-				// changes only in a limited number of cases:
-				// the first join, and the last two joins. In
-				// these cases the change in the black-height
-				// does not matter; in the first join, the
-				// join.blackHeight will get overwritten below,
-				// and in the last two joins, there will be no
-				// more joins.
-				ASSERT(firstJoin || i <= 1);
-				if (!firstJoin)
-				{
-					// If the last two joins change the black-height,
-					// then it is necessarily by one, as a consequence
-					// of resolving red-red violations.
-					ASSERT_OP(blackHeightAfter - blackHeightBefore, ==, 1);
-				}
-			}
-#			endif
+				state.join, !right,
+				state.middle);
 
 			// Make sure the 'middle' node is not
 			// used again in a join.
-			join.middle = join.tree->endNode();
-
-			if (firstJoin)
-			{
-				// This was the first join into the
-				// target tree. Set the root node as the
-				// current 'join' node, together with
-				// its black-height. This is how
-				// the incremental tracking of the 'join'
-				// node begins.
-				join.join = join.tree->rootNode();
-				join.blackHeight = join.tree->blackHeight();
-			}
+			state.middle = state.tree->endNode();
 
 			if (node != rightFirst)
 			{
@@ -254,24 +254,24 @@ namespace Pastel
 				// key in the target tree, it is used
 				// as the 'middle' node for the next split.
 				node->isolate();
-				join.middle = node;
+				state.middle = node;
 			}
 		}
 
 		// Find the new extrema.
 		for (integer i = 0; i < 2; ++i)
 		{
-			Join& join = joinSet[i];
+			State& state = stateSet[i];
 			Node* extremum =
-				join.join->isSentinel() ?
-				join.tree->rootNode() :
-				join.join;
+				state.join->isSentinel() ?
+				state.tree->rootNode() :
+				state.join;
 			bool right = (i == 1);
 			while (!extremum->child(!right)->isSentinel())
 			{
 				extremum = extremum->child(!right);
 			}
-			join.extremum = extremum;
+			state.extremum = extremum;
 		}
 
 		// Update the minima and maxima.
@@ -279,28 +279,28 @@ namespace Pastel
 		{
 			leftTree.minNode() = tree.minNode();
 			leftTree.minNode()->left() = leftTree.endNode();
-			leftTree.maxNode() = joinSet[0].extremum;
+			leftTree.maxNode() = stateSet[0].extremum;
 			leftTree.maxNode()->right() = leftTree.endNode();
 		}
 		if (!rightTree.empty())
 		{
-			rightTree.minNode() = joinSet[1].extremum;
+			rightTree.minNode() = stateSet[1].extremum;
 			rightTree.minNode()->left() = rightTree.endNode();
 			rightTree.maxNode() = tree.maxNode();
 			rightTree.maxNode()->right() = rightTree.endNode();
 		}
 
-		if (!joinSet[0].middle->isSentinel())
+		if (!stateSet[0].middle->isSentinel())
 		{
 			// A middle node from the left tree was 
 			// left unattached. Do that now.
-			leftTree.attach(joinSet[0].middle, leftTree.maxNode(), true);
+			leftTree.attach(stateSet[0].middle, leftTree.maxNode(), true);
 		}
-		if (!joinSet[1].middle->isSentinel())
+		if (!stateSet[1].middle->isSentinel())
 		{
 			// A middle node from the right tree was 
 			// left unattached. Do that now.
-			rightTree.attach(joinSet[1].middle, rightTree.minNode(), false);
+			rightTree.attach(stateSet[1].middle, rightTree.minNode(), false);
 		}
 
 		// Isolate the 'rightFirst' node for attaching.
