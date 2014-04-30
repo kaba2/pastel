@@ -49,21 +49,19 @@ namespace Pastel
 			Node* grandParent = parent->parent();
 			if (grandParent->isSentinel())
 			{
-				//     ?             B
+				//     R             B
 				//     p		     p
 				//   R/ \B	==>	   R/ \B
 				//   n   3		   n   3
 				// B/ \B		 B/ \B
 				// 1   2		 1   2
 
-				if (parent->red())
-				{
-					parent->setBlack();
+				parent->setBlack();
 
-					// This the only case where the 
-					// black-height increases.
-					++blackHeight_;
-				}
+				// This the only case where the 
+				// black-height increases.
+				++blackHeight_;
+
 				update(parent);
 
 				break;

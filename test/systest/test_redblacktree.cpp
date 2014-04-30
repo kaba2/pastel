@@ -1009,16 +1009,30 @@ namespace
 				for (integer i = 0;i < n;++i)
 				{
 					integer data = randomInteger(65536);
-					tree.insert(0, data);
 					dataSet.push_back(data);
+
+					tree.insert(0, data);
 					//TEST_ENSURE(testInvariants(tree));
 				}
 
 				std::vector<integer> correctSet = dataSet;
 				TEST_ENSURE(boost::equal(tree.range().dereferenceData(), correctSet));
 
-				//integer i = 3071;
-				for (integer i = 0; i < n; ++i)
+				std::vector<integer> indexSet;
+				for (integer i = 0; i < 25; ++i)
+				{
+					indexSet.push_back(i);
+				}
+				for (integer i = 3000; i < 3025; ++i)
+				{
+					indexSet.push_back(i);
+				}
+				for (integer i = 4975; i < 5000; ++i)
+				{
+					indexSet.push_back(i);
+				}
+
+				for (integer i : indexSet)
 				{
 					Tree aTree = tree;
 					TEST_ENSURE(testInvariants(aTree));
@@ -1028,13 +1042,6 @@ namespace
 					TEST_ENSURE_OP(aTree.size(), == , i);
 					TEST_ENSURE(testInvariants(bTree));
 					TEST_ENSURE_OP(bTree.size(), == , n - i);
-
-					if (!testInvariants(aTree))
-					{
-						std::cout << i << std::endl;
-						testInvariants(aTree);
-						//break;
-					}
 
 					aTree.join(bTree);
 					TEST_ENSURE(testInvariants(aTree));
@@ -1050,7 +1057,7 @@ namespace
 		{
 			using Tree = MultiMap;
 			{
-				integer n = 50;
+				integer n = 20;
 				for (integer i = 0; i < n; ++i)
 				{
 					for (integer j = 0; j < n; ++j)
