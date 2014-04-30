@@ -646,7 +646,7 @@ namespace Pastel
 		n_1 = std::max(size(), that.size()),
 		n_2 = std.:min(size(), that.size()).
 
-		Exception safety: nothrow
+		Exception safety: strong
 
 		The sentinel nodes are preserved.
 		*/
@@ -654,8 +654,8 @@ namespace Pastel
 
 		//! Splits the tree into two.
 		/*!
-		Time complexity: O(log^2(size()) + 2))
-		Exception safety: nothrow
+		Time complexity: O(log(size()) + 2))
+		Exception safety: strong
 
 		returns:
 		A red-black tree which contains all the elements
@@ -663,12 +663,6 @@ namespace Pastel
 		shares the bottom node with this tree.
 
 		The sentinel nodes are preserved.
-
-		FIX: I am being conservative in the time-complexity 
-		above. It is possible that the complexity amortizes
-		to remove the square, as I have read elsewhere, but 
-		I am not able to see it at the moment. Figure this 
-		out.
 		*/
 		RedBlackTree split(const ConstIterator& rightBegin);
 

@@ -95,7 +95,7 @@ namespace Pastel
 
 			//! Constructs an empty customization.
 			/*!
-			Exception safety: strong
+			Exception safety: basic
 			*/
 			Customization() {}
 
@@ -108,7 +108,7 @@ namespace Pastel
 
 			//! Called at the end of a constructor.
 			/*!
-			Exception safefy: nothrow
+			Exception safefy: basic
 			*/
 			void onConstruction() {};
 
@@ -120,7 +120,7 @@ namespace Pastel
 
 			//! Called at the end of insert().
 			/*!
-			Exception safety: basic or stronger
+			Exception safety: basic
 
 			element:
 			The element which was inserted.
@@ -158,6 +158,8 @@ namespace Pastel
 
 			//! Updates the propagation data in a node.
 			/*!
+			Exception safety: nothrow
+
 			This function updates the propagation data for the
 			subtree pointed to by 'node' under the assumption that 
 			the propagation data in the subtree rooted at 'node'
