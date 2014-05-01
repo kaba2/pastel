@@ -107,6 +107,8 @@ namespace Pastel
 			}
 		};
 
+		Node* extremumSet[] = { tree.minNode(), tree.maxNode() };
+
 		integer blackHeight = tree.blackHeight();
 		for (integer i = path.size() - 1; i >= 0; --i)
 		{
@@ -267,11 +269,15 @@ namespace Pastel
 			}
 		}
 
-		for (integer i = 0; i < 2; ++i)
-		{
-			State& state = stateSet[i];
-			bool right = (i == 1);
+		// While the 'tree' may have gone through multiple
+		// invalid states, we now reset it to a valid state
+		// by forgetting that it ever owned any nodes.
+		tree.forget();
 
+		// Update the extrema.
+		for (bool right : {false, true})
+		{
+			State& state = stateSet[right];
 			if (!state.tree->empty())
 			{
 				// Find the new extremum.
@@ -288,14 +294,19 @@ namespace Pastel
 				state.tree->extremumNode(!right) = extremum;
 
 				// Update the other extremum, which is from the original tree.
-				state.tree->extremumNode(right) = tree.extremumNode(right);
+				state.tree->extremumNode(right) = extremumSet[right];
 
 				// Make sure the left child of the minimum, and the right
-				// child of the maximum points to the end-node of 'state.tree'.
+				// child of the maximum, points to the end-node of 'state.tree'.
 				state.tree->extremumNode(right)->child(right) = state.tree->endNode();
 				state.tree->extremumNode(!right)->child(!right) = state.tree->endNode();
 			}
+		}
 
+		// Attach the possible left-over middle nodes.
+		for (bool right : {false, true})
+		{
+			State& state = stateSet[right];
 			if (!state.middle->isSentinel())
 			{
 				// A middle node was left unattached. Do that now.
@@ -327,11 +338,6 @@ namespace Pastel
 			}
 			ASSERT(updateNode->isSentinel());
 		}
-
-		// While the 'tree' may have gone through multiple
-		// invalid states, we now reset it to a valid state
-		// by forgetting that it ever owned any nodes.
-		tree.forget();
 
 		// The left tree is stored in this tree;
 		// return the splitted-off right tree.
