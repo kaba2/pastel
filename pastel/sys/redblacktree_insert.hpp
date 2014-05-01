@@ -37,7 +37,11 @@ namespace Pastel
 		Iterator element(node);
 
 		// Attach the node into the tree.
-		attach(node, parent, right);
+		Node* updateNode = attach(node, parent, right);
+
+		// Update the propagation data upwards.
+		updateNode = updateToRoot(updateNode);
+		ASSERT(updateNode->isSentinel());
 
 		// Notify the customization of this tree of the
 		// insertion.
@@ -60,8 +64,9 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	void RedBlackTree<Settings,  Customization>::attach(
+	auto RedBlackTree<Settings,  Customization>::attach(
 		Node* node, Node* parent, bool right)
+	-> Node*
 	{
 		ASSERT(node->red());
 		ASSERT(!node->left());
@@ -74,28 +79,24 @@ namespace Pastel
 		// Attach the node.
 		attachSubtree(node, parent, right, 1);
 
-		if (wasEmpty ||
-			(parent == minNode() && !right))
+		// Update the extrema.
+		for (bool i : {false, true})
 		{
-			// This is the new minimum.
-			minNode() = node;
-			node->left() = endNode();
+			if (wasEmpty ||
+				(parent == extremumNode(i) && (right == i)))
+			{
+				// This is a new extremum.
+				extremumNode(i) = node;
+				node->child(i) = endNode();
+			}
 		}
 
-		if (wasEmpty ||
-			(parent == maxNode() && right))
-		{
-			// This is the new maximum.
-			maxNode() = node;
-			node->right() = endNode();
-		}
-
-		// Update the propagation data in subtree
-		// rooted at 'node'. See the loop invariant below.
+		// Update the propagation data at 'node'.
+		// See the preconditions for the rebalanceRedViolation().
 		update(node);
 
-		// Fix the red violations.
-		rebalanceRedViolation(node);
+		// Fix the red-red violations.
+		return rebalanceRedViolation(node);
 	}
 
 }

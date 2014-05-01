@@ -34,6 +34,11 @@ namespace Pastel
 				return true;
 			}
 
+			if (!iter.validPropagation())
+			{
+				return false;
+			}
+
 			if (iter == tree.cbegin() &&
 				iter.left() != tree.cend())
 			{

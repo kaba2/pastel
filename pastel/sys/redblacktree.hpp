@@ -74,14 +74,54 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	void RedBlackTree<Settings, Customization>::updateToRoot(
-		Node* node)
+	bool RedBlackTree<Settings, Customization>::update(
+		const Iterator& element)
 	{
-		while(!node->isSentinel())
+		ASSERT(!element.isSentinel());
+
+		Node* node = element.base();
+		if (!node->left()->validPropagation() ||
+			!node->right()->validPropagation())
 		{
-			update(node);
+			return false;
+		}
+
+		node->setSize(
+			node->left()->size() + 1 +
+			node->right()->size());
+
+		this->updatePropagation(
+			element,
+			(Propagation_Class&)element.propagation());
+
+		return true;
+	}
+
+	template <typename Settings, template <typename> class Customization>
+	auto RedBlackTree<Settings, Customization>::updateToRoot(
+		Node* node)
+	-> Node*
+	{
+		while(!node->isSentinel() && update(node))
+		{
 			node = node->parent();
 		}
+
+		return node;
+	}
+
+	template <typename Settings, template <typename> class Customization>
+	auto RedBlackTree<Settings, Customization>::invalidateToRoot(Node* node)
+	-> Node*
+	{
+		while(!node->isSentinel() &&
+			node->validPropagation())
+		{
+			node->invalidatePropagation();
+			node = node->parent();
+		}
+
+		return node;
 	}
 
 	template <typename Settings, template <typename> class Customization>

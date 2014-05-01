@@ -95,7 +95,10 @@ namespace Pastel
 		{
 			Node* extremum = thatIsLarger ?
 				that.minNode() : that.maxNode();
-			that.attach(middle, extremum, !thatIsLarger);
+			Node* updateNode = 
+				that.attach(middle, extremum, !thatIsLarger);
+			updateToRoot(updateNode);
+
 			swapElements(that);
 			return *this;
 		}
@@ -123,9 +126,13 @@ namespace Pastel
 		maxNode()->right() = bottomNode();
 
 		// Join 'that' tree to this tree.
-		join(that.rootNode(), that.blackHeight(),
+		Node* updateNode = 
+			join(that.rootNode(), that.blackHeight(),
 			parent, thatIsLarger,
 			middle);
+
+		// Update propagation information upwards.
+		updateToRoot(updateNode);
 
 		minNode() = min;
 		minNode()->left() = endNode();
@@ -140,10 +147,11 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	void RedBlackTree<Settings, Customization>::join(
+	auto RedBlackTree<Settings, Customization>::join(
 		Node* that, integer thatBlackHeight,
 		Node* parent, bool right,
 		Node* middle)
+	-> Node*
 	{
 		ASSERT(that->black());
 		ASSERT_OP(thatBlackHeight, >= , 0);
@@ -156,7 +164,7 @@ namespace Pastel
 			blackHeight_ = thatBlackHeight;
 			link(middle, that, right);
 
-			return;
+			return middle;
 		}
 
 		ASSERT(!middle->isSentinel());
@@ -177,11 +185,12 @@ namespace Pastel
 		// subtree of the 'middle' node.
 		link(middle, that, right);
 
-		// Update the propagation at 'middle'.
+		// Update propagation at 'middle'.
+		// See the preconditions for the rebalanceRedViolation().
 		update(middle);
 
 		// Fix the possible red violation.
-		rebalanceRedViolation(middle);
+		return rebalanceRedViolation(middle);
 	}
 
 }

@@ -241,11 +241,15 @@ namespace Pastel
 #			endif
 
 			// Join the 'subtree' into the target tree.
-			state.tree->join(
+			Node* updateNode =
+				state.tree->join(
 				subtree,
 				subtreeBlackHeight,
 				state.join, !right,
 				state.middle);
+
+			// Invalidate propagation information upwards from 'middle'.
+			invalidateToRoot(updateNode);
 
 			// Make sure the 'middle' node is not
 			// used again in a join.
@@ -295,8 +299,10 @@ namespace Pastel
 			if (!state.middle->isSentinel())
 			{
 				// A middle node was left unattached. Do that now.
-				state.tree->attach(state.middle, 
+				Node* updateNode = 
+					state.tree->attach(state.middle, 
 					state.tree->extremumNode(!right), !right);
+				invalidateToRoot(updateNode);
 			}
 		}
 
@@ -306,7 +312,21 @@ namespace Pastel
 		// Attach the 'rightFirst' node.
 		// It is, by definition, the minimum node in the right tree,
 		// so we immediately know its position.
-		rightTree.attach(rightFirst, rightTree.minNode(), false);
+		{
+			Node* updateNode = 
+				rightTree.attach(rightFirst, rightTree.minNode(), false);
+			invalidateToRoot(updateNode);
+		}
+
+		// Update the propagation data all at once.
+		{
+			Node* updateNode = 0;
+			for (integer i = 1;i < path.size();++i)
+			{
+				updateNode = updateToRoot(path[i]);
+			}
+			ASSERT(updateNode->isSentinel());
+		}
 
 		// While the 'tree' may have gone through multiple
 		// invalid states, we now reset it to a valid state
