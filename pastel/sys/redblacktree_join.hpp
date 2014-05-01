@@ -71,46 +71,45 @@ namespace Pastel
 
 		if (empty())
 		{
+			// This tree is empty. Swap the contents
+			// of the trees.
 			swapElements(that);
 			return *this;
 		}
 
+		// Find out whether 'that' tree should come after 
+		// this tree. Note that all the keys can be equal
+		// in both trees. In this case we choose so that
+		// 'that' is larger, so as to give a consistent
+		// order for the trees.
 		bool thatIsLarger = !less(
 			that.begin().key(),
 			last().key());
 
+		if (blackHeight() < that.blackHeight())
+		{
+			// Make it so that this tree has the
+			// larger black-height. It is important
+			// to do this only after deciding the
+			// order above, to guarantee consistency.
+			swapElements(that);
+			thatIsLarger = !thatIsLarger;
+		}
+
+		// Find out the extrema.
 		Node* min = thatIsLarger ?
 			minNode() : that.minNode();
 		Node* max = thatIsLarger ?
 			that.maxNode() : maxNode();
 
 		// Detach the maximum/minimum key 
-		// of the taller tree.
+		// of 'that' tree. We detach the node
+		// from 'that' tree to guarantee that
+		// this tree is not empty.
 		Node* middle = thatIsLarger ?
-			maxNode() : minNode();
-		detach(middle);
+			that.minNode() : that.maxNode();
+		that.detach(middle);
 		ASSERT(middle->red());
-
-		if (empty())
-		{
-			Node* extremum = thatIsLarger ?
-				that.minNode() : that.maxNode();
-			Node* updateNode = 
-				that.attach(middle, extremum, !thatIsLarger);
-			updateToRoot(updateNode);
-
-			swapElements(that);
-			return *this;
-		}
-
-		if (blackHeight() < that.blackHeight())
-		{
-			// Make it so that this tree does not
-			// have a smaller black-height than 'that' 
-			// tree.
-			swapElements(that);
-			thatIsLarger = !thatIsLarger;
-		}
 
 		// Find the largest/smallest node in the
 		// taller tree subject to the node having
@@ -119,9 +118,11 @@ namespace Pastel
 		Node* parent = (Node*)findJoin(
 			that.blackHeight(), thatIsLarger).base();
 
+		// Make the extrema of both trees normal 
+		// nodes, so that they don't point to the
+		// end-nodes.
 		that.minNode()->left() = bottomNode();
 		that.maxNode()->right() = bottomNode();
-
 		minNode()->left() = bottomNode();
 		maxNode()->right() = bottomNode();
 
@@ -131,14 +132,14 @@ namespace Pastel
 			parent, thatIsLarger,
 			middle);
 
-		// Update propagation information upwards.
-		updateToRoot(updateNode);
-
+		// Update the extrema.
 		minNode() = min;
 		minNode()->left() = endNode();
-
 		maxNode() = max;
 		maxNode()->right() = endNode();
+
+		// Update propagation information upwards.
+		updateToRoot(updateNode);
 
 		// Release ownership from 'that' tree.
 		that.forget();
