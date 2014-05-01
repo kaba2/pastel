@@ -86,30 +86,30 @@ namespace Pastel
 			that.begin().key(),
 			last().key());
 
-		if (blackHeight() < that.blackHeight())
-		{
-			// Make it so that this tree has the
-			// larger black-height. It is important
-			// to do this only after deciding the
-			// order above, to guarantee consistency.
-			swapElements(that);
-			thatIsLarger = !thatIsLarger;
-		}
-
-		// Find out the extrema.
+		// Find the extrema.
 		Node* min = thatIsLarger ?
 			minNode() : that.minNode();
 		Node* max = thatIsLarger ?
 			that.maxNode() : maxNode();
 
 		// Detach the maximum/minimum key 
-		// of 'that' tree. We detach the node
-		// from 'that' tree to guarantee that
-		// this tree is not empty.
+		// from this tree.
 		Node* middle = thatIsLarger ?
-			that.minNode() : that.maxNode();
-		that.detach(middle);
+			maxNode() : minNode();
+		detach(middle);
 		ASSERT(middle->red());
+
+		if (blackHeight() < that.blackHeight())
+		{
+			// Make it so that this tree does not
+			// have a smaller black-height than 'that' 
+			// tree. It is important to do this after
+			// the 'middle' node is detached, because
+			// that affects the black-height of this 
+			// tree.
+			swapElements(that);
+			thatIsLarger = !thatIsLarger;
+		}
 
 		// Find the largest/smallest node in the
 		// taller tree subject to the node having
@@ -157,15 +157,25 @@ namespace Pastel
 		ASSERT(that->black());
 		ASSERT_OP(thatBlackHeight, >= , 0);
 
+		if (that->isSentinel() && 
+			middle->isSentinel())
+		{
+			return endNode();
+		}
+
 		if (empty())
 		{
 			ASSERT(parent->isSentinel());
-			ASSERT(middle->isSentinel());
+			ASSERT(middle->isSentinel() != that->isSentinel());
 
-			blackHeight_ = thatBlackHeight;
-			link(middle, that, right);
+			if (!that->isSentinel())
+			{
+				link(endNode(), that, right);
+				blackHeight_ = thatBlackHeight;
+				return endNode();
+			}
 
-			return middle;
+			return attach(middle, endNode(), right);
 		}
 
 		ASSERT(!middle->isSentinel());
