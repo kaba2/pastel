@@ -58,7 +58,10 @@ namespace Pastel
 		bool right = parentAndRight.right;
 
 		// Attach the new node into this tree.
-		attach(node, parent.base(), right);
+		Node* updateNode = attach(node, parent.base(), right);
+
+		// Update propagation data upwards.
+		updateToRoot(updateNode);
 
 		// Notify the customization of this tree.
 		this->onSplice(element);

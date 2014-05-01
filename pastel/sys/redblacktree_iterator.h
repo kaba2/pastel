@@ -96,6 +96,11 @@ namespace Pastel
 				return node()->isSentinel();
 			}
 
+			bool validPropagation() const
+			{
+				return node()->validPropagation();
+			}
+
 			Iterator parent() const
 			{
 				return Iterator(node()->parent());

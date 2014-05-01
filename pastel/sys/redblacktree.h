@@ -294,6 +294,11 @@ namespace Pastel
 		*/
 		integer blackHeight(const ConstIterator& node) const
 		{
+			if (node->isSentinel())
+			{
+				return 0;
+			}
+
 			integer result = blackHeight_;
 			while(!node->parent()->isSentinel())
 			{
@@ -663,6 +668,11 @@ namespace Pastel
 		shares the bottom node with this tree.
 
 		The sentinel nodes are preserved.
+
+		This function really has O(log) complexity,
+		rather than O(log^2) complexity. This is because
+		we amortize the cost of the propagation updates
+		over the joins caused by the split.
 		*/
 		RedBlackTree split(const ConstIterator& rightBegin);
 
@@ -945,7 +955,9 @@ namespace Pastel
 		!node->left()
 		!node->right()
 		!parent->child(right)->isSentinel()
+		
 		Attaching the node preserves the binary search property.
+		The propagation data will not be updated.
 
 		node:
 		The node to attach into the tree.
@@ -953,7 +965,7 @@ namespace Pastel
 		parent, right:
 		The attachment position.
 		*/
-		void attach(
+		Node* attach(
 			Node* node,
 			Node* parent,
 			bool right);
@@ -978,21 +990,19 @@ namespace Pastel
 		'right' subtree of 'parent' is one less than it is on
 		a path that does not end in the 'right' subtree of 'parent'.
 
-		Time complexity: 
-		O(log(size()))
-		Omega(d)
-		where
-		d is the depth of 'parent'.
-		
+		Time complexity: O(log(size()))
 		Exception safety: nothrow
 
 		The rebalancing uses either 0, 1, 2, or 3 rotations.
 		If it uses 2 rotations, then it is because of a double-rotation.
 		If it uses 3 rotations, then it is because of a rotation and
-		a double-rotation. The lower-bound is Omega(d), rather than 
-		Omega(1), because of the need to propagate propagations.
+		a double-rotation. 
+
+		returns:
+		The node at which the black-loss rebalancing completed.
+		The propagation data must be updated from this node upwards.
 		*/
-		void rebalanceBlackLoss(
+		Node* rebalanceBlackLoss(
 			Node* parent, bool right);
 
 		//! Fixes a red-red violation.
@@ -1013,10 +1023,12 @@ namespace Pastel
 
 		The rebalancing uses either 0, 1, or 2 rotations.
 		If it uses 2 rotations, then it is because of a double-rotation.
-		The lower-bound is Omega(d), rather than Omega(1), because of the
-		need to propagate propagations.
+
+		returns:
+		The node at which the red-red rebalancing completed.
+		The propagation data must be updated from this node upwards.
 		*/
-		void rebalanceRedViolation(Node* node);
+		Node* rebalanceRedViolation(Node* node);
 
 		//! Returns the elements equivalent to the given key.
 		/*!
@@ -1028,15 +1040,61 @@ namespace Pastel
 			const FindEqual_Return& equalAndUpper,
 			EqualRange compute) const;
 
-		//! Updates hierarhical data on the path to root.
+		//! Updates propagation data.
+		/*!
+		Time complexity: updatePropagation()
+		Exception safety: nothrow
+
+		The update is performed only if both children
+		of the node have valid propagation data.
+
+		returns:
+		Whether the update was performed.
+		*/
+		bool update(const Iterator& element);
+
+		//! Updates propagation data on the path to root.
 		/*!
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 
-		Calls updateHierarhical(node) for each node in 
+		Calls updatePropagation(node) for each node in 
 		the path to the root, including 'node' itself.
+		However, if a node has a child with invalid
+		propagation data, then the update is terminated.
+
+		returns:
+		The node at which the update was terminated,
+		due to reaching a node which either the sentinel
+		node, or a node with a child with invalid
+		propagation data.
 		*/
-		void updateToRoot(Node* node);
+		Node* updateToRoot(Node* node);
+
+		//! Invalidates propagation data.
+		/*!
+		Time complexity: 
+		O(d),
+		where
+		d is the number of steps needed to
+		reach an invalidated ancestor node.
+
+		Exception safety: nothrow
+
+		This function is useful as a way to amortize the
+		cost of multiple changes to propagation data. The
+		idea is to mark the path to the root as invalid.
+		This marking is complete as soon as an invalidated 
+		node is encountered. Later, the invalidated paths
+		can be updated, using updateToRoot(), without
+		performing redundant updates. This decreases the
+		complexity of split() from O(log^2) to O(log).
+
+		returns:
+		Either the end-node, or the first ancestor node
+		which is already invalidated.
+		*/
+		Node* invalidateToRoot(Node* node);
 
 		//! Copy-constructs a subtree.
 		/*!
@@ -1068,25 +1126,6 @@ namespace Pastel
 			construct(copy);
 			swapElements(copy);
 			return *this;
-		}
-
-		//! Updates propagation data.
-		/*!
-		Time complexity: updatePropagation()
-		Exception safety: nothrow
-		*/
-		void update(const Iterator& element)
-		{
-			ASSERT(!element.isSentinel());
-
-			Node* node = element.base();
-			node->setSize(
-				node->left()->size() + 1 +
-				node->right()->size());
-
-			this->updatePropagation(
-				element,
-				(Propagation_Class&)element.propagation());
 		}
 
 		//! Returns the result of comparing keys.
@@ -1136,17 +1175,22 @@ namespace Pastel
 		!middle->right()
 		middle->red()
 
-		Time complexity: O(1)
+		Time complexity: O(1) amortized 
 		Exception safety: nothrow
 
 		Replaces 'node' with 'middle', makes
-		'node' as the '!thatRight' child of 'middle',
-		and 'that' as the 'thatRight' child of 'middle'.
-		Rebalances any red-violations. In case 'thatRight'
+		'node' as the '!right' child of 'middle',
+		and 'that' as the 'right' child of 'middle'.
+		Rebalances any red-violations. In case 'right'
 		is true, the maximum will not be updated. Similarly
-		for the minimum if 'thatRight' is false.
+		for the minimum if 'right' is false. The propagation
+		data will not be updated from 'middle' upwards, and
+		therefore must be done later.
+
+		The time-complexity arises from calling the rebalancing
+		algorithm for the red-red violations.
 		*/
-		void join(
+		Node* join(
 			Node* that, 
 			integer thatBlackHeight,
 			Node* parent, bool right,

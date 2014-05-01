@@ -7,9 +7,11 @@ namespace Pastel
 {
 
 	template <typename Settings, template <typename> class Customization>
-	void RedBlackTree<Settings, Customization>::rebalanceRedViolation(
+	auto RedBlackTree<Settings, Customization>::rebalanceRedViolation(
 		Node* node)
+	-> Node*
 	{
+		Node* parent = 0;
 		while (true)
 		{
 			// The loop invariant is as follows:
@@ -23,7 +25,7 @@ namespace Pastel
 			ASSERT(!node->isSentinel());
 			ASSERT(node->red());
 
-			Node* parent = node->parent();
+			parent = node->parent();
 			if (parent->black())
 			{
 				//     |B 
@@ -33,10 +35,7 @@ namespace Pastel
 				// B/ \B  
 				// 1   2  
 
-				// We have fixed all the violations. It suffices
-				// to update the propagation data up
-				// to the root.
-				updateToRoot(parent);
+				// We have fixed all the violations. 
 				break;
 			}
 
@@ -57,12 +56,7 @@ namespace Pastel
 				// 1   2		 1   2
 
 				parent->setBlack();
-
-				// This the only case where the 
-				// black-height increases.
 				++blackHeight_;
-
-				update(parent);
 
 				break;
 			}
@@ -126,10 +120,7 @@ namespace Pastel
 				
 				update(grandParent);
 
-				// We have fixed all the violations. It suffices
-				// to update the propagation data up
-				// to the root.
-				updateToRoot(parent);
+				// We have fixed all the violations.
 				break;
 			}
 
@@ -169,6 +160,14 @@ namespace Pastel
 		// root node is black, although this is not
 		// part of our definition of a red-black tree.
 		setRootBlack();
+
+		// Note that we deliberately do not update propagation
+		// data from 'parent' upwards. This is because sometimes
+		// we wish to amortize the cost of multiple updates,
+		// as is done in split(). Instead, we return the node
+		// from which the propagation should be updated upwards.
+
+		return parent;
 	}
 
 }

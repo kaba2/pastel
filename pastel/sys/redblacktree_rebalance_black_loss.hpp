@@ -7,8 +7,9 @@ namespace Pastel
 {
 
 	template <typename Settings, template <typename> class Customization>
-	void RedBlackTree<Settings, Customization>::rebalanceBlackLoss(
+	auto RedBlackTree<Settings, Customization>::rebalanceBlackLoss(
 		Node* parent, bool right)
+	-> Node*
 	{
 		while(!parent->isSentinel())
 		{
@@ -219,9 +220,7 @@ namespace Pastel
 			break;
 		}
 
-		// Update the propagation data up
-		// to the root.
-		updateToRoot(parent);
+		return parent;
 	}
 
 }

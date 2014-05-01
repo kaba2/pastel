@@ -45,6 +45,11 @@ namespace Pastel
 				return left() == this;
 			}
 
+			bool validPropagation() const
+			{
+				return size_ >= 0;
+			}
+
 			integer size() const
 			{
 				return size_;
@@ -128,6 +133,11 @@ namespace Pastel
 			Node*& right() const
 			{
 				return (Node*&)child_[1];
+			}
+
+			void invalidatePropagation()
+			{
+				size_ = -1;
 			}
 
 			//! The parent node.

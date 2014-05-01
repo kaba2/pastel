@@ -223,7 +223,11 @@ namespace Pastel
 		// There are no red-red violations from now on.
 
 		// Fix the loss in black-height.
-		rebalanceBlackLoss(newParent, right);
+		Node* updateNode = rebalanceBlackLoss(newParent, right);
+
+		// Update the propagation data upwards.
+		updateNode = updateToRoot(updateNode);
+		ASSERT(updateNode->isSentinel());
 
 		// Return the next element.
 		return successor;
