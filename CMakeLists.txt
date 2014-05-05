@@ -6,7 +6,7 @@ cmake_minimum_required (VERSION 2.8)
 # Interpret relative paths w.r.t. the source directory in
 # in link_directories().
 cmake_policy(SET CMP0015 NEW)
- 
+
 project (Pastel)
 
 # Paths
@@ -227,6 +227,19 @@ endif()
 # -------------
 
 if (MSVC)
+	# Do not add ZERO_CHECK project into the Visual Studio solution.
+	# From VS2008 to VS2013, the ZERO_CHECK project is always out
+	# of date, which causes the Visual Studio to ask at every build
+	# whether ZERO_CHECK should be built, although nothing was changed.
+	# The purpose of the ZERO_CHECK project is to check whether there
+	# are changes to the CMake files themselves, and to regenerate the
+	# project files if so. But even then the projects are regenerated
+	# during the build, and they need to be reloaded, and that is not 
+	# very smooth. It is better to suppress this feature and to 
+	# regenerate the project files manually whenever the CMake files
+	# are changed.
+	set(CMAKE_SUPPRESS_REGENERATION TRUE)
+
 	add_definitions (
 		# Disable Microsoft's Secure STL
 		/D_ITERATOR_DEBUG_LEVEL=0
