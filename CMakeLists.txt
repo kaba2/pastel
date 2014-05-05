@@ -86,6 +86,9 @@ set (PastelLibraryType STATIC)
 # The source files to include in the build.
 set (PastelSourceGlobSet *.cpp *.h *.hpp *.txt)
 
+# The documentation files of the project.
+set (PastelDocumentationGlobSet *.txt)
+
 # The Threading Building Blocks dynamic library is 
 # linked to every executable.
 set (ExecutableLibrarySet tbb)
