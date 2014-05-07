@@ -13,6 +13,7 @@
 #include "pastel/sys/leading_zero_bits.h"
 #include "pastel/sys/lowest_bit.h"
 #include "pastel/sys/number_of_one_bits.h"
+#include "pastel/sys/integer_complexity.h"
 #include "pastel/sys/set_bits.h"
 #include "pastel/sys/twos_complement.h"
 #include "pastel/sys/zero_higher_bits.h"
