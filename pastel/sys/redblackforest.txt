@@ -1,0 +1,19 @@
+Red-black forest
+================
+
+The _red-black forest_ is a data structure to manipulate and store an ordered sequence. It offers a way to partition the sequence into subsequent sets, such that dictionary searches are especially efficient inside those sets. A set can be split into two, and a two subsequent sets can be merged into one. The sets are red-black trees; this is the origin of the time-complexities for the red-black forest. A red-black forest is useful because it offers a way to do finger searches; the sets work to localize the searches. While a [truncated skip-list][SkipList] can also do the same, the problem with the skip-list is that the height of the truncated skip-list must be fixed, and therefore its insertion and removal can not be completely localized.
+
+Task / Property                                           | Complexity
+----------------------------------------------------------|------------------------
+Given a set, find the next set.                           | ''O(1)''
+Given an element, find the next element.                  | ''O(1)'' amortized
+Given an element, find the containing set.                | ''O(log(n_i))''
+Find the next/previous/equal element in a set.            | ''O(log(n_i))''
+----------------------------------------------------------|------------------------
+Insert a set.                                             | ''O(1)''
+Split a set.                                              | ''O(log(n_i + 2))''
+Merge subsequent sets.                                    | ''O(log(n_j + 2) - log(n_k + 2))''
+Insert an element into a set.                             | ''O(log(n_i + 2))''
+Remove an element from a set.                             | ''O(log(n_i + 2))''
+
+Here ''n_i'' is the number of elements in the ''i'':th set, with ''{j, k} = {i, i + 1}'' such that ''n_k <= n_j''.
