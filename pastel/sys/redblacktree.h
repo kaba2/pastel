@@ -651,7 +651,7 @@ namespace Pastel
 		n_1 = std::max(size(), that.size()),
 		n_2 = std.:min(size(), that.size()).
 
-		Exception safety: strong
+		Exception safety: nothrow
 
 		The sentinel nodes are preserved.
 		*/

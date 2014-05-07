@@ -30,17 +30,6 @@ namespace Pastel
 			return rightTree;
 		}
 
-		// The tree from which subtrees are split off.
-		// During this function 'tree' is in a state
-		// which violates the red-black invariants.
-		// However, they are fixed as soon as 'tree' 
-		// becomes empty.
-		RedBlackTree tree;
-		tree.useBottomFrom(*this);
-		swapElements(tree);
-
-		Node* rightFirst = (Node*)rightBegin.base();
-
 		// The path from the 'rightBegin' node
 		// to the root (in increasing order of
 		// indices). By storing the path bottom-up, 
@@ -52,9 +41,13 @@ namespace Pastel
 		// the height of the red-black tree is at
 		// most 2 times the black-height; this is
 		// achieved by alternating red and black
-		// nodes.
-		path.reserve(2 * tree.blackHeight());
-		
+		// nodes. To guarantee strong exception safety, 
+		// it is important that we do the memory
+		// allocation here, before swapping this
+		// tree to 'tree'.
+		path.reserve(2 * blackHeight());
+
+		Node* rightFirst = (Node*)rightBegin.base();
 		{
 			// We will store the first node twice
 			// in the path. This is so that the
@@ -69,15 +62,26 @@ namespace Pastel
 				path.push_back(node);
 				node = node->parent();
 			}
+
+			// It would be nice if there were a way to
+			// do the split bottom-up, so as to avoid
+			// storing the path as above. However, I
+			// was unable to devise such an algorithm.
+			// The primary problem is possibly that the 
+			// subtrees do not then get splitted in
+			// decreasing order of height.
 		}
 
-		// It would be nice if there were a way to
-		// do the split bottom-up, so as to avoid
-		// storing the path as above. However, I
-		// was unable to devise such an algorithm.
-		// The primary problem is possibly that the 
-		// subtrees do not then get splitted in
-		// decreasing order of height.
+		// The tree from which subtrees are split off.
+		// During this function 'tree' is in a state
+		// which violates the red-black invariants.
+		// However, they are fixed as soon as 'tree' 
+		// becomes empty.
+		RedBlackTree tree;
+		tree.useBottomFrom(*this);
+		swapElements(tree);
+
+		// From now on nothing throws.
 
 		struct State
 		{
