@@ -17,12 +17,16 @@ namespace Pastel
 		using Forest = RedBlackForest<Settings, Customization>;
 		using Tree_ConstIterator = typename Forest::Tree_ConstIterator;
 
-		Tree_ConstIterator set = forest.ctreeBegin();
+		Tree_ConstIterator tree = forest.ctreeBegin();
 		Tree_ConstIterator end = forest.ctreeEnd();
-		while(set != end)
+		while(tree != end)
 		{
+			if (tree->cend().sentinelData().tree() != tree)
+			{
+				return false;
+			}
 
-			++set;
+			++tree;
 		}
 
 		return true;

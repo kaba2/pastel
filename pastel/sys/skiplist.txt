@@ -5,7 +5,7 @@ Deterministic skip list
 
 The _deterministic skip list_ is a data structure which implements a 
 dynamic ordered dictionary. From now on we shall abbreviate the 
-deterministic skip list as a skip list. The _local skip list_ is a 
+deterministic skip list as a skip list. The _truncated skip list_ is a 
 skip list in which the height of the skip list is bounded from above 
 by a constant.
 

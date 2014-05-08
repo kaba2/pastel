@@ -1,7 +1,9 @@
 Red-black forest
 ================
 
-The _red-black forest_ is a data-structure for storing and manipulating a locally ordered sequence. It consists of a sequence of red-black trees. A red-black forest is useful because it offers a way to do finger searches; the trees localize the searches. 
+[[Parent]]: data_structures.txt
+
+A _red-black forest_ is a data-structure for storing and manipulating a locally ordered sequence. It consists of a sequence of red-black trees. A red-black forest is useful because it offers a way to do finger searches; the trees localize the searches. The red-black forest implementation in Pastel has the following properties:
 
 Task / Property                                           | Complexity
 ----------------------------------------------------------|------------------------
@@ -17,6 +19,6 @@ Here ''n'' is the number of elements in the forest, and ''n_i'' is the number of
 Versus truncated skip-list
 --------------------------
 
-A [truncated skip-list][SkipList] can also do finger searches, using the elements itself as fingers. The problem is that the height of the truncated skip-list must be fixed, and therefore its insertion and removal can not be completely localized. In addition, red-black trees are faster and much more space-efficient than skip-lists.
+A [truncated skip-list][SkipList] can also do finger searches, using the elements itself as fingers. The problem is that the height of the truncated skip-list must be fixed, and therefore its insertion and removal can not be completely localized. In addition, a red-black tree is faster and more space-efficient than a skip-list, while also supporting propagation data.
 
 [SkipList]: [[Ref]]: skiplist.txt

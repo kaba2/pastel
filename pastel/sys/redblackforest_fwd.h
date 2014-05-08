@@ -39,6 +39,16 @@ namespace Pastel
 			Tree_SentinelData() = default;
 			~Tree_SentinelData() = default;
 
+			Tree_Iterator tree()
+			{
+				return tree_;
+			}
+
+			Tree_ConstIterator tree() const
+			{
+				return tree_;
+			}
+
 		private:
 			template <typename, template <typename> class>
 			friend class RedBlackForest;
@@ -53,7 +63,7 @@ namespace Pastel
 			Tree_SentinelData& operator=(Tree_SentinelData) = delete;
 
 			//! An iterator, in the list of trees, corresponding to the tree.
-			Tree_Iterator tree;
+			Tree_Iterator tree_;
 		};
 
 		class Tree_Settings

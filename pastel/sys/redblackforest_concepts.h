@@ -42,7 +42,6 @@ namespace Pastel
 
 			PASTEL_FWD(Tree_Iterator);
 			PASTEL_FWD(Tree_ConstIterator);
-			PASTEL_FWD(Propagation_Class);
 
 			//! Constructs an empty customization.
 			/*!
@@ -85,11 +84,17 @@ namespace Pastel
 			/*!
 			Exception safety: nothrow
 
-			tree:
+			from:
 			The tree which is going to be spliced 
 			away from this tree.
 			*/
-			void onSpliceFrom(const Tree_Iterator& tree) {}
+			void onSpliceFrom(const Tree_Iterator& from) {}
+
+			//! Called at the start of that.splice().
+			/*!
+			Exception safety: nothrow
+			*/
+			void onSpliceFrom() {}
 
 			//! Called at the start of splice().
 			/*!

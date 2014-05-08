@@ -14,10 +14,15 @@ namespace Pastel
 	using Empty_RedBlackForest_Customization =
 		RedBlackForest_Concepts::Customization<Settings>;
 
+	//! Red-black forest
+	/*!
+	Space complexity: O(size())
+	*/
 	template <
 		typename Settings_, 
 		template <typename> class Customization_ = Empty_RedBlackForest_Customization>
 	class RedBlackForest
+		: public Customization_<Settings_>
 	{
 	public:
 		using Settings = Settings_;
@@ -52,6 +57,8 @@ namespace Pastel
 			insert(treeSet_.cend());
 			// Create the last tree.
 			insert(treeSet_.cend());
+
+			onConstruction();
 		}
 
 		//! Copy-constructs from another forest.
@@ -104,6 +111,8 @@ namespace Pastel
 		*/
 		void clear()
 		{
+			onClear();
+
 			Tree_Iterator tree = ctreeBegin();
 			Tree_Iterator end = ctreeEnd();
 			while (tree != end)
@@ -119,6 +128,7 @@ namespace Pastel
 		*/
 		void swap(RedBlackForest& that)
 		{
+			Customization::swap(*that);
 			treeSet_.swap(that.treeSet_);
 		}
 
@@ -141,7 +151,10 @@ namespace Pastel
 			const Tree_ConstIterator& before)
 		{
 			Tree_Iterator tree = treeSet_.emplace(before);
-			tree->end().sentinelData().tree = tree;
+			tree->end().sentinelData().tree_ = tree;
+
+			onInsert(tree);
+
 			return tree;
 		}
 
@@ -152,8 +165,47 @@ namespace Pastel
 		*/
 		Tree_Iterator erase(const Tree_ConstIterator& tree)
 		{
+			onErase(cast(tree));
+
 			return treeSet_.erase(tree);
 		}
+
+		//! Moves all trees from 'that' forest to this forest.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		void splice(
+			const Tree_ConstIterator& to,
+			RedBlackForest& that)
+		{
+			that.onSpliceFrom();
+
+			treeSet_.splice(to, that.treeSet_);
+
+			onSplice(to);
+		}
+
+		//! Moves a tree from 'that' forest to this forest.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		void splice(
+			const Tree_ConstIterator& to,
+			RedBlackForest& that,
+			const Tree_ConstIterator& thatFrom)
+		{
+			that.onSpliceFrom(thatFrom);
+
+			splice(to, that, thatFrom, std::next(thatFrom));
+
+			onSplice(to);
+		}
+
+		// We deliberately do not include a function
+		// to splice a range, because of the time-complexity
+		// problems this would bring to sets().
 
 		//! Finds the tree that contains a given element.
 		/*!
