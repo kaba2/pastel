@@ -56,7 +56,7 @@ namespace Pastel
 				++iter;
 				if (isSentinel() && !isGlobalSentinel())
 				{
-					iter = std::next(iter.sentinelData().tree)->begin().base();
+					iter = std::next(iter.sentinelData().tree())->begin().base();
 				}
 			}
 
@@ -66,7 +66,7 @@ namespace Pastel
 				--iter;
 				if (isSentinel())
 				{
-					iter = std::prev(iter.sentinelData().tree)->last().base();
+					iter = std::prev(iter.sentinelData().tree())->last().base();
 				}
 			}
 		};
