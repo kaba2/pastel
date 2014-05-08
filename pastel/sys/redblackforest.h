@@ -30,6 +30,8 @@ namespace Pastel
 		PASTEL_FWD(TreeSet);
 		PASTEL_FWD(Tree_Iterator);
 		PASTEL_FWD(Tree_ConstIterator);
+		PASTEL_FWD(Tree_Range);
+		PASTEL_FWD(Tree_ConstRange);
 
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
@@ -194,16 +196,6 @@ namespace Pastel
 			return treeSet_.size() - 2;
 		}
 
-		//! Removes constness from an iterator.
-		/*!
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		Iterator cast(const ConstIterator& that)
-		{
-			return treeBegin()->cast(that);
-		}
-
 		//! Removes constness from a tree-iterator.
 		/*!
 		Time complexity: O(1)
@@ -217,6 +209,17 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeBegin, std::next(treeSet_.begin()));
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeEnd, std::prev(treeSet_.end()));
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeLast, std::prev(treeEnd()));
+		PASTEL_RANGE_FUNCTIONS_PREFIX(Tree_, treeRange, treeBegin, treeEnd);
+
+		//! Removes constness from an iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Iterator cast(const ConstIterator& that)
+		{
+			return treeBegin()->cast(that);
+		}
 
 		PASTEL_ITERATOR_FUNCTIONS(begin, treeBegin()->begin());
 		PASTEL_ITERATOR_FUNCTIONS(end, treeEnd()->end());
