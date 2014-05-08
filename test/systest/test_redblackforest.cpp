@@ -31,35 +31,71 @@ namespace
 			using Forest = RedBlackForest_Set<Tree>;
 			using Iterator = Forest::Iterator;
 			using ConstIterator = Forest::ConstIterator;
-			using Set_Iterator = Forest::Set_Iterator;
-			using Set_ConstIterator = Forest::Set_ConstIterator;
+			using Tree_Iterator = Forest::Tree_Iterator;
+			using Tree_ConstIterator = Forest::Tree_ConstIterator;
 			
 			Forest forest;
+			TEST_ENSURE(testInvariants(forest));
 
-			Set_Iterator aSet = forest.insert();
-			aSet->insert(0);
-			aSet->insert(1);
-			aSet->insert(2);
+			Tree_Iterator aTree = forest.insert();
+			aTree->insert(0);
+			aTree->insert(1);
+			aTree->insert(2);
 			{
-				integer correctSet[] = { 0, 1, 2 };
-				TEST_ENSURE(boost::equal(forest.range(), correctSet));
+				integer correctTree[] = { 0, 1, 2 };
+				TEST_ENSURE(boost::equal(forest.range(), correctTree));
+				TEST_ENSURE_OP(forest.trees(), == , 1);
 			}
 
-			Set_Iterator bSet = forest.insert();
-			bSet->insert(3);
-			bSet->insert(4);
-			bSet->insert(5);
-			bSet->insert(6);
+			Tree_Iterator bTree = forest.insert();
+			TEST_ENSURE(testInvariants(forest));
+
+			bTree->insert(3);
+			TEST_ENSURE(testInvariants(forest));
+
+			bTree->insert(4);
+			TEST_ENSURE(testInvariants(forest));
+
+			bTree->insert(5);
+			TEST_ENSURE(testInvariants(forest));
+
+			bTree->insert(6);
+			TEST_ENSURE(testInvariants(forest));
 			{
-				integer correctSet[] = { 0, 1, 2, 3, 4, 5, 6 };
-				TEST_ENSURE(boost::equal(forest.range(), correctSet));
+				integer correctTree[] = { 0, 1, 2, 3, 4, 5, 6 };
+				TEST_ENSURE(boost::equal(forest.range(), correctTree));
+				TEST_ENSURE_OP(forest.trees(), == , 2);
 			}
 			
-			Set_Iterator cSet = forest.insert();
-			*cSet = bSet->split(5);
+			Tree_Iterator cTree = forest.insert();
+			TEST_ENSURE(testInvariants(forest));
+
+			*cTree = bTree->split(5);
+			TEST_ENSURE(testInvariants(forest));
 			{
-				integer correctSet[] = { 0, 1, 2, 3, 4, 5, 6 };
-				TEST_ENSURE(boost::equal(forest.range(), correctSet));
+				integer correctTree[] = { 0, 1, 2, 3, 4, 5, 6 };
+				TEST_ENSURE(boost::equal(forest.range(), correctTree));
+				TEST_ENSURE_OP(forest.trees(), == , 3);
+			}
+
+			bTree->join(*cTree);
+			TEST_ENSURE(testInvariants(forest));
+			{
+				integer correctTree[] = { 0, 1, 2, 3, 4, 5, 6 };
+				TEST_ENSURE(boost::equal(forest.range(), correctTree));
+
+				for (integer i : forest)
+				{
+					std::cout << i << std::endl;
+				}
+			}
+
+			forest.erase(cTree);
+			TEST_ENSURE(testInvariants(forest));
+			{
+				integer correctTree[] = { 0, 1, 2, 3, 4, 5, 6 };
+				TEST_ENSURE(boost::equal(forest.range(), correctTree));
+				TEST_ENSURE_OP(forest.trees(), == , 2);
 			}
 		}
 	};

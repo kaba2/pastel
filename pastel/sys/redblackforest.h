@@ -23,13 +23,13 @@ namespace Pastel
 		using Settings = Settings_;
 		using Fwd = RedBlackForest_Fwd<Settings>;
 
-		PASTEL_FWD(ElementSet);
+		PASTEL_FWD(Tree);
 		PASTEL_FWD(Element_Iterator);
 		PASTEL_FWD(Element_ConstIterator);
 
-		PASTEL_FWD(SetSet);
-		PASTEL_FWD(Set_Iterator);
-		PASTEL_FWD(Set_ConstIterator);
+		PASTEL_FWD(TreeSet);
+		PASTEL_FWD(Tree_Iterator);
+		PASTEL_FWD(Tree_ConstIterator);
 
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
@@ -44,25 +44,25 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		RedBlackForest()
-		: setSet_()
+		: treeSet_()
 		{
-			// Create the first set.
-			insert(setSet_.cend());
-			// Create the last set.
-			insert(setSet_.cend());
+			// Create the first tree.
+			insert(treeSet_.cend());
+			// Create the last tree.
+			insert(treeSet_.cend());
 		}
 
 		//! Copy-constructs from another forest.
 		/*!
-		Time complexity: O(that.sets() + that.size())
+		Time complexity: O(that.trees() + that.size())
 		Exception safety: strong
 		*/
 		RedBlackForest(const RedBlackForest& that)
 		: RedBlackForest()
 		{
-			for (auto&& set : that.csetRange())
+			for (auto&& tree : that.ctreeRange())
 			{
-				setSet_.emplace(csetEnd(), set);
+				treeSet_.emplace(ctreeEnd(), tree);
 			}
 		}
 
@@ -79,7 +79,7 @@ namespace Pastel
 		
 		//! Assigns from another forest.
 		/*!
-		Time complexity: O(that.sets() + that.size())
+		Time complexity: O(that.trees() + that.size())
 		Exception safety: strong
 		*/
 		RedBlackForest& operator=(RedBlackForest that)
@@ -90,23 +90,23 @@ namespace Pastel
 
 		//! Destructs a forest.
 		/*!
-		Time complexity: O(that.set() + that.size())
+		Time complexity: O(that.tree() + that.size())
 		Exception safety: nothrow
 		*/
 		~RedBlackForest() = default;
 
-		//! Removes all elements and sets.
+		//! Removes all elements and trees.
 		/*!
-		Time complexity: O(sets() + size())
+		Time complexity: O(trees() + size())
 		Exception safety: nothrow
 		*/
 		void clear()
 		{
-			Set_Iterator set = csetBegin();
-			Set_Iterator end = csetEnd();
-			while (set != end)
+			Tree_Iterator tree = ctreeBegin();
+			Tree_Iterator end = ctreeEnd();
+			while (tree != end)
 			{
-				set = eraseSet(set);
+				tree = eraseSet(tree);
 			}
 		}
 
@@ -117,52 +117,52 @@ namespace Pastel
 		*/
 		void swap(RedBlackForest& that)
 		{
-			setSet_.swap(that.setSet_);
+			treeSet_.swap(that.treeSet_);
 		}
 
-		//! Inserts an empty set at the end of the forest.
+		//! Inserts an empty tree at the end of the forest.
 		/*!
 		This is a convenience function which calls
-		insertSet(csetEnd()).
+		insertSet(ctreeEnd()).
 		*/
-		Set_Iterator insert()
+		Tree_Iterator insert()
 		{
-			return insert(csetEnd());
+			return insert(ctreeEnd());
 		}
 
-		//! Inserts an empty set into the forest.
+		//! Inserts an empty tree into the forest.
 		/*!
 		Time complexity: O(1)
 		Exception safety: strong
 		*/
-		Set_Iterator insert(
-			const Set_ConstIterator& before)
+		Tree_Iterator insert(
+			const Tree_ConstIterator& before)
 		{
-			Set_Iterator set = setSet_.emplace(before);
-			set->end().sentinelData().set = set;
-			return set;
+			Tree_Iterator tree = treeSet_.emplace(before);
+			tree->end().sentinelData().tree = tree;
+			return tree;
 		}
 
-		//! Removes a set from the forest.
+		//! Removes a tree from the forest.
 		/*!
-		Time complexity: O(set->size())
+		Time complexity: O(tree->size())
 		Exception safety: nothrow
 		*/
-		Set_Iterator erase(const Set_ConstIterator& set)
+		Tree_Iterator erase(const Tree_ConstIterator& tree)
 		{
-			return setSet_.erase(set);
+			return treeSet_.erase(tree);
 		}
 
-		//! Finds the set that contains a given element.
+		//! Finds the tree that contains a given element.
 		/*!
 		Time complexity: 
 		O(log(n + 2))
 		where
-		n is the number of elements in the set.
+		n is the number of elements in the tree.
 
 		Exception safety: nothrow
 		*/
-		Set_ConstIterator find(
+		Tree_ConstIterator find(
 			const ConstIterator& element) const
 		{
 			while(!element.isSentinel())
@@ -170,28 +170,28 @@ namespace Pastel
 				element = element.parent();
 			}
 
-			return element.sentinelData().set();
+			return element.sentinelData().tree();
 		}
 
-		//! Finds the set that contains a given element.
+		//! Finds the tree that contains a given element.
 		/*!
 		This is a convenience function which returns
 		cast(addConst(*this).findSet(element));
 		*/
-		Set_Iterator find(
+		Tree_Iterator find(
 			const ConstIterator& element)
 		{
 			return cast(addConst(*this).find(element));
 		}
 
-		//! Returns the number of sets in the forest.
+		//! Returns the number of trees in the forest.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		integer sets() const
+		integer trees() const
 		{
-			return setSet_.size();
+			return treeSet_.size() - 2;
 		}
 
 		//! Removes constness from an iterator.
@@ -201,30 +201,30 @@ namespace Pastel
 		*/
 		Iterator cast(const ConstIterator& that)
 		{
-			return setBegin()->cast(that);
+			return treeBegin()->cast(that);
 		}
 
-		//! Removes constness from a set-iterator.
+		//! Removes constness from a tree-iterator.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Set_Iterator cast(const Set_ConstIterator& that)
+		Tree_Iterator cast(const Tree_ConstIterator& that)
 		{
-			return setSet_.erase(that, that);
+			return treeSet_.erase(that, that);
 		}
 
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Set_, setBegin, std::next(setSet_.begin()));
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Set_, setEnd, std::prev(setSet_.end()));
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Set_, setLast, std::prev(setEnd()));
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeBegin, std::next(treeSet_.begin()));
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeEnd, std::prev(treeSet_.end()));
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeLast, std::prev(treeEnd()));
 
-		PASTEL_ITERATOR_FUNCTIONS(begin, setBegin()->begin());
-		PASTEL_ITERATOR_FUNCTIONS(end, setEnd()->end());
-		PASTEL_ITERATOR_FUNCTIONS(last, setEnd()->last());
+		PASTEL_ITERATOR_FUNCTIONS(begin, treeBegin()->begin());
+		PASTEL_ITERATOR_FUNCTIONS(end, treeEnd()->end());
+		PASTEL_ITERATOR_FUNCTIONS(last, treeEnd()->last());
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 	private:
-		SetSet setSet_;
+		TreeSet treeSet_;
 	};
 
 }
@@ -236,7 +236,7 @@ namespace Pastel
 	class RedBlackForest_Settings
 	{
 	public:
-		using ElementSet = RedBlackTree_;
+		using Tree = RedBlackTree_;
 	};
 
 }
@@ -251,5 +251,7 @@ namespace Pastel
 		Customization>;
 
 }
+
+#include "pastel/sys/redblackforest_invariants.hpp"
 
 #endif

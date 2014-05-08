@@ -15,13 +15,13 @@ namespace Pastel
 		class Settings
 		{
 		public:
-			//! The red-black tree to use for the sets.
+			//! The red-black tree to use for the trees.
 			/*!
 			This type will be further customized by the red-black
 			forest; the sentinel-data of the red-black trees stores
-			the set-iterator corresponding to the tree.
+			the tree-iterator corresponding to the tree.
 			*/
-			using ElementSet = UserDefinedType;
+			using Tree = UserDefinedType;
 		};
 
 		//! RedBlackForest_Customization concept
@@ -40,8 +40,8 @@ namespace Pastel
 
 			using Fwd = RedBlackForest_Fwd<Settings>;
 
-			PASTEL_FWD(Iterator);
-			PASTEL_FWD(ConstIterator);
+			PASTEL_FWD(Tree_Iterator);
+			PASTEL_FWD(Tree_ConstIterator);
 			PASTEL_FWD(Propagation_Class);
 
 			//! Constructs an empty customization.
@@ -67,39 +67,39 @@ namespace Pastel
 			/*!
 			Exception safety: basic
 
-			set:
-			The set which was inserted.
+			tree:
+			The tree which was inserted.
 			*/
-			void onInsertSet(const Iterator& element) {}
+			void onInsert(const Tree_Iterator& element) {}
 
 			//! Called at the start of eraseSet().
 			/*!
 			Exception safety: nothrow
 
-			set:
-			The set which is going to be removed.
+			tree:
+			The tree which is going to be removed.
 			*/
-			void onErase(const Iterator& element) {}
+			void onErase(const Tree_Iterator& element) {}
 
 			//! Called at the start of that.splice().
 			/*!
 			Exception safety: nothrow
 
-			set:
-			The set which is going to be spliced 
+			tree:
+			The tree which is going to be spliced 
 			away from this tree.
 			*/
-			void onSpliceFrom(const Iterator& set) {}
+			void onSpliceFrom(const Tree_Iterator& tree) {}
 
 			//! Called at the start of splice().
 			/*!
 			Exception safety: nothrow
 
-			set:
-			The set which is going to be spliced
+			tree:
+			The tree which is going to be spliced
 			into this tree.
 			*/
-			void onSplice(const Iterator& set) {}
+			void onSplice(const Tree_Iterator& tree) {}
 
 		private:
 			// These functions will not be used, and so should
