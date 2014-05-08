@@ -94,7 +94,7 @@ namespace Pastel
 		*/
 		RedBlackTree(RedBlackTree&& that)
 			: bottom_(that.bottom_)
-			, end_(new Sentinel_Node(bottomNode()->propagation()))
+			, end_(std::make_shared<Sentinel_Node>(bottomNode()->propagation()))
 		{
 			*this = std::move(that);
 			onConstruction();
@@ -150,7 +150,7 @@ namespace Pastel
 		Time complexity: O(size())
 		Exception safety: nothrow
 
-		Preserves the end node, shares 
+		Preserves the end-node, shares 
 		the bottom node with 'that'.
 		*/
 		RedBlackTree& operator=(RedBlackTree&& that)
@@ -211,10 +211,6 @@ namespace Pastel
 		~RedBlackTree()
 		{
 			clear();
-			if (hasSeparateSentinels())
-			{
-				deallocateSentinel(end_);
-			}
 		}
 
 		//! Swaps two trees.
@@ -693,16 +689,15 @@ namespace Pastel
 		//! Splits the sentinel node.
 		/*!
 		Preconditions:
-		empty() || hasSeparateSentinels()
+		empty()
 
 		Time complexity: O(1)
 		Exception safety: strong
 
 		The single sentinel node is split into an
-		end node and a bottom node.
-		This allows the bottom node to be
-		shared, which in turned allows trees to be
-		joined.
+		end node and a bottom node. This allows the 
+		bottom node to be shared, which in turn allows 
+		trees to be	joined. The end-node is preserved.
 		*/
 		void splitSentinels();
 
@@ -714,8 +709,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 
-		The end node is removed and replaced
-		with the bottom node.
+		The end-node is replaced with the bottom node.
 		*/
 		void mergeSentinels();
 
@@ -746,8 +740,6 @@ namespace Pastel
 		void useBottomFrom(const RedBlackTree& that) 
 		{
 			ENSURE(empty());
-
-			splitSentinels();
 			bottom_ = that.bottom_;
 		}
 
@@ -758,7 +750,12 @@ namespace Pastel
 		*/
 		bool sharesBottom() const
 		{
-			return bottom_.use_count() > 1;
+			if (hasSeparateSentinels())
+			{
+				return bottom_.use_count() > 1;
+			}
+
+			return bottom_.use_count() > 2;
 		}
 
 		//! Returns whether the trees share the same bottom node.
@@ -822,8 +819,7 @@ namespace Pastel
 	private:
 		PASTEL_FWD(Node);
 		PASTEL_FWD(Sentinel_Node);
-		PASTEL_FWD(EndPtr);
-		PASTEL_FWD(BottomPtr);
+		PASTEL_FWD(SentinelPtr);
 
 		enum EqualRange
 		{
@@ -868,7 +864,7 @@ namespace Pastel
 
 		RedBlackTree(
 			const RedBlackTree& that,
-			const BottomPtr& bottom);
+			const SentinelPtr& bottom);
 
 		//! Allocates a data-node.
 		/*!
@@ -889,30 +885,6 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		void deallocateNode(Node* node);
-
-		//! Allocates a sentinel node.
-		/*!
-		Time complexity: O(1)
-		Exception safety: strong
-		*/
-		EndPtr allocateSentinel()
-		{
-			return new Sentinel_Node();
-		}
-
-		//! Deallocates a sentinel node.
-		/*!
-		Preconditions:
-		node->isSentinel()
-
-		Time complexity: O(1)
-		Exception safety: nothrow
-		*/
-		void deallocateSentinel(EndPtr node)
-		{
-			ASSERT(node->isSentinel());
-			delete node;
-		}
 
 		//! Attaches a new subtree into the tree.
 		/*!
@@ -1274,7 +1246,7 @@ namespace Pastel
 		*/
 		Node* endNode() const
 		{
-			return (Node*)end_;
+			return (Node*)end_.get();
 		}
 
 		//! Returns the bottom node.
@@ -1294,11 +1266,11 @@ namespace Pastel
 		node is denoted by the end node. The parent, the left
 		child, and the right child are the bottom node itself.
 		*/
-		BottomPtr bottom_ = new Sentinel_Node();
+		SentinelPtr bottom_ = new Sentinel_Node();
 
 		// FIX: Visual Studio 2013 has a bug which does not allow 
 		// std::make_shared to be used as a member initializer.
-		// BottomPtr bottom_ = std::make_shared<Sentinel_Node>();
+		// SentinelPtr bottom_ = std::make_shared<Sentinel_Node>();
 
 		//! The end node.
 		/*!
@@ -1310,10 +1282,10 @@ namespace Pastel
 		is the minimum node. The end node then works as 
 		the one-past-last node (end() iterator). 
 		*/
-		EndPtr end_ = bottom_.get();
+		SentinelPtr end_ = bottom_;
 
 		//! The root node.
-		Node* root_ = (Node*)end_;
+		Node* root_ = (Node*)end_.get();
 
 		//! The black-height of the tree.
 		/*!

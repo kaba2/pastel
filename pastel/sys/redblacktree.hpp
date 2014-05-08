@@ -10,9 +10,9 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	RedBlackTree<Settings, Customization>::RedBlackTree(
 		const RedBlackTree& that,
-		const BottomPtr& bottom)
+		const SentinelPtr& bottom)
 		: bottom_(bottom)
-		, end_(new Sentinel_Node(bottom->propagation()))
+		, end_(std::make_shared<Sentinel_Node>(bottom->propagation()))
 	{
 		try
 		{

@@ -7,28 +7,27 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::splitSentinels()
 	{
+		ENSURE(empty());
+
 		if (hasSeparateSentinels())
 		{
 			// Nothing to do.
 			return;
 		}
 
-		ENSURE(empty());
-
-		end_ = allocateSentinel();
-		rootNode() = endNode();
+		bottom_ = std::make_shared<Sentinel_Node>();
 	}
 
 	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::mergeSentinels()
 	{
+		ENSURE(!sharesBottom());
+
 		if (!hasSeparateSentinels())
 		{
 			// Nothing to do.
 			return;
 		}
-
-		ENSURE(!sharesBottom());
 
 		if (!empty())
 		{
@@ -41,8 +40,7 @@ namespace Pastel
 			rootNode() = bottomNode();
 		}
 
-		deallocateSentinel(endNode());
-		end_ = bottom_.get();
+		end_ = bottom_;
 	}
 
 }
