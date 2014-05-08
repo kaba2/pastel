@@ -16,7 +16,7 @@ What is the best way to support such varying iterators?
 
 ### Examples
 
-For the `std::map`, ''n = 2'' (constness, dereferencing), ''m_1 = 2'' (const, non-const), and ''m_2 = 3'' (key-value, key, value), for a total of 6 iterator-types. For the `RedBlack_Map`, ''n = 3'' (constness, dereferencing, continuity), ''m_1 = 2'' (const, non-const), ''m_2 = 3'' (key-value, key, value), and ''m_3 = 2'' (continuous, discontinuous), for a total of 12 iterator types.
+For the `RedBlack_Map`, ''n = 2'' (constness, dereferencing), ''m_1 = 2'' (const, non-const), and ''m_2 = 3'' (key-value, key, value), for a total of 6 iterator types.
 
 Solution
 --------
@@ -45,7 +45,7 @@ Create an iterator (range) adaptor which implements the changes by indirection t
 
 For iterators which dereference to `std::pair`, create an iterator adaptor which dereferences to `iter->first` or `iter->second` instead. The latter is provided by the [Second_Iterator][Second_Iterator] adaptor. This is a transition-adaptor while waiting for the C++14 support to be implemented in compilers. 
 
-In C++14 it possible to create a generic iterator adaptor which takes in a generic lambda function to transform the dereferencing of the base iterator, with the resulting type deduced by `decltype`.
+In C++14, it is possible to create a generic iterator adaptor which takes in a generic lambda function to transform the dereferencing of the base iterator, with the resulting type deduced by `decltype`.
 
 Using Boost's iterator library, it is easy to define more general iterator adaptors, which adapt not only the dereferencing, but also the traversal.
 
