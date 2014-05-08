@@ -7,13 +7,13 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::splitSentinels()
 	{
-		ENSURE(empty());
-
 		if (hasSeparateSentinels())
 		{
 			// Nothing to do.
 			return;
 		}
+
+		ENSURE(empty());
 
 		bottom_ = std::make_shared<Sentinel_Node>();
 	}
@@ -21,26 +21,33 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::mergeSentinels()
 	{
-		ENSURE(!sharesBottom());
-
 		if (!hasSeparateSentinels())
 		{
 			// Nothing to do.
 			return;
 		}
 
+		ENSURE(!sharesBottom());
+
 		if (!empty())
 		{
 			bottomNode()->parent() = endNode()->parent();
 			bottomNode()->right() = endNode()->right();
+
+			// Here we replace the end-node with the
+			// bottom-node, because otherwise we would have
+			// to replace all references to the bottom-node
+			// with the end-node in the elements.
+			end_ = bottom_;
 		}
 		else
 		{
-			bottomNode()->isolateSelf();
-			rootNode() = bottomNode();
+			// Here we replace the bottom-node with the
+			// end-node, because this way we preserve the 
+			// end-node.
+			bottom_ = end_;
+			rootNode() = endNode();
 		}
-
-		end_ = bottom_;
 	}
 
 }
