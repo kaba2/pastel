@@ -287,6 +287,25 @@ namespace Pastel
 namespace Pastel
 {
 
+	//! Returns whether the red-black forest invariants hold for the tree.
+	/*!
+	Time complexity: O(forest.sets())
+	Exception safety: nothrow
+
+	This function is useful only for testing. For a correct implementation
+	this function will always return true.
+	*/
+	template <
+		typename Settings,
+		template <typename> class Customization>
+	bool testInvariants(
+		const RedBlackForest<Settings, Customization>& forest);
+
+}
+
+namespace Pastel
+{
+
 	template <typename RedBlackTree_>
 	class RedBlackForest_Settings
 	{
