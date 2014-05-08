@@ -68,8 +68,7 @@ namespace Pastel
 
 		using Node = RedBlackTree_::Node<Node_Settings>;
 		using Sentinel_Node = RedBlackTree_::Sentinel_Node<Node_Settings>;
-		using EndPtr = Sentinel_Node*;
-		using BottomPtr = std::shared_ptr<Sentinel_Node>;
+		using SentinelPtr = std::shared_ptr<Sentinel_Node>;
 
 		template <
 			typename NodePtr, 
