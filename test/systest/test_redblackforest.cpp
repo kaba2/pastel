@@ -27,30 +27,40 @@ namespace
 
 		void test()
 		{
-			using Forest = RedBlackForest_Set<integer>;
+			using Tree = RedBlack_Set<integer>;
+			using Forest = RedBlackForest_Set<Tree>;
 			using Iterator = Forest::Iterator;
 			using ConstIterator = Forest::ConstIterator;
 			using Set_Iterator = Forest::Set_Iterator;
 			using Set_ConstIterator = Forest::Set_ConstIterator;
 			
 			Forest forest;
-			TEST_ENSURE_OP(forest.size(), == , 0);
-			TEST_ENSURE(forest.empty());
 
-			Set_Iterator aSet = forest.insertSet();
+			Set_Iterator aSet = forest.insert();
+			aSet->insert(0);
+			aSet->insert(1);
+			aSet->insert(2);
+			{
+				integer correctSet[] = { 0, 1, 2 };
+				TEST_ENSURE(boost::equal(forest.range(), correctSet));
+			}
 
-			Iterator a = forest.insert(aSet, 4).first;
-			forest.insert(aSet, 5);
-
-			TEST_ENSURE_OP(forest.size(), == , 1);
-			TEST_ENSURE(!forest.empty());
-
-			forest.find(aSet, 4);
-			forest.lowerBound(aSet, 4);
-			forest.upperBound(aSet, 4);
-			Set_Iterator bSet = forest.split(aSet, 5);
-			TEST_ENSURE(forest.exists(bSet, 5));
-			forest.join(aSet, bSet);
+			Set_Iterator bSet = forest.insert();
+			bSet->insert(3);
+			bSet->insert(4);
+			bSet->insert(5);
+			bSet->insert(6);
+			{
+				integer correctSet[] = { 0, 1, 2, 3, 4, 5, 6 };
+				TEST_ENSURE(boost::equal(forest.range(), correctSet));
+			}
+			
+			Set_Iterator cSet = forest.insert();
+			*cSet = bSet->split(5);
+			{
+				integer correctSet[] = { 0, 1, 2, 3, 4, 5, 6 };
+				TEST_ENSURE(boost::equal(forest.range(), correctSet));
+			}
 		}
 	};
 

@@ -15,62 +15,13 @@ namespace Pastel
 		class Settings
 		{
 		public:
-			//! The type of the keys.
+			//! The red-black tree to use for the sets.
 			/*!
-			Precondition:
-			Key != void
-
-			The key is attached to every non-sentinel node,
-			and can be read, but not modified, through an iterator.
-			The key is used to order the data by the relation
-			determined by Less.
+			This type will be further customized by the red-black
+			forest; the sentinel-data of the red-black trees stores
+			the set-iterator corresponding to the tree.
 			*/
-			using Key = UserDefinedType;
-
-			//! The type of the user data.
-			/*!
-			The user data is attached to every non-sentinel node,
-			and can be read and modified through an iterator.
-
-			Set to void to avoid allocating any	memory 
-			for the user data.
-			*/
-			using Data = UserDefinedType;
-
-			//! The type of the propagation data.
-			/*!
-			The propagation data is attached to every 
-			node, including sentinel nodes.
-			The propagation data can be read, but not modified,
-			through an iterator. The propagation data
-			is modified through the customization's
-			updatePropagation() function, which computes
-			the propagation data based on the subtree
-			rooted at the given node.
-
-			Set to void to avoid allocating any	memory 
-			for the propagation data.
-			*/
-			using Propagation = UserDefinedType;
-
-			//! The type of the sentinel user data.
-			/*!
-			The sentinel user data is attached to every sentinel node,
-			and can be read and modified through a sentinel iterator.
-
-			Set to void to avoid allocating any memory
-			for the sentinel user data.
-			*/
-			using SentinelData = UserDefinedType;
-
-			//! The type of the predicate to use for comparing keys.
-			/*!
-			The comparison is done as Less()(left, right).
-			*/
-			using Less = UserDefinedType;
-
-			//! Whether to allow multiple equal keys.
-			PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
+			using ElementSet = UserDefinedType;
 		};
 
 		//! RedBlackForest_Customization concept
@@ -112,27 +63,21 @@ namespace Pastel
 			*/
 			void onConstruction() {};
 
-			//! Called at the start of clear().
-			/*!
-			Exception safety: nothrow
-			*/
-			void onClear() {}
-
-			//! Called at the end of insert().
+			//! Called at the end of insertSet().
 			/*!
 			Exception safety: basic
 
-			element:
-			The element which was inserted.
+			set:
+			The set which was inserted.
 			*/
-			void onInsert(const Iterator& element) {}
+			void onInsertSet(const Iterator& element) {}
 
-			//! Called at the start of erase().
+			//! Called at the start of eraseSet().
 			/*!
 			Exception safety: nothrow
 
-			element:
-			The element which is going to be removed.
+			set:
+			The set which is going to be removed.
 			*/
 			void onErase(const Iterator& element) {}
 
@@ -140,49 +85,21 @@ namespace Pastel
 			/*!
 			Exception safety: nothrow
 
-			element:
-			The element which is going to be spliced 
+			set:
+			The set which is going to be spliced 
 			away from this tree.
 			*/
-			void onSpliceFrom(const Iterator& element) {}
+			void onSpliceFrom(const Iterator& set) {}
 
 			//! Called at the start of splice().
 			/*!
 			Exception safety: nothrow
 
-			element:
-			The element which is going to be spliced
+			set:
+			The set which is going to be spliced
 			into this tree.
 			*/
-			void onSplice(const Iterator& element) {}
-
-			//! Updates the propagation data in a node.
-			/*!
-			Exception safety: nothrow
-
-			This function updates the propagation data for the
-			subtree pointed to by 'node' under the assumption that 
-			the propagation data in the subtree rooted at 'node'
-			is up to date. It is called by the insert() and erase() 
-			functions of the RedBlackTree whenever the structure of 
-			the subtree has changed. The time complexities of 
-			the insert() and erase() functions are multiplied by the 
-			time complexity of this function. Thus, for example, to 
-			retain O(log n) complexity for those functions, this 
-			function must perform in O(1) (which is usually the case).
-
-			element:
-			The element which is to be updated.
-
-			propagation:
-			The propagation data of the 'element'. This is the 
-			only way to get a mutable reference to the propagation 
-			data. If you know that Propagation != void, you should 
-			use Propagation for the reference for better readability.
-			*/
-			void updatePropagation(
-				const Iterator& element,
-				Propagation_Class& propagation) {}
+			void onSplice(const Iterator& set) {}
 
 		private:
 			// These functions will not be used, and so should
