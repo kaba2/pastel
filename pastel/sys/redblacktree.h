@@ -709,7 +709,10 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 
-		The end-node is replaced with the bottom node.
+		If the tree is empty, the bottom-node is replaced
+		with the end-node, thus preserving the end-node.
+		Otherwise the end-node is replaced with the bottom 
+		node, thus preserving the bottom node.
 		*/
 		void mergeSentinels();
 
