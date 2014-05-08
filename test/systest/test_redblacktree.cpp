@@ -1002,6 +1002,7 @@ namespace
 		void testMultiSplit()
 		{
 			using Tree = MultiMap;
+			using Iterator = Tree::Iterator;
 			{
 				Tree tree;
 				std::vector<integer> dataSet;
@@ -1043,13 +1044,49 @@ namespace
 					Tree aTree = tree;
 					TEST_ENSURE(testInvariants(aTree));
 
-					Tree bTree = aTree.split(std::next(aTree.cbegin(), i));
+					Tree bTree;
+
+					{
+						Iterator aEndBefore = aTree.end();
+						Iterator aBottomBefore = aTree.bottom();
+						Iterator bEndBefore = bTree.end();
+
+						bTree = aTree.split(std::next(aTree.cbegin(), i));
+
+						Iterator bEndAfter = bTree.end();
+						Iterator aBottomAfter = aTree.bottom();
+						Iterator aEndAfter = aTree.end();
+
+						TEST_ENSURE(aEndBefore == aEndAfter);
+						TEST_ENSURE(aBottomBefore == aBottomAfter);
+						TEST_ENSURE(bEndBefore == bEndAfter);
+					}
+
 					TEST_ENSURE(testInvariants(aTree));
 					TEST_ENSURE_OP(aTree.size(), == , i);
 					TEST_ENSURE(testInvariants(bTree));
 					TEST_ENSURE_OP(bTree.size(), == , n - i);
 
-					aTree.join(bTree);
+					{
+						Iterator aEndBefore = aTree.end();
+						Iterator aBottomBefore = aTree.bottom();
+						Iterator bEndBefore = bTree.end();
+						Iterator bBottomBefore = bTree.bottom();
+
+						aTree.join(bTree);
+
+						Iterator bBottomAfter = bTree.bottom();
+						Iterator bEndAfter = bTree.end();
+						Iterator aBottomAfter = aTree.bottom();
+						Iterator aEndAfter = aTree.end();
+
+						TEST_ENSURE(aEndBefore == aEndAfter);
+						TEST_ENSURE(aBottomBefore == aBottomAfter);
+						TEST_ENSURE(bEndBefore == bEndAfter);
+						TEST_ENSURE(bBottomBefore == bBottomAfter);
+					}
+
+
 					TEST_ENSURE(testInvariants(aTree));
 					TEST_ENSURE_OP(aTree.size(), == , n);
 					TEST_ENSURE(boost::equal(aTree.range().dereferenceData(), correctSet));
@@ -1062,6 +1099,7 @@ namespace
 		void testMultiJoin()
 		{
 			using Tree = MultiMap;
+			using Iterator = Tree::Iterator;
 			{
 				integer n = 20;
 				for (integer i = 0; i < n; ++i)
@@ -1092,7 +1130,25 @@ namespace
 							TEST_ENSURE(testInvariants(bTree));
 						}
 
-						aTree.join(bTree);
+						{
+							Iterator aEndBefore = aTree.end();
+							Iterator aBottomBefore = aTree.bottom();
+							Iterator bEndBefore = bTree.end();
+							Iterator bBottomBefore = bTree.bottom();
+
+							aTree.join(bTree);
+
+							Iterator bBottomAfter = bTree.bottom();
+							Iterator bEndAfter = bTree.end();
+							Iterator aBottomAfter = aTree.bottom();
+							Iterator aEndAfter = aTree.end();
+
+							TEST_ENSURE(aEndBefore == aEndAfter);
+							TEST_ENSURE(aBottomBefore == aBottomAfter);
+							TEST_ENSURE(bEndBefore == bEndAfter);
+							TEST_ENSURE(bBottomBefore == bBottomAfter);
+						}
+
 						TEST_ENSURE(testInvariants(aTree));
 						TEST_ENSURE(testInvariants(bTree));
 						TEST_ENSURE(boost::equal(aTree.crange().dereferenceData(), correctSet));
