@@ -3,18 +3,22 @@ Red-black forest
 
 [[Parent]]: data_structures.txt
 
-A _red-black forest_ is a data-structure for storing and manipulating a locally ordered sequence. It consists of a sequence of red-black trees. A red-black forest is useful because it offers a way to do finger searches; the trees localize the searches. The red-black forest implementation in Pastel has the following properties:
+A _red-black forest_ is a data-structure for storing and manipulating a locally ordered sequence. It consists of a sequence of [red-black trees][RedBlack], with the end-nodes in a doubly-linked list. A red-black forest is useful because it offers a way to do finger searches; the trees localize the searches. The red-black forest implementation in Pastel has the following properties:
 
 Task / Property                                           | Complexity
 ----------------------------------------------------------|------------------------
-Find the next tree, given a tree.                         | ''O(1)''
-Find the next element, given an element.                  | ''O(1)'' amortized
-Find the containing tree, given an element.               | ''O(log(n_i))''
-Find the next/previous/equal element, given a key.        | ''O(log(n_i))''
 Insert/remove an empty tree.                              | ''O(1)''
+Move a tree to another forest.                            | ''O(1)''
+Move all trees to another forest.                         | ''O(1)''
+Find out the number of trees.                             | ''O(1)''
+Find the next/previous tree, given a tree.                | ''O(1)''
+Find the next/previous element, given an element.         | ''O(1)'' amortized + ''O(k)''
+Find the containing tree, given an element.               | ''O(log(n_i))''
 Space                                                     | ''O(n)''
 
-Here ''n'' is the number of elements in the forest, and ''n_i'' is the number of elements in the ''i'':th set, with ''{j, k} = {i, i + 1}'' such that ''n_k <= n_j''.
+Here ''n'' is the number of elements in the forest, and ''n_i'' is the number of elements in the ''i'':th set, with ''{j, k} = {i, i + 1}'' such that ''n_k <= n_j''. The ''k'' is the number of empty trees that must be skipped to get to the next/previous element.
+
+[RedBlack]: [[Ref]]: redblacktree.txt
 
 Versus truncated skip-list
 --------------------------
