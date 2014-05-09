@@ -92,7 +92,7 @@ namespace Pastel
 				Base_Iterator& iter = *this;
 				--iter;
 				
-				while (isSentinel() && !isForestEnd())
+				while (isSentinel())
 				{
 					iter = std::prev(iter.sentinelData().tree())->last();
 				}

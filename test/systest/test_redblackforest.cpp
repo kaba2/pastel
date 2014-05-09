@@ -92,6 +92,29 @@ namespace
 				TEST_ENSURE(boost::equal(forest.range(), correctTree));
 				TEST_ENSURE_OP(forest.trees(), == , 2);
 			}
+
+			{
+				// We leave it undefined what will happen
+				// when an iterator is decremented beyond
+				// the first element. Currently it crashes,
+				// because the corresponding std::list
+				// operation does so.
+				/*
+				ConstIterator a = forest.cbegin();
+				--a;
+				*/
+			}
+			{
+				ConstIterator a = forest.cend();
+				++a;
+				TEST_ENSURE(a == forest.cend());
+			}
+			{
+				ConstIterator a = forest.cend();
+				--a;
+				TEST_ENSURE(a != forest.cend());
+				TEST_ENSURE(a == forest.clast());
+			}
 		}
 	};
 

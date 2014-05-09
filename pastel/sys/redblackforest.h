@@ -277,7 +277,7 @@ namespace Pastel
 
 		PASTEL_ITERATOR_FUNCTIONS(begin, treeBegin()->begin());
 		PASTEL_ITERATOR_FUNCTIONS(end, treeEnd()->end());
-		PASTEL_ITERATOR_FUNCTIONS(last, treeEnd()->last());
+		PASTEL_ITERATOR_FUNCTIONS(last, treeLast()->last());
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 	private:
