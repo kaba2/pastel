@@ -82,7 +82,16 @@ namespace Pastel
 			using Base = boost::iterator_range<RedBlackTree_::Iterator<
 				NodePtr, Node_Settings, DereferenceToData>>;
 
-			using Base::Base;
+			//! Forwards all constructors to the underlying range.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			template <typename... Type>
+			Range_(Type&&... that)
+				: Base(std::forward<Type>(that)...)
+			{
+			}
 
 			using Key_Range = Range_<NodePtr, Node_Settings, false>;
 			using Data_Range = Range_<NodePtr, Node_Settings, true>;
