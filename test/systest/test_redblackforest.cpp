@@ -83,13 +83,6 @@ namespace
 			{
 				integer correctTree[] = { 0, 1, 2, 3, 4, 5, 6 };
 				TEST_ENSURE(boost::equal(forest.range(), correctTree));
-
-				/*
-				for (integer i : forest)
-				{
-					std::cout << i << std::endl;
-				}
-				*/
 			}
 
 			forest.erase(cTree);

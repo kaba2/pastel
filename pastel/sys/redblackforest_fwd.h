@@ -36,7 +36,12 @@ namespace Pastel
 		: public Class<User_SentinelData>
 		{
 		public:
-			Tree_SentinelData() = default;
+			Tree_SentinelData()
+			: tree_()
+			, isForestEnd_(false)
+			{
+			}
+
 			~Tree_SentinelData() = default;
 
 			Tree_Iterator tree()
@@ -49,6 +54,11 @@ namespace Pastel
 				return tree_;
 			}
 
+			bool isForestEnd() const
+			{
+				return isForestEnd_;
+			}
+
 		private:
 			template <typename, template <typename> class>
 			friend class RedBlackForest;
@@ -56,14 +66,17 @@ namespace Pastel
 			friend class ConstIterator;
 			friend class Iterator;
 
-			// Prohibit all ways of changing the 'tree' field
-			// from outside.
+			// Prohibit all ways of changing the 
+			// data below from outside.
 			Tree_SentinelData(const Tree_SentinelData&) = delete;
 			Tree_SentinelData(Tree_SentinelData&&) = delete;
 			Tree_SentinelData& operator=(Tree_SentinelData) = delete;
 
 			//! An iterator, in the list of trees, corresponding to the tree.
 			Tree_Iterator tree_;
+
+			//! Whether this is the end-node of the sentinel tree.
+			bool isForestEnd_;
 		};
 
 		class Tree_Settings
@@ -77,8 +90,8 @@ namespace Pastel
 		using Element_Iterator = typename Tree::Iterator;
 		using Element_ConstIterator = typename Tree::ConstIterator;
 
-		using ConstIterator = RedBlackForest_::Continuous_Iterator<Element_ConstIterator>;
-		using Iterator = RedBlackForest_::Continuous_Iterator<Element_Iterator>;
+		using ConstIterator = RedBlackForest_::Iterator<Element_ConstIterator>;
+		using Iterator = RedBlackForest_::Iterator<Element_Iterator>;
 		using Range = boost::iterator_range<Iterator>;
 		using ConstRange = boost::iterator_range<ConstIterator>;
 

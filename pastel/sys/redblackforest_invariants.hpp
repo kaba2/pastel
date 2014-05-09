@@ -17,13 +17,26 @@ namespace Pastel
 		using Forest = RedBlackForest<Settings, Customization>;
 		using Tree_ConstIterator = typename Forest::Tree_ConstIterator;
 
-		if (!forest.cend().isGlobalSentinel())
+		if (forest.cend() != forest.treeSentinel()->cend())
 		{
-			// The end-node must be a global sentinel node.
+			// The forest's sentinel node must be sentinel tree's
+			// end-node.
 			return false;
 		}
 
-		Tree_ConstIterator tree = std::prev(forest.ctreeBegin());
+		if (!forest.cend().isForestEnd())
+		{
+			// The end-node must be the forest's sentinel node.
+			return false;
+		}
+
+		if (!forest.treeSentinel()->empty())
+		{
+			// The sentinel tree must be empty.
+			return false;
+		}
+
+		Tree_ConstIterator tree = forest.ctreeBegin();
 		Tree_ConstIterator end = std::next(forest.ctreeEnd());
 		while(tree != end)
 		{
