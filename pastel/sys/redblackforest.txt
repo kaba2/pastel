@@ -20,6 +20,11 @@ Here ''n'' is the number of elements in the forest, and ''n_i'' is the number of
 
 [RedBlack]: [[Ref]]: redblacktree.txt
 
+Additional properties
+---------------------
+
+Each red-black tree created in a given red-black forest shares the bottom-node of that red-black forest. This allows, by default, the trees in the forest to be joined together. However, sharing a bottom-node is not enforced by the red-black forest. In fact, the user is given a direct access to each red-black tree.
+
 Versus truncated skip-list
 --------------------------
 

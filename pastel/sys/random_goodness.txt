@@ -3,3 +3,4 @@ Goodness-of-fit tests
 
 [[Parent]]: random.txt
 
+This section contains goodness-of-fit tests for random variables.

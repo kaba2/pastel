@@ -3,4 +3,4 @@ Random variables
 
 [[Parent]]: pastelsys.txt
 
-This section contains things related to random variables.
+This section contains things related to random variables. Pastel allows to generate random real numbers from a number of useful distributions. For each distribution Pastel provides its probability density function and the ability to generate vectors of random numbers. If a parameter corresponds to a simple translation of the random variable, the parameter is not included because it can be trivially added by the user. This simplifies the interface.

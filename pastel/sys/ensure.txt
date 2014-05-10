@@ -1,48 +1,19 @@
 Invariant checking
 ==================
 
-[[Parent]]: testing.txt
+[[Parent]]: techniques.txt
 
-In programming, an _invariant_ is a condition that must hold 
-everytime the program executes through a specific position. 
+In programming, an _invariant_ is a condition that must hold everytime the program executes through a specific position. This section offers ways to establish and check program invariants.
 
 Theory
 ------
 
-In general, we can think of splitting up a program into
-small blocks of functionality. Each such block promises to
-do something, described by a set of _postconditions_, provided
-that the data it uses fulfills certain _preconditions_.
-Here is a small example of computing the logarithm of 
-a floating point number x:
-
-[[CppCode]]:
-	Precondition: x >= 0, y = x
-	// Do a lot of numerical stuff to
-	// obtain an approximation to log(x).
-	Postcondition: x ~= log(y)
-
-Most often, these blocks of code correspond to functions.
-Then the preconditions are a set of requirements for the arguments
-that are passed in, and the postconditions are a set of
-effects that the function results in. However, more fine grained
-checking is appropriate when the algorithm is complex.
-While preconditions concern checking the arguments that the
-user of the function passed in, those invariants internal
-to a function concerns the correctness of the implementation.
+To analyze the correctness of a program, it is useful to split it into small blocks of functionality, where each block promises to do something, described by a set of _postconditions_, provided that its input fulfills certain _preconditions_. Most often, these blocks correspond to functions. Then the preconditions are a set of requirements for the arguments that are passed in, and the postconditions are a set of effects that the function results in. However, more fine grained checking inside a function is appropriate when the algorithm is complex. While preconditions concern checking the arguments that the user of the function passed in, those invariants internal to a function concerns the correctness of the implementation.
 
 Practice
 --------
 
-One important technique in lowering the number of bugs in a program 
-is to establish and check invariants frequently. This simply means 
-to check that the program does what it promises to do. Arguably, the 
-most important invariants to check are the preconditions to functions.
-
-Pastel provides the macros `ENSURE`, `PENSURE`, and `ASSERT`, to help with
-enforcing invariants. All of the three macros work in exactly the same way,
-so we will demonstrate their functionality by taking `ENSURE` as an example.
-The following demonstrates the use of `ENSURE` in an actual situation. 
+Pastel provides the macros `ENSURE`, `PENSURE`, and `ASSERT`, to help with enforcing invariants. All of the three macros work in exactly the same way, so we will demonstrate their functionality by taking `ENSURE` as an example. The following demonstrates the use of `ENSURE` in an actual situation.
 
 [[CppCode]]:
 	SubMatrix& operator=(const SubMatrix& that)
@@ -54,39 +25,19 @@ The following demonstrates the use of `ENSURE` in an actual situation.
 		//...
 	}	
 
-`ENSURE` takes in a condition that must hold for the program to continue
-execution beyond that point. The number 2 denotes that in the case the
-condition is not satisfied, we want to report the values of two variables
-that are listed after the condition. Corresponding to the number of 
-reported parameters, there are also `ENSURE`, `ENSURE1`, `ENSURE2`, `ENSURE3`, 
-and `ENSURE4`. 
+`ENSURE` takes in a condition that must hold for the program to continue execution beyond that point. The number 2 denotes that in the case the condition is not satisfied, we want to report the values of two variables that are listed after the condition. Corresponding to the number of reported parameters, there are also `ENSURE`, `ENSURE1`, `ENSURE2`, `ENSURE3`, and `ENSURE4`.
 
-In our example, the precondition is that the SubMatrix's must have 
-equal width and height when one is assigned into another. In case that
-the conditions are satisfied, the program continues
-to execute the rest of the function. But if the conditions
-are _not_ satisfied, then the following happens:
+In our example, the precondition is that the SubMatrix's must have equal width and height when one is assigned into another. In case that the conditions are satisfied, the program continues to execute the rest of the function. But if the conditions are _not_ satisfied, then the following happens:
 
- 1. The violated condition, file name, line number, and the parameters
- are printed into a log.
- 
+ 1. The violated condition, file name, function name, line number, and the parameters are printed into a log.
  2. The program takes an invariant failure action.
 
-Triggering an `ENSURE` means that there is a bug at the _user's 
-side_ (or a bug at the condition itself). In contrast, triggering an
-`ASSERT` means that there is a bug in the _implementation_ side of the 
-algorithm (or a bug at the condition itself). The user can choose
-the taken action on an invariant failure. Choices include calling
-`std::abort()`, throwing an exception, or either of these with a 
-preceding `assert()` (to invoke a possible debugger when in debug mode).
+Triggering an `ENSURE` means that there is a bug at the _user's side_ (or a bug at the condition itself). Triggering an `ASSERT` means that there is a bug in the _implementation_ side of the algorithm (or a bug at the condition itself). The user can choose the taken action on an invariant failure. Choices include calling `std::abort()`, throwing an exception, or either of these with a preceding `assert()` (to invoke a possible debugger when in debug mode).
 
-The case of binary operator
----------------------------
+The case of the binary operator
+-------------------------------
 
-For the common case of testing two integer or floating point
-variables with a binary operator, Pastel implements
-`ENSURE_OP`, `PENSURE_OP`, and `ASSERT_OP` macros. They allow to avoid the
-redundant duplication of the testing parameters:
+For the common case of testing two integer or floating point variables with a binary operator, Pastel implements `ENSURE_OP`, `PENSURE_OP`, and `ASSERT_OP` macros. They allow to avoid the redundant duplication of the testing parameters:
 
 [[CppCode]]:
 	SubMatrix& operator=(const SubMatrix& that)
@@ -99,42 +50,16 @@ redundant duplication of the testing parameters:
 Performance
 -----------
 
-There is a problem with very short functions where the
-invariant checking can induce a relatively big performance degradation
-(for example, in checking the index bounds when accessing an array).
-To solve this problem, Pastel offers the macro `PENSURE`, which stands
-for "Performance `ENSURE`". This macro can be removed from the release
-version of the program by conditional compilation.
-It is intended to be used only in those rare situations where the 
-cost of invariant checking is relatively too big. As a rule of thumb, 
-I use `PENSURE` for functions that are of order O(log n) or less, and 
-`ENSURE` for all others.
+There is a problem with very short functions where the invariant checking can induce a relatively big performance degradation (for example, in checking the index bounds when accessing an array). To solve this problem, Pastel offers the macro `PENSURE`, which stands for "Performance `ENSURE`". This macro is automatically removed from release versions by conditional compilation. It is intended to be used only in those rare situations where the cost of invariant checking is relatively too big. As a rule of thumb, I use `PENSURE` for functions that are of order ''O(log(n))'' or less, and `ENSURE` for all others.
 
 Conditional compilation
 -----------------------
 
-`ENSURE`'s are always present in the program and can't be removed
-by conditional compilation from the program. This is to stress
-the point that precondition checking is always important, also in
-release versions. This is because in the case that a bug occurs, it is 
-important to know about it.
+`ENSURE`'s are always present in the program and can't be removed by conditional compilation from the program. This is to stress the point that precondition checking is always important, also in release versions. This is because in the case that a bug occurs, it is important to know about it.
 
-In contrast, `ASSERT`s and `PENSURE`s can be removed by conditional 
-compilation from the release version of the product. See the links 
-at the bottom for more information.
+The `ASSERT`s and `PENSURE`s are present if and only if `DEBUG` or `_DEBUG` is defined in the preprocessor.
 
 Justification for the use of a macro
 ------------------------------------
 
-The reason for using macros, which are well known for their 
-disadvantages, is to be able to report the file name and 
-line number, as well as the condition. Only the preprocessor can do
-this, and thus the use of a macro is necessary. This is one of the rare
-conditions where the use of a macro is justified.
-
-See also
---------
-
-### Conditional compilation for PENSUREs and ASSERTs
-
-[environment.h](./environment.h.htm)
+The reason for using macros, which are well known for their disadvantages, is to be able to report the file name, the function, the line number, and the condition. Only the preprocessor can do this, and thus the use of a macro is necessary. 

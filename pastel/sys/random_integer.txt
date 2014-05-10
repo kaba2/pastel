@@ -1,0 +1,5 @@
+Uniformly-distributed random integers
+=====================================
+
+[[Parent]]: random_discrete.txt
+

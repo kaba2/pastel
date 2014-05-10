@@ -1,5 +1,4 @@
 // Description: Uniformly-distributed random integers
-// Documentation: random_discrete.txt
 
 #ifndef PASTELSYS_RANDOM_INTEGER_H
 #define PASTELSYS_RANDOM_INTEGER_H
