@@ -64,79 +64,164 @@ namespace Pastel
 			{
 			}
 
+			//! Returns an iterator which dereferences to the key.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
 			Key_Iterator dereferenceKey() const
 			{
 				return Key_Iterator(*this);
 			}
 
+			//! Returns an iterator which dereferences to user data.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
 			Data_Iterator dereferenceData() const
 			{
 				return Data_Iterator(*this);
 			}
 
+			//! Returns the key of the node.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
 			const Key& key() const
 			{
 				PENSURE(!isSentinel());
 				return node()->key();
 			}
 
+			//! Returns the propagation data.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
 			const Propagation_Class& propagation() const
 			{
 				return node()->propagation();
 			}
 
+			//! Returns the user data.
+			/*!
+			Preconditions:
+			!isSentinel()
+
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
 			Data_Class& data() const
 			{
 				PENSURE(!isSentinel());
 				return (Data_Class&)node()->data();
 			}
 
-			bool isSentinel() const
-			{
-				return node()->isSentinel();
-			}
+			//! Returns the sentinel data.
+			/*!
+			Preconditions:
+			isSentinel()
 
-			bool validPropagation() const
-			{
-				return node()->validPropagation();
-			}
-
-			Iterator parent() const
-			{
-				return Iterator(node()->parent());
-			}
-
-			Iterator left() const
-			{
-				return Iterator(node()->left());
-			}
-
-			Iterator right() const
-			{
-				return Iterator(node()->right());
-			}
-
-			Iterator child(bool right) const
-			{
-				return Iterator(node()->child(right));
-			}
-
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
 			SentinelData_Class& sentinelData() const
 			{
 				PENSURE(isSentinel());
 				return ((Sentinel_Node<Node_Settings>*)node())->sentinelData();
 			}
 
+			//! Returns whether this node is a sentinel.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			bool isSentinel() const
+			{
+				return node()->isSentinel();
+			}
+
+			//! Returns whether this node has valid size.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+
+			This function is useful only for debugging.
+			When the implementation is correct, this function
+			always returns true.
+			*/
+			bool validPropagation() const
+			{
+				return node()->validPropagation();
+			}
+
+			//! Returns the parent node.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			Iterator parent() const
+			{
+				return Iterator(node()->parent());
+			}
+
+			//! Returns the left child node.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			Iterator left() const
+			{
+				return Iterator(node()->left());
+			}
+
+			//! Returns the right child node.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			Iterator right() const
+			{
+				return Iterator(node()->right());
+			}
+
+			//! Returns the given child node.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			Iterator child(bool right) const
+			{
+				return Iterator(node()->child(right));
+			}
+
+			//! Returns whether the node is red.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
 			bool red() const
 			{
 				return node()->red();
 			}
 
+			//! Returns whether the node is black.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
 			bool black() const
 			{
 				return !red();
 			}
 
+			//! Returns the number of nodes in the subtree rooted at this node.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
 			integer size() const
 			{
 				return node()->size();
