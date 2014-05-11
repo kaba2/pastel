@@ -1,9 +1,11 @@
-#ifndef PASTELSYS_OBJECT_FORWARDING_HPP
-#define PASTELSYS_OBJECT_FORWARDING_HPP
+#ifndef PASTELSYS_CLASS_HPP
+#define PASTELSYS_CLASS_HPP
 
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hashing.h"
+
+#include <boost/operators.hpp>
 
 #include <utility>
 #include <type_traits>
@@ -12,20 +14,18 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class Class_Forward
+	class Class
 	{
 	public:
-		// Only scalar types are allowed to be forwarded.
 		PASTEL_STATIC_ASSERT(std::is_scalar<Type>::value);
 
-		Class_Forward()
+		Class()
 			: member_()
 		{
 		}
 
-		template <typename That>
-		Class_Forward(That&& that)
-			: member_(std::forward<That>(that))
+		Class(Type that)
+			: member_(that)
 		{
 		}
 
@@ -43,28 +43,46 @@ namespace Pastel
 		Type member_;
 	};
 
+	template <>
+	class Class<void>
+	: boost::less_than_comparable<Class<void>,
+	boost::equality_comparable<Class<void>
+	> >
+	{
+	public:
+		bool operator<(const Class& that) const
+		{
+			return false;
+		}
+
+		bool operator==(const Class& that)
+		{
+			return true;
+		}
+	};
+
 }
 
 namespace std
 {
 
 	template <typename Type>
-	struct hash<Pastel::Class_Forward<Type>>
+	struct hash<Pastel::Class<Type>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::Class_Forward<Type>& that) const
+			const Pastel::Class<Type>& that) const
 		{
 			return Pastel::computeHash<Type>(that);
 		}
 	};
 
 	template <>
-	struct hash<Pastel::Class_Forward<void>>
+	struct hash<Pastel::Class<void>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::Class_Forward<void>& that) const
+			const Pastel::Class<void>& that) const
 		{
 			return Pastel::computeHash<void*>(0);
 		}

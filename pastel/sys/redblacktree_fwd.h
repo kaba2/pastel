@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_REDBLACKTREE_FWD_H
 #define PASTELSYS_REDBLACKTREE_FWD_H
 
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 #include "pastel/sys/range.h"
 
 #include <type_traits>
@@ -19,14 +19,11 @@ namespace Pastel
 		class Iterator;
 
 		template <typename>
-		class Base_Node;
+		class Sentinel_Node;
 
 		template <typename>
 		class Propagation_Node;
 		
-		template <typename>
-		class Sentinel_Node;
-
 		template <typename>
 		class Node;
 
@@ -50,9 +47,10 @@ namespace Pastel
 		PASTEL_CONSTEXPR bool MultipleKeys =
 			Settings::MultipleKeys;
 
-		using Data_Class = Class<Data>;
-		using Propagation_Class = Class<Propagation>;
-		using SentinelData_Class = Class<SentinelData>;
+		using Key_Class = As_Class<Key>;
+		using Data_Class = As_Class<Data>;
+		using Propagation_Class = As_Class<Propagation>;
+		using SentinelData_Class = As_Class<SentinelData>;
 
 		PASTEL_CONSTEXPR bool DereferenceToData =
 			!std::is_same<Data, void>::value;
@@ -61,6 +59,7 @@ namespace Pastel
 		{
 		public:
 			PASTEL_FWD(Key);
+			using Key_Class = Key_Class;
 			using Propagation_Class = Propagation_Class;
 			using Data_Class = Data_Class;
 			using SentinelData_Class = SentinelData_Class;
@@ -72,7 +71,6 @@ namespace Pastel
 
 		template <
 			typename NodePtr, 
-			typename Node_Settings, 
 			bool DereferenceToData>
 		class Range_
 		: public boost::iterator_range<RedBlackTree_::Iterator<
@@ -88,13 +86,19 @@ namespace Pastel
 			Exception safety: nothrow
 			*/
 			template <typename... Type>
-			Range_(Type&&... that)
+			explicit Range_(Type&&... that)
 				: Base(std::forward<Type>(that)...)
 			{
 			}
 
-			using Key_Range = Range_<NodePtr, Node_Settings, false>;
-			using Data_Range = Range_<NodePtr, Node_Settings, true>;
+			template <typename That_NodePtr, bool That_DereferenceToData>
+			Range_(const Range_<That_NodePtr, That_DereferenceToData>& that)
+			: Base(that)
+			{
+			}
+
+			using Key_Range = Range_<NodePtr, false>;
+			using Data_Range = Range_<NodePtr, true>;
 
 			Key_Range dereferenceKey() const
 			{
@@ -112,9 +116,9 @@ namespace Pastel
 		using ConstIterator = 
 			RedBlackTree_::Iterator<const Node*, Node_Settings, DereferenceToData>;
 		using Range = 
-			Range_<Node*, Node_Settings, DereferenceToData>;
+			Range_<Node*, DereferenceToData>;
 		using ConstRange = 
-			Range_<const Node*, Node_Settings, DereferenceToData>;
+			Range_<const Node*, DereferenceToData>;
 
 		using Insert_Return =
 			typename std::conditional<MultipleKeys,

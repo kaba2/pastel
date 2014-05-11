@@ -192,7 +192,6 @@ namespace Pastel
 
 		using Fwd = Settings;
 		PASTEL_FWD(Less);
-		PASTEL_FWD(Key);
 
 		if (Settings::MultipleKeys &&
 			!pairwiseAllOf(tree.crange().dereferenceKey(),

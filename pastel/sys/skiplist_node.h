@@ -4,7 +4,7 @@
 #define PASTELSYS_SKIPLIST_NODE_H
 
 #include "pastel/sys/skiplist.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 #include "pastel/sys/named_tuples.h"
 #include "pastel/sys/arrayptr.h"
 

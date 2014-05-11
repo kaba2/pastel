@@ -27,13 +27,13 @@ namespace Pastel
 			NodePtr,
 			typename std::conditional<DereferenceToData, 
 			typename Node_Settings::Data_Class, 
-			const typename Node_Settings::Key>::type,
+			const typename Node_Settings::Key_Class>::type,
 			boost::bidirectional_traversal_tag>
 		{
 		public:
 			using Fwd = Node_Settings;
 
-			PASTEL_FWD(Key);
+			PASTEL_FWD(Key_Class);
 			PASTEL_FWD(Data_Class);
 			PASTEL_FWD(Propagation_Class);
 			PASTEL_FWD(SentinelData_Class);
@@ -46,11 +46,6 @@ namespace Pastel
 
 			Iterator()
 				: Iterator::iterator_adaptor_(0) 
-			{
-			}
-
-			Iterator(NodePtr that)
-				: Iterator::iterator_adaptor_(that) 
 			{
 			}
 
@@ -89,7 +84,7 @@ namespace Pastel
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			const Key& key() const
+			const Key_Class& key() const
 			{
 				PENSURE(!isSentinel());
 				return node()->key();
@@ -228,11 +223,14 @@ namespace Pastel
 			}
 
 		private:
+			template <typename, template <typename> class>
+			friend class RedBlackTree;
+
 			friend class boost::iterator_core_access;
 
 			using DereferenceType = typename std::conditional<
 				DereferenceToData,
-				Data_Class, const Key>::type;
+				Data_Class, const Key_Class>::type;
 
 			struct KeyTag {};
 			struct DataTag {};
@@ -241,12 +239,17 @@ namespace Pastel
 				DereferenceToData, 
 				DataTag, KeyTag>::type;
 
+			explicit Iterator(NodePtr that)
+				: Iterator::iterator_adaptor_(that) 
+			{
+			}
+
 			NodePtr node() const
 			{
 				return this->base();
 			}
 
-			const Key& dereference(KeyTag) const
+			const Key_Class& dereference(KeyTag) const
 			{
 				return key();
 			}

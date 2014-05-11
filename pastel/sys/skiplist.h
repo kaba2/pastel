@@ -35,7 +35,7 @@ namespace Pastel
 		using Key = typename Settings::Key;
 		using Value = typename Settings::Value;
 		using Less = typename Settings::Less;
-		using Value_Class = Class<Value>;
+		using Value_Class = As_Class<Value>;
 		PASTEL_CONSTEXPR bool MultipleKeys = Settings::MultipleKeys;
 
 	private:

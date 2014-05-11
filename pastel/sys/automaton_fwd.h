@@ -3,7 +3,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 #include "pastel/sys/optional.h"
 #include "pastel/sys/second_iterator.h"
 #include "pastel/sys/hashing.h"
@@ -52,7 +52,7 @@ namespace Pastel
 			State_ConstIterator;
 
 		//! The user-data for the states.
-		typedef Class<StateData>
+		typedef As_Class<StateData>
 			StateData_Class;
 
 		//! The transitions.
@@ -66,7 +66,7 @@ namespace Pastel
 			Transition_ConstIterator;
 
 		//! The user-data for the transitions.
-		typedef Class<TransitionData>
+		typedef As_Class<TransitionData>
 			TransitionData_Class;
 
 		typedef typename Graph_Fwd::Incidence_Iterator

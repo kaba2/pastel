@@ -2,7 +2,7 @@
 #define PASTELSYS_REFINABLE_PARTITION_ELEMENT_H
 
 #include "pastel/sys/refinable_partition.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 
 // Visual Studio generates "multiple assignment operators" warning,
 // because it does not implement the deletion of functions 

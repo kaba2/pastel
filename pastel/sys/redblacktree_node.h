@@ -4,7 +4,7 @@
 #define PASTELSYS_REDBLACKTREE_NODE_H
 
 #include "pastel/sys/redblacktree.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 
 namespace Pastel
 {
@@ -189,6 +189,12 @@ namespace Pastel
 			using Fwd = Settings;
 			PASTEL_FWD(Propagation_Class);
 
+			const Propagation_Class& propagation() const
+			{
+				return *this;
+			}
+
+		protected:
 			using Base = Base_Node<Settings>;
 
 			Propagation_Node()
@@ -203,12 +209,6 @@ namespace Pastel
 			{
 			}
 
-			const Propagation_Class& propagation() const
-			{
-				return *this;
-			}
-
-		private:
 			Propagation_Node(const Propagation_Node& that) = delete;
 			Propagation_Node(Propagation_Node&& that) = delete;
 			Propagation_Node& operator=(Propagation_Node that) = delete;
@@ -228,22 +228,16 @@ namespace Pastel
 
 			using Base = Propagation_Node<Settings>;
 
-			template <typename, template <typename> class>
-			friend class Pastel::RedBlackTree;
-
-			template <typename, typename, bool>
-			friend class Iterator;
-
 			Sentinel_Node()
-			: Base()
-			, SentinelData_Class()
+				: Base()
+				, SentinelData_Class()
 			{
 			}
 
 			explicit Sentinel_Node(
 				const Propagation_Class& propagation)
-			: Base(propagation)
-			, SentinelData_Class()
+				: Base(propagation)
+				, SentinelData_Class()
 			{
 			}
 
@@ -252,38 +246,21 @@ namespace Pastel
 				return (SentinelData_Class&)*this;
 			}
 
-		private:		
+		protected:
 			Sentinel_Node(const Sentinel_Node& that) = delete;
 			Sentinel_Node(Sentinel_Node&& that) = delete;
 			Sentinel_Node& operator=(Sentinel_Node that) = delete;
 		};
 
-		//! Key node
+		//! Data node
 		template <typename Settings>
-		class Node
+		class Data_Node
 			: public Propagation_Node<Settings>
 			, public Settings::Data_Class
 		{
 		public:
 			using Fwd = Settings;
-
-			PASTEL_FWD(Key);
-			PASTEL_FWD(Propagation_Class);
 			PASTEL_FWD(Data_Class);
-
-			using Base = Propagation_Node<Settings>;
-
-			template <typename, template <typename> class>
-			friend class Pastel::RedBlackTree;
-
-			template <typename, typename, bool>
-			friend class Iterator;
-
-			const Key& key() const
-			{
-				ASSERT(!isSentinel());
-				return key_;
-			}
 
 			Data_Class& data()
 			{
@@ -297,22 +274,63 @@ namespace Pastel
 				return *this;
 			}
 
-		private:
-			explicit Node(
-				const Key& key,
+		protected:
+			using Base = Propagation_Node<Settings>;
+			PASTEL_FWD(Propagation_Class);
+
+			Data_Node(
 				const Data_Class& data,
 				const Propagation_Class& propagation)
 				: Base(propagation)
 				, Data_Class(data)
-				, key_(key)
+			{
+			}
+
+			Data_Node(const Data_Node& that) = delete;
+			Data_Node(Data_Node&& that) = delete;
+			Data_Node& operator=(Data_Node that) = delete;
+		};
+
+		//! Key node
+		template <typename Settings_>
+		class Node
+			: public Data_Node<Settings_>
+			, public Settings_::Key_Class
+		{
+		public:
+			using Fwd = Settings_;
+
+			PASTEL_FWD(Key_Class);
+
+			const Key_Class& key() const
+			{
+				ASSERT(!isSentinel());
+				return *this;
+			}
+
+		protected:
+			using Base = Data_Node<Settings_>;
+			PASTEL_FWD(Data_Class);
+			PASTEL_FWD(Propagation_Class);
+
+			template <typename, template <typename> class>
+			friend class Pastel::RedBlackTree;
+
+			template <typename, typename, bool>
+			friend class Iterator;
+
+			Node(
+				const Key_Class& key,
+				const Data_Class& data,
+				const Propagation_Class& propagation)
+				: Base(data, propagation)
+				, Key_Class(key)
 			{
 			}
 
 			Node(const Node& that) = delete;
 			Node(Node&& that) = delete;
 			Node& operator=(Node that) = delete;
-
-			Key key_;
 		};
 
 	}

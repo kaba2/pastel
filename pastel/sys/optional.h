@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_OPTIONAL_H
 #define PASTELSYS_OPTIONAL_H
 
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 #include "pastel/sys/hashing.h"
 
 #include <utility>
@@ -15,10 +15,10 @@ namespace Pastel
 
 	template <typename Type>
 	class Optional
-		: public Class<Type>
+		: public As_Class<Type>
 	{
 	public:
-		typedef Class<Type>
+		typedef As_Class<Type>
 			Type_Class;
 
 		Optional()
@@ -174,7 +174,7 @@ namespace std
 			}
 			
 			return Pastel::computeHash(
-				(const typename Pastel::Class<Type>&)that);
+				(const typename Pastel::As_Class<Type>&)that);
 		}
 	};
 
