@@ -1,5 +1,4 @@
-// Description: AlignedBox class
-// Detail: Allows to work with axis-aligned boxes
+// Description: Axis-aligned box
 
 #ifndef PASTELSYS_ALIGNEDBOX_H
 #define PASTELSYS_ALIGNEDBOX_H

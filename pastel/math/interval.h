@@ -1,5 +1,4 @@
-// Description: Interval class
-// Detail: Allows to work with real intervals
+// Description: Real interval
 
 #ifndef PASTELMATH_INTERVAL_H
 #define PASTELMATH_INTERVAL_H

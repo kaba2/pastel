@@ -1,5 +1,4 @@
-// Description: Polynomial class
-// Detail: Allows to work with polynomials over a field
+// Description: Polynomial
 
 #ifndef PASTELMATH_POLYNOMIAL_H
 #define PASTELMATH_POLYNOMIAL_H

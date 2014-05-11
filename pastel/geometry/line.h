@@ -1,5 +1,4 @@
-// Description: Line class
-// Detail: Allows to work with lines
+// Description: Line
 
 #ifndef PASTELGEOMETRY_LINE_H
 #define PASTELGEOMETRY_LINE_H

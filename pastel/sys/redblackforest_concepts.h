@@ -11,7 +11,7 @@ namespace Pastel
 	namespace RedBlackForest_Concepts
 	{
 
-		//! RedBlackForest_Settings concept
+		//! Red-black forest settings
 		class Settings
 		{
 		public:
@@ -24,7 +24,7 @@ namespace Pastel
 			using Tree = UserDefinedType;
 		};
 
-		//! RedBlackForest_Customization concept
+		//! Red-black forest customization
 		template <typename Settings>
 		class Customization
 		{
@@ -49,6 +49,12 @@ namespace Pastel
 			*/
 			Customization() {}
 
+			//! Called at the end of a constructor.
+			/*!
+			Exception safefy: basic
+			*/
+			void onConstruction() {};
+
 			//! Swaps two customizations.
 			/*!
 			Time complexity: O(1)
@@ -56,11 +62,11 @@ namespace Pastel
 			*/
 			void swap(Customization& that) {}
 
-			//! Called at the end of a constructor.
+			//! Called at the start of clear().
 			/*!
-			Exception safefy: basic
+			Exception safety: nothrow
 			*/
-			void onConstruction() {};
+			void onClear() {}
 
 			//! Called at the end of insertSet().
 			/*!

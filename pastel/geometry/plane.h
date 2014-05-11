@@ -1,5 +1,4 @@
-// Description: Plane class
-// Detail: Allows to work with planes
+// Description: Plane
 
 #ifndef PASTELGEOMETRY_PLANE_H
 #define PASTELGEOMETRY_PLANE_H

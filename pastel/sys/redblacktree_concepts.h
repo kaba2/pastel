@@ -11,7 +11,7 @@ namespace Pastel
 	namespace RedBlackTree_Concepts
 	{
 
-		//! RedBlackTree_Settings concept
+		//! Red-black tree settings
 		class Settings
 		{
 		public:
@@ -73,7 +73,7 @@ namespace Pastel
 			PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
 		};
 
-		//! RedBlackTree_Customization concept
+		//! Red-black tree customization
 		template <typename Settings>
 		class Customization
 		{
@@ -99,18 +99,18 @@ namespace Pastel
 			*/
 			Customization() {}
 
+			//! Called at the end of a constructor.
+			/*!
+			Exception safefy: basic
+			*/
+			void onConstruction() {};
+
 			//! Swaps two customizations.
 			/*!
 			Time complexity: O(1)
 			Exception safefy: nothrow
 			*/
 			void swap(Customization& that) {}
-
-			//! Called at the end of a constructor.
-			/*!
-			Exception safefy: basic
-			*/
-			void onConstruction() {};
 
 			//! Called at the start of clear().
 			/*!

@@ -1,5 +1,4 @@
-// Description: Quaternion class
-// Detail: Allows to work with quaternions
+// Description: Quaternion
 
 #ifndef PASTELMATH_QUATERNION_H
 #define PASTELMATH_QUATERNION_H

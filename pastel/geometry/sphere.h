@@ -1,5 +1,4 @@
-// Description: Sphere class
-// Detail: Allows to work with spheres
+// Description: Sphere
 
 #ifndef PASTELGEOMETRY_SPHERE_H
 #define PASTELGEOMETRY_SPHERE_H

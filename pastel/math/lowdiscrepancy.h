@@ -1,5 +1,4 @@
 // Description: Low discrepancy sequences
-// Detail: Allows to produce van Der Corput, Halton, Hammersley etc sequences.
 
 #ifndef PASTELMATH_LOWDISCREPANCY_H
 #define PASTELMATH_LOWDISCREPANCY_H
