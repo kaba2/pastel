@@ -1,7 +1,7 @@
 2-3 trees
 =========
 
-[[Parent]]: data_structures.txt
+[[Parent]]: undocumented.txt
 
 The _2-3-tree_ is a balanced search tree consisting of nodes with two and three children. Because its nodes are not homogeneous, it is rarely implemented in itself. However, at least two data structures, AA-trees and deterministic 1-2-skip-lists, can be thought to simulate 2-3-trees by a homogeneous data-structure. In these cases knowledge of the algorithms for the maintenance of 2-3-trees directly maps to knowledge of the algorithms for the simulating data-structures. In this section we provide the maintenance algorithms for 2-3-trees.
 
