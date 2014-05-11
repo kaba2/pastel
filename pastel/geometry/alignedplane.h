@@ -1,5 +1,4 @@
-// Description: AlignedPlane class
-// Detail: Allows to work with axis-aligned planes
+// Description: Axis-aligned plane
 
 #ifndef PASTELGEOMETRY_ALIGNEDPLANE_H
 #define PASTELGEOMETRY_ALIGNEDPLANE_H

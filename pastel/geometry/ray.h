@@ -1,5 +1,4 @@
-// Description: Ray class
-// Detail: Allows to work with rays
+// Description: Ray
 
 #ifndef PASTELGEOMETRY_RAY_H
 #define PASTELGEOMETRY_RAY_H

@@ -1,5 +1,4 @@
-// Description: Capsule class
-// Detail: Allows to work with capsules
+// Description: Capsule
 
 #ifndef PASTELGEOMETRY_CAPSULE_H
 #define PASTELGEOMETRY_CAPSULE_H

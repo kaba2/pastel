@@ -1,5 +1,4 @@
-// Description: Segment class
-// Detail: Allows to work with line segments
+// Description: Line segment
 
 #ifndef PASTELGEOMETRY_SEGMENT_H
 #define PASTELGEOMETRY_SEGMENT_H

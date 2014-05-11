@@ -1,5 +1,4 @@
-// Description: Box class
-// Detail: Allows to work with oriented boxes
+// Description: Oriented box
 
 #ifndef PASTELGEOMETRY_BOX_H
 #define PASTELGEOMETRY_BOX_H

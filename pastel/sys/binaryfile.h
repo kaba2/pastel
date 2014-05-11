@@ -1,5 +1,4 @@
-// Description: BinaryFile class
-// Detail: Allows to conveniently handle binary files
+// Description: Binary file
 
 #ifndef PASTELSYS_BINARYFILE_H
 #define PASTELSYS_BINARYFILE_H
