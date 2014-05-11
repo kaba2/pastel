@@ -50,6 +50,14 @@ namespace Pastel
 	> >
 	{
 	public:
+		Class()
+		{
+		}
+
+		Class(std::nullptr_t)
+		{
+		}
+
 		bool operator<(const Class& that) const
 		{
 			return false;

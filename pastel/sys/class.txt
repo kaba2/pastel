@@ -48,6 +48,14 @@ The idea behind class wrapping is best demonstrated by its actual implementation
 	> >
 	{
 	public:
+		Class()	
+		{
+		}
+
+		Class(std::nullptr_t) 
+		{
+		}
+
 		bool operator<(const Class& that) const
 		{
 			return false;
@@ -59,7 +67,7 @@ The idea behind class wrapping is best demonstrated by its actual implementation
 		}
 	};
 
-Trivial comparison functions, and a trivial hash function, are defined for the void-wrapper. This way `Class<void>` works, for example, as a key in the red-black tree (it is useful!). A redirecting hash function is defined for the non-void wrappers. We allow wrapping only for scalar types, and the void type, since there is no advantage in doing so for the other types. Correspondingly, we provide a way to wrap a type conditionally as follows:
+Trivial comparison functions, and a trivial hash function, are defined for the void-wrapper. This way `Class<void>` works, for example, as a key in the red-black tree (it is useful!). A void-wrapper can only be default-constructed, or constructed from a null-pointer. This way `nullptr` can be passed, for example, in place of the key in a red-black tree. A redirecting hash function is defined for the non-void wrappers. We allow wrapping only for scalar types, and the void type, since there is no advantage in doing so for the other types. Correspondingly, we provide a way to wrap a type conditionally as follows:
 
 [[CppCode]]:
 	template <typename Type>
