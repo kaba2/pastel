@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_REFINABLE_PARTITION_FWD_H
 #define PASTELSYS_REFINABLE_PARTITION_FWD_H
 
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 
 #include <list>
 
@@ -24,7 +24,7 @@ namespace Pastel
 		typedef typename ElementSet::const_iterator
 			Element_ConstIterator;
 	#endif
-		typedef Class<ElementData>
+		typedef As_Class<ElementData>
 			ElementData_Class;
 
 		class Set;
@@ -39,7 +39,7 @@ namespace Pastel
 		typedef typename SetSet::const_iterator
 			Set_ConstIterator;
 	#endif
-		typedef Class<SetData>
+		typedef As_Class<SetData>
 			SetData_Class;
 
 		typedef std::list<Element_Iterator>

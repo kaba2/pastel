@@ -33,7 +33,7 @@ namespace Pastel
 		using Customization = Customization_<Settings_>;
 
 		PASTEL_FWD(Key);
-		PASTEL_STATIC_ASSERT((!std::is_same<Key, void>::value));
+		PASTEL_FWD(Key_Class);
 
 		PASTEL_FWD(Propagation);
 		PASTEL_FWD(Propagation_Class);
@@ -317,7 +317,7 @@ namespace Pastel
 		the iterator points to the existing equivalent element.
 		*/
 		Insert_Return insert(
-			const Key& key, 
+			const Key_Class& key, 
 			const Data_Class& data = Data_Class(),
 			const Propagation_Class& propagation = Propagation_Class());
 
@@ -362,7 +362,7 @@ namespace Pastel
 		This is a convenience function which calls
 		erase(equalRange(key)).
 		*/
-		Iterator erase(const Key& key);
+		Iterator erase(const Key_Class& key);
 
 		//! Splices an element from 'that' tree to this tree.
 		/*!
@@ -382,7 +382,7 @@ namespace Pastel
 		This is a convenience function which returns
 		findEqual(key) != cend().
 		*/
-		bool exists(const Key& key) const
+		bool exists(const Key_Class& key) const
 		{
 			return findEqual(key) != cend();
 		}
@@ -395,9 +395,9 @@ namespace Pastel
 		If there are multiple elements equivalent to 'key',
 		then the first of them is returned (same as lowerBound()).
 		*/
-		ConstIterator find(const Key& key) const;
+		ConstIterator find(const Key_Class& key) const;
 
-		Iterator find(const Key& key)
+		Iterator find(const Key_Class& key)
 		{
 			return cast(addConst(*this).find(key));
 		}
@@ -412,25 +412,25 @@ namespace Pastel
 		is the fastest way to find some equivalent element.
 		*/
 		ConstIterator findEqual(
-			const Key& key,
+			const Key_Class& key,
 			const ConstIterator& start) const
 		{
 			return findEqualAndUpper(key, start).equal;
 		}
 
 		Iterator findEqual(
-			const Key& key,
+			const Key_Class& key,
 			const ConstIterator& start)
 		{
 			return cast(addConst(*this).findEqual(key, start));;
 		}
 
-		ConstIterator findEqual(const Key& key) const
+		ConstIterator findEqual(const Key_Class& key) const
 		{
 			return findEqual(key, croot());
 		}
 
-		Iterator findEqual(const Key& key)
+		Iterator findEqual(const Key_Class& key)
 		{
 			return cast(addConst(*this).findEqual(key));
 		}
@@ -444,7 +444,7 @@ namespace Pastel
 		top-most element.
 		*/
 		FindEqual_Return findEqualAndUpper(
-			const Key& key, const ConstIterator& start) const;
+			const Key_Class& key, const ConstIterator& start) const;
 
 		//! Finds the top-most element equivalent to key, and an upper bound.
 		/*!
@@ -452,7 +452,7 @@ namespace Pastel
 		findEqualAndUpper(key, croot()).
 		*/
 		FindEqual_Return findEqualAndUpper(
-			const Key& key) const
+			const Key_Class& key) const
 		{
 			return findEqualAndUpper(key, croot());
 		}
@@ -473,7 +473,7 @@ namespace Pastel
 		in redblacktree_fwd.h
 		*/
 		FindInsert_Return findInsert(
-			const Key& key, 
+			const Key_Class& key, 
 			const FindEqual_Return& equalRoot) const;
 
 		//! Finds the node at which to join another tree.
@@ -490,7 +490,7 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		ConstRange equalRange(const Key& key) const
+		ConstRange equalRange(const Key_Class& key) const
 		{
 			auto equalAndUpper = findEqualAndUpper(key);
 			return ConstRange(
@@ -499,7 +499,7 @@ namespace Pastel
 		}
 
 		std::pair<ConstIterator, ConstIterator> 
-			equal_range(const Key& key) const
+			equal_range(const Key_Class& key) const
 		{
 			ConstRange range = equalRange(key);
 			return std::make_pair(range.begin(), range.end());
@@ -510,13 +510,13 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		Range equalRange(const Key& key)
+		Range equalRange(const Key_Class& key)
 		{
 			return cast(addConst(*this).equalRange(key));
 		}
 
 		std::pair<Iterator, Iterator> 
-			equal_range(const Key& key)
+			equal_range(const Key_Class& key)
 		{
 			Range range = equalRange(key);
 			return std::make_pair(range.begin(), range.end());
@@ -527,22 +527,22 @@ namespace Pastel
 		This is a convenience function which calls
 		equalRange(key).first
 		*/
-		ConstIterator lowerBound(const Key& key) const
+		ConstIterator lowerBound(const Key_Class& key) const
 		{
 			return lowerBound(key, findEqualAndUpper(key));
 		}
 
-		ConstIterator lower_bound(const Key& key) const
+		ConstIterator lower_bound(const Key_Class& key) const
 		{
 			return lowerBound(key);
 		}
 
-		Iterator lowerBound(const Key& key)
+		Iterator lowerBound(const Key_Class& key)
 		{
 			return cast(addConst(*this).lowerBound(key));
 		}
 
-		Iterator lower_bound(const Key& key)
+		Iterator lower_bound(const Key_Class& key)
 		{
 			return lowerBound(key);
 		}
@@ -553,11 +553,11 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		ConstIterator lowerBound(
-			const Key& key,
+			const Key_Class& key,
 			const FindEqual_Return& equalAndUpper) const;
 
 		Iterator lowerBound(
-			const Key& key,
+			const Key_Class& key,
 			const FindEqual_Return& equalAndUpper)
 		{
 			return cast(addConst(*this).lowerBound(key, equalAndUpper));
@@ -568,22 +568,22 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		ConstIterator upperBound(const Key& key) const
+		ConstIterator upperBound(const Key_Class& key) const
 		{
 			return upperBound(key, findEqualAndUpper(key));
 		}
 
-		ConstIterator upper_bound(const Key& key) const
+		ConstIterator upper_bound(const Key_Class& key) const
 		{
 			return upperBound(key);
 		}
 
-		Iterator upperBound(const Key& key)
+		Iterator upperBound(const Key_Class& key)
 		{
 			return cast(addConst(*this).upperBound(key));
 		}
 
-		Iterator upper_bound(const Key& key)
+		Iterator upper_bound(const Key_Class& key)
 		{
 			return upperBound(key);
 		}
@@ -594,14 +594,14 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		ConstIterator upperBound(
-			const Key& key,
+			const Key_Class& key,
 			const FindEqual_Return& equalAndUpper) const
 		{
 			return findInsert(key, equalAndUpper).upper;
 		}
 
 		Iterator upperBound(
-			const Key& key,
+			const Key_Class& key,
 			const FindEqual_Return& equalAndUpper)
 		{
 			return cast(addConst(*this).upperBound(key, equalAndUpper));
@@ -677,14 +677,14 @@ namespace Pastel
 		This is a convenience function which returns
 		split(lowerBound(key)).
 		*/
-		RedBlackTree split(const Key& key);
+		RedBlackTree split(const Key_Class& key);
 
 		//! Returns the number of equivalent elements.
 		/*!
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		integer count(const Key& key) const;
+		integer count(const Key_Class& key) const;
 
 		//! Splits the sentinel node.
 		/*!
@@ -875,7 +875,7 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		Node* allocateNode(
-			const Key& key,
+			const Key_Class& key,
 			const Data_Class& data,
 			const Propagation_Class& propagation);
 
@@ -1011,7 +1011,7 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		EqualRange_Return equalRange(
-			const Key& key, 
+			const Key_Class& key, 
 			const FindEqual_Return& equalAndUpper,
 			EqualRange compute) const;
 
@@ -1027,6 +1027,11 @@ namespace Pastel
 		Whether the update was performed.
 		*/
 		bool update(const Iterator& element);
+
+		bool update(Node* node)
+		{
+			return update(Iterator(node));
+		}
 
 		//! Updates propagation data on the path to root.
 		/*!
@@ -1108,7 +1113,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		bool less(const Key& left, const Key& right) const
+		bool less(const Key_Class& left, const Key_Class& right) const
 		{
 			return Less()(left, right);
 		}

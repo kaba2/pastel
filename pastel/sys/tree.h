@@ -6,7 +6,7 @@
 #include "pastel/sys/tree_node.h"
 #include "pastel/sys/tree_iterator.h"
 #include "pastel/sys/destruct.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 
 namespace Pastel
 {
@@ -17,7 +17,7 @@ namespace Pastel
 	{
 	private:
 		typedef Type Data;
-        typedef Class<Data> Data_Class;
+        typedef As_Class<Data> Data_Class;
 		typedef Tree_::Node Node;
 		typedef Tree_::Data_Node<Data_Class> Data_Node;
 		typedef Tree_::Sentinel_Node Sentinel_Node;

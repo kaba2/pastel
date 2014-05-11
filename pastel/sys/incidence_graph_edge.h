@@ -2,7 +2,7 @@
 #define PASTELSYS_INCIDENCE_GRAPH_EDGE_H
 
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 
 // Visual Studio generates "multiple assignment operators" warning,
 // because it does not implement the deletion of functions 
@@ -23,10 +23,10 @@ namespace Pastel
 
 		template <typename Data>
 		class Directed_EdgeData<GraphType::Directed, Data>
-			: public Class<Data>
+			: public As_Class<Data>
 		{
 		public:
-			typedef Class<Data> 
+			typedef As_Class<Data> 
 				Base;
 
 			template <typename Data_>
@@ -56,10 +56,10 @@ namespace Pastel
 
 		template <typename Data>
 		class Directed_EdgeData<GraphType::Undirected, Data>
-			: public Class<Data>
+			: public As_Class<Data>
 		{
 		public:
-			typedef Class<Data> 
+			typedef As_Class<Data> 
 				Base;
 
 			template <typename Data_>
@@ -89,10 +89,10 @@ namespace Pastel
 
 		template <typename Data>
 		class Directed_EdgeData<GraphType::Mixed, Data>
-			: public Class<Data>
+			: public As_Class<Data>
 		{
 		public:
-			typedef Class<Data> 
+			typedef As_Class<Data> 
 				Base;
 
 			template <typename Data_>

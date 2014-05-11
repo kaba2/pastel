@@ -54,7 +54,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::allocateNode(
-		const Key& key, 
+		const Key_Class& key, 
 		const Data_Class& data,
 		const Propagation_Class& propagation)
 	-> Node*

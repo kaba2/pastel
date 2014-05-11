@@ -78,6 +78,7 @@ namespace
 			testMultiSet();
 			testMap();
 			testMultiMap();
+			testVoidSet();
 
 			testMultiLowerBound<MultiSet>();
 			testMultiLowerBound<MultiMap>();
@@ -106,6 +107,14 @@ namespace
 			testUpperBound<Tree>();
 			testJoin<Tree>();
 			testQuantile<Tree>();
+		}
+
+		void testVoidSet()
+		{
+			using Set = RedBlack_Set<void>;
+			Set tree;
+			TEST_ENSURE(testInvariants(tree));
+			tree.insert(As_Class<void>());
 		}
 
 		void testSet()
@@ -660,6 +669,7 @@ namespace
 				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 				TEST_ENSURE(testInvariants(tree));
 			}
+
 			tree.erase(4);
 			{
 				integer correctSet[] = { 1, 2, 3, 5, 6, 7, 8, 9 };

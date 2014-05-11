@@ -2,7 +2,7 @@
 #define PASTELSYS_INCIDENCE_GRAPH_VERTEX_H
 
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 
 // Visual Studio generates "multiple assignment operators" warning,
 // because it does not implement the deletion of functions 

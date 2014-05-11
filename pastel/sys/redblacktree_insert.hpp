@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::insert(
-		const Key& key, 
+		const Key_Class& key, 
 		const Data_Class& data,
 		const Propagation_Class& propagation)
 	-> Insert_Return

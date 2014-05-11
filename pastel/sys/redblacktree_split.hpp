@@ -350,7 +350,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::split(
-		const Key& key)
+		const Key_Class& key)
 	-> RedBlackTree
 	{
 		return split(lowerBound(key));

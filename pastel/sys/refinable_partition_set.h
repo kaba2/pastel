@@ -2,7 +2,7 @@
 #define PASTELSYS_REFINABLE_PARTITION_SET_H
 
 #include "pastel/sys/refinable_partition.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 
 // For swap, FIX: replace with utility once C++11 support improves.
 #include <algorithm>

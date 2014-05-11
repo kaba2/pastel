@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	integer RedBlackTree<Settings, Customization>::count(
-		const Key& key) const
+		const Key_Class& key) const
 	{
 		// Find the top-most node equivalent to the key.
 		ConstIterator equal = findEqual(key);

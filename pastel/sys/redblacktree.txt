@@ -51,7 +51,7 @@ Each node stores, along with other things related to tree-structure, a key, a pr
 
 ### Key
 
-A _key_ is used to arrange the elements in increasing order with respect to the given strict weak order. The key can not be modified after insertion.
+A _key_ is used to arrange the elements in increasing order with respect to the given strict weak order. The key can not be modified after insertion. Defining the type of the key as `void` avoids allocating any memory for it. This is indeed sometimes useful. The default order is then given by the less-than operator of the `Class<void>`, under which every element is equivalent to each other. Thus, for example, a search for a given key always returns the first element of the tree, because that is the first element equivalent to the searched key. Having equivalent elements does not degrade the performance of the tree in any way; the tree still retains its logarithmic height, and has its propagation information correctly updated. In addition, the elements can be freely spliced into new positions, since any hinted position is a correct position. The order need not be trivial even when the the key is `void`; for example, one can define an order by comparing the addresses of the keys, which are the same as the addresses of the nodes.
 
 ### User data
 

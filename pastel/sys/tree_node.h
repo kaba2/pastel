@@ -5,7 +5,7 @@
 
 #include "pastel/sys/tree.h"
 #include "pastel/sys/tuple.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 
 namespace Pastel
 {

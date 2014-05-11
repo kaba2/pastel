@@ -23,7 +23,7 @@ namespace Pastel
 		};
 
 		template <typename Key>
-		struct Iterator_Value<Key, Class<void>>
+		struct Iterator_Value<Key, As_Class<void>>
 		{
 			typedef const Key type;
 			PASTEL_CONSTEXPR bool UseValue = false;

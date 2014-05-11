@@ -1,9 +1,9 @@
-// Description: Testing for object forwarding
-// DocumentationOf: object_forwarding.h
+// Description: Testing for class wrapping
+// DocumentationOf: class.h
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/object_forwarding.h>
+#include <pastel/sys/class.h>
 
 using namespace Pastel;
 using namespace std;
@@ -27,7 +27,7 @@ namespace
 
 		void test()
 		{
-			Class<int> a(5);
+			As_Class<int> a(5);
 			{
 				TEST_ENSURE_OP(a, ==, 5);
 			}
@@ -37,7 +37,7 @@ namespace
 				TEST_ENSURE_OP(a, ==, 8);
 			}
 
-			Class<void> c;
+			As_Class<void> c;
 			unused(c);
 		}
 	};
@@ -50,7 +50,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("object_forwarding", test);
+		testRunner().add("class", test);
 	}
 
 	CallFunction run(addTest);

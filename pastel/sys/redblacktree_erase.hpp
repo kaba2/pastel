@@ -52,7 +52,7 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	auto RedBlackTree<Settings, Customization>::erase(const Key& key)
+	auto RedBlackTree<Settings, Customization>::erase(const Key_Class& key)
 	-> Iterator
 	{
 		return erase(equalRange(key));

@@ -26,8 +26,14 @@ namespace Pastel
 			Exception safety: nothrow
 			*/
 			template <typename... Type>
-			Iterator(Type&&... that)
+			explicit Iterator(Type&&... that)
 			: Base_Iterator(std::forward<Type>(that)...)
+			{
+			}
+
+			template <typename That_BaseIterator>
+			Iterator(const Iterator<That_BaseIterator>& that)
+				: Base_Iterator(that)
 			{
 			}
 
