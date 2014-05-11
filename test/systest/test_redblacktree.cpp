@@ -114,7 +114,7 @@ namespace
 			using Set = RedBlack_Set<void>;
 			Set tree;
 			TEST_ENSURE(testInvariants(tree));
-			tree.insert(As_Class<void>());
+			tree.insert(nullptr);
 		}
 
 		void testSet()

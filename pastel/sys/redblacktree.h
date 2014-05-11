@@ -1377,8 +1377,8 @@ namespace Pastel
 {
 
 	template <
-		typename Key, 
-		typename Data,
+		typename Key = void, 
+		typename Data = void,
 		typename Less = LessThan,
 		typename Propagation = void,
 		typename SentinelData = void,
@@ -1388,8 +1388,8 @@ namespace Pastel
 		Customization>;
 
 	template <
-		typename Key, 
-		typename Data,
+		typename Key = void, 
+		typename Data = void,
 		typename Less = LessThan,
 		typename Propagation = void,
 		typename SentinelData = void,
@@ -1406,7 +1406,7 @@ namespace Pastel
 {
 
 	template <
-		typename Key,
+		typename Key = void,
 		typename Less = LessThan,
 		typename Propagation = void,
 		typename SentinelData = void,
@@ -1416,7 +1416,7 @@ namespace Pastel
 		Customization>;
 
 	template <
-		typename Key, 
+		typename Key = void, 
 		typename Less = LessThan,
 		typename Propagation = void,
 		typename SentinelData = void,
