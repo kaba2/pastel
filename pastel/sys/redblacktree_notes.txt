@@ -33,6 +33,7 @@ as an empty node. Thus, for example, if a node does not have children, then the 
 Two red-black trees ''A'' and ''B'' can be joined together in ''O(log(n_2 + 2) - log(n_1 + 2))'' time, where ''n_2'' and ''n_1'' are the number of elements in the larger and the smaller tree, respectively. The cases where either tree is empty is trivial, so we will now assume neither is empty. Without loss of generality, we may assume ''A'' does not have a smaller black-height than ''B''. Let ''M'' be the minimum (maximum) node of ''B'', if ''A <= B'' (''A >= B'').
 
 The join can be achieved as follows:
+
 * Detach ''M'' from ''B''. Isolate ''M'' and color it red.
 * Find, in ''A'', the largest (smallest) node ''J'' subject to having a black-height equal to the black-height of ''B''. 
 * Replace ''J'' with ''M''. Make ''J'' and ''B'' the left (right) and right (left) subtrees of ''M'', respectively.
@@ -45,12 +46,7 @@ The join can be achieved as follows:
 
 ### Logarithmic splitting
 
-A red-black tree can be split in two along a given element in logarithmic time, using the logarithmic join as a basic building block. However, it is easy to end up with an algorithm which is ''O(log^2)'' instead. To avoid this,
-
-* The propagation updates must be shared between the joins, so that redundant propagation updates are avoided. 
-* The key is to amortize the propagation costs, during the split algorithm, by marking the paths from the join-roots to the root as invalid, and then updating those paths, at the same, at the end of the split algorithm. 
-* The ''M'' nodes in the join algorithm must be tracked incrementally by the split algorithm, and not searched all over again. These nodes are all contained in the left and right spines of the trees.
-* To do this, the tree needs to track its black-height, which is easy since it can only change in the rebalancing algorithms.
+A red-black tree can be split in two along a given element in logarithmic time, using the logarithmic join as a basic building block. However, it is easy to end up with an algorithm which is ''O(log^2)'' instead. To avoid this, the propagation updates must be shared between the joins, so that redundant propagation updates are avoided. The key is to amortize the propagation costs, during the split algorithm, by marking the paths from the join-roots to the root as invalid, and then updating those paths, at the same, at the end of the split algorithm. The ''M'' nodes in the join algorithm must be tracked incrementally by the split algorithm, and not searched all over again. These nodes are all contained in the left and right spines of the trees. To do this, the tree needs to track its black-height, which is easy since it can only change in the rebalancing algorithms.
 
 Starting a search from the minimum node
 ---------------------------------------
