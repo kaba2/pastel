@@ -1,5 +1,5 @@
-Named tuples
-============
+Named tuple
+===========
 
 [[Parent]]: data_structures.txt
 
