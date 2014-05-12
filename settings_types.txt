@@ -1,5 +1,5 @@
-Class template settings
-=======================
+Settings types
+==============
 
 [[Parent]]: techniques.txt
 

@@ -21,7 +21,7 @@ Every data structure in Pastel
 * is documented for time-complexity, and
 * is documented for space-complexity.
 
-[Adaptable]: [[Ref]]: techniques_iterators.txt
-[Layered]: [[Ref]]: techniques_layered.txt
+[Adaptable]: [[Ref]]: adaptable_iterators.txt
+[Layered]: [[Ref]]: layered_structures.txt
 [Customization]: [[Ref]]: customization.txt
 [ClassWrapping]: [[Ref]]: class.txt
