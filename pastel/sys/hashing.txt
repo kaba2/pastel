@@ -1,7 +1,7 @@
 Hashing
 =======
 
-[[Parent]]: data_structures.txt
+[[Parent]]: pastelsys.txt
 
 _Hashing_ is a way to turn data into a single integer value in a way
 that seems hard to predict. Hashing is used in hash-tables to obtain
