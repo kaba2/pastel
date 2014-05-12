@@ -89,7 +89,7 @@ Abstract example
 		return 0;
 	}
 
-[Settings]: [[Ref]]: techniques_settings.txt
+[Settings]: [[Ref]]: settings_types.txt
 
 Concrete examples
 -----------------
