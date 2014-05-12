@@ -20,6 +20,15 @@ These properties guarantee that the height of the tree is ''O(log(n))'', where '
 
 It is common to require, in addition, that the root be black; this is also guaranteed by Pastel. However, as far as the theory goes, we allow roots of both colors, so that in a red-black tree every subtree under a given node is a red-black tree. This results in a simpler theory of red-black trees.
 
+Types
+-----
+
+Generic data structure
+: `RedBlackTree`
+
+Stable template-aliases
+: `RedBlack_Set`, `RedBlack_MultiSet`, `RedBlack_Map`, `RedBlack_MultiMap`.
+
 Properties
 ----------
 

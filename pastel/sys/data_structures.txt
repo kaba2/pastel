@@ -23,5 +23,5 @@ Every data structure in Pastel
 
 [Adaptable]: [[Ref]]: techniques_iterators.txt
 [Layered]: [[Ref]]: techniques_layered.txt
-[Customization]: [[Ref]]: techniques_customization.txt
+[Customization]: [[Ref]]: customization.txt
 [ClassWrapping]: [[Ref]]: class.txt
