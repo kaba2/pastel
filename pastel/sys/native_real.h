@@ -28,6 +28,13 @@ namespace Pastel
 		return std::numeric_limits<Type>::quiet_NaN();
 	}
 
+	template <typename Type>
+	PASTEL_ENABLE_IF(std::is_floating_point<Type>, bool) 
+		isNan(const Type& that)
+	{
+		return that != that;
+	}
+
 	using std::floor;
 	using std::ceil;
 

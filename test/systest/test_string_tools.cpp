@@ -5,7 +5,6 @@
 
 #include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/constants.h"
-#include "pastel/sys/isnan.h"
 
 using namespace Pastel;
 

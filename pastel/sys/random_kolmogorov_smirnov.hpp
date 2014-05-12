@@ -3,7 +3,6 @@
 
 #include "pastel/sys/random_kolmogorov_smirnov.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/isnan.h"
 #include "pastel/sys/random_gaussian.h"
 #include "pastel/sys/math_functions.h"
 
