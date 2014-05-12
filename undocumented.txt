@@ -1,4 +1,6 @@
 Undocumented
 ============
 
+[[Parent]]: deprecated.txt
+
 This section contains things that have not been linked to the main documentation; they have not reached a proper level of maturity.

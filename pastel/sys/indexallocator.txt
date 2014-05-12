@@ -1,7 +1,7 @@
 IndexAllocator class
 ====================
 
-[[Parent]]: miscellaneous.txt
+[[Parent]]: undocumented.txt
 
 _IndexAllocator_ manages integer identifiers in a conservative manner. 
 The identifiers are resources which can be allocated and deallocated, 
