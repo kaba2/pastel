@@ -4,24 +4,3 @@ Data structures
 [[Parent]]: pastelsys.txt
 
 This section contains implementations for a set of fundamental data structures. In addition to being the everyday tools of a programmer, they also form a set of building blocks from which to form more advanced data structures.
-
-Basic properties
-----------------
-
-Every data structure in Pastel
-
-* is [const-correct][Layered],
-* is [exception-safe][Layered],
-* follows the [open-closed principle][Layered],
-* follows the [principle of minimal requirements and maximal information][Layered],
-* follows the [zero overhead principle][ClassWrapping],
-* uses [adaptable iterators][Adaptable],
-* is [customizable][Customization],
-* is documented for exception-safety,
-* is documented for time-complexity, and
-* is documented for space-complexity.
-
-[Adaptable]: [[Ref]]: adaptable_iterators.txt
-[Layered]: [[Ref]]: layered_structures.txt
-[Customization]: [[Ref]]: customization.txt
-[ClassWrapping]: [[Ref]]: class.txt
