@@ -1,5 +1,5 @@
 // Description: Template deduction macros
-// Documentation: techniques_deduction.txt
+// Documentation: restrict_deduction.txt
 
 #ifndef PASTELSYS_DEDUCTION_MACROS_H
 #define PASTELSYS_DEDUCTION_MACROS_H
