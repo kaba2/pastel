@@ -1,6 +1,4 @@
-Undocumented PastelSys code
-===========================
+Undocumented
+============
 
-This section contains code that has not been linked to the main
-documentation. This is code that has not reached a proper level of
-maturity.
+This section contains things that have not been linked to the main documentation; they have not reached a proper level of maturity.

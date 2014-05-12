@@ -1,0 +1,101 @@
+Customization of data structures
+================================
+
+[[Parent]]: techniques.txt
+
+A data structure is _customizable_, if 
+
+* code can be injected to be run at various customization-points of the data structure, 
+* data can be injected into the parts of the data structure, 
+* the injected code can arbitrarily modify and depend on the injected data
+and the data structure itself (using its public methods only), and
+* new functions can be added into the interface of the data structure.
+
+A _customization_ is a single-parameter class template, parametrized by the [settings-type][Settings] of the data-structure that is to be customized. The data-structure is passed the customization from whose settings-instance it publicly derives from. The customization makes its constructors and its assignment operator available only to the data-structure, to avoid the possibility of slicing. 
+
+Abstract example
+----------------
+
+[[CppCode]]:
+	template <
+		typename Settings,
+		template <typename> class Customization>
+	class DataStructure
+		: public Customization<Settings>
+	{
+	public:
+		void insert(int someParameter)
+		{
+			// A customization point.
+			onInsert(someParameter);
+		}
+	};
+
+	template <typename Settings>
+	class Demo_Customization
+	{
+	public:
+		// Since the data structure inherits from its customization,
+		// you can extend the public interface of the data structure 
+		// by specifying public functions here.
+		void newMemberFunction()
+		{
+		}
+
+	protected:
+		// The customization functions should be protected
+		// so that they can only be called by the data structure.
+
+		Demo_Customization() {}
+
+		// The code for the customization points.
+		void onInsert(int someParameter) {}
+
+	private:
+		// These functions will not be used, and so should
+		// be deleted to avoid accidental splicing.
+		Demo_Customization(const Demo_Customization& that) = delete;
+		Demo_Customization(Demo_Customization&& that) = delete;
+		Demo_Customization& operator=(Demo_Customization) = delete;
+
+		// Since the data structure is derived from the
+		// customization, a reference to the data structure
+		// can be obtained by casting.
+		DataStructure<Settings, ::Demo_Customization>& self()
+		{
+			return (DataStructure<Settings, ::Demo_Customization>&)*this;
+		}
+
+		const DataStructure<Settings, ::Demo_Customization>& self() const
+		{
+			return (const DataStructure<Settings, ::Demo_Customization>&)*this;
+		}
+
+		// Customization state can be introduced here.
+		int state_;
+	};
+
+	// This is how the data structure appears in code.
+	template <typename Settings, template <typename> class Customization>
+	void f(const DataStructure<Settings, Customization>& dataStructure)
+	{
+	}
+
+	int main()
+	{
+		class Settings {};
+		DataStructure<Settings, Demo_Customization> a;
+		f(a);
+		return 0;
+	}
+
+[Settings]: [[Ref]]: techniques_settings.txt
+
+Concrete examples
+-----------------
+
+The [red-black tree][RedBlack] is a self-balancing binary search tree. In Pastel, this data structure is customizable. This allows, among other things, to define a propagation function which is used to propagate information from a children node to a parent node. This allows to solve many algorithmic problems, such as the [maximum clique problem for aligned boxes][MaximumClique], and to implement new data structures, such as the interval tree.
+
+[RedBlack]: [[Ref]]: redblacktree.txt
+[MaximumClique]: [[Ref]]: maximum_clique_alignedbox.txt
+

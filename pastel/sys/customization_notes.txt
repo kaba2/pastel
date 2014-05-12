@@ -1,0 +1,96 @@
+Customization of data structures - notes
+========================================
+
+[[Parent]]: customization.txt
+
+This section contains additional notes on customization of data structures.
+
+Rejected solutions
+------------------
+
+### Customization by a member variable
+
+The customization object is stored in a member variable. We reject this solution because
+
+* the reference to the data structure now has to be passed as a parameter to the customization, and 
+* this technique is not able to add new member functions to the data structure.
+
+[[CppCode]]:
+	template <typename Customization>
+	class DataStructure
+	{
+	public:
+		void addPart(int someParameter)
+		{
+			customization_.onAddPart(*this, someParameter);
+		}
+
+	private:
+		Customization customization_;
+	};
+
+	template <typename DataStructure>
+	class Customization
+	{
+	public:
+		// The code for the customization points.
+		void onAddPart(
+			const DataStructure& dataStructure,
+			int someParameter) {}
+
+	private:
+		// The injected data.
+		int state_;
+	};
+
+	// This is how the data structure appears in code.
+	template <typename Customization>
+	void f(const DataStructure<Customization>& dataStructure)
+	{
+	}
+
+### Customization by a derived class
+
+The customization is located at a derived class. The data structure is passed the type of its derived class (from which it must be derived) so that it can refer to the customization operations of the derived class at compile-time. We reject this solution because
+ 
+* the data structure has to be passed by its customization to be able to use the new functions in the interface, and
+* when passing by the `DataStructure` type, the object is in danger of slicing.
+
+[[CppCode]]:
+	template <typename Customization>
+	class DataStructure
+	{
+	public:
+		void addPart(int someParameter)
+		{
+			// This is how the derived customization
+			// class is accessed.
+			Customization& customization =
+				(Customization&)*this;
+
+			// Define a customization point here.
+			customization.onAddPart(someParameter);
+		}
+	};
+
+	class Customization
+		: public DataStructure<Customization>
+	{
+	public:
+		// The code for the new member functions.
+		void newMemberFunction() {}
+
+	protected:
+		// The code for the customization points.
+		void onAddPart(int someParameter) {}
+
+	private:
+		// The injected data.
+		int state_;
+	};
+
+	// This is how the data structure appears in code.
+	void f(const Customization& dataStructure)
+	{
+	}
+

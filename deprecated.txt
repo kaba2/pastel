@@ -1,0 +1,6 @@
+Deprecated things
+=================
+
+[[Parent]]: pastel.txt
+
+This section contains deprecated things.

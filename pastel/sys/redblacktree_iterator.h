@@ -128,7 +128,7 @@ namespace Pastel
 				return ((Sentinel_Node<Node_Settings>*)node())->sentinelData();
 			}
 
-			//! Returns whether this node is a sentinel.
+			//! Returns whether this is a sentinel iterator.
 			/*!
 			Time complexity: O(1)
 			Exception safety: nothrow
@@ -136,6 +136,31 @@ namespace Pastel
 			bool isSentinel() const
 			{
 				return node()->isSentinel();
+			}
+
+			//! Returns whether this is a null iterator.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+
+			A default-constructed iterator is a null-iterator.
+			*/
+			bool isNull() const
+			{
+				return node() == 0;
+			}
+
+			//! Returns whether this is a normal iterator.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+
+			An iterator is normal if it is not null, and
+			not a sentinel.
+			*/
+			bool isNormal() const
+			{
+				return !isNull() && !isSentinel();
 			}
 
 			//! Returns whether this node has valid size.

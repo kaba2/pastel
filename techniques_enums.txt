@@ -3,14 +3,9 @@ Scoped enums
 
 [[Parent]]: deprecated.txt
 
-This section is deprecated, since Visual Studio 2013 finally implemented strongly typed enums in C++11 (and was the last compiler to do so), and we have transitioned to use them. Below is the original text for historical reference.
+This section was deprecated after Visual Studio 2013 implemented strongly typed enums; we have transitioned to use them. Below is the original text for historical reference.
 
-In this section we present a technique for scoping enum values, i.e.
-simulating strongly typed enums. C++11 has this feature, but at
-the time of the last update of this section (June 2012), they aren't
-yet implemented in Visual Studio 2010. While waiting for the support,
-we need something else. The following is what we have been using
-when working with C++03.
+In this section we present a technique for scoping enum values, i.e. simulating strongly typed enums. C++11 has this feature, but at the time of the last update of this section (June 2012), they aren't yet implemented in Visual Studio 2010. While waiting for the support, we need something else. The following is what we have been using when working with C++03.
 
 Problem
 -------
@@ -53,16 +48,12 @@ Consider the following code:
 		return 0;
 	}
 
-This code won't compile because the enum values collide in identifiers.
-This is because the enum values are not scoped inside `LoopType` and 
-`Direction`. Instead, the enum values reserve identifiers from the 
-surrounding namespace. 
+This code won't compile because the enum values collide in identifiers. This is because the enum values are not scoped inside `LoopType` and `Direction`. Instead, the enum values reserve identifiers from the surrounding namespace.
 
 Solution
 --------
 
-The solution is to wrap enums inside a class, in effect offering the 
-enum values their own namespace:
+The solution is to wrap enums inside a class, in effect offering the enum values their own namespace:
 
 [[CppCode]]:
 	
@@ -108,11 +99,4 @@ enum values their own namespace:
 		return 0;
 	}
 
-The extra effort you need to do now is to rewrite the types of the 
-enums as `LoopType::Enum` and `Direction::Enum` instead of just `LoopType`
-and `Direction`. Additionally, you always have to be explicit with the 
-enum values, qualifying the enum of which you are referring to 
-(e.g. `LoopType::Forward`). I find the the enum type name 
-(e.g. `LoopType::Enum`) nice because it is in symmetry with the enum 
-value names (e.g. `LoopType::Forward`) as if saying 'replace `Enum` with 
-your desired enum value'.
+The extra effort you need to do now is to rewrite the types of the enums as `LoopType::Enum` and `Direction::Enum` instead of just `LoopType` and `Direction`. Additionally, you always have to be explicit with the enum values, qualifying the enum of which you are referring to (e.g. `LoopType::Forward`). I find the the enum type name (e.g. `LoopType::Enum`) nice because it is in symmetry with the enum value names (e.g. `LoopType::Forward`) as if saying 'replace `Enum` with your desired enum value'.
