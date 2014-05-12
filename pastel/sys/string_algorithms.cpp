@@ -2,7 +2,6 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
 #include "pastel/sys/constants.h"
-#include "pastel/sys/isnan.h"
 
 #include <algorithm>
 #include <sstream>

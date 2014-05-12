@@ -4,7 +4,6 @@
 #include "pastel/sys/eps.h"
 #include "pastel/sys/constants.h"
 #include "pastel/sys/log.h"
-#include "pastel/sys/isnan.h"
 
 namespace Pastel
 {
