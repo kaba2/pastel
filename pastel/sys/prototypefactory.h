@@ -1,6 +1,6 @@
 // Description: PrototypeFactory class
 // Detail: Stores cloneable prototypes to implement the Prototype pattern.
-// Documentation: miscellaneous.txt
+// Documentation: undocumented.txt
 
 #ifndef PASTELSYS_PROTOTYPEFACTORY_H
 #define PASTELSYS_PROTOTYPEFACTORY_H
