@@ -1,6 +1,6 @@
 Deprecated
 ==========
 
-[[Parent]]: pastelmath.txt
+[[Parent]]: pastelsys.txt
 
 This section contains code that has not been linked to the main documentation. This is code that has not reached a proper level of maturity.

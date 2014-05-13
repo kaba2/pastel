@@ -90,4 +90,4 @@ Customizations
 
 Multiple template parameters are still needed sometimes, such as when allowing the data-structure to be [customized][Customization]; the customization can not be part of the settings.
 
-[Customization]: [[Ref]]: techniques_customization.txt
+[Customization]: [[Ref]]: customization.txt
