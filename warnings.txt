@@ -12,7 +12,7 @@ Visual Studio
 
 This warning notifies that a signed-unsigned integer conversion is taking place. This conversion is generally an information-destroying process in both directions. Generally, you should avoid this situation by [not using unsigned integers][Unsigned]. However, if this not possible, there is nothing you can do. While a cast might get rid of the warning, it does not get rid of the problem. A better approach is to disable the warning: if at some later time an unsigned-signed conversion is thought to cause problems, then, by enabling the warning, the compiler can help you to locate those places again.
 
-[Unsigned]: [[Ref]]: techniques_unsigned.txt
+[Unsigned]: [[Ref]]: use_of_unsigned.txt
 
 ### 4146 unary minus operator applied to unsigned type, result still unsigned
 
