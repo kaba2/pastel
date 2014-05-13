@@ -1,5 +1,5 @@
 // Description: Mathematical constants
-// Documentation: maths.txt
+// Documentation: numbers.txt
 
 #ifndef PASTELSYS_CONSTANTS_H
 #define PASTELSYS_CONSTANTS_H
