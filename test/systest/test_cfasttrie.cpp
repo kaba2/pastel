@@ -235,33 +235,60 @@ namespace
 		template <int N>
 		void print(const CFastTrie_Map<N, integer>& a)
 		{
-			auto element = a.cbegin();
-			auto chain = a.cchainBegin();
-			auto elementEnd = a.cend();
-			while (element != elementEnd)
+			auto bundle = a.cbundleBegin();
+			while (bundle != a.cbundleEnd())
 			{
-				std::cout << element.key().word(0) << " : "
-					<< chain->key().word(0) << " : "
-					<< *element
-					<< std::endl;
-				++element;
+				std::cout << "[";
+				auto element = bundle->begin();
+				while (element != bundle->end())
+				{
+					std::cout << element.key().word(0)
+						<< " : " << *element << ", "
+					++element;
+				}
+				std::cout << "] ";
+				++bundle;
+			}
+			std::cout << std::endl;
+
+			auto chain = a.cchainBegin();
+			while (chain != a.cchainEnd())
+			{
+				std::cout << chain->key().word(0) << " ";
 				++chain;
 			}
+			std::cout << std::endl;
 		}
 
 		template <int N>
 		void print(const CFastTrie_Set<N>& a)
 		{
-			auto element = a.cbegin();
-			auto chain = a.cchainBegin();
-			while (element != a.cend())
+			auto bundle = a.cbundleBegin();
+			while (bundle != a.cbundleEnd())
 			{
-				std::cout << element.key().word(0) << " : "
-					<< chain->key().word(0) << " : "
-					<< std::endl;
-				++element;
-				++chain;
+				std::cout << "[";
+				auto element = bundle->begin();
+				while (element != bundle->end())
+				{
+					std::cout << element.key().word(0);
+					++element;
+					if (element != bundle->end())
+					{
+						std::cout << " ";
+					}
+				}
+				std::cout << "] ";
+				++bundle;
 			}
+			std::cout << std::endl;
+
+			auto chain = a.cchainBegin();
+			while (chain != a.cchainEnd())
+			{
+				std::cout << chain->key().word(0) << " ";
+					++chain;
+			}
+			std::cout << std::endl << std::endl;
 		}
 
 		void testFind()
@@ -380,6 +407,17 @@ namespace
 		void testInsertMore()
 		{
 			{
+				CFastTrie_Set<6> a{ 31, 61, 45, 2, 33, 26, 63, 50, 8, 17, 11, 28, 54, 62, 52, 
+					9, 25, 7, 20, 30, 40, 1, 36, 18, 15, 51, 37, 57, 49, 13, 14, 29, 4, 44, 
+					0, 32, 60, 41, 19};
+				TEST_ENSURE(testInvariants(a));
+
+				a.insert(47);
+				TEST_ENSURE(testInvariants(a));
+				print(a);
+			}
+			/*
+			{
 				CFastTrie_Set<1> a;
 				TEST_ENSURE(testInvariants(a));
 
@@ -449,14 +487,10 @@ namespace
 				TEST_ENSURE(test(14, 14));
 				TEST_ENSURE(test(15, 9));
 			}
+			*/
 
 			{
-				CFastTrie_Set<5> a{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-					12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 
-					25, 26, 27, 28, 29, 30};
-				TEST_ENSURE(testInvariants(a));
-
-				//a.insert(31);
+				CFastTrie_Set<5> a{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 				TEST_ENSURE(testInvariants(a));
 			}
 			/*

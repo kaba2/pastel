@@ -99,10 +99,12 @@ namespace Pastel
 			Neighborhood(
 				const Chain_Iterator& above_,
 				integer level_,
+				const Chain_Iterator& leftGap_,
 				const Chain_Iterator& rightGap_,
 				const Bundle_Iterator& bundle_)
 				: above(above_)
 				, level(level_)
+				, leftGap(leftGap_)
 				, rightGap(rightGap_)
 				, bundle(bundle_)
 			{
@@ -110,6 +112,7 @@ namespace Pastel
 
 			Chain_Iterator above;
 			integer level;
+			Chain_Iterator leftGap;
 			Chain_Iterator rightGap;
 			Bundle_Iterator bundle;
 		};
@@ -275,18 +278,26 @@ namespace Pastel
 				return elementAndIsNew;
 			}
 
-			Iterator nearestUnequalToChain = 
-				keyNeighborhood.bundle->findNearestUnequalToChain(key);
-			Key chainKey = nearestUnequalToChain.key();
-			Neighborhood chainNeighborhood =
-				findNeighborhood(chainKey);
+			if (!equalToChain)
+			{
+				Key chainKey = turn(key, keyNeighborhood.level);
+				
+				// Insert the chain induced by the key.
+				Chain_Iterator chain = insertChain(
+					chainKey, keyNeighborhood);
 
-			// Insert the chain induced by the key.
-			Chain_Iterator chain = insertChain(
-				turn(chainKey, chainNeighborhood.level), 
-				chainNeighborhood);
+				Iterator element = find(chainKey);
+				if (element != cend())
+				{
+					element->equalToChain_ = true;
+				}
 
-			std::cout << "Key " << key << ", chain " << chain->key() << std::endl;
+				/*
+				std::cout << "Key " << key 
+					<< ", chain " << chain->key() 
+					<< std::endl;
+				*/
+			}
 
 			// Notify the customization.
 			onInsert(element);
@@ -296,6 +307,16 @@ namespace Pastel
 
 		Neighborhood findNeighborhood(const Key& key)
 		{
+			if (empty())
+			{
+				return Neighborhood(
+					chainSet_.end(),
+					0,
+					chainSet_.end(),
+					chainSet_.end(),
+					std::next(bundleBegin()));
+			}
+
 			// Find the lowest ancestor of the key.
 			// The lowest-ancestor always exists, since
 			// the infinite zero chain exists.
@@ -320,15 +341,35 @@ namespace Pastel
 			ASSERT(leftGap == chainSet_.cend() ||
 				leftGap->key() <= key);
 
+			Key inducedKey = turn(key, level);
+
 			// Find the bundle of the key.
-			Bundle_Iterator bundle =
-				even(above->key()) ?
-				leftGap->bundle() :
-				rightGap->bundle();
+			Bundle_Iterator bundle = above->bundle();
+			if (level > 0)
+			{
+				ASSERT(!bundle->empty());
+				if (!leftGap->bundle()->empty() &&
+					key <= leftGap->bundle()->last().key())
+				{
+					bundle = leftGap->bundle();
+				}
+				else if (rightGap != chainSet_.cend() &&
+					!rightGap->bundle()->empty() &&
+					key >= rightGap->bundle()->begin().key())
+				{
+					bundle = rightGap->bundle();
+				}
+				else
+				{
+					bundle = odd(inducedKey) ?
+						leftGap->bundle() :
+						rightGap->bundle();
+				}
+			}
 
 			return Neighborhood(
 				above, level,
-				rightGap, bundle);
+				leftGap, rightGap, bundle);
 		}
 
 		//! Refines a bundle to smaller bundles.
@@ -400,10 +441,16 @@ namespace Pastel
 					--splitBundle;
 				}
 
+				Key splitKey = firstOfNew->key();
+				if (firstOfNew != chainSet_.begin())
+				{
+					Chain_ConstIterator lastOfPrev = std::prev(firstOfNew);
+					splitKey = lastOfPrev->key() + 1;
+				}
+
 				newBundle->elementSet_ = 
-					splitBundle->elementSet_.split(
-						splitBundle->elementSet_.lowerBound(firstOfNew->key()));
-				newBundle->end().base().sentinelData().bundle = newBundle;
+					splitBundle->elementSet_.split(splitKey);
+				newBundle->end().sentinelData().bundle = newBundle;
 
 				if (fork != bundle->forkSet_.begin())
 				{
@@ -550,12 +597,9 @@ namespace Pastel
 			// chain from the left, and by an odd chain from 
 			// the right.
 
-			auto chainAndLevel = lowestAncestor(key);
+			auto neighborhood = removeConst(*this).findNeighborhood(key);
 
-			Chain_ConstIterator chain = chainAndLevel.first;
-			integer level = chainAndLevel.second;
-
-			Bundle_Iterator bundle = chain->bundle();
+			Bundle_Iterator bundle = neighborhood.bundle;
 			Iterator iter = bundle->upperBound(key);
 			if (iter.isSentinel())
 			{
@@ -563,7 +607,7 @@ namespace Pastel
 				// whose right child points to itself.
 				if (!iter.isGlobalSentinel())
 				{
-					iter =  std::next(bundle)->begin();
+					iter =  std::next(bundle)->upperBound(key);
 				}
 			}
 
@@ -1096,11 +1140,8 @@ namespace Pastel
 			Bundle_Iterator bundle = createBundle(bundleLast());
 
 			// Set up the zero chain neighborhood.
-			Neighborhood neighborhood(
-				chainSet_.end(),
-				0,
-				chainSet_.end(),
-				bundle);
+			Neighborhood neighborhood = 
+				findNeighborhood(key);
 
 			// Create the zero chain.
 			Chain_Iterator chain =
@@ -1117,7 +1158,7 @@ namespace Pastel
 		Bundle_Iterator createBundle(const Bundle_ConstIterator& before)
 		{
 			Bundle_Iterator bundle = bundleSet_.emplace(before);
-			bundle->end().base().sentinelData().bundle = bundle;
+			bundle->end().sentinelData().bundle = bundle;
 			return bundle;
 		}
 
@@ -1166,7 +1207,8 @@ namespace Pastel
 			ASSERT(!chainExists(chainKey, 0));
 
 			Chain_Iterator rightGap = cast(neighborhood.rightGap);
-			Chain_Iterator leftGap = std::prev(rightGap);
+			ASSERT(empty() || rightGap != chainSet_.begin());
+			Chain_Iterator leftGap = cast(neighborhood.leftGap);
 			Chain_Iterator above = cast(neighborhood.above);
 			integer level = neighborhood.level;
 			Bundle_Iterator bundle = neighborhood.bundle;
@@ -1188,17 +1230,20 @@ namespace Pastel
 				!leftOdd && rightOdd;
 
 			// Compute the normality of the new chain.
+			bool normal = true;
+			if (!empty())
+			{
+				bool leftNormal =
+					(leftGap == chainSet_.cend() || leftGap->normal());
+				bool rightNormal =
+					(rightGap == chainSet_.cend() || rightGap->normal());
 
-			bool leftNormal =
-				(leftGap == chainSet_.cend() || leftGap->normal());
-			bool rightNormal =
-				(rightGap == chainSet_.cend() || rightGap->normal());
+				bool refineAbnormal =
+					(even(chainKey) && !rightNormal) ||
+					(odd(chainKey) && !leftNormal);
 
-			bool refineAbnormal =
-				(even(chainKey) && !rightNormal) ||
-				(odd(chainKey) && !leftNormal);
-			
-			bool normal = empty() || !(refineAbnormal || createFork);
+				normal = !(refineAbnormal || createFork);
+			}
 
 			// Create the chain.
 			Chain_Iterator chain = chainSet_.emplace(

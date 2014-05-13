@@ -3,8 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/halfmesh_tools.h"
-#include "pastel/geometry/simplehalfmesh.h"
+#include "pastel/geometry/halfmesh.h"
 #include "pastel/sys/random.h"
 
 #include <algorithm>
@@ -15,15 +14,15 @@ using namespace Pastel;
 namespace
 {
 
-	typedef SimpleHalfMesh<int, int, int, int> Mesh;
-	typedef Mesh::Vertex Vertex;
-	typedef Mesh::Half Half;
-	typedef Mesh::Edge Edge;
-	typedef Mesh::Polygon Polygon;
-	typedef Mesh::ConstVertexIterator ConstVertexIterator;
-	typedef Mesh::ConstHalfIterator ConstHalfIterator;
-	typedef Mesh::ConstEdgeIterator ConstEdgeIterator;
-	typedef Mesh::ConstPolygonIterator ConstPolygonIterator;
+	typedef HalfEdge<int, int, int, int> Mesh;
+	typedef Mesh::Vertex_Iterator Vertex_Iterator;
+	typedef Mesh::Half_Iterator Half_Iterator;
+	typedef Mesh::Edge_Iterator Edge_Iterator;
+	typedef Mesh::Polygon_Iterator Polygon_Iterator;
+	typedef Mesh::Vertex_ConstIterator Vertex_ConstIterator;
+	typedef Mesh::Half_ConstIterator Half_ConstIterator;
+	typedef Mesh::Edge_ConstIterator Edge_ConstIterator;
+	typedef Mesh::Polygon_ConstIterator Polygon_ConstIterator;
 
 	template <typename InputIterator,
 		typename OtherInputIterator>
@@ -79,19 +78,18 @@ namespace
 		{
 			Mesh mesh;
 
-			const integer VertexCount = 100;
-			Vertex vertex[VertexCount];
-
-			for (integer i = 0;i < VertexCount;++i)
+			integer n = 100;
+			
+			std::vector<Vertex_Iterator> vertex;
+			for (integer i = 0;i < n;++i)
 			{
-				vertex[i] = mesh.addVertex();
-				TEST_ENSURE(!vertex[i].empty());
+				vertex[i] = mesh.insertVertex();
 			}
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			Mesh otherMesh(mesh);
-			checkInvariants(otherMesh);
+			testInvariants(otherMesh);
 		}
 
 		void testEdge()
@@ -99,23 +97,22 @@ namespace
 			Mesh mesh;
 
 			const integer VertexCount = 100;
-			std::vector<Vertex> vertex(VertexCount);
+			std::vector<Vertex_Iterator> vertex(VertexCount);
 
 			for (integer i = 0;i < VertexCount;++i)
 			{
-				vertex[i] = mesh.addVertex();
-				TEST_ENSURE(!vertex[i].empty());
+				vertex[i] = mesh.insertVertex();
 			}
 
 			{
 				Mesh otherMesh(mesh);
-				checkInvariants(otherMesh);
+				testInvariants(otherMesh);
 			}
 
 			const integer BucketSize = 100;
 			const integer BucketCount = 10;
 			const integer EdgeCount = BucketSize * BucketCount;
-			std::vector<Edge> edgeList(EdgeCount);
+			std::vector<Edge_Iterator> edgeList(EdgeCount);
 
 			for (integer i = 0;i < BucketCount;++i)
 			{
@@ -126,24 +123,19 @@ namespace
 					const integer bVertex =
 						randomInteger(VertexCount);
 					bool alreadyExisted = false;
-					Edge edge(
-						mesh.addEdge(vertex[aVertex], vertex[bVertex],
-						&alreadyExisted));
-					if (alreadyExisted)
-					{
-						edge.clear();
-					}
+					Edge_Iterator edge = 
+						mesh.insertEdge(vertex[aVertex], vertex[bVertex]);
 					edgeList[i * BucketSize + j] = edge;
-					checkInvariants(mesh);
+					testInvariants(mesh);
 				}
 
 			}
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			{
 				Mesh otherMesh(mesh);
-				checkInvariants(otherMesh);
+				testInvariants(otherMesh);
 			}
 
 			for (integer i = 0;i < EdgeCount;++i)
@@ -155,12 +147,12 @@ namespace
 					edgeList[index].clear();
 				}
 
-				checkInvariants(mesh);
+				testInvariants(mesh);
 			}
 
 			{
 				Mesh otherMesh(mesh);
-				checkInvariants(otherMesh);
+				testInvariants(otherMesh);
 			}
 		}
 
@@ -168,15 +160,15 @@ namespace
 		{
 			Mesh mesh;
 
-			Vertex vertex[4][4];
+			Vertex_Iterator vertex[4][4];
 
 			for (integer i = 0;i < 4;++i)
 			{
 				for (integer j = 0;j < 4;++j)
 				{
-					vertex[i][j] = mesh.addVertex();
+					vertex[i][j] = mesh.insertVertex();
 					TEST_ENSURE(!vertex[i][j].empty());
-					vertex[i][j]() = i * 10 + j;
+					*(vertex[i][j]) = i * 10 + j;
 				}
 			}
 
@@ -188,18 +180,18 @@ namespace
 			//
 			// o   o   o   o
 
-			Polygon polygon[16];
+			Polygon_Iterator polygon[16];
 
-			std::vector<Vertex> points;
+			std::vector<Vertex_Iterator> points;
 
 			points.clear();
 			points.push_back(vertex[0][0]);
 			points.push_back(vertex[1][0]);
 			points.push_back(vertex[1][1]);
 
-			polygon[0] = mesh.addPolygon(points);
+			polygon[0] = mesh.insertPolygon(points);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			// o   o   o   o
 			// |0\.
@@ -214,9 +206,9 @@ namespace
 			points.push_back(vertex[1][1]);
 			points.push_back(vertex[0][1]);
 
-			polygon[1] = mesh.addPolygon(points);
+			polygon[1] = mesh.insertPolygon(points);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			// o---o   o   o
 			// |0\1|
@@ -236,9 +228,9 @@ namespace
 			points.push_back(vertex[1][2]);
 			points.push_back(vertex[0][2]);
 
-			polygon[2] = mesh.addPolygon(points);
+			polygon[2] = mesh.insertPolygon(points);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			// o---o---o   o
 			// |0\1|###|
@@ -254,9 +246,9 @@ namespace
 			points.push_back(vertex[3][3]);
 			points.push_back(vertex[2][3]);
 
-			polygon[3] = mesh.addPolygon(points);
+			polygon[3] = mesh.insertPolygon(points);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			// o---o---o   o
 			// |0\1|###|
@@ -271,9 +263,9 @@ namespace
 			points.push_back(vertex[2][3]);
 			points.push_back(vertex[1][3]);
 
-			polygon[4] = mesh.addPolygon(points);
+			polygon[4] = mesh.insertPolygon(points);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			// o---o---o   o
 			// |0\1|###|
@@ -288,9 +280,9 @@ namespace
 			points.push_back(vertex[2][2]);
 			points.push_back(vertex[2][3]);
 
-			polygon[5] = mesh.addPolygon(points);
+			polygon[5] = mesh.insertPolygon(points);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			// o---o---o   o
 			// |0\1|###|
@@ -306,9 +298,9 @@ namespace
 			points.push_back(vertex[1][3]);
 			points.push_back(vertex[0][3]);
 
-			polygon[6] = mesh.addPolygon(points);
+			polygon[6] = mesh.insertPolygon(points);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			// o---o---o---o
 			// |0\1|###|#6#|
@@ -326,9 +318,9 @@ namespace
 			points.push_back(vertex[2][2]);
 			points.push_back(vertex[2][1]);
 
-			polygon[7] = mesh.addPolygon(points);
+			polygon[7] = mesh.insertPolygon(points);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			// o---o---o---o
 			// |0\1|###|#6#|
@@ -340,50 +332,50 @@ namespace
 
 			mesh.removePolygon(polygon[5]);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			mesh.removePolygon(polygon[0]);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			mesh.removePolygon(polygon[7]);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			mesh.removePolygon(polygon[6]);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			mesh.removePolygon(polygon[4]);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			mesh.removePolygon(polygon[1]);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			mesh.removePolygon(polygon[2]);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 
 			mesh.removePolygon(polygon[3]);
 
-			checkInvariants(mesh);
+			testInvariants(mesh);
 		}
 
 		void testPolygon2()
 		{
 			Mesh mesh;
 
-			Vertex vertex[5][4];
+			Vertex_Iterator vertex[5][4];
 
 			for (integer i = 0;i < 5;++i)
 			{
 				for (integer j = 0;j < 4;++j)
 				{
-					vertex[i][j] = mesh.addVertex();
+					vertex[i][j] = mesh.insertVertex();
 					TEST_ENSURE(!vertex[i][j].empty());
-					vertex[i][j]() = i * 10 + j;
+					*(vertex[i][j]) = i * 10 + j;
 				}
 			}
 
@@ -395,143 +387,143 @@ namespace
 			//
 			// o   o   o   o
 
-			std::vector<Vertex> points;
+			std::vector<Vertex_Iterator> points;
 
 			points.clear();
 			points.push_back(vertex[3][1]);
 			points.push_back(vertex[4][1]);
 			points.push_back(vertex[4][0]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[2][1]);
 			points.push_back(vertex[2][2]);
 			points.push_back(vertex[3][1]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[2][2]);
 			points.push_back(vertex[2][3]);
 			points.push_back(vertex[3][3]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[1][2]);
 			points.push_back(vertex[1][3]);
 			points.push_back(vertex[2][2]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[0][1]);
 			points.push_back(vertex[0][2]);
 			points.push_back(vertex[1][2]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[0][1]);
 			points.push_back(vertex[1][2]);
 			points.push_back(vertex[1][1]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[1][3]);
 			points.push_back(vertex[2][3]);
 			points.push_back(vertex[2][2]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[3][2]);
 			points.push_back(vertex[4][2]);
 			points.push_back(vertex[4][1]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[3][2]);
 			points.push_back(vertex[3][3]);
 			points.push_back(vertex[4][2]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[2][2]);
 			points.push_back(vertex[3][3]);
 			points.push_back(vertex[3][2]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[0][2]);
 			points.push_back(vertex[1][3]);
 			points.push_back(vertex[1][2]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[3][1]);
 			points.push_back(vertex[3][2]);
 			points.push_back(vertex[4][1]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[2][2]);
 			points.push_back(vertex[3][2]);
 			points.push_back(vertex[3][1]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[1][1]);
 			points.push_back(vertex[2][1]);
 			points.push_back(vertex[2][0]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[1][1]);
 			points.push_back(vertex[2][2]);
 			points.push_back(vertex[2][1]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[0][0]);
 			points.push_back(vertex[1][1]);
 			points.push_back(vertex[1][0]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 
 			points.clear();
 			points.push_back(vertex[1][1]);
 			points.push_back(vertex[1][2]);
 			points.push_back(vertex[2][2]);
 
-			mesh.addPolygon(points);
-			checkInvariants(mesh);
+			mesh.insertPolygon(points);
+			testInvariants(mesh);
 		}
 	};
 

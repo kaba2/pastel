@@ -4,6 +4,8 @@
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/longestmedian_splitrule.h"
 
+#include "pastel/sys/range.h"
+
 #include <boost/type_traits/has_trivial_destructor.hpp>
 
 namespace Pastel
@@ -350,17 +352,17 @@ namespace Pastel
 		ASSERT(node->leaf());
 		ASSERT2(splitAxis >= 0 && splitAxis < n(), splitAxis, n());
 
-		const Point_ConstIterator nodeEnd = node->end();
+		Point_ConstIterator nodeEnd = node->end();
 
 		// Reorder the points along the split position.
 
-		const SplitPredicate splitPredicate(
+		SplitPredicate splitPredicate(
 			splitPosition, splitAxis, 
 			pointPolicy_);
 
-		const std::pair<std::pair<Point_Iterator, integer>,
+		std::pair<std::pair<Point_Iterator, integer>,
 			std::pair<Point_Iterator, integer> > result =
-			partition(pointSet_, node->first(), nodeEnd,
+			partition(pointSet_, Pastel::range(node->first(), nodeEnd),
 			splitPredicate);
 
 		Point_ConstIterator leftFirst = end();
@@ -472,7 +474,7 @@ namespace Pastel
 
 		Input_Point_ConstIterator iter = begin;
 
-		pointSet_.push_back(
+		pointSet_.insertBack(
 			PointInfo(*iter, 0, hidden));
 		++iter;
 
@@ -481,7 +483,7 @@ namespace Pastel
 
 		while(iter != end)
 		{
-			pointSet_.push_back(
+			pointSet_.insertBack(
 				PointInfo(*iter, 0, hidden));
 
 			++iter;
@@ -535,7 +537,7 @@ namespace Pastel
 			const std::pair<
 				std::pair<Point_Iterator, integer>,
 				std::pair<Point_Iterator, integer> > result =
-				partition(pointSet_, begin, end,
+				partition(pointSet_, Pastel::range(begin, end),
 				splitPredicate);
 
 			const Point_Iterator newRightFirst = result.second.first;
@@ -762,7 +764,7 @@ namespace Pastel
 			hiddenSet_.splice(
 				hiddenSet_.end(),
 				pointSet_,
-				iter, nextIter);
+				iter);
 
 			// Update the path to the root.
 			updateUpwards(node);
@@ -775,7 +777,7 @@ namespace Pastel
 			hiddenSet_.splice(
 				hiddenSet_.end(),
 				pointSet_,
-				iter, nextIter);
+				iter);
 		}
 
 		iter->setHidden(true);
@@ -811,7 +813,7 @@ namespace Pastel
 			pointSet_.splice(
 				pointSet_.end(),
 				hiddenSet_,
-				iter, nextIter);
+				iter);
 
 			// Insert the point back.
 			AlignedBox<Real, N> bound(
@@ -827,7 +829,7 @@ namespace Pastel
 			insertionSet_.splice(
 				insertionSet_.end(),
 				hiddenSet_,
-				iter, nextIter);
+				iter);
 
 			// With immediate updates, we insert the
 			// point straight away.

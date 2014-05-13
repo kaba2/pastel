@@ -95,14 +95,14 @@ namespace Pastel
 				++vertex)
 			{
 				vertexMap[vertex] = 
-					copy.addVertex(*vertex);
+					copy.insertVertex(*vertex);
 			}
 
 			for (auto edge = that.cEdgeBegin();
 				edge != that.cEdgeEnd();
 				++edge)
 			{
-				copy.addEdge(
+				copy.insertEdge(
 					vertexMap[edge->from()],
 					vertexMap[edge->to()],
 					*edge);
@@ -201,7 +201,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Vertex_Iterator addVertex(
+		Vertex_Iterator insertVertex(
 			VertexData_Class vertexData = VertexData_Class())
 		{
 			// Construct the vertex.
@@ -328,7 +328,7 @@ namespace Pastel
 		Note:
 		For mixed graphs, the created edge is undirected.
 		*/
-		Edge_Iterator addEdge(
+		Edge_Iterator insertEdge(
 			const Vertex_ConstIterator& from,
 			const Vertex_ConstIterator& to,
 			EdgeData_Class edgeData = EdgeData_Class())

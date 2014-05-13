@@ -4,7 +4,7 @@
 #define PASTELSYS_CFASTTRIE_FWD_H
 
 #include "pastel/sys/integer.h"
-#include "pastel/sys/object_forwarding.h"
+#include "pastel/sys/class.h"
 #include "pastel/sys/cfasttrie_iterator.h"
 #include "pastel/sys/cfasttrie_customization.h"
 #include "pastel/sys/redblacktree.h"
@@ -53,7 +53,7 @@ namespace Pastel
 
 		using Key = Unsigned_Integer<Bits>;
 		using Value = typename Settings::Value;
-		using Value_Class = Class<Value>;
+		using Value_Class = As_Class<Value>;
 		
 		class Propagation
 		{

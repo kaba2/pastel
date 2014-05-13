@@ -3,8 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/halfmesh_tools.h"
-#include "pastel/geometry/simplehalfmesh.h"
+#include "pastel/geometry/halfmesh.h"
 #include "pastel/sys/random.h"
 
 using namespace Pastel;
@@ -34,16 +33,16 @@ namespace
 		void testTrivial()
 		{
 			PureHalfMesh halfMesh;
-			halfMesh.addVertex();
+			halfMesh.insertVertex();
 			for (int i = 0;i < 10000;i++)
 			{
-				halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
 			}
 
 			{
 				PureHalfMesh otherMesh(halfMesh);
-				TEST_ENSURE(checkInvariants(otherMesh));
+				TEST_ENSURE(testInvariants(otherMesh));
 			}
 		}
 
@@ -51,36 +50,36 @@ namespace
 		{
 			{
 				PureHalfMesh halfMesh;
-				PureHalfMesh::Vertex a = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
 
-				PureHalfMesh::Edge e = halfMesh.addEdge(a, b);
-				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Edge e = halfMesh.insertEdge(a, b);
+				TEST_ENSURE(testInvariants(halfMesh));
 			}
 			{
 				PureHalfMesh halfMesh;
-				PureHalfMesh::Vertex a = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
-				PureHalfMesh::Vertex c = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
+				PureHalfMesh::Vertex c = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
 
-				halfMesh.addEdge(a, b);
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(b, c);
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(a, c);
-				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.insertEdge(a, b);
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(b, c);
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(a, c);
+				TEST_ENSURE(testInvariants(halfMesh));
 			}
 			{
 				PureHalfMesh halfMesh;
-				PureHalfMesh::Vertex a = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(a, a);
-				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(a, a);
+				TEST_ENSURE(testInvariants(halfMesh));
 			}
 		}
 
@@ -89,41 +88,41 @@ namespace
 			{
 				PureHalfMesh halfMesh;
 
-				PureHalfMesh::Vertex a = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
 
-				halfMesh.addEdge(a, b);
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(b, a);
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(b, a);
-				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.insertEdge(a, b);
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(b, a);
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(b, a);
+				TEST_ENSURE(testInvariants(halfMesh));
 			}
 			{
 				PureHalfMesh halfMesh;
 
-				PureHalfMesh::Vertex a = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
 
-				halfMesh.addEdge(a, b);
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(b, a);
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(b, a);
-				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.insertEdge(a, b);
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(b, a);
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(b, a);
+				TEST_ENSURE(testInvariants(halfMesh));
 
-				halfMesh.addEdge(a, a);
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(b, b);
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(a, a);
-				TEST_ENSURE(checkInvariants(halfMesh));
-				halfMesh.addEdge(b, b);
-				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.insertEdge(a, a);
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(b, b);
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(a, a);
+				TEST_ENSURE(testInvariants(halfMesh));
+				halfMesh.insertEdge(b, b);
+				TEST_ENSURE(testInvariants(halfMesh));
 			}
 		}
 
@@ -131,15 +130,15 @@ namespace
 		{
 			{
 				PureHalfMesh halfMesh;
-				PureHalfMesh::Vertex a = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.addVertex();
-				TEST_ENSURE(checkInvariants(halfMesh));
-				PureHalfMesh::Edge edge = halfMesh.addEdge(a, b);
-				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				TEST_ENSURE(testInvariants(halfMesh));
+				PureHalfMesh::Edge edge = halfMesh.insertEdge(a, b);
+				TEST_ENSURE(testInvariants(halfMesh));
 
 				halfMesh.removeEdge(edge);
-				TEST_ENSURE(checkInvariants(halfMesh));
+				TEST_ENSURE(testInvariants(halfMesh));
 			}
 			{
 				PASTEL_CONSTEXPR int Vertices = 100;
@@ -149,32 +148,32 @@ namespace
 				PureHalfMesh::Edge edges[Vertices - 1];
 				for (int i = 0;i < Vertices;++i)
 				{
-					vertices[i] = halfMesh.addVertex();
-					TEST_ENSURE(checkInvariants(halfMesh));
+					vertices[i] = halfMesh.insertVertex();
+					TEST_ENSURE(testInvariants(halfMesh));
 				}
 
 				for (int i = 1;i < Vertices;++i)
 				{
-					edges[i - 1] = halfMesh.addEdge(vertices[0], vertices[i]);
-					TEST_ENSURE(checkInvariants(halfMesh));
+					edges[i - 1] = halfMesh.insertEdge(vertices[0], vertices[i]);
+					TEST_ENSURE(testInvariants(halfMesh));
 				}
 
 				for (int i = 0;i < Vertices - 1;++i)
 				{
 					halfMesh.removeEdge(edges[i]);
-					TEST_ENSURE(checkInvariants(halfMesh));
+					TEST_ENSURE(testInvariants(halfMesh));
 				}
 			}
 			/*
 			{
 			PureHalfMesh halfMesh;
-			PureHalfMesh::Vertex a = halfMesh.addVertex();
-			TEST_ENSURE(checkInvariants(halfMesh));
-			PureHalfMesh::Edge edge = halfMesh.addEdge(a, a);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Vertex a = halfMesh.insertVertex();
+			TEST_ENSURE(testInvariants(halfMesh));
+			PureHalfMesh::Edge edge = halfMesh.insertEdge(a, a);
+			TEST_ENSURE(testInvariants(halfMesh));
 
 			halfMesh.removeEdge(edge);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			}
 			*/
 
@@ -182,40 +181,40 @@ namespace
 			{
 			PureHalfMesh halfMesh;
 
-			PureHalfMesh::Vertex a = halfMesh.addVertex();
-			TEST_ENSURE(checkInvariants(halfMesh));
-			PureHalfMesh::Vertex b = halfMesh.addVertex();
-			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Vertex a = halfMesh.insertVertex();
+			TEST_ENSURE(testInvariants(halfMesh));
+			PureHalfMesh::Vertex b = halfMesh.insertVertex();
+			TEST_ENSURE(testInvariants(halfMesh));
 
-			PureHalfMesh::Edge A = halfMesh.addEdge(a, b);
-			TEST_ENSURE(checkInvariants(halfMesh));
-			PureHalfMesh::Edge B = halfMesh.addEdge(b, a);
-			TEST_ENSURE(checkInvariants(halfMesh));
-			PureHalfMesh::Edge C = halfMesh.addEdge(b, a);
-			TEST_ENSURE(checkInvariants(halfMesh));
-			PureHalfMesh::Edge D = halfMesh.addEdge(a, a);
-			TEST_ENSURE(checkInvariants(halfMesh));
-			PureHalfMesh::Edge E = halfMesh.addEdge(b, b);
-			TEST_ENSURE(checkInvariants(halfMesh));
-			PureHalfMesh::Edge F = halfMesh.addEdge(a, a);
-			TEST_ENSURE(checkInvariants(halfMesh));
-			PureHalfMesh::Edge G = halfMesh.addEdge(b, b);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Edge A = halfMesh.insertEdge(a, b);
+			TEST_ENSURE(testInvariants(halfMesh));
+			PureHalfMesh::Edge B = halfMesh.insertEdge(b, a);
+			TEST_ENSURE(testInvariants(halfMesh));
+			PureHalfMesh::Edge C = halfMesh.insertEdge(b, a);
+			TEST_ENSURE(testInvariants(halfMesh));
+			PureHalfMesh::Edge D = halfMesh.insertEdge(a, a);
+			TEST_ENSURE(testInvariants(halfMesh));
+			PureHalfMesh::Edge E = halfMesh.insertEdge(b, b);
+			TEST_ENSURE(testInvariants(halfMesh));
+			PureHalfMesh::Edge F = halfMesh.insertEdge(a, a);
+			TEST_ENSURE(testInvariants(halfMesh));
+			PureHalfMesh::Edge G = halfMesh.insertEdge(b, b);
+			TEST_ENSURE(testInvariants(halfMesh));
 
 			halfMesh.removeEdge(D);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			halfMesh.removeEdge(E);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			halfMesh.removeEdge(A);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			halfMesh.removeEdge(B);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			halfMesh.removeEdge(F);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			halfMesh.removeEdge(C);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			halfMesh.removeEdge(G);
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			}
 			*/
 		}
@@ -233,10 +232,10 @@ namespace
 				vertices.reserve(Vertices);
 				for (integer i = 0;i < Vertices;++i)
 				{
-					vertices.push_back(halfMesh.addVertex());
+					vertices.push_back(halfMesh.insertVertex());
 				}
 			}
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			TEST_ENSURE_OP(vertices.size(), ==, Vertices);
 
 			{
@@ -251,25 +250,25 @@ namespace
 
 						PureHalfMesh::Vertex a = vertices[aIndex];
 						PureHalfMesh::Vertex b = vertices[bIndex];
-						edge = halfMesh.addEdge(a, b);
+						edge = halfMesh.insertEdge(a, b);
 					}
-					TEST_ENSURE(checkInvariants(halfMesh));
+					TEST_ENSURE(testInvariants(halfMesh));
 
 					edges.push_back(edge);
 				}
 			}
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 			TEST_ENSURE_OP(edges.size(), ==, Edges);
 
 			{
 				for (integer i = 0;i < Edges;++i)
 				{
 					PureHalfMesh::Edge edge = edges[i];
-					TEST_ENSURE(checkInvariants(halfMesh));
+					TEST_ENSURE(testInvariants(halfMesh));
 					halfMesh.removeEdge(edge);
 				}
 			}
-			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE(testInvariants(halfMesh));
 		}
 	};
 

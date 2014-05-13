@@ -43,26 +43,26 @@ namespace
 
 			Graph relation;
 
-			Vertex_Iterator a = relation.addVertex(1);
-			Vertex_Iterator b = relation.addVertex(5);
-			Vertex_Iterator c = relation.addVertex(2);
-			Vertex_Iterator d = relation.addVertex(7);
-			Vertex_Iterator e = relation.addVertex(6);
-			Vertex_Iterator f = relation.addVertex(4);
-			Vertex_Iterator g = relation.addVertex(8);
+			Vertex_Iterator a = relation.insertVertex(1);
+			Vertex_Iterator b = relation.insertVertex(5);
+			Vertex_Iterator c = relation.insertVertex(2);
+			Vertex_Iterator d = relation.insertVertex(7);
+			Vertex_Iterator e = relation.insertVertex(6);
+			Vertex_Iterator f = relation.insertVertex(4);
+			Vertex_Iterator g = relation.insertVertex(8);
 		
-			Edge_Iterator at = relation.addEdge(a, a);
-			Edge_Iterator bt = relation.addEdge(b, b);
-			Edge_Iterator ct = relation.addEdge(c, c);
-			Edge_Iterator dt = relation.addEdge(d, d);
-			Edge_Iterator et = relation.addEdge(e, e);
-			Edge_Iterator ft = relation.addEdge(f, f);
+			Edge_Iterator at = relation.insertEdge(a, a);
+			Edge_Iterator bt = relation.insertEdge(b, b);
+			Edge_Iterator ct = relation.insertEdge(c, c);
+			Edge_Iterator dt = relation.insertEdge(d, d);
+			Edge_Iterator et = relation.insertEdge(e, e);
+			Edge_Iterator ft = relation.insertEdge(f, f);
 
-			relation.addEdge(a, b);
-			relation.addEdge(c, b);
-			relation.addEdge(b, d);
-			relation.addEdge(d, e);
-			relation.addEdge(e, d);
+			relation.insertEdge(a, b);
+			relation.insertEdge(c, b);
+			relation.insertEdge(b, d);
+			relation.insertEdge(d, e);
+			relation.insertEdge(e, d);
 
 			auto fn = [](const Vertex_Iterator& vertex) -> integer 
 			{
@@ -170,35 +170,35 @@ namespace
 	
 			Set aSet;
 			aSet.insert(1);
-			Vertex_Iterator a = relation.addVertex(aSet);
+			Vertex_Iterator a = relation.insertVertex(aSet);
 	
 			Set bSet;
 			bSet.insert(5);
-			Vertex_Iterator b = relation.addVertex(bSet);
+			Vertex_Iterator b = relation.insertVertex(bSet);
 
 			Set cSet;
 			cSet.insert(2);
-			Vertex_Iterator c = relation.addVertex(cSet);
+			Vertex_Iterator c = relation.insertVertex(cSet);
 
 			Set dSet;
 			dSet.insert(7);
-			Vertex_Iterator d = relation.addVertex(dSet);
+			Vertex_Iterator d = relation.insertVertex(dSet);
 
 			Set eSet;
 			eSet.insert(6);
-			Vertex_Iterator e = relation.addVertex(eSet);
+			Vertex_Iterator e = relation.insertVertex(eSet);
 		
-			relation.addEdge(a, a);
-			relation.addEdge(b, b);
-			relation.addEdge(c, c);
-			relation.addEdge(d, d);
-			relation.addEdge(e, e);
+			relation.insertEdge(a, a);
+			relation.insertEdge(b, b);
+			relation.insertEdge(c, c);
+			relation.insertEdge(d, d);
+			relation.insertEdge(e, e);
 
-			relation.addEdge(a, b);
-			relation.addEdge(c, b);
-			relation.addEdge(b, d);
-			relation.addEdge(d, e);
-			relation.addEdge(e, d);
+			relation.insertEdge(a, b);
+			relation.insertEdge(c, b);
+			relation.insertEdge(b, d);
+			relation.insertEdge(d, e);
+			relation.insertEdge(e, d);
 
 			auto f = [](const Vertex_Iterator& vertex) -> const Set&
 			{

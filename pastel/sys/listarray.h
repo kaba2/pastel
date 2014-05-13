@@ -5,7 +5,7 @@
 #define PASTELSYS_LISTARRAY_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/fastlist.h"
+#include "pastel/sys/list.h"
 #include "pastel/sys/pool_allocator.h"
 
 namespace Pastel
@@ -15,7 +15,7 @@ namespace Pastel
 	class ListArray
 	{
 	private:
-		typedef FastList<Type, PoolAllocator> ListContainer;
+		typedef List<Type, PoolAllocator> ListContainer;
 
 	public:
 		typedef typename ListContainer::iterator

@@ -1,0 +1,30 @@
+Doubly-linked list
+==================
+
+[[Parent]]: data_structures.txt
+
+A _doubly-linked list_ is a data structure for storing and manipulating a sequence of elements. 
+
+Properties
+----------
+
+The doubly-linked list implementation in Pastel has the following properties:
+
+Task / Property                                                  | Complexity
+-----------------------------------------------------------------|------------------------
+Insert / remove an element, before a given element.              | ''Theta(1)''
+Move an element, before a given element in a given list.         | ''Theta(1)''
+Find out the number of elements in a list.                       | ''Theta(1)''
+Move all elements from a list to another.                        | ''Theta(1)''
+
+Versus `std::list`
+------------------
+
+The list implementation in Pastel can be thought of an enhanced `std::list`:
+
+* it can be used as a direct replacement for `std::list`,
+* it can be customized,
+* it supports sentinel data,
+* it supports empty data,
+* its iterators can be queried for nullness, and
+* its iterators are ordered and hashable.

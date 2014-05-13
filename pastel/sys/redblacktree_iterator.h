@@ -145,7 +145,7 @@ namespace Pastel
 
 			A default-constructed iterator is a null-iterator.
 			*/
-			bool isNull() const
+			bool empty() const
 			{
 				return node() == 0;
 			}
@@ -160,7 +160,7 @@ namespace Pastel
 			*/
 			bool isNormal() const
 			{
-				return !isNull() && !isSentinel();
+				return !empty() && !isSentinel();
 			}
 
 			//! Returns whether this node has valid size.

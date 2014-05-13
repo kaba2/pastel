@@ -13,3 +13,44 @@ How should bundles be stored?
 
 * Create two empty bundles, the first one, and the last one.
 * The element-set of the last bundle contains the global end-node.
+
+Designs for fast tries
+======================
+
+Bucketed x-fast trie
+--------------------
+
+* The data-structure consists of an x-fast trie, where each element is a representative of a bucket of elements.
+* The representative of a bucket is its minimum element.
+* A bucket contains elements which are greater than or equal to its representative, but less than the representative of the next bucket.
+* Each bucket is stored as a red-black tree, with propagated size.
+* This implies that any quantile, particularly the median, can be found in logarithmic time.
+* Also, splitting a bundle can be done in logarithmic time.
+* The height of an element is the minimal level which it shares with another element.
+* Each bucket has at most as many elements as the maximum of the height of its representative and the height of the next representative.
+* This implies that there are always less than w elements in a bucket.
+* Each node of the x-fast trie points to right gap-node of the gap it is in.
+* If there are no split-nodes under the lowest ancestor, then add the element into the bucket of the representative under the lowest ancestor.
+* If there are split-nodes under the lowest ancestor, then add the element into the bucket of the representative in the left-gap bound.
+* Once a bucket reaches its limit size, it is split into two by its median. The median becomes the representative of the new greater bundle.
+* Each x-fast trie node stores a pointer to its left gap-bound.
+
+* Problem A: is the creation of the new nodes amortized by the lazy creation of buckets?
+* Problem B: is the storage linear?
+
+* If the new representative has length at most half of the splitted representative, then yes. Otherwise, there is a problem.
+
+* The representatives need not be elements themselves.
+* Choose the representative such that the new bundle has half the height. Problem: the new bundle may not have any elements.
+
+Truncated x-fast trie
+---------------------
+
+* The data-structure is a compact x-fast trie.
+* Each chain has a start-level and an end-level.
+* The end-level is the height of the chain.
+* The start-level specifies at where the future insertions should be done.
+* However, the whole chain is used when searching.
+* Each chain has a bucket element stored in a splittable red-black tree.
+* An insertion extends the start of its truncated ancestor chain by one chain.
+* If needed, the bucket is split into two.

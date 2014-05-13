@@ -1,12 +1,16 @@
-// Description: HalfMesh class
-// Detail: Allows topological modification of a polygon mesh
+// Description: Half-edge structure
 
 #ifndef PASTELGEOMETRY_HALFMESH_H
 #define PASTELGEOMETRY_HALFMESH_H
 
+#include "pastel/geometry/halfmesh_concepts.h"
+#include "pastel/geometry/halfmesh_vertex.h"
+#include "pastel/geometry/halfmesh_half.h"
+#include "pastel/geometry/halfmesh_edge.h"
+#include "pastel/geometry/halfmesh_polygon.h"
+
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/pool_allocator.h"
-#include "pastel/sys/possiblyemptymember.h"
+#include "pastel/sys/class.h"
 
 #include <boost/operators.hpp>
 
@@ -16,162 +20,87 @@
 namespace Pastel
 {
 
-	//! Half-edge structure polygon mesh.
-	/*!
-	class DataPolicy
-	{
-	public:
-		// You can expand the interface
-		// of HalfMesh by defining your functions
-		// here.
-		void yourOwnInterfaceExtension();
+	template <typename Settings>
+	using Empty_HalfMesh_Customization =
+		HalfMesh_::Customization<Settings>;
 
-	protected:
-		// The following must be implemented
-		// for the HalfMesh to work.
-		// Being implementation details, they should be protected.
-
-		// Define a user data type as an EmptyClass
-		// if no user data is desired.
-
-		typedef undefined_type VertexData;
-		typedef undefined_type HalfData;
-		typedef undefined_type EdgeData;
-		typedef undefined_type PolygonData;
-
-		// Called after having processed HalfMesh::swap().
-
-		void swap(DataPolicy& that);
-
-		// Called after having processed HalfMesh::clear().
-
-		void clear();
-
-		// If a user data type is defined as an
-		// EmptyClass, a zero pointer is passed
-		// to the following functions. The
-		// implementation must handle these cases
-		// correctly.
-
-		// Note: these objects must be constructed
-		// with the placement new: the passed memory 
-		// address, if not the null pointer, contains
-		// just enough memory to construct the object.
-		// For example: 'new(vertex) VertexData;'.
-
-		void constructVertex(VertexData* vertex);
-		void constructHalf(HalfData* half);
-		void constructEdge(EdgeData* edge);
-		void constructPolygon(PolygonData* polygon);
-
-		// Note: the destructors of the objects must 
-		// be run before completing these functions.
-		// For example: 'vertex->~VertexData();'.
-		// Delete must not be used!
-
-		void destructVertex(VertexData* vertex);
-		void destructHalf(HalfData* half);
-		void destructEdge(EdgeData* edge);
-		void destructPolygon(PolygonData* polygon);
-	};
-
-	The 'DataPolicy' is used to control the construction
-	and destruction of user data. Because inheritance is
-	used, you can expand the interface of HalfMesh by
-	simply defining your own functions in the policy.
-	If no user data is needed, memory can be saved by defining
-	the desired user data type as an EmptyClass.
-	In this case the construction and
-	destruction functions are passed a zero pointer.
-	The implementation of the policy should make sure that
-	this is handled correctly.
-
-	We have chosen not to support parallel edges
-	(multiple edges with same end-vertices) or
-	edge loops (edges that start and end at the same vertex).
-	Attempting to add these kind of edges results
-	in 'addEdge()' returning an empty edge.
-
-	Note that the time complexities given are specific
-	to my implementation. Specifically, the "on average"
-	suffix to many of the functions stem from the fact
-	that a hash table is used to store the elements and
-	many of its operations have complexity "constant on average".
-	Also, when removing elements, the allocator used
-	takes a logarithmic time to deallocate an element.
-	*/
-
-	template <typename DataPolicy>
+	//! Half-edge structure
+	template <
+		typename Settings, 
+		template <typename> class Customization_ = Empty_HalfMesh_Customization>
 	class HalfMesh
-		: public DataPolicy
+		: public Customization_<Settings>
 	{
-	private:
-		typedef typename DataPolicy::VertexData VertexData;
-		typedef typename DataPolicy::HalfData HalfData;
-		typedef typename DataPolicy::EdgeData EdgeData;
-		typedef typename DataPolicy::PolygonData PolygonData;
-
-		class VertexBody;
-		class HalfBody;
-		class EdgeBody;
-		class PolygonBody;
-
 	public:
-		class Vertex;
-		class Half;
-		class Edge;
-		class Polygon;
+		using Customization = Customization_<Settings>;
 
-		class VertexHash;
-		class HalfHash;
-		class EdgeHash;
-		class PolygonHash;
+		using Fwd = HalfMesh_Fwd<Settings>;
 
-	private:
-		typedef std::unordered_set<Vertex, VertexHash> VertexSet;
-		typedef typename VertexSet::iterator VertexIterator;
+		PASTEL_FWD(Vertex);
+		PASTEL_FWD(Half);
+		PASTEL_FWD(Edge);
+		PASTEL_FWD(Polygon);
+		
+		PASTEL_FWD(VertexData_Class);
+		PASTEL_FWD(HalfData_Class);
+		PASTEL_FWD(EdgeData_Class);
+		PASTEL_FWD(PolygonData_Class);
+		PASTEL_CONSTEXPR bool MultipleEdges = Fwd::MultipleEdges;
+		PASTEL_CONSTEXPR bool Loops = Fwd::Loops;
 
-		typedef std::unordered_set<Half, HalfHash> HalfSet;
-		typedef typename HalfSet::iterator HalfIterator;
+		PASTEL_FWD(VertexSet);
+		PASTEL_FWD(Vertex_Iterator);
+		PASTEL_FWD(Vertex_ConstIterator);
 
-		typedef std::unordered_set<Edge, EdgeHash> EdgeSet;
-		typedef typename EdgeSet::iterator EdgeIterator;
+		PASTEL_FWD(HalfSet);
+		PASTEL_FWD(Half_Iterator);
+		PASTEL_FWD(Half_ConstIterator);
 
-		typedef std::unordered_set<Polygon, PolygonHash> PolygonSet;
-		typedef typename PolygonSet::iterator PolygonIterator;
+		PASTEL_FWD(EdgeSet);
+		PASTEL_FWD(Edge_Iterator);
+		PASTEL_FWD(Edge_ConstIterator);
 
-	public:
-		typedef typename VertexSet::const_iterator
-			ConstVertexIterator;
-		typedef typename HalfSet::const_iterator
-			ConstHalfIterator;
-		typedef typename EdgeSet::const_iterator
-			ConstEdgeIterator;
-		typedef typename PolygonSet::const_iterator
-			ConstPolygonIterator;
+		PASTEL_FWD(PolygonSet);
+		PASTEL_FWD(Polygon_Iterator);
+		PASTEL_FWD(Polygon_ConstIterator);
 
-	public:
+		PASTEL_FWD(InsertEdge_Return);
+
+		template <typename Range, typename To>
+		struct IsConvertible
+		{
+			PASTEL_CONSTEXPR bool value =
+				std::is_convertible<decltype(*std::begin(*(Range*)0)), To>::value;
+		};
+
 		//! Constructs an empty mesh.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		strong
+		Time complexity: O(1)
+		Exception safety: strong
 		*/
-		HalfMesh();
+		HalfMesh()
+		: vertexSet_()
+		, halfSet_()
+		, edgeSet_()
+		, polygonSet_()
+		{
+		}
 
 		//! Move-constructs from another mesh.
 		/*!
-		Exception safety:
-		strong
+		Time complexity: O(1)
+		Exception safety: strong
 		*/
-		HalfMesh(HalfMesh&& that);
+		HalfMesh(HalfMesh&& that)
+		: HalfMesh()
+		{
+			swap(that)
+		}
 
 		//! Copy-constructs from another mesh.
 		/*!
-		Exception safety:
-		strong
+		Time complexity: O(vertices() + edges() + polygons())
+		Exception safety: strong
 		*/
 		HalfMesh(const HalfMesh& that);
 
@@ -180,131 +109,92 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		~HalfMesh();
+		~HalfMesh()
+		{
+			clear();
+		}
 
-		//! Copies another mesh to this mesh.
+		//! Assigns from another mesh.
 		/*!
-		Exception safety:
-		strong
+		Time complexity:
+		O(1), if moved,
+		O(vertices() + edges() + polygons()), otherwise.
+
+		Exception safety: strong
 		*/
-		HalfMesh<DataPolicy>& operator=(HalfMesh that);
+		HalfMesh& operator=(HalfMesh that)
+		{
+			swap(that);
+			return *this;
+		}
 
 		//! Swaps two half-edge meshes.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
-		void swap(HalfMesh& that);
+		void swap(HalfMesh& that)
+		{
+			Customization::swap(that);
+			vertexSet_.swap(that.vertexSet_);
+			halfSet_.swap(that.halfSet_);
+			edgeSet_.swap(that.edgeSet_);
+			polygonSet_.swap(that.polygonSet_);
+		}
 
 		//! Remove all data of the mesh.
 		/*!
-		Exception safety:
-		nothrow
+		Time complexity: O(vertices() + edges() + polygons())
+		Exception safety: nothrow
 		*/
-		void clear();
+		void clear()
+		{
+			onClear();
+
+			vertexSet_.clear();
+			halfSet_.clear();
+			edgeSet_.clear();
+			polygonSet_.clear();
+		}
 
 		// Iterators
 
-		//! Returns an iterator to the beginning of the vertex set.
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Vertex_, vertexBegin, vertexSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Vertex_, vertexEnd, vertexSet_.end());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Vertex_, vertexLast, std::prev(vertexEnd()));
+		
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Half_, halfBegin, halfSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Half_, halfEnd, halfSet_.end());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Half_, halfLast, std::prev(halfEnd()));
+		
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Edge_, edgeBegin, edgeSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Edge_, edgeEnd, edgeSet_.end());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Edge_, edgeLast, std::prev(edgeEnd()));
+		
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Polygon_, polygonBegin, polygonSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Polygon_, polygonEnd, polygonSet_.end());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Polygon_, polygonLast, std::prev(polygonEnd()));
+
+		//! Searches for a half-edge from 'from' to 'to'.
 		/*!
 		Time complexity:
-		constant
+		O(n)
+		where
+		n is the number of edges around 'from'.
 
 		Exception safety:
 		nothrow
 		*/
-		ConstVertexIterator vertexBegin() const;
+		Half_ConstIterator findHalf(
+			const Vertex_ConstIterator& from,
+			const Vertex_ConstIterator& to) const;
 
-		//! Returns an iterator to the end of the vertex set.
-		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
-		*/
-		ConstVertexIterator vertexEnd() const;
-
-		//! Returns an iterator to the beginning of the half-edge set.
-		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
-		*/
-		ConstHalfIterator halfBegin() const;
-
-		//! Returns an iterator to the end of the half-edge set.
-		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
-		*/
-		ConstHalfIterator halfEnd() const;
-
-		//! Returns an iterator to the beginning of the edge set.
-		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
-		*/
-		ConstEdgeIterator edgeBegin() const;
-
-		//! Returns an iterator to the end of the edge set.
-		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
-		*/
-		ConstEdgeIterator edgeEnd() const;
-
-		//! Returns an iterator to the beginning of the polygon set.
-		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
-		*/
-		ConstPolygonIterator polygonBegin() const;
-
-		//! Returns an iterator to the end of the polygon set.
-		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
-		*/
-		ConstPolygonIterator polygonEnd() const;
-
-		//! Searches for a half-edge from 'fromVertex' to 'toVertex'.
-		/*!
-		Returns:
-		The half-edge if found, or an empty half-edge
-		if not found.
-
-		Time complexity:
-		O(number of edges around 'fromVertex')
-
-		Exception safety:
-		nothrow
-		*/
-		Half findHalf(
-			Vertex fromVertex,
-			Vertex toVertex) const;
-
-		// Modification
+		Half_Iterator findHalf(
+			const Vertex_ConstIterator& from,
+			const Vertex_ConstIterator& to)
+		{
+			return cast(addConst(*this).findHalf(from, to));
+		}
 
 		//! Makes 'in' and 'out' oriented neighbours.
 		/*!
@@ -335,54 +225,136 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		bool makeAdjacent(Half in, Half out);
+		bool makeAdjacent(
+			const Half_ConstIterator& in, 
+			const Half_ConstIterator& out);
 
-		//! Adds a vertex.
+		//! Inserts an isolated vertex.
 		/*!
-		Returns:
-		The new vertex.
+		Time complexity: O(1)
+		Exception safety: strong
+		*/
+		Vertex_Iterator insertVertex(
+			const VertexData_Class& data = VertexData_Class());
 
+		//! Removes a vertex and all its neighbouring edges.
+		/*!
 		Time complexity:
-		constant on average
+		Let E = {e[i]} be the set of edges connected to the
+		vertex to be removed. Let P = {p[i] = e[i].left()}.
+		Then the complexity is
+		sum_i O(edges in p[i]) + |E| O(log(edges())) on average.
 
 		Exception safety:
-		strong
+		nothrow
 		*/
-		Vertex addVertex();
+		Vertex_Iterator removeVertex(
+			const Vertex_ConstIterator& vertex);
 
-		//! Adds an edge between two vertices.
+		//! Casts away the constness of an iterator.
 		/*!
-		fromVertex, toVertex:
-		The vertices between which to add the new edge.
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Vertex_Iterator cast(
+			const Vertex_ConstIterator& that)
+		{
+			return vertexSet_.cast(that);
+		}
 
-		outAlreadyExisted:
-		If a non-zero pointer is passed,
-		is filled with the information whether
-		the edge already existed or not.
+		//! Returns the number of vertices.
+		/*!
+		Time complexity:
+		constant
 
-		Returns:
-		The new edge if successful,
-		otherwise an empty edge.
-		If the edge already existed,
-		that edge is returned.
+		Exception safety:
+		nothrow
+		*/
+		integer vertices() const
+		{
+			return vertexSet_.size();
+		}
+
+		//! Casts away the constness of an iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Half_Iterator cast(
+			const Half_ConstIterator& that)
+		{
+			return halfSet_.cast(that);
+		}
+
+		//! Inserts an edge between two vertices.
+		/*!
+		from, to:
+		The vertices between which to insert the new edge.
+
+		data:
+		The edge-data.
+
+		returns:
+		If multiple edges are allowed between two vertices,
+		then an edge-iterator-boolean pair, where the boolean
+		tells whether an edge was created. 
+		If multiple edges are not allowed between two vertices,
+		then an edge-iterator to the created edge, or to a
+		possibly existing edge.
+		The returned edge-iterator will be empty in the cases
+		where the edge can not be represented by the half-edge
+		structure.
 
 		Preconditions:
-		!fromVertex.empty()
-		!toVertex.empty()
+		from.isNormal()
+		to.isNormal()
 
 		Time complexity:
-		O(edges around 'fromVertex') +
-		O(edges around 'toVertex') on average
+		O(edges around 'from') + 
+		O(edges around 'to')
 
 		Exception safety:
 		strong
 		*/
-		Edge addEdge(
-			Vertex fromVertex,
-			Vertex toVertex,
-			bool* outAlreadyExisted = 0);
+		InsertEdge_Return insertEdge(
+			const Vertex_ConstIterator& from,
+			const Vertex_ConstIterator& to,
+			const EdgeData_Class& data = EdgeData_Class());
 
-		//! Adds a polygon to the given boundary loop.
+		//! Removes an edge and all its neighbouring polygons.
+		/*!
+		Time complexity:
+		O(edges in the left polygon) +
+		O(edges in the right polygon)
+
+		Exception safety:
+		nothrow
+		*/
+		Edge_Iterator removeEdge(
+			const Edge_ConstIterator& edge);
+
+		//! Casts away the constness of an iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Edge_Iterator cast(
+			const Edge_ConstIterator& that)
+		{
+			return edgeSet_.cast(that);
+		}
+
+		//! Returns the number of edges.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer edges() const
+		{
+			return edgeSet_.size();
+		}
+
+		//! Inserts a polygon to the given boundary loop.
 		/*!
 		Returns:
 		The added polygon if successful,
@@ -402,31 +374,13 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Polygon addPolygon(
-			const std::vector<Half>& halfLoop);
+		template <typename Half_Range>
+		auto insertPolygon(
+			const Half_Range& halfSet,
+			const PolygonData_Class& data = PolygonData_Class())
+		-> PASTEL_ENABLE_IF((IsConvertible<Half_Range, Half_ConstIterator>), Polygon_Iterator);
 
-		//! Adds a triangle to the given vertices.
-		/*!
-		This is a convenience function that simply calls the more general
-		'addPolygon(const std::vector<Vertex>&)'. See its documentation.
-		*/
-		Polygon addPolygon(
-			Vertex aVertex,
-			Vertex bVertex,
-			Vertex cVertex);
-
-		//! Adds a quadrangle to the given vertices.
-		/*!
-		This is a convenience function that simply calls the more general
-		'addPolygon(const std::vector<Vertex>&)'. See its documentation.
-		*/
-		Polygon addPolygon(
-			Vertex aVertex,
-			Vertex bVertex,
-			Vertex cVertex,
-			Vertex dVertex);
-
-		//! Adds a polygon to the given vertex loop.
+		//! Inserts a polygon to the given vertex loop.
 		/*!
 		Time complexity:
 		sum_i O(edges around vertexLoop[i]) +
@@ -435,34 +389,12 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Polygon addPolygon(
-			const std::vector<Vertex>& vertexLoop);
-
-		//! Removes a vertex and all its neighbouring edges.
-		/*!
-		Time complexity:
-		Let E = {e[i]} be the set of edges connected to the
-		vertex to be removed. Let P = {p[i] = e[i].left()}.
-		Then the complexity is
-		sum_i O(edges in p[i]) + |E| O(log(edges())) on average.
-
-		Exception safety:
-		nothrow
-		*/
-		void removeVertex(Vertex vertex);
-
-		//! Removes an edge and all its neighbouring polygons.
-		/*!
-		Time complexity:
-		O(edges in the left polygon) +
-		O(edges in the right polygon) +
-		O(log(edges())) on average
-
-		Exception safety:
-		nothrow
-		*/
-		void removeEdge(Edge edge);
-
+		template <typename Vertex_Range>
+		auto insertPolygon(
+			const Vertex_Range& vertexSet,
+			const PolygonData_Class& data = PolygonData_Class())
+		-> PASTEL_ENABLE_IF((IsConvertible<Vertex_Range, Vertex_ConstIterator>), Polygon_Iterator);
+		
 		//! Removes a polygon.
 		/*!
 		Time complexity:
@@ -471,665 +403,134 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		void removePolygon(Polygon polygon);
+		Polygon_Iterator removePolygon(
+			const Polygon_ConstIterator& polygon);
 
-		//! Returns the number of vertices.
+		//! Casts away the constness of an iterator.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
-		integer vertices() const;
-
-		//! Returns the number of edges.
-		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
-		*/
-		integer edges() const;
+		Polygon_Iterator cast(
+			const Polygon_ConstIterator& that)
+		{
+			return polygonSet_.cast(that);
+		}
 
 		//! Returns the number of polygons.
 		/*!
-		Time complexity:
-		constant
-
-		Exception safety:
-		nothrow
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
-		integer polygons() const;
+		integer polygons() const
+		{
+			return polygonSet_.size();
+		}
 
 	private:
-		Half findFreeIncident(Vertex vertex) const;
-		Half findFreeIncident(Vertex vertex,
-			Half startingFrom,
-			Half andBefore) const;
+		Half_ConstIterator findFreeIncident(
+			const Vertex_ConstIterator& vertex) const;
+		
+		Half_Iterator findFreeIncident(
+			const Vertex_ConstIterator& vertex)
+		{
+			return cast(addConst(*this).findFreeIncident(vertex));
+		}
 
-		// Allocation
+		Half_ConstIterator findFreeIncident(
+			const Vertex_ConstIterator& vertex,
+			const Half_ConstIterator& startingFrom,
+			const Half_ConstIterator& andBefore) const;
 
-		Vertex allocateVertex();
-		Half allocateHalf();
-		Edge allocateEdge();
-		Polygon allocatePolygon();
+		Half_Iterator findFreeIncident(
+			const Vertex_ConstIterator& vertex,
+			const Half_ConstIterator& startingFrom,
+			const Half_ConstIterator& andBefore)
+		{
+			return cast(addConst(*this).findFreeIncident(
+				vertex, startingFrom, andBefore));
+		}
 
-		// Deallocation
+		struct PairTag {};
+		struct SingleTag {};
 
-		void deallocateVertex(Vertex vertex);
-		void deallocateHalf(Half half);
-		void deallocateEdge(Edge edge);
-		void deallocatePolygon(Polygon polygon);
+		InsertEdge_Return insertEdgeReturn(
+			const Edge_Iterator& edge,
+			bool created) const
+		{
+			using Tag = std::conditional_t<
+				MultipleEdges, SingleTag, PairTag>;
+			return insertEdgeReturn(edge, created, Tag());
+		}
+
+		std::pair<Edge_Iterator, bool> insertEdgeReturn(
+			const Edge_Iterator& edge, 
+			bool created,
+			PairTag) const
+		{
+			return std::make_pair(edge, created);
+		}
+
+		Edge_Iterator insertEdgeReturn(
+			const Edge_Iterator& edge, 
+			bool created,
+			SingleTag) const
+		{
+			return edge;
+		}
 
 		VertexSet vertexSet_;
 		HalfSet halfSet_;
 		EdgeSet edgeSet_;
 		PolygonSet polygonSet_;
-
-		PoolAllocator vertexAllocator_;
-		PoolAllocator halfAllocator_;
-		PoolAllocator edgeAllocator_;
-		PoolAllocator polygonAllocator_;
-
-		// Unfortunately we need to define these inner classes here.
-		// Moving them outside of HalfMesh triggers a
-		// compiler bug. You could avoid the bug by
-		// moving the inner class definitions out, and
-		// then also moving the member
-		// function definitions of the inner classes out.
-		// But I think this is clear enough.
-
-		class VertexBody
-			: public PossiblyEmptyMember<VertexData>
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			VertexBody()
-				: PossiblyEmptyMember<VertexData>()
-				, half_(0)
-			{
-			}
-
-			HalfBody* half_;
-		};
-
-		class HalfBody
-			: public PossiblyEmptyMember<HalfData>
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			HalfBody()
-				: PossiblyEmptyMember<HalfData>()
-				, next_(0)
-				, previous_(0)
-				, pair_(0)
-				, origin_(0)
-				, edge_(0)
-				, left_(0)
-			{
-			}
-
-			HalfBody* next_;
-			HalfBody* previous_;
-			HalfBody* pair_;
-			VertexBody* origin_;
-			EdgeBody* edge_;
-			PolygonBody* left_;
-		};
-
-		class EdgeBody
-			: public PossiblyEmptyMember<EdgeData>
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			EdgeBody()
-				: PossiblyEmptyMember<EdgeData>()
-				, half_(0)
-			{
-			}
-
-			HalfBody* half_;
-		};
-
-		class PolygonBody
-			: public PossiblyEmptyMember<PolygonData>
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			PolygonBody()
-				: PossiblyEmptyMember<PolygonData>()
-				, half_(0)
-			{
-			}
-
-			HalfBody* half_;
-		};
-
-	public:
-		class Half
-			: boost::less_than_comparable<Half
-			, boost::equality_comparable<Half
-			> >
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			friend class HalfMesh<DataPolicy>;
-			friend class HalfHash;
-
-			Half()
-				: half_(0)
-			{
-			}
-
-			explicit Half(HalfBody* half)
-				: half_(half)
-			{
-			}
-
-			void clear()
-			{
-				half_ = 0;
-			}
-
-			HalfData* operator->() const
-			{
-				PENSURE(half_);
-
-				return half_->data();
-			}
-
-			HalfData& operator*() const
-			{
-				PENSURE(half_);
-
-				return *half_->data();
-			}
-
-			HalfData& operator()() const
-			{
-				PENSURE(half_);
-
-				return *half_->data();
-			}
-
-			Half rotateNext() const
-			{
-				PENSURE(half_);
-
-				ASSERT(half_->pair_);
-				ASSERT(half_->pair_->next_);
-
-				return Half(half_->pair_->next_);
-			}
-
-			Half rotatePrevious() const
-			{
-				PENSURE(half_);
-
-				ASSERT(half_->previous_);
-				ASSERT(half_->previous_->pair_);
-
-				return Half(half_->previous_->pair_);
-			}
-
-			Half next() const
-			{
-				PENSURE(half_);
-
-				ASSERT(half_->next_);
-
-				return Half(half_->next_);
-			}
-
-			Half previous() const
-			{
-				PENSURE(half_);
-
-				ASSERT(half_->previous_);
-
-				return Half(half_->previous_);
-			}
-
-			Half pair() const
-			{
-				PENSURE(half_);
-
-				ASSERT(half_->pair_);
-
-				return Half(half_->pair_);
-			}
-
-			Edge edge() const
-			{
-				PENSURE(half_);
-
-				ASSERT(half_->edge_);
-
-				return Edge(half_->edge_);
-			}
-
-			Polygon left() const
-			{
-				PENSURE(half_);
-
-				return Polygon(half_->left_);
-			}
-
-			Polygon right() const
-			{
-				PENSURE(half_);
-
-				ASSERT(half_->pair_);
-				ASSERT(half_->pair_->left_);
-
-				return Polygon(half_->pair_->left_);
-			}
-
-			Vertex origin() const
-			{
-				PENSURE(half_);
-
-				ASSERT(half_->origin_);
-
-				return Vertex(half_->origin_);
-			}
-
-			Vertex destination() const
-			{
-				PENSURE(half_);
-
-				ASSERT(half_->pair_);
-				ASSERT(half_->pair_->origin_);
-
-				return Vertex(half_->pair_->origin_);
-			}
-
-			bool free() const
-			{
-				return left().empty();
-			}
-
-			bool empty() const
-			{
-				return (half_ == 0);
-			}
-
-			bool operator<(const Half& that) const
-			{
-				return half_ < that.half_;
-			}
-
-			bool operator==(const Half& that) const
-			{
-				return half_ == that.half_;
-			}
-
-		private:
-			HalfBody* half_;
-		};
-
-		class Vertex
-			: boost::less_than_comparable<Vertex
-			, boost::equality_comparable<Vertex
-			> >
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			friend class HalfMesh<DataPolicy>;
-			friend class VertexHash;
-
-			Vertex()
-				: vertex_(0)
-			{
-			}
-
-			explicit Vertex(VertexBody* vertex)
-				: vertex_(vertex)
-			{
-			}
-
-			void clear()
-			{
-				vertex_ = 0;
-			}
-
-			VertexData& operator*() const
-			{
-				PENSURE(vertex_);
-
-				return *vertex_->data();
-			}
-
-			VertexData* operator->() const
-			{
-				PENSURE(vertex_);
-
-				return vertex_->data();
-			}
-
-			VertexData& operator()() const
-			{
-				PENSURE(vertex_);
-
-				return *vertex_->data();
-			}
-
-			Half half() const
-			{
-				PENSURE(vertex_);
-
-				return Half(vertex_->half_);
-			}
-
-			bool free() const
-			{
-				PENSURE(vertex_);
-
-				if (isolated())
-				{
-					return true;
-				}
-
-				Half begin(vertex_->half_);
-				Half current(begin);
-				do
-				{
-					if (current.left().empty())
-					{
-						return true;
-					}
-					current = current.rotateNext();
-				}
-				while (current != begin);
-
-				return false;
-			}
-
-			bool empty() const
-			{
-				return (vertex_ == 0);
-			}
-
-			bool isolated() const
-			{
-				PENSURE(vertex_);
-
-				return (vertex_->half_ == 0);
-			}
-
-			bool operator<(const Vertex& that) const
-			{
-				return vertex_ < that.vertex_;
-			}
-
-			bool operator==(const Vertex& that) const
-			{
-				return vertex_ == that.vertex_;
-			}
-
-		private:
-			VertexBody* vertex_;
-		};
-
-		class Edge
-			: boost::less_than_comparable<Edge
-			, boost::equality_comparable<Edge
-			> >
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			friend class HalfMesh<DataPolicy>;
-			friend class EdgeHash;
-
-			Edge()
-				: edge_(0)
-			{
-			}
-
-			explicit Edge(EdgeBody* edge)
-				: edge_(edge)
-			{
-			}
-
-			void clear()
-			{
-				edge_ = 0;
-			}
-
-			EdgeData& operator*() const
-			{
-				PENSURE(edge_);
-
-				return *edge_->data();
-			}
-
-			EdgeData* operator->() const
-			{
-				PENSURE(edge_);
-
-				return edge_->data();
-			}
-
-			EdgeData& operator()() const
-			{
-				PENSURE(edge_);
-
-				return *edge_->data();
-			}
-
-			Half half() const
-			{
-				PENSURE(edge_);
-
-				return Half(edge_->half_);
-			}
-
-			bool empty() const
-			{
-				return (edge_ == 0);
-			}
-
-			bool operator<(const Edge& that) const
-			{
-				return edge_ < that.edge_;
-			}
-
-			bool operator==(const Edge& that) const
-			{
-				return edge_ == that.edge_;
-			}
-
-		private:
-			EdgeBody* edge_;
-		};
-
-		class Polygon
-			: boost::less_than_comparable<Polygon
-			, boost::equality_comparable<Polygon
-			> >
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			friend class HalfMesh<DataPolicy>;
-			friend class PolygonHash;
-
-			Polygon()
-				: polygon_(0)
-			{
-			}
-
-			explicit Polygon(PolygonBody* polygon)
-				: polygon_(polygon)
-			{
-			}
-
-			void clear()
-			{
-				polygon_ = 0;
-			}
-
-			PolygonData& operator*() const
-			{
-				PENSURE(polygon_);
-
-				return *polygon_->data();
-			}
-
-			PolygonData* operator->() const
-			{
-				PENSURE(polygon_);
-
-				return polygon_->data();
-			}
-
-			PolygonData& operator()() const
-			{
-				PENSURE(polygon_);
-
-				return *polygon_->data();
-			}
-
-			Half half() const
-			{
-				PENSURE(polygon_);
-
-				return Half(polygon_->half_);
-			}
-
-			bool empty() const
-			{
-				return (polygon_ == 0);
-			}
-
-			bool operator<(const Polygon& that) const
-			{
-				return polygon_ < that.polygon_;
-			}
-
-			bool operator==(const Polygon& that) const
-			{
-				return polygon_ == that.polygon_;
-			}
-
-		private:
-			PolygonBody* polygon_;
-		};
-
-		class VertexHash
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			VertexHash()
-				: hash_()
-			{
-			}
-
-			std::size_t operator()(const Vertex& vertex) const
-			{
-				return hash_(vertex.vertex_);
-			}
-
-		private:
-			std::hash<VertexBody*> hash_;
-		};
-
-		class HalfHash
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			HalfHash()
-				: hash_()
-			{
-			}
-
-			std::size_t operator()(const Half& half) const
-			{
-				return hash_(half.half_);
-			}
-
-		private:
-			std::hash<HalfBody*> hash_;
-		};
-
-		class EdgeHash
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			EdgeHash()
-				: hash_()
-			{
-			}
-
-			std::size_t operator()(const Edge& edge) const
-			{
-				return hash_(edge.edge_);
-			}
-
-		private:
-			std::hash<EdgeBody*> hash_;
-		};
-
-		class PolygonHash
-		{
-		public:
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			PolygonHash()
-				: hash_()
-			{
-			}
-
-			std::size_t operator()(const Polygon& polygon) const
-			{
-				return hash_(polygon.polygon_);
-			}
-
-		private:
-			std::hash<PolygonBody*> hash_;
-		};
 	};
 
 }
 
-#include "pastel/geometry/halfmesh.hpp"
+namespace Pastel
+{
 
-#include "pastel/geometry/halfmesh_tools.h"
+	template <
+		typename VertexData_ = void,
+		typename HalfData_ = void,
+		typename EdgeData_ = void,
+		typename PolygonData_ = void,
+		bool MultipleEdges_ = true,
+		bool Loops_ = true>
+	class HalfMesh_Settings
+	{
+	public:
+		using VertexData = VertexData_;
+		using HalfData = HalfData_;
+		using EdgeData = EdgeData_;
+		using PolygonData = PolygonData_;
+		PASTEL_CONSTEXPR bool MultipleEdges = MultipleEdges_;
+		PASTEL_CONSTEXPR bool Loops = Loops_;
+	};
+
+	template <
+		typename VertexData_ = void,
+		typename HalfData_ = void,
+		typename EdgeData_ = void,
+		typename PolygonData_ = void,
+		bool MultipleEdges_ = true,
+		bool Loops_ = true,
+		template <typename> class Customization_ = Empty_HalfMesh_Customization>
+	using HalfEdge = HalfMesh<HalfMesh_Settings<
+		VertexData_, HalfData_, EdgeData_, PolygonData_,
+		MultipleEdges_, Loops_>, Customization_>;
+
+}
+
+#include "pastel/geometry/halfmesh.hpp"
+#include "pastel/geometry/halfmesh_find.hpp"
+#include "pastel/geometry/halfmesh_remove_edge.hpp"
+#include "pastel/geometry/halfmesh_remove_polygon.hpp"
+#include "pastel/geometry/halfmesh_remove_vertex.hpp"
+#include "pastel/geometry/halfmesh_insert_edge.hpp"
+#include "pastel/geometry/halfmesh_insert_polygon.hpp"
+#include "pastel/geometry/halfmesh_insert_vertex.hpp"
+#include "pastel/geometry/halfmesh_invariants.h"
+#include "pastel/geometry/halfmesh_stream.h"
 
 #endif
