@@ -8,7 +8,7 @@
 #include "pastel/sys/real_concept.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/fastlist.h"
+#include "pastel/sys/list.h"
 #include "pastel/sys/tristate.h"
 #include "pastel/sys/pool_allocator.h"
 #include "pastel/sys/range.h"
@@ -44,7 +44,7 @@ namespace Pastel
 		class PointInfo;
 		class Node;
 
-		typedef FastList<PointInfo, PointAllocator> PointSet;
+		typedef List_Set<PointInfo> PointSet;
 		typedef typename PointSet::iterator Point_Iterator;
 
 	public:

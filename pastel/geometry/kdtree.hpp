@@ -5,7 +5,7 @@
 #include "pastel/geometry/bounding_alignedbox.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/fastlist_tools.h"
+#include "pastel/sys/list.h"
 
 #include <boost/operators.hpp>
 

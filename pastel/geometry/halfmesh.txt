@@ -8,18 +8,14 @@ The _half-edge structure_ is a data structure for efficiently storing and manipu
 Definitions
 -----------
 
-An _open (closed) cell_ is a topological space which is homeomorphic to an open (closed) ball in ''RR^n'', for some ''n in NN''. A _cell_ is either an open cell or a closed cell. Given a cell, its associated ''n'' is called its _dimension_; then a cell is called an _''n''-cell_. Let ''X'' be a topological space.  A _cell-decomposition_ of ''X'' is a partition ''C'' of ''X'' into open cells, such that if ''c in C'' is an open ''n''-cell, with ''n > 0'', then there exists a continuous map, called a _characteristic map_, from some closed ''n''-cell ''D'' into ''X'', which restricts to a homeomorphism from the interior of ''D'' onto ''c'', and maps the boundary of ''D'' into the union of all open cells, of the cell-decomposition, of dimensions less than ''n''. The _dimension_ of a cell decomposition is the supremum of the dimensions of its open cells. A cell-complex is a Hausdorff space ''X'', together with a cell-decomposition of ''X''.
+An _open (closed) cell_ is a topological space which is homeomorphic to an open (closed) ball in ''RR^n'', for some ''n in NN''. A _cell_ is either an open cell or a closed cell. Given a cell, its associated ''n'' is called its _dimension_; then a cell is called an _''n''-cell_. Let ''X'' be a topological space.  A _cell-decomposition_ of ''X'' is a partition ''C'' of ''X'' into open cells, such that if ''c in C'' is an open ''n''-cell, with ''n > 0'', then there exists a continuous map, called a _characteristic map_, from some closed ''n''-cell ''D'' into ''X'', which restricts to a homeomorphism from the interior of ''D'' onto ''c'', and maps the boundary of ''D'' into the union of all open cells, of the cell-decomposition, of dimensions less than ''n''. The _dimension_ of a cell-decomposition is the supremum of the dimensions of its open cells. A cell-complex is a Hausdorff space ''X'', together with a cell-decomposition of ''X''.
 
-The half-edge structure is a finite 2-dimensional cell-complex, with the added requirement that the boundary of each open ''n''-cell in the cell-decomposition, for ''n > 0'', be a union of lower-dimensional open cells.
+The half-edge structure is a finite 2-dimensional cell-complex, with the added requirement that the boundary of each open ''n''-cell in the cell-decomposition, for ''n > 0'', be a union of lower-dimensional open cells. The 0-cells, 1-cells, and 2-cells, of the half-edge structure, are called _vertices_ , _edges_, and _polygons_, respectively.
 
-Cells
------
+Half-edges
+----------
 
-The half-edge structure consists of _half-edges_, _vertices_ , _edges_, and _polygons_, where the last three correspond to 0-cells, 1-cells, and 2-cells, respectively.
-
-### Half-edges
-
-The half-edges are directed edges of which there are 2 for each edge, oriented oppositely. Given a half-edge H, the oppositely oriented half-edge is called the _pair_ of H. Every half-edge has an _origin_ vertex and a _destination_ vertex. If a half-edge has A and B as origin and destination, respectively, then its pair has B and A as origin and destination, respectively. Every half-edge has a _successor_ and a _predecessor_. These links form a _loop_, and thus each half-edge is associated to some loop, dividing the set of half-edges into equivalence classes. Each loop can contain a _polygon_. However, the loop can also be empty, representing a hole.
+In addition to the cells, the half-edge structure also includes _half-edges_, which encode most of the information in the cell-decomposition. The half-edges are directed edges of which there are 2 for each edge, oriented oppositely. Given a half-edge H, the oppositely oriented half-edge is called the _pair_ of H. Every half-edge has an _origin_ vertex and a _destination_ vertex. If a half-edge has A and B as origin and destination, respectively, then its pair has B and A as origin and destination, respectively. Every half-edge has a _successor_ and a _predecessor_. These links form a _loop_, and thus each half-edge is associated to some loop, dividing the set of half-edges into equivalence classes. Each loop can contain a _polygon_. However, the loop can also be empty, representing a hole.
 
 Types
 -----

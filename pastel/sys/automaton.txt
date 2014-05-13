@@ -26,7 +26,7 @@ In addition, the automaton
 * can be fully [customized][Customization] to add extra functionality, and
 * can associate user-data with states and transitions.
 
-[Customization]: [[Ref]]: techniques_customization.txt
+[Customization]: [[Ref]]: customization.txt
 
 Definitions
 -----------

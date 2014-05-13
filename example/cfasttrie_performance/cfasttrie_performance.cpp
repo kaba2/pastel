@@ -43,6 +43,8 @@ HighResClock::time_point HighResClock::now()
 	return time_point(duration(count.QuadPart * static_cast<rep>(period::den) / g_Frequency));
 }
 
+PASTEL_CONSTEXPR int Bits = 6;
+
 template <typename Type>
 double measureTime(const Type& f)
 {
@@ -78,15 +80,19 @@ void f(Set& a, integer n)
 #endif
 	for (integer i = 0; i < n; ++i)
 	{
-		uinteger key = randomUinteger();
+		uinteger key = randomUintegerBits(Bits);
 		//std::cout << key << " ";
-		a.insert(key);
+		auto result = a.insert(key);
+		if (result.second)
+		{
+			std::cout << key << " ";
+		}
 		//a.insert(n - i);
 		if (!testInvariants(a))
 		{
+			testInvariants(a);
 			std::cout << "Error: " << i << std::endl;
 			std::cout << "Key: " << key << std::endl;
-			print(a);
 			return;
 		}
 	}
@@ -104,7 +110,7 @@ void g(const Set& a, integer n)
 	integer maxFinds = 0;
 #endif
 	integer j = 0;
-	for (integer i = 0; i < (1 << 18); ++i)
+	for (integer i = 0; i < (1 << 12); ++i)
 	{
 #ifdef SKIP_ONLY
 		integer prevFinds = a.finds;
@@ -132,8 +138,6 @@ void g(const Set& a, integer n)
 		<< ", max " << maxFinds << " ";
 #endif
 }
-
-PASTEL_CONSTEXPR int Bits = 64;
 
 template <typename Set>
 void test()

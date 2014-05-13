@@ -1,21 +1,23 @@
-#ifndef PASTELSYS_FASTLIST_TOOLS_HPP
-#define PASTELSYS_FASTLIST_TOOLS_HPP
+#ifndef PASTELSYS_LIST_PARTITION_HPP
+#define PASTELSYS_LIST_PARTITION_HPP
 
-#include "pastel/sys/fastlist_tools.h"
+#include "pastel/sys/list_partition.h"
 
 namespace Pastel
 {
 
-	template <typename Type, typename UniformAllocator, typename Predicate>
-	std::pair<std::pair<typename FastList<Type, UniformAllocator>::iterator, integer>,
-		std::pair<typename FastList<Type, UniformAllocator>::iterator, integer> >
+	template <
+		typename Settings,
+		template <typename> class Customization,
+		typename Predicate>
+	std::pair<std::pair<typename List<Settings, Customization>::iterator, integer>,
+		std::pair<typename List<Settings, Customization>::iterator, integer> >
 		partition(
-		FastList<Type, UniformAllocator>& list,
-		const typename FastList<Type, UniformAllocator>::const_iterator& from,
-		const typename FastList<Type, UniformAllocator>::const_iterator& to,
+		List<Settings, Customization>& list,
+		const typename List<Settings, Customization>::ConstRange& range,
 		const Predicate& predicate)
 	{
-		typedef FastList<Type, UniformAllocator> List;
+		typedef List<Settings, Customization> List;
 		typedef typename List::iterator Iterator;
 		typedef typename List::const_iterator ConstIterator;
 
@@ -27,17 +29,18 @@ namespace Pastel
 		// In the end the individual lists
 		// are spliced back to the original list.
 
-		List trueList(list.get_allocator());
-		List falseList(list.get_allocator());
-		List trueBothList(list.get_allocator());
-		List falseBothList(list.get_allocator());
+		List trueList;
+		List falseList;
+		List trueBothList;
+		List falseBothList;
 
 		integer trueCount = 0;
 		integer falseCount = 0;
 		integer trueBothCount = 0;
 		integer falseBothCount = 0;
 
-		ConstIterator iter(from);
+		ConstIterator iter = std::begin(range);
+		ConstIterator to = std::end(range);
 		while(iter != to)
 		{
 			ConstIterator next = iter;
@@ -105,16 +108,18 @@ namespace Pastel
 			std::make_pair(list.cast(falseStart), falseCount + falseBothCount));
 	}
 
-	template <typename Type, typename UniformAllocator, typename Predicate>
-	std::pair<std::pair<typename FastList<Type, UniformAllocator>::iterator, integer>,
-		std::pair<typename FastList<Type, UniformAllocator>::iterator, integer> >
+	template <
+		typename Settings,
+		template <typename> class Customization,
+		typename Predicate>
+	std::pair<std::pair<typename List<Settings, Customization>::iterator, integer>,
+		std::pair<typename List<Settings, Customization>::iterator, integer> >
 		fuzzyPartition(
-		FastList<Type, UniformAllocator>& list,
-		const typename FastList<Type, UniformAllocator>::const_iterator& from,
-		const typename FastList<Type, UniformAllocator>::const_iterator& to,
+		List<Settings, Customization>& list,
+		const typename List<Settings, Customization>::ConstRange& range,
 		const Predicate& predicate)
 	{
-		typedef FastList<Type, UniformAllocator> List;
+		typedef List<Settings, Customization> List;
 		typedef typename List::iterator Iterator;
 		typedef typename List::const_iterator ConstIterator;
 
@@ -132,7 +137,7 @@ namespace Pastel
 		// In the end, the invidual lists are again
 		// spliced back to the original list.
 
-		if (from == to)
+		if (range.empty())
 		{
 			// Nothing to do.
 
@@ -141,13 +146,14 @@ namespace Pastel
 				std::make_pair(list.end(), 0));
 		}
 
-		List trueList(list.get_allocator());
-		List falseList(list.get_allocator());
+		List trueList;
+		List falseList;
 
 		integer trueCount = 0;
 		integer falseCount = 0;
 
-		ConstIterator iter(from);
+		ConstIterator iter = std::begin(range);
+		ConstIterator to = std::end(range);
 		while(iter != to)
 		{
 			ConstIterator next = iter;

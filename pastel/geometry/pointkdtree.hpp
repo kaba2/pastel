@@ -5,7 +5,7 @@
 #include "pastel/geometry/bounding_alignedbox.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/fastlist_tools.h"
+#include "pastel/sys/list.h"
 #include "pastel/sys/constant_iterator.h"
 #include "pastel/sys/null_output.h"
 
@@ -19,8 +19,8 @@ namespace Pastel
 		const PointPolicy& pointPolicy,
 		bool simulateKdTree)
 		: pointSet_()
-		, hiddenSet_(pointSet_.get_allocator())
-		, insertionSet_(pointSet_.get_allocator())
+		, hiddenSet_()
+		, insertionSet_()
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)
 		, leaves_(0)
@@ -37,8 +37,8 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	PointKdTree<Real, N, PointPolicy>::PointKdTree(const PointKdTree& that)
 		: pointSet_()
-		, hiddenSet_(pointSet_.get_allocator())
-		, insertionSet_(pointSet_.get_allocator())
+		, hiddenSet_()
+		, insertionSet_()
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)
 		, leaves_(0)

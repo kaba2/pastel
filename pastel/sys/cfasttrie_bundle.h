@@ -48,7 +48,7 @@ namespace Pastel
 			{
 			}
 
-			std::pair<Iterator, bool> insert(
+			std::pair<Element_Iterator, bool> insert(
 				const Bundle_Iterator& bundle,
 				bool equalToChain,
 				const Key& key,
@@ -79,7 +79,7 @@ namespace Pastel
 					Element(bundle, equalToChain, complexity, value));
 			}
 
-			Iterator erase(const ConstIterator& that)
+			Element_Iterator erase(const Element_ConstIterator& that)
 			{
 				return elementSet_.erase(that);
 			}
@@ -96,7 +96,7 @@ namespace Pastel
 			Whether to search for the smallest greater element
 			(or the greatest smaller element).
 			*/
-			Iterator findNearestUnequalToChain(const Key& key)
+			Element_Iterator findNearestUnequalToChain(const Key& key)
 			{
 				Element_Iterator node = elementSet_.root();
 				Element_Iterator candidate = elementSet_.end();
@@ -152,19 +152,24 @@ namespace Pastel
 				return elementSet_.empty();
 			}
 
+			bool testInvariants() const
+			{
+				return Pastel::testInvariants(elementSet_);
+			}
+
 			integer size() const
 			{
 				return elementSet_.size();
 			}
 
-			Iterator upperBound(const Key& key)
+			Element_Iterator upperBound(const Key& key)
 			{
 				return elementSet_.upperBound(key);
 			}
 
-			PASTEL_ITERATOR_FUNCTIONS(begin, elementSet_.begin());
-			PASTEL_ITERATOR_FUNCTIONS(end, elementSet_.end());
-			PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
+			PASTEL_ITERATOR_FUNCTIONS_PREFIX(Element_, begin, elementSet_.begin());
+			PASTEL_ITERATOR_FUNCTIONS_PREFIX(Element_, end, elementSet_.end());
+			PASTEL_ITERATOR_FUNCTIONS_PREFIX(Element_, last, std::prev(end()));
 
 			//! Returns the fork closest to the key in tree-distance.
 			Fork_ConstIterator closestFork(const Key& key) const
@@ -200,9 +205,9 @@ namespace Pastel
 				return right;
 			}
 
-			Iterator cast(const ConstIterator& that)
+			Element_Iterator cast(const Element_ConstIterator& that)
 			{
-				return elementSet_.cast(that.base());
+				return elementSet_.cast(that);
 			}
 
 			//! Returns the condition number.

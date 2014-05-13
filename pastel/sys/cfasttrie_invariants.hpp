@@ -100,9 +100,11 @@ namespace Pastel
 			auto bundle = that.cbundleBegin();
 			while (bundle != that.cbundleEnd())
 			{
+				ASSERT(bundle->testInvariants());
+
 				// The element-set of each bundle stores its bundle 
 				// in the sentinel data of the end-node.
-				if (bundle->end().base().sentinelData().bundle != bundle)
+				if (bundle->end().sentinelData().bundle != bundle)
 				{
 					return false;
 				}
@@ -122,6 +124,8 @@ namespace Pastel
 					auto prevBundle = std::prev(bundle);
 					if (!prevBundle->empty())
 					{
+						ASSERT(!prevBundle->last().isSentinel());
+						ASSERT(!bundle->begin().isSentinel());
 						const auto& lastOfPrev = prevBundle->last().key();
 						const auto& firstOfThis = bundle->begin().key();
 						if (lastOfPrev >= firstOfThis)

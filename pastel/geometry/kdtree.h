@@ -5,7 +5,7 @@
 #define PASTELGEOMETRY_KDTREE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/fastlist.h"
+#include "pastel/sys/list.h"
 #include "pastel/sys/arena_allocator.h"
 #include "pastel/sys/tristate.h"
 //#include "pastel/sys/pool_allocator.h"
@@ -54,7 +54,7 @@ namespace Pastel
 	private:
 		typedef ArenaAllocator Allocator;
 
-		typedef FastList<Object, Allocator> ObjectContainer;
+		typedef List<Object, Allocator> ObjectContainer;
 		typedef typename ObjectContainer::iterator ObjectIterator;
 
 		class Node;

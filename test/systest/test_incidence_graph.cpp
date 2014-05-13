@@ -39,18 +39,18 @@ namespace
 			TEST_ENSURE_OP(graph.vertices(), ==, 0);
 			TEST_ENSURE_OP(graph.edges(), ==, 0);
 
-			Vertex a = graph.addVertex(1);
+			Vertex a = graph.insertVertex(1);
 			TEST_ENSURE_OP(graph.vertices(), ==, 1);
 			TEST_ENSURE_OP(graph.edges(), ==, 0);
 			TEST_ENSURE_OP(*a, ==, 1);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
 
-			Vertex b = graph.addVertex(2);
+			Vertex b = graph.insertVertex(2);
 			TEST_ENSURE_OP(graph.vertices(), ==, 2);
 			TEST_ENSURE_OP(*b, ==, 2);
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
 
-			Vertex c = graph.addVertex(3);
+			Vertex c = graph.insertVertex(3);
 			TEST_ENSURE_OP(graph.vertices(), ==, 3);
 			TEST_ENSURE_OP(*c, ==, 3);
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 0);
@@ -58,7 +58,7 @@ namespace
 			*c = 4;
 			TEST_ENSURE_OP(*c, ==, 4);
 		
-			Edge e1 = graph.addEdge(a, b, 1);
+			Edge e1 = graph.insertEdge(a, b, 1);
 			TEST_ENSURE(e1->from() == a);
 			TEST_ENSURE(e1->to() == b);
 			TEST_ENSURE_OP(graph.edges(), ==, 1);
@@ -67,7 +67,7 @@ namespace
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 0);
 
-			Edge e2 = graph.addEdge(b, c, 2);
+			Edge e2 = graph.insertEdge(b, c, 2);
 			TEST_ENSURE(e2->from() == b);
 			TEST_ENSURE(e2->to() == c);
 			TEST_ENSURE_OP(graph.edges(), ==, 2);
@@ -76,7 +76,7 @@ namespace
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 1);
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 0);
 
-			Edge e3 = graph.addEdge(c, a, 3);
+			Edge e3 = graph.insertEdge(c, a, 3);
 			TEST_ENSURE(e3->from() == c);
 			TEST_ENSURE(e3->to() == a);
 			TEST_ENSURE_OP(graph.edges(), ==, 3);
@@ -85,7 +85,7 @@ namespace
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 1);
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 1);
 
-			Edge e4 = graph.addEdge(b, a, 4);
+			Edge e4 = graph.insertEdge(b, a, 4);
 			TEST_ENSURE(e4->from() == b);
 			TEST_ENSURE(e4->to() == a);
 			TEST_ENSURE_OP(graph.edges(), ==, 4);
@@ -94,7 +94,7 @@ namespace
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 2);
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 1);
 
-			Edge e5 = graph.addEdge(c, b, 5);
+			Edge e5 = graph.insertEdge(c, b, 5);
 			TEST_ENSURE(e5->from() == c);
 			TEST_ENSURE(e5->to() == b);
 			TEST_ENSURE_OP(graph.edges(), ==, 5);
@@ -103,7 +103,7 @@ namespace
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 2);
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 2);
 
-			Edge e6 = graph.addEdge(a, c, 6);
+			Edge e6 = graph.insertEdge(a, c, 6);
 			TEST_ENSURE(e6->from() == a);
 			TEST_ENSURE(e6->to() == c);
 			TEST_ENSURE_OP(graph.edges(), ==, 6);
@@ -154,18 +154,18 @@ namespace
 		{
 			Graph graph;
 
-			Vertex a = graph.addVertex();
+			Vertex a = graph.insertVertex();
 			TEST_ENSURE_OP(graph.vertices(), ==, 1);
 			TEST_ENSURE_OP(graph.edges(), ==, 0);
 
-			Edge e1 = graph.addEdge(a, a);
+			Edge e1 = graph.insertEdge(a, a);
 			TEST_ENSURE(e1->from() == a);
 			TEST_ENSURE(e1->to() == a);
 			TEST_ENSURE_OP(graph.vertices(), ==, 1);
 			TEST_ENSURE_OP(graph.edges(), ==, 1);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
 
-			Edge e2 = graph.addEdge(a, a);
+			Edge e2 = graph.insertEdge(a, a);
 			TEST_ENSURE(e2->from() == a);
 			TEST_ENSURE(e2->to() == a);
 			TEST_ENSURE_OP(graph.vertices(), ==, 1);
@@ -191,11 +191,11 @@ namespace
 
 			Graph graph;
 
-			Vertex a = graph.addVertex();
-			Vertex b = graph.addVertex();
-			Vertex c = graph.addVertex();
+			Vertex a = graph.insertVertex();
+			Vertex b = graph.insertVertex();
+			Vertex c = graph.insertVertex();
 
-			Edge e1 = graph.addEdge(a, b);
+			Edge e1 = graph.insertEdge(a, b);
 			TEST_ENSURE(!e1->directed());
 			TEST_ENSURE(e1->from() == a);
 			TEST_ENSURE(e1->to() == b);
@@ -247,13 +247,13 @@ namespace
 			typedef Graph::Edge_Iterator Edge;
 
 			Graph graph;
-			Vertex a = graph.addVertex();
-			Vertex b = graph.addVertex();
+			Vertex a = graph.insertVertex();
+			Vertex b = graph.insertVertex();
 
 			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
 			TEST_ENSURE(b->cOutgoingBegin() == b->cOutgoingEnd());
 
-			Edge A = graph.addEdge(a, b);
+			Edge A = graph.insertEdge(a, b);
 			
 			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
 			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
@@ -280,31 +280,31 @@ namespace
 		{
 			Graph aGraph;
 
-			Vertex a = aGraph.addVertex();
-			Vertex b = aGraph.addVertex();
-			Vertex c = aGraph.addVertex();
+			Vertex a = aGraph.insertVertex();
+			Vertex b = aGraph.insertVertex();
+			Vertex c = aGraph.insertVertex();
 			{
 				TEST_ENSURE_OP(aGraph.vertices(), ==, 3);
 			}
 
-			aGraph.addEdge(a, b);
-			aGraph.addEdge(b, c);
-			aGraph.addEdge(c, a);
+			aGraph.insertEdge(a, b);
+			aGraph.insertEdge(b, c);
+			aGraph.insertEdge(c, a);
 			{
 				TEST_ENSURE_OP(aGraph.edges(), ==, 3);
 			}
 
 			Graph bGraph;
-			Vertex d = bGraph.addVertex();
-			Vertex e = bGraph.addVertex();
-			Vertex f = bGraph.addVertex();
+			Vertex d = bGraph.insertVertex();
+			Vertex e = bGraph.insertVertex();
+			Vertex f = bGraph.insertVertex();
 			{
 				TEST_ENSURE_OP(bGraph.vertices(), ==, 3);
 			}
 
-			bGraph.addEdge(d, e);
-			bGraph.addEdge(e, f);
-			bGraph.addEdge(f, d);
+			bGraph.insertEdge(d, e);
+			bGraph.insertEdge(e, f);
+			bGraph.insertEdge(f, d);
 			{
 				TEST_ENSURE_OP(bGraph.edges(), ==, 3);
 			}

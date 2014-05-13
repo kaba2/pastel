@@ -298,7 +298,7 @@ namespace Pastel
 		*/
 		State_Iterator addState(StateData_Class stateData = StateData_Class())
 		{
-			State_Iterator state = graph_.addVertex(
+			State_Iterator state = graph_.insertVertex(
 				StateLabel(std::move(stateData)));
 
 			try
@@ -700,7 +700,7 @@ namespace Pastel
 			try
 			{
 				// Add the transition into the graph.
-				transition = graph_.addEdge(
+				transition = graph_.insertEdge(
 					fromState, toState, 
 					TransitionLabel(std::move(symbol), std::move(transitionData)));
 				++rollback;
