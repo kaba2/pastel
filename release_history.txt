@@ -26,6 +26,8 @@ Release date xx.x.2014
 * Started using more features of C++11.
 * Changed to use the CMake build system (over Premake).
 * Changed to use Threading Building Blocks (over OpenMP).
+* Formalized settings types.
+* Formalized adaptable iterators.
 
 ### PastelSys
 

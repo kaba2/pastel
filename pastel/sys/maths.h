@@ -3,7 +3,6 @@
 #ifndef PASTELSYS_MATHS_H
 #define PASTELSYS_MATHS_H
 
-#include "pastel/sys/constants.h"
 #include "pastel/sys/histogram.h"
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/numbers.h"
