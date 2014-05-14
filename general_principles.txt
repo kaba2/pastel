@@ -29,9 +29,11 @@ Every data structure in Pastel
 * follows the [open-closed principle][Layered],
 * follows the [zero overhead principle][ClassWrapping],
 * uses [settings types][Settings],
+* uses [enhanced iterators][Enhanced],
 * uses [adaptable iterators][Adaptable], and
 * is [customizable][Customization],
 
+[Enhanced]: [[Ref]]: enhanced_iterators.txt
 [Adaptable]: [[Ref]]: adaptable_iterators.txt
 [Customization]: [[Ref]]: customization.txt
 [ClassWrapping]: [[Ref]]: class.txt
