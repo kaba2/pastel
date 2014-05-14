@@ -11,10 +11,12 @@ namespace Pastel
 	template <
 		typename Settings,
 		template <typename> class Customization>
-	template <typename Half_Range>
+	template <
+		typename Half_Range,
+		typename... Type>
 	auto HalfMesh<Settings, Customization>::insertPolygon(
 		const Half_Range& halfSet,
-		const PolygonData_Class& data)
+		Type&&... data)
 	-> PASTEL_ENABLE_IF((IsConvertible<Half_Range, Half_ConstIterator>), Polygon_Iterator)
 	{
 		if (halfSet.empty())
@@ -79,7 +81,7 @@ namespace Pastel
 
 		// Create the polygon.
 		Polygon_Iterator polygon =
-			polygonSet_.emplace_back(data);
+			polygonSet_.insertBack(std::forward<Type>(data)...);
 
 		// Link the polygon.
 		{
@@ -93,6 +95,8 @@ namespace Pastel
 			}
 		}
 
+		onInsertPolygon(polygon);
+
 		// Return the polygon.
 		return polygon;
 	}
@@ -100,10 +104,12 @@ namespace Pastel
 	template <
 		typename Settings, 
 		template <typename> class Customization>
-	template <typename Vertex_Range>
+	template <
+		typename Vertex_Range,
+		typename... Type>
 	auto HalfMesh<Settings, Customization>::insertPolygon(
 		const Vertex_Range& vertexSet,
-		const PolygonData_Class& data)
+		Type&&... data)
 	-> PASTEL_ENABLE_IF((IsConvertible<Vertex_Range, Vertex_ConstIterator>), Polygon_Iterator)
 	{
 		ENSURE(!vertexSet.empty());
@@ -195,7 +201,7 @@ namespace Pastel
 				}
 			}
 
-			polygon = insertPolygon(halfSet, data);
+			polygon = insertPolygon(halfSet, std::forward<Type>(data)...);
 			if (polygon.empty())
 			{
 				// Note this case should not throw

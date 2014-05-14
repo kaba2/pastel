@@ -9,10 +9,11 @@ namespace Pastel
 	template <
 		typename Settings,
 		template <typename> class Customization>
+	template <typename... Type>
 	auto HalfMesh<Settings, Customization>::insertEdge(
 		const Vertex_ConstIterator& from, 
 		const Vertex_ConstIterator& to,
-		const EdgeData_Class& data)
+		Type&&... data)
 		-> InsertEdge_Return
 	{
 		ENSURE(from.isNormal());
@@ -69,7 +70,7 @@ namespace Pastel
 
 		try
 		{
-			edge = edgeSet_.insertBack(data);
+			edge = edgeSet_.insertBack(std::forward<Type>(data)...);
 			++rollback;
 
 			fromTo = halfSet_.insertBack();
@@ -162,6 +163,8 @@ namespace Pastel
 			fromTo->next_ = toOut;
 			toOut->previous_ = fromTo;
 		}
+
+		onInsertEdge(edge);
 
 		return edge;
 	}

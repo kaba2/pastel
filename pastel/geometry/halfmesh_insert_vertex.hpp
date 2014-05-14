@@ -9,11 +9,15 @@ namespace Pastel
 	template <
 		typename Settings,
 		template <typename> class Customization>
+	template <typename... Type>
 	auto HalfMesh<Settings, Customization>::insertVertex(
-		const VertexData_Class& data)
+		Type&&... data)
 	-> Vertex_Iterator
 	{
-		return vertexSet_.insertBack(data);
+		Vertex_Iterator vertex = 
+			vertexSet_.insertBack(std::forward<Type>(data)...);
+		onInsertVertex(vertex);
+		return vertex;
 	}
 
 }

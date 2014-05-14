@@ -17,7 +17,7 @@ namespace Pastel
 		PENSURE(!from.empty());
 		PENSURE(!to.empty());
 
-		if (from.isolated() || to.isolated())
+		if (from->isolated() || to->isolated())
 		{
 			return Half_ConstIterator();
 		}
@@ -46,14 +46,14 @@ namespace Pastel
 		const Vertex_ConstIterator& vertex) const
 		-> Half_ConstIterator
 	{
-		ASSERT(!vertex->empty());
+		ASSERT(!vertex.empty());
 		ASSERT(!vertex->isolated());
 
 		Half_ConstIterator begin = vertex->half()->pair();
 		Half_ConstIterator current = begin;
 		do
 		{
-			if (current->left()->empty())
+			if (current->left().empty())
 			{
 				return current;
 			}
@@ -73,11 +73,11 @@ namespace Pastel
 		const Half_ConstIterator& andBefore) const
 		-> Half_ConstIterator
 	{
-		ASSERT(!vertex->empty());
+		ASSERT(!vertex.empty());
 		ASSERT(!vertex->isolated());
-		ASSERT(!startingFrom->empty());
+		ASSERT(!startingFrom.empty());
 		ASSERT(startingFrom->destination() == vertex);
-		ASSERT(!andBefore->empty());
+		ASSERT(!andBefore.empty());
 		ASSERT(andBefore->destination() == vertex);
 
 		if (andBefore == startingFrom)
@@ -88,7 +88,7 @@ namespace Pastel
 		Half_ConstIterator current = startingFrom;
 		do
 		{
-			if (current->left()->empty())
+			if (current->left().empty())
 			{
 				return current;
 			}

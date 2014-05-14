@@ -34,6 +34,7 @@ namespace Pastel
 			friend class HalfMesh;
 
 			Half() = default;
+			Half(const Half&) = default;
 
 			operator HalfData_Class&()
 			{
@@ -155,7 +156,6 @@ namespace Pastel
 			}
 
 		private:
-			Half(const Half&) = delete;
 			Half(Half&&) = delete;
 			Half& operator=(Half) = delete;
 

@@ -20,6 +20,8 @@ namespace Pastel
 			return cast(edge);
 		}
 
+		onRemoveEdge(cast(edge));
+
 		Half_Iterator fromToHalf = 
 			cast(edge->half());
 		ASSERT(!fromToHalf.empty());

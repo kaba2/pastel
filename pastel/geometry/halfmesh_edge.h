@@ -28,6 +28,7 @@ namespace Pastel
 			friend class HalfMesh;
 
 			Edge() = default;
+			Edge(const Edge&) = default;
 
 			operator EdgeData_Class&()
 			{
@@ -50,7 +51,6 @@ namespace Pastel
 			}
 
 		private:
-			Edge(const Edge&) = delete;
 			Edge(Edge&&) = delete;
 			Edge& operator=(Edge) = delete;
 

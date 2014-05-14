@@ -28,6 +28,7 @@ namespace Pastel
 			friend class HalfMesh;
 
 			Vertex() = default;
+			Vertex(const Vertex&) = default;
 
 			operator VertexData_Class&()
 			{
@@ -84,7 +85,6 @@ namespace Pastel
 			}
 
 		private:
-			Vertex(const Vertex&) = delete;
 			Vertex(Vertex&&) = delete;
 			Vertex& operator=(Vertex) = delete;
 

@@ -65,7 +65,7 @@ namespace Pastel
 			DataRef data() const
 			{
 				PENSURE(isNormal());
-				return *node();
+				return *((Data_Node<Node_Settings>*)node());
 			}
 
 			//! Returns the sentinel data.
@@ -174,6 +174,48 @@ namespace Pastel
 				return Iterator(node()->next(right));
 			}
 
+			template <typename That_NodePtr>
+			bool operator<(
+				const Iterator<That_NodePtr, Node_Settings>& right) const
+			{
+				return base() < right.base();
+			}
+
+			template <typename That_NodePtr>
+			bool operator>(
+				const Iterator<That_NodePtr, Node_Settings>& right) const
+			{
+				return base() > right.base();
+			}
+
+			template <typename That_NodePtr>
+			bool operator<=(
+				const Iterator<That_NodePtr, Node_Settings>& right) const
+			{
+				return base() <= right.base();
+			}
+
+			template <typename That_NodePtr>
+			bool operator>=(
+				const Iterator<That_NodePtr, Node_Settings>& right) const
+			{
+				return base() >= right.base();
+			}
+
+			template <typename That_NodePtr>
+			bool operator==(
+				const Iterator<That_NodePtr, Node_Settings>& right) const
+			{
+				return base() == right.base();
+			}
+
+			template <typename That_NodePtr>
+			bool operator!=(
+				const Iterator<That_NodePtr, Node_Settings>& right) const
+			{
+				return base() != right.base();
+			}
+
 		private:
 			template <typename, template <typename> class>
 			friend class List;
@@ -204,7 +246,7 @@ namespace Pastel
 				}
 
 				NodePtr& node_ = this->base_reference();
-				node_ = node_->next(Right);
+				node_ = (NodePtr)node_->next(Right);
 			}
 
 			void increment() 

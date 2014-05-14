@@ -20,6 +20,8 @@ namespace Pastel
 			return cast(vertex);
 		}
 
+		onRemoveVertex(cast(vertex));
+
 		if (!vertex->isolated())
 		{
 			// Remove every edge that is connected
