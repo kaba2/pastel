@@ -3,25 +3,41 @@ Enhanced iterators
 
 [[Parent]]: techniques.txt
 
-In this section we describe ways of improving iterators beyond those defined by the C++ Standard Library.
+An _enhanced iterator_ is an iterator which is linearly-ordered and hashable, locally identifiable as a null-iterator, and locally identifiable as an end-iterator if possible. An end-iterator is good for denoting a boundary, and a null-iterator is good for denoting a missing part.
 
-Definition
-----------
+Definitions
+-----------
 
-Data-structures consists of _parts_. For example, a graph data-structure consists of vertices and edges.
+A data-structure consists of _parts_. A data-structure offers protected access to its part by an _iterator_, so that it can preserve its invariants. Through an iterator, the user can examine the part, and also possibly obtain the iterators of some other parts. The parts form a _traversal graph_, where the parts are the vertices, and where there is a directed edge from a part A to a part B if and only if the user one can obtain B's iterator from A's iterator. An example a of a data-structure is a red-black tree, where the nodes are its parts.
 
-Null-iterators
---------------
+A _null-iterator_ is an iterator which refers to a _null-part_. A null-part has no out-edges in the traversal graph, and cannot be dereferenced. However, they can be compared with, constructed, assigned, hashed, and identified locally. Null-iterators are created by default-construction, and are equivalent to each other in all observable ways. A null-iterator works exactly the same way as a null-pointer; in fact, a null-pointer is an example of a null-iterator. In Pastel, all iterators support null-iterators.
 
-A _null-iterator_ is an iterator which does not refer to any part. A null-iterator can not be incremented, decremented, or dereferenced; doing so raises an assertion. However, they can be compared with, constructed, and assigned. Null-iterators are created by default-construction, and are equivalent to each other in all observable ways. A null-iterator works exactly the same way as a null-pointer; in fact, a null-pointer is an example of a null-iterator.
+An _end-iterator_ is an iterator which refers to an _end-part_. An end-part is used to denote a _boundary_. Examples of boundaries include the end of a sequence, or a missing child of a binary tree. The need for boundaries arises because it is desirable for the parts of a data-structure to be homogeneous, and because the end-part needs to provide out-edges in the traversal graph. For example, a node in a doubly-linked list always stores an iterator to a previous part and a next part; an end-part can then be used to denote the end of the sequence, and to obtain the last element of the sequence. An end-part is always associated with a memory address. Usually this part belongs to the same data-structure and can be identified locally, as with a red-black tree, but not always, as with an array. 
 
-Unfortunately, the C++14 standard does not formalize null-iterators. I would hope this to change for the C++17. In Pastel, all iterators support null-iterators in the way described above.
+Ordering and hashing
+--------------------
 
-Null-iterators vs end-iterators
--------------------------------
+Since an iterator is used to refer to a part, an iterator needs to be ordered, so that it can be used as a key in an ordered set, such as `std::set`, and to be hashable, so that it can be used as a key in a hash set, such as `std::unordered_set`. For this to make sense, a part of a data-structure must preserve its memory address during its lifetime. This is because the keys in associative sets must be constant, and because an iterator must necessary store the memory address of its part. Comparing the memory addresses of parts provides a natural linear order for the parts, and therefore for the iterators. Similarly, the hash of the memory address of a part is a natural hash for that part.
 
-The end-iterator is used in C++ Standard Library algorithms to denote a missing element. For example, the `std::find` returns the end-iterator of the search range, when an element is not found. In these cases, the end-iterator is a [natural][Continuity] choice, because to call the algorithm, the user must already hold the end-iterator.
+Denoting a boundary
+-------------------
 
-This is not always a good choice. In particular, if an iterator can not be locally tested for whether it is an end-iterator, then one needs to compare to an end-iterator. However, it is not possible to always have an end-iterator available, especially when implementing efficient data-structures. Instead, a better choice in these cases is to use a null-iterator to denote a missing element.
+An end-part is usually a good way to denoted a boundary. For example, when `std::find` does not find an element in an iterator range, it returns the upper iterator of the range. This is good, because to call the algorithm the user must already own the upper iterator, and because the returned iterator can be still be used to, for example, to access the previous element, if it exists, even if the upper iterator is an end-iterator. This makes the `std::find` algorithm [continuous][Continuity].
+
+A null-part is usually not a good way to denote a boundary. This is because a null-part cannot encode any out-edges in the traversal graph, and because querying the traversal graph through a null-part is not defined. For example, if in a doubly-linked list the end of the sequence were denoted by a null-part, then there would be no way to get back from the end-part to the last element of the sequence. This leads to discontinuity in algorithms.
+
+Denoting a missing part
+-----------------------
+
+A null-part is usually a good way to denote a missing part. This should not be confused with the concept of denoting a boundary. Suppose a program stores, in `std::map`, a map from names to graph vertex iterators. If a given name does not have a corresponding vertex, then the null-iterator is a natural choice, because the neighborhood of the end-iterator does not have any meaning in this context. 
+
+An end-part is usually not a good way to denote a missing part. In particular, if an end-iterator cannot be locally identified, as with `std::vector`, then one needs to compare to an end-iterator to identify the end-iterator. However, it is not always possible to have an end-iterator available to compare to, especially when implementing efficient data-structures. 
+
+There are exceptions to this when the end-iterator is locally identifiable. In these cases the neighborhood of the end-iterator contains some important information. The price to pay for this decision is that to denote an iterator as missing requires access to an end-iterator.
 
 [Continuity]: [[Ref]]: abstraction_continuity.txt
+
+C++14
+-----
+
+All the iterators defined in C++14 are such that the traversal graph is a chain. The C++14 iterators are iterators in our sense, but the converse need not be true. The C++14 does not formalize null-iterators. I would hope this to change for the C++17. The C++14 does not guarantee that iterators be linearly-ordered, or that they be hashable. It is possible to create a comparison object, and a hashing object, to compute the above-mentioned linear order and a hash for the parts. This is done by dereferencing the iterator and then taking its address, thus providing the memory address of a part. The problem is the end-iterator and the null-iterator (default-constructed iterator), which can not be dereferenced. A null-iterator can be locally identified by comparing it with a default-constructed iterator, and thus this can be used to partially circumvent the problem by additional tests. However, an end-iterator cannot be locally identified.

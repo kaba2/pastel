@@ -3,7 +3,7 @@ Algorithmic continuity
 
 [[Parent]]: techniques.txt
 
-_Algorithmic continuity_ is a general principle for constructing algorithms. It generalizes mathematical continuity, and is an important property for an algorithm to have whenever it is possible to achieve.
+_Algorithmic continuity_ is a general principle for constructing algorithms. It generalizes mathematical continuity, and is an important property for an algorithm to have whenever possible.
 
 Definitions
 -----------
@@ -46,7 +46,7 @@ Consequences of accidental discontinuity
 
 Accidental discontinuities have catastrophic consequences for the maintenance of programs. The problem is that every time the algorithm is used, it needs to be corrected on-the-fly to reflect the correct continuous counter-part. For ''n'' uses of the algorithm, this requires ''n'' corrections. This causes unnecessary work, makes it harder to understand the program, and also leads to subtle errors when the correction is forgotten. When multiple algorithms with accidental discontinuities are combined and composed, the number of corrected special cases can grow combinatorially, amplifying the problems described above.
 
-This underlines that the boundary cases of the input are the most important cases to pay attention to in an algorithm, to remove any accidental discontinuities.
+This underlines that _the boundary cases of the input are the most important cases_ to pay attention to in an algorithm, to remove any accidental discontinuities.
 
 Conjecture
 ----------
