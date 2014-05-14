@@ -1,4 +1,4 @@
-// Description: Removes consecutive equivalent elements from a list
+// Description: Remove consecutive equivalent elements from a list
 
 #ifndef PASTELSYS_LIST_UNIQUE_H
 #define PASTELSYS_LIST_UNIQUE_H
@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	//! Removes consecutive equivalent elements from a list
+	//! Remove consecutive equivalent elements from a list
 	/*!
 	Time complexity: O(list.size())
 	Exception safety: nothrow

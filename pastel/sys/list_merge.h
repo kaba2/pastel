@@ -1,4 +1,4 @@
-// Description: Merges an ordered list to another
+// Description: Merge an ordered list to another
 
 #ifndef PASTELSYS_LIST_MERGE_H
 #define PASTELSYS_LIST_MERGE_H
@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	//! Merges an ordered list to another.
+	//! Merge an ordered list to another.
 	/*!
 	Time complexity: O(fromSet.size() + toSet.size())
 	Exception safety: nothrow

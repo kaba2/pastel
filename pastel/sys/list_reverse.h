@@ -1,4 +1,4 @@
-// Description: Reverses a list
+// Description: Reverse a list
 
 #ifndef PASTELSYS_LIST_REVERSE_H
 #define PASTELSYS_LIST_REVERSE_H
@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	//! Reverses a list
+	//! Reverse a list
 	/*!
 	Time complexity: O(list.size())
 	Exception safety: nothrow

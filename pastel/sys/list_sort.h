@@ -1,4 +1,4 @@
-// Descriptions: Sorts a list
+// Description: Sort a list
 
 #ifndef PASTELSYS_LIST_SORT_H
 #define PASTELSYS_LIST_SORT_H
@@ -9,7 +9,7 @@
 namespace Pastel
 {
 	
-	//! Sorts a list
+	//! Sort a list
 	/*!
 	Time complexity: 
 	O(n log(n))
