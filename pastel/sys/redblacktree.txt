@@ -26,7 +26,7 @@ Types
 Generic data structure
 : `RedBlackTree`
 
-Stable template-aliases
+Stable settings-aliases
 : `RedBlack_Set`, `RedBlack_MultiSet`, `RedBlack_Map`, `RedBlack_MultiMap`.
 
 Properties

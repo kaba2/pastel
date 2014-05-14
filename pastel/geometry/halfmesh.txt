@@ -23,7 +23,7 @@ Types
 Generic data structure
 : `HalfMesh`
 
-Stable template-aliases
+Stable settings-aliases
 : `HalfEdge`
 
 Properties

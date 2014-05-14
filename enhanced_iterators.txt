@@ -1,0 +1,27 @@
+Enhanced iterators
+==================
+
+[[Parent]]: techniques.txt
+
+In this section we describe ways of improving iterators beyond those defined by the C++ Standard Library.
+
+Definition
+----------
+
+Data-structures consists of _parts_. For example, a graph data-structure consists of vertices and edges.
+
+Null-iterators
+--------------
+
+A _null-iterator_ is an iterator which does not refer to any part. A null-iterator can not be incremented, decremented, or dereferenced; doing so raises an assertion. However, they can be compared with, constructed, and assigned. Null-iterators are created by default-construction, and are equivalent to each other in all observable ways. A null-iterator works exactly the same way as a null-pointer; in fact, a null-pointer is an example of a null-iterator.
+
+Unfortunately, the C++14 standard does not formalize null-iterators. I would hope this to change for the C++17. In Pastel, all iterators support null-iterators in the way described above.
+
+Null-iterators vs end-iterators
+-------------------------------
+
+The end-iterator is used in C++ Standard Library algorithms to denote a missing element. For example, the `std::find` returns the end-iterator of the search range, when an element is not found. In these cases, the end-iterator is a [natural][Continuity] choice, because to call the algorithm, the user must already hold the end-iterator.
+
+This is not always a good choice. In particular, if an iterator can not be locally tested for whether it is an end-iterator, then one needs to compare to an end-iterator. However, it is not possible to always have an end-iterator available, especially when implementing efficient data-structures. Instead, a better choice in these cases is to use a null-iterator to denote a missing element.
+
+[Continuity]: [[Ref]]: abstraction_continuity.txt
