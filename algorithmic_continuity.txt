@@ -1,0 +1,59 @@
+Algorithmic continuity
+======================
+
+[[Parent]]: techniques.txt
+
+_Algorithmic continuity_ is a general principle for constructing algorithms. It generalizes mathematical continuity, and is an important property for an algorithm to have whenever it is possible to achieve.
+
+Definitions
+-----------
+
+An algorithm is _continuous_, if its use does not result in special cases. An algorithm which is not continuous is called _discontinuous_. An algorithm which is discontinuous, but has a continuous counterpart, is said to be _accidentally discontinuous_. An algorithm which is discontinuous, and does not have a continuous counterpart, is called _essentially discontinuous_. An algorithm which does not contain accidental discontinuities is called _almost continuous_.
+
+Mathematical continuity vs algorithmic continuity
+-------------------------------------------------
+
+Whenever the input and output sets of an algorithm are topological spaces, the algorithmic continuity is exactly the same as mathematical continuity; algorithmic continuity generalizes mathematical continuity.
+
+Examples
+--------
+
+Writing continuous algorithms calls for attention to the boundary-set of the input; a continuous algorithm works exactly the same way in the boundary, as it does near the boundary, or in the interior. The following are examples of boundary choices which turn algorithms continuous (discontinuous):
+
+### Numerical algorithms
+
+* The factorial of zero is one (zero). 
+* The sum over an empty index-set is zero (one).
+* The product over an empty index-set is one (zero).
+* The value of the sinc function is one (zero) at zero.
+
+### Set algorithms
+
+* The union of subsets of ''X'' over an empty index-set is the empty set (''X'').
+* The intersection of subsets of ''X'' over an empty index-set is ''X'' (the empty set).
+
+### Search algorithms
+
+* When `std::find` does not find an element, it returns the end-iterator (null-iterator). 
+
+Essential and accidental discontinuity
+--------------------------------------
+
+All of the discontinuous examples above are accidentally discontinuous. The function ''x^y'' (''x'' to the power of ''y''), when ''x'' and ''y'' range over non-negative real numbers, is essentially discontinuous, and almost continuous. An essential discontinuity is an input where the neighborhood suggests ambiguous limiting behaviour.
+
+Consequences of accidental discontinuity
+----------------------------------------
+
+Accidental discontinuities have catastrophic consequences for the maintenance of programs. The problem is that every time the algorithm is used, it needs to be corrected on-the-fly to reflect the correct continuous counter-part. For ''n'' uses of the algorithm, this requires ''n'' corrections. This causes unnecessary work, makes it harder to understand the program, and also leads to subtle errors when the correction is forgotten. When multiple algorithms with accidental discontinuities are combined and composed, the number of corrected special cases can grow combinatorially, amplifying the problems described above.
+
+This underlines that the boundary cases of the input are the most important cases to pay attention to in an algorithm, to remove any accidental discontinuities.
+
+Conjecture
+----------
+
+If an algorithm is accidentally discontinuous, then the continuous counter-part always reflects better on what is being tried to achieve.
+
+Naming
+------
+
+The definitions given here are mine. Many, many, people probably have come up with exactly the same idea, as is demonstrated by the continuous definitions used in mathematics. However, programmers need to recognize this idea more widely. Hence this section.

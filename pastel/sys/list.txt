@@ -5,6 +5,15 @@ Doubly-linked list
 
 A _doubly-linked list_ is a data structure for storing and manipulating a sequence of elements. 
 
+Types
+-----
+
+Generic data structure
+: `List`
+
+Stable settings-aliases
+: `List_Set`
+
 Properties
 ----------
 

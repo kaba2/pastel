@@ -1,7 +1,7 @@
 General principles
 ==================
 
-[[Parent]]: pastel.txt
+[[Parent]]: techniques.txt
 
 This section contains some general principles which Pastel follows.
 
@@ -14,10 +14,12 @@ Every algorithm in Pastel
 * is [exception-safe][Layered],
 * follows the [principle of minimal requirements and maximal information][Layered],
 * is documented for exception-safety,
-* is documented for time-complexity, and
-* is documented for space-complexity.
+* is documented for time-complexity, 
+* is documented for space-complexity, and
+* is [almost continuous][Continuity].
 
 [Layered]: [[Ref]]: layered_structures.txt
+[Continuity]: [[Ref]]: algorithmic_continuity.txt
 
 Data structures
 ---------------

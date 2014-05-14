@@ -15,7 +15,7 @@ using namespace std;
 namespace
 {
 
-	typedef List<List_Settings<integer>> Set;
+	typedef List_Set<integer> Set;
 	typedef Set::Iterator Iterator;
 	typedef Set::ConstIterator ConstIterator;
 
