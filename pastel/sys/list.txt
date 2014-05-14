@@ -24,7 +24,6 @@ Versus `std::list`
 
 The list implementation in Pastel can be thought of an enhanced `std::list`:
 
-* it can be used as a direct replacement for `std::list`,
 * it can be customized,
 * it supports sentinel data,
 * it supports empty data,

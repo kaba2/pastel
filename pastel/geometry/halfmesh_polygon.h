@@ -28,6 +28,7 @@ namespace Pastel
 			friend class HalfMesh;
 
 			Polygon() = default;
+			Polygon(const Polygon&) = default;
 
 			operator PolygonData_Class&()
 			{
@@ -50,7 +51,6 @@ namespace Pastel
 			}
 
 		private:
-			Polygon(const Polygon&) = delete;
 			Polygon(Polygon&&) = delete;
 			Polygon& operator=(Polygon) = delete;
 			

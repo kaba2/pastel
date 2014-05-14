@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	namespace HalfMesh_
+	namespace HalfMesh_Concepts
 	{
 
 		//! Half-edge structure settings
@@ -42,11 +42,6 @@ namespace Pastel
 		class Customization
 		{
 		public:
-			// You can expand the interface
-			// of HalfMesh by defining functions
-			// here.
-
-		public:
 			// Since the HalfMesh inherits from its customization,
 			// you can extend the public interface of the HalfMesh
 			// by specifying public functions.
@@ -57,18 +52,16 @@ namespace Pastel
 			// implementation.
 
 			using Fwd = HalfMesh_Fwd<Settings>;
+			PASTEL_FWD(Vertex_Iterator);
+			PASTEL_FWD(Half_Iterator);
+			PASTEL_FWD(Edge_Iterator);
+			PASTEL_FWD(Polygon_Iterator);
 
 			//! Constructs an empty customization.
 			/*!
 			Exception safety: basic
 			*/
 			Customization() {}
-
-			//! Called at the end of a constructor.
-			/*!
-			Exception safefy: basic
-			*/
-			void onConstruction() {};
 
 			//! Swaps two customizations.
 			/*!
@@ -78,10 +71,25 @@ namespace Pastel
 			void swap(Customization& that) {}
 
 			//! Called at the start of clear().
-			void onClear();
+			void onClear() {}
 
 			//! Called at the end of insertVertex().
-			//void onInsert(const Vertex& vertex);
+			void onInsertVertex(const Vertex_Iterator& vertex) {}
+
+			//! Called at the start of removeVertex().
+			void onRemoveVertex(const Vertex_Iterator& vertex) {}
+
+			//! Called at the end of insertEdge().
+			void onInsertEdge(const Edge_Iterator& edge) {}
+
+			//! Called at the start of removeEdge().
+			void onRemoveEdge(const Edge_Iterator& edge) {}
+
+			//! Called at the end of insertPolygon().
+			void onInsertPolygon(const Polygon_Iterator& polygon) {}
+
+			//! Called at the start of removePolygon().
+			void onRemovePolygon(const Polygon_Iterator& polygon) {}
 
 		private:
 			// These functions will not be used, and so should

@@ -16,17 +16,17 @@ namespace Pastel
 	{
 		ENSURE(!to.empty());
 
-		Node* node = (Node*)to.base();
-		Node* newNode = (Node*)nodeAllocate(
+		Node* toNode = cast(to).base();
+		Node* node = nodeAllocate(
 			std::forward<Type>(data)...);
-		Node* previous = node->prev();
+		Node* previous = toNode->prev();
 
-		linkNodes(previous, newNode);
-		linkNodes(newNode, node);
+		linkNodes(previous, node);
+		linkNodes(node, toNode);
 
 		++size_;
 
-		return Iterator(newNode);
+		return Iterator(node);
 	}
 
 }

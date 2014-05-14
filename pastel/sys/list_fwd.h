@@ -16,13 +16,13 @@ namespace Pastel
 		class Iterator;
 
 		template <typename>
-		class Base_Node;
+		class Node;
 
 		template <typename>
 		class Sentinel_Node;
 
 		template <typename>
-		class Node;
+		class Data_Node;
 
 	}
 
@@ -41,16 +41,15 @@ namespace Pastel
 		using SentinelData_Class = As_Class<SentinelData>;
 
 		class Node_Settings;
-		using Base_Node = List_::Base_Node<Node_Settings>;
-		using Sentinel_Node = List_::Sentinel_Node<Node_Settings>;
 		using Node = List_::Node<Node_Settings>;
+		using Sentinel_Node = List_::Sentinel_Node<Node_Settings>;
+		using Data_Node = List_::Data_Node<Node_Settings>;
 
 		class Node_Settings
 		{
 		public:
 			using Data_Class = Data_Class;
 			using SentinelData_Class = SentinelData_Class;
-			using Node = Node;
 		};
 
 		using Iterator = List_::Iterator<Node*, Node_Settings>;

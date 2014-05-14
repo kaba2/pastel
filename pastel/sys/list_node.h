@@ -15,21 +15,18 @@ namespace Pastel
 		class Iterator;
 
 		template <typename Node_Settings>
-		class Base_Node
+		class Node
 		{
 		public:
-			using Fwd = Node_Settings;
-			PASTEL_FWD(Node);
-
-			Base_Node()
+			Node()
 				: next_()
 			{
 				isolateSelf();
 			}
 
 		private:
-			Base_Node(const Base_Node&) = delete;
-			Base_Node& operator=(Base_Node) = delete;
+			Node(const Node&) = delete;
+			Node& operator=(Node) = delete;
 
 			template <typename, typename>
 			friend class Iterator;
@@ -83,11 +80,11 @@ namespace Pastel
 
 		template <typename Node_Settings>
 		class Sentinel_Node
-			: public Base_Node<Node_Settings>
+			: public Node<Node_Settings>
 			, public Node_Settings::SentinelData_Class
 		{
 		public:
-			using Base = Base_Node<Node_Settings>;
+			using Base = Node<Node_Settings>;
 
 			using Fwd = Node_Settings;
 			PASTEL_FWD(SentinelData_Class);
@@ -110,31 +107,26 @@ namespace Pastel
 		};
 
 		template <typename Node_Settings>
-		class Node
-			: public Base_Node<Node_Settings>
+		class Data_Node
+			: public Node<Node_Settings>
 			, public Node_Settings::Data_Class
 		{
 		public:
-			using Base = Base_Node<Node_Settings>;
+			using Base = Node<Node_Settings>;
 
 			using Fwd = Node_Settings;
 			PASTEL_FWD(Data_Class);
 
-			Node()
+			template <typename... Type>
+			explicit Data_Node(Type&&... data)
 				: Base()
-				, Data_Class()
-			{
-			}
-
-			explicit Node(const Data_Class& data)
-				: Base()
-				, Data_Class(data)
+				, Data_Class(std::forward<Type>(data)...)
 			{
 			}
 
 		private:
-			Node(const Node&) = delete;
-			Node& operator=(Node) = delete;
+			Data_Node(const Data_Node&) = delete;
+			Data_Node& operator=(Data_Node) = delete;
 		};
 
 	}

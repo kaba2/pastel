@@ -45,6 +45,7 @@ namespace Pastel
 		
 		PASTEL_FWD(Node);
 		PASTEL_FWD(Sentinel_Node);
+		PASTEL_FWD(Data_Node);
 
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
@@ -208,8 +209,8 @@ namespace Pastel
 		}
 
 		PASTEL_ITERATOR_FUNCTIONS(begin, nodeBegin());
-		PASTEL_ITERATOR_FUNCTIONS(end, (Node*)nodeEnd());
-		PASTEL_ITERATOR_FUNCTIONS(last, (Node*)std::prev(end()).base());
+		PASTEL_ITERATOR_FUNCTIONS(end, nodeEnd());
+		PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
 
 		//! Returns whether the list is empty.
 		/*!
@@ -479,12 +480,12 @@ namespace Pastel
 			integer count);
 
 		template <typename... Type>
-		Node* nodeAllocate(Type&&... data)
+		Data_Node* nodeAllocate(Type&&... data)
 		{
-			return new Node(std::forward<Type>(data)...);
+			return new Data_Node(std::forward<Type>(data)...);
 		}
 
-		void nodeDeallocate(const Node* node)
+		void nodeDeallocate(const Data_Node* node)
 		{
 			ASSERT(node && !node->isSentinel());
 			delete node;

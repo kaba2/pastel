@@ -32,7 +32,7 @@ namespace
 
 		void testTrivial()
 		{
-			PureHalfMesh halfMesh;
+			HalfEdge<> halfMesh;
 			halfMesh.insertVertex();
 			for (int i = 0;i < 10000;i++)
 			{
@@ -41,7 +41,7 @@ namespace
 			}
 
 			{
-				PureHalfMesh otherMesh(halfMesh);
+				HalfEdge<> otherMesh(halfMesh);
 				TEST_ENSURE(testInvariants(otherMesh));
 			}
 		}
@@ -49,22 +49,22 @@ namespace
 		void testSimpleEdge()
 		{
 			{
-				PureHalfMesh halfMesh;
-				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				HalfEdge<> halfMesh;
+				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
 
-				PureHalfMesh::Edge e = halfMesh.insertEdge(a, b);
+				HalfEdge<>::Edge_Iterator e = halfMesh.insertEdge(a, b);
 				TEST_ENSURE(testInvariants(halfMesh));
 			}
 			{
-				PureHalfMesh halfMesh;
-				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				HalfEdge<> halfMesh;
+				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
-				PureHalfMesh::Vertex c = halfMesh.insertVertex();
+				HalfEdge<>::Vertex_Iterator c = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
 
 				halfMesh.insertEdge(a, b);
@@ -75,8 +75,8 @@ namespace
 				TEST_ENSURE(testInvariants(halfMesh));
 			}
 			{
-				PureHalfMesh halfMesh;
-				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				HalfEdge<> halfMesh;
+				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
 				halfMesh.insertEdge(a, a);
 				TEST_ENSURE(testInvariants(halfMesh));
@@ -86,11 +86,11 @@ namespace
 		void testMultiHalfMesh()
 		{
 			{
-				PureHalfMesh halfMesh;
+				HalfEdge<> halfMesh;
 
-				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
 
 				halfMesh.insertEdge(a, b);
@@ -101,11 +101,11 @@ namespace
 				TEST_ENSURE(testInvariants(halfMesh));
 			}
 			{
-				PureHalfMesh halfMesh;
+				HalfEdge<> halfMesh;
 
-				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
 
 				halfMesh.insertEdge(a, b);
@@ -129,12 +129,12 @@ namespace
 		void testSimpleRemoval()
 		{
 			{
-				PureHalfMesh halfMesh;
-				PureHalfMesh::Vertex a = halfMesh.insertVertex();
+				HalfEdge<> halfMesh;
+				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
-				PureHalfMesh::Vertex b = halfMesh.insertVertex();
+				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
-				PureHalfMesh::Edge edge = halfMesh.insertEdge(a, b);
+				HalfEdge<>::Edge_Iterator edge = halfMesh.insertEdge(a, b);
 				TEST_ENSURE(testInvariants(halfMesh));
 
 				halfMesh.removeEdge(edge);
@@ -143,9 +143,9 @@ namespace
 			{
 				PASTEL_CONSTEXPR int Vertices = 100;
 
-				PureHalfMesh halfMesh;
-				PureHalfMesh::Vertex vertices[Vertices];
-				PureHalfMesh::Edge edges[Vertices - 1];
+				HalfEdge<> halfMesh;
+				HalfEdge<>::Vertex_Iterator vertices[Vertices];
+				HalfEdge<>::Edge_Iterator edges[Vertices - 1];
 				for (int i = 0;i < Vertices;++i)
 				{
 					vertices[i] = halfMesh.insertVertex();
@@ -166,10 +166,10 @@ namespace
 			}
 			/*
 			{
-			PureHalfMesh halfMesh;
-			PureHalfMesh::Vertex a = halfMesh.insertVertex();
+			HalfEdge<> halfMesh;
+			HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
 			TEST_ENSURE(testInvariants(halfMesh));
-			PureHalfMesh::Edge edge = halfMesh.insertEdge(a, a);
+			HalfEdge<>::Edge_Iterator edge = halfMesh.insertEdge(a, a);
 			TEST_ENSURE(testInvariants(halfMesh));
 
 			halfMesh.removeEdge(edge);
@@ -179,26 +179,26 @@ namespace
 
 			/*
 			{
-			PureHalfMesh halfMesh;
+			HalfEdge<> halfMesh;
 
-			PureHalfMesh::Vertex a = halfMesh.insertVertex();
+			HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
 			TEST_ENSURE(testInvariants(halfMesh));
-			PureHalfMesh::Vertex b = halfMesh.insertVertex();
+			HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
 			TEST_ENSURE(testInvariants(halfMesh));
 
-			PureHalfMesh::Edge A = halfMesh.insertEdge(a, b);
+			HalfEdge<>::Edge_Iterator A = halfMesh.insertEdge(a, b);
 			TEST_ENSURE(testInvariants(halfMesh));
-			PureHalfMesh::Edge B = halfMesh.insertEdge(b, a);
+			HalfEdge<>::Edge_Iterator B = halfMesh.insertEdge(b, a);
 			TEST_ENSURE(testInvariants(halfMesh));
-			PureHalfMesh::Edge C = halfMesh.insertEdge(b, a);
+			HalfEdge<>::Edge_Iterator C = halfMesh.insertEdge(b, a);
 			TEST_ENSURE(testInvariants(halfMesh));
-			PureHalfMesh::Edge D = halfMesh.insertEdge(a, a);
+			HalfEdge<>::Edge_Iterator D = halfMesh.insertEdge(a, a);
 			TEST_ENSURE(testInvariants(halfMesh));
-			PureHalfMesh::Edge E = halfMesh.insertEdge(b, b);
+			HalfEdge<>::Edge_Iterator E = halfMesh.insertEdge(b, b);
 			TEST_ENSURE(testInvariants(halfMesh));
-			PureHalfMesh::Edge F = halfMesh.insertEdge(a, a);
+			HalfEdge<>::Edge_Iterator F = halfMesh.insertEdge(a, a);
 			TEST_ENSURE(testInvariants(halfMesh));
-			PureHalfMesh::Edge G = halfMesh.insertEdge(b, b);
+			HalfEdge<>::Edge_Iterator G = halfMesh.insertEdge(b, b);
 			TEST_ENSURE(testInvariants(halfMesh));
 
 			halfMesh.removeEdge(D);
@@ -224,9 +224,9 @@ namespace
 			PASTEL_CONSTEXPR int Vertices = 1000;
 			PASTEL_CONSTEXPR int Edges = 1000;
 
-			std::vector<PureHalfMesh::Vertex> vertices;
-			std::vector<PureHalfMesh::Edge> edges;
-			PureHalfMesh halfMesh;
+			std::vector<HalfEdge<>::Vertex_Iterator> vertices;
+			std::vector<HalfEdge<>::Edge_Iterator> edges;
+			HalfEdge<> halfMesh;
 
 			{
 				vertices.reserve(Vertices);
@@ -242,14 +242,14 @@ namespace
 				edges.reserve(Edges);
 				for (integer i = 0;i < Edges;++i)
 				{
-					PureHalfMesh::Edge edge;
+					HalfEdge<>::Edge_Iterator edge;
 					while (edge.empty())
 					{
 						integer aIndex = randomInteger(Vertices);
 						integer bIndex = randomInteger(Vertices);
 
-						PureHalfMesh::Vertex a = vertices[aIndex];
-						PureHalfMesh::Vertex b = vertices[bIndex];
+						HalfEdge<>::Vertex_Iterator a = vertices[aIndex];
+						HalfEdge<>::Vertex_Iterator b = vertices[bIndex];
 						edge = halfMesh.insertEdge(a, b);
 					}
 					TEST_ENSURE(testInvariants(halfMesh));
@@ -263,7 +263,7 @@ namespace
 			{
 				for (integer i = 0;i < Edges;++i)
 				{
-					PureHalfMesh::Edge edge = edges[i];
+					HalfEdge<>::Edge_Iterator edge = edges[i];
 					TEST_ENSURE(testInvariants(halfMesh));
 					halfMesh.removeEdge(edge);
 				}

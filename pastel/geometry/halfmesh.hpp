@@ -73,8 +73,6 @@ namespace Pastel
 				++thatPolygon;
 			}
 		}
-
-		onConstruction();
 	}
 
 	// Modification
@@ -86,11 +84,11 @@ namespace Pastel
 		const Half_ConstIterator& in, 
 		const Half_ConstIterator& out)
 	{
-		PENSURE(!in->empty());
-		PENSURE(!out->empty());
+		PENSURE(!in.empty());
+		PENSURE(!out.empty());
 		PENSURE(in->destination() == out->origin());
-		PENSURE(in->left()->empty());
-		PENSURE(out->left()->empty());
+		PENSURE(in->left().empty());
+		PENSURE(out->left().empty());
 
 		if (in->next() == out)
 		{
@@ -98,28 +96,28 @@ namespace Pastel
 			return true;
 		}
 
-		Half_ConstIterator b = in->next();
-		Half_ConstIterator d = out->previous();
+		Half_Iterator b = cast(in)->next();
+		Half_Iterator d = cast(out)->previous();
 
 		// Find a free incident half edge
 		// after 'd' and before 'in'.
-		Half_ConstIterator g = 
+		Half_Iterator g = 
 			findFreeIncident(out->origin(), out->pair(), in);
-		if (g->empty())
+		if (g.empty())
 		{
 			// There is no such half-edge.
 			return false;
 		}
-		Half_ConstIterator h = g->next();
+		Half_Iterator h = g->next();
 
-		in->half_->next_ = out->half_;
-		out->half_->previous_ = in->half_;
+		cast(in)->next_ = cast(out);
+		cast(out)->previous_ = cast(in);
 
-		g->half_->next_ = b->half_;
-		b->half_->previous_ = g->half_;
+		g->next_ = b;
+		b->previous_ = g;
 
-		d->half_->next_ = h->half_;
-		h->half_->previous_ = d->half_;
+		d->next_ = h;
+		h->previous_ = d;
 
 		return true;
 	}

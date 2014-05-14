@@ -22,7 +22,7 @@ namespace Pastel
 
 	template <typename Settings>
 	using Empty_HalfMesh_Customization =
-		HalfMesh_::Customization<Settings>;
+		HalfMesh_Concepts::Customization<Settings>;
 
 	//! Half-edge structure
 	template <
@@ -234,8 +234,9 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: strong
 		*/
+		template <typename... Type>
 		Vertex_Iterator insertVertex(
-			const VertexData_Class& data = VertexData_Class());
+			Type&&... data);
 
 		//! Removes a vertex and all its neighbouring edges.
 		/*!
@@ -316,10 +317,11 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
+		template <typename... Type>
 		InsertEdge_Return insertEdge(
 			const Vertex_ConstIterator& from,
 			const Vertex_ConstIterator& to,
-			const EdgeData_Class& data = EdgeData_Class());
+			Type&&... data);
 
 		//! Removes an edge and all its neighbouring polygons.
 		/*!
@@ -374,10 +376,12 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		template <typename Half_Range>
+		template <
+			typename Half_Range,
+			typename... Type>
 		auto insertPolygon(
 			const Half_Range& halfSet,
-			const PolygonData_Class& data = PolygonData_Class())
+			Type&&... data)
 		-> PASTEL_ENABLE_IF((IsConvertible<Half_Range, Half_ConstIterator>), Polygon_Iterator);
 
 		//! Inserts a polygon to the given vertex loop.
@@ -389,10 +393,12 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		template <typename Vertex_Range>
+		template <
+			typename Vertex_Range,
+			typename... Type>
 		auto insertPolygon(
 			const Vertex_Range& vertexSet,
-			const PolygonData_Class& data = PolygonData_Class())
+			Type&&... data)
 		-> PASTEL_ENABLE_IF((IsConvertible<Vertex_Range, Vertex_ConstIterator>), Polygon_Iterator);
 		
 		//! Removes a polygon.
