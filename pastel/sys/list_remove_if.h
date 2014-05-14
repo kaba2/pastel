@@ -1,4 +1,4 @@
-// Description: Removes indicated elements from a list
+// Description: Remove indicated elements from a list
 
 #ifndef PASTELSYS_LIST_REMOVE_IF_H
 #define PASTELSYS_LIST_REMOVE_IF_H
@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	//! Removes indicated elements from a list.
+	//! Remove indicated elements from a list.
 	/*!
 	Time complexity: O(list.size())
 	Exception safety: nothrow

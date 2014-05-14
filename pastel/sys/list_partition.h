@@ -1,3 +1,5 @@
+// Description: Partition a list
+
 #ifndef PASTELSYS_LIST_PARTITION_H
 #define PASTELSYS_LIST_PARTITION_H
 
@@ -6,6 +8,7 @@
 namespace Pastel
 {
 
+	//! Partition a list.
 	template <
 		typename Settings,
 		template <typename> class Customization,
@@ -17,6 +20,7 @@ namespace Pastel
 		const typename List<Settings, Customization>::ConstRange& range,
 		const Predicate& predicate);
 
+	//! Partition a list with a fuzzy predicate.
 	template <
 		typename Settings,
 		template <typename> class Customization,
