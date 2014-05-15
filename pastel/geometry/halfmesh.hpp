@@ -24,7 +24,7 @@ namespace Pastel
 			while(thatVertex != thatEnd)
 			{
 				Vertex_Iterator vertex = insertVertex(*thatVertex);
-				ASSERT(!vertex.empty());
+				ASSERT(vertex.isNormal());
 
 				vertexMap.insert(
 					std::make_pair(thatVertex, vertex));
@@ -39,11 +39,19 @@ namespace Pastel
 			Edge_ConstIterator thatEnd = that.edgeEnd();
 			while(thatEdge != thatEnd)
 			{
+				Vertex_ConstIterator origin = 
+					thatEdge->half()->origin();
+				ASSERT(vertexMap.count(origin));
+
+				Vertex_ConstIterator destination =
+					thatEdge->half()->destination();
+				ASSERT(vertexMap.count(destination));
+
 				Edge_Iterator edge = insertEdge(
-					vertexMap[thatEdge->half()->origin()],
-					vertexMap[thatEdge->half()->destination()],
+					vertexMap[origin],
+					vertexMap[destination],
 					*thatEdge);
-				ASSERT(!edge.empty());
+				ASSERT(edge.isNormal());
 
 				++thatEdge;
 			}
@@ -68,7 +76,7 @@ namespace Pastel
 
 				Polygon_Iterator polygon = 
 					insertPolygon(vertexLoop, *thatPolygon);
-				ASSERT(!polygon.empty());
+				ASSERT(polygon.isNormal());
 
 				++thatPolygon;
 			}

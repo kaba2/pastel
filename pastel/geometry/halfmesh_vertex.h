@@ -27,15 +27,38 @@ namespace Pastel
 			template <typename, template <typename> class>
 			friend class HalfMesh;
 
-			Vertex() = default;
-			Vertex(const Vertex&) = default;
+			template <typename... Type>
+			Vertex(Type&&... data)
+			: VertexData_Class(std::forward<Type>(data)...)
+			{
+			}
+
+			Vertex(const Vertex& that)
+			: VertexData_Class(that) 
+			{
+			}
+
+			Vertex(Vertex&& that)
+			: VertexData_Class(std::move(that))
+			{
+			}
 
 			operator VertexData_Class&()
+			{
+				return data();
+			}
+
+			operator const VertexData_Class&() const
+			{
+				return data();
+			}
+
+			VertexData_Class& data()
 			{
 				return *this;
 			}
 
-			operator const VertexData_Class&() const
+			const VertexData_Class& data() const
 			{
 				return *this;
 			}
@@ -59,9 +82,14 @@ namespace Pastel
 
 			bool free() const
 			{
+				return findFree().empty();
+			}
+
+			Half_ConstIterator findFree() const
+			{
 				if (isolated())
 				{
-					return true;
+					return Half_ConstIterator();
 				}
 
 				Half_ConstIterator begin = half();
@@ -70,13 +98,13 @@ namespace Pastel
 				{
 					if (current->left().empty())
 					{
-						return true;
+						return current;
 					}
 					current = current->rotateNext();
 				}
 				while (current != begin);
 
-				return false;
+				return Half_ConstIterator();
 			}
 
 			bool isolated() const
@@ -85,7 +113,6 @@ namespace Pastel
 			}
 
 		private:
-			Vertex(Vertex&&) = delete;
 			Vertex& operator=(Vertex) = delete;
 
 			Half_Iterator half_;

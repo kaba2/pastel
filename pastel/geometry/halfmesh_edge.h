@@ -27,15 +27,38 @@ namespace Pastel
 			template <typename, template <typename> class>
 			friend class HalfMesh;
 
-			Edge() = default;
-			Edge(const Edge&) = default;
+			template <typename... Type>
+			Edge(Type&&... data)
+			: EdgeData_Class(std::forward<Type>(data)...)
+			{
+			}
+
+			Edge(const Edge& that)
+			: EdgeData_Class(that) 
+			{
+			}
+
+			Edge(Edge&& that)
+			: EdgeData_Class(std::move(that))
+			{
+			}
 
 			operator EdgeData_Class&()
+			{
+				return data();
+			}
+
+			operator const EdgeData_Class&() const
+			{
+				return data();
+			}
+
+			EdgeData_Class& data()
 			{
 				return *this;
 			}
 
-			operator const EdgeData_Class&() const
+			const EdgeData_Class& data() const
 			{
 				return *this;
 			}
@@ -51,7 +74,6 @@ namespace Pastel
 			}
 
 		private:
-			Edge(Edge&&) = delete;
 			Edge& operator=(Edge) = delete;
 
 			Half_Iterator half_;

@@ -22,7 +22,7 @@ namespace Pastel
 		if (halfSet.empty())
 		{
 			// Nothing to do.
-			return Polygon_Iterator();
+			return polygonEnd();
 		}
 
 		// Check that the half-edges are free and form a chain.
@@ -51,7 +51,7 @@ namespace Pastel
 				{
 					// The polygon would introduce
 					// a non-manifold condition.
-					return Polygon_Iterator();
+					return polygonEnd();
 				}
 
 				++i;
@@ -74,8 +74,10 @@ namespace Pastel
 				{
 					// The polygon would introduce
 					// a non-manifold condition.
-					return Polygon_Iterator();
+					return polygonEnd();
 				}
+				
+				++i;
 			}
 		}
 
@@ -122,7 +124,7 @@ namespace Pastel
 
 			if (!vertexSet[i]->free())
 			{
-				return Polygon_Iterator();
+				return polygonEnd();
 			}
 		}
 
@@ -146,7 +148,7 @@ namespace Pastel
 			if (!half.empty() && !half->free())
 			{
 				// A non-manifold condition.
-				return Polygon_Iterator();
+				return polygonEnd();
 			}
 
 			halfSet.push_back(half);
@@ -215,7 +217,7 @@ namespace Pastel
 					removeEdge(edgeSet[i]);
 				}
 
-				return Polygon_Iterator();
+				return polygonEnd();
 			}
 		}
 		catch(...)

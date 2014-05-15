@@ -27,15 +27,38 @@ namespace Pastel
 			template <typename, template <typename> class>
 			friend class HalfMesh;
 
-			Polygon() = default;
-			Polygon(const Polygon&) = default;
+			template <typename... Type>
+			Polygon(Type&&... data)
+			: PolygonData_Class(std::forward<Type>(data)...)
+			{
+			}
+
+			Polygon(const Polygon& that)
+			: PolygonData_Class(that) 
+			{
+			}
+
+			Polygon(Polygon&& that)
+			: PolygonData_Class(std::move(that))
+			{
+			}
 
 			operator PolygonData_Class&()
+			{
+				return data();
+			}
+
+			operator const PolygonData_Class&() const
+			{
+				return data();
+			}
+
+			PolygonData_Class& data()
 			{
 				return *this;
 			}
 
-			operator const PolygonData_Class&() const
+			const PolygonData_Class& data() const
 			{
 				return *this;
 			}
@@ -51,7 +74,6 @@ namespace Pastel
 			}
 
 		private:
-			Polygon(Polygon&&) = delete;
 			Polygon& operator=(Polygon) = delete;
 			
 			Half_Iterator half_;
