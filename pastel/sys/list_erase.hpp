@@ -26,7 +26,6 @@ namespace Pastel
 		linkNodes(previous, next);
 
 		nodeDeallocate((Data_Node*)node);
-
 		--size_;
 
 		return Iterator(next);

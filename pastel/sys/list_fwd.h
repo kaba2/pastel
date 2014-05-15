@@ -19,7 +19,7 @@ namespace Pastel
 		class Node;
 
 		template <typename>
-		class Sentinel_Node;
+		class End_Node;
 
 		template <typename>
 		class Data_Node;
@@ -35,21 +35,21 @@ namespace Pastel
 	public:
 		using Fwd = Settings;
 		PASTEL_FWD(Data);
-		PASTEL_FWD(SentinelData);
+		PASTEL_FWD(EndData);
 
 		using Data_Class = As_Class<Data>;
-		using SentinelData_Class = As_Class<SentinelData>;
+		using EndData_Class = As_Class<EndData>;
 
 		class Node_Settings;
 		using Node = List_::Node<Node_Settings>;
-		using Sentinel_Node = List_::Sentinel_Node<Node_Settings>;
+		using End_Node = List_::End_Node<Node_Settings>;
 		using Data_Node = List_::Data_Node<Node_Settings>;
 
 		class Node_Settings
 		{
 		public:
 			using Data_Class = Data_Class;
-			using SentinelData_Class = SentinelData_Class;
+			using EndData_Class = EndData_Class;
 		};
 
 		using Iterator = List_::Iterator<Node*, Node_Settings>;

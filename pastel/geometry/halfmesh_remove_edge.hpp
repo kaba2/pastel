@@ -15,7 +15,7 @@ namespace Pastel
 	{
 		ENSURE(!edge.empty());
 
-		if (edge.isSentinel())
+		if (edge.isEnd())
 		{
 			return cast(edge);
 		}

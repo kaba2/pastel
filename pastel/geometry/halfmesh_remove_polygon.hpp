@@ -15,7 +15,7 @@ namespace Pastel
 	{
 		ENSURE(!polygon.empty());
 
-		if (polygon.isSentinel())
+		if (polygon.isEnd())
 		{
 			return cast(polygon);
 		}

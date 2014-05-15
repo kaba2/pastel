@@ -61,7 +61,7 @@ namespace Pastel
 		Node* fromEndPrevious = fromEnd->prev();
 		ASSERT(fromEndPrevious);
 
-		linkNodes(fromBeginPrevious, fromEnd);
+		fromSet.linkNodes(fromBeginPrevious, fromEnd);
 
 		// Insert the range intoNode this
 
