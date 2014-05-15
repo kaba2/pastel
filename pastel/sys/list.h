@@ -33,10 +33,6 @@ namespace Pastel
 	> >
 	, public Customization_<Settings_>
 	{
-	private:
-		class ValueTag {};
-		class RangeTag {};
-
 	public:
 		using Settings = Settings_;
 		using Fwd = List_Fwd<Settings>;
@@ -123,6 +119,8 @@ namespace Pastel
 		/*!
 		Time complexity: O(that.size())
 		Exception safety: strong
+
+		Preserves the end-iterator.
 		*/
 		template <typename Type>
 		List& operator=(std::initializer_list<Type> that)
@@ -135,6 +133,8 @@ namespace Pastel
 		/*!
 		Time complexity: O(that.size())
 		Exception safety: strong
+
+		Preserves the end-iterator.
 		*/
 		List& operator=(const List& that)
 		{
@@ -145,6 +145,8 @@ namespace Pastel
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
+
+		Preserves the end-iterator.
 		*/
 		List& operator=(List&& that)
 		{
