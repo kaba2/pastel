@@ -14,6 +14,8 @@ A _null-iterator_ is an iterator which refers to a _null-part_. A null-part has 
 
 An _end-iterator_ is an iterator which refers to an _end-part_. An end-part is used to denote a _boundary_. Examples of boundaries include the end of a sequence, or a missing child of a binary tree. The need for boundaries arises because it is desirable for the parts of a data-structure to be homogeneous, and because the end-part needs to provide out-edges in the traversal graph. For example, a node in a doubly-linked list always stores an iterator to a previous part and a next part; an end-part can then be used to denote the end of the sequence, and to obtain the last element of the sequence. An end-part is always associated with a memory address. Usually this part belongs to the same data-structure and can be identified locally, as with a red-black tree, but not always, as with an array. 
 
+An iterator is called _normal_, if it is neither a null-iterator or an end-iterator. 
+
 Ordering and hashing
 --------------------
 
@@ -36,6 +38,11 @@ An end-part is usually not a good way to denote a missing part. In particular, i
 There are exceptions to this when the end-iterator is locally identifiable. In these cases the neighborhood of the end-iterator contains some important information. The price to pay for this decision is that to denote an iterator as missing requires access to an end-iterator.
 
 [Continuity]: [[Ref]]: abstraction_continuity.txt
+
+Functions
+---------
+
+If an iterator can be tested locally for whether it is null, end, or normal, then those functions in Pastel are named `empty()`, `isEnd()` or `isSentinel()`, and `isNormal()`, respectively.
 
 C++14
 -----

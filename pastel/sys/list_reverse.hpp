@@ -26,7 +26,7 @@ namespace Pastel
 		while (iter != tail)
 		{
 			ConstIterator prev = std::prev(iter);
-			list.splice(iter, list, tail);
+			list.splice(tail, list, iter);
 			iter = prev;
 		}
 
