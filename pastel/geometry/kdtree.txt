@@ -1,7 +1,7 @@
 KdTree class
 ============
 
-[[Parent]]: bsp_trees.txt
+[[Parent]]: undocumented.txt
 
 The `KdTree` class is a data-structure for storing and manipulating
 a kd-tree which contains shapes. The primary purpose of this
