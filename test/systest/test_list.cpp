@@ -568,11 +568,11 @@ namespace
 		void testSplice()
 		{
 			Set c;
-			Set b = { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 };
-			b.insertFront(2);
-			b.insertFront(6);
-			b.insertBack(-4);
-			b.insertBack(5);
+			TEST_ENSURE(testInvariants(c));
+			
+			Set b = { 6, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, -4, 5};
+			TEST_ENSURE(testInvariants(b));
+
 			{
 				integer correctSet[] = 
 				{
@@ -586,6 +586,7 @@ namespace
 			}
 
 			b.splice(b.begin(), b, b.last());
+			TEST_ENSURE(testInvariants(b));
 			{
 				integer correctSet[] = 
 				{
@@ -600,6 +601,7 @@ namespace
 			}
 
 			b.splice(b.begin(), b);
+			TEST_ENSURE(testInvariants(b));
 			{
 				integer correctSet[] = 
 				{
@@ -614,6 +616,8 @@ namespace
 			}
 
 			c.splice(c.begin(), b);
+			TEST_ENSURE(testInvariants(b));
+			TEST_ENSURE(testInvariants(c));
 			{
 				integer correctSet[] = 
 				{
@@ -630,6 +634,8 @@ namespace
 			}
 
 			b.splice(b.begin(), c, c.last());
+			TEST_ENSURE(testInvariants(b));
+			TEST_ENSURE(testInvariants(c));
 			{
 				integer bCorrectSet[] = 
 				{
@@ -648,6 +654,8 @@ namespace
 			}
 			
 			b.splice(b.begin(), c, c.begin());
+			TEST_ENSURE(testInvariants(b));
+			TEST_ENSURE(testInvariants(c));
 			{
 				integer bCorrectSet[] = 
 				{
@@ -667,6 +675,8 @@ namespace
 			Iterator iter(--c.end());
 			b.splice(b.end(), c);
 			*iter = -18;
+			TEST_ENSURE(testInvariants(b));
+			TEST_ENSURE(testInvariants(c));
 			{
 				TEST_ENSURE_OP(b.size(), ==, 14);
 				TEST_ENSURE(b.back() == -18);
