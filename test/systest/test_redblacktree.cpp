@@ -321,6 +321,17 @@ namespace
 				TEST_ENSURE_OP(*std::next(tree.begin().dereferenceKey()), == , 2);
 				TEST_ENSURE_OP(*std::next(tree.begin().dereferenceData()), == , 4);
 			}
+			{
+				Map tree;
+				auto a = tree.insert(5).first;
+				
+				*a = 4;
+				TEST_ENSURE_OP(*a, == , 4);
+				
+				auto b = tree.insert(1, *a).first;
+				TEST_ENSURE_OP(*b, == , 4);
+
+			}
 		}
 
 		void testMultiMap()
