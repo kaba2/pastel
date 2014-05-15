@@ -79,7 +79,7 @@ namespace Pastel
 			EndData_Class& endData() const
 			{
 				PENSURE(isEnd());
-				return ((Sentinel_Node<Node_Settings>*)node())->endData();
+				return *((End_Node<Node_Settings>*)node());
 			}
 
 			//! Returns whether this is a first iterator.
