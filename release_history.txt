@@ -26,23 +26,32 @@ Release date xx.x.2014
 * Started using more features of C++11.
 * Changed to use the CMake build system (over Premake).
 * Changed to use Threading Building Blocks (over OpenMP).
-* Formalized settings types.
-* Formalized adaptable iterators.
+* Specified settings types.
+* Specified adaptable iterators.
+* Specified enhanced iterators.
+* Specified algorithmic continuity.
+* Specified class wrapping.
+* Specified general principles.
 
 ### PastelSys
 
-#### New data structures 
+#### Data structures 
 
 * Added the deterministic skip list.
 * Added the c-fast trie.
 * Added the red-black forest.
-* Added fixed-size integers.
+* Modernized the doubly-linked list.
 
 #### Red-black tree
 
 * Refactored and fixed bugs in the red-black tree.
 * Added logarithmic splitting and merging into the red-black tree.
 * Added logarithmic quantile searching for the red-black tree.
+
+#### Numbers
+
+* Added fixed-size integers.
+* Added finite field arithmetic.
 
 #### Random numbers
 
@@ -59,9 +68,15 @@ Release date xx.x.2014
 
 * Added algorithms for interval sequences.
 
-#### Meta
+#### Other
 
 * Removed the use of CRTP from Vector and Alignedbox.
+
+### PastelGeometry
+
+#### Data structures
+
+* Modernized the half-edge structure.
 
 ### PastelGeometryMatlab
 
