@@ -3,7 +3,7 @@ Enhanced iterators
 
 [[Parent]]: techniques.txt
 
-An _enhanced iterator_ is an iterator which is linearly-ordered and hashable, locally identifiable as a null-iterator, and locally identifiable as an end-iterator if possible. An end-iterator is good for denoting a boundary, and a null-iterator is good for denoting a missing part.
+An _enhanced iterator_ is an iterator which is linearly-ordered and hashable, and locally identifiable as null, begin, end, or normal. An end-iterator is good for denoting a boundary, and a null-iterator is good for denoting a missing part.
 
 Definitions
 -----------

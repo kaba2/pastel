@@ -38,4 +38,4 @@ The list implementation in Pastel can be thought of an enhanced `std::list`:
 * it supports end-data, and
 * it uses [enhanced iterators][Enhanced].
 
-[Enhanced]: enhanced_iterators.txt
+[Enhanced]: [[Ref]]: enhanced_iterators.txt
