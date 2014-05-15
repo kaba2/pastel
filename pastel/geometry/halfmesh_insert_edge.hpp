@@ -23,7 +23,7 @@ namespace Pastel
 		{
 			if (from == to)
 			{
-				return insertEdgeReturn(Edge_Iterator(), false);
+				return insertEdgeReturn(edgeEnd(), false);
 			}
 		}
 
@@ -47,7 +47,7 @@ namespace Pastel
 			fromFree = findFreeIncident(from);
 			if (fromFree.empty())
 			{
-				return insertEdgeReturn(Edge_Iterator(), false);
+				return insertEdgeReturn(edgeEnd(), false);
 			}
 		}
 
@@ -56,7 +56,7 @@ namespace Pastel
 			Half_Iterator toFreeHalf = findFreeIncident(to);
 			if (toFreeHalf.empty())
 			{
-				return insertEdgeReturn(Edge_Iterator(), false);
+				return insertEdgeReturn(edgeEnd(), false);
 			}
 		}
 

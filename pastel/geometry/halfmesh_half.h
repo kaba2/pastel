@@ -33,15 +33,38 @@ namespace Pastel
 			template <typename, template <typename> class>
 			friend class HalfMesh;
 
-			Half() = default;
-			Half(const Half&) = default;
+			template <typename... Type>
+			Half(Type&&... data)
+			: HalfData_Class(std::forward<Type>(data)...)
+			{
+			}
+
+			Half(const Half& that)
+			: HalfData_Class(that) 
+			{
+			}
+
+			Half(Half&& that)
+			: HalfData_Class(std::move(that))
+			{
+			}
 
 			operator HalfData_Class&()
+			{
+				return data();
+			}
+
+			operator const HalfData_Class&() const
+			{
+				return data();
+			}
+
+			HalfData_Class& data()
 			{
 				return *this;
 			}
 
-			operator const HalfData_Class&() const
+			const HalfData_Class& data() const
 			{
 				return *this;
 			}
@@ -156,7 +179,6 @@ namespace Pastel
 			}
 
 		private:
-			Half(Half&&) = delete;
 			Half& operator=(Half) = delete;
 
 			Half_Iterator next_;

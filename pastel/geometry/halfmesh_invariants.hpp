@@ -27,14 +27,11 @@ namespace Pastel
 				mesh.vertexEnd();
 			while (vertex != vertexEnd)
 			{
-				if (vertex.empty())
-				{
-					return false;
-				}
-
 				Half_ConstIterator half = vertex->half();
 				if (!half.empty() && half->origin() != vertex)
 				{
+					// If the half exists, the origin of the half 
+					// must be the vertex itself.
 					return false;
 				}
 
@@ -50,15 +47,17 @@ namespace Pastel
 				mesh.edgeEnd();
 			while (edge != edgeEnd)
 			{
-				if (edge.empty())
+				Half_ConstIterator half = edge->half();
+				if (half.empty())
 				{
+					// The half of an edge must exist.
 					return false;
 				}
 
-				Half_ConstIterator half = edge->half();
-				if (half.empty() ||
-					half->edge() != edge)
+				if (half->edge() != edge)
 				{
+					// The edge of a half of an edge
+					// must be the edge itself. 
 					return false;
 				}
 
@@ -75,15 +74,17 @@ namespace Pastel
 
 			while (polygon != polygonEnd)
 			{
-				if (polygon.empty())
+				Half_ConstIterator half = polygon->half();
+				if (half.empty())
 				{
+					// The half of a polygon must exist.
 					return false;
 				}
 
-				Half_ConstIterator half = polygon->half();
-				if (half.empty() ||
-					half->left() != polygon)
+				if (half->left() != polygon)
 				{
+					// The left of a half must be the
+					// polygon itself.
 					return false;
 				}
 
@@ -100,11 +101,6 @@ namespace Pastel
 
 			while (half != halfEnd)
 			{
-				if (half.empty())
-				{
-					return false;
-				}
-
 				Half_ConstIterator previous = half->previous();
 				Half_ConstIterator next = half->next();
 				Half_ConstIterator pair = half->pair();
@@ -113,8 +109,14 @@ namespace Pastel
 					next.empty() ||
 					pair.empty() ||
 					half->origin().empty() ||
-					half->edge().empty() ||
-					previous->next() != half ||
+					half->edge().empty())
+				{
+					// All of the fields of a half-edge
+					// must exist.
+					return false;
+				}
+
+				if (previous->next() != half ||
 					next->previous() != half ||
 					next->left() != half->left() ||
 					previous->left() != half->left() ||
@@ -123,76 +125,10 @@ namespace Pastel
 					pair->origin() != half->destination() ||
 					half->edge() != pair->edge())
 				{
+					// The fields must be linked to together
+					// in a bidirectional manner.
 					return false;
 				}
-
-				/*
-				const integer MAX_PERIMETER = 100000;
-
-				{
-				integer perimeterCount = 0;
-				Half halfCurrent(half);
-				Half halfBegin(half);
-				do
-				{
-				++perimeterCount;
-				if (REPORT(perimeterCount == MAX_PERIMETER))
-				{
-				return false;
-				}
-				halfCurrent = halfCurrent->next();
-				}
-				while (halfCurrent != halfBegin);
-				}
-
-				{
-				integer perimeterCount = 0;
-				Half halfCurrent(half);
-				Half halfBegin(half);
-				do
-				{
-				++perimeterCount;
-				if (REPORT(perimeterCount == MAX_PERIMETER))
-				{
-				return false;
-				}
-				halfCurrent = halfCurrent->previous();
-				}
-				while (halfCurrent != halfBegin);
-				}
-
-				{
-				integer perimeterCount = 0;
-				Half halfCurrent(half);
-				Half halfBegin(half);
-				do
-				{
-				++perimeterCount;
-				if (REPORT(perimeterCount == MAX_PERIMETER))
-				{
-				return false;
-				}
-				halfCurrent = halfCurrent.rotateNext();
-				}
-				while (halfCurrent != halfBegin);
-				}
-
-				{
-				integer perimeterCount = 0;
-				Half halfCurrent(half);
-				Half halfBegin(half);
-				do
-				{
-				++perimeterCount;
-				if (REPORT(perimeterCount == MAX_PERIMETER))
-				{
-				return false;
-				}
-				halfCurrent = halfCurrent.rotatePrevious();
-				}
-				while (halfCurrent != halfBegin);
-				}
-				*/
 
 				++half;
 			}
