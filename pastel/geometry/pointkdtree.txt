@@ -1,7 +1,7 @@
 Multi-level kd-tree
 ===================
 
-[[Parent]]: bsp_trees.txt
+[[Parent]]: data_structures.txt
 
 A _multi-level kd-tree_ is a point kd-tree in which each node has
 access to the points (and their number) under its subtree.
