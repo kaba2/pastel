@@ -30,6 +30,11 @@ namespace
 
 		virtual void run()
 		{
+			testIterators();
+			testCopyAndMove();
+			testClear();
+			testSwap();
+			testComparison();
 			testInsertAndErase();
 			testSort();
 			testUnique();
@@ -37,7 +42,6 @@ namespace
 			testMerge();
 			testReverse();
 
-			testSimple();
 			testSplice();
 			testEqual();
 		}
@@ -47,6 +51,147 @@ namespace
 			std::initializer_list<Type> right) const
 		{
 			return boost::equal(left, right);
+		}
+
+		void testIterators()
+		{
+			Set a({1, 2, 3});
+			{
+				TEST_ENSURE_OP(*a.begin(), ==, 1);
+				TEST_ENSURE_OP(*a.last(), ==, 3);
+				TEST_ENSURE(a.last() == std::prev(a.end()));
+				TEST_ENSURE(boost::equal(a.crange(), std::initializer_list<int>({1, 2, 3})));
+			}
+			{
+				Iterator i = a.begin();
+				ConstIterator j = i;
+				TEST_ENSURE(i == j);
+				TEST_ENSURE(i <= j);
+				TEST_ENSURE(i >= j);
+				i < j;
+				i > j;
+
+				TEST_ENSURE(j == i);
+				TEST_ENSURE(j <= i);
+				TEST_ENSURE(j >= i);
+				j < i;
+				j > i;
+			}
+			{
+				TEST_ENSURE(a.cend().isEnd());
+			}
+		}
+
+		void testSwap()
+		{
+			{
+				Set a({1, 2, 3, 4});
+				TEST_ENSURE(testInvariants(a));
+
+				Set b;
+				TEST_ENSURE(testInvariants(b));
+
+				a.swap(b);
+				TEST_ENSURE(testInvariants(a));
+				TEST_ENSURE(testInvariants(b));
+				TEST_ENSURE(equal(b, { 1, 2, 3, 4 }));
+				TEST_ENSURE(a.empty());
+			}
+		}
+
+		void testClear()
+		{
+			{
+				Set a({1, 2, 3, 4});
+				TEST_ENSURE(testInvariants(a));
+
+				a.clear();
+				TEST_ENSURE(testInvariants(a));
+			}
+		}
+
+		void testCopyAndMove()
+		{
+			{
+				Set a({1, 2, 3, 4});
+				TEST_ENSURE(testInvariants(a));
+
+				Set b(a);
+				TEST_ENSURE(testInvariants(a));
+				TEST_ENSURE(testInvariants(b));
+				TEST_ENSURE(boost::equal(a, b));
+
+				Set c;
+				TEST_ENSURE(testInvariants(c));
+
+				c = b;
+				TEST_ENSURE(testInvariants(b));
+				TEST_ENSURE(testInvariants(c));
+				TEST_ENSURE(boost::equal(b, c));
+
+				Set d = std::move(c);
+				TEST_ENSURE(testInvariants(c));
+				TEST_ENSURE(testInvariants(d));
+				TEST_ENSURE(boost::equal(b, d));
+				TEST_ENSURE(c.empty());
+
+				c = std::move(d);
+				TEST_ENSURE(testInvariants(c));
+				TEST_ENSURE(testInvariants(d));
+				TEST_ENSURE(boost::equal(b, c));
+				TEST_ENSURE(d.empty());
+			}
+		}
+
+		void testComparison()
+		{
+			{
+				Set a;
+				TEST_ENSURE(testInvariants(a));
+				TEST_ENSURE(a == a);
+				TEST_ENSURE(!(a != a));
+			}
+			{
+				Set a({1, 6, 3, 4, 5});
+				TEST_ENSURE(testInvariants(a));
+
+				Set b({1, 6, 3, 4, 5});
+				TEST_ENSURE(testInvariants(b));
+
+				TEST_ENSURE(a == b);
+				TEST_ENSURE(!(a != b));
+				TEST_ENSURE(!(a < b));
+				TEST_ENSURE(!(a > b));
+				TEST_ENSURE(a <= b);
+				TEST_ENSURE(a >= b);
+			}
+			{
+				Set a({1, 5, 3, 4, 5});
+				TEST_ENSURE(testInvariants(a));
+
+				Set b({1, 5, 3, 6, 7});
+				TEST_ENSURE(testInvariants(b));
+
+				TEST_ENSURE(a != b);
+				TEST_ENSURE(a <= b);
+				TEST_ENSURE(a < b);
+				TEST_ENSURE(!(a >= b));
+				TEST_ENSURE(!(a > b));
+			}
+			{
+				Set a({1, 6, 3, 4});
+				TEST_ENSURE(testInvariants(a));
+
+				Set b({1, 6, 3, 4, 5});
+				TEST_ENSURE(testInvariants(b));
+
+				TEST_ENSURE(a != b);
+				TEST_ENSURE(!(a == b));
+				TEST_ENSURE(a < b);
+				TEST_ENSURE(!(a > b));
+				TEST_ENSURE(!(a >= b));
+				TEST_ENSURE(a <= b);
+			}
 		}
 
 		void testInsertAndErase()
@@ -402,30 +547,6 @@ namespace
 				reverse(a);
 				TEST_ENSURE(testInvariants(a));
 				TEST_ENSURE(equal(a, { 1, 2, 3, 4, 5 }));
-			}
-		}
-
-		void testSimple()
-		{
-			{
-				Set a;
-				a == a;
-				a != a;
-				a < a;
-				a >= a;
-				a <= a;
-				a > a;
-				a = a;
-
-				Set b(a);
-				a = b;
-				a.clear();
-				a.begin();
-				a.end();
-				b.swap(a);
-
-				TEST_ENSURE_OP(a.size(), ==, 0);
-				TEST_ENSURE(a.empty());
 			}
 		}
 

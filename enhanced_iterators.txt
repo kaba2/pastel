@@ -8,13 +8,15 @@ An _enhanced iterator_ is an iterator which is linearly-ordered and hashable, lo
 Definitions
 -----------
 
-A data-structure consists of _parts_. A data-structure offers protected access to its part by an _iterator_, so that it can preserve its invariants. Through an iterator, the user can examine the part, and also possibly obtain the iterators of some other parts. The parts form a _traversal graph_, where the parts are the vertices, and where there is a directed edge from a part A to a part B if and only if the user one can obtain B's iterator from A's iterator. An example a of a data-structure is a red-black tree, where the nodes are its parts.
+A data-structure consists of _parts_. A data-structure offers protected access to its part by an _iterator_, so that it can preserve its invariants. Through an iterator, the user can examine the part, and also possibly obtain the iterators of some other parts. The parts form a _traversal graph_, where the parts are the vertices, and where there is a directed edge from a part A to a part B if and only if the user one can obtain B's iterator from A's iterator. An example a of a data-structure is a red-black tree, where the nodes are its parts. A traversal graph is called _closed_, if a null-part can not be reached from a non-null part.
 
 A _null-iterator_ is an iterator which refers to a _null-part_. A null-part has no out-edges in the traversal graph, and cannot be dereferenced. However, they can be compared with, constructed, assigned, hashed, and identified locally. Null-iterators are created by default-construction, and are equivalent to each other in all observable ways. A null-iterator works exactly the same way as a null-pointer; in fact, a null-pointer is an example of a null-iterator. In Pastel, all iterators support null-iterators.
 
 An _end-iterator_ is an iterator which refers to an _end-part_. An end-part is used to denote a _boundary_. Examples of boundaries include the end of a sequence, or a missing child of a binary tree. The need for boundaries arises because it is desirable for the parts of a data-structure to be homogeneous, and because the end-part needs to provide out-edges in the traversal graph. For example, a node in a doubly-linked list always stores an iterator to a previous part and a next part; an end-part can then be used to denote the end of the sequence, and to obtain the last element of the sequence. An end-part is always associated with a memory address. Usually this part belongs to the same data-structure and can be identified locally, as with a red-black tree, but not always, as with an array. 
 
 An iterator is called _normal_, if it is neither a null-iterator or an end-iterator. 
+
+A _begin-iterator_ is a first iterator in a sequence of iterators, and thus a less generic term. It can be a normal iterator or an end-iterator. For example, in `std::list` the `begin()` returns a begin-iterator.
 
 Ordering and hashing
 --------------------
@@ -26,7 +28,7 @@ Denoting a boundary
 
 An end-part is usually a good way to denoted a boundary. For example, when `std::find` does not find an element in an iterator range, it returns the upper iterator of the range. This is good, because to call the algorithm the user must already own the upper iterator, and because the returned iterator can be still be used to, for example, to access the previous element, if it exists, even if the upper iterator is an end-iterator. This makes the `std::find` algorithm [continuous][Continuity].
 
-A null-part is usually not a good way to denote a boundary. This is because a null-part cannot encode any out-edges in the traversal graph, and because querying the traversal graph through a null-part is not defined. For example, if in a doubly-linked list the end of the sequence were denoted by a null-part, then there would be no way to get back from the end-part to the last element of the sequence. This leads to discontinuity in algorithms.
+A null-part is usually not a good way to denote a boundary, because it destroys the property of the traversal graph being closed, and because a null-part cannot encode any out-edges in the traversal graph. The closedness is important to guarantee that any number of steps in a traversal graph, taken at once, is well-defined. Non-closed traversal graphs lead to discontinuous algorithms. For example, if in a doubly-linked list the end of the sequence were denoted by a null-part, then taking two steps forward from the last node would not be defined. In addition, there would be no way to get back from the end-part to the last element of the sequence.
 
 Denoting a missing part
 -----------------------
@@ -42,7 +44,7 @@ There are exceptions to this when the end-iterator is locally identifiable. In t
 Functions
 ---------
 
-If an iterator can be tested locally for whether it is null, end, or normal, then those functions in Pastel are named `empty()`, `isEnd()` or `isSentinel()`, and `isNormal()`, respectively.
+If an iterator can be tested locally for whether it is null, begin, end, or normal, then those functions in Pastel are named `empty()`, `isBegin()`, `isEnd()` or `isSentinel()`, and `isNormal()`, respectively.
 
 C++14
 -----

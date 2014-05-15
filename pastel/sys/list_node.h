@@ -34,7 +34,7 @@ namespace Pastel
 			template <typename, template <typename> class>
 			friend class List;
 
-			bool isSentinel() const
+			bool isEnd() const
 			{
 				return next() == 0;
 			}
@@ -79,31 +79,31 @@ namespace Pastel
 		};
 
 		template <typename Node_Settings>
-		class Sentinel_Node
+		class End_Node
 			: public Node<Node_Settings>
-			, public Node_Settings::SentinelData_Class
+			, public Node_Settings::EndData_Class
 		{
 		public:
 			using Base = Node<Node_Settings>;
 
 			using Fwd = Node_Settings;
-			PASTEL_FWD(SentinelData_Class);
+			PASTEL_FWD(EndData_Class);
 
-			Sentinel_Node()
+			End_Node()
 				: Base()
-				, SentinelData_Class()
+				, EndData_Class()
 			{
 			}
 
-			explicit Sentinel_Node(const SentinelData_Class& data)
+			explicit End_Node(const EndData_Class& data)
 				: Base()
-				, SentinelData_Class(data)
+				, EndData_Class(data)
 			{
 			}
 
 		private:
-			Sentinel_Node(const Sentinel_Node&) = delete;
-			Sentinel_Node& operator=(Sentinel_Node) = delete;
+			End_Node(const End_Node&) = delete;
+			End_Node& operator=(End_Node) = delete;
 		};
 
 		template <typename Node_Settings>

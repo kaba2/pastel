@@ -33,7 +33,7 @@ namespace Pastel
 			using Fwd = Node_Settings;
 
 			PASTEL_FWD(Data_Class);
-			PASTEL_FWD(SentinelData_Class);
+			PASTEL_FWD(EndData_Class);
 
 			Iterator()
 				: Iterator::iterator_adaptor_(0) 
@@ -68,33 +68,41 @@ namespace Pastel
 				return *((Data_Node<Node_Settings>*)node());
 			}
 
-			//! Returns the sentinel data.
+			//! Returns the end-data.
 			/*!
 			Preconditions:
-			isSentinel()
+			isEnd()
 
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			SentinelData_Class& sentinelData() const
+			EndData_Class& endData() const
 			{
-				PENSURE(isSentinel());
-				return ((Sentinel_Node<Node_Settings>*)node())->sentinelData();
+				PENSURE(isEnd());
+				return ((Sentinel_Node<Node_Settings>*)node())->endData();
 			}
 
-			//! Returns whether this is a sentinel iterator.
+			//! Returns whether this is a first iterator.
 			/*!
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			bool isSentinel() const
+			bool isBegin() const
 			{
-				if (empty())
-				{
-					return false;
-				}
+				return !empty() &&
+					(node()->prev() == node() ||
+					node()->prev()->next() != node());
+			}
 
-				return node()->next() == 0;
+			//! Returns whether this is an end iterator.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			bool isEnd() const
+			{
+				return !empty() &&
+					node()->next() == node();
 			}
 
 			//! Returns whether this is a normal iterator.
@@ -103,11 +111,11 @@ namespace Pastel
 			Exception safety: nothrow
 
 			An iterator is normal if it is not null, and
-			not a sentinel.
+			not a end.
 			*/
 			bool isNormal() const
 			{
-				return !empty() && !isSentinel();
+				return !empty() && !isEnd();
 			}
 
 			//! Returns whether this is a null iterator.

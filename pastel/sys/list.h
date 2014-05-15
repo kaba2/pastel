@@ -44,7 +44,7 @@ namespace Pastel
 		PASTEL_FWD(Data_Class);
 		
 		PASTEL_FWD(Node);
-		PASTEL_FWD(Sentinel_Node);
+		PASTEL_FWD(End_Node);
 		PASTEL_FWD(Data_Node);
 
 		PASTEL_FWD(Iterator);
@@ -62,6 +62,7 @@ namespace Pastel
 		*/
 		List()
 		{
+			onConstruction();
 		}
 
 		//! Constructs from an initializer-list.
@@ -71,12 +72,13 @@ namespace Pastel
 		*/
 		template <typename Type>
 		List(std::initializer_list<Type> thatSet)
-		: List()
 		{
 			for (auto&& that : thatSet)
 			{
 				insertBack(that);
 			}
+			
+			onConstruction();
 		}
 
 		//! Copy-constructs from another list.
@@ -85,12 +87,13 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		List(const List& that)
-		: List()
 		{
 			for (auto&& element : that)
 			{
 				insertBack(element);
 			}
+			
+			onConstruction();
 		}
 
 		//! Move-constructs from another list.
@@ -99,9 +102,10 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		List(List&& that)
-		: List()
 		{
 			splice(end(), std::move(that));
+			
+			onConstruction();
 		}
 
 		//! Destructs the list.
@@ -156,6 +160,7 @@ namespace Pastel
 		*/
 		void swap(List& that)
 		{
+			std::swap(begin_, that.begin_);
 			std::swap(end_, that.end_);
 			std::swap(size_, that.size_);
 		}
@@ -210,6 +215,7 @@ namespace Pastel
 		PASTEL_ITERATOR_FUNCTIONS(begin, nodeBegin());
 		PASTEL_ITERATOR_FUNCTIONS(end, nodeEnd());
 		PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
+		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 		//! Returns whether the list is empty.
 		/*!
@@ -440,12 +446,12 @@ namespace Pastel
 	private:
 		Node*& nodeBegin()
 		{
-			return end_->next();
+			return begin_;
 		}
 
 		Node* nodeBegin() const
 		{
-			return end_->next();
+			return begin_;
 		}
 
 		Node*& nodeEnd()
@@ -486,7 +492,7 @@ namespace Pastel
 
 		void nodeDeallocate(const Data_Node* node)
 		{
-			ASSERT(node && !node->isSentinel());
+			ASSERT(node && !node->isEnd());
 			delete node;
 		}
 
@@ -495,17 +501,33 @@ namespace Pastel
 			ASSERT(that);
 			ASSERT(nextThat);
 
-			that->next() = nextThat;
+			if (that != nodeEnd())
+			{
+				that->next() = nextThat;
+			}
+			else
+			{
+				nodeBegin() = nextThat;
+			}
+
 			nextThat->prev() = that;
 		}
 
 		//! The end-node of the list.
 		/*!
 		The end-node works as the end-iterator.
-		It is identified locally by having a null
-		next node.
+		It is identified locally by its next
+		node pointing to itself.
 		*/
-		Sentinel_Node* end_ = new Sentinel_Node;
+		End_Node* end_ = new End_Node;
+
+		//! The first node of the list.
+		/*!
+		The begin-node is identified locally 
+		by the next node of the previous node 
+		not pointing to itself.
+		*/
+		Node* begin_ = (Node*)end_;
 
 		//! The number of elements in the list.
 		integer size_ = 0;
@@ -518,18 +540,18 @@ namespace Pastel
 
 	template <
 		typename Data_ = void, 
-		typename SentinelData_ = void>
+		typename EndData_ = void>
 	class List_Settings
 	{
 	public:
 		using Data = Data_;
-		using SentinelData = SentinelData_;
+		using EndData = EndData_;
 	};
 
 	template <
 		typename Data_ = void, 
-		typename SentinelData_ = void>
-	using List_Set = List<List_Settings<Data_, SentinelData_>>;
+		typename EndData_ = void>
+	using List_Set = List<List_Settings<Data_, EndData_>>;
 
 }
 

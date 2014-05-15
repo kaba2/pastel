@@ -22,12 +22,12 @@ namespace Pastel
 			*/
 			using Data = UserDefinedType;
 
-			//! The data stored in a sentinel node.
+			//! The data stored in the end node.
 			/*!
 			Set to void to avoid allocating any memory
 			for this data.
 			*/
-			using SentinelData = UserDefinedType;
+			using EndData = UserDefinedType;
 		};
 
 		//! List customization

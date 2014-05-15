@@ -28,6 +28,20 @@ namespace Pastel
 			return false;
 		}
 
+		if (!list.cend().isEnd())
+		{
+			// The end-node must be locally identifiable 
+			// as an end-node.
+			return false;
+		}
+
+		if (!list.cbegin().isBegin())
+		{
+			// The begin-node must be locally identifiable
+			// as a begin-node.
+			return false;
+		}
+
 		if (list.empty())
 		{
 			return true;
@@ -36,23 +50,32 @@ namespace Pastel
 		auto begin = list.cbegin();
 		auto end = list.cend();
 
-		/*
-		if (!begin.prev().empty() ||
-			!end.next().empty())
+		if (!begin.prev().isEnd())
 		{
-			// The previous of the first element,
-			// and the next of the end-node,
-			// must be null.
+			// The previous of the first node must
+			// be the end-node.
 			return false;
 		}
-		*/
+		
+		if (end.next() != end)
+		{
+			// The next of the end-node must be 
+			// the end-node.
+			return false;
+		}
 
 		auto iter = begin;
 		while (iter != end)
 		{
-			if (iter.empty())
+			if (iter.empty() ||
+				iter.isEnd() ||
+				(iter.isBegin() != (iter == begin)) ||
+				!iter.isNormal())
 			{
-				// An element must not be null.
+				// An iterator must not be null or end, 
+				// and must be normal. An iterator is
+				// begin if and only if it is the begin
+				// iterator.
 				return false;
 			}
 

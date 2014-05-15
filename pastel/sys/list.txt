@@ -27,6 +27,7 @@ Move all elements, from a list to another.                       | ''Theta(1)''
 Move a range of ''k'' elements, inside a list.                   | ''Theta(1)''
 Move a range of ''k'' elements, from a list to another.          | ''Theta(k)''
 Find out the number of elements in a list.                       | ''Theta(1)''
+Find out whether an iterator is null / begin / end / normal.     | ''Theta(1)''
 
 Versus `std::list`
 ------------------
@@ -34,7 +35,7 @@ Versus `std::list`
 The list implementation in Pastel can be thought of an enhanced `std::list`:
 
 * it can be customized,
-* it supports sentinel data,
-* it supports empty data,
-* its iterators can be queried for nullness, and
-* its iterators are ordered and hashable.
+* it supports end-data, and
+* it uses [enhanced iterators][Enhanced].
+
+[Enhanced]: enhanced_iterators.txt
