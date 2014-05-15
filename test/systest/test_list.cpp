@@ -94,6 +94,13 @@ namespace
 				iter.clear();
 				ENSURE(iter.empty());
 			}
+			{
+				*a.begin() = 4;
+				TEST_ENSURE_OP(*a.begin(), ==, 4);
+
+				Iterator j = a.insertFront(*a.begin());
+				TEST_ENSURE_OP(*j, ==, 4);
+			}
 		}
 
 		void testSwap()
