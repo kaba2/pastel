@@ -96,6 +96,8 @@ namespace
 				TEST_ENSURE(testInvariants(b));
 				TEST_ENSURE(equal(b, { 1, 2, 3, 4 }));
 				TEST_ENSURE(a.empty());
+
+				swap(a, b);
 			}
 		}
 
@@ -104,9 +106,11 @@ namespace
 			{
 				Set a({1, 2, 3, 4});
 				TEST_ENSURE(testInvariants(a));
+				Iterator aEnd = a.end();
 
 				a.clear();
 				TEST_ENSURE(testInvariants(a));
+				TEST_ENSURE(a.end() == aEnd);
 			}
 		}
 
@@ -123,23 +127,34 @@ namespace
 
 				Set c;
 				TEST_ENSURE(testInvariants(c));
+				Iterator cEnd = c.end();
 
 				c = b;
 				TEST_ENSURE(testInvariants(b));
 				TEST_ENSURE(testInvariants(c));
 				TEST_ENSURE(boost::equal(b, c));
+				TEST_ENSURE(c.end() == cEnd);
 
 				Set d = std::move(c);
 				TEST_ENSURE(testInvariants(c));
 				TEST_ENSURE(testInvariants(d));
 				TEST_ENSURE(boost::equal(b, d));
 				TEST_ENSURE(c.empty());
+				TEST_ENSURE(c.end() == cEnd);
 
 				c = std::move(d);
 				TEST_ENSURE(testInvariants(c));
 				TEST_ENSURE(testInvariants(d));
 				TEST_ENSURE(boost::equal(b, c));
 				TEST_ENSURE(d.empty());
+				TEST_ENSURE(c.end() == cEnd);
+
+				Set e;
+				TEST_ENSURE(testInvariants(e));
+
+				e = { 1, 2, 3, 4 };
+				TEST_ENSURE(testInvariants(e));
+				TEST_ENSURE(equal(e, { 1, 2, 3, 4 }));
 			}
 		}
 
