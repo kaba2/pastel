@@ -15,7 +15,7 @@ using namespace std;
 namespace
 {
 
-	typedef List_Set<integer> Set;
+	typedef List_Set<integer, integer> Set;
 	typedef Set::Iterator Iterator;
 	typedef Set::ConstIterator ConstIterator;
 
@@ -79,6 +79,20 @@ namespace
 			}
 			{
 				TEST_ENSURE(a.cend().isEnd());
+			}
+			{
+				a.end().endData() = 4;
+				TEST_ENSURE_OP(a.end().endData(), == , 4);
+			}
+			{
+				Iterator iter;
+				ENSURE(iter.empty());
+
+				iter = a.end();
+				ENSURE(iter.isEnd());
+				
+				iter.clear();
+				ENSURE(iter.empty());
 			}
 		}
 
