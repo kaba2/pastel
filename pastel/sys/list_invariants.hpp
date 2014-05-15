@@ -3,6 +3,8 @@
 
 #include "pastel/sys/list_invariants.h"
 
+#include <iterator>
+
 namespace Pastel
 {
 	
@@ -12,6 +14,20 @@ namespace Pastel
 	bool testInvariants(
 		const List<Settings, Customization>& list)
 	{
+		if ((list.size() == 0) != list.empty())
+		{
+			// The size() is zero if and only if the list
+			// is empty.
+			return false;
+		}
+
+		if (std::distance(list.cbegin(), list.cend()) != list.size())
+		{
+			// The size() must equal the number of elements
+			// in the list.
+			return false;
+		}
+
 		if (list.empty())
 		{
 			return true;
@@ -20,6 +36,7 @@ namespace Pastel
 		auto begin = list.cbegin();
 		auto end = list.cend();
 
+		/*
 		if (!begin.prev().empty() ||
 			!end.next().empty())
 		{
@@ -28,6 +45,7 @@ namespace Pastel
 			// must be null.
 			return false;
 		}
+		*/
 
 		auto iter = begin;
 		while (iter != end)

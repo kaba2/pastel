@@ -156,7 +156,6 @@ namespace Pastel
 		*/
 		void swap(List& that)
 		{
-			std::swap(begin_, that.begin_);
 			std::swap(end_, that.end_);
 			std::swap(size_, that.size_);
 		}
@@ -441,12 +440,12 @@ namespace Pastel
 	private:
 		Node*& nodeBegin()
 		{
-			return begin_;
+			return end_->next();
 		}
 
 		Node* nodeBegin() const
 		{
-			return begin_;
+			return end_->next();
 		}
 
 		Node*& nodeEnd()
@@ -507,9 +506,6 @@ namespace Pastel
 		next node.
 		*/
 		Sentinel_Node* end_ = new Sentinel_Node;
-
-		//! The start-node of the list.
-		Node* begin_ = (Node*)end_;
 
 		//! The number of elements in the list.
 		integer size_ = 0;
