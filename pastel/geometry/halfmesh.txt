@@ -61,3 +61,8 @@ The half-edge structure can represent
  * many kinds of mixes of the above, important in particular when building a mesh.
 
 [Graph]: [[Ref]]: incidence_graph.txt
+
+References
+----------
+
+_Introduction to Topological Manifolds_, 2nd edition, John Lee, Graduate Texts in Mathematics, Springer, 2010.

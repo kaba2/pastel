@@ -111,7 +111,7 @@ namespace
 
 		void testVoidSet()
 		{
-			using Set = RedBlack_Set<void>;
+			using Set = RedBlackTree_Set<void>;
 			Set tree;
 			TEST_ENSURE(testInvariants(tree));
 			tree.insert(nullptr);

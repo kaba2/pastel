@@ -35,4 +35,4 @@ A [truncated skip-list][SkipList] can also do finger searches, using the element
 Faster skipping of empty trees
 ------------------------------
 
-The complexity of finding the next/previous element, given an element, is linear in the number of skipped empty trees. It is possible to decrease this complexity to ''O(1)'' amortized by using a secondary red-black forest to store subsequences of the primary red-black forest. A tree of the secondary forest then consists either of a singular set of a primary tree, or a maximal subsequence of empty primary trees.
+The complexity of finding the next/previous element, given an element, depends linearly on the number of skipped empty trees. It is possible to decrease this complexity to ''O(log(k))'' by using a secondary red-black forest to store subsequences of the primary red-black forest. A tree of the secondary forest then consists either of a singular set of a primary tree, or a maximal subsequence of empty primary trees.

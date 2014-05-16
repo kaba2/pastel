@@ -27,7 +27,7 @@ namespace
 
 		void test()
 		{
-			using Tree = RedBlack_Set<integer>;
+			using Tree = RedBlackTree_Set<integer>;
 			using Forest = RedBlackForest_Set<Tree>;
 			using Iterator = Forest::Iterator;
 			using ConstIterator = Forest::ConstIterator;
@@ -94,11 +94,8 @@ namespace
 			}
 
 			{
-				// We leave it undefined what will happen
-				// when an iterator is decremented beyond
-				// the first element. Currently it crashes,
-				// because the corresponding std::list
-				// operation does so.
+				// TODO: Make it well-defined what will happen in
+				// this case; we want closed traversal.
 				/*
 				ConstIterator a = forest.cbegin();
 				--a;

@@ -5,8 +5,7 @@
 
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/redblackforest_iterator.h"
-
-#include <list>
+#include "pastel/sys/list.h"
 
 namespace Pastel
 {
@@ -26,9 +25,9 @@ namespace Pastel
 		class Tree_Settings;
 		using Tree = RedBlackTree<Tree_Settings>;
 
-		using TreeSet = std::list<Tree>;
-		using Tree_Iterator = typename TreeSet::iterator;
-		using Tree_ConstIterator = typename TreeSet::const_iterator;
+		using TreeSet = List_Set<Tree>;
+		using Tree_Iterator = typename TreeSet::Iterator;
+		using Tree_ConstIterator = typename TreeSet::ConstIterator;
 		using Tree_Range = boost::iterator_range<Tree_Iterator>;
 		using Tree_ConstRange = boost::iterator_range<Tree_ConstIterator>;
 

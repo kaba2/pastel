@@ -151,7 +151,7 @@ namespace Pastel
 		Tree_Iterator insert(
 			const Tree_ConstIterator& before)
 		{
-			Tree_Iterator tree = treeSet_.emplace(before);
+			Tree_Iterator tree = treeSet_.insert(before);
 			tree->end().sentinelData().tree_ = tree;
 
 			onInsert(tree);
