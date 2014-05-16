@@ -31,12 +31,12 @@ namespace Pastel
 		}
 	};
 
-	typedef IteratorAddress_Predicate<LessThan> IteratorAddress_LessThan;
-	typedef IteratorAddress_Predicate<LessEqual> IteratorAddress_LessEqual;
-	typedef IteratorAddress_Predicate<GreaterThan> IteratorAddress_GreaterThan;
-	typedef IteratorAddress_Predicate<GreaterEqual> IteratorAddress_GreaterEqual;
-	typedef IteratorAddress_Predicate<EqualTo> IteratorAddress_EqualTo;
-	typedef IteratorAddress_Predicate<NotEqualTo> IteratorAddress_NotEqualTo;
+	using IteratorAddress_LessThan = IteratorAddress_Predicate<LessThan>;
+	using IteratorAddress_LessEqual = IteratorAddress_Predicate<LessEqual>;
+	using IteratorAddress_GreaterThan = IteratorAddress_Predicate<GreaterThan>;
+	using IteratorAddress_GreaterEqual = IteratorAddress_Predicate<GreaterEqual>;
+	using IteratorAddress_EqualTo = IteratorAddress_Predicate<EqualTo>;
+	using IteratorAddress_NotEqualTo = IteratorAddress_Predicate<NotEqualTo>;
 
 }
 

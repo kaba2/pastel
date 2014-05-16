@@ -1383,7 +1383,7 @@ namespace Pastel
 		typename Propagation = void,
 		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
-	using RedBlack_Map = 
+	using RedBlackTree_Map = 
 		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation, SentinelData, false>, 
 		Customization>;
 
@@ -1394,7 +1394,7 @@ namespace Pastel
 		typename Propagation = void,
 		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
-	using RedBlack_MultiMap = 
+	using RedBlackTree_MultiMap = 
 		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation, SentinelData, true>, 
 		Customization>;
 
@@ -1411,7 +1411,7 @@ namespace Pastel
 		typename Propagation = void,
 		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
-	using RedBlack_Set = 
+	using RedBlackTree_Set = 
 		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, SentinelData, false>, 
 		Customization>;
 
@@ -1421,7 +1421,7 @@ namespace Pastel
 		typename Propagation = void,
 		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
-	using RedBlack_MultiSet = 
+	using RedBlackTree_MultiSet = 
 		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, SentinelData, true>, 
 		Customization>;
 
