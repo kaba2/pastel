@@ -172,15 +172,43 @@ namespace Pastel
 
 		if (tree.clast().right() != tree.cend())
 		{
-			// The maximum node must be connected to
+			// The right child of the  maximum node must be
 			// the end node.
+			return false;
+		}
+
+		if (std::next(tree.cend()) != tree.cbegin())
+		{
+			// The next node from the end-node must be 
+			// the first element.
+			return false;
+		}
+
+		if (std::next(tree.clast()) != tree.cend())
+		{
+			// The next element from the last element
+			// must be the end-node.
 			return false;
 		}
 
 		if (tree.cbegin().left() != tree.cend())
 		{
-			// The minimum node must be connected to
+			// The left child of the the minimum node must be 
 			// the end node.
+			return false;
+		}
+
+		if (std::prev(tree.cend()) != tree.clast())
+		{
+			// The previous element from the end-node must
+			// be the last element.
+			return false;
+		}
+
+		if (std::prev(tree.cbegin()) != tree.cend())
+		{
+			// The previous element from the first element
+			// must be the end-node.
 			return false;
 		}
 

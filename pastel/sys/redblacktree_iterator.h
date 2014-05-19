@@ -253,6 +253,16 @@ namespace Pastel
 
 			friend class boost::iterator_core_access;
 
+			explicit Iterator(NodePtr that)
+				: Iterator::iterator_adaptor_(that) 
+			{
+			}
+
+			NodePtr node() const
+			{
+				return this->base();
+			}
+
 			using DereferenceType = typename std::conditional<
 				DereferenceToData,
 				Data_Class, const Key_Class>::type;
@@ -263,16 +273,6 @@ namespace Pastel
 			using DereferenceTag = typename std::conditional<
 				DereferenceToData, 
 				DataTag, KeyTag>::type;
-
-			explicit Iterator(NodePtr that)
-				: Iterator::iterator_adaptor_(that) 
-			{
-			}
-
-			NodePtr node() const
-			{
-				return this->base();
-			}
 
 			const Key_Class& dereference(KeyTag) const
 			{
