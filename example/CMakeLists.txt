@@ -1,3 +1,3 @@
 if (BuildExamples)
-	add_subdirectory ("cfasttrie_performance")
+	add_subdirectory ("skipfast_performance")
 endif()

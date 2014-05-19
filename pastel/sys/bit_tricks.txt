@@ -7,4 +7,4 @@ This section contains algorithms for working with the bit-representation of inte
 
 For example, consider the problem of zeroing the bits above the first leading 1-bit. At first it seems that we need to know the index of the first leading 1-bit, and therefore spend a logarithmic time searching for it using the exponential binary search. However, this problem can be solved by a simple combination of exclusive-or, increment, decrement, and right-shift. This is constant time for a native integer.
 
-These algoritms are particularly useful when dealing with algorithms in the w-bit RAM model. Then they act as basic building tools of data-structures and algorithms. In particular, we use them in the c-fast trie data structure.
+These algoritms are particularly useful when dealing with algorithms in the w-bit RAM model. Then they act as basic building tools of data-structures and algorithms. In particular, we use them in the skip-fast trie data structure.
