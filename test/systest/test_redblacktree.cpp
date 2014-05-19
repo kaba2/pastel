@@ -478,14 +478,32 @@ namespace
 			Tree bTree{ 5, 6, 7 };
 
 			ConstIterator iter = aTree.cend();
+
+			// The next element from the end-node is 
+			// the first element of the tree.
 			++iter;
-			TEST_ENSURE(iter == aTree.cbegin());
+			TEST_ENSURE_OP(iter.key(), ==, 1);
+
+			// The previous element from the first element
+			// is the end-node.
 			--iter;
 			TEST_ENSURE(iter == aTree.cend());
-			--iter;
-			TEST_ENSURE(iter.key() == 4);
 
+			// The previous element from the end-node is
+			// the last element.
+			--iter;
+			TEST_ENSURE_OP(iter.key(), ==, 4);
+
+			// The next element from the last node is the
+			// end-node.
+			++iter;
+			TEST_ENSURE(iter == aTree.cend());
+
+			// A const-iterator can be explicitly converted to an iterator,
+			// provided one has a mutable reference to the tree.
 			Iterator bIter = aTree.cast(iter);
+
+			// An iterator can be converted to a const-iterator.
 			iter = bIter;
 			TEST_ENSURE(iter == bIter);
 		}

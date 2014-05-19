@@ -26,7 +26,7 @@ namespace Pastel
 			Exception safety: nothrow
 			*/
 			template <typename... Type>
-			explicit Iterator(Type&&... that)
+			Iterator(Type&&... that)
 			: Base_Iterator(std::forward<Type>(that)...)
 			{
 			}
@@ -35,6 +35,17 @@ namespace Pastel
 			Iterator(const Iterator<That_BaseIterator>& that)
 				: Base_Iterator(that)
 			{
+			}
+
+			decltype(((Base_Iterator*)0)->sentinelData().tree())
+				findTree() const
+			{
+				Base_Iterator iter = *this;
+				while (!iter.isSentinel())
+				{
+					iter = iter.parent();
+				}
+				return iter.sentinelData().tree();
 			}
 
 			//! Returns whether this is the end-node of the forest.

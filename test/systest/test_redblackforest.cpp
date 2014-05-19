@@ -20,20 +20,31 @@ namespace
 		{
 		}
 
+		using Tree = RedBlackTree_Set<integer>;
+		using Forest = RedBlackForest_Set<Tree>;
+		using Iterator = Forest::Iterator;
+		using ConstIterator = Forest::ConstIterator;
+		using Tree_Iterator = Forest::Tree_Iterator;
+		using Tree_ConstIterator = Forest::Tree_ConstIterator;
+
 		virtual void run()
 		{
 			test();
+			testIterators();
+		}
+
+		void testIterators()
+		{
+			Forest forest;
+			Tree_Iterator aTree = forest.insert();
+			Iterator a = aTree->insert(0).first;
+			ConstIterator b = a;
+			a = aTree->cast(b);
 		}
 
 		void test()
 		{
-			using Tree = RedBlackTree_Set<integer>;
-			using Forest = RedBlackForest_Set<Tree>;
-			using Iterator = Forest::Iterator;
-			using ConstIterator = Forest::ConstIterator;
-			using Tree_Iterator = Forest::Tree_Iterator;
-			using Tree_ConstIterator = Forest::Tree_ConstIterator;
-			
+		
 			Forest forest;
 			TEST_ENSURE(testInvariants(forest));
 
