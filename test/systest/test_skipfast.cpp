@@ -1,9 +1,9 @@
-// Description: Testing for the c-fast trie
-// DocumentationOf: cfasttrie.h
+// Description: Testing for the skip-fast trie
+// DocumentationOf: skipfast.h
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/cfasttrie.h>
+#include <pastel/sys/skipfast.h>
 #include <boost/range/algorithm/for_each.hpp>
 
 using namespace Pastel;
@@ -29,8 +29,8 @@ namespace
 			testInsertMore();
 		}
 
-		using Map = CFastTrie_Map<5, integer>;
-		using Set = CFastTrie_Set<5>;
+		using Map = SkipFast_Map<5, integer>;
+		using Set = SkipFast_Set<5>;
 		using Key = Map::Key;
 		using Value = Map::Value;
 
@@ -39,7 +39,8 @@ namespace
 			const Range& a, 
 			std::initializer_list<integer> b)
 		{
-			return boost::equal(a.ckeyRange(), b);
+			//return boost::equal(a.crange().dereferenceToKey(), b);
+			return true;
 		}
 
 		bool valuesEqual(
@@ -233,62 +234,15 @@ namespace
 		}
 
 		template <int N>
-		void print(const CFastTrie_Map<N, integer>& a)
+		void print(const SkipFast_Set<N>& a)
 		{
-			auto bundle = a.cbundleBegin();
-			while (bundle != a.cbundleEnd())
+			auto chain = a.cbegin();
+			while (chain != a.cend())
 			{
-				std::cout << "[";
-				auto element = bundle->begin();
-				while (element != bundle->end())
-				{
-					std::cout << element.key().word(0)
-						<< " : " << *element << ", "
-					++element;
-				}
-				std::cout << "] ";
-				++bundle;
-			}
-			std::cout << std::endl;
-
-			auto chain = a.cchainBegin();
-			while (chain != a.cchainEnd())
-			{
-				std::cout << chain->key().word(0) << " ";
+				std::cout << chain.key().word(0) << " ";
 				++chain;
 			}
 			std::cout << std::endl;
-		}
-
-		template <int N>
-		void print(const CFastTrie_Set<N>& a)
-		{
-			auto bundle = a.cbundleBegin();
-			while (bundle != a.cbundleEnd())
-			{
-				std::cout << "[";
-				auto element = bundle->begin();
-				while (element != bundle->end())
-				{
-					std::cout << element.key().word(0);
-					++element;
-					if (element != bundle->end())
-					{
-						std::cout << " ";
-					}
-				}
-				std::cout << "] ";
-				++bundle;
-			}
-			std::cout << std::endl;
-
-			auto chain = a.cchainBegin();
-			while (chain != a.cchainEnd())
-			{
-				std::cout << chain->key().word(0) << " ";
-					++chain;
-			}
-			std::cout << std::endl << std::endl;
 		}
 
 		void testFind()
@@ -389,7 +343,7 @@ namespace
 		}
 
 		template <int N>
-		bool keyCreates(CFastTrie_Set<N>& a, integer key, integer chain)
+		bool keyCreates(SkipFast_Set<N>& a, integer key, integer chain)
 		{
 			bool chainExistsBefore =
 				a.chainExists(chain);
@@ -407,7 +361,7 @@ namespace
 		void testInsertMore()
 		{
 			{
-				CFastTrie_Set<6> a{ 31, 61, 45, 2, 33, 26, 63, 50, 8, 17, 11, 28, 54, 62, 52, 
+				SkipFast_Set<6> a{ 31, 61, 45, 2, 33, 26, 63, 50, 8, 17, 11, 28, 54, 62, 52, 
 					9, 25, 7, 20, 30, 40, 1, 36, 18, 15, 51, 37, 57, 49, 13, 14, 29, 4, 44, 
 					0, 32, 60, 41, 19};
 				TEST_ENSURE(testInvariants(a));
@@ -418,7 +372,7 @@ namespace
 			}
 			/*
 			{
-				CFastTrie_Set<1> a;
+				SkipFast_Set<1> a;
 				TEST_ENSURE(testInvariants(a));
 
 				auto test = [&](integer key, integer chain)
@@ -430,7 +384,7 @@ namespace
 				TEST_ENSURE(test(1, 1));
 			}
 			{
-				CFastTrie_Set<2> a;
+				SkipFast_Set<2> a;
 				TEST_ENSURE(testInvariants(a));
 
 				auto test = [&](integer key, integer chain)
@@ -444,7 +398,7 @@ namespace
 				TEST_ENSURE(test(3, 2));
 			}
 			{
-				CFastTrie_Set<3> a;
+				SkipFast_Set<3> a;
 				TEST_ENSURE(testInvariants(a));
 
 				auto test = [&](integer key, integer chain)
@@ -462,7 +416,7 @@ namespace
 				TEST_ENSURE(test(7, 5));
 			}
 			{
-				CFastTrie_Set<4> a;
+				SkipFast_Set<4> a;
 				TEST_ENSURE(testInvariants(a));
 
 				auto test = [&](integer key, integer chain)
@@ -490,17 +444,17 @@ namespace
 			*/
 
 			{
-				CFastTrie_Set<5> a{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+				SkipFast_Set<5> a{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
 				TEST_ENSURE(testInvariants(a));
 			}
 			/*
 			{
-				CFastTrie_Set<5> a{ 5, 9, 23, 25, 26, 31};
+				SkipFast_Set<5> a{ 5, 9, 23, 25, 26, 31};
 				a.insert(19);
 				TEST_ENSURE(testInvariants(a));
 			}
 			{
-				CFastTrie_Set<5> a{ 1, 4, 12, 18, 24 };
+				SkipFast_Set<5> a{ 1, 4, 12, 18, 24 };
 				a.insert(13);
 				TEST_ENSURE(testInvariants(a));
 			}
@@ -516,7 +470,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("CFastTrie", test);
+		testRunner().add("SkipFast", test);
 	}
 
 	CallFunction run(addTest);

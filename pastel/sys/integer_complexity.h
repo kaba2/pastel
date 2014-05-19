@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	//! Returns whether 'left' should be added before 'right' in c-fast trie.
+	//! Returns whether 'left' should be added before 'right' in skip-fast trie.
 	/*!
 	Time complexity: O(1)
 	Exception safety: strong

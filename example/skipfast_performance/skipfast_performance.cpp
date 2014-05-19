@@ -5,7 +5,7 @@
 
 #include <boost/unordered_set.hpp>
 
-#include <pastel/sys/cfasttrie.h>
+#include <pastel/sys/skipfast.h>
 #include <pastel/sys/redblacktree.h>
 #include <pastel/sys/skiplist.h>
 #include <pastel/sys/random.h>
@@ -62,7 +62,7 @@ double measureTime(const Type& f)
 }
 
 template <int N>
-void print(const CFastTrie_Set<N>& a)
+void print(const SkipFast_Set<N>& a)
 {
 	for (auto&& element : a.ckeyRange())
 	{
@@ -177,15 +177,15 @@ int main()
 	Stream_Logger streamLogger(&std::cout);
 	log().addLogger(&streamLogger);
 
-	std::cout << "CFastTrie_Set" << std::endl;
-	test<CFastTrie_Set<Bits>>();
+	std::cout << "SkipFast_Set" << std::endl;
+	test<SkipFast_Set<Bits>>();
 
 #ifndef SKIP_ONLY
 	std::cout << "SkipList_Set" << std::endl;
 	test<SkipList_Set<Unsigned_Integer<Bits>>>();
 
-	std::cout << "RedBlack_Set" << std::endl;
-	test<RedBlack_Set<Unsigned_Integer<Bits>>>();
+	std::cout << "RedBlackTree_Set" << std::endl;
+	test<RedBlackTree_Set<Unsigned_Integer<Bits>>>();
 
 	std::cout << "std::set" << std::endl;
 	test<std::set<Unsigned_Integer<Bits>>>();

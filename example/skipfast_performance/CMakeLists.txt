@@ -1,4 +1,4 @@
-project (cfasttrie_performance)
+project (skipfast_performance)
 
 file (GLOB SourceSet ${PastelSourceGlobSet})
 source_group (Code FILES ${SourceSet})
@@ -6,8 +6,8 @@ source_group (Code FILES ${SourceSet})
 file (GLOB DocumentationSet ${PastelDocumentationGlobSet})
 source_group (Documentation FILES ${DocumentationSet})
 
-add_executable (cfasttrie_performance ${SourceSet})
+add_executable (skipfast_performance ${SourceSet})
 target_link_libraries (
-	cfasttrie_performance
+	skipfast_performance
 	pastelsys 
 )

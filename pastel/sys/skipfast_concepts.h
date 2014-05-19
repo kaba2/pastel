@@ -1,14 +1,14 @@
-// Description: Concepts for the c-fast trie
+// Description: Concepts for the skip-fast trie
 
-#ifndef PASTELSYS_CFASTTRIE_CONCEPTS_H
-#define PASTELSYS_CFASTTRIE_CONCEPTS_H
+#ifndef PASTELSYS_SKIPFAST_CONCEPTS_H
+#define PASTELSYS_SKIPFAST_CONCEPTS_H
 
-#include "pastel/sys/cfasttrie_fwd.h"
+#include "pastel/sys/skipfast_fwd.h"
 
 namespace Pastel
 {
 
-	namespace CFastTrie_Concepts
+	namespace SkipFast_Concepts
 	{
 
 		class Settings
@@ -19,11 +19,11 @@ namespace Pastel
 			Preconditions:
 			Bits > 0
 			*/
-			PASTEL_CONSTEXPR int Bits = UserDefinedInteger;
+			PASTEL_CONSTEXPR integer Bits = UserDefinedInteger;
 
 			//! The associated user-data.
 			/*!
-			Settings this to void avoids any memory
+			Setting this to void avoids any memory
 			use for the user-data.
 			*/
 			using Value = UserDefinedType;
@@ -33,14 +33,14 @@ namespace Pastel
 		class Customization
 		{
 		public:
-			using Fwd = CFastTrie_Fwd<Settings>;
+			using Fwd = SkipFast_Fwd<Settings>;
 			
 			PASTEL_FWD(Iterator);
 			PASTEL_FWD(ConstIterator);
 
 		/*
 		The customization functions should be protected
-		so that they can only be called by the CFastTrie
+		so that they can only be called by the SkipFast
 		implementation.
 		*/
 		protected:

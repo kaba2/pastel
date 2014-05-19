@@ -1,7 +1,43 @@
-C-fast trie notes
+Skip-fast trie notes
 =================
 
-[[Parent]]: cfasttrie.txt
+[[Parent]]: skipfast.txt
+
+Names
+-----
+
+skip-fast trie
+s-fast trie (s for skip)
+
+### Not accurate, cumbersome
+
+truncated x-fast trie
+t-fast trie (t for truncated)
+
+### Too funny
+
+v-fast trie (v for very)
+
+### Too specific
+
+red-black trie
+rb-fast trie
+r-fast trie
+tree-based x-fast trie
+t-fast trie (t for tree)
+
+### Property, not a name
+
+compressed x-fast trie
+skip-fast trie (c for compressed)
+
+compact x-fast trie
+skip-fast trie (c for compact)
+
+### Not specific enough
+
+balanced trie
+compact trie
 
 How should bundles be stored?
 -----------------------------
