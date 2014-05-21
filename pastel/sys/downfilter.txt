@@ -1,0 +1,6 @@
+Down filter
+===========
+
+[[Parent]]: generic_programming.txt
+
+A _down filter_ is a pair of binary predicates on a pre-ordered set ''X'', called the element-filter and the down-set-filter. The _element filter_ identifies a subset ''X'', called the _marked elements_. The _down-set filter_ tells whether there are any marked elements in the (principal) down-set of a given element.
