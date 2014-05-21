@@ -1,5 +1,5 @@
 // Description: Equal-to predicate
-// Documentation: predicates.txt
+// Documentation: operator_predicates.txt
 
 #ifndef PASTELSYS_EQUALTO_H
 #define PASTELSYS_EQUALTO_H

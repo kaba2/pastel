@@ -1,0 +1,11 @@
+Strict weak order
+=================
+
+[[Parent]]: predicates.txt
+
+A _strict weak order_ on a set ''X'' is an irreflexive and transitive relation in ''X'' for which incomparability is transitive. A strict weak order is represented by the `Less` concept.
+
+Versus preorders
+----------------
+
+Each strict weak order ''<'' corresponds to a total preorder ''<='' by ''(a <= b) <=> !(b < a)'', for all ''a, b in X'', and vice versa. Therefore it is enough to use just one of these concepts. While mathematicians prefer total preorders, the C++ Standard Library is specified using strict weak orders. Using the above correspondence the view can be switched whenever necessary.

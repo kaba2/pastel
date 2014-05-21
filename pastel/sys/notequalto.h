@@ -1,5 +1,5 @@
 // Description: Not-equal-to predicate
-// Documentation: predicates.txt
+// Documentation: operator_predicates.txt
 
 #ifndef PASTELSYS_NOTEQUALTO_H
 #define PASTELSYS_NOTEQUALTO_H

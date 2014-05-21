@@ -1,5 +1,5 @@
 // Description: Greater-than-or-equal-to predicate
-// Documentation: predicates.txt
+// Documentation: operator_predicates.txt
 
 #ifndef PASTELSYS_GREATEREQUAL_H
 #define PASTELSYS_GREATEREQUAL_H

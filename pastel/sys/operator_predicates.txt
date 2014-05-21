@@ -1,0 +1,21 @@
+Operator predicates
+===================
+
+[[Parent]]: predicates.txt
+
+An _operator predicate_ is a predicate which is invoked by one of the C++ operators `==`, `!=`, `<`, `<=`, `>`, or `>=`.  We denote these predicates by the relations ''='', ''!='', ''<'', ''<='', ''>'', and ''>='', respectively.
+
+Equalities
+----------
+
+The ''='' and ''!='' stand for set-equality and set-unequality. If one is defined, then so is the other, and the predicates are related by ''(a = b) <=> !(a != b)'', for all ''a'' and ''b''.
+
+Inequalities
+------------
+
+The ''<'' and ''>'' stand for strict weak orders, and ''<='' and ''>='' stand for total preorders. If one is defined, then so are the others, and the predicates are related by ''(a < b) <=> (b > a) <=> !(b <= a) <=> !(a >= b)'', for all ''a'' and ''b''.
+
+Equivalence
+-----------
+
+The inequalities induce an equivalence relation by ''(a ~ b) <=> !(a < b) and !(b < a)''. This equivalence should not be confused for the set-equality, unless the ''<'' is a strict partial order, or equivalently, the ''<='' is a partial order (antisymmetric).

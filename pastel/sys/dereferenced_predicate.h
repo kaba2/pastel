@@ -1,5 +1,5 @@
 // Description: Dereferenced predicates
-// Documentation: predicates.txt
+// Documentation: derived_predicates.txt
 
 #ifndef PASTELSYS_DEREFERENCED_PREDICATE_H
 #define PASTELSYS_DEREFERENCED_PREDICATE_H

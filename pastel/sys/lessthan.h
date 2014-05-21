@@ -1,5 +1,5 @@
 // Description: Less-than predicate
-// Documentation: predicates.txt
+// Documentation: operator_predicates.txt
 
 #ifndef PASTELSYS_LESSTHAN_H
 #define PASTELSYS_LESSTHAN_H

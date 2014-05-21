@@ -1,5 +1,5 @@
 // Description: Not predicate
-// Documentation: predicates.txt
+// Documentation: derived_predicates.txt
 
 #ifndef PASTELSYS_NOT_PREDICATE_H
 #define PASTELSYS_NOT_PREDICATE_H

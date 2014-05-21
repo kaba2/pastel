@@ -1,0 +1,6 @@
+Derived predicates
+==================
+
+[[Parent]]: predicates.txt
+
+A _derived predicate_ is a predicate which is formed by modifying an existing predicate.
