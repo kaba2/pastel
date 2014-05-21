@@ -39,7 +39,7 @@ An end-part is usually not a good way to denote a missing part. In particular, i
 
 There are exceptions to this when the end-iterator is locally identifiable. In these cases the neighborhood of the end-iterator contains some important information. The price to pay for this decision is that to denote an iterator as missing requires access to an end-iterator.
 
-[Continuity]: [[Ref]]: abstraction_continuity.txt
+[Continuity]: [[Ref]]: algorithmic_continuity.txt
 
 Functions
 ---------
