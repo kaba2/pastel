@@ -15,9 +15,8 @@ namespace Pastel
 		class Algorithm
 		{
 		public:
-			template <typename AnyNumberOfArguments>
-			UserDefinedType operator()(
-				const AnyNumberOfArguments& that);
+			template <typename... Type>
+			UserDefinedType operator()(Type&&... that);
 		};
 	
 	}

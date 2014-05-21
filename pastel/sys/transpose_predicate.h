@@ -1,5 +1,5 @@
 // Description: Transpose predicate
-// Documentation: predicates.txt
+// Documentation: derived_predicates.txt
 
 #ifndef PASTELSYS_TRANSPOSE_PREDICATE_H
 #define PASTELSYS_TRANSPOSE_PREDICATE_H

@@ -1,5 +1,5 @@
 // Description: Directed predicate
-// Documentation: predicates.txt
+// Documentation: derived_predicates.txt
 
 #ifndef PASTELSYS_DIRECTED_PREDICATE_H
 #define PASTELSYS_DIRECTED_PREDICATE_H

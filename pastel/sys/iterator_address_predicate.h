@@ -1,5 +1,5 @@
 // Description: Predicates for iterator-address's
-// Documentation: predicates.txt
+// Documentation: derived_predicates.txt
 
 #ifndef PASTELSYS_ITERATORADDRESS_PREDICATE_H
 #define PASTELSYS_ITERATORADDRESS_PREDICATE_H

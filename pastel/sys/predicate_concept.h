@@ -16,12 +16,9 @@ namespace Pastel
 		{
 		public:
 			//! Returns whether 'left' relates to 'right'.
-			template <
-				typename Left, 
-				typename Right>
 			bool operator()(
-				const Left& left, 
-				const Right& right);
+				const UserDefinedType& left, 
+				const UserDefinedType& right);
 		};
 
 	}
