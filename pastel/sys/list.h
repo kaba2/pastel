@@ -542,18 +542,9 @@ namespace Pastel
 
 	template <
 		typename Data_ = void, 
-		typename EndData_ = void>
-	class List_Settings
-	{
-	public:
-		using Data = Data_;
-		using EndData = EndData_;
-	};
-
-	template <
-		typename Data_ = void, 
-		typename EndData_ = void>
-	using List_Set = List<List_Settings<Data_, EndData_>>;
+		typename EndData_ = void,
+		template <typename> class Customization_ = Empty_List_Customization>
+	using List_Set = List<List_Set_Settings<Data_, EndData_>, Customization_>;
 
 }
 
