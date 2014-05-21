@@ -67,3 +67,33 @@ Dividing this by ''h - 1'' gives the ratio of moves compared to the search start
 	1.8183    1.8334    1.8462    1.8572    1.8667    1.8750    1.8824    1.8889    1.8947
 
 This sequence is increasing, and its limit is 2. Therefore a good rule of thumb is that the search starting from the minimum node takes roughly twice the time the search takes from the root node.
+
+Filtered searches in red-black trees
+------------------------------------
+
+We wish to support filtered searches. Here each element is marked or not, and the search is only over the marked elements. For an efficient implementation, a filter needs to be specify
+
+* whether a given element is marked or not (an element-filter), and
+* whether a given subtree contains a marked element or not (a subtree-filter).
+
+### Provide both filters as member functions of an object
+
+The filters are provided as member functions `element()` and `downSet()` of an object. The object is constructed by a helper function which takes as arguments both of the filters. Possible names: tree filter, propagation filter, tree indicator, down-filter,
+
+### Provide both filters separately
+
+We reject this option because it clutters the interface. In addition, it does not enforce the concept that the filter need to be consistent, and provided together.
+
+### Use a three-valued filter
+
+That is, use a 2-bit value, where the first bit tells whether a subtree is marked, and the second bit tells whether the root of the subtree is marked. Since a marked element implies a marked subtree, only the values 0, 1 and 3 are possible.
+
+[[CppCode]]:
+	(((uinteger)node.data().marked) << 1) + (uinteger)node.propagation().marked;
+
+### Count the number of marked elements
+
+The subtree-filter can be specified by counting the number of marked elements in a subtree. The element-filter can be recovered from this subtree-filter by whether the count is different compared to the count of both children.
+
+We reject this option because it is not general enough; propagating the presence of a marked element in a subtree by a bit is enough information to perform a filtered search, but the abstraction does not support it.
+

@@ -43,7 +43,7 @@ namespace Pastel
 
 			// Compute the lower-bound for the element.
 			ConstIterator lower =
-				lowerBound(element.key(), equalAndUpper);
+				lowerBound(equalAndUpper, All_DownFilter());
 
 			// Remove the detached element.
 			that.deallocateNode(node);

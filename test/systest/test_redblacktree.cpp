@@ -27,50 +27,100 @@ namespace
 		{
 		}
 
+		class Propagation
+		{
+		public:
+			integer blackHeight;
+			bool marked;
+		};
+
 		template <typename Settings_>
-		class Counting_Customization
+		class Map_Counting_Customization
+			: public Empty_RedBlackTree_Customization<Settings_>
 		{
 		protected:
 			using Fwd = RedBlackTree_Fwd<Settings_>;
 			PASTEL_FWD(Iterator);
+			PASTEL_FWD(Propagation_Class);
 
-			Counting_Customization() {}
-			void swap(Counting_Customization& that) {}
-			void onConstruction() {}
-			void onClear() {}
-			void onInsert(const Iterator& element) {}
-			void onErase(const Iterator& element) {}
-			void onSpliceFrom(const Iterator& element) {}
-			void onSplice(const Iterator& element) {}
+			Map_Counting_Customization() {}
 
 			void updatePropagation(
 				const Iterator& iter,
-				integer& propagation)
+				Propagation_Class& propagation)
 			{
-				propagation = 
-					std::max(iter.left().propagation(), iter.right().propagation()) +
+				propagation.marked =
+					iter.data().marked ||
+					iter.left().propagation().marked ||
+					iter.right().propagation().marked;
+				propagation.blackHeight = 
+					std::max(iter.left().propagation().blackHeight, iter.right().propagation().blackHeight) +
 					iter.black();
 			}
 
 		private:
-			Counting_Customization(const Counting_Customization& that) = delete;
-			Counting_Customization(Counting_Customization&& that) = delete;
-			Counting_Customization& operator=(Counting_Customization) = delete;
+			Map_Counting_Customization(const Map_Counting_Customization& that) = delete;
+			Map_Counting_Customization(Map_Counting_Customization&& that) = delete;
+			Map_Counting_Customization& operator=(Map_Counting_Customization) = delete;
 		};
 
-		template <typename Data, bool MultipleKeys>
+		template <typename Settings_>
+		class Set_Counting_Customization
+			: public Empty_RedBlackTree_Customization<Settings_>
+		{
+		protected:
+			using Fwd = RedBlackTree_Fwd<Settings_>;
+			PASTEL_FWD(Iterator);
+			PASTEL_FWD(Propagation_Class);
+
+			Set_Counting_Customization() {}
+
+			void updatePropagation(
+				const Iterator& iter,
+				Propagation_Class& propagation)
+			{
+				propagation.blackHeight =
+					std::max(iter.left().propagation().blackHeight, iter.right().propagation().blackHeight) +
+					iter.black();
+			}
+
+		private:
+			Set_Counting_Customization(const Set_Counting_Customization& that) = delete;
+			Set_Counting_Customization(Set_Counting_Customization&& that) = delete;
+			Set_Counting_Customization& operator=(Set_Counting_Customization) = delete;
+		};
+
+		template <typename Data_, bool MultipleKeys>
 		using Counting_Settings =
-			RedBlack_Settings<integer, Data, LessThan, integer, void, MultipleKeys>;
+			RedBlack_Map_Settings<integer, Data_, LessThan, Propagation, void, MultipleKeys>;
+
+		class Data
+		{
+		public:
+			Data(integer value_ = 0, bool marked_ = false)
+				: value(value_)
+				, marked(marked_)
+			{
+			}
+
+			operator integer() const
+			{
+				return value;
+			}
+
+			integer value;
+			bool marked;
+		};
 
 		using Set_Settings = Counting_Settings<void, false>;
 		using MultiSet_Settings = Counting_Settings<void, true>;
-		using Map_Settings = Counting_Settings<integer, false>;
-		using MultiMap_Settings = Counting_Settings<integer, true>;
+		using Map_Settings = Counting_Settings<Data, false>;
+		using MultiMap_Settings = Counting_Settings<Data, true>;
 
-		using Set = RedBlackTree<Set_Settings, Counting_Customization>;
-		using MultiSet = RedBlackTree<MultiSet_Settings, Counting_Customization>;
-		using Map = RedBlackTree<Map_Settings, Counting_Customization>;
-		using MultiMap = RedBlackTree<MultiMap_Settings, Counting_Customization>;
+		using Set = RedBlackTree<Set_Settings, Set_Counting_Customization>;
+		using MultiSet = RedBlackTree<MultiSet_Settings, Set_Counting_Customization>;
+		using Map = RedBlackTree<Map_Settings, Map_Counting_Customization>;
+		using MultiMap = RedBlackTree<MultiMap_Settings, Map_Counting_Customization>;
 
 		virtual void run()
 		{
@@ -79,6 +129,9 @@ namespace
 			testMap();
 			testMultiMap();
 			testVoidSet();
+
+			testMapFilteredSearch<Map>();
+			testMapFilteredSearch<MultiMap>();
 
 			testMultiLowerBound<MultiSet>();
 			testMultiLowerBound<MultiMap>();
@@ -115,6 +168,97 @@ namespace
 			Set tree;
 			TEST_ENSURE(testInvariants(tree));
 			tree.insert(nullptr);
+		}
+
+		template <typename Tree>
+		void testMapFilteredSearch()
+		{
+			using ConstIterator = typename Tree::ConstIterator;
+
+			Tree map
+			{ 
+				{ 2, { 0, false } },
+				{ 4, { 0, false } },
+				{ 5, { 0, true } },
+				{ 6, { 0, false } },
+				{ 9, { 0, false } },
+				{ 10, { 0, true } },
+				{ 14, { 0, true } },
+				{ 16, { 0, false } },
+				{ 19, { 0, false } },
+				{ 20, { 0, true } }
+			};
+
+			class OnlyMarked
+			{
+			public:
+				bool element(const ConstIterator& that) const
+				{
+					return that.data().marked;
+				}
+
+				bool downSet(const ConstIterator& that) const
+				{
+					return that.propagation().marked;
+				}
+			};
+
+			{
+				auto test = [&](integer i)
+				{
+					ConstIterator iter = 
+						map.find(i, OnlyMarked());
+
+					return !iter.isSentinel() &&
+						iter.key() == i &&
+						map.exists(i, OnlyMarked());
+				};
+
+				TEST_ENSURE(!test(2));
+				TEST_ENSURE(!test(4));
+				TEST_ENSURE(!test(6));
+				TEST_ENSURE(!test(9));
+				TEST_ENSURE(!test(16));
+				TEST_ENSURE(!test(19));
+
+				TEST_ENSURE(test(5));
+				TEST_ENSURE(test(10));
+				TEST_ENSURE(test(14));
+				TEST_ENSURE(test(20));
+			}
+			{
+				auto test = [&](integer i, integer correct)
+				{
+					ConstIterator iter = 
+						map.lowerBound(i, OnlyMarked());
+
+					return !iter.isSentinel() &&
+						iter.key() == correct;
+				};
+				
+				TEST_ENSURE(test(-1, 5));
+				TEST_ENSURE(test(0, 5));
+				TEST_ENSURE(test(1, 5));
+				TEST_ENSURE(test(2, 5));
+				TEST_ENSURE(test(3, 5));
+				TEST_ENSURE(test(4, 5));
+				TEST_ENSURE(test(5, 5));
+				TEST_ENSURE(test(6, 10));
+				TEST_ENSURE(test(7, 10));
+				TEST_ENSURE(test(8, 10));
+				TEST_ENSURE(test(9, 10));
+				TEST_ENSURE(test(10, 10));
+				TEST_ENSURE(test(11, 14));
+				TEST_ENSURE(test(12, 14));
+				TEST_ENSURE(test(13, 14));
+				TEST_ENSURE(test(14, 14));
+				TEST_ENSURE(test(15, 20));
+				TEST_ENSURE(test(16, 20));
+				TEST_ENSURE(test(17, 20));
+				TEST_ENSURE(test(18, 20));
+				TEST_ENSURE(test(19, 20));
+				TEST_ENSURE(test(20, 20));
+			}
 		}
 
 		void testSet()

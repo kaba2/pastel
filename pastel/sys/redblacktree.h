@@ -7,6 +7,7 @@
 #include "pastel/sys/redblacktree_concepts.h"
 #include "pastel/sys/redblacktree_node.h"
 #include "pastel/sys/redblacktree_iterator.h"
+#include "pastel/sys/all_downfilter.h"
 
 namespace Pastel
 {
@@ -380,26 +381,41 @@ namespace Pastel
 		//! Returns whether an element is contained in the tree.
 		/*!
 		This is a convenience function which returns
-		findEqual(key) != cend().
+		find(key, filter) != cend().
 		*/
-		bool exists(const Key_Class& key) const
+		template <typename DownFilter = All_DownFilter>
+		bool exists(
+			const Key_Class& key,
+			const DownFilter& filter = DownFilter()) const
 		{
-			return findEqual(key) != cend();
+			return find(key, filter) != cend();
 		}
 
 		//! Searches for the first element with key == 'key'.
 		/*!
+		Preconditions:
+		The subtree-indicator holds for a subtree if and only 
+		if the element-indicator holds for some element in the
+		subtree.
+
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 
 		If there are multiple elements equivalent to 'key',
 		then the first of them is returned (same as lowerBound()).
 		*/
-		ConstIterator find(const Key_Class& key) const;
+		template <typename DownFilter = All_DownFilter>
+		ConstIterator find(
+			const Key_Class& key,
+			const DownFilter& filter = DownFilter()) const;
 
-		Iterator find(const Key_Class& key)
+		template <typename DownFilter = All_DownFilter>
+		Iterator find(
+			const Key_Class& key,
+			const DownFilter& filter = DownFilter())
 		{
-			return cast(addConst(*this).find(key));
+			return cast(addConst(*this).find(
+				key, filter));
 		}
 
 		//! Returns the top-most element equivalent to the key.
@@ -408,8 +424,7 @@ namespace Pastel
 		Exception safety: nothrow
 
 		Equivalently, this is the first element equivalent to
-		the key when traversing the tree in pre-order. This
-		is the fastest way to find some equivalent element.
+		the key when traversing the tree in pre-order.
 		*/
 		ConstIterator findEqual(
 			const Key_Class& key,
@@ -425,16 +440,6 @@ namespace Pastel
 			return cast(addConst(*this).findEqual(key, start));;
 		}
 
-		ConstIterator findEqual(const Key_Class& key) const
-		{
-			return findEqual(key, croot());
-		}
-
-		Iterator findEqual(const Key_Class& key)
-		{
-			return cast(addConst(*this).findEqual(key));
-		}
-
 		//! Finds the top-most element equivalent to key, and an upper bound.
 		/*!
 		Time complexity: O(log(size()))
@@ -444,7 +449,8 @@ namespace Pastel
 		top-most element.
 		*/
 		FindEqual_Return findEqualAndUpper(
-			const Key_Class& key, const ConstIterator& start) const;
+			const Key_Class& key,
+			const ConstIterator& start) const;
 
 		//! Finds the top-most element equivalent to key, and an upper bound.
 		/*!
@@ -490,12 +496,15 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		ConstRange equalRange(const Key_Class& key) const
+		template <typename DownFilter = All_DownFilter>
+		ConstRange equalRange(
+			const Key_Class& key,
+			const DownFilter& filter = DownFilter()) const
 		{
 			auto equalAndUpper = findEqualAndUpper(key);
 			return ConstRange(
-				lowerBound(key, equalAndUpper), 
-				upperBound(key, equalAndUpper));
+				lowerBound(equalAndUpper, filter),
+				upperBound(equalAndUpper.upper, filter));
 		}
 
 		std::pair<ConstIterator, ConstIterator> 
@@ -510,9 +519,13 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		Range equalRange(const Key_Class& key)
+
+		template <typename DownFilter = All_DownFilter>
+		Range equalRange(
+			const Key_Class& key,
+			const DownFilter& filter = DownFilter())
 		{
-			return cast(addConst(*this).equalRange(key));
+			return cast(addConst(*this).equalRange(key, filter));
 		}
 
 		std::pair<Iterator, Iterator> 
@@ -527,9 +540,12 @@ namespace Pastel
 		This is a convenience function which calls
 		equalRange(key).first
 		*/
-		ConstIterator lowerBound(const Key_Class& key) const
+		template <typename DownFilter>
+		ConstIterator lowerBound(
+			const Key_Class& key,
+			const DownFilter& filter) const
 		{
-			return lowerBound(key, findEqualAndUpper(key));
+			return lowerBound(findEqualAndUpper(key), filter);
 		}
 
 		ConstIterator lower_bound(const Key_Class& key) const
@@ -537,9 +553,12 @@ namespace Pastel
 			return lowerBound(key);
 		}
 
-		Iterator lowerBound(const Key_Class& key)
+		template <typename DownFilter = All_DownFilter>
+		Iterator lowerBound(
+			const Key_Class& key,
+			const DownFilter& filter = DownFilter())
 		{
-			return cast(addConst(*this).lowerBound(key));
+			return cast(addConst(*this).lowerBound(key, filter));
 		}
 
 		Iterator lower_bound(const Key_Class& key)
@@ -552,15 +571,17 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
+		template <typename DownFilter>
 		ConstIterator lowerBound(
-			const Key_Class& key,
-			const FindEqual_Return& equalAndUpper) const;
+			const FindEqual_Return& equalAndUpper,
+			const DownFilter& filter) const;
 
+		template <typename DownFilter>
 		Iterator lowerBound(
-			const Key_Class& key,
-			const FindEqual_Return& equalAndUpper)
+			const FindEqual_Return& equalAndUpper,
+			const DownFilter& filter)
 		{
-			return cast(addConst(*this).lowerBound(key, equalAndUpper));
+			return cast(addConst(*this).lowerBound(equalAndUpper, filter));
 		}
 
 		//! Searches for the first element with key > 'key'.
@@ -568,9 +589,12 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		ConstIterator upperBound(const Key_Class& key) const
+		template <typename DownFilter = All_DownFilter>
+		ConstIterator upperBound(
+			const Key_Class& key,
+			const DownFilter& filter = DownFilter()) const
 		{
-			return upperBound(key, findEqualAndUpper(key));
+			return upperBound(findEqualAndUpper(key).upper, filter);
 		}
 
 		ConstIterator upper_bound(const Key_Class& key) const
@@ -578,9 +602,12 @@ namespace Pastel
 			return upperBound(key);
 		}
 
-		Iterator upperBound(const Key_Class& key)
+		template <typename DownFilter = All_DownFilter>
+		Iterator upperBound(
+			const Key_Class& key,
+			const DownFilter& filter = DownFilter())
 		{
-			return cast(addConst(*this).upperBound(key));
+			return cast(addConst(*this).upperBound(key, filter));
 		}
 
 		Iterator upper_bound(const Key_Class& key)
@@ -593,19 +620,45 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
+		template <typename DownFilter>
 		ConstIterator upperBound(
-			const Key_Class& key,
-			const FindEqual_Return& equalAndUpper) const
+			const ConstIterator& upper,
+			const DownFilter& filter) const
 		{
-			return findInsert(key, equalAndUpper).upper;
+			if (!filter.element(upper))
+			{
+				return upper.next(filter);
+			}
+			return upper;
 		}
 
+		template <typename DownFilter>
 		Iterator upperBound(
-			const Key_Class& key,
-			const FindEqual_Return& equalAndUpper)
+			const ConstIterator& upper,
+			const DownFilter& filter)
 		{
-			return cast(addConst(*this).upperBound(key, equalAndUpper));
+			return cast(addConst(*this).upperBound(upper, filter));
 		}
+
+		//! Returns the first equivalent element below.
+		/*!
+		Time complexity: O(log(below.size()))
+		Exception safety: nothrow
+		*/
+		template <typename DownFilter>
+		ConstIterator findFirstEquivalentBelow(
+			const ConstIterator& below,
+			const DownFilter& filter) const;
+		
+		//! Returns the first element below.
+		/*!
+		Time complexity: O(log(below.size()))
+		Exception safety: nothrow
+		*/
+		template <typename DownFilter>
+		ConstIterator findFirstBelow(
+			const ConstIterator& below,
+			const DownFilter& filter) const;
 
 		//! Casts away iterator constness.
 		/*!
@@ -671,13 +724,6 @@ namespace Pastel
 		over the joins caused by the split.
 		*/
 		RedBlackTree split(const ConstIterator& rightBegin);
-
-		//! Splits the tree into two.
-		/*!
-		This is a convenience function which returns
-		split(lowerBound(key)).
-		*/
-		RedBlackTree split(const Key_Class& key);
 
 		//! Returns the number of equivalent elements.
 		/*!
@@ -1315,66 +1361,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	//! Returns whether the red-black tree invariants hold for the tree.
-	/*!
-	Time complexity: O(tree.size())
-	Exception safety: nothrow
-
-	This function is useful only for testing. For a correct implementation
-	this function will always return true.
-	*/
-	template <typename Settings, template <typename> class Customization>
-	bool testInvariants(const RedBlackTree<Settings, Customization>& tree);
-
-	//! Returns the alpha-quantile of the elements.
-	/*!
-	Time complexity:
-	O(log(tree.size())), if the alpha-quantile is not cbegin() or clast(),
-	O(1), otherwise
-
-	returns:
-	An element with the index closest to floor(alpha * tree.size()). This 
-	corresponds to assigning an element with an index i the quantile 
-	f(i) = (i + 0.5) / tree.size(), and then returning the element with
-	the closest quantile. For example, if the elements are [a, b, c, d, e],
-	then (-inf, 0.2) ==> a, [0.2, 0.4) ==> b, [0.4, 0.6) ==> c, [0.6, 0.8) ==> d,
-	[0.8, inf) ==> e.
-	*/
-	template <typename Settings, template <typename> class Customization>
-	typename RedBlackTree<Settings, Customization>::ConstIterator
-	quantile(
-		const RedBlackTree<Settings, Customization>& tree,
-		real alpha);
-
-}
-
-namespace Pastel
-{
-
-	template <
-		typename Key_, 
-		typename Data_ = void,
-		typename Less_ = LessThan,
-		typename Propagation_ = void,
-		typename SentinelData_ = void,
-		bool MultipleKeys_ = false>
-	class RedBlack_Settings
-	{
-	public:
-		using Key = Key_;
-		using Data = Data_;
-		using Less = Less_;
-		using Propagation = Propagation_;
-		using SentinelData = SentinelData_;
-		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
-	};
-
-}
-
-// Map
-
-namespace Pastel
-{
+	// Map
 
 	template <
 		typename Key = void, 
@@ -1384,8 +1371,10 @@ namespace Pastel
 		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlackTree_Map = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation, SentinelData, false>, 
+		RedBlackTree<RedBlack_Map_Settings<Key, Data, Less, Propagation, SentinelData, false>, 
 		Customization>;
+
+	// Multi-map
 
 	template <
 		typename Key = void, 
@@ -1395,15 +1384,10 @@ namespace Pastel
 		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlackTree_MultiMap = 
-		RedBlackTree<RedBlack_Settings<Key, Data, Less, Propagation, SentinelData, true>, 
+		RedBlackTree<RedBlack_Map_Settings<Key, Data, Less, Propagation, SentinelData, true>, 
 		Customization>;
 
-}
-
-// Set
-
-namespace Pastel
-{
+	// Set
 
 	template <
 		typename Key = void,
@@ -1412,8 +1396,10 @@ namespace Pastel
 		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlackTree_Set = 
-		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, SentinelData, false>, 
+		RedBlackTree<RedBlack_Set_Settings<Key, Less, Propagation, SentinelData, false>, 
 		Customization>;
+
+	// Multi-set
 
 	template <
 		typename Key = void, 
@@ -1422,7 +1408,7 @@ namespace Pastel
 		typename SentinelData = void,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlackTree_MultiSet = 
-		RedBlackTree<RedBlack_Settings<Key, void, Less, Propagation, SentinelData, true>, 
+		RedBlackTree<RedBlack_Set_Settings<Key, Less, Propagation, SentinelData, true>, 
 		Customization>;
 
 }
@@ -1431,8 +1417,9 @@ namespace Pastel
 #include "pastel/sys/redblacktree_copy.hpp"
 #include "pastel/sys/redblacktree_count.hpp"
 #include "pastel/sys/redblacktree_erase.hpp"
+#include "pastel/sys/redblacktree_find_below.hpp"
 #include "pastel/sys/redblacktree_insert.hpp"
-#include "pastel/sys/redblacktree_invariants.hpp"
+#include "pastel/sys/redblacktree_invariants.h"
 #include "pastel/sys/redblacktree_join.hpp"
 #include "pastel/sys/redblacktree_rebalance_black_loss.hpp"
 #include "pastel/sys/redblacktree_rebalance_red_violation.hpp"
@@ -1441,6 +1428,6 @@ namespace Pastel
 #include "pastel/sys/redblacktree_splice.hpp"
 #include "pastel/sys/redblacktree_split.hpp"
 #include "pastel/sys/redblacktree_swap.hpp"
-#include "pastel/sys/redblacktree_quantile.hpp"
+#include "pastel/sys/redblacktree_quantile.h"
 
 #endif

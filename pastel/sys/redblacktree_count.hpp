@@ -11,7 +11,7 @@ namespace Pastel
 		const Key_Class& key) const
 	{
 		// Find the top-most node equivalent to the key.
-		ConstIterator equal = findEqual(key);
+		ConstIterator equal = findEqualAndUpper(key).equal;
 
 		if (equal.isSentinel())
 		{

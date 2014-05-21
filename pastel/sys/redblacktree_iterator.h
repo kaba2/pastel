@@ -6,6 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/redblacktree_node.h"
+#include "pastel/sys/all_indicator.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 
@@ -217,6 +218,60 @@ namespace Pastel
 				return Iterator(node()->child(right));
 			}
 
+			template <
+				bool Right = true, 
+				typename DownFilter = All_DownFilter>
+			Iterator next(const DownFilter& filter = DownFilter()) const
+			{
+				auto valid = [&](const NodePtr& node)
+					-> bool
+				{
+					return !node->isSentinel() &&
+						filter.element(Iterator(node));
+				};
+
+				NodePtr node = this->base();
+				if (valid(node->child(Right)))
+				{
+					node = node->child(Right);
+					while (valid(node->child(!Right)))
+					{
+						node = node->child(!Right);
+					}
+				}
+				else
+				{
+					NodePtr prevNode = node;
+					do
+					{
+						prevNode = node;
+						node = node->parent();
+						// It is essential to test for 
+						// prevNode != node->child(!Right)
+						// rather than 
+						// prevNode == node->child(Right).
+						// The difference occurs when 'node'
+						// is the end-node.
+					} 
+					while (!node->isSentinel() &&
+						(prevNode != node->child(!Right) || 
+						!filter.element(Iterator(node))));
+				}
+
+				return Iterator(node);
+			}
+
+			//! Returns the previous node.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			template <typename DownFilter = All_DownFilter>
+			Iterator prev(const DownFilter& filter = DownFilter()) const
+			{
+				return next<false>(filter);
+			}
+
 			//! Returns whether the node is red.
 			/*!
 			Time complexity: O(1)
@@ -289,45 +344,14 @@ namespace Pastel
 				return dereference(DereferenceTag());
 			}
 
-			template <bool Right>
-			void increment_()
-			{
-				NodePtr& node_ = this->base_reference();
-
-				if (node_->child(Right)->isSentinel())
-				{
-					NodePtr prevNode = node_;
-					do
-					{
-						prevNode = node_;
-						node_ = node_->parent();
-						// It is essential to test for 
-						// prevNode != node_->child(!Right)
-						// rather than 
-						// prevNode == node_->child(Right).
-						// The difference occurs when 'node'
-						// is the end-node.
-					} while (!node_->isSentinel() &&
-						prevNode != node_->child(!Right));
-				}
-				else
-				{
-					node_ = node_->child(Right);
-					while (!node_->child(!Right)->isSentinel())
-					{
-						node_ = node_->child(!Right);
-					}
-				}
-			}
-
 			void increment() 
 			{ 
-				increment_<true>();
+				base_reference() = next<true>(All_DownFilter()).base();
 			}
 
 			void decrement() 
 			{ 
-				increment_<false>();
+				base_reference() = next<false>(All_DownFilter()).base();
 			}
 		};
 	

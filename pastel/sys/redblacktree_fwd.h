@@ -163,4 +163,87 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	template <
+		typename Key_ = void, 
+		typename Data_ = void,
+		typename Less_ = LessThan,
+		typename Propagation_ = void,
+		typename SentinelData_ = void,
+		bool MultipleKeys_ = false>
+	class RedBlack_Map_Settings
+	{
+	public:
+		using Key = Key_;
+		using Data = Data_;
+		using Less = Less_;
+		using Propagation = Propagation_;
+		using SentinelData = SentinelData_;
+		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
+	};
+
+	template <
+		typename Key_ = void, 
+		typename Less_ = LessThan,
+		typename Propagation_ = void,
+		typename SentinelData_ = void,
+		bool MultipleKeys_ = false>
+	using RedBlack_Set_Settings =
+		RedBlack_Map_Settings<Key_, void, Less_, Propagation_, SentinelData_, MultipleKeys_>;
+
+}
+
+// FIX: We could do the below much clearer by forwarding a parameter pack
+// instead. Unfortunately, that triggers a bug in Visual Studio 2013 SP2.
+// Fix this after the bug is resolved.
+
+namespace Pastel
+{
+
+	// Map
+	
+	template <
+		typename Key = void, 
+		typename Data = void,
+		typename Less = LessThan,
+		typename Propagation = void,
+		typename SentinelData = void>
+	using RedBlackTree_Map_Fwd = 
+		RedBlackTree_Fwd<RedBlack_Map_Settings<Key, Data, Less, Propagation, SentinelData, false>>;
+
+	// Multi-map
+
+	template <
+		typename Key = void, 
+		typename Data = void,
+		typename Less = LessThan,
+		typename Propagation = void,
+		typename SentinelData = void>
+	using RedBlackTree_MultiMap_Fwd = 
+		RedBlackTree_Fwd<RedBlack_Map_Settings<Key, Data, Less, Propagation, SentinelData, true>>;
+
+	// Set
+
+	template <
+		typename Key = void,
+		typename Less = LessThan,
+		typename Propagation = void,
+		typename SentinelData = void>
+	using RedBlackTree_Set_Fwd = 
+		RedBlackTree_Fwd<RedBlack_Set_Settings<Key, Less, Propagation, SentinelData, false>>;
+
+	// Multi-set
+
+	template <
+		typename Key = void, 
+		typename Less = LessThan,
+		typename Propagation = void,
+		typename SentinelData = void>
+	using RedBlackTree_MultiSet_Fwd = 
+		RedBlackTree_Fwd<RedBlack_Set_Settings<Key, Less, Propagation, SentinelData, true>>;
+
+}
+
 #endif
