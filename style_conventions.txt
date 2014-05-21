@@ -19,6 +19,8 @@ Naming
 
 * Types: `LikeThis`
 
+* [Forward-declaration types][Forward]: `LikeThis_Fwd`.
+
 * Public namespaces: `LikeThis`
 
 * Private namespaces: `LikeThis_`
@@ -35,13 +37,11 @@ Naming
 	
 * Template parameters: `LikeThis_`. This convention avoids naming conflicts between template parameters, class member types, and class member constants.
 	
-* The _user_ of the library must never need to use a name with a trailing underscore.
-
 * Class static variables: `likeThis__`
 
 * Files: `intersect_alignedbox_alignedbox.h`
 
-* Aggregation files: `filters.h`
+* [Aggregation files][Aggregation]: `filters.h`
 
 * Directories: `pastel/sys/`
 
@@ -92,8 +92,6 @@ no better name.
 
 * In a switch structure, if one case is meant to slip through to the handler of the next case, comment it with a `Fall-through`.
 
-* Specify variables const as often as possible. This makes the code easier to read since the reader can fix the meaning and value of a variable in his head for the rest of the code. For example: `const integer index = i * 5 + 1;`. Exception: Do not specify function parameters given by value as const. This makes function declarations look odd and thus harder to read because it is unconventional.
-
 Operators
 ---------
 
@@ -124,25 +122,17 @@ Line-breaks
 File names
 ----------
 
-* Separate templates into two files: one for the function declarations (class definition) and one for the function definitions.
+* Class definition (function declaration) files: `.h`
 
-* Name class definition (function declaration) files .h.
+* Non-template function definition files: `.cpp`
 
-* Name normal source files .cpp.
+* Template/inline function definition files: `.hpp`
 
-* Name template/inline source files .hpp.
+* [Forward-declaration type][Forward] files: `like_this_fwd.h`.
 
 * Include the .hpp file in its corresponding .h file.
 
 * Include the .h file in its corresponding .hpp file.
 
-Rejected rules
---------------
-
-For readability, the following have been explicitly rejected:
-
-* Hungarian notation, encoding the type of the variable into the variable name. For example `iSize` for variable named `size` of int type.
-
-* Using `get` prefix in getters. It is clearer to read `if (cow.weight() > 5)` than `if (cow.getWeight() > 5)`.
-
-* Using `is` prefix in boolean getters (except for the exception). This prefix leads to long inflections. It is clearer to read `if (overlaps(sphere, alignedBox))` than `if (isOverlapping(sphere, alignedBox))`.
+[Forward]: [[Ref]]: forward_declaration.txt
+[Aggregation]: [[Ref]]: aggregation_files.txt
