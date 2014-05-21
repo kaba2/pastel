@@ -244,8 +244,10 @@ if (MSVC)
 	set(CMAKE_SUPPRESS_REGENERATION TRUE)
 
 	add_definitions (
-		# Disable Microsoft's Secure STL
+		# Disable Microsoft's Secure STL.
 		/D_ITERATOR_DEBUG_LEVEL=0
+		# Use multiple processes for compiling.
+		/MP
 	)
 
 	# Disable some warnings.
