@@ -2,27 +2,26 @@
 #define PASTELSYS_REDBLACKTREE_SEARCH_HPP
 
 #include "pastel/sys/redblacktree.h"
-#include "pastel/sys/directed_predicate.h"
 
 namespace Pastel
 {
 
 	template <typename Settings, template <typename> class Customization>
+	template <typename DownFilter>
 	auto RedBlackTree<Settings, Customization>::find(
-		const Key_Class& key) const
+		const Key_Class& key,
+		const DownFilter& filter) const
 	-> ConstIterator
 	{
 		auto equalAndUpper = findEqualAndUpper(key);
-		if (equalAndUpper.equal != cend())
-		{
-			return lowerBound(key, equalAndUpper);
-		}
-		return cend();
+		return findFirstEquivalentBelow(
+			equalAndUpper.equal, filter);
 	}
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::findEqualAndUpper(
-		const Key_Class& key, const ConstIterator& start) const
+		const Key_Class& key,
+		const ConstIterator& start) const
 		-> FindEqual_Return
 	{
 		ConstIterator node = start;
@@ -54,73 +53,33 @@ namespace Pastel
 			}
 		}
 
-		if (node == ConstIterator(bottomNode()))
+		if (node.isSentinel())
 		{
-			node = ConstIterator(endNode());
+			node = cend();
 		}
 
 		return FindEqual_Return{node, upper};
 	}
 
 	template <typename Settings, template <typename> class Customization>
+	template <typename DownFilter>
 	auto RedBlackTree<Settings, Customization>::lowerBound(
-		const Key_Class& key, 
-		const FindEqual_Return& equalAndUpper) const
+		const FindEqual_Return& equalAndUpper,
+		const DownFilter& filter) const
 		-> ConstIterator
 	{
 		ConstIterator equal = equalAndUpper.equal;
 		ConstIterator upper = equalAndUpper.upper;
 
-		bool keyExists = !equal.isSentinel();
-		if (!keyExists)
+		if (equal.isSentinel())
 		{
-			// The key does not exists in the tree.
+			// The key does not exist in the tree.
 			// Therefore the lower bound is the same
 			// as the upper bound.
-			return upper;
+			return upperBound(upper, filter);
 		}
 
-		ConstIterator lower = equal;
-		while(true)
-		{
-			// Find the leftmost equivalent element.
-			while (!lower.left().isSentinel() &&
-  				   !less(lower.left().key(), key))
-			{
-				lower = lower.left();
-			}
-
-			if (lower.left().isSentinel())
-			{
-				// The 'lower' is the first of the
-				// equivalent elements.
-				break;
-			}
-
-			// See if there is an equivalent element 
-			// preceeding the current 'lower'.
-			ConstIterator iter = lower.left();
-			while (!iter.right().isSentinel() &&
-				less(iter.right().key(), key))
-			{
-				iter = iter.right();
-			}
-			
-			if (iter.right().isSentinel())
-			{
-				// The 'lower' is the first of the
-				// equivalent elements.
-				break;
-			}
-
-			lower = iter.right();
-
-			// We found a new 'lower' which is again 
-			// equivalent to the 'key'.
-			ASSERT(!less(key, lower.key()));
-		}
-
-		return lower;
+		return findFirstEquivalentBelow(equal, filter);
 	}
 
 	template <typename Settings, template <typename> class Customization>

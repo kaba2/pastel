@@ -24,6 +24,9 @@ namespace Pastel
 		public:
 			using Fwd = SkipFast_Fwd<Settings>;
 			PASTEL_FWD(Chain_Iterator);
+			PASTEL_FWD(Chain_ConstIterator);
+			PASTEL_FWD(Chain_Iterator_Local);
+			PASTEL_FWD(Chain_ConstIterator_Local);
 
 			//! Forwards all constructors to the base-iterator.
 			/*!
@@ -45,63 +48,62 @@ namespace Pastel
 			//! Moves to the next element.
 			/*!
 			Time complexity: 
-			O(1) amortized + O(k)
+			O(1) amortized + O(log(k))
 			where
-			k is the number of skipped empty trees.
+			k is the number of skipped empty chains.
 
 			Exception safety: nothrow
 			*/
-			template <integer Step>
-			Iterator& increment()
+			template <bool Right = true>
+			Iterator next() const
 			{
-				Base_Iterator& iter = *this;
+				PASTEL_CONSTEXPR integer Step = Right ? 1 : -1;
+
+				auto onlyNonEmpty = [](const Chain_ConstIterator& chain)
+					-> bool
+				{
+					return chain.propagation().nonEmpty;
+				};
 
 				// Go to the next element.
-				iter = std::next(iter, Step);
+				Base_Iterator iter = std::next((Base_Iterator&)*this, Step);
 
 				if (iter.isSentinel())
 				{
 					// There are no more elements in the
 					// current chain.
-					auto chain = iter.sentinelData().chain;
+					Chain_Iterator_Local chain = 
+						iter.sentinelData().chain;
 
-					// Go to the next chain.
-					chain = std::next(chain, Step);
+					// Go to the next non-empty chain.
+					//chain = chain.next<Right>(onlyNonEmpty);
 
 					if (chain.isSentinel())
 					{
-						// There are no more chains the current
-						// chain-group.
-
-						Chain_Iterator globalChain = chain;
+						// There are no more non-empty chains 
+						// in the current chain-group.
 
 						// Find the current chain-group.
-						auto group = globalChain.findTree();
+						auto group = Chain_ConstIterator(chain).findTree();
 
 						// Go to the next chain-group.
 						group = std::next(group, Step);
-						if (group->cend().sentinelData().type == GroupType::Empty)
-						{
-							// The next chain-group contains only
-							// empty chains. Skip it.
-							group = std::next(group, Step);
-
-						}
 
 						// Pick the extremum chain of the chain-group.
-						chain = std::next(group->end(), Step);
+						chain = group->end().next<Right>(onlyNonEmpty);
 					}
 
 					// Pick the extremum element of the chain.
 					iter = std::next(chain->elementSet_.end(), Step);
 				}
 				
-				return *this;
+				return Iterator(iter);
 			}
 
 			Iterator& operator++()
 			{
-				return increment<1>();
+				*this = next<true>();
+				return *this;
 			}
 
 			//! Moves to the next element.
@@ -127,7 +129,8 @@ namespace Pastel
 			*/
 			Iterator& operator--()
 			{
-				return increment<-1>();
+				*this = next<false>();
+				return *this;
 			}
 
 			//! Moves to the previous element.

@@ -19,15 +19,31 @@ namespace Pastel
 	public:
 		using Fwd = Settings;
 
+		template <typename Tree>
+		class GetSettings;
+
+		template <
+			typename Settings_,
+			template <typename> class Customization_>
+		class GetSettings<RedBlackTree<Settings_, Customization_>>
+		{
+		public:
+			using type = Settings_;
+		};
+
 		using User_Tree = typename Settings::Tree;
-		using User_SentinelData = typename User_Tree::Settings::SentinelData;
+		using User_Tree_Settings = typename GetSettings<User_Tree>::type;
+		using User_Tree_Fwd = RedBlackTree_Fwd<User_Tree_Settings>;
+		using User_SentinelData = typename User_Tree_Settings::SentinelData;
 
 		class Tree_Settings;
 		using Tree = RedBlackTree<Tree_Settings>;
+		using Tree_Fwd = RedBlackTree_Fwd<Tree_Settings>;
 
 		using TreeSet = List_Set<Tree>;
-		using Tree_Iterator = typename TreeSet::Iterator;
-		using Tree_ConstIterator = typename TreeSet::ConstIterator;
+		using TreeSet_Fwd = List_Set_Fwd<Tree>;
+		using Tree_Iterator = typename TreeSet_Fwd::Iterator;
+		using Tree_ConstIterator = typename TreeSet_Fwd::ConstIterator;
 		using Tree_Range = boost::iterator_range<Tree_Iterator>;
 		using Tree_ConstRange = boost::iterator_range<Tree_ConstIterator>;
 
@@ -79,15 +95,15 @@ namespace Pastel
 		};
 
 		class Tree_Settings
-		: public User_Tree::Settings
+		: public User_Tree_Settings
 		{
 		public:
 			// Override the sentinel data, but preserve everything else.
 			using SentinelData = Tree_SentinelData;
 		};
 
-		using Element_Iterator = typename Tree::Iterator;
-		using Element_ConstIterator = typename Tree::ConstIterator;
+		using Element_Iterator = typename Tree_Fwd::Iterator;
+		using Element_ConstIterator = typename Tree_Fwd::ConstIterator;
 
 		using ConstIterator = RedBlackForest_::Iterator<Element_ConstIterator>;
 		using Iterator = RedBlackForest_::Iterator<Element_Iterator>;

@@ -4,7 +4,6 @@
 #define PASTELSYS_SKIPFAST_H
 
 #include "pastel/sys/skipfast_concepts.h"
-
 #include "pastel/sys/skipfast_fwd.h"
 #include "pastel/sys/skipfast_chain.h"
 #include "pastel/sys/skipfast_iterator.h"
@@ -76,8 +75,6 @@ namespace Pastel
 
 		PASTEL_CONSTEXPR integer Bits = Settings::Bits;
 
-		using GroupType = SkipFast_::GroupType;
-		
 	public:
 
 		//! Constructs an empty trie.
@@ -278,6 +275,19 @@ namespace Pastel
 			// TODO: Merge chains etc.
 			ASSERT(false);
 
+			if (even(lowestAncestor.key()))
+			{
+				// Find a fork to merge.
+
+				// Find the group of the lowest ancestor.
+				Group_Iterator group = lowestAncestor.findTree();
+				--group;
+				if (group->cend().sentinelData().type == GroupType::Empty)
+				{
+					--group;
+				}
+			}
+
 			return nextElement;
 		}
 
@@ -367,7 +377,8 @@ namespace Pastel
 			}
 
 			//! Find the lowest ancestor.
-			Chain_ConstIterator chain = findLowestAncestor(key).first;
+			Chain_ConstIterator chain = 
+				findLowestAncestor(key).first;
 
 			// Search for the upper-bound in the
 			// element-set of the lowest ancestor.
@@ -381,46 +392,10 @@ namespace Pastel
 			}
 
 			// An upper-bound was not found in the
-			// current group.
+			// lowest ancestor.
 
-			// Find the group of the lowest-ancestor.
-			Group_ConstIterator group = chain.findTree();
-
-			// Skip to the next group.
-			++group;
-
-			GroupType type =
-				group->cend().sentinelData().type;
-			if (type == GroupType::Empty)
-			{
-				// The group has only empty
-				// chains. Skip to the next group.
-				++group;
-
-				if (group == groupSet_.ctreeEnd())
-				{
-					// The next group does not exist;
-					// the upper-bound is the end-node.
-					return cend();
-				}
-
-				// Since the groups are maximal
-				// for a given type, all the chains
-				// in this group are non-empty,
-				ASSERT(group->cend().sentinelData().type != GroupType::Empty);
-			}
-
-			// The next non-empty chain is given
-			// by the minimum element of the 
-			// next non-empty group.
-			Chain_ConstIterator nextChain =
-				group->begin();
-			ASSERT(!nextChain->elementSet_.empty());
-
-			// The upper-bound is given by the
-			// minimum element of the next 
-			// non-empty chain.
-			return nextChain->elementSet_.begin();
+			ConstIterator result = chain->elementSet_.clast();
+			return std::next(result);
 		}
 
 		ConstIterator upper_bound(const Key& key) const
@@ -896,7 +871,8 @@ namespace Pastel
 			splitKey.clearBits(0, height - 1);
 
 			// Split elements into the new bucket.
-			chain->elementSet_ = above->elementSet_.split(splitKey);
+			chain->elementSet_ = above->elementSet_.split(
+				above->elementSet_.lowerBound(splitKey));
 			if (odd(above.key()))
 			{
 				chain->elementSet_.swapElements(above->elementSet_);

@@ -27,11 +27,31 @@ namespace Pastel
 		template <typename, typename>
 		class Iterator;
 
-		enum class GroupType
+		template <typename Settings>
+		class Chain_Customization
+		: public Empty_RedBlackTree_Customization<Settings>
 		{
-			Empty,
-			Even,
-			Odd
+		protected:
+			using Fwd = RedBlackTree_Fwd<Settings>;
+
+			PASTEL_FWD(Iterator);
+			PASTEL_FWD(ConstIterator);
+			PASTEL_FWD(Propagation_Class);
+
+			void updatePropagation(
+				const Iterator& element,
+				Propagation_Class& propagation) 
+			{
+				propagation.nonEmpty = 
+					!element->elementSet_.empty() ||
+					element.left()->propagation().nonEmpty ||
+					element.right()->propagation().nonEmpty;
+			}
+
+		private:
+			Chain_Customization(const Chain_Customization& that) = delete;
+			Chain_Customization(Chain_Customization&& that) = delete;
+			Chain_Customization& operator=(Chain_Customization) = delete;
 		};
 
 	}
@@ -51,15 +71,17 @@ namespace Pastel
 		using Key = Unsigned_Integer<Bits>;
 		using Value = typename Settings::Value;
 		using Value_Class = As_Class<Value>;
-		
-		class GroupData
+
+		class Chain_Propagation
 		{
 		public:
-			SkipFast_::GroupType type;
+			bool nonEmpty;
 		};
 
 		using Chain = SkipFast_::Chain<Settings>;
-		using Group = RedBlackTree_Map<Key, Chain, LessThan, void, GroupData>;
+		using Group = RedBlackTree_Map<Key, Chain, LessThan, 
+			Chain_Propagation, void, 
+			SkipFast_::Chain_Customization>;
 
 		using GroupSet = RedBlackForest_Set<Group>;
 		using Group_ConstIterator = typename GroupSet::Tree_ConstIterator;
