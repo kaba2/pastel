@@ -4,6 +4,8 @@
 #ifndef PASTELSYS_DIRECTOR_CONCEPT_H
 #define PASTELSYS_DIRECTOR_CONCEPT_H
 
+#include "pastel/sys/integer_concept.h"
+
 namespace Pastel
 {
 
@@ -20,10 +22,11 @@ namespace Pastel
 		*/
 		class Director
 		{
-		public:
+		private:
 			//! A type of the Integer concept.
 			using Integer = UserDefinedType;
 
+		public:
 			//! Returns f(n).
 			Integer operator()(const Integer& n);
 		};
