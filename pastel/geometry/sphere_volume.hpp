@@ -10,6 +10,14 @@ namespace Pastel
 {
 
 	template <typename Real>
+	Real lnVolumeUnitSphereManhattan(integer dimension)
+	{
+		PENSURE_OP(dimension, >, 0);
+
+		return dimension * constantLn2<Real>() - lnFactorial<Real>(dimension);
+	}
+
+	template <typename Real>
 	Real lnVolumeUnitSphereEuclidean(integer dimension)
 	{
 		PENSURE_OP(dimension, >, 0);
@@ -18,11 +26,20 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Real lnVolumeUnitSphereManhattan(integer dimension)
+	Real lnVolumeUnitSphereMinkowski(
+		integer dimension, 
+		const PASTEL_NO_DEDUCTION(Real)& power)
 	{
 		PENSURE_OP(dimension, >, 0);
+		PENSURE_OP(power, >, 0);
 
-		return dimension * constantLn2<Real>() - lnFactorial<Real>(dimension);
+		Real inversePower = inverse(power);
+
+		// From Wikipedia "Volume of an n-ball"
+		return 
+			lnGamma<Real>(inversePower + 1) - 
+			lnGamma<Real>(dimension * inversePower + 1) +
+			dimension * constantLn2<Real>();
 	}
 
 	template <typename Real>

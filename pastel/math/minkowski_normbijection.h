@@ -6,6 +6,8 @@
 #define PASTELMATH_MINKOWSKI_NORMBIJECTION_H
 
 #include "pastel/sys/vector_tools.h"
+#include "pastel/sys/gamma.h"
+#include "pastel/sys/constants.h"
 
 #include "pastel/geometry/sphere_volume.h"
 
@@ -27,49 +29,61 @@ namespace Pastel
 			: power_(power)
 			, invPower_(inverse(power))
 		{
+			// The Minkowski norm is a norm only for p >= 1.
 			ENSURE_OP(power, >=, 1);
 		}
 
-		// No idea how to compute this one!
-		/*
+		const Real& power() const
+		{
+			return power_;
+		}
+
+		const Real& inversePower() const
+		{
+			return invPower_;
+		}
+
 		Real lnVolumeUnitSphere(integer dimension) const
 		{
-			// FIX: TODO
+			// From Wikipedia "Volume of an n-ball"
+			return 
+				lnGamma<Real>(inversePower() + 1) - 
+				lnGamma<Real>(dimension * inversePower() + 1) +
+				dimension * constantLn2<Real>();
 		}
-		*/
 
 		Real toNorm(const Real& normBijection) const
 		{
-			return std::pow(normBijection, invPower_);
+			return std::pow(normBijection, inversePower());
 		}
 
 		Real toLnNorm(const Real& normBijection) const
 		{
-			return invPower_ * std::log(normBijection);
+			return inversePower() * std::log(normBijection);
 		}
 
 		Real toBijection(const Real& norm) const
 		{
 			PENSURE_OP(norm, >=, 0);
-			return std::pow(norm, power_);
+			return std::pow(norm, power());
 		}
 
 		Real scalingFactor(
 			const Real& scaling) const
 		{
-			return std::pow(mabs(scaling), power_);
+			return std::pow(mabs(scaling), power());
 		}
 
 		Real axis(
 			const Real& axisDistance) const
 		{
-			return std::pow(axisDistance, power_);
+			return std::pow(axisDistance, power());
 		}
 
 		Real signedAxis(
 			const Real& axisDistance) const
 		{
-			return std::pow(mabs(axisDistance), power_);
+			return std::pow(mabs(axisDistance), power());
 		}
 
 		Real addAxis(
