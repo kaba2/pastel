@@ -3,4 +3,14 @@ Down filter
 
 [[Parent]]: generic_programming.txt
 
-A _down filter_ is a pair of binary predicates on a pre-ordered set ''X'', called the element-filter and the down-set-filter. The _element filter_ identifies a subset ''X'', called the _marked elements_. The _down-set filter_ tells whether there are any marked elements in the (principal) down-set of a given element.
+A _down filter_ is a pair of binary predicates on a preordered set ''X'', called the element-filter and the down-set-filter. The _element filter_ identifies a subset of ''X'', called the _marked elements_. The _down-set filter_ tells whether there are any marked elements in the principal down-set of a given element.
+
+Theory
+------
+
+The _down-set of a subset_ ''S subset X'' in ''X'' is the set
+
+[[EquationSet]]:
+	"down"(S) = {x in X : exists s in S: x <= s}
+
+A subset ''U subset X'' is called a _down-set_ if it is a down-set of some subset ''S subset X''. A down-set is called _principal_ if it is a down-set of a singular subset.
