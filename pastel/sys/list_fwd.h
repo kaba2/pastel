@@ -12,7 +12,7 @@ namespace Pastel
 	namespace List_
 	{
 		
-		template <typename, typename>
+		template <typename>
 		class Iterator;
 
 		template <typename>
@@ -23,6 +23,26 @@ namespace Pastel
 
 		template <typename>
 		class Data_Node;
+
+		template <
+			typename Data_Class_,
+			typename EndData_Class_>
+		class Node_Settings
+		{
+		public:
+			using Data_Class = Data_Class_;
+			using EndData_Class = EndData_Class_;
+		};
+
+		template <
+			typename Node_Settings_,
+			typename NodePtr_>
+		class Iterator_Settings
+		{
+		public:
+			using Node_Settings = Node_Settings_;
+			using NodePtr = NodePtr_;
+		};
 
 	}
 
@@ -40,20 +60,18 @@ namespace Pastel
 		using Data_Class = As_Class<Data>;
 		using EndData_Class = As_Class<EndData>;
 
-		class Node_Settings;
+		using Node_Settings = List_::Node_Settings<Data_Class, EndData_Class>;
 		using Node = List_::Node<Node_Settings>;
 		using End_Node = List_::End_Node<Node_Settings>;
 		using Data_Node = List_::Data_Node<Node_Settings>;
 
-		class Node_Settings
-		{
-		public:
-			using Data_Class = Data_Class;
-			using EndData_Class = EndData_Class;
-		};
+		using Iterator_Settings = List_::Iterator_Settings<
+			Node_Settings, Node*>;
+		using ConstIterator_Settings = List_::Iterator_Settings<
+			Node_Settings, const Node*>;
 
-		using Iterator = List_::Iterator<Node*, Node_Settings>;
-		using ConstIterator = List_::Iterator<const Node*, Node_Settings>;
+		using Iterator = List_::Iterator<Iterator_Settings>;
+		using ConstIterator = List_::Iterator<ConstIterator_Settings>;
 		using Range = boost::iterator_range<Iterator>;
 		using ConstRange = boost::iterator_range<ConstIterator>;
 

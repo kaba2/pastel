@@ -16,24 +16,24 @@ namespace Pastel
 	namespace List_
 	{
 
-		template <
-			typename NodePtr,
-			typename Node_Settings>
+		template <typename Settings>
 		class Iterator
 			: public boost::iterator_adaptor<
-			Iterator<NodePtr, Node_Settings>, 
-			NodePtr,
+			Iterator<Settings>, 
+			typename Settings::NodePtr,
 			std::conditional_t<
-				std::is_const<std::remove_pointer_t<NodePtr>>::value,
-				const typename Node_Settings::Data_Class&,
-				typename Node_Settings::Data_Class&>,
+				std::is_const<std::remove_pointer_t<typename Settings::NodePtr>>::value,
+				const typename Settings::Node_Settings::Data_Class&,
+				typename Settings::Node_Settings::Data_Class&>,
 			boost::bidirectional_traversal_tag>
 		{
 		public:
-			using Fwd = Node_Settings;
+			using Fwd = Settings;
+			PASTEL_FWD(Node_Settings);
+			PASTEL_FWD(NodePtr);
 
-			PASTEL_FWD(Data_Class);
-			PASTEL_FWD(EndData_Class);
+			using Data_Class = typename Node_Settings::Data_Class;
+			using EndData_Class = typename Node_Settings::EndData_Class;
 
 			Iterator()
 				: Iterator::iterator_adaptor_(0) 
@@ -41,10 +41,10 @@ namespace Pastel
 			}
 
 			template <
-				typename That_NodePtr,
-				typename = PASTEL_ENABLE_IF((boost::is_convertible<That_NodePtr, NodePtr>), void)>
+				typename That_Settings,
+				typename = PASTEL_ENABLE_IF((boost::is_convertible<typename That_Settings::NodePtr, NodePtr>), void)>
 			Iterator(
-				const Iterator<That_NodePtr, Node_Settings>& that)
+				const Iterator<That_Settings>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{
 			}
@@ -182,44 +182,44 @@ namespace Pastel
 				return Iterator(node()->next(right));
 			}
 
-			template <typename That_NodePtr>
+			template <typename That_Settings>
 			bool operator<(
-				const Iterator<That_NodePtr, Node_Settings>& right) const
+				const Iterator<That_Settings>& right) const
 			{
 				return base() < right.base();
 			}
 
-			template <typename That_NodePtr>
+			template <typename That_Settings>
 			bool operator>(
-				const Iterator<That_NodePtr, Node_Settings>& right) const
+				const Iterator<That_Settings>& right) const
 			{
 				return base() > right.base();
 			}
 
-			template <typename That_NodePtr>
+			template <typename That_Settings>
 			bool operator<=(
-				const Iterator<That_NodePtr, Node_Settings>& right) const
+				const Iterator<That_Settings>& right) const
 			{
 				return base() <= right.base();
 			}
 
-			template <typename That_NodePtr>
+			template <typename That_Settings>
 			bool operator>=(
-				const Iterator<That_NodePtr, Node_Settings>& right) const
+				const Iterator<That_Settings>& right) const
 			{
 				return base() >= right.base();
 			}
 
-			template <typename That_NodePtr>
+			template <typename That_Settings>
 			bool operator==(
-				const Iterator<That_NodePtr, Node_Settings>& right) const
+				const Iterator<That_Settings>& right) const
 			{
 				return base() == right.base();
 			}
 
-			template <typename That_NodePtr>
+			template <typename That_Settings>
 			bool operator!=(
-				const Iterator<That_NodePtr, Node_Settings>& right) const
+				const Iterator<That_Settings>& right) const
 			{
 				return base() != right.base();
 			}
@@ -253,8 +253,7 @@ namespace Pastel
 					return;
 				}
 
-				NodePtr& node_ = this->base_reference();
-				node_ = (NodePtr)node_->next(Right);
+				this->base_reference() = node()->next(Right);
 			}
 
 			void increment() 
@@ -275,15 +274,13 @@ namespace Pastel
 namespace std
 {
 
-	template <
-		typename NodePtr,
-		typename Node_Settings>
-	struct hash<Pastel::List_::Iterator<NodePtr, Node_Settings>>
+	template <typename Settings>
+	struct hash<Pastel::List_::Iterator<Settings>>
 	{
 		Pastel::hash_integer operator()(
-			const Pastel::List_::Iterator<NodePtr, Node_Settings>& that) const
+			const Pastel::List_::Iterator<Settings>& that) const
 		{
-			return Pastel::computeHash<NodePtr>(that.base());
+			return Pastel::computeHash<typename Settings::NodePtr>(that.base());
 		}
 	};
 
