@@ -240,11 +240,8 @@ namespace Pastel
 
 		//! Removes an element by its iterator.
 		/*!
-		Time complexity:
-		FIX: Add
-
-		Exception safety:
-		nothrow
+		Time complexity: O(?)
+		Exception safety: nothrow
 
 		If the element is end(), then nothing happens.
 
@@ -353,8 +350,8 @@ namespace Pastel
 		//! Returns the smallest element > 'key'.
 		/*!
 		Time complexity: 
-		O(1), if key < min(S) or key >= max(S) or empty()
-		FIX: add
+		O(1), if key < min(S) or key >= max(S) or empty(),
+		O(?), otherwise.
 
 		Exception safety:
 		nothrow

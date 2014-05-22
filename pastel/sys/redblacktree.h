@@ -503,8 +503,8 @@ namespace Pastel
 		{
 			auto equalAndUpper = findEqualAndUpper(key);
 			return ConstRange(
-				lowerBound(equalAndUpper, filter),
-				upperBound(equalAndUpper.upper, filter));
+				lowerBound(key, equalAndUpper, filter),
+				upperBound(key, equalAndUpper, filter));
 		}
 
 		std::pair<ConstIterator, ConstIterator> 
@@ -545,7 +545,7 @@ namespace Pastel
 			const Key_Class& key,
 			const DownFilter& filter) const
 		{
-			return lowerBound(findEqualAndUpper(key), filter);
+			return lowerBound(key, findEqualAndUpper(key), filter);
 		}
 
 		ConstIterator lower_bound(const Key_Class& key) const
@@ -573,15 +573,17 @@ namespace Pastel
 		*/
 		template <typename DownFilter>
 		ConstIterator lowerBound(
+			const Key_Class& key,
 			const FindEqual_Return& equalAndUpper,
 			const DownFilter& filter) const;
 
 		template <typename DownFilter>
 		Iterator lowerBound(
+			const Key_Class& key,
 			const FindEqual_Return& equalAndUpper,
 			const DownFilter& filter)
 		{
-			return cast(addConst(*this).lowerBound(equalAndUpper, filter));
+			return cast(addConst(*this).lowerBound(key, equalAndUpper, filter));
 		}
 
 		//! Searches for the first element with key > 'key'.
@@ -594,7 +596,7 @@ namespace Pastel
 			const Key_Class& key,
 			const DownFilter& filter = DownFilter()) const
 		{
-			return upperBound(findEqualAndUpper(key).upper, filter);
+			return upperBound(key, findEqualAndUpper(key), filter);
 		}
 
 		ConstIterator upper_bound(const Key_Class& key) const
@@ -615,29 +617,28 @@ namespace Pastel
 			return upperBound(key);
 		}
 
-		//! Returns the first element with key > 'key'.
-		/*!
-		Time complexity: O(log(size()))
-		Exception safety: nothrow
-		*/
 		template <typename DownFilter>
 		ConstIterator upperBound(
-			const ConstIterator& upper,
+			const Key_Class& key,
+			const FindEqual_Return& equalAndUpper,
 			const DownFilter& filter) const
 		{
+			ConstIterator upper = 
+				findInsert(key, equalAndUpper).upper;
 			if (!filter.element(upper))
 			{
-				return upper.next(filter);
+				upper = upper.next(filter);
 			}
 			return upper;
 		}
 
 		template <typename DownFilter>
 		Iterator upperBound(
-			const ConstIterator& upper,
+			const Key_Class& key,
+			const FindEqual_Return& equalAndUpper,
 			const DownFilter& filter)
 		{
-			return cast(addConst(*this).upperBound(upper, filter));
+			return cast(addConst(*this).upperBound(key, equalAndUpper, filter));
 		}
 
 		//! Returns the first equivalent element below.
@@ -650,16 +651,6 @@ namespace Pastel
 			const ConstIterator& below,
 			const DownFilter& filter) const;
 		
-		//! Returns the first element below.
-		/*!
-		Time complexity: O(log(below.size()))
-		Exception safety: nothrow
-		*/
-		template <typename DownFilter>
-		ConstIterator findFirstBelow(
-			const ConstIterator& below,
-			const DownFilter& filter) const;
-
 		//! Casts away iterator constness.
 		/*!
 		Time complexity: O(1)
@@ -717,13 +708,21 @@ namespace Pastel
 		shares the bottom node with this tree.
 
 		The sentinel nodes are preserved.
-
-		This function really has O(log) complexity,
-		rather than O(log^2) complexity. This is because
-		we amortize the cost of the propagation updates
-		over the joins caused by the split.
 		*/
 		RedBlackTree split(const ConstIterator& rightBegin);
+
+		//! Splits the tree into two by a key.
+		/*!
+		This is a convenience function which returns
+		split(lowerBound(key, filter)).
+		*/
+		template <typename DownFilter = All_DownFilter>
+		RedBlackTree split(
+			const Key_Class& key,
+			const DownFilter& filter = DownFilter())
+		{
+			return split(lowerBound(key, filter));
+		}
 
 		//! Returns the number of equivalent elements.
 		/*!

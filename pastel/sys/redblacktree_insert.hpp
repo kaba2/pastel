@@ -18,7 +18,7 @@ namespace Pastel
 		if (!Settings::MultipleKeys && elementExists)
 		{
 			ConstIterator lower = 
-				lowerBound(equalAndUpper, All_DownFilter());
+				lowerBound(key, equalAndUpper, All_DownFilter());
 
 			// The tree already contains an
 			// equivalent element. Return the first

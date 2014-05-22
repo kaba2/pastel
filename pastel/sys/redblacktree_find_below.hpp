@@ -8,40 +8,6 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	template <typename DownFilter>
-	auto RedBlackTree<Settings, Customization>::findFirstBelow(
-		const ConstIterator& below,
-		const DownFilter& filter) const
-		-> ConstIterator
-	{
-		auto isBelow = [&](const ConstIterator& that)
-			-> bool
-		{
-			return !that.isSentinel() &&
-				filter.downSet(that);
-		};
-
-		if (!isBelow(below))
-		{
-			return cend();
-		}
-
-		ConstIterator node = below;
-		while(!node.isSentinel())
-		{
-			bool right = !isBelow(node.left());
-			if (filter.element(node) && right)
-			{
-				return node;
-			}
-
-			node = node.child(right);
-		}
-
-		return cend();
-	}
-
-	template <typename Settings, template <typename> class Customization>
-	template <typename DownFilter>
 	auto RedBlackTree<Settings, Customization>::findFirstEquivalentBelow(
 		const ConstIterator& below,
 		const DownFilter& filter) const
@@ -131,7 +97,7 @@ namespace Pastel
 			// We found the subtree which
 			// contains the minimum element
 			// of the equivalent elements.
-			return findFirstEquivalentBelow(minSubtree, filter);
+			return minSubtree.findFirstBelow(true, filter);
 		}
 
 		node = below;
@@ -201,7 +167,7 @@ namespace Pastel
 			// We found the subtree which
 			// contains the minimum element
 			// of the equivalent elements.
-			return findFirstEquivalentBelow(minSubtree, filter);
+			return minSubtree.findFirstBelow(true, filter);
 		}
 
 		// There is no marked equivalent element.

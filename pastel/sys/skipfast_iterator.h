@@ -4,6 +4,7 @@
 #define PASTELSYS_SKIPFAST_ITERATOR_H
 
 #include "pastel/sys/skipfast.h"
+#include "pastel/sys/indicator_downfilter.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 
@@ -59,11 +60,10 @@ namespace Pastel
 			{
 				PASTEL_CONSTEXPR integer Step = Right ? 1 : -1;
 
-				auto onlyNonEmpty = [](const Chain_ConstIterator& chain)
-					-> bool
-				{
-					return chain.propagation().nonEmpty;
-				};
+				auto onlyNonEmpty = indicatorDownFilter(
+					[](const Chain_ConstIterator& chain) {return !chain->elementSet_.empty(); },
+					[](const Chain_ConstIterator& chain) {return chain.propagation().nonEmpty;}
+				);
 
 				// Go to the next element.
 				Base_Iterator iter = std::next((Base_Iterator&)*this, Step);
@@ -72,11 +72,13 @@ namespace Pastel
 				{
 					// There are no more elements in the
 					// current chain.
+
+					// Find the current chain.
 					Chain_Iterator_Local chain = 
 						iter.sentinelData().chain;
 
 					// Go to the next non-empty chain.
-					//chain = chain.next<Right>(onlyNonEmpty);
+					chain = chain.next<Right>(onlyNonEmpty);
 
 					if (chain.isSentinel())
 					{

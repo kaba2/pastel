@@ -64,6 +64,7 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	template <typename DownFilter>
 	auto RedBlackTree<Settings, Customization>::lowerBound(
+		const Key_Class& key,
 		const FindEqual_Return& equalAndUpper,
 		const DownFilter& filter) const
 		-> ConstIterator
@@ -76,10 +77,20 @@ namespace Pastel
 			// The key does not exist in the tree.
 			// Therefore the lower bound is the same
 			// as the upper bound.
-			return upperBound(upper, filter);
+			return upperBound(key, equalAndUpper, filter);
 		}
 
-		return findFirstEquivalentBelow(equal, filter);
+		ConstIterator result = findFirstEquivalentBelow(equal, filter);
+		if (!result.isSentinel())
+		{
+			// A marked equivalent element was found.
+			return result;
+		}
+
+		// The key exists in the tree, but none of the
+		// equivalent elements is marked. Therefore the 
+		// upper bound is the lower bound.
+		return equal.next(filter);
 	}
 
 	template <typename Settings, template <typename> class Customization>
