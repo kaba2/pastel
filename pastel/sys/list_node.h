@@ -11,7 +11,7 @@ namespace Pastel
 	namespace List_
 	{
 
-		template <typename, typename>
+		template <typename>
 		class Iterator;
 
 		template <typename Node_Settings>
@@ -28,7 +28,7 @@ namespace Pastel
 			Node(const Node&) = delete;
 			Node& operator=(Node) = delete;
 
-			template <typename, typename>
+			template <typename>
 			friend class Iterator;
 
 			template <typename, template <typename> class>
