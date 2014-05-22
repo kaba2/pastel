@@ -386,6 +386,40 @@ namespace
 				TEST_ENSURE(test(19, 20));
 				TEST_ENSURE(test(20, 20));
 			}
+
+			{
+				auto test = [&](integer i, integer correct)
+				{
+					ConstIterator iter = 
+						map.upperBound(i, onlyMarked);
+
+					return !iter.isSentinel() &&
+						iter.key() == correct;
+				};
+				
+				TEST_ENSURE(test(-1, 5));
+				TEST_ENSURE(test(0, 5));
+				TEST_ENSURE(test(1, 5));
+				TEST_ENSURE(test(2, 5));
+				TEST_ENSURE(test(3, 5));
+				TEST_ENSURE(test(4, 5));
+				TEST_ENSURE(test(5, 10));
+				TEST_ENSURE(test(6, 10));
+				TEST_ENSURE(test(7, 10));
+				TEST_ENSURE(test(8, 10));
+				TEST_ENSURE(test(9, 10));
+				TEST_ENSURE(test(10, 14));
+				TEST_ENSURE(test(11, 14));
+				TEST_ENSURE(test(12, 14));
+				TEST_ENSURE(test(13, 14));
+				TEST_ENSURE(test(14, 20));
+				TEST_ENSURE(test(15, 20));
+				TEST_ENSURE(test(16, 20));
+				TEST_ENSURE(test(17, 20));
+				TEST_ENSURE(test(18, 20));
+				TEST_ENSURE(test(19, 20));
+				TEST_ENSURE(map.upperBound(20) == map.cend());
+			}
 		}
 
 		void testSet()
