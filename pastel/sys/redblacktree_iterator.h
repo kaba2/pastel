@@ -218,47 +218,67 @@ namespace Pastel
 				return Iterator(node()->child(right));
 			}
 
+			//! Finds the next marked element.
+			/*!
+			Time complexity: 
+			O(log(n))
+			where
+			n is the number of elements in the tree.
+
+			Exception safety: nothrow
+
+			TODO: Find a more accurate characterization 
+			of the worst-case time. Use that to characterize
+			the amortized complexity of monotonic traversal.
+			*/
 			template <
 				bool Right = true, 
 				typename DownFilter = All_DownFilter>
 			Iterator next(const DownFilter& filter = DownFilter()) const
 			{
-				auto valid = [&](const NodePtr& node)
-					-> bool
+				Iterator node = *this;
+				if (!node.child(Right).isSentinel() &&
+					filter.downSet(node.child(Right)))
 				{
-					return !node->isSentinel() &&
-						filter.element(Iterator(node));
-				};
+					return node.child(Right).findFirstBelow(Right, filter);
+				}
 
-				NodePtr node = this->base();
-				if (valid(node->child(Right)))
+				// Note that the case when the 'node' is 
+				// a sentinel node also gets handled here.
+				Iterator prevNode;
+				while (true)
 				{
-					node = node->child(Right);
-					while (valid(node->child(!Right)))
+					prevNode = node;
+					node = node.parent();
+					
+					if (node.isSentinel())
 					{
-						node = node->child(!Right);
+						break;
 					}
-				}
-				else
-				{
-					NodePtr prevNode = node;
-					do
-					{
-						prevNode = node;
-						node = node->parent();
-						// It is essential to test for 
-						// prevNode != node->child(!Right)
-						// rather than 
-						// prevNode == node->child(Right).
-						// The difference occurs when 'node'
-						// is the end-node.
-					} 
-					while (!node->isSentinel() &&
-						(prevNode != node->child(!Right) || 
-						!filter.element(Iterator(node))));
-				}
 
-				return Iterator(node);
+					// Note that this is not the same as
+					// prevNode == node.child(Right). This
+					// is because 'prevNode' can be the 
+					// end-node.
+					if (prevNode != node.child(!Right))
+					{
+						continue;
+					}
+
+					if (filter.element(node))
+					{
+						break;
+					}
+
+					if (!node.child(Right).isSentinel() &&
+						filter.downSet(node.child(Right)))
+					{
+						node = node.child(Right).findFirstBelow(Right, filter);
+						break;
+					}
+				} 
+
+				return node;
 			}
 
 			//! Returns the previous node.
@@ -311,6 +331,38 @@ namespace Pastel
 			explicit Iterator(NodePtr that)
 				: Iterator::iterator_adaptor_(that) 
 			{
+			}
+
+			template <typename DownFilter>
+			Iterator findFirstBelow(
+				bool direction,
+				const DownFilter& filter) const
+			{
+				auto isBelow = [&](const Iterator& that)
+					-> bool
+				{
+					return !that.isSentinel() &&
+						filter.downSet(that);
+				};
+
+				ASSERT(isBelow(*this));
+
+				Iterator node = *this;
+				while(!node.isSentinel())
+				{
+					bool right = 
+						(isBelow(node.child(!direction)) == !direction);
+					if (filter.element(node) && 
+						(right == direction))
+					{
+						break;
+					}
+
+					node = node.child(right);
+				}
+
+				ASSERT(!node.isSentinel());
+				return node;
 			}
 
 			NodePtr node() const

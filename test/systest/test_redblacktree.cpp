@@ -6,6 +6,7 @@
 #include <pastel/sys/redblacktree.h>
 #include <pastel/sys/random_uniform.h>
 #include <pastel/sys/random_integer.h>
+#include <pastel/sys/downfilters.h>
 
 #include <boost/range/adaptor/reversed.hpp> 
 
@@ -130,6 +131,9 @@ namespace
 			testMultiMap();
 			testVoidSet();
 
+			testMapFilteredIterator<Map>();
+			testMapFilteredIterator<MultiMap>();
+
 			testMapFilteredSearch<Map>();
 			testMapFilteredSearch<MultiMap>();
 
@@ -171,6 +175,138 @@ namespace
 		}
 
 		template <typename Tree>
+		void testMapFilteredIterator()
+		{
+			using ConstIterator = typename Tree::ConstIterator;
+
+			Tree map
+			{ 
+				{ 2, { 0, false } },
+				{ 4, { 0, false } },
+				{ 5, { 0, true } },
+				{ 6, { 0, false } },
+				{ 9, { 0, false } },
+				{ 10, { 0, true } },
+				{ 14, { 0, true } },
+				{ 16, { 0, false } },
+				{ 19, { 0, false } },
+				{ 20, { 0, true } }
+			};
+
+			auto onlyMarked = indicatorDownFilter(
+				[](const ConstIterator& that) {return that.data().marked;},
+				[](const ConstIterator& that) {return that.propagation().marked;}
+			);
+
+			{
+				auto test = [&](const ConstIterator& i, integer correct)
+				{
+					return !i.isSentinel() &&
+						i.key() == correct;
+				};
+
+				ConstIterator i = map.cbegin();
+				TEST_ENSURE(test(i, 2));
+				
+				i = i.next(onlyMarked);
+				TEST_ENSURE(test(i, 5));
+
+				i = i.next(onlyMarked);
+				TEST_ENSURE(test(i, 10));
+
+				i = i.next(onlyMarked);
+				TEST_ENSURE(test(i, 14));
+
+				i = i.next(onlyMarked);
+				TEST_ENSURE(test(i, 20));
+
+				i = i.next(onlyMarked);
+				TEST_ENSURE(i == map.cend());
+
+				i = i.prev(onlyMarked);
+				TEST_ENSURE(test(i, 20));
+
+				i = i.prev(onlyMarked);
+				TEST_ENSURE(test(i, 14));
+
+				i = i.prev(onlyMarked);
+				TEST_ENSURE(test(i, 10));
+
+				i = i.prev(onlyMarked);
+				TEST_ENSURE(test(i, 5));
+
+				i = i.prev(onlyMarked);
+				TEST_ENSURE(i == map.cend());
+
+				i = map.begin();
+				TEST_ENSURE(test(i, 2));
+
+				++i;
+				TEST_ENSURE(test(i, 4));
+
+				++i;
+				TEST_ENSURE(test(i, 5));
+
+				++i;
+				TEST_ENSURE(test(i, 6));
+
+				++i;
+				TEST_ENSURE(test(i, 9));
+
+				++i;
+				TEST_ENSURE(test(i, 10));
+
+				++i;
+				TEST_ENSURE(test(i, 14));
+
+				++i;
+				TEST_ENSURE(test(i, 16));
+
+				++i;
+				TEST_ENSURE(test(i, 19));
+
+				++i;
+				TEST_ENSURE(test(i, 20));
+
+				++i;
+				TEST_ENSURE(i == map.cend());
+
+				--i;
+				TEST_ENSURE(test(i, 20));
+
+				--i;
+				TEST_ENSURE(test(i, 19));
+
+				--i;
+				TEST_ENSURE(test(i, 16));
+
+				--i;
+				TEST_ENSURE(test(i, 14));
+
+				--i;
+				TEST_ENSURE(test(i, 10));
+
+				--i;
+				TEST_ENSURE(test(i, 9));
+
+				--i;
+				TEST_ENSURE(test(i, 6));
+
+				--i;
+				TEST_ENSURE(test(i, 5));
+
+				--i;
+				TEST_ENSURE(test(i, 4));
+
+				--i;
+				TEST_ENSURE(test(i, 2));
+
+				--i;
+				TEST_ENSURE(i == map.cend());
+			}
+		}
+
+		template <typename Tree>
 		void testMapFilteredSearch()
 		{
 			using ConstIterator = typename Tree::ConstIterator;
@@ -189,29 +325,20 @@ namespace
 				{ 20, { 0, true } }
 			};
 
-			class OnlyMarked
-			{
-			public:
-				bool element(const ConstIterator& that) const
-				{
-					return that.data().marked;
-				}
-
-				bool downSet(const ConstIterator& that) const
-				{
-					return that.propagation().marked;
-				}
-			};
+			auto onlyMarked = indicatorDownFilter(
+				[](const ConstIterator& that) {return that.data().marked; },
+				[](const ConstIterator& that) {return that.propagation().marked; }
+			);
 
 			{
 				auto test = [&](integer i)
 				{
 					ConstIterator iter = 
-						map.find(i, OnlyMarked());
+						map.find(i, onlyMarked);
 
 					return !iter.isSentinel() &&
 						iter.key() == i &&
-						map.exists(i, OnlyMarked());
+						map.exists(i, onlyMarked);
 				};
 
 				TEST_ENSURE(!test(2));
@@ -230,7 +357,7 @@ namespace
 				auto test = [&](integer i, integer correct)
 				{
 					ConstIterator iter = 
-						map.lowerBound(i, OnlyMarked());
+						map.lowerBound(i, onlyMarked);
 
 					return !iter.isSentinel() &&
 						iter.key() == correct;
