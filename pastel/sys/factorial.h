@@ -9,27 +9,25 @@
 namespace Pastel
 {
 
-	//! Computes the [factorial].
+	//! Returns the factorial.
 	/*!
 	Preconditions:
 	i >= 0
+
+	A table look-up is used for i in [0, 20].
+	The gamma() function is used for larger i.
+	Note that 20! < 2^64 - 1 < 21!.
 	*/
 	template <typename Real>
 	Real factorial(integer i);
 
-	//! Computes the [factorial].
+	//! Returns the logarithm of the factorial.
 	/*!
 	Preconditions:
 	i >= 0
-	i <= 256
-	*/
-	PASTELSYS real64 lnFactorialReal64(integer i);
 
-	//! Computes the [logarithm of factorial].
-	/*!
-	Preconditions:
-	i >= 0
-	i <= 256
+	A table look-up is used for i in [0, 256].
+	The gamma() function is used for larger i.
 	*/
 	template <typename Real>
 	Real lnFactorial(integer i);
