@@ -24,9 +24,11 @@ namespace
 		virtual void run()
 		{
 			testInsertErase();
+			/*
 			testFind();
 			testSet();
 			testInsertMore();
+			*/
 		}
 
 		using Map = SkipFast_Map<5, integer>;
@@ -39,6 +41,23 @@ namespace
 			const Range& a, 
 			std::initializer_list<integer> b)
 		{
+			auto i = std::begin(a);
+			auto aEnd = std::end(a);
+			auto j = std::begin(b);
+			auto bEnd = std::end(b);
+			while (i != aEnd && j != bEnd)
+			{
+				if (i.key() != *j)
+				{
+					return false;
+				}
+				++i;
+				++j;
+			}
+			if (i != aEnd || j != bEnd)
+			{
+				return false;
+			}
 			//return boost::equal(a.crange().dereferenceToKey(), b);
 			return true;
 		}
@@ -82,6 +101,7 @@ namespace
 				TEST_ENSURE(keysEqual(a, { 1, 4, 5, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 14, 15, 19 }));
 			}
+			/*
 			{
 				a.insert(6, 16);
 				TEST_ENSURE(testInvariants(a));
@@ -145,6 +165,7 @@ namespace
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25 }));
 			}
+			*/
 			/*
 			{
 				a.erase(9);

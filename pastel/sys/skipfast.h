@@ -228,6 +228,18 @@ namespace Pastel
 				return std::make_pair(element, false);
 			}
 
+			if (lowestAncestor->elementSet_.size() == 1)
+			{
+				// The chain turned from empty to non-empty.
+
+				// Find the chain-group of the chain.
+				Group_Iterator group = lowestAncestor.findTree();
+				
+				// Update the propagation information in the
+				// chain-group.
+				group->updateToRoot(lowestAncestor);
+			}
+
 			// Split the chain.
 			splitChain(lowestAncestor);
 
@@ -778,7 +790,7 @@ namespace Pastel
 
 			// Insert the zero chain into the group.
 			Chain_Iterator chain = insertChain(
-				0, 0, group);
+				0, maxBits(), group);
 
 			// Insert the element into the zero-chain.
 			Element_Iterator element = 

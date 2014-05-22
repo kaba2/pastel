@@ -43,12 +43,14 @@ namespace Pastel
 					return false;
 				}
 
+				/*
 				// The chain is of height zero if and only if
 				// the chain-key is zero.
 				if ((iter->height() == 0) != (iter.key() == 0))
 				{
 					return false;
 				}
+				*/
 
 				// Each chain has a parent chain, except the zero chain.
 				auto above = (iter.key() == 0) ?
@@ -61,8 +63,7 @@ namespace Pastel
 				// The chain-height equals the number of 
 				// zero (one) bits in the chain-key if the 
 				// chain-key is even (odd).
-				if (iter->height() > 0 &&
-					(even(iter.key()) && leadingZeroBits(iter.key()) != iter->height()) ||
+				if ((even(iter.key()) && leadingZeroBits(iter.key()) != iter->height()) ||
 					(odd(iter.key()) && leadingOneBits(iter.key()) != iter->height()))
 				{
 					return false;
