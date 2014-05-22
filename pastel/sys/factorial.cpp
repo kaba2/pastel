@@ -4,15 +4,16 @@
 namespace Pastel
 {
 
-	namespace
+	namespace Factorial_
 	{
 
-		// lnFactorial[n] = ln(n!)
+		// lnFactorial_[n] = ln(n!)
 		// where ln is the natural logarithm.
 		// Computed with Maple to 16 digits.
 		
-		real64 lnFactorial_[257] = {
-			-infinity<real64>(),
+		real64 lnFactorial_[RealTableSize] = 
+		{
+			0,
 			0., .6931471805599453, 1.791759469228055, 3.178053830347946, 
 			4.787491742782046, 6.579251212010101, 8.525161361065414, 10.60460290274525, 
 			12.80182748008147, 15.10441257307552, 17.50230784587389, 19.98721449566189, 
@@ -76,16 +77,16 @@ namespace Pastel
 			1084.497743752466, 1089.986681478622, 1095.479742921963, 1100.976911147256, 
 			1106.478169357801, 1111.983500893733, 1117.492889230361, 1123.006317976526, 
 			1128.523770872991, 1134.045231790853, 1139.570684729985, 1145.100113817496, 
-			1150.633503306224, 1156.170837573242, 1161.712101118401, 1167.257278562880};
-	
-	}
+			1150.633503306224, 1156.170837573242, 1161.712101118401, 1167.257278562880
+		};
 
-	PASTELSYS real64 lnFactorialReal64(integer i)
-	{
-		PENSURE_OP(i, >=, 0);
-		PENSURE_OP(i, <=, 256);
-		
-		return lnFactorial_[i];
+		PASTELSYS real64 lnFactorialReal64(integer i)
+		{
+			PENSURE_OP(i, >=, 0);
+			PENSURE_OP(i, <, RealTableSize);
+			return lnFactorial_[i];
+		}
+
 	}
 
 }
