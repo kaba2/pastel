@@ -91,12 +91,18 @@ namespace Pastel
 						// Go to the next chain-group.
 						group = std::next(group, Step);
 
-						// Pick the extremum chain of the chain-group.
-						chain = group->end().next<Right>(onlyNonEmpty);
+						if (!group.isEnd())
+						{
+							// Pick the extremum chain of the chain-group.
+							chain = group->end().next<Right>(onlyNonEmpty);
+						}
 					}
 
-					// Pick the extremum element of the chain.
-					iter = std::next(chain->elementSet_.end(), Step);
+					if (!chain.isSentinel())
+					{
+						// Pick the extremum element of the chain.
+						iter = std::next(chain->elementSet_.end(), Step);
+					}
 				}
 				
 				return Iterator(iter);
