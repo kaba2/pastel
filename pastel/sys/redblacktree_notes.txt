@@ -44,7 +44,7 @@ The join can be achieved as follows:
 * Update propagation data from ''M'' to the root.
 * Release ownership of any nodes from ''B''.
 
-### Logarithmic splitting
+### Logarithmic split
 
 A red-black tree can be split in two along a given element in logarithmic time, using the logarithmic join as a basic building block. However, it is easy to end up with an algorithm which is ''O(log^2)'' instead. To avoid this, the propagation updates must be shared between the joins, so that redundant propagation updates are avoided. The key is to amortize the propagation costs, during the split algorithm, by marking the paths from the join-roots to the root as invalid, and then updating those paths, at the same, at the end of the split algorithm. The ''M'' nodes in the join algorithm must be tracked incrementally by the split algorithm, and not searched all over again. These nodes are all contained in the left and right spines of the trees. To do this, the tree needs to track its black-height, which is easy since it can only change in the rebalancing algorithms.
 
@@ -78,7 +78,7 @@ We wish to support filtered searches. Here each element is marked or not, and th
 
 ### Provide both filters as member functions of an object
 
-The filters are provided as member functions `element()` and `downSet()` of an object. The object is constructed by a helper function which takes as arguments both of the filters. Possible names: tree filter, propagation filter, tree indicator, down-filter,
+The filters are provided as member functions `element()` and `downSet()` of an object. The object is constructed by a helper function which takes as arguments both of the filters.
 
 ### Provide both filters separately
 
