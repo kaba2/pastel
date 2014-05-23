@@ -3,6 +3,8 @@
 
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/directed_predicate.h"
+#include "pastel/sys/range.h"
+#include "pastel/sys/counting_iterator.h"
 
 namespace Pastel
 {
@@ -12,12 +14,23 @@ namespace Pastel
 		const RedBlackTree& that,
 		const SentinelPtr& bottom)
 		: bottom_(bottom)
-		, end_(std::make_shared<Sentinel_Node>(bottom->propagation()))
+		, end_(std::make_shared<Sentinel_Node>())
 	{
 		try
 		{
 			copyConstruct(endNode(), that, that.rootNode());
 			blackHeight_ = that.blackHeight_;
+
+			// The progagation data was default-constructed. 
+			// Therefore we need to update the propagation data
+			// in all nodes. Note that simply copying the propagation
+			// data is not always correct. For example, the
+			// propagation data may store node-iterators to the
+			// tree.
+			updateToRootMany(Pastel::range(
+				countingIterator(begin()), 
+				countingIterator(end())));
+
 			onConstruction();
 		}
 		catch(...)
@@ -55,11 +68,10 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::allocateNode(
 		const Key_Class& key, 
-		const Data_Class& data,
-		const Propagation_Class& propagation)
+		const Data_Class& data)
 	-> Node*
 	{
-		Node* node = new Node(key, data, propagation);
+		Node* node = new Node(key, data);
 		node->isolate();
 		node->setRed();
 		return node;
@@ -95,6 +107,41 @@ namespace Pastel
 			(Propagation_Class&)element.propagation());
 
 		return true;
+	}
+
+	template <typename Settings, template <typename> class Customization>
+	template <typename ConstIterator_Range>
+	void RedBlackTree<Settings, Customization>::updateToRootMany(
+		const ConstIterator_Range& updateSet)
+	{
+		// Every node is assumed to be out-of-date.
+		// Updating every node to the root would not work,
+		// because it would not do the updates in the correct
+		// order.
+
+		// First invalidate the data in every node.
+		{
+			auto iter = std::begin(updateSet);
+			auto end = std::end(updateSet);
+			while (iter != end)
+			{
+				invalidateToRoot(*iter);
+				++iter;
+			}
+		}
+
+		// Then update the data in each node in order.
+		// The invalidation takes care of the correct
+		// order.
+		{
+			auto iter = std::begin(updateSet);
+			auto end = std::end(updateSet);
+			while (iter != end)
+			{
+				updateToRoot(*iter);
+				++iter;
+			}
+		}
 	}
 
 	template <typename Settings, template <typename> class Customization>

@@ -95,7 +95,7 @@ namespace Pastel
 		*/
 		RedBlackTree(RedBlackTree&& that)
 			: bottom_(that.bottom_)
-			, end_(std::make_shared<Sentinel_Node>(bottomNode()->propagation()))
+			, end_(std::make_shared<Sentinel_Node>())
 		{
 			*this = std::move(that);
 			onConstruction();
@@ -766,18 +766,53 @@ namespace Pastel
 			++blackHeight_;
 		}
 
-		//! Updates hierarhical data on the path to root.
+		//! Updates propagation data on the path to root.
 		/*!
+		Preconditions:
+		* The propagation data of the children of 'node'
+		are up-to-date.
+		* The propagation data of a sibling in the path
+		from 'node' to the root is up-to-date.
+
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 
-		Calls updateHierarhical(node) for each node in 
+		Calls updatePropagation(node) for each node in 
 		the path to the root, including 'node' itself.
+
+		This function is needed whenever you change that
+		data in 'node' from which the propagation data
+		is computed.
 		*/
 		void updateToRoot(const ConstIterator& node)
 		{
 			updateToRoot((Node*)node.base());
 		}
+
+		//! Updates propagation data on the paths to the root.
+		/*!
+		Preconditions:
+		* The propagation data of the children of the nodes
+		in 'updateSet' are up-to-date.
+		* The propagation data of a sibling in a path
+		from a node in 'updateSet' to the root is up-to-date,
+		provided that sibling is not contained in another
+		such path.
+
+		Time complexity: O(m) * updatePropagation()
+		where
+		m is the number of nodes on the paths to the root.
+
+		Exception safety: nothrow
+
+		Calls updatePropagation(node) for each node in 
+		the paths to the root, in correct order and exactly 
+		once. This allows to make multiple changes to that 
+		data from which the propagation data is computed,
+		and then to update the propagation data all at once.
+		*/
+		template <typename ConstIterator_Range>
+		void updateToRootMany(const ConstIterator_Range& updateSet);
 
 		//! Returns an iterator to the smallest element.
 		PASTEL_ITERATOR_FUNCTIONS(begin, minNode());
@@ -854,8 +889,7 @@ namespace Pastel
 		*/
 		Node* allocateNode(
 			const Key_Class& key,
-			const Data_Class& data,
-			const Propagation_Class& propagation);
+			const Data_Class& data);
 
 		//! Deallocates a data-node.
 		/*!
@@ -1114,6 +1148,11 @@ namespace Pastel
 		which is already invalidated.
 		*/
 		Node* invalidateToRoot(Node* node);
+
+		Iterator invalidateToRoot(const ConstIterator& node)
+		{
+			return Iterator(invalidateToRoot((Node*)node.base()));
+		}
 
 		//! Copy-constructs a subtree.
 		/*!

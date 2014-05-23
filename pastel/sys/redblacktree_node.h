@@ -203,12 +203,6 @@ namespace Pastel
 			{
 			}
 
-			explicit Propagation_Node(const Propagation_Class& propagation)
-			: Base()
-			, Propagation_Class(propagation)
-			{
-			}
-
 			Propagation_Node(const Propagation_Node& that) = delete;
 			Propagation_Node(Propagation_Node&& that) = delete;
 			Propagation_Node& operator=(Propagation_Node that) = delete;
@@ -223,21 +217,13 @@ namespace Pastel
 		public:
 			using Fwd = Settings;
 
-			PASTEL_FWD(Propagation_Class);
 			PASTEL_FWD(SentinelData_Class);
 
 			using Base = Propagation_Node<Settings>;
 
 			Sentinel_Node()
-				: Base()
-				, SentinelData_Class()
-			{
-			}
-
-			explicit Sentinel_Node(
-				const Propagation_Class& propagation)
-				: Base(propagation)
-				, SentinelData_Class()
+			: Base()
+			, SentinelData_Class()
 			{
 			}
 
@@ -247,6 +233,9 @@ namespace Pastel
 			}
 
 		protected:
+			template <typename, template <typename> class>
+			friend class Pastel::RedBlackTree;
+
 			Sentinel_Node(const Sentinel_Node& that) = delete;
 			Sentinel_Node(Sentinel_Node&& that) = delete;
 			Sentinel_Node& operator=(Sentinel_Node that) = delete;
@@ -278,14 +267,13 @@ namespace Pastel
 			using Base = Propagation_Node<Settings>;
 			PASTEL_FWD(Propagation_Class);
 
-			Data_Node(
-				const Data_Class& data,
-				const Propagation_Class& propagation)
-				: Base(propagation)
+			explicit Data_Node(const Data_Class& data)
+				: Base()
 				, Data_Class(data)
 			{
 			}
 
+			Data_Node() = delete;
 			Data_Node(const Data_Node& that) = delete;
 			Data_Node(Data_Node&& that) = delete;
 			Data_Node& operator=(Data_Node that) = delete;
@@ -311,7 +299,6 @@ namespace Pastel
 		protected:
 			using Base = Data_Node<Settings_>;
 			PASTEL_FWD(Data_Class);
-			PASTEL_FWD(Propagation_Class);
 
 			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
@@ -321,13 +308,13 @@ namespace Pastel
 
 			Node(
 				const Key_Class& key,
-				const Data_Class& data,
-				const Propagation_Class& propagation)
-				: Base(data, propagation)
+				const Data_Class& data)
+				: Base(data)
 				, Key_Class(key)
 			{
 			}
 
+			Node() = delete;
 			Node(const Node& that) = delete;
 			Node(Node&& that) = delete;
 			Node& operator=(Node that) = delete;
