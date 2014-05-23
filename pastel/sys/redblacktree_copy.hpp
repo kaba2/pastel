@@ -22,8 +22,7 @@ namespace Pastel
 		{
 			node = allocateNode(
 				thatNode->key(), 
-				thatNode->data(), 
-				thatNode->propagation());
+				thatNode->data());
 			node->parent() = parent;
 			node->setRed(thatNode->red());
 			node->setSize(thatNode->size());
