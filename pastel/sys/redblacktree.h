@@ -319,8 +319,7 @@ namespace Pastel
 		*/
 		Insert_Return insert(
 			const Key_Class& key, 
-			const Data_Class& data = Data_Class(),
-			const Propagation_Class& propagation = Propagation_Class());
+			const Data_Class& data = Data_Class());
 
 		//! Removes an element from the tree by its iterator.
 		/*!
