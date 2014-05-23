@@ -9,8 +9,7 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::insert(
 		const Key_Class& key, 
-		const Data_Class& data,
-		const Propagation_Class& propagation)
+		const Data_Class& data)
 	-> Insert_Return
 	{
 		auto equalAndUpper = findEqualAndUpper(key);
@@ -33,7 +32,7 @@ namespace Pastel
 		bool right = parentAndRight.right;
 
 		// Create a new node for the element.
-		Node* node = allocateNode(key, data, propagation);
+		Node* node = allocateNode(key, data, Propagation_Class());
 		Iterator element(node);
 
 		// Attach the node into the tree.
