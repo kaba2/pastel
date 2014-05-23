@@ -361,7 +361,15 @@ namespace Pastel
 					node = node.child(right);
 				}
 
-				ASSERT(!node.isSentinel());
+				bool consistentDownFilter = 
+					!node.isSentinel();
+
+				// Triggering this is an error on the users side.
+				// The provided down-filter was not consistent: it 
+				// indicated that there be a marked element in a 
+				// subtree, but that was not the case.
+				ENSURE(consistentDownFilter);
+
 				return node;
 			}
 
