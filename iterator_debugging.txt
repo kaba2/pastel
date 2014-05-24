@@ -1,0 +1,84 @@
+Iterator debugging problem
+==========================
+
+[[Parent]]: techniques.txt
+
+In this section we will define the iterator debugging problem, and discuss its solutions.
+
+Problem
+-------
+
+Suppose the following class hierachy:
+
+[[CppCode]]:
+	class Node { /*...*/ };
+	class End_Node : public Node { /*...*/ };
+	class Data_Node : public Node { /*...*/ };
+
+A [doubly-linked list][List] has two types of nodes, the `End_Node`, and the `Data_Node`, with a common base-type `Node`. The `End_Node` is used as a sentinel node, and contains optional user-defined end-data. The `Data_Node` is used for an actual element of the list, and contains optional user-defined data.
+
+Which type of a node pointer should a list's iterator contain? The `Node*` surely works, but then it is not possible to directly examine the possible user-data in a node through the debugger. A better choice seems to be `Data_Node*`, although it would still not be possible to examine the end-data. 
+
+The _iterator debugging problem_ is the following: is it possible to correctly refer to the fields of `Node` through `Data_Node*`, when the underlying object is actually of type `End_Node`?
+
+[List]: [[Ref]]: list.txt
+
+Reinterpret cast does not work
+------------------------------
+
+We will begin with a concrete program, testing two casting strategies; one with `reinterpret_cast`, and one with two `static_cast`s. These are all the casting strategies we are able to come up with. The `dynamic_cast` would fail, because it would detect that casted object is not of the target type, the C-style cast would reduce to a `reinterpret_cast`, and `const_cast` would not be applicable here.
+
+[[CppCode]]:
+	#include <iostream>
+
+	class Node
+	{
+	public:
+		int i = 0;
+		int j = 1;
+	};
+
+	class End_Node : public Node
+	{
+	public:
+		virtual void f() {}
+	};
+
+	class Data_Node : public Node {};
+
+	int main()
+	{
+		End_Node* end = new End_Node;
+		{
+			// Casting strategy 1: double static-casts
+			Data_Node* data = static_cast<Data_Node*>(static_cast<Node*>(end));
+			std::cout << data->i << " " << data->j << std::endl;
+		}
+		{
+			// Casting strategy 2: a reinterpret cast
+			Data_Node* data = reinterpret_cast<Data_Node*>(end);
+			std::cout << data->i << " " << data->j << std::endl;
+		}
+		delete end;
+		return 0;
+	}
+
+The output of this program is similar on both Visual Studio 2013, gcc, and clang:
+
+	0 1
+	15785072 0
+
+While the `static_cast`s work as expected, the `reinterpret_cast` does not work. The reason is that, due to the virtual `f` in `End_Node`, these compilers place the virtual table pointer at the start of the `End_Node`. The `data->i` then refers to the virtual table pointer, rather than to `Node::i`. In general, the memory layout of objects is implementation defined. The above behavior is defined in the [Itanium ABI][Itanium] (2.4 Non-POD class types), adopted by `gcc` and `clang`. 
+
+On the other hand, the claim holds for the Itanium ABI, and possibly for Visual Studio, when polymorphic behavior is not present. However, without a guarantee from the C++ Standard, this is not portable enough. The `reinterpret_cast` does not work here.
+
+[Itanium]: http://mentorembedded.github.io/cxx-abi/abi.html#class-types
+
+Double static casting works?
+----------------------------
+
+We are left with the question whether double static-casting always works. The output of the above program seems to provide some hope that this would be the case. But can this be formally justified by the C++ Standard?
+
+
+
+
