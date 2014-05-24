@@ -3,7 +3,7 @@ Iterator debugging problem
 
 [[Parent]]: techniques.txt
 
-In this section we will define the iterator debugging problem, and discuss its solutions.
+In this section we will define the iterator debugging problem, and show that it has no solutions.
 
 Problem
 -------
@@ -15,18 +15,18 @@ Suppose the following class hierachy:
 	class End_Node : public Node { /*...*/ };
 	class Data_Node : public Node { /*...*/ };
 
-A [doubly-linked list][List] has two types of nodes, the `End_Node`, and the `Data_Node`, with a common base-type `Node`. The `End_Node` is used as a sentinel node, and contains optional user-defined end-data. The `Data_Node` is used for an actual element of the list, and contains optional user-defined data.
+A [doubly-linked list][List] has two types of nodes, the `End_Node`, and the `Data_Node`, with a common base-type `Node`. The `End_Node` is used as a sentinel node, and contains optional user-defined end-data. The `Data_Node` is used for an actual element of the list, and contains optional user-defined data. The base-class `Node` contains the links.
 
 Which type of a node pointer should a list's iterator contain? The `Node*` surely works, but then it is not possible to directly examine the possible user-data in a node through the debugger. A better choice seems to be `Data_Node*`, although it would still not be possible to examine the end-data. 
 
-The _iterator debugging problem_ is the following: is it possible to correctly refer to the fields of `Node` through `Data_Node*`, when the underlying object is actually of type `End_Node`?
+The _iterator debugging problem_ is the following: is it possible to portably refer to the fields of `Node` through `Data_Node*`, when the underlying object is actually of type `End_Node`?
 
 [List]: [[Ref]]: list.txt
 
 Reinterpret cast does not work
 ------------------------------
 
-We will begin with a concrete program, testing two casting strategies; one with `reinterpret_cast`, and one with two `static_cast`s. These are all the casting strategies we are able to come up with. The `dynamic_cast` would fail, because it would detect that casted object is not of the target type, the C-style cast would reduce to a `reinterpret_cast`, and `const_cast` would not be applicable here.
+We will begin with a concrete program, testing two casting strategies; one with `reinterpret_cast`, and one with two `static_cast`s. These are all the casting strategies we are able to come up with. The `dynamic_cast` would fail, because it would detect that the casted object is not of the target type, the C-style cast would reduce to a `reinterpret_cast`, and `const_cast` would not be applicable here.
 
 [[CppCode]]:
 	#include <iostream>
@@ -74,11 +74,28 @@ On the other hand, the claim holds for the Itanium ABI, and possibly for Visual 
 
 [Itanium]: http://mentorembedded.github.io/cxx-abi/abi.html#class-types
 
-Double static casting works?
-----------------------------
+Double static cast does not work
+--------------------------------
 
-We are left with the question whether double static-casting always works. The output of the above program seems to provide some hope that this would be the case. But can this be formally justified by the C++ Standard?
+The above program provides hope that the double static cast could work. However, the C++ Standard states the following (5.2.9 Static cast 11):
 
+	A prvalue of type "pointer to cv1 B," where B is a class type, 
+	can be converted to a prvalue of type "pointer to cv2 D," where 
+	D is a class derived (Clause 10) from B, if a valid standard 
+	conversion from "pointer to D" to "pointer to B" exists (4.10), 
+	cv2 is the same cv-qualification as, or greater cv-qualification 
+	than, cv1, and B is neither a virtual base class of D nor a base 
+	class of a virtual base class of D. The null pointer value (4.10)
+	is converted to the null pointer value of the destination type. 
+	If the prvalue of type "pointer to cv1 B" points to a B that is 
+	actually a subobject of an object of type D, the resulting pointer 
+	points to the enclosing object of type D. Otherwise, the behavior 
+	is undefined.
 
+The last two sentences are the relevant ones. Since in our double static cast the pointer does not actually point to `Data_Node`, the behavior is undefined. Intuitively, it seems almost sure that the compilers do the right thing here, and that the double static casting works. However, just to be sure, we don't want to risk undefined behaviour. Therefore the double static cast does not work either.
 
+Conclusion
+----------
+
+The solution of the iterator debugging problem is that it is not possible to portably refer to the fields of `Node` through `Data_Node*`, when the underlying type is actually `End_Node`.
 
