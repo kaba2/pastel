@@ -9,6 +9,7 @@
 #include "pastel/sys/bitmask.h"
 #include "pastel/sys/rounding.h"
 #include "pastel/sys/set_bits.h"
+#include "pastel/sys/number_of_one_bits.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -311,28 +312,10 @@ namespace Pastel
 		*/
 		integer oneBits() const
 		{
-			// Number of bits in the first 16 numbers.
-			integer bitCountSet[] =
-			{
-				// 0000, 0001, 0010, 0011
-				0, 1, 1, 2, 
-				// 0100, 0101, 0110, 0111
-				1, 2, 2, 3,
-				// 1000, 1001, 1010, 1011
-				1, 2, 2, 3,
-				// 1100, 1101, 1110, 1111
-				2, 3, 3, 4
-			};
-
 			integer result = 0;
 			for (integer i = 0;i < Words;++i)
 			{
-				Word word = wordSet_[i];
-				while(word != 0)
-				{
-					result += bitCountSet[word & 0xF];
-					word >>= 4;
-				}
+				result += numberOfOneBits(wordSet_[i]);
 			}
 
 			if (BitsInLastWord > 0 && Signed && lastBit())
@@ -927,7 +910,7 @@ namespace Pastel
 
 		Since the operations work word-by-word, they
 		may leave the higher bits in the last word in 
-		a which doesn't correspond to the sign-extension 
+		a state which doesn't correspond to the sign-extension 
 		of the N-bit prefix. For an unsigned integer the
 		highest bits should be kept zero. This function 
 		corrects these violations.
