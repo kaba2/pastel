@@ -46,7 +46,7 @@ namespace Pastel
 				lowerBound(element.key(), equalAndUpper, All_DownFilter());
 
 			// Remove the detached element.
-			that.deallocateNode(node);
+			that.deallocateNode((Key_Node*)node);
 
 			// Return the existing element.
 			return insertReturnType(cast(lower), false);

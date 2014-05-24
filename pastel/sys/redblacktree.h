@@ -47,6 +47,9 @@ namespace Pastel
 		PASTEL_FWD(Range);
 		PASTEL_FWD(ConstRange);
 
+		PASTEL_FWD(Key_Node);
+		PASTEL_FWD(Node);
+
 		PASTEL_FWD(Insert_Return);
 		PASTEL_FWD(FindEqual_Return);
 		PASTEL_FWD(FindInsert_Return);
@@ -887,7 +890,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: strong
 		*/
-		Node* allocateNode(
+		Key_Node* allocateNode(
 			const Key_Class& key,
 			const Data_Class& data);
 
@@ -899,7 +902,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		void deallocateNode(Node* node);
+		void deallocateNode(Key_Node* node);
 
 		//! Attaches a new subtree into the tree.
 		/*!

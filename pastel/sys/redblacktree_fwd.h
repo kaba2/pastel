@@ -19,13 +19,16 @@ namespace Pastel
 		class Iterator;
 
 		template <typename>
-		class Sentinel_Node;
+		class Node;
 
 		template <typename>
 		class Propagation_Node;
-		
+
 		template <typename>
-		class Node;
+		class Sentinel_Node;
+	
+		template <typename>
+		class Key_Node;
 
 	}
 
@@ -66,6 +69,7 @@ namespace Pastel
 		};
 
 		using Node = RedBlackTree_::Node<Node_Settings>;
+		using Key_Node = RedBlackTree_::Key_Node<Node_Settings>;
 		using Sentinel_Node = RedBlackTree_::Sentinel_Node<Node_Settings>;
 		using SentinelPtr = std::shared_ptr<Sentinel_Node>;
 
