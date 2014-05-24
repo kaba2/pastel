@@ -5,7 +5,7 @@
 #ifndef PASTELSYS_LESS_CONCEPT_H
 #define PASTELSYS_LESS_CONCEPT_H
 
-#include "pastel/sys/mytypes.h"
+#include "pastel/sys/predicate_concept.h"
 
 namespace Pastel
 {
@@ -15,6 +15,7 @@ namespace Pastel
 
 		//! Strict weak order
 		class Less
+		: public Predicate_Concept::Predicate
 		{
 		public:
 			//! Returns whether left < right under a strict weak order <.
