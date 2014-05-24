@@ -25,7 +25,7 @@ namespace Pastel
 
 		Node* toErase = (Node*)that.base();
 		Node* successor = detach(toErase);
-		deallocateNode(toErase);
+		deallocateNode((Key_Node*)toErase);
 		return Iterator(successor);
 	}
 

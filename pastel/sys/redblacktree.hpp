@@ -62,16 +62,16 @@ namespace Pastel
 		clear(node->left());
 		clear(node->right());
 
-		deallocateNode(node);
+		deallocateNode((Key_Node*)node);
 	}
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::allocateNode(
 		const Key_Class& key, 
 		const Data_Class& data)
-	-> Node*
+	-> Key_Node*
 	{
-		Node* node = new Node(key, data);
+		Key_Node* node = new Key_Node(key, data);
 		node->isolate();
 		node->setRed();
 		return node;
@@ -79,7 +79,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void RedBlackTree<Settings, Customization>::deallocateNode(
-		Node* node)
+		Key_Node* node)
 	{
 		ASSERT(!node->isSentinel());
 		delete node;

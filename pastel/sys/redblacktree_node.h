@@ -15,18 +15,16 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename>
-		class Node;
-
 		//! Base node
 		template <typename Settings>
-		class Base_Node
+		class Node
 		{
 		public:
-			using Node = Pastel::RedBlackTree_::Node<Settings>;
-
 			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
+
+			template <typename, typename, bool>
+			friend class Iterator;
 
 			bool red() const
 			{
@@ -56,7 +54,7 @@ namespace Pastel
 			}
 
 		protected:
-			Base_Node()
+			Node()
 				: parent_(nullptr)
 				, child_()
 				, red_(false)
@@ -72,9 +70,9 @@ namespace Pastel
 				*/
 			}
 
-			Base_Node(const Base_Node& that) = delete;
-			Base_Node(Base_Node&& that) = delete;
-			Base_Node& operator=(Base_Node that) = delete;
+			Node(const Node& that) = delete;
+			Node(Node&& that) = delete;
+			Node& operator=(Node that) = delete;
 
 			void isolate()
 			{
@@ -182,7 +180,7 @@ namespace Pastel
 		*/
 		template <typename Settings>
 		class Propagation_Node
-			: public Base_Node<Settings>
+			: public Node<Settings>
 			, public Settings::Propagation_Class
 		{
 		public:
@@ -195,7 +193,7 @@ namespace Pastel
 			}
 
 		protected:
-			using Base = Base_Node<Settings>;
+			using Base = Node<Settings>;
 
 			Propagation_Node()
 			: Base()
@@ -281,7 +279,7 @@ namespace Pastel
 
 		//! Key node
 		template <typename Settings_>
-		class Node
+		class Key_Node
 			: public Data_Node<Settings_>
 			, public Settings_::Key_Class
 		{
@@ -303,10 +301,7 @@ namespace Pastel
 			template <typename, template <typename> class>
 			friend class Pastel::RedBlackTree;
 
-			template <typename, typename, bool>
-			friend class Iterator;
-
-			Node(
+			Key_Node(
 				const Key_Class& key,
 				const Data_Class& data)
 				: Base(data)
@@ -314,10 +309,10 @@ namespace Pastel
 			{
 			}
 
-			Node() = delete;
-			Node(const Node& that) = delete;
-			Node(Node&& that) = delete;
-			Node& operator=(Node that) = delete;
+			Key_Node() = delete;
+			Key_Node(const Key_Node& that) = delete;
+			Key_Node(Key_Node&& that) = delete;
+			Key_Node& operator=(Key_Node that) = delete;
 		};
 
 	}

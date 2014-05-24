@@ -88,7 +88,7 @@ namespace Pastel
 			const Key_Class& key() const
 			{
 				PENSURE(!isSentinel());
-				return node()->key();
+				return ((Key_Node<Node_Settings>*)node())->key();
 			}
 
 			//! Returns the propagation data.
@@ -98,7 +98,7 @@ namespace Pastel
 			*/
 			const Propagation_Class& propagation() const
 			{
-				return node()->propagation();
+				return ((Propagation_Node<Node_Settings>*)node())->propagation();
 			}
 
 			//! Returns the user data.
@@ -112,7 +112,7 @@ namespace Pastel
 			Data_Class& data() const
 			{
 				PENSURE(!isSentinel());
-				return (Data_Class&)node()->data();
+				return ((Key_Node<Node_Settings>*)node())->data();
 			}
 
 			//! Returns the sentinel data.

@@ -21,8 +21,8 @@ namespace Pastel
 		try
 		{
 			node = allocateNode(
-				thatNode->key(), 
-				thatNode->data());
+				((Key_Node*)thatNode)->key(), 
+				((Key_Node*)thatNode)->data());
 			node->parent() = parent;
 			node->setRed(thatNode->red());
 			node->setSize(thatNode->size());
@@ -63,7 +63,7 @@ namespace Pastel
 				clear(node->left());
 				// Fall-through.
 			case 1:
-				deallocateNode(node);
+				deallocateNode((Key_Node*)node);
 				break;
 			};
 
