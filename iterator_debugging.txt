@@ -70,7 +70,7 @@ The output of this program is similar on both Visual Studio 2013, gcc, and clang
 
 While the `static_cast`s work as expected, the `reinterpret_cast` does not work. The reason is that, due to the virtual `f` in `End_Node`, these compilers place the virtual table pointer at the start of the `End_Node`. The `data->i` then refers to the virtual table pointer, rather than to `Node::i`. In general, the memory layout of objects is implementation defined. The above behavior is defined in the [Itanium ABI][Itanium] (2.4 Non-POD class types), adopted by `gcc` and `clang`. 
 
-On the other hand, the claim holds for the Itanium ABI, and possibly for Visual Studio, when polymorphic behavior is not present. However, without a guarantee from the C++ Standard, this is not portable enough. The `reinterpret_cast` does not work here.
+On the other hand, the claim holds for the Itanium ABI, and possibly for Visual Studio, when polymorphic behavior is not present. However, without a guarantee from the C++ Standard, this is not portable. Therefore the `reinterpret_cast` does not work here.
 
 [Itanium]: http://mentorembedded.github.io/cxx-abi/abi.html#class-types
 
@@ -92,10 +92,12 @@ The above program provides hope that the double static cast could work. However,
 	points to the enclosing object of type D. Otherwise, the behavior 
 	is undefined.
 
-The last two sentences are the relevant ones. Since in our double static cast the pointer does not actually point to `Data_Node`, the behavior is undefined. Intuitively, it seems almost sure that the compilers do the right thing here, and that the double static casting works. However, just to be sure, we don't want to risk undefined behaviour. Therefore the double static cast does not work either.
+The last two sentences are the relevant ones. Since in our double static cast the pointer does not actually point to `Data_Node`, the behavior is undefined. Intuitively, it seems almost sure that the compilers do the right thing here, and that the double static casting works. However, without a guarantee from the C++ Standard, this is not portable. Therefore the double static cast does not work either.
 
 Conclusion
 ----------
 
 The solution of the iterator debugging problem is that it is not possible to portably refer to the fields of `Node` through `Data_Node*`, when the underlying type is actually `End_Node`.
+
+This has consequences for the debugging of the data-structures implemented in Pastel. All of the node-based data-structures, such as the doubly-linked list, the red-black tree, and the skip-list, are subject to the iterator debugging problem, because of their ability to associate user-data in the sentinel nodes. Because of the above result, an iterator must refer to lowest base-class `Node`, which cannot be directly used to inspect the node's user-data in the debugger. The capability of associating user-data in the sentinel nodes is fundamental for building some more advanced data-structures on top of the existing ones, and so cannot be taken away. It follows that the node user-data has to be inspected by ways other than the debugger (e.g. printing it to the screen).
 
