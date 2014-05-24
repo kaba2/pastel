@@ -13,6 +13,7 @@ namespace Pastel
 	{
 		
 		class Predicate
+		: public Algorithm_Concept::Algorithm
 		{
 		public:
 			//! Returns whether 'left' relates to 'right'.
