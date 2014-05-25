@@ -4,10 +4,8 @@
 #ifndef PASTELSYS_SKIPLIST_CONCEPTS_H
 #define PASTELSYS_SKIPLIST_CONCEPTS_H
 
-#include "pastel/sys/predicate_concept.h"
-
 #include "pastel/sys/skiplist.h"
-#include "pastel/sys/mytypes.h"
+#include "pastel/sys/less_concept.h"
 
 namespace Pastel
 {
@@ -22,7 +20,10 @@ namespace Pastel
 			using Key = UserDefinedType;
 
 			//! The predicate used to compare keys.
-			using Less = Predicate_Concept::Predicate;
+			/*!
+			Must conform to the Less concept.
+			*/
+			using Less = UserDefinedType;
 
 			//! The type of the data associated with a given key. 
 			/*!
