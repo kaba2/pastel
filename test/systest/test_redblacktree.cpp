@@ -673,6 +673,11 @@ namespace
 				Tree tree({ 1, 2, 3, 4, 5, 6, 7 });
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
 
+				TEST_ENSURE(tree.extremum(false) == tree.cbegin());
+				TEST_ENSURE_OP(tree.extremum(false).key(), ==, 1);
+				TEST_ENSURE(tree.extremum(true) == tree.clast());
+				TEST_ENSURE_OP(tree.extremum(true).key(), ==, 7);
+
 				TEST_ENSURE(testInvariants(tree));
 				TEST_ENSURE(!tree.hasSeparateSentinels());
 				TEST_ENSURE(!tree.sharesBottom());
