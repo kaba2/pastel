@@ -25,11 +25,14 @@ namespace Pastel
 			PASTEL_FWD(ElementSet);
 			PASTEL_FWD(Key);
 
-			Chain(integer height)
+			Chain(integer levelBegin, integer height)
 			: height_(height)
-			, levelBegin_(height - 1)
+			, levelBegin_(levelBegin)
 			, elementSet_()
 			{
+				ASSERT_OP(height, >=, 0);
+				ASSERT_OP(levelBegin, >=, 0);
+				ASSERT_OP(levelBegin, <=, height);
 			}
 
 			Chain(const Chain&) = default;
