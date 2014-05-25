@@ -915,13 +915,14 @@ namespace Pastel
 			// Find the chain's group.
 			Group_Iterator group = chain.findTree();
 			ASSERT(!group->empty());
+			ASSERT(group != groupSet_.ctreeLast());
 
 			// Possibly split the groups, and
 			// find out the branch-group.
 			Group_Iterator branchGroup;
 			if (chain == group->extremum(!oddChain))
 			{
-				if (group == groupSet_.ctreeLast())
+				if (group == std::prev(groupSet_.ctreeLast()))
 				{
 					// [//]*
 					// ==>
