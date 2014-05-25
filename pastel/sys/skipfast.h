@@ -900,6 +900,7 @@ namespace Pastel
 			ASSERT(!chain.isSentinel());
 
 			const Key& chainKey = chain.key();
+			bool oddChain = odd(chainKey);
 			integer height = chain->levelBegin();
 			ASSERT_OP(height, >, 0);
 
@@ -913,14 +914,20 @@ namespace Pastel
 
 			// Find the chain's group.
 			Group_Iterator group = chain.findTree();
+			ASSERT(!group->empty());
 
-			bool oddChain = odd(chainKey);
-			Group_Iterator branchGroup = group;
+			// Possibly split the groups, and
+			// find out the branch-group.
+			Group_Iterator branchGroup;
 			if (chain == group->extremum(!oddChain))
 			{
 				// [//]*[\\]
 				// ==>
-				// [//*][\\]
+				// [///][\\]
+
+				// [//]*[\\]
+				// ==>
+				// [//][\\\]
 
 				// The branch is created between groups;
 				// Now new group will be created. The 
@@ -933,11 +940,11 @@ namespace Pastel
 			{
 				// [//][\*\]
 				// ==>
-				// [//][\][*][\]
+				// [//][\][/][\]
 
 				// [/*/][\\]
 				// ==>
-				// [/][*][/][\\]
+				// [/][\][/][\\]
 
 				// The branch is created inside a group.
 
@@ -947,7 +954,12 @@ namespace Pastel
 					groupSet_.insert(std::next(group));
 
 				// Split chains to the after-group.
-				*afterGroup = group->split(chain);
+				Chain_Iterator splitChain = chain;
+				if (!oddChain)
+				{
+					++splitChain;
+				}
+				*afterGroup = group->split(splitChain);
 
 				// Create the branch-group.
 				branchGroup = groupSet_.insert(std::next(group));
