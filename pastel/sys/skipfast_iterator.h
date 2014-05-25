@@ -46,6 +46,21 @@ namespace Pastel
 			{
 			}
 
+			//! Returns the chain of the element.
+			/*!
+			Time complexity: O(?)
+			Exception safety: nothrow
+			*/
+			Chain_Iterator findChain() const
+			{
+				Base_Iterator iter = *this;
+				while (!iter.isSentinel())
+				{
+					iter = iter.parent();
+				}
+				return iter.sentinelData().chain;
+			}
+
 			//! Moves to the next element.
 			/*!
 			Time complexity: 

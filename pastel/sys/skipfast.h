@@ -221,9 +221,10 @@ namespace Pastel
 			const Value_Class& value = Value_Class())
 		{
 			// Find the lowest ancestor of the key.
-			Chain_Iterator lowestAncestor = findLowestAncestor(key).first;
+			Chain_Iterator lowestAncestor = 
+				findLowestAncestor(key).first;
 
-			// Insert the element into the chain.
+			// Insert the element into the lowest ancestor.
 			Iterator element;
 			bool isNew;
 			std::tie(element, isNew) = insert(key, value, lowestAncestor);
@@ -265,23 +266,22 @@ namespace Pastel
 			// Notify the customization.
 			onErase(cast(element));
 
-			// Find the lowest ancestor.
-			Chain_Iterator lowestAncestor;
-			integer level;
-			std::tie(lowestAncestor, level) = findLowestAncestor(key);
+			// Find the chain of the element.
+			Chain_Iterator chain = 
+				element.findChain();
 
-			// Erase the element.
+			bool right = odd(chain.key());
+
+			// Erase the element from the chain.
 			Element_Iterator nextElement = 
-				lowestAncestor->elementSet_.erase(element);
+				chain->elementSet_.erase(element);
 
-			bool right = odd(lowestAncestor.key());
-
-			// Find a branch of the fork.
-			Group_Iterator aGroup = lowestAncestor.findTree();
+			// Find a fork chain.
+			Group_Iterator aGroup = chain.findTree();
 			Chain_Iterator aFork = aGroup->extremum(!right);
 			ASSERT(!aFork.isSentinel());
 
-			// Find the other branch of the fork.
+			// Find the other fork chain.
 			Chain_Iterator bGroup = std::next(group, !right);
 			Chain_Iterator bFork = bGroup->extremum(right);
 			ASSERT(!bFork.isSentinel());
@@ -294,16 +294,18 @@ namespace Pastel
 				std::swap(aGroup, bGroup);
 			}
 
-			// Merge the elements in the shorter branch
-			// into the taller branch.
+			// Merge the elements of the shorter fork chain
+			// into the taller fork chain.
 			ASSERT(
 				!aFork->elementSet_.empty() ||
 				!bFork->elementSet_.empty());
 			aFork->elementSet_.merge(bFork->elementSet_);
 
-			// Remove the shorter branch.
+			// Remove the shorter fork chain.
 			trieSet->erase(bFork.first);
 			bGroup->erase(bFork);
+
+			// Cut the taller fork chain.
 			++aFork->levelBegin_;
 
 			// Return the next element.
@@ -312,7 +314,8 @@ namespace Pastel
 
 		//! Removes an element by its key.
 		/*!
-		This is equivalent to erase(find(key)).
+		This is a convenience function which returns
+		erase(find(key)).
 		*/
 		Iterator erase(const Key& key)
 		{
@@ -472,6 +475,9 @@ namespace Pastel
 			ConstIterator lower = std::prev(upper);
 			if (lower.key() == key)
 			{
+				// The previous element has key equal
+				// to the searched key. Therefore the
+				// previous element is the lower-bound.
 				return lower;
 			}
 
@@ -575,6 +581,9 @@ namespace Pastel
 		*/
 		Iterator cast(const ConstIterator& that)
 		{
+			// The group-set always contains the end-group,
+			// which contains end-chain. Therefore this is
+			// well-defined.
 			return groupSet_.begin()->elementSet_.cast(that);
 		}
 
@@ -932,23 +941,7 @@ namespace Pastel
 			return chain;
 		}
 
-		//! Removes a chain.
-		/*!
-		Time complexity: O(1) amortized
-		Exception safety: nothrow
-		*/
-		void eraseChain(
-			const Group_Iterator& group,
-			const Chain_ConstIterator& chain)
-		{
-			// Remove the chain from the trie.
-			trieSet_.erase(chain->first);
-
-			// Remove the chain from the group.
-			group->erase(chain);
-		}
-
-		//! The set of chains.
+		//! The compact x-fast trie.
 		TrieSet trieSet_;
 
 		//! The set of groups.
