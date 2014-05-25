@@ -609,7 +609,7 @@ namespace Pastel
 				cast(that.end()));			
 		}
 
-		//! Appends the elements of another tree.
+			//! Appends the elements of another tree.
 		/*!
 		Preconditions:
 		sharesBottom(that)
@@ -817,23 +817,39 @@ namespace Pastel
 		template <typename ConstIterator_Range>
 		void updateToRootMany(const ConstIterator_Range& updateSet);
 
-		//! Returns an iterator to the smallest element.
+		//! Returns the smallest element.
 		PASTEL_ITERATOR_FUNCTIONS(begin, minNode());
 
-		//! Returns an iterator to the end node.
+		//! Returns the end node.
 		PASTEL_ITERATOR_FUNCTIONS(end, endNode());
 
-		//! Returns the iterator to the greatest element.
+		//! Returns the greatest element.
 		PASTEL_ITERATOR_FUNCTIONS(last, maxNode());
 
-		//! Returns an iterator to the root node.
+		//! Returns the root node.
 		PASTEL_ITERATOR_FUNCTIONS(root, rootNode());
 
-		//! Returns an iterator to the bottom node.
+		//! Returns the bottom node.
 		PASTEL_ITERATOR_FUNCTIONS(bottom, bottomNode());
 
-		//! Returns an iterator range.
+		//! Returns the element range.
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
+
+		//! Returns an extremum element.
+		ConstIterator extremum(bool right) const
+		{
+			return ConstIterator(extremumNode(right));
+		}
+
+		Iterator extremum(bool right)
+		{
+			return cast(addConst(*this).extremum(right));
+		}
+
+		ConstIterator cextremum(bool right) const
+		{
+			return extremum(right);
+		}
 
 	private:
 		PASTEL_FWD(Node);
