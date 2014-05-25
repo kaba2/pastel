@@ -895,50 +895,95 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		Chain_Iterator splitChain(
-			const Chain_Iterator& above)
+			const Chain_Iterator& chain)
 		{
-			ASSERT(!above.isSentinel());
+			ASSERT(!chain.isSentinel());
 
-			const Key& aboveKey = above.key();
-			integer height = above->levelBegin();
+			const Key& chainKey = chain.key();
+			integer height = chain->levelBegin();
+			ASSERT_OP(height, >, 0);
 
-			Key chainKey = turn(aboveKey, height);
-			ASSERT(!chainExists(chainKey));
+			// Compute the branch key.
+			Key branchKey = turn(chainKey, height);
+			ASSERT(!chainExists(branchKey));
 
-			// Extend the above chain downwards.
-			--(above->levelBegin_);
+			// Extend the chain downwards by one node.
+			ASSERT_OP(chain->levelBegin_, >, 0);
+			--(chain->levelBegin_);
 
-			Group_Iterator aboveGroup = above.findTree();
-			Group_Iterator group = aboveGroup;
+			// Find the chain's group.
+			Group_Iterator group = chain.findTree();
 
-			Chain_Iterator chain;
-			if (!above->elementSet_.empty())
+			bool oddChain = odd(chainKey);
+			Group_Iterator branchGroup = group;
+			if (chain == group->extremum(!oddChain))
 			{
-				integer step = 
-					even(aboveKey) ? 1 : 0;
+				// [//]*[\\]
+				// ==>
+				// [//*][\\]
 
-				// Create a new chain-group.
-				group = groupSet_.insert(std::next(aboveGroup, step));
+				// The branch is created between groups;
+				// Now new group will be created. The 
+				// branch-chain is inserted into an existing 
+				// group.
+				integer step = oddChain ? 1 : -1;
+				branchGroup = std::next(group, -step);
+			}
+			else
+			{
+				// [//][\*\]
+				// ==>
+				// [//][\][*][\]
+
+				// [/*/][\\]
+				// ==>
+				// [/][*][/][\\]
+
+				// The branch is created inside a group.
+
+				// Create the group which contains the chains
+				// from the 'chain' forward.
+				Group_Iterator afterGroup = 
+					groupSet_.insert(std::next(group));
+
+				// Split chains to the after-group.
+				*afterGroup = group->split(chain);
+
+				// Create the branch-group.
+				branchGroup = groupSet_.insert(std::next(group));
 			}
 
-			// Create a new chain.
-			chain = insertChain(chainKey, height - 1, height, group);
+			// Create the branch-chain.
+			Chain_Iterator branch = 
+				insertChain(branchKey, height - 1, height, branchGroup);
 
 			// Compute the split-key.
 			Key splitKey = chainKey;
 			splitKey.setBit(height - 1);
 			splitKey.clearBits(0, height - 1);
 
-			// Split elements into the new bucket.
-			chain->elementSet_ = above->elementSet_.split(
-				above->elementSet_.lowerBound(splitKey));
-			if (odd(above.key()))
+			// Split elements into the branch-chain.
+			branch->elementSet_ = chain->elementSet_.split(splitKey);
+			if (oddChain)
 			{
-				chain->elementSet_.swapElements(above->elementSet_);
+				// The split got the element-sets in the reversed 
+				// order. Swap the element-sets.
+				branch->elementSet_.swap(chain->elementSet_);
 			}
 			
-			// Return the new chain.
-			return chain;
+			if (chain->elementSet_.empty())
+			{
+				// The 'chain' turned from non-empty to empty.
+				group->updateToRoot(chain);
+			}
+			if (!branch->elementSet_.empty())
+			{
+				// The 'branch' turned from empty to non-empty.
+				branchGroup->updateToRoot(branch);
+			}
+		
+			// Return the branch chain.
+			return branch;
 		}
 
 		//! The compact x-fast trie.
