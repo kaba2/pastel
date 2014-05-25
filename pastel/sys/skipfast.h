@@ -921,20 +921,36 @@ namespace Pastel
 			Group_Iterator branchGroup;
 			if (chain == group->extremum(!oddChain))
 			{
-				// [//]*[\\]
-				// ==>
-				// [///][\\]
+				if (group == groupSet_.ctreeLast())
+				{
+					// [//]*
+					// ==>
+					// [//][\]
+					ASSERT(!oddChain);
+					
+					// The branch is created after all
+					// groups. 
 
-				// [//]*[\\]
-				// ==>
-				// [//][\\\]
+					// Create the branch group.
+					branchGroup = groupSet_.insert(std::next(group));
+				}
+				else
+				{
+					// [//]*[\\]
+					// ==>
+					// [///][\\]
 
-				// The branch is created between groups;
-				// Now new group will be created. The 
-				// branch-chain is inserted into an existing 
-				// group.
-				integer step = oddChain ? 1 : -1;
-				branchGroup = std::next(group, -step);
+					// [//]*[\\]
+					// ==>
+					// [//][\\\]
+
+					// The branch is created between groups;
+					// Now new group will be created. The 
+					// branch-chain is inserted into an existing 
+					// group.
+					integer step = oddChain ? 1 : -1;
+					branchGroup = std::next(group, -step);
+				}
 			}
 			else
 			{
