@@ -52,6 +52,7 @@ namespace Pastel
 		PASTEL_FWD(Group_ConstRange);
 		PASTEL_FWD(Group_Range);
 
+		PASTEL_FWD(Chain);
 		PASTEL_FWD(Chain_ConstIterator);
 		PASTEL_FWD(Chain_Iterator);
 		PASTEL_FWD(Chain_ConstRange);
@@ -86,6 +87,24 @@ namespace Pastel
 		: trieSet_()
 		, groupSet_()
 		{
+			// Create the end-group.
+			Group_Iterator endGroup = 
+				groupSet_.insert(groupEnd());
+
+			// Insert the empty end-chain into the end-group.
+			// This contains the end-node of the skip-fast trie.
+			Chain_Iterator endChain = 
+				insertChain(0, 0, 0, endGroup);
+
+			// Create the zero-group.
+			Group_Iterator zeroGroup = 
+				groupSet_.insert(groupBegin());
+
+			// Insert the zero-chain into the zero-group.
+			Chain_Iterator zeroChain = 
+				insertChain(0, maxBits(), maxBits(), zeroGroup);
+			insertTrie(zeroChain);
+
 			onConstruction();
 		}
 
@@ -201,43 +220,17 @@ namespace Pastel
 			const Key& key, 
 			const Value_Class& value = Value_Class())
 		{
-			if (empty())
-			{
-				// The trie is empty. This is a special case,
-				// since there are no chains whose existence 
-				// the non-empty insertion assumes.
-				return insertEmpty(key, value);
-			}
+			// Find the lowest ancestor of the key.
+			Chain_Iterator lowestAncestor = findLowestAncestor(key).first;
 
-			// Find the lowest ancestor.
-			Chain_Iterator lowestAncestor;
-			integer level;
-			std::tie(lowestAncestor, level) = findLowestAncestor(key);
-
-			// Insert the element into the lowest ancestor 
-			// (or at least try to).
+			// Insert the element into the chain.
 			Iterator element;
 			bool isNew;
-			std::tie(element, isNew) = 
-				lowestAncestor->elementSet_.insert(key, value);
+			std::tie(element, isNew) = insert(key, value, lowestAncestor);
 
 			if (!isNew)
 			{
-				// The element already exists;
-				// return the existing element.
 				return std::make_pair(element, false);
-			}
-
-			if (lowestAncestor->elementSet_.size() == 1)
-			{
-				// The chain turned from empty to non-empty.
-
-				// Find the chain-group of the chain.
-				Group_Iterator group = lowestAncestor.findTree();
-				
-				// Update the propagation information in the
-				// chain-group.
-				group->updateToRoot(lowestAncestor);
 			}
 
 			// Split the chain.
@@ -246,8 +239,8 @@ namespace Pastel
 			// Notify the customization.
 			onInsert(element);
 
-			// Return the new element.
-			return std::make_pair(element, true);
+			// Return the element.
+			return std::make_pair(element, isNew);
 		}
 
 		//! Removes an element by its iterator.
@@ -255,7 +248,7 @@ namespace Pastel
 		Time complexity: O(?)
 		Exception safety: nothrow
 
-		If the element is end(), then nothing happens.
+		If the element is cend(), then nothing happens.
 
 		returns:
 		An iterator to the element following the
@@ -281,22 +274,39 @@ namespace Pastel
 			Element_Iterator nextElement = 
 				lowestAncestor->elementSet_.erase(element);
 
-			// TODO: Merge chains etc.
-			ASSERT(false);
+			bool right = odd(lowestAncestor.key());
 
-			if (even(lowestAncestor.key()))
+			// Find a branch of the fork.
+			Group_Iterator aGroup = lowestAncestor.findTree();
+			Chain_Iterator aFork = aGroup->extremum(!right);
+			ASSERT(!aFork.isSentinel());
+
+			// Find the other branch of the fork.
+			Chain_Iterator bGroup = std::next(group, !right);
+			Chain_Iterator bFork = bGroup->extremum(right);
+			ASSERT(!bFork.isSentinel());
+
+			// Make it so that the 'aFork' is taller.
+			ASSERT_OP(aFork->height(), !=, bFork->height());
+			if (aFork->height() < bFork->height())
 			{
-				// Find a fork to merge.
-
-				// Find the group of the lowest ancestor.
-				Group_Iterator group = lowestAncestor.findTree();
-				--group;
-				if (group->cend().sentinelData().type == GroupType::Empty)
-				{
-					--group;
-				}
+				std::swap(aFork, bFork);
+				std::swap(aGroup, bGroup);
 			}
 
+			// Merge the elements in the shorter branch
+			// into the taller branch.
+			ASSERT(
+				!aFork->elementSet_.empty() ||
+				!bFork->elementSet_.empty());
+			aFork->elementSet_.merge(bFork->elementSet_);
+
+			// Remove the shorter branch.
+			trieSet->erase(bFork.first);
+			bGroup->erase(bFork);
+			++aFork->levelBegin_;
+
+			// Return the next element.
 			return nextElement;
 		}
 
@@ -311,7 +321,10 @@ namespace Pastel
 
 		//! Returns an element with a given key.
 		/*!
-		Time complexity: O(?)
+		Time complexity: 
+		O(?), if isInRange(key),
+		O(1), otherwise.
+
 		Exception safety: nothrow
 
 		returns:
@@ -362,7 +375,7 @@ namespace Pastel
 		//! Returns the smallest element > 'key'.
 		/*!
 		Time complexity: 
-		O(1), if key < min(S) or key >= max(S) or empty(),
+		O(1), if empty() or key < min(S) or key >= max(S),
 		O(?), otherwise.
 
 		Exception safety:
@@ -375,14 +388,22 @@ namespace Pastel
 		*/
 		ConstIterator upperBound(const Key& key) const
 		{
-			if (!isInRange(key) ||
-				key == clast().key())
+			if (empty() ||
+				key >= clast().key())
 			{
 				// The key is equal to or greater than
 				// the maximum element, or the trie is
 				// empty. In any case, the upper-bound
 				// is the end-node.
 				return cend();
+			}
+
+			if (key < cbegin().key())
+			{
+				// The key is smaller than the minimum
+				// element. Therefore the the upper-bound
+				// is the minimum element.
+				return cbegin();
 			}
 
 			//! Find the lowest ancestor.
@@ -401,8 +422,8 @@ namespace Pastel
 			}
 
 			// An upper-bound was not found in the
-			// lowest ancestor.
-
+			// lowest ancestor. Return the element 
+			// after the last element in the chain.
 			ConstIterator result = chain->elementSet_.clast();
 			return std::next(result);
 		}
@@ -778,42 +799,62 @@ namespace Pastel
 		}
 
 	//private:
-		std::pair<Iterator, bool> insertEmpty(
+		std::pair<Element_Iterator, bool> insert(
 			const Key& key, 
-			const Value_Class& value)
+			const Value_Class& value,
+			const Chain_Iterator& chain)
 		{
-			ASSERT(empty());
+			bool wasEmpty = chain->elementSet_.empty();
 
-			// Create a chain-group.
-			Group_Iterator group = 
-				groupSet_.insert(groupEnd());
+			// Insert the element into the chain
+			// (or at least try to).
+			Iterator element;
+			bool isNew;
+			std::tie(element, isNew) = 
+				chain->elementSet_.insert(key, value);
 
-			// Insert the zero chain into the group.
-			Chain_Iterator chain = insertChain(
-				0, maxBits(), group);
+			if (!isNew)
+			{
+				// The element already exists;
+				// return the existing element.
+				return std::make_pair(element, false);
+			}
 
-			// Insert the element into the zero-chain.
-			Element_Iterator element = 
-				chain->elementSet_.insert(key, value).first;
+			if (wasEmpty)
+			{
+				// The chain turned from empty to non-empty.
+
+				// Find the chain-group of the chain.
+				Group_Iterator group = chain.findTree();
+				
+				// Update the propagation information in the
+				// chain-group.
+				group->updateToRoot(chain);
+			}
 
 			return std::make_pair(element, true);
 		}
 
 		Chain_Iterator insertChain(
 			const Key& key,
+			integer levelBegin,
 			integer height,
 			const Group_Iterator& group)
 		{
 			Chain_Iterator chain;
 			bool added;
-			std::tie(chain, added) = group->insert(key, height);
-			
+
+			std::tie(chain, added) = group->insert(key, Chain(levelBegin, height));
 			ASSERT(added);
 
 			chain->elementSet_.end().sentinelData().chain = chain;
-			trieSet_.emplace(key, chain);
 
 			return chain;
+		}
+
+		void insertTrie(const Chain_Iterator& chain)
+		{
+			trieSet_.emplace(chain.key(), chain);
 		}
 
 		//! Returns the next key on a given level.
@@ -872,7 +913,7 @@ namespace Pastel
 			}
 
 			// Create a new chain.
-			chain = insertChain(chainKey, height, group);
+			chain = insertChain(chainKey, height - 1, height, group);
 
 			// Compute the split-key.
 			Key splitKey = chainKey;
