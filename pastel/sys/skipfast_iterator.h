@@ -120,7 +120,11 @@ namespace Pastel
 							}
 
 							// Pick the extremum chain of the chain-group.
-							chain = group->end().next<Right>(onlyNonEmpty);
+							chain = group->extremum(!Right);
+							if (chain->elementSet_.empty())
+							{
+								chain = chain.next<Right>(onlyNonEmpty);
+							}								
 						}
 					}
 

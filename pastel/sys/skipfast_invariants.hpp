@@ -22,6 +22,13 @@ namespace Pastel
 			return true;
 		}
 
+		if (that.size() != std::distance(that.begin(), that.end()))
+		{
+			// The size of the trie must equal the number of
+			// elements accessible through iterators.
+			return false;
+		}
+
 		// Check the chains.
 		{
 			auto iter = that.cchainBegin();
