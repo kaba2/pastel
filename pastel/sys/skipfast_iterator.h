@@ -103,13 +103,13 @@ namespace Pastel
 						// Find the current chain-group.
 						auto group = Chain_ConstIterator(chain).findTree();
 
-						while (!std::next(group, 2 * Step).isEnd() &&
+						while (!std::next(group, Step).isEnd() &&
 							chain.isSentinel())
 						{
 							// Go to the next chain-group.
 							group = std::next(group, Step);
 
-							if (std::next(group, 2 * Step).isEnd())
+							if (std::next(group, Step).isEnd())
 							{
 								// This is the end-group, so it does not contain
 								// non-empty chains. Return the end-chain.

@@ -73,11 +73,25 @@ namespace Pastel
 				Base_Iterator& iter = *this;
 				++iter;
 				
-				// Skip all end-nodes, except for the
-				// forest end-node.
-				while (isSentinel() && !isForestEnd())
+				if (isSentinel() && !isForestEnd())
 				{
-					iter = std::next(iter.sentinelData().tree())->begin();
+					// Skip empty trees.
+					auto tree = iter.sentinelData().tree();
+					ASSERT(!tree.isEnd());
+
+					do 
+					{
+						++tree;
+					} while (!tree.isEnd() && tree->empty());
+					
+					if (tree.isEnd())
+					{
+						iter = tree.endData().end();
+					}
+					else
+					{
+						iter = tree->begin();
+					}
 				}
 
 				return *this;

@@ -53,11 +53,8 @@ namespace Pastel
 		RedBlackForest()
 		: treeSet_()
 		{
-			// Create the sentinel tree.
-			Tree_Iterator sentinelTree = 
-				insert(treeSet_.cend());
-
-			sentinelTree->cend().sentinelData().isForestEnd_ = true;
+			end().sentinelData().isForestEnd_ = true;
+			end().sentinelData().tree_ = treeEnd();
 
 			onConstruction();
 		}
@@ -246,7 +243,7 @@ namespace Pastel
 		*/
 		integer trees() const
 		{
-			return treeSet_.size() - 1;
+			return treeSet_.size();
 		}
 
 		//! Removes constness from a tree-iterator.
@@ -260,9 +257,8 @@ namespace Pastel
 		}
 
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeBegin, treeSet_.begin());
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeEnd, treeSentinel());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeEnd, treeSet_.end());
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeLast, std::prev(treeEnd()));
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Tree_, treeSentinel, std::prev(treeSet_.end()));
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Tree_, treeRange, treeBegin, treeEnd);
 
 		//! Removes constness from an iterator.
@@ -276,7 +272,7 @@ namespace Pastel
 		}
 
 		PASTEL_ITERATOR_FUNCTIONS(begin, treeBegin()->begin());
-		PASTEL_ITERATOR_FUNCTIONS(end, treeEnd()->end());
+		PASTEL_ITERATOR_FUNCTIONS(end, treeEnd().endData().end());
 		PASTEL_ITERATOR_FUNCTIONS(last, treeLast()->last());
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
