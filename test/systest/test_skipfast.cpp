@@ -75,12 +75,19 @@ namespace
 
 			{
 				a.insert(1, 11);
+				auto i = a.begin();
+				auto end = a.end();
+				++i;
+				TEST_ENSURE(i == end);
+				//std::cout << i.key() << std::endl;
+
 				TEST_ENSURE(testInvariants(a));
 				print(a);
 
 				TEST_ENSURE(keysEqual(a, { 1 }));
 				TEST_ENSURE(valuesEqual(a, { 11 }));
 			}
+			/*
 			{
 				a.insert(9, 19);
 				TEST_ENSURE(testInvariants(a));
@@ -99,10 +106,9 @@ namespace
 				a.insert(4, 14);
 				TEST_ENSURE(testInvariants(a));
 
-				//TEST_ENSURE(keysEqual(a, { 1, 4, 5, 9 }));
-				//TEST_ENSURE(valuesEqual(a, { 11, 14, 15, 19 }));
+				TEST_ENSURE(keysEqual(a, { 1, 4, 5, 9 }));
+				TEST_ENSURE(valuesEqual(a, { 11, 14, 15, 19 }));
 			}
-			/*
 			{
 				a.insert(6, 16);
 				TEST_ENSURE(testInvariants(a));

@@ -89,7 +89,7 @@ namespace Pastel
 		{
 			// Create the end-group.
 			Group_Iterator endGroup = 
-				groupSet_.insert(groupEnd());
+				groupSet_.insert(groupBegin());
 
 			// Insert the empty end-chain into the end-group.
 			// This contains the end-node of the skip-fast trie.
@@ -510,12 +510,12 @@ namespace Pastel
 		}
 
 		PASTEL_ITERATOR_FUNCTIONS(begin, groupSet_.begin()->elementSet_.begin());
-		PASTEL_ITERATOR_FUNCTIONS(end, groupSet_.last()->elementSet_.end());
+		PASTEL_ITERATOR_FUNCTIONS(end, chainEnd()->elementSet_.end());
 		PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainBegin, groupSet_.begin());
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainEnd, groupSet_.end());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainEnd, groupSet_.last());
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Chain_, chainRange, chainBegin, chainEnd);
 
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Group_, groupBegin, groupSet_.treeBegin());
@@ -891,8 +891,8 @@ namespace Pastel
 
 		//! Splits a chain into two.
 		/*!
-		Time complexity: O(1) expected
-		Exception safety: strong
+		Time complexity: O(?)
+		Exception safety: ?
 		*/
 		Chain_Iterator splitChain(
 			const Chain_Iterator& chain)

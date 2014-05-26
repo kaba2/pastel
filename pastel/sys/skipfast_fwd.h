@@ -75,6 +75,11 @@ namespace Pastel
 		class Chain_Propagation
 		{
 		public:
+			Chain_Propagation()
+			: nonEmpty(false)
+			{				
+			}
+
 			bool nonEmpty;
 		};
 
