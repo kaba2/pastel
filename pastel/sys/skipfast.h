@@ -51,6 +51,7 @@ namespace Pastel
 		PASTEL_FWD(Group_Iterator);
 		PASTEL_FWD(Group_ConstRange);
 		PASTEL_FWD(Group_Range);
+		PASTEL_FWD(Group);
 
 		PASTEL_FWD(Chain);
 		PASTEL_FWD(Chain_ConstIterator);
@@ -87,14 +88,10 @@ namespace Pastel
 		: trieSet_()
 		, groupSet_()
 		{
-			// Create the end-group.
-			Group_Iterator endGroup = 
-				groupSet_.insert(groupBegin());
-
 			// Insert the empty end-chain into the end-group.
 			// This contains the end-node of the skip-fast trie.
 			Chain_Iterator endChain = 
-				insertChain(0, 0, 0, endGroup);
+				insertChain(0, 0, 0, groupSet_.treeEnd());
 
 			// Create the zero-group.
 			Group_Iterator zeroGroup = 
@@ -510,12 +507,12 @@ namespace Pastel
 		}
 
 		PASTEL_ITERATOR_FUNCTIONS(begin, groupSet_.begin()->elementSet_.begin());
-		PASTEL_ITERATOR_FUNCTIONS(end, chainEnd()->elementSet_.end());
+		PASTEL_ITERATOR_FUNCTIONS(end, groupEnd().endData().begin()->elementSet_.begin());
 		PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainBegin, groupSet_.begin());
-		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainEnd, groupSet_.last());
+		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Chain_, chainEnd, groupSet_.end());
 		PASTEL_RANGE_FUNCTIONS_PREFIX(Chain_, chainRange, chainBegin, chainEnd);
 
 		PASTEL_ITERATOR_FUNCTIONS_PREFIX(Group_, groupBegin, groupSet_.treeBegin());
@@ -853,7 +850,14 @@ namespace Pastel
 			Chain_Iterator chain;
 			bool added;
 
-			std::tie(chain, added) = group->insert(key, Chain(levelBegin, height));
+			bool isEnd = group.isEnd();
+
+			auto& groupTree =
+				group.isEnd() ? 
+				group.endData() :
+				*group;
+
+			std::tie(chain, added) = groupTree.insert(key, Chain(levelBegin, height));
 			ASSERT(added);
 
 			chain->elementSet_.end().sentinelData().chain = chain;
@@ -915,14 +919,13 @@ namespace Pastel
 			// Find the chain's group.
 			Group_Iterator group = chain.findTree();
 			ASSERT(!group->empty());
-			ASSERT(group != groupSet_.ctreeLast());
 
 			// Possibly split the groups, and
 			// find out the branch-group.
 			Group_Iterator branchGroup;
 			if (chain == group->extremum(!oddChain))
 			{
-				if (group == std::prev(groupSet_.ctreeLast()))
+				if (group == groupSet_.ctreeLast())
 				{
 					// [//]*
 					// ==>
