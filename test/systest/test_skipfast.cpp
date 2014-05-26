@@ -83,12 +83,10 @@ namespace
 			{
 				a.insert(9, 19);
 				TEST_ENSURE(testInvariants(a));
-				print(a);
 
 				TEST_ENSURE(keysEqual(a, { 1, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 19 }));
 			}
-			/*
 			{
 				a.insert(5, 15);
 				TEST_ENSURE(testInvariants(a));
@@ -106,10 +104,12 @@ namespace
 			{
 				a.insert(6, 16);
 				TEST_ENSURE(testInvariants(a));
+				print(a);
 				
 				TEST_ENSURE(keysEqual(a, { 1, 4, 5, 6, 9 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 14, 15, 16, 19 }));
 			}
+			/*
 			{
 				a.insert(3, 13);
 				TEST_ENSURE(testInvariants(a));
@@ -258,11 +258,11 @@ namespace
 		template <int N>
 		void print(const SkipFast_Set<N>& a)
 		{
-			auto chain = a.cbegin();
-			while (chain != a.cend())
+			auto element = a.cbegin();
+			while (element != a.cend())
 			{
-				std::cout << chain.key().word(0) << " ";
-				++chain;
+				std::cout << element.key().word(0) << " ";
+				++element;
 			}
 			std::cout << std::endl;
 		}
@@ -270,11 +270,11 @@ namespace
 		template <int N, typename Value>
 		void print(const SkipFast_Map<N, Value>& a)
 		{
-			auto chain = a.cbegin();
-			while (chain != a.cend())
+			auto element = a.cbegin();
+			while (element != a.cend())
 			{
-				std::cout << chain.key().word(0) << " ";
-				++chain;
+				std::cout << element.key().word(0) << " ";
+				++element;
 			}
 			std::cout << std::endl;
 		}

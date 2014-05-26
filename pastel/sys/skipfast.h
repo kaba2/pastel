@@ -100,7 +100,6 @@ namespace Pastel
 			// Insert the zero-chain into the zero-group.
 			Chain_Iterator zeroChain = 
 				insertChain(0, maxBits(), maxBits(), zeroGroup);
-			insertTrie(zeroChain);
 
 			onConstruction();
 		}
@@ -536,9 +535,11 @@ namespace Pastel
 		*/
 		integer size() const
 		{
-			// The number of elements equals the
-			// number of chains.
-			return chains();
+			// The zero chain is created already at the
+			// start. After that, the insertion of an 
+			// element also insert a chain, and the
+			// removal of an element also removes a chain.
+			return chains() - 1;
 		}
 
 		//! Returns the number of chains.
@@ -847,27 +848,24 @@ namespace Pastel
 			integer height,
 			const Group_Iterator& group)
 		{
-			Chain_Iterator chain;
-			bool added;
-
-			bool isEnd = group.isEnd();
-
 			auto& groupTree =
 				group.isEnd() ? 
 				group.endData() :
 				*group;
 
+			Chain_Iterator chain;
+			bool added;
 			std::tie(chain, added) = groupTree.insert(key, Chain(levelBegin, height));
 			ASSERT(added);
+
+			if (!group.isEnd())
+			{
+				trieSet_.emplace(key, chain);
+			}
 
 			chain->elementSet_.end().sentinelData().chain = chain;
 
 			return chain;
-		}
-
-		void insertTrie(const Chain_Iterator& chain)
-		{
-			trieSet_.emplace(chain.key(), chain);
 		}
 
 		//! Returns the next key on a given level.
@@ -930,13 +928,20 @@ namespace Pastel
 					// [//]*
 					// ==>
 					// [//][\]
-					ASSERT(!oddChain);
-					
-					// The branch is created after all
-					// groups. 
 
-					// Create the branch group.
-					branchGroup = groupSet_.insert(std::next(group));
+					// [\\]*
+					// ==>
+					// [\\\]
+					
+					if (oddChain)
+					{
+						branchGroup = group;
+					}
+					else
+					{
+						// Create the branch group.
+						branchGroup = groupSet_.insert(std::next(group));
+					}
 				}
 				else
 				{
