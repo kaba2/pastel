@@ -18,14 +18,7 @@ namespace Pastel
 		using Tree_ConstIterator = typename Forest::Tree_ConstIterator;
 		using ConstIterator = typename Forest::ConstIterator;
 
-		if (forest.cend() != forest.treeSentinel()->cend())
-		{
-			// The forest's sentinel node must be sentinel tree's
-			// end-node.
-			return false;
-		}
-
-		if (!forest.treeSentinel()->empty())
+		if (!forest.treeEnd().endData().empty())
 		{
 			// The sentinel tree must be empty.
 			return false;
@@ -35,7 +28,7 @@ namespace Pastel
 		Tree_ConstIterator end = std::next(forest.ctreeEnd());
 		while(tree != end)
 		{
-			if (ConstIterator(tree->cend()).isForestEnd() == (tree == forest.ctreeSentinel()))
+			if (ConstIterator(tree->cend()).isForestEnd() == (tree == forest.ctreeEnd()))
 			{
 				// A tree's end-node is marked as the forest's 
 				// end-node if and only if the tree is the forest's

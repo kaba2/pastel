@@ -28,8 +28,8 @@ namespace Pastel
 		using Tree = RedBlackTree<Tree_Settings>;
 		using Tree_Fwd = RedBlackTree_Fwd<Tree_Settings>;
 
-		using TreeSet = List_Set<Tree>;
-		using TreeSet_Fwd = List_Set_Fwd<Tree>;
+		using TreeSet = List_Set<Tree, Tree>;
+		using TreeSet_Fwd = List_Set_Fwd<Tree, Tree>;
 		using Tree_Iterator = typename TreeSet_Fwd::Iterator;
 		using Tree_ConstIterator = typename TreeSet_Fwd::ConstIterator;
 		using Tree_Range = boost::iterator_range<Tree_Iterator>;
