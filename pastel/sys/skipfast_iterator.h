@@ -103,11 +103,22 @@ namespace Pastel
 						// Find the current chain-group.
 						auto group = Chain_ConstIterator(chain).findTree();
 
-						// Go to the next chain-group.
-						group = std::next(group, Step);
-
-						if (!group.isEnd())
+						while (!std::next(group, 2 * Step).isEnd() &&
+							chain.isSentinel())
 						{
+							// Go to the next chain-group.
+							group = std::next(group, Step);
+
+							if (std::next(group, 2 * Step).isEnd())
+							{
+								// This is the end-group, so it does not contain
+								// non-empty chains. Return the end-chain.
+								chain = group->begin();
+								ASSERT(!chain.isSentinel());
+								ASSERT(chain->elementSet_.empty());
+								break;
+							}
+
 							// Pick the extremum chain of the chain-group.
 							chain = group->end().next<Right>(onlyNonEmpty);
 						}
@@ -115,8 +126,15 @@ namespace Pastel
 
 					if (!chain.isSentinel())
 					{
-						// Pick the extremum element of the chain.
-						iter = std::next(chain->elementSet_.end(), Step);
+						if (!chain->elementSet_.empty())
+						{
+							// Pick the extremum element of the chain.
+							iter = chain->elementSet_.extremum(!Right);
+						}
+						else
+						{
+							iter = chain->elementSet_.end();
+						}
 					}
 				}
 				
