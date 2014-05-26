@@ -19,20 +19,8 @@ namespace Pastel
 	public:
 		using Fwd = Settings;
 
-		template <typename Tree>
-		class GetSettings;
-
-		template <
-			typename Settings_,
-			template <typename> class Customization_>
-		class GetSettings<RedBlackTree<Settings_, Customization_>>
-		{
-		public:
-			using type = Settings_;
-		};
-
 		using User_Tree = typename Settings::Tree;
-		using User_Tree_Settings = typename GetSettings<User_Tree>::type;
+		using User_Tree_Settings = Settings_For<User_Tree>;
 		using User_Tree_Fwd = RedBlackTree_Fwd<User_Tree_Settings>;
 		using User_SentinelData = typename User_Tree_Settings::SentinelData;
 

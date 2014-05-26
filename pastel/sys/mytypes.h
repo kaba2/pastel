@@ -9,6 +9,7 @@
 #include "pastel/sys/no_op_functions.h"
 #include "pastel/sys/sfinae_macros.h"
 #include "pastel/sys/iterator_macros.h"
+#include "pastel/sys/settings_type.h"
 
 #ifdef PASTEL_ENABLE_OMP
 #include "omp.h"
