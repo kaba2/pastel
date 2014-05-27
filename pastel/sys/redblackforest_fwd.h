@@ -25,7 +25,7 @@ namespace Pastel
 		using User_SentinelData = typename User_Tree_Settings::SentinelData;
 
 		class Tree_Settings;
-		using Tree = RedBlackTree<Tree_Settings>;
+		using Tree = Replace_Settings<User_Tree, Tree_Settings>;
 		using Tree_Fwd = RedBlackTree_Fwd<Tree_Settings>;
 
 		using TreeSet = List_Set<Tree, Tree>;
