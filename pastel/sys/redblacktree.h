@@ -817,6 +817,12 @@ namespace Pastel
 		template <typename ConstIterator_Range>
 		void updateToRootMany(const ConstIterator_Range& updateSet);
 
+		void updateToRootMany(
+			const std::initializer_list<ConstIterator>& updateSet)
+		{
+			updateToRootMany<std::initializer_list<ConstIterator>>(updateSet);
+		}
+
 		//! Returns the smallest element.
 		PASTEL_ITERATOR_FUNCTIONS(begin, minNode());
 
