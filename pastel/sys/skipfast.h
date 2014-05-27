@@ -230,8 +230,15 @@ namespace Pastel
 				return std::make_pair(element, false);
 			}
 
-			// Split the chain.
-			splitChain(lowestAncestor);
+			if (lowestAncestor->levelBegin() > 0)
+			{
+				// Split the chain.
+				splitChain(lowestAncestor);
+			}
+			else
+			{
+				ASSERT_OP(lowestAncestor->elementSet_.size(), ==, 1);
+			}
 
 			// Notify the customization.
 			onInsert(element);
@@ -923,42 +930,20 @@ namespace Pastel
 			Group_Iterator branchGroup;
 			if (chain == group->extremum(!oddChain))
 			{
-				if (group == groupSet_.ctreeLast())
+				// [//][*\\]
+				// ==>
+				// [///][\\]
+
+				// [//*][\\]
+				// ==>
+				// [//][\\\]
+				integer step = oddChain ? -1 : 1;
+				branchGroup = std::next(group, step);
+
+				if (branchGroup.isEnd())
 				{
-					// [//]*
-					// ==>
-					// [//][\]
-
-					// [\\]*
-					// ==>
-					// [\\\]
-					
-					if (oddChain)
-					{
-						branchGroup = group;
-					}
-					else
-					{
-						// Create the branch group.
-						branchGroup = groupSet_.insert(std::next(group));
-					}
-				}
-				else
-				{
-					// [//]*[\\]
-					// ==>
-					// [///][\\]
-
-					// [//]*[\\]
-					// ==>
-					// [//][\\\]
-
-					// The branch is created between groups;
-					// Now new group will be created. The 
-					// branch-chain is inserted into an existing 
-					// group.
-					integer step = oddChain ? 1 : -1;
-					branchGroup = std::next(group, -step);
+					branchGroup = groupSet_.insert(
+						branchGroup);
 				}
 			}
 			else
@@ -970,8 +955,6 @@ namespace Pastel
 				// [/*/][\\]
 				// ==>
 				// [/][\][/][\\]
-
-				// The branch is created inside a group.
 
 				// Create the group which contains the chains
 				// from the 'chain' forward.
@@ -1005,20 +988,19 @@ namespace Pastel
 			{
 				// The split got the element-sets in the reversed 
 				// order. Swap the element-sets.
-				branch->elementSet_.swap(chain->elementSet_);
+				branch->elementSet_.swapElements(chain->elementSet_);
 			}
-			
-			if (chain->elementSet_.empty())
+
+			if (group == branchGroup)
 			{
-				// The 'chain' turned from non-empty to empty.
+				group->updateToRootMany({ chain, branch });
+			}
+			else
+			{
 				group->updateToRoot(chain);
-			}
-			if (!branch->elementSet_.empty())
-			{
-				// The 'branch' turned from empty to non-empty.
 				branchGroup->updateToRoot(branch);
 			}
-		
+			
 			// Return the branch chain.
 			return branch;
 		}

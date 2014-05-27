@@ -22,11 +22,29 @@ namespace Pastel
 			return true;
 		}
 
-		if (that.size() != std::distance(that.begin(), that.end()))
+		// Check the groups.
 		{
-			// The size of the trie must equal the number of
-			// elements accessible through iterators.
-			return false;
+			auto group = that.cgroupBegin();
+			while (group != that.cgroupEnd())
+			{
+				auto chain = group->begin();
+				while (chain != group->end())
+				{
+					bool nonEmpty = 
+						!chain->elementSet_.empty() ||
+						chain.left().propagation().nonEmpty ||
+						chain.right().propagation().nonEmpty;
+
+					if (nonEmpty != chain.propagation().nonEmpty)
+					{
+						// The propagation data must be up-to-date.
+						return false;
+					}
+					++chain;
+				}
+
+				++group;
+			}
 		}
 
 		// Check the chains.
@@ -98,6 +116,13 @@ namespace Pastel
 				iter = next;
 				++next;
 			}
+		}
+
+		if (that.size() != std::distance(that.begin(), that.end()))
+		{
+			// The size of the trie must equal the number of
+			// elements accessible through iterators.
+			return false;
 		}
 
 		return true;

@@ -38,14 +38,16 @@ namespace Pastel
 			PASTEL_FWD(ConstIterator);
 			PASTEL_FWD(Propagation_Class);
 
+			Chain_Customization() {}
+
 			void updatePropagation(
 				const Iterator& element,
 				Propagation_Class& propagation) 
 			{
 				propagation.nonEmpty = 
 					!element->elementSet_.empty() ||
-					element.left()->propagation().nonEmpty ||
-					element.right()->propagation().nonEmpty;
+					element.left().propagation().nonEmpty ||
+					element.right().propagation().nonEmpty;
 			}
 
 		private:
