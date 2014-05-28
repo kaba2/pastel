@@ -34,6 +34,9 @@ namespace Pastel
 
 			using Data_Class = typename Node_Settings::Data_Class;
 			using EndData_Class = typename Node_Settings::EndData_Class;
+			using EndBase = typename Node_Settings::EndBase;
+			static PASTEL_CONSTEXPR bool UserDataInEndNode =
+				Settings::UserDataInEndNode;
 
 			template <typename That_Settings>
 			class IsConvertible
@@ -81,7 +84,8 @@ namespace Pastel
 			*/
 			DataRef data() const
 			{
-				PENSURE(isNormal());
+				PENSURE(!empty());
+				PENSURE(UserDataInEndNode || !isEnd());
 				return *((Data_Node<Data_Class>*)node());
 			}
 
@@ -96,7 +100,7 @@ namespace Pastel
 			EndData_Class& endData() const
 			{
 				PENSURE(isEnd());
-				return *((End_Node<EndData_Class>*)node());
+				return *((End_Node<EndBase, EndData_Class>*)node());
 			}
 
 			//! Returns whether this is a first iterator.

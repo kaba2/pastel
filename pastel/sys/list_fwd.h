@@ -17,7 +17,7 @@ namespace Pastel
 
 		class Node;
 
-		template <typename>
+		template <typename, typename>
 		class End_Node;
 
 		template <typename>
@@ -25,22 +25,27 @@ namespace Pastel
 
 		template <
 			typename Data_Class_,
-			typename EndData_Class_>
+			typename EndData_Class_,
+			typename EndBase_>
 		class Node_Settings
 		{
 		public:
 			using Data_Class = Data_Class_;
 			using EndData_Class = EndData_Class_;
+			using EndBase = EndBase_;
 		};
 
 		template <
 			typename Node_Settings_,
-			typename NodePtr_>
+			typename NodePtr_,
+			bool UserDataInEndNode_>
 		class Iterator_Settings
 		{
 		public:
 			using Node_Settings = Node_Settings_;
 			using NodePtr = NodePtr_;
+			static PASTEL_CONSTEXPR bool UserDataInEndNode =
+				UserDataInEndNode_;
 		};
 
 	}
@@ -55,19 +60,28 @@ namespace Pastel
 		using Fwd = Settings;
 		PASTEL_FWD(Data);
 		PASTEL_FWD(EndData);
+		static PASTEL_CONSTEXPR bool UserDataInEndNode = 
+			Settings::UserDataInEndNode;
 
 		using Data_Class = As_Class<Data>;
 		using EndData_Class = As_Class<EndData>;
 
-		using Node_Settings = List_::Node_Settings<Data_Class, EndData_Class>;
 		using Node = List_::Node;
-		using End_Node = List_::End_Node<EndData_Class>;
 		using Data_Node = List_::Data_Node<Data_Class>;
 
+		using EndBase = std::conditional_t<
+			UserDataInEndNode,
+			Data_Node, Node>;
+
+		using End_Node = List_::End_Node<EndBase, EndData_Class>;
+
+		using Node_Settings =
+			List_::Node_Settings<Data_Class, EndData_Class, Node>;
+
 		using Iterator_Settings = List_::Iterator_Settings<
-			Node_Settings, Node*>;
+			Node_Settings, Node*, UserDataInEndNode>;
 		using ConstIterator_Settings = List_::Iterator_Settings<
-			Node_Settings, const Node*>;
+			Node_Settings, const Node*, UserDataInEndNode>;
 
 		using Iterator = List_::Iterator<Iterator_Settings>;
 		using ConstIterator = List_::Iterator<ConstIterator_Settings>;
