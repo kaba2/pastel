@@ -88,18 +88,22 @@ namespace Pastel
 	
 	template <
 		typename Data_ = void, 
-		typename EndData_ = void>
+		typename EndData_ = void,
+		bool UserDataInEndNode_ = false>
 	class List_Set_Settings
 	{
 	public:
 		using Data = Data_;
 		using EndData = EndData_;
+		PASTEL_CONSTEXPR bool UserDataInEndNode = UserDataInEndNode_;
 	};
 
 	template <
 		typename Data_ = void, 
-		typename EndData_ = void>
-	using List_Set_Fwd = List_Fwd<List_Set_Settings<Data_, EndData_>>;
+		typename EndData_ = void,
+		bool UserDataInEndNode_ = false>
+	using List_Set_Fwd = List_Fwd<
+		List_Set_Settings<Data_, EndData_, UserDataInEndNode_>>;
 
 }
 

@@ -543,8 +543,11 @@ namespace Pastel
 	template <
 		typename Data_ = void, 
 		typename EndData_ = void,
+		bool UserDataInEndNode_ = false,
 		template <typename> class Customization_ = Empty_List_Customization>
-	using List_Set = List<List_Set_Settings<Data_, EndData_>, Customization_>;
+	using List_Set = List<
+		List_Set_Settings<Data_, EndData_, UserDataInEndNode_>, 
+		Customization_>;
 
 }
 
