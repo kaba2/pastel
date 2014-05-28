@@ -87,6 +87,7 @@ namespace Pastel
 		SkipFast()
 		: trieSet_()
 		, groupSet_()
+		, size_(0)
 		{
 			// Insert the empty end-chain into the end-group.
 			// This contains the end-node of the skip-fast trie.
@@ -188,6 +189,7 @@ namespace Pastel
 			Customization::swap(that);
 			trieSet_.swap(that.trieSet_);
 			groupSet_.swap(that.groupSet_);
+			std::swap(size_, that.size_);
 		}
 
 		//! Removes all elements.
@@ -205,6 +207,9 @@ namespace Pastel
 
 			// Remove the groups.
 			groupSet_.clear();
+
+			// Update the size.
+			size_ = 0;
 		}
 
 		//! Inserts an element.
@@ -310,6 +315,9 @@ namespace Pastel
 
 			// Cut the taller fork chain.
 			++aFork->levelBegin_;
+
+			// Update the size.
+			--size_;
 
 			// Return the next element.
 			return nextElement;
@@ -542,11 +550,7 @@ namespace Pastel
 		*/
 		integer size() const
 		{
-			// The zero chain is created already at the
-			// start. After that, the insertion of an 
-			// element also insert a chain, and the
-			// removal of an element also removes a chain.
-			return chains() - 1;
+			return size_;
 		}
 
 		//! Returns the number of chains.
@@ -846,6 +850,8 @@ namespace Pastel
 				group->updateToRoot(chain);
 			}
 
+			++size_;
+
 			return std::make_pair(element, true);
 		}
 
@@ -1005,6 +1011,9 @@ namespace Pastel
 
 		//! The set of groups.
 		GroupSet groupSet_;
+
+		//! The number of elements in the trie.
+		integer size_;
 	};
 	
 }
