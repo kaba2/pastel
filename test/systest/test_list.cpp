@@ -101,6 +101,16 @@ namespace
 				Iterator j = a.insertFront(*a.begin());
 				TEST_ENSURE_OP(*j, ==, 4);
 			}
+			{
+				List_Set<integer, void> a;
+				List_Set<integer, integer> b;
+				List_Set<void, integer> c;
+				auto i = a.begin();
+				// The following should not compile.
+				//i = a.cbegin();
+				//i = b.begin();
+				//i = c.begin();
+			}
 		}
 
 		void testSwap()
