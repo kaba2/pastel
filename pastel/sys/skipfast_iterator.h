@@ -113,7 +113,7 @@ namespace Pastel
 							{
 								// This is the end-group, so it does not contain
 								// non-empty chains. Return the end-chain.
-								chain = group.endData().begin();
+								chain = group->begin();
 								ASSERT(!chain.isSentinel());
 								ASSERT(chain->elementSet_.empty());
 								break;
