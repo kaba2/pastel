@@ -79,20 +79,20 @@ namespace Pastel
 
 		// Note: Writing EndData_Class instead of EndData_Class_
 		// triggers a bug in Visual Studio 2013.
-		template <typename EndData_Class_>
+		template <typename Base, typename EndData_Class_>
 		class End_Node
-			: public Node
+			: public Base
 			, public EndData_Class_
 		{
 		public:
 			End_Node()
-				: Node()
+				: Base()
 				, EndData_Class_()
 			{
 			}
 
 			explicit End_Node(const EndData_Class_& data)
-				: Node()
+				: Base()
 				, EndData_Class_(data)
 			{
 			}
