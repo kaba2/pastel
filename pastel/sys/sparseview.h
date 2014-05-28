@@ -15,7 +15,7 @@ namespace Pastel
 	class ConstSparseView
 	{
 	public:
-		PASTEL_CONSTEXPR int Dimension = N;
+		static PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef typename ConstView::Element Element;
 		typedef typename ConstView::ConstReference ConstReference;

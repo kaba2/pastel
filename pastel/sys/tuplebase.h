@@ -182,7 +182,7 @@ namespace Pastel
 			{
 				PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 
-				PASTEL_CONSTEXPR bool IsBase =
+				static PASTEL_CONSTEXPR bool IsBase =
 					std::is_base_of<TupleBase, Tuple<Type, N> >::value;
 
 				PASTEL_STATIC_ASSERT(IsBase);
@@ -358,7 +358,7 @@ namespace Pastel
 			: boost::equality_comparable<Tuple<Type, Dynamic> >
 		{
 		private:
-			PASTEL_CONSTEXPR int N = Dynamic;
+			static PASTEL_CONSTEXPR int N = Dynamic;
 		
 		public:
 			template <typename, int>
@@ -513,7 +513,7 @@ namespace Pastel
 					deallocate();
 				}
 
-				PASTEL_CONSTEXPR bool IsBase = std::is_base_of<TupleBase, Tuple<Type, N> >::value;
+				static PASTEL_CONSTEXPR bool IsBase = std::is_base_of<TupleBase, Tuple<Type, N> >::value;
 
 				PASTEL_STATIC_ASSERT(IsBase);
 			}

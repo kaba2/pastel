@@ -15,7 +15,7 @@ namespace Pastel
 	class ConstSliceView
 	{
 	public:
-		PASTEL_CONSTEXPR int Dimension = N - 1;
+		static PASTEL_CONSTEXPR int Dimension = N - 1;
 
 		typedef typename Contained_ConstView::Element Element;
 		typedef typename Contained_ConstView::ConstReference ConstReference;

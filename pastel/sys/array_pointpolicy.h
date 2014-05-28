@@ -15,7 +15,7 @@ namespace Pastel
 	class Array_PointPolicy
 	{
 	public:
-		PASTEL_CONSTEXPR int N = N_;
+		static PASTEL_CONSTEXPR int N = N_;
 
 		PASTEL_STATIC_ASSERT(N == Dynamic || N >= 0);
 

@@ -27,7 +27,7 @@ namespace Pastel
 		const typename PointPolicy::Real& relativeMatchingDistance)
 	{
 		typedef typename PointPolicy::Real Real;
-		PASTEL_CONSTEXPR int N = PointPolicy::N;
+		static PASTEL_CONSTEXPR int N = PointPolicy::N;
 
 		const Sphere<Real, N> sceneSphere = boundingSphere(
 			pointSet, pointPolicy);

@@ -18,7 +18,7 @@ namespace Pastel
 
 		// The compile-time dimension of the window.
 		// If M != Dynamic, M == queryDimension().
-		PASTEL_CONSTEXPR int M = UserDefinedInteger;
+		static PASTEL_CONSTEXPR int M = UserDefinedInteger;
 
 		const integer queryDimension() const;
 		const PointPolicy& pointPolicy() const;
@@ -37,8 +37,8 @@ namespace Pastel
 		typedef typename PointPolicy::Point Point;
 		typedef typename PointPolicy::Real Real;
 
-		PASTEL_CONSTEXPR int N = PointPolicy::N;
-		PASTEL_CONSTEXPR int M = PointQuery::M;
+		static PASTEL_CONSTEXPR int N = PointPolicy::N;
+		static PASTEL_CONSTEXPR int M = PointQuery::M;
 
 		typedef PointKdTree<Real, N, PointPolicy> Tree;
 		typedef typename Tree::Point_ConstIterator ConstIterator;

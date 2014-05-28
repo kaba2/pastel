@@ -41,7 +41,7 @@ namespace Pastel
 			public:
 				using That_Node_Settings = typename That_Settings::Node_Settings;
 
-				PASTEL_CONSTEXPR bool value = 
+				static PASTEL_CONSTEXPR bool value = 
 					std::is_convertible<typename That_Settings::NodePtr, NodePtr>::value &&
 					std::is_same<typename That_Node_Settings::Data_Class, Data_Class>::value &&
 					std::is_same<typename That_Node_Settings::EndData_Class, EndData_Class>::value;

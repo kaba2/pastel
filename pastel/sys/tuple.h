@@ -13,7 +13,7 @@ namespace Pastel
 	class ModifyN
 	{
 	public:
-		PASTEL_CONSTEXPR int Result =
+		static PASTEL_CONSTEXPR int Result =
 			(N == Dynamic) ? Dynamic : NewN;
 	};
 
@@ -103,7 +103,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, 1>
 	{
 	private:
-		PASTEL_CONSTEXPR int N = 1;
+		static PASTEL_CONSTEXPR int N = 1;
 
 		typedef Detail::TupleBase<Type, N> Base;
 
@@ -189,7 +189,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, 2>
 	{
 	private:
-		PASTEL_CONSTEXPR int N = 2;
+		static PASTEL_CONSTEXPR int N = 2;
 
 		typedef Detail::TupleBase<Type, N> Base;
 
@@ -297,7 +297,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, 3>
 	{
 	private:
-		PASTEL_CONSTEXPR int N = 3;
+		static PASTEL_CONSTEXPR int N = 3;
 
 		typedef Detail::TupleBase<Type, N> Base;
 
@@ -417,7 +417,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, 4>
 	{
 	private:
-		PASTEL_CONSTEXPR int N = 4;
+		static PASTEL_CONSTEXPR int N = 4;
 
 		typedef Detail::TupleBase<Type, N> Base;
 
@@ -549,7 +549,7 @@ namespace Pastel
 		: public Detail::TupleBase<Type, Dynamic>
 	{
 	private:
-		PASTEL_CONSTEXPR int N = Dynamic;
+		static PASTEL_CONSTEXPR int N = Dynamic;
 
 		typedef Detail::TupleBase<Type, N> Base;
 

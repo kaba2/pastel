@@ -21,7 +21,7 @@ struct HighResClock
 	typedef std::nano                               period;
 	typedef std::chrono::duration<rep, period>      duration;
 	typedef std::chrono::time_point<HighResClock>   time_point;
-	PASTEL_CONSTEXPR bool is_steady = true;
+	static PASTEL_CONSTEXPR bool is_steady = true;
 
 	static time_point now();
 };
@@ -43,7 +43,7 @@ HighResClock::time_point HighResClock::now()
 	return time_point(duration(count.QuadPart * static_cast<rep>(period::den) / g_Frequency));
 }
 
-PASTEL_CONSTEXPR int Bits = 6;
+static PASTEL_CONSTEXPR int Bits = 6;
 
 template <typename Type>
 double measureTime(const Type& f)

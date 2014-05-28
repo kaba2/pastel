@@ -94,7 +94,7 @@ namespace Pastel
 	public:
 		using Data = Data_;
 		using EndData = EndData_;
-		PASTEL_CONSTEXPR bool UserDataInEndNode = UserDataInEndNode_;
+		static PASTEL_CONSTEXPR bool UserDataInEndNode = UserDataInEndNode_;
 	};
 
 	template <

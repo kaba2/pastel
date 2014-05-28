@@ -27,7 +27,7 @@ namespace Pastel
 		typedef typename boost::range_iterator<To_Point_ConstRange>::type
 			To_Point_ConstIterator;
 
-		PASTEL_CONSTEXPR int N = From_PointPolicy::N;
+		static PASTEL_CONSTEXPR int N = From_PointPolicy::N;
 
 		ENSURE_OP(from.size(), ==, to.size());
 

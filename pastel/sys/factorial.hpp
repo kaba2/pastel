@@ -10,8 +10,8 @@ namespace Pastel
 	namespace Factorial_
 	{
 
-		PASTEL_CONSTEXPR integer RealTableSize = 257;
-		PASTEL_CONSTEXPR integer IntegerTableSize = 21;
+		static PASTEL_CONSTEXPR integer RealTableSize = 257;
+		static PASTEL_CONSTEXPR integer IntegerTableSize = 21;
 
 		//! Returns the logarithm of the factorial.
 		/*!

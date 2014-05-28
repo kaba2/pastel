@@ -16,7 +16,7 @@ namespace Pastel
 	class Vector_PointPolicy
 	{
 	public:
-		PASTEL_CONSTEXPR int N = N_;
+		static PASTEL_CONSTEXPR int N = N_;
 
 		Vector_PointPolicy()
 			: dimension_(N)

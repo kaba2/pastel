@@ -14,7 +14,7 @@ namespace Pastel
 	class ConstArrayView
 	{
 	public:
-		PASTEL_CONSTEXPR int Dimension = N;
+		static PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef typename Contained_Array::Element Element;
 		typedef typename Contained_Array::ConstCursor ConstCursor;

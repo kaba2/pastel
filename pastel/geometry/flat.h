@@ -26,8 +26,8 @@ namespace Pastel
 	{
 	public:
 		typedef Real Real_;
-		PASTEL_CONSTEXPR int N_ = N;
-		PASTEL_CONSTEXPR int M_ = M;
+		static PASTEL_CONSTEXPR int N_ = N;
+		static PASTEL_CONSTEXPR int M_ = M;
 
 		// Using default constructor.
 		// Using default copy constructor.

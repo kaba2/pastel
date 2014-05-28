@@ -9,7 +9,7 @@ namespace Pastel
 	{
 		// This is the chromatic adaptation matrix
 		// from the CIECAM02 model.
-		PASTEL_CONSTEXPR Matrix<real32> Conversion = 
+		static PASTEL_CONSTEXPR Matrix<real32> Conversion = 
 			matrix3x3<real32>(
 			 0.7328, 0.4296, -0.1624,
 		    -0.7036, 1.6975,  0.0061,
@@ -20,7 +20,7 @@ namespace Pastel
 
 	PASTELGFX Matrix<real32> lmsToXyzTransform()
 	{
-		PASTEL_CONSTEXPR Matrix<real32> Conversion(
+		static PASTEL_CONSTEXPR Matrix<real32> Conversion(
 			inverse(xyzToLmsTransform()));
 
 		return Conversion;

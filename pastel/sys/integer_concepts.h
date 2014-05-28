@@ -16,7 +16,7 @@ namespace Pastel
 		{
 		public:
 			//! The number of bits in the integer.
-			PASTEL_CONSTEXPR int N = UserDefinedInteger;
+			static PASTEL_CONSTEXPR int N = UserDefinedInteger;
 
 			//! The type of the underlying word.
 			/*!
@@ -41,7 +41,7 @@ namespace Pastel
 			positive, and the arithmetic works modulo 2^N,
 			except for the division.
 			*/
-			PASTEL_CONSTEXPR bool Signed = UserDefinedBoolean;
+			static PASTEL_CONSTEXPR bool Signed = UserDefinedBoolean;
 		};
 
 	}

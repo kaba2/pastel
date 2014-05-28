@@ -22,8 +22,8 @@ namespace Pastel
 		: public StateData_Class
 	{
 	private:
-		PASTEL_CONSTEXPR uint32 FINAL_FLAG = 0x00000001;
-		PASTEL_CONSTEXPR uint32 START_FLAG = 0x00000002;
+		static PASTEL_CONSTEXPR uint32 FINAL_FLAG = 0x00000001;
+		static PASTEL_CONSTEXPR uint32 START_FLAG = 0x00000002;
 		
 		typedef Automaton_Fwd<Symbol, StateData, TransitionData>
 			Fwd;

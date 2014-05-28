@@ -75,7 +75,7 @@ namespace Pastel
 		PASTEL_FWD(const_iterator);
 		PASTEL_FWD(iterator);
 
-		PASTEL_CONSTEXPR integer Bits = Settings::Bits;
+		static PASTEL_CONSTEXPR integer Bits = Settings::Bits;
 
 	public:
 
@@ -1021,7 +1021,7 @@ namespace Pastel
 	class SkipFast_Map_Settings
 	{
 	public:
-		PASTEL_CONSTEXPR integer Bits = Bits_;
+		static PASTEL_CONSTEXPR integer Bits = Bits_;
 		using Value = Value_;
 	};
 

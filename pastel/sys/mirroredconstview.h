@@ -14,7 +14,7 @@ namespace Pastel
 	class MirroredConstView
 	{
 	public:
-		PASTEL_CONSTEXPR int Dimension = N;
+		static PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef typename Contained_ConstView::Element Element;
 

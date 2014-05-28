@@ -19,7 +19,7 @@ namespace Pastel
 			Can be either Dynamic or a positive integer.
 			If N != Dynamic, then N == n().
 			*/
-			PASTEL_CONSTEXPR int N = UserDefinedInteger;
+			static PASTEL_CONSTEXPR int N = UserDefinedInteger;
 
 			//! The type of the elements.
 			typedef UserDefinedType Real;
