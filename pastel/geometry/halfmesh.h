@@ -45,8 +45,8 @@ namespace Pastel
 		PASTEL_FWD(HalfData_Class);
 		PASTEL_FWD(EdgeData_Class);
 		PASTEL_FWD(PolygonData_Class);
-		PASTEL_CONSTEXPR bool MultipleEdges = Fwd::MultipleEdges;
-		PASTEL_CONSTEXPR bool Loops = Fwd::Loops;
+		static PASTEL_CONSTEXPR bool MultipleEdges = Fwd::MultipleEdges;
+		static PASTEL_CONSTEXPR bool Loops = Fwd::Loops;
 
 		PASTEL_FWD(VertexSet);
 		PASTEL_FWD(Vertex_Iterator);
@@ -69,7 +69,7 @@ namespace Pastel
 		template <typename Range, typename To>
 		struct IsConvertible
 		{
-			PASTEL_CONSTEXPR bool value =
+			static PASTEL_CONSTEXPR bool value =
 				std::is_convertible<decltype(*std::begin(*(Range*)0)), To>::value;
 		};
 
@@ -510,8 +510,8 @@ namespace Pastel
 		using HalfData = HalfData_;
 		using EdgeData = EdgeData_;
 		using PolygonData = PolygonData_;
-		PASTEL_CONSTEXPR bool MultipleEdges = MultipleEdges_;
-		PASTEL_CONSTEXPR bool Loops = Loops_;
+		static PASTEL_CONSTEXPR bool MultipleEdges = MultipleEdges_;
+		static PASTEL_CONSTEXPR bool Loops = Loops_;
 	};
 
 	template <

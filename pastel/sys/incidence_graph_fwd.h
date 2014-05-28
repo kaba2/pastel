@@ -68,7 +68,7 @@ namespace Pastel
 		using Settings = Settings_;
 		using Fwd = Settings;
 
-		PASTEL_CONSTEXPR GraphType Type = Settings::Type;
+		static PASTEL_CONSTEXPR GraphType Type = Settings::Type;
 		PASTEL_FWD(VertexData);
 		PASTEL_FWD(EdgeData);
 
@@ -113,19 +113,19 @@ namespace Pastel
 		using Incidence_ConstIterator = 
 			IncidenceGraph_::Incidence_Iterator<const Incidence*>;
 
-		PASTEL_CONSTEXPR int IncidenceTypes = 
+		static PASTEL_CONSTEXPR int IncidenceTypes = 
 			(Type == GraphType::Undirected) ? 
 			1 : ((Type == GraphType::Directed) ? 2 : 3);
 		
-		PASTEL_CONSTEXPR int Undirected = 
+		static PASTEL_CONSTEXPR int Undirected = 
 			(Type == GraphType::Directed) ? 
 			IncidenceTypes : 0;
 		
-		PASTEL_CONSTEXPR int Incoming = 
+		static PASTEL_CONSTEXPR int Incoming = 
 			(Type == GraphType::Directed) ? 
 			0 : ((Type == GraphType::Mixed) ? 1 : IncidenceTypes);
 		
-		PASTEL_CONSTEXPR int Outgoing = 
+		static PASTEL_CONSTEXPR int Outgoing = 
 			(Type == GraphType::Directed) ? 
 			1 : ((Type == GraphType::Mixed) ? 2 : IncidenceTypes);
 	};

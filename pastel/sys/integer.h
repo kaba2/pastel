@@ -61,8 +61,8 @@ namespace Pastel
 	public:
 		// See the documentation for Integer_Settings_Concept.
 		using Settings = Integer_Settings;
-		PASTEL_CONSTEXPR int N = Settings::N;
-		PASTEL_CONSTEXPR bool Signed = Settings::Signed;
+		static PASTEL_CONSTEXPR int N = Settings::N;
+		static PASTEL_CONSTEXPR bool Signed = Settings::Signed;
 		using Word = typename Settings::Word;
 
 		// The number of bits has to be non-negative.
@@ -77,21 +77,21 @@ namespace Pastel
 		FIX: Change to sizeInBits<Word>() after
 		constexpr becomes available in Visual Studio.
 		*/
-		PASTEL_CONSTEXPR int BitsInWord = sizeof(Word)* CHAR_BIT;
+		static PASTEL_CONSTEXPR int BitsInWord = sizeof(Word)* CHAR_BIT;
 
 		// The number of words is ceil(N / BitsInWord).
 		/*
 		FIX: Change to divideAndRoundUp() after 
 		constexpr becomes available in Visual Studio.
 		*/
-		PASTEL_CONSTEXPR integer Words = 
+		static PASTEL_CONSTEXPR integer Words = 
 			(N + BitsInWord - 1) / BitsInWord;
 
 		// The number of bits in the last word.
-		PASTEL_CONSTEXPR integer BitsInLastWord = 
+		static PASTEL_CONSTEXPR integer BitsInLastWord = 
 			N % BitsInWord;
 
-		PASTEL_CONSTEXPR Word LastWordMask = 
+		static PASTEL_CONSTEXPR Word LastWordMask = 
 			((Word)1 << BitsInLastWord) - 1;
 
 		//! The storage for the words.
@@ -956,9 +956,9 @@ namespace Pastel
 	class Integer_Settings
 	{
 	public:
-		PASTEL_CONSTEXPR int N = N_; 
+		static PASTEL_CONSTEXPR int N = N_; 
 		using Word = Word_;
-		PASTEL_CONSTEXPR bool Signed = Signed_;
+		static PASTEL_CONSTEXPR bool Signed = Signed_;
 	};
 
 	template <int N, typename Word = uinteger>

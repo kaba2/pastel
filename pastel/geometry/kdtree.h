@@ -80,7 +80,7 @@ namespace Pastel
 		typedef SplitNode_High SplitNode;
 
 	public:
-		PASTEL_CONSTEXPR int N_ = N;
+		static PASTEL_CONSTEXPR int N_ = N;
 
 		typedef Real Real_;
 		typedef ObjectPolicy ObjectPolicy_;

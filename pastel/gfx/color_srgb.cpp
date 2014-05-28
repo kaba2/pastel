@@ -58,20 +58,20 @@ namespace Pastel
 		// chromaticy coordinates (with luminance 1).
 		// These are given below.
 
-		PASTEL_CONSTEXPR Color xyzRed(
+		static PASTEL_CONSTEXPR Color xyzRed(
 			xyyToXyz(Color(0.6400, 0.3300, 1)));
-		PASTEL_CONSTEXPR Color xyzGreen(
+		static PASTEL_CONSTEXPR Color xyzGreen(
 			xyyToXyz(Color(0.3000, 0.6000, 1)));
-		PASTEL_CONSTEXPR Color xyzBlue(
+		static PASTEL_CONSTEXPR Color xyzBlue(
 			xyyToXyz(Color(0.1500, 0.0600, 1)));
 
 		// The sRGB standard specifies the white
 		// point to be the CIE standard illuminant D65.
 
-		PASTEL_CONSTEXPR Color xyzWhite(
+		static PASTEL_CONSTEXPR Color xyzWhite(
 			xyzIlluminantD65());
 
-		PASTEL_CONSTEXPR Matrix<real32> transformation(
+		static PASTEL_CONSTEXPR Matrix<real32> transformation(
 			linearRgbToXyzTransform(
 			xyzRed, xyzGreen, xyzBlue,
 			xyzWhite));
@@ -81,7 +81,7 @@ namespace Pastel
 
 	PASTELGFX Matrix<real32> xyzToLinearSrgbTransform()
 	{
-		PASTEL_CONSTEXPR Matrix<real32> Conversion(
+		static PASTEL_CONSTEXPR Matrix<real32> Conversion(
 			inverse(linearSrgbToXyzTransform()));
 
 		return Conversion;
@@ -134,7 +134,7 @@ namespace Pastel
 
 	PASTELGFX Color xyzToSrgb(const Color& xyz)
 	{
-		PASTEL_CONSTEXPR Matrix<real32> Conversion(
+		static PASTEL_CONSTEXPR Matrix<real32> Conversion(
 			inverse(linearSrgbToXyzTransform()));
 
 		return linearSrgbToSrgb(fitNegativeColor(xyz * Conversion));
@@ -142,7 +142,7 @@ namespace Pastel
 
 	PASTELGFX Color srgbToXyz(const Color& rgb)
 	{
-		PASTEL_CONSTEXPR Matrix<real32> Conversion(
+		static PASTEL_CONSTEXPR Matrix<real32> Conversion(
 			linearSrgbToXyzTransform());
 
 		return srgbToLinearSrgb(rgb) * Conversion;

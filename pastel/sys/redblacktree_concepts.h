@@ -70,7 +70,7 @@ namespace Pastel
 			using Less = UserDefinedType;
 
 			//! Whether to allow multiple equal keys.
-			PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
+			static PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
 		};
 
 		//! Red-black tree customization

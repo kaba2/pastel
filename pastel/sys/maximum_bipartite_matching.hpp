@@ -339,7 +339,7 @@ namespace Pastel
 			}
 
 		private:
-			PASTEL_CONSTEXPR int Sentinel = 0;
+			static PASTEL_CONSTEXPR int Sentinel = 0;
 
 			class Vertex
 			{

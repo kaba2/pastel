@@ -218,9 +218,9 @@ namespace Pastel
 	class Integer_To_Color
 	{
 	private:
-		PASTEL_CONSTEXPR int RedNumbers = 1 << RedBits;
-		PASTEL_CONSTEXPR int GreenNumbers = 1 << GreenBits;
-		PASTEL_CONSTEXPR int BlueNumbers = 1 << BlueBits;
+		static PASTEL_CONSTEXPR int RedNumbers = 1 << RedBits;
+		static PASTEL_CONSTEXPR int GreenNumbers = 1 << GreenBits;
+		static PASTEL_CONSTEXPR int BlueNumbers = 1 << BlueBits;
 
 	public:
 		typedef Color Logical;

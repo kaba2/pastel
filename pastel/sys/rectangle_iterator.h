@@ -13,7 +13,7 @@ namespace Pastel
 	class RectangleIterator
 	{
 	public:
-		PASTEL_CONSTEXPR int N = N_;
+		static PASTEL_CONSTEXPR int N = N_;
 
 		explicit RectangleIterator(
 			const Vector<integer, N>& max)
@@ -42,7 +42,7 @@ namespace Pastel
 		RectangleIterator& operator++()
 		{
 			const integer d = n();
-			PASTEL_CONSTEXPR integer Step = RowMajor ? 1 : -1;
+			static PASTEL_CONSTEXPR integer Step = RowMajor ? 1 : -1;
 
 			integer i = RowMajor ? 0 : d - 1;
 			while((!RowMajor && i >= 0) || 
@@ -72,7 +72,7 @@ namespace Pastel
 		RectangleIterator& operator--()
 		{
 			const integer d = n();
-			PASTEL_CONSTEXPR integer Step = RowMajor ? 1 : -1;
+			static PASTEL_CONSTEXPR integer Step = RowMajor ? 1 : -1;
 
 			integer i = RowMajor ? 0 : d - 1;
 			while((!RowMajor && i >= 0) || 

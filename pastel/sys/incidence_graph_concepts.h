@@ -26,7 +26,7 @@ namespace Pastel
 			can be preserved if the type of the graph can
 			be chosen either as directed or undirected.
 			*/
-			PASTEL_CONSTEXPR GraphType Type = GraphType::Directed;
+			static PASTEL_CONSTEXPR GraphType Type = GraphType::Directed;
 
 			//! Vertex data
 			/*!

@@ -13,7 +13,7 @@ namespace Pastel
 	class ResultN
 	{
 	public:
-		PASTEL_CONSTEXPR int N = 
+		static PASTEL_CONSTEXPR int N = 
 			(LeftN == Dynamic) ? RightN : LeftN;
 	};
 

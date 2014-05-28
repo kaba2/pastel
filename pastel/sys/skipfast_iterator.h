@@ -73,7 +73,7 @@ namespace Pastel
 			template <bool Right = true>
 			Iterator next() const
 			{
-				PASTEL_CONSTEXPR integer Step = Right ? 1 : -1;
+				static PASTEL_CONSTEXPR integer Step = Right ? 1 : -1;
 
 				auto onlyNonEmpty = indicatorDownFilter(
 					[](const Chain_ConstIterator& chain) {return !chain->elementSet_.empty(); },

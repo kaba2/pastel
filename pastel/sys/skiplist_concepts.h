@@ -36,7 +36,7 @@ namespace Pastel
 			using Value = UserDefinedType;
 
 			//! Whether to allow multiple equal keys.
-			PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
+			static PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
 		};
 
 	}

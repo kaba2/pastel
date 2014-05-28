@@ -47,7 +47,7 @@ namespace Pastel
 		PASTEL_FWD(SentinelData);
 		PASTEL_FWD(Less);
 
-		PASTEL_CONSTEXPR bool MultipleKeys =
+		static PASTEL_CONSTEXPR bool MultipleKeys =
 			Settings::MultipleKeys;
 
 		using Key_Class = As_Class<Key>;
@@ -55,7 +55,7 @@ namespace Pastel
 		using Propagation_Class = As_Class<Propagation>;
 		using SentinelData_Class = As_Class<SentinelData>;
 
-		PASTEL_CONSTEXPR bool DereferenceToData =
+		static PASTEL_CONSTEXPR bool DereferenceToData =
 			!std::is_same<Data, void>::value;
 
 		class Node_Settings
@@ -185,7 +185,7 @@ namespace Pastel
 		using Less = Less_;
 		using Propagation = Propagation_;
 		using SentinelData = SentinelData_;
-		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
+		static PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
 	};
 
 	template <

@@ -36,7 +36,7 @@ namespace Pastel
 		using Value = typename Settings::Value;
 		using Less = typename Settings::Less;
 		using Value_Class = As_Class<Value>;
-		PASTEL_CONSTEXPR bool MultipleKeys = Settings::MultipleKeys;
+		static PASTEL_CONSTEXPR bool MultipleKeys = Settings::MultipleKeys;
 
 	private:
 		using Node = SkipList_::Node;
@@ -841,7 +841,7 @@ namespace Pastel
 		using Key = Key_;
 		using Value = Value_;
 		using Less = Less_;
-		PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
+		static PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
 	};
 
 	template <typename Key, typename Value, typename Less = LessThan>

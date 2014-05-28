@@ -33,7 +33,7 @@
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 
 #if _MSC_VER <= 1800
-#	define PASTEL_CONSTEXPR static const
+#	define PASTEL_CONSTEXPR const
 #	define PASTEL_NOEXCEPT_C(x)
 #	define PASTEL_NOEXCEPT
 #else
@@ -118,13 +118,13 @@ namespace Pastel
 	{
 
 		// An integer literal for documenting concepts.
-		PASTEL_CONSTEXPR integer UserDefinedInteger = 0;
+		static PASTEL_CONSTEXPR integer UserDefinedInteger = 0;
 		// A boolean literal for documenting concepts.
-		PASTEL_CONSTEXPR bool UserDefinedBoolean = true;
+		static PASTEL_CONSTEXPR bool UserDefinedBoolean = true;
 		// A type for documenting concepts.
 		class PASTELSYS UserDefinedType {};
 
-		PASTEL_CONSTEXPR int Dynamic = -1;
+		static PASTEL_CONSTEXPR int Dynamic = -1;
 
 		class PASTELSYS EmptyClass {};
 

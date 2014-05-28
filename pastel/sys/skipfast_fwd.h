@@ -67,7 +67,7 @@ namespace Pastel
 		// of the types in the Settings.
 		using Settings = Settings_;
 
-		PASTEL_CONSTEXPR integer Bits = Settings::Bits;
+		static PASTEL_CONSTEXPR integer Bits = Settings::Bits;
 		PASTEL_STATIC_ASSERT(Bits > 0);
 
 		using Key = Unsigned_Integer<Bits>;

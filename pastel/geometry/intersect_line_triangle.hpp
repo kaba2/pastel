@@ -140,7 +140,7 @@ namespace Pastel
 		// Test for parallel plane case
 
 		/*
-		PASTEL_CONSTEXPR Real EPSILON(constant<Real>("0.01"));
+		static PASTEL_CONSTEXPR Real EPSILON(constant<Real>("0.01"));
 
 		// EPSILON
 		if (a * a <= dot(p, p) * dot(e1, e1) * EPSILON * EPSILON)

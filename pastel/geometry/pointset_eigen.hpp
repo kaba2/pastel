@@ -19,7 +19,7 @@ namespace Pastel
 		const PointPolicy& pointPolicy)
 	{
 		typedef typename PointPolicy::Real Real;
-		PASTEL_CONSTEXPR int N = PointPolicy::N;
+		static PASTEL_CONSTEXPR int N = PointPolicy::N;
 
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",

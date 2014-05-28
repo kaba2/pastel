@@ -13,7 +13,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(FromBits > 0);
 		PASTEL_STATIC_ASSERT(ToBits > 0);
 
-		PASTEL_CONSTEXPR int DeltaBits = FromBits - ToBits;
+		static PASTEL_CONSTEXPR int DeltaBits = FromBits - ToBits;
 		PASTEL_STATIC_ASSERT(DeltaBits >= 0);
 
 		return (number >> DeltaBits);
@@ -33,7 +33,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(FromBits > 0);
 		PASTEL_STATIC_ASSERT(ToBits > 0);
 
-		PASTEL_CONSTEXPR int DeltaBits = ToBits - FromBits;
+		static PASTEL_CONSTEXPR int DeltaBits = ToBits - FromBits;
 		PASTEL_STATIC_ASSERT(DeltaBits >= 0);
 
 		return (number << DeltaBits) +
@@ -47,7 +47,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(FromBits > 0);
 		PASTEL_STATIC_ASSERT(ToBits > 0);
 
-		PASTEL_CONSTEXPR int DeltaBits = ToBits - FromBits;
+		static PASTEL_CONSTEXPR int DeltaBits = ToBits - FromBits;
 		PASTEL_STATIC_ASSERT(DeltaBits >= 0);
 
 		return (number << DeltaBits) +
@@ -62,7 +62,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(FromBits > 0);
 		PASTEL_STATIC_ASSERT(ToBits > 0);
 
-		PASTEL_CONSTEXPR int DeltaBits = ToBits - FromBits;
+		static PASTEL_CONSTEXPR int DeltaBits = ToBits - FromBits;
 		PASTEL_STATIC_ASSERT(DeltaBits >= 0);
 
 		return (number << DeltaBits) +

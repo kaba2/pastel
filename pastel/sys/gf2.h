@@ -20,7 +20,7 @@ namespace Pastel
 	public:
 		PASTEL_STATIC_ASSERT(1 <= N && N <= 64);
 
-		PASTEL_CONSTEXPR uint64 ValidMask = 
+		static PASTEL_CONSTEXPR uint64 ValidMask = 
 			(uint64)(1 << N) - 1;
 
 		explicit Gf2(uint64 polynomial = 0)

@@ -19,7 +19,7 @@ namespace Pastel
 		class ConstViewBase
 		{
 		public:
-			PASTEL_CONSTEXPR int Dimension = N;
+			static PASTEL_CONSTEXPR int Dimension = N;
 
 			typedef typename Contained_ConstView::ConstCursor ConstCursor;
 			typedef typename Contained_ConstView::Element Element;

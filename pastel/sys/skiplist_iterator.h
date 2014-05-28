@@ -19,14 +19,14 @@ namespace Pastel
 		struct Iterator_Value
 		{
 			typedef Value_Class type;
-			PASTEL_CONSTEXPR bool UseValue = true;
+			static PASTEL_CONSTEXPR bool UseValue = true;
 		};
 
 		template <typename Key>
 		struct Iterator_Value<Key, As_Class<void>>
 		{
 			typedef const Key type;
-			PASTEL_CONSTEXPR bool UseValue = false;
+			static PASTEL_CONSTEXPR bool UseValue = false;
 		};
 
 		template <

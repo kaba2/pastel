@@ -31,7 +31,7 @@ namespace Pastel
 		// Using default assignment.
 		// Using default destructor.
 
-		PASTEL_CONSTEXPR int Dimension = N;
+		static PASTEL_CONSTEXPR int Dimension = N;
 
 		typedef SparseIterator<Type*> RowIterator;
 		typedef ConstSparseIterator<const Type*> ConstRowIterator;
