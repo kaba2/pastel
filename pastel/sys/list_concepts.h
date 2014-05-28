@@ -15,17 +15,24 @@ namespace Pastel
 		class Settings
 		{
 		public:
-			//! The data stored in a normal node.
+			//! The user-data stored in a node.
 			/*!
 			Set to void to avoid allocating any memory
-			for this data.
+			for the user-data. This data can be accessed
+			by dereferencing a list iterator. The user-data 
+			is not stored in the end-node, unless 
+			UserDataInEndNode is set to true. 
 			*/
 			using Data = UserDefinedType;
+
+			//! Whether to store user-data also in the end-node.
+			PASTEL_CONSTEXPR bool UserDataInEndNode = UserDefinedBoolean;
 
 			//! The data stored in the end node.
 			/*!
 			Set to void to avoid allocating any memory
-			for this data.
+			for this data. This data can be accessed through
+			the endData() function of a list end-iterator.
 			*/
 			using EndData = UserDefinedType;
 		};
