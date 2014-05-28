@@ -15,7 +15,6 @@ namespace Pastel
 		template <typename>
 		class Iterator;
 
-		template <typename>
 		class Node;
 
 		template <typename>
@@ -61,9 +60,9 @@ namespace Pastel
 		using EndData_Class = As_Class<EndData>;
 
 		using Node_Settings = List_::Node_Settings<Data_Class, EndData_Class>;
-		using Node = List_::Node<Node_Settings>;
-		using End_Node = List_::End_Node<Node_Settings>;
-		using Data_Node = List_::Data_Node<Node_Settings>;
+		using Node = List_::Node;
+		using End_Node = List_::End_Node<EndData_Class>;
+		using Data_Node = List_::Data_Node<Data_Class>;
 
 		using Iterator_Settings = List_::Iterator_Settings<
 			Node_Settings, Node*>;

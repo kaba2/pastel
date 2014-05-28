@@ -14,7 +14,6 @@ namespace Pastel
 		template <typename>
 		class Iterator;
 
-		template <typename Node_Settings>
 		class Node
 		{
 		public:
@@ -78,26 +77,23 @@ namespace Pastel
 			Node* next_[2];
 		};
 
-		template <typename Node_Settings>
+		// Note: Writing EndData_Class instead of EndData_Class_
+		// triggers a bug in Visual Studio 2013.
+		template <typename EndData_Class_>
 		class End_Node
-			: public Node<Node_Settings>
-			, public Node_Settings::EndData_Class
+			: public Node
+			, public EndData_Class_
 		{
 		public:
-			using Base = Node<Node_Settings>;
-
-			using Fwd = Node_Settings;
-			PASTEL_FWD(EndData_Class);
-
 			End_Node()
-				: Base()
-				, EndData_Class()
+				: Node()
+				, EndData_Class_()
 			{
 			}
 
-			explicit End_Node(const EndData_Class& data)
-				: Base()
-				, EndData_Class(data)
+			explicit End_Node(const EndData_Class_& data)
+				: Node()
+				, EndData_Class_(data)
 			{
 			}
 
@@ -106,21 +102,18 @@ namespace Pastel
 			End_Node& operator=(End_Node) = delete;
 		};
 
-		template <typename Node_Settings>
+		// Note: Writing Data_Class instead of Data_Class_
+		// triggers a bug in Visual Studio 2013.
+		template <typename Data_Class_>
 		class Data_Node
-			: public Node<Node_Settings>
-			, public Node_Settings::Data_Class
+			: public Node
+			, public Data_Class_
 		{
 		public:
-			using Base = Node<Node_Settings>;
-
-			using Fwd = Node_Settings;
-			PASTEL_FWD(Data_Class);
-
 			template <typename... Type>
 			explicit Data_Node(Type&&... data)
-				: Base()
-				, Data_Class(std::forward<Type>(data)...)
+				: Node()
+				, Data_Class_(std::forward<Type>(data)...)
 			{
 			}
 

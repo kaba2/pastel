@@ -35,6 +35,18 @@ namespace Pastel
 			using Data_Class = typename Node_Settings::Data_Class;
 			using EndData_Class = typename Node_Settings::EndData_Class;
 
+			template <typename That_Settings>
+			class IsConvertible
+			{
+			public:
+				using That_Node_Settings = typename That_Settings::Node_Settings;
+
+				PASTEL_CONSTEXPR bool value = 
+					std::is_convertible<typename That_Settings::NodePtr, NodePtr>::value &&
+					std::is_same<typename That_Node_Settings::Data_Class, Data_Class>::value &&
+					std::is_same<typename That_Node_Settings::EndData_Class, EndData_Class>::value;
+			};
+
 			Iterator()
 				: Iterator::iterator_adaptor_(0) 
 			{
@@ -42,11 +54,16 @@ namespace Pastel
 
 			template <
 				typename That_Settings,
-				typename = PASTEL_ENABLE_IF((boost::is_convertible<typename That_Settings::NodePtr, NodePtr>), void)>
-			Iterator(
-				const Iterator<That_Settings>& that)
+				typename = PASTEL_ENABLE_IF_C(IsConvertible<That_Settings>::value, void)>
+			Iterator(const Iterator<That_Settings>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{
+			}
+
+			Iterator& operator=(const Iterator& that)
+			{
+				base_reference() = that.base();
+				return *this;
 			}
 
 			using DataRef = std::conditional_t<
@@ -65,7 +82,7 @@ namespace Pastel
 			DataRef data() const
 			{
 				PENSURE(isNormal());
-				return *((Data_Node<Node_Settings>*)node());
+				return *((Data_Node<Data_Class>*)node());
 			}
 
 			//! Returns the end-data.
@@ -79,7 +96,7 @@ namespace Pastel
 			EndData_Class& endData() const
 			{
 				PENSURE(isEnd());
-				return *((End_Node<Node_Settings>*)node());
+				return *((End_Node<EndData_Class>*)node());
 			}
 
 			//! Returns whether this is a first iterator.
