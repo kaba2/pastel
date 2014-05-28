@@ -18,7 +18,7 @@ namespace Pastel
 		using Tree_ConstIterator = typename Forest::Tree_ConstIterator;
 		using ConstIterator = typename Forest::ConstIterator;
 
-		if (!forest.treeEnd().endData().empty())
+		if (!forest.treeEnd()->empty())
 		{
 			// The sentinel tree must be empty.
 			return false;

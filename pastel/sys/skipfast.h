@@ -512,8 +512,8 @@ namespace Pastel
 			return find(key) != cend();
 		}
 
-		PASTEL_ITERATOR_FUNCTIONS(begin, groupSet_.begin()->elementSet_.begin());
-		PASTEL_ITERATOR_FUNCTIONS(end, groupEnd().endData().begin()->elementSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS(begin, groupBegin()->begin()->elementSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS(end, groupEnd()->begin()->elementSet_.end());
 		PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
@@ -855,14 +855,9 @@ namespace Pastel
 			integer height,
 			const Group_Iterator& group)
 		{
-			auto& groupTree =
-				group.isEnd() ? 
-				group.endData() :
-				*group;
-
 			Chain_Iterator chain;
 			bool added;
-			std::tie(chain, added) = groupTree.insert(key, Chain(levelBegin, height));
+			std::tie(chain, added) = group->insert(key, Chain(levelBegin, height));
 			ASSERT(added);
 
 			if (!group.isEnd())

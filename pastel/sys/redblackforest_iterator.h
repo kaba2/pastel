@@ -86,7 +86,10 @@ namespace Pastel
 					
 					if (tree.isEnd())
 					{
-						iter = tree.endData().end();
+						// The end-tree may or may not be empty,
+						// so it does not necessarily hold that
+						// tree->end() == tree->begin().
+						iter = tree->end();
 					}
 					else
 					{
