@@ -3,6 +3,7 @@ if (BuildLibraries)
 	add_subdirectory ("math")
 	add_subdirectory ("geometry")
 	add_subdirectory ("gfx")
+	add_subdirectory ("doc")
 endif()
 
 if (BuildMatlab)

@@ -135,10 +135,6 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     	${CMAKE_SOURCE_DIR}/bin/${LOWER_OUTPUTCONFIG})
 endforeach()
 
-# Gather the documentation at the root directory.
-# This will be placed at the 'pasteldoc' project.
-file (GLOB RootDocumentationSet ${PastelDocumentationGlobSet})
-
 # Pastel's global definitions
 # ---------------------------
 
@@ -212,7 +208,7 @@ endif()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang") 
 	add_definitions (
-		# Enables C++11 compiler support.
+		# Enables C++11 library support.
 		-stdlib=libc++
 	)
 
@@ -314,7 +310,8 @@ set (LibrarySet
 	pastelsys 
 	pastelmath 
 	pastelgeometry 
-	pastelgfx)
+	pastelgfx
+	pasteldoc)
 
 set (MatlabLibrarySet
 	pastelmatlab
@@ -330,3 +327,4 @@ set_property( TARGET ${TestSet} PROPERTY FOLDER "Tests")
 set_property( TARGET ${LibrarySet} PROPERTY FOLDER "Libraries")
 set_property( TARGET ${MatlabLibrarySet} PROPERTY FOLDER "Matlab Libraries")
 set_property( TARGET ${ExampleSet} PROPERTY FOLDER "Examples")
+
