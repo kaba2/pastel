@@ -87,7 +87,7 @@ namespace Pastel
 
 		using Chain = SkipFast_::Chain<Settings>;
 		using Group = RedBlackTree_Set<Key, Chain, LessThan, 
-			Chain_Propagation, void, false,
+			Chain_Propagation, void, true,
 			SkipFast_::Chain_Customization>;
 
 		using GroupSet = RedBlackForest_Set<Group>;

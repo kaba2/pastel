@@ -89,14 +89,12 @@ namespace Pastel
 		, groupSet_()
 		, size_(0)
 		{
-			// Insert the empty end-chain into the end-group.
-			// This contains the end-node of the skip-fast trie.
-			Chain_Iterator endChain = 
-				insertChain(0, 0, 0, groupSet_.treeEnd());
+			// Initialize the end-chain.
+			chainEnd()->elementSet_.end().sentinelData().chain = chainEnd();
 
 			// Create the zero-group.
 			Group_Iterator zeroGroup = 
-				groupSet_.insert(groupBegin());
+				groupSet_.insert(groupEnd());
 
 			// Insert the zero-chain into the zero-group.
 			Chain_Iterator zeroChain = 
@@ -533,8 +531,8 @@ namespace Pastel
 			return find(key) != cend();
 		}
 
-		PASTEL_ITERATOR_FUNCTIONS(begin, groupBegin()->begin()->elementSet_.begin());
-		PASTEL_ITERATOR_FUNCTIONS(end, groupEnd()->begin()->elementSet_.end());
+		PASTEL_ITERATOR_FUNCTIONS(begin, chainBegin()->elementSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS(end, chainEnd()->elementSet_.end());
 		PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
 
@@ -874,16 +872,14 @@ namespace Pastel
 			integer height,
 			const Group_Iterator& group)
 		{
+			ASSERT(!group.isEnd());
+
 			Chain_Iterator chain;
 			bool added;
 			std::tie(chain, added) = group->insert(key, Chain(levelBegin, height));
 			ASSERT(added);
 
-			if (!group.isEnd())
-			{
-				trieSet_.emplace(key, chain);
-			}
-
+			trieSet_.emplace(key, chain);
 			chain->elementSet_.end().sentinelData().chain = chain;
 
 			return chain;

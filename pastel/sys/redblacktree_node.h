@@ -214,9 +214,14 @@ namespace Pastel
 			{
 			}
 
-			SentinelData_Class& sentinelData() const
+			SentinelData_Class& sentinelData()
 			{
-				return (SentinelData_Class&)*this;
+				return *this;
+			}
+
+			const SentinelData_Class& sentinelData() const
+			{
+				return *this;
 			}
 
 		protected:
@@ -240,13 +245,11 @@ namespace Pastel
 
 			Data_Class& data()
 			{
-				ASSERT(!isSentinel());
 				return *this;
 			}
 
 			const Data_Class& data() const
 			{
-				ASSERT(!isSentinel());
 				return *this;
 			}
 
@@ -254,13 +257,18 @@ namespace Pastel
 			using Base = Propagation_Node<Settings>;
 			PASTEL_FWD(Propagation_Class);
 
+			Data_Node()
+				: Base()
+				, Data_Class()
+			{
+			}
+
 			explicit Data_Node(const Data_Class& data)
 				: Base()
 				, Data_Class(data)
 			{
 			}
 
-			Data_Node() = delete;
 			Data_Node(const Data_Node& that) = delete;
 			Data_Node(Data_Node&& that) = delete;
 			Data_Node& operator=(Data_Node that) = delete;
@@ -279,7 +287,6 @@ namespace Pastel
 
 			const Key_Class& key() const
 			{
-				ASSERT(!isSentinel());
 				return *this;
 			}
 
