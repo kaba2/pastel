@@ -111,11 +111,12 @@ namespace Pastel
 
 							if (group.isEnd())
 							{
-								// This is the end-group, so it does not contain
-								// non-empty chains. Return the end-chain.
-								chain = group->begin();
-								ASSERT(!chain.isSentinel());
+								// This is the end-group, so it does
+								// not contain non-empty chains. 
 								ASSERT(chain->elementSet_.empty());
+
+								// Return the end-chain.
+								chain = group->end();
 								break;
 							}
 
@@ -128,18 +129,8 @@ namespace Pastel
 						}
 					}
 
-					if (!chain.isSentinel())
-					{
-						if (!chain->elementSet_.empty())
-						{
-							// Pick the extremum element of the chain.
-							iter = chain->elementSet_.extremum(!Right);
-						}
-						else
-						{
-							iter = chain->elementSet_.end();
-						}
-					}
+					// Pick the extremum element of the chain.
+					iter = chain->elementSet_.extremum(!Right);
 				}
 				
 				return Iterator(iter);

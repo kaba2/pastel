@@ -25,6 +25,13 @@ namespace Pastel
 			PASTEL_FWD(ElementSet);
 			PASTEL_FWD(Key);
 
+			Chain()
+				: height_(0)
+				, levelBegin_(0)
+				, elementSet_()
+			{
+			}
+
 			Chain(integer levelBegin, integer height)
 			: height_(height)
 			, levelBegin_(levelBegin)
@@ -58,7 +65,6 @@ namespace Pastel
 				template <typename> class Customization>
 			friend class SkipFast;
 
-			Chain() = delete;
 			Chain(Chain&&) = delete;
 			Chain& operator=(Chain) = delete;
 

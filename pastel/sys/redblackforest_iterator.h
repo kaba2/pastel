@@ -84,17 +84,7 @@ namespace Pastel
 						++tree;
 					} while (!tree.isEnd() && tree->empty());
 					
-					if (tree.isEnd())
-					{
-						// The end-tree may or may not be empty,
-						// so it does not necessarily hold that
-						// tree->end() == tree->begin().
-						iter = tree->end();
-					}
-					else
-					{
-						iter = tree->begin();
-					}
+					iter = tree->begin();
 				}
 
 				return *this;
