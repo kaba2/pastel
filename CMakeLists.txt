@@ -135,6 +135,10 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     	${CMAKE_SOURCE_DIR}/bin/${LOWER_OUTPUTCONFIG})
 endforeach()
 
+# Gather the documentation at the root directory.
+# This will be placed at the 'pasteldoc' project.
+file (GLOB RootDocumentationSet ${PastelDocumentationGlobSet})
+
 # Pastel's global definitions
 # ---------------------------
 
@@ -297,3 +301,32 @@ if (BuildExamples)
 	add_subdirectory (example)
 endif()
 
+# Solution folders
+# ----------------
+
+set (TestSet 
+	pastelsystest 
+	pastelmathtest 
+	pastelgeometrytest 
+	pastelgfxtest)
+
+set (LibrarySet 
+	pastelsys 
+	pastelmath 
+	pastelgeometry 
+	pastelgfx)
+
+set (MatlabLibrarySet
+	pastelmatlab
+	pastelsysmatlab
+	pastelmathmatlab
+	pastelgeometrymatlab)
+
+set (ExampleSet
+	skipfast_performance)
+
+set_property( GLOBAL PROPERTY USE_FOLDERS ON)
+set_property( TARGET ${TestSet} PROPERTY FOLDER "Tests")
+set_property( TARGET ${LibrarySet} PROPERTY FOLDER "Libraries")
+set_property( TARGET ${MatlabLibrarySet} PROPERTY FOLDER "Matlab Libraries")
+set_property( TARGET ${ExampleSet} PROPERTY FOLDER "Examples")
