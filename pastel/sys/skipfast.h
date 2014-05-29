@@ -223,6 +223,9 @@ namespace Pastel
 			Chain_Iterator lowestAncestor = 
 				findLowestAncestor(key).first;
 
+			bool wasEmpty = 
+				lowestAncestor->elementSet_.empty();
+
 			// Insert the element into the lowest ancestor.
 			Iterator element;
 			bool isNew;
@@ -230,17 +233,18 @@ namespace Pastel
 
 			if (!isNew)
 			{
+				// The element already exists.
 				return std::make_pair(element, false);
 			}
 
-			if (lowestAncestor->levelBegin() > 0)
+			if (!wasEmpty)
 			{
+				// The lowest ancestor is split only if it wasn't 
+				// empty. This implies that a leaf chain will not 
+				// be split.
+
 				// Split the chain.
 				splitChain(lowestAncestor);
-			}
-			else
-			{
-				ASSERT_OP(lowestAncestor->elementSet_.size(), ==, 1);
 			}
 
 			// Notify the customization.
@@ -255,7 +259,8 @@ namespace Pastel
 		Time complexity: O(?)
 		Exception safety: nothrow
 
-		If the element is cend(), then nothing happens.
+		If the 'element' is empty or the end-node, 
+		then nothing happens.
 
 		returns:
 		An iterator to the element following the
@@ -263,7 +268,7 @@ namespace Pastel
 		*/
 		Iterator erase(const ConstIterator& element)
 		{
-			if (element == cend())
+			if (!element.isNormal())
 			{
 				// Do nothing.
 				return end();
@@ -292,11 +297,13 @@ namespace Pastel
 			Group_Iterator aGroup = chain.findTree();
 			Chain_Iterator aFork = aGroup->extremum(!right);
 			ASSERT(!aFork.isSentinel());
+			ASSERT(odd(aFork.key()) == right);
 
 			// Find the other fork chain.
 			Group_Iterator bGroup = std::next(aGroup, !right);
 			Chain_Iterator bFork = bGroup->extremum(right);
 			ASSERT(!bFork.isSentinel());
+			ASSERT(odd(bFork.key()) != right);
 
 			// Make it so that the 'aFork' is taller.
 			ASSERT_OP(aFork->height(), !=, bFork->height());
