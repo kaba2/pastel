@@ -20,18 +20,32 @@ namespace Pastel
 			// all the functionality of the red-black tree
 			// iterator, such as checking the color of a node.
 
-			//! Forwards all constructors to the tree-iterator.
+			//! Constructs an empty iterator.
 			/*!
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			template <typename... Type>
-			Iterator(Type&&... that)
-			: Base_Iterator(std::forward<Type>(that)...)
+			Iterator()
+			: Base_Iterator()
 			{
 			}
 
-			template <typename That_BaseIterator>
+			//! Constructs from a tree iterator.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			Iterator(const Base_Iterator& that)
+			: Base_Iterator(that)
+			{
+			}
+
+			Iterator(const Iterator& that) = default;
+
+			template <
+				typename That_BaseIterator,
+				typename = PASTEL_ENABLE_IF(
+					(std::is_convertible<That_BaseIterator, Base_Iterator>), void)>
 			Iterator(const Iterator<That_BaseIterator>& that)
 				: Base_Iterator(that)
 			{

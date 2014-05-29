@@ -36,7 +36,6 @@ namespace Pastel
 			return downSetIndicator_(std::forward<Type>(that));
 		}
 
-
 	private:
 		const Element_Indicator& elementIndicator_;
 		const DownSet_Indicator& downSetIndicator_;

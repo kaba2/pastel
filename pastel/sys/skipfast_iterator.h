@@ -29,21 +29,38 @@ namespace Pastel
 			PASTEL_FWD(Chain_Iterator_Local);
 			PASTEL_FWD(Chain_ConstIterator_Local);
 
-			//! Forwards all constructors to the base-iterator.
+			//! Constructs an empty iterator.
 			/*!
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			template <typename... Type>
-			Iterator(Type&&... that)
-			: Base_Iterator(std::forward<Type>(that)...)
+			Iterator()
+			: Base_Iterator()
 			{
 			}
 
-			template <typename That_BaseIterator>
+			//! Constructs from a tree iterator.
+			/*!
+			Time complexity: O(1)
+			Exception safety: nothrow
+			*/
+			Iterator(const Base_Iterator& that)
+			: Base_Iterator(that)
+			{
+			}
+
+			template <
+				typename That_BaseIterator,
+				typename = PASTEL_ENABLE_IF((std::is_convertible<That_BaseIterator, Base_Iterator>), void)>
 			Iterator(const Iterator<Settings, That_BaseIterator>& that)
 				: Base_Iterator(that)
 			{
+			}
+
+			Iterator& operator=(const Iterator& that)
+			{
+				(Base_Iterator&)*this = that;
+				return *this;
 			}
 
 			//! Returns the chain of the element.
@@ -58,7 +75,7 @@ namespace Pastel
 				{
 					iter = iter.parent();
 				}
-				return iter.sentinelData().chain;
+				return Chain_Iterator(iter.sentinelData().chain);
 			}
 
 			//! Moves to the next element.
@@ -76,8 +93,8 @@ namespace Pastel
 				static PASTEL_CONSTEXPR integer Step = Right ? 1 : -1;
 
 				auto onlyNonEmpty = indicatorDownFilter(
-					[](const Chain_ConstIterator& chain) {return !chain->elementSet_.empty(); },
-					[](const Chain_ConstIterator& chain) {return chain.propagation().nonEmpty;}
+					[](const Chain_ConstIterator_Local& chain) {return !chain->elementSet_.empty(); },
+					[](const Chain_ConstIterator_Local& chain) {return chain.propagation().nonEmpty;}
 				);
 
 				// Go to the next element.

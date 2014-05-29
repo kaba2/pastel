@@ -24,6 +24,8 @@ namespace
 		using Forest = RedBlackForest_Set<Tree>;
 		using Iterator = Forest::Iterator;
 		using ConstIterator = Forest::ConstIterator;
+		using Element_Iterator = Forest::Element_Iterator;
+		using Element_ConstIterator = Forest::Element_ConstIterator;
 		using Tree_Iterator = Forest::Tree_Iterator;
 		using Tree_ConstIterator = Forest::Tree_ConstIterator;
 
@@ -36,10 +38,46 @@ namespace
 		void testIterators()
 		{
 			Forest forest;
-			Tree_Iterator aTree = forest.insert();
-			Iterator a = aTree->insert(0).first;
-			ConstIterator b = a;
-			a = aTree->cast(b);
+			{
+				Tree_ConstIterator a = Tree_Iterator();
+			}
+			{
+				ConstIterator a = Iterator();
+			}
+			{
+				Element_Iterator a = Iterator();
+				Iterator b = Element_Iterator();
+			}
+			{
+				Element_ConstIterator a = ConstIterator();
+				ConstIterator b = Element_ConstIterator();
+			}
+			{
+				Element_ConstIterator a = Iterator();
+				ConstIterator b = Element_Iterator();
+			}
+			{
+				Iterator a = forest.cast(ConstIterator());
+			}
+			{
+				Element_Iterator a = forest.cast(Element_ConstIterator());
+			}
+
+			// The following should not compile.
+			/*
+			{
+				Iterator a = ConstIterator();
+			}
+			{
+				Element_Iterator a = Element_ConstIterator();
+			}
+			{
+				Element_Iterator a = ConstIterator();
+			}
+			{
+				Iterator a = Element_ConstIterator();
+			}
+			*/
 		}
 
 		void test()
