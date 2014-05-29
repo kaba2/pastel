@@ -299,6 +299,51 @@ namespace Pastel
 				return next<false>(filter);
 			}
 
+			//! Finds the first element below.
+			/*!
+			Time complexity: O(?)
+			Exception safety: nothrow
+			*/
+			template <typename DownFilter = All_DownFilter>
+			Iterator findFirstBelow(
+				bool direction,
+				const DownFilter& filter = DownFilter()) const
+			{
+				auto isBelow = [&](const Iterator& that)
+					-> bool
+				{
+					return !that.isSentinel() &&
+						filter.downSet(that);
+				};
+
+				ASSERT(isBelow(*this));
+
+				Iterator node = *this;
+				while(!node.isSentinel())
+				{
+					bool right = 
+						(isBelow(node.child(!direction)) == !direction);
+					if (filter.element(node) && 
+						(right == direction))
+					{
+						break;
+					}
+
+					node = node.child(right);
+				}
+
+				bool consistentDownFilter = 
+					!node.isSentinel();
+
+				// Triggering this is an error on the users side.
+				// The provided down-filter was not consistent: it 
+				// indicated that there be a marked element in a 
+				// subtree, but that was not the case.
+				ENSURE(consistentDownFilter);
+
+				return node;
+			}
+
 			//! Returns whether the node is red.
 			/*!
 			Time complexity: O(1)
@@ -338,46 +383,6 @@ namespace Pastel
 			explicit Iterator(NodePtr that)
 				: Iterator::iterator_adaptor_(that) 
 			{
-			}
-
-			template <typename DownFilter>
-			Iterator findFirstBelow(
-				bool direction,
-				const DownFilter& filter) const
-			{
-				auto isBelow = [&](const Iterator& that)
-					-> bool
-				{
-					return !that.isSentinel() &&
-						filter.downSet(that);
-				};
-
-				ASSERT(isBelow(*this));
-
-				Iterator node = *this;
-				while(!node.isSentinel())
-				{
-					bool right = 
-						(isBelow(node.child(!direction)) == !direction);
-					if (filter.element(node) && 
-						(right == direction))
-					{
-						break;
-					}
-
-					node = node.child(right);
-				}
-
-				bool consistentDownFilter = 
-					!node.isSentinel();
-
-				// Triggering this is an error on the users side.
-				// The provided down-filter was not consistent: it 
-				// indicated that there be a marked element in a 
-				// subtree, but that was not the case.
-				ENSURE(consistentDownFilter);
-
-				return node;
 			}
 
 			NodePtr node() const
