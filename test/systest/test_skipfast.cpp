@@ -24,8 +24,8 @@ namespace
 		virtual void run()
 		{
 			testInsertErase();
-			/*
 			testFind();
+			/*
 			testSet();
 			testInsertMore();
 			*/
@@ -79,6 +79,9 @@ namespace
 
 				TEST_ENSURE(keysEqual(a, { 1 }));
 				TEST_ENSURE(valuesEqual(a, { 11 }));
+			}
+			{
+				TEST_ENSURE(a.clast().key() == 1);
 			}
 			{
 				a.insert(9, 19);
@@ -165,15 +168,14 @@ namespace
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25 }));
 			}
 			{
-				//a.erase(9);
+				a.erase(9);
 				TEST_ENSURE(testInvariants(a));
 
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 25 }));
 			}
-			/*
 			{
-				a.erase(Map::Key(0));
+				a.erase(0);
 				TEST_ENSURE(testInvariants(a));
 
 				TEST_ENSURE(keysEqual(a, { 1, 2, 3, 4, 5, 6, 7, 8, 10, 15 }));
@@ -186,6 +188,7 @@ namespace
 				TEST_ENSURE(keysEqual(a, { 1, 2, 3, 4, 5, 7, 8, 10, 15 }));
 				TEST_ENSURE(valuesEqual(a, { 11, 12, 13, 14, 15, 17, 18, 20, 25 }));
 			}
+			/*
 			{
 				a.erase(7);
 				TEST_ENSURE(testInvariants(a));

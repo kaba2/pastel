@@ -580,7 +580,7 @@ namespace Pastel
 		*/
 		bool empty() const
 		{
-			return trieSet_.empty();
+			return size_ == 0;
 		}
 
 		//! Converts a const-iterator to an iterator.
@@ -721,11 +721,6 @@ namespace Pastel
 		std::pair<Chain_ConstIterator, integer> 
 			findLowestAncestor(const Key& key) const
 		{
-			if (empty())
-			{
-				return std::make_pair(groupSet_.cend(), 0);
-			}
-
 			integer minLevel = 0;
 			integer maxLevel = maxBits();
 			while (true)

@@ -11,9 +11,38 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	bool testInvariants(const SkipFast<Settings, Customization>& that)
 	{
-		// The trie is empty if and only if its size is zero.
 		if (that.empty() != (that.size() == 0))
 		{
+			// The trie must be empty if and only if its 
+			// size is zero.
+			return false;
+		}
+
+		if (std::next(that.cend()) != that.cend())
+		{
+			// The next from the end-node must be
+			// the end-node.
+			return false;
+		}
+
+		if (std::next(that.clast()) != that.cend())
+		{
+			// The next from the last node must be
+			// the end-node.
+			return false;
+		}
+
+		if (std::prev(that.cend()) != that.clast())
+		{
+			// The previous from the end-node must
+			// be the last node.
+			return false;
+		}
+
+		if (std::prev(that.cbegin()) != that.cend())
+		{
+			// The previous from the first node
+			// must be the end-node.
 			return false;
 		}
 
