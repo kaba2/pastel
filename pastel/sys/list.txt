@@ -29,6 +29,11 @@ Move a range of ''k'' elements, from a list to another.          | ''Theta(k)''
 Find out the number of elements in a list.                       | ''Theta(1)''
 Find out whether an iterator is null / begin / end / normal.     | ''Theta(1)''
 
+Node data
+---------
+
+Each node stores the list structure. Each normal node additionally stores a user-data. Each end-node additionally stores an end-data, and a user-data if the user so specifies. Both the user-data and the end-data can be specified as `void`, to avoid allocating memory for them.
+
 Versus `std::list`
 ------------------
 
@@ -39,3 +44,10 @@ The list implementation in Pastel can be thought of an enhanced `std::list`:
 * it uses [enhanced iterators][Enhanced].
 
 [Enhanced]: [[Ref]]: enhanced_iterators.txt
+
+Debugging
+---------
+
+The doubly-linked list is subject to the [iterator debugging problem][IteratorDebugging], and so the user-data or the end-data cannot be inspected directly through the debugger.
+
+[IteratorDebugging]: [[Ref]]: iterator_debugging.txt

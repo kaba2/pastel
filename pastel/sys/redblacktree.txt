@@ -56,7 +56,7 @@ In the above, ''n_2'' and ''n_1'' refer to the number of elements in the larger 
 Node data
 ---------
 
-Each node stores, along with other things related to tree-structure, a key, a propagation, a user-data, and a sentinel data, together called _node data_. The types of these objects are defined by the user. 
+Each node stores the tree-structure and a propagation. Each normal node additionally stores a user-data, and a key. Each sentinel node additional stores a sentinel data, and a user-data if the user so specifies. The types of these objects are defined by the user. 
 
 ### Key
 
@@ -64,7 +64,7 @@ A _key_ is used to arrange the elements in increasing order with respect to the 
 
 ### User data
 
-A _user data_ can be modified freely; the tree does not enforce any invariants on it. Defining the type of the user data as `void` avoids allocating any memory for it.
+A _user data_ can be modified freely; the tree does not enforce any invariants on it. Defining the type of the user data as `void` avoids allocating any memory for it. The user may specify the user-data to be available also in the sentinel node.
 
 ### Propagation
 
@@ -116,6 +116,13 @@ Filtered search and traversal
 The red-black tree supports filtered searches, which are searches over subsets of elements. A subset is specified in a search function with a [down filter][DownFilter], where the partial order is given by the is-a-descendant-of relation between the nodes. The iterator's `next()` and `prev()` also accept a down filter, and can thus be used to iterate over a subset.
 
 [DownFilter]: [[Ref]]: downfilter.txt
+
+Debugging
+---------
+
+The red-black tree is subject to the [iterator debugging problem][IteratorDebugging], and so a user-data, a propagation, or an end-data cannot be inspected directly through the debugger.
+
+[IteratorDebugging]: [[Ref]]: iterator_debugging.txt
 
 Theory
 ------
