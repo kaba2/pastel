@@ -26,6 +26,7 @@ namespace
 			testInsertErase();
 			testFind();
 			testSet();
+			testInsertMore();
 		}
 
 		using Map = SkipFast_Map<5, integer>;
@@ -64,6 +65,18 @@ namespace
 			std::initializer_list<integer> b)
 		{
 				return boost::equal(a, b);
+		}
+
+		void testInsertMore()
+		{
+			SkipFast_Set<6> a;
+			TEST_ENSURE(testInvariants(a));
+
+			a.insert(0x36);
+			TEST_ENSURE(testInvariants(a));
+
+			a.insert(0x39);
+			TEST_ENSURE(testInvariants(a));
 		}
 
 		void testInsertErase()
