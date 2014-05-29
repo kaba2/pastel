@@ -26,7 +26,7 @@ The _iterator debugging problem_ is the following: is it possible to portably re
 Reinterpret cast does not work
 ------------------------------
 
-We will begin with a concrete program, testing two casting strategies; one with `reinterpret_cast`, and one with two `static_cast`s. These are all the casting strategies we are able to come up with. The `dynamic_cast` would fail, because it would detect that the casted object is not of the target type, the C-style cast would reduce to a `reinterpret_cast`, and `const_cast` would not be applicable here.
+We will begin with a concrete program, testing two casting strategies; one with `reinterpret_cast`, and one with two `static_cast`s. These casting strategies cover all the possibilities. The `dynamic_cast` would fail, because it would detect that the casted object is not of the target type, the C-style cast would reduce to a `reinterpret_cast`, and `const_cast` would not be applicable here.
 
 [[CppCode]]:
 	#include <iostream>
@@ -94,10 +94,10 @@ The above program provides hope that the double static cast could work. However,
 
 The last two sentences are the relevant ones. Since in our double static cast the pointer does not actually point to `Data_Node`, the behavior is undefined. Intuitively, it seems almost sure that the compilers do the right thing here, and that the double static casting works. However, without a guarantee from the C++ Standard, this is not portable. Therefore the double static cast does not work either.
 
-Conclusion
-----------
+Conclusions
+-----------
 
-The solution of the iterator debugging problem is that it is not possible to portably refer to the fields of `Node` through `Data_Node*`, when the underlying type is actually `End_Node`.
+It is not possible to portably refer to the fields of `Node` through `Data_Node*`, when the underlying type is actually `End_Node`.
 
 This has consequences for the debugging of the data-structures implemented in Pastel. All of the node-based data-structures, such as the doubly-linked list, the red-black tree, and the skip-list, are subject to the iterator debugging problem, because of their ability to associate user-data in the sentinel nodes. Because of the above result, an iterator must refer to lowest base-class `Node`, which cannot be directly used to inspect the node's user-data in the debugger. The capability of associating user-data in the sentinel nodes is fundamental for building some more advanced data-structures on top of the existing ones, and so cannot be taken away. It follows that the node user-data has to be inspected by ways other than the debugger (e.g. printing it to the screen).
 

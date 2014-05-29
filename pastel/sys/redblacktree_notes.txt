@@ -102,21 +102,23 @@ Node types
 
 The nodes of the red-black tree form the following inheritance hierarchy:
 
-	Base_Node
+	Node
 	  ^
 	  |
 	Propagation_Node --> Propagation_Class 
 	  ^    ^
 	  |    |
-	  |  Sentinel_Node --> SentinelData_Class           
+	  |  Sentinel_Node --> SentinelData_Class
 	  |
 	Data_Node --> Data_Class          
-	  ^
+	  ^    ^
+	  |    |
+	  |  Sentinel_Node --> SentinelData_Class
 	  |
-	Node --> Key_Class
+	Key_Node --> Key_Class
 
-The `Base_Node` contains the information common to all nodes, which means the children and the parent of the node, the color of the node, and the size of the subtree under that node (for efficient splits). The other node-types are derived from the `Base_Node` to add additional user-defined data. Inheritance is used for two reasons. First, this way the data-types make use of the empty base-class optimization, in case some data is not used. Second, the sentinel data is not used for a data node, and user data and a key is not used for a sentinel node, which again saves memory. Each allocated node is either of the type `Sentinel_Node` or `Node`. 
+The `Node` contains the information common to all nodes, which means the children and the parent of the node, the color of the node, and the size of the subtree under that node (for efficient splits). The other node-types are derived from the `Node` to add additional user-defined data. Inheritance is used for two reasons. First, this way the data-types make use of the empty base-class optimization, in case some data is not used. Second, the sentinel data is not used for a data node, and user data and a key is not used for a sentinel node, which again saves memory. Each allocated node is either of the type `Sentinel_Node` or `Node`. The user may also specify the sentinel node to contain user-data, in which case the base class of `Sentinel_Node` is the `Data_Node`.
 
-An iterator refers to a node via `Base_Node*`. Unfortunately, this means that the associated data [cannot be directly inspected][Reinterpret] through an iterator. 
+An iterator refers to a node via `Node*`. Unfortunately, this means that the associated data [cannot be directly inspected][IteratorDebugging] through an iterator. 
 
-[Reinterpret]: [[Ref]]: reinterpret_cast.txt
+[IteratorDebugging]: [[Ref]]: iterator_debugging.txt
