@@ -857,6 +857,31 @@ namespace Pastel
 			return extremum(right);
 		}
 
+		//! Returns an extremum element.
+		template <typename DownFilter>
+		ConstIterator extremum(
+			bool right,
+			const DownFilter& filter) const
+		{
+			return croot().findFirstBelow(!right, filter);
+		}
+
+		template <typename DownFilter>
+		Iterator extremum(
+			bool right,
+			const DownFilter& filter)
+		{
+			return cast(addConst(*this).extremum(right, filter));
+		}
+
+		template <typename DownFilter>
+		ConstIterator cextremum(
+			bool right,
+			const DownFilter& filter) const
+		{
+			return extremum(right, filter);
+		}
+
 	private:
 		PASTEL_FWD(Node);
 		PASTEL_FWD(Sentinel_Node);
