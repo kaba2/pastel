@@ -136,9 +136,10 @@ namespace Pastel
 				ASSERT(!iter.isSentinel());
 				ASSERT(!next.isSentinel());
 
-				// The elements are in increasing order.
 				if (iter.key() >= next.key())
 				{
+					// The elements must be in increasing
+					// order.
 					return false;
 				}
 

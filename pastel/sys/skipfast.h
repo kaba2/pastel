@@ -88,6 +88,7 @@ namespace Pastel
 		: trieSet_()
 		, groupSet_()
 		, size_(0)
+		, begin_(end())
 		{
 			// Initialize the end-chain.
 			chainEnd()->elementSet_.end().sentinelData().chain = chainEnd();
@@ -188,6 +189,7 @@ namespace Pastel
 			trieSet_.swap(that.trieSet_);
 			groupSet_.swap(that.groupSet_);
 			std::swap(size_, that.size_);
+			begin_.swap(that.begin_);
 		}
 
 		//! Removes all elements.
@@ -200,14 +202,10 @@ namespace Pastel
 			// Notify the customization.
 			onClear();
 
-			// Remove the trie.
 			trieSet_.clear();
-
-			// Remove the groups.
 			groupSet_.clear();
-
-			// Update the size.
 			size_ = 0;
+			begin_ = end();
 		}
 
 		//! Inserts an element.
@@ -286,12 +284,18 @@ namespace Pastel
 			// Store the next element.
 			Iterator nextElement = std::next(cast(element));
 
-			// Erase the element from the chain.
-			Element_Iterator localNext = 
-				chain->elementSet_.erase(element);
+			if (begin_ == element)
+			{
+				// Update the first element.
+				begin_ = nextElement;
+			}
 
 			// Update the size.
 			--size_;
+
+			// Erase the element from the chain.
+			Element_Iterator localNext = 
+				chain->elementSet_.erase(element);
 
 			// Find a fork chain.
 			Group_Iterator aGroup = chain.findTree();
@@ -532,7 +536,7 @@ namespace Pastel
 			return find(key) != cend();
 		}
 
-		PASTEL_ITERATOR_FUNCTIONS(begin, chainBegin()->elementSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS(begin, begin_);
 		PASTEL_ITERATOR_FUNCTIONS(end, chainEnd()->elementSet_.end());
 		PASTEL_ITERATOR_FUNCTIONS(last, std::prev(end()));
 		PASTEL_RANGE_FUNCTIONS(range, begin, end);
@@ -847,8 +851,6 @@ namespace Pastel
 
 			if (wasEmpty)
 			{
-				// The chain turned from empty to non-empty.
-
 				// Find the chain-group of the chain.
 				Group_Iterator group = chain.findTree();
 				
@@ -856,7 +858,14 @@ namespace Pastel
 				// chain-group.
 				group->updateToRoot(chain);
 			}
+			
+			if (empty() || key < begin_.key())
+			{
+				// This is the new first element.
+				begin_ = element;
+			}
 
+			// Update the size.
 			++size_;
 
 			return std::make_pair(element, true);
@@ -1019,6 +1028,13 @@ namespace Pastel
 
 		//! The number of elements in the trie.
 		integer size_;
+
+		//! The first element.
+		/*!
+		To make begin() constant-time, we track the
+		first element explicitly. 
+		*/
+		Iterator begin_;
 	};
 	
 }

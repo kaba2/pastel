@@ -83,10 +83,12 @@ void f(Set& a, integer n)
 		uinteger key = randomUintegerBits(Bits);
 		//std::cout << key << " ";
 		auto result = a.insert(key);
+		/*
 		if (result.second)
 		{
 			std::cout << key << " ";
 		}
+		*/
 		//a.insert(n - i);
 		if (!testInvariants(a))
 		{
