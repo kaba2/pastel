@@ -4,6 +4,7 @@
 #define PASTELSYS_REDBLACKTREE_CONCEPTS_H
 
 #include "pastel/sys/redblacktree_fwd.h"
+#include "pastel/sys/less_concept.h"
 
 namespace Pastel
 {
@@ -71,6 +72,9 @@ namespace Pastel
 
 			//! Whether to allow multiple equal keys.
 			static PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
+
+			//! Whether to store user-data also in the sentinel nodes.
+			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes = UserDefinedBoolean;
 		};
 
 		//! Red-black tree customization

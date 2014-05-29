@@ -1426,9 +1426,11 @@ namespace Pastel
 		typename Less = LessThan,
 		typename Propagation = void,
 		typename SentinelData = void,
+		bool UserDataInSentinelNodes = false,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
-	using RedBlackTree_Map = 
-		RedBlackTree<RedBlack_Map_Settings<Key, Data, Less, Propagation, SentinelData, false>, 
+	using RedBlackTree_Set = 
+		RedBlackTree<RedBlackTree_Set_Settings<
+		Key, Data, Less, Propagation, SentinelData, false, UserDataInSentinelNodes>, 
 		Customization>;
 
 	// Multi-map
@@ -1439,33 +1441,11 @@ namespace Pastel
 		typename Less = LessThan,
 		typename Propagation = void,
 		typename SentinelData = void,
-		template <typename> class Customization = Empty_RedBlackTree_Customization>
-	using RedBlackTree_MultiMap = 
-		RedBlackTree<RedBlack_Map_Settings<Key, Data, Less, Propagation, SentinelData, true>, 
-		Customization>;
-
-	// Set
-
-	template <
-		typename Key = void,
-		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
-		template <typename> class Customization = Empty_RedBlackTree_Customization>
-	using RedBlackTree_Set = 
-		RedBlackTree<RedBlack_Set_Settings<Key, Less, Propagation, SentinelData, false>, 
-		Customization>;
-
-	// Multi-set
-
-	template <
-		typename Key = void, 
-		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
+		bool UserDataInSentinelNodes = false,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlackTree_MultiSet = 
-		RedBlackTree<RedBlack_Set_Settings<Key, Less, Propagation, SentinelData, true>, 
+		RedBlackTree<RedBlackTree_Set_Settings<
+		Key, Data, Less, Propagation, SentinelData, true, UserDataInSentinelNodes>, 
 		Customization>;
 
 }

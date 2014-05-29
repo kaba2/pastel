@@ -38,6 +38,8 @@ namespace Pastel
 			PASTEL_FWD(Data_Class);
 			PASTEL_FWD(Propagation_Class);
 			PASTEL_FWD(SentinelData_Class);
+			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
+				Node_Settings::UserDataInSentinelNodes;
 
 			template <bool DereferenceToData_>
 			using Other_Iterator = Iterator<NodePtr, Node_Settings, DereferenceToData_>;
@@ -82,12 +84,15 @@ namespace Pastel
 
 			//! Returns the key of the node.
 			/*!
+			Preconditions:
+			isNormal()
+
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
 			const Key_Class& key() const
 			{
-				PENSURE(!isSentinel());
+				PENSURE(isNormal());
 				return ((Key_Node<Node_Settings>*)node())->key();
 			}
 
@@ -104,15 +109,17 @@ namespace Pastel
 			//! Returns the user data.
 			/*!
 			Preconditions:
-			!isSentinel()
+			!empty()
+			UserDataInSentinelNodes || !isSentinel()
 
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
 			Data_Class& data() const
 			{
-				PENSURE(!isSentinel());
-				return ((Key_Node<Node_Settings>*)node())->data();
+				PENSURE(!empty())
+				PENSURE(UserDataInSentinelNodes || !isSentinel());
+				return ((Data_Node<Node_Settings>*)node())->data();
 			}
 
 			//! Returns the sentinel data.

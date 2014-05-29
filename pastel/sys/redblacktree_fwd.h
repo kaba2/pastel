@@ -18,7 +18,6 @@ namespace Pastel
 		template <typename, typename, bool>
 		class Iterator;
 
-		template <typename>
 		class Node;
 
 		template <typename>
@@ -27,6 +26,9 @@ namespace Pastel
 		template <typename>
 		class Sentinel_Node;
 	
+		template <typename>
+		class Data_Node;
+
 		template <typename>
 		class Key_Node;
 
@@ -50,6 +52,9 @@ namespace Pastel
 		static PASTEL_CONSTEXPR bool MultipleKeys =
 			Settings::MultipleKeys;
 
+		static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
+			Settings::UserDataInSentinelNodes;
+
 		using Key_Class = As_Class<Key>;
 		using Data_Class = As_Class<Data>;
 		using Propagation_Class = As_Class<Propagation>;
@@ -57,6 +62,10 @@ namespace Pastel
 
 		static PASTEL_CONSTEXPR bool DereferenceToData =
 			!std::is_same<Data, void>::value;
+
+		class Node_Settings;
+		using Propagation_Node = RedBlackTree_::Propagation_Node<Node_Settings>;
+		using Data_Node = RedBlackTree_::Data_Node<Node_Settings>;
 
 		class Node_Settings
 		{
@@ -66,12 +75,18 @@ namespace Pastel
 			using Propagation_Class = Propagation_Class;
 			using Data_Class = Data_Class;
 			using SentinelData_Class = SentinelData_Class;
+			using EndBase = std::conditional_t<
+				UserDataInSentinelNodes,
+				Data_Node,
+				Propagation_Node>;
+			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
+				UserDataInSentinelNodes;
 		};
 
-		using Node = RedBlackTree_::Node<Node_Settings>;
-		using Key_Node = RedBlackTree_::Key_Node<Node_Settings>;
+		using Node = RedBlackTree_::Node;
 		using Sentinel_Node = RedBlackTree_::Sentinel_Node<Node_Settings>;
 		using SentinelPtr = std::shared_ptr<Sentinel_Node>;
+		using Key_Node = RedBlackTree_::Key_Node<Node_Settings>;
 
 		template <
 			typename NodePtr, 
@@ -176,8 +191,9 @@ namespace Pastel
 		typename Less_ = LessThan,
 		typename Propagation_ = void,
 		typename SentinelData_ = void,
-		bool MultipleKeys_ = false>
-	class RedBlack_Map_Settings
+		bool MultipleKeys_ = false,
+		bool UserDataInSentinelNodes_ = false>
+	class RedBlackTree_Set_Settings
 	{
 	public:
 		using Key = Key_;
@@ -186,16 +202,8 @@ namespace Pastel
 		using Propagation = Propagation_;
 		using SentinelData = SentinelData_;
 		static PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
+		static PASTEL_CONSTEXPR bool UserDataInSentinelNodes = UserDataInSentinelNodes_;
 	};
-
-	template <
-		typename Key_ = void, 
-		typename Less_ = LessThan,
-		typename Propagation_ = void,
-		typename SentinelData_ = void,
-		bool MultipleKeys_ = false>
-	using RedBlack_Set_Settings =
-		RedBlack_Map_Settings<Key_, void, Less_, Propagation_, SentinelData_, MultipleKeys_>;
 
 }
 
@@ -213,9 +221,12 @@ namespace Pastel
 		typename Data = void,
 		typename Less = LessThan,
 		typename Propagation = void,
-		typename SentinelData = void>
-	using RedBlackTree_Map_Fwd = 
-		RedBlackTree_Fwd<RedBlack_Map_Settings<Key, Data, Less, Propagation, SentinelData, false>>;
+		typename SentinelData = void,
+		bool UserDataInSentinelNodes = false>
+	using RedBlackTree_Set_Fwd = 
+		RedBlackTree_Fwd<RedBlackTree_Set_Settings<
+			Key, Data, Less, Propagation, SentinelData, false,
+			UserDataInSentinelNodes>>;
 
 	// Multi-map
 
@@ -224,29 +235,12 @@ namespace Pastel
 		typename Data = void,
 		typename Less = LessThan,
 		typename Propagation = void,
-		typename SentinelData = void>
-	using RedBlackTree_MultiMap_Fwd = 
-		RedBlackTree_Fwd<RedBlack_Map_Settings<Key, Data, Less, Propagation, SentinelData, true>>;
-
-	// Set
-
-	template <
-		typename Key = void,
-		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void>
-	using RedBlackTree_Set_Fwd = 
-		RedBlackTree_Fwd<RedBlack_Set_Settings<Key, Less, Propagation, SentinelData, false>>;
-
-	// Multi-set
-
-	template <
-		typename Key = void, 
-		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void>
+		typename SentinelData = void,
+		bool UserDataInSentinelNodes = false>
 	using RedBlackTree_MultiSet_Fwd = 
-		RedBlackTree_Fwd<RedBlack_Set_Settings<Key, Less, Propagation, SentinelData, true>>;
+		RedBlackTree_Fwd<RedBlackTree_Set_Settings<
+			Key, Data, Less, Propagation, SentinelData, true,
+			UserDataInSentinelNodes>>;
 
 }
 
