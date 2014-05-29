@@ -278,6 +278,9 @@ namespace Pastel
 
 			bool right = odd(chain.key());
 
+			// Store the next element.
+			Iterator nextElement = std::next(cast(element));
+
 			// Erase the element from the chain.
 			Element_Iterator localNext = 
 				chain->elementSet_.erase(element);
@@ -291,17 +294,9 @@ namespace Pastel
 			ASSERT(!aFork.isSentinel());
 
 			// Find the other fork chain.
-			Chain_Iterator bGroup = std::next(aGroup, !right);
+			Group_Iterator bGroup = std::next(aGroup, !right);
 			Chain_Iterator bFork = bGroup->extremum(right);
 			ASSERT(!bFork.isSentinel());
-
-			// Find the next element.
-			Iterator nextElement = localNext;
-			if (localNext.isSentinel())
-			{
-				Chain_Iterator nextGroup = std::next(aGroup);
-				nextElement = nextGroup->begin();
-			}
 
 			// Make it so that the 'aFork' is taller.
 			ASSERT_OP(aFork->height(), !=, bFork->height());
@@ -316,22 +311,16 @@ namespace Pastel
 			ASSERT(
 				!aFork->elementSet_.empty() ||
 				!bFork->elementSet_.empty());
-			aFork->elementSet_.merge(bFork->elementSet_);
+			aFork->elementSet_.join(bFork->elementSet_);
 
 			// Remove the shorter fork chain.
-			trieSet->erase(bFork.first);
+			trieSet_.erase(bFork.key());
 			bGroup->erase(bFork);
 
 			// Cut the taller fork chain.
 			++aFork->levelBegin_;
 
-			// Return the next element.
-			if (nextElement.isSentinel())
-			{
-				return std::next(next)
-			}
-
-			return Iterator(nextElement);
+			return nextElement;
 		}
 
 		//! Removes an element by its key.
@@ -837,7 +826,7 @@ namespace Pastel
 
 			// Insert the element into the chain
 			// (or at least try to).
-			Iterator element;
+			Element_Iterator element;
 			bool isNew;
 			std::tie(element, isNew) = 
 				chain->elementSet_.insert(key, value);
