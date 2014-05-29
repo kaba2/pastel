@@ -120,8 +120,7 @@ namespace Pastel
 						// Find the current chain-group.
 						auto group = Chain_ConstIterator(chain).findTree();
 
-						while (!group.isEnd() &&
-							chain.isSentinel())
+						while (chain.isSentinel())
 						{
 							// Go to the next chain-group.
 							group = std::next(group, Step);
