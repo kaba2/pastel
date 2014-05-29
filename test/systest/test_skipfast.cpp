@@ -25,10 +25,7 @@ namespace
 		{
 			testInsertErase();
 			testFind();
-			/*
 			testSet();
-			testInsertMore();
-			*/
 		}
 
 		using Map = SkipFast_Map<5, integer>;
@@ -393,125 +390,6 @@ namespace
 				TEST_ENSURE(keysEqual(a, { 0, 1, 2, 3 }));
 				*(a.begin());
 			}
-		}
-
-		template <int N>
-		bool keyCreates(SkipFast_Set<N>& a, integer key, integer chain)
-		{
-			bool chainExistsBefore =
-				a.chainExists(chain);
-
-			a.insert(key);
-
-			bool chainExistsAfter =
-				a.chainExists(chain);
-			bool chainCreated =
-				!chainExistsBefore && chainExistsAfter;
-
-			return testInvariants(a) && chainCreated;
-		};
-
-		void testInsertMore()
-		{
-			{
-				SkipFast_Set<6> a{ 31, 61, 45, 2, 33, 26, 63, 50, 8, 17, 11, 28, 54, 62, 52, 
-					9, 25, 7, 20, 30, 40, 1, 36, 18, 15, 51, 37, 57, 49, 13, 14, 29, 4, 44, 
-					0, 32, 60, 41, 19};
-				TEST_ENSURE(testInvariants(a));
-
-				a.insert(47);
-				TEST_ENSURE(testInvariants(a));
-				print(a);
-			}
-			/*
-			{
-				SkipFast_Set<1> a;
-				TEST_ENSURE(testInvariants(a));
-
-				auto test = [&](integer key, integer chain)
-				{
-					return keyCreates(a, key, chain);
-				};
-
-				TEST_ENSURE(test(0, 0));
-				TEST_ENSURE(test(1, 1));
-			}
-			{
-				SkipFast_Set<2> a;
-				TEST_ENSURE(testInvariants(a));
-
-				auto test = [&](integer key, integer chain)
-				{
-					return keyCreates(a, key, chain);
-				};
-
-				TEST_ENSURE(test(0, 0));
-				TEST_ENSURE(test(1, 1));
-				TEST_ENSURE(test(2, 3));
-				TEST_ENSURE(test(3, 2));
-			}
-			{
-				SkipFast_Set<3> a;
-				TEST_ENSURE(testInvariants(a));
-
-				auto test = [&](integer key, integer chain)
-				{
-					return keyCreates(a, key, chain);
-				};
-
-				TEST_ENSURE(test(0, 0));
-				TEST_ENSURE(test(1, 1));
-				TEST_ENSURE(test(2, 3));
-				TEST_ENSURE(test(3, 2));
-				TEST_ENSURE(test(4, 7));
-				TEST_ENSURE(test(5, 4));
-				TEST_ENSURE(test(6, 6));
-				TEST_ENSURE(test(7, 5));
-			}
-			{
-				SkipFast_Set<4> a;
-				TEST_ENSURE(testInvariants(a));
-
-				auto test = [&](integer key, integer chain)
-				{
-					return keyCreates(a, key, chain);
-				};
-
-				TEST_ENSURE(test(0, 0));
-				TEST_ENSURE(test(1, 1));
-				TEST_ENSURE(test(2, 3));
-				TEST_ENSURE(test(3, 2));
-				TEST_ENSURE(test(4, 7));
-				TEST_ENSURE(test(5, 4));
-				TEST_ENSURE(test(6, 6));
-				TEST_ENSURE(test(7, 5));
-				TEST_ENSURE(test(8, 15));
-				TEST_ENSURE(test(9, 8));
-				TEST_ENSURE(test(10, 11));
-				TEST_ENSURE(test(11, 10));
-				TEST_ENSURE(test(12, 12));
-				TEST_ENSURE(test(13, 13));
-				TEST_ENSURE(test(14, 14));
-				TEST_ENSURE(test(15, 9));
-			}
-			*/
-
-			{
-				SkipFast_Set<5> a{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-				TEST_ENSURE(testInvariants(a));
-			}
-			/*
-			{
-				SkipFast_Set<5> a{ 5, 9, 23, 25, 26, 31};
-				a.insert(19);
-				TEST_ENSURE(testInvariants(a));
-			}
-			{
-				SkipFast_Set<5> a{ 1, 4, 12, 18, 24 };
-				a.insert(13);
-				TEST_ENSURE(testInvariants(a));
-			}
-			*/
 		}
 	};
 
