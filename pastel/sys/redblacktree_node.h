@@ -16,7 +16,6 @@ namespace Pastel
 	{
 
 		//! Base node
-		template <typename Settings>
 		class Node
 		{
 		public:
@@ -172,15 +171,9 @@ namespace Pastel
 		};
 
 		//! Propagation node
-		/*!
-		A long-standing bug in Visual Studio 2013 is that
-		the empty base-class optimization only works for one 
-		empty base-class when using multiple inheritance. 
-		Fortunately, this is the case here.
-		*/
 		template <typename Settings>
 		class Propagation_Node
-			: public Node<Settings>
+			: public Node
 			, public Settings::Propagation_Class
 		{
 		public:
@@ -193,10 +186,8 @@ namespace Pastel
 			}
 
 		protected:
-			using Base = Node<Settings>;
-
 			Propagation_Node()
-			: Base()
+			: Node()
 			, Propagation_Class()
 			{
 			}
@@ -209,18 +200,16 @@ namespace Pastel
 		//! Sentinel node
 		template <typename Settings>
 		class Sentinel_Node
-			: public Propagation_Node<Settings>
+			: public Settings::EndBase
 			, public Settings::SentinelData_Class
 		{
 		public:
 			using Fwd = Settings;
-
 			PASTEL_FWD(SentinelData_Class);
-
-			using Base = Propagation_Node<Settings>;
+			PASTEL_FWD(EndBase);
 
 			Sentinel_Node()
-			: Base()
+			: EndBase()
 			, SentinelData_Class()
 			{
 			}

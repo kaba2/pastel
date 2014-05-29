@@ -86,8 +86,8 @@ namespace Pastel
 		};
 
 		using Chain = SkipFast_::Chain<Settings>;
-		using Group = RedBlackTree_Map<Key, Chain, LessThan, 
-			Chain_Propagation, void, 
+		using Group = RedBlackTree_Set<Key, Chain, LessThan, 
+			Chain_Propagation, void, false,
 			SkipFast_::Chain_Customization>;
 
 		using GroupSet = RedBlackForest_Set<Group>;
@@ -109,7 +109,7 @@ namespace Pastel
 			Chain_Iterator_Local chain;
 		};
 
-		using ElementSet = RedBlackTree_Map<Key, Value, LessThan, void, Element_SentinelData>;
+		using ElementSet = RedBlackTree_Set<Key, Value, LessThan, void, Element_SentinelData>;
 		using Element_ConstIterator = typename ElementSet::ConstIterator;
 		using Element_Iterator = typename ElementSet::Iterator;
 

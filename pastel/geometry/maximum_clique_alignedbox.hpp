@@ -502,7 +502,7 @@ namespace Pastel
 
 		typedef Event<Real, AlignedBox_ConstIterator> Event;
 		typedef MaximumCliqueAlignedBox_::Data Data;
-		typedef RedBlackTree_Set<Event, LessThan, Data, void, MaximumClique_Customization> Tree;
+		typedef RedBlackTree_Set<Event, void, LessThan, Data, void, false, MaximumClique_Customization> Tree;
 		typedef typename Tree::ConstIterator Event_ConstIterator;
 
 		ENSURE_OP(sweepDirection, >=, 0);

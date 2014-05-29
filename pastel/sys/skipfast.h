@@ -281,8 +281,11 @@ namespace Pastel
 			bool right = odd(chain.key());
 
 			// Erase the element from the chain.
-			Element_Iterator nextElement = 
+			Element_Iterator localNext = 
 				chain->elementSet_.erase(element);
+
+			// Update the size.
+			--size_;
 
 			// Find a fork chain.
 			Group_Iterator aGroup = chain.findTree();
@@ -290,9 +293,17 @@ namespace Pastel
 			ASSERT(!aFork.isSentinel());
 
 			// Find the other fork chain.
-			Chain_Iterator bGroup = std::next(group, !right);
+			Chain_Iterator bGroup = std::next(aGroup, !right);
 			Chain_Iterator bFork = bGroup->extremum(right);
 			ASSERT(!bFork.isSentinel());
+
+			// Find the next element.
+			Iterator nextElement = localNext;
+			if (localNext.isSentinel())
+			{
+				Chain_Iterator nextGroup = std::next(aGroup);
+				nextElement = nextGroup->begin();
+			}
 
 			// Make it so that the 'aFork' is taller.
 			ASSERT_OP(aFork->height(), !=, bFork->height());
@@ -316,11 +327,13 @@ namespace Pastel
 			// Cut the taller fork chain.
 			++aFork->levelBegin_;
 
-			// Update the size.
-			--size_;
-
 			// Return the next element.
-			return nextElement;
+			if (nextElement.isSentinel())
+			{
+				return std::next(next)
+			}
+
+			return Iterator(nextElement);
 		}
 
 		//! Removes an element by its key.

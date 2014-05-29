@@ -93,7 +93,7 @@ namespace
 
 		template <typename Data_, bool MultipleKeys>
 		using Counting_Settings =
-			RedBlack_Map_Settings<integer, Data_, LessThan, Propagation, void, MultipleKeys>;
+			RedBlackTree_Set_Settings<integer, Data_, LessThan, Propagation, void, MultipleKeys>;
 
 		class Data
 		{
