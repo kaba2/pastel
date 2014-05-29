@@ -135,4 +135,4 @@ File names
 * Include the .h file in its corresponding .hpp file.
 
 [Forward]: [[Ref]]: forward_declaration.txt
-[Aggregation]: [[Ref]]: aggregation_files.txt
+[Aggregation]: [[Ref]]: aggregate_files.txt
