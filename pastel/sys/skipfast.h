@@ -362,7 +362,12 @@ namespace Pastel
 
 			// Search for the key in the element-set
 			// of the lowest ancestor.
-			return chain->elementSet_.find(key);
+			Element_Iterator element = chain->elementSet_.find(key);
+			if (element.isSentinel())
+			{
+				return cend();
+			}
+			return element;
 		}
 
 		Iterator find(const Key& key)
