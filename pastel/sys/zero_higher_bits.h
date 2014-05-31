@@ -15,7 +15,8 @@ namespace Pastel
 	operations on integers are.
 
 	returns:
-	An integer which is a power-of-two and has the
+	Zero if 'that' is zero. Otherwise,
+	an integer which is a power-of-two and has the
 	same amount of leading 0-bits as 'that';
 	x..x10..0 --> 0..010..0.
 	*/
