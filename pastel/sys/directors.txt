@@ -5,7 +5,7 @@ Directors
 
 [[set indent]]: EquationSet
 
-An _director function_ is a function ''f : ZZ --> ZZ'', such that there exists ''k in Z'' such that
+A _director function_ is a function ''f : ZZ --> ZZ'', such that there exists ''k in Z'' such that
 
 	f(n) in [k, n],  if n >= k, and
 	f(n) in (n, k],  if n <  k.

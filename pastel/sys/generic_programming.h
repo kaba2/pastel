@@ -4,6 +4,7 @@
 #define PASTELSYS_GENERIC_PROGRAMMING_H
 
 #include "pastel/sys/algorithm_objects.h"
+#include "pastel/sys/directors.h"
 #include "pastel/sys/inputs.h"
 #include "pastel/sys/iterators.h"
 #include "pastel/sys/outputs.h"

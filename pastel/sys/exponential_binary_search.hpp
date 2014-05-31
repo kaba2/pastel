@@ -4,16 +4,16 @@
 #include "pastel/sys/exponential_binary_search.h"
 #include "pastel/sys/binary_search.h"
 #include "pastel/sys/powers.h"
-#include "pastel/sys/director.h"
+#include "pastel/sys/step_indicator_director.h"
 
 namespace Pastel
 {
 
-	template <typename Integer, typename Integer_Indicator>
+	template <typename Integer, typename Integer_Step_Indicator>
 	Integer exponentialBinarySearch(
 		const Integer& minLevel, 
 		const Integer& maxLevel,
-		Integer_Indicator indicator)
+		Integer_Step_Indicator indicator)
 	{
 		return directedExponentialBinarySearch(
 			minLevel, maxLevel,
