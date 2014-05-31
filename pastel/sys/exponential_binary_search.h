@@ -4,7 +4,8 @@
 #ifndef PASTELSYS_EXPONENTIAL_BINARY_SEARCH_H
 #define PASTELSYS_EXPONENTIAL_BINARY_SEARCH_H
 
-#include "pastel/sys/indicator_concept.h"
+#include "pastel/sys/step_indicator_concept.h"
+#include "pastel/sys/director_concept.h"
 
 namespace Pastel
 {
@@ -18,11 +19,11 @@ namespace Pastel
 
 	See the documentation for directedBinarySearch().
 	*/
-	template <typename Integer, typename Integer_Indicator>
+	template <typename Integer, typename Integer_Step_Indicator>
 	Integer exponentialBinarySearch(
 		const Integer& minLevel, 
 		const Integer& maxLevel,
-		Integer_Indicator indicator);
+		Integer_Step_Indicator indicator);
 
 	//! Directed exponential binary-search.
 	/*!
