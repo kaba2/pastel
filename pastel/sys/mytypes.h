@@ -71,15 +71,57 @@ namespace Pastel
 		using int32 = int;
 		using int64 = long long;
 
-		using uint8 = std::make_unsigned<int8>::type;
-		using uint16 = std::make_unsigned<int16>::type;
-		using uint32 = std::make_unsigned<int32>::type;
-		using uint64 = std::make_unsigned<int64>::type;
+		using uint8 = std::make_unsigned_t<int8>;
+		using uint16 = std::make_unsigned_t<int16>;
+		using uint32 = std::make_unsigned_t<int32>;
+		using uint64 = std::make_unsigned_t<int64>;
 
 		using real32 = float;
 		using real64 = double;
 		using real32_ieee = real32;
 		using real64_ieee = real64;
+
+		// Parametrized absolute size types.
+
+		namespace Int_
+		{
+
+			template <int N> class Int {};
+			template <> class Int<8> { using type = int8; };
+			template <> class Int<16> { using type = int16; };
+			template <> class Int<32> { using type = int32; };
+			template <> class Int<64> { using type = int64; };
+
+		}
+
+		template <int N>
+		using Int = typename Int_::Int<N>::type;
+
+		namespace Uint_
+		{
+
+			template <int N> 
+			class Uint 
+			{
+				using type = std::make_unsigned_t<Int<N>>;
+			};
+
+		}
+
+		template <int N>
+		using Uint = typename Uint_::Uint<N>::type;
+
+		namespace Real_
+		{
+
+			template <int N> class Real {};
+			template <> class Real<32> { using type = real32; };
+			template <> class Real<64> { using type = real64; };
+
+		}
+
+		template <int N>
+		using Real = typename Real_::Real<N>::type;
 
 		//! Integer capable of holding a pointer.
 		/*!
@@ -95,8 +137,12 @@ namespace Pastel
 		For example, on 32-bit computers we expect this to be 32-bit,
 		and on 64-bit computers we expect this to be 64-bit.
 		*/
-		using integer = std::make_signed<std::size_t>::type;
+		using integer = std::make_signed_t<std::size_t>;
 		using uinteger = std::size_t;
+
+		//! An integer with half the number of bits as in 'integer'.
+		using integer_half = Int<(sizeof(integer) * CHAR_BIT) / 2>;
+		using uinteger_half = std::make_unsigned_t<integer_half>;
 	
 		//! Abstract native real type
 		/*!
