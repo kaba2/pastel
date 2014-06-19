@@ -31,6 +31,7 @@ namespace
 			testBitOperators();
 			testCounting();
 			testSetBits();
+			testMultiplication();
 			testNumberOfOneBits();
 		}
 
@@ -539,6 +540,30 @@ namespace
 				TEST_ENSURE(!b.bit(32));
 				TEST_ENSURE(!b.bit(64));
 				TEST_ENSURE(!b.bit(128));
+			}
+		}
+
+		void testMultiplication()
+		{
+			{
+				using F = Unsigned_Integer<20, uint8>;
+				for (integer i = 0; i < 256; ++i)
+				{
+					for (integer j = 0; j < 256; ++j)
+					{
+						TEST_ENSURE(F(i) * F(j) == F(i * j));
+					}
+				}
+			}
+			{
+				using F = Signed_Integer<20, uint8>;
+				for (integer i = -127; i <= 128; ++i)
+				{
+					for (integer j = -127; j <= 128; ++j)
+					{
+						TEST_ENSURE(F(i) * F(j) == F(i * j));
+					}
+				}
 			}
 		}
 

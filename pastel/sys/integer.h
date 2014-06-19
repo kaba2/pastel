@@ -52,7 +52,7 @@ namespace Pastel
 	template <typename Integer_Settings>
 	class Integer
 	: boost::bitwise<Integer<Integer_Settings>
-	, boost::additive<Integer<Integer_Settings>
+	, boost::ring_operators<Integer<Integer_Settings>
 	, boost::unit_steppable<Integer<Integer_Settings>
 	, boost::shiftable2<Integer<Integer_Settings>, integer
 	, boost::totally_ordered<Integer<Integer_Settings>
@@ -77,7 +77,11 @@ namespace Pastel
 		FIX: Change to sizeInBits<Word>() after
 		constexpr becomes available in Visual Studio.
 		*/
-		static PASTEL_CONSTEXPR int BitsInWord = sizeof(Word)* CHAR_BIT;
+		static PASTEL_CONSTEXPR int BitsInWord = 
+			sizeof(Word) * CHAR_BIT;
+
+		// An unsigned integer with twice the number of bits in Word.
+		using DoubleWord = Uint<2 * BitsInWord>;
 
 		// The number of words is ceil(N / BitsInWord).
 		/*
@@ -689,6 +693,35 @@ namespace Pastel
 			return *this;
 		}
 
+		//! Multiplies this with 'that'.
+		/*!
+		Time complexity: O(N^2)
+		Exception safety: nothrow
+		*/
+		Integer& operator*=(const Integer& that)
+		{
+			WordSet left = wordSet_;
+			const WordSet& right = that.wordSet_;
+			WordSet& result = wordSet_;
+
+			clearBits();
+
+			for (integer j = 0;j < Words;++j)
+			{
+				DoubleWord carry = 0;
+				for (integer i = 0;i < Words - j;++i)
+				{
+					DoubleWord t = left[i] * right[j] + result[i + j] + carry;
+					result[i + j] = t;
+					carry = t >> BitsInWord;
+				}
+			}
+
+			signExtend();
+
+			return *this;
+		}
+
 		//! Adds 1 to this.
 		/*!
 		Time complexity: O(N)
@@ -961,10 +994,10 @@ namespace Pastel
 		static PASTEL_CONSTEXPR bool Signed = Signed_;
 	};
 
-	template <int N, typename Word = uinteger>
+	template <int N, typename Word = uinteger_half>
 	using Signed_Integer = Integer<Integer_Settings<N, Word, true>>;
 
-	template <int N, typename Word = uinteger>
+	template <int N, typename Word = uinteger_half>
 	using Unsigned_Integer = Integer<Integer_Settings<N, Word, false>>;
 
 }
