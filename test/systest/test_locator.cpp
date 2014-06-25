@@ -1,9 +1,9 @@
-// Description: Testing for point representations
-// DocumentationOf: pointreps.h
+// Description: Testing for locators
+// DocumentationOf: locators.h
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/pointreps.h>
+#include <pastel/sys/locators.h>
 
 namespace
 {
@@ -27,7 +27,7 @@ namespace
 		void test()
 		{
 			const integer d = 3;
-			Pointer_PointRep<real, 3> pointRep(d);
+			Pointer_Locator<real, 3> locator(d);
 			real dataSet[] = {0, 1, 2, 3, 4, 5, 6};
 			const integer n = sizeof(dataSet) / sizeof(real);
 			
@@ -35,7 +35,7 @@ namespace
 			{
 				for (integer j = 0;j < d;++j)
 				{
-					TEST_ENSURE(pointRep(dataSet + i, j) == i + j);
+					TEST_ENSURE(locator(dataSet + i, j) == i + j);
 				}
 			}
 		}
@@ -50,7 +50,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("PointRep", test);
+		testRunner().add("Locator", test);
 	}
 
 	CallFunction run(addTest);
