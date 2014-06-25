@@ -20,6 +20,12 @@ namespace Pastel
 	class Dereferenced_Predicate
 	{
 	public:
+		explicit Dereferenced_Predicate(
+			const Predicate& predicate)
+			: predicate_(predicate)
+		{
+		}
+
 		template <
 			typename Left, 
 			typename Right>
@@ -27,8 +33,11 @@ namespace Pastel
 			const Left& left, 
 			const Right& right) const
 		{
-			return Predicate()(*left, *right);
+			return predicate_(*left, *right);
 		}
+
+	private:
+		Predicate predicate_;
 	};
 
 	typedef Dereferenced_Predicate<LessThan> Dereferenced_LessThan;
@@ -42,7 +51,7 @@ namespace Pastel
 	Dereferenced_Predicate<Predicate> dereferencedPredicate(
 		const Predicate& predicate)
 	{
-		return Dereferenced_Predicate<Predicate>();
+		return Dereferenced_Predicate<Predicate>(predicate);
 	}
 
 }
