@@ -86,9 +86,15 @@ namespace Pastel
 					std::prev(pointSet_.end()));
 			}
 
+			auto yLess_ = [&](
+				const Point_Iterator& left, 
+				const Point_Iterator& right)
+			{
+				return yLess(*left, *right);
+			};
+
 			// Sort the points in increasing order by the y-coordinate.
-			boost::stable_sort(iteratorSet, 
-				dereferencedPredicate(yLess));
+			boost::stable_sort(iteratorSet, yLess_);
 
 			root_ = construct(0, false, iteratorSet, xLess, yLess).get();
 		}
@@ -108,6 +114,11 @@ namespace Pastel
 		void clear()
 		{
 			clear(root_);
+		}
+
+		bool empty() const
+		{
+			return root_ == end_.get();
 		}
 
 		Node_ConstIterator root() const
@@ -147,15 +158,15 @@ namespace Pastel
 					Entry& entry = parent->entrySet_[i];
 					
 					if (j < pointSet.size() &&
-						yLess(*pointSet[j], *entry.point_))
+						yLess(*pointSet[j], *entry.point()))
 					{
 						++j;
 					}
 
 					ASSERT(j == pointSet.size() ||
-						!yLess(*pointSet[j], *entry.point_));
+						!yLess(*pointSet[j], *entry.point()));
 
-					entry.cascadeSet_[right] = j;
+					entry.cascade(right) = j;
 				}
 			}
 
