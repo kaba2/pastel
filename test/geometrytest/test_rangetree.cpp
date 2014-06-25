@@ -6,7 +6,7 @@
 #include "pastel/geometry/rangetree.h"
 
 #include "pastel/sys/random_uniform.h"
-#include "pastel/sys/pointreps.h"
+#include "pastel/sys/locators.h"
 #include "pastel/sys/inputs.h"
 #include "pastel/sys/iterators.h"
 
@@ -16,6 +16,13 @@ using namespace Pastel;
 
 namespace
 {
+
+	class Settings
+	{
+	public:
+		using Real = real;
+		using Point = integer;
+	};
 
 	class Test
 		: public TestSuite
@@ -33,31 +40,7 @@ namespace
 
 		void test()
 		{
-			struct RangeTree_Types
-			{
-				typedef Pointer_PointRep<real> PointRep;
-			};
-
-			integer d = 3;
-			integer n = 100;
-			RangeTree_Types::PointRep pointRep(d);
-
-			RangeTree<RangeTree_Types> rangeTree(pointRep);
-
-			std::vector<real> pointSet;
-			for (integer i = 0;i < 2 * n;++i)
-			{
-				pointSet.push_back(random<real>());
-			}
-
-			{
-				auto pointRange = 
-					sparseRange(
-					countingIterator(&pointSet.front()), 
-					countingIterator(&pointSet.front() + 2 * n), 2);
-
-				rangeTree.construct(rangeInput(pointRange));
-			}
+			RangeTree<Settings> tree;
 		}
 	};
 

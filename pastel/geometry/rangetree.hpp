@@ -3,11 +3,4 @@
 
 #include "pastel/geometry/rangetree.h"
 
-namespace Pastel
-{
-
-
-
-}
-
 #endif
