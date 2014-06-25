@@ -4,8 +4,9 @@
 #define PASTELGEOMETRY_RANGETREE_H
 
 #include "pastel/geometry/rangetree_concepts.h"
-
-#include "pastel/sys/range_input.h"
+#include "pastel/geometry/rangetree_fwd.h"
+#include "pastel/sys/locator_concept.h"
+#include "pastel/sys/vector.h"
 
 #include <boost/range/algorithm/sort.hpp>
 
@@ -15,201 +16,118 @@
 namespace Pastel
 {
 
-	template <typename RangeTree_Types>
+	template <typename Settings>
+	using Empty_RangeTree_Customization = 
+		RangeTree_Concepts::Customization<Settings>;
+
+	//! Range tree
+	/*!
+	Space complexity: O(n log(n))
+	*/
+	template <
+		typename Settings,
+		template <typename> class Customization = Empty_RangeTree_Customization>
 	class RangeTree
 	{
 	public:
-		typedef typename RangeTree_Types::PointRep PointRep;
-		typedef typename PointRep::Real Real;
-		typedef typename PointRep::Point Point;
-		typedef typename std::unique_ptr<RangeTree> TreePtr;
-		typedef std::vector<Point> PointSet;
-		typedef typename PointSet::iterator Point_Iterator;
-		typedef typename PointSet::const_iterator Point_ConstIterator;
+		using Fwd = RangeTree_Fwd<Settings>;
+		PASTEL_FWD(PointSet);
+		PASTEL_FWD(Point_Iterator);
+		PASTEL_FWD(Point_ConstIterator);
+		PASTEL_FWD(Point);
+		PASTEL_FWD(Entry);
+		PASTEL_FWD(Node);
+		PASTEL_FWD(Real);
 
-		explicit RangeTree(const PointRep& pointRep)
-			: pointRep_(pointRep)
-			, maxBucketSize_(8)
+		RangeTree()
+		: end_(new Node)
+		, root_(end_.get())
+		, pointSet_()
 		{
 		}
 
-		class Node
+		/*
+		template <
+			typename Type, 
+			typename = PASTEL_ENABLE_IF((std::is_convertible<Type, Point>), void)>
+		RangeTree(const std::initializer_list<Type>& pointSet)
+		: RangeTree()
 		{
-		public:
-			explicit Node(
-				TreePtr&& nextTree,
-				bool leaf)
-				: nextTree_(std::move(nextTree))
-				, leaf_(leaf)
+			construct(pointSet)
+		}
+		*/
+
+		template <
+			typename Point_Range_,
+			typename Locator>
+		RangeTree(
+			const Point_Range_& pointSet,
+			const Locator& locator)
+		: RangeTree()
+		{
+			std::vector<Vector<Real, 2>> coordinateSet;
+			coordinateSet.reserve(boost::size(pointSet));
+
+			for (auto&& point : pointSet)
 			{
+				coordinateSet.emplace_back(
+					locator(point, 0),
+					locator(point, 1));
 			}
 
-			bool leaf() const
+			auto yLess = [](
+				const Vector<Real, 2>& left, 
+				const Vector<Real, 2>& right)
+			-> bool
 			{
-				return leaf_;
-			}
+				return left[1] < right[1];
+			};
 
-		private:
-			// Next axis.
-			TreePtr nextTree_;
-			// Whether this is a leaf node 
-			// (and not a split node).
-			bool leaf_;
-		};
+			boost::sort(coordinateSet, yLess);
 
-		struct Node_Delete
+			root_ = construct(coordinateSet);
+		}
+
+		~RangeTree()
 		{
-			void operator()(Node* node)
-			{
-				if (node->leaf())
-				{
-					delete (LeafNode*)node;
-				}
-				else
-				{
-					delete (SplitNode*)node;
-				}
-			}
-		};
+			clear();
+		}
 
-		typedef std::unique_ptr<Node, Node_Delete> NodePtr;
-
-		class SplitNode
-			: public Node
+		void swap(RangeTree& that)
 		{
-		public:
-			SplitNode(
-				Real splitPosition,
-				NodePtr&& left,
-				NodePtr&& right,
-				TreePtr&& nextTree)
-				: Node(std::move(nextTree), false)
-				, splitPosition_(splitPosition)
-				, left_(std::move(left))
-				, right_(std::move(right))
-			{
-			}
+			end_.swap(that.end_);
+			std::swap(root_, that.root_);
+			elementSet_.swap(that.elementSet_);
+		}
 
-			// Split position on the current axis.
-			Real splitPosition_;
-			// Points with position < splitPosition_.
-			NodePtr left_;
-			// Points with position >= splitPosition_.
-			NodePtr right_;
-		};
-
-		class LeafNode
-			: public Node
+		void clear()
 		{
-		public:
-			LeafNode(
-				integer begin,
-				integer end,
-				TreePtr&& nextTree)
-				: Node(std::move(nextTree), true)
-				, begin_(begin)
-				, end_(end)
-			{
-			}
-
-			integer begin_;
-			integer end_;
-		};
-
-		template <typename Point_Input>
-		void construct(Point_Input pointInput)
-		{
-			construct(pointInput, 0);
+			clear(root_);
 		}
 
 	private:
-		template <typename Point_Input>
-		void construct(Point_Input pointInput, integer axis)
+		Node* construct(const std::vector<Vector<Real, 2>>& pointSet)
 		{
-			pointSet_.reserve(pointInput.nHint());
-			while(!pointInput.empty())
+
+		}
+
+		void clear(Node* node)
+		{
+			if (node == end_.get())
 			{
-				Point point = pointInput();
-				pointSet_.push_back(point);
+				return;
 			}
 			
-			integer n = pointSet_.size();
-			root_ = construct(0, n, axis);
+			clear(node->child(false));
+			clear(node->child(true));
+			delete node;
 		}
 
-		NodePtr construct(integer begin, integer end, integer axis)
-		{
-			ASSERT_OP(begin, <=, end);
-			ASSERT_OP(axis, >=, 0);
-			ASSERT_OP(axis, <, pointRep_.n());
-
-			TreePtr nextTree;
-			if (axis < pointRep_.n() - 1)
-			{
-				nextTree.reset(new RangeTree(pointRep_));
-				nextTree->construct(
-					rangeInput(
-					pointSet_.begin() + begin,
-					pointSet_.begin() + end), axis + 1);
-			}
-
-			NodePtr node;
-			integer n = end - begin;
-			if (n <= maxBucketSize_)
-			{
-				// Create a leaf node.				
-				node.reset(new LeafNode(begin, end, std::move(nextTree)));
-			}
-			else
-			{
-				// Split the node into two.
-
-				auto coordinateLess = 
-					[&](const Point& left, const Point& right)
-				{
-					return pointRep_(left, axis) < pointRep_(right, axis);
-				};
-
-				integer iMedian = begin + n / 2;
-				std::nth_element(
-					pointSet_.begin() + begin, 
-					pointSet_.begin() + iMedian, 
-					pointSet_.begin() + end, 
-					coordinateLess);
-
-				Real median = pointRep_(pointSet_[iMedian], axis);
-
-				NodePtr left;
-				if (begin != iMedian)
-				{
-					left = construct(
-						begin, iMedian, axis);
-				}
-
-				NodePtr right;
-				if (iMedian != end)
-				{
-					right = construct(
-						iMedian, end, axis);
-				}
-
-				node.reset(new SplitNode(
-					median, 
-					std::move(left), std::move(right), 
-					std::move(nextTree)));
-			}
-		
-			return node;
-		}
-
+		std::unique_ptr<Node> end_;
+		Node* root_;
 		PointSet pointSet_;
-		NodePtr root_;
-		PointRep pointRep_;
-		integer maxBucketSize_;
 	};
 
 }
-
-#include "pastel/geometry/rangetree.hpp"
 
 #endif

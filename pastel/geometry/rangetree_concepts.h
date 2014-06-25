@@ -1,11 +1,11 @@
-// Description: Concepts for RangeTree
+// Description: Concepts for the range tree
 
 #ifndef PASTELGEOMETRY_RANGETREE_CONCEPTS_H
 #define PASTELGEOMETRY_RANGETREE_CONCEPTS_H
 
 #include "pastel/geometry/rangetree.h"
 
-#include "pastel/sys/pointrep_concept.h"
+#include "pastel/sys/real_concept.h"
 
 namespace Pastel
 {
@@ -13,11 +13,16 @@ namespace Pastel
 	namespace RangeTree_Concepts
 	{
 
-		class RangeTree_Types
+		class Settings
 		{
 		public:
-			//! The type of the contained points.
-			typedef PointRep_Concept PointRep;
+			using Real = UserDefinedType;
+			using Point = UserDefinedType;
+		};
+
+		template <typename Settings>
+		class Customization
+		{
 		};
 
 	}
