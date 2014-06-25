@@ -45,6 +45,11 @@ namespace Pastel
 		PASTEL_FWD(Node_Iterator);
 		PASTEL_FWD(Node_ConstIterator);
 
+		//! Constructs an empty tree.
+		/*!
+		Time complexity: O(1)
+		Exception safety: strong
+		*/
 		RangeTree()
 		: end_(new Node)
 		, root_(end_.get())
@@ -52,17 +57,31 @@ namespace Pastel
 		{
 		}
 
-		/*
-		template <
-			typename Type, 
-			typename = PASTEL_ENABLE_IF((std::is_convertible<Type, Point>), void)>
-		RangeTree(const std::initializer_list<Type>& pointSet)
+		//! Move-constructs from another tree.
+		/*!
+		Time complexity: O(1)
+		Exception safety: strong
+		*/
+		RangeTree(RangeTree&& that)
 		: RangeTree()
 		{
-			construct(pointSet)
+			swap(that);
 		}
-		*/
 
+		//! Copy-constructs from another tree.
+		/*!
+		Time complexity: O(size())
+		Exception safety: strong
+		*/
+		RangeTree(const RangeTree& that) = delete;
+
+		//! Constructs from a given point-set.
+		/*!
+		Time complexity: 
+		O(n log(n))
+		where
+		n is the size of pointSet.
+		*/
 		template <
 			typename Point_Range_,
 			typename X_Less,
@@ -99,11 +118,21 @@ namespace Pastel
 			root_ = construct(0, false, iteratorSet, xLess, yLess).get();
 		}
 
+		//! Destructs the tree.
+		/*!
+		Time complexity: O(n log(n))
+		Exception safety: nothrow
+		*/
 		~RangeTree()
 		{
 			clear();
 		}
 
+		//! Swaps two trees.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		void swap(RangeTree& that)
 		{
 			end_.swap(that.end_);
@@ -111,21 +140,51 @@ namespace Pastel
 			elementSet_.swap(that.elementSet_);
 		}
 
+		//! Removes all points from the tree.
+		/*!
+		Time complexity: O(n log(n))
+		Exception safety: nothrow
+		*/
 		void clear()
 		{
 			clear(root_);
 		}
 
+		//! Returns whether the tree is empty.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		bool empty() const
 		{
 			return root_ == end_.get();
 		}
 
+		//! Returns the number of points in the tree.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer size() const
+		{
+			return pointSet_.size();
+		}
+
+		//! Returns the root node.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Node_ConstIterator root() const
 		{
 			return root_;
 		}
 
+		//! Returns the end node.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Node_ConstIterator end() const
 		{
 			return end_.get();
@@ -252,8 +311,13 @@ namespace Pastel
 			delete node;
 		}
 
+		//! Sentinel node
 		std::unique_ptr<Node> end_;
+
+		//! Root node
 		Node_Iterator root_;
+
+		//! The set of points
 		PointSet pointSet_;
 	};
 

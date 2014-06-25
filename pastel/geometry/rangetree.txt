@@ -1,5 +1,21 @@
 Range tree
 ==========
 
-[[Parent]]: undocumented.txt
+[[Parent]]: data_structures.txt
 
+A _range tree_ is a multi-level tree structure to store a multi-ordered set such that multi-interval queries can be efficiently answered. A set ''S'' is _multi-ordered_, if it has ''d'' strict weak orders ''<_1, ..., <_d subset S^2'', for some integer ''d''. A _multi-interval_ in ''S'' is a set of the form ''cap_{i = 1}^d I_i'', where ''I_i subset S'' is an interval in ''S'' with respect to ''<_i''.
+
+Usual definition
+----------------
+
+Our definition is more general than usual. The usual definition is recovered by setting ''S = RR^d'' and ''x <_i y <=> x_i < y_i''. In this case a multi-interval becomes an axis-aligned box, also called an _orthogonal range_, and the range tree becomes an efficient tool for performing orthogonal range searching. The generalized definition can be used also for non-orthogonal range searching. One such example is given by ''S = RR^2'', ''x <_1 y <=> x_1 < y_1'', and ''x <_2 y <=> x_1 + x_2 < y_1 + y_2''.
+
+Properties
+----------
+
+The range tree implementation in Pastel has the following properties:
+
+Property / Task                                              | Complexity
+-------------------------------------------------------------|--------------------
+Construct the tree from ''n'' points.                        | ''Theta(n log(n))''
+Find all the ''k'' points on a given ''d''-multi-interval.   | ''Theta(log(n)^(d-1) + k)''
