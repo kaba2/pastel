@@ -1,14 +1,12 @@
-// Description: Testing for RangeTree
+// Description: Testing for range tree
 // DocumentationOf: rangetree.h
 
 #include "test_pastelgeometry.h"
 
 #include "pastel/geometry/rangetree.h"
 
-#include "pastel/sys/random_uniform.h"
 #include "pastel/sys/locators.h"
-#include "pastel/sys/inputs.h"
-#include "pastel/sys/iterators.h"
+#include "pastel/sys/vector_locator.h"
 
 #include <boost/range/adaptor/indirected.hpp>
 
@@ -21,7 +19,7 @@ namespace
 	{
 	public:
 		using Real = real;
-		using Point = integer;
+		using Point = Vector<Real, 2>;
 	};
 
 	class Test
@@ -40,7 +38,30 @@ namespace
 
 		void test()
 		{
-			RangeTree<Settings> tree;
+			using Point = Vector<real, 2>;
+			std::vector<Point> pointSet = 
+			{ 
+				{ 1, 2 }, { 3, 4 }, { 4, 5 } 
+			};
+
+			auto xLess = [](
+				const Point& left, 
+				const Point& right)
+			{
+				return left[0] < right[0];
+			};
+
+			auto yLess = [](
+				const Point& left,
+				const Point& right)
+			{
+				return left[1] < right[1];
+			};
+
+			RangeTree<Settings> tree(
+				pointSet, xLess, yLess);
+
+			rangeSearch(tree, Point(0, 0), Point(3, 5));
 		}
 	};
 
