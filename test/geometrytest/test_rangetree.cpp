@@ -5,11 +5,6 @@
 
 #include "pastel/geometry/rangetree.h"
 
-#include "pastel/sys/locators.h"
-#include "pastel/sys/vector_locator.h"
-
-#include <boost/range/adaptor/indirected.hpp>
-
 using namespace Pastel;
 
 namespace
@@ -61,7 +56,7 @@ namespace
 			RangeTree<Settings> tree(
 				pointSet, xLess, yLess);
 
-			rangeSearch(tree, Point(0, 0), Point(3, 5));
+			rangeSearch(tree, Point(0, 0), Point(3, 5), xLess, yLess);
 		}
 	};
 
