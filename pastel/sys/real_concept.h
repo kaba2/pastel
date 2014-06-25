@@ -13,10 +13,6 @@ namespace Pastel
 	{
 
 		//! A real number.
-		/*!
-		Each model of Real must specialize and implement 
-		the Real_Function class template.
-		*/
 		class Real
 		: public Ordered_Field_Concept::Ordered_Field
 		{

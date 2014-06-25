@@ -1,22 +1,22 @@
-// Description: Pointer point-representation
+// Description: Pointer locator
 
-#ifndef PASTELSYS_POINTER_POINTREP_H
-#define PASTELSYS_POINTER_POINTREP_H
+#ifndef PASTELSYS_POINTER_LOCATOR_H
+#define PASTELSYS_POINTER_LOCATOR_H
 
-#include "pastel/sys/pointrep_concept.h"
+#include "pastel/sys/locator_concept.h"
 
 namespace Pastel
 {
 
 	template <typename Real_, int N_ = Dynamic>
-	class Pointer_PointRep
+	class Pointer_Locator
 	{
 	public:
 		static PASTEL_CONSTEXPR int N = N_;
 		typedef Real_ Real;
 		typedef const Real* Point;
 
-		explicit Pointer_PointRep(integer n = N)
+		explicit Pointer_Locator(integer n = N)
 			: n_(n)
 		{
 			ENSURE(N == Dynamic || n == N);

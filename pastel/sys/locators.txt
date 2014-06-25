@@ -1,0 +1,7 @@
+Locators
+========
+
+[[Parent]]: maths.txt
+
+A _locator_ is a function which maps a variable to ''n'' real numbers. The ''n'' is called the _dimensionality_ of the locator. Locators abstract the representation of points.
+
