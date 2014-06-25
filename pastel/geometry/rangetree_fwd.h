@@ -11,13 +11,15 @@
 namespace Pastel
 {
 
+	template <typename, template <typename> class>
+	class RangeTree;
+
 	template <typename Settings>
 	class RangeTree_Fwd
 	{
 	public:
 		using Fwd = Settings;
 		PASTEL_FWD(Point);
-		PASTEL_FWD(Real);
 
 		using PointSet = 
 			std::vector<Point>;
@@ -29,21 +31,21 @@ namespace Pastel
 		class Entry
 		{
 		public:
-			Point_Iterator element_;
+			explicit Entry(const Point_Iterator& point)
+			: point_(point)
+			, cascadeSet_()
+			{
+			}
+
+			Point_Iterator point_;
 			std::array<integer, 2> cascadeSet_;
 		};
 
 		class Node
 		{
 		public:
-			Node()
-			: entrySet_()
-			, childSet_()
-			, split_(0)
-			{
-				child(false) = this;
-				child(true) = this;
-			}
+			template <typename, template <typename> class>
+			friend class RangeTree;
 
 			Node*& child(bool right)
 			{
@@ -55,10 +57,39 @@ namespace Pastel
 				return childSet_[right];
 			}
 
+		private:
+			Node()
+			: entrySet_()
+			, childSet_()
+			, split_()
+			{
+				child(false) = this;
+				child(true) = this;
+			}
+
+			Node(
+				const Point_Iterator& split,
+				const std::vector<Point_Iterator>& iteratorSet)
+			: Node()
+			{
+				for (auto&& i : iteratorSet)
+				{
+					entrySet_.emplace_back(i);
+				}
+				split_ = split;
+			}
+
+			Node(const Node&) = delete;
+			Node(Node&&) = delete;
+			Node& operator=(const Node&) = delete;
+
 			std::vector<Entry> entrySet_;
 			std::array<Node*, 2> childSet_;
-			Real split_;
+			Point_Iterator split_;
 		};
+
+		using Node_Iterator = Node*;
+		using Node_ConstIterator = const Node*;
 	};
 
 }

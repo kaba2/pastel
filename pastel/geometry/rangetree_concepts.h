@@ -4,7 +4,6 @@
 #define PASTELGEOMETRY_RANGETREE_CONCEPTS_H
 
 #include "pastel/geometry/rangetree.h"
-
 #include "pastel/sys/real_concept.h"
 
 namespace Pastel
