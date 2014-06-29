@@ -165,6 +165,16 @@ namespace Pastel
 				// otherwise the complexity is O(log(n)^d).
 			}
 
+			if (splitNode->isLeaf())
+			{
+				// If the split-node is a leaf, i.e.
+				// the search-paths of the minimum and
+				// the maximum are the same, then just 
+				// report the split-node.
+				recurse(splitNode, lastStart);
+				return 0;
+			}
+
 			// Report the subtrees between the search-paths
 			// of min and max.
 			const Point* extremumSet[] = { &min, &max };
@@ -172,7 +182,8 @@ namespace Pastel
 			{
 				const Point& extremum = *extremumSet[right];
 
-				Node_ConstIterator node = splitNode;
+				Node_ConstIterator node = splitNode->child(right);
+				lastStart = splitNode->entryRange()[lastStart].cascade(right);
 				while (!node->isLeaf())
 				{
 					bool goRight = !multiLess(extremum, *node->split(), depth);
@@ -204,16 +215,6 @@ namespace Pastel
 				
 				// Recurse to the leaf node.
 				recurse(node, lastStart);
-
-				if (splitNode->isLeaf())
-				{
-					// If the split-node is a leaf, i.e.
-					// the search-paths of the minimum and
-					// the maximum are the same, then stop the
-					// search to avoid reporting the split-node
-					// twice.
-					break;
-				}
 			}
 
 			return 0;

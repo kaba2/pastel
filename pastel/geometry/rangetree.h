@@ -328,21 +328,18 @@ namespace Pastel
 				{
 					Entry& entry = parent->entrySet_[i];
 					
-					if (j < pointSet.size() &&
-						multiLess(*pointSet[j], *entry.point(), orders() - 1))
+					while (j < node->entries() &&
+						multiLess(*node->entrySet_[j].point(), *entry.point(), orders() - 1))
 					{
 						++j;
 					}
-
-					ASSERT(j == pointSet.size() ||
-						!multiLess(*pointSet[j], *entry.point(), orders() - 1));
 
 					entry.cascade(right) = j;
 				}
 
 				// Link the sentinel entry of the parent 
 				// to the sentinel entry of the child.
-				parent->entrySet_.back().cascade(right) = pointSet.size();
+				parent->entrySet_.back().cascade(right) = node->entries();
 			}
 
 			// Return the node.
