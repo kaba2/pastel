@@ -118,7 +118,8 @@ namespace Pastel
 				
 				auto entrySet = node->entryRange();
 				integer n = node->entries();
-				for (integer i = start; i < n && !multiLess(max, *entrySet[i].point(), 1); ++i)
+				for (integer i = start; i < n && 
+					!multiLess(max, *entrySet[i].point(), tree.orders() - 1); ++i)
 				{
 					output(entrySet[i].point());
 				}

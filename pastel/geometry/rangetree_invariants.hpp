@@ -32,11 +32,9 @@ namespace Pastel
 				return false;
 			}
 
-			if (tree.empty() != (tree.size() == 0))
+			if (node->isEnd())
 			{
-				// The tree is empty if and only if
-				// the size is zero.
-				return false;
+				return true;
 			}
 
 			if ((depth == tree.orders() - 2) != node->isBottom())
@@ -46,11 +44,6 @@ namespace Pastel
 				return false;
 			}
 
-			if (tree.empty())
-			{
-				return true;
-			}
-
 			MultiLess multiLess;
 
 			if (depth == tree.orders() - 2)
@@ -58,10 +51,19 @@ namespace Pastel
 				if (parent)
 				{
 					// Check the fractional cascading information.
+
+					if (parent->entryRange()[parent->entries()].cascade(right) !=
+						node->entries())
+					{
+						ENSURE_OP(parent->entryRange()[parent->entries()].cascade(right), ==,
+							node->entries());
+						return false;
+					}
+
 					for (integer i = 0;i < parent->entries();++i)
 					{
 						const Entry& entry = parent->entryRange()[i];
-						integer cascade = entry.cascade(i);
+						integer cascade = entry.cascade(right);
 						if (cascade < 0 ||
 							cascade > node->entries())
 						{
@@ -127,7 +129,14 @@ namespace Pastel
 	bool testInvariants(
 		const RangeTree<Settings, Customization>& tree)
 	{
-		return RangeTree_::testInvariants(tree, nullptr, false, tree.root());
+		if (tree.empty() != (tree.size() == 0))
+		{
+			// The tree is empty if and only if
+			// the size is zero.
+			return false;
+		}
+
+		return RangeTree_::testInvariants(tree, nullptr, false, tree.root(), 0);
 	}
 
 }
