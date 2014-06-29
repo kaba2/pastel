@@ -22,15 +22,11 @@ namespace Pastel
 	template <
 		typename Settings,
 		template <typename> class Customization,
-		typename X_Less,
-		typename Y_Less,
 		typename Point_ConstIterator_Output = Null_Output>
 		integer rangeSearch(
 		const RangeTree<Settings, Customization>& tree,
 		const typename Settings::Point& min,
 		const typename Settings::Point& max,
-		const X_Less& xLess,
-		const Y_Less& yLess,
 		const Point_ConstIterator_Output& output = Point_ConstIterator_Output());
 
 }

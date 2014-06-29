@@ -21,6 +21,7 @@ namespace Pastel
 	public:
 		using Fwd = Settings;
 		PASTEL_FWD(Point);
+		PASTEL_FWD(MultiLess);
 
 		using PointSet = 
 			std::vector<Point>;
@@ -38,6 +39,8 @@ namespace Pastel
 				: point_(point)
 				, cascadeSet_()
 			{
+				cascadeSet_[0] = 0;
+				cascadeSet_[1] = 0;
 			}
 
 			Entry& operator=(const Entry&) = delete;
@@ -87,19 +90,19 @@ namespace Pastel
 				return childSet_[right];
 			}
 
+			Node_Iterator& down()
+			{
+				return down_;
+			}
+
+			Node_ConstIterator down() const
+			{
+				return down_;
+			}
+
 			const Point_ConstIterator& split() const
 			{
 				return split_;
-			}
-
-			Entry_ConstRange entryRange() const
-			{
-				return Pastel::range(entrySet_.begin(), entrySet_.end());
-			}
-
-			integer entries() const
-			{
-				return entrySet_.size();
 			}
 
 			bool isEnd() const
@@ -107,38 +110,57 @@ namespace Pastel
 				return child(false) == this;
 			}
 
+			bool isBottom() const
+			{
+				return down_->isEnd();
+			}
+
+			Entry_ConstRange entryRange() const
+			{
+				return Pastel::range(
+					entrySet_.begin(), 
+					entrySet_.end());
+			}
+
+			integer entries() const
+			{
+				return entrySet_.size() - 1;
+			}
+
 		private:
 			template <typename, template <typename> class>
 			friend class RangeTree;
 
 			Node()
-			: entrySet_()
-			, childSet_()
+			: childSet_()
 			, split_()
+			, down_()
+			, entrySet_()
 			{
 				child(false) = this;
 				child(true) = this;
 			}
 
-			Node(
-				const Point_Iterator& split,
+			explicit Node(
 				const std::vector<Point_Iterator>& iteratorSet)
 			: Node()
 			{
+				entrySet_.reserve(iteratorSet.size() + 1);
 				for (auto i : iteratorSet)
 				{
 					entrySet_.emplace_back(i);
 				}
-				split_ = split;
+				entrySet_.emplace_back(Point_Iterator());
 			}
 
 			Node(const Node&) = delete;
 			Node(Node&&) = delete;
 			Node& operator=(const Node&) = delete;
 
-			EntrySet entrySet_;
 			std::array<Node_Iterator, 2> childSet_;
 			Point_Iterator split_;
+			Node_Iterator down_;
+			EntrySet entrySet_;
 		};
 	};
 

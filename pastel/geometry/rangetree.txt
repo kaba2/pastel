@@ -18,4 +18,7 @@ The range tree implementation in Pastel has the following properties:
 Property / Task                                              | Complexity
 -------------------------------------------------------------|--------------------
 Construct the tree from ''n'' points.                        | ''Theta(n log(n))''
-Find all the ''k'' points on a given ''d''-multi-interval.   | ''Theta(log(n)^(d-1) + k)''
+Find all the ''k'' points on a given multi-interval.         | ''Theta(log(n)^(d-1) + k)''
+Space                                                        | ''O(n log(n)) cap Omega(n)''
+
+Here ''n'' is the number of points in the tree, and ''d'' is the number of strict weak orders.

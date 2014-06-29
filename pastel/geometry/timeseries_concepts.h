@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/timeseries.h"
 
-#include "pastel/sys/pointrep_concept.h"
+#include "pastel/sys/locator_concept.h"
 
 namespace Pastel
 {
@@ -16,7 +16,7 @@ namespace Pastel
 		class Args
 		{
 		public:
-			typedef PointRep_Concept PointRep;
+			typedef Locator_Concept Locator;
 		};
 
 	}
