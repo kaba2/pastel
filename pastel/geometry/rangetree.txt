@@ -3,7 +3,7 @@ Range tree
 
 [[Parent]]: data_structures.txt
 
-A _range tree_ is a multi-level tree structure to store a multi-ordered set such that multi-interval queries can be efficiently answered. A set ''S'' is _multi-ordered_, if it has ''d'' strict weak orders ''<_1, ..., <_d subset S^2'', for some integer ''d''. A _multi-interval_ in ''S'' is a set of the form ''cap_{i = 1}^d I_i'', where ''I_i subset S'' is an interval in ''S'' with respect to ''<_i''.
+A _range tree_ is a multi-level tree data-structure to store a finite subset ''P'' of a multi-ordered set ''S'' such that multi-interval queries can be efficiently answered for ''P''. A set ''S'' is _multi-ordered_, if it has ''d'' strict weak orders ''<_1, ..., <_d subset S^2'', for some integer ''d''. A _multi-interval_ in ''S'' is a set of the form ''I = cap_{i = 1}^d I_i'', where ''I_i subset S'' is an interval in ''S'' with respect to ''<_i''. A _multi-interval query_, or a _range search_, reports the points in ''P cap I'', for a given multi-interval ''I''.
 
 Usual definition
 ----------------
@@ -13,13 +13,21 @@ Our definition is more general than usual. The usual definition is recovered by 
 Restrictions
 ------------
 
-We require the range-tree to have at least 2 strict weak orders (''d >= 2''). This is an [accidental discontinuity][Continuity]; due to fractional cascading we could not come up with a clean design which would have also allowed a single strict weak order. 
+The range-tree implementation in Pastel has the following restrictions:
+
+### Static data-structure
+
+After the construction points can be added or removed only by a complete reconstruction.
+
+### At least 2 orders
+
+We require the range-tree to have at least 2 strict weak orders (''d >= 2''). This is an [accidental discontinuity][Continuity]; due to fractional cascading we could not come up with a clean uniform design which would have also allowed a single strict weak order. 
 
 An efficient work-around for a single order is to use an additional trivial strict weak order (always returning false) _for the first order_. The range tree then consists of a single node which contains all the points ordered with respect to the first strict weak order, and a range-search is a single binary search in that node, followed by a linear scan.
 
 An alternative work-around for a single order is to use an additional trivial strict weak order _for the second order_. The range tree then consists of a binary search tree for the first order, and a range-search works as usual, reporting all points in all intermediate subtrees (since all points are equivalent with respect to the second order).
 
-Both of these work-around are efficient in the sense of having comparable performance when compared to an actual single-order implementation.
+Both of these work-arounds are efficient in the sense of having comparable performance when compared with an actual single-order implementation.
 
 [Continuity]: [[Ref]]: algorithmic_continuity.txt
 
@@ -31,7 +39,15 @@ The range tree implementation in Pastel has the following properties:
 Property / Task                                              | Complexity
 -------------------------------------------------------------|--------------------
 Construct the tree from ''n'' points.                        | ''Theta(n log(n))''
-Find all the ''k'' points on a given multi-interval.         | ''Theta(log(n)^(d-1) + k)''
-Space                                                        | ''O(n log(n)) cap Omega(n)''
+Find all the ''k'' points on a given multi-interval.         | ''Theta(k + log(n)^(d-1))''
+Space                                                        | ''O(n log(n)^(d-1)) cap Omega(n)''
 
-Here ''n'' is the number of points in the tree, and ''d'' is the number of strict weak orders.
+Here ''n'' is the number of points in the tree, and ''d'' is the number of strict weak orders. 
+
+### Space complexity
+
+The space complexity degrades gracefully as points become equivalent with respect to the orders. For example, if the points are all equivalent in the first ''m'' orders, for ''m <= d - 1'', then the data-structure takes only ''O(n log(n)^(d - 1 - m))'' space. More generally, the space complexity is sensitive to the number of comparisons needed to separate points; points which are equivalent with respect to some order do not need to be separated by that order.
+
+### Range searching
+
+The time complexity degrades gracegully for the range searching, as points become equivalent with respect to the orders. This is for the same reason as for the space complexity. For example, if the points are all equivalent in the first ''m'' orders, for ''m <= d - 1'', then range searching takes only ''O(k + log(n)^(d - 1 - m))'' time.
