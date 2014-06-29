@@ -36,10 +36,11 @@ namespace Pastel
 	{
 	public:
 		using Fwd = RangeTree_Fwd<Settings>;
+		PASTEL_FWD(Point);
+		PASTEL_FWD(MultiLess);
 		PASTEL_FWD(PointSet);
 		PASTEL_FWD(Point_Iterator);
 		PASTEL_FWD(Point_ConstIterator);
-		PASTEL_FWD(Point);
 		PASTEL_FWD(Entry);
 		PASTEL_FWD(Node);
 		PASTEL_FWD(Node_Iterator);
@@ -54,6 +55,7 @@ namespace Pastel
 		: end_(new Node)
 		, root_(end_.get())
 		, pointSet_()
+		, orders_(0)
 		{
 		}
 
@@ -77,21 +79,24 @@ namespace Pastel
 
 		//! Constructs from a given point-set.
 		/*!
+		Preconditions:
+		orders > 0
+
 		Time complexity: 
 		O(n log(n))
 		where
 		n is the size of pointSet.
 		*/
-		template <
-			typename Point_Range_,
-			typename X_Less,
-			typename Y_Less>
-		RangeTree(
+		template <typename Point_Range_>
+		explicit RangeTree(
 			const Point_Range_& pointSet,
-			const X_Less& xLess,
-			const Y_Less& yLess)
+			integer orders)
 		: RangeTree()
 		{
+			ENSURE_OP(orders, >, 0);
+
+			orders_ = orders;
+			
 			integer n = boost::size(pointSet);
 
 			std::vector<Point_Iterator> iteratorSet;
@@ -105,17 +110,18 @@ namespace Pastel
 					std::prev(pointSet_.end()));
 			}
 
-			auto yLess_ = [&](
+			// Sort the points in increasing order by the last coordinate.
+
+			auto lastLess = [&](
 				const Point_Iterator& left, 
 				const Point_Iterator& right)
 			{
-				return yLess(*left, *right);
+				return MultiLess()(*left, *right, orders - 1);
 			};
 
-			// Sort the points in increasing order by the y-coordinate.
-			boost::stable_sort(iteratorSet, yLess_);
+			boost::stable_sort(iteratorSet, lastLess);
 
-			root_ = construct(0, false, iteratorSet, xLess, yLess).get();
+			root_ = construct(nullptr, false, 0, iteratorSet);
 		}
 
 		//! Destructs the tree.
@@ -138,6 +144,7 @@ namespace Pastel
 			end_.swap(that.end_);
 			std::swap(root_, that.root_);
 			elementSet_.swap(that.elementSet_);
+			std::swap(orders_, that.orders_);
 		}
 
 		//! Removes all points from the tree.
@@ -170,6 +177,16 @@ namespace Pastel
 			return pointSet_.size();
 		}
 
+		//! Returns the number of strict weak orders.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer orders() const
+		{
+			return orders_;
+		}
+
 		//! Returns the root node.
 		/*!
 		Time complexity: O(1)
@@ -191,114 +208,133 @@ namespace Pastel
 		}
 
 	private:
-		template <
-			typename X_Less,
-			typename Y_Less>
-		std::unique_ptr<Node> construct(
+		Node* construct(
 			Node_Iterator parent,
 			bool right,
-			std::vector<Point_Iterator>& pointSet,
-			const X_Less& xLess,
-			const Y_Less& yLess)
+			integer depth,
+			std::vector<Point_Iterator>& pointSet)
 		{
+			ASSERT_OP(depth, >=, 0);
+			ASSERT_OP(depth, <, orders() - 1);
+			ASSERT(!pointSet.empty());
+
 			// Invariant:
 			// The points in 'pointSet' are in
-			// increasing order in the y-coordinate.
+			// increasing order in the last coordinate.
 
-			std::unique_ptr<Node> node(
-				new Node(Point_Iterator(), pointSet));
-
-			if (parent)
+			Node* node = 0;
+			if (depth < orders() - 2)
 			{
-				// Compute the fractional cascading links.
+				node = new Node;
+			}
+			else
+			{
+				// Only the level orders() - 2
+				// stores a point-set.
+				node = new Node(pointSet);
+			}
+
+			MultiLess multiLess;
+
+			// Sort the points in lexicographical order
+			// with respect to <_depth.
+
+			auto xLess = [&](
+				const Point_Iterator& left,
+				const Point_Iterator& right)
+			-> bool
+			{
+				return multiLess(*left, *right, depth);
+			};
+
+			std::vector<Point_Iterator> sortedSet(pointSet);
+			boost::stable_sort(sortedSet, xLess);
+
+			// The child nodes are created if and only if
+			// the node contains points that are not equivalent
+			// with respect to the current strict weak order.
+			if (xLess(*pointSet.begin(), *std::prev(pointSet.end())))
+			{
+				// There are several different points.
+
+				// Remove multiple points from the same positions.
+				auto uniqueEnd = 
+					std::unique(sortedSet.begin(), sortedSet.end());
+
+				// Pick the median of the unique points.
+				Point_Iterator median =
+					*(sortedSet.begin() + (std::distance(sortedSet.begin(), uniqueEnd) / 2));
+
+				// Set the split-point to that median.
+				node->split_ = median;
+
+				// Partition with respect to the median with 
+				// respect to the current order.
+
+				auto lessMedian = [&](const Point_Iterator& point)
+				-> bool
+				{
+					return xLess(point, median);
+				};
+
+				// The partitioning must be stable for the children
+				// to stay ordered with respect to the last order.
+				auto leftEnd = boost::stable_partition(pointSet, lessMedian);
+
+				// Recurse to the left child.
+				std::vector<Point_Iterator> leftSet(
+					pointSet.begin(), leftEnd);
+				node->child(false) = construct(node, false, depth, leftSet);
+
+				// Recurse to the right child.
+				std::vector<Point_Iterator> rightSet(
+					leftEnd, pointSet.end());
+				node->child(true) = construct(node, true, depth, rightSet);
+			}
+
+			if (depth < orders() - 2)
+			{
+				// Recurse to the down child.
+				node->down() = construct(nullptr, false, depth + 1, pointSet);
+			}
+			else if (parent)
+			{
+				// The down-recursion stops at level orders() - 2.
+				// Here a 2-dimensional range tree is constructed
+				// specially, to make use of fractional cascading.
+
+				// Compute the fractional cascading links
+				// for the 'parent'.
+
 				integer j = 0;
-				for (integer i = 0;i < parent->entrySet_.size();++i)
+				
+				// The last entry acts as a sentinel, and does 
+				// not contain a point, so we will skip it here.
+				for (integer i = 0;i < parent->entrySet_.size() - 1;++i)
 				{
 					Entry& entry = parent->entrySet_[i];
 					
 					if (j < pointSet.size() &&
-						yLess(*pointSet[j], *entry.point()))
+						multiLess(*pointSet[j], *entry.point(), orders() - 1))
 					{
 						++j;
 					}
 
 					ASSERT(j == pointSet.size() ||
-						!yLess(*pointSet[j], *entry.point()));
+						!multiLess(*pointSet[j], *entry.point(), orders() - 1));
 
 					entry.cascade(right) = j;
 				}
+
+				// Link the sentinel entry of the parent 
+				// to the sentinel entry of the child.
+				parent->entrySet_.back().cascade(right) = pointSet.size();
 			}
-
-			// Sort the points in lexicographical order.
-
-			auto xyLess = [&](
-				const Point_Iterator& left,
-				const Point_Iterator& right)
-			-> bool
-			{
-				if (xLess(*left, *right))
-				{
-					return true;
-				}
-
-				if (xLess(*right, *left))
-				{
-					return false;
-				}
-
-				return yLess(*left, *right);
-			};
-
-			std::vector<Point_Iterator> sortedSet(pointSet);
-			boost::sort(sortedSet, xyLess);
-
-			if (!xyLess(*pointSet.begin(), *std::prev(pointSet.end())))
-			{
-				// The points are all in the same position.
-				// Create a leaf node.
-				std::unique_ptr<Node> node(
-					new Node(Point_Iterator(), pointSet));
-				return node;
-			}
-
-			// There are several different points.
-
-			// Remove multiple points from the same positions.
-			auto uniqueEnd = 
-				std::unique(sortedSet.begin(), sortedSet.end());
-
-			// Pick the median of the unique points.
-			Point_Iterator median =
-				*(sortedSet.begin() + (std::distance(sortedSet.begin(), uniqueEnd) / 2));
-
-			node->split_ = median;
-
-			// Partition with respect to the median in
-			// lexicographical order.
-
-			auto lessMedian = [&](const Point_Iterator& point)
-			-> bool
-			{
-				return xyLess(point, median);
-			};
-
-			auto leftEnd = boost::stable_partition(pointSet, lessMedian);
-			integer nLeft = std::distance(pointSet.begin(), leftEnd);
-
-			// Recurse to the right child.
-			std::vector<Point_Iterator> rightSet(
-				leftEnd, pointSet.end());
-			node->child(true) = construct(node.get(), true, rightSet, xLess, yLess).get();
-
-			// Recurse to the left child.
-			std::vector<Point_Iterator> leftSet = std::move(pointSet);
-			leftSet.resize(nLeft);
-			node->child(false) = construct(node.get(), false, leftSet, xLess, yLess).get();
 
 			// Return the node.
 			return node;
 		}
-
+		
 		void clear(Node_Iterator node)
 		{
 			if (node == end_.get())
@@ -319,10 +355,14 @@ namespace Pastel
 
 		//! The set of points
 		PointSet pointSet_;
+
+		//! Number of strict weak orders.
+		integer orders_;
 	};
 
 }
 
+#include "pastel/geometry/rangetree_invariants.h"
 #include "pastel/geometry/rangetree_range_search.h"
 
 #endif

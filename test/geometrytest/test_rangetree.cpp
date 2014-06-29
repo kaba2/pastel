@@ -13,8 +13,18 @@ namespace
 	class Settings
 	{
 	public:
-		using Real = real;
-		using Point = Vector<Real, 2>;
+		using Point = Vector<real, 2>;
+		class MultiLess
+		{
+		public:
+			bool operator()(
+				const Point& left,
+				const Point& right,
+				integer i)
+			{
+				return left[i] < right[i];
+			}
+		};
 	};
 
 	class Test
@@ -39,24 +49,9 @@ namespace
 				{ 1, 2 }, { 3, 4 }, { 4, 5 } 
 			};
 
-			auto xLess = [](
-				const Point& left, 
-				const Point& right)
-			{
-				return left[0] < right[0];
-			};
+			RangeTree<Settings> tree(pointSet, 2);
 
-			auto yLess = [](
-				const Point& left,
-				const Point& right)
-			{
-				return left[1] < right[1];
-			};
-
-			RangeTree<Settings> tree(
-				pointSet, xLess, yLess);
-
-			rangeSearch(tree, Point(0, 0), Point(3, 5), xLess, yLess);
+			rangeSearch(tree, Point(0, 0), Point(3, 5));
 		}
 	};
 
