@@ -25,7 +25,9 @@ namespace Pastel
 			const typename RangeTree<Settings, Customization>::Node_ConstIterator& node,
 			integer depth)
 		{
-			ASSERT_OP(depth, <, tree.orders());
+			// Due to the 2d range-tree being treated as a whole,
+			// the maximum depth is tree.orders() - 2.
+			ASSERT_OP(depth, <, tree.orders() - 1);
 
 			// Invariant: the 'node' is the root of some 
 			// tree in the range tree.
@@ -45,10 +47,12 @@ namespace Pastel
 
 			MultiLess multiLess;
 
+			bool lastLevel = node->isBottom();
+
 			// Find the node at which the search-paths for
 			// the minimum and the maximum separate.
 			Node_ConstIterator splitNode = node;
-			while (true)
+			while (!splitNode->isLeaf())
 			{
 				// The left child contains all points
 				// < splitNode->split().
@@ -95,7 +99,50 @@ namespace Pastel
 				splitNode = next;
 			}
 
-			bool lastLevel = splitNode->isBottom();
+			auto report = [&](
+				const Node_ConstIterator& node,
+				integer start)
+			{
+				ASSERT(node->isBottom());
+
+				if (DiscardOutput)
+				{
+					return;
+				}
+
+				// Report, in the lowest tree, all points which
+				// fall into the [min, max] interval in the with
+				// respect to the last strict weak order. Since
+				// we get the index of first such point from 'lastStart',
+				// due to fractional cascading, and the points are
+				// ordered with respect to the last order, we need only 
+				// report the points sequentially until we come
+				// up to a point which falls outside the interval.
+				
+				auto entrySet = node->entryRange();
+				integer n = node->entries();
+				for (integer i = start; i < n && !multiLess(max, *entrySet[i].point(), 1); ++i)
+				{
+					output(entrySet[i].point());
+				}
+			};
+
+			auto recurse = [&](
+				const Node_ConstIterator& node,
+				integer start)
+			{
+				if (!lastLevel)
+				{
+					// Recurse down.
+					rangeSearch(tree, min, max, output, 
+						node->down(), depth + 1);
+				}
+				else
+				{
+					// Report the points.
+					report(node, start);
+				}
+			};
 
 			integer lastStart = 0;
 			if (lastLevel)
@@ -120,29 +167,6 @@ namespace Pastel
 				// otherwise the complexity is O(log(n)^d).
 			}
 
-			auto report = [&](
-				const Node_ConstIterator& node,
-				integer start)
-			{
-				ASSERT(node->isBottom());
-
-				// Report, in the lowest tree, all points which
-				// fall into the [min, max] interval in the with
-				// respect to the last strict weak order. Since
-				// we get the index of first such point from 'lastStart',
-				// due to fractional cascading, and the points are
-				// ordered with respect to the last order, we need only 
-				// report the points sequentially until we come
-				// up to a point which falls outside the interval.
-				
-				auto entrySet = node->entryRange();
-				integer n = node->entries();
-				for (integer i = lastStart; i < n && !multiLess(max, *entrySet[i].point(), 1); ++i)
-				{
-					output(*entrySet[i].point());
-				}
-			};
-
 			// Report the subtrees between the search paths
 			// of min and max.
 			const Point* extremumSet[] = { &min, &max };
@@ -150,8 +174,8 @@ namespace Pastel
 			{
 				const Point& extremum = *extremumSet[right];
 
-				Node_ConstIterator node = splitNode->child(right);
-				while (!node->isEnd())
+				Node_ConstIterator node = splitNode;
+				while (!node->isLeaf())
 				{
 					bool goRight = !multiLess(extremum, *node->split(), depth);
 
@@ -170,28 +194,18 @@ namespace Pastel
 
 					if (goRight == right)
 					{
-						if (!lastLevel)
-						{
-							// Recurse down to the sibling node.
-							rangeSearch(tree, min, max, output, 
-								sibling->down(), depth + 1);
-						}
-						else
-						{
-							// Report the points in the sibling node.
-							report(sibling, siblingStart);
-						}
-					}
-
-					if (child->isEnd())
-					{
-						// Report the points in the leaf node.
-						report(node, lastStart);
+						// Recurse to the sibling node.
+						recurse(sibling, siblingStart);
 					}
 
 					lastStart = childStart;
 					node = child;
 				}
+
+				ASSERT(node->isLeaf());
+				
+				// Recurse to the leaf node.
+				recurse(node, lastStart);
 			}
 
 			return 0;
