@@ -226,12 +226,14 @@ namespace Pastel
 			if (depth < orders() - 2)
 			{
 				node = new Node;
+				node->isolate(end_.get());
 			}
 			else
 			{
 				// Only the level orders() - 2
 				// stores a point-set.
 				node = new Node(pointSet);
+				node->isolate(end_.get());
 			}
 
 			MultiLess multiLess;

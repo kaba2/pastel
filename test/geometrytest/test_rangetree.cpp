@@ -5,6 +5,8 @@
 
 #include "pastel/geometry/rangetree.h"
 
+#include <iostream>
+
 using namespace Pastel;
 
 namespace
@@ -49,9 +51,27 @@ namespace
 				{ 1, 2 }, { 3, 4 }, { 4, 5 } 
 			};
 
-			RangeTree<Settings> tree(pointSet, 2);
+			using Tree = RangeTree<Settings>;
+			using Point_ConstIterator = Tree::Point_ConstIterator;
 
-			rangeSearch(tree, Point(0, 0), Point(3, 5));
+			Tree tree(pointSet, 2);
+
+			auto report = [&](
+				const Point_ConstIterator& point)
+			{
+				std::cout << "(";
+				for (integer i = 0; i < point->n(); ++i)
+				{
+					std::cout << (*point)[i];
+					if (i < point->n() - 1)
+					{
+						std::cout << ", ";
+					}
+				}
+				std::cout << ")" << std::endl;
+			};
+
+			rangeSearch(tree, Point(0, 0), Point(3, 5), report);
 		}
 	};
 
