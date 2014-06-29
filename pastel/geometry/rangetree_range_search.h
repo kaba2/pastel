@@ -14,7 +14,7 @@ namespace Pastel
 	//! Orthogonal range search in a range tree.
 	/*!
 	Time complexity:
-	O(log(tree.size()))
+	O(log(tree.size())^(tree.orders() - 1))
 
 	returns:
 	The number of points in the range.

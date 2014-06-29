@@ -284,14 +284,18 @@ namespace Pastel
 				auto leftEnd = boost::stable_partition(pointSet, lessMedian);
 
 				// Recurse to the left child.
-				std::vector<Point_Iterator> leftSet(
-					pointSet.begin(), leftEnd);
-				node->child(false) = construct(node, false, depth, leftSet);
+				{
+					std::vector<Point_Iterator> leftSet(
+						pointSet.begin(), leftEnd);
+					node->child(false) = construct(node, false, depth, leftSet);
+				}
 
 				// Recurse to the right child.
-				std::vector<Point_Iterator> rightSet(
-					leftEnd, pointSet.end());
-				node->child(true) = construct(node, true, depth, rightSet);
+				{
+					std::vector<Point_Iterator> rightSet(
+						leftEnd, pointSet.end());
+					node->child(true) = construct(node, true, depth, rightSet);
+				}
 			}
 
 			if (depth < orders() - 2)
@@ -302,8 +306,6 @@ namespace Pastel
 			else if (parent)
 			{
 				// The down-recursion stops at level orders() - 2.
-				// Here a 2-dimensional range tree is constructed
-				// specially, to make use of fractional cascading.
 
 				// Compute the fractional cascading links
 				// for the 'parent'.

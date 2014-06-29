@@ -54,6 +54,9 @@ namespace Pastel
 			Node_ConstIterator splitNode = node;
 			while (!splitNode->isLeaf())
 			{
+				// Invariant: the split-node is not an end-node.
+				ASSERT(!splitNode->isEnd());
+
 				// The left child contains all points
 				// < splitNode->split().
 				
@@ -71,7 +74,7 @@ namespace Pastel
 					// Now min < splitNode->split().
 
 					// If max < splitNode->split(),
-					// only points on the right child need 
+					// only points on the left child need 
 					// to be reported.
 
 					bool onLeft =
@@ -87,16 +90,10 @@ namespace Pastel
 					}
 				}
 
-				// Find out the next child.
-				Node_ConstIterator next = splitNode->child(onRight);
-				if (next->isEnd())
-				{
-					// The next child does not exist. We are done.
-					break;
-				}
-
 				// Continue from the next child.
-				splitNode = next;
+				// Note that both children of a non-leaf 
+				// node exist.
+				splitNode = splitNode->child(onRight);
 			}
 
 			auto report = [&](
@@ -131,16 +128,16 @@ namespace Pastel
 				const Node_ConstIterator& node,
 				integer start)
 			{
-				if (!lastLevel)
+				if (lastLevel)
+				{
+					// Report the points.
+					report(node, start);
+				}
+				else
 				{
 					// Recurse down.
 					rangeSearch(tree, min, max, output, 
 						node->down(), depth + 1);
-				}
-				else
-				{
-					// Report the points.
-					report(node, start);
 				}
 			};
 
@@ -148,7 +145,7 @@ namespace Pastel
 			if (lastLevel)
 			{
 				// Find out the first point >= min 
-				// on the last range. 
+				// with respect to the last order. 
 
 				auto indicator = [&](integer i)
 				{
@@ -167,7 +164,7 @@ namespace Pastel
 				// otherwise the complexity is O(log(n)^d).
 			}
 
-			// Report the subtrees between the search paths
+			// Report the subtrees between the search-paths
 			// of min and max.
 			const Point* extremumSet[] = { &min, &max };
 			for (bool right : {false, true})
@@ -206,6 +203,16 @@ namespace Pastel
 				
 				// Recurse to the leaf node.
 				recurse(node, lastStart);
+
+				if (splitNode->isLeaf())
+				{
+					// If the split-node is a leaf, i.e.
+					// the search-paths of the minimum and
+					// the maximum are the same, then stop the
+					// search to avoid reporting the split-node
+					// twice.
+					break;
+				}
 			}
 
 			return 0;
