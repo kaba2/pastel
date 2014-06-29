@@ -165,11 +165,15 @@ namespace Pastel
 				child(false) = this;
 				child(true) = this;
 				down_ = this;
+				entrySet_.emplace_back(Point_Iterator());
 			}
 
 			explicit Node(
 				const std::vector<Point_Iterator>& iteratorSet)
-			: Node()
+			: childSet_()
+			, split_()
+			, down_(nullptr)
+			, entrySet_()
 			{
 				entrySet_.reserve(iteratorSet.size() + 1);
 				for (auto i : iteratorSet)

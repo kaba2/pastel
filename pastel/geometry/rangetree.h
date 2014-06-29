@@ -249,6 +249,15 @@ namespace Pastel
 				return multiLess(*left, *right, depth);
 			};
 
+			auto xEquivalent = [&](
+				const Point_Iterator& left,
+				const Point_Iterator& right)
+			-> bool
+			{
+				return !xLess(left, right) &&
+					!xLess(right, left);
+			};
+
 			std::vector<Point_Iterator> sortedSet(pointSet);
 			boost::stable_sort(sortedSet, xLess);
 
@@ -259,9 +268,10 @@ namespace Pastel
 			{
 				// There are several different points.
 
-				// Remove multiple points from the same positions.
+				// Remove multiple equivalent points with 
+				// respect to the current order.
 				auto uniqueEnd = 
-					std::unique(sortedSet.begin(), sortedSet.end());
+					std::unique(sortedSet.begin(), sortedSet.end(), xEquivalent);
 
 				// Pick the median of the unique points.
 				Point_Iterator median =
@@ -314,7 +324,7 @@ namespace Pastel
 				
 				// The last entry acts as a sentinel, and does 
 				// not contain a point, so we will skip it here.
-				for (integer i = 0;i < parent->entrySet_.size() - 1;++i)
+				for (integer i = 0;i < parent->entries();++i)
 				{
 					Entry& entry = parent->entrySet_[i];
 					
