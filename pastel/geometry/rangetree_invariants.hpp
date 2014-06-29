@@ -55,8 +55,6 @@ namespace Pastel
 					if (parent->entryRange()[parent->entries()].cascade(right) !=
 						node->entries())
 					{
-						ENSURE_OP(parent->entryRange()[parent->entries()].cascade(right), ==,
-							node->entries());
 						return false;
 					}
 

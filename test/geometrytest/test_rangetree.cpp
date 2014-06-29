@@ -122,23 +122,88 @@ namespace
 		void test()
 		{
 			using Point = Vector<real, 2>;
-			std::vector<Point> pointSet = 
-			{ 
-				{ 1, 2 }, { 3, 4 }, { 4, 5 } 
+
+			integer width = 2;
+			integer height = 2;
+
+			auto order = [](
+				const Point& left,
+				const Point& right)
+			{
+				if (left[0] == right[0])
+				{
+					return left[1] < right[1];
+				}
+
+				return left[0] < right[0];
 			};
+
+			std::vector<Point> pointSet;
+			pointSet.reserve(width * height);
+			for (integer i = 0; i < width; ++i)
+			{
+				for (integer j = 0; j < height; ++j)
+				{
+					pointSet.emplace_back(i, j);
+				}
+			}
 
 			Tree tree(pointSet, 2);
 			TEST_ENSURE(testInvariants(tree));
 
 			print(tree);
 
-			auto report = [&](
-				const Point_ConstIterator& point)
+			for (integer i = 0; i < width; ++i)
 			{
-				std::cout << *point << std::endl;
-			};
+				std::vector<Point> resultSet;
 
-			rangeSearch(tree, Point(0, 0), Point(3, 5), report);
+				auto report = [&](
+					const Point_ConstIterator& point)
+				{
+					resultSet.emplace_back(*point);
+				};
+
+				rangeSearch(tree, Point(i, 0), Point(i, height - 1), report);
+				boost::sort(resultSet, order);
+
+				std::vector<Point> correctSet;
+				correctSet.reserve(height);
+				for (integer j = 0; j < height; ++j)
+				{
+					correctSet.emplace_back(i, j);
+				}
+				
+				TEST_ENSURE(boost::equal(resultSet, correctSet));
+			}
+
+			for (integer j = 0; j < height; ++j)
+			{
+				std::vector<Point> resultSet;
+
+				auto report = [&](
+					const Point_ConstIterator& point)
+				{
+					resultSet.emplace_back(*point);
+				};
+
+				rangeSearch(tree, Point(0, j), Point(width - 1, j), report);
+				boost::sort(resultSet, order);
+
+				for (auto&& point : resultSet)
+				{
+					std::cout << point << std::endl;
+				}
+				std::cout << std::endl;
+
+				std::vector<Point> correctSet;
+				correctSet.reserve(width);
+				for (integer i = 0; i < width; ++i)
+				{
+					correctSet.emplace_back(i, j);
+				}
+
+				TEST_ENSURE(boost::equal(resultSet, correctSet));
+			}
 		}
 	};
 
