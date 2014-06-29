@@ -10,6 +10,19 @@ Usual definition
 
 Our definition is more general than usual. The usual definition is recovered by setting ''S = RR^d'' and ''x <_i y <=> x_i < y_i''. In this case a multi-interval becomes an axis-aligned box, also called an _orthogonal range_, and the range tree becomes an efficient tool for performing orthogonal range searching. The generalized definition can be used also for non-orthogonal range searching. One such example is given by ''S = RR^2'', ''x <_1 y <=> x_1 < y_1'', and ''x <_2 y <=> x_1 + x_2 < y_1 + y_2''.
 
+Restrictions
+------------
+
+We require the range-tree to have at least 2 strict weak orders (''d >= 2''). This is an [accidental discontinuity][Continuity]; due to fractional cascading we could not come up with a clean design which would have also allowed a single strict weak order. 
+
+An efficient work-around for a single order is to use an additional trivial strict weak order (always returning false) _for the first order_. The range tree then consists of a single node which contains all the points ordered with respect to the first strict weak order, and a range-search is a single binary search in that node, followed by a linear scan.
+
+An alternative work-around for a single order is to use an additional trivial strict weak order _for the second order_. The range tree then consists of a binary search tree for the first order, and a range-search works as usual, reporting all points in all intermediate subtrees (since all points are equivalent with respect to the second order).
+
+Both of these work-around are efficient in the sense of having comparable performance when compared to an actual single-order implementation.
+
+[Continuity]: [[Ref]]: algorithmic_continuity.txt
+
 Properties
 ----------
 
