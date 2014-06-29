@@ -16,12 +16,13 @@ namespace Pastel
 	std::ostream& operator<<(std::ostream& stream,
 		const VectorExpression<Real, N, Expression>& vector)
 	{
-		const integer size = vector.size();
+		const integer n = vector.size();
 
-		for (integer i = 0;i < size;++i)
+		for (integer i = 0;i < n - 1;++i)
 		{
 			stream << vector[i] << " ";
 		}
+		stream << vector[n - 1];
 
 		return stream;
 	}
