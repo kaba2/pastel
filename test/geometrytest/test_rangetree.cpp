@@ -123,8 +123,8 @@ namespace
 		{
 			using Point = Vector<real, 2>;
 
-			integer width = 2;
-			integer height = 2;
+			integer width = 5;
+			integer height = 5;
 
 			auto order = [](
 				const Point& left,
@@ -151,7 +151,7 @@ namespace
 			Tree tree(pointSet, 2);
 			TEST_ENSURE(testInvariants(tree));
 
-			print(tree);
+			//print(tree);
 
 			for (integer i = 0; i < width; ++i)
 			{
@@ -188,12 +188,6 @@ namespace
 
 				rangeSearch(tree, Point(0, j), Point(width - 1, j), report);
 				boost::sort(resultSet, order);
-
-				for (auto&& point : resultSet)
-				{
-					std::cout << point << std::endl;
-				}
-				std::cout << std::endl;
 
 				std::vector<Point> correctSet;
 				correctSet.reserve(width);
