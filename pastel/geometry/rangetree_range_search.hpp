@@ -142,7 +142,7 @@ namespace Pastel
 				}
 			};
 
-			integer lastStart = 0;
+			integer splitStart = 0;
 			if (lastLevel)
 			{
 				// Find out the first point >= min 
@@ -155,7 +155,7 @@ namespace Pastel
 						min, tree.orders() - 1);
 				};
 
-				lastStart = binarySearch(
+				splitStart = binarySearch(
 					(integer)0, splitNode->entries(),
 					indicator);
 
@@ -171,7 +171,7 @@ namespace Pastel
 				// the search-paths of the minimum and
 				// the maximum are the same, then just 
 				// report the split-node.
-				recurse(splitNode, lastStart);
+				recurse(splitNode, splitStart);
 				return 0;
 			}
 
@@ -183,7 +183,7 @@ namespace Pastel
 				const Point& extremum = *extremumSet[right];
 
 				Node_ConstIterator node = splitNode->child(right);
-				lastStart = splitNode->entryRange()[lastStart].cascade(right);
+				integer lastStart = splitNode->entryRange()[splitStart].cascade(right);
 				while (!node->isLeaf())
 				{
 					bool goRight = !multiLess(extremum, *node->split(), depth);
