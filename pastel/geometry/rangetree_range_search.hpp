@@ -107,6 +107,12 @@ namespace Pastel
 					return;
 				}
 
+				auto entrySet = node->entryRange();
+				integer n = node->entries();
+
+				ASSERT(start == n ||
+					!multiLess(*entrySet[start].point(), min, tree.orders() - 1));
+
 				// Report, in the lowest tree, all points which
 				// fall into the [min, max] interval in the with
 				// respect to the last strict weak order. Since
@@ -116,8 +122,6 @@ namespace Pastel
 				// report the points sequentially until we come
 				// up to a point which falls outside the interval.
 				
-				auto entrySet = node->entryRange();
-				integer n = node->entries();
 				for (integer i = start; i < n && 
 					!multiLess(max, *entrySet[i].point(), tree.orders() - 1); ++i)
 				{
@@ -171,7 +175,13 @@ namespace Pastel
 				// the search-paths of the minimum and
 				// the maximum are the same, then just 
 				// report the split-node.
-				recurse(splitNode, splitStart);
+
+				if (!multiLess(*splitNode->split(), min, depth) &&
+					!multiLess(max, *splitNode->split(), depth))
+				{
+					recurse(splitNode, splitStart);
+				}
+				
 				return 0;
 			}
 
@@ -212,9 +222,22 @@ namespace Pastel
 				}
 
 				ASSERT(node->isLeaf());
-				
-				// Recurse to the leaf node.
-				recurse(node, lastStart);
+
+				// In a leaf node, all the points are equivalent
+				// with respect to the current order. The 'split'
+				// field contains one of these points, and therefore
+				// can be used to decide whether to report none,
+				// or all, of the points.
+				if (!multiLess(*node->split(), min, depth) &&
+					!multiLess(max, *node->split(), depth))
+				{
+					// All of the points in the leaf node are
+					// in the range with respect to the current
+					// order.
+
+					// Recurse to the leaf node.
+					recurse(node, lastStart);
+				}
 			}
 
 			return 0;

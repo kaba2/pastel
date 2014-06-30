@@ -307,6 +307,18 @@ namespace Pastel
 					node->child(true) = construct(node, true, depth, rightSet);
 				}
 			}
+			else
+			{
+				// The points in this node are all equivalent
+				// with respect to the current order. 
+
+				// Store into the 'split' field any point
+				// in this node. This is needed in a range 
+				// search to decide whether the leaf nodes 
+				// of the minimum and maximum should be 
+				// reported or not.
+				node->split_ = *pointSet.begin();
+			}
 
 			if (depth < orders() - 2)
 			{

@@ -4,6 +4,7 @@
 #include "test_pastelgeometry.h"
 
 #include "pastel/geometry/rangetree.h"
+#include "pastel/sys/eps.h"
 
 #include <iostream>
 #include <queue>
@@ -13,10 +14,12 @@ using namespace Pastel;
 namespace
 {
 
+	using Point = Vector<real, 2>;
+
 	class Settings
 	{
 	public:
-		using Point = Vector<real, 2>;
+		using Point = Point;
 		class MultiLess
 		{
 		public:
@@ -121,10 +124,8 @@ namespace
 
 		void test()
 		{
-			using Point = Vector<real, 2>;
-
-			integer width = 5;
-			integer height = 5;
+			integer width = 10;
+			integer height = 10;
 
 			auto order = [](
 				const Point& left,
@@ -155,6 +156,28 @@ namespace
 
 			for (integer i = 0; i < width; ++i)
 			{
+				for (integer j = 0; j < height; ++j)
+				{
+					std::vector<Point> resultSet;
+
+					auto report = [&](
+						const Point_ConstIterator& point)
+					{
+						resultSet.emplace_back(*point);
+					};
+
+					rangeSearch(tree, Point(i, j), Point(i, j), report);
+					boost::sort(resultSet, order);
+
+					std::vector<Point> correctSet;
+					correctSet.emplace_back(i, j);
+
+					TEST_ENSURE(boost::equal(resultSet, correctSet));
+				}
+			}
+
+			for (integer i = 0; i < width; ++i)
+			{
 				std::vector<Point> resultSet;
 
 				auto report = [&](
@@ -174,6 +197,17 @@ namespace
 				}
 				
 				TEST_ENSURE(boost::equal(resultSet, correctSet));
+
+				resultSet.clear();
+				rangeSearch(tree,
+					Point(nextGreater((real)i), 0),
+					Point(nextSmaller((real)i + 1), height - 1),
+					report);
+				TEST_ENSURE(resultSet.empty());
+				for (auto&& point : resultSet)
+				{
+					std::cout << point << std::endl;
+				}
 			}
 
 			for (integer j = 0; j < height; ++j)
@@ -197,6 +231,13 @@ namespace
 				}
 
 				TEST_ENSURE(boost::equal(resultSet, correctSet));
+
+				resultSet.clear();
+				rangeSearch(tree,
+					Point(0, nextGreater((real)j)),
+					Point(width - 1, nextSmaller((real)j + 1)),
+					report);
+				TEST_ENSURE(resultSet.empty());
 			}
 		}
 	};
