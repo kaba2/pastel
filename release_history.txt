@@ -39,12 +39,9 @@ Release date xx.x.2014
 #### Data structures 
 
 * Added the deterministic skip list.
-* Added the c-fast trie.
 * Added the red-black forest.
 * Modernized the doubly-linked list.
-
-#### Red-black tree
-
+* Added the skip-fast trie.
 * Refactored and fixed bugs in the red-black tree.
 * Added logarithmic splitting and merging into the red-black tree.
 * Added logarithmic quantile searching for the red-black tree.
@@ -69,6 +66,7 @@ Release date xx.x.2014
 #### Algorithms
 
 * Added algorithms for interval sequences.
+* Added grid traversal.
 
 #### Other
 
@@ -78,6 +76,7 @@ Release date xx.x.2014
 
 #### Data structures
 
+* Added the range tree.
 * Modernized the half-edge structure.
 
 ### PastelGeometryMatlab
