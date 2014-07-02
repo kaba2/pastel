@@ -1,5 +1,5 @@
-// Description: Traverses all points in an integral aligned box.
-// Documentation: generic_programming.txt
+// Description: Traverses points in an integral aligned box.
+// Documentation: grid_traversal.txt
 
 #ifndef PASTELSYS_FOR_EACH_POINT_H
 #define PASTELSYS_FOR_EACH_POINT_H
@@ -10,8 +10,12 @@
 namespace Pastel
 {
 
-	//! Traverses all points in an integral aligned box.
+	//! Traverses points in an integral aligned box.
 	/*!
+	RowMajor:
+	Whether to traverse the points in row-major order.
+	The alternative is column-major order.
+
 	box:
 	The traversed points are given by the half-open box
 	[box.min(), box.max()). If this set is empty, then 

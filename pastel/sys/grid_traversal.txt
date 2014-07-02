@@ -1,0 +1,6 @@
+Grid traversal
+==============
+
+[[Parent]]: graph_algorithms.txt
+
+A _grid traversal_ traverses all the points in an aligned box ''B subset ZZ^n''. A _row-major_ grid-traversal traverses the points in a lexicographical order. A _column-major_ grid-traversal traverses the point in a reverse lexicographical order, that is, a lexicographical order in ''(x_n, ..., x_1)''.
