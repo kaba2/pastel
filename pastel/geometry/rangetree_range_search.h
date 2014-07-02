@@ -21,8 +21,12 @@ namespace Pastel
 	where
 	k is the number of reported points.
 
+	O(tree.orders()), if the the searched multi-interval 
+	is an empty set.
+
 	If the output is Null_Output, then the 
-	'k' term disappears.
+	'k' term disappears. That is, the range search
+	degenerates to a range count.
 
 	returns:
 	The number of points in the range.

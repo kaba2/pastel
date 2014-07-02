@@ -175,8 +175,35 @@ namespace
 			};
 
 			{
-				rangeSearch(tree, Point<2>(2, 1), Point<2>(4, 3), report);
+				auto test = [&](
+					const Point<2>& min,
+					const Point<2>& max,
+					integer correct)
+				{
+					return rangeSearch(tree, min, max) == correct;
+				};
+
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(0, 4), 1));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(1, 4), 2));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(2, 4), 5));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(3, 4), 5));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(4, 4), 6));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(5, 4), 7));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(6, 4), 8));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(7, 4), 8));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 4), 9));
+
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 0), 1));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 1), 3));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 2), 5));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 3), 8));
+				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 4), 9));
+			}
+			{
+				integer count = 
+					rangeSearch(tree, Point<2>(2, 1), Point<2>(4, 3), report);
 				boost::sort(resultSet, order);
+				TEST_ENSURE_OP(count, ==, resultSet.size());
 
 				std::vector<Point<2>> correctSet;
 				correctSet.emplace_back(2, 1);
@@ -188,7 +215,11 @@ namespace
 
 			{
 				resultSet.clear();
-				rangeSearch(tree, Point<2>(0), Point<2>(8, 4), report);
+				
+				integer count = 
+					rangeSearch(tree, Point<2>(0), Point<2>(8, 4), report);
+				TEST_ENSURE_OP(count, ==, resultSet.size());
+
 				boost::sort(resultSet, order);
 				TEST_ENSURE(boost::equal(resultSet, pointSet));
 			}
@@ -232,7 +263,8 @@ namespace
 					resultSet.emplace_back(*point);
 				};
 
-				rangeSearch(tree, point, point, report);
+				integer count = rangeSearch(tree, point, point, report);
+				TEST_ENSURE_OP(count, ==, resultSet.size());
 
 				std::vector<Point> correctSet;
 				correctSet.emplace_back(point);
@@ -246,7 +278,8 @@ namespace
 				b[0] = nextSmaller(b[0]);
 
 				resultSet.clear();
-				rangeSearch(tree, a, b, report);
+				count = rangeSearch(tree, a, b, report);
+				TEST_ENSURE_OP(count, ==, resultSet.size());
 
 				TEST_ENSURE(resultSet.empty());
 			});
