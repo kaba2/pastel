@@ -1,5 +1,5 @@
 // Description: Generic orthogonal range search in a kd-tree
-// Documentation: range_searching.txt
+// Documentation: pointkdtree_search_range.txt
 
 #ifndef PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_ALGORITHM_H
 #define PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_ALGORITHM_H

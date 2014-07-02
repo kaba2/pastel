@@ -6,5 +6,6 @@
 #include "pastel/geometry/pointkdtree_count_range.h"
 #include "pastel/geometry/pointkdtree_search_range.h"
 #include "pastel/geometry/pointkdtree_search_range_algorithm.h"
+#include "pastel/geometry/rangetree_search_range.h"
 
 #endif

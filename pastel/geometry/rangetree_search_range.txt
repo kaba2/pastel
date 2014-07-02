@@ -1,0 +1,6 @@
+Range searching in a range tree
+===============================
+
+[[Parent]]: range_searching.txt
+
+Range searching in a range tree takes ''O(k + log(n)^(d-1))'' time, where ''n'' is the number of points in the tree, ''k'' is the number of reported points, and ''d'' is the number of orders. The time complexity of range searching degrades gracegully as points become equivalent with respect to the orders. For example, if the points are all equivalent in the first ''m'' orders, for ''m <= d - 1'', then range searching takes only ''O(k + log(n)^(d - 1 - m))'' time.

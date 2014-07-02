@@ -1,5 +1,5 @@
-// Description: Ball range counting for PointKdTree
-// Documentation: range_counting.txt
+// Description: Ball range counting for point kd-tree
+// Documentation: pointkdtree_search_range.txt
 
 #ifndef PASTELGEOMETRY_POINTKDTREE_COUNT_NEAREST_H
 #define PASTELGEOMETRY_POINTKDTREE_COUNT_NEAREST_H

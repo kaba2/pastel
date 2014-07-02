@@ -3,12 +3,7 @@ Range tree
 
 [[Parent]]: data_structures.txt
 
-A _range tree_ is a multi-level tree data-structure to store a finite subset ''P'' of a multi-ordered set ''S'' such that multi-interval queries can be efficiently answered for ''P''. A set ''S'' is _multi-ordered_, if it has ''d'' strict weak orders ''<_1, ..., <_d subset S^2'', for some integer ''d''. A _multi-interval_ in ''S'' is a set of the form ''I = cap_{i = 1}^d I_i'', where ''I_i subset S'' is an interval in ''S'' with respect to ''<_i''. A _range search_ reports the set ''P cap I'', for a given multi-interval ''I''. A _range count_ reports the integer ''|P cap I|'', for a given multi-interval ''I''.
-
-Usual definition
-----------------
-
-Our definition is more general than usual. The usual definition is recovered by setting ''S = RR^d'' and ''x <_i y <=> x_i < y_i''. In this case a multi-interval becomes an axis-aligned box, also called an _orthogonal range_. Our definition can be used also for non-orthogonal range searching. One such example is given by ''S = RR^2'', ''x <_1 y <=> x_1 < y_1'', and ''x <_2 y <=> x_1 + x_2 < y_1 + y_2''.
+A _range tree_ is a multi-level tree data-structure to store a finite subset ''P'' of a [multi-ordered][RangeSearching] set ''S'' such that [range searches][RangeSearching] can be efficiently answered for ''P''. 
 
 Restrictions
 ------------
@@ -37,7 +32,6 @@ The range tree implementation in Pastel has the following properties:
 Property / Task                                              | Complexity
 -------------------------------------------------------------|--------------------
 Construct the tree from ''n'' points.                        | ''Theta(n log(n))''
-Find all the ''k'' points on a given multi-interval.         | ''Theta(k + log(n)^(d-1))''
 Space                                                        | ''O(n log(n)^(d-1)) cap Omega(n)''
 
 Here ''n'' is the number of points in the tree, and ''d'' is the number of strict weak orders. 
@@ -46,6 +40,3 @@ Here ''n'' is the number of points in the tree, and ''d'' is the number of stric
 
 The space complexity degrades gracefully as points become equivalent with respect to the orders. For example, if the points are all equivalent in the first ''m'' orders, for ''m <= d - 1'', then the data-structure takes only ''O(n log(n)^(d - 1 - m))'' space. More generally, the space complexity is sensitive to the number of comparisons needed to separate points; points which are equivalent with respect to some order do not need to be separated by that order.
 
-### Range searching
-
-The time complexity degrades gracegully for the range searching, as points become equivalent with respect to the orders. This is for the same reason as for the space complexity. For example, if the points are all equivalent in the first ''m'' orders, for ''m <= d - 1'', then range searching takes only ''O(k + log(n)^(d - 1 - m))'' time.
