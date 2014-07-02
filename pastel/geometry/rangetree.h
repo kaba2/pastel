@@ -264,7 +264,7 @@ namespace Pastel
 			// The child nodes are created if and only if
 			// the node contains points that are not equivalent
 			// with respect to the current strict weak order.
-			if (xLess(*pointSet.begin(), *std::prev(pointSet.end())))
+			if (xLess(*sortedSet.begin(), *std::prev(sortedSet.end())))
 			{
 				// There are several different points.
 
