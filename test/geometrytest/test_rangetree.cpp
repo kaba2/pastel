@@ -5,6 +5,7 @@
 
 #include "pastel/geometry/rangetree.h"
 #include "pastel/sys/eps.h"
+#include "pastel/sys/for_each_point.h"
 
 #include <iostream>
 #include <queue>
@@ -14,26 +15,31 @@ using namespace Pastel;
 namespace
 {
 
-	using Point = Vector<real, 2>;
+	template <integer N>
+	using Point = Vector<real, N>;
 
+	class MultiLess
+	{
+	public:
+		template <typename Point>
+		bool operator()(
+			const Point& left,
+			const Point& right,
+			integer i)
+		{
+			return left[i] < right[i];
+		}
+	};
+
+	template <integer N>
 	class Settings
 	{
 	public:
-		using Point = Point;
-		class MultiLess
-		{
-		public:
-			bool operator()(
-				const Point& left,
-				const Point& right,
-				integer i)
-			{
-				return left[i] < right[i];
-			}
-		};
+		using Point = Point<N>;
+		using MultiLess = MultiLess;
 	};
 
-	using Tree = RangeTree<Settings>;
+	using Tree = RangeTree<Settings<2>>;
 	using Point_ConstIterator = Tree::Point_ConstIterator;
 	using Node_ConstIterator = Tree::Node_ConstIterator;
 
@@ -66,7 +72,9 @@ namespace
 
 		virtual void run()
 		{
-			test();
+			testSingular<2>();
+			testSingular<3>();
+			testSingular<4>();
 		}
 
 		void print(const Tree& tree)
@@ -122,61 +130,35 @@ namespace
 			}
 		}
 
-		void test()
+		template <integer N>
+		void testSingular()
 		{
-			integer width = 10;
-			integer height = 10;
+			using Tree = RangeTree<Settings<N>>;
+			using Point_ConstIterator = Tree::Point_ConstIterator;
+			using Node_ConstIterator = Tree::Node_ConstIterator;
 
-			auto order = [](
-				const Point& left,
-				const Point& right)
-			{
-				if (left[0] == right[0])
-				{
-					return left[1] < right[1];
-				}
+			integer width = 5;
 
-				return left[0] < right[0];
-			};
+			using Point = typename Tree::Point;
+			using Box = AlignedBox<integer, N>;
 
+			Box grid(Point(0), Point(width));
+									
 			std::vector<Point> pointSet;
-			pointSet.reserve(width * height);
-			for (integer i = 0; i < width; ++i)
+			pointSet.reserve(product(grid.extent()));
+			forEachPoint(
+				grid,
+				[&](const Point& point)
 			{
-				for (integer j = 0; j < height; ++j)
-				{
-					pointSet.emplace_back(i, j);
-				}
-			}
+				pointSet.emplace_back(point);
+			});
 
-			Tree tree(pointSet, 2);
+			Tree tree(pointSet, N);
 			TEST_ENSURE(testInvariants(tree));
 
-			//print(tree);
-
-			for (integer i = 0; i < width; ++i)
-			{
-				for (integer j = 0; j < height; ++j)
-				{
-					std::vector<Point> resultSet;
-
-					auto report = [&](
-						const Point_ConstIterator& point)
-					{
-						resultSet.emplace_back(*point);
-					};
-
-					rangeSearch(tree, Point(i, j), Point(i, j), report);
-					boost::sort(resultSet, order);
-
-					std::vector<Point> correctSet;
-					correctSet.emplace_back(i, j);
-
-					TEST_ENSURE(boost::equal(resultSet, correctSet));
-				}
-			}
-
-			for (integer i = 0; i < width; ++i)
+			forEachPoint(
+				grid,
+				[&](const Point& point)
 			{
 				std::vector<Point> resultSet;
 
@@ -186,59 +168,24 @@ namespace
 					resultSet.emplace_back(*point);
 				};
 
-				rangeSearch(tree, Point(i, 0), Point(i, height - 1), report);
-				boost::sort(resultSet, order);
+				rangeSearch(tree, point, point, report);
 
 				std::vector<Point> correctSet;
-				correctSet.reserve(height);
-				for (integer j = 0; j < height; ++j)
-				{
-					correctSet.emplace_back(i, j);
-				}
+				correctSet.emplace_back(point);
+
+				TEST_ENSURE(boost::equal(resultSet, correctSet));
 				
-				TEST_ENSURE(boost::equal(resultSet, correctSet));
+				Point a = point;
+				a[0] = nextGreater(a[0]);
+
+				Point b = point + 1;
+				b[0] = nextSmaller(b[0]);
 
 				resultSet.clear();
-				rangeSearch(tree,
-					Point(nextGreater((real)i), 0),
-					Point(nextSmaller((real)i + 1), height - 1),
-					report);
+				rangeSearch(tree, a, b, report);
+
 				TEST_ENSURE(resultSet.empty());
-				for (auto&& point : resultSet)
-				{
-					std::cout << point << std::endl;
-				}
-			}
-
-			for (integer j = 0; j < height; ++j)
-			{
-				std::vector<Point> resultSet;
-
-				auto report = [&](
-					const Point_ConstIterator& point)
-				{
-					resultSet.emplace_back(*point);
-				};
-
-				rangeSearch(tree, Point(0, j), Point(width - 1, j), report);
-				boost::sort(resultSet, order);
-
-				std::vector<Point> correctSet;
-				correctSet.reserve(width);
-				for (integer i = 0; i < width; ++i)
-				{
-					correctSet.emplace_back(i, j);
-				}
-
-				TEST_ENSURE(boost::equal(resultSet, correctSet));
-
-				resultSet.clear();
-				rangeSearch(tree,
-					Point(0, nextGreater((real)j)),
-					Point(width - 1, nextSmaller((real)j + 1)),
-					report);
-				TEST_ENSURE(resultSet.empty());
-			}
+			});
 		}
 	};
 
