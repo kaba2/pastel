@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_HPP
 
 #include "pastel/geometry/point_pattern_matching_kr.h"
-#include "pastel/geometry/search_nearest_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_search_nearest.h"
 
 #include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/maximum_bipartite_matching.h"

@@ -1,9 +1,9 @@
 // Description: Testing for range counting in PointKdTree
-// DocumentationOf: count_range_pointkdtree.h
+// DocumentationOf: pointkdtree_count_range.h
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/count_range_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_count_range.h"
 #include "pastel/geometry/splitrules.h"
 
 using namespace Pastel;
@@ -97,7 +97,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("count_range_pointkdtree", test);
+		testRunner().add("pointkdtree_count_range", test);
 	}
 
 	CallFunction run(addTest);

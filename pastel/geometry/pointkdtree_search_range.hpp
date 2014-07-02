@@ -1,9 +1,9 @@
-#ifndef PASTELGEOMETRY_SEARCH_RANGE_POINTKDTREE_HPP
-#define PASTELGEOMETRY_SEARCH_RANGE_POINTKDTREE_HPP
+#ifndef PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_HPP
+#define PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_HPP
 
-#include "pastel/geometry/search_range_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_search_range.h"
 
-#include "pastel/geometry/search_range_algorithm_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_search_range_algorithm.h"
 
 namespace Pastel
 {

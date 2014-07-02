@@ -1,17 +1,18 @@
-#ifndef PASTELGEOMETRY_DEPTHFIRST_SEARCHALGORITHM_POINTKDTREE_HPP
-#define PASTELGEOMETRY_DEPTHFIRST_SEARCHALGORITHM_POINTKDTREE_HPP
+#ifndef PASTELGEOMETRY_POINTKDTREE_BESTFIRST_SEARCHALGORITHM_HPP
+#define PASTELGEOMETRY_POINTKDTREE_BESTFIRST_SEARCHALGORITHM_HPP
 
-#include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
+#include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/keyvalue.h"
 
+#include <queue>
 #include <vector>
 
 namespace Pastel
 {
 
-	class DepthFirst_SearchAlgorithm_PointKdTree
+	class BestFirst_SearchAlgorithm_PointKdTree
 	{
 	public:
 		template <typename Real, typename Cursor>
@@ -19,6 +20,9 @@ namespace Pastel
 		{
 		public:
 			typedef KeyValue<Real, Cursor> Entry;
+			typedef std::priority_queue<Entry,
+				std::vector<Entry>,
+				std::greater<Entry> > EntrySet;
  
 			Entry nextNode()
 			{
@@ -26,8 +30,8 @@ namespace Pastel
 
 				if (!entrySet_.empty())
 				{
-					result = entrySet_.back();
-					entrySet_.pop_back();
+					result = entrySet_.top();
+					entrySet_.pop();
 				}
 			
 				return result;
@@ -35,7 +39,7 @@ namespace Pastel
 
 			bool breakOnCulling() const
 			{
-				return false;
+				return true;
 			}
 
 			bool shouldSearchSplitNode(
@@ -52,27 +56,19 @@ namespace Pastel
 			void insertNode(
 				const Cursor& cursor, const Real& distance)
 			{
-				entrySet_.push_back(keyValue(distance, cursor));
+				entrySet_.push(keyValue(distance, cursor));
 			}
 
 			void insertNodes(
 				const Cursor& left, const Real& leftDistance, 
 				const Cursor& right, const Real& rightDistance)
 			{
-				if (leftDistance < rightDistance)
-				{
-					entrySet_.push_back(keyValue(rightDistance, right));
-					entrySet_.push_back(keyValue(leftDistance, left));
-				}
-				else
-				{
-					entrySet_.push_back(keyValue(leftDistance, left));
-					entrySet_.push_back(keyValue(rightDistance, right));
-				}
+				entrySet_.push(keyValue(leftDistance, left));
+				entrySet_.push(keyValue(rightDistance, right));
 			}
 
 		private:
-			std::vector<Entry> entrySet_;
+			EntrySet entrySet_;
 		};
 	};
 

@@ -1,12 +1,12 @@
-// Description: Generic neighbor searching for PointKdTree
+// Description: Generic neighbor searching for point kd-tree
 // Documentation: nearest_neighbors.txt
 
-#ifndef PASTELGEOMETRY_SEARCH_NEAREST_ALGORITHM_POINTKDTREE_H
-#define PASTELGEOMETRY_SEARCH_NEAREST_ALGORITHM_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_ALGORITHM_H
+#define PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_ALGORITHM_H
 
 #include "pastel/geometry/pointkdtree.h"
 
-#include "pastel/geometry/searchalgorithm_pointkdtree_concept.h"
+#include "pastel/geometry/pointkdtree_searchalgorithm_concept.h"
 
 namespace Pastel
 {
@@ -40,7 +40,7 @@ namespace Pastel
 	See 'pastel/math/normbijection.txt'.
 
 	searchAlgorithm:
-	See 'pastel/geometry/searchalgorithm_pointkdtree.txt'.
+	See 'pastel/geometry/pointkdtree_searchalgorithm.txt'.
 	*/
 	template <typename Real, int N, typename PointPolicy, 
 		typename Indicator, typename NormBijection, 
@@ -72,6 +72,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/search_nearest_algorithm_pointkdtree.hpp"
+#include "pastel/geometry/pointkdtree_search_nearest_algorithm.hpp"
 
 #endif

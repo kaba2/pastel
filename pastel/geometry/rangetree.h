@@ -412,6 +412,6 @@ namespace Pastel
 }
 
 #include "pastel/geometry/rangetree_invariants.h"
-#include "pastel/geometry/rangetree_range_search.h"
+#include "pastel/geometry/rangetree_search_range.h"
 
 #endif

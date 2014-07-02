@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_COUNT_ALL_NEIGHBORS_POINTKDTREE_HPP
 
 #include "pastel/geometry/count_all_neighbors_pointkdtree.h"
-#include "pastel/geometry/count_nearest_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_count_nearest.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/sys/ensure.h"

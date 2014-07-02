@@ -1,7 +1,7 @@
-#ifndef PASTELGEOMETRY_RANGETREE_RANGE_SEARCH_HPP
-#define PASTELGEOMETRY_RANGETREE_RANGE_SEARCH_HPP
+#ifndef PASTELGEOMETRY_RANGETREE_SEARCH_RANGE_HPP
+#define PASTELGEOMETRY_RANGETREE_SEARCH_RANGE_HPP
 
-#include "pastel/geometry/rangetree_range_search.h"
+#include "pastel/geometry/rangetree_search_range.h"
 #include "pastel/sys/binary_search.h"
 
 #include <boost/range/algorithm/lower_bound.hpp>
@@ -17,7 +17,7 @@ namespace Pastel
 			typename Settings,
 			template <typename> class Customization,
 			typename Point_ConstIterator_Output>
-		integer rangeSearch(
+		integer searchRange(
 			const RangeTree<Settings, Customization>& tree,
 			const typename Settings::Point& min,
 			const typename Settings::Point& max,
@@ -152,7 +152,7 @@ namespace Pastel
 				}
 				
 				// Recurse down.
-				return rangeSearch(tree, min, max, output, 
+				return searchRange(tree, min, max, output, 
 					node->down(), depth + 1);
 			};
 
@@ -285,7 +285,7 @@ namespace Pastel
 		typename Settings,
 		template <typename> class Customization,
 		typename Point_ConstIterator_Output>
-	integer rangeSearch(
+	integer searchRange(
 		const RangeTree<Settings, Customization>& tree,
 		const typename Settings::Point& min,
 		const typename Settings::Point& max,
@@ -311,7 +311,7 @@ namespace Pastel
 			}
 		}
 
-		return Range_Search_::rangeSearch(tree, min, max, output, tree.root(), 0);
+		return Range_Search_::searchRange(tree, min, max, output, tree.root(), 0);
 	}
 
 }

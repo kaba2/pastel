@@ -3,12 +3,12 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/count_nearest_pointkdtree.h"
-#include "pastel/geometry/search_nearest_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_count_nearest.h"
+#include "pastel/geometry/pointkdtree_search_nearest.h"
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/pointkdtree_tools.h"
-#include "pastel/geometry/bestfirst_searchalgorithm_pointkdtree.h"
+#include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 
 #include "pastel/math/uniform_sampling.h"
 

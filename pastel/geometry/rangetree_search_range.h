@@ -1,8 +1,8 @@
 // Description: Range search in a range tree
-// Documentation: rangetree.txt
+// Documentation: rangetree_search_range.txt
 
-#ifndef PASTELGEOMETRY_RANGETREE_RANGE_SEARCH_H
-#define PASTELGEOMETRY_RANGETREE_RANGE_SEARCH_H
+#ifndef PASTELGEOMETRY_RANGETREE_SEARCH_RANGE_H
+#define PASTELGEOMETRY_RANGETREE_SEARCH_RANGE_H
 
 #include "pastel/geometry/rangetree.h"
 #include "pastel/geometry/alignedbox.h"
@@ -35,7 +35,7 @@ namespace Pastel
 		typename Settings,
 		template <typename> class Customization,
 		typename Point_ConstIterator_Output = Null_Output>
-	integer rangeSearch(
+	integer searchRange(
 		const RangeTree<Settings, Customization>& tree,
 		const typename Settings::Point& min,
 		const typename Settings::Point& max,
@@ -43,6 +43,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/rangetree_range_search.hpp"
+#include "pastel/geometry/rangetree_search_range.hpp"
 
 #endif

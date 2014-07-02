@@ -1,8 +1,8 @@
 // Description: Orthogonal range counting in PointKdTree
 // Documentation: range_counting.txt
 
-#ifndef PASTELGEOMETRY_COUNT_RANGE_POINTKDTREE_H
-#define PASTELGEOMETRY_COUNT_RANGE_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_POINTKDTREE_COUNT_RANGE_H
+#define PASTELGEOMETRY_POINTKDTREE_COUNT_RANGE_H
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/alignedbox.h"
@@ -38,6 +38,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/count_range_pointkdtree.hpp"
+#include "pastel/geometry/pointkdtree_count_range.hpp"
 
 #endif

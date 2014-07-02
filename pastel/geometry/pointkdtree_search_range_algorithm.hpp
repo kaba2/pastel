@@ -1,7 +1,7 @@
-#ifndef PASTELGEOMETRY_SEARCH_RANGE_ALGORITHM_POINTKDTREE_HPP
-#define PASTELGEOMETRY_SEARCH_RANGE_ALGORITHM_POINTKDTREE_HPP
+#ifndef PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_ALGORITHM_HPP
+#define PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_ALGORITHM_HPP
 
-#include "pastel/geometry/search_range_algorithm_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_search_range_algorithm.h"
 #include "pastel/geometry/overlaps_alignedbox_point.h"
 #include "pastel/geometry/overlaps_alignedbox_alignedbox.h"
 
