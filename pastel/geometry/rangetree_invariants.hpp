@@ -37,16 +37,9 @@ namespace Pastel
 				return true;
 			}
 
-			if ((depth == tree.orders() - 2) != node->isBottom())
-			{
-				// A node is a bottom node if and only if
-				// its depth is tree.orders() - 2.
-				return false;
-			}
-
 			MultiLess multiLess;
 
-			if (depth == tree.orders() - 2)
+			if (node->isBottom())
 			{
 				if (parent)
 				{
@@ -55,6 +48,8 @@ namespace Pastel
 					if (parent->entryRange()[parent->entries()].cascade(right) !=
 						node->entries())
 					{
+						// The last fractional cascading information must
+						// to the last entry of the child.
 						return false;
 					}
 

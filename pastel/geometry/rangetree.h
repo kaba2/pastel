@@ -5,6 +5,9 @@
 
 #include "pastel/geometry/rangetree_concepts.h"
 #include "pastel/geometry/rangetree_fwd.h"
+#include "pastel/geometry/rangetree_entry.h"
+#include "pastel/geometry/rangetree_node.h"
+
 #include "pastel/sys/less_concept.h"
 #include "pastel/sys/dereferenced_predicate.h"
 #include "pastel/sys/vector.h"
@@ -72,10 +75,20 @@ namespace Pastel
 
 		//! Copy-constructs from another tree.
 		/*!
-		Time complexity: O(size())
+		Time complexity: 
+		O(n log(n)^(d - 1))
+		where 
+		n = that.size(),
+		d = that.orders().
+
 		Exception safety: strong
 		*/
-		RangeTree(const RangeTree& that) = delete;
+		RangeTree(const RangeTree& that)
+		: RangeTree()
+		{
+			RangeTree copy(that.pointSet_, that.orders());
+			swap(copy);
+		}
 
 		//! Constructs from a given point-set.
 		/*!
@@ -83,9 +96,10 @@ namespace Pastel
 		orders > 0
 
 		Time complexity: 
-		O(n log(n))
+		O(n log(n)^(d - 1))
 		where
-		n is the size of pointSet.
+		n is the size of pointSet,
+		d = orders.
 		*/
 		template <typename Point_Range_>
 		explicit RangeTree(
@@ -126,7 +140,12 @@ namespace Pastel
 
 		//! Destructs the tree.
 		/*!
-		Time complexity: O(n log(n))
+		Time complexity:
+		O(n log(n)^(d - 1))
+		where
+		n = size(),
+		d = orders().
+
 		Exception safety: nothrow
 		*/
 		~RangeTree()
@@ -149,12 +168,19 @@ namespace Pastel
 
 		//! Removes all points from the tree.
 		/*!
-		Time complexity: O(n log(n))
+		Time complexity:
+		O(n log(n)^(d - 1))
+		where
+		n = size(),
+		d = orders().
+
 		Exception safety: nothrow
 		*/
 		void clear()
 		{
 			clear(root_);
+			root_ = end_.get();
+			pointSet_.clear();
 		}
 
 		//! Returns whether the tree is empty.
@@ -208,7 +234,7 @@ namespace Pastel
 		}
 
 	private:
-		Node* construct(
+		Node_Iterator construct(
 			Node_Iterator parent,
 			bool right,
 			integer depth,
@@ -370,13 +396,13 @@ namespace Pastel
 			delete node;
 		}
 
-		//! Sentinel node
+		//! The sentinel node.
 		std::unique_ptr<Node> end_;
 
-		//! Root node
+		//! The root node.
 		Node_Iterator root_;
 
-		//! The set of points
+		//! The set of points.
 		PointSet pointSet_;
 
 		//! Number of strict weak orders.
