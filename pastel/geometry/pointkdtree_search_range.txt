@@ -1,0 +1,30 @@
+Range searching in a kd-tree
+============================
+
+[[Parent]]: range_searching.txt
+
+The algorithm for range searching in a kd-tree is always the same. However, different splitting strategies for the kd-tree provide different guarantees on the time-complexity of range searching. Provable upper-bounds on the time-complexity are often weak, compared to a [range tree][RangeTree]. The practical performance of the kd-tree can still often be good, at least in low dimensions.
+
+[RangeTree]: [[Ref]]: rangetree_search_range.txt
+
+Versus range tree
+-----------------
+
+The main attraction in using a kd-tree for range searching, over a [range tree][RangeTree], is that 
+
+* it has linear space-complexity, 
+* can already exist for nearest neighbor searching, and
+* often has an acceptable practical performance.
+
+Without good provable upper-bounds the last statement is at most a subjective opinion; whether the performance is acceptable needs to be measured for each application.
+
+Median splitting
+----------------
+
+A well-known upper-bound on the time-complexity is given by choosing the splitting axis as ''m mod d'', where ''m'' is the node depth, and ''d'' is the dimension of the space, and by always splitting at the median of the points. A range search in such a kd-tree can be shown to take ''O(k + n^((d - 1)/d))'' time, where ''n'' is the number of points in the tree, and ''k'' is the number of points in the range. The ''k'' term drops off in range counting. This is a much worse upper-bound than with range-trees. The problem is that the derivation is based on counting the maximum number of nodes that can intersect the plane of each face of the orthogonal search range. Therefore the bound is conservative, and exaggerates the time-complexity. We are unaware of analysis to show a tighter upper-bound for median splitting, or alternatively, a close lower-bound.
+
+Sliding midpoint
+----------------
+
+The sliding midpoint splitting strategy is good for the nearest neighbors searching. Therefore it is tempting to use the same data structure also for range searching. We are unaware of analysis on the performance of range searching with this splitting strategy. We can only offer the subjective experience that it often seems to work well. Heuristically, if the sliding midpoint rule can mimic the median splitting rule well-enough, then they should have similar behaviour in many cases. It is possible to construct adverse point-sets for the sliding midpoint rule, to induce deep trees, and therefore slow behavior for range searching.
+
