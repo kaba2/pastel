@@ -5,6 +5,8 @@ Range tree
 
 A _range tree_ is a multi-level tree data-structure to store a finite subset ''P'' of a [multi-ordered][RangeSearching] set ''S'' such that [range searches][RangeSearching] can be efficiently answered for ''P''. 
 
+[RangeSearching]: [[Ref]]: range_searching.txt
+
 Restrictions
 ------------
 

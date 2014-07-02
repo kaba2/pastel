@@ -3,7 +3,9 @@ Range searching
 
 [[Parent]]: geometric_algorithms.txt
 
-A set ''S'' is _multi-ordered_ if it comes with ''d'' strict weak orders ''<_1, ..., <_d subset S^2'', for some integer ''d''. A _multi-interval_ in ''S'' is a set of the form ''I = cap_{i = 1}^d I_i'', where ''I_i subset S'' is an interval in ''S'' with respect to ''<_i''. _Range searching_ is the problem of reporting the set ''P cap I'', for a given multi-interval ''I''. _Range counting_ is the problem of reporting the integer ''|P cap I|'', for a given multi-interval ''I''.
+A set ''S'' is _multi-ordered_ if it comes with ''d'' [strict weak orders][Less] ''<_1, ..., <_d subset S^2'', for some integer ''d''. A _multi-interval_ in ''S'' is a set of the form ''I = cap_{i = 1}^d I_i'', where ''I_i subset S'' is an interval in ''S'' with respect to ''<_i''. _Range searching_ is the problem of reporting the set ''P cap I'', for a given multi-interval ''I''. _Range counting_ is the problem of reporting the integer ''|P cap I|'', for a given multi-interval ''I''.
+
+[Less]: [[Ref]]: strict_weak_order.txt
 
 Usual definition
 ----------------
