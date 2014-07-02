@@ -1,3 +1,5 @@
+// Description: Concepts for graph traversal
+
 #ifndef PASTELSYS_GRAPH_TRAVERSAL_CONCEPTS_H
 #define PASTELSYS_GRAPH_TRAVERSAL_CONCEPTS_H
 
