@@ -1,8 +1,8 @@
-// Description: Generic orthogonal range searching using a kd-tree
+// Description: Generic orthogonal range search in a kd-tree
 // Documentation: range_searching.txt
 
-#ifndef PASTELGEOMETRY_SEARCH_RANGE_ALGORITHM_POINTKDTREE_H
-#define PASTELGEOMETRY_SEARCH_RANGE_ALGORITHM_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_ALGORITHM_H
+#define PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_ALGORITHM_H
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/alignedbox.h"
@@ -29,6 +29,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/search_range_algorithm_pointkdtree.hpp"
+#include "pastel/geometry/pointkdtree_search_range_algorithm.hpp"
 
 #endif

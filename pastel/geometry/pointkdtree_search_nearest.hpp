@@ -1,7 +1,7 @@
-#ifndef PASTELGEOMETRY_SEARCH_NEAREST_POINTKDTREE_HPP
-#define PASTELGEOMETRY_SEARCH_NEAREST_POINTKDTREE_HPP
+#ifndef PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_HPP
+#define PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_HPP
 
-#include "pastel/geometry/search_nearest_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_search_nearest.h"
 
 #include <vector>
 #include <set>

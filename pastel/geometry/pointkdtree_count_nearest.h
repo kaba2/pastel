@@ -1,8 +1,8 @@
 // Description: Ball range counting for PointKdTree
 // Documentation: range_counting.txt
 
-#ifndef PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_H
-#define PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_POINTKDTREE_COUNT_NEAREST_H
+#define PASTELGEOMETRY_POINTKDTREE_COUNT_NEAREST_H
 
 #include "pastel/geometry/pointkdtree.h"
 
@@ -11,9 +11,9 @@
 
 #include "pastel/sys/all_indicator.h"
 #include "pastel/math/euclidean_normbijection.h"
-#include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
+#include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
 
-#include "pastel/geometry/count_nearest_pointkdtree.hpp"
+#include "pastel/geometry/pointkdtree_count_nearest.hpp"
 
 namespace Pastel
 {
@@ -43,7 +43,7 @@ namespace Pastel
 
 	searchAlgorithm:
 	The search algorithm to use for searching the 'kdTree'.
-	See 'pastel/geometry/searchalgorithm_pointkdtree.txt'.
+	See 'pastel/geometry/pointkdtree_searchalgorithm.txt'.
 
 	Optional arguments
 	------------------

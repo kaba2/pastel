@@ -1,9 +1,9 @@
-#ifndef PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_HPP
-#define PASTELGEOMETRY_COUNT_NEAREST_POINTKDTREE_HPP
+#ifndef PASTELGEOMETRY_POINTKDTREE_COUNT_NEAREST_HPP
+#define PASTELGEOMETRY_POINTKDTREE_COUNT_NEAREST_HPP
 
-#include "pastel/geometry/count_nearest_pointkdtree.h"
-#include "pastel/geometry/search_nearest_algorithm_pointkdtree.h"
-#include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_count_nearest.h"
+#include "pastel/geometry/pointkdtree_search_nearest_algorithm.h"
+#include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/sys/all_indicator.h"
 

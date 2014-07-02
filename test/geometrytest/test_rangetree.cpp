@@ -180,7 +180,7 @@ namespace
 					const Point<2>& max,
 					integer correct)
 				{
-					return rangeSearch(tree, min, max) == correct;
+					return searchRange(tree, min, max) == correct;
 				};
 
 				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(0, 4), 1));
@@ -201,7 +201,7 @@ namespace
 			}
 			{
 				integer count = 
-					rangeSearch(tree, Point<2>(2, 1), Point<2>(4, 3), report);
+					searchRange(tree, Point<2>(2, 1), Point<2>(4, 3), report);
 				boost::sort(resultSet, order);
 				TEST_ENSURE_OP(count, ==, resultSet.size());
 
@@ -217,7 +217,7 @@ namespace
 				resultSet.clear();
 				
 				integer count = 
-					rangeSearch(tree, Point<2>(0), Point<2>(8, 4), report);
+					searchRange(tree, Point<2>(0), Point<2>(8, 4), report);
 				TEST_ENSURE_OP(count, ==, resultSet.size());
 
 				boost::sort(resultSet, order);
@@ -263,7 +263,7 @@ namespace
 					resultSet.emplace_back(*point);
 				};
 
-				integer count = rangeSearch(tree, point, point, report);
+				integer count = searchRange(tree, point, point, report);
 				TEST_ENSURE_OP(count, ==, resultSet.size());
 
 				std::vector<Point> correctSet;
@@ -278,7 +278,7 @@ namespace
 				b[0] = nextSmaller(b[0]);
 
 				resultSet.clear();
-				count = rangeSearch(tree, a, b, report);
+				count = searchRange(tree, a, b, report);
 				TEST_ENSURE_OP(count, ==, resultSet.size());
 
 				TEST_ENSURE(resultSet.empty());

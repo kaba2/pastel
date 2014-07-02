@@ -1,18 +1,18 @@
 // Description: Nearest neighbor searching for PointKdTree
 // Documentation: nearest_neighbors.txt
 
-#ifndef PASTELGEOMETRY_SEARCH_NEAREST_POINTKDTREE_H
-#define PASTELGEOMETRY_SEARCH_NEAREST_POINTKDTREE_H
+#ifndef PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_H
+#define PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_H
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/sys/indicator_concept.h"
 #include "pastel/math/normbijection_concept.h"
 
-#include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
+#include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
 #include "pastel/sys/all_indicator.h"
 #include "pastel/math/euclidean_normbijection.h"
 
-#include "pastel/geometry/search_nearest_pointkdtree.hpp"
+#include "pastel/geometry/pointkdtree_search_nearest.hpp"
 
 namespace Pastel
 {
@@ -37,7 +37,7 @@ namespace Pastel
 
 	searchAlgorithm:
 	The search algorithm to use for searching the 'kdTree'.
-	See 'searchalgorithm_pointkdtree.txt'.
+	See 'pointkdtree_searchalgorithm.txt'.
 
 	Optional arguments
 	------------------
