@@ -72,6 +72,7 @@ namespace
 
 		virtual void run()
 		{
+			testSimple();
 			testSingular<2>();
 			testSingular<3>();
 			testSingular<4>();
@@ -127,6 +128,69 @@ namespace
 							<< "] ";
 					}
 				}
+			}
+		}
+
+		void testSimple()
+		{
+			// 4  *
+			// 3* *  *
+			// 2 *      *
+			// 1  * *  
+			// 0      *
+			//  012345678
+			
+			std::vector<Point<2>> pointSet;
+
+			pointSet.emplace_back(0, 3);
+			pointSet.emplace_back(1, 2);
+			pointSet.emplace_back(2, 1);
+			pointSet.emplace_back(2, 3);
+			pointSet.emplace_back(2, 4);
+			pointSet.emplace_back(4, 1);
+			pointSet.emplace_back(5, 3);
+			pointSet.emplace_back(6, 0);
+			pointSet.emplace_back(8, 2);
+
+			Tree tree(pointSet, 2);
+			TEST_ENSURE(testInvariants(tree));
+
+			std::vector<Point<2>> resultSet;
+
+			auto report = [&](
+				const Point_ConstIterator& point)
+			{
+				resultSet.emplace_back(*point);
+			};
+
+			auto order = [&](
+				const Point<2>& left,
+				const Point<2>& right)
+			{
+				if (left[0] == right[0])
+				{
+					return left[1] < right[1];
+				}
+				return left[0] < right[0];
+			};
+
+			{
+				rangeSearch(tree, Point<2>(2, 1), Point<2>(4, 3), report);
+				boost::sort(resultSet, order);
+
+				std::vector<Point<2>> correctSet;
+				correctSet.emplace_back(2, 1);
+				correctSet.emplace_back(2, 3);
+				correctSet.emplace_back(4, 1);
+
+				TEST_ENSURE(boost::equal(resultSet, correctSet));
+			}
+
+			{
+				resultSet.clear();
+				rangeSearch(tree, Point<2>(0), Point<2>(8, 4), report);
+				boost::sort(resultSet, order);
+				TEST_ENSURE(boost::equal(resultSet, pointSet));
 			}
 		}
 
