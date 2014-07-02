@@ -79,10 +79,14 @@ Release date xx.x.2014
 * Added the range tree.
 * Modernized the half-edge structure.
 
+#### Algorithms
+
+* Added range searching / counting in a range tree.
+
 ### PastelGeometryMatlab
 
 * Encapsulated the Matlab PointKdTree interface into a class.
-* Added range counting.
+* Added range counting in a point kd-tree.
 
 Pastel 1.3.0
 ------------
