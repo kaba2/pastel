@@ -3,7 +3,6 @@
 
 #include "pastel/geometry/point_pattern_matching_vw.h"
 #include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/bounding_sphere.h"
 
 #include "pastel/math/affine_transformation.h"

@@ -7,6 +7,8 @@
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/alignedbox.h"
 
+#include "pastel/sys/output_concept.h"
+
 #include <vector>
 
 namespace Pastel
@@ -17,15 +19,13 @@ namespace Pastel
 	Preconditions:
 	kdTree.n() == range.n()
 	kdTree.n() <= 32
-	bucketSize >= 1
 	*/
 	template <typename Real, int N, typename PointPolicy, 
-		typename Point_ConstIterator_Iterator>
+		typename Point_ConstIterator_Output>
 	void searchRange(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
-		Point_ConstIterator_Iterator result,
-		integer bucketSize = 8);
+		Point_ConstIterator_Output report);
 
 }
 

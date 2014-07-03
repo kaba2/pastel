@@ -3,7 +3,6 @@
 
 #include "pastel/geometry/count_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/pointkdtree_count_nearest.h"
-#include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/sys/ensure.h"
 

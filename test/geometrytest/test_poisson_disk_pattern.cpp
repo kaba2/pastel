@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/pointkdtree_tools.h"
+#include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/distance_point_point.h"
 #include "pastel/geometry/poisson_disk_pattern.h"
 

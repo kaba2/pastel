@@ -616,7 +616,13 @@ namespace Pastel
 #include "pastel/geometry/pointkdtree.hpp"
 #include "pastel/geometry/pointkdtree_private.hpp"
 
-#include "pastel/geometry/pointkdtree_tools.h"
+#include "pastel/geometry/pointkdtree_count_nearest.h"
+#include "pastel/geometry/pointkdtree_depth.h"
+#include "pastel/geometry/pointkdtree_equivalent.h"
+#include "pastel/geometry/pointkdtree_invariants.h"
+#include "pastel/geometry/pointkdtree_search_nearest.h"
+#include "pastel/geometry/pointkdtree_search_range.h"
+
 #include "pastel/geometry/splitrules.h"
 
 #endif
