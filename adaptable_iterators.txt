@@ -51,26 +51,3 @@ Using Boost's iterator library, it is easy to define more general iterator adapt
 
 [Second_Iterator]: [[Ref]]: iterators.txt
 
-Rejected solutions
-------------------
-
-### Additional iterator functions
-
-Provide access to adapted iterators via additional iterator (range) functions. 
-
-[[CppCode]]:
-	dataSet.dataBegin();
-	dataSet.dataRange();
-
-This solution was rejected because the number of names that are needed grows in a combinatorial manner.
-
-### Parametrized iterator functions
-
-Provide access to adapted iterators via parametrized iterator (range) functions. 
-
-[[CppCode]]:
-	dataSet.begin<true, false>();
-	dataSet.range<true, false>();
-
-This solution was rejected, because it is hard to remember the meaning of the parameters. This could be remedied somewhat by using enums instead, but then invoking the function would require too much writing, such as in `dataSet.range<RedBlack_Map::Constness::True, RedBlack_Map::Dereference::Value>()`.
-

@@ -13,7 +13,7 @@ An algorithm is _continuous_, if its use does not result in special cases. An al
 Mathematical continuity vs algorithmic continuity
 -------------------------------------------------
 
-Whenever the input and output sets of an algorithm are topological spaces, the algorithmic continuity is exactly the same as mathematical continuity; algorithmic continuity generalizes mathematical continuity.
+Whenever the input and output sets of an algorithm are topological spaces, the algorithmic continuity is the same as mathematical continuity; algorithmic continuity generalizes mathematical continuity.
 
 Examples
 --------
@@ -56,4 +56,4 @@ If an algorithm is accidentally discontinuous, then the continuous counter-part 
 Naming
 ------
 
-The definitions given here are mine. Many, many, people probably have come up with exactly the same idea, as is demonstrated by the continuous definitions used in mathematics. However, programmers need to recognize this idea more widely. Hence this section.
+The definitions given here are mine. Many people have probably come up with exactly the same idea, as is demonstrated by the continuous definitions used in mathematics. However, programmers need to recognize this idea more widely. Hence this section.
