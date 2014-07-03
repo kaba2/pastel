@@ -1,54 +1,16 @@
-#ifndef PASTELGEOMETRY_POINTKDTREE_TOOLS_HPP
-#define PASTELGEOMETRY_POINTKDTREE_TOOLS_HPP
+#ifndef PASTELGEOMETRY_POINTKDTREE_INVARIANTS_HPP
+#define PASTELGEOMETRY_POINTKDTREE_INVARIANTS_HPP
 
-#include "pastel/geometry/pointkdtree_tools.h"
-#include "pastel/geometry/intersect_line_alignedbox.h"
-#include "pastel/geometry/bounding_alignedbox.h"
-#include "pastel/geometry/box_area.h"
-#include "pastel/geometry/distance_point_point.h"
-
-#include "pastel/sys/math_functions.h"
-
-#include "pastel/sys/ensure.h"
-#include "pastel/sys/vector_tools.h"
-
-#include <algorithm>
-#include <vector>
+#include "pastel/geometry/pointkdtree_invariants.h"
 
 namespace Pastel
 {
 
-	namespace Detail
+	namespace PointKdTree_
 	{
 
 		template <typename Real, int N, typename PointPolicy>
-		integer depth(const PointKdTree<Real, N, PointPolicy>& tree,
-			const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
-			integer currentDepth)
-		{
-			if (cursor.leaf())
-			{
-				return currentDepth;
-			}
-
-			return std::max(
-				depth(tree, cursor.right(), currentDepth + 1),
-				depth(tree, cursor.left(), currentDepth + 1));
-		}
-
-	}
-
-	template <typename Real, int N, typename PointPolicy>
-	integer depth(const PointKdTree<Real, N, PointPolicy>& tree)
-	{
-		return Detail::depth(tree, tree.root(), 0);
-	}
-
-	namespace Detail
-	{
-
-		template <typename Real, int N, typename PointPolicy>
-		bool check(const PointKdTree<Real, N, PointPolicy>& tree,
+		bool testInvariants(const PointKdTree<Real, N, PointPolicy>& tree,
 			const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
 			const AlignedBox<Real, N>& bound)
 		{
@@ -148,7 +110,7 @@ namespace Pastel
 				AlignedBox<Real, N> rightBound(bound);
 				rightBound.min()[cursor.splitAxis()] = cursor.splitPosition();
 
-				if (!check(tree, cursor.right(), rightBound))
+				if (!testInvariants(tree, cursor.right(), rightBound))
 				{
 					return false;
 				}
@@ -156,7 +118,7 @@ namespace Pastel
 				AlignedBox<Real, N> leftBound(bound);
 				leftBound.max()[cursor.splitAxis()] = cursor.splitPosition();
 
-				if (!check(tree, cursor.left(), leftBound))
+				if (!testInvariants(tree, cursor.left(), leftBound))
 				{
 					return false;
 				}
@@ -168,76 +130,15 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	bool check(const PointKdTree<Real, N, PointPolicy>& tree)
+	bool testInvariants(const PointKdTree<Real, N, PointPolicy>& tree)
 	{
 		const AlignedBox<Real, N> bound(
 			Vector<Real, N>(ofDimension(tree.n()), -infinity<Real>()),
 			Vector<Real, N>(ofDimension(tree.n()), infinity<Real>()));;
 		
-		return Detail::check(tree, tree.root(), bound);
+		return PointKdTree_::testInvariants(tree, tree.root(), bound);
 	}
 
-	namespace Equivalent_PointKdTree
-	{
-
-		template <typename CursorA, 
-			typename CursorB>
-			bool equivalent(
-			const CursorA& aTree,
-			const CursorB& bTree)
-		{
-			if (aTree.leaf() != bTree.leaf())
-			{
-				return false;
-			}
-
-			if (aTree.leaf())
-			{
-				if (aTree.points() != bTree.points())
-				{
-					return false;
-				}
-			}
-			else
-			{
-				if (aTree.min() != bTree.min() ||
-					aTree.max() != bTree.max() ||
-					aTree.splitAxis() != bTree.splitAxis() ||
-					aTree.splitPosition() != bTree.splitPosition())
-				{
-					return false;
-				}
-
-				if (!equivalent(aTree.left(), bTree.left()))
-				{
-					return false;
-				}
-				if (!equivalent(aTree.right(), bTree.right()))
-				{
-					return false;
-				}
-			}			
-
-			return true;
-		}
-
-	}
-	template <int N_A, typename Real, typename PointPolicy_A, 
-		int N_B, typename PointPolicy_B>
-	bool equivalent(const PointKdTree<Real, N_A, PointPolicy_A>& aTree,
-	const PointKdTree<Real, N_B, PointPolicy_B>& bTree)
-	{
-		if (aTree.nodes() != bTree.nodes() ||
-			aTree.points() != bTree.points() ||
-			aTree.leaves() != bTree.leaves() ||
-			aTree.n() != bTree.n())
-		{
-			return false;
-		}
-
-		return Equivalent_PointKdTree::equivalent(
-			aTree.root(), bTree.root());
-	}
 }
 
 #endif

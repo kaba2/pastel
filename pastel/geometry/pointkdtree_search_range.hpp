@@ -8,15 +8,15 @@
 namespace Pastel
 {
 
-	namespace SearchRange_
+	namespace PointKdTree_Search_Range_
 	{
 
-		template <typename OutputIterator>
-		class Search_Output_SearchRange
+		template <typename Output>
+		class Search_Output
 		{
 		public:
-			explicit Search_Output_SearchRange(
-				OutputIterator& output)
+			explicit Search_Output(
+				Output& output)
 				: output_(output)
 			{
 			}
@@ -25,8 +25,7 @@ namespace Pastel
 			void report(
 				const Iterator& iter) const
 			{
-				*output_ = iter;
-				++output_;
+				output_(iter);
 			}
 
 			template <typename Iterator>
@@ -35,30 +34,32 @@ namespace Pastel
 				const Iterator& end,
 				integer count) const
 			{
-				output_ = std::copy(
-					countingIterator(begin), 
-					countingIterator(end), 
-					output_);
+				Iterator i = begin;
+				while (i != end)
+				{
+					output(i);
+					++i;
+				}
 			}
 
 		private:
-			OutputIterator& output_;
+			Output& output_;
 		};
 
 	}
 
 	template <typename Real, int N, typename PointPolicy, 
-		typename Point_ConstIterator_Iterator>
+		typename Point_ConstIterator_Output>
 	void searchRange(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
-		Point_ConstIterator_Iterator result,
-		integer bucketSize)
+		Point_ConstIterator_Output report)
 	{
-		SearchRange_::Search_Output_SearchRange<Point_ConstIterator_Iterator>
-			reporter(result);
+		PointKdTree_Search_Range_::Search_Output<Point_ConstIterator_Output>
+			output(report);
 
-		searchRangeAlgorithm(kdTree, range, reporter, bucketSize);
+		integer bucketSize = 8;
+		searchRangeAlgorithm(kdTree, range, output, bucketSize);
 	}
 
 }

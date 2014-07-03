@@ -4,7 +4,6 @@
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
-#include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/math/euclidean_normbijection.h"
 

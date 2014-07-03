@@ -7,7 +7,6 @@
 #include "pastel/geometry/pointkdtree_search_nearest.h"
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/slidingmidpoint_splitrule.h"
-#include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 
 #include "pastel/math/uniform_sampling.h"
@@ -115,10 +114,10 @@ namespace
 			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()),
 				pushBackOutput(iteratorSet));
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 
 			tree.refine(SlidingMidpoint_SplitRule(), 1);
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			
 			/*
 			 0   |
@@ -233,62 +232,62 @@ namespace
 			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()),
 				pushBackOutput(iteratorSet));
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.points(), ==, m);
 			TEST_ENSURE_OP(tree.leaves(), ==, 1);
 			TEST_ENSURE_OP(tree.nodes(), ==, 1);
 
 			tree.refine(SlidingMidpoint_SplitRule());
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.points(), ==, m);
 
 			{
 				Tree bTree(tree);
-				TEST_ENSURE(check(bTree));
+				TEST_ENSURE(testInvariants(bTree));
 				TEST_ENSURE(equivalent(tree, bTree));
 
 				tree.swap(bTree);
-				TEST_ENSURE(check(bTree));
+				TEST_ENSURE(testInvariants(bTree));
 				TEST_ENSURE(equivalent(tree, bTree));
 			}
 
 			tree.merge();
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.leaves(), ==, 1);
 			TEST_ENSURE_OP(tree.nodes(), ==, 1);
 			TEST_ENSURE_OP(tree.points(), ==, m);
 
 			tree.refine(SlidingMidpoint_SplitRule());
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 
 			tree.merge(tree.root());
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.leaves(), ==, 1);
 			TEST_ENSURE_OP(tree.nodes(), ==, 1);
 			TEST_ENSURE_OP(tree.points(), ==, m);
 
 			tree.refine(SlidingMidpoint_SplitRule());
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 
 			tree.hide();
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.points(), ==, 0);
 
 			tree.show();
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.points(), ==, m);
 
 			tree.erase();
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.points(), ==, 0);
 
 			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()),
 				pushBackOutput(iteratorSet));
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 
 			tree.clear();
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.points(), ==, 0);
 			TEST_ENSURE_OP(tree.leaves(), ==, 1);
 			TEST_ENSURE_OP(tree.nodes(), ==, 1);
@@ -301,7 +300,7 @@ namespace
 		void testEmpty()
 		{
 			Tree tree;
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE(tree.empty());
 			TEST_ENSURE_OP(tree.points(), ==, 0);
 			TEST_ENSURE(tree.bound().empty());
@@ -309,7 +308,7 @@ namespace
 			TEST_ENSURE_OP(tree.nodes(), ==, 1);
 						
 			tree.clear();
-			TEST_ENSURE(check(tree));
+			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE(tree.empty());
 			TEST_ENSURE_OP(tree.points(), ==, 0);
 			TEST_ENSURE(tree.bound().empty());
@@ -318,11 +317,11 @@ namespace
 
 			{
 				Tree bTree(tree);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
 				TEST_ENSURE(equivalent(tree, bTree));
 
 				tree.swap(bTree);
-				TEST_ENSURE(check(tree));
+				TEST_ENSURE(testInvariants(tree));
 				TEST_ENSURE(equivalent(tree, bTree));
 			}
 		}

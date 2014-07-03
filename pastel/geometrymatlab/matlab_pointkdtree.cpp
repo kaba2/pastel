@@ -334,7 +334,7 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 			Tree& tree = state->tree;
 
-			ENSURE(check(tree));
+			ENSURE(testInvariants(tree));
 		}
 
 		void kdMerge(
