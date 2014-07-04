@@ -30,10 +30,13 @@ namespace Pastel
 	Returns:
 	The number of points contained in the 'range'.
 	*/
-	template <typename Real, int N, typename PointPolicy>
+	template <
+		typename Settings, template <typename> class Customization,
+		typename Real = typename Settings::Real,
+		integer N = Settings::N>
 	integer countRange(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const AlignedBox<Real, N>& range,
+		const PointKdTree<Settings, Customization>& kdTree,
+		const PASTEL_NO_DEDUCTION((AlignedBox<Real, N>))& range,
 		integer bucketSize = 8);
 
 }

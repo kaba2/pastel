@@ -77,10 +77,12 @@ namespace Pastel
 
 			const integer n = modelDimension;
 
-			typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
+			using Settings = PointKdTree_Settings<real, Dynamic, Array_PointPolicy<real>>;
+
+			typedef PointKdTree<Settings> SceneTree;
 			typedef SceneTree::Point_ConstIterator SceneIterator;
 
-			typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > ModelTree;
+			typedef PointKdTree<Settings> ModelTree;
 			typedef ModelTree::Point_ConstIterator ModelIterator;
 
 			Array_PointPolicy<real> pointPolicy(n);

@@ -11,15 +11,20 @@ namespace Pastel
 {
 
 	template <
-		typename Real, int N, typename PointPolicy, 
+		typename Settings, template <typename> class Customization, 
 		typename SearchPoint, typename Indicator, 
 		typename NormBijection, typename SearchAlgorithm>
 	class CountNearest_
 	{
 	public:
+		using Tree = PointKdTree<Settings, Customization>;
+		using Fwd = Tree;
+		PASTEL_FWD(Real);
+		PASTEL_FWD(PointPolicy);
+		static PASTEL_CONSTEXPR integer N = Settings::N;
+		PASTEL_FWD(Point_ConstIterator);
+
 		typedef CountNearest_ Self;
-		typedef PointKdTree<Real, N, PointPolicy> Tree;
-		typedef typename Tree::Point_ConstIterator Point_ConstIterator;
 
 		CountNearest_(
 			const Tree& kdTree,

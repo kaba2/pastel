@@ -108,7 +108,9 @@ namespace Pastel
 			integer dimension_;
 		};
 
-		typedef PointKdTree<real, Dynamic, TreePoint_PointPolicy> Tree;
+		using Settings = PointKdTree_Settings<real, Dynamic, TreePoint_PointPolicy>;
+
+		typedef PointKdTree<Settings> Tree;
 		typedef Tree::Point_ConstIterator Point_ConstIterator;
 		typedef Tree::Point_ConstRange Point_ConstRange;
 		typedef std::unordered_map<integer, Point_ConstIterator> IndexMap;
@@ -227,7 +229,7 @@ namespace Pastel
 			const integer d = state->tree.n();
 			const integer n = idSet.size();
 
-			typedef Tree::PointPolicy_ PointPolicy;
+			typedef Tree::PointPolicy PointPolicy;
 			const PointPolicy& pointPolicy = state->tree.pointPolicy();
 
 			Array<real> pointSet = createArray<real>(

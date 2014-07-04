@@ -20,20 +20,24 @@ namespace Pastel
 	namespace PointPatternMatch_
 	{
 
-		template <typename Real, int N, typename Model_PointPolicy, 
-			typename Scene_PointPolicy, typename Scene_Model_Output,
-			typename NormBijection>
+		template <
+			typename Scene_Settings, template <typename> class Scene_Customization,
+			typename Model_Settings, template <typename> class Model_Customization,
+			typename Scene_Model_Output,
+			typename NormBijection,
+			typename Real = typename Scene_Settings::Real,
+			integer N = Scene_Settings::N>
 		class PointPatternKr
 		{
 		public:
 			typedef Result_PointPatternMatchKr<Real, N> Match;
 
-			typedef PointKdTree<Real, N, Model_PointPolicy> ModelTree;
+			typedef PointKdTree<Model_Settings, Model_Customization> ModelTree;
 			typedef typename ModelTree::Point_ConstIterator 
 				Model_ConstIterator;
 			typedef typename ModelTree::Point ModelPoint;
 
-			typedef PointKdTree<Real, N, Scene_PointPolicy> SceneTree;
+			typedef PointKdTree<Scene_Settings, Scene_Customization> SceneTree;
 			typedef typename SceneTree::Point_ConstIterator 
 				Scene_ConstIterator;
 			typedef typename SceneTree::Point ScenePoint;
@@ -44,8 +48,8 @@ namespace Pastel
 			typedef typename PairSet::const_iterator Pair_ConstIterator;
 
 			Match match(
-				const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
-				const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
+				const ModelTree& modelTree,
+				const SceneTree& sceneTree,
 				integer kNearest,
 				const Real& minMatchRatio,
 				const Real& actualMatchingDistance,
@@ -243,12 +247,16 @@ namespace Pastel
 	
 	}
 
-	template <typename Real, int N, typename Model_PointPolicy, 
-		typename Scene_PointPolicy, typename Scene_Model_Output,
-		typename NormBijection>
+	template <
+		typename Scene_Settings, template <typename> class Scene_Customization,
+		typename Model_Settings, template <typename> class Model_Customization,
+		typename NormBijection,
+		typename Scene_Model_Output,
+		typename Real,
+		integer N>
 	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
-		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
-		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
+		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
+		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
@@ -265,8 +273,9 @@ namespace Pastel
 		ENSURE_OP(maxBias, <=, 1);
 
 		PointPatternMatch_::PointPatternKr<
-			Real, N, Model_PointPolicy, 
-			Scene_PointPolicy, Scene_Model_Output,
+			Model_Settings, Model_Customization,
+			Scene_Settings, Scene_Customization,
+			Scene_Model_Output,
 			NormBijection> 
 			pointPattern;
 

@@ -10,11 +10,14 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename PointPolicy, 
-		typename Output_SearchRange>
+	template <
+		typename Settings, template <typename> class Customization,
+		typename Output_SearchRange,
+		typename Real,
+		integer N>
 	void searchRangeAlgorithm(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const AlignedBox<Real, N>& range,
+		const PointKdTree<Settings, Customization>& kdTree,
+		const PASTEL_NO_DEDUCTION((AlignedBox<Real, N>))& range,
 		const Output_SearchRange& reporter,
 		integer bucketSize)
 	{
@@ -22,12 +25,11 @@ namespace Pastel
 		ENSURE_OP(kdTree.n(), <=, 64);
 		ENSURE_OP(bucketSize, >, 0);
 
-		typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
-			Point_ConstIterator;
-		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor
-			Cursor;
-		typedef typename PointKdTree<Real, N, PointPolicy>::Point
-			Point;
+		using Fwd = PointKdTree<Settings, Customization>;
+		PASTEL_FWD(Point_ConstIterator);
+		PASTEL_FWD(Cursor);
+		PASTEL_FWD(Point);
+		PASTEL_FWD(PointPolicy);
 
 		// Note: we assume the search region is open.
 

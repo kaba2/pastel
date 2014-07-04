@@ -1,15 +1,16 @@
-// Detail: A cursor to traverse the nodes of a PointKdTree
+// Description: Point kd-tree cursor
 
 #ifndef PASTELGEOMETRY_POINTKDTREE_CURSOR_H
 #define PASTELGEOMETRY_POINTKDTREE_CURSOR_H
 
 #include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree_fwd.h"
 
 namespace Pastel
 {
 
-	template <typename Real, int N, typename PointPolicy>
-	class PointKdTree<Real, N, PointPolicy>::Cursor
+	template <typename Settings>
+	class PointKdTree_Fwd<Settings>::Cursor
 		: boost::less_than_comparable<Cursor
 		, boost::equality_comparable<Cursor
 		> >
@@ -159,7 +160,8 @@ namespace Pastel
 		}
 
 	private:
-		friend class PointKdTree<Real, N, PointPolicy>;
+		template <typename, template <typename> class>
+		friend class PointKdTree;
 
 		Node* node_;
 	};

@@ -42,13 +42,12 @@ namespace Pastel
 			upper bound for the number of nodes when refining the 
 			PointKdTree.
 			*/
-			template <typename Real, int N,
-				typename PointPolicy>
-				std::pair<Real, integer> operator()(
-				const PointKdTree<Real, N, PointPolicy>& tree,
-				const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
-				const Vector<Real, N>& minBound,
-				const Vector<Real, N>& maxBound,
+			template <typename Settings, template <typename> class Customization>
+			std::pair<typename Settings::Real, integer> operator()(
+				const PointKdTree<Settings, Customization>& tree,
+				const typename PointKdTree<Settings, Customization>::Cursor& cursor,
+				const Vector<typename Settings:: Real, Settings::N>& minBound,
+				const Vector<typename Settings::Real, Settings::N>& maxBound,
 				integer depth) const;
 		};
 

@@ -83,12 +83,16 @@ namespace Pastel
 	The point-pairs are reported in the form
 	std::make_pair(modelIter, sceneIter).
 	*/
-	template <typename Real, int N, typename Model_PointPolicy, 
-		typename Scene_PointPolicy, typename Scene_Model_Output,
-		typename NormBijection>
+	template <
+		typename Scene_Settings, template <typename> class Scene_Customization,
+		typename Model_Settings, template <typename> class Model_Customization,
+		typename NormBijection,
+		typename Scene_Model_Output,
+		typename Real = typename Scene_Settings::Real,
+		integer N = Scene_Settings::N>
 	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
-		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
-		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
+		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
+		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,

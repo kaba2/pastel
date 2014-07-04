@@ -72,131 +72,26 @@ namespace Pastel
 	searchAlgorithm:
 	Search algorithm to use.
 	*/
-	template <typename Real, int N, typename PointPolicy,
+	template <
+		typename Settings, template <typename> class Customization,
 		typename Point_ConstIterator_RandomAccessRange, 
-		typename Real_RandomAccessRange,
-		typename NormBijection,
-		typename SearchAlgorithm>
+		typename Real = typename Settings::Real,
+		typename PointPolicy = typename Settings::PointPolicy,
+		integer N = Settings::N,
+		typename Real_RandomAccessRange = ConstantRange<Real>,
+		typename NormBijection = Euclidean_NormBijection<Real>,
+		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
 	void searchAllNeighbors(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
+		const PointKdTree<Settings, Customization>& kdTree,
 		const Point_ConstIterator_RandomAccessRange& querySet,
 		integer kNearestBegin,
 		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
-		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
-		const Real_RandomAccessRange& maxDistanceSet,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const NormBijection& normBijection,
-		const SearchAlgorithm& searchAlgorithm);
-
-	//! Finds k nearest-neighbours for the given query points.
-	/*!
-	This is a convenience function that calls:
-	searchAllNeighbors(
-		kdTree, querySet,
-		kNearestBegin, kNearestEnd,
-		nearestArray, distanceArray,
-		maxDistanceSet, maxRelativeError,
-		Euclidean_NormBijection<Real>(),
-		constantRange(infinity<Real>(), querySet.size()),
-		maxRelativeError,
-		normBijection,
-		DepthFirst_SearchAlgorithm_PointKdTree());
-	*/
-	template <typename Real, int N, typename PointPolicy,
-		typename Point_ConstIterator_RandomAccessRange, 
-		typename Real_RandomAccessRange,
-		typename NormBijection>
-	void searchAllNeighbors(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const Point_ConstIterator_RandomAccessRange& querySet,
-		integer kNearestBegin,
-		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
-		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
-		const Real_RandomAccessRange& maxDistanceSet,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const NormBijection& normBijection);
-
-	//! Finds k nearest-neighbours for the given query points.
-	/*!
-	This is a convenience function that calls:
-	searchAllNeighbors(
-		kdTree, querySet,
-		kNearestBegin, kNearestEnd,
-		nearestArray, distanceArray,
-		maxDistanceSet, maxRelativeError,
-		Euclidean_NormBijection<Real>());
-	*/
-	template <typename Real, int N, typename PointPolicy,
-		typename Point_ConstIterator_RandomAccessRange, 
-		typename Real_RandomAccessRange>
-	void searchAllNeighbors(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const Point_ConstIterator_RandomAccessRange& querySet,
-		integer kNearestBegin,
-		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
-		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
-		const Real_RandomAccessRange& maxDistanceSet,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
-
-	//! Finds k nearest-neighbours for the given query points.
-	/*!
-	This is a convenience function that calls:
-	searchAllNeighbors(
-		kdTree, querySet,
-		kNearestBegin, kNearestEnd,
-		nearestArray, distanceArray,
-		maxDistanceSet, 0);
-	*/
-	template <typename Real, int N, typename PointPolicy,
-		typename Point_ConstIterator_RandomAccessRange, 
-		typename Real_RandomAccessRange>
-	void searchAllNeighbors(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const Point_ConstIterator_RandomAccessRange& querySet,
-		integer kNearestBegin,
-		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
-		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
-		const Real_RandomAccessRange& maxDistanceSet);
-
-	//! Finds k nearest-neighbours for the given query points.
-	/*!
-	This is a convenience function that calls:
-	searchAllNeighbors(
-		kdTree, querySet,
-		kNearestBegin, kNearestEnd,
-		nearestArray, distanceArray,
-		constantRange(infinity<Real>(), querySet.size()));
-	*/
-	template <typename Real, int N, typename PointPolicy,
-		typename Point_ConstIterator_RandomAccessRange>
-	void searchAllNeighbors(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const Point_ConstIterator_RandomAccessRange& querySet,
-		integer kNearestBegin,
-		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
-		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray);
-
-	//! Finds k nearest-neighbours for the given query points.
-	/*!
-	This is a convenience function that calls:
-	searchAllNeighbors(
-		kdTree, querySet,
-		kNearestBegin, kNearestEnd,
-		nearestArray, 0);
-	*/
-	template <typename Real, int N, typename PointPolicy,
-		typename Point_ConstIterator_RandomAccessRange>
-	void searchAllNeighbors(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const Point_ConstIterator_RandomAccessRange& querySet,
-		integer kNearestBegin,
-		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray);
+		Array<typename PointKdTree<Settings, Customization>::Point_ConstIterator, 2>* nearestArray,
+		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray = nullptr,
+		const Real_RandomAccessRange& maxDistanceSet = constantRange(infinity<Real>(), querySet.size()),
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError = 0,
+		const NormBijection& normBijection = NormBijection(),
+		const SearchAlgorithm& searchAlgorithm = SearchAlgorithm());
 
 }
 

@@ -9,15 +9,18 @@ namespace Pastel
 	namespace PointKdTree_
 	{
 
-		template <typename Real, int N, typename PointPolicy>
-		bool testInvariants(const PointKdTree<Real, N, PointPolicy>& tree,
-			const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
-			const AlignedBox<Real, N>& bound)
+		template <typename Settings, template <typename> class Customization>
+		bool testInvariants(
+			const PointKdTree<Settings, Customization>& tree,
+			const typename PointKdTree<Settings, Customization>::Cursor& cursor,
+			const AlignedBox<typename Settings::Real, Settings::N>& bound)
 		{
-			typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
-
-			typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
-				Point_ConstIterator;
+			using Tree = PointKdTree<Settings, Customization>;
+			using Fwd = Tree;
+			PASTEL_FWD(Cursor);
+			PASTEL_FWD(Point_ConstIterator);
+			PASTEL_FWD(Real);
+			static PASTEL_CONSTEXPR integer N = Settings::N;
 
 			// The number of points in a node reported by 'cursor.points()'
 			// must equal the distance between 'cursor.begin()' and 'cursor.end()'.
@@ -129,9 +132,13 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	bool testInvariants(const PointKdTree<Real, N, PointPolicy>& tree)
+	template <typename Settings, template <typename> class Customization>
+	bool testInvariants(const PointKdTree<Settings, Customization>& tree)
 	{
+		using Fwd = Settings;
+		PASTEL_FWD(Real);
+		static PASTEL_CONSTEXPR integer N = Settings::N;
+
 		const AlignedBox<Real, N> bound(
 			Vector<Real, N>(ofDimension(tree.n()), -infinity<Real>()),
 			Vector<Real, N>(ofDimension(tree.n()), infinity<Real>()));;

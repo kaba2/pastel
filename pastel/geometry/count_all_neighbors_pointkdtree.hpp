@@ -11,13 +11,14 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename PointPolicy,
+	template <
+		typename Settings, template <typename> class Customization,
 		typename Point_ConstIterator_RandomAccessRange,
 		typename Real_RandomAccessRange,
 		typename Integer_OutputIterator,
 		typename NormBijection>
 	void countAllNeighbors(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
+		const PointKdTree<Settings, Customization>& kdTree,
 		const Point_ConstIterator_RandomAccessRange& querySet,
 		const Real_RandomAccessRange& maxDistanceSet,
 		Integer_OutputIterator result,
@@ -35,8 +36,10 @@ namespace Pastel
 
 		const integer queries = querySet.size();
 
-		typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
-			Point_ConstIterator;
+		using Fwd = PointKdTree<Settings, Customization>;
+		PASTEL_FWD(Point_ConstIterator);
+		PASTEL_FWD(Real);
+		static PASTEL_CONSTEXPR integer N = Settings::N;
 
 		using IndexRange = tbb::blocked_range<integer>;
 

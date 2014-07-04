@@ -13,17 +13,21 @@ namespace Pastel
 	{
 	public:
 		template <
-			typename Real, int N,
-			typename PointPolicy>
-			std::pair<Real, integer> operator()(
-			const PointKdTree<Real, N, PointPolicy>& tree,
-			const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
-			const Vector<Real, N>& minBound,
-			const Vector<Real, N>& maxBound,
+			typename Settings, template <typename> class Customization,
+			typename Real = typename Settings::Real,
+			integer N = Settings::N,
+			typename Cursor = typename PointKdTree<Settings, Customization>::Cursor>
+		std::pair<typename Settings::Real, integer> operator()(
+			const PointKdTree<Settings, Customization>& tree,
+			const PASTEL_NO_DEDUCTION(Cursor)& cursor,
+			const PASTEL_NO_DEDUCTION((Vector<Real, N>))& minBound,
+			const PASTEL_NO_DEDUCTION((Vector<Real, N>))& maxBound,
 			integer depth) const
 		{
-			typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator 
-				Point_ConstIterator;
+			using Tree = PointKdTree<Settings, Customization>;
+			using Fwd = Tree;
+			PASTEL_FWD(Point_ConstIterator);
+			PASTEL_FWD(PointPolicy);
 
 			const PointPolicy& pointPolicy = tree.pointPolicy();
 
