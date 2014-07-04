@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <
-		typename Real, int N, typename PointPolicy, 
+		typename Settings, template <typename> class Customization,
 		typename SearchPoint, typename NearestOutput,
 		typename Indicator, typename NormBijection, 
 		typename SearchAlgorithm>
@@ -18,7 +18,13 @@ namespace Pastel
 	{
 	public:
 		typedef SearchNearest_ Self;
-		typedef PointKdTree<Real, N, PointPolicy> Tree;
+
+		using Fwd = Settings;
+		PASTEL_FWD(Real);
+		PASTEL_FWD(PointPolicy);
+		static PASTEL_CONSTEXPR integer N = Settings::N;
+
+		typedef PointKdTree<Settings, Customization> Tree;
 		typedef typename Tree::Point_ConstIterator Point_ConstIterator;
 		typedef KeyValue<Real, Point_ConstIterator> Result;
 

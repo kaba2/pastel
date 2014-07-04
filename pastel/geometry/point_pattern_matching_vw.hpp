@@ -38,17 +38,21 @@ namespace Pastel
 	namespace PointPatternMatch_
 	{
 
-		template <typename Real, int N, typename ScenePolicy, typename ModelPolicy>
+		template <
+			typename Scene_Settings, template <typename> class Scene_Customization,
+			typename Model_Settings, template <typename> class Model_Customization,
+			typename Real = typename Scene_Settings::Real, 
+			integer N = Scene_Settings::N>
 		class PatternMatcher
 		{
 		private:
 			PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
 
-			typedef PointKdTree<Real, N, ScenePolicy> SceneTree;
+			typedef PointKdTree<Scene_Settings, Scene_Customization> SceneTree;
 			typedef typename SceneTree::Point_ConstIterator SceneIterator;
 			typedef typename SceneTree::Point ScenePoint;
 
-			typedef PointKdTree<Real, N, ModelPolicy> ModelTree;
+			typedef PointKdTree<Model_Settings, Model_Customization> ModelTree;
 			typedef typename ModelTree::Point_ConstIterator ModelIterator;
 			typedef typename ModelTree::Point ModelPoint;
 
@@ -289,7 +293,7 @@ namespace Pastel
 			{
 			public:
 				explicit ScenePositionFunctor(
-					const PointKdTree<Real, N, ScenePolicy>& sceneTree)
+					const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree)
 					: sceneTree_(sceneTree)
 				{
 				}
@@ -300,7 +304,7 @@ namespace Pastel
 				}
 
 			private:
-				const PointKdTree<Real, N, ScenePolicy>& sceneTree_;
+				const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree_;
 			};
 
 			class SceneIteratorHash
@@ -529,10 +533,13 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename ScenePolicy, typename ModelPolicy>
+	template <
+		typename Scene_Settings, template <typename> class Scene_Customization,
+		typename Model_Settings, template <typename> class Model_Customization,
+		typename Real>
 	bool pointPatternMatch(
-		const PointKdTree<Real, N, ScenePolicy>& sceneTree,
-		const PointKdTree<Real, N, ModelPolicy>& modelTree,
+		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
+		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
@@ -545,8 +552,13 @@ namespace Pastel
 		ENSURE_OP(confidence, >=, 0);
 		ENSURE_OP(confidence, <=, 1);
 
-		PointPatternMatch_::PatternMatcher<Real, N, ScenePolicy, ModelPolicy>
-			patternMatcher(
+		using SceneTree = PointKdTree<Scene_Settings, Scene_Customization>; 
+		using ModelTree = PointKdTree<Model_Settings, Model_Customization>;
+
+		PointPatternMatch_::PatternMatcher<
+			Scene_Settings, Scene_Customization,
+			Model_Settings, Model_Customization>
+		patternMatcher(
 			sceneTree, modelTree,
 			minMatchRatio,
 			relativeMatchingDistance,
@@ -565,8 +577,9 @@ namespace Pastel
 		return succeeded;
 	}
 
-	template <typename Real, typename SceneRange, typename ModelRange,
-		typename Model_PointPolicy, typename Scene_PointPolicy>
+	template <
+		typename Real, typename SceneRange, typename ModelRange,
+		typename Scene_PointPolicy, typename Model_PointPolicy>
 	bool pointPatternMatch(
 		const SceneRange& scene,
 		const ModelRange& model,
@@ -574,14 +587,14 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
 		ConformalAffine2D<Real>& similarityResult,
-		const Model_PointPolicy& modelPointPolicy,
-		const Scene_PointPolicy& scenePointPolicy)
+		const Scene_PointPolicy& scenePointPolicy,
+		const Model_PointPolicy& modelPointPolicy)
 	{
 		ENSURE_OP(modelPointPolicy.n(), ==, 2);
 		ENSURE_OP(scenePointPolicy.n(), ==, 2);
 
-		typedef PointKdTree<Real, 2, Model_PointPolicy> SceneTree;
-		typedef PointKdTree<Real, 2, Scene_PointPolicy> ModelTree;
+		typedef PointKdTree<PointKdTree_Settings<Real, 2, Scene_PointPolicy>> SceneTree;
+		typedef PointKdTree<PointKdTree_Settings<Real, 2, Model_PointPolicy>> ModelTree;
 
 		SceneTree sceneTree(scenePointPolicy);
 		sceneTree.insertRange(scene);

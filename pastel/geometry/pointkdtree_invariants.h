@@ -13,8 +13,8 @@ namespace Pastel
 	This function is useful only for debugging;
 	a correct implementation always returns true.
 	*/
-	template <typename Real, int N, typename PointPolicy>
-	bool testInvariants(const PointKdTree<Real, N, PointPolicy>& tree);
+	template <typename Settings, template <typename> class Customization>
+	bool testInvariants(const PointKdTree<Settings, Customization>& tree);
 
 }
 

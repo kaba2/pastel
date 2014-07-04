@@ -32,10 +32,13 @@ namespace Pastel
 		const Point_ConstRange& pointSet,
 		const PointPolicy& pointPolicy);
 
-	template <typename Real, int N, typename ScenePolicy, typename ModelPolicy>
+	template <
+		typename Scene_Settings, template <typename> class Scene_Customization,
+		typename Model_Settings, template <typename> class Model_Customization,
+		typename Real = typename Scene_Settings::Real>
 	bool pointPatternMatch(
-		const PointKdTree<Real, N, ScenePolicy>& sceneTree,
-		const PointKdTree<Real, N, ModelPolicy>& modelTree,
+		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
+		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
@@ -47,8 +50,10 @@ namespace Pastel
 	and calls the more general 'pointPatternMatch()'.
 	*/
 
-	template <typename Real, typename SceneRange, typename ModelRange,
-		typename Model_PointPolicy, typename Scene_PointPolicy>
+	template <
+		typename Real, typename SceneRange, typename ModelRange,
+		typename Scene_PointPolicy,
+		typename Model_PointPolicy>
 	bool pointPatternMatch(
 		const SceneRange& scene,
 		const ModelRange& model,
@@ -56,8 +61,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
 		ConformalAffine2D<Real>& similarityResult,
-		const Model_PointPolicy& modelPointPolicy,
-		const Scene_PointPolicy& scenePointPolicy);
+		const Scene_PointPolicy& scenePointPolicy,
+		const Model_PointPolicy& modelPointPolicy);
 
 	//! Finds the given model point pattern from the scene point pattern.
 	/*!

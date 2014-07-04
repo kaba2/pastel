@@ -19,11 +19,14 @@ namespace Pastel
 	kdTree.n() <= 64
 	bucketSize > 0
 	*/
-	template <typename Real, int N, typename PointPolicy, 
-		typename Output_SearchRange>
+	template <
+		typename Settings, template <typename> class Customization,
+		typename Output_SearchRange,
+		typename Real = typename Settings::Real,
+		integer N = Settings::N>
 	void searchRangeAlgorithm(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const AlignedBox<Real, N>& range,
+		const PointKdTree<Settings, Customization>& kdTree,
+		const PASTEL_NO_DEDUCTION((AlignedBox<Real, N>))& range,
 		const Output_SearchRange& reporter,
 		integer bucketSize = 8);
 

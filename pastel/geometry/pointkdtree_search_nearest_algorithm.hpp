@@ -16,21 +16,27 @@ namespace Pastel
 	namespace NearestAlgorithm_
 	{
 
-		template <typename Real, int N, typename PointPolicy, 
+		template <
+			typename Settings, template <typename> class Customization, 
 			typename Indicator, typename NormBijection, 
 			typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 		class GenericAlgorithm
 		{
 		private:
-			typedef PointKdTree<Real, N, PointPolicy> Tree;
-			typedef typename Tree::Cursor Cursor;
-			typedef typename Tree::Point_ConstIterator Point_ConstIterator;
+			using Tree = PointKdTree<Settings, Customization>;
+			
+			using Fwd = Tree;
+			PASTEL_FWD(Real);
+			PASTEL_FWD(PointPolicy);
+			static PASTEL_CONSTEXPR integer N = Settings::N;
+			PASTEL_FWD(Cursor);
+			PASTEL_FWD(Point_ConstIterator);
 
 		public:
 			GenericAlgorithm(
-				const PointKdTree<Real, N, PointPolicy>& kdTree_,
+				const PointKdTree<Settings, Customization>& kdTree_,
 				const Vector<Real, N>& searchPoint_,
-				const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchIter_,
+				const typename PointKdTree<Settings, Customization>::Point_ConstIterator& searchIter_,
 				const Real& maxDistance_,
 				const Real& maxRelativeError_,
 				const Indicator& acceptPoint_,
@@ -260,7 +266,7 @@ namespace Pastel
 
 			const Tree& kdTree;
 			const Vector<Real, N>& searchPoint;
-			const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchIter;
+			const typename PointKdTree<Settings, Customization>::Point_ConstIterator& searchIter;
 			const Real& maxDistance;
 			const Real& maxRelativeError;
 			const Indicator& acceptPoint;
@@ -279,12 +285,15 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename PointPolicy, 
-		typename Indicator, typename NormBijection, 
-		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
+	template <
+		typename Settings, template <typename> class Customization,
+		typename Indicator, typename NormBijection,
+		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
+		typename Real,
+		integer N>
 	void searchNearestAlgorithm(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const Vector<Real, N>& searchPoint,
+		const PointKdTree<Settings, Customization>& kdTree,
+		const PASTEL_NO_DEDUCTION((Vector<Real, N>))& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const Indicator& acceptPoint,
@@ -293,23 +302,25 @@ namespace Pastel
 		const CandidateFunctor& candidateFunctor,
 		const SearchAlgorithm_PointKdTree& searchAlgorithm)
 	{
-		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
+		typedef typename PointKdTree<Settings, Customization>::Cursor Cursor;
 		typedef typename SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
 			SearchAlgorithm;
 
-		NearestAlgorithm_::GenericAlgorithm<Real, N, PointPolicy, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
+		NearestAlgorithm_::GenericAlgorithm<Settings, Customization, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
 			genericAlgorithm(kdTree, searchPoint, kdTree.end(), maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
 		genericAlgorithm.work();
 	}
 
-	template <typename Real, int N, typename PointPolicy, 
-		typename Indicator, typename NormBijection, 
-		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
+	template <
+		typename Settings, template <typename> class Customization,
+		typename Indicator, typename NormBijection,
+		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
+		typename Real>
 	void searchNearestAlgorithm(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchIter,
+		const PointKdTree<Settings, Customization>& kdTree,
+		const typename PointKdTree<Settings, Customization>::Point_ConstIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const Indicator& acceptPoint,
@@ -323,14 +334,18 @@ namespace Pastel
 			return;
 		}
 
-		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
+		using Tree = PointKdTree<Settings, Customization>;
+		using Fwd = Tree;
+		PASTEL_FWD(Cursor);
+		static PASTEL_CONSTEXPR integer N = Settings::N;
+
 		typedef typename SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
 			SearchAlgorithm;
 
 		const Vector<Real, N> searchPoint =
 			kdTree.pointPolicy()(searchIter->point());
 
-		NearestAlgorithm_::GenericAlgorithm<Real, N, PointPolicy, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
+		NearestAlgorithm_::GenericAlgorithm<Settings, Customization, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
 			genericAlgorithm(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 

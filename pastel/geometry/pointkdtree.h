@@ -1,62 +1,58 @@
-// Description: PointKdTree class
-// Detail: A multi-level point kd-tree
+// Description: Point kd-tree
 
 #ifndef PASTELGEOMETRY_POINTKDTREE_H
 #define PASTELGEOMETRY_POINTKDTREE_H
 
-#include "pastel/sys/pointpolicy_concept.h"
-#include "pastel/sys/real_concept.h"
+#include "pastel/geometry/pointkdtree_concepts.h"
+#include "pastel/geometry/pointkdtree_fwd.h"
+#include "pastel/geometry/pointkdtree_node.h"
+#include "pastel/geometry/pointkdtree_cursor.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/list.h"
 #include "pastel/sys/tristate.h"
-#include "pastel/sys/pool_allocator.h"
-#include "pastel/sys/range.h"
 #include "pastel/sys/vector_pointpolicy.h"
 
 #include "pastel/geometry/alignedbox.h"
 
 #include <boost/mpl/if.hpp>
-#include <boost/iterator/indirect_iterator.hpp>
 
 namespace Pastel
 {
 
-	//! A multi-level point kd-tree
-	template <typename Real, int N = Dynamic, 
-		typename PointPolicy = Vector_PointPolicy<Real, N> >
+	template <typename Settings>
+	using Empty_PointKdTree_Customization = 
+		PointKdTree_Concepts::Customization<Settings>;
+
+	//! Point kd-tree
+	template <
+		typename Settings,
+		template <typename> class Customization = Empty_PointKdTree_Customization>
 	class PointKdTree
 	{
 	public:
-		static PASTEL_CONSTEXPR int N_ = N;
+		using Fwd = PointKdTree_Fwd<Settings>;
+		
+		PASTEL_FWD(Real);
+		PASTEL_FWD(PointPolicy);
+		static PASTEL_CONSTEXPR integer N = Fwd::N;
 
-		typedef Real Real_;
-		typedef PointPolicy PointPolicy_;
+		PASTEL_FWD(NodeAllocator);
+		PASTEL_FWD(PointAllocator);
+		PASTEL_FWD(BoundAllocator);
 
-		typedef typename PointPolicy::Point Point;
-		class Cursor;
+		PASTEL_FWD(PointSet);
+		PASTEL_FWD(Point_ConstIterator);
+		PASTEL_FWD(Point_ConstRange);
+		PASTEL_FWD(Point_Iterator);
 
-	private:
-		typedef PoolAllocator NodeAllocator;
-		typedef PoolAllocator PointAllocator;
-		typedef PoolAllocator BoundAllocator;
-
-		class PointInfo;
-		class Node;
-
-		typedef List_Set<PointInfo> PointSet;
-		typedef typename PointSet::iterator Point_Iterator;
-
-	public:
-		typedef typename PointSet::const_iterator 
-			Point_ConstIterator;
-		typedef boost::iterator_range<Point_ConstIterator>
-			Point_ConstRange;
-
-		typedef boost::indirect_iterator<Point_ConstIterator, const Point> 
-			PointData_ConstIterator;
-		typedef boost::iterator_range<PointData_ConstIterator>
-			PointData_ConstRange;
+		PASTEL_FWD(PointData_ConstIterator);
+		PASTEL_FWD(PointData_ConstRange);
+		
+		PASTEL_FWD(Point);
+		PASTEL_FWD(PointInfo);
+		PASTEL_FWD(Cursor);
+		PASTEL_FWD(Node);
+		PASTEL_FWD(SplitPredicate);
 
 		//! Constructs an empty tree.
 		/*!
@@ -312,61 +308,6 @@ namespace Pastel
 		void merge(const Cursor& cursor);
 
 	private:
-		class SplitPredicate;
-
-		class PointInfo
-		{
-		public:
-			friend class PointKdTree;
-
-			// Implicit conversion allowed.
-			PointInfo(
-				const Point& point,
-				Node* leafNode = 0,
-				bool hidden = false)
-				: point_(point)
-				, leafNode_(leafNode)
-				, hidden_(hidden)
-			{
-			}
-
-			const Point& operator*() const
-			{
-				return point_;
-			}
-
-			const Point& point() const
-			{
-				return point_;
-			}
-
-			Cursor leaf() const
-			{
-				return Cursor((Node*)leafNode_);
-			}
-
-			bool hidden() const
-			{
-				return hidden_;
-			}
-		
-		private:
-			void setLeaf(
-				const Node* leafNode) const
-			{
-				leafNode_ = leafNode;
-			}
-
-			void setHidden(bool hidden) const
-			{
-				hidden_ = hidden;
-			}
-
-			Point point_;
-			mutable const Node* leafNode_;
-			mutable bool hidden_;
-		};
-
 		//! Allocates the root node etc.
 		void initialize();
 
@@ -554,74 +495,91 @@ namespace Pastel
 			const Point_ConstIterator& end,
 			bool hidden);
 
-		/*
-		pointSet_:
-		Contains all the visible points in the tree. It is ordered 
-		such that the points of each leaf node are positioned 
-		sequentially in a range, and for a split node the 
-		points in a left node are always listed before those 
-		in a right node.
-
-		hiddenSet_:
-		Contains all the points in the tree which are not 
-		visible in nodes. The points in this set may or
-		may not have an associated node. 
-
-		insertionSet_:
-		Contains points waiting for insertion in the next 'update()'
-		call. The points in this set do not have an associated node. 
-
-		nodeAllocator_:
-		Allocates memory for the nodes of the tree.
-		Because all nodes are of the same size,
-		we can provide for extremely fast
-		node allocation via a specialized allocator.
-
-		root_:
-		The root node of the tree.
-
-		leaves_:
-		The number of leaf nodes in the tree.
-
-		pointPolicy_:
-		See 'pointpolicies.txt'.
-
-		bound_:
-		An axis aligned bounding box for the
-		points in the tree. Not necessary of minimum
-		size, since the bound is updated only on 
-		insertion (i.e., no shrinking is done).
-
-		simulateKdTree_:
-		If true, no shrinking is done to nodes.
+		//! The set of visible points. 
+		/*!
+		This set is ordered such that the points of each leaf 
+		node are positioned sequentially in a range, and for a 
+		split node the points in a left node are always listed 
+		before those in a right node.
 		*/
-
 		PointSet pointSet_;
+
+		//! The set of hidden points.
+		/*!
+		This set contains all the points in the tree which 
+		are not visible in nodes. The points in this set may 
+		or may not have an associated node. 
+		*/
 		PointSet hiddenSet_;
+
+		//! The set of points waiting for insertion.
+		/*! 
+		These points will be inserted during the next 'update()' call.
+		The points in this set do not have an associated node. 
+		*/
 		PointSet insertionSet_;
+
+		//! Allocates memory for the nodes of the tree.
+		/*!
+		Because all nodes are of the same size, we can provide 
+		for extremely fast node allocation via a specialized 
+		allocator.
+		*/
 		NodeAllocator nodeAllocator_;
+
+		//! The root node of the tree.
 		Node* root_;
+
+		//! The number of leaf nodes in the tree.
 		integer leaves_;
+
+		//! The point-abstraction.
 		PointPolicy pointPolicy_;
+
+		//! A bounding box for the points in the tree.
+		/*!
+		This box is not necessary of minimum extent, since 
+		the bound is updated only on insertion (i.e., no 
+		shrinking is done on removal).
+		*/
 		AlignedBox<Real, N> bound_;
+
+		//! Whether to act like a kd-tree.
+		/*
+		When false, the behaviour is to compute the 
+		empty space around the splitting plane, so that
+		it can be skipped. A kd-tree does not do this.
+		*/
 		bool simulateKdTree_;
 	};
 
 }
 
-#include "pastel/geometry/pointkdtree_splitpredicate.h"
-#include "pastel/geometry/pointkdtree_node.h"
-#include "pastel/geometry/pointkdtree_cursor.h"
+namespace Pastel 
+{
+
+	template <
+		typename Real_,
+		integer N_,
+		typename PointPolicy_ = Vector_PointPolicy<Real_, N_>>
+	struct PointKdTree_Settings
+	{
+		using Real = Real_;
+		static PASTEL_CONSTEXPR integer N = N_;
+		using PointPolicy = PointPolicy_;
+	};
+
+}
 
 #include "pastel/geometry/pointkdtree.hpp"
-#include "pastel/geometry/pointkdtree_private.hpp"
-
 #include "pastel/geometry/pointkdtree_count_nearest.h"
 #include "pastel/geometry/pointkdtree_depth.h"
 #include "pastel/geometry/pointkdtree_equivalent.h"
 #include "pastel/geometry/pointkdtree_invariants.h"
+#include "pastel/geometry/pointkdtree_private.hpp"
 #include "pastel/geometry/pointkdtree_search_nearest.h"
 #include "pastel/geometry/pointkdtree_search_range.h"
+#include "pastel/geometry/pointkdtree_splitpredicate.h"
 
 #include "pastel/geometry/splitrules.h"
 

@@ -9,10 +9,10 @@ namespace Pastel
 	namespace PointKdTree_Depth_
 	{
 
-		template <typename Real, int N, typename PointPolicy>
+		template <typename Settings, template <typename> class Customization>
 		integer depth(
-			const PointKdTree<Real, N, PointPolicy>& tree,
-			const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
+			const PointKdTree<Settings, Customization>& tree,
+			const typename PointKdTree<Settings, Customization>::Cursor& cursor,
 			integer currentDepth)
 		{
 			if (cursor.leaf())
@@ -27,8 +27,8 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	integer depth(const PointKdTree<Real, N, PointPolicy>& tree)
+	template <typename Settings, template <typename> class Customization>
+	integer depth(const PointKdTree<Settings, Customization>& tree)
 	{
 		return PointKdTree_Depth_::depth(tree, tree.root(), 0);
 	}

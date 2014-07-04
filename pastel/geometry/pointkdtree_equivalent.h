@@ -10,11 +10,11 @@ namespace Pastel
 
 	//! Returns whether the kd-trees are equivalent.
 	template <
-		int N_A, typename Real, typename PointPolicy_A, 
-		int N_B, typename PointPolicy_B>
+		typename A_Settings, template <typename> class A_Customization,
+		typename B_Settings, template <typename> class B_Customization> 
 	bool equivalent(
-		const PointKdTree<Real, N_A, PointPolicy_A>& aTree,
-		const PointKdTree<Real, N_B, PointPolicy_B>& bTree);
+		const PointKdTree<A_Settings, A_Customization>& aTree,
+		const PointKdTree<B_Settings, B_Customization>& bTree);
 
 }
 

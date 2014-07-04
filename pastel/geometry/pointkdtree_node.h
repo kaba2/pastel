@@ -1,13 +1,16 @@
+// Description: Point kd-tree node
+
 #ifndef PASTELGEOMETRY_POINTKDTREE_NODE_H
 #define PASTELGEOMETRY_POINTKDTREE_NODE_H
 
 #include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree_fwd.h"
 
 namespace Pastel
 {
 
-	template <typename Real, int N, typename PointPolicy>
-	class PointKdTree<Real, N, PointPolicy>::Node
+	template <typename Settings>
+	class PointKdTree_Fwd<Settings>::Node
 	{
 	public:
 		Node(

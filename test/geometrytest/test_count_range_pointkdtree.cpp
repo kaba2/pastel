@@ -27,7 +27,9 @@ namespace
 
 		void test()
 		{
-			PointKdTree<real, 2> tree;
+			using Settings = PointKdTree_Settings<real, 2>;
+
+			PointKdTree<Settings> tree;
 
 			/*
 				 ^

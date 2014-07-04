@@ -9,9 +9,8 @@ namespace Pastel
 {
 
 	//! Returns the maximum depth of the kd-tree.
-	template <typename Real, int N,
-		typename PointPolicy>
-	integer depth(const PointKdTree<Real, N, PointPolicy>& tree);
+	template <typename Settings, template <typename> class Customization>
+	integer depth(const PointKdTree<Settings, Customization>& tree);
 
 }
 

@@ -13,8 +13,8 @@ namespace Pastel
 
 	// Private
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::initialize()
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::initialize()
 	{
 		root_ = allocateLeaf(
 			0,
@@ -24,8 +24,8 @@ namespace Pastel
 		++leaves_;
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::copyConstruct(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::copyConstruct(
 		Node* thisNode, Node* thatNode)
 	{
 		ASSERT(thisNode);
@@ -58,9 +58,9 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	typename PointKdTree<Real, N, PointPolicy>::Node*
-		PointKdTree<Real, N, PointPolicy>::allocateLeaf(
+	template <typename Settings, template <typename> class Customization>
+	typename PointKdTree<Settings, Customization>::Node*
+		PointKdTree<Settings, Customization>::allocateLeaf(
 		Node* parent,
 		const Point_ConstIterator& first,
 		const Point_ConstIterator& last,
@@ -80,8 +80,8 @@ namespace Pastel
 		return node;
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::destructSubtree(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::destructSubtree(
 		Node* node)
 	{
 		if (!boost::has_trivial_destructor<Real>::value)
@@ -96,10 +96,11 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	AlignedBox<Real, N> PointKdTree<Real, N, PointPolicy>::computeBound(
+	template <typename Settings, template <typename> class Customization>
+	auto PointKdTree<Settings, Customization>::computeBound(
 		const Point_ConstIterator& begin, 
 		const Point_ConstIterator& end) const
+		-> AlignedBox<Real, N>
 	{
 		AlignedBox<Real, N> bound(
 			ofDimension(n()));
@@ -117,11 +118,12 @@ namespace Pastel
 		return bound;
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	std::pair<Real, Real> PointKdTree<Real, N, PointPolicy>::computeBound(
+	template <typename Settings, template <typename> class Customization>
+	auto PointKdTree<Settings, Customization>::computeBound(
 		const Point_ConstIterator& begin, 
 		const Point_ConstIterator& end,
 		integer axis) const
+		-> std::pair<Real, Real>
 	{
 		std::pair<Real, Real> bound(
 			infinity<Real>(), -infinity<Real>());
@@ -147,8 +149,8 @@ namespace Pastel
 		return bound;
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::merge(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::merge(
 		Node* node)
 	{
 		ASSERT(node);
@@ -197,8 +199,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::clear(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::clear(
 		Node* node)
 	{
 		ASSERT(node);
@@ -231,8 +233,8 @@ namespace Pastel
 		nodeAllocator_.deallocate(node);
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::setLeaf(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::setLeaf(
 		const Point_ConstIterator& begin,
 		const Point_ConstIterator& end,
 		Node* node)
@@ -245,8 +247,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::updateBounds(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::updateBounds(
 		Node* node, const AlignedBox<Real, N>& bound)
 	{
 		// We only allow to expand the
@@ -259,8 +261,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::updateHierarchical(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::updateHierarchical(
 		Node* node)
 	{
 		ASSERT(node);
@@ -293,8 +295,8 @@ namespace Pastel
 			left->points() + right->points());
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::erase(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::erase(
 		Node* node)
 	{
 		ASSERT(node);
@@ -317,8 +319,8 @@ namespace Pastel
 		updateUpwards(node);
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::clearPoints(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::clearPoints(
 		Node* node)
 	{
 		ASSERT(node);
@@ -340,8 +342,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::subdivide(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::subdivide(
 		Node* node,
 		const Real& splitPosition, 
 		integer splitAxis,
@@ -462,13 +464,13 @@ namespace Pastel
 		// recursive subdivision.
 	}
 
-	template <typename Real, int N, typename PointPolicy>
+	template <typename Settings, template <typename> class Customization>
 	template <typename Input_Point_ConstIterator>
-	typename PointKdTree<Real, N, PointPolicy>::Point_Iterator
-	PointKdTree<Real, N, PointPolicy>::copyToEnd(
+	auto PointKdTree<Settings, Customization>::copyToEnd(
 		const Input_Point_ConstIterator& begin, 
 		const Input_Point_ConstIterator& end,
 		bool hidden)
+		-> Point_Iterator
 	{
 		ASSERT(begin != end);
 
@@ -492,8 +494,8 @@ namespace Pastel
 		return first;
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::insert(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::insert(
 		Node* node,
 		const Point_Iterator& first, 
 		const Point_Iterator& last,
@@ -597,9 +599,9 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
+	template <typename Settings, template <typename> class Customization>
 	template <typename SplitRule>
-	void PointKdTree<Real, N, PointPolicy>::refine(
+	void PointKdTree<Settings, Customization>::refine(
 		Node* node,
 		Vector<Real, N>& minBound,
 		Vector<Real, N>& maxBound,
@@ -669,8 +671,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::commitInsertion()
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::commitInsertion()
 	{
 		if (insertionSet_.empty())
 		{
@@ -697,8 +699,8 @@ namespace Pastel
 		extendToCover(pointBound, bound_);
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::commitErase(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::commitErase(
 		const Point_ConstIterator& iter)
 	{
 		ASSERT(iter != pointSet_.end());
@@ -734,8 +736,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::commitHide(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::commitHide(
 		const Point_ConstIterator& point)
 	{
 		ASSERT(point != pointSet_.end());
@@ -783,8 +785,8 @@ namespace Pastel
 		iter->setHidden(true);
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::commitShow(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::commitShow(
 		const Point_ConstIterator& point)
 	{
 		ASSERT(point != pointSet_.end());
@@ -837,8 +839,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::updateDownwards(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::updateDownwards(
 		Node* node)
 	{
 		if (node->invalid())
@@ -850,8 +852,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::updateUpwards(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::updateUpwards(
 		Node* node)
 	{
 		ASSERT(node);
@@ -870,8 +872,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::setHidden(
+	template <typename Settings, template <typename> class Customization>
+	void PointKdTree<Settings, Customization>::setHidden(
 		const Point_ConstIterator& begin, 
 		const Point_ConstIterator& end,
 		bool hidden)

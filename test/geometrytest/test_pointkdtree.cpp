@@ -23,7 +23,16 @@ namespace
 		: public TestSuite
 	{
 	public:
-		typedef PointKdTree<real, 2> Tree;
+		template <integer N_>
+		class Settings
+		{
+		public:
+			using Real = real;
+			static PASTEL_CONSTEXPR integer N = N_;
+			using PointPolicy = Vector_PointPolicy<Real, N_>;
+		};
+
+		typedef PointKdTree<Settings<2>> Tree;
 		typedef Tree::Point_ConstIterator Point_ConstIterator;
 
 		Test()
@@ -329,7 +338,7 @@ namespace
 		template <int N>
 		void testCircular()
 		{
-			typedef PointKdTree<real, N> Tree;
+			typedef PointKdTree<Settings<N>> Tree;
 			typedef typename Tree::Point_ConstIterator Point_ConstIterator;
 
 			const integer m = 10000;

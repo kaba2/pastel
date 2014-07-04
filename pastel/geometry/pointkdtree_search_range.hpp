@@ -48,11 +48,12 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename PointPolicy, 
+	template <
+		typename Settings, template <typename> class Customization, 
 		typename Point_ConstIterator_Output>
 	void searchRange(
-		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const AlignedBox<Real, N>& range,
+		const PointKdTree<Settings, Customization>& kdTree,
+		const AlignedBox<typename Settings::Real, Settings::N>& range,
 		Point_ConstIterator_Output report)
 	{
 		PointKdTree_Search_Range_::Search_Output<Point_ConstIterator_Output>

@@ -2,12 +2,13 @@
 #define PASTELGEOMETRY_POINTKDTREE_SPLITPREDICATE_H
 
 #include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree_fwd.h"
 
 namespace Pastel
 {
 
-	template <typename Real, int N, typename PointPolicy>
-	class PointKdTree<Real, N, PointPolicy>::SplitPredicate
+	template <typename Settings>
+	class PointKdTree_Fwd<Settings>::SplitPredicate
 	{
 	public:
 		SplitPredicate(

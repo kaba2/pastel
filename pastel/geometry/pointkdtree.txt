@@ -1,29 +1,9 @@
-Multi-level kd-tree
-===================
+Point kd-tree
+=============
 
 [[Parent]]: data_structures.txt
 
-A _multi-level kd-tree_ is a point kd-tree in which each node has
-access to the points (and their number) under its subtree.
-
-Practice
---------
-
-The `PointKdTree` class is a data structure for storing and 
-manipulating a multi-level kd-tree. It is declared as:
-
-[[CppCode]]:
-	template <typename Real, int N = Dynamic, 
-		typename PointPolicy = Vector_PointPolicy<Real, N> >
-	class PointKdTree;
-
-where `N` is the dimensionality of the tree, `Real` is a computation
-type which models an [ordered field][Real], and `PointPolicy` defines
-the [representation of points][PointPolicy]. The dimensionality can be 
-set to `Dynamic` meaning that it is chosen at runtime. 
-
-[Real]: [[Ref]]: reals.txt
-[PointPolicy]: [[Ref]]: pointpolicies.txt
+A _point kd-tree_ is a tree data-structure for storing a finite set of points ''P subset RR^d'' such that nearest neighbors can be found efficiently.
 
 ### Traversal of the subdivision using cursors
 
