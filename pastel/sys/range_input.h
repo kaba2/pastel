@@ -16,11 +16,18 @@ namespace Pastel
 	template <typename Range>
 	class Range_Input
 	{
-	public:
-		typedef typename boost::range_iterator<Range>::type Iterator;
+	private:
+		typedef typename boost::range_iterator<const Range>::type Iterator;
 		typedef typename boost::range_value<Range>::type Type;
 
-		Range_Input(Range range)
+	public:
+		Range_Input()
+			: begin_()
+			, end_()
+		{
+		}
+
+		Range_Input(const Range& range)
 			: begin_(std::begin(range))
 			, end_(std::end(range))
 		{
@@ -54,14 +61,15 @@ namespace Pastel
 	};
 
 	template <typename Range>
-	Range_Input<Range> rangeInput(Range range)
+	Range_Input<Range> rangeInput(
+		const Range& range)
 	{
-		return Range_Input<Range>(range);
+		return range;
 	}
 
 	template <typename Iterator>
 	Range_Input<boost::iterator_range<Iterator>> rangeInput(
-		Iterator begin, Iterator end)
+		const Iterator& begin, const Iterator& end)
 	{
 		return Pastel::rangeInput(range(begin, end));
 	}
