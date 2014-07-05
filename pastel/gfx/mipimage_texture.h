@@ -23,7 +23,7 @@ namespace Pastel
 		: public Texture<Type, N>
 	{
 	public:
-		typedef ArrayExtender<N, Type> ArrayExtender_;
+		using ArrayExtender_ = ArrayExtender<N, Type>;
 		
 		MipImage_Texture();
 

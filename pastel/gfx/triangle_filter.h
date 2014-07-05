@@ -30,8 +30,8 @@ namespace Pastel
 		Triangle_Filter& operator=(const Triangle_Filter& that) = delete;
 	};
 
-	typedef std::shared_ptr<Triangle_Filter> TriangleFilterPtr;
-	typedef std::shared_ptr<const Triangle_Filter> ConstTriangleFilterPtr;
+	using TriangleFilterPtr = std::shared_ptr<Triangle_Filter>;
+	using ConstTriangleFilterPtr = std::shared_ptr<const Triangle_Filter>;
 
 	inline TriangleFilterPtr triangleFilter()
 	{

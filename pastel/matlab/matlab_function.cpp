@@ -15,8 +15,8 @@ namespace Pastel
 	namespace
 	{
 
-		typedef std::map<std::string, MatlabFunction*> FunctionMap;
-		typedef FunctionMap::const_iterator FunctionIterator;	
+		using FunctionMap = std::map<std::string, MatlabFunction*>;
+		using FunctionIterator = FunctionMap::const_iterator;	
 
 		FunctionMap& functionMap()
 		{

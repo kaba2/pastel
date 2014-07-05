@@ -40,7 +40,7 @@ namespace Pastel
 			return;
 		}
 
-		typedef uint64 Flags;
+		using Flags = uint64;
 
 		const integer n = kdTree.n();
 		const Flags fullFlags = ((Flags)1 << n) - 1;

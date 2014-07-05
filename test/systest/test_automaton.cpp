@@ -33,10 +33,10 @@ namespace
 
 		void testSimple()
 		{
-			typedef Automaton<integer> Automaton;
-			typedef Automaton::State_ConstIterator State_ConstIterator;
-			typedef Automaton::State_Iterator State_Iterator;
-			typedef Automaton::Transition_Iterator Transition;
+			using Automaton = Automaton<integer>;
+			using State_ConstIterator = Automaton::State_ConstIterator;
+			using State_Iterator = Automaton::State_Iterator;
+			using Transition = Automaton::Transition_Iterator;
 
 			Automaton automaton;
 

@@ -12,24 +12,24 @@
 namespace Pastel
 {
 
-	typedef PASTEL_SIMPLEX(real, 1, 1) Simplex1;
-	typedef PASTEL_SIMPLEX(real, 2, 2) Simplex2;
-	typedef PASTEL_SIMPLEX(real, 3, 3) Simplex3;
-	typedef PASTEL_SIMPLEX(real, 4, 4) Simplex4;
+	using Simplex1 = PASTEL_SIMPLEX(real, 1, 1);
+	using Simplex2 = PASTEL_SIMPLEX(real, 2, 2);
+	using Simplex3 = PASTEL_SIMPLEX(real, 3, 3);
+	using Simplex4 = PASTEL_SIMPLEX(real, 4, 4);
 
-	typedef PASTEL_SIMPLEX(real, 1, 1) Simplex11;
-	typedef PASTEL_SIMPLEX(real, 2, 1) Simplex21;
-	typedef PASTEL_SIMPLEX(real, 3, 1) Simplex31;
-	typedef PASTEL_SIMPLEX(real, 4, 1) Simplex41;
+	using Simplex11 = PASTEL_SIMPLEX(real, 1, 1);
+	using Simplex21 = PASTEL_SIMPLEX(real, 2, 1);
+	using Simplex31 = PASTEL_SIMPLEX(real, 3, 1);
+	using Simplex41 = PASTEL_SIMPLEX(real, 4, 1);
 
-	typedef PASTEL_SIMPLEX(real, 2, 2) Simplex22;
-	typedef PASTEL_SIMPLEX(real, 3, 2) Simplex32;
-	typedef PASTEL_SIMPLEX(real, 4, 2) Simplex42;
+	using Simplex22 = PASTEL_SIMPLEX(real, 2, 2);
+	using Simplex32 = PASTEL_SIMPLEX(real, 3, 2);
+	using Simplex42 = PASTEL_SIMPLEX(real, 4, 2);
 
-	typedef PASTEL_SIMPLEX(real, 3, 3) Simplex33;
-	typedef PASTEL_SIMPLEX(real, 4, 3) Simplex43;
+	using Simplex33 = PASTEL_SIMPLEX(real, 3, 3);
+	using Simplex43 = PASTEL_SIMPLEX(real, 4, 3);
 
-	typedef PASTEL_SIMPLEX(real, 4, 4) Simplex44;
+	using Simplex44 = PASTEL_SIMPLEX(real, 4, 4);
 
 }
 

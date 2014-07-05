@@ -14,7 +14,7 @@ using namespace Pastel;
 namespace
 {
 
-	typedef Rational<BigInteger> Real;
+	using Real = Rational<BigInteger>;
 
 	class Test
 		: public TestSuite

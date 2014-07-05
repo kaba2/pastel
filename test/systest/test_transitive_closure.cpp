@@ -34,12 +34,12 @@ namespace
 
 		void testTransitiveClosureAddition()
 		{
-			typedef Pastel::Directed_Graph<integer> Graph;
-			typedef Graph::Vertex Vertex;
-			typedef Graph::Edge Edge;
-			typedef Graph::Vertex_Iterator Vertex_Iterator;
-			typedef Graph::Edge_Iterator Edge_Iterator;
-			typedef Graph::Incidence_Iterator Incidence_Iterator;
+			using Graph = Pastel::Directed_Graph<integer>;
+			using Vertex = Graph::Vertex;
+			using Edge = Graph::Edge;
+			using Vertex_Iterator = Graph::Vertex_Iterator;
+			using Edge_Iterator = Graph::Edge_Iterator;
+			using Incidence_Iterator = Graph::Incidence_Iterator;
 
 			Graph relation;
 
@@ -157,14 +157,14 @@ namespace
 
 		void testTransitiveClosureUnion()
 		{
-			typedef std::unordered_set<integer> Set;
+			using Set = std::unordered_set<integer>;
 
-			typedef Pastel::Directed_Graph<Set> Graph;
-			typedef Graph::Vertex Vertex;
-			typedef Graph::Edge Edge;
-			typedef Graph::Vertex_Iterator Vertex_Iterator;
-			typedef Graph::Edge_Iterator Edge_Iterator;
-			typedef Graph::Incidence_Iterator Incidence_Iterator;
+			using Graph = Pastel::Directed_Graph<Set>;
+			using Vertex = Graph::Vertex;
+			using Edge = Graph::Edge;
+			using Vertex_Iterator = Graph::Vertex_Iterator;
+			using Edge_Iterator = Graph::Edge_Iterator;
+			using Incidence_Iterator = Graph::Incidence_Iterator;
 
 			Graph relation;
 	

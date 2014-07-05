@@ -21,7 +21,7 @@ namespace Pastel
 			// simplify the part below. They are not used in 
 			// Automaton.
 
-			typedef Automaton_Fwd<Symbol, StateData, TransitionData> Fwd;
+			using Fwd = Automaton_Fwd<Symbol, StateData, TransitionData>;
 		
 			PASTEL_FWD(State_Iterator);
 			PASTEL_FWD(State_ConstIterator);

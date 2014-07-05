@@ -34,11 +34,11 @@ namespace Pastel
 		struct Enabler {};
 
 	public:
-		typedef const Vector& StorageType;
+		using StorageType = const Vector&;
 		//using ExpressionBase::operator-;
 
-		typedef typename Tuple<Real, N>::Iterator Iterator;
-		typedef typename Tuple<Real, N>::ConstIterator ConstIterator;
+		using Iterator = typename Tuple<Real, N>::Iterator;
+		using ConstIterator = typename Tuple<Real, N>::ConstIterator;
 
 		Vector()
 			: data_(ofDimension((N == Dynamic) ? 0 : N), 0)
@@ -598,22 +598,22 @@ namespace Pastel
 		Tuple<Real, N> data_;
 	};
 
-	typedef Vector<real, 1> Vector1;
-	typedef Vector<real, 2> Vector2;
-	typedef Vector<real, 3> Vector3;
-	typedef Vector<real, 4> Vector4;
-	typedef Vector<real, Dynamic> VectorD;
+	using Vector1 = Vector<real, 1>;
+	using Vector2 = Vector<real, 2>;
+	using Vector3 = Vector<real, 3>;
+	using Vector4 = Vector<real, 4>;
+	using VectorD = Vector<real, Dynamic>;
 
-	typedef Vector<integer, 1> Vector1i;
-	typedef Vector<integer, 2> Vector2i;
-	typedef Vector<integer, 3> Vector3i;
-	typedef Vector<integer, 4> Vector4i;
-	typedef Vector<integer, Dynamic> VectorDi;
+	using Vector1i = Vector<integer, 1>;
+	using Vector2i = Vector<integer, 2>;
+	using Vector3i = Vector<integer, 3>;
+	using Vector4i = Vector<integer, 4>;
+	using VectorDi = Vector<integer, Dynamic>;
 
-	typedef Vector1 UnitVector1;
-	typedef Vector2 UnitVector2;
-	typedef Vector3 UnitVector3;
-	typedef Vector4 UnitVector4;
+	using UnitVector1 = Vector1;
+	using UnitVector2 = Vector2;
+	using UnitVector3 = Vector3;
+	using UnitVector4 = Vector4;
 
 	template <typename Real, int N>
 	void swap(Vector<Real, N>& left,

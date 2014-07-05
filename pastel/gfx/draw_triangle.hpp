@@ -64,7 +64,7 @@ namespace Pastel
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
-		typedef SolidTriangle_::Vertex Vertex;
+		using Vertex = SolidTriangle_::Vertex;
 
 		std::vector<Vertex> vertex;
 		vertex.reserve(3);

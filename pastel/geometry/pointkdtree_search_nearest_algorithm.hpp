@@ -302,7 +302,7 @@ namespace Pastel
 		const CandidateFunctor& candidateFunctor,
 		const SearchAlgorithm_PointKdTree& searchAlgorithm)
 	{
-		typedef typename PointKdTree<Settings, Customization>::Cursor Cursor;
+		using Cursor = typename PointKdTree<Settings, Customization>::Cursor;
 		typedef typename SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
 			SearchAlgorithm;
 

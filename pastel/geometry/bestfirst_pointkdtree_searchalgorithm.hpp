@@ -19,7 +19,7 @@ namespace Pastel
 		class Instance
 		{
 		public:
-			typedef KeyValue<Real, Cursor> Entry;
+			using Entry = KeyValue<Real, Cursor>;
 			typedef std::priority_queue<Entry,
 				std::vector<Entry>,
 				std::greater<Entry> > EntrySet;

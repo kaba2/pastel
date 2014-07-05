@@ -20,13 +20,13 @@ namespace Pastel
 			{
 			public:
 				//! The type of the first element.
-				typedef UserDefinedType Left;
+				using Left = UserDefinedType;
 
 				//! The type of the second element.
-				typedef UserDefinedType Right;
+				using Right = UserDefinedType;
 
 				//! The type of the concrete pair.
-				typedef Type_ Type;
+				using Type = Type_;
 
 				//! Returns the first element of a pair.
 				Left& left(Type& that);

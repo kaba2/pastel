@@ -13,8 +13,8 @@ namespace Pastel
 	{
 	public:
 		static PASTEL_CONSTEXPR int N = N_;
-		typedef Real_ Real;
-		typedef const Real* Point;
+		using Real = Real_;
+		using Point = const Real*;
 
 		explicit Pointer_Locator(integer n = N)
 			: n_(n)

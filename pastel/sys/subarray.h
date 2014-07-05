@@ -31,19 +31,19 @@ namespace Pastel
 			Iterator;
 		typedef SubArray_ConstIterator<Type, N> 
 			ConstIterator;
-		typedef boost::iterator_range<Iterator>
-			Range;
-		typedef boost::iterator_range<ConstIterator>
-			ConstRange;
+		using Range = boost::iterator_range<Iterator>
+;
+		using ConstRange = boost::iterator_range<ConstIterator>
+;
 
 		typedef SparseIterator<Type*> 
 			RowIterator;
 		typedef ConstSparseIterator<const Type*> 
 			ConstRowIterator;
-		typedef boost::iterator_range<RowIterator>
-			RowRange;
-		typedef boost::iterator_range<ConstRowIterator>
-			ConstRowRange;
+		using RowRange = boost::iterator_range<RowIterator>
+;
+		using ConstRowRange = boost::iterator_range<ConstRowIterator>
+;
 
 		// Using default copy constructor.
 		// Using default destructor.
@@ -409,13 +409,13 @@ namespace Pastel
 	public:
 		friend class SubArray<Type, N>;
 
-		typedef SubArray_ConstIterator<Type, N> ConstIterator;
-		typedef ConstSparseIterator<const Type*> ConstRowIterator;
+		using ConstIterator = SubArray_ConstIterator<Type, N>;
+		using ConstRowIterator = ConstSparseIterator<const Type*>;
 
-		typedef boost::iterator_range<ConstIterator>
-			ConstRange;
-		typedef boost::iterator_range<ConstRowIterator>
-			ConstRowRange;
+		using ConstRange = boost::iterator_range<ConstIterator>
+;
+		using ConstRowRange = boost::iterator_range<ConstRowIterator>
+;
 
 		// Using default copy constructor.
 		// Using default assignment.

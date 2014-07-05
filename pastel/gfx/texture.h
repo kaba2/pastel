@@ -17,7 +17,7 @@ namespace Pastel
 	class Texture
 	{
 	public:
-		typedef Type Element;
+		using Element = Type;
 
 		virtual ~Texture() {}
 

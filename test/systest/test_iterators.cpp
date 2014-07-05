@@ -19,9 +19,9 @@ namespace
 
 	class A;
 
-	typedef std::map<A, A> PairSet;
-	typedef Second_Iterator<PairSet::iterator, false> Pair_Iterator;
-	typedef Second_Iterator<PairSet::const_iterator, true> Pair_ConstIterator;
+	using PairSet = std::map<A, A>;
+	using Pair_Iterator = Second_Iterator<PairSet::iterator, false>;
+	using Pair_ConstIterator = Second_Iterator<PairSet::const_iterator, true>;
 
 	class A
 	{

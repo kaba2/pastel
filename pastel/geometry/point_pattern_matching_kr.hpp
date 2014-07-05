@@ -30,22 +30,22 @@ namespace Pastel
 		class PointPatternKr
 		{
 		public:
-			typedef Result_PointPatternMatchKr<Real, N> Match;
+			using Match = Result_PointPatternMatchKr<Real, N>;
 
-			typedef PointKdTree<Model_Settings, Model_Customization> ModelTree;
+			using ModelTree = PointKdTree<Model_Settings, Model_Customization>;
 			typedef typename ModelTree::Point_ConstIterator 
 				Model_ConstIterator;
-			typedef typename ModelTree::Point ModelPoint;
+			using ModelPoint = typename ModelTree::Point;
 
-			typedef PointKdTree<Scene_Settings, Scene_Customization> SceneTree;
+			using SceneTree = PointKdTree<Scene_Settings, Scene_Customization>;
 			typedef typename SceneTree::Point_ConstIterator 
 				Scene_ConstIterator;
-			typedef typename SceneTree::Point ScenePoint;
+			using ScenePoint = typename SceneTree::Point;
 
-			typedef std::pair<Scene_ConstIterator, Model_ConstIterator> Pair;
-			typedef std::vector<Pair> PairSet;
-			typedef typename PairSet::iterator Pair_Iterator;
-			typedef typename PairSet::const_iterator Pair_ConstIterator;
+			using Pair = std::pair<Scene_ConstIterator, Model_ConstIterator>;
+			using PairSet = std::vector<Pair>;
+			using Pair_Iterator = typename PairSet::iterator;
+			using Pair_ConstIterator = typename PairSet::const_iterator;
 
 			Match match(
 				const ModelTree& modelTree,

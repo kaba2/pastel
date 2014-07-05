@@ -47,7 +47,7 @@ namespace Pastel
 			xMax = image.width();
 		}
 
-		typedef typename Image_View::Cursor Cursor;
+		using Cursor = typename Image_View::Cursor;
 
 		Cursor cursor = image.cursor(xMin, y);
 

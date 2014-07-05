@@ -21,9 +21,9 @@ namespace Pastel
 		public:
 			static PASTEL_CONSTEXPR int Dimension = N;
 
-			typedef typename Contained_ConstView::ConstCursor ConstCursor;
-			typedef typename Contained_ConstView::Element Element;
-			typedef typename Contained_ConstView::ConstReference ConstReference;
+			using ConstCursor = typename Contained_ConstView::ConstCursor;
+			using Element = typename Contained_ConstView::Element;
+			using ConstReference = typename Contained_ConstView::ConstReference;
 
 			ConstViewBase()
 				: view_()
@@ -71,12 +71,12 @@ namespace Pastel
 		: public View_::ConstViewBase<N, Type, Contained_ConstView>
 	{
 	private:
-		typedef View_::ConstViewBase<N, Type, Contained_ConstView> Base;
+		using Base = View_::ConstViewBase<N, Type, Contained_ConstView>;
 
 	public:
-		typedef typename Contained_ConstView::ConstCursor ConstCursor;
-		typedef typename Contained_ConstView::Element Element;
-		typedef typename Contained_ConstView::ConstReference ConstReference;
+		using ConstCursor = typename Contained_ConstView::ConstCursor;
+		using Element = typename Contained_ConstView::Element;
+		using ConstReference = typename Contained_ConstView::ConstReference;
 
 		ConstView()
 			: Base()
@@ -99,12 +99,12 @@ namespace Pastel
 		: public View_::ConstViewBase<1, Type, Contained_ConstView>
 	{
 	private:
-		typedef View_::ConstViewBase<1, Type, Contained_ConstView> Base;
+		using Base = View_::ConstViewBase<1, Type, Contained_ConstView>;
 
 	public:
-		typedef typename Contained_ConstView::ConstCursor ConstCursor;
-		typedef typename Contained_ConstView::Element Element;
-		typedef typename Contained_ConstView::ConstReference ConstReference;
+		using ConstCursor = typename Contained_ConstView::ConstCursor;
+		using Element = typename Contained_ConstView::Element;
+		using ConstReference = typename Contained_ConstView::ConstReference;
 
 		using Base::operator();
 		using Base::constCursor;
@@ -145,12 +145,12 @@ namespace Pastel
 		: public View_::ConstViewBase<2, Type, Contained_ConstView>
 	{
 	private:
-		typedef View_::ConstViewBase<2, Type, Contained_ConstView> Base;
+		using Base = View_::ConstViewBase<2, Type, Contained_ConstView>;
 
 	public:
-		typedef typename Contained_ConstView::ConstCursor ConstCursor;
-		typedef typename Contained_ConstView::Element Element;
-		typedef typename Contained_ConstView::ConstReference ConstReference;
+		using ConstCursor = typename Contained_ConstView::ConstCursor;
+		using Element = typename Contained_ConstView::Element;
+		using ConstReference = typename Contained_ConstView::ConstReference;
 
 		using Base::operator();
 		using Base::constCursor;
@@ -196,12 +196,12 @@ namespace Pastel
 		: public View_::ConstViewBase<3, Type, Contained_ConstView>
 	{
 	private:
-		typedef View_::ConstViewBase<3, Type, Contained_ConstView> Base;
+		using Base = View_::ConstViewBase<3, Type, Contained_ConstView>;
 
 	public:
-		typedef typename Contained_ConstView::ConstCursor ConstCursor;
-		typedef typename Contained_ConstView::Element Element;
-		typedef typename Contained_ConstView::ConstReference ConstReference;
+		using ConstCursor = typename Contained_ConstView::ConstCursor;
+		using Element = typename Contained_ConstView::Element;
+		using ConstReference = typename Contained_ConstView::ConstReference;
 
 		using Base::operator();
 		using Base::constCursor;
@@ -264,17 +264,17 @@ namespace Pastel
 			: public ConstView<N, Type, Contained_View>
 		{
 		private:
-			typedef ConstView<N, Type, Contained_View> Base;
+			using Base = ConstView<N, Type, Contained_View>;
 
 		public:
-			typedef typename Contained_View::Cursor Cursor;
-			typedef typename Contained_View::Reference Reference;
+			using Cursor = typename Contained_View::Cursor;
+			using Reference = typename Contained_View::Reference;
 
 			// Needed because base class is dependent on
 			// template parameters.
 			//using Base::Dimension;
-			typedef typename Base::Element Element;
-			typedef typename Base::ConstCursor ConstCursor;
+			using Element = typename Base::Element;
+			using ConstCursor = typename Base::ConstCursor;
 			// We do not want to bring the ConstView's operator() into scope...
 			//using Base::operator();
 			using Base::extent;
@@ -314,16 +314,16 @@ namespace Pastel
 		: public View_::ViewBase<N, Type, Contained_View>
 	{
 	private:
-		typedef View_::ViewBase<N, Type, Contained_View> Base;
+		using Base = View_::ViewBase<N, Type, Contained_View>;
 
 	public:
 		// Needed because base class is dependent on
 		// template parameters.
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
-		typedef typename Base::Reference Reference;
-		typedef typename Base::ConstCursor ConstCursor;
-		typedef typename Base::Cursor Cursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
+		using Reference = typename Base::Reference;
+		using ConstCursor = typename Base::ConstCursor;
+		using Cursor = typename Base::Cursor;
 		using Base::operator();
 		using Base::extent;
 		using Base::contained;
@@ -351,16 +351,16 @@ namespace Pastel
 		: public View_::ViewBase<1, Type, Contained_View>
 	{
 	private:
-		typedef View_::ViewBase<1, Type, Contained_View> Base;
+		using Base = View_::ViewBase<1, Type, Contained_View>;
 
 	public:
 		// Needed because base class is dependent on
 		// template parameters.
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
-		typedef typename Base::Reference Reference;
-		typedef typename Base::ConstCursor ConstCursor;
-		typedef typename Base::Cursor Cursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
+		using Reference = typename Base::Reference;
+		using ConstCursor = typename Base::ConstCursor;
+		using Cursor = typename Base::Cursor;
 		using Base::operator();
 		using Base::extent;
 		using Base::contained;
@@ -403,16 +403,16 @@ namespace Pastel
 		: public View_::ViewBase<2, Type, Contained_View>
 	{
 	private:
-		typedef View_::ViewBase<2, Type, Contained_View> Base;
+		using Base = View_::ViewBase<2, Type, Contained_View>;
 
 	public:
 		// Needed because base class is dependent on
 		// template parameters.
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
-		typedef typename Base::Reference Reference;
-		typedef typename Base::ConstCursor ConstCursor;
-		typedef typename Base::Cursor Cursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
+		using Reference = typename Base::Reference;
+		using ConstCursor = typename Base::ConstCursor;
+		using Cursor = typename Base::Cursor;
 		using Base::operator();
 		using Base::extent;
 		using Base::contained;
@@ -460,16 +460,16 @@ namespace Pastel
 		: public View_::ViewBase<3, Type, Contained_View>
 	{
 	private:
-		typedef View_::ViewBase<3, Type, Contained_View> Base;
+		using Base = View_::ViewBase<3, Type, Contained_View>;
 
 	public:
 		// Needed because base class is dependent on
 		// template parameters.
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
-		typedef typename Base::Reference Reference;
-		typedef typename Base::ConstCursor ConstCursor;
-		typedef typename Base::Cursor Cursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
+		using Reference = typename Base::Reference;
+		using ConstCursor = typename Base::ConstCursor;
+		using Cursor = typename Base::Cursor;
 		using Base::operator();
 		using Base::extent;
 		using Base::contained;

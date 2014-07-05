@@ -29,7 +29,7 @@ namespace Pastel
 		> > > >
 	{
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 		static PASTEL_CONSTEXPR int N_ = N;
 
 		// Using default copy constructor.
@@ -105,11 +105,11 @@ namespace Pastel
 		Topology endTopology_;
 	};
 
-	typedef Segment<real, 1> Segment1;
-	typedef Segment<real, 2> Segment2;
-	typedef Segment<real, 3> Segment3;
-	typedef Segment<real, 4> Segment4;
-	typedef Segment<real, Dynamic> SegmentD;
+	using Segment1 = Segment<real, 1>;
+	using Segment2 = Segment<real, 2>;
+	using Segment3 = Segment<real, 3>;
+	using Segment4 = Segment<real, 4>;
+	using SegmentD = Segment<real, Dynamic>;
 
 	template <typename Real, int N>
 	void swap(

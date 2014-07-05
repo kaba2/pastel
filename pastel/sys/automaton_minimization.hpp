@@ -27,7 +27,7 @@ namespace Pastel
 		// Antti Valmari, Information Processing Letters,
 		// Volume 112, Issue 6, 2012, pp. 213-217.
 
-		typedef Automaton<Symbol, StateData, TransitionData, Customization> Automaton;
+		using Automaton = Automaton<Symbol, StateData, TransitionData, Customization>;
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 		typedef typename Automaton::Transition_ConstIterator
@@ -44,8 +44,8 @@ namespace Pastel
 		typedef typename StatePartition::Element_ConstIterator
 			BlockElement_ConstIterator;
 
-		typedef RefinablePartition<Transition_ConstIterator>
-			TransitionPartition;
+		using TransitionPartition = RefinablePartition<Transition_ConstIterator>
+;
 		typedef typename TransitionPartition::Set_Iterator
 			Cord_Iterator;
 		typedef typename TransitionPartition::Set_ConstIterator

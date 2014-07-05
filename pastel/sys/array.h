@@ -33,23 +33,23 @@ namespace Pastel
 
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef SparseIterator<Type*> RowIterator;
-		typedef ConstSparseIterator<const Type*> ConstRowIterator;
-		typedef boost::iterator_range<RowIterator> RowRange;
-		typedef boost::iterator_range<ConstRowIterator> ConstRowRange;
+		using RowIterator = SparseIterator<Type*>;
+		using ConstRowIterator = ConstSparseIterator<const Type*>;
+		using RowRange = boost::iterator_range<RowIterator>;
+		using ConstRowRange = boost::iterator_range<ConstRowIterator>;
 
-		typedef Type Element;
-		typedef Type& Reference;
-		typedef const Type& ConstReference;
+		using Element = Type;
+		using Reference = Type&;
+		using ConstReference = const Type&;
 
-		typedef Type* Iterator;
-		typedef const Type* ConstIterator;
+		using Iterator = Type*;
+		using ConstIterator = const Type*;
 
-		typedef boost::iterator_range<Iterator> Range;
-		typedef boost::iterator_range<ConstIterator> ConstRange;
+		using Range = boost::iterator_range<Iterator>;
+		using ConstRange = boost::iterator_range<ConstIterator>;
 
-		typedef Array_::Cursor<Type, N> Cursor;
-		typedef Array_::ConstCursor<Type, N> ConstCursor;
+		using Cursor = Array_::Cursor<Type, N>;
+		using ConstCursor = Array_::ConstCursor<Type, N>;
 
 		//! Constructs an empty array.
 		Array();

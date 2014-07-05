@@ -27,8 +27,8 @@ namespace
 	class Complex_Real_Adapter
 	{
 	public:
-		typedef real32 Logical;
-		typedef std::complex<real32> Physical;
+		using Logical = real32;
+		using Physical = std::complex<real32>;
 
 		Logical convert(const Physical& physical) const
 		{
@@ -41,13 +41,13 @@ namespace
 		}
 	};
 
-	typedef ReverseAdapter<Complex_Real_Adapter> Real_Complex_Adapter;
+	using Real_Complex_Adapter = ReverseAdapter<Complex_Real_Adapter>;
 
 	class Complex_Mod_Adapter
 	{
 	public:
-		typedef real32 Logical;
-		typedef std::complex<real32> Physical;
+		using Logical = real32;
+		using Physical = std::complex<real32>;
 
 		Logical convert(const Physical& physical) const
 		{

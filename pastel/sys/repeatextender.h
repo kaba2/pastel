@@ -24,8 +24,8 @@ namespace Pastel
 		}
 	};
 
-	typedef CountedPtr<RepeatExtender> RepeatExtenderPtr;
-	typedef CountedPtr<const RepeatExtender> ConstRepeatExtenderPtr;
+	using RepeatExtenderPtr = CountedPtr<RepeatExtender>;
+	using ConstRepeatExtenderPtr = CountedPtr<const RepeatExtender>;
 
 	inline RepeatExtenderPtr repeatExtender()
 	{

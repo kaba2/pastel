@@ -24,7 +24,7 @@ namespace Pastel
 			return;
 		}
 
-		typedef typename Image_View::Cursor Cursor;
+		using Cursor = typename Image_View::Cursor;
 
 		const Type source = *image.cursor(xStart, yStart);
 

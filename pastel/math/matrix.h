@@ -31,34 +31,34 @@ namespace Pastel
 		: public MatrixExpression<Real, Matrix<Real>>
 	{
 	public:
-		typedef const Matrix& StorageType;
+		using StorageType = const Matrix&;
 
 		// Iterators
-		typedef Real* Iterator;
-		typedef const Real* ConstIterator;
+		using Iterator = Real*;
+		using ConstIterator = const Real*;
 
-		typedef typename Array<Real>::Cursor Cursor;
-		typedef typename Array<Real>::ConstCursor ConstCursor;
+		using Cursor = typename Array<Real>::Cursor;
+		using ConstCursor = typename Array<Real>::ConstCursor;
 
-		typedef typename Array<Real>::RowIterator RowIterator;
-		typedef typename Array<Real>::ConstRowIterator ConstRowIterator;
+		using RowIterator = typename Array<Real>::RowIterator;
+		using ConstRowIterator = typename Array<Real>::ConstRowIterator;
 
-		typedef typename Array<Real>::RowIterator ColumnIterator;
-		typedef typename Array<Real>::ConstRowIterator ConstColumnIterator;
+		using ColumnIterator = typename Array<Real>::RowIterator;
+		using ConstColumnIterator = typename Array<Real>::ConstRowIterator;
 
 		// Iterator ranges
-		typedef boost::iterator_range<Iterator> Range;
-		typedef boost::iterator_range<ConstIterator> ConstRange;
+		using Range = boost::iterator_range<Iterator>;
+		using ConstRange = boost::iterator_range<ConstIterator>;
 
-		typedef boost::iterator_range<RowIterator> RowRange;
-		typedef boost::iterator_range<ConstRowIterator> ConstRowRange;
+		using RowRange = boost::iterator_range<RowIterator>;
+		using ConstRowRange = boost::iterator_range<ConstRowIterator>;
 
-		typedef boost::iterator_range<ColumnIterator> ColumnRange;
-		typedef boost::iterator_range<ConstColumnIterator> ConstColumnRange;
+		using ColumnRange = boost::iterator_range<ColumnIterator>;
+		using ConstColumnRange = boost::iterator_range<ConstColumnIterator>;
 
 		// Rows
-		typedef Array_VectorExpression<Real, Dynamic> Row;
-		typedef ConstArray_VectorExpression<Real, Dynamic> ConstRow;
+		using Row = Array_VectorExpression<Real, Dynamic>;
+		using ConstRow = ConstArray_VectorExpression<Real, Dynamic>;
 
 		//! Copy-constructs from another matrix.
 		/*!

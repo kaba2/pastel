@@ -14,11 +14,11 @@
 namespace Pastel
 {
 
-	typedef PASTEL_TRIANGLE(real, 1) Triangle1;
-	typedef PASTEL_TRIANGLE(real, 2) Triangle2;
-	typedef PASTEL_TRIANGLE(real, 3) Triangle3;
-	typedef PASTEL_TRIANGLE(real, 4) Triangle4;
-	typedef PASTEL_TRIANGLE(real, Dynamic) TriangleD;
+	using Triangle1 = PASTEL_TRIANGLE(real, 1);
+	using Triangle2 = PASTEL_TRIANGLE(real, 2);
+	using Triangle3 = PASTEL_TRIANGLE(real, 3);
+	using Triangle4 = PASTEL_TRIANGLE(real, 4);
+	using TriangleD = PASTEL_TRIANGLE(real, Dynamic);
 
 }
 

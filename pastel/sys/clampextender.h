@@ -36,8 +36,8 @@ namespace Pastel
 		}
 	};
 
-	typedef CountedPtr<ClampExtender> ClampExtenderPtr;
-	typedef CountedPtr<const ClampExtender> ConstClampExtenderPtr;
+	using ClampExtenderPtr = CountedPtr<ClampExtender>;
+	using ConstClampExtenderPtr = CountedPtr<const ClampExtender>;
 
 	//inline ClampExtenderPtr clampExtender()
 	inline ConstIndexExtenderPtr clampExtender()

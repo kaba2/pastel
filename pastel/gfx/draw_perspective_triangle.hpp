@@ -45,8 +45,8 @@ namespace Pastel
 			real x_;
 			real y_;
 
-			typedef Vector1 tPoint;
-			typedef Vector1 tVector;
+			using tPoint = Vector1;
+			using tVector = Vector1;
 
 			tPoint t_;
 			Vector2 uv_;
@@ -144,9 +144,9 @@ namespace Pastel
 		// correction. The values are interpolated in a homogeneous
 		// space.
 
-		typedef DrawPerspectiveTriangle_::TextureVertex Vertex;
-		typedef Vertex::tPoint tPoint;
-		typedef Vertex::tVector tVector;
+		using Vertex = DrawPerspectiveTriangle_::TextureVertex;
+		using tPoint = Vertex::tPoint;
+		using tVector = Vertex::tVector;
 
 		// Order vertices vertically.
 

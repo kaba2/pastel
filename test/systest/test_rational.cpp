@@ -14,8 +14,8 @@ namespace
 	using namespace Pastel;
 	using namespace std;
 
-	typedef BigInteger Integer;
-	typedef Rational<Integer> Rat;
+	using Integer = BigInteger;
+	using Rat = Rational<Integer>;
 
 	class Test
 		: public TestSuite

@@ -199,7 +199,7 @@ namespace Pastel
 		MatrixNegation<Real, Expression> >
 	{
 	public:
-		typedef const MatrixNegation& StorageType;
+		using StorageType = const MatrixNegation&;
 
 		explicit MatrixNegation(
 			const Expression& data)
@@ -250,7 +250,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const MatrixAddition& StorageType;
+		using StorageType = const MatrixAddition&;
 
 		MatrixAddition(
 			const LeftExpression& left,
@@ -306,7 +306,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const MatrixSubtraction& StorageType;
+		using StorageType = const MatrixSubtraction&;
 
 		MatrixSubtraction(
 			const LeftExpression& left,
@@ -362,7 +362,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const MatrixMultiplication& StorageType;
+		using StorageType = const MatrixMultiplication&;
 
 		MatrixMultiplication(
 			const LeftExpression& left,
@@ -428,7 +428,7 @@ namespace Pastel
 	public:
 		// Since this expression contains data,
 		// it must be stored by value.
-		typedef const MatrixScalarMultiplication StorageType;
+		using StorageType = const MatrixScalarMultiplication;
 
 		MatrixScalarMultiplication(
 			const Expression& data,
@@ -480,7 +480,7 @@ namespace Pastel
 	public:
 		// Since this expression contains data,
 		// it must be stored by value.
-		typedef const MatrixScalarAddition StorageType;
+		using StorageType = const MatrixScalarAddition;
 
 		MatrixScalarAddition(
 			const Expression& data,
@@ -531,7 +531,7 @@ namespace Pastel
 	public:
 		// Since this expression contains data,
 		// it must be stored by value.
-		typedef const MatrixDiagonal StorageType;
+		using StorageType = const MatrixDiagonal;
 
 		explicit MatrixDiagonal(
 			integer m, integer n,
@@ -588,7 +588,7 @@ namespace Pastel
 	public:
 		// Since this expression contains data,
 		// it must be stored by value.
-		typedef const MatrixConstant StorageType;
+		using StorageType = const MatrixConstant;
 
 		MatrixConstant(
 			integer height,
@@ -643,7 +643,7 @@ namespace Pastel
 		MatrixTranspose<Real, Expression> >
 	{
 	public:
-		typedef const MatrixTranspose& StorageType;
+		using StorageType = const MatrixTranspose&;
 
 		explicit MatrixTranspose(
 			const Expression& data)
@@ -693,7 +693,7 @@ namespace Pastel
 		: public MatrixExpression<Real, ArrayMatrix<Real>>
 	{
 	public:
-		typedef const ArrayMatrix& StorageType;
+		using StorageType = const ArrayMatrix&;
 
 		ArrayMatrix(
 			integer height, 
@@ -760,7 +760,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const MatrixVectorMultiplication& StorageType;
+		using StorageType = const MatrixVectorMultiplication&;
 
 		MatrixVectorMultiplication(
 			const LeftExpression& left,
@@ -819,7 +819,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const VectorMatrixMultiplication& StorageType;
+		using StorageType = const VectorMatrixMultiplication&;
 
 		VectorMatrixMultiplication(
 			const LeftExpression& left,

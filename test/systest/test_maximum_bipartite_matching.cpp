@@ -169,7 +169,7 @@ namespace
 		{
 			const integer n = edgeSet.size();
 
-			typedef std::pair<integer, integer> Pair;
+			using Pair = std::pair<integer, integer>;
 			std::vector<Pair> matchSet;
 
 			using namespace boost::adaptors;

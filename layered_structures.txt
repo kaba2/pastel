@@ -111,12 +111,12 @@ To demonstrate the basic principles of data-structure implementation, we take th
 	class List
 	{
 	private:
-		typedef List_::Link Link;
-		typedef List_::Node<Data> Node;
+		using Link = List_::Link;
+		using Node = List_::Node<Data>;
 
 	public:
-		typedef List_::Node_Iterator<Node*, Data> Iterator;
-		typedef List_::Node_Iterator<const Node*, const Data> ConstIterator;
+		using Iterator = List_::Node_Iterator<Node*, Data>;
+		using ConstIterator = List_::Node_Iterator<const Node*, const Data>;
 
 		List()
 			: sentinel_(new Link)

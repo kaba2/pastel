@@ -111,7 +111,7 @@ namespace Pastel
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		typedef typename NormBijection::Real Real;
+		using Real = typename NormBijection::Real;
 
 		Real result = 0;
 		for (integer i = 0;i < dimension;++i)
@@ -140,7 +140,7 @@ namespace Pastel
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		typedef typename NormBijection::Real Real;
+		using Real = typename NormBijection::Real;
 
 		Real result = 0;
 		for (integer i = 0;i < dimension;++i)

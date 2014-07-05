@@ -56,9 +56,9 @@ textures in ''RR^n''. It is defined by:
 		: public ReferenceCounted
 	{
 	public:
-		typedef CountedPtr<Texture> Ptr;
-		typedef CountedPtr<const Texture> ConstPtr;
-		typedef Type Element;
+		using Ptr = CountedPtr<Texture>;
+		using ConstPtr = CountedPtr<const Texture>;
+		using Element = Type;
 
 		virtual ~Texture() {}
 

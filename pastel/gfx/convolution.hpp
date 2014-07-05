@@ -19,8 +19,8 @@ namespace Pastel
 		class Transform
 		{
 		public:
-			typedef Input Input_;
-			typedef Output Output_;
+			using Input_ = Input;
+			using Output_ = Output;
 
 			explicit Transform(const Output& factor)
 				: factor_(factor)
@@ -214,10 +214,10 @@ namespace Pastel
 		ENSURE2(width == outputView.width(), width, outputView.width());
 		ENSURE2(height == outputView.height(), height, outputView.height());
 
-		typedef typename Input_ConstView::ConstCursor InputCursor;
-		typedef typename Filter_ConstView::ConstCursor FilterCursor;
-		typedef typename Radius_ConstView::ConstCursor RadiusCursor;
-		typedef typename Output_View::Cursor OutputCursor;
+		using InputCursor = typename Input_ConstView::ConstCursor;
+		using FilterCursor = typename Filter_ConstView::ConstCursor;
+		using RadiusCursor = typename Radius_ConstView::ConstCursor;
+		using OutputCursor = typename Output_View::Cursor;
 
 		AlignedBox2 outputBound(0, 0, outputView.width(), outputView.height());
 		AlignedBox2 textureBox(0, 0, filterView.width(), filterView.height());
@@ -225,9 +225,9 @@ namespace Pastel
 		RadiusCursor yRadiusCursor = radiusView.constCursor(0, 0);
 		InputCursor yInputCursor = inputView.constCursor(0, 0);
 
-		typedef ConstView<2, Filter_Element, Filter_ConstView> FilterView;
-		typedef BorderedConstView<2, FilterView> BorderedFilterView;
-		typedef ExtendedConstView<2, Filter_Element, BorderedFilterView> ExtendedFilterView;
+		using FilterView = ConstView<2, Filter_Element, Filter_ConstView>;
+		using BorderedFilterView = BorderedConstView<2, FilterView>;
+		using ExtendedFilterView = ExtendedConstView<2, Filter_Element, BorderedFilterView>;
 
 		NearestImage_Texture<ExtendedFilterView> textureSampler = nearestImageTexture(
 			borderedConstView(filterView, 0));

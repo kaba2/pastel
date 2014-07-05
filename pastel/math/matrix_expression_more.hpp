@@ -13,7 +13,7 @@ namespace Pastel
 		: public VectorExpression<Real, Dynamic, MatrixSum<Real, Expression> >
 	{
 	public:
-		typedef const MatrixSum& StorageType;
+		using StorageType = const MatrixSum&;
 
 		explicit MatrixSum(
 			const Expression& data)
@@ -64,7 +64,7 @@ namespace Pastel
 		: public VectorExpression<Real, Dynamic, MatrixMin<Real, Expression> >
 	{
 	public:
-		typedef const MatrixMin& StorageType;
+		using StorageType = const MatrixMin&;
 
 		explicit MatrixMin(
 			const Expression& data)
@@ -119,7 +119,7 @@ namespace Pastel
 		: public VectorExpression<Real, Dynamic, MatrixMax<Real, Expression> >
 	{
 	public:
-		typedef const MatrixMax& StorageType;
+		using StorageType = const MatrixMax&;
 
 		explicit MatrixMax(
 			const Expression& data)
@@ -175,7 +175,7 @@ namespace Pastel
 		MatrixAbs<Real, Expression> >
 	{
 	public:
-		typedef const MatrixAbs& StorageType;
+		using StorageType = const MatrixAbs&;
 
 		explicit MatrixAbs(
 			const Expression& data)
@@ -222,7 +222,7 @@ namespace Pastel
 		MatrixRepeat<Real, Expression> >
 	{
 	public:
-		typedef const MatrixRepeat StorageType;
+		using StorageType = const MatrixRepeat;
 
 		explicit MatrixRepeat(
 			const Expression& data,
@@ -285,7 +285,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const OuterProduct& StorageType;
+		using StorageType = const OuterProduct&;
 
 		OuterProduct(
 			const LeftExpression& left,

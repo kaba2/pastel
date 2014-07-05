@@ -22,7 +22,7 @@ namespace Pastel
 		: public VertexData_Class
 	{
 	public:
-		typedef IncidenceGraph_Fwd<Settings> Graph;
+		using Graph = IncidenceGraph_Fwd<Settings>;
 		template <typename, template <typename> class>
 		friend class IncidenceGraph;
 

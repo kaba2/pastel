@@ -12,7 +12,7 @@
 		: public VectorExpression<Real, N, CLASS<Real, N, Expression> > \
 	{ \
 	public: \
-		typedef const CLASS& StorageType; \
+		using StorageType = const CLASS&; \
 		\
 		explicit CLASS( \
 			const Expression& data) \

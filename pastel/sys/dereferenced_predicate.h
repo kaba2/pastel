@@ -31,12 +31,12 @@ namespace Pastel
 		}
 	};
 
-	typedef Dereferenced_Predicate<LessThan> Dereferenced_LessThan;
-	typedef Dereferenced_Predicate<LessEqual> Dereferenced_LessEqual;
-	typedef Dereferenced_Predicate<GreaterThan> Dereferenced_GreaterThan;
-	typedef Dereferenced_Predicate<GreaterEqual> Dereferenced_GreaterEqual;
-	typedef Dereferenced_Predicate<EqualTo> Dereferenced_EqualTo;
-	typedef Dereferenced_Predicate<NotEqualTo> Dereferenced_NotEqualTo;
+	using Dereferenced_LessThan = Dereferenced_Predicate<LessThan>;
+	using Dereferenced_LessEqual = Dereferenced_Predicate<LessEqual>;
+	using Dereferenced_GreaterThan = Dereferenced_Predicate<GreaterThan>;
+	using Dereferenced_GreaterEqual = Dereferenced_Predicate<GreaterEqual>;
+	using Dereferenced_EqualTo = Dereferenced_Predicate<EqualTo>;
+	using Dereferenced_NotEqualTo = Dereferenced_Predicate<NotEqualTo>;
 
 	template <typename Predicate>
 	Dereferenced_Predicate<Predicate> dereferencedPredicate(

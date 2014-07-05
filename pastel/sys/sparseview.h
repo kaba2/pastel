@@ -17,8 +17,8 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename ConstView::Element Element;
-		typedef typename ConstView::ConstReference ConstReference;
+		using Element = typename ConstView::Element;
+		using ConstReference = typename ConstView::ConstReference;
 		typedef SparseView_::ConstSparseViewCursor<N, typename ConstView::ConstCursor>
 			ConstCursor;
 
@@ -71,20 +71,20 @@ namespace Pastel
 		: public ConstSparseView<N, Contained_View>
 	{
 	private:
-		typedef ConstSparseView<N, Contained_View> Base;
+		using Base = ConstSparseView<N, Contained_View>;
 		using Base::view_;
 		using Base::step_;
 		using Base::pivot_;
 
 	public:
 		//using Base::Dimension;
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
-		typedef typename Base::ConstCursor ConstCursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
+		using ConstCursor = typename Base::ConstCursor;
 		using Base::extent;
 		using Base::constCursor;
 
-		typedef typename Contained_View::Reference Reference;
+		using Reference = typename Contained_View::Reference;
 		typedef SparseView_::SparseViewCursor<N, typename Contained_View::Cursor>
 			Cursor;
 

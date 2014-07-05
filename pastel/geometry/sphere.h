@@ -29,7 +29,7 @@ namespace Pastel
 		> > > >
 	{
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 		static PASTEL_CONSTEXPR int N_ = N;
 
 		// Using default copy constructor.
@@ -111,11 +111,11 @@ namespace Pastel
 		Sphere<Real, N>& left, 
 		Sphere<Real, N>& right);
 
-	typedef Sphere<real, 1> Sphere1;
-	typedef Sphere<real, 2> Sphere2;
-	typedef Sphere<real, 3> Sphere3;
-	typedef Sphere<real, 4> Sphere4;
-	typedef Sphere<real, Dynamic> SphereD;
+	using Sphere1 = Sphere<real, 1>;
+	using Sphere2 = Sphere<real, 2>;
+	using Sphere3 = Sphere<real, 3>;
+	using Sphere4 = Sphere<real, 4>;
+	using SphereD = Sphere<real, Dynamic>;
 
 }
 

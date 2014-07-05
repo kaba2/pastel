@@ -22,7 +22,7 @@ namespace Pastel
 		class Pair_Second_Type<std::pair<First, Second>>
 		{
 		public:
-			typedef Second type;
+			using type = Second;
 		};
 
 	}
@@ -41,8 +41,8 @@ namespace Pastel
 	public:
 		template <typename, bool> friend class Second_Iterator;
 
-		typedef typename std::iterator_traits<Iterator>::value_type Pair_Type;
-		typedef typename Second_Iterator_::Pair_Second_Type<Pair_Type>::type value_type;
+		using Pair_Type = typename std::iterator_traits<Iterator>::value_type;
+		using value_type = typename Second_Iterator_::Pair_Second_Type<Pair_Type>::type;
 
 		typedef typename std::add_lvalue_reference<
 			typename std::conditional<
@@ -58,8 +58,8 @@ namespace Pastel
 			value_type>::type
 		>::type pointer;
 
-		typedef typename std::iterator_traits<Iterator>::difference_type difference_type;
-		typedef typename std::iterator_traits<Iterator>::iterator_category iterator_category;
+		using difference_type = typename std::iterator_traits<Iterator>::difference_type;
+		using iterator_category = typename std::iterator_traits<Iterator>::iterator_category;
 
 		Second_Iterator()
 			: iter_()

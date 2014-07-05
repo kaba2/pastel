@@ -28,8 +28,8 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Contained_ConstView::Element Element;
-		typedef typename Contained_ConstView::ConstReference ConstReference;
+		using Element = typename Contained_ConstView::Element;
+		using ConstReference = typename Contained_ConstView::ConstReference;
 
 		typedef PermutedView_::ConstPermutedViewCursor<N, typename Contained_ConstView::ConstCursor>
 			ConstCursor;
@@ -88,20 +88,20 @@ namespace Pastel
 		: public ConstPermutedView<N, Contained_View>
 	{
 	private:
-		typedef ConstPermutedView<N, Contained_View> Base;
+		using Base = ConstPermutedView<N, Contained_View>;
 
 		using Base::view_;
 		using Base::permutation_;
 
 	public:
 		//using Base::Dimension;
-		typedef typename Base::ConstCursor ConstCursor;
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
+		using ConstCursor = typename Base::ConstCursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
 		using Base::extent;
 		using Base::constCursor;
 
-		typedef typename Contained_View::Reference Reference;
+		using Reference = typename Contained_View::Reference;
 		typedef PermutedView_::PermutedViewCursor<N, typename Contained_View::Cursor>
 			Cursor;
 

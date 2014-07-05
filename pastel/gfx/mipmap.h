@@ -45,7 +45,7 @@ namespace Pastel
 			MipView;
 		typedef ConstView<N, Type, ConstArrayView<N, Array<Type, N> > >
 			ConstMipView;
-		typedef ArrayExtender<N, Type> ArrayExtender_;
+		using ArrayExtender_ = ArrayExtender<N, Type>;
 
 		// Using default copy constructor.
 		// Using default destructor.

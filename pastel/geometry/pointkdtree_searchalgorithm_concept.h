@@ -19,7 +19,7 @@ namespace Pastel
 			class Instance
 			{
 			public:
-				typedef KeyValue<Real, Cursor> Entry;
+				using Entry = KeyValue<Real, Cursor>;
 	 
 				//! Returns the next node to visit.
 				/*!

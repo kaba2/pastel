@@ -13,8 +13,8 @@ namespace Pastel
 	{
 	public:
 		class Element;
-		typedef std::list<Element>
-			ElementSet;
+		using ElementSet = std::list<Element>
+;
 		typedef typename ElementSet::iterator
 			Element_Iterator;
 	#ifdef __GNUC__
@@ -24,12 +24,12 @@ namespace Pastel
 		typedef typename ElementSet::const_iterator
 			Element_ConstIterator;
 	#endif
-		typedef As_Class<ElementData>
-			ElementData_Class;
+		using ElementData_Class = As_Class<ElementData>
+;
 
 		class Set;
-		typedef std::list<Set>
-			SetSet;
+		using SetSet = std::list<Set>
+;
 		typedef typename SetSet::iterator
 			Set_Iterator;
 	#ifdef __GNUC__
@@ -39,11 +39,11 @@ namespace Pastel
 		typedef typename SetSet::const_iterator
 			Set_ConstIterator;
 	#endif
-		typedef As_Class<SetData>
-			SetData_Class;
+		using SetData_Class = As_Class<SetData>
+;
 
-		typedef std::list<Element_Iterator>
-			MemberSet;
+		using MemberSet = std::list<Element_Iterator>
+;
 		typedef typename MemberSet::iterator
 			Member_Iterator;
 	#ifdef __GNUC__
@@ -54,8 +54,8 @@ namespace Pastel
 			Member_ConstIterator;
 	#endif
 
-		typedef std::list<Set_Iterator>
-			SplitSet;
+		using SplitSet = std::list<Set_Iterator>
+;
 		typedef typename SplitSet::iterator
 			Split_Iterator;
 	#ifdef __GNUC__

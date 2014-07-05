@@ -75,8 +75,8 @@ namespace Pastel
 		// This set contains the state-sets that are
 		// waiting to be examined. At the the beginning
 		// it only contains the start state-set.
-		typedef std::list<StateSet> WorkSet;
-		typedef typename WorkSet::iterator Work_Iterator;
+		using WorkSet = std::list<StateSet>;
+		using Work_Iterator = typename WorkSet::iterator;
 		WorkSet workSet;
 
 		// When a state-set from workSet is started to

@@ -20,8 +20,8 @@ namespace Pastel
 	class TransformFunctor
 	{
 	public:
-		typedef unspecified_type Input_;
-		typedef unspecified_type Output_;
+		using Input_ = unspecified_type;
+		using Output_ = unspecified_type;
 
 		Output_ operator()(const Input_& input) const;
 	};
@@ -33,8 +33,8 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Contained_ConstView::Element Element;
-		typedef typename Contained_ConstView::ConstReference ConstReference;
+		using Element = typename Contained_ConstView::Element;
+		using ConstReference = typename Contained_ConstView::ConstReference;
 
 		typedef TransformedView_::ConstTransformedViewCursor<N, TransformFunctor,
 			typename Contained_ConstView::ConstCursor> ConstCursor;

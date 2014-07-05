@@ -27,7 +27,7 @@ namespace Pastel
 
 	//! Returns a random real in [0, 1] with 53-bit resolution.
 	template <typename Real>
-	Real random53() ;
+	Real random53();
 
 	//! Returns a uniformly distributed random real in [minValue, maxValue].
 	/*!

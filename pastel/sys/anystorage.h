@@ -17,7 +17,7 @@ namespace Pastel
 	private:
 		typedef std::unordered_map<std::string, boost::any>
 			DataSet;
-		typedef DataSet::const_iterator ConstIterator;
+		using ConstIterator = DataSet::const_iterator;
 
 	public:
 		template <typename Type>

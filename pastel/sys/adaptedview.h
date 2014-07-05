@@ -18,8 +18,8 @@ namespace Pastel
 
 		typedef AdaptedView_::ConstAdaptedViewCursor<N, typename Contained_ConstView::ConstCursor, Adapter>
 			ConstCursor;
-		typedef typename ConstCursor::Element Element;
-		typedef typename ConstCursor::ConstReference ConstReference;
+		using Element = typename ConstCursor::Element;
+		using ConstReference = typename ConstCursor::ConstReference;
 
 		explicit ConstAdaptedView(
 			const Contained_ConstView& view,
@@ -63,21 +63,21 @@ namespace Pastel
 		: public ConstAdaptedView<N, Adapter, Contained_View>
 	{
 	private:
-		typedef ConstAdaptedView<N, Adapter, Contained_View> Base;
+		using Base = ConstAdaptedView<N, Adapter, Contained_View>;
 
 		using Base::view_;
 		using Base::adapter_;
 
 	public:
 		//using Base::Dimension;
-		typedef typename Base::ConstCursor ConstCursor;
+		using ConstCursor = typename Base::ConstCursor;
 		using Base::extent;
 		using Base::constCursor;
 
 		typedef AdaptedView_::AdaptedViewCursor<N, typename Contained_View::Cursor, Adapter>
 			Cursor;
-		typedef typename Base::Element Element;
-		typedef typename Cursor::Reference Reference;
+		using Element = typename Base::Element;
+		using Reference = typename Cursor::Reference;
 
 		explicit AdaptedView(
 			const Contained_View& view,

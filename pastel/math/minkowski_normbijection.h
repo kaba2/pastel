@@ -18,7 +18,7 @@ namespace Pastel
 	class Minkowski_NormBijection
 	{
 	public:
-		typedef Real_ Real;
+		using Real = Real_;
 
 		// Using default copy constructor.
 		// Using default assignment.

@@ -16,8 +16,8 @@ namespace Pastel
 		class ConstMirrorViewCursor
 		{
 		public:
-			typedef typename ConstCursor::Element Element;
-			typedef typename ConstCursor::ConstReference ConstReference;
+			using Element = typename ConstCursor::Element;
+			using ConstReference = typename ConstCursor::ConstReference;
 
 			explicit ConstMirrorViewCursor(
 				const ConstCursor& cursor)
@@ -55,13 +55,13 @@ namespace Pastel
 			: public ConstMirrorViewCursor<N, MirrorIndex, Cursor>
 		{
 		private:
-			typedef ConstMirrorViewCursor<N, MirrorIndex, Cursor> Base;
+			using Base = ConstMirrorViewCursor<N, MirrorIndex, Cursor>;
 
 		public:
-			typedef typename Base::Element Element;
-			typedef typename Base::ConstReference ConstReference;
+			using Element = typename Base::Element;
+			using ConstReference = typename Base::ConstReference;
 
-			typedef typename Cursor::Reference Reference;
+			using Reference = typename Cursor::Reference;
 
 			explicit MirrorViewCursor(
 				const Cursor& cursor)

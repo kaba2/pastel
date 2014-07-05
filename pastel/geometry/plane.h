@@ -44,7 +44,7 @@ namespace Pastel
 		> > > >
 	{
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 		static PASTEL_CONSTEXPR int N_ = N;
 
 		// Using default copy constructor.
@@ -111,11 +111,11 @@ namespace Pastel
 	void swap(Plane<Real, N>& left,
 		Plane<Real, N>& right);
 
-	typedef Plane<real, 1> Plane1;
-	typedef Plane<real, 2> Plane2;
-	typedef Plane<real, 3> Plane3;
-	typedef Plane<real, 4> Plane4;
-	typedef Plane<real, Dynamic> PlaneD;
+	using Plane1 = Plane<real, 1>;
+	using Plane2 = Plane<real, 2>;
+	using Plane3 = Plane<real, 3>;
+	using Plane4 = Plane<real, 4>;
+	using PlaneD = Plane<real, Dynamic>;
 
 }
 

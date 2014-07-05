@@ -37,9 +37,9 @@ namespace Pastel
 		ENSURE1(pointSet.front().n() == 1,
 			pointSet.front().n());
 
-		typedef std::vector<KeyValue<Real, integer> > SearchSet;
-		typedef typename SearchSet::iterator Iterator;
-		typedef typename SearchSet::const_iterator ConstIterator;
+		using SearchSet = std::vector<KeyValue<Real, integer> >;
+		using Iterator = typename SearchSet::iterator;
+		using ConstIterator = typename SearchSet::const_iterator;
 		
 		SearchSet searchSet;
 		searchSet.reserve(points);

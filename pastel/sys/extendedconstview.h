@@ -18,7 +18,7 @@ namespace Pastel
 		public:
 			static PASTEL_CONSTEXPR int Dimension = N;
 
-			typedef Contained_Element Element;
+			using Element = Contained_Element;
 
 			ExtendedConstViewBase()
 				: view_()
@@ -65,7 +65,7 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Base::Element Element;
+		using Element = typename Base::Element;
 		using Base::extent;
 		using Base::operator();
 
@@ -95,7 +95,7 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Base::Element Element;
+		using Element = typename Base::Element;
 		using Base::extent;
 		using Base::operator();
 
@@ -135,7 +135,7 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Base::Element Element;
+		using Element = typename Base::Element;
 		using Base::extent;
 		using Base::operator();
 
@@ -180,7 +180,7 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Base::Element Element;
+		using Element = typename Base::Element;
 		using Base::extent;
 		using Base::operator();
 

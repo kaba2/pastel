@@ -30,11 +30,11 @@ namespace Pastel
 		: public Detail::TupleBase<Type, N>
 	{
 	private:
-		typedef Detail::TupleBase<Type, N> Base;
+		using Base = Detail::TupleBase<Type, N>;
 
 	public:
-		typedef typename Base::Iterator Iterator;
-		typedef typename Base::ConstIterator ConstIterator;
+		using Iterator = typename Base::Iterator;
+		using ConstIterator = typename Base::ConstIterator;
 
 		// Using default copy constructor.
 		// Using default destructor.
@@ -105,15 +105,15 @@ namespace Pastel
 	private:
 		static PASTEL_CONSTEXPR int N = 1;
 
-		typedef Detail::TupleBase<Type, N> Base;
+		using Base = Detail::TupleBase<Type, N>;
 
 	public:
 		// Using default copy constructor.
 		// Using default destructor.
 
 		using Base::set;
-		typedef typename Base::Iterator Iterator;
-		typedef typename Base::ConstIterator ConstIterator;
+		using Iterator = typename Base::Iterator;
+		using ConstIterator = typename Base::ConstIterator;
 
 		Tuple()
 			: Base()
@@ -191,15 +191,15 @@ namespace Pastel
 	private:
 		static PASTEL_CONSTEXPR int N = 2;
 
-		typedef Detail::TupleBase<Type, N> Base;
+		using Base = Detail::TupleBase<Type, N>;
 
 	public:
 		// Using default copy constructor.
 		// Using default destructor.
 
 		using Base::set;
-		typedef typename Base::Iterator Iterator;
-		typedef typename Base::ConstIterator ConstIterator;
+		using Iterator = typename Base::Iterator;
+		using ConstIterator = typename Base::ConstIterator;
 
 		Tuple()
 			: Base()
@@ -299,15 +299,15 @@ namespace Pastel
 	private:
 		static PASTEL_CONSTEXPR int N = 3;
 
-		typedef Detail::TupleBase<Type, N> Base;
+		using Base = Detail::TupleBase<Type, N>;
 
 	public:
 		// Using default copy constructor.
 		// Using default destructor.
 
 		using Base::set;
-		typedef typename Base::Iterator Iterator;
-		typedef typename Base::ConstIterator ConstIterator;
+		using Iterator = typename Base::Iterator;
+		using ConstIterator = typename Base::ConstIterator;
 
 		Tuple()
 			: Base()
@@ -419,15 +419,15 @@ namespace Pastel
 	private:
 		static PASTEL_CONSTEXPR int N = 4;
 
-		typedef Detail::TupleBase<Type, N> Base;
+		using Base = Detail::TupleBase<Type, N>;
 
 	public:
 		// Using default copy constructor.
 		// Using default destructor.
 
 		using Base::set;
-		typedef typename Base::Iterator Iterator;
-		typedef typename Base::ConstIterator ConstIterator;
+		using Iterator = typename Base::Iterator;
+		using ConstIterator = typename Base::ConstIterator;
 
 		Tuple()
 			: Base()
@@ -551,7 +551,7 @@ namespace Pastel
 	private:
 		static PASTEL_CONSTEXPR int N = Dynamic;
 
-		typedef Detail::TupleBase<Type, N> Base;
+		using Base = Detail::TupleBase<Type, N>;
 
 	public:
 		// Using default copy constructor.
@@ -559,8 +559,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::swap;
-		typedef typename Base::Iterator Iterator;
-		typedef typename Base::ConstIterator ConstIterator;
+		using Iterator = typename Base::Iterator;
+		using ConstIterator = typename Base::ConstIterator;
 
 		Tuple()
 			: Base()
@@ -631,20 +631,20 @@ namespace Pastel
 		}
 	};
 
-	typedef Tuple<integer, 1> Integer1;
-	typedef Tuple<real, 1> Real1;
+	using Integer1 = Tuple<integer, 1>;
+	using Real1 = Tuple<real, 1>;
 
-	typedef Tuple<integer, 2> Integer2;
-	typedef Tuple<real, 2> Real2;
+	using Integer2 = Tuple<integer, 2>;
+	using Real2 = Tuple<real, 2>;
 
-	typedef Tuple<integer, 3> Integer3;
-	typedef Tuple<real, 3> Real3;
+	using Integer3 = Tuple<integer, 3>;
+	using Real3 = Tuple<real, 3>;
 
-	typedef Tuple<integer, 4> Integer4;
-	typedef Tuple<real, 4> Real4;
+	using Integer4 = Tuple<integer, 4>;
+	using Real4 = Tuple<real, 4>;
 
-	typedef Tuple<integer, Dynamic> IntegerD;
-	typedef Tuple<real, Dynamic> RealD;
+	using IntegerD = Tuple<integer, Dynamic>;
+	using RealD = Tuple<real, Dynamic>;
 
 }
 

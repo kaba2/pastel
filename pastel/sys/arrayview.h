@@ -16,9 +16,9 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Contained_Array::Element Element;
-		typedef typename Contained_Array::ConstCursor ConstCursor;
-		typedef typename Contained_Array::ConstReference ConstReference;
+		using Element = typename Contained_Array::Element;
+		using ConstCursor = typename Contained_Array::ConstCursor;
+		using ConstReference = typename Contained_Array::ConstReference;
 
 		ConstArrayView(const Contained_Array& array)
 			: array_(&array)
@@ -49,19 +49,19 @@ namespace Pastel
 		: public ConstArrayView<N, Contained_Array>
 	{
 	private:
-		typedef ConstArrayView<N, Contained_Array> Base;
+		using Base = ConstArrayView<N, Contained_Array>;
 		using Base::array_;
 
 	public:
 		//using Base::Dimension;
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
-		typedef typename Base::ConstCursor ConstCursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
+		using ConstCursor = typename Base::ConstCursor;
 		using Base::constCursor;
 		using Base::extent;
 
-		typedef typename Contained_Array::Cursor Cursor;
-		typedef typename Contained_Array::Reference Reference;
+		using Cursor = typename Contained_Array::Cursor;
+		using Reference = typename Contained_Array::Reference;
 
 		ArrayView(Contained_Array& array)
 			: Base(array)

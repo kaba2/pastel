@@ -18,7 +18,7 @@
 namespace Pastel
 {
 
-	typedef Integer_To_Color<uint32, 8, 8, 8> Rgb888Adapter;
+	using Rgb888Adapter = Integer_To_Color<uint32, 8, 8, 8>;
 
 	template <int N>
 	ConstView<N, Color, ConstAdaptedView<N, Rgb888Adapter, ConstArrayView<N, Array<uint32, N> > > >

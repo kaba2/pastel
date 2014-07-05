@@ -27,7 +27,7 @@ namespace Pastel
 		> > > >
 	{
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 		static PASTEL_CONSTEXPR int N_ = N;
 
 		// Using default copy constructor.
@@ -92,11 +92,11 @@ namespace Pastel
 		Topology topology_;
 	};
 
-	typedef Capsule<real, 1> Capsule1;
-	typedef Capsule<real, 2> Capsule2;
-	typedef Capsule<real, 3> Capsule3;
-	typedef Capsule<real, 4> Capsule4;
-	typedef Capsule<real, Dynamic> CapsuleD;
+	using Capsule1 = Capsule<real, 1>;
+	using Capsule2 = Capsule<real, 2>;
+	using Capsule3 = Capsule<real, 3>;
+	using Capsule4 = Capsule<real, 4>;
+	using CapsuleD = Capsule<real, Dynamic>;
 
 }
 

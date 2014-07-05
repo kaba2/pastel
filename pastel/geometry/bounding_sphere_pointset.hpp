@@ -33,7 +33,7 @@ namespace Pastel
 		const Point_ConstRange& pointSet,
 		const PointPolicy& pointPolicy)
 	{
-		typedef typename PointPolicy::Real Real;
+		using Real = typename PointPolicy::Real;
 		static PASTEL_CONSTEXPR int N = PointPolicy::N;
 
 		// This function does not give the minimum volume

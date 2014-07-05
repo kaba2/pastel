@@ -16,7 +16,7 @@ using namespace Pastel;
 namespace
 {
 
-	typedef Rational<integer> Real;
+	using Real = Rational<integer>;
 
 	class Test
 		: public TestSuite

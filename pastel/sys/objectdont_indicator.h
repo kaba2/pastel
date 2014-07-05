@@ -14,7 +14,7 @@ namespace Pastel
 	class ObjectDont_Indicator
 	{
 	public:
-		typedef Type Point;
+		using Point = Type;
 
 		explicit ObjectDont_Indicator(
 			const DerefType& exception)

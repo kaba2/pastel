@@ -17,7 +17,7 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Contained_ConstView::Element Element;
+		using Element = typename Contained_ConstView::Element;
 
 		ClampedConstView()
 			: view_()

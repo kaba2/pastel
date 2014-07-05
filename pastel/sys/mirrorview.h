@@ -24,8 +24,8 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Contained_ConstView::Element Element;
-		typedef typename Contained_ConstView::ConstReference ConstReference;
+		using Element = typename Contained_ConstView::Element;
+		using ConstReference = typename Contained_ConstView::ConstReference;
 		typedef MirrorView_::ConstMirrorViewCursor<N, MirrorIndex,
 			typename Contained_ConstView::ConstCursor> ConstCursor;
 
@@ -73,19 +73,19 @@ namespace Pastel
 		: public ConstMirrorView<N, MirrorIndex, Contained_View>
 	{
 	private:
-		typedef ConstMirrorView<N, MirrorIndex, Contained_View> Base;
+		using Base = ConstMirrorView<N, MirrorIndex, Contained_View>;
 		using Base::view_;
 
 	public:
 		//using Base::Dimension;
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
-		typedef typename Base::ConstCursor ConstCursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
+		using ConstCursor = typename Base::ConstCursor;
 		using Base::width;
 		using Base::height;
 		using Base::constCursor;
 
-		typedef typename Contained_View::Reference Reference;
+		using Reference = typename Contained_View::Reference;
 		typedef MirrorView_::MirrorViewCursor<N, MirrorIndex, typename Contained_View::Cursor>
 			Cursor;
 

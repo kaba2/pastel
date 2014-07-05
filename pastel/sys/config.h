@@ -19,10 +19,10 @@ namespace Pastel
 	class PASTELSYS Config
 	{
 	private:
-		typedef std::map<std::string, boost::any> Container;
+		using Container = std::map<std::string, boost::any>;
 
 	public:
-		typedef Container::const_iterator ConstIterator;
+		using ConstIterator = Container::const_iterator;
 
 		// Using default constructor.
 		// Using default copy constructor.

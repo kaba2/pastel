@@ -78,7 +78,7 @@ namespace Pastel
 		: public VectorExpression<Real, N, VectorUnitAxis<Real, N> >
 	{
 	public:
-		typedef const VectorUnitAxis StorageType;
+		using StorageType = const VectorUnitAxis;
 
 		VectorUnitAxis(
 			integer axis,
@@ -192,7 +192,7 @@ namespace Pastel
 		: public VectorExpression<Real, ModifyN<N, N + 1>::Result, VectorExtend<Real, N, Expression> >
 	{
 	public:
-		typedef const VectorExtend& StorageType;
+		using StorageType = const VectorExtend&;
 
 		VectorExtend(
 			const Expression& expression,

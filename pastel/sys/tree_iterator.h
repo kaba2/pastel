@@ -29,7 +29,7 @@ namespace Pastel
 		private:
 			struct enabler {};
 
-			typedef Tree_::Data_Node<Data_Class> Data_Node;
+			using Data_Node = Tree_::Data_Node<Data_Class>;
 
 		public:
 			Iterator()

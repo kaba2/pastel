@@ -26,19 +26,19 @@ namespace Pastel
 			static PASTEL_CONSTEXPR int N = UserDefinedInteger;
 			
 			//! The type of a coordinate.
-			typedef UserDefinedType Real;
+			using Real = UserDefinedType;
 			
 			//! The type of a point reference.
-			typedef UserDefinedType Point;
+			using Point = UserDefinedType;
 
 			//! The type of an associated vector expression.
-			typedef UserDefinedType Expression;
+			using Expression = UserDefinedType;
 
 			//! The type of a const-iterator to coordinates.
-			typedef UserDefinedType ConstIterator;
+			using ConstIterator = UserDefinedType;
 
 			//! The type of a an iterator range to coordinates.
-			typedef UserDefinedType ConstRange;
+			using ConstRange = UserDefinedType;
 
 			//! Returns a vector expression representing the point.
 			/*!

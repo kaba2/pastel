@@ -35,7 +35,7 @@ namespace
 			test();
 		}
 
-		typedef AffineTransformation<real> Affine;
+		using Affine = AffineTransformation<real>;
 
 		void test()
 		{

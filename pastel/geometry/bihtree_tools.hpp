@@ -184,8 +184,8 @@ namespace Pastel
 			return false;
 		}
 
-		typedef Detail::NodeRange<Real, N, Shape> Range;
-		typedef typename Range::ConstCursor ConstCursor;
+		using Range = Detail::NodeRange<Real, N, Shape>;
+		using ConstCursor = typename Range::ConstCursor;
 
 		Vector<Real, 2> tRange;
 		bool intersections = Pastel::intersect(

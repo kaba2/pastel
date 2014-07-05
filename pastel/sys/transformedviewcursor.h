@@ -16,8 +16,8 @@ namespace Pastel
 		class ConstTransformedViewCursor
 		{
 		public:
-			typedef typename TransformFunctor::Output_ Element;
-			typedef Element const& ConstReference;
+			using Element = typename TransformFunctor::Output_;
+			using ConstReference = Element const&;
 
 			explicit ConstTransformedViewCursor(
 				const ConstCursor& cursor,

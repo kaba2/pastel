@@ -25,17 +25,17 @@ namespace Pastel
 		class Algorithm
 		{
 		public:
-			typedef typename boost::range_value<Left_Vertex_Range>::type Left;
-			typedef typename boost::range_value<Right_Vertex_Range>::type Right;
+			using Left = typename boost::range_value<Left_Vertex_Range>::type;
+			using Right = typename boost::range_value<Right_Vertex_Range>::type;
 			typedef typename boost::range_iterator<Left_Vertex_Range>::type
 				Left_Iterator;
 			typedef typename boost::range_iterator<Right_Vertex_Range>::type
 				Right_Iterator;
 
-			typedef std::unordered_map<Left, integer, Left_Hash> LeftMap;
-			typedef std::unordered_map<Right, integer, Right_Hash> RightMap;
-			typedef std::unordered_map<integer, Left> InverseLeftMap;
-			typedef std::unordered_map<integer, Right> InverseRightMap;
+			using LeftMap = std::unordered_map<Left, integer, Left_Hash>;
+			using RightMap = std::unordered_map<Right, integer, Right_Hash>;
+			using InverseLeftMap = std::unordered_map<integer, Left>;
+			using InverseRightMap = std::unordered_map<integer, Right>;
 
 			void work(
 				Left_Vertex_Range leftRange,
@@ -466,8 +466,8 @@ namespace Pastel
 		Right_Vertex_Range rightRange,
 		const Vertex_Pair_Output& reporter)
 	{
-		typedef typename boost::range_value<Left_Vertex_Range>::type Left;
-		typedef typename boost::range_value<Right_Vertex_Range>::type Right;
+		using Left = typename boost::range_value<Left_Vertex_Range>::type;
+		using Right = typename boost::range_value<Right_Vertex_Range>::type;
 
 		Pastel::maximumBipartiteMatching(leftRange, rightRange, reporter, 
 			std::hash<Left>(), std::hash<Right>());

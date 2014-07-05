@@ -26,14 +26,14 @@ namespace Pastel
 	private:
 		typedef std::unordered_map<std::string, CountedPtr<Type> > 
 			PrototypeMap;
-		typedef typename PrototypeMap::iterator Iterator;
+		using Iterator = typename PrototypeMap::iterator;
 
 	public:
 		// Using default constructor.
 		// Using default copy constructor.
 		// Using default destructor.
 
-		typedef typename PrototypeMap::const_iterator ConstIterator;
+		using ConstIterator = typename PrototypeMap::const_iterator;
 
 		PrototypeFactory<Type>& operator=(const PrototypeFactory& that);
 

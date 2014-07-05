@@ -14,15 +14,15 @@ using namespace Pastel;
 namespace
 {
 
-	typedef HalfEdge<int, int, int, int> Mesh;
-	typedef Mesh::Vertex_Iterator Vertex_Iterator;
-	typedef Mesh::Half_Iterator Half_Iterator;
-	typedef Mesh::Edge_Iterator Edge_Iterator;
-	typedef Mesh::Polygon_Iterator Polygon_Iterator;
-	typedef Mesh::Vertex_ConstIterator Vertex_ConstIterator;
-	typedef Mesh::Half_ConstIterator Half_ConstIterator;
-	typedef Mesh::Edge_ConstIterator Edge_ConstIterator;
-	typedef Mesh::Polygon_ConstIterator Polygon_ConstIterator;
+	using Mesh = HalfEdge<int, int, int, int>;
+	using Vertex_Iterator = Mesh::Vertex_Iterator;
+	using Half_Iterator = Mesh::Half_Iterator;
+	using Edge_Iterator = Mesh::Edge_Iterator;
+	using Polygon_Iterator = Mesh::Polygon_Iterator;
+	using Vertex_ConstIterator = Mesh::Vertex_ConstIterator;
+	using Half_ConstIterator = Mesh::Half_ConstIterator;
+	using Edge_ConstIterator = Mesh::Edge_ConstIterator;
+	using Polygon_ConstIterator = Mesh::Polygon_ConstIterator;
 
 	template <typename InputIterator,
 		typename OtherInputIterator>

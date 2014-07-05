@@ -16,9 +16,9 @@ namespace Pastel
 		class ConceptMap
 		{
 		public:
-			typedef typename StdPair::first_type Left;
-			typedef typename StdPair::second_type Right;
-			typedef StdPair Type;
+			using Left = typename StdPair::first_type;
+			using Right = typename StdPair::second_type;
+			using Type = StdPair;
 
 			Left& left(Type& that)
 			{

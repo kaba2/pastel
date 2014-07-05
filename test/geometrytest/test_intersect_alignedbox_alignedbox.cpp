@@ -14,7 +14,7 @@
 
 using namespace Pastel;
 
-typedef Rational<integer> Real;
+using Real = Rational<integer>;
 
 namespace
 {

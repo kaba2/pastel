@@ -22,10 +22,10 @@ namespace Pastel
 			static PASTEL_CONSTEXPR int N = UserDefinedInteger;
 
 			//! The type of the elements.
-			typedef UserDefinedType Real;
+			using Real = UserDefinedType;
 
 			//! A const-iterator to elements of type Real.
-			typedef UserDefinedType ConstIterator;
+			using ConstIterator = UserDefinedType;
 
 			//! Returns a const-iterator to the beginning of the elements.
 			ConstIterator begin() const;

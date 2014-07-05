@@ -17,9 +17,9 @@ namespace Pastel
 		const typename List<Settings, Customization>::ConstRange& range,
 		const Predicate& predicate)
 	{
-		typedef List<Settings, Customization> List;
-		typedef typename List::iterator Iterator;
-		typedef typename List::const_iterator ConstIterator;
+		using List = List<Settings, Customization>;
+		using Iterator = typename List::iterator;
+		using ConstIterator = typename List::const_iterator;
 
 		// The idea is to construct two lists,
 		// those that fulfill the predicate and
@@ -119,9 +119,9 @@ namespace Pastel
 		const typename List<Settings, Customization>::ConstRange& range,
 		const Predicate& predicate)
 	{
-		typedef List<Settings, Customization> List;
-		typedef typename List::iterator Iterator;
-		typedef typename List::const_iterator ConstIterator;
+		using List = List<Settings, Customization>;
+		using Iterator = typename List::iterator;
+		using ConstIterator = typename List::const_iterator;
 
 		// The idea is to construct two lists,
 		// those that fulfill the predicate and

@@ -17,10 +17,10 @@ using namespace Pastel;
 
 struct HighResClock
 {
-	typedef long long                               rep;
-	typedef std::nano                               period;
-	typedef std::chrono::duration<rep, period>      duration;
-	typedef std::chrono::time_point<HighResClock>   time_point;
+	using rep = long long;
+	using period = std::nano;
+	using duration = std::chrono::duration<rep, period>;
+	using time_point = std::chrono::time_point<HighResClock>;
 	static PASTEL_CONSTEXPR bool is_steady = true;
 
 	static time_point now();

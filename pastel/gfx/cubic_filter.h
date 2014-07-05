@@ -46,8 +46,8 @@ namespace Pastel
 		real d_;
 	};
 
-	typedef std::shared_ptr<Cubic_Filter> CubicFilterPtr;
-	typedef std::shared_ptr<const Cubic_Filter> ConstCubicFilterPtr;
+	using CubicFilterPtr = std::shared_ptr<Cubic_Filter>;
+	using ConstCubicFilterPtr = std::shared_ptr<const Cubic_Filter>;
 
 	inline CubicFilterPtr cubicFilter(real negativeLobeness = (real)1 / 3)
 	{

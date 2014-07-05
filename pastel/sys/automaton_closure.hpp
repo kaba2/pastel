@@ -96,7 +96,7 @@ namespace Pastel
 		typedef typename Automaton::Transition_ConstIterator
 			Transition_ConstIterator;
 
-		typedef typename Automaton::BranchMap BranchMap;
+		using BranchMap = typename Automaton::BranchMap;
 
 		auto forEachRelated =
 			[&](const State_ConstIterator& state, 

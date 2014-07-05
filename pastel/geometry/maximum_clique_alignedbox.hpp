@@ -495,15 +495,15 @@ namespace Pastel
 
 		typedef typename boost::range_iterator<AlignedBox_ConstRange>::type
 			AlignedBox_ConstIterator;
-		typedef typename boost::range_value<AlignedBox_ConstRange>::type Box;
-		typedef typename Box::Real_ Real;
+		using Box = typename boost::range_value<AlignedBox_ConstRange>::type;
+		using Real = typename Box::Real_;
 
 		PASTEL_STATIC_ASSERT(Box::N_ == 2 || Box::N_ == Dynamic);
 
-		typedef Event<Real, AlignedBox_ConstIterator> Event;
-		typedef MaximumCliqueAlignedBox_::Data Data;
-		typedef RedBlackTree_Set<Event, void, LessThan, Data, void, false, MaximumClique_Customization> Tree;
-		typedef typename Tree::ConstIterator Event_ConstIterator;
+		using Event = Event<Real, AlignedBox_ConstIterator>;
+		using Data = MaximumCliqueAlignedBox_::Data;
+		using Tree = RedBlackTree_Set<Event, void, LessThan, Data, void, false, MaximumClique_Customization>;
+		using Event_ConstIterator = typename Tree::ConstIterator;
 
 		ENSURE_OP(sweepDirection, >=, 0);
 		ENSURE_OP(sweepDirection, <, 2);
@@ -740,7 +740,7 @@ namespace Pastel
 
 		typedef std::unordered_map<integer, AlignedBox_ConstIterator>
 			ActiveSet;
-		typedef typename ActiveSet::const_iterator Active_ConstIterator;
+		using Active_ConstIterator = typename ActiveSet::const_iterator;
 
 		std::unordered_map<integer, AlignedBox_ConstIterator> activeSet;
 		

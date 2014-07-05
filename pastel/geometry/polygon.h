@@ -16,7 +16,7 @@ namespace Pastel
 	class Polygon
 	{
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 		static PASTEL_CONSTEXPR int N_ = N;
 
 		// Using default constructor.
@@ -45,9 +45,9 @@ namespace Pastel
 		std::vector<Vector<Real, N> > data_;
 	};
 
-	typedef Polygon<real, 2> Polygon2;
-	typedef Polygon<real, 3> Polygon3;
-	typedef Polygon<real, 4> Polygon4;
+	using Polygon2 = Polygon<real, 2>;
+	using Polygon3 = Polygon<real, 3>;
+	using Polygon4 = Polygon<real, 4>;
 
 }
 

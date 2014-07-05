@@ -32,7 +32,7 @@ namespace
 		{
 		}
 
-		typedef Matrix<real> MatrixD;
+		using MatrixD = Matrix<real>;
 
 		virtual void run()
 		{

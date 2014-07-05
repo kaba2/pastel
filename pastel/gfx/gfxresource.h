@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	typedef std::unordered_map<std::string, Color> ColorResource;
+	using ColorResource = std::unordered_map<std::string, Color>;
 
 }
 

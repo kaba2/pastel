@@ -99,9 +99,9 @@ namespace Pastel
 			integer unitsReserved_;
 		};
 
-		typedef std::list<Block> Container;
-		typedef Container::iterator Iterator;
-		typedef Container::const_iterator ConstIterator;
+		using Container = std::list<Block>;
+		using Iterator = Container::iterator;
+		using ConstIterator = Container::const_iterator;
 
 		void allocateBlock(integer minUnits);
 		void deallocateBlock(Block* block);

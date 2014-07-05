@@ -67,15 +67,15 @@ namespace Pastel
 		const integer bucketSize = 8;
 		const integer queries = querySet.size();
 
-		typedef PointKdTree<Settings, Customization> KdTree;
-		typedef typename KdTree::Point_ConstIterator Point_ConstIterator;
+		using KdTree = PointKdTree<Settings, Customization>;
+		using Point_ConstIterator = typename KdTree::Point_ConstIterator;
 
 		using IndexRange = tbb::blocked_range<integer>;
 
 		auto searchNeighbors = [&](const IndexRange& range)
 		{
-			typedef std::vector<Point_ConstIterator> NearestSet;
-			typedef std::vector<Real> DistanceSet;
+			using NearestSet = std::vector<Point_ConstIterator>;
+			using DistanceSet = std::vector<Real>;
 			NearestSet nearestSet(kNearestEnd);
 			DistanceSet distanceSet(kNearestEnd);
 

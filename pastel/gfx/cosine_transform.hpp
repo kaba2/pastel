@@ -44,8 +44,8 @@ namespace Pastel
 
 			typedef typename boost::range_value<Complex_ConstRange>::type
 				InputComplex;
-			typedef typename Complex_RealType<InputComplex>::Result Real;
-			typedef std::complex<Real> Complex;
+			using Real = typename Complex_RealType<InputComplex>::Result;
+			using Complex = std::complex<Real>;
 
 			ExtractOutput<Real, ComplexOutput> extractOutput;
 
@@ -164,8 +164,8 @@ namespace Pastel
 
 			typedef typename boost::range_value<Complex_ConstRange>::type
 				InputComplex;
-			typedef typename Complex_RealType<InputComplex>::Result Real;
-			typedef std::complex<Real> Complex;
+			using Real = typename Complex_RealType<InputComplex>::Result;
+			using Complex = std::complex<Real>;
 
 			ExtractOutput<Real, ComplexOutput> extractOutput;
 
@@ -277,8 +277,8 @@ namespace Pastel
 
 			typedef typename boost::range_value<Complex_ConstRange>::type
 				InputComplex;
-			typedef typename Complex_RealType<InputComplex>::Result Real;
-			typedef std::complex<Real> Complex;
+			using Real = typename Complex_RealType<InputComplex>::Result;
+			using Complex = std::complex<Real>;
 			ExtractOutput<Real, ComplexOutput> extractOutput;
 
 			if (inputRange.empty())

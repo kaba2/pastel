@@ -18,7 +18,7 @@ namespace Pastel
 		const Point_ConstRange& pointSet,
 		const PointPolicy& pointPolicy)
 	{
-		typedef typename PointPolicy::Real Real;
+		using Real = typename PointPolicy::Real;
 		static PASTEL_CONSTEXPR int N = PointPolicy::N;
 
 		// This is the PASTd algorithm from
@@ -86,7 +86,7 @@ namespace Pastel
 		// Bin Yang, IEEE Transactions on Signal Processing,
 		// Vol 43., No. 1, January 1995.
 
-		typedef typename PointPolicy::Real Real;
+		using Real = typename PointPolicy::Real;
 
 		ENSURE(!pointSet.empty());
 		ENSURE_OP(eigenvectors, >, 0);

@@ -15,7 +15,7 @@ namespace Pastel
 		{
 		public:
 			//! The computation type.
-			typedef UserDefinedType Real;
+			using Real = UserDefinedType;
 
 			//! Computes the logarithm of the volume of the unit norm sphere.
 			Real lnVolumeUnitSphere(integer dimension) const;

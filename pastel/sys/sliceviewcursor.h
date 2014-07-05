@@ -18,8 +18,8 @@ namespace Pastel
 		public:
 			static PASTEL_CONSTEXPR int Dimension = N - 1;
 
-			typedef typename ConstCursor::Element Element;
-			typedef typename ConstCursor::ConstReference ConstReference;
+			using Element = typename ConstCursor::Element;
+			using ConstReference = typename ConstCursor::ConstReference;
 
 			ConstSliceViewCursor()
 				: cursor_()
@@ -101,18 +101,18 @@ namespace Pastel
 			: public ConstSliceViewCursor<N, Cursor>
 		{
 		private:
-			typedef ConstSliceViewCursor<N, Cursor> Base;
+			using Base = ConstSliceViewCursor<N, Cursor>;
 
 			using Base::cursor_;
 
 		public:
-			typedef typename Base::Element Element;
-			typedef typename Base::ConstReference ConstReference;
+			using Element = typename Base::Element;
+			using ConstReference = typename Base::ConstReference;
 			using Base::increment;
 			using Base::decrement;
 			using Base::move;
 
-			typedef typename Cursor::Reference Reference;
+			using Reference = typename Cursor::Reference;
 
 			friend class ConstSliceViewCursor<N, Cursor>;
 

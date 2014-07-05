@@ -30,7 +30,7 @@ namespace Pastel
 		: public RefinablePartition_Fwd<ElementData, SetData>
 	{
 	public:
-		typedef RefinablePartition_Fwd<ElementData, SetData> Fwd;
+		using Fwd = RefinablePartition_Fwd<ElementData, SetData>;
 
 		PASTEL_FWD(Element);
 		PASTEL_FWD(ElementSet);

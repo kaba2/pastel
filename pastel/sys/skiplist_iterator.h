@@ -18,14 +18,14 @@ namespace Pastel
 		template <typename Key, typename Value_Class>
 		struct Iterator_Value
 		{
-			typedef Value_Class type;
+			using type = Value_Class;
 			static PASTEL_CONSTEXPR bool UseValue = true;
 		};
 
 		template <typename Key>
 		struct Iterator_Value<Key, As_Class<void>>
 		{
-			typedef const Key type;
+			using type = const Key;
 			static PASTEL_CONSTEXPR bool UseValue = false;
 		};
 
@@ -116,7 +116,7 @@ namespace Pastel
 			typedef Iterator_Value<Key, Value_Class>
 				Dereference;
 
-			typedef typename Dereference::type DereferenceType;
+			using DereferenceType = typename Dereference::type;
 
 			struct KeyTag {};
 			struct ValueTag {};

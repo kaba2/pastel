@@ -48,7 +48,7 @@ namespace Pastel
 		Vector2 duvDx(duvDxy.x(), 0);
 		Vector2 duvDy(0, duvDxy.y());
 
-		typedef typename Image_View::Cursor Cursor;
+		using Cursor = typename Image_View::Cursor;
 
 		Cursor yCursor = image.cursor(clippedBox.min());
 

@@ -41,7 +41,7 @@ namespace Pastel
 			return;
 		}
 
-		typedef typename Image_View::Cursor Cursor;
+		using Cursor = typename Image_View::Cursor;
 
 		Cursor yCursor = image.cursor(clippedBox.min());
 

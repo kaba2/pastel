@@ -175,8 +175,8 @@ namespace Pastel
 		class BoundPoint
 		{
 		private:
-			typedef KdTree<Real, N, ObjectPolicy> Tree;
-			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
+			using Tree = KdTree<Real, N, ObjectPolicy>;
+			using ConstObjectIterator = typename Tree::ConstObjectIterator;
 
 		public:
 			BoundPoint(
@@ -232,8 +232,8 @@ namespace Pastel
 			integer badRefines,
 			KdTree<Real, N, ObjectPolicy>& tree)
 		{
-			typedef KdTree<Real, N, ObjectPolicy> Tree;
-			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
+			using Tree = KdTree<Real, N, ObjectPolicy>;
+			using ConstObjectIterator = typename Tree::ConstObjectIterator;
 
 			if (depth >= maxDepth)
 			{

@@ -16,9 +16,9 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename ViewConstCursor::Element Element;
-		typedef typename ViewConstCursor::ConstReference ConstReference;
-		typedef ViewConstCursor ConstCursor;
+		using Element = typename ViewConstCursor::Element;
+		using ConstReference = typename ViewConstCursor::ConstReference;
+		using ConstCursor = ViewConstCursor;
 
 		ConstCursorView()
 			: cursor_()
@@ -67,19 +67,19 @@ namespace Pastel
 		: public ConstCursorView<N, ViewCursor>
 	{
 	private:
-		typedef ConstCursorView<N, ViewCursor> Base;
+		using Base = ConstCursorView<N, ViewCursor>;
 
 	public:
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
-		typedef typename Base::ConstCursor ConstCursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
+		using ConstCursor = typename Base::ConstCursor;
 		using Base::extent;
 		using Base::constCursor;
 		//using Base::Dimension;
 
-		typedef typename ViewCursor::Reference Reference;
+		using Reference = typename ViewCursor::Reference;
 
-		typedef ViewCursor Cursor;
+		using Cursor = ViewCursor;
 
 		CursorView()
 			: Base()

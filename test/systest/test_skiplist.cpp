@@ -37,9 +37,9 @@ namespace
 			}
 		}
 
-		typedef SkipList_MultiSet<integer> List;
-		typedef List::Iterator Iterator;
-		typedef List::ConstIterator ConstIterator;
+		using List = SkipList_MultiSet<integer>;
+		using Iterator = List::Iterator;
+		using ConstIterator = List::ConstIterator;
 
 		void testSimple(integer maxHeight)
 		{

@@ -16,8 +16,8 @@ namespace Pastel
 	class ReverseAdapter
 	{
 	public:
-		typedef typename Adapter::Physical Logical;
-		typedef typename Adapter::Logical Physical;
+		using Logical = typename Adapter::Physical;
+		using Physical = typename Adapter::Logical;
 
 		ReverseAdapter()
 			: adapter_()
@@ -48,8 +48,8 @@ namespace Pastel
 	class IdentityAdapter
 	{
 	public:
-		typedef Type Logical;
-		typedef Type Physical;
+		using Logical = Type;
+		using Physical = Type;
 
 		const Logical& convert(const Physical& physical) const
 		{
@@ -65,8 +65,8 @@ namespace Pastel
 	class PASTELGFX Color_To_Component
 	{
 	public:
-		typedef real32 Logical;
-		typedef Color Physical;
+		using Logical = real32;
+		using Physical = Color;
 
 		Color_To_Component()
 			: component_(0)
@@ -98,8 +98,8 @@ namespace Pastel
 	class Integer_To_Real
 	{
 	public:
-		typedef Real Logical;
-		typedef Integer Physical;
+		using Logical = Real;
+		using Physical = Integer;
 
 		explicit Integer_To_Real(
 			integer numbers,
@@ -128,8 +128,8 @@ namespace Pastel
 	class Integer_To_Bool
 	{
 	public:
-		typedef bool Logical;
-		typedef Integer Physical;
+		using Logical = bool;
+		using Physical = Integer;
 
 		static Logical convert(const Physical& physical)
 		{
@@ -145,8 +145,8 @@ namespace Pastel
 	class PASTELGFX ByteColor_To_Color
 	{
 	public:
-		typedef Color Logical;
-		typedef ByteColor Physical;
+		using Logical = Color;
+		using Physical = ByteColor;
 
 		static Logical convert(const Physical& physical)
 		{
@@ -165,7 +165,7 @@ namespace Pastel
 		}
 	};
 
-	typedef ReverseAdapter<ByteColor_To_Color> ByteColor_Color_Adapter;
+	using ByteColor_Color_Adapter = ReverseAdapter<ByteColor_To_Color>;
 
 	template <typename Integer,
 		int RedBits, int GreenBits, int BlueBits,
@@ -175,8 +175,8 @@ namespace Pastel
 	class Integer_To_ByteColor
 	{
 	public:
-		typedef ByteColor Logical;
-		typedef Integer Physical;
+		using Logical = ByteColor;
+		using Physical = Integer;
 
 		~Integer_To_ByteColor()
 		{
@@ -223,8 +223,8 @@ namespace Pastel
 		static PASTEL_CONSTEXPR int BlueNumbers = 1 << BlueBits;
 
 	public:
-		typedef Color Logical;
-		typedef Integer Physical;
+		using Logical = Color;
+		using Physical = Integer;
 
 		Integer_To_Color()
 		{

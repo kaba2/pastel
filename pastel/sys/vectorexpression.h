@@ -318,7 +318,7 @@ namespace Pastel
 		: public VectorExpression<Real, N, VectorConstant<Real, N> >
 	{
 	public:
-		typedef const VectorConstant StorageType;
+		using StorageType = const VectorConstant;
 
 		VectorConstant(
 			const Real& that,
@@ -364,7 +364,7 @@ namespace Pastel
 		: public VectorExpression<Real, N, VectorNegation<Real, N, Expression> >
 	{
 	public:
-		typedef const VectorNegation& StorageType;
+		using StorageType = const VectorNegation&;
 
 		explicit VectorNegation(
 			const Expression& data)
@@ -408,7 +408,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const VectorAddition& StorageType;
+		using StorageType = const VectorAddition&;
 
 		VectorAddition(
 			const LeftExpression& left,
@@ -458,7 +458,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const VectorSubtraction& StorageType;
+		using StorageType = const VectorSubtraction&;
 
 		VectorSubtraction(
 			const LeftExpression& left,
@@ -508,7 +508,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const VectorMultiplication& StorageType;
+		using StorageType = const VectorMultiplication&;
 
 		VectorMultiplication(
 			const LeftExpression& left,
@@ -558,7 +558,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
-		typedef const VectorDivision& StorageType;
+		using StorageType = const VectorDivision&;
 
 		VectorDivision(
 			const LeftExpression& left,

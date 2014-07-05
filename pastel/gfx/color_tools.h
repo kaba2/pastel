@@ -48,8 +48,8 @@ namespace Pastel
 	class PASTELGFX Luma_Color_Adapter
 	{
 	public:
-		typedef Color Logical;
-		typedef real32 Physical;
+		using Logical = Color;
+		using Physical = real32;
 
 		Logical convert(const Physical& physical) const
 		{
@@ -62,7 +62,7 @@ namespace Pastel
 		}
 	};
 
-	typedef ReverseAdapter<Luma_Color_Adapter> Color_Luma_Adapter;
+	using Color_Luma_Adapter = ReverseAdapter<Luma_Color_Adapter>;
 
 }
 

@@ -37,8 +37,8 @@ namespace Pastel
 		}
 	};
 
-	typedef CountedPtr<MirrorExtender> MirrorExtenderPtr;
-	typedef CountedPtr<const MirrorExtender> ConstMirrorExtenderPtr;
+	using MirrorExtenderPtr = CountedPtr<MirrorExtender>;
+	using ConstMirrorExtenderPtr = CountedPtr<const MirrorExtender>;
 
 	inline MirrorExtenderPtr mirrorExtender()
 	{
