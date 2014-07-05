@@ -15,9 +15,6 @@ namespace Pastel
 		class Input
 		{
 		public:
-			// The type of the elements.
-			typedef UserDefinedType Type;
-
 			//! Returns the number of elements left.
 			/*!
 			This number is only a hint;
@@ -35,9 +32,9 @@ namespace Pastel
 			//! Returns the next element.
 			/*!
 			Preconditions:
-			!empty()
+			(bool)*this
 			*/
-			Type operator()();
+			UserDefinedType operator()();
 		};
 
 	}
