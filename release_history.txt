@@ -79,6 +79,7 @@ Release date xx.x.2014
 
 * Added the range tree.
 * Modernized the half-edge structure.
+* Modernized the point kd-tree structure.
 
 #### Algorithms
 
