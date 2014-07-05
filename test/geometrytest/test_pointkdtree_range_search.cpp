@@ -1,10 +1,10 @@
 // Description: Testing for point kd-tree range search
 // DocumentationOf: pointkdtree_range_search.h
 
-#include "test_pastelsys.h"
+#include "test_pastelgeometry.h"
 
-#include <pastel/sys/pointkdtree.h>
-#include <pastel/sys/pointkdtree_range_search.h>
+#include <pastel/geometry/pointkdtree.h>
+#include <pastel/geometry/pointkdtree_search_range.h>
 
 using namespace Pastel;
 using namespace std;
@@ -28,10 +28,6 @@ namespace
 
 		void test()
 		{
-			typedef PointKdTree<real, 2> Tree;
-			typedef Tree::Point_ConstIterator Point_ConstIterator;
-
-			Tree tree;
 		}
 	};
 
@@ -43,7 +39,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("pointkdtree_range_search", test);
+		testRunner().add("pointkdtree_search_range", test);
 	}
 
 	CallFunction run(addTest);
