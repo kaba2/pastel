@@ -38,11 +38,14 @@ namespace
 
 				TEST_ENSURE(scalarMean<Real>(rangeInput(aSet)) == Real(11, 3));
 				TEST_ENSURE(scalarVariance<Real>(rangeInput(aSet), false) == Real(322, 15));
+				TEST_ENSURE(scalarVariance<Real>(rangeInput(aSet)) == Real(322, 18));
 
 				TEST_ENSURE(scalarMean<Real>(rangeInput(bSet)) == Real(-2, 3));
 				TEST_ENSURE(scalarVariance<Real>(rangeInput(bSet), false) == Real(298, 15));
+				TEST_ENSURE(scalarVariance<Real>(rangeInput(bSet)) == Real(298, 18));
 
 				TEST_ENSURE(scalarCovariance<Real>(rangeInput(aSet), rangeInput(bSet), false) == Real(14, 15));
+				TEST_ENSURE(scalarMeanSquareError<Real>(rangeInput(aSet), rangeInput(bSet)) == Real(310, 6));
 			}
 
 			{
@@ -50,6 +53,8 @@ namespace
 				using Locator = Vector_Locator<Real, 2>;
 				std::vector<Point> aSet = { { -1, -6 }, { 7, 4 }, { 4, 3 }, { -3, 2 }, { 7, -6 }, { 8, -1 } };
 				TEST_ENSURE(pointMean<Real>(rangeInput(aSet), Locator()) == Point(Real(11, 3), Real(-2, 3)));
+				TEST_ENSURE(pointVariance<Real>(rangeInput(aSet), Locator(), false) == Point(Real(322, 15), Real(298, 15)));
+				TEST_ENSURE(pointVariance<Real>(rangeInput(aSet), Locator()) == Point(Real(322, 18), Real(298, 18)));
 			}
 		}
 	};
