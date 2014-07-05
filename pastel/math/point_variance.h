@@ -1,4 +1,4 @@
-// Description: Point-set variance
+// Description: Variance of a point-set
 // Documentation: statistics.txt
 
 #ifndef PASTELMATH_POINT_VARIANCE_H

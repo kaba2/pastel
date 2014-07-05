@@ -1,4 +1,4 @@
-// Description: Mean of a set of numbers
+// Description: Mean of a scalar set
 // Documentation: statistics.txt
 
 #ifndef PASTELMATH_SCALAR_MEAN_H

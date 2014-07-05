@@ -1,4 +1,4 @@
-// Description: Point-set mean
+// Description: Mean of a point-set
 // Documentation: statistics.txt
 
 #ifndef PASTELMATH_POINT_MEAN_H
