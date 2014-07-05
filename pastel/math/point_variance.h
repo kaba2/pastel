@@ -26,10 +26,10 @@ namespace Pastel
 		typename Point_Input, 
 		typename Locator>
 	Vector<Real, Locator::N> pointVariance(
-		const Point_Input& pointSet,
+		Point_Input pointSet,
 		const Locator& locator,
 		bool biased,
-		const typename Locator::Point& mean);
+		const Vector<Real, Locator::N>& mean);
 
 	//! Returns the point-set variance.
 	/*!
@@ -42,12 +42,12 @@ namespace Pastel
 		typename Point_Input, 
 		typename Locator>
 	Vector<Real, Locator::N> pointVariance(
-		const Point_Input& pointSet,
+		Point_Input pointSet,
 		const Locator& locator,
 		bool biased = true)
 	{
 		return Pastel::pointVariance(pointSet, locator, biased,
-			pointMean(pointSet, locator));
+			pointMean<Real>(pointSet, locator));
 	}
 
 }

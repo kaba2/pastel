@@ -11,15 +11,15 @@ namespace Pastel
 		typename Point_Input, 
 		typename Locator>
 	Vector<Real, Locator::N> pointVariance(
-		const Point_Input& pointSet,
+		Point_Input pointSet,
 		const Locator& locator,
 		bool biased,
-		const typename Locator::Point& mean)
+		const Vector<Real, Locator::N>& mean)
 	{
-		const integer d = pointPolicy.n();
+		const integer d = locator.n();
 		ENSURE_OP(d, >=, 0);
 
-		Vector<Real, Locator::N> result(ofDimension(n), 0);
+		Vector<Real, Locator::N> result(ofDimension(d), 0);
 
 		if (pointSet.empty() || d == 0)
 		{
@@ -33,7 +33,7 @@ namespace Pastel
 			for (integer i = 0; i < d;++i)
 			{
 				result[i] += 
-					square(locator(point, i) - locator(mean, i));
+					square(locator(point, i) - mean[i]);
 			}
 			++n;
 		}
