@@ -2,3 +2,6 @@ Statistics
 ==========
 
 [[Parent]]: pastelmath.txt
+
+_Statistics_ is the study of the collection, organization, analysis, interpretation and presentation of data. In this section we provide _descriptive statistics_, that is, functions of the input which each summarize an intuitive aspect of the given input. The most important descriptive statistics are those describing _central tendency_, such as mean, median, and mode, and those describing _dispersion_, such as variance, standard deviation, and range. Other statistics include those describing _dependency_ between two or more data-sets, such as correlation, and mutual information. Under probabilistic assumptions, i.e. an underlying _population distribution_, the descriptive statistics can often be shown to be estimators, with varying properties, of the parameters of the population distribution.
+
