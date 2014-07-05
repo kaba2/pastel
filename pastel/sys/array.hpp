@@ -834,7 +834,7 @@ namespace Pastel
 		// in Visual Studio 2010 SP1, which is related
 		// to mentioning the N. Typedeffing the type
 		// in advance here avoids the bug.
-		typedef RectangleIterator<N> RectangleIterator_AvoidBug;
+		using RectangleIterator_AvoidBug = RectangleIterator<N>;
 
 		integer defaultConstructed = 0;
 		try

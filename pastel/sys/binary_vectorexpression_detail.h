@@ -13,7 +13,7 @@
 		LeftExpression, RightExpression> > \
 	{ \
 	public: \
-		typedef const CLASS& StorageType; \
+		using StorageType = const CLASS&; \
 		\
 		CLASS( \
 			const LeftExpression& left, \

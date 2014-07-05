@@ -18,9 +18,9 @@ code.
 [[CppCode]]:
 	#include <list>
 
-	typedef std::list<int> NumberSet;
-	typedef NumberSet::iterator Number_Iterator;
-	typedef NumberSet::const_iterator Number_ConstIterator;
+	using NumberSet = std::list<int>;
+	using Number_Iterator = NumberSet::iterator;
+	using Number_ConstIterator = NumberSet::const_iterator;
 
 	Number_ConstIterator find(
 		Number_ConstIterator begin,

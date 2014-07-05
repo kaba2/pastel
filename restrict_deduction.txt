@@ -284,7 +284,7 @@ Attempt 4: Disabling template type deduction
 	class Identity
 	{
 	public:
-		typedef Type Result;
+		using Result = Type;
 	}; 
 	
 	template <typename Type>
@@ -382,7 +382,7 @@ rid of the parentheses. We do this by the following:
 	class RemoveBrackets<void (Type)>
 	{
 	public:
-		typedef Type Result;
+		using Result = Type;
 	};
 
 	#define PASTEL_NO_DEDUCTION(x) typename RemoveBrackets<void x>::Result

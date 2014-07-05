@@ -154,7 +154,7 @@ namespace Pastel
 		ENSURE_OP(width, ==, height);
 
 		//rowPermutation_.setSize(width);
-		for (integer i = 0 ;i < width;++i)
+		for (integer i = 0;i < width;++i)
 		{
 			rowPermutation_[i] = i;
 		}

@@ -17,8 +17,8 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = 1;
 
-		typedef typename Contained_ConstView::Element Element;
-		typedef typename Contained_ConstView::ConstReference ConstReference;
+		using Element = typename Contained_ConstView::Element;
+		using ConstReference = typename Contained_ConstView::ConstReference;
 		typedef RowView_::ConstRowViewCursor<typename Contained_ConstView::ConstCursor>
 			ConstCursor;
 
@@ -73,7 +73,7 @@ namespace Pastel
 		: public ConstRowView<N, Contained_View>
 	{
 	private:
-		typedef ConstRowView<N, Contained_View> Base;
+		using Base = ConstRowView<N, Contained_View>;
 
 		using Base::view_;
 		using Base::pivot_;
@@ -81,12 +81,12 @@ namespace Pastel
 
 	public:
 		//using Base::Dimension;
-		typedef typename Base::ConstCursor ConstCursor;
-		typedef typename Base::Element Element;
+		using ConstCursor = typename Base::ConstCursor;
+		using Element = typename Base::Element;
 		using Base::extent;
 		using Base::constCursor;
 
-		typedef typename Contained_View::Reference Reference;
+		using Reference = typename Contained_View::Reference;
 		typedef RowView_::RowViewCursor<typename Contained_View::Cursor>
 			Cursor;
 

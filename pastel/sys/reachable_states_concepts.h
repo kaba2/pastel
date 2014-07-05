@@ -12,7 +12,7 @@ namespace Pastel
 	{
 
 		//! Automaton<...>::State_ConstIterator
-		typedef UserDefinedType State_ConstIterator;
+		using State_ConstIterator = UserDefinedType;
 
 		//! Marks a state as visited.
 		class Mark

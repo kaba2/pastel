@@ -22,11 +22,11 @@ namespace Pastel
 		: public Texture<Type, N>
 	{
 	private:
-		typedef Texture<Type, N> Base;
+		using Base = Texture<Type, N>;
 
 	public:
-		typedef typename Base::Element Element;
-		typedef ArrayExtender<N, Type> ArrayExtender_;
+		using Element = typename Base::Element;
+		using ArrayExtender_ = ArrayExtender<N, Type>;
 
 		LinearImage_Texture()
 			: image_(0)

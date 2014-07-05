@@ -22,8 +22,8 @@ namespace Pastel
 			template <typename, int>
 			friend class Array;
 
-			typedef Type Element;
-			typedef Type const& ConstReference;
+			using Element = Type;
+			using ConstReference = Type const&;
 
 			ConstCursor()
 				: data_(0)
@@ -146,13 +146,13 @@ namespace Pastel
 			template <typename, int>
 			friend class Array;
 
-			typedef ConstCursor<Type, N> Base;
+			using Base = ConstCursor<Type, N>;
 
 			using Base::data_;
 
 		public:
-			typedef Type Element;
-			typedef Type& Reference;
+			using Element = Type;
+			using Reference = Type&;
 
 			Cursor()
 				: Base()

@@ -28,9 +28,9 @@ namespace
 			test();
 		}
 
-		typedef Hashed_Map<integer, integer> Tree;
-		typedef Tree::Iterator Iterator;
-		typedef Tree::ConstIterator ConstIterator;
+		using Tree = Hashed_Map<integer, integer>;
+		using Iterator = Tree::Iterator;
+		using ConstIterator = Tree::ConstIterator;
 
 		void test()
 		{

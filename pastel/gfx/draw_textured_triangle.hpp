@@ -99,7 +99,7 @@ namespace Pastel
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
-		typedef DrawTexturedTriangle_::TextureVertex Vertex;
+		using Vertex = DrawTexturedTriangle_::TextureVertex;
 
 		// Order vertices vertically.
 

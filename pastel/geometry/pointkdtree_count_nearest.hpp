@@ -24,7 +24,7 @@ namespace Pastel
 		static PASTEL_CONSTEXPR integer N = Settings::N;
 		PASTEL_FWD(Point_ConstIterator);
 
-		typedef CountNearest_ Self;
+		using Self = CountNearest_;
 
 		CountNearest_(
 			const Tree& kdTree,

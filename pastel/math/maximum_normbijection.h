@@ -16,7 +16,7 @@ namespace Pastel
 	class Maximum_NormBijection
 	{
 	public:
-		typedef Real_ Real;
+		using Real = Real_;
 
 		// Using default constructor.
 		// Using default copy constructor.

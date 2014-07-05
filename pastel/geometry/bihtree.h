@@ -38,8 +38,8 @@ namespace Pastel
 		class Leaf;
 
 	private:
-		typedef std::vector<Leaf> LeafContainer;
-		typedef std::vector<Shape> ShapeContainer;
+		using LeafContainer = std::vector<Leaf>;
+		using ShapeContainer = std::vector<Shape>;
 
 	public:
 		class ConstCursor;

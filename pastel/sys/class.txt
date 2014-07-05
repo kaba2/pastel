@@ -95,7 +95,7 @@ An example is given by a [generic graph data structure][Graph] which allows to e
 		: public As_Class<EdgeData>
 	{
 	public:
-		typedef As_Class<EdgeData> Base;
+		using Base = As_Class<EdgeData>;
 
 		using Base::operator=;
 		Edge& operator=(Edge edge) = delete;

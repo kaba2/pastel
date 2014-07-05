@@ -27,7 +27,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 
 		static PASTEL_CONSTEXPR int N_ = N;
 
@@ -360,17 +360,17 @@ namespace Pastel
 	void swap(AlignedBox<Real, N>& left,
 		AlignedBox<Real, N>& right);
 
-	typedef AlignedBox<real, 1> AlignedBox1;
-	typedef AlignedBox<real, 2> AlignedBox2;
-	typedef AlignedBox<real, 3> AlignedBox3;
-	typedef AlignedBox<real, 4> AlignedBox4;
-	typedef AlignedBox<real, Dynamic> AlignedBoxD;
+	using AlignedBox1 = AlignedBox<real, 1>;
+	using AlignedBox2 = AlignedBox<real, 2>;
+	using AlignedBox3 = AlignedBox<real, 3>;
+	using AlignedBox4 = AlignedBox<real, 4>;
+	using AlignedBoxD = AlignedBox<real, Dynamic>;
 
-	typedef AlignedBox<integer, 1> AlignedBox1i;
-	typedef AlignedBox<integer, 2> AlignedBox2i;
-	typedef AlignedBox<integer, 3> AlignedBox3i;
-	typedef AlignedBox<integer, 4> AlignedBox4i;
-	typedef AlignedBox<integer, Dynamic> AlignedBoxDi;
+	using AlignedBox1i = AlignedBox<integer, 1>;
+	using AlignedBox2i = AlignedBox<integer, 2>;
+	using AlignedBox3i = AlignedBox<integer, 3>;
+	using AlignedBox4i = AlignedBox<integer, 4>;
+	using AlignedBoxDi = AlignedBox<integer, Dynamic>;
 
 }
 

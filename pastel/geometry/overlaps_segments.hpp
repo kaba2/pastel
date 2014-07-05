@@ -240,23 +240,23 @@ namespace Pastel
 				EventPoint end_;
 			};
 
-			typedef std::set<StatusSegment> StatusContainer;
+			using StatusContainer = std::set<StatusSegment>;
 			typedef typename StatusContainer::iterator
 				StatusIterator;
 			typedef typename StatusContainer::const_iterator
 				ConstStatusIterator;
 
-			typedef ListArray<StatusIterator> IncidenceContainer;
+			using IncidenceContainer = ListArray<StatusIterator>;
 			typedef typename IncidenceContainer::Iterator
 				IncidenceIterator;
 			typedef typename IncidenceContainer::ConstIterator
 				ConstIncidenceIterator;
 
-			typedef ListArray<Integer2> ExidenceContainer;
-			typedef ExidenceContainer::Iterator
-				ExidenceIterator;
-			typedef ExidenceContainer::ConstIterator
-				ConstExidenceIterator;
+			using ExidenceContainer = ListArray<Integer2>;
+			using ExidenceIterator = ExidenceContainer::Iterator
+;
+			using ConstExidenceIterator = ExidenceContainer::ConstIterator
+;
 		public:
 			OverlapSegments(
 				const std::vector<Vector<Real, 2> >& vertex,

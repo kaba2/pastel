@@ -16,7 +16,7 @@ namespace
 
 	void testAllocate()
 	{
-		typedef std::vector<void*> MemoryList;
+		using MemoryList = std::vector<void*>;
 		MemoryList memoryList;
 
 		PoolAllocator allocator(15);
@@ -39,7 +39,7 @@ namespace
 
 	void testDeallocate()
 	{
-		typedef std::vector<void*> MemoryList;
+		using MemoryList = std::vector<void*>;
 		MemoryList memoryList;
 
 		PoolAllocator allocator(15);
@@ -92,7 +92,7 @@ namespace
 
 	void testRandomDeallocate()
 	{
-		typedef std::vector<int*> MemoryList;
+		using MemoryList = std::vector<int*>;
 		MemoryList memoryList;
 
 		PoolAllocator allocator(sizeof(int));

@@ -20,7 +20,7 @@ namespace Pastel
 		class DataPoint
 		{
 		public:
-			typedef Data Data_;
+			using Data_ = Data;
 
 			DataPoint()
 				: position_()
@@ -44,10 +44,10 @@ namespace Pastel
 		class DataPolicy
 		{
 		public:
-			typedef Real_ Real;
-			typedef DataPoint<Real, N, Data> Point;
-			typedef const Real* ConstIterator;
-			typedef ConstArray_VectorExpression<Real, N> Expression;
+			using Real = Real_;
+			using Point = DataPoint<Real, N, Data>;
+			using ConstIterator = const Real*;
+			using Expression = ConstArray_VectorExpression<Real, N>;
 
 			explicit DataPolicy(
 				integer dimension)
@@ -106,7 +106,7 @@ namespace Pastel
 			{
 			}
 
-			typedef typename PointPolicy::Point Data;
+			using Data = typename PointPolicy::Point;
 
 			void operator()(
 				const Vector<integer, N>& position,
@@ -154,8 +154,8 @@ namespace Pastel
 		ENSURE_OP(kNearest, >, 0);
 		ENSURE2(points == dataList.size(), points, dataList.size());
 
-		typedef ReconstructNearest_::DataPoint<Real, N, Data> DataPoint;
-		typedef ReconstructNearest_::DataPolicy<Real, N, Data> DataPolicy;
+		using DataPoint = ReconstructNearest_::DataPoint<Real, N, Data>;
+		using DataPolicy = ReconstructNearest_::DataPolicy<Real, N, Data>;
 
 		DataPolicy pointPolicy(n);
 

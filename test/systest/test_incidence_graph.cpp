@@ -19,9 +19,9 @@ namespace
 		{
 		}
 
-		typedef Directed_Graph<integer, integer> Graph;
-		typedef Graph::Vertex_Iterator Vertex;
-		typedef Graph::Edge_Iterator Edge;
+		using Graph = Directed_Graph<integer, integer>;
+		using Vertex = Graph::Vertex_Iterator;
+		using Edge = Graph::Edge_Iterator;
 
 		virtual void run()
 		{
@@ -185,9 +185,9 @@ namespace
 
 		void testMixed()
 		{
-			typedef Mixed_Graph<integer, integer> Graph;
-			typedef Graph::Vertex_Iterator Vertex;
-			typedef Graph::Edge_Iterator Edge;
+			using Graph = Mixed_Graph<integer, integer>;
+			using Vertex = Graph::Vertex_Iterator;
+			using Edge = Graph::Edge_Iterator;
 
 			Graph graph;
 
@@ -242,9 +242,9 @@ namespace
 
 		void testPure()
 		{
-			typedef Directed_Graph<> Graph;
-			typedef Graph::Vertex_Iterator Vertex;
-			typedef Graph::Edge_Iterator Edge;
+			using Graph = Directed_Graph<>;
+			using Vertex = Graph::Vertex_Iterator;
+			using Edge = Graph::Edge_Iterator;
 
 			Graph graph;
 			Vertex a = graph.insertVertex();

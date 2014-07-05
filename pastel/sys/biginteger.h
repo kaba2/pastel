@@ -86,7 +86,7 @@ namespace Pastel
 		bool operator==(const BigInteger& that) const;
 
 	private:
-		typedef std::vector<uint16> DigitContainer;
+		using DigitContainer = std::vector<uint16>;
 
 		template <typename BuiltInInteger>
 		void construct(

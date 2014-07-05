@@ -16,18 +16,18 @@ namespace Pastel
 	class Tree
 	{
 	private:
-		typedef Type Data;
-        typedef As_Class<Data> Data_Class;
-		typedef Tree_::Node Node;
-		typedef Tree_::Data_Node<Data_Class> Data_Node;
-		typedef Tree_::Sentinel_Node Sentinel_Node;
+		using Data = Type;
+        using Data_Class = As_Class<Data>;
+		using Node = Tree_::Node;
+		using Data_Node = Tree_::Data_Node<Data_Class>;
+		using Sentinel_Node = Tree_::Sentinel_Node;
 
 	public:
-		typedef Tree_::Iterator<Node*, Data_Class> Iterator;
-		typedef Tree_::Iterator<const Node*, Data_Class> ConstIterator;
+		using Iterator = Tree_::Iterator<Node*, Data_Class>;
+		using ConstIterator = Tree_::Iterator<const Node*, Data_Class>;
 
-		typedef boost::iterator_range<Iterator> Range;
-		typedef boost::iterator_range<ConstIterator> ConstRange;
+		using Range = boost::iterator_range<Iterator>;
+		using ConstRange = boost::iterator_range<ConstIterator>;
 
 	public:
 		//! Construct an empty tree.

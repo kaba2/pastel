@@ -11,7 +11,7 @@ namespace Pastel
 		template <typename> class Customization>
 	bool testInvariants(const HalfMesh<Settings, Customization>& mesh)
 	{
-		typedef HalfMesh<Settings, Customization> Mesh;
+		using Mesh = HalfMesh<Settings, Customization>;
 		
 		using Fwd = Mesh;
 		PASTEL_FWD(Vertex_ConstIterator);

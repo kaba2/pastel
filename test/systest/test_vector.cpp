@@ -13,8 +13,8 @@ using namespace Pastel;
 namespace
 {
 
-	typedef Rational<integer> Real;
-	//typedef real Real;
+	using Real = Rational<integer>;
+	//using Real = real;
 
 	template <typename Type, int N>
 	void someFunction(const Tuple<Type, N>& jorma)
@@ -70,7 +70,7 @@ namespace
 
 			*/
 
-			typedef Rational<BigInteger> Real;
+			using Real = Rational<BigInteger>;
 
 			Vector<Real, N> au2(0);
 			Vector<Real, N> au3(0.0);
@@ -294,7 +294,7 @@ namespace
 
 		void testVectorArray()
 		{
-			typedef float Real;
+			using Real = float;
 
 			Vector<Real, 3> a = Vector<Real, 3>(-1, -2, 3);
 

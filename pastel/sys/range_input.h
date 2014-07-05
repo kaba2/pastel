@@ -17,8 +17,8 @@ namespace Pastel
 	class Range_Input
 	{
 	private:
-		typedef typename boost::range_iterator<const Range>::type Iterator;
-		typedef typename boost::range_value<Range>::type Type;
+		using Iterator = typename boost::range_iterator<const Range>::type;
+		using Type = typename boost::range_value<Range>::type;
 
 	public:
 		Range_Input()

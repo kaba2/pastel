@@ -43,9 +43,9 @@ namespace Pastel
 		class TreePoint_PointPolicy
 		{
 		public:
-			typedef real Real;
-			typedef TreePoint Point;
-			typedef const Real* ConstIterator;
+			using Real = real;
+			using Point = TreePoint;
+			using ConstIterator = const Real*;
 
 			explicit TreePoint_PointPolicy(
 				integer dimension)
@@ -53,8 +53,8 @@ namespace Pastel
 			{
 			}
 
-			typedef boost::iterator_range<ConstIterator>
-				ConstRange;
+			using ConstRange = boost::iterator_range<ConstIterator>
+;
 
 			typedef Array_VectorExpression<real, Dynamic>
 				Expression;
@@ -110,11 +110,11 @@ namespace Pastel
 
 		using Settings = PointKdTree_Settings<real, Dynamic, TreePoint_PointPolicy>;
 
-		typedef PointKdTree<Settings> Tree;
-		typedef Tree::Point_ConstIterator Point_ConstIterator;
-		typedef Tree::Point_ConstRange Point_ConstRange;
-		typedef std::unordered_map<integer, Point_ConstIterator> IndexMap;
-		typedef IndexMap::const_iterator ConstIterator;
+		using Tree = PointKdTree<Settings>;
+		using Point_ConstIterator = Tree::Point_ConstIterator;
+		using Point_ConstRange = Tree::Point_ConstRange;
+		using IndexMap = std::unordered_map<integer, Point_ConstIterator>;
+		using ConstIterator = IndexMap::const_iterator;
 
 		struct KdState
 		{
@@ -229,7 +229,7 @@ namespace Pastel
 			const integer d = state->tree.n();
 			const integer n = idSet.size();
 
-			typedef Tree::PointPolicy PointPolicy;
+			using PointPolicy = Tree::PointPolicy;
 			const PointPolicy& pointPolicy = state->tree.pointPolicy();
 
 			Array<real> pointSet = createArray<real>(

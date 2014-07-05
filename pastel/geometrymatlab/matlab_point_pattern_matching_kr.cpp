@@ -79,11 +79,11 @@ namespace Pastel
 
 			using Settings = PointKdTree_Settings<real, Dynamic, Array_PointPolicy<real>>;
 
-			typedef PointKdTree<Settings> SceneTree;
-			typedef SceneTree::Point_ConstIterator SceneIterator;
+			using SceneTree = PointKdTree<Settings>;
+			using SceneIterator = SceneTree::Point_ConstIterator;
 
-			typedef PointKdTree<Settings> ModelTree;
-			typedef ModelTree::Point_ConstIterator ModelIterator;
+			using ModelTree = PointKdTree<Settings>;
+			using ModelIterator = ModelTree::Point_ConstIterator;
 
 			Array_PointPolicy<real> pointPolicy(n);
 

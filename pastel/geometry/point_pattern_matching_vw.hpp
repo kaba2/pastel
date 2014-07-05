@@ -25,7 +25,7 @@ namespace Pastel
 		const PointPolicy& pointPolicy,
 		const typename PointPolicy::Real& relativeMatchingDistance)
 	{
-		typedef typename PointPolicy::Real Real;
+		using Real = typename PointPolicy::Real;
 		static PASTEL_CONSTEXPR int N = PointPolicy::N;
 
 		const Sphere<Real, N> sceneSphere = boundingSphere(
@@ -48,13 +48,13 @@ namespace Pastel
 		private:
 			PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
 
-			typedef PointKdTree<Scene_Settings, Scene_Customization> SceneTree;
-			typedef typename SceneTree::Point_ConstIterator SceneIterator;
-			typedef typename SceneTree::Point ScenePoint;
+			using SceneTree = PointKdTree<Scene_Settings, Scene_Customization>;
+			using SceneIterator = typename SceneTree::Point_ConstIterator;
+			using ScenePoint = typename SceneTree::Point;
 
-			typedef PointKdTree<Model_Settings, Model_Customization> ModelTree;
-			typedef typename ModelTree::Point_ConstIterator ModelIterator;
-			typedef typename ModelTree::Point ModelPoint;
+			using ModelTree = PointKdTree<Model_Settings, Model_Customization>;
+			using ModelIterator = typename ModelTree::Point_ConstIterator;
+			using ModelPoint = typename ModelTree::Point;
 
 		public:
 			PatternMatcher(
@@ -454,7 +454,7 @@ namespace Pastel
 					// Thus we keep track of which scene points
 					// we have already paired.
 
-					typedef std::unordered_set<SceneIterator, SceneIteratorHash> UsedSceneSet;
+					using UsedSceneSet = std::unordered_set<SceneIterator, SceneIteratorHash>;
 					UsedSceneSet usedSet;
 
 					ModelIterator modelIter = modelTree_.begin();
@@ -593,8 +593,8 @@ namespace Pastel
 		ENSURE_OP(modelPointPolicy.n(), ==, 2);
 		ENSURE_OP(scenePointPolicy.n(), ==, 2);
 
-		typedef PointKdTree<PointKdTree_Settings<Real, 2, Scene_PointPolicy>> SceneTree;
-		typedef PointKdTree<PointKdTree_Settings<Real, 2, Model_PointPolicy>> ModelTree;
+		using SceneTree = PointKdTree<PointKdTree_Settings<Real, 2, Scene_PointPolicy>>;
+		using ModelTree = PointKdTree<PointKdTree_Settings<Real, 2, Model_PointPolicy>>;
 
 		SceneTree sceneTree(scenePointPolicy);
 		sceneTree.insertRange(scene);

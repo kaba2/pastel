@@ -64,8 +64,8 @@ namespace Pastel
 		std::string name_;
 	};
 
-	typedef std::shared_ptr<Filter> FilterPtr;
-	typedef std::shared_ptr<const Filter> ConstFilterPtr;
+	using FilterPtr = std::shared_ptr<Filter>;
+	using ConstFilterPtr = std::shared_ptr<const Filter>;
 
 }
 

@@ -35,11 +35,11 @@ namespace
 			integer label;
 		};
 
-		typedef Tree<Label> Tree_;
-		typedef Tree_::Iterator Iterator;
-		typedef Tree_::ConstIterator ConstIterator;
-		typedef Tree_::Range Range;
-		typedef Tree_::ConstRange ConstRange;
+		using Tree_ = Tree<Label>;
+		using Iterator = Tree_::Iterator;
+		using ConstIterator = Tree_::ConstIterator;
+		using Range = Tree_::Range;
+		using ConstRange = Tree_::ConstRange;
 
 		Test()
 			: TestSuite(&testReport())

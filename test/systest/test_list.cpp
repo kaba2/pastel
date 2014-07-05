@@ -15,9 +15,9 @@ using namespace std;
 namespace
 {
 
-	typedef List_Set<integer, integer> Set;
-	typedef Set::Iterator Iterator;
-	typedef Set::ConstIterator ConstIterator;
+	using Set = List_Set<integer, integer>;
+	using Iterator = Set::Iterator;
+	using ConstIterator = Set::ConstIterator;
 
 	class Test
 		: public TestSuite

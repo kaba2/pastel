@@ -18,9 +18,9 @@ namespace Pastel
 		const From_PointPolicy& fromPointPolicy,
 		const To_PointPolicy& toPointPolicy)
 	{
-		typedef typename From_PointPolicy::Real Real;
-		typedef typename From_PointPolicy::Point FromPoint;
-		typedef typename To_PointPolicy::Point ToPoint;
+		using Real = typename From_PointPolicy::Real;
+		using FromPoint = typename From_PointPolicy::Point;
+		using ToPoint = typename To_PointPolicy::Point;
 
 		typedef typename boost::range_iterator<From_Point_ConstRange>::type
 			From_Point_ConstIterator;

@@ -18,9 +18,9 @@ namespace Pastel
 	public:
 		static PASTEL_CONSTEXPR int Dimension = N;
 
-		typedef typename Contained_ConstView::Element Element;
-		typedef typename Contained_ConstView::ConstReference ConstReference;
-		typedef typename Contained_ConstView::ConstCursor ConstCursor;
+		using Element = typename Contained_ConstView::Element;
+		using ConstReference = typename Contained_ConstView::ConstReference;
+		using ConstCursor = typename Contained_ConstView::ConstCursor;
 
 		ConstSubView()
 			: view_()
@@ -74,20 +74,20 @@ namespace Pastel
 		: public ConstSubView<N, Contained_View>
 	{
 	private:
-		typedef ConstSubView<N, Contained_View> Base;
+		using Base = ConstSubView<N, Contained_View>;
 		using Base::view_;
 		using Base::window_;
 
 	public:
 		//using Base::Dimension;
-		typedef typename Base::Element Element;
-		typedef typename Base::ConstReference ConstReference;
-		typedef typename Base::ConstCursor ConstCursor;
+		using Element = typename Base::Element;
+		using ConstReference = typename Base::ConstReference;
+		using ConstCursor = typename Base::ConstCursor;
 		using Base::extent;
 		using Base::constCursor;
 
-		typedef typename Contained_View::Reference Reference;
-		typedef typename Contained_View::Cursor Cursor;
+		using Reference = typename Contained_View::Reference;
+		using Cursor = typename Contained_View::Cursor;
 
 		SubView()
 			: Base()

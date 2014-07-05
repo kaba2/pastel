@@ -33,9 +33,9 @@ namespace Pastel
 		> > > >
 	{
 	public:
-		typedef Type_ Type;
-		typedef Cloner_ Cloner;
-		typedef Deleter_ Deleter;
+		using Type = Type_;
+		using Cloner = Cloner_;
+		using Deleter = Deleter_;
 
 	private:
 		template<typename That>

@@ -15,14 +15,14 @@ namespace Pastel
 	class TimeSeries
 	{
 	public:
-		typedef typename Args::PointRep PointRep;
-		typedef typename PointRep::Real Real;
-		typedef typename PointRep::Point Point;
+		using PointRep = typename Args::PointRep;
+		using Real = typename PointRep::Real;
+		using Point = typename PointRep::Point;
 		static PASTEL_CONSTEXPR int N = PointRep::N;
 
 	private:
 		class Node;
-		typedef std::unique_ptr<Node> NodePtr;
+		using NodePtr = std::unique_ptr<Node>;
 
 		class Node
 		{

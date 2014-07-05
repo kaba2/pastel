@@ -81,11 +81,11 @@ namespace Pastel
 			return;
 		}
 		
-		typedef typename PointPolicy::Real Real;
-		typedef AllNearestNeighborsBruteForce_::Entry<Real> Entry;
-		typedef std::set<Entry> NearestSet;
-		typedef typename NearestSet::iterator NearestIterator;
-		typedef typename PointPolicy::ConstIterator RealIterator;
+		using Real = typename PointPolicy::Real;
+		using Entry = AllNearestNeighborsBruteForce_::Entry<Real>;
+		using NearestSet = std::set<Entry>;
+		using NearestIterator = typename NearestSet::iterator;
+		using RealIterator = typename PointPolicy::ConstIterator;
 
 		using IndexRange = tbb::blocked_range<integer>;
 

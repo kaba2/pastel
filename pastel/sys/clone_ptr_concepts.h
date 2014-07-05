@@ -13,7 +13,7 @@ namespace Pastel
 	namespace ClonePtr_Concepts
 	{
 
-		typedef UserDefinedType Type;
+		using Type = UserDefinedType;
 		
 		class Cloner
 		{

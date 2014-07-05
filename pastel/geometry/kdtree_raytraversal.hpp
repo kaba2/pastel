@@ -17,9 +17,9 @@ namespace Pastel
 		class RecursiveRayTraversal
 		{
 		private:
-			typedef KdTree<Real, N, ObjectPolicy> Tree;
-			typedef typename Tree::Cursor Cursor;
-			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
+			using Tree = KdTree<Real, N, ObjectPolicy>;
+			using Cursor = typename Tree::Cursor;
+			using ConstObjectIterator = typename Tree::ConstObjectIterator;
 
 			class StackElement
 			{

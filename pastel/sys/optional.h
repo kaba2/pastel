@@ -18,8 +18,8 @@ namespace Pastel
 		: public As_Class<Type>
 	{
 	public:
-		typedef As_Class<Type>
-			Type_Class;
+		using Type_Class = As_Class<Type>
+;
 
 		Optional()
 			: Type_Class()

@@ -288,7 +288,7 @@ Here's how we achieve that:
 	: public VectorBase<Real, N, Vector<Real, N> >
 	{
 	private:
-		typedef VectorBase<Real, N, Vector<Real, N> > Base;
+		using Base = VectorBase<Real, N, Vector<Real, N> >;
 		
 	public:
 		explicit Vector(const Real& that)
@@ -305,7 +305,7 @@ Here's how we achieve that:
 	: public VectorBase<3, Real, Vector<3, Real> >
 	{
 	private:
-		typedef VectorBase<3, Real, Vector<3, Real> > Base;
+		using Base = VectorBase<3, Real, Vector<3, Real> >;
 
 	public:
 		using Base::operator[];

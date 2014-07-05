@@ -17,9 +17,9 @@ namespace Pastel
 		: public VectorExpression<Real, N, ConstArray_VectorExpression<Real, N> >
 	{
 	public:
-		typedef const ConstArray_VectorExpression StorageType;
+		using StorageType = const ConstArray_VectorExpression;
 
-		typedef ConstSparseIterator<const Real*> ConstIterator;
+		using ConstIterator = ConstSparseIterator<const Real*>;
 
 		ConstArray_VectorExpression()
 			: data_(0)
@@ -123,15 +123,15 @@ namespace Pastel
 		: public ConstArray_VectorExpression<Real, N>
 	{
 	private:
-		typedef ConstArray_VectorExpression<Real, N> Base;
+		using Base = ConstArray_VectorExpression<Real, N>;
 		using Base::data_;
 		using Base::size_;
 		using Base::stride_;
 
 	public:
-		typedef const Array_VectorExpression StorageType;
+		using StorageType = const Array_VectorExpression;
 
-		typedef SparseIterator<Real*> Iterator;
+		using Iterator = SparseIterator<Real*>;
 
 		using Base::size;
 

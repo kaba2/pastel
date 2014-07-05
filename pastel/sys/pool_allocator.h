@@ -139,9 +139,9 @@ namespace Pastel
 			Block* previousFreeBlock_;
 		};
 
-		typedef std::set<Block*> Container;
-		typedef Container::iterator Iterator;
-		typedef Container::const_iterator ConstIterator;
+		using Container = std::set<Block*>;
+		using Iterator = Container::iterator;
+		using ConstIterator = Container::const_iterator;
 
 		void allocateBlock();
 		Iterator deallocateBlock(const Iterator& that);

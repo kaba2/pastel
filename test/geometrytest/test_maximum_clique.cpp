@@ -19,7 +19,7 @@ namespace
 		: public TestSuite
 	{
 	public:
-		typedef Rational<integer> Real;
+		using Real = Rational<integer>;
 
 		Test()
 			: TestSuite(&testReport())
@@ -31,7 +31,7 @@ namespace
 			test();
 		}
 
-		typedef AlignedBox<Real, 2> Box;
+		using Box = AlignedBox<Real, 2>;
 
 		template <int N>
 		void testCase(

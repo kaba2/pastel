@@ -46,9 +46,9 @@ namespace Pastel
 		Log& operator<<(void (*function)(Log&));
 
 	private:
-		typedef std::set<Logger*> LoggerSet;
-		typedef LoggerSet::iterator Logger_Iterator;
-		typedef LoggerSet::const_iterator Logger_ConstIterator;
+		using LoggerSet = std::set<Logger*>;
+		using Logger_Iterator = LoggerSet::iterator;
+		using Logger_ConstIterator = LoggerSet::const_iterator;
 
 		LoggerSet loggerSet_;
 	};

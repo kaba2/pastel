@@ -12,8 +12,8 @@ using namespace Pastel;
 namespace
 {
 
-	typedef real Real;
-	typedef Polynomial<Real> Poly;
+	using Real = real;
+	using Poly = Polynomial<Real>;
 
 	class Test
 		: public TestSuite

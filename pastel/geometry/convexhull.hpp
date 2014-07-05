@@ -51,7 +51,7 @@ namespace Pastel
 		std::sort(orderedSet.begin(), orderedSet.end(),
 			Detail::GrahamsScan::ConvexHullPointCompare<Real>());
 
-		typedef std::vector<Vector<Real, 2> > Container;
+		using Container = std::vector<Vector<Real, 2> >;
 		typedef typename Container::iterator
 			Iterator;
 		typedef typename Container::const_iterator

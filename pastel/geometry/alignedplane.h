@@ -22,7 +22,7 @@ namespace Pastel
 	class AlignedPlane
 	{
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 		static PASTEL_CONSTEXPR int N_ = N;
 
 		// Using default copy constructor.
@@ -196,11 +196,11 @@ namespace Pastel
 		integer axis_;
 	};
 
-	typedef AlignedPlane<real, 1> AlignedPlane1;
-	typedef AlignedPlane<real, 2> AlignedPlane2;
-	typedef AlignedPlane<real, 3> AlignedPlane3;
-	typedef AlignedPlane<real, 4> AlignedPlane4;
-	typedef AlignedPlane<real, Dynamic> AlignedPlaneD;
+	using AlignedPlane1 = AlignedPlane<real, 1>;
+	using AlignedPlane2 = AlignedPlane<real, 2>;
+	using AlignedPlane3 = AlignedPlane<real, 3>;
+	using AlignedPlane4 = AlignedPlane<real, 4>;
+	using AlignedPlaneD = AlignedPlane<real, Dynamic>;
 
 }
 

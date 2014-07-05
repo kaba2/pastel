@@ -32,8 +32,8 @@ namespace
 			using PointPolicy = Vector_PointPolicy<Real, N_>;
 		};
 
-		typedef PointKdTree<Settings<2>> Tree;
-		typedef Tree::Point_ConstIterator Point_ConstIterator;
+		using Tree = PointKdTree<Settings<2>>;
+		using Point_ConstIterator = Tree::Point_ConstIterator;
 
 		Test()
 			: TestSuite(&testReport())
@@ -338,8 +338,8 @@ namespace
 		template <int N>
 		void testCircular()
 		{
-			typedef PointKdTree<Settings<N>> Tree;
-			typedef typename Tree::Point_ConstIterator Point_ConstIterator;
+			using Tree = PointKdTree<Settings<N>>;
+			using Point_ConstIterator = typename Tree::Point_ConstIterator;
 
 			const integer m = 10000;
 

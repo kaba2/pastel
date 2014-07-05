@@ -28,9 +28,9 @@ namespace
 			test();
 		}
 
-		typedef Automaton<integer, integer> Automaton_;
-		typedef Automaton_::State_ConstIterator State;
-		typedef Automaton_::Transition_ConstIterator Transition;
+		using Automaton_ = Automaton<integer, integer>;
+		using State = Automaton_::State_ConstIterator;
+		using Transition = Automaton_::Transition_ConstIterator;
 
 		void test()
 		{

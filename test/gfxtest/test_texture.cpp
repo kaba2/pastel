@@ -141,7 +141,7 @@ namespace
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 
-		typedef std::shared_ptr<Texture<Color>> TexturePtr;
+		using TexturePtr = std::shared_ptr<Texture<Color>>;
 
 		std::vector<TexturePtr> textureList;
 		textureList.push_back(

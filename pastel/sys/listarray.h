@@ -15,7 +15,7 @@ namespace Pastel
 	class ListArray
 	{
 	private:
-		typedef List<Type, PoolAllocator> ListContainer;
+		using ListContainer = List<Type, PoolAllocator>;
 
 	public:
 		typedef typename ListContainer::iterator
@@ -72,7 +72,7 @@ namespace Pastel
 			Iterator last_;
 		};
 
-		typedef std::vector<Range> RangeArray;
+		using RangeArray = std::vector<Range>;
 
 		RangeArray range_;
 		ListContainer data_;

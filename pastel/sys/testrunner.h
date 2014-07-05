@@ -21,11 +21,11 @@ namespace Pastel
 		typedef void (*Function)();
 
 	private:
-		typedef std::map<std::string, Function> Container;
-		typedef Container::iterator Iterator;
+		using Container = std::map<std::string, Function>;
+		using Iterator = Container::iterator;
 
 	public:
-		typedef Container::const_iterator ConstIterator;
+		using ConstIterator = Container::const_iterator;
 
 		// Using default copy constructor.
 		// Using default assignment.

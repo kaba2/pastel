@@ -17,16 +17,16 @@ namespace Pastel
 	class SearchNearest_
 	{
 	public:
-		typedef SearchNearest_ Self;
+		using Self = SearchNearest_;
 
 		using Fwd = Settings;
 		PASTEL_FWD(Real);
 		PASTEL_FWD(PointPolicy);
 		static PASTEL_CONSTEXPR integer N = Settings::N;
 
-		typedef PointKdTree<Settings, Customization> Tree;
-		typedef typename Tree::Point_ConstIterator Point_ConstIterator;
-		typedef KeyValue<Real, Point_ConstIterator> Result;
+		using Tree = PointKdTree<Settings, Customization>;
+		using Point_ConstIterator = typename Tree::Point_ConstIterator;
+		using Result = KeyValue<Real, Point_ConstIterator>;
 
 		SearchNearest_(
 			const Tree& kdTree,
@@ -105,7 +105,7 @@ namespace Pastel
 			}
 			used_ = true;
 
-			typedef std::set<Result> CandidateSet;
+			using CandidateSet = std::set<Result>;
 			CandidateSet candidateSet;
 
 			auto candidateFunctor = [&](

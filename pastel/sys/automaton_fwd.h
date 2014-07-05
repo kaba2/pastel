@@ -52,8 +52,8 @@ namespace Pastel
 			State_ConstIterator;
 
 		//! The user-data for the states.
-		typedef As_Class<StateData>
-			StateData_Class;
+		using StateData_Class = As_Class<StateData>
+;
 
 		//! The transitions.
 		/*!
@@ -66,8 +66,8 @@ namespace Pastel
 			Transition_ConstIterator;
 
 		//! The user-data for the transitions.
-		typedef As_Class<TransitionData>
-			TransitionData_Class;
+		using TransitionData_Class = As_Class<TransitionData>
+;
 
 		typedef typename Graph_Fwd::Incidence_Iterator
 			Incidence_Iterator;
@@ -75,8 +75,8 @@ namespace Pastel
 			Incidence_ConstIterator;
 
 		//! The set of final states.
-		typedef std::list<State_ConstIterator>
-			FinalSet;
+		using FinalSet = std::list<State_ConstIterator>
+;
 		typedef typename FinalSet::iterator
 			Final_Iterator;
 	#ifdef __GNUC__
@@ -85,21 +85,21 @@ namespace Pastel
 		container support for const_iterators properly,
 		we will have to use mutable iterators as a hack.
 		*/
-		typedef Final_Iterator
-			Final_ConstIterator;
+		using Final_ConstIterator = Final_Iterator
+;
 	#else
 		typedef typename FinalSet::const_iterator
 			Final_ConstIterator;
 	#endif
 
 		//! The set of start states.
-		typedef std::list<State_ConstIterator>
-			StartSet;
+		using StartSet = std::list<State_ConstIterator>
+;
 		typedef typename StartSet::iterator
 			Start_Iterator;
 	#ifdef __GNUC__
-		typedef Start_Iterator
-			Start_ConstIterator;
+		using Start_ConstIterator = Start_Iterator
+;
 	#else
 		typedef typename StartSet::const_iterator
 			Start_ConstIterator;
@@ -120,8 +120,8 @@ namespace Pastel
 		typedef typename BranchMap::iterator
 			Actual_Branch_Iterator;
 	#ifdef __GNUC__
-		typedef Actual_Branch_Iterator
-			Actual_Branch_ConstIterator;
+		using Actual_Branch_ConstIterator = Actual_Branch_Iterator
+;
 	#else
 		typedef typename BranchMap::const_iterator
 			Actual_Branch_ConstIterator;
@@ -129,8 +129,8 @@ namespace Pastel
 		typedef Second_Iterator<Actual_Branch_Iterator, false>
 			Branch_Iterator;
 	#ifdef __GNUC__
-		typedef Branch_Iterator
-			Branch_ConstIterator;
+		using Branch_ConstIterator = Branch_Iterator
+;
 	#else
 		typedef Second_Iterator<Actual_Branch_ConstIterator, true>
 			Branch_ConstIterator;

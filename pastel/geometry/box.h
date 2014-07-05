@@ -39,7 +39,7 @@ namespace Pastel
 		> > > >
 	{
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 		static PASTEL_CONSTEXPR int N_ = N;
 
 		// Using default copy constructor.
@@ -104,11 +104,11 @@ namespace Pastel
 		Matrix<Real> rotation_;
 	};
 
-	typedef Box<real, 1> Box1;
-	typedef Box<real, 2> Box2;
-	typedef Box<real, 3> Box3;
-	typedef Box<real, 4> Box4;
-	typedef Box<real, Dynamic> BoxD;
+	using Box1 = Box<real, 1>;
+	using Box2 = Box<real, 2>;
+	using Box3 = Box<real, 3>;
+	using Box4 = Box<real, 4>;
+	using BoxD = Box<real, Dynamic>;
 
 }
 

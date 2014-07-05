@@ -290,9 +290,9 @@ namespace Pastel
 		const Closure_Output& report;
 		bool reflexiveClosure;
 
-		typedef std::unordered_map<Domain, Progress, Domain_Hash> ProgressSet;
-		typedef typename ProgressSet::iterator Progress_Iterator;
-		typedef typename ProgressSet::iterator Progress_ConstIterator;
+		using ProgressSet = std::unordered_map<Domain, Progress, Domain_Hash>;
+		using Progress_Iterator = typename ProgressSet::iterator;
+		using Progress_ConstIterator = typename ProgressSet::iterator;
 
 		ProgressSet progressSet;
 		std::vector<Domain> workSet;

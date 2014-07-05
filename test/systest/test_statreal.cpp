@@ -19,7 +19,7 @@ namespace
 		: public TestSuite
 	{
 	public:
-		typedef Number<real> Real;
+		using Real = Number<real>;
 
 		Test()
 			: TestSuite(&testReport())

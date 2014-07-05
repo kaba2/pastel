@@ -16,9 +16,9 @@ namespace Pastel
 		class ConceptMap
 		{
 		public:
-			typedef typename KeyValue::Key Left;
-			typedef typename KeyValue::Value Right;
-			typedef KeyValue Type;
+			using Left = typename KeyValue::Key;
+			using Right = typename KeyValue::Value;
+			using Type = KeyValue;
 
 			Left& left(Type& that)
 			{

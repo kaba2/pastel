@@ -48,9 +48,9 @@ namespace Pastel
 		//! Remove a log from the set of observed logs.
 		void removeLog(Log* log);
 
-		typedef std::unordered_set<Log*> LogSet;
-		typedef LogSet::iterator Log_Iterator;
-		typedef LogSet::const_iterator Log_ConstIterator;
+		using LogSet = std::unordered_set<Log*>;
+		using Log_Iterator = LogSet::iterator;
+		using Log_ConstIterator = LogSet::const_iterator;
 
 		//! The set of observer logs.
 		LogSet logSet_;

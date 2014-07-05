@@ -104,20 +104,20 @@ namespace Pastel
 			template <typename, int>
 			friend class TupleBase;
 
-			typedef Type value_type;
-			typedef Type* iterator;
-			typedef const Type* const_iterator;
-			typedef Type* reverse_iterator;
-			typedef const Type* const_reverse_iterator;
-			typedef Type* pointer;
-			typedef const Type* const_pointer;
-			typedef Type& reference;
-			typedef const Type& const_reference;
-			typedef integer difference_type;
-			typedef integer size_type;
+			using value_type = Type;
+			using iterator = Type*;
+			using const_iterator = const Type*;
+			using reverse_iterator = Type*;
+			using const_reverse_iterator = const Type*;
+			using pointer = Type*;
+			using const_pointer = const Type*;
+			using reference = Type&;
+			using const_reference = const Type&;
+			using difference_type = integer;
+			using size_type = integer;
 
-			typedef iterator Iterator;
-			typedef const_iterator ConstIterator;
+			using Iterator = iterator;
+			using ConstIterator = const_iterator;
 
 			TupleBase()
 				: data_()
@@ -364,19 +364,19 @@ namespace Pastel
 			template <typename, int>
 			friend class TupleBase;
 
-			typedef Type value_type;
-			typedef Type* iterator;
-			typedef Type const* const_iterator;
-			typedef std::reverse_iterator<iterator> reverse_iterator;
-			typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-			typedef Type* pointer;
-			typedef const Type* const_pointer;
-			typedef Type& reference;
-			typedef const Type& const_reference;
-			typedef integer difference_type;
-			typedef integer size_type;
-			typedef iterator Iterator;
-			typedef const_iterator ConstIterator;
+			using value_type = Type;
+			using iterator = Type*;
+			using const_iterator = Type const*;
+			using reverse_iterator = std::reverse_iterator<iterator>;
+			using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+			using pointer = Type*;
+			using const_pointer = const Type*;
+			using reference = Type&;
+			using const_reference = const Type&;
+			using difference_type = integer;
+			using size_type = integer;
+			using Iterator = iterator;
+			using ConstIterator = const_iterator;
 
 			explicit TupleBase(
 				const Dimension& dimension,

@@ -16,8 +16,8 @@ namespace Pastel
 		class ConstSparseViewCursor
 		{
 		public:
-			typedef typename ConstCursor::Element Element;
-			typedef typename ConstCursor::ConstReference ConstReference;
+			using Element = typename ConstCursor::Element;
+			using ConstReference = typename ConstCursor::ConstReference;
 
 			explicit ConstSparseViewCursor(
 				const ConstCursor& cursor,
@@ -73,17 +73,17 @@ namespace Pastel
 			: public ConstSparseViewCursor<N, Cursor>
 		{
 		private:
-			typedef ConstSparseViewCursor<N, Cursor> Base;
+			using Base = ConstSparseViewCursor<N, Cursor>;
 			using Base::cursor_;
 
 		public:
-			typedef typename Base::Element Element;
-			typedef typename Base::ConstReference ConstReference;
+			using Element = typename Base::Element;
+			using ConstReference = typename Base::ConstReference;
 			using Base::increment;
 			using Base::decrement;
 			using Base::move;
 
-			typedef typename Cursor::Reference Reference;
+			using Reference = typename Cursor::Reference;
 
 			explicit SparseViewCursor(
 				const Cursor& cursor,

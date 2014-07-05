@@ -30,8 +30,8 @@ namespace Pastel
 		Box_Filter& operator=(const Box_Filter& that) = delete;
 	};
 
-	typedef std::shared_ptr<Box_Filter> BoxFilterPtr;
-	typedef std::shared_ptr<const Box_Filter> ConstBoxFilterPtr;
+	using BoxFilterPtr = std::shared_ptr<Box_Filter>;
+	using ConstBoxFilterPtr = std::shared_ptr<const Box_Filter>;
 
 	inline BoxFilterPtr boxFilter()
 	{

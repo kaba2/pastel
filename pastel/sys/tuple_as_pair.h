@@ -16,9 +16,9 @@ namespace Pastel
 		class ConceptMap
 		{
 		public:
-			typedef typename Tuple::value_type Left;
-			typedef typename Tuple::value_type Right;
-			typedef Tuple Type;
+			using Left = typename Tuple::value_type;
+			using Right = typename Tuple::value_type;
+			using Type = Tuple;
 
 			Left& left(Type& that) const
 			{

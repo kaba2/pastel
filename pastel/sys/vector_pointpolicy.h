@@ -30,10 +30,10 @@ namespace Pastel
 			ENSURE(N == dimension || N == Dynamic);
 		}
 
-		typedef Real_ Real;
-		typedef Vector<Real, N> Point;
-		typedef const Real* ConstIterator;
-		typedef ConstArray_VectorExpression<Real, N> Expression;
+		using Real = Real_;
+		using Point = Vector<Real, N>;
+		using ConstIterator = const Real*;
+		using Expression = ConstArray_VectorExpression<Real, N>;
 
 		ConstIterator begin(const Point& point) const
 		{
@@ -74,11 +74,11 @@ namespace Pastel
 		integer dimension_;
 	};
 
-	typedef Vector_PointPolicy<real, 1> Vector_PointPolicy1;
-	typedef Vector_PointPolicy<real, 2> Vector_PointPolicy2;
-	typedef Vector_PointPolicy<real, 3> Vector_PointPolicy3;
-	typedef Vector_PointPolicy<real, 4> Vector_PointPolicy4;
-	typedef Vector_PointPolicy<real, Dynamic> Vector_PointPolicyD;
+	using Vector_PointPolicy1 = Vector_PointPolicy<real, 1>;
+	using Vector_PointPolicy2 = Vector_PointPolicy<real, 2>;
+	using Vector_PointPolicy3 = Vector_PointPolicy<real, 3>;
+	using Vector_PointPolicy4 = Vector_PointPolicy<real, 4>;
+	using Vector_PointPolicyD = Vector_PointPolicy<real, Dynamic>;
 
 }
 

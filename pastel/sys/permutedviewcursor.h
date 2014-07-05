@@ -16,8 +16,8 @@ namespace Pastel
 		class ConstPermutedViewCursor
 		{
 		public:
-			typedef typename ConstCursor::Element Element;
-			typedef typename ConstCursor::ConstReference ConstReference;
+			using Element = typename ConstCursor::Element;
+			using ConstReference = typename ConstCursor::ConstReference;
 
 			ConstPermutedViewCursor()
 				: cursor_()
@@ -79,18 +79,18 @@ namespace Pastel
 			: public ConstPermutedViewCursor<N, Cursor>
 		{
 		private:
-			typedef ConstPermutedViewCursor<N, Cursor> Base;
+			using Base = ConstPermutedViewCursor<N, Cursor>;
 
 			using Base::cursor_;
 
 		public:
-			typedef typename Base::Element Element;
-			typedef typename Base::ConstReference ConstReference;
+			using Element = typename Base::Element;
+			using ConstReference = typename Base::ConstReference;
 			using Base::increment;
 			using Base::decrement;
 			using Base::move;
 
-			typedef typename Cursor::Reference Reference;
+			using Reference = typename Cursor::Reference;
 
 			friend class ConstPermutedViewCursor<N, Cursor>;
 

@@ -35,7 +35,7 @@ namespace Pastel
 		: public Customization
 	{
 	private:
-		typedef Automaton_Fwd<Symbol, StateData, TransitionData> Fwd;
+		using Fwd = Automaton_Fwd<Symbol, StateData, TransitionData>;
 
 		PASTEL_FWD(StateLabel);
 		PASTEL_FWD(TransitionLabel);

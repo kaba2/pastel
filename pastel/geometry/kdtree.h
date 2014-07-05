@@ -19,7 +19,7 @@ namespace Pastel
 	class PointPolicy
 	{
 	public:
-		typedef Vector<Real, N> Object;
+		using Object = Vector<Real, N>;
 
 		AlignedBox<Real, N> bound(const Vector<Real, N>& object) const
 		{
@@ -37,7 +37,7 @@ namespace Pastel
 	class ObjectPolicy
 	{
 	public:
-		typedef UnspecifiedType Object;
+		using Object = UnspecifiedType;
 
 		AlignedBox<Real, N> bound(const Object& that) const;
 		Tuple<Real, 2> bound(const Object& that, index) const;
@@ -49,13 +49,13 @@ namespace Pastel
 	class KdTree
 	{
 	public:
-		typedef typename ObjectPolicy::Object Object;
+		using Object = typename ObjectPolicy::Object;
 
 	private:
-		typedef ArenaAllocator Allocator;
+		using Allocator = ArenaAllocator;
 
-		typedef List<Object, Allocator> ObjectContainer;
-		typedef typename ObjectContainer::iterator ObjectIterator;
+		using ObjectContainer = List<Object, Allocator>;
+		using ObjectIterator = typename ObjectContainer::iterator;
 
 		class Node;
 		class LeafNode;
@@ -77,13 +77,13 @@ namespace Pastel
 			SplitNode_High>::type SplitNode;
 		*/
 
-		typedef SplitNode_High SplitNode;
+		using SplitNode = SplitNode_High;
 
 	public:
 		static PASTEL_CONSTEXPR int N_ = N;
 
-		typedef Real Real_;
-		typedef ObjectPolicy ObjectPolicy_;
+		using Real_ = Real;
+		using ObjectPolicy_ = ObjectPolicy;
 
 		typedef typename ObjectContainer::const_iterator 
 			ConstObjectIterator;

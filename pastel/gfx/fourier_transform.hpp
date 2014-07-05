@@ -21,14 +21,14 @@ namespace Pastel
 		class Complex_RealType
 		{
 		public:
-			typedef Type Result;
+			using Result = Type;
 		};
 
 		template <typename Real>
 		class Complex_RealType<std::complex<Real> >
 		{
 		public:
-			typedef Real Result;
+			using Result = Real;
 		};
 
 		template <bool Inverse, bool TopLevel, bool Orthogonal, 
@@ -39,7 +39,7 @@ namespace Pastel
 		{
 			typedef typename Complex_RealType<
 				typename boost::range_value<Complex_ConstRange>::type>::Result Real;
-			typedef std::complex<Real> Complex;
+			using Complex = std::complex<Real>;
 			typedef typename boost::range_iterator<Complex_ConstRange>::type
 				ConstIterator;
 
@@ -162,8 +162,8 @@ namespace Pastel
 
 			typedef typename boost::range_value<Complex_ConstRange>::type
 				InputComplex;
-			typedef typename Complex_RealType<InputComplex>::Result Real;
-			typedef std::complex<Real> Complex;
+			using Real = typename Complex_RealType<InputComplex>::Result;
+			using Complex = std::complex<Real>;
 
 			if (inputRange.empty())
 			{

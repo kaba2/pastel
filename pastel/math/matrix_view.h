@@ -71,12 +71,12 @@ namespace Pastel
 		: public MatrixExpression<Real, ConstSubMatrix<Real> >
 	{
 	public:
-		typedef const ConstSubMatrix& StorageType;
+		using StorageType = const ConstSubMatrix&;
 
-		typedef ConstArray_VectorExpression<Real, Dynamic> ConstRow;
-		typedef typename ConstSubArray<Real>::ConstIterator ConstIterator;
-		typedef typename ConstSubArray<Real>::ConstRowIterator ConstRowIterator;
-		typedef typename ConstSubArray<Real>::ConstRowIterator ConstColumnIterator;
+		using ConstRow = ConstArray_VectorExpression<Real, Dynamic>;
+		using ConstIterator = typename ConstSubArray<Real>::ConstIterator;
+		using ConstRowIterator = typename ConstSubArray<Real>::ConstRowIterator;
+		using ConstColumnIterator = typename ConstSubArray<Real>::ConstRowIterator;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -215,16 +215,16 @@ namespace Pastel
 		: public MatrixExpression<Real, SubMatrix<Real> >
 	{
 	public:
-		typedef const SubMatrix& StorageType;
+		using StorageType = const SubMatrix&;
 
-		typedef Array_VectorExpression<Real, Dynamic> Row;
-		typedef ConstArray_VectorExpression<Real, Dynamic> ConstRow;
-		typedef typename SubArray<Real>::Iterator Iterator;
-		typedef typename SubArray<Real>::ConstIterator ConstIterator;
-		typedef typename SubArray<Real>::RowIterator RowIterator;
-		typedef typename SubArray<Real>::ConstRowIterator ConstRowIterator;
-		typedef typename SubArray<Real>::RowIterator ColumnIterator;
-		typedef typename SubArray<Real>::ConstRowIterator ConstColumnIterator;
+		using Row = Array_VectorExpression<Real, Dynamic>;
+		using ConstRow = ConstArray_VectorExpression<Real, Dynamic>;
+		using Iterator = typename SubArray<Real>::Iterator;
+		using ConstIterator = typename SubArray<Real>::ConstIterator;
+		using RowIterator = typename SubArray<Real>::RowIterator;
+		using ConstRowIterator = typename SubArray<Real>::ConstRowIterator;
+		using ColumnIterator = typename SubArray<Real>::RowIterator;
+		using ConstColumnIterator = typename SubArray<Real>::ConstRowIterator;
 
 		// Using default copy constructor.
 		// Using default assignment.

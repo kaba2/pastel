@@ -16,7 +16,7 @@ namespace Pastel
 		class Args
 		{
 		public:
-			typedef Locator_Concept Locator;
+			using Locator = Locator_Concept;
 		};
 
 	}

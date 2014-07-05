@@ -20,8 +20,8 @@ namespace Pastel
 	: public As_Class<Propagation>
 	{
 	public:
-		typedef As_Class<Propagation>
-			Propagation_Class;
+		using Propagation_Class = As_Class<Propagation>
+;
 
 		Hash_Propagation()
 		: Propagation_Class()

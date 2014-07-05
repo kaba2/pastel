@@ -40,7 +40,7 @@ namespace Pastel
 			: public ConstProxy<Physical, Logical, Adapter, Cursor>
 		{
 		private:
-			typedef ConstProxy<Physical, Logical, Adapter, Cursor> Base;
+			using Base = ConstProxy<Physical, Logical, Adapter, Cursor>;
 
 			using Base::cursor_;
 
@@ -176,11 +176,11 @@ namespace Pastel
 		class ConstAdaptedViewCursor
 		{
 		protected:
-			typedef typename ConstCursor::Element PhysicalElement;
-			typedef typename Adapter::Logical LogicalElement;
+			using PhysicalElement = typename ConstCursor::Element;
+			using LogicalElement = typename Adapter::Logical;
 
 		public:
-			typedef LogicalElement Element;
+			using Element = LogicalElement;
 			typedef ConstProxy<PhysicalElement, LogicalElement, Adapter, ConstCursor>
 				ConstReference;
 
@@ -244,17 +244,17 @@ namespace Pastel
 			: public ConstAdaptedViewCursor<N, Cursor, Adapter>
 		{
 		private:
-			typedef ConstAdaptedViewCursor<N, Cursor, Adapter> Base;
+			using Base = ConstAdaptedViewCursor<N, Cursor, Adapter>;
 
-			typedef typename Base::LogicalElement LogicalElement;
-			typedef typename Base::PhysicalElement PhysicalElement;
+			using LogicalElement = typename Base::LogicalElement;
+			using PhysicalElement = typename Base::PhysicalElement;
 
 			using Base::cursor_;
 			using Base::adapter_;
 
 		public:
-			typedef typename Base::Element Element; 
-			typedef typename Base::ConstReference ConstReference;
+			using Element = typename Base::Element; 
+			using ConstReference = typename Base::ConstReference;
 
 			typedef Proxy<PhysicalElement, LogicalElement, Adapter, Cursor>
 				Reference;

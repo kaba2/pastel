@@ -25,7 +25,7 @@ namespace Pastel
 	class Flat
 	{
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 		static PASTEL_CONSTEXPR int N_ = N;
 		static PASTEL_CONSTEXPR int M_ = M;
 

@@ -29,7 +29,7 @@ namespace Pastel
 		> > > >
 	{
 	public:
-		typedef Real Real_;
+		using Real_ = Real;
 		static PASTEL_CONSTEXPR int N_ = N;
 
 		// Using default copy constructor.
@@ -105,11 +105,11 @@ namespace Pastel
 		Vector<Real, N> inverseDirection_;
 	};
 
-	typedef Line<real, 1> Line1;
-	typedef Line<real, 2> Line2;
-	typedef Line<real, 3> Line3;
-	typedef Line<real, 4> Line4;
-	typedef Line<real, Dynamic> LineD;
+	using Line1 = Line<real, 1>;
+	using Line2 = Line<real, 2>;
+	using Line3 = Line<real, 3>;
+	using Line4 = Line<real, 4>;
+	using LineD = Line<real, Dynamic>;
 
 }
 

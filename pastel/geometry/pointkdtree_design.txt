@@ -107,7 +107,7 @@ Disadvantages:
 	class PointPolicy
 	{
 	public:
-		typedef int Point;
+		using Point = int;
 		
 		real position(const Point& point, integer axis) const;
 	};

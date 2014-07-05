@@ -29,9 +29,9 @@ namespace
 
 		void test()
 		{
-			typedef Automaton<integer> Automaton;
-			typedef Automaton::State_ConstIterator
-				State;
+			using Automaton = Automaton<integer>;
+			using State = Automaton::State_ConstIterator
+;
 
 			Automaton automaton;
 			
@@ -56,7 +56,7 @@ namespace
 			automaton.addTransition(
 				d, Epsilon(), e);
 
-			typedef std::set<State, IteratorAddress_LessThan> StateSet;
+			using StateSet = std::set<State, IteratorAddress_LessThan>;
 			std::unordered_map<State, StateSet, IteratorAddress_Hash> closureMap;
 
 			auto report =

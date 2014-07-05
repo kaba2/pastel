@@ -23,7 +23,7 @@ namespace Pastel
 		: public GfxRenderer<Type>
 	{
 	private:
-		typedef GfxRenderer<Type> Base;
+		using Base = GfxRenderer<Type>;
 
 	public:
 		explicit Image_GfxRenderer(Array<Type, 2>* image = 0);
