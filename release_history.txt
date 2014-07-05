@@ -71,6 +71,7 @@ Release date xx.x.2014
 #### Other
 
 * Removed the use of CRTP from Vector and Alignedbox.
+* Converted typedefs to using-aliases for better readability.
 
 ### PastelGeometry
 
