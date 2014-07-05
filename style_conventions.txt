@@ -92,6 +92,8 @@ no better name.
 
 * In a switch structure, if one case is meant to slip through to the handler of the next case, comment it with a `Fall-through`.
 
+* Use `using`-aliases instead of `typedef`-aliases. This provides better readability.
+
 Operators
 ---------
 
