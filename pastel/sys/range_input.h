@@ -13,6 +13,7 @@
 namespace Pastel
 {
 
+	//! Range input
 	template <typename Range>
 	class Range_Input
 	{
@@ -35,9 +36,12 @@ namespace Pastel
 
 		integer nHint() const
 		{
-			if (boost::is_same<
-				typename boost::iterator_traversal<Iterator>::type,
-				boost::random_access_traversal_tag>::value)
+			static PASTEL_CONSTEXPR bool IsRandomAccess =
+				boost::is_same<
+					typename boost::iterator_traversal<Iterator>::type,
+					boost::random_access_traversal_tag>::value;
+
+			if (IsRandomAccess)
 			{
 				return std::distance(begin_, end_);
 			}
