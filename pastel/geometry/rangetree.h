@@ -411,6 +411,21 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	template <
+		typename Point_,
+		typename MultiLess_>
+	class RangeTree_Settings
+	{
+	public:
+		using Point = Point_;
+		using MultiLess = MultiLess_;
+	};
+
+}
+
 #include "pastel/geometry/rangetree_invariants.h"
 #include "pastel/geometry/rangetree_search_range.h"
 
