@@ -6,15 +6,6 @@
 namespace Pastel
 {
 
-	//! Returns floor((infinity<Type>() + 1) / n).
-	/*!
-	Preconditions:
-	n >= 2
-
-	This computation is tricky because inf + 1 = 0
-	due to two's complement arithmetic when using
-	unsigned integers.
-	*/
 	template <typename Type>
 	PASTEL_ENABLE_IF(std::is_unsigned<Type>, Type)
 		divideInfinity(Type n)
@@ -31,11 +22,11 @@ namespace Pastel
 			//
 			//     2^w = a n + b, 0 < b < n
 			//     <=>
-			//     2^w - 1 = a n + (b - 1),  0 <= b < n - 1 < n.
+			//     2^w - 1 = a n + (b - 1),  0 <= b - 1 < n - 1 < n.
 			//
 			// Therefore 
 			//
-			//     floor(2^w / n) = floor((2^w - 1) / n).
+			//     floor(2^w / n) = a = floor((2^w - 1) / n).
 
 			return infinity<Type>() / n;
 		}
