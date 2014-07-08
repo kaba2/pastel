@@ -3,9 +3,10 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/rangetree.h"
-#include "pastel/sys/eps.h"
-#include "pastel/sys/for_each_point.h"
+#include <pastel/geometry/rangetree.h>
+#include <pastel/sys/eps.h>
+#include <pastel/sys/for_each_point.h>
+#include <pastel/sys/inputs.h>
 
 #include <iostream>
 #include <queue>
@@ -152,7 +153,7 @@ namespace
 			pointSet.emplace_back(6, 0);
 			pointSet.emplace_back(8, 2);
 
-			Tree tree(pointSet, 2);
+			Tree tree(rangeInput(pointSet), 2);
 			TEST_ENSURE(testInvariants(tree));
 
 			std::vector<Point<2>> resultSet;
@@ -248,7 +249,7 @@ namespace
 				pointSet.emplace_back(point);
 			});
 
-			Tree tree(pointSet, N);
+			Tree tree(rangeInput(pointSet), N);
 			TEST_ENSURE(testInvariants(tree));
 
 			forEachPoint(
