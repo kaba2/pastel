@@ -101,9 +101,9 @@ namespace Pastel
 		n is the size of pointSet,
 		d = orders.
 		*/
-		template <typename Point_Range_>
+		template <typename Point_Input>
 		explicit RangeTree(
-			const Point_Range_& pointSet,
+			Point_Input pointSet,
 			integer orders)
 		: RangeTree()
 		{
@@ -111,15 +111,17 @@ namespace Pastel
 
 			orders_ = orders;
 			
-			integer n = boost::size(pointSet);
-
 			std::vector<Point_Iterator> iteratorSet;
-			iteratorSet.reserve(n);
-			pointSet_.reserve(n);
-	
-			for (auto&& point : pointSet)
+			integer nHint = pointSet.nHint();
+			if (nHint > 0)
 			{
-				pointSet_.emplace_back(point);
+				iteratorSet.reserve(nHint);
+				pointSet_.reserve(nHint);
+			}
+	
+			while (!pointSet.empty())
+			{
+				pointSet_.emplace_back(pointSet());
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
 			}
