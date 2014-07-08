@@ -11,21 +11,18 @@ namespace Pastel
 {
 
 	//! Bounding aligned box of two aligned boxes.
-
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const AlignedBox<Real, N>& aAlignedBox,
 		const AlignedBox<Real, N>& bAlignedBox);
 
 	//! Bounding aligned box of an affinely transformed aligned box.
-
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const AlignedBox<Real, N>& alignedBox,
 		const AffineTransformation<Real>& transformation);
 
 	//! Bounding aligned cube of an aligned box.
-
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedCube(
 		const AlignedBox<Real, N>& box);
