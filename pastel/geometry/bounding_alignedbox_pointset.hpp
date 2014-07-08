@@ -2,47 +2,46 @@
 #define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_POINTSET_HPP
 
 #include "pastel/geometry/bounding_alignedbox_pointset.h"
+#include "pastel/geometry/bounding_alignedbox_alignedbox.h"
 
 #include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
 
-	template <typename Real, int N, typename InputIterator>
-	AlignedBox<Real, N> boundingAlignedBox(
-		integer dimension,
-		const InputIterator& from,
-		const InputIterator& to)
+	template <
+		typename Input,
+		typename Locator>
+	auto boundingAlignedBox(
+		Input pointSet,
+		const Locator& locator)
+	-> AlignedBox<typename Locator::Real, Locator::N>
 	{
-		PENSURE1((N == Dynamic && dimension > 0) ||
-			(N != Dynamic && dimension == N), dimension);
-
-		AlignedBox<Real, N> result(dimension);
-
-		if (from != to)
+		using Real = typename Locator::Real;
+		static PASTEL_CONSTEXPR integer N = Locator::N;
+		integer d = locator.n();
+		
+		AlignedBox<Real, N> bound(d);
+		while (!pointSet.empty())
 		{
-			PENSURE_OP(dimension, ==, from->n());
-
-			InputIterator iter(from);
-			while (iter != to)
+			auto point = pointSet();
+			for (integer i = 0;i < d;++i)
 			{
-				extendToCover(*iter, result);
+				auto x = locator(point, i);
 
-				++iter;
+				if (x < bound.min()[i])
+				{
+					bound.min()[i] = x;
+				}
+
+				if (x > bound.max()[i])
+				{
+					bound.max()[i] = x;
+				}
 			}
 		}
 
-		return result;
-	}
-
-	template <typename Real, int N, typename InputIterator>
-	AlignedBox<Real, N> boundingAlignedBox(
-		const InputIterator& from,
-		const InputIterator& to)
-	{
-		PASTEL_STATIC_ASSERT(N > 0);
-		
-		return Pastel::boundingAlignedBox<Real, N>(N, from, to);
+		return bound;
 	}
 
 }

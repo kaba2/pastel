@@ -14,7 +14,7 @@ namespace Pastel
 		const AlignedBox<Real, N>& aAlignedBox, 
 		const AlignedBox<Real, N>& bAlignedBox)
 	{
-		const AlignedBox<Real, N> result(
+		AlignedBox<Real, N> result(
 			min(aAlignedBox.min(), bAlignedBox.min()),
 			max(aAlignedBox.max(), bAlignedBox.max()));
 

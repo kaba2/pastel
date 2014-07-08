@@ -3,31 +3,22 @@
 #ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_POINTSET_H
 #define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_POINTSET_H
 
+#include "pastel/sys/input_concept.h"
+#include "pastel/sys/locator_concept.h"
+
 #include "pastel/geometry/alignedbox.h"
 
 namespace Pastel
 {
 
 	//! Bounding aligned box of a point set.
-
-	/*!
-	Preconditions:
-	dimension > 0
-	dimension == N || N == Dynamic
-
-	The InputIterator must dereference to Vector<Real, N>.
-	*/
-
-	template <typename Real, int N, typename InputIterator>
-	AlignedBox<Real, N> boundingAlignedBox(
-		integer dimension,
-		const InputIterator& from,
-		const InputIterator& to);
-
-	template <typename Real, int N, typename InputIterator>
-	AlignedBox<Real, N> boundingAlignedBox(
-		const InputIterator& from,
-		const InputIterator& to);
+	template <
+		typename Input,
+		typename Locator>
+	auto boundingAlignedBox(
+		Input pointSet,
+		const Locator& locator)
+	-> AlignedBox<typename Locator::Real, Locator::N>;
 
 }
 
