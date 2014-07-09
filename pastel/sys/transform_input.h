@@ -43,7 +43,7 @@ namespace Pastel
 
 		// FIX: Replace with decltype(auto) after
 		// Visual Studio 2013 fixes its bugs.
-		decltype((*((Function*)0))(Input()())) operator()()
+		decltype(std::declval<Function>()(std::declval<Input>()())) operator()()
 		{
 			return transform_(input_());
 		}
