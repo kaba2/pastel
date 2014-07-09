@@ -28,11 +28,11 @@ namespace Pastel
 	The InputIterator must dereference to Vector<Real, N>.
 	*/
 
-	template <typename Point_ConstRange, typename PointPolicy>
-	Sphere<typename PointPolicy::Real, PointPolicy::N> 
+	template <typename Point_ConstRange, typename Locator>
+	Sphere<typename Locator::Real, Locator::N> 
 		boundingSphere(
 		const Point_ConstRange& pointSet,
-		const PointPolicy& pointPolicy);
+		const Locator& locator);
 
 }
 

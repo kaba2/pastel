@@ -38,8 +38,9 @@ namespace Pastel
 
 		using Fwd = PointKdTree<Settings, Customization>;
 		PASTEL_FWD(Point_ConstIterator);
-		PASTEL_FWD(Real);
-		static PASTEL_CONSTEXPR integer N = Settings::N;
+		PASTEL_FWD(Locator);
+		using Real = typename Locator::Real;
+		static PASTEL_CONSTEXPR integer N = Locator::N;
 
 		using IndexRange = tbb::blocked_range<integer>;
 
@@ -49,8 +50,8 @@ namespace Pastel
 			{
 				PENSURE_OP(maxDistanceSet[i], >=, 0);
 
-				const Vector<Real, N> queryPoint =
-					kdTree.pointPolicy()(querySet[i]->point());
+				Vector<Real, N> queryPoint =
+					pointAsVector(querySet[i]->point(), kdTree.locator());
 
 				result[i] = countNearest(
 					kdTree, queryPoint, 
