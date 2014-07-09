@@ -62,6 +62,8 @@ Release date xx.x.2014
 * Renamed the Reporter concept to the Output concept.
 * Added the Input concept.
 * Added the DownFilter concept.
+* Added the Locator concept.
+* Removed the PointPolicy concept (replaced with Locator).
 
 #### Algorithms
 
