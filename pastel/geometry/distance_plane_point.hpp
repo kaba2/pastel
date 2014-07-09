@@ -10,6 +10,14 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
+	Real distance(
+		const Plane<Real, N>& plane,
+		const Vector<Real, N>& point)
+	{
+		return std::sqrt(distance2(plane, point));
+	}
+
+	template <typename Real, int N>
 	Real distance2(
 		const Plane<Real, N>& plane,
 		const Vector<Real, N>& point)
@@ -17,7 +25,7 @@ namespace Pastel
 		PENSURE_OP(plane.n(), ==, point.n());
 
 		// Let
-		// D = plan.position() - point
+		// D = plane.position() - point
 		//
 		// The length of the projection of D onto the
 		// plane normal is

@@ -10,6 +10,18 @@ namespace Pastel
 	template <
 		typename Real, int N, 
 		typename NormBijection>
+	Real distance(
+		const AlignedBox<Real, N>& aBox,
+		const AlignedBox<Real, N>& bBox,
+		const NormBijection& normBijection)
+	{
+		return normBijection.toNorm(
+			distance2(aBox, bBox, normBijection));
+	}
+
+	template <
+		typename Real, int N, 
+		typename NormBijection>
 	Real distance2(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,
@@ -41,6 +53,18 @@ namespace Pastel
 		}
 
 		return result;
+	}
+
+	template <
+		typename Real, int N, 
+		typename NormBijection>
+	Real farthestDistance(
+		const AlignedBox<Real, N>& aBox,
+		const AlignedBox<Real, N>& bBox,
+		const NormBijection& normBijection)
+	{
+		return normBijection.toNorm(
+			farthestDistance2(aBox, bBox, normBijection));
 	}
 
 	template <

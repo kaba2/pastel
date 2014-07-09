@@ -1,4 +1,4 @@
-// Description: An aggregate file distance computations.
+// Description: An aggregate file for distance computations.
 
 #ifndef PASTELGEOMETRY_DISTANCE_H
 #define PASTELGEOMETRY_DISTANCE_H

@@ -1,11 +1,8 @@
 #ifndef PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_SPHERE_HPP
 #define PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_SPHERE_HPP
 
-#include "distance_alignedbox_sphere.h"
-
-#include "distance_alignedbox_point.h"
-
-#include <algorithm>
+#include "pastel/geometry/distance_alignedbox_sphere.h"
+#include "pastel/geometry/distance_alignedbox_point.h"
 
 namespace Pastel
 {
@@ -26,7 +23,7 @@ namespace Pastel
 		// so then zero distance is returned.
 		// d < 0 <=> s - r < 0 <=> s < r <=> s^2 < r^2
 
-		const Real centerDistance2 =
+		Real centerDistance2 =
 			distance2(box, sphere.position());
 
 		if (centerDistance2 <= square(sphere.radius()))

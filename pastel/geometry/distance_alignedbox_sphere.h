@@ -9,24 +9,24 @@
 namespace Pastel
 {
 
-	//! Computes the distance between an aligned box and a sphere.
+	//! Euclidean distance between a box and a sphere.
 	/*!
 	Preconditions:
 	box.n() == sphere.n()
 
-	Time complexity:
-	O(n), where n is the dimension.
+	Time complexity: O(box.n())
+
+	The box and the sphere are assumed to be solid.
 	*/
 	template <typename Real, int N>
 	Real distance(
 		const AlignedBox<Real, N>& box,
 		const Sphere<Real, N>& sphere);
 
-	//! Computes the squared distance between an aligned box and a sphere.
+	//! Squared Euclidean distance between a box and a sphere.
 	/*!
-	This is a convenience function that calls:
-
-	square(distance(box, sphere))
+	This is a convenience function which returns
+	square(distance(box, sphere)).
 	*/
 	template <typename Real, int N>
 	Real distance2(

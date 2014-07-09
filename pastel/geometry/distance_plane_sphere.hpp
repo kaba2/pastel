@@ -8,6 +8,14 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
+	Real distance(
+		const Plane<Real, N>& plane,
+		const Sphere<Real, N>& sphere)
+	{
+		return std::sqrt(distance2(plane, sphere));
+	}
+
+	template <typename Real, int N>
 	Real distance2(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere)
@@ -23,7 +31,7 @@ namespace Pastel
 		// so then zero distance is returned.
 		// d < 0 <=> s - r < 0 <=> s < r <=> s^2 < r^2
 
-		const Real centerDistance2 =
+		Real centerDistance2 =
 			distance2(plane, sphere.position());
 		if (centerDistance2 <= square(sphere.radius()))
 		{

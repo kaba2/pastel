@@ -3,15 +3,23 @@
 #ifndef PASTELGEOMETRY_DISTANCE_LINE_POINT_H
 #define PASTELGEOMETRY_DISTANCE_LINE_POINT_H
 
-#include "pastel/sys/mytypes.h"
-#include "pastel/sys/vector.h"
-
 #include "pastel/geometry/line.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
 
-	//! Computes the squared distance between a point to a line.
+	//! Euclidean distance between a point and a line.
+	/*!
+	This is a convenience function which returns
+	std::sqrt(distance2(line, point)).
+	*/
+	template <typename Real, int N>
+	Real distance(
+		const Line<Real, N>& line,
+		const Vector<Real, N>& point);
+
+	//! Squared Euclidean distance between a point and a line.
 	template <typename Real, int N>
 	Real distance2(
 		const Line<Real, N>& line,

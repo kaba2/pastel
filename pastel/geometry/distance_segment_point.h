@@ -4,19 +4,27 @@
 #define PASTELGEOMETRY_DISTANCE_SEGMENT_POINT_H
 
 #include "pastel/geometry/segment.h"
-
 #include "pastel/sys/vector.h"
 
 namespace Pastel
 {
 
-	//! Computes the squared distance between a line segment and a point.
+	//! Euclidean distance between a line segment and a point.
+	/*!
+	This is a convenience function which returns
+	std::sqrt(distance2(segment, point)).
+	*/
+	template <typename Real, int N>
+	Real distance(
+		const Segment<Real, N>& segment,
+		const Vector<Real, N>& point);
+
+	//! Squared Euclidean distance between a line segment and a point.
 	/*!
 	Preconditions:
 	segment.n() == point.n()
 
-	Time complexity:
-	O(n), where n is the dimension.
+	Time complexity: O(segment.n())
 	*/
 	template <typename Real, int N>
 	Real distance2(
