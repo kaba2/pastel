@@ -43,15 +43,6 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
-	Real distance2(
-		const AlignedBox<Real, N>& aBox,
-		const AlignedBox<Real, N>& bBox)
-	{
-		return Pastel::distance2(
-			aBox, bBox, Euclidean_NormBijection<Real>());
-	}
-
 	template <typename Real, int N, typename NormBijection>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& aBox,
@@ -61,16 +52,6 @@ namespace Pastel
 		return std::max(
 			distance2(aBox.max(), bBox.min(), normBijection),
 			distance2(aBox.min(), bBox.max(), normBijection));
-	}
-
-	template <typename Real, int N>
-	Real farthestDistance2(
-		const AlignedBox<Real, N>& aBox,
-		const AlignedBox<Real, N>& bBox)
-	{
-		return Pastel::farthestDistance2(
-			aBox, bBox,
-			Euclidean_NormBijection<Real>());
 	}
 
 }
