@@ -5,6 +5,8 @@
 #include "pastel/geometry/longestmedian_splitrule.h"
 
 #include "pastel/sys/range.h"
+#include "pastel/sys/range_input.h"
+#include "pastel/sys/transform_input.h"
 
 #include <boost/type_traits/has_trivial_destructor.hpp>
 
@@ -102,20 +104,15 @@ namespace Pastel
 		const Point_ConstIterator& end) const
 		-> AlignedBox<Real, N>
 	{
-		AlignedBox<Real, N> bound(
-			ofDimension(n()));
-
-		Point_ConstIterator iter = begin;
-		const Point_ConstIterator iterEnd = end;
-		while(iter != iterEnd)
+		auto pointSet = 
+			transformInput(rangeInput(begin, end),
+			[&](const PointInfo& point)
 		{
-			extendToCover(
-				evaluate(pointPolicy_(iter->point())), 
-				bound);
-			++iter;
-		}
-		
-		return bound;
+			return point.point();
+		});
+
+		return boundingAlignedBox(
+			pointSet, locator());
 	}
 
 	template <typename Settings, template <typename> class Customization>
@@ -132,8 +129,8 @@ namespace Pastel
 		const Point_ConstIterator iterEnd = end;
 		while(iter != iterEnd)
 		{
-			const Real position = 
-				pointPolicy_.axis(iter->point(), axis);
+			Real position = 
+				locator()(iter->point(), axis);
 			if (position < bound.first)
 			{
 				bound.first = position;
@@ -360,7 +357,7 @@ namespace Pastel
 
 		SplitPredicate splitPredicate(
 			splitPosition, splitAxis, 
-			pointPolicy_);
+			locator());
 
 		std::pair<std::pair<Point_Iterator, integer>,
 			std::pair<Point_Iterator, integer> > result =
@@ -534,7 +531,7 @@ namespace Pastel
 
 			const SplitPredicate splitPredicate(
 				node->splitPosition(), node->splitAxis(), 
-				pointPolicy_);
+				locator());
 
 			const std::pair<
 				std::pair<Point_Iterator, integer>,
@@ -603,8 +600,7 @@ namespace Pastel
 	template <typename SplitRule>
 	void PointKdTree<Settings, Customization>::refine(
 		Node* node,
-		Vector<Real, N>& minBound,
-		Vector<Real, N>& maxBound,
+		AlignedBox<Real, N>& bound,
 		const SplitRule& splitRule,
 		integer depth,
 		integer bucketSize)
@@ -619,14 +615,24 @@ namespace Pastel
 			}
 			else
 			{
-				const std::pair<Real, integer> split = 
-					splitRule(*this, Cursor(node), 
-					minBound, maxBound, depth);
-				const Real splitPosition = split.first;
-				const integer splitAxis = split.second;
+				auto pointSet = 
+					transformInput(
+						rangeInput(node->first(), node->end()),
+						[&](const PointInfo& point)
+						{
+							return point.point();
+						});
 
-				subdivide(node, splitPosition, splitAxis,
-					minBound[splitAxis], maxBound[splitAxis]);
+				std::pair<Real, integer> split = 
+					splitRule(pointSet, locator(), bound);
+
+				Real splitPosition = split.first;
+				integer splitAxis = split.second;
+
+				subdivide(
+					node, splitPosition, splitAxis,
+					bound.min()[splitAxis], 
+					bound.max()[splitAxis]);
 			}
 		}
 
@@ -636,33 +642,31 @@ namespace Pastel
 
 			const integer splitAxis = node->splitAxis();
 			
-			const Real oldMinBound = minBound[splitAxis];
-			const Real oldMaxBound = maxBound[splitAxis];
+			const Real oldMinBound = bound.min()[splitAxis];
+			const Real oldMaxBound = bound.max()[splitAxis];
 
-			minBound[splitAxis] = node->left()->min();
-			maxBound[splitAxis] = node->left()->max();
+			bound.min()[splitAxis] = node->left()->min();
+			bound.max()[splitAxis] = node->left()->max();
 
 			refine(
 				node->left(), 
-				minBound,
-				maxBound,
+				bound,
 				splitRule,
 				depth + 1,
 				bucketSize);
 
-			minBound[splitAxis] = node->right()->min();
-			maxBound[splitAxis] = node->right()->max();
+			bound.min()[splitAxis] = node->right()->min();
+			bound.max()[splitAxis] = node->right()->max();
 
 			refine(
 				node->right(), 
-				minBound,
-				maxBound,
+				bound,
 				splitRule,
 				depth + 1,
 				bucketSize);
 
-			minBound[splitAxis] = oldMinBound;
-			maxBound[splitAxis] = oldMaxBound;
+			bound.min()[splitAxis] = oldMinBound;
+			bound.max()[splitAxis] = oldMaxBound;
 
 			// Update point information.
 			// The bound information has already

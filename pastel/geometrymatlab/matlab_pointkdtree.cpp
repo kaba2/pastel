@@ -40,66 +40,26 @@ namespace Pastel
 			integer id;
 		};
 
-		class TreePoint_PointPolicy
+		class TreePoint_Locator
 		{
 		public:
 			using Real = real;
 			using Point = TreePoint;
-			using ConstIterator = const Real*;
+			static PASTEL_CONSTEXPR integer N = Dynamic;
 
-			explicit TreePoint_PointPolicy(
+			explicit TreePoint_Locator(
 				integer dimension)
 				: dimension_(dimension)
 			{
 			}
 
-			using ConstRange = boost::iterator_range<ConstIterator>
-;
-
-			typedef Array_VectorExpression<real, Dynamic>
-				Expression;
-
-			const Real& axis(const Point& point, integer i) const
+			const Real& operator()(
+				const Point& point, integer i) const
 			{
 				return *(point.data + i);
 			}
 
-			Expression operator()(const Point& point) const
-			{
-				return Expression(begin(point), n());
-			}
-
-			ConstRange range(const Point& point) const
-			{
-				return ConstRange(begin(point), end(point));
-			}
-
-			ConstIterator begin(const Point& point) const
-			{
-				return point.data;
-			}
-
-			ConstIterator end(const Point& point) const
-			{
-				return point.data + dimension_;
-			}
-
-			const Real* point(const Point& point) const
-			{
-				return point.data;
-			}
-
-			Real point(const Point& point, integer axis) const
-			{
-				return point.data[axis];
-			}
-
 			integer n() const
-			{
-				return dimension_;
-			}
-
-			integer dimension(const Point& point) const
 			{
 				return dimension_;
 			}
@@ -108,7 +68,7 @@ namespace Pastel
 			integer dimension_;
 		};
 
-		using Settings = PointKdTree_Settings<real, Dynamic, TreePoint_PointPolicy>;
+		using Settings = PointKdTree_Settings<TreePoint_Locator>;
 
 		using Tree = PointKdTree<Settings>;
 		using Point_ConstIterator = Tree::Point_ConstIterator;
@@ -119,7 +79,7 @@ namespace Pastel
 		struct KdState
 		{
 			explicit KdState(integer dimension)
-				: tree(TreePoint_PointPolicy(dimension))
+				: tree(TreePoint_Locator(dimension))
 				, indexMap()
 				, pointAllocator(dimension * sizeof(real))
 				, index(1)
@@ -229,8 +189,8 @@ namespace Pastel
 			const integer d = state->tree.n();
 			const integer n = idSet.size();
 
-			using PointPolicy = Tree::PointPolicy;
-			const PointPolicy& pointPolicy = state->tree.pointPolicy();
+			using Locator = Tree::Locator;
+			const Locator& locator = state->tree.locator();
 
 			Array<real> pointSet = createArray<real>(
 				n, d, outputSet[PointSet]);
@@ -245,8 +205,8 @@ namespace Pastel
 						iter->second;
 
 					std::copy(
-						pointPolicy.begin(pointIter->point()),
-						pointPolicy.end(pointIter->point()),
+						pointIter->point().data,
+						pointIter->point().data + d,
 						pointSet.columnBegin(i));
 				}					
 				else

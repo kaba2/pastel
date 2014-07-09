@@ -35,6 +35,9 @@ namespace Pastel
 			*/
 			integer n() const;
 
+			//! Swaps two locators.
+			void swap(Locator& that);
+
 			//! Returns the i:th coordinate of the given point.
 			/*!
 			Preconditions:
@@ -44,6 +47,40 @@ namespace Pastel
 		};
 
 	}
+
+}
+
+#include <type_traits>
+
+namespace Pastel
+{
+
+	namespace Locator_
+	{
+
+		template <typename... LocatorSet>
+		class Locator_Real;
+
+		template <typename Locator, typename... LocatorSet>
+		class Locator_Real<Locator, LocatorSet...>
+		{
+		public:
+			using type = std::common_type_t<
+				typename Locator_Real<Locator>::type, 
+				typename Locator_Real<LocatorSet...>::type>;
+		};
+
+		template <typename Locator>
+		class Locator_Real<Locator>
+		{
+		public:
+			using type = typename Locator::Real;
+		};
+
+	}
+
+	template <typename... LocatorSet>
+	using Locator_Real = typename Locator_::Locator_Real<LocatorSet...>::type;
 
 }
 

@@ -75,9 +75,9 @@ namespace Pastel
 	template <
 		typename Settings, template <typename> class Customization,
 		typename Point_ConstIterator_RandomAccessRange, 
-		typename Real = typename Settings::Real,
-		typename PointPolicy = typename Settings::PointPolicy,
-		integer N = Settings::N,
+		typename Locator = typename Settings::Locator,
+		typename Real = typename Locator::Real,
+		integer N = Locator::N,
 		typename Real_RandomAccessRange = ConstantRange<Real>,
 		typename NormBijection = Euclidean_NormBijection<Real>,
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>

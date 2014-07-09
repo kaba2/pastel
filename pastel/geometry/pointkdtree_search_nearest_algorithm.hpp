@@ -7,6 +7,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/keyvalue.h"
+#include "pastel/sys/vector_locator.h"
 
 #include <queue>
 
@@ -26,9 +27,9 @@ namespace Pastel
 			using Tree = PointKdTree<Settings, Customization>;
 			
 			using Fwd = Tree;
-			PASTEL_FWD(Real);
-			PASTEL_FWD(PointPolicy);
-			static PASTEL_CONSTEXPR integer N = Settings::N;
+			PASTEL_FWD(Locator);
+			using Real = typename Locator::Real;
+			static PASTEL_CONSTEXPR integer N = Locator::N;
 			PASTEL_FWD(Cursor);
 			PASTEL_FWD(Point_ConstIterator);
 
@@ -51,7 +52,7 @@ namespace Pastel
 				, acceptPoint(acceptPoint_)
 				, normBijection(normBijection_)
 				, candidateFunctor(candidateFunctor_)
-				, pointPolicy(kdTree_.pointPolicy())
+				, locator(kdTree_.locator())
 				, protectiveFactor(normBijection.scalingFactor(1.01))
 				, cullDistance(maxDistance_)
 				, errorFactor(inverse(normBijection.scalingFactor(1 + maxRelativeError)))
@@ -235,13 +236,18 @@ namespace Pastel
 				Real currentDistance = 0;
                 while(iter != iterEnd)
                 {
-                    currentDistance = 
-                        distance2(
-                        pointPolicy.begin(iter->point()),
-                        searchPoint.rawBegin(),
-						dimension,
+					auto keepGoing = [&](const Real& that)
+					{
+						return that < cullDistance;
+					};
+
+                    currentDistance = distance2(
+                        iter->point(),
+                        searchPoint,
                         normBijection, 
-						cullDistance);
+						locator,
+						Vector_Locator<Real, N>(dimension),
+						keepGoing);
 
 					// Remember that we are using an open search ball.
 					// Here it is enforced again.
@@ -272,7 +278,7 @@ namespace Pastel
 			const Indicator& acceptPoint;
 			const NormBijection& normBijection;
 			const CandidateFunctor& candidateFunctor;
-			const PointPolicy& pointPolicy;
+			const Locator& locator;
 			
 			Real protectiveFactor;
 			Real cullDistance;
@@ -289,6 +295,7 @@ namespace Pastel
 		typename Settings, template <typename> class Customization,
 		typename Indicator, typename NormBijection,
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
+		typename Locator,
 		typename Real,
 		integer N>
 	void searchNearestAlgorithm(
@@ -317,6 +324,7 @@ namespace Pastel
 		typename Settings, template <typename> class Customization,
 		typename Indicator, typename NormBijection,
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
+		typename Locator,
 		typename Real>
 	void searchNearestAlgorithm(
 		const PointKdTree<Settings, Customization>& kdTree,
@@ -337,13 +345,15 @@ namespace Pastel
 		using Tree = PointKdTree<Settings, Customization>;
 		using Fwd = Tree;
 		PASTEL_FWD(Cursor);
-		static PASTEL_CONSTEXPR integer N = Settings::N;
+		PASTEL_FWD(Locator);
+		using Real = typename Locator::Real;
+		static PASTEL_CONSTEXPR integer N = Locator::N;
 
 		typedef typename SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
 			SearchAlgorithm;
 
-		const Vector<Real, N> searchPoint =
-			kdTree.pointPolicy()(searchIter->point());
+		Vector<Real, N> searchPoint =
+			pointAsVector(searchIter->point(), kdTree.locator());
 
 		NearestAlgorithm_::GenericAlgorithm<Settings, Customization, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
 			genericAlgorithm(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,

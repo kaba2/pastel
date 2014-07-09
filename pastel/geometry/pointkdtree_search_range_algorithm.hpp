@@ -13,6 +13,7 @@ namespace Pastel
 	template <
 		typename Settings, template <typename> class Customization,
 		typename Output_SearchRange,
+		typename Locator,
 		typename Real,
 		integer N>
 	void searchRangeAlgorithm(
@@ -29,7 +30,6 @@ namespace Pastel
 		PASTEL_FWD(Point_ConstIterator);
 		PASTEL_FWD(Cursor);
 		PASTEL_FWD(Point);
-		PASTEL_FWD(PointPolicy);
 
 		// Note: we assume the search region is open.
 
@@ -48,7 +48,7 @@ namespace Pastel
 		const Vector<Real, N>& rangeMin = range.min();
 		const Vector<Real, N>& rangeMax = range.max();
 
-		const PointPolicy& pointPolicy = kdTree.pointPolicy();
+		const Locator& locator = kdTree.locator();
 
 		const AlignedBox<Real, N>& bound = kdTree.bound();
 
@@ -184,13 +184,13 @@ namespace Pastel
 				const Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					const typename PointPolicy::Point& point = iter->point();
+					const auto& point = iter->point();
 					// Cull the point dimension by n.
 					integer i = 0;
 					while(i < n)
 					{
 						const Real position = 
-							pointPolicy(point)[i];
+							locator(point, i);
 						if (position <= rangeMin[i] || 
 							position >= rangeMax[i])
 						{

@@ -16,7 +16,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	PointKdTree<Settings, Customization>::PointKdTree(
-		const PointPolicy& pointPolicy,
+		const Locator& locator,
 		bool simulateKdTree)
 		: pointSet_()
 		, hiddenSet_()
@@ -24,12 +24,12 @@ namespace Pastel
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)
 		, leaves_(0)
-		, pointPolicy_(pointPolicy)
-		, bound_(pointPolicy.n())
+		, locator_(locator)
+		, bound_(locator.n())
 		, simulateKdTree_(simulateKdTree)
 	{
 		ENSURE(N == Dynamic || 
-			N == pointPolicy.n());
+			N == locator.n());
 
 		initialize();
 	}
@@ -42,7 +42,7 @@ namespace Pastel
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)
 		, leaves_(0)
-		, pointPolicy_(that.pointPolicy_)
+		, locator_(that.locator_)
 		, bound_(that.bound_)
 		, simulateKdTree_(that.simulateKdTree_)
 	{
@@ -103,16 +103,16 @@ namespace Pastel
 		nodeAllocator_.swap(that.nodeAllocator_);
 		swap(root_, that.root_);
 		swap(leaves_, that.leaves_);
-		swap(pointPolicy_, that.pointPolicy_);
+		locator_.swap(that.locator_);
 		bound_.swap(that.bound_);
 		swap(simulateKdTree_, that.simulateKdTree_);
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	auto PointKdTree<Settings, Customization>::pointPolicy() const
-		-> const PointPolicy&
+	auto PointKdTree<Settings, Customization>::locator() const
+		-> const Locator&
 	{
-		return pointPolicy_;
+		return locator_;
 	}
 
 	template <typename Settings, template <typename> class Customization>
@@ -224,7 +224,7 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	integer PointKdTree<Settings, Customization>::n() const
 	{
-		return pointPolicy_.n();
+		return locator_.n();
 	}
 	
 	template <typename Settings, template <typename> class Customization>
@@ -233,11 +233,10 @@ namespace Pastel
 		const SplitRule& splitRule,
 		integer bucketSize)
 	{
-		Vector<Real, N> minBound(bound_.min());
-		Vector<Real, N> maxBound(bound_.max());
+		AlignedBox<Real, N> rootBound = bound();
 
 		refine(root_, 
-			minBound, maxBound,
+			rootBound,
 			splitRule,
 			0,
 			bucketSize);
@@ -295,14 +294,11 @@ namespace Pastel
 			return;
 		}
 
-		typedef typename boost::range_iterator<Input_Point_ConstRange>::type
-			Input_Point_ConstIterator;
-
-		const Input_Point_ConstIterator inputBegin = pointSet.begin();
-		const Input_Point_ConstIterator inputEnd = pointSet.end();
+		auto inputBegin = pointSet.begin();
+		auto inputEnd = pointSet.end();
 
 		// Copy the points to the end of 'pointSet_'.
-		const Point_Iterator first = 
+		Point_Iterator first = 
 			copyToEnd(inputBegin, inputEnd, hidden);
 
 		// Copy the new point iterators to the user.

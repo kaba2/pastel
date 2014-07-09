@@ -22,8 +22,8 @@ namespace Pastel
 	template <
 		typename Settings, template <typename> class Customization,
 		typename Point_ConstIterator_RandomAccessRange,
+		typename Locator,
 		typename Real,
-		typename PointPolicy,
 		integer N,
 		typename Real_RandomAccessRange,
 		typename NormBijection,

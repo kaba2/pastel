@@ -12,21 +12,21 @@ namespace Pastel
 
 	template <
 		typename Point_ConstRange, 
-		typename PointPolicy>
-	Vector<typename PointPolicy::Real, PointPolicy::N> 
+		typename Locator>
+	Vector<typename Locator::Real, Locator::N> 
 	largestEigenVector(
 		const Point_ConstRange& pointSet,
-		const PointPolicy& pointPolicy)
+		const Locator& locator)
 	{
-		using Real = typename PointPolicy::Real;
-		static PASTEL_CONSTEXPR int N = PointPolicy::N;
+		using Real = typename Locator::Real;
+		static PASTEL_CONSTEXPR int N = Locator::N;
 
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",
 		// Bin Yang, IEEE Transactions on Signal Processing,
 		// Vol 43., No. 1, January 1995.
 
-		const integer n = pointPolicy.n();
+		const integer n = locator.n();
 		ENSURE_OP(n, !=, Dynamic);
 
 		if (pointSet.empty())
@@ -35,7 +35,7 @@ namespace Pastel
 		}
 
 		const Vector<Real, N> meanPoint = 
-			pointSetMean(pointSet, pointPolicy);
+			pointSetMean(pointSet, locator);
 
 		// We choose the initial approximation as
 		// the direction of greatest axis-aligned variance.
@@ -44,7 +44,7 @@ namespace Pastel
 		// errors.
 
 		const Vector<Real, N> axisVariance = 
-			pointSetVariance(pointSet, meanPoint, pointPolicy);
+			pointSetVariance(pointSet, meanPoint, locator);
 
 		const integer initialAxis = maxIndex(axisVariance);
 
@@ -57,14 +57,14 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			const Real y = dot(result, 
-				pointPolicy(*iter) - meanPoint);
+				pointAsVector(*iter, locator) - meanPoint);
 
 			// We take beta = 1.
 			
 			//d = beta * d + square(y);
 			d += square(y);
 
-			result += ((pointPolicy(*iter) - meanPoint) - 
+			result += ((pointAsVector(*iter, locator) - meanPoint) - 
 				result * y) * (y / d);
 
 			++iter;
@@ -73,30 +73,30 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Point_ConstRange, typename PointPolicy>
+	template <typename Point_ConstRange, typename Locator>
 	void approximateEigenstructure(
 		const Point_ConstRange& pointSet,
-		const PointPolicy& pointPolicy,
+		const Locator& locator,
 		integer eigenvectors,
-		Matrix<typename PointPolicy::Real>& qOut,
-		Vector<typename PointPolicy::Real>& dOut)
+		Matrix<typename Locator::Real>& qOut,
+		Vector<typename Locator::Real>& dOut)
 	{
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",
 		// Bin Yang, IEEE Transactions on Signal Processing,
 		// Vol 43., No. 1, January 1995.
 
-		using Real = typename PointPolicy::Real;
+		using Real = typename Locator::Real;
 
 		ENSURE(!pointSet.empty());
 		ENSURE_OP(eigenvectors, >, 0);
 
-		const integer n = pointPolicy.n();
+		const integer n = locator.n();
 		ENSURE_OP(n, !=, Dynamic);
 
 		const real beta = 1;
 		const Vector<Real> meanPoint = 
-			pointSetMean(pointSet, pointPolicy);
+			pointSetMean(pointSet, locator);
 
 		qOut = identityMatrix<Real>(eigenvectors, n);
 		dOut.setSize(eigenvectors);
@@ -108,7 +108,7 @@ namespace Pastel
 		auto iterEnd = pointSet.end();
 		while(iter != iterEnd)
 		{
-			x = pointPolicy(*iter) - meanPoint;
+			x = pointAsVector(*iter, locator) - meanPoint;
 
 			for (integer j = 0;j < eigenvectors;++j)
 			{

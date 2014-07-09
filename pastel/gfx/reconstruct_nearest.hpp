@@ -40,14 +40,14 @@ namespace Pastel
 			Data data_;
 		};
 
-		template <typename Real_, int N, typename Data>
+		template <
+			typename Real_, int N_, typename Data>
 		class DataPolicy
 		{
 		public:
 			using Real = Real_;
+			static PASTEL_CONSTEXPR integer N = N_;
 			using Point = DataPoint<Real, N, Data>;
-			using ConstIterator = const Real*;
-			using Expression = ConstArray_VectorExpression<Real, N>;
 
 			explicit DataPolicy(
 				integer dimension)
@@ -62,42 +62,26 @@ namespace Pastel
 				return (N != Dynamic) ? N : dimension_;
 			}
 
-			integer dimension(const Point& point) const
-			{
-				return (N != Dynamic) ? N : dimension_;
-			}
-
-			Expression operator()(const Point& point) const
-			{
-				return constVectorExpression<N>(
-					begin(point), n());
-			}
-
-			const Real& axis(const Point& point, integer index) const
+			const Real& operator(
+				const Point& point, integer index) const
 			{
 				return point.position_[index];
-			}
-
-			ConstIterator begin(const Point& point) const
-			{
-				return point.position_.rawBegin();
-			}
-
-			ConstIterator end(const Point& point) const
-			{
-				return point.position_.rawBegin() + n();
 			}
 
 		private:
 			integer dimension_;
 		};
 
-		template <typename Real, int N, typename PointPolicy>
+		template <typename Tree>
 		class ReconstructFunctor
 		{
 		public:
+			using Locator = typename Tree::Locator;
+			using Real = typename Locator::Real;
+			static PASTEL_CONSTEXPR integer N = Locator::N;
+
 			explicit ReconstructFunctor(
-				const PointKdTree<Real, N, PointPolicy>& kdTree,
+				const Tree& kdTree,
 				integer kNearest,
 				integer maxRelativeError)
 				: kdtree_(kdTree)
@@ -106,13 +90,13 @@ namespace Pastel
 			{
 			}
 
-			using Data = typename PointPolicy::Point;
+			using Data = typename Locator::Point;
 
 			void operator()(
 				const Vector<integer, N>& position,
 				typename Data::Data_& data) const
 			{
-				typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
+				typedef typename Tree::Point_ConstIterator
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;
@@ -133,7 +117,7 @@ namespace Pastel
 			}
 
 		private:
-			const PointKdTree<Real, N, PointPolicy>& kdtree_;
+			const Tree& kdtree_;
 			integer kNearest_;
 			Real maxRelativeError_;
 		};
@@ -157,9 +141,11 @@ namespace Pastel
 		using DataPoint = ReconstructNearest_::DataPoint<Real, N, Data>;
 		using DataPolicy = ReconstructNearest_::DataPolicy<Real, N, Data>;
 
-		DataPolicy pointPolicy(n);
+		DataPolicy locator(n);
 
-		PointKdTree<Real, N, DataPolicy> kdTree(pointPolicy);
+		using Tree = PointKdTree<PointKdTree_Settings<DataPolicy>>
+
+		Tree kdTree(locator);
 
 		const Vector<Real, N> scaling = 
 			inverse(region.extent()) * Vector<Real, N>(view.extent());
@@ -179,7 +165,7 @@ namespace Pastel
 
 		kdTree.refine(SlidingMidpoint2_SplitRule());
 
-		ReconstructNearest_::ReconstructFunctor<Real, N, DataPolicy>
+		ReconstructNearest_::ReconstructFunctor<Tree>
 			reconstructFunctor(kdTree, kNearest, maxRelativeError);
 
 		visitPosition(

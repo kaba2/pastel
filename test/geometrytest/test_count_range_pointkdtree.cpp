@@ -3,8 +3,9 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/pointkdtree_count_range.h"
-#include "pastel/geometry/splitrules.h"
+#include <pastel/geometry/pointkdtree_count_range.h>
+#include <pastel/geometry/splitrules.h>
+#include <pastel/sys/locators.h>
 
 using namespace Pastel;
 
@@ -27,7 +28,7 @@ namespace
 
 		void test()
 		{
-			using Settings = PointKdTree_Settings<real, 2>;
+			using Settings = PointKdTree_Settings<Vector_Locator<real, 2>>;
 
 			PointKdTree<Settings> tree;
 
@@ -46,22 +47,22 @@ namespace
 
 			Vector2 pointSet[] = 
 			{
-				Vector2(-1, -1),
-				Vector2(-1, -2),
-				Vector2(-3, -1),
-				Vector2(-3, -3),
-				Vector2(-5, -2),
-				Vector2(-5, 1),
-				Vector2(-4, 3),
-				Vector2(-2, 4),
-				Vector2(-2, 1),
-				Vector2(-1, 1),
-				Vector2(-1, 2),
-				Vector2(1, 1),
-				Vector2(2, 3),
-				Vector2(3, 1),
-				Vector2(2, -1),
-				Vector2(1, -3)
+				{ -1, -1 },
+				{ -1, -2 },
+				{ -3, -1 },
+				{ -3, -3 },
+				{ -5, -2 },
+				{ -5, 1 },
+				{ -4, 3 },
+				{ -2, 4 },
+				{ -2, 1 },
+				{ -1, 1 },
+				{ -1, 2 },
+				{ 1, 1 },
+				{ 2, 3 },
+				{ 3, 1 },
+				{ 2, -1 },
+				{ 1, -3 }
 			};
 
 			tree.insertRange(range(pointSet));

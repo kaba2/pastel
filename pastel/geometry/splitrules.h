@@ -7,6 +7,5 @@
 #include "pastel/geometry/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/slidingmidpoint2_splitrule.h"
 #include "pastel/geometry/longestmedian_splitrule.h"
-#include "pastel/geometry/minimumvolume_splitrule.h"
 
 #endif

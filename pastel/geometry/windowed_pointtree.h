@@ -14,14 +14,14 @@ namespace Pastel
 	class PointQuery_WindowedPointTree_Concept
 	{
 	public:
-		using PointPolicy = UserDefinedType;
+		using Locator = UserDefinedType;
 
 		// The compile-time dimension of the window.
 		// If M != Dynamic, M == queryDimension().
 		static PASTEL_CONSTEXPR int M = UserDefinedInteger;
 
 		const integer queryDimension() const;
-		const PointPolicy& pointPolicy() const;
+		const Locator& locator() const;
 
 		template <typename Point_Functor>
 		void queryPoints(
@@ -33,14 +33,14 @@ namespace Pastel
 	class WindowedPointTree
 	{
 	public:
-		using PointPolicy = typename PointQuery::PointPolicy;
-		using Point = typename PointPolicy::Point;
-		using Real = typename PointPolicy::Real;
+		using Locator = typename PointQuery::Locator;
+		using Point = typename Locator::Point;
+		using Real = typename Locator::Real;
 
-		static PASTEL_CONSTEXPR int N = PointPolicy::N;
+		static PASTEL_CONSTEXPR int N = Locator::N;
 		static PASTEL_CONSTEXPR int M = PointQuery::M;
 
-		using Tree = PointKdTree<Real, N, PointPolicy>;
+		using Tree = PointKdTree<Real, N, Locator>;
 		using ConstIterator = typename Tree::Point_ConstIterator;
 
 		using ActiveSet = std::unordered_map<Point, ConstIterator>;

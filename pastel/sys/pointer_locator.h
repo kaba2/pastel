@@ -1,4 +1,5 @@
 // Description: Pointer locator
+// Documentation: locators.txt
 
 #ifndef PASTELSYS_POINTER_LOCATOR_H
 #define PASTELSYS_POINTER_LOCATOR_H
@@ -21,6 +22,11 @@ namespace Pastel
 		{
 			ENSURE(N == Dynamic || n == N);
 			ENSURE_OP(n, >=, 0);
+		}
+
+		void swap(Pointer_Locator& that)
+		{
+			std::swap(n_, that.n_);
 		}
 
 		integer n() const

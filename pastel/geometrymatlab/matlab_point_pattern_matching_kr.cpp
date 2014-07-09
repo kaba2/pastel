@@ -7,7 +7,7 @@
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/slidingmidpoint_splitrule.h"
 
-#include "pastel/sys/array_pointpolicy.h"
+#include "pastel/sys/pointer_locator.h"
 
 void force_linking_point_pattern_matching_kr() {}
 
@@ -77,7 +77,9 @@ namespace Pastel
 
 			const integer n = modelDimension;
 
-			using Settings = PointKdTree_Settings<real, Dynamic, Array_PointPolicy<real>>;
+			using Locator = Pointer_Locator<real>;
+
+			using Settings = PointKdTree_Settings<Locator>;
 
 			using SceneTree = PointKdTree<Settings>;
 			using SceneIterator = SceneTree::Point_ConstIterator;
@@ -85,16 +87,16 @@ namespace Pastel
 			using ModelTree = PointKdTree<Settings>;
 			using ModelIterator = ModelTree::Point_ConstIterator;
 
-			Array_PointPolicy<real> pointPolicy(n);
+			Locator locator(n);
 
-			SceneTree sceneTree(pointPolicy);
+			SceneTree sceneTree(locator);
 			sceneTree.insertRange(
 				constSparseRange(
 				countingIterator(sceneData),
 				countingIterator(sceneData + scenePoints * n),
 				n));
 
-			ModelTree modelTree(pointPolicy);
+			ModelTree modelTree(locator);
 			modelTree.insertRange(
 				constSparseRange(
 				countingIterator(modelData),

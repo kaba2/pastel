@@ -20,9 +20,9 @@ namespace Pastel
 		using Self = SearchNearest_;
 
 		using Fwd = Settings;
-		PASTEL_FWD(Real);
-		PASTEL_FWD(PointPolicy);
-		static PASTEL_CONSTEXPR integer N = Settings::N;
+		PASTEL_FWD(Locator);
+		using Real = typename Locator::Real;
+		static PASTEL_CONSTEXPR integer N = Locator::N;
 
 		using Tree = PointKdTree<Settings, Customization>;
 		using Point_ConstIterator = typename Tree::Point_ConstIterator;

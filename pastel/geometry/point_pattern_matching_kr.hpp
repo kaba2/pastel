@@ -25,11 +25,13 @@ namespace Pastel
 			typename Model_Settings, template <typename> class Model_Customization,
 			typename Scene_Model_Output,
 			typename NormBijection,
-			typename Real = typename Scene_Settings::Real,
-			integer N = Scene_Settings::N>
+			typename Locator>
 		class PointPatternKr
 		{
 		public:
+			using Real = typename Locator::Real;
+			static PASTEL_CONSTEXPR integer N = Locator::N;
+
 			using Match = Result_PointPatternMatchKr<Real, N>;
 
 			using ModelTree = PointKdTree<Model_Settings, Model_Customization>;
@@ -102,11 +104,9 @@ namespace Pastel
 					const Scene_ConstIterator scenePivotEnd = sceneTree.end();
 					while(scenePivotIter != scenePivotEnd && !exitEarly)
 					{
-						translation = 
-							sceneTree.pointPolicy()(
-							scenePivotIter->point()) -
-							modelTree.pointPolicy()(
-							modelPivotIter->point());
+						translation =
+							pointAsVector(scenePivotIter->point(), sceneTree.locator()) -
+							pointAsVector(modelPivotIter->point(), modelTree.locator());
 
 						// Find out how many points match
 						// under this translation.
@@ -116,8 +116,7 @@ namespace Pastel
 						{
 							const Model_ConstIterator modelIter = modelSet[j];
 							
-							searchPoint = modelTree.pointPolicy()(
-								modelIter->point()) + 
+							searchPoint = pointAsVector(modelIter->point(), modelTree.locator()) + 
 								translation;
 
 							auto neighborOutput = [&](
@@ -179,8 +178,8 @@ namespace Pastel
 								while(iter != iterEnd)
 								{
 									meanDelta += 
-										sceneTree.pointPolicy()(iter->first->point()) -
-										(modelTree.pointPolicy()(iter->second->point()) + 
+										pointAsVector(iter->first->point(), sceneTree.locator()) -
+										(pointAsVector(iter->second->point(), modelTree.locator()) + 
 										translation);
 
 									++iter;
@@ -248,10 +247,11 @@ namespace Pastel
 	}
 
 	template <
-		typename Scene_Settings, template <typename> class Scene_Customization,
 		typename Model_Settings, template <typename> class Model_Customization,
+		typename Scene_Settings, template <typename> class Scene_Customization,
 		typename NormBijection,
 		typename Scene_Model_Output,
+		typename Locator,
 		typename Real,
 		integer N>
 	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
@@ -276,7 +276,7 @@ namespace Pastel
 			Model_Settings, Model_Customization,
 			Scene_Settings, Scene_Customization,
 			Scene_Model_Output,
-			NormBijection> 
+			NormBijection, Locator> 
 			pointPattern;
 
 		return pointPattern.match(

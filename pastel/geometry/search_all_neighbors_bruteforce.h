@@ -29,8 +29,8 @@ namespace Pastel
 	dimension:
 	Dimension of the point-set.
 
-	pointPolicy:
-	An object modeling the PointPolicy concept.
+	locator:
+	An object modeling the Locator concept.
 	See pointpolicies.txt.
 
 	nearestArray (output):
@@ -58,7 +58,7 @@ namespace Pastel
 	*/
 
 	template <typename Point_RandomAccessRange,
-		typename PointPolicy,
+		typename Locator,
 		typename Point_Iterator,
 		typename Real_RandomAccessRange,
 		typename Point_Iterator_RandomAccessRange,
@@ -66,7 +66,7 @@ namespace Pastel
 	void searchAllNeighborsBruteForce(
 		const Point_RandomAccessRange& pointSet,
 		integer dimension,
-		const PointPolicy& pointPolicy,
+		const Locator& locator,
 		Array<Point_Iterator>& nearestArray,
 		integer kNearest,
 		const Real_RandomAccessRange& maxDistanceSet,

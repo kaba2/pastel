@@ -14,24 +14,24 @@ namespace Pastel
 		SplitPredicate(
 			const Real& splitPosition,
 			integer splitAxis,
-			const PointPolicy& pointPolicy)
+			const Locator& locator)
 			: splitPosition_(splitPosition)
 			, splitAxis_(splitAxis)
-			, pointPolicy_(pointPolicy)
+			, locator_(locator)
 		{
 		}
 		
 		TriState operator()(const PointInfo& point) const
 		{
 			return triLess(
-				pointPolicy_.axis(*point, splitAxis_),
+				locator_(*point, splitAxis_),
 				splitPosition_);
 		}
 
 	private:
 		Real splitPosition_;
 		integer splitAxis_;
-		const PointPolicy& pointPolicy_;
+		const Locator& locator_;
 	};
 
 }

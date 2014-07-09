@@ -9,25 +9,25 @@ namespace Pastel
 	template <
 		typename From_Point_ConstRange, 
 		typename To_Point_ConstRange,
-		typename From_PointPolicy,
-		typename To_PointPolicy>
-	ConformalAffine2D<typename From_PointPolicy::Real> 
+		typename From_Locator,
+		typename To_Locator>
+	ConformalAffine2D<typename From_Locator::Real> 
 		lsConformalAffine(
 		const From_Point_ConstRange& from,
 		const To_Point_ConstRange& to,
-		const From_PointPolicy& fromPointPolicy,
-		const To_PointPolicy& toPointPolicy)
+		const From_Locator& fromLocator,
+		const To_Locator& toLocator)
 	{
-		using Real = typename From_PointPolicy::Real;
-		using FromPoint = typename From_PointPolicy::Point;
-		using ToPoint = typename To_PointPolicy::Point;
+		using Real = typename From_Locator::Real;
+		using FromPoint = typename From_Locator::Point;
+		using ToPoint = typename To_Locator::Point;
 
 		typedef typename boost::range_iterator<From_Point_ConstRange>::type
 			From_Point_ConstIterator;
 		typedef typename boost::range_iterator<To_Point_ConstRange>::type
 			To_Point_ConstIterator;
 
-		static PASTEL_CONSTEXPR int N = From_PointPolicy::N;
+		static PASTEL_CONSTEXPR int N = From_Locator::N;
 
 		ENSURE_OP(from.size(), ==, to.size());
 
@@ -59,16 +59,16 @@ namespace Pastel
 			++toSecond;
 
 			const Vector<Real, 2> aFrom = 
-				fromPointPolicy(from.front());
+				pointAsVector(from.front(), fromLocator);
 
 			const Vector<Real, 2> bFrom = 
-				fromPointPolicy(*fromSecond);
+				pointAsVector(*fromSecond, fromLocator);
 
 			const Vector<Real, 2> aTo = 
-				toPointPolicy(to.front());
+				pointAsVector(to.front(), toLocator);
 
 			const Vector<Real, 2> bTo = 
-				toPointPolicy(*toSecond);
+				pointAsVector(*toSecond, toLocator);
 
 			return conformalAffine(
 				aFrom, bFrom,
@@ -90,17 +90,18 @@ namespace Pastel
 
 		while(fromIter != fromEnd)
 		{
-			sumFrom += fromPointPolicy(*fromIter);
-			sumTo += toPointPolicy(*toIter);
+			sumFrom += pointAsVector(*fromIter, fromLocator);
+			sumTo += pointAsVector(*toIter, toLocator);
 
 			sumSquareFrom += dot(
-				fromPointPolicy(*fromIter));
+				pointAsVector(*fromIter, fromLocator));
 			dotSum += dot(
-				fromPointPolicy(*fromIter), 
-				toPointPolicy(*toIter));
+				pointAsVector(*fromIter, fromLocator),
+				pointAsVector(*toIter, toLocator));
 			crossDotSum += dot(
-				cross(fromPointPolicy(*fromIter)),
-				toPointPolicy(*toIter));
+				cross(
+				pointAsVector(*fromIter, fromLocator)),
+				pointAsVector(*toIter, toLocator));
 
 			++fromIter;
 			++toIter;

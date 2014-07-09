@@ -6,7 +6,7 @@
 
 #include "pastel/math/conformalaffine2d.h"
 
-#include "pastel/sys/pointpolicy_concept.h"
+#include "pastel/sys/locator_concept.h"
 
 #include "pastel/sys/range.h"
 
@@ -17,27 +17,27 @@ namespace Pastel
 	/*!
 	Preconditions:
 	fromPointSet.size() == toPointSet.size()
-	fromPointPolicy.dimension(fromPointSet.front()) ==
-	toPointPolicy.dimension(toPointSet.front())
-	fromPointPolicy.dimension(fromPointSet[i]) == 
-	fromPointPolicy.dimension(fromPointSet.front())
-	toPointPolicy.dimension(toPointSet[i]) == 
-	toPointPolicy.dimension(toPointSet.front())
+	fromLocator.n(fromPointSet.front()) ==
+	toLocator.n(toPointSet.front())
+	fromLocator.n(fromPointSet[i]) == 
+	fromLocator.n(fromPointSet.front())
+	toLocator.n(toPointSet[i]) == 
+	toLocator.n(toPointSet.front())
 	
 	Note: we are abusing notation here, since ForwardIterator_Range
 	does not support the [] operator. By [i] we mean here the 
 	i:th element of the range.
 
 	Static preconditions:
-	From_PointPolicy::Real matches To_PointPolicy::Real
+	From_Locator::Real matches To_Locator::Real
 
 	The LS is an abbreviation from Least-Squares. 
 	
 	fromPointSet, toPointSet:
 	Two sets of points.
 
-	fromPointPolicy, toPointPolicy:
-	See the PointPolicy concept from 'pastel/sys/pointpolicies.txt'.
+	fromLocator, toLocator:
+	See the Locator concept from 'pastel/sys/pointpolicies.txt'.
 
 	returns:
 	A conformal affine transformation such that mapping 'fromPointSet'
@@ -47,14 +47,14 @@ namespace Pastel
 	template <
 		typename From_Point_ConstRange, 
 		typename To_Point_ConstRange,
-		typename From_PointPolicy,
-		typename To_PointPolicy>
-	ConformalAffine2D<typename From_PointPolicy::Real> 
+		typename From_Locator,
+		typename To_Locator>
+	ConformalAffine2D<typename From_Locator::Real> 
 		lsConformalAffine(
 		const From_Point_ConstRange& from,
 		const To_Point_ConstRange& to,
-		const From_PointPolicy& fromPointPolicy,
-		const To_PointPolicy& toPointPolicy);
+		const From_Locator& fromLocator,
+		const To_Locator& toLocator);
 
 }
 

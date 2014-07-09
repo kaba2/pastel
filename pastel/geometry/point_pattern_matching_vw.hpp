@@ -14,22 +14,23 @@
 #include "pastel/sys/random_subset.h"
 #include "pastel/sys/predicate_indicator.h"
 #include "pastel/sys/notequalto.h"
+#include "pastel/sys/vector_locator.h"
 
 namespace Pastel
 {
 
-	template <typename Point_ConstRange, typename PointPolicy>
-	typename PointPolicy::Real 
+	template <typename Point_ConstRange, typename Locator>
+	typename Locator::Real 
 		relativeToAbsoluteMatchingDistance(
 		const Point_ConstRange& pointSet,
-		const PointPolicy& pointPolicy,
-		const typename PointPolicy::Real& relativeMatchingDistance)
+		const Locator& locator,
+		const typename Locator::Real& relativeMatchingDistance)
 	{
-		using Real = typename PointPolicy::Real;
-		static PASTEL_CONSTEXPR int N = PointPolicy::N;
+		using Real = typename Locator::Real;
+		static PASTEL_CONSTEXPR int N = Locator::N;
 
 		const Sphere<Real, N> sceneSphere = boundingSphere(
-			pointSet, pointPolicy);
+			pointSet, locator);
 
 		return relativeMatchingDistance * 
 			sceneSphere.radius() / (2 * std::sqrt((Real)pointSet.size()));
@@ -40,12 +41,16 @@ namespace Pastel
 
 		template <
 			typename Scene_Settings, template <typename> class Scene_Customization,
-			typename Model_Settings, template <typename> class Model_Customization,
-			typename Real = typename Scene_Settings::Real, 
-			integer N = Scene_Settings::N>
+			typename Model_Settings, template <typename> class Model_Customization>
 		class PatternMatcher
 		{
 		private:
+			using Scene_Locator = typename Scene_Settings::Locator;
+			using Model_Locator = typename Model_Settings::Locator;
+			
+			using Real = typename Scene_Locator::Real;
+			static PASTEL_CONSTEXPR integer N = Scene_Locator::N;
+
 			PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
 
 			using SceneTree = PointKdTree<Scene_Settings, Scene_Customization>;
@@ -300,7 +305,7 @@ namespace Pastel
 
 				Vector<Real, N> operator()(const ScenePoint& scenePoint) const
 				{
-					return sceneTree_.pointPolicy(scenePoint);
+					return pointAsVector(scenePoint, sceneTree_.locator());
 				}
 
 			private:
@@ -318,12 +323,12 @@ namespace Pastel
 
 			Vector<Real, N> scenePosition(const SceneIterator& sceneIter) const
 			{
-				return sceneTree_.pointPolicy()(sceneIter->point());
+				return pointAsVector(sceneIter->point(), sceneTree_.locator());
 			}
 
 			Vector<Real, N> modelPosition(const ModelIterator& modelIter) const
 			{
-				return modelTree_.pointPolicy()(modelIter->point());
+				return pointAsVector(modelIter->point(), modelTree_.locator());
 			}
 
 			bool matchLocal(
@@ -440,8 +445,8 @@ namespace Pastel
 						lsConformalAffine(
 						range(modelGlobalMatch.begin(), modelGlobalMatch.end()),
 						range(sceneGlobalMatch.begin(), sceneGlobalMatch.end()),
-						Vector_PointPolicy<Real, N>(),
-						Vector_PointPolicy<Real, N>());
+						Vector_Locator<Real, N>(),
+						Vector_Locator<Real, N>());
 
 					// Now see which of the mapped model points have
 					// t-neighbours in the scene set.
@@ -579,7 +584,7 @@ namespace Pastel
 
 	template <
 		typename Real, typename SceneRange, typename ModelRange,
-		typename Scene_PointPolicy, typename Model_PointPolicy>
+		typename Scene_Locator, typename Model_Locator>
 	bool pointPatternMatch(
 		const SceneRange& scene,
 		const ModelRange& model,
@@ -587,19 +592,19 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
 		ConformalAffine2D<Real>& similarityResult,
-		const Scene_PointPolicy& scenePointPolicy,
-		const Model_PointPolicy& modelPointPolicy)
+		const Scene_Locator& sceneLocator,
+		const Model_Locator& modelLocator)
 	{
-		ENSURE_OP(modelPointPolicy.n(), ==, 2);
-		ENSURE_OP(scenePointPolicy.n(), ==, 2);
+		ENSURE_OP(modelLocator.n(), ==, 2);
+		ENSURE_OP(sceneLocator.n(), ==, 2);
 
-		using SceneTree = PointKdTree<PointKdTree_Settings<Real, 2, Scene_PointPolicy>>;
-		using ModelTree = PointKdTree<PointKdTree_Settings<Real, 2, Model_PointPolicy>>;
+		using SceneTree = PointKdTree<PointKdTree_Settings<Scene_Locator>>;
+		using ModelTree = PointKdTree<PointKdTree_Settings<Model_Locator>>;
 
-		SceneTree sceneTree(scenePointPolicy);
+		SceneTree sceneTree(sceneLocator);
 		sceneTree.insertRange(scene);
 
-		ModelTree modelTree(modelPointPolicy);
+		ModelTree modelTree(modelLocator);
 		modelTree.insertRange(model);
 
 		sceneTree.refine(SlidingMidpoint_SplitRule());
@@ -626,8 +631,8 @@ namespace Pastel
 			relativeMatchingDistance,
 			confidence,
 			similarityResult,
-			Vector_PointPolicy<Real, 2>(),
-			Vector_PointPolicy<Real, 2>());
+			Vector_Locator<Real, 2>(),
+			Vector_Locator<Real, 2>());
 	}
 
 }

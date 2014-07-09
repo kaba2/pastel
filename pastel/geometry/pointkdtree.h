@@ -10,7 +10,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tristate.h"
-#include "pastel/sys/vector_pointpolicy.h"
 
 #include "pastel/geometry/alignedbox.h"
 
@@ -33,7 +32,7 @@ namespace Pastel
 		using Fwd = PointKdTree_Fwd<Settings>;
 		
 		PASTEL_FWD(Real);
-		PASTEL_FWD(PointPolicy);
+		PASTEL_FWD(Locator);
 		static PASTEL_CONSTEXPR integer N = Fwd::N;
 
 		PASTEL_FWD(NodeAllocator);
@@ -63,7 +62,7 @@ namespace Pastel
 		constant
 		*/
 		explicit PointKdTree(
-			const PointPolicy& pointPolicy = PointPolicy(),
+			const Locator& locator = Locator(),
 			bool simulateKdTree = false);
 
 		//! Constructs a copy from another tree.
@@ -100,13 +99,13 @@ namespace Pastel
 		*/
 		void swap(PointKdTree& that);
 
-		//! Returns the point policy.
+		//! Returns the locator.
 		/*!
 		Exception safety:
 		nothrow
 		*/
-		const PointPolicy& pointPolicy() const;
-
+		const Locator& locator() const;
+		
 		//! Extends the bounding box of the tree to cover the given box.
 		/*!
 		Exception safety:
@@ -471,8 +470,7 @@ namespace Pastel
 		template <typename SplitRule>
 		void refine(
 			Node* node,
-			Vector<Real, N>& minBound,
-			Vector<Real, N>& maxBound,
+			AlignedBox<Real, N>& bound,
 			const SplitRule& splitRule,
 			integer depth,
 			integer bucketSize);
@@ -533,8 +531,8 @@ namespace Pastel
 		//! The number of leaf nodes in the tree.
 		integer leaves_;
 
-		//! The point-abstraction.
-		PointPolicy pointPolicy_;
+		//! The point abstraction.
+		Locator locator_;
 
 		//! A bounding box for the points in the tree.
 		/*!
@@ -558,15 +556,10 @@ namespace Pastel
 namespace Pastel 
 {
 
-	template <
-		typename Real_,
-		integer N_,
-		typename PointPolicy_ = Vector_PointPolicy<Real_, N_>>
+	template <typename Locator_>
 	struct PointKdTree_Settings
 	{
-		using Real = Real_;
-		static PASTEL_CONSTEXPR integer N = N_;
-		using PointPolicy = PointPolicy_;
+		using Locator = Locator_;
 	};
 
 }
