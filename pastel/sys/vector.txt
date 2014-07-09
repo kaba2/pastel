@@ -11,15 +11,22 @@ Theory
 A _vector space_ is a 4-tuple ''(V, F, +, \*)''
 where
 
- * ''F'' is a field.
+ * ''F'' is a field,
  
- * ''+ : V^2 -> V''
+ * ''+ : V^2 -> V'',
  
- * ''* : F xx V -> V''
+ * ''* : F xx V -> V'',
  
- * ''(V, +)'' is an Abelian group.
+ * ''(V, +)'' is an Abelian group,
  
- * ''\forall alpha in F: m_{alpha}(v) = *(alpha, v)'' is an endomorphism in ''V''.
+ * ''m_{alpha} : V -> V: m_{alpha}(v) = alpha * v'' is an endomorphism in ''V'',
+ for all ''alpha in F'',
+
+ * ''m_{0}'' is the zero function,
+
+ * ''m_{1}'' is the identity function, and
+
+ * ''m_{alpha} o m_{beta} = m_{alpha * beta}'', for all ''alpha, beta in F''.
 
 Practice
 --------
