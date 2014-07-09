@@ -19,14 +19,7 @@ where
  
  * ''(V, +)'' is an Abelian group,
  
- * ''m_{alpha} : V -> V: m_{alpha}(v) = alpha * v'' is an endomorphism in ''V'',
- for all ''alpha in F'',
-
- * ''m_{0}'' is the zero function,
-
- * ''m_{1}'' is the identity function, and
-
- * ''m_{alpha} o m_{beta} = m_{alpha * beta}'', for all ''alpha, beta in F''.
+ * ''m : F -> End(V) : m(alpha) = (v -> alpha * v)'' is a ring homomorphism.
 
 Practice
 --------
