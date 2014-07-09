@@ -70,7 +70,7 @@ namespace Pastel
 		struct IsConvertible
 		{
 			static PASTEL_CONSTEXPR bool value =
-				std::is_convertible<decltype(*std::begin(*(Range*)0)), To>::value;
+				std::is_convertible<decltype(*std::begin(std::declval<Range>())), To>::value;
 		};
 
 		//! Constructs an empty mesh.

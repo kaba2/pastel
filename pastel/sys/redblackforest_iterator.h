@@ -51,7 +51,9 @@ namespace Pastel
 			{
 			}
 
-			decltype(((Base_Iterator*)0)->sentinelData().tree())
+			// FIX: Replace with decltype(auto) after Visual Studio 2013
+			// bugs are fixed.
+			decltype(std::declval<Base_Iterator>().sentinelData().tree())
 				findTree() const
 			{
 				Base_Iterator iter = *this;
