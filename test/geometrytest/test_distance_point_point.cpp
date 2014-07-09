@@ -81,7 +81,7 @@ namespace
 			Point b = &data[2];
 			auto locator = Pointer_Locator<real, 2>();
 
-			testCase(a, b, locator);
+			TEST_ENSURE(manhattanDistance(a, b, locator, locator) == 6 + 2);
 		}
 
 		void testArray()
