@@ -40,7 +40,7 @@ namespace Pastel
 
 		Real toBijection(const Real& norm) const
 		{
-			PENSURE_OP(norm, >=, 0);
+			PENSURE(norm >= 0);
 			return square(norm);
 		}
 
@@ -66,7 +66,7 @@ namespace Pastel
 			const Real& distance, 
 			const Real& newAxisDistance) const
 		{
-			PENSURE_OP(newAxisDistance, >=, 0);
+			PENSURE(newAxisDistance >= 0);
 
 			return distance + 
 				newAxisDistance;
@@ -77,8 +77,8 @@ namespace Pastel
 			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
-			PENSURE_OP(oldAxisDistance, >=, 0);
-			PENSURE_OP(newAxisDistance, >=, 0);
+			PENSURE(oldAxisDistance >= 0);
+			PENSURE(newAxisDistance >= 0);
 
 			return (distance - oldAxisDistance) + 
 				newAxisDistance;
