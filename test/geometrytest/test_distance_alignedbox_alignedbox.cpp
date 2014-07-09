@@ -55,10 +55,11 @@ namespace
 					Point(5, 4), 
 					Point(7, 7));
 
-				TEST_ENSURE(
-					distance2(aBox, bBox) == square(2) + square(1));
-				TEST_ENSURE(
-					distance2(bBox, aBox) == square(2) + square(1));
+				TEST_ENSURE(distance2(aBox, bBox) == square(2) + square(1));
+				TEST_ENSURE(distance2(bBox, aBox) == square(2) + square(1));
+
+				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(6) + square(6));
+				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(6) + square(6));
 			}
 
 			{
@@ -84,6 +85,9 @@ namespace
 
 				TEST_ENSURE(distance2(aBox, bBox) == 1);
 				TEST_ENSURE(distance2(bBox, aBox) == 1);
+
+				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(3) + square(6));
+				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(3) + square(6));
 			}
 
 			{
@@ -109,6 +113,9 @@ namespace
 
 				TEST_ENSURE(distance2(aBox, bBox) == 1);
 				TEST_ENSURE(distance2(bBox, aBox) == 1);
+
+				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(4) + square(6));
+				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(4) + square(6));
 			}
 
 			{
@@ -134,6 +141,9 @@ namespace
 
 				TEST_ENSURE(distance2(aBox, bBox) == 4);
 				TEST_ENSURE(distance2(bBox, aBox) == 4);
+
+				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(7) + square(3));
+				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(7) + square(3));
 			}
 
 			{
@@ -159,6 +169,9 @@ namespace
 
 				TEST_ENSURE(distance2(aBox, bBox) == 0);
 				TEST_ENSURE(distance2(bBox, aBox) == 0);
+
+				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(2) + square(2));
+				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(2) + square(2));
 			}
 		}
 	};
