@@ -10,44 +10,63 @@
 namespace Pastel
 {
 
-	//! Computes a bijective distance between an aligned box and a point.
-	template <typename Real, int N, typename NormBijection>
+	//! Distance between an aligned box and a point.
+	/*!
+	This is a convenience function which returns
+	normBijection.toNorm(
+		distance2(alignedBox, point, normBijection)).
+	*/
+	template <typename Real, int N, 
+		typename NormBijection = Euclidean_NormBijection<Real>>
+	Real distance(
+		const AlignedBox<Real, N>& alignedBox,
+		const Vector<Real, N>& point,
+		const NormBijection& normBijection = NormBijection());
+
+	//! Bijective distance between an aligned box and a point.
+	/*!
+	Preconditions:
+	alignedBox.n() == point.n()
+
+	Time complexity: O(alignedBox.n())
+
+	It is assumed that the aligned box is solid.
+	*/
+	template <typename Real, int N, 
+		typename NormBijection = Euclidean_NormBijection<Real>>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
 		const Vector<Real, N>& point,
-		const NormBijection& normBijection);
+		const NormBijection& normBijection = NormBijection());
 
-	//! Computes the squared distance between an aligned box and a point.
+	//! Farthest distance between an aligned box and a point.
 	/*!
-	This is a convenience function that calls:
-
-	distance2(alignedBox, point,
-		Euclidean_NormBijection<Real>())
+	This is a convenience function which returns
+	normBijection.toNorm(
+		farthestDistance2(alignedBox, point, normBijection)).
 	*/
-	template <typename Real, int N>
-	Real distance2(
+	template <typename Real, int N, 
+		typename NormBijection = Euclidean_NormBijection<Real>>
+	Real farthestDistance(
 		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point);
+		const Vector<Real, N>& point,
+		const NormBijection& normBijection = NormBijection());
 
-	//! Computes farthest bijective distance between an aligned box and a point.
-	template <typename Real, int N, typename NormBijection>
+	//! Farthest bijective distance between an aligned box and a point.
+	/*!
+	Preconditions:
+	alignedBox.n() == point.n()
+
+	Time complexity: O(alignedBox.n())
+
+	It is assumed that the aligned box is solid.
+	*/
+	template <typename Real, int N, 
+		typename NormBijection = Euclidean_NormBijection<Real>>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
 		const Vector<Real, N>& point,
-		const NormBijection& normBijection);
-
-	//! Computes farthest squared distance between an aligned box and a point.
-	/*!
-	This is a convenience function that calls:
-	
-	fartherDistance2(
-		alignedBox, point,
-		Euclidean_NormBijection<Real>())
-	*/
-	template <typename Real, int N>
-	Real farthestDistance2(
-		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point);
+		const NormBijection& normBijection = NormBijection());
 
 }
 

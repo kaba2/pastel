@@ -8,13 +8,21 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
+	Real distance(
+		const Segment<Real, N>& aSegment,
+		const Segment<Real, N>& bSegment)
+	{
+		return std::sqrt(distance2(aSegment, bSegment));
+	}
+
+	template <typename Real, int N>
 	Real distance2(
 		const Segment<Real, N>& aSegment,
 		const Segment<Real, N>& bSegment)
 	{
 		PENSURE_OP(aSegment.n(), ==, bSegment.n());
 
-		const Tuple<Real, 2> t = closest(aSegment, bSegment);
+		Tuple<Real, 2> t = closest(aSegment, bSegment);
 		return dot(bSegment.at(t[1]) - aSegment.at(t[0]));
 	}
 

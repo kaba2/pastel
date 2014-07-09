@@ -9,13 +9,22 @@
 namespace Pastel
 {
 
-	//! Computes the squared distance between a line segment and a sphere.
+	//! Euclidean distance between a line segment and a sphere.
+	/*!
+	This is a convenience function which returns
+	std::sqrt(distance2(segment, sphere)).
+	*/
+	template <typename Real, int N>
+	Real distance(
+		const Segment<Real, N>& segment,
+		const Sphere<Real, N>& sphere);
+
+	//! Squared Euclidean distance between a line segment and a sphere.
 	/*!
 	Preconditions:
 	segment.n() == sphere.n()
 
-	Time complexity:
-	O(n), where n is the dimension.
+	Time complexity: O(segment.n())
 	*/
 	template <typename Real, int N>
 	Real distance2(

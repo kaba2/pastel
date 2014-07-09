@@ -8,14 +8,22 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
+	Real distance(
+		const Segment<Real, N>& segment,
+		const Vector<Real, N>& point)
+	{
+		return std::sqrt(distance2(segment, point));
+	}
+
+	template <typename Real, int N>
 	Real distance2(
 		const Segment<Real, N>& segment,
 		const Vector<Real, N>& point)
 	{
 		PENSURE_OP(segment.n(), ==, point.n());
 
-		const Real t = closest(segment, point);
-		const Vector<Real, N> delta = segment.at(t) - point;
+		Real t = closest(segment, point);
+		Vector<Real, N> delta = segment.at(t) - point;
 
 		return dot(delta, delta);
 	}

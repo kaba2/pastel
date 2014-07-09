@@ -8,13 +8,22 @@
 namespace Pastel
 {
 
+	//! Euclidean distance between line segments.
+	/*!
+	This is a convenience function which returns
+	std::sqrt(distance2(aSegment, bSegment)).
+	*/
+	template <typename Real, int N>
+	Real distance(
+		const Segment<Real, N>& aSegment,
+		const Segment<Real, N>& bSegment);
+
 	//! Computes the squared distance between line segments.
 	/*!
 	Preconditions:
 	aSegment.n() == bSegment.n()
 
-	Time complexity:
-	O(n), where n is the dimension.
+	Time complexity: O(aSegment.n())
 	*/
 	template <typename Real, int N>
 	Real distance2(
