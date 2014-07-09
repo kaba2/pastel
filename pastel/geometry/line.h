@@ -12,14 +12,12 @@ namespace Pastel
 {
 
 	//! A straight line.
-
 	/*!
 	For performance reasons it must be required that
 	the line direction always be of unit length.
 	This is not enforced by the system but is required
 	by the algorithms.
 	*/
-
 	template <typename Real, int N = Dynamic>
 	class Line
 		: boost::multipliable<Line<Real, N>, Real
