@@ -44,6 +44,7 @@ namespace Pastel
 
 	template <
 		typename Settings, template <typename> class Customization,
+		typename Locator,
 		typename Real,
 		integer N>
 	integer countRange(

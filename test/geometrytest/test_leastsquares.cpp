@@ -8,7 +8,7 @@
 #include "pastel/math/conformalaffine2d_tools.h"
 #include "pastel/math/conformalaffine2d_least_squares.h"
 
-#include "pastel/sys/vector_pointpolicy.h"
+#include "pastel/sys/locators.h"
 #include "pastel/sys/vector_tools.h"
 
 using namespace Pastel;
@@ -60,8 +60,8 @@ namespace
 					lsConformalAffine(
 					range(from.begin(), from.end()), 
 					range(to.begin(), to.end()),
-					Vector_PointPolicy2(),
-					Vector_PointPolicy2());
+					Vector_Locator<real, 2>(),
+					Vector_Locator<real, 2>());
 
 				TEST_ENSURE(absoluteError<real>(similarity.scaling(), scale) <= 0.001);
 				TEST_ENSURE(absoluteError<real>(similarity.rotation(), angle) <= 0.001);

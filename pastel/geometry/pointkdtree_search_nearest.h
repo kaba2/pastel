@@ -87,9 +87,9 @@ namespace Pastel
 		typename Settings, template <typename> class Customization,
 		typename SearchPoint,
 		typename NearestOutput = Null_Output,
-		typename Indicator = All_Indicator, 
-		typename Real = typename Settings::Real,
-		typename NormBijection = Euclidean_NormBijection<Real>, 
+		typename Indicator = All_Indicator,
+		typename Locator = typename Settings::Locator,
+		typename NormBijection = Euclidean_NormBijection<typename Locator::Real>, 
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
 	auto searchNearest(
 		const PointKdTree<Settings, Customization>& kdTree,

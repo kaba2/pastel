@@ -3,5 +3,20 @@ Locators
 
 [[Parent]]: maths.txt
 
-A _locator_ is a function which maps a variable to ''n'' real numbers. The ''n'' is called the _dimensionality_ of the locator. Locators abstract the representation of points.
+A _locator_ is a function which maps a variable to ''RR^n''. It abstracts the representation of geometric points. A _point_ is an element of the domain of the locator. The _coordinate_ of a point is the value of the locator at that point. The ''n'' is called the _dimensionality_ of the locator. Using points as abstraction units leads to [geometric algorithms][Geometric], where problems are recast as visualizable geometric problems in ''RR^n''. 
 
+The locator abstraction allows only a read-access to points. Indeed, the memory that stores a returned coordinate may only exist as a temporary variable. To store points requires concrete point data-types, such as the [vector][Vector].
+
+Motivation
+----------
+
+### Abstract storage
+
+While it is possible to use a single data type, such as the [vector][Vector], for representing points, requiring to do so is often inconvenient. The problem is that point data often comes in various different forms and data types, and therefore would first need to be temporarily converted to a set of vectors. This duplicates memory-use, and perhaps more importantly, fills the code with distracting conversion boiler-plate. A locator allows the existing data to be used directly. For example, a point could store a coordinate in ''{-1, +1}^n'' with only a one bit per coordinate.
+
+### Abstract representation
+
+The most common use-case is for the underlying data-type to directly store the coordinates of a point. However, the locator can also store the coordinates in a transformed form. For example, if a point is stored in polar coordinates, then the locator can convert a point to normal coordinates on the fly, or the other way around. 
+
+[Vector]: vector.txt
+[Geometric]: geometric_algorithms.txt

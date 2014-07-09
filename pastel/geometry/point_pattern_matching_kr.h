@@ -84,12 +84,13 @@ namespace Pastel
 	std::make_pair(modelIter, sceneIter).
 	*/
 	template <
-		typename Scene_Settings, template <typename> class Scene_Customization,
 		typename Model_Settings, template <typename> class Model_Customization,
+		typename Scene_Settings, template <typename> class Scene_Customization,
 		typename NormBijection,
 		typename Scene_Model_Output,
-		typename Real = typename Scene_Settings::Real,
-		integer N = Scene_Settings::N>
+		typename Locator = typename Scene_Settings::Locator,
+		typename Real = typename Locator::Real,
+		integer N = Locator::N>
 	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
 		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,

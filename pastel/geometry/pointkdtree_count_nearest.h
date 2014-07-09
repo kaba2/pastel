@@ -72,11 +72,11 @@ namespace Pastel
 	The number of accepted points in the given the distance.
 	*/
 	template <
-		typename Settings, template <typename> class Customization, 
+		typename Settings, template <typename> class Customization,
 		typename SearchPoint,
 		typename Indicator = All_Indicator,
-		typename Real = typename Settings::Real,
-		typename NormBijection = Euclidean_NormBijection<Real>, 
+		typename Locator = typename Settings::Locator,
+		typename NormBijection = Euclidean_NormBijection<typename Locator::Real>, 
 		typename SearchAlgorithm_PointKdTree = DepthFirst_SearchAlgorithm_PointKdTree>
 	auto countNearest(
 		const PointKdTree<Settings, Customization>& kdTree,

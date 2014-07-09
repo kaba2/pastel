@@ -20,11 +20,12 @@ namespace Pastel
 	{
 	public:
 		using Fwd = Settings;
-		PASTEL_FWD(Real);
-		PASTEL_FWD(PointPolicy);
-		static PASTEL_CONSTEXPR integer N = Settings::N;
 
-		using Point = typename PointPolicy::Point;
+		PASTEL_FWD(Locator);
+		using Point = typename Locator::Point;
+		using Real = typename Locator::Real;
+		static PASTEL_CONSTEXPR integer N = Locator::N;
+
 		class Cursor;
 		class SplitPredicate;
 

@@ -99,12 +99,12 @@ Disadvantages:
 ### Proposition 3: generic programming with a policy
 
 [[CppCode]]:
-	template <typename Real, int N, typename PointPolicy>
+	template <typename Real, int N, typename Locator>
 	class PointKdTree
 	{
 	};
 
-	class PointPolicy
+	class Locator
 	{
 	public:
 		using Point = int;

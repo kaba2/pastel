@@ -4,7 +4,7 @@
 #include "pastel/matlab/pastelmatlab.h"
 
 #include "pastel/geometry/point_pattern_matching_vw.h"
-#include "pastel/sys/array_pointpolicy.h"
+#include "pastel/sys/pointer_locator.h"
 
 void force_linking_point_pattern_matching_vw() {}
 
@@ -65,8 +65,8 @@ namespace Pastel
 				relativeMatchingDistance,
 				confidence,
 				similarity,
-				Array_PointPolicy2(),
-				Array_PointPolicy2());
+				Pointer_Locator<real, 2>(),
+				Pointer_Locator<real, 2>());
 
 			// Output the similarity.
 

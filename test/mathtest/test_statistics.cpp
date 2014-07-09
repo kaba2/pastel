@@ -5,8 +5,10 @@
 
 #include <pastel/sys/range_input.h>
 #include <pastel/math/statistics.h>
+
 #include <pastel/sys/rational.h>
-#include <pastel/sys/vector_locator.h>
+#include <pastel/sys/array_locator.h>
+#include <pastel/sys/locators.h>
 
 using namespace Pastel;
 using namespace std;

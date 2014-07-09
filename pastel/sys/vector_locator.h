@@ -24,6 +24,10 @@ namespace Pastel
 			ENSURE_OP(n, >=, 0);
 		}
 
+		void swap(Vector_Locator& that)
+		{
+		}
+
 		integer n() const
 		{
 			return n_;

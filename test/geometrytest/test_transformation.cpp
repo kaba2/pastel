@@ -8,7 +8,7 @@
 #include "pastel/math/uniform_sampling.h"
 
 #include "pastel/sys/vector_tools.h"
-#include "pastel/sys/vector_pointpolicy.h"
+#include "pastel/sys/vector_locator.h"
 
 using namespace Pastel;
 
@@ -88,8 +88,8 @@ namespace
 					lsConformalAffine(
 					range(pattern.begin(), pattern.end()),
 					range(transformedPattern.begin(), transformedPattern.end()),
-					Vector_PointPolicy2(),
-					Vector_PointPolicy2());
+					Vector_Locator<real, 2>(),
+					Vector_Locator<real, 2>());
 
 				const real scalingDelta = absoluteError<real>(
 					matchedTransformation.scaling(), 

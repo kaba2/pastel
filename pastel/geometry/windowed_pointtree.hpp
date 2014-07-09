@@ -10,7 +10,7 @@ namespace Pastel
 	template <typename PointQuery>
 	WindowedPointTree<PointQuery>::WindowedPointTree(
 		const PointQuery& pointQuery)
-		: tree_(pointQuery.pointPolicy(), false)
+		: tree_(pointQuery.locator(), false)
 		, window_()
 		, activeSet_()
 		, pointQuery_(pointQuery)

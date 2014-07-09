@@ -47,7 +47,7 @@ namespace Pastel
 	}
 
 	template <typename Point_RandomAccessRange,
-		typename PointPolicy,
+		typename Locator,
 		typename Point_Iterator,
 		typename Real_RandomAccessRange,
 		typename Point_Iterator_RandomAccessRange,
@@ -55,7 +55,7 @@ namespace Pastel
 	void searchAllNeighborsBruteForce(
 		const Point_RandomAccessRange& pointSet,
 		integer dimension,
-		const PointPolicy& pointPolicy,
+		const Locator& locator,
 		Array<Point_Iterator>& nearestArray,
 		integer kNearest,
 		const Real_RandomAccessRange& maxDistanceSet,
@@ -81,11 +81,11 @@ namespace Pastel
 			return;
 		}
 		
-		using Real = typename PointPolicy::Real;
+		using Real = typename Locator::Real;
 		using Entry = AllNearestNeighborsBruteForce_::Entry<Real>;
 		using NearestSet = std::set<Entry>;
 		using NearestIterator = typename NearestSet::iterator;
-		using RealIterator = typename PointPolicy::ConstIterator;
+		using RealIterator = typename Locator::ConstIterator;
 
 		using IndexRange = tbb::blocked_range<integer>;
 
@@ -103,21 +103,29 @@ namespace Pastel
 			NearestSet nearestSet;
 			for (integer i = range.begin();i < range.end();++i)
 			{
-				RealIterator iPoint = pointPolicy.begin(*indexSet[i]);
+				auto iPoint = *indexSet[i];
 
 				const Real maxDistance = maxDistanceSet[i];
 				Real cullDistance = maxDistance;
 				nearestSet.clear();
 
+				auto keepGoing = [&](const Real& that)
+				{
+					return that < cullDistance;
+				};
+
 				for (integer j = 0;j < points;++j)
 				{
 					if (j != i)
 					{
-						RealIterator jPoint = pointPolicy.begin(pointSet[j]);
+						auto jPoint = pointSet[j];
 
-						const Real distance = 
-							distance2(iPoint, jPoint, dimension,
-							normBijection, cullDistance);
+						Real distance = distance2(
+							iPoint, jPoint,
+							normBijection, 
+							locator,
+							locator,
+							keepGoing);
 
 						if (distance < cullDistance)
 						{

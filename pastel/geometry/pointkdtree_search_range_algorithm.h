@@ -22,8 +22,9 @@ namespace Pastel
 	template <
 		typename Settings, template <typename> class Customization,
 		typename Output_SearchRange,
-		typename Real = typename Settings::Real,
-		integer N = Settings::N>
+		typename Locator = typename Settings::Locator,
+		typename Real = typename Locator::Real,
+		integer N = Locator::N>
 	void searchRangeAlgorithm(
 		const PointKdTree<Settings, Customization>& kdTree,
 		const PASTEL_NO_DEDUCTION((AlignedBox<Real, N>))& range,

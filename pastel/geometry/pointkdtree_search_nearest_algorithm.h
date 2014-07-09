@@ -46,8 +46,9 @@ namespace Pastel
 		typename Settings, template <typename> class Customization, 
 		typename Indicator, typename NormBijection, 
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
-		typename Real = typename Settings::Real,
-		integer N = Settings::N>
+		typename Locator = typename Settings::Locator,
+		typename Real = typename Locator::Real,
+		integer N = Locator::N>
 	void searchNearestAlgorithm(
 		const PointKdTree<Settings, Customization>& kdTree,
 		const PASTEL_NO_DEDUCTION((Vector<Real, N>))& searchPoint,
@@ -63,7 +64,8 @@ namespace Pastel
 		typename Settings, template <typename> class Customization,
 		typename Indicator, typename NormBijection, 
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
-		typename Real = typename Settings::Real>
+		typename Locator = typename Settings::Locator,
+		typename Real = typename Locator::Real>
 	void searchNearestAlgorithm(
 		const PointKdTree<Settings, Customization>& kdTree,
 		const typename PointKdTree<Settings, Customization>::Point_ConstIterator& searchIter,

@@ -4,9 +4,10 @@
 #ifndef PASTELGEOMETRY_POINTSET_EIGEN_H
 #define PASTELGEOMETRY_POINTSET_EIGEN_H
 
+#include "pastel/sys/locator_concept.h"
+
 #include "pastel/sys/vector.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/pointpolicy_concept.h"
 
 #include "pastel/math/matrix.h"
 
@@ -20,11 +21,11 @@ namespace Pastel
 	*/
 	template <
 		typename Point_ConstRange, 
-		typename PointPolicy>
-	Vector<typename PointPolicy::Real, PointPolicy::N> 
+		typename Locator>
+	Vector<typename Locator::Real, Locator::N> 
 	largestEigenVector(
 		const Point_ConstRange& pointSet,
-		const PointPolicy& pointPolicy);
+		const Locator& locator);
 
 	//! Computes an approximation of the eigenstructure of a point-set.
 	/*!
@@ -50,13 +51,13 @@ namespace Pastel
 	corresponding to the approximated eigenvectors
 	in qOut.
 	*/
-	template <typename Point_ConstRange, typename PointPolicy>
+	template <typename Point_ConstRange, typename Locator>
 	void approximateEigenstructure(
 		const Point_ConstRange& pointSet,
-		const PointPolicy& pointPolicy,
+		const Locator& locator,
 		integer eigenvectors,
-		Matrix<typename PointPolicy::Real>& qOut,
-		Vector<typename PointPolicy::Real>& dOut);
+		Matrix<typename Locator::Real>& qOut,
+		Vector<typename Locator::Real>& dOut);
 
 }
 

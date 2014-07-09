@@ -13,6 +13,7 @@
 
 #include "pastel/sys/iterators.h"
 #include "pastel/sys/outputs.h"
+#include "pastel/sys/locators.h"
 
 using namespace Pastel;
 
@@ -29,7 +30,7 @@ namespace
 		public:
 			using Real = real;
 			static PASTEL_CONSTEXPR integer N = N_;
-			using PointPolicy = Vector_PointPolicy<Real, N_>;
+			using Locator = Vector_Locator<Real, N_>;
 		};
 
 		using Tree = PointKdTree<Settings<2>>;

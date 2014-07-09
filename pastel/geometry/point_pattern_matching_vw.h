@@ -26,11 +26,11 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, 
-		typename Point_ConstRange, typename PointPolicy>
-	Sphere<typename PointPolicy::Real, PointPolicy::N> 
+		typename Point_ConstRange, typename Locator>
+	Sphere<typename Locator::Real, Locator::N> 
 		relativeMatchingDistance(
 		const Point_ConstRange& pointSet,
-		const PointPolicy& pointPolicy);
+		const Locator& locator);
 
 	template <
 		typename Scene_Settings, template <typename> class Scene_Customization,
@@ -52,8 +52,8 @@ namespace Pastel
 
 	template <
 		typename Real, typename SceneRange, typename ModelRange,
-		typename Scene_PointPolicy,
-		typename Model_PointPolicy>
+		typename Scene_Locator,
+		typename Model_Locator>
 	bool pointPatternMatch(
 		const SceneRange& scene,
 		const ModelRange& model,
@@ -61,8 +61,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
 		ConformalAffine2D<Real>& similarityResult,
-		const Scene_PointPolicy& scenePointPolicy,
-		const Model_PointPolicy& modelPointPolicy);
+		const Scene_Locator& sceneLocator,
+		const Model_Locator& modelLocator);
 
 	//! Finds the given model point pattern from the scene point pattern.
 	/*!
@@ -72,8 +72,8 @@ namespace Pastel
 		minMatchRatio, relativeMatchingDistance,
 		confidence,
 		similarityResult,
-		Vector_PointPolicy<Real, N>(),
-		Vector_PointPolicy<Real, N>());
+		Vector_Locator<Real, N>(),
+		Vector_Locator<Real, N>());
 	*/
 
 	template <typename Real, typename SceneRange, typename ModelRange>

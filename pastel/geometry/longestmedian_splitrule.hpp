@@ -15,23 +15,20 @@ namespace Pastel
 	{
 	public:
 		template <
-			typename Settings, template <typename> class Customization,
-			typename Real = typename Settings::Real,
-			integer N = Settings::N,
-			typename Cursor = typename PointKdTree<Settings, Customization>::Cursor>
-		std::pair<typename Settings::Real, integer> operator()(
-			const PointKdTree<Settings, Customization>& tree,
-			const PASTEL_NO_DEDUCTION(Cursor)& cursor,
-			const PASTEL_NO_DEDUCTION((Vector<Real, N>))& minBound,
-			const PASTEL_NO_DEDUCTION((Vector<Real, N>))& maxBound,
-			integer depth) const
+			typename Point_Input,
+			typename Locator,
+			typename Real = typename Locator::Real,
+			integer N = Locator::N>
+		std::pair<Real, integer> operator()(
+			Point_Input pointSet,
+			const Locator& locator,
+			const AlignedBox<Real, N>& bound) const
 		{
 			using Tree = PointKdTree<Settings, Customization>;
 			using Fwd = Tree;
 			PASTEL_FWD(Point_ConstIterator);
-			PASTEL_FWD(PointPolicy);
 
-			const PointPolicy& pointPolicy = tree.pointPolicy();
+			const Locator& locator = tree.locator();
 
 			// Split along the longest dimension.
 
@@ -44,15 +41,15 @@ namespace Pastel
 				// Get the positions of the points along the splitting axis.
 
 				std::vector<Real> positionSet;
-				positionSet.reserve(cursor.points());
-
-				Point_ConstIterator iter = cursor.begin();
-				const Point_ConstIterator iterEnd = cursor.end();
-				while(iter != iterEnd)
+				if (pointSet.nHint() > 0)
 				{
-					positionSet.push_back(
-						pointPolicy(iter->point())[splitAxis]);
-					++iter;
+					positionSet.reserve(pointSet.nHint());
+				}
+
+				while(!pointSet.empty())
+				{
+					positionSet.emplace_back(
+						locator(pointSet(), splitAxis));
 				}
 
 				// Get the median of the points on the splitting axis.
