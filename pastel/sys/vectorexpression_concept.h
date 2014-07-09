@@ -24,15 +24,6 @@ namespace Pastel
 			//! The type of the elements.
 			using Real = UserDefinedType;
 
-			//! A const-iterator to elements of type Real.
-			using ConstIterator = UserDefinedType;
-
-			//! Returns a const-iterator to the beginning of the elements.
-			ConstIterator begin() const;
-
-			//! Returns a const-iterator to the end of the elements.
-			ConstIterator end() const;
-
 			//! Returns the dimension of the vector.
 			integer size() const;
 
@@ -47,16 +38,9 @@ namespace Pastel
 			*/
 			Real operator[](integer index) const;
 
-			//! Returns the dimension of the vector.
+			//! Returns whether the expression involves a given memory region.
 			/*!
-			Implemented automatically by the VectorExpression 
-			CRTP base class. Calls size().
-			*/
-			integer n() const;
-
-			//! Returns whether the expression uses the given memory region.
-			/*!
-			A vector expression 'expr' _uses_ a memory region if there is an
+			A vector expression 'expr' _involves_ a memory region if there is an
 			index 'i' such that 'expr[i]' accesses the memory region to
 			compute its result.
 			*/
@@ -68,7 +52,7 @@ namespace Pastel
 			/*!
 			A vector expression 'expr' needs to be evaluated into a temporary 
 			before assignment 'v = expr' if and only if there is an index 
-			'i' such that 'expr[i]' uses some memory location other than 'v[i]' 
+			'i' such that 'expr[i]' involves some memory location other than 'v[i]' 
 			from the given memory region. Particularly, no evaluation to a
 			temporary needs to be done when doing only elementwise 
 			combinations.
@@ -79,6 +63,9 @@ namespace Pastel
 
 			// Note: The following are implemented automatically when 
 			// deriving from the VectorExpression CRTP base class.
+
+			//! Returns the dimension of the vector.
+			integer n() const;
 
 			//! Element-wise sum with 'that'.
 			VectorExpression operator+(
