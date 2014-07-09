@@ -9,42 +9,24 @@ namespace Pastel
 {
 
 	//! Computes the distance between two aligned boxes.
-	template <typename Real, int N, typename NormBijection>
+	/*!
+	The distance is computed assuming that the boxes
+	are solid. 
+	*/
+	template <typename Real, int N, 
+		typename NormBijection = Euclidean_NormBijection<Real>>
 	Real distance2(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,
-		const NormBijection& normBijection);
-
-	//! Computes the distance between two aligned boxes.
-	/*!
-	This is a convenience function that calls:
-
-	distance2(aBox, bBox, 
-		Euclidean_NormBijection<Real>());
-	*/
-	template <typename Real, int N>
-	Real distance2(
-		const AlignedBox<Real, N>& aBox,
-		const AlignedBox<Real, N>& bBox);
+		const NormBijection& normBijection = NormBijection());
 
 	//! Computes the farthest distance between two aligned boxes.
-	template <typename Real, int N, typename NormBijection>
+	template <typename Real, int N, 
+		typename NormBijection = Euclidean_NormBijection<Real>>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,
-		const NormBijection& normBijection);
-
-	//! Computes the farthest distance between two aligned boxes.
-	/*!
-	This is a convenience function that calls:
-
-	farthestDistance2(aBox, bBox, 
-		Euclidean_NormBijection<Real>());
-	*/
-	template <typename Real, int N>
-	Real farthestDistance2(
-		const AlignedBox<Real, N>& aBox,
-		const AlignedBox<Real, N>& bBox);
+		const NormBijection& normBijection = NormBijection());
 
 }
 
