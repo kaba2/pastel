@@ -4,7 +4,7 @@
 #include "pastel/geometry/fair_splitrule.h"
 #include "pastel/geometry/pointkdtree.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {

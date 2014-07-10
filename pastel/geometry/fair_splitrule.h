@@ -1,5 +1,4 @@
-// Description: Fair_SplitRule class
-// Detail: Fair splitting rule for PointKdTree
+// Description: Fair splitting rule
 
 #ifndef PASTELGEOMETRY_FAIR_SPLITRULE_H
 #define PASTELGEOMETRY_FAIT_SPLITRULE_H
@@ -9,7 +8,7 @@
 namespace Pastel
 {
 
-	//! Refines a kd-tree using the fair rule.
+	//! Fair splitting rule.
 	class Fair_SplitRule;
 
 }

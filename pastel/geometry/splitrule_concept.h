@@ -3,7 +3,12 @@
 #ifndef PASTELGEOMETRY_SPLITRULE_CONCEPT_H
 #define PASTELGEOMETRY_SPLITRULE_CONCEPT_H
 
-#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/input_concept.h"
+#include "pastel/geometry/locator_concept.h"
+#include "pastel/geometry/real_concept.h"
+#include "pastel/geometry/alignedbox.h"
+
+#include <utility>
 
 namespace Pastel
 {
@@ -11,44 +16,41 @@ namespace Pastel
 	namespace SplitRule_Concept
 	{
 
+		//! Splitting rule for kd-tree nodes.
 		class SplitRule
 		{
 		public:
-			//! Returns the splitting plane for a PointKdTree node.
+			//! Returns the splitting plane for a kd-tree node.
 			/*!
-			tree:
-			The kd-tree in which the splitting takes place.
+			pointSet:
+			A set of points.
 
-			cursor:
-			The node of the 'tree' to determine a splitting 
-			plane for.
+			locator:
+			A locator to recover the coordinates of the points.
 
-			minBound, maxBound:
-			The minimum and maximum vertices of the node
-			pointed to by the 'cursor'.
+			bound:
+			A bounding aligned box for the points.
 
-			Returns:
-			The first element of the returned pair contains
-			the index of the standard basis axis which is to be
-			the normal of the splitting plane.
-			The second element of the returned pair contains
-			the position of the splitting plane on the splitting axis.
+			returns:
+			A pair (s, i), where s denotes the splitting position
+			along the i:th standard basis vector in RR^n.
 
 			Postconditions:
-			1) 0 <= splitAxis <= tree.n()
-			2) minBound[splitAxis] <= splitPosition <= maxBound[splitAxis]
-			3) The splitting plane has to split the node in such
-			a way that both sides get points. This guarantees an O(n)
-			upper bound for the number of nodes when refining the 
-			PointKdTree.
+			1) 0 <= splitAxis < locator.n()
+			2) bound.min()[splitAxis] <= splitPosition <= bound.max()[splitAxis]
+			3) The split position has to be such that both sides
+			of the splitting plane contain points. A point on the splitting
+			plane can be thought to be on either side.
 			*/
-			template <typename Settings, template <typename> class Customization>
-			std::pair<typename Settings::Real, integer> operator()(
-				const PointKdTree<Settings, Customization>& tree,
-				const typename PointKdTree<Settings, Customization>::Cursor& cursor,
-				const Vector<typename Settings:: Real, Settings::N>& minBound,
-				const Vector<typename Settings::Real, Settings::N>& maxBound,
-				integer depth) const;
+			template <
+				typename Point_Input,
+				typename Locator,
+				typename Real = typename Locator::Real,
+				integer N = Locator::N>
+			std::pair<Real, integer> operator()(
+				Point_Input pointSet,
+				const Locator& locator,
+				const AlignedBox<Real, N>& bound) const;
 		};
 
 	}

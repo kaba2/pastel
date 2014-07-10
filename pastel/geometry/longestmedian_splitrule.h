@@ -1,5 +1,4 @@
-// Description: LongestMedian_SplitRule class
-// Detail: Median-of-longest-side splitting rule for PointKdTree
+// Description: Median-of-longest-side splitting rule
 
 #ifndef PASTELGEOMETRY_LONGESTMEDIAN_SPLITRULE_H
 #define PASTELGEOMETRY_LONGESTMEDIAN_SPLITRULE_H
@@ -9,7 +8,7 @@
 namespace Pastel
 {
 
-	//! Refines a kd-tree using the median-of-longest-side rule.
+	//! Median-of-longest-side splitting rule.
 	class LongestMedian_SplitRule;
 
 }
