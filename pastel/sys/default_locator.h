@@ -5,10 +5,8 @@
 #define PASTELSYS_DEFAULT_LOCATOR_H
 
 #include "pastel/sys/array_locator.h"
-#include "pastel/sys/vector.h"
-
-#include <type_traits>
-#include <array>
+#include "pastel/sys/pointer_locator.h"
+#include "pastel/sys/vector_locator.h"
 
 namespace Pastel
 {
@@ -25,21 +23,21 @@ namespace Pastel
 		class Default_Locator<Real*>
 		{
 		public:
-			using type = Array_Locator<Real*>;
+			using type = Pointer_Locator<Real*>;
 		};
 
 		template <typename Real, integer N>
 		class Default_Locator<std::array<Real, N>>
 		{
 		public:
-			using type = Array_Locator<std::array<Real, N>>;
+			using type = Array_Locator<Real, N>;
 		};
 
 		template <typename Real, integer N>
 		class Default_Locator<Vector<Real, N>>
 		{
 		public:
-			using type = Array_Locator<Vector<Real, N>>;
+			using type = Vector_Locator<Real, N>;
 		};
 
 	}
