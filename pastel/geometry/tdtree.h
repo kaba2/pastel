@@ -107,13 +107,13 @@ namespace Pastel
 		*/
 		template <
 			typename Point_Input,
-			typename SplitRule = LongestMedian_SplitRule,
-			typename Real_Input = Counting_Input<Real>>
+			typename Real_Input = Counting_Input<Real>,
+			typename SplitRule = LongestMedian_SplitRule>
 		explicit TdTree(
 			Point_Input pointSet,
-			const Locator& locator,
-			const SplitRule& splitRule = SplitRule(),
-			Real_Input timeSet = Real_Input())
+			Real_Input timeSet = Real_Input(),
+			const Locator& locator = Locator(),
+			const SplitRule& splitRule = SplitRule())
 		: TdTree()
 		{
 			static PASTEL_CONSTEXPR bool Simple = 
@@ -125,14 +125,12 @@ namespace Pastel
 			std::vector<Point_Iterator> iteratorSet;
 
 			integer nHint = pointSet.nHint();
-			if (nHint > 0)
-			{
-				iteratorSet.reserve(nHint);
-				pointSet_.reserve(nHint);
-			}
+			iteratorSet.reserve(nHint);
+			pointSet_.reserve(nHint);
 	
 			while (!pointSet.empty())
 			{
+				ENSURE(!timeSet.empty());
 				pointSet_.emplace_back(pointSet(), timeSet());
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));

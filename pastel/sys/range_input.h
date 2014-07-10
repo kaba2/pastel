@@ -46,7 +46,7 @@ namespace Pastel
 				return std::distance(begin_, end_);
 			}
 
-			return -1;
+			return 0;
 		}
 
 		bool empty() const

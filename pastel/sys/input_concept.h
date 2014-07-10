@@ -21,8 +21,10 @@ namespace Pastel
 			the implementation must be able to deal with
 			either a smaller or a larger amounts of elements.
 			This can be used, for example, to pre-allocate memory
-			for an array. A negative number specifies that 
-			the number is not known. 
+			for an array. A zero specifies that the number is 
+			not known; it conveys zero information.
+
+			Must return a non-negative number.
 			*/
 			integer nHint() const;
 
@@ -32,7 +34,7 @@ namespace Pastel
 			//! Returns the next element.
 			/*!
 			Preconditions:
-			(bool)*this
+			!empty()
 			*/
 			UserDefinedType operator()();
 		};
