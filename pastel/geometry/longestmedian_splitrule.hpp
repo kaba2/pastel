@@ -24,19 +24,14 @@ namespace Pastel
 			const Locator& locator,
 			const AlignedBox<Real, N>& bound) const
 		{
-			using Tree = PointKdTree<Settings, Customization>;
-			using Fwd = Tree;
-			PASTEL_FWD(Point_ConstIterator);
-
-			const Locator& locator = tree.locator();
-
 			// Split along the longest dimension.
 
-			const integer splitAxis = maxIndex(maxBound - minBound);
-			Real splitPosition = linear(minBound[splitAxis], 
-				maxBound[splitAxis], 0.5);
+			integer splitAxis = maxIndex(bound.extent());
+			Real splitPosition = linear(
+				bound.min()[splitAxis], 
+				bound.max()[splitAxis], 0.5);
 
-			if (!cursor.empty())
+			if (!pointSet.empty())
 			{
 				// Get the positions of the points along the splitting axis.
 
