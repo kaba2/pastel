@@ -3,9 +3,9 @@
 #ifndef PASTELGEOMETRY_SPLITRULE_CONCEPT_H
 #define PASTELGEOMETRY_SPLITRULE_CONCEPT_H
 
-#include "pastel/geometry/input_concept.h"
-#include "pastel/geometry/locator_concept.h"
-#include "pastel/geometry/real_concept.h"
+#include "pastel/sys/input_concept.h"
+#include "pastel/sys/locator_concept.h"
+#include "pastel/sys/real_concept.h"
 #include "pastel/geometry/alignedbox.h"
 
 #include <utility>
