@@ -1,5 +1,4 @@
-// Description: SlidingMidpoint2_SplitRule class
-// Detail: Modified sliding midpoint splitting rule for PointKdTree
+// Description: Modified sliding midpoint splitting rule
 
 #ifndef PASTELGEOMETRY_SLIDINGMIDPOINT2_SPLITRULE_H
 #define PASTELGEOMETRY_SLIDINGMIDPOINT2_SPLITRULE_H
@@ -9,7 +8,7 @@
 namespace Pastel
 {
 
-	//! Refines a kd-tree using a modified sliding midpoint rule.
+	//! Modified sliding midpoint splitting rule.
 	class SlidingMidpoint2_SplitRule;
 
 }

@@ -3,9 +3,7 @@ Fair splitting rule
 
 [[Parent]]: splitrules.txt
 
-The fair rule chooses to split along the longest side of the node.
-On this axis it chooses to split at the midpoint of the 
-minimum bounding interval of the contained points.
+The _fair rule_ chooses to split along the longest side of the node. On this axis it chooses to split at the midpoint of the minimum bounding interval of the contained points.
 
 References
 ----------
