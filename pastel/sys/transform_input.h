@@ -33,7 +33,7 @@ namespace Pastel
 
 		integer nHint() const
 		{
-			return input_.hint();
+			return input_.nHint();
 		}
 
 		bool empty() const
