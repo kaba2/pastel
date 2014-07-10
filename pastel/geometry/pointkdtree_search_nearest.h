@@ -28,12 +28,11 @@ namespace Pastel
 	a Point_ConstIterator of 'kdTree'.
 	
 	acceptPoint:
-	A functor that determines whether to accept a point
-	as a neighbor or not. See 'indicators.txt'.
+	An indicator which decides whether to accept a point 
+	as a neighbor or not.
 
 	normBijection:
 	The norm used to measure distance.
-	See 'pastel/math/normbijection.txt'.
 
 	searchAlgorithm:
 	The search algorithm to use for searching the 'kdTree'.

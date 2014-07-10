@@ -18,15 +18,13 @@ namespace Pastel
 	{
 
 		template <
-			typename Settings, template <typename> class Customization, 
+			typename KdTree,
 			typename Indicator, typename NormBijection, 
 			typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 		class GenericAlgorithm
 		{
 		private:
-			using Tree = PointKdTree<Settings, Customization>;
-			
-			using Fwd = Tree;
+			using Fwd = KdTree;
 			PASTEL_FWD(Locator);
 			using Real = typename Locator::Real;
 			static PASTEL_CONSTEXPR integer N = Locator::N;
@@ -35,9 +33,9 @@ namespace Pastel
 
 		public:
 			GenericAlgorithm(
-				const PointKdTree<Settings, Customization>& kdTree_,
+				const KdTree& kdTree_,
 				const Vector<Real, N>& searchPoint_,
-				const typename PointKdTree<Settings, Customization>::Point_ConstIterator& searchIter_,
+				const typename KdTree::Point_ConstIterator& searchIter_,
 				const Real& maxDistance_,
 				const Real& maxRelativeError_,
 				const Indicator& acceptPoint_,
@@ -270,9 +268,9 @@ namespace Pastel
                 }
             }
 
-			const Tree& kdTree;
+			const KdTree& kdTree;
 			const Vector<Real, N>& searchPoint;
-			const typename PointKdTree<Settings, Customization>::Point_ConstIterator& searchIter;
+			const typename KdTree::Point_ConstIterator& searchIter;
 			const Real& maxDistance;
 			const Real& maxRelativeError;
 			const Indicator& acceptPoint;
@@ -292,14 +290,14 @@ namespace Pastel
 	}
 
 	template <
-		typename Settings, template <typename> class Customization,
+		typename KdTree,
 		typename Indicator, typename NormBijection,
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
 		typename Locator,
 		typename Real,
 		integer N>
 	void searchNearestAlgorithm(
-		const PointKdTree<Settings, Customization>& kdTree,
+		const KdTree& kdTree,
 		const PASTEL_NO_DEDUCTION((Vector<Real, N>))& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -309,11 +307,11 @@ namespace Pastel
 		const CandidateFunctor& candidateFunctor,
 		const SearchAlgorithm_PointKdTree& searchAlgorithm)
 	{
-		using Cursor = typename PointKdTree<Settings, Customization>::Cursor;
+		using Cursor = typename KdTree::Cursor;
 		typedef typename SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
 			SearchAlgorithm;
 
-		NearestAlgorithm_::GenericAlgorithm<Settings, Customization, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
+		NearestAlgorithm_::GenericAlgorithm<KdTree, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
 			genericAlgorithm(kdTree, searchPoint, kdTree.end(), maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
@@ -321,14 +319,14 @@ namespace Pastel
 	}
 
 	template <
-		typename Settings, template <typename> class Customization,
+		typename KdTree,
 		typename Indicator, typename NormBijection,
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
 		typename Locator,
 		typename Real>
 	void searchNearestAlgorithm(
-		const PointKdTree<Settings, Customization>& kdTree,
-		const typename PointKdTree<Settings, Customization>::Point_ConstIterator& searchIter,
+	const KdTree& kdTree,
+		const typename KdTree::Point_ConstIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const Indicator& acceptPoint,
@@ -342,8 +340,7 @@ namespace Pastel
 			return;
 		}
 
-		using Tree = PointKdTree<Settings, Customization>;
-		using Fwd = Tree;
+		using Fwd = KdTree;
 		PASTEL_FWD(Cursor);
 		PASTEL_FWD(Locator);
 		using Real = typename Locator::Real;
@@ -355,7 +352,7 @@ namespace Pastel
 		Vector<Real, N> searchPoint =
 			pointAsVector(searchIter->point(), kdTree.locator());
 
-		NearestAlgorithm_::GenericAlgorithm<Settings, Customization, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
+		NearestAlgorithm_::GenericAlgorithm<KdTree, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
 			genericAlgorithm(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
