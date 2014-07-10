@@ -43,14 +43,14 @@ namespace Pastel
 	See 'pastel/geometry/pointkdtree_searchalgorithm.txt'.
 	*/
 	template <
-		typename Settings, template <typename> class Customization, 
+		typename KdTree, 
 		typename Indicator, typename NormBijection, 
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
-		typename Locator = typename Settings::Locator,
+		typename Locator = typename KdTree::Locator,
 		typename Real = typename Locator::Real,
 		integer N = Locator::N>
 	void searchNearestAlgorithm(
-		const PointKdTree<Settings, Customization>& kdTree,
+		const KdTree& kdTree,
 		const PASTEL_NO_DEDUCTION((Vector<Real, N>))& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -61,14 +61,14 @@ namespace Pastel
 		const SearchAlgorithm_PointKdTree& searchAlgorithm);
 
 	template <
-		typename Settings, template <typename> class Customization,
+		typename KdTree,
 		typename Indicator, typename NormBijection, 
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
-		typename Locator = typename Settings::Locator,
+		typename Locator = typename KdTree::Locator,
 		typename Real = typename Locator::Real>
 	void searchNearestAlgorithm(
-		const PointKdTree<Settings, Customization>& kdTree,
-		const typename PointKdTree<Settings, Customization>::Point_ConstIterator& searchIter,
+		const KdTree& kdTree,
+		const typename KdTree::Point_ConstIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const Indicator& acceptPoint,
