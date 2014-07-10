@@ -11,16 +11,12 @@
 #include "pastel/geometry/bounding_alignedbox.h"
 #include "pastel/geometry/longestmedian_splitrule.h"
 
-#include "pastel/sys/less_concept.h"
-#include "pastel/sys/dereferenced_predicate.h"
-#include "pastel/sys/vector.h"
 #include "pastel/sys/complement_indicator.h"
 #include "pastel/sys/binary_search.h"
 
 #include <boost/range/algorithm/sort.hpp>
 #include <boost/range/algorithm/stable_sort.hpp>
 #include <boost/range/algorithm/stable_partition.hpp>
-#include <boost/range/algorithm/unique.hpp>
 
 #include <algorithm>
 #include <memory>
@@ -52,6 +48,8 @@ namespace Pastel
 		PASTEL_FWD(Point_Iterator);
 		PASTEL_FWD(Point_ConstIterator);
 		PASTEL_FWD(Entry);
+		PASTEL_FWD(Cursor);
+		PASTEL_FWD(ConstCursor);
 		PASTEL_FWD(Node);
 		PASTEL_FWD(Node_Iterator);
 		PASTEL_FWD(Node_ConstIterator);
@@ -154,6 +152,7 @@ namespace Pastel
 				simple_ = isSimple(iteratorSet);
 			}
 
+			// Compute a minimum bounding box for the points.
 			bound_ = boundingAlignedBox(
 				transformInput(rangeInput(iteratorSet),
 				[&](const Point_Iterator& point)
@@ -168,10 +167,9 @@ namespace Pastel
 		//! Destructs the tree.
 		/*!
 		Time complexity:
-		O(n log(n)^(d - 1))
+		O(n log(n))
 		where
-		n = size(),
-		d = dimension().
+		n = size().
 
 		Exception safety: nothrow
 		*/
@@ -197,10 +195,9 @@ namespace Pastel
 		//! Removes all points from the tree.
 		/*!
 		Time complexity:
-		O(n log(n)^(d - 1))
+		O(n log(n))
 		where
-		n = size(),
-		d = dimension().
+		n = size().
 
 		Exception safety: nothrow
 		*/
@@ -285,6 +282,11 @@ namespace Pastel
 	private:
 		bool isSimple(const std::vector<Point_Iterator>& pointSet) const
 		{
+			if (pointSet.empty())
+			{
+				return true;
+			}
+
 			integer t = pointSet.front()->time();
 			for (auto&& point : pointSet)
 			{
@@ -333,71 +335,71 @@ namespace Pastel
 
 			integer splitAxis = 0;
 			Real splitPosition = 0;
-			std::tie(splitPosition, splitAxis) =
-				splitRule(
-					transformInput(rangeInput(pointSet), pointFromIterator), 
-					locator(), bound);
+			std::tie(splitPosition, splitAxis) = splitRule(
+				transformInput(rangeInput(pointSet), pointFromIterator), 
+				locator(), bound);
 
 			ENSURE_OP(splitAxis, >=, 0);
 			ENSURE_OP(splitAxis, <, dimension());
 			ENSURE(splitPosition >= bound.min()[splitAxis]);
 			ENSURE(splitPosition <= bound.max()[splitAxis]);
 
+			auto lessSplit = [&](const Point_Iterator& that)
 			{
-				auto lessSplit = [&](const Point_Iterator& that)
-				{
-					return locator()(that->point(), splitAxis) < splitPosition;
-				};
+				return locator()(that->point(), splitAxis) < splitPosition;
+			};
 
-				auto greaterSplit = [&](integer i)
-				{
-					return locator()(pointSet[i]->point(), splitAxis) > splitPosition;
-				};
+			auto greaterSplit = [&](integer i)
+			{
+				return locator()(pointSet[i]->point(), splitAxis) > splitPosition;
+			};
 
-				// Partition the elements with respect to the split-plane.
-				// The partitioning must be stable for the children
-				// to stay ordered with respect to time.
-				auto partitionLeftEnd = 
-					boost::stable_partition(pointSet, lessSplit);
+			// Partition the elements with respect to the split-plane.
+			// The partitioning must be stable for the children
+			// to stay ordered with respect to time.
+			auto partitionLeftEnd = 
+				boost::stable_partition(pointSet, lessSplit);
 
-				// In the case there are points which lie exactly on the
-				// plane, we wish to distribute them evenly on both sides
-				// of the splitting plane. For example, it is possible to
-				// have all points equal, in which case this rule is
-				// essential to be able to obtain a logarithmic depth for
-				// the tree.
-				integer equalBegin = 
-					partitionLeftEnd - pointSet.begin();
-				integer equalEnd = 
-					binarySearch(equalBegin, (integer)pointSet.size(),
-					greaterSplit);
+			// In the case there are points which lie exactly on the
+			// plane, we wish to distribute them evenly on both sides
+			// of the splitting plane. For example, it is possible to
+			// have all points equal, in which case this rule is
+			// essential to be able to obtain a logarithmic depth for
+			// the tree.
+			integer equalBegin = 
+				partitionLeftEnd - pointSet.begin();
+			integer equalEnd = 
+				binarySearch(equalBegin, (integer)pointSet.size(),
+				greaterSplit);
 
-				// Pick the median of the equivalent elements.
-				integer leftEnd = (equalBegin + equalEnd) / 2;
+			// Pick the median of the equivalent elements.
+			integer leftEnd = (equalBegin + equalEnd) / 2;
 
-				// Recurse to the left child.
-				{
-					Real oldMax = bound.max()[splitAxis];
-					bound.max()[splitAxis] = splitPosition;
+			// Set the split-point for the node.
+			node->split_ = pointSet[leftEnd];
 
-					std::vector<Point_Iterator> leftSet(
-						pointSet.begin(), pointSet.begin() + leftEnd);
-					node->child(false) = construct(node, false, leftSet, bound, splitRule);
+			// Recurse to the left child.
+			{
+				Real oldMax = bound.max()[splitAxis];
+				bound.max()[splitAxis] = splitPosition;
 
-					bound.max()[splitAxis] = oldMax;
-				}
+				std::vector<Point_Iterator> leftSet(
+					pointSet.begin(), pointSet.begin() + leftEnd);
+				node->child(false) = construct(node, false, leftSet, bound, splitRule);
 
-				// Recurse to the right child.
-				{
-					Real oldMin = bound.min()[splitAxis];
-					bound.min()[splitAxis] = splitPosition;
-					
-					std::vector<Point_Iterator> rightSet(
-						pointSet.begin() + leftEnd, pointSet.end());
-					node->child(true) = construct(node, true, rightSet, bound, splitRule);
+				bound.max()[splitAxis] = oldMax;
+			}
 
-					bound.min()[splitAxis] = oldMin;
-				}
+			// Recurse to the right child.
+			{
+				Real oldMin = bound.min()[splitAxis];
+				bound.min()[splitAxis] = splitPosition;
+				
+				std::vector<Point_Iterator> rightSet(
+					pointSet.begin() + leftEnd, pointSet.end());
+				node->child(true) = construct(node, true, rightSet, bound, splitRule);
+
+				bound.min()[splitAxis] = oldMin;
 			}
 
 			// Compute the fractional cascading links

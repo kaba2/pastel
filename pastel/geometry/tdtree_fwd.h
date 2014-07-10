@@ -60,6 +60,9 @@ namespace Pastel
 		class Node;
 		class Entry;
 
+		using Cursor = Node*;
+		using ConstCursor = const Node*;
+
 		using EntrySet = std::vector<Entry>;
 		using Entry_Iterator = typename EntrySet::iterator;
 		using Entry_ConstIterator = typename EntrySet::const_iterator;
