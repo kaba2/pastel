@@ -112,12 +112,10 @@ namespace Pastel
 			orders_ = orders;
 			
 			std::vector<Point_Iterator> iteratorSet;
+			
 			integer nHint = pointSet.nHint();
-			if (nHint > 0)
-			{
-				iteratorSet.reserve(nHint);
-				pointSet_.reserve(nHint);
-			}
+			iteratorSet.reserve(nHint);
+			pointSet_.reserve(nHint);
 	
 			while (!pointSet.empty())
 			{

@@ -26,7 +26,7 @@ namespace Pastel
 
 		integer nHint() const
 		{
-			return -1;
+			return 0;
 		}
 
 		bool empty() const

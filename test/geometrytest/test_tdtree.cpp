@@ -4,6 +4,7 @@
 #include "test_pastelgeometry.h"
 
 #include "pastel/geometry/tdtree.h"
+
 #include "pastel/sys/locators.h"
 #include "pastel/sys/inputs.h"
 #include "pastel/sys/for_each_point.h"
@@ -50,7 +51,7 @@ namespace
 					pointSet.emplace_back(point);
 				});
 
-				Tree tree(rangeInput(pointSet), Locator());
+				Tree tree(rangeInput(pointSet));
 			}
 		}
 	};

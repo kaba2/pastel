@@ -36,10 +36,7 @@ namespace Pastel
 				// Get the positions of the points along the splitting axis.
 
 				std::vector<Real> positionSet;
-				if (pointSet.nHint() > 0)
-				{
-					positionSet.reserve(pointSet.nHint());
-				}
+				positionSet.reserve(pointSet.nHint());
 
 				while(!pointSet.empty())
 				{
