@@ -28,18 +28,6 @@ namespace Pastel
 			return childSet_[right];
 		}
 
-		//! Returns the down node.
-		Node_Iterator& down()
-		{
-			return down_;
-		}
-
-		//! Returns the down node.
-		Node_ConstIterator down() const
-		{
-			return down_;
-		}
-
 		//! Returns the split-point.
 		const Point_ConstIterator& split() const
 		{
@@ -52,16 +40,6 @@ namespace Pastel
 			// The end-node is the only node
 			// which is the child of itself.
 			return child(false) == this;
-		}
-
-		//! Returns whether the node is a bottom node.
-		bool isBottom() const
-		{
-			ASSERT(down_);
-
-			// A node is a bottom node if
-			// it has no down-link.
-			return down_->isEnd();
 		}
 
 		//! Returns whether the node is a leaf.
@@ -95,12 +73,13 @@ namespace Pastel
 		Node()
 		: childSet_()
 		, split_()
-		, down_(nullptr)
+		, splitAxis_(0)
 		, entrySet_()
+		, prevMin_(0)
+		, prevMax_(0)
 		{
 			child(false) = this;
 			child(true) = this;
-			down_ = this;
 			entrySet_.emplace_back(Point_Iterator());
 		}
 
@@ -108,8 +87,10 @@ namespace Pastel
 			const std::vector<Point_Iterator>& iteratorSet)
 		: childSet_()
 		, split_()
-		, down_(nullptr)
+		, splitAxis_(0)
 		, entrySet_()
+		, prevMin_(0)
+		, prevMax_(0)
 		{
 			entrySet_.reserve(iteratorSet.size() + 1);
 			for (auto i : iteratorSet)
@@ -121,7 +102,6 @@ namespace Pastel
 
 		void isolate(Node* end)
 		{
-			down_ = end;
 			child(false) = end;
 			child(true) = end;
 		}
@@ -130,10 +110,40 @@ namespace Pastel
 		Node(Node&&) = delete;
 		Node& operator=(const Node&) = delete;
 
-		std::array<Node_Iterator, 2> childSet_;
+		//! The child-nodes.
+		/*!
+		The first (second) node contains the points that 
+		are	< (>=) the split point on the splitting axis.
+		*/
+		std::array<Node*, 2> childSet_;
+
+		//! The splitting position.
+		/*!
+		The splitting position is given by 
+		locator(split_->point(), splitAxis).
+		*/
 		Point_Iterator split_;
-		Node_Iterator down_;
+
+		//! The splitting axis.
+		/*!
+		This is the index of the standard basis 
+		vector to use for the normal of the
+		splitting plane normal.
+		*/
+		integer splitAxis_;
+
+		//! The set of points.
 		EntrySet entrySet_;
+
+		//! The previous bounds of the node on the splitting axis.
+		/*!
+		This information is important for the efficient 
+		incremental computation of distance between the
+		search point and the kd-tree nodes in the nearest 
+		neighbor search algorithm.
+		*/
+		Real prevMin_;
+		Real prevMax_;
 	};
 	
 }
