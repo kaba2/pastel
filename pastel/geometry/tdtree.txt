@@ -1,0 +1,7 @@
+Temporal kd-tree
+================
+
+[[Parent]]: data_structures.txt
+
+A _temporal kd-tree_ is a data-structure for storing a set of space-time points ''P subset RR^d xx R'' such that spatial nearest-neighbor queries can be answered efficiently for varying time-intervals. A temporal kd-tree is an instance of a _temporal space-partitioning tree_, a general technique for converting a space-partitioning tree to its temporal version by fractional cascading.
+

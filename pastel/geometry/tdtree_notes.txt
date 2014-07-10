@@ -1,0 +1,62 @@
+Temporal kd-tree - notes
+========================
+
+[[Parent]]: tdtree.txt
+
+This section contains design notes for the temporal kd-tree. The (x) mark denotes the selected design choices.
+
+How should temporal coordinates be represented?
+-----------------------------------------------
+
+### Real numbers (x)
+
+The temporal coordinate is a real number. 
+
+### Strictly weak ordered set
+
+The temporal coordinate is an element of a set which is strictly weak ordered. The problem is that this forces to use binary searching in the initial step of fractional cascading, which is not always optimal.
+
+How should temporal coordinates be specified?
+---------------------------------------------
+
+We will provide constructors for both of the following cases.
+
+### Implicitly-specified integers (x)
+
+Each spatial point is implicitly associated with a temporal coordinate equal to the point's position in the sequence. The first point gets the temporal coordinate zero. The data-structure records the special form of the temporal coordinates. Using this information the initial step of fractional cascading can be performed by array indexing in constant time.
+
+### Explicitly-specified temporal coordinates (x)
+
+Each spatial point is explicitly provided a temporal coordinate by the user. The initial step of fractional cascading is performed by binary search in logarithmic time.
+
+How should space-time points be transmitted?
+--------------------------------------------
+
+### Separate inputs (x)
+
+In this approach the space-time coordinates are provided as two separate sequences, where the first sequence provides the spatial coordinates, and the second sequence provides the temporal coordinates. When temporal coordinates are not given, they are assumed to increase sequentially, one-by-one, from 0 upwards in integers.
+
+### Additional coordinate
+
+In this approach the input-set is a subset of ''RR^(d + 1)'', where ''d'' is the spatial dimension, and the last coordinate is the temporal coordinate. The problem with this approach is that often the temporal coordinate is implicit as the position of a spatial point in a sequence. This then requires a separate fusing step to provide the space-time points, which is inconvenient.
+
+How should the temporal kd-tree be implemented?
+-----------------------------------------------
+
+### Create a new data-structure (x)
+
+Create a new data-structure to implement the temporal kd-tree.
+
+### Generalize and customize range-tree
+
+Generalize range-tree such that it can split along any axis at each node. This generalizes, at least for the node-structure, both a kd-tree and a range-tree. A kd-tree contains more information than is available from comparisons. Mainly, the geometry of a node as an aligned box. This geometry is used to cull away subtrees during a nearest-neigbhbor search. To efficiently maintain the distance to each bounding box of a subtree requires further to store the position of the previous split on the same split axis, so that the distance can be incrementally updated.
+
+* Embed the bounding box of all points in the customization.
+* Make it possible to embed data in each node. Store the additional geometric information there.
+
+Problems:
+
+* The splitting axis at each node is redundant for a range tree; it is implicitly the level of the tree which contains that node.
+* The down-link is redundant for a kd-tree; there is only a single level. 
+* The down-link is also redundant for the last level of the range-tree.
+* Range searching is not efficient on a kd-tree in any case.
