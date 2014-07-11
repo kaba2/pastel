@@ -31,12 +31,18 @@ namespace Pastel
 			//! Returns whether there are elements left.
 			bool empty() const;
 
-			//! Returns the next element.
+			//! Returns the current element.
 			/*!
 			Preconditions:
 			!empty()
 			*/
-			UserDefinedType operator()();
+			UserDefinedType get() const;
+
+			//! Retrieves the next element.
+			/*!
+			!empty()
+			*/
+			void pop();
 		};
 
 	}

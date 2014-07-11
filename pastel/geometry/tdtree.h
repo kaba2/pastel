@@ -5,6 +5,7 @@
 
 #include "pastel/geometry/tdtree_concepts.h"
 #include "pastel/geometry/tdtree_fwd.h"
+#include "pastel/geometry/tdtree_cursor.h"
 #include "pastel/geometry/tdtree_entry.h"
 #include "pastel/geometry/tdtree_node.h"
 #include "pastel/geometry/alignedbox.h"
@@ -47,12 +48,12 @@ namespace Pastel
 		PASTEL_FWD(PointSet);
 		PASTEL_FWD(Point_Iterator);
 		PASTEL_FWD(Point_ConstIterator);
+		PASTEL_FWD(Iterator);
+		PASTEL_FWD(ConstIterator);
 		PASTEL_FWD(Entry);
 		PASTEL_FWD(Cursor);
-		PASTEL_FWD(ConstCursor);
 		PASTEL_FWD(Node);
-		PASTEL_FWD(Node_Iterator);
-		PASTEL_FWD(Node_ConstIterator);
+		PASTEL_FWD(Cursor);
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 
 		//! Constructs an empty tree.
@@ -105,7 +106,7 @@ namespace Pastel
 		*/
 		template <
 			typename Point_Input,
-			typename Real_Input = Counting_Input<Real>,
+			typename Real_Input = Infinite_Counting_Input<Real>,
 			typename SplitRule = LongestMedian_SplitRule>
 		explicit TdTree(
 			Point_Input pointSet,
@@ -115,12 +116,12 @@ namespace Pastel
 		: TdTree()
 		{
 			static PASTEL_CONSTEXPR bool Simple = 
-				std::is_same<Real_Input, Counting_Input<Real>>::value;
+				std::is_same<Real_Input, Infinite_Counting_Input<Real>>::value;
 
 			locator_ = locator;
 			simple_ = Simple;
 
-			std::vector<Point_Iterator> iteratorSet;
+			std::vector<Iterator> iteratorSet;
 
 			integer nHint = pointSet.nHint();
 			iteratorSet.reserve(nHint);
@@ -129,9 +130,12 @@ namespace Pastel
 			while (!pointSet.empty())
 			{
 				ENSURE(!timeSet.empty());
-				pointSet_.emplace_back(pointSet(), timeSet());
+				pointSet_.emplace_back(pointSet.get(), timeSet.get());
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
+
+				pointSet.pop();
+				timeSet.pop();
 			}
 
 			if (!Simple)
@@ -139,8 +143,8 @@ namespace Pastel
 				// Sort the points in increasing order by time.
 				
 				auto timeLess = [&](
-					const Point_Iterator& left, 
-					const Point_Iterator& right)
+					const Iterator& left, 
+					const Iterator& right)
 				{
 					return left->time() < right->time();
 				};
@@ -155,7 +159,7 @@ namespace Pastel
 			// Compute a minimum bounding box for the points.
 			bound_ = boundingAlignedBox(
 				transformInput(rangeInput(iteratorSet),
-				[&](const Point_Iterator& point)
+				[&](const Iterator& point)
 				{
 					return point->point();
 				}),
@@ -224,9 +228,19 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		integer size() const
+		integer points() const
 		{
 			return pointSet_.size();
+		}
+
+		//! Returns the number of points in the tree.
+		/*!
+		This is a convenience function which returns
+		points().
+		*/
+		integer size() const
+		{
+			return points();
 		}
 
 		//! Returns the spatial dimension.
@@ -237,6 +251,16 @@ namespace Pastel
 		integer dimension() const
 		{
 			return locator_.n();
+		}
+
+		//! Returns the spatial dimension.
+		/*!
+		This is a convenience function which returns
+		dimension().
+		*/
+		integer n() const
+		{
+			return dimension();
 		}
 
 		//! Returns the locator.
@@ -254,17 +278,20 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Node_ConstIterator root() const
+		Cursor root() const
 		{
-			return root_;
+			return Cursor(root_);
 		}
+
+		PASTEL_ITERATOR_FUNCTIONS(begin, pointSet_.begin());
+		PASTEL_ITERATOR_FUNCTIONS(end, pointSet_.end());
 
 		//! Returns the end node.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Node_ConstIterator end() const
+		Cursor endNode() const
 		{
 			return end_.get();
 		}
@@ -280,7 +307,7 @@ namespace Pastel
 		}
 
 	private:
-		bool isSimple(const std::vector<Point_Iterator>& pointSet) const
+		bool isSimple(const std::vector<Iterator>& pointSet) const
 		{
 			if (pointSet.empty())
 			{
@@ -301,10 +328,10 @@ namespace Pastel
 		}
 
 		template <typename SplitRule>
-		Node_Iterator construct(
-			Node_Iterator parent,
+		Node* construct(
+			Node* parent,
 			bool right,
-			std::vector<Point_Iterator>& pointSet,
+			std::vector<Iterator>& pointSet,
 			AlignedBox<Real, N>& bound,
 			const SplitRule& splitRule)
 		{
@@ -328,7 +355,7 @@ namespace Pastel
 			// to the splitting rule.
 
 			auto pointFromIterator = 
-				[&](const Point_Iterator& that)
+				[&](const Iterator& that)
 			{
 				return that->point();
 			};
@@ -344,7 +371,7 @@ namespace Pastel
 			ENSURE(splitPosition >= bound.min()[splitAxis]);
 			ENSURE(splitPosition <= bound.max()[splitAxis]);
 
-			auto lessSplit = [&](const Point_Iterator& that)
+			auto lessSplit = [&](const Iterator& that)
 			{
 				return locator()(that->point(), splitAxis) < splitPosition;
 			};
@@ -383,7 +410,7 @@ namespace Pastel
 				Real oldMax = bound.max()[splitAxis];
 				bound.max()[splitAxis] = splitPosition;
 
-				std::vector<Point_Iterator> leftSet(
+				std::vector<Iterator> leftSet(
 					pointSet.begin(), pointSet.begin() + leftEnd);
 				node->child(false) = construct(node, false, leftSet, bound, splitRule);
 
@@ -395,7 +422,7 @@ namespace Pastel
 				Real oldMin = bound.min()[splitAxis];
 				bound.min()[splitAxis] = splitPosition;
 				
-				std::vector<Point_Iterator> rightSet(
+				std::vector<Iterator> rightSet(
 					pointSet.begin() + leftEnd, pointSet.end());
 				node->child(true) = construct(node, true, rightSet, bound, splitRule);
 
@@ -409,11 +436,11 @@ namespace Pastel
 			
 			// The last entry acts as a sentinel, and does 
 			// not contain a point, so we will skip it here.
-			for (integer i = 0;i < parent->entries();++i)
+			for (integer i = 0;i < parent->points();++i)
 			{
 				Entry& entry = parent->entrySet_[i];
 				
-				while (j < node->entries() &&
+				while (j < node->points() &&
 					node->entrySet_[j].point()->time() < entry.point()->time())
 				{
 					++j;
@@ -424,13 +451,13 @@ namespace Pastel
 
 			// Link the sentinel entry of the parent 
 			// to the sentinel entry of the child.
-			parent->entrySet_.back().cascade(right) = node->entries();
+			parent->entrySet_.back().cascade(right) = node->points();
 
 			// Return the node.
 			return node;
 		}
 		
-		void clear(Node_Iterator node)
+		void clear(Node* node)
 		{
 			if (node == end_.get())
 			{
@@ -446,7 +473,7 @@ namespace Pastel
 		std::unique_ptr<Node> end_;
 
 		//! The root node.
-		Node_Iterator root_;
+		Node* root_;
 
 		//! The set of space-time points.
 		PointSet pointSet_;

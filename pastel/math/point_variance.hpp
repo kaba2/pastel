@@ -29,13 +29,15 @@ namespace Pastel
 		integer n = 0;
 		while(!pointSet.empty())
 		{
-			auto&& point = pointSet();
+			auto&& point = pointSet.get();
 			for (integer i = 0; i < d;++i)
 			{
 				result[i] += 
 					square(locator(point, i) - mean[i]);
 			}
 			++n;
+
+			pointSet.pop();
 		}
 
 		if (n == 0)

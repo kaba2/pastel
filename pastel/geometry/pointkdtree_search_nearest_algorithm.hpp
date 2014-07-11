@@ -19,8 +19,10 @@ namespace Pastel
 
 		template <
 			typename KdTree,
-			typename Indicator, typename NormBijection, 
-			typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
+			typename Indicator, 
+			typename NormBijection, 
+			typename CandidateFunctor, 
+			typename SearchAlgorithm_PointKdTree>
 		class GenericAlgorithm
 		{
 		private:
@@ -98,7 +100,7 @@ namespace Pastel
 					const Real& distance = entry.key();
 					const Cursor& cursor = entry.value();
 
-					if (!cursor.exists())
+					if (!cursor)
 					{
 						break;
 					}
@@ -122,8 +124,8 @@ namespace Pastel
 					}
 					else
 					{
-						const integer splitAxis = cursor.splitAxis();
-						const Real searchPosition = 
+						integer splitAxis = cursor.splitAxis();
+						Real searchPosition = 
 							searchPoint[splitAxis];
 
 						// For an intermediate node our task is to
@@ -131,8 +133,8 @@ namespace Pastel
 						// incrementally the distance 
 						// to the current node. 
 
-						const Cursor left = cursor.left();
-						const Cursor right = cursor.right();
+						Cursor left = cursor.left();
+						Cursor right = cursor.right();
 
 						// Compute the distances to the boundary 
 						// planes of the child nodes.
@@ -228,16 +230,18 @@ namespace Pastel
                 // We are now in a bucket node.
                 // Search through the points in this node.
 
-                Point_ConstIterator iter = cursor.begin();
-                const Point_ConstIterator iterEnd = cursor.end();
+                auto pointSet = cursor.pointSetAsInput();
 
 				Real currentDistance = 0;
-                while(iter != iterEnd)
+                while(!pointSet.empty())
                 {
 					auto keepGoing = [&](const Real& that)
 					{
 						return that < cullDistance;
 					};
+
+					Point_ConstIterator iter = pointSet.get();
+					pointSet.pop();
 
                     currentDistance = distance2(
                         iter->point(),
@@ -263,8 +267,6 @@ namespace Pastel
 							nodeCullDistance = cullDistance * errorFactor;
                         }
                     }
-
-                    ++iter;
                 }
             }
 

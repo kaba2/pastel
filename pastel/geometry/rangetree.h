@@ -119,9 +119,11 @@ namespace Pastel
 	
 			while (!pointSet.empty())
 			{
-				pointSet_.emplace_back(pointSet());
+				pointSet_.emplace_back(pointSet.get());
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
+
+				pointSet.pop();
 			}
 
 			// Sort the points in increasing order by the last coordinate.

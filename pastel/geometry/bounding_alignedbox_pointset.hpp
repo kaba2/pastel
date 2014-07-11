@@ -24,7 +24,7 @@ namespace Pastel
 		AlignedBox<Real, N> bound(d);
 		while (!pointSet.empty())
 		{
-			auto point = pointSet();
+			auto&& point = pointSet.get();
 			for (integer i = 0;i < d;++i)
 			{
 				auto x = locator(point, i);
@@ -39,6 +39,8 @@ namespace Pastel
 					bound.max()[i] = x;
 				}
 			}
+
+			pointSet.pop();
 		}
 
 		return bound;

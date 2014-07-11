@@ -54,9 +54,20 @@ namespace Pastel
 			return begin_ == end_;
 		}
 
-		Type operator()()
+		using Return = decltype(*std::declval<Iterator>());
+
+		// FIX: Replace with decltype(auto) after
+		// Visual Studio 2013 fixes its bugs.
+		Return get() const
 		{
-			return *(begin_++);
+			PENSURE(!empty());
+			return *begin_;
+		}
+
+		void pop()
+		{
+			PENSURE(!empty());
+			++begin_;
 		}
 
 	private:

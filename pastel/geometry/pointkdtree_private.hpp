@@ -709,7 +709,7 @@ namespace Pastel
 	{
 		ASSERT(iter != pointSet_.end());
 
-		if (iter->leaf().exists() && 
+		if (iter->leaf() && 
 			!iter->hidden())
 		{
 			// The point is in a node.
@@ -757,7 +757,7 @@ namespace Pastel
 		Point_Iterator nextIter = iter;
 		++nextIter;
 
-		if (iter->leaf().exists())
+		if (iter->leaf())
 		{
 			// The point is in a node.
 			Node* node = iter->leaf().node_;
@@ -808,7 +808,7 @@ namespace Pastel
 
 		iter->setHidden(false);
 
-		if (iter->leaf().exists())
+		if (iter->leaf())
 		{
 			// The point has an associated node.
 			Node* node = iter->leaf().node_;

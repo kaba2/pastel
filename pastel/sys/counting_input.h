@@ -15,12 +15,15 @@ namespace Pastel
 	public:
 		Counting_Input()
 		: i_()
+		, end_()
 		{
 		}
 
 		explicit Counting_Input(
-			const Incrementable& begin)
+			const Incrementable& begin,
+			const Incrementable& end)
 		: i_(begin)
+		, end_(end)
 		{
 		}
 
@@ -31,23 +34,32 @@ namespace Pastel
 
 		bool empty() const
 		{
-			return false;
+			return i_ == end_;
 		}
 
-		Incrementable operator()()
+		const Incrementable& get() const
 		{
-			return (i_++);
+			PENSURE(!empty());
+			return i_;
+		}
+
+		void pop()
+		{
+			PENSURE(!empty());
+			++i_;
 		}
 
 	private:
 		Incrementable i_;
+		Incrementable end_;
 	};
 
 	template <typename Incrementable = integer>
 	Counting_Input<Incrementable> countingInput(
-		const Incrementable& begin = Incrementable())
+		const Incrementable& begin,
+		const Incrementable& end)
 	{
-		return Counting_Input<Incrementable>(begin);
+		return Counting_Input<Incrementable>(begin, end);
 	}
 
 }

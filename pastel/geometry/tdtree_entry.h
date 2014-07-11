@@ -15,7 +15,7 @@ namespace Pastel
 	class TdTree_Fwd<Settings>::Entry
 	{
 	public:
-		Entry(const Point_Iterator& point)
+		Entry(const Iterator& point)
 			: point_(point)
 			, cascadeSet_()
 		{
@@ -35,7 +35,7 @@ namespace Pastel
 			return cascadeSet_[right];
 		}
 
-		Point_ConstIterator point() const
+		ConstIterator point() const
 		{
 			return point_;
 		}
@@ -44,7 +44,7 @@ namespace Pastel
 		template <typename, template <typename> class>
 		friend class TdTree;
 
-		Point_Iterator point_;
+		Iterator point_;
 		std::array<integer, 2> cascadeSet_;
 	};
 

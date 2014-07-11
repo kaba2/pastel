@@ -1,20 +1,21 @@
-// Description: Point kd-tree cursor
+// Description: Temporal kd-tree cursor
 
-#ifndef PASTELGEOMETRY_POINTKDTREE_CURSOR_H
-#define PASTELGEOMETRY_POINTKDTREE_CURSOR_H
+#ifndef PASTELGEOMETRY_TDTREE_CURSOR_H
+#define PASTELGEOMETRY_TDTREE_CURSOR_H
 
-#include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/pointkdtree_fwd.h"
+#include "pastel/geometry/tdtree.h"
+#include "pastel/geometry/tdtree_fwd.h"
 
 #include "pastel/sys/range_input.h"
 #include "pastel/sys/transform_input.h"
-#include "pastel/sys/counting_iterator.h"
+
+#include <boost/operators.hpp>
 
 namespace Pastel
 {
 
 	template <typename Settings>
-	class PointKdTree_Fwd<Settings>::Cursor
+	class TdTree_Fwd<Settings>::Cursor
 		: boost::less_than_comparable<Cursor
 		, boost::equality_comparable<Cursor
 		> >
@@ -55,13 +56,13 @@ namespace Pastel
 		Cursor right() const
 		{
 			PENSURE(node_);
-			return Cursor(node_->right());
+			return Cursor(node_->child(true));
 		}
 
 		Cursor left() const
 		{
 			PENSURE(node_);
-			return Cursor(node_->left());
+			return Cursor(node_->child(false));
 		}
 
 		bool leaf() const
@@ -72,47 +73,23 @@ namespace Pastel
 
 		// Points
 
-		using A_Iterator = CountingIterator<Point_ConstIterator>;
-		using A_Range = boost::iterator_range<A_Iterator>;
-		using A_Input = Range_Input<A_Range>;
-
-		// FIX: Replace with decltype(auto) after
-		// Visual Studio 2013 fixes its bugs.
-		A_Input pointSetAsInput() const
+		class EntryAsPoint
 		{
-			return rangeInput(Pastel::range(
-				countingIterator(begin()), 
-				countingIterator(end())));
-		}
-
-		Point_ConstIterator begin() const
-		{
-			PENSURE(node_);
-
-			return node_->first();
-		}
-
-		Point_ConstIterator end() const
-		{
-			PENSURE(node_);
-
-			Point_ConstIterator iterEnd = node_->last();
-			if (!empty())
+		public:
+			Point_ConstIterator operator()(const Entry& entry) const
 			{
-				++iterEnd;
+				return entry.point();
 			}
+		};
 
-			return iterEnd;
-		}
+		using A_Input = Range_Input<Entry_ConstRange>;
+		using B_Input = Transform_Input<A_Input, EntryAsPoint>;
 
-		PointData_ConstIterator pointBegin() const
+		B_Input pointSetAsInput() const
 		{
-			return PointData_ConstIterator(begin());
-		}
-
-		PointData_ConstIterator pointEnd() const
-		{
-			return PointData_ConstIterator(end());
+			return transformInput(
+				rangeInput(node_->entryRange()),
+				EntryAsPoint());
 		}
 
 		integer points() const
@@ -126,7 +103,7 @@ namespace Pastel
 		{
 			PENSURE(node_);
 
-			return node_->empty();
+			return node_ != nullptr;
 		}
 
 		// Splitting plane
@@ -178,7 +155,7 @@ namespace Pastel
 
 	private:
 		template <typename, template <typename> class>
-		friend class PointKdTree;
+		friend class TdTree;
 
 		Node* node_;
 	};
