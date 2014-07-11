@@ -157,7 +157,7 @@ namespace Pastel
 			}
 
 			// Compute a minimum bounding box for the points.
-			bound_ = boundingAlignedBox(
+			auto bound = boundingAlignedBox(
 				transformInput(rangeInput(iteratorSet),
 				[&](const Iterator& point)
 				{
@@ -165,7 +165,8 @@ namespace Pastel
 				}),
 				locator);
 
-			root_ = construct(nullptr, false, iteratorSet, bound_, splitRule);
+			bound_ = bound;
+			root_ = construct(nullptr, false, iteratorSet, bound, splitRule);
 		}
 
 		//! Destructs the tree.
@@ -335,8 +336,6 @@ namespace Pastel
 			AlignedBox<Real, N>& bound,
 			const SplitRule& splitRule)
 		{
-			ASSERT(!pointSet.empty());
-
 			// Invariant:
 			// The points in 'pointSet' are in
 			// increasing order in the temporal
@@ -351,7 +350,7 @@ namespace Pastel
 				node->max_ = bound.max()[parent->splitAxis()];
 			}
 
-			if (pointSet.size() <= 1)
+			if (pointSet.size() <= 3)
 			{
 				// This is a leaf node.
 				return node;
@@ -438,29 +437,32 @@ namespace Pastel
 				bound.min()[splitAxis] = oldMin;
 			}
 
-			// Compute the fractional cascading links
-			// for the 'parent'.
-
-			integer j = 0;
-			
-			// The last entry acts as a sentinel, and does 
-			// not contain a point, so we will skip it here.
-			for (integer i = 0;i < parent->points();++i)
+			if (parent)
 			{
-				Entry& entry = parent->entrySet_[i];
-				
-				while (j < node->points() &&
-					node->entrySet_[j].point()->time() < entry.point()->time())
+				// Compute the fractional cascading links
+				// for the 'parent'.
+
+				integer j = 0;
+
+				// The last entry acts as a sentinel, and does 
+				// not contain a point, so we will skip it here.
+				for (integer i = 0; i < parent->points(); ++i)
 				{
-					++j;
+					Entry& entry = parent->entrySet_[i];
+
+					while (j < node->points() &&
+						node->entrySet_[j].point()->time() < entry.point()->time())
+					{
+						++j;
+					}
+
+					entry.cascade(right) = j;
 				}
 
-				entry.cascade(right) = j;
+				// Link the sentinel entry of the parent 
+				// to the sentinel entry of the child.
+				parent->entrySet_.back().cascade(right) = node->points();
 			}
-
-			// Link the sentinel entry of the parent 
-			// to the sentinel entry of the child.
-			parent->entrySet_.back().cascade(right) = node->points();
 
 			// Return the node.
 			return node;
