@@ -66,9 +66,6 @@ namespace
 					neighborSet.emplace_back(point);
 				};
 
-				std::cout << tree.bound().min() << std::endl;
-				std::cout << tree.bound().max() << std::endl;
-
 				searchNearest(tree, Point(1, 3), report).kNearest(5);
 
 				for (auto&& point : neighborSet)
