@@ -26,9 +26,9 @@ namespace Pastel
 	Vector<integer, N>.
 	*/
 	template <
+		bool RowMajor = true,
 		integer N,
-		typename Vector_Output,
-		bool RowMajor = true>
+		typename Vector_Output>
 	void forEachPoint(
 		const AlignedBox<integer, N> box,
 		Vector_Output report);

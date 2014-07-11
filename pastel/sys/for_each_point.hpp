@@ -7,9 +7,9 @@ namespace Pastel
 {
 
 	template <
+		bool RowMajor,
 		integer N,
-		typename Vector_Output,
-		bool RowMajor>
+		typename Vector_Output>
 	void forEachPoint(
 		const AlignedBox<integer, N> box,
 		Vector_Output report)
@@ -24,25 +24,40 @@ namespace Pastel
 
 		Vector<integer, N> position = box.min();
 
-		integer i = RowMajor ? 0 : (d - 1);
-		while((!RowMajor && i >= 0) || 
-			(RowMajor && i < d))
+		integer firstIndex = 0;
+		integer lastIndex = d - 1;
+		if (!RowMajor)
+		{
+			std::swap(firstIndex, lastIndex);
+		}
+
+		bool finished = false;
+		while (!finished)
 		{
 			report(position);
 
-			++position[i];
-			if (position[i] >= box.max()[i])
+			integer i = firstIndex;
+			while ((!RowMajor && i >= 0) ||
+				(RowMajor && i < d))
 			{
-				ASSERT_OP(position[i], ==, box.max()[i]);
-				position[i] = box.min()[i];
+				++position[i];
+				if (position[i] >= box.max()[i])
+				{
+					ASSERT_OP(position[i], ==, box.max()[i]);
+					position[i] = box.min()[i];
+					if (i == lastIndex)
+					{
+						finished = true;
+					}
+				}
+				else
+				{
+					break;
+				}
+
+				i += Step;
 			}
-			else
-			{
-				break;
-			}
-			
-			i += Step;
-		}
+		} 
 	}
 
 }
