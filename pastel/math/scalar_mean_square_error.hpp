@@ -20,8 +20,11 @@ namespace Pastel
 
 		while (!aSet.empty() && !bSet.empty())
 		{
-			result += square(aSet() - bSet());
+			result += square(aSet.get() - bSet.get());
 			++n;
+
+			aSet.pop();
+			bSet.pop();
 		}
 
 		if (n == 0)

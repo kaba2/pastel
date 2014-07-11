@@ -5,8 +5,11 @@
 
 #include "pastel/geometry/tdtree.h"
 
+#include "pastel/geometry/pointkdtree_search_nearest.h"
+
 #include "pastel/sys/locators.h"
 #include "pastel/sys/inputs.h"
+#include "pastel/sys/outputs.h"
 #include "pastel/sys/for_each_point.h"
 
 using namespace Pastel;
@@ -31,8 +34,8 @@ namespace
 
 		void test()
 		{
-			using Point = Vector2i;
-			using Locator = Vector_Locator<integer, 2>;
+			using Point = Vector2;
+			using Locator = Vector_Locator<real, 2>;
 			using Tree = TdTree<TdTree_Settings<Locator>>;
 
 			{
@@ -52,6 +55,18 @@ namespace
 				});
 
 				Tree tree(rangeInput(pointSet));
+				using ConstIterator = Tree::ConstIterator;
+
+				std::vector<ConstIterator> neighborSet;
+
+				auto report = [&](
+					real distance,
+					const ConstIterator& point)
+				{
+					neighborSet.emplace_back(point);
+				};
+				
+				searchNearest(tree, Point(0, 0), report);
 			}
 		}
 	};

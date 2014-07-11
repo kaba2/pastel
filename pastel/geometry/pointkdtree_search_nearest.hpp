@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <
-		typename Settings, template <typename> class Customization,
+		typename KdTree,
 		typename SearchPoint, typename NearestOutput,
 		typename Indicator, typename NormBijection, 
 		typename SearchAlgorithm>
@@ -19,17 +19,16 @@ namespace Pastel
 	public:
 		using Self = SearchNearest_;
 
-		using Fwd = Settings;
+		using Fwd = KdTree;
 		PASTEL_FWD(Locator);
 		using Real = typename Locator::Real;
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 
-		using Tree = PointKdTree<Settings, Customization>;
-		using Point_ConstIterator = typename Tree::Point_ConstIterator;
+		using Point_ConstIterator = typename KdTree::Point_ConstIterator;
 		using Result = KeyValue<Real, Point_ConstIterator>;
 
 		SearchNearest_(
-			const Tree& kdTree,
+			const KdTree& kdTree,
 			const SearchPoint& searchPoint,
 			const NearestOutput& nearestOutput,
 			const Indicator& acceptPoint,
@@ -49,7 +48,7 @@ namespace Pastel
 		{
 		}
 
-		const Tree& kdTree_;
+		const KdTree& kdTree_;
 		const SearchPoint& searchPoint_;
 		const NearestOutput& nearestOutput_;
 		const Indicator& acceptPoint_;

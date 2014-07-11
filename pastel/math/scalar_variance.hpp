@@ -21,8 +21,10 @@ namespace Pastel
 
 		while (!inputSet.empty())
 		{
-			variance += square(inputSet() - mean);
+			variance += square(inputSet.get() - mean);
 			++n;
+
+			inputSet.pop();
 		}
 
 		if (n == 0)

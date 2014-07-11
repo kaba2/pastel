@@ -42,7 +42,7 @@ namespace Pastel
 
 				while(!pointSet.empty())
 				{
-					Real position = locator(pointSet(), splitAxis);
+					Real position = locator(pointSet.get(), splitAxis);
 					if (position < splitPosition)
 					{
 						if (position > leftMax)
@@ -59,6 +59,8 @@ namespace Pastel
 						}
 						++rightCount;
 					}
+
+					pointSet.pop();
 				}
 
 				if (leftCount == 0)

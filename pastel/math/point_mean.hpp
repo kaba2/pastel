@@ -28,12 +28,14 @@ namespace Pastel
 		integer n = 0;
 		while (!pointSet.empty())
 		{
-			auto&& point = pointSet();
+			auto&& point = pointSet.get();
 			for (integer i = 0;i < d;++i)
 			{
 				result[i] += locator(point, i);
 			}
 			++n;
+
+			pointSet.pop();
 		}
 
 		return result / n;

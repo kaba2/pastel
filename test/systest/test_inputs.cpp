@@ -33,7 +33,8 @@ namespace
 				{
 					TEST_ENSURE(!input.empty());
 					
-					integer j = input();
+					integer j = input.get();
+					input.pop();
 					TEST_ENSURE_OP(j, ==, i);
 				}
 			}
@@ -44,7 +45,8 @@ namespace
 				{
 					TEST_ENSURE(!input.empty());
 
-					integer j = input();
+					integer j = input.get();
+					input.pop();
 					TEST_ENSURE_OP(j, ==, i);
 				}
 			}
@@ -61,7 +63,8 @@ namespace
 				{
 					TEST_ENSURE(!input.empty());
 
-					integer j = input();
+					integer j = input.get();
+					input.pop();
 					TEST_ENSURE_OP(j, ==, i * i);
 				}
 			}

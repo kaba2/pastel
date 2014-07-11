@@ -41,11 +41,21 @@ namespace Pastel
 			return input_.empty();
 		}
 
+		using Return =
+			decltype(std::declval<Function>()(std::declval<Input>().get()));
+
 		// FIX: Replace with decltype(auto) after
 		// Visual Studio 2013 fixes its bugs.
-		decltype(std::declval<Function>()(std::declval<Input>()())) operator()()
+		Return get() const
 		{
-			return transform_(input_());
+			PENSURE(!empty());
+			return transform_(input_.get());
+		}
+
+		void pop()
+		{
+			PENSURE(!empty());
+			input_.pop();
 		}
 
 	private:

@@ -17,21 +17,27 @@ namespace Pastel
 	{
 	public:
 		//! Returns a child node.
-		Node_Iterator& child(bool right)
+		Node*& child(bool right)
 		{
 			return childSet_[right];
 		}
 
 		//! Returns a child node.
-		Node_ConstIterator child(bool right) const
+		const Node* child(bool right) const
 		{
 			return childSet_[right];
 		}
 
 		//! Returns the split-point.
-		const Point_ConstIterator& split() const
+		const ConstIterator& split() const
 		{
 			return split_;
+		}
+
+		//! Returns the split-axis.
+		integer splitAxis() const
+		{
+			return splitAxis_;
 		}
 
 		//! Returns whether the node is an end-node.
@@ -43,7 +49,7 @@ namespace Pastel
 		}
 
 		//! Returns whether the node is a leaf.
-		bool isLeaf() const
+		bool leaf() const
 		{
 			// A node is a leaf if and only if
 			// it is not the end-node and its
@@ -61,9 +67,29 @@ namespace Pastel
 		}
 
 		//! Returns the number of stored points.
-		integer entries() const
+		integer points() const
 		{
 			return entrySet_.size() - 1;
+		}
+
+		const Real& min() const
+		{
+			return min_;
+		}
+
+		const Real& max() const
+		{
+			return max_;
+		}
+
+		const Real& prevMin() const
+		{
+			return prevMin_;
+		}
+
+		const Real& prevMax() const
+		{
+			return prevMax_;
 		}
 
 	private:
@@ -75,20 +101,24 @@ namespace Pastel
 		, split_()
 		, splitAxis_(0)
 		, entrySet_()
+		, min_(0)
+		, max_(0)
 		, prevMin_(0)
 		, prevMax_(0)
 		{
 			child(false) = this;
 			child(true) = this;
-			entrySet_.emplace_back(Point_Iterator());
+			entrySet_.emplace_back(Iterator());
 		}
 
 		explicit Node(
-			const std::vector<Point_Iterator>& iteratorSet)
+			const std::vector<Iterator>& iteratorSet)
 		: childSet_()
 		, split_()
 		, splitAxis_(0)
 		, entrySet_()
+		, min_(0)
+		, max_(0)
 		, prevMin_(0)
 		, prevMax_(0)
 		{
@@ -97,7 +127,7 @@ namespace Pastel
 			{
 				entrySet_.emplace_back(i);
 			}
-			entrySet_.emplace_back(Point_Iterator());
+			entrySet_.emplace_back(Iterator());
 		}
 
 		void isolate(Node* end)
@@ -122,7 +152,7 @@ namespace Pastel
 		The splitting position is given by 
 		locator(split_->point(), splitAxis).
 		*/
-		Point_Iterator split_;
+		Iterator split_;
 
 		//! The splitting axis.
 		/*!
@@ -134,6 +164,13 @@ namespace Pastel
 
 		//! The set of points.
 		EntrySet entrySet_;
+
+		// Bounds of the contained
+		// points on the splitting
+		// axis of the _parent_ node.
+
+		Real min_;
+		Real max_;
 
 		//! The previous bounds of the node on the splitting axis.
 		/*!

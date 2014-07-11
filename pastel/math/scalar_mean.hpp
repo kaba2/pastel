@@ -16,8 +16,10 @@ namespace Pastel
 
 		while (!inputSet.empty())
 		{
-			mean += inputSet();
+			mean += inputSet.get();
 			++n;
+			
+			inputSet.pop();
 		}
 		
 		return mean / n;

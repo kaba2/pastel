@@ -83,24 +83,24 @@ namespace Pastel
 	A combination of the previous two.
 	*/
 	template <
-		typename Settings, template <typename> class Customization,
+		typename KdTree,
 		typename SearchPoint,
 		typename NearestOutput = Null_Output,
 		typename Indicator = All_Indicator,
-		typename Locator = typename Settings::Locator,
+		typename Locator = typename KdTree::Locator,
 		typename NormBijection = Euclidean_NormBijection<typename Locator::Real>, 
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
 	auto searchNearest(
-		const PointKdTree<Settings, Customization>& kdTree,
+	const KdTree& kdTree,
 		const SearchPoint& searchPoint,
 		const NearestOutput& nearestOutput = NearestOutput(),
 		const Indicator& acceptPoint = Indicator(),
 		const NormBijection& normBijection = NormBijection(),
 		const SearchAlgorithm& searchAlgorithm = SearchAlgorithm())
-		-> SearchNearest_<Settings, Customization, SearchPoint, 
+		-> SearchNearest_<KdTree, SearchPoint,
 		NearestOutput, Indicator, NormBijection, SearchAlgorithm>
 	{
-		return SearchNearest_<Settings, Customization, SearchPoint, NearestOutput,
+		return SearchNearest_<KdTree, SearchPoint, NearestOutput,
 			Indicator, NormBijection, SearchAlgorithm>(kdTree, searchPoint,
 			nearestOutput, acceptPoint, normBijection, searchAlgorithm);
 	}

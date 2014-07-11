@@ -41,7 +41,8 @@ namespace Pastel
 				while(!pointSet.empty())
 				{
 					positionSet.emplace_back(
-						locator(pointSet(), splitAxis));
+						locator(pointSet.get(), splitAxis));
+					pointSet.pop();
 				}
 
 				// Get the median of the points on the splitting axis.

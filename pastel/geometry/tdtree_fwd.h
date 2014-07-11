@@ -57,21 +57,18 @@ namespace Pastel
 		using Point_ConstIterator = 
 			typename PointSet::const_iterator;
 
+		using Iterator = Point_Iterator;
+		using ConstIterator = Point_ConstIterator;
+
 		class Node;
 		class Entry;
-
-		using Cursor = Node*;
-		using ConstCursor = const Node*;
+		class Cursor;
 
 		using EntrySet = std::vector<Entry>;
 		using Entry_Iterator = typename EntrySet::iterator;
 		using Entry_ConstIterator = typename EntrySet::const_iterator;
 		using Entry_Range = boost::iterator_range<Entry_Iterator>;
 		using Entry_ConstRange = boost::iterator_range<Entry_ConstIterator>;
-
-		using Node_Iterator = Node*;
-		using Node_ConstIterator = const Node*;
-
 	};
 
 }

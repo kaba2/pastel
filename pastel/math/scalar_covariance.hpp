@@ -24,8 +24,11 @@ namespace Pastel
 		while(!aSet.empty() && !bSet.empty())
 		{
 			covariance += 
-				(aSet() - aMean) * (bSet() - bMean);
+				(aSet.get() - aMean) * (bSet.get() - bMean);
 			++n;
+
+			aSet.pop();
+			bSet.pop();
 		}
 
 		if (n == 0)
