@@ -345,6 +345,12 @@ namespace Pastel
 			Node* node = new Node(pointSet);
 			node->isolate(end_.get());
 
+			if (parent)
+			{
+				node->min_ = bound.min()[parent->splitAxis()];
+				node->max_ = bound.max()[parent->splitAxis()];
+			}
+
 			if (pointSet.size() <= 1)
 			{
 				// This is a leaf node.
@@ -370,6 +376,9 @@ namespace Pastel
 			ENSURE_OP(splitAxis, <, dimension());
 			ENSURE(splitPosition >= bound.min()[splitAxis]);
 			ENSURE(splitPosition <= bound.max()[splitAxis]);
+
+			node->prevMin_ = bound.min()[splitAxis];
+			node->prevMax_ = bound.max()[splitAxis];
 
 			auto lessSplit = [&](const Iterator& that)
 			{

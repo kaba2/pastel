@@ -63,7 +63,7 @@ namespace Pastel
 		{
 			return Pastel::range(
 				entrySet_.begin(), 
-				entrySet_.end());
+				std::prev(entrySet_.end()));
 		}
 
 		//! Returns the number of stored points.
@@ -123,7 +123,7 @@ namespace Pastel
 		, prevMax_(0)
 		{
 			entrySet_.reserve(iteratorSet.size() + 1);
-			for (auto i : iteratorSet)
+			for (auto&& i : iteratorSet)
 			{
 				entrySet_.emplace_back(i);
 			}
