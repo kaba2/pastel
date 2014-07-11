@@ -85,6 +85,8 @@ namespace Pastel
 		using A_Input = Range_Input<Entry_ConstRange>;
 		using B_Input = Transform_Input<A_Input, EntryAsPoint>;
 
+		// FIX: Replace with decltype(auto) after Visual Studio 2013
+		// fixes its bugs.
 		B_Input pointSetAsInput() const
 		{
 			return transformInput(
