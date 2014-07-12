@@ -165,14 +165,12 @@ namespace Pastel
 		//! The set of points.
 		EntrySet entrySet_;
 
-		// Bounds of the contained
-		// points on the splitting
-		// axis of the _parent_ node.
+		//! Node bounds on the splitting axis of the parent.
 
 		Real min_;
 		Real max_;
 
-		//! The previous bounds of the node on the splitting axis.
+		//! The previous node bounds on the splitting axis of the parent.
 		/*!
 		This information is important for the efficient 
 		incremental computation of distance between the

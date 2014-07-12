@@ -12,12 +12,9 @@
 #include "pastel/geometry/bounding_alignedbox.h"
 #include "pastel/geometry/longestmedian_splitrule.h"
 
-#include "pastel/sys/complement_indicator.h"
-#include "pastel/sys/binary_search.h"
+#include "pastel/sys/fair_stable_partition.h"
 
-#include <boost/range/algorithm/sort.hpp>
 #include <boost/range/algorithm/stable_sort.hpp>
-#include <boost/range/algorithm/stable_partition.hpp>
 
 #include <algorithm>
 #include <memory>
@@ -348,97 +345,7 @@ namespace Pastel
 			{
 				node->min_ = bound.min()[parent->splitAxis()];
 				node->max_ = bound.max()[parent->splitAxis()];
-			}
 
-			if (pointSet.size() <= 3)
-			{
-				// This is a leaf node.
-				return node;
-			}
-
-			// Choose the splitting plane according
-			// to the splitting rule.
-
-			auto pointFromIterator = 
-				[&](const Iterator& that)
-			{
-				return that->point();
-			};
-
-			integer splitAxis = 0;
-			Real splitPosition = 0;
-			std::tie(splitPosition, splitAxis) = splitRule(
-				transformInput(rangeInput(pointSet), pointFromIterator), 
-				locator(), bound);
-
-			ENSURE_OP(splitAxis, >=, 0);
-			ENSURE_OP(splitAxis, <, dimension());
-			ENSURE(splitPosition >= bound.min()[splitAxis]);
-			ENSURE(splitPosition <= bound.max()[splitAxis]);
-
-			node->prevMin_ = bound.min()[splitAxis];
-			node->prevMax_ = bound.max()[splitAxis];
-
-			auto lessSplit = [&](const Iterator& that)
-			{
-				return locator()(that->point(), splitAxis) < splitPosition;
-			};
-
-			auto greaterSplit = [&](integer i)
-			{
-				return locator()(pointSet[i]->point(), splitAxis) > splitPosition;
-			};
-
-			// Partition the elements with respect to the split-plane.
-			// The partitioning must be stable for the children
-			// to stay ordered with respect to time.
-			auto partitionLeftEnd = 
-				boost::stable_partition(pointSet, lessSplit);
-
-			// In the case there are points which lie exactly on the
-			// plane, we wish to distribute them evenly on both sides
-			// of the splitting plane. For example, it is possible to
-			// have all points equal, in which case this rule is
-			// essential to be able to obtain a logarithmic depth for
-			// the tree.
-			integer equalBegin = 
-				partitionLeftEnd - pointSet.begin();
-			integer equalEnd = 
-				binarySearch(equalBegin, (integer)pointSet.size(),
-				greaterSplit);
-
-			// Pick the median of the equivalent elements.
-			integer leftEnd = (equalBegin + equalEnd) / 2;
-
-			// Set the split-point for the node.
-			node->split_ = pointSet[leftEnd];
-
-			// Recurse to the left child.
-			{
-				Real oldMax = bound.max()[splitAxis];
-				bound.max()[splitAxis] = splitPosition;
-
-				std::vector<Iterator> leftSet(
-					pointSet.begin(), pointSet.begin() + leftEnd);
-				node->child(false) = construct(node, false, leftSet, bound, splitRule);
-
-				bound.max()[splitAxis] = oldMax;
-			}
-
-			// Recurse to the right child.
-			{
-				Real oldMin = bound.min()[splitAxis];
-				bound.min()[splitAxis] = splitPosition;
-				
-				std::vector<Iterator> rightSet(
-					pointSet.begin() + leftEnd, pointSet.end());
-				node->child(true) = construct(node, true, rightSet, bound, splitRule);
-
-				bound.min()[splitAxis] = oldMin;
-			}
-
-			if (parent)
-			{
 				// Compute the fractional cascading links
 				// for the 'parent'.
 
@@ -462,6 +369,90 @@ namespace Pastel
 				// Link the sentinel entry of the parent 
 				// to the sentinel entry of the child.
 				parent->entrySet_.back().cascade(right) = node->points();
+			}
+
+			if (pointSet.size() <= 3)
+			{
+				// This is a leaf node.
+				return node;
+			}
+
+			// Choose the splitting plane according
+			// to the splitting rule.
+
+			auto pointFromIterator =
+				[&](const Iterator& that)
+			{
+				return that->point();
+			};
+
+			integer splitAxis = 0;
+			Real splitPosition = 0;
+			std::tie(splitPosition, splitAxis) = splitRule(
+				transformInput(rangeInput(pointSet), pointFromIterator),
+				locator(), bound);
+
+			ENSURE_OP(splitAxis, >=, 0);
+			ENSURE_OP(splitAxis, <, dimension());
+			ENSURE(splitPosition >= bound.min()[splitAxis]);
+			ENSURE(splitPosition <= bound.max()[splitAxis]);
+
+			auto trindicator = [&](const Iterator& that)
+				-> integer
+			{
+				if (locator()(that->point(), splitAxis) == splitPosition)
+				{
+					return 0;
+				}
+
+				if (locator()(that->point(), splitAxis) < splitPosition)
+				{
+					return -1;
+				}
+
+				return 1;
+			};
+
+			// Partition the elements with respect to the split-plane.
+			// The partitioning must be stable for the children
+			// to stay ordered with respect to time.
+			auto leftEnd = fairStablePartition(
+				range(pointSet.begin(), pointSet.end()), trindicator);
+
+			// Set the split-point for the node.
+			node->split_ = *leftEnd;
+			node->splitAxis_ = splitAxis;
+
+			// Recurse to the left child.
+			{
+				Real oldMax = bound.max()[splitAxis];
+				bound.max()[splitAxis] = splitPosition;
+
+				std::vector<Iterator> leftSet(
+					pointSet.begin(), leftEnd);
+
+				Node* left = construct(node, false, leftSet, bound, splitRule);
+				node->child(false) = left;
+				bound.max()[splitAxis] = oldMax;
+
+				left->prevMin_ = bound.min()[splitAxis];
+				left->prevMax_ = bound.max()[splitAxis];
+			}
+
+			// Recurse to the right child.
+			{
+				Real oldMin = bound.min()[splitAxis];
+				bound.min()[splitAxis] = splitPosition;
+				
+				std::vector<Iterator> rightSet(
+					leftEnd, pointSet.end());
+				
+				Node* right = construct(node, true, rightSet, bound, splitRule);
+				node->child(true) = right;
+				bound.min()[splitAxis] = oldMin;
+
+				right->prevMin_ = bound.min()[splitAxis];
+				right->prevMax_ = bound.max()[splitAxis];
 			}
 
 			// Return the node.
