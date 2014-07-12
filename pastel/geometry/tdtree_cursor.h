@@ -105,7 +105,7 @@ namespace Pastel
 		{
 			PENSURE(node_);
 
-			return node_ != nullptr;
+			return points() == 0;
 		}
 
 		// Splitting plane
