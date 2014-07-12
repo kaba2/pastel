@@ -304,6 +304,17 @@ namespace Pastel
 			return bound_;
 		}
 
+		//! Returns whether the time-coordinates are simple.
+		/*!
+		The time-coordinates of the stored points are simple, if
+		pointSet[i]->time() == a * i + b,
+		for some integers a and b, and all i.
+		*/
+		bool simple() const
+		{
+			return simple_;
+		}
+
 	private:
 		bool isSimple(const std::vector<Iterator>& pointSet) const
 		{
@@ -312,17 +323,105 @@ namespace Pastel
 				return true;
 			}
 
-			integer t = pointSet.front()->time();
-			for (auto&& point : pointSet)
+			auto isInteger = [](const Real& that)
 			{
-				if (point->time() != t)
+				return (integer)that == that;
+			};
+
+			if (!isInteger(pointSet.front()->time()))
+			{
+				return false;
+			}
+
+			if (pointSet.size() == 1)
+			{
+				return true;
+			}
+
+			if (!isInteger(pointSet[1]->time() - pointSet[0]->time()))
+			{
+				return false;
+			}
+
+			integer delta = 
+				pointSet[1]->time() - 
+				pointSet[0]->time();
+
+			integer t = pointSet.front()->time();
+			for (integer i = 0;i < pointSet.size();++i)
+			{
+				if (pointSet[i]->time() != t)
 				{
 					return false;
 				}
-				++t;
+
+				t += delta;
 			}
 
 			return true;
+		}
+
+		//! Returns the first point with point->time() >= time.
+		/*!
+		Time complexity:
+		O(1), if simple(),
+		O(log(n)), otherwise.
+
+		Exception safety: 
+		nothrow
+		*/
+		integer timeToIndex(const Real& time) const
+		{
+			if (!simple())
+			{
+				// The time-coordinates are not simple.
+				// We need to do a binary search  to convert 
+				// time to a fractional cascading index.
+
+				auto indicator = [&](integer i)
+				{
+					return pointSet_[i]->time() >= time;
+				};
+
+				return binarySearch(0, points(), indicator);
+			}
+
+			// From now on the time-coordinates are simple.
+
+			if (pointSet_.empty())
+			{
+				// There are no points.
+				return 0;
+			}
+
+			if (pointSet_.size() == 1)
+			{
+				// There is only one point.
+				return (time > pointSet_.front()->time());
+			}
+			
+			// There are at least two points.
+
+			integer tBegin = pointSet[0]->time();
+
+			// Compute the distance between subsequent 
+			// time-coordinates. By simplicity this is
+			// a constant among all subsequent point-pairs.
+			integer tDelta = pointSet_[1]->time() - tBegin;
+
+			// Round up any fractional time; by simplicity
+			// all time-coordinates are integral.
+			integer tTime = std::ceil(time);
+
+			// By simplicity, it holds that
+			// pointSet_[i]->time() == tDelta i + tBegin.
+
+			// Therefore
+			// i = (pointSet_[i]->time() - tBegin) / tDelta.
+
+			// For a general time-point, round up to the 
+			// next integer.
+			return divideAndRoundUp(tTime - tBegin, tDelta);
 		}
 
 		template <typename SplitRule>
