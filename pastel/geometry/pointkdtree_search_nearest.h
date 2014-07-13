@@ -20,13 +20,19 @@ namespace Pastel
 	//! Finds the nearest neighbors of a point in a PointKdTree.
 	/*!
 	kdTree:
-	The PointKdTree to search neighbors in.
+	The kd-tree to search neighbors in.
 
 	searchPoint:
 	The point for which to search a neighbor for.
 	This can be either a Vector<Real, N>, or
 	a Point_ConstIterator of 'kdTree'.
 	
+	nearestOutput:
+	A reporter to which the found neighbors 
+	(Point_ConstIterator of 'kdTree') are reported to.
+	The reporting is done in the form
+	nearestOutput(distance, point).
+
 	acceptPoint:
 	An indicator which decides whether to accept a point 
 	as a neighbor or not.
@@ -41,31 +47,25 @@ namespace Pastel
 	Optional arguments
 	------------------
 
-	maxDistance (>= 0):
+	maxDistance (Real >= 0):
 	The distance after which points are not considered neighbors
 	anymore. Can be set to infinity<Real>(). This distance
 	is in terms of the used norm bijection.
 	Default: infinity<Real>()
 
-	maxRelativeError (>= 0):
+	maxRelativeError (Real>= 0):
 	Maximum allowed relative error in the distance of the  
 	result point to the true nearest neighbor. Allowing error
 	increases performance. Use 0 for exact matches. 
 	Default: 0
 
-	bucketSize (> 0):
+	bucketSize (integer > 0):
 	The number of points under which to start a brute-force
 	search in a node.
 	Default: 16
 
-	kNearest (> 0):
+	kNearest (integer > 0):
 	The number of nearest neighbors to search.
-
-	nearestOutput:
-	A reporter to which the found neighbors 
-	(Point_ConstIterator of 'kdTree') are reported to.
-	The reporting is done in the form
-	nearestOutput(distance, point).
 
 	Returns (by implicit conversion)
 	--------------------------------
@@ -91,7 +91,7 @@ namespace Pastel
 		typename NormBijection = Euclidean_NormBijection<typename Locator::Real>, 
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
 	auto searchNearest(
-	const KdTree& kdTree,
+		const KdTree& kdTree,
 		const SearchPoint& searchPoint,
 		const NearestOutput& nearestOutput = NearestOutput(),
 		const Indicator& acceptPoint = Indicator(),

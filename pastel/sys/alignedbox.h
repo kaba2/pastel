@@ -375,5 +375,6 @@ namespace Pastel
 }
 
 #include "pastel/sys/alignedbox.hpp"
+#include "pastel/sys/alignedbox_tools.h"
 
 #endif
