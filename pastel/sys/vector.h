@@ -86,16 +86,14 @@ namespace Pastel
 		}
 
 		template <int N_ = N>
-		explicit Vector(const Real& that, 
-			PASTEL_ENABLE_IF_C(N_ > 1, Enabler) = Enabler())
+		explicit Vector(const PASTEL_ENABLE_IF_C(N_ > 1, Real)& that)
 			: data_(that)
 		{
 		}
 
 		// Allow implicit conversion for 1-d vectors.
 		template <int N_ = N>
-		Vector(const Real& that, 
-			PASTEL_ENABLE_IF_C(N_ == 1, Enabler) = Enabler())
+		Vector(const PASTEL_ENABLE_IF_C(N_ == 1, Real)& that)
 			: data_(that)
 		{
 		}
@@ -123,24 +121,27 @@ namespace Pastel
 			}
 		}
 
-		template <int N_ = N>
-		Vector(const Real& x, const Real& y, 
-			PASTEL_ENABLE_IF_C_P(N_ == 2))
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 2, void)>
+		Vector(const Real& x, const Real& y)
 		{
 			set(x, y);
 		}
 
-		template <int N_ = N>
-		Vector(const Real& x, const Real& y, const Real& z, 
-			PASTEL_ENABLE_IF_C_P(N_ == 3))
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 3, void)>
+		Vector(const Real& x, const Real& y, const Real& z)
 		{
 			set(x, y, z);
 		}
 
-		template <int N_ = N>
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 4, void)>
 		Vector(const Real& x, const Real& y, 
-			const Real& z, const Real& w,
-			PASTEL_ENABLE_IF_C_P(N_ == 4))
+			const Real& z, const Real& w)
 		{
 			set(x, y, z, w);
 		}
@@ -514,8 +515,10 @@ namespace Pastel
 			return data_;
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ == 2, void) set(
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 2, void)>
+		void set(
 			const Real& x, const Real& y)
 		{
 			Vector& v = *this;
@@ -523,8 +526,10 @@ namespace Pastel
 			v[1] = y;
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ == 3, void) set(
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 3, void)>
+		void set(
 			const Real& x, const Real& y, 
 			const Real& z)
 		{
@@ -534,8 +539,10 @@ namespace Pastel
 			v[2] = z;
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ == 4, void) set(
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 4, void)>
+		void set(
 			const Real& x, const Real& y, 
 			const Real& z, const Real& w)
 		{
@@ -546,50 +553,66 @@ namespace Pastel
 			v[3] = w;
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 1, Real&) x()
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 1, void)>
+		Real& x()
 		{
 			return (*this)[0];
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 1, const Real&) x() const
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 1, void)>
+		const Real& x() const
 		{
 			return (*this)[0];
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 2, Real&) y()
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 2, void)>
+		Real& y()
 		{
 			return (*this)[1];
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 2, const Real&) y() const
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 2, void)>
+		const Real& y() const
 		{
 			return (*this)[1];
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 3, Real&) z()
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 3, void)>
+		Real& z()
 		{
 			return (*this)[2];
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 3, const Real&) z() const
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 3, void)>
+		const Real& z() const
 		{
 			return (*this)[2];
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 4, Real&) w()
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 4, void)>
+		Real& w()
 		{
 			return (*this)[3];
 		}
 
-		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 4, const Real&) w() const
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 4, void)>
+		const Real& w() const
 		{
 			return (*this)[3];
 		}

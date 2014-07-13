@@ -649,5 +649,6 @@ namespace Pastel
 }
 
 #include "pastel/sys/tuple.hpp"
+#include "pastel/sys/tuple_tools.h"
 
 #endif
