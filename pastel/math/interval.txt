@@ -1,4 +1,0 @@
-Intervals
-=========
-
-[[Parent]]: undocumented.txt

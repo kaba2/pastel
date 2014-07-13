@@ -1,0 +1,11 @@
+Intervals
+=========
+
+[[Parent]]: maths.txt
+
+An _interval_ is a subset S of a preordered set ''X'' with the property that 
+
+[[EquationSet]]:
+	(a <= x <= b) ==> x in S, 
+
+for all ''a, b in S'' and ''x in X''.
