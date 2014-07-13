@@ -15,7 +15,7 @@ namespace Pastel
 		class Output
 		{
 		public:
-			//! Reports 'that'. Returns whether to continue reporting.
+			//! Reports 'that', and returns whether it was accepted.
 			bool operator()(const UserDefinedType& that);
 		};
 	
