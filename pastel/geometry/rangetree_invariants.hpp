@@ -25,6 +25,7 @@ namespace Pastel
 			PASTEL_FWD(Node_ConstIterator);
 			PASTEL_FWD(MultiLess);
 			PASTEL_FWD(Entry);
+			PASTEL_FWD(Point);
 
 			if (!node)
 			{
@@ -41,6 +42,21 @@ namespace Pastel
 
 			if (node->isBottom())
 			{
+				auto xLess = [&](const Point& left, const Point& right)
+				{
+					return multiLess(left, right, tree.orders() - 1);
+				};
+
+				for (integer i = 0;i < node->entries() - 1;++i)
+				{
+					if (xLess(*node->entryRange()[i + 1].point(), *node->entryRange()[i].point()))
+					{
+						// The points must always be sorted with respect
+						// to the last order.
+						return false;
+					}
+				}
+
 				if (parent)
 				{
 					// Check the fractional cascading information.
@@ -49,7 +65,7 @@ namespace Pastel
 						node->entries())
 					{
 						// The last fractional cascading information must
-						// to the last entry of the child.
+						// point to the last entry of the child.
 						return false;
 					}
 
@@ -68,7 +84,7 @@ namespace Pastel
 						if (cascade < node->entries())
 						{
 							const Entry& childEntry = node->entryRange()[cascade];
-							if (multiLess(*childEntry.point(), *entry.point(), depth + 1))
+							if (xLess(*childEntry.point(), *entry.point()))
 							{
 								// The fractional cascading link in the parent node 
 								// points to an entry >= in the child node.
@@ -79,7 +95,7 @@ namespace Pastel
 						if (cascade > 0)
 						{
 							const Entry& prevChildEntry = node->entryRange()[cascade - 1];
-							if (!multiLess(*prevChildEntry.point(), *entry.point(), depth + 1))
+							if (!xLess(*prevChildEntry.point(), *entry.point()))
 							{
 								// The fractional cascading link in the parent node 
 								// points to the _smallest_ entry >= in the child node.

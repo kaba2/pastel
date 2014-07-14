@@ -13,7 +13,6 @@
 #include "pastel/sys/vector.h"
 
 #include <boost/range/algorithm/sort.hpp>
-#include <boost/range/algorithm/stable_sort.hpp>
 #include <boost/range/algorithm/stable_partition.hpp>
 #include <boost/range/algorithm/unique.hpp>
 
@@ -135,7 +134,7 @@ namespace Pastel
 				return MultiLess()(*left, *right, orders - 1);
 			};
 
-			boost::stable_sort(iteratorSet, lastLess);
+			boost::sort(iteratorSet, lastLess);
 
 			root_ = construct(nullptr, false, 0, iteratorSet);
 		}
@@ -250,6 +249,8 @@ namespace Pastel
 			// The points in 'pointSet' are in
 			// increasing order in the last coordinate.
 
+			MultiLess multiLess;
+
 			Node* node = 0;
 			if (depth < orders() - 2)
 			{
@@ -258,13 +259,37 @@ namespace Pastel
 			}
 			else
 			{
-				// Only the level orders() - 2
-				// stores a point-set.
+				// Only the level orders() - 2 stores a point-set.
 				node = new Node(pointSet);
 				node->isolate(end_.get());
-			}
 
-			MultiLess multiLess;
+				if (parent)
+				{
+					// Compute the fractional cascading links
+					// for the 'parent'.
+
+					integer j = 0;
+					
+					// The last entry acts as a sentinel, and does 
+					// not contain a point, so we will skip it here.
+					for (integer i = 0;i < parent->entries();++i)
+					{
+						Entry& entry = parent->entrySet_[i];
+						
+						while (j < node->entries() &&
+							multiLess(*node->entrySet_[j].point(), *entry.point(), orders() - 1))
+						{
+							++j;
+						}
+
+						entry.cascade(right) = j;
+					}
+
+					// Link the sentinel entry of the parent 
+					// to the sentinel entry of the child.
+					parent->entrySet_.back().cascade(right) = node->entries();
+				}
+			}
 
 			// Sort the points in lexicographical order
 			// with respect to <_depth.
@@ -286,8 +311,26 @@ namespace Pastel
 					!xLess(right, left);
 			};
 
+			for (integer i = 0;i < pointSet.size() - 1;++i)
+			{
+				if (multiLess(*pointSet[i + 1], *pointSet[i], orders() - 1))
+				{
+					ASSERT(false);
+				}
+			}
+
 			std::vector<Point_Iterator> sortedSet(pointSet);
-			boost::stable_sort(sortedSet, xLess);
+
+			if (depth < orders() - 2)
+			{
+				// Recurse to the down child. It is important that we
+				// do this with a copy of the 'pointSet'; here with
+				// 'sortedSet' which has not been sorted yet.
+				node->down() = construct(nullptr, false, depth + 1, sortedSet);
+			}
+
+			// Sort the points with respect to <_depth.
+			boost::sort(sortedSet, xLess);
 
 			// The child nodes are created if and only if
 			// the node contains points that are not equivalent
@@ -305,7 +348,7 @@ namespace Pastel
 				Point_Iterator median =
 					*(sortedSet.begin() + (std::distance(sortedSet.begin(), uniqueEnd) / 2));
 
-				// Set the split-point to that median.
+				// Set the split-point to the median.
 				node->split_ = median;
 
 				// Partition with respect to the median with 
@@ -319,7 +362,7 @@ namespace Pastel
 
 				// The partitioning must be stable for the children
 				// to stay ordered with respect to the last order.
-				auto leftEnd = boost::stable_partition(pointSet, lessMedian);
+				auto leftEnd = std::stable_partition(pointSet.begin(), pointSet.end(), lessMedian);
 
 				// Recurse to the left child.
 				{
@@ -346,40 +389,6 @@ namespace Pastel
 				// of the minimum and maximum should be 
 				// reported or not.
 				node->split_ = *pointSet.begin();
-			}
-
-			if (depth < orders() - 2)
-			{
-				// Recurse to the down child.
-				node->down() = construct(nullptr, false, depth + 1, pointSet);
-			}
-			else if (parent)
-			{
-				// The down-recursion stops at level orders() - 2.
-
-				// Compute the fractional cascading links
-				// for the 'parent'.
-
-				integer j = 0;
-				
-				// The last entry acts as a sentinel, and does 
-				// not contain a point, so we will skip it here.
-				for (integer i = 0;i < parent->entries();++i)
-				{
-					Entry& entry = parent->entrySet_[i];
-					
-					while (j < node->entries() &&
-						multiLess(*node->entrySet_[j].point(), *entry.point(), orders() - 1))
-					{
-						++j;
-					}
-
-					entry.cascade(right) = j;
-				}
-
-				// Link the sentinel entry of the parent 
-				// to the sentinel entry of the child.
-				parent->entrySet_.back().cascade(right) = node->entries();
 			}
 
 			// Return the node.
