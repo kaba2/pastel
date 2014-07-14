@@ -4,3 +4,8 @@ Bounded array
 [[Parent]]: data_structures.txt
 
 A _bounded array_ is an array where the maximum number of elements is bounded by a compile-time constant. It works otherwise similarly to std::vector. The motivation for this data structure is to avoid memory allocations from the heap, when the number of stored elements is small.
+
+Restrictions
+------------
+
+The stored element must be trivially copyable (std::is_trivially_copyable). Otherwise the swap() could not be given the nothrow guarantee.

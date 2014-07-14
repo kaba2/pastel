@@ -9,6 +9,8 @@
 #include "pastel/sys/bounded_array_iterator.h"
 #include "pastel/sys/destruct.h"
 
+#include <type_traits>
+
 namespace Pastel
 {
 
@@ -32,6 +34,11 @@ namespace Pastel
 		PASTEL_FWD(iterator);
 		PASTEL_FWD(const_iterator);
 		static PASTEL_CONSTEXPR integer N = Fwd::N;
+
+		// We must require the Element to be trivially copyable,
+		// or else the swap() cannot be implemented with the nothrow
+		// guarantee.
+		PASTEL_STATIC_ASSERT(std::is_trivially_copyable<Element>::value);
 
 		using Base = Customization<Settings>;
 
@@ -98,6 +105,14 @@ namespace Pastel
 			onConstruct();
 		}
 
+		//! Constructs from an initializer list.
+		/*!
+		Time complexity: O(min(that.size(), maxSize()))
+		Exception safety: strong
+
+		Exactly min(that.size(), maxSize()) elements
+		will be copied.
+		*/
 		template <typename That_Element>
 		BoundedArray(const std::initializer_list<That_Element>& thatSet)
 		{
@@ -131,6 +146,8 @@ namespace Pastel
 			using std::swap;
 
 			Base::swap(that);
+
+			// Assumes std::is_trivially_copyable<Element>.
 			swap(elementSet_, that.elementSet_);
 			swap(size_, that.size_);
 		}
