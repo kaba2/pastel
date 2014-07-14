@@ -22,7 +22,8 @@ namespace Pastel
 			typename Indicator, 
 			typename NormBijection, 
 			typename CandidateFunctor, 
-			typename SearchAlgorithm_PointKdTree>
+			typename SearchAlgorithm_PointKdTree,
+			typename IntervalSequence>
 		class GenericAlgorithm
 		{
 		private:
@@ -32,6 +33,32 @@ namespace Pastel
 			static PASTEL_CONSTEXPR integer N = Locator::N;
 			PASTEL_FWD(Cursor);
 			PASTEL_FWD(Point_ConstIterator);
+
+			struct State
+			: boost::less_than_comparable<State>
+			{
+				State(
+					const Cursor& cursor_,
+					const Real& distance_,
+					const IntervalSequence& timeIntervalSequence_)
+				: cursor(cursor_)
+				, distance(distance_)
+				, timeIntervalSequence(timeIntervalSequence_)
+				{
+				}
+
+				bool operator<(const State& that) const
+				{
+					return distance < that.distance;
+				}
+
+				Cursor cursor;
+				Real distance;
+				IntervalSequence timeIntervalSequence;
+			};
+
+			typedef typename SearchAlgorithm_PointKdTree::template Instance<State>
+				SearchAlgorithm;
 
 		public:
 			GenericAlgorithm(
@@ -43,7 +70,8 @@ namespace Pastel
 				const Indicator& acceptPoint_,
 				integer bucketSize_,
 				const NormBijection& normBijection_,
-				const CandidateFunctor& candidateFunctor_)
+				const CandidateFunctor& candidateFunctor_,
+				const IntervalSequence& timeIntervalSequence_)
 				: kdTree(kdTree_)
 				, searchPoint(searchPoint_)
 				, searchIter(searchIter_)
@@ -52,6 +80,7 @@ namespace Pastel
 				, acceptPoint(acceptPoint_)
 				, normBijection(normBijection_)
 				, candidateFunctor(candidateFunctor_)
+				, timeIntervalSequence(timeIntervalSequence_)
 				, locator(kdTree_.locator())
 				, protectiveFactor(normBijection.scalingFactor(1.01))
 				, cullDistance(maxDistance_)
@@ -89,22 +118,30 @@ namespace Pastel
 					return;
 				}
 
-				// Start from the root node.
-				algorithm.insertNode(kdTree.root(), rootDistance);
-
-				while(true)
+				IntervalSequence indexSet;
+				for (integer i = 0;i < timeIntervalSequence.size();i += 2)
 				{
-					const KeyValue<Real, Cursor> entry =
-						algorithm.nextNode();
-
-					const Real& distance = entry.key();
-					const Cursor& cursor = entry.value();
-
-					if (!cursor)
-					{
-						break;
-					}
+					indexSet[i] = kdTree.timeToIndex(
+						timeIntervalSequence[i], false);
 					
+					if (i + 1 < timeIntervalSequence.size())
+					{
+						indexSet[i + 1] = kdTree.timeToIndex(
+							timeIntervalSequence[i + 1], true);
+					}
+				}
+
+				// Start from the root node.
+				algorithm.insertNode(
+					State(kdTree.root(), rootDistance, timeIntervalSequence));
+
+				while (algorithm.nodesLeft())
+				{
+					State state = algorithm.nextNode();
+
+					const Real& distance = state.distance;
+					const Cursor& cursor = state.cursor;
+
 					if (distance > nodeCullDistance)
 					{
 						if (algorithm.breakOnCulling())
@@ -118,9 +155,9 @@ namespace Pastel
 					}
 
 					if (cursor.leaf() ||
-						algorithm.shouldSearchSplitNode(cursor, bucketSize))
+						algorithm.shouldSearchSplitNode(state, bucketSize))
 					{
-						searchBruteForce(cursor);
+						searchBruteForce(state);
 					}
 					else
 					{
@@ -201,35 +238,42 @@ namespace Pastel
 						// Queue non-culled child nodes for 
 						// future handling.
 
-						if (leftDistance <= nodeCullDistance && 
-							!algorithm.skipNode(left))
+						IntervalSequence leftSequence;
+						State leftState(left, leftDistance, leftSequence);
+
+						IntervalSequence rightSequence;
+						State rightState(right, rightDistance, rightSequence);
+
+						if (leftDistance <= nodeCullDistance &&
+							!algorithm.skipNode(leftState))
 						{
 							if (rightDistance <= nodeCullDistance && 
-								!algorithm.skipNode(right))
+								!algorithm.skipNode(rightState))
 							{
 								algorithm.insertNodes(
-									left, leftDistance,
-									right, rightDistance);
+									leftState,
+									rightState);
 							}
 							else
 							{
-								algorithm.insertNode(left, leftDistance);
+								algorithm.insertNode(leftState);
 							}
 						}
 						else if (rightDistance <= nodeCullDistance && 
-							!algorithm.skipNode(right))
+							!algorithm.skipNode(rightState))
 						{
-							algorithm.insertNode(right, rightDistance);
+							algorithm.insertNode(rightState);
 						}
 					}
 				}
 			}
 
-			void searchBruteForce(const Cursor& cursor)
+			void searchBruteForce(const State& state)
             {
                 // We are now in a bucket node.
                 // Search through the points in this node.
 
+                Cursor cursor = state.cursor;
                 auto pointSet = cursor.pointSetAsInput();
 
 				Real currentDistance = 0;
@@ -278,6 +322,7 @@ namespace Pastel
 			const Indicator& acceptPoint;
 			const NormBijection& normBijection;
 			const CandidateFunctor& candidateFunctor;
+			const IntervalSequence& timeIntervalSequence;
 			const Locator& locator;
 			
 			Real protectiveFactor;
@@ -286,17 +331,20 @@ namespace Pastel
 			Real nodeCullDistance;  
 			integer dimension;
 			integer bucketSize;
-			SearchAlgorithm_PointKdTree algorithm;
+			SearchAlgorithm algorithm;
 		};
 
 	}
 
 	template <
 		typename KdTree,
-		typename Indicator, typename NormBijection,
-		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
+		typename Indicator, 
+		typename NormBijection,
+		typename CandidateFunctor, 
+		typename SearchAlgorithm_PointKdTree,
 		typename Locator,
 		typename Real,
+		typename IntervalSequence,
 		integer N>
 	void searchNearestAlgorithm(
 		const KdTree& kdTree,
@@ -307,27 +355,39 @@ namespace Pastel
 		integer bucketSize,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor,
-		const SearchAlgorithm_PointKdTree& searchAlgorithm)
+		const SearchAlgorithm_PointKdTree& searchAlgorithm,
+		const IntervalSequence& timeIntervalSequence)
 	{
 		using Cursor = typename KdTree::Cursor;
-		typedef typename SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
-			SearchAlgorithm;
 
-		NearestAlgorithm_::GenericAlgorithm<KdTree, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
-			genericAlgorithm(kdTree, searchPoint, kdTree.end(), maxDistance, maxRelativeError,
-			acceptPoint, bucketSize, normBijection, candidateFunctor);
+		NearestAlgorithm_::GenericAlgorithm<KdTree, Indicator, 
+			NormBijection, CandidateFunctor, SearchAlgorithm_PointKdTree, IntervalSequence>
+			genericAlgorithm(
+				kdTree, 
+				searchPoint, 
+				kdTree.end(), 
+				maxDistance, 
+				maxRelativeError,
+				acceptPoint, 
+				bucketSize, 
+				normBijection, 
+				candidateFunctor,
+				timeIntervalSequence);
 
 		genericAlgorithm.work();
 	}
 
 	template <
 		typename KdTree,
-		typename Indicator, typename NormBijection,
-		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
+		typename Indicator, 
+		typename NormBijection,
+		typename CandidateFunctor, 
+		typename SearchAlgorithm_PointKdTree,
 		typename Locator,
-		typename Real>
+		typename Real,
+		typename IntervalSequence>
 	void searchNearestAlgorithm(
-	const KdTree& kdTree,
+		const KdTree& kdTree,
 		const typename KdTree::Point_ConstIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -335,7 +395,8 @@ namespace Pastel
 		integer bucketSize,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor,
-		const SearchAlgorithm_PointKdTree& searchAlgorithm)
+		const SearchAlgorithm_PointKdTree& searchAlgorithm,
+		const IntervalSequence& timeIntervalSequence)
 	{
 		if (searchIter == kdTree.end())
 		{
@@ -348,15 +409,22 @@ namespace Pastel
 		using Real = typename Locator::Real;
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 
-		typedef typename SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
-			SearchAlgorithm;
-
 		Vector<Real, N> searchPoint =
 			pointAsVector(searchIter->point(), kdTree.locator());
 
-		NearestAlgorithm_::GenericAlgorithm<KdTree, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm>
-			genericAlgorithm(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,
-			acceptPoint, bucketSize, normBijection, candidateFunctor);
+		NearestAlgorithm_::GenericAlgorithm<KdTree, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm_PointKdTree,
+			IntervalSequence>
+			genericAlgorithm(
+				kdTree, 
+				searchPoint, 
+				searchIter, 
+				maxDistance, 
+				maxRelativeError,
+				acceptPoint, 
+				bucketSize, 
+				normBijection, 
+				candidateFunctor,
+				timeIntervalSequence);
 
 		genericAlgorithm.work();
 	}

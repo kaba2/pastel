@@ -44,10 +44,13 @@ namespace Pastel
 	*/
 	template <
 		typename KdTree, 
-		typename Indicator, typename NormBijection, 
-		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
+		typename Indicator, 
+		typename NormBijection, 
+		typename CandidateFunctor, 
+		typename SearchAlgorithm_PointKdTree,
 		typename Locator = typename KdTree::Locator,
 		typename Real = typename Locator::Real,
+		typename IntervalSequence,
 		integer N = Locator::N>
 	void searchNearestAlgorithm(
 		const KdTree& kdTree,
@@ -58,14 +61,18 @@ namespace Pastel
 		integer bucketSize,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor,
-		const SearchAlgorithm_PointKdTree& searchAlgorithm);
+		const SearchAlgorithm_PointKdTree& searchAlgorithm,
+		const IntervalSequence& timeIntervalSequence);
 
 	template <
 		typename KdTree,
-		typename Indicator, typename NormBijection, 
-		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree,
+		typename Indicator, 
+		typename NormBijection, 
+		typename CandidateFunctor, 
+		typename SearchAlgorithm_PointKdTree,
 		typename Locator = typename KdTree::Locator,
-		typename Real = typename Locator::Real>
+		typename Real = typename Locator::Real,
+		typename IntervalSequence>
 	void searchNearestAlgorithm(
 		const KdTree& kdTree,
 		const typename KdTree::Point_ConstIterator& searchIter,
@@ -75,7 +82,8 @@ namespace Pastel
 		integer bucketSize,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor,
-		const SearchAlgorithm_PointKdTree& searchAlgorithm);
+		const SearchAlgorithm_PointKdTree& searchAlgorithm,
+		const IntervalSequence& timeIntervalSequence);
 
 }
 

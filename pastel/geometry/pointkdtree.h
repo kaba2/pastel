@@ -306,6 +306,19 @@ namespace Pastel
 		//! Collapse a subtree into a leaf node.
 		void merge(const Cursor& cursor);
 
+		//! Converts time to a cascading index.
+		/*!
+		This function is solely for compatibility so that
+		the interface is similar enough to the temporal kd-tree
+		for the same nearest neighbor search to work for both.
+		*/
+		integer timeToIndex(
+			const Real& time, 
+			bool includeEqual) const
+		{
+			return 0;
+		}
+
 	private:
 		//! Allocates the root node etc.
 		void initialize();
