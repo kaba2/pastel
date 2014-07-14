@@ -5,5 +5,6 @@
 
 #include "pastel/geometry/halfmesh.h"
 #include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/tdtree.h"
 
 #endif
