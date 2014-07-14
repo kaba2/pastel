@@ -28,6 +28,7 @@ namespace
 		void test()
 		{
 			using Set = BoundedArray<BoundedArray_Settings<integer, 3>>;
+			using RealSet = BoundedArray<BoundedArray_Settings<real, 2>>;
 			Set a;
 			{
 				TEST_ENSURE(a.empty());
@@ -127,6 +128,17 @@ namespace
 
 				TEST_ENSURE_OP(b[0], ==, 1);
 				TEST_ENSURE_OP(b[1], ==, 2);
+			}
+			{
+				RealSet a = { 0.5, 1.5 };
+				Set b(a);
+				RealSet c(b);
+				Set d(b);
+				
+				Set correct = { 0, 1 };
+				TEST_ENSURE(boost::equal(b, correct));
+				TEST_ENSURE(boost::equal(c, correct));
+				TEST_ENSURE(boost::equal(d, correct));
 			}
 		}
 	};
