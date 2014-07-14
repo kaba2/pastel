@@ -5,6 +5,7 @@
 
 #include "pastel/sys/automaton.h"
 #include "pastel/sys/array.h"
+#include "pastel/sys/bounded_array.h"
 #include "pastel/sys/skipfast.h"
 #include "pastel/sys/list.h"
 #include "pastel/sys/hashing.h"

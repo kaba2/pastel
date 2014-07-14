@@ -11,8 +11,10 @@ namespace Pastel
 
 	template <
 		typename KdTree,
-		typename SearchPoint, typename NearestOutput,
-		typename Indicator, typename NormBijection, 
+		typename SearchPoint, 
+		typename NearestOutput,
+		typename Indicator, 
+		typename NormBijection, 
 		typename SearchAlgorithm>
 	class SearchNearest_
 	{

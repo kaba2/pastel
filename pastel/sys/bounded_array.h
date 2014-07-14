@@ -1,5 +1,4 @@
 // Description: Bounded array
-// Documentation: data_structures.txt
 
 #ifndef PASTELSYS_BOUNDED_ARRAY_H
 #define PASTELSYS_BOUNDED_ARRAY_H

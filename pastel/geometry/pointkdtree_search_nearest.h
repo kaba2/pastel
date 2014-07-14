@@ -26,7 +26,7 @@ namespace Pastel
 	The point for which to search a neighbor for.
 	This can be either a Vector<Real, N>, or
 	a Point_ConstIterator of 'kdTree'.
-	
+
 	nearestOutput:
 	A reporter to which the found neighbors 
 	(Point_ConstIterator of 'kdTree') are reported to.
@@ -53,7 +53,7 @@ namespace Pastel
 	is in terms of the used norm bijection.
 	Default: infinity<Real>()
 
-	maxRelativeError (Real>= 0):
+	maxRelativeError (Real >= 0):
 	Maximum allowed relative error in the distance of the  
 	result point to the true nearest neighbor. Allowing error
 	increases performance. Use 0 for exact matches. 
@@ -66,6 +66,12 @@ namespace Pastel
 
 	kNearest (integer > 0):
 	The number of nearest neighbors to search.
+
+	timeInterval (Real min, Real max):
+	Adds the time-interval [min, max) to the set of 
+	time-intervals in which to search. If none is given, 
+	then [-infinity<Real>(), infinity<Real>())
+	is assumed. If min >= max, nothing is done.
 
 	Returns (by implicit conversion)
 	--------------------------------
@@ -88,7 +94,8 @@ namespace Pastel
 		typename NearestOutput = Null_Output,
 		typename Indicator = All_Indicator,
 		typename Locator = typename KdTree::Locator,
-		typename NormBijection = Euclidean_NormBijection<typename Locator::Real>, 
+		typename Real = typename Locator::Real,
+		typename NormBijection = Euclidean_NormBijection<Real>, 
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
 	auto searchNearest(
 		const KdTree& kdTree,

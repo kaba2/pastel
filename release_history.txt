@@ -40,8 +40,9 @@ Release date xx.x.2014
 
 * Added the deterministic skip list.
 * Added the red-black forest.
-* Modernized the doubly-linked list.
+* Added the bounded array.
 * Added the skip-fast trie.
+* Modernized the doubly-linked list.
 * Refactored and fixed bugs in the red-black tree.
 * Added logarithmic splitting and merging into the red-black tree.
 * Added logarithmic quantile searching for the red-black tree.
@@ -80,6 +81,7 @@ Release date xx.x.2014
 #### Data structures
 
 * Added the range tree.
+* Added the temporal kd-tree.
 * Modernized the half-edge structure.
 * Modernized the point kd-tree structure.
 
