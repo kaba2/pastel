@@ -311,14 +311,6 @@ namespace Pastel
 					!xLess(right, left);
 			};
 
-			for (integer i = 0;i < pointSet.size() - 1;++i)
-			{
-				if (multiLess(*pointSet[i + 1], *pointSet[i], orders() - 1))
-				{
-					ASSERT(false);
-				}
-			}
-
 			std::vector<Point_Iterator> sortedSet(pointSet);
 
 			if (depth < orders() - 2)
