@@ -364,7 +364,7 @@ namespace Pastel
 		//! Returns the first point with point->time() >= time.
 		/*!
 		Time complexity:
-		O(1), if simple(),
+		O(1), if simple() or 'time' is not in time-range,
 		O(log(n)), otherwise.
 
 		Exception safety: 
@@ -372,6 +372,25 @@ namespace Pastel
 		*/
 		integer timeToIndex(const Real& time) const
 		{
+			if (pointSet_.empty())
+			{
+				// There are no points.
+				return 0;
+			}
+
+			if (time <= pointSet_.front()->time())
+			{
+				return 0;
+			}
+
+			if (time > pointSet_.back()->time())
+			{
+				return points();
+			}
+
+			// From now on there are at least two points.
+			ASSERT_OP(pointSet_.size(), >=, 2);
+
 			if (!simple())
 			{
 				// The time-coordinates are not simple.
@@ -387,20 +406,6 @@ namespace Pastel
 			}
 
 			// From now on the time-coordinates are simple.
-
-			if (pointSet_.empty())
-			{
-				// There are no points.
-				return 0;
-			}
-
-			if (pointSet_.size() == 1)
-			{
-				// There is only one point.
-				return (time > pointSet_.front()->time());
-			}
-			
-			// There are at least two points.
 
 			integer tBegin = pointSet[0]->time();
 
