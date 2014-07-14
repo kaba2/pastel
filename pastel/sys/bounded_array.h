@@ -41,9 +41,48 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		BoundedArray()
-		: elementSet_()
-		, size_(0)
 		{
+			onConstruct();
+		}
+
+		//! Copy-constructs from another array.
+		/*!
+		Time complexity: O(min(that.size(), maxSize()))
+		Exception safety: strong
+
+		Exactly min(that.size(), maxSize()) elements
+		will be copied.
+		*/
+		BoundedArray(const BoundedArray& that)
+		{
+			integer n = std::min(maxSize(), that.size());
+			for (integer i = 0;i < n;++i)
+			{
+				emplaceBack(that[i]);
+			}
+
+			onConstruct();
+		}
+
+		//! Constructs from another array.
+		/*!
+		Time complexity: O(min(that.size(), maxSize()))
+		Exception safety: strong
+
+		Exactly min(that.size(), maxSize()) elements
+		will be copied.
+		*/
+		template <
+			typename That_Settings, 
+			template <typename> class That_Customization>
+		BoundedArray(const BoundedArray<That_Settings, That_Customization>& that)
+		{
+			integer n = std::min(maxSize(), that.size());
+			for (integer i = 0;i < n;++i)
+			{
+				emplaceBack(that[i]);
+			}
+
 			onConstruct();
 		}
 
@@ -53,8 +92,6 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		BoundedArray(BoundedArray&& that)
-		: elementSet_()
-		, size_(0)
 		{
 			swap(that);
 
@@ -63,7 +100,6 @@ namespace Pastel
 
 		template <typename That_Element>
 		BoundedArray(const std::initializer_list<That_Element>& thatSet)
-		: BoundedArray()
 		{
 			for (auto&& value : thatSet)
 			{
@@ -249,6 +285,16 @@ namespace Pastel
 			return size_;
 		}
 
+		//! Returns the maximum number of possible elements.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer maxSize() const
+		{
+			return N;
+		}
+
 		//! Returns whether the array is full.
 		/*!
 		Time complexity: O(1)
@@ -281,7 +327,7 @@ namespace Pastel
 		}
 
 		char elementSet_[sizeof(Element) * N];
-		integer size_;
+		integer size_ = 0;
 	};
 
 }
