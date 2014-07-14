@@ -14,23 +14,23 @@ namespace Pastel
 	class DepthFirst_SearchAlgorithm_PointKdTree
 	{
 	public:
-		template <typename Real, typename Cursor>
+		template <typename State>
 		class Instance
 		{
 		public:
-			using Entry = KeyValue<Real, Cursor>;
- 
-			Entry nextNode()
+			bool nodesLeft() const
 			{
-				Entry result;
+				return !stateSet_.empty();
+			}
 
-				if (!entrySet_.empty())
-				{
-					result = entrySet_.back();
-					entrySet_.pop_back();
-				}
+			State nextNode()
+			{
+				ASSERT(nodesLeft());
+
+				State state = stateSet_.back();
+				stateSet_.pop_back();
 			
-				return result;
+				return state;
 			}
 
 			bool breakOnCulling() const
@@ -39,40 +39,39 @@ namespace Pastel
 			}
 
 			bool shouldSearchSplitNode(
-				const Cursor& cursor, integer bucketSize) const
+				const State& state, integer bucketSize) const
 			{
-				return cursor.points() <= bucketSize;
+				return state.cursor.points() <= bucketSize;
 			}
 
-			bool skipNode(const Cursor& cursor) const
+			bool skipNode(const State& state) const
 			{
-				return cursor.empty();
+				return state.cursor.empty();
 			}
 
-			void insertNode(
-				const Cursor& cursor, const Real& distance)
+			void insertNode(const State& state)
 			{
-				entrySet_.push_back(keyValue(distance, cursor));
+				stateSet_.emplace_back(state);
 			}
 
 			void insertNodes(
-				const Cursor& left, const Real& leftDistance, 
-				const Cursor& right, const Real& rightDistance)
+				const State& left, 
+				const State& right)
 			{
-				if (leftDistance < rightDistance)
+				if (left.distance < right.distance)
 				{
-					entrySet_.push_back(keyValue(rightDistance, right));
-					entrySet_.push_back(keyValue(leftDistance, left));
+					stateSet_.emplace_back(right);
+					stateSet_.emplace_back(left);
 				}
 				else
 				{
-					entrySet_.push_back(keyValue(leftDistance, left));
-					entrySet_.push_back(keyValue(rightDistance, right));
+					stateSet_.emplace_back(left);
+					stateSet_.emplace_back(right);
 				}
 			}
 
 		private:
-			std::vector<Entry> entrySet_;
+			std::vector<State> stateSet_;
 		};
 	};
 

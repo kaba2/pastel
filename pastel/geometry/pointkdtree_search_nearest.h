@@ -27,6 +27,14 @@ namespace Pastel
 	This can be either a Vector<Real, N>, or
 	a Point_ConstIterator of 'kdTree'.
 
+	timeIntervalSequence:
+	An interval sequence in time. A sequence 
+	(t_1, t_2, t_3, t_4, ...) corresponds to the
+	time-intervals [t_1, t_2), [t_3, t_4), ...
+	If the number of time-instants is odd, then
+	the sequence is implicitly appended 
+	infinity<Real>().
+
 	nearestOutput:
 	A reporter to which the found neighbors 
 	(Point_ConstIterator of 'kdTree') are reported to.
@@ -67,12 +75,6 @@ namespace Pastel
 	kNearest (integer > 0):
 	The number of nearest neighbors to search.
 
-	timeInterval (Real min, Real max):
-	Adds the time-interval [min, max) to the set of 
-	time-intervals in which to search. If none is given, 
-	then [-infinity<Real>(), infinity<Real>())
-	is assumed. If min >= max, nothing is done.
-
 	Returns (by implicit conversion)
 	--------------------------------
 
@@ -96,20 +98,28 @@ namespace Pastel
 		typename Locator = typename KdTree::Locator,
 		typename Real = typename Locator::Real,
 		typename NormBijection = Euclidean_NormBijection<Real>, 
-		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree>
+		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree,
+		typename IntervalSequence = std::array<Real, 0>>
 	auto searchNearest(
 		const KdTree& kdTree,
 		const SearchPoint& searchPoint,
 		const NearestOutput& nearestOutput = NearestOutput(),
 		const Indicator& acceptPoint = Indicator(),
 		const NormBijection& normBijection = NormBijection(),
-		const SearchAlgorithm& searchAlgorithm = SearchAlgorithm())
-		-> SearchNearest_<KdTree, SearchPoint,
-		NearestOutput, Indicator, NormBijection, SearchAlgorithm>
+		const SearchAlgorithm& searchAlgorithm = SearchAlgorithm(),
+		const IntervalSequence& timeIntervalSequence = IntervalSequence())
+		-> SearchNearest_<KdTree, SearchPoint, NearestOutput, 
+		Indicator, NormBijection, SearchAlgorithm, IntervalSequence>
 	{
 		return SearchNearest_<KdTree, SearchPoint, NearestOutput,
-			Indicator, NormBijection, SearchAlgorithm>(kdTree, searchPoint,
-			nearestOutput, acceptPoint, normBijection, searchAlgorithm);
+			Indicator, NormBijection, SearchAlgorithm, IntervalSequence>(
+				kdTree, 
+				searchPoint,
+				nearestOutput, 
+				acceptPoint, 
+				normBijection, 
+				searchAlgorithm,
+				timeIntervalSequence);
 	}
 
 }

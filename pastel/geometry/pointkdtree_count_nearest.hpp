@@ -87,7 +87,7 @@ namespace Pastel
 			searchNearestAlgorithm(
 				kdTree_, searchPoint_, maxDistance_, 0,
 				acceptPoint_, bucketSize_, normBijection_, candidateFunctor,
-				searchAlgorithm_);
+				searchAlgorithm_, std::array<Real, 0>());
 
 			return nearestCount;
 		}

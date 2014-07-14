@@ -15,24 +15,26 @@ namespace Pastel
 	class BestFirst_SearchAlgorithm_PointKdTree
 	{
 	public:
-		template <typename Real, typename Cursor>
+		template <typename State>
 		class Instance
 		{
 		public:
-			using Entry = KeyValue<Real, Cursor>;
-			typedef std::priority_queue<Entry,
-				std::vector<Entry>,
-				std::greater<Entry> > EntrySet;
- 
-			Entry nextNode()
-			{
-				Entry result;
+			typedef std::priority_queue<
+				State,
+				std::vector<State>,
+				std::greater<State>> StateSet;
 
-				if (!entrySet_.empty())
-				{
-					result = entrySet_.top();
-					entrySet_.pop();
-				}
+			bool nodesLeft() const
+			{
+				return !stateSet_.empty();
+			}
+ 
+			State nextNode()
+			{
+				ASSERT(nodesLeft());
+
+				State result = stateSet_.top();
+				stateSet_.pop();
 			
 				return result;
 			}
@@ -43,32 +45,31 @@ namespace Pastel
 			}
 
 			bool shouldSearchSplitNode(
-				const Cursor& cursor, integer bucketSize) const
+				const State& state, integer bucketSize) const
 			{
-				return cursor.points() <= bucketSize;
+				return state.cursor.points() <= bucketSize;
 			}
 
-			bool skipNode(const Cursor& cursor) const
+			bool skipNode(const State& state) const
 			{
-				return cursor.empty();
+				return state.cursor.empty();
 			}
 
-			void insertNode(
-				const Cursor& cursor, const Real& distance)
+			void insertNode(const State& state)
 			{
-				entrySet_.push(keyValue(distance, cursor));
+				stateSet_.push(state);
 			}
 
 			void insertNodes(
-				const Cursor& left, const Real& leftDistance, 
-				const Cursor& right, const Real& rightDistance)
+				const State& left,
+				const State& right)
 			{
-				entrySet_.push(keyValue(leftDistance, left));
-				entrySet_.push(keyValue(rightDistance, right));
+				stateSet_.push(left);
+				stateSet_.push(right);
 			}
 
 		private:
-			EntrySet entrySet_;
+			StateSet stateSet_;
 		};
 	};
 

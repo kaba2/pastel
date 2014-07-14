@@ -3,6 +3,9 @@
 
 #include "pastel/geometry/pointkdtree_search_nearest.h"
 
+#include "pastel/sys/interval.h"
+
+#include <array>
 #include <vector>
 #include <set>
 
@@ -15,7 +18,8 @@ namespace Pastel
 		typename NearestOutput,
 		typename Indicator, 
 		typename NormBijection, 
-		typename SearchAlgorithm>
+		typename SearchAlgorithm,
+		typename IntervalSequence>
 	class SearchNearest_
 	{
 	public:
@@ -35,9 +39,11 @@ namespace Pastel
 			const NearestOutput& nearestOutput,
 			const Indicator& acceptPoint,
 			const NormBijection& normBijection,
-			const SearchAlgorithm& searchAlgorithm)
+			const SearchAlgorithm& searchAlgorithm,
+			const IntervalSequence& intervalSequence)
 			: kdTree_(kdTree)
 			, searchPoint_(searchPoint)
+			, intervalSequence_(intervalSequence)
 			, nearestOutput_(nearestOutput)
 			, acceptPoint_(acceptPoint)
 			, normBijection_(normBijection)
@@ -52,6 +58,7 @@ namespace Pastel
 
 		const KdTree& kdTree_;
 		const SearchPoint& searchPoint_;
+		const IntervalSequence& intervalSequence_;
 		const NearestOutput& nearestOutput_;
 		const Indicator& acceptPoint_;
 		const NormBijection& normBijection_;
@@ -129,11 +136,16 @@ namespace Pastel
 			};
 
 			searchNearestAlgorithm(
-				kdTree_, searchPoint_, 
-				maxDistance_, maxRelativeError_,
-				acceptPoint_, bucketSize_, 
-				normBijection_, candidateFunctor,
-				searchAlgorithm_);
+				kdTree_,
+				searchPoint_,
+				maxDistance_,
+				maxRelativeError_,
+				acceptPoint_,
+				bucketSize_,
+				normBijection_,
+				candidateFunctor,
+				searchAlgorithm_,
+				intervalSequence_);
 
 			for (auto result : candidateSet)
 			{
