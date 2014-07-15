@@ -27,17 +27,63 @@ namespace
 		{
 		}
 
+		using Point = Vector2;
+		using Locator = Vector_Locator<real, 2>;
+		using Tree = TdTree<TdTree_Settings<Locator>>;
+		using ConstIterator = Tree::ConstIterator;
+
 		virtual void run()
 		{
 			test();
+			testLinear();
+		}
+
+		void testLinear()
+		{
+			std::vector<Point> pointSet;
+			integer n = 1000;
+			for (integer i = 0; i < n; ++i)
+			{
+				pointSet.emplace_back(0, i);
+			}
+
+			Tree tree(rangeInput(pointSet));
+
+			auto output = Null_Output();
+			auto accept = All_Indicator();
+			auto norm = Euclidean_NormBijection<real>();
+			auto algorithm = DepthFirst_SearchAlgorithm_PointKdTree();
+			
+			for (integer i = 0; i < n; ++i)
+			{
+				std::array<real, 2> timeInterval = { i, n };
+				KeyValue<real, ConstIterator> nearestPair =
+					searchNearest(tree, Point(0, 0), output, accept,
+					norm, algorithm, timeInterval);
+				TEST_ENSURE((integer)nearestPair.key() == i * i);
+			}
+
+			for (integer i = 0; i < n; ++i)
+			{
+				std::array<real, 2> timeInterval = { 0, i + 1 };
+				KeyValue<real, ConstIterator> nearestPair =
+					searchNearest(tree, Point(0, 0), output, accept,
+					norm, algorithm, timeInterval);
+				TEST_ENSURE((integer)nearestPair.key() == 0);
+			}
+
+			for (integer i = 0; i < n; ++i)
+			{
+				std::array<real, 2> timeInterval = { i, i + 1 };
+				KeyValue<real, ConstIterator> nearestPair =
+					searchNearest(tree, Point(0, 0), output, accept,
+					norm, algorithm, timeInterval);
+				TEST_ENSURE((integer)nearestPair.key() == i * i);
+			}
 		}
 
 		void test()
 		{
-			using Point = Vector2;
-			using Locator = Vector_Locator<real, 2>;
-			using Tree = TdTree<TdTree_Settings<Locator>>;
-
 			{
 				Tree tree;
 				tree.clear();
@@ -55,7 +101,6 @@ namespace
 				});
 
 				Tree tree(rangeInput(pointSet));
-				using ConstIterator = Tree::ConstIterator;
 
 				std::vector<ConstIterator> neighborSet;
 
