@@ -87,10 +87,14 @@ namespace Pastel
 
 		// FIX: Replace with decltype(auto) after Visual Studio 2013
 		// fixes its bugs.
-		B_Input pointSetAsInput() const
+		B_Input pointSetAsInput(integer min, integer max) const
 		{
+			Entry_ConstRange fullRange = node_->entryRange();
+			Entry_ConstRange subRange = 
+				range(std::begin(fullRange) + min, std::begin(fullRange) + max);
+
 			return transformInput(
-				rangeInput(node_->entryRange()),
+				rangeInput(subRange),
 				EntryAsPoint());
 		}
 
@@ -146,6 +150,16 @@ namespace Pastel
 		{
 			PENSURE(node_);
 			return node_->prevMax();
+		}
+
+		// Fractional cascading
+
+		integer cascade(integer index, bool right) const
+		{
+			ASSERT_OP(index, >=, 0);
+			ASSERT_OP(index, <=, node_->points());
+
+			return node_->entryRange()[index].cascade(right);
 		}
 
 		// FIX: This should be private!

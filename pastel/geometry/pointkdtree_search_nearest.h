@@ -99,7 +99,7 @@ namespace Pastel
 		typename Real = typename Locator::Real,
 		typename NormBijection = Euclidean_NormBijection<Real>, 
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree,
-		typename IntervalSequence = std::array<Real, 0>>
+		typename IntervalSequence = std::array<Real, 2>>
 	auto searchNearest(
 		const KdTree& kdTree,
 		const SearchPoint& searchPoint,
@@ -107,7 +107,7 @@ namespace Pastel
 		const Indicator& acceptPoint = Indicator(),
 		const NormBijection& normBijection = NormBijection(),
 		const SearchAlgorithm& searchAlgorithm = SearchAlgorithm(),
-		const IntervalSequence& timeIntervalSequence = IntervalSequence())
+		const IntervalSequence& timeIntervalSequence = IntervalSequence({-infinity<Real>(), infinity<Real>()}))
 		-> SearchNearest_<KdTree, SearchPoint, NearestOutput, 
 		Indicator, NormBijection, SearchAlgorithm, IntervalSequence>
 	{
