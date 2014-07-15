@@ -141,6 +141,7 @@ namespace Pastel
 
 					const Real& distance = state.distance;
 					const Cursor& cursor = state.cursor;
+					const IntervalSequence& intervalSequence = state.timeIntervalSequence;
 
 					if (distance > nodeCullDistance)
 					{
@@ -239,9 +240,14 @@ namespace Pastel
 						// future handling.
 
 						IntervalSequence leftSequence;
-						State leftState(left, leftDistance, leftSequence);
-
 						IntervalSequence rightSequence;
+						for (integer i = 0;i < intervalSequence.size();++i)
+						{
+							leftSequence[i] = cursor.cascade(intervalSequence[i], false);
+							rightSequence[i] = cursor.cascade(intervalSequence[i], true);
+						}
+
+						State leftState(left, leftDistance, leftSequence);
 						State rightState(right, rightDistance, rightSequence);
 
 						if (leftDistance <= nodeCullDistance &&
@@ -274,44 +280,53 @@ namespace Pastel
                 // Search through the points in this node.
 
                 Cursor cursor = state.cursor;
-                auto pointSet = cursor.pointSetAsInput();
+				const IntervalSequence& intervalSequence = state.timeIntervalSequence;
 
-				Real currentDistance = 0;
-                while(!pointSet.empty())
-                {
-					auto keepGoing = [&](const Real& that)
+				for (integer i = 0; i < intervalSequence.size(); i += 2)
+				{
+					integer tMin = intervalSequence[i];
+					integer tMax = (i + 1) < intervalSequence.size() ? 
+						intervalSequence[i + 1] : cursor.points();
+
+					auto pointSet = cursor.pointSetAsInput(tMin, tMax);
+
+					Real currentDistance = 0;
+					while (!pointSet.empty())
 					{
-						return that < cullDistance;
-					};
+						auto keepGoing = [&](const Real& that)
+						{
+							return that < cullDistance;
+						};
 
-					Point_ConstIterator iter = pointSet.get();
-					pointSet.pop();
+						Point_ConstIterator iter = pointSet.get();
+						pointSet.pop();
 
-                    currentDistance = distance2(
-                        iter->point(),
-                        searchPoint,
-                        normBijection, 
-						locator,
-						Vector_Locator<Real, N>(dimension),
-						keepGoing);
+						currentDistance = distance2(
+							iter->point(),
+							searchPoint,
+							normBijection,
+							locator,
+							Vector_Locator<Real, N>(dimension),
+							keepGoing);
 
-					// Remember that we are using an open search ball.
-					// Here it is enforced again.
-                    if (currentDistance < cullDistance && acceptPoint(iter))
-                    {
-						// Note that if there are multiple points at the same 
-						// distance, then the points after the first should _not_
-						// be culled away. We attempt to deal with this
-						// by expanding the culling radius by a protective factor.
-                        Real cullSuggestion = 
-							candidateFunctor(currentDistance, iter) * protectiveFactor;
-                        if (cullSuggestion < cullDistance)
-                        {
-							cullDistance = cullSuggestion;
-							nodeCullDistance = cullDistance * errorFactor;
-                        }
-                    }
-                }
+						// Remember that we are using an open search ball.
+						// Here it is enforced again.
+						if (currentDistance < cullDistance && acceptPoint(iter))
+						{
+							// Note that if there are multiple points at the same 
+							// distance, then the points after the first should _not_
+							// be culled away. We attempt to deal with this
+							// by expanding the culling radius by a protective factor.
+							Real cullSuggestion =
+								candidateFunctor(currentDistance, iter) * protectiveFactor;
+							if (cullSuggestion < cullDistance)
+							{
+								cullDistance = cullSuggestion;
+								nodeCullDistance = cullDistance * errorFactor;
+							}
+						}
+					}
+				}
             }
 
 			const KdTree& kdTree;

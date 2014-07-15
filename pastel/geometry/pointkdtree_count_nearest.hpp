@@ -84,10 +84,13 @@ namespace Pastel
 				return infinity<Real>();
 			};
 
+
+			std::array<Real, 2> intervalSequence = { -infinity<Real>(), infinity<Real>() };
+
 			searchNearestAlgorithm(
 				kdTree_, searchPoint_, maxDistance_, 0,
 				acceptPoint_, bucketSize_, normBijection_, candidateFunctor,
-				searchAlgorithm_, std::array<Real, 0>());
+				searchAlgorithm_, intervalSequence);
 
 			return nearestCount;
 		}

@@ -78,8 +78,12 @@ namespace Pastel
 
 		// FIX: Replace with decltype(auto) after
 		// Visual Studio 2013 fixes its bugs.
-		A_Input pointSetAsInput() const
+		A_Input pointSetAsInput(integer min, integer max) const
 		{
+			// The 'tMin' and 'tMin' are present only for the
+			// TdTree and PointKdTree to have similar interfaces.
+			// The PointKdTree does not support temporal queries.
+
 			return rangeInput(Pastel::range(
 				countingIterator(begin()), 
 				countingIterator(end())));
@@ -167,6 +171,18 @@ namespace Pastel
 		{
 			PENSURE(node_);
 			return node_->prevMax();
+		}
+
+		// Fractional cascading
+
+		integer cascade(integer index, bool right) const
+		{
+			// This is just for compatible interfaces,
+			// so that the same nearest neighbors search
+			// works for both TdTree and PointKdTree.
+			// The PointKdTree does not support temporal
+			// searches.
+			return 0;
 		}
 
 		// FIX: This should be private!
