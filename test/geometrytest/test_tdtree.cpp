@@ -74,7 +74,7 @@ namespace
 
 			for (integer i = 0; i < n; ++i)
 			{
-				std::array<real, 2> timeInterval = { i, i + 1 };
+				std::vector<real> timeInterval = { (real)i, (real)i + 1 };
 				KeyValue<real, ConstIterator> nearestPair =
 					searchNearest(tree, Point(0, 0), output, accept,
 					norm, algorithm, timeInterval);
