@@ -118,7 +118,7 @@ namespace Pastel
 					return;
 				}
 
-				IntervalSequence indexSet;
+				IntervalSequence indexSet(timeIntervalSequence);
 				for (integer i = 0;i < timeIntervalSequence.size();i += 2)
 				{
 					indexSet[i] = kdTree.timeToIndex(
@@ -239,8 +239,8 @@ namespace Pastel
 						// Queue non-culled child nodes for 
 						// future handling.
 
-						IntervalSequence leftSequence;
-						IntervalSequence rightSequence;
+						IntervalSequence leftSequence(intervalSequence);
+						IntervalSequence rightSequence(intervalSequence);
 						for (integer i = 0;i < intervalSequence.size();++i)
 						{
 							leftSequence[i] = cursor.cascade(intervalSequence[i], false);
