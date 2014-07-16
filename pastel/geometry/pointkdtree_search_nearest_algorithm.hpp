@@ -17,6 +17,18 @@ namespace Pastel
 	namespace NearestAlgorithm_
 	{
 
+		template <typename IntervalSequence>
+		class ToIndexSequence
+		{
+		};
+
+		template <typename Type, int N>
+		class ToIndexSequence<Vector<Type, N>>
+		{
+		public:
+			using type = Vector<integer, N>;
+		};
+
 		template <
 			typename KdTree,
 			typename Indicator, 
@@ -34,16 +46,19 @@ namespace Pastel
 			PASTEL_FWD(Cursor);
 			PASTEL_FWD(Point_ConstIterator);
 
+			using IndexSequence = 
+				typename ToIndexSequence<IntervalSequence>::type;
+
 			struct State
 			: boost::less_than_comparable<State>
 			{
 				State(
 					const Cursor& cursor_,
 					const Real& distance_,
-					const IntervalSequence& timeIntervalSequence_)
+					const IndexSequence& indexSequence_)
 				: cursor(cursor_)
 				, distance(distance_)
-				, timeIntervalSequence(timeIntervalSequence_)
+				, indexSequence(indexSequence_)
 				{
 				}
 
@@ -54,7 +69,7 @@ namespace Pastel
 
 				Cursor cursor;
 				Real distance;
-				IntervalSequence timeIntervalSequence;
+				IndexSequence indexSequence;
 			};
 
 			typedef typename SearchAlgorithm_PointKdTree::template Instance<State>
@@ -118,22 +133,22 @@ namespace Pastel
 					return;
 				}
 
-				IntervalSequence indexSet(timeIntervalSequence);
+				IndexSequence indexSequence(timeIntervalSequence);
 				for (integer i = 0;i < timeIntervalSequence.size();i += 2)
 				{
-					indexSet[i] = kdTree.timeToIndex(
-						timeIntervalSequence[i], false);
+					indexSequence[i] = kdTree.timeToIndex(
+						timeIntervalSequence[i]);
 					
 					if (i + 1 < timeIntervalSequence.size())
 					{
-						indexSet[i + 1] = kdTree.timeToIndex(
-							timeIntervalSequence[i + 1], true);
+						indexSequence[i + 1] = kdTree.timeToIndex(
+							timeIntervalSequence[i + 1]);
 					}
 				}
 
 				// Start from the root node.
 				algorithm.insertNode(
-					State(kdTree.root(), rootDistance, timeIntervalSequence));
+					State(kdTree.root(), rootDistance, indexSequence));
 
 				while (algorithm.nodesLeft())
 				{
@@ -141,7 +156,7 @@ namespace Pastel
 
 					const Real& distance = state.distance;
 					const Cursor& cursor = state.cursor;
-					const IntervalSequence& intervalSequence = state.timeIntervalSequence;
+					const IndexSequence& intervalSequence = state.indexSequence;
 
 					if (distance > nodeCullDistance)
 					{
@@ -239,8 +254,8 @@ namespace Pastel
 						// Queue non-culled child nodes for 
 						// future handling.
 
-						IntervalSequence leftSequence(intervalSequence);
-						IntervalSequence rightSequence(intervalSequence);
+						IndexSequence leftSequence(intervalSequence);
+						IndexSequence rightSequence(intervalSequence);
 						for (integer i = 0;i < intervalSequence.size();++i)
 						{
 							leftSequence[i] = cursor.cascade(intervalSequence[i], false);
@@ -280,13 +295,13 @@ namespace Pastel
                 // Search through the points in this node.
 
                 Cursor cursor = state.cursor;
-				const IntervalSequence& intervalSequence = state.timeIntervalSequence;
+				const IndexSequence& indexSequence = state.indexSequence;
 
-				for (integer i = 0; i < intervalSequence.size(); i += 2)
+				for (integer i = 0; i < indexSequence.size(); i += 2)
 				{
-					integer tMin = intervalSequence[i];
-					integer tMax = (i + 1) < intervalSequence.size() ? 
-						intervalSequence[i + 1] : cursor.points();
+					integer tMin = indexSequence[i];
+					integer tMax = (i + 1) < indexSequence.size() ?
+						indexSequence[i + 1] : cursor.points();
 
 					auto pointSet = cursor.pointSetAsInput(tMin, tMax);
 

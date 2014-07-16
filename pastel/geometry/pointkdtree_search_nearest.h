@@ -99,7 +99,7 @@ namespace Pastel
 		typename Real = typename Locator::Real,
 		typename NormBijection = Euclidean_NormBijection<Real>, 
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree,
-		typename IntervalSequence = std::array<Real, 2>>
+		typename IntervalSequence = Vector<Real, 2>>
 	auto searchNearest(
 		const KdTree& kdTree,
 		const SearchPoint& searchPoint,
