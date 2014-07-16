@@ -299,11 +299,11 @@ namespace Pastel
 
 				for (integer i = 0; i < indexSequence.size(); i += 2)
 				{
-					integer tMin = indexSequence[i];
-					integer tMax = (i + 1) < indexSequence.size() ?
+					integer indexMin = indexSequence[i];
+					integer indexMax = (i + 1) < indexSequence.size() ?
 						indexSequence[i + 1] : cursor.points();
 
-					auto pointSet = cursor.pointSetAsInput(tMin, tMax);
+					auto pointSet = cursor.pointSetAsInput(indexMin, indexMax);
 
 					Real currentDistance = 0;
 					while (!pointSet.empty())
