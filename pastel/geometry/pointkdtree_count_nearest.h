@@ -76,20 +76,24 @@ namespace Pastel
 		typename SearchPoint,
 		typename Indicator = All_Indicator,
 		typename Locator = typename Settings::Locator,
-		typename NormBijection = Euclidean_NormBijection<typename Locator::Real>, 
-		typename SearchAlgorithm_PointKdTree = DepthFirst_SearchAlgorithm_PointKdTree>
+		typename Real = typename Locator::Real,
+		typename NormBijection = Euclidean_NormBijection<Real>, 
+		typename SearchAlgorithm_PointKdTree = DepthFirst_SearchAlgorithm_PointKdTree,
+		typename IntervalSequence = Vector<Real, 2>>
 	auto countNearest(
 		const PointKdTree<Settings, Customization>& kdTree,
 		const SearchPoint& searchPoint,
 		const Indicator& acceptPoint = Indicator(),
 		const NormBijection& normBijection = NormBijection(),
-		const SearchAlgorithm_PointKdTree& searchAlgorithm = SearchAlgorithm_PointKdTree())
+		const SearchAlgorithm_PointKdTree& searchAlgorithm = SearchAlgorithm_PointKdTree(),
+		const IntervalSequence& intervalSequence = IntervalSequence({-infinity<Real>(), infinity<Real>()}))
 		-> 	CountNearest_<Settings, Customization, SearchPoint, 
-		Indicator, NormBijection, SearchAlgorithm_PointKdTree>
+		Indicator, NormBijection, SearchAlgorithm_PointKdTree, IntervalSequence>
 	{
 		return CountNearest_<Settings, Customization, SearchPoint, Indicator, 
-			NormBijection, SearchAlgorithm_PointKdTree>(kdTree, searchPoint, acceptPoint,
-			normBijection, searchAlgorithm);
+			NormBijection, SearchAlgorithm_PointKdTree, IntervalSequence>(
+				kdTree, searchPoint, acceptPoint, normBijection, 
+				searchAlgorithm, intervalSequence);
 	}
 
 }
