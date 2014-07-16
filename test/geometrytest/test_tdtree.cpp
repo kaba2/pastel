@@ -48,6 +48,7 @@ namespace
 			}
 
 			Tree tree(rangeInput(pointSet));
+			TEST_ENSURE(tree.simple());
 
 			auto output = Null_Output();
 			auto accept = All_Indicator();
@@ -56,29 +57,27 @@ namespace
 			
 			for (integer i = 0; i < n; ++i)
 			{
-				Vector2 timeInterval = { (real)i, (real)n };
-				KeyValue<real, ConstIterator> nearestPair =
-					searchNearest(tree, Point(0, 0), output, accept,
-					norm, algorithm, timeInterval);
-				TEST_ENSURE((integer)nearestPair.key() == square(i));
-			}
-
-			for (integer i = 0; i < n; ++i)
-			{
-				Vector2 timeInterval = { (real)0, (real)i + 1 };
-				KeyValue<real, ConstIterator> nearestPair =
-					searchNearest(tree, Point(0, 0), output, accept,
-					norm, algorithm, timeInterval);
-				TEST_ENSURE((integer)nearestPair.key() == 0);
-			}
-
-			for (integer i = 0; i < n; ++i)
-			{
-				Vector2 timeInterval = { (real)i, (real)i + 1 };
-				KeyValue<real, ConstIterator> nearestPair =
-					searchNearest(tree, Point(0, 0), output, accept,
-					norm, algorithm, timeInterval);
-				TEST_ENSURE((integer)nearestPair.key() == square(i));
+				{
+					Vector2 timeInterval = { (real)i, (real)n };
+					integer distance =
+						searchNearest(tree, Point(0, 0), output, accept,
+						norm, algorithm, timeInterval);
+					TEST_ENSURE_OP(distance, ==, square(i));
+				}
+				{
+					Vector2 timeInterval = { (real)0, (real)i + 1 };
+					integer distance =
+						searchNearest(tree, Point(0, 0), output, accept,
+						norm, algorithm, timeInterval);
+					TEST_ENSURE_OP(distance, ==, 0);
+				}
+				{
+					Vector2 timeInterval = { (real)i, (real)i + 1 };
+					integer distance =
+						searchNearest(tree, Point(0, 0), output, accept,
+						norm, algorithm, timeInterval);
+					TEST_ENSURE_OP(distance, ==, square(i));
+				}
 			}
 
 			for (integer i = 0; i < n; ++i)
@@ -124,7 +123,11 @@ namespace
 		{
 			{
 				Tree tree;
+				TEST_ENSURE(tree.simple());
+
 				tree.clear();
+				TEST_ENSURE(tree.simple());
+
 				tree.swap(Tree());
 			}
 
@@ -139,7 +142,8 @@ namespace
 				});
 
 				Tree tree(rangeInput(pointSet));
-
+				TEST_ENSURE(tree.simple());
+					
 				TEST_ENSURE_OP(tree.timeToIndex(-infinity<real>()), ==, 0);
 				TEST_ENSURE_OP(tree.timeToIndex(-2), ==, 0);
 				TEST_ENSURE_OP(tree.timeToIndex(-1), ==, 0);
@@ -147,6 +151,11 @@ namespace
 				TEST_ENSURE_OP(tree.timeToIndex(0), ==, 0);
 				TEST_ENSURE_OP(tree.timeToIndex(0.5), ==, 1);
 				TEST_ENSURE_OP(tree.timeToIndex(1), ==, 1);
+				TEST_ENSURE_OP(tree.timeToIndex(24), ==, 24);
+				TEST_ENSURE_OP(tree.timeToIndex(24.5), ==, 25);
+				TEST_ENSURE_OP(tree.timeToIndex(25.5), ==, 25);
+				TEST_ENSURE_OP(tree.timeToIndex(26), ==, 25);
+				TEST_ENSURE_OP(tree.timeToIndex(infinity<real>()), ==, 25);
 
 				std::vector<ConstIterator> neighborSet;
 

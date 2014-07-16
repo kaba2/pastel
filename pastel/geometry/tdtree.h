@@ -63,7 +63,7 @@ namespace Pastel
 		, root_(end_.get())
 		, pointSet_()
 		, locator_()
-		, simple_(false)
+		, simple_(true)
 		{
 		}
 
@@ -208,7 +208,7 @@ namespace Pastel
 			clear(root_);
 			root_ = end_.get();
 			pointSet_.clear();
-			simple_ = false;
+			simple_ = true;
 		}
 
 		//! Returns whether the tree is empty.
