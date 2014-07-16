@@ -312,9 +312,7 @@ namespace Pastel
 		the interface is similar enough to the temporal kd-tree
 		for the same nearest neighbor search to work for both.
 		*/
-		integer timeToIndex(
-			const Real& time, 
-			bool includeEqual) const
+		integer timeToIndex(const Real& time) const
 		{
 			return 0;
 		}

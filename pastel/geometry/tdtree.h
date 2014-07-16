@@ -324,9 +324,7 @@ namespace Pastel
 		Exception safety: 
 		nothrow
 		*/
-		integer timeToIndex(
-			const Real& time, 
-			bool includeEqual) const
+		integer timeToIndex(const Real& time) const
 		{
 			if (pointSet_.empty())
 			{
@@ -334,14 +332,12 @@ namespace Pastel
 				return 0;
 			}
 
-			if (time < pointSet_.front().time() ||
-				(includeEqual && time == pointSet_.front().time()))
+			if (time <= pointSet_.front().time())
 			{
 				return 0;
 			}
 
-			if (time > pointSet_.back().time() ||
-				(!includeEqual && time == pointSet_.back().time()))
+			if (time > pointSet_.back().time())
 			{
 				return points();
 			}
@@ -355,24 +351,12 @@ namespace Pastel
 				// We need to do a binary search  to convert 
 				// time to a fractional cascading index.
 
-				if (includeEqual)
+				auto indicator = [&](integer i)
 				{
-					auto indicator = [&](integer i)
-					{
-						return pointSet_[i].time() >= time;
-					};
+					return pointSet_[i].time() >= time;
+				};
 
-					return binarySearch((integer)0, points(), indicator);
-				}
-				else
-				{
-					auto indicator = [&](integer i)
-					{
-						return pointSet_[i].time() > time;
-					};
-
-					return binarySearch((integer)0, points(), indicator);
-				}
+				return binarySearch((integer)0, points(), indicator);
 			}
 
 			// From now on the time-coordinates are simple.
@@ -384,10 +368,6 @@ namespace Pastel
 			// a constant among all subsequent point-pairs.
 			integer tDelta = pointSet_[1].time() - tBegin;
 
-			// Round up any fractional time; by simplicity
-			// all time-coordinates are integral.
-			integer tTime = std::ceil(time);
-
 			// By simplicity, it holds that
 			// pointSet_[i]->time() == tDelta i + tBegin.
 
@@ -396,14 +376,7 @@ namespace Pastel
 
 			// For a general time-point, round up to the 
 			// next integer.
-			integer index = divideAndRoundUp(tTime - tBegin, tDelta);
-			if (pointSet_[index].time() == tTime &&
-				!includeEqual)
-			{
-				++index;
-			}
-
-			return index;
+			return std::ceil((time - tBegin) / tDelta);
 		}
 
 	private:

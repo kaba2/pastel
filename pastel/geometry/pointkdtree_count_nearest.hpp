@@ -85,7 +85,7 @@ namespace Pastel
 			};
 
 
-			std::array<Real, 2> intervalSequence = { -infinity<Real>(), infinity<Real>() };
+			Vector<Real, 2> intervalSequence = { -infinity<Real>(), infinity<Real>() };
 
 			searchNearestAlgorithm(
 				kdTree_, searchPoint_, maxDistance_, 0,

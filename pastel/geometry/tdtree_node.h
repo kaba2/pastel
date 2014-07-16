@@ -63,13 +63,18 @@ namespace Pastel
 		{
 			return Pastel::range(
 				entrySet_.begin(), 
-				std::prev(entrySet_.end()));
+				entrySet_.end());
 		}
 
 		//! Returns the number of stored points.
+		integer entries() const
+		{
+			return entrySet_.size();
+		}
+
 		integer points() const
 		{
-			return entrySet_.size() - 1;
+			return entries() - 1;
 		}
 
 		const Real& min() const

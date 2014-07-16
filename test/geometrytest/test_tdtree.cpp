@@ -44,7 +44,7 @@ namespace
 			integer n = 1000;
 			for (integer i = 0; i < n; ++i)
 			{
-				pointSet.emplace_back(0, i);
+				pointSet.emplace_back(i, 0);
 			}
 
 			Tree tree(rangeInput(pointSet));
@@ -56,16 +56,16 @@ namespace
 			
 			for (integer i = 0; i < n; ++i)
 			{
-				std::array<real, 2> timeInterval = { i, n };
+				Vector2 timeInterval = { (real)i, (real)n };
 				KeyValue<real, ConstIterator> nearestPair =
 					searchNearest(tree, Point(0, 0), output, accept,
 					norm, algorithm, timeInterval);
-				TEST_ENSURE((integer)nearestPair.key() == i * i);
+				TEST_ENSURE((integer)nearestPair.key() == square(i));
 			}
 
 			for (integer i = 0; i < n; ++i)
 			{
-				std::array<real, 2> timeInterval = { 0, i + 1 };
+				Vector2 timeInterval = { (real)0, (real)i + 1 };
 				KeyValue<real, ConstIterator> nearestPair =
 					searchNearest(tree, Point(0, 0), output, accept,
 					norm, algorithm, timeInterval);
@@ -74,11 +74,20 @@ namespace
 
 			for (integer i = 0; i < n; ++i)
 			{
-				std::vector<real> timeInterval = { (real)i, (real)i + 1 };
+				Vector2 timeInterval = { (real)i, (real)i + 1 };
 				KeyValue<real, ConstIterator> nearestPair =
 					searchNearest(tree, Point(0, 0), output, accept,
 					norm, algorithm, timeInterval);
-				TEST_ENSURE((integer)nearestPair.key() == i * i);
+				TEST_ENSURE((integer)nearestPair.key() == square(i));
+			}
+
+			for (integer i = 0; i < n; ++i)
+			{
+				Vector4 timeInterval = { (real)i, (real)i + 1, (real)i + 5, (real)i + 6 };
+				KeyValue<real, ConstIterator> nearestPair =
+					searchNearest(tree, Point(i + 2, 0), output, accept,
+					norm, algorithm, timeInterval);
+				TEST_ENSURE_OP((integer)nearestPair.key(), ==, square(2));
 			}
 		}
 
@@ -101,6 +110,14 @@ namespace
 				});
 
 				Tree tree(rangeInput(pointSet));
+
+				TEST_ENSURE_OP(tree.timeToIndex(-infinity<real>()), ==, 0);
+				TEST_ENSURE_OP(tree.timeToIndex(-2), ==, 0);
+				TEST_ENSURE_OP(tree.timeToIndex(-1), ==, 0);
+				TEST_ENSURE_OP(tree.timeToIndex(-0.5), ==, 0);
+				TEST_ENSURE_OP(tree.timeToIndex(0), ==, 0);
+				TEST_ENSURE_OP(tree.timeToIndex(0.5), ==, 1);
+				TEST_ENSURE_OP(tree.timeToIndex(1), ==, 1);
 
 				std::vector<ConstIterator> neighborSet;
 

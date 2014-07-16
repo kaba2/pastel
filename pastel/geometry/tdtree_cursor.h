@@ -157,7 +157,7 @@ namespace Pastel
 		integer cascade(integer index, bool right) const
 		{
 			ASSERT_OP(index, >=, 0);
-			ASSERT_OP(index, <=, node_->points());
+			ASSERT_OP(index, <=, node_->entries());
 
 			return node_->entryRange()[index].cascade(right);
 		}
