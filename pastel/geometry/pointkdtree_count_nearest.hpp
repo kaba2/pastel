@@ -13,7 +13,8 @@ namespace Pastel
 	template <
 		typename Settings, template <typename> class Customization, 
 		typename SearchPoint, typename Indicator, 
-		typename NormBijection, typename SearchAlgorithm>
+		typename NormBijection, typename SearchAlgorithm,
+		typename IntervalSequence>
 	class CountNearest_
 	{
 	public:
@@ -31,12 +32,14 @@ namespace Pastel
 			const SearchPoint& searchPoint,
 			const Indicator& acceptPoint,
 			const NormBijection& normBijection,
-			const SearchAlgorithm& searchAlgorithm)
+			const SearchAlgorithm& searchAlgorithm,
+			const IntervalSequence& intervalSequence)
 			: kdTree_(kdTree)
 			, searchPoint_(searchPoint)
 			, acceptPoint_(acceptPoint)
 			, normBijection_(normBijection)
 			, searchAlgorithm_(searchAlgorithm)
+			, intervalSequence_(intervalSequence)
 			, maxDistance_(infinity<Real>())
 			, maxRelativeError_(0)
 			, bucketSize_(16)
@@ -48,6 +51,7 @@ namespace Pastel
 		const Indicator& acceptPoint_;
 		const NormBijection& normBijection_;
 		const SearchAlgorithm& searchAlgorithm_;
+		const IntervalSequence& intervalSequence_;
 
 		PASTEL_PARAMETER(Real, maxDistance);
 		PASTEL_PARAMETER(Real, maxRelativeError);
@@ -84,13 +88,10 @@ namespace Pastel
 				return infinity<Real>();
 			};
 
-
-			Vector<Real, 2> intervalSequence = { -infinity<Real>(), infinity<Real>() };
-
 			searchNearestAlgorithm(
 				kdTree_, searchPoint_, maxDistance_, 0,
 				acceptPoint_, bucketSize_, normBijection_, candidateFunctor,
-				searchAlgorithm_, intervalSequence);
+				searchAlgorithm_, intervalSequence_);
 
 			return nearestCount;
 		}
