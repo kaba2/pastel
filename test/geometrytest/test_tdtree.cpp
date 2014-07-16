@@ -84,10 +84,39 @@ namespace
 			for (integer i = 0; i < n; ++i)
 			{
 				Vector4 timeInterval = { (real)i, (real)i + 1, (real)i + 5, (real)i + 6 };
-				KeyValue<real, ConstIterator> nearestPair =
-					searchNearest(tree, Point(i + 2, 0), output, accept,
-					norm, algorithm, timeInterval);
-				TEST_ENSURE_OP((integer)nearestPair.key(), ==, square(2));
+				{
+					real distance =
+						searchNearest(tree, Point(i + 2, 0), output, accept,
+						norm, algorithm, timeInterval);
+
+					TEST_ENSURE_OP((integer)distance, ==, square(2));
+				}
+
+				{
+					real distance =
+						searchNearest(tree, Point(i - 3, 0), output, accept,
+						norm, algorithm, timeInterval);
+
+					TEST_ENSURE_OP((integer)distance, ==, square(3));
+				}
+
+				{
+					real distance =
+						searchNearest(tree, Point(i + 4, 0), output, accept,
+						norm, algorithm, timeInterval);
+					integer correct = i < (n - 5) ? square(1) : square(4);
+
+					TEST_ENSURE_OP((integer)distance, ==, correct);
+				}
+
+				{
+					real distance =
+						searchNearest(tree, Point(i + 7, 0), output, accept,
+						norm, algorithm, timeInterval);
+					integer correct = i < (n - 5) ? square(2) : square(7);
+
+					TEST_ENSURE_OP((integer)distance, ==, correct);
+				}
 			}
 		}
 
@@ -130,10 +159,12 @@ namespace
 
 				searchNearest(tree, Point(1, 3), report).kNearest(5);
 
+				/*
 				for (auto&& point : neighborSet)
 				{
 					std::cout << point->point() << std::endl;
 				}
+				*/
 			}
 		}
 	};
