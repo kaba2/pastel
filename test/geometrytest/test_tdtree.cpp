@@ -6,14 +6,18 @@
 #include "pastel/geometry/tdtree.h"
 
 #include "pastel/geometry/pointkdtree_search_nearest.h"
+#include "pastel/geometry/search_all_neighbors_bruteforce.h"
+#include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/sys/locators.h"
 #include "pastel/sys/inputs.h"
 #include "pastel/sys/outputs.h"
 #include "pastel/sys/for_each_point.h"
+#include "pastel/sys/random_gaussian.h"
+#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/constant_iterator.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {
@@ -36,6 +40,50 @@ namespace
 		{
 			test();
 			testLinear();
+			testGaussian();
+		}
+
+		void testGaussian()
+		{
+			using Point = Vector3;
+			using Locator = Vector_Locator<real, 3>;
+			using Tree = TdTree<TdTree_Settings<Locator>>;
+			using ConstIterator = Tree::ConstIterator;
+
+			using PointSet = std::vector<Point>;
+			
+			integer n = 1000;
+			
+			PointSet pointSet;
+			pointSet.reserve(n);
+
+			using Point_Iterator = PointSet::iterator;
+
+			for (integer i = 0; i < n; ++i)
+			{
+				pointSet.emplace_back(
+					randomGaussianVector<real, 3>());
+			}
+			
+			Tree tree(rangeInput(pointSet));
+
+			Array<Point_Iterator, 2> nearestSet(
+				Vector2i(1, n));
+
+			searchAllNeighborsBruteForce(
+				pointSet,
+				Locator(),
+				nearestSet,
+				countingRange(pointSet),
+				1,
+				constantRange(infinity<real>(), boost::size(pointSet)));
+
+			std::vector<real> distanceSet;
+			distanceSet.reserve(n);
+			for (integer i = 0; i < n; ++i)
+			{
+				distanceSet.emplace_back(distance2(*nearestSet(i), pointSet[i]));
+			}
 		}
 
 		void testLinear()
@@ -167,13 +215,6 @@ namespace
 				};
 
 				searchNearest(tree, Point(1, 3), report).kNearest(5);
-
-				/*
-				for (auto&& point : neighborSet)
-				{
-					std::cout << point->point() << std::endl;
-				}
-				*/
 			}
 		}
 	};
