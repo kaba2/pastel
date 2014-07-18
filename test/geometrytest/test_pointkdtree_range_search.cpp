@@ -7,7 +7,6 @@
 #include <pastel/geometry/pointkdtree_search_range.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

@@ -6,7 +6,6 @@
 #include <pastel/sys/redblackforest.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

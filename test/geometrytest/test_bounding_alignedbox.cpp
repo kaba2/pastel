@@ -10,7 +10,6 @@
 #include <pastel/geometry/bounding_alignedbox.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

@@ -8,7 +8,6 @@
 #include <pastel/geometry/distance_point_point.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

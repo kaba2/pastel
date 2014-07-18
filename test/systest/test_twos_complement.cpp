@@ -6,7 +6,6 @@
 #include <pastel/sys/twos_complement.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

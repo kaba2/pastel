@@ -6,7 +6,6 @@
 #include "pastel/sys/depth_first_traversal.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

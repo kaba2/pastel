@@ -7,7 +7,6 @@
 #include "pastel/sys/random.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

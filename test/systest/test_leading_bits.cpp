@@ -6,7 +6,6 @@
 #include <pastel/sys/leading_one_bits.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

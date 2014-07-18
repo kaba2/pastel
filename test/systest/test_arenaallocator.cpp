@@ -6,7 +6,6 @@
 
 #include <vector>
 
-using namespace std;
 using namespace Pastel;
 
 namespace

@@ -5,7 +5,6 @@
 #include <pastel/sys/divide_infinity.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

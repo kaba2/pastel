@@ -6,7 +6,6 @@
 #include <pastel/sys/class.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

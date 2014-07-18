@@ -5,7 +5,6 @@
 #include <pastel/sys/zero_higher_bits.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

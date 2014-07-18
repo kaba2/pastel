@@ -10,7 +10,6 @@
 #include <iostream>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

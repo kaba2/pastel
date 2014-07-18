@@ -12,7 +12,6 @@ namespace
 {
 
 	using namespace Pastel;
-	using namespace std;
 
 	using Integer = BigInteger;
 	using Rat = Rational<Integer>;

@@ -12,7 +12,6 @@
 #include <unordered_set>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

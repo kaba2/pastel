@@ -6,7 +6,6 @@
 #include "pastel/sys/clone_ptr.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

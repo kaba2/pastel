@@ -5,7 +5,6 @@
 #include <pastel/sys/number_of_one_bits.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

@@ -7,7 +7,6 @@
 #include <boost/range/algorithm/for_each.hpp>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

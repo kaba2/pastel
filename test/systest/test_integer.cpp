@@ -6,7 +6,6 @@
 #include "pastel/sys/integer.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

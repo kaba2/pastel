@@ -7,7 +7,6 @@
 #include <pastel/sys/pairwise_all_of.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {
