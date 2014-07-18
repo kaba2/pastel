@@ -6,7 +6,6 @@
 #include <pastel/sys/bounded_array.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

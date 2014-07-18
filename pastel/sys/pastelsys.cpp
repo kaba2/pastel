@@ -17,8 +17,6 @@ namespace Pastel
 
 		void testDataSizes()
 		{
-			using namespace std;
-
 			// Check that 'char' is 8 bits.
 			PASTEL_STATIC_ASSERT(
 				CHAR_MIN == (-127 - 1) && CHAR_MAX == 127);

@@ -5,7 +5,6 @@
 #include <pastel/sys/bitmask.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

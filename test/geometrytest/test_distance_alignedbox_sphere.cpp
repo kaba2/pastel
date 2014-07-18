@@ -6,7 +6,6 @@
 #include <pastel/geometry/distance_alignedbox_sphere.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

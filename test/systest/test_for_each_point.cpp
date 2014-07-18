@@ -6,7 +6,6 @@
 #include <pastel/sys/for_each_point.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

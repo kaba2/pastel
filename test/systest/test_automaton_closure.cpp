@@ -8,7 +8,6 @@
 #include "pastel/sys/predicates.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

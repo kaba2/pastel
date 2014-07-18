@@ -6,7 +6,6 @@
 #include "pastel/sys/insertion_sort.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

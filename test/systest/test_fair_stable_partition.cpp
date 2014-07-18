@@ -8,7 +8,6 @@
 #include <pastel/sys/indicators.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

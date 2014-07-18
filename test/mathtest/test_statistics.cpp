@@ -11,7 +11,6 @@
 #include <pastel/sys/locators.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

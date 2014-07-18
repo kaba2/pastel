@@ -9,8 +9,6 @@
 #include "pastel/sys/log.h"
 #include "pastel/sys/binaryfile.h"
 
-using namespace std;
-
 namespace Pastel
 {
 

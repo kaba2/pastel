@@ -5,7 +5,6 @@
 #include <pastel/sys/number_tests.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

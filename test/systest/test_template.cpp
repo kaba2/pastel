@@ -4,7 +4,6 @@
 #include "test_pastelsys.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

@@ -12,7 +12,6 @@
 #include <boost/range/adaptor/transformed.hpp>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

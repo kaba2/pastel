@@ -9,7 +9,6 @@
 #include <boost/math/special_functions/gamma.hpp>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

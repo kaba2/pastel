@@ -7,7 +7,6 @@
 #include "pastel/math/matrix_norm.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

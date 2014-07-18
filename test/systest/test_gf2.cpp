@@ -6,7 +6,6 @@
 #include "pastel/sys/gf2.h"
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

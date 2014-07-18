@@ -7,7 +7,6 @@
 #include <pastel/sys/powers.h>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {

@@ -12,7 +12,6 @@
 #include <algorithm>
 
 using namespace Pastel;
-using namespace std;
 
 namespace
 {
