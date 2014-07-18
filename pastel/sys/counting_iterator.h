@@ -142,6 +142,30 @@ namespace Pastel
 		return CountingIterator<Type>(that);
 	}
 
+	template <typename Type>
+	using CountingRange = boost::iterator_range<CountingIterator<Type>>;
+
+	template <typename Type>
+	CountingRange<Type> countingRange(
+		const Type& begin,
+		const Type& end)
+	{
+		return range(
+			countingIterator(begin),
+			countingIterator(end));
+	}
+
+	template <typename Range>
+	auto countingRange(Range&& range)
+	-> decltype(countingRange(
+			std::begin(std::forward<Range>(range)),
+			std::end(std::forward<Range>(range))))
+	{
+		return countingRange(
+			std::begin(std::forward<Range>(range)),
+			std::end(std::forward<Range>(range)));
+	}
+
 }
 
 #endif
