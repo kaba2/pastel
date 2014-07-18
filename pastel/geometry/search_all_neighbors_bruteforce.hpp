@@ -46,23 +46,23 @@ namespace Pastel
 
 	}
 
-	template <typename Point_RandomAccessRange,
+	template <
+		typename Point_RandomAccessRange,
 		typename Locator,
+		typename Real,
 		typename Point_Iterator,
 		typename Real_RandomAccessRange,
 		typename Point_Iterator_RandomAccessRange,
 		typename NormBijection>
 	void searchAllNeighborsBruteForce(
-		const Point_RandomAccessRange& pointSet,
-		integer dimension,
+		Point_RandomAccessRange&& pointSet,
 		const Locator& locator,
 		Array<Point_Iterator>& nearestArray,
+		const Point_Iterator_RandomAccessRange& indexSet,
 		integer kNearest,
 		const Real_RandomAccessRange& maxDistanceSet,
-		const Point_Iterator_RandomAccessRange& indexSet,
 		const NormBijection& normBijection)
 	{
-		ENSURE_OP(dimension, >, 0);
 		ENSURE_OP(kNearest, >=, 0);
 		ENSURE_OP(nearestArray.width(), >=, kNearest);
 		ENSURE_OP(nearestArray.height(), >=, indexSet.size());
@@ -85,7 +85,6 @@ namespace Pastel
 		using Entry = AllNearestNeighborsBruteForce_::Entry<Real>;
 		using NearestSet = std::set<Entry>;
 		using NearestIterator = typename NearestSet::iterator;
-		using RealIterator = typename Locator::ConstIterator;
 
 		using IndexRange = tbb::blocked_range<integer>;
 
@@ -150,7 +149,7 @@ namespace Pastel
 				const NearestIterator iterEnd = nearestSet.end();
 				while(iter != iterEnd)
 				{
-					nearestArray(nearestIndex, i) = pointSet.begin() + iter->index_;
+					nearestArray(nearestIndex, i) = std::begin(pointSet) + iter->index_;
 					++nearestIndex;
 					++iter;
 				}

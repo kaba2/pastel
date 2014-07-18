@@ -5,8 +5,7 @@
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
-
-#include <vector>
+#include "pastel/sys/range.h"
 
 namespace Pastel
 {
@@ -25,9 +24,6 @@ namespace Pastel
 
 	pointSet:
 	The set of points to do the searching in.
-
-	dimension:
-	Dimension of the point-set.
 
 	locator:
 	An object modeling the Locator concept.
@@ -57,21 +53,22 @@ namespace Pastel
 	See 'pastel/math/normbijection.txt'.
 	*/
 
-	template <typename Point_RandomAccessRange,
+	template <
+		typename Point_RandomAccessRange,
 		typename Locator,
-		typename Point_Iterator,
+		typename Real = typename Locator::Real,
+		typename Point_Iterator = typename boost::range_iterator<Point_RandomAccessRange>::type,
 		typename Real_RandomAccessRange,
 		typename Point_Iterator_RandomAccessRange,
-		typename NormBijection>
+		typename NormBijection = Euclidean_NormBijection<Real>>
 	void searchAllNeighborsBruteForce(
-		const Point_RandomAccessRange& pointSet,
-		integer dimension,
+		Point_RandomAccessRange&& pointSet,
 		const Locator& locator,
 		Array<Point_Iterator>& nearestArray,
+		const Point_Iterator_RandomAccessRange& indexSet,
 		integer kNearest,
 		const Real_RandomAccessRange& maxDistanceSet,
-		const Point_Iterator_RandomAccessRange& indexSet,
-		const NormBijection& normBijection);
+		const NormBijection& normBijection = NormBijection());
 
 }
 
