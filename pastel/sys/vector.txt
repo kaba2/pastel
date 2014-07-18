@@ -17,7 +17,7 @@ where
  
  * ''* : F xx V -> V'',
  
- * ''(V, +)'' is an Abelian group,
+ * ''(V, +)'' is a commutative group,
  
  * ''m : F -> End(V) : m(alpha) = (v -> alpha * v)'' is a ring homomorphism.
 
