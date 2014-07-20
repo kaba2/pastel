@@ -28,7 +28,7 @@ namespace Pastel
 	maxDistance >= 0
 
 	Time complexity:
-	O(d n log k)
+	O(d n log k + k)
 	where
 	d is the dimension,
 	n = pointSet.size()
@@ -72,8 +72,16 @@ namespace Pastel
 	A distance after which points aren't considered
 	neighbors. This distance is in terms of the
 	norm bijection. Note: Can be set to infinity.
-	*/
 
+	Returns
+	-------
+
+	A pair (point, distance), where 'point' is the nearest
+	neighbor of 'searchPoint' in 'pointSet', and 'distance'
+	is the distance between 'searchPoint' and the nearest
+	neighbor, in terms of the norm bijection. In case the
+	nearest neighbor does not exist, then (Point(), infinity<Real>()).
+	*/
 	template <
 		typename Point_Input,
 		typename Search_Point,

@@ -6,7 +6,6 @@
 #include "pastel/geometry/tdtree.h"
 
 #include "pastel/geometry/pointkdtree_search_nearest.h"
-#include "pastel/geometry/search_all_neighbors_bruteforce.h"
 #include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/sys/locators.h"
@@ -70,6 +69,7 @@ namespace
 			Array<Point_Iterator, 2> nearestSet(
 				Vector2i(1, n));
 
+			/*
 			searchAllNeighborsBruteForce(
 				pointSet,
 				Locator(),
@@ -84,6 +84,7 @@ namespace
 			{
 				distanceSet.emplace_back(distance2(*nearestSet(i), pointSet[i]));
 			}
+			*/
 		}
 
 		void testLinear()
