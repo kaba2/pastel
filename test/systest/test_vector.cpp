@@ -65,11 +65,6 @@ namespace
 		template <int N>
 		void testNullPointerStatic()
 		{
-			/*
-			Purpose:
-
-			*/
-
 			using Real = Rational<BigInteger>;
 
 			Vector<Real, N> au2(0);
@@ -129,7 +124,7 @@ namespace
 			// Visual Studio 2013 has a bug which ambiguates
 			// this, although it shouldn't. A very weird bug:
 			// there is no ambiguity when the number of items
-			// other than 3.
+			// is other than 3.
 			//a = { 1, 2, 3 };
 		}
 
