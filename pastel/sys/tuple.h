@@ -1,10 +1,17 @@
-// Description: Tuple class
-// Detail: Allows to work with n-tuples
+// Description: Tuple
 
 #ifndef PASTELSYS_TUPLE_H
 #define PASTELSYS_TUPLE_H
 
-#include "pastel/sys/tuplebase.h"
+#include "pastel/sys/mytypes.h"
+#include "pastel/sys/ensure.h"
+#include "pastel/sys/log.h"
+#include "pastel/sys/destruct.h"
+
+#include <vector>
+#include <algorithm>
+
+#include <boost/operators.hpp>
 
 namespace Pastel
 {
@@ -17,38 +24,134 @@ namespace Pastel
 			(N == Dynamic) ? Dynamic : NewN;
 	};
 
-	//! A fixed size array of the given type.
-	/*!
-	This class is a container for a fixed size
-	array of elements and directly models the
-	mathematical concept of a tuple (a finite ordered set).
-	A tuple	has no associated arithmetic operators,
-	see Vector and Vector for such tuples.
-	*/
-	template <typename Type, int N>
+	class Dimension
+	{
+	public:
+		explicit Dimension(integer dimension)
+			: dimension_(dimension)
+		{
+			PENSURE_OP(dimension, >=, 0);
+		}
+
+		operator integer() const
+		{
+			return dimension_;
+		}
+
+	private:
+		Dimension() = delete;
+
+		integer dimension_;
+	};
+
+	template <typename Type>
+	class Alias
+	{
+	public:
+		explicit Alias(Type data)
+			: data_(data)
+		{
+		}
+
+		operator Type() const
+		{
+			return data_;
+		}
+
+	private:
+		Alias() = delete;
+
+		Type data_;
+	};
+
+	template <typename Type>
+	class Copy
+	{
+	public:
+		explicit Copy(Type data)
+			: data_(data)
+		{
+		}
+
+		operator Type() const
+		{
+			return data_;
+		}
+
+	private:
+		Copy() = delete;
+
+		Type data_;
+	};
+
+	inline Dimension ofDimension(integer dimension)
+	{
+		return Dimension(dimension);
+	}
+
+	template <typename Type>
+	inline Alias<Type*> withAliasing(Type* data)
+	{
+		return Alias<Type*>(data);
+	}
+
+	template <typename Type, int N = Dynamic>
 	class Tuple
-		: public Detail::TupleBase<Type, N>
+		: boost::equality_comparable<Tuple<Type, N> >
 	{
-	private:
-		using Base = Detail::TupleBase<Type, N>;
-
 	public:
-		using Iterator = typename Base::Iterator;
-		using ConstIterator = typename Base::ConstIterator;
+		template <typename, int>
+		friend class Tuple;
 
-		// Using default copy constructor.
-		// Using default destructor.
+		using value_type = Type;
+		using iterator = Type*;
+		using const_iterator = const Type*;
+		using reverse_iterator = Type*;
+		using const_reverse_iterator = const Type*;
+		using pointer = Type*;
+		using const_pointer = const Type*;
+		using reference = Type&;
+		using const_reference = const Type&;
+		using difference_type = integer;
+		using size_type = integer;
+
+		using Iterator = iterator;
+		using ConstIterator = const_iterator;
 
 		Tuple()
-			: Base()
+			: data_()
 		{
+		}
+
+		explicit Tuple(const Type& that)
+			: data_()
+		{
+			set(that);
+		}
+
+		explicit Tuple(const Type* that)
+			: data_()
+		{
+			std::copy(that, that + N, data_);
 		}
 
 		explicit Tuple(
 			const Dimension& dimension,
 			const Type& that = Type())
-			: Base(dimension, that)
+			: data_()
 		{
+			PENSURE_OP(dimension, ==, N);
+
+			set(that);
+		}
+
+		Tuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: data_()
+		{
+			PENSURE_OP(dimension, ==, N);
+			std::copy((const Type*)that, (const Type*)that + N, data_);
 		}
 
 		// Alias for static tuple is copying.
@@ -57,598 +160,791 @@ namespace Pastel
 		Tuple(
 			const Dimension& dimension,
 			const Alias<Type*>& dataAlias)
-			: Base(dimension, Copy<const Type*>(dataAlias))
+			: Tuple(dimension, Copy<const Type*>(dataAlias))
 		{
 		}
 
-		explicit Tuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		explicit Tuple(const Type& that)
-			: Base(that)
-		{
-		}
-
-		// Alias for static tuple is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Tuple(const Alias<Type*>& that)
-			: Base(Copy<const Type*>(that))
-		{
-		}
-
-		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		template <typename ThatType, int ThatN>
-		Tuple(const Tuple<ThatType, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		Tuple<Type, N>& operator=(const Tuple& that)
-		{
-			return (Tuple<Type, N>&)Base::operator=(that);
-		}
-	};
-
-	template <typename Type>
-	class Tuple<Type, 1>
-		: public Detail::TupleBase<Type, 1>
-	{
-	private:
-		static PASTEL_CONSTEXPR int N = 1;
-
-		using Base = Detail::TupleBase<Type, N>;
-
-	public:
 		// Using default copy constructor.
-		// Using default destructor.
-
-		using Base::set;
-		using Iterator = typename Base::Iterator;
-		using ConstIterator = typename Base::ConstIterator;
-
-		Tuple()
-			: Base()
+		// Maybe this is more efficient than doing
+		// what's below, since 'data_' need not
+		// be default initialized.
+		Tuple(const Tuple& that) = default;
+		/*
+		Tuple(const Tuple& that)
+			: data_()
 		{
+			std::copy(that.begin(), that.end(), begin());
 		}
+		*/
 
-		explicit Tuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
-		{
-		}
-
-		// Alias for static tuple is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		Tuple(
-			const Dimension& dimension,
-			const Alias<Type*>& dataAlias)
-			: Base(dimension, Copy<const Type*>(dataAlias))
-		{
-		}
-
-		Tuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		explicit Tuple(const Type& that)
-			: Base(that)
-		{
-		}
-
-		// Alias for static tuple is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Tuple(const Alias<Type*>& that)
-			: Base(Copy<const Type*>(that))
-		{
-		}
-
-		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
+		// Note copy constructor won't match this function.
 		template <typename ThatType, int ThatN>
 		Tuple(const Tuple<ThatType, ThatN>& that)
-			: Base(that)
+			: data_()
 		{
+			PENSURE_OP(size(), ==, that.size());
+			std::copy(that.begin(), that.end(), begin());
 		}
 
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 2, void)>
+		Tuple(const Type& x, const Type& y)
+		{
+			set(x, y);
+		}
+
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 3, void)>
+		Tuple(const Type& x, const Type& y, const Type& z)
+		{
+			set(x, y, z);
+		}
+
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 4, void)>
+		Tuple(const Type& x, const Type& y, 
+			const Type& z, const Type& w)
+		{
+			set(x, y, z, w);
+		}
+
+		// Using default operator=.
+
+		~Tuple()
+		{
+			PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
+
+			static PASTEL_CONSTEXPR bool IsBase =
+				std::is_base_of<Tuple, Tuple<Type, N> >::value;
+
+			PASTEL_STATIC_ASSERT(IsBase);
+		}
+
+		// The assignment need not be implemented, since
+		// we settle for basic exception safety rather than strong
+		// for performance (no element swapping).
+		/*
 		Tuple<Type, N>& operator=(const Tuple& that)
 		{
-			return (Tuple<Type, N>&)Base::operator=(that);
+			std::copy(that.begin(), that.end(), begin());
+			
+			return *this;
 		}
+		*/
 
-		const Type& x() const
+		Tuple<Type, N>& operator=(
+			const std::initializer_list<Type>& that)
 		{
-			return (*this)[0];
+			integer n = std::min(size(), (integer)that.size());
+			std::copy_n(that.begin(), n, begin());
+			return *this;
 		}
 
-		Type& x()
+		void swap(Tuple<Type, N> & that)
 		{
-			return (*this)[0];
+			using std::swap;
+
+			for (integer i = 0;i < N;++i)
+			{
+				swap(data_[i], that.data_[i]);
+			}
 		}
-	};
 
-	template <typename Type>
-	class Tuple<Type, 2>
-		: public Detail::TupleBase<Type, 2>
-	{
-	private:
-		static PASTEL_CONSTEXPR int N = 2;
-
-		using Base = Detail::TupleBase<Type, N>;
-
-	public:
-		// Using default copy constructor.
-		// Using default destructor.
-
-		using Base::set;
-		using Iterator = typename Base::Iterator;
-		using ConstIterator = typename Base::ConstIterator;
-
-		Tuple()
-			: Base()
+		void setSize(integer size, const Type& that = Type())
 		{
+			ENSURE2(size >= 0 && size <= N, size, N);
+			// Do nothing.
 		}
 
-		explicit Tuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
+		void set(const Type& that)
 		{
+			std::fill(begin(), end(), that);
 		}
 
-		// Alias for static tuple is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		Tuple(
-			const Dimension& dimension,
-			const Alias<Type*>& dataAlias)
-			: Base(dimension, Copy<const Type*>(dataAlias))
+		Type& front()
 		{
+			return data_[0];
 		}
 
-		Tuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
+		const Type& front() const
 		{
+			return data_[0];
 		}
 
-		explicit Tuple(const Type& that)
-			: Base(that)
+		Type& back()
 		{
+			return data_[N - 1];
 		}
 
-		// Alias for static tuple is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Tuple(const Alias<Type*>& that)
-			: Base(Copy<const Type*>(that))
+		const Type& back() const
 		{
+			return data_[N - 1];
 		}
 
-		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
+		Type* begin()
 		{
+			return &data_[0];
 		}
 
-		template <typename ThatType, int ThatN>
-		Tuple(const Tuple<ThatType, ThatN>& that)
-			: Base(that)
+		const Type* begin() const
 		{
+			return &data_[0];
 		}
 
-		explicit Tuple(const Type& a, const Type& b)
-			: Base()
+		Type* end()
 		{
-			set(a, b);
+			return &data_[0] + N;
 		}
 
-		Tuple<Type, N>& operator=(const Tuple& that)
+		const Type* end() const
 		{
-			return (Tuple<Type, N>&)Base::operator=(that);
+			return &data_[0] + N;
 		}
 
-		void set(const Type& a, const Type& b)
+		size_type capacity() const
 		{
-			(*this)[0] = a;
-			(*this)[1] = b;
+			return N;
 		}
 
-		const Type& x() const
+		size_type size() const
 		{
-			return (*this)[0];
+			return N;
 		}
 
-		Type& x()
+		size_type n() const
 		{
-			return (*this)[0];
+			return N;
 		}
 
-		const Type& y() const
+		size_type max_size() const
 		{
-			return (*this)[1];
+			return N;
 		}
 
-		Type& y()
+		bool empty() const
 		{
-			return (*this)[1];
+			return false;
 		}
-	};
 
-	template <typename Type>
-	class Tuple<Type, 3>
-		: public Detail::TupleBase<Type, 3>
-	{
-	private:
-		static PASTEL_CONSTEXPR int N = 3;
-
-		using Base = Detail::TupleBase<Type, N>;
-
-	public:
-		// Using default copy constructor.
-		// Using default destructor.
-
-		using Base::set;
-		using Iterator = typename Base::Iterator;
-		using ConstIterator = typename Base::ConstIterator;
-
-		Tuple()
-			: Base()
+		Type& at(integer index)
 		{
+			PENSURE2(index >= 0 && index < size(), index, size());
+
+			return data_[index];
 		}
 
-		explicit Tuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
+		const Type& at(integer index) const
 		{
+			PENSURE2(index >= 0 && index < size(), index, size());
+
+			return data_[index];
 		}
 
-		// Alias for static tuple is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		Tuple(
-			const Dimension& dimension,
-			const Alias<Type*>& dataAlias)
-			: Base(dimension, Copy<const Type*>(dataAlias))
+		Type& operator[](integer index)
 		{
+			PENSURE2(index >= 0 && index < size(), index, size());
+			return data_[index];
 		}
 
-		Tuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
+		const Type& operator[](integer index) const
 		{
+			PENSURE2(index >= 0 && index < size(), index, size());
+
+			return data_[index];
 		}
 
-		explicit Tuple(const Type& that)
-			: Base(that)
+		//! Returns the address of the first element.
+		Type* rawBegin()
 		{
+			return data_;
 		}
 
-		// Alias for static tuple is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Tuple(const Alias<Type*>& that)
-			: Base(Copy<const Type*>(that))
+		//! Returns the address of the first element.
+		const Type* rawBegin() const
 		{
+			return data_;
 		}
 
-		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
+		//! Returns the address of the one-past last element.
+		Type* rawEnd()
 		{
+			return data_ + N;
 		}
 
-		template <typename ThatType, int ThatN>
-		Tuple(const Tuple<ThatType, ThatN>& that)
-			: Base(that)
+		//! Returns the address of the one-past last element.
+		const Type* rawEnd() const
 		{
+			return data_ + N;
 		}
 
-		explicit Tuple(const Type& a, const Type& b,
-			const Type& c)
-			: Base()
+		bool operator==(const Tuple<Type, N> & that) const
 		{
-			set(a, b, c);
+			return std::equal(
+				begin(), end(), that.begin());
 		}
 
-		Tuple<Type, N>& operator=(const Tuple& that)
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 2, void)>
+		void set(
+			const Type& x, const Type& y)
 		{
-			return (Tuple<Type, N>&)Base::operator=(that);
+			Tuple& v = *this;
+			v[0] = x;
+			v[1] = y;
 		}
 
-		void set(const Type& a, const Type& b, const Type& c)
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 3, void)>
+		void set(
+			const Type& x, const Type& y, 
+			const Type& z)
 		{
-			(*this)[0] = a;
-			(*this)[1] = b;
-			(*this)[2] = c;
+			Tuple& v = *this;
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
 		}
 
-		const Type& x() const
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 4, void)>
+		void set(
+			const Type& x, const Type& y, 
+			const Type& z, const Type& w)
 		{
-			return (*this)[0];
+			Tuple& v = *this;
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			v[3] = w;
 		}
 
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 1, void)>
 		Type& x()
 		{
 			return (*this)[0];
 		}
 
-		const Type& y() const
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 1, void)>
+		const Type& x() const
 		{
-			return (*this)[1];
+			return (*this)[0];
 		}
 
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 2, void)>
 		Type& y()
 		{
 			return (*this)[1];
 		}
 
-		const Type& z() const
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 2, void)>
+		const Type& y() const
 		{
 			return (*this)[1];
 		}
 
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 3, void)>
 		Type& z()
 		{
-			return (*this)[1];
-		}
-	};
-
-	template <typename Type>
-	class Tuple<Type, 4>
-		: public Detail::TupleBase<Type, 4>
-	{
-	private:
-		static PASTEL_CONSTEXPR int N = 4;
-
-		using Base = Detail::TupleBase<Type, N>;
-
-	public:
-		// Using default copy constructor.
-		// Using default destructor.
-
-		using Base::set;
-		using Iterator = typename Base::Iterator;
-		using ConstIterator = typename Base::ConstIterator;
-
-		Tuple()
-			: Base()
-		{
+			return (*this)[2];
 		}
 
-		explicit Tuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
-		{
-		}
-
-		// Alias for static tuple is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		Tuple(
-			const Dimension& dimension,
-			const Alias<Type*>& dataAlias)
-			: Base(dimension, Copy<const Type*>(dataAlias))
-		{
-		}
-
-		Tuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		explicit Tuple(const Type& that)
-			: Base(that)
-		{
-		}
-
-		// Alias for static tuple is copying.
-		// This is needed so that one does not have to
-		// make special cases in generic programming.
-		explicit Tuple(const Alias<Type*>& that)
-			: Base(Copy<const Type*>(that))
-		{
-		}
-
-		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		template <typename ThatType, int ThatN>
-		Tuple(const Tuple<ThatType, ThatN>& that)
-			: Base(that)
-		{
-		}
-
-		explicit Tuple(const Type& a, const Type& b,
-			const Type& c, const Type& d)
-			: Base()
-		{
-			set(a, b, c, d);
-		}
-
-		Tuple<Type, N>& operator=(const Tuple& that)
-		{
-			return (Tuple<Type, N>&)Base::operator=(that);
-		}
-
-		void set(const Type& a, const Type& b,
-			const Type& c, const Type& d)
-		{
-			(*this)[0] = a;
-			(*this)[1] = b;
-			(*this)[2] = c;
-			(*this)[3] = d;
-		}
-
-		const Type& x() const
-		{
-			return (*this)[0];
-		}
-
-		Type& x()
-		{
-			return (*this)[0];
-		}
-
-		const Type& y() const
-		{
-			return (*this)[1];
-		}
-
-		Type& y()
-		{
-			return (*this)[1];
-		}
-
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 3, void)>
 		const Type& z() const
 		{
-			return (*this)[1];
+			return (*this)[2];
 		}
 
-		Type& z()
-		{
-			return (*this)[1];
-		}
-
-		const Type& w() const
-		{
-			return (*this)[1];
-		}
-
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 4, void)>
 		Type& w()
 		{
-			return (*this)[1];
+			return (*this)[3];
 		}
+
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ >= 4, void)>
+		const Type& w() const
+		{
+			return (*this)[3];
+		}
+
+	private:
+		Type data_[N];
 	};
 
 	template <typename Type>
 	class Tuple<Type, Dynamic>
-		: public Detail::TupleBase<Type, Dynamic>
+		: boost::equality_comparable<Tuple<Type, Dynamic> >
 	{
 	private:
 		static PASTEL_CONSTEXPR int N = Dynamic;
-
-		using Base = Detail::TupleBase<Type, N>;
-
+	
 	public:
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
+		template <typename, int>
+		friend class Tuple;
 
-		using Base::swap;
-		using Iterator = typename Base::Iterator;
-		using ConstIterator = typename Base::ConstIterator;
-
-		Tuple()
-			: Base()
-		{
-		}
+		using value_type = Type;
+		using iterator = Type*;
+		using const_iterator = Type const*;
+		using reverse_iterator = std::reverse_iterator<iterator>;
+		using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+		using pointer = Type*;
+		using const_pointer = const Type*;
+		using reference = Type&;
+		using const_reference = const Type&;
+		using difference_type = integer;
+		using size_type = integer;
+		using Iterator = iterator;
+		using ConstIterator = const_iterator;
 
 		explicit Tuple(
 			const Dimension& dimension,
 			const Type& that = Type())
-			: Base(dimension, that)
+			: data_(0)
+			, size_(0)
+			, deleteData_(true)
 		{
+			const integer size = dimension;
+			allocate(size);
+			
+			try
+			{
+				std::uninitialized_fill_n(data_, size, that);
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
 		}
 
 		Tuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
+			const Tuple& that)
+			: data_(0)
+			, size_(0)
+			, deleteData_(true)
 		{
-		}
-
-		// This function makes no sense
-		// for unbounded tuples, and thus
-		// we prohibit it.
-		/*
-		explicit Tuple(const Type& that)
-			: Base(that)
-		{
-		}
-		*/
-
-		Tuple(const Tuple& that)
-			: Base(that)
-		{
-		}
-
-		template <typename ThatType, int ThatN>
-		Tuple(const Tuple<ThatType, ThatN>& that)
-			: Base(that)
-		{
+			allocate(that.size());
+			
+			try
+			{
+				copyConstruct(that);
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
 		}
 
 		Tuple(
 			const Tuple& that,
 			const Dimension& dimension,
 			const Type& defaultData = Type())
-			: Base(that, dimension, defaultData)
+			: data_(0)
+			, size_(0)
+			, deleteData_(true)
 		{
+			const integer size = dimension;
+			allocate(size);
+			
+			try
+			{
+				copyConstruct(that, ofDimension(size), defaultData);
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
 		}
 
-		template <typename ThatType>
-		Tuple(const Tuple<ThatType, N>& that,
+		template <typename ThatType, int ThatN>
+		Tuple(
+			const Tuple<ThatType, ThatN>& that)
+			: data_(0)
+			, size_(0)
+			, deleteData_(true)
+		{
+			allocate(that.size());
+			
+			try
+			{
+				copyConstruct(that);
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
+		}
+
+		template <typename ThatType, int ThatN>
+		Tuple(
+			const Tuple<ThatType, ThatN>& that,
 			const Dimension& dimension,
 			const Type& defaultData = Type())
-			: Base(that, dimension, defaultData)
+			: data_(0)
+			, size_(0)
+			, deleteData_(true)
 		{
+			const integer size = dimension;
+			allocate(size);
+			
+			try
+			{
+				copyConstruct(that, size, defaultData);
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
 		}
 
 		Tuple(
 			const Dimension& dimension,
 			const Alias<Type*>& dataAlias)
-			: Base(dimension, dataAlias)
+			: data_(dataAlias)
+			, size_(dimension)
+			, deleteData_(false)
 		{
+		}
+
+		Tuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: data_(0)
+			, size_(0)
+			, deleteData_(true)
+		{
+			const integer size = dimension;
+			allocate(size);
+
+			std::copy((const Type*)that, (const Type*)that + size, data_);
+		}
+
+		~Tuple()
+		{
+			if (deleteData_)
+			{
+				destruct(data_, data_ + size_);
+				deallocate();
+			}
+
+			static PASTEL_CONSTEXPR bool IsBase = std::is_base_of<Tuple, Tuple<Type, N> >::value;
+
+			PASTEL_STATIC_ASSERT(IsBase);
 		}
 
 		Tuple<Type, N>& operator=(const Tuple& that)
 		{
-			return (Tuple<Type, N>&)Base::operator=(that);
+			// We settle for basic exception safety rather than strong
+			// for performance (no memory reallocation).
+			PENSURE_OP(size_, ==, that.size_);
+
+			std::copy(that.begin(), that.end(), begin());
+			
+			return *this;
 		}
+
+		Tuple<Type, N>& operator=(
+			const std::initializer_list<Type>& that)
+		{
+			integer n = std::min(size(), (integer)that.size());
+			std::copy_n(that.begin(), n, begin());
+			return *this;
+		}
+
+		void setSize(integer size, const Type& that = Type())
+		{
+			ENSURE_OP(size, >=, 0);
+
+			resize(size, that);
+		}
+
+		void resize(integer size, const Type& that = Type())
+		{
+			ENSURE_OP(size, >=, 0);
+
+			Tuple copy(*this, ofDimension(size), that);
+			swap(copy);
+		}
+
+		void swap(Tuple& that)
+		{
+			std::swap(data_, that.data_);
+			std::swap(size_, that.size_);
+			std::swap(deleteData_, that.deleteData_);
+		}
+
+		void set(const Type& that)
+		{
+			std::fill(begin(), end(), that);
+		}
+
+		Type& front()
+		{
+			PENSURE(!empty());
+			return *data_;
+		}
+
+		const Type& front() const
+		{
+			PENSURE(!empty());
+			return *data_;
+		}
+
+		Type& back()
+		{
+			PENSURE(!empty());
+			return *(data_ + size_ - 1);
+		}
+
+		const Type& back() const
+		{
+			PENSURE(!empty());
+			return *(data_ + size_ - 1);
+		}
+
+		iterator begin()
+		{
+			return data_;
+		}
+
+		const_iterator begin() const
+		{
+			return data_;
+		}
+
+		iterator end()
+		{
+			return data_ + size_;
+		}
+
+		const_iterator end() const
+		{
+			return data_ + size_;
+		}
+
+		size_type capacity() const
+		{
+			return size_;
+		}
+
+		size_type size() const
+		{
+			return size_;
+		}
+
+		size_type n() const
+		{
+			return size_;
+		}
+
+		size_type max_size() const
+		{
+			return size_;
+		}
+
+		bool empty() const
+		{
+			return size_ == 0;
+		}
+
+		Type& at(integer index)
+		{
+			PENSURE2(index >= 0 && index < size(), index, size());
+
+			return data_[index];
+		}
+
+		const Type& at(integer index) const
+		{
+			PENSURE2(index >= 0 && index < size(), index, size());
+
+			return data_[index];
+		}
+
+		Type& operator[](integer index)
+		{
+			PENSURE2(index >= 0 && index < size(), index, size());
+			return data_[index];
+		}
+
+		const Type& operator[](integer index) const
+		{
+			PENSURE2(index >= 0 && index < size(), index, size());
+
+			return data_[index];
+		}
+
+		//! Returns the address of the first element.
+		Type* rawBegin()
+		{
+			return data_;
+		}
+
+		//! Returns the address of the first element.
+		const Type* rawBegin() const
+		{
+			return data_;
+		}
+
+		//! Returns the address of the one-past last element.
+		Type* rawEnd()
+		{
+			return data_ + size_;
+		}
+
+		//! Returns the address of the one-past last element.
+		const Type* rawEnd() const
+		{
+			return data_ + size_;
+		}
+
+		bool operator==(const Tuple<Type, N> & that) const
+		{
+			PENSURE2(size() == that.size(), size(), that.size());
+
+			return std::equal(
+				begin(), end(), that.begin());
+		}
+
+	private:
+		void allocate(integer size)
+		{
+			PENSURE_OP(size, >=, 0);
+			ASSERT(data_ == 0);
+			ASSERT1(size_ == 0, size_);
+
+			data_ = (Type*)allocateRaw(sizeof(Type) * size);
+			size_ = size;
+		}
+
+		void deallocate()
+		{
+			if (data_)
+			{
+				deallocateRaw((void*)data_);
+			}
+			data_ = 0;
+			size_ = 0;
+		}
+
+		template <typename ThatType, int ThatN>
+		void copyConstruct(
+			const Tuple<ThatType, ThatN>& that)
+		{
+			const integer size = that.size();
+			ASSERT_OP(size, ==, size_);
+
+			try
+			{
+				std::uninitialized_copy(
+					that.data_, 
+					that.data_ + size, 
+					data_);
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
+		}
+
+		template <typename ThatType, int ThatN>
+		void copyConstruct(
+			const Tuple<ThatType, ThatN>& that,
+			const Dimension& dimension,
+			const Type& defaultData)
+		{
+			const integer size = dimension;
+
+			const integer minSize = std::min(
+				that.size(), size);
+			
+			integer rollBackIndex = 0;
+			try
+			{
+				std::uninitialized_copy(
+					that.data_, 
+					that.data_ + minSize, 
+					data_);
+				++rollBackIndex;
+
+				if (size > minSize)
+				{
+					std::uninitialized_fill_n(
+						data_ + minSize,
+						size - minSize,
+						defaultData);
+				}
+			}
+			catch(...)
+			{
+				switch(rollBackIndex)
+				{
+				case 1:
+					destruct(data_, data_ + minSize);
+					// Fall-through.
+				case 0:
+					deallocate();
+					break;
+				};
+				throw;
+			};
+		}
+
+		Tuple() = delete;
+
+		Type* data_;
+		integer size_;
+		bool deleteData_;
 	};
-
-	using Integer1 = Tuple<integer, 1>;
-	using Real1 = Tuple<real, 1>;
-
-	using Integer2 = Tuple<integer, 2>;
-	using Real2 = Tuple<real, 2>;
-
-	using Integer3 = Tuple<integer, 3>;
-	using Real3 = Tuple<real, 3>;
-
-	using Integer4 = Tuple<integer, 4>;
-	using Real4 = Tuple<real, 4>;
-
-	using IntegerD = Tuple<integer, Dynamic>;
-	using RealD = Tuple<real, Dynamic>;
 
 }
 
-#include "pastel/sys/tuple.hpp"
+namespace Pastel
+{
+
+	using Integer1 = Tuple<integer, 1>;
+	using Type1 = Tuple<real, 1>;
+
+	using Integer2 = Tuple<integer, 2>;
+	using Type2 = Tuple<real, 2>;
+
+	using Integer3 = Tuple<integer, 3>;
+	using Type3 = Tuple<real, 3>;
+
+	using Integer4 = Tuple<integer, 4>;
+	using Type4 = Tuple<real, 4>;
+
+	using IntegerD = Tuple<integer, Dynamic>;
+	using TypeD = Tuple<real, Dynamic>;
+
+}
+
 #include "pastel/sys/tuple_tools.h"
 
 #endif
