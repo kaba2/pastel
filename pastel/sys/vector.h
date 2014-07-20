@@ -8,7 +8,6 @@
 #include "pastel/sys/hashing.h"
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/commafiller.h"
 #include "pastel/sys/memory_overlaps.h"
 #include "pastel/sys/vectorexpression.h"
 
@@ -148,11 +147,36 @@ namespace Pastel
 
 		Vector& operator=(const Vector& that)
 		{
-			return assign(that);
+			// We allow the size of the vector to be
+			// changed by an assignment.
+
+			const integer n = that.size();
+			if (n != size())
+			{
+				// In the case we must reallocate, we can
+				// as well copy construct, so that there
+				// is no redundant initialization.
+
+				Vector<Real, N> copy(that);
+				swap(copy);
+			}
+			else
+			{				
+				// We accept basic exception safety for performance.
+
+				data_ = that.data_;
+			}
+
+			return *this;
 		}
 
 		template <typename Type>
 		Vector& operator=(const Type& that)
+		{
+			return assign(that);
+		}
+
+		Vector& operator=(const std::initializer_list<Real>& that)
 		{
 			return assign(that);
 		}
@@ -227,52 +251,19 @@ namespace Pastel
 			// We accept basic exception safety for performance.
 			data_.set(that);
 
-			return (Vector<Real, N>&)*this;
-		}
-
-		CommaFiller<Real, Iterator> operator|=(
-			const Real& that)
-		{
-			return data_ |= that;
-		}
-
-		// This function can't be inherited as operator=().
-		Vector<Real, N>& assign(
-			const Vector<Real, N>& that)
-		{
-			// We allow the size of the vector to be
-			// changed by an assignment.
-
-			const integer n = that.size();
-			if (n != size())
-			{
-				// In the case we must reallocate, we can
-				// as well copy construct, so that there
-				// is no redundant initialization.
-
-				Vector<Real, N> copy(that);
-				swap(copy);
-			}
-			else
-			{				
-				// We accept basic exception safety for performance.
-
-				data_ = that.data_;
-			}
-
 			return *this;
 		}
 
+		/*
 		template <typename ThatReal, int ThatN, typename Expression>
 		PASTEL_DISABLE_IF(
 			(std::is_same<Expression, Vector<ThatReal, ThatN> >),
 			(Vector<Real, N>&)) assign(
 			const VectorExpression<ThatReal, ThatN, Expression>& that)
-		/*
+		*/
 		template <typename ThatReal, int ThatN, typename Expression>
 		Vector<Real, N>& assign(
 			const VectorExpression<ThatReal, ThatN, Expression>& that)
-		*/
 		{
 			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
 
@@ -308,6 +299,12 @@ namespace Pastel
 			}
 
 			return (Vector<Real, N>&)*this;
+		}
+
+		Vector<Real, N>& assign(const std::initializer_list<Real>& that)
+		{
+			data_ = that;
+			return *this;
 		}
 
 		Real& operator[](integer index)

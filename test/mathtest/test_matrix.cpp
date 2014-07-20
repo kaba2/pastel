@@ -65,8 +65,8 @@ namespace
 		void testNorm()
 		{
 			MatrixD m(2, 3);
-			m |= -1, 2, 3,
-				 4, -5, 6;
+			m = { -1, 2, 3,
+				4, -5, 6 };
 
 			{
 				real correct = 
@@ -90,8 +90,8 @@ namespace
 		void testTrace()
 		{
 			MatrixD m(2, 3);
-			m |= -1, 2, 3,
-				 4, -5, 6;
+			m = {-1, 2, 3,
+				4, -5, 6};
 			
 			{
 				real correct = -1 + -5;
@@ -102,8 +102,8 @@ namespace
 		void testDiagonalProduct()
 		{
 			MatrixD m(2, 3);
-			m |= -1, 2, 3,
-				 4, -5, 6;
+			m = {-1, 2, 3,
+				4, -5, 6};
 			
 			{
 				real correct = -1 * -5;
@@ -115,7 +115,9 @@ namespace
 		{
 			{
 				MatrixD m(1, 1);
-				m |= -1;
+				m = -1;
+				// VC2013 has a bug with singular initializer lists:
+				//m = { -1 };
 				{
 					real correct = -1;
 					TEST_ENSURE_OP(determinant(m), ==, correct);
@@ -124,8 +126,8 @@ namespace
 
 			{
 				MatrixD m(2, 2);
-				m |= -1, 2,
-					 4, -5;
+				m = {-1, 2,
+					4, -5};
 				{
 					real correct = (-1 * -5) - (2 * 4);
 					TEST_ENSURE_OP(determinant(m), ==, correct);
@@ -134,9 +136,9 @@ namespace
 
 			{
 				MatrixD m(3, 3);
-				m |= -1, 2, 3,
+				m = {-1, 2, 3,
 					 4, -5, 5,
-					 2, 3, 4;
+					 2, 3, 4};
 				{
 					real correct = 89;
 					TEST_ENSURE_OP(std::abs(determinant(m) - 89), <, 0.0001);
@@ -154,10 +156,6 @@ namespace
 
 		void testMatrixExpressions()
 		{
-			// A matrix can be filled manually in row-major 
-			// order with the combination of |= and comma 
-			// operators. Extraneous values are ignored.
-
 			// Construct an empty matrix.
 			MatrixD empty(0, 0);
 			{
@@ -180,8 +178,8 @@ namespace
 
 			{
 				MatrixD test(2, 3);
-				test |= 1, 2, 3,
-					    4, 5, 6;
+				test = {1, 2, 3,
+					4, 5, 6};
 
 				// Adds a matrix expression.
 				test += identityMatrix<real>(2, 3);
@@ -300,8 +298,8 @@ namespace
 
 			{
 				MatrixD test(3, 2);
-				test |= 1, 2, 3,
-					    4, 5, 6;
+				test = {1, 2, 3,
+					4, 5, 6};
 				
 				// Subtracts a constant from all elements.
 				test -= 1;
@@ -352,10 +350,10 @@ namespace
 				}
 			}
 
-			a |= 1, 0, 1, 0, 1, 0,
+			a = {1, 0, 1, 0, 1, 0,
 				0, 1, 0, 1, 0, 1,
 				2, 0, 1, 0, 1, 0,
-				0, 2, 0, 1, 0, 1;
+				0, 2, 0, 1, 0, 1};
 			{
 				real correctSet[] = 
 				{
@@ -393,8 +391,8 @@ namespace
 			TEST_ENSURE(a == b);
 
 			MatrixD c(2, 9);
-			c |= 1, 2, 3, 4, 5, 6, 7, 8, 9,
-				 10, 11, 12, 13, 14, 15, 16, 17, 18;
+			c = {1, 2, 3, 4, 5, 6, 7, 8, 9,
+				10, 11, 12, 13, 14, 15, 16, 17, 18};
 
 			// You can assign a submatrix to a submatrix
 			// inside the same matrix.
@@ -403,8 +401,8 @@ namespace
 				c(Vector2i(0, 5), Vector2i(2, 7));
 
 			MatrixD d(2, 9);
-			d |= 1, 2, 3, 4, 5, 6, 7, 6, 7,
-				 10, 11, 12, 13, 14, 15, 16, 15, 16;
+			d = {1, 2, 3, 4, 5, 6, 7, 6, 7,
+				10, 11, 12, 13, 14, 15, 16, 15, 16};
 
 			TEST_ENSURE(c == d);
 
@@ -427,8 +425,8 @@ namespace
 
 			v2 = v;
 
-			d |= 3, 2, 1, 4, 5, 6, 7, 6, 7,
-				 12, 11, 10, 13, 14, 15, 16, 15, 16;
+			d = {3, 2, 1, 4, 5, 6, 7, 6, 7,
+				12, 11, 10, 13, 14, 15, 16, 15, 16};
 
 			TEST_ENSURE(c == d);
 		}
@@ -545,9 +543,9 @@ namespace
 		void testMatrixArray()
 		{
 			MatrixD a(3, 3);
-			a |= 1, 2, 3,
+			a = {1, 2, 3,
 				 -2, 3, -4,
-				 7, -3, 2;
+				 7, -3, 2};
 
 			Vector3 b = max(a);
 			TEST_ENSURE_OP(b[0], ==, 7);
@@ -661,14 +659,14 @@ namespace
 		{
 			Matrix<real> a(2, 3);
 
-			a |= 1, 2, 3,
-				4, 5, 6;
+			a = {1, 2, 3,
+				4, 5, 6};
 
 			Matrix<real> b(3, 2);
 
-			b |= 7, 8,
+			b = {7, 8,
 				4, 3,
-				3, 6;
+				3, 6};
 
 			Matrix<real> c(a * b);
 			TEST_ENSURE(
@@ -678,7 +676,7 @@ namespace
 				c(1, 1) == 4 * 8 + 5 * 3 + 6 * 6);
 
 			Matrix<real> d(1, 3);
-			d |= 5, 2, 6;
+			d = {5, 2, 6};
 
 			Matrix<real> e(3, 1);
 			e(0, 0) = -3;
@@ -688,22 +686,22 @@ namespace
 
 			TEST_ENSURE_OP(f(0, 0), ==, 5 * -3 + 2 * 6 + 6 * -4);
 
-			Matrix<real> g = 
+			Matrix<real> g =
 				matrix2x2<real>(
 				1, 2,
 				3, 4);
 
-			g |=
-				1, 2,
-				3, 4;
+			g =
+			{1, 2,
+			3, 4};
 			g *= 4;
 			TEST_ENSURE(
 				g(0, 0) == 1 * 4 && g(0, 1) == 2 * 4 &&
 				g(1, 0) == 3 * 4 && g(1, 1) == 4 * 4);
 
-			g |=
-				1, 2,
-				3, 4;
+			g =
+				{1, 2,
+				3, 4};
 			g /= 4;
 			TEST_ENSURE(
 				g(0, 0) == (real)1 / 4 && g(0, 1) == (real)2 / 4 &&

@@ -260,6 +260,24 @@ namespace Pastel
 	}
 
 	template <typename Type, int N>
+	Array<Type, N>& Array<Type, N>::operator=(
+		const std::initializer_list<Type>& that)
+	{
+		integer n = std::min(size(), (integer)that.size());
+		std::copy_n(that.begin(), n, begin());
+		return *this;
+	}
+
+	template <typename Type, int N>
+	Array<Type, N>& Array<Type, N>::operator=(const Type that)
+	{
+		// The parameter is deliberately taken by value,
+		// because a reference could be from this array.
+		std::fill(begin(), end(), that);
+		return *this;
+	}
+
+	template <typename Type, int N>
 	void Array<Type, N>::assign(const Array& that)
 	{
 		ENSURE(extent() == that.extent());
@@ -400,22 +418,6 @@ namespace Pastel
 	ConstSubArray<Type, N> Array<Type, N>::operator()() const
 	{
 		return ((Array&)*this)();
-	}
-
-	template <typename Type, int N>
-	CommaFiller<Type, typename Array<Type, N>::Iterator> 
-		Array<Type, N>::operator|=(const Type& that)
-	{
-		return commaFiller<Type>(begin(), end(), that);
-	}
-
-	template <typename Type, int N>
-	Array<Type, N>& Array<Type, N>::operator=(const Type that)
-	{
-		// The parameter is deliberately taken by value,
-		// because a reference could be from this array.
-		std::fill(begin(), end(), that);
-		return *this;
 	}
 
 	template <typename Type, int N>

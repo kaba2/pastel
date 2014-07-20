@@ -167,6 +167,21 @@ namespace Pastel
 		*/
 		Array<Type, N>& operator=(Array&& that);
 
+		//! Sets all the elements to the given value.
+		/*!
+		The parameter is deliberately taken by value,
+		because a reference could be from this array.
+		*/
+		Array<Type, N>& operator=(const Type that);
+
+		//! Sets elements to the given values.
+		/*!
+		Extraneous elements are ignored; missing elements
+		do not cause modifications. The elements are assigned
+		in the order of the linearization.
+		*/
+		Array<Type, N>& operator=(const std::initializer_list<Type>& that);
+
 		//! Copies data from another array.
 		/*!
 		Preconditions:
@@ -188,16 +203,6 @@ namespace Pastel
 
 		//! Returns a const reference to the given element.
 		const Type& operator()(const Vector<integer, N>& position) const;
-
-		//! Allows to fill the array with a comma-delimited list of elements.
-		CommaFiller<Type, Iterator> operator|=(const Type& that);
-
-		//! Sets all the elements to the given value.
-		/*!
-		The parameter is deliberately taken by value,
-		because a reference could be from this array.
-		*/
-		Array<Type, N>& operator=(const Type that);
 
 		//! Returns the sub-array in the range [min, max].
 		SubArray<Type, N> operator()(

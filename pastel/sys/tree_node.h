@@ -52,7 +52,7 @@ namespace Pastel
 
 		inline Node::Node()
 			: parent(0)
-			, childSet(0)
+			, childSet((Node*)nullptr)
 		{
 			// Can't use 'this' in the initializer list,
 			// because the object is not yet constructed.
@@ -62,7 +62,7 @@ namespace Pastel
 
 		inline Node::Node(Sentinel_Node* sentinel)
 			: parent(sentinel)
-			, childSet(0)
+			, childSet((Node*)nullptr)
 		{
 			// We will set the sentinel references here
 			// because the construction of the Tuple

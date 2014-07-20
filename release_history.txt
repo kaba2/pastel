@@ -73,7 +73,9 @@ Release date xx.x.2014
 
 #### Other
 
-* Removed the use of CRTP from Vector and Alignedbox.
+* Removed the use of CRTP from Vector, Tuple, and Alignedbox.
+* Replaced uses of the comma-filler with initializer lists.
+* Remove the comma-filler.
 * Converted typedefs to using-aliases for better readability.
 
 ### PastelGeometry

@@ -61,7 +61,7 @@ namespace
 			testCollaboration<4>();
 			testCollaboration<Dynamic>();
 		}
-
+		
 		template <int N>
 		void testNullPointerStatic()
 		{
@@ -104,7 +104,7 @@ namespace
 			PASTEL_STATIC_ASSERT(sizeof(Vector<Real, 3>) == 3 * sizeof(Real));
 			PASTEL_STATIC_ASSERT(sizeof(Vector<integer, 3>) == 3 * sizeof(integer));
 
-			Vector<Real, 3> a = Vector<Real, 3>(1, 2, 3);
+			Vector<Real, 3> a(1, 2, 3);
 			TEST_ENSURE(a[0] == 1 && a[1] == 2 && a[2] == 3);
 
 			Vector<Real, 3> b = Vector<Real, 3>(4, 5, 6);
@@ -123,7 +123,14 @@ namespace
 
 			Vector<float> cd;
 
-			a |= 1, 2, 3;
+			a.assign({ 1, 2, 3});
+			TEST_ENSURE(a[0] == 1 && a[1] == 2 && a[2] == 3);
+
+			// Visual Studio 2013 has a bug which ambiguates
+			// this, although it shouldn't. A very weird bug:
+			// there is no ambiguity when the number of items
+			// other than 3.
+			//a = { 1, 2, 3 };
 		}
 
 		void testVectorLowDimensional()
