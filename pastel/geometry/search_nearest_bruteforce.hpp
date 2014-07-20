@@ -19,7 +19,7 @@ namespace Pastel
 		typename Search_Locator,
 		typename Real,
 		typename NormBijection>
-	std::pair<Point, real> searchNearestBruteForce(
+	std::pair<Point, Real> searchNearestBruteForce(
 		Point_Input pointSet,
 		const Search_Point& searchPoint,
 		Point_Output report,

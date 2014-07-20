@@ -425,7 +425,7 @@ namespace
 				Set a;
 				TEST_ENSURE(testInvariants(a));
 
-				removeIf(a, All_Indicator());
+				removeIf(a, allIndicator());
 				TEST_ENSURE(testInvariants(a));
 			}
 			{

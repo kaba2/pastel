@@ -92,7 +92,7 @@ namespace Pastel
 		typename Search_Locator = Default_Locator<Search_Point>,
 		typename Real = typename Locator::Real,
 		typename NormBijection = Euclidean_NormBijection<Real>>
-	std::pair<Point, real> searchNearestBruteForce(
+	std::pair<Point, Real> searchNearestBruteForce(
 		Point_Input pointSet,
 		const Search_Point& searchPoint,
 		Point_Output report = Point_Output(),
