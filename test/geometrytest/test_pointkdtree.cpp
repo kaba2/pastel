@@ -5,7 +5,6 @@
 
 #include "pastel/geometry/pointkdtree_count_nearest.h"
 #include "pastel/geometry/pointkdtree_search_nearest.h"
-#include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 
@@ -14,6 +13,7 @@
 #include "pastel/sys/iterators.h"
 #include "pastel/sys/outputs.h"
 #include "pastel/sys/locators.h"
+#include "pastel/sys/indicators.h"
 
 using namespace Pastel;
 
