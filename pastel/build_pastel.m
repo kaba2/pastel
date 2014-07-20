@@ -41,7 +41,7 @@ tbbIncludePath = '../../tbb42/include';
 
 % Change this to the Threading Building Blocks 
 % library path.
-tbbLibraryPath = '../../tbb42/lib';
+tbbLibraryPath = '../../tbb42/lib/intel64/vc11';
 
 % Optional input arguments
 libraryName = {'sys', 'math', 'geometry'};
