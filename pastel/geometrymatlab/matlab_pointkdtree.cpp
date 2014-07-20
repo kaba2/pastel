@@ -11,6 +11,10 @@
 #include "pastel/sys/pool_allocator.h"
 
 #include <boost/range/algorithm/fill.hpp>
+
+#include <tbb/blocked_range.h>
+#include <tbb/parallel_for.h>
+
 #include <unordered_map>
 
 void force_linking_pointkdtree() {}
@@ -652,9 +656,12 @@ namespace Pastel
 			const integer k = asScalar<integer>(inputSet[KNearest]);
 
 			mxClassID id = mxGetClassID(inputSet[QuerySet]);
+			
 			bool queriesAreCoordinates = 
 				id == mxSINGLE_CLASS ||
 				id == mxDOUBLE_CLASS;
+
+			bool wantDistance = (outputs >= 2);
 
 			integer queries = 0;
 			if (queriesAreCoordinates)
@@ -666,12 +673,11 @@ namespace Pastel
 				queries = mxGetNumberOfElements(inputSet[QuerySet]);
 			}
 
-			Array<Point_ConstIterator> nearestArray(
-					Vector2i(k, queries),
-					state->tree.end());
+			Array<integer> nearestArray =
+				createArray<integer>(k, queries, outputSet[IdSet]);
 
 			Array<real> distanceArray;
-			if (outputs >= 2)
+			if (wantDistance)
 			{
 				// Having the createArray<real>() call directly
 				// inside the swap() function triggers an
@@ -681,6 +687,8 @@ namespace Pastel
 				boost::fill(distanceArray.range(), infinity<real>());
 			}
 
+			using Block = tbb::blocked_range<integer>;
+
 			if (queriesAreCoordinates)
 			{
 				// The queries are a set of points given explicitly
@@ -689,77 +697,95 @@ namespace Pastel
 				integer n = state->tree.n();
 
 				// Find the k-nearest-neighbors for each point.
-				Vector<real> query(ofDimension(n));
-				for (integer i = 0;i < queries;++i)
+
+				auto search = [&](const Block& block)
 				{
-					std::copy(
-						querySet.cColumnBegin(i),
-						querySet.cColumnEnd(i),
-						query.begin());
-
-					integer j = 0;
-					auto nearestOutput = [&](
-						real distance,
-						Point_ConstIterator point)
+					Vector<real> query(ofDimension(n));
+					for (integer i = block.begin(); i < block.end(); ++i)
 					{
-						distanceArray(j, i) = distance;
-						nearestArray(j, i) = point;
-						++j;
-					};
+						std::copy(
+							querySet.cColumnBegin(i),
+							querySet.cColumnEnd(i),
+							query.begin());
 
-					searchNearest(state->tree, query, nearestOutput,
-						allIndicator(), NormBijection())
-						.kNearest(k)
-						.maxDistance(maxDistanceSet(i));
-				}
+						integer j = 0;
+						auto nearestOutput = [&](
+							real distance,
+							Point_ConstIterator point)
+						{
+							if (point != state->tree.end())
+							{
+								nearestArray(j, i) = point->point().id;
+								if (wantDistance)
+								{
+									distanceArray(j, i) = distance;
+								}
+							}
+							++j;
+						};
+
+						searchNearest(
+							state->tree, 
+							query, 
+							nearestOutput,
+							allIndicator(), 
+							NormBijection())
+							.kNearest(k)
+							.maxDistance(maxDistanceSet(i));
+					}
+				};
+
+				tbb::parallel_for(Block(0, queries), search);
 			}
 			else
 			{
 				// The queries are over the points in the kd-tree,
 				// given by their ids.
 				Array<integer> querySet = asLinearizedArray<integer>(inputSet[QuerySet]);
-
-				// Find the iterators corresponding to the
-				// point-ids.
-				std::vector<Point_ConstIterator> queryIterSet;
-				queryIterSet.reserve(queries);
-				for (integer i = 0;i < queries;++i)
-				{			
-					const ConstIterator iter = 
-						indexMap.find(querySet(i));
-					if (iter != indexMap.end())
-					{
-						queryIterSet.push_back(iter->second);
-					}
-				}
-			
+		
 				// Find the k-nearest-neighbors for each point.
-				searchAllNeighbors(
-					state->tree, 
-					range(queryIterSet.begin(), queryIterSet.end()),
-					0, k,
-					&nearestArray,
-					(outputs >= 2) ? &distanceArray : (Array<real>*)0,
-					maxDistanceSet.range(),
-					0,
-					NormBijection());
-			}
-
-			Array<integer> result =
-				createArray<integer>(k, queries, outputSet[IdSet]);
-			for (integer i = 0;i < nearestArray.width();++i)
-			{
-				for (integer j = 0;j < nearestArray.height();++j)
 				{
-					Point_ConstIterator iter = nearestArray(i, j);
-					if (iter != state->tree.end())
+					auto compute = [&](const Block& block)
 					{
-						result(i, j) = iter->point().id;
-					}
-					else
-					{
-						result(i, j) = 0;
-					}
+						for (integer i = block.begin(); i < block.end(); ++i)
+						{
+							integer j = 0;
+							auto nearestOutput = [&](
+								real distance,
+								Point_ConstIterator point)
+							{
+								if (point != state->tree.end())
+								{
+									nearestArray(j, i) = point->point().id;
+									if (wantDistance)
+									{
+										distanceArray(j, i) = distance;
+									}
+								}
+								++j;
+							};
+
+							auto query_ = indexMap.find(querySet(i));
+							if (query_ == indexMap.end())
+							{
+								// The query index does not exist.
+								continue;
+							}
+
+							Point_ConstIterator query = query_->second;
+
+							searchNearest(
+								state->tree,
+								query, 
+								nearestOutput,
+								predicateIndicator(query, NotEqualTo()), 
+								NormBijection())
+								.kNearest(k)
+								.maxDistance(maxDistanceSet(i));
+						}
+					};
+
+					tbb::parallel_for(Block(0, queries), compute);
 				}
 			}
 		}
