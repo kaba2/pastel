@@ -1,5 +1,5 @@
 // Description: Fair stable partitioning
-// Documentation: algorithms.txt
+// Documentation: sequence_algorithms.txt
 
 #ifndef PASTELSYS_FAIR_STABLE_PARTITION_H
 #define PASTELSYS_FAIR_STABLE_PARTITION_H
