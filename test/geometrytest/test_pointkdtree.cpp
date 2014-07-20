@@ -199,7 +199,7 @@ namespace
 				{
 					const KeyValue<real, Point_ConstIterator> result = 
 						searchNearest(tree, iteratorSet[i], Null_Output(), 
-						All_Indicator(), normBijection, searchAlgorithm)
+						allIndicator(), normBijection, searchAlgorithm)
 						.bucketSize(1);
 
 					const real distance2 = result.key();

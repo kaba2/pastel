@@ -100,7 +100,7 @@ namespace
 			TEST_ENSURE(tree.simple());
 
 			auto output = Null_Output();
-			auto accept = All_Indicator();
+			auto accept = allIndicator();
 			auto norm = Euclidean_NormBijection<real>();
 			auto algorithm = DepthFirst_SearchAlgorithm_PointKdTree();
 			

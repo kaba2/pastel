@@ -117,7 +117,7 @@ namespace Pastel
 					kdTree_, 
 					evaluate(Vector<real, N>(position) + 0.5),
 					nearestOutput,
-					All_Indicator(),
+					allIndicator(),
 					Maximum_NormBijection<Real>())
 					.kNearest(kdTree_.points())
 					.maxDistance(filter_.radius() * filterStretch_);

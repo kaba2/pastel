@@ -55,7 +55,7 @@ namespace Pastel
 
 				result[i] = countNearest(
 					kdTree, queryPoint, 
-					All_Indicator(), normBijection)
+					allIndicator(), normBijection)
 					.maxDistance(maxDistanceSet[i])
 					.bucketSize(bucketSize);
 			}

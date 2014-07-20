@@ -708,7 +708,7 @@ namespace Pastel
 					};
 
 					searchNearest(state->tree, query, nearestOutput,
-						All_Indicator(), NormBijection())
+						allIndicator(), NormBijection())
 						.kNearest(k)
 						.maxDistance(maxDistanceSet(i));
 				}

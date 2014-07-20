@@ -129,7 +129,7 @@ namespace Pastel
 
 							searchNearest(
 								sceneTree, searchPoint,
-								neighborOutput,	All_Indicator(),
+								neighborOutput,	allIndicator(),
 								normBijection)
 								.kNearest(kNearest)
 								.maxDistance(matchingDistance)
