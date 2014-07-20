@@ -1,6 +1,0 @@
-All-nearest-neighbors counting
-==============================
-
-[[Parent]]: nearest_neighbors.txt
-
-

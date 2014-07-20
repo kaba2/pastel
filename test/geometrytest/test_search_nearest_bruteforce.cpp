@@ -15,6 +15,7 @@
 #include <pastel/sys/counting_iterator.h>
 
 #include <vector>
+#include <list>
 
 using namespace Pastel;
 
@@ -51,7 +52,7 @@ namespace
 				 |
 			*/
 
-			using PointSet = std::vector<Vector2>;
+			using PointSet = std::list<Vector2>;
 			using Point_Iterator = PointSet::iterator;
 			using Locator = Vector_Locator<real, 2>;
 			
@@ -113,13 +114,14 @@ namespace
 				5, 4, 2, 5, 2, 2, 4, 1, 1, 1, 1, 1, 1, 4, 8
 			};
 			
-			for (integer i = 0; i < pointSet.size(); ++i)
+			integer j = 0;
+			for (auto i = pointSet.begin(); i != pointSet.end(); ++i)
 			{
 				{
 					std::pair<Vector2, real> result =
 						searchNearestBruteForce(
 							rangeInput(pointSet), 
-							pointSet[i]);
+							*i);
 
 					real distance2 = result.second;
 
@@ -130,16 +132,17 @@ namespace
 					std::pair<Point_Iterator, real> result =
 						searchNearestBruteForce(
 						rangeInput(countingRange(pointSet)),
-						pointSet[i],
+						*i,
 						Null_Output(),
-						predicateIndicator(pointSet.begin() + i, NotEqualTo()),
+						predicateIndicator(i, NotEqualTo()),
 						normBijection,
 						indirectLocator<Point_Iterator>(Locator()));
 
 					real distance2 = result.second;
 
-					TEST_ENSURE(distance2 == distanceSet[i]);
+					TEST_ENSURE(distance2 == distanceSet[j]);
 				}
+				++j;
 			}
 		}
 	};
