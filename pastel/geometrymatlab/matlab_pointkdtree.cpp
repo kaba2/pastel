@@ -2,13 +2,14 @@
 // Documentation: pointkdtree_matlab.txt
 
 #include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/search_all_neighbors_pointkdtree.h"
-#include "pastel/geometry/count_all_neighbors_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_search_nearest.h"
+#include "pastel/geometry/pointkdtree_count_nearest.h"
 
 #include "pastel/matlab/pastelmatlab.h"
 
 #include "pastel/sys/pointpolicies.h"
 #include "pastel/sys/pool_allocator.h"
+#include "pastel/sys/predicate_indicator.h"
 
 #include <boost/range/algorithm/fill.hpp>
 
@@ -744,49 +745,47 @@ namespace Pastel
 				Array<integer> querySet = asLinearizedArray<integer>(inputSet[QuerySet]);
 		
 				// Find the k-nearest-neighbors for each point.
+				auto search = [&](const Block& block)
 				{
-					auto compute = [&](const Block& block)
+					for (integer i = block.begin(); i < block.end(); ++i)
 					{
-						for (integer i = block.begin(); i < block.end(); ++i)
+						integer j = 0;
+						auto nearestOutput = [&](
+							real distance,
+							Point_ConstIterator point)
 						{
-							integer j = 0;
-							auto nearestOutput = [&](
-								real distance,
-								Point_ConstIterator point)
+							if (point != state->tree.end())
 							{
-								if (point != state->tree.end())
+								nearestArray(j, i) = point->point().id;
+								if (wantDistance)
 								{
-									nearestArray(j, i) = point->point().id;
-									if (wantDistance)
-									{
-										distanceArray(j, i) = distance;
-									}
+									distanceArray(j, i) = distance;
 								}
-								++j;
-							};
-
-							auto query_ = indexMap.find(querySet(i));
-							if (query_ == indexMap.end())
-							{
-								// The query index does not exist.
-								continue;
 							}
+							++j;
+						};
 
-							Point_ConstIterator query = query_->second;
-
-							searchNearest(
-								state->tree,
-								query, 
-								nearestOutput,
-								predicateIndicator(query, NotEqualTo()), 
-								NormBijection())
-								.kNearest(k)
-								.maxDistance(maxDistanceSet(i));
+						auto query_ = indexMap.find(querySet(i));
+						if (query_ == indexMap.end())
+						{
+							// The query index does not exist.
+							continue;
 						}
-					};
 
-					tbb::parallel_for(Block(0, queries), compute);
-				}
+						Point_ConstIterator query = query_->second;
+
+						searchNearest(
+							state->tree,
+							query, 
+							nearestOutput,
+							predicateIndicator(query, NotEqualTo()), 
+							NormBijection())
+							.kNearest(k)
+							.maxDistance(maxDistanceSet(i));
+					}
+				};
+
+				tbb::parallel_for(Block(0, queries), search);
 			}
 		}
 
@@ -874,32 +873,36 @@ namespace Pastel
 			// given by their ids.
 			Array<integer> querySet = asLinearizedArray<integer>(inputSet[QuerySet]);
 
-			// Find the iterators corresponding to the
-			// point-ids.
-			std::vector<Point_ConstIterator> queryIterSet;
-			queryIterSet.reserve(queries);
-			for (integer i = 0;i < queries;++i)
-			{			
-				const ConstIterator iter = 
-					indexMap.find(querySet(i));
-				if (iter != indexMap.end())
-				{
-					queryIterSet.push_back(iter->second);
-				}
-			}
-		
 			// Create the result array.
 			Array<integer> result =
 				createArray<integer>(queries, 1, outputSet[IdSet]);
 
 			// Count the neighbors for each point.
-			countAllNeighbors(
-				state->tree, 
-				range(queryIterSet.begin(), queryIterSet.end()),
-				maxDistanceSet.range(),
-				result.begin(),
-				8,
-				NormBijection());
+
+			using Block = tbb::blocked_range<integer>;
+
+			auto count = [&](const Block& block)
+			{
+				for (integer i = block.begin(); i < block.end(); ++i)
+				{
+					ConstIterator query_ = indexMap.find(querySet(i));
+					if (query_ == indexMap.end())
+					{
+						continue;
+					}
+
+					Point_ConstIterator query = query_->second;
+
+					result(i) = countNearest(
+						state->tree,
+						query,
+						allIndicator(),
+						NormBijection())
+						.maxDistance(maxDistanceSet(i));
+				}
+			};
+
+			tbb::parallel_for(Block(0, queries), count);
 		}
 
 		void kdCountNearest(
