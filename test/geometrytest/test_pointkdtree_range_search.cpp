@@ -1,5 +1,5 @@
 // Description: Testing for point kd-tree range search
-// DocumentationOf: pointkdtree_range_search.h
+// DocumentationOf: pointkdtree_search_range.h
 
 #include "test_pastelgeometry.h"
 
