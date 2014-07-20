@@ -8,6 +8,5 @@
 #include "pastel/sys/automaton_closure.h"
 #include "pastel/sys/productive_states.h"
 #include "pastel/sys/reachable_states.h"
-#include "pastel/sys/regex_automata.h"
 
 #endif
