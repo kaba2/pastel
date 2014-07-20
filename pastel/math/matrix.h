@@ -6,7 +6,6 @@
 #include "pastel/math/matrix_expression.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/commafiller.h"
 #include "pastel/sys/memory_overlaps.h"
 #include "pastel/sys/sparse_iterator.h"
 
@@ -214,20 +213,6 @@ namespace Pastel
 			const void* memoryEnd) const
 		{
 			return false;
-		}
-
-		//! Assigns a real number to the (0, 0) index of the matrix.
-		/*!
-		Time complexity: O(1) + Real=
-		Exception safety: nothrow + Real=
-
-		returns:
-		A comma-filler object which can be used to fill the subsequent
-		elements of the matrix by using the comma operator.
-		*/
-		CommaFiller<Real, Iterator> operator|=(Real that)
-		{
-			return commaFiller<Real>(begin(), end(), that);
 		}
 
 		//! Returns the i:th linearized element of the matrix.
@@ -451,6 +436,22 @@ namespace Pastel
 		{
 			swap(that);
 			that.clear();
+			return *this;
+		}
+
+		//! Assigns from an initializer list.
+		/*!
+		The values are assigned in the order of the
+		linearization. Extraneous elements will be ignored, 
+		missing elements will not cause a modification.
+
+		Time complexity: O(min(size(), that.size()))
+		Exception safety: basic
+		*/
+		Matrix& operator=(const std::initializer_list<Real>& that)
+		{
+			integer n = std::min(size(), (integer)that.size());
+			std::copy_n(that.begin(), n, begin());
 			return *this;
 		}
 
