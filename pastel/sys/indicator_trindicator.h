@@ -1,5 +1,5 @@
 // Description: Indicator trindicator
-// DocumentationOf: trindicator.h
+// DocumentationOf: trindicator_concept.h
 
 #ifndef PASTELSYS_INDICATOR_TRINDICATOR_H
 #define PASTELSYS_INDICATOR_TRINDICATOR_H

@@ -1,7 +1,7 @@
 Scoped enums
 ============
 
-[[Parent]]: deprecated.txt
+[[Parent]]: deprecated_techniques.txt
 
 This section was deprecated after Visual Studio 2013 implemented strongly typed enums; we have transitioned to use them. Below is the original text for historical reference.
 

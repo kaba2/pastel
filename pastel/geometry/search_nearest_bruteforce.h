@@ -1,4 +1,5 @@
 // Description: Nearest neighbors search by brute-force
+// Documentation: nearest_neighbors.txt
 
 #ifndef PASTELGEOMETRY_SEARCH_NEAREST_BRUTEFORCE_H
 #define PASTELGEOMETRY_SEARCH_NEAREST_BRUTEFORCE_H

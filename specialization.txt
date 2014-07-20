@@ -1,7 +1,7 @@
 Specialization without repeating all the implementation
 =======================================================
 
-[[Parent]]: deprecated.txt
+[[Parent]]: deprecated_techniques.txt
 
 This section was deprecated because C++11 offers better ways to deal with the problems in this section. We provide the original text here for historical reference.
 
