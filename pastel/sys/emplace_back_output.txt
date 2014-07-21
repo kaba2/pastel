@@ -1,0 +1,6 @@
+Emplace-back output
+===================
+
+[[Parent]]: outputs.txt
+
+An _emplace-back output_ takes an object `A` as a parameter and forwards the reported objects to the `emplace_back` member function of `A`. In particular, this allows to transmit data into some of the sequence containers in STL.
