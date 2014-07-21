@@ -98,7 +98,7 @@ namespace Pastel
 
 			if (errorInfo.hitCount() > 1)
 			{
-				output << errorInfo.hitCount() << " hits, showing the first." << logNewLine;
+				output << errorInfo.hitCount() << " hits, showing a few." << logNewLine;
 			}
 
 			if (!errorInfo.testText().empty())
