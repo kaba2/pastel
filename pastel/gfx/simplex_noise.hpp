@@ -82,7 +82,7 @@ namespace Pastel
 				value += square(square(attenuation)) * vertexValue;
 			}
 
-			const integer axis = orderSet[i].value();
+			const integer axis = orderSet[i].second;
 
 			f += q * dInv;
 			f[axis] -= dInv;
