@@ -19,7 +19,7 @@ namespace Pastel
 		typename Search_Locator,
 		typename Real,
 		typename NormBijection>
-	std::pair<Point, Real> searchNearestBruteForce(
+	std::pair<Real, Point> searchNearestBruteForce(
 		Point_Input pointSet,
 		const Search_Point& searchPoint,
 		Point_Output report,
@@ -34,7 +34,7 @@ namespace Pastel
 
 		if (pointSet.empty() || kNearest == 0)
 		{
-			return std::make_pair(Point(), infinity<Real>());
+			return std::make_pair(infinity<Real>(), Point());
 		}
 		
 		using Real = typename Locator::Real;
@@ -120,23 +120,23 @@ namespace Pastel
 		if (found == 0)
 		{
 			return std::make_pair(
-				Point(), 
-				infinity<Real>());
+				infinity<Real>(), 
+				Point());
 		}
 
 		for (auto&& entry : nearestSet)
 		{
-			report(entry.point, entry.distance);
+			report(entry.distance, entry.point);
 		}
 
 		for (integer i = found;i < kNearest;++i)
 		{
-			report(Point(), infinity<Real>());
+			report(infinity<Real>(), Point());
 		}
 
 		return std::make_pair(
-			nearestSet.begin()->point,
-			nearestSet.begin()->distance);
+			nearestSet.begin()->distance,
+			nearestSet.begin()->point);
 	}
 
 }

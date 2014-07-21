@@ -7,6 +7,7 @@
 
 #include "pastel/geometry/pointkdtree_search_nearest.h"
 #include "pastel/geometry/distance_point_point.h"
+#include "pastel/geometry/search_nearest_bruteforce.h"
 
 #include "pastel/sys/locators.h"
 #include "pastel/sys/inputs.h"
@@ -49,6 +50,8 @@ namespace
 			using Tree = TdTree<TdTree_Settings<Locator>>;
 			using ConstIterator = Tree::ConstIterator;
 
+			Euclidean_NormBijection<real> normBijection;
+
 			using PointSet = std::vector<Point>;
 			
 			integer n = 1000;
@@ -69,22 +72,41 @@ namespace
 			Array<Point_Iterator, 2> nearestSet(
 				Vector2i(1, n));
 
-			/*
-			searchAllNeighborsBruteForce(
-				pointSet,
-				Locator(),
-				nearestSet,
-				countingRange(pointSet),
-				1,
-				constantRange(infinity<real>(), boost::size(pointSet)));
+			integer k = 7;
 
-			std::vector<real> distanceSet;
-			distanceSet.reserve(n);
 			for (integer i = 0; i < n; ++i)
 			{
-				distanceSet.emplace_back(distance2(*nearestSet(i), pointSet[i]));
+				std::vector<std::pair<real, Point>> bruteSet;
+				bruteSet.reserve(k);
+				
+				searchNearestBruteForce(
+					rangeInput(pointSet),
+					pointSet[i],
+					emplaceBackOutput(bruteSet),
+					allIndicator(), 
+					normBijection,
+					Locator(),
+					Locator(),
+					k).second;
+
+				std::vector<std::pair<real, ConstIterator>> treeSet;
+				treeSet.reserve(k);
+
+				searchNearest(
+					tree,
+					pointSet[i],
+					emplaceBackOutput(treeSet)).
+					kNearest(k);
+
+				for (integer j = 0; j < k; ++j)
+				{
+					TEST_ENSURE_OP(bruteSet[j].first, ==, treeSet[j].first);
+					if (bruteSet[j].first != treeSet[j].first)
+					{
+						std::cout << bruteSet[j].first << " != " << treeSet[j].first << std::endl;
+					}
+				}
 			}
-			*/
 		}
 
 		void testLinear()
