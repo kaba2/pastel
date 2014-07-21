@@ -71,12 +71,15 @@ Release date xx.x.2014
 * Added algorithms for interval sequences.
 * Added grid traversal.
 
-#### Other
+#### Refactoring
 
-* Removed the use of CRTP from Vector, Tuple, and Alignedbox.
-* Replaced uses of the comma-filler with initializer lists.
-* Remove the comma-filler.
+* Removed the use of CRTP from all classes.
+* Replaced uses of the CommaFiller with initializer lists.
 * Converted typedefs to using-aliases for better readability.
+* Removed CommaFiller.
+* Removed KeyValue.
+* Removed Guid.
+* Removed PrototypeFactory.
 
 ### PastelGeometry
 
@@ -90,6 +93,11 @@ Release date xx.x.2014
 #### Algorithms
 
 * Added range searching / counting in a range tree.
+
+#### Refactoring
+
+* Removed BihTree.
+* Removed all-nearest neighbors searching / counting.
 
 ### PastelGeometryMatlab
 
