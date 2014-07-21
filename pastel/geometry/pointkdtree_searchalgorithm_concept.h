@@ -4,8 +4,6 @@
 #ifndef PASTELGEOMETRY_POINTKDTREE_SEARCHALGORITHM_CONCEPT_HPP
 #define PASTELGEOMETRY_POINTKDTREE_SEARCHALGORITHM_CONCEPT_HPP
 
-#include "pastel/sys/keyvalue.h"
-
 namespace Pastel
 {
 
@@ -28,7 +26,7 @@ namespace Pastel
 				nodesLeft()
 
 				In case there are no more nodes left to visit,
-				this should return KeyValue<Real, Cursor>();
+				this should return std::pair<Real, Cursor>();
 				*/
 				State nextNode();
 

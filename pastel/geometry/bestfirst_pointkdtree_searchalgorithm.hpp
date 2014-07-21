@@ -4,7 +4,6 @@
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/keyvalue.h"
 
 #include <queue>
 #include <vector>

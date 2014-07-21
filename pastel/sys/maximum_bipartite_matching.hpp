@@ -3,7 +3,6 @@
 
 #include "pastel/sys/maximum_bipartite_matching.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/keyvalue.h"
 
 #include <vector>
 #include <queue>
@@ -230,7 +229,7 @@ namespace Pastel
 				RightMap rightMap(1, rightHash_);
 
 				// Directed edges between integers.
-				std::vector<KeyValue<integer, integer> > edgeSet;
+				std::vector<std::pair<integer, integer> > edgeSet;
 
 				// The 0 index is reserved to the sentinel 
 				// vertex here.
@@ -284,8 +283,8 @@ namespace Pastel
 					ASSERT_OP(i, !=, j);
 
 					// Add an edge to both directions.
-					edgeSet.push_back(keyValue(i, j));
-					edgeSet.push_back(keyValue(j, i));
+					edgeSet.push_back(std::make_pair(i, j));
+					edgeSet.push_back(std::make_pair(j, i));
 
 					++leftIter;
 					++rightIter;
@@ -318,9 +317,9 @@ namespace Pastel
 					// Since edgeSet is sorted primarily according to
 					// the first vertex, the edges of a vertex are
 					// grouped in an interval.
-					while(edge < edges && edgeSet[edge].key() == i)
+					while(edge < edges && edgeSet[edge].first == i)
 					{
-						adjacencySet_[edge] = edgeSet[edge].value();
+						adjacencySet_[edge] = edgeSet[edge].second;
 						++adjacencies;
 						++edge;
 					}

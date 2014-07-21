@@ -368,10 +368,10 @@ namespace Pastel
 
 						for (integer m = 1;m < k_ + 1;++m)
 						{
-							const Vector<Real, N> transformedModelPoint =
+							Vector<Real, N> transformedModelPoint =
 								transformPoint(similarity, modelPosition(modelSet[m]));
 
-							const KeyValue<Real, SceneIterator> closestScenePoint =
+							std::pair<Real, SceneIterator> closestScenePoint =
 								searchNearest(sceneTree_, transformedModelPoint);
 
 							// A transformed model point M' matches a scene point S
@@ -379,10 +379,10 @@ namespace Pastel
 							// the matching threshold.
 							// However, the paper suggest the use of
 							// 2 * matchingDistance.
-							if (closestScenePoint.key() <= 2 * matchingDistance_)
+							if (closestScenePoint.first <= 2 * matchingDistance_)
 							{
 								modelMatch.push_back(modelPosition(modelSet[m]));
-								sceneMatch.push_back(scenePosition(closestScenePoint.value()));
+								sceneMatch.push_back(scenePosition(closestScenePoint.second));
 							}
 						}
 
@@ -463,26 +463,26 @@ namespace Pastel
 					UsedSceneSet usedSet;
 
 					ModelIterator modelIter = modelTree_.begin();
-					const ModelIterator modelEnd = modelTree_.end();
+					ModelIterator modelEnd = modelTree_.end();
 					while(modelIter != modelEnd)
 					{
-						const Vector<Real, N> modelPoint =
+						Vector<Real, N> modelPoint =
 							modelPosition(modelIter);
 
-						const Vector<Real, N> transformedModelPoint =
+						Vector<Real, N> transformedModelPoint =
 							transformPoint(lsSimilarity, modelPoint);
 
 						// See if the model point maps near to some
 						// scene point.
 
-						const KeyValue<Real, SceneIterator> closestScenePoint =
+						std::pair<Real, SceneIterator> closestScenePoint =
 							searchNearest(sceneTree_, transformedModelPoint);
 
-						if (closestScenePoint.key() <= matchingDistance_ &&
-							usedSet.find(closestScenePoint.value()) == usedSet.end())
+						if (closestScenePoint.first <= matchingDistance_ &&
+							usedSet.find(closestScenePoint.second) == usedSet.end())
 						{
-							const Vector<Real, N> scenePoint =
-								scenePosition(closestScenePoint.value());
+							Vector<Real, N> scenePoint =
+								scenePosition(closestScenePoint.second);
 
 							// Add these points as a new matching pair.
 
@@ -491,7 +491,7 @@ namespace Pastel
 
 							// Mark this scene point as paired.
 
-							usedSet.insert(closestScenePoint.value());
+							usedSet.insert(closestScenePoint.second);
 						}
 
 						++modelIter;

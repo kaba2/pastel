@@ -67,29 +67,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/keyvalue.h"
-
-namespace std
-{
-
-	// The hash can be specialized for user-defined types,
-	// but not for the types in the STL itself.
-
-	template <typename Key, typename Value>
-	struct hash<Pastel::KeyValue<Key, Value>>
-	{
-	public:
-		Pastel::hash_integer operator()(
-			const Pastel::KeyValue<Key, Value>& that) const
-		{
-			return combineHash(
-				computeHash(that.key()),
-				computeHash(that.value()));
-		}
-	};
-
-}
-
 namespace Pastel
 {
 

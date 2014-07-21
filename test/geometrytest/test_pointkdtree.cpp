@@ -197,27 +197,27 @@ namespace
 			for (integer i = 0;i < iteratorSet.size();++i)
 			{
 				{
-					const KeyValue<real, Point_ConstIterator> result = 
+					std::pair<real, Point_ConstIterator> result = 
 						searchNearest(tree, iteratorSet[i], Null_Output(), 
 						allIndicator(), normBijection, searchAlgorithm)
 						.bucketSize(1);
 
-					const real distance2 = result.key();
-					const Point_ConstIterator iter = result.value();
+					const real distance2 = result.first;
+					const Point_ConstIterator iter = result.second;
 
 					//TEST_ENSURE(iter == iteratorSet[i]);
 					TEST_ENSURE(distance2 == 0);
 				}
 				
 				{
-					const KeyValue<real, Point_ConstIterator> result = 
+					const std::pair<real, Point_ConstIterator> result = 
 						searchNearest(tree, iteratorSet[i], Null_Output(),
 						predicateIndicator(iteratorSet[i], NotEqualTo()),
 						normBijection, searchAlgorithm)
 						.bucketSize(1);
 					
-					const real distance2 = result.key();
-					const Point_ConstIterator iter = result.value();
+					const real distance2 = result.first;
+					const Point_ConstIterator iter = result.second;
 
 					//TEST_ENSURE(iter == correctSet[i]);
 					TEST_ENSURE(distance2 == distanceSet[i]);
