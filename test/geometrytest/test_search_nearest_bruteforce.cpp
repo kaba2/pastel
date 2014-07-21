@@ -118,18 +118,18 @@ namespace
 			for (auto i = pointSet.begin(); i != pointSet.end(); ++i)
 			{
 				{
-					std::pair<Vector2, real> result =
+					std::pair<real, Vector2> result =
 						searchNearestBruteForce(
 							rangeInput(pointSet), 
 							*i);
 
-					real distance2 = result.second;
+					real distance2 = result.first;
 
 					TEST_ENSURE(distance2 == 0);
 				}
 
 				{
-					std::pair<Point_Iterator, real> result =
+					std::pair<real, Point_Iterator> result =
 						searchNearestBruteForce(
 						rangeInput(countingRange(pointSet)),
 						*i,
@@ -138,7 +138,7 @@ namespace
 						normBijection,
 						indirectLocator<Point_Iterator>(Locator()));
 
-					real distance2 = result.second;
+					real distance2 = result.first;
 
 					TEST_ENSURE(distance2 == distanceSet[j]);
 				}

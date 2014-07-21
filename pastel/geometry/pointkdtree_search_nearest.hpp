@@ -31,7 +31,7 @@ namespace Pastel
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 
 		using Point_ConstIterator = typename KdTree::Point_ConstIterator;
-		using Result = KeyValue<Real, Point_ConstIterator>;
+		using Result = std::pair<Real, Point_ConstIterator>;
 
 		SearchNearest_(
 			const KdTree& kdTree,
@@ -89,12 +89,12 @@ namespace Pastel
 
 		operator Real() const
 		{
-			return ((Result)*this).key();
+			return ((Result)*this).first;
 		}
 
 		operator Point_ConstIterator() const
 		{
-			return ((Result)*this).value();
+			return ((Result)*this).second;
 		}
 
 		Result operator()() const
@@ -129,7 +129,7 @@ namespace Pastel
 
 				if (candidateSet.size() == k)
 				{
-					return std::prev(candidateSet.end())->key();
+					return std::prev(candidateSet.end())->first;
 				}
 
 				return infinity<Real>();
@@ -149,7 +149,7 @@ namespace Pastel
 
 			for (auto result : candidateSet)
 			{
-				nearestOutput_(result.key(), result.value());
+				nearestOutput_(result.first, result.second);
 			}
 
 			if (!candidateSet.empty())

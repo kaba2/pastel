@@ -87,7 +87,7 @@ namespace Pastel
 	The nearest neighbor. If no neighbor is found,
 	returns kdTree.end().
 
-	KeyValue<Real, Point_ConstIterator>:
+	std::pair<Real, Point_ConstIterator>:
 	A combination of the previous two.
 	*/
 	template <

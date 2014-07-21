@@ -3,13 +3,4 @@ As_Pair concept map
 
 [[Parent]]: undocumented.txt
 
-Pairs of objects occur repeatedly in programming, most often
-to denote 2d coordinates, an association between two objects,
-or simply a logical grouping. Since it is such a fundamental
-data structure, and because it is also something to which 
-many data structures simplify to, a pair of objects can be 
-found in various guises even inside the same library. In
-Pastel, a pair can be given as a `std::pair`, a
-`KeyValue`, or a `Tuple`. Thus a concept map is needed to map
-the syntactically different types to a uniform concept.
-This concept map is called the `As_Pair`.
+Pairs of objects occur repeatedly in programming, most often to denote 2d coordinates, an association between two objects, or simply a logical grouping. Since it is such a fundamental data structure, and because it is also something to which many data structures simplify to, a pair of objects can be found in various guises even inside the same library. In Pastel, a pair can be given as a `std::pair`, or a `Tuple`. Thus a concept map is needed to map the syntactically different types to a uniform concept. This concept map is called the `As_Pair`.

@@ -19,7 +19,6 @@
 #include "pastel/gfx/filters.h"
 
 #include "pastel/sys/string_algorithms.h"
-#include "pastel/sys/keyvalue.h"
 
 #include "pastel/geometry/planar_projection.h"
 
@@ -390,16 +389,16 @@ namespace
 		RipImage_Texture<Color> textureRip(
 			ripMap, ArrayExtender<2, Color>(extender));
 
-		std::vector<KeyValue<std::string, Texture<Color>*> > textureList;
+		std::vector<std::pair<std::string, Texture<Color>*> > textureList;
 
-		textureList.push_back(keyValue(std::string("ewa_gaussian1"), (Texture<Color>*)&textureEwaGaussian1));
-		textureList.push_back(keyValue(std::string("ewa_gaussian2"), (Texture<Color>*)&textureEwaGaussian2));
-		textureList.push_back(keyValue(std::string("ewa_lanczos2"), (Texture<Color>*)&textureEwaLanczos2));
-		textureList.push_back(keyValue(std::string("ewa_mitchell"), (Texture<Color>*)&textureEwaMitchell));
-		textureList.push_back(keyValue(std::string("ewa_box"), (Texture<Color>*)&textureEwaBox));
-		textureList.push_back(keyValue(std::string("ewa_triangle"), (Texture<Color>*)&textureEwaTriangle));
-		textureList.push_back(keyValue(std::string("mip"), (Texture<Color>*)&textureMip));
-		textureList.push_back(keyValue(std::string("rip"), (Texture<Color>*)&textureRip));
+		textureList.emplace_back(std::string("ewa_gaussian1"), (Texture<Color>*)&textureEwaGaussian1);
+		textureList.emplace_back(std::string("ewa_gaussian2"), (Texture<Color>*)&textureEwaGaussian2);
+		textureList.emplace_back(std::string("ewa_lanczos2"), (Texture<Color>*)&textureEwaLanczos2);
+		textureList.emplace_back(std::string("ewa_mitchell"), (Texture<Color>*)&textureEwaMitchell);
+		textureList.emplace_back(std::string("ewa_box"), (Texture<Color>*)&textureEwaBox);
+		textureList.emplace_back(std::string("ewa_triangle"), (Texture<Color>*)&textureEwaTriangle);
+		textureList.emplace_back(std::string("mip"), (Texture<Color>*)&textureMip);
+		textureList.emplace_back(std::string("rip"), (Texture<Color>*)&textureRip);
 
 		const integer textures = textureList.size();
 
@@ -418,8 +417,8 @@ namespace
 
 			for (integer i = 0;i < textures;++i)
 			{
-				drawTestQuad(quad, textureQuad, *textureList[i].value(),
-					"checker1", textureList[i].key());
+				drawTestQuad(quad, textureQuad, *textureList[i].second,
+					"checker1", textureList[i].first);
 			}
 		}
 
@@ -464,8 +463,8 @@ namespace
 				Vector2(1, 1),
 				Vector2(0, 1));
 
-			drawTestQuad(quad, textureQuad, *textureList[i].value(),
-				"lena1", textureList[i].key());
+			drawTestQuad(quad, textureQuad, *textureList[i].second,
+				"lena1", textureList[i].first);
 		}
 
 		/*
@@ -510,8 +509,8 @@ namespace
 
 			for (integer i = 0;i < textures;++i)
 			{
-				drawTestQuad(quad, textureQuad, *textureList[i].value(),
-					"checker2", textureList[i].key());
+				drawTestQuad(quad, textureQuad, *textureList[i].second,
+					"checker2", textureList[i].first);
 			}
 		}
 

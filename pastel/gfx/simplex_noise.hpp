@@ -5,8 +5,6 @@
 #include "pastel/gfx/gradientfield.h"
 #include "pastel/gfx/perlin_noise.h"
 
-#include "pastel/sys/keyvalue.h"
-
 namespace Pastel
 {
 
@@ -39,13 +37,25 @@ namespace Pastel
 		// In that cube, find out in which
 		// simplex we are in.
 
-		std::vector<KeyValue<Real, integer> > orderSet;
+		using Pair = std::pair<Real, integer>;
+
+		std::vector<Pair> orderSet;
 		orderSet.reserve(n);
 		for (integer i = 0;i < n;++i)
 		{
-			orderSet.push_back(keyValue(f[i], i));
+			orderSet.emplace_back(f[i], i);
 		}
-		std::sort(orderSet.begin(), orderSet.end(), std::greater<KeyValue<Real, integer> >());
+
+		auto greater = [&](const Pair& left, const Pair& right)
+		{
+			if (left.first != right.first)
+			{
+				return left.first > right.first;
+			}
+			return left.second > right.second;
+		};
+
+		std::sort(orderSet.begin(), orderSet.end(), greater);
 
 		// Map the min vertex back to the transformed simplex space
 		// (out of the scalings along [1, ..., 1], this one maximizes

@@ -4,7 +4,6 @@
 #include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/keyvalue.h"
 
 #include <vector>
 
