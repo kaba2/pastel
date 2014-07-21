@@ -79,7 +79,7 @@ namespace
 				std::vector<std::pair<real, Point>> bruteSet;
 				bruteSet.reserve(k);
 				
-				searchNearestBruteForce(
+				real kDistanceBrute = searchNearestBruteForce(
 					rangeInput(pointSet),
 					pointSet[i],
 					emplaceBackOutput(bruteSet),
@@ -87,16 +87,18 @@ namespace
 					normBijection,
 					Locator(),
 					Locator(),
-					k).second;
+					k).first;
 
 				std::vector<std::pair<real, ConstIterator>> treeSet;
 				treeSet.reserve(k);
 
-				searchNearest(
+				real kDistanceTree = searchNearest(
 					tree,
 					pointSet[i],
 					emplaceBackOutput(treeSet)).
 					kNearest(k);
+
+				TEST_ENSURE_OP(kDistanceBrute, ==, kDistanceTree);
 
 				for (integer j = 0; j < k; ++j)
 				{
