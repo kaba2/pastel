@@ -177,9 +177,16 @@ namespace Pastel
 					if (errorSet_[i].lineNumber() == lineNumber &&
 						errorSet_[i].fileName() == fileName)
 					{
-						// No multiple occurences allowed.
 						errorSet_[i].increaseHitCount();
-						return;
+
+						if (errorSet_[i].hitCount() >= 4)
+						{
+							// If there are multiple occurences, only
+							// report the five first.
+							return;
+						}
+
+						break;
 					}
 				}
 			}
