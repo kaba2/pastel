@@ -33,7 +33,7 @@ namespace
 		{
 			HalfEdge<> halfMesh;
 			halfMesh.insertVertex();
-			for (int i = 0;i < 10000;i++)
+			for (int i = 0;i < 10000;++i)
 			{
 				halfMesh.insertVertex();
 				TEST_ENSURE(testInvariants(halfMesh));
