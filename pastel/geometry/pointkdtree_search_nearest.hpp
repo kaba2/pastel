@@ -36,7 +36,7 @@ namespace Pastel
 		SearchNearest_(
 			const KdTree& kdTree,
 			const SearchPoint& searchPoint,
-			const NearestOutput& nearestOutput,
+			const NearestOutput& report,
 			const Indicator& acceptPoint,
 			const NormBijection& normBijection,
 			const SearchAlgorithm& searchAlgorithm,
@@ -44,7 +44,7 @@ namespace Pastel
 			: kdTree_(kdTree)
 			, searchPoint_(searchPoint)
 			, intervalSequence_(intervalSequence)
-			, nearestOutput_(nearestOutput)
+			, report_(report)
 			, acceptPoint_(acceptPoint)
 			, normBijection_(normBijection)
 			, searchAlgorithm_(searchAlgorithm)
@@ -59,7 +59,7 @@ namespace Pastel
 		const KdTree& kdTree_;
 		const SearchPoint& searchPoint_;
 		const IntervalSequence& intervalSequence_;
-		const NearestOutput& nearestOutput_;
+		const NearestOutput& report_;
 		const Indicator& acceptPoint_;
 		const NormBijection& normBijection_;
 		const SearchAlgorithm& searchAlgorithm_;
@@ -104,32 +104,32 @@ namespace Pastel
 			ENSURE_OP(bucketSize_, >, 0);
 			ENSURE_OP(kNearest_, >=, 0);
 
-			integer k = std::min(kdTree_.points(), kNearest_);
-			Result result(infinity<Real>(), kdTree_.end());
+			Result notFound(infinity<Real>(), kdTree_.end());
 
-			if (used_ || k == 0)
+			if (used_ || kNearest_ == 0)
 			{
-				return result;
+				return notFound;
 			}
+
 			used_ = true;
 
-			using CandidateSet = std::set<Result>;
-			CandidateSet candidateSet;
+			using NearestSet = std::set<Result>;
+			NearestSet nearestSet;
 
 			auto candidateFunctor = [&](
 				const Real& distance,
 				const Point_ConstIterator& iter)
 			{
-				candidateSet.insert(Result(distance, iter));
-				if (candidateSet.size() > k)
+				nearestSet.emplace(distance, iter);
+				if (nearestSet.size() > kNearest_)
 				{
-					candidateSet.erase(
-						std::prev(candidateSet.end()));
+					nearestSet.erase(
+						std::prev(nearestSet.end()));
 				}
 
-				if (candidateSet.size() == k)
+				if (nearestSet.size() == kNearest_)
 				{
-					return std::prev(candidateSet.end())->first;
+					return std::prev(nearestSet.end())->first;
 				}
 
 				return infinity<Real>();
@@ -147,17 +147,23 @@ namespace Pastel
 				searchAlgorithm_,
 				intervalSequence_);
 
-			for (auto result : candidateSet)
+			for (auto&& entry : nearestSet)
 			{
-				nearestOutput_(result.first, result.second);
+				report_(entry.first, entry.second);
 			}
 
-			if (!candidateSet.empty())
+			integer neighbors = nearestSet.size();
+			for (integer i = neighbors;i < kNearest_;++i)
 			{
-				result = *candidateSet.begin();
+				report_(notFound.first, notFound.second);
 			}
 
-			return result;
+			if (neighbors < kNearest_)
+			{
+				return notFound;
+			}
+
+			return *std::prev(nearestSet.end());
 		}
 	};
 

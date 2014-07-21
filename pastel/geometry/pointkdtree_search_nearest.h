@@ -80,12 +80,12 @@ namespace Pastel
 
 	Real:
 	The distance (in terms of the norm bijection) to 
-	the nearest neighbor. If no neighbor is found, 
-	returns infinity<Real>().
+	the k:th nearest neighbor. If the k:th nearest 
+	neighbor does not exist, infinity<Real>().
 
 	Point_ConstIterator:
-	The nearest neighbor. If no neighbor is found,
-	returns kdTree.end().
+	The k:th nearest neighbor. If the k:th nearest 
+	neighbor does not exist, kdTree.end().
 
 	std::pair<Real, Point_ConstIterator>:
 	A combination of the previous two.

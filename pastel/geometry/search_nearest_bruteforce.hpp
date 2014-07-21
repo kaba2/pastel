@@ -32,9 +32,13 @@ namespace Pastel
 	{
 		ENSURE_OP(kNearest, >=, 0);
 
+		using Result = std::pair<Real, Point>;
+
+		Result notFound(infinity<Real>(), Point());
+
 		if (pointSet.empty() || kNearest == 0)
 		{
-			return std::make_pair(infinity<Real>(), Point());
+			return notFound;
 		}
 		
 		using Real = typename Locator::Real;
@@ -116,27 +120,26 @@ namespace Pastel
 			}
 		}
 
-		integer found = nearestSet.size();
-		if (found == 0)
-		{
-			return std::make_pair(
-				infinity<Real>(), 
-				Point());
-		}
-
 		for (auto&& entry : nearestSet)
 		{
 			report(entry.distance, entry.point);
 		}
 
-		for (integer i = found;i < kNearest;++i)
+		integer neighbors = nearestSet.size();
+		for (integer i = neighbors;i < kNearest;++i)
 		{
-			report(infinity<Real>(), Point());
+			report(notFound.first, notFound.second);
 		}
 
+		if (neighbors < kNearest)
+		{
+			return notFound;
+		}
+
+		auto last = std::prev(nearestSet.end());
 		return std::make_pair(
-			nearestSet.begin()->distance,
-			nearestSet.begin()->point);
+			last->distance,
+			last->point);
 	}
 
 }

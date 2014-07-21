@@ -77,11 +77,12 @@ namespace Pastel
 	Returns
 	-------
 
-	A pair (distance, point), where 'point' is the nearest
+	A pair (distance, point), where 'point' is the k:th nearest
 	neighbor of 'searchPoint' in 'pointSet', and 'distance'
-	is the distance between 'searchPoint' and the nearest
+	is the distance between 'searchPoint' and the k:th nearest
 	neighbor, in terms of the norm bijection. In case the
-	nearest neighbor does not exist, then (infinity<Real>(), Point()).
+	k:th nearest neighbor does not exist, then 
+	(infinity<Real>(), Point()).
 	*/
 	template <
 		typename Point_Input,
