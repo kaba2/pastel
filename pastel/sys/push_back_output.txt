@@ -3,7 +3,4 @@ Push-back output
 
 [[Parent]]: outputs.txt
 
-A _push-back output_ takes an object `A` as a parameter
-and passes the reported object to the `push_back` member 
-function of `A`. In particular, this allows to transmit data 
-into some of the sequence containers in STL.
+A _push-back output_ takes an object `A` as a parameter and passes the reported object to the `push_back` member function of `A`. In particular, this allows to transmit data into some of the sequence containers in STL.
