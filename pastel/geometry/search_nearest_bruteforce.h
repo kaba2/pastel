@@ -77,11 +77,11 @@ namespace Pastel
 	Returns
 	-------
 
-	A pair (point, distance), where 'point' is the nearest
+	A pair (distance, point), where 'point' is the nearest
 	neighbor of 'searchPoint' in 'pointSet', and 'distance'
 	is the distance between 'searchPoint' and the nearest
 	neighbor, in terms of the norm bijection. In case the
-	nearest neighbor does not exist, then (Point(), infinity<Real>()).
+	nearest neighbor does not exist, then (infinity<Real>(), Point()).
 	*/
 	template <
 		typename Point_Input,
@@ -93,7 +93,7 @@ namespace Pastel
 		typename Search_Locator = Default_Locator<Search_Point>,
 		typename Real = typename Locator::Real,
 		typename NormBijection = Euclidean_NormBijection<Real>>
-	std::pair<Point, Real> searchNearestBruteForce(
+	std::pair<Real, Point> searchNearestBruteForce(
 		Point_Input pointSet,
 		const Search_Point& searchPoint,
 		Point_Output report = Point_Output(),
