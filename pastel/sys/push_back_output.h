@@ -1,4 +1,4 @@
-// Description: Push-back-into-a-container reporter
+// Description: push_back output
 
 #ifndef PASTELSYS_PUSH_BACK_OUTPUT_H
 #define PASTELSYS_PUSH_BACK_OUTPUT_H
