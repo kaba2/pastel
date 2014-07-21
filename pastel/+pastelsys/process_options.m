@@ -32,10 +32,10 @@ end
 arguments = length(argumentSet);
 remove = false(1, arguments);
 i = 1;
-while i < arguments
+while i <= arguments
     key = argumentSet{i};
     
-    if ~ischar(key),
+    if ~ischar(key) || i == arguments,
         error('MISC:process_options:invalidInput', ...
             'Optional input arguments must be given in key-value pairs.');
     end

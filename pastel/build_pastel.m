@@ -19,7 +19,7 @@
 %     debug
 %     develop
 %     release
-%     release-without-openmp
+%     relwithdebinfo
 % Default: release
 %
 % VERBOSE ('verbose') is a string which specifies whether to print 
@@ -51,9 +51,9 @@ eval(pastelsys.process_options(...
     {'libraryName', 'mode', 'verbose'}, ...
     varargin));
 
-modeSet = {'debug', 'release'};
+modeSet = {'debug', 'release', 'relwithdebinfo'};
 if ~ismember(mode, modeSet)
-    error(['MODE must be one of debug, or release.']);
+    error(['MODE must be one of debug, release, or relwithdebinfo.']);
 end
 
 if iscell(libraryName)
