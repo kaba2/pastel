@@ -1,6 +1,6 @@
 // Description: ConstantIterator class
 // Detail: A constant value iterator 
-// Documentation: iterators.txt
+// Documentation: iterator.txt
 
 #ifndef PASTELSYS_CONSTANT_ITERATOR_H
 #define PASTELSYS_CONSTANT_ITERATOR_H

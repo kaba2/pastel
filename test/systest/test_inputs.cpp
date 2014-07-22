@@ -1,5 +1,5 @@
 // Description: Testing for inputs
-// Documentation: inputs.txt
+// Documentation: input.txt
 
 #include "test_pastelsys.h"
 

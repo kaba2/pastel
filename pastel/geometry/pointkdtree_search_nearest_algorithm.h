@@ -33,7 +33,7 @@ namespace Pastel
 
 	acceptPoint:
 	A predicate which allows to ignore some points.
-	See 'pastel/sys/indicators.txt'.
+	See 'pastel/sys/indicator.txt'.
 
 	normBijection:
 	The norm bijection to use for distance measures.

@@ -1,6 +1,6 @@
 // Description: CountingIterator class
 // Detail: An iterator adapter for dereferencing the adapted iterator
-// Documentation: iterators.txt
+// Documentation: iterator.txt
 
 #ifndef PASTELSYS_COUNTING_ITERATOR_H
 #define PASTELSYS_COUNTING_ITERATOR_H

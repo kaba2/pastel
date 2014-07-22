@@ -35,7 +35,7 @@ namespace Pastel
 	acceptPoint:
 	An indicator which determines whether to accept a point
 	in the search ball as a neighbor or not. 
-	See 'pastel/sys/indicators.txt'.
+	See 'pastel/sys/indicator.txt'.
 
 	normBijection:
 	The norm used to measure distance.

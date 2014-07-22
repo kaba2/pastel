@@ -1,5 +1,5 @@
 // Description: Director concept
-// Documentation: directors.txt
+// Documentation: director.txt
 
 #ifndef PASTELSYS_DIRECTOR_CONCEPT_H
 #define PASTELSYS_DIRECTOR_CONCEPT_H

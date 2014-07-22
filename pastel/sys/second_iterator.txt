@@ -1,11 +1,11 @@
 Second iterator
 ===============
 
-[[Parent]]: iterators.txt
+[[Parent]]: iterator.txt
 
 The `SecondIterator` adapts the underlying iterator, provided that it dereferences to an `std::pair`. The only adaptation it does, is to dereference to the `second` field of the pair instead. This is important to being able to realize good [iterator interfaces][Iterator].
 
-[Iterator]: [[Ref]]: adaptable_iterators.txt
+[Iterator]: [[Ref]]: adaptable_iterator.txt
 
 Genericy
 --------

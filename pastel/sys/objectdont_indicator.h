@@ -1,6 +1,6 @@
 // Description: ObjectDont_Indicator
 // Detail: Rejects a given point but accepts otherwise.
-// Documentation: indicators.txt
+// Documentation: indicator.txt
 
 #ifndef PASTELSYS_OBJECTDONT_INDICATOR_H
 #define PASTELSYS_OBJECTDONT_INDICATOR_H

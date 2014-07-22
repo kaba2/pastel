@@ -1,5 +1,5 @@
 // Description: Step-indicator director
-// Documentation: directors.txt
+// Documentation: director.txt
 
 #ifndef PASTELSYS_STEP_INDICATOR_DIRECTOR_H
 #define PASTELSYS_STEP_INDICATOR_DIRECTOR_H

@@ -1,7 +1,7 @@
 Iterator output
 ===============
 
-[[Parent]]: outputs.txt
+[[Parent]]: output.txt
 
 An _iterator output_ assigns the reported object to a dereferenced
 iterator, and then increments that iterator.

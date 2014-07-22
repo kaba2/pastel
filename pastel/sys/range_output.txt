@@ -1,7 +1,7 @@
 Range output
 ============
 
-[[Parent]]: outputs.txt
+[[Parent]]: output.txt
 
 A _range output_ fills a range with the reported objects.
 If all elements of the range become assigned to, all additional

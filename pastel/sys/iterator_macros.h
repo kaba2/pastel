@@ -1,5 +1,5 @@
 // Description: Iterator macros
-// Documentation: iterators.txt
+// Documentation: iterator.txt
 
 #ifndef PASTELSYS_ITERATOR_MACROS_H
 #define PASTELSYS_ITERATOR_MACROS_H

@@ -1,5 +1,5 @@
 // Description: Iterator ranges
-// Documentation: iterators.txt
+// Documentation: iterator.txt
 
 #ifndef PASTELSYS_RANGE_H
 #define PASTELSYS_RANGE_H

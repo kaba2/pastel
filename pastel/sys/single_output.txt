@@ -1,7 +1,7 @@
 Single output
 =============
 
-[[Parent]]: outputs.txt
+[[Parent]]: output.txt
 
 A _single output_ captures a single object `A` by reference,
 and then assigns all output objects to `A`.
