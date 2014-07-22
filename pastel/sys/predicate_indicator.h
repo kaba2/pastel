@@ -1,6 +1,6 @@
 // Description: Predicate indicator
 // Detail: Accepts based on comparison to a reference object.
-// Documentation: indicators.txt
+// Documentation: indicator.txt
 
 #ifndef PASTELSYS_PREDICATE_INDICATOR_H
 #define PASTELSYS_PREDICATE_INDICATOR_H

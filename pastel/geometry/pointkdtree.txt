@@ -22,7 +22,7 @@ or to left or right child (if they exist). At each node you can inspect:
  
  * What is the cursor to the parent node?
 
-[Cursor]: [[Ref]]: iterators.txt
+[Cursor]: [[Ref]]: iterator.txt
 
 ### Features
 

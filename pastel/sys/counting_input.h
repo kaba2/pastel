@@ -1,5 +1,5 @@
 // Description: Counting input
-// Documentation: inputs.txt
+// Documentation: input.txt
 
 #ifndef PASTELSYS_COUNTING_INPUT_H
 #define PASTELSYS_COUNTING_INPUT_H

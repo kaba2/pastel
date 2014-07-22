@@ -1,5 +1,4 @@
 // Description: Three-state indicator concept
-// Documentation: generic_programming.txt
 
 #ifndef PASTELSYS_TRINDICATOR_CONCEPT_H
 #define PASTELSYS_TRINDICATOR_CONCEPT_H

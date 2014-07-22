@@ -1,6 +1,6 @@
 // Description: Complement indicator
 // Detail: Accepts objects rejected by another indicator.
-// Documentation: indicators.txt
+// Documentation: indicator.txt
 
 #ifndef PASTELSYS_COMPLEMENT_INDICATOR_H
 #define PASTELSYS_COMPLEMENT_INDICATOR_H

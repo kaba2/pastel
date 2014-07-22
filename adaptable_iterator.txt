@@ -49,5 +49,5 @@ In C++14, it is possible to create a generic iterator adaptor which takes in a g
 
 Using Boost's iterator library, it is easy to define more general iterator adaptors, which adapt not only the dereferencing, but also the traversal.
 
-[Second_Iterator]: [[Ref]]: iterators.txt
+[Second_Iterator]: [[Ref]]: iterator.txt
 

@@ -1,6 +1,6 @@
 // Description: NullIterator class
 // Detail: An iterator for sending data into oblivion.
-// Documentation: iterators.txt
+// Documentation: iterator.txt
 
 #ifndef PASTELSYS_NULL_ITERATOR_H
 #define PASTELSYS_NULL_ITERATOR_H

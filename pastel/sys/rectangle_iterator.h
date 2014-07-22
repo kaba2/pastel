@@ -1,5 +1,5 @@
 // Description: Rectangle iterator
-// Documentation: iterators.txt
+// Documentation: iterator.txt
 
 #ifndef PASTELSYS_RECTANGLE_ITERATOR_H
 #define PASTELSYS_RECTANGLE_ITERATOR_H

@@ -1,5 +1,5 @@
 // Description: Output concept
-// Documentation: outputs.txt
+// Documentation: output.txt
 
 #ifndef PASTELSYS_OUTPUT_CONCEPT_H
 #define PASTELSYS_OUTPUT_CONCEPT_H

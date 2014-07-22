@@ -4,6 +4,7 @@
 #define PASTELSYS_LOCATOR_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/real_concept.h"
 
 namespace Pastel
 {
@@ -21,9 +22,9 @@ namespace Pastel
 			*/
 			static PASTEL_CONSTEXPR integer N = UserDefinedInteger;
 
-			//! The type of the point coordinates.
+			//! The type of the coordinates.
 			using Real = UserDefinedType;
-				
+
 			//! The type of the points.
 			using Point = UserDefinedType;
 
@@ -43,45 +44,16 @@ namespace Pastel
 			Preconditions:
 			0 <= i < n()
 			*/
-			Real operator()(const Point& point, integer i) const;
+			Real operator()(
+				const Point& point, integer i) const;
 		};
 
 	}
 
 }
 
-#include <type_traits>
-
-namespace Pastel
-{
-
-	namespace Locator_
-	{
-
-		template <typename... LocatorSet>
-		class Locator_Real;
-
-		template <typename Locator, typename... LocatorSet>
-		class Locator_Real<Locator, LocatorSet...>
-		{
-		public:
-			using type = std::common_type_t<
-				typename Locator_Real<Locator>::type, 
-				typename Locator_Real<LocatorSet...>::type>;
-		};
-
-		template <typename Locator>
-		class Locator_Real<Locator>
-		{
-		public:
-			using type = typename Locator::Real;
-		};
-
-	}
-
-	template <typename... LocatorSet>
-	using Locator_Real = typename Locator_::Locator_Real<LocatorSet...>::type;
-
-}
+#include "pastel/sys/locator_n.h"
+#include "pastel/sys/locator_point.h"
+#include "pastel/sys/locator_real.h"
 
 #endif

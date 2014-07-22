@@ -1,5 +1,5 @@
 // Description: Infinite counting input
-// Documentation: inputs.txt
+// Documentation: input.txt
 
 #ifndef PASTELSYS_INFINITE_COUNTING_INPUT_H
 #define PASTELSYS_INFINITE_COUNTING_INPUT_H

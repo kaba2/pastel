@@ -1,5 +1,5 @@
 // Description: Transform input
-// Documentation: inputs.txt
+// Documentation: input.txt
 
 #ifndef PASTELSYS_TRANSFORM_INPUT_H
 #define PASTELSYS_TRANSFORM_INPUT_H

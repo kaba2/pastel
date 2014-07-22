@@ -1,5 +1,5 @@
-Directors
-=========
+Director
+========
 
 [[Parent]]: generic_programming.txt
 

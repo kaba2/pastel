@@ -1,6 +1,6 @@
 // Description: Empty indicator
 // Detail: Rejects all objects.
-// Documentation: indicators.txt
+// Documentation: indicator.txt
 
 #ifndef PASTELSYS_EMPTY_INDICATOR_H
 #define PASTELSYS_EMPTY_INDICATOR_H

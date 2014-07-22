@@ -1,6 +1,6 @@
 // Description: All indicator
 // Detail: Accepts all objects.
-// Documentation: indicators.txt
+// Documentation: indicator.txt
 
 #ifndef PASTELSYS_ALL_INDICATOR_H
 #define PASTELSYS_ALL_INDICATOR_H

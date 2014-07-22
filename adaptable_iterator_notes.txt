@@ -1,7 +1,7 @@
 Adaptable iterators notes
 =========================
 
-[[Parent]]: adaptable_iterators.txt
+[[Parent]]: adaptable_iterator.txt
 
 This sections contains notes for the adaptable iterators.
 

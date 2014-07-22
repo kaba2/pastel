@@ -1,5 +1,5 @@
-Iterators
-=========
+Iterator
+========
 
 [[Parent]]: generic_programming.txt
 

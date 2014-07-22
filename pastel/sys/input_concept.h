@@ -1,10 +1,12 @@
 // Description: Input concept
-// Documentation: inputs.txt
+// Documentation: input.txt
 
 #ifndef PASTELSYS_INPUT_CONCEPT_H
 #define PASTELSYS_INPUT_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
+
+#include <type_traits>
 
 namespace Pastel
 {
@@ -48,5 +50,8 @@ namespace Pastel
 	}
 
 }
+
+#include "pastel/sys/input_return.h"
+#include "pastel/sys/input_value.h"
 
 #endif
