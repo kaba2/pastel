@@ -22,6 +22,7 @@ namespace
 		virtual void run()
 		{
 			test();
+			testTypes();
 		}
 
 		void test()
@@ -40,6 +41,21 @@ namespace
 			}
 		}
 
+		void testTypes()
+		{
+			TEST_ENSURE(
+				(std::is_same<Locator_Real<Pointer_Locator<real>>, real>()));
+
+			TEST_ENSURE(
+				(std::is_same<Locator_Real<Pointer_Locator<real>, Pointer_Locator<integer>>, real>()));
+
+			TEST_ENSURE(
+				(std::is_same<Locator_Real<Pointer_Locator<integer>, Pointer_Locator<real>>, real>()));
+
+			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 0>>()), ==, 0);
+			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 1>>()), ==, 1);
+			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 2>>()), ==, 2);
+		}
 	};
 
 	void test()
