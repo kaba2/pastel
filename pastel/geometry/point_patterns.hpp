@@ -192,7 +192,7 @@ namespace Pastel
 
 		integer dimensionsToRemove = dimension - dimensionality;
 
-		const integer points = pointSet.size();
+		integer points = pointSet.size();
 		for (integer i = 0;i < points;++i)
 		{
 			for (integer j = 0;j < dimensionsToRemove;++j)

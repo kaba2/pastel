@@ -86,7 +86,7 @@ namespace Pastel
 
 		// Side c.
 
-		const Plane<Real, 2> cPlane(c, cross(a - c));
+		Plane<Real, 2> cPlane(c, cross(a - c));
 
 		if (intersect(line, cPlane, t))
 		{
@@ -133,7 +133,7 @@ namespace Pastel
 		Vector<Real, 3> e2 =
 			triangle[2] - triangle[0];
 
-		const Vector<Real, 3> p =
+		Vector<Real, 3> p =
 			cross(line.direction(), e2);
 
 		const Real a = dot(e1, p);

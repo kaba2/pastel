@@ -59,7 +59,7 @@ namespace Pastel
 		auto iterEnd = pointSet.end();
 		while(iter != iterEnd)
 		{
-			const Real currentDistance2 =
+			Real currentDistance2 =
 
 				dot(pointAsVector(*iter, locator) - midPoint);
 			if (currentDistance2 > maxDistance2)

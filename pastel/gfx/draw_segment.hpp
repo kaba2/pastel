@@ -27,7 +27,7 @@ namespace Pastel
 
 		real xStart = clippedSegment.start().x();
 		real yStart = clippedSegment.start().y();
-		const real xEnd = clippedSegment.end().x();
+		real xEnd = clippedSegment.end().x();
 		const real yEnd = clippedSegment.end().y();
 
 		const real dx = xEnd - xStart;
@@ -292,7 +292,7 @@ namespace Pastel
 		real sAdd2 = 0;
 
 		real xStart = clippedSegment.start().x();
-		const real yStart = clippedSegment.start().y();
+		real yStart = clippedSegment.start().y();
 		const real xEnd = clippedSegment.end().x();
 		const real yEnd = clippedSegment.end().y();
 

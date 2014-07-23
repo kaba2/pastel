@@ -830,7 +830,7 @@ namespace
 
 			for (integer k = 0;k < treeSizes;++k)
 			{
-				const integer treeSize = treeSizeSet[k];
+				integer treeSize = treeSizeSet[k];
 				tree.clear();
 				dataSet.clear();
 

@@ -32,7 +32,7 @@ namespace Pastel
 		}
 
 		Real tMin = std::max(tRange[0], Real(0));
-		const Real tMax = std::min(tRange[1], Real(1));
+		Real tMax = std::min(tRange[1], Real(1));
 
 		result.set(
 			segment.at(tMin), segment.at(tMax));

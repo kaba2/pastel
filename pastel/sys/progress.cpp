@@ -33,7 +33,7 @@ namespace Pastel
 			(currentTime - lastReportTime_) / CLOCKS_PER_SEC;
 		if (elapsedSeconds >= reportDelay_)
 		{
-			const integer percent = 
+			integer percent = 
 
 				(step_ * 100) / steps_;
 			if (!name_.empty())

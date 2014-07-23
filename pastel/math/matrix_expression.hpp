@@ -645,7 +645,7 @@ namespace Pastel
 	private:
 		integer width_;
 		integer height_;
-		const Real value_;
+		Real value_;
 	};
 
 	template <

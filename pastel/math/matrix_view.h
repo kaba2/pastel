@@ -538,7 +538,7 @@ namespace Pastel
 			for (integer y = 0;y < m;++y)
 			{
 				RowIterator iter = rowBegin(y);
-				const RowIterator iterEnd = rowEnd(y);
+				RowIterator iterEnd = rowEnd(y);
 
 				while(iter != iterEnd)
 				{

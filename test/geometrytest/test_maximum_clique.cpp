@@ -129,7 +129,7 @@ namespace
 				boxSet[0].maxTopology().set(Topology::Closed);
 				boxSet[1].maxTopology().set(Topology::Closed);
 
-				const Box correct(0, 0, 1, 1);
+				Box correct(0, 0, 1, 1);
 				testCase(boxSet, correct);
 			}
 			// Singular vertical overlap.

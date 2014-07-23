@@ -19,7 +19,7 @@ namespace Pastel
 	{
 		integer n = x.size();
 		Real c = std::sqrt((Real)(n + 1));
-		const Real d = std::sqrt((Real)n / (n + 1));
+		Real d = std::sqrt((Real)n / (n + 1));
 		const Real s = (c - 1) / n;
 		const Real q = s / c;
 		const Real dInv = inverse(d);

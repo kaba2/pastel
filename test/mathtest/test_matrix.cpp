@@ -722,7 +722,7 @@ namespace
 				Matrix<real> m(n, n);
 				setRandomMatrix(m);
 
-				const Matrix<real> mInv = inverse(m);
+				Matrix<real> mInv = inverse(m);
 
 				const real leftError = 
 
@@ -783,7 +783,7 @@ namespace
 			// for an assignment with an expression
 			// which involves the matrix itself.
 
-			const integer n = 10;
+			integer n = 10;
 			const integer matrices = 100;
 			for (integer i = 0;i < matrices;++i)
 			{
@@ -835,7 +835,7 @@ namespace
 				Matrix<real> a(n, n);
 				setRandomMatrix(a);
 
-				const VectorD b(randomVectorCube<real, Dynamic>(n));
+				VectorD b(randomVectorCube<real, Dynamic>(n));
 
 				const VectorD x(solveLinear(a, b));
 

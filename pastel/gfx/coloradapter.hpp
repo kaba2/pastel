@@ -37,7 +37,7 @@ namespace Pastel
 
 		integer redFrom = 0;
 		integer greenFrom = redFrom + redBits;
-		const integer blueFrom = greenFrom + greenBits;
+		integer blueFrom = greenFrom + greenBits;
 
 		return Pastel::integerToColor(
 			packedColor, redBits, greenBits, blueBits,
@@ -52,7 +52,7 @@ namespace Pastel
 	{
 		Integer red = quantizeUnsigned(color[0], 1 << redBits);
 		Integer green = quantizeUnsigned(color[1], 1 << greenBits);
-		const Integer blue = quantizeUnsigned(color[2], 1 << blueBits);
+		Integer blue = quantizeUnsigned(color[2], 1 << blueBits);
 
 		return (red << redFrom) + (green << greenFrom) + (blue << blueFrom);
 	}
@@ -64,7 +64,7 @@ namespace Pastel
 	{
 		integer redFrom = 0;
 		integer greenFrom = redFrom + redBits;
-		const integer blueFrom = greenFrom + greenBits;
+		integer blueFrom = greenFrom + greenBits;
 
 		return Pastel::colorToInteger<Integer>(color,
 			redBits, greenBits, blueBits,

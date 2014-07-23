@@ -156,7 +156,7 @@ namespace Pastel
 							// that has the start point
 							// on the shared x-range.
 
-							const Plane<Real, 2> rightPlane(
+							Plane<Real, 2> rightPlane(
 								right.start_.position_,
 								cross(right.end_.position_ -
 								right.start_.position_));
@@ -327,7 +327,7 @@ namespace Pastel
 
 			for (integer i = 0;i < segments;++i)
 			{
-				const integer startId = segment_[i][0];
+				integer startId = segment_[i][0];
 				const integer endId = segment_[i][1];
 
 				const EventPoint start(
@@ -553,7 +553,7 @@ namespace Pastel
 			for (integer j = 0;j < segments;++j)
 			{
 				Integer2 iSegment = segment[i];
-				const Integer2 jSegment = segment[j];
+				Integer2 jSegment = segment[j];
 
 
 				if (iSegment[0] != jSegment[0] &&

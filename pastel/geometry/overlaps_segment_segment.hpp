@@ -58,7 +58,7 @@ namespace Pastel
 			bSegment.start(),
 			cross(bSegment.end() - bSegment.start()));
 
-		const bool aCondition =
+		bool aCondition =
 
 			(side(aSegment.start(), bPlane) *
 			side(aSegment.end(), bPlane) < 0);

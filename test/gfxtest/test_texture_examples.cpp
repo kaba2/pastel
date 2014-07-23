@@ -58,7 +58,7 @@ namespace
 
 			real minRadius = 0.25;
 			real maxRadius = 0.5;
-			const real angleBegin = constantPi<real>() / 10;
+			real angleBegin = constantPi<real>() / 10;
 
 			const real angleEnd = 1.2423 * constantPi<real>();
 

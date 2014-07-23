@@ -83,7 +83,7 @@ namespace Pastel
 		for (integer i = 0;i < n;++i)
 		{
 			Real aMin = aBox.min()[i];
-			const Real aMax = aBox.max()[i];
+			Real aMax = aBox.max()[i];
 			const Real bMin = bBox.min()[i];
 			const Real bMax = bBox.max()[i];
 

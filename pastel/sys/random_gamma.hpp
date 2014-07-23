@@ -169,7 +169,7 @@ namespace Pastel
 		for (integer i = 0;i < maxIterations;++i)
 		{
 			Real randExp = randomExponential<Real>();
-			const Real randUni = random<Real>();
+			Real randUni = random<Real>();
 
 			if (randUni < std::pow(randExp / std::exp(randExp + 1), alpha - 1))
 			{

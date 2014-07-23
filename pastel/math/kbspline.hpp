@@ -23,7 +23,7 @@ namespace Pastel
 	{
 		Real mTension(1 - tension);
 		Real mBias(1 - bias);
-		const Real pBias(1 + bias);
+		Real pBias(1 + bias);
 		const Real mContinuity(1 - continuity);
 		const Real pContinuity(1 + continuity);
 

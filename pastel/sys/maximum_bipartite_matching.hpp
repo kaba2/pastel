@@ -104,7 +104,7 @@ namespace Pastel
 				integer leftVertices = leftSet_.size();
 				for (integer i = 0;i < leftVertices;++i)
 				{
-					const integer leftIndex = leftSet_[i];
+					integer leftIndex = leftSet_[i];
 
 
 					Vertex& vertex = 

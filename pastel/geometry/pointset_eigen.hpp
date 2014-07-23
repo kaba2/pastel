@@ -43,7 +43,7 @@ namespace Pastel
 		// does not always work, probably due to numerical
 		// errors.
 
-		const Vector<Real, N> axisVariance = 
+		Vector<Real, N> axisVariance = 
 			pointSetVariance(pointSet, meanPoint, locator);
 
 		const integer initialAxis = maxIndex(axisVariance);
@@ -96,7 +96,7 @@ namespace Pastel
 		ENSURE_OP(n, !=, Dynamic);
 
 		real beta = 1;
-		const Vector<Real> meanPoint = 
+		Vector<Real> meanPoint = 
 			pointSetMean(pointSet, locator);
 
 		qOut = identityMatrix<Real>(eigenvectors, n);

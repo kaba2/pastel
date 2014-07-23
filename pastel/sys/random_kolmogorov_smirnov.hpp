@@ -58,7 +58,7 @@ namespace Pastel
 		{
 			Real y = 
 				(orderedSet[i] - mean) / deviation;
-			const Real fy = 
+			Real fy = 
 				gaussianCdf<Real>(y);
 			const Real fny1 = 
 				(Real)(i + 1) / n;

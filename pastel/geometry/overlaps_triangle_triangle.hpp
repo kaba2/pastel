@@ -76,7 +76,7 @@ namespace Pastel
 				aMax = 0;
 			}
 
-			const Real b1(
+			Real b1(
 				dot(edge, bTriangle[0] - aTriangle[i]));
 			const Real b2(
 				dot(edge, bTriangle[1] - aTriangle[i]));

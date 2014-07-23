@@ -168,7 +168,7 @@ namespace Pastel
 			Real largestAbsValue = 0;
 			for (integer j = 0;j < width;++j)
 			{
-				const Real absValue = mabs(packedLu_(i, j));
+				Real absValue = mabs(packedLu_(i, j));
 				if (absValue > largestAbsValue)
 				{
 					largestAbsValue = absValue;

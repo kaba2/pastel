@@ -256,7 +256,7 @@ namespace Pastel
 				// The maximum difference in the left subtree,
 				// given our expanded view from a parent node,
 				// is unchanged.
-				const integer leftDifference =
+				integer leftDifference =
 					iter.left().propagation().maxCliqueSize;
 
 				// The maximum difference in the right subtree,
@@ -525,7 +525,7 @@ namespace Pastel
 		// at the same time, to be generic and have a specific 
 		// geometric situtation in mind.
 		integer y = sweepDirection;
-		const integer x = !y;
+		integer x = !y;
 
 		// Insert the y-endpoints of each box
 		// into an event list.
@@ -552,7 +552,7 @@ namespace Pastel
 
 				// Then the maximum y-point.
 
-				const EventType maxType = 
+				EventType maxType = 
 					iter->maxTopology()[y] == Topology::Closed ?
 					EventType::ClosedMax : EventType::OpenMax;
 
@@ -614,7 +614,7 @@ namespace Pastel
 					e.box->min()[x], e.index, minType, e.box);
 
 				// Then the maximum x-point.
-				const EventType maxType = 
+				EventType maxType = 
 					e.box->maxTopology()[x] == Topology::Closed ?
 					EventType::ClosedMax : EventType::OpenMax;
 
@@ -652,7 +652,7 @@ namespace Pastel
 							++cliqueIter;
 							Real xMaxNew = cliqueIter.key().position;
 
-							const Real yMinNew = e.position;
+							Real yMinNew = e.position;
 							const Real yMaxNew = eventSet[i + 1].position;
 
 							const Real width = xMaxNew - xMinNew;
@@ -738,7 +738,7 @@ namespace Pastel
 		clique.max()[x] = xMax;
 		clique.max()[y] = yMax;
 
-		const bool reportBoxes = 
+		bool reportBoxes = 
 			!std::is_same<AlignedBox_Output, Null_Output>::value;
 		if (!reportBoxes)
 		{

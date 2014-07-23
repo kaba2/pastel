@@ -26,7 +26,7 @@ namespace Pastel
 		integer n = position.size();
 
 		Vector<integer, N> floorPosition = floor(position);
-		const Vector<Real, N> minDelta = position - Vector<Real, N>(floorPosition);
+		Vector<Real, N> minDelta = position - Vector<Real, N>(floorPosition);
 		
 		// Find out the contribution of each vertex of the
 		// containing cube.

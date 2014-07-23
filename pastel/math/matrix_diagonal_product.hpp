@@ -14,7 +14,7 @@ namespace Pastel
 	{
 		integer n = matrix.width();
 		integer m = matrix.height();
-		const integer minSize = std::min(n, m);
+		integer minSize = std::min(n, m);
 
 		if (minSize == 0)
 		{

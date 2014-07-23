@@ -27,7 +27,7 @@ namespace
 
 		for (integer i = 0;i < 20;++i)
 		{
-			const real Y = (real)(i + 1) / 20;
+			real Y = (real)(i + 1) / 20;
 			for (integer y = 0;y < Height;++y)
 			{
 				for (integer x = 0;x < Width;++x)

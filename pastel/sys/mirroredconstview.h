@@ -57,7 +57,7 @@ namespace Pastel
 	private:
 		Contained_ConstView view_;
 		Vector<integer, N> extent_;
-		const Vector<integer, N> doubleExtent_;
+		Vector<integer, N> doubleExtent_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>

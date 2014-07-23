@@ -254,7 +254,7 @@ namespace Pastel
 			{
 			case 1:
 				{
-					const integer bytesToRead = (pcxHeader.width() + 7) / 8;
+					integer bytesToRead = (pcxHeader.width() + 7) / 8;
 
 					integer xPos = 0;
 					for (integer i = 0;i < bytesToRead - 1;++i)
@@ -462,7 +462,7 @@ namespace Pastel
 				{
 				case 1:
 					{
-						const integer bytesToRead = (width + 7) / 8;
+						integer bytesToRead = (width + 7) / 8;
 
 						integer xPos = 0;
 						for (integer i = 0;i < bytesToRead - 1;++i)

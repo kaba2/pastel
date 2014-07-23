@@ -227,7 +227,7 @@ namespace Pastel
 		Vector2 uvRightDelta;
 		tVector tRightDelta;
 
-		const bool longLeftEdge =
+		bool longLeftEdge =
 			side(
 			Vector2(yMidVertex.x_, yMidVertex.y_),
 			Plane2(
@@ -493,7 +493,7 @@ namespace Pastel
 
 			if (xEnd - xBegin > 0)
 			{
-				const real xOffset = ((real)xBegin + 0.5) - xLeft;
+				real xOffset = ((real)xBegin + 0.5) - xLeft;
 
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
@@ -612,7 +612,7 @@ namespace Pastel
 
 			if (xEnd - xBegin > 0)
 			{
-				const real xOffset = ((real)xBegin + 0.5) - xLeft;
+				real xOffset = ((real)xBegin + 0.5) - xLeft;
 
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;

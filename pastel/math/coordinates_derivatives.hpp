@@ -35,7 +35,7 @@ namespace Pastel
 		for (integer i = n - 2;i >= 1;--i)
 		{
 			Real nextSquareSum = square(cartesian[i - 1]) + squareSum;
-			const Real sqrtSquareSum = std::sqrt(squareSum);
+			Real sqrtSquareSum = std::sqrt(squareSum);
 			const Real factor = cartesian[i - 1] /
 
 					(sqrtSquareSum * nextSquareSum);
@@ -72,7 +72,7 @@ namespace Pastel
 		Matrix<Real> result(n, n);
 
 		Vector<Real, N> cosSpherical = cos(spherical);
-		const Vector<Real, N> sinSpherical = sin(spherical);
+		Vector<Real, N> sinSpherical = sin(spherical);
 
 		{
 			Real product = 1;
@@ -147,7 +147,7 @@ namespace Pastel
 		for (integer i = 0;i < n - 1;++i)
 		{
 			real c = std::cos(spherical[i + 1]);
-			const real s = std::sin(spherical[i + 1]);
+			real s = std::sin(spherical[i + 1]);
 
 			// The derivatives of sine are cyclic with
 			// a period of 4:

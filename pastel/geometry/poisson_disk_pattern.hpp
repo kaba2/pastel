@@ -49,7 +49,7 @@ namespace Pastel
 			}
 
 			Vector<Real, N> newPoint_;
-			const Real minDistance2_;
+			Real minDistance2_;
 
 			bool& validNewPoint_;
 		};
@@ -94,7 +94,7 @@ namespace Pastel
 		Real invDiagonal = std::sqrt((Real)N / minDistance2);
 
 		Vector<Real, N> windowDelta = window.max() - window.min();
-		const Vector<integer, N> extent =
+		Vector<integer, N> extent =
 
 			ceil(windowDelta * invDiagonal);
 
@@ -111,7 +111,7 @@ namespace Pastel
 		if (seedSetBegin == seedSetEnd)
 		{
 			Vector<Real, N> seedPoint(window.at(randomVector<Real, N>()));
-			const Vector<integer, N> seedGridPosition(
+			Vector<integer, N> seedGridPosition(
 
 				floor((seedPoint - window.min()) * invVoxelDelta));
 
@@ -143,7 +143,7 @@ namespace Pastel
 			Vector<integer, N> coordinates = activeSet.back();
 			activeSet.pop_back();
 
-			const Vector<Real, N> activePoint = grid(coordinates);
+			Vector<Real, N> activePoint = grid(coordinates);
 
 			bool foundNewPoint = false;
 			do

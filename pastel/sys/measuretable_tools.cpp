@@ -26,7 +26,7 @@ namespace Pastel
 			integer maxWidth = 0;
 			for (integer y = 0;y < rows;++y)
 			{
-				const integer entryWidth = 
+				integer entryWidth = 
 					measureTable(x, y).text().length();
 				if (entryWidth > maxWidth)
 				{

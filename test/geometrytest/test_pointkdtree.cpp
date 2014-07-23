@@ -210,7 +210,7 @@ namespace
 				}
 				
 				{
-					const std::pair<real, Point_ConstIterator> result = 
+					std::pair<real, Point_ConstIterator> result = 
 						searchNearest(tree, iteratorSet[i], Null_Output(),
 						predicateIndicator(iteratorSet[i], NotEqualTo()),
 						normBijection, searchAlgorithm)
@@ -233,6 +233,7 @@ namespace
 			pointSet.reserve(m);
 			for (integer i = 0;i < m;++i)
 			{
+
 
 				pointSet.push_back(2 * randomVectorBall<real, 2>());
 			}

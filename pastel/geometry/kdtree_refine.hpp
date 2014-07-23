@@ -125,7 +125,7 @@ namespace Pastel
 			Vector<Real, N> extent = maxBound - minBound;
 
 			integer maxExtentAxis = maxIndex(extent);
-			const Real maxExtent = extent[maxExtentAxis];
+			Real maxExtent = extent[maxExtentAxis];
 
 			integer maxLegalSpreadAxis = 0;
 			Real maxLegalSpread = 0;
@@ -247,7 +247,7 @@ namespace Pastel
 
 			Real costToTraverse = 1;
 			Real costToIntersect = 80;
-			const Real emptyScale = 0.85;
+			Real emptyScale = 0.85;
 
 			if (cursor.leaf())
 			{

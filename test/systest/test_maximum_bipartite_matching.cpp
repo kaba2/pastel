@@ -36,7 +36,7 @@ namespace
 		{
 			integer n = 100;
 			integer vertices = 100;
-			const integer maxEdges = square(vertices);
+			integer maxEdges = square(vertices);
 
 			// Generate all edges.
 			std::vector<Integer2> edgeSet;

@@ -22,7 +22,7 @@ namespace Pastel
 
 		Real c = std::cos(transform.rotation());
 		Real s = std::sin(transform.rotation());
-		const Real xNew = 
+		Real xNew = 
 
 			transform.scaling() * (c * that[0] - s * that[1]);
 		Real yNew = 
@@ -133,7 +133,7 @@ namespace Pastel
 			return ConformalAffine2D<Real>();
 		}
 
-		const Vector<Real, N> toDelta = bTo - aTo;
+		Vector<Real, N> toDelta = bTo - aTo;
 		const Real toNorm = norm(toDelta);
 
 		const Real scaling = toNorm / fromNorm;
