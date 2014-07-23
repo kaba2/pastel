@@ -36,7 +36,7 @@ namespace Pastel
 		integer x = std::floor(xStart);
 		integer y = std::floor(yStart);
 
-		const integer steps = std::max(
+		integer steps = std::max(
 			mabs(std::floor(xEnd) - x),
 			mabs(std::floor(yEnd) - y)) + 1;
 
@@ -297,7 +297,7 @@ namespace Pastel
 		real yEnd = clippedSegment.end().y();
 
 		real dx = xEnd - xStart;
-		const real dy = yEnd - yStart;
+		real dy = yEnd - yStart;
 
 		integer x = std::floor(xStart);
 		integer y = std::floor(yStart);

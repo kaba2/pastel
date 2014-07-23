@@ -126,7 +126,7 @@ namespace Pastel
 				// Calculate the radius of the aligned box projection
 				// (the aligned box is centered on the origin).
 
-				const Real boxRadius(
+				Real boxRadius(
 
 					halfWidths[0] * mabs(normal[0]) +
 					halfWidths[1] * mabs(normal[1]));

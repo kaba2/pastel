@@ -867,7 +867,7 @@ namespace Pastel
 			return;
 		}
 
-		const integer thisSize = digits_.size();
+		integer thisSize = digits_.size();
 
 		if (thisSize <= byDigits)
 		{

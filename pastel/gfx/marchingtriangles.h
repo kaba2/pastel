@@ -80,7 +80,7 @@ namespace Pastel
 			break;
 		case 4:
 			{
-				const Vector2 abPosition =
+				Vector2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
 				const Vector2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);

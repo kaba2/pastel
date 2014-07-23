@@ -89,7 +89,7 @@ namespace
 					Vector<Real, 2>(-1),
 					Vector<Real, 2>(1));
 
-				const Line<Real, 2> a(
+				Line<Real, 2> a(
 					Vector<Real, 2>(0),
 					Vector<Real, 2>(Real(1, 1)));
 

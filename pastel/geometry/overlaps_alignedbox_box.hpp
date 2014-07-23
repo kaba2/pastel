@@ -287,7 +287,7 @@ namespace Pastel
 
 			Real aProjectedCenter =
 				linear(alignedBox.min()[i], alignedBox.max()[i], 0.5);
-			const Real bProjectedCenter =
+			Real bProjectedCenter =
 				box.position()[i];
 
 			const Real aMin = aProjectedCenter - aProjectedRadius;

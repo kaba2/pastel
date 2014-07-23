@@ -177,7 +177,7 @@ namespace
 					Box(-1, 0, 1, 2)
 				};
 
-				const Box correct;
+				Box correct;
 				testCase(boxSet, correct);
 			}
 			// Singular point overlap.
