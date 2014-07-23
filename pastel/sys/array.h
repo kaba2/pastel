@@ -146,6 +146,12 @@ namespace Pastel
 		//! Returns (size() == 0).
 		bool empty() const;
 
+		//! Returns whether the array aliases memory.
+		bool isAlias() const
+		{
+			return !deleteData_;
+		}
+
 		//! Returns the number of elements in the array.
 		integer size() const;
 
