@@ -8,12 +8,7 @@ This section summarizes the internal and external dependencies in Pastel.
 Internal dependencies
 ---------------------
 
-The dependencies between Pastel's sub-libraries 
-form an acyclic directed graph. Because of this,
-Pastel can be used either in its entirety
-or only as a subset if some functionality is not required.
-The following (transitively reduced) graph summarizes the 
-internal dependencies, as well as external dependencies.
+The dependencies between Pastel's sub-libraries form an acyclic directed graph. Because of this, Pastel can be used either in its entirety or only as a subset if some functionality is not required. The following (transitively reduced) graph summarizes the internal dependencies, as well as external dependencies.
 
 [[Gallery]]:
 	dependencies.png
@@ -22,45 +17,34 @@ internal dependencies, as well as external dependencies.
 External dependencies
 ---------------------
 
-Some, but not all, of the sub-libraries of Pastel are dependent
-on external libraries which must be installed in order to compile 
-and link them. These external libraries are listed here. The detailed 
-dependency relations are visualized in the graph above. The version 
-number that follows the library name is the one that the current 
-version of Pastel was used to develop against. This is useful to know 
-in case a later version breaks backward compatibility.
+Some, but not all, of the sub-libraries of Pastel are dependent on external libraries which must be installed in order to compile and link them. These external libraries are listed here. The detailed dependency relations are visualized in the graph above. The version number that follows the library name is the one that the current version of Pastel was used to develop against. This is useful to know in case a later version breaks backward compatibility.
 
 ### Boost 1.54
 
 <http://www.boost.org/>
 
-Boost is licensed under the Boost license.
-Pastel only uses the template code found in Boost and
-thus requires no linking with object code.
-Pastel refers to Boost's include files in the form
-`boost/operators.hpp`.
+Boost is licensed under the Boost license. Pastel only uses the template code found in Boost and thus requires no linking with object code. Pastel refers to Boost's include files in the form `boost/operators.hpp`.
 
 ### Threading Building Blocks 4.2
 
 <https://www.threadingbuildingblocks.org/>
 
-Threading Building Blocks is licensed under the GPLv2 
-license, with the run-time exception. The latter specifically means that 
-Pastel need not be made GPLv2 although it uses code from the TBB. This is 
-similar to how the license of `libstdc++` works. Pastel refer's to Threading 
-Building Blocks's include files in the form `tbb/parallel_for.h`. 
+Threading Building Blocks is licensed under the GPLv2 license, with the run-time exception. The latter specifically means that Pastel need not be made GPLv2 although it uses code from the TBB. This is similar to how the license of `libstdc++` works. Pastel refer's to Threading Building Blocks's include files in the form `tbb/parallel_for.h`.
 
 ### Official Mersenne Twister source code
 
 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/emt19937ar.html>
 
-Pastel integrates a minimally modified version of the official
-Mersenne Twister source code directly into the PastelSys library. 
-No installation is needed.
+Pastel integrates a minimally modified version of the official Mersenne Twister source code directly into the PastelSys library. No installation is needed.
 
 ### Remark 1.6
 
 <http://kaba.hilvi.org/remark>
 
-The documentation for Pastel is written in Remark. This library is
-not required to build Pastel.
+The documentation for Pastel is written in Remark. This library is not required to build Pastel.
+
+### CMake 3.0
+
+<http://www.cmake.org>
+
+The build-system is written in CMake. CMake takes in a generic description of the build-process and generates the build-files for a specific platform, such as Visual Studio projects, makefiles, or Xcode projects. This library is required to build Pastel. It is not required to use the build libraries.
