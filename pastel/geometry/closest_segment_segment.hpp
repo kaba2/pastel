@@ -72,7 +72,7 @@ namespace Pastel
 
 		Vector<Real, N> bUnitDelta = 
 			bDelta / std::sqrt(aNorm2);
-		const Line<Real, N> bLine(bSegment.start(), bUnitDelta);
+		Line<Real, N> bLine(bSegment.start(), bUnitDelta);
 
 		// Handle degenerate cases.
 
@@ -100,7 +100,7 @@ namespace Pastel
 
 		// Find global minimum of w^2.
 
-		const Tuple<Real, 2> t = closest(aLine, bLine);
+		Tuple<Real, 2> t = closest(aLine, bLine);
 
 		const Real& u = t[0];
 		const Real& v = t[1];

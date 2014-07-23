@@ -55,7 +55,7 @@ namespace
 				real angleDelta = absoluteError<real>(
 					matchedTransformation.rotation(), 
 					transformation.rotation());
-				const real tDelta = norm(
+				real tDelta = norm(
 					matchedTransformation.translation() - 
 					transformation.translation());
 
@@ -70,7 +70,7 @@ namespace
 		{
 			for (integer i = 0;i < 10000;++i)
 			{
-				const ConformalAffine2D<real> transformation(
+				ConformalAffine2D<real> transformation(
 
 					random<real>() * 2 + 1,
 					random<real>() * 2 * constantPi<real>(),

@@ -39,10 +39,10 @@ namespace Pastel
 			clippedWindow.max() -= Vector2i(x, y);
 
 			integer clippedWidth = clippedWindow.width();
-			const integer clippedHeight = clippedWindow.height();
+			integer clippedHeight = clippedWindow.height();
 
-			const integer xMinClipped = clippedWindow.min().x();
-			const integer yMinClipped = clippedWindow.min().y();
+			integer xMinClipped = clippedWindow.min().x();
+			integer yMinClipped = clippedWindow.min().y();
 
 			for (integer i = 0;i < clippedHeight;++i)
 			{

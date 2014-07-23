@@ -72,12 +72,12 @@ namespace Pastel
 			MatchingMode matchingMode = 
 				matchingModeSet[matchingModeId];
 
-			const integer modelDimension = mxGetM(inputSet[ModelSet]);
-			const integer sceneDimension = mxGetM(inputSet[SceneSet]);
+			integer modelDimension = mxGetM(inputSet[ModelSet]);
+			integer sceneDimension = mxGetM(inputSet[SceneSet]);
 			
 			ENSURE_OP(modelDimension, ==, sceneDimension);
 
-			const integer n = modelDimension;
+			integer n = modelDimension;
 
 			using Locator = Pointer_Locator<real>;
 

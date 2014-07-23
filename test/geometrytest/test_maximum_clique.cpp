@@ -190,7 +190,7 @@ namespace
 				boxSet[0].maxTopology().set(Topology::Closed);
 				boxSet[1].maxTopology().set(Topology::Closed);
 
-				const Box correct(0, 0, 0, 0);
+				Box correct(0, 0, 0, 0);
 				testCase(boxSet, correct);
 			}
 			// Singular point overlap with open boxes.
@@ -201,7 +201,7 @@ namespace
 					Box(-2, -2, 0, 0)
 				};
 
-				const Box correct;
+				Box correct;
 				testCase(boxSet, correct);
 			}
 			// Disjoint boxes.
@@ -211,7 +211,7 @@ namespace
 					Box(1, 1, 2, 2),
 					Box(-2, -2, -1, -1)
 				};
-				const Box correct;
+				Box correct;
 				testCase(boxSet, correct);
 			}
 			// Multiple boxes, general position.
@@ -226,7 +226,7 @@ namespace
 				boxSet[1].maxTopology().set(Topology::Closed);
 				boxSet[2].maxTopology().set(Topology::Closed);
 
-				const Box correct(0, 0, 1, 1);
+				Box correct(0, 0, 1, 1);
 				testCase(boxSet, correct);
 			}
 			// Multiple boxes.
@@ -248,7 +248,7 @@ namespace
 				{
 					0, 1, 2, 3
 				};
-				const Box correct(0, 0, Real(1, 2), Real(1, 2));
+				Box correct(0, 0, Real(1, 2), Real(1, 2));
 				testCase(boxSet, correct, 1, correctSet);
 			}
 			{
@@ -268,7 +268,7 @@ namespace
 				{
 					1, 2
 				};
-				const Box correct(4, 0, 5, 2);
+				Box correct(4, 0, 5, 2);
 				testCase(boxSet, correct, 1, correctSet);
 			}
 		}

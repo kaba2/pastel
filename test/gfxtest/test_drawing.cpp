@@ -480,8 +480,8 @@ namespace
 		integer Border = 10;
 		real YStart = 0.1;
 		real YEnd = 0.9;
-		const real XYStep = (real)(YEnd - YStart) / (XLines - 1);
-		const real YYStep = (real)(YEnd - YStart) / (YLines - 1);
+		real XYStep = (real)(YEnd - YStart) / (XLines - 1);
+		real YYStep = (real)(YEnd - YStart) / (YLines - 1);
 
 
 		Array<Color, 2> image(Vector2i(XLines* BoxWidth, YLines * BoxHeight));

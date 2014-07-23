@@ -100,7 +100,7 @@ namespace Pastel
 				Real leftMin = left.min();
 				Real leftMax = left.max();
 				Real rightMin = right.min();
-				const Real rightMax = right.max();
+				Real rightMax = right.max();
 
 				bool visitRight = false;
 				bool visitLeft = false;

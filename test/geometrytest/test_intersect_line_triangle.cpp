@@ -65,11 +65,11 @@ namespace
 				Vector<Real, 2>(6, -2),
 				Vector<Real, 2>(-2, 2));
 
-			const Line<Real, 2> g(
+			Line<Real, 2> g(
 				Vector<Real, 2>(6, 3),
 				Vector<Real, 2>(-2, -1));
 
-			const Line<Real, 2> h(
+			Line<Real, 2> h(
 				Vector<Real, 2>(6, 5),
 				Vector<Real, 2>(-2, -2));
 
@@ -126,35 +126,35 @@ namespace
 				Vector<Real, 2>(6, 1),
 				Vector<Real, 2>(-1, 0));
 
-			const Line<Real, 2> g(
+			Line<Real, 2> g(
 				Vector<Real, 2>(4, 1),
 				Vector<Real, 2>(0, 2));
 
-			const Line<Real, 2> h(
+			Line<Real, 2> h(
 				Vector<Real, 2>(4, 4),
 				Vector<Real, 2>(-2, 0));
 
-			const Line<Real, 2> i(
+			Line<Real, 2> i(
 				Vector<Real, 2>(2, 6),
 				Vector<Real, 2>(0, 2));
 
-			const Line<Real, 2> j(
+			Line<Real, 2> j(
 				Vector<Real, 2>(-1, 3),
 				Vector<Real, 2>(0, -2));
 
-			const Line<Real, 2> k(
+			Line<Real, 2> k(
 				Vector<Real, 2>(2, 0),
 				Vector<Real, 2>(-2, -2));
 
-			const Line<Real, 2> l(
+			Line<Real, 2> l(
 				Vector<Real, 2>(2, 0),
 				Vector<Real, 2>(2, 2));
 
-			const Line<Real, 2> m(
+			Line<Real, 2> m(
 				Vector<Real, 2>(1, 2),
 				Vector<Real, 2>(1, 1));
 
-			const Line<Real, 2> n(
+			Line<Real, 2> n(
 				Vector<Real, 2>(3, 0),
 				Vector<Real, 2>(0, 1));
 
@@ -208,7 +208,7 @@ namespace
 				Vector<Real, 3>(2, 2, 0),
 				Vector<Real, 3>(0, 0, 1));
 
-			const Line<Real, 3> g(
+			Line<Real, 3> g(
 				Vector<Real, 3>(Real(5, 2), Real(3, 2), 0),
 				Vector<Real, 3>(0, 0, 1));
 
@@ -233,36 +233,36 @@ namespace
 
 		void testNegative3()
 		{
-			const PASTEL_TRIANGLE(Real, 3) triangle(
+			PASTEL_TRIANGLE(Real, 3) triangle(
 				Vector<Real, 3>(1, 1, 1),
 				Vector<Real, 3>(3, 1, 1),
 				Vector<Real, 3>(3, 3, 1));
 
-			const Line<Real, 3> a(
+			Line<Real, 3> a(
 				Vector<Real, 3>(4, 2, 1),
 				Vector<Real, 3>(-1, 0, 0));
 
-			const Line<Real, 3> b(
+			Line<Real, 3> b(
 				Vector<Real, 3>(4, 2, 1),
 				Vector<Real, 3>(1, 0, 0));
 
-			const Line<Real, 3> c(
+			Line<Real, 3> c(
 				Vector<Real, 3>(0, 2, 1),
 				Vector<Real, 3>(1, 0, 0));
 
-			const Line<Real, 3> d(
+			Line<Real, 3> d(
 				Vector<Real, 3>(1, 0, 1),
 				Vector<Real, 3>(1, 1, 0));
 
-			const Line<Real, 3> e(
+			Line<Real, 3> e(
 				Vector<Real, 3>(1, 3, 0),
 				Vector<Real, 3>(0, 0, 1));
 
-			const Line<Real, 3> f(
+			Line<Real, 3> f(
 				Vector<Real, 3>(2, 0, 0),
 				Vector<Real, 3>(0, 0, 1));
 
-			const Line<Real, 3> g(
+			Line<Real, 3> g(
 				Vector<Real, 3>(4, 1, 0),
 				Vector<Real, 3>(0, 0, 1));
 
