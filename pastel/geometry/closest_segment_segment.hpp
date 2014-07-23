@@ -70,7 +70,7 @@ namespace Pastel
 			aDelta / std::sqrt(aNorm2);
 		Line<Real, N> aLine(aSegment.start(), aUnitDelta);
 
-		const Vector<Real, N> bUnitDelta = 
+		Vector<Real, N> bUnitDelta = 
 			bDelta / std::sqrt(aNorm2);
 		const Line<Real, N> bLine(bSegment.start(), bUnitDelta);
 

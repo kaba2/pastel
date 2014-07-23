@@ -93,7 +93,7 @@ namespace
 					7, 8, 9,
 					Real(1, 7), Real(6, 7), Real(12, 7),
 					Real(4, 7), Real(1, 2), 0);
-				const Tuple<integer, 3> correctRowPermutation(
+				Tuple<integer, 3> correctRowPermutation(
 					2, 0, 1);
 				TEST_ENSURE(lu.packedLu() == correctPackedLu);
 				TEST_ENSURE(lu.rowPermutation() == correctRowPermutation);

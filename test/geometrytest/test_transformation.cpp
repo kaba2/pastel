@@ -52,7 +52,7 @@ namespace
 				real scalingDelta = absoluteError<real>(
 					matchedTransformation.scaling(), 
 					transformation.scaling());
-				const real angleDelta = absoluteError<real>(
+				real angleDelta = absoluteError<real>(
 					matchedTransformation.rotation(), 
 					transformation.rotation());
 				const real tDelta = norm(

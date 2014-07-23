@@ -479,7 +479,7 @@ namespace
 		integer BoxHeight = 25;
 		integer Border = 10;
 		real YStart = 0.1;
-		const real YEnd = 0.9;
+		real YEnd = 0.9;
 		const real XYStep = (real)(YEnd - YStart) / (XLines - 1);
 		const real YYStep = (real)(YEnd - YStart) / (YLines - 1);
 

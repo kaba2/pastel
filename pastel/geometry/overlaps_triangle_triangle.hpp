@@ -107,7 +107,7 @@ namespace Pastel
 			Vector<Real, 2> edge(
 				cross(bTriangle[i2] - bTriangle[i]));
 
-			const Real a(
+			Real a(
 				dot(edge, bTriangle[i3] - bTriangle[i]));
 
 			Real aMin(0);

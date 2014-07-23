@@ -340,7 +340,7 @@ namespace Pastel
 			}
 			// Left-top corner
 			{
-				const integer x = 0;
+				integer x = 0;
 				const integer y = height - 1;
 
 				if (image(x, y))

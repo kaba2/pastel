@@ -69,7 +69,7 @@ namespace Pastel
 			ENSURE_OP(matchingModeId, >=, 0);
 			ENSURE_OP(matchingModeId, <, matchingModes);
 			
-			const MatchingMode matchingMode = 
+			MatchingMode matchingMode = 
 				matchingModeSet[matchingModeId];
 
 			const integer modelDimension = mxGetM(inputSet[ModelSet]);

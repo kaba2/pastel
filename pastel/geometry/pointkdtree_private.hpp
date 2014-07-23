@@ -550,7 +550,7 @@ namespace Pastel
 			--newRightLast;
 
 			Point_Iterator newLeftFirst = result.first.first;
-			const integer newLeftPoints = result.first.second;
+			integer newLeftPoints = result.first.second;
 			Point_Iterator newLeftLast = newRightFirst;
 			--newLeftLast;
 
