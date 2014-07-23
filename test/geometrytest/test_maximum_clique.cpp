@@ -153,7 +153,7 @@ namespace
 					Box(0, -1, 2, 1)
 				};
 
-				const Box correct;
+				Box correct;
 				testCase(boxSet, correct);
 			}
 			// Singular horizontal overlap.

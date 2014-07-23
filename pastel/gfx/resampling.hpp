@@ -457,7 +457,7 @@ namespace Pastel
 		// The last resampling is done to the output view.
 
 		{
-			const ArrayExtender<1, Computation_Element> arrayExtender1D(
+			ArrayExtender<1, Computation_Element> arrayExtender1D(
 				arrayExtender.extender(N - 1), arrayExtender.border());
 			const Resample_::ResampleFunctor<Computation_Element, Input_Element> 
 				resampleFunctor(arrayExtender1D, filter, blurFactor);

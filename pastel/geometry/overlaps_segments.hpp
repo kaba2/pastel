@@ -183,7 +183,7 @@ namespace Pastel
 
 					if (left.end_.id_ != right.end_.id_)
 					{
-						const Plane<Real, 2> rightPlane(
+						Plane<Real, 2> rightPlane(
 							right.start_.position_,
 							cross(right.end_.position_ - right.start_.position_));
 
@@ -330,7 +330,7 @@ namespace Pastel
 				integer startId = segment_[i][0];
 				integer endId = segment_[i][1];
 
-				const EventPoint start(
+				EventPoint start(
 					segment_[i][0],
 					vertex_[startId]);
 

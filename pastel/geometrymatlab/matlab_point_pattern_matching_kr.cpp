@@ -62,7 +62,7 @@ namespace Pastel
 			real minMatchRatio = asScalar<real>(inputSet[MinMatchRatio]);
 			real matchingDistance = 
 				asScalar<real>(inputSet[MatchingDistance]);
-			const real maxBias =
+			real maxBias =
 				asScalar<real>(inputSet[MaxBias]);
 			const integer matchingModeId = asScalar<integer>(inputSet[MatchingModeId]);
 

@@ -56,7 +56,7 @@ namespace
 					Vector<Real, 2>(0),
 					Vector<Real, 2>(-1, 0));
 
-				const Line<Real, 2> d(
+				Line<Real, 2> d(
 					Vector<Real, 2>(0),
 					Vector<Real, 2>(0, -1));
 

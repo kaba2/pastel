@@ -30,7 +30,7 @@ namespace Pastel
 		real xEnd = clippedSegment.end().x();
 		real yEnd = clippedSegment.end().y();
 
-		const real dx = xEnd - xStart;
+		real dx = xEnd - xStart;
 		const real dy = yEnd - yStart;
 
 		integer x = std::floor(xStart);
@@ -294,7 +294,7 @@ namespace Pastel
 		real xStart = clippedSegment.start().x();
 		real yStart = clippedSegment.start().y();
 		real xEnd = clippedSegment.end().x();
-		const real yEnd = clippedSegment.end().y();
+		real yEnd = clippedSegment.end().y();
 
 		const real dx = xEnd - xStart;
 		const real dy = yEnd - yStart;

@@ -274,7 +274,7 @@ namespace Pastel
 			}
 			else
 			{
-				const Real depth = -signedProjectedDistance + projectedRadiusSum;
+				Real depth = -signedProjectedDistance + projectedRadiusSum;
 
 				if (depth < minDepth)
 				{
@@ -345,7 +345,7 @@ namespace Pastel
 
 			if (signedProjectedDistance < 0)
 			{
-				const Real depth = signedProjectedDistance + projectedRadiusSum;
+				Real depth = signedProjectedDistance + projectedRadiusSum;
 
 				if (depth < minDepth)
 				{

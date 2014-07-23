@@ -252,7 +252,7 @@ namespace Pastel
 		Vector2 dUvLeftDy = uvLeftDelta;
 		if (yLeftDelta != 0)
 		{
-			const real yLeftDeltaInv = inverse(yLeftDelta);
+			real yLeftDeltaInv = inverse(yLeftDelta);
 
 
 			dxLeftDy *= yLeftDeltaInv;

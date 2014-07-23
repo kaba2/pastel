@@ -116,7 +116,7 @@ namespace Pastel
 					Complex b2(a1 + a3);
 					Complex b3(a1 - a3);
 
-					const Complex im(0, 
+					Complex im(0, 
 						Inverse ? -1 : 1);
 					
 					// Size-4 dft

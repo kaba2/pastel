@@ -42,7 +42,7 @@ namespace
 
 				Vector<real> b = randomVectorCube<real, Dynamic>(n);
 				QrDecomposition<real> qr(a);
-				const Vector<real> qrSolution =
+				Vector<real> qrSolution =
 					solveLinear(qr, b);
 
 				const real error = 

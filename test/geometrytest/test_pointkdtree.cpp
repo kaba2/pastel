@@ -217,7 +217,7 @@ namespace
 						.bucketSize(1);
 					
 					real distance2 = result.first;
-					const Point_ConstIterator iter = result.second;
+					Point_ConstIterator iter = result.second;
 
 					//TEST_ENSURE(iter == correctSet[i]);
 					TEST_ENSURE(distance2 == distanceSet[i]);

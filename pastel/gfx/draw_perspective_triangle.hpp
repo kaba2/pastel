@@ -312,7 +312,7 @@ namespace Pastel
 		tVector dtLeftDy = tLeftDelta;
 		if (yLeftDelta != 0)
 		{
-			const real yLeftDeltaInv = inverse(yLeftDelta);
+			real yLeftDeltaInv = inverse(yLeftDelta);
 
 
 			dxLeftDy *= yLeftDeltaInv;

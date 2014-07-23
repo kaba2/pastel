@@ -26,7 +26,7 @@ namespace Pastel
 		integer width = image.width();
 		integer height = image.height();
 
-		const AlignedBox2i elementWindow(
+		AlignedBox2i elementWindow(
 			x, y, x + elementWidth, y + elementHeight);
 		const AlignedBox2i imageWindow(
 			0, 0, width, height);

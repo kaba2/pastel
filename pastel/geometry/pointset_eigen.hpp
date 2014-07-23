@@ -53,7 +53,7 @@ namespace Pastel
 		Real d = 1;
 
 		Point_ConstIterator iter = pointSet.begin();
-		const Point_ConstIterator iterEnd = pointSet.end();
+		Point_ConstIterator iterEnd = pointSet.end();
 		while(iter != iterEnd)
 		{
 			const Real y = dot(result, 

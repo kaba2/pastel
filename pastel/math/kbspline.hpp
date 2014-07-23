@@ -25,7 +25,7 @@ namespace Pastel
 		Real mBias(1 - bias);
 		Real pBias(1 + bias);
 		Real mContinuity(1 - continuity);
-		const Real pContinuity(1 + continuity);
+		Real pContinuity(1 + continuity);
 
 		const Real baFactor1 =
 
