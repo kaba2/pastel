@@ -98,7 +98,7 @@ namespace Pastel
 			return;
 		}
 
-		const Vector2 normal = cross(delta) / normDelta;
+		Vector2 normal = cross(delta) / normDelta;
 
 
 		const Vector2 startLeft = segment.start() + normal * startRadius;
@@ -214,7 +214,7 @@ namespace Pastel
 
 		Vector2 leftBottom = center - x - y;
 		Vector2 rightBottom = center + x - y;
-		const Vector2 rightTop = center + x + y;
+		Vector2 rightTop = center + x + y;
 		const Vector2 leftTop = center - x + y;
 
 		if (!renderer.filled())
@@ -256,7 +256,7 @@ namespace Pastel
 
 		Vector2 leftBottom = center - x - y;
 		Vector2 rightBottom = center + x - y;
-		const Vector2 rightTop = center + x + y;
+		Vector2 rightTop = center + x + y;
 		const Vector2 leftTop = center - x + y;
 
 		if (!renderer.filled())
@@ -297,7 +297,7 @@ namespace Pastel
 		ENSURE_OP(radius, >=, 0);
 
 		Vector2 delta = segment.end() - segment.start();
-		const real normDelta = norm(delta);
+		real normDelta = norm(delta);
 
 
 		if (normDelta < 2 * radius)

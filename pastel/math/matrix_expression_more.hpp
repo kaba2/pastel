@@ -274,7 +274,7 @@ namespace Pastel
 		typename Expression::StorageType data_;
 		integer dataWidth_;
 		integer dataHeight_;
-		const integer width_;
+		integer width_;
 		const integer height_;
 	};
 

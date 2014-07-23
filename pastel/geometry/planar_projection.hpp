@@ -136,7 +136,7 @@ namespace Pastel
 		const Real m22 = (2 * zMin) / (yMax - yMin);
 		Real m33 = (zMax + zMin) / (zMax - zMin);
 		Real m31 = -(xMax + xMin) / (xMax - xMin);
-		const Real m32 = -(yMax + yMin) / (yMax - yMin);
+		Real m32 = -(yMax + yMin) / (yMax - yMin);
 
 		const Real m43 = -(2 * zMax * zMin) / (zMax - zMin);
 
@@ -162,7 +162,7 @@ namespace Pastel
 
 		Real m11 = 2 / (xMax - xMin);
 		Real m22 = 2 / (yMax - yMin);
-		const Real m33 = 2 / (zMax - zMin);
+		Real m33 = 2 / (zMax - zMin);
 		const Real m41 = -(xMax + xMin) / (xMax - xMin);
 		const Real m42 = -(yMax + yMin) / (yMax - yMin);
 		const Real m43 = -(zMax + zMin) / (zMax - zMin);

@@ -29,7 +29,7 @@ namespace Pastel
 			Iterator;
 
 		Iterator iter = q.begin();
-		const Iterator iterEnd = q.end();
+		Iterator iterEnd = q.end();
 		while(iter != iterEnd)
 		{
 

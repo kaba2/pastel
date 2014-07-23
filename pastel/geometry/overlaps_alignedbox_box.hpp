@@ -92,7 +92,7 @@ namespace Pastel
 			// projection of the aligned box's extremal
 			// point on this box axis.
 
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
 
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1];
@@ -111,7 +111,7 @@ namespace Pastel
 			Real signedProjectedDistance =
 				dot(box.rotation()[i], delta);
 
-			const Real depth =
+			Real depth =
 				(aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
@@ -160,7 +160,7 @@ namespace Pastel
 			AlignedBox<Real, 1> aInterval = projectAxis(aAlignedBox, unitAxis);
 			AlignedBox<Real, 1> bInterval = projectAxis(bBox, unitAxis);
 
-			const Vector<Real, 1> bProjectedVelocity(dot(bVelocity, unitAxis));
+			Vector<Real, 1> bProjectedVelocity(dot(bVelocity, unitAxis));
 
 			if (!overlaps(aInterval, bInterval, bProjectedVelocity, tRange))
 			{
@@ -251,7 +251,7 @@ namespace Pastel
 			// this axis.
 
 			Real signedProjectedDistance = delta[i];
-			const Real projectedDistance =
+			Real projectedDistance =
 				mabs(signedProjectedDistance);
 
 			if (projectedRadiusSum < projectedDistance)
@@ -330,7 +330,7 @@ namespace Pastel
 			// this axis.
 			// Remember the aligned box is at the origin.
 
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 				dot(box.rotation()[i], delta);
 			const Real projectedDistance =
 				mabs(signedProjectedDistance);
@@ -429,7 +429,7 @@ namespace Pastel
 
 		for (integer i = 0;i < 3;++i)
 		{
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
 
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1] +
@@ -438,7 +438,7 @@ namespace Pastel
 			Real signedProjectedDistance =
 				dot(delta, boxRotation[i]);
 
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -724,7 +724,7 @@ namespace Pastel
 
 		for (integer i = 0;i < 3;++i)
 		{
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
 
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1] +
@@ -733,7 +733,7 @@ namespace Pastel
 			Real signedProjectedDistance =
 				dot(delta, boxRotation[i]);
 
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)

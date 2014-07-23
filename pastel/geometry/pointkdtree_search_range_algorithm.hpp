@@ -94,7 +94,7 @@ namespace Pastel
 					break;
 				}
 
-				const Cursor left = cursor.left();
+				Cursor left = cursor.left();
 				const Cursor right = cursor.right();
 
 				const Real leftMin = left.min();

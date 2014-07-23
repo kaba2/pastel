@@ -46,7 +46,7 @@ namespace Pastel
 		Cursor yCursor = image.cursor(clippedBox.min());
 
 		integer width = clippedBox.extent()[0];
-		const integer height = clippedBox.extent()[1];
+		integer height = clippedBox.extent()[1];
 
 		const Vector2 dp(
 			inverse((real)width),

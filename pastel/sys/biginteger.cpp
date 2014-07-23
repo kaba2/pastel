@@ -189,7 +189,7 @@ namespace Pastel
 	{
 		integer thisSize = size();
 		integer thatSize = that.size();
-		const integer minSize = std::min(thisSize, thatSize);
+		integer minSize = std::min(thisSize, thatSize);
 		digits_.resize(minSize);
 
 		for (integer i = 0;i < minSize;++i)
@@ -214,7 +214,7 @@ namespace Pastel
 	{
 		integer thisSize = size();
 		integer thatSize = that.size();
-		const integer minSize = std::min(thisSize, thatSize);
+		integer minSize = std::min(thisSize, thatSize);
 
 		if (thisSize < thatSize)
 		{
@@ -714,7 +714,7 @@ namespace Pastel
 		integer leftSize = left.size();
 		integer rightSize = right.size();
 
-		const uint32 MaxDigit = 65535;
+		uint32 MaxDigit = 65535;
 
 		result.clear();
 		result.reserve(leftSize + 1);
@@ -784,7 +784,7 @@ namespace Pastel
 		integer leftSize = left.size();
 		integer rightSize = right.size();
 
-		const int32 digits = 65536;
+		int32 digits = 65536;
 		int32 borrow = 0;
 
 		result = left;

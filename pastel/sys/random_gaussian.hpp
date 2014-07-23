@@ -119,7 +119,7 @@ namespace Pastel
 
 		Real b0 = 0.2316419;
 		Real b1 = 0.319381530;
-		const Real b2 = -0.356563782;
+		Real b2 = -0.356563782;
 		const Real b3 = 1.781477937;
 		const Real b4 = -1.821255978;
 		const Real b5 = 1.330274429;

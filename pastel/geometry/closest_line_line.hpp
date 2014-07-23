@@ -142,7 +142,7 @@ namespace Pastel
 		Vector<Real, N> d(bLine.position() - aLine.position());
 
 		Real dotsq(dot(s, q));
-		const Real dotdq(dot(d, q));
+		Real dotdq(dot(d, q));
 		const Real dotds(dot(d, s));
 
 

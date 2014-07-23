@@ -105,7 +105,7 @@ namespace
 
 		Array<Color, 2> textureImage(Vector2i(40, 40));
 
-		const integer CheckerWidth = 20;
+		integer CheckerWidth = 20;
 		const integer CheckerHeight = 20;
 
 		for (integer y = 0;y < textureImage.height();++y)
@@ -577,7 +577,7 @@ namespace
 		integer iconSize = 250;
 		integer iconSpace = iconSize;
 
-		const AlignedBox2 iconBox(0, 0, iconSize, iconSize);
+		AlignedBox2 iconBox(0, 0, iconSize, iconSize);
 
 		drawTexturedBox(
 			iconBox + Vector2(0, 0),

@@ -323,7 +323,7 @@ namespace Pastel
 		integer newHeapHeight = std::max(
 			heapHeight_ + toGrow,
 			minHeapHeight);
-		const integer newHeapSize = (1 << newHeapHeight) - 1;
+		integer newHeapSize = (1 << newHeapHeight) - 1;
 
 		toGrow = newHeapHeight - heapHeight_;
 

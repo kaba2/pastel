@@ -17,7 +17,7 @@ namespace Pastel
 		Vector<Real, N> boxRadius =
 			innerBox.extent() / 2;
 
-		const Real cornerDistance2 =
+		Real cornerDistance2 =
 			dot(mabs(innerSphere.position() - boxCenter) + boxRadius);
 
 

@@ -70,7 +70,7 @@ namespace
 					matrix2x2<Real>(
 					1, Real(1, 2), 
 					Real(1, 2), 1));
-				const Matrix<Real> correctPackedLu =
+				Matrix<Real> correctPackedLu =
 					matrix2x2<Real>(
 					1, Real(1, 2), 
 					Real(1, 2), Real(3, 4));

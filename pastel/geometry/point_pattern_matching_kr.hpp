@@ -81,7 +81,7 @@ namespace Pastel
 				// We allow relative error for the nearest neighbor,
 				// since this is an approximate algorithm anyway.
 				// This gives us some performance boost.
-				const Real maxRelativeError = 1;
+				Real maxRelativeError = 1;
 
 				const integer minMatches = 
 

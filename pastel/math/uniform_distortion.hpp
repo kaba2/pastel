@@ -520,7 +520,7 @@ namespace Pastel
 
 		Real radius(norm(uv));
 		Real theta(positiveRadians<Real>(std::atan2(uv[1], uv[0])));
-		const Real scaledTheta(
+		Real scaledTheta(
 			theta / (constantPi<Real>() / 4));
 
 		Real s;

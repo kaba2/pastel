@@ -17,7 +17,7 @@ namespace Pastel
 		Real invScaling = inverse(that.scaling());
 
 		Real c = std::cos(-that.rotation());
-		const Real s = std::sin(-that.rotation());
+		Real s = std::sin(-that.rotation());
 		const Real xNew = 
 
 			-invScaling * (c * that[0] - s * that[1]); 

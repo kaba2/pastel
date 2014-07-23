@@ -105,7 +105,7 @@ namespace Pastel
 		}
 		else
 		{
-			const Real scale = newValueDelta / valueDelta;
+			Real scale = newValueDelta / valueDelta;
 
 			PackRange_::ScalingFunctor<Real> scalingFunctor(
 				minValue, newMin, scale);

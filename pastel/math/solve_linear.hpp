@@ -37,7 +37,7 @@ namespace Pastel
 			Real maxAbsValue = mabs(left(k, k));
 			for (integer i = k + 1;i < m;++i)
 			{
-				const Real currentAbsValue = mabs(left(i, k));
+				Real currentAbsValue = mabs(left(i, k));
 				if (currentAbsValue > maxAbsValue)
 				{
 					maxAbsRow = i;
@@ -99,7 +99,7 @@ namespace Pastel
 		// Use forward-substitution to solve for x.
 		for (integer j = 0;j < n - 1;++j)
 		{
-			const Real factor = right[j] / a(j, j);
+			Real factor = right[j] / a(j, j);
 			for (integer i = j + 1;i < m;++i)
 			{
 
@@ -134,7 +134,7 @@ namespace Pastel
 		// Use forward-substitution to solve for x.
 		for (integer j = 0;j < n - 1;++j)
 		{
-			const Real factor = right[j];
+			Real factor = right[j];
 			for (integer i = j + 1;i < m;++i)
 			{
 

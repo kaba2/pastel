@@ -619,7 +619,7 @@ namespace Pastel
 		ObjectIterator positiveStart = objectList_.end();
 		ObjectIterator positiveLast = objectList_.end();
 
-		const integer positiveObjects = result.second.second;
+		integer positiveObjects = result.second.second;
 		if (positiveObjects > 0)
 		{
 			positiveStart = result.second.first;
@@ -767,7 +767,7 @@ namespace Pastel
 
 			ObjectIterator positiveBegin = result.second.first;
 			integer positiveObjects = result.second.second;
-			const ObjectIterator negativeBegin = result.first.first;
+			ObjectIterator negativeBegin = result.first.first;
 			const integer negativeObjects = result.first.second;
 
 			// Note that it is important to

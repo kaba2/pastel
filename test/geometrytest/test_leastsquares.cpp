@@ -53,7 +53,7 @@ namespace
 					Vector2 fromPoint(randomVectorSphere<real, 2>());
 					from.push_back(fromPoint);
 
-					const Vector2 toPoint(transformPoint(transformation, fromPoint));
+					Vector2 toPoint(transformPoint(transformation, fromPoint));
 					to.push_back(toPoint);
 				}
 

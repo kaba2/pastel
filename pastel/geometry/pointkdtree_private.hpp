@@ -538,7 +538,7 @@ namespace Pastel
 				node->splitPosition(), node->splitAxis(), 
 				locator());
 
-			const std::pair<
+			std::pair<
 				std::pair<Point_Iterator, integer>,
 				std::pair<Point_Iterator, integer> > result =
 				partition(pointSet_, Pastel::range(begin, end),
@@ -649,7 +649,7 @@ namespace Pastel
 			integer splitAxis = node->splitAxis();
 			
 			Real oldMinBound = bound.min()[splitAxis];
-			const Real oldMaxBound = bound.max()[splitAxis];
+			Real oldMaxBound = bound.max()[splitAxis];
 
 			bound.min()[splitAxis] = node->left()->min();
 			bound.max()[splitAxis] = node->left()->max();

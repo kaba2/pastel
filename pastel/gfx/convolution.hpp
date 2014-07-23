@@ -78,7 +78,7 @@ namespace Pastel
 		private:
 			ConstView<N, Input_RingElement, Input_ConstView> inputView_;
 			ConstView<N, Filter_RingElement, Filter_ConstView> filterView_;
-			const View<N, Output_RingElement, Output_View> outputView_;
+			View<N, Output_RingElement, Output_View> outputView_;
 			const ConvoluteProcessFunctor processFunctor_;
 		};
 

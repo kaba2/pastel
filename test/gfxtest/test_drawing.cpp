@@ -45,7 +45,7 @@ namespace
 
 	void testTexture()
 	{
-		const Color colorSet[] = 
+		Color colorSet[] = 
 		{
 			Color(1, 0, 0),
 			Color(0, 1, 0),
@@ -291,7 +291,7 @@ namespace
 
 		//log() << "Rendering.." << logNewLine;
 
-		const AlignedBox2 region(
+		AlignedBox2 region(
 			Vector2(-100, -100),
 			Vector2(600, 600));
 
@@ -427,7 +427,7 @@ namespace
 	{
 		Array<Color, 2> image(Vector2i(640, 480));
 
-		const integer steps = 128;
+		integer steps = 128;
 
 		const Vector2 center(50.5, 240.5);
 		const real radius = 200;
@@ -475,7 +475,7 @@ namespace
 	{
 		integer XLines = 5;
 		integer YLines = 5;
-		const integer BoxWidth = 100;
+		integer BoxWidth = 100;
 		const integer BoxHeight = 25;
 		const integer Border = 10;
 		const real YStart = 0.1;

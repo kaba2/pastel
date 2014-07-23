@@ -59,7 +59,7 @@ namespace Pastel
 			const real* sceneData = mxGetPr(inputSet[SceneSet]);
 			integer scenePoints = mxGetN(inputSet[SceneSet]);
 			integer kNearest = asScalar<integer>(inputSet[KNearest]);
-			const real minMatchRatio = asScalar<real>(inputSet[MinMatchRatio]);
+			real minMatchRatio = asScalar<real>(inputSet[MinMatchRatio]);
 			const real matchingDistance = 
 				asScalar<real>(inputSet[MatchingDistance]);
 			const real maxBias =

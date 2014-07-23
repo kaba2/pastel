@@ -46,7 +46,7 @@ namespace Pastel
 		integer minMinDimension = minMaxDimension;
 
 		integer width = image.width();
-		const integer height = image.height();
+		integer height = image.height();
 
 		drawBox(AlignedBox2(0, 0, width, height), 0, arrayView(labelImage));
 

@@ -219,7 +219,7 @@ namespace Pastel
 				{
 					++modelPointTries_;
 
-					const ModelIterator modelIter = modelIndexList[i];
+					ModelIterator modelIter = modelIndexList[i];
 
 					for (integer j = 0;j < scenePoints_;++j)
 					{
@@ -357,7 +357,7 @@ namespace Pastel
 				{
 					for (integer j = 0;j < k3_;++j)
 					{
-						const ConformalAffine2D<Real> similarity =
+						ConformalAffine2D<Real> similarity =
 							conformalAffine(
 							modelPoint, modelPosition(modelSet[i - k3_ / 2]),
 							scenePoint, scenePosition(sceneSet[i - j]));
@@ -527,7 +527,7 @@ namespace Pastel
 			const ModelTree& modelTree_;
 			Real minMatchRatio_;
 			Real confidence_;
-			const integer scenePoints_;
+			integer scenePoints_;
 			const integer modelPoints_;
 			integer k_;
 			integer k2_;

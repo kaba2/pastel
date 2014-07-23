@@ -630,7 +630,8 @@ namespace
 				{
 					Real five = 5;
 					Real invFactor = 1 / five;
-					const Real left = i;
+					Real left = i;
+
 
 					if (c[i] != left * invFactor)
 					{

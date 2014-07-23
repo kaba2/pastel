@@ -14,7 +14,7 @@ namespace Pastel
 	{
 		integer n = matrix.width();
 		integer m = matrix.height();
-		const integer minSize = std::min(n, m);
+		integer minSize = std::min(n, m);
 
 		Real result = matrix(0, 0);
 		for (integer i = 1;i < minSize;++i)

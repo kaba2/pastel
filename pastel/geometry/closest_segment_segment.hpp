@@ -63,7 +63,7 @@ namespace Pastel
 		Vector<Real, N> bDelta = 
 			bSegment.end() - bSegment.start();
 
-		const Real aNorm2 = dot(aDelta);
+		Real aNorm2 = dot(aDelta);
 		const Real bNorm2 = dot(bDelta);
 
 		const Vector<Real, N> aUnitDelta = 
@@ -107,7 +107,7 @@ namespace Pastel
 
 		bool uLess0 = (u < 0);
 		bool uGreater1 = (u > 1);
-		const bool vLess0 = (v < 0);
+		bool vLess0 = (v < 0);
 		const bool vGreater1 = (v > 1);
 
 		if (uLess0)

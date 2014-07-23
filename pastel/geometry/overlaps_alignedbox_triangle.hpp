@@ -50,7 +50,7 @@ namespace Pastel
 
 			// Calculate aligned box widths
 
-			const Vector<Real, 2> halfWidths(
+			Vector<Real, 2> halfWidths(
 
 				mabs(evaluate((box.max() - box.min()) * Real(0.5))));
 			Vector<Real, 2> boxCenter(
@@ -98,7 +98,7 @@ namespace Pastel
 			for (integer i = 0;i < 3;++i)
 			{
 				integer i2 = (i + 1) % 3;
-				const integer i3 = (i + 2) % 3;
+				integer i3 = (i + 2) % 3;
 
 				// In the following, note that triangle
 				// vertices 'i' and 'i2' project to the
@@ -212,7 +212,7 @@ namespace Pastel
 
 			// Calculate the edge vectors of the triangle.
 
-			const Tuple<Vector<Real, N>, N> edges(
+			Tuple<Vector<Real, N>, N> edges(
 				workTriangle[1] - workTriangle[0],
 				workTriangle[2] - workTriangle[1],
 				workTriangle[0] - workTriangle[2]);

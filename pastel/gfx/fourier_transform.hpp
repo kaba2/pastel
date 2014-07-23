@@ -55,7 +55,7 @@ namespace Pastel
 				Orthogonal ? inverse(std::sqrt((Real)n)) :
 				(Inverse ? inverse((Real)n) : 1);
 
-			const bool Normalize = 
+			bool Normalize = 
 
 				(Inverse || Orthogonal) && TopLevel;
 
@@ -113,7 +113,7 @@ namespace Pastel
 					// Size-2 dfts
 					Complex b0(a0 + a2);
 					Complex b1(a0 - a2);
-					const Complex b2(a1 + a3);
+					Complex b2(a1 + a3);
 					const Complex b3(a1 - a3);
 
 					const Complex im(0, 
@@ -232,7 +232,7 @@ namespace Pastel
 				Orthogonal ? inverse(std::sqrt((Real)n)) :
 				(Inverse ? inverse((Real)n) : 1);
 
-			const bool Normalize = 
+			bool Normalize = 
 
 				(Inverse || Orthogonal) && TopLevel;
 

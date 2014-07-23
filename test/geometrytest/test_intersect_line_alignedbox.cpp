@@ -48,7 +48,7 @@ namespace
 					Vector<Real, 2>(0),
 					Vector<Real, 2>(1, 0));
 
-				const Line<Real, 2> b(
+				Line<Real, 2> b(
 					Vector<Real, 2>(0),
 					Vector<Real, 2>(0, 1));
 

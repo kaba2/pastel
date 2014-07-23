@@ -61,7 +61,7 @@ namespace Pastel
 			return;
 		}
 
-		const real xStep = (real)inputWidth / outputWidth;
+		real xStep = (real)inputWidth / outputWidth;
 
 		const real filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);
 		real invFilterFactor = inverse(filterFactor);
@@ -87,7 +87,7 @@ namespace Pastel
 
 		for (integer x = 0;x < outputWidth;++x)
 		{
-			const integer rangeBegin =
+			integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
 			const integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
@@ -198,7 +198,7 @@ namespace Pastel
 
 		for (integer x = 0;x < introEnd;++x)
 		{
-			const integer rangeBegin =
+			integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
 			const integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
@@ -443,7 +443,7 @@ namespace Pastel
 			extent[axisSet[i].axis_] = output.extent()[axisSet[i].axis_];
 			Array<Computation_Element, N> tempArray2(extent);
 
-			const ArrayExtender<1, Computation_Element> arrayExtender1D(
+			ArrayExtender<1, Computation_Element> arrayExtender1D(
 				arrayExtender.extender(i), arrayExtender.border());
 			const Resample_::ResampleFunctor<Computation_Element, Input_Element> 
 				resampleFunctor(arrayExtender1D, filter, blurFactor);

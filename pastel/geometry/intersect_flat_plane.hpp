@@ -41,7 +41,7 @@ namespace Pastel
 			dot(bPlane.normal(), aPlane[0]));
 		Real dotNv(
 			dot(bPlane.normal(), aPlane[1]));
-		const Real dotNd(
+		Real dotNd(
 			dot(bPlane.normal(),
 			bPlane.position() - aPlane.position()));
 

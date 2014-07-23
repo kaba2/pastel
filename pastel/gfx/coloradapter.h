@@ -194,7 +194,7 @@ namespace Pastel
 				extractBits<RedFrom, RedBits>(physical));
 			uint8 green = (uint8)scaleInteger<GreenBits, 8>(
 				extractBits<GreenFrom, GreenBits>(physical));
-			const uint8 blue = (uint8)scaleInteger<BlueBits, 8>(
+			uint8 blue = (uint8)scaleInteger<BlueBits, 8>(
 				extractBits<BlueFrom, BlueBits>(physical));
 
 			return Logical(red, green, blue);
@@ -205,7 +205,7 @@ namespace Pastel
 		{
 			Integer red = scaleInteger<8, RedBits, uint32>(logical[0]);
 			Integer green = scaleInteger<8, GreenBits, uint32>(logical[1]);
-			const Integer blue = scaleInteger<8, BlueBits, uint32>(logical[2]);
+			Integer blue = scaleInteger<8, BlueBits, uint32>(logical[2]);
 
 			return (red << RedFrom) + (green << GreenFrom) + (blue << BlueFrom);
 		}
@@ -257,7 +257,7 @@ namespace Pastel
 		{
 			Integer red = quantizeUnsigned(logical[0], RedNumbers);
 			Integer green = quantizeUnsigned(logical[1], GreenNumbers);
-			const Integer blue = quantizeUnsigned(logical[2], BlueNumbers);
+			Integer blue = quantizeUnsigned(logical[2], BlueNumbers);
 
 			return (red << RedFrom) + (green << GreenFrom) + (blue << BlueFrom);
 		}

@@ -123,7 +123,7 @@ namespace Pastel
 
 		real eccentricity2 = majorAxisLength2/ minorAxisLength2;
 
-		const real MaxEccentricity2 = square(30);
+		real MaxEccentricity2 = square(30);
 		if (eccentricity2 > MaxEccentricity2)
 		{
 			// The ellipse is way too skinny. This can
@@ -203,7 +203,7 @@ namespace Pastel
 
 		real transitionBegin = 0;
 		real transitionEnd = 0.15;
-		const real transitionWidth = transitionEnd - transitionBegin;
+		real transitionWidth = transitionEnd - transitionBegin;
 		const real normalizedLevel = level / (real)(mipMap_->levels() - 1);
 		const real tTransition = clamp((normalizedLevel - transitionBegin) / transitionWidth,
 			(real)0, (real)1);

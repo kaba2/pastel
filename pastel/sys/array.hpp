@@ -724,7 +724,7 @@ namespace Pastel
 		// Case i > 0.
 		for (integer i = 1;i < d;++i)
 		{
-			const integer j = order_[i - 1];
+			integer j = order_[i - 1];
 			const integer k = order_[i];
 
 

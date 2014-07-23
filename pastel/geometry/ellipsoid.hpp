@@ -145,7 +145,7 @@ namespace Pastel
 
 		Vector<Real> radius = sqrt(diagonal(invQuadraticForm));
 
-		const AlignedBox<Real> bound(-radius, radius);
+		AlignedBox<Real> bound(-radius, radius);
 
 		return bound;
 	}

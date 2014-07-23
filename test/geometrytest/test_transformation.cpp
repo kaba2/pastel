@@ -43,7 +43,7 @@ namespace
 				Vector2 aFrom(random<real>(), random<real>());
 				Vector2 bFrom(random<real>(), random<real>());
 
-				const Vector2 aTo(transformPoint(transformation, aFrom));
+				Vector2 aTo(transformPoint(transformation, aFrom));
 				const Vector2 bTo(transformPoint(transformation, bFrom));
 
 				const ConformalAffine2D<real> matchedTransformation =
@@ -96,7 +96,7 @@ namespace
 				real scalingDelta = absoluteError<real>(
 					matchedTransformation.scaling(), 
 					transformation.scaling());
-				const real angleDelta = absoluteError<real>(
+				real angleDelta = absoluteError<real>(
 					matchedTransformation.rotation(), 
 					transformation.rotation());
 				const real tDelta = norm(

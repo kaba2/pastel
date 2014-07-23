@@ -29,7 +29,7 @@ namespace Pastel
 			toPixelSpanPoint(box.min()), 
 			toPixelSpanPoint(box.max()));
 
-		const AlignedBox2i window(
+		AlignedBox2i window(
 			Vector2i(0), 
 			image.extent());
 

@@ -44,7 +44,7 @@ namespace Pastel
 		quotient = Polynomial<Real>();
 		remainder = that;
 
-		const Real invDividerLead = inverse(divider[m]);
+		Real invDividerLead = inverse(divider[m]);
 
 		for (integer i = n;i >= m;--i)
 		{

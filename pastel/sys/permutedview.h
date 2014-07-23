@@ -59,7 +59,7 @@ namespace Pastel
 	protected:
 		Contained_ConstView view_;
 		Tuple<integer, N> permutation_;
-		const Vector<integer, N> extent_;
+		Vector<integer, N> extent_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>

@@ -83,7 +83,7 @@ namespace Pastel
 	{
 		Real d0 = dot(triangle[0], unitAxis);
 		Real d1 = dot(triangle[1], unitAxis);
-		const Real d2 = dot(triangle[2], unitAxis);
+		Real d2 = dot(triangle[2], unitAxis);
 
 		// Find out the min-max range of the
 		// parameters.

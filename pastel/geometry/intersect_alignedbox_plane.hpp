@@ -129,7 +129,7 @@ namespace Pastel
 		// Find the minimum and maximum distances along e_k 
 		// between {v in V : v[k] = 0} and P.
 
-		const Real axisScale = -inverse(plane.normal()[k]);
+		Real axisScale = -inverse(plane.normal()[k]);
 
 		Real minAxisDistance = 
 

@@ -97,7 +97,7 @@ namespace Pastel
 		Slice_A aSlice(aArray.slice(axis, 0));
 		Slice_B bSlice(bArray.slice(axis, 0));
 
-		const integer aEndOffset =
+		integer aEndOffset =
 
 			aStride[axis] * aArray.extent()[axis];
 		integer bEndOffset =

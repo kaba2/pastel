@@ -80,7 +80,7 @@ namespace Pastel
 			Real maxAbsValue = mabs(left(k, k));
 			for (integer i = k + 1;i < m;++i)
 			{
-				const Real currentAbsValue = mabs(left(i, k));
+				Real currentAbsValue = mabs(left(i, k));
 				if (currentAbsValue > maxAbsValue)
 				{
 					maxAbsRow = i;
