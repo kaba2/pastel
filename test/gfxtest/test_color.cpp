@@ -56,7 +56,7 @@ namespace
 			Color lmsObserved(
 				xyzToLms(srgbToXyz(Color(142, 98, 29) / 255)));
 
-			const Color lmsDesired(
+			Color lmsDesired(
 				xyzToLms(srgbToXyz(Color(1, 1, 1))));
 
 			transform_ = 

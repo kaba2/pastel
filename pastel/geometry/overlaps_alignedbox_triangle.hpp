@@ -114,7 +114,7 @@ namespace Pastel
 
 				Real triangleProj1(
 					dot(normal, workTriangle[i]));
-				const Real triangleProj2(
+				Real triangleProj2(
 					dot(normal, workTriangle[i3]));
 
 				// Calculate triangle projection interval.

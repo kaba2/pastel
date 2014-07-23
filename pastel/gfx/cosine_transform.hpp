@@ -131,7 +131,7 @@ namespace Pastel
 					Real w1 =
 						std::cos(NthRootAngle);
 
-					const Real w2 =
+					Real w2 =
 
 						std::cos(2 * NthRootAngle);
 

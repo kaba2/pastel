@@ -85,7 +85,7 @@ namespace
 			// make sure they intersect the aligned box
 			// as they should.
 			{
-				const AlignedBox<Real, 2> alignedBox(
+				AlignedBox<Real, 2> alignedBox(
 					Vector<Real, 2>(-1),
 					Vector<Real, 2>(1));
 

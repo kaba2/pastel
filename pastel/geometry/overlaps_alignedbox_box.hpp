@@ -285,7 +285,7 @@ namespace Pastel
 
 			// Compute a common point.
 
-			const Real aProjectedCenter =
+			Real aProjectedCenter =
 				linear(alignedBox.min()[i], alignedBox.max()[i], 0.5);
 			const Real bProjectedCenter =
 				box.position()[i];
@@ -355,7 +355,7 @@ namespace Pastel
 			}
 			else
 			{
-				const Real depth = -signedProjectedDistance + projectedRadiusSum;
+				Real depth = -signedProjectedDistance + projectedRadiusSum;
 
 				if (depth < minDepth)
 				{

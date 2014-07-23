@@ -166,7 +166,7 @@ namespace
 				boxSet[0].maxTopology().set(Topology::Closed);
 				boxSet[1].maxTopology().set(Topology::Closed);
 
-				const Box correct(-1, 0, 1, 0);
+				Box correct(-1, 0, 1, 0);
 				testCase(boxSet, correct);
 			}
 			// Singular horizontal overlap with open boxes.

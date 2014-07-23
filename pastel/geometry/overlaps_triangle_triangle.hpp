@@ -104,7 +104,7 @@ namespace Pastel
 			integer i2 = (i + 1) % 3;
 			integer i3 = (i + 2) % 3;
 
-			const Vector<Real, 2> edge(
+			Vector<Real, 2> edge(
 				cross(bTriangle[i2] - bTriangle[i]));
 
 			const Real a(

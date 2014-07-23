@@ -17,7 +17,7 @@ namespace Pastel
 
 		real32 scale = (real32)1 / 6;
 
-		const real32 delta = rgbMax - rgbMin;
+		real32 delta = rgbMax - rgbMin;
 
 		// Compute hue h.
 

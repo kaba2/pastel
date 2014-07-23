@@ -656,7 +656,7 @@ namespace Pastel
 							Real yMaxNew = eventSet[i + 1].position;
 
 							Real width = xMaxNew - xMinNew;
-							const Real height = yMaxNew - yMinNew;
+							Real height = yMaxNew - yMinNew;
 
 
 							const Real area = width * height;

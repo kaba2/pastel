@@ -57,7 +57,7 @@ namespace Pastel
 			dp.x(), 0,
 			0, dp.y());
 
-		const Vector2 textureOrigin =
+		Vector2 textureOrigin =
 
 			((Vector2(clippedBox.min()) + 0.5) - box.min()) * dp;
 

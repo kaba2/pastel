@@ -91,7 +91,7 @@ namespace Pastel
 				if (image(x, y))
 				{
 					integer left = result(x - 1, y);
-					const integer below = result(x, y - 1);
+					integer below = result(x, y - 1);
 
 					if (left != NoComponent)
 					{

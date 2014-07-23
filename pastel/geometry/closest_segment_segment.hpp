@@ -68,7 +68,7 @@ namespace Pastel
 
 		Vector<Real, N> aUnitDelta = 
 			aDelta / std::sqrt(aNorm2);
-		const Line<Real, N> aLine(aSegment.start(), aUnitDelta);
+		Line<Real, N> aLine(aSegment.start(), aUnitDelta);
 
 		const Vector<Real, N> bUnitDelta = 
 			bDelta / std::sqrt(aNorm2);
@@ -119,7 +119,7 @@ namespace Pastel
 
 				Real u0vCandidate =
 					clamp(-dot(startDelta, bDelta) / bNorm2, 0, 1);
-				const Real u0vDistance2 = dot((bSegment.start() - aSegment.start()) +
+				Real u0vDistance2 = dot((bSegment.start() - aSegment.start()) +
 
 					bDelta * u1vCandidate);
 

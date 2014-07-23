@@ -65,7 +65,7 @@ namespace Pastel
 			Real fny2 = 
 				(Real)i / n;
 
-			const Real delta =
+			Real delta =
 				std::max(
 				std::abs(fy - fny1),
 				std::abs(fy - fny2));

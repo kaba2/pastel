@@ -49,7 +49,7 @@ namespace
 				ConformalAffine2D<real> matchedTransformation =
 					conformalAffine(aFrom, bFrom, aTo, bTo);
 
-				const real scalingDelta = absoluteError<real>(
+				real scalingDelta = absoluteError<real>(
 					matchedTransformation.scaling(), 
 					transformation.scaling());
 				const real angleDelta = absoluteError<real>(

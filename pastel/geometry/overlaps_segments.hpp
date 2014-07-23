@@ -187,7 +187,7 @@ namespace Pastel
 							right.start_.position_,
 							cross(right.end_.position_ - right.start_.position_));
 
-						const Real onSide = side(left.end_.position_,
+						Real onSide = side(left.end_.position_,
 							rightPlane);
 
 						if (onSide < 0)
@@ -334,7 +334,7 @@ namespace Pastel
 					segment_[i][0],
 					vertex_[startId]);
 
-				const EventPoint end(
+				EventPoint end(
 					segment_[i][1],
 					vertex_[endId]);
 

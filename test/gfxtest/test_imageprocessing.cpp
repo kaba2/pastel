@@ -130,7 +130,7 @@ namespace
 	void testErode()
 	{
 		integer width = 500;
-		const integer height = 500;
+		integer height = 500;
 
 		Array<bool, 2> image(Vector2i(width, height), false);
 

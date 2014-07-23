@@ -64,7 +64,7 @@ namespace Pastel
 				asScalar<real>(inputSet[MatchingDistance]);
 			real maxBias =
 				asScalar<real>(inputSet[MaxBias]);
-			const integer matchingModeId = asScalar<integer>(inputSet[MatchingModeId]);
+			integer matchingModeId = asScalar<integer>(inputSet[MatchingModeId]);
 
 			ENSURE_OP(matchingModeId, >=, 0);
 			ENSURE_OP(matchingModeId, <, matchingModes);
