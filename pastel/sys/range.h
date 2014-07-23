@@ -36,9 +36,17 @@ namespace Pastel
 		Type (&that)[N])
 	{
 		return boost::make_iterator_range(
-			boost::begin(that), boost::end(that));
+			std::begin(that), std::end(that));
 	}
 	
+	template <typename Type>
+	boost::iterator_range<const Type*> range(
+		const std::initializer_list<Type>& that)
+	{
+		return boost::make_iterator_range(
+			std::begin(that), std::end(that));
+	}
+
 }
 
 #endif
