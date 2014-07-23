@@ -358,7 +358,7 @@ namespace Pastel
 			}
 		}
 
-		const SubArray<Type, N> result(
+		SubArray<Type, N> result(
 			address(min), newStride, mabs(max - min));
 
 		return result;
@@ -392,7 +392,7 @@ namespace Pastel
 			PENSURE((min[i] < max[i]) == (delta[i] > 0));
 		}
 
-		const SubArray<Type, N> result(
+		SubArray<Type, N> result(
 
 			address(min), stride_ * delta, 
 			numbers(mabs(max - min), delta));
@@ -717,7 +717,7 @@ namespace Pastel
 
 		// Case i = 0.
 		{
-			const integer k = order_[0];
+			integer k = order_[0];
 			stride[k] = 1;
 		}
 
@@ -818,7 +818,7 @@ namespace Pastel
 
 		// Need a point-by-point copy construction.
 		integer d = n();
-		const Vector<integer, N> minExtent = 
+		Vector<integer, N> minExtent = 
 			min(extent_, that.extent_);
 
 		RectangleIterator<N> iter(minExtent);
@@ -837,7 +837,7 @@ namespace Pastel
 		AlignedBox<integer, N> wholeRegion(
 			Vector<integer, N>(ofDimension(d), 0),
 			extent_);
-		const AlignedBox<integer, N> copyRegion(
+		AlignedBox<integer, N> copyRegion(
 			Vector<integer, N>(ofDimension(d), 0),
 			that.extent_);
 

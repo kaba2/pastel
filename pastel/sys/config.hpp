@@ -78,7 +78,7 @@ namespace Pastel
 		const std::string& key) const
 	{
 		ConstIterator iter = data_.find(key);
-		const bool propertyExists = (iter != data_.end());
+		bool propertyExists = (iter != data_.end());
 
 		ENSURE(propertyExists);
 

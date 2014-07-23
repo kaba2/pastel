@@ -43,7 +43,7 @@ namespace Pastel
 				triangle[1] - box.min(),
 				triangle[2] - box.min());
 
-			const Tuple<Vector<Real, 2>, 3> edges(
+			Tuple<Vector<Real, 2>, 3> edges(
 				triangle[1] - triangle[0],
 				triangle[2] - triangle[1],
 				triangle[0] - triangle[2]);
@@ -97,7 +97,7 @@ namespace Pastel
 
 			for (integer i = 0;i < 3;++i)
 			{
-				const integer i2 = (i + 1) % 3;
+				integer i2 = (i + 1) % 3;
 				const integer i3 = (i + 2) % 3;
 
 				// In the following, note that triangle
@@ -192,7 +192,7 @@ namespace Pastel
 
 			// Compute the radii of the box.
 
-			const Vector<Real, N> boxRadius(
+			Vector<Real, N> boxRadius(
 
 				mabs((box.max() - box.min()) * 0.5));
 
@@ -205,7 +205,7 @@ namespace Pastel
 			// the problem such that the box is centered
 			// on the origin. This simplifies calculations.
 
-			const PASTEL_TRIANGLE(Real, N) workTriangle(
+			PASTEL_TRIANGLE(Real, N) workTriangle(
 				Vector<Real, N>(triangle[0] - boxCenter),
 				Vector<Real, N>(triangle[1] - boxCenter),
 				Vector<Real, N>(triangle[2] - boxCenter));

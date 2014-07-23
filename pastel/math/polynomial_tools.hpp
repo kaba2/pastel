@@ -39,7 +39,7 @@ namespace Pastel
 		Polynomial<Real>& remainder)
 	{
 		integer n = that.degree();
-		const integer m = divider.degree();
+		integer m = divider.degree();
 
 		quotient = Polynomial<Real>();
 		remainder = that;
@@ -120,7 +120,7 @@ namespace Pastel
 
 		for (integer i = 1;i < n;++i)
 		{
-			const bool sign = sturm[i](max) > 0;
+			bool sign = sturm[i](max) > 0;
 			if (sign != previousSign)
 			{
 				++signChanges;

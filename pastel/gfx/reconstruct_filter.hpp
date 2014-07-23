@@ -173,7 +173,7 @@ namespace Pastel
 		const View<N, Data, Output_View>& view)
 	{
 		integer n = region.n();
-		const integer points = positionList.size();
+		integer points = positionList.size();
 
 		ENSURE2(points == dataList.size(), points, dataList.size());
 

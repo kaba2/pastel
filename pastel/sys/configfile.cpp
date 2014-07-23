@@ -322,7 +322,7 @@ namespace Pastel
 	{
 		const std::vector<Type>& valueList = config.propertyList<Type>(iter);
 		integer maxValuesPerRow = 4;
-		const integer values = valueList.size();
+		integer values = valueList.size();
 
 		if (values > 1)
 		{

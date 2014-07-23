@@ -23,7 +23,7 @@ namespace Pastel
 		ENSURE_OP(q.m(), ==, q.n());
 
 		integer m = q.m();
-		const integer n = q.n();
+		integer n = q.n();
 		
 		typedef typename Matrix<Real>::Iterator 
 			Iterator;

@@ -30,7 +30,7 @@ namespace Pastel
 		Matrix<Real> aRotationInverse(
 			transpose(aBox.rotation()));
 
-		const Box<Real, N> bBoxTransformed(
+		Box<Real, N> bBoxTransformed(
 
 			(bBox.position() - aBox.position()) *
 			aRotationInverse,
@@ -64,7 +64,7 @@ namespace Pastel
 		Matrix<Real> aRotationInverse(
 			transpose(aBox.rotation()));
 
-		const Box<Real, N> bBoxTransformed(
+		Box<Real, N> bBoxTransformed(
 
 			(bBox.position() - aBox.position()) *
 			aRotationInverse,
@@ -100,7 +100,7 @@ namespace Pastel
 		Matrix<Real> aRotationInverse(
 			transpose(aBox.rotation()));
 
-		const Box<Real, N> bBoxTransformed(
+		Box<Real, N> bBoxTransformed(
 
 			(bBox.position() - aBox.position()) *
 			aRotationInverse,

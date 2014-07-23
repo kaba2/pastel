@@ -60,7 +60,7 @@ namespace Pastel
 			// (radius of the) projection of the
 			// extremal point.
 
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
 
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i];
@@ -72,7 +72,7 @@ namespace Pastel
 
 			Real signedProjectedDistance = delta[i];
 
-			const Real depth =
+			Real depth =
 				(aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
@@ -108,7 +108,7 @@ namespace Pastel
 			// this axis.
 			// Remember the aligned box is at the origin.
 
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 				dot(box.rotation()[i], delta);
 
 			const Real depth =
@@ -158,7 +158,7 @@ namespace Pastel
 
 			const Vector<Real, N>& unitAxis = bBox.rotation()[i];
 			AlignedBox<Real, 1> aInterval = projectAxis(aAlignedBox, unitAxis);
-			const AlignedBox<Real, 1> bInterval = projectAxis(bBox, unitAxis);
+			AlignedBox<Real, 1> bInterval = projectAxis(bBox, unitAxis);
 
 			const Vector<Real, 1> bProjectedVelocity(dot(bVelocity, unitAxis));
 
@@ -238,7 +238,7 @@ namespace Pastel
 			// (radius of the) projection of the
 			// box.
 
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
 
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i];
@@ -250,7 +250,7 @@ namespace Pastel
 			// the centers of the aligned box and the box on
 			// this axis.
 
-			const Real signedProjectedDistance = delta[i];
+			Real signedProjectedDistance = delta[i];
 			const Real projectedDistance =
 				mabs(signedProjectedDistance);
 
@@ -322,7 +322,7 @@ namespace Pastel
 
 			Real bProjectedRadius = boxWidth[i];
 
-			const Real projectedRadiusSum =
+			Real projectedRadiusSum =
 				aProjectedRadius + bProjectedRadius;
 
 			// This is the distance between
@@ -408,7 +408,7 @@ namespace Pastel
 		{
 			Real aProjectedRadius =
 				alignedBoxWidth[i];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
 
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i] +
@@ -416,7 +416,7 @@ namespace Pastel
 			Real signedProjectedDistance =
 				delta[i];
 
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -435,7 +435,7 @@ namespace Pastel
 				alignedBoxWidth[1] * absRotation[i][1] +
 				alignedBoxWidth[2] * absRotation[i][2];
 			Real bProjectedRadius = boxWidth[i];
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 				dot(delta, boxRotation[i]);
 
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -472,7 +472,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[1][1] * delta[2] -
 				boxRotation[1][2] * delta[1];
@@ -494,7 +494,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[2][1] * delta[2] -
 				boxRotation[2][2] * delta[1];
@@ -516,7 +516,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[0][2] * delta[0] -
 				boxRotation[0][0] * delta[2];
@@ -539,7 +539,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[1][2] * delta[0] -
 				boxRotation[1][0] * delta[2];
@@ -561,7 +561,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[2][2] * delta[0] -
 				boxRotation[2][0] * delta[2];
@@ -583,7 +583,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[0][0] * delta[1] -
 				boxRotation[0][1] * delta[0];
@@ -605,7 +605,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[1][0] * delta[1] -
 				boxRotation[1][1] * delta[0];
@@ -627,7 +627,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[2][0] * delta[1] -
 				boxRotation[2][1] * delta[0];
@@ -690,7 +690,7 @@ namespace Pastel
 		{
 			Real aProjectedRadius =
 				alignedBoxWidth[i];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
 
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i] +
@@ -698,7 +698,7 @@ namespace Pastel
 			Real signedProjectedDistance =
 				delta[i];
 
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -730,7 +730,7 @@ namespace Pastel
 				alignedBoxWidth[1] * absRotation[i][1] +
 				alignedBoxWidth[2] * absRotation[i][2];
 			Real bProjectedRadius = boxWidth[i];
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 				dot(delta, boxRotation[i]);
 
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -793,7 +793,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[1][1] * delta[2] -
 				boxRotation[1][2] * delta[1];
@@ -828,7 +828,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[2][1] * delta[2] -
 				boxRotation[2][2] * delta[1];
@@ -863,7 +863,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[0][2] * delta[0] -
 				boxRotation[0][0] * delta[2];
@@ -898,7 +898,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[1][2] * delta[0] -
 				boxRotation[1][0] * delta[2];
@@ -933,7 +933,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[2][2] * delta[0] -
 				boxRotation[2][0] * delta[2];
@@ -968,7 +968,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[0][0] * delta[1] -
 				boxRotation[0][1] * delta[0];
@@ -1003,7 +1003,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[1][0] * delta[1] -
 				boxRotation[1][1] * delta[0];
@@ -1038,7 +1038,7 @@ namespace Pastel
 		}
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[2][0] * delta[1] -
 				boxRotation[2][1] * delta[0];

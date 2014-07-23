@@ -150,7 +150,7 @@ namespace Pastel
 		evenPermutation_ = true;
 
 		integer width = packedLu_.width();
-		const integer height = packedLu_.height();
+		integer height = packedLu_.height();
 
 		ENSURE_OP(width, ==, height);
 

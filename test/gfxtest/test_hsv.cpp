@@ -14,7 +14,7 @@ namespace
 	void testHsv()
 	{
 		real Width = 512;
-		const real Height = 128;
+		real Height = 128;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
 		const real32 HueStep = (real32)1 / Width;

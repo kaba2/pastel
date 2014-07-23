@@ -48,7 +48,7 @@ namespace Pastel
 		
 		std::sort(orderedSet.begin(), orderedSet.end());
 
-		const bool atLeastOneApproximated = 
+		bool atLeastOneApproximated = 
 			isNan(mean) || isNan(deviation);
 
 		// Compute mean and deviation from samples
@@ -100,7 +100,7 @@ namespace Pastel
 			-n - S / n;
 
 		// A correction for estimated variables.
-		const bool bothApproximated =
+		bool bothApproximated =
 
 			isNan(mean) && isNan(deviation);
 

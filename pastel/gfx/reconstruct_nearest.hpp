@@ -133,7 +133,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
 		integer n = region.n();
-		const integer points = positionList.size();
+		integer points = positionList.size();
 
 		ENSURE_OP(kNearest, >, 0);
 		ENSURE2(points == dataList.size(), points, dataList.size());

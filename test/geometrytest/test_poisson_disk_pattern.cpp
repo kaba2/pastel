@@ -61,7 +61,7 @@ namespace
 	void testPoissonDiskPattern()
 	{
 		integer width = 500;
-		const integer height = 500;
+		integer height = 500;
 
 		Array<Color, 2> image;
 

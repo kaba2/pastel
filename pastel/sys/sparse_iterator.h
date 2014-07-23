@@ -200,7 +200,7 @@ namespace Pastel
 		PENSURE_OP(delta, >= , 1);
 
 		integer elements = end - begin;
-		const integer remainder = elements % delta;
+		integer remainder = elements % delta;
 
 		Iterator result = end;
 		if (remainder > 0)

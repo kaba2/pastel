@@ -20,7 +20,7 @@ namespace Pastel
 		Real gammaSum = 0;
 		for (integer i = 0;i < n;++i)
 		{
-			const Real t = randomGamma<Real>(shape[i]);
+			Real t = randomGamma<Real>(shape[i]);
 			
 			u[i] = t;
 			gammaSum += t;

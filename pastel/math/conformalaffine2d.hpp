@@ -48,7 +48,7 @@ namespace Pastel
 		// we should be careful about the order of the operations.
 
 		Real c = std::cos(rotation_);
-		const Real s = std::sin(rotation_);
+		Real s = std::sin(rotation_);
 		const Real xNew = 
 
 			scaling_ * (c * that.translation_[0] - s * that.translation_[1]) + 

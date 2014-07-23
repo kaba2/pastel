@@ -188,7 +188,7 @@ namespace Pastel
 	BigInteger& BigInteger::operator&=(const BigInteger& that)
 	{
 		integer thisSize = size();
-		const integer thatSize = that.size();
+		integer thatSize = that.size();
 		const integer minSize = std::min(thisSize, thatSize);
 		digits_.resize(minSize);
 
@@ -213,7 +213,7 @@ namespace Pastel
 	BigInteger& BigInteger::operator|=(const BigInteger& that)
 	{
 		integer thisSize = size();
-		const integer thatSize = that.size();
+		integer thatSize = that.size();
 		const integer minSize = std::min(thisSize, thatSize);
 
 		if (thisSize < thatSize)
@@ -584,7 +584,7 @@ namespace Pastel
 
 		const integer byOffsetBits = byBits & 0xF;
 		integer mask = (1 << byOffsetBits) - 1;
-		const integer carryOffset = 16 - byOffsetBits;
+		integer carryOffset = 16 - byOffsetBits;
 
 
 		BigInteger result(*this);
@@ -660,7 +660,7 @@ namespace Pastel
 	bool BigInteger::absoluteEqual(const BigInteger& that) const
 	{
 		integer thisSize = size();
-		const integer thatSize = that.size();
+		integer thatSize = that.size();
 
 		if (thisSize != thatSize)
 		{
@@ -712,7 +712,7 @@ namespace Pastel
 		ASSERT(left.size() >= right.size());
 
 		integer leftSize = left.size();
-		const integer rightSize = right.size();
+		integer rightSize = right.size();
 
 		const uint32 MaxDigit = 65535;
 
@@ -782,7 +782,7 @@ namespace Pastel
 		}
 
 		integer leftSize = left.size();
-		const integer rightSize = right.size();
+		integer rightSize = right.size();
 
 		const int32 digits = 65536;
 		int32 borrow = 0;

@@ -22,7 +22,7 @@ namespace
 	void testChromaticity()
 	{
 		real Width = 500;
-		const real Height = 500;
+		real Height = 500;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
 		for (integer i = 0;i < 20;++i)

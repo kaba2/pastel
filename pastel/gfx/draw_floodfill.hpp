@@ -15,7 +15,7 @@ namespace Pastel
 		const View<2, Type, Image_View>& image)
 	{
 		integer width = image.width();
-		const integer height = image.height();
+		integer height = image.height();
 
 		if (xStart < 0 || xStart >= width ||
 			yStart < 0 || yStart >= height)
@@ -48,7 +48,7 @@ namespace Pastel
 
 			integer xLeft = line[0];
 			integer xRight = line[0];
-			const integer y = line[1];
+			integer y = line[1];
 
 			Cursor yCursor = image.cursor(xLeft, y);
 

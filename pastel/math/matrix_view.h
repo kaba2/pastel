@@ -429,7 +429,7 @@ namespace Pastel
 			else
 			{
 				integer m = height();
-				const integer n = width();
+				integer n = width();
 
 				for (integer i = 0;i < m;++i)
 				{
@@ -471,7 +471,7 @@ namespace Pastel
 			else
 			{
 				integer m = height();
-				const integer n = width();
+				integer n = width();
 
 				for (integer i = 0;i < m;++i)
 				{
@@ -502,7 +502,7 @@ namespace Pastel
 			else
 			{
 				integer m = height();
-				const integer n = width();
+				integer n = width();
 
 				for (integer i = 0;i < m;++i)
 				{
@@ -533,7 +533,7 @@ namespace Pastel
 		SubMatrix& operator*=(
 			Real right)
 		{
-			const integer m = height();
+			integer m = height();
 
 			for (integer y = 0;y < m;++y)
 			{

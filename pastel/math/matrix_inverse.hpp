@@ -31,7 +31,7 @@ namespace Pastel
 		// end up [I | X]. This is Gauss-Jordan elimination.
 
 		integer n = matrix.width();
-		const integer m = matrix.height();
+		integer m = matrix.height();
 
 		ENSURE_OP(m, ==, n);
 

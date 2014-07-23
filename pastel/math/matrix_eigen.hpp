@@ -69,7 +69,7 @@ namespace Pastel
 		}
 		else
 		{
-			const Vector<Real, 2> bCandidate(
+			Vector<Real, 2> bCandidate(
 				eigenValue[0] - matrix(1, 1), matrix(0, 1));
 			if (dot(bCandidate) > square(0.001))
 			{

@@ -37,7 +37,7 @@ namespace Pastel
 			{
 				Vector2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Vector2 acPosition =
+				Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -147,7 +147,7 @@ namespace Pastel
 		GfxRenderer<Type>& renderer)
 	{
 		integer width = value.width();
-		const integer height = value.height();
+		integer height = value.height();
 
 		const Vector2 delta = window.max() - window.min();
 

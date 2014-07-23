@@ -158,7 +158,7 @@ namespace Pastel
 		*/
 		
 		integer m = r_.m();
-		const integer n = r_.n();
+		integer n = r_.n();
 
 		// We will reuse the memory space for v
 		// to avoid reallocation.

@@ -18,7 +18,7 @@ namespace Pastel
 		, scaling_(0)
 	{
 		integer Padding = 1;
-		const integer width = data.width();
+		integer width = data.width();
 
 		ENSURE(odd(width));
 
@@ -67,7 +67,7 @@ namespace Pastel
 		ENSURE_OP(samplesPerRadius, >=, 0);
 
 		real filterRadius = filter->radius();
-		const integer filterTableRadius = 
+		integer filterTableRadius = 
 
 			std::ceil(samplesPerRadius * filterRadius);
 		integer filterTableSize = 

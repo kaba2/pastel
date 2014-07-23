@@ -14,7 +14,7 @@ namespace Pastel
 		Vector<Real, N> boxCenter =
 			linear(innerBox.min(), innerBox.max(), 0.5);
 
-		const Vector<Real, N> boxRadius =
+		Vector<Real, N> boxRadius =
 			innerBox.extent() / 2;
 
 		const Real cornerDistance2 =

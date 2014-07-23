@@ -886,7 +886,7 @@ namespace Pastel
 		{
 			integer size = dimension;
 
-			const integer minSize = std::min(
+			integer minSize = std::min(
 				that.size(), size);
 			
 			integer rollBackIndex = 0;

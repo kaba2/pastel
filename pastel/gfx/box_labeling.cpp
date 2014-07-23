@@ -45,7 +45,7 @@ namespace Pastel
 
 		integer minMinDimension = minMaxDimension;
 
-		const integer width = image.width();
+		integer width = image.width();
 		const integer height = image.height();
 
 		drawBox(AlignedBox2(0, 0, width, height), 0, arrayView(labelImage));
@@ -89,7 +89,7 @@ namespace Pastel
 							}
 							if (boxFits)
 							{
-								const integer u = x + boxSize;
+								integer u = x + boxSize;
 								// No need to check v = y + boxSize, already done.
 								for (integer v = y;v < y + boxSize;++v)
 								{
@@ -165,7 +165,7 @@ namespace Pastel
 							}
 						}
 
-						const integer minDimension =
+						integer minDimension =
 							std::min(boxWidth, boxHeight);
 
 						if (minDimension >= minMinDimension)

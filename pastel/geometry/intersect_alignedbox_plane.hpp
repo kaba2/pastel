@@ -119,7 +119,7 @@ namespace Pastel
 		// Choose a standard basis axis e_k
 		// which has minimal angle with the plane normal.
 		
-		const integer k = nearestMainAxis(plane.normal());
+		integer k = nearestMainAxis(plane.normal());
 
 		// Otherwise we need to calculate the 
 		// projected ranges of the sub-pieces

@@ -46,7 +46,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& value)
 	{
 		integer width = matrix.width();
-		const integer height = matrix.height();
+		integer height = matrix.height();
 
 		ENSURE_OP(width, ==, height);
 
@@ -83,7 +83,7 @@ namespace Pastel
 		Matrix<Real>& matrix)
 	{
 		integer width = matrix.width();
-		const integer height = matrix.height();
+		integer height = matrix.height();
 
 		using std::swap;
 
@@ -402,7 +402,7 @@ namespace Pastel
 		const MatrixExpression<Real, Expression>& m)
 	{
 		integer width = m.width();
-		const integer height = m.height();
+		integer height = m.height();
 
 		for (integer y = 0;y < height;++y)
 		{

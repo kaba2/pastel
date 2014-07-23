@@ -110,7 +110,7 @@ namespace Pastel
 	{
 		const Type& currentColor = Base::color();
 		integer width = image_->width();
-		const integer height = image_->height();
+		integer height = image_->height();
 
 		for (integer y = 0;y < height;++y)
 		{

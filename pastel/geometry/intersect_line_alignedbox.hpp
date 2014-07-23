@@ -25,7 +25,7 @@ namespace Pastel
 		AlignedBox<Real, N> testAlignedBox = 
 			alignedBox - line.position();
 
-		const integer dimension = line.n();
+		integer dimension = line.n();
 
 		for (integer i = 0;i < dimension;++i)
 		{

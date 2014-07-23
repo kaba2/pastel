@@ -49,7 +49,7 @@ namespace
 
 		AlignedBox2 textureBox(0.4, 0.45, 0.55, 0.60);
 
-		const AlignedBox2 box(0, 0, Width, Height);
+		AlignedBox2 box(0, 0, Width, Height);
 
 		{
 			NearestImage_Texture<Color> texture(textureImage,
@@ -168,7 +168,7 @@ namespace
 				ArrayExtender<2, Color>(clampExtender()))));
 
 		AlignedBox2 textureBox(0.4, 0.4, 0.6, 0.6);
-		const AlignedBox2 box(0, 0, Width, Height);
+		AlignedBox2 box(0, 0, Width, Height);
 
 		integer textures = textureList.size();
 		for (integer i = 0;i < textures;++i)
@@ -334,7 +334,7 @@ namespace
 		Array<Color, 2> textureImage(Vector2i(40, 40));
 
 		integer CheckerWidth = 20;
-		const integer CheckerHeight = 20;
+		integer CheckerHeight = 20;
 
 		for (integer y = 0;y < textureImage.height();++y)
 		{
@@ -575,7 +575,7 @@ namespace
 		transform(bMipMap, fitColor);
 
 		integer iconSize = 250;
-		const integer iconSpace = iconSize;
+		integer iconSpace = iconSize;
 
 		const AlignedBox2 iconBox(0, 0, iconSize, iconSize);
 

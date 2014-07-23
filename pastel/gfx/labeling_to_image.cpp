@@ -11,7 +11,7 @@ namespace Pastel
 		Array<uint8, 2>& image)
 	{
 		integer width = labelImage.width();
-		const integer height = labelImage.height();
+		integer height = labelImage.height();
 
 		Array<uint8> newImage(Vector2i(width, height));
 

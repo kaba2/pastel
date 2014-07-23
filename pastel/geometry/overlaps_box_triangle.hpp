@@ -25,7 +25,7 @@ namespace Pastel
 		Matrix<Real> boxRotationInverse(
 			transpose(box.rotation()));
 
-		const PASTEL_TRIANGLE(Real, N) transformedTriangle(
+		PASTEL_TRIANGLE(Real, N) transformedTriangle(
 
 			(triangle[0] - box.position()) *
 			boxRotationInverse,

@@ -115,7 +115,7 @@ namespace Pastel
 			(ulong)18446744073709551557ull
 		};
 
-		const integer primeCount = sizeof(ulong) != 8 ? 256 : 256 + 48;
+		integer primeCount = sizeof(ulong) != 8 ? 256 : 256 + 48;
 	}
 
 	PASTELSYS ulong followingPrime(ulong minimum)

@@ -56,7 +56,7 @@ namespace Pastel
 			dot(segment.start() - halfSpace.position(),
 			halfSpace.normal());
 
-		const Real projectedEnd =
+		Real projectedEnd =
 			dot(segment.end() - halfSpace.position(),
 			halfSpace.normal());
 

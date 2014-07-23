@@ -73,7 +73,7 @@ namespace Pastel
 					countingIterator(modelTree.end()));
 				std::random_shuffle(modelSet.begin(), modelSet.end());
 
-				const Real matchingDistance = 
+				Real matchingDistance = 
 					normBijection.toBijection(actualMatchingDistance);
 
 				Vector<Real, N> searchPoint(ofDimension(d));
@@ -103,7 +103,7 @@ namespace Pastel
 
 					// Go over all scene pivot points.
 					Scene_ConstIterator scenePivotIter = sceneTree.begin();
-					const Scene_ConstIterator scenePivotEnd = sceneTree.end();
+					Scene_ConstIterator scenePivotEnd = sceneTree.end();
 
 					while(scenePivotIter != scenePivotEnd && !exitEarly)
 					{
@@ -191,7 +191,7 @@ namespace Pastel
 
 								meanDelta /= pairSet.size();
 
-								const Real meanNorm = 
+								Real meanNorm = 
 									normBijection.toNorm(norm2(meanDelta, normBijection));
 
 								bias = meanNorm / actualMatchingDistance;

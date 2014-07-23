@@ -26,7 +26,7 @@ namespace Pastel
 		integer x, integer y)
 	{
 		integer width = image.width();
-		const integer height = image.height();
+		integer height = image.height();
 
 
 		ENSURE2(x >= 0 && x < width, x, width);
@@ -75,7 +75,7 @@ namespace Pastel
 		integer x, integer y)
 	{
 		integer width = image.width();
-		const integer height = image.height();
+		integer height = image.height();
 
 
 		ENSURE2(x >= 0 && x < width, x, width);

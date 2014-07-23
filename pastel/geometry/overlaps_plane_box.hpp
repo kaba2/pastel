@@ -42,7 +42,7 @@ namespace Pastel
 
 		// Calculate the distance of the center
 		// point and the plane.
-		const Real planeDistance2 = 
+		Real planeDistance2 = 
 			distance2(plane, box.position());
 
 		// If the distance of the center to the

@@ -23,7 +23,7 @@ namespace
 	void testStructuringElementLarge()
 	{
 		integer width = 200;
-		const integer height = 100;
+		integer height = 100;
 
 		Array<bool, 2> image(Vector2i(width, height), false);
 

@@ -60,7 +60,7 @@ namespace Pastel
 
 		Vector<Real, N> aDelta = 
 			aSegment.end() - aSegment.start();
-		const Vector<Real, N> bDelta = 
+		Vector<Real, N> bDelta = 
 			bSegment.end() - bSegment.start();
 
 		const Real aNorm2 = dot(aDelta);
@@ -106,7 +106,7 @@ namespace Pastel
 		const Real& v = t[1];
 
 		bool uLess0 = (u < 0);
-		const bool uGreater1 = (u > 1);
+		bool uGreater1 = (u > 1);
 		const bool vLess0 = (v < 0);
 		const bool vGreater1 = (v > 1);
 
@@ -125,7 +125,7 @@ namespace Pastel
 
 				Real v0uCandidate =
 					clamp(dot(startDelta, aDelta) / aNorm2, 0, 1);
-				const Real v0uDistance2 = dot((bSegment.start() - aSegment.start()) -
+				Real v0uDistance2 = dot((bSegment.start() - aSegment.start()) -
 
 					aDelta * v0uCandidate);
 
@@ -145,14 +145,14 @@ namespace Pastel
 
 					Real u0vCandidate =
 						clamp(-dot(startDelta, bDelta) / bNorm2, 0, 1);
-					const Real u0vDistance2 =
+					Real u0vDistance2 =
 
 						dot((bSegment.start() - aSegment.start()) + bDelta * u1vCandidate);
 
 					Real v1uCandidate =
 						clamp((dot(startDelta, aDelta) +
 						dot(aDelta, bDelta)) / aNorm2, 0, 1);
-					const Real v1uDistance2 =
+					Real v1uDistance2 =
 
 						dot((bSegment.end() - aSegment.start()) - aDelta * v1uCandidate);
 
@@ -187,14 +187,14 @@ namespace Pastel
 					Real u1vCandidate =
 						clamp((dot(aDelta, bDelta) -
 						dot(startDelta, bDelta)) / bNorm2, 0, 1);
-					const Real u1vDistance2 =
+					Real u1vDistance2 =
 						dot((bSegment.start() - aSegment.end()) +
 
 						bDelta * u1vCandidate);
 
 					Real v0uCandidate =
 						clamp(dot(startDelta, aDelta) / aNorm2, 0, 1);
-					const Real v0uDistance2 =
+					Real v0uDistance2 =
 						dot((bSegment.start() - aSegment.start()) -
 
 						aDelta * v0uCandidate);
@@ -229,14 +229,14 @@ namespace Pastel
 						Real u1vCandidate =
 							clamp((dot(aDelta, bDelta) -
 							dot(startDelta, bDelta)) / bNorm2, 0, 1);
-						const Real u1vDistance2 =
+						Real u1vDistance2 =
 
 							dot((bSegment.start() - aSegment.end()) + bDelta * u1vCandidate);
 
 						Real v1uCandidate =
 							clamp((dot(startDelta, aDelta) +
 							dot(aDelta, bDelta)) / aNorm2, 0, 1);
-						const Real v1uDistance2 =
+						Real v1uDistance2 =
 
 							dot((bSegment.end() - aSegment.start()) - aDelta * v1uCandidate);
 

@@ -25,7 +25,7 @@ namespace Pastel
 		// interval [0, -ln(d)] to n subintervals
 		// represented by (n + 1) partition points.
 
-		const Real xDelta = -std::log(determinant);
+		Real xDelta = -std::log(determinant);
 
 		std::vector<Real> partitionSet;
 		partitionSet.reserve(n + 1);
@@ -72,7 +72,7 @@ namespace Pastel
 
 		ENSURE_OP(n, >, 1);
 
-		const Real a = 
+		Real a = 
 
 			((n - 1) * std::log(condition) - 
 			std::log(determinant)) / n;

@@ -43,7 +43,7 @@ namespace Pastel
 		using Flags = uint64;
 
 		integer n = kdTree.n();
-		const Flags fullFlags = ((Flags)1 << n) - 1;
+		Flags fullFlags = ((Flags)1 << n) - 1;
 
 
 		const Vector<Real, N>& rangeMin = range.min();
@@ -85,7 +85,7 @@ namespace Pastel
 				cursor.points() > bucketSize)
 			{
 				integer splitAxis = cursor.splitAxis();
-				const Flags flag = (Flags)1 << splitAxis;
+				Flags flag = (Flags)1 << splitAxis;
 
 				if (flags == fullFlags)
 				{

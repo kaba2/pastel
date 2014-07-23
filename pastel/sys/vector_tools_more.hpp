@@ -39,7 +39,7 @@ namespace Pastel
 
 		for (integer i = 1;i < dimension;++i)
 		{
-			const Real value = that[i];
+			Real value = that[i];
 			if (value < minValue)
 			{
 				minValue = value;
@@ -69,7 +69,7 @@ namespace Pastel
 
 		for (integer i = 1;i < dimension;++i)
 		{
-			const Real value = that[i];
+			Real value = that[i];
 			if (maxValue < value)
 			{
 				maxValue = value;

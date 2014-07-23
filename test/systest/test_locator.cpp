@@ -30,7 +30,7 @@ namespace
 			integer d = 3;
 			Pointer_Locator<real, 3> locator(d);
 			real dataSet[] = {0, 1, 2, 3, 4, 5, 6};
-			const integer n = sizeof(dataSet) / sizeof(real);
+			integer n = sizeof(dataSet) / sizeof(real);
 			
 			for (integer i = 0;i < n - d;++i)
 			{

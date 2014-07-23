@@ -80,7 +80,7 @@ namespace Pastel
 			
 			for (integer i = 0;i < n;++i)
 			{
-				const Real value = data_(i, index);
+				Real value = data_(i, index);
 				if (value < minValue)
 				{
 					minValue = value;
@@ -136,7 +136,7 @@ namespace Pastel
 			
 			for (integer i = 0;i < n;++i)
 			{
-				const Real value = data_(i, index);
+				Real value = data_(i, index);
 				if (value > maxValue)
 				{
 					maxValue = value;
@@ -273,7 +273,7 @@ namespace Pastel
 	private:
 		typename Expression::StorageType data_;
 		integer dataWidth_;
-		const integer dataHeight_;
+		integer dataHeight_;
 		const integer width_;
 		const integer height_;
 	};

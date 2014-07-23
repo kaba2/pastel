@@ -48,7 +48,7 @@ namespace
 				if (!lu.singular())
 				{
 					Vector<real> b = randomVectorCube<real, Dynamic>(n);
-					const Vector<real> x = solveLinear(lu, b);
+					Vector<real> x = solveLinear(lu, b);
 
 					const Vector<real> residual = m * x - b;
 					real normResidual = norm(residual);
@@ -66,7 +66,7 @@ namespace
 		void testLu()
 		{
 			{
-				const LuDecomposition<Real> lu(
+				LuDecomposition<Real> lu(
 					matrix2x2<Real>(
 					1, Real(1, 2), 
 					Real(1, 2), 1));

@@ -629,7 +629,7 @@ namespace
 				for (integer i = 0;i < size;++i)
 				{
 					Real five = 5;
-					const Real invFactor = 1 / five;
+					Real invFactor = 1 / five;
 					const Real left = i;
 
 					if (c[i] != left * invFactor)
@@ -728,7 +728,7 @@ namespace
 		template <int N>
 		void testCollaboration()
 		{
-			const integer size = (N == Dynamic) ? 10 : N;
+			integer size = (N == Dynamic) ? 10 : N;
 
 			Vector<Real, N> a(ofDimension(size));
 

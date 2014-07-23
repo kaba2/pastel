@@ -77,7 +77,7 @@ namespace Pastel
 		void traverse(const Domain& x)
 		{
 			integer ClosureValueReady = -1;
-			const integer depth = workSet.size();
+			integer depth = workSet.size();
 
 			// Give the node the identity value of the monoid. 
 			// If this node does not refer to any nodes (not 

@@ -132,7 +132,7 @@ namespace Pastel
 		{
 			for (integer j = i + 1;j < n;++j)
 			{
-				const Real value = 
+				Real value = 
 					radialBasisFunction->evaluate(
 					dot(positionList[j] - positionList[i]));
 				

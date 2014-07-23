@@ -608,7 +608,7 @@ namespace Pastel
 		ObjectIterator negativeStart = objectList_.end();
 		ObjectIterator negativeLast = objectList_.end();
 
-		const integer negativeObjects = result.first.second;
+		integer negativeObjects = result.first.second;
 		if (negativeObjects > 0)
 		{
 			negativeStart = result.first.first;
@@ -766,7 +766,7 @@ namespace Pastel
 				splitPredicate);
 
 			ObjectIterator positiveBegin = result.second.first;
-			const integer positiveObjects = result.second.second;
+			integer positiveObjects = result.second.second;
 			const ObjectIterator negativeBegin = result.first.first;
 			const integer negativeObjects = result.first.second;
 

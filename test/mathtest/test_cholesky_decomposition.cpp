@@ -32,7 +32,7 @@ namespace
 				1, 0.5, 
 				0.5, 1));
 			{
-				const Matrix<real> correctLower =
+				Matrix<real> correctLower =
 					matrix2x2<real>(
 					1.000, 0.0000,
 					0.5000, 0.8660);

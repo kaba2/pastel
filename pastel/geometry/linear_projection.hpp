@@ -15,7 +15,7 @@ namespace Pastel
 		const Vector<Real, N>& unitAxis)
 	{
 		Real t1 = dot(unitAxis, box.min());
-		const Real t2 = dot(unitAxis, box.max());
+		Real t2 = dot(unitAxis, box.max());
 
 		return AlignedBox<Real, 1>(
 			std::min(t1, t2),
@@ -32,7 +32,7 @@ namespace Pastel
 
 		integer dimension = box.n();
 
-		const Real position = dot(unitAxis, box.position());
+		Real position = dot(unitAxis, box.position());
 
 		Real radius = 0;
 		for (integer i = 0;i < dimension;++i)
@@ -52,7 +52,7 @@ namespace Pastel
 		const Vector<Real, N>& unitAxis)
 	{
 		Real position = dot(unitAxis, sphere.position());
-		const Real radius = sphere.radius();
+		Real radius = sphere.radius();
 
 		return AlignedBox<Real, 1>(
 			position - radius,
@@ -66,7 +66,7 @@ namespace Pastel
 		const Vector<Real, N>& unitAxis)
 	{
 		Vector<Real, N> delta = segment.end() - segment.start();
-		const Real position = dot(unitAxis,
+		Real position = dot(unitAxis,
 			linear(segment.start(), segment.end(), 0.5));
 
 		const Real radius = mabs(dot(unitAxis, delta)) * 0.5;
@@ -82,7 +82,7 @@ namespace Pastel
 		const Vector<Real, N>& unitAxis)
 	{
 		Real d0 = dot(triangle[0], unitAxis);
-		const Real d1 = dot(triangle[1], unitAxis);
+		Real d1 = dot(triangle[1], unitAxis);
 		const Real d2 = dot(triangle[2], unitAxis);
 
 		// Find out the min-max range of the

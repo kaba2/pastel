@@ -63,7 +63,7 @@ namespace
 
 			std::sort(resultSet.begin(), resultSet.end());
 
-			const integer n = resultSet.size();
+			integer n = resultSet.size();
 
 			std::vector<integer> resultIndexSet;
 			resultIndexSet.reserve(n);
@@ -116,7 +116,7 @@ namespace
 				boxSet[0].maxTopology().set(Topology::Closed);
 				boxSet[1].maxTopology().set(Topology::Closed);
 
-				const Box correct(-1, -1, 1, 1);
+				Box correct(-1, -1, 1, 1);
 				testCase(boxSet, correct);
 			}
 			// Overlap on both axes.

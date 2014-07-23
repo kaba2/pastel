@@ -61,14 +61,14 @@ namespace Pastel
 			Vector<Real, 2> aFrom = 
 				pointAsVector(from.front(), fromLocator);
 
-			const Vector<Real, 2> bFrom = 
+			Vector<Real, 2> bFrom = 
 
 				pointAsVector(*fromSecond, fromLocator);
 
 			Vector<Real, 2> aTo = 
 				pointAsVector(to.front(), toLocator);
 
-			const Vector<Real, 2> bTo = 
+			Vector<Real, 2> bTo = 
 
 				pointAsVector(*toSecond, toLocator);
 
@@ -80,7 +80,7 @@ namespace Pastel
 		From_Point_ConstIterator fromIter = from.begin();
 		From_Point_ConstIterator fromEnd = from.end();
 		To_Point_ConstIterator toIter = to.begin();
-		const To_Point_ConstIterator toEnd = to.end();
+		To_Point_ConstIterator toEnd = to.end();
 
 		Vector<Real, N> sumFrom(ofDimension(2), 0);
 		Vector<Real, N> sumTo(ofDimension(2) ,0);
@@ -114,7 +114,7 @@ namespace Pastel
 		const Real det = points * sumSquareFrom - dot(sumFrom);
 		Real invDet = inverse(det);
 
-		const Vector<Real, N> translation(
+		Vector<Real, N> translation(
 
 			(sumSquareFrom * sumTo[0] - sumFrom[0] * dotSum + sumFrom[1] * crossDotSum) * invDet,
 			(sumSquareFrom * sumTo[1] - sumFrom[1] * dotSum - sumFrom[0] * crossDotSum) * invDet);

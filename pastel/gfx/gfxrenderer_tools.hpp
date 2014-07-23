@@ -91,7 +91,7 @@ namespace Pastel
 		ENSURE_OP(endRadius, >=, 0);
 
 		Vector2 delta = segment.end() - segment.start();
-		const real normDelta = norm(delta);
+		real normDelta = norm(delta);
 
 		if (normDelta == 0)
 		{
@@ -213,7 +213,7 @@ namespace Pastel
 		const Vector2 y = box.rotation().cColumn(1) * box.width()[1];
 
 		Vector2 leftBottom = center - x - y;
-		const Vector2 rightBottom = center + x - y;
+		Vector2 rightBottom = center + x - y;
 		const Vector2 rightTop = center + x + y;
 		const Vector2 leftTop = center - x + y;
 
@@ -255,7 +255,7 @@ namespace Pastel
 		const Vector2 y = box.rotation().cColumn(1) * box.width()[1];
 
 		Vector2 leftBottom = center - x - y;
-		const Vector2 rightBottom = center + x - y;
+		Vector2 rightBottom = center + x - y;
 		const Vector2 rightTop = center + x + y;
 		const Vector2 leftTop = center - x + y;
 
@@ -296,7 +296,7 @@ namespace Pastel
 	{
 		ENSURE_OP(radius, >=, 0);
 
-		const Vector2 delta = segment.end() - segment.start();
+		Vector2 delta = segment.end() - segment.start();
 		const real normDelta = norm(delta);
 
 
@@ -306,7 +306,7 @@ namespace Pastel
 		}
 
 		Vector2 tangent = delta / normDelta;
-		const Vector2 normal = cross(tangent);
+		Vector2 normal = cross(tangent);
 
 
 		const Vector2 endLeft = segment.end() + normal * radius - tangent * radius * 2;
@@ -359,7 +359,7 @@ namespace Pastel
 		viewWindow.max() += viewWindow.extent() * 0.05;
 		Vector2 viewExtent = viewWindow.extent();
 
-		const real aspectRatio = (real)4 / 3;
+		real aspectRatio = (real)4 / 3;
 
 		if (viewExtent.x() < aspectRatio * viewExtent.y())
 		{

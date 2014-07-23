@@ -285,7 +285,7 @@ namespace Pastel
 		Point_ConstIterator first = 
 			left->empty() ? right->first() : left->first();
 
-		const Point_ConstIterator last = 
+		Point_ConstIterator last = 
 			right->empty() ? left->last() : right->last();
 
 		node->setFirst(first);
@@ -381,7 +381,7 @@ namespace Pastel
 		Point_ConstIterator rightFirst = end();
 		Point_ConstIterator rightLast = end();
 
-		const integer rightPoints = result.second.second;
+		integer rightPoints = result.second.second;
 		if (rightPoints > 0)
 		{
 			rightFirst = result.second.first;
@@ -442,7 +442,7 @@ namespace Pastel
 		}
 		else
 		{
-			const std::pair<Real, Real> rightBound = 
+			std::pair<Real, Real> rightBound = 
 				computeBound(right->first(), right->end(), splitAxis);
 			rightMin = rightBound.first;
 			rightMax = rightBound.second;
@@ -534,7 +534,7 @@ namespace Pastel
 			// This is a split node, so carry out a 
 			// partitioning of the points.
 
-			const SplitPredicate splitPredicate(
+			SplitPredicate splitPredicate(
 				node->splitPosition(), node->splitAxis(), 
 				locator());
 
@@ -648,7 +648,7 @@ namespace Pastel
 
 			integer splitAxis = node->splitAxis();
 			
-			const Real oldMinBound = bound.min()[splitAxis];
+			Real oldMinBound = bound.min()[splitAxis];
 			const Real oldMaxBound = bound.max()[splitAxis];
 
 			bound.min()[splitAxis] = node->left()->min();

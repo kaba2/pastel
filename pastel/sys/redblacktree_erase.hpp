@@ -108,7 +108,7 @@ namespace Pastel
 			(moved == parent->right());
 
 		bool movedWasRoot = (moved == rootNode());
-		const bool movedWasRed = moved->red();
+		bool movedWasRed = moved->red();
 
 		// Detach the 'moved' node from the tree.
 		link(parent, child, right);

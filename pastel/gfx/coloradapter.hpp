@@ -36,7 +36,7 @@ namespace Pastel
 		PENSURE_OP(blueBits, >, 0);
 
 		integer redFrom = 0;
-		const integer greenFrom = redFrom + redBits;
+		integer greenFrom = redFrom + redBits;
 		const integer blueFrom = greenFrom + greenBits;
 
 		return Pastel::integerToColor(
@@ -51,7 +51,7 @@ namespace Pastel
 		integer redFrom, integer greenFrom, integer blueFrom)
 	{
 		Integer red = quantizeUnsigned(color[0], 1 << redBits);
-		const Integer green = quantizeUnsigned(color[1], 1 << greenBits);
+		Integer green = quantizeUnsigned(color[1], 1 << greenBits);
 		const Integer blue = quantizeUnsigned(color[2], 1 << blueBits);
 
 		return (red << redFrom) + (green << greenFrom) + (blue << blueFrom);
@@ -63,7 +63,7 @@ namespace Pastel
 		integer redBits, integer greenBits, integer blueBits)
 	{
 		integer redFrom = 0;
-		const integer greenFrom = redFrom + redBits;
+		integer greenFrom = redFrom + redBits;
 		const integer blueFrom = greenFrom + greenBits;
 
 		return Pastel::colorToInteger<Integer>(color,

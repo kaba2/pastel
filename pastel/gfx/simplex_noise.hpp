@@ -18,7 +18,7 @@ namespace Pastel
 	Real simplexNoise(const Vector<Real, N>& x)
 	{
 		integer n = x.size();
-		const Real c = std::sqrt((Real)(n + 1));
+		Real c = std::sqrt((Real)(n + 1));
 		const Real d = std::sqrt((Real)n / (n + 1));
 		const Real s = (c - 1) / n;
 		const Real q = s / c;

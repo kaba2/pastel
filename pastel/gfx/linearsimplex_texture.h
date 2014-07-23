@@ -39,7 +39,7 @@ namespace Pastel
 			PENSURE_OP(n, ==, m.width());
 			PENSURE_OP(n, ==, m.height());
 
-			const Vector<real, ModifyN<N, N + 1>::Result> bary = 
+			Vector<real, ModifyN<N, N + 1>::Result> bary = 
 				barycentric(p);
 
 			if (anyLess(bary, 0))

@@ -62,7 +62,7 @@ namespace Pastel
 		Vector<Real, N> center =
 			transformPoint(transformation, sphere.position());
 
-		const AlignedBox<Real, N> result(
+		AlignedBox<Real, N> result(
 			center - radius, center + radius);
 
 		return result;

@@ -245,7 +245,7 @@ namespace Pastel
 				// is simply given by the difference in the
 				// left node plus the 'v'-value of the current 
 				// node.
-				const integer currentDifference =
+				integer currentDifference =
 					iter.left().propagation().actives + v;
 
 				// The current difference might not mark
@@ -362,7 +362,7 @@ namespace Pastel
 			{
 				ASSERT(!iter.isSentinel());
 
-				const Direction direction =
+				Direction direction =
 
 					*directionIter;
 
@@ -524,7 +524,7 @@ namespace Pastel
 		// y-axis, and the other axis the x-axis. This allows us,
 		// at the same time, to be generic and have a specific 
 		// geometric situtation in mind.
-		const integer y = sweepDirection;
+		integer y = sweepDirection;
 		const integer x = !y;
 
 		// Insert the y-endpoints of each box
@@ -543,7 +543,7 @@ namespace Pastel
 
 				// First the minimum y-point.
 
-				const EventType minType = 
+				EventType minType = 
 					iter->minTopology()[y] == Topology::Closed ?
 					EventType::ClosedMin : EventType::OpenMin;
 
@@ -610,7 +610,7 @@ namespace Pastel
 					e.box->minTopology()[x] == Topology::Closed ?
 					EventType::ClosedMin : EventType::OpenMin;
 
-				const Event minEvent(
+				Event minEvent(
 					e.box->min()[x], e.index, minType, e.box);
 
 				// Then the maximum x-point.
@@ -650,7 +650,7 @@ namespace Pastel
 
 							Real xMinNew = cliqueIter.key().position;
 							++cliqueIter;
-							const Real xMaxNew = cliqueIter.key().position;
+							Real xMaxNew = cliqueIter.key().position;
 
 							const Real yMinNew = e.position;
 							const Real yMaxNew = eventSet[i + 1].position;
@@ -731,7 +731,7 @@ namespace Pastel
 
 		Real xMin = cliqueIter.key().position;
 		++cliqueIter;
-		const Real xMax = cliqueIter.key().position;
+		Real xMax = cliqueIter.key().position;
 
 		clique.min()[x] = xMin;
 		clique.min()[y] = yMin;

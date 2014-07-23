@@ -102,7 +102,7 @@ namespace Pastel
 				{
 					Topology previousMaxTopology = 
 						cutBox.maxTopology()[i];
-					const Real previousMax = 
+					Real previousMax = 
 						cutBox.max()[i];
 
 					// Form the cut-out box,
@@ -131,7 +131,7 @@ namespace Pastel
 				{
 					Topology previousMinTopology = 
 						cutBox.minTopology()[i];
-					const Real previousMin = 
+					Real previousMin = 
 						cutBox.min()[i];
 
 					// Form the cut-out box,

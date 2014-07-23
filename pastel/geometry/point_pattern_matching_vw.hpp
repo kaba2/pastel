@@ -107,13 +107,13 @@ namespace Pastel
 						<< " to guarantee optimal asymptotic performance." << logNewLine;
 				}
 
-				const Real kSuggestion =
+				Real kSuggestion =
 					std::log((Real)modelPoints_) /
 
 					(2 * square(minMatchRatio - square(relativeMatchingDistance) / 4));
 				Real k2Suggestion =
 					std::log((Real)0.05) / std::log(1 - minMatchRatio);
-				const Real k3Suggestion =
+				Real k3Suggestion =
 
 					2 * relativeMatchingDistance * std::sqrt(kSuggestion / constantPi<Real>());
 
@@ -207,7 +207,7 @@ namespace Pastel
 					std::back_inserter(sceneIndexList));
 				for (integer i = 0;i < scenePoints_ - 1;++i)
 				{
-					const integer j = i + 1 + randomInteger(scenePoints_ - (i + 1));
+					integer j = i + 1 + randomInteger(scenePoints_ - (i + 1));
 					std::swap(sceneIndexList[i], sceneIndexList[j]);
 				}
 
@@ -350,7 +350,7 @@ namespace Pastel
 
 				Vector<Real, N> modelPoint =
 					modelPosition(modelSet[0]);
-				const Vector<Real, N> scenePoint =
+				Vector<Real, N> scenePoint =
 					scenePosition(sceneSet[0]);
 
 				for (integer i = k_ - k2_ + 1;i < k_ + 1;++i)
@@ -526,7 +526,7 @@ namespace Pastel
 			const SceneTree& sceneTree_;
 			const ModelTree& modelTree_;
 			Real minMatchRatio_;
-			const Real confidence_;
+			Real confidence_;
 			const integer scenePoints_;
 			const integer modelPoints_;
 			integer k_;

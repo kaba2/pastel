@@ -20,7 +20,7 @@ namespace Pastel
 	{
 		Real divider(
 			dot(aPlane[0], bPlane.normal()));
-		const Vector<Real, N> delta(
+		Vector<Real, N> delta(
 			bPlane.position() - aPlane.position());
 
 		// EPSILON

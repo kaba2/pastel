@@ -15,7 +15,7 @@ namespace Pastel
 		ENSURE_OP(palette.size(), ==, 256);
 
 		integer width = indexedImage.width();
-		const integer height = indexedImage.height();
+		integer height = indexedImage.height();
 
 		Array<Color, 2> colorImage(Vector2i(width, height));
 		for (integer y = 0;y < height;++y)

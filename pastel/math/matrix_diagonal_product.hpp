@@ -13,7 +13,7 @@ namespace Pastel
 		const MatrixExpression<Real, Expression>& matrix)
 	{
 		integer n = matrix.width();
-		const integer m = matrix.height();
+		integer m = matrix.height();
 		const integer minSize = std::min(n, m);
 
 		if (minSize == 0)

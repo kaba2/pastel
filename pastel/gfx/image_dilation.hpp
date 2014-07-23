@@ -21,7 +21,7 @@ namespace Pastel
 		const View<2, bool, Image_View>& image)
 	{
 		integer elementWidth = element.width();
-		const integer elementHeight = element.height();
+		integer elementHeight = element.height();
 
 		const integer width = image.width();
 		const integer height = image.height();
@@ -70,7 +70,7 @@ namespace Pastel
 		const View<2, bool, Output_View>& output)
 	{
 		integer width = input.width();
-		const integer height = input.height();
+		integer height = input.height();
 
 		clear(false, output);
 

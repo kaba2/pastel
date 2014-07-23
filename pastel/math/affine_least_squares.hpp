@@ -33,7 +33,7 @@ namespace Pastel
 		// R' = [r_1 - r', ..., r_n - r']
 
 		integer m = from.m();
-		const integer n = from.n();
+		integer n = from.n();
 
 		if (n == 0 || m == 0)
 		{

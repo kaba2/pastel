@@ -49,7 +49,7 @@ namespace Pastel
 
 		while(n > 0)
 		{
-			const integer digit = n % base;
+			integer digit = n % base;
 
 
 			result += digit * invDigitFactor;

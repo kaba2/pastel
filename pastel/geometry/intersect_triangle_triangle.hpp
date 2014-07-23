@@ -35,7 +35,7 @@ namespace Pastel
 			return false;
 		}
 
-		const Plane<Real, 3> bPlane(
+		Plane<Real, 3> bPlane(
 			bTriangle[0],
 			cross(bTriangle[1] - bTriangle[0],
 			bTriangle[2] - bTriangle[0]));

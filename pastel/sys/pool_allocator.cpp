@@ -197,7 +197,7 @@ namespace Pastel
 
 		blockBegin[indexInBytes] = block->firstFreeUnit_;
 
-		const integer index = indexInBytes / unitSize_;
+		integer index = indexInBytes / unitSize_;
 
 		block->firstFreeUnit_ = index;
 
@@ -240,7 +240,7 @@ namespace Pastel
 		integer blockSize = unitsAllocated_ >> 1;
 
 		integer MinBlockSize = 16;
-		const integer MaxBlockSize = 255;
+		integer MaxBlockSize = 255;
 		blockSize = std::max(blockSize, MinBlockSize);
 		blockSize = std::min(blockSize, MaxBlockSize);
 

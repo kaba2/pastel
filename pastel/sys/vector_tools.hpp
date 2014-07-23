@@ -123,7 +123,7 @@ namespace Pastel
 
 	private:
 		integer axis_;
-		const integer size_;
+		integer size_;
 	};
 
 	template <typename Real, int N>
@@ -251,7 +251,7 @@ namespace Pastel
 	private:
 		typename Expression::StorageType expression_;
 		integer dataIndex_;
-		const Real data_;
+		Real data_;
 	};
 
 	template <typename Real, int N, typename Expression>

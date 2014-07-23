@@ -11,7 +11,7 @@ namespace Pastel
 		std::ostream& stream)
 	{
 		integer columns = measureTable.width();
-		const integer rows = measureTable.height();
+		integer rows = measureTable.height();
 
 		if (columns == 0 || rows == 0)
 		{
@@ -125,7 +125,7 @@ namespace Pastel
 		std::ostream& stream)
 	{
 		integer columns = measureTable.width();
-		const integer rows = measureTable.height();
+		integer rows = measureTable.height();
 
 		if (columns == 0 || rows == 0)
 		{

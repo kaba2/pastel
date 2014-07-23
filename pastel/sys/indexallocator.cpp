@@ -320,7 +320,7 @@ namespace Pastel
 		ASSERT(toGrow > 0);
 
 		integer minHeapHeight = 5;
-		const integer newHeapHeight = std::max(
+		integer newHeapHeight = std::max(
 			heapHeight_ + toGrow,
 			minHeapHeight);
 		const integer newHeapSize = (1 << newHeapHeight) - 1;

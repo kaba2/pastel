@@ -33,7 +33,7 @@ namespace
 
 		bool relativeCheck(real measured, real correct)
 		{
-			const real epsilon = 0.001;
+			real epsilon = 0.001;
 			return REPORT3((relativeError<real>(measured, correct) > epsilon),
 				measured, correct, epsilon);
 		}

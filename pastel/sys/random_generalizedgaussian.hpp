@@ -22,7 +22,7 @@ namespace Pastel
 		// pp. 239--240, 1979
 
 		Real invShape = inverse(shape);
-		const Real x = std::pow(
+		Real x = std::pow(
 			randomGamma<Real>(invShape), invShape);
 		
 		if (random<Real>() < 0.5)

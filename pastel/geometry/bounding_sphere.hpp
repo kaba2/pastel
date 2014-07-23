@@ -363,7 +363,7 @@ namespace Pastel
 		Vector<Real, M> u = 
 			solveLinear(ddt, b);
 
-		const Vector<Real, N> translation = 
+		Vector<Real, N> translation = 
 
 			u * d;
 

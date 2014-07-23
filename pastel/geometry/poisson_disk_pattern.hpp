@@ -48,7 +48,7 @@ namespace Pastel
 				}
 			}
 
-			const Vector<Real, N> newPoint_;
+			Vector<Real, N> newPoint_;
 			const Real minDistance2_;
 
 			bool& validNewPoint_;
@@ -93,7 +93,7 @@ namespace Pastel
 		const Real minDistance2 = minDistance * minDistance;
 		Real invDiagonal = std::sqrt((Real)N / minDistance2);
 
-		const Vector<Real, N> windowDelta = window.max() - window.min();
+		Vector<Real, N> windowDelta = window.max() - window.min();
 		const Vector<integer, N> extent =
 
 			ceil(windowDelta * invDiagonal);
@@ -110,7 +110,7 @@ namespace Pastel
 
 		if (seedSetBegin == seedSetEnd)
 		{
-			const Vector<Real, N> seedPoint(window.at(randomVector<Real, N>()));
+			Vector<Real, N> seedPoint(window.at(randomVector<Real, N>()));
 			const Vector<integer, N> seedGridPosition(
 
 				floor((seedPoint - window.min()) * invVoxelDelta));
@@ -140,7 +140,7 @@ namespace Pastel
 			integer randomIndex = randomInteger(activeSet.size());
 			std::swap(activeSet[randomIndex], activeSet[activeSet.size() - 1]);
 
-			const Vector<integer, N> coordinates = activeSet.back();
+			Vector<integer, N> coordinates = activeSet.back();
 			activeSet.pop_back();
 
 			const Vector<Real, N> activePoint = grid(coordinates);
@@ -180,7 +180,7 @@ namespace Pastel
 						newPoint - minDistance,
 						newPoint + minDistance);
 
-					const AlignedBox<integer, N> searchWindow(
+					AlignedBox<integer, N> searchWindow(
 
 						Vector<integer, N>((neighborhood.min() - window.min()) * invVoxelDelta),
 						Vector<integer, N>((neighborhood.max() - window.min()) * invVoxelDelta) + 1);

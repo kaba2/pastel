@@ -112,7 +112,7 @@ namespace Pastel
 				// For 2- and 4-bit images, use
 				// the setExtent of the 16 color palette.
 
-				const integer toCopy = std::min(colors, (integer)16);
+				integer toCopy = std::min(colors, (integer)16);
 				for (integer i = 0;i < toCopy;++i)
 				{
 					palette[i] =
@@ -242,7 +242,7 @@ namespace Pastel
 		std::vector<uint8> scanline(bytesPerScanline, 0);
 
 		integer width = pcxHeader.width();
-		const integer height = pcxHeader.height();
+		integer height = pcxHeader.height();
 
 		image.setExtent(Vector2i(width, height));
 
@@ -331,7 +331,7 @@ namespace Pastel
 					integer xPos = 0;
 					for (integer i = 0;i < bytesToRead - 1;++i)
 					{
-						const uint8 data = scanline[i];
+						uint8 data = scanline[i];
 
 
 						image.write(Vector2i(xPos, yPos), (data >> 6) & 3);
@@ -375,7 +375,7 @@ namespace Pastel
 					integer xPos = 0;
 					for (integer i = 0;i < bytesToRead - 1;++i)
 					{
-						const uint8 data = scanline[i];
+						uint8 data = scanline[i];
 
 
 						image.write(Vector2i(xPos, yPos), (data >> 4) & 15);
@@ -405,7 +405,7 @@ namespace Pastel
 					integer xPos = 0;
 					for (integer i = 0;i < bytesToRead;++i)
 					{
-						const uint8 data = scanline[i];
+						uint8 data = scanline[i];
 
 						image.write(Vector2i(xPos, yPos), data);
 						++xPos;
@@ -446,7 +446,7 @@ namespace Pastel
 		std::vector<uint8> scanline(bytesPerScanline, 0);
 
 		integer width = pcxHeader.width();
-		const integer height = pcxHeader.height();
+		integer height = pcxHeader.height();
 
 		image.setExtent(Vector<integer, 2>(width, height));
 
@@ -539,7 +539,7 @@ namespace Pastel
 						integer xPos = 0;
 						for (integer i = 0;i < bytesToRead - 1;++i)
 						{
-							const uint8 data = scanline[i];
+							uint8 data = scanline[i];
 
 
 							image.write(Vector2i(xPos, yPos), palette[(data >> 6) & 3]);
@@ -583,7 +583,7 @@ namespace Pastel
 						integer xPos = 0;
 						for (integer i = 0;i < bytesToRead - 1;++i)
 						{
-							const uint8 data = scanline[i];
+							uint8 data = scanline[i];
 
 
 							image.write(Vector2i(xPos, yPos), palette[(data >> 4) & 15]);
@@ -613,7 +613,7 @@ namespace Pastel
 						integer xPos = 0;
 						for (integer i = 0;i < bytesToRead;++i)
 						{
-							const uint8 data = scanline[i];
+							uint8 data = scanline[i];
 
 							image.write(Vector2i(xPos, yPos), palette[data]);
 							++xPos;

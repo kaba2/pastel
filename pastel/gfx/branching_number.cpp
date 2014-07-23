@@ -64,7 +64,7 @@ namespace Pastel
 		}
 
 		integer width = image.width();
-		const integer height = image.height();
+		integer height = image.height();
 
 		Array<int32, 2> result(Vector2i(width, height), -1);
 
@@ -269,7 +269,7 @@ namespace Pastel
 			// Left-bottom corner
 			{
 				integer x = 0;
-				const integer y = 0;
+				integer y = 0;
 
 				if (image(x, y))
 				{
@@ -373,7 +373,7 @@ namespace Pastel
 		integer x, integer y)
 	{
 		integer width = image.width();
-		const integer height = image.height();
+		integer height = image.height();
 
 
 		ENSURE2(x >= 0 && x < width, x, width);
@@ -389,7 +389,7 @@ namespace Pastel
 		for (integer i = 0;i < 8;++i)
 		{
 			uint32 bitMask = 1 << i;
-			const bool currentBit =
+			bool currentBit =
 
 				(neighbourMask & bitMask) != 0;
 			if (currentBit && !previousBit)
@@ -408,7 +408,7 @@ namespace Pastel
 		integer x, integer y)
 	{
 		integer width = image.width();
-		const integer height = image.height();
+		integer height = image.height();
 
 
 		ENSURE2(x >= 0 && x < width, x, width);
@@ -424,7 +424,7 @@ namespace Pastel
 		for (integer i = 0;i < 8;++i)
 		{
 			uint32 bitMask = 1 << i;
-			const bool currentBit =
+			bool currentBit =
 
 				(neighbourMask & bitMask) != 0;
 			if (currentBit && !previousBit)

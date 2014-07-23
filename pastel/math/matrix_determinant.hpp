@@ -18,7 +18,7 @@ namespace Pastel
 		Matrix<Real> left(matrix);
 
 		integer m = left.m();
-		const integer n = left.n();
+		integer n = left.n();
 
 		// Convert to upper triangular matrix using elementary
 		// row operations. This is Gaussian elimination with 

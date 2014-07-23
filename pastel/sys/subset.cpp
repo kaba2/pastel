@@ -38,7 +38,7 @@ namespace Pastel
 
 	bool Subset::next()
 	{
-		const integer size = data_.size();
+		integer size = data_.size();
 
 		if (size == 0)
 		{

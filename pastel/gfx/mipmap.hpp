@@ -30,7 +30,7 @@ namespace Pastel
 	{
 		Vector<integer, N> originalExtent = image.extent();
 
-		const integer maxExtent = max(originalExtent);
+		integer maxExtent = max(originalExtent);
 		const integer roundedExtent = roundUpToPowerOfTwo(maxExtent);
 		Vector<integer, N> topExtent(roundedExtent);
 		const integer images = integerLog2(roundedExtent) + 1;

@@ -50,7 +50,7 @@ namespace Pastel
 			ENSURE_OP(n, <=, 8);
 			ENSURE1(isPowerOfTwo(n), n);
 
-			const Real Normalization =
+			Real Normalization =
 				n == 1 ? 1 :
 				Orthogonal ? inverse(std::sqrt((Real)n)) :
 				(Inverse ? inverse((Real)n) : 1);
@@ -112,7 +112,7 @@ namespace Pastel
 
 					// Size-2 dfts
 					Complex b0(a0 + a2);
-					const Complex b1(a0 - a2);
+					Complex b1(a0 - a2);
 					const Complex b2(a1 + a3);
 					const Complex b3(a1 - a3);
 
@@ -185,7 +185,7 @@ namespace Pastel
 				return;
 			}
 
-			const integer nHalf = n / 2;
+			integer nHalf = n / 2;
 
 			// Separate the inputRange into odd-index and 
 			// even-index subsequences.
@@ -228,7 +228,7 @@ namespace Pastel
 				std::cos(NthRootAngle),
 				std::sin(NthRootAngle));
 
-			const Real Normalization =
+			Real Normalization =
 				Orthogonal ? inverse(std::sqrt((Real)n)) :
 				(Inverse ? inverse((Real)n) : 1);
 

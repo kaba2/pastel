@@ -26,7 +26,7 @@ namespace Pastel
 		const Vector<integer, N>& stride = subArray.stride();
 		InputSlice slice(
 			subArray.slice(axis, 0));
-		const integer endOffset =
+		integer endOffset =
 
 			stride[axis] * subArray.extent()[axis];
 
@@ -95,7 +95,7 @@ namespace Pastel
 		const Vector<integer, N_B>& bStride = bArray.stride();
 
 		Slice_A aSlice(aArray.slice(axis, 0));
-		const Slice_B bSlice(bArray.slice(axis, 0));
+		Slice_B bSlice(bArray.slice(axis, 0));
 
 		const integer aEndOffset =
 
@@ -107,7 +107,7 @@ namespace Pastel
 		SliceIterator_A aIter = aSlice.begin();
 		SliceIterator_A aIterEnd = aSlice.end();
 		SliceIterator_B bIter = bSlice.begin();
-		const SliceIterator_B bIterEnd = bSlice.end();
+		SliceIterator_B bIterEnd = bSlice.end();
 
 		while(aIter != aIterEnd)
 		{

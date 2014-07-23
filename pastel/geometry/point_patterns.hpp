@@ -153,7 +153,7 @@ namespace Pastel
 		}
 
 		integer points = pointSet.size();
-		const integer dimension = pointSet.front().n();
+		integer dimension = pointSet.front().n();
 
 		Matrix<Real> rotation(dimension, dimension);
 		setRandomRotation(rotation);
@@ -190,7 +190,7 @@ namespace Pastel
 		std::random_shuffle(
 			indexSet.begin(), indexSet.end());
 
-		const integer dimensionsToRemove = dimension - dimensionality;
+		integer dimensionsToRemove = dimension - dimensionality;
 
 		const integer points = pointSet.size();
 		for (integer i = 0;i < points;++i)

@@ -38,7 +38,7 @@ namespace Pastel
 		Vector<Real, N> delta(
 			sphere.position() - line.position());
 
-		const Real aCoeff =
+		Real aCoeff =
 			dot(line.direction());
 		const Real bCoeff =
 
