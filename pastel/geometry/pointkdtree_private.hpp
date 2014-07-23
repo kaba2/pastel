@@ -126,7 +126,7 @@ namespace Pastel
 			infinity<Real>(), -infinity<Real>());
 
 		Point_ConstIterator iter = begin;
-		const Point_ConstIterator iterEnd = end;
+		Point_ConstIterator iterEnd = end;
 		while(iter != iterEnd)
 		{
 			Real position = 
@@ -148,6 +148,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::merge(
+
 		Node* node)
 	{
 		ASSERT(node);
@@ -252,7 +253,7 @@ namespace Pastel
 		// point bound.
 		if (node->parent())
 		{
-			const integer splitAxis = node->parent()->splitAxis();
+			integer splitAxis = node->parent()->splitAxis();
 			node->setMin(std::min(bound.min()[splitAxis], node->min()));
 			node->setMax(std::max(bound.max()[splitAxis], node->max()));
 		}
@@ -260,6 +261,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::updateHierarchical(
+
 		Node* node)
 	{
 		ASSERT(node);
@@ -280,7 +282,7 @@ namespace Pastel
 			left->end(), pointSet_,
 			right->first(),	right->end());
 
-		const Point_ConstIterator first = 
+		Point_ConstIterator first = 
 			left->empty() ? right->first() : left->first();
 
 		const Point_ConstIterator last = 
@@ -294,6 +296,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::erase(
+
 		Node* node)
 	{
 		ASSERT(node);
@@ -367,7 +370,7 @@ namespace Pastel
 		Point_ConstIterator leftFirst = end();
 		Point_ConstIterator leftLast = end();
 
-		const integer leftPoints = result.first.second;
+		integer leftPoints = result.first.second;
 		if (leftPoints > 0)
 		{
 			leftFirst = result.first.first;
@@ -387,6 +390,7 @@ namespace Pastel
 		}
 
 		// Allocate the new leaf nodes.
+
 
 		Node* left = allocateLeaf(
 			node,
@@ -418,7 +422,7 @@ namespace Pastel
 		}
 		else
 		{
-			const std::pair<Real, Real> leftBound = 
+			std::pair<Real, Real> leftBound = 
 				computeBound(left->first(), left->end(), splitAxis);
 			leftMin = leftBound.first;
 			leftMax = leftBound.second;
@@ -464,6 +468,7 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	template <typename Input_Point_ConstIterator>
 	auto PointKdTree<Settings, Customization>::copyToEnd(
+
 		const Input_Point_ConstIterator& begin, 
 		const Input_Point_ConstIterator& end,
 		bool hidden)
@@ -503,7 +508,7 @@ namespace Pastel
 		ASSERT_OP(points, >, 0);
 		ASSERT(first != pointSet_.end());
 
-		const Point_Iterator begin = first;
+		Point_Iterator begin = first;
 		Point_Iterator end = last;
 		++end;
 
@@ -548,6 +553,7 @@ namespace Pastel
 			const integer newLeftPoints = result.first.second;
 			Point_Iterator newLeftLast = newRightFirst;
 			--newLeftLast;
+
 
 			Node* left = node->left();
 			Node* right = node->right();
@@ -640,7 +646,7 @@ namespace Pastel
 		{
 			// Refine recursively.
 
-			const integer splitAxis = node->splitAxis();
+			integer splitAxis = node->splitAxis();
 			
 			const Real oldMinBound = bound.min()[splitAxis];
 			const Real oldMaxBound = bound.max()[splitAxis];
@@ -705,6 +711,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::commitErase(
+
 		const Point_ConstIterator& iter)
 	{
 		ASSERT(iter != pointSet_.end());

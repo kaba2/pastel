@@ -199,7 +199,7 @@ namespace Pastel
 	{
 		PENSURE_OP(delta, >= , 1);
 
-		const integer elements = end - begin;
+		integer elements = end - begin;
 		const integer remainder = elements % delta;
 
 		Iterator result = end;
@@ -213,6 +213,7 @@ namespace Pastel
 
 	template <typename ConstIterator>
 	ConstSparseIterator<ConstIterator> constSparseEnd(
+
 		const ConstIterator& begin, const ConstIterator& end,
 		typename std::iterator_traits<ConstIterator>::difference_type delta)
 	{

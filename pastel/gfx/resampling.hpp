@@ -52,7 +52,7 @@ namespace Pastel
 	{
 		ENSURE_OP(blurFactor, >=, 1);
 
-		const integer inputWidth = inputSet.size();
+		integer inputWidth = inputSet.size();
 		const integer outputWidth = outputSet.size();
 
 		if (inputWidth == 0 ||
@@ -62,8 +62,10 @@ namespace Pastel
 		}
 
 		const real xStep = (real)inputWidth / outputWidth;
+
 		const real filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);
-		const real invFilterFactor = inverse(filterFactor);
+		real invFilterFactor = inverse(filterFactor);
+
 
 		const real filterRadius = filter->radius() * filterFactor;
 
@@ -75,7 +77,7 @@ namespace Pastel
 		// => 
 		// marginWidth > (filterRadius - xFilter) / xStep
 
-		const integer introEnd = 
+		integer introEnd = 
 			clamp(
 			(integer)std::ceil((filterRadius - xFilter) / xStep) + 1,
 			0, outputWidth);
@@ -91,6 +93,7 @@ namespace Pastel
 				toPixelSpanPoint(xFilter + filterRadius);
 
 			real xLocalFilter = 
+
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
@@ -99,8 +102,9 @@ namespace Pastel
 			real sumWeights = 0;
 			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				const real weight =
+				real weight =
 					filter->evaluateInRange(xLocalFilter);
+
 
 				if (i >= introEnd && i < mainEnd)
 				{
@@ -150,7 +154,7 @@ namespace Pastel
 	{
 		ENSURE_OP(blurFactor, >=, 1);
 
-		const integer inputWidth = input.width();
+		integer inputWidth = input.width();
 		const integer outputWidth = output.width();
 
 		if (inputWidth == 0 ||
@@ -158,6 +162,7 @@ namespace Pastel
 		{
 			return;
 		}
+
 
 		/*
 		if (outputWidth == inputWidth)
@@ -167,9 +172,11 @@ namespace Pastel
 		}
 		*/
 
-		const real xStep = (real)inputWidth / outputWidth;
+		real xStep = (real)inputWidth / outputWidth;
+
 		const real filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);
-		const real invFilterFactor = inverse(filterFactor);
+		real invFilterFactor = inverse(filterFactor);
+
 
 		const real filterRadius = filter->radius() * filterFactor;
 
@@ -181,7 +188,7 @@ namespace Pastel
 		// => 
 		// marginWidth > (filterRadius - xFilter) / xStep
 
-		const integer introEnd = 
+		integer introEnd = 
 			clamp(
 			(integer)std::ceil((filterRadius - xFilter) / xStep) + 1,
 			0, outputWidth);
@@ -197,6 +204,7 @@ namespace Pastel
 				toPixelSpanPoint(xFilter + filterRadius);
 
 			real xLocalFilter = 
+
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
@@ -205,9 +213,10 @@ namespace Pastel
 			real sumWeights = 0;
 			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				const real weight =
+				real weight =
 					filter->evaluateInRange(xLocalFilter);
 				
+
 				result += weight *
 					arrayExtender(input, i);
 
@@ -222,12 +231,13 @@ namespace Pastel
 
 		for (integer x = introEnd;x < mainEnd;++x)
 		{
-			const integer rangeBegin =
+			integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
 			const integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
 			real xLocalFilter = 
+
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
@@ -236,10 +246,11 @@ namespace Pastel
 			real sumWeights = 0;
 			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				const real weight =
+				real weight =
 					filter->evaluateInRange(xLocalFilter);
 				
 				Computation_Element in = input(i);
+
 				result += weight * in;
 
 				xLocalFilter -= invFilterFactor;
@@ -253,12 +264,13 @@ namespace Pastel
 
 		for (integer x = mainEnd;x < outputWidth;++x)
 		{
-			const integer rangeBegin =
+			integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
 			const integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
 			real xLocalFilter = 
+
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
@@ -267,9 +279,10 @@ namespace Pastel
 			real sumWeights = 0;
 			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				const real weight =
+				real weight =
 					filter->evaluateInRange(xLocalFilter);
 				
+
 				result += weight *
 					arrayExtender(input, i);
 
@@ -332,7 +345,7 @@ namespace Pastel
 		private:
 			const ArrayExtender<1, Input_Element>& arrayExtender_;
 			const ConstTableFilterPtr& filter_;
-			const real blurFactor_;
+			real blurFactor_;
 		};
 
 		class AxisValue
@@ -344,6 +357,7 @@ namespace Pastel
 				, axis_(id)
 			{
 			}
+
 
 			bool operator<(const AxisValue& that) const
 			{
@@ -414,7 +428,7 @@ namespace Pastel
 		Array<Computation_Element, N> tempArray(extent);
 
 		{
-			const ArrayExtender<1, Input_Element> arrayExtender1D(
+			ArrayExtender<1, Input_Element> arrayExtender1D(
 				arrayExtender.extender(0), arrayExtender.border());
 			const Resample_::ResampleFunctor<Computation_Element, Input_Element> 
 				resampleFunctor(arrayExtender1D, filter, blurFactor);
@@ -461,6 +475,7 @@ namespace Pastel
 		typename Output_View>
 		PASTEL_ENABLE_IF_C(N > 1, void)
 		resample(
+
 		const ConstView<N, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
 		const ConstFilterPtr& filter,

@@ -37,12 +37,14 @@ namespace Pastel
 			return Type();
 		}
 
-		const integer n = uv.size();
+		integer n = uv.size();
+
 
 		const Array<Type, N>& mostDetailedImage = 
 			ripMap_->mostDetailed();
 
-		const Vector<real, N> radius = 
+		Vector<real, N> radius = 
+
 			max(abs(m)) * Vector<real, N>(mostDetailedImage.extent());
 
 		if (allLessEqual(radius, 1))
@@ -54,7 +56,8 @@ namespace Pastel
 				mostDetailedImage, extender_);
 		}
 
-		const real invLn2 = inverse(constantLn2<real>());
+		real invLn2 = inverse(constantLn2<real>());
+
 		const Vector<real, N> level(max(evaluate(log(radius) * invLn2), 0));
 
 		if (allLessEqual(level, 0))
@@ -75,7 +78,7 @@ namespace Pastel
 		// 2^n ripmaps.
 
 		Vector<integer, N> p(floor(level));
-		const Vector<real, N> tDetail = level - Vector<real, N>(p);
+		Vector<real, N> tDetail = level - Vector<real, N>(p);
 
 		const integer samples = 1 << n;
 
@@ -83,6 +86,7 @@ namespace Pastel
 		Tuple<bool, N> s(ofDimension(n), false);
 		for (integer i = 0;i < samples;++i)
 		{
+
 			const Array<Type, N>& image = (*ripMap_)(p);
 
 			valueSet[i] = sampleLinear(

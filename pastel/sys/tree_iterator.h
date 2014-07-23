@@ -150,7 +150,7 @@ namespace Pastel
 				ASSERT_OP(forward, >=, 0);
 				ASSERT_OP(forward, <=, 1);
 
-				const integer backward = !forward;
+				integer backward = !forward;
 
 				NodePtr result;
 				NodePtr child = node()->child(forward);
@@ -165,6 +165,7 @@ namespace Pastel
 						previous = result;
 						result = previous->parent;
 					}
+
 					while(!result->empty() && 
 						result->child(backward) != previous);
 				}

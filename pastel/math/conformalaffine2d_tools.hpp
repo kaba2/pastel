@@ -20,11 +20,13 @@ namespace Pastel
 
 		// f(x) = sQx
 
-		const Real c = std::cos(transform.rotation());
+		Real c = std::cos(transform.rotation());
 		const Real s = std::sin(transform.rotation());
 		const Real xNew = 
+
 			transform.scaling() * (c * that[0] - s * that[1]);
-		const Real yNew = 
+		Real yNew = 
+
 			transform.scaling() * (s * that[0] + c * that[1]);
 
 		that[0] = xNew;
@@ -121,7 +123,7 @@ namespace Pastel
 
 		// Find out the scaling.
 
-		const Vector<Real, N> fromDelta = bFrom - aFrom;
+		Vector<Real, N> fromDelta = bFrom - aFrom;
 		const Real fromNorm = norm(fromDelta);
 		
 		// EPSILON

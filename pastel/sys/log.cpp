@@ -40,9 +40,10 @@ namespace Pastel
 	void Log::removeLoggers()
 	{
 		Logger_ConstIterator iter = loggerSet_.begin();
-		const Logger_ConstIterator iterEnd = loggerSet_.end();
+		Logger_ConstIterator iterEnd = loggerSet_.end();
 		while (iter != iterEnd)
 		{
+
 			(*iter)->removeLog(this);
 
 			++iter;
@@ -52,9 +53,10 @@ namespace Pastel
 	void Log::finalize()
 	{
 		Logger_ConstIterator iter = loggerSet_.begin();
-		const Logger_ConstIterator iterEnd = loggerSet_.end();
+		Logger_ConstIterator iterEnd = loggerSet_.end();
 		while (iter != iterEnd)
 		{
+
 			(*iter)->finalize();
 
 			++iter;
@@ -64,10 +66,11 @@ namespace Pastel
 	Log& Log::operator<<(const std::string& value)
 	{
 		Logger_ConstIterator iter = loggerSet_.begin();
-		const Logger_ConstIterator iterEnd = loggerSet_.end();
+		Logger_ConstIterator iterEnd = loggerSet_.end();
 
 		while (iter != iterEnd)
 		{
+
 			*(*iter) << value;
 
 			++iter;

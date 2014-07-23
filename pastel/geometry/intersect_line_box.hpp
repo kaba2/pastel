@@ -25,7 +25,7 @@ namespace Pastel
 		const Matrix<Real>& axes = box.rotation();
 		const Vector<Real, N>& width = box.width();
 
-		const Vector<Real, N> p =
+		Vector<Real, N> p =
 			box.position() -
 			line.position();
 
@@ -40,6 +40,7 @@ namespace Pastel
 			if (f == 0)
 			{
 				const Real fInv = inverse(f);
+
 				Real t1 = (e + width[i]) * fInv;
 				Real t2 = (e - width[i]) * fInv;
 				if (t1 > t2)

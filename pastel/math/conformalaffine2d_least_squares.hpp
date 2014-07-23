@@ -58,16 +58,18 @@ namespace Pastel
 			To_Point_ConstIterator toSecond = to.begin();
 			++toSecond;
 
-			const Vector<Real, 2> aFrom = 
+			Vector<Real, 2> aFrom = 
 				pointAsVector(from.front(), fromLocator);
 
 			const Vector<Real, 2> bFrom = 
+
 				pointAsVector(*fromSecond, fromLocator);
 
-			const Vector<Real, 2> aTo = 
+			Vector<Real, 2> aTo = 
 				pointAsVector(to.front(), toLocator);
 
 			const Vector<Real, 2> bTo = 
+
 				pointAsVector(*toSecond, toLocator);
 
 			return conformalAffine(
@@ -76,7 +78,7 @@ namespace Pastel
 		}
 
 		From_Point_ConstIterator fromIter = from.begin();
-		const From_Point_ConstIterator fromEnd = from.end();
+		From_Point_ConstIterator fromEnd = from.end();
 		To_Point_ConstIterator toIter = to.begin();
 		const To_Point_ConstIterator toEnd = to.end();
 
@@ -90,6 +92,7 @@ namespace Pastel
 
 		while(fromIter != fromEnd)
 		{
+
 			sumFrom += pointAsVector(*fromIter, fromLocator);
 			sumTo += pointAsVector(*toIter, toLocator);
 
@@ -109,32 +112,36 @@ namespace Pastel
 		}
 
 		const Real det = points * sumSquareFrom - dot(sumFrom);
-		const Real invDet = inverse(det);
+		Real invDet = inverse(det);
 
 		const Vector<Real, N> translation(
+
 			(sumSquareFrom * sumTo[0] - sumFrom[0] * dotSum + sumFrom[1] * crossDotSum) * invDet,
 			(sumSquareFrom * sumTo[1] - sumFrom[1] * dotSum - sumFrom[0] * crossDotSum) * invDet);
 
 		// scaledCos = scale * cos(angle)
 
-		const Real scaledCos =
+		Real scaledCos =
+
 			(-sumFrom[0] * sumTo[0] - sumFrom[1] * sumTo[1] + points * dotSum) * invDet;
 
 		// scaledSin = scale * sin(angle)
 
-		const Real scaledSin =
+		Real scaledSin =
+
 			(sumFrom[1] * sumTo[0] - sumFrom[0] * sumTo[1] + points * crossDotSum) * invDet;
 
 		// scaledCos^2 + scaledSin^2 = scale * cos^2(angle) + scale * sin^2(angle)
 		// = scale * (cos^2(angle) + sin^2(angle)) = scale
 
-		const Real scale = 
+		Real scale = 
+
 			std::sqrt(scaledCos * scaledCos + scaledSin * scaledSin);
 
 		// atan(scaledSin / scaledCos) = atan((scale * sin(angle)) / (scale * cos(angle)))
 		// = atan(tan(angle)) = angle
 
-		const Real angle = 
+		Real angle = 
 			positiveRadians<Real>(std::atan2(scaledSin, scaledCos));
 
 		return ConformalAffine2D<Real>(scale, angle, translation);

@@ -21,7 +21,7 @@ namespace
 
 	void testChromaticity()
 	{
-		const real Width = 500;
+		real Width = 500;
 		const real Height = 500;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
@@ -60,6 +60,7 @@ namespace
 				xyzToLms(srgbToXyz(Color(1, 1, 1))));
 
 			transform_ = 
+
 				 xyzToLinearSrgbTransform() * lmsToXyzTransform();
 
 			for (integer j = 0;j < 3;++j)
@@ -90,7 +91,7 @@ namespace
 		Array<Color> image;
 		loadPcx("lena.pcx", image);
 
-		const TransformVisitor transformVisitor;
+		TransformVisitor transformVisitor;
 		transform(arrayView(image), transformVisitor);
 
 		savePcx(image, "chromatic_adaptation.pcx");

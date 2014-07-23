@@ -16,7 +16,7 @@ namespace Pastel
 			integer index,
 			integer axis)
 		{
-			const integer n = position.size();
+			integer n = position.size();
 
 			ASSERT_OP(index, >=, 0);
 			ASSERT_OP(index, <, ((integer)1 << n));
@@ -38,13 +38,14 @@ namespace Pastel
 
 	template <int N, typename Vector_Range>
 	typename boost::range_value<Vector_Range>::type linear(
+
 		const Vector<real, N>& position,
 		const Vector_Range& data)
 	{
 		typedef typename boost::range_value<Vector_Range>::type
 			Type;
 
-		const integer n = position.size();
+		integer n = position.size();
 		ENSURE_OP(data.size(), >=, ((integer)1 << n));
 
 		return Linear_::linear<Type>(position, data, 0, 0);
@@ -54,6 +55,7 @@ namespace Pastel
 		typename PointType,
 		typename Real>
 	PointType linear(
+
 			const PointType& startPoint,
 			const PointType& endPoint,
 			const Real& time)

@@ -21,7 +21,7 @@ namespace Pastel
 		// Journal of Statistical Computation and Simulation, 9,
 		// pp. 239--240, 1979
 
-		const Real invShape = inverse(shape);
+		Real invShape = inverse(shape);
 		const Real x = std::pow(
 			randomGamma<Real>(invShape), invShape);
 		
@@ -35,6 +35,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomGeneralizedGaussian(
+
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
@@ -49,7 +50,8 @@ namespace Pastel
 		PENSURE_OP(shape, >, 0);
 		PENSURE_OP(variance, >=, 0);
 
-		const Real invShape = inverse(shape);
+		Real invShape = inverse(shape);
+
 		return std::sqrt(variance * gamma<Real>(invShape) / 
 			gamma<Real>(invShape * 3));
 	}

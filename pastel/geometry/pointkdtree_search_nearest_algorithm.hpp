@@ -122,7 +122,7 @@ namespace Pastel
 					return;
 				}
 
-				const Real rootDistance = 
+				Real rootDistance = 
 					distance2(kdTree.bound(), searchPoint, normBijection);
 
 				if (rootDistance >= maxDistance)
@@ -152,6 +152,7 @@ namespace Pastel
 				while (algorithm.nodesLeft())
 				{
 					State state = algorithm.nextNode();
+
 
 					const Real& distance = state.distance;
 					const Cursor& cursor = state.cursor;

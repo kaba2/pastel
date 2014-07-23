@@ -25,7 +25,7 @@ namespace Pastel
 			typedef typename boost::range_value<Real_RandomAccessRange>::type
 				Real;
 
-			const integer n = inputRange.size();
+			integer n = inputRange.size();
 			ENSURE1(isPowerOfTwo(n), n);
 
 			auto inputEnd = boost::end(inputRange);
@@ -43,6 +43,7 @@ namespace Pastel
 						// The input now contains a sequence
 						// of k-sized blocks of Hadamard
 						// transformed data. Combine these blocks
+
 						// into a sequence of (2 * k)-sized blocks
 						// of Hadamard transformed data.
 
@@ -62,13 +63,14 @@ namespace Pastel
 
 			if (orthogonal || inversion)
 			{
-				const Real normalization =
+				Real normalization =
 					orthogonal ? inverse(std::sqrt((Real)n)) :
 					inverse((Real)n);
 
 				auto iter = inputRange.begin();
 				while(iter != inputEnd)
 				{
+
 					*iter *= normalization;
 					++iter;
 				}

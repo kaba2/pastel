@@ -471,9 +471,10 @@ namespace Pastel
 			bool right,
 			Data_Class data = Data_Class())
 		{
-			const bool insertAtSentinel =
+			bool insertAtSentinel =
 				here.empty();
 			ENSURE(!insertAtSentinel);
+
 
 			Node* parent = (Node*)here.base();
 
@@ -482,7 +483,7 @@ namespace Pastel
 
 			Node* parentChild = parent->child(right);
 
-			const bool childAlreadyExists = 
+			bool childAlreadyExists = 
 				!(parentChild->empty());
 			ENSURE(!childAlreadyExists);
 
@@ -513,6 +514,7 @@ namespace Pastel
 		}
 
 		//! Copies a tree under a node.
+
 		/*!
 		Time complexity:
 		O(that.size())
@@ -584,7 +586,8 @@ namespace Pastel
 			bool right,
 			Tree&& that)
 		{
-			const bool tryingToMoveUnderItself =
+			bool tryingToMoveUnderItself =
+
 				(this == &that);
 			ENSURE(!tryingToMoveUnderItself);
 
@@ -597,9 +600,10 @@ namespace Pastel
 
 			if (there.empty())
 			{
-				const bool emptyWhenInsertingToSentinel =
+				bool emptyWhenInsertingToSentinel =
 					empty();
 				ENSURE(emptyWhenInsertingToSentinel);
+
 
 				*this = std::move(that);
 			}
@@ -610,7 +614,7 @@ namespace Pastel
 				Node* child = thereNode->child(right);
 				
 				// Check that the child does not already exist.
-				const bool childAlreadyExists = !child->empty();
+				bool childAlreadyExists = !child->empty();
 				ENSURE(!childAlreadyExists);
 
 				// Link 'that' tree to 'there' node.
@@ -646,6 +650,7 @@ namespace Pastel
 		}
 
 		//! Removes a node.
+
 		/*!
 		Time complexity:
 		O(size(node))
@@ -755,9 +760,10 @@ namespace Pastel
 			ConstIterator right = that.child(R);
 			ConstIterator rightLeft = right.child(L);
 
-			const bool rotationWellDefined = 
+			bool rotationWellDefined = 
 				!rightLeft.empty();
 			ENSURE(rotationWellDefined);
+
 
 			Node* thatNode = (Node*)that.base();
 			Node* rightNode = (Node*)right.base();
@@ -1075,12 +1081,14 @@ namespace Pastel
 
 			for (integer i = 0;i < 2;++i)
 			{
-				const ConstIterator newFrom =
+				ConstIterator newFrom =
 					from.child(i);
+
 				if (!newFrom.empty() &&
 					newFrom != forbidden)
 				{
-					const ConstIterator newTo = 
+					ConstIterator newTo = 
+
 						insert(to, i, *newFrom);
 
 					copyConstruct(newFrom, newTo, forbidden);

@@ -44,12 +44,13 @@ namespace Pastel
 		PENSURE_OP(base, >=, 2);
 
 		Real result = 0;
-		const Real invBase = Real(1) / base;
+		Real invBase = Real(1) / base;
 		Real invDigitFactor = invBase;
 
 		while(n > 0)
 		{
 			const integer digit = n % base;
+
 
 			result += digit * invDigitFactor;
 
@@ -67,7 +68,7 @@ namespace Pastel
 		PENSURE_OP(n, >=, 0);
 		PENSURE(allGreaterEqual(bases, 2));
 
-		const integer dimension = 
+		integer dimension = 
 			ofDimension(bases.n());
 
 		Vector<Real, N> result(dimension);
@@ -82,13 +83,14 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, ModifyN<N, N + 1>::Result> hammersleySequence(
+
 		integer n, const Vector<integer, N>& bases, integer size)
 	{
 		PENSURE_OP(size, >=, 1);
 		PENSURE1(n >= 0 && n < size, n);
 		PENSURE(allGreaterEqual(bases, 2));
 
-		const integer dimension = bases.n();
+		integer dimension = bases.n();
 
 		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(dimension + 1));
 

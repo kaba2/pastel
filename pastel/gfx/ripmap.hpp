@@ -80,7 +80,7 @@ namespace Pastel
 		const FilterPtr& filter)
 		: ripMapArray_()
 	{
-		const Vector<integer, N> originalExtent = image.extent();
+		Vector<integer, N> originalExtent = image.extent();
 		Vector<integer, N> topExtent;
 		Vector<integer, N> levels;
 
@@ -122,6 +122,7 @@ namespace Pastel
 	}
 
 	template <typename Type, int N>
+
 	void RipMap<Type, N>::swap(RipMap& that)
 	{
 		ripMapArray_.swap(that.ripMapArray_);

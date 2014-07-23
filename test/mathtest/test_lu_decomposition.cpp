@@ -47,10 +47,11 @@ namespace
 
 				if (!lu.singular())
 				{
-					const Vector<real> b = randomVectorCube<real, Dynamic>(n);
+					Vector<real> b = randomVectorCube<real, Dynamic>(n);
 					const Vector<real> x = solveLinear(lu, b);
+
 					const Vector<real> residual = m * x - b;
-					const real normResidual = norm(residual);
+					real normResidual = norm(residual);
 
 					if (normResidual > 0.0001)
 					{

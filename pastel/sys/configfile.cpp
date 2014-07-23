@@ -115,7 +115,8 @@ namespace Pastel
 			const char* valueBegin,
 			const char* valueEnd)
 		{
-			const std::string value(valueBegin + 1, valueEnd - 1);
+			std::string value(valueBegin + 1, valueEnd - 1);
+
 
 			if ((echoPolicy_ == LoadConfig_Echo::OnlyFinite && size_ != -1) ||
 				echoPolicy_ == LoadConfig_Echo::All)
@@ -320,11 +321,12 @@ namespace Pastel
 		const Config::ConstIterator& iter)
 	{
 		const std::vector<Type>& valueList = config.propertyList<Type>(iter);
-		const integer maxValuesPerRow = 4;
+		integer maxValuesPerRow = 4;
 		const integer values = valueList.size();
 
 		if (values > 1)
 		{
+
 			file << "* ";
 		}
 
@@ -335,7 +337,7 @@ namespace Pastel
 			file << std::endl;
 		}
 
-		const bool isString =
+		bool isString =
 			config.ofType<std::string>(iter);
 
 		integer valuesPerRow = 0;
@@ -373,6 +375,7 @@ namespace Pastel
 	}
 
 	PASTELSYS bool saveConfig(
+
 		const Config& config,
 		const std::string& fileName)
 	{

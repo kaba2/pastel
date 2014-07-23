@@ -21,7 +21,7 @@ namespace Pastel
 		{
 			// Split along the longest dimension.
 
-			const integer splitAxis = maxIndex(maxBound - minBound);
+			integer splitAxis = maxIndex(maxBound - minBound);
 			const Real splitPosition = linear(minBound[splitAxis], 
 				maxBound[splitAxis], 0.5);
 
@@ -36,6 +36,7 @@ namespace Pastel
 			typename Real, int N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
+
 			const Vector<Real, N>& minBound,
 			const Vector<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
@@ -47,7 +48,7 @@ namespace Pastel
 
 			// Split along the longest dimension.
 
-			const integer splitAxis = maxIndex(maxBound - minBound);
+			integer splitAxis = maxIndex(maxBound - minBound);
 			Real splitPosition = linear(minBound[splitAxis], 
 				maxBound[splitAxis], 0.5);
 
@@ -59,6 +60,7 @@ namespace Pastel
 			ConstObjectIterator iterEnd = objectEnd;
 			while(iter != iterEnd)
 			{
+
 				const Tuple<Real, 2> objectRange = objectPolicy.bound(*iter, splitAxis);
 
 				objectBound = boundingAlignedBox(objectBound,
@@ -102,7 +104,7 @@ namespace Pastel
 
 			// Find object spread.
 
-			const integer dimension = minBound.n();
+			integer dimension = minBound.n();
 
 			AlignedBox<Real, N> objectBound(dimension);
 
@@ -112,6 +114,7 @@ namespace Pastel
 			{
 				objectBound = boundingAlignedBox(
 					objectBound,
+
 					objectPolicy.bound(*iter));
 
 				++iter;
@@ -119,7 +122,7 @@ namespace Pastel
 
 			// Find the longest dimension.
 
-			const Vector<Real, N> extent = maxBound - minBound;
+			Vector<Real, N> extent = maxBound - minBound;
 
 			const integer maxExtentAxis = maxIndex(extent);
 			const Real maxExtent = extent[maxExtentAxis];
@@ -131,6 +134,7 @@ namespace Pastel
 
 			for (integer i = 0;i < dimension;++i)
 			{
+
 				if (extent[i] >= 0.8 * maxExtent)
 				{
 					if (spread[i] >= maxLegalSpread)
@@ -141,7 +145,7 @@ namespace Pastel
 				}
 			}
 
-			const integer splitAxis = maxLegalSpreadAxis;
+			integer splitAxis = maxLegalSpreadAxis;
 
 			Real splitPosition = linear(minBound[splitAxis], 
 				maxBound[splitAxis], 0.5);
@@ -180,6 +184,7 @@ namespace Pastel
 
 		public:
 			BoundPoint(
+
 				const Real& position,
 				bool start,
 				const ConstObjectIterator& object)
@@ -240,7 +245,7 @@ namespace Pastel
 				return;
 			}
 
-			const Real costToTraverse = 1;
+			Real costToTraverse = 1;
 			const Real costToIntersect = 80;
 			const Real emptyScale = 0.85;
 
@@ -262,6 +267,7 @@ namespace Pastel
 					const Real nodeArea = area(bound);
 					const Real invNodeArea = inverse(nodeArea);
 
+
 					const Real leafCost = cursor.objects() * costToIntersect;
 
 					bool foundSplit = false;
@@ -269,11 +275,12 @@ namespace Pastel
 					Real minCost = infinity<Real>();
 					integer minAxis = 0;
 
-					const integer n = tree.n();
+					integer n = tree.n();
 
 					for (integer axis = 0;axis < n;++axis)
 					{
 						std::vector<BoundPoint<Real, N, ObjectPolicy> > pointList;
+
 						const integer boundPoints = 2 * cursor.objects();
 						pointList.reserve(boundPoints);
 
@@ -303,7 +310,8 @@ namespace Pastel
 								--positiveObjects;
 							}
 
-							const real position = pointList[i].position_;
+							real position = pointList[i].position_;
+
 
 							if (position >= bound.min()[axis] &&
 								position < bound.max()[axis])
@@ -316,9 +324,11 @@ namespace Pastel
 								// the positive child node do not
 								// need to sum to one (and they don't).
 
-								const Real negativeProbability =
+								Real negativeProbability =
+
 									area(negativeBound) * invNodeArea;
-								const Real positiveProbability =
+								Real positiveProbability =
+
 									area(positiveBound) * invNodeArea;
 
 								Real scale = 1;
@@ -327,8 +337,9 @@ namespace Pastel
 									scale = emptyScale;
 								}
 
-								const Real totalCost =
+								Real totalCost =
 									costToTraverse +
+
 									scale * (negativeProbability * negativeObjects +
 									positiveProbability * positiveObjects) * costToIntersect;
 
@@ -369,7 +380,7 @@ namespace Pastel
 			// be an else branch.
 			if (!cursor.leaf())
 			{
-				const Real splitPosition = cursor.splitPosition();
+				Real splitPosition = cursor.splitPosition();
 				const integer splitAxis = cursor.splitAxis();
 
 				AlignedBox<Real, N> negativeBound(bound);
@@ -395,6 +406,7 @@ namespace Pastel
 		void refineSurfaceAreaHeuristic(
 		integer maxDepth,
 		integer maxObjects,
+
 		KdTree<Real, N, ObjectPolicy>& tree)
 	{
 		ENSURE_OP(maxDepth, >=, 0);

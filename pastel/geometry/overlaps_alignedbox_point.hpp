@@ -18,7 +18,7 @@ namespace Pastel
 	{
 		PENSURE_OP(alignedBox.n(), ==, point.n());
 
-		const integer n = alignedBox.n();
+		integer n = alignedBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			// Test if the i:th coordinate of the point

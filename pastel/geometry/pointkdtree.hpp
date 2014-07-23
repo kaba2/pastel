@@ -354,7 +354,7 @@ namespace Pastel
 		
 		Point_ConstIterator_ConstIterator iter = 
 			pointSet.begin();
-		const Point_ConstIterator_ConstIterator iterEnd = 
+		Point_ConstIterator_ConstIterator iterEnd = 
 			pointSet.end();
 
 		// We use this technique instead of directly
@@ -386,6 +386,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::hide(
+
 		const Point_ConstIterator& iter)
 	{
 		commitHide(iter);
@@ -474,7 +475,7 @@ namespace Pastel
 		// more storage-efficiently than using
 		// merge(root_).
 
-		const integer allPoints = points();
+		integer allPoints = points();
 
 		destructSubtree(root_);
 		nodeAllocator_.clear();
@@ -492,6 +493,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::merge(
+
 		const Cursor& cursor)
 	{
 		// We take the optimization for the case 

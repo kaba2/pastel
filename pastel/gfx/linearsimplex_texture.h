@@ -35,7 +35,7 @@ namespace Pastel
 			const Vector<real, N>& p,
 			const Matrix<real>& m) const
 		{
-			const integer n = p.size();
+			integer n = p.size();
 			PENSURE_OP(n, ==, m.width());
 			PENSURE_OP(n, ==, m.height());
 
@@ -46,6 +46,7 @@ namespace Pastel
 			{
 				return Type(0);
 			}
+
 
 			Type result = bary[0] * colorSimplex_[0];
 			for (integer i = 1;i < n;++i)

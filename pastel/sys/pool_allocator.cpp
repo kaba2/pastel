@@ -107,7 +107,8 @@ namespace Pastel
 		// Calculate the memory address of the first
 		// free unit inside the block.
 
-		const uint8 firstFreeUnit = block->firstFreeUnit_;
+		uint8 firstFreeUnit = block->firstFreeUnit_;
+
 		const integer firstFreeIndex = unitSize_ * firstFreeUnit;
 		uint8* memAddress = (uint8*)block +
 			sizeof(Block) + firstFreeIndex;
@@ -156,13 +157,14 @@ namespace Pastel
 			// The memory should be found from some
 			// block. Otherwise the deallocation is
 			// a bug from the callers side.
-			const bool invalidMemoryAddress =
+			bool invalidMemoryAddress =
 				(iter == blockList_.end());
 			PENSURE(!invalidMemoryAddress);
 			unused(invalidMemoryAddress);
 		}
 
 		// Inspect the found block.
+
 
 		Block* block = *iter;
 		ASSERT(block);
@@ -179,7 +181,7 @@ namespace Pastel
 		// Calculate the distance in bytes from
 		// the block's starting address.
 
-		const integer indexInBytes = byteAddress - blockBegin;
+		integer indexInBytes = byteAddress - blockBegin;
 
 		// If the given memory address is not aligned
 		// on unit intervals, abort. This clearly reflects
@@ -221,6 +223,7 @@ namespace Pastel
 		// there is always at least
 		// one free block.
 
+
 		if (block->unitsAllocated_ == 0 &&
 			freeBlocks_ > 1)
 		{
@@ -236,10 +239,11 @@ namespace Pastel
 
 		integer blockSize = unitsAllocated_ >> 1;
 
-		const integer MinBlockSize = 16;
+		integer MinBlockSize = 16;
 		const integer MaxBlockSize = 255;
 		blockSize = std::max(blockSize, MinBlockSize);
 		blockSize = std::min(blockSize, MaxBlockSize);
+
 
 		Block* block = (Block*)allocateRaw(
 			sizeof(Block) + unitSize_ * blockSize);
@@ -297,7 +301,7 @@ namespace Pastel
 			deallocationBlock_ = blockList_.end();
 		}
 
-		const bool isFreeBlock =
+		bool isFreeBlock =
 			block == firstFreeBlock_ ||
 			block->previousFreeBlock_ != 0 ||
 			block->nextFreeBlock_ != 0;
@@ -306,6 +310,7 @@ namespace Pastel
 		{
 			removeFreeBlock(block);
 		}
+
 
 		deallocateRaw((void*)block);
 
@@ -365,7 +370,8 @@ namespace Pastel
 	{
 		ASSERT(block);
 
-		const integer blockSizeInBytes =
+		integer blockSizeInBytes =
+
 			unitSize_ * block->unitsCapacity_;
 		const uint8* blockBegin =
 			(uint8*)block + sizeof(Block);

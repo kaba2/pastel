@@ -40,7 +40,7 @@ namespace Pastel
 
 		Real result = 0;
 
-		const integer n = alignedBox.n();
+		integer n = alignedBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			if (point[i] < alignedBox.min()[i])
@@ -72,6 +72,7 @@ namespace Pastel
 
 	template <typename Real, int N, typename NormBijection>
 	Real farthestDistance(
+
 		const AlignedBox<Real, N>& alignedBox,
 		const Vector<Real, N>& point,
 		const NormBijection& normBijection)

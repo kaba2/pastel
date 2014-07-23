@@ -100,13 +100,14 @@ namespace Pastel
 				tree.erase(true);
 
 				const Tree& thatTree = that.tree;
-				const integer dimension = thatTree.n();
+				integer dimension = thatTree.n();
 
 				// Copy point data.
 				{
 					Point_ConstRange range = thatTree.range();
 					while(!range.empty())
 					{
+
 						const TreePoint& treePoint =
 							range.front().point();
 						
@@ -115,7 +116,7 @@ namespace Pastel
 
 						std::copy(thatData, thatData + dimension, data);
 
-						const integer index = treePoint.id;
+						integer index = treePoint.id;
 
 						Point_ConstIterator iter = tree.insert(TreePoint(data, index));
 						indexMap.insert(std::make_pair(index, iter));
@@ -129,6 +130,7 @@ namespace Pastel
 					Point_ConstRange range = thatTree.hiddenRange();
 					while(!range.empty())
 					{
+
 						const TreePoint& treePoint =
 							range.front().point();
 						
@@ -137,7 +139,7 @@ namespace Pastel
 
 						std::copy(thatData, thatData + dimension, data);
 
-						const integer index = treePoint.id;
+						integer index = treePoint.id;
 
 						Point_ConstIterator iter = tree.insert(
 							TreePoint(data, index), true);
@@ -162,6 +164,7 @@ namespace Pastel
 			// The current allocation index for identifiers.
 			integer index;
 		};
+
 
 		KdState* asState(const mxArray* matlabArray)
 		{
@@ -190,17 +193,18 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
-			const integer d = state->tree.n();
+			integer d = state->tree.n();
 			const integer n = idSet.size();
 
 			using Locator = Tree::Locator;
+
 			const Locator& locator = state->tree.locator();
 
 			Array<real> pointSet = createArray<real>(
 				n, d, outputSet[PointSet]);
 			for (integer i = 0;i < n;++i)
 			{
-				const integer id = idSet(i);
+				integer id = idSet(i);
 				ConstIterator iter = state->indexMap.find(id);
 
 				if (iter != state->indexMap.end())
@@ -224,6 +228,7 @@ namespace Pastel
 		}
 
 		void kdConstruct(
+
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -235,9 +240,10 @@ namespace Pastel
 
 			ENSURE_OP(inputs, ==, Inputs);
 			
-			const integer dimension = asScalar<integer>(inputSet[Dimension]);
+			integer dimension = asScalar<integer>(inputSet[Dimension]);
 
 			// Get enough memory to hold a KdState pointer.
+
 			KdState** rawResult = createScalar<KdState*>(outputSet[0]);
 
 			// Create a new KdState and store the pointer to
@@ -356,7 +362,7 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			Tree& tree = state->tree;
-			const integer dimension = tree.n();
+			integer dimension = tree.n();
 
 			Array<real> pointSet = asArray<real>(inputSet[PointSet]);
 			const integer points = pointSet.width();
@@ -365,10 +371,11 @@ namespace Pastel
 				createArray<integer>(points, 1, outputSet[IdSet]);
 			for (integer i = 0;i < points;++i)
 			{
+
 				real* data = (real*)state->pointAllocator.allocate();
 				std::copy(pointSet.cColumnBegin(i), pointSet.cColumnEnd(i), data);
 
-				const integer index = state->index;
+				integer index = state->index;
 				Point_ConstIterator iter = tree.insert(TreePoint(data, index));
 				state->indexMap.insert(std::make_pair(index, iter));
 				++state->index;
@@ -378,6 +385,7 @@ namespace Pastel
 		}
 
 		void kdErase(
+
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -407,7 +415,7 @@ namespace Pastel
 
 			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
-			const integer points = idSet.size();
+			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
 			{
 				const integer id = idSet(i);
@@ -422,6 +430,7 @@ namespace Pastel
 		}
 
 		void kdHide(
+
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -451,7 +460,7 @@ namespace Pastel
 
 			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
-			const integer points = idSet.size();
+			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
 			{
 				ConstIterator iter = 
@@ -464,6 +473,7 @@ namespace Pastel
 		}
 
 		void kdShow(
+
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -493,7 +503,7 @@ namespace Pastel
 
 			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
-			const integer points = idSet.size();
+			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
 			{
 				ConstIterator iter = 
@@ -506,6 +516,7 @@ namespace Pastel
 		}
 
 		void kdRefine(
+
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -519,13 +530,14 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 
 			KdState* state = asState(inputSet[State]);
-			const integer bucketSize = asScalar<integer>(inputSet[BucketSize]);
+			integer bucketSize = asScalar<integer>(inputSet[BucketSize]);
 
 			state->tree.refine(
 				SlidingMidpoint_SplitRule(), bucketSize);
 		}
 
 		void kdNodes(
+
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -654,7 +666,7 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
 			Array<real> maxDistanceSet = asLinearizedArray<real>(inputSet[MaxDistanceSet]);
-			const integer k = asScalar<integer>(inputSet[KNearest]);
+			integer k = asScalar<integer>(inputSet[KNearest]);
 
 			mxClassID id = mxGetClassID(inputSet[QuerySet]);
 			
@@ -698,6 +710,7 @@ namespace Pastel
 				integer n = state->tree.n();
 
 				// Find the k-nearest-neighbors for each point.
+
 
 				auto search = [&](const Block& block)
 				{

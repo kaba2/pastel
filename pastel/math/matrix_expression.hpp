@@ -62,7 +62,7 @@ namespace Pastel
 			PENSURE_OP(left.width(), ==, right.width());
 			PENSURE_OP(left.height(), ==, right.height());
 
-			const integer leftWidth = width();
+			integer leftWidth = width();
 			const integer leftHeight = height();
 
 			for (integer y = 0;y < leftHeight;++y)
@@ -81,6 +81,7 @@ namespace Pastel
 
 		template <typename RightExpression>
 		bool operator!=(
+
 			const MatrixExpression<Real, RightExpression>& right) const
 		{
 			return !(*this == right);
@@ -88,17 +89,19 @@ namespace Pastel
 
 		// Negation
 
-		const MatrixNegation<Real, Expression> operator-() const
+		MatrixNegation<Real, Expression> operator-() const
 		{
+
 			return MatrixNegation<Real, Expression>((const Expression&)*this);
 		}
 
 		// Summation
 
 		template <typename RightExpression>
-		const MatrixAddition<Real, Expression, 
+		MatrixAddition<Real, Expression, 
 			RightExpression>
 			operator+(const MatrixExpression
+
 			<Real, RightExpression>& right) const
 		{
 			return MatrixAddition
@@ -111,9 +114,10 @@ namespace Pastel
 		// Subtraction
 
 		template <typename RightExpression>
-		const MatrixSubtraction<Real, Expression, 
+		MatrixSubtraction<Real, Expression, 
 			RightExpression>
 			operator-(const MatrixExpression
+
 			<Real, RightExpression>& right) const
 		{
 			return MatrixSubtraction
@@ -126,7 +130,8 @@ namespace Pastel
 		// Multiplication
 
 		template <typename RightExpression>
-		const MatrixMultiplication<Real, Expression, RightExpression>
+		MatrixMultiplication<Real, Expression, RightExpression>
+
 			operator*(const MatrixExpression<Real, RightExpression>& right) const
 		{
 			return MatrixMultiplication<Real, Expression, RightExpression>
@@ -134,11 +139,12 @@ namespace Pastel
 				(const RightExpression&)right);
 		}
 
-		const MatrixScalarAddition<Real, Expression>
+		MatrixScalarAddition<Real, Expression>
 			operator+(Real right) const
 		{
 			return MatrixScalarAddition
 				<Real, Expression>
+
 				((const Expression&)*this, right);
 		}
 
@@ -151,10 +157,11 @@ namespace Pastel
 				((const Expression&)right, left);
 		}
 
-		const MatrixScalarAddition<Real, Expression>
+		MatrixScalarAddition<Real, Expression>
 			operator-(Real right) const
 		{
 			return MatrixScalarAddition<Real, Expression>
+
 				((const Expression&)*this, -right);
 		}
 
@@ -166,7 +173,8 @@ namespace Pastel
 				((const Expression&)right, -left);
 		}
 
-		const MatrixScalarMultiplication<Real, Expression>
+		MatrixScalarMultiplication<Real, Expression>
+
 			operator*(Real right) const
 		{
 			return MatrixScalarMultiplication<Real, Expression>
@@ -181,10 +189,11 @@ namespace Pastel
 				((const Expression&)right, left);
 		}
 
-		const MatrixScalarMultiplication<Real, Expression>
+		MatrixScalarMultiplication<Real, Expression>
 			operator/(Real right) const
 		{
 			return MatrixScalarMultiplication<Real, Expression>
+
 				((const Expression&)*this, inverse(right));
 		}
 
@@ -376,10 +385,11 @@ namespace Pastel
 		Real operator()(integer y, integer x) const
 		{
 			Real sum = 0;
-			const integer n = left_.width();
+			integer n = left_.width();
 
 			for (integer i = 0;i < n;++i)
 			{
+
 				sum += left_(y, i) * right_(i, x);
 			}
 
@@ -469,7 +479,7 @@ namespace Pastel
 
 	private:
 		typename Expression::StorageType data_;
-		const Real factor_;
+		Real factor_;
 	};
 
 	template <typename Real, typename Expression>
@@ -483,6 +493,7 @@ namespace Pastel
 		using StorageType = const MatrixScalarAddition;
 
 		MatrixScalarAddition(
+
 			const Expression& data,
 			Real term)
 			: data_(data)
@@ -521,7 +532,7 @@ namespace Pastel
 
 	private:
 		typename Expression::StorageType data_;
-		const Real term_;
+		Real term_;
 	};
 
 	template <typename Real, typename Expression>
@@ -535,6 +546,7 @@ namespace Pastel
 
 		explicit MatrixDiagonal(
 			integer m, integer n,
+
 			const Expression& diagonal)
 			: m_(m)
 			, n_(n)
@@ -575,7 +587,7 @@ namespace Pastel
 		}
 
 	private:
-		const integer m_;
+		integer m_;
 		const integer n_;
 		typename Expression::StorageType diagonal_;
 	};
@@ -618,6 +630,7 @@ namespace Pastel
 		}
 
 		bool involves(
+
 			const void* memoryBegin, const void* memoryEnd) const
 		{
 			return false;
@@ -630,7 +643,7 @@ namespace Pastel
 		}
 
 	private:
-		const integer width_;
+		integer width_;
 		const integer height_;
 		const Real value_;
 	};
@@ -643,6 +656,7 @@ namespace Pastel
 		MatrixTranspose<Real, Expression> >
 	{
 	public:
+
 		using StorageType = const MatrixTranspose&;
 
 		explicit MatrixTranspose(
@@ -773,11 +787,12 @@ namespace Pastel
 
 		Real operator[](integer index) const
 		{
-			const integer n = left_.width();
+			integer n = left_.width();
 			
 			Real sum = 0;
 			for (integer x = 0;x < n;++x)
 			{
+
 				sum += left_(index, x) * right_[x];
 			}
 
@@ -832,11 +847,12 @@ namespace Pastel
 
 		Real operator[](integer index) const
 		{
-			const integer n = right_.height();
+			integer n = right_.height();
 			
 			Real sum = 0;
 			for (integer y = 0;y < n;++y)
 			{
+
 				sum += left_[y] * right_(y, index);
 			}
 

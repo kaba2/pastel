@@ -23,13 +23,14 @@ namespace Pastel
 				integer x,
 				integer y)
 			{
-				const integer elementWidth = element.width();
+				integer elementWidth = element.width();
 				const integer elementHeight = element.height();
 
 				for (integer i = 0;i < elementHeight;++i)
 				{
 					for (integer j = 0;j < elementWidth;++j)
 					{
+
 						if (element(j, i) &&
 							!image(x + j, y + i))
 						{
@@ -56,7 +57,7 @@ namespace Pastel
 		integer xPivot,
 		integer yPivot)
 	{
-		const integer width = input.width();
+		integer width = input.width();
 		const integer height = input.height();
 
 		for (integer y = 0;y < height;++y)
@@ -73,11 +74,12 @@ namespace Pastel
 		typename Element_ConstView,
 		typename Output_View>
 		void erode(
+
 		const ExtendedConstView<2, bool, Input_ConstView>& input,
 		const ConstView<2, bool, Element_ConstView>& element,
 		const View<2, bool, Output_View>& output)
 	{
-		const Vector<integer, 2> center(
+		Vector<integer, 2> center(
 			element.extent() / 2);
 		erode(input, element, output, center.x(), center.y());
 	}

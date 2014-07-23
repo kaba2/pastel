@@ -94,7 +94,7 @@ namespace Pastel
 
 			// Read the possible vga palette.
 
-			const integer colors = 1 << pcxHeader.bitsPerPixel_;
+			integer colors = 1 << pcxHeader.bitsPerPixel_;
 
 			palette.resize(colors);
 
@@ -117,6 +117,7 @@ namespace Pastel
 				{
 					palette[i] =
 						Color(
+
 						pcxHeader.palette16_[i * 3 + 0],
 						pcxHeader.palette16_[i * 3 + 1],
 						pcxHeader.palette16_[i * 3 + 2]) / 255;
@@ -234,12 +235,13 @@ namespace Pastel
 			return false;
 		}
 
-		const integer bytesPerScanline =
+		integer bytesPerScanline =
+
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(bytesPerScanline, 0);
 
-		const integer width = pcxHeader.width();
+		integer width = pcxHeader.width();
 		const integer height = pcxHeader.height();
 
 		image.setExtent(Vector2i(width, height));
@@ -259,6 +261,7 @@ namespace Pastel
 					{
 						const uint8 data = scanline[i];
 
+
 						image.write(Vector2i(xPos, yPos), (data >> 7) & 1);
 						++xPos;
 						image.write(Vector2i(xPos, yPos), (data >> 6) & 1);
@@ -277,9 +280,10 @@ namespace Pastel
 						++xPos;
 					}
 
-					const uint8 data = scanline[bytesToRead - 1];
+					uint8 data = scanline[bytesToRead - 1];
 					if (xPos < width)
 					{
+
 						image.write(Vector2i(xPos, yPos), (data >> 7) & 1);
 						++xPos;
 					}
@@ -322,12 +326,13 @@ namespace Pastel
 				break;
 			case 2:
 				{
-					const integer bytesToRead = (pcxHeader.width() + 3) / 4;
+					integer bytesToRead = (pcxHeader.width() + 3) / 4;
 
 					integer xPos = 0;
 					for (integer i = 0;i < bytesToRead - 1;++i)
 					{
 						const uint8 data = scanline[i];
+
 
 						image.write(Vector2i(xPos, yPos), (data >> 6) & 3);
 						++xPos;
@@ -339,9 +344,10 @@ namespace Pastel
 						++xPos;
 					}
 
-					const uint8 data = scanline[bytesToRead - 1];
+					uint8 data = scanline[bytesToRead - 1];
 					if (xPos < width)
 					{
+
 						image.write(Vector2i(xPos, yPos), (data >> 6) & 3);
 						++xPos;
 					}
@@ -364,12 +370,13 @@ namespace Pastel
 				break;
 			case 4:
 				{
-					const integer bytesToRead = (pcxHeader.width() + 1) / 2;
+					integer bytesToRead = (pcxHeader.width() + 1) / 2;
 
 					integer xPos = 0;
 					for (integer i = 0;i < bytesToRead - 1;++i)
 					{
 						const uint8 data = scanline[i];
+
 
 						image.write(Vector2i(xPos, yPos), (data >> 4) & 15);
 						++xPos;
@@ -377,9 +384,10 @@ namespace Pastel
 						++xPos;
 					}
 
-					const uint8 data = scanline[bytesToRead - 1];
+					uint8 data = scanline[bytesToRead - 1];
 					if (xPos < width)
 					{
+
 						image.write(Vector2i(xPos, yPos), (data >> 4) & 15);
 						++xPos;
 					}
@@ -392,7 +400,7 @@ namespace Pastel
 				break;
 			case 8:
 				{
-					const integer bytesToRead = pcxHeader.width();
+					integer bytesToRead = pcxHeader.width();
 
 					integer xPos = 0;
 					for (integer i = 0;i < bytesToRead;++i)
@@ -411,6 +419,7 @@ namespace Pastel
 
 		if (colorPalette)
 		{
+
 			palette.swap(*colorPalette);
 		}
 
@@ -430,12 +439,13 @@ namespace Pastel
 			return false;
 		}
 
-		const integer bytesPerScanline =
+		integer bytesPerScanline =
+
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(bytesPerScanline, 0);
 
-		const integer width = pcxHeader.width();
+		integer width = pcxHeader.width();
 		const integer height = pcxHeader.height();
 
 		image.setExtent(Vector<integer, 2>(width, height));
@@ -459,6 +469,7 @@ namespace Pastel
 						{
 							const uint8 data = scanline[i];
 
+
 							image.write(Vector2i(xPos, yPos), palette[(data >> 7) & 1]);
 							++xPos;
 							image.write(Vector2i(xPos, yPos), palette[(data >> 6) & 1]);
@@ -477,9 +488,10 @@ namespace Pastel
 							++xPos;
 						}
 
-						const uint8 data = scanline[bytesToRead - 1];
+						uint8 data = scanline[bytesToRead - 1];
 						if (xPos < width)
 						{
+
 							image.write(Vector2i(xPos, yPos), palette[(data >> 7) & 1]);
 							++xPos;
 						}
@@ -522,12 +534,13 @@ namespace Pastel
 					break;
 				case 2:
 					{
-						const integer bytesToRead = (width + 3) / 4;
+						integer bytesToRead = (width + 3) / 4;
 
 						integer xPos = 0;
 						for (integer i = 0;i < bytesToRead - 1;++i)
 						{
 							const uint8 data = scanline[i];
+
 
 							image.write(Vector2i(xPos, yPos), palette[(data >> 6) & 3]);
 							++xPos;
@@ -539,9 +552,10 @@ namespace Pastel
 							++xPos;
 						}
 
-						const uint8 data = scanline[bytesToRead - 1];
+						uint8 data = scanline[bytesToRead - 1];
 						if (xPos < width)
 						{
+
 							image.write(Vector2i(xPos, yPos), palette[(data >> 6) & 3]);
 							++xPos;
 						}
@@ -564,12 +578,13 @@ namespace Pastel
 					break;
 				case 4:
 					{
-						const integer bytesToRead = (width + 1) / 2;
+						integer bytesToRead = (width + 1) / 2;
 
 						integer xPos = 0;
 						for (integer i = 0;i < bytesToRead - 1;++i)
 						{
 							const uint8 data = scanline[i];
+
 
 							image.write(Vector2i(xPos, yPos), palette[(data >> 4) & 15]);
 							++xPos;
@@ -577,9 +592,10 @@ namespace Pastel
 							++xPos;
 						}
 
-						const uint8 data = scanline[bytesToRead - 1];
+						uint8 data = scanline[bytesToRead - 1];
 						if (xPos < width)
 						{
+
 							image.write(Vector2i(xPos, yPos), palette[(data >> 4) & 15]);
 							++xPos;
 						}
@@ -592,7 +608,7 @@ namespace Pastel
 					break;
 				case 8:
 					{
-						const integer bytesToRead = width;
+						integer bytesToRead = width;
 
 						integer xPos = 0;
 						for (integer i = 0;i < bytesToRead;++i)
@@ -608,6 +624,7 @@ namespace Pastel
 			}
 			else if (pcxHeader.colorPlanes_ == 3)
 			{
+
 				uint8 *scanlineRed = &scanline[0];
 				uint8 *scanlineGreen =
 					&scanline[pcxHeader.bytesPerScanlinePerPlane_];

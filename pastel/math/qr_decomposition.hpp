@@ -87,7 +87,7 @@ namespace Pastel
 	template <typename Real>
 	void QrDecomposition<Real>::decompose(Matrix<Real> that)
 	{
-		const integer m = that.m();
+		integer m = that.m();
 
 		q_ = identityMatrix<Real>(m, m);
 		r_ = std::move(that);
@@ -100,6 +100,7 @@ namespace Pastel
 	template <typename Real>
 	void QrDecomposition<Real>::decompose()
 	{
+
 		/*
 		QR decomposition
 		================
@@ -156,7 +157,7 @@ namespace Pastel
 		as well.
 		*/
 		
-		const integer m = r_.m();
+		integer m = r_.m();
 		const integer n = r_.n();
 
 		// We will reuse the memory space for v
@@ -192,6 +193,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real absDeterminant(
+
 		const QrDecomposition<Real>& qr)
 	{
 		return mabs(diagonalProduct(qr.r()));
@@ -204,13 +206,14 @@ namespace Pastel
 	{
 		ENSURE_OP(qr.n(), ==, b.size());
 		
-		const integer n = b.size();
+		integer n = b.size();
 
 		// QRx = b
 		
 		Vector<Real> x(ofDimension(n));
 
 		// First solve Qy = b.
+
 		x = qr.qTransposed() * b;
 		
 		// Then solve Rx = y.

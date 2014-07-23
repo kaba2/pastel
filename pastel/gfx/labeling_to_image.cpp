@@ -10,7 +10,7 @@ namespace Pastel
 		const Array<int32, 2>& labelImage,
 		Array<uint8, 2>& image)
 	{
-		const integer width = labelImage.width();
+		integer width = labelImage.width();
 		const integer height = labelImage.height();
 
 		Array<uint8> newImage(Vector2i(width, height));

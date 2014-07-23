@@ -27,7 +27,7 @@ namespace Pastel
 	{
 		ENSURE_OP(matrix.width(), ==, matrix.height());
 
-		const integer n = matrix.width();
+		integer n = matrix.width();
 
 		Vector<Real, Dynamic> result(ofDimension(n));
 
@@ -41,10 +41,11 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void setDiagonal(
+
 		Matrix<Real>& matrix,
 		const PASTEL_NO_DEDUCTION(Real)& value)
 	{
-		const integer width = matrix.width();
+		integer width = matrix.width();
 		const integer height = matrix.height();
 
 		ENSURE_OP(width, ==, height);
@@ -59,10 +60,11 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void setDiagonal(
+
 		Matrix<Real>& matrix,
 		const Vector<Real, N>& values)
 	{
-		const integer size = values.size();
+		integer size = values.size();
 
 		ENSURE2(matrix.width() == size, matrix.width(), size);
 		ENSURE2(matrix.height() == size, matrix.height(), size);
@@ -77,9 +79,10 @@ namespace Pastel
 
 	template <typename Real, int Height, int Width>
 	void transponate(
+
 		Matrix<Real>& matrix)
 	{
-		const integer width = matrix.width();
+		integer width = matrix.width();
 		const integer height = matrix.height();
 
 		using std::swap;
@@ -96,6 +99,7 @@ namespace Pastel
 	template <typename Real, int N, typename Expression>
 	MatrixDiagonal<Real, Expression> diagonalMatrix(
 		integer m, integer n,
+
 		const VectorExpression<Real, N, Expression>& diagonal)
 	{
 		return MatrixDiagonal<Real, Expression>(
@@ -397,7 +401,7 @@ namespace Pastel
 		std::ostream& stream,
 		const MatrixExpression<Real, Expression>& m)
 	{
-		const integer width = m.width();
+		integer width = m.width();
 		const integer height = m.height();
 
 		for (integer y = 0;y < height;++y)

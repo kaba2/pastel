@@ -433,7 +433,7 @@ namespace
 
 		void testSubMatrix()
 		{
-			const integer width = 4;
+			integer width = 4;
 			const integer height = 4;
 
 			Matrix<real32> a(height, width);
@@ -441,6 +441,7 @@ namespace
 			{
 				for (integer x = 0;x < width;++x)
 				{
+
 					a(x, y) = x * y;
 				}
 			}
@@ -450,11 +451,12 @@ namespace
 			// standard library can be used at will.
 
 			Matrix<real32>::Iterator iter = a.begin();
-			const Matrix<real32>::Iterator iterEnd = a.end();
+			Matrix<real32>::Iterator iterEnd = a.end();
 
 			integer i = 0;
 			while(iter != iterEnd)
 			{
+
 				*iter = i;
 				++iter;
 				++i;
@@ -710,7 +712,7 @@ namespace
 
 		void testInverse()
 		{
-			const integer n = 10;
+			integer n = 10;
 			const integer matrices = 100;
 
 			integer count = 0;
@@ -723,8 +725,10 @@ namespace
 				const Matrix<real> mInv = inverse(m);
 
 				const real leftError = 
+
 					manhattanNorm(m * mInv - identityMatrix<real>(n, n));
-				const real rightError = 
+				real rightError = 
+
 					manhattanNorm(mInv * m - identityMatrix<real>(n, n));
 				if (leftError > 0.001 ||
 					rightError > 0.001)
@@ -738,7 +742,7 @@ namespace
 
 		void testMatrixMultiply()
 		{
-			const integer n = 10;
+			integer n = 10;
 			const integer matrices = 100;
 
 			integer count = 0;
@@ -753,6 +757,7 @@ namespace
 
 				VectorD v = randomVectorCube<real, Dynamic>(n);
 
+
 				VectorD result1 = v * (a * b);
 				VectorD result2 = (v * a) * b;
 
@@ -760,7 +765,7 @@ namespace
 
 				VectorD result3 = v * a;
 
-				const real error1 = norm(result1 - result2);
+				real error1 = norm(result1 - result2);
 				const real error2 = norm(result3 - result2);
 				if (error1 > 0.001 ||
 					error2 > 0.001)
@@ -800,6 +805,7 @@ namespace
 				
 				TEST_ENSURE(a == b);
 
+
 				a *= b;
 				b *= b;
 				
@@ -819,7 +825,7 @@ namespace
 
 		void testMatrixSolve()
 		{
-			const integer iterations = 100;
+			integer iterations = 100;
 			const integer n = 10;
 
 			integer count = 0;
@@ -834,6 +840,7 @@ namespace
 				const VectorD x(solveLinear(a, b));
 
 				const real error =
+
 					norm(a * x - b);
 
 				if (error > 0.001)

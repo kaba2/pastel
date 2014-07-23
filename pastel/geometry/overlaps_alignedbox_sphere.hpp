@@ -23,7 +23,7 @@ namespace Pastel
 		// I do not see a way to handle it.
 		// The box is assumed closed.
 
-		const Real d2 =
+		Real d2 =
 			distance2(alignedBox, sphere.position());
 		const Real radius2 =
 			square(sphere.radius());

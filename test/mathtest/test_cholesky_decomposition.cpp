@@ -27,7 +27,7 @@ namespace
 
 		void test()
 		{
-			const CholeskyDecomposition<real> cholesky(
+			CholeskyDecomposition<real> cholesky(
 				matrix2x2<real>(
 				1, 0.5, 
 				0.5, 1));
@@ -38,6 +38,7 @@ namespace
 					0.5000, 0.8660);
 
 				TEST_ENSURE_OP(maxNorm(cholesky.lower() - correctLower), <, 0.001);
+
 				TEST_ENSURE_OP(determinant(cholesky) - (1 - 0.5 * 0.5), <, 0.001);
 			}
 		}

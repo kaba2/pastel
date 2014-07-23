@@ -11,9 +11,10 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> wDivide(const Vector<Real, N>& that)
 	{
-		const integer dimension = that.n();
+		integer dimension = that.n();
 
 		Vector<Real, N> result(that);
+
 		const Real& wInv = inverse(that[dimension - 1]);
 
 		for (integer i = 0;i < dimension - 1;++i)
@@ -133,9 +134,10 @@ namespace Pastel
 
 		const Real m11 = (2 * zMin) / (xMax - xMin);
 		const Real m22 = (2 * zMin) / (yMax - yMin);
-		const Real m33 = (zMax + zMin) / (zMax - zMin);
+		Real m33 = (zMax + zMin) / (zMax - zMin);
 		const Real m31 = -(xMax + xMin) / (xMax - xMin);
 		const Real m32 = -(yMax + yMin) / (yMax - yMin);
+
 		const Real m43 = -(2 * zMax * zMin) / (zMax - zMin);
 
 		return matrix4x4<Real>(
@@ -158,7 +160,7 @@ namespace Pastel
 		const Real& yMin = window.min().y();
 		const Real& yMax = window.max().y();
 
-		const Real m11 = 2 / (xMax - xMin);
+		Real m11 = 2 / (xMax - xMin);
 		const Real m22 = 2 / (yMax - yMin);
 		const Real m33 = 2 / (zMax - zMin);
 		const Real m41 = -(xMax + xMin) / (xMax - xMin);
@@ -174,6 +176,7 @@ namespace Pastel
 
 	template <typename Real>
 	Matrix<Real> projectiveTransformation(
+
 		const Tuple<Vector<Real, 2>, 4>& from,
 		const Tuple<Vector<Real, 2>, 4>& to)
 	{
@@ -259,7 +262,7 @@ namespace Pastel
 		target[6] = to[2][1];
 		target[7] = to[3][1];
 
-		const Vector<Real, 8> solution = solveLinear(matrix, target);
+		Vector<Real, 8> solution = solveLinear(matrix, target);
 
 		return matrix3x3<Real>(
 			solution[0], solution[3], solution[6],

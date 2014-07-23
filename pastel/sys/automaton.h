@@ -1069,7 +1069,7 @@ namespace Pastel
 			const BranchMap& map =
 				branchMap(fromState, symbol);
 
-			const Branch_ConstIterator branch = 
+			Branch_ConstIterator branch = 
 				map.find(toState);
 			if (branch == map.cend())
 			{
@@ -1080,6 +1080,7 @@ namespace Pastel
 		}
 		
 		//! Returns the number of epsilon-transitions.
+
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow

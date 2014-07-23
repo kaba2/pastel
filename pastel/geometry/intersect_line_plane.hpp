@@ -32,7 +32,7 @@ namespace Pastel
 		// If dot(N, D) == 0, then
 		// the line and plane are parallel.
 
-		const Real denominator = dot(line.direction(), plane.normal());
+		Real denominator = dot(line.direction(), plane.normal());
 		const Real numerator = dot(plane.normal(), plane.position() - line.position());
 
 		// EPSILON

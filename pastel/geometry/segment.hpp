@@ -149,7 +149,8 @@ namespace Pastel
 	Segment<Real, N>& Segment<Real, N>::operator*=(
 		const Real& that)
 	{
-		const Vector<Real, N> translation =
+		Vector<Real, N> translation =
+
 			(end_ - start_) * ((that - 1) / 2);
 		
 		start_ -= translation;

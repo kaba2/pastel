@@ -74,7 +74,7 @@ namespace Pastel
 		// Sort the triangle vertices lexicographically.
 		std::sort(vertex.begin(), vertex.end());
 
-		const bool longLeftEdge = side(vertex[1].position_,
+		bool longLeftEdge = side(vertex[1].position_,
 			Plane2(vertex[0].position_,
 			cross(vertex[2].position_ - vertex[0].position_))) < 0;
 
@@ -135,6 +135,7 @@ namespace Pastel
 			xLeftAdd /= leftDelta.y();
 		}
 		real xLeft = vertex[0].position_.x() +
+
 			xLeftAdd * (((real)yBottom + 0.5) - vertex[0].position_.y());
 
 		real xRightAdd = rightDelta.x();

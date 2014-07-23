@@ -12,7 +12,7 @@ namespace Pastel
 	Real diagonalProduct(
 		const MatrixExpression<Real, Expression>& matrix)
 	{
-		const integer n = matrix.width();
+		integer n = matrix.width();
 		const integer m = matrix.height();
 		const integer minSize = std::min(n, m);
 
@@ -24,6 +24,7 @@ namespace Pastel
 		Real result = matrix(0, 0);
 		for (integer i = 1;i < minSize;++i)
 		{
+
 			result *= matrix(i, i);
 		}
 

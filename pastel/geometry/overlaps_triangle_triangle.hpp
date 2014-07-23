@@ -56,7 +56,7 @@ namespace Pastel
 			integer i2 = (i + 1) % 3;
 			integer i3 = (i + 2) % 3;
 
-			const Vector<Real, 2> edge(
+			Vector<Real, 2> edge(
 				cross(evaluate(aTriangle[i2] - aTriangle[i])));
 
 			const Real a(
@@ -149,6 +149,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
+
 		const PASTEL_TRIANGLE(Real, 3)& aTriangle,
 		const PASTEL_TRIANGLE(Real, 3)& bTriangle)
 	{

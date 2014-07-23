@@ -18,7 +18,7 @@ namespace Pastel
 	{
 		PENSURE_OP(alignedBox.n(), ==, plane.n());
 
-		const integer n = alignedBox.n();
+		integer n = alignedBox.n();
 
 		// Find maximal and minimal signed distances
 		// of the vertices in V along the normal vector
@@ -35,6 +35,7 @@ namespace Pastel
 		for (integer i = 0;i < n;++i)
 		{
 			const Real deltaAxisDistance = 
+
 				alignedBox.extent(i) * plane.normal()[i];
 			if (deltaAxisDistance < 0)
 			{

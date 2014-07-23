@@ -30,14 +30,15 @@ namespace Pastel
 				const Vector<integer, N>& position,
 				bool& image) const
 			{
-				const Vector<real, N> delta
+				Vector<real, N> delta
+
 					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = dot(delta) < 1;
 			}
 
 		private:
-			const Vector<real, N> center_;
+			Vector<real, N> center_;
 			const Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 		};
@@ -46,6 +47,7 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void ellipsoidElement(
+
 		const View<N, bool, Image_View>& image,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
@@ -82,14 +84,15 @@ namespace Pastel
 				const Vector<integer, N>& position,
 				bool& image) const
 			{
-				const Vector<real, N> delta
+				Vector<real, N> delta
+
 					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = manhattanNorm(delta) < 1;
 			}
 
 		private:
-			const Vector<real, N> center_;
+			Vector<real, N> center_;
 			const Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 		};
@@ -98,6 +101,7 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void diamondElement(
+
 		const View<N, bool, Image_View>& image,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
@@ -136,14 +140,15 @@ namespace Pastel
 				const Vector<integer, N>& position,
 				bool& image) const
 			{
-				const Vector<real, N> delta
+				Vector<real, N> delta
+
 					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = powerSum(delta, power_) < 1;
 			}
 
 		private:
-			const Vector<real, N> center_;
+			Vector<real, N> center_;
 			const Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 			const real power_;
@@ -153,6 +158,7 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void pEllipsoidElement(
+
 		const View<N, bool, Image_View>& image,
 		real power,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
@@ -193,14 +199,15 @@ namespace Pastel
 				const Vector<integer, N>& position,
 				bool& image) const
 			{
-				const Vector<real, N> delta
+				Vector<real, N> delta
+
 					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = maxNorm(delta) < 1;
 			}
 
 		private:
-			const Vector<real, N> center_;
+			Vector<real, N> center_;
 			const Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 		};
@@ -209,6 +216,7 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void boxElement(
+
 		const View<N, bool, Image_View>& image,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{

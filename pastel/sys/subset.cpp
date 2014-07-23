@@ -29,7 +29,7 @@ namespace Pastel
 
 	void Subset::first()
 	{
-		const integer size = data_.size();
+		integer size = data_.size();
 		for (integer i = 0;i < size;++i)
 		{
 			data_[i] = i;
@@ -115,6 +115,7 @@ namespace Pastel
 
 	integer Subset::operator[](integer index) const
 	{
+
 		PENSURE2(index >= 0 && index < size(), index, size());
 		return data_[index];
 	}

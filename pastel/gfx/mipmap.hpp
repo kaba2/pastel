@@ -28,7 +28,7 @@ namespace Pastel
 		: mipMapArray_()
 		, extender_(extender)
 	{
-		const Vector<integer, N> originalExtent = image.extent();
+		Vector<integer, N> originalExtent = image.extent();
 
 		const integer maxExtent = max(originalExtent);
 		const integer roundedExtent = roundUpToPowerOfTwo(maxExtent);
@@ -80,6 +80,7 @@ namespace Pastel
 	}
 
 	template <typename Type, int N>
+
 	void MipMap<Type, N>::swap(MipMap& that)
 	{
 		mipMapArray_.swap(that.mipMapArray_);

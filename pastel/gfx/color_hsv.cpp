@@ -9,7 +9,7 @@ namespace Pastel
 	{
 		Color result(0);
 
-		const integer indexMin = minIndex(rgb);
+		integer indexMin = minIndex(rgb);
 		const integer indexMax = maxIndex(rgb);
 
 		const real32 rgbMin = rgb[indexMin];
@@ -26,6 +26,7 @@ namespace Pastel
 		{
 			if (indexMax == 0)
 			{
+
 				result[0] =  scale * ((rgb[1] - rgb[2]) / delta);
 				if (result[0] < 0)
 				{
@@ -69,16 +70,18 @@ namespace Pastel
 
 	PASTELGFX Color hsvToRgb(const Color& hsv)
 	{
-		const real32 g =
+		real32 g =
+
 			6 * hsv[0];
-		const integer gFloor = std::floor(g);
+		integer gFloor = std::floor(g);
 
 		const real32 f = g - gFloor;
+
 		const real32 p = hsv[2] * (1 - hsv[1]);
 		const real32 q = hsv[2] * (1 - f * hsv[1]);
 		const real32 t = hsv[2] * (1 - (1 - f) * hsv[1]);
 
-		const integer i = gFloor % 6;
+		integer i = gFloor % 6;
 
 		if (i == 0)
 		{

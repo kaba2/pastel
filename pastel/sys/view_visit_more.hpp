@@ -24,7 +24,7 @@ namespace Pastel
 		{
 			ASSERT2(Index > 0 && Index < N, Index, N);
 
-			const integer width = extent[Index];
+			integer width = extent[Index];
 
 			Cursor cursor = startCursor;
 			Vector<integer, N> position = startPosition;
@@ -46,6 +46,7 @@ namespace Pastel
 
 		template <int Index, int N, typename Cursor, typename VisitPositionFunctor>
 		void visitPositionDimension(
+
 			const Vector<integer, N>& extent,
 			const Vector<integer, N>& startPosition,
 			const Cursor& startCursor,
@@ -54,13 +55,14 @@ namespace Pastel
 		{
 			ASSERT2(Index >= 0 && Index < N, Index, N);
 
-			const integer width = extent[Index];
+			integer width = extent[Index];
 
 			Cursor cursor = startCursor;
 			Vector<integer, N> position = startPosition;
 
 			for (integer i = 0;i < width;++i)
 			{
+
 				visitPosition(position, *cursor);
 
 				cursor.increment(Index);
@@ -125,7 +127,7 @@ namespace Pastel
 		{
 			ASSERT2(Index > 0 && Index < N, Index, N);
 
-			const integer width = extent[Index];
+			integer width = extent[Index];
 
 			Left_Cursor leftCursor = leftStartCursor;
 			Right_Cursor rightCursor = rightStartCursor;
@@ -152,6 +154,7 @@ namespace Pastel
 			typename Right_Cursor,
 			typename VisitPositionFunctor>
 		void visitPositionDimension(
+
 			const Vector<integer, N>& extent,
 			const Vector<integer, N>& startPosition,
 			const Left_Cursor& leftStartCursor,
@@ -161,7 +164,7 @@ namespace Pastel
 		{
 			ASSERT2(Index >= 0 && Index < N, Index, N);
 
-			const integer width = extent[Index];
+			integer width = extent[Index];
 
 			Left_Cursor leftCursor = leftStartCursor;
 			Right_Cursor rightCursor = rightStartCursor;
@@ -169,6 +172,7 @@ namespace Pastel
 
 			for (integer i = 0;i < width;++i)
 			{
+
 				visitPosition(position, *leftCursor, *rightCursor);
 
 				leftCursor.increment(Index);

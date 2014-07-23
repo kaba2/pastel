@@ -49,12 +49,13 @@ namespace Pastel
 		}
 
 	protected:
-		const Contained_ConstView view_;
+		Contained_ConstView view_;
 	};
 
 	template <int MirrorIndex, int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstMirrorView<N, MirrorIndex, Input_ConstView> >
 		constMirrorView(
+
 		const ConstView<N, Input_Element, Input_ConstView>& view)
 	{
 		return wrapConstView(ConstMirrorView<N, MirrorIndex, Input_ConstView>(view.contained()));

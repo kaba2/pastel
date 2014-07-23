@@ -26,7 +26,7 @@ namespace Pastel
 		std::vector<Real> orderedSet(
 			input.begin(), input.end());
 
-		const integer n = orderedSet.size();
+		integer n = orderedSet.size();
 		
 		std::sort(orderedSet.begin(), orderedSet.end());
 

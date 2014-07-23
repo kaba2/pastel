@@ -151,7 +151,7 @@ namespace Pastel
 				break;
 			}
 
-			const std::string trimmedInput(trim(input));
+			std::string trimmedInput(trim(input));
 			if (trimmedInput == "quit")
 			{
 				break;

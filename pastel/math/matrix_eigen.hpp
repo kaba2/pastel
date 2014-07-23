@@ -60,7 +60,7 @@ namespace Pastel
 		// This happens precisely when the 'matrix' is
 		// a multiple of the identity matrix.
 
-		const Vector<Real, 2> aCandidate(
+		Vector<Real, 2> aCandidate(
 			matrix(1, 0), eigenValue[0] - matrix(0, 0));
 
 		if (dot(aCandidate) > square(0.001))

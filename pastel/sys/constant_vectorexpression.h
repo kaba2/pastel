@@ -50,7 +50,7 @@ namespace Pastel
 		}
 
 	private:
-		const Real data_;
+		Real data_;
 		const integer size_;
 	};
 

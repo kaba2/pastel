@@ -7,7 +7,7 @@ namespace Pastel
 	Logger::~Logger()
 	{
 		Log_ConstIterator iter = logSet_.begin();
-		const Log_ConstIterator iterEnd = logSet_.end();
+		Log_ConstIterator iterEnd = logSet_.end();
 		while(iter != iterEnd)
 		{
 			Log_ConstIterator next = iter;
@@ -15,6 +15,7 @@ namespace Pastel
 
 			// The current iterator 'iter'
 			// will be erased.
+
 			Log* log = *iter;
 			log->removeLogger(this);
 

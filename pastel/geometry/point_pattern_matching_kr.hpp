@@ -66,7 +66,7 @@ namespace Pastel
 				fluorescent samples'.
 				*/
 
-				const integer d = modelTree.n();
+				integer d = modelTree.n();
 
 				std::vector<Model_ConstIterator> modelSet(
 					countingIterator(modelTree.begin()),
@@ -84,6 +84,7 @@ namespace Pastel
 				const Real maxRelativeError = 1;
 
 				const integer minMatches = 
+
 					std::min((integer)std::ceil(minMatchRatio * modelSet.size()),
 					(integer)modelSet.size());
 
@@ -93,15 +94,17 @@ namespace Pastel
 
 				bool exitEarly = false;
 
-				const integer n = modelSet.size();
+				integer n = modelSet.size();
+
 				for (integer i = 0;i < n && !exitEarly;++i)
 				{
 					// Pick a model pivot point.
-					const Model_ConstIterator modelPivotIter = modelSet[i];
+					Model_ConstIterator modelPivotIter = modelSet[i];
 
 					// Go over all scene pivot points.
 					Scene_ConstIterator scenePivotIter = sceneTree.begin();
 					const Scene_ConstIterator scenePivotEnd = sceneTree.end();
+
 					while(scenePivotIter != scenePivotEnd && !exitEarly)
 					{
 						translation =
@@ -114,10 +117,11 @@ namespace Pastel
 						PairSet candidatePairSet;
 						for (integer j = 0;j < modelSet.size();++j)
 						{
-							const Model_ConstIterator modelIter = modelSet[j];
+							Model_ConstIterator modelIter = modelSet[j];
 							
 							searchPoint = pointAsVector(modelIter->point(), modelTree.locator()) + 
 								translation;
+
 
 							auto neighborOutput = [&](
 								const Real& distance,
@@ -174,7 +178,7 @@ namespace Pastel
 								Vector<Real, N> meanDelta(ofDimension(d));
 
 								Pair_ConstIterator iter = pairSet.begin();
-								const Pair_ConstIterator iterEnd = pairSet.end();
+								Pair_ConstIterator iterEnd = pairSet.end();
 								while(iter != iterEnd)
 								{
 									meanDelta += 
@@ -202,6 +206,7 @@ namespace Pastel
 								// match. Larger match size is primarily better,
 								// smaller bias is secondarily better.
 								if (pairSet.size() > bestPairSet.size() ||
+
 									(pairSet.size() == bestPairSet.size() &&
 									bias < bestBias))
 								{

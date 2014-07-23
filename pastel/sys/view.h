@@ -61,7 +61,7 @@ namespace Pastel
 			}
 
 		private:
-			const Contained_ConstView view_;
+			Contained_ConstView view_;
 		};
 
 	}
@@ -82,6 +82,7 @@ namespace Pastel
 			: Base()
 		{
 		}
+
 
 		explicit ConstView(const Contained_ConstView& view)
 			: Base(view)

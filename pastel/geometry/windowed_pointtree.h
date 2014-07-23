@@ -20,7 +20,8 @@ namespace Pastel
 		// If M != Dynamic, M == queryDimension().
 		static PASTEL_CONSTEXPR int M = UserDefinedInteger;
 
-		const integer queryDimension() const;
+		integer queryDimension() const;
+
 		const Locator& locator() const;
 
 		template <typename Point_Functor>

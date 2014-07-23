@@ -31,7 +31,7 @@ namespace
 
 		void testErrorDiffusion()
 		{
-			const real32 Quantization = 0.2;
+			real32 Quantization = 0.2;
 
 			Array<Color, 2> image;
 			loadPcx("lena.pcx", image);

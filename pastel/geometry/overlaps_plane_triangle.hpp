@@ -22,7 +22,7 @@ namespace Pastel
 		// that are on the opposite sides
 		// of the plane.
 
-		const Real d1(dot(plane.normal(),
+		Real d1(dot(plane.normal(),
 			triangle[0] - plane.position()));
 
 		// EPSILON

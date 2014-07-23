@@ -54,7 +54,7 @@ namespace Pastel
 		}
 
 	protected:
-		const Contained_ConstView view_;
+		Contained_ConstView view_;
 		const AlignedBox<integer, N> window_;
 		const Vector<integer, N> extent_;
 	};
@@ -62,6 +62,7 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstSubView<N, Input_ConstView> >
 		constSubView(
+
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const AlignedBox<integer, N>& window)
 	{

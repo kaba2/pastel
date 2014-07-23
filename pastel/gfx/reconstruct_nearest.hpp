@@ -132,7 +132,7 @@ namespace Pastel
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
-		const integer n = region.n();
+		integer n = region.n();
 		const integer points = positionList.size();
 
 		ENSURE_OP(kNearest, >, 0);
@@ -148,6 +148,7 @@ namespace Pastel
 		Tree kdTree(locator);
 
 		const Vector<Real, N> scaling = 
+
 			inverse(region.extent()) * Vector<Real, N>(view.extent());
 
 		std::vector<DataPoint> dataPointList;

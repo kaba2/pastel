@@ -13,7 +13,7 @@ namespace Pastel
 		ENSURE_OP(matrix.m(), ==, matrix.n());
 		ENSURE_OP(matrix.m(), <=, 3);
 						
-		const integer n = matrix.n();
+		integer n = matrix.n();
 		Matrix<Real> cofactorMatrix(n, n);
 
 		switch(n)
@@ -28,6 +28,7 @@ namespace Pastel
 			break;
 		case 3:
 			cofactorMatrix[0][0] =
+
 				matrix[1][1] * matrix[2][2] -
 				matrix[1][2] * matrix[2][1];
 			cofactorMatrix[0][1] =

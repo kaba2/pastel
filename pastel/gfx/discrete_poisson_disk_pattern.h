@@ -59,13 +59,14 @@ namespace Pastel
 		private:
 			const ConstView<N, bool, Element_ConstView>& element_;
 			const View<N, bool, Image_View>& image_;
-			const Vector<integer, N> elementOffset_;
+			Vector<integer, N> elementOffset_;
 		};
 
 	}
 
 	template <int N, typename Image_View, typename Element_ConstView>
 	void discretePoissonDiskPattern(
+
 		const ConstView<N, bool, Element_ConstView>& element,
 		const View<N, bool, Image_View>& image)
 	{

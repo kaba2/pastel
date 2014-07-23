@@ -16,7 +16,7 @@ namespace Pastel
 			return matrix;
 		}
 
-		const integer n = matrix.n();
+		integer n = matrix.n();
 		for (integer i = 0;i < n;++i)
 		{
 			// We will retain the loop-invariant that the
@@ -32,10 +32,11 @@ namespace Pastel
 				// that we use the modified vectors in the dot product
 				// computation, rather than the original ones.
 				matrix.column(i) -= 
+
 					matrix.column(j) * dot(matrix.column(i), matrix.column(j));
 			}
 
-			const Real vNorm = norm(matrix.column(i));
+			Real vNorm = norm(matrix.column(i));
 
 			// EPSILON
 			if (vNorm == 0)
@@ -53,6 +54,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> perpendicular(
 		integer dimension,
+
 		const std::vector<Vector<Real, N> >& orthonormalSet)
 	{
 		ENSURE_OP(dimension, >, 0);
@@ -66,7 +68,7 @@ namespace Pastel
 
 		ENSURE_OP(orthonormalSet.front().n(), ==, dimension);
 		
-		const integer vectors = orthonormalSet.size();
+		integer vectors = orthonormalSet.size();
 
 		if (vectors >= dimension)
 		{
@@ -106,6 +108,7 @@ namespace Pastel
 		for (integer i = 0;i < vectors;++i)
 		{
 			// Remove flat[i] directed contribution
+
 
 			result -= orthonormalSet[i] * dot(result, orthonormalSet[i]);
 		}

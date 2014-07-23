@@ -184,7 +184,7 @@ namespace Pastel
 			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
-			const SubArray<Type, N> result(
+			SubArray<Type, N> result(
 				address(min),
 				stride_,
 				mabs(max - min));
@@ -193,6 +193,7 @@ namespace Pastel
 		}
 
 		SubArray<Type, N> operator()(
+
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
@@ -203,8 +204,9 @@ namespace Pastel
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
-			const SubArray<Type, N> result(
+			SubArray<Type, N> result(
 				address(min),
+
 				stride_ * delta,
 				numbers(mabs(max - min), delta));
 			
@@ -222,13 +224,14 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <, extent_[axis]);
 
-			const Vector<integer, Smaller> sliceExtent(
+			Vector<integer, Smaller> sliceExtent(
 				shrink(extent_, axis));
 
 			const Vector<integer, Smaller> sliceStride(
 				shrink(stride_, axis));
 
 			const SubArray<Type, Smaller> result(
+
 				data_ + index * stride_[axis],
 				sliceStride, sliceExtent);
 
@@ -242,13 +245,14 @@ namespace Pastel
 			ENSURE_OP(index, >=, 0);
 			ENSURE_OP(index, <=, size_);
 
-			const integer d = n();
+			integer d = n();
 
 			Vector<integer, N> position(
 				ofDimension(n), 0);
 			for (integer i = d - 1;i >= 0;--i)
 			{
 				position[i] = index / extentStride_[i];
+
 				index -= position[i] * extentStride_[i];
 			}
 
@@ -270,9 +274,10 @@ namespace Pastel
 
 		Iterator end() const
 		{
-			const integer d = n();
+			integer d = n();
 			return Iterator(
 				data_,
+
 				Vector<integer, N>(unitAxis<integer, N>(d - 1) * extent_[d - 1]),
 				extent_,
 				stride_);
@@ -312,7 +317,7 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <, size());
 
-			const integer d = n();
+			integer d = n();
 
 			Vector<integer, N> result(
 				ofDimension(d));
@@ -320,6 +325,7 @@ namespace Pastel
 			for (integer i = d - 1;i > 0;--i)
 			{
 				result[i] = index / extentStride_[i];
+
 				index -= result[i] * extentStride_[i];
 			}
 			result[0] = index;
@@ -333,11 +339,12 @@ namespace Pastel
 			PENSURE(allGreaterEqual(position, 0));
 			PENSURE(allLess(position, extent()));
 
-			const integer d = n();
+			integer d = n();
 
 			integer index = position[0];
 			for (integer i = 1;i < d;++i)
 			{
+
 				index += extentStride_[i] * position[i];
 			}
 			
@@ -365,11 +372,12 @@ namespace Pastel
 			dataBegin_ = data_;
 			dataEnd_ = data_;
 
-			const integer d = n();
+			integer d = n();
 			for (integer i = 0;i < d;++i)
 			{
 				if (stride_[i] < 0)
 				{
+
 					dataBegin_ += stride_[i] * (extent_[i] - 1);
 				}
 				else

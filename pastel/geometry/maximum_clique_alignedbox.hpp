@@ -231,7 +231,7 @@ namespace Pastel
 				// the augmented 'actives' and 'maxCliqueSize'
 				// node variables.
 
-				const integer v = iter.key().min() ? 1 : -1;
+				integer v = iter.key().min() ? 1 : -1;
 
 				// The difference between the number of ending 
 				// points and the number of starting points in
@@ -286,9 +286,10 @@ namespace Pastel
 		};
 
 		template <typename Iterator>
+
 		bool cliqueHere(const Iterator& iter)
 		{
-			const integer v = iter.key().min() ? 1 : -1;
+			integer v = iter.key().min() ? 1 : -1;
 
 			// There is a maximum clique in the current node, 
 			// if the maxCliqueSize was computed as it is for
@@ -303,6 +304,7 @@ namespace Pastel
 		}
 
 		template <typename Iterator>
+
 		bool cliqueOnLeft(const Iterator& iter)
 		{
 			// There is a maximum clique in the left subtree, 
@@ -321,11 +323,12 @@ namespace Pastel
 		template <typename Iterator>
 		bool cliqueOnRight(const Iterator& iter)
 		{
-			const integer v = iter.key().min() ? 1 : -1;
+			integer v = iter.key().min() ? 1 : -1;
 
 			// There is a maximum clique in the right subtree, 
 			// if the maxCliqueSize was computed as it is for
 			// the right subtree.
+
 			if (!iter.right().isSentinel() &&
 				iter.propagation().maxCliqueSize ==
 				iter.left().propagation().actives + v +
@@ -354,12 +357,13 @@ namespace Pastel
 
 			Iterator iter = root;
 			Direction_Iterator directionIter = directionSet.begin();
-			const Direction_Iterator directionEnd = directionSet.end();
+			Direction_Iterator directionEnd = directionSet.end();
 			while(directionIter != directionEnd)
 			{
 				ASSERT(!iter.isSentinel());
 
 				const Direction direction =
+
 					*directionIter;
 
 				ASSERT(
@@ -445,7 +449,7 @@ namespace Pastel
 					index = randomInteger(candidates);
 				}
 				
-				const Direction direction = candidateSet[index];
+				Direction direction = candidateSet[index];
 				if (direction == Direction::Current)
 				{
 					// There is a maximum clique in this node,
@@ -473,6 +477,7 @@ namespace Pastel
 		typename AlignedBox_Output>
 		typename boost::range_value<AlignedBox_ConstRange>::type 
 		maximumClique(
+
 		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection,
 		const AlignedBox_Output& report)
@@ -512,7 +517,7 @@ namespace Pastel
 		// that is not random access. However, it is
 		// worth it, since we can then reserve the size
 		// of 'eventSet' below beforehand.
-		const integer n = boxSet.size();
+		integer n = boxSet.size();
 
 		// We allow the sweeping direction to be chosen freely.
 		// For convenience, we shall call the sweep direction the 
@@ -525,10 +530,11 @@ namespace Pastel
 		// Insert the y-endpoints of each box
 		// into an event list.
 		std::vector<Event> eventSet;
+
 		eventSet.reserve(2 * n);
 		{
 			AlignedBox_ConstIterator iter = boxSet.begin();
-			const AlignedBox_ConstIterator iterEnd = boxSet.end();
+			AlignedBox_ConstIterator iterEnd = boxSet.end();
 
 			integer i = 0;
 			while(iter != iterEnd)
@@ -593,13 +599,14 @@ namespace Pastel
 				// The events come out in increasing y-order. 
 				// An event either begins a new box or ends 
 				// an existing box.
+
 				Event& e = eventSet[i];
 
 				// Find out the extremities of the box
 				// in the _x_ direction.
 
 				// First the minimum x-point.
-				const EventType minType = 
+				EventType minType = 
 					e.box->minTopology()[x] == Topology::Closed ?
 					EventType::ClosedMin : EventType::OpenMin;
 
@@ -631,6 +638,7 @@ namespace Pastel
 						const integer maxCliqueSize = 
 							tree.root().propagation().maxCliqueSize;
 
+
 						if (maxCliqueSize > 1 && maxCliqueSize >= maxMaxCliqueSize)
 						{
 							// Secondarily, we want to maximize the area
@@ -640,7 +648,7 @@ namespace Pastel
 								findSomeMaximumClique(tree.root(),
 								pushBackOutput(directionSet));
 
-							const Real xMinNew = cliqueIter.key().position;
+							Real xMinNew = cliqueIter.key().position;
 							++cliqueIter;
 							const Real xMaxNew = cliqueIter.key().position;
 
@@ -650,13 +658,15 @@ namespace Pastel
 							const Real width = xMaxNew - xMinNew;
 							const Real height = yMaxNew - yMinNew;
 
+
 							const Real area = width * height;
 
 							// Tertiarily, we want the maximum width of the 
 							// maximum clique box.
-							const Real size = std::max(width, height);
+							Real size = std::max(width, height);
 
 							if (maxCliqueSize > maxMaxCliqueSize ||
+
 								(maxCliqueSize == maxMaxCliqueSize && area > maxArea) ||
 								(maxCliqueSize == maxMaxCliqueSize && area == maxArea &&
 								size > maxSize))
@@ -719,7 +729,7 @@ namespace Pastel
 			range(maxDirectionSet.begin(), 
 			maxDirectionSet.end()));
 
-		const Real xMin = cliqueIter.key().position;
+		Real xMin = cliqueIter.key().position;
 		++cliqueIter;
 		const Real xMax = cliqueIter.key().position;
 
@@ -780,6 +790,7 @@ namespace Pastel
 	template <typename AlignedBox_ConstRange>
 	typename boost::range_value<AlignedBox_ConstRange>::type 
 		maximumClique(
+
 		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection)
 	{

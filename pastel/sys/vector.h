@@ -104,17 +104,16 @@ namespace Pastel
 		}
 
 		template <typename ThatReal, int ThatN, typename Expression>
-		Vector(
-			const VectorExpression
-			<ThatReal, ThatN, Expression>& that)
+		Vector(const VectorExpression<ThatReal, ThatN, Expression>& that)
 			: data_(ofDimension(that.size()))
 		{
 			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
 
-			const integer n = that.size();
+			integer n = that.size();
 			Iterator iter = begin();
 			for (integer i = 0;i < n;++i)
 			{
+
 				*iter = that[i];
 				++iter;
 			}
@@ -150,7 +149,7 @@ namespace Pastel
 			// We allow the size of the vector to be
 			// changed by an assignment.
 
-			const integer n = that.size();
+			integer n = that.size();
 			if (n != size())
 			{
 				// In the case we must reallocate, we can
@@ -166,6 +165,7 @@ namespace Pastel
 
 				data_ = that.data_;
 			}
+
 
 			return *this;
 		}
@@ -270,9 +270,10 @@ namespace Pastel
 			// We allow the size of the vector to be
 			// changed by an assignment.
 
-			const integer n = that.size();
+			integer n = that.size();
 			if (n != size() ||
 				that.evaluateBeforeAssignment(
+
 				&*data_.begin(), &*data_.end()))
 			{
 				// In the case we must reallocate, we can
@@ -348,10 +349,11 @@ namespace Pastel
 		Vector<Real, N>& operator+=(const Real that)
 		{
 			Iterator iter = begin();
-			const Iterator iterEnd = end();
+			Iterator iterEnd = end();
 
 			while(iter != iterEnd)
 			{
+
 				*iter += that;
 				++iter;
 			}
@@ -366,10 +368,11 @@ namespace Pastel
 		Vector<Real, N>& operator-=(const Real that)
 		{
 			Iterator iter = begin();
-			const Iterator iterEnd = end();
+			Iterator iterEnd = end();
 
 			while(iter != iterEnd)
 			{
+
 				*iter -= that;
 				++iter;
 			}
@@ -384,10 +387,11 @@ namespace Pastel
 		Vector<Real, N>& operator*=(const Real that)
 		{
 			Iterator iter = begin();
-			const Iterator iterEnd = end();
+			Iterator iterEnd = end();
 
 			while(iter != iterEnd)
 			{
+
 				*iter *= that;
 				++iter;
 			}
@@ -416,9 +420,10 @@ namespace Pastel
 			else
 			{
 				Iterator iter = begin();
-				const integer n = size();
+				integer n = size();
 				for (integer i = 0;i < n;++i)
 				{
+
 					*iter += that[i];
 					++iter;
 				}
@@ -441,9 +446,10 @@ namespace Pastel
 			else
 			{
 				Iterator iter = begin();
-				const integer n = size();
+				integer n = size();
 				for (integer i = 0;i < n;++i)
 				{
+
 					*iter -= that[i];
 					++iter;
 				}
@@ -466,9 +472,10 @@ namespace Pastel
 			else
 			{
 				Iterator iter = begin();
-				const integer n = size();
+				integer n = size();
 				for (integer i = 0;i < n;++i)
 				{
+
 					*iter *= that[i];
 					++iter;
 				}
@@ -491,9 +498,10 @@ namespace Pastel
 			else
 			{
 				Iterator iter = begin();
-				const integer n = size();
+				integer n = size();
 				for (integer i = 0;i < n;++i)
 				{
+
 					*iter /= that[i];
 					++iter;
 				}

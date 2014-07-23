@@ -77,7 +77,7 @@ namespace Pastel
 	const std::vector<Type>& Config::propertyList(
 		const std::string& key) const
 	{
-		const ConstIterator iter = data_.find(key);
+		ConstIterator iter = data_.find(key);
 		const bool propertyExists = (iter != data_.end());
 
 		ENSURE(propertyExists);
@@ -86,6 +86,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
+
 	const std::vector<Type>& Config::propertyList(
 		const ConstIterator& iter) const
 	{

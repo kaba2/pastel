@@ -83,7 +83,8 @@ namespace Pastel
 			maxNode() = std::prev(Iterator(node)).base();
 		}
 
-		const bool twoChildren =
+		bool twoChildren =
+
 			!node->left()->isSentinel() &&
 			!node->right()->isSentinel();
 
@@ -103,7 +104,7 @@ namespace Pastel
 			!moved->right()->isSentinel() ||
 			(moved->left()->isSentinel() &&
 			moved->right() == endNode()));
-		const integer right =
+		integer right =
 			(moved == parent->right());
 
 		bool movedWasRoot = (moved == rootNode());
@@ -168,6 +169,7 @@ namespace Pastel
 		}
 
 		// From now on the moved node is not the root.
+
 		Node* newParent =
 			(parent == node) ? successor : parent;
 		ASSERT(child->isSentinel() ||

@@ -43,7 +43,7 @@ namespace Pastel
 		ConstCursor constCursor(
 			const Vector<integer, ModifyN<N, N - 1>::Result>& position) const
 		{
-			const Vector<integer, N> actualPosition(
+			Vector<integer, N> actualPosition(
 				extend(position, pivot_, fixedIndex_));
 
 			return ConstCursor(view_.constCursor(
@@ -60,6 +60,7 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N - 1, Input_Element, ConstSliceView<N, Input_ConstView> >
 		constSliceView(
+
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		integer fixedIndex,
 		integer pivot)
@@ -104,7 +105,7 @@ namespace Pastel
 
 		Cursor cursor(const Vector<integer, ModifyN<N, N - 1>::Result>& position) const
 		{
-			const Vector<integer, N> actualPosition(
+			Vector<integer, N> actualPosition(
 				extend(position, pivot_, fixedIndex_));
 
 			return Cursor(view_.cursor(actualPosition), fixedIndex_);
@@ -113,6 +114,7 @@ namespace Pastel
 
 	template <int N, typename Input_Element, typename Input_View>
 	View<N - 1, Input_Element, SliceView<N, Input_View> > sliceView(
+
 		const View<N, Input_Element, Input_View>& view,
 		integer fixedIndex,
 		integer pivot)

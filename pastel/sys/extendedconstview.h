@@ -48,7 +48,7 @@ namespace Pastel
 			}
 
 			// FIX: Should be private
-			const Contained_ExtendedConstView view_;
+			Contained_ExtendedConstView view_;
 		};
 
 	}
@@ -75,6 +75,7 @@ namespace Pastel
 		}
 
 		explicit ExtendedConstView(
+
 			const Contained_ExtendedConstView& view)
 			: Base(view)
 		{

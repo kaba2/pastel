@@ -162,7 +162,7 @@ namespace
 				TEST_ENSURE(d == remainder);
 			}
 			{
-				const integer maxDegree = 10;
+				integer maxDegree = 10;
 
 				integer failings = 0;
 				for (integer i = 0;i < 10000;++i)
@@ -173,6 +173,7 @@ namespace
 					Poly quotient;
 					Poly remainder;
 					divide(poly, divider, quotient, remainder);
+
 
 					Poly error = poly - (quotient * divider + remainder);
 

@@ -16,7 +16,7 @@ namespace Pastel
 	{
 		PENSURE_OP(alignedBox.n(), ==, point.n());
 
-		const integer n = alignedBox.n();
+		integer n = alignedBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			// When transformed to the box's coordinate

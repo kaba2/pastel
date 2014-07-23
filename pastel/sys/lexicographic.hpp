@@ -32,7 +32,7 @@ namespace Pastel
 		const Vector<Real, N>& left,
 		const Vector<Real, N>& right)
 	{
-		const integer n = left.n();
+		integer n = left.n();
 		PENSURE_OP(right.n(), ==, n);
 
 		for (integer i = 0;i < n;++i)

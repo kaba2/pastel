@@ -49,7 +49,7 @@ namespace Pastel
 
 			ExtractOutput<Real, ComplexOutput> extractOutput;
 
-			const integer n = inputRange.size();
+			integer n = inputRange.size();
 
 			ENSURE(isPowerOfTwo(n));
 			ENSURE_OP(n, <=, 4);
@@ -71,16 +71,18 @@ namespace Pastel
 
 			if (n == 1)
 			{
+
 				*output = extractOutput(Complex(*input));
 				++output;
 				return;
 			}
 
-			const Real UnitScaling = 
+			Real UnitScaling = 
 				Orthogonal ? std::sqrt(2 / (Real)n) : 1;
 			const Real FirstScaling =
 				Orthogonal ? inverse(std::sqrt((Real)n)) : 1;
 			const Real NthRootAngle = 
+
 				constantPi<Real>() / (2 * n);
 
 			switch(n)
@@ -94,8 +96,9 @@ namespace Pastel
 					++input;
 
 					// 2D dct
-					const Real w1 =
+					Real w1 =
 						std::cos(NthRootAngle);
+
 
 					*output = extractOutput(
 						(a0 + a1) * FirstScaling);
@@ -119,7 +122,7 @@ namespace Pastel
 					++input;
 					
 					// 2D dcts
-					const Complex b0(a0 - a3);
+					Complex b0(a0 - a3);
 					const Complex b1(a1 - a2);
 					const Complex b2(a0 + a3);
 					const Complex b3(a1 + a2);
@@ -129,9 +132,11 @@ namespace Pastel
 						std::cos(NthRootAngle);
 
 					const Real w2 =
+
 						std::cos(2 * NthRootAngle);
 
-					const Real w3 =
+					Real w3 =
+
 						std::cos(3 * NthRootAngle);
 
 					*output = extractOutput(
@@ -174,7 +179,7 @@ namespace Pastel
 				return;
 			}
 
-			const integer n = inputRange.size();
+			integer n = inputRange.size();
 			ENSURE1(isPowerOfTwo(n), n);
 
 			if (n <= 4)
@@ -205,6 +210,7 @@ namespace Pastel
 			// The even-index subsequence of 'input4' is zero.
 
 			std::vector<Complex> oddFourier;
+
 			oddFourier.reserve(2 * n);
 			for (integer i = 0;i < n;++i)
 			{
@@ -226,19 +232,22 @@ namespace Pastel
 
 			// Combine the results
 
-			const Real NthRootAngle = 
+			Real NthRootAngle = 
+
 				-2 * constantPi<Real>() / (4 * n);
 
-			const Complex NthRoot(
+			Complex NthRoot(
 				std::cos(NthRootAngle),
 				std::sin(NthRootAngle));
+
 
 			// The dft computes 2 * dct.
 
 			// Orthogonal: 2 * (1 / sqrt(2 * n)) = sqrt(2) / sqrt(n)
 			// None: 2 * (1 / 2) = 1
 
-			const Real UnitScaling = 
+			Real UnitScaling = 
+
 				Orthogonal ? inverse(std::sqrt(2 * (Real)n)) : 
 				inverse((Real)2);
 
@@ -248,7 +257,8 @@ namespace Pastel
 				// Inverse: 2 * (1 / (2 * n)) = 1 / n
 				// None: 2 * (1 / 2) = 1
 
-				const Real FirstScaling =
+				Real FirstScaling =
+
 					Orthogonal ? inverse(2 * std::sqrt((Real)n)) :
 					inverse((Real)2);
 
@@ -286,7 +296,7 @@ namespace Pastel
 				return;
 			}
 
-			const integer n = inputRange.size();
+			integer n = inputRange.size();
 			ENSURE1(isPowerOfTwo(n), n);
 
 			auto input = inputRange.begin();
@@ -294,22 +304,26 @@ namespace Pastel
 
 			if (n == 1)
 			{
+
 				*output = extractOutput(Complex(*input));
 				++output;
 				return;
 			}
 
-			const Real NthRootAngle = 
+			Real NthRootAngle = 
+
 				2 * constantPi<Real>() / (4 * n);
 
-			const Complex NthRoot(
+			Complex NthRoot(
 				std::cos(NthRootAngle),
 				std::sin(NthRootAngle));
+
 
 			// Orthogonal: (1 / n) * sqrt(2 * n) = sqrt(2 / n)
 			// Inverse: (1 / n) * 2 = 2 / n
 
-			const Real UnitScaling = 
+			Real UnitScaling = 
+
 				Orthogonal ? std::sqrt((Real)2 * n) : 2;
 
 			std::vector<Complex> oddFourier;
@@ -327,9 +341,10 @@ namespace Pastel
 			// Orthogonal: sqrt(2 / n) / sqrt(2) = sqrt(1 / n)
 			// Inverse: (2 / n) / 2 = 1 / n
 
-			const Real FirstScaling =
+			Real FirstScaling =
 				Orthogonal ? inverse(std::sqrt((Real)2)) :
 				inverse((Real)2);
+
 
 			oddFourier.front() *= FirstScaling;
 
@@ -337,9 +352,10 @@ namespace Pastel
 				range(oddFourier.begin(), oddFourier.end()),
 				range(oddFourier.begin(), oddFourier.end()));
 
-			const integer nHalf = n / 2;
+			integer nHalf = n / 2;
 			for (integer i = 0;i < nHalf;++i)
 			{
+
 				*output = extractOutput(oddFourier[i]);
 				++output;
 				*output = extractOutput(oddFourier[n - 1 - i]);
@@ -437,13 +453,14 @@ namespace Pastel
 		const Complex_Range& output)
 	{
 		// FIX: Does not work yet.
-		const bool implementationMissing = true;
+		bool implementationMissing = true;
 		ENSURE(!implementationMissing);
 
 		Dct_::inverseDiscreteCosine<false, true>(input, output);
 	}
 
 	template <typename Real_Range>
+
 	void inverseComplexDct(const Real_Range& inputOutput)
 	{
 		Pastel::inverseComplexDct(inputOutput, inputOutput);
@@ -473,13 +490,14 @@ namespace Pastel
 		const Complex_Range& output)
 	{
 		// FIX: Does not work yet.
-		const bool implementationMissing = true;
+		bool implementationMissing = true;
 		ENSURE(!implementationMissing);
 
 		Dct_::inverseDiscreteCosine<true, true>(input, output);
 	}
 
 	template <typename Real_Range>
+
 	void inverseUnitaryDct(const Real_Range& inputOutput)
 	{
 		Pastel::inverseUnitaryDct(inputOutput, inputOutput);

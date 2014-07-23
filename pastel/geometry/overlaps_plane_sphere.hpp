@@ -17,7 +17,7 @@ namespace Pastel
 		// point from the plane is smaller
 		// than the sphere's radius.
 
-		const Real d2 = 
+		Real d2 = 
 			distance2(plane, sphere.position());
 		const Real radius2 =
 			square(sphere.radius());
@@ -36,6 +36,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
+
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere,
 		bool& sphereOnPositiveSide)

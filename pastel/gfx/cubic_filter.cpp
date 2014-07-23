@@ -41,11 +41,12 @@ namespace Pastel
 		// cardinal cubic splines
 		// with d' as the parameter.
 
-		const real xAbs = mabs(x);
+		real xAbs = mabs(x);
 
 		if (xAbs < 1)
 		{
 			return
+
 				((2 - d_) * xAbs +
 				(-3 + d_)) * xAbs * xAbs + 1;
 		}

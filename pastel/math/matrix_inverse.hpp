@@ -30,7 +30,7 @@ namespace Pastel
 		// from the left by elementary matrices such that we 
 		// end up [I | X]. This is Gauss-Jordan elimination.
 
-		const integer n = matrix.width();
+		integer n = matrix.width();
 		const integer m = matrix.height();
 
 		ENSURE_OP(m, ==, n);
@@ -126,6 +126,7 @@ namespace Pastel
 				{
 					// By the loop invariant invariant 
 					// left(i, j) = 0, for j < k.
+
 					right(i, j) -= right(k, j) * value;
 				}
 				for (integer j = k;j < n;++j)
@@ -136,11 +137,12 @@ namespace Pastel
 			}
 
 			// Scale the k:th row such that left(k, k) = 1.
-			const Real a = inverse(left(k, k));
+			Real a = inverse(left(k, k));
 			for (integer j = 0;j < k;++j)
 			{
 				// By the loop invariant invariant 
 				// left(i, j) = 0, for j < k.
+
 				right(k, j) *= a;
 			}
 			for (integer j = k;j < n;++j)

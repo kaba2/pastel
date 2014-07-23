@@ -16,7 +16,7 @@ namespace Pastel
 	std::ostream& operator<<(std::ostream& stream,
 		const VectorExpression<Real, N, Expression>& vector)
 	{
-		const integer n = vector.size();
+		integer n = vector.size();
 
 		for (integer i = 0;i < n - 1;++i)
 		{
@@ -28,10 +28,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
+
 	std::istream& operator>>(std::istream& stream,
 		Vector<Real, N>& vector)
 	{
-		const integer size = vector.size();
+		integer size = vector.size();
 
 		for (integer i = 0;i < size;++i)
 		{
@@ -42,9 +43,10 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename Expression>
+
 	Real sum(const VectorExpression<Real, N, Expression>& x)
 	{
-		const integer size = x.size();
+		integer size = x.size();
 
 		Real result(x[0]);
 
@@ -57,14 +59,16 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename Expression>
+
 	Real product(const VectorExpression<Real, N, Expression>& x)
 	{
-		const integer size = x.size();
+		integer size = x.size();
 
 		Real result(x[0]);
 
 		for (integer i = 1;i < size;++i)
 		{
+
 			result *= x[i];
 		}
 
@@ -118,7 +122,7 @@ namespace Pastel
 		}
 
 	private:
-		const integer axis_;
+		integer axis_;
 		const integer size_;
 	};
 
@@ -127,6 +131,7 @@ namespace Pastel
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 		PASTEL_STATIC_ASSERT(N > 0);
+
 
 		PENSURE2(index >= 0 && index < N, index, N);
 
@@ -151,7 +156,7 @@ namespace Pastel
 	{
 		PASTEL_STATIC_ASSERT(N > 1 || N == Dynamic);
 
-		const integer size = that.size();
+		integer size = that.size();
 
 		Vector<Real, ModifyN<N, N - 1>::Result> result(size - 1);
 		for (int i = 0;i < size - 1;++i)
@@ -164,12 +169,13 @@ namespace Pastel
 
 	template <typename Real, int N, typename Expression>
 	inline Vector<Real, ModifyN<N, N - 1>::Result> shrink(
+
 		const VectorExpression<Real, N, Expression>& that,
 		integer index)
 	{
 		PASTEL_STATIC_ASSERT(N > 1 || N == Dynamic);
 
-		const integer size = that.size();
+		integer size = that.size();
 
 		Vector<Real, ModifyN<N, N - 1>::Result> result(size - 1);
 		for (integer i = 0;i < index;++i)
@@ -192,6 +198,7 @@ namespace Pastel
 		: public VectorExpression<Real, ModifyN<N, N + 1>::Result, VectorExtend<Real, N, Expression> >
 	{
 	public:
+
 		using StorageType = const VectorExtend&;
 
 		VectorExtend(
@@ -243,12 +250,13 @@ namespace Pastel
 
 	private:
 		typename Expression::StorageType expression_;
-		const integer dataIndex_;
+		integer dataIndex_;
 		const Real data_;
 	};
 
 	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
+
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right)
 	{
@@ -302,7 +310,7 @@ namespace Pastel
 	{
 		Real result = 0;
 
-		const integer n = that.n();
+		integer n = that.n();
 		for (integer i = 0;i < n;++i)
 		{
 			result = normBijection.addAxis(
@@ -315,6 +323,7 @@ namespace Pastel
 
 	template <typename Real, int N, typename Expression>
 	PASTEL_ENABLE_IF_C(N > 1 || N == Dynamic, Real)
+
 		norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return std::sqrt(dot(that, that));

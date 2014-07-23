@@ -14,13 +14,15 @@ namespace Pastel
 	{
 		// f^-1(x) = (1 / s) Q^T x - (1 / s) Q^T t
 
-		const Real invScaling = inverse(that.scaling());
+		Real invScaling = inverse(that.scaling());
 
 		const Real c = std::cos(-that.rotation());
 		const Real s = std::sin(-that.rotation());
 		const Real xNew = 
+
 			-invScaling * (c * that[0] - s * that[1]); 
-		const Real yNew = 
+		Real yNew = 
+
 			-invScaling * (s * that[0] + c * that[1]);
 
 		Vector<Real, N> invTranslation(ofDimension(2));

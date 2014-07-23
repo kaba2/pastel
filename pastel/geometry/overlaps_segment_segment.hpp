@@ -50,7 +50,7 @@ namespace Pastel
 		// Note: endpoint exactly on the line
 		// is not considered an intersection.
 
-		const Plane<Real, 2> aPlane(
+		Plane<Real, 2> aPlane(
 			aSegment.start(),
 			cross(aSegment.end() - aSegment.start()));
 
@@ -59,10 +59,12 @@ namespace Pastel
 			cross(bSegment.end() - bSegment.start()));
 
 		const bool aCondition =
+
 			(side(aSegment.start(), bPlane) *
 			side(aSegment.end(), bPlane) < 0);
 
-		const bool bCondition =
+		bool bCondition =
+
 			(side(bSegment.start(), aPlane) *
 			side(bSegment.end(), aPlane) < 0);
 

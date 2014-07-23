@@ -28,9 +28,10 @@ struct HighResClock
 
 namespace
 {
-	const long long g_Frequency = []() -> long long
+	long long g_Frequency = []() -> long long
 	{
 		LARGE_INTEGER frequency;
+
 		QueryPerformanceFrequency(&frequency);
 		return frequency.QuadPart;
 	}();

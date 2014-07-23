@@ -13,7 +13,7 @@ namespace
 
 	void testHsv()
 	{
-		const real Width = 512;
+		real Width = 512;
 		const real Height = 128;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
@@ -25,6 +25,7 @@ namespace
 			for (integer y = 0;y < Height;++y)
 			{
 				image(x, y) = hsvToRgb(
+
 					Color(HueStep * x, SaturationStep * y, 1));
 			}
 		}

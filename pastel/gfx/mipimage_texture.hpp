@@ -39,7 +39,8 @@ namespace Pastel
 			return Type();
 		}
 
-		const integer n = m.height();
+		integer n = m.height();
+
 		const Array<Type, N>& mostDetailedImage = 
 			mipMap_->mostDetailed();
 
@@ -61,7 +62,8 @@ namespace Pastel
 			}
 		}
 
-		const real invLn2 = inverse(constantLn2<real>());
+		real invLn2 = inverse(constantLn2<real>());
+
 		const real level = 0.5 * std::log(d) * invLn2;
 
 		// Handle the case where no filtering needs to be done.
@@ -85,30 +87,34 @@ namespace Pastel
 
 		// First sample from the more detailed image.
 
-		const integer detailLevel = std::floor(level);
+		integer detailLevel = std::floor(level);
+
 		const Array<Type, N>& detailImage = 
 			(*mipMap_)(detailLevel);
 
-		const Type detailSample =
+		Type detailSample =
 			sampleLinear(
+
 			evaluate(uv * Vector<real, N>(detailImage.extent())),
 			detailImage, extender_);
 
 		// Then sample from the less detailed image.
 		
-		const integer coarseLevel = detailLevel + 1;
+		integer coarseLevel = detailLevel + 1;
+
 		const Array<Type, N>& coarseImage = 
 			(*mipMap_)(coarseLevel);
 
-		const Type coarseSample =
+		Type coarseSample =
 			sampleLinear(
+
 			evaluate(uv * Vector<real, N>(coarseImage.extent())),
 			coarseImage, extender_);
 
 		// Linearly interpolate these samples by the 
 		// fractional detail level.
 
-		const real tDetail = level - detailLevel;
+		real tDetail = level - detailLevel;
 		return linear(detailSample, coarseSample, tDetail);
 	}
 

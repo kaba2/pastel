@@ -34,18 +34,19 @@ namespace
 		{
 			for (integer i = 0;i < 1000;++i)
 			{
-				const integer points = i + 2;
+				integer points = i + 2;
 
 				std::vector<Vector2> from;
 				from.reserve(points);
 				std::vector<Vector2> to;
 				to.reserve(points);
 
+
 				const real scale = random<real>() * 0.9 + 0.1;
 				const real angle = random<real>() * 2 * constantPi<real>();
 				const Vector2 translation(random<real>() * 2 - 1, random<real>() * 2 - 1);
 
-				const ConformalAffine2D<real> transformation(scale, angle, translation);
+				ConformalAffine2D<real> transformation(scale, angle, translation);
 
 				for (integer i = 0;i < points;++i)
 				{

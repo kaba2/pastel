@@ -37,7 +37,7 @@ namespace Pastel
 			return Color(0);
 		}
 
-		const real32 maxComponent = max(rgb);
+		real32 maxComponent = max(rgb);
 
 		if (maxComponent > 1)
 		{
@@ -51,9 +51,10 @@ namespace Pastel
 		return rgb;
 	}
 
+
 	inline Color fitColor(const Color& rgb)
 	{
-		const Color clampedZero = max(rgb, 0);
+		Color clampedZero = max(rgb, 0);
 		const real32 maxComponent = max(clampedZero);
 
 		if (maxComponent > 1)
@@ -67,6 +68,7 @@ namespace Pastel
 
 		return clampedZero;
 	}
+
 
 	inline Color fitNegativeColor(const Color& rgb)
 	{

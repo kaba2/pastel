@@ -59,7 +59,7 @@ namespace
 			std::vector<AlignedBox2> boxSet;
 			difference(aBox, bBox, pushBackOutput(boxSet));
 
-			const bool result = boost::equal(
+			bool result = boost::equal(
 				range(boxSet.begin(), boxSet.end()),
 				range(correctSet.begin(), correctSet.end()),
 				equalBox);

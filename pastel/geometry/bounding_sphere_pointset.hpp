@@ -40,7 +40,7 @@ namespace Pastel
 		// bounding sphere, but it does give something to
 		// that direction, and is fast.
 
-		const integer n = locator.n();
+		integer n = locator.n();
 		ENSURE(n != Dynamic);
 
 		Sphere<Real, N> result(n);
@@ -60,6 +60,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			const Real currentDistance2 =
+
 				dot(pointAsVector(*iter, locator) - midPoint);
 			if (currentDistance2 > maxDistance2)
 			{

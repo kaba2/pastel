@@ -30,7 +30,7 @@ namespace
 
 		void testQrCase()
 		{
-			const integer n = 10;
+			integer n = 10;
 
 			const integer attempts = 10000;
 			integer errorCount = 0;
@@ -46,6 +46,7 @@ namespace
 					solveLinear(qr, b);
 
 				const real error = 
+
 					norm(a * qrSolution  - b);
 
 				if (error > 0.001)

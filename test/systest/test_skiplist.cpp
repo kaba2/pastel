@@ -629,7 +629,7 @@ namespace
 			list.setMaxHeight(maxHeight);
 
 			std::list<integer> dataSet;
-			const integer listSizeSet[] = 
+			integer listSizeSet[] = 
 				{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100};
 
 			for (integer listSize : listSizeSet)
@@ -638,9 +638,10 @@ namespace
 				TEST_ENSURE(testInvariants(list));
 
 				dataSet.clear();
+
 				for (integer i = 0;i < 2 * listSize;++i)
 				{
-					const integer n = randomInteger(0);
+					integer n = randomInteger(0);
 					dataSet.push_back(n);
 
 					list.insert(n);

@@ -34,7 +34,7 @@ namespace
 
 		void testRandom()
 		{
-			const integer n = 100;
+			integer n = 100;
 			const integer vertices = 100;
 			const integer maxEdges = square(vertices);
 
@@ -155,6 +155,7 @@ namespace
 
 		template <int N>
 		bool testCase(
+
 			Integer2 (&edgeSet)[N],
 			integer maximumMatchSize)
 		{
@@ -166,12 +167,13 @@ namespace
 			Range edgeSet,
 			integer maximumMatchSize)
 		{
-			const integer n = edgeSet.size();
+			integer n = edgeSet.size();
 
 			using Pair = std::pair<integer, integer>;
 			std::vector<Pair> matchSet;
 
 			using namespace boost::adaptors;
+
 
 			std::function<integer(const Integer2&)> firstElement = 
 				[](const Integer2& pair) {return pair[0];};

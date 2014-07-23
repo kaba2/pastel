@@ -13,7 +13,7 @@ namespace Pastel
 		MipMap<Type, N>& mipMap,
 		const TransformFunctor& transform)
 	{
-		const integer images = mipMap.levels();
+		integer images = mipMap.levels();
 		for (integer i = 0;i < images;++i)
 		{
 			Pastel::transform(mipMap.view(i), transform);

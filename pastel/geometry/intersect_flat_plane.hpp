@@ -37,7 +37,7 @@ namespace Pastel
 		//
 		// else the planes are parallel.
 
-		const Real dotNu(
+		Real dotNu(
 			dot(bPlane.normal(), aPlane[0]));
 		const Real dotNv(
 			dot(bPlane.normal(), aPlane[1]));
@@ -50,6 +50,7 @@ namespace Pastel
 		{
 			const Real invDotNu(inverse(dotNu));
 			line.set(
+
 				aPlane.position() + dotNd * invDotNu * aPlane[0],
 				aPlane[1] - (dotNv / dotNu) * aPlane[0]);
 			return true;
@@ -58,8 +59,9 @@ namespace Pastel
 		// EPSILON
 		if (dotNv != 0)
 		{
-			const Real invDotNv(inverse(dotNv));
+			Real invDotNv(inverse(dotNv));
 			line.set(
+
 				aPlane.position() + dotNd * invDotNv * aPlane[1],
 				aPlane[0] - (dotNu / dotNv) * aPlane[1]);
 			return true;

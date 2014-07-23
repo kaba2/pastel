@@ -46,7 +46,7 @@ namespace Pastel
 			auto input = inputRange.begin();
 			auto output = outputRange.begin();
 
-			const integer n = inputRange.size();
+			integer n = inputRange.size();
 			ENSURE_OP(n, <=, 8);
 			ENSURE1(isPowerOfTwo(n), n);
 
@@ -56,6 +56,7 @@ namespace Pastel
 				(Inverse ? inverse((Real)n) : 1);
 
 			const bool Normalize = 
+
 				(Inverse || Orthogonal) && TopLevel;
 
 			switch(n)
@@ -110,7 +111,7 @@ namespace Pastel
 					++input;
 
 					// Size-2 dfts
-					const Complex b0(a0 + a2);
+					Complex b0(a0 + a2);
 					const Complex b1(a0 - a2);
 					const Complex b2(a1 + a3);
 					const Complex b3(a1 - a3);
@@ -121,6 +122,7 @@ namespace Pastel
 					// Size-4 dft
 					if (Normalize)
 					{
+
 						*output = (b0 + b2) * Normalization;
 						++output;
 
@@ -170,7 +172,7 @@ namespace Pastel
 				return;
 			}
 
-			const integer n = inputRange.size();
+			integer n = inputRange.size();
 			ENSURE1(isPowerOfTwo(n), n);
 
 			if (n <= 4)
@@ -197,6 +199,7 @@ namespace Pastel
 			oddFourier.reserve(nHalf);
 			for (integer i = 0;i < nHalf;++i)
 			{
+
 				evenFourier.push_back(*input);
 				++input;
 				oddFourier.push_back(*input);
@@ -217,10 +220,11 @@ namespace Pastel
 
 			// Combine the results
 
-			const Real NthRootAngle = 
+			Real NthRootAngle = 
+
 				(Inverse ? 2 : -2) * constantPi<Real>() / n;
 
-			const Complex NthRoot(
+			Complex NthRoot(
 				std::cos(NthRootAngle),
 				std::sin(NthRootAngle));
 
@@ -229,6 +233,7 @@ namespace Pastel
 				(Inverse ? inverse((Real)n) : 1);
 
 			const bool Normalize = 
+
 				(Inverse || Orthogonal) && TopLevel;
 
 			// Report the first half of the dft.

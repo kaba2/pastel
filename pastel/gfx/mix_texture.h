@@ -33,10 +33,11 @@ namespace Pastel
 			const Vector<real, N>& p,
 			const Matrix<real>& m) const
 		{
-			const Inter_Type t =
+			Inter_Type t =
 				tTexture_(p, m);
 
 			return
+
 				aTexture_(p, m) * (1 - t) +
 				bTexture_(p, m) * t;
 		}

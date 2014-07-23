@@ -17,7 +17,7 @@ namespace Pastel
 			const Sphere<Real, N>& sphere,
 			Sphere<Real, N>& result)
 	{
-		const Line<Real, N> line(
+		Line<Real, N> line(
 			sphere.position(),
 			plane.normal());
 
@@ -26,6 +26,7 @@ namespace Pastel
 		bool intersected = Pastel::intersect(line, plane, t);
 		// There is no way to miss the plane.
 		ASSERT(intersected);
+
 
 		const Real radius2 = sphere.radius() * sphere.radius();
 

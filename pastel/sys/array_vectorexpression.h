@@ -212,10 +212,11 @@ namespace Pastel
 				// We accept basic exception safety for performance.
 
 				Iterator iter = begin();
-				const integer n = size();
+				integer n = size();
 
 				for (integer i = 0;i < n;++i)
 				{
+
 					*iter = that[i];
 					++iter;
 				}
@@ -239,10 +240,11 @@ namespace Pastel
 		const Array_VectorExpression& operator+=(const Real that) const
 		{
 			Iterator iter = begin();
-			const Iterator iterEnd = end();
+			Iterator iterEnd = end();
 
 			while(iter != iterEnd)
 			{
+
 				*iter += that;
 				++iter;
 			}
@@ -257,10 +259,11 @@ namespace Pastel
 		const Array_VectorExpression& operator-=(const Real that) const
 		{
 			Iterator iter = begin();
-			const Iterator iterEnd = end();
+			Iterator iterEnd = end();
 
 			while(iter != iterEnd)
 			{
+
 				*iter -= that;
 				++iter;
 			}
@@ -275,10 +278,11 @@ namespace Pastel
 		const Array_VectorExpression& operator*=(const Real that) const
 		{
 			Iterator iter = begin();
-			const Iterator iterEnd = end();
+			Iterator iterEnd = end();
 
 			while(iter != iterEnd)
 			{
+
 				*iter *= that;
 				++iter;
 			}
@@ -307,10 +311,11 @@ namespace Pastel
 			else
 			{
 				Iterator iter = begin();
-				const integer n = size();
+				integer n = size();
 
 				for (integer i = 0;i < n;++i)
 				{
+
 					*iter += that[i];
 					++iter;
 				}
@@ -333,10 +338,11 @@ namespace Pastel
 			else
 			{
 				Iterator iter = begin();
-				const integer n = size();
+				integer n = size();
 
 				for (integer i = 0;i < n;++i)
 				{
+
 					*iter -= that[i];
 					++iter;
 				}
@@ -359,10 +365,11 @@ namespace Pastel
 			else
 			{
 				Iterator iter = begin();
-				const integer n = size();
+				integer n = size();
 
 				for (integer i = 0;i < n;++i)
 				{
+
 					*iter *= that[i];
 					++iter;
 				}
@@ -385,10 +392,11 @@ namespace Pastel
 			else
 			{
 				Iterator iter = begin();
-				const integer n = size();
+				integer n = size();
 
 				for (integer i = 0;i < n;++i)
 				{
+
 					*iter /= that[i];
 					++iter;
 				}

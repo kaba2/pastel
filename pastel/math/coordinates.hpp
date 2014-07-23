@@ -13,7 +13,7 @@ namespace Pastel
 	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian, integer k)
 	{
-		const integer dimension = cartesian.n();
+		integer dimension = cartesian.n();
 
 		PENSURE_OP(k, >=, 0);
 		PENSURE_OP(k, <=, dimension);
@@ -58,9 +58,10 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> cylinderToCartesian(
+
 		const Vector<Real, N>& cylinder, integer k)
 	{
-		const integer dimension = cylinder.n();
+		integer dimension = cylinder.n();
 
 		PENSURE_OP(k, >=, 0);
 		PENSURE_OP(k, <=, dimension);
@@ -77,6 +78,7 @@ namespace Pastel
 		if (k >= 2)
 		{
 			Real product = cylinder[0];
+
 			cartesian[0] = product * std::cos(cylinder[1]);
 			for (integer i = 1;i < k - 1;++i)
 			{

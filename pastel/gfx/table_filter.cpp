@@ -17,10 +17,11 @@ namespace Pastel
 		, center_(0)
 		, scaling_(0)
 	{
-		const integer Padding = 1;
+		integer Padding = 1;
 		const integer width = data.width();
 
 		ENSURE(odd(width));
+
 
 		const integer paddedWidth = width + 2 * Padding;
 		
@@ -40,10 +41,11 @@ namespace Pastel
 
 	real Table_Filter::evaluateInRange(real x) const
 	{
-		const real filterPos = 
+		real filterPos = 
+
 			center_ + x * scaling_;
 		
-		const integer filterIndex =
+		integer filterIndex =
 			(integer)filterPos;
 
 		return linear(
@@ -58,21 +60,25 @@ namespace Pastel
 	}
 
 	PASTELGFX TableFilterPtr tableFilter(
+
 		const ConstFilterPtr& filter,
 		integer samplesPerRadius)
 	{
 		ENSURE_OP(samplesPerRadius, >=, 0);
 
-		const real filterRadius = filter->radius();
+		real filterRadius = filter->radius();
 		const integer filterTableRadius = 
+
 			std::ceil(samplesPerRadius * filterRadius);
-		const integer filterTableSize = 
+		integer filterTableSize = 
+
 			filterTableRadius * 2 + 1;
 		Array<real, 1> filterTable(filterTableSize);
 		
 		for (integer i = 0;i < filterTableSize;++i)
 		{
-			const real filterPosition =
+			real filterPosition =
+
 				(2 * dequantizeUnsignedMatchEnds(i, filterTableSize) - 1) * filterRadius;
 			
 			filterTable(i) = filter->evaluateInRange(filterPosition);

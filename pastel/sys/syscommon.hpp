@@ -16,7 +16,7 @@ namespace Pastel
 	inline Vector<integer, N> toPixelSpanPoint(
 		const Vector<real, N>& that)
 	{
-		const integer dimension = that.n();
+		integer dimension = that.n();
 		Vector<integer, N> result(ofDimension(dimension));
 		for (integer i = 0;i < dimension;++i)
 		{

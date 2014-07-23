@@ -117,21 +117,24 @@ namespace Pastel
 		//
 		// |Error| <= 7.5 * 10^-8
 
-		const Real b0 = 0.2316419;
+		Real b0 = 0.2316419;
 		const Real b1 = 0.319381530;
 		const Real b2 = -0.356563782;
 		const Real b3 = 1.781477937;
 		const Real b4 = -1.821255978;
 		const Real b5 = 1.330274429;
 		const Real xAbs = std::abs(x);
+
 		const Real t = inverse(1 + b0 * xAbs);
 		
 		//Real result = gaussianPdf<Real>(xAbs) * (
 		//	t * (b1 + t * (b2 + t * (b3 + t * (b4 + t * b5)))));
 
-		const Real t2 = square(t);
+		Real t2 = square(t);
+
 		const Real t3 = t2 * t;
-		const Real t4 = square(t2);
+		Real t4 = square(t2);
+
 		const Real t5 = t4 * t;
 
 		Real result = gaussianPdf<Real>(xAbs) * (

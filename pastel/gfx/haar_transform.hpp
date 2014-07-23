@@ -24,7 +24,7 @@ namespace Pastel
 			typedef typename boost::range_value<Real_ConstRange>::type
 				Real;
 
-			const integer n = inputRange.size();
+			integer n = inputRange.size();
 			ENSURE1(isPowerOfTwo(n), n);
 
 			std::vector<Real> a(inputRange.begin(), inputRange.end());
@@ -50,6 +50,7 @@ namespace Pastel
 					{
 						// These multiplies make the transform
 						// orthogonal.
+
 						b[i] *= InvSqrt2;
 						b[k + i] *= InvSqrt2;
 					}
@@ -74,7 +75,7 @@ namespace Pastel
 			typedef typename boost::range_value<Real_ConstRange>::type
 				Real;
 
-			const integer n = inputRange.size();
+			integer n = inputRange.size();
 
 			std::vector<Real> a(inputRange.begin(), inputRange.end());
 			std::vector<Real> b(n);
@@ -90,6 +91,7 @@ namespace Pastel
 			{
 				for (integer i = 0;i < k;++i)
 				{
+
 					b[i << 1] = (a[i] + a[k + i]) * normalization;
 					b[(i << 1) + 1] = (a[i] - a[k + i]) * normalization;
 				}

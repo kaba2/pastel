@@ -15,10 +15,11 @@ namespace Pastel
 		// You can find the derivation in
 		// 'bounding_alignedbox_alignedbox.h'.
 		
-		const Vector<Real, N> radius =
+		Vector<Real, N> radius =
+
 			box.width() * abs(box.rotation());
 		
-		const AlignedBox<Real, N> result(
+		AlignedBox<Real, N> result(
 			box.position() - radius, box.position() + radius);
 
 		return result;

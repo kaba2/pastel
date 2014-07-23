@@ -72,7 +72,7 @@ namespace
 
 				quadratic(aCoeff, bCoeff, cCoeff, t0, t1);
 
-				const real aDelta = mabs(aRoot - t0);
+				real aDelta = mabs(aRoot - t0);
 				const real bDelta = mabs(bRoot - t1);
 
 				if (aDelta >= 0.1 || bDelta >= 0.1)

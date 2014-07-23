@@ -17,7 +17,7 @@ namespace Pastel
 
 		Matrix<Real> left(matrix);
 
-		const integer m = left.m();
+		integer m = left.m();
 		const integer n = left.n();
 
 		// Convert to upper triangular matrix using elementary
@@ -64,6 +64,7 @@ namespace Pastel
 				left(i, k) = 0;
 				for (integer j = k + 1;j < n;++j)
 				{
+
 					left(i, j) -= left(k, j) * a;
 				}
 			}

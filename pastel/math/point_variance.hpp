@@ -16,7 +16,7 @@ namespace Pastel
 		bool biased,
 		const Vector<Real, Locator::N>& mean)
 	{
-		const integer d = locator.n();
+		integer d = locator.n();
 		ENSURE_OP(d, >=, 0);
 
 		Vector<Real, Locator::N> result(ofDimension(d), 0);
@@ -29,6 +29,7 @@ namespace Pastel
 		integer n = 0;
 		while(!pointSet.empty())
 		{
+
 			auto&& point = pointSet.get();
 			for (integer i = 0; i < d;++i)
 			{

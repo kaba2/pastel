@@ -34,12 +34,13 @@ namespace
 		{
 			for (integer i = 0;i < 10000;++i)
 			{
-				const ConformalAffine2D<real> transformation(
+				ConformalAffine2D<real> transformation(
+
 					random<real>() * 2 + 1,
 					random<real>() * 2 * constantPi<real>(),
 					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
 
-				const Vector2 aFrom(random<real>(), random<real>());
+				Vector2 aFrom(random<real>(), random<real>());
 				const Vector2 bFrom(random<real>(), random<real>());
 
 				const Vector2 aTo(transformPoint(transformation, aFrom));
@@ -70,6 +71,7 @@ namespace
 			for (integer i = 0;i < 10000;++i)
 			{
 				const ConformalAffine2D<real> transformation(
+
 					random<real>() * 2 + 1,
 					random<real>() * 2 * constantPi<real>(),
 					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
@@ -84,7 +86,7 @@ namespace
 						transformPoint(transformation, pattern.back()));
 				}
 
-				const ConformalAffine2D<real> matchedTransformation =
+				ConformalAffine2D<real> matchedTransformation =
 					lsConformalAffine(
 					range(pattern.begin(), pattern.end()),
 					range(transformedPattern.begin(), transformedPattern.end()),

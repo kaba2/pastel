@@ -49,7 +49,7 @@ namespace Pastel
 				// In a leaf node, the contained points must have that node
 				// as the associated node.
 				Point_ConstIterator iter = cursor.begin();
-				const Point_ConstIterator iterEnd = cursor.end();
+				Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					Cursor leaf = iter->leaf();
@@ -71,6 +71,7 @@ namespace Pastel
 				{
 					return false;
 				}
+
 
 				/*
 				if (REPORT(cursor.min() >= bound.min()[cursor.splitAxis()]))
@@ -142,7 +143,7 @@ namespace Pastel
 		using Real = typename Locator::Real;
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 
-		const AlignedBox<Real, N> bound(
+		AlignedBox<Real, N> bound(
 			Vector<Real, N>(ofDimension(tree.n()), -infinity<Real>()),
 			Vector<Real, N>(ofDimension(tree.n()), infinity<Real>()));;
 		

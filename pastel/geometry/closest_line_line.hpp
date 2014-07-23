@@ -139,11 +139,12 @@ namespace Pastel
 
 		const Vector<Real, N>& s(aLine.direction());
 		const Vector<Real, N>& q(bLine.direction());
-		const Vector<Real, N> d(bLine.position() - aLine.position());
+		Vector<Real, N> d(bLine.position() - aLine.position());
 
 		const Real dotsq(dot(s, q));
 		const Real dotdq(dot(d, q));
 		const Real dotds(dot(d, s));
+
 
 		const Real skewness(dotsq * dotsq - 1);
 

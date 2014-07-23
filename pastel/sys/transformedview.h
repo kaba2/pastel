@@ -59,13 +59,14 @@ namespace Pastel
 		}
 
 	protected:
-		const Contained_ConstView view_;
+		Contained_ConstView view_;
 		const TransformFunctor transform_;
 	};
 
 	template <typename TransformFunctor, int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstTransformedView<N, TransformFunctor, Input_ConstView> >
 		constTransformedView(
+
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const TransformFunctor& transform)
 	{

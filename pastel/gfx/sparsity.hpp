@@ -25,9 +25,10 @@ namespace Pastel
 		// Compute mean and square mean.
 		{
 			Real_Iterator iter = input.begin();
-			const Real_Iterator end = input.end();
+			Real_Iterator end = input.end();
 			while(iter != end)
 			{
+
 				const Real value = *iter;
 
 				mean += value;
@@ -45,9 +46,10 @@ namespace Pastel
 		// Compute variance.
 		{
 			Real_Iterator iter = input.begin();
-			const Real_Iterator end = input.end();
+			Real_Iterator end = input.end();
 			while(iter != end)
 			{
+
 				const Real value = *iter;
 				variance += square(value - mean);
 				++iter;

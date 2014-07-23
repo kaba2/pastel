@@ -76,7 +76,7 @@ namespace Pastel
 			}
 
 		private:
-			const ConstView<N, Input_RingElement, Input_ConstView> inputView_;
+			ConstView<N, Input_RingElement, Input_ConstView> inputView_;
 			const ConstView<N, Filter_RingElement, Filter_ConstView> filterView_;
 			const View<N, Output_RingElement, Output_View> outputView_;
 			const ConvoluteProcessFunctor processFunctor_;
@@ -94,6 +94,7 @@ namespace Pastel
 		typename Output_View,
 		typename ConvoluteProcessFunctor>
 		void convolute(
+
 		const ConstView<N, Input_RingElement, Input_ConstView>& inputView,
 		const ConstView<N, Filter_RingElement, Filter_ConstView>& filterView,
 		const View<N, Output_RingElement, Output_View>& outputView,
@@ -208,7 +209,7 @@ namespace Pastel
 		const View<2, Output_Element, Output_View>& outputView,
 		ConvoluteProcessFunctor& processFunctor)
 	{
-		const integer width = inputView.width();
+		integer width = inputView.width();
 		const integer height = inputView.height();
 
 		ENSURE2(width == outputView.width(), width, outputView.width());
@@ -239,6 +240,7 @@ namespace Pastel
 
 			for (integer x = 0;x < width;++x)
 			{
+
 				const Input_Element height = *xyInputCursor;
 				if (processFunctor(height))
 				{

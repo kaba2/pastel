@@ -116,10 +116,11 @@ namespace Pastel
 			return digamma_[n];
 		}
 		
-		const real64 nInv = (real)1 / (n - 1);
+		real64 nInv = (real)1 / (n - 1);
 		const real64 nInv2 = square(nInv);
 
 		// Add in increasing order for accuracy.
+
 
 		real64 result = ((real)1 / 120) * square(nInv2);
 		result -= ((real)1 / 12) * nInv2;

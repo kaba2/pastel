@@ -34,7 +34,7 @@ namespace Pastel
 		// Note that even if the box has volume 0, it can still
 		// have area (if exactly one of width[i] is zero).
 
-		const integer dimension = width.size();
+		integer dimension = width.size();
 
 		Real result = 0;
 
@@ -43,6 +43,7 @@ namespace Pastel
 			Real faceArea = 1;
 			for (integer k = 0;k < i;++k)
 			{
+
 				faceArea *= width[k];
 			}
 			for (integer k = i + 1;k < dimension;++k)

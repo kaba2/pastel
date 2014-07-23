@@ -13,8 +13,9 @@ namespace Pastel
 	{
 		ENSURE(allGreater(interval, 0));
 
-		const integer width = image.width();
+		integer width = image.width();
 		const integer height = image.height();
+
 
 		Vector halfInterval(interval * 0.5);
 

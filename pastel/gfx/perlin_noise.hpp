@@ -23,7 +23,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Real perlinNoise(const Vector<Real, N>& position)
 	{
-		const integer n = position.size();
+		integer n = position.size();
 
 		const Vector<integer, N> floorPosition = floor(position);
 		const Vector<Real, N> minDelta = position - Vector<Real, N>(floorPosition);
@@ -42,6 +42,7 @@ namespace Pastel
 
 			integer axis = 0;
 			uint32 mask = 1;
+
 			while((state & mask) && axis < n)
 			{
 				state -= mask;
@@ -71,7 +72,7 @@ namespace Pastel
 
 		// Linearly interpolate between the contributions
 		// of the cube vertices.
-		const Real value = linear(t, range(
+		Real value = linear(t, range(
 			vertexSet.begin(), vertexSet.end()));
 
 		// Map the noise to the [0, 1] range.

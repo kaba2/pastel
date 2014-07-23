@@ -15,7 +15,7 @@ namespace Pastel
 	{
 		PENSURE_OP(plane.n(), ==, sphere.n());
 
-		const Real distance = 
+		Real distance = 
 			mabs(sphere.position()[plane.axis()] -
 			plane.position());
 
@@ -33,13 +33,14 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
+
 		const AlignedPlane<Real, N>& plane,
 		const Sphere<Real, N>& sphere,
 		bool& sphereOnPositiveSide)
 	{
 		PENSURE_OP(plane.n(), ==, sphere.n());
 
-		const Real delta =
+		Real delta =
 			sphere.position()[plane.axis()] -
 			plane.position();
 

@@ -31,10 +31,12 @@ namespace Pastel
 		// we want to take advantage of the zeros and ones
 		// in the aligned box normals.
 
-		const Vector<Real, 2> alignedBoxWidth(
+		Vector<Real, 2> alignedBoxWidth(
+
 			(alignedBox.max() - alignedBox.min()) * 0.5);
-		const Vector<Real, 2> delta(
+		Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
+
 		const Matrix<Real>& boxRotation = box.rotation();
 		const Vector<Real, 2>& boxWidth = box.width();
 		Matrix<Real> absRotation(abs(box.rotation()));
@@ -49,7 +51,7 @@ namespace Pastel
 			// the projection to i:th axis just picks up
 			// the i:th coordinate.
 
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
 				alignedBoxWidth[i];
 
 			// The projection of the box on the axis
@@ -59,6 +61,7 @@ namespace Pastel
 			// extremal point.
 
 			const Real bProjectedRadius =
+
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i];
 
@@ -67,7 +70,7 @@ namespace Pastel
 			// this axis.
 			// Remember the aligned box is at the origin.
 
-			const Real signedProjectedDistance = delta[i];
+			Real signedProjectedDistance = delta[i];
 
 			const Real depth =
 				(aProjectedRadius + bProjectedRadius) -
@@ -90,6 +93,7 @@ namespace Pastel
 			// point on this box axis.
 
 			const Real aProjectedRadius =
+
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1];
 
@@ -97,7 +101,7 @@ namespace Pastel
 			// the radius of the projection is
 			// simply the width of the box.
 
-			const Real bProjectedRadius = boxWidth[i];
+			Real bProjectedRadius = boxWidth[i];
 
 			// This is the distance between
 			// the centers of the aligned box and the box on
@@ -126,6 +130,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
+
 		const AlignedBox<Real, 2>& aAlignedBox,
 		const Box<Real, 2>& bBox,
 		const Vector<Real, 2>& bVelocity,
@@ -133,7 +138,7 @@ namespace Pastel
 	{
 		// Using the separating axis theorem.
 
-		const AlignedBox<Real, 2> bAlignedBox = boundingAlignedBox(bBox);
+		AlignedBox<Real, 2> bAlignedBox = boundingAlignedBox(bBox);
 
 		// Test for the standard basis vectors.
 
@@ -150,8 +155,9 @@ namespace Pastel
 
 		for (integer i = 0;i < 2;++i)
 		{
+
 			const Vector<Real, N>& unitAxis = bBox.rotation()[i];
-			const AlignedBox<Real, 1> aInterval = projectAxis(aAlignedBox, unitAxis);
+			AlignedBox<Real, 1> aInterval = projectAxis(aAlignedBox, unitAxis);
 			const AlignedBox<Real, 1> bInterval = projectAxis(bBox, unitAxis);
 
 			const Vector<Real, 1> bProjectedVelocity(dot(bVelocity, unitAxis));
@@ -182,6 +188,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
+
 		const AlignedBox<Real, 2>& alignedBox,
 		const Box<Real, 2>& box,
 		Vector<Real, 2>& projection,
@@ -199,10 +206,12 @@ namespace Pastel
 		// we want to take advantage of the zeros and ones
 		// in the aligned box normals.
 
-		const Vector<Real, 2> alignedBoxWidth(
+		Vector<Real, 2> alignedBoxWidth(
+
 			(alignedBox.max() - alignedBox.min()) * 0.5);
-		const Vector<Real, 2> delta(
+		Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
+
 		const Matrix<Real>& boxRotation = box.rotation();
 		const Vector<Real, 2>& boxWidth = box.width();
 
@@ -220,7 +229,7 @@ namespace Pastel
 			// the projection to i:th axis just picks up
 			// the i:th coordinate.
 
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
 				alignedBoxWidth[i];
 
 			// The projection of the box on the axis
@@ -230,10 +239,11 @@ namespace Pastel
 			// box.
 
 			const Real bProjectedRadius =
+
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i];
 
-			const Real projectedRadiusSum =
+			Real projectedRadiusSum =
 				aProjectedRadius + bProjectedRadius;
 
 			// This is the distance between
@@ -302,6 +312,7 @@ namespace Pastel
 			// point on this box axis.
 
 			const Real aProjectedRadius =
+
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1];
 
@@ -309,7 +320,7 @@ namespace Pastel
 			// the radius of the projection is
 			// simply the width of the box.
 
-			const Real bProjectedRadius = boxWidth[i];
+			Real bProjectedRadius = boxWidth[i];
 
 			const Real projectedRadiusSum =
 				aProjectedRadius + bProjectedRadius;
@@ -357,6 +368,7 @@ namespace Pastel
 		// No separating axis found, so the boxs
 		// are intersecting.
 
+
 		projection = minProjection * minDepth;
 		commonPoint = someCommonPoint;
 
@@ -383,8 +395,9 @@ namespace Pastel
 
 		const Vector<Real, 3> alignedBoxWidth((alignedBox.max() - alignedBox.min()) * 0.5);
 
-		const Vector<Real, 3> delta(
+		Vector<Real, 3> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
+
 		const Matrix<Real>& boxRotation = box.rotation();
 		const Vector<Real, 3>& boxWidth = box.width();
 		Matrix<Real> absRotation(abs(box.rotation()));
@@ -393,13 +406,14 @@ namespace Pastel
 
 		for (integer i = 0;i < 3;++i)
 		{
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
 				alignedBoxWidth[i];
 			const Real bProjectedRadius =
+
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i] +
 				boxWidth[2] * absRotation[2][i];
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 				delta[i];
 
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -416,10 +430,11 @@ namespace Pastel
 		for (integer i = 0;i < 3;++i)
 		{
 			const Real aProjectedRadius =
+
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1] +
 				alignedBoxWidth[2] * absRotation[i][2];
-			const Real bProjectedRadius = boxWidth[i];
+			Real bProjectedRadius = boxWidth[i];
 			const Real signedProjectedDistance =
 				dot(delta, boxRotation[i]);
 
@@ -436,15 +451,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[0][1] * delta[2] -
 				boxRotation[0][2] * delta[1];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[0][1] +
 				alignedBoxWidth[1] * absRotation[0][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[1][0] +
 				boxWidth[1] * absRotation[2][0];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -455,15 +473,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[1][1] * delta[2] -
 				boxRotation[1][2] * delta[1];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[1][1] +
 				alignedBoxWidth[1] * absRotation[1][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[1][1] +
 				boxWidth[1] * absRotation[2][1];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -474,15 +495,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[2][1] * delta[2] -
 				boxRotation[2][2] * delta[1];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[2][1] +
 				alignedBoxWidth[1] * absRotation[2][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[1][2] +
 				boxWidth[1] * absRotation[2][2];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -493,15 +517,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[0][2] * delta[0] -
 				boxRotation[0][0] * delta[2];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[0][0] +
 				alignedBoxWidth[0] * absRotation[0][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[0][0] +
 				boxWidth[0] * absRotation[2][0];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -513,15 +540,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[1][2] * delta[0] -
 				boxRotation[1][0] * delta[2];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[1][0] +
 				alignedBoxWidth[0] * absRotation[1][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[0][1] +
 				boxWidth[0] * absRotation[2][1];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -532,15 +562,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[2][2] * delta[0] -
 				boxRotation[2][0] * delta[2];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[2][0] +
 				alignedBoxWidth[0] * absRotation[2][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[0][2] +
 				boxWidth[0] * absRotation[2][2];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -551,15 +584,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[0][0] * delta[1] -
 				boxRotation[0][1] * delta[0];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[1] * absRotation[0][0] +
 				alignedBoxWidth[0] * absRotation[0][1];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[1] * absRotation[0][0] +
 				boxWidth[0] * absRotation[1][0];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -570,15 +606,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[1][0] * delta[1] -
 				boxRotation[1][1] * delta[0];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[1] * absRotation[1][0] +
 				alignedBoxWidth[0] * absRotation[1][1];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[1] * absRotation[0][1] +
 				boxWidth[0] * absRotation[1][1];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -589,15 +628,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[2][0] * delta[1] -
 				boxRotation[2][1] * delta[0];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[1] * absRotation[2][0] +
 				alignedBoxWidth[0] * absRotation[2][1];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[1] * absRotation[0][2] +
 				boxWidth[0] * absRotation[1][2];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -614,6 +656,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
+
 		const AlignedBox<Real, 3>& alignedBox,
 		const Box<Real, 3>& box,
 		Vector<Real, 3>& projection)
@@ -634,8 +677,9 @@ namespace Pastel
 
 		const Vector<Real, 3> alignedBoxWidth((alignedBox.max() - alignedBox.min()) * 0.5);
 
-		const Vector<Real, 3> delta(
+		Vector<Real, 3> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
+
 		const Matrix<Real>& boxRotation = box.rotation();
 		const Vector<Real, 3>& boxWidth = box.width();
 		Matrix<Real> absRotation(abs(box.rotation()));
@@ -644,13 +688,14 @@ namespace Pastel
 
 		for (integer i = 0;i < 3;++i)
 		{
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
 				alignedBoxWidth[i];
 			const Real bProjectedRadius =
+
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i] +
 				boxWidth[2] * absRotation[2][i];
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 				delta[i];
 
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -680,10 +725,11 @@ namespace Pastel
 		for (integer i = 0;i < 3;++i)
 		{
 			const Real aProjectedRadius =
+
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1] +
 				alignedBoxWidth[2] * absRotation[i][2];
-			const Real bProjectedRadius = boxWidth[i];
+			Real bProjectedRadius = boxWidth[i];
 			const Real signedProjectedDistance =
 				dot(delta, boxRotation[i]);
 
@@ -713,15 +759,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[0][1] * delta[2] -
 				boxRotation[0][2] * delta[1];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[0][1] +
 				alignedBoxWidth[1] * absRotation[0][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[1][0] +
 				boxWidth[1] * absRotation[2][0];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -745,15 +794,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[1][1] * delta[2] -
 				boxRotation[1][2] * delta[1];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[1][1] +
 				alignedBoxWidth[1] * absRotation[1][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[1][1] +
 				boxWidth[1] * absRotation[2][1];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -777,15 +829,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[2][1] * delta[2] -
 				boxRotation[2][2] * delta[1];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[2][1] +
 				alignedBoxWidth[1] * absRotation[2][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[1][2] +
 				boxWidth[1] * absRotation[2][2];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -809,15 +864,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[0][2] * delta[0] -
 				boxRotation[0][0] * delta[2];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[0][0] +
 				alignedBoxWidth[0] * absRotation[0][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[0][0] +
 				boxWidth[0] * absRotation[2][0];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -841,15 +899,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[1][2] * delta[0] -
 				boxRotation[1][0] * delta[2];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[1][0] +
 				alignedBoxWidth[0] * absRotation[1][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[0][1] +
 				boxWidth[0] * absRotation[2][1];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -873,15 +934,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[2][2] * delta[0] -
 				boxRotation[2][0] * delta[2];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[2] * absRotation[2][0] +
 				alignedBoxWidth[0] * absRotation[2][2];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[2] * absRotation[0][2] +
 				boxWidth[0] * absRotation[2][2];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -905,15 +969,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[0][0] * delta[1] -
 				boxRotation[0][1] * delta[0];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[1] * absRotation[0][0] +
 				alignedBoxWidth[0] * absRotation[0][1];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[1] * absRotation[0][0] +
 				boxWidth[0] * absRotation[1][0];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -937,15 +1004,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[1][0] * delta[1] -
 				boxRotation[1][1] * delta[0];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[1] * absRotation[1][0] +
 				alignedBoxWidth[0] * absRotation[1][1];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[1] * absRotation[0][1] +
 				boxWidth[0] * absRotation[1][1];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -969,15 +1039,18 @@ namespace Pastel
 
 		{
 			const Real signedProjectedDistance =
+
 				boxRotation[2][0] * delta[1] -
 				boxRotation[2][1] * delta[0];
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
+
 				alignedBoxWidth[1] * absRotation[2][0] +
 				alignedBoxWidth[0] * absRotation[2][1];
-			const Real bProjectedRadius =
+			Real bProjectedRadius =
+
 				boxWidth[1] * absRotation[0][2] +
 				boxWidth[0] * absRotation[1][2];
-			const Real depth = (aProjectedRadius + bProjectedRadius) -
+			Real depth = (aProjectedRadius + bProjectedRadius) -
 				mabs(signedProjectedDistance);
 
 			if (depth < 0)
@@ -1001,6 +1074,7 @@ namespace Pastel
 
 		// No separating axis found, so the boxs
 		// are intersecting.
+
 
 		projection = minProjection * minDepth;
 

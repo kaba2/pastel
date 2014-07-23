@@ -92,7 +92,7 @@ namespace Pastel
 
 		succeeded_ = false;
 
-		const integer n = cholesky_.n();
+		integer n = cholesky_.n();
 		for (integer i = 0;i < n;++i)
 		{
 			for (integer j = 0;j < n;++j)
@@ -100,6 +100,7 @@ namespace Pastel
 				Real sum = cholesky_(i, j);
 				for (integer k = i - 1;k >= 0;--k)
 				{
+
 					sum -= cholesky_(i, k) * cholesky_(j, k);
 				}
 				if (i == j)
@@ -140,11 +141,12 @@ namespace Pastel
 	Real determinant(const CholeskyDecomposition<Real>& that)
 	{
 		const Matrix<Real>& lower = that.lower();
-		const integer n = lower.n();
+		integer n = lower.n();
 
 		Real result = 1;
 		for (integer i = 0;i < n;++i)
 		{
+
 			result *= square(lower(i, i));
 		}
 

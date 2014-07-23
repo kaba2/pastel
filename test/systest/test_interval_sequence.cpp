@@ -27,7 +27,7 @@ namespace
 
 		void testSimple()
 		{
-			const integer aSet[] = 
+			integer aSet[] = 
 			{
 				0, 2,
 				2, 2,
@@ -48,6 +48,7 @@ namespace
 
 			{
 				std::vector<integer> cSet;
+
 				auto report = [&](const std::pair<integer, integer>& that)
 				{
 					cSet.push_back(that.first);

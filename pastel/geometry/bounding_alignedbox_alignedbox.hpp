@@ -49,10 +49,11 @@ namespace Pastel
 		// Thus:
 		// r = abs(A) w / 2
 		
-		const Vector<Real, N> radius =
+		Vector<Real, N> radius =
+
 			(alignedBox.extent() * abs(transformation.matrix())) * 0.5;
 		
-		const Vector<Real, N> center =
+		Vector<Real, N> center =
 			transformPoint(transformation, linear(alignedBox.min(), alignedBox.max(), 0.5));
 		
 		const AlignedBox<Real, N> result(
@@ -63,10 +64,11 @@ namespace Pastel
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedCube(
+
 		const AlignedBox<Real, N>& box)
 	{
 		const Real maxRadius = max(box.extent()) * 0.5;
-		const Vector<Real, N> center = linear(box.min(), box.max(), 0.5);
+		Vector<Real, N> center = linear(box.min(), box.max(), 0.5);
 		const Vector<Real, N> minPoint = center - maxRadius;
 		const Vector<Real, N> maxPoint = center + maxRadius;
 
@@ -79,6 +81,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool extendToCover(
+
 		const AlignedBox<Real, N>& boxToCover,
 		AlignedBox<Real, N>& boxToExtend)
 	{
@@ -95,8 +98,9 @@ namespace Pastel
 		const Vector<Real, N>& pointToCover,
 		AlignedBox<Real, N>& boxToExtend)
 	{
-		const integer dimension = pointToCover.size();
+		integer dimension = pointToCover.size();
 		PENSURE_OP(dimension, ==, boxToExtend.n());
+
 
 		Vector<Real, N>& min = boxToExtend.min();
 		Vector<Real, N>& max = boxToExtend.max();

@@ -33,10 +33,11 @@ namespace Pastel
 			return *data_;
 		}
 
-		const integer n() const
+		integer n() const
 		{
 			return extent_.n();
 		}
+
 
 		SubArray_Iterator& operator+=(integer amount)
 		{
@@ -62,12 +63,13 @@ namespace Pastel
 
 		SubArray_Iterator& operator++()
 		{
-			const integer d = n();
+			integer d = n();
 			for (integer i = 0;i < d;++i)
 			{
 				data_ += stride_[i];
 				index_ += extentStride_[i];
 				++position_[i];
+
 				if (position_[i] >= extent_[i] &&
 					i != d - 1)
 				{
@@ -86,12 +88,13 @@ namespace Pastel
 
 		SubArray_Iterator& operator--()
 		{
-			const integer d = n();
+			integer d = n();
 			for (integer i = 0;i < d;++i)
 			{
 				data_ -= stride_[i];
 				index_ -= extentStride_[i];
 				--position_[i];
+
 				if (position_[i] < 0 &&
 					i != d - 1)
 				{
@@ -119,7 +122,7 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <=, size());
 
-			const integer d = n();
+			integer d = n();
 
 			Vector<integer, N> result(
 				ofDimension(d));
@@ -127,6 +130,7 @@ namespace Pastel
 			for (integer i = d - 1;i > 0;--i)
 			{
 				result[i] = index / extentStride_[i];
+
 				index -= result[i] * extentStride_[i];
 			}
 			result[0] = index;
@@ -140,11 +144,12 @@ namespace Pastel
 			PENSURE(allGreaterEqual(position, 0));
 			PENSURE(allLessEqual(position, extent_));
 
-			const integer d = n();
+			integer d = n();
 
 			integer index = position[0];
 			for (integer i = 1;i < d;++i)
 			{
+
 				index += extentStride_[i] * position[i];
 			}
 			
@@ -188,12 +193,13 @@ namespace Pastel
 		{
 			if (size_ > 0)
 			{
-				const integer d = n();
+				integer d = n();
 
 				extentStride_[0] = 1;
 				for (integer i = 1;i < d;++i)
 				{
 					extentStride_[i] = 
+
 						extentStride_[i - 1] * extent_[i - 1];
 				}
 

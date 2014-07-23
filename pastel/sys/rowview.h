@@ -49,7 +49,7 @@ namespace Pastel
 		}
 
 	protected:
-		const Contained_ConstView view_;
+		Contained_ConstView view_;
 		const Vector<integer, N> pivot_;
 		const Vector<integer, 1> extent_;
 		const integer freeIndex_;
@@ -58,6 +58,7 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<1, Input_Element, ConstRowView<N, Input_ConstView> >
 		constRowView(
+
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		integer freeIndex,
 		const Vector<integer, N>& pivot)

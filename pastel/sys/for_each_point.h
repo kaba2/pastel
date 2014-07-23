@@ -30,7 +30,7 @@ namespace Pastel
 		integer N,
 		typename Vector_Output>
 	void forEachPoint(
-		const AlignedBox<integer, N> box,
+		AlignedBox<integer, N> box,
 		Vector_Output report);
 
 }

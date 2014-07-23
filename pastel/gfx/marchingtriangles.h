@@ -35,7 +35,7 @@ namespace Pastel
 			break;
 		case 1:
 			{
-				const Vector2 abPosition =
+				Vector2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
 				const Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
@@ -141,11 +141,12 @@ namespace Pastel
 
 	template <typename Real, typename Type>
 	void marchingTriangles(
+
 		const Array<Real, 2>& value,
 		const AlignedBox2& window,
 		GfxRenderer<Type>& renderer)
 	{
-		const integer width = value.width();
+		integer width = value.width();
 		const integer height = value.height();
 
 		const Vector2 delta = window.max() - window.min();
@@ -153,6 +154,7 @@ namespace Pastel
 		const Vector2 positionDelta = delta / Vector2(width - 1, height - 1);
 		const Vector2 rightOffset(positionDelta.x(), 0);
 		const Vector2 upOffset(0, positionDelta.y());
+
 		const Vector2& rightUpOffset = positionDelta;
 
 		Vector2 position = window.min();

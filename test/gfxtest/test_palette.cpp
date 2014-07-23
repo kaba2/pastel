@@ -23,8 +23,9 @@ namespace
 		const std::vector<Color>& palette,
 		const std::string& fileName)
 	{
-		const integer colorWidth = 32;
+		integer colorWidth = 32;
 		const integer colorHeight = 32;
+
 
 		const integer width = colorWidth * 16;
 		const integer height = colorHeight * 16;

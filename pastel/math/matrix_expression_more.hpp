@@ -24,7 +24,7 @@ namespace Pastel
 		Real operator[](integer index) const
 		{
 			Real sum = 0;
-			const integer n = data_.height();
+			integer n = data_.height();
 			
 			for (integer i = 0;i < n;++i)
 			{
@@ -40,6 +40,7 @@ namespace Pastel
 		}
 
 		bool involves(
+
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
@@ -75,7 +76,7 @@ namespace Pastel
 		Real operator[](integer index) const
 		{
 			Real minValue = infinity<Real>();
-			const integer n = data_.height();
+			integer n = data_.height();
 			
 			for (integer i = 0;i < n;++i)
 			{
@@ -95,6 +96,7 @@ namespace Pastel
 		}
 
 		bool involves(
+
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
@@ -130,7 +132,7 @@ namespace Pastel
 		Real operator[](integer index) const
 		{
 			Real maxValue = -infinity<Real>();
-			const integer n = data_.height();
+			integer n = data_.height();
 			
 			for (integer i = 0;i < n;++i)
 			{
@@ -150,6 +152,7 @@ namespace Pastel
 		}
 
 		bool involves(
+
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
@@ -269,7 +272,7 @@ namespace Pastel
 
 	private:
 		typename Expression::StorageType data_;
-		const integer dataWidth_;
+		integer dataWidth_;
 		const integer dataHeight_;
 		const integer width_;
 		const integer height_;
@@ -285,6 +288,7 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
+
 		using StorageType = const OuterProduct&;
 
 		OuterProduct(

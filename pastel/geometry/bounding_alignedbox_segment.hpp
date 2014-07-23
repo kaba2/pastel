@@ -12,7 +12,7 @@ namespace Pastel
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Segment<Real, N>& segment)
 	{
-		const AlignedBox<Real, N> result(
+		AlignedBox<Real, N> result(
 			min(segment.start(), segment.end()),
 			max(segment.start(), segment.end()));
 

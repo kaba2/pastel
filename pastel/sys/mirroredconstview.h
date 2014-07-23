@@ -55,13 +55,14 @@ namespace Pastel
 		}
 
 	private:
-		const Contained_ConstView view_;
+		Contained_ConstView view_;
 		const Vector<integer, N> extent_;
 		const Vector<integer, N> doubleExtent_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ExtendedConstView<N, Input_Element, MirroredConstView<N, Input_ConstView> >
+
 		mirroredConstView(const ConstView<N, Input_Element, Input_ConstView>& view)
 	{
 		return extendedConstView<N>(MirroredConstView<N,

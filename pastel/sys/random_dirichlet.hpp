@@ -14,7 +14,7 @@ namespace Pastel
 	{
 		PENSURE(allGreater(shape, 0));
 
-		const integer n = shape.size() - 1;
+		integer n = shape.size() - 1;
 		Vector<Real, ModifyN<N, N - 1>::Result> u(ofDimension(n));
 
 		Real gammaSum = 0;

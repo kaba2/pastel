@@ -715,7 +715,7 @@ namespace
 
 		void testEqual()
 		{
-			const integer valueSet[] = {1, 2, 3, 3, 3, 4, 4, 4, 5, 4, 4, 4};
+			integer valueSet[] = {1, 2, 3, 3, 3, 4, 4, 4, 5, 4, 4, 4};
 
 			Set a;
 

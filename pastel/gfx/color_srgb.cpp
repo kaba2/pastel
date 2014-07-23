@@ -120,13 +120,14 @@ namespace Pastel
 		Matrix<real32> primaryMatrix =
 			matrix3x3<real32>(xyzRed, xyzGreen, xyzBlue);
 
-		const Color primaryWeights(
+		Color primaryWeights(
 			solveLinear(primaryMatrix, xyzWhite));
 
 		// Use the weights to form the final transformation
 		// matrix.
 
 		return matrix3x3<real32>(
+
 			xyzRed * primaryWeights[0],
 			xyzGreen * primaryWeights[1],
 			xyzBlue * primaryWeights[2]);

@@ -39,11 +39,12 @@ namespace Pastel
 
 			const real* modelData = 
 				mxGetPr(inputSet[ModelSet]);
-			const integer modelPoints = 
+			integer modelPoints = 
 				mxGetN(inputSet[ModelSet]);
+
 			const real* sceneData = 
 				mxGetPr(inputSet[SceneSet]);
-			const integer scenePoints = 
+			integer scenePoints = 
 				mxGetN(inputSet[SceneSet]);
 			const real minMatchRatio = 
 				asScalar<real>(inputSet[MinMatchRatio]);
@@ -84,6 +85,7 @@ namespace Pastel
 			// Output the success flag.
 			if (outputs > 1)
 			{
+
 				integer* outSuccess = createScalar<integer>(outputSet[Success]);
 				*outSuccess = success ? 1 : 0;
 			}

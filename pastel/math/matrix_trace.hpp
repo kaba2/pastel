@@ -12,7 +12,7 @@ namespace Pastel
 	Real trace(
 		const MatrixExpression<Real, Expression>& matrix)
 	{
-		const integer n = matrix.width();
+		integer n = matrix.width();
 		const integer m = matrix.height();
 		const integer minSize = std::min(n, m);
 

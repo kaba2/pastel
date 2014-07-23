@@ -29,8 +29,9 @@ namespace Pastel
 		using Real = typename Locator::Real;
 		static PASTEL_CONSTEXPR int N = Locator::N;
 
-		const Sphere<Real, N> sceneSphere = boundingSphere(
+		Sphere<Real, N> sceneSphere = boundingSphere(
 			pointSet, locator);
+
 
 		return relativeMatchingDistance * 
 			sceneSphere.radius() / (2 * std::sqrt((Real)pointSet.size()));
@@ -96,7 +97,7 @@ namespace Pastel
 
 				// An upper bound for matching factor.
 
-				const Real matchingFactorUpperBound =
+				Real matchingFactorUpperBound =
 					std::sqrt(minMatchRatio_ /
 					(minMatchRatio_ + (std::sqrt((Real)5) - 1)));
 
@@ -108,10 +109,12 @@ namespace Pastel
 
 				const Real kSuggestion =
 					std::log((Real)modelPoints_) /
+
 					(2 * square(minMatchRatio - square(relativeMatchingDistance) / 4));
-				const Real k2Suggestion =
+				Real k2Suggestion =
 					std::log((Real)0.05) / std::log(1 - minMatchRatio);
 				const Real k3Suggestion =
+
 					2 * relativeMatchingDistance * std::sqrt(kSuggestion / constantPi<Real>());
 
 				// We need to find at least one neighbor.
@@ -185,7 +188,7 @@ namespace Pastel
 				
 				// We only need those points randomized
 				// which we are going to use as a pivot point.
-				const integer modelPointsToTest = 
+				integer modelPointsToTest = 
 					std::ceil(clamp(
 					std::log(1 - confidence_) / 
 					std::log(1 - minMatchRatio_), 
@@ -235,6 +238,7 @@ namespace Pastel
 							// result.
 
 							integer t = 0;
+
 							auto nearestOutput = [&](
 								const Real& distance,
 								SceneIterator point)
@@ -344,7 +348,7 @@ namespace Pastel
 				// respectively. Thus to access the k:th nearest
 				// neighbour, one uses modelSet[k] and sceneSet[k].
 
-				const Vector<Real, N> modelPoint =
+				Vector<Real, N> modelPoint =
 					modelPosition(modelSet[0]);
 				const Vector<Real, N> scenePoint =
 					scenePosition(sceneSet[0]);
@@ -378,6 +382,7 @@ namespace Pastel
 							// if the distance between M' and S is below
 							// the matching threshold.
 							// However, the paper suggest the use of
+
 							// 2 * matchingDistance.
 							if (closestScenePoint.first <= 2 * matchingDistance_)
 							{
@@ -520,7 +525,7 @@ namespace Pastel
 		private:
 			const SceneTree& sceneTree_;
 			const ModelTree& modelTree_;
-			const Real minMatchRatio_;
+			Real minMatchRatio_;
 			const Real confidence_;
 			const integer scenePoints_;
 			const integer modelPoints_;
@@ -543,6 +548,7 @@ namespace Pastel
 		typename Model_Settings, template <typename> class Model_Customization,
 		typename Real>
 	bool pointPatternMatch(
+
 		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
 		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
@@ -569,7 +575,8 @@ namespace Pastel
 			relativeMatchingDistance,
 			confidence);
 
-		const bool succeeded = patternMatcher(similarityResult);
+		bool succeeded = patternMatcher(similarityResult);
+
 
 		/*
 		log() << "Local tries = " << patternMatcher.localTries() << logNewLine;

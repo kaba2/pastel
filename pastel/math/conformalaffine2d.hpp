@@ -47,12 +47,14 @@ namespace Pastel
 		// It could be that '&that == this' and therefore
 		// we should be careful about the order of the operations.
 
-		const Real c = std::cos(rotation_);
+		Real c = std::cos(rotation_);
 		const Real s = std::sin(rotation_);
 		const Real xNew = 
+
 			scaling_ * (c * that.translation_[0] - s * that.translation_[1]) + 
 			translation_[0];
-		const Real yNew = 
+		Real yNew = 
+
 			scaling_ * (s * that.translation_[0] + c * that.translation_[1]) + 
 			translation_[1];
 

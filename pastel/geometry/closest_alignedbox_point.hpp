@@ -16,7 +16,7 @@ namespace Pastel
 		const Vector<Real, N>& min = box.min();
 		const Vector<Real, N>& max = box.max();
 
-		const integer n = point.size();
+		integer n = point.size();
 		
 		for (integer i = 0;i < n;++i)
 		{
