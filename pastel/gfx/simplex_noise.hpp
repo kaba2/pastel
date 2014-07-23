@@ -22,7 +22,7 @@ namespace Pastel
 		Real d = std::sqrt((Real)n / (n + 1));
 		Real s = (c - 1) / n;
 		Real q = s / c;
-		const Real dInv = inverse(d);
+		Real dInv = inverse(d);
 
 		// Transform the point to the integer
 		// cube simplicial partitioning.

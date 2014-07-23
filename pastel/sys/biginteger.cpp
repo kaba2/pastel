@@ -843,7 +843,7 @@ namespace Pastel
 			return;
 		}
 
-		const integer thisSize = digits_.size();
+		integer thisSize = digits_.size();
 
 		DigitContainer result;
 		result.reserve(thisSize + byDigits);

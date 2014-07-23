@@ -45,7 +45,7 @@ namespace
 				Vector<real> qrSolution =
 					solveLinear(qr, b);
 
-				const real error = 
+				real error = 
 
 					norm(a * qrSolution  - b);
 

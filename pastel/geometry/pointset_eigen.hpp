@@ -56,7 +56,7 @@ namespace Pastel
 		Point_ConstIterator iterEnd = pointSet.end();
 		while(iter != iterEnd)
 		{
-			const Real y = dot(result, 
+			Real y = dot(result, 
 
 				pointAsVector(*iter, locator) - meanPoint);
 

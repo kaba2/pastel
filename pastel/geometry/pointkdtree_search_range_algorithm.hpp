@@ -98,7 +98,7 @@ namespace Pastel
 				Cursor right = cursor.right();
 
 				Real leftMin = left.min();
-				const Real leftMax = left.max();
+				Real leftMax = left.max();
 				const Real rightMin = right.min();
 				const Real rightMax = right.max();
 

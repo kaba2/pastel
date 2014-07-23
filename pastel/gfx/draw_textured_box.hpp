@@ -41,7 +41,7 @@ namespace Pastel
 
 		Vector2 textureDelta = textureBox.extent();
 		Vector2 duvDxy = textureDelta / delta;
-		const Vector2 uvMin = textureBox.min() + 
+		Vector2 uvMin = textureBox.min() + 
 
 			((Vector2(discreteBox.min()) + 0.5) - box.min()) * duvDxy;
 

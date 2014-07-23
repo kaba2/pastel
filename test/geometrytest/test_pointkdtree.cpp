@@ -227,7 +227,7 @@ namespace
 
 		void test()
 		{
-			const integer m = 10000;
+			integer m = 10000;
 
 			std::vector<Vector2> pointSet;
 			pointSet.reserve(m);

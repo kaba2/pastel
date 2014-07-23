@@ -28,7 +28,7 @@ namespace Pastel
 
 		AlignedBox2i elementWindow(
 			x, y, x + elementWidth, y + elementHeight);
-		const AlignedBox2i imageWindow(
+		AlignedBox2i imageWindow(
 			0, 0, width, height);
 
 		AlignedBox2i clippedWindow;

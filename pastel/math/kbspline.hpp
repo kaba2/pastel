@@ -27,7 +27,7 @@ namespace Pastel
 		Real mContinuity(1 - continuity);
 		Real pContinuity(1 + continuity);
 
-		const Real baFactor1 =
+		Real baFactor1 =
 
 			mTension * pBias *
 			mContinuity * Real(0.5);

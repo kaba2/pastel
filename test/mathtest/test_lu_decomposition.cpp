@@ -88,7 +88,7 @@ namespace
 					1, 2, 3,
 					4, 5, 6,
 					7, 8, 9));
-				const Matrix<Real> correctPackedLu =
+				Matrix<Real> correctPackedLu =
 					matrix3x3<Real>(
 					7, 8, 9,
 					Real(1, 7), Real(6, 7), Real(12, 7),

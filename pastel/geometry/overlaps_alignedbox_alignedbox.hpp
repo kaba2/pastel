@@ -89,7 +89,7 @@ namespace Pastel
 
 			// This is actually
 			// projectedVelocity = dot(deltaVelocity[i], unitAxis(i));
-			const Real projectedVelocity = bVelocity[i];
+			Real projectedVelocity = bVelocity[i];
 
 			// EPSILON
 			if (projectedVelocity == 0)

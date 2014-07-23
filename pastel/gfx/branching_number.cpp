@@ -231,7 +231,7 @@ namespace Pastel
 
 		if (width > 1)
 		{
-			const integer x = width - 1;
+			integer x = width - 1;
 			for (integer y = 1; y < height - 1;++y)
 			{
 				if (image(x, y))
@@ -317,7 +317,7 @@ namespace Pastel
 			// Right-top corner
 			{
 				integer x = width - 1;
-				const integer y = height - 1;
+				integer y = height - 1;
 
 				if (image(x, y))
 				{

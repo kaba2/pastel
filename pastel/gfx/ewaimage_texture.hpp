@@ -232,7 +232,7 @@ namespace Pastel
 		// Otherwise we interpolate the results of the two
 		// image levels.
 
-		const integer detailLevel = std::floor(level);
+		integer detailLevel = std::floor(level);
 
 		const Array<Type, 2>& detailImage = (*mipMap_)(detailLevel);
 		Type detailSample =
