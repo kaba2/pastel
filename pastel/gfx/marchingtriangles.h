@@ -82,7 +82,7 @@ namespace Pastel
 			{
 				Vector2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Vector2 bcPosition =
+				Vector2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -93,9 +93,9 @@ namespace Pastel
 			break;
 		case 5:
 			{
-				const Vector2 bcPosition =
+				Vector2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);
-				const Vector2 acPosition =
+				Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -111,9 +111,9 @@ namespace Pastel
 			break;
 		case 6:
 			{
-				const Vector2 abPosition =
+				Vector2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Vector2 acPosition =
+				Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -141,6 +141,7 @@ namespace Pastel
 
 	template <typename Real, typename Type>
 	void marchingTriangles(
+
 
 		const Array<Real, 2>& value,
 		const AlignedBox2& window,

@@ -290,13 +290,13 @@ namespace Pastel
 			Real bProjectedCenter =
 				box.position()[i];
 
-			const Real aMin = aProjectedCenter - aProjectedRadius;
-			const Real aMax = aProjectedCenter + aProjectedRadius;
-			const Real bMin = bProjectedCenter - bProjectedRadius;
-			const Real bMax = bProjectedCenter + bProjectedRadius;
+			Real aMin = aProjectedCenter - aProjectedRadius;
+			Real aMax = aProjectedCenter + aProjectedRadius;
+			Real bMin = bProjectedCenter - bProjectedRadius;
+			Real bMax = bProjectedCenter + bProjectedRadius;
 
-			const Real projectedIntersectionMin = std::max(aMin, bMin);
-			const Real projectedIntersectionMax = std::min(aMax, bMax);
+			Real projectedIntersectionMin = std::max(aMin, bMin);
+			Real projectedIntersectionMax = std::min(aMax, bMax);
 
 			someCommonPoint[i] =
 				linear(projectedIntersectionMin, projectedIntersectionMax, 0.5);
@@ -311,7 +311,7 @@ namespace Pastel
 			// projection of the aligned box's extremal
 			// point on this box axis.
 
-			const Real aProjectedRadius =
+			Real aProjectedRadius =
 
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1];

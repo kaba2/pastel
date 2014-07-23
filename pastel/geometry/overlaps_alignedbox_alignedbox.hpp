@@ -103,7 +103,7 @@ namespace Pastel
 			else
 			{
 				Real t1 = (aMax - bMin) / projectedVelocity;
-				const Real t2 = (aMin - bMax) / projectedVelocity;
+				Real t2 = (aMin - bMax) / projectedVelocity;
 
 				Real tStart = t2;
 				Real tEnd = t1;
