@@ -51,7 +51,7 @@ namespace Pastel
 
 	private:
 		Contained_ConstView view_;
-		const Element border_;
+		Element border_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>

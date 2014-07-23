@@ -170,7 +170,7 @@ namespace Pastel
 		Polynomial result(size() + that.size());
 
 		integer n = size();
-		const integer m = that.size();
+		integer m = that.size();
 
 		for (integer i = 0;i < n;++i)
 		{
@@ -237,7 +237,7 @@ namespace Pastel
 		const Polynomial& that) const
 	{
 		integer n = degree();
-		const integer m = that.degree();
+		integer m = that.degree();
 
 		if (n != m)
 		{

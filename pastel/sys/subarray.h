@@ -227,7 +227,7 @@ namespace Pastel
 			Vector<integer, Smaller> sliceExtent(
 				shrink(extent_, axis));
 
-			const Vector<integer, Smaller> sliceStride(
+			Vector<integer, Smaller> sliceStride(
 				shrink(stride_, axis));
 
 			const SubArray<Type, Smaller> result(

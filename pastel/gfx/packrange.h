@@ -98,7 +98,7 @@ namespace Pastel
 		minMax(image, minValue, maxValue);
 
 		Real valueDelta = maxValue - minValue;
-		const Real newValueDelta = newMax - newMin;
+		Real newValueDelta = newMax - newMin;
 		if (valueDelta == 0 || newValueDelta == 0)
 		{
 			clear(newMax, image);

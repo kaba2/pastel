@@ -20,7 +20,7 @@ namespace Pastel
 
 		Real centerDistance2 =
 			dot(bSphere.position() - aSphere.position());
-		const Real radiusSum2 =
+		Real radiusSum2 =
 			square(aSphere.radius() + bSphere.radius());
 
 		if (centerDistance2 >= radiusSum2)

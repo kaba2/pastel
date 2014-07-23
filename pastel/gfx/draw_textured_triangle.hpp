@@ -139,7 +139,7 @@ namespace Pastel
 		integer yMax = toPixelSpanPoint(yMaxVertex.y_);
 
 		integer width = image.width();
-		const integer height = image.height();
+		integer height = image.height();
 
 		if (xMax <= 0 || xMin >= width ||
 			yMax <= 0 || yMin >= height)
@@ -312,7 +312,7 @@ namespace Pastel
 		{
 			real yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			const real dx =
+			real dx =
 				yMidVertex.x_ -
 
 				(yMinVertex.x_ + dxLeftDy * yDelta);
@@ -330,7 +330,7 @@ namespace Pastel
 		{
 			real yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			const real dx =
+			real dx =
 
 				(yMinVertex.x_ + dxRightDy * yDelta) -
 				yMidVertex.x_;
@@ -352,7 +352,7 @@ namespace Pastel
 		{
 			real xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			const real dy =
+			real dy =
 				xMidVertex.y_ -
 
 				(xMinVertex.y_ + dyBottomDx * xDelta);
@@ -370,7 +370,7 @@ namespace Pastel
 		{
 			real xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			const real dy =
+			real dy =
 
 				(xMinVertex.y_ + dyTopDx * xDelta) -
 				xMidVertex.y_;
@@ -390,7 +390,7 @@ namespace Pastel
 		for (integer y = yMin;y < yMid;++y)
 		{
 			integer xBegin = std::max(toPixelSpanPoint(xLeft), (integer)0);
-			const integer xEnd = std::min(toPixelSpanPoint(xRight), width);
+			integer xEnd = std::min(toPixelSpanPoint(xRight), width);
 
 			if (xEnd - xBegin > 0)
 			{
@@ -477,7 +477,7 @@ namespace Pastel
 		for (integer y = yMid;y < yMax;++y)
 		{
 			integer xBegin = std::max(toPixelSpanPoint(xLeft), (integer)0);
-			const integer xEnd = std::min(toPixelSpanPoint(xRight), width);
+			integer xEnd = std::min(toPixelSpanPoint(xRight), width);
 
 			if (xEnd - xBegin > 0)
 			{

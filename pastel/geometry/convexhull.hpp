@@ -64,7 +64,7 @@ namespace Pastel
 		// Scan the upper hull.
 
 		ConstIterator from(orderedSet.begin());
-		const ConstIterator to(orderedSet.end());
+		ConstIterator to(orderedSet.end());
 		ConstIterator current(from);
 
 		integer points = 0;

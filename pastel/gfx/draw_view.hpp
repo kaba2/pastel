@@ -51,7 +51,7 @@ namespace Pastel
 	{
 		AlignedBox<integer, N> textureBox(
 			position, position + texture.extent());
-		const AlignedBox<integer, N> imageBox(
+		AlignedBox<integer, N> imageBox(
 			Vector<integer, N>(0), image.extent());
 
 		AlignedBox<integer, N> clippedTextureBox;

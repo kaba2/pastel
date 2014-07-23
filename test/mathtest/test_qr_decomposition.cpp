@@ -32,7 +32,7 @@ namespace
 		{
 			integer n = 10;
 
-			const integer attempts = 10000;
+			integer attempts = 10000;
 			integer errorCount = 0;
 
 			for (integer i = 0;i < attempts;++i)

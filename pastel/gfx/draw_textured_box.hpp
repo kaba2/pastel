@@ -25,7 +25,7 @@ namespace Pastel
 	{
 		Vector2 delta = box.extent();
 
-		const AlignedBox2i discreteBox(
+		AlignedBox2i discreteBox(
 			toPixelSpanPoint(box.min()), 
 			toPixelSpanPoint(box.max()));
 
@@ -54,7 +54,7 @@ namespace Pastel
 		Cursor yCursor = image.cursor(clippedBox.min());
 
 		integer width = clippedBox.extent()[0];
-		const integer height = clippedBox.extent()[1];
+		integer height = clippedBox.extent()[1];
 
 		for (integer y = 0; y < height;++y)
 		{

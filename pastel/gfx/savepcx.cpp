@@ -83,7 +83,7 @@ namespace Pastel
 		}
 
 		integer width = image.extent().x();
-		const integer height = image.extent().y();
+		integer height = image.extent().y();
 
 		const integer bytesPerScanlinePerPlane =
 			roundUpToEven((width + 7) / 8);
@@ -191,7 +191,7 @@ namespace Pastel
 		}
 
 		integer width = image.extent().x();
-		const integer height = image.extent().y();
+		integer height = image.extent().y();
 
 		PcxHeader pcxHeader;
 
@@ -258,7 +258,7 @@ namespace Pastel
 
 		for (integer i = 0;i < colorsToWrite;++i)
 		{
-			const Color color = fitColor(colorPalette[i]);
+			Color color = fitColor(colorPalette[i]);
 
 			const uint8 red = quantizeUnsigned(color[0], 256);
 			const uint8 green = quantizeUnsigned(color[1], 256);
@@ -316,7 +316,7 @@ namespace Pastel
 		}
 
 		integer width = image.extent().x();
-		const integer height = image.extent().y();
+		integer height = image.extent().y();
 
 		PcxHeader pcxHeader;
 

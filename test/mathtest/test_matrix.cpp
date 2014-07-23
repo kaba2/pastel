@@ -434,7 +434,7 @@ namespace
 		void testSubMatrix()
 		{
 			integer width = 4;
-			const integer height = 4;
+			integer height = 4;
 
 			Matrix<real32> a(height, width);
 			for (integer y = 0;y < height;++y)
@@ -713,7 +713,7 @@ namespace
 		void testInverse()
 		{
 			integer n = 10;
-			const integer matrices = 100;
+			integer matrices = 100;
 
 			integer count = 0;
 
@@ -743,7 +743,7 @@ namespace
 		void testMatrixMultiply()
 		{
 			integer n = 10;
-			const integer matrices = 100;
+			integer matrices = 100;
 
 			integer count = 0;
 
@@ -766,7 +766,7 @@ namespace
 				VectorD result3 = v * a;
 
 				real error1 = norm(result1 - result2);
-				const real error2 = norm(result3 - result2);
+				real error2 = norm(result3 - result2);
 				if (error1 > 0.001 ||
 					error2 > 0.001)
 				{
@@ -826,7 +826,7 @@ namespace
 		void testMatrixSolve()
 		{
 			integer iterations = 100;
-			const integer n = 10;
+			integer n = 10;
 
 			integer count = 0;
 

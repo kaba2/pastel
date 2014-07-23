@@ -34,7 +34,7 @@ namespace Pastel
 		// The radius is not affected by a
 		// rotation.
 
-		const Sphere<Real, N> transformedSphere(
+		Sphere<Real, N> transformedSphere(
 
 			(sphere.position() - box.position()) *
 			boxRotationInverse,

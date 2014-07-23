@@ -35,7 +35,7 @@ namespace
 		void testRandom()
 		{
 			integer n = 100;
-			const integer vertices = 100;
+			integer vertices = 100;
 			const integer maxEdges = square(vertices);
 
 			// Generate all edges.

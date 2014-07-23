@@ -94,7 +94,7 @@ namespace Pastel
 					while(!currentNode.leaf())
 					{
 						Real splitPosition = currentNode.splitPosition();
-						const integer splitAxis = currentNode.splitAxis();
+						integer splitAxis = currentNode.splitAxis();
 
 						if (minPosition[splitAxis] <= splitPosition)
 						{

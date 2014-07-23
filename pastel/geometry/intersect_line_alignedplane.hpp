@@ -16,7 +16,7 @@ namespace Pastel
 	{
 		Real result(
 			alignedPlane.position() - line.position()[alignedPlane.axis()]);
-		const Real divider(
+		Real divider(
 			line.direction()[alignedPlane.axis()]);
 
 		// EPSILON

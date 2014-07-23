@@ -158,7 +158,7 @@ namespace Pastel
 
 			data_.setExtent(Vector2i(newWidth, newHeight), 0);
 
-			const integer newMinSize = std::min(newWidth, newHeight);
+			integer newMinSize = std::min(newWidth, newHeight);
 
 			for (integer i = oldMinSize;i < newMinSize;++i)
 			{
@@ -494,7 +494,7 @@ namespace Pastel
 			{
 				// We can copy the values directly.
 				integer m = height();
-				const integer n = width();
+				integer n = width();
 				Iterator iter = begin();
 
 				for (integer i = 0;i < m;++i)
@@ -541,7 +541,7 @@ namespace Pastel
 			else
 			{
 				integer m = height();
-				const integer n = width();
+				integer n = width();
 				Iterator iter = begin();
 
 				for (integer i = 0;i < m;++i)
@@ -573,7 +573,7 @@ namespace Pastel
 			else
 			{
 				integer m = height();
-				const integer n = width();
+				integer n = width();
 				Iterator iter = begin();
 
 				for (integer i = 0;i < m;++i)

@@ -50,7 +50,7 @@ namespace Pastel
 		}
 
 		// Compute the midpoint.
-		const Vector<Real, N> midPoint = 
+		Vector<Real, N> midPoint = 
 			pointSetMean(pointSet, locator);
 
 		// Compute the maximum distance from the midpoint.

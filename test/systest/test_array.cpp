@@ -77,7 +77,7 @@ namespace
 			}
 
 			integer width = left.width();
-			const integer height = left.height();
+			integer height = left.height();
 			for (integer y = 0;y < height;++y)
 			{
 				for (integer x = 0;x < width;++x)
@@ -159,7 +159,7 @@ namespace
 		void print(const Array<integer, 2>& that)
 		{
 			integer height = that.height();
-			const integer width = that.width();
+			integer width = that.width();
 			for (integer y = 0;y < height;++y)
 			{
 				for (integer x = 0;x < width;++x)

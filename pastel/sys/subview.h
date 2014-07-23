@@ -55,7 +55,7 @@ namespace Pastel
 
 	protected:
 		Contained_ConstView view_;
-		const AlignedBox<integer, N> window_;
+		AlignedBox<integer, N> window_;
 		const Vector<integer, N> extent_;
 	};
 

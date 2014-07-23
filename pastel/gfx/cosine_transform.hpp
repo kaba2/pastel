@@ -79,7 +79,7 @@ namespace Pastel
 
 			Real UnitScaling = 
 				Orthogonal ? std::sqrt(2 / (Real)n) : 1;
-			const Real FirstScaling =
+			Real FirstScaling =
 				Orthogonal ? inverse(std::sqrt((Real)n)) : 1;
 			const Real NthRootAngle = 
 
@@ -123,7 +123,7 @@ namespace Pastel
 					
 					// 2D dcts
 					Complex b0(a0 - a3);
-					const Complex b1(a1 - a2);
+					Complex b1(a1 - a2);
 					const Complex b2(a0 + a3);
 					const Complex b3(a1 + a2);
 					

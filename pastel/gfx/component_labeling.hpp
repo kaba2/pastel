@@ -15,7 +15,7 @@ namespace Pastel
 		const View<2, uint32, Result_View>& result)
 	{
 		integer width = image.width();
-		const integer height = image.height();
+		integer height = image.height();
 
 		result.setExtent(width, height);
 

@@ -63,7 +63,7 @@ namespace Pastel
 					integer leftVertices = leftSet_.size();
 					for (integer i = 0;i < leftVertices;++i)
 					{
-						const integer leftIndex = leftSet_[i];
+						integer leftIndex = leftSet_[i];
 
 						Vertex& left = vertexSet_[leftIndex];
 						if (!left.paired())
@@ -79,7 +79,7 @@ namespace Pastel
 				integer leftVertices = leftSet_.size();
 				for (integer i = 0;i < leftVertices;++i)
 				{
-					const integer leftIndex = leftSet_[i];
+					integer leftIndex = leftSet_[i];
 
 					Vertex& left = vertexSet_[leftIndex];
 					if (left.paired())
@@ -101,7 +101,7 @@ namespace Pastel
 
 				vertexSet_[Sentinel].unvisit();
 
-				const integer leftVertices = leftSet_.size();
+				integer leftVertices = leftSet_.size();
 				for (integer i = 0;i < leftVertices;++i)
 				{
 					const integer leftIndex = leftSet_[i];
@@ -201,7 +201,7 @@ namespace Pastel
 						if (flipPossibleAugmentingPath(nextLeftIndex))
 						{
 							right.setPair(leftIndex);
-							const integer rightIndex = 
+							integer rightIndex = 
 								left.edge(i);
 							left.setPair(rightIndex);
 

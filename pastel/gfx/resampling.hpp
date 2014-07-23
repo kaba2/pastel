@@ -53,7 +53,7 @@ namespace Pastel
 		ENSURE_OP(blurFactor, >=, 1);
 
 		integer inputWidth = inputSet.size();
-		const integer outputWidth = outputSet.size();
+		integer outputWidth = outputSet.size();
 
 		if (inputWidth == 0 ||
 			outputWidth == 0)
@@ -81,7 +81,7 @@ namespace Pastel
 			clamp(
 			(integer)std::ceil((filterRadius - xFilter) / xStep) + 1,
 			0, outputWidth);
-		const integer mainEnd =
+		integer mainEnd =
 			clamp(outputWidth - introEnd, 
 			introEnd, outputWidth);
 
@@ -155,7 +155,7 @@ namespace Pastel
 		ENSURE_OP(blurFactor, >=, 1);
 
 		integer inputWidth = input.width();
-		const integer outputWidth = output.width();
+		integer outputWidth = output.width();
 
 		if (inputWidth == 0 ||
 			outputWidth == 0)
@@ -192,7 +192,7 @@ namespace Pastel
 			clamp(
 			(integer)std::ceil((filterRadius - xFilter) / xStep) + 1,
 			0, outputWidth);
-		const integer mainEnd =
+		integer mainEnd =
 			clamp(outputWidth - introEnd, 
 			introEnd, outputWidth);
 
@@ -233,7 +233,7 @@ namespace Pastel
 		{
 			integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
-			const integer rangeEnd =
+			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
 			real xLocalFilter = 
@@ -266,7 +266,7 @@ namespace Pastel
 		{
 			integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
-			const integer rangeEnd =
+			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
 			real xLocalFilter = 
@@ -430,7 +430,7 @@ namespace Pastel
 		{
 			ArrayExtender<1, Input_Element> arrayExtender1D(
 				arrayExtender.extender(0), arrayExtender.border());
-			const Resample_::ResampleFunctor<Computation_Element, Input_Element> 
+			Resample_::ResampleFunctor<Computation_Element, Input_Element> 
 				resampleFunctor(arrayExtender1D, filter, blurFactor);
 			visitRows(input, arrayView(tempArray), axisSet[0].axis_, resampleFunctor);
 		}

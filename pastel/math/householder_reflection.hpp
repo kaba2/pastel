@@ -18,7 +18,7 @@ namespace Pastel
 		ENSURE_OP(x.n(), ==, a.m());
 
 		integer m = a.m();
-		const integer n = a.n();
+		integer n = a.n();
 
 		// Let
 		// 

@@ -50,7 +50,7 @@ namespace Pastel
 
 	protected:
 		ViewConstCursor cursor_;
-		const Vector<integer, N> extent_;
+		Vector<integer, N> extent_;
 	};
 
 	template <int N, typename ViewConstCursor>

@@ -137,7 +137,7 @@ namespace Pastel
 								cross(left.end_.position_ -
 								left.start_.position_));
 
-							const Real onSide =
+							Real onSide =
 								side(right.start_.position_,
 								leftPlane);
 
@@ -320,7 +320,7 @@ namespace Pastel
 			// with the same vertex ids, the segment
 			// is only inserted once and removed once.
 
-			const integer segments = segment_.size();
+			integer segments = segment_.size();
 
 			incidence_.setBuckets(vertices);
 			exidence_.setBuckets(vertices);
@@ -552,7 +552,7 @@ namespace Pastel
 		{
 			for (integer j = 0;j < segments;++j)
 			{
-				const Integer2 iSegment = segment[i];
+				Integer2 iSegment = segment[i];
 				const Integer2 jSegment = segment[j];
 
 

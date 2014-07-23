@@ -826,7 +826,7 @@ namespace
 			std::list<integer> dataSet;
 
 			integer treeSizeSet[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100};
-			const integer treeSizes = sizeof(treeSizeSet) / sizeof(integer);
+			integer treeSizes = sizeof(treeSizeSet) / sizeof(integer);
 
 			for (integer k = 0;k < treeSizes;++k)
 			{

@@ -22,7 +22,7 @@ namespace Pastel
 			// Split along the longest dimension.
 
 			integer splitAxis = maxIndex(maxBound - minBound);
-			const Real splitPosition = linear(minBound[splitAxis], 
+			Real splitPosition = linear(minBound[splitAxis], 
 				maxBound[splitAxis], 0.5);
 
 			return std::make_pair(splitPosition, splitAxis);
@@ -124,7 +124,7 @@ namespace Pastel
 
 			Vector<Real, N> extent = maxBound - minBound;
 
-			const integer maxExtentAxis = maxIndex(extent);
+			integer maxExtentAxis = maxIndex(extent);
 			const Real maxExtent = extent[maxExtentAxis];
 
 			integer maxLegalSpreadAxis = 0;
@@ -246,7 +246,7 @@ namespace Pastel
 			}
 
 			Real costToTraverse = 1;
-			const Real costToIntersect = 80;
+			Real costToIntersect = 80;
 			const Real emptyScale = 0.85;
 
 			if (cursor.leaf())
@@ -381,7 +381,7 @@ namespace Pastel
 			if (!cursor.leaf())
 			{
 				Real splitPosition = cursor.splitPosition();
-				const integer splitAxis = cursor.splitAxis();
+				integer splitAxis = cursor.splitAxis();
 
 				AlignedBox<Real, N> negativeBound(bound);
 				negativeBound.max()[splitAxis] = splitPosition;

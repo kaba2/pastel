@@ -41,7 +41,7 @@ namespace
 					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
 
 				Vector2 aFrom(random<real>(), random<real>());
-				const Vector2 bFrom(random<real>(), random<real>());
+				Vector2 bFrom(random<real>(), random<real>());
 
 				const Vector2 aTo(transformPoint(transformation, aFrom));
 				const Vector2 bTo(transformPoint(transformation, bFrom));
@@ -93,7 +93,7 @@ namespace
 					Vector_Locator<real, 2>(),
 					Vector_Locator<real, 2>());
 
-				const real scalingDelta = absoluteError<real>(
+				real scalingDelta = absoluteError<real>(
 					matchedTransformation.scaling(), 
 					transformation.scaling());
 				const real angleDelta = absoluteError<real>(

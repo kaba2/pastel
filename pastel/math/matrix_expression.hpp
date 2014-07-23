@@ -63,7 +63,7 @@ namespace Pastel
 			PENSURE_OP(left.height(), ==, right.height());
 
 			integer leftWidth = width();
-			const integer leftHeight = height();
+			integer leftHeight = height();
 
 			for (integer y = 0;y < leftHeight;++y)
 			{
@@ -588,7 +588,7 @@ namespace Pastel
 
 	private:
 		integer m_;
-		const integer n_;
+		integer n_;
 		typename Expression::StorageType diagonal_;
 	};
 
@@ -644,7 +644,7 @@ namespace Pastel
 
 	private:
 		integer width_;
-		const integer height_;
+		integer height_;
 		const Real value_;
 	};
 

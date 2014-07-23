@@ -58,7 +58,7 @@ namespace Pastel
 
 	protected:
 		Contained_ConstView view_;
-		const Tuple<integer, N> permutation_;
+		Tuple<integer, N> permutation_;
 		const Vector<integer, N> extent_;
 	};
 

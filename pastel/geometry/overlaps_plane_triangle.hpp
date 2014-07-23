@@ -34,7 +34,7 @@ namespace Pastel
 			return true;
 		}
 
-		const Real d2(dot(plane.normal(),
+		Real d2(dot(plane.normal(),
 			triangle[1] - plane.position()));
 
 		// EPSILON

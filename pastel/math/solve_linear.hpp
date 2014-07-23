@@ -18,7 +18,7 @@ namespace Pastel
 		ENSURE_OP(b.size(), ==, a.height());
 
 		integer n = a.width();
-		const integer m = a.height();
+		integer m = a.height();
 
 		Matrix<Real> left(a);
 		Vector<Real, N> right(b);
@@ -88,7 +88,7 @@ namespace Pastel
 		ENSURE_OP(b.size(), ==, a.height());
 
 		integer n = a.width();
-		const integer m = a.height();
+		integer m = a.height();
 
 		Vector<Real, N> right = b;
 		
@@ -122,7 +122,7 @@ namespace Pastel
 		ENSURE_OP(b.size(), ==, a.height());
 
 		integer n = a.width();
-		const integer m = a.height();
+		integer m = a.height();
 
 		Vector<Real, N> right = b;
 		
@@ -175,7 +175,7 @@ namespace Pastel
 			// this loop, and for i in [j, n[
 			// when at the end of the loop.
 
-			const Real factor = right[j] / a(j, j);
+			Real factor = right[j] / a(j, j);
 			for (integer i = j - 1;i >= 0;--i)
 			{
 
@@ -215,7 +215,7 @@ namespace Pastel
 			// this loop, and for i in [j - 1, n[
 			// when at the end of the loop.
 
-			const Real factor = right[j];
+			Real factor = right[j];
 			for (integer i = j - 1;i >= 0;--i)
 			{
 

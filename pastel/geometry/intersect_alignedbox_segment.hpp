@@ -31,7 +31,7 @@ namespace Pastel
 			return false;
 		}
 
-		const Real tMin = std::max(tRange[0], Real(0));
+		Real tMin = std::max(tRange[0], Real(0));
 		const Real tMax = std::min(tRange[1], Real(1));
 
 		result.set(

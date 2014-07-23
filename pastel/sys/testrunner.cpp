@@ -174,7 +174,7 @@ namespace Pastel
 			}
 			else
 			{
-				const bool result = runPrefix(prefix + trimmedInput);
+				bool result = runPrefix(prefix + trimmedInput);
 				if (!result)
 				{
 					cout << "No such keyword or test(s) found." << endl;

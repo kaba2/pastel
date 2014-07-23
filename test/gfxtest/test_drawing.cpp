@@ -32,7 +32,7 @@ namespace
 	void testTextureCase(const Texture<Color>& texture)
 	{
 		integer width = 512;
-		const integer height = 512;
+		integer height = 512;
 		Array<Color> image(Vector2i(width, height));
 
 		drawBox(
@@ -168,7 +168,7 @@ namespace
 
 	void testEwaPerspectiveTriangle()
 	{
-		const integer superSample = 4;
+		integer superSample = 4;
 
 		const integer width = 512 * superSample;
 		const integer height = 512 * superSample;
@@ -257,7 +257,7 @@ namespace
 
 		//log() << "Rendering.." << logNewLine;
 
-		const AlignedBox2 region(
+		AlignedBox2 region(
 			Vector2(-100, -100),
 			Vector2(600, 600));
 
@@ -412,7 +412,7 @@ namespace
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(b, 19.5));
 
-		const Vector2 c(-50, 480);
+		Vector2 c(-50, 480);
 
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(c, 200));
@@ -474,7 +474,7 @@ namespace
 	void testEvenMoreLines()
 	{
 		integer XLines = 5;
-		const integer YLines = 5;
+		integer YLines = 5;
 		const integer BoxWidth = 100;
 		const integer BoxHeight = 25;
 		const integer Border = 10;

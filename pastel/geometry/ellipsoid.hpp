@@ -143,7 +143,7 @@ namespace Pastel
 		Matrix<Real> invQuadraticForm =
 			inverse(quadraticForm);
 
-		const Vector<Real> radius = sqrt(diagonal(invQuadraticForm));
+		Vector<Real> radius = sqrt(diagonal(invQuadraticForm));
 
 		const AlignedBox<Real> bound(-radius, radius);
 

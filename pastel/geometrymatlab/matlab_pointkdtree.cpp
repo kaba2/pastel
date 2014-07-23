@@ -194,7 +194,7 @@ namespace Pastel
 			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
 
 			integer d = state->tree.n();
-			const integer n = idSet.size();
+			integer n = idSet.size();
 
 			using Locator = Tree::Locator;
 
@@ -365,7 +365,7 @@ namespace Pastel
 			integer dimension = tree.n();
 
 			Array<real> pointSet = asArray<real>(inputSet[PointSet]);
-			const integer points = pointSet.width();
+			integer points = pointSet.width();
 
 			Array<integer> result =
 				createArray<integer>(points, 1, outputSet[IdSet]);
@@ -418,7 +418,7 @@ namespace Pastel
 			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
 			{
-				const integer id = idSet(i);
+				integer id = idSet(i);
 				ConstIterator iter = 
 					state->indexMap.find(id);
 				if (iter != state->indexMap.end())

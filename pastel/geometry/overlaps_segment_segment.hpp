@@ -54,7 +54,7 @@ namespace Pastel
 			aSegment.start(),
 			cross(aSegment.end() - aSegment.start()));
 
-		const Plane<Real, 2> bPlane(
+		Plane<Real, 2> bPlane(
 			bSegment.start(),
 			cross(bSegment.end() - bSegment.start()));
 

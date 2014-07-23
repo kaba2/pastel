@@ -19,7 +19,7 @@ namespace Pastel
 
 		Real d2 = 
 			distance2(plane, sphere.position());
-		const Real radius2 =
+		Real radius2 =
 			square(sphere.radius());
 
 		if (d2 >= radius2)

@@ -77,7 +77,7 @@ namespace Pastel
 
 		private:
 			ConstView<N, Input_RingElement, Input_ConstView> inputView_;
-			const ConstView<N, Filter_RingElement, Filter_ConstView> filterView_;
+			ConstView<N, Filter_RingElement, Filter_ConstView> filterView_;
 			const View<N, Output_RingElement, Output_View> outputView_;
 			const ConvoluteProcessFunctor processFunctor_;
 		};
@@ -210,7 +210,7 @@ namespace Pastel
 		ConvoluteProcessFunctor& processFunctor)
 	{
 		integer width = inputView.width();
-		const integer height = inputView.height();
+		integer height = inputView.height();
 
 		ENSURE2(width == outputView.width(), width, outputView.width());
 		ENSURE2(height == outputView.height(), height, outputView.height());

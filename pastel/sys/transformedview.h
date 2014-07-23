@@ -60,7 +60,7 @@ namespace Pastel
 
 	protected:
 		Contained_ConstView view_;
-		const TransformFunctor transform_;
+		TransformFunctor transform_;
 	};
 
 	template <typename TransformFunctor, int N, typename Input_Element, typename Input_ConstView>

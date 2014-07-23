@@ -30,7 +30,7 @@ namespace Pastel
 			std::vector<Real> a(inputRange.begin(), inputRange.end());
 			std::vector<Real> b(n);
 
-			const Real InvSqrt2 = 
+			Real InvSqrt2 = 
 				inverse(std::sqrt((Real)2));
 		
 			integer k = n;
@@ -82,7 +82,7 @@ namespace Pastel
 			
 			ENSURE1(isPowerOfTwo(n), n);
 
-			const Real normalization =
+			Real normalization =
 				Orthogonal ? 
 				inverse(std::sqrt((Real)2)) : inverse((Real)2);
 			

@@ -50,7 +50,7 @@ namespace Pastel
 
 	protected:
 		Contained_ConstView view_;
-		const Vector<integer, N> pivot_;
+		Vector<integer, N> pivot_;
 		const Vector<integer, 1> extent_;
 		const integer freeIndex_;
 	};

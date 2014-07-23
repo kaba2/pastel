@@ -36,7 +36,7 @@ namespace
 				10, 11
 			};
 
-			const integer bSet[] = 
+			integer bSet[] = 
 			{
 				-1, -1,
 				0, 1,

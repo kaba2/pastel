@@ -14,7 +14,7 @@ namespace
 	void test1d()
 	{
 		integer Width = 400;
-		const integer Height = 80;
+		integer Height = 80;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);
@@ -37,7 +37,7 @@ namespace
 	void test2d()
 	{
 		integer Width = 400;
-		const integer Height = 400;
+		integer Height = 400;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);
@@ -61,7 +61,7 @@ namespace
 	void test3d()
 	{
 		integer Width = 400;
-		const integer Height = 400;
+		integer Height = 400;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);
@@ -85,7 +85,7 @@ namespace
 	void testSimplex2d()
 	{
 		integer Width = 512;
-		const integer Height = 512;
+		integer Height = 512;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);
@@ -109,7 +109,7 @@ namespace
 	void testSimplex3d()
 	{
 		integer Width = 512;
-		const integer Height = 512;
+		integer Height = 512;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);

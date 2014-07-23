@@ -29,7 +29,7 @@ namespace Pastel
 	{
 		++step_;
 		std::clock_t currentTime = std::clock();
-		const real elapsedSeconds =
+		real elapsedSeconds =
 			(currentTime - lastReportTime_) / CLOCKS_PER_SEC;
 		if (elapsedSeconds >= reportDelay_)
 		{

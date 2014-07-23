@@ -21,7 +21,7 @@ namespace Pastel
 		// f(x) = sQx
 
 		Real c = std::cos(transform.rotation());
-		const Real s = std::sin(transform.rotation());
+		Real s = std::sin(transform.rotation());
 		const Real xNew = 
 
 			transform.scaling() * (c * that[0] - s * that[1]);
@@ -124,7 +124,7 @@ namespace Pastel
 		// Find out the scaling.
 
 		Vector<Real, N> fromDelta = bFrom - aFrom;
-		const Real fromNorm = norm(fromDelta);
+		Real fromNorm = norm(fromDelta);
 		
 		// EPSILON
 		if (fromNorm == 0)

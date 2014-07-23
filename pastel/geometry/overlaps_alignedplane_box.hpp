@@ -39,7 +39,7 @@ namespace Pastel
 			radius += mabs(box.rotation()[i][plane.axis()]);
 		}
 
-		const Real centerDistance =
+		Real centerDistance =
 			mabs(box.position()[plane.axis()] - plane.position());
 
 		return centerDistance <= radius;

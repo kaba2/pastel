@@ -24,7 +24,7 @@ namespace Pastel
 				integer y)
 			{
 				integer elementWidth = element.width();
-				const integer elementHeight = element.height();
+				integer elementHeight = element.height();
 
 				for (integer i = 0;i < elementHeight;++i)
 				{
@@ -58,7 +58,7 @@ namespace Pastel
 		integer yPivot)
 	{
 		integer width = input.width();
-		const integer height = input.height();
+		integer height = input.height();
 
 		for (integer y = 0;y < height;++y)
 		{

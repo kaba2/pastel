@@ -25,7 +25,7 @@ namespace Pastel
 		
 		Real modifiedShape = (shape < 1) ? shape + 1 : shape;
 
-		const Real d = modifiedShape - (Real)1 / 3;
+		Real d = modifiedShape - (Real)1 / 3;
 
 		const Real c = 1 / std::sqrt(9 * d);
 
@@ -168,7 +168,7 @@ namespace Pastel
 
 		for (integer i = 0;i < maxIterations;++i)
 		{
-			const Real randExp = randomExponential<Real>();
+			Real randExp = randomExponential<Real>();
 			const Real randUni = random<Real>();
 
 			if (randUni < std::pow(randExp / std::exp(randExp + 1), alpha - 1))

@@ -43,7 +43,7 @@ namespace Pastel
 
 	protected:
 		Contained_ConstView view_;
-		const Adapter adapter_;
+		Adapter adapter_;
 		const Vector<integer, N> extent_;
 	};
 

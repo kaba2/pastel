@@ -203,7 +203,7 @@ namespace
 						.bucketSize(1);
 
 					real distance2 = result.first;
-					const Point_ConstIterator iter = result.second;
+					Point_ConstIterator iter = result.second;
 
 					//TEST_ENSURE(iter == iteratorSet[i]);
 					TEST_ENSURE(distance2 == 0);
@@ -396,7 +396,7 @@ namespace
 					.maxDistance(normBijection.toBijection(2.001));
 				TEST_ENSURE_OP(outerCount, ==, m);
 
-				const integer innerCount = countNearest(tree, Vector<real, N>(0))
+				integer innerCount = countNearest(tree, Vector<real, N>(0))
 					.maxDistance(normBijection.toBijection(1.999));
 				TEST_ENSURE_OP(innerCount, ==, 0);
 			}

@@ -55,7 +55,7 @@ namespace Pastel
 	inline Color fitColor(const Color& rgb)
 	{
 		Color clampedZero = max(rgb, 0);
-		const real32 maxComponent = max(clampedZero);
+		real32 maxComponent = max(clampedZero);
 
 		if (maxComponent > 1)
 		{

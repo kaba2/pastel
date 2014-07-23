@@ -56,7 +56,7 @@ namespace Pastel
 		Real maxDelta = 0;
 		for (integer i = 0;i < n;++i)
 		{
-			const Real y = 
+			Real y = 
 				(orderedSet[i] - mean) / deviation;
 			const Real fy = 
 				gaussianCdf<Real>(y);

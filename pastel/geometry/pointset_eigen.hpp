@@ -34,7 +34,7 @@ namespace Pastel
 			return Vector<Real, N>(ofDimension(n), 0);
 		}
 
-		const Vector<Real, N> meanPoint = 
+		Vector<Real, N> meanPoint = 
 			pointSetMean(pointSet, locator);
 
 		// We choose the initial approximation as
@@ -95,7 +95,7 @@ namespace Pastel
 		integer n = locator.n();
 		ENSURE_OP(n, !=, Dynamic);
 
-		const real beta = 1;
+		real beta = 1;
 		const Vector<Real> meanPoint = 
 			pointSetMean(pointSet, locator);
 

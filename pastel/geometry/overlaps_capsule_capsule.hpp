@@ -24,7 +24,7 @@ namespace Pastel
 			aCapsule.segment(),
 			bCapsule.segment());
 
-		const Real sumRadius2 = 
+		Real sumRadius2 = 
 			square(aCapsule.radius() + bCapsule.radius());
 
 		if (d2 >= sumRadius2)

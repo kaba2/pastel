@@ -25,7 +25,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& toMax)
 	{
 		Real fromDelta = fromMax - fromMin;
-		const Real toDelta = toMax - toMin;
+		Real toDelta = toMax - toMin;
 
 		return toMin + ((x - fromMin) / fromDelta) * toDelta;
 	}

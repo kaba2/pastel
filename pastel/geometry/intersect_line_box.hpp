@@ -29,7 +29,7 @@ namespace Pastel
 			box.position() -
 			line.position();
 
-		const integer dimension = line.n();
+		integer dimension = line.n();
 
 		for (integer i = 0;i < dimension;++i)
 		{

@@ -25,7 +25,7 @@ namespace Pastel
 	{
 		integer n = position.size();
 
-		const Vector<integer, N> floorPosition = floor(position);
+		Vector<integer, N> floorPosition = floor(position);
 		const Vector<Real, N> minDelta = position - Vector<Real, N>(floorPosition);
 		
 		// Find out the contribution of each vertex of the

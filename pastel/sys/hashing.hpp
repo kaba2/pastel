@@ -41,7 +41,7 @@ namespace Pastel
 		// This is 2^64 / [(1 + sqrt(5)) / 2].
 		// See the combineHash() function for
 		// 32-bit integers.
-		const Integer magic = 	
+		Integer magic = 	
 			0x4F1BBCDCBFA53E0Bull;
 
 		return left ^ (right + magic + 

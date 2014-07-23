@@ -224,7 +224,7 @@ namespace Pastel
 			}
 			++begin;
 
-			const integer end =
+			integer end =
 				that.find_first_of(endSymbol, begin);
 			if (end == std::string::npos)
 			{
@@ -364,7 +364,7 @@ namespace Pastel
 			integer length = text.size();
 			if (length < digits)
 			{
-				const integer toPad = digits - length;
+				integer toPad = digits - length;
 				for (integer i = 0;i < toPad;++i)
 				{
 					padText += padding;

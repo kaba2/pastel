@@ -56,7 +56,7 @@ namespace Pastel
 
 	private:
 		Contained_ConstView view_;
-		const Vector<integer, N> extent_;
+		Vector<integer, N> extent_;
 		const Vector<integer, N> doubleExtent_;
 	};
 

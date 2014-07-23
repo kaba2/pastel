@@ -22,7 +22,7 @@ namespace Pastel
 		// Gather all the neighboring 2^n samples.
 
 		integer n = uv.size();
-		const integer samples = 1 << n;
+		integer samples = 1 << n;
 
 		Vector<integer, N> x = floor(uv - 0.5);
 		Vector<real, N> st = (uv - 0.5) - Vector<real, N>(x);

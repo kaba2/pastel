@@ -46,7 +46,7 @@ namespace Pastel
 				mxGetPr(inputSet[SceneSet]);
 			integer scenePoints = 
 				mxGetN(inputSet[SceneSet]);
-			const real minMatchRatio = 
+			real minMatchRatio = 
 				asScalar<real>(inputSet[MinMatchRatio]);
 			const real relativeMatchingDistance = 
 				asScalar<real>(inputSet[RelativeMatchingDistance]);

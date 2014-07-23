@@ -471,7 +471,7 @@ namespace Pastel
 
 		Real r =
 			std::sqrt(uv[1]);
-		const Real theta =
+		Real theta =
 
 			2 * constantPi<Real>() * uv[0];
 
@@ -497,7 +497,7 @@ namespace Pastel
 
 		Real r =
 			std::pow(uv[0], (Real)1/3);
-		const Real phi =
+		Real phi =
 
 			std::acos(1 - 2 * uv[1]);
 		Real theta =
@@ -519,7 +519,7 @@ namespace Pastel
 		// uniformlySampleBall<2, Real>() function.
 
 		Real radius(norm(uv));
-		const Real theta(positiveRadians<Real>(std::atan2(uv[1], uv[0])));
+		Real theta(positiveRadians<Real>(std::atan2(uv[1], uv[0])));
 		const Real scaledTheta(
 			theta / (constantPi<Real>() / 4));
 

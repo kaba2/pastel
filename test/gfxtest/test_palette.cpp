@@ -24,7 +24,7 @@ namespace
 		const std::string& fileName)
 	{
 		integer colorWidth = 32;
-		const integer colorHeight = 32;
+		integer colorHeight = 32;
 
 
 		const integer width = colorWidth * 16;

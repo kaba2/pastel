@@ -39,7 +39,7 @@ namespace Pastel
 
 		private:
 			Vector<real, N> center_;
-			const Vector<real, N> radius_;
+			Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 		};
 
@@ -93,7 +93,7 @@ namespace Pastel
 
 		private:
 			Vector<real, N> center_;
-			const Vector<real, N> radius_;
+			Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 		};
 
@@ -149,7 +149,7 @@ namespace Pastel
 
 		private:
 			Vector<real, N> center_;
-			const Vector<real, N> radius_;
+			Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 			const real power_;
 		};
@@ -208,7 +208,7 @@ namespace Pastel
 
 		private:
 			Vector<real, N> center_;
-			const Vector<real, N> radius_;
+			Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 		};
 

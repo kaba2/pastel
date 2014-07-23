@@ -117,7 +117,7 @@ namespace Pastel
 		}
 		
 		real64 nInv = (real)1 / (n - 1);
-		const real64 nInv2 = square(nInv);
+		real64 nInv2 = square(nInv);
 
 		// Add in increasing order for accuracy.
 

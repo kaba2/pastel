@@ -28,7 +28,7 @@ namespace Pastel
 		std::vector<Real> hitSet(bins, 0);
 
 		Real_ConstIterator iter = dataSet.begin();
-		const Real_ConstIterator iterEnd = dataSet.end();
+		Real_ConstIterator iterEnd = dataSet.end();
 		integer samples = 0;
 
 		while(iter != iterEnd)
@@ -53,7 +53,7 @@ namespace Pastel
 
 		// Normalize the pdf to 1.
 
-		const Real binSize = (max - min) / bins;
+		Real binSize = (max - min) / bins;
 
 		const Real factor = (Real)1 / (samples * binSize);
 		for (integer i = 0;i < bins;++i)
@@ -81,7 +81,7 @@ namespace Pastel
 		ENSURE_OP(output.height(), >, 0);
 
 		Real xRangeDelta = xMax - xMin;
-		const Real yRangeDelta = yMax - yMin;
+		Real yRangeDelta = yMax - yMin;
 
 		const integer xBins = output.width();
 		const integer yBins = output.height();
@@ -114,7 +114,7 @@ namespace Pastel
 					yValue -= yMin;
 					yValue /= yRangeDelta;
 
-					const integer yBin = 
+					integer yBin = 
 						quantizeUnsigned(yValue, yBins);
 
 					++output(xBin, yBin);

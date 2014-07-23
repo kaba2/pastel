@@ -50,7 +50,7 @@ namespace
 	void testLinearLuminance()
 	{
 		real Width = 400;
-		const real Height = 100;
+		real Height = 100;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
 		const real32 Step = 1 / Width;
@@ -73,7 +73,7 @@ namespace
 	void testLinearLuma()
 	{
 		real Width = 400;
-		const real Height = 100;
+		real Height = 100;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
 		const real32 Step = 1 / Width;
@@ -95,7 +95,7 @@ namespace
 	void testLinearLightness()
 	{
 		real Width = 400;
-		const real Height = 100;
+		real Height = 100;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
 		const real32 Step = 100 / Width;

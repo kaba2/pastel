@@ -28,7 +28,7 @@ namespace Pastel
 			// lies beyond the i:th coordinate range
 			// of the aligned box.
 
-			const Real projectedDelta =
+			Real projectedDelta =
 				dot(point - box.position(), box.rotation()[i]);
 
 			if (projectedDelta <= -box.width()[i])

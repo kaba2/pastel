@@ -125,7 +125,7 @@ namespace Pastel
 		ENSURE(mxIsNumeric(that));
 
 		integer width = mxGetN(that);
-		const integer height = mxGetM(that);
+		integer height = mxGetM(that);
 
 		const integer n = width * height;
 
@@ -244,7 +244,7 @@ namespace Pastel
 			return n;
 		}
 
-		const integer m = n - offset;
+		integer m = n - offset;
 
 		switch(mxGetClassID(input))
 		{

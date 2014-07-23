@@ -28,7 +28,7 @@ namespace Pastel
 		
 		for (integer i = n - 1;i > 0;--i)
 		{
-			const integer k = order[i];
+			integer k = order[i];
 			result[k] = linearIndex / stride[k];
 
 			linearIndex -= result[k] * stride[k];

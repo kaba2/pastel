@@ -59,7 +59,7 @@ namespace Pastel
 
 		// Side b.
 
-		const Plane<Real, 2> bPlane(b, cross(c - b));
+		Plane<Real, 2> bPlane(b, cross(c - b));
 
 		if (intersect(line, bPlane, t))
 		{
@@ -130,7 +130,7 @@ namespace Pastel
 
 		Vector<Real, 3> e1 =
 			triangle[1] - triangle[0];
-		const Vector<Real, 3> e2 =
+		Vector<Real, 3> e2 =
 			triangle[2] - triangle[0];
 
 		const Vector<Real, 3> p =
@@ -163,7 +163,7 @@ namespace Pastel
 
 		Real f = inverse(a);
 
-		const Vector<Real, 3> s =
+		Vector<Real, 3> s =
 			line.position() - triangle[0];
 
 		const Real u = dot(s, p) * f;

@@ -121,7 +121,7 @@ namespace Pastel
 		real majorAxisLength2 = inverse(eigenValue[0]);
 		real minorAxisLength2 = inverse(eigenValue[eigenValue.size() - 1]);
 
-		const real eccentricity2 = majorAxisLength2/ minorAxisLength2;
+		real eccentricity2 = majorAxisLength2/ minorAxisLength2;
 
 		const real MaxEccentricity2 = square(30);
 		if (eccentricity2 > MaxEccentricity2)
@@ -145,7 +145,7 @@ namespace Pastel
 
 			Vector<real, N> aMajorAxisCandidate(
 				quadraticForm(1, 0), eigenValue[0] - quadraticForm(0, 0));
-			const Vector<real, N> bMajorAxisCandidate(
+			Vector<real, N> bMajorAxisCandidate(
 				eigenValue[0] - quadraticForm(1, 1), quadraticForm(1, 0));
 
 			Vector<real, N> majorAxis;
@@ -182,7 +182,7 @@ namespace Pastel
 		// in the more detailed image (note that it is half of the minor diameter).
 
 		real invLn2 = inverse(constantLn2<real>());
-		const real pixelsPerMinorAxis = 2;
+		real pixelsPerMinorAxis = 2;
 
 		const real level = 0.5 * std::log(minorAxisLength2 /
 			square(pixelsPerMinorAxis * filterRadius_)) * invLn2;
@@ -202,7 +202,7 @@ namespace Pastel
 		// Compute filter transition coefficient.
 
 		real transitionBegin = 0;
-		const real transitionEnd = 0.15;
+		real transitionEnd = 0.15;
 		const real transitionWidth = transitionEnd - transitionBegin;
 		const real normalizedLevel = level / (real)(mipMap_->levels() - 1);
 		const real tTransition = clamp((normalizedLevel - transitionBegin) / transitionWidth,
@@ -239,7 +239,7 @@ namespace Pastel
 			sampleEwa(p, quadraticForm, bound, (real)1 / (1 << detailLevel), tTransition,
 			detailImage);
 
-		const integer coarseLevel = detailLevel + 1;
+		integer coarseLevel = detailLevel + 1;
 
 		const Array<Type, 2>& coarseImage = (*mipMap_)(coarseLevel);
 		Type coarseSample =
@@ -291,7 +291,7 @@ namespace Pastel
 
 				if (fClamped < filterTableSize_)
 				{
-					const real weight = linear(maxFilterTable_[fClamped],
+					real weight = linear(maxFilterTable_[fClamped],
 						minFilterTable_[fClamped], tTransition);
 
 
