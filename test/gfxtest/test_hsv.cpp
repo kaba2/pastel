@@ -18,7 +18,7 @@ namespace
 		Array<Color, 2> image(Vector2i(Width, Height));
 
 		real32 HueStep = (real32)1 / Width;
-		const real32 SaturationStep = (real32)1 / Height;
+		real32 SaturationStep = (real32)1 / Height;
 
 		for (integer x = 0;x < Width;++x)
 		{

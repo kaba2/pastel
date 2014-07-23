@@ -149,7 +149,7 @@ namespace Pastel
 		
 		Vector<Real, Dynamic> w = solveLinear(a, b);
 
-		const ReconstructRbf_::ReconstructFunctor<Real, N, Data>
+		ReconstructRbf_::ReconstructFunctor<Real, N, Data>
 			reconstructFunctor(positionList, w, b, scaling, radialBasisFunction);
 		
 		visitPosition(view, reconstructFunctor);

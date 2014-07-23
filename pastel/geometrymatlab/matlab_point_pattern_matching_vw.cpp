@@ -50,7 +50,7 @@ namespace Pastel
 				asScalar<real>(inputSet[MinMatchRatio]);
 			real relativeMatchingDistance = 
 				asScalar<real>(inputSet[RelativeMatchingDistance]);
-			const real confidence =
+			real confidence =
 				asScalar<real>(inputSet[Confidence]);
 
 			ConformalAffine2D<real> similarity;

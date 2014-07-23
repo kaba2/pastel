@@ -70,7 +70,7 @@ namespace Pastel
 
 			if (image(0, y))
 			{
-				const integer below = result(0, y - 1);
+				integer below = result(0, y - 1);
 				if (below != NoComponent)
 				{
 					result(0, y) = below;

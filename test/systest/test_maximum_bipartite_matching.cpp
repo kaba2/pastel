@@ -51,7 +51,7 @@ namespace
 
 			for (integer i = 0;i < n;++i)
 			{
-				const integer edges =
+				integer edges =
 					randomInteger(maxEdges) + 1;
 				
 				randomSubset(

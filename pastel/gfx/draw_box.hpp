@@ -48,7 +48,7 @@ namespace Pastel
 		integer width = clippedBox.extent()[0];
 		integer height = clippedBox.extent()[1];
 
-		const Vector2 dp(
+		Vector2 dp(
 			inverse((real)width),
 			inverse((real)height));
 

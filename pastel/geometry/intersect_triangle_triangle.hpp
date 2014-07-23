@@ -66,7 +66,7 @@ namespace Pastel
 
 		AlignedBox<Real, 1> aInterval = 
 			projectAxis(aTriangle, line.direction());
-		const AlignedBox<Real, 1> bInterval = 
+		AlignedBox<Real, 1> bInterval = 
 			projectAxis(bTriangle, line.direction());
 
 		// If the parameter ranges intersect

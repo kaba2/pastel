@@ -724,7 +724,7 @@ namespace
 
 				Matrix<real> mInv = inverse(m);
 
-				const real leftError = 
+				real leftError = 
 
 					manhattanNorm(m * mInv - identityMatrix<real>(n, n));
 				real rightError = 
@@ -784,7 +784,7 @@ namespace
 			// which involves the matrix itself.
 
 			integer n = 10;
-			const integer matrices = 100;
+			integer matrices = 100;
 			for (integer i = 0;i < matrices;++i)
 			{
 				Matrix<real> a(n, n);
@@ -837,7 +837,7 @@ namespace
 
 				VectorD b(randomVectorCube<real, Dynamic>(n));
 
-				const VectorD x(solveLinear(a, b));
+				VectorD x(solveLinear(a, b));
 
 				const real error =
 

@@ -72,7 +72,7 @@ namespace Pastel
 		Vector<Real, N> minPoint = center - maxRadius;
 		Vector<Real, N> maxPoint = center + maxRadius;
 
-		const AlignedBox<Real, N> result(
+		AlignedBox<Real, N> result(
 			min(minPoint, box.min()),
 			max(maxPoint, box.max()));
 

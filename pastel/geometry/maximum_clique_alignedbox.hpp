@@ -267,7 +267,7 @@ namespace Pastel
 				// Note that maxCliqueSize is -1 in the
 				// sentinel node, so it does not always hold
 				// that rightDifference >= currentDifference.
-				const integer rightDifference =
+				integer rightDifference =
 					currentDifference +
 					iter.right().propagation().maxCliqueSize;
 
@@ -618,7 +618,7 @@ namespace Pastel
 					e.box->maxTopology()[x] == Topology::Closed ?
 					EventType::ClosedMax : EventType::OpenMax;
 
-				const Event maxEvent(
+				Event maxEvent(
 					e.box->max()[x], e.index, maxType, e.box);
 
 				if (e.min())
@@ -653,7 +653,7 @@ namespace Pastel
 							Real xMaxNew = cliqueIter.key().position;
 
 							Real yMinNew = e.position;
-							const Real yMaxNew = eventSet[i + 1].position;
+							Real yMaxNew = eventSet[i + 1].position;
 
 							const Real width = xMaxNew - xMinNew;
 							const Real height = yMaxNew - yMinNew;

@@ -791,7 +791,7 @@ namespace Pastel
 
 		for (integer i = 0;i < rightSize;++i)
 		{
-			const int32 digit = 
+			int32 digit = 
 				(int32)result[i] - 
 				(int32)right[i] - 
 				(int32)borrow;

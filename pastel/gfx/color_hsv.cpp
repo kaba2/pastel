@@ -13,7 +13,7 @@ namespace Pastel
 		integer indexMax = maxIndex(rgb);
 
 		real32 rgbMin = rgb[indexMin];
-		const real32 rgbMax = rgb[indexMax];
+		real32 rgbMax = rgb[indexMax];
 
 		const real32 scale = (real32)1 / 6;
 

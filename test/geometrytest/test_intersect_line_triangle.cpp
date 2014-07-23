@@ -49,7 +49,7 @@ namespace
 				Vector<Real, 2>(0, 4),
 				Vector<Real, 2>(1, -1));
 
-			const Line<Real, 2> c(
+			Line<Real, 2> c(
 				Vector<Real, 2>(2, -1),
 				Vector<Real, 2>(0, 2));
 
@@ -110,7 +110,7 @@ namespace
 				Vector<Real, 2>(1, -1),
 				Vector<Real, 2>(2, 0));
 
-			const Line<Real, 2> c(
+			Line<Real, 2> c(
 				Vector<Real, 2>(2, -4),
 				Vector<Real, 2>(0, 2));
 
@@ -192,7 +192,7 @@ namespace
 				Vector<Real, 3>(2, 1, 0),
 				Vector<Real, 3>(0, 0, 1));
 
-			const Line<Real, 3> c(
+			Line<Real, 3> c(
 				Vector<Real, 3>(3, 1, 0),
 				Vector<Real, 3>(0, 0, 1));
 

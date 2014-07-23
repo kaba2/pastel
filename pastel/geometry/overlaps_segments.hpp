@@ -161,7 +161,7 @@ namespace Pastel
 								cross(right.end_.position_ -
 								right.start_.position_));
 
-							const Real onSide =
+							Real onSide =
 								side(left.start_.position_,
 								rightPlane);
 
@@ -328,7 +328,7 @@ namespace Pastel
 			for (integer i = 0;i < segments;++i)
 			{
 				integer startId = segment_[i][0];
-				const integer endId = segment_[i][1];
+				integer endId = segment_[i][1];
 
 				const EventPoint start(
 					segment_[i][0],

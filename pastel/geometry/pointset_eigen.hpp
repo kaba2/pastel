@@ -46,7 +46,7 @@ namespace Pastel
 		Vector<Real, N> axisVariance = 
 			pointSetVariance(pointSet, meanPoint, locator);
 
-		const integer initialAxis = maxIndex(axisVariance);
+		integer initialAxis = maxIndex(axisVariance);
 
 		Vector<Real, N> result(
 			unitAxis<Real, N>(n, initialAxis));

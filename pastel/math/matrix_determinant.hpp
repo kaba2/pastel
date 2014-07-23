@@ -60,7 +60,7 @@ namespace Pastel
 			// This has no effect on the determinant.
 			for (integer i = k + 1;i < m;++i)
 			{
-				const Real a = left(i, k) / left(k, k);
+				Real a = left(i, k) / left(k, k);
 				left(i, k) = 0;
 				for (integer j = k + 1;j < n;++j)
 				{

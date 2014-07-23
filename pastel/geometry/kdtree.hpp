@@ -768,7 +768,7 @@ namespace Pastel
 			ObjectIterator positiveBegin = result.second.first;
 			integer positiveObjects = result.second.second;
 			ObjectIterator negativeBegin = result.first.first;
-			const integer negativeObjects = result.first.second;
+			integer negativeObjects = result.first.second;
 
 			// Note that it is important to
 			// splice the negative objects first, because

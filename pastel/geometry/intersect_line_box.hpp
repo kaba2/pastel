@@ -34,7 +34,7 @@ namespace Pastel
 		for (integer i = 0;i < dimension;++i)
 		{
 			Real e = dot(axes[i], p);
-			const Real f = dot(axes[i], line.direction());
+			Real f = dot(axes[i], line.direction());
 
 			// EPSILON
 			if (f == 0)

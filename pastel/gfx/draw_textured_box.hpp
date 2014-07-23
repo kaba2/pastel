@@ -39,7 +39,7 @@ namespace Pastel
 			return;
 		}
 
-		const Vector2 textureDelta = textureBox.extent();
+		Vector2 textureDelta = textureBox.extent();
 		const Vector2 duvDxy = textureDelta / delta;
 		const Vector2 uvMin = textureBox.min() + 
 

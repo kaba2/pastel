@@ -108,7 +108,7 @@ namespace Pastel
 				// Calculate normal vector for the current
 				// triangle edge.
 
-				const Vector<Real, 2> normal(cross(edges[i]));
+				Vector<Real, 2> normal(cross(edges[i]));
 
 				// Project the triangle to the axis.
 
@@ -278,7 +278,7 @@ namespace Pastel
 				// cross products with the [1, 0, 0],
 				// [0, 1, 0] and [0, 0 ,1].
 
-				const integer j = jSet[i];
+				integer j = jSet[i];
 				const integer k = kSet[i];
 
 				// Notice in the following that

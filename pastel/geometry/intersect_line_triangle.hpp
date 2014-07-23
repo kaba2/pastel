@@ -136,7 +136,7 @@ namespace Pastel
 		Vector<Real, 3> p =
 			cross(line.direction(), e2);
 
-		const Real a = dot(e1, p);
+		Real a = dot(e1, p);
 
 		// Test for parallel plane case
 

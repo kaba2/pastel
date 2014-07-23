@@ -216,7 +216,7 @@ namespace
 						normBijection, searchAlgorithm)
 						.bucketSize(1);
 					
-					const real distance2 = result.first;
+					real distance2 = result.first;
 					const Point_ConstIterator iter = result.second;
 
 					//TEST_ENSURE(iter == correctSet[i]);

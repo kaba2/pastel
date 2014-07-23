@@ -52,7 +52,7 @@ namespace Pastel
 		ConstView view_;
 		Vector<integer, N> pivot_;
 		Vector<integer, N> step_;
-		const Vector<integer, N> extent_;
+		Vector<integer, N> extent_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>

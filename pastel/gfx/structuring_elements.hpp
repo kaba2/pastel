@@ -151,7 +151,7 @@ namespace Pastel
 			Vector<real, N> center_;
 			Vector<real, N> radius_;
 			Vector<real, N> invRadius_;
-			const real power_;
+			real power_;
 		};
 
 	}

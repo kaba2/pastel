@@ -83,7 +83,7 @@ namespace Pastel
 				// This gives us some performance boost.
 				Real maxRelativeError = 1;
 
-				const integer minMatches = 
+				integer minMatches = 
 
 					std::min((integer)std::ceil(minMatchRatio * modelSet.size()),
 					(integer)modelSet.size());

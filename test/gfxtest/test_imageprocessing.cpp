@@ -58,7 +58,7 @@ namespace
 	void testStructuringElementSmall()
 	{
 		integer width = 5;
-		const integer height = 5;
+		integer height = 5;
 
 		Array<bool, 2> image(Vector2i(width, height), false);
 

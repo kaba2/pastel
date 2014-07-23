@@ -125,7 +125,7 @@ namespace Pastel
 					Complex b0(a0 - a3);
 					Complex b1(a1 - a2);
 					Complex b2(a0 + a3);
-					const Complex b3(a1 + a2);
+					Complex b3(a1 + a2);
 					
 					// 4D dct
 					const Real w1 =
