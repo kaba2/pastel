@@ -41,7 +41,7 @@ namespace
 				setRandomMatrix(a);
 
 				Vector<real> b = randomVectorCube<real, Dynamic>(n);
-				const QrDecomposition<real> qr(a);
+				QrDecomposition<real> qr(a);
 				const Vector<real> qrSolution =
 					solveLinear(qr, b);
 

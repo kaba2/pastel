@@ -327,7 +327,7 @@ namespace Pastel
 
 		toGrow = newHeapHeight - heapHeight_;
 
-		const integer growHeapSize = (1 << toGrow) - 1;
+		integer growHeapSize = (1 << toGrow) - 1;
 
 		std::vector<bool> copy;
 		copy.reserve(newHeapSize);

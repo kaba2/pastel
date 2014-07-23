@@ -89,7 +89,7 @@ namespace Pastel
 		{
 			integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
-			const integer rangeEnd =
+			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
 			real xLocalFilter = 
@@ -200,7 +200,7 @@ namespace Pastel
 		{
 			integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
-			const integer rangeEnd =
+			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
 			real xLocalFilter = 
@@ -445,7 +445,7 @@ namespace Pastel
 
 			ArrayExtender<1, Computation_Element> arrayExtender1D(
 				arrayExtender.extender(i), arrayExtender.border());
-			const Resample_::ResampleFunctor<Computation_Element, Input_Element> 
+			Resample_::ResampleFunctor<Computation_Element, Input_Element> 
 				resampleFunctor(arrayExtender1D, filter, blurFactor);
 
 			visitRows(constArrayView(tempArray), arrayView(tempArray2), 

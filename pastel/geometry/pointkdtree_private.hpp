@@ -544,7 +544,7 @@ namespace Pastel
 				partition(pointSet_, Pastel::range(begin, end),
 				splitPredicate);
 
-			const Point_Iterator newRightFirst = result.second.first;
+			Point_Iterator newRightFirst = result.second.first;
 			const integer newRightPoints = result.second.second;
 			Point_Iterator newRightLast = end;
 			--newRightLast;
@@ -690,7 +690,7 @@ namespace Pastel
 		}
 
 		// Count the number of inserted points.
-		const integer points = insertionSet_.size();
+		integer points = insertionSet_.size();
 
 		// Find out the points to insert.
 		Point_Iterator first = insertionSet_.begin();

@@ -259,7 +259,7 @@ namespace Pastel
 					integer xPos = 0;
 					for (integer i = 0;i < bytesToRead - 1;++i)
 					{
-						const uint8 data = scanline[i];
+						uint8 data = scanline[i];
 
 
 						image.write(Vector2i(xPos, yPos), (data >> 7) & 1);
@@ -467,7 +467,7 @@ namespace Pastel
 						integer xPos = 0;
 						for (integer i = 0;i < bytesToRead - 1;++i)
 						{
-							const uint8 data = scanline[i];
+							uint8 data = scanline[i];
 
 
 							image.write(Vector2i(xPos, yPos), palette[(data >> 7) & 1]);

@@ -215,7 +215,7 @@ namespace Pastel
 
 		for (integer i = 0;i < colors;++i)
 		{
-			const Color color = fitColor(colorPalette[i]);
+			Color color = fitColor(colorPalette[i]);
 
 
 			pcxHeader.palette16_[i * 3 + 0] = quantizeUnsigned(color[0], 256);
@@ -261,7 +261,7 @@ namespace Pastel
 			Color color = fitColor(colorPalette[i]);
 
 			uint8 red = quantizeUnsigned(color[0], 256);
-			const uint8 green = quantizeUnsigned(color[1], 256);
+			uint8 green = quantizeUnsigned(color[1], 256);
 			const uint8 blue = quantizeUnsigned(color[2], 256);
 
 			file << red << green << blue;

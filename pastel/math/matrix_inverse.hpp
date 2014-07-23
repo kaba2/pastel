@@ -121,7 +121,7 @@ namespace Pastel
 					continue;
 				}
 
-				const Real value = left(i, k) / left(k, k);
+				Real value = left(i, k) / left(k, k);
 				for (integer j = 0;j < k;++j)
 				{
 					// By the loop invariant invariant 

@@ -228,7 +228,7 @@ namespace Pastel
 						// Find the k nearest neighbours
 						// for both points in their respective point sets.
 
-						const SceneIterator sceneIter = sceneIndexList[j];
+						SceneIterator sceneIter = sceneIndexList[j];
 						sceneSet.front() = sceneIter;
 
 						if (i == 0)
@@ -528,7 +528,7 @@ namespace Pastel
 			Real minMatchRatio_;
 			Real confidence_;
 			integer scenePoints_;
-			const integer modelPoints_;
+			integer modelPoints_;
 			integer k_;
 			integer k2_;
 			integer k3_;

@@ -134,7 +134,7 @@ namespace Pastel
 		}
 
 		Vector<Real, N> toDelta = bTo - aTo;
-		const Real toNorm = norm(toDelta);
+		Real toNorm = norm(toDelta);
 
 		const Real scaling = toNorm / fromNorm;
 

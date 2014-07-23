@@ -264,7 +264,7 @@ namespace Pastel
 
 			if (signedProjectedDistance < 0)
 			{
-				const Real depth = signedProjectedDistance + projectedRadiusSum;
+				Real depth = signedProjectedDistance + projectedRadiusSum;
 
 				if (depth < minDepth)
 				{
@@ -332,7 +332,7 @@ namespace Pastel
 
 			Real signedProjectedDistance =
 				dot(box.rotation()[i], delta);
-			const Real projectedDistance =
+			Real projectedDistance =
 				mabs(signedProjectedDistance);
 
 			if (projectedRadiusSum < projectedDistance)
@@ -450,7 +450,7 @@ namespace Pastel
 		// Test for cross product axes
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[0][1] * delta[2] -
 				boxRotation[0][2] * delta[1];
@@ -758,7 +758,7 @@ namespace Pastel
 		// Test for cross product axes
 
 		{
-			const Real signedProjectedDistance =
+			Real signedProjectedDistance =
 
 				boxRotation[0][1] * delta[2] -
 				boxRotation[0][2] * delta[1];

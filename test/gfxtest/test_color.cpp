@@ -35,7 +35,7 @@ namespace
 					real u = (real)x / (Width - 1);
 					real v = (real)y / (Height - 1);
 
-					const Color xyzColor =
+					Color xyzColor =
 						xyyToXyz(
 						Color(u, v, Y));
 

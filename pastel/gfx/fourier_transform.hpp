@@ -114,7 +114,7 @@ namespace Pastel
 					Complex b0(a0 + a2);
 					Complex b1(a0 - a2);
 					Complex b2(a1 + a3);
-					const Complex b3(a1 - a3);
+					Complex b3(a1 - a3);
 
 					const Complex im(0, 
 						Inverse ? -1 : 1);
@@ -122,6 +122,7 @@ namespace Pastel
 					// Size-4 dft
 					if (Normalize)
 					{
+
 
 						*output = (b0 + b2) * Normalization;
 						++output;

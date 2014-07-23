@@ -58,7 +58,7 @@ namespace Pastel
 			return true;
 		}
 
-		const bool aSide = d1 > 0;
+		bool aSide = d1 > 0;
 		const bool bSide = d2 > 0;
 		const bool cSide = d3 > 0;
 

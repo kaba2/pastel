@@ -48,7 +48,7 @@ namespace Pastel
 		// EPSILON
 		if (dotNu != 0)
 		{
-			const Real invDotNu(inverse(dotNu));
+			Real invDotNu(inverse(dotNu));
 			line.set(
 
 				aPlane.position() + dotNd * invDotNu * aPlane[0],

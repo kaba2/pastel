@@ -106,7 +106,7 @@ namespace
 		Array<Color, 2> textureImage(Vector2i(40, 40));
 
 		integer CheckerWidth = 20;
-		const integer CheckerHeight = 20;
+		integer CheckerHeight = 20;
 
 		for (integer y = 0;y < textureImage.height();++y)
 		{

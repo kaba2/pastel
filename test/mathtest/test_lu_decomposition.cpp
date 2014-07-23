@@ -74,7 +74,7 @@ namespace
 					matrix2x2<Real>(
 					1, Real(1, 2), 
 					Real(1, 2), Real(3, 4));
-				const Tuple<integer, 2> correctRowPermutation(
+				Tuple<integer, 2> correctRowPermutation(
 					0, 1);
 				TEST_ENSURE(lu.packedLu() == correctPackedLu);
 				TEST_ENSURE(lu.rowPermutation() == correctRowPermutation);

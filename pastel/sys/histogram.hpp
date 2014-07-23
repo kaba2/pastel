@@ -84,7 +84,7 @@ namespace Pastel
 		Real yRangeDelta = yMax - yMin;
 
 		integer xBins = output.width();
-		const integer yBins = output.height();
+		integer yBins = output.height();
 
 		clear(0, output);
 

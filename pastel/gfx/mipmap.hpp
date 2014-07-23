@@ -33,7 +33,7 @@ namespace Pastel
 		integer maxExtent = max(originalExtent);
 		integer roundedExtent = roundUpToPowerOfTwo(maxExtent);
 		Vector<integer, N> topExtent(roundedExtent);
-		const integer images = integerLog2(roundedExtent) + 1;
+		integer images = integerLog2(roundedExtent) + 1;
 
 		std::vector<Array<Type, N> > mipMapArray(images);
 

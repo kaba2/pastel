@@ -95,7 +95,7 @@ namespace
 		void testCopyAssign()
 		{
 			integer Width = 100;
-			const integer Height = 200;
+			integer Height = 200;
 
 			Array<int, 2> a(Vector2i(Width, Height));
 			for (integer i = 0;i < a.size();++i)

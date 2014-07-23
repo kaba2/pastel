@@ -130,7 +130,7 @@ namespace Pastel
 			integer maxLegalSpreadAxis = 0;
 			Real maxLegalSpread = 0;
 
-			const Vector<Real, N> spread = objectBound.extent();
+			Vector<Real, N> spread = objectBound.extent();
 
 			for (integer i = 0;i < dimension;++i)
 			{
@@ -264,7 +264,7 @@ namespace Pastel
 
 				if (cursor.objects() > maxObjects)
 				{
-					const Real nodeArea = area(bound);
+					Real nodeArea = area(bound);
 					const Real invNodeArea = inverse(nodeArea);
 
 

@@ -215,7 +215,7 @@ namespace Pastel
 		Vector2 leftBottom = center - x - y;
 		Vector2 rightBottom = center + x - y;
 		Vector2 rightTop = center + x + y;
-		const Vector2 leftTop = center - x + y;
+		Vector2 leftTop = center - x + y;
 
 		if (!renderer.filled())
 		{
@@ -257,7 +257,7 @@ namespace Pastel
 		Vector2 leftBottom = center - x - y;
 		Vector2 rightBottom = center + x - y;
 		Vector2 rightTop = center + x + y;
-		const Vector2 leftTop = center - x + y;
+		Vector2 leftTop = center - x + y;
 
 		if (!renderer.filled())
 		{

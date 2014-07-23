@@ -57,7 +57,7 @@ namespace
 
 		for (integer x = 0;x < Width;++x)
 		{
-			const Color color(
+			Color color(
 				linearSrgbToSrgb(
 
 				Color(Step * x)));
@@ -80,7 +80,7 @@ namespace
 
 		for (integer x = 0;x < Width;++x)
 		{
-			const Color color(
+			Color color(
 
 				Color(Step * x));
 			for (integer y = 0;y < Height;++y)
@@ -102,7 +102,7 @@ namespace
 
 		for (integer x = 0;x < Width;++x)
 		{
-			const Color color(
+			Color color(
 
 				xyzToSrgb(labToXyz(Color(Step * x, 0, 0))));
 			for (integer y = 0;y < Height;++y)

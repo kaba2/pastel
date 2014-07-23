@@ -725,7 +725,7 @@ namespace Pastel
 		for (integer i = 1;i < d;++i)
 		{
 			integer j = order_[i - 1];
-			const integer k = order_[i];
+			integer k = order_[i];
 
 
 			stride[k] = stride[j] * extent_[j];

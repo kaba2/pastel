@@ -275,7 +275,7 @@ namespace Pastel
 		integer dataWidth_;
 		integer dataHeight_;
 		integer width_;
-		const integer height_;
+		integer height_;
 	};
 
 	template <

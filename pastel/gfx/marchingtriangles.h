@@ -50,7 +50,7 @@ namespace Pastel
 			{
 				Vector2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);
-				const Vector2 acPosition =
+				Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -151,7 +151,7 @@ namespace Pastel
 
 		Vector2 delta = window.max() - window.min();
 
-		const Vector2 positionDelta = delta / Vector2(width - 1, height - 1);
+		Vector2 positionDelta = delta / Vector2(width - 1, height - 1);
 		const Vector2 rightOffset(positionDelta.x(), 0);
 		const Vector2 upOffset(0, positionDelta.y());
 

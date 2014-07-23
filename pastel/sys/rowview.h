@@ -52,7 +52,7 @@ namespace Pastel
 		Contained_ConstView view_;
 		Vector<integer, N> pivot_;
 		Vector<integer, 1> extent_;
-		const integer freeIndex_;
+		integer freeIndex_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>

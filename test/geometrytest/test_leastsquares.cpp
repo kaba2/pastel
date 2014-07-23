@@ -57,7 +57,7 @@ namespace
 					to.push_back(toPoint);
 				}
 
-				const ConformalAffine2D<real> similarity =
+				ConformalAffine2D<real> similarity =
 					lsConformalAffine(
 					range(from.begin(), from.end()), 
 					range(to.begin(), to.end()),

@@ -36,7 +36,7 @@ namespace Pastel
 		{
 			Real nextSquareSum = square(cartesian[i - 1]) + squareSum;
 			Real sqrtSquareSum = std::sqrt(squareSum);
-			const Real factor = cartesian[i - 1] /
+			Real factor = cartesian[i - 1] /
 
 					(sqrtSquareSum * nextSquareSum);
 

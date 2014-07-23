@@ -61,7 +61,7 @@ namespace Pastel
 			// part of the k:th column.
 			for (integer i = k + 1;i < m;++i)
 			{
-				const Real a = left(i, k) / left(k, k);
+				Real a = left(i, k) / left(k, k);
 				left(i, k) = 0;
 				for (integer j = k + 1;j < n;++j)
 				{

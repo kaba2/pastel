@@ -217,7 +217,7 @@ namespace Pastel
 		real xTopDelta = 0;
 		Vector2 uvTopDelta;
 
-		const bool longBottomEdge =
+		bool longBottomEdge =
 			side(
 			Vector2(xMidVertex.x_, xMidVertex.y_),
 			Plane2(
