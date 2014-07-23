@@ -128,7 +128,7 @@ namespace Pastel
 					Complex b3(a1 + a2);
 					
 					// 4D dct
-					const Real w1 =
+					Real w1 =
 						std::cos(NthRootAngle);
 
 					const Real w2 =

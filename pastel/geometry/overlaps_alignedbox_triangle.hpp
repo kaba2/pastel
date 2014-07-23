@@ -112,7 +112,7 @@ namespace Pastel
 
 				// Project the triangle to the axis.
 
-				const Real triangleProj1(
+				Real triangleProj1(
 					dot(normal, workTriangle[i]));
 				const Real triangleProj2(
 					dot(normal, workTriangle[i3]));
@@ -279,7 +279,7 @@ namespace Pastel
 				// [0, 1, 0] and [0, 0 ,1].
 
 				integer j = jSet[i];
-				const integer k = kSet[i];
+				integer k = kSet[i];
 
 				// Notice in the following that
 				// only two triangle vertices need

@@ -121,7 +121,7 @@ namespace Pastel
 		Real b1 = 0.319381530;
 		Real b2 = -0.356563782;
 		Real b3 = 1.781477937;
-		const Real b4 = -1.821255978;
+		Real b4 = -1.821255978;
 		const Real b5 = 1.330274429;
 		const Real xAbs = std::abs(x);
 

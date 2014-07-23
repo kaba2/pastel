@@ -83,7 +83,7 @@ namespace
 				//std::cout << lu.rowPermutation() << std::endl;
 			}
 			{
-				const LuDecomposition<Real> lu(
+				LuDecomposition<Real> lu(
 					matrix3x3<Real>(
 					1, 2, 3,
 					4, 5, 6,

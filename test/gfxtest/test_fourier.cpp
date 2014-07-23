@@ -264,7 +264,7 @@ namespace
 				TEST_ENSURE(testHadamard(input));
 			}
 			{
-				const real input[] = {4, 3, 2, 1};
+				real input[] = {4, 3, 2, 1};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
 				TEST_ENSURE(testHaar(input));

@@ -15,7 +15,7 @@ namespace Pastel
 		real32 rgbMin = rgb[indexMin];
 		real32 rgbMax = rgb[indexMax];
 
-		const real32 scale = (real32)1 / 6;
+		real32 scale = (real32)1 / 6;
 
 		const real32 delta = rgbMax - rgbMin;
 

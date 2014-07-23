@@ -430,7 +430,7 @@ namespace
 		integer steps = 128;
 
 		Vector2 center(50.5, 240.5);
-		const real radius = 200;
+		real radius = 200;
 
 		real alphaStep = 2 * constantPi<real>() / steps;
 
@@ -477,7 +477,7 @@ namespace
 		integer YLines = 5;
 		integer BoxWidth = 100;
 		integer BoxHeight = 25;
-		const integer Border = 10;
+		integer Border = 10;
 		const real YStart = 0.1;
 		const real YEnd = 0.9;
 		const real XYStep = (real)(YEnd - YStart) / (XLines - 1);

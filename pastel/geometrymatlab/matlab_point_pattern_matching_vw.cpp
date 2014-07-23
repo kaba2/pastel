@@ -55,7 +55,7 @@ namespace Pastel
 
 			ConformalAffine2D<real> similarity;
 
-			const bool success = pointPatternMatch(
+			bool success = pointPatternMatch(
 				range(
 				constSparseIterator(countingIterator(sceneData), 2), 
 				scenePoints),

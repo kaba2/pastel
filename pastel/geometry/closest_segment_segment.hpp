@@ -66,7 +66,7 @@ namespace Pastel
 		Real aNorm2 = dot(aDelta);
 		Real bNorm2 = dot(bDelta);
 
-		const Vector<Real, N> aUnitDelta = 
+		Vector<Real, N> aUnitDelta = 
 			aDelta / std::sqrt(aNorm2);
 		const Line<Real, N> aLine(aSegment.start(), aUnitDelta);
 
@@ -117,7 +117,7 @@ namespace Pastel
 				// Region 5!
 				// => Minimum at u = 0 or v = 0
 
-				const Real u0vCandidate =
+				Real u0vCandidate =
 					clamp(-dot(startDelta, bDelta) / bNorm2, 0, 1);
 				const Real u0vDistance2 = dot((bSegment.start() - aSegment.start()) +
 

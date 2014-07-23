@@ -62,7 +62,7 @@ namespace Pastel
 				gaussianCdf<Real>(y);
 			Real fny1 = 
 				(Real)(i + 1) / n;
-			const Real fny2 = 
+			Real fny2 = 
 				(Real)i / n;
 
 			const Real delta =

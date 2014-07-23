@@ -21,7 +21,7 @@ namespace Pastel
 		Real c = std::sqrt((Real)(n + 1));
 		Real d = std::sqrt((Real)n / (n + 1));
 		Real s = (c - 1) / n;
-		const Real q = s / c;
+		Real q = s / c;
 		const Real dInv = inverse(d);
 
 		// Transform the point to the integer

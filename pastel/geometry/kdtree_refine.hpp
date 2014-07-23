@@ -265,7 +265,7 @@ namespace Pastel
 				if (cursor.objects() > maxObjects)
 				{
 					Real nodeArea = area(bound);
-					const Real invNodeArea = inverse(nodeArea);
+					Real invNodeArea = inverse(nodeArea);
 
 
 					const Real leafCost = cursor.objects() * costToIntersect;

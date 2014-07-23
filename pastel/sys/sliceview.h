@@ -54,7 +54,7 @@ namespace Pastel
 		Contained_ConstView view_;
 		integer pivot_;
 		Vector<integer, ModifyN<N, N - 1>::Result> extent_;
-		const integer fixedIndex_;
+		integer fixedIndex_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>

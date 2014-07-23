@@ -262,7 +262,7 @@ namespace Pastel
 
 			uint8 red = quantizeUnsigned(color[0], 256);
 			uint8 green = quantizeUnsigned(color[1], 256);
-			const uint8 blue = quantizeUnsigned(color[2], 256);
+			uint8 blue = quantizeUnsigned(color[2], 256);
 
 			file << red << green << blue;
 		}

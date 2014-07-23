@@ -635,7 +635,7 @@ namespace Pastel
 
 						// Primarily, we want to maximize the size of
 						// the maximum clique.
-						const integer maxCliqueSize = 
+						integer maxCliqueSize = 
 							tree.root().propagation().maxCliqueSize;
 
 
@@ -655,7 +655,7 @@ namespace Pastel
 							Real yMinNew = e.position;
 							Real yMaxNew = eventSet[i + 1].position;
 
-							const Real width = xMaxNew - xMinNew;
+							Real width = xMaxNew - xMinNew;
 							const Real height = yMaxNew - yMinNew;
 
 

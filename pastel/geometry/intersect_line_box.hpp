@@ -39,7 +39,7 @@ namespace Pastel
 			// EPSILON
 			if (f == 0)
 			{
-				const Real fInv = inverse(f);
+				Real fInv = inverse(f);
 
 				Real t1 = (e + width[i]) * fInv;
 				Real t2 = (e - width[i]) * fInv;

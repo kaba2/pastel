@@ -164,7 +164,7 @@ namespace Pastel
 		Real m22 = 2 / (yMax - yMin);
 		Real m33 = 2 / (zMax - zMin);
 		Real m41 = -(xMax + xMin) / (xMax - xMin);
-		const Real m42 = -(yMax + yMin) / (yMax - yMin);
+		Real m42 = -(yMax + yMin) / (yMax - yMin);
 		const Real m43 = -(zMax + zMin) / (zMax - zMin);
 
 		return matrix4x4<Real>(

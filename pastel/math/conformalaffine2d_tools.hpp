@@ -136,7 +136,7 @@ namespace Pastel
 		Vector<Real, N> toDelta = bTo - aTo;
 		Real toNorm = norm(toDelta);
 
-		const Real scaling = toNorm / fromNorm;
+		Real scaling = toNorm / fromNorm;
 
 		// Find out the rotation angle.
 

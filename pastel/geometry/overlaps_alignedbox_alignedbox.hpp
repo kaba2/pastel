@@ -85,7 +85,7 @@ namespace Pastel
 			Real aMin = aBox.min()[i];
 			Real aMax = aBox.max()[i];
 			Real bMin = bBox.min()[i];
-			const Real bMax = bBox.max()[i];
+			Real bMax = bBox.max()[i];
 
 			// This is actually
 			// projectedVelocity = dot(deltaVelocity[i], unitAxis(i));

@@ -205,7 +205,7 @@ namespace Pastel
 		real transitionEnd = 0.15;
 		real transitionWidth = transitionEnd - transitionBegin;
 		real normalizedLevel = level / (real)(mipMap_->levels() - 1);
-		const real tTransition = clamp((normalizedLevel - transitionBegin) / transitionWidth,
+		real tTransition = clamp((normalizedLevel - transitionBegin) / transitionWidth,
 			(real)0, (real)1);
 
 		//return Type(tTransition);

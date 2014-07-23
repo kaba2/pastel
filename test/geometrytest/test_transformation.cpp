@@ -46,7 +46,7 @@ namespace
 				Vector2 aTo(transformPoint(transformation, aFrom));
 				Vector2 bTo(transformPoint(transformation, bFrom));
 
-				const ConformalAffine2D<real> matchedTransformation =
+				ConformalAffine2D<real> matchedTransformation =
 					conformalAffine(aFrom, bFrom, aTo, bTo);
 
 				const real scalingDelta = absoluteError<real>(

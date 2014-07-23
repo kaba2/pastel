@@ -839,7 +839,7 @@ namespace
 
 				VectorD x(solveLinear(a, b));
 
-				const real error =
+				real error =
 
 					norm(a * x - b);
 

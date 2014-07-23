@@ -545,7 +545,7 @@ namespace Pastel
 				splitPredicate);
 
 			Point_Iterator newRightFirst = result.second.first;
-			const integer newRightPoints = result.second.second;
+			integer newRightPoints = result.second.second;
 			Point_Iterator newRightLast = end;
 			--newRightLast;
 
