@@ -10,7 +10,7 @@ namespace Pastel
 		const MeasureTable& measureTable,
 		std::ostream& stream)
 	{
-		const integer columns = measureTable.width();
+		integer columns = measureTable.width();
 		const integer rows = measureTable.height();
 
 		if (columns == 0 || rows == 0)
@@ -60,9 +60,10 @@ namespace Pastel
 
 			for (integer x = 0;x < columns;++x)
 			{
+
 				const MeasureTable::Entry& entry = measureTable(x, y);
 				
-				const integer paddingLength = 
+				integer paddingLength = 
 					(columnWidth[x] - entry.text().length()) - 2;
 				std::string prePadding;
 				std::string postPadding;
@@ -119,10 +120,11 @@ namespace Pastel
 	}
 
 	PASTELSYS void printLatex(
+
 		const MeasureTable& measureTable,
 		std::ostream& stream)
 	{
-		const integer columns = measureTable.width();
+		integer columns = measureTable.width();
 		const integer rows = measureTable.height();
 
 		if (columns == 0 || rows == 0)
@@ -172,6 +174,7 @@ namespace Pastel
 				stream << measureTable(x, y).text();
 				if (x < columns - 1)
 				{
+
 					stream << " & ";
 				}
 			}

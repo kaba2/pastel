@@ -190,7 +190,7 @@ namespace Pastel
 
 		static Logical convert(const Physical& physical)
 		{
-			const uint8 red = (uint8)scaleInteger<RedBits, 8>(
+			uint8 red = (uint8)scaleInteger<RedBits, 8>(
 				extractBits<RedFrom, RedBits>(physical));
 			const uint8 green = (uint8)scaleInteger<GreenBits, 8>(
 				extractBits<GreenFrom, GreenBits>(physical));
@@ -200,9 +200,10 @@ namespace Pastel
 			return Logical(red, green, blue);
 		}
 
+
 		static Physical revert(const Logical& logical)
 		{
-			const Integer red = scaleInteger<8, RedBits, uint32>(logical[0]);
+			Integer red = scaleInteger<8, RedBits, uint32>(logical[0]);
 			const Integer green = scaleInteger<8, GreenBits, uint32>(logical[1]);
 			const Integer blue = scaleInteger<8, BlueBits, uint32>(logical[2]);
 
@@ -243,6 +244,7 @@ namespace Pastel
 			PASTEL_STATIC_ASSERT(BlueFrom + BlueBits <= 32);
 		}
 
+
 		static Logical convert(const Physical& physical)
 		{
 			return Color(
@@ -253,7 +255,7 @@ namespace Pastel
 
 		static Physical revert(const Logical& logical)
 		{
-			const Integer red = quantizeUnsigned(logical[0], RedNumbers);
+			Integer red = quantizeUnsigned(logical[0], RedNumbers);
 			const Integer green = quantizeUnsigned(logical[1], GreenNumbers);
 			const Integer blue = quantizeUnsigned(logical[2], BlueNumbers);
 
@@ -263,6 +265,7 @@ namespace Pastel
 
 	template <typename Integer>
 	Color integerToColor(
+
 		const PASTEL_NO_DEDUCTION(Integer)& packedColor,
 		integer redBits, integer greenBits, integer blueBits,
 		integer redFrom, integer greenFrom, integer blueFrom);

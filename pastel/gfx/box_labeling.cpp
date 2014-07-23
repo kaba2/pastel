@@ -41,7 +41,7 @@ namespace Pastel
 			maxHeight = image.height();
 		}
 
-		const integer minMaxDimension = std::min(maxWidth, maxHeight) >> 1;
+		integer minMaxDimension = std::min(maxWidth, maxHeight) >> 1;
 
 		integer minMinDimension = minMaxDimension;
 
@@ -68,6 +68,7 @@ namespace Pastel
 			{
 				for (integer x = 0;x < width;++x)
 				{
+
 					if (image(x, y) && labelImage(x, y) <= 0 && labelImage(x, y) > -roundCounter)
 					{
 						integer boxSize = 1;
@@ -76,7 +77,7 @@ namespace Pastel
 						{
 							bool boxFits = true;
 							{
-								const integer v = y + boxSize;
+								integer v = y + boxSize;
 								for (integer u = x;u < x + boxSize + 1;++u)
 								{
 									if (!image(u, v) || labelImage(u, v) > 0)
@@ -112,6 +113,7 @@ namespace Pastel
 						if (maxRatio > 1)
 						{
 							// Try to extend in the y direction
+
 							while(boxHeight < maxHeight &&
 								y + boxHeight < height &&
 								std::max((real)boxWidth / (boxHeight + 1),
@@ -119,7 +121,7 @@ namespace Pastel
 							{
 								bool boxFits = true;
 
-								const integer v = y + boxHeight;
+								integer v = y + boxHeight;
 								for (integer u = x;u < x + boxWidth;++u)
 								{
 									if (!image(u, v) || labelImage(u, v) > 0)
@@ -137,6 +139,7 @@ namespace Pastel
 							}
 
 							// Try to extend in the x direction
+
 							while(boxWidth < maxWidth &&
 								x + boxWidth < width &&
 								std::max((real)(boxWidth + 1) / boxHeight,
@@ -144,7 +147,7 @@ namespace Pastel
 							{
 								bool boxFits = true;
 
-								const integer u = x + boxWidth;
+								integer u = x + boxWidth;
 								for (integer v = y;v < y + boxHeight;++v)
 								{
 									if (!image(u, v) || labelImage(u, v) > 0)

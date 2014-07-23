@@ -76,7 +76,7 @@ namespace
 				return false;
 			}
 
-			const integer width = left.width();
+			integer width = left.width();
 			const integer height = left.height();
 			for (integer y = 0;y < height;++y)
 			{
@@ -103,6 +103,7 @@ namespace
 				a(i) = i;
 			}
 			
+
 			TEST_ENSURE_OP(a.size(), ==, Width * Height);
 			TEST_ENSURE(a.extent() == Vector2i(Width, Height));
 			TEST_ENSURE_OP(a.storageOrder(), ==, StorageOrder::RowMajor);
@@ -157,7 +158,7 @@ namespace
 
 		void print(const Array<integer, 2>& that)
 		{
-			const integer height = that.height();
+			integer height = that.height();
 			const integer width = that.width();
 			for (integer y = 0;y < height;++y)
 			{
@@ -320,6 +321,7 @@ namespace
 				TEST_ENSURE(
 					std::equal(slice.begin(), slice.end(),
 					b.begin()));
+
 
 				/*
 				std::copy(

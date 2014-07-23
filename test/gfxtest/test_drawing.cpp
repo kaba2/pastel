@@ -31,7 +31,7 @@ namespace
 
 	void testTextureCase(const Texture<Color>& texture)
 	{
-		const integer width = 512;
+		integer width = 512;
 		const integer height = 512;
 		Array<Color> image(Vector2i(width, height));
 
@@ -108,6 +108,7 @@ namespace
 		Array<Color, 2> image(Vector2i(500, 500), Color(0));
 
 		Image_GfxRenderer<Color> renderer;
+
 		renderer.setImage(&image);
 		renderer.setViewWindow(AlignedBox2(-1, -1, 1, 1));
 		renderer.setFilled(false);
@@ -145,7 +146,7 @@ namespace
 
 		//log() << "Rendering.." << logNewLine;
 
-		const AlignedBox3 region(
+		AlignedBox3 region(
 			Vector3(-100, -100, 0),
 			Vector3(600, 600, 10));
 
@@ -168,6 +169,7 @@ namespace
 	void testEwaPerspectiveTriangle()
 	{
 		const integer superSample = 4;
+
 		const integer width = 512 * superSample;
 		const integer height = 512 * superSample;
 
@@ -178,8 +180,9 @@ namespace
 
 		//log() << "Rendering.." << logNewLine;
 
-		const AlignedBox3 region(
+		AlignedBox3 region(
 			Vector3(-width / 4, -height / 4, 0),
+
 			Vector3(width * 1.25, height * 1.25, 10));
 
 		MipMap<Color, 2> mipMap(constArrayView(textureImage));
@@ -225,7 +228,7 @@ namespace
 
 		//log() << "Rendering.." << logNewLine;
 
-		const AlignedBox2 region(
+		AlignedBox2 region(
 			Vector2(-100, -100),
 			Vector2(600, 600));
 
@@ -313,6 +316,7 @@ namespace
 		Array<Color, 2> image(Vector2i(640, 480));
 
 		Image_GfxRenderer<Color> renderer;
+
 		renderer.setImage(&image);
 		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
 
@@ -401,7 +405,7 @@ namespace
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(a, 10));
 
-		const Vector2 b(55.3, 45.7);
+		Vector2 b(55.3, 45.7);
 
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(b, 20.1));
@@ -427,16 +431,19 @@ namespace
 
 		const Vector2 center(50.5, 240.5);
 		const real radius = 200;
+
 		real alphaStep = 2 * constantPi<real>() / steps;
 
 		for (integer i = 0;i < steps;++i)
 		{
-			const Vector2 to(
+			Vector2 to(
+
 				center.x() + std::cos(alphaStep * i) * radius,
 				center.y() + std::sin(alphaStep * i) * radius);
 
 			/*
-			const Vector2 to(
+			Vector2 to(
+
 				std::floor(center.x() + std::cos(alphaStep * i) * radius) + 0.5,
 				std::floor(center.y() + std::sin(alphaStep * i) * radius) + 0.5);
 			*/
@@ -451,10 +458,11 @@ namespace
 	{
 		Array<Color, 2> image(Vector2i(640, 480));
 
-		const integer lines = 500;
+		integer lines = 500;
 
 		for (integer i = 0;i < lines;++i)
 		{
+
 			const Vector2 from(random<real>() * 1000 - 180, random<real>() * 740 - 180);
 			const Vector2 to(random<real>() * 1000 - 180, random<real>() * 740 - 180);
 			drawSegment(Segment2(from, to), randomRgbColor(), arrayView(image));
@@ -465,7 +473,7 @@ namespace
 
 	void testEvenMoreLines()
 	{
-		const integer XLines = 5;
+		integer XLines = 5;
 		const integer YLines = 5;
 		const integer BoxWidth = 100;
 		const integer BoxHeight = 25;
@@ -475,16 +483,19 @@ namespace
 		const real XYStep = (real)(YEnd - YStart) / (XLines - 1);
 		const real YYStep = (real)(YEnd - YStart) / (YLines - 1);
 
+
 		Array<Color, 2> image(Vector2i(XLines* BoxWidth, YLines * BoxHeight));
 
 		for (integer y = 0;y < YLines;++y)
 		{
 			for (integer x = 0;x < XLines;++x)
 			{
-				const Vector2 from(
+				Vector2 from(
+
 					x * BoxWidth + Border + 0.5,
 					y * BoxHeight + Border + (YStart + x * XYStep));
-				const Vector2 to(
+				Vector2 to(
+
 					x * BoxWidth + (BoxWidth - Border) + 0.5 ,
 					y * BoxHeight + (BoxHeight - Border) + (YStart + y * YYStep));
 

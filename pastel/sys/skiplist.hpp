@@ -177,7 +177,7 @@ namespace Pastel
 				// Failing this invariant means that
 				// Less() is not a strict weak order;
 				// this is an error in the user's code.
-				const bool isStrictWeakOrder = 
+				bool isStrictWeakOrder = 
 					!Less()(key, nodeKey(node));
 				PENSURE(isStrictWeakOrder);
 

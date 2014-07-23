@@ -23,7 +23,7 @@ namespace Pastel
 		typedef typename boost::range_value<Real_ConstRange>::type
 			Real;
 
-		const Real rangeDelta = max - min;
+		Real rangeDelta = max - min;
 
 		std::vector<Real> hitSet(bins, 0);
 
@@ -33,6 +33,7 @@ namespace Pastel
 
 		while(iter != iterEnd)
 		{
+
 			Real value = *iter;
 
 			if (value >= min && value <= max)
@@ -40,7 +41,7 @@ namespace Pastel
 				value -= min;
 				value /= rangeDelta;
 
-				const integer bin  =
+				integer bin  =
 					quantizeUnsigned(value, bins);
 
 				++hitSet[bin];
@@ -53,6 +54,7 @@ namespace Pastel
 		// Normalize the pdf to 1.
 
 		const Real binSize = (max - min) / bins;
+
 		const Real factor = (Real)1 / (samples * binSize);
 		for (integer i = 0;i < bins;++i)
 		{
@@ -78,7 +80,7 @@ namespace Pastel
 		ENSURE_OP(output.width(), >, 0);
 		ENSURE_OP(output.height(), >, 0);
 
-		const Real xRangeDelta = xMax - xMin;
+		Real xRangeDelta = xMax - xMin;
 		const Real yRangeDelta = yMax - yMin;
 
 		const integer xBins = output.width();
@@ -94,6 +96,7 @@ namespace Pastel
 		{
 			ENSURE(yIter != yEnd);
 
+
 			Real xValue = *xIter;
 
 			if (xValue >= xMin && xValue <= xMax)
@@ -105,7 +108,7 @@ namespace Pastel
 					xValue -= xMin;
 					xValue /= xRangeDelta;
 
-					const integer xBin = 
+					integer xBin = 
 						quantizeUnsigned(xValue, xBins);
 
 					yValue -= yMin;
@@ -126,6 +129,7 @@ namespace Pastel
 		ENSURE(yIter == yEnd);
 
 		// Normalize the pdf to 1.
+
 
 		const Real binSize = (xRangeDelta * yRangeDelta) / (xBins * yBins);
 		const Real factor = (Real)1 / (samples * binSize);

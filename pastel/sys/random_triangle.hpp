@@ -128,7 +128,7 @@ namespace Pastel
 	Real trianglePdf(
 		const PASTEL_NO_DEDUCTION(Real)& x)
 	{
-		const Real xAbs = mabs(x);
+		Real xAbs = mabs(x);
 		if (xAbs > 1)
 		{
 			return 0;
@@ -139,6 +139,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real trianglePdf(
+
 		const PASTEL_NO_DEDUCTION(Real)& x,
 		const PASTEL_NO_DEDUCTION(Real)& leftWidth,
 		const PASTEL_NO_DEDUCTION(Real)& rightWidth)
@@ -151,10 +152,11 @@ namespace Pastel
 			return 0;
 		}
 
-		const Real d = leftWidth + rightWidth;
+		Real d = leftWidth + rightWidth;
 
 		if (x < 0)
 		{
+
 			return 2 * (x + leftWidth) / (leftWidth * d);
 		}
 

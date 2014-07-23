@@ -32,7 +32,7 @@ namespace Pastel
 			}
 		}
 
-		const Real rootDiscriminant =
+		Real rootDiscriminant =
 			std::sqrt(discriminant);
 
 		// This is a numerically stable way to solve
@@ -48,6 +48,7 @@ namespace Pastel
 		{
 			q += rootDiscriminant;
 		}
+
 
 		q *= (Real)-0.5;
 

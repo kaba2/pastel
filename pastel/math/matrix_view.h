@@ -120,16 +120,17 @@ namespace Pastel
 			const Vector2i& min,
 			const Vector2i& max) const
 		{
-			const ConstSubMatrix result(data_(min, max));
+			ConstSubMatrix result(data_(min, max));
 			return result;
 		}
 
 		ConstSubMatrix operator()(
+
 			const Vector2i& min,
 			const Vector2i& max,
 			const Vector2i& delta) const
 		{
-			const ConstSubMatrix result(data_(
+			ConstSubMatrix result(data_(
 				Vector2i(min.y(), min.x()), 
 				Vector2i(max.y(), max.x()), 
 				Vector2i(delta.y(), delta.x())));
@@ -138,30 +139,34 @@ namespace Pastel
 
 		ConstSubMatrix operator[](integer y) const
 		{
+
 			PENSURE2(y >= 0 && y < height(), y, height());
 
-			const ConstSubMatrix result(
+			ConstSubMatrix result(
 				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
 		ConstSubMatrix row(integer y) const
 		{
+
 			PENSURE2(y >= 0 && y < height(), y, height());
 
-			const ConstSubMatrix result(
+			ConstSubMatrix result(
 				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
 		ConstSubMatrix column(integer x) const
 		{
+
 			PENSURE2(x >= 0 && x < width(), x, width());
 
-			const ConstSubMatrix result(
+			ConstSubMatrix result(
 				data_(Vector2i(x, 0), Vector2i(x + 1, 0)));
 			return result;
 		}
+
 
 		void swap(ConstSubMatrix& that)
 		{
@@ -265,7 +270,7 @@ namespace Pastel
 			}
 			else
 			{
-				const integer m = height();
+				integer m = height();
 				for (integer y = 0;y < m;++y)
 				{
 					std::copy(
@@ -273,6 +278,7 @@ namespace Pastel
 						rowBegin(y));
 				}
 			}
+
 
 			return *this;
 		}
@@ -301,28 +307,30 @@ namespace Pastel
 			const Vector2i& min,
 			const Vector2i& max)
 		{
-			const SubMatrix result(data_(
+			SubMatrix result(data_(
 				Vector2i(min.y(), min.x()), 
 				Vector2i(max.y(), max.y())));
 			return result;
 		}
 
 		ConstSubMatrix<Real> operator()(
+
 			const Vector2i& min,
 			const Vector2i& max) const
 		{
-			const ConstSubMatrix<Real> result(data_(
+			ConstSubMatrix<Real> result(data_(
 				Vector2i(min.y(), min.x()), 
 				Vector2i(max.y(), max.y())));
 			return result;
 		}
 
 		SubMatrix operator()(
+
 			const Vector2i& min,
 			const Vector2i& max,
 			const Vector2i& delta)
 		{
-			const SubMatrix result(data_(
+			SubMatrix result(data_(
 				Vector2i(min.y(), min.x()), 
 				Vector2i(max.y(), max.x()), 
 				Vector2i(delta.y(), delta.x())));
@@ -330,11 +338,12 @@ namespace Pastel
 		}
 
 		ConstSubMatrix<Real> operator()(
+
 			const Vector2i& min,
 			const Vector2i& max,
 			const Vector2i& delta) const
 		{
-			const ConstSubMatrix<Real> result(data_(
+			ConstSubMatrix<Real> result(data_(
 				Vector2i(min.y(), min.x()), 
 				Vector2i(max.y(), max.x()), 
 				Vector2i(delta.y(), delta.x())));
@@ -343,59 +352,66 @@ namespace Pastel
 
 		SubMatrix operator[](integer y)
 		{
+
 			PENSURE2(y >= 0 && y < height(), y, height());
 
-			const SubMatrix result(
+			SubMatrix result(
 				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
 		ConstSubMatrix<Real> operator[](integer y) const
 		{
+
 			PENSURE2(y >= 0 && y < height(), y, height());
 
-			const ConstSubMatrix<Real> result(
+			ConstSubMatrix<Real> result(
 				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
 		SubMatrix row(integer y)
 		{
+
 			PENSURE2(y >= 0 && y < height(), y, height());
 
-			const SubMatrix result(
+			SubMatrix result(
 				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
 		ConstSubMatrix<Real> row(integer y) const
 		{
+
 			PENSURE2(y >= 0 && y < height(), y, height());
 
-			const ConstSubMatrix<Real> result(
+			ConstSubMatrix<Real> result(
 				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
 		SubMatrix column(integer x)
 		{
+
 			PENSURE2(x >= 0 && x < width(), x, width());
 
-			const SubMatrix result(
+			SubMatrix result(
 				data_(Vector2i(x, 0), Vector2i(x + 1, 0)));
 			return result;
 		}
 
 		ConstSubMatrix<Real> column(integer x) const
 		{
+
 			PENSURE2(x >= 0 && x < width(), x, width());
 
-			const ConstSubMatrix<Real> result(
+			ConstSubMatrix<Real> result(
 				data_(Vector2i(x, 0), Vector2i(x + 1, 0)));
 			return result;
 		}
 
 		template <typename RightExpression>
+
 		SubMatrix& operator=(
 			const MatrixExpression<Real, RightExpression>& right)
 		{
@@ -412,7 +428,7 @@ namespace Pastel
 			}
 			else
 			{
-				const integer m = height();
+				integer m = height();
 				const integer n = width();
 
 				for (integer i = 0;i < m;++i)
@@ -420,6 +436,7 @@ namespace Pastel
 					RowIterator iter = rowBegin(i);
 					for (integer j = 0;j < n;++j)
 					{
+
 						*iter = right(i, j);
 						++iter;
 					}
@@ -453,7 +470,7 @@ namespace Pastel
 			}
 			else
 			{
-				const integer m = height();
+				integer m = height();
 				const integer n = width();
 
 				for (integer i = 0;i < m;++i)
@@ -461,6 +478,7 @@ namespace Pastel
 					RowIterator iter = rowBegin(i);
 					for (integer j = 0;j < n;++j)
 					{
+
 						*iter += right(i, j);
 						++iter;
 					}
@@ -483,7 +501,7 @@ namespace Pastel
 			}
 			else
 			{
-				const integer m = height();
+				integer m = height();
 				const integer n = width();
 
 				for (integer i = 0;i < m;++i)
@@ -491,6 +509,7 @@ namespace Pastel
 					RowIterator iter = rowBegin(i);
 					for (integer j = 0;j < n;++j)
 					{
+
 						*iter -= right(i, j);
 						++iter;
 					}
@@ -512,7 +531,7 @@ namespace Pastel
 		// The parameter is deliberately taken by value because
 		// a reference could be from this matrix.
 		SubMatrix& operator*=(
-			const Real right)
+			Real right)
 		{
 			const integer m = height();
 
@@ -523,6 +542,7 @@ namespace Pastel
 
 				while(iter != iterEnd)
 				{
+
 					(*iter) *= right;
 					++iter;
 				}

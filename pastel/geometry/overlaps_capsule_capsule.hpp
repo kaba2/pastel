@@ -20,7 +20,7 @@ namespace Pastel
 		// associated line segments are closer
 		// than the sum of their radii.
 
-		const Real d2 = distance2(
+		Real d2 = distance2(
 			aCapsule.segment(),
 			bCapsule.segment());
 

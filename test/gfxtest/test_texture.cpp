@@ -47,7 +47,7 @@ namespace
 
 		Array<Color, 2> image(Vector2i(Width * 2, Height * 2));
 
-		const AlignedBox2 textureBox(0.4, 0.45, 0.55, 0.60);
+		AlignedBox2 textureBox(0.4, 0.45, 0.55, 0.60);
 
 		const AlignedBox2 box(0, 0, Width, Height);
 
@@ -112,6 +112,7 @@ namespace
 		{
 			for (integer x = 0;x < textureImage.width();++x)
 			{
+
 				const integer xMod = mod(x, 2 * CheckerWidth);
 				const integer yMod = mod(y, 2 * CheckerHeight);
 
@@ -166,7 +167,7 @@ namespace
 			TexturePtr(new NearestImage_Texture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 
-		const AlignedBox2 textureBox(0.4, 0.4, 0.6, 0.6);
+		AlignedBox2 textureBox(0.4, 0.4, 0.6, 0.6);
 		const AlignedBox2 box(0, 0, Width, Height);
 
 		integer textures = textureList.size();
@@ -174,6 +175,7 @@ namespace
 		{
 			drawTexturedBox(
 				box + Vector2(0, 0),
+
 				*textureList[i],
 				arrayView(image),
 				textureBox);
@@ -197,7 +199,7 @@ namespace
 
 		MipImage_Texture<Color> mipmapSampler(mipMap);
 
-		const Color colorSet[] = 
+		Color colorSet[] = 
 		{
 			Color(1, 1, 1), 
 			Color(1, 0, 0), 
@@ -236,6 +238,7 @@ namespace
 			arrayView(image));
 
 		// Something else.
+
 
 		/*
 		drawTexturedBox(
@@ -330,13 +333,14 @@ namespace
 		Array<Color, 2> image(Vector2i(500, 500));
 		Array<Color, 2> textureImage(Vector2i(40, 40));
 
-		const integer CheckerWidth = 20;
+		integer CheckerWidth = 20;
 		const integer CheckerHeight = 20;
 
 		for (integer y = 0;y < textureImage.height();++y)
 		{
 			for (integer x = 0;x < textureImage.width();++x)
 			{
+
 				const integer xMod = mod(x, 2 * CheckerWidth);
 				const integer yMod = mod(y, 2 * CheckerHeight);
 
@@ -400,7 +404,7 @@ namespace
 		textureList.emplace_back(std::string("mip"), (Texture<Color>*)&textureMip);
 		textureList.emplace_back(std::string("rip"), (Texture<Color>*)&textureRip);
 
-		const integer textures = textureList.size();
+		integer textures = textureList.size();
 
 		{
 			Tuple<Vector2, 4> quad(
@@ -417,6 +421,7 @@ namespace
 
 			for (integer i = 0;i < textures;++i)
 			{
+
 				drawTestQuad(quad, textureQuad, *textureList[i].second,
 					"checker1", textureList[i].first);
 			}
@@ -569,7 +574,7 @@ namespace
 		MipMap<Color, 2> bMipMap(constArrayView(bTexture));
 		transform(bMipMap, fitColor);
 
-		const integer iconSize = 250;
+		integer iconSize = 250;
 		const integer iconSpace = iconSize;
 
 		const AlignedBox2 iconBox(0, 0, iconSize, iconSize);
@@ -607,6 +612,7 @@ namespace
 			arrayView(image));
 
 		drawTexturedBox(
+
 			iconBox + Vector2(0, iconSpace * 2),
 			mipImageTexture(aMipMap),
 			arrayView(image));

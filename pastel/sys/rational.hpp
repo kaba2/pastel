@@ -64,13 +64,15 @@ namespace Pastel
 		// with sign as the most significant bit.
 
 		const uint32 bits = *((const uint32*)&that);
-		const bool sign = ((bits >> 31) == 1);
+		bool sign = ((bits >> 31) == 1);
+
 		const uint32 exponentBits = (bits >> 23) & 0xFF;
 		const uint32 mantissaBits = bits & 0x7FFFFF;
 
-		const integer exponent = (integer)exponentBits - 127;
+		integer exponent = (integer)exponentBits - 127;
 
 		// Check for zeros (both -0 and +0).
+
 		if ((bits & 0x7FFFFFFF) == 0)
 		{
 			return;
@@ -155,13 +157,15 @@ namespace Pastel
 		// with sign as the most significant bit.
 
 		const uint64 bits = *((const uint64*)&that);
-		const bool sign = ((bits >> 63) == 1);
+		bool sign = ((bits >> 63) == 1);
+
 		const uint64 exponentBits = (bits >> 52) & 0x3FF;
 		const uint64 mantissaBits = bits & 0xFFFFFFFFFFFFF;
 
-		const integer exponent = (integer)exponentBits - 1023;
+		integer exponent = (integer)exponentBits - 1023;
 
 		// Check for zeros (both -0 and +0).
+
 		if ((bits & 0x7FFFFFFFFFFFFFFF) == 0)
 		{
 			return;

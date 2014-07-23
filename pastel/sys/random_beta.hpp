@@ -18,7 +18,7 @@ namespace Pastel
 		PENSURE_OP(a, >, 0);
 		PENSURE_OP(b, >, 0);
 
-		const Real u = randomGamma<Real>(a);
+		Real u = randomGamma<Real>(a);
 		
 		Real v = 0;
 		do
@@ -32,6 +32,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real betaPdf(
+
 		const PASTEL_NO_DEDUCTION(Real)& x,
 		const PASTEL_NO_DEDUCTION(Real)& a,
 		const PASTEL_NO_DEDUCTION(Real)& b)

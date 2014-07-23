@@ -24,18 +24,20 @@ namespace Pastel
 			InputSliceIterator;
 
 		const Vector<integer, N>& stride = subArray.stride();
-		const InputSlice slice(
+		InputSlice slice(
 			subArray.slice(axis, 0));
 		const integer endOffset =
+
 			stride[axis] * subArray.extent()[axis];
 
 		InputSliceIterator iter = slice.begin();
-		const InputSliceIterator iterEnd = slice.end();
+		InputSliceIterator iterEnd = slice.end();
 
 		while(iter != iterEnd)
 		{
 			rangeAlgorithm(
 				Pastel::range(
+
 				SparseIterator<Type*>(
 				&*iter, stride[axis]),
 				SparseIterator<Type*>(
@@ -52,7 +54,7 @@ namespace Pastel
 		const SubArray<Type, N>& subArray,
 		const RangeAlgorithm& rangeAlgorithm)
 	{
-		const integer n = subArray.n();
+		integer n = subArray.n();
 		for (integer i = 0;i < n;++i)
 		{
 			Pastel::forEachRow(subArray, rangeAlgorithm, i);
@@ -64,6 +66,7 @@ namespace Pastel
 		typename Type_B, int N_B, 
 		typename RangeAlgorithm2>
 	void forEachRow(
+
 		const ConstSubArray<Type_A, N_A>& aArray,
 		const SubArray<Type_B, N_B>& bArray,
 		const RangeAlgorithm2& rangeAlgorithm2,
@@ -72,7 +75,7 @@ namespace Pastel
 		ENSURE_OP(aArray.n(), ==, bArray.n());
 		ENSURE(shrink(aArray.extent(), axis) == shrink(bArray.extent(), axis));
 
-		const integer dimension = aArray.n();
+		integer dimension = aArray.n();
 
 		ENSURE_OP(axis, >=, 0);
 		ENSURE_OP(axis, <, dimension);
@@ -87,19 +90,22 @@ namespace Pastel
 		typedef typename Slice_B::Iterator 
 			SliceIterator_B;
 
+
 		const Vector<integer, N_A>& aStride = aArray.stride();
 		const Vector<integer, N_B>& bStride = bArray.stride();
 
-		const Slice_A aSlice(aArray.slice(axis, 0));
+		Slice_A aSlice(aArray.slice(axis, 0));
 		const Slice_B bSlice(bArray.slice(axis, 0));
 
 		const integer aEndOffset =
+
 			aStride[axis] * aArray.extent()[axis];
-		const integer bEndOffset =
+		integer bEndOffset =
+
 			bStride[axis] * bArray.extent()[axis];
 
 		SliceIterator_A aIter = aSlice.begin();
-		const SliceIterator_A aIterEnd = aSlice.end();
+		SliceIterator_A aIterEnd = aSlice.end();
 		SliceIterator_B bIter = bSlice.begin();
 		const SliceIterator_B bIterEnd = bSlice.end();
 
@@ -107,6 +113,7 @@ namespace Pastel
 		{
 			rangeAlgorithm2(
 				Pastel::range(
+
 				SparseIterator<Type_A*>(
 				&*aIter, aStride[axis]),
 				SparseIterator<Type_A*>(

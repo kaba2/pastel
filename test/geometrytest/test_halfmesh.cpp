@@ -105,7 +105,7 @@ namespace
 		{
 			Mesh mesh;
 
-			const integer VertexCount = 100;
+			integer VertexCount = 100;
 			std::vector<Vertex_Iterator> vertex(VertexCount);
 
 			for (integer i = 0;i < VertexCount;++i)
@@ -122,6 +122,7 @@ namespace
 
 			integer BucketSize = 100;
 			integer BucketCount = 10;
+
 			integer EdgeCount = BucketSize * BucketCount;
 			std::vector<Edge_Iterator> edgeList(EdgeCount);
 

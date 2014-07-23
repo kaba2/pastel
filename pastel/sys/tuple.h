@@ -524,7 +524,7 @@ namespace Pastel
 			, size_(0)
 			, deleteData_(true)
 		{
-			const integer size = dimension;
+			integer size = dimension;
 			allocate(size);
 			
 			try
@@ -539,6 +539,7 @@ namespace Pastel
 		}
 
 		Tuple(
+
 			const Tuple& that)
 			: data_(0)
 			, size_(0)
@@ -565,7 +566,7 @@ namespace Pastel
 			, size_(0)
 			, deleteData_(true)
 		{
-			const integer size = dimension;
+			integer size = dimension;
 			allocate(size);
 			
 			try
@@ -581,6 +582,7 @@ namespace Pastel
 
 		template <typename ThatType, int ThatN>
 		Tuple(
+
 			const Tuple<ThatType, ThatN>& that)
 			: data_(0)
 			, size_(0)
@@ -608,7 +610,7 @@ namespace Pastel
 			, size_(0)
 			, deleteData_(true)
 		{
-			const integer size = dimension;
+			integer size = dimension;
 			allocate(size);
 			
 			try
@@ -623,6 +625,7 @@ namespace Pastel
 		}
 
 		Tuple(
+
 			const Dimension& dimension,
 			const Alias<Type*>& dataAlias)
 			: data_(dataAlias)
@@ -638,8 +641,9 @@ namespace Pastel
 			, size_(0)
 			, deleteData_(true)
 		{
-			const integer size = dimension;
+			integer size = dimension;
 			allocate(size);
+
 
 			std::copy((const Type*)that, (const Type*)that + size, data_);
 		}
@@ -856,7 +860,7 @@ namespace Pastel
 		void copyConstruct(
 			const Tuple<ThatType, ThatN>& that)
 		{
-			const integer size = that.size();
+			integer size = that.size();
 			ASSERT_OP(size, ==, size_);
 
 			try
@@ -875,11 +879,12 @@ namespace Pastel
 
 		template <typename ThatType, int ThatN>
 		void copyConstruct(
+
 			const Tuple<ThatType, ThatN>& that,
 			const Dimension& dimension,
 			const Type& defaultData)
 		{
-			const integer size = dimension;
+			integer size = dimension;
 
 			const integer minSize = std::min(
 				that.size(), size);
@@ -917,6 +922,7 @@ namespace Pastel
 		}
 
 		Tuple() = delete;
+
 
 		Type* data_;
 		integer size_;

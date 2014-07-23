@@ -16,7 +16,7 @@ namespace Pastel
 			Iterator;
 
 		Iterator iter = matrix.begin();
-		const Iterator iterEnd = matrix.end();
+		Iterator iterEnd = matrix.end();
 		while(iter != iterEnd)
 		{
 			*iter = random<Real>() * 2 - 1;

@@ -82,7 +82,7 @@ namespace Pastel
 			return false;
 		}
 
-		const integer width = image.extent().x();
+		integer width = image.extent().x();
 		const integer height = image.extent().y();
 
 		const integer bytesPerScanlinePerPlane =
@@ -109,6 +109,7 @@ namespace Pastel
 
 		// Define the palette.
 
+
 		pcxHeader.palette16_[0 * 3 + 0] = 0;
 		pcxHeader.palette16_[0 * 3 + 1] = 0;
 		pcxHeader.palette16_[0 * 3 + 2] = 0;
@@ -126,7 +127,8 @@ namespace Pastel
 
 		pcxHeader.write(file);
 
-		const integer bytesPerScanline =
+		integer bytesPerScanline =
+
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(pcxHeader.bytesPerScanlinePerPlane_, 0);
@@ -188,7 +190,7 @@ namespace Pastel
 			return false;
 		}
 
-		const integer width = image.extent().x();
+		integer width = image.extent().x();
 		const integer height = image.extent().y();
 
 		PcxHeader pcxHeader;
@@ -215,6 +217,7 @@ namespace Pastel
 		{
 			const Color color = fitColor(colorPalette[i]);
 
+
 			pcxHeader.palette16_[i * 3 + 0] = quantizeUnsigned(color[0], 256);
 			pcxHeader.palette16_[i * 3 + 1] = quantizeUnsigned(color[1], 256);
 			pcxHeader.palette16_[i * 3 + 2] = quantizeUnsigned(color[2], 256);
@@ -231,7 +234,8 @@ namespace Pastel
 
 		pcxHeader.write(file);
 
-		const integer bytesPerScanline =
+		integer bytesPerScanline =
+
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(pcxHeader.bytesPerScanlinePerPlane_, 0);
@@ -250,7 +254,7 @@ namespace Pastel
 		// There can be more than 256 colors in the palette,
 		// so write at most 256 colors.
 
-		const integer colorsToWrite = std::min((integer)colorPalette.size(), (integer)256);
+		integer colorsToWrite = std::min((integer)colorPalette.size(), (integer)256);
 
 		for (integer i = 0;i < colorsToWrite;++i)
 		{
@@ -281,6 +285,7 @@ namespace Pastel
 	}
 
 	PASTELGFX bool saveIndexedPcx(
+
 		const Array<uint8, 2>& image,
 		const std::vector<Color>& palette,
 		const std::string& fileName)
@@ -310,7 +315,7 @@ namespace Pastel
 			return false;
 		}
 
-		const integer width = image.extent().x();
+		integer width = image.extent().x();
 		const integer height = image.extent().y();
 
 		PcxHeader pcxHeader;
@@ -336,6 +341,7 @@ namespace Pastel
 		pcxHeader.write(file);
 
 		const integer bytesPerScanline =
+
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(bytesPerScanline, 0);
@@ -343,12 +349,13 @@ namespace Pastel
 		{
 			for (integer xPos = 0;xPos < width;++xPos)
 			{
-				const Color color = image(Vector2i(xPos, yPos));
+				Color color = image(Vector2i(xPos, yPos));
 
 				scanline[xPos] =
 					quantizeUnsigned(color[0], 256);
 				scanline[xPos + pcxHeader.bytesPerScanlinePerPlane_] =
 					quantizeUnsigned(color[1], 256);
+
 				scanline[xPos + pcxHeader.bytesPerScanlinePerPlane_ * 2] =
 					quantizeUnsigned(color[2], 256);
 			}

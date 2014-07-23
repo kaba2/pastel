@@ -53,7 +53,8 @@ namespace Pastel
 		{
 			// Otherwise use a polynomial approximation.
 
-			const Real x2 = square(x);
+			Real x2 = square(x);
+
 
 			result = 1 - x2 * Inverse6 + square(x2) * Inverse120;
 		}

@@ -63,7 +63,7 @@ namespace Pastel
 			initialized = true;
 		}
 
-		const integer width = image.width();
+		integer width = image.width();
 		const integer height = image.height();
 
 		Array<int32, 2> result(Vector2i(width, height), -1);
@@ -263,11 +263,12 @@ namespace Pastel
 			}
 		}
 
+
 		if (width > 1 && height > 1)
 		{
 			// Left-bottom corner
 			{
-				const integer x = 0;
+				integer x = 0;
 				const integer y = 0;
 
 				if (image(x, y))
@@ -367,25 +368,29 @@ namespace Pastel
 	}
 
 	PASTELGFX integer branchingNumber(
+
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
-		const integer width = image.width();
+		integer width = image.width();
 		const integer height = image.height();
+
 
 		ENSURE2(x >= 0 && x < width, x, width);
 		ENSURE2(y >= 0 && y < height, y, height);
 
-		const uint32 neighbourMask = pixelNeighbourMask(image, x, y);
+		uint32 neighbourMask = pixelNeighbourMask(image, x, y);
 
 		integer result = 0;
 
 		bool previousBit =
+
 			(neighbourMask & 128) != 0;
 		for (integer i = 0;i < 8;++i)
 		{
-			const uint32 bitMask = 1 << i;
+			uint32 bitMask = 1 << i;
 			const bool currentBit =
+
 				(neighbourMask & bitMask) != 0;
 			if (currentBit && !previousBit)
 			{
@@ -402,22 +407,25 @@ namespace Pastel
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
-		const integer width = image.width();
+		integer width = image.width();
 		const integer height = image.height();
+
 
 		ENSURE2(x >= 0 && x < width, x, width);
 		ENSURE2(y >= 0 && y < height, y, height);
 
-		const uint32 neighbourMask = pixelNeighbourMask(image, x, y);
+		uint32 neighbourMask = pixelNeighbourMask(image, x, y);
 
 		uint32 resultMask = 0;
 
 		bool previousBit =
+
 			(neighbourMask & 128) != 0;
 		for (integer i = 0;i < 8;++i)
 		{
-			const uint32 bitMask = 1 << i;
+			uint32 bitMask = 1 << i;
 			const bool currentBit =
+
 				(neighbourMask & bitMask) != 0;
 			if (currentBit && !previousBit)
 			{
@@ -432,9 +440,11 @@ namespace Pastel
 
 		for (integer i = 0;i < 8;++i)
 		{
-			const uint32 bitMask = 1 << i;
+			uint32 bitMask = 1 << i;
+
 			const uint32 nextMask = 1 << ((i + 1) & 7);
-			const bool nextBit =
+			bool nextBit =
+
 				(neighbourMask & nextMask) != 0;
 			const bool corner = (i & 1) != 0;
 

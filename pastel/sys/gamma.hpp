@@ -14,7 +14,7 @@ namespace Pastel
 	{
 		// From Wikipedia, "Lanczos approximation".
 
-		const integer g = 7;
+		integer g = 7;
 		Real p[9] = 
 		{
 			0.99999999999980993, 
@@ -31,6 +31,7 @@ namespace Pastel
 		if (z < 0.5)
 		{
 			return constantPi<Real>() / 
+
 				(std::sin(constantPi<Real>() * z) * gamma<Real>(1 - z));
 		}
 
@@ -40,7 +41,8 @@ namespace Pastel
 		{
 			x += p[i] / (z + i);
 		}
-		const Real t = z + g + 0.5;
+		Real t = z + g + 0.5;
+
 
 		return std::sqrt(2 * constantPi<Real>()) * 
 			std::pow(t, z + 0.5) * std::exp(-t) * x;
@@ -51,7 +53,7 @@ namespace Pastel
 	{
 		// From Wikipedia, "Lanczos approximation".
 
-		const integer g = 7;
+		integer g = 7;
 		Real p[9] = 
 		{
 			0.99999999999980993, 
@@ -68,6 +70,7 @@ namespace Pastel
 		if (z < 0.5)
 		{
 			return std::log(constantPi<Real>()) -
+
 				(std::log(std::sin(constantPi<Real>() * z))
 				+ lnGamma<Real>(1 - z));
 		}
@@ -78,7 +81,8 @@ namespace Pastel
 		{
 			x += p[i] / (z + i);
 		}
-		const Real t = z + g + 0.5;
+		Real t = z + g + 0.5;
+
 
 		return 0.5 * std::log(2 * constantPi<Real>()) + 
 			(z + 0.5) * std::log(t) - t + std::log(x);

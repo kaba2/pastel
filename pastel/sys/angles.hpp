@@ -61,11 +61,12 @@ namespace Pastel
 		const Vector<Real, 2>& from,
 		const Vector<Real, 2>& to)
 	{
-		const Real deltaAngle = Pastel::ccwAngle(to) - Pastel::ccwAngle(from);
+		Real deltaAngle = Pastel::ccwAngle(to) - Pastel::ccwAngle(from);
 		if (deltaAngle >= 0)
 		{
 			return deltaAngle;
 		}
+
 
 		return deltaAngle + 2 * constantPi<Real>();
 	}

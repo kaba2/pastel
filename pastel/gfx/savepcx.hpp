@@ -55,13 +55,14 @@ namespace Pastel
 		const std::string& fileName,
 		bool maximizeContrast)
 	{
-		const Real maxValue = image.empty() ? 1 :
+		Real maxValue = image.empty() ? 1 :
+
 			std::max(*std::max_element(image.cbegin(), image.cend()), (Real)0);
 
 		ReverseAdapter<Integer_To_Real<Real, uint8> > adapter(
 			Integer_To_Real<Real, uint8>(256, maxValue));
 
-		const real32 paletteMaxValue = maximizeContrast ? 
+		real32 paletteMaxValue = maximizeContrast ? 
 			1 : maxValue;
 
 		std::vector<Color> palette;
@@ -72,17 +73,19 @@ namespace Pastel
 
 	template <typename Real>
 	bool saveRainbowPcx(
+
 		const Array<Real>& image,
 		const std::string& fileName,
 		bool maximizeContrast)
 	{
-		const Real maxValue = 
+		Real maxValue = 
+
 			std::max(*std::max_element(image.begin(), image.end()), (Real)0);
 
 		ReverseAdapter<Integer_To_Real<Real, uint8> > adapter(
 			Integer_To_Real<Real, uint8>(256, maxValue));
 
-		const real32 paletteMaxValue = maximizeContrast ? 
+		real32 paletteMaxValue = maximizeContrast ? 
 			1 : maxValue;
 
 		std::vector<Color> palette;

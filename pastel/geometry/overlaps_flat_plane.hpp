@@ -18,7 +18,7 @@ namespace Pastel
 		const Flat<Real, N, 2>& aPlane,
 		const Plane<Real, N>& bPlane)
 	{
-		const Real divider(
+		Real divider(
 			dot(aPlane[0], bPlane.normal()));
 		const Vector<Real, N> delta(
 			bPlane.position() - aPlane.position());

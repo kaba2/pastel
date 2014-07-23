@@ -109,13 +109,14 @@ namespace Pastel
 	void Image_GfxRenderer<Type>::clear() const
 	{
 		const Type& currentColor = Base::color();
-		const integer width = image_->width();
+		integer width = image_->width();
 		const integer height = image_->height();
 
 		for (integer y = 0;y < height;++y)
 		{
 			for (integer x = 0;x < width;++x)
 			{
+
 				(*image_)(x, y) = currentColor;
 			}
 		}
@@ -126,11 +127,12 @@ namespace Pastel
 		const Vector2& point) const
 	{
 		const Type& currentColor = Base::color();
-		const Vector2 screenPoint = transform(point);
+		Vector2 screenPoint = transform(point);
 
 		// Set the closest pixel.
 
 		drawPixel(screenPoint,
+
 			currentColor, arrayView(*image_));
 	}
 
@@ -139,9 +141,10 @@ namespace Pastel
 		const Segment2& segment) const
 	{
 		const Type& currentColor = Base::color();
-		const Segment2 screenSegment = Segment2(
+		Segment2 screenSegment = Segment2(
 			transform(segment.start()),
 			transform(segment.end()));
+
 
 		Pastel::drawSegment(screenSegment, currentColor, arrayView(*image_));
 	}
@@ -151,7 +154,7 @@ namespace Pastel
 		const Triangle2& triangle) const
 	{
 		const Type& currentColor = Base::color();
-		const Triangle2 screenTriangle(
+		Triangle2 screenTriangle(
 			transform(triangle[0]),
 			transform(triangle[1]),
 			transform(triangle[2]));
@@ -160,6 +163,7 @@ namespace Pastel
 			screenTriangle,
 			Triangle2(),
 			colorTexture<Type, 2>(currentColor),
+
 			arrayView(*image_));
 	}
 
@@ -168,7 +172,7 @@ namespace Pastel
 		const Triangle2& triangle,
 		const Tuple<Type, 3>& colorTriangle) const
 	{
-		const Triangle2 screenTriangle(
+		Triangle2 screenTriangle(
 			transform(triangle[0]),
 			transform(triangle[1]),
 			transform(triangle[2]));
@@ -177,6 +181,7 @@ namespace Pastel
 			screenTriangle,
 			Triangle2(Vector2(0, 0), Vector2(1, 0), Vector2(0, 1)),
 			linearSimplexTexture<Type>(colorTriangle),
+
 			arrayView(*image_));
 	}
 
@@ -191,7 +196,7 @@ namespace Pastel
 			drawTriangle(triangle);
 		}
 
-		const Triangle2 screenTriangle(
+		Triangle2 screenTriangle(
 			transform(triangle[0]),
 			transform(triangle[1]),
 			transform(triangle[2]));
@@ -199,6 +204,7 @@ namespace Pastel
 		Pastel::drawTriangle(
 			screenTriangle,
 			textureTriangle,
+
 			*texture_,
 			arrayView(*image_));
 	}
@@ -216,8 +222,9 @@ namespace Pastel
 	Vector2 Image_GfxRenderer<Type>::transform(const Vector2& point) const
 	{
 		const Vector2& viewPoint = transformPoint(screenTransformation_, point);
-		const Vector2 uv = (viewPoint - Base::viewWindow().min()) /
+		Vector2 uv = (viewPoint - Base::viewWindow().min()) /
 			Base::viewWindow().extent();
+
 		return Vector2(uv * Vector2(image_->width(), image_->height()));
 	}
 

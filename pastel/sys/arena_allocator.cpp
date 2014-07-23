@@ -37,11 +37,12 @@ namespace Pastel
 		// For every block..
 
 		Iterator iter(blocks_.begin());
-		const Iterator iterEnd(blocks_.end());
+		Iterator iterEnd(blocks_.end());
 
 		while (iter != iterEnd)
 		{
 			// ..Deallocate the block..
+
 			deallocateBlock(&*iter);
 			++iter;
 		}
@@ -92,7 +93,8 @@ namespace Pastel
 
 		// Calculate the memory address of the first
 		// free unit inside the block.
-		const integer firstFreeIndex = block->unitsAllocated_;
+		integer firstFreeIndex = block->unitsAllocated_;
+
 		uint8* const memAddress = block->data_ + firstFreeIndex * unitSize_;
 
 		// Keep up book-keeping.
@@ -129,7 +131,7 @@ namespace Pastel
 
 			// The block size must be at least 16.
 
-			const integer MinBlockSize = 16;
+			integer MinBlockSize = 16;
 			blockSize = std::max(blockSize, MinBlockSize);
 
 			// Choose the block size by an 1.5-exponential rule,
@@ -151,6 +153,7 @@ namespace Pastel
 		// Allocate and initialize a new
 		// block.
 		Block block;
+
 
 		block.data_= (uint8*)allocateRaw(blockSize * unitSize_);
 		block.unitsAllocated_ = 0;

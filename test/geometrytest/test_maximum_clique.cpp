@@ -39,13 +39,14 @@ namespace
 			const Box& correct,
 			integer sweepDirection = 1)
 		{
-			const integer correctSet[] = {-1};
+			integer correctSet[] = {-1};
 			testCase(boxSet, correct, 
 				sweepDirection, correctSet);
 		}
 
 		template <int N, int M>
 		void testCase(
+
 			const Box (&boxSet)[N],
 			const Box& correct,
 			integer sweepDirection,
@@ -53,7 +54,7 @@ namespace
 		{
 			std::vector<const Box*> resultSet;
 
-			const Box clique = 
+			Box clique = 
 				maximumClique(range(boxSet), 
 				sweepDirection,
 				pushBackOutput(resultSet));
@@ -75,6 +76,7 @@ namespace
 			TEST_ENSURE(correctSet[0] == -1 ||
 				std::equal(correctSet, correctSet + M, 
 				resultIndexSet.begin()));
+
 
 			/*
 			for (integer i = 0;i < n;++i)
@@ -101,7 +103,7 @@ namespace
 				boxSet[0].maxTopology().set(Topology::Closed);
 				boxSet[1].maxTopology().set(Topology::Closed);
 
-				const Box correct(-1, -1, 1, 1);
+				Box correct(-1, -1, 1, 1);
 				testCase(boxSet, correct);
 			}
 			// First box contained in the second.

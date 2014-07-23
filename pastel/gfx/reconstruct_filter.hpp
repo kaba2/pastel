@@ -122,21 +122,23 @@ namespace Pastel
 					.kNearest(kdTree_.points())
 					.maxDistance(filter_.radius() * filterStretch_);
 
-				const integer points = nearestSet.size();
+				integer points = nearestSet.size();
 
 				real weightSum = 0;
 				typename Data::Data_ valueSum(0);
 
 				for (integer i = 0;i < points;++i)
 				{
+
 					//const real weight = filter_.evaluate(nearestSet[i].key() * invFilterStretch_);
 
-					const Vector<real, N> delta = 
+					Vector<real, N> delta = 
 						nearestSet[i]->point().position_ - 
 						(Vector<real, N>(position) + 0.5);
 					real weight = 1;
 					for (integer k = 0;k < N;++k)
 					{
+
 						weight *= filter_.evaluate(delta[k] * invFilterStretch_);
 					}
 
@@ -156,12 +158,13 @@ namespace Pastel
 			const Tree& kdTree_;
 			const Filter& filter_;
 			const Real& filterStretch_;
-			const Real invFilterStretch_;
+			Real invFilterStretch_;
 		};
 	}
 
 	template <typename Real, int N, typename Data, typename Filter, typename Output_View>
 	void reconstructFilter(
+
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
@@ -169,7 +172,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& filterStretch,
 		const View<N, Data, Output_View>& view)
 	{
-		const integer n = region.n();
+		integer n = region.n();
 		const integer points = positionList.size();
 
 		ENSURE2(points == dataList.size(), points, dataList.size());
@@ -182,6 +185,7 @@ namespace Pastel
 		using Tree = PointKdTree<PointKdTree_Settings<DataPolicy>>;
 
 		Tree kdTree(locator);
+
 
 		const Vector<Real, N> scaling = inverse(region.extent()) * Vector<Real, N>(view.extent());
 

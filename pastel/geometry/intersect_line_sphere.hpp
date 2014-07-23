@@ -35,14 +35,15 @@ namespace Pastel
 		// b = -2 * dot(S - P, D)
 		// c = dot(S - P, S - P) - r^2
 
-		const Vector<Real, N> delta(
+		Vector<Real, N> delta(
 			sphere.position() - line.position());
 
 		const Real aCoeff =
 			dot(line.direction());
 		const Real bCoeff =
+
 			-2 * dot(line.direction(), delta);
-		const Real cCoeff = 
+		Real cCoeff = 
 			dot(delta) -
 			square(sphere.radius());
 

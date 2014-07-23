@@ -28,18 +28,19 @@ namespace Pastel
 		// Transpose of an orthogonal matrix
 		// is its inverse..
 
-		const Matrix<Real> boxRotationInverse(
+		Matrix<Real> boxRotationInverse(
 			transpose(box.rotation()));
 
 		// The radius is not affected by a
 		// rotation.
 
 		const Sphere<Real, N> transformedSphere(
+
 			(sphere.position() - box.position()) *
 			boxRotationInverse,
 			sphere.radius());
 
-		const AlignedBox<Real, N> transformedBox(
+		AlignedBox<Real, N> transformedBox(
 			Vector<Real, N>(-box.width()),
 			Vector<Real, N>(box.width()));
 

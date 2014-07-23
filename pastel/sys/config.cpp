@@ -13,7 +13,7 @@ namespace Pastel
 	Config& Config::operator+=(const Config& that)
 	{
 		ConstIterator iter = that.begin();
-		const ConstIterator iterEnd = that.end();
+		ConstIterator iterEnd = that.end();
 
 		while(iter != iterEnd)
 		{
@@ -21,6 +21,7 @@ namespace Pastel
 			{
 				erase(iter->first);
 			}
+
 			data_.insert(*iter);
 
 			++iter;

@@ -43,10 +43,11 @@ namespace Pastel
 		// Mitchell-Netravali cubic splines
 		// with B and C as the parameter.
 
-		const real xAbs = mabs(x);
+		real xAbs = mabs(x);
 
 		if (xAbs < 1)
 		{
+
 			return ((12 - 9 * b_ - 6 * c_) * xAbs +
 				(-18 + 12 * b_ + 6 * c_)) * xAbs * xAbs +
 				(6 - 2 * b_);

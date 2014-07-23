@@ -21,22 +21,26 @@ namespace Pastel
 		const Real& continuity,
 		const Real& time)
 	{
-		const Real mTension(1 - tension);
+		Real mTension(1 - tension);
 		const Real mBias(1 - bias);
 		const Real pBias(1 + bias);
 		const Real mContinuity(1 - continuity);
 		const Real pContinuity(1 + continuity);
 
 		const Real baFactor1 =
+
 			mTension * pBias *
 			mContinuity * Real(0.5);
-		const Real cbFactor1 =
+		Real cbFactor1 =
+
 			mTension * mBias *
 			pContinuity * Real(0.5);
-		const Real baFactor2 =
+		Real baFactor2 =
+
 			mTension * pBias *
 			pContinuity * Real(0.5);
-		const Real cbFactor2 =
+		Real cbFactor2 =
+
 			mTension * mBias *
 			mContinuity * Real(0.5);
 

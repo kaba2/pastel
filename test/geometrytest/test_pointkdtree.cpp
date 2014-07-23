@@ -202,7 +202,7 @@ namespace
 						allIndicator(), normBijection, searchAlgorithm)
 						.bucketSize(1);
 
-					const real distance2 = result.first;
+					real distance2 = result.first;
 					const Point_ConstIterator iter = result.second;
 
 					//TEST_ENSURE(iter == iteratorSet[i]);
@@ -233,6 +233,7 @@ namespace
 			pointSet.reserve(m);
 			for (integer i = 0;i < m;++i)
 			{
+
 				pointSet.push_back(2 * randomVectorBall<real, 2>());
 			}
 
@@ -342,12 +343,13 @@ namespace
 			using Tree = PointKdTree<Settings<N>>;
 			using Point_ConstIterator = typename Tree::Point_ConstIterator;
 
-			const integer m = 10000;
+			integer m = 10000;
 
 			std::vector<Vector<real, N> > pointSet;
 			pointSet.reserve(m);
 			for (integer i = 0;i < m;++i)
 			{
+
 				pointSet.push_back(2 * randomVectorSphere<real, N>());
 			}
 
@@ -390,7 +392,7 @@ namespace
 				}
 			}
 			{
-				const integer outerCount = countNearest(tree, Vector<real, N>(0))
+				integer outerCount = countNearest(tree, Vector<real, N>(0))
 					.maxDistance(normBijection.toBijection(2.001));
 				TEST_ENSURE_OP(outerCount, ==, m);
 

@@ -22,7 +22,7 @@ namespace Pastel
 
 		ENSURE_OP(q.m(), ==, q.n());
 
-		const integer m = q.m();
+		integer m = q.m();
 		const integer n = q.n();
 		
 		typedef typename Matrix<Real>::Iterator 
@@ -32,6 +32,7 @@ namespace Pastel
 		const Iterator iterEnd = q.end();
 		while(iter != iterEnd)
 		{
+
 			*iter = randomGaussian<Real>();
 			++iter;
 		}

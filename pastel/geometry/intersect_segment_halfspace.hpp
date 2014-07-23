@@ -52,13 +52,14 @@ namespace Pastel
 		//
 		// t = -projectedStart / (projectedEnd - projectedStart)
 
-		const Real projectedStart =
+		Real projectedStart =
 			dot(segment.start() - halfSpace.position(),
 			halfSpace.normal());
 
 		const Real projectedEnd =
 			dot(segment.end() - halfSpace.position(),
 			halfSpace.normal());
+
 
 		Real& tMin = hitList[0];
 		Real& tMax = hitList[1];

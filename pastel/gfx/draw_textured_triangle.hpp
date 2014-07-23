@@ -138,7 +138,7 @@ namespace Pastel
 		integer yMid = toPixelSpanPoint(yMidVertex.y_);
 		integer yMax = toPixelSpanPoint(yMaxVertex.y_);
 
-		const integer width = image.width();
+		integer width = image.width();
 		const integer height = image.height();
 
 		if (xMax <= 0 || xMin >= width ||
@@ -254,6 +254,7 @@ namespace Pastel
 		{
 			const real yLeftDeltaInv = inverse(yLeftDelta);
 
+
 			dxLeftDy *= yLeftDeltaInv;
 			dUvLeftDy *= yLeftDeltaInv;
 		}
@@ -262,7 +263,8 @@ namespace Pastel
 		Vector2 dUvRightDy = uvRightDelta;
 		if (yRightDelta != 0)
 		{
-			const real yRightDeltaInv = inverse(yRightDelta);
+			real yRightDeltaInv = inverse(yRightDelta);
+
 
 			dxRightDy *= yRightDeltaInv;
 			dUvRightDy *= yRightDeltaInv;
@@ -274,7 +276,8 @@ namespace Pastel
 		Vector2 dUvBottomDx = uvBottomDelta;
 		if (xBottomDelta != 0)
 		{
-			const real xBottomDeltaInv = inverse(xBottomDelta);
+			real xBottomDeltaInv = inverse(xBottomDelta);
+
 
 			dyBottomDx *= xBottomDeltaInv;
 			dUvBottomDx *= xBottomDeltaInv;
@@ -284,7 +287,8 @@ namespace Pastel
 		Vector2 dUvTopDx = uvTopDelta;
 		if (xTopDelta != 0)
 		{
-			const real xTopDeltaInv = inverse(xTopDelta);
+			real xTopDeltaInv = inverse(xTopDelta);
+
 
 			dyTopDx *= xTopDeltaInv;
 			dUvTopDx *= xTopDeltaInv;
@@ -292,7 +296,8 @@ namespace Pastel
 
 		// Offset the start scanline to pixel rows.
 
-		const real yOffset = ((real)yMin + 0.5) - yMinVertex.y_;
+		real yOffset = ((real)yMin + 0.5) - yMinVertex.y_;
+
 
 		real xLeft = yMinVertex.x_ + dxLeftDy * yOffset;
 		Vector2 uvLeft = yMinVertex.uv_ + dUvLeftDy * yOffset;
@@ -305,31 +310,37 @@ namespace Pastel
 		Vector2 dUvDx;
 		if (longLeftEdge)
 		{
-			const real yDelta = yMidVertex.y_ - yMinVertex.y_;
+			real yDelta = yMidVertex.y_ - yMinVertex.y_;
 
 			const real dx =
 				yMidVertex.x_ -
+
 				(yMinVertex.x_ + dxLeftDy * yDelta);
-			const Vector2 dUv =
+			Vector2 dUv =
 				yMidVertex.uv_ -
+
 				(yMinVertex.uv_ + dUvLeftDy * yDelta);
 
-			const real invDx = inverse(dx);
+			real invDx = inverse(dx);
+
 
 			dUvDx = dUv * invDx;
 		}
 		else
 		{
-			const real yDelta = yMidVertex.y_ - yMinVertex.y_;
+			real yDelta = yMidVertex.y_ - yMinVertex.y_;
 
 			const real dx =
+
 				(yMinVertex.x_ + dxRightDy * yDelta) -
 				yMidVertex.x_;
-			const Vector2 dUv =
+			Vector2 dUv =
+
 				(yMinVertex.uv_ + dUvRightDy * yDelta) -
 				yMidVertex.uv_;
 
-			const real invDx = inverse(dx);
+			real invDx = inverse(dx);
+
 
 			dUvDx = dUv * invDx;
 		}
@@ -339,31 +350,37 @@ namespace Pastel
 		Vector2 dUvDy;
 		if (longBottomEdge)
 		{
-			const real xDelta = xMidVertex.x_ - xMinVertex.x_;
+			real xDelta = xMidVertex.x_ - xMinVertex.x_;
 
 			const real dy =
 				xMidVertex.y_ -
+
 				(xMinVertex.y_ + dyBottomDx * xDelta);
-			const Vector2 dUv =
+			Vector2 dUv =
 				xMidVertex.uv_ -
+
 				(xMinVertex.uv_ + dUvBottomDx * xDelta);
 
-			const real invDy = inverse(dy);
+			real invDy = inverse(dy);
+
 
 			dUvDy = dUv * invDy;
 		}
 		else
 		{
-			const real xDelta = xMidVertex.x_ - xMinVertex.x_;
+			real xDelta = xMidVertex.x_ - xMinVertex.x_;
 
 			const real dy =
+
 				(xMinVertex.y_ + dyTopDx * xDelta) -
 				xMidVertex.y_;
-			const Vector2 dUv =
+			Vector2 dUv =
+
 				(xMinVertex.uv_ + dUvTopDx * xDelta) -
 				xMidVertex.uv_;
 
-			const real invDy = inverse(dy);
+			real invDy = inverse(dy);
+
 
 			dUvDy = dUv * invDy;
 		}
@@ -372,12 +389,13 @@ namespace Pastel
 
 		for (integer y = yMin;y < yMid;++y)
 		{
-			const integer xBegin = std::max(toPixelSpanPoint(xLeft), (integer)0);
+			integer xBegin = std::max(toPixelSpanPoint(xLeft), (integer)0);
 			const integer xEnd = std::min(toPixelSpanPoint(xRight), width);
 
 			if (xEnd - xBegin > 0)
 			{
 				const real xOffset = ((real)xBegin + 0.5) - xLeft;
+
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 
@@ -412,7 +430,8 @@ namespace Pastel
 			dUvRightDy = uvRightDelta;
 			if (yRightDelta != 0)
 			{
-				const real yRightDeltaInv = inverse(yRightDelta);
+				real yRightDeltaInv = inverse(yRightDelta);
+
 
 				dxRightDy *= yRightDeltaInv;
 				dUvRightDy *= yRightDeltaInv;
@@ -420,7 +439,8 @@ namespace Pastel
 
 			// Offset the scanline to pixel rows.
 
-			const real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
+			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
+
 
 			xRight = yMidVertex.x_ + dxRightDy * yOffset;
 			uvRight = yMidVertex.uv_ + dUvRightDy * yOffset;
@@ -436,7 +456,8 @@ namespace Pastel
 			dUvLeftDy = uvLeftDelta;
 			if (yLeftDelta != 0)
 			{
-				const real yLeftDeltaInv = inverse(yLeftDelta);
+				real yLeftDeltaInv = inverse(yLeftDelta);
+
 
 				dxLeftDy *= yLeftDeltaInv;
 				dUvLeftDy *= yLeftDeltaInv;
@@ -444,7 +465,8 @@ namespace Pastel
 
 			// Offset the scanline to pixel rows.
 
-			const real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
+			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
+
 
 			xLeft = yMidVertex.x_ + dxLeftDy * yOffset;
 			uvLeft = yMidVertex.uv_ + dUvLeftDy * yOffset;
@@ -454,12 +476,13 @@ namespace Pastel
 
 		for (integer y = yMid;y < yMax;++y)
 		{
-			const integer xBegin = std::max(toPixelSpanPoint(xLeft), (integer)0);
+			integer xBegin = std::max(toPixelSpanPoint(xLeft), (integer)0);
 			const integer xEnd = std::min(toPixelSpanPoint(xRight), width);
 
 			if (xEnd - xBegin > 0)
 			{
 				const real xOffset = ((real)xBegin + 0.5) - xLeft;
+
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 

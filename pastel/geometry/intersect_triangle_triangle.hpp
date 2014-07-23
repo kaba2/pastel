@@ -25,7 +25,7 @@ namespace Pastel
 		Line<Real, 3>& intersectionLine,
 		AlignedBox<Real, 1>& intersectionRange)
 	{
-		const Plane<Real, 3> aPlane(
+		Plane<Real, 3> aPlane(
 			aTriangle[0],
 			cross(aTriangle[1] - aTriangle[0],
 			aTriangle[2] - aTriangle[0]));

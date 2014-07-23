@@ -132,7 +132,7 @@ namespace Pastel
 							// that has the start point
 							// on the shared x-range.
 
-							const Plane<Real, 2> leftPlane(
+							Plane<Real, 2> leftPlane(
 								left.start_.position_,
 								cross(left.end_.position_ -
 								left.start_.position_));
@@ -259,6 +259,7 @@ namespace Pastel
 ;
 		public:
 			OverlapSegments(
+
 				const std::vector<Vector<Real, 2> >& vertex,
 				const std::vector<Integer2>& segment);
 
@@ -300,7 +301,7 @@ namespace Pastel
 			// Insert event points into the
 			// event queue.
 
-			const integer vertices = vertex_.size();
+			integer vertices = vertex_.size();
 			for (integer i = 0;i < vertices;++i)
 			{
 				event_.insert(EventPoint(i, vertex_[i]));
@@ -353,6 +354,7 @@ namespace Pastel
 
 			while (!event_.empty())
 			{
+
 				EventPoint eventPoint = *event_.begin();
 				event_.erase(event_.begin());
 
@@ -378,11 +380,12 @@ namespace Pastel
 
 			IncidenceIterator iter(
 				incidence_.begin(eventPoint.id_));
-			const IncidenceIterator iterEnd(
+			IncidenceIterator iterEnd(
 				incidence_.end(eventPoint.id_));
 
 			while (iter != iterEnd)
 			{
+
 				StatusIterator statusIter(*iter);
 				if (statusIter != status_.begin())
 				{
@@ -433,11 +436,12 @@ namespace Pastel
 
 			ExidenceIterator iter(
 				exidence_.begin(eventPoint.id_));
-			const ExidenceIterator iterEnd(
+			ExidenceIterator iterEnd(
 				exidence_.end(eventPoint.id_));
 
 			while (iter != iterEnd)
 			{
+
 				const integer startId = (*iter)[0];
 				const integer endId = (*iter)[1];
 
@@ -446,7 +450,7 @@ namespace Pastel
 				const Vector<Real, 2>& end =
 					vertex_[endId];
 
-				const StatusSegment newStatus(
+				StatusSegment newStatus(
 					startId, start,
 					endId, end);
 				std::pair<StatusIterator, bool> result(
@@ -477,6 +481,7 @@ namespace Pastel
 					// intersecting.
 
 					if (previous->start_.id_ !=
+
 						statusIter->start_.id_ &&
 						previous->end_.id_ !=
 						statusIter->end_.id_ &&
@@ -542,13 +547,14 @@ namespace Pastel
 		const std::vector<Vector<Real, 2> >& vertex,
 		const std::vector<Integer2>& segment)
 	{
-		const integer segments = segment.size();
+		integer segments = segment.size();
 		for (integer i = 0;i < segments;++i)
 		{
 			for (integer j = 0;j < segments;++j)
 			{
 				const Integer2 iSegment = segment[i];
 				const Integer2 jSegment = segment[j];
+
 
 				if (iSegment[0] != jSegment[0] &&
 					iSegment[1] != jSegment[1] &&

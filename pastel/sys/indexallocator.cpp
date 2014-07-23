@@ -319,7 +319,7 @@ namespace Pastel
 	{
 		ASSERT(toGrow > 0);
 
-		const integer minHeapHeight = 5;
+		integer minHeapHeight = 5;
 		const integer newHeapHeight = std::max(
 			heapHeight_ + toGrow,
 			minHeapHeight);
@@ -352,6 +352,7 @@ namespace Pastel
 			copy.insert(copy.end(), padCount, false);
 
 			index += count;
+
 			count *= 2;
 			padCount *= 2;
 		}

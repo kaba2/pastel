@@ -18,7 +18,7 @@ namespace Pastel
 	Matrix<Real> asMatrix(
 		const AffineTransformation<Real>& that)
 	{
-		const integer n = that.n();
+		integer n = that.n();
 		Matrix<Real> result(n + 1, n + 1);
 		for (integer i = 0;i < n;++i)
 		{
@@ -31,6 +31,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> transformVector(
+
 		const AffineTransformation<Real>& affine,
 		const Vector<Real, N>& vector)
 	{

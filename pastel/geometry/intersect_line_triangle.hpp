@@ -31,7 +31,7 @@ namespace Pastel
 
 		// Side a.
 
-		const Plane<Real, 2> aPlane(a, cross(b - a));
+		Plane<Real, 2> aPlane(a, cross(b - a));
 
 		Real t;
 		if (intersect(line, aPlane, t))
@@ -118,6 +118,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool intersect(
+
 		const Line<Real, 3>& line,
 		const PASTEL_TRIANGLE(Real, 3)& triangle,
 		Real& tIntersection,
@@ -127,7 +128,7 @@ namespace Pastel
 		// Moeller-Trumbore line-triangle intersection algorithm
 		// from the book "Real-time rendering", page 581
 
-		const Vector<Real, 3> e1 =
+		Vector<Real, 3> e1 =
 			triangle[1] - triangle[0];
 		const Vector<Real, 3> e2 =
 			triangle[2] - triangle[0];
@@ -138,6 +139,7 @@ namespace Pastel
 		const Real a = dot(e1, p);
 
 		// Test for parallel plane case
+
 
 		/*
 		static PASTEL_CONSTEXPR Real EPSILON(constant<Real>("0.01"));
@@ -159,10 +161,11 @@ namespace Pastel
 		// plane-line intersection point
 		// to test if it is inside the triangle
 
-		const Real f = inverse(a);
+		Real f = inverse(a);
 
 		const Vector<Real, 3> s =
 			line.position() - triangle[0];
+
 		const Real u = dot(s, p) * f;
 
 		if (u < 0 || u > 1)
@@ -172,7 +175,8 @@ namespace Pastel
 			return false;
 		}
 
-		const Vector<Real, 3> q = cross(s, e1);
+		Vector<Real, 3> q = cross(s, e1);
+
 		const Real v = dot(line.direction(), q) * f;
 
 		if (v < 0 || u + v > 1)

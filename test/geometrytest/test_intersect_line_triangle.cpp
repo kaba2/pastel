@@ -36,7 +36,7 @@ namespace
 		void testPositive2()
 		{
 			/*
-			const PASTEL_TRIANGLE(Real, 2) triangle(
+			PASTEL_TRIANGLE(Real, 2) triangle(
 				Vector<Real, 2>(1, 1),
 				Vector<Real, 2>(3, 1),
 				Vector<Real, 2>(3, 3));
@@ -90,13 +90,14 @@ namespace
 			TEST_ENSURE(t == Real(3, 2));
 			TEST_ENSURE(intersect(h, triangle, t));
 			TEST_ENSURE(t == Real(3, 2));
+
 			*/
 		}
 
 		void testNegative2()
 		{
 			/*
-			const PASTEL_TRIANGLE(Real, 2) triangle(
+			PASTEL_TRIANGLE(Real, 2) triangle(
 				Vector<Real, 2>(1, 1),
 				Vector<Real, 2>(3, 1),
 				Vector<Real, 2>(3, 3));
@@ -172,12 +173,13 @@ namespace
 			TEST_ENSURE(!intersect(l, triangle, t));
 			TEST_ENSURE(!intersect(m, triangle, t));
 			TEST_ENSURE(!intersect(n, triangle, t));
+
 			*/
 		}
 
 		void testPositive3()
 		{
-			const PASTEL_TRIANGLE(Real, 3) triangle(
+			PASTEL_TRIANGLE(Real, 3) triangle(
 				Vector<Real, 3>(1, 1, 1),
 				Vector<Real, 3>(3, 1, 1),
 				Vector<Real, 3>(3, 3, 1));

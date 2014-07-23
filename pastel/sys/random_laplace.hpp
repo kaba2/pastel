@@ -57,7 +57,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& x,
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
-		const Real invScale = inverse(scale);
+		Real invScale = inverse(scale);
+
 
 		return Pastel::laplacePdf<Real>(x * invScale) * invScale;
 	}

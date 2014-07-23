@@ -35,10 +35,11 @@ namespace Pastel
 		}
 
 	private:
-		const Functor functor_;
+		Functor functor_;
 	};
 
 	template <typename Type, typename Functor>
+
 	FunctorColorMixer<Type, Functor> functorColorMixer(const Functor& functor)
 	{
 		return FunctorColorMixer<Type, Functor>(functor);

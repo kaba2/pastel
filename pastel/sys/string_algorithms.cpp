@@ -170,7 +170,7 @@ namespace Pastel
 
 	PASTELSYS std::string firstWord(const std::string& that)
 	{
-		const integer begin = that.find_first_not_of(" \t\n");
+		integer begin = that.find_first_not_of(" \t\n");
 		integer end = that.find_first_of(" \t\n", begin);
 		if (end == std::string::npos)
 		{
@@ -178,6 +178,7 @@ namespace Pastel
 		}
 
 		std::string result;
+
 
 		if (begin != std::string::npos &&
 			end != std::string::npos)
@@ -192,9 +193,10 @@ namespace Pastel
 	PASTELSYS std::string removeWhiteSpace(const std::string& that)
 	{
 		std::string result;
-		const integer thatSize = that.size();
+		integer thatSize = that.size();
 		for (integer i = 0;i < thatSize;++i)
 		{
+
 			if (that[i] != ' ' &&
 				that[i] != '\t' &&
 				that[i] != '\n')
@@ -209,7 +211,7 @@ namespace Pastel
 		char beginSymbol, char endSymbol,
 		std::vector<std::string>& blocks)
 	{
-		const integer thatSize = that.size();
+		integer thatSize = that.size();
 		integer position = 0;
 		while (position < thatSize)
 		{
@@ -236,6 +238,7 @@ namespace Pastel
 
 		return true;
 	}
+
 
 	PASTELSYS void getWords(const std::string& sentence,
 		std::vector<std::string>& words)
@@ -358,7 +361,7 @@ namespace Pastel
 		{
 			// Pad or trim.
 
-			const integer length = text.size();
+			integer length = text.size();
 			if (length < digits)
 			{
 				const integer toPad = digits - length;

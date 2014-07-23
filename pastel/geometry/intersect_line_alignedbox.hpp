@@ -22,7 +22,7 @@ namespace Pastel
 		Real tMin = -infinity<Real>();
 		Real tMax = infinity<Real>();
 
-		const AlignedBox<Real, N> testAlignedBox = 
+		AlignedBox<Real, N> testAlignedBox = 
 			alignedBox - line.position();
 
 		const integer dimension = line.n();
@@ -40,6 +40,7 @@ namespace Pastel
 				// However, there are singular cases
 				// that don't work correctly.
 				// For an example, let:
+
 				// f == -infinity &&
 				// testAlignedBox.min()[i] == 0 &&
 				// testAlignedBox.max()[i] >= 0
@@ -58,7 +59,8 @@ namespace Pastel
 			}
 			else
 			{
-				const Real f = line.inverseDirection()[i];
+				Real f = line.inverseDirection()[i];
+
 				Real t0 = testAlignedBox.min()[i] * f;
 				Real t1 = testAlignedBox.max()[i] * f;
 

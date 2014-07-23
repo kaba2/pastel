@@ -12,9 +12,10 @@ namespace Pastel
 	Sphere<Real, N> boundingSphere(
 		const AlignedBox<Real, N>& alignedBox)
 	{
-		const Vector<Real, N> delta = alignedBox.max() - alignedBox.min();
+		Vector<Real, N> delta = alignedBox.max() - alignedBox.min();
 		return Sphere<Real, N>(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
+
 			std::sqrt(dot(delta)) * 0.5);
 	}
 

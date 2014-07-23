@@ -12,7 +12,7 @@ namespace Pastel
 	{
 		ENSURE_OP(matrix.width(), ==, matrix.height());
 
-		const integer n = matrix.height();
+		integer n = matrix.height();
 		Matrix<Real> adjugateMatrix(n, n);
 
 		switch(n)
@@ -30,6 +30,7 @@ namespace Pastel
 			break;
 		case 3:
 			adjugateMatrix(0, 0) =
+
 				matrix(1, 1) * matrix(2, 2) -
 				matrix(1, 2) * matrix(2, 1);
 			adjugateMatrix(0, 1) =

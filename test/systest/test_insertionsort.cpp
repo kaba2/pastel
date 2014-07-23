@@ -53,7 +53,7 @@ namespace
 
 		void testInsertionSort()
 		{
-			const integer n = 100;
+			integer n = 100;
 
 			std::vector<integer> v;
 			v.reserve(n);

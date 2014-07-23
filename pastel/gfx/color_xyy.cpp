@@ -22,8 +22,9 @@ namespace Pastel
 		// = (X + Y + Z)(Z / (X + Y + Z))
 		// = Z
 
-		const real32 yRatio(xyy[2] / xyy[1]);
+		real32 yRatio(xyy[2] / xyy[1]);
 		return Color(
+
 			yRatio * xyy[0],
 			xyy[2],
 			yRatio * (1 - xyy[0] - xyy[1]));
@@ -35,7 +36,7 @@ namespace Pastel
 		// y' = Y / (X + Y + Z)
 		// Y' = Y
 
-		const real32 s = sum(xyz);
+		real32 s = sum(xyz);
 
 		return Color(
 			xyz[0] / s,

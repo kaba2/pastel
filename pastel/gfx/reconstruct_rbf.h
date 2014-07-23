@@ -85,11 +85,12 @@ namespace Pastel
 				const Vector<integer, N>& position,
 				Data& data) const
 			{
-				const integer n = w_.size();
+				integer n = w_.size();
 
 				Real result = 0;
 				for (integer i = 0;i < n;++i)
 				{
+
 					result += w_[i] * radialBasisFunction_->evaluate(
 						dot(((Vector<Real, N>(position) + 0.5) - positionList_[i]) * scaling_));
 				}
@@ -101,7 +102,8 @@ namespace Pastel
 			const std::vector<Vector<Real, N> >& positionList_;
 			const Vector<Real, Dynamic>& w_;
 			const Vector<Data, Dynamic>& b_;
-			const Vector<Real, N> scaling_;
+			Vector<Real, N> scaling_;
+
 			const FilterPtr& radialBasisFunction_;
 		};
 
@@ -115,7 +117,7 @@ namespace Pastel
 		const FilterPtr& radialBasisFunction,
 		const View<N, Data, Output_View>& view)
 	{
-		const integer n = positionList.size();
+		integer n = positionList.size();
 
 		Matrix<Real> a(n, n);
 

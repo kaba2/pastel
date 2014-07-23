@@ -32,11 +32,12 @@ namespace
 
 		saveGrayscalePcx(filter, "convolution_filter.pcx");
 
-		const integer points = 1000;
+		integer points = 1000;
 
 		for (integer i = 0;i < points;++i)
 		{
 			input(
+
 				randomVector<real, 2>() * Vector2(extent - 1)) = randomRgbColor();
 		}
 
@@ -63,11 +64,12 @@ namespace
 		Array<Color, 3> input(extent, Color(0));
 		Array<real32, 3> filter(filterExtent, 1);
 
-		const integer points = 1000;
+		integer points = 1000;
 
 		for (integer i = 0;i < points;++i)
 		{
 			input(
+
 				randomVector<real, 3>() * Vector3(extent - 1)) = randomRgbColor();
 		}
 

@@ -8,7 +8,7 @@ namespace Pastel
 	namespace
 	{
 
-		const ulong primes[256 + 48 + 1] =
+		ulong primes[256 + 48 + 1] =
 		{
 
 			2ul, 3ul, 5ul, 7ul, 11ul, 13ul, 17ul, 19ul, 23ul, 29ul,

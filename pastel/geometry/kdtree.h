@@ -384,7 +384,7 @@ namespace Pastel
 				// The kd-tree nodes are
 				// half-open boxes of the form [min, max[.
 
-				const Tuple<Real, 2> bound = objectPolicy_.bound(object, splitAxis_);
+				Tuple<Real, 2> bound = objectPolicy_.bound(object, splitAxis_);
 				if (bound[1] < splitPosition_)
 				{
 					return TriState::True;
@@ -405,6 +405,7 @@ namespace Pastel
 
 		template <typename InputIterator>
 		void insert(
+
 			const Cursor& cursor,
 			InputIterator begin, InputIterator end);
 

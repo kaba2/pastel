@@ -13,7 +13,7 @@ namespace
 
 	void test1d()
 	{
-		const integer Width = 400;
+		integer Width = 400;
 		const integer Height = 80;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
@@ -26,6 +26,7 @@ namespace
 			for (integer x = 0;x < Width;++x)
 			{
 				image(x, y) = fromColor +
+
 					perlinNoise<real>((real)x / 5) * deltaColor;
 			}
 		}
@@ -35,7 +36,7 @@ namespace
 
 	void test2d()
 	{
-		const integer Width = 400;
+		integer Width = 400;
 		const integer Height = 400;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
@@ -49,6 +50,7 @@ namespace
 			{
 				image(x, y) = fromColor +
 					perlinNoise(Vector2((real)x / 5,
+
 					(real)y / 5)) * deltaColor;
 			}
 		}
@@ -58,7 +60,7 @@ namespace
 
 	void test3d()
 	{
-		const integer Width = 400;
+		integer Width = 400;
 		const integer Height = 400;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
@@ -72,6 +74,7 @@ namespace
 			{
 				image(x, y) = fromColor +
 					perlinNoise(Vector3((real)x / 5,
+
 					(real)y / 5, 0)) * deltaColor;
 			}
 		}
@@ -81,7 +84,7 @@ namespace
 
 	void testSimplex2d()
 	{
-		const integer Width = 512;
+		integer Width = 512;
 		const integer Height = 512;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
@@ -95,6 +98,7 @@ namespace
 			{
 				image(x, y) = fromColor +
 					simplexNoise(Vector2((real)x / 30,
+
 					(real)y / 30)) * deltaColor;
 			}
 		}
@@ -104,7 +108,7 @@ namespace
 
 	void testSimplex3d()
 	{
-		const integer Width = 512;
+		integer Width = 512;
 		const integer Height = 512;
 
 		Array<Color, 2> image(Vector2i(Width, Height));
@@ -117,6 +121,7 @@ namespace
 			for (integer x = 0;x < Width;++x)
 			{
 				image(x, y) = fromColor +
+
 					simplexNoise(Vector3((real)x / 30, (real)y / 30, 0)) * deltaColor;
 			}
 		}

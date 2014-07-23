@@ -17,10 +17,11 @@ namespace Pastel
 		PENSURE_OP(aBox.n(), ==, bBox.n());
 
 		bool empty = false;
-		const integer n = aBox.n();
+		integer n = aBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			if (aBox.min()[i] > bBox.min()[i] ||
+
 				(aBox.min()[i] == bBox.min()[i] &&
 				aBox.minTopology()[i] == Topology::Open))
 			{

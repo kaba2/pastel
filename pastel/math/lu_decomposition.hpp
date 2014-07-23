@@ -19,7 +19,7 @@ namespace Pastel
 		ENSURE_OP(n, >=, 0);
 
 		setDiagonal(packedLu_, 0);
-		const integer size = rowPermutation_.size();
+		integer size = rowPermutation_.size();
 
 		for (integer i = 0;i < size;++i)
 		{
@@ -40,6 +40,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
+
 	LuDecomposition<Real>::LuDecomposition(const LuDecomposition& that)
 		: packedLu_(that.packedLu_)
 		, rowPermutation_(that.rowPermutation_)
@@ -148,7 +149,7 @@ namespace Pastel
 		singular_ = false;
 		evenPermutation_ = true;
 
-		const integer width = packedLu_.width();
+		integer width = packedLu_.width();
 		const integer height = packedLu_.height();
 
 		ENSURE_OP(width, ==, height);
@@ -194,6 +195,7 @@ namespace Pastel
 			integer largestIndex = k;
 			for (integer i = k;i < height;++i)
 			{
+
 				const Real absValue = invLargestInRow_[i] * mabs(packedLu_(i, k));
 				if (absValue > largestAbsValue)
 				{
@@ -241,9 +243,10 @@ namespace Pastel
 
 				// This is as in normal Gaussian elimination.
 
-				const Real factor = packedLu_(i, k);
+				Real factor = packedLu_(i, k);
 				for (integer j = k + 1;j < width;++j)
 				{
+
 					packedLu_(i, j) -= factor * packedLu_(k, j);
 				}
 			}
@@ -266,7 +269,7 @@ namespace Pastel
 	{
 		const Matrix<Real>& packedLu = lu.packedLu();
 
-		const integer n = packedLu.width();
+		integer n = packedLu.width();
 
 		ENSURE2(b.size() == n, b.size(), n);
 
@@ -279,6 +282,7 @@ namespace Pastel
 
 		// First solve Pz = b.
 		Vector<Real> x(ofDimension(n));
+
 		const Tuple<integer>& rowPermutation = lu.rowPermutation();
 		for (integer i = 0;i < n;++i)
 		{
@@ -303,7 +307,7 @@ namespace Pastel
 			return 0;
 		}
 
-		const Real value = diagonalProduct(lu.packedLu());
+		Real value = diagonalProduct(lu.packedLu());
 
 		if (lu.evenPermutation())
 		{

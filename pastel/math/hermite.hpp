@@ -39,10 +39,11 @@ namespace Pastel
 
 		const Real h1(-2 * x3 + 3 * x2);
 		const Real h2(x3 - 2 * x2 + x);
-		const Real h3(x3 - x2);
+		Real h3(x3 - x2);
 
 		return PointType(
 			startPoint +
+
 			(endPoint - startPoint) * h1 +
 			startVelocity * h2 +
 			endVelocity * h3);

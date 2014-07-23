@@ -109,9 +109,10 @@ namespace Pastel
 	void drawArrow(
 		const GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		const real radius);
+		real radius);
 
 	//! Draws a convex polygon.
+
 	/*!
 	It is essential that the polygon is convex:
 	non-convex polygons will not in general be

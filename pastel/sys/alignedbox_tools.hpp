@@ -21,7 +21,7 @@ namespace Pastel
 		const Vector<integer, N>& stride,
 		const Vector<integer, N>& order)
 	{
-		const integer n = stride.n();
+		integer n = stride.n();
 
 		Vector<integer, N> result(
 			ofDimension(n));
@@ -30,9 +30,10 @@ namespace Pastel
 		{
 			const integer k = order[i];
 			result[k] = linearIndex / stride[k];
+
 			linearIndex -= result[k] * stride[k];
 		}
-		const integer k = order[0];
+		integer k = order[0];
 		result[k] = linearIndex;
 
 		return result;
@@ -41,9 +42,10 @@ namespace Pastel
 	template <int N>
 	Vector<integer, N> position(
 		integer linearIndex,
+
 		const Vector<integer, N>& stride)
 	{
-		const integer n = stride.n();
+		integer n = stride.n();
 
 		Vector<integer, N> result(
 			ofDimension(n));
@@ -51,6 +53,7 @@ namespace Pastel
 		for (integer i = n - 1;i > 0;--i)
 		{
 			result[i] = linearIndex / stride[i];
+
 			linearIndex -= result[i] * stride[i];
 		}
 		result[0] = linearIndex;
@@ -70,7 +73,7 @@ namespace Pastel
 			return visited;
 		}
 
-		const integer n = region.n();
+		integer n = region.n();
 		Vector<integer, N> position(
 			ofDimension(n), 0);
 		integer i = 0;
@@ -104,6 +107,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> discreteToContinuous(
+
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,
 		const Vector<integer, N>& discretePoint)

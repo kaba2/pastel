@@ -33,7 +33,7 @@ namespace Pastel
 		const TestReport& testReport,
 		Log& output)
 	{
-		const std::string title = 
+		std::string title = 
 			testReport.name() + " test report";
 
 		output << title << logNewLine;
@@ -59,6 +59,7 @@ namespace Pastel
 		output << logNewLine;
 
 		integer errors = testReport.errors();
+
 		std::vector<const TestReport::ErrorInfo*> sortedList;
 		sortedList.reserve(errors);
 		for (integer i = 0;i < errors;++i)

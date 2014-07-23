@@ -49,7 +49,7 @@ namespace Pastel
 		const View<N, Image_Element, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
-		const AlignedBox<integer, N> textureBox(
+		AlignedBox<integer, N> textureBox(
 			position, position + texture.extent());
 		const AlignedBox<integer, N> imageBox(
 			Vector<integer, N>(0), image.extent());
@@ -70,6 +70,7 @@ namespace Pastel
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View>
 	void drawView(
+
 		const ConstView<N, Texture_Element, Texture_View>& texture,
 		const Vector<integer, N>& position,
 		const View<N, Image_Element, Image_View>& image)

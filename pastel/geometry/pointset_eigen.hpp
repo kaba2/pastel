@@ -26,7 +26,7 @@ namespace Pastel
 		// Bin Yang, IEEE Transactions on Signal Processing,
 		// Vol 43., No. 1, January 1995.
 
-		const integer n = locator.n();
+		integer n = locator.n();
 		ENSURE_OP(n, !=, Dynamic);
 
 		if (pointSet.empty())
@@ -57,6 +57,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			const Real y = dot(result, 
+
 				pointAsVector(*iter, locator) - meanPoint);
 
 			// We take beta = 1.
@@ -91,7 +92,7 @@ namespace Pastel
 		ENSURE(!pointSet.empty());
 		ENSURE_OP(eigenvectors, >, 0);
 
-		const integer n = locator.n();
+		integer n = locator.n();
 		ENSURE_OP(n, !=, Dynamic);
 
 		const real beta = 1;
@@ -108,13 +109,15 @@ namespace Pastel
 		auto iterEnd = pointSet.end();
 		while(iter != iterEnd)
 		{
+
 			x = pointAsVector(*iter, locator) - meanPoint;
 
 			for (integer j = 0;j < eigenvectors;++j)
 			{
 				Real& d = dOut[j];
 
-				const Real y = dot(qOut[j], x);
+				Real y = dot(qOut[j], x);
+
 
 				d = beta * d + square(y);
 

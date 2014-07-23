@@ -11,10 +11,11 @@ namespace Pastel
 	template <typename Real>
 	void differentiate(Polynomial<Real>& that)
 	{
-		const integer n = that.size();
+		integer n = that.size();
 
 		for (integer i = 0;i < n - 1;++i)
 		{
+
 			that[i] = that[i + 1] * (i + 1);
 		}
 		that[n - 1] = 0;
@@ -37,7 +38,7 @@ namespace Pastel
 		Polynomial<Real>& quotient,
 		Polynomial<Real>& remainder)
 	{
-		const integer n = that.degree();
+		integer n = that.degree();
 		const integer m = divider.degree();
 
 		quotient = Polynomial<Real>();
@@ -49,6 +50,7 @@ namespace Pastel
 		{
 			if (mabs(remainder[i]) > that.epsilon())
 			{
+
 				const Real quotientCoefficient = remainder[i] * invDividerLead;
 				quotient.set(i - m, quotientCoefficient);
 				remainder -= (divider << (i - m)) * quotientCoefficient;
@@ -113,7 +115,7 @@ namespace Pastel
 		}
 
 		integer signChanges = 0;
-		const integer n = sturm.size();
+		integer n = sturm.size();
 		bool previousSign = sturm[0](max) > 0;
 
 		for (integer i = 1;i < n;++i)
@@ -131,6 +133,7 @@ namespace Pastel
 
 	template <typename Real>
 	integer roots(
+
 		const std::vector<Polynomial<Real> >& sturm,
 		const Real& min, const Real& max)
 	{
@@ -157,7 +160,7 @@ namespace Pastel
 		std::ostream& stream,
 		const Polynomial<Real>& that)
 	{
-		const integer n = that.degree();
+		integer n = that.degree();
 
 		stream << "[";
 		stream << that[n];

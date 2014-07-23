@@ -15,7 +15,7 @@ namespace Pastel
 		RandomAccess_Iterator end,
 		integer k)
 	{
-		const integer n = end - begin;
+		integer n = end - begin;
 
 		PENSURE_OP(k, >=, 0);
 		PENSURE_OP(k, <=, n);
@@ -28,15 +28,17 @@ namespace Pastel
 		// By the following branching
 		// we guarantee that at most n / 2
 		// swaps are needed.
+
 		if (2 * k < n)
 		{
 			// Move to the front those elements which
 			// will be in the subset.
 			for (integer i = 0;i < k;++i)
 			{
-				const integer index = randomInteger(n - i);
+				integer index = randomInteger(n - i);
 
 				using std::swap;
+
 				swap(*begin, *(begin + index));
 
 				++begin;
@@ -48,11 +50,12 @@ namespace Pastel
 			// will _not_ be in the subset.
 			for (integer i = 0;i < n - k;++i)
 			{
-				const integer index = randomInteger(n - i);
+				integer index = randomInteger(n - i);
 
 				--end;
 
 				using std::swap;
+
 				swap(*end, *(begin + index));
 			}
 		}

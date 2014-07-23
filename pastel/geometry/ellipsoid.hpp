@@ -140,7 +140,7 @@ namespace Pastel
 		// e_i^T x = +/- sqrt(e_i^T S^-1 e_i)
 		// = +/- sqrt(S^-1(i, i))
 
-		const Matrix<Real> invQuadraticForm =
+		Matrix<Real> invQuadraticForm =
 			inverse(quadraticForm);
 
 		const Vector<Real> radius = sqrt(diagonal(invQuadraticForm));

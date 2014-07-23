@@ -825,7 +825,7 @@ namespace
 
 			std::list<integer> dataSet;
 
-			const integer treeSizeSet[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100};
+			integer treeSizeSet[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100};
 			const integer treeSizes = sizeof(treeSizeSet) / sizeof(integer);
 
 			for (integer k = 0;k < treeSizes;++k)
@@ -833,9 +833,10 @@ namespace
 				const integer treeSize = treeSizeSet[k];
 				tree.clear();
 				dataSet.clear();
+
 				for (integer i = 0;i < 4 * treeSize;++i)
 				{
-					const uinteger n = randomUinteger() % 100;
+					uinteger n = randomUinteger() % 100;
 					dataSet.push_back(n);
 
 					tree.insert(n);
@@ -1120,6 +1121,7 @@ namespace
 		}
 
 		template <typename Tree>
+
 		void print(const Tree& tree, integer height, bool key = true)
 		{
 			using ConstIterator = typename Tree::ConstIterator;

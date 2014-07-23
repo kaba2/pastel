@@ -9,7 +9,7 @@ namespace Pastel
 	template <typename Real>
 	Real signedArea(const Polygon<Real, 2>& polygon)
 	{
-		const integer n = polygon.size();
+		integer n = polygon.size();
 
 		if (n < 3)
 		{
@@ -20,6 +20,7 @@ namespace Pastel
 		// an application of Green's theorem.
 
 		Real result =
+
 			polygon[0].x() *
 			(polygon[1].y() - polygon[n - 1].y());
 

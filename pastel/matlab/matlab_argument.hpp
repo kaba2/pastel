@@ -54,7 +54,7 @@ namespace Pastel
 	{
 		ENSURE(mxIsNumeric(input));
 
-		const integer n = mxGetNumberOfElements(input);
+		integer n = mxGetNumberOfElements(input);
 
 		ENSURE_OP(index, >=, 0);
 		ENSURE_OP(index, <, n);
@@ -63,6 +63,7 @@ namespace Pastel
 		switch(mxGetClassID(input))
 		{
 		case mxSINGLE_CLASS:
+
 			result = *((real32*)mxGetData(input) + index);
 			break;
 		case mxDOUBLE_CLASS:
@@ -96,7 +97,7 @@ namespace Pastel
 			// This should not be possible, since
 			// the above covers all numeric types.
 			{
-				const bool reachedHere = true;
+				bool reachedHere = true;
 				ENSURE(!reachedHere);
 			}
 			break;
@@ -104,6 +105,7 @@ namespace Pastel
 
 		return result;
 	}
+
 
 	inline std::string asString(const mxArray* input)
 	{
@@ -122,8 +124,9 @@ namespace Pastel
 	{
 		ENSURE(mxIsNumeric(that));
 
-		const integer width = mxGetN(that);
+		integer width = mxGetN(that);
 		const integer height = mxGetM(that);
+
 		const integer n = width * height;
 
 		Array<Type> result;
@@ -169,7 +172,7 @@ namespace Pastel
 	{
 		ENSURE(mxIsNumeric(that));
 
-		const integer n = mxGetNumberOfElements(that);
+		integer n = mxGetNumberOfElements(that);
 
 		Array<Type> result;
 
@@ -177,6 +180,7 @@ namespace Pastel
 		{
 			// No copying is done here. Rather, we aliase
 			// the existing data.
+
 
 			Type* rawData = (Type*)mxGetData(that);
 			
@@ -211,11 +215,12 @@ namespace Pastel
 	{
 		ENSURE(mxIsCell(cellArray));
 
-		const integer n = 
+		integer n = 
 			mxGetNumberOfElements(cellArray);
 
 		for (integer i = 0;i < n;++i)
 		{
+
 			const mxArray* cell = mxGetCell(cellArray, i);
 			report(asArray<Type>(cell));
 		}
@@ -232,7 +237,7 @@ namespace Pastel
 		ENSURE(mxIsNumeric(input));
 		ENSURE_OP(offset, >=, 0);
 
-		const integer n = 
+		integer n = 
 			mxGetNumberOfElements(input);
 		if (offset >= n)
 		{
@@ -244,6 +249,7 @@ namespace Pastel
 		switch(mxGetClassID(input))
 		{
 		case mxSINGLE_CLASS:
+
 			copy_n((real32*)mxGetData(input) + offset, m, output);
 			break;
 		case mxDOUBLE_CLASS:
@@ -352,7 +358,7 @@ namespace Pastel
 			}
 		}
 
-		const bool reachedHere = true;
+		bool reachedHere = true;
 		ENSURE(!reachedHere);
 
 		return mxUNKNOWN_CLASS;

@@ -107,7 +107,7 @@ namespace Pastel
 		// Thus the whole algorithm is O(d) in time. 
 		// The additional storage requirements are O(1).
 
-		const integer dimension = box.n();
+		integer dimension = box.n();
 		
 		ENSURE_OP(dimension, ==, plane.n());
 
@@ -132,12 +132,14 @@ namespace Pastel
 		const Real axisScale = -inverse(plane.normal()[k]);
 
 		Real minAxisDistance = 
+
 			dot(box.min() - plane.position(), plane.normal()) * axisScale;
 		Real maxAxisDistance = minAxisDistance;
 
 		for (integer i = 0;i < k;++i)
 		{
-			const Real deltaAxisDistance = 
+			Real deltaAxisDistance = 
+
 				box.extent(i) * plane.normal()[i] * axisScale;
 
 			if (deltaAxisDistance < 0)
@@ -152,7 +154,8 @@ namespace Pastel
 		// Jump over i = k.
 		for (integer i = k + 1;i < dimension;++i)
 		{
-			const Real deltaAxisDistance = 
+			Real deltaAxisDistance = 
+
 				box.extent(i) * plane.normal()[i] * axisScale;
 
 			if (deltaAxisDistance < 0)

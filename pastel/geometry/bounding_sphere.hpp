@@ -121,7 +121,7 @@ namespace Pastel
 					subSimplex[i] = simplex[indexSubset[i]];
 				}
 
-				const Sphere<Real, N> bound(circumscribedSphere(subSimplex));
+				Sphere<Real, N> bound(circumscribedSphere(subSimplex));
 				if (bound.radius() > largestBound.radius())
 				{
 					largestBound = bound;
@@ -139,6 +139,7 @@ namespace Pastel
 				// Those points that were part of the construction
 				// of the sphere should not be tested
 				// because a simple roundoff error could mess things up.
+
 				if (subsetIndex >= 0 && largestSubset[subsetIndex] == i)
 				{
 					--subsetIndex;
@@ -337,10 +338,11 @@ namespace Pastel
 
 		for (integer i = 0;i < M;++i)
 		{
-			const Vector<Real, N> delta = 
+			Vector<Real, N> delta = 
 				simplex[i + 1] - simplex[0];
 
 			d[i] = delta;
+
 			b[i] = dot(delta) * 0.5;
 		}
 
@@ -358,10 +360,11 @@ namespace Pastel
 		// <=>
 		// u^T D^T D = b^T
 
-		const Vector<Real, M> u = 
+		Vector<Real, M> u = 
 			solveLinear(ddt, b);
 
 		const Vector<Real, N> translation = 
+
 			u * d;
 
 		return Sphere<Real, N>(

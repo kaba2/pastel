@@ -28,7 +28,7 @@ namespace Pastel
 		// of the golden ratio is that it is 
 		// irrational, supposedly giving bits 
 		// without a repeating pattern.
-		const Integer magic = 0x9e3779b9;
+		Integer magic = 0x9e3779b9;
 
 		return left ^ (right + magic + 
 			(left << 6) + (left >> 2));
@@ -50,6 +50,7 @@ namespace Pastel
 
 	template <typename ConstRange>
 	hash_integer computeHashMany(
+
 		const ConstRange& input)
 	{
 		auto iter = input.begin();

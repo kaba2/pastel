@@ -85,10 +85,11 @@ namespace
 	{
 		std::vector<int*> memoryList;
 		ArenaAllocator allocator;
-		const int Units = 100000;
+		int Units = 100000;
 
 		for (int i = 0;i < Units;++i)
 		{
+
 			memoryList.push_back((int*)allocator.allocate(sizeof(int)));
 		}
 

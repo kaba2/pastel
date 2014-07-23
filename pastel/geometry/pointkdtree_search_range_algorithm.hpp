@@ -42,8 +42,9 @@ namespace Pastel
 
 		using Flags = uint64;
 
-		const integer n = kdTree.n();
+		integer n = kdTree.n();
 		const Flags fullFlags = ((Flags)1 << n) - 1;
+
 
 		const Vector<Real, N>& rangeMin = range.min();
 		const Vector<Real, N>& rangeMax = range.max();
@@ -83,7 +84,7 @@ namespace Pastel
 			while(!cursor.leaf() && 
 				cursor.points() > bucketSize)
 			{
-				const integer splitAxis = cursor.splitAxis();
+				integer splitAxis = cursor.splitAxis();
 				const Flags flag = (Flags)1 << splitAxis;
 
 				if (flags == fullFlags)
@@ -105,6 +106,7 @@ namespace Pastel
 				bool visitLeft = false;
 				Flags leftFlags = flags;
 				Flags rightFlags = flags;
+
 
 				if (rangeMin[splitAxis] < leftMax &&
 					rangeMax[splitAxis] > leftMin)
@@ -181,15 +183,16 @@ namespace Pastel
 				// Only accept points in the range.
 
 				Point_ConstIterator iter = cursor.begin();
-				const Point_ConstIterator iterEnd = cursor.end();
+				Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
+
 					const auto& point = iter->point();
 					// Cull the point dimension by n.
 					integer i = 0;
 					while(i < n)
 					{
-						const Real position = 
+						Real position = 
 							locator(point, i);
 						if (position <= rangeMin[i] || 
 							position >= rangeMax[i])

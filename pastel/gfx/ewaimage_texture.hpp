@@ -19,17 +19,19 @@ namespace Pastel
 	{
 		ENSURE(maxFilter && minFilter);
 
-		const real filterRadius =
+		real filterRadius =
 			std::max(minFilter->radius(), maxFilter->radius());
 
+
 		const integer tableSize = filterRadius * 1024;
-		const real scaling = square(filterRadius) / tableSize;
+		real scaling = square(filterRadius) / tableSize;
 
 		std::vector<real> minFilterTable(tableSize);
 		std::vector<real> maxFilterTable(tableSize);
 
 		for (integer i = 0;i < tableSize;++i)
 		{
+
 			const real t = std::sqrt(i * scaling);
 
 			minFilterTable[i] = minFilter->evaluate(t);
@@ -54,12 +56,14 @@ namespace Pastel
 			return Type(0.5);
 		}
 
-		const integer n = m_.height();
+		integer n = m_.height();
+
 		const Array<Type, N>& mostDetailedImage = mipMap_->mostDetailed();
-		const Vector<real, N> imageExtent(mostDetailedImage.extent());
+		Vector<real, N> imageExtent(mostDetailedImage.extent());
 
 		// The derivative vectors along with 'uv' represent an affine
 		// transformation from the image plane to the texture plane.
+
 
 		const Vector<real, N> p(p_ * imageExtent);
 		Matrix<real> basis = m_;
@@ -110,7 +114,7 @@ namespace Pastel
 		// eigenvalues of a matrix. Until we have that we must
 		// restrict to 2D.
 
-		const Vector<real, N> eigenValue = symmetricEigenValues(quadraticForm);
+		Vector<real, N> eigenValue = symmetricEigenValues(quadraticForm);
 
 		// The eigenvalues are returned in ascending order.
 
@@ -133,12 +137,13 @@ namespace Pastel
 
 			// Scale the minor axis so that the eccentricity
 			// becomes MaxEccentricity:
+
 			// majorAxisLength / (k * minorAxisLength) = MaxEccentricity
 			// =>
 			// k = majorAxisLength / (minorAxisLength * MaxEccentricity)
 			// = eccentricity / MaxEccentricity
 
-			const Vector<real, N> aMajorAxisCandidate(
+			Vector<real, N> aMajorAxisCandidate(
 				quadraticForm(1, 0), eigenValue[0] - quadraticForm(0, 0));
 			const Vector<real, N> bMajorAxisCandidate(
 				eigenValue[0] - quadraticForm(1, 1), quadraticForm(1, 0));
@@ -159,6 +164,7 @@ namespace Pastel
 
 			Vector<real, N> minorAxis = cross(majorAxis);
 
+
 			minorAxisLength2 *= (eccentricity2 / MaxEccentricity2);
 
 			minorAxis *= std::sqrt(minorAxisLength2);
@@ -175,25 +181,27 @@ namespace Pastel
 		// We want the minor axis to cover at least 'pixelsPerMinorAxis' pixels per 'minorAxis' length
 		// in the more detailed image (note that it is half of the minor diameter).
 
-		const real invLn2 = inverse(constantLn2<real>());
+		real invLn2 = inverse(constantLn2<real>());
 		const real pixelsPerMinorAxis = 2;
+
 		const real level = 0.5 * std::log(minorAxisLength2 /
 			square(pixelsPerMinorAxis * filterRadius_)) * invLn2;
 
 		//return Type(level / (mipMap_->levels() - 1));
 
-		const AlignedBoxD bound =
+		AlignedBoxD bound =
 			ellipsoidBoundingAlignedBox(quadraticForm) + p;
 
 		// We want 'f' to give the value of
 		// 'filterTableSize' at the edge of the ellipse.
 		// This normalization does that.
 
+
 		quadraticForm *= filterTableSize_;
 
 		// Compute filter transition coefficient.
 
-		const real transitionBegin = 0;
+		real transitionBegin = 0;
 		const real transitionEnd = 0.15;
 		const real transitionWidth = transitionEnd - transitionBegin;
 		const real normalizedLevel = level / (real)(mipMap_->levels() - 1);
@@ -225,14 +233,16 @@ namespace Pastel
 		// image levels.
 
 		const integer detailLevel = std::floor(level);
+
 		const Array<Type, 2>& detailImage = (*mipMap_)(detailLevel);
-		const Type detailSample =
+		Type detailSample =
 			sampleEwa(p, quadraticForm, bound, (real)1 / (1 << detailLevel), tTransition,
 			detailImage);
 
 		const integer coarseLevel = detailLevel + 1;
+
 		const Array<Type, 2>& coarseImage = (*mipMap_)(coarseLevel);
-		const Type coarseSample =
+		Type coarseSample =
 			sampleEwa(p, quadraticForm, bound, (real)1 / (1 << coarseLevel), tTransition,
 			coarseImage);
 
@@ -241,6 +251,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	Type EwaImage_Texture<Type, N>::sampleEwa(
+
 		const Vector<real, N>& p,
 		const Matrix<real>& quadraticForm,
 		const AlignedBoxD& bound,
@@ -250,7 +261,8 @@ namespace Pastel
 	{
 		// Read ewaimatexture.txt for implementation documentation.
 
-		const AlignedBox<integer, N> window(
+		AlignedBox<integer, N> window(
+
 			floor(bound.min() * scaling),
 			ceil(bound.max() * scaling));
 
@@ -258,7 +270,8 @@ namespace Pastel
 
 		const Vector<real, N> pStart(Vector<real, N>(window.min()) + 0.5 - p * scaling);
 
-		const real formScaling = inverse(square(scaling));
+		real formScaling = inverse(square(scaling));
+
 
 		real fLeft = dot(pStart * quadraticForm, pStart) * formScaling;
 		Vector<real, N> dfLeft = (2 * (pStart * quadraticForm) + diagonal(quadraticForm)) * formScaling;
@@ -274,12 +287,13 @@ namespace Pastel
 
 			for (integer j = window.min().x();j < window.max().x();++j)
 			{
-				const real fClamped = f < 0 ? 0 : f;
+				real fClamped = f < 0 ? 0 : f;
 
 				if (fClamped < filterTableSize_)
 				{
 					const real weight = linear(maxFilterTable_[fClamped],
 						minFilterTable_[fClamped], tTransition);
+
 
 					imageSum += weight * extender_(image, Vector<integer, N>(j, i));
 					weightSum += weight;

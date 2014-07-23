@@ -26,7 +26,7 @@ namespace
 
 		bool check(real measured, real correct)
 		{
-			const real epsilon = 0.001;
+			real epsilon = 0.001;
 			return REPORT3((absoluteError<real>(measured, correct) > epsilon),
 				measured, correct, epsilon);
 		}
@@ -47,6 +47,7 @@ namespace
 			TEST_ENSURE(std::abs(relativeError<real>(4, 2) - 1) < 0.001);
 			TEST_ENSURE(std::abs(relativeError<real>(6, 2) - 2) < 0.001);
 			TEST_ENSURE(std::abs(relativeError<real>(8, 2) - 3) < 0.001);
+
 
 			check(radiansToDegrees<real>(-3 * constantPi<real>()), -540);
 			check(radiansToDegrees<real>(-2 * constantPi<real>()), -360);

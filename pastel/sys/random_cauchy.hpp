@@ -12,7 +12,7 @@ namespace Pastel
 	template <typename Real>
 	Real randomCauchy()
 	{
-		const Real u = randomGaussian<Real>();
+		Real u = randomGaussian<Real>();
 		
 		Real v = 0;
 		do
@@ -26,6 +26,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomCauchy(
+
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
 		PENSURE_OP(scale, >, 0);
@@ -46,7 +47,8 @@ namespace Pastel
 	{
 		PENSURE_OP(scale, >, 0);
 
-		const Real invScale = inverse(scale);
+		Real invScale = inverse(scale);
+
 
 		return Pastel::cauchyPdf<Real>(x * invScale) * invScale;
 	}

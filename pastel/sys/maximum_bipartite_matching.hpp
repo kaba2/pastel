@@ -60,10 +60,11 @@ namespace Pastel
 				while(findAugmentingPaths())
 				{
 					// As long as there are augmenting paths...
-					const integer leftVertices = leftSet_.size();
+					integer leftVertices = leftSet_.size();
 					for (integer i = 0;i < leftVertices;++i)
 					{
 						const integer leftIndex = leftSet_[i];
+
 						Vertex& left = vertexSet_[leftIndex];
 						if (!left.paired())
 						{
@@ -75,14 +76,15 @@ namespace Pastel
 				}
 
 				// Report the matching edges.
-				const integer leftVertices = leftSet_.size();
+				integer leftVertices = leftSet_.size();
 				for (integer i = 0;i < leftVertices;++i)
 				{
 					const integer leftIndex = leftSet_[i];
+
 					Vertex& left = vertexSet_[leftIndex];
 					if (left.paired())
 					{
-						const integer rightIndex = left.pairIndex();
+						integer rightIndex = left.pairIndex();
 
 						reporter(
 							std::make_pair(
@@ -103,6 +105,7 @@ namespace Pastel
 				for (integer i = 0;i < leftVertices;++i)
 				{
 					const integer leftIndex = leftSet_[i];
+
 
 					Vertex& vertex = 
 						vertexSet_[leftIndex];
@@ -125,16 +128,18 @@ namespace Pastel
 					// Pick up the next vertex from the queue.
 					// This gives a breadth-first ordering for
 					// visiting the graph.
-					const integer leftIndex = eventSet.front();
+					integer leftIndex = eventSet.front();
 					ASSERT_OP(leftIndex, !=, Sentinel);
+
 
 					Vertex& left = 
 						vertexSet_[leftIndex];
 					eventSet.pop();
 
-					const integer edges = left.edges();
+					integer edges = left.edges();
 					for (integer i = 0;i < edges;++i)
 					{
+
 						Vertex& right =
 							adjacent(left, i);
 
@@ -153,7 +158,7 @@ namespace Pastel
 
 							// And continue the breadth-first
 							// traversal...
-							const integer nextLeftIndex =
+							integer nextLeftIndex =
 								right.pairIndex();
 							if (nextLeftIndex != Sentinel)
 							{
@@ -181,15 +186,17 @@ namespace Pastel
 					return true;
 				}
 
+
 				Vertex& left = vertexSet_[leftIndex];
-				const integer edges = left.edges();
+				integer edges = left.edges();
 				for (integer i = 0;i < edges;++i)
 				{
+
 					Vertex& right = adjacent(left, i);
 					Vertex& nextLeft = pair(right);
 					if (nextLeft.level() == left.level() + 1)
 					{
-						const integer nextLeftIndex =
+						integer nextLeftIndex =
 							right.pairIndex();
 						if (flipPossibleAugmentingPath(nextLeftIndex))
 						{
@@ -240,6 +247,7 @@ namespace Pastel
 				integer vertices = 1;
 				while(leftIter != leftEnd)
 				{
+
 					const Left& left = *leftIter;
 					const Right& right = *rightIter;
 
@@ -294,12 +302,13 @@ namespace Pastel
 				std::sort(edgeSet.begin(), edgeSet.end());
 
 				// This is the number of _directed_ edges.
-				const integer edges = edgeSet.size();
+				integer edges = edgeSet.size();
 
 				// Reserving memory in advance here is important to
 				// avoid pointer-invalidating reallocations later.
 				// We are using resize() because I don't know whether
 				// reserve() guarantees the validity of 
+
 				// &adjacencySet_[edge] on an empty vector.
 				adjacencySet_.resize(edges);
 				// No such worries here, this is only for performance.

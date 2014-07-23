@@ -20,7 +20,7 @@ namespace Pastel
 		integer y,
 		const View<2, bool, Image_View>& image)
 	{
-		const integer elementWidth = element.width();
+		integer elementWidth = element.width();
 		const integer elementHeight = element.height();
 
 		const integer width = image.width();
@@ -62,13 +62,14 @@ namespace Pastel
 		typename Element_ConstView,
 		typename Output_View>
 		void dilate(
+
 		const ConstView<2, bool, Input_ConstView>& input,
 		const ConstView<2, bool, Element_ConstView>& element,
 		integer xPivot,
 		integer yPivot,
 		const View<2, bool, Output_View>& output)
 	{
-		const integer width = input.width();
+		integer width = input.width();
 		const integer height = input.height();
 
 		clear(false, output);

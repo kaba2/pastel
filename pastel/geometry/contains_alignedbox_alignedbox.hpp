@@ -15,10 +15,11 @@ namespace Pastel
 	{
 		PENSURE_OP(outer.n(), ==, inner.n());
 
-		const integer n = outer.n();
+		integer n = outer.n();
 		for (integer i = 0;i < n;++i)
 		{
 			// forall i in [0, i[:
+
 			// !inner.empty(i) && !outer.empty(i)
 
 			if (inner.empty(i))

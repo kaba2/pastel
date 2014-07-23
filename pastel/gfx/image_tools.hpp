@@ -67,7 +67,7 @@ namespace Pastel
 
 			void operator()(Type& that) const
 			{
-				const Type delta = max_ - min_;
+				Type delta = max_ - min_;
 				if (delta > 0)
 				{
 					that -= min_;
@@ -86,6 +86,7 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void scaleGrayscaleImage(
+
 		const View<N, real32, Image_View>& image)
 	{
 		real32 min = infinity<real32>();

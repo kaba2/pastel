@@ -17,7 +17,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
 		Matrix<Real>& result)
 	{
-		const integer n = result.width();
+		integer n = result.width();
 
 		ENSURE_OP(result.width(), ==, result.height());
 
@@ -34,6 +34,7 @@ namespace Pastel
 		
 		for (integer i = 0;i < n - 1;++i)
 		{
+
 			partitionSet.push_back(random<Real>() * xDelta);
 		}
 
@@ -46,9 +47,10 @@ namespace Pastel
 		// with square root of the diagonal element of D.
 		for (integer j = 0;j < n;++j)
 		{
-			const Real b = partitionSet[j + 1] - partitionSet[j];
+			Real b = partitionSet[j + 1] - partitionSet[j];
 			for (integer i = 0;i < n;++i)
 			{
+
 				result(i, j) *= std::exp(-b / 2);
 			}
 		}
@@ -66,15 +68,16 @@ namespace Pastel
 		ENSURE_OP(condition, >=, 1);
 		ENSURE_OP(determinant, >, 0);
 
-		const integer n = result.width();
+		integer n = result.width();
 
 		ENSURE_OP(n, >, 1);
 
 		const Real a = 
+
 			((n - 1) * std::log(condition) - 
 			std::log(determinant)) / n;
 		
-		const Real b =
+		Real b =
 			a - std::log(condition);
 
 		// Generate a random rotation matrix.
@@ -84,6 +87,7 @@ namespace Pastel
 		// with square roots of the diagonal elements of D.
 		for (integer i = 0;i < n;++i)
 		{
+
 			result(i, 0) *= std::exp(-a / 2);
 		}
 

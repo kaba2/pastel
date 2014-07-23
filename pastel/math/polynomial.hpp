@@ -57,11 +57,12 @@ namespace Pastel
 	Real Polynomial<Real>::operator()(
 		const Real& x) const
 	{
-		const integer n = size();
+		integer n = size();
 		Real result = data_[n - 1];
 
 		for (integer i = n - 2;i >= 0;--i)
 		{
+
 			result *= x;
 			result += data_[i];
 		}
@@ -107,9 +108,10 @@ namespace Pastel
 	Polynomial<Real>& Polynomial<Real>::operator*=(
 		const Real& that)
 	{
-		const integer n = size();
+		integer n = size();
 		for (integer i = 0;i < n;++i)
 		{
+
 			data_[i] *= that;
 		}
 
@@ -132,11 +134,12 @@ namespace Pastel
 			data_.resize(that.size(), Real(0));
 		}
 
-		const integer n = std::min(size(), that.size());
+		integer n = std::min(size(), that.size());
 		for (integer i = 0;i < n;++i)
 		{
 			data_[i] += that.data_[i];
 		}
+
 
 		return *this;
 	}
@@ -150,11 +153,12 @@ namespace Pastel
 			data_.resize(that.size(), Real(0));
 		}
 
-		const integer n = std::min(size(), that.size());
+		integer n = std::min(size(), that.size());
 		for (integer i = 0;i < n;++i)
 		{
 			data_[i] -= that.data_[i];
 		}
+
 
 		return *this;
 	}
@@ -165,13 +169,14 @@ namespace Pastel
 	{
 		Polynomial result(size() + that.size());
 
-		const integer n = size();
+		integer n = size();
 		const integer m = that.size();
 
 		for (integer i = 0;i < n;++i)
 		{
 			for (integer k = 0;k < m;++k)
 			{
+
 				result[i + k] += data_[i] * that.data_[k];
 			}
 		}
@@ -187,7 +192,7 @@ namespace Pastel
 	{
 		PENSURE_OP(index, >=, 0);
 
-		const integer n = degree();
+		integer n = degree();
 		if (n + index >= size())
 		{
 			setSize(n + index + 1);
@@ -202,6 +207,7 @@ namespace Pastel
 			data_[i] = 0;
 		}
 
+
 		return *this;
 	}
 
@@ -211,7 +217,7 @@ namespace Pastel
 	{
 		PENSURE_OP(index, >=, 0);
 
-		const integer n = size();
+		integer n = size();
 
 		for (integer i = 0;i < n - index;++i)
 		{
@@ -222,6 +228,7 @@ namespace Pastel
 			data_[i] = 0;
 		}
 
+
 		return *this;
 	}
 
@@ -229,7 +236,7 @@ namespace Pastel
 	bool Polynomial<Real>::operator==(
 		const Polynomial& that) const
 	{
-		const integer n = degree();
+		integer n = degree();
 		const integer m = that.degree();
 
 		if (n != m)
@@ -249,6 +256,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
+
 	void Polynomial<Real>::setEpsilon(const Real& epsilon)
 	{
 		epsilon_ = epsilon;
@@ -263,7 +271,7 @@ namespace Pastel
 	template <typename Real>
 	integer Polynomial<Real>::degree() const
 	{
-		const integer n = size();
+		integer n = size();
 		for (integer i = n - 1;i >= 1;--i)
 		{
 			if (mabs(data_[i]) > epsilon_)

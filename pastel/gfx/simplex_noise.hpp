@@ -17,7 +17,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Real simplexNoise(const Vector<Real, N>& x)
 	{
-		const integer n = x.size();
+		integer n = x.size();
 		const Real c = std::sqrt((Real)(n + 1));
 		const Real d = std::sqrt((Real)n / (n + 1));
 		const Real s = (c - 1) / n;
@@ -26,6 +26,7 @@ namespace Pastel
 
 		// Transform the point to the integer
 		// cube simplicial partitioning.
+
 
 		const Vector<Real, N> u = d * (x + s * sum(x));
 
@@ -61,7 +62,8 @@ namespace Pastel
 		// (out of the scalings along [1, ..., 1], this one maximizes
 		// the regularity of the resulting simplices).
 
-		const Vector<Real, N> simplexMin = 
+		Vector<Real, N> simplexMin = 
+
 			(Vector<Real, N>(p) - q * sum(p)) * dInv;
 		f = x - simplexMin;
 
@@ -69,20 +71,23 @@ namespace Pastel
 		// simplex vertices weighted with a symmetric
 		// attenuation function.
 
-		const Real r2Inv = std::pow((Real)4 / 3, (Real)(n - 1));
+		Real r2Inv = std::pow((Real)4 / 3, (Real)(n - 1));
 
 		Real value = 0;
 		for (integer i = 0;i < n;++i)
 		{
+
 			const Real attenuation = 1 - dot(f) * r2Inv;
 
 			if (attenuation > 0)
 			{
-				const Real vertexValue = gradientField<Real, N>()(p, f);
+				Real vertexValue = gradientField<Real, N>()(p, f);
+
 				value += square(square(attenuation)) * vertexValue;
 			}
 
-			const integer axis = orderSet[i].second;
+			integer axis = orderSet[i].second;
+
 
 			f += q * dInv;
 			f[axis] -= dInv;
@@ -93,7 +98,8 @@ namespace Pastel
 
 			if (attenuation > 0)
 			{
-				const Real vertexValue = gradientField<Real, N>()(p, f);
+				Real vertexValue = gradientField<Real, N>()(p, f);
+
 				value += square(square(attenuation)) * vertexValue;
 			}
 		}

@@ -16,11 +16,12 @@ namespace Pastel
 			// Trim the result such that
 			// there are no leading zeros.
 
-			const integer digitsSize = digits.size();
+			integer digitsSize = digits.size();
 
 			if (digitsSize > 0)
 			{
 				integer lastNonZeroIndex = digitsSize - 1;
+
 
 				while (lastNonZeroIndex >= 0 &&
 					digits[lastNonZeroIndex] == 0)
@@ -52,7 +53,7 @@ namespace Pastel
 		std::string number;
 		stream >> number;
 
-		const integer numberSize = number.size();
+		integer numberSize = number.size();
 
 		if (numberSize > 0)
 		{
@@ -69,6 +70,7 @@ namespace Pastel
 
 			while (offset < numberSize)
 			{
+
 				*this *= 10;
 				if (!std::isdigit(number[offset]))
 				{
@@ -118,7 +120,8 @@ namespace Pastel
 	void BigInteger::setDigit(integer index,
 		uint16 value)
 	{
-		const integer thisSize = digits_.size();
+		integer thisSize = digits_.size();
+
 
 		PENSURE2(index >= 0 && index < thisSize,
 			index, thisSize);
@@ -145,7 +148,7 @@ namespace Pastel
 
 	integer BigInteger::asNative() const
 	{
-		const integer thisSize = size();
+		integer thisSize = size();
 
 		if (thisSize == 0)
 		{
@@ -153,6 +156,7 @@ namespace Pastel
 		}
 
 		if (thisSize > 2 ||
+
 			(thisSize == 2 &&
 			(digits_[1] & 0x8000)))
 		{
@@ -183,13 +187,14 @@ namespace Pastel
 
 	BigInteger& BigInteger::operator&=(const BigInteger& that)
 	{
-		const integer thisSize = size();
+		integer thisSize = size();
 		const integer thatSize = that.size();
 		const integer minSize = std::min(thisSize, thatSize);
 		digits_.resize(minSize);
 
 		for (integer i = 0;i < minSize;++i)
 		{
+
 			digits_[i] &= that.digits_[i];
 		}
 
@@ -207,7 +212,7 @@ namespace Pastel
 
 	BigInteger& BigInteger::operator|=(const BigInteger& that)
 	{
-		const integer thisSize = size();
+		integer thisSize = size();
 		const integer thatSize = that.size();
 		const integer minSize = std::min(thisSize, thatSize);
 
@@ -224,6 +229,7 @@ namespace Pastel
 		{
 			digits_[i] |= that.digits_[i];
 		}
+
 
 		return *this;
 	}
@@ -419,11 +425,12 @@ namespace Pastel
 			return *this;
 		}
 
-		const integer thatSize = that.size();
+		integer thatSize = that.size();
 
 		BigInteger result;
 		for (integer i = 0;i < thatSize;++i)
 		{
+
 			BigInteger digitProduct(*this);
 			digitProduct.multiply(that.digits_[i]);
 			digitProduct.shiftDigitsLeft(i);
@@ -445,12 +452,13 @@ namespace Pastel
 
 	void BigInteger::multiply(uint16 that)
 	{
-		const integer thisSize = size();
+		integer thisSize = size();
 
 		BigInteger result;
 		for (integer i = 0;i < thisSize;++i)
 		{
 			BigInteger productInteger(
+
 				(int32)digits_[i] * (int32)that, i);
 			result += productInteger;
 		}
@@ -523,7 +531,8 @@ namespace Pastel
 			return *this;
 		}
 
-		const integer byDigits = byBits >> 4;
+		integer byDigits = byBits >> 4;
+
 		const integer byOffsetBits = byBits & 0xF;
 
 		BigInteger result(*this);
@@ -531,7 +540,7 @@ namespace Pastel
 
 		if (byOffsetBits > 0)
 		{
-			const integer resultSize = result.size();
+			integer resultSize = result.size();
 
 			uint32 carry = 0;
 			for (integer i = 0;i < resultSize;++i)
@@ -549,6 +558,7 @@ namespace Pastel
 		}
 
 		swap(result);
+
 
 		return *this;
 	}
@@ -570,22 +580,25 @@ namespace Pastel
 			return *this;
 		}
 
-		const integer byDigits = byBits >> 4;
+		integer byDigits = byBits >> 4;
+
 		const integer byOffsetBits = byBits & 0xF;
-		const integer mask = (1 << byOffsetBits) - 1;
+		integer mask = (1 << byOffsetBits) - 1;
 		const integer carryOffset = 16 - byOffsetBits;
+
 
 		BigInteger result(*this);
 		result.shiftDigitsRight(byDigits);
 
 		if (byOffsetBits > 0)
 		{
-			const integer resultSize = result.size();
+			integer resultSize = result.size();
 
 			uint32 carry = 0;
 			for (integer i = resultSize - 1;i >= 0;--i)
 			{
 				uint32 digitAdd = result.digits_[i];
+
 				const uint32 newCarry = (digitAdd & mask) << carryOffset;
 				digitAdd >>= byOffsetBits;
 				digitAdd += carry;
@@ -636,16 +649,17 @@ namespace Pastel
 		digits_.reserve(digitShift + 2);
 		digits_.resize(digitShift, 0);
 		digits_.push_back(value & 0xFFFF);
-		const uint16 upperBits = (uint16)(value >> 16);
+		uint16 upperBits = (uint16)(value >> 16);
 		if (upperBits != 0)
 		{
 			digits_.push_back(upperBits);
 		}
 	}
 
+
 	bool BigInteger::absoluteEqual(const BigInteger& that) const
 	{
-		const integer thisSize = size();
+		integer thisSize = size();
 		const integer thatSize = that.size();
 
 		if (thisSize != thatSize)
@@ -664,6 +678,7 @@ namespace Pastel
 		return true;
 	}
 
+
 	bool BigInteger::absoluteLessThan(const BigInteger& that) const
 	{
 		if (size() < that.size())
@@ -675,7 +690,7 @@ namespace Pastel
 			return false;
 		}
 
-		const integer thisSize = size();
+		integer thisSize = size();
 
 		for (integer i = thisSize - 1; i >= 0;--i)
 		{
@@ -689,13 +704,14 @@ namespace Pastel
 	}
 
 	void BigInteger::add(
+
 		const DigitContainer& left,
 		const DigitContainer& right,
 		DigitContainer& result) const
 	{
 		ASSERT(left.size() >= right.size());
 
-		const integer leftSize = left.size();
+		integer leftSize = left.size();
 		const integer rightSize = right.size();
 
 		const uint32 MaxDigit = 65535;
@@ -749,6 +765,7 @@ namespace Pastel
 	}
 
 	void BigInteger::subtract(
+
 		const DigitContainer& left,
 		const DigitContainer& right,
 		DigitContainer& result) const
@@ -764,7 +781,7 @@ namespace Pastel
 			return;
 		}
 
-		const integer leftSize = left.size();
+		integer leftSize = left.size();
 		const integer rightSize = right.size();
 
 		const int32 digits = 65536;
@@ -877,6 +894,7 @@ namespace Pastel
 
 namespace Pastel
 {
+
 
 	PASTELSYS std::ostream& operator<<(
 		std::ostream& stream,

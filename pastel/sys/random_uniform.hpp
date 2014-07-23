@@ -45,8 +45,9 @@ namespace Pastel
 		// These real versions are due to Isaku Wada, 2002/01/09.
 		// Modified from the official Mersenne Twister source code.
 
-		const uint32 a = randomUint32() >> 5;
+		uint32 a = randomUint32() >> 5;
 		const uint32 b = randomUint32() >> 6; 
+
 
 		return (a * (Real)67108864.0 + b) * 
 			((Real)1.0 / (Real)9007199254740992.0); 

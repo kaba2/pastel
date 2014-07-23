@@ -14,7 +14,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image)
 	{
-		const integer width = image.width();
+		integer width = image.width();
 		const integer height = image.height();
 
 		if (xStart < 0 || xStart >= width ||
@@ -25,6 +25,7 @@ namespace Pastel
 		}
 
 		using Cursor = typename Image_View::Cursor;
+
 
 		const Type source = *image.cursor(xStart, yStart);
 
@@ -39,7 +40,7 @@ namespace Pastel
 
 		while (!stack.empty())
 		{
-			const Integer2 line = stack.back();
+			Integer2 line = stack.back();
 			stack.pop_back();
 
 			// Find the extents of this scanline
@@ -50,6 +51,7 @@ namespace Pastel
 			const integer y = line[1];
 
 			Cursor yCursor = image.cursor(xLeft, y);
+
 
 			if (*yCursor != source)
 			{
@@ -89,12 +91,13 @@ namespace Pastel
 
 				bool lineHandled = false;
 
-				const integer yTop = y + 1;
+				integer yTop = y + 1;
 
 				Cursor xyCursor = image.cursor(xLeft, yTop);
 
 				for (integer x = xLeft;x < xRight;++x)
 				{
+
 					if (*xyCursor == source)
 					{
 						if (!lineHandled)
@@ -117,12 +120,13 @@ namespace Pastel
 
 				bool lineHandled = false;
 
-				const integer yBottom = y - 1;
+				integer yBottom = y - 1;
 
 				Cursor xyCursor = image.cursor(xLeft, yBottom);
 
 				for (integer x = xLeft;x < xRight;++x)
 				{
+
 					if (*xyCursor == source)
 					{
 						if (!lineHandled)

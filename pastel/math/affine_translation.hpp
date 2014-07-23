@@ -10,7 +10,7 @@ namespace Pastel
 	AffineTransformation<Real> affineTranslation(
 		const Vector<Real, N>& translation)
 	{
-		const integer n = translation.n();
+		integer n = translation.n();
 
 		AffineTransformation<Real> result(
 			identityMatrix<Real>(n, n),

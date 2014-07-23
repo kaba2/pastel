@@ -28,12 +28,13 @@ namespace Pastel
 	void Progress::report()
 	{
 		++step_;
-		const std::clock_t currentTime = std::clock();
+		std::clock_t currentTime = std::clock();
 		const real elapsedSeconds =
 			(currentTime - lastReportTime_) / CLOCKS_PER_SEC;
 		if (elapsedSeconds >= reportDelay_)
 		{
 			const integer percent = 
+
 				(step_ * 100) / steps_;
 			if (!name_.empty())
 			{

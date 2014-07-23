@@ -25,7 +25,7 @@ namespace Pastel
 
 		// In case the dimension is static, this gives the compiler a 
 		// chance to unroll the loop.
-		const integer n = 
+		integer n = 
 			(N == Dynamic) ? aBox.n() : N;
 
 		// The idea in this algorithm is to cut out a sub-box from 'aBox'
@@ -96,10 +96,11 @@ namespace Pastel
 			if (cutBox.min()[i] <= bBox.min()[i])
 			{
 				if (cutBox.min()[i] < bBox.min()[i] ||
+
 					(cutBox.minTopology()[i] == Topology::Closed &&
 					bBox.minTopology()[i] == Topology::Open))
 				{
-					const Topology previousMaxTopology = 
+					Topology previousMaxTopology = 
 						cutBox.maxTopology()[i];
 					const Real previousMax = 
 						cutBox.max()[i];
@@ -124,10 +125,11 @@ namespace Pastel
 			if (cutBox.max()[i] >= bBox.max()[i])
 			{
 				if (cutBox.max()[i] > bBox.max()[i] ||
+
 					(cutBox.maxTopology()[i] == Topology::Closed &&
 					bBox.maxTopology()[i] == Topology::Open))
 				{
-					const Topology previousMinTopology = 
+					Topology previousMinTopology = 
 						cutBox.minTopology()[i];
 					const Real previousMin = 
 						cutBox.min()[i];
@@ -158,6 +160,7 @@ namespace Pastel
 		typename Real, int N_A, int N_B,
 		typename AlignedBox_Output>
 	integer symmetricDifference(
+
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
 		AlignedBox_Output report)

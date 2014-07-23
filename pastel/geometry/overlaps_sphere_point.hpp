@@ -21,7 +21,7 @@ namespace Pastel
 		// the sphere's center is less or 
 		// equal than the sphere's radius.
 
-		const Real d2 = 
+		Real d2 = 
 			dot(point - sphere.position());
 		const Real radius2 =
 			square(sphere.radius());

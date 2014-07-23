@@ -123,9 +123,11 @@ namespace Pastel
 
 		integer splitAxis() const
 		{
-			const pointer_integer high =
+			pointer_integer high =
+
 				(unknown_ & 0x2) << 1;
-			const pointer_integer low =
+			pointer_integer low =
+
 				(pointer_integer)(negative_) & 0x3;
 
 			return (integer)(high + low);
@@ -138,7 +140,8 @@ namespace Pastel
 
 		Node* negative() const
 		{
-			const pointer_integer nodeId = (pointer_integer)negative_;
+			pointer_integer nodeId = (pointer_integer)negative_;
+
 			return (Node*)(nodeId ^ (nodeId & 0x3));
 		}
 
@@ -597,7 +600,7 @@ namespace Pastel
 		SplitPredicate splitPredicate(
 			splitPosition, splitAxis, objectPolicy_);
 
-		const std::pair<std::pair<ObjectIterator, integer>,
+		std::pair<std::pair<ObjectIterator, integer>,
 			std::pair<ObjectIterator, integer> > result =
 			fuzzyPartition(objectList_, node->begin(), nodeEnd,
 			splitPredicate);
@@ -625,6 +628,7 @@ namespace Pastel
 		}
 
 		// Allocate the new leaf nodes.
+
 
 		LeafNode* negativeLeaf = (LeafNode*)nodeAllocator_.allocate();
 		new(negativeLeaf) LeafNode(negativeStart, negativeLast, negativeObjects);
@@ -761,7 +765,7 @@ namespace Pastel
 				fuzzyPartition(list, begin, end,
 				splitPredicate);
 
-			const ObjectIterator positiveBegin = result.second.first;
+			ObjectIterator positiveBegin = result.second.first;
 			const integer positiveObjects = result.second.second;
 			const ObjectIterator negativeBegin = result.first.first;
 			const integer negativeObjects = result.first.second;
@@ -793,6 +797,7 @@ namespace Pastel
 	void KdTree<Real, N, ObjectPolicy>::refine(
 		integer maxDepth,
 		integer maxObjects,
+
 		const SubdivisionRule& subdivisionRule,
 		const Cursor& cursor,
 		integer depth,

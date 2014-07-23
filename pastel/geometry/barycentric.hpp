@@ -13,7 +13,7 @@ namespace Pastel
 		const Vector<Real, N>& point,
 		Vector_Range simplexRange)
 	{
-		const integer n = point.n();
+		integer n = point.n();
 
 		PENSURE_OP(simplexRange.size(), ==, n + 1);
 		PENSURE_OP(point.n(), ==, simplexRange.front().n());
@@ -30,6 +30,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
+
 		const Vector<Real, N>& point)
 	{
 		// The linear system is trivial to solve in
@@ -50,7 +51,7 @@ namespace Pastel
 		// u = 1 - v - w.
 		// Generalization to higher N is obvious.
 
-		const integer n = point.n();
+		integer n = point.n();
 
 		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(n));
 

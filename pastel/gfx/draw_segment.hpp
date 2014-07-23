@@ -25,7 +25,7 @@ namespace Pastel
 		real sAdd1 = 0;
 		real sAdd2 = 0;
 
-		const real xStart = clippedSegment.start().x();
+		real xStart = clippedSegment.start().x();
 		const real yStart = clippedSegment.start().y();
 		const real xEnd = clippedSegment.end().x();
 		const real yEnd = clippedSegment.end().y();
@@ -43,6 +43,7 @@ namespace Pastel
 		if (mabs(dx) >= mabs(dy))
 		{
 			real s =
+
 				2 * (((real)y + (real)0.5) - yStart) * dx -
 				2 * (((real)x + (real)0.5) - xStart) * dy;
 
@@ -285,7 +286,7 @@ namespace Pastel
 
 		static PASTEL_CONSTEXPR integer FixedPoint = 16;
 
-		const integer factor = 1 << FixedPoint;
+		integer factor = 1 << FixedPoint;
 
 		real sAdd1 = 0;
 		real sAdd2 = 0;
@@ -308,6 +309,7 @@ namespace Pastel
 		if (mabs(dx) >= mabs(dy))
 		{
 			real s =
+
 				2 * (((real)y + (real)0.5) - yStart) * dx -
 				2 * (((real)x + (real)0.5) - xStart) * dy;
 

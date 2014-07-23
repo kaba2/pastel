@@ -90,7 +90,7 @@ namespace Pastel
 		ENSURE_OP(startRadius, >=, 0);
 		ENSURE_OP(endRadius, >=, 0);
 
-		const Vector2 delta = segment.end() - segment.start();
+		Vector2 delta = segment.end() - segment.start();
 		const real normDelta = norm(delta);
 
 		if (normDelta == 0)
@@ -99,6 +99,7 @@ namespace Pastel
 		}
 
 		const Vector2 normal = cross(delta) / normDelta;
+
 
 		const Vector2 startLeft = segment.start() + normal * startRadius;
 		const Vector2 startRight = segment.start() - normal * startRadius;
@@ -178,8 +179,9 @@ namespace Pastel
 		const GfxRenderer<Type>& renderer,
 		const AlignedBox2& alignedBox)
 	{
-		const Box2 box(
+		Box2 box(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
+
 			(alignedBox.max() - alignedBox.min()) * 0.5,
 			matrix2x2<real>(Vector2(1, 0), Vector2(0, 1)));
 
@@ -192,8 +194,9 @@ namespace Pastel
 		const AlignedBox2& alignedBox,
 		const Tuple<Vector2, 4>& textureQuad)
 	{
-		const Box2 box(
+		Box2 box(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
+
 			(alignedBox.max() - alignedBox.min()) * 0.5,
 			matrix2x2<real>(Vector2(1, 0), Vector2(0, 1)));
 
@@ -209,7 +212,7 @@ namespace Pastel
 		const Vector2 x = box.rotation().cColumn(0) * box.width()[0];
 		const Vector2 y = box.rotation().cColumn(1) * box.width()[1];
 
-		const Vector2 leftBottom = center - x - y;
+		Vector2 leftBottom = center - x - y;
 		const Vector2 rightBottom = center + x - y;
 		const Vector2 rightTop = center + x + y;
 		const Vector2 leftTop = center - x + y;
@@ -242,6 +245,7 @@ namespace Pastel
 
 	template <typename Type>
 	void drawBox(
+
 		const GfxRenderer<Type>& renderer,
 		const Box2& box,
 		const Tuple<Vector2, 4>& textureQuad)
@@ -250,7 +254,7 @@ namespace Pastel
 		const Vector2 x = box.rotation().cColumn(0) * box.width()[0];
 		const Vector2 y = box.rotation().cColumn(1) * box.width()[1];
 
-		const Vector2 leftBottom = center - x - y;
+		Vector2 leftBottom = center - x - y;
 		const Vector2 rightBottom = center + x - y;
 		const Vector2 rightTop = center + x + y;
 		const Vector2 leftTop = center - x + y;
@@ -285,22 +289,25 @@ namespace Pastel
 
 	template <typename Type>
 	void drawArrow(
+
 		const GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		const real radius)
+		real radius)
 	{
 		ENSURE_OP(radius, >=, 0);
 
 		const Vector2 delta = segment.end() - segment.start();
 		const real normDelta = norm(delta);
 
+
 		if (normDelta < 2 * radius)
 		{
 			return;
 		}
 
-		const Vector2 tangent = delta / normDelta;
+		Vector2 tangent = delta / normDelta;
 		const Vector2 normal = cross(tangent);
+
 
 		const Vector2 endLeft = segment.end() + normal * radius - tangent * radius * 2;
 		const Vector2 endRight = segment.end() - normal * radius - tangent * radius * 2;
@@ -315,7 +322,7 @@ namespace Pastel
 		const GfxRenderer<Type>& renderer,
 		const std::vector<Vector2>& convexPolygon)
 	{
-		const integer points = convexPolygon.size();
+		integer points = convexPolygon.size();
 
 		if (!renderer.filled())
 		{
@@ -336,24 +343,28 @@ namespace Pastel
 
 	template <typename Type>
 	void concentrate(
+
 		GfxRenderer<Type>& renderer,
 		const AlignedBox2& region)
 	{
 		AlignedBox2 viewWindow = region;
 
-		const Vector2 cameraCenter = 
+		Vector2 cameraCenter = 
 			midpoint(viewWindow.min(), viewWindow.max());
 
 		viewWindow -= cameraCenter;
 
+
 		viewWindow.min() -= viewWindow.extent() * 0.05;
 		viewWindow.max() += viewWindow.extent() * 0.05;
-		const Vector2 viewExtent = viewWindow.extent();
+		Vector2 viewExtent = viewWindow.extent();
 
 		const real aspectRatio = (real)4 / 3;
+
 		if (viewExtent.x() < aspectRatio * viewExtent.y())
 		{
-			const real xExtentDelta = 
+			real xExtentDelta = 
+
 				aspectRatio * viewExtent.y() - viewExtent.x();
 
 			viewWindow.min().x() -= xExtentDelta / 2;
@@ -361,7 +372,8 @@ namespace Pastel
 		}
 		else
 		{
-			const real yExtentDelta = 
+			real yExtentDelta = 
+
 				viewExtent.x() - aspectRatio * viewExtent.y();
 
 			viewWindow.min().y() -= yExtentDelta / 2;

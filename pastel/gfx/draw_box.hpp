@@ -29,7 +29,7 @@ namespace Pastel
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
-		const AlignedBox2i discreteBox(
+		AlignedBox2i discreteBox(
 			toPixelSpanPoint(box.min()), 
 			toPixelSpanPoint(box.max()));
 
@@ -58,6 +58,7 @@ namespace Pastel
 			0, dp.y());
 
 		const Vector2 textureOrigin =
+
 			((Vector2(clippedBox.min()) + 0.5) - box.min()) * dp;
 
 		Vector2 p = textureOrigin;

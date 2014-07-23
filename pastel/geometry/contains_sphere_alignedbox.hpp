@@ -11,7 +11,7 @@ namespace Pastel
 		const Sphere<Real, N>& outerSphere,
 		const AlignedBox<Real, N>& innerBox)
 	{
-		const Vector<Real, N> boxCenter =
+		Vector<Real, N> boxCenter =
 			linear(innerBox.min(), innerBox.max(), 0.5);
 
 		const Vector<Real, N> boxRadius =
@@ -19,6 +19,7 @@ namespace Pastel
 
 		const Real cornerDistance2 =
 			dot(mabs(innerSphere.position() - boxCenter) + boxRadius);
+
 
 		return cornerDistance2 <= innerSphere.radius() * innerSphere.radius();
 	}

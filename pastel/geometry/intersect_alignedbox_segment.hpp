@@ -16,7 +16,7 @@ namespace Pastel
 		const Segment<Real, N>& segment,
 		Segment<Real, N>& result)
 	{
-		const Line<Real, N> line(
+		Line<Real, N> line(
 			segment.start(),
 			segment.end() - segment.start());
 

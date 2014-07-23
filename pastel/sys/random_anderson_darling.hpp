@@ -44,7 +44,7 @@ namespace Pastel
 		std::vector<Real> orderedSet(
 			input.begin(), input.end());
 
-		const integer n = orderedSet.size();
+		integer n = orderedSet.size();
 		
 		std::sort(orderedSet.begin(), orderedSet.end());
 
@@ -70,6 +70,7 @@ namespace Pastel
 
 			if (isNan(deviation))
 			{
+
 				if (isNan(mean) && n > 1)
 				{
 					deviation = std::sqrt((squareSum - n * square(mean)) / (n - 1));
@@ -86,25 +87,28 @@ namespace Pastel
 		integer k = 2 * n - 1;
 		for (integer i = 0;i < n;++i)
 		{
-			const Real fy = gaussianCdf<Real>(
+			Real fy = gaussianCdf<Real>(
 				(orderedSet[i] - mean) / deviation);
 			
+
 			S += j * std::log(fy) + k * std::log(1 - fy);
 			j += 2;
 			k -= 2;
 		}
 
-		const Real aSquared = 
+		Real aSquared = 
 			-n - S / n;
 
 		// A correction for estimated variables.
 		const bool bothApproximated =
+
 			isNan(mean) && isNan(deviation);
 
-		const Real alpha =
+		Real alpha =
 			bothApproximated ?
 			(1 + (Real)4 / n - (Real)25 / square(n)) :
 			1;
+
 
 		return alpha * aSquared;
 	}

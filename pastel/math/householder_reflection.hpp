@@ -17,7 +17,7 @@ namespace Pastel
 		ENSURE_OP(j, <, a.n());
 		ENSURE_OP(x.n(), ==, a.m());
 
-		const integer m = a.m();
+		integer m = a.m();
 		const integer n = a.n();
 
 		// Let
@@ -46,6 +46,7 @@ namespace Pastel
 
 		// Compute |x|.
 		Real xNorm = std::sqrt(xNorm2);
+
 		Real c = xNorm2 + std::abs(x[i]) * xNorm;
 		Real s = sign(x[i]) * xNorm;
 		

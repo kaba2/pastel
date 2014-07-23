@@ -21,7 +21,7 @@ namespace Pastel
 	{
 		ENSURE_OP(plane.n(), ==, box.n());
 
-		const integer n = plane.n();
+		integer n = plane.n();
 
 		// FIX: The topology of the box is not
 		// handled correctly. The box is assumed
@@ -55,6 +55,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
+
 		const Plane<Real, N>& plane,
 		const Box<Real, N>& box,
 		bool &boxOnPositiveSide)

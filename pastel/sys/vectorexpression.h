@@ -114,7 +114,7 @@ namespace Pastel
 
 			PENSURE2(left.size() == right.size(), left.size(), right.size());
 
-			const integer n = size();
+			integer n = size();
 			for (integer i = 0;i < n;++i)
 			{
 				if (!(left[i] == right[i]))
@@ -127,6 +127,7 @@ namespace Pastel
 		}
 
 		template <int RightN, typename RightExpression>
+
 		bool operator!=(const VectorExpression<Real, RightN, RightExpression>& right) const
 		{
 			return !(*this == right);
@@ -134,17 +135,19 @@ namespace Pastel
 
 		// Negation
 
-		const VectorNegation<Real, N, Expression> operator-() const
+		VectorNegation<Real, N, Expression> operator-() const
 		{
+
 			return VectorNegation<Real, N, Expression>((const Expression&)*this);
 		}
 
 		// Summation
 
 		template <int RightN, typename RightExpression>
-		const VectorAddition<Real, ResultN<N, RightN>::N, Expression, 
+		VectorAddition<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator+(const VectorExpression
+
 			<Real, RightN, RightExpression>& right) const
 		{
 			return VectorAddition
@@ -154,8 +157,9 @@ namespace Pastel
 				(const RightExpression&)right);
 		}
 
-		const VectorAddition
+		VectorAddition
 			<Real, N, Expression, VectorConstant<Real, N> >
+
 			operator+(const Real& right) const
 		{
 			return VectorAddition
@@ -177,9 +181,10 @@ namespace Pastel
 		// Subtraction
 
 		template <int RightN, typename RightExpression>
-		const VectorSubtraction<Real, ResultN<N, RightN>::N, Expression, 
+		VectorSubtraction<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator-(const VectorExpression
+
 			<Real, RightN, RightExpression>& right) const
 		{
 			return VectorSubtraction
@@ -189,8 +194,9 @@ namespace Pastel
 				(const RightExpression&)right);
 		}
 
-		const VectorSubtraction
+		VectorSubtraction
 			<Real, N, Expression, VectorConstant<Real, N> >
+
 			operator-(const Real& right) const
 		{
 			return VectorSubtraction
@@ -212,8 +218,9 @@ namespace Pastel
 		// Multiplication
 
 		template <int RightN, typename RightExpression>
-		const VectorMultiplication<Real, ResultN<N, RightN>::N, Expression, 
+		VectorMultiplication<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
+
 			operator*(const VectorExpression
 			<Real, RightN, RightExpression>& right) const
 		{
@@ -224,8 +231,9 @@ namespace Pastel
 				(const RightExpression&)right);
 		}
 
-		const VectorMultiplication
+		VectorMultiplication
 			<Real, N, Expression, VectorConstant<Real, N> >
+
 			operator*(const Real& right) const
 		{
 			return VectorMultiplication
@@ -247,9 +255,10 @@ namespace Pastel
 		// Division
 
 		template <int RightN, typename RightExpression>
-		const VectorDivision<Real, ResultN<N, RightN>::N, Expression, 
+		VectorDivision<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator/(const VectorExpression
+
 			<Real, RightN, RightExpression>& right) const
 		{
 			return VectorDivision
@@ -259,8 +268,9 @@ namespace Pastel
 				(const RightExpression&)right);
 		}
 
-		const VectorDivision
+		VectorDivision
 			<Real, N, Expression, VectorConstant<Real, N> >
+
 			operator/(const Real& right) const
 		{
 			// You should not optimize here to use

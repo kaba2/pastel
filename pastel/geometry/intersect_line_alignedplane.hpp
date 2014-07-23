@@ -14,7 +14,7 @@ namespace Pastel
 	bool intersect(const Line<Real, N>& line,
 		const AlignedPlane<Real, N>& alignedPlane, Real& t)
 	{
-		const Real result(
+		Real result(
 			alignedPlane.position() - line.position()[alignedPlane.axis()]);
 		const Real divider(
 			line.direction()[alignedPlane.axis()]);

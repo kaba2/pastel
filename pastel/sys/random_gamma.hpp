@@ -23,9 +23,10 @@ namespace Pastel
 
 		PENSURE_OP(shape, >, 0);
 		
-		const Real modifiedShape = (shape < 1) ? shape + 1 : shape;
+		Real modifiedShape = (shape < 1) ? shape + 1 : shape;
 
 		const Real d = modifiedShape - (Real)1 / 3;
+
 		const Real c = 1 / std::sqrt(9 * d);
 
 		Real v = 0;
@@ -65,7 +66,8 @@ namespace Pastel
 			//
 			// y u^(1 / shape) ~ gamma(shape, 1)
 
-			const Real u = randomOpen0<Real>();
+			Real u = randomOpen0<Real>();
+
 
 			return std::pow(u, 1 / shape) * d * v;
 		}
@@ -144,7 +146,8 @@ namespace Pastel
 			(gamma<Real>(shape) * std::pow(scale, shape));
 		*/
 
-		const Real logPdf =
+		Real logPdf =
+
 			((shape - 1) * std::log(x) - (x / scale)) -
 			(lnGamma<Real>(shape) + shape * std::log(scale));
 
@@ -161,7 +164,7 @@ namespace Pastel
 		// See "Sampling from the Gamma Distribution on a Computer",
 		// George F. Fishman, 1976.
 
-		const integer maxIterations = 1000;
+		integer maxIterations = 1000;
 
 		for (integer i = 0;i < maxIterations;++i)
 		{
@@ -170,15 +173,17 @@ namespace Pastel
 
 			if (randUni < std::pow(randExp / std::exp(randExp + 1), alpha - 1))
 			{
+
 				return alpha * randExp;
 			}
 		}
 
-		const bool gammaDistributionSamplingFailed = true;
+		bool gammaDistributionSamplingFailed = true;
 		REPORT(gammaDistributionSamplingFailed);
 		
 		return 0;
 	}
+
 	*/
 
 }

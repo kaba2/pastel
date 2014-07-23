@@ -102,7 +102,7 @@ namespace Pastel
 		Matrix(integer m, integer n)
 			: data_(Vector2i(n, m), 0)
 		{
-			const integer minSize = std::min(n, m);
+			integer minSize = std::min(n, m);
 			for (integer i = 0;i < minSize;++i)
 			{
 				data_(i, i) = 1;
@@ -110,6 +110,7 @@ namespace Pastel
 		}
 
 		//! Contructs a matrix from a shared array.
+
 		/*!
 		The memory region is assumed to be managed by
 		someone else; no attempt will be made to
@@ -153,7 +154,7 @@ namespace Pastel
 			ENSURE_OP(newHeight, >=, 0);
 			ENSURE_OP(newWidth, >=, 0);
 
-			const integer oldMinSize = std::min(width(), height());
+			integer oldMinSize = std::min(width(), height());
 
 			data_.setExtent(Vector2i(newWidth, newHeight), 0);
 
@@ -166,6 +167,7 @@ namespace Pastel
 		}
 
 		//! Returns whether the given index is inside the matrix.
+
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
@@ -251,7 +253,7 @@ namespace Pastel
 			const Vector2i& min,
 			const Vector2i& max)
 		{
-			const SubMatrix<Real> result(
+			SubMatrix<Real> result(
 				data_(Vector2i(min.y(), min.x()),
 				Vector2i(max.y(), max.x())));
 
@@ -259,10 +261,11 @@ namespace Pastel
 		}
 
 		ConstSubMatrix<Real> operator()(
+
 			const Vector2i& min,
 			const Vector2i& max) const
 		{
-			const ConstSubMatrix<Real> result(
+			ConstSubMatrix<Real> result(
 				data_(Vector2i(min.y(), min.x()),
 				Vector2i(max.y(), max.x())));
 
@@ -270,11 +273,12 @@ namespace Pastel
 		}
 
 		SubMatrix<Real> operator()(
+
 			const Vector2i& min,
 			const Vector2i& max,
 			const Vector2i& delta)
 		{
-			const SubMatrix<Real> result(
+			SubMatrix<Real> result(
 				data_(Vector2i(min.y(), min.x()),
 				Vector2i(max.y(), max.x()),
 				Vector2i(delta.y(), delta.x())));
@@ -283,11 +287,12 @@ namespace Pastel
 		}
 
 		ConstSubMatrix<Real> operator()(
+
 			const Vector2i& min,
 			const Vector2i& max,
 			const Vector2i& delta) const
 		{
-			const ConstSubMatrix<Real> result(
+			ConstSubMatrix<Real> result(
 				data_(Vector2i(min.y(), min.x()),
 				Vector2i(max.y(), max.x()),
 				Vector2i(delta.y(), delta.x())));
@@ -296,6 +301,7 @@ namespace Pastel
 		}
 
 		//! Returns the (i, j):th element of the matrix.
+
 		/*!
 		Preconditions:
 		i >= 0 && i < height()
@@ -487,7 +493,7 @@ namespace Pastel
 			else
 			{
 				// We can copy the values directly.
-				const integer m = height();
+				integer m = height();
 				const integer n = width();
 				Iterator iter = begin();
 
@@ -495,6 +501,7 @@ namespace Pastel
 				{
 					for (integer j = 0;j < n;++j)
 					{
+
 						*iter = right(i, j);
 						++iter;
 					}
@@ -533,7 +540,7 @@ namespace Pastel
 			}
 			else
 			{
-				const integer m = height();
+				integer m = height();
 				const integer n = width();
 				Iterator iter = begin();
 
@@ -541,6 +548,7 @@ namespace Pastel
 				{
 					for (integer j = 0;j < n;++j)
 					{
+
 						*iter += right(i, j);
 						++iter;
 					}
@@ -564,7 +572,7 @@ namespace Pastel
 			}
 			else
 			{
-				const integer m = height();
+				integer m = height();
 				const integer n = width();
 				Iterator iter = begin();
 
@@ -572,6 +580,7 @@ namespace Pastel
 				{
 					for (integer j = 0;j < n;++j)
 					{
+
 						*iter -= right(i, j);
 						++iter;
 					}
@@ -597,9 +606,10 @@ namespace Pastel
 			// because a reference could be from this matrix.
 
 			Iterator iter = begin();
-			const Iterator iterEnd = end();
+			Iterator iterEnd = end();
 			while(iter != iterEnd)
 			{
+
 				(*iter) += right;
 				++iter;
 			}
@@ -614,9 +624,10 @@ namespace Pastel
 			// because a reference could be from this matrix.
 
 			Iterator iter = begin();
-			const Iterator iterEnd = end();
+			Iterator iterEnd = end();
 			while(iter != iterEnd)
 			{
+
 				(*iter) -= right;
 				++iter;
 			}
@@ -631,9 +642,10 @@ namespace Pastel
 			// because a reference could be from this matrix.
 
 			Iterator iter = begin();
-			const Iterator iterEnd = end();
+			Iterator iterEnd = end();
 			while(iter != iterEnd)
 			{
+
 				(*iter) *= right;
 				++iter;
 			}

@@ -12,7 +12,7 @@ namespace Pastel
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere)
 	{
-		const AlignedBox<Real, N> result(
+		AlignedBox<Real, N> result(
 			sphere.position() - sphere.radius(),
 			sphere.position() + sphere.radius());
 
@@ -21,6 +21,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
+
 		const Sphere<Real, N>& sphere,
 		const AffineTransformation<Real>& transformation)
 	{
@@ -51,13 +52,14 @@ namespace Pastel
 		// the complexity is just O(n^2) compared to O(n^3) if the
 		// operations were actually carried out non-lazily.
 
-		const Vector<Real, N> radius =
+		Vector<Real, N> radius =
 			sqrt(
 			diagonal(
+
 			transpose(transformation.matrix()) * 
 			transformation.matrix())) * sphere.radius();
 
-		const Vector<Real, N> center =
+		Vector<Real, N> center =
 			transformPoint(transformation, sphere.position());
 
 		const AlignedBox<Real, N> result(

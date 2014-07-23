@@ -349,7 +349,7 @@ namespace Pastel
 			// always directed. For undirected and mixed
 			// graphs, the default is to create undirected
 			// edges.
-			const bool directed = 
+			bool directed = 
 				(Type == GraphType::Directed);
 
 			// Create the edge.
@@ -390,6 +390,7 @@ namespace Pastel
 		}
 
 		//! Removes an edge from the graph.
+
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow

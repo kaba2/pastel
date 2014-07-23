@@ -13,7 +13,7 @@ namespace Pastel
 	Matrix<Real> cartesianToSphericalDerivative(
 		const Vector<Real, N>& cartesian)
 	{
-		const integer n = cartesian.size();
+		integer n = cartesian.size();
 
 		ENSURE_OP(n, >=, 2);
 
@@ -37,6 +37,7 @@ namespace Pastel
 			const Real nextSquareSum = square(cartesian[i - 1]) + squareSum;
 			const Real sqrtSquareSum = std::sqrt(squareSum);
 			const Real factor = cartesian[i - 1] /
+
 					(sqrtSquareSum * nextSquareSum);
 
 			result(i - 1, i) = -sqrtSquareSum / nextSquareSum;
@@ -48,11 +49,12 @@ namespace Pastel
 			squareSum = nextSquareSum;
 		}
 
-		const Real length = std::sqrt(squareSum);
+		Real length = std::sqrt(squareSum);
 		const Real invLength = inverse(length);
 
 		for (integer k = 0;k < n;++k)
 		{
+
 			result(k, 0) = cartesian[k] * invLength;
 		}
 
@@ -63,7 +65,7 @@ namespace Pastel
 	Matrix<Real> sphericalToCartesianDerivative(
 		const Vector<Real, N>& spherical)
 	{
-		const integer n = spherical.size();
+		integer n = spherical.size();
 
 		ENSURE_OP(n, >=, 2);
 
@@ -74,6 +76,7 @@ namespace Pastel
 
 		{
 			Real product = 1;
+
 			result(0, 0) = product * cosSpherical[1];
 			for (integer i = 1;i < n - 1;++i)
 			{
@@ -126,7 +129,7 @@ namespace Pastel
 		PENSURE(allGreaterEqual(index, 0));
 		PENSURE_OP(index.size(), ==, spherical.size());
 
-		const integer n = spherical.size();
+		integer n = spherical.size();
 
 		if (index[0] >= 2)
 		{
@@ -152,6 +155,7 @@ namespace Pastel
 			// Thus we can reduce the cases to those
 			// of 0, 1, 2, or 3 times differentiated.
 			
+
 			const integer timesMod4 = index[i + 1] & 3;
 
 			switch(timesMod4)

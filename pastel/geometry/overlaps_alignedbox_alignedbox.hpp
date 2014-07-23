@@ -15,7 +15,7 @@ namespace Pastel
 	{
 		PENSURE_OP(aBox.n(), ==, bBox.n());
 
-		const integer n = aBox.n();
+		integer n = aBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			// Test for range-range overlap
@@ -54,6 +54,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
+
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,
 		const Vector<Real, N>& bVelocity,
@@ -78,7 +79,7 @@ namespace Pastel
 		Real tMaxStart = -infinity<Real>();
 		Real tMinEnd = infinity<Real>();
 
-		const integer n = aBox.n();
+		integer n = aBox.n();
 		for (integer i = 0;i < n;++i)
 		{
 			const Real aMin = aBox.min()[i];

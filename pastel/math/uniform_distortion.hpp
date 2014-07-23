@@ -54,13 +54,15 @@ namespace Pastel
 		// See the implementation for the 3d version
 		// for derivation.
 
-		const Real r =
+		Real r =
 			std::sqrt(
 			linear(
+
 			minRadius * minRadius,
 			maxRadius * maxRadius,
 			uv[1]));
-		const Real theta =
+		Real theta =
+
 			2 * constantPi<Real>() * uv[0];
 
 		return sphericalToCartesian(
@@ -266,16 +268,19 @@ namespace Pastel
 		//
 		// There is no closed form solution.
 
-		const Real r =
+		Real r =
 			std::pow(
 			linear(
+
 			minRadius * minRadius * minRadius,
 			maxRadius * maxRadius * maxRadius,
 			uv[0]),
 			(Real)1/3);
-		const Real phi =
+		Real phi =
+
 			std::acos(1 - 2 * uv[1]);
-		const Real theta =
+		Real theta =
+
 			2 * constantPi<Real>() * uv[2];
 
 		return sphericalToCartesian(
@@ -333,8 +338,9 @@ namespace Pastel
 		// => Y = (1 - X) * v
 		// = sqrt(u) * v
 
-		const Real uSqrt(std::sqrt(uv[0]));
+		Real uSqrt(std::sqrt(uv[0]));
 		return Vector<Real, N>(
+
 			1 - uSqrt, uSqrt * uv[1]);
 	}
 
@@ -343,7 +349,7 @@ namespace Pastel
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv)
 	{
-		const integer n = uv.n();
+		integer n = uv.n();
 
 		std::vector<Real> partition;
 		partition.reserve(n + 2);
@@ -371,6 +377,7 @@ namespace Pastel
 	template <typename Real, int N>
 	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, N>))
 		uniformlySampleBall(
+
 		const Vector<Real, N>& uv)
 	{
 		return 2 * uv - 1;
@@ -440,7 +447,8 @@ namespace Pastel
 			}
 		}
 
-		const Real theta(
+		Real theta(
+
 			scaledTheta * (constantPi<Real>() / 4));
 
 		return Vector<Real, 2>(
@@ -461,9 +469,10 @@ namespace Pastel
 		// (0, 1)-annulus. See the documentation for
 		// uniformlySampleAnnulus() for derivation.
 
-		const Real r =
+		Real r =
 			std::sqrt(uv[1]);
 		const Real theta =
+
 			2 * constantPi<Real>() * uv[0];
 
 		return sphericalToCartesian(
@@ -486,11 +495,13 @@ namespace Pastel
 		// TODO: Replace this function with a generalization
 		// of the 2d low-distortion map.
 
-		const Real r =
+		Real r =
 			std::pow(uv[0], (Real)1/3);
 		const Real phi =
+
 			std::acos(1 - 2 * uv[1]);
-		const Real theta =
+		Real theta =
+
 			2 * constantPi<Real>() * uv[2];
 
 		return sphericalToCartesian(
@@ -507,7 +518,7 @@ namespace Pastel
 		// This is the inverse of the
 		// uniformlySampleBall<2, Real>() function.
 
-		const Real radius(norm(uv));
+		Real radius(norm(uv));
 		const Real theta(positiveRadians<Real>(std::atan2(uv[1], uv[0])));
 		const Real scaledTheta(
 			theta / (constantPi<Real>() / 4));
@@ -521,6 +532,7 @@ namespace Pastel
 			{
 				// Right triangle
 				s = radius;
+
 				t = scaledTheta * radius;
 			}
 			else
@@ -599,7 +611,8 @@ namespace Pastel
 		const Vector<Real, N>& uv)
 	{
 		const Real phi(2 * constantPi<Real>() * uv[0]);
-		const Real z(uv[1]);
+		Real z(uv[1]);
+
 		const Real r(std::sqrt(1 - z * z));
 		const Real x(r * std::cos(phi));
 		const Real y(r * std::sin(phi));
@@ -618,7 +631,7 @@ namespace Pastel
 		// (n-1)-ball orthogonally up onto a n-hemisphere
 		// produces a cosine-weighted distribution.
 
-		const Vector<Real, N> ball = uniformlySampleBall(uv);
+		Vector<Real, N> ball = uniformlySampleBall(uv);
 
 		return extend(ball, std::sqrt(1 - dot(ball)));
 	}

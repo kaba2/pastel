@@ -11,23 +11,25 @@ namespace Pastel
 	template <typename Real>
 	Real randomLogNormal()
 	{
-		const Real u = randomGaussian<Real>();
+		Real u = randomGaussian<Real>();
 		return std::exp(u);
 	}
 
 	template <typename Real>
 	Real randomLogNormal(
+
 		const PASTEL_NO_DEDUCTION(Real)& logMean,
 		const PASTEL_NO_DEDUCTION(Real)& logDeviation)
 	{
 		PENSURE_OP(logDeviation, >, 0);
 
-		const Real u = randomGaussian<Real>(logDeviation) + logMean;
+		Real u = randomGaussian<Real>(logDeviation) + logMean;
 		return std::exp(u);
 	}
 
 	template <typename Real>
 	Real logNormalPdf(
+
 		const PASTEL_NO_DEDUCTION(Real)& x)
 	{
 		return inverse(x * std::sqrt(2 * constantPi<Real>())) * 
@@ -47,10 +49,12 @@ namespace Pastel
 			return 0;
 		}
 
-		const Real u = 
+		Real u = 
+
 			std::exp(-square(std::log(x) - logMean) / (2 * square(logDeviation)));
 
-		const Real v = 
+		Real v = 
+
 			x * logDeviation * std::sqrt(2 * constantPi<Real>());
 
 		return u / v;

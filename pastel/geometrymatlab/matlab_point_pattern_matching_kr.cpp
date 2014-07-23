@@ -49,13 +49,15 @@ namespace Pastel
 				MatchingMode::FirstMatch,
 				MatchingMode::MaximumMatch
 			};
-			const integer matchingModes = 
+			integer matchingModes = 
 				sizeof(matchingModeSet) / sizeof(MatchingMode);
 
+
 			const real* modelData = mxGetPr(inputSet[ModelSet]);
-			const integer modelPoints = mxGetN(inputSet[ModelSet]);
+			integer modelPoints = mxGetN(inputSet[ModelSet]);
+
 			const real* sceneData = mxGetPr(inputSet[SceneSet]);
-			const integer scenePoints = mxGetN(inputSet[SceneSet]);
+			integer scenePoints = mxGetN(inputSet[SceneSet]);
 			const integer kNearest = asScalar<integer>(inputSet[KNearest]);
 			const real minMatchRatio = asScalar<real>(inputSet[MinMatchRatio]);
 			const real matchingDistance = 
@@ -93,6 +95,7 @@ namespace Pastel
 			sceneTree.insertRange(
 				constSparseRange(
 				countingIterator(sceneData),
+
 				countingIterator(sceneData + scenePoints * n),
 				n));
 

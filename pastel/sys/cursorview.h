@@ -49,13 +49,14 @@ namespace Pastel
 		}
 
 	protected:
-		const ViewConstCursor cursor_;
+		ViewConstCursor cursor_;
 		const Vector<integer, N> extent_;
 	};
 
 	template <int N, typename ViewConstCursor>
 	ConstView<N, typename ViewConstCursor::Element, ConstCursorView<N, ViewConstCursor> >
 		constCursorView(
+
 		const ViewConstCursor& cursor,
 		const Vector<integer, N>& extent)
 	{

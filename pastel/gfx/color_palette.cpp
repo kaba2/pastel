@@ -156,7 +156,7 @@ namespace Pastel
 			// hues are circular. Rather, we stop at 5/6,
 			// which is the peak of violet.
 
-			const real32 hueStep = ((real32)5 / 6) / (count - 1);
+			real32 hueStep = ((real32)5 / 6) / (count - 1);
 			real32 hue = 0;
 
 			for (integer i = 1;i < count;++i)
@@ -169,6 +169,7 @@ namespace Pastel
 		resultPalette.swap(palette);
 	}
 
+
 	PASTELGFX void falseColorPalette(std::vector<Color>& palette, integer count)
 	{
 		ENSURE_OP(count, >=, 0);
@@ -179,7 +180,7 @@ namespace Pastel
 
 		for (integer i = 1;i < count;++i)
 		{
-			const integer k = 1 + randomInteger(count - 1);
+			integer k = 1 + randomInteger(count - 1);
 			std::swap(resultPalette[i], resultPalette[k]);
 		}
 

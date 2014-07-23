@@ -79,7 +79,7 @@ namespace
 		bool testDft(
 			const Complex_RandomAccessRange& input)
 		{
-			const integer n = input.size();
+			integer n = input.size();
 
 			std::vector<std::complex<real> > output(n);
 			dft(range(input.begin(), input.end()),
@@ -115,6 +115,7 @@ namespace
 		}
 
 		template <int N>
+
 		bool testDft(const real (&input)[N])
 		{
 			return testDft(range(input));
@@ -129,11 +130,12 @@ namespace
 			const Transform_Algorithm& transform,
 			const InverseTransform_Algorithm& inverse)
 		{
-			const integer n = input.size();
+			integer n = input.size();
 
 			std::vector<real> output(input.begin(), input.end());
 			transform(
 				range(output.begin(), output.end()));
+
 
 			/*
 			std::cout << "Input: " << std::endl;
@@ -224,7 +226,7 @@ namespace
 		{
 			for (integer i = 0;i < 100;++i)
 			{
-				const integer n = (1 << randomInteger(9));
+				integer n = (1 << randomInteger(9));
 
 				std::vector<real> input;
 				input.reserve(n);

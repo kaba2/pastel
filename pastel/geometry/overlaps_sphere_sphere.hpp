@@ -18,7 +18,7 @@ namespace Pastel
 		// between their center points is
 		// less than or equal to the sum of their radii.
 
-		const Real centerDistance2 =
+		Real centerDistance2 =
 			dot(bSphere.position() - aSphere.position());
 		const Real radiusSum2 =
 			square(aSphere.radius() + bSphere.radius());

@@ -63,11 +63,12 @@ namespace Pastel
 
 		// Scan the upper hull.
 
-		const ConstIterator from(orderedSet.begin());
+		ConstIterator from(orderedSet.begin());
 		const ConstIterator to(orderedSet.end());
 		ConstIterator current(from);
 
 		integer points = 0;
+
 
 		hull.push_back(*current);
 		++points;

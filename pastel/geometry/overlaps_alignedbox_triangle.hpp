@@ -38,7 +38,7 @@ namespace Pastel
 
 			// Center geometry on aligned box min.
 
-			const PASTEL_TRIANGLE(Real, 2) workTriangle(
+			PASTEL_TRIANGLE(Real, 2) workTriangle(
 				triangle[0] - box.min(),
 				triangle[1] - box.min(),
 				triangle[2] - box.min());
@@ -51,8 +51,9 @@ namespace Pastel
 			// Calculate aligned box widths
 
 			const Vector<Real, 2> halfWidths(
+
 				mabs(evaluate((box.max() - box.min()) * Real(0.5))));
-			const Vector<Real, 2> boxCenter(
+			Vector<Real, 2> boxCenter(
 				box.min() + halfWidths);
 
 			Real triangleProjMin(0);
@@ -126,6 +127,7 @@ namespace Pastel
 				// (the aligned box is centered on the origin).
 
 				const Real boxRadius(
+
 					halfWidths[0] * mabs(normal[0]) +
 					halfWidths[1] * mabs(normal[1]));
 
@@ -175,7 +177,7 @@ namespace Pastel
 			// This is equivalent to testing for the overlap
 			// of the triangle plane and the box.
 
-			const Plane<Real, N> plane(
+			Plane<Real, N> plane(
 				triangle[0],
 				cross((triangle[1] - triangle[0]),
 				(triangle[2] - triangle[0])));
@@ -191,11 +193,12 @@ namespace Pastel
 			// Compute the radii of the box.
 
 			const Vector<Real, N> boxRadius(
+
 				mabs((box.max() - box.min()) * 0.5));
 
 			// Calculate the box center.
 
-			const Vector<Real, N> boxCenter(
+			Vector<Real, N> boxCenter(
 				box.min() + boxRadius);
 
 			// The algorithm transforms
@@ -295,6 +298,7 @@ namespace Pastel
 				// = [0, -edges[i][2], edges[i][1]]
 				{
 					// triangleProj1 = dot(workTriangle[i], C)
+
 					triangleProj1 = workTriangle[i][1] * (-edges[i][2]) +
 						workTriangle[i][2] * edges[i][1];
 
@@ -382,7 +386,7 @@ namespace Pastel
 		// Only dimensions 2 and 3 are supported.
 		PASTEL_STATIC_ASSERT(N == Dynamic);
 
-		const integer n = box.n();
+		integer n = box.n();
 
 		ENSURE_OP(n, ==, triangle.n());
 		ENSURE1(n == 2 || n == 3, n);
@@ -397,6 +401,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
+
 		const AlignedBox<Real, 2>& box,
 		const PASTEL_TRIANGLE(Real, 2)& triangle)
 	{

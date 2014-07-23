@@ -168,7 +168,7 @@ namespace Pastel
 			ENSURE_OP(extent[i], >=, 0);
 		}
 
-		const integer units = product(extent);
+		integer units = product(extent);
 		if (units == 0)
 		{
 			clear();
@@ -177,6 +177,7 @@ namespace Pastel
 		{
 			if (extent != extent_)
 			{
+
 				Array<Type, N> copy(*this, extent,
 					defaultData);
 				swap(copy);
@@ -196,7 +197,7 @@ namespace Pastel
 	{
 		ENSURE(allGreaterEqual(extent, 0));
 
-		const integer size = product(extent);
+		integer size = product(extent);
 			
 		ENSURE_OP(size, ==, size_);
 
@@ -227,6 +228,7 @@ namespace Pastel
 	}
 
 	template <typename Type, int N>
+
 	Array<Type, N>& Array<Type, N>::operator=(
 		const Array& that)
 	{
@@ -345,7 +347,7 @@ namespace Pastel
 		PENSURE(allLessEqual(max, extent_));
 		PENSURE(allGreaterEqual(max, -1));
 
-		const integer d = n();
+		integer d = n();
 
 		Vector<integer, N> newStride(stride_);
 		for (integer i = 0;i < d;++i)
@@ -364,6 +366,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	ConstSubArray<Type, N> Array<Type, N>::operator()(
+
 		const Vector<integer, N>& min,
 		const Vector<integer, N>& max) const
 	{
@@ -382,7 +385,7 @@ namespace Pastel
 		PENSURE(allGreaterEqual(max, -1));
 		PENSURE(!anyEqual(delta, 0));
 
-		const integer d = n();
+		integer d = n();
 
 		for (integer i = 0;i < d;++i)
 		{
@@ -390,6 +393,7 @@ namespace Pastel
 		}
 
 		const SubArray<Type, N> result(
+
 			address(min), stride_ * delta, 
 			numbers(mabs(max - min), delta));
 
@@ -408,7 +412,7 @@ namespace Pastel
 	template <typename Type, int N>
 	SubArray<Type, N> Array<Type, N>::operator()()
 	{
-		const SubArray<Type, N> result(
+		SubArray<Type, N> result(
 			data_, stride_, extent_);
 
 		return result;
@@ -417,6 +421,7 @@ namespace Pastel
 	template <typename Type, int N>
 	ConstSubArray<Type, N> Array<Type, N>::operator()() const
 	{
+
 		return ((Array&)*this)();
 	}
 
@@ -484,8 +489,9 @@ namespace Pastel
 		const Vector<integer, N>& position, 
 		integer axis)
 	{
-		const integer index = 
+		integer index = 
 			dot(position, stride_) - 
+
 			position[axis] * stride_[axis];
 
 		return RowIterator(
@@ -588,7 +594,7 @@ namespace Pastel
 	void Array<Type, N>::setStorageOrder(
 		StorageOrder order)
 	{
-		const integer n = order_.n();
+		integer n = order_.n();
 
 		if (order == StorageOrder::RowMajor)
 		{
@@ -623,6 +629,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	void Array<Type, N>::copyConstruct(
+
 		const Array& that,
 		StorageOrder order)
 	{
@@ -703,7 +710,7 @@ namespace Pastel
 	template <typename Type, int N>
 	void Array<Type, N>::computeStride()
 	{
-		const integer d = n();
+		integer d = n();
 
 		Vector<integer, N> stride(
 			ofDimension(d));
@@ -720,6 +727,7 @@ namespace Pastel
 			const integer j = order_[i - 1];
 			const integer k = order_[i];
 
+
 			stride[k] = stride[j] * extent_[j];
 		}
 
@@ -733,11 +741,12 @@ namespace Pastel
 		ASSERT(data_ == 0);
 		ASSERT(size_ == 0);
 
-		const integer size = product(extent);
+		integer size = product(extent);
 		if (size == 0)
 		{
 			return;
 		}
+
 
 		Type* data = (Type*)allocateRaw(size * sizeof(Type));
 
@@ -808,13 +817,14 @@ namespace Pastel
 		}
 
 		// Need a point-by-point copy construction.
-		const integer d = n();
+		integer d = n();
 		const Vector<integer, N> minExtent = 
 			min(extent_, that.extent_);
 
 		RectangleIterator<N> iter(minExtent);
 		while(!iter.done())
 		{
+
 			Type* data = &(*this)(iter.position());
 
 			new(data) Type(that(iter.position()));
@@ -824,7 +834,7 @@ namespace Pastel
 		// Default construct the region which is not
 		// copy constructed, i.e. the difference of the
 		// whole region and the copy-region.
-		const AlignedBox<integer, N> wholeRegion(
+		AlignedBox<integer, N> wholeRegion(
 			Vector<integer, N>(ofDimension(d), 0),
 			extent_);
 		const AlignedBox<integer, N> copyRegion(
@@ -842,6 +852,7 @@ namespace Pastel
 		try
 		{
 			difference(wholeRegion, copyRegion, 
+
 				[&](const AlignedBox<integer, N>& region) -> bool
 			{
 				RectangleIterator_AvoidBug iter(region.min(), region.max());

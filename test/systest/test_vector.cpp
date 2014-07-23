@@ -80,7 +80,7 @@ namespace
 		template <int N>
 		void testNullPointer()
 		{
-			const integer n = (N == Dynamic) ? 3 : N;
+			integer n = (N == Dynamic) ? 3 : N;
 
 			Tuple<float, N> t(ofDimension(n), 0);
 
@@ -96,6 +96,7 @@ namespace
 
 		void testVectorBasic()
 		{
+
 			PASTEL_STATIC_ASSERT(sizeof(Vector<Real, 3>) == 3 * sizeof(Real));
 			PASTEL_STATIC_ASSERT(sizeof(Vector<integer, 3>) == 3 * sizeof(integer));
 
@@ -406,7 +407,7 @@ namespace
 		template <int N>
 		void testVectorArithmetic2()
 		{
-			const integer size = (N == Dynamic) ? 100 : N;
+			integer size = (N == Dynamic) ? 100 : N;
 
 			Vector<Real, N> a(ofDimension(size));
 			
@@ -474,6 +475,7 @@ namespace
 				}
 				TEST_ENSURE_OP(contentsDiffer, ==, 0);
 			}
+
 
 			// Vector * Vector.
 			{
@@ -626,9 +628,10 @@ namespace
 				integer contentsDiffer = 0;
 				for (integer i = 0;i < size;++i)
 				{
-					const Real five = 5;
+					Real five = 5;
 					const Real invFactor = 1 / five;
 					const Real left = i;
+
 					if (c[i] != left * invFactor)
 					{
 						//log() << c[i] << " != " << i * invFactor << logNewLine;
@@ -647,8 +650,9 @@ namespace
 				integer contentsDiffer = 0;
 				for (integer i = 0;i < size;++i)
 				{
-					const Real invFactor = (Real)1 / 5;
+					Real invFactor = (Real)1 / 5;
 					Real result = i;
+
 					result *= invFactor;
 					if (c[i] != result)
 					{
@@ -710,7 +714,7 @@ namespace
 				integer contentsDiffer = 0;
 				for (integer i = 1;i < size;++i)
 				{
-					const Real left = 5;
+					Real left = 5;
 					if (c[i] != left / i)
 					{
 						//log() << c[i] << " != " << left / i << logNewLine;

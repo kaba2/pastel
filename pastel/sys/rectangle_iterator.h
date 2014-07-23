@@ -41,10 +41,11 @@ namespace Pastel
 
 		RectangleIterator& operator++()
 		{
-			const integer d = n();
+			integer d = n();
 			static PASTEL_CONSTEXPR integer Step = RowMajor ? 1 : -1;
 
 			integer i = RowMajor ? 0 : d - 1;
+
 			while((!RowMajor && i >= 0) || 
 				(RowMajor && i < d))
 			{
@@ -71,10 +72,11 @@ namespace Pastel
 
 		RectangleIterator& operator--()
 		{
-			const integer d = n();
+			integer d = n();
 			static PASTEL_CONSTEXPR integer Step = RowMajor ? 1 : -1;
 
 			integer i = RowMajor ? 0 : d - 1;
+
 			while((!RowMajor && i >= 0) || 
 				(RowMajor && i < d))
 			{

@@ -23,7 +23,7 @@ namespace Pastel
 		const AlignedBox2& textureBox,
 		const ColorMixer& colorMixer)
 	{
-		const Vector2 delta = box.extent();
+		Vector2 delta = box.extent();
 
 		const AlignedBox2i discreteBox(
 			toPixelSpanPoint(box.min()), 
@@ -42,6 +42,7 @@ namespace Pastel
 		const Vector2 textureDelta = textureBox.extent();
 		const Vector2 duvDxy = textureDelta / delta;
 		const Vector2 uvMin = textureBox.min() + 
+
 			((Vector2(discreteBox.min()) + 0.5) - box.min()) * duvDxy;
 
 		Vector2 uv(uvMin);
@@ -52,7 +53,7 @@ namespace Pastel
 
 		Cursor yCursor = image.cursor(clippedBox.min());
 
-		const integer width = clippedBox.extent()[0];
+		integer width = clippedBox.extent()[0];
 		const integer height = clippedBox.extent()[1];
 
 		for (integer y = 0; y < height;++y)
@@ -63,6 +64,7 @@ namespace Pastel
 
 			for (integer x = 0; x < width;++x)
 			{
+
 				*xyCursor = colorMixer(*xyCursor,
 					textureSampler(uv, matrix2x2<real>(duvDx, duvDy)));
 

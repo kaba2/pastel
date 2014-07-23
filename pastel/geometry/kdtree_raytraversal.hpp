@@ -93,7 +93,7 @@ namespace Pastel
 
 					while(!currentNode.leaf())
 					{
-						const Real splitPosition = currentNode.splitPosition();
+						Real splitPosition = currentNode.splitPosition();
 						const integer splitAxis = currentNode.splitAxis();
 
 						if (minPosition[splitAxis] <= splitPosition)
@@ -148,6 +148,7 @@ namespace Pastel
 
 						//const Real t = (splitPosition - ray.position()[splitAxis]) /
 						//	ray.direction()[splitAxis];
+
 						const Real t = (splitPosition - ray.position()[splitAxis]) *
 							ray.inverseDirection()[splitAxis];
 

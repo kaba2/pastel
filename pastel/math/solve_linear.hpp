@@ -17,7 +17,7 @@ namespace Pastel
 		ENSURE_OP(a.width(), ==, a.height());
 		ENSURE_OP(b.size(), ==, a.height());
 
-		const integer n = a.width();
+		integer n = a.width();
 		const integer m = a.height();
 
 		Matrix<Real> left(a);
@@ -65,6 +65,7 @@ namespace Pastel
 				left(i, k) = 0;
 				for (integer j = k + 1;j < n;++j)
 				{
+
 					left(i, j) -= left(k, j) * a;
 				}
 				right[i] -= right[k] * a;
@@ -86,7 +87,7 @@ namespace Pastel
 		ENSURE_OP(a.width(), ==, a.height());
 		ENSURE_OP(b.size(), ==, a.height());
 
-		const integer n = a.width();
+		integer n = a.width();
 		const integer m = a.height();
 
 		Vector<Real, N> right = b;
@@ -101,6 +102,7 @@ namespace Pastel
 			const Real factor = right[j] / a(j, j);
 			for (integer i = j + 1;i < m;++i)
 			{
+
 				right[i] -= a(i, j) * factor;
 			}
 			right[j] /= a(j, j);
@@ -119,7 +121,7 @@ namespace Pastel
 		ENSURE_OP(a.width(), ==, a.height());
 		ENSURE_OP(b.size(), ==, a.height());
 
-		const integer n = a.width();
+		integer n = a.width();
 		const integer m = a.height();
 
 		Vector<Real, N> right = b;
@@ -135,6 +137,7 @@ namespace Pastel
 			const Real factor = right[j];
 			for (integer i = j + 1;i < m;++i)
 			{
+
 				right[i] -= a(i, j) * factor;
 			}
 		}
@@ -155,7 +158,7 @@ namespace Pastel
 		// Ax = b
 		// where A is upper triangular.
 
-		const integer n = a.width();
+		integer n = a.width();
 
 		Vector<Real, N> right = b;
 		if (n == 0)
@@ -175,6 +178,7 @@ namespace Pastel
 			const Real factor = right[j] / a(j, j);
 			for (integer i = j - 1;i >= 0;--i)
 			{
+
 				right[i] -= a(i, j) * factor;
 			}
 			right[j] /= a(j, j);
@@ -199,7 +203,7 @@ namespace Pastel
 		// where A is unit upper triangular
 		// (1' on the diagonal).
 
-		const integer n = a.height();
+		integer n = a.height();
 
 		// Use back-substitution to solve for x.
 		Vector<Real, N> right = b;
@@ -214,6 +218,7 @@ namespace Pastel
 			const Real factor = right[j];
 			for (integer i = j - 1;i >= 0;--i)
 			{
+
 				right[i] -= a(i, j) * factor;
 			}
 		}

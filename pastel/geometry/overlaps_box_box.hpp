@@ -27,16 +27,17 @@ namespace Pastel
 		// Transpose of an orthogonal matrix
 		// is its inverse..
 
-		const Matrix<Real> aRotationInverse(
+		Matrix<Real> aRotationInverse(
 			transpose(aBox.rotation()));
 
 		const Box<Real, N> bBoxTransformed(
+
 			(bBox.position() - aBox.position()) *
 			aRotationInverse,
 			bBox.width(),
 			bBox.rotation() * aRotationInverse);
 
-		const AlignedBox<Real, N> aBoxTransformed(
+		AlignedBox<Real, N> aBoxTransformed(
 			Vector<Real, N>(-aBox.width()),
 			Vector<Real, N>(aBox.width()));
 
@@ -47,6 +48,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
+
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,
 		const Vector<Real, N>& bVelocity,
@@ -59,22 +61,24 @@ namespace Pastel
 		// Transpose of an orthogonal matrix
 		// is its inverse..
 
-		const Matrix<Real> aRotationInverse(
+		Matrix<Real> aRotationInverse(
 			transpose(aBox.rotation()));
 
 		const Box<Real, N> bBoxTransformed(
+
 			(bBox.position() - aBox.position()) *
 			aRotationInverse,
 			bBox.width(),
 			bBox.rotation() * aRotationInverse);
 
-		const AlignedBox<Real, N> aBoxTransformed(
+		AlignedBox<Real, N> aBoxTransformed(
 			Vector<Real, N>(-aBox.width()),
 			Vector<Real, N>(aBox.width()));
 
 		return overlaps(
 			aBoxTransformed,
 			bBoxTransformed,
+
 			bVelocity * aRotationInverse,
 			intersectionRange);
 	}
@@ -93,16 +97,17 @@ namespace Pastel
 		// Transpose of an orthogonal matrix
 		// is its inverse..
 
-		const Matrix<Real> aRotationInverse(
+		Matrix<Real> aRotationInverse(
 			transpose(aBox.rotation()));
 
 		const Box<Real, N> bBoxTransformed(
+
 			(bBox.position() - aBox.position()) *
 			aRotationInverse,
 			bBox.width(),
 			bBox.rotation() * aRotationInverse);
 
-		const AlignedBox<Real, N> aBoxTransformed(
+		AlignedBox<Real, N> aBoxTransformed(
 			Vector<Real, N>(-aBox.width()),
 			Vector<Real, N>(aBox.width()));
 
@@ -115,6 +120,7 @@ namespace Pastel
 			transformedCommonPoint))
 		{
 			projection =
+
 				transformedProjection * aBox.rotation();
 			commonPoint =
 				transformedCommonPoint * aBox.rotation() + aBox.position();

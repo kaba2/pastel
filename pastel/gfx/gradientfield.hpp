@@ -42,7 +42,8 @@ namespace Pastel
 		template <typename Real, int N>
 		void GradientField<Real, N>::initialize(integer n)
 		{
-			const integer basicGradients = (1 << (n - 1));
+			integer basicGradients = (1 << (n - 1));
+
 			const integer gradients = n * basicGradients;
 			
 			// The size of the permutation:
@@ -58,10 +59,11 @@ namespace Pastel
 			// repeated (in RR^n, the size of the tile is 
 			// [0, permutationSize[^n).
 
-			const integer permutationSize = 
+			integer permutationSize = 
 				std::max(roundUpToPowerOfTwo(gradients), (integer)256);
 			
 			// Generate the standard permutation.
+
 			permutation_.reserve(permutationSize * 2);
 			for (integer i = 0;i < permutationSize;++i)
 			{
@@ -71,7 +73,7 @@ namespace Pastel
 			// Shuffle it to a random permutation.
 			for (integer i = 0;i < permutationSize;++i)
 			{
-				const integer u = randomInteger(permutationSize);
+				integer u = randomInteger(permutationSize);
 				std::swap(permutation_[u], permutation_[i]);
 			}
 
@@ -95,16 +97,18 @@ namespace Pastel
 
 		template <typename Real, int N>
 		Real GradientField<Real, N>::operator()(
+
 			const Vector<integer, N>& position,
 			const Vector<Real, N>& delta) const
 		{
-			const integer n = position.size();
+			integer n = position.size();
 
 			if (n == 1)
 			{
 				// The 1-dimensional gradient field has to be handled
 				// as a special case. The reasons are that in RR^1:
 				//
+
 				// * there are no gradients of the form which we
 				// are going to pick.
 				//
@@ -140,7 +144,8 @@ namespace Pastel
 				static PASTEL_CONSTEXPR int Gradients = 1 << 3;
 				static PASTEL_CONSTEXPR uint32 GradientMask = Gradients - 1;
 
-				const integer index = 
+				integer index = 
+
 					permutation_[(position[1] & permutationMask_) +
 					permutation_[position[0] & permutationMask_]];
 				const uint32 gradient = ((uint32)index) & GradientMask;
@@ -190,7 +195,8 @@ namespace Pastel
 				return dotProduct;
 			}
 
-			const integer basicGradients = (1 << (n - 1));
+			integer basicGradients = (1 << (n - 1));
+
 			const integer gradients = n * basicGradients;
 
 			// Each point in the integer lattice is associated
@@ -209,7 +215,8 @@ namespace Pastel
 			// which have norm sqrt(n - 1). I.e. those vectors which have
 			// exactly one zero component. 
 
-			const integer zeroAt = index / basicGradients;
+			integer zeroAt = index / basicGradients;
+
 			uint32 gradient = (uint32)(index & (basicGradients - 1));
 
 			// The 'gradient' variable is a 32-bit integer consisting

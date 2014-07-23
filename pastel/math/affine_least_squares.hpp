@@ -32,7 +32,7 @@ namespace Pastel
 		// P' = [p_1 - p', ..., p_n - p']
 		// R' = [r_1 - r', ..., r_n - r']
 
-		const integer m = from.m();
+		integer m = from.m();
 		const integer n = from.n();
 
 		if (n == 0 || m == 0)
@@ -74,6 +74,7 @@ namespace Pastel
 		}
 
 		// Compute A = (P' R'^T)(P' P'^T)^-1
+
 		Matrix<Real> a = prt * inverse(ppt);
 
 		// Compute b = r' - Ap'.

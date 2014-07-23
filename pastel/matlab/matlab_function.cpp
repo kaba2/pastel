@@ -74,7 +74,7 @@ namespace Pastel
 
 			// The first parameter is the name of the
 			// function that should be called.
-			const std::string name = asString(inputSet[FunctionName]);
+			std::string name = asString(inputSet[FunctionName]);
 
 			// See if a function with that name has
 			// been registered.
@@ -86,6 +86,7 @@ namespace Pastel
 				// name registered.
 
 				// Find out its function pointer.
+
 				MatlabFunction* function = iter->second;
 
 				// Call that function, but omit the
@@ -113,7 +114,7 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 
 			FunctionIterator iter = functionMap().begin();
-			const FunctionIterator iterEnd = functionMap().end();
+			FunctionIterator iterEnd = functionMap().end();
 			
 			while(iter != iterEnd)
 			{
@@ -124,6 +125,7 @@ namespace Pastel
 		}
 
 		void matlabSetNumberOfThreads(
+
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{

@@ -11,7 +11,7 @@ namespace Pastel
 		integer N,
 		typename Vector_Output>
 	void forEachPoint(
-		const AlignedBox<integer, N> box,
+		AlignedBox<integer, N> box,
 		Vector_Output report)
 	{
 		if (box.empty())
@@ -37,6 +37,7 @@ namespace Pastel
 			report(position);
 
 			integer i = firstIndex;
+
 			while ((!RowMajor && i >= 0) ||
 				(RowMajor && i < d))
 			{

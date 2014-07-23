@@ -135,7 +135,7 @@ namespace Pastel
 		//! Returns whether the box contains any points.
 		bool empty() const
 		{
-			const integer d = n();
+			integer d = n();
 			for (integer i = 0;i < d;++i)
 			{
 				if (empty(i))
@@ -148,6 +148,7 @@ namespace Pastel
 		}
 
 		//! Swaps two aligned boxes.
+
 		void swap(AlignedBox<Real, N>& that)
 		{
 			using std::swap;
@@ -233,7 +234,7 @@ namespace Pastel
 		}
 
 		//! Returns max() - min().
-		const VectorSubtraction<Real, N, 
+		VectorSubtraction<Real, N, 
 			Vector<Real, N>, 
 			Vector<Real, N> >
 			extent() const
@@ -247,6 +248,7 @@ namespace Pastel
 		}
 
 		Vector<Real, N> at(
+
 			const Vector<Real, N>& coordinates) const
 		{
 			return Vector<Real, N>(
@@ -278,7 +280,8 @@ namespace Pastel
 		AlignedBox<Real, N>& operator*=(
 			const Real& that)
 		{
-			const Vector<Real, N> translation =
+			Vector<Real, N> translation =
+
 				(max_ - min_) * ((that - 1) / 2);
 		
 			min_ -= translation;

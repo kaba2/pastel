@@ -49,7 +49,7 @@ namespace
 
 	void testLinearLuminance()
 	{
-		const real Width = 400;
+		real Width = 400;
 		const real Height = 100;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
@@ -59,6 +59,7 @@ namespace
 		{
 			const Color color(
 				linearSrgbToSrgb(
+
 				Color(Step * x)));
 			for (integer y = 0;y < Height;++y)
 			{
@@ -71,7 +72,7 @@ namespace
 
 	void testLinearLuma()
 	{
-		const real Width = 400;
+		real Width = 400;
 		const real Height = 100;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
@@ -80,6 +81,7 @@ namespace
 		for (integer x = 0;x < Width;++x)
 		{
 			const Color color(
+
 				Color(Step * x));
 			for (integer y = 0;y < Height;++y)
 			{
@@ -92,7 +94,7 @@ namespace
 
 	void testLinearLightness()
 	{
-		const real Width = 400;
+		real Width = 400;
 		const real Height = 100;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
@@ -101,6 +103,7 @@ namespace
 		for (integer x = 0;x < Width;++x)
 		{
 			const Color color(
+
 				xyzToSrgb(labToXyz(Color(Step * x, 0, 0))));
 			for (integer y = 0;y < Height;++y)
 			{

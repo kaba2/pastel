@@ -24,7 +24,7 @@ namespace Pastel
 
 		Real radius = 0;
 
-		const integer n = plane.n();
+		integer n = plane.n();
 		for (integer i = 0;i < n;++i)
 		{
 			// Move on the edges of the box
@@ -47,6 +47,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
+
 		const AlignedPlane<Real, N>& plane,
 		const Box<Real, N>& box,
 		bool& boxOnPositiveSide)

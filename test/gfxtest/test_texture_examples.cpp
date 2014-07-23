@@ -56,9 +56,10 @@ namespace
 
 			Array<Color, 2> image(Vector2i(768, 256));
 
-			const real minRadius = 0.25;
+			real minRadius = 0.25;
 			const real maxRadius = 0.5;
 			const real angleBegin = constantPi<real>() / 10;
+
 			const real angleEnd = 1.2423 * constantPi<real>();
 
 			Radial_Texture<Color> distortedTexture =

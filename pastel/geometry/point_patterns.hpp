@@ -61,8 +61,9 @@ namespace Pastel
 				clusterPoints = points - pointsCreated;
 			}
 
-			const Vector<Real, N> clusterCenter(
+			Vector<Real, N> clusterCenter(
 				randomVectorCube<Real, N>(dimension));
+
 			const Real clusterRadius = random<Real>() * 0.1;
 
 			for (integer i = 0;i < clusterPoints;++i)
@@ -133,10 +134,11 @@ namespace Pastel
 			return;
 		}
 
-		const integer points = pointSet.size();
+		integer points = pointSet.size();
 
 		for (integer i = 0;i < points;++i)
 		{
+
 			pointSet[i] *= scaling;
 		}
 	}
@@ -150,7 +152,7 @@ namespace Pastel
 			return;
 		}
 
-		const integer points = pointSet.size();
+		integer points = pointSet.size();
 		const integer dimension = pointSet.front().n();
 
 		Matrix<Real> rotation(dimension, dimension);
@@ -158,6 +160,7 @@ namespace Pastel
 
 		for (integer i = 0;i < points;++i)
 		{
+
 			pointSet[i] = pointSet[i] * rotation;
 		}
 	}
@@ -169,7 +172,7 @@ namespace Pastel
 	{
 		ENSURE_OP(dimensionality, >, 0);
 
-		const integer dimension = pointSet.front().n();
+		integer dimension = pointSet.front().n();
 
 		ENSURE_OP(dimensionality, <=, dimension);
 

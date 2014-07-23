@@ -43,11 +43,12 @@ namespace Pastel
 		}
 
 	private:
-		const Contained_ConstView view_;
+		Contained_ConstView view_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ExtendedConstView<N, Input_Element, ClampedConstView<N, ConstView<N, Input_Element, Input_ConstView> > >
+
 		clampedConstView(const ConstView<N, Input_Element, Input_ConstView>& view)
 	{
 		return extendedConstView<N>(ClampedConstView<N,
