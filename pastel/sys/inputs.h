@@ -7,6 +7,7 @@
 #include "pastel/sys/infinite_counting_input.h"
 #include "pastel/sys/input_as_vector.h"
 #include "pastel/sys/range_input.h"
+#include "pastel/sys/single_input.h"
 #include "pastel/sys/transform_input.h"
 
 #endif
