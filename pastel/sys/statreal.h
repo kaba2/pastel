@@ -6,7 +6,6 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/pastelomp.h"
 
 #include <boost/operators.hpp>
 
