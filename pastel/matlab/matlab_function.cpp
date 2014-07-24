@@ -130,42 +130,6 @@ namespace Pastel
 			}
 		}
 
-		void matlabSetNumberOfThreads(
-			int outputs, mxArray *outputSet[],
-			int inputs, const mxArray *inputSet[])
-		{
-			enum
-			{
-				NumberOfThreads,
-				Inputs
-			};
-
-			ENSURE_OP(inputs, ==, Inputs);
-
-			integer numberOfThreads = asScalar<integer>(
-				inputSet[NumberOfThreads]);
-
-			ENSURE_OP(numberOfThreads, >=, 0);
-
-			// This doesn't work.
-			// The problem is probably that Matlab uses TBB
-			// itself and initializes the scheduler before we 
-			// do. This initialization is then ignored.
-
-			static tbb::task_scheduler_init theTbbInit(
-				tbb::task_scheduler_init::deferred);
-
-			if (numberOfThreads > 0)
-			{
-				theTbbInit.initialize(numberOfThreads);
-			}
-			else
-			{
-				theTbbInit.initialize(
-					tbb::task_scheduler_init::automatic);
-			}
-		}
-
 		void matlabInitialize()
 		{
 			// If std::abort() is called in a mex file,
@@ -184,25 +148,13 @@ namespace Pastel
 			static Pastel::Matlab_Logger matlabLogger;
 			log().addLogger(&matlabLogger);
 
+			// Initialize Threading Building Blocks.
+			static tbb::task_scheduler_init theTbbInit(
+				tbb::task_scheduler_init::automatic);
+
 			matlabAddFunction(
 				"list_functions",
 				matlabListFunctions);
-
-			matlabAddFunction(
-				"set_number_of_threads",
-				matlabSetNumberOfThreads);
-
-			// This function call is needed because
-			// of a bug in some versions of Matlab (e.g. 2008a).
-			// Matlab sets the OMP_NUM_THREADS environment variable
-			// to 1 in start-up, which is then propagated into all
-			// mex files which use OpenMP. This can be get around
-			// in Matlab by setting OMP_NUM_THREADS to the number
-			// cores. However, this must be done _before_ loading
-			// a mex file in memory. Because it is easy to forget
-			// to do this, or to do this in wrong order, a better
-			// workaround is to set the number of threads here.
-			setNumberOfThreads(numberOfProcessors());
 		}
 
 		CallFunction run(matlabInitialize);

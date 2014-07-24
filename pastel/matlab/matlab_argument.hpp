@@ -4,7 +4,6 @@
 #include "pastel/matlab/matlab_argument.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/pastelomp.h"
 #include "pastel/sys/copy_n.h"
 
 namespace Pastel
