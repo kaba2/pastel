@@ -117,7 +117,6 @@ namespace Pastel
 				{
 					palette[i] =
 						Color(
-
 						pcxHeader.palette16_[i * 3 + 0],
 						pcxHeader.palette16_[i * 3 + 1],
 						pcxHeader.palette16_[i * 3 + 2]) / 255;

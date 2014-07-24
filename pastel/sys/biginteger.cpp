@@ -458,7 +458,6 @@ namespace Pastel
 		for (integer i = 0;i < thisSize;++i)
 		{
 			BigInteger productInteger(
-
 				(int32)digits_[i] * (int32)that, i);
 			result += productInteger;
 		}
@@ -704,7 +703,6 @@ namespace Pastel
 	}
 
 	void BigInteger::add(
-
 		const DigitContainer& left,
 		const DigitContainer& right,
 		DigitContainer& result) const
@@ -765,7 +763,6 @@ namespace Pastel
 	}
 
 	void BigInteger::subtract(
-
 		const DigitContainer& left,
 		const DigitContainer& right,
 		DigitContainer& result) const

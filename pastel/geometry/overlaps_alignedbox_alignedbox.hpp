@@ -54,7 +54,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
-
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,
 		const Vector<Real, N>& bVelocity,

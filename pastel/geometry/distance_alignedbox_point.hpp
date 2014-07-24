@@ -72,7 +72,6 @@ namespace Pastel
 
 	template <typename Real, int N, typename NormBijection>
 	Real farthestDistance(
-
 		const AlignedBox<Real, N>& alignedBox,
 		const Vector<Real, N>& point,
 		const NormBijection& normBijection)

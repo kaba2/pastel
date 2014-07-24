@@ -46,7 +46,6 @@ namespace Pastel
 
 		template <int Index, int N, typename Cursor, typename VisitPositionFunctor>
 		void visitPositionDimension(
-
 			const Vector<integer, N>& extent,
 			const Vector<integer, N>& startPosition,
 			const Cursor& startCursor,
@@ -154,7 +153,6 @@ namespace Pastel
 			typename Right_Cursor,
 			typename VisitPositionFunctor>
 		void visitPositionDimension(
-
 			const Vector<integer, N>& extent,
 			const Vector<integer, N>& startPosition,
 			const Left_Cursor& leftStartCursor,

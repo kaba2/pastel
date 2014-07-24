@@ -38,7 +38,6 @@ namespace Pastel
 
 	template <int N, typename Vector_Range>
 	typename boost::range_value<Vector_Range>::type linear(
-
 		const Vector<real, N>& position,
 		const Vector_Range& data)
 	{
@@ -55,7 +54,6 @@ namespace Pastel
 		typename PointType,
 		typename Real>
 	PointType linear(
-
 			const PointType& startPoint,
 			const PointType& endPoint,
 			const Real& time)

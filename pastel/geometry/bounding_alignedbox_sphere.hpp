@@ -21,7 +21,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
-
 		const Sphere<Real, N>& sphere,
 		const AffineTransformation<Real>& transformation)
 	{
@@ -55,7 +54,6 @@ namespace Pastel
 		Vector<Real, N> radius =
 			sqrt(
 			diagonal(
-
 			transpose(transformation.matrix()) * 
 			transformation.matrix())) * sphere.radius();
 

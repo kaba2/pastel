@@ -97,7 +97,6 @@ namespace Pastel
 
 		template <typename Real, int N>
 		Real GradientField<Real, N>::operator()(
-
 			const Vector<integer, N>& position,
 			const Vector<Real, N>& delta) const
 		{

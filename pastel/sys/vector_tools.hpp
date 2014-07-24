@@ -169,7 +169,6 @@ namespace Pastel
 
 	template <typename Real, int N, typename Expression>
 	inline Vector<Real, ModifyN<N, N - 1>::Result> shrink(
-
 		const VectorExpression<Real, N, Expression>& that,
 		integer index)
 	{
@@ -256,7 +255,6 @@ namespace Pastel
 
 	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
-
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right)
 	{

@@ -285,7 +285,6 @@ namespace Pastel
 	}
 
 	PASTELGFX bool saveIndexedPcx(
-
 		const Array<uint8, 2>& image,
 		const std::vector<Color>& palette,
 		const std::string& fileName)

@@ -94,7 +94,6 @@ namespace Pastel
 		typename Output_View,
 		typename ConvoluteProcessFunctor>
 		void convolute(
-
 		const ConstView<N, Input_RingElement, Input_ConstView>& inputView,
 		const ConstView<N, Filter_RingElement, Filter_ConstView>& filterView,
 		const View<N, Output_RingElement, Output_View>& outputView,

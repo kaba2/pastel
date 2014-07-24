@@ -261,7 +261,6 @@ namespace Pastel
 		}
 
 		ConstSubMatrix<Real> operator()(
-
 			const Vector2i& min,
 			const Vector2i& max) const
 		{
@@ -273,7 +272,6 @@ namespace Pastel
 		}
 
 		SubMatrix<Real> operator()(
-
 			const Vector2i& min,
 			const Vector2i& max,
 			const Vector2i& delta)
@@ -287,7 +285,6 @@ namespace Pastel
 		}
 
 		ConstSubMatrix<Real> operator()(
-
 			const Vector2i& min,
 			const Vector2i& max,
 			const Vector2i& delta) const

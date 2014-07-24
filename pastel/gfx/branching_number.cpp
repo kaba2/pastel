@@ -368,7 +368,6 @@ namespace Pastel
 	}
 
 	PASTELGFX integer branchingNumber(
-
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{

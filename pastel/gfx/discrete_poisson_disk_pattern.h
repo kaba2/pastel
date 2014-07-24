@@ -66,7 +66,6 @@ namespace Pastel
 
 	template <int N, typename Image_View, typename Element_ConstView>
 	void discretePoissonDiskPattern(
-
 		const ConstView<N, bool, Element_ConstView>& element,
 		const View<N, bool, Image_View>& image)
 	{

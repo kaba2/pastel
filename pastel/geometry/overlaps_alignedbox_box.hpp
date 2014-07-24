@@ -32,7 +32,6 @@ namespace Pastel
 		// in the aligned box normals.
 
 		Vector<Real, 2> alignedBoxWidth(
-
 			(alignedBox.max() - alignedBox.min()) * 0.5);
 		Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
@@ -130,7 +129,6 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-
 		const AlignedBox<Real, 2>& aAlignedBox,
 		const Box<Real, 2>& bBox,
 		const Vector<Real, 2>& bVelocity,
@@ -188,7 +186,6 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-
 		const AlignedBox<Real, 2>& alignedBox,
 		const Box<Real, 2>& box,
 		Vector<Real, 2>& projection,
@@ -207,7 +204,6 @@ namespace Pastel
 		// in the aligned box normals.
 
 		Vector<Real, 2> alignedBoxWidth(
-
 			(alignedBox.max() - alignedBox.min()) * 0.5);
 		Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
@@ -656,7 +652,6 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-
 		const AlignedBox<Real, 3>& alignedBox,
 		const Box<Real, 3>& box,
 		Vector<Real, 3>& projection)

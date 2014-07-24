@@ -26,7 +26,6 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomCauchy(
-
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
 		PENSURE_OP(scale, >, 0);

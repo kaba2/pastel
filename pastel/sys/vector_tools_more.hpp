@@ -29,7 +29,6 @@ namespace Pastel
 
 	template <typename Real, int N, typename Expression>
 	integer minIndex(
-
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		integer dimension = that.n();
@@ -52,7 +51,6 @@ namespace Pastel
 
 	template <typename Real, int N, typename Expression>
 	Real min(
-
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		return that[minIndex(that)];
@@ -82,7 +80,6 @@ namespace Pastel
 
 	template <typename Real, int N, typename Expression>
 	Real max(
-
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		return that[maxIndex(that)];

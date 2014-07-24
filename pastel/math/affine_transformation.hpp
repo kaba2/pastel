@@ -31,7 +31,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> transformVector(
-
 		const AffineTransformation<Real>& affine,
 		const Vector<Real, N>& vector)
 	{

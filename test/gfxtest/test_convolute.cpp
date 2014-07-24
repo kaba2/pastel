@@ -37,7 +37,6 @@ namespace
 		for (integer i = 0;i < points;++i)
 		{
 			input(
-
 				randomVector<real, 2>() * Vector2(extent - 1)) = randomRgbColor();
 		}
 
@@ -69,7 +68,6 @@ namespace
 		for (integer i = 0;i < points;++i)
 		{
 			input(
-
 				randomVector<real, 3>() * Vector3(extent - 1)) = randomRgbColor();
 		}
 

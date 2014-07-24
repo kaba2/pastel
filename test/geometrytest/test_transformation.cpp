@@ -35,7 +35,6 @@ namespace
 			for (integer i = 0;i < 10000;++i)
 			{
 				ConformalAffine2D<real> transformation(
-
 					random<real>() * 2 + 1,
 					random<real>() * 2 * constantPi<real>(),
 					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
@@ -71,7 +70,6 @@ namespace
 			for (integer i = 0;i < 10000;++i)
 			{
 				ConformalAffine2D<real> transformation(
-
 					random<real>() * 2 + 1,
 					random<real>() * 2 * constantPi<real>(),
 					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));

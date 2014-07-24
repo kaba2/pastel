@@ -47,7 +47,6 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void ellipsoidElement(
-
 		const View<N, bool, Image_View>& image,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
@@ -101,7 +100,6 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void diamondElement(
-
 		const View<N, bool, Image_View>& image,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
@@ -158,7 +156,6 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void pEllipsoidElement(
-
 		const View<N, bool, Image_View>& image,
 		real power,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
@@ -216,7 +213,6 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void boxElement(
-
 		const View<N, bool, Image_View>& image,
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{

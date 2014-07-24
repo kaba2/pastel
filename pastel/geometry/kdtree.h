@@ -405,7 +405,6 @@ namespace Pastel
 
 		template <typename InputIterator>
 		void insert(
-
 			const Cursor& cursor,
 			InputIterator begin, InputIterator end);
 

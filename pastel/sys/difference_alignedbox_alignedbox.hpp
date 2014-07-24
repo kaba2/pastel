@@ -160,7 +160,6 @@ namespace Pastel
 		typename Real, int N_A, int N_B,
 		typename AlignedBox_Output>
 	integer symmetricDifference(
-
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
 		AlignedBox_Output report)

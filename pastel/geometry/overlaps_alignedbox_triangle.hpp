@@ -51,7 +51,6 @@ namespace Pastel
 			// Calculate aligned box widths
 
 			Vector<Real, 2> halfWidths(
-
 				mabs(evaluate((box.max() - box.min()) * Real(0.5))));
 			Vector<Real, 2> boxCenter(
 				box.min() + halfWidths);
@@ -127,7 +126,6 @@ namespace Pastel
 				// (the aligned box is centered on the origin).
 
 				Real boxRadius(
-
 					halfWidths[0] * mabs(normal[0]) +
 					halfWidths[1] * mabs(normal[1]));
 
@@ -193,7 +191,6 @@ namespace Pastel
 			// Compute the radii of the box.
 
 			Vector<Real, N> boxRadius(
-
 				mabs((box.max() - box.min()) * 0.5));
 
 			// Calculate the box center.
@@ -401,7 +398,6 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-
 		const AlignedBox<Real, 2>& box,
 		const PASTEL_TRIANGLE(Real, 2)& triangle)
 	{

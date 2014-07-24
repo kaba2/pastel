@@ -70,7 +70,6 @@ namespace Pastel
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View>
 	void drawView(
-
 		const ConstView<N, Texture_Element, Texture_View>& texture,
 		const Vector<integer, N>& position,
 		const View<N, Image_Element, Image_View>& image)

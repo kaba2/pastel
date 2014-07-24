@@ -437,13 +437,11 @@ namespace
 		for (integer i = 0;i < steps;++i)
 		{
 			Vector2 to(
-
 				center.x() + std::cos(alphaStep * i) * radius,
 				center.y() + std::sin(alphaStep * i) * radius);
 
 			/*
 			Vector2 to(
-
 				std::floor(center.x() + std::cos(alphaStep * i) * radius) + 0.5,
 				std::floor(center.y() + std::sin(alphaStep * i) * radius) + 0.5);
 			*/
@@ -491,11 +489,9 @@ namespace
 			for (integer x = 0;x < XLines;++x)
 			{
 				Vector2 from(
-
 					x * BoxWidth + Border + 0.5,
 					y * BoxHeight + Border + (YStart + x * XYStep));
 				Vector2 to(
-
 					x * BoxWidth + (BoxWidth - Border) + 0.5 ,
 					y * BoxHeight + (BoxHeight - Border) + (YStart + y * YYStep));
 

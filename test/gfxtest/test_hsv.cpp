@@ -25,7 +25,6 @@ namespace
 			for (integer y = 0;y < Height;++y)
 			{
 				image(x, y) = hsvToRgb(
-
 					Color(HueStep * x, SaturationStep * y, 1));
 			}
 		}

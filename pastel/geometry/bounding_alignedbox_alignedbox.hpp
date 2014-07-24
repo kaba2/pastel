@@ -64,7 +64,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedCube(
-
 		const AlignedBox<Real, N>& box)
 	{
 		const Real maxRadius = max(box.extent()) * 0.5;
@@ -81,7 +80,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool extendToCover(
-
 		const AlignedBox<Real, N>& boxToCover,
 		AlignedBox<Real, N>& boxToExtend)
 	{

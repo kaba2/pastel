@@ -228,7 +228,6 @@ namespace Pastel
 		}
 
 		void kdConstruct(
-
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -385,7 +384,6 @@ namespace Pastel
 		}
 
 		void kdErase(
-
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -430,7 +428,6 @@ namespace Pastel
 		}
 
 		void kdHide(
-
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -473,7 +470,6 @@ namespace Pastel
 		}
 
 		void kdShow(
-
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -516,7 +512,6 @@ namespace Pastel
 		}
 
 		void kdRefine(
-
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -537,7 +532,6 @@ namespace Pastel
 		}
 
 		void kdNodes(
-
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{

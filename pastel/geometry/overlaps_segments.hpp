@@ -259,7 +259,6 @@ namespace Pastel
 ;
 		public:
 			OverlapSegments(
-
 				const std::vector<Vector<Real, 2> >& vertex,
 				const std::vector<Integer2>& segment);
 

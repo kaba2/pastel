@@ -120,7 +120,6 @@ namespace Pastel
 	}
 
 	PASTELSYS void printLatex(
-
 		const MeasureTable& measureTable,
 		std::ostream& stream)
 	{

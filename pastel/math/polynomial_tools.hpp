@@ -133,7 +133,6 @@ namespace Pastel
 
 	template <typename Real>
 	integer roots(
-
 		const std::vector<Polynomial<Real> >& sturm,
 		const Real& min, const Real& max)
 	{

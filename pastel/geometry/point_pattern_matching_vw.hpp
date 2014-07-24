@@ -548,7 +548,6 @@ namespace Pastel
 		typename Model_Settings, template <typename> class Model_Customization,
 		typename Real>
 	bool pointPatternMatch(
-
 		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
 		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,

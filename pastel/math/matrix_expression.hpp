@@ -81,7 +81,6 @@ namespace Pastel
 
 		template <typename RightExpression>
 		bool operator!=(
-
 			const MatrixExpression<Real, RightExpression>& right) const
 		{
 			return !(*this == right);
@@ -493,7 +492,6 @@ namespace Pastel
 		using StorageType = const MatrixScalarAddition;
 
 		MatrixScalarAddition(
-
 			const Expression& data,
 			Real term)
 			: data_(data)
@@ -630,7 +628,6 @@ namespace Pastel
 		}
 
 		bool involves(
-
 			const void* memoryBegin, const void* memoryEnd) const
 		{
 			return false;

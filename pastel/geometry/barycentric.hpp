@@ -30,7 +30,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
-
 		const Vector<Real, N>& point)
 	{
 		// The linear system is trivial to solve in

@@ -248,7 +248,6 @@ namespace Pastel
 		}
 
 		Vector<Real, N> at(
-
 			const Vector<Real, N>& coordinates) const
 		{
 			return Vector<Real, N>(

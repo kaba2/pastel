@@ -36,7 +36,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
-
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere,
 		bool& sphereOnPositiveSide)

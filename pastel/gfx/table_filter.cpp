@@ -60,7 +60,6 @@ namespace Pastel
 	}
 
 	PASTELGFX TableFilterPtr tableFilter(
-
 		const ConstFilterPtr& filter,
 		integer samplesPerRadius)
 	{

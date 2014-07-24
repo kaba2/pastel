@@ -37,7 +37,6 @@ namespace Pastel
 		{
 			rangeAlgorithm(
 				Pastel::range(
-
 				SparseIterator<Type*>(
 				&*iter, stride[axis]),
 				SparseIterator<Type*>(
@@ -66,7 +65,6 @@ namespace Pastel
 		typename Type_B, int N_B, 
 		typename RangeAlgorithm2>
 	void forEachRow(
-
 		const ConstSubArray<Type_A, N_A>& aArray,
 		const SubArray<Type_B, N_B>& bArray,
 		const RangeAlgorithm2& rangeAlgorithm2,
@@ -113,7 +111,6 @@ namespace Pastel
 		{
 			rangeAlgorithm2(
 				Pastel::range(
-
 				SparseIterator<Type_A*>(
 				&*aIter, aStride[axis]),
 				SparseIterator<Type_A*>(

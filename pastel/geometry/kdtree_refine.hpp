@@ -36,7 +36,6 @@ namespace Pastel
 			typename Real, int N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-
 			const Vector<Real, N>& minBound,
 			const Vector<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
@@ -184,7 +183,6 @@ namespace Pastel
 
 		public:
 			BoundPoint(
-
 				const Real& position,
 				bool start,
 				const ConstObjectIterator& object)

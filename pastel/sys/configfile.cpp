@@ -375,7 +375,6 @@ namespace Pastel
 	}
 
 	PASTELSYS bool saveConfig(
-
 		const Config& config,
 		const std::string& fileName)
 	{

@@ -46,7 +46,6 @@ namespace
 
 		template <int N, int M>
 		void testCase(
-
 			const Box (&boxSet)[N],
 			const Box& correct,
 			integer sweepDirection,

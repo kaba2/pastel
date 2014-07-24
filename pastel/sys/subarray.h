@@ -193,7 +193,6 @@ namespace Pastel
 		}
 
 		SubArray<Type, N> operator()(
-
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
@@ -231,7 +230,6 @@ namespace Pastel
 				shrink(stride_, axis));
 
 			SubArray<Type, Smaller> result(
-
 				data_ + index * stride_[axis],
 				sliceStride, sliceExtent);
 

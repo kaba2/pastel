@@ -40,7 +40,6 @@ namespace Pastel
 		}
 
 		bool involves(
-
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
@@ -96,7 +95,6 @@ namespace Pastel
 		}
 
 		bool involves(
-
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
@@ -152,7 +150,6 @@ namespace Pastel
 		}
 
 		bool involves(
-
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{

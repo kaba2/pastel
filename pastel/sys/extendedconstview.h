@@ -75,7 +75,6 @@ namespace Pastel
 		}
 
 		explicit ExtendedConstView(
-
 			const Contained_ExtendedConstView& view)
 			: Base(view)
 		{

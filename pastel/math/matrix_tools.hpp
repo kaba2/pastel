@@ -41,7 +41,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void setDiagonal(
-
 		Matrix<Real>& matrix,
 		const PASTEL_NO_DEDUCTION(Real)& value)
 	{
@@ -60,7 +59,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void setDiagonal(
-
 		Matrix<Real>& matrix,
 		const Vector<Real, N>& values)
 	{
@@ -79,7 +77,6 @@ namespace Pastel
 
 	template <typename Real, int Height, int Width>
 	void transponate(
-
 		Matrix<Real>& matrix)
 	{
 		integer width = matrix.width();

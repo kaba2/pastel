@@ -612,7 +612,6 @@ namespace
 			arrayView(image));
 
 		drawTexturedBox(
-
 			iconBox + Vector2(0, iconSpace * 2),
 			mipImageTexture(aMipMap),
 			arrayView(image));

@@ -74,7 +74,6 @@ namespace Pastel
 		typename Element_ConstView,
 		typename Output_View>
 		void erode(
-
 		const ExtendedConstView<2, bool, Input_ConstView>& input,
 		const ConstView<2, bool, Element_ConstView>& element,
 		const View<2, bool, Output_View>& output)

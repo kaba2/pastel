@@ -149,7 +149,6 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-
 		const PASTEL_TRIANGLE(Real, 3)& aTriangle,
 		const PASTEL_TRIANGLE(Real, 3)& bTriangle)
 	{

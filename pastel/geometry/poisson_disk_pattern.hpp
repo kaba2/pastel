@@ -112,7 +112,6 @@ namespace Pastel
 		{
 			Vector<Real, N> seedPoint(window.at(randomVector<Real, N>()));
 			Vector<integer, N> seedGridPosition(
-
 				floor((seedPoint - window.min()) * invVoxelDelta));
 
 			activeSet.push_back(seedGridPosition);
@@ -125,7 +124,6 @@ namespace Pastel
 			{
 				const Vector<Real, N> seedPoint(*iter);
 				Vector<integer, N> seedGridPosition(
-
 					floor((seedPoint - window.min()) * invVoxelDelta));
 
 				activeSet.push_back(seedGridPosition);
@@ -159,7 +157,6 @@ namespace Pastel
 					Vector<Real, N> newPoint =
 						activePoint +
 						randomVectorAnnulus<Real, N>(
-
 						minDistance, 2 * minDistance);
 
 					// See if the new point is inside the region.
@@ -173,7 +170,6 @@ namespace Pastel
 					// if the new point fits or not.
 
 					Vector<integer, N> gridPosition(
-
 						(newPoint - window.min()) * invVoxelDelta);
 
 					AlignedBox<Real, N> neighborhood(
@@ -181,7 +177,6 @@ namespace Pastel
 						newPoint + minDistance);
 
 					AlignedBox<integer, N> searchWindow(
-
 						Vector<integer, N>((neighborhood.min() - window.min()) * invVoxelDelta),
 						Vector<integer, N>((neighborhood.max() - window.min()) * invVoxelDelta) + 1);
 

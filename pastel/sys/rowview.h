@@ -58,7 +58,6 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<1, Input_Element, ConstRowView<N, Input_ConstView> >
 		constRowView(
-
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		integer freeIndex,
 		const Vector<integer, N>& pivot)

@@ -193,7 +193,6 @@ namespace Pastel
 
 	template <typename Real>
 	Real absDeterminant(
-
 		const QrDecomposition<Real>& qr)
 	{
 		return mabs(diagonalProduct(qr.r()));

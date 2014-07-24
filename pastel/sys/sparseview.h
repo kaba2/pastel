@@ -58,7 +58,6 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstSparseView<N, Input_ConstView> >
 		constSparseView(
-
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& pivot,
 		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& step)

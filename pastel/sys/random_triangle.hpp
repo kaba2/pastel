@@ -139,7 +139,6 @@ namespace Pastel
 
 	template <typename Real>
 	Real trianglePdf(
-
 		const PASTEL_NO_DEDUCTION(Real)& x,
 		const PASTEL_NO_DEDUCTION(Real)& leftWidth,
 		const PASTEL_NO_DEDUCTION(Real)& rightWidth)

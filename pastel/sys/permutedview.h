@@ -65,7 +65,6 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstPermutedView<N, Input_ConstView> >
 		constPermutedView(
-
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const Tuple<integer, N>& permutation)
 	{

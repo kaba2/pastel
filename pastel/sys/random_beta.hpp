@@ -32,7 +32,6 @@ namespace Pastel
 
 	template <typename Real>
 	Real betaPdf(
-
 		const PASTEL_NO_DEDUCTION(Real)& x,
 		const PASTEL_NO_DEDUCTION(Real)& a,
 		const PASTEL_NO_DEDUCTION(Real)& b)

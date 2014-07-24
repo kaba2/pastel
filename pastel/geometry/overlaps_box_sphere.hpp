@@ -35,7 +35,6 @@ namespace Pastel
 		// rotation.
 
 		Sphere<Real, N> transformedSphere(
-
 			(sphere.position() - box.position()) *
 			boxRotationInverse,
 			sphere.radius());
