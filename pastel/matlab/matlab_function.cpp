@@ -95,6 +95,12 @@ namespace Pastel
 					outputs, outputSet,
 					inputs - 1, inputSet + 1);
 			}
+			else
+			{
+				// There is no such function.
+				mexPrintf("There is no function named %s.", name.c_str());
+				mexPrintf("\n");
+			}
 
 		}
 
