@@ -61,15 +61,13 @@ namespace Pastel
 			Vector<Real, 2> aFrom = 
 				pointAsVector(from.front(), fromLocator);
 
-			Vector<Real, 2> bFrom = 
-
+			Vector<Real, 2> bFrom =
 				pointAsVector(*fromSecond, fromLocator);
 
 			Vector<Real, 2> aTo = 
 				pointAsVector(to.front(), toLocator);
 
-			Vector<Real, 2> bTo = 
-
+			Vector<Real, 2> bTo =
 				pointAsVector(*toSecond, toLocator);
 
 			return conformalAffine(
@@ -121,20 +119,17 @@ namespace Pastel
 		// scaledCos = scale * cos(angle)
 
 		Real scaledCos =
-
 			(-sumFrom[0] * sumTo[0] - sumFrom[1] * sumTo[1] + points * dotSum) * invDet;
 
 		// scaledSin = scale * sin(angle)
 
 		Real scaledSin =
-
 			(sumFrom[1] * sumTo[0] - sumFrom[0] * sumTo[1] + points * crossDotSum) * invDet;
 
 		// scaledCos^2 + scaledSin^2 = scale * cos^2(angle) + scale * sin^2(angle)
 		// = scale * (cos^2(angle) + sin^2(angle)) = scale
 
-		Real scale = 
-
+		Real scale =
 			std::sqrt(scaledCos * scaledCos + scaledSin * scaledSin);
 
 		// atan(scaledSin / scaledCos) = atan((scale * sin(angle)) / (scale * cos(angle)))

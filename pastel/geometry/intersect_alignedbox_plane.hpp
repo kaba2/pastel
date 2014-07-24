@@ -131,15 +131,13 @@ namespace Pastel
 
 		Real axisScale = -inverse(plane.normal()[k]);
 
-		Real minAxisDistance = 
-
+		Real minAxisDistance =
 			dot(box.min() - plane.position(), plane.normal()) * axisScale;
 		Real maxAxisDistance = minAxisDistance;
 
 		for (integer i = 0;i < k;++i)
 		{
-			Real deltaAxisDistance = 
-
+			Real deltaAxisDistance =
 				box.extent(i) * plane.normal()[i] * axisScale;
 
 			if (deltaAxisDistance < 0)
@@ -154,8 +152,7 @@ namespace Pastel
 		// Jump over i = k.
 		for (integer i = k + 1;i < dimension;++i)
 		{
-			Real deltaAxisDistance = 
-
+			Real deltaAxisDistance =
 				box.extent(i) * plane.normal()[i] * axisScale;
 
 			if (deltaAxisDistance < 0)

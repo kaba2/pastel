@@ -360,8 +360,7 @@ namespace Pastel
 
 		if (viewExtent.x() < aspectRatio * viewExtent.y())
 		{
-			real xExtentDelta = 
-
+			real xExtentDelta =
 				aspectRatio * viewExtent.y() - viewExtent.x();
 
 			viewWindow.min().x() -= xExtentDelta / 2;
@@ -369,8 +368,7 @@ namespace Pastel
 		}
 		else
 		{
-			real yExtentDelta = 
-
+			real yExtentDelta =
 				viewExtent.x() - aspectRatio * viewExtent.y();
 
 			viewWindow.min().y() -= yExtentDelta / 2;

@@ -58,7 +58,6 @@ namespace Pastel
 			0, dp.y());
 
 		Vector2 textureOrigin =
-
 			((Vector2(clippedBox.min()) + 0.5) - box.min()) * dp;
 
 		Vector2 p = textureOrigin;

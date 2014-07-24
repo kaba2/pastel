@@ -116,7 +116,6 @@ namespace Pastel
 			transformedCommonPoint))
 		{
 			projection =
-
 				transformedProjection * aBox.rotation();
 			commonPoint =
 				transformedCommonPoint * aBox.rotation() + aBox.position();

@@ -28,19 +28,15 @@ namespace Pastel
 		Real pContinuity(1 + continuity);
 
 		Real baFactor1 =
-
 			mTension * pBias *
 			mContinuity * Real(0.5);
 		Real cbFactor1 =
-
 			mTension * mBias *
 			pContinuity * Real(0.5);
 		Real baFactor2 =
-
 			mTension * pBias *
 			pContinuity * Real(0.5);
 		Real cbFactor2 =
-
 			mTension * mBias *
 			mContinuity * Real(0.5);
 

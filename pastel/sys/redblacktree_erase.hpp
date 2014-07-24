@@ -84,7 +84,6 @@ namespace Pastel
 		}
 
 		bool twoChildren =
-
 			!node->left()->isSentinel() &&
 			!node->right()->isSentinel();
 

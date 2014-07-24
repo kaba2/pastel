@@ -34,8 +34,7 @@ namespace Pastel
 			minDistance;
 		for (integer i = 0;i < n;++i)
 		{
-			Real deltaAxisDistance = 
-
+			Real deltaAxisDistance =
 				alignedBox.extent(i) * plane.normal()[i];
 			if (deltaAxisDistance < 0)
 			{

@@ -198,8 +198,7 @@ namespace Pastel
 				extentStride_[0] = 1;
 				for (integer i = 1;i < d;++i)
 				{
-					extentStride_[i] = 
-
+					extentStride_[i] =
 						extentStride_[i - 1] * extent_[i - 1];
 				}
 

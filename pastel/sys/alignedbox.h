@@ -280,7 +280,6 @@ namespace Pastel
 			const Real& that)
 		{
 			Vector<Real, N> translation =
-
 				(max_ - min_) * ((that - 1) / 2);
 		
 			min_ -= translation;

@@ -124,10 +124,8 @@ namespace Pastel
 		integer splitAxis() const
 		{
 			pointer_integer high =
-
 				(unknown_ & 0x2) << 1;
 			pointer_integer low =
-
 				(pointer_integer)(negative_) & 0x3;
 
 			return (integer)(high + low);

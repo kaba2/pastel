@@ -371,7 +371,6 @@ namespace Pastel
 		ASSERT(block);
 
 		integer blockSizeInBytes =
-
 			unitSize_ * block->unitsCapacity_;
 		const uint8* blockBegin =
 			(uint8*)block + sizeof(Block);

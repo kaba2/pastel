@@ -128,7 +128,6 @@ namespace Pastel
 		pcxHeader.write(file);
 
 		integer bytesPerScanline =
-
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(pcxHeader.bytesPerScanlinePerPlane_, 0);
@@ -235,7 +234,6 @@ namespace Pastel
 		pcxHeader.write(file);
 
 		integer bytesPerScanline =
-
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(pcxHeader.bytesPerScanlinePerPlane_, 0);
@@ -340,7 +338,6 @@ namespace Pastel
 		pcxHeader.write(file);
 
 		integer bytesPerScanline =
-
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(bytesPerScanline, 0);

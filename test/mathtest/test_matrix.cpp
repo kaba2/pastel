@@ -722,11 +722,9 @@ namespace
 
 				Matrix<real> mInv = inverse(m);
 
-				real leftError = 
-
+				real leftError =
 					manhattanNorm(m * mInv - identityMatrix<real>(n, n));
-				real rightError = 
-
+				real rightError =
 					manhattanNorm(mInv * m - identityMatrix<real>(n, n));
 				if (leftError > 0.001 ||
 					rightError > 0.001)
@@ -833,7 +831,6 @@ namespace
 				VectorD x(solveLinear(a, b));
 
 				real error =
-
 					norm(a * x - b);
 
 				if (error > 0.001)

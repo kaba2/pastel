@@ -16,7 +16,6 @@ namespace Pastel
 		// 'bounding_alignedbox_alignedbox.h'.
 		
 		Vector<Real, N> radius =
-
 			box.width() * abs(box.rotation());
 		
 		AlignedBox<Real, N> result(

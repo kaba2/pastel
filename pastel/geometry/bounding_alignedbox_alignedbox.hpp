@@ -50,7 +50,6 @@ namespace Pastel
 		// r = abs(A) w / 2
 		
 		Vector<Real, N> radius =
-
 			(alignedBox.extent() * abs(transformation.matrix())) * 0.5;
 		
 		Vector<Real, N> center =

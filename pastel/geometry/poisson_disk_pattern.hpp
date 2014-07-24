@@ -95,7 +95,6 @@ namespace Pastel
 
 		Vector<Real, N> windowDelta = window.max() - window.min();
 		Vector<integer, N> extent =
-
 			ceil(windowDelta * invDiagonal);
 
 		Vector<Real, N> invVoxelDelta = Vector<Real, N>(extent) / windowDelta;

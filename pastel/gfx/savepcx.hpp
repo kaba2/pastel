@@ -77,8 +77,7 @@ namespace Pastel
 		const std::string& fileName,
 		bool maximizeContrast)
 	{
-		Real maxValue = 
-
+		Real maxValue =
 			std::max(*std::max_element(image.begin(), image.end()), (Real)0);
 
 		ReverseAdapter<Integer_To_Real<Real, uint8> > adapter(

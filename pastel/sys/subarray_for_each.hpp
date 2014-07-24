@@ -27,7 +27,6 @@ namespace Pastel
 		InputSlice slice(
 			subArray.slice(axis, 0));
 		integer endOffset =
-
 			stride[axis] * subArray.extent()[axis];
 
 		InputSliceIterator iter = slice.begin();
@@ -96,10 +95,8 @@ namespace Pastel
 		Slice_B bSlice(bArray.slice(axis, 0));
 
 		integer aEndOffset =
-
 			aStride[axis] * aArray.extent()[axis];
 		integer bEndOffset =
-
 			bStride[axis] * bArray.extent()[axis];
 
 		SliceIterator_A aIter = aSlice.begin();

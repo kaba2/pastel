@@ -235,7 +235,6 @@ namespace Pastel
 		}
 
 		integer bytesPerScanline =
-
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(bytesPerScanline, 0);
@@ -439,7 +438,6 @@ namespace Pastel
 		}
 
 		integer bytesPerScanline =
-
 			(integer)pcxHeader.bytesPerScanlinePerPlane_ * (integer)pcxHeader.colorPlanes_;
 
 		std::vector<uint8> scanline(bytesPerScanline, 0);

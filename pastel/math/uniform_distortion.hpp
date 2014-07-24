@@ -61,7 +61,6 @@ namespace Pastel
 			maxRadius * maxRadius,
 			uv[1]));
 		Real theta =
-
 			2 * constantPi<Real>() * uv[0];
 
 		return sphericalToCartesian(
@@ -275,10 +274,8 @@ namespace Pastel
 			uv[0]),
 			(Real)1/3);
 		Real phi =
-
 			std::acos(1 - 2 * uv[1]);
 		Real theta =
-
 			2 * constantPi<Real>() * uv[2];
 
 		return sphericalToCartesian(
@@ -467,7 +464,6 @@ namespace Pastel
 		Real r =
 			std::sqrt(uv[1]);
 		Real theta =
-
 			2 * constantPi<Real>() * uv[0];
 
 		return sphericalToCartesian(
@@ -493,10 +489,8 @@ namespace Pastel
 		Real r =
 			std::pow(uv[0], (Real)1/3);
 		Real phi =
-
 			std::acos(1 - 2 * uv[1]);
 		Real theta =
-
 			2 * constantPi<Real>() * uv[2];
 
 		return sphericalToCartesian(

@@ -55,8 +55,7 @@ namespace Pastel
 				Orthogonal ? inverse(std::sqrt((Real)n)) :
 				(Inverse ? inverse((Real)n) : 1);
 
-			bool Normalize = 
-
+			bool Normalize =
 				(Inverse || Orthogonal) && TopLevel;
 
 			switch(n)
@@ -221,8 +220,7 @@ namespace Pastel
 
 			// Combine the results
 
-			Real NthRootAngle = 
-
+			Real NthRootAngle =
 				(Inverse ? 2 : -2) * constantPi<Real>() / n;
 
 			Complex NthRoot(
@@ -233,8 +231,7 @@ namespace Pastel
 				Orthogonal ? inverse(std::sqrt((Real)n)) :
 				(Inverse ? inverse((Real)n) : 1);
 
-			bool Normalize = 
-
+			bool Normalize =
 				(Inverse || Orthogonal) && TopLevel;
 
 			// Report the first half of the dft.

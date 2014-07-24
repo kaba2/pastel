@@ -41,8 +41,7 @@ namespace Pastel
 
 	real Table_Filter::evaluateInRange(real x) const
 	{
-		real filterPos = 
-
+		real filterPos =
 			center_ + x * scaling_;
 		
 		integer filterIndex =
@@ -66,18 +65,15 @@ namespace Pastel
 		ENSURE_OP(samplesPerRadius, >=, 0);
 
 		real filterRadius = filter->radius();
-		integer filterTableRadius = 
-
+		integer filterTableRadius =
 			std::ceil(samplesPerRadius * filterRadius);
-		integer filterTableSize = 
-
+		integer filterTableSize =
 			filterTableRadius * 2 + 1;
 		Array<real, 1> filterTable(filterTableSize);
 		
 		for (integer i = 0;i < filterTableSize;++i)
 		{
 			real filterPosition =
-
 				(2 * dequantizeUnsignedMatchEnds(i, filterTableSize) - 1) * filterRadius;
 			
 			filterTable(i) = filter->evaluateInRange(filterPosition);

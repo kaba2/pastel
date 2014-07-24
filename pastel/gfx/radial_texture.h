@@ -38,7 +38,6 @@ namespace Pastel
 			const Matrix<real>& m) const
 		{
 			Vector<real, N> spherical =
-
 				sphericalStart_ + (sphericalEnd_ - sphericalStart_) * p;
 
 			return texture_(

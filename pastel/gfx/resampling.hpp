@@ -92,8 +92,7 @@ namespace Pastel
 			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
-			real xLocalFilter = 
-
+			real xLocalFilter =
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
@@ -203,8 +202,7 @@ namespace Pastel
 			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
-			real xLocalFilter = 
-
+			real xLocalFilter =
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
@@ -236,8 +234,7 @@ namespace Pastel
 			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
-			real xLocalFilter = 
-
+			real xLocalFilter =
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
@@ -269,8 +266,7 @@ namespace Pastel
 			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
-			real xLocalFilter = 
-
+			real xLocalFilter =
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
