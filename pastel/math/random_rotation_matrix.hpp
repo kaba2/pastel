@@ -8,18 +8,10 @@ namespace Pastel
 {
 
 	template <typename Real>
-	void setRandomRotation(
-		Matrix<Real>& q)
-	{
-		setRandomOrthogonal(q, 1);
-	}
-
-	template <typename Real>
-	Matrix<Real> randomRotationMatrix(
-		integer n)
+	Matrix<Real> randomRotation(integer n)
 	{
 		ENSURE_OP(n, >=, 0);
-		return randomOrthogonalMatrix<Real>(n, 1);
+		return randomOrthogonal<Real>(n, 1);
 	}
 
 }

@@ -8,27 +8,29 @@
 namespace Pastel
 {
 
-	//! Generates random spd matrix S with given det(S).
+	//! Generates a random spd (n x n)-matrix S with given det(S).
 	/*!
 	Preconditions:
+	n >= 0
 	determinant > 0
 	*/
 	template <typename Real>
-	void setRandomSymmetricPositiveDefinite(
-		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		Matrix<Real>& result);
+	Matrix<Real> randomSymmetricPositiveDefinite(
+		integer n,
+		const PASTEL_NO_DEDUCTION(Real)& determinant);
 
-	//! Generates random spd matrix S with given det(S) and cond(S).
+	//! Generates a random spd (n x n)-matrix S with given det(S) and cond(S).
 	/*!
 	Preconditions:
+	n >= 0
 	determinant > 0
 	condition >= 1
 	*/
 	template <typename Real>
-	void setRandomSymmetricPositiveDefinite(
+	Matrix<Real> randomSymmetricPositiveDefinite(
+		integer n,
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		const PASTEL_NO_DEDUCTION(Real)& condition,
-		Matrix<Real>& result);
+		const PASTEL_NO_DEDUCTION(Real)& condition);
 
 }
 

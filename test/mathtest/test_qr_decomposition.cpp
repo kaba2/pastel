@@ -37,9 +37,7 @@ namespace
 
 			for (integer i = 0;i < attempts;++i)
 			{
-				Matrix<real> a(n, n);
-				setRandomMatrix(a);
-
+				Matrix<real> a = randomMatrix<real>(n, n);
 				Vector<real> b = randomVectorCube<real, Dynamic>(n);
 				QrDecomposition<real> qr(a);
 				Vector<real> qrSolution =

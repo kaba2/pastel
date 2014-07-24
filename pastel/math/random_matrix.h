@@ -10,10 +10,14 @@
 namespace Pastel
 {
 
-	//! Returns a random matrix with elements from [-1, 1].
+	//! Returns a random (m x n)-matrix with elements from [-1, 1].
+	/*!
+	Preconditions:
+	m >= 0
+	n >= 0
+	*/
 	template <typename Real>
-	void setRandomMatrix(
-		Matrix<Real>& matrix);
+	Matrix<Real> randomMatrix(integer m, integer n);
 
 }
 

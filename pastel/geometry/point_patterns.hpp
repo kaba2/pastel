@@ -135,10 +135,8 @@ namespace Pastel
 		}
 
 		integer points = pointSet.size();
-
 		for (integer i = 0;i < points;++i)
 		{
-
 			pointSet[i] *= scaling;
 		}
 	}
@@ -155,12 +153,9 @@ namespace Pastel
 		integer points = pointSet.size();
 		integer dimension = pointSet.front().n();
 
-		Matrix<Real> rotation(dimension, dimension);
-		setRandomRotation(rotation);
-
+		Matrix<Real> rotation = randomRotation(dimension);
 		for (integer i = 0;i < points;++i)
 		{
-
 			pointSet[i] = pointSet[i] * rotation;
 		}
 	}

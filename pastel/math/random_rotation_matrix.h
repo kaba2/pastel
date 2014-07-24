@@ -8,19 +8,13 @@
 namespace Pastel
 {
 
-	//! Generates a uniformly distributed random rotation matrix.
-	template <typename Real>
-	void setRandomRotation(
-		Matrix<Real>& result);
-
 	//! Returns a uniformly distributed random rotation matrix.
 	/*!
 	Preconditions:
 	n >= 0
 	*/
 	template <typename Real>
-	Matrix<Real> randomRotationMatrix(
-		integer n);
+	Matrix<Real> randomRotation(integer n);
 
 }
 

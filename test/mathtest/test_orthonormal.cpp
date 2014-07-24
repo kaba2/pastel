@@ -43,7 +43,7 @@ namespace
 				TEST_ENSURE(frobeniusNorm(m - identityMatrix<real>(3, 3)) < 0.0001);
 			}
 
-			setRandomMatrix(m);
+			m = randomMatrix<real>(3, 3);
 			m = orthonormalize(m);
 			{
 				TEST_ENSURE(frobeniusNorm(transpose(m) * m - 

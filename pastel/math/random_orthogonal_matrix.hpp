@@ -11,30 +11,22 @@ namespace Pastel
 {
 
 	template <typename Real>
-	void setRandomOrthogonal(
-		Matrix<Real>& q, integer orientation)
+	Matrix<Real> randomOrthogonal(
+		integer n, integer orientation)
 	{
-		// See "How to Generate Random Matrices
+		ENSURE_OP(n, >=, 0);
+
+		// "How to Generate Random Matrices
 		// from the Classical Compact Groups",
 		// Francesco Mezzadri,
 		// Notices of the AMS,
 		// Volume 54, Number 5, 2007.
 
-		ENSURE_OP(q.m(), ==, q.n());
+		Matrix<Real> q(n, n);
 
-		integer m = q.m();
-		integer n = q.n();
-		
-		typedef typename Matrix<Real>::Iterator 
-			Iterator;
-
-		Iterator iter = q.begin();
-		Iterator iterEnd = q.end();
-		while(iter != iterEnd)
+		for (auto& value : q)
 		{
-
-			*iter = randomGaussian<Real>();
-			++iter;
+			value = randomGaussian<Real>();
 		}
 
 		QrDecomposition<Real> qr(q);
@@ -58,22 +50,13 @@ namespace Pastel
 				// I don't have a proof that this will preserve
 				// the uniform distribution property. This may
 				// or may not be correct.
-				for (integer i = 0;i < m;++i)
+				for (integer i = 0;i < n;++i)
 				{
 					q(i, 0) = -q(i, 0);
 				}
 			}
 		}
-	}
 
-	template <typename Real>
-	Matrix<Real> randomOrthogonalMatrix(
-		integer n, integer orientation)
-	{
-		ENSURE_OP(n, >=, 0);
-
-		Matrix<Real> q(n, n);
-		setRandomOrthogonal(q, orientation);
 		return q;
 	}
 

@@ -146,8 +146,7 @@ namespace
 			}
 
 			{
-				MatrixD m(10, 10);
-				setRandomRotation(m);
+				MatrixD m = randomRotation<real>(10);
 				{
 					TEST_ENSURE_OP(std::abs(determinant(m) - 1), <, 0.0001);
 				}
@@ -719,8 +718,7 @@ namespace
 
 			for (integer i = 0;i < matrices;++i)
 			{
-				Matrix<real> m(n, n);
-				setRandomMatrix(m);
+				Matrix<real> m = randomMatrix<real>(n, n);
 
 				Matrix<real> mInv = inverse(m);
 
@@ -749,11 +747,8 @@ namespace
 
 			for (integer i = 0;i < matrices;++i)
 			{
-				Matrix<real> a(n, n);
-				setRandomMatrix(a);
-
-				Matrix<real> b(n, n);
-				setRandomMatrix(b);
+				Matrix<real> a = randomMatrix<real>(n, n);
+				Matrix<real> b = randomMatrix<real>(n, n);
 
 				VectorD v = randomVectorCube<real, Dynamic>(n);
 
@@ -787,8 +782,7 @@ namespace
 			integer matrices = 100;
 			for (integer i = 0;i < matrices;++i)
 			{
-				Matrix<real> a(n, n);
-				setRandomMatrix(a);
+				Matrix<real> a = randomMatrix<real>(n, n);
 
 				Matrix<real> b(n, n);
 				b = a;
@@ -832,8 +826,7 @@ namespace
 
 			for (integer i = 0;i < iterations;++i)
 			{
-				Matrix<real> a(n, n);
-				setRandomMatrix(a);
+				Matrix<real> a = randomMatrix<real>(n, n);
 
 				VectorD b(randomVectorCube<real, Dynamic>(n));
 

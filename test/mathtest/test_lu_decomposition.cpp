@@ -40,8 +40,7 @@ namespace
 			integer n = 10;
 			for (integer i = 0;i < 10000;++i)
 			{
-				Matrix<real> m(n, n);
-				setRandomMatrix(m);
+				Matrix<real> m = randomMatrix<real>(n, n);
 
 				LuDecomposition<real> lu(m);
 
