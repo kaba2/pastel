@@ -13,12 +13,11 @@ namespace Pastel
 {
 
 	template <typename Real>
-	void setRandomSymmetricPositiveDefinite(
-		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		Matrix<Real>& result)
+	Matrix<Real> randomSymmetricPositiveDefinite(
+		integer n,
+		const PASTEL_NO_DEDUCTION(Real)& determinant)
 	{
-		integer n = result.width();
-
+		ENSURE_OP(n, >=, 0);
 		ENSURE_OP(result.width(), ==, result.height());
 
 		// Generate a random partition of the
@@ -41,7 +40,7 @@ namespace Pastel
 		std::sort(partitionSet.begin(), partitionSet.end());
 
 		// Generate a random rotation matrix.
-		setRandomOrthogonal(result);
+		Matrix<Real> result = randomOrthogonal<Real>(n);
 
 		// Multiply the columns of the rotation matrix
 		// with square root of the diagonal element of D.
@@ -56,15 +55,17 @@ namespace Pastel
 		}
 
 		result *= transpose(result);
+
+		return result;
 	}
 
 	template <typename Real>
-	void setRandomSymmetricPositiveDefinite(
+	Matrix<Real> randomSymmetricPositiveDefinite(
+		integer n,
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		const PASTEL_NO_DEDUCTION(Real)& condition,
-		Matrix<Real>& result)
+		const PASTEL_NO_DEDUCTION(Real)& condition)
 	{
-		ENSURE_OP(result.width(), ==, result.height());
+		ENSURE_OP(n, >=, 0);
 		ENSURE_OP(condition, >=, 1);
 		ENSURE_OP(determinant, >, 0);
 
@@ -81,7 +82,7 @@ namespace Pastel
 			a - std::log(condition);
 
 		// Generate a random rotation matrix.
-		setRandomRotation(result);
+		Matrix<Real> result = randomRotation<Real>(n);
 
 		// Multiply the columns of the rotation matrix
 		// with square roots of the diagonal elements of D.
@@ -100,6 +101,8 @@ namespace Pastel
 		}
 
 		result *= transpose(result);
+
+		return result;
 	}
 
 }

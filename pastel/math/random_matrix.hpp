@@ -9,19 +9,18 @@ namespace Pastel
 {
 
 	template <typename Real>
-	void setRandomMatrix(
-		Matrix<Real>& matrix)
+	Matrix<Real> randomMatrix(integer m, integer n)
 	{
-		typedef typename Matrix<Real>::Iterator
-			Iterator;
+		ENSURE_OP(m, >=, 0);
+		ENSURE_OP(n, >=, 0);
 
-		Iterator iter = matrix.begin();
-		Iterator iterEnd = matrix.end();
-		while(iter != iterEnd)
+		Matrix<Real> result(m, n);
+		for (auto& value : result)
 		{
-			*iter = random<Real>() * 2 - 1;
-			++iter;
+			value = random<Real>() * 2 - 1;
 		}
+
+		return result;
 	}
 
 }
