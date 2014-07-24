@@ -35,7 +35,6 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomGeneralizedGaussian(
-
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{

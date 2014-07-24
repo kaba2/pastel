@@ -24,7 +24,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	AlignedBox<Real, 1> projectAxis(
-
 		const Box<Real, N>& box,
 		const Vector<Real, N>& unitAxis)
 	{
@@ -61,7 +60,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	AlignedBox<Real, 1> projectAxis(
-
 		const Segment<Real, N>& segment,
 		const Vector<Real, N>& unitAxis)
 	{

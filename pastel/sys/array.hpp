@@ -366,7 +366,6 @@ namespace Pastel
 
 	template <typename Type, int N>
 	ConstSubArray<Type, N> Array<Type, N>::operator()(
-
 		const Vector<integer, N>& min,
 		const Vector<integer, N>& max) const
 	{
@@ -393,7 +392,6 @@ namespace Pastel
 		}
 
 		SubArray<Type, N> result(
-
 			address(min), stride_ * delta, 
 			numbers(mabs(max - min), delta));
 
@@ -629,7 +627,6 @@ namespace Pastel
 
 	template <typename Type, int N>
 	void Array<Type, N>::copyConstruct(
-
 		const Array& that,
 		StorageOrder order)
 	{

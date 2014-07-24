@@ -273,7 +273,6 @@ namespace Pastel
 			integer n = that.size();
 			if (n != size() ||
 				that.evaluateBeforeAssignment(
-
 				&*data_.begin(), &*data_.end()))
 			{
 				// In the case we must reallocate, we can

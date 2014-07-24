@@ -475,7 +475,6 @@ namespace Pastel
 		typename Output_View>
 		PASTEL_ENABLE_IF_C(N > 1, void)
 		resample(
-
 		const ConstView<N, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
 		const ConstFilterPtr& filter,

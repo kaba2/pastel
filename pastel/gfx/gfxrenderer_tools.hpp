@@ -245,7 +245,6 @@ namespace Pastel
 
 	template <typename Type>
 	void drawBox(
-
 		const GfxRenderer<Type>& renderer,
 		const Box2& box,
 		const Tuple<Vector2, 4>& textureQuad)
@@ -289,7 +288,6 @@ namespace Pastel
 
 	template <typename Type>
 	void drawArrow(
-
 		const GfxRenderer<Type>& renderer,
 		const Segment2& segment,
 		real radius)
@@ -343,7 +341,6 @@ namespace Pastel
 
 	template <typename Type>
 	void concentrate(
-
 		GfxRenderer<Type>& renderer,
 		const AlignedBox2& region)
 	{

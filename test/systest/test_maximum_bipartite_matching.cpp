@@ -155,7 +155,6 @@ namespace
 
 		template <int N>
 		bool testCase(
-
 			Integer2 (&edgeSet)[N],
 			integer maximumMatchSize)
 		{

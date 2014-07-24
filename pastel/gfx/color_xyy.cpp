@@ -24,7 +24,6 @@ namespace Pastel
 
 		real32 yRatio(xyy[2] / xyy[1]);
 		return Color(
-
 			yRatio * xyy[0],
 			xyy[2],
 			yRatio * (1 - xyy[0] - xyy[1]));

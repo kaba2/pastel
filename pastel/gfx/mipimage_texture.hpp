@@ -94,7 +94,6 @@ namespace Pastel
 
 		Type detailSample =
 			sampleLinear(
-
 			evaluate(uv * Vector<real, N>(detailImage.extent())),
 			detailImage, extender_);
 
@@ -107,7 +106,6 @@ namespace Pastel
 
 		Type coarseSample =
 			sampleLinear(
-
 			evaluate(uv * Vector<real, N>(coarseImage.extent())),
 			coarseImage, extender_);
 

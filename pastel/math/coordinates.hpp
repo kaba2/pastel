@@ -58,7 +58,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> cylinderToCartesian(
-
 		const Vector<Real, N>& cylinder, integer k)
 	{
 		integer dimension = cylinder.n();

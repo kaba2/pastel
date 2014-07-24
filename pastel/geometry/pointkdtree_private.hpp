@@ -148,7 +148,6 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::merge(
-
 		Node* node)
 	{
 		ASSERT(node);
@@ -261,7 +260,6 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::updateHierarchical(
-
 		Node* node)
 	{
 		ASSERT(node);
@@ -296,7 +294,6 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::erase(
-
 		Node* node)
 	{
 		ASSERT(node);
@@ -468,7 +465,6 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	template <typename Input_Point_ConstIterator>
 	auto PointKdTree<Settings, Customization>::copyToEnd(
-
 		const Input_Point_ConstIterator& begin, 
 		const Input_Point_ConstIterator& end,
 		bool hidden)
@@ -711,7 +707,6 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::commitErase(
-
 		const Point_ConstIterator& iter)
 	{
 		ASSERT(iter != pointSet_.end());

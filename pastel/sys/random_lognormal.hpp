@@ -17,7 +17,6 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomLogNormal(
-
 		const PASTEL_NO_DEDUCTION(Real)& logMean,
 		const PASTEL_NO_DEDUCTION(Real)& logDeviation)
 	{
@@ -29,7 +28,6 @@ namespace Pastel
 
 	template <typename Real>
 	Real logNormalPdf(
-
 		const PASTEL_NO_DEDUCTION(Real)& x)
 	{
 		return inverse(x * std::sqrt(2 * constantPi<Real>())) * 

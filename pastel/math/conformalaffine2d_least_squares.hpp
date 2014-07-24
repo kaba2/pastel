@@ -115,7 +115,6 @@ namespace Pastel
 		Real invDet = inverse(det);
 
 		Vector<Real, N> translation(
-
 			(sumSquareFrom * sumTo[0] - sumFrom[0] * dotSum + sumFrom[1] * crossDotSum) * invDet,
 			(sumSquareFrom * sumTo[1] - sumFrom[1] * dotSum - sumFrom[0] * crossDotSum) * invDet);
 

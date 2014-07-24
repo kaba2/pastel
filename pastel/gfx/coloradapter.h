@@ -265,7 +265,6 @@ namespace Pastel
 
 	template <typename Integer>
 	Color integerToColor(
-
 		const PASTEL_NO_DEDUCTION(Integer)& packedColor,
 		integer redBits, integer greenBits, integer blueBits,
 		integer redFrom, integer greenFrom, integer blueFrom);

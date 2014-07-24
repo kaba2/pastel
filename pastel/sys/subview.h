@@ -62,7 +62,6 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstSubView<N, Input_ConstView> >
 		constSubView(
-
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const AlignedBox<integer, N>& window)
 	{

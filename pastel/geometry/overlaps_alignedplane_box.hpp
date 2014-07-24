@@ -47,7 +47,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
-
 		const AlignedPlane<Real, N>& plane,
 		const Box<Real, N>& box,
 		bool& boxOnPositiveSide)

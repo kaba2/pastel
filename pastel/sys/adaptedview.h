@@ -51,7 +51,6 @@ namespace Pastel
 	ConstView<N, typename ConstAdaptedView<N, Adapter, Input_ConstView>::Element,
 		ConstAdaptedView<N, Adapter, Input_ConstView> >
 		constAdaptedView(
-
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const Adapter& adapter)
 	{

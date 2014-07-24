@@ -251,7 +251,6 @@ namespace Pastel
 
 	template <typename Type, int N>
 	Type EwaImage_Texture<Type, N>::sampleEwa(
-
 		const Vector<real, N>& p,
 		const Matrix<real>& quadraticForm,
 		const AlignedBoxD& bound,
@@ -262,7 +261,6 @@ namespace Pastel
 		// Read ewaimatexture.txt for implementation documentation.
 
 		AlignedBox<integer, N> window(
-
 			floor(bound.min() * scaling),
 			ceil(bound.max() * scaling));
 

@@ -31,7 +31,6 @@ namespace Pastel
 			transpose(aBox.rotation()));
 
 		Box<Real, N> bBoxTransformed(
-
 			(bBox.position() - aBox.position()) *
 			aRotationInverse,
 			bBox.width(),
@@ -48,7 +47,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool overlaps(
-
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,
 		const Vector<Real, N>& bVelocity,
@@ -65,7 +63,6 @@ namespace Pastel
 			transpose(aBox.rotation()));
 
 		Box<Real, N> bBoxTransformed(
-
 			(bBox.position() - aBox.position()) *
 			aRotationInverse,
 			bBox.width(),
@@ -101,7 +98,6 @@ namespace Pastel
 			transpose(aBox.rotation()));
 
 		Box<Real, N> bBoxTransformed(
-
 			(bBox.position() - aBox.position()) *
 			aRotationInverse,
 			bBox.width(),

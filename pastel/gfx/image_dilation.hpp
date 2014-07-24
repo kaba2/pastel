@@ -62,7 +62,6 @@ namespace Pastel
 		typename Element_ConstView,
 		typename Output_View>
 		void dilate(
-
 		const ConstView<2, bool, Input_ConstView>& input,
 		const ConstView<2, bool, Element_ConstView>& element,
 		integer xPivot,

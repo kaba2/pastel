@@ -176,7 +176,6 @@ namespace Pastel
 
 	template <typename Real>
 	Matrix<Real> projectiveTransformation(
-
 		const Tuple<Vector<Real, 2>, 4>& from,
 		const Tuple<Vector<Real, 2>, 4>& to)
 	{

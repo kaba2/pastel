@@ -386,7 +386,6 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::hide(
-
 		const Point_ConstIterator& iter)
 	{
 		commitHide(iter);
@@ -493,7 +492,6 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	void PointKdTree<Settings, Customization>::merge(
-
 		const Cursor& cursor)
 	{
 		// We take the optimization for the case 

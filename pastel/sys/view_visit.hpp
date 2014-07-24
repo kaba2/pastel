@@ -43,7 +43,6 @@ namespace Pastel
 
 		template <int Index, int N, typename VisitRectangleFunctor>
 		void visitRectangleDimension(
-
 			const Vector<integer, N>& extent,
 			const Vector<integer, N>& startPosition,
 			const VisitRectangleFunctor& visitRectangle,
@@ -67,7 +66,6 @@ namespace Pastel
 
 	template <int N, typename VisitorFunctor>
 	void visit(
-
 		const AlignedBox<integer, N>& rectangle,
 		const VisitorFunctor& visitor)
 	{
@@ -144,7 +142,6 @@ namespace Pastel
 
 	template <int N, typename Input_Element, typename Input_ConstView, typename VisitFunctor>
 	void visit(
-
 		const ConstView<N, Input_Element, Input_ConstView>& input,
 		const VisitFunctor& visitor)
 	{
@@ -220,7 +217,6 @@ namespace Pastel
 			typename Right_Cursor,
 			typename VisitFunctor>
 		void visitDimension(
-
 			const Vector<integer, N>& extent,
 			const Left_Cursor& leftStartCursor,
 			const Right_Cursor& rightStartCursor,

@@ -118,7 +118,6 @@ namespace Pastel
 
 	template <typename Real>
 	bool intersect(
-
 		const Line<Real, 3>& line,
 		const PASTEL_TRIANGLE(Real, 3)& triangle,
 		Real& tIntersection,

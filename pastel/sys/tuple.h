@@ -539,7 +539,6 @@ namespace Pastel
 		}
 
 		Tuple(
-
 			const Tuple& that)
 			: data_(0)
 			, size_(0)
@@ -582,7 +581,6 @@ namespace Pastel
 
 		template <typename ThatType, int ThatN>
 		Tuple(
-
 			const Tuple<ThatType, ThatN>& that)
 			: data_(0)
 			, size_(0)
@@ -625,7 +623,6 @@ namespace Pastel
 		}
 
 		Tuple(
-
 			const Dimension& dimension,
 			const Alias<Type*>& dataAlias)
 			: data_(dataAlias)
@@ -879,7 +876,6 @@ namespace Pastel
 
 		template <typename ThatType, int ThatN>
 		void copyConstruct(
-
 			const Tuple<ThatType, ThatN>& that,
 			const Dimension& dimension,
 			const Type& defaultData)

@@ -133,7 +133,6 @@ namespace Pastel
 		{
 		public:
 			explicit ConstConstRowViewVisitor2(
-
 				const RowVisitorFunctor& rowVisitor,
 				const Left_View& left,
 				const Right_View& right,
@@ -276,7 +275,6 @@ namespace Pastel
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>
 		void visitRows(
-
 			const ConstView<N, Left_Element, Left_View>& left,
 			const View<N, Right_Element, Right_View>& right,
 			integer freeIndex,
@@ -318,7 +316,6 @@ namespace Pastel
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>
 		void visitRows(
-
 			const ConstView<N, Left_Element, Left_View>& left,
 			const ConstView<N, Right_Element, Right_View>& right,
 			integer freeIndex,

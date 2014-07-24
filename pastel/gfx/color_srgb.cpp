@@ -127,7 +127,6 @@ namespace Pastel
 		// matrix.
 
 		return matrix3x3<real32>(
-
 			xyzRed * primaryWeights[0],
 			xyzGreen * primaryWeights[1],
 			xyzBlue * primaryWeights[2]);

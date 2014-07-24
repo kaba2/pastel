@@ -86,7 +86,6 @@ namespace Pastel
 
 	template <int N, typename Image_View>
 	void scaleGrayscaleImage(
-
 		const View<N, real32, Image_View>& image)
 	{
 		real32 min = infinity<real32>();

@@ -66,7 +66,6 @@ namespace Pastel
 	template <typename TransformFunctor, int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstTransformedView<N, TransformFunctor, Input_ConstView> >
 		constTransformedView(
-
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const TransformFunctor& transform)
 	{

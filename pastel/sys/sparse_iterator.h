@@ -213,7 +213,6 @@ namespace Pastel
 
 	template <typename ConstIterator>
 	ConstSparseIterator<ConstIterator> constSparseEnd(
-
 		const ConstIterator& begin, const ConstIterator& end,
 		typename std::iterator_traits<ConstIterator>::difference_type delta)
 	{

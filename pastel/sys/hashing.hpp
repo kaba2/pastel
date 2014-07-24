@@ -50,7 +50,6 @@ namespace Pastel
 
 	template <typename ConstRange>
 	hash_integer computeHashMany(
-
 		const ConstRange& input)
 	{
 		auto iter = input.begin();

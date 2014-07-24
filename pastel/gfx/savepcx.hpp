@@ -73,7 +73,6 @@ namespace Pastel
 
 	template <typename Real>
 	bool saveRainbowPcx(
-
 		const Array<Real>& image,
 		const std::string& fileName,
 		bool maximizeContrast)

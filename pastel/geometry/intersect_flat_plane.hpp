@@ -50,7 +50,6 @@ namespace Pastel
 		{
 			Real invDotNu(inverse(dotNu));
 			line.set(
-
 				aPlane.position() + dotNd * invDotNu * aPlane[0],
 				aPlane[1] - (dotNv / dotNu) * aPlane[0]);
 			return true;
@@ -61,7 +60,6 @@ namespace Pastel
 		{
 			Real invDotNv(inverse(dotNv));
 			line.set(
-
 				aPlane.position() + dotNd * invDotNv * aPlane[1],
 				aPlane[0] - (dotNu / dotNv) * aPlane[1]);
 			return true;

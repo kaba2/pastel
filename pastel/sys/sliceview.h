@@ -60,7 +60,6 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N - 1, Input_Element, ConstSliceView<N, Input_ConstView> >
 		constSliceView(
-
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		integer fixedIndex,
 		integer pivot)
@@ -114,7 +113,6 @@ namespace Pastel
 
 	template <int N, typename Input_Element, typename Input_View>
 	View<N - 1, Input_Element, SliceView<N, Input_View> > sliceView(
-
 		const View<N, Input_Element, Input_View>& view,
 		integer fixedIndex,
 		integer pivot)

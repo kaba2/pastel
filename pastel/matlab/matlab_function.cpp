@@ -131,7 +131,6 @@ namespace Pastel
 		}
 
 		void matlabSetNumberOfThreads(
-
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{

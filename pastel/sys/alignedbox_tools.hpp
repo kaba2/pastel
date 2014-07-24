@@ -107,7 +107,6 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> discreteToContinuous(
-
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,
 		const Vector<integer, N>& discretePoint)

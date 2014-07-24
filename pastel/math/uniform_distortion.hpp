@@ -57,7 +57,6 @@ namespace Pastel
 		Real r =
 			std::sqrt(
 			linear(
-
 			minRadius * minRadius,
 			maxRadius * maxRadius,
 			uv[1]));
@@ -271,7 +270,6 @@ namespace Pastel
 		Real r =
 			std::pow(
 			linear(
-
 			minRadius * minRadius * minRadius,
 			maxRadius * maxRadius * maxRadius,
 			uv[0]),
@@ -340,7 +338,6 @@ namespace Pastel
 
 		Real uSqrt(std::sqrt(uv[0]));
 		return Vector<Real, N>(
-
 			1 - uSqrt, uSqrt * uv[1]);
 	}
 
@@ -377,7 +374,6 @@ namespace Pastel
 	template <typename Real, int N>
 	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, N>))
 		uniformlySampleBall(
-
 		const Vector<Real, N>& uv)
 	{
 		return 2 * uv - 1;
@@ -448,7 +444,6 @@ namespace Pastel
 		}
 
 		Real theta(
-
 			scaledTheta * (constantPi<Real>() / 4));
 
 		return Vector<Real, 2>(
