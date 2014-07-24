@@ -363,7 +363,6 @@ namespace Pastel
 				ASSERT(!iter.isSentinel());
 
 				Direction direction =
-
 					*directionIter;
 
 				ASSERT(

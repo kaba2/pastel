@@ -30,7 +30,6 @@ namespace Pastel
 			break;
 		case 3:
 			adjugateMatrix(0, 0) =
-
 				matrix(1, 1) * matrix(2, 2) -
 				matrix(1, 2) * matrix(2, 1);
 			adjugateMatrix(0, 1) =

@@ -114,7 +114,6 @@ namespace Pastel
 				Real k2Suggestion =
 					std::log((Real)0.05) / std::log(1 - minMatchRatio);
 				Real k3Suggestion =
-
 					2 * relativeMatchingDistance * std::sqrt(kSuggestion / constantPi<Real>());
 
 				// We need to find at least one neighbor.

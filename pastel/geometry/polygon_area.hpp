@@ -20,7 +20,6 @@ namespace Pastel
 		// an application of Green's theorem.
 
 		Real result =
-
 			polygon[0].x() *
 			(polygon[1].y() - polygon[n - 1].y());
 

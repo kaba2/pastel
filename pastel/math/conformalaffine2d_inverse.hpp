@@ -18,11 +18,9 @@ namespace Pastel
 
 		Real c = std::cos(-that.rotation());
 		Real s = std::sin(-that.rotation());
-		Real xNew = 
-
+		Real xNew =
 			-invScaling * (c * that[0] - s * that[1]); 
-		Real yNew = 
-
+		Real yNew =
 			-invScaling * (s * that[0] + c * that[1]);
 
 		Vector<Real, N> invTranslation(ofDimension(2));

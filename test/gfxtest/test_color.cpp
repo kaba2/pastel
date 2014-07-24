@@ -59,8 +59,7 @@ namespace
 			Color lmsDesired(
 				xyzToLms(srgbToXyz(Color(1, 1, 1))));
 
-			transform_ = 
-
+			transform_ =
 
 				 xyzToLinearSrgbTransform() * lmsToXyzTransform();
 

@@ -363,8 +363,7 @@ namespace Pastel
 		Vector<Real, M> u = 
 			solveLinear(ddt, b);
 
-		Vector<Real, N> translation = 
-
+		Vector<Real, N> translation =
 			u * d;
 
 		return Sphere<Real, N>(

@@ -150,7 +150,6 @@ namespace Pastel
 		const Real& that)
 	{
 		Vector<Real, N> translation =
-
 			(end_ - start_) * ((that - 1) / 2);
 		
 		start_ -= translation;

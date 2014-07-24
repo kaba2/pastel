@@ -71,7 +71,6 @@ namespace Pastel
 	PASTELGFX Color hsvToRgb(const Color& hsv)
 	{
 		real32 g =
-
 			6 * hsv[0];
 		integer gFloor = std::floor(g);
 

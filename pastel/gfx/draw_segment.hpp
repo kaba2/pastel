@@ -43,7 +43,6 @@ namespace Pastel
 		if (mabs(dx) >= mabs(dy))
 		{
 			real s =
-
 				2 * (((real)y + (real)0.5) - yStart) * dx -
 				2 * (((real)x + (real)0.5) - xStart) * dy;
 
@@ -309,7 +308,6 @@ namespace Pastel
 		if (mabs(dx) >= mabs(dy))
 		{
 			real s =
-
 				2 * (((real)y + (real)0.5) - yStart) * dx -
 				2 * (((real)x + (real)0.5) - xStart) * dy;
 

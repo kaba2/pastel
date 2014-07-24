@@ -81,8 +81,7 @@ namespace Pastel
 				Orthogonal ? std::sqrt(2 / (Real)n) : 1;
 			Real FirstScaling =
 				Orthogonal ? inverse(std::sqrt((Real)n)) : 1;
-			Real NthRootAngle = 
-
+			Real NthRootAngle =
 				constantPi<Real>() / (2 * n);
 
 			switch(n)
@@ -132,11 +131,9 @@ namespace Pastel
 						std::cos(NthRootAngle);
 
 					Real w2 =
-
 						std::cos(2 * NthRootAngle);
 
 					Real w3 =
-
 						std::cos(3 * NthRootAngle);
 
 					*output = extractOutput(
@@ -232,8 +229,7 @@ namespace Pastel
 
 			// Combine the results
 
-			Real NthRootAngle = 
-
+			Real NthRootAngle =
 				-2 * constantPi<Real>() / (4 * n);
 
 			Complex NthRoot(
@@ -246,8 +242,7 @@ namespace Pastel
 			// Orthogonal: 2 * (1 / sqrt(2 * n)) = sqrt(2) / sqrt(n)
 			// None: 2 * (1 / 2) = 1
 
-			Real UnitScaling = 
-
+			Real UnitScaling =
 				Orthogonal ? inverse(std::sqrt(2 * (Real)n)) : 
 				inverse((Real)2);
 
@@ -258,7 +253,6 @@ namespace Pastel
 				// None: 2 * (1 / 2) = 1
 
 				Real FirstScaling =
-
 					Orthogonal ? inverse(2 * std::sqrt((Real)n)) :
 					inverse((Real)2);
 
@@ -310,8 +304,7 @@ namespace Pastel
 				return;
 			}
 
-			Real NthRootAngle = 
-
+			Real NthRootAngle =
 				2 * constantPi<Real>() / (4 * n);
 
 			Complex NthRoot(
@@ -322,8 +315,7 @@ namespace Pastel
 			// Orthogonal: (1 / n) * sqrt(2 * n) = sqrt(2 / n)
 			// Inverse: (1 / n) * 2 = 2 / n
 
-			Real UnitScaling = 
-
+			Real UnitScaling =
 				Orthogonal ? std::sqrt((Real)2 * n) : 2;
 
 			std::vector<Complex> oddFourier;

@@ -587,7 +587,6 @@ namespace Pastel
 			Tree&& that)
 		{
 			bool tryingToMoveUnderItself =
-
 				(this == &that);
 			ENSURE(!tryingToMoveUnderItself);
 
@@ -1087,8 +1086,7 @@ namespace Pastel
 				if (!newFrom.empty() &&
 					newFrom != forbidden)
 				{
-					ConstIterator newTo = 
-
+					ConstIterator newTo =
 						insert(to, i, *newFrom);
 
 					copyConstruct(newFrom, newTo, forbidden);

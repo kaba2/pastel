@@ -101,7 +101,6 @@ namespace Pastel
 
 		// A correction for estimated variables.
 		bool bothApproximated =
-
 			isNan(mean) && isNan(deviation);
 
 		Real alpha =

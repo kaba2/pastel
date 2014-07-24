@@ -43,8 +43,7 @@ namespace
 				Vector<real> qrSolution =
 					solveLinear(qr, b);
 
-				real error = 
-
+				real error =
 					norm(a * qrSolution  - b);
 
 				if (error > 0.001)

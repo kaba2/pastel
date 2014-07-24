@@ -43,8 +43,7 @@ namespace Pastel
 		const Array<Type, N>& mostDetailedImage = 
 			ripMap_->mostDetailed();
 
-		Vector<real, N> radius = 
-
+		Vector<real, N> radius =
 			max(abs(m)) * Vector<real, N>(mostDetailedImage.extent());
 
 		if (allLessEqual(radius, 1))

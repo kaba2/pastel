@@ -47,12 +47,10 @@ namespace Pastel
 			return 0;
 		}
 
-		Real u = 
-
+		Real u =
 			std::exp(-square(std::log(x) - logMean) / (2 * square(logDeviation)));
 
-		Real v = 
-
+		Real v =
 			x * logDeviation * std::sqrt(2 * constantPi<Real>());
 
 		return u / v;

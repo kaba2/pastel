@@ -22,11 +22,9 @@ namespace Pastel
 
 		Real c = std::cos(transform.rotation());
 		Real s = std::sin(transform.rotation());
-		Real xNew = 
-
+		Real xNew =
 			transform.scaling() * (c * that[0] - s * that[1]);
-		Real yNew = 
-
+		Real yNew =
 			transform.scaling() * (s * that[0] + c * that[1]);
 
 		that[0] = xNew;

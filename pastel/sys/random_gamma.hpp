@@ -147,7 +147,6 @@ namespace Pastel
 		*/
 
 		Real logPdf =
-
 			((shape - 1) * std::log(x) - (x / scale)) -
 			(lnGamma<Real>(shape) + shape * std::log(scale));
 

@@ -60,7 +60,6 @@ namespace Pastel
 			// extremal point.
 
 			Real bProjectedRadius =
-
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i];
 
@@ -92,7 +91,6 @@ namespace Pastel
 			// point on this box axis.
 
 			Real aProjectedRadius =
-
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1];
 
@@ -235,7 +233,6 @@ namespace Pastel
 			// box.
 
 			Real bProjectedRadius =
-
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i];
 
@@ -308,7 +305,6 @@ namespace Pastel
 			// point on this box axis.
 
 			Real aProjectedRadius =
-
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1];
 
@@ -405,7 +401,6 @@ namespace Pastel
 			Real aProjectedRadius =
 				alignedBoxWidth[i];
 			Real bProjectedRadius =
-
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i] +
 				boxWidth[2] * absRotation[2][i];
@@ -426,7 +421,6 @@ namespace Pastel
 		for (integer i = 0;i < 3;++i)
 		{
 			Real aProjectedRadius =
-
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1] +
 				alignedBoxWidth[2] * absRotation[i][2];
@@ -447,15 +441,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[0][1] * delta[2] -
 				boxRotation[0][2] * delta[1];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[0][1] +
 				alignedBoxWidth[1] * absRotation[0][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[1][0] +
 				boxWidth[1] * absRotation[2][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -469,15 +460,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[1][1] * delta[2] -
 				boxRotation[1][2] * delta[1];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[1][1] +
 				alignedBoxWidth[1] * absRotation[1][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[1][1] +
 				boxWidth[1] * absRotation[2][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -491,15 +479,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[2][1] * delta[2] -
 				boxRotation[2][2] * delta[1];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[2][1] +
 				alignedBoxWidth[1] * absRotation[2][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[1][2] +
 				boxWidth[1] * absRotation[2][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -513,15 +498,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[0][2] * delta[0] -
 				boxRotation[0][0] * delta[2];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[0][0] +
 				alignedBoxWidth[0] * absRotation[0][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[0][0] +
 				boxWidth[0] * absRotation[2][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -536,15 +518,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[1][2] * delta[0] -
 				boxRotation[1][0] * delta[2];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[1][0] +
 				alignedBoxWidth[0] * absRotation[1][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[0][1] +
 				boxWidth[0] * absRotation[2][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -558,15 +537,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[2][2] * delta[0] -
 				boxRotation[2][0] * delta[2];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[2][0] +
 				alignedBoxWidth[0] * absRotation[2][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[0][2] +
 				boxWidth[0] * absRotation[2][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -580,15 +556,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[0][0] * delta[1] -
 				boxRotation[0][1] * delta[0];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[1] * absRotation[0][0] +
 				alignedBoxWidth[0] * absRotation[0][1];
 			Real bProjectedRadius =
-
 				boxWidth[1] * absRotation[0][0] +
 				boxWidth[0] * absRotation[1][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -602,15 +575,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[1][0] * delta[1] -
 				boxRotation[1][1] * delta[0];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[1] * absRotation[1][0] +
 				alignedBoxWidth[0] * absRotation[1][1];
 			Real bProjectedRadius =
-
 				boxWidth[1] * absRotation[0][1] +
 				boxWidth[0] * absRotation[1][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -624,15 +594,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[2][0] * delta[1] -
 				boxRotation[2][1] * delta[0];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[1] * absRotation[2][0] +
 				alignedBoxWidth[0] * absRotation[2][1];
 			Real bProjectedRadius =
-
 				boxWidth[1] * absRotation[0][2] +
 				boxWidth[0] * absRotation[1][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -686,7 +653,6 @@ namespace Pastel
 			Real aProjectedRadius =
 				alignedBoxWidth[i];
 			Real bProjectedRadius =
-
 				boxWidth[0] * absRotation[0][i] +
 				boxWidth[1] * absRotation[1][i] +
 				boxWidth[2] * absRotation[2][i];
@@ -720,7 +686,6 @@ namespace Pastel
 		for (integer i = 0;i < 3;++i)
 		{
 			Real aProjectedRadius =
-
 				alignedBoxWidth[0] * absRotation[i][0] +
 				alignedBoxWidth[1] * absRotation[i][1] +
 				alignedBoxWidth[2] * absRotation[i][2];
@@ -754,15 +719,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[0][1] * delta[2] -
 				boxRotation[0][2] * delta[1];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[0][1] +
 				alignedBoxWidth[1] * absRotation[0][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[1][0] +
 				boxWidth[1] * absRotation[2][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -789,15 +751,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[1][1] * delta[2] -
 				boxRotation[1][2] * delta[1];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[1][1] +
 				alignedBoxWidth[1] * absRotation[1][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[1][1] +
 				boxWidth[1] * absRotation[2][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -824,15 +783,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[2][1] * delta[2] -
 				boxRotation[2][2] * delta[1];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[2][1] +
 				alignedBoxWidth[1] * absRotation[2][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[1][2] +
 				boxWidth[1] * absRotation[2][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -859,15 +815,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[0][2] * delta[0] -
 				boxRotation[0][0] * delta[2];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[0][0] +
 				alignedBoxWidth[0] * absRotation[0][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[0][0] +
 				boxWidth[0] * absRotation[2][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -894,15 +847,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[1][2] * delta[0] -
 				boxRotation[1][0] * delta[2];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[1][0] +
 				alignedBoxWidth[0] * absRotation[1][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[0][1] +
 				boxWidth[0] * absRotation[2][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -929,15 +879,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[2][2] * delta[0] -
 				boxRotation[2][0] * delta[2];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[2] * absRotation[2][0] +
 				alignedBoxWidth[0] * absRotation[2][2];
 			Real bProjectedRadius =
-
 				boxWidth[2] * absRotation[0][2] +
 				boxWidth[0] * absRotation[2][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -964,15 +911,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[0][0] * delta[1] -
 				boxRotation[0][1] * delta[0];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[1] * absRotation[0][0] +
 				alignedBoxWidth[0] * absRotation[0][1];
 			Real bProjectedRadius =
-
 				boxWidth[1] * absRotation[0][0] +
 				boxWidth[0] * absRotation[1][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -999,15 +943,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[1][0] * delta[1] -
 				boxRotation[1][1] * delta[0];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[1] * absRotation[1][0] +
 				alignedBoxWidth[0] * absRotation[1][1];
 			Real bProjectedRadius =
-
 				boxWidth[1] * absRotation[0][1] +
 				boxWidth[0] * absRotation[1][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
@@ -1034,15 +975,12 @@ namespace Pastel
 
 		{
 			Real signedProjectedDistance =
-
 				boxRotation[2][0] * delta[1] -
 				boxRotation[2][1] * delta[0];
 			Real aProjectedRadius =
-
 				alignedBoxWidth[1] * absRotation[2][0] +
 				alignedBoxWidth[0] * absRotation[2][1];
 			Real bProjectedRadius =
-
 				boxWidth[1] * absRotation[0][2] +
 				boxWidth[0] * absRotation[1][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -

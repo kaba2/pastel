@@ -143,8 +143,7 @@ namespace Pastel
 				static PASTEL_CONSTEXPR int Gradients = 1 << 3;
 				static PASTEL_CONSTEXPR uint32 GradientMask = Gradients - 1;
 
-				integer index = 
-
+				integer index =
 					permutation_[(position[1] & permutationMask_) +
 					permutation_[position[0] & permutationMask_]];
 				const uint32 gradient = ((uint32)index) & GradientMask;

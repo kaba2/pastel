@@ -323,10 +323,8 @@ namespace Pastel
 								// need to sum to one (and they don't).
 
 								Real negativeProbability =
-
 									area(negativeBound) * invNodeArea;
 								Real positiveProbability =
-
 									area(positiveBound) * invNodeArea;
 
 								Real scale = 1;

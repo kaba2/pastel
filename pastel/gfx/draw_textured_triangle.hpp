@@ -331,11 +331,9 @@ namespace Pastel
 			real yDelta = yMidVertex.y_ - yMinVertex.y_;
 
 			real dx =
-
 				(yMinVertex.x_ + dxRightDy * yDelta) -
 				yMidVertex.x_;
 			Vector2 dUv =
-
 				(yMinVertex.uv_ + dUvRightDy * yDelta) -
 				yMidVertex.uv_;
 
@@ -371,11 +369,9 @@ namespace Pastel
 			real xDelta = xMidVertex.x_ - xMinVertex.x_;
 
 			real dy =
-
 				(xMinVertex.y_ + dyTopDx * xDelta) -
 				xMidVertex.y_;
 			Vector2 dUv =
-
 				(xMinVertex.uv_ + dUvTopDx * xDelta) -
 				xMidVertex.uv_;
 

@@ -146,14 +146,12 @@ namespace Pastel
 					Real u0vCandidate =
 						clamp(-dot(startDelta, bDelta) / bNorm2, 0, 1);
 					Real u0vDistance2 =
-
 						dot((bSegment.start() - aSegment.start()) + bDelta * u1vCandidate);
 
 					Real v1uCandidate =
 						clamp((dot(startDelta, aDelta) +
 						dot(aDelta, bDelta)) / aNorm2, 0, 1);
 					Real v1uDistance2 =
-
 						dot((bSegment.end() - aSegment.start()) - aDelta * v1uCandidate);
 
 					if (u0vDistance2 < v1uDistance2)
@@ -230,14 +228,12 @@ namespace Pastel
 							clamp((dot(aDelta, bDelta) -
 							dot(startDelta, bDelta)) / bNorm2, 0, 1);
 						Real u1vDistance2 =
-
 							dot((bSegment.start() - aSegment.end()) + bDelta * u1vCandidate);
 
 						Real v1uCandidate =
 							clamp((dot(startDelta, aDelta) +
 							dot(aDelta, bDelta)) / aNorm2, 0, 1);
 						Real v1uDistance2 =
-
 							dot((bSegment.end() - aSegment.start()) - aDelta * v1uCandidate);
 
 						if (u1vDistance2 < v1uDistance2)

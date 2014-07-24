@@ -73,8 +73,7 @@ namespace Pastel
 
 		ENSURE_OP(n, >, 1);
 
-		Real a = 
-
+		Real a =
 			((n - 1) * std::log(condition) - 
 			std::log(determinant)) / n;
 		

@@ -41,7 +41,6 @@ namespace Pastel
 		Real aCoeff =
 			dot(line.direction());
 		Real bCoeff =
-
 			-2 * dot(line.direction(), delta);
 		Real cCoeff = 
 			dot(delta) -

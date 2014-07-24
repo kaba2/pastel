@@ -62,8 +62,7 @@ namespace Pastel
 		// (out of the scalings along [1, ..., 1], this one maximizes
 		// the regularity of the resulting simplices).
 
-		Vector<Real, N> simplexMin = 
-
+		Vector<Real, N> simplexMin =
 			(Vector<Real, N>(p) - q * sum(p)) * dInv;
 		f = x - simplexMin;
 

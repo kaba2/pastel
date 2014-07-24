@@ -383,13 +383,11 @@ namespace Pastel
 		integer result = 0;
 
 		bool previousBit =
-
 			(neighbourMask & 128) != 0;
 		for (integer i = 0;i < 8;++i)
 		{
 			uint32 bitMask = 1 << i;
 			bool currentBit =
-
 				(neighbourMask & bitMask) != 0;
 			if (currentBit && !previousBit)
 			{
@@ -418,13 +416,11 @@ namespace Pastel
 		uint32 resultMask = 0;
 
 		bool previousBit =
-
 			(neighbourMask & 128) != 0;
 		for (integer i = 0;i < 8;++i)
 		{
 			uint32 bitMask = 1 << i;
 			bool currentBit =
-
 				(neighbourMask & bitMask) != 0;
 			if (currentBit && !previousBit)
 			{
@@ -443,7 +439,6 @@ namespace Pastel
 
 			const uint32 nextMask = 1 << ((i + 1) & 7);
 			bool nextBit =
-
 				(neighbourMask & nextMask) != 0;
 			const bool corner = (i & 1) != 0;
 
