@@ -11,7 +11,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& measured,
 		const PASTEL_NO_DEDUCTION(Real)& correct)
 	{
-		return mabs(measured - correct);
+		return mabs(correct - measured);
 	}
 
 	template <typename Real>
@@ -19,7 +19,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& measured,
 		const PASTEL_NO_DEDUCTION(Real)& correct)
 	{
-		return absoluteError<Real>(measured, correct) / correct;
+		PENSURE(!zero(correct));
+		return mabs((Real)1 - measured /  correct);
 	}
 
 }
