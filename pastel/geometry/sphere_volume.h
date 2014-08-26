@@ -17,49 +17,37 @@ namespace Pastel
 	//! Returns the natural logarithm of the volume of Manhattan unit sphere.
 	/*!
 	Preconditions:
-	dimension >= 0
+	n > 0
 	*/
 	template <typename Real>
-	Real lnVolumeUnitSphereManhattan(integer dimension);
-
-	//! Returns the natural logarithm of the volume of a unit sphere.
-	/*!
-	Preconditions:
-	0 <= dimension <= 256
-
-	Returns:
-	The natural logarithm of the volume of
-	a unit sphere in the given dimension.
-	*/
-	PASTELGEOMETRY real lnVolumeUnitSphere(integer dimension);
+	Real lnVolumeUnitSphereManhattan(integer n);
 
 	//! Returns the natural logarithm of the volume of Euclidean unit sphere.
 	/*!
 	Preconditions:
-	dimension > 0
+	n > 0
 	*/
 	template <typename Real>
-	Real lnVolumeUnitSphereEuclidean(integer dimension);
+	Real lnVolumeUnitSphere(integer n);
 
 	//! Returns the natural logarithm of the volume of Minkowski unit sphere.
 	/*!
 	Preconditions:
-	dimension > 0
+	n > 0
 	power > 0
 	*/
 	template <typename Real>
 	Real lnVolumeUnitSphereMinkowski(
-		integer dimension, 
+		integer n, 
 		const PASTEL_NO_DEDUCTION(Real)& power);
 
 	//! Returns the natural logarithm of the volume of Infinity unit sphere.
 	/*!
 	Preconditions:
-	dimension >= 0
+	n >= 0
 	*/
-
 	template <typename Real>
-	Real lnVolumeUnitSphereInfinity(integer dimension);
+	Real lnVolumeUnitSphereInfinity(integer n);
 
 	template <typename Real, int N>
 	PASTEL_ENABLE_IF_C(N == 1, Real)

@@ -27,7 +27,7 @@ namespace Pastel
 	to leave this semantic information for the documentation.
 	*/
 
-	class PASTELGFX Filter
+	class Filter
 	{
 	public:
 		// Using default constructor.
@@ -35,8 +35,16 @@ namespace Pastel
 		// Using default assignment.
 
 		Filter(real radius,
-			const std::string& name);
-		virtual ~Filter();
+			const std::string& name)
+		: radius_(radius)
+		, name_(name)
+		{
+			ENSURE_OP(radius, >, 0);
+		}
+
+		virtual ~Filter()
+		{
+		}
 
 		//! Evaluates the filter inside the radius.
 		/*!
@@ -48,17 +56,40 @@ namespace Pastel
 		*/
 		virtual real evaluateInRange(real position) const = 0;
 
-		void setRadius(real radius);
-		real radius() const;
+		void setRadius(real radius)
+		{
+			ENSURE_OP(radius, >, 0);
+			radius_ = radius;
+			onSetRadius();
+		}
+		
+		real radius() const
+		{
+			return radius_;
+		}
 
-		real evaluate(real position) const;
-		const std::string& name() const;
+		real evaluate(real x) const
+		{
+			if (x < -radius_ || x > radius_)
+			{
+				return 0;
+			}
+
+			return evaluateInRange(x);
+		}
+
+		const std::string& name() const
+		{
+			return name_;
+		}
 
 	private:
 		Filter(const Filter& that) = delete;
 		Filter& operator=(const Filter& that) = delete;
 
-		virtual void onSetRadius();
+		virtual void onSetRadius()
+		{
+		}
 
 		real radius_;
 		std::string name_;

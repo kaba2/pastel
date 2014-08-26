@@ -26,7 +26,7 @@ namespace Pastel
 	other filters.
 	*/
 
-	class PASTELGFX Table_Filter
+	class Table_Filter
 		: public Filter
 	{
 	public:
@@ -62,8 +62,10 @@ namespace Pastel
 	using TableFilterPtr = std::shared_ptr<Table_Filter>;
 	using ConstTableFilterPtr = std::shared_ptr<const Table_Filter>;
 
-	PASTELGFX TableFilterPtr tableFilter(const ConstFilterPtr& filter, integer samplesPerRadius = 16);
+	TableFilterPtr tableFilter(const ConstFilterPtr& filter, integer samplesPerRadius = 16);
 
 }
+
+#include "pastel/gfx/table_filter.hpp"
 
 #endif
