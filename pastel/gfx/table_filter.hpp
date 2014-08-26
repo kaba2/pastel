@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_TABLE_FILTER_HPP
+#define PASTELGFX_TABLE_FILTER_HPP
+
 #include "pastel/gfx/table_filter.h"
 
 #include "pastel/sys/subview.h"
@@ -9,7 +12,7 @@
 namespace Pastel
 {
 
-	Table_Filter::Table_Filter(
+	inline Table_Filter::Table_Filter(
 		const Array<real, 1>& data,
 		real radius)
 		: Filter(radius, "table")
@@ -35,11 +38,11 @@ namespace Pastel
 		scaling_ = (width / 2) / Filter::radius();
 	}
 
-	Table_Filter::~Table_Filter()
+	inline Table_Filter::~Table_Filter()
 	{
 	}
 
-	real Table_Filter::evaluateInRange(real x) const
+	inline real Table_Filter::evaluateInRange(real x) const
 	{
 		real filterPos =
 			center_ + x * scaling_;
@@ -53,12 +56,12 @@ namespace Pastel
 			filterPos - filterIndex);
 	}
 
-	void Table_Filter::onSetRadius()
+	inline void Table_Filter::onSetRadius()
 	{
 		scaling_ = (data_.width() / 2) / radius();
 	}
 
-	PASTELGFX TableFilterPtr tableFilter(
+	inline TableFilterPtr tableFilter(
 		const ConstFilterPtr& filter,
 		integer samplesPerRadius)
 	{
@@ -79,7 +82,9 @@ namespace Pastel
 			filterTable(i) = filter->evaluateInRange(filterPosition);
 		}
 
-		return TableFilterPtr(new Table_Filter(filterTable, filterRadius));
+		return std::make_shared<Table_Filter>(filterTable, filterRadius);
 	}
 
 }
+
+#endif

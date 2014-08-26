@@ -25,7 +25,7 @@ namespace Pastel
 
 		Real lnVolumeUnitSphere(integer dimension) const
 		{
-			return Pastel::lnVolumeUnitSphereEuclidean<Real>(dimension);
+			return Pastel::lnVolumeUnitSphere<Real>(dimension);
 		}
 
 		Real toNorm(const Real& normBijection) const

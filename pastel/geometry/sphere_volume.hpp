@@ -4,33 +4,36 @@
 #include "pastel/geometry/sphere_volume.h"
 #include "pastel/geometry/sphere_area.h"
 
-#include "pastel/sys/math_functions.h"
+#include "pastel/sys/factorial.h"
+#include "pastel/sys/gamma.h"
+#include "pastel/sys/powers.h"
 
 namespace Pastel
 {
 
 	template <typename Real>
-	Real lnVolumeUnitSphereManhattan(integer dimension)
+	Real lnVolumeUnitSphereManhattan(integer n)
 	{
-		PENSURE_OP(dimension, >, 0);
+		PENSURE_OP(n, >, 0);
 
-		return dimension * constantLn2<Real>() - lnFactorial<Real>(dimension);
+		return n * constantLn2<Real>() - lnFactorial<Real>(n);
 	}
 
 	template <typename Real>
-	Real lnVolumeUnitSphereEuclidean(integer dimension)
+	Real lnVolumeUnitSphere(integer n)
 	{
-		PENSURE_OP(dimension, >, 0);
+		ENSURE_OP(n, >, 0);
 
-		return Pastel::lnVolumeUnitSphere(dimension);
+		Real nHalf = (Real)n / 2;
+		return nHalf * std::log(constantPi<Real>()) - lnGamma<Real>(nHalf + 1);
 	}
 
 	template <typename Real>
 	Real lnVolumeUnitSphereMinkowski(
-		integer dimension, 
+		integer n, 
 		const PASTEL_NO_DEDUCTION(Real)& power)
 	{
-		PENSURE_OP(dimension, >, 0);
+		PENSURE_OP(n, >, 0);
 		PENSURE_OP(power, >, 0);
 
 		Real inversePower = inverse(power);
@@ -39,13 +42,13 @@ namespace Pastel
 		return 
 			lnGamma<Real>(inversePower + 1) - 
 			lnGamma<Real>(dimension * inversePower + 1) +
-			dimension * constantLn2<Real>();
+			n * constantLn2<Real>();
 	}
 
 	template <typename Real>
-	Real lnVolumeUnitSphereInfinity(integer dimension)
+	Real lnVolumeUnitSphereInfinity(integer n)
 	{
-		PENSURE_OP(dimension, >, 0);
+		PENSURE_OP(n, >, 0);
 
 		// S = {x in R^n : max(|x_1|, ..., |x_n|) <= 1}
 		//   = [-1, 1]^n
@@ -54,7 +57,7 @@ namespace Pastel
 		// =>
 		// ln(volume(S)) = n log(2)
 
-		return dimension * constantLn2<Real>();
+		return n * constantLn2<Real>();
 	}
 
 	template <typename Real, int N>

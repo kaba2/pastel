@@ -8,6 +8,8 @@
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"
 
+#include <cmath>
+
 namespace Pastel
 {
 
@@ -27,17 +29,61 @@ namespace Pastel
 	from which the result follows. Coincidentally, this default
 	parameter gives a filter that is almost identical to Lanczos_Filter(2).
 	*/
-	class PASTELGFX Cubic_Filter
+	class Cubic_Filter
 		: public Filter
 	{
 	public:
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit Cubic_Filter(real negativeLobeness = (real)1 / 3);
-		virtual ~Cubic_Filter();
+		explicit Cubic_Filter(real negativeLobeness = (real)1 / 3)
+		: Filter(2, "cubic")
+		, d_((negativeLobeness * 3) / 2)
+		{
+		}
 
-		virtual real evaluateInRange(real x) const;
+		virtual ~Cubic_Filter()
+		{
+		}
+
+		virtual real evaluateInRange(real x) const
+		{
+			// Let
+			// f(x) = ax^3 + bx^2 + cx + d
+			// g(x) = a'x^3 + b'x^2 + c'x + d'
+			//
+			// Now require:
+			// f(0) = 1
+			// f'(0) = 0
+			// f(1) = 0
+			// f'(1) = g'(1)
+			// g(1) = 0
+			// g(2) = 0
+			// g'(2) = 0
+			//
+			// These give seven equations for 8 unknowns.
+			// Represent the equations in matrix form:
+			// Mx = b
+			// and then reduce
+			// [M | b] to reduced row echelon form to
+			// find the 1-parameter family of
+			// cardinal cubic splines
+			// with d' as the parameter.
+
+			real xAbs = std::abs(x);
+
+			if (xAbs < 1)
+			{
+				return
+					((2 - d_) * xAbs +
+					(-3 + d_)) * xAbs * xAbs + 1;
+			}
+
+			return
+				(((-d_) * xAbs +
+				5 * d_) * xAbs +
+				(-8 * d_)) * xAbs + 4 * d_;
+		}
 
 	private:
 		Cubic_Filter(const Cubic_Filter& that) = delete;
@@ -51,7 +97,7 @@ namespace Pastel
 
 	inline CubicFilterPtr cubicFilter(real negativeLobeness = (real)1 / 3)
 	{
-		return CubicFilterPtr(new Cubic_Filter(negativeLobeness));
+		return std::make_shared<Cubic_Filter>(negativeLobeness);
 	}
 
 }

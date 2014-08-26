@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	class PASTELGFX Box_Filter
+	class Box_Filter
 		: public Filter
 	{
 	public:
@@ -19,11 +19,20 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		Box_Filter();
+		Box_Filter()
+		: Filter(0.5, "box")
+		{
+		}
 
-		virtual ~Box_Filter();
+		virtual ~Box_Filter()
+		{
 
-		virtual real evaluateInRange(real x) const;
+		}
+
+		virtual real evaluateInRange(real x) const
+		{
+			return 1;
+		}
 
 	private:
 		Box_Filter(const Box_Filter& that) = delete;
@@ -35,7 +44,7 @@ namespace Pastel
 
 	inline BoxFilterPtr boxFilter()
 	{
-		return BoxFilterPtr(new Box_Filter);
+		return std::make_shared<Box_Filter>();
 	}
 
 }

@@ -8,6 +8,8 @@
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"
 
+#include <cmath>
+
 namespace Pastel
 {
 
@@ -19,11 +21,19 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		Triangle_Filter();
+		Triangle_Filter()
+		: Filter(1, "triangle")
+		{
+		}
 
-		virtual ~Triangle_Filter();
+		virtual ~Triangle_Filter()
+		{
+		}
 
-		virtual real evaluateInRange(real position) const;
+		virtual real evaluateInRange(real x) const
+		{
+			return 1 - std::abs(x);
+		}
 
 	private:
 		Triangle_Filter(const Triangle_Filter& that) = delete;
@@ -35,7 +45,7 @@ namespace Pastel
 
 	inline TriangleFilterPtr triangleFilter()
 	{
-		return TriangleFilterPtr(new Triangle_Filter);
+		return std::make_shared<Triangle_Filter>();
 	}
 
 }
