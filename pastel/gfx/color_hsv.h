@@ -12,11 +12,13 @@ namespace Pastel
 {
 
 	//! Converts sRGB color to HSV color.
-	PASTELGFX Color rgbToHsv(const Color& rgb);
+	Color rgbToHsv(const Color& rgb);
 
 	//! Converts HSV color to sRGB color.
-	PASTELGFX Color hsvToRgb(const Color& hsv);
+	Color hsvToRgb(const Color& hsv);
 
 }
+
+#include "pastel/gfx/color_hsv.hpp"
 
 #endif

@@ -14,17 +14,19 @@ namespace Pastel
 {
 
 	//! Converts XYZ color LMS color.
-	PASTELGFX Color xyzToLms(const Color& xyz);
+	Color xyzToLms(const Color& xyz);
 
 	//! Converts LMS color XYZ color.
-	PASTELGFX Color lmsToXyz(const Color& lms);
+	Color lmsToXyz(const Color& lms);
 
 	//! Return the transformation from XYZ to LMS.
-	PASTELGFX Matrix<real32> xyzToLmsTransform();
+	Matrix<real32> xyzToLmsTransform();
 
 	//! Returns the transformation from LMS to XYZ.
-	PASTELGFX Matrix<real32> lmsToXyzTransform();
+	Matrix<real32> lmsToXyzTransform();
 
 }
+
+#include "pastel/gfx/color_lms.hpp"
 
 #endif

@@ -1,9 +1,12 @@
+#ifndef PASTELGFX_COLOR_XYY_HPP
+#define PASTELGFX_COLOR_XYY_HPP
+
 #include "pastel/gfx/color_xyy.h"
 
 namespace Pastel
 {
 
-	PASTELGFX Color xyyToXyz(const Color& xyy)
+	inline Color xyyToXyz(const Color& xyy)
 	{
 		// If y != 0, then
 		// X = (Y / y)x
@@ -29,7 +32,7 @@ namespace Pastel
 			yRatio * (1 - xyy[0] - xyy[1]));
 	}
 
-	PASTELGFX Color xyzToXyy(const Color& xyz)
+	inline Color xyzToXyy(const Color& xyz)
 	{
 		// x' = X / (X + Y + Z)
 		// y' = Y / (X + Y + Z)
@@ -44,3 +47,5 @@ namespace Pastel
 	}
 
 }
+
+#endif

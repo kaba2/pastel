@@ -90,11 +90,11 @@ namespace Pastel
 
 		template <typename BuiltInInteger>
 		void construct(
-			PASTEL_ENABLE_IF((std::is_signed<BuiltInInteger>), BuiltInInteger) that);
+			PASTEL_ENABLE_IF(std::is_signed<BuiltInInteger>, BuiltInInteger) that);
 
 		template <typename BuiltInInteger>
 		void construct(
-			PASTEL_DISABLE_IF((std::is_signed<BuiltInInteger>), BuiltInInteger) that);
+			PASTEL_DISABLE_IF(std::is_signed<BuiltInInteger>, BuiltInInteger) that);
 
 		BigInteger(DigitContainer& digits,
 			bool sign);

@@ -12,11 +12,13 @@ namespace Pastel
 {
 
 	//! Converts xyY color to XYZ color.
-	PASTELGFX Color xyyToXyz(const Color& xyy);
+	Color xyyToXyz(const Color& xyy);
 
 	//! Converts XYZ color to xyY color.
-	PASTELGFX Color xyzToXyy(const Color& xyz);
+	Color xyzToXyy(const Color& xyz);
 
 }
+
+#include "pastel/gfx/color_xyy.hpp"
 
 #endif

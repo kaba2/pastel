@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_COLOR_LAB_HPP
+#define PASTELGFX_COLOR_LAB_HPP
+
 #include "pastel/gfx/color_lab.h"
 #include "pastel/gfx/color_illuminant.h"
 
@@ -9,7 +12,7 @@ namespace Pastel
 	namespace LabDetail
 	{
 
-		PASTELGFX real32 labFunction(real32 t)
+		inline real32 labFunction(real32 t)
 		{
 			static PASTEL_CONSTEXPR real32 OneThird = real32(1) / 3;
 			static PASTEL_CONSTEXPR real32 TwoThird = real32(2) / 3;
@@ -25,7 +28,7 @@ namespace Pastel
 			return A * t + B;
 		}
 
-		PASTELGFX real32 labFunctionInverse(real32 x)
+		inline real32 labFunctionInverse(real32 x)
 		{
 			static PASTEL_CONSTEXPR real32 TwoThird = real32(2) / 3;
 			static PASTEL_CONSTEXPR real32 T0 = real32(216) / 24389;
@@ -45,7 +48,7 @@ namespace Pastel
 
 	}
 
-	PASTELGFX Color xyzToLab(const Color& xyz)
+	inline Color xyzToLab(const Color& xyz)
 	{
 		// CIE Illuminant D65
 		static PASTEL_CONSTEXPR Color WhitePointInv(
@@ -65,7 +68,7 @@ namespace Pastel
 			C * (fy - fz));
 	}
 
-	PASTELGFX Color labToXyz(const Color& lab)
+	inline Color labToXyz(const Color& lab)
 	{
 		// CIE Illuminant D65
 		static PASTEL_CONSTEXPR Color WhitePoint(xyzIlluminantD65());
@@ -85,3 +88,5 @@ namespace Pastel
 	}
 
 }
+
+#endif

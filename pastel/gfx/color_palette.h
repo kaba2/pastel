@@ -14,12 +14,13 @@ namespace Pastel
 {
 
 	//! Generates the default vga palette.
-
-	PASTELGFX void vgaPalette(std::vector<Color>& palette);
+	void vgaPalette(
+		std::vector<Color>& palette);
 
 	//! Generates a random palette.
-
-	PASTELGFX void randomPalette(std::vector<Color>& palette, integer count = 256);
+	void randomPalette(
+		std::vector<Color>& palette, 
+		integer count = 256);
 
 	//! Generates a grayscale palette.
 	/*!
@@ -27,19 +28,23 @@ namespace Pastel
 	count >= 0
 	maxValue >= 0
 	*/
-
-	PASTELGFX void grayscalePalette(std::vector<Color>& palette, integer count = 256, real32 maxValue = 1);
+	void grayscalePalette(
+		std::vector<Color>& palette, 
+		integer count = 256, 
+		real32 maxValue = 1);
 
 	//! Generates a palette good for false color images.
-
-	PASTELGFX void smoothFalseColorPalette(std::vector<Color>& palette,
+	void smoothFalseColorPalette(
+		std::vector<Color>& palette,
 		integer count = 256);
 
 	//! Generates a palette good for false color images.
-
-	PASTELGFX void falseColorPalette(std::vector<Color>& palette,
+	void falseColorPalette(
+		std::vector<Color>& palette,
 		integer count = 256);
 
 }
+
+#include "pastel/gfx/color_palette.hpp"
 
 #endif

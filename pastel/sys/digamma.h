@@ -16,7 +16,7 @@ namespace Pastel
 
 	digamma(n) = harmonicNumber(n - 1) - constantEulerMascheroni
 	*/
-	PASTELSYS real64 digammaReal64(integer n);
+	real64 digammaReal64(integer n);
 
 	//! [Digamma function]
 	/*!

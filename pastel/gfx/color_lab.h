@@ -12,11 +12,13 @@ namespace Pastel
 {
 
 	//! Converts XYZ color to CIELab color
-	PASTELGFX Color xyzToLab(const Color& xyz);
+	Color xyzToLab(const Color& xyz);
 
 	//! Converts CIELab color to XYZ color
-	PASTELGFX Color labToXyz(const Color& lab);
+	Color labToXyz(const Color& lab);
 
 }
+
+#include "pastel/gfx/color_lab.hpp"
 
 #endif

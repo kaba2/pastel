@@ -6,6 +6,8 @@
 
 #include "pastel/sys/ordered_field_concept.h"
 
+#include <type_traits>
+
 namespace Pastel
 {
 

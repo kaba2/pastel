@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_COLOR_PALETTE_HPP
+#define PASTELGFX_COLOR_PALETTE_HPP
+
 #include "pastel/gfx/color_palette.h"
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/color_hsv.h"
@@ -87,7 +90,8 @@ namespace Pastel
 
 	}
 
-	PASTELGFX void vgaPalette(std::vector<Color>& palette)
+	inline void vgaPalette(
+		std::vector<Color>& palette)
 	{
 		std::vector<Color> resultPalette;
 		resultPalette.reserve(256);
@@ -103,7 +107,9 @@ namespace Pastel
 		resultPalette.swap(palette);
 	}
 
-	PASTELGFX void randomPalette(std::vector<Color>& palette, integer count)
+	inline void randomPalette(
+		std::vector<Color>& palette, 
+		integer count)
 	{
 		ENSURE_OP(count, >=, 0);
 
@@ -123,7 +129,10 @@ namespace Pastel
 		resultPalette.swap(palette);
 	}
 
-	PASTELGFX void grayscalePalette(std::vector<Color>& palette, integer count, real32 maxValue)
+	inline void grayscalePalette(
+		std::vector<Color>& palette, 
+		integer count, 
+		real32 maxValue)
 	{
 		ENSURE_OP(count, >=, 0);
 		ENSURE_OP(maxValue, >=, 0);
@@ -139,7 +148,9 @@ namespace Pastel
 		resultPalette.swap(palette);
 	}
 
-	PASTELGFX void smoothFalseColorPalette(std::vector<Color>& palette, integer count)
+	inline void smoothFalseColorPalette(
+		std::vector<Color>& palette, 
+		integer count)
 	{
 		ENSURE_OP(count, >=, 0);
 
@@ -170,7 +181,9 @@ namespace Pastel
 	}
 
 
-	PASTELGFX void falseColorPalette(std::vector<Color>& palette, integer count)
+	inline void falseColorPalette(
+		std::vector<Color>& palette, 
+		integer count)
 	{
 		ENSURE_OP(count, >=, 0);
 
@@ -188,3 +201,5 @@ namespace Pastel
 	}
 
 }
+
+#endif

@@ -11,11 +11,13 @@ namespace Pastel
 {
 
 	//! Converts sRGB color to YUV color.
-	PASTELGFX Color rgbToYuv(const Color& rgb);
+	Color rgbToYuv(const Color& rgb);
 
 	//! Converts YUV color to sRGB color.
-	PASTELGFX Color yuvToRgb(const Color& yuv);
+	Color yuvToRgb(const Color& yuv);
 
 }
+
+#include "pastel/gfx/color_yuv.hpp"
 
 #endif

@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_COLOR_LMS_HPP
+#define PASTELGFX_COLOR_LMS_HPP
+
 #include "pastel/gfx/color_lms.h"
 
 #include "pastel/math/matrix_inverse.h"
@@ -5,7 +8,7 @@
 namespace Pastel
 {
 
-	PASTELGFX Matrix<real32> xyzToLmsTransform()
+	inline Matrix<real32> xyzToLmsTransform()
 	{
 		// This is the chromatic adaptation matrix
 		// from the CIECAM02 model.
@@ -18,7 +21,7 @@ namespace Pastel
 		return Conversion;
 	}
 
-	PASTELGFX Matrix<real32> lmsToXyzTransform()
+	inline Matrix<real32> lmsToXyzTransform()
 	{
 		static PASTEL_CONSTEXPR Matrix<real32> Conversion(
 			inverse(xyzToLmsTransform()));
@@ -26,14 +29,16 @@ namespace Pastel
 		return Conversion;
 	}
 
-	PASTELGFX Color xyzToLms(const Color& xyz)
+	inline Color xyzToLms(const Color& xyz)
 	{
 		return xyzToLmsTransform() * xyz;
 	}
 
-	PASTELGFX Color lmsToXyz(const Color& lms)
+	inline Color lmsToXyz(const Color& lms)
 	{
 		return lmsToXyzTransform() * lms;
 	}
 
 }
+
+#endif

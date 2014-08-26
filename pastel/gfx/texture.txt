@@ -44,35 +44,6 @@ can be replaced by other low-pass filters, particularly with those having
 bounded support. The process of forming I from D (or d) is called 
 _reconstruction_.
 
-Practice
---------
-
-Pastel provides the abstract Texture class template to model
-textures in ''RR^n''. It is defined by:
-
-[[CppCode]]:
-	template <typename Type, int N = 2>
-	class Texture
-		: public ReferenceCounted
-	{
-	public:
-		using Ptr = CountedPtr<Texture>;
-		using ConstPtr = CountedPtr<const Texture>;
-		using Element = Type;
-
-		virtual ~Texture() {}
-
-		virtual Type operator()(
-			const Vector<real, N>& p,
-			const Matrix<real>& m) const = 0;
-
-		virtual std::string name() const = 0;
-	};
-	
-where Type is a vector, such as Color, or real32, which
-defines the ''V'' in the definition, and N defines the dimensionality. 
-Its abstract interface provides access to a texture sampler. 
-
 ### Types of textures
 
 Pastel provides three types of concrete, predefined texture classes:

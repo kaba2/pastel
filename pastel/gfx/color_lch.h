@@ -12,11 +12,13 @@ namespace Pastel
 {
 
 	//! Converts CIELab color to CIELch color.
-	PASTELGFX Color labToLch(const Color& lab);
+	Color labToLch(const Color& lab);
 
 	//! Converts CIELch color to CIELab color.
-	PASTELGFX Color lchToLab(const Color& lch);
+	Color lchToLab(const Color& lch);
 
 }
+
+#include "pastel/gfx/color_lch.hpp"
 
 #endif
