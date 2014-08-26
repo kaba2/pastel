@@ -8,6 +8,10 @@
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"
 
+#include "pastel/sys/sinc.h"
+
+#include <cmath>
+
 namespace Pastel
 {
 
@@ -17,24 +21,37 @@ namespace Pastel
 	f(x) = sinc(|x|) * sinc(|x| / radius), |x| < radius
 										0, otherwise
 	*/
-
-	class PASTELGFX Lanczos_Filter
+	class Lanczos_Filter
 		: public Filter
 	{
 	public:
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit Lanczos_Filter(real radius = 2);
-		virtual ~Lanczos_Filter();
+		explicit Lanczos_Filter(real radius = 2)
+		: Filter(radius, "lanczos")
+		, invRadius_(inverse(radius))
+		{
+		}
+		
+		virtual ~Lanczos_Filter()
+		{
+		}
 
-		virtual real evaluateInRange(real x) const;
+		virtual real evaluateInRange(real x) const
+		{
+			return sinc<real>(x) * sinc<real>(x * invRadius_);
+		}
+
 
 	private:
 		Lanczos_Filter(const Lanczos_Filter& that) = delete;
 		Lanczos_Filter& operator=(const Lanczos_Filter& that) = delete;
 
-		virtual void onSetRadius();
+		virtual void onSetRadius()
+		{
+			invRadius_ = inverse(radius());
+		}
 
 		real invRadius_;
 	};
@@ -44,7 +61,7 @@ namespace Pastel
 
 	inline LanczosFilterPtr lanczosFilter(real radius = 2)
 	{
-		return LanczosFilterPtr(new Lanczos_Filter(radius));
+		return std::make_shared<Lanczos_Filter>(radius);
 	}
 
 }
