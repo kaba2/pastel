@@ -14,10 +14,10 @@ namespace Pastel
 {
 
 	//! Converts from linear-sRGB to sRGB.
-	PASTELGFX Color linearSrgbToSrgb(const Color& rgb);
+	Color linearSrgbToSrgb(const Color& rgb);
 
 	//! Converts from sRGB to linear-sRGB.
-	PASTELGFX Color srgbToLinearSrgb(const Color& rgb);
+	Color srgbToLinearSrgb(const Color& rgb);
 
 	//! Returns the linear-sRGB to XYZ transformation matrix.
 	/*!
@@ -26,28 +26,30 @@ namespace Pastel
 	coordinates for the light emitters as well as for the
 	white point.
 	*/
-	PASTELGFX Matrix<real32> linearSrgbToXyzTransform();
+	Matrix<real32> linearSrgbToXyzTransform();
 
 	//! Returns the XYZ to linear-sRGB transformation matrix.
 	/*!
 	This is the inverse matrix of the linearSrgbToXyzTransform()
 	matrix.
 	*/
-	PASTELGFX Matrix<real32> xyzToLinearSrgbTransform();
+	Matrix<real32> xyzToLinearSrgbTransform();
 
 	//! Computes a linear-RGB to XYZ transformation matrix.
-	PASTELGFX Matrix<real32> linearRgbToXyzTransform(
+	Matrix<real32> linearRgbToXyzTransform(
 		const Color& xyzRed,
 		const Color& xyzGreen,
 		const Color& xyzBlue,
 		const Color& xyzWhite);
 
 	//! Converts XYZ color to sRGB color.
-	PASTELGFX Color xyzToSrgb(const Color& xyz);
+	Color xyzToSrgb(const Color& xyz);
 
 	//! Converts sRGB color to XYZ color.
-	PASTELGFX Color srgbToXyz(const Color& rgb);
+	Color srgbToXyz(const Color& rgb);
 
 }
+
+#include "pastel/gfx/color_srgb.hpp"
 
 #endif

@@ -12,13 +12,13 @@ namespace Pastel
 	// Standard illuminants (CIE 1964)
 
 	//! Returns the XYZ coordinates of CIE illuminant E.
-	PASTELGFX Color xyzIlluminantE();
+	Color xyzIlluminantE();
 
 	//! Returns the XYZ coordinates of CIE illuminant D50.
-	PASTELGFX Color xyzIlluminantD50();
+	Color xyzIlluminantD50();
 
 	//! Returns the XYZ coordinates of CIE illuminant D65.
-	PASTELGFX Color xyzIlluminantD65();
+	Color xyzIlluminantD65();
 
 }
 

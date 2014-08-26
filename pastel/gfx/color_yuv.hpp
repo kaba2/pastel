@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_COLOR_YUV_HPP
+#define PASTELGFX_COLOR_YUV_HPP
+
 #include "pastel/gfx/color_yuv.h"
 
 #include "pastel/math/matrix.h"
@@ -5,7 +8,7 @@
 namespace Pastel
 {
 
-	PASTELGFX Color rgbToYuv(const Color& rgb)
+	inline Color rgbToYuv(const Color& rgb)
 	{
 		const static Matrix<real32> conversion =
 			matrix3x3<real32>(
@@ -16,7 +19,7 @@ namespace Pastel
 		return conversion * rgb;
 	}
 
-	PASTELGFX Color yuvToRgb(const Color& yuv)
+	inline Color yuvToRgb(const Color& yuv)
 	{
 		const static Matrix<real32> conversion =
 			matrix3x3<real32>(
@@ -28,3 +31,5 @@ namespace Pastel
 	}
 
 }
+
+#endif

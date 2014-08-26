@@ -8,6 +8,8 @@
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"
 
+#include <cmath>
+
 namespace Pastel
 {
 
@@ -18,11 +20,24 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit Gaussian_Filter(real radius = 2);
+		explicit Gaussian_Filter(real radius = 2)
+		: Filter(radius, "gaussian")
+		{
+		}
 
-		virtual ~Gaussian_Filter();
+		virtual ~Gaussian_Filter()
+		{
+		}
 
-		virtual real evaluateInRange(real x) const;
+		virtual real evaluateInRange(real x) const
+		{
+			// I chose the factor -2 because
+			// it fitted well with the lobe of
+			// the Lanczos filter. No deeper
+			// science here.
+
+			return std::exp(-2 * x * x);
+		}
 
 	private:
 		Gaussian_Filter(const Gaussian_Filter& that) = delete;

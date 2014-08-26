@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_COLOR_SRGB_HPP
+#define PASTELGFX_COLOR_SRGB_HPP
+
 #include "pastel/gfx/color_srgb.h"
 #include "pastel/gfx/color_xyy.h"
 #include "pastel/gfx/color_illuminant.h"
@@ -11,7 +14,7 @@
 namespace Pastel
 {
 
-	PASTELGFX Color linearSrgbToSrgb(const Color& rgb)
+	inline Color linearSrgbToSrgb(const Color& rgb)
 	{
 		Color result;
 
@@ -31,7 +34,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELGFX Color srgbToLinearSrgb(const Color& rgb)
+	inline Color srgbToLinearSrgb(const Color& rgb)
 	{
 		Color result;
 
@@ -51,7 +54,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELGFX Matrix<real32> linearSrgbToXyzTransform()
+	inline Matrix<real32> linearSrgbToXyzTransform()
 	{
 		// The sRGB standard chooses standard
 		// light emitters by specifying their
@@ -79,7 +82,7 @@ namespace Pastel
 		return transformation;
 	}
 
-	PASTELGFX Matrix<real32> xyzToLinearSrgbTransform()
+	inline Matrix<real32> xyzToLinearSrgbTransform()
 	{
 		static PASTEL_CONSTEXPR Matrix<real32> Conversion(
 			inverse(linearSrgbToXyzTransform()));
@@ -87,7 +90,7 @@ namespace Pastel
 		return Conversion;
 	}
 
-	PASTELGFX Matrix<real32> linearRgbToXyzTransform(
+	inline Matrix<real32> linearRgbToXyzTransform(
 		const Color& xyzRed,
 		const Color& xyzGreen,
 		const Color& xyzBlue,
@@ -132,7 +135,7 @@ namespace Pastel
 			xyzBlue * primaryWeights[2]);
 	}
 
-	PASTELGFX Color xyzToSrgb(const Color& xyz)
+	inline Color xyzToSrgb(const Color& xyz)
 	{
 		static PASTEL_CONSTEXPR Matrix<real32> Conversion(
 			inverse(linearSrgbToXyzTransform()));
@@ -140,7 +143,7 @@ namespace Pastel
 		return linearSrgbToSrgb(fitNegativeColor(xyz * Conversion));
 	}
 
-	PASTELGFX Color srgbToXyz(const Color& rgb)
+	inline Color srgbToXyz(const Color& rgb)
 	{
 		static PASTEL_CONSTEXPR Matrix<real32> Conversion(
 			linearSrgbToXyzTransform());
@@ -149,3 +152,5 @@ namespace Pastel
 	}
 
 }
+
+#endif

@@ -1,11 +1,12 @@
-#include "pastel/gfx/color_hsv.h"
+#ifndef PASTELGFX_COLOR_HSV_HPP
+#define PASTELGFX_COLOR_HSV_HPP
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/gfx/color_hsv.h"
 
 namespace Pastel
 {
 
-	PASTELGFX Color rgbToHsv(const Color& rgb)
+	inline Color rgbToHsv(const Color& rgb)
 	{
 		Color result(0);
 
@@ -68,10 +69,9 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELGFX Color hsvToRgb(const Color& hsv)
+	inline Color hsvToRgb(const Color& hsv)
 	{
-		real32 g =
-			6 * hsv[0];
+		real32 g = 6 * hsv[0];
 		integer gFloor = std::floor(g);
 
 		real32 f = g - gFloor;
@@ -107,3 +107,5 @@ namespace Pastel
 	}
 
 }
+
+#endif

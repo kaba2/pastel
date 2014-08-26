@@ -32,7 +32,7 @@
 
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 
-#if _MSC_VER <= 1800
+#if _MSC_VER <= 1900
 #	define PASTEL_CONSTEXPR const
 #	define PASTEL_NOEXCEPT_C(x)
 #	define PASTEL_NOEXCEPT
@@ -86,11 +86,11 @@ namespace Pastel
 		namespace Int_
 		{
 
-			template <int N> class Int {};
-			template <> class Int<8> { using type = int8; };
-			template <> class Int<16> { using type = int16; };
-			template <> class Int<32> { using type = int32; };
-			template <> class Int<64> { using type = int64; };
+			template <int N> struct Int {};
+			template <> struct Int<8> { using type = int8; };
+			template <> struct Int<16> { using type = int16; };
+			template <> struct Int<32> { using type = int32; };
+			template <> struct Int<64> { using type = int64; };
 
 		}
 
