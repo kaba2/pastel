@@ -1,30 +1,34 @@
+#ifndef PASTELSYS_BINARYFILE_HPP
+#define PASTELSYS_BINARYFILE_HPP
+
 #include "pastel/sys/binaryfile.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/endian.h"
+
 #include <fstream>
 
 namespace Pastel
 {
 
-	BinaryFile::BinaryFile()
+	inline BinaryFile::BinaryFile()
 		: stream_()
 		, littleEndian_(true)
 	{
 	}
 
-	BinaryFile::BinaryFile(const std::string& fileName, bool read, bool write)
+	inline BinaryFile::BinaryFile(const std::string& fileName, bool read, bool write)
 		: stream_()
 		, littleEndian_(true)
 	{
 		open(fileName, read, write);
 	}
 
-	BinaryFile::~BinaryFile()
+	inline BinaryFile::~BinaryFile()
 	{
 		close();
 	}
 
-	void BinaryFile::open(const std::string& fileName, bool read, bool write)
+	inline void BinaryFile::open(const std::string& fileName, bool read, bool write)
 	{
 		if (fileName.empty())
 		{
@@ -63,7 +67,7 @@ namespace Pastel
 		stream_.open(fileName.c_str(), mode);
 	}
 
-	void BinaryFile::close()
+	inline void BinaryFile::close()
 	{
 		if (stream_.is_open())
 		{
@@ -71,36 +75,36 @@ namespace Pastel
 		}
 	}
 
-	void BinaryFile::setEndian(bool littleEndian)
+	inline void BinaryFile::setEndian(bool littleEndian)
 	{
 		littleEndian_ = littleEndian;
 	}
 
-	bool BinaryFile::isOpen()
+	inline bool BinaryFile::isOpen()
 	{
 		return stream_.is_open();
 	}
 
-	bool BinaryFile::isInEnd() const
+	inline bool BinaryFile::isInEnd() const
 	{
 		return stream_.eof();
 	}
 
-	BinaryFile& BinaryFile::operator>>(int8& value)
+	inline BinaryFile& BinaryFile::operator>>(int8& value)
 	{
 		read((char*)&value, 1);
 
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator>>(uint8& value)
+	inline BinaryFile& BinaryFile::operator>>(uint8& value)
 	{
 		read((char*)&value, 1);
 
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator>>(int16& value)
+	inline BinaryFile& BinaryFile::operator>>(int16& value)
 	{
 		int8 data[2];
 		read(&data[0], 2);
@@ -117,7 +121,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator>>(uint16& value)
+	inline BinaryFile& BinaryFile::operator>>(uint16& value)
 	{
 		int8 data[2];
 		read(&data[0], 2);
@@ -134,7 +138,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator>>(int32& value)
+	inline BinaryFile& BinaryFile::operator>>(int32& value)
 	{
 		int8 data[4];
 		read(&data[0], 4);
@@ -151,7 +155,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator>>(uint32& value)
+	inline BinaryFile& BinaryFile::operator>>(uint32& value)
 	{
 		int8 data[4];
 		read(&data[0], 4);
@@ -168,7 +172,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator>>(real32& value)
+	inline BinaryFile& BinaryFile::operator>>(real32& value)
 	{
 		int8 data[4];
 		read(&data[0], 4);
@@ -185,7 +189,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator>>(real64& value)
+	inline BinaryFile& BinaryFile::operator>>(real64& value)
 	{
 		int8 data[8];
 		read(&data[0], 8);
@@ -202,19 +206,19 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(int8 value)
+	inline BinaryFile& BinaryFile::operator<<(int8 value)
 	{
 		write((char*)&value, 1);
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(uint8 value)
+	inline BinaryFile& BinaryFile::operator<<(uint8 value)
 	{
 		write((int8*)&value, 1);
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(int16 value)
+	inline BinaryFile& BinaryFile::operator<<(int16 value)
 	{
 		if (littleEndian_)
 		{
@@ -229,7 +233,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(uint16 value)
+	inline BinaryFile& BinaryFile::operator<<(uint16 value)
 	{
 		if (littleEndian_)
 		{
@@ -244,7 +248,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(int32 value)
+	inline BinaryFile& BinaryFile::operator<<(int32 value)
 	{
 		if (littleEndian_)
 		{
@@ -259,7 +263,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(uint32 value)
+	inline BinaryFile& BinaryFile::operator<<(uint32 value)
 	{
 
 		if (littleEndian_)
@@ -275,7 +279,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(real32 value)
+	inline BinaryFile& BinaryFile::operator<<(real32 value)
 	{
 		if (littleEndian_)
 		{
@@ -290,7 +294,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(real64 value)
+	inline BinaryFile& BinaryFile::operator<<(real64 value)
 	{
 		if (littleEndian_)
 		{
@@ -305,14 +309,14 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(const std::string& text)
+	inline BinaryFile& BinaryFile::operator<<(const std::string& text)
 	{
 		write(&text[0], text.size());
 
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(const char* nullString)
+	inline BinaryFile& BinaryFile::operator<<(const char* nullString)
 	{
 		char symbol = 0;
 		integer index = 0;
@@ -326,7 +330,7 @@ namespace Pastel
 		return *this;
 	}
 
-	BinaryFile& BinaryFile::operator<<(void (*callBack)(BinaryFile&))
+	inline BinaryFile& BinaryFile::operator<<(void (*callBack)(BinaryFile&))
 	{
 		ENSURE(callBack);
 
@@ -335,19 +339,19 @@ namespace Pastel
 		return *this;
 	}
 
-	void BinaryFile::ignore(integer count)
+	inline void BinaryFile::ignore(integer count)
 	{
 		ENSURE_OP(count, >=, 0);
 
 		stream_.ignore(count);
 	}
 
-	void BinaryFile::flush()
+	inline void BinaryFile::flush()
 	{
 		stream_.flush();
 	}
 
-	void BinaryFile::write(const char* str, integer count)
+	inline void BinaryFile::write(const char* str, integer count)
 	{
 		ENSURE_OP(count, >=, 0);
 
@@ -359,7 +363,7 @@ namespace Pastel
 		stream_.write(str, count);
 	}
 
-	void BinaryFile::read(char* str, integer count)
+	inline void BinaryFile::read(char* str, integer count)
 	{
 		ENSURE_OP(count, >=, 0);
 		if (!str)
@@ -370,7 +374,7 @@ namespace Pastel
 		stream_.read(str, count);
 	}
 
-	void BinaryFile::setOffset(integer offset)
+	inline void BinaryFile::setOffset(integer offset)
 	{
 		if (offset < 0)
 		{
@@ -382,21 +386,23 @@ namespace Pastel
 		}
 	}
 
-	integer BinaryFile::getOffset()
+	inline integer BinaryFile::getOffset()
 	{
 		return stream_.tellg();
 	}
 
 	// Helpers
 
-	PASTELSYS void binaryLittleEndian(BinaryFile& file)
+	inline void binaryLittleEndian(BinaryFile& file)
 	{
 		file.setEndian(true);
 	}
 
-	PASTELSYS void binaryBigEndian(BinaryFile& file)
+	inline void binaryBigEndian(BinaryFile& file)
 	{
 		file.setEndian(false);
 	}
 
 }
+
+#endif
