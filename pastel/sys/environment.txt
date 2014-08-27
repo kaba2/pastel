@@ -3,32 +3,6 @@ Build switches
 
 [[Parent]]: building.txt
 
-Pastel provides several build switches to control the code generation.
-We explain these switches here. Note that these switches are essentially
-enabled or disabled by the [configuration][Configuration] you use to 
-build Pastel.
-
-[Configuration]: [[Ref]]: building.txt
-
-Global preprocessor switches
-----------------------------
-
-In the following we list the global preprocessor switches which 
-should be defined at the level of the build-system, not at the source
-code level.
-
-### PASTEL\_DYNAMIC\_LIBRARIES
-
-Pastel can be built into dynamic libraries instead of static libraries. 
-If `PASTEL_DYNAMIC_LIBRARIES` is defined, then, under Windows-based compilers, 
-the `declspec(dllexport)` and `declspec(dllimport)` keywords are sprinkled all 
-around the code.
-
-[Neighbors]: [[Ref]]: nearest_neighbors.txt 
-
-Global type definitions
------------------------
-
 Pastel includes some global type definitions in the file [[FileLink: mytypes.h]],
 which is included in practically every file in Pastel. In that file
 there is particularly the definition of `real` type which you might

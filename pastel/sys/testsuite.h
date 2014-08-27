@@ -29,7 +29,7 @@ namespace Pastel
 {
 
 	//! Gathers the results of a unit test into a TestReport.
-	class PASTELSYS TestSuite
+	class TestSuite
 	{
 	public:
 		explicit TestSuite(

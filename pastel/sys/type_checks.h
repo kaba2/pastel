@@ -5,7 +5,6 @@
 #define PASTELSYS_TYPE_CHECKS_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 
 #include <climits>
 

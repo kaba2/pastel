@@ -3,7 +3,6 @@
 #ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
 #define PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
 
-#include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/triangle.h"
 

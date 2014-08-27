@@ -6,7 +6,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/syslibrary.h"
 
 namespace Pastel
 {

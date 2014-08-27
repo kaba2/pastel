@@ -4,7 +4,6 @@
 #ifndef PASTELGFX_GFXRENDERER_TOOLS_H
 #define PASTELGFX_GFXRENDERER_TOOLS_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/gfxrenderer.h"
 
 #include "pastel/geometry/triangle.h"

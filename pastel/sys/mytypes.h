@@ -4,7 +4,6 @@
 #ifndef PASTELSYS_MYTYPES_H
 #define PASTELSYS_MYTYPES_H
 
-#include "pastel/sys/syslibrary.h"
 #include "pastel/sys/deduction_macros.h"
 #include "pastel/sys/no_op_functions.h"
 #include "pastel/sys/sfinae_macros.h"
@@ -168,11 +167,11 @@ namespace Pastel
 		// A boolean literal for documenting concepts.
 		static PASTEL_CONSTEXPR bool UserDefinedBoolean = true;
 		// A type for documenting concepts.
-		class PASTELSYS UserDefinedType {};
+		class UserDefinedType {};
 
 		static PASTEL_CONSTEXPR int Dynamic = -1;
 
-		class PASTELSYS EmptyClass {};
+		class EmptyClass {};
 
 		namespace MyTypes_
 		{

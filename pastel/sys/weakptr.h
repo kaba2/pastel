@@ -6,7 +6,6 @@
 #define PASTELSYS_WEAKPTR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 #include "pastel/sys/referencecounted.h"
 #include "pastel/sys/hashing.h"
 

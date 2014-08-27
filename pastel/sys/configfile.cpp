@@ -261,7 +261,7 @@ namespace Pastel
 		};
 	};
 
-	PASTELSYS bool loadConfig(
+	bool loadConfig(
 		const std::string& fileName,
 		Config& config,
 		LoadConfig_Echo echoPolicy)
@@ -374,7 +374,7 @@ namespace Pastel
 		file << std::endl;
 	}
 
-	PASTELSYS bool saveConfig(
+	bool saveConfig(
 		const Config& config,
 		const std::string& fileName)
 	{

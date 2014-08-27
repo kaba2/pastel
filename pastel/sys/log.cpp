@@ -199,7 +199,7 @@ namespace Pastel
 		return *this;
 	}
 
-	PASTELSYS Log& log()
+	Log& log()
 	{
 		static Log theLog;
 		return theLog;

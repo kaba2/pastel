@@ -73,7 +73,7 @@ namespace Pastel
 	static int mti=N+1; /* mti==N+1 means mt[N] is not initialized */
 
 	/* initializes mt[N] with a seed */
-	PASTELSYS void randomSeed(uint32 s)
+	void randomSeed(uint32 s)
 	{
 		mt[0]= s & 0xffffffffUL;
 		for (mti=1; mti<N; mti++) {
@@ -89,7 +89,7 @@ namespace Pastel
 	}
 
 	/* generates a random number on [0,0xffffffff]-interval */
-	PASTELSYS uint32 randomUint32()
+	uint32 randomUint32()
 	{
 		uint32 y;
 		static uint32 mag01[2]={0x0UL, MATRIX_A};

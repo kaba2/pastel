@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	PASTELSYS bool startsWith(const std::string& text, const std::string& prologue)
+	bool startsWith(const std::string& text, const std::string& prologue)
 	{
 		if (prologue.size() > text.size())
 		{
@@ -30,7 +30,7 @@ namespace Pastel
 		return true;
 	}
 
-	PASTELSYS std::string& makeLowercase(std::string& text)
+	std::string& makeLowercase(std::string& text)
 	{
 		// See the makeUppercase() function for some notes.
 		for (integer i = 0;i < text.size();++i)
@@ -41,13 +41,13 @@ namespace Pastel
 		return text;
 	}
 
-	PASTELSYS std::string lowercase(const std::string& text)
+	std::string lowercase(const std::string& text)
 	{
 		std::string result(text);
 		return makeLowercase(result);
 	}
 
-	PASTELSYS std::string& makeUppercase(std::string& text)
+	std::string& makeUppercase(std::string& text)
 	{
 		// See the makeUppercase() function for some notes.
 		for (integer i = 0;i < text.size();++i)
@@ -65,13 +65,13 @@ namespace Pastel
 		return text;
 	}
 
-	PASTELSYS std::string uppercase(const std::string& text)
+	std::string uppercase(const std::string& text)
 	{
 		std::string result(text);
 		return makeUppercase(result);
 	}
 
-	PASTELSYS std::string repeat(const std::string& that, integer times)
+	std::string repeat(const std::string& that, integer times)
 	{
 		std::string result;
 		result.reserve(that.length() * times);
@@ -84,7 +84,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELSYS std::string ltrim(const std::string& that, 
+	std::string ltrim(const std::string& that, 
 		integer *indexBegin)
 	{
 		std::string result;
@@ -108,7 +108,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELSYS std::string rtrim(const std::string& that, 
+	std::string rtrim(const std::string& that, 
 		integer *indexEnd)
 	{
 		std::string result;
@@ -133,7 +133,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELSYS std::string trim(const std::string& that, 
+	std::string trim(const std::string& that, 
 		integer* indexBegin, integer* indexEnd)
 	{
 		std::string result;
@@ -168,7 +168,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELSYS std::string firstWord(const std::string& that)
+	std::string firstWord(const std::string& that)
 	{
 		integer begin = that.find_first_not_of(" \t\n");
 		integer end = that.find_first_of(" \t\n", begin);
@@ -190,7 +190,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELSYS std::string removeWhiteSpace(const std::string& that)
+	std::string removeWhiteSpace(const std::string& that)
 	{
 		std::string result;
 		integer thatSize = that.size();
@@ -207,7 +207,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELSYS bool separateBlocks(const std::string& that,
+	bool separateBlocks(const std::string& that,
 		char beginSymbol, char endSymbol,
 		std::vector<std::string>& blocks)
 	{
@@ -240,7 +240,7 @@ namespace Pastel
 	}
 
 
-	PASTELSYS void getWords(const std::string& sentence,
+	void getWords(const std::string& sentence,
 		std::vector<std::string>& words)
 	{
 		std::stringstream stream;
@@ -260,7 +260,7 @@ namespace Pastel
 		}
 	}
 
-	PASTELSYS integer stringToInteger(const std::string& text)
+	integer stringToInteger(const std::string& text)
 	{
 		std::stringstream stream;
 		stream << text;
@@ -275,7 +275,7 @@ namespace Pastel
 		return number;
 	}
 
-	PASTELSYS real stringToReal(const std::string& text, integer* indexEnd)
+	real stringToReal(const std::string& text, integer* indexEnd)
 	{
 		integer trimmed = 0;
 		std::string nText = lowercase(ltrim(text, &trimmed));
@@ -341,7 +341,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELSYS std::string integerToString(integer number,
+	std::string integerToString(integer number,
 		integer digits, char padding)
 	{
 		std::stringstream stream;
@@ -379,7 +379,7 @@ namespace Pastel
 		return padText + text;
 	}
 
-	PASTELSYS std::string realToString(real number,
+	std::string realToString(real number,
 		integer digits)
 	{
 		if (number == infinity<real>())

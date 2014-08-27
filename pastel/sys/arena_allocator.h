@@ -5,7 +5,6 @@
 #define PASTELSYS_ARENA_ALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 
 #include <list>
 
@@ -14,7 +13,7 @@ namespace Pastel
 
 	//! A deallocate-once, arbitrary size memory allocator.
 
-	class PASTELSYS ArenaAllocator
+	class ArenaAllocator
 	{
 	public:
 		//! Constructs with the given parameters.

@@ -6,7 +6,6 @@
 
 #include "pastel/sys/array.h"
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
 
 #include <vector>
@@ -22,7 +21,7 @@ namespace Pastel
 	seemingly random manner to the range 0-255.
 	*/
 
-	PASTELGFX void labelToImage(
+	void labelToImage(
 		const Array<int32, 2>& labelImage,
 		Array<uint8, 2>& image);
 

@@ -5,7 +5,6 @@
 #define PASTELSYS_POOL_ALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 
 #include <boost/operators.hpp>
 
@@ -22,7 +21,7 @@ namespace Pastel
 	guaranteeing that if there is space available then
 	it can also be allocated.
 	*/
-	class PASTELSYS PoolAllocator
+	class PoolAllocator
 		: boost::equality_comparable<
 		PoolAllocator
 		, boost::less_than_comparable<

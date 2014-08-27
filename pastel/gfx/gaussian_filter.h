@@ -5,7 +5,6 @@
 #ifndef PASTELGFX_GAUSSIAN_FILTER_H
 #define PASTELGFX_GAUSSIAN_FILTER_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"
 
 #include <cmath>
@@ -13,7 +12,7 @@
 namespace Pastel
 {
 
-	class PASTELGFX Gaussian_Filter
+	class Gaussian_Filter
 		: public Filter
 	{
 	public:

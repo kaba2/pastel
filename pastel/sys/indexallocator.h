@@ -5,7 +5,6 @@
 #define PASTELSYS_INDEXALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 #include <vector>
 
 namespace Pastel

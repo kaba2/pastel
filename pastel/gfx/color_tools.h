@@ -3,7 +3,6 @@
 #ifndef PASTELGFX_COLOR_TOOLS_H
 #define PASTELGFX_COLOR_TOOLS_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
 #include "pastel/gfx/coloradapter.h"
 
@@ -45,7 +44,7 @@ namespace Pastel
 	//! Sets negative components to zero.
 	Color fitNegativeColor(const Color& rgb);
 
-	class PASTELGFX Luma_Color_Adapter
+	class Luma_Color_Adapter
 	{
 	public:
 		using Logical = Color;

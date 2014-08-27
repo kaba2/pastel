@@ -6,7 +6,6 @@
 #define PASTELSYS_MT19937_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 
 namespace Pastel
 {
@@ -16,10 +15,10 @@ namespace Pastel
 	If no seed is given before the first call to
 	randomUint32(), a default seed is used.
 	*/
-	PASTELSYS void randomSeed(uint32 seed);
+	void randomSeed(uint32 seed);
 
 	//! Returns a uniformly distributed random integer in [0, 2^32).
-	PASTELSYS uint32 randomUint32();
+	uint32 randomUint32();
 
 	//! Returns a uniformly distributed random integer in [0, 2^64).
 	inline uint64 randomUint64()

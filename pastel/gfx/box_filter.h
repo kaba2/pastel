@@ -5,7 +5,6 @@
 #ifndef PASTELGFX_BOX_FILTER_H
 #define PASTELGFX_BOX_FILTER_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"
 
 namespace Pastel

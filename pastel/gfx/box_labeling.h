@@ -7,8 +7,6 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"
 
-#include "pastel/gfx/gfxlibrary.h"
-
 namespace Pastel
 {
 
@@ -47,7 +45,7 @@ namespace Pastel
 		nothrow
 	*/
 
-	PASTELGFX integer labelWithBoxes(
+	integer labelWithBoxes(
 		const Array<bool, 2>& image,
 		integer maxWidth,
 		integer maxHeight,

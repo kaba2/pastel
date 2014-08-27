@@ -5,7 +5,6 @@
 #ifndef PASTELSYS_CONFIG_H
 #define PASTELSYS_CONFIG_H
 
-#include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"
 
 #include <map>
@@ -16,7 +15,7 @@
 namespace Pastel
 {
 
-	class PASTELSYS Config
+	class Config
 	{
 	private:
 		using Container = std::map<std::string, boost::any>;

@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	class PASTELSYS Progress
+	class Progress
 	{
 	public:
 		// Using default copy constructor.

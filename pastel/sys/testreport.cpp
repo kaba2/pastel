@@ -29,7 +29,7 @@ namespace Pastel
 		}
 	};
 
-	PASTELSYS void generateTestReport(
+	void generateTestReport(
 		const TestReport& testReport,
 		Log& output)
 	{

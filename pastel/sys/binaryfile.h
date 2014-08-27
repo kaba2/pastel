@@ -4,7 +4,6 @@
 #define PASTELSYS_BINARYFILE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 
 #include <string>
 #include <fstream>

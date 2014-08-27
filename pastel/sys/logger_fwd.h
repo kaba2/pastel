@@ -5,8 +5,6 @@
 #ifndef PASTELSYS_LOGGER_FWD_H
 #define PASTELSYS_LOGGER_FWD_H
 
-#include "pastel/sys/syslibrary.h"
-
 #include <string>
 #include <unordered_set>
 

@@ -4,7 +4,6 @@
 #define PASTELMATH_LU_DECOMPOSITION_H
 
 #include "pastel/math/matrix.h"
-#include "pastel/math/mathlibrary.h"
 
 #include "pastel/sys/mytypes.h"
 

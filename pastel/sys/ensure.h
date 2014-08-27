@@ -4,7 +4,6 @@
 #ifndef PASTELSYS_ENSURE_H
 #define PASTELSYS_ENSURE_H
 
-#include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"
 
 #if (defined _WIN32 || defined _WIN64)
@@ -123,18 +122,18 @@ namespace Pastel
 	};
 
 	//! Sets the action on invariant failure.
-	PASTELSYS void setInvariantFailureAction(
+	void setInvariantFailureAction(
 		InvariantFailureAction action);
 
 	//! Returns the current invariant failure action.
-	PASTELSYS InvariantFailureAction invariantFailureAction();
+	InvariantFailureAction invariantFailureAction();
 
 	namespace Detail
 	{
 
 		// Prints a report message. Used by REPORT macros.
 
-		PASTELSYS void report(
+		void report(
 			const char* testText = 0,
 			const char* functionName = 0,
 			const char* fileName = 0, int lineNumber = -1,
@@ -145,7 +144,7 @@ namespace Pastel
 
 		// Prints an error message and aborts the program.
 
-		PASTELSYS void error(
+		void error(
 			const char* testText = 0,
 			const char* functionName = 0,
 			const char* fileName = 0, int lineNumber = -1,
@@ -156,7 +155,7 @@ namespace Pastel
 
 		// Prints an error message and aborts the program.
 
-		PASTELSYS void assertionError(
+		void assertionError(
 			const char* testText = 0,
 			const char* functionName = 0,
 			const char* fileName = 0, int lineNumber = -1,

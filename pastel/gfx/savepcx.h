@@ -4,7 +4,6 @@
 #ifndef PASTELGFX_SAVEPCX_H
 #define PASTELGFX_SAVEPCX_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
 
 #include "pastel/sys/abstractarray.h"
@@ -15,7 +14,7 @@
 namespace Pastel
 {
 
-	PASTELGFX bool saveBinaryPcx(
+	bool saveBinaryPcx(
 		const ConstAbstractArray<2, bool>& image,
 		const std::string& fileName);
 
@@ -25,11 +24,11 @@ namespace Pastel
 		const std::string& fileName,
 		const Adapter& adapter);
 
-	PASTELGFX bool saveBinaryPcx(
+	bool saveBinaryPcx(
 		const Array<bool, 2>& image,
 		const std::string& fileName);
 
-	PASTELGFX bool saveIndexedPcx(
+	bool saveIndexedPcx(
 		const ConstAbstractArray<2, uint8>& image,
 		const std::vector<Color>& palette,
 		const std::string& fileName);
@@ -41,12 +40,12 @@ namespace Pastel
 		const std::string& fileName,
 		const Adapter& adapter);
 
-	PASTELGFX bool saveIndexedPcx(
+	bool saveIndexedPcx(
 		const Array<uint8, 2>& image,
 		const std::vector<Color>& palette,
 		const std::string& fileName);
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const ConstAbstractArray<2, Color>& image,
 		const std::string& fileName);
 
@@ -56,19 +55,19 @@ namespace Pastel
 		const std::string& fileName,
 		const Adapter& adapter);
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const Array<uint32, 2>& image,
 		const std::string& fileName);
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const Array<uint16, 2>& image,
 		const std::string& fileName);
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const Array<ByteColor, 2>& image,
 		const std::string& fileName);
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const Array<Color, 2>& image,
 		const std::string& fileName);
 

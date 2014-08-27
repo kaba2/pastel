@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	PASTELGFX void indexedImageToColorImage(
+	void indexedImageToColorImage(
 		const Array<uint8, 2>& indexedImage,
 		const std::vector<Color>& palette,
 		Array<Color, 2>& result)

@@ -8,8 +8,6 @@
 #include "pastel/sys/real_concept.h"
 #include "pastel/sys/mytypes.h"
 
-#include "pastel/math/mathlibrary.h"
-
 #include <vector>
 #include <string>
 #include <type_traits>
@@ -20,7 +18,7 @@
 namespace Pastel
 {
 
-	class PASTELSYS BigInteger
+	class BigInteger
 		: boost::totally_ordered<BigInteger
 		, boost::unit_steppable<BigInteger
 		> >
@@ -125,7 +123,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	PASTELSYS std::ostream& operator<<(
+	std::ostream& operator<<(
 		std::ostream& stream,
 		const BigInteger& number);
 

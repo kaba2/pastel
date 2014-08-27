@@ -1,7 +1,6 @@
 #ifndef PASTELSYS_LOGGER_H
 #define PASTELSYS_LOGGER_H
 
-#include "pastel/sys/syslibrary.h"
 #include "pastel/sys/logger_fwd.h"
 #include "pastel/sys/log.h"
 

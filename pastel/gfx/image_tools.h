@@ -4,7 +4,6 @@
 #ifndef PASTELGFX_IMAGETOOLS_H
 #define PASTELGFX_IMAGETOOLS_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
 #include "pastel/gfx/coloradapter.h"
 
@@ -28,7 +27,7 @@ namespace Pastel
 	View<N, Color, AdaptedView<N, Rgb888Adapter, ArrayView<N, Array<uint32, N> > > >
 		rgb888View(Array<uint32, N>& image);
 
-	PASTELGFX void indexedImageToColorImage(
+	void indexedImageToColorImage(
 		const Array<uint8, 2>& indexedImage,
 		const std::vector<Color>& palette,
 		Array<Color, 2>& colorImage);

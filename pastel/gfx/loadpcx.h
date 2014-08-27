@@ -4,7 +4,6 @@
 #ifndef PASTELGFX_LOADPCX_H
 #define PASTELGFX_LOADPCX_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
 
 #include "pastel/sys/array.h"
@@ -58,7 +57,7 @@ namespace Pastel
 	* It is of wrong format (more color planes)
 	*/
 
-	PASTELGFX bool loadIndexedPcx(
+	bool loadIndexedPcx(
 		const std::string& fileName,
 		AbstractArray<2, uint8>& image,
 		std::vector<Color>* colorPalette = 0);
@@ -77,7 +76,7 @@ namespace Pastel
 	as the adapter.
 	*/
 
-	PASTELGFX bool loadIndexedPcx(
+	bool loadIndexedPcx(
 		const std::string& fileName,
 		Array<bool, 2>& image,
 		std::vector<Color>* colorPalette = 0);
@@ -89,7 +88,7 @@ namespace Pastel
 	as the adapter.
 	*/
 
-	PASTELGFX bool loadIndexedPcx(
+	bool loadIndexedPcx(
 		const std::string& fileName,
 		Array<uint8, 2>& image,
 		std::vector<Color>* colorPalette = 0);
@@ -118,7 +117,7 @@ namespace Pastel
 	* It is of unknown format
 	*/
 
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		AbstractArray<2, Color>& image);
 
@@ -134,7 +133,7 @@ namespace Pastel
 	uses Color_ColorByte_Adapter
 	as the adapter.
 	*/
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<Color, 2>& image);
 
@@ -144,7 +143,7 @@ namespace Pastel
 	uses Luma_Adapter<ByteColor>
 	as the adapter.
 	*/
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<real32>& image);
 
@@ -154,7 +153,7 @@ namespace Pastel
 	uses Identity_Adapter<ByteColor>
 	as the adapter.
 	*/
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<ByteColor, 2>& image);
 
@@ -165,7 +164,7 @@ namespace Pastel
 	as the adapter.
 	*/
 
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<uint32, 2>& image);
 
@@ -176,7 +175,7 @@ namespace Pastel
 	as the adapter.
 	*/
 
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<uint16, 2>& image);
 

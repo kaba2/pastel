@@ -3,7 +3,6 @@
 
 #include "pastel/sys/endian.h"
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 #include "pastel/sys/ensure.h"
 
 #include <boost/type_traits/is_integral.hpp>

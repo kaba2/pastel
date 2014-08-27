@@ -5,7 +5,6 @@
 #ifndef PASTELGFX_MITCHELL_FILTER_H
 #define PASTELGFX_MITCHELL_FILTER_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"
 
 #include <cmath>

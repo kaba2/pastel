@@ -3,7 +3,7 @@
 namespace Pastel
 {
 
-	PASTELSYS std::ostream& operator<<(
+	std::ostream& operator<<(
 		std::ostream& stream,
 		const StatReal::GlobalStats& stats)
 	{
