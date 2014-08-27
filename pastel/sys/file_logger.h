@@ -11,17 +11,30 @@
 namespace Pastel
 {
 
-	class PASTELSYS File_Logger
+	class File_Logger
 		: public Logger
 	{
 	public:
-		explicit File_Logger(const std::string& fileName);
+		explicit File_Logger(const std::string& fileName)
+		: file_(fileName.c_str())
+		{
+		}
 
-		virtual ~File_Logger();
+		virtual ~File_Logger()
+		{
+			finalize();
+		}
 
-		virtual File_Logger& operator<<(const std::string& value);
+		virtual File_Logger& operator<<(const std::string& value)
+		{
+			file_ << value;
+			return *this;
+		}
 
-		virtual void finalize();
+		virtual void finalize()
+		{
+			file_.close();
+		}
 
 	private:
 		std::ofstream file_;

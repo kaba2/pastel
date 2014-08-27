@@ -11,17 +11,37 @@
 namespace Pastel
 {
 
-	class PASTELSYS Stream_Logger
+	class Stream_Logger
 		: public Logger
 	{
 	public:
-		explicit Stream_Logger(std::ostream* stream);
+		explicit Stream_Logger(std::ostream* stream)
+		: stream_(stream)
+		{
+		}
 
-		virtual ~Stream_Logger();
+		virtual ~Stream_Logger()
+		{
+			finalize();
+		}
 
-		virtual Stream_Logger& operator<<(const std::string& value);
+		virtual Stream_Logger& operator<<(const std::string& value)
+		{
+			if (stream_)
+			{
+				(*stream_) << value;
+			}
 
-		virtual void finalize();
+			return *this;
+		}
+
+		virtual void finalize()
+		{
+			if (stream_)
+			{
+				stream_->flush();
+			}
+		}
 
 	private:
 		std::ostream* stream_;

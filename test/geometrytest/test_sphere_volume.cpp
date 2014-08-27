@@ -30,7 +30,7 @@ namespace
 		{
 			// Natural logarithms of the volumes of hyperspheres 
 			// in dimensions 0 -> 256. Computed with Maple to 16 digits.
-			real correctSet[257] =
+			real correctSet[] =
 			{
 				0,
 				.6931471805599453, 1.144729885849400, 1.432411958301181, 1.596312591138855,
@@ -99,7 +99,8 @@ namespace
 				-344.3220398706937, -346.1727527204242, -348.0254263494428, -349.8800530984944
 			};
 
-			for (integer n = 1; n < 257; ++n)
+			integer elements = sizeof(correctSet) / sizeof(real);
+			for (integer n = 1; n < elements; ++n)
 			{
 				real correct = correctSet[n];
 
@@ -214,7 +215,8 @@ namespace
 				-989.8116003395342
 			};
 
-			for (integer n = 1; n < 257; ++n)
+			integer elements = sizeof(correctSet) / sizeof(real);
+			for (integer n = 1; n < elements; ++n)
 			{
 				real correct = correctSet[n];
 
