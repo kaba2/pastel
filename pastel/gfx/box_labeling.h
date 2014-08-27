@@ -54,4 +54,6 @@ namespace Pastel
 
 }
 
+#include "pastel/gfx/box_labeling.hpp"
+
 #endif
