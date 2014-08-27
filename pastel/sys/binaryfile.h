@@ -5,6 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
+
 #include <string>
 #include <fstream>
 
@@ -29,7 +30,7 @@ namespace Pastel
 		std::string message_;
 	};
 
-	class PASTELSYS BinaryFile
+	class BinaryFile
 	{
 	public:
 		BinaryFile();
@@ -85,9 +86,11 @@ namespace Pastel
 		bool littleEndian_;
 	};
 
-	PASTELSYS void binaryLittleEndian(BinaryFile& file);
-	PASTELSYS void binaryBigEndian(BinaryFile& file);
+	void binaryLittleEndian(BinaryFile& file);
+	void binaryBigEndian(BinaryFile& file);
 
 }
+
+#include "pastel/sys/binaryfile.hpp"
 
 #endif
