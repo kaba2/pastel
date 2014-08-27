@@ -1,4 +1,4 @@
-// Description: MeasureTable class
+// Description: Measure table
 // Detail: Stores values and the visual design of a table.
 
 #ifndef PASTELSYS_MEASURETABLE_H
@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	class PASTELSYS MeasureTable
+	class MeasureTable
 	{
 	public:
 		enum class Alignment : integer
@@ -81,5 +81,10 @@ namespace Pastel
 	};
 
 }
+
+#include "pastel/sys/measuretable.hpp"
+
+#include "pastel/sys/measuretable_print_latex.h"
+#include "pastel/sys/measuretable_print_pretty.h"
 
 #endif

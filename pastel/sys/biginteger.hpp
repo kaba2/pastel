@@ -1,3 +1,6 @@
+#ifndef PASTELSYS_BIGINTEGER_HPP
+#define PASTELSYS_BIGINTEGER_HPP
+
 #include "pastel/sys/biginteger.h"
 #include "pastel/sys/ensure.h"
 

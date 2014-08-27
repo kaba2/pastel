@@ -4,7 +4,7 @@
 #define PASTELSYS_REPORTING_H
 
 #include "pastel/sys/logging.h"
-#include "pastel/sys/measuretable_tools.h"
+#include "pastel/sys/measuretable.h"
 #include "pastel/sys/progress.h"
 
 #endif
