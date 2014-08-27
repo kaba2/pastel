@@ -62,4 +62,6 @@ namespace Pastel
 
 }
 
+#include "pastel/sys/testrunner.hpp"
+
 #endif
