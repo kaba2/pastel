@@ -215,6 +215,7 @@ namespace Pastel
 #include "pastel/sys/native_real.h"
 #include "pastel/sys/predicates.h"
 #include "pastel/sys/range.h"
+#include "pastel/sys/type_checks.h"
 
 #include "pastel/sys/mytypes.hpp"
 
