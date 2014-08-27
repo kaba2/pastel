@@ -1,9 +1,0 @@
-Prime numbers
-=============
-
-[[Parent]]: integers.txt
-
-A _prime number_ is a non-negative integer which is divisible only
-by 1 and itself, excluding the number 1. The fundamental theorem of 
-arithmetic states that every integer greater than 1 can be factorized 
-uniquely into a product of primes.

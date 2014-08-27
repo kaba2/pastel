@@ -1,11 +1,9 @@
-// Description: Logger class
-// Detail: An abstract base class for reporting logging information
-// Documentation: loggers.txt
-
 #ifndef PASTELSYS_LOGGER_H
 #define PASTELSYS_LOGGER_H
 
 #include "pastel/sys/syslibrary.h"
+#include "pastel/sys/logger_fwd.h"
+#include "pastel/sys/log.h"
 
 #include <string>
 #include <unordered_set>
@@ -13,48 +11,41 @@
 namespace Pastel
 {
 
-	class PASTELSYS Log;
-
-	class PASTELSYS Logger
+	Logger::~Logger()
 	{
-	public:
-		// Using default constructor.
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
+		Log_ConstIterator iter = logSet_.begin();
+		Log_ConstIterator iterEnd = logSet_.end();
+		while(iter != iterEnd)
+		{
+			Log_ConstIterator next = iter;
+			++next;
 
-		virtual ~Logger();
+			// The current iterator 'iter'
+			// will be erased.
 
-		void swap(Logger& that);
+			Log* log = *iter;
+			log->removeLogger(this);
 
-		//! Write a string.
-		virtual Logger& operator<<(
-			const std::string& value) = 0;
+			iter = next;
+		}
+	}
 
-		//! Frees any resources.
-		/*!
-		This is called, for example, before aborting
-		program execution via an assertion. With this
-		function the logger has the chance to close 
-		a file or flush the contents of a stream.
-		*/
-		virtual void finalize() = 0;
+	void Logger::swap(Logger& that)
+	{
+		logSet_.swap(that.logSet_);
+	}
 
-	private:
-		friend class Log;
-		
-		//! Add a log to the set of observer logs.
-		void addLog(Log* log);
-		//! Remove a log from the set of observed logs.
-		void removeLog(Log* log);
+	void Logger::addLog(Log* log)
+	{
+		ASSERT(log);
+		logSet_.insert(log);
+	}
 
-		using LogSet = std::unordered_set<Log*>;
-		using Log_Iterator = LogSet::iterator;
-		using Log_ConstIterator = LogSet::const_iterator;
-
-		//! The set of observer logs.
-		LogSet logSet_;
-	};
+	void Logger::removeLog(Log* log)
+	{
+		ASSERT(log);
+		logSet_.erase(log);
+	}
 
 }
 

@@ -6,14 +6,14 @@
 #define PASTELSYS_LOG_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/logger.h"
+#include "pastel/sys/logger_fwd.h"
 
 #include <set>
 
 namespace Pastel
 {
 
-	class PASTELSYS Log
+	class Log
 		: public Logger
 	{
 	public:

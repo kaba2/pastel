@@ -4,20 +4,34 @@
 #ifndef PASTELGEOMETRY_SPHERE_AREA_H
 #define PASTELGEOMETRY_SPHERE_AREA_H
 
-#include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/sphere.h"
 
 namespace Pastel
 {
 
-	PASTELGEOMETRY real areaUnitSphere(integer dimension);
+	//! The natural logarithm of the area of the Euclidean unit sphere.
+	/*!
+	Preconditions:
+	n > 0
 
-	template <typename Real, int N>
-	Real areaUnitSphere();
+	n:
+	The dimension of the ambient space.
+	*/
+	template <typename Real>
+	Real lnAreaUnitSphere(integer n);
 
-	template <typename Real, int N>
-	Real areaUnitSphere(integer dimension);
+	//! The area of the Euclidean unit sphere.
+	/*!
+	Preconditions:
+	n > 0
 
+	n:
+	The dimension of the ambient space.
+	*/
+	template <typename Real>
+	Real areaUnitSphere(integer n);
+
+	//! The area of the Euclidean unit sphere.
 	template <typename Real, int N>
 	Real area(const Sphere<Real, N>& sphere);
 
