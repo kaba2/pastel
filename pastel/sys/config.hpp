@@ -7,6 +7,68 @@
 namespace Pastel
 {
 
+	inline Config& Config::operator=(const Config& that)
+	{
+		Config copy(that);
+		swap(copy);
+		return *this;
+	}
+
+	inline Config& Config::operator+=(const Config& that)
+	{
+		ConstIterator iter = that.begin();
+		ConstIterator iterEnd = that.end();
+
+		while(iter != iterEnd)
+		{
+			if (created(iter->first))
+			{
+				erase(iter->first);
+			}
+
+			data_.insert(*iter);
+
+			++iter;
+		}
+
+		return *this;
+	}
+
+	inline void Config::swap(Config& that)
+	{
+		data_.swap(that.data_);
+	}
+
+	inline void Config::clear()
+	{
+		data_.clear();
+	}
+
+	inline Config::ConstIterator Config::begin() const
+	{
+		return data_.begin();
+	}
+
+	inline Config::ConstIterator Config::end() const
+	{
+		return data_.end();
+	}
+
+	inline bool Config::created(const std::string& key) const
+	{
+		return data_.find(key) != data_.end();
+	}
+
+	inline integer Config::properties() const
+	{
+		return data_.size();
+	}
+
+	inline void Config::erase(const std::string& key)
+	{
+		data_.erase(key);
+	}
+
 	template <typename Type>
 	bool Config::ofType(const ConstIterator& iter) const
 	{

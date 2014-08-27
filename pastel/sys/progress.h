@@ -63,4 +63,6 @@ namespace Pastel
 
 }
 
+#include "pastel/sys/progress.hpp"
+
 #endif

@@ -1,9 +1,12 @@
+#ifndef PASTELSYS_PROGRESS_HPP
+#define PASTELSYS_PROGRESS_HPP
+
 #include "pastel/sys/progress.h"
 
 namespace Pastel
 {
 
-	Progress::Progress(
+	inline Progress::Progress(
 		integer steps,
 		const std::string& name,
 		real reportDelayInSeconds)
@@ -16,7 +19,7 @@ namespace Pastel
 		ENSURE_OP(steps, >, 0);
 	}
 	
-	void Progress::swap(Progress& that)
+	inline void Progress::swap(Progress& that)
 	{
 		name_.swap(that.name_);
 		std::swap(step_, that.step_);
@@ -25,7 +28,7 @@ namespace Pastel
 		std::swap(reportDelay_, that.reportDelay_);
 	}
 
-	void Progress::report()
+	inline void Progress::report()
 	{
 		++step_;
 		std::clock_t currentTime = std::clock();
@@ -44,31 +47,33 @@ namespace Pastel
 		}
 	}
 
-	void Progress::setReportDelay(real reportDelay)
+	inline void Progress::setReportDelay(real reportDelay)
 	{
 		ENSURE_OP(reportDelay, >, 0);
 
 		reportDelay_ = reportDelay;
 	}
 
-	real Progress::reportDelay() const
+	inline real Progress::reportDelay() const
 	{
 		return reportDelay_;
 	}
 
-	const std::string& Progress::name() const
+	inline const std::string& Progress::name() const
 	{
 		return name_;
 	}
 
-	integer Progress::steps() const
+	inline integer Progress::steps() const
 	{
 		return steps_;
 	}
 
-	integer Progress::step() const
+	inline integer Progress::step() const
 	{
 		return step_;
 	}
 
 }
+
+#endif
