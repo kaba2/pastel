@@ -1,3 +1,6 @@
+#ifndef PASTELSYS_TESTRUNNER_HPP
+#define PASTELSYS_TESTRUNNER_HPP
+
 #include "pastel/sys/testrunner.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
@@ -5,34 +8,31 @@
 
 #include <vector>
 #include <iostream>
-using std::cout;
-using std::endl;
-
 #include <string>
 
 namespace Pastel
 {
 
-	TestRunner::TestRunner()
+	inline TestRunner::TestRunner()
 		: functionSet_()
 		, name_("Unnamed")
 	{
 	}
 
-	TestRunner::TestRunner(const std::string& name)
+	inline TestRunner::TestRunner(const std::string& name)
 		: functionSet_()
 		, name_(name)
 	{
 	}
 
-	void TestRunner::add(
+	inline void TestRunner::add(
 		const std::string& key,
 		Function function)
 	{
 		functionSet_.insert(std::make_pair(key, function));
 	}
 
-	void TestRunner::run() const
+	inline void TestRunner::run() const
 	{
 		log() << "Testing " << name_ << "..."
 			<< logNewLine << logNewLine;
@@ -49,7 +49,7 @@ namespace Pastel
 		//	<< logNewLine << logNewLine;
 	}
 
-	void TestRunner::run(
+	inline void TestRunner::run(
 		const ConstIterator& iter) const
 	{
 		if (iter == functionSet_.end())
@@ -81,7 +81,7 @@ namespace Pastel
 		}
 	}
 
-	bool TestRunner::run(
+	inline bool TestRunner::run(
 		const std::string& key) const
 	{
 		bool result = false;
@@ -96,7 +96,7 @@ namespace Pastel
 		return result;
 	}
 
-	bool TestRunner::runPrefix(
+	inline bool TestRunner::runPrefix(
 		const std::string& key) const
 	{
 		bool result = false;
@@ -116,24 +116,24 @@ namespace Pastel
 		return result;
 	}
 
-	void TestRunner::clear()
+	inline void TestRunner::clear()
 	{
 		functionSet_.clear();
 	}
 
-	void TestRunner::help() const
+	inline void TestRunner::help() const
 	{
-		cout << name_ << " test suite" << endl;
-		cout << endl;
-		cout << "'quit' to quit." << endl;
-		cout << "'help' to print this text." << endl;
-		cout << "'all' to run all tests." << endl;
-		cout << "'prefix' to add a prefix to typed names." << endl;
-		cout << "'' to list available tests." << endl;
-		cout << "Specifying a name runs all the tests that have that name as a prefix." << endl;
+		std::cout << name_ << " test suite" << std::endl;
+		std::cout << std::endl;
+		std::cout << "'quit' to quit." << std::endl;
+		std::cout << "'help' to print this text." << std::endl;
+		std::cout << "'all' to run all tests." << std::endl;
+		std::cout << "'prefix' to add a prefix to typed names." << std::endl;
+		std::cout << "'' to list available tests." << std::endl;
+		std::cout << "Specifying a name runs all the tests that have that name as a prefix." << std::endl;
 	}
 
-	void TestRunner::console() const
+	inline void TestRunner::console() const
 	{
 		help();
 
@@ -142,7 +142,7 @@ namespace Pastel
 		bool quit = false;
 		while (!quit)
 		{
-			cout << prefix << "> ";
+			std::cout << prefix << "> ";
 			std::string input;
 			std::getline(std::cin, input);
 
@@ -177,22 +177,24 @@ namespace Pastel
 				bool result = runPrefix(prefix + trimmedInput);
 				if (!result)
 				{
-					cout << "No such keyword or test(s) found." << endl;
+					std::cout << "No such keyword or test(s) found." << std::endl;
 				}
 			}
 		}
 	}
 
-	void TestRunner::printTests() const
+	inline void TestRunner::printTests() const
 	{
 		ConstIterator iter(functionSet_.begin());
 		ConstIterator iterEnd(functionSet_.end());
 		while (iter != iterEnd)
 		{
-			cout << iter->first << endl;
+			std::cout << iter->first << std::endl;
 
 			++iter;
 		}
 	}
 
 }
+
+#endif
