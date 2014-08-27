@@ -15,38 +15,38 @@
 // Reports
 
 #define REPORT(expr)\
-	((expr) && (Pastel::Detail::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__), true))
+	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__), true))
 
 #define REPORT1(expr, a)\
-	((expr) && (Pastel::Detail::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a)), true))
+	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a)), true))
 
 #define REPORT2(expr, a, b)\
-	((expr) && (Pastel::Detail::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b)), true))
+	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b)), true))
 
 #define REPORT3(expr, a, b, c)\
-	((expr) && (Pastel::Detail::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c)), true))
+	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c)), true))
 
 #define REPORT4(expr, a, b, c, d)\
-	((expr) && (Pastel::Detail::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d)), true))
+	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d)), true))
 
 #define REPORT_OP(x, op, y) REPORT2(x op y, x, y)
 
 // Errors
 
 #define ENSURE(expr)\
-{if (!(expr)) {Pastel::Detail::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__);}}
+{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__);}}
 
 #define ENSURE1(expr, a)\
-{if (!(expr)) {Pastel::Detail::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a));}}
+{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a));}}
 
 #define ENSURE2(expr, a, b)\
-{if (!(expr)) {Pastel::Detail::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
+{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
 
 #define ENSURE3(expr, a, b, c)\
-{if (!(expr)) {Pastel::Detail::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
+{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
 
 #define ENSURE4(expr, a, b, c, d)\
-{if (!(expr)) {Pastel::Detail::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
+{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
 #define ENSURE_OP(x, op, y) ENSURE2(x op y, x, y)
 
@@ -77,19 +77,19 @@
 #if defined(DEBUG) || defined(_DEBUG)
 
 #define ASSERT(expr)\
-{if (!(expr)) {Pastel::Detail::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__);}}
+{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__);}}
 
 #define ASSERT1(expr, a)\
-{if (!(expr)) {Pastel::Detail::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a));}}
+{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a));}}
 
 #define ASSERT2(expr, a, b)\
-{if (!(expr)) {Pastel::Detail::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
+{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
 
 #define ASSERT3(expr, a, b, c)\
-{if (!(expr)) {Pastel::Detail::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
+{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
 
 #define ASSERT4(expr, a, b, c, d)\
-{if (!(expr)) {Pastel::Detail::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
+{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
 #define ASSERT_OP(x, op, y) ASSERT2(x op y, x, y)
 
@@ -128,7 +128,7 @@ namespace Pastel
 	//! Returns the current invariant failure action.
 	InvariantFailureAction invariantFailureAction();
 
-	namespace Detail
+	namespace Ensure_
 	{
 
 		// Prints a report message. Used by REPORT macros.

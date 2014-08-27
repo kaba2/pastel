@@ -2,6 +2,7 @@
 #define PASTELSYS_BITMASK_HPP
 
 #include "pastel/sys/bitmask.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {

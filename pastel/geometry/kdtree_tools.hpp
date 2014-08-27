@@ -24,7 +24,7 @@ namespace Pastel
 		return (real)1.3 * (real)integerLog2(objects + 1) + (real)8.0;
 	}
 
-	namespace Detail
+	namespace KdTree_
 	{
 
 		template <typename Real, int N, typename ObjectPolicy>
@@ -47,10 +47,10 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	integer depth(const KdTree<Real, N, ObjectPolicy>& tree)
 	{
-		return Detail::depth(tree, tree.root(), 0);
+		return KdTree_::depth(tree, tree.root(), 0);
 	}
 
-	namespace Detail
+	namespace KdTree_
 	{
 
 		template <typename Real, int N, typename ObjectPolicy>
@@ -117,7 +117,7 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	bool check(const KdTree<Real, N, ObjectPolicy>& tree)
 	{
-		return Detail::check(tree, tree.root(), tree.bound());
+		return KdTree_::check(tree, tree.root(), tree.bound());
 	}
 
 	namespace Equivalent_KdTree

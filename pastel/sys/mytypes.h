@@ -209,7 +209,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/ensure.h"
 #include "pastel/sys/native_integer.h"
 #include "pastel/sys/native_real.h"
 #include "pastel/sys/predicates.h"

@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	namespace Detail
+	namespace ImageEroding_
 	{
 
 		namespace Erode
@@ -64,7 +64,7 @@ namespace Pastel
 		{
 			for (integer x = 0;x < width;++x)
 			{
-				output(x, y) = Detail::Erode::contains(input, element, x - xPivot, y - yPivot);
+				output(x, y) = ImageEroding_::Erode::contains(input, element, x - xPivot, y - yPivot);
 			}
 		}
 	}
