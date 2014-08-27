@@ -5,7 +5,6 @@
 #ifndef PASTELGFX_COLOR_LAB_H
 #define PASTELGFX_COLOR_LAB_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
 
 namespace Pastel

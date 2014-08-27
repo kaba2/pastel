@@ -21,7 +21,7 @@ namespace Pastel
 
 	}
 
-	PASTELGFX integer pixelNeighbours(
+	integer pixelNeighbours(
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
@@ -70,7 +70,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELGFX uint32 pixelNeighbourMask(
+	uint32 pixelNeighbourMask(
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{

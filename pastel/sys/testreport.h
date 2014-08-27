@@ -15,7 +15,7 @@ namespace Pastel
 {
 
 	//! Stores error reports from unit tests.
-	class PASTELSYS TestReport
+	class TestReport
 	{
 	public:
 		class ParameterInfo
@@ -228,7 +228,7 @@ namespace Pastel
 		integer totalErrors_;
 	};
 
-	PASTELSYS void generateTestReport(
+	void generateTestReport(
 		const TestReport& testReport,
 		Log& output);
 

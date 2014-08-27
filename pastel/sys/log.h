@@ -53,7 +53,7 @@ namespace Pastel
 		LoggerSet loggerSet_;
 	};
 
-	PASTELSYS Log& log();
+	Log& log();
 
 	inline void logNewLine(Log& log)
 	{

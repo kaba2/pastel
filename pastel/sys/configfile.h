@@ -5,7 +5,6 @@
 #define PASTELSYS_CONFIGFILE_H
 
 #include "pastel/sys/config.h"
-#include "pastel/sys/syslibrary.h"
 
 #include <string>
 
@@ -19,12 +18,12 @@ namespace Pastel
 		All,
 	};
 
-	PASTELSYS bool loadConfig(
+	bool loadConfig(
 		const std::string& fileName,
 		Config& configResult,
 		LoadConfig_Echo echoPolicy = LoadConfig_Echo::None);
 
-	PASTELSYS bool saveConfig(
+	bool saveConfig(
 		const Config& config,
 		const std::string& fileName);
 

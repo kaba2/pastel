@@ -61,7 +61,7 @@ namespace Pastel
 
 	}
 
-	PASTELGFX bool saveBinaryPcx(
+	bool saveBinaryPcx(
 		const ConstAbstractArray<2, bool>& image,
 		const std::string& fileName)
 	{
@@ -160,7 +160,7 @@ namespace Pastel
 		return true;
 	}
 
-	PASTELGFX bool saveBinaryPcx(
+	bool saveBinaryPcx(
 		const Array<bool, 2>& image,
 		const std::string& fileName)
 	{
@@ -168,7 +168,7 @@ namespace Pastel
 		return saveBinaryPcx(image, fileName, adapter);
 	}
 
-	PASTELGFX bool saveIndexedPcx(
+	bool saveIndexedPcx(
 		const ConstAbstractArray<2, uint8>& image,
 		const std::vector<Color>& colorPalette,
 		const std::string& fileName)
@@ -282,7 +282,7 @@ namespace Pastel
 		return true;
 	}
 
-	PASTELGFX bool saveIndexedPcx(
+	bool saveIndexedPcx(
 		const Array<uint8, 2>& image,
 		const std::vector<Color>& palette,
 		const std::string& fileName)
@@ -291,7 +291,7 @@ namespace Pastel
 		return saveIndexedPcx(image, palette, fileName, adapter);
 	}
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const ConstAbstractArray<2, Color>& image,
 		const std::string& fileName)
 	{
@@ -366,7 +366,7 @@ namespace Pastel
 		return true;
 	}
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const Array<uint32, 2>& image,
 		const std::string& fileName)
 	{
@@ -374,7 +374,7 @@ namespace Pastel
 		return savePcx(image, fileName, adapter);
 	}
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const Array<uint16, 2>& image,
 		const std::string& fileName)
 	{
@@ -382,7 +382,7 @@ namespace Pastel
 		return savePcx(image, fileName, adapter);
 	}
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const Array<Color, 2>& image,
 		const std::string& fileName)
 	{
@@ -390,7 +390,7 @@ namespace Pastel
 		return savePcx(image, fileName, adapter);
 	}
 
-	PASTELGFX bool savePcx(
+	bool savePcx(
 		const Array<ByteColor, 2>& image,
 		const std::string& fileName)
 	{

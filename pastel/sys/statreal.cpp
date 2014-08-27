@@ -6,7 +6,7 @@ namespace Pastel
 	namespace StatReal
 	{
 
-		PASTELSYS GlobalStats& globalStats()
+		GlobalStats& globalStats()
 		{
 			static GlobalStats theGlobalStats;
 			return theGlobalStats;

@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	PASTELGFX void branchingNumber(
+	void branchingNumber(
 		const Array<bool, 2>& image,
 		Array<int32, 2>& numberImage)
 	{
@@ -367,7 +367,7 @@ namespace Pastel
 		result.swap(numberImage);
 	}
 
-	PASTELGFX integer branchingNumber(
+	integer branchingNumber(
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
@@ -400,7 +400,7 @@ namespace Pastel
 		return result;
 	}
 
-	PASTELGFX uint32 branchingMask(
+	uint32 branchingMask(
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{

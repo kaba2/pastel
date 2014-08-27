@@ -5,7 +5,6 @@
 #ifndef PASTELGFX_COLOR_SRGB_H
 #define PASTELGFX_COLOR_SRGB_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
 
 #include "pastel/math/matrix.h"

@@ -4,7 +4,6 @@
 #define PASTELMATH_QUATERNION_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/math/mathlibrary.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel

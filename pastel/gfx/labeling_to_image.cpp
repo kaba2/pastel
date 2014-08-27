@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	PASTELGFX void labelToImage(
+	void labelToImage(
 		const Array<int32, 2>& labelImage,
 		Array<uint8, 2>& image)
 	{

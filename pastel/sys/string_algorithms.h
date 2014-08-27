@@ -4,7 +4,6 @@
 #ifndef PASTELSYS_STRING_ALGORITHMS_H
 #define PASTELSYS_STRING_ALGORITHMS_H
 
-#include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"
 
 #include <string>
@@ -14,47 +13,47 @@ namespace Pastel
 {
 
 	//! Returns whether the given string begins with another string.
-	PASTELSYS bool startsWith(const std::string& text, const std::string& prologue);
+	bool startsWith(const std::string& text, const std::string& prologue);
 
 	//! Converts alphabets to lowercase in-place.
-	PASTELSYS std::string& makeLowercase(std::string& text);
+	std::string& makeLowercase(std::string& text);
 
 	//! Converts alphabets to lowercase.
-	PASTELSYS std::string lowercase(const std::string& text);
+	std::string lowercase(const std::string& text);
 	
 	//! Converts alphabets to uppercase in-place.
-	PASTELSYS std::string& makeUppercase(std::string& text);
+	std::string& makeUppercase(std::string& text);
 
 	//! Converts alphabets to uppercase.
-	PASTELSYS std::string uppercase(const std::string& text);
+	std::string uppercase(const std::string& text);
 
 	//! Concatenates a string with itself 'times' times.
 	/*!
 	Preconditions:
 	times >= 0
 	*/
-	PASTELSYS std::string repeat(const std::string& that, integer times);
+	std::string repeat(const std::string& that, integer times);
 
 	//! Removes white-space from the beginning.
-	PASTELSYS std::string ltrim(const std::string& that, 
+	std::string ltrim(const std::string& that, 
 		integer* indexBegin = 0);
 
 	//! Removes white-space from the end.
-	PASTELSYS std::string rtrim(const std::string& that, 
+	std::string rtrim(const std::string& that, 
 		integer* indexEnd = 0);
 
 	//! Removes white-space from the ends.
-	PASTELSYS std::string trim(const std::string& that, 
+	std::string trim(const std::string& that, 
 		integer* indexBegin = 0, integer* indexEnd = 0);
 
 	//! Returns the first word of the string.
-	PASTELSYS std::string firstWord(const std::string& that);
+	std::string firstWord(const std::string& that);
 
 	//! Removes all white-space from the string.
-	PASTELSYS std::string removeWhiteSpace(const std::string& that);
+	std::string removeWhiteSpace(const std::string& that);
 
 	//! Collects begin- and end-symbol separated words.
-	PASTELSYS bool separateBlocks(const std::string& that,
+	bool separateBlocks(const std::string& that,
 		char beginSymbol, char endSymbol,
 		std::vector<std::string>& blocks);
 
@@ -63,7 +62,7 @@ namespace Pastel
 	Time complexity: linear
 	Exception safety: strong
 	*/
-	PASTELSYS void getWords(const std::string& sentence,
+	void getWords(const std::string& sentence,
 		std::vector<std::string>& words);
 
 	//! Converts a string to an integer.
@@ -71,7 +70,7 @@ namespace Pastel
 	Time complexity: linear
 	Exception safety: strong
 	*/
-	PASTELSYS integer stringToInteger(const std::string& text);
+	integer stringToInteger(const std::string& text);
 
 	//! Converts a string to a real number.
 	/*!
@@ -83,7 +82,7 @@ namespace Pastel
 	-inf: -infinity<real>()
 	nan, +nan, -nan: nan<real>()	
 	*/
-	PASTELSYS real stringToReal(const std::string& text, 
+	real stringToReal(const std::string& text, 
 		integer* indexEnd = 0);
 
 	//! Converts an integer to a string.
@@ -109,11 +108,11 @@ namespace Pastel
 	If the integer is longer than allowed digits, the
 	digits from the left end are thrown away.
 	*/
-	PASTELSYS std::string integerToString(integer number,
+	std::string integerToString(integer number,
 		integer digits = -1, char padding = '0');
 
 	//! Converts a real number to a string.
-	PASTELSYS std::string realToString(real number, integer digits = -1);
+	std::string realToString(real number, integer digits = -1);
 
 }
 

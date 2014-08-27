@@ -6,7 +6,6 @@
 
 #include "pastel/sys/mytypes.h"
 
-#include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/alignedbox.h"
 
 #include "pastel/math/matrix.h"

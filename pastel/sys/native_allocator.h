@@ -5,7 +5,6 @@
 #define PASTELSYS_NATIVE_ALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 
 #include <boost/operators.hpp>
 
@@ -14,7 +13,7 @@ namespace Pastel
 
 	//! A uniform allocator wrapper for new and delete.
 
-	class PASTELSYS NativeAllocator
+	class NativeAllocator
 		: boost::equality_comparable<
 		NativeAllocator
 		, boost::less_than_comparable<

@@ -5,8 +5,6 @@
 #ifndef PASTELSYS_TESTRUNNER_H
 #define PASTELSYS_TESTRUNNER_H
 
-#include "pastel/sys/syslibrary.h"
-
 #include <map>
 #include <string>
 
@@ -15,7 +13,7 @@ namespace Pastel
 
 	//! Stores test functions to be run as a batch or from a console.
 
-	class PASTELSYS TestRunner
+	class TestRunner
 	{
 	public:
 		typedef void (*Function)();

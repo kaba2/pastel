@@ -4,7 +4,6 @@
 #define PASTELSYS_STATREAL_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 #include "pastel/sys/vector.h"
 
 #include <boost/operators.hpp>
@@ -107,7 +106,7 @@ namespace Pastel
 			integer destructed_;
 		};
 
-		PASTELSYS GlobalStats& globalStats();
+		GlobalStats& globalStats();
 
 		template <typename Real>
 		class Number

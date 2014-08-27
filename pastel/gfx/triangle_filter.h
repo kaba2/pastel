@@ -5,7 +5,6 @@
 #ifndef PASTELGFX_TRIANGLE_FILTER_H
 #define PASTELGFX_TRIANGLE_FILTER_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"
 
 #include <cmath>
@@ -13,7 +12,7 @@
 namespace Pastel
 {
 
-	class PASTELGFX Triangle_Filter
+	class Triangle_Filter
 		: public Filter
 	{
 	public:

@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	PASTELGFX integer labelWithBoxes(
+	integer labelWithBoxes(
 		const Array<bool, 2>& image,
 		integer maxWidth,
 		integer maxHeight,

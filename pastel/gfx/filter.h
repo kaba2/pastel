@@ -5,8 +5,6 @@
 #ifndef PASTELGFX_FILTER_H
 #define PASTELGFX_FILTER_H
 
-#include "pastel/gfx/gfxlibrary.h"
-
 #include "pastel/sys/mytypes.h"
 
 #include <memory>

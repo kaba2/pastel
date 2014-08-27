@@ -5,7 +5,6 @@
 #ifndef PASTELGFX_TABLE_FILTER_H
 #define PASTELGFX_TABLE_FILTER_H
 
-#include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"
 
 #include "pastel/sys/array.h"

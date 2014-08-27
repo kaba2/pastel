@@ -4,8 +4,6 @@
 #ifndef PASTELSYS_REFERENCECOUNTED_H
 #define PASTELSYS_REFERENCECOUNTED_H
 
-#include "pastel/sys/syslibrary.h"
-
 namespace Pastel
 {
 
@@ -16,7 +14,7 @@ namespace Pastel
 	simply includes a counter that the CountedPtr implementation
 	increases and decreases.
 	*/
-	class PASTELSYS ReferenceCounted
+	class ReferenceCounted
 	{
 	private:
 		template <typename> friend class CountedPtr;

@@ -14,13 +14,13 @@ namespace Pastel
 
 	}
 
-	PASTELSYS void setInvariantFailureAction(
+	void setInvariantFailureAction(
 		InvariantFailureAction action)
 	{
 		currentInvariantFailureAction = action;
 	}
 
-	PASTELSYS InvariantFailureAction invariantFailureAction()
+	InvariantFailureAction invariantFailureAction()
 	{
 		return currentInvariantFailureAction;
 	}
@@ -51,7 +51,7 @@ namespace Pastel
 			};
 		}
 
-		PASTELSYS void report(
+		void report(
 			const char* testText,
 			const char* functionName,
 			const char* fileName, int lineNumber,
@@ -136,7 +136,7 @@ namespace Pastel
 			log() << logNewLine << logNewLine;
 		}
 
-		PASTELSYS void error(
+		void error(
 			const char* testText,
 			const char* functionName,
 			const char* fileName, int lineNumber,
@@ -160,7 +160,7 @@ namespace Pastel
 			invariantFailure();
 		}
 
-		PASTELSYS void assertionError(
+		void assertionError(
 			const char* testText,
 			const char* functionName,
 			const char* fileName, int lineNumber,

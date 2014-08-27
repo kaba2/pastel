@@ -2,7 +2,6 @@
 #define PASTELSYS_RANDOM_UNIFORM_HPP
 
 #include "pastel/sys/random_uniform.h"
-#include "pastel/sys/syslibrary.h"
 #include "pastel/sys/random_integer.h"
 
 namespace Pastel

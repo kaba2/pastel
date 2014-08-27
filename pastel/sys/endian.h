@@ -4,7 +4,6 @@
 #define PASTELSYS_ENDIAN_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syslibrary.h"
 
 namespace Pastel
 {

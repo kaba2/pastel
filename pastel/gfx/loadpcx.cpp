@@ -212,7 +212,7 @@ namespace Pastel
 
 	}
 
-	PASTELGFX bool loadIndexedPcx(
+	bool loadIndexedPcx(
 		const std::string& fileName,
 		AbstractArray<2, uint8>& image,
 		std::vector<Color>* colorPalette)
@@ -424,7 +424,7 @@ namespace Pastel
 		return true;
 	}
 
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		AbstractArray<2, Color>& image)
 	{
@@ -643,7 +643,7 @@ namespace Pastel
 		return true;
 	}
 
-	PASTELGFX bool loadIndexedPcx(
+	bool loadIndexedPcx(
 		const std::string& fileName,
 		Array<bool, 2>& image,
 		std::vector<Color>* colorPalette)
@@ -652,7 +652,7 @@ namespace Pastel
 		return loadIndexedPcx(fileName, image, adapter, colorPalette);
 	}
 
-	PASTELGFX bool loadIndexedPcx(
+	bool loadIndexedPcx(
 		const std::string& fileName,
 		Array<uint8, 2>& image,
 		std::vector<Color>* colorPalette)
@@ -661,7 +661,7 @@ namespace Pastel
 		return loadIndexedPcx(fileName, image, adapter, colorPalette);
 	}
 
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<Color, 2>& image)
 	{
@@ -669,7 +669,7 @@ namespace Pastel
 		return loadPcx(fileName, image, adapter);
 	}
 
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<real32>& image)
 	{
@@ -677,7 +677,7 @@ namespace Pastel
 		return loadPcx(fileName, image, adapter);
 	}
 
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<ByteColor, 2>& image)
 	{
@@ -685,7 +685,7 @@ namespace Pastel
 		return loadPcx(fileName, image, adapter);
 	}
 
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<uint32, 2>& image)
 	{
@@ -693,7 +693,7 @@ namespace Pastel
 		return loadPcx(fileName, image, adapter);
 	}
 
-	PASTELGFX bool loadPcx(
+	bool loadPcx(
 		const std::string& fileName,
 		Array<uint16, 2>& image)
 	{
