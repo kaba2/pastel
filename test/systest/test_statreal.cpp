@@ -3,8 +3,8 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/statreal_tools.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/statreal.h"
+#include "pastel/sys/vector.h"
 
 #include <iostream>
 
