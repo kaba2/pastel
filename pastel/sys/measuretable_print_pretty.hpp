@@ -1,4 +1,7 @@
-#include "pastel/sys/measuretable_tools.h"
+#ifndef PASTELSYS_MEASURETABLE_PRINT_PRETTY_HPP
+#define PASTELSYS_MEASURETABLE_PRINT_PRETTY_HPP
+
+#include "pastel/sys/measuretable_print_pretty.h"
 #include "pastel/sys/string_algorithms.h"
 
 #include <vector>
@@ -6,7 +9,7 @@
 namespace Pastel
 {
 
-	PASTELSYS void printPretty(
+	inline void printPretty(
 		const MeasureTable& measureTable,
 		std::ostream& stream)
 	{
@@ -119,7 +122,7 @@ namespace Pastel
 		stream << measureTable.caption() << std::endl;
 	}
 
-	PASTELSYS void printLatex(
+	inline void printLatex(
 		const MeasureTable& measureTable,
 		std::ostream& stream)
 	{
@@ -197,3 +200,5 @@ namespace Pastel
 	}
 
 }
+
+#endif
