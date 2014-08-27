@@ -27,4 +27,6 @@ namespace Pastel
 
 }
 
+#include "pastel/gfx/labeling_to_image.hpp"
+
 #endif
