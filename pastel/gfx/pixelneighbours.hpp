@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_PIXELNEIGHBOURS_HPP
+#define PASTELGFX_PIXELNEIGHBOURS_HPP
+
 #include "pastel/gfx/pixelneighbours.h"
 #include "pastel/sys/ensure.h"
 
@@ -7,7 +10,7 @@ namespace Pastel
 	namespace
 	{
 
-		bool check(const Array<bool, 2>& image,
+		inline bool check(const Array<bool, 2>& image,
 			integer x, integer y)
 		{
 			if (x < 0 || x >= image.width() ||
@@ -21,7 +24,7 @@ namespace Pastel
 
 	}
 
-	integer pixelNeighbours(
+	inline integer pixelNeighbours(
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
@@ -70,7 +73,7 @@ namespace Pastel
 		return result;
 	}
 
-	uint32 pixelNeighbourMask(
+	inline uint32 pixelNeighbourMask(
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
@@ -120,3 +123,5 @@ namespace Pastel
 	}
 
 }
+
+#endif

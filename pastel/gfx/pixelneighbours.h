@@ -20,4 +20,6 @@ namespace Pastel
 
 }
 
+#include "pastel/gfx/pixel_neighbours.hpp"
+
 #endif

@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_LABELING_TO_IMAGE_HPP
+#define PASTELGFX_LABELING_TO_IMAGE_HPP
+
 #include "pastel/gfx/labeling_to_image.h"
 #include "pastel/gfx/color_tools.h"
 
@@ -6,7 +9,7 @@
 namespace Pastel
 {
 
-	void labelToImage(
+	inline void labelToImage(
 		const Array<int32, 2>& labelImage,
 		Array<uint8, 2>& image)
 	{
@@ -33,3 +36,5 @@ namespace Pastel
 	}
 
 }
+
+#endif
