@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	namespace Detail
+	namespace Endian_
 	{
 
 		template <integer Size>
@@ -72,7 +72,7 @@ namespace Pastel
 		if (!isLittleEndian())
 		{
 			Type result = 0;
-			Detail::swapByteOrder<sizeof(Type)>(
+			Endian_::swapByteOrder<sizeof(Type)>(
 				(const char*)&that, (char*)&result);
 			return result;
 		}
@@ -89,7 +89,7 @@ namespace Pastel
 		if (isLittleEndian())
 		{
 			Type result = 0;
-			Detail::swapByteOrder<sizeof(Type)>(
+			Endian_::swapByteOrder<sizeof(Type)>(
 				(const char*)&that, (char*)&result);
 			return result;
 		}

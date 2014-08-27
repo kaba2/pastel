@@ -17,7 +17,7 @@
 namespace Pastel
 {
 
-	namespace Detail
+	namespace OverlapsSegments_
 	{
 
 		template <typename Real>
@@ -537,7 +537,7 @@ namespace Pastel
 		const std::vector<Vector<Real, 2> >& vertex,
 		const std::vector<Integer2>& segment)
 	{
-		Detail::OverlapSegments<Real> tester(vertex, segment);
+		OverlapsSegments_::OverlapSegments<Real> tester(vertex, segment);
 		return tester.compute();
 	}
 

@@ -171,7 +171,7 @@ namespace Pastel
 		}
 	};
 
-	namespace Detail
+	namespace KdTree_
 	{
 
 		template <typename Real, int N, typename ObjectPolicy>
@@ -408,7 +408,7 @@ namespace Pastel
 		ENSURE_OP(maxDepth, >=, 0);
 		ENSURE_OP(maxObjects, >=, 1);
 
-		Detail::refineSurfaceAreaHeuristic(
+		KdTree_::refineSurfaceAreaHeuristic(
 			tree.root(), 0, tree.bound(), maxDepth, maxObjects, 0, tree);
 	}
 

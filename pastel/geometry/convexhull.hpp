@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	namespace Detail
+	namespace ConvexHull_
 	{
 
 		namespace GrahamsScan
@@ -49,7 +49,7 @@ namespace Pastel
 
 		std::vector<Vector<Real, 2> > orderedSet(pointSet);
 		std::sort(orderedSet.begin(), orderedSet.end(),
-			Detail::GrahamsScan::ConvexHullPointCompare<Real>());
+			ConvexHull_::GrahamsScan::ConvexHullPointCompare<Real>());
 
 		using Container = std::vector<Vector<Real, 2> >;
 		typedef typename Container::iterator

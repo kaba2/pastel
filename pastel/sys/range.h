@@ -5,7 +5,6 @@
 #define PASTELSYS_RANGE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/ensure.h"
 
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/metafunctions.hpp>
