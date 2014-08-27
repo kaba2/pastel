@@ -12,7 +12,7 @@ namespace Pastel
 {
 
 	//! Allocates integer identifiers conservatively.
-	class PASTELSYS IndexAllocator
+	class IndexAllocator
 	{
 	public:
 		// Using default copy constructor

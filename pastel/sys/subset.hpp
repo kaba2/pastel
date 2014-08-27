@@ -1,16 +1,19 @@
+#ifndef PASTELSYS_SUBSET_HPP
+#define PASTELSYS_SUBSET_HPP
+
 #include "pastel/sys/subset.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
 
-	Subset::Subset()
+	inline Subset::Subset()
 		: data_()
 		, elements_()
 	{
 	}
 
-	Subset::Subset(integer size, integer elements)
+	inline Subset::Subset(integer size, integer elements)
 		: data_()
 		, elements_(elements)
 	{
@@ -21,13 +24,13 @@ namespace Pastel
 		setSize(size);
 	}
 
-	void Subset::swap(Subset& that)
+	inline void Subset::swap(Subset& that)
 	{
 		data_.swap(that.data_);
 		std::swap(elements_, that.elements_);
 	}
 
-	void Subset::first()
+	inline void Subset::first()
 	{
 		integer size = data_.size();
 		for (integer i = 0;i < size;++i)
@@ -36,7 +39,7 @@ namespace Pastel
 		}
 	}
 
-	bool Subset::next()
+	inline bool Subset::next()
 	{
 		integer size = data_.size();
 
@@ -80,7 +83,7 @@ namespace Pastel
 		return true;
 	}
 
-	void Subset::setSize(integer size)
+	inline void Subset::setSize(integer size)
 	{
 		ENSURE_OP(size, <=, elements_);
 
@@ -93,7 +96,7 @@ namespace Pastel
 		}
 	}
 
-	void Subset::setSize(integer size, integer elements)
+	inline void Subset::setSize(integer size, integer elements)
 	{
 		ENSURE_OP(size, >=, 0);
 		ENSURE_OP(elements, >=, 0);
@@ -103,22 +106,23 @@ namespace Pastel
 		setSize(size);
 	}
 
-	integer Subset::size() const
+	inline integer Subset::size() const
 	{
 		return data_.size();
 	}
 
-	integer Subset::elements() const
+	inline integer Subset::elements() const
 	{
 		return elements_;
 	}
 
-	integer Subset::operator[](integer index) const
+	inline integer Subset::operator[](integer index) const
 	{
 
 		PENSURE2(index >= 0 && index < size(), index, size());
 		return data_[index];
 	}
 
-
 }
+
+#endif

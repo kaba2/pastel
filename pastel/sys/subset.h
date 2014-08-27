@@ -14,7 +14,7 @@ namespace Pastel
 {
 
 	//! Iterates through all fixed-sized subsets of an integer interval.
-	class PASTELSYS Subset
+	class Subset
 	{
 	public:
 		Subset();
@@ -39,5 +39,7 @@ namespace Pastel
 	};
 
 }
+
+#include "pastel/sys/subset.hpp"
 
 #endif
