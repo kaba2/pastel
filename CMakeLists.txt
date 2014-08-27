@@ -60,7 +60,6 @@ option (BuildLibraries "Build Pastel's main libraries." ON)
 option (BuildMatlab "Build Pastel's Matlab-libraries." ON)
 option (BuildTests "Build Pastel's tests." ON)
 option (BuildExamples "Build Pastel's examples." ON)
-option (SharedLibraries "Produce shared libraries." OFF)
 
 # Force to use an out-of-source build
 # -----------------------------------
@@ -138,14 +137,6 @@ endforeach()
 # Pastel's global definitions
 # ---------------------------
 
-# Enable shared libraries if requested
-if (SharedLibraries)
-	add_definitions(
-		-DPASTEL_DYNAMIC_LIBRARIES
-	)	
-	set (PastelLibraryType SHARED)
-endif()
-	
 # Debug-mode definitions.
 set (CMAKE_CXX_FLAGS_DEBUG 
 	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG"
