@@ -29,4 +29,6 @@ namespace Pastel
 
 }
 
+#include "pastel/gfx/branching_number.hpp"
+
 #endif

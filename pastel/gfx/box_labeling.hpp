@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_BOX_LABELING_HPP
+#define PASTELGFX_BOX_LABELING_HPP
+
 #include "pastel/gfx/box_labeling.h"
 #include "pastel/gfx/drawing.h"
 
@@ -7,7 +10,7 @@
 namespace Pastel
 {
 
-	integer labelWithBoxes(
+	inline integer labelWithBoxes(
 		const Array<bool, 2>& image,
 		integer maxWidth,
 		integer maxHeight,
@@ -213,3 +216,5 @@ namespace Pastel
 	}
 
 }
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef PASTELGFX_BRANCHING_NUMBER_HPP
+#define PASTELGFX_BRANCHING_NUMBER_HPP
+
 #include "pastel/gfx/branching_number.h"
 #include "pastel/gfx/pixelneighbours.h"
 
@@ -6,7 +9,7 @@
 namespace Pastel
 {
 
-	void branchingNumber(
+	inline void branchingNumber(
 		const Array<bool, 2>& image,
 		Array<int32, 2>& numberImage)
 	{
@@ -367,7 +370,7 @@ namespace Pastel
 		result.swap(numberImage);
 	}
 
-	integer branchingNumber(
+	inline integer branchingNumber(
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
@@ -400,7 +403,7 @@ namespace Pastel
 		return result;
 	}
 
-	uint32 branchingMask(
+	inline uint32 branchingMask(
 		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
@@ -454,3 +457,5 @@ namespace Pastel
 	}
 
 }
+
+#endif
