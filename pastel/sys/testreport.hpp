@@ -1,3 +1,6 @@
+#ifndef PASTELSYS_TESTREPORT_HPP
+#define PASTELSYS_TESTREPORT_HPP
+
 #include "pastel/sys/testreport.h"
 #include "pastel/sys/log.h"
 
@@ -29,7 +32,7 @@ namespace Pastel
 		}
 	};
 
-	void generateTestReport(
+	inline void generateTestReport(
 		const TestReport& testReport,
 		Log& output)
 	{
@@ -124,3 +127,5 @@ namespace Pastel
 	}
 
 }
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef PASTELSYS_PCXHEADER_HPP
+#define PASTELSYS_PCXHEADER_HPP
+
 #include "pastel/gfx/pcxheader.h"
 #include "pastel/sys/endian.h"
 #include "pastel/sys/log.h"
@@ -5,7 +8,7 @@
 namespace Pastel
 {
 
-	PcxHeader::PcxHeader()
+	inline PcxHeader::PcxHeader()
 		: manufacturer_(0)
 		, version_(0)
 		, encoding_(0)
@@ -35,7 +38,7 @@ namespace Pastel
 		}
 	}
 
-	void PcxHeader::read(BinaryFile& input)
+	inline void PcxHeader::read(BinaryFile& input)
 	{
 		input << binaryLittleEndian;
 
@@ -64,7 +67,7 @@ namespace Pastel
 		input.read((int8*)reserved2_, Reserved2Size);
 	}
 
-	void PcxHeader::write(BinaryFile& output)
+	inline void PcxHeader::write(BinaryFile& output)
 	{
 		output << binaryLittleEndian
 			<< manufacturer_
@@ -91,14 +94,16 @@ namespace Pastel
 		output.write((int8*)reserved2_, Reserved2Size);
 	}
 
-	integer PcxHeader::width() const
+	inline integer PcxHeader::width() const
 	{
 		return (integer)((rightMargin_ - leftMargin_) + 1);
 	}
 
-	integer PcxHeader::height() const
+	inline integer PcxHeader::height() const
 	{
 		return (integer)((lowerMargin_ - upperMargin_) + 1);
 	}
 
 }
+
+#endif

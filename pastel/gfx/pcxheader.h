@@ -50,4 +50,6 @@ namespace Pastel
 
 }
 
+#include "pastel/gfx/pcxheader.hpp"
+
 #endif

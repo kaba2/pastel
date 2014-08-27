@@ -234,4 +234,6 @@ namespace Pastel
 
 }
 
+#include "pastel/sys/testreport.hpp"
+
 #endif
