@@ -3,7 +3,6 @@
 
 #include "pastel/sys/eps.h"
 #include "pastel/sys/constants.h"
-#include "pastel/sys/log.h"
 
 namespace Pastel
 {

@@ -3,7 +3,6 @@
 
 #include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/log.h"
 #include "pastel/sys/constants.h"
 
 #include <algorithm>
@@ -271,8 +270,7 @@ namespace Pastel
 		stream >> number;
 		if (!stream)
 		{
-			log() << "stringToInteger: could not convert '"
-				<< text << "' to a number." << logNewLine;
+			throw std::string("stringToInteger: could not convert to a number.");
 		}
 
 		return number;
@@ -355,8 +353,7 @@ namespace Pastel
 
 		if (!stream)
 		{
-			log() << "integerToString: could not convert to a string"
-				<< logNewLine;
+			throw std::string("intgerToString: could not convert to an integer.");
 		}
 
 		std::string padText;

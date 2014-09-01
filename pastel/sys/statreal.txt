@@ -1,4 +1,0 @@
-Statistic collecting real number
-================================
-
-[[Parent]]: reals.txt

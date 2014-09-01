@@ -7,7 +7,6 @@
 
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/listarray.h"
-#include "pastel/sys/log.h"
 
 #include <map>
 #include <vector>

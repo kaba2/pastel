@@ -7,6 +7,5 @@
 
 #include "pastel/sys/native_real.h"
 #include "pastel/sys/rational.h"
-#include "pastel/sys/statreal.h"
 
 #endif
