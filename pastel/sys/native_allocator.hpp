@@ -3,7 +3,6 @@
 
 #include "pastel/sys/native_allocator.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/log.h"
 #include "pastel/sys/addressof.h"
 
 namespace Pastel

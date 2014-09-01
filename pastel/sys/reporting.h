@@ -5,6 +5,5 @@
 
 #include "pastel/sys/logging.h"
 #include "pastel/sys/measuretable.h"
-#include "pastel/sys/progress.h"
 
 #endif

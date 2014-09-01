@@ -1,8 +1,0 @@
-Progress reporting
-==================
-
-[[Parent]]: reporting.txt
-
-_Progress reporting_ is about reporting the progress of the current 
-task at regular time intervals, particularly when the task takes
-a lot of time to complete.
