@@ -109,25 +109,6 @@ namespace Pastel
 
 	class InvariantFailure {};
 
-	enum class InvariantFailureAction : integer
-	{
-		// std::abort();
-		Abort,
-		// assert(false); std::abort();
-		AssertAndAbort,
-		// throw InvariantFailure();
-		Throw,
-		// assert(false); throw InvariantFailure();
-		AssertAndThrow
-	};
-
-	//! Sets the action on invariant failure.
-	void setInvariantFailureAction(
-		InvariantFailureAction action);
-
-	//! Returns the current invariant failure action.
-	InvariantFailureAction invariantFailureAction();
-
 	namespace Ensure_
 	{
 

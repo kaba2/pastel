@@ -132,15 +132,6 @@ namespace Pastel
 
 		void matlabInitialize()
 		{
-			// If std::abort() is called in a mex file,
-			// it causes a crash in Matlab's side.
-			// Therefore, we set the invariant action to
-			// throwing an exception, which we catch
-			// in 'mexFunction' just before getting back 
-			// to Matlab's side.
-			setInvariantFailureAction(
-				InvariantFailureAction::Throw);
-
 			// We'd like to see the logging done into
 			// the Matlab window. This is convenient when
 			// an invariant failure occurs, or a file can't 

@@ -4,7 +4,9 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
 
-#include <cassert>
+#ifdef _MSC_VER
+#include <crtdbg.h>
+#endif
 
 namespace Pastel
 {
@@ -16,23 +18,13 @@ namespace Pastel
 		{
 			log().finalize();
 
-			switch(invariantFailureAction())
-			{
-				case InvariantFailureAction::Abort:
-					std::abort();
-					break;
-				case InvariantFailureAction::AssertAndAbort:
-					assert(false);
-					std::abort();
-					break;
-				case InvariantFailureAction::Throw:
-					throw InvariantFailure();
-					break;
-				case InvariantFailureAction::AssertAndThrow:
-					assert(false);
-					throw InvariantFailure();
-					break;
-			};
+			#ifdef _MSC_VER
+				// If on Visual Studio, create a breakpoint
+				// here, and get back to the debugger.
+				_CrtDbgBreak();
+			#endif
+
+			throw InvariantFailure();
 		}
 
 		inline void report(
