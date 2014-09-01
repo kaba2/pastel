@@ -53,11 +53,20 @@ namespace Pastel
 		LoggerSet loggerSet_;
 	};
 
-	Log& log();
-
 	inline void logNewLine(Log& log)
 	{
 		log << "\n";
+	}
+
+}
+
+namespace Pastel
+{
+
+	inline Log& log()
+	{
+		static Log theLog;
+		return theLog;
 	}
 
 }

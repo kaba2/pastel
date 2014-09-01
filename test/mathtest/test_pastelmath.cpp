@@ -16,8 +16,6 @@ int main(int argc, const char* argv[])
 
 	if (argc > 1 && argv[1] == std::string("-r"))
 	{
-		setInvariantFailureAction(
-			InvariantFailureAction::Throw);
 		testRunner().run();
 	}
 	else
