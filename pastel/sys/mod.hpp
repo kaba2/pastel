@@ -21,7 +21,7 @@ namespace Pastel
 		// the bit-representation of signed
 		// integers is implementation-defined.
 
-		using Unsigned = std::make_unsigned<Integer>::type;
+		using Unsigned = typename std::make_unsigned<Integer>::type;
 
 		Unsigned X = signedToTwosComplement(x);
 		Unsigned Mask = bitMask<Unsigned>(n);
