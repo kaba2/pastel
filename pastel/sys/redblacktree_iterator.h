@@ -7,6 +7,7 @@
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/redblacktree_node.h"
 #include "pastel/sys/all_indicator.h"
+#include "pastel/sys/all_downfilter.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 
