@@ -2,7 +2,6 @@
 #define PASTELGEOMETRY_SLIDINGMIDPOINT2_SPLITRULE_HPP
 
 #include "pastel/geometry/slidingmidpoint2_splitrule.h"
-#include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/vector_tools.h"
 
@@ -22,10 +21,6 @@ namespace Pastel
 			const Locator& locator,
 			const AlignedBox<Real, N>& bound) const
 		{
-			using Tree = PointKdTree<Settings, Customization>;
-			using Fwd = Tree;
-			PASTEL_FWD(Point_ConstIterator);
-
 			const Locator& locator = tree.locator();
 
 			// Split along the longest dimension.
