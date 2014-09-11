@@ -15,6 +15,7 @@
 #endif
 
 #include <cstddef>
+#include <climits>
 #include <type_traits>
 
 #define PASTEL_PARAMETER(Type, name) \
