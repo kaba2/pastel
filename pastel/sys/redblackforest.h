@@ -151,7 +151,7 @@ namespace Pastel
 			Tree_Iterator tree = treeSet_.insert(before);
 			tree->end().sentinelData().tree_ = tree;
 
-			onInsert(tree);
+			this->onInsert(tree);
 
 			return tree;
 		}
@@ -163,7 +163,7 @@ namespace Pastel
 		*/
 		Tree_Iterator erase(const Tree_ConstIterator& tree)
 		{
-			onErase(cast(tree));
+			this->onErase(cast(tree));
 
 			return treeSet_.erase(tree);
 		}
@@ -181,7 +181,7 @@ namespace Pastel
 
 			treeSet_.splice(to, that.treeSet_);
 
-			onSplice(to);
+			this->onSplice(to);
 		}
 
 		//! Moves a tree from 'that' forest to this forest.
@@ -198,7 +198,7 @@ namespace Pastel
 
 			splice(to, that, thatFrom, std::next(thatFrom));
 
-			onSplice(to);
+			this->onSplice(to);
 		}
 
 		// We deliberately do not include a function

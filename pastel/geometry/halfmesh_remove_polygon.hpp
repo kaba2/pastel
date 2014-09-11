@@ -20,7 +20,7 @@ namespace Pastel
 			return cast(polygon);
 		}
 
-		onRemovePolygon(cast(polygon));
+		this->onRemovePolygon(cast(polygon));
 
 		Half_Iterator begin = cast(polygon->half());
 		ASSERT(!begin.empty());

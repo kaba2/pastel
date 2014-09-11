@@ -164,7 +164,7 @@ namespace Pastel
 			toOut->previous_ = fromTo;
 		}
 
-		onInsertEdge(edge);
+		this->onInsertEdge(edge);
 
 		return edge;
 	}

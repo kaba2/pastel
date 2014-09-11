@@ -213,7 +213,7 @@ namespace Pastel
 				std::prev(vertexSet_.end());
 
 			// Notify the customization.
-			onAddVertex(vertex);
+			this->onAddVertex(vertex);
 
 			return vertex;
 		}
@@ -399,7 +399,7 @@ namespace Pastel
 			const Edge_ConstIterator& edge)
 		{
 			// Notify the customization.
-			onRemoveEdge(cast(edge));
+			this->onRemoveEdge(cast(edge));
 
 			Vertex_Iterator from = cast(edge)->from();
 			Vertex_Iterator to = cast(edge)->to();

@@ -97,7 +97,7 @@ namespace Pastel
 			}
 		}
 
-		onInsertPolygon(polygon);
+		this->onInsertPolygon(polygon);
 
 		// Return the polygon.
 		return polygon;

@@ -20,7 +20,7 @@ namespace Pastel
 			return cast(edge);
 		}
 
-		onRemoveEdge(cast(edge));
+		this->onRemoveEdge(cast(edge));
 
 		Half_Iterator fromToHalf = 
 			cast(edge->half());
