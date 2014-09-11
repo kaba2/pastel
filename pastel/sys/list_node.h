@@ -23,15 +23,15 @@ namespace Pastel
 				isolateSelf();
 			}
 
-		private:
-			Node(const Node&) = delete;
-			Node& operator=(Node) = delete;
-
 			template <typename>
 			friend class Iterator;
 
 			template <typename, template <typename> class>
 			friend class List;
+
+		private:
+			Node(const Node&) = delete;
+			Node& operator=(Node) = delete;
 
 			bool isEnd() const
 			{
