@@ -43,7 +43,7 @@ namespace Pastel
 		// return even(signedToTwosComplement(that));
 
 		// This is the equivalent code.
-		using Unsigned = std::make_unsigned<Type>::type;
+		using Unsigned = typename std::make_unsigned<Type>::type;
 		return even((Unsigned)that);
 	}
 
