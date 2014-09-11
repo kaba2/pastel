@@ -55,6 +55,9 @@ namespace Pastel
 		static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
 			Settings::UserDataInSentinelNodes;
 
+		static PASTEL_CONSTEXPR bool UserDataInSentinelNodes_ =
+			UserDataInSentinelNodes;
+
 		using Key_Class = As_Class<Key>;
 		using Key_Class_ = Key_Class;
 		using Data_Class = As_Class<Data>;
@@ -84,7 +87,7 @@ namespace Pastel
 				Data_Node,
 				Propagation_Node>::type;
 			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
-				UserDataInSentinelNodes;
+				UserDataInSentinelNodes_;
 		};
 
 		using Node = RedBlackTree_::Node;
