@@ -2,7 +2,6 @@
 #define PASTELGEOMETRY_SLIDINGMIDPOINT_SPLITRULE_HPP
 
 #include "pastel/geometry/slidingmidpoint_splitrule.h"
-#include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/vector_tools.h"
 
