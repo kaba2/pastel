@@ -419,12 +419,12 @@ namespace Pastel
 
 			void increment() 
 			{ 
-				base_reference() = next<true>(All_DownFilter()).base();
+				this->base_reference() = next<true>(All_DownFilter()).base();
 			}
 
 			void decrement() 
 			{ 
-				base_reference() = next<false>(All_DownFilter()).base();
+				this->base_reference() = next<false>(All_DownFilter()).base();
 			}
 		};
 	

@@ -883,7 +883,6 @@ namespace Pastel
 		}
 
 	private:
-		PASTEL_FWD(Node);
 		PASTEL_FWD(Sentinel_Node);
 		PASTEL_FWD(SentinelPtr);
 
