@@ -66,7 +66,7 @@ namespace Pastel
 
 			Iterator& operator=(const Iterator& that)
 			{
-				base_reference() = that.base();
+				this->base_reference() = that.base();
 				return *this;
 			}
 
@@ -159,7 +159,7 @@ namespace Pastel
 			*/
 			void clear()
 			{
-				base_reference() = 0;
+				this->base_reference() = 0;
 			}
 
 			//! Returns the next element.
