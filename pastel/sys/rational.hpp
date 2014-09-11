@@ -296,8 +296,8 @@ namespace Pastel
 		-0 |    Num NaN +oo -oo
 		*/
 
-		typename NumberType thisType = classify();
-		typename NumberType thatType = that.classify();
+		NumberType thisType = classify();
+		NumberType thatType = that.classify();
 
 		Rational result;
 
@@ -362,8 +362,8 @@ namespace Pastel
 		0  |      0 NaN	0	0   0
 		*/
 
-		typename NumberType thisType = classify();
-		typename NumberType thatType = that.classify();
+		NumberType thisType = classify();
+		NumberType thatType = that.classify();
 
 		Rational result;
 
@@ -480,7 +480,7 @@ namespace Pastel
 	typename Rational<Integer>::NumberType
 		Rational<Integer>::classify() const
 	{
-		typename NumberType result = NumberType::Normal;
+		NumberType result = NumberType::Normal;
 		if (!zero(denominator_))
 		{
 			if (zero(numerator_))
