@@ -101,7 +101,7 @@ namespace Pastel
 		{
 
 			template <int N> 
-			class Uint 
+			struct Uint 
 			{
 				using type = typename std::make_unsigned<Int<N>>::type;
 			};
@@ -114,9 +114,9 @@ namespace Pastel
 		namespace Real_
 		{
 
-			template <int N> class Real {};
-			template <> class Real<32> { using type = real32; };
-			template <> class Real<64> { using type = real64; };
+			template <int N> struct Real {};
+			template <> struct Real<32> { using type = real32; };
+			template <> struct Real<64> { using type = real64; };
 
 		}
 
