@@ -41,7 +41,6 @@ namespace Pastel
 	class RedBlackTree_Fwd
 	{
 	public:
-		using Self = RedBlackTree_Fwd<Settings>;
 		using Fwd = Settings;
 		
 		PASTEL_FWD(Key);
