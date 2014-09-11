@@ -32,12 +32,14 @@ namespace
 		}
 	};
 
+	using MultiLess_ = MultiLess;
+
 	template <integer N>
 	class Settings
 	{
 	public:
 		using Point = Point<N>;
-		using MultiLess = MultiLess;
+		using MultiLess = MultiLess_;
 	};
 
 	using Tree = RangeTree<Settings<2>>;
