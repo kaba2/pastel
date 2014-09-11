@@ -149,7 +149,7 @@ namespace Pastel
 		*/
 		void clear()
 		{
-			onClear();
+			this->onClear();
 
 			vertexSet_.clear();
 			halfSet_.clear();

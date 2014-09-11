@@ -101,7 +101,7 @@ namespace Pastel
 			Chain_Iterator zeroChain = 
 				insertChain(0, maxBits(), maxBits(), zeroGroup);
 
-			onConstruction();
+			this->onConstruction();
 		}
 
 		//! Constructs from a list of keys.
@@ -200,7 +200,7 @@ namespace Pastel
 		void clear()
 		{
 			// Notify the customization.
-			onClear();
+			this->onClear();
 
 			trieSet_.clear();
 			groupSet_.clear();

@@ -56,7 +56,7 @@ namespace Pastel
 			end().sentinelData().isForestEnd_ = true;
 			end().sentinelData().tree_ = treeEnd();
 
-			onConstruction();
+			this->onConstruction();
 		}
 
 		//! Copy-constructs from another forest.
@@ -109,7 +109,7 @@ namespace Pastel
 		*/
 		void clear()
 		{
-			onClear();
+			this->onClear();
 
 			Tree_Iterator tree = ctreeBegin();
 			Tree_Iterator end = ctreeEnd();

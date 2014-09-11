@@ -48,7 +48,7 @@ namespace Pastel
 		*/
 		BoundedArray()
 		{
-			onConstruct();
+			this->onConstruct();
 		}
 
 		//! Copy-constructs from another array.
@@ -67,7 +67,7 @@ namespace Pastel
 				emplaceBack(that[i]);
 			}
 
-			onConstruct();
+			this->onConstruct();
 		}
 
 		//! Constructs from another array.
@@ -89,7 +89,7 @@ namespace Pastel
 				emplaceBack(that[i]);
 			}
 
-			onConstruct();
+			this->onConstruct();
 		}
 
 		//! Move-constructs from another array.
@@ -101,7 +101,7 @@ namespace Pastel
 		{
 			swap(that);
 
-			onConstruct();
+			this->onConstruct();
 		}
 
 		//! Constructs from an initializer list.
@@ -161,7 +161,7 @@ namespace Pastel
 		*/
 		void clear()
 		{
-			onClear();
+			this->onClear();
 
 			destruct(address(0), address(size()));
 			size_ = 0;
@@ -183,7 +183,7 @@ namespace Pastel
 			new (address(size())) Element(std::forward<Type>(that)...);
 			++size_;
 
-			onEmplaceBack();
+			this->onEmplaceBack();
 		}
 
 		//! Removes the last element from the array.
@@ -198,7 +198,7 @@ namespace Pastel
 		{
 			PENSURE(!empty());
 
-			onPopBack();
+			this->onPopBack();
 
 			destruct(address(size() - 1));
 			--size_;
