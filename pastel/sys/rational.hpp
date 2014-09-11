@@ -4,6 +4,8 @@
 #include "pastel/sys/rational.h"
 #include "pastel/sys/gcd.h"
 
+#include <type_traits>
+
 namespace Pastel
 {
 
@@ -585,17 +587,28 @@ namespace Pastel
 namespace Pastel
 {
 
+	template <typename Type>
+	struct IsRational
+	{
+	};
+
+	template <typename Integer>
+	struct IsRational<Rational<Integer>>
+	{
+		static PASTEL_CONSTEXPR bool value = true;
+	};
+
 	// Real
 
 	template <typename Type>
-	PASTEL_ENABLE_IF((std::is_same<Rational<typename Type::Integer>, Type>), Type)
+	PASTEL_ENABLE_IF_C(IsRational<Type>::value, Type)
 		infinity()
 	{
 		return Type(1, 0);
 	}
 
 	template <typename Type>
-	PASTEL_ENABLE_IF((std::is_same<Rational<typename Type::Integer>, Type>), Type)
+	PASTEL_ENABLE_IF_C(IsRational<Type>::value, Type)
 		nan()
 	{
 		return Type(0, 0);
