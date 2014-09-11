@@ -25,7 +25,7 @@ namespace Pastel
 		// conceptual and there is no change in the bit pattern 
 		// (if there is no truncation). — end note 
 
-		using Unsigned = std::make_unsigned<Integer>::type;
+		using Unsigned = typename std::make_unsigned<Integer>::type;
 		return (Unsigned)that;
 	}
 
