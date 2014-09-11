@@ -82,7 +82,7 @@ To demonstrate the basic principles of data-structure implementation, we take th
 			template <typename That_NodePtr, typename That_Data>
 			Node_Iterator(
 				const Node_Iterator<That_NodePtr, That_Data>& that)
-				: Node_Iterator::iterator_adaptor_(that.base()) 
+				: Node_Iterator::iterator_adaptor_(this->that.base()) 
 			{
 			}
 
