@@ -82,12 +82,12 @@ namespace Pastel
 			using Propagation_Class = Propagation_Class_;
 			using Data_Class = Data_Class_;
 			using SentinelData_Class = SentinelData_Class_;
+			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
+				UserDataInSentinelNodes_;
 			using EndBase = typename std::conditional<
 				UserDataInSentinelNodes,
 				Data_Node,
 				Propagation_Node>::type;
-			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
-				UserDataInSentinelNodes_;
 		};
 
 		using Node = RedBlackTree_::Node;
