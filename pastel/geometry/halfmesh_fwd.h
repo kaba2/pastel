@@ -72,9 +72,9 @@ namespace Pastel
 		using Polygon_ConstIterator = typename PolygonSet::ConstIterator;
 
 		using InsertEdge_Return =
-			std::conditional_t<MultipleEdges,
+			typename std::conditional<MultipleEdges,
 			Edge_Iterator,
-			std::pair<Edge_Iterator, bool>>;
+			std::pair<Edge_Iterator, bool>>::type;
 	};
 
 }

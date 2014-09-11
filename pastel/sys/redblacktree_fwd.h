@@ -75,10 +75,10 @@ namespace Pastel
 			using Propagation_Class = Propagation_Class;
 			using Data_Class = Data_Class;
 			using SentinelData_Class = SentinelData_Class;
-			using EndBase = std::conditional_t<
+			using EndBase = typename std::conditional<
 				UserDataInSentinelNodes,
 				Data_Node,
-				Propagation_Node>;
+				Propagation_Node>::type;
 			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
 				UserDataInSentinelNodes;
 		};

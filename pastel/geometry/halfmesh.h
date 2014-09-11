@@ -464,8 +464,8 @@ namespace Pastel
 			const Edge_Iterator& edge,
 			bool created) const
 		{
-			using Tag = std::conditional_t<
-				MultipleEdges, SingleTag, PairTag>;
+			using Tag = typename std::conditional<
+				MultipleEdges, SingleTag, PairTag>::type;
 			return insertEdgeReturn(edge, created, Tag());
 		}
 
