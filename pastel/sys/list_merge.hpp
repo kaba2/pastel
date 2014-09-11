@@ -15,11 +15,11 @@ namespace Pastel
 		List<Settings, Customization>& fromSet,
 		Less less)
 	{
-		Iterator to = toSet.begin();
-		Iterator toEnd = toSet.end();
+		auto to = toSet.begin();
+		auto toEnd = toSet.end();
 		while (!fromSet.empty() && to != toEnd)
 		{
-			Iterator from = fromSet.begin();
+			auto from = fromSet.begin();
 			if (less(*from, *to))
 			{
 				toSet.splice(to, fromSet, from);

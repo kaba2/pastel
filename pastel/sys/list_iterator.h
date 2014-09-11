@@ -208,42 +208,42 @@ namespace Pastel
 			bool operator<(
 				const Iterator<That_Settings>& right) const
 			{
-				return base() < right.base();
+				return this->base() < right.base();
 			}
 
 			template <typename That_Settings>
 			bool operator>(
 				const Iterator<That_Settings>& right) const
 			{
-				return base() > right.base();
+				return this->base() > right.base();
 			}
 
 			template <typename That_Settings>
 			bool operator<=(
 				const Iterator<That_Settings>& right) const
 			{
-				return base() <= right.base();
+				return this->base() <= right.base();
 			}
 
 			template <typename That_Settings>
 			bool operator>=(
 				const Iterator<That_Settings>& right) const
 			{
-				return base() >= right.base();
+				return this->base() >= right.base();
 			}
 
 			template <typename That_Settings>
 			bool operator==(
 				const Iterator<That_Settings>& right) const
 			{
-				return base() == right.base();
+				return this->base() == right.base();
 			}
 
 			template <typename That_Settings>
 			bool operator!=(
 				const Iterator<That_Settings>& right) const
 			{
-				return base() != right.base();
+				return this->base() != right.base();
 			}
 
 			// FIX: Make private
