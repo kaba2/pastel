@@ -156,7 +156,6 @@ if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") OR
 		# This is needed to build the Matlab 
 		# libraries.
 		-fPIC
-		-arch x86_64
 	)
 
 	# Disable some warnings.
@@ -201,6 +200,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 	add_definitions (
 		# Enables C++11 library support.
 		-stdlib=libc++
+		# Not sure why.
+		-arch x86_64
 	)
 
 	# Enables C++11 linker support.
@@ -314,8 +315,20 @@ set (ExampleSet
 	skipfast_performance)
 
 set_property( GLOBAL PROPERTY USE_FOLDERS ON)
-set_property( TARGET ${TestSet} PROPERTY FOLDER "Tests")
-set_property( TARGET ${LibrarySet} PROPERTY FOLDER "Libraries")
-set_property( TARGET ${MatlabLibrarySet} PROPERTY FOLDER "Matlab Libraries")
-set_property( TARGET ${ExampleSet} PROPERTY FOLDER "Examples")
+
+if (BuildTests)
+	set_property( TARGET ${TestSet} PROPERTY FOLDER "Tests")
+endif()
+
+if (BuildLibraries)
+	set_property( TARGET ${LibrarySet} PROPERTY FOLDER "Libraries")
+endif()
+
+if (BuildMatlab)
+	set_property( TARGET ${MatlabLibrarySet} PROPERTY FOLDER "Matlab Libraries")
+endif()
+
+if (BuildExamples)
+	set_property( TARGET ${ExampleSet} PROPERTY FOLDER "Examples")
+endif()
 
