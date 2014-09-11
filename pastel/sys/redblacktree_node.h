@@ -216,12 +216,12 @@ namespace Pastel
 
 			SentinelData_Class& sentinelData()
 			{
-				return *this;
+				return (SentinelData_Class&)*this;
 			}
 
 			const SentinelData_Class& sentinelData() const
 			{
-				return *this;
+				return (const SentinelData_Class&)*this;
 			}
 
 		protected:
@@ -245,12 +245,12 @@ namespace Pastel
 
 			Data_Class& data()
 			{
-				return *this;
+				return (Data_Class&)*this;
 			}
 
 			const Data_Class& data() const
 			{
-				return *this;
+				return (const Data_Class&)*this;
 			}
 
 		protected:
@@ -287,7 +287,7 @@ namespace Pastel
 
 			const Key_Class& key() const
 			{
-				return *this;
+				return (const Key_Class&)*this;
 			}
 
 		protected:
