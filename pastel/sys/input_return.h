@@ -17,7 +17,7 @@ namespace Pastel
 		class Input_Return
 		{
 		public:
-			using type = decltype(std::declval<Input>.get());
+			using type = decltype(std::declval<Input>().get());
 		};
 
 	}
