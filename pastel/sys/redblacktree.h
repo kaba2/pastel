@@ -68,7 +68,7 @@ namespace Pastel
 		*/
 		RedBlackTree()
 		{
-			onConstruction();
+			this->onConstruction();
 		}
 		
 		//! Copy-constructs from another tree.
@@ -101,7 +101,7 @@ namespace Pastel
 			, end_(std::make_shared<Sentinel_Node>())
 		{
 			*this = std::move(that);
-			onConstruction();
+			this->onConstruction();
 		}
 
 		//! Constructs from a list of keys.
@@ -118,7 +118,7 @@ namespace Pastel
 		RedBlackTree(std::initializer_list<Key_> dataSet)
 		{
 			*this = dataSet;
-			onConstruction();
+			this->onConstruction();
 		}
 
 		//! Constructs from a list of key-value pairs.

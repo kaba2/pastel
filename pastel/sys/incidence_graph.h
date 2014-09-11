@@ -167,7 +167,7 @@ namespace Pastel
 		void clear()
 		{
 			// Notify the customization.
-			onClear();
+			this->onClear();
 
 			vertexSet_.clear();
 			edgeSet_.clear();
@@ -232,7 +232,7 @@ namespace Pastel
 			const Vertex_ConstIterator& vertex)
 		{
 			// Notify the customization.
-			onRemoveVertex(cast(vertex));
+			this->onRemoveVertex(cast(vertex));
 
 			// Remove all edges incident to this vertex.
 			while(vertex->allEdges() > 0)
@@ -384,7 +384,7 @@ namespace Pastel
 			}
 
 			// Notify the customization.
-			onAddEdge(edge);
+			this->onAddEdge(edge);
 
 			return edge;
 		}

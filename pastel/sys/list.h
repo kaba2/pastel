@@ -58,7 +58,7 @@ namespace Pastel
 		*/
 		List()
 		{
-			onConstruction();
+			this->onConstruction();
 		}
 
 		//! Constructs from an initializer-list.
@@ -74,7 +74,7 @@ namespace Pastel
 				insertBack(that);
 			}
 			
-			onConstruction();
+			this->onConstruction();
 		}
 
 		//! Copy-constructs from another list.
@@ -89,7 +89,7 @@ namespace Pastel
 				insertBack(element);
 			}
 			
-			onConstruction();
+			this->onConstruction();
 		}
 
 		//! Move-constructs from another list.
@@ -101,7 +101,7 @@ namespace Pastel
 		{
 			splice(end(), std::move(that));
 			
-			onConstruction();
+			this->onConstruction();
 		}
 
 		//! Destructs the list.

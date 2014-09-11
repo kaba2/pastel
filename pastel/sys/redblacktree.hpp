@@ -31,7 +31,7 @@ namespace Pastel
 				countingIterator(begin()), 
 				countingIterator(end())));
 
-			onConstruction();
+			this->onConstruction();
 		}
 		catch(...)
 		{
