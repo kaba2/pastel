@@ -5,6 +5,7 @@
 #include "pastel/sys/mod.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/number_tests.h"
+#include "pastel/sys/powers.h"
 
 namespace Pastel
 {

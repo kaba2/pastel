@@ -23,6 +23,7 @@
 #include <type_traits>
 #include <algorithm>
 #include <initializer_list>
+#include <iterator>
 
 #define PASTEL_INTEGER_ASSIGN_OPERATOR(op) \
 	Integer& operator op(const Integer& that) \
@@ -132,8 +133,12 @@ namespace Pastel
 		Integer(std::initializer_list<Word> wordSet)
 			: wordSet_()
 		{
+			// FIX: Replace with std::rbegin(), once gcc starts
+			// to support C++14 in its library.
+			using I = typename std::initializer_list<Word>::iterator;
+
 			std::copy_n(
-				std::rbegin(wordSet),
+				std::reverse_iterator<I>(std::end(wordSet)),
 				std::min((integer)wordSet.size(), (integer)Words),
 				wordSet_.begin());
 
