@@ -246,16 +246,17 @@ namespace Pastel
 				return base() != right.base();
 			}
 
+			// FIX: Make private
+			explicit Iterator(NodePtr that)
+				: Iterator::iterator_adaptor_(that) 
+			{
+			}
+
 		private:
 			template <typename, template <typename> class>
 			friend class List;
 
 			friend class boost::iterator_core_access;
-
-			explicit Iterator(NodePtr that)
-				: Iterator::iterator_adaptor_(that) 
-			{
-			}
 
 			NodePtr node() const
 			{
