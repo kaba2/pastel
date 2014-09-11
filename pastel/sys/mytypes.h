@@ -137,8 +137,8 @@ namespace Pastel
 		For example, on 32-bit computers we expect this to be 32-bit,
 		and on 64-bit computers we expect this to be 64-bit.
 		*/
-		using integer = std::make_signed<std::size_t>::type;
-		using uinteger = std::size_t;
+		using uinteger = Uint<64>;
+		using integer = std::make_signed<uinteger>::type;
 
 		//! An integer with half the number of bits as in 'integer'.
 		using integer_half = Int<(sizeof(integer) * CHAR_BIT) / 2>;
