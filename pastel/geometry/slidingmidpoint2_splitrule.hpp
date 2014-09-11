@@ -21,18 +21,16 @@ namespace Pastel
 			const Locator& locator,
 			const AlignedBox<Real, N>& bound) const
 		{
-			const Locator& locator = tree.locator();
-
 			// Split along the longest dimension.
 
-			integer splitAxis = maxIndex(maxBound - minBound);
+			integer splitAxis = maxIndex(bound.extent());
 			Real splitPosition = linear(
 				bound.min()[splitAxis], 
 				bound.max()[splitAxis], 0.5);
 
 			// Modified sliding midpoint
 
-			if (!cursor.empty())
+			if (!pointSet.empty())
 			{
 				Real leftMax = -infinity<Real>();
 				Real rightMin = infinity<Real>();

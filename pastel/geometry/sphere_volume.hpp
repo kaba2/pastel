@@ -122,7 +122,7 @@ namespace Pastel
 		// From Wikipedia "Volume of an n-ball"
 		return 
 			lnGamma<Real>(inversePower + 1) - 
-			lnGamma<Real>(dimension * inversePower + 1) +
+			lnGamma<Real>(n * inversePower + 1) +
 			n * constantLn2<Real>();
 	}
 
