@@ -83,7 +83,7 @@ namespace Pastel
 		// form can represent one number more than the other
 		// two representations.
 	
-		using Signed = std::make_signed<Finite_Integer>::type;
+		using Signed = typename std::make_signed<Finite_Integer>::type;
 		if (twosComplementNegative(that))
 		{
 			// This is equivalent to that != 2^{n - 1}
