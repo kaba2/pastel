@@ -435,8 +435,6 @@ namespace Pastel
 
 		using Fwd = KdTree;
 		PASTEL_FWD(Cursor);
-		PASTEL_FWD(Locator);
-		using Real = typename Locator::Real;
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 
 		Vector<Real, N> searchPoint =

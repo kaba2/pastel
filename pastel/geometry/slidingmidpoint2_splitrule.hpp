@@ -27,8 +27,8 @@ namespace Pastel
 
 			integer splitAxis = maxIndex(maxBound - minBound);
 			Real splitPosition = linear(
-				minBound[splitAxis], 
-				maxBound[splitAxis], 0.5);
+				bound.min()[splitAxis], 
+				bound.max()[splitAxis], 0.5);
 
 			// Modified sliding midpoint
 
