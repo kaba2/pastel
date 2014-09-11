@@ -200,7 +200,7 @@ namespace Pastel
 		*/
 		void simplify();
 
-		typename NumberType classify() const;
+		NumberType classify() const;
 
 		bool lessThan(const Rational& that) const;
 		bool equal(const Rational& that) const;
