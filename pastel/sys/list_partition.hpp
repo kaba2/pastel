@@ -2,6 +2,7 @@
 #define PASTELSYS_LIST_PARTITION_HPP
 
 #include "pastel/sys/list_partition.h"
+#include "pastel/sys/tristate.h"
 
 namespace Pastel
 {

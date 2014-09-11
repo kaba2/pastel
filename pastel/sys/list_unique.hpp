@@ -20,9 +20,9 @@ namespace Pastel
 			return list;
 		}
 
-		ConstIterator end = list.end();
-		ConstIterator iter = list.begin();
-		ConstIterator next = std::next(iter);
+		auto end = list.end();
+		auto iter = list.begin();
+		auto next = std::next(iter);
 		while (next != end)
 		{
 			if (equal(*next, *iter))
