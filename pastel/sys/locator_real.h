@@ -19,9 +19,9 @@ namespace Pastel
 		template <typename Locator, typename... LocatorSet>
 		struct Locator_Real<Locator, LocatorSet...>
 		{
-			using type = std::common_type_t<
+			using type = typename std::common_type<
 				typename Locator_Real<Locator>::type, 
-				typename Locator_Real<LocatorSet...>::type>;
+				typename Locator_Real<LocatorSet...>::type>::type;
 		};
 
 		template <typename Locator>

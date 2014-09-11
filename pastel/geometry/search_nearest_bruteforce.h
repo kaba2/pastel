@@ -89,7 +89,7 @@ namespace Pastel
 		typename Search_Point,
 		typename Point_Output = Null_Output,
 		typename Point_Indicator = All_Indicator,
-		typename Point = std::decay_t<decltype(std::declval<Point_Input>().get())>,
+		typename Point = typename std::decay<decltype(std::declval<Point_Input>().get())>::type,
 		typename Locator = Default_Locator<Point>,
 		typename Search_Locator = Default_Locator<Search_Point>,
 		typename Real = typename Locator::Real,

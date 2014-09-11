@@ -13,7 +13,7 @@ namespace Pastel
 
 	//! Input value-type
 	template <typename Input>
-	using Input_Value = std::decay_t<Input_Return<Input>>;
+	using Input_Value = typename std::decay<Input_Return<Input>>::type;
 
 }
 	

@@ -21,10 +21,11 @@ namespace Pastel
 			: public boost::iterator_adaptor<
 			Iterator<Settings>, 
 			typename Settings::NodePtr,
-			std::conditional_t<
-				std::is_const<std::remove_pointer_t<typename Settings::NodePtr>>::value,
+			typename std::conditional<
+				std::is_const<
+				typename std::remove_pointer<typename Settings::NodePtr>::type>::value,
 				const typename Settings::Node_Settings::Data_Class&,
-				typename Settings::Node_Settings::Data_Class&>,
+				typename Settings::Node_Settings::Data_Class&>::type,
 			boost::bidirectional_traversal_tag>
 		{
 		public:
@@ -69,10 +70,10 @@ namespace Pastel
 				return *this;
 			}
 
-			using DataRef = std::conditional_t<
-				std::is_const<std::remove_pointer_t<NodePtr>>::value,
+			using DataRef = typename std::conditional<
+				std::is_const<typename std::remove_pointer<NodePtr>::type>::value,
 				const Data_Class&,
-				Data_Class&>;
+				Data_Class&>::type;
 
 			//! Returns the data of the node.
 			/*!

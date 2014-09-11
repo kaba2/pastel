@@ -69,9 +69,9 @@ namespace Pastel
 		using Node = List_::Node;
 		using Data_Node = List_::Data_Node<Data_Class>;
 
-		using EndBase = std::conditional_t<
+		using EndBase = typename std::conditional<
 			UserDataInEndNode,
-			Data_Node, Node>;
+			Data_Node, Node>::type;
 
 		using End_Node = List_::End_Node<EndBase, EndData_Class>;
 

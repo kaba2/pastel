@@ -57,9 +57,9 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	Single_Input<std::decay_t<Type>> singleInput(Type&& that)
+	Single_Input<typename std::decay<Type>::type> singleInput(Type&& that)
 	{
-		return Single_Input<std::decay_t<Type>>(
+		return Single_Input<typename std::decay<Type>::type>(
 			std::forward<Type>(that));
 	}
 

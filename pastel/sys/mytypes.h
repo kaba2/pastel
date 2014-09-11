@@ -70,10 +70,10 @@ namespace Pastel
 		using int32 = int;
 		using int64 = long long;
 
-		using uint8 = std::make_unsigned_t<int8>;
-		using uint16 = std::make_unsigned_t<int16>;
-		using uint32 = std::make_unsigned_t<int32>;
-		using uint64 = std::make_unsigned_t<int64>;
+		using uint8 = std::make_unsigned<int8>::type;
+		using uint16 = std::make_unsigned<int16>::type;
+		using uint32 = std::make_unsigned<int32>::type;
+		using uint64 = std::make_unsigned<int64>::type;
 
 		using real32 = float;
 		using real64 = double;
@@ -102,7 +102,7 @@ namespace Pastel
 			template <int N> 
 			class Uint 
 			{
-				using type = std::make_unsigned_t<Int<N>>;
+				using type = typename std::make_unsigned<Int<N>>::type;
 			};
 
 		}
@@ -136,12 +136,12 @@ namespace Pastel
 		For example, on 32-bit computers we expect this to be 32-bit,
 		and on 64-bit computers we expect this to be 64-bit.
 		*/
-		using integer = std::make_signed_t<std::size_t>;
+		using integer = std::make_signed<std::size_t>::type;
 		using uinteger = std::size_t;
 
 		//! An integer with half the number of bits as in 'integer'.
 		using integer_half = Int<(sizeof(integer) * CHAR_BIT) / 2>;
-		using uinteger_half = std::make_unsigned_t<integer_half>;
+		using uinteger_half = std::make_unsigned<integer_half>::type;
 	
 		//! Abstract native real type
 		/*!
