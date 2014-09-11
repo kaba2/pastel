@@ -27,7 +27,7 @@ Abstract example
 		void insert(int someParameter)
 		{
 			// A customization point.
-			onInsert(someParameter);
+			this->onInsert(someParameter);
 		}
 	};
 

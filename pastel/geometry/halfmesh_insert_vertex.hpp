@@ -16,7 +16,7 @@ namespace Pastel
 	{
 		Vertex_Iterator vertex = 
 			vertexSet_.insertBack(std::forward<Type>(data)...);
-		onInsertVertex(vertex);
+		this->onInsertVertex(vertex);
 		return vertex;
 	}
 

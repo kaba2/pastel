@@ -20,7 +20,7 @@ namespace Pastel
 			return cast(vertex);
 		}
 
-		onRemoveVertex(cast(vertex));
+		this->onRemoveVertex(cast(vertex));
 
 		if (!vertex->isolated())
 		{

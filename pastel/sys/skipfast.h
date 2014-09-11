@@ -246,7 +246,7 @@ namespace Pastel
 			}
 
 			// Notify the customization.
-			onInsert(element);
+			this->onInsert(element);
 
 			// Return the element.
 			return std::make_pair(element, isNew);
@@ -273,7 +273,7 @@ namespace Pastel
 			}
 
 			// Notify the customization.
-			onErase(cast(element));
+			this->onErase(cast(element));
 
 			// Find the chain of the element.
 			Chain_Iterator chain = 
