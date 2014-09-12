@@ -5,6 +5,8 @@
 
 #include "pastel/geometry/alignedbox.h"
 
+#include "pastel/math/euclidean_normbijection.h"
+
 #include "pastel/sys/vector.h"
 
 namespace Pastel

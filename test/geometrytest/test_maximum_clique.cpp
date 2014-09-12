@@ -3,10 +3,9 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/maximum_clique_alignedbox.h"
-
 #include "pastel/sys/rational.h"
 
+#include "pastel/geometry/maximum_clique_alignedbox.h"
 #include "pastel/geometry/alignedbox.h"
 
 #include "pastel/sys/vector_tools.h"

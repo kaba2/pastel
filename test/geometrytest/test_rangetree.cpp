@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <queue>
+#include <list>
 
 using namespace Pastel;
 
@@ -232,8 +233,8 @@ namespace
 		void testSingular()
 		{
 			using Tree = RangeTree<Settings<N>>;
-			using Point_ConstIterator = Tree::Point_ConstIterator;
-			using Node_ConstIterator = Tree::Node_ConstIterator;
+			using Point_ConstIterator = typename Tree::Point_ConstIterator;
+			using Node_ConstIterator = typename Tree::Node_ConstIterator;
 
 			integer width = 5;
 

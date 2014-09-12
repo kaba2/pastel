@@ -163,7 +163,7 @@ namespace Pastel
 		{
 			end_.swap(that.end_);
 			std::swap(root_, that.root_);
-			elementSet_.swap(that.elementSet_);
+			pointSet_.swap(that.pointSet_);
 			std::swap(orders_, that.orders_);
 		}
 

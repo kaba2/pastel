@@ -94,7 +94,7 @@ namespace Pastel
 		HalfMesh(HalfMesh&& that)
 		: HalfMesh()
 		{
-			swap(that)
+			swap(that);
 		}
 
 		//! Copy-constructs from another mesh.
