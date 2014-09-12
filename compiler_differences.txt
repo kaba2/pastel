@@ -1,0 +1,100 @@
+Compiler differences
+====================
+
+[[Parent]]: techniques.txt
+
+This section contains some differences in compilers. These differences cause code compiling on one platform to not compile on another platform. Since I run to these problems constantly, I will document them here.
+
+Delayed C++14 implementations
+-----------------------------
+
+### Problem
+
+The `gcc 4.8`'s C++ Standard Library does not support C++14 fully. For example, it does not implement alias templates for type-traits, such as `std::make_unsigned_t`.
+
+### Solution
+
+Option 1: Update the compiler; `gcc 4.9` has improved support for C++14.
+
+Option 2: Replace the unsupported stuff with supported stuff, as in `typename std::make_unsigned<T>::type`.
+
+Shadowed template parameter
+---------------------------
+
+### Problem
+
+In `gcc` and `Clang`, declaring a type `Type` in a class template with a template parameter `Type` produces an error about shadowing a type. 
+
+### Examples
+
+Our actual use-case is to store the template-argument into the class. In this case the ambiguity does not matter:
+
+[[CppCode]]:
+	template <typename Type>
+	struct C
+	{
+		using Type = Type;
+	};
+
+However, it is good that the error is emitted because of code such as this:
+
+[[CppCode]]:
+	template <typename Type>
+	struct C
+	{
+		using Type = int;
+	};
+
+### Solution
+
+Always use a trailing underscore for template parameters to avoid the ambiguity.
+
+[[CppCode]]:
+	template <typename Type_>
+	struct C
+	{
+		using Type = Type_;
+	};
+
+Friend class namespace
+----------------------
+
+### Problem
+
+The following fails to compile in `gcc` and `Clang`, but compiles in Visual Studio 2013:
+
+[[CppCode]]:
+	class C;
+
+	namespace N
+	{
+
+		class A
+		{
+		private:
+			friend class C;
+
+			A() {}
+		};
+
+	}
+
+	class C
+	{
+	public:
+		C()
+		{
+			N::A a;
+		}
+	};
+
+	int main()
+	{
+		C c;
+
+		return 0;
+	}
+
+### Solution
+
+Replace `friend class C;` with `friend class ::C`. When the namespace is not specified, the friend class is assumed to be in the enclosing namespace, that is, `N`.
