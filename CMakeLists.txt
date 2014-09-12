@@ -26,7 +26,7 @@ set (TbbIncludeDirectory ../tbb42/include)
 
 # The directory of the Threading Building Blocks library's 
 # dynamic libraries.
-set (TbbLibraryDirectory ../tbb42/lib/intel64/gcc4.4)
+set (TbbLibraryDirectory ../tbb42/lib/libc++)
 # set (TbbLibraryDirectory ../tbb42/lib)
 
 # The directory of the Matlab header files.
@@ -148,8 +148,8 @@ set (CMAKE_CXX_FLAGS_DEBUG
 if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") OR 
 	("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")) 
 	add_definitions (
-		# Enables C++11 compiler support.
-		-std=c++11 
+		# Enables C++14 compiler support.
+		-std=c++1y 
 		# Enables some additional warnings.
 		-Wall 
 		# Enables position-independent code.

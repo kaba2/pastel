@@ -98,3 +98,44 @@ The following fails to compile in `gcc` and `Clang`, but compiles in Visual Stud
 ### Solution
 
 Replace `friend class C;` with `friend class ::C`. When the namespace is not specified, the friend class is assumed to be in the enclosing namespace, that is, `N`.
+
+Multiple base-classes of the same type
+--------------------------------------
+
+### Problem
+
+The following fails to compile in `gcc` and `Clang`, but compiles in Visual Studio 2013:
+
+[[CppCode]]:
+	class A {};
+
+	class B
+	: public A
+	{
+	};
+
+	class C
+	: public A
+	, public B
+	{
+	public:
+		A& f()
+		{
+			return *this;
+		}
+	};
+
+	int main()
+	{
+		C c;
+		c.f();
+
+		return 0;
+	}
+
+The problem is that it is ambiguous which base-class `A` is meant. I thought that this should resolve to the direct base-class `A`. I don't know what the standard says.
+
+### Solution
+
+To disambiguate to `B::A`, replace `return *this;` with `return (B&)*this;`. I don't know how to disambiguate to `C::A`.
+

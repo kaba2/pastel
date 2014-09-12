@@ -13,6 +13,7 @@
 #include "pastel/geometry/longestmedian_splitrule.h"
 
 #include "pastel/sys/fair_stable_partition.h"
+#include "pastel/sys/infinite_counting_input.h"
 
 #include <boost/range/algorithm/stable_sort.hpp>
 
@@ -50,7 +51,6 @@ namespace Pastel
 		PASTEL_FWD(Entry);
 		PASTEL_FWD(Cursor);
 		PASTEL_FWD(Node);
-		PASTEL_FWD(Cursor);
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 
 		//! Constructs an empty tree.
@@ -185,7 +185,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		void swap(TdTree& that)
+		void swap(TdTree&& that)
 		{
 			end_.swap(that.end_);
 			std::swap(root_, that.root_);

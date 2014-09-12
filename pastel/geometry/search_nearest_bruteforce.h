@@ -12,6 +12,7 @@
 
 #include "pastel/sys/all_indicator.h"
 #include "pastel/sys/default_locator.h"
+#include "pastel/sys/null_output.h"
 
 #include "pastel/math/euclidean_normbijection.h"
 #include "pastel/math/normbijection_concept.h"
@@ -89,10 +90,10 @@ namespace Pastel
 		typename Search_Point,
 		typename Point_Output = Null_Output,
 		typename Point_Indicator = All_Indicator,
-		typename Point = typename std::decay<decltype(std::declval<Point_Input>().get())>::type,
+		typename Point = Input_Value<Point_Input>,
 		typename Locator = Default_Locator<Point>,
 		typename Search_Locator = Default_Locator<Search_Point>,
-		typename Real = typename Locator::Real,
+		typename Real = Locator_Real<Locator>,
 		typename NormBijection = Euclidean_NormBijection<Real>>
 	std::pair<Real, Point> searchNearestBruteForce(
 		Point_Input pointSet,

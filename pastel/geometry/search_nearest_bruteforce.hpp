@@ -9,6 +9,43 @@
 namespace Pastel
 {
 
+	namespace SearchNearestBruteForce_
+	{
+
+		template <
+			typename Point, 
+			typename Real>
+		class Entry
+		{
+		public:
+			// I would have wanted to make this class
+			// a local class of the searchNearestBruteForce()
+			// function. Unfortunately Clang 3.3 has
+			// a strange bug, which says that the
+			// member-variable `distance` does not exist.
+
+			Entry(
+				const Point& point_,
+				const Real& distance_)
+				: point(point_)
+				, distance(distance_)
+			{
+			}
+
+			explicit Entry(int a)
+			{}
+
+			bool operator<(const Entry& that) const
+			{
+				return distance < that.distance;
+			}
+
+			Point point;
+			Real distance;
+		};
+
+	}
+
 	template <
 		typename Point_Input,
 		typename Search_Point,
@@ -33,6 +70,7 @@ namespace Pastel
 		ENSURE_OP(kNearest, >=, 0);
 
 		using Result = std::pair<Real, Point>;
+		using Entry = SearchNearestBruteForce_::Entry<Point, Real>;
 
 		Result notFound(infinity<Real>(), Point());
 
@@ -40,29 +78,7 @@ namespace Pastel
 		{
 			return notFound;
 		}
-		
-		using Real = typename Locator::Real;
-
-		class Entry
-		{
-		public:
-			Entry(
-				const Point& point_,
-				const Real& distance_)
-				: point(point_)
-				, distance(distance_)
-			{
-			}
-
-			bool operator<(const Entry& that) const
-			{
-				return distance < that.distance;
-			}
-
-			Point point;
-			Real distance;
-		};
-
+	
 		// Due to rounding errors exact comparisons can miss
 		// reporting some of the points, giving incorrect results.
 		// For example, consider n > k points on a 2d circle and make a 
@@ -85,11 +101,11 @@ namespace Pastel
 
 		while (!pointSet.empty())
 		{
-			auto point = pointSet.get();
-			pointSet.pop();
+			auto&& point = pointSet.get();
 
 			if (!accept(point))
 			{
+				pointSet.pop();
 				continue;
 			}
 
@@ -118,6 +134,8 @@ namespace Pastel
 						maxDistance);
 				}
 			}
+
+			pointSet.pop();
 		}
 
 		for (auto&& entry : nearestSet)
