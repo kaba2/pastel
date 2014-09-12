@@ -71,8 +71,8 @@ namespace Pastel
 			*/
 			bool isForestEnd() const
 			{
-				return isSentinel() &&
-					sentinelData().isForestEnd();
+				return this->isSentinel() &&
+					this->sentinelData().isForestEnd();
 			}
 
 			//! Moves to the next element.
@@ -89,7 +89,7 @@ namespace Pastel
 				Base_Iterator& iter = *this;
 				++iter;
 				
-				if (isSentinel() && !isForestEnd())
+				if (this->isSentinel() && !isForestEnd())
 				{
 					// Skip empty trees.
 					auto tree = iter.sentinelData().tree();
@@ -132,7 +132,7 @@ namespace Pastel
 				Base_Iterator& iter = *this;
 				--iter;
 				
-				while (isSentinel())
+				while (this->isSentinel())
 				{
 					iter = std::prev(iter.sentinelData().tree())->last();
 				}

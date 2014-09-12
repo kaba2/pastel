@@ -18,7 +18,6 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& determinant)
 	{
 		ENSURE_OP(n, >=, 0);
-		ENSURE_OP(result.width(), ==, result.height());
 
 		// Generate a random partition of the
 		// interval [0, -ln(d)] to n subintervals
@@ -68,10 +67,6 @@ namespace Pastel
 		ENSURE_OP(n, >=, 0);
 		ENSURE_OP(condition, >=, 1);
 		ENSURE_OP(determinant, >, 0);
-
-		integer n = result.width();
-
-		ENSURE_OP(n, >, 1);
 
 		Real a =
 			((n - 1) * std::log(condition) - 

@@ -3,13 +3,13 @@
 #ifndef PASTELSYS_REDBLACKTREE_NODE_H
 #define PASTELSYS_REDBLACKTREE_NODE_H
 
-#include "pastel/sys/redblacktree.h"
+#include "pastel/sys/redblacktree_fwd.h"
 #include "pastel/sys/class.h"
 
 namespace Pastel
 {
 
-	template <typename Settings, template <typename> class Customization>
+	template <typename, template <typename> class>
 	class RedBlackTree;
 
 	namespace RedBlackTree_
@@ -19,12 +19,6 @@ namespace Pastel
 		class Node
 		{
 		public:
-			template <typename, template <typename> class>
-			friend class Pastel::RedBlackTree;
-
-			template <typename, typename, bool>
-			friend class Iterator;
-
 			bool red() const
 			{
 				return red_;
@@ -53,6 +47,12 @@ namespace Pastel
 			}
 
 		protected:
+			template <typename, template <typename> class>
+			friend class Pastel::RedBlackTree;
+
+			template <typename, typename, bool>
+			friend class Iterator;
+
 			Node()
 				: parent_(nullptr)
 				, child_()

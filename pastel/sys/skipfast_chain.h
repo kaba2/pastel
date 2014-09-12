@@ -60,10 +60,8 @@ namespace Pastel
 			}
 
 		private:
-			template <
-				typename Settings,
-				template <typename> class Customization>
-			friend class SkipFast;
+			template <typename, template <typename> class>
+			friend class Pastel::SkipFast;
 
 			Chain(Chain&&) = delete;
 			Chain& operator=(Chain) = delete;

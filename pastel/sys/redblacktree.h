@@ -1401,7 +1401,7 @@ namespace Pastel
 		node is denoted by the end node. The parent, the left
 		child, and the right child are the bottom node itself.
 		*/
-		SentinelPtr bottom_ = new Sentinel_Node();
+		SentinelPtr bottom_ = SentinelPtr(new Sentinel_Node());
 
 		// FIX: Visual Studio 2013 has a bug which does not allow 
 		// std::make_shared to be used as a member initializer.
