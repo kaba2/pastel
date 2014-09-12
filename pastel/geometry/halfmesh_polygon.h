@@ -25,7 +25,7 @@ namespace Pastel
 			PASTEL_FWD(Half_ConstIterator);
 
 			template <typename, template <typename> class>
-			friend class HalfMesh;
+			friend class Pastel::HalfMesh;
 
 			template <typename... Type>
 			Polygon(Type&&... data)

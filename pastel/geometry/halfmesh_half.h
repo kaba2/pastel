@@ -31,7 +31,7 @@ namespace Pastel
 			PASTEL_FWD(HalfData_Class);
 
 			template <typename, template <typename> class>
-			friend class HalfMesh;
+			friend class Pastel::HalfMesh;
 
 			template <typename... Type>
 			Half(Type&&... data)

@@ -57,6 +57,9 @@ namespace Pastel
 
 		ENSURE(!(zero(left) && zero(right)));
 
+		// For native Integer types.
+		using std::abs;
+
 		Integer u = abs(left);
 		Integer v = abs(right);
 

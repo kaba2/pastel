@@ -4,7 +4,7 @@
 #define PASTELSYS_REDBLACKTREE_ITERATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/redblacktree.h"
+#include "pastel/sys/redblacktree_fwd.h"
 #include "pastel/sys/redblacktree_node.h"
 #include "pastel/sys/all_indicator.h"
 #include "pastel/sys/all_downfilter.h"
@@ -377,7 +377,7 @@ namespace Pastel
 
 		private:
 			template <typename, template <typename> class>
-			friend class RedBlackTree;
+			friend class Pastel::RedBlackTree;
 
 			friend class boost::iterator_core_access;
 

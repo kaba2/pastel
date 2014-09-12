@@ -27,10 +27,9 @@ namespace Pastel
 			friend class Iterator;
 
 			template <typename, template <typename> class>
-			friend class List;
+			friend class Pastel::List;
 
-		// FIX: Make private
-		//private:
+		private:
 			Node(const Node&) = delete;
 			Node& operator=(Node) = delete;
 

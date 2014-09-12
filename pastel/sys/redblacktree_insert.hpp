@@ -32,7 +32,7 @@ namespace Pastel
 		bool right = parentAndRight.right;
 
 		// Create a new node for the element.
-		Node* node = allocateNode(key, data);
+		Node* node = static_cast<Node*>(allocateNode(key, data));
 		Iterator element(node);
 
 		// Attach the node into the tree.

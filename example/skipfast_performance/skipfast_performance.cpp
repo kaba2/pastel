@@ -11,38 +11,7 @@
 #include <pastel/sys/random.h>
 #include <pastel/sys/logging.h>
 
-#include <Windows.h>
-
 using namespace Pastel;
-
-struct HighResClock
-{
-	using rep = long long;
-	using period = std::nano;
-	using duration = std::chrono::duration<rep, period>;
-	using time_point = std::chrono::time_point<HighResClock>;
-	static PASTEL_CONSTEXPR bool is_steady = true;
-
-	static time_point now();
-};
-
-namespace
-{
-	long long g_Frequency = []() -> long long
-	{
-		LARGE_INTEGER frequency;
-
-		QueryPerformanceFrequency(&frequency);
-		return frequency.QuadPart;
-	}();
-}
-
-HighResClock::time_point HighResClock::now()
-{
-	LARGE_INTEGER count;
-	QueryPerformanceCounter(&count);
-	return time_point(duration(count.QuadPart * static_cast<rep>(period::den) / g_Frequency));
-}
 
 static PASTEL_CONSTEXPR int Bits = 6;
 
@@ -50,7 +19,7 @@ template <typename Type>
 double measureTime(const Type& f)
 {
 	namespace Chrono = std::chrono;
-	using Clock = HighResClock;
+	using Clock = Chrono::high_resolution_clock;
 	using Time = Chrono::time_point<Clock>;
 	
 	Time tic = Clock::now();
