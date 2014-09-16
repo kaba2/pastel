@@ -17,7 +17,10 @@ namespace Pastel
 	{
 	private:
 		using Data = Type;
-        using Data_Class = As_Class<Data>;
+		
+		struct Data_Tag;
+        using Data_Class = Class<Data, Data_Tag>;
+        
 		using Node = Tree_::Node;
 		using Data_Node = Tree_::Data_Node<Data_Class>;
 		using Sentinel_Node = Tree_::Sentinel_Node;

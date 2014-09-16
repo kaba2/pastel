@@ -8,11 +8,10 @@
 namespace Pastel
 {
 
-	//! A class wrapper for non-class types.
+	//! A tagged class-wrapper using membership.
 	/*!
 	Preconditions:
-	std::is_scalar<Type>::value || 
-	std::is_void<Type>::value
+	!std::is_class<Type>::value
 
 	Type != void:
 	The wrapper class contains a member of the given 
@@ -27,23 +26,34 @@ namespace Pastel
 	The result is an empty class, with trivial comparison 
 	operators, and a trivial hash function. This is useful 
 	for empty base-class optimization.
-
-	Note:
-	Only non-class types are allowed to be forwarded.
-	The class types are already classes	so there is
-	no sense in wrapping them. Use the Class template 
-	alias below to form Class's conditionally.
 	*/
-	template <typename Type>
-	class Class;
+	template <
+		typename Type, 
+		typename Tag = void>
+	class Member_Class;
 
-	//! Wraps a non-class type into a class.
-	template <typename Type>
-	using As_Class = 
+	//! A tagged class-wrapper using inheritance.
+	/*!
+	Preconditions:
+	std::is_class<Type>::value
+
+	The Type is made a base-class of the Inherited_Class.
+	Constructors are perfectly forwarded to Type.
+	*/
+	template <
+		typename Type, 
+		typename Tag = void>
+	class Inherited_Class;
+
+	//! Wraps class -> Inherited_Class, non-class -> Member_Class.
+	template <
+		typename Type,
+		typename Tag = void>
+	using Class = 
 		typename std::conditional<
-		std::is_scalar<Type>::value ||
-		std::is_void<Type>::value,
-		Class<Type>, Type
+		std::is_class<Type>::value,
+		Inherited_Class<Type, Tag>,
+		Member_Class<Type, Tag>
 		>::type;
 
 }

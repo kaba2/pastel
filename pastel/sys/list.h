@@ -99,7 +99,7 @@ namespace Pastel
 		*/
 		List(List&& that)
 		{
-			splice(end(), std::move(that));
+			splice(end(), that);
 			
 			this->onConstruction();
 		}
@@ -151,7 +151,7 @@ namespace Pastel
 		List& operator=(List&& that)
 		{
 			clear();
-			splice(end(), std::move(that));
+			splice(end(), that);
 			return *this;
 		}
 

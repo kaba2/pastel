@@ -73,6 +73,7 @@ namespace
 			b.b = 3;
 			TEST_ENSURE(b.empty());
 			TEST_ENSURE(b.b == 3);
+			
 			b = B(2);
 			TEST_ENSURE(!b.empty());
 			TEST_ENSURE(b.b == 2);

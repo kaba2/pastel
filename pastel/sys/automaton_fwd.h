@@ -52,9 +52,9 @@ namespace Pastel
 			State_ConstIterator;
 
 		//! The user-data for the states.
-		using StateData_Class = As_Class<StateData>
+		struct State_Tag;
+		using StateData_Class = Class<StateData, State_Tag>;
 ;
-
 		//! The transitions.
 		/*!
 		The transitions are the edges of the graph, 
@@ -66,8 +66,8 @@ namespace Pastel
 			Transition_ConstIterator;
 
 		//! The user-data for the transitions.
-		using TransitionData_Class = As_Class<TransitionData>
-;
+		struct TransitionData_Tag;
+		using TransitionData_Class = Class<TransitionData, TransitionData_Tag>;
 
 		typedef typename Graph_Fwd::Incidence_Iterator
 			Incidence_Iterator;
@@ -75,8 +75,8 @@ namespace Pastel
 			Incidence_ConstIterator;
 
 		//! The set of final states.
-		using FinalSet = std::list<State_ConstIterator>
-;
+		using FinalSet = std::list<State_ConstIterator>;
+
 		typedef typename FinalSet::iterator
 			Final_Iterator;
 	#ifdef __GNUC__
@@ -85,21 +85,18 @@ namespace Pastel
 		container support for const_iterators properly,
 		we will have to use mutable iterators as a hack.
 		*/
-		using Final_ConstIterator = Final_Iterator
-;
+		using Final_ConstIterator = Final_Iterator;
 	#else
 		typedef typename FinalSet::const_iterator
 			Final_ConstIterator;
 	#endif
 
 		//! The set of start states.
-		using StartSet = std::list<State_ConstIterator>
-;
+		using StartSet = std::list<State_ConstIterator>;
 		typedef typename StartSet::iterator
 			Start_Iterator;
 	#ifdef __GNUC__
-		using Start_ConstIterator = Start_Iterator
-;
+		using Start_ConstIterator = Start_Iterator;
 	#else
 		typedef typename StartSet::const_iterator
 			Start_ConstIterator;
@@ -120,8 +117,7 @@ namespace Pastel
 		typedef typename BranchMap::iterator
 			Actual_Branch_Iterator;
 	#ifdef __GNUC__
-		using Actual_Branch_ConstIterator = Actual_Branch_Iterator
-;
+		using Actual_Branch_ConstIterator = Actual_Branch_Iterator;
 	#else
 		typedef typename BranchMap::const_iterator
 			Actual_Branch_ConstIterator;
@@ -129,8 +125,7 @@ namespace Pastel
 		typedef Second_Iterator<Actual_Branch_Iterator, false>
 			Branch_Iterator;
 	#ifdef __GNUC__
-		using Branch_ConstIterator = Branch_Iterator
-;
+		using Branch_ConstIterator = Branch_Iterator;
 	#else
 		typedef Second_Iterator<Actual_Branch_ConstIterator, true>
 			Branch_ConstIterator;

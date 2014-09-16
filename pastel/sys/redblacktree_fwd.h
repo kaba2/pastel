@@ -58,14 +58,17 @@ namespace Pastel
 		static PASTEL_CONSTEXPR bool UserDataInSentinelNodes_ =
 			UserDataInSentinelNodes;
 
-		using Key_Class = As_Class<Key>;
-		using Key_Class_ = Key_Class;
-		using Data_Class = As_Class<Data>;
-		using Data_Class_ = Data_Class;
-		using Propagation_Class = As_Class<Propagation>;
-		using Propagation_Class_ = Propagation_Class;
-		using SentinelData_Class = As_Class<SentinelData>;
-		using SentinelData_Class_ = SentinelData_Class;
+		struct Key_Tag;
+		using Key_Class = Class<Key, Key_Tag>;
+
+		struct Data_Tag;
+		using Data_Class = Class<Data, Data_Tag>;
+
+		struct Propagation_Tag;
+		using Propagation_Class = Class<Propagation, Propagation_Tag>;
+
+		struct SentinelData_Tag;
+		using SentinelData_Class = Class<SentinelData, SentinelData_Tag>;
 
 		static PASTEL_CONSTEXPR bool DereferenceToData =
 			!std::is_same<Data, void>::value;
@@ -78,10 +81,10 @@ namespace Pastel
 		{
 		public:
 			PASTEL_FWD(Key);
-			using Key_Class = Key_Class_;
-			using Propagation_Class = Propagation_Class_;
-			using Data_Class = Data_Class_;
-			using SentinelData_Class = SentinelData_Class_;
+			using Key_Class = Key_Class;
+			using Propagation_Class = Propagation_Class;
+			using Data_Class = Data_Class;
+			using SentinelData_Class = SentinelData_Class;
 			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
 				UserDataInSentinelNodes_;
 			using EndBase = typename std::conditional<

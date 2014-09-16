@@ -26,7 +26,7 @@ namespace
 
 		void test()
 		{
-			As_Class<int> a(5);
+			Class<int> a(5);
 			{
 				TEST_ENSURE_OP(a, ==, 5);
 			}
@@ -36,7 +36,7 @@ namespace
 				TEST_ENSURE_OP(a, ==, 8);
 			}
 
-			As_Class<void> c;
+			Class<void> c;
 			unused(c);
 		}
 	};

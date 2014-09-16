@@ -17,12 +17,11 @@ namespace Pastel
 	
 	template <typename Propagation>
 	class Hash_Propagation
-	: public As_Class<Propagation>
+	: public Class<Propagation>
 	{
 	public:
-		using Propagation_Class = As_Class<Propagation>
+		using Propagation_Class = Class<Propagation>
 ;
-
 		Hash_Propagation()
 		: Propagation_Class()
 		, hash_(0)

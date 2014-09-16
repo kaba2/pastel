@@ -72,8 +72,8 @@ namespace Pastel
 		PASTEL_FWD(VertexData);
 		PASTEL_FWD(EdgeData);
 
-		using VertexData_Class = As_Class<VertexData>;
-		using EdgeData_Class = As_Class<EdgeData>;
+		using VertexData_Class = Class<VertexData>;
+		using EdgeData_Class = Class<EdgeData>;
 
 		PASTEL_STATIC_ASSERT(
 			Type == GraphType::Undirected ||

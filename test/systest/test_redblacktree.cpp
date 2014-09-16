@@ -816,6 +816,8 @@ namespace
 			// An iterator can be converted to a const-iterator.
 			iter = bIter;
 			TEST_ENSURE(iter == bIter);
+
+			ConstIterator cIter = bIter;
 		}
 
 		template <typename Tree>

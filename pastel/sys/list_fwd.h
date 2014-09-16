@@ -63,8 +63,11 @@ namespace Pastel
 		static PASTEL_CONSTEXPR bool UserDataInEndNode = 
 			Settings::UserDataInEndNode;
 
-		using Data_Class = As_Class<Data>;
-		using EndData_Class = As_Class<EndData>;
+		struct Data_Tag;
+		using Data_Class = Class<Data, Data_Tag>;
+
+		struct EndData_Tag;
+		using EndData_Class = Class<EndData, EndData_Tag>;
 
 		using Node = List_::Node;
 		using Data_Node = List_::Data_Node<Data_Class>;

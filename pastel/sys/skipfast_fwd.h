@@ -72,7 +72,9 @@ namespace Pastel
 
 		using Key = Unsigned_Integer<Bits>;
 		using Value = typename Settings::Value;
-		using Value_Class = As_Class<Value>;
+
+		struct Value_Tag;
+		using Value_Class = Class<Value, Value_Tag>;
 
 		class Chain_Propagation
 		{

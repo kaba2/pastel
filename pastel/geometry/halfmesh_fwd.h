@@ -45,10 +45,17 @@ namespace Pastel
 		static PASTEL_CONSTEXPR bool MultipleEdges = Settings::MultipleEdges;
 		static PASTEL_CONSTEXPR bool Loops = Settings::Loops;
 
-		using VertexData_Class = As_Class<VertexData>;
-		using HalfData_Class = As_Class<HalfData>;
-		using EdgeData_Class = As_Class<EdgeData>;
-		using PolygonData_Class = As_Class<PolygonData>;
+		struct Vertex_Tag;
+		using VertexData_Class = Class<VertexData, Vertex_Tag>;
+
+		struct Half_Tag;
+		using HalfData_Class = Class<HalfData, Half_Tag>;
+
+		struct Edge_Tag;
+		using EdgeData_Class = Class<EdgeData, Edge_Tag>;
+
+		struct Polygon_Tag;
+		using PolygonData_Class = Class<PolygonData, Polygon_Tag>;
 
 		using Vertex = HalfMesh_::Vertex<Settings>;
 		using Half = HalfMesh_::Half<Settings>;
