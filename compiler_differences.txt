@@ -47,7 +47,7 @@ However, it is good that the error is emitted because of code such as this:
 
 ### Solution
 
-Always use a trailing underscore for template parameters to avoid the ambiguity.
+Use a trailing underscore for template parameters to avoid the ambiguity.
 
 [[CppCode]]:
 	template <typename Type_>
@@ -94,6 +94,8 @@ The following fails to compile in `gcc` and `Clang`, but compiles in Visual Stud
 
 		return 0;
 	}
+
+By the standard, the code should not compile, since here `friend class C;` is equivalent to `friend class N::C`. The problem is that Visual Studio allows the friend declaration to find the referred class from a parent namespace, which may suggest that this is the standard behaviour.
 
 ### Solution
 
