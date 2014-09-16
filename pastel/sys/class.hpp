@@ -13,19 +13,24 @@
 namespace Pastel
 {
 
-	template <typename Type>
-	class Class
+	template <
+		typename Type, 
+		typename Tag>
+	class Member_Class
 	{
 	public:
-		PASTEL_STATIC_ASSERT(std::is_scalar<Type>::value);
+		// We require that Type be a non-class, since otherwise
+		// the constructor forwarding turns all constructors
+		// implicit.
+		PASTEL_STATIC_ASSERT(!std::is_class<Type>::value);
 
-		Class()
-			: member_()
-		{
-		}
-
-		Class(Type that)
-			: member_(that)
+		template <
+			typename... That,
+			// Forward only those parameters which can be used to construct Type.
+			typename = PASTEL_ENABLE_IF((std::is_constructible<Type, That...>), void)
+			>
+		Member_Class(That&&... that)
+			: member_(std::forward<That>(that)...)
 		{
 		}
 
@@ -43,27 +48,27 @@ namespace Pastel
 		Type member_;
 	};
 
-	template <>
-	class Class<void>
-	: boost::less_than_comparable<Class<void>,
-	boost::equality_comparable<Class<void>
+	template <typename Tag>
+	class Member_Class<void, Tag>
+	: boost::less_than_comparable<Member_Class<void, Tag>,
+	boost::equality_comparable<Member_Class<void, Tag>
 	> >
 	{
 	public:
-		Class()
+		Member_Class()
 		{
 		}
 
-		Class(std::nullptr_t)
+		Member_Class(std::nullptr_t)
 		{
 		}
 
-		bool operator<(const Class& that) const
+		bool operator<(const Member_Class& that) const
 		{
 			return false;
 		}
 
-		bool operator==(const Class& that)
+		bool operator==(const Member_Class& that)
 		{
 			return true;
 		}
@@ -74,25 +79,97 @@ namespace Pastel
 namespace std
 {
 
-	template <typename Type>
-	struct hash<Pastel::Class<Type>>
+	template <
+		typename Type,
+		typename Tag>
+	struct hash<Pastel::Member_Class<Type, Tag>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::Class<Type>& that) const
+			const Pastel::Member_Class<Type, Tag>& that) const
 		{
 			return Pastel::computeHash<Type>(that);
 		}
 	};
 
-	template <>
-	struct hash<Pastel::Class<void>>
+	template <
+		typename Tag>
+	struct hash<Pastel::Member_Class<void, Tag>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const Pastel::Class<void>& that) const
+			const Pastel::Member_Class<void, Tag>& that) const
 		{
 			return Pastel::computeHash<void*>(0);
+		}
+	};
+
+}
+
+namespace Pastel
+{
+
+	template <
+		typename Type, 
+		typename Tag>
+	class Inherited_Class
+	: public Type
+	{
+	public:
+		// We require Type to be a class; we inherit from Type.
+		PASTEL_STATIC_ASSERT(std::is_class<Type>::value);
+
+		//! Inherit most of the constructors from Type.
+		/*!
+		It is important to use inheritance --- rather than perfect 
+		forwarding --- to preserve the explicitness of Type's
+		constructors.
+		*/
+		using Type::Type;
+
+		//! Constructs an empty class.
+		/*!
+		The default-constructor is not lifted from Type.
+		*/
+		Inherited_Class()
+		: Type()
+		{
+		}
+
+		//! Forwards copy-construction to Type.
+		/*! 
+		The copy-constructor is not lifted from Type.
+		*/
+		Inherited_Class(const Type& that)
+		: Type(that)
+		{
+		}
+
+		//! Forwards move-construction to Type.
+		/*! 
+		The move-constructor is not lifted from Type.
+		*/
+		Inherited_Class(Type&& that)
+		: Type(std::move(that))
+		{
+		}
+	};
+
+}
+
+namespace std
+{
+
+	template <
+		typename Type,
+		typename Tag>
+	struct hash<Pastel::Inherited_Class<Type, Tag>>
+	{
+	public:
+		Pastel::hash_integer operator()(
+			const Pastel::Inherited_Class<Type, Tag>& that) const
+		{
+			return Pastel::computeHash<Type>(that);
 		}
 	};
 

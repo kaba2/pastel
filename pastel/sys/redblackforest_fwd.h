@@ -36,7 +36,7 @@ namespace Pastel
 		using Tree_ConstRange = boost::iterator_range<Tree_ConstIterator>;
 
 		class Tree_SentinelData
-		: public As_Class<User_SentinelData>
+		: public Class<User_SentinelData>
 		{
 		public:
 			Tree_SentinelData()

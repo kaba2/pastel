@@ -15,12 +15,11 @@ namespace Pastel
 
 	template <typename Type>
 	class Optional
-		: public As_Class<Type>
+		: public Class<Type>
 	{
 	public:
-		using Type_Class = As_Class<Type>
+		using Type_Class = Class<Type>
 ;
-
 		Optional()
 			: Type_Class()
 			, empty_(true)
@@ -174,7 +173,7 @@ namespace std
 			}
 			
 			return Pastel::computeHash(
-				(const typename Pastel::As_Class<Type>&)that);
+				(const typename Pastel::Class<Type>&)that);
 		}
 	};
 

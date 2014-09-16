@@ -22,8 +22,10 @@ namespace Pastel
 			static PASTEL_CONSTEXPR bool UseValue = true;
 		};
 
-		template <typename Key>
-		struct Iterator_Value<Key, As_Class<void>>
+		template <
+			typename Key,
+			typename Tag>
+		struct Iterator_Value<Key, Member_Class<void, Tag>>
 		{
 			using type = const Key;
 			static PASTEL_CONSTEXPR bool UseValue = false;
