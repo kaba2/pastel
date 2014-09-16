@@ -66,7 +66,7 @@ namespace Pastel
 			template <typename Type>
 			Vertex& operator=(Type&& that)
 			{
-				((VertexData_Class&)*this) = std::forward<Type>(that);
+				data() = std::forward<Type>(that);
 				return *this;
 			}
 
@@ -113,8 +113,6 @@ namespace Pastel
 			}
 
 		private:
-			Vertex& operator=(Vertex) = delete;
-
 			Half_Iterator half_;
 		};
 

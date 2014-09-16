@@ -18,7 +18,7 @@ project (Pastel)
 
 # The directory of the Boost library's source code.
 # The includes are of the form 'boost/static_assert.hpp'.
-set (BoostIncludeDirectory ../boost_1_54_0)
+set (BoostIncludeDirectory ../boost_1_56_0)
 
 # The directory of the Threading Building Blocks library's 
 # source code. The includes are of the form 'tbb/parallel_for.h'.

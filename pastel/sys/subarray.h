@@ -246,7 +246,7 @@ namespace Pastel
 			integer d = n();
 
 			Vector<integer, N> position(
-				ofDimension(n), 0);
+				ofDimension(d), 0);
 			for (integer i = d - 1;i >= 0;--i)
 			{
 				position[i] = index / extentStride_[i];
