@@ -87,8 +87,8 @@ namespace
 		{
 			using Point = std::array<real, 2>;
 
-			Point a = { 1, 4 };
-			Point b = { -5, 2 };
+			Point a = { {1, 4} };
+			Point b = { {-5, 2} };
 			auto locator = Array_Locator<real, 2>();
 
 			testCase(a, b, locator);

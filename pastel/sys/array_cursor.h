@@ -20,7 +20,7 @@ namespace Pastel
 		{
 		public:
 			template <typename, int>
-			friend class Array;
+			friend class Pastel::Array;
 
 			using Element = Type;
 			using ConstReference = Type const&;
@@ -144,7 +144,7 @@ namespace Pastel
 		{
 		private:
 			template <typename, int>
-			friend class Array;
+			friend class Pastel::Array;
 
 			using Base = ConstCursor<Type, N>;
 

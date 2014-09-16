@@ -4,6 +4,7 @@
 #define PASTELSYS_BOUNDED_ARRAY_ITERATOR_H
 
 #include "pastel/sys/bounded_array_fwd.h"
+#include "pastel/sys/hashing.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 
@@ -45,7 +46,7 @@ namespace Pastel
 
 		private:
 			template <typename, template <typename> class>
-			friend class BoundedArray;
+			friend class Pastel::BoundedArray;
 
 			friend class boost::iterator_core_access;
 
