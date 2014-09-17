@@ -3,6 +3,8 @@
 
 #include "test_pastelsys.h"
 
+#if 0
+
 #include <pastel/sys/skipfast.h>
 #include <boost/range/algorithm/for_each.hpp>
 
@@ -420,3 +422,4 @@ namespace
 
 }
 
+#endif

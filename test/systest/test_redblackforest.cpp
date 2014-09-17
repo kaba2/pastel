@@ -53,7 +53,8 @@ namespace
 			}
 			{
 				Element_ConstIterator a = Iterator();
-				ConstIterator b = Element_Iterator();
+				Element_ConstIterator b = Element_Iterator();
+				ConstIterator c = Element_Iterator();
 			}
 			{
 				Iterator a = forest.cast(ConstIterator());
