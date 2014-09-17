@@ -7,10 +7,6 @@
 #include "pastel/sys/range.h"
 #include "pastel/sys/mytypes.h"
 
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/bool.hpp>
-
 #include <functional>
 #include <string>
 

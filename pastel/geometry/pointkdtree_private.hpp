@@ -8,7 +8,7 @@
 #include "pastel/sys/range_input.h"
 #include "pastel/sys/transform_input.h"
 
-#include <boost/type_traits/has_trivial_destructor.hpp>
+#include <type_traits>
 
 namespace Pastel
 {
@@ -86,7 +86,7 @@ namespace Pastel
 	void PointKdTree<Settings, Customization>::destructSubtree(
 		Node* node)
 	{
-		if (!boost::has_trivial_destructor<Real>::value)
+		if (!std::is_trivially_destructible<Real>::value)
 		{
 			if (!node->leaf())
 			{
@@ -221,7 +221,7 @@ namespace Pastel
 		}
 
 		// Destruct the node.
-		if (!boost::has_trivial_destructor<Real>::value)
+		if (!std::is_trivially_destructible<Real>::value)
 		{
 			destruct(node);
 		}

@@ -42,12 +42,12 @@ namespace Pastel
 			{
 			}
 
-			template <typename That>
-			Iterator(
-				const Iterator<That, Data_Class>& that,
-				typename boost::enable_if<
-				boost::is_convertible<That, NodePtr>, 
-				enabler>::type = enabler())
+			template <
+				typename That,
+				typename = PASTEL_ENABLE_IF(
+					(std::is_convertible<That, NodePtr>), void)
+				>
+			Iterator(const Iterator<That, Data_Class>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{
 			}

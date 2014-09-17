@@ -4,6 +4,7 @@
 #define PASTELGEOMETRY_HALFMESH_H
 
 #include "pastel/geometry/halfmesh_concepts.h"
+#include "pastel/geometry/halfmesh_fwd.h"
 #include "pastel/geometry/halfmesh_vertex.h"
 #include "pastel/geometry/halfmesh_half.h"
 #include "pastel/geometry/halfmesh_edge.h"

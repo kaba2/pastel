@@ -24,25 +24,6 @@ namespace Pastel
 			PASTEL_FWD(Half_Iterator);
 			PASTEL_FWD(Half_ConstIterator);
 
-			template <typename, template <typename> class>
-			friend class Pastel::HalfMesh;
-
-			template <typename... Type>
-			Edge(Type&&... data)
-			: EdgeData_Class(std::forward<Type>(data)...)
-			{
-			}
-
-			Edge(const Edge& that)
-			: EdgeData_Class(that) 
-			{
-			}
-
-			Edge(Edge&& that)
-			: EdgeData_Class(std::move(that))
-			{
-			}
-
 			operator EdgeData_Class&()
 			{
 				return data();
@@ -73,8 +54,29 @@ namespace Pastel
 				return half_;
 			}
 
+		protected:
+			// Why protected rather than private?
+			// See corresponding region for Vertex.
+
+			template <typename... Type>
+			Edge(Type&&... data)
+			: EdgeData_Class(std::forward<Type>(data)...)
+			{
+			}
+
+			Edge(const Edge& that)
+			: EdgeData_Class(that) 
+			{
+			}
+
+			Edge(Edge&& that)
+			: EdgeData_Class(std::move(that))
+			{
+			}
+
 		private:
-			Edge& operator=(Edge) = delete;
+			template <typename, template <typename> class>
+			friend class Pastel::HalfMesh;
 
 			Half_Iterator half_;
 		};

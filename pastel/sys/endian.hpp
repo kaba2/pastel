@@ -5,8 +5,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
 
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
+#include <type_traits>
 
 namespace Pastel
 {

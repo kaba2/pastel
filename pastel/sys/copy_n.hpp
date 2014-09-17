@@ -3,11 +3,11 @@
 
 #include "pastel/sys/copy_n.h"
 
+#include <boost/mpl/if.hpp>
+
 #include <algorithm>
 #include <iterator>
-
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 
 namespace Pastel
 {

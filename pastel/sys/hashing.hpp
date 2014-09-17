@@ -3,8 +3,6 @@
 
 #include "pastel/sys/hashing.h"
 
-#include <boost/type_traits/is_same.hpp>
-
 namespace Pastel
 {
 

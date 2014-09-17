@@ -30,25 +30,6 @@ namespace Pastel
 			PASTEL_FWD(Polygon_ConstIterator);
 			PASTEL_FWD(HalfData_Class);
 
-			template <typename, template <typename> class>
-			friend class Pastel::HalfMesh;
-
-			template <typename... Type>
-			Half(Type&&... data)
-			: HalfData_Class(std::forward<Type>(data)...)
-			{
-			}
-
-			Half(const Half& that)
-			: HalfData_Class(that) 
-			{
-			}
-
-			Half(Half&& that)
-			: HalfData_Class(std::move(that))
-			{
-			}
-
 			operator HalfData_Class&()
 			{
 				return data();
@@ -178,8 +159,29 @@ namespace Pastel
 				return left().empty();
 			}
 
+		protected:
+			// Why protected rather than private?
+			// See corresponding region for Vertex.
+
+			template <typename... Type>
+			Half(Type&&... data)
+			: HalfData_Class(std::forward<Type>(data)...)
+			{
+			}
+
+			Half(const Half& that)
+			: HalfData_Class(that) 
+			{
+			}
+
+			Half(Half&& that)
+			: HalfData_Class(std::move(that))
+			{
+			}
+
 		private:
-			Half& operator=(Half) = delete;
+			template <typename, template <typename> class>
+			friend class Pastel::HalfMesh;
 
 			Half_Iterator next_;
 			Half_Iterator previous_;

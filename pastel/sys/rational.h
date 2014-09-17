@@ -11,8 +11,6 @@
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/type_traits/is_signed.hpp>
 
 namespace Pastel
 {
@@ -34,14 +32,14 @@ namespace Pastel
 
 		template <typename That_Integer>
 		struct IsNative
-			: boost::is_signed<That_Integer> 
+			: std::is_signed<That_Integer> 
 		{};
 
 		template <typename That_Integer>
 		struct IsInteger
 			: boost::mpl::and_<
-			boost::mpl::not_<boost::is_signed<That_Integer>>, 
-			boost::is_same<That_Integer, Integer>>
+			boost::mpl::not_<std::is_signed<That_Integer>>, 
+			std::is_same<That_Integer, Integer>>
 		{};
 
 		template <typename That_Integer>

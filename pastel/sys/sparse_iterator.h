@@ -9,8 +9,8 @@
 #include "pastel/sys/range.h"
 
 #include <boost/operators.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 
+#include <type_traits>
 #include <iterator>
 
 namespace Pastel

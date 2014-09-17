@@ -5,6 +5,8 @@
 
 #include "pastel/sys/redblackforest_fwd.h"
 
+#include <type_traits>
+
 namespace Pastel
 {
 
@@ -45,7 +47,8 @@ namespace Pastel
 			template <
 				typename That_BaseIterator,
 				typename = PASTEL_ENABLE_IF(
-					(std::is_convertible<That_BaseIterator, Base_Iterator>), void)>
+					(std::is_convertible<That_BaseIterator, Base_Iterator>), void)
+				>
 			Iterator(const Iterator<That_BaseIterator>& that)
 				: Base_Iterator(that)
 			{
