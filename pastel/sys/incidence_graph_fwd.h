@@ -8,6 +8,7 @@
 
 #include <boost/iterator/iterator_adaptor.hpp>
 
+#include <type_traits>
 #include <list>
 
 namespace Pastel
@@ -41,7 +42,7 @@ namespace Pastel
 
 			template <
 				typename That, 
-				typename = PASTEL_ENABLE_IF((boost::is_convertible<That, Type>), void)>
+				typename = PASTEL_ENABLE_IF((std::is_convertible<That, Type>), void)>
 			Incidence_Iterator(const Incidence_Iterator<That>& that)
 				: Incidence_Iterator::iterator_adaptor_(that.base()) 
 			{

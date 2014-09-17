@@ -153,6 +153,14 @@ namespace Pastel
 		: Type(std::move(that))
 		{
 		}
+
+		//! Forwards assignment to Type.
+		template <typename That>
+		Inherited_Class& operator=(That&& that)
+		{
+			*static_cast<Type*>(this) = std::forward<That>(that);
+			return *this;
+		}
 	};
 
 }

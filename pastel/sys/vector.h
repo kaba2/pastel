@@ -12,8 +12,6 @@
 #include "pastel/sys/vectorexpression.h"
 
 #include <boost/operators.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_integral.hpp>
 
 #include <algorithm>
 

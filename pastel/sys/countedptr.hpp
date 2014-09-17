@@ -5,7 +5,7 @@
 
 #include "pastel/sys/ensure.h"
 
-#include <boost/type_traits/is_base_of.hpp>
+#include <type_traits>
 
 namespace Pastel
 {

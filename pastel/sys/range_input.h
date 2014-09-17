@@ -6,8 +6,7 @@
 
 #include "pastel/sys/range.h"
 
-#include <boost/type_traits/is_same.hpp>
-
+#include <type_traits>
 #include <iterator>
 
 namespace Pastel
@@ -37,7 +36,7 @@ namespace Pastel
 		integer nHint() const
 		{
 			static PASTEL_CONSTEXPR bool IsRandomAccess =
-				boost::is_same<
+				std::is_same<
 					typename boost::iterator_traversal<Iterator>::type,
 					boost::random_access_traversal_tag>::value;
 

@@ -5,11 +5,11 @@
 
 #include "pastel/sys/ensure.h"
 
-#include <boost/type_traits/is_same.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/range/algorithm/copy.hpp>
 
 #include <vector>
+#include <type_traits>
 
 namespace Pastel
 {

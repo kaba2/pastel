@@ -9,8 +9,7 @@
 #include "pastel/sys/push_back_output.h"
 #include "pastel/sys/random_uniform.h"
 
-#include <boost/type_traits/is_same.hpp>
-
+#include <type_traits>
 #include <unordered_map>
 
 namespace Pastel

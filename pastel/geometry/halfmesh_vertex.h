@@ -24,25 +24,6 @@ namespace Pastel
 			PASTEL_FWD(Half_Iterator);
 			PASTEL_FWD(Half_ConstIterator);
 
-			template <typename, template <typename> class>
-			friend class Pastel::HalfMesh;
-
-			template <typename... Type>
-			Vertex(Type&&... data)
-			: VertexData_Class(std::forward<Type>(data)...)
-			{
-			}
-
-			Vertex(const Vertex& that)
-			: VertexData_Class(that) 
-			{
-			}
-
-			Vertex(Vertex&& that)
-			: VertexData_Class(std::move(that))
-			{
-			}
-
 			operator VertexData_Class&()
 			{
 				return data();
@@ -60,13 +41,6 @@ namespace Pastel
 
 			const VertexData_Class& data() const
 			{
-				return *this;
-			}
-
-			template <typename Type>
-			Vertex& operator=(Type&& that)
-			{
-				data() = std::forward<Type>(that);
 				return *this;
 			}
 
@@ -112,7 +86,32 @@ namespace Pastel
 				return half().empty();
 			}
 
+		protected:
+			// These functions are protected, rather than
+			// private, so that Vertex can be used as a base
+			// class. In particular, this is needed for the 
+			// Inherited_Class used in List.
+
+			template <typename... Type>
+			Vertex(Type&&... data)
+			: VertexData_Class(std::forward<Type>(data)...)
+			{
+			}
+
+			Vertex(const Vertex& that)
+			: VertexData_Class(that) 
+			{
+			}
+
+			Vertex(Vertex&& that)
+			: VertexData_Class(std::move(that))
+			{
+			}
+
 		private:
+			template <typename, template <typename> class>
+			friend class Pastel::HalfMesh;
+
 			Half_Iterator half_;
 		};
 

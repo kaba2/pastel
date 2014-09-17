@@ -10,10 +10,9 @@
 #include <boost/operators.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/type_traits/is_arithmetic.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 
+#include <type_traits>
 #include <iterator>
 
 namespace Pastel

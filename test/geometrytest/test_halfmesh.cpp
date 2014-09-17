@@ -178,7 +178,7 @@ namespace
 					vertex[i][j] = mesh.insertVertex();
 					TEST_ENSURE(testInvariants(mesh));
 					TEST_ENSURE(!vertex[i][j].empty());
-					*(vertex[i][j]) = i * 10 + j;
+					(vertex[i][j])->data() = i * 10 + j;
 				}
 			}
 
@@ -371,7 +371,7 @@ namespace
 					TEST_ENSURE(testInvariants(mesh));
 
 					TEST_ENSURE(!vertex[i][j].empty());
-					*(vertex[i][j]) = i * 10 + j;
+					(vertex[i][j])->data() = i * 10 + j;
 				}
 			}
 
