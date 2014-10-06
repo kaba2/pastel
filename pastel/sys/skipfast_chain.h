@@ -8,9 +8,7 @@
 namespace Pastel
 {
 
-	template <
-		typename Settings,
-		template <typename> class Customization>
+	template <typename, template <typename> class>
 	class SkipFast;
 
 	namespace SkipFast_
@@ -23,7 +21,6 @@ namespace Pastel
 		public:
 			using Fwd = SkipFast_Fwd<Settings>;
 			PASTEL_FWD(ElementSet);
-			PASTEL_FWD(Key);
 
 			Chain()
 				: height_(0)
@@ -84,7 +81,6 @@ namespace Pastel
 			//! The level at which the chain begins.
 			integer levelBegin_;
 
-		public:
 			//! The set of elements under the lowest node.
 			ElementSet elementSet_;
 		};

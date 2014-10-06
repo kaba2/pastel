@@ -3,8 +3,8 @@
 #ifndef PASTELSYS_SKIPFAST_H
 #define PASTELSYS_SKIPFAST_H
 
-#include "pastel/sys/skipfast_concepts.h"
 #include "pastel/sys/skipfast_fwd.h"
+#include "pastel/sys/skipfast_concepts.h"
 #include "pastel/sys/skipfast_chain.h"
 #include "pastel/sys/skipfast_iterator.h"
 

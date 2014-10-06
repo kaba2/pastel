@@ -41,7 +41,7 @@ namespace Pastel
 		}
 
 		//! Returns the split-point.
-		const Point_ConstIterator& split() const
+		const Point_Iterator& split() const
 		{
 			return split_;
 		}

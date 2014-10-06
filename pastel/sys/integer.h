@@ -59,6 +59,10 @@ namespace Pastel
 	, boost::totally_ordered<Integer<Integer_Settings>
 	> > > > >
 	{
+	private:
+		struct Signed_Tag {};
+		struct Unsigned_Tag {};
+		
 	public:
 		// See the documentation for Integer_Settings_Concept.
 		using Settings = Integer_Settings;
@@ -152,9 +156,11 @@ namespace Pastel
 
 		The assigned value is mod(that, 2^N).
 		*/
-		template <typename That_Integer>
-		Integer(That_Integer that,
-			PASTEL_ENABLE_IF_P(std::is_unsigned<That_Integer>))
+		template <
+			typename That_Integer,
+			typename = PASTEL_ENABLE_IF(std::is_unsigned<That_Integer>, void)
+			>
+		Integer(That_Integer that, Signed_Tag = Signed_Tag())
 		: wordSet_()
 		{
 			for (integer i = 0;i < Words;++i)
@@ -179,9 +185,11 @@ namespace Pastel
 
 		The assigned value is mod(signedToTwosComplement(that), 2^N).
 		*/
-		template <typename That_Integer>
-		Integer(That_Integer that,
-			PASTEL_ENABLE_IF_P(std::is_signed<That_Integer>))
+		template <
+			typename That_Integer,
+			typename = PASTEL_ENABLE_IF(std::is_signed<That_Integer>, void)
+			>
+		Integer(That_Integer that, Unsigned_Tag = Unsigned_Tag())
 			: Integer(signedToTwosComplement(that))
 		{
 			if (that < 0)
