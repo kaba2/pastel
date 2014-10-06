@@ -18,6 +18,7 @@ project (Pastel)
 
 # The directory of the Boost library's source code.
 # The includes are of the form 'boost/static_assert.hpp'.
+#set (BoostIncludeDirectory ../boost_1_54_0)
 set (BoostIncludeDirectory ../boost_1_56_0)
 
 # The directory of the Threading Building Blocks library's 
@@ -26,13 +27,13 @@ set (TbbIncludeDirectory ../tbb42/include)
 
 # The directory of the Threading Building Blocks library's 
 # dynamic libraries.
-set (TbbLibraryDirectory ../tbb42/lib/libc++)
-# set (TbbLibraryDirectory ../tbb42/lib)
+#set (TbbLibraryDirectory ../tbb42/lib/libc++)
+set (TbbLibraryDirectory ../tbb42/lib)
 
 # The directory of the Matlab header files.
 # The includes are of the form 'mex.h'.
-#set (MatlabIncludeDirectory "C:/Program Files/MATLAB/R2013a/extern/include")
-set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
+set (MatlabIncludeDirectory "C:/Program Files/MATLAB/R2013a/extern/include")
+#set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
 
 # Note: To successfully _compile_ Pastel's Matlab-libraries, 
 # you only need the header files for Matlab. 
@@ -156,8 +157,6 @@ if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") OR
 		# This is needed to build the Matlab 
 		# libraries.
 		-fPIC
-		# Limits the number of reported errors to 1.
-		-ferror-limit=1
 	)
 
 	# Disable some warnings.
@@ -200,13 +199,13 @@ endif()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang") 
 	add_definitions (
-		# Enables C++14 library support.
+		# Enables C++11 library support.
 		-stdlib=libc++
 		# Not sure why.
 		-arch x86_64
 	)
 
-	# Enables C++14 linker support.
+	# Enables C++11 linker support.
 	set (CMAKE_EXE_LINKER_FLAGS 
 		"${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
 	set (CMAKE_SHARED_LINKER_FLAGS 
@@ -313,8 +312,7 @@ set (MatlabLibrarySet
 	pastelmathmatlab
 	pastelgeometrymatlab)
 
-set (ExampleSet
-	skipfast_performance)
+set (ExampleSet)
 
 set_property( GLOBAL PROPERTY USE_FOLDERS ON)
 

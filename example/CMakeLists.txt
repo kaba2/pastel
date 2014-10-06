@@ -1,3 +1,3 @@
 if (BuildExamples)
-	add_subdirectory ("skipfast_performance")
+	#add_subdirectory ("PastelExample")
 endif()
