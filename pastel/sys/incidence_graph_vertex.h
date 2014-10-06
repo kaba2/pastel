@@ -26,8 +26,6 @@ namespace Pastel
 		template <typename, template <typename> class>
 		friend class IncidenceGraph;
 
-		using VertexData_Class::operator=;
-
 		//! Move-constructs from another vertex.
 		/*!
 		Time complexity: constant
@@ -64,6 +62,14 @@ namespace Pastel
 			}
 
 			that.forget();
+		}
+
+		//! Assigns to the contained data.
+		template <typename Type>
+		Vertex& operator=(Type&& that)
+		{
+			((VertexData_Class&)*this) = std::forward<Type>(that);
+			return *this;
 		}
 
 		~Vertex()
@@ -187,12 +193,7 @@ namespace Pastel
 	private:
 		Vertex() = delete;
 		Vertex(const Vertex& that) = delete;
-
-		// Making the operator= private would give the error
-		// C2876: "not all overloads are accessible".
-		// FIX: Remove public when 'delete' becomes available.
-	public:
-		Vertex& operator=(Vertex that) = delete;
+		Vertex& operator=(const Vertex& that) = delete;
 
 	private:
 		explicit Vertex(VertexData_Class data)

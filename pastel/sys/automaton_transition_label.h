@@ -23,8 +23,6 @@ namespace Pastel
 		: public TransitionData_Class
 	{
 	public:
-		using TransitionData_Class::operator=;
-
 		// FIX: Delete after emplace becomes available in Visual Studio.
 		TransitionLabel(TransitionLabel&& that)
 			: TransitionData_Class(std::move((TransitionData_Class&&)that))
@@ -37,15 +35,18 @@ namespace Pastel
 			return symbol_;
 		}
 
+		//! Assigns to the contained data.
+		template <typename Type>
+		TransitionLabel& operator=(Type&& that)
+		{
+			((TransitionData_Class&)*this) = std::forward<Type>(that);
+			return *this;
+		}
+
 	private:
 		TransitionLabel() = delete;
 		TransitionLabel(const TransitionLabel& that) = delete;
-
-		// Making the operator= private would give the error
-		// C2876: "not all overloads are accessible".
-		// FIX: Remove public when 'delete' becomes available.
-	public:
-		TransitionLabel& operator=(TransitionLabel that) = delete;
+		TransitionLabel& operator=(const TransitionLabel& that) = delete;
 
 	private:
 		template <

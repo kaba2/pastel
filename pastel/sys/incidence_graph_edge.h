@@ -138,14 +138,20 @@ namespace Pastel
 		typedef IncidenceGraph_::Directed_EdgeData<Type, EdgeData>
 			Base;
 
-		using EdgeData_Class::operator=;
-
 		// FIX: Delete after emplace becomes available in Visual Studio.
 		Edge(Edge&& that)
 			: Base(that.directed(), std::move((EdgeData_Class&&)that))
 			, from_(std::move(that.from_))
 			, to_(std::move(that.to_))
 		{
+		}
+
+		//! Assigns to the contained data.
+		template <typename Type>
+		Edge& operator=(Type&& that)
+		{
+			((EdgeData_Class&)*this) = std::forward<Type>(that);
+			return *this;
 		}
 
 		Vertex_Iterator from()
@@ -183,12 +189,7 @@ namespace Pastel
 	private:
 		Edge() = delete;
 		Edge(const Edge& that) = delete;
-		
-		// Making the operator= private would give the error
-		// C2876: "not all overloads are accessible".
-		// FIX: Remove public when 'delete' becomes available.
-	public:
-		Edge& operator=(Edge that) = delete;
+		Edge& operator=(const Edge& that) = delete;
 	
 	private:
 		explicit Edge(EdgeData_Class data, bool directed)

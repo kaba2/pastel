@@ -32,8 +32,6 @@ namespace Pastel
 		PASTEL_FWD(Start_Iterator);
 
 	public:
-		using StateData_Class::operator=;
-
 		// FIX: Delete after emplace becomes available in Visual Studio.
 		StateLabel(StateLabel&& that)
 			: StateData_Class(std::move((StateData_Class&&)that))
@@ -41,6 +39,14 @@ namespace Pastel
 			, startPosition_(std::move(that.startPosition_))
 			, flags_(std::move(that.flags_))
 		{
+		}
+
+		//! Assigns to the contained data.
+		template <typename Type>
+		StateLabel& operator=(Type&& that)
+		{
+			((StateData_Class&)*this) = std::forward<Type>(that);
+			return *this;
 		}
 
 		bool final() const
@@ -56,12 +62,7 @@ namespace Pastel
 	private:
 		StateLabel() = delete;
 		StateLabel(const StateLabel& that) = delete;
-		
-		// Making the operator= private would give the error
-		// C2876: "not all overloads are accessible".
-		// FIX: Remove public when 'delete' becomes available.
-	public:
-		StateLabel& operator=(StateLabel that) = delete;
+		StateLabel& operator=(const StateLabel&) = delete;
 
 	private:
 		template <

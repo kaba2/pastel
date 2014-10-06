@@ -25,8 +25,6 @@ namespace Pastel
 		: public SetData_Class
 	{
 	public:
-		using SetData_Class::operator=;
-
 		//! Move-constructs from another set.
 		/*!
 		Time complexity: constant
@@ -44,6 +42,14 @@ namespace Pastel
 			, marked_(std::move(that.marked_))
 			, type_(std::move(that.type_))
 		{
+		}
+
+		//! Assigns to the contained data.
+		template <typename Type>
+		Set& operator=(Type&& that)
+		{
+			((SetData_Class&)*this) = std::forward<Type>(that);
+			return *this;
 		}
 
 		//! Returns the number of elements.
@@ -145,7 +151,7 @@ namespace Pastel
 
 		Set() = delete;
 		Set(const Set& that) = delete;
-		Set& operator=(Set that) = delete;
+		Set& operator=(const Set& that) = delete;
 
 		Set(Member_Iterator begin,
 			Member_Iterator end,
