@@ -26,8 +26,6 @@ namespace Pastel
 		template <typename ElementData_, typename SetData_>
 		friend class RefinablePartition_Fwd<ElementData_, SetData_>::Set;
 
-		using ElementData_Class::operator=;
-
 		//! Move-constructs from another element.
 		/*!
 		Time complexity: constant
@@ -41,6 +39,14 @@ namespace Pastel
 			, member_(std::move(that.member_))
 			, type_(std::move(that.type_))
 		{
+		}
+
+		//! Assigns to the contained data.
+		template <typename Type>
+		Element& operator=(Type&& that)
+		{
+			((ElementData_Class&)*this) = std::forward<Type>(that);
+			return *this;
 		}
 
 		//! Returns the containing set.
@@ -76,7 +82,7 @@ namespace Pastel
 	private:
 		Element() = delete;
 		Element(const Element& that) = delete;
-		Element& operator=(Element that) = delete;
+		Element& operator=(const Element& that) = delete;
 
 		//! Constructs the element.
 		/*!

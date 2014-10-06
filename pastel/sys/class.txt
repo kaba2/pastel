@@ -97,11 +97,18 @@ An example is given by a [generic graph data structure][Graph] which allows to e
 	public:
 		using Base = As_Class<EdgeData>;
 
-		using Base::operator=;
 		Edge& operator=(Edge edge) = delete;
 
 		Vertex* from() {return from_;}
 		Vertex* to() {return to_;}
+
+		//! Assigns to the contained data.
+		template <typename Type>
+		Edge& operator=(Type&& that)
+		{
+			((Base&)*this) = std::forward<Type>(that);
+			return *this;
+		}
 
 	private:
 		Vertex* from_;

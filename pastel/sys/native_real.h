@@ -12,11 +12,20 @@
 namespace Pastel
 {
 
+	namespace NativeReal_
+	{
+
+		struct Tag{};
+
+	}
+
 	// Real
 
-	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_floating_point<Type>, Type) 
-		infinity()
+	template <
+		typename Type,
+		typename = PASTEL_ENABLE_IF(std::is_floating_point<Type>, void)
+	>
+	Type infinity(NativeReal_::Tag = NativeReal_::Tag())
 	{
 		return std::numeric_limits<Type>::infinity();
 	}

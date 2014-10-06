@@ -164,14 +164,20 @@ namespace Pastel
 			, public Data_Class
 		{
 		public:
-		    using Data_Class::operator=;
-
     		explicit Data_Node(
     			Sentinel_Node* sentinel,
     			Data_Class data)
 				: Node(sentinel)
 				, Data_Class(std::move(data))
 			{
+			}
+
+			//! Assigns to the contained data.
+			template <typename Type>
+			Data_Node& operator=(Type&& that)
+			{
+				((Data_Class&)*this) = std::forward<Type>(that);
+				return *this;
 			}
 
 		private:

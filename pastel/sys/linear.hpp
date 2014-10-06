@@ -45,7 +45,7 @@ namespace Pastel
 			Type;
 
 		integer n = position.size();
-		ENSURE_OP(data.size(), >=, ((integer)1 << (integer)n));
+		ENSURE_OP((integer)data.size(), >=, ((integer)1 << (integer)n));
 
 		return Linear_::linear<Type>(position, data, 0, 0);
 	}

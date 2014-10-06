@@ -54,9 +54,18 @@ namespace Pastel
 		return !even(that);
 	}
 
-	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_integral<Type>, Type)
-		infinity()
+	namespace NativeInteger_
+	{
+
+		struct Tag {};
+
+	}
+
+	template <
+		typename Type,
+		typename = PASTEL_ENABLE_IF(std::is_integral<Type>, void)
+	>
+	Type infinity(NativeInteger_::Tag = NativeInteger_::Tag())
 	{
 		return std::numeric_limits<Type>::max();
 	}
