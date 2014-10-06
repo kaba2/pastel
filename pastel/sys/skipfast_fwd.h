@@ -111,6 +111,10 @@ namespace Pastel
 			Chain_Iterator_Local chain;
 		};
 
+		// Clang has a bug: it say that ElementSet cannot be found from 
+		// here when referenced from skipfast_chain.h. However, if you 
+		// move these over GroupSet above, and replace Element_SentinelData
+		// with void, then the error disappears.
 		using ElementSet = RedBlackTree_Set<Key, Value, LessThan, void, Element_SentinelData>;
 		using Element_ConstIterator = typename ElementSet::ConstIterator;
 		using Element_Iterator = typename ElementSet::Iterator;

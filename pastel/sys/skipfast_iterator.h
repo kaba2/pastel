@@ -44,15 +44,22 @@ namespace Pastel
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			Iterator(const Base_Iterator& that)
+			template <
+				typename That_Base_Iterator,
+				typename = PASTEL_ENABLE_IF(
+					(std::is_convertible<That_Base_Iterator, Base_Iterator>), void)
+				>
+			Iterator(const That_Base_Iterator& that)
 			: Base_Iterator(that)
 			{
 			}
 
 			template <
-				typename That_BaseIterator,
-				typename = PASTEL_ENABLE_IF((std::is_convertible<That_BaseIterator, Base_Iterator>), void)>
-			Iterator(const Iterator<Settings, That_BaseIterator>& that)
+				typename That_Base_Iterator,
+				typename = PASTEL_ENABLE_IF(
+					(std::is_convertible<That_Base_Iterator, Base_Iterator>), void)
+				>
+			Iterator(const Iterator<Settings, That_Base_Iterator>& that)
 				: Base_Iterator(that)
 			{
 			}

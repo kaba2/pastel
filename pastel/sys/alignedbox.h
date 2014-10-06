@@ -65,11 +65,13 @@ namespace Pastel
 		{
 		}
 
-		template <int N_ = N>
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 1, void)
+			>
 		AlignedBox(
 			const Real& xMin, 
-			const Real& xMax,
-			PASTEL_ENABLE_IF_C_P(N_ == 1))
+			const Real& xMax)
 			: min_(xMin)
 			, max_(xMax)
 			, minTopology_(ofDimension(min_.n()), Topology::Closed)
@@ -77,11 +79,13 @@ namespace Pastel
 		{
 		}
 
-		template <int N_ = N>
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 2, void)
+			>
 		AlignedBox(
 			const Real& xMin, const Real& yMin,
-			const Real& xMax, const Real& yMax,
-			PASTEL_ENABLE_IF_C_P(N_ == 2))
+			const Real& xMax, const Real& yMax)
 			: min_(xMin, yMin)
 			, max_(xMax, yMax)
 			, minTopology_(ofDimension(min_.n()), Topology::Closed)
@@ -89,11 +93,13 @@ namespace Pastel
 		{
 		}
 
-		template <int N_ = N>
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 3, void)
+			>
 		AlignedBox(
 			const Real& xMin, const Real& yMin, const Real& zMin,
-			const Real& xMax, const Real& yMax, const Real& zMax,
-			PASTEL_ENABLE_IF_C_P(N_ == 3))
+			const Real& xMax, const Real& yMax, const Real& zMax)
 			: min_(xMin, yMin, zMin)
 			, max_(xMax, yMax, zMax)
 			, minTopology_(ofDimension(min_.n()), Topology::Closed)
@@ -101,11 +107,12 @@ namespace Pastel
 		{
 		}
 
-		template <int N_ = N>
+		template <
+			int N_ = N,
+			typename = PASTEL_ENABLE_IF_C(N_ == 4, void)>
 		AlignedBox(
 			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
-			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax,
-			PASTEL_ENABLE_IF_C_P(N_ == 4))
+			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
 			: min_(xMin, yMin, zMin, wMin)
 			, max_(xMax, yMax, zMax, wMax)
 			, minTopology_(ofDimension(min_.n()), Topology::Closed)

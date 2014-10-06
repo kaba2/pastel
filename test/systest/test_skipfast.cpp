@@ -1,9 +1,9 @@
+#if 0
+
 // Description: Testing for the skip-fast trie
 // DocumentationOf: skipfast.h
 
 #include "test_pastelsys.h"
-
-#if 0
 
 #include <pastel/sys/skipfast.h>
 #include <boost/range/algorithm/for_each.hpp>
@@ -22,19 +22,22 @@ namespace
 		{
 		}
 
+		using Map = SkipFast_Map<5, integer>;
+		using Key = Map::Key;
+		//using Value = Map::Value;
+		//using Set = SkipFast_Set<5>;
+
 		virtual void run()
 		{
+			/*
 			testInsertErase();
 			testFind();
 			testSet();
 			testInsertMore();
+			*/
 		}
 
-		using Map = SkipFast_Map<5, integer>;
-		using Set = SkipFast_Set<5>;
-		using Key = Map::Key;
-		using Value = Map::Value;
-
+#if 0
 		template <typename Range>
 		bool keysEqual(
 			const Range& a, 
@@ -405,6 +408,7 @@ namespace
 				*(a.begin());
 			}
 		}
+#endif
 	};
 
 	void test()
