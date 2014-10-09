@@ -5,6 +5,7 @@
 #define PASTELSYS_INDIRECT_LOCATOR_H
 
 #include "pastel/sys/locator_concept.h"
+#include "pastel/sys/point_concept.h"
 
 namespace Pastel
 {

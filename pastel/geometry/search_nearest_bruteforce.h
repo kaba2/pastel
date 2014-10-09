@@ -5,13 +5,13 @@
 #define PASTELGEOMETRY_SEARCH_NEAREST_BRUTEFORCE_H
 
 #include "pastel/sys/input_concept.h"
-#include "pastel/sys/locator_concept.h"
+#include "pastel/sys/pointset_concept.h"
 #include "pastel/sys/real_concept.h"
 #include "pastel/sys/output_concept.h"
 #include "pastel/sys/indicator_concept.h"
+#include "pastel/sys/pointset_concept.h"
 
 #include "pastel/sys/all_indicator.h"
-#include "pastel/sys/default_locator.h"
 #include "pastel/sys/null_output.h"
 
 #include "pastel/math/euclidean_normbijection.h"
@@ -86,25 +86,53 @@ namespace Pastel
 	(infinity<Real>(), Point()).
 	*/
 	template <
-		typename Point_Input,
+		typename PointSet,
+		typename Search_Point,
+		typename Point_Output,
+		typename Point_Indicator,
+		typename Point = PointSet_Point<PointSet>,
+		typename Real,
+		typename NormBijection>
+	std::pair<Real, Point> searchNearestBruteForce(
+		PointSet pointSet,
+		const Search_Point& searchPoint,
+		Point_Output report,
+		const Point_Indicator& accept,
+		const NormBijection& normBijection,
+		integer kNearest,
+		const Real& maxDistance);
+
+	// FIX: This should be a single function.
+	// A bug in Visual Studio 2013 will not allow
+	// me to use infinity<Real>() as a default-argument
+	// for maxDistance. It incorrectly says that it is an 
+	// ambiguous call. This is a work-around.
+
+	template <
+		typename PointSet,
 		typename Search_Point,
 		typename Point_Output = Null_Output,
 		typename Point_Indicator = All_Indicator,
-		typename Point = Input_Value<Point_Input>,
-		typename Locator = Default_Locator<Point>,
-		typename Search_Locator = Default_Locator<Search_Point>,
-		typename Real = Locator_Real<Locator>,
+		typename Point = PointSet_Point<PointSet>,
+		typename Real = PointSet_Real<PointSet>,
 		typename NormBijection = Euclidean_NormBijection<Real>>
 	std::pair<Real, Point> searchNearestBruteForce(
-		Point_Input pointSet,
+		PointSet pointSet,
 		const Search_Point& searchPoint,
 		Point_Output report = Point_Output(),
 		const Point_Indicator& accept = Point_Indicator(),
 		const NormBijection& normBijection = NormBijection(),
-		const Locator& locator = Locator(),
-		const Search_Locator& searchLocator = Search_Locator(),
-		integer kNearest = 1,
-		const Real& maxDistance = infinity<Real>());
+		integer kNearest = 1)
+	{
+		return Pastel::searchNearestBruteForce(
+			pointSet,
+			searchPoint,
+			report,
+			accept,
+			normBijection,
+			kNearest,
+			infinity<Real>());
+	}
 
 }
 

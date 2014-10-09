@@ -11,8 +11,6 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator,
-		typename B_Locator,
 		typename Real,
 		typename NormBijection,
 		typename Real_Indicator>
@@ -20,101 +18,77 @@ namespace Pastel
 		const A_Point& aPoint,
 		const B_Point& bPoint,
 		const NormBijection& normBijection,
-		const A_Locator& aLocator,
-		const B_Locator& bLocator,
 		const Real_Indicator& keepGoing)
 	{
 		return normBijection.toNorm(
 			Pastel::distance2(
 				aPoint, bPoint,
 				normBijection,
-				aLocator,
-				bLocator,
 				keepGoing));
 	}
 
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator,
-		typename B_Locator,
 		typename Real,
 		typename Real_Indicator>
 	Real manhattanDistance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const A_Locator& aLocator,
-		const B_Locator& bLocator,
 		const Real_Indicator& keepGoing)
 	{
 		return Pastel::distance(
 			aPoint, bPoint,
 			Manhattan_NormBijection<Real>(),
-			aLocator, bLocator,
 			keepGoing);
 	}
 
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator,
-		typename B_Locator,
 		typename Real,
 		typename Real_Indicator>
 	Real euclideanDistance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const A_Locator& aLocator,
-		const B_Locator& bLocator,
 		const Real_Indicator& keepGoing)
 	{
 		return Pastel::distance(
 			aPoint, bPoint,
 			Euclidean_NormBijection<Real>(),
-			aLocator, bLocator,
 			keepGoing);
 	}
 
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator,
-		typename B_Locator,
 		typename Real,
 		typename Real_Indicator>
 	Real maximumDistance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const A_Locator& aLocator,
-		const B_Locator& bLocator,
 		const Real_Indicator& keepGoing)
 	{
 		return Pastel::distance(
 			aPoint, bPoint,
 			Maximum_NormBijection<Real>(),
-			aLocator, bLocator,
 			keepGoing);
 	}
 
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator,
-		typename B_Locator,
 		typename Real,
 		typename Real_Indicator>
 	Real minkowskiDistance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& p,
-		const A_Locator& aLocator,
-		const B_Locator& bLocator,
 		const Real_Indicator& keepGoing)
 	{
 		return Pastel::distance(
 			aPoint, bPoint,
 			Minkowski_NormBijection<Real>(p),
-			aLocator, bLocator,
 			keepGoing);
 	}
 
@@ -126,8 +100,6 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator,
-		typename B_Locator,
 		typename Real,
 		typename NormBijection,
 		typename Real_Indicator>
@@ -135,20 +107,18 @@ namespace Pastel
 		const A_Point& aPoint,
 		const B_Point& bPoint,
 		const NormBijection& normBijection,
-		const A_Locator& aLocator,
-		const B_Locator& bLocator,
 		const Real_Indicator& keepGoing)
 	{
-		PENSURE_OP(aLocator.n(), ==, bLocator.n());
+		PENSURE_OP(dimension(aPoint), ==, dimension(bPoint));
 
 		Real result = 0;
 		
-		integer n = aLocator.n();
+		integer n = dimension(aPoint);
 		for (integer i = 0;i < n && keepGoing(result);++i)
 		{
 			result = normBijection.addAxis(result, 
 				normBijection.signedAxis(
-					bLocator(bPoint, i) - aLocator(aPoint, i)));
+					axis(bPoint, i) - axis(aPoint, i)));
 		}
 
 		return result;
@@ -157,43 +127,33 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator,
-		typename B_Locator,
 		typename Real,
 		typename Real_Indicator>
 	Real euclideanDistance2(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const A_Locator& aLocator,
-		const B_Locator& bLocator,
 		const Real_Indicator& keepGoing)
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
 			Euclidean_NormBijection<Real>(),
-			aLocator, bLocator,
 			keepGoing);
 	}
 
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator,
-		typename B_Locator,
 		typename Real,
 		typename Real_Indicator>
 	Real minkowskiDistance2(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& p,
-		const A_Locator& aLocator,
-		const B_Locator& bLocator,
 		const Real_Indicator& keepGoing)
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
 			Minkowski_NormBijection<Real>(p),
-			aLocator, bLocator,
 			keepGoing);
 	}
 

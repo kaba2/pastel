@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	Logger::~Logger()
+	inline Logger::~Logger()
 	{
 		Log_ConstIterator iter = logSet_.begin();
 		Log_ConstIterator iterEnd = logSet_.end();
@@ -29,18 +29,18 @@ namespace Pastel
 		}
 	}
 
-	void Logger::swap(Logger& that)
+	inline void Logger::swap(Logger& that)
 	{
 		logSet_.swap(that.logSet_);
 	}
 
-	void Logger::addLog(Log* log)
+	inline void Logger::addLog(Log* log)
 	{
 		ASSERT(log);
 		logSet_.insert(log);
 	}
 
-	void Logger::removeLog(Log* log)
+	inline void Logger::removeLog(Log* log)
 	{
 		ASSERT(log);
 		logSet_.erase(log);

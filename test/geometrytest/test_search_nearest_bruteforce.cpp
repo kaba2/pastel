@@ -131,12 +131,11 @@ namespace
 				{
 					std::pair<real, Point_Iterator> result =
 						searchNearestBruteForce(
-						rangeInput(countingRange(pointSet)),
+						locationSet(rangeInput(countingRange(pointSet)), indirectLocator<Point_Iterator>(Locator())),
 						*i,
 						Null_Output(),
 						predicateIndicator(i, NotEqualTo()),
-						normBijection,
-						indirectLocator<Point_Iterator>(Locator()));
+						normBijection);
 
 					real distance2 = result.first;
 

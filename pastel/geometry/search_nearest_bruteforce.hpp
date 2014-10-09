@@ -47,23 +47,19 @@ namespace Pastel
 	}
 
 	template <
-		typename Point_Input,
+		typename PointSet,
 		typename Search_Point,
 		typename Point_Output,
 		typename Point_Indicator,
 		typename Point,
-		typename Locator,
-		typename Search_Locator,
 		typename Real,
 		typename NormBijection>
 	std::pair<Real, Point> searchNearestBruteForce(
-		Point_Input pointSet,
+		PointSet pointSet,
 		const Search_Point& searchPoint,
 		Point_Output report,
 		const Point_Indicator& accept,
 		const NormBijection& normBijection,
-		const Locator& locator,
-		const Search_Locator& searchLocator,
 		integer kNearest,
 		const Real& maxDistance)
 	{
@@ -74,7 +70,7 @@ namespace Pastel
 
 		Result notFound(infinity<Real>(), Point());
 
-		if (pointSet.empty() || kNearest == 0)
+		if (pointSetEmpty(pointSet) || kNearest == 0)
 		{
 			return notFound;
 		}
@@ -99,13 +95,13 @@ namespace Pastel
 			return that < cullDistance;
 		};
 
-		while (!pointSet.empty())
+		while (!pointSetEmpty(pointSet))
 		{
-			auto&& point = pointSet.get();
+			auto&& point = pointSetGet(pointSet);
 
-			if (!accept(point))
+			if (!accept(pointPoint(point)))
 			{
-				pointSet.pop();
+				pointSetPop(pointSet);
 				continue;
 			}
 
@@ -113,13 +109,11 @@ namespace Pastel
 				searchPoint, 
 				point,
 				normBijection, 
-				searchLocator,
-				locator,
 				keepGoing);
 
 			if (distance < cullDistance)
 			{
-				nearestSet.emplace(point, distance);
+				nearestSet.emplace(pointPoint(point), distance);
 
 				if (nearestSet.size() > kNearest)
 				{
@@ -135,7 +129,7 @@ namespace Pastel
 				}
 			}
 
-			pointSet.pop();
+			pointSetPop(pointSet);
 		}
 
 		for (auto&& entry : nearestSet)

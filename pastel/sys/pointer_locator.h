@@ -5,15 +5,17 @@
 #define PASTELSYS_POINTER_LOCATOR_H
 
 #include "pastel/sys/locator_concept.h"
+#include "pastel/sys/point_concept.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
 
-	template <typename Real_, int N_ = Dynamic>
+	template <typename Real_, integer N_ = Dynamic>
 	class Pointer_Locator
 	{
 	public:
-		static PASTEL_CONSTEXPR int N = N_;
+		static PASTEL_CONSTEXPR integer N = N_;
 		using Real = Real_;
 		using Point = const Real*;
 
@@ -44,6 +46,16 @@ namespace Pastel
 	private:
 		integer n_;
 	};
+
+	template <typename Real>
+	auto pointerPoint(Real* point, integer n)
+		-> decltype(location(point, Pointer_Locator<Real>(n)))
+	{
+		// FIX: Replace with decltype(auto) when available.
+		return location(
+			point,
+			Pointer_Locator<Real>(n));
+	}
 
 }
 

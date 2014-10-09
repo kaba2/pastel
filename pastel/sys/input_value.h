@@ -11,9 +11,20 @@
 namespace Pastel
 {
 
+	namespace Input_Value_
+	{
+
+		template <typename Input>
+		struct Compute
+		{
+			using type = typename std::decay<Input_Return<Input>>::type;
+		};
+
+	}
+
 	//! Input value-type
 	template <typename Input>
-	using Input_Value = typename std::decay<Input_Return<Input>>::type;
+	using Input_Value = typename Input_Value_::Compute<Input>::type;
 
 }
 	

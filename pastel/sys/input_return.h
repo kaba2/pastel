@@ -10,21 +10,9 @@
 namespace Pastel
 {
 
-	namespace Input_
-	{
-
-		template <typename Input>
-		class Input_Return
-		{
-		public:
-			using type = decltype(std::declval<Input>().get());
-		};
-
-	}
-
 	//! Input return-type
 	template <typename Input>
-	using Input_Return = typename Input_::Input_Return<Input>::type;
+	using Input_Return = decltype(std::declval<Input>().get());
 
 }
 

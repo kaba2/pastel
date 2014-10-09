@@ -78,16 +78,16 @@ namespace
 			{
 				std::vector<std::pair<real, Point>> bruteSet;
 				bruteSet.reserve(k);
-				
+
 				real kDistanceBrute = searchNearestBruteForce(
 					rangeInput(pointSet),
 					pointSet[i],
 					emplaceBackOutput(bruteSet),
 					allIndicator(), 
 					normBijection,
-					Locator(),
-					Locator(),
 					k).first;
+				
+				//real kDistanceBrute = 0;
 
 				std::vector<std::pair<real, ConstIterator>> treeSet;
 				treeSet.reserve(k);

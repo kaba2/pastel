@@ -122,7 +122,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("native_integers", test);
+		testRunner().add("native_integer", test);
 	}
 
 	CallFunction run(addTest);

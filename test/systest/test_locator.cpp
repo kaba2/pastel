@@ -43,14 +43,17 @@ namespace
 
 		void testTypes()
 		{
-			TEST_ENSURE(
-				(std::is_same<Locator_Real<Pointer_Locator<real>>, real>()));
+			PASTEL_STATIC_ASSERT(
+				(std::is_same<Locator_Real<Pointer_Locator<real>>, real>::value));
 
-			TEST_ENSURE(
-				(std::is_same<Locator_Real<Pointer_Locator<real>, Pointer_Locator<integer>>, real>()));
+			PASTEL_STATIC_ASSERT(
+				(std::is_same<Locator_Real<Pointer_Locator<real>, Pointer_Locator<integer>>, real>::value));
 
-			TEST_ENSURE(
-				(std::is_same<Locator_Real<Pointer_Locator<integer>, Pointer_Locator<real>>, real>()));
+			PASTEL_STATIC_ASSERT(
+				(std::is_same<Locator_Real<Pointer_Locator<integer>, Pointer_Locator<real>>, real>::value));
+
+			PASTEL_STATIC_ASSERT(
+				(std::is_same<Locator_Point<Pointer_Locator<integer>>, const integer*>::value));
 
 			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 0>>()), ==, 0);
 			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 1>>()), ==, 1);
