@@ -5,6 +5,8 @@
 #define PASTELSYS_ARRAY_LOCATOR_H
 
 #include "pastel/sys/locator_concept.h"
+#include "pastel/sys/point_concept.h"
+#include "pastel/sys/ensure.h"
 
 #include <type_traits>
 #include <array>
@@ -42,6 +44,27 @@ namespace Pastel
 			return point[i];
 		}
 	};
+
+	template <typename Real, integer N>
+	class Default_Locator<const std::array<Real, N>&>
+	{
+	public:
+		Array_Locator<Real, N> operator()(
+			const std::array<Real, N>&) const
+		{
+			return Array_Locator<Real, N>();
+		}
+	};
+
+	template <typename Real_, integer N>
+	auto arrayPoint(const std::array<Real_, N>& point)
+		-> decltype(location(point, Array_Locator<Real_, N>()))
+	{
+		// FIX: Replace with decltype(auto) when available.
+		return location(
+			point,
+			Array_Locator<Real_, N>());
+	}
 
 }
 

@@ -4,10 +4,9 @@
 #define PASTELGEOMETRY_DISTANCE_POINT_POINT_H
 
 #include "pastel/math/normbijection_concept.h"
-#include "pastel/sys/locator_concept.h"
-
 #include "pastel/math/euclidean_normbijection.h"
-#include "pastel/sys/default_locator.h"
+
+#include "pastel/sys/point_concept.h"
 #include "pastel/sys/all_indicator.h"
 
 namespace Pastel
@@ -21,17 +20,13 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator = Default_Locator<A_Point>,
-		typename B_Locator = Default_Locator<B_Point>,
-		typename Real = Locator_Real<A_Locator, B_Locator>,
+		typename Real = Point_Real<A_Point, B_Point>,
 		typename NormBijection = Euclidean_NormBijection<Real>,
 		typename Real_Indicator = All_Indicator>
 	Real distance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
 		const NormBijection& normBijection = NormBijection(),
-		const A_Locator& aLocator = A_Locator(),
-		const B_Locator& bLocator = B_Locator(),
 		const Real_Indicator& keepGoing = Real_Indicator());
 
 	//! Computes the Manhattan-norm distance between points.
@@ -42,15 +37,11 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator = Default_Locator<A_Point>,
-		typename B_Locator = Default_Locator<B_Point>,
-		typename Real = Locator_Real<A_Locator, B_Locator>,
+		typename Real = Point_Real<A_Point, B_Point>,
 		typename Real_Indicator = All_Indicator>
 	Real manhattanDistance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const A_Locator& aLocator = A_Locator(),
-		const B_Locator& bLocator = B_Locator(),
 		const Real_Indicator& keepGoing = Real_Indicator());
 
 	//! Computes the Manhattan-norm distance between points.
@@ -61,15 +52,11 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator = Default_Locator<A_Point>,
-		typename B_Locator = Default_Locator<B_Point>,
-		typename Real = Locator_Real<A_Locator, B_Locator>,
+		typename Real = Point_Real<A_Point, B_Point>,
 		typename Real_Indicator = All_Indicator>
 	Real euclideanDistance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const A_Locator& aLocator = A_Locator(),
-		const B_Locator& bLocator = B_Locator(),
 		const Real_Indicator& keepGoing = Real_Indicator());
 
 	//! Computes the maximum-norm distance between points.
@@ -80,15 +67,11 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator = Default_Locator<A_Point>,
-		typename B_Locator = Default_Locator<B_Point>,
-		typename Real = Locator_Real<A_Locator, B_Locator>,
+		typename Real = Point_Real<A_Point, B_Point>,
 		typename Real_Indicator = All_Indicator>
 	Real maximumDistance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const A_Locator& aLocator = A_Locator(),
-		const B_Locator& bLocator = B_Locator(),
 		const Real_Indicator& keepGoing = Real_Indicator());
 
 	//! Computes a Minkowski-norm distance between points.
@@ -99,16 +82,12 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator = Default_Locator<A_Point>,
-		typename B_Locator = Default_Locator<B_Point>,
-		typename Real = Locator_Real<A_Locator, B_Locator>,
+		typename Real = Point_Real<A_Point, B_Point>,
 		typename Real_Indicator = All_Indicator>
 	Real minkowskiDistance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& p = 2,
-		const A_Locator& aLocator = A_Locator(),
-		const B_Locator& bLocator = B_Locator(),
 		const Real_Indicator& keepGoing = Real_Indicator());
 
 }
@@ -120,17 +99,13 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator = Default_Locator<A_Point>,
-		typename B_Locator = Default_Locator<B_Point>,
-		typename Real = Locator_Real<A_Locator, B_Locator>,
+		typename Real = Point_Real<A_Point, B_Point>,
 		typename NormBijection = Euclidean_NormBijection<Real>,
 		typename Real_Indicator = All_Indicator>
 	Real distance2(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
 		const NormBijection& normBijection = NormBijection(),
-		const A_Locator& aLocator = A_Locator(),
-		const B_Locator& bLocator = B_Locator(),
 		const Real_Indicator& keepGoing = Real_Indicator());
 
 	//! Computes the squared Euclidean-norm distance between points.
@@ -144,15 +119,11 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator = Default_Locator<A_Point>,
-		typename B_Locator = Default_Locator<B_Point>,
-		typename Real = Locator_Real<A_Locator, B_Locator>,
+		typename Real = Point_Real<A_Point, B_Point>,
 		typename Real_Indicator = All_Indicator>
 	Real euclideanDistance2(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const A_Locator& aLocator = A_Locator(),
-		const B_Locator& bLocator = B_Locator(),
 		const Real_Indicator& keepGoing = Real_Indicator());
 
 	//! Computes the p-power Minkowski-norm distance between points.
@@ -171,16 +142,12 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename A_Locator = Default_Locator<A_Point>,
-		typename B_Locator = Default_Locator<B_Point>,
-		typename Real = Locator_Real<A_Locator, B_Locator>,
+		typename Real = Point_Real<A_Point, B_Point>,
 		typename Real_Indicator = All_Indicator>
 	Real minkowskiDistance2(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& p = 2,
-		const A_Locator& aLocator = A_Locator(),
-		const B_Locator& bLocator = B_Locator(),
 		const Real_Indicator& keepGoing = Real_Indicator());
 
 }

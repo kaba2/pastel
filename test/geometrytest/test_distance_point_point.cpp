@@ -3,7 +3,8 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/sys/locators.h"
+#include <pastel/sys/point_concept.h>
+#include <pastel/sys/locators.h>
 
 #include <pastel/geometry/distance_point_point.h>
 
@@ -65,9 +66,10 @@ namespace
 		{
 			Custom_Point a(1, 4);
 			Custom_Point b(-5, 2);
-			Custom_Locator locator;
 
-			TEST_ENSURE(manhattanDistance(a, b, locator, locator) == 6 + 2);
+			TEST_ENSURE(manhattanDistance(
+				location(a, Custom_Locator()), 
+				location(b, Custom_Locator())) == 6 + 2);
 		}
 
 		void testPointer()
@@ -78,9 +80,8 @@ namespace
 		
 			Point a = &data[0];
 			Point b = &data[2];
-			auto locator = Pointer_Locator<real, 2>();
 
-			TEST_ENSURE(manhattanDistance(a, b, locator, locator) == 6 + 2);
+			testCase(pointerPoint(a, 2), pointerPoint(b, 2));
 		}
 
 		void testArray()
@@ -89,9 +90,8 @@ namespace
 
 			Point a = { {1, 4} };
 			Point b = { {-5, 2} };
-			auto locator = Array_Locator<real, 2>();
 
-			testCase(a, b, locator);
+			testCase(arrayPoint(a), arrayPoint(b));
 		}
 
 		void testVector()
@@ -100,20 +100,16 @@ namespace
 
 			Point a(1, 4);
 			Point b(-5, 2);
-			auto locator = Vector_Locator<real, 2>();
 
-			testCase(a, b, locator);
+			testCase(a, b);
 		}
 
-		template <
-			typename Point,
-			typename Locator>
+		template <typename Point>
 		void testCase(
 			const Point& a,
-			const Point& b,
-			const Locator& locator)
+			const Point& b)
 		{
-			using Real = typename Locator::Real;
+			using Real = real;
 
 			auto keepGoing = [&](const Real& that)
 			{
@@ -125,7 +121,7 @@ namespace
 
 				TEST_ENSURE(manhattanDistance(a, b) == correct);
 				TEST_ENSURE(manhattanDistance(b, a) == correct);
-				TEST_ENSURE(manhattanDistance(a, b, locator, locator, keepGoing) == 6);
+				TEST_ENSURE(manhattanDistance(a, b, keepGoing) == 6);
 			}
 
 			{
@@ -133,7 +129,7 @@ namespace
 
 				TEST_ENSURE(maximumDistance(a, b) == correct);
 				TEST_ENSURE(maximumDistance(b, a) == correct);
-				TEST_ENSURE(maximumDistance(a, b, locator, locator, keepGoing) == 6);
+				TEST_ENSURE(maximumDistance(a, b, keepGoing) == 6);
 			}
 
 			{
@@ -141,7 +137,7 @@ namespace
 
 				TEST_ENSURE(euclideanDistance(a, b) == correct);
 				TEST_ENSURE(euclideanDistance(b, a) == correct);
-				TEST_ENSURE(euclideanDistance(a, b, locator, locator, keepGoing) == 6);
+				TEST_ENSURE(euclideanDistance(a, b, keepGoing) == 6);
 			}
 
 			{
@@ -149,7 +145,7 @@ namespace
 
 				TEST_ENSURE(minkowskiDistance(a, b, 2) == correct);
 				TEST_ENSURE(minkowskiDistance(b, a, 2) == correct);
-				TEST_ENSURE(minkowskiDistance(a, b, 2, locator, locator, keepGoing) == 6);
+				TEST_ENSURE(minkowskiDistance(a, b, 2, keepGoing) == 6);
 			}
 
 			{
@@ -157,7 +153,7 @@ namespace
 
 				TEST_ENSURE(euclideanDistance2(a, b) == correct);
 				TEST_ENSURE(euclideanDistance2(b, a) == correct);
-				TEST_ENSURE(euclideanDistance2(a, b, locator, locator, keepGoing) == square(6));
+				TEST_ENSURE(euclideanDistance2(a, b, keepGoing) == square(6));
 			}
 
 			{
@@ -165,7 +161,7 @@ namespace
 
 				TEST_ENSURE(minkowskiDistance2(a, b, 1) == correct);
 				TEST_ENSURE(minkowskiDistance2(b, a, 1) == correct);
-				TEST_ENSURE(minkowskiDistance2(a, b, 1, locator, locator, keepGoing) == 6);
+				TEST_ENSURE(minkowskiDistance2(a, b, 1, keepGoing) == 6);
 			}
 		}
 	};

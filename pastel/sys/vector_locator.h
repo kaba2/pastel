@@ -4,6 +4,7 @@
 #define PASTELSYS_VECTOR_LOCATOR_H
 
 #include "pastel/sys/locator_concept.h"
+#include "pastel/sys/point_concept.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel
@@ -41,6 +42,27 @@ namespace Pastel
 	private:
 		integer n_;
 	};
+
+	template <typename Real, integer N>
+	class Default_Locator<const Vector<Real, N>&>
+	{
+	public:
+		Vector_Locator<Real, N> operator()(
+			const Vector<Real, N>& point) const
+		{
+			return Vector_Locator<Real, N>(point.n());
+		}
+	};
+
+	template <typename Real_, integer N>
+	auto vectorPoint(const Vector<Real_, N>& point)
+		-> decltype(location(point, Vector_Locator<Real_, N>()))
+	{
+		// FIX: Replace with decltype(auto) when available.
+		return location(
+			point,
+			Vector_Locator<Real_, N>());
+	}
 
 }
 

@@ -317,11 +317,9 @@ namespace Pastel
 						pointSet.pop();
 
 						currentDistance = distance2(
-							iter->point(),
+							location(iter->point(), locator),
 							searchPoint,
 							normBijection,
-							locator,
-							Vector_Locator<Real, N>(dimension),
 							keepGoing);
 
 						// Remember that we are using an open search ball.

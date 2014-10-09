@@ -72,5 +72,6 @@ namespace Pastel
 }
 
 #include "pastel/sys/log.hpp"
+#include "pastel/sys/logger.h"
 
 #endif
