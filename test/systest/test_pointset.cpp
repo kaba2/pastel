@@ -24,16 +24,16 @@ namespace
 		virtual void run()
 		{
 			testTypes();
+			testFunctions();
 		}
+
+		using Real = real;
+		using Point = std::array<Real, 2>;
+		using Locator = Array_Locator<Real, 2>;
 
 		void testTypes()
 		{
-			using Real = real;
-			using Point = std::array<Real, 2>;
-			using Locator = Array_Locator<Real, 2>;
-			
 			std::vector<Point> pointSet;
-
 			{
 				using PointSet = decltype(rangeInput(pointSet));
 
@@ -55,6 +55,31 @@ namespace
 				TEST_ENSURE_OP(pointSetDimension(rangeInput(pointSet)), ==, 2);
 			}
 		}
+
+		void testFunctions()
+		{
+			std::vector<Point> pointSet;
+
+			{
+				auto pointInput = rangeInput(pointSet);
+				TEST_ENSURE(pointSetEmpty(pointInput));
+			}
+
+			Point a = { 1, 2 };
+			pointSet.emplace_back(a);
+
+			{
+				auto pointInput = rangeInput(pointSet);
+				TEST_ENSURE(!pointSetEmpty(pointInput));
+				TEST_ENSURE_OP(pointSetDimension(pointInput), ==, 2);
+
+				TEST_ENSURE(axis(pointSetGet(pointInput), 0) == 1);
+				TEST_ENSURE(axis(pointSetGet(pointInput), 1) == 2);
+
+				pointSetPop(pointInput);
+				TEST_ENSURE(pointSetEmpty(pointInput));
+			}
+		}
 	};
 
 	void test()
@@ -65,7 +90,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("point_concept", test);
+		testRunner().add("pointset_concept", test);
 	}
 
 	CallFunction run(addTest);
