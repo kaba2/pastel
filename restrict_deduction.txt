@@ -348,7 +348,7 @@ This solution solves all problems in the previous solutions. Because the disabli
 is a bit verbose, I prefer to define a macro something like this: 
 
 [[CppCode]]:
-	#define PASTEL_NO_DEDUCTION(x) typename Identity< x >::Result
+	#define NoDeduction<x> typename Identity< x >::Result
 
 An even better solution
 -----------------------
@@ -360,7 +360,7 @@ the macro by enclosing it in parentheses:
 
 [[CppCode]]:
 	template <typename Type>
-	void f(const PASTEL_NO_DEDUCTION((Vector<2, Type>))& left, const Type& right);
+	void f(const NoDeduction<Vector<2, Type>>& left, const Type& right);
 
 This solves the problem with the comma. However, this
 introduces another problem: the macro expands into
@@ -382,10 +382,10 @@ rid of the parentheses. We do this by the following:
 	class RemoveBrackets<void (Type)>
 	{
 	public:
-		using Result = Type;
+		using type = Type;
 	};
 
-	#define PASTEL_NO_DEDUCTION(x) typename RemoveBrackets<void x>::Result
+	#define NoDeduction<x> typename RemoveBrackets<void x>::type
 
 That is, in the macro we expand the parenthesized type into a function type.
 We then catch it by a partial template specialization that specializes
@@ -393,18 +393,18 @@ in just such function types. This solves our problem.
 
 However, now we must use double parenthesis even when the type does
 not contain commas. Fortunately we can solve this last minor troubling
-by noticing that extra parenthesis do not do harm for a type.
-Thus we can rewrite the macro as:
+by noticing that multiple parentheses are allowed for a function parameter
+list. Thus we can rewrite the macro as:
 
 [[CppCode]]:
-	#define PASTEL_NO_DEDUCTION(x) typename RemoveBrackets<void (x)>::Result
+	#define NoDeduction<x> typename RemoveBrackets<void (x)>::type
 
 And everything works nice again. To demonstrate:
 
 [[CppCode]]:
 	template <typename Type>
-	void f(const PASTEL_NO_DEDUCTION((Vector<2, Type>))& left, const Type& right);
+	void f(const NoDeduction<Vector<2, Type>>& left, const Type& right);
 	
 	template <typename Type>
-	void g(const PASTEL_NO_DEDUCTION(Type)& that);
+	void g(const NoDeduction<Type>& that);
 

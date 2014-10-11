@@ -18,7 +18,6 @@ project (Pastel)
 
 # The directory of the Boost library's source code.
 # The includes are of the form 'boost/static_assert.hpp'.
-#set (BoostIncludeDirectory ../boost_1_54_0)
 set (BoostIncludeDirectory ../boost_1_56_0)
 
 # The directory of the Threading Building Blocks library's 
@@ -199,7 +198,7 @@ endif()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang") 
 	add_definitions (
-		# Enables C++11 library support.
+		# Enables C++14 library support.
 		-stdlib=libc++
 		# Not sure why.
 		-arch x86_64
