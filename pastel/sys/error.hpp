@@ -19,7 +19,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& measured,
 		const PASTEL_NO_DEDUCTION(Real)& correct)
 	{
-		PENSURE(!zero(correct));
+		// If correct is zero, then the relative
+		// error is infinity.
 		return mabs((Real)1 - measured /  correct);
 	}
 
