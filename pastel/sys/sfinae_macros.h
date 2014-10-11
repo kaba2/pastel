@@ -6,24 +6,34 @@
 
 #include <boost/utility/enable_if.hpp>
 
-#define PASTEL_ENABLE_IF(Condition, ReturnType) \
-	typename boost::enable_if< \
-	PASTEL_REMOVE_BRACKETS(Condition), \
-	PASTEL_REMOVE_BRACKETS(ReturnType)>::type
+namespace Pastel
+{
 
-#define PASTEL_ENABLE_IF_C(Condition, ReturnType) \
-	typename boost::enable_if_c< \
-	(Condition), \
-	PASTEL_REMOVE_BRACKETS(ReturnType)>::type 
+	template <
+		typename Condition,
+		typename Return>
+	using EnableIf = 
+		typename boost::enable_if<Condition, Return>::type;
 
-#define PASTEL_DISABLE_IF(Condition, ReturnType) \
-	typename boost::disable_if< \
-	PASTEL_REMOVE_BRACKETS(Condition), \
-	PASTEL_REMOVE_BRACKETS(ReturnType)>::type 
+	template <
+		bool Condition,
+		typename Return>
+	using EnableIfC = 
+		typename boost::enable_if_c<Condition, Return>::type;
 
-#define PASTEL_DISABLE_IF_C(Condition, ReturnType) \
-	typename boost::disable_if_c< \
-	(Condition), \
-	PASTEL_REMOVE_BRACKETS(ReturnType)>::type 
+	template <
+		typename Condition,
+		typename Return>
+	using DisableIf = 
+		typename boost::disable_if<Condition, Return>::type;
+
+	template <
+		bool Condition,
+		typename Return>
+	using DisableIfC = 
+		typename boost::disable_if_c<Condition, Return>::type;
+
+}
+
 
 #endif
