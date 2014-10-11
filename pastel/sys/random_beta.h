@@ -16,15 +16,15 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomBeta(
-		const PASTEL_NO_DEDUCTION(Real)& a,
-		const PASTEL_NO_DEDUCTION(Real)& b);
+		const NoDeduction<Real>& a,
+		const NoDeduction<Real>& b);
 
 	// Probability distribution of the Beta distribution.
 	template <typename Real>
 	Real betaPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& a,
-		const PASTEL_NO_DEDUCTION(Real)& b);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& a,
+		const NoDeduction<Real>& b);
 
 }
 

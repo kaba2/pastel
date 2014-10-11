@@ -26,7 +26,7 @@ namespace Pastel
 		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view,
 		integer kNearest,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
+		const NoDeduction<Real>& maxRelativeError);
 
 	template <typename Real, int N, typename Data, typename Output_View>
 	void reconstructNearest(

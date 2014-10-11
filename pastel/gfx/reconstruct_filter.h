@@ -19,7 +19,7 @@ namespace Pastel
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const Filter& filter,
-		const PASTEL_NO_DEDUCTION(Real)& filterRadius,
+		const NoDeduction<Real>& filterRadius,
 		const View<N, Data, Output_View>& view);
 
 }

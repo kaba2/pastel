@@ -72,7 +72,7 @@
 		const CLASS<Real, N, LeftExpression, VectorConstant<Real, N> > \
 		VECTOR_FUNCTION( \
 		const VectorExpression<Real, N, LeftExpression>& left, \
-		const PASTEL_NO_DEDUCTION(Real)& right) \
+		const NoDeduction<Real>& right) \
 	{ \
 		return Pastel::VECTOR_FUNCTION(left, \
 			VectorConstant<Real, N>(right, left.size())); \
@@ -82,7 +82,7 @@
 	template <typename Real, int N, typename RightExpression> \
 		const CLASS<Real, N, VectorConstant<Real, N>, RightExpression> \
 		VECTOR_FUNCTION( \
-		const PASTEL_NO_DEDUCTION(Real)& left, \
+		const NoDeduction<Real>& left, \
 		const VectorExpression<Real, N, RightExpression>& right) \
 	{ \
 		return Pastel::VECTOR_FUNCTION( \

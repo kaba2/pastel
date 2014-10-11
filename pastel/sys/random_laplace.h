@@ -25,7 +25,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomLaplace(
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& scale);
 
 	//! Probability distribution of the Laplace distribution.
 	/*!
@@ -33,7 +33,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real laplacePdf(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	//! Probability distribution of the Laplace distribution.
 	/*!
@@ -42,8 +42,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real laplacePdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& scale);
 
 }
 

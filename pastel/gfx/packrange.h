@@ -87,8 +87,8 @@ namespace Pastel
 	template <typename Real, int N, typename Image_View>
 	void packRange(
 		const View<N, Real, Image_View>& image,
-		const PASTEL_NO_DEDUCTION(Real)& newMin,
-		const PASTEL_NO_DEDUCTION(Real)& newMax)
+		const NoDeduction<Real>& newMin,
+		const NoDeduction<Real>& newMax)
 	{
 		ENSURE_OP(newMin, <=, newMax);
 

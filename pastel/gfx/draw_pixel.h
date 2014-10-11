@@ -15,8 +15,8 @@ namespace Pastel
 
 	template <int N, typename Type, typename Image_View, typename ColorMixer>
 	void drawPixel(
-		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& position,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Vector<integer, N>>& position,
+		const NoDeduction<Type>& color,
 		const View<N, Type, Image_View>& image,
 		const ColorMixer& colorMixer);
 
@@ -24,8 +24,8 @@ namespace Pastel
 
 	template <int N, typename Type, typename Image_View>
 	void drawPixel(
-		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& position,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Vector<integer, N>>& position,
+		const NoDeduction<Type>& color,
 		const View<N, Type, Image_View>& image);
 
 }

@@ -16,7 +16,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomGamma(
-		const PASTEL_NO_DEDUCTION(Real)& shape);
+		const NoDeduction<Real>& shape);
 
 	//! Returns a gamma-distributed random real.
 	/*!
@@ -26,8 +26,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomGamma(
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& scale);
 
 	//! Converts variance to the scale parameter of the gamma distribution.
 	/*!
@@ -37,21 +37,21 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real varianceToGammaScale(
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& variance);
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& variance);
 
 	//! Returns a random vector gamma distributed in each component.
 	
 	template <typename Real, int N>
 	Vector<Real, N> randomGammaVector(
-		const PASTEL_NO_DEDUCTION(Real)& shape);
+		const NoDeduction<Real>& shape);
 
 	//! Returns a random vector gamma distributed in each component.
 	
 	template <typename Real, int N>
 	Vector<Real, N> randomGammaVector(
 		integer dimension,
-		const PASTEL_NO_DEDUCTION(Real)& shape);
+		const NoDeduction<Real>& shape);
 
 	//! Probability density function for the gamma distribution with scale 1.
 	/*!
@@ -62,8 +62,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real gammaPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& shape);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& shape);
 
 	//! Probability density function for the gamma distribution.
 	/*!
@@ -73,9 +73,9 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real gammaPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& scale);
 
 }
 

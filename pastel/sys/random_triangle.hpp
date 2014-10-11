@@ -24,8 +24,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomTriangle(
-		const PASTEL_NO_DEDUCTION(Real)& leftWidth,
-		const PASTEL_NO_DEDUCTION(Real)& rightWidth)
+		const NoDeduction<Real>& leftWidth,
+		const NoDeduction<Real>& rightWidth)
 	{
 		PENSURE_OP(leftWidth, >, 0);
 		PENSURE_OP(rightWidth, >, 0);
@@ -126,7 +126,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real trianglePdf(
-		const PASTEL_NO_DEDUCTION(Real)& x)
+		const NoDeduction<Real>& x)
 	{
 		Real xAbs = mabs(x);
 		if (xAbs > 1)
@@ -139,9 +139,9 @@ namespace Pastel
 
 	template <typename Real>
 	Real trianglePdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& leftWidth,
-		const PASTEL_NO_DEDUCTION(Real)& rightWidth)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& leftWidth,
+		const NoDeduction<Real>& rightWidth)
 	{
 		PENSURE_OP(leftWidth, >, 0);
 		PENSURE_OP(rightWidth, >, 0);

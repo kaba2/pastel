@@ -76,7 +76,7 @@ namespace Pastel
 	template <typename Type, int N>
 	NearestImage_Texture<Type, N> nearestImageTexture(
 		const Array<Type, N>& image,
-		const ArrayExtender<N, PASTEL_NO_DEDUCTION(Type)>& extender = ArrayExtender<N, Type>())
+		const ArrayExtender<N, NoDeduction<Type>>& extender = ArrayExtender<N, Type>())
 	{
 		return NearestImage_Texture<Type, N>(image, extender);
 	}

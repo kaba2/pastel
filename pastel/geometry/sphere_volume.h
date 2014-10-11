@@ -38,7 +38,7 @@ namespace Pastel
 	template <typename Real>
 	Real lnVolumeUnitSphereMinkowski(
 		integer n, 
-		const PASTEL_NO_DEDUCTION(Real)& power);
+		const NoDeduction<Real>& power);
 
 	//! Returns the natural logarithm of the volume of Infinity unit sphere.
 	/*!

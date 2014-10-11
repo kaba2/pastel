@@ -16,8 +16,8 @@ namespace Pastel
 		const AlignedBox<Real, N>& box,
 		const Plane<Real, N>& plane, 
 		integer& clipDimension,
-		PASTEL_NO_DEDUCTION(Real)& minBoxMax,
-		PASTEL_NO_DEDUCTION(Real)& maxBoxMin)
+		NoDeduction<Real>& minBoxMax,
+		NoDeduction<Real>& maxBoxMin)
 	{
 		// Notation
 		// --------

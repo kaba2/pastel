@@ -25,7 +25,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomCauchy(
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& scale);
 
 	//! Probability density function of the Cauchy distribution.
 	/*!
@@ -33,7 +33,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real cauchyPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	//! Probability density function of the Cauchy distribution.
 	/*!
@@ -45,8 +45,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real cauchyPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& scale);
 
 }
 

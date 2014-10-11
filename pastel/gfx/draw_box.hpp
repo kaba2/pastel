@@ -84,7 +84,7 @@ namespace Pastel
 	template <typename Type, typename Image_View>
 	void drawBox(
 		const AlignedBox2& box,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<2, Type, Image_View>& image)
 	{
 		Pastel::drawBox(
@@ -98,7 +98,7 @@ namespace Pastel
 	template <typename Type, typename Image_View, typename ColorMixer>
 	void drawBox(
 		const AlignedBox2& box,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{

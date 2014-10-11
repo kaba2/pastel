@@ -28,22 +28,22 @@ namespace Pastel
 	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, N>))
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
-		const PASTEL_NO_DEDUCTION(Real)& minRadius,
-		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
+		const NoDeduction<Real>& minRadius,
+		const NoDeduction<Real>& maxRadius);
 
 	template <typename Real, int N>
 	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, N>))
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
-		const PASTEL_NO_DEDUCTION(Real)& minRadius,
-		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
+		const NoDeduction<Real>& minRadius,
+		const NoDeduction<Real>& maxRadius);
 
 	template <typename Real, int N>
 	PASTEL_ENABLE_IF_C(N == 3, (Vector<Real, N>))
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
-		const PASTEL_NO_DEDUCTION(Real)& minRadius,
-		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
+		const NoDeduction<Real>& minRadius,
+		const NoDeduction<Real>& maxRadius);
 
 	//! Uniformly samples a point from a simplex.
 	/*!

@@ -11,7 +11,7 @@ namespace Pastel
 
 	//! Simplex noise
 	template <typename Real>
-	Real simplexNoise(const PASTEL_NO_DEDUCTION(Real)& pos);
+	Real simplexNoise(const NoDeduction<Real>& pos);
 
 	//! Simplex noise
 	template <typename Real, int N>

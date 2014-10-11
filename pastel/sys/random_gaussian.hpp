@@ -50,7 +50,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& deviation)
+		const NoDeduction<Real>& deviation)
 	{
 		PENSURE_OP(deviation, >=, 0);
 
@@ -80,7 +80,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real gaussianPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x)
+		const NoDeduction<Real>& x)
 	{
 		return inverse(std::sqrt(2 * constantPi<Real>())) * 
 			std::exp(-square(x) / 2);
@@ -88,8 +88,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real gaussianPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& deviation)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& deviation)
 	{
 		PENSURE_OP(deviation, >=, 0);
 
@@ -99,8 +99,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real approximateGaussianCdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& deviation)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& deviation)
 	{
 		return Pastel::approximateGaussianCdf<Real>(
 			x / deviation);
@@ -108,7 +108,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real approximateGaussianCdf(
-		const PASTEL_NO_DEDUCTION(Real)& x)
+		const NoDeduction<Real>& x)
 	{
 		// "Handbook and Mathematical Functions",
 		// Abramowitz and Stegun, 1964.
@@ -151,7 +151,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real gaussianCdf(
-		const PASTEL_NO_DEDUCTION(Real)& x)
+		const NoDeduction<Real>& x)
 	{
 		boost::math::normal_distribution<Real>
 			normal;
@@ -161,8 +161,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real gaussianCdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& deviation)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& deviation)
 	{
 		return Pastel::gaussianCdf<Real>(
 			x / deviation);

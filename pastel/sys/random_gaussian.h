@@ -23,7 +23,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& deviation);
+		const NoDeduction<Real>& deviation);
 
 	//! Returns a random vector standard-normally distributed in a hyperball.
 	
@@ -41,19 +41,19 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real gaussianPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	//! Probability density function of the Gaussian distribution.
 	template <typename Real>
 	Real gaussianPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& deviation);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& deviation);
 
 	//! Cumulative distribution function of the Gaussian distribution.
 	template <typename Real>
 	Real approximateGaussianCdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& deviation);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& deviation);
 
 	//! Cumulative distribution function of the Gaussian distribution.
 	/*!
@@ -61,7 +61,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real approximateGaussianCdf(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	//! Cumulative distribution function of the Gaussian distribution.
 	/*!
@@ -69,13 +69,13 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real gaussianCdf(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	//! Cumulative distribution function of the Gaussian distribution.
 	template <typename Real>
 	Real gaussianCdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& deviation);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& deviation);
 
 }
 

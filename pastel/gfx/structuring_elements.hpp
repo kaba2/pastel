@@ -48,7 +48,7 @@ namespace Pastel
 	template <int N, typename Image_View>
 	void ellipsoidElement(
 		const View<N, bool, Image_View>& image,
-		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
+		const NoDeduction<Vector<real, N>>& diameter)
 	{
 		EllipsoidElement_::VisitFunctor<N> visitFunctor(
 			Vector<real, N>(image.extent()) / 2,
@@ -101,7 +101,7 @@ namespace Pastel
 	template <int N, typename Image_View>
 	void diamondElement(
 		const View<N, bool, Image_View>& image,
-		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
+		const NoDeduction<Vector<real, N>>& diameter)
 	{
 		DiamondElement_::VisitFunctor<N> visitFunctor(
 			Vector<real, N>(image.extent()) / 2,
@@ -158,7 +158,7 @@ namespace Pastel
 	void pEllipsoidElement(
 		const View<N, bool, Image_View>& image,
 		real power,
-		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
+		const NoDeduction<Vector<real, N>>& diameter)
 	{
 		ENSURE_OP(power, >, 0);
 
@@ -214,7 +214,7 @@ namespace Pastel
 	template <int N, typename Image_View>
 	void boxElement(
 		const View<N, bool, Image_View>& image,
-		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
+		const NoDeduction<Vector<real, N>>& diameter)
 	{
 		BoxElement_::VisitFunctor<N> visitFunctor(
 			Vector<real, N>(image.extent()) / 2,

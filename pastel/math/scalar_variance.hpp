@@ -14,7 +14,7 @@ namespace Pastel
 	Real scalarVariance(
 		Real_Input inputSet,
 		bool biased,
-		const PASTEL_NO_DEDUCTION(Real)& mean)
+		const NoDeduction<Real>& mean)
 	{
 		integer n = 0;
 		Real variance = 0;

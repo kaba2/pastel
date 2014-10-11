@@ -15,7 +15,7 @@ namespace Pastel
 
 	template <typename Real>
 	integer floorLog2(
-		PASTEL_NO_DEDUCTION(Real) x)
+		NoDeduction<Real> x)
 	{
 		PENSURE_OP(x, >=, 1);
 
@@ -31,7 +31,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real log2(
-		const PASTEL_NO_DEDUCTION(Real)& x)
+		const NoDeduction<Real>& x)
 	{
 		PENSURE_OP(x, >=, 0);
 

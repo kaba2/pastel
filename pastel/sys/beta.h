@@ -12,14 +12,14 @@ namespace Pastel
 	//! [Beta function]
 	template <typename Real>
 	Real beta(
-		PASTEL_NO_DEDUCTION(Real) x,
-		PASTEL_NO_DEDUCTION(Real) y);
+		NoDeduction<Real> x,
+		NoDeduction<Real> y);
 
 	//! [Logarithm of the beta function]
 	template <typename Real>
 	Real lnBeta(
-		PASTEL_NO_DEDUCTION(Real) x,
-		PASTEL_NO_DEDUCTION(Real) y);
+		NoDeduction<Real> x,
+		NoDeduction<Real> y);
 
 }
 

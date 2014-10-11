@@ -26,7 +26,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomCauchy(
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& scale)
 	{
 		PENSURE_OP(scale, >, 0);
 		return randomCauchy<Real>() * scale;
@@ -34,15 +34,15 @@ namespace Pastel
 
 	template <typename Real>
 	Real cauchyPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x)
+		const NoDeduction<Real>& x)
 	{
 		return inverse(constantPi<Real>() * (1 + square(x)));
 	}
 
 	template <typename Real>
 	Real cauchyPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& scale)
 	{
 		PENSURE_OP(scale, >, 0);
 

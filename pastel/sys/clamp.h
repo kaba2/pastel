@@ -17,8 +17,8 @@ namespace Pastel
 	template <typename Type>
 	Type clamp(
 		const Type& x,
-		const PASTEL_NO_DEDUCTION(Type)& xMin,
-		const PASTEL_NO_DEDUCTION(Type)& xMax);
+		const NoDeduction<Type>& xMin,
+		const NoDeduction<Type>& xMax);
 
 }
 

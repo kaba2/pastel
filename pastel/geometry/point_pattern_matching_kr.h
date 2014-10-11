@@ -95,9 +95,9 @@ namespace Pastel
 		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
 		integer kNearest,
-		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
-		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxBias,
+		const NoDeduction<Real>& minMatchRatio,
+		const NoDeduction<Real>& matchingDistance,
+		const NoDeduction<Real>& maxBias,
 		MatchingMode matchingMode,
 		const NormBijection& normBijection,
 		Scene_Model_Output report);

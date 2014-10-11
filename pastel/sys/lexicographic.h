@@ -13,10 +13,10 @@ namespace Pastel
 	//! Returns whether left comes before right in lexicographic order.
 	template <typename Type>
 	bool lexicographicLess(
-		const PASTEL_NO_DEDUCTION(Type)& leftPrimary,
-		const PASTEL_NO_DEDUCTION(Type)& leftSecondary,
-		const PASTEL_NO_DEDUCTION(Type)& rightPrimary,
-		const PASTEL_NO_DEDUCTION(Type)& rightSecondary);
+		const NoDeduction<Type>& leftPrimary,
+		const NoDeduction<Type>& leftSecondary,
+		const NoDeduction<Type>& rightPrimary,
+		const NoDeduction<Type>& rightSecondary);
 
 	//! Returns whether left comes before right in lexicographic order.
 	template <typename Real, int N>

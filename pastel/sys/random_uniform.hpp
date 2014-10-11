@@ -54,8 +54,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real random(
-		const PASTEL_NO_DEDUCTION(Real)& minValue, 
-		const PASTEL_NO_DEDUCTION(Real)& maxValue)
+		const NoDeduction<Real>& minValue, 
+		const NoDeduction<Real>& maxValue)
 	{
 		return minValue + Pastel::random<Real>() * (maxValue - minValue);
 	}
@@ -84,7 +84,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real uniformPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x)
+		const NoDeduction<Real>& x)
 	{
 		if (x < 0 || x > 1)
 		{
@@ -96,9 +96,9 @@ namespace Pastel
 
 	template <typename Real>
 	Real uniformPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& minValue,
-		const PASTEL_NO_DEDUCTION(Real)& maxValue)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& minValue,
+		const NoDeduction<Real>& maxValue)
 	{
 		PENSURE_OP(minValue, <, maxValue);
 

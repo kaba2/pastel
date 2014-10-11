@@ -66,7 +66,7 @@ namespace Pastel
 	Vector<Real, N> linear(
 		const Vector<Real, N>& startPoint,
 		const Vector<Real, N>& endPoint,
-		const PASTEL_NO_DEDUCTION(Real)& time)
+		const NoDeduction<Real>& time)
 	{
 		// TODO: Change to a vector expression!
 		return startPoint * (1 - time) + endPoint * time;

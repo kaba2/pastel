@@ -16,7 +16,7 @@ namespace Pastel
 	Real peakSignalToNoise(
 		A_Real_Input aSet,
 		B_Real_Input bSet,
-		const PASTEL_NO_DEDUCTION(Real)& maxValue)
+		const NoDeduction<Real>& maxValue)
 	{
 		return 10 * std::log10(
 			square(maxValue) / scalarMeanSquareError<Real>(aSet, bSet));

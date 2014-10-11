@@ -9,21 +9,21 @@ namespace Pastel
 
 	template <typename Real>
 	Real radiansToDegrees(
-		const PASTEL_NO_DEDUCTION(Real)& radians)
+		const NoDeduction<Real>& radians)
 	{
 		return (radians / constantPi<Real>()) * 180;
 	}
 
 	template <typename Real>
 	Real degreesToRadians(
-		const PASTEL_NO_DEDUCTION(Real)& degrees)
+		const NoDeduction<Real>& degrees)
 	{
 		return (degrees / 180) * constantPi<Real>();
 	}
 
 	template <typename Real>
 	Real positiveDegrees(
-		const PASTEL_NO_DEDUCTION(Real)& degrees)
+		const NoDeduction<Real>& degrees)
 	{
 		if (negative(degrees))
 		{
@@ -35,7 +35,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real positiveRadians(
-		const PASTEL_NO_DEDUCTION(Real)& radians)
+		const NoDeduction<Real>& radians)
 	{
 		if (negative(radians))
 		{

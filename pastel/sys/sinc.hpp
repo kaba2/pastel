@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <typename Real>
-	Real sinc(const PASTEL_NO_DEDUCTION(Real)& xInput)
+	Real sinc(const NoDeduction<Real>& xInput)
 	{
 		// Let
 		// Sinc(x) = sin(x) / x, for x != 0

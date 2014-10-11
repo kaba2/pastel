@@ -76,7 +76,7 @@ namespace Pastel
 
 	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
-		const PASTEL_NO_DEDUCTION(Real)& left,
+		const NoDeduction<Real>& left,
 		const VectorExpression<Real, N, Expression>& right);
 
 	//! Returns an N + 1 vector appended from the right.
@@ -84,14 +84,14 @@ namespace Pastel
 	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
-		const PASTEL_NO_DEDUCTION(Real)& right);
+		const NoDeduction<Real>& right);
 
 	//! Returns an N + 1 vector appended from a given position.
 
 	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
-		const PASTEL_NO_DEDUCTION(Real)& right,
+		const NoDeduction<Real>& right,
 		integer index);
 
 	//! Returns the dot product of a vector with itself.
@@ -161,7 +161,7 @@ namespace Pastel
 	template <typename Real, int N, typename Expression>
 	inline Real powerSum(
 		const VectorExpression<Real, N, Expression>& that,
-		const PASTEL_NO_DEDUCTION(Real)& metric);
+		const NoDeduction<Real>& metric);
 
 	//! Returns the Lp norm of a vector.
 	/*!
@@ -178,7 +178,7 @@ namespace Pastel
 	template <typename Real, int N, typename Expression>
 	inline Real minkowskiNorm(
 		const VectorExpression<Real, N, Expression>& that,
-		const PASTEL_NO_DEDUCTION(Real)& metric);
+		const NoDeduction<Real>& metric);
 
 	//! Returns the max norm of a vector.
 	/*!

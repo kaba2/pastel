@@ -106,8 +106,8 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
-		const PASTEL_NO_DEDUCTION(Real)& minRadius,
-		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
+		const NoDeduction<Real>& minRadius,
+		const NoDeduction<Real>& maxRadius)
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorAnnulus<Real, N>(
@@ -116,8 +116,8 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
-		const PASTEL_NO_DEDUCTION(Real)& minRadius,
-		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
+		const NoDeduction<Real>& minRadius,
+		const NoDeduction<Real>& maxRadius,
 		integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);

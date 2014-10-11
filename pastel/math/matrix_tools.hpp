@@ -42,7 +42,7 @@ namespace Pastel
 	template <typename Real, int N>
 	void setDiagonal(
 		Matrix<Real>& matrix,
-		const PASTEL_NO_DEDUCTION(Real)& value)
+		const NoDeduction<Real>& value)
 	{
 		integer width = matrix.width();
 		integer height = matrix.height();
@@ -125,7 +125,7 @@ namespace Pastel
 
 	template <typename Real>
 	MatrixConstant<Real> constantMatrix(
-		integer m, integer n, PASTEL_NO_DEDUCTION(Real) value)
+		integer m, integer n, NoDeduction<Real> value)
 	{
 		PENSURE_OP(m, >=, 0);
 		PENSURE_OP(n, >=, 0);
@@ -212,7 +212,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Matrix<Real> matrix1x1(PASTEL_NO_DEDUCTION(Real) a00)
+	Matrix<Real> matrix1x1(NoDeduction<Real> a00)
 	{
 		Matrix<Real> matrix(1, 1);
 		matrix(0, 0) = a00;
@@ -231,8 +231,8 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Matrix<Real> matrix2x2(PASTEL_NO_DEDUCTION(Real) a00, PASTEL_NO_DEDUCTION(Real) a01,
-						   PASTEL_NO_DEDUCTION(Real) a10, PASTEL_NO_DEDUCTION(Real) a11)
+	Matrix<Real> matrix2x2(NoDeduction<Real> a00, NoDeduction<Real> a01,
+						   NoDeduction<Real> a10, NoDeduction<Real> a11)
 	{
 		Matrix<Real> matrix(2, 2);
 		matrix(0, 0) = a00;
@@ -257,9 +257,9 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Matrix<Real> matrix3x3(PASTEL_NO_DEDUCTION(Real) a00, PASTEL_NO_DEDUCTION(Real) a01, PASTEL_NO_DEDUCTION(Real) a02,
-						   PASTEL_NO_DEDUCTION(Real) a10, PASTEL_NO_DEDUCTION(Real) a11, PASTEL_NO_DEDUCTION(Real) a12,
-						   PASTEL_NO_DEDUCTION(Real) a20, PASTEL_NO_DEDUCTION(Real) a21, PASTEL_NO_DEDUCTION(Real) a22)
+	Matrix<Real> matrix3x3(NoDeduction<Real> a00, NoDeduction<Real> a01, NoDeduction<Real> a02,
+						   NoDeduction<Real> a10, NoDeduction<Real> a11, NoDeduction<Real> a12,
+						   NoDeduction<Real> a20, NoDeduction<Real> a21, NoDeduction<Real> a22)
 	{
 		Matrix<Real> matrix(3, 3);
 		matrix(0, 0) = a00;
@@ -292,10 +292,10 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Matrix<Real> matrix4x4(PASTEL_NO_DEDUCTION(Real) a00, PASTEL_NO_DEDUCTION(Real) a01, PASTEL_NO_DEDUCTION(Real) a02, PASTEL_NO_DEDUCTION(Real) a03,
-						   PASTEL_NO_DEDUCTION(Real) a10, PASTEL_NO_DEDUCTION(Real) a11, PASTEL_NO_DEDUCTION(Real) a12, PASTEL_NO_DEDUCTION(Real) a13,
-						   PASTEL_NO_DEDUCTION(Real) a20, PASTEL_NO_DEDUCTION(Real) a21, PASTEL_NO_DEDUCTION(Real) a22, PASTEL_NO_DEDUCTION(Real) a23,
-						   PASTEL_NO_DEDUCTION(Real) a30, PASTEL_NO_DEDUCTION(Real) a31, PASTEL_NO_DEDUCTION(Real) a32, PASTEL_NO_DEDUCTION(Real) a33)
+	Matrix<Real> matrix4x4(NoDeduction<Real> a00, NoDeduction<Real> a01, NoDeduction<Real> a02, NoDeduction<Real> a03,
+						   NoDeduction<Real> a10, NoDeduction<Real> a11, NoDeduction<Real> a12, NoDeduction<Real> a13,
+						   NoDeduction<Real> a20, NoDeduction<Real> a21, NoDeduction<Real> a22, NoDeduction<Real> a23,
+						   NoDeduction<Real> a30, NoDeduction<Real> a31, NoDeduction<Real> a32, NoDeduction<Real> a33)
 	{
 		Matrix<Real> matrix(4, 4);
 		matrix(0, 0) = a00;

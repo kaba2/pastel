@@ -255,7 +255,7 @@ namespace Pastel
 
 	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
-		const PASTEL_NO_DEDUCTION(Real)& left,
+		const NoDeduction<Real>& left,
 		const VectorExpression<Real, N, Expression>& right)
 	{
 		return VectorExtend<Real, N, Expression>(
@@ -265,7 +265,7 @@ namespace Pastel
 	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
-		const PASTEL_NO_DEDUCTION(Real)& right)
+		const NoDeduction<Real>& right)
 	{
 		return VectorExtend<Real, N, Expression>(
 			(const Expression&)left, left.size(), right);
@@ -274,7 +274,7 @@ namespace Pastel
 	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
-		const PASTEL_NO_DEDUCTION(Real)& right,
+		const NoDeduction<Real>& right,
 		integer index)
 	{
 		return VectorExtend<Real, N, Expression>(
@@ -343,7 +343,7 @@ namespace Pastel
 	template <typename Real, int N, typename Expression>
 	Real powerSum(
 		const VectorExpression<Real, N, Expression>& that,
-		const PASTEL_NO_DEDUCTION(Real)& metric)
+		const NoDeduction<Real>& metric)
 	{
 		PENSURE_OP(metric, >=, 1);
 		return sum(pow(mabs(that), metric));
@@ -352,7 +352,7 @@ namespace Pastel
 	template <typename Real, int N, typename Expression>
 	Real minkowskiNorm(
 		const VectorExpression<Real, N, Expression>& that,
-		const PASTEL_NO_DEDUCTION(Real)& metric)
+		const NoDeduction<Real>& metric)
 	{
 		PENSURE_OP(metric, >=, 1);
 

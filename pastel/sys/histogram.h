@@ -23,12 +23,12 @@ namespace Pastel
 	void computeJointHistogram(
 		const ConstIterator& xBegin,
 		const ConstIterator& xEnd,
-		const PASTEL_NO_DEDUCTION(Real)& xMin,
-		const PASTEL_NO_DEDUCTION(Real)& xMax,
+		const NoDeduction<Real>& xMin,
+		const NoDeduction<Real>& xMax,
 		const ConstIterator& yBegin,
 		const ConstIterator& yEnd,
-		const PASTEL_NO_DEDUCTION(Real)& yMin,
-		const PASTEL_NO_DEDUCTION(Real)& yMax,
+		const NoDeduction<Real>& yMin,
+		const NoDeduction<Real>& yMax,
 		const View<2, Real, OutputView>& output);
 
 }

@@ -61,7 +61,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomExponential(
-		const PASTEL_NO_DEDUCTION(Real)& mean)
+		const NoDeduction<Real>& mean)
 	{
 		PENSURE_OP(mean, >, 0);
 
@@ -93,7 +93,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real exponentialPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x)
+		const NoDeduction<Real>& x)
 	{
 		if (x < 0)
 		{
@@ -105,8 +105,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real exponentialPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& mean)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& mean)
 	{
 		PENSURE_OP(mean, >, 0);
 

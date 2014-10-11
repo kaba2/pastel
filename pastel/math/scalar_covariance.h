@@ -29,8 +29,8 @@ namespace Pastel
 		A_Real_Input aSet,
 		B_Real_Input bSet,
 		bool biased,
-		const PASTEL_NO_DEDUCTION(Real)& aMean,
-		const PASTEL_NO_DEDUCTION(Real)& bMean);
+		const NoDeduction<Real>& aMean,
+		const NoDeduction<Real>& bMean);
 
 	//! Returns the covariance between scalar sequences.
 	/*!

@@ -59,7 +59,7 @@ namespace Pastel
 		BorderedConstView<N, ConstView<N, Input_Element, Input_ConstView> > >
 		borderedConstView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
-		const PASTEL_NO_DEDUCTION(Input_Element)& border)
+		const NoDeduction<Input_Element>& border)
 	{
 		return extendedConstView<N>(BorderedConstView<
 			N, ConstView<N, Input_Element, Input_ConstView> >(view, border));

@@ -12,7 +12,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomGeneralizedGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& shape)
+		const NoDeduction<Real>& shape)
 	{
 		PENSURE_OP(shape, >, 0);
 
@@ -35,16 +35,16 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomGeneralizedGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& scale)
 	{
 		return Pastel::randomGeneralizedGaussian<Real>(shape) * scale;
 	}
 
 	template <typename Real>
 	Real varianceToGeneralizedGaussianScale(
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& variance)
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& variance)
 	{
 		PENSURE_OP(shape, >, 0);
 		PENSURE_OP(variance, >=, 0);
@@ -57,8 +57,8 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> randomGeneralizedGaussianVector(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& shape, 
+		const NoDeduction<Real>& scale)
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 
@@ -69,8 +69,8 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> randomGeneralizedGaussianVector(
 		integer dimension,
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& shape, 
+		const NoDeduction<Real>& scale)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
@@ -85,9 +85,9 @@ namespace Pastel
 
 	template <typename Real>
 	Real generalizedGaussianPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& scale)
 	{
 		PENSURE_OP(shape, >, 0);
 		PENSURE_OP(scale, >=, 0);
@@ -98,8 +98,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real generalizedGaussianPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& shape)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& shape)
 	{
 		PENSURE_OP(shape, >, 0);
 

@@ -17,7 +17,7 @@ namespace Pastel
 	template <typename Real>
 	Matrix<Real> randomSymmetricPositiveDefinite(
 		integer n,
-		const PASTEL_NO_DEDUCTION(Real)& determinant);
+		const NoDeduction<Real>& determinant);
 
 	//! Generates a random spd (n x n)-matrix S with given det(S) and cond(S).
 	/*!
@@ -29,8 +29,8 @@ namespace Pastel
 	template <typename Real>
 	Matrix<Real> randomSymmetricPositiveDefinite(
 		integer n,
-		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		const PASTEL_NO_DEDUCTION(Real)& condition);
+		const NoDeduction<Real>& determinant,
+		const NoDeduction<Real>& condition);
 
 }
 

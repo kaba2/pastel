@@ -40,22 +40,22 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomLaplace(
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& scale)
 	{
 		return Pastel::randomLaplace<Real>() * scale;
 	}
 
 	template <typename Real>
 	Real laplacePdf(
-		const PASTEL_NO_DEDUCTION(Real)& x)
+		const NoDeduction<Real>& x)
 	{
 		return exponentialPdf<Real>(std::abs(x)) / 2;
 	}
 
 	template <typename Real>
 	Real laplacePdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& scale)
 	{
 		Real invScale = inverse(scale);
 

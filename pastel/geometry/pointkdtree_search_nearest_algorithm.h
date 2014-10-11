@@ -54,9 +54,9 @@ namespace Pastel
 		integer N = Locator::N>
 	void searchNearestAlgorithm(
 		const KdTree& kdTree,
-		const PASTEL_NO_DEDUCTION((Vector<Real, N>))& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NoDeduction<Vector<Real, N>>& searchPoint,
+		const NoDeduction<Real>& maxDistance,
+		const NoDeduction<Real>& maxRelativeError,
 		const Indicator& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
@@ -76,8 +76,8 @@ namespace Pastel
 	void searchNearestAlgorithm(
 		const KdTree& kdTree,
 		const typename KdTree::Point_ConstIterator& searchIter,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NoDeduction<Real>& maxDistance,
+		const NoDeduction<Real>& maxRelativeError,
 		const Indicator& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,

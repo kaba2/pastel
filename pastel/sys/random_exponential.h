@@ -26,7 +26,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomExponential(
-		const PASTEL_NO_DEDUCTION(Real)& mean);
+		const NoDeduction<Real>& mean);
 
 	//! Returns a random vector exponentially distributed in each component.
 	
@@ -44,7 +44,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real exponentialPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	//! Probability density function of the Exponential distribution.
 	/*!
@@ -53,8 +53,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real exponentialPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& mean);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& mean);
 
 }
 

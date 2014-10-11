@@ -49,7 +49,7 @@ namespace Pastel
 		integer N>
 	integer countRange(
 		const PointKdTree<Settings, Customization>& kdTree,
-		const PASTEL_NO_DEDUCTION((AlignedBox<Real, N>))& range,
+		const NoDeduction<AlignedBox<Real, N>>& range,
 		integer bucketSize)
 	{
 		ENSURE_OP(bucketSize, >, 0);

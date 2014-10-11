@@ -83,7 +83,7 @@ namespace Pastel
 	Real minkowskiDistance(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const PASTEL_NO_DEDUCTION(Real)& p,
+		const NoDeduction<Real>& p,
 		const Real_Indicator& keepGoing)
 	{
 		return Pastel::distance(
@@ -148,7 +148,7 @@ namespace Pastel
 	Real minkowskiDistance2(
 		const A_Point& aPoint,
 		const B_Point& bPoint,
-		const PASTEL_NO_DEDUCTION(Real)& p,
+		const NoDeduction<Real>& p,
 		const Real_Indicator& keepGoing)
 	{
 		return Pastel::distance2(

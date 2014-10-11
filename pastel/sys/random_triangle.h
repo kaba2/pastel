@@ -25,13 +25,13 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomTriangle(
-		const PASTEL_NO_DEDUCTION(Real)& leftWidth,
-		const PASTEL_NO_DEDUCTION(Real)& rightWidth);
+		const NoDeduction<Real>& leftWidth,
+		const NoDeduction<Real>& rightWidth);
 
 	//! Probability density function of the Triangle distribution.
 	template <typename Real>
 	Real trianglePdf(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	//! Probability density function of the Triangle distribution.
 	/*!
@@ -41,9 +41,9 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real trianglePdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& leftWidth,
-		const PASTEL_NO_DEDUCTION(Real)& rightWidth);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& leftWidth,
+		const NoDeduction<Real>& rightWidth);
 
 }
 
