@@ -43,8 +43,8 @@ namespace Pastel
 	template <typename Real>
 	Matrix<Real> perspectiveProjection(
 		const AlignedBox<Real, 2>& window,
-		const PASTEL_NO_DEDUCTION(Real)& zMin,
-		const PASTEL_NO_DEDUCTION(Real)& zMax);
+		const NoDeduction<Real>& zMin,
+		const NoDeduction<Real>& zMax);
 
 	//! Returns a homogeneous 3D orthogonal projection matrix.
 	/*!
@@ -54,8 +54,8 @@ namespace Pastel
 	template <typename Real>
 	Matrix<Real> orthogonalProjection(
 		const AlignedBox<Real, 2>& window,
-		const PASTEL_NO_DEDUCTION(Real)& zMin,
-		const PASTEL_NO_DEDUCTION(Real)& zMax);
+		const NoDeduction<Real>& zMin,
+		const NoDeduction<Real>& zMax);
 
 	//! Returns a projective transformation relating the given quadrilaterals.
 	/*!

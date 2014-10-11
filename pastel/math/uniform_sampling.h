@@ -72,8 +72,8 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
-		const PASTEL_NO_DEDUCTION(Real)& minRadius,
-		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
+		const NoDeduction<Real>& minRadius,
+		const NoDeduction<Real>& maxRadius);
 
 	//! Returns a random vector uniformly distributed on the annulus.
 	/*!
@@ -86,8 +86,8 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
-		const PASTEL_NO_DEDUCTION(Real)& minRadius,
-		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
+		const NoDeduction<Real>& minRadius,
+		const NoDeduction<Real>& maxRadius,
 		integer dimension);
 
 }

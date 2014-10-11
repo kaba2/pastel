@@ -9,7 +9,7 @@ namespace Pastel
 	template <typename Vector>
 	void quantizeErrorDiffusion(
 		Array<Vector, 2>& image,
-		const PASTEL_NO_DEDUCTION(Vector)& interval)
+		const NoDeduction<Vector>& interval)
 	{
 		ENSURE(allGreater(interval, 0));
 

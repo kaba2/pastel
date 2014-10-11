@@ -8,16 +8,16 @@ namespace Pastel
 
 	template <typename Real>
 	Real absoluteError(
-		const PASTEL_NO_DEDUCTION(Real)& measured,
-		const PASTEL_NO_DEDUCTION(Real)& correct)
+		const NoDeduction<Real>& measured,
+		const NoDeduction<Real>& correct)
 	{
 		return mabs(correct - measured);
 	}
 
 	template <typename Real>
 	Real relativeError(
-		const PASTEL_NO_DEDUCTION(Real)& measured,
-		const PASTEL_NO_DEDUCTION(Real)& correct)
+		const NoDeduction<Real>& measured,
+		const NoDeduction<Real>& correct)
 	{
 		// If correct is zero, then the relative
 		// error is infinity.

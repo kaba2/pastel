@@ -13,17 +13,17 @@ namespace Pastel
 
 	template <typename Type>
 		void minMax(
-		const PASTEL_NO_DEDUCTION(Type)& a,
-		const PASTEL_NO_DEDUCTION(Type)& b,
+		const NoDeduction<Type>& a,
+		const NoDeduction<Type>& b,
 		Type& min, Type& max);
 
 	//! Computes the minimum and maximum.
 
 	template <typename Type>
 		void minMax(
-		const PASTEL_NO_DEDUCTION(Type)& a,
-		const PASTEL_NO_DEDUCTION(Type)& b,
-		const PASTEL_NO_DEDUCTION(Type)& c,
+		const NoDeduction<Type>& a,
+		const NoDeduction<Type>& b,
+		const NoDeduction<Type>& c,
 		Type& min, Type& max);
 
 }

@@ -130,7 +130,7 @@ namespace Pastel
 		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view,
 		integer kNearest,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
+		const NoDeduction<Real>& maxRelativeError)
 	{
 		integer n = region.n();
 		integer points = positionList.size();

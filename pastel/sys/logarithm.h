@@ -17,7 +17,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	integer floorLog2(
-		PASTEL_NO_DEDUCTION(Real) x);
+		NoDeduction<Real> x);
 
 	//! Computes the [base-2 logarithm] of x.
 	/*!
@@ -26,7 +26,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real log2(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	//! Returns floor(log_2(that)).
 	/*!

@@ -18,7 +18,7 @@ namespace Pastel
 	Real peakSignalToNoise(
 		A_Real_Input aSet,
 		B_Real_Input bSet,
-		const PASTEL_NO_DEDUCTION(Real)& maxValue);
+		const NoDeduction<Real>& maxValue);
 
 	//! Returns the peak-signal-to-noise-ratio between sequences.
 	/*!

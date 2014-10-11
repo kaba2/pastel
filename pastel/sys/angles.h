@@ -13,22 +13,22 @@ namespace Pastel
 	//! Converts radians to degrees.
 	template <typename Real>
 	Real radiansToDegrees(
-		const PASTEL_NO_DEDUCTION(Real)& radians);
+		const NoDeduction<Real>& radians);
 
 	//! Converts degrees to radians.
 	template <typename Real>
 	Real degreesToRadians(
-		const PASTEL_NO_DEDUCTION(Real)& degrees);
+		const NoDeduction<Real>& degrees);
 
 	//! Converts from [-180, 180[ range to [0, 360[ range.
 	template <typename Real>
 	Real positiveDegrees(
-		const PASTEL_NO_DEDUCTION(Real)& degrees);
+		const NoDeduction<Real>& degrees);
 
 	//! Converts from [-pi, pi[ range to [0, 2pi[ range.
 	template <typename Real>
 	Real positiveRadians(
-		const PASTEL_NO_DEDUCTION(Real)& radians);
+		const NoDeduction<Real>& radians);
 
 	//! Measures the [counter-clockwise angle from the x-axis].
 	/*!

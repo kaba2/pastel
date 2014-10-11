@@ -33,7 +33,7 @@ namespace Pastel
 	AffineTransformation<Real> affineRotation(
 		integer n,
 		integer i, integer j,
-		const PASTEL_NO_DEDUCTION(Real)& angle);
+		const NoDeduction<Real>& angle);
 
 }
 

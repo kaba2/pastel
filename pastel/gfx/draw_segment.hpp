@@ -12,7 +12,7 @@ namespace Pastel
 	template <typename Type, typename Image_View>
 	void drawSegmentOld(
 		const Segment2& segment,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<2, Type, Image_View>& image)
 	{
 		Segment2 clippedSegment;
@@ -271,7 +271,7 @@ namespace Pastel
 	template <typename Type, typename Image_View>
 	void drawSegment(
 		const Segment2& segment,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<2, Type, Image_View>& image)
 	{
 		// See the implementation documentation for drawSegmentOld.

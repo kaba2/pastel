@@ -47,7 +47,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	Color_Texture<Type, N> colorTexture(
-		const PASTEL_NO_DEDUCTION(Type)& color)
+		const NoDeduction<Type>& color)
 	{
 		return Color_Texture<Type, N>(color);
 	}

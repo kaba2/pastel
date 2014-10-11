@@ -34,7 +34,7 @@ namespace Pastel
 
 	template <int N, typename Type, typename Image_View>
 	void clear(
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<N, Type, Image_View>& image)
 	{
 		Clear_::Visitor<Type, typename Image_View::Reference> visitor(color);

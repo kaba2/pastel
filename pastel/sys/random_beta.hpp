@@ -12,8 +12,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomBeta(
-		const PASTEL_NO_DEDUCTION(Real)& a,
-		const PASTEL_NO_DEDUCTION(Real)& b)
+		const NoDeduction<Real>& a,
+		const NoDeduction<Real>& b)
 	{
 		PENSURE_OP(a, >, 0);
 		PENSURE_OP(b, >, 0);
@@ -32,9 +32,9 @@ namespace Pastel
 
 	template <typename Real>
 	Real betaPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& a,
-		const PASTEL_NO_DEDUCTION(Real)& b)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& a,
+		const NoDeduction<Real>& b)
 	{
 		if (x < 0 || x > 1)
 		{

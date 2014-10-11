@@ -31,7 +31,7 @@ namespace Pastel
 	Vector<Real, N> linear(
 		const Vector<Real, N>& startPoint,
 		const Vector<Real, N>& endPoint,
-		const PASTEL_NO_DEDUCTION(Real)& time);
+		const NoDeduction<Real>& time);
 
 	//! Interpolates linearly in a [0, 1]^n cube.
 	/*!

@@ -29,7 +29,7 @@ namespace Pastel
 	Real scalarVariance(
 		Real_Input inputSet,
 		bool biased,
-		const PASTEL_NO_DEDUCTION(Real)& mean);
+		const NoDeduction<Real>& mean);
 
 	//! Returns the variance of a scalar set.
 	/*!

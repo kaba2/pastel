@@ -16,8 +16,8 @@ namespace Pastel
 	template <typename Real, typename Real_ConstRange>
 	Real gaussianAndersonDarling(
 		const Real_ConstRange& input,
-		PASTEL_NO_DEDUCTION(Real) mean,
-		PASTEL_NO_DEDUCTION(Real) deviation)
+		NoDeduction<Real> mean,
+		NoDeduction<Real> deviation)
 	{
 		/*
 		Anderson-Darling statistic

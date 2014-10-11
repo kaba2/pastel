@@ -309,7 +309,7 @@ namespace Pastel
 		typename Closure_Output,
 		typename Domain_Hash>
 	void transitiveClosure(
-		const PASTEL_NO_DEDUCTION(Codomain)& identity,
+		const NoDeduction<Codomain>& identity,
 		const ForEachDomain& forEachDomain,
 		const ForEachRelated& forEachRelated,
 		const Function& function,
@@ -343,7 +343,7 @@ namespace Pastel
 		typename CodomainOperator, 
 		typename Closure_Output>
 	void transitiveClosure(
-		const PASTEL_NO_DEDUCTION(Codomain)& identity,
+		const NoDeduction<Codomain>& identity,
 		const ForEachDomain& forEachDomain,
 		const ForEachRelated& forEachRelated,
 		const Function& function,

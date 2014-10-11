@@ -549,9 +549,9 @@ namespace Pastel
 	bool pointPatternMatch(
 		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
 		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
-		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
-		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
-		const PASTEL_NO_DEDUCTION(Real)& confidence,
+		const NoDeduction<Real>& minMatchRatio,
+		const NoDeduction<Real>& relativeMatchingDistance,
+		const NoDeduction<Real>& confidence,
 		ConformalAffine2D<Real>& similarityResult)
 	{
 		ENSURE_OP(minMatchRatio, >=, 0); 
@@ -593,9 +593,9 @@ namespace Pastel
 	bool pointPatternMatch(
 		const SceneRange& scene,
 		const ModelRange& model,
-		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
-		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
-		const PASTEL_NO_DEDUCTION(Real)& confidence,
+		const NoDeduction<Real>& minMatchRatio,
+		const NoDeduction<Real>& relativeMatchingDistance,
+		const NoDeduction<Real>& confidence,
 		ConformalAffine2D<Real>& similarityResult,
 		const Scene_Locator& sceneLocator,
 		const Model_Locator& modelLocator)
@@ -625,9 +625,9 @@ namespace Pastel
 	bool pointPatternMatch(
 		const SceneRange& scene,
 		const ModelRange& model,
-		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
-		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
-		const PASTEL_NO_DEDUCTION(Real)& confidence,
+		const NoDeduction<Real>& minMatchRatio,
+		const NoDeduction<Real>& relativeMatchingDistance,
+		const NoDeduction<Real>& confidence,
 		ConformalAffine2D<Real>& similarityResult)
 	{
 		return Pastel::pointPatternMatch(

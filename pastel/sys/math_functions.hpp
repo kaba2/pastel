@@ -19,10 +19,10 @@ namespace Pastel
 	template <typename Real>
 	void realToReal(
 		const Real& x,
-		const PASTEL_NO_DEDUCTION(Real)& fromMin, 
-		const PASTEL_NO_DEDUCTION(Real)& fromMax,
-		const PASTEL_NO_DEDUCTION(Real)& toMin, 
-		const PASTEL_NO_DEDUCTION(Real)& toMax)
+		const NoDeduction<Real>& fromMin, 
+		const NoDeduction<Real>& fromMax,
+		const NoDeduction<Real>& toMin, 
+		const NoDeduction<Real>& toMax)
 	{
 		Real fromDelta = fromMax - fromMin;
 		Real toDelta = toMax - toMin;

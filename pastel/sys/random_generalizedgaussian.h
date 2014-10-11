@@ -24,7 +24,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomGeneralizedGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& shape);
+		const NoDeduction<Real>& shape);
 
 	//! Returns a generalized-gaussian-distributed random real.
 	/*!
@@ -39,8 +39,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomGeneralizedGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& shape, 
+		const NoDeduction<Real>& scale);
 
 	//! Converts variance to Generalized Gaussian scale parameter.
 	/*!
@@ -50,8 +50,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real varianceToGeneralizedGaussianScale(
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& variance);
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& variance);
 
 	//! Returns a vector of Generalized Gaussian random numbers.
 	/*!
@@ -61,8 +61,8 @@ namespace Pastel
 	*/
 	template <typename Real, int N>
 	Vector<Real, N> randomGeneralizedGaussianVector(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& shape, 
+		const NoDeduction<Real>& scale);
 
 	//! Returns a vector of Generalized Gaussian random numbers.
 	/*!
@@ -74,8 +74,8 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> randomGeneralizedGaussianVector(
 		integer dimension,
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& shape, 
+		const NoDeduction<Real>& scale);
 
 	//! Probability density function of the Generalized Gaussian Distribution.
 	/*!
@@ -85,9 +85,9 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real generalizedGaussianPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& scale);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& scale);
 
 	//! Probability density function of the Generalized Gaussian Distribution.
 	/*!
@@ -96,8 +96,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real generalizedGaussianPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& shape);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& shape);
 
 }
 

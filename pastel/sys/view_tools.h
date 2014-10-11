@@ -10,7 +10,7 @@ namespace Pastel
 
 	template <int N, typename Type, typename Image_View>
 	void clear(
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<N, Type, Image_View>& image);
 
 	template <

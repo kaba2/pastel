@@ -9,7 +9,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomGamma(
-		const PASTEL_NO_DEDUCTION(Real)& shape)
+		const NoDeduction<Real>& shape)
 	{
 		// See "A simple method for generating gamma variables",
 		// George Marsaglia, Wai Wan Tsang,
@@ -77,16 +77,16 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomGamma(
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& scale)
 	{
 		return Pastel::randomGamma<Real>(shape) * scale;
 	}
 
 	template <typename Real>
 	Real varianceToGammaScale(
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& variance)
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& variance)
 	{
 		PENSURE_OP(shape, >, 0);
 		PENSURE_OP(variance, >= , 0);
@@ -96,7 +96,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Vector<Real, N> randomGammaVector(
-		const PASTEL_NO_DEDUCTION(Real)& shape)
+		const NoDeduction<Real>& shape)
 	{		
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 
@@ -107,7 +107,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> randomGammaVector(
 		integer dimension,
-		const PASTEL_NO_DEDUCTION(Real)& shape)
+		const NoDeduction<Real>& shape)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
@@ -122,8 +122,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real gammaPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& shape)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& shape)
 	{
 		PENSURE_OP(shape, >, 0);
 
@@ -133,9 +133,9 @@ namespace Pastel
 
 	template <typename Real>
 	Real gammaPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& scale)
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& shape,
+		const NoDeduction<Real>& scale)
 	{
 		PENSURE_OP(shape, >, 0);
 		PENSURE_OP(scale, >, 0);
@@ -158,7 +158,7 @@ namespace Pastel
 	// rejection loop). 
 	/*
 	template <typename Real>
-	Real randomGamma(const PASTEL_NO_DEDUCTION(Real)& alpha)
+	Real randomGamma(const NoDeduction<Real>& alpha)
 	{
 		// See "Sampling from the Gamma Distribution on a Computer",
 		// George F. Fishman, 1976.

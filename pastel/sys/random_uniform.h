@@ -36,8 +36,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real random(
-		const PASTEL_NO_DEDUCTION(Real)& minValue, 
-		const PASTEL_NO_DEDUCTION(Real)& maxValue);
+		const NoDeduction<Real>& minValue, 
+		const NoDeduction<Real>& maxValue);
 
 	//! Returns a random vector uniformly distributed in [0, 1]^N.
 	template <typename Real, int N>
@@ -58,7 +58,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real uniformPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	//! Probability density function of the Uniform distribution.
 	/*!
@@ -67,9 +67,9 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real uniformPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& minValue,
-		const PASTEL_NO_DEDUCTION(Real)& maxValue);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& minValue,
+		const NoDeduction<Real>& maxValue);
 
 }
 

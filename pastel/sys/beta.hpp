@@ -9,8 +9,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real beta(
-		PASTEL_NO_DEDUCTION(Real) x,
-		PASTEL_NO_DEDUCTION(Real) y)
+		NoDeduction<Real> x,
+		NoDeduction<Real> y)
 	{
 		return (gamma<Real>(x) * gamma<Real>(y)) / 
 			gamma<Real>(x + y);
@@ -18,8 +18,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real lnBeta(
-		PASTEL_NO_DEDUCTION(Real) x,
-		PASTEL_NO_DEDUCTION(Real) y)
+		NoDeduction<Real> x,
+		NoDeduction<Real> y)
 	{
 		return (lnGamma<Real>(x) + lnGamma<Real>(y)) - 
 			lnGamma<Real>(x + y);

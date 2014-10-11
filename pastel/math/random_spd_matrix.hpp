@@ -15,7 +15,7 @@ namespace Pastel
 	template <typename Real>
 	Matrix<Real> randomSymmetricPositiveDefinite(
 		integer n,
-		const PASTEL_NO_DEDUCTION(Real)& determinant)
+		const NoDeduction<Real>& determinant)
 	{
 		ENSURE_OP(n, >=, 0);
 
@@ -61,8 +61,8 @@ namespace Pastel
 	template <typename Real>
 	Matrix<Real> randomSymmetricPositiveDefinite(
 		integer n,
-		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		const PASTEL_NO_DEDUCTION(Real)& condition)
+		const NoDeduction<Real>& determinant,
+		const NoDeduction<Real>& condition)
 	{
 		ENSURE_OP(n, >=, 0);
 		ENSURE_OP(condition, >=, 1);

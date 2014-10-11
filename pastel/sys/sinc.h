@@ -14,7 +14,7 @@ namespace Pastel
 	sinc(x) = sin(pi * x) / (pi * x).
 	*/
 	template <typename Real>
-	Real sinc(const PASTEL_NO_DEDUCTION(Real)& x);
+	Real sinc(const NoDeduction<Real>& x);
 
 }
 

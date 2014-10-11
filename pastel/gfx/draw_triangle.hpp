@@ -60,7 +60,7 @@ namespace Pastel
 	template <typename Type, typename Image_View, typename ColorMixer>
 	void drawTriangle(
 		const Triangle2& triangle,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
@@ -196,7 +196,7 @@ namespace Pastel
 	template <typename Type, typename Image_View>
 	void drawTriangle(
 		const Triangle2& triangle,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<2, Type, Image_View>& image)
 	{
 		drawTriangle(triangle, color, image, assignColorMixer<Type>());

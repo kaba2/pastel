@@ -12,9 +12,9 @@ namespace Pastel
 
 	template <typename Real>
 	bool quadratic(
-		const PASTEL_NO_DEDUCTION(Real)& aCoeff,
-		const PASTEL_NO_DEDUCTION(Real)& bCoeff,
-		const PASTEL_NO_DEDUCTION(Real)& cCoeff,
+		const NoDeduction<Real>& aCoeff,
+		const NoDeduction<Real>& bCoeff,
+		const NoDeduction<Real>& cCoeff,
 		Real &t0, Real &t1,
 		bool solutionsMustExist)
 	{

@@ -22,8 +22,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real randomLogNormal(
-		const PASTEL_NO_DEDUCTION(Real)& logMean,
-		const PASTEL_NO_DEDUCTION(Real)& logDeviation);
+		const NoDeduction<Real>& logMean,
+		const NoDeduction<Real>& logDeviation);
 
 	// Probability density function of the Log-normal distribution.
 	/*!
@@ -31,7 +31,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real logNormalPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x);
+		const NoDeduction<Real>& x);
 
 	// Probability density function of the Log-normal distribution.
 	/*!
@@ -40,9 +40,9 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real logNormalPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& logMean,
-		const PASTEL_NO_DEDUCTION(Real)& logDeviation);
+		const NoDeduction<Real>& x,
+		const NoDeduction<Real>& logMean,
+		const NoDeduction<Real>& logDeviation);
 
 }
 

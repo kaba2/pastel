@@ -18,7 +18,7 @@ namespace Pastel
 		integer N>
 	void searchRangeAlgorithm(
 		const PointKdTree<Settings, Customization>& kdTree,
-		const PASTEL_NO_DEDUCTION((AlignedBox<Real, N>))& range,
+		const NoDeduction<AlignedBox<Real, N>>& range,
 		const Output_SearchRange& reporter,
 		integer bucketSize)
 	{

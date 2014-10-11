@@ -12,14 +12,14 @@ namespace Pastel
 	//! Returns the absolute error of a measured value to a correct value.
 	template <typename Real>
 	Real absoluteError(
-		const PASTEL_NO_DEDUCTION(Real)& measured,
-		const PASTEL_NO_DEDUCTION(Real)& correct);
+		const NoDeduction<Real>& measured,
+		const NoDeduction<Real>& correct);
 
 	//! Returns the relative error of a measured value to a correct value.
 	template <typename Real>
 	Real relativeError(
-		const PASTEL_NO_DEDUCTION(Real)& measured,
-		const PASTEL_NO_DEDUCTION(Real)& correct);
+		const NoDeduction<Real>& measured,
+		const NoDeduction<Real>& correct);
 
 }
 

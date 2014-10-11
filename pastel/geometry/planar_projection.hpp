@@ -28,8 +28,8 @@ namespace Pastel
 	template <typename Real>
 	Matrix<Real> perspectiveProjection(
 		const AlignedBox<Real, 2>& window,
-		const PASTEL_NO_DEDUCTION(Real)& zMin,
-		const PASTEL_NO_DEDUCTION(Real)& zMax)
+		const NoDeduction<Real>& zMin,
+		const NoDeduction<Real>& zMax)
 	{
 		/*
 		To find the transformation to the
@@ -150,8 +150,8 @@ namespace Pastel
 	template <typename Real>
 	Matrix<Real> orthogonalProjection(
 		const AlignedBox<Real, 2>& window,
-		const PASTEL_NO_DEDUCTION(Real)& zMin,
-		const PASTEL_NO_DEDUCTION(Real)& zMax)
+		const NoDeduction<Real>& zMin,
+		const NoDeduction<Real>& zMax)
 	{
 		ENSURE_OP(zMin, <, zMax);
 

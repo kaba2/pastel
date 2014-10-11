@@ -12,7 +12,7 @@ namespace Pastel
 	template <typename Type, typename Image_View, typename ColorMixer>
 	void drawHorizontalLine(
 		real x, integer y, real x2,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
@@ -63,7 +63,7 @@ namespace Pastel
 	template <typename Type, typename Image_View>
 	void drawHorizontalLine(
 		real x, integer y, real x2,
-		const PASTEL_NO_DEDUCTION(Type)& color,
+		const NoDeduction<Type>& color,
 		const View<2, Type, Image_View>& image)
 	{
 		drawHorizontalLine(

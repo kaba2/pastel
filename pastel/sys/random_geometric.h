@@ -20,7 +20,7 @@ namespace Pastel
 	*/
 	template <typename Real>
 	integer randomGeometric(
-		const PASTEL_NO_DEDUCTION(Real)& success);
+		const NoDeduction<Real>& success);
 
 	//! Probability mass function of the geometric distribution.
 	/*!
@@ -31,8 +31,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real geometricPdf(
-		const PASTEL_NO_DEDUCTION(Real)& k,
-		const PASTEL_NO_DEDUCTION(Real)& success);
+		const NoDeduction<Real>& k,
+		const NoDeduction<Real>& success);
 
 	//! Cumulative distribution function of the geometric distribution.
 	/*!
@@ -43,8 +43,8 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real geometricCdf(
-		const PASTEL_NO_DEDUCTION(Real)& k,
-		const PASTEL_NO_DEDUCTION(Real)& success);
+		const NoDeduction<Real>& k,
+		const NoDeduction<Real>& success);
 
 }
 

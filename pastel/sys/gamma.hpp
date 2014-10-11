@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <typename Real>
-	Real gamma(PASTEL_NO_DEDUCTION(Real) z)
+	Real gamma(NoDeduction<Real> z)
 	{
 		// From Wikipedia, "Lanczos approximation".
 
@@ -49,7 +49,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Real lnGamma(PASTEL_NO_DEDUCTION(Real) z)
+	Real lnGamma(NoDeduction<Real> z)
 	{
 		// From Wikipedia, "Lanczos approximation".
 

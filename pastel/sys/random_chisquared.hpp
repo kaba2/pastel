@@ -17,7 +17,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real chiSquaredPdf(
-		const PASTEL_NO_DEDUCTION(Real)& x,
+		const NoDeduction<Real>& x,
 		integer k)
 	{
 		PENSURE_OP(k, >, 0);

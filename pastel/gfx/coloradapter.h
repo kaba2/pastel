@@ -264,13 +264,13 @@ namespace Pastel
 
 	template <typename Integer>
 	Color integerToColor(
-		const PASTEL_NO_DEDUCTION(Integer)& packedColor,
+		const NoDeduction<Integer>& packedColor,
 		integer redBits, integer greenBits, integer blueBits,
 		integer redFrom, integer greenFrom, integer blueFrom);
 
 	template <typename Integer>
 	Color integerToColor(
-		const PASTEL_NO_DEDUCTION(Integer)& packedColor,
+		const NoDeduction<Integer>& packedColor,
 		integer redBits, integer greenBits, integer blueBits);
 
 	template <typename Integer>

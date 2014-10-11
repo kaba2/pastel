@@ -14,7 +14,7 @@ namespace Pastel
 	The returned values are in the range [0, 1].
 	*/
 	template <typename Real>
-	Real perlinNoise(const PASTEL_NO_DEDUCTION(Real)& position);
+	Real perlinNoise(const NoDeduction<Real>& position);
 
 	//! Perlin noise
 	/*!

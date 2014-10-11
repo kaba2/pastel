@@ -112,7 +112,7 @@ namespace Pastel
 	template <typename Real>
 	Real lnVolumeUnitSphereMinkowski(
 		integer n, 
-		const PASTEL_NO_DEDUCTION(Real)& power)
+		const NoDeduction<Real>& power)
 	{
 		PENSURE_OP(n, >, 0);
 		PENSURE_OP(power, >, 0);

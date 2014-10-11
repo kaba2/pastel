@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 	template <typename Real>
-	Real simplexNoise(const PASTEL_NO_DEDUCTION(Real)& position)
+	Real simplexNoise(const NoDeduction<Real>& position)
 	{
 		return perlinNoise<Real>(position);
 	}
