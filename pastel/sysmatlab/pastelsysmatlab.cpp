@@ -8,3 +8,4 @@
 	}
 
 FORCE_LINKING(maximum_bipartite_matching);
+FORCE_LINKING(random_generalized_normal);
