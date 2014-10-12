@@ -90,14 +90,14 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			EnableIf<Rational_::IsNativeOrInteger<Integer, That_Integer>>* = nullptr>
+			EnableIf<Rational_::IsNativeOrInteger<Integer, That_Integer>> = 0>
 		Rational(That_Integer wholes);
 
 		//! Constructs with the value (numerator / denominator).
 		template <
 			typename Numerator_Integer, 
 			typename Denominator_Integer,
-			EnableIf<Rational_::AreNativeOrInteger<Integer, Numerator_Integer, Denominator_Integer>>* = nullptr>
+			EnableIf<Rational_::AreNativeOrInteger<Integer, Numerator_Integer, Denominator_Integer>> = 0>
 		Rational(
 			Numerator_Integer numerator,
 			Denominator_Integer denominator);

@@ -14,19 +14,19 @@ namespace
 	// SFINAE in the default template parameter value.
 	//
 	// Disadvantages:
-	// * extraneuous * = nullptr. 
+	// * extraneuous  = 0. 
 	//
 	// The nullptr cannot be changed to 0; this is a 
 	// special rule for template parameters.
 
 	template <
 		int N,
-		EnableIfC<N == 1>* = nullptr>
+		EnableIfC<N == 1> = 0>
 	True f();
 
 	template <
 		int N,
-		EnableIfC<N != 1>* = nullptr>
+		EnableIfC<N != 1> = 0>
 	False f();
 
 	// SFINAE in the default template parameter type.
@@ -63,10 +63,10 @@ namespace
 	// * garbles the parameter list
 
 	template <int N>
-	True k(EnableIfC<N == 1>* = nullptr);
+	True k(EnableIfC<N == 1> = 0);
 
 	template <int N>
-	False k(EnableIfC<N != 1>* = nullptr);
+	False k(EnableIfC<N != 1> = 0);
 
 	class A
 	{
@@ -75,12 +75,12 @@ namespace
 
 		template <
 			int N,
-			EnableIfC<N == 1>* = nullptr>
+			EnableIfC<N == 1> = 0>
 		True f();
 
 		template <
 			int N,
-			EnableIfC<N != 1>* = nullptr>
+			EnableIfC<N != 1> = 0>
 		False f();
 
 		// SFINAE in the default template parameter type.
@@ -106,10 +106,10 @@ namespace
 		// SFINAE in the parameter
 	
 		template <int N>
-		True k(EnableIfC<N == 1>* = nullptr);
+		True k(EnableIfC<N == 1> = 0);
 
 		template <int N>
-		False k(EnableIfC<N != 1>* = nullptr);
+		False k(EnableIfC<N != 1> = 0);
 	};
 
 	/*

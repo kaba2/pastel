@@ -35,7 +35,7 @@ namespace Pastel
 	template <typename Integer>
 	template <
 		typename That_Integer,
-		EnableIf<Rational_::IsNativeOrInteger<Integer, That_Integer>>*>
+		EnableIf<Rational_::IsNativeOrInteger<Integer, That_Integer>>>
 	Rational<Integer>::Rational(
 		That_Integer wholes)
 		: numerator_(wholes)
@@ -47,7 +47,7 @@ namespace Pastel
 	template <
 		typename Numerator_Integer, 
 		typename Denominator_Integer,
-		EnableIf<Rational_::AreNativeOrInteger<Integer, Numerator_Integer, Denominator_Integer>>*>
+		EnableIf<Rational_::AreNativeOrInteger<Integer, Numerator_Integer, Denominator_Integer>>>
 	Rational<Integer>::Rational(
 		Numerator_Integer numerator,
 		Denominator_Integer denominator)
@@ -601,13 +601,13 @@ namespace Pastel
 
 	// Real
 
-	template <typename Type, EnableIf<IsRational<Type>>* = nullptr>
+	template <typename Type, EnableIf<IsRational<Type>> = 0>
 	Type infinity()
 	{
 		return Type(1, 0);
 	}
 
-	template <typename Type, EnableIf<IsRational<Type>>* = nullptr>
+	template <typename Type, EnableIf<IsRational<Type>> = 0>
 	Type nan()
 	{
 		return Type(0, 0);

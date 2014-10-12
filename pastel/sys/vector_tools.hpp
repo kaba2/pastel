@@ -323,7 +323,7 @@ namespace Pastel
 		typename Real, 
 		int N, 
 		typename Expression,
-		EnableIfC<(N > 1 || N == Dynamic)>*>
+		EnableIfC<(N > 1 || N == Dynamic)>>
 	Real norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return std::sqrt(dot(that, that));
@@ -333,7 +333,7 @@ namespace Pastel
 		typename Real, 
 		int N, 
 		typename Expression,
-		EnableIfC<(N == 1)>*>
+		EnableIfC<(N == 1)>>
 	Real norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return mabs(that[0]);

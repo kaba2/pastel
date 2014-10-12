@@ -294,25 +294,25 @@ namespace Pastel
 				(const Expression&)right);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ >= 1)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ >= 1)> = 0>
 		Real x() const
 		{
 			return (*this)[0];
 		}
 
-		template <int N_ = N, EnableIfC<(N_ >= 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ >= 2)> = 0>
 		Real y() const
 		{
 			return (*this)[1];
 		}
 
-		template <int N_ = N, EnableIfC<(N_ >= 3)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ >= 3)> = 0>
 		Real z() const
 		{
 			return (*this)[2];
 		}
 
-		template <int N_ = N, EnableIfC<(N_ >= 4)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ >= 4)> = 0>
 		Real w() const
 		{
 			return (*this)[3];

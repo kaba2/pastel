@@ -21,7 +21,7 @@ namespace Pastel
 		return sizeof(Type) * CHAR_BIT;
 	}
 
-	template <typename Type, EnableIf<std::is_arithmetic<Type>>*>
+	template <typename Type, EnableIf<std::is_arithmetic<Type>>>
 	Type mabs(Type that)
 	{
 		if (that < 0)

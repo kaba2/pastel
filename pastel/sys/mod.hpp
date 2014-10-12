@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Integer, EnableIf<std::is_signed<Integer>>*>
+	template <typename Integer, EnableIf<std::is_signed<Integer>>>
 	Integer modPowerOfTwo(const Integer& x, integer n)
 	{
 		PENSURE(!negative(n));
@@ -45,7 +45,7 @@ namespace Pastel
 		return twosComplementToSigned((Mask - absMod) + 1);
 	}
 
-	template <typename Integer, EnableIf<std::is_unsigned<Integer>>*>
+	template <typename Integer, EnableIf<std::is_unsigned<Integer>>>
 	Integer modPowerOfTwo(const Integer& x, integer n)
 	{
 		return x & bitMask<Integer>(n);
@@ -74,13 +74,13 @@ namespace Pastel
 		return n - absMod;
 	}
 
-	template <typename Real, EnableIf<std::is_floating_point<Real>>*>
+	template <typename Real, EnableIf<std::is_floating_point<Real>>>
 	Real mod(const Real& x)
 	{
 		return x - std::floor(x);
 	}
 
-	template <typename Real, EnableIf<std::is_floating_point<Real>>*>
+	template <typename Real, EnableIf<std::is_floating_point<Real>>>
 	Real mod(const Real& x, const Real& n)
 	{
 		PENSURE_OP(n, >, 0);

@@ -380,7 +380,7 @@ namespace Pastel
 		typename Input_View,
 		typename Output_Element,
 		typename Output_View,
-		EnableIfC<(N > 1)>*>
+		EnableIfC<(N > 1)>>
 	void resampleTable(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,
@@ -468,7 +468,7 @@ namespace Pastel
 		typename Input_View,
 		typename Output_Element,
 		typename Output_View,
-		EnableIfC<(N > 1)>*>
+		EnableIfC<(N > 1)>>
 	void resample(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,

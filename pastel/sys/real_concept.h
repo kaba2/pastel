@@ -48,11 +48,11 @@ namespace Pastel
 		};
 
 		//! Returns infinity.	
-		template <typename Type, EnableIf<std::is_same<Type, Real>>* = nullptr>
+		template <typename Type, EnableIf<std::is_same<Type, Real>> = 0>
 		Type infinity();
 
 		//! Returns not-a-number.	
-		template <typename Type, EnableIf<std::is_same<Type, Real>>* = nullptr>
+		template <typename Type, EnableIf<std::is_same<Type, Real>> = 0>
 		Type nan();
 
 		//! Returns 1 / that.	
