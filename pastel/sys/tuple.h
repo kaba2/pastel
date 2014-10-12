@@ -187,7 +187,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 2)>>
+			EnableIfC<(N_ == 2)>* = nullptr>
 		Tuple(const Type& x, const Type& y)
 		{
 			set(x, y);
@@ -195,7 +195,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 3)>>
+			EnableIfC<(N_ == 3)>* = nullptr>
 		Tuple(const Type& x, const Type& y, const Type& z)
 		{
 			set(x, y, z);
@@ -203,7 +203,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 4)>>
+			EnableIfC<(N_ == 4)>* = nullptr>
 		Tuple(const Type& x, const Type& y, 
 			const Type& z, const Type& w)
 		{
@@ -387,7 +387,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 2)>>
+			EnableIfC<(N_ == 2)>* = nullptr>
 		void set(
 			const Type& x, const Type& y)
 		{
@@ -398,7 +398,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 3)>>
+			EnableIfC<(N_ == 3)>* = nullptr>
 		void set(
 			const Type& x, const Type& y, 
 			const Type& z)
@@ -411,7 +411,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 4)>>
+			EnableIfC<(N_ == 4)>* = nullptr>
 		void set(
 			const Type& x, const Type& y, 
 			const Type& z, const Type& w)
@@ -425,7 +425,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 1)>>
+			EnableIfC<(N_ >= 1)>* = nullptr>
 		Type& x()
 		{
 			return (*this)[0];
@@ -433,7 +433,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 1)>>
+			EnableIfC<(N_ >= 1)>* = nullptr>
 		const Type& x() const
 		{
 			return (*this)[0];
@@ -441,7 +441,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 2)>>
+			EnableIfC<(N_ >= 2)>* = nullptr>
 		Type& y()
 		{
 			return (*this)[1];
@@ -449,7 +449,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 2)>>
+			EnableIfC<(N_ >= 2)>* = nullptr>
 		const Type& y() const
 		{
 			return (*this)[1];
@@ -457,7 +457,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 3)>>
+			EnableIfC<(N_ >= 3)>* = nullptr>
 		Type& z()
 		{
 			return (*this)[2];
@@ -465,7 +465,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 3)>>
+			EnableIfC<(N_ >= 3)>* = nullptr>
 		const Type& z() const
 		{
 			return (*this)[2];
@@ -473,7 +473,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 4)>>
+			EnableIfC<(N_ >= 4)>* = nullptr>
 		Type& w()
 		{
 			return (*this)[3];
@@ -481,7 +481,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 4)>>
+			EnableIfC<(N_ >= 4)>* = nullptr>
 		const Type& w() const
 		{
 			return (*this)[3];

@@ -944,7 +944,7 @@ namespace Pastel
 
 	template <
 		typename BuiltInInteger,
-		typename>
+		EnableIf<std::is_signed<BuiltInInteger>>*>
 	void BigInteger::construct(
 		BuiltInInteger that)
 	{
@@ -959,7 +959,7 @@ namespace Pastel
 
 	template <
 		typename BuiltInInteger,
-		typename>
+		DisableIf<std::is_signed<BuiltInInteger>>*>
 	void BigInteger::construct(BuiltInInteger that)
 	{
 		while(that != 0)

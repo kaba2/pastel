@@ -88,12 +88,12 @@ namespace Pastel
 
 		template <
 			typename BuiltInInteger,
-			typename = EnableIf<std::is_signed<BuiltInInteger>>>
+			EnableIf<std::is_signed<BuiltInInteger>>* = nullptr>
 		void construct(BuiltInInteger that);
 
 		template <
 			typename BuiltInInteger,
-			typename = DisableIf<std::is_signed<BuiltInInteger>>>
+			DisableIf<std::is_signed<BuiltInInteger>>* = nullptr>
 		void construct(BuiltInInteger that);
 
 		BigInteger(DigitContainer& digits,

@@ -158,8 +158,7 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			typename = EnableIf<std::is_unsigned<That_Integer>>
-			>
+			EnableIf<std::is_unsigned<That_Integer>>* = nullptr>
 		Integer(That_Integer that, Signed_Tag = Signed_Tag())
 		: wordSet_()
 		{
@@ -187,8 +186,7 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			typename = EnableIf<std::is_signed<That_Integer>>
-			>
+			EnableIf<std::is_signed<That_Integer>>* = nullptr>
 		Integer(That_Integer that, Unsigned_Tag = Unsigned_Tag())
 			: Integer(signedToTwosComplement(that))
 		{

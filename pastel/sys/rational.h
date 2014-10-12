@@ -15,6 +15,44 @@
 namespace Pastel
 {
 
+	namespace Rational_
+	{
+
+		template <typename That_Integer>
+		struct IsNative
+			: std::is_signed<That_Integer> 
+		{};
+
+		template <
+			typename Integer,
+			typename That_Integer>
+		struct IsInteger
+			: boost::mpl::and_<
+			boost::mpl::not_<std::is_signed<That_Integer>>, 
+			std::is_same<That_Integer, Integer>>
+		{};
+
+		template <
+			typename Integer,
+			typename That_Integer>
+		struct IsNativeOrInteger
+			: boost::mpl::or_<
+			IsNative<That_Integer>,
+			IsInteger<Integer, That_Integer>> 
+		{};
+
+		template <
+			typename Integer, 
+			typename Left_Integer, 
+			typename Right_Integer>
+		struct AreNativeOrInteger
+			: boost::mpl::and_<
+			IsNativeOrInteger<Integer, Left_Integer>,
+			IsNativeOrInteger<Integer, Right_Integer>> 
+		{};
+
+	}
+
 	//! A rational number.
 	template <typename Integer_>
 	class Rational
@@ -26,35 +64,6 @@ namespace Pastel
 	{
 	public:
 		using Integer = Integer_;
-
-	private:
-		class Private {};
-
-		template <typename That_Integer>
-		struct IsNative
-			: std::is_signed<That_Integer> 
-		{};
-
-		template <typename That_Integer>
-		struct IsInteger
-			: boost::mpl::and_<
-			boost::mpl::not_<std::is_signed<That_Integer>>, 
-			std::is_same<That_Integer, Integer>>
-		{};
-
-		template <typename That_Integer>
-		struct IsNativeOrInteger
-			: boost::mpl::or_<
-			IsNative<That_Integer>,
-			IsInteger<That_Integer>> 
-		{};
-
-		template <typename Left_Integer, typename Right_Integer>
-		struct AreNativeOrInteger
-			: boost::mpl::and_<
-			IsNativeOrInteger<Left_Integer>,
-			IsNativeOrInteger<Right_Integer>> 
-		{};
 
 	public:
 		// Using default destructor.
@@ -81,14 +90,14 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			typename = EnableIf<IsNativeOrInteger<That_Integer>>>
+			EnableIf<Rational_::IsNativeOrInteger<Integer, That_Integer>>* = nullptr>
 		Rational(That_Integer wholes);
 
 		//! Constructs with the value (numerator / denominator).
 		template <
 			typename Numerator_Integer, 
 			typename Denominator_Integer,
-			typename = EnableIf<AreNativeOrInteger<Numerator_Integer, Denominator_Integer>>>
+			EnableIf<Rational_::AreNativeOrInteger<Integer, Numerator_Integer, Denominator_Integer>>* = nullptr>
 		Rational(
 			Numerator_Integer numerator,
 			Denominator_Integer denominator);
