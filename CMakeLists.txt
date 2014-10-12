@@ -270,8 +270,12 @@ if (MSVC)
 		/wd4351
 		# declaration of 'variable' hides previous local declaration
 		/wd4456
+		# declaration of 'variable' hides function parameter
+		/wd4457
 		# declaration of 'type' hides class member
 		/wd4458
+		# declaration of 'type' hides global declaration
+		/wd4459
 		# 'type' : base-class 'type2' is already a base-class of 'type3'
 		/wd4584
 		# "'type' : forcing value to bool 'true' or 'false' (performance warning)"
