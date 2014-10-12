@@ -31,9 +31,8 @@ namespace Pastel
 		return odd(that) ? that : (that + 1);
 	}
 
-	template <typename Real>
-	EnableIf<std::is_floating_point<Real>, integer>
-		roundUpToOdd(const Real& that)
+	template <typename Real, EnableIf<std::is_floating_point<Real>>*>
+	integer roundUpToOdd(const Real& that)
 	{
 		return Pastel::roundUpToOdd((integer)std::ceil(that));
 	}
@@ -44,16 +43,14 @@ namespace Pastel
 		return even(that) ? that : (that + 1);
 	}
 
-	template <typename Real>
-	EnableIf<std::is_floating_point<Real>, integer>
-		roundUpToEven(const Real& that)
+	template <typename Real, EnableIf<std::is_floating_point<Real>>*>
+	integer roundUpToEven(const Real& that)
 	{
 		return Pastel::roundUpToEven((integer)std::ceil(that));
 	}
 
-	template <typename Integer>
-	EnableIf<std::is_unsigned<Integer>, Integer>
-		roundUpToPowerOfTwo(const Integer& that)
+	template <typename Integer, EnableIf<std::is_unsigned<Integer>>*>
+	Integer roundUpToPowerOfTwo(const Integer& that)
 	{
 		if (zero(that))
 		{
@@ -69,9 +66,8 @@ namespace Pastel
 		return X + 1;
 	}
 
-	template <typename Integer>
-	EnableIf<std::is_signed<Integer>, Integer>
-		roundUpToPowerOfTwo(const Integer& that)
+	template <typename Integer, EnableIf<std::is_signed<Integer>>*>
+	Integer roundUpToPowerOfTwo(const Integer& that)
 	{
 		return twosComplementToSigned(
 			roundUpToPowerOfTwo(signedToTwosComplement(that)));

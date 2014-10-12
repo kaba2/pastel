@@ -4,14 +4,6 @@
 #include "pastel/sys/incidence_graph.h"
 #include "pastel/sys/class.h"
 
-// Visual Studio generates "multiple assignment operators" warning,
-// because it does not implement the deletion of functions 
-// (which we simulate below).
-#if (defined _WIN32 || defined _WIN64)
-#	pragma warning(push)
-#	pragma warning(disable: 4522)
-#endif
-
 #include <array>
 
 namespace Pastel
@@ -326,15 +318,13 @@ namespace Pastel
 		}
 
 		template <integer I>
-		EnableIfC<(I < IncidenceTypes), Incidence*> 
-			begin_() const
+		EnableIfC<(I < IncidenceTypes), Incidence*> begin_() const
 		{
 			return partitionSet_[I];
 		}
 
 		template <integer I>
-		EnableIfC<(I < IncidenceTypes), Incidence*> 
-			end_() const
+		EnableIfC<(I < IncidenceTypes), Incidence*> end_() const
 		{
 			if (incidencesSet_[I] > 0)
 			{
@@ -351,8 +341,7 @@ namespace Pastel
 		}
 
 		template <integer I>
-		EnableIfC<(I < IncidenceTypes), integer> 
-			incidences_() const
+		EnableIfC<(I < IncidenceTypes), integer> incidences_() const
 		{
 			return incidencesSet_[I];
 		}
@@ -382,9 +371,5 @@ namespace Pastel
 	};
 
 }
-
-#if (defined _WIN32 || defined _WIN64)
-#	pragma warning(pop)
-#endif
 
 #endif

@@ -12,9 +12,8 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real), N>>
-		uniformlySampleAnnulus(
+	template <typename Real, int N, EnableIfC<(N == 1)>*>
+	Vector<Real, N> uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius)
@@ -40,9 +39,8 @@ namespace Pastel
 			2 * uv[0] - 1);
 	}
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real), N>>
-		uniformlySampleAnnulus(
+	template <typename Real, int N, EnableIfC<(N == 2)>*>
+	Vector<Real, N>uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius)
@@ -67,9 +65,8 @@ namespace Pastel
 			Vector<Real, 2>(r, theta));
 	}
 
-	template <typename Real, int N>
-	EnableIfC<(N == 3), Vector<Real), N>>
-		uniformlySampleAnnulus(
+	template <typename Real, int N, EnableIfC<(N == 3)>*>
+	Vector<Real, N> uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius)
@@ -284,17 +281,15 @@ namespace Pastel
 
 	// uniformlySampleSimplex
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real), N>>
-		uniformlySampleSimplex(
+	template <typename Real, int N, EnableIfC<(N == 1)>*>
+	Vector<Real, N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv)
 	{
 		return uv;
 	}
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real), N>>
-		uniformlySampleSimplex(
+	template <typename Real, int N, EnableIfC<(N == 2)>*>
+	Vector<Real), N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv)
 	{
 		// Let p be a uniform probability distribution
@@ -338,9 +333,8 @@ namespace Pastel
 			1 - uSqrt, uSqrt * uv[1]);
 	}
 
-	template <typename Real, int N>
-	EnableIfC<(N >= 3 || N == Dynamic), Vector<Real), N>>
-		uniformlySampleSimplex(
+	template <typename Real, int N, EnableIfC<(N >= 3 || N == Dynamic)>*>
+	Vector<Real, N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv)
 	{
 		integer n = uv.n();
@@ -368,17 +362,15 @@ namespace Pastel
 
 	// uniformlySampleBall
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real), N>>
-		uniformlySampleBall(
+	template <typename Real, int N, EnableIfC<(N == 1)>*>
+	Vector<Real), N> uniformlySampleBall(
 		const Vector<Real, N>& uv)
 	{
 		return 2 * uv - 1;
 	}
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real), N>>
-		uniformlySampleBall(
+	template <typename Real, int N, EnableIfC<(N == 2)>*>
+	Vector<Real), N> uniformlySampleBall(
 		const Vector<Real, N>& uv)
 	{
 		// "A Low Distortion Map Between Disk and Square",
@@ -449,9 +441,8 @@ namespace Pastel
 	}
 
 	/*
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real), N>>
-		uniformlySampleBall(
+	template <typename Real, int N, EnableIfC<(N == 2)>*>
+	Vector<Real), N> uniformlySampleBall(
 		const Vector<Real, N>& uv)
 	{
 		// This is the old implementation of 2-dimensional
@@ -471,9 +462,8 @@ namespace Pastel
 	}
 	*/
 
-	template <typename Real, int N>
-	EnableIfC<(N == 3), Vector<Real), N>>
-		uniformlySampleBall(
+	template <typename Real, int N, EnableIfC<(N == 3)>*>
+	Vector<Real, N> uniformlySampleBall(
 		const Vector<Real, N>& uv)
 	{
 		// This is the old implementation of 3-dimensional
@@ -554,9 +544,8 @@ namespace Pastel
 
 	// uniformlySampleSphere
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real, ModifyN<N), N + 1>::Result>>
-		uniformlySampleSphere(
+	template <typename Real, int N, EnableIfC<(N == 1)>*>
+	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
 		const Vector<Real, N>& uv)
 	{
 		const Real angle = 2 * constantPi<Real>() * uv[0];
@@ -566,9 +555,8 @@ namespace Pastel
 			std::sin(angle));
 	}
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real, ModifyN<N), N + 1>::Result>>
-		uniformlySampleSphere(
+	template <typename Real, int N, EnableIfC<(N == 2)>*>
+	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
 		const Vector<Real, N>& uv)
 	{
 		const Real phi(2 * constantPi<Real>() * uv[0]);
@@ -583,9 +571,8 @@ namespace Pastel
 
 	// uniformlySampleHemisphere
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real, ModifyN<N), N + 1>::Result>>
-		uniformlySampleHemisphere(
+	template <typename Real, int N, EnableIfC<(N == 1)>*>
+	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleHemisphere(
 		const Vector<Real, N>& uv)
 	{
 		const Real phi = constantPi<Real>() * uv[0];
@@ -594,9 +581,8 @@ namespace Pastel
 			std::sin(phi));
 	}
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real, ModifyN<N), N + 1>::Result>>
-		uniformlySampleHemisphere(
+	template <typename Real, int N, EnableIfC<(N == 2)>*>
+	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleHemisphere(
 		const Vector<Real, N>& uv)
 	{
 		const Real phi(2 * constantPi<Real>() * uv[0]);

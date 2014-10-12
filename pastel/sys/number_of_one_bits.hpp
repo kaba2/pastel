@@ -6,9 +6,8 @@
 namespace Pastel
 {
 
-	template <typename Type>
-	EnableIf<NumberOfOneBits_::IsUnsigned<Type, 64>, integer>
-		numberOfOneBits(Type that)
+	template <typename Type, EnableIf<NumberOfOneBits_::IsUnsigned<Type, 64>>*>
+	integer numberOfOneBits(Type that)
 	{
 		that = 
 			( that        & 0x5555555555555555ull) +
@@ -37,9 +36,8 @@ namespace Pastel
 		return (integer)that;
 	}
 
-	template <typename Type>
-	EnableIf<NumberOfOneBits_::IsUnsigned<Type, 32>, integer>
-		numberOfOneBits(Type that)
+	template <typename Type, EnableIf<NumberOfOneBits_::IsUnsigned<Type, 32>>*>
+	integer numberOfOneBits(Type that)
 	{
 		that = 
 			( that        & 0x55555555ul) +
@@ -64,9 +62,8 @@ namespace Pastel
 		return (integer)that;
 	}
 
-	template <typename Type>
-	EnableIf<NumberOfOneBits_::IsUnsigned<Type, 16>, integer>
-		numberOfOneBits(Type that)
+	template <typename Type, EnableIf<NumberOfOneBits_::IsUnsigned<Type, 16>>*>
+	integer numberOfOneBits(Type that)
 	{
 		that = 
 			( that        & 0x5555u) +
@@ -87,9 +84,8 @@ namespace Pastel
 		return (integer)that;
 	}
 
-	template <typename Type>
-	EnableIf<NumberOfOneBits_::IsUnsigned<Type, 8>, integer>
-		numberOfOneBits(Type that)
+	template <typename Type, EnableIf<NumberOfOneBits_::IsUnsigned<Type, 8>>*>
+	integer numberOfOneBits(Type that)
 	{
 		that = 
 			( that        & 0x55u) +

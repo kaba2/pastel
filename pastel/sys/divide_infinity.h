@@ -20,9 +20,8 @@ namespace Pastel
 	due to two's complement arithmetic when using
 	unsigned integers.
 	*/
-	template <typename Type>
-	EnableIf<std::is_unsigned<Type>, Type>
-		divideInfinity(Type n);
+	template <typename Type, EnableIf<std::is_unsigned<Type>>* = nullptr>
+	Type divideInfinity(Type n);
 
 }
 

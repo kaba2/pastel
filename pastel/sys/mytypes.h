@@ -192,8 +192,8 @@ namespace Pastel
 	template <typename Type>
 	integer sizeInBits();
 
-	template <typename Type>
-	EnableIf<std::is_arithmetic<Type>, Type> mabs(Type that);
+	template <typename Type, EnableIf<std::is_arithmetic<Type>>* = nullptr>
+	Type mabs(Type that);
 
 	//! Allocates a raw memory block.
 	/*!

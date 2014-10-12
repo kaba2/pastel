@@ -16,25 +16,22 @@ namespace Pastel
 
 	// Finite integer
 
-	template <typename Type>
-	EnableIf<std::is_integral<Type>, integer> 
-		bits(const Type& that)
+	template <typename Type, EnableIf<std::is_integral<Type>>* = nullptr>
+	integer bits(const Type& that)
 	{
 		return sizeInBits<Type>();
 	}
 
 	// Integer
 
-	template <typename Type>
-	EnableIf<std::is_unsigned<Type>, bool> 
-		even(const Type& that)
+	template <typename Type, EnableIf<std::is_unsigned<Type>>* = nullptr>
+	bool even(const Type& that)
 	{
 		return (that & 1) == 0;
 	}
 
-	template <typename Type>
-	EnableIf<std::is_signed<Type>, bool> 
-		even(const Type& that)
+	template <typename Type, EnableIf<std::is_signed<Type>>* = nullptr>
+	bool even(const Type& that)
 	{
 		// This should read the following, but I can not 
 		// include twos_complement.h, because that would 
@@ -47,9 +44,8 @@ namespace Pastel
 		return even((Unsigned)that);
 	}
 
-	template <typename Type>
-	EnableIfC<(std::is_integral<Type>::value), bool> 
-		odd(const Type& that)
+	template <typename Type, EnableIf<std::is_integral<Type>>* = nullptr>
+	bool odd(const Type& that)
 	{
 		return !even(that);
 	}
@@ -61,9 +57,8 @@ namespace Pastel
 
 	}
 
-	template <typename Type>
-	EnableIf<std::is_integral<Type>, Type> 
-		infinity(NativeInteger_::Tag = NativeInteger_::Tag())
+	template <typename Type, EnableIf<std::is_integral<Type>>* = nullptr>
+	Type infinity(NativeInteger_::Tag = NativeInteger_::Tag())
 	{
 		return std::numeric_limits<Type>::max();
 	}
@@ -75,25 +70,22 @@ namespace Pastel
 
 	using std::abs;
 
-	template <typename Type>
-	EnableIf<std::is_integral<Type>, bool> 
-		negative(const Type& that)
+	template <typename Type, EnableIf<std::is_integral<Type>>* = nullptr>
+	bool negative(const Type& that)
 	{
 		return that < 0;
 	}
 
-	template <typename Type>
-	EnableIf<std::is_integral<Type>, bool> 
-		positive(const Type& that)
+	template <typename Type, EnableIf<std::is_integral<Type>>* = nullptr>
+	bool positive(const Type& that)
 	{
 		return that > 0;
 	}
 
 	// Additive monoid
 
-	template <typename Type>
-	EnableIf<std::is_integral<Type>, bool> 
-		zero(const Type& that)
+	template <typename Type, EnableIf<std::is_integral<Type>>* = nullptr>
+	bool zero(const Type& that)
 	{
 		return that == 0;
 	}

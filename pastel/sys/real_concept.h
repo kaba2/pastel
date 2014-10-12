@@ -48,14 +48,12 @@ namespace Pastel
 		};
 
 		//! Returns infinity.	
-		template <typename Type>
-		EnableIf<std::is_same<Type, Real>, Type> 
-			infinity();
+		template <typename Type, EnableIf<std::is_same<Type, Real>>* = nullptr>
+		Type infinity();
 
 		//! Returns not-a-number.	
-		template <typename Type>
-		EnableIf<std::is_same<Type, Real>, Type> 
-			nan();
+		template <typename Type, EnableIf<std::is_same<Type, Real>>* = nullptr>
+		Type nan();
 
 		//! Returns 1 / that.	
 		Real inverse(const Real& that);

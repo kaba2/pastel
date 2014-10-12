@@ -86,9 +86,9 @@ namespace Pastel
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,
-		typename Output_View>
-		EnableIfC<(N > 1), void>
-		resampleTable(
+		typename Output_View,
+		EnableIfC<(N > 1)>* = nullptr>
+	void resampleTable(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,
 		const ConstTableFilterPtr& filter,
@@ -111,9 +111,9 @@ namespace Pastel
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,
-		typename Output_View>
-		EnableIfC<(N > 1), void>
-		resample(
+		typename Output_View,
+		EnableIfC<(N > 1)>* = nullptr>
+	void resample(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,
 		const ConstFilterPtr& filter,

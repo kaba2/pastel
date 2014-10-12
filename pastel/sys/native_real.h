@@ -21,23 +21,20 @@ namespace Pastel
 
 	// Real
 
-	template <typename Type>
-	EnableIf<std::is_floating_point<Type>, Type> 
-		infinity(NativeReal_::Tag = NativeReal_::Tag())
+	template <typename Type, EnableIf<std::is_floating_point<Type>>* = nullptr>
+	Type infinity(NativeReal_::Tag = NativeReal_::Tag())
 	{
 		return std::numeric_limits<Type>::infinity();
 	}
 
-	template <typename Type>
-	EnableIf<std::is_floating_point<Type>, Type> 
-		nan()
+	template <typename Type, EnableIf<std::is_floating_point<Type>>* = nullptr>
+	Type nan()
 	{
 		return std::numeric_limits<Type>::quiet_NaN();
 	}
 
-	template <typename Type>
-	EnableIf<std::is_floating_point<Type>, bool> 
-		isNan(const Type& that)
+	template <typename Type, EnableIf<std::is_floating_point<Type>>* = nullptr>
+	bool isNan(const Type& that)
 	{
 		return that != that;
 	}
@@ -47,9 +44,8 @@ namespace Pastel
 
 	// Field
 
-	template <typename Type>
-	EnableIf<std::is_floating_point<Type>, Type> 
-		inverse(Type that)
+	template <typename Type, EnableIf<std::is_floating_point<Type>>* = nullptr>
+	Type inverse(Type that)
 	{
 		return 1 / that;
 	}
@@ -62,25 +58,22 @@ namespace Pastel
 
 	using std::abs;
 
-	template <typename Type>
-	EnableIf<std::is_floating_point<Type>, bool> 
-		negative(Type that)
+	template <typename Type, EnableIf<std::is_floating_point<Type>>* = nullptr>
+	bool negative(Type that)
 	{
 		return that < 0;
 	}
 
-	template <typename Type>
-	EnableIf<std::is_floating_point<Type>, bool> 
-		positive(Type that)
+	template <typename Type, EnableIf<std::is_floating_point<Type>>* = nullptr>
+	bool positive(Type that)
 	{
 		return that > 0;
 	}
 
 	// Additive monoid
 
-	template <typename Type>
-	EnableIf<std::is_floating_point<Type>, bool> 
-		zero(Type that)
+	template <typename Type, EnableIf<std::is_floating_point<Type>>* = nullptr>
+	bool zero(Type that)
 	{
 		return that == 0;
 	}
