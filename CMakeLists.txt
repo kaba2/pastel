@@ -240,10 +240,6 @@ if (MSVC)
 		/D_ITERATOR_DEBUG_LEVEL=0
 		# Use multiple processes for compiling.
 		/MP
-		# Undefine __STDC_UTF_16__, because Visual Studio 14 CTP4
-		# introduced it, but still does not implement char16_t etc.
-		# FIX: Remove when char16_t etc become available.
-		/U__STDC_UTF_16__
 	)
 
 	# Disable some warnings.
