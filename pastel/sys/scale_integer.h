@@ -28,35 +28,35 @@ namespace Pastel
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits < FromBits)>* = nullptr>	
+		EnableIfC<(ToBits < FromBits)> = 0>	
 	Integer scaleInteger(const Integer& number);
 
 	template <
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits == FromBits)>* = nullptr>	
+		EnableIfC<(ToBits == FromBits)> = 0>	
 	Integer scaleInteger(const Integer& number);
 
 	template <
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits > FromBits && ToBits <= 2 * FromBits)>* = nullptr>	
+		EnableIfC<(ToBits > FromBits && ToBits <= 2 * FromBits)> = 0>	
 	Integer scaleInteger(const Integer& number);
 
 	template <
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits)>* = nullptr>	
+		EnableIfC<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits)> = 0>	
 	Integer scaleInteger(const Integer& number);
 
 	template <
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits)>* = nullptr>	
+		EnableIfC<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits)> = 0>	
 	Integer scaleInteger(const Integer& number);
 
 }

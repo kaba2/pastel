@@ -352,19 +352,19 @@ namespace Pastel
 
 		// 1-dimensional special functions.
 
-		template <int N_ = N, EnableIfC<(N_ >= 1)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ >= 1)> = 0>
 		integer width() const
 		{
 			return extent()[0];
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 1)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 1)> = 0>
 		Cursor cursor(integer x)
 		{
 			return cursor(Vector<integer, N>(x));
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 1)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 1)> = 0>
 		ConstCursor constCursor(integer x) const
 		{
 			return constCursor(Vector<integer, N>(x));
@@ -372,103 +372,103 @@ namespace Pastel
 
 		// 2-dimensional special functions
 
-		template <int N_ = N, EnableIfC<(N_ >= 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ >= 2)> = 0>
 		integer height() const
 		{
 			return extent()[1];
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		Type& operator()(integer x, integer y)
 		{
 			return operator()(Vector<integer, N>(x, y));
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		const Type& operator()(integer x, integer y) const
 		{
 			return operator()(Vector<integer, N>(x, y));
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		Cursor cursor(integer x, integer y)
 		{
 			return cursor(Vector<integer, N>(x, y));
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		ConstCursor constCursor(integer x, integer y) const
 		{
 			return constCursor(Vector<integer, N>(x, y));
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		RowRange rowRange(integer y)
 		{
 			return rowRange(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		ConstRowRange cRowRange(integer y) const
 		{
 			return cRowRange(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		RowIterator rowBegin(integer y)
 		{
 			return rowBegin(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		ConstRowIterator cRowBegin(integer y) const
 		{
 			return cRowBegin(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		RowIterator rowEnd(integer y)
 		{
 			return rowEnd(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		ConstRowIterator cRowEnd(integer y) const
 		{
 			return cRowEnd(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		RowIterator columnBegin(integer x)
 		{
 			return rowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		ConstRowIterator cColumnBegin(integer x) const
 		{
 			return cRowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		RowIterator columnEnd(integer x)
 		{
 			return rowEnd(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		ConstRowIterator cColumnEnd(integer x) const
 		{
 			return cRowEnd(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		RowRange columnRange(integer x)
 		{
 			return rowRange(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 2)> = 0>
 		ConstRowRange cColumnRange(integer x) const
 		{
 			return cRowRange(Vector<integer, N>(x, 0), 1);
@@ -476,31 +476,31 @@ namespace Pastel
 
 		// 3-dimensional special functions
 
-		template <int N_ = N, EnableIfC<(N_ >= 3)>* = nullptr> 
+		template <int N_ = N, EnableIfC<(N_ >= 3)> = 0> 
 		integer depth() const
 		{
 			return extent()[2];
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 3)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 3)> = 0>
 		Type& operator()(integer x, integer y, integer z)
 		{
 			return operator()(Vector<integer, N>(x, y, z));
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 3)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 3)> = 0>
 		const Type& operator()(integer x, integer y, integer z) const
 		{
 			return operator()(Vector<integer, N>(x, y, z));
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 3)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 3)> = 0>
 		Cursor cursor(integer x, integer y, integer z)
 		{
 			return cursor(Vector<integer, N>(x, y, z));
 		}
 
-		template <int N_ = N, EnableIfC<(N_ == 3)>* = nullptr>
+		template <int N_ = N, EnableIfC<(N_ == 3)> = 0>
 		ConstCursor constCursor(integer x, integer y, integer z) const
 		{
 			return constCursor(Vector<integer, N>(x, y, z));

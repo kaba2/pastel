@@ -40,7 +40,7 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Real, EnableIf<std::is_floating_point<Real>>* = nullptr>
+	template <typename Real, EnableIf<std::is_floating_point<Real>> = 0>
 	integer roundUpToOdd(const Real& that);
 
 	//! Rounds up to the next even number.
@@ -59,7 +59,7 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Real, EnableIf<std::is_floating_point<Real>>* = nullptr>
+	template <typename Real, EnableIf<std::is_floating_point<Real>> = 0>
 	integer roundUpToEven(const Real& that);
 
 	//! Rounds up to the next power of 2 (unsigned integers).
@@ -70,7 +70,7 @@ namespace Pastel
 	Time complexity: O(log(sizeInBits<Integer>()) + 1)
 	Exception safety: nothrow
 	*/
-	template <typename Integer, EnableIf<std::is_unsigned<Integer>>* = nullptr>
+	template <typename Integer, EnableIf<std::is_unsigned<Integer>> = 0>
 	Integer roundUpToPowerOfTwo(const Integer& that);
 
 	//! Rounds up to the next power of 2 (signed integers).
@@ -82,7 +82,7 @@ namespace Pastel
 	Time complexity: O(log(sizeInBits<Integer>()) + 1)
 	Exception safety: nothrow
 	*/
-	template <typename Integer, EnableIf<std::is_signed<Integer>>* = nullptr>
+	template <typename Integer, EnableIf<std::is_signed<Integer>> = 0>
 	Integer roundUpToPowerOfTwo(const Integer& that);
 
 	//! Rounds up 'that' to the next multiple of power of 2.

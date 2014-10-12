@@ -133,7 +133,7 @@ namespace Pastel
 		typename Real, 
 		int N, 
 		typename Expression,
-		EnableIfC<(N > 1 || N == Dynamic)>* = nullptr>
+		EnableIfC<(N > 1 || N == Dynamic)> = 0>
 	Real norm(const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the Euclidean (L2) norm of a vector.
@@ -146,7 +146,7 @@ namespace Pastel
 		typename Real, 
 		int N, 
 		typename Expression,
-		EnableIfC<(N == 1)>* = nullptr>
+		EnableIfC<(N == 1)> = 0>
 	Real norm(const VectorExpression<Real, 1, Expression>& that);
 
 	//! Returns the Manhattan (L1) norm of a vector.

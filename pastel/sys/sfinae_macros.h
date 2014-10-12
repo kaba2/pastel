@@ -10,28 +10,28 @@ namespace Pastel
 {
 
 	template <
-		typename Condition,
-		typename Return = void>
-	using EnableIf = 
-		typename std::enable_if<Condition::value, Return>::type;
-
-	template <
 		bool Condition,
-		typename Return = void>
+		typename Return = int>
 	using EnableIfC = 
 		typename std::enable_if<Condition, Return>::type;
 
 	template <
 		typename Condition,
-		typename Return = void>
+		typename Return = int>
+	using EnableIf = 
+		EnableIfC<Condition::value, Return>;
+
+	template <
+		typename Condition,
+		typename Return = int>
 	using DisableIf = 
-		typename std::enable_if<!Condition::value, Return>::type;
+		EnableIfC<!Condition::value, Return>;
 
 	template <
 		bool Condition,
-		typename Return = void>
+		typename Return = int>
 	using DisableIfC = 
-		typename std::enable_if<!Condition, Return>::type;
+		EnableIfC<!Condition, Return>;
 
 }
 

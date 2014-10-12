@@ -33,7 +33,7 @@ namespace Pastel
 		explicit BigInteger(const std::string& text);
 
 		// Implicit conversion allowed.
-		template <typename BuiltInInteger, EnableIf<std::is_integral<BuiltInInteger>>* = nullptr>
+		template <typename BuiltInInteger, EnableIf<std::is_integral<BuiltInInteger>> = 0>
 		BigInteger(BuiltInInteger that);
 
 		BigInteger& operator=(const BigInteger& that);
@@ -87,12 +87,12 @@ namespace Pastel
 
 		template <
 			typename BuiltInInteger,
-			EnableIf<std::is_signed<BuiltInInteger>>* = nullptr>
+			EnableIf<std::is_signed<BuiltInInteger>> = 0>
 		void construct(BuiltInInteger that);
 
 		template <
 			typename BuiltInInteger,
-			DisableIf<std::is_signed<BuiltInInteger>>* = nullptr>
+			DisableIf<std::is_signed<BuiltInInteger>> = 0>
 		void construct(BuiltInInteger that);
 
 		BigInteger(DigitContainer& digits,
