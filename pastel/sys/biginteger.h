@@ -33,9 +33,8 @@ namespace Pastel
 		explicit BigInteger(const std::string& text);
 
 		// Implicit conversion allowed.
-		template <typename BuiltInInteger>
-		BigInteger(BuiltInInteger that, 
-			EnableIf<std::is_integral<BuiltInInteger>, bool> visible = true);
+		template <typename BuiltInInteger, EnableIf<std::is_integral<BuiltInInteger>>* = nullptr>
+		BigInteger(BuiltInInteger that);
 
 		BigInteger& operator=(const BigInteger& that);
 

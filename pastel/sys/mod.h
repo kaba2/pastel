@@ -21,9 +21,8 @@ namespace Pastel
 	-6 -5 -4 -3 -2 -1 0 1 2 3 4 5 6
 	 2  3  0  1  2  3 0 1 2 3 0 1 2
 	*/
-	template <typename Integer>
-	EnableIf<std::is_signed<Integer>, Integer>
-		modPowerOfTwo(const Integer& x, integer n);
+	template <typename Integer, EnableIf<std::is_signed<Integer>>* = nullptr>
+	Integer modPowerOfTwo(const Integer& x, integer n);
 
 	//! Returns x mod 2^n for unsigned integers.
 	/*!
@@ -32,9 +31,8 @@ namespace Pastel
 
 	See the documentation for the signed version.
 	*/
-	template <typename Integer>
-	EnableIf<std::is_unsigned<Integer>, Integer>
-		modPowerOfTwo(const Integer& x, integer n);
+	template <typename Integer, EnableIf<std::is_unsigned<Integer>>* = nullptr>
+	Integer modPowerOfTwo(const Integer& x, integer n);
 
 	//! Returns x mod n.
 	/*!
@@ -56,9 +54,8 @@ namespace Pastel
 	Returns:
 	x - std::floor(x)
 	*/
-	template <typename Real>
-	EnableIf<std::is_floating_point<Real>, Real>
-		mod(const Real& x);
+	template <typename Real, EnableIf<std::is_floating_point<Real>>* = nullptr>
+	Real mod(const Real& x);
 
 	//! Returns x mod n.
 	/*!
@@ -68,9 +65,8 @@ namespace Pastel
 	This is a convenience function that calls
 	mod(x / n) * n
 	*/
-	template <typename Real>
-	EnableIf<std::is_floating_point<Real>, Real>
-		mod(const Real& x, const Real& n);
+	template <typename Real, EnableIf<std::is_floating_point<Real>>* = nullptr>
+	Real mod(const Real& x, const Real& n);
 
 }
 

@@ -601,16 +601,14 @@ namespace Pastel
 
 	// Real
 
-	template <typename Type>
-	EnableIfC<(IsRational<Type>::value), Type>
-		infinity()
+	template <typename Type, EnableIf<IsRational<Type>>* = nullptr>
+	Type infinity()
 	{
 		return Type(1, 0);
 	}
 
-	template <typename Type>
-	EnableIfC<(IsRational<Type>::value), Type>
-		nan()
+	template <typename Type, EnableIf<IsRational<Type>>* = nullptr>
+	Type nan()
 	{
 		return Type(0, 0);
 	}

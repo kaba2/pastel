@@ -29,6 +29,14 @@ namespace Pastel
 	template <typename Real>
 	Real lnVolumeUnitSphere(integer n);
 
+	//! Returns the volume of the Euclidean unit sphere.
+	/*!
+	Preconditions:
+	n > 0
+	*/
+	template <typename Real>
+	Real volumeUnitSphere(integer n);
+
 	//! Returns the natural logarithm of the volume of Minkowski unit sphere.
 	/*!
 	Preconditions:
@@ -47,34 +55,6 @@ namespace Pastel
 	*/
 	template <typename Real>
 	Real lnVolumeUnitSphereInfinity(integer n);
-
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Real>
-		volumeUnitSphere();
-
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Real>
-		volumeUnitSphere();
-
-	template <typename Real, int N>
-	EnableIfC<(N == 3), Real>
-		volumeUnitSphere();
-
-	template <typename Real, int N>
-	EnableIfC<(N > 3), Real>
-		volumeUnitSphere();
-
-	template <typename Real>
-	Real volume(const Sphere<Real, 1>& sphere);
-
-	template <typename Real>
-	Real volume(const Sphere<Real, 2>& sphere);
-
-	template <typename Real>
-	Real volume(const Sphere<Real, 3>& sphere);
-
-	template <typename Real, int N>
-	Real volume(const Sphere<Real, N>& sphere);
 
 }
 

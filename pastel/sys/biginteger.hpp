@@ -933,9 +933,8 @@ namespace Pastel
 		return stream;
 	}
 
-	template <typename BuiltInInteger>
-	BigInteger::BigInteger(BuiltInInteger that, 
-		EnableIf<std::is_integral<BuiltInInteger>, bool> visible)
+	template <typename BuiltInInteger, EnableIf<std::is_integral<BuiltInInteger>>*>
+	BigInteger::BigInteger(BuiltInInteger that)
 		: digits_()
 		, sign_(that >= 0)
 	{

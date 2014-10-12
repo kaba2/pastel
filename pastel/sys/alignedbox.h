@@ -303,8 +303,8 @@ namespace Pastel
 		}
 
 
-		template <int N_ = N>
-		EnableIfC<(N_ == 1), void> set(
+		template <int N_ = N, EnableIfC<(N_ == 1)>* = nullptr>
+		void set(
 			const Real& xMin,
 			const Real& xMax)
 		{
@@ -312,8 +312,8 @@ namespace Pastel
 				Vector<Real, N>(xMax));
 		}
 
-		template <int N_ = N>
-		EnableIfC<(N_ == 2), void> set(
+		template <int N_ = N, EnableIfC<(N_ == 2)>* = nullptr>
+		void set(
 			const Real& xMin, const Real& yMin,
 			const Real& xMax, const Real& yMax)
 		{
@@ -321,8 +321,8 @@ namespace Pastel
 				Vector<Real, N>(xMax, yMax));
 		}
 
-		template <int N_ = N>
-		EnableIfC<(N_ == 3), void> set(
+		template <int N_ = N, EnableIfC<(N_ == 3)>* = nullptr>
+		void set(
 			const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
 		{
@@ -330,8 +330,8 @@ namespace Pastel
 				Vector<Real, N>(xMax, yMax, zMax));
 		}
 
-		template <int N_ = N>
-		EnableIfC<(N_ == 4), void> set(
+		template <int N_ = N, EnableIfC<(N_ == 4)>* = nullptr>
+		void set(
 			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
 		{
@@ -339,20 +339,20 @@ namespace Pastel
 				Vector<Real, N>(xMax, yMax, zMax, wMax));
 		}
 
-		template <int N_ = N>
-		EnableIfC<(N_ >= 1), Real> width() const
+		template <int N_ = N, EnableIfC<(N_ >= 1)>* = nullptr>
+		Real width() const
 		{
 			return extent()[0];
 		}
 
-		template <int N_ = N>
-		EnableIfC<(N_ >= 2), Real> height() const
+		template <int N_ = N, EnableIfC<(N_ >= 2)>* = nullptr>
+		Real height() const
 		{
 			return extent()[1];
 		}
 
-		template <int N_ = N>
-		EnableIfC<(N_ >= 3), Real> depth() const
+		template <int N_ = N, EnableIfC<(N_ >= 3)>* = nullptr>
+		Real depth() const
 		{
 			return extent()[2];
 		}

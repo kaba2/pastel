@@ -24,23 +24,20 @@ namespace Pastel
 	variables uniformly distributed on the annulus.
 	*/
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real, N>>
-		uniformlySampleAnnulus(
+	template <typename Real, int N, EnableIfC<(N == 1)>* = nullptr>
+	Vector<Real, N> uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius);
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real), N>>
-		uniformlySampleAnnulus(
+	template <typename Real, int N, EnableIfC<(N == 2)>* = nullptr>
+	Vector<Real, N> uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius);
 
-	template <typename Real, int N>
-	EnableIfC<(N == 3), Vector<Real), N>>
-		uniformlySampleAnnulus(
+	template <typename Real, int N, EnableIfC<(N == 3)>* = nullptr>
+	Vector<Real, N> uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius);
@@ -58,19 +55,16 @@ namespace Pastel
 	variables uniformly distributed on the simplex.
 	*/
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real), N>>
-		uniformlySampleSimplex(
+	template <typename Real, int N, EnableIfC<(N == 1)>* = nullptr>
+	Vector<Real, N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real), N>>
-		uniformlySampleSimplex(
+	template <typename Real, int N, EnableIfC<(N == 2)>* = nullptr>
+	Vector<Real, N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N>
-	EnableIfC<(N >= 3 || N == Dynamic), Vector<Real), N>>
-		uniformlySampleSimplex(
+	template <typename Real, int N, EnableIfC<(N >= 3 || N == Dynamic)>* = nullptr>
+	Vector<Real, N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
 	//! Uniformly samples a point from a ball.
@@ -85,19 +79,16 @@ namespace Pastel
 	so is the returned value on the ball.
 	*/
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real), N>>
-		uniformlySampleBall(
+	template <typename Real, int N, EnableIfC<(N == 1)>* = nullptr>
+	Vector<Real, N> uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real), N>>
-		uniformlySampleBall(
+	template <typename Real, int N, EnableIfC<(N == 2)>* = nullptr>
+	Vector<Real, N> uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N>
-	EnableIfC<(N == 3), Vector<Real), N>>
-		uniformlySampleBall(
+	template <typename Real, int N, EnableIfC<(N == 3)>* = nullptr>
+	Vector<Real, N> uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
 	// TODO: provide functions for 4d and up?
@@ -114,14 +105,12 @@ namespace Pastel
 	so is the returned value on the sphere.
 	*/
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real, ModifyN<N), N + 1>::Result>>
-		uniformlySampleSphere(
+	template <typename Real, int N, EnableIfC<(N == 1)>* = nullptr>
+	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), (Vector<Real, ModifyN<N), N + 1>::Result>>
-		uniformlySampleSphere(
+	template <typename Real, int N, EnableIfC<(N == 2)>* = nullptr>
+	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
 	// TODO: provide functions for 4d and up?
@@ -138,13 +127,13 @@ namespace Pastel
 	so is the returned value on the hemisphere.
 	*/
 
-	template <typename Real, int N>
-	EnableIfC<(N == 1), Vector<Real, ModifyN<N), N + 1>::Result>>
+	template <typename Real, int N, EnableIfC<(N == 1)>* = nullptr>
+	Vector<Real, ModifyN<N, N + 1>::Result>
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N>
-	EnableIfC<(N == 2), Vector<Real, ModifyN<N), N + 1>::Result>>
+	template <typename Real, int N, EnableIfC<(N == 2)>* = nullptr>
+	Vector<Real, ModifyN<N, N + 1>::Result>
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 
