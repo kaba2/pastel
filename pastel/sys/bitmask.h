@@ -21,9 +21,9 @@ namespace Pastel
 	number of bits in the integer.
 	*/
 	template <typename Integer>
-	PASTEL_DISABLE_IF(
+	DisableIf<
 		std::is_signed<Integer>, 
-		Integer)  
+		Integer>  
 		singleBitMask(integer bit);
 
 	//! Returns an integer with lower bits set.
@@ -39,9 +39,9 @@ namespace Pastel
 	of bits.
 	*/
 	template <typename Integer>
-	PASTEL_DISABLE_IF(
+	DisableIf<
 		std::is_signed<Integer>, 
-		Integer)  
+		Integer>  
 		bitMask(integer endBit);
 
 	//! Returns an interval of bits set.
@@ -57,9 +57,9 @@ namespace Pastel
 	where n is the number of bits.
 	*/
 	template <typename Integer>
-	PASTEL_DISABLE_IF(
+	DisableIf<
 		std::is_signed<Integer>, 
-		Integer)  
+		Integer>  
 		bitMask(integer beginBit, integer endBit);
 
 }

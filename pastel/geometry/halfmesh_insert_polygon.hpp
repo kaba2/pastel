@@ -17,7 +17,7 @@ namespace Pastel
 	auto HalfMesh<Settings, Customization>::insertPolygon(
 		const Half_Range& halfSet,
 		Type&&... data)
-	-> PASTEL_ENABLE_IF((IsConvertible<Half_Range, Half_ConstIterator>), Polygon_Iterator)
+	-> EnableIf<IsConvertible<Half_Range, Half_ConstIterator>, Polygon_Iterator>
 	{
 		if (halfSet.empty())
 		{
@@ -112,7 +112,7 @@ namespace Pastel
 	auto HalfMesh<Settings, Customization>::insertPolygon(
 		const Vertex_Range& vertexSet,
 		Type&&... data)
-	-> PASTEL_ENABLE_IF((IsConvertible<Vertex_Range, Vertex_ConstIterator>), Polygon_Iterator)
+	-> EnableIf<IsConvertible<Vertex_Range, Vertex_ConstIterator>, Polygon_Iterator>
 	{
 		ENSURE(!vertexSet.empty());
 

@@ -58,7 +58,7 @@ namespace Pastel
 
 			template <
 				typename That_Settings,
-				typename = PASTEL_ENABLE_IF_C(IsConvertible<That_Settings>::value, void)>
+				typename = EnableIfC<(IsConvertible<That_Settings>::value), void>>
 			Iterator(const Iterator<That_Settings>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{

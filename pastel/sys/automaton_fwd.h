@@ -2,11 +2,13 @@
 #define PASTELSYS_AUTOMATON_FWD_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/incidence_graph.h"
+#include "pastel/sys/incidence_graph_fwd.h"
 #include "pastel/sys/class.h"
 #include "pastel/sys/optional.h"
 #include "pastel/sys/second_iterator.h"
-#include "pastel/sys/hashing.h"
+#include "pastel/sys/iteratoraddress_hash.h"
+
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -18,6 +20,23 @@ namespace Pastel
 		typename Customization>
 	class Automaton;
 
+	namespace Automaton_
+	{
+
+		template <
+			typename Symbol,
+			typename StateData,
+			typename TransitionData>
+		class StateLabel;
+
+		template <
+			typename Symbol, 
+			typename StateData, 
+			typename TransitionData>
+		class TransitionLabel;
+
+	}
+
 	template <
 		typename Symbol, 
 		typename StateData, 
@@ -26,21 +45,20 @@ namespace Pastel
 	{
 	public:
 		//! The start/final-labeling of the state.
-		class StateLabel;
+		using StateLabel = Automaton_::StateLabel<Symbol, StateData, TransitionData>;
 
 		//! The symbol-labeling of the transition.
-		class TransitionLabel;
+		using TransitionLabel = Automaton_::TransitionLabel<Symbol, StateData, TransitionData>;
 
 		//! The underlying graph.
-		/*
-		The type-definitions below need to be given in terms
-		of Graph_Fwd, rather than Graph, because of a bug in 
-		gcc 4.6.
-		*/
-		typedef Directed_Graph<StateLabel, TransitionLabel> 
-			Graph;
-		typedef IncidenceGraph_Fwd<typename Graph::Settings> 
+		using Graph_Settings = IncidenceGraph_Settings<
+			GraphType::Directed, 
+			StateLabel, 
+			TransitionLabel>;
+		typedef IncidenceGraph_Fwd<Graph_Settings> 
 			Graph_Fwd;
+		typedef IncidenceGraph<Graph_Settings> 
+			Graph;
 
 		//! The states.
 		/*!
@@ -181,6 +199,72 @@ namespace Pastel
 			Symbol_BranchMap_Iterator;
 		typedef typename Symbol_BranchMap_Map::const_iterator
 			Symbol_BranchMap_ConstIterator;
+	};
+
+}
+
+#include "pastel/sys/automaton_state_label.h"
+#include "pastel/sys/automaton_transition_label.h"
+
+namespace Pastel
+{
+
+	template <
+		typename Symbol,
+		typename StateData,
+		typename TransitionData>
+	class No_Automaton_Customization
+	{
+	private:
+		using Fwd = Automaton_Fwd<Symbol, StateData, TransitionData>;
+	
+		PASTEL_FWD(State_Iterator);
+		PASTEL_FWD(State_ConstIterator);
+		PASTEL_FWD(Transition_Iterator);
+		PASTEL_FWD(Transition_ConstIterator);
+
+	protected:
+		No_Automaton_Customization() {}
+		No_Automaton_Customization(const No_Automaton_Customization& that) {}
+		No_Automaton_Customization(No_Automaton_Customization&& that) {}
+		No_Automaton_Customization& operator=(
+			No_Automaton_Customization that) {return *this;}
+
+		void swap(No_Automaton_Customization& that) {}
+
+		void onClear() {}
+		void onClearTransitions() {}
+		void onClearStart() {}
+		void onClearFinal() {}
+		
+		void onAddState(const State_Iterator& state) {}
+		void onRemoveState(const State_ConstIterator& state) {}
+		
+		void onAddStart(
+			const State_ConstIterator& state) {}
+		void onRemoveStart(
+			const State_ConstIterator& state) {}
+		
+		void onAddFinal(
+			const State_ConstIterator& state) {}
+		void onRemoveFinal(
+			const State_ConstIterator& state) {}
+		
+		void onAddTransition(
+			const Transition_ConstIterator& transition)	{}
+		void onRemoveTransition(
+			const Transition_ConstIterator& transition)	{}
+		
+		void onMerge(Automaton<Symbol, StateData, TransitionData,
+			No_Automaton_Customization>& that) {}
+		
+		bool canAddTransition(
+			const State_ConstIterator& fromState,
+			const Optional<Symbol>& symbol,
+			const State_ConstIterator& toState) 
+		{
+			return true;
+		}
 	};
 
 }

@@ -6,9 +6,12 @@
 namespace Pastel
 {
 
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits < FromBits), Integer)
-		scaleInteger(const Integer& number)
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits < FromBits)>*>
+	Integer scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
 		PASTEL_STATIC_ASSERT(ToBits > 0);
@@ -19,16 +22,22 @@ namespace Pastel
 		return (number >> DeltaBits);
 	}
 
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits == FromBits), Integer)
-		scaleInteger(const Integer& number)
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits == FromBits)>*>
+	Integer scaleInteger(const Integer& number)
 	{
 		return number;
 	}
 
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits > FromBits && ToBits <= 2 * FromBits), Integer)
-		scaleInteger(const Integer& number)
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits > FromBits && ToBits <= 2 * FromBits)>*>
+	Integer scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
 		PASTEL_STATIC_ASSERT(ToBits > 0);
@@ -40,9 +49,12 @@ namespace Pastel
 			(number >> (FromBits - DeltaBits));
 	}
 
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer)
-		scaleInteger(const Integer& number)
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits)>*>
+	Integer scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
 		PASTEL_STATIC_ASSERT(ToBits > 0);
@@ -55,9 +67,12 @@ namespace Pastel
 			(number >> (2 * FromBits - DeltaBits));
 	}
 
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer)
-		scaleInteger(const Integer& number)
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits)>*>
+	Integer scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
 		PASTEL_STATIC_ASSERT(ToBits > 0);

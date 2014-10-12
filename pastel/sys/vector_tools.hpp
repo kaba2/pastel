@@ -319,17 +319,22 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N, typename Expression>
-	PASTEL_ENABLE_IF_C(N > 1 || N == Dynamic, Real)
-
-		norm(const VectorExpression<Real, N, Expression>& that)
+	template <
+		typename Real, 
+		int N, 
+		typename Expression,
+		EnableIfC<(N > 1 || N == Dynamic)>*>
+	Real norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return std::sqrt(dot(that, that));
 	}
 
-	template <typename Real, int N, typename Expression>
-	PASTEL_ENABLE_IF_C(N == 1, Real)
-		norm(const VectorExpression<Real, N, Expression>& that)
+	template <
+		typename Real, 
+		int N, 
+		typename Expression,
+		EnableIfC<(N == 1)>*>
+	Real norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return mabs(that[0]);
 	}

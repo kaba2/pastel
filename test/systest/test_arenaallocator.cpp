@@ -47,8 +47,10 @@ namespace
 		ArenaAllocator allocator;
 		std::vector<void*> memoryList;
 
-		void* memory = allocator.allocate(1);
-		memoryList.push_back(memory);
+		{
+			void* memory = allocator.allocate(1);
+			memoryList.push_back(memory);
+		}
 
 		allocator.clear();
 		memoryList.clear();

@@ -67,7 +67,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = PASTEL_ENABLE_IF_C(N_ == 1, void)
+			typename = EnableIfC<(N_ == 1), void>
 			>
 		AlignedBox(
 			const Real& xMin, 
@@ -81,7 +81,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = PASTEL_ENABLE_IF_C(N_ == 2, void)
+			typename = EnableIfC<(N_ == 2), void>
 			>
 		AlignedBox(
 			const Real& xMin, const Real& yMin,
@@ -95,7 +95,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = PASTEL_ENABLE_IF_C(N_ == 3, void)
+			typename = EnableIfC<(N_ == 3), void>
 			>
 		AlignedBox(
 			const Real& xMin, const Real& yMin, const Real& zMin,
@@ -109,7 +109,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = PASTEL_ENABLE_IF_C(N_ == 4, void)>
+			typename = EnableIfC<(N_ == 4), void>>
 		AlignedBox(
 			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
@@ -304,7 +304,7 @@ namespace Pastel
 
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ == 1, void) set(
+		EnableIfC<(N_ == 1), void> set(
 			const Real& xMin,
 			const Real& xMax)
 		{
@@ -313,7 +313,7 @@ namespace Pastel
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ == 2, void) set(
+		EnableIfC<(N_ == 2), void> set(
 			const Real& xMin, const Real& yMin,
 			const Real& xMax, const Real& yMax)
 		{
@@ -322,7 +322,7 @@ namespace Pastel
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ == 3, void) set(
+		EnableIfC<(N_ == 3), void> set(
 			const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
 		{
@@ -331,7 +331,7 @@ namespace Pastel
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ == 4, void) set(
+		EnableIfC<(N_ == 4), void> set(
 			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
 		{
@@ -340,19 +340,19 @@ namespace Pastel
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 1, Real) width() const
+		EnableIfC<(N_ >= 1), Real> width() const
 		{
 			return extent()[0];
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 2, Real) height() const
+		EnableIfC<(N_ >= 2), Real> height() const
 		{
 			return extent()[1];
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 3, Real) depth() const
+		EnableIfC<(N_ >= 3), Real> depth() const
 		{
 			return extent()[2];
 		}

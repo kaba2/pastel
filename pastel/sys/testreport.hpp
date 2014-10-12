@@ -114,10 +114,10 @@ namespace Pastel
 			if (errorInfo.parameters() > 0)
 			{
 				output << "where" << logNewLine;
-				for (integer i = 0;i < errorInfo.parameters();++i)
+				for (integer j = 0;j < errorInfo.parameters();++j)
 				{
 					const TestReport::ParameterInfo& parameterInfo =
-						errorInfo.parameter(i);
+						errorInfo.parameter(j);
 
 					output << parameterInfo.name() << " == "
 						<< parameterInfo.value() << logNewLine;

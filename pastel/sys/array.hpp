@@ -852,15 +852,15 @@ namespace Pastel
 
 				[&](const AlignedBox<integer, N>& region) -> bool
 			{
-				RectangleIterator_AvoidBug iter(region.min(), region.max());
-				while(!iter.done())
+				RectangleIterator_AvoidBug i(region.min(), region.max());
+				while(!i.done())
 				{
-					Type& data = (*this)(iter.position());
+					Type& data = (*this)(i.position());
 
 					new(&data) Type(defaultData);
 					++defaultConstructed;
 
-					++iter;
+					++i;
 				}
 				return true;
 			});
@@ -870,15 +870,15 @@ namespace Pastel
 			difference(wholeRegion, copyRegion, 
 				[&](const AlignedBox<integer, N>& region) -> bool
 			{
-				RectangleIterator_AvoidBug iter(region.min(), region.max());
-				while(!iter.done() && defaultConstructed > 0)
+				RectangleIterator_AvoidBug i(region.min(), region.max());
+				while(!i.done() && defaultConstructed > 0)
 				{
-					Type* data = &(*this)(iter.position());
+					Type* data = &(*this)(i.position());
 
 					destruct(data);
 					--defaultConstructed;
 
-					++iter;
+					++i;
 				}
 
 				return defaultConstructed > 0;

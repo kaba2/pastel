@@ -49,12 +49,12 @@ namespace Pastel
 
 		//! Returns infinity.	
 		template <typename Type>
-		PASTEL_ENABLE_IF((std::is_same<Type, Real>), Type) 
+		EnableIf<std::is_same<Type, Real>, Type> 
 			infinity();
 
 		//! Returns not-a-number.	
 		template <typename Type>
-		PASTEL_ENABLE_IF((std::is_same<Type, Real>), Type) 
+		EnableIf<std::is_same<Type, Real>, Type> 
 			nan();
 
 		//! Returns 1 / that.	

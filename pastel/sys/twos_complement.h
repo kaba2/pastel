@@ -25,9 +25,9 @@ namespace Pastel
 	type.
 	*/	
 	template <typename Integer>
-	PASTEL_ENABLE_IF(
+	EnableIf<
 		std::is_signed<Integer>, 
-		typename std::make_unsigned<Integer>::type)  
+		typename std::make_unsigned<Integer>::type>  
 		signedToTwosComplement(const Integer& that);
 
 	//! Signed integer from a two's complement form.
@@ -44,9 +44,9 @@ namespace Pastel
 	not exist.
 	*/	
 	template <typename Finite_Integer>
-	PASTEL_ENABLE_IF(
+	EnableIf<
 		std::is_unsigned<Finite_Integer>, 
-		typename std::make_signed<Finite_Integer>::type)  
+		typename std::make_signed<Finite_Integer>::type>  
 		twosComplementToSigned(const Finite_Integer& that);
 
 	//! Returns whether 'that' represents a negative value.
@@ -55,7 +55,7 @@ namespace Pastel
 	its most-significant bit is 1.
 	*/
 	template <typename Finite_Integer>
-	PASTEL_ENABLE_IF(std::is_unsigned<Finite_Integer>, bool)  
+	EnableIf<std::is_unsigned<Finite_Integer>, bool>  
 		twosComplementNegative(const Finite_Integer& that);
 
 	//! Arithmetic right-shift for integers in two's complement form.
@@ -70,7 +70,7 @@ namespace Pastel
 	that is interpreted by its two's complement value.
 	*/
 	template <typename Finite_Integer>
-	PASTEL_ENABLE_IF(std::is_unsigned<Finite_Integer>, Finite_Integer)  
+	EnableIf<std::is_unsigned<Finite_Integer>, Finite_Integer>  
 		arithmeticShiftRight(
 			const Finite_Integer& that, 
 			integer n);
@@ -82,7 +82,7 @@ namespace Pastel
 	Finite_Integer is an unsigned native integer.
 	*/
 	template <typename Finite_Integer>
-	PASTEL_ENABLE_IF(std::is_unsigned<Finite_Integer>, Finite_Integer)  
+	EnableIf<std::is_unsigned<Finite_Integer>, Finite_Integer>  
 		shiftRight(
 			const Finite_Integer& that, 
 			integer n);
@@ -94,7 +94,7 @@ namespace Pastel
 	Finite_Integer is a signed native integer.
 	*/
 	template <typename Finite_Integer>
-	PASTEL_ENABLE_IF(std::is_signed<Finite_Integer>, Finite_Integer)  
+	EnableIf<std::is_signed<Finite_Integer>, Finite_Integer>  
 		shiftRight(
 			const Finite_Integer& that, 
 			integer n);

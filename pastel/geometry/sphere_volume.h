@@ -49,19 +49,19 @@ namespace Pastel
 	Real lnVolumeUnitSphereInfinity(integer n);
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 1, Real)
+	EnableIfC<(N == 1), Real>
 		volumeUnitSphere();
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 2, Real)
+	EnableIfC<(N == 2), Real>
 		volumeUnitSphere();
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 3, Real)
+	EnableIfC<(N == 3), Real>
 		volumeUnitSphere();
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N > 3, Real)
+	EnableIfC<(N > 3), Real>
 		volumeUnitSphere();
 
 	template <typename Real>

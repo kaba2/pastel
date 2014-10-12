@@ -17,7 +17,7 @@ namespace Pastel
 	// Finite integer
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_integral<Type>, integer) 
+	EnableIf<std::is_integral<Type>, integer> 
 		bits(const Type& that)
 	{
 		return sizeInBits<Type>();
@@ -26,14 +26,14 @@ namespace Pastel
 	// Integer
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_unsigned<Type>, bool) 
+	EnableIf<std::is_unsigned<Type>, bool> 
 		even(const Type& that)
 	{
 		return (that & 1) == 0;
 	}
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_signed<Type>, bool) 
+	EnableIf<std::is_signed<Type>, bool> 
 		even(const Type& that)
 	{
 		// This should read the following, but I can not 
@@ -48,7 +48,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	PASTEL_ENABLE_IF_C(std::is_integral<Type>::value, bool) 
+	EnableIfC<(std::is_integral<Type>::value), bool> 
 		odd(const Type& that)
 	{
 		return !even(that);
@@ -62,7 +62,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_integral<Type>, Type) 
+	EnableIf<std::is_integral<Type>, Type> 
 		infinity(NativeInteger_::Tag = NativeInteger_::Tag())
 	{
 		return std::numeric_limits<Type>::max();
@@ -76,14 +76,14 @@ namespace Pastel
 	using std::abs;
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+	EnableIf<std::is_integral<Type>, bool> 
 		negative(const Type& that)
 	{
 		return that < 0;
 	}
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+	EnableIf<std::is_integral<Type>, bool> 
 		positive(const Type& that)
 	{
 		return that > 0;
@@ -92,7 +92,7 @@ namespace Pastel
 	// Additive monoid
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_integral<Type>, bool) 
+	EnableIf<std::is_integral<Type>, bool> 
 		zero(const Type& that)
 	{
 		return that == 0;

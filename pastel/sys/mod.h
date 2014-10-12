@@ -22,7 +22,7 @@ namespace Pastel
 	 2  3  0  1  2  3 0 1 2 3 0 1 2
 	*/
 	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
+	EnableIf<std::is_signed<Integer>, Integer>
 		modPowerOfTwo(const Integer& x, integer n);
 
 	//! Returns x mod 2^n for unsigned integers.
@@ -33,7 +33,7 @@ namespace Pastel
 	See the documentation for the signed version.
 	*/
 	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
+	EnableIf<std::is_unsigned<Integer>, Integer>
 		modPowerOfTwo(const Integer& x, integer n);
 
 	//! Returns x mod n.
@@ -57,7 +57,7 @@ namespace Pastel
 	x - std::floor(x)
 	*/
 	template <typename Real>
-	PASTEL_ENABLE_IF(std::is_floating_point<Real>, Real)
+	EnableIf<std::is_floating_point<Real>, Real>
 		mod(const Real& x);
 
 	//! Returns x mod n.
@@ -69,7 +69,7 @@ namespace Pastel
 	mod(x / n) * n
 	*/
 	template <typename Real>
-	PASTEL_ENABLE_IF(std::is_floating_point<Real>, Real)
+	EnableIf<std::is_floating_point<Real>, Real>
 		mod(const Real& x, const Real& n);
 
 }

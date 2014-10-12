@@ -56,9 +56,7 @@ namespace Pastel
 			template <
 				typename That_NodePtr,
 				bool That_DereferenceToData,
-				typename = PASTEL_ENABLE_IF(
-					(std::is_convertible<That_NodePtr, NodePtr>), void)
-				>
+				EnableIf<std::is_convertible<That_NodePtr, NodePtr>>* = 0>
 			Iterator(
 				const Iterator<That_NodePtr, Node_Settings, That_DereferenceToData>& that)
 				: Iterator::iterator_adaptor_(that.base()) 

@@ -4,26 +4,15 @@
 #define PASTELSYS_AUTOMATON_H
 
 #include "pastel/sys/automaton_concepts.h"
-
 #include "pastel/sys/automaton_fwd.h"
-#include "pastel/sys/automaton_state_label.h"
-#include "pastel/sys/automaton_transition_label.h"
 #include "pastel/sys/optional.h"
 #include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/incidence_graph.h"
 
 #include <unordered_map>
 
 namespace Pastel
 {
-
-	template <
-		typename Symbol, 
-		typename StateData, 
-		typename TransitionData>
-	class No_Automaton_Customization
-		: public Automaton_Concepts::Customization<Symbol, StateData, TransitionData>
-	{
-	};
 
 	//! Finite-state automaton
 	template <

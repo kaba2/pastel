@@ -10,6 +10,7 @@
 #include <pastel/sys/iteratoraddress_hash.h>
 
 #include <algorithm>
+#include <unordered_set>
 
 using namespace Pastel;
 

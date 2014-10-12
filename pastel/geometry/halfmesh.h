@@ -383,7 +383,7 @@ namespace Pastel
 		auto insertPolygon(
 			const Half_Range& halfSet,
 			Type&&... data)
-		-> PASTEL_ENABLE_IF((IsConvertible<Half_Range, Half_ConstIterator>), Polygon_Iterator);
+		-> EnableIf<IsConvertible<Half_Range, Half_ConstIterator>, Polygon_Iterator>;
 
 		//! Inserts a polygon to the given vertex loop.
 		/*!
@@ -400,7 +400,7 @@ namespace Pastel
 		auto insertPolygon(
 			const Vertex_Range& vertexSet,
 			Type&&... data)
-		-> PASTEL_ENABLE_IF((IsConvertible<Vertex_Range, Vertex_ConstIterator>), Polygon_Iterator);
+		-> EnableIf<IsConvertible<Vertex_Range, Vertex_ConstIterator>, Polygon_Iterator>;
 		
 		//! Removes a polygon.
 		/*!

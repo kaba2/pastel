@@ -4,34 +4,34 @@
 #ifndef PASTELSYS_SFINAE_MACROS_H
 #define PASTELSYS_SFINAE_MACROS_H
 
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 
 namespace Pastel
 {
 
 	template <
 		typename Condition,
-		typename Return>
+		typename Return = void>
 	using EnableIf = 
-		typename boost::enable_if<Condition, Return>::type;
+		typename std::enable_if<Condition::value, Return>::type;
 
 	template <
 		bool Condition,
-		typename Return>
+		typename Return = void>
 	using EnableIfC = 
-		typename boost::enable_if_c<Condition, Return>::type;
+		typename std::enable_if<Condition, Return>::type;
 
 	template <
 		typename Condition,
-		typename Return>
+		typename Return = void>
 	using DisableIf = 
-		typename boost::disable_if<Condition, Return>::type;
+		typename std::enable_if<!Condition::value, Return>::type;
 
 	template <
 		bool Condition,
-		typename Return>
+		typename Return = void>
 	using DisableIfC = 
-		typename boost::disable_if_c<Condition, Return>::type;
+		typename std::enable_if<!Condition, Return>::type;
 
 }
 

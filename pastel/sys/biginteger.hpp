@@ -935,7 +935,7 @@ namespace Pastel
 
 	template <typename BuiltInInteger>
 	BigInteger::BigInteger(BuiltInInteger that, 
-		PASTEL_ENABLE_IF((std::is_integral<BuiltInInteger>), bool) visible)
+		EnableIf<std::is_integral<BuiltInInteger>, bool> visible)
 		: digits_()
 		, sign_(that >= 0)
 	{
@@ -944,7 +944,7 @@ namespace Pastel
 
 	template <typename BuiltInInteger>
 	void BigInteger::construct(
-		PASTEL_ENABLE_IF((std::is_signed<BuiltInInteger>), BuiltInInteger) that)
+		EnableIf<std::is_signed<BuiltInInteger>, BuiltInInteger> that)
 	{
 		if (!sign_) {that = -that;}
 			
@@ -957,7 +957,7 @@ namespace Pastel
 
 	template <typename BuiltInInteger>
 	void BigInteger::construct(
-		PASTEL_DISABLE_IF((std::is_signed<BuiltInInteger>), BuiltInInteger) that)
+		DisableIf<std::is_signed<BuiltInInteger>, BuiltInInteger> that)
 	{
 		while(that != 0)
 		{

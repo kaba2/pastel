@@ -129,9 +129,12 @@ namespace Pastel
 	norm_2(that) := sqrt(sum(that[i]^2))
 	*/
 
-	template <typename Real, int N, typename Expression>
-	PASTEL_ENABLE_IF_C(N > 1 || N == Dynamic, Real)
-		norm(const VectorExpression<Real, N, Expression>& that);
+	template <
+		typename Real, 
+		int N, 
+		typename Expression,
+		EnableIfC<(N > 1 || N == Dynamic)>* = 0>
+	Real norm(const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the Euclidean (L2) norm of a vector.
 	/*!
@@ -139,9 +142,12 @@ namespace Pastel
 	norm_2(that) := sqrt(sum(that[i]^2))
 	*/
 
-	template <typename Real, int N, typename Expression>
-	PASTEL_ENABLE_IF_C(N == 1, Real)
-		norm(const VectorExpression<Real, 1, Expression>& that);
+	template <
+		typename Real, 
+		int N, 
+		typename Expression,
+		EnableIfC<(N == 1)>* = 0>
+	Real norm(const VectorExpression<Real, 1, Expression>& that);
 
 	//! Returns the Manhattan (L1) norm of a vector.
 	/*!

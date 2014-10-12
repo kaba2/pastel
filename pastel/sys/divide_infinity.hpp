@@ -7,7 +7,7 @@ namespace Pastel
 {
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_unsigned<Type>, Type)
+	EnableIf<std::is_unsigned<Type>, Type>
 		divideInfinity(Type n)
 	{
 		PENSURE_OP(n, >=, 2);
