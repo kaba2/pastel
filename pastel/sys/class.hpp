@@ -27,8 +27,7 @@ namespace Pastel
 		template <
 			typename... That,
 			// Forward only those parameters which can be used to construct Type.
-			typename = EnableIf<std::is_constructible<Type, That...>>
-			>
+			EnableIf<std::is_constructible<Type, That...>>* = nullptr>
 		Member_Class(That&&... that)
 			: member_(std::forward<That>(that)...)
 		{

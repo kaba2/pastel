@@ -35,7 +35,7 @@ namespace Pastel
 	template <typename Integer>
 	template <
 		typename That_Integer,
-		typename>
+		EnableIf<Rational_::IsNativeOrInteger<Integer, That_Integer>>*>
 	Rational<Integer>::Rational(
 		That_Integer wholes)
 		: numerator_(wholes)
@@ -47,7 +47,7 @@ namespace Pastel
 	template <
 		typename Numerator_Integer, 
 		typename Denominator_Integer,
-		typename>
+		EnableIf<Rational_::AreNativeOrInteger<Integer, Numerator_Integer, Denominator_Integer>>*>
 	Rational<Integer>::Rational(
 		Numerator_Integer numerator,
 		Denominator_Integer denominator)

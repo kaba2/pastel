@@ -84,7 +84,7 @@ namespace Pastel
 
 		template <
 			integer N_ = N,
-			typename = EnableIfC<(N_ > 1)>>
+			EnableIfC<(N_ > 1)>* = nullptr>
 		explicit Vector(const Real& that)
 			: data_(that)
 		{
@@ -93,7 +93,7 @@ namespace Pastel
 		// Allow implicit conversion for 1-d vectors.
 		template <
 			integer N_ = N,
-			typename = EnableIfC<(N_ == 1)>>
+			EnableIfC<(N_ == 1)>* = nullptr>
 		Vector(const Real& that)
 			: data_(that)
 		{
@@ -123,7 +123,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 2)>>
+			EnableIfC<(N_ == 2)>* = nullptr>
 		Vector(const Real& x, const Real& y)
 		{
 			set(x, y);
@@ -131,7 +131,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 3)>>
+			EnableIfC<(N_ == 3)>* = nullptr>
 		Vector(const Real& x, const Real& y, const Real& z)
 		{
 			set(x, y, z);
@@ -139,7 +139,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 4)>>
+			EnableIfC<(N_ == 4)>* = nullptr>
 		Vector(const Real& x, const Real& y, 
 			const Real& z, const Real& w)
 		{
@@ -523,7 +523,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 2)>>
+			EnableIfC<(N_ == 2)>* = nullptr>
 		void set(
 			const Real& x, const Real& y)
 		{
@@ -534,7 +534,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 3)>>
+			EnableIfC<(N_ == 3)>* = nullptr>
 		void set(
 			const Real& x, const Real& y, 
 			const Real& z)
@@ -547,7 +547,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ == 4)>>
+			EnableIfC<(N_ == 4)>* = nullptr>
 		void set(
 			const Real& x, const Real& y, 
 			const Real& z, const Real& w)
@@ -561,7 +561,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 1)>>
+			EnableIfC<(N_ >= 1)>* = nullptr>
 		Real& x()
 		{
 			return (*this)[0];
@@ -569,7 +569,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 1)>>
+			EnableIfC<(N_ >= 1)>* = nullptr>
 		const Real& x() const
 		{
 			return (*this)[0];
@@ -577,7 +577,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 2)>>
+			EnableIfC<(N_ >= 2)>* = nullptr>
 		Real& y()
 		{
 			return (*this)[1];
@@ -585,7 +585,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 2)>>
+			EnableIfC<(N_ >= 2)>* = nullptr>
 		const Real& y() const
 		{
 			return (*this)[1];
@@ -593,7 +593,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 3)>>
+			EnableIfC<(N_ >= 3)>* = nullptr>
 		Real& z()
 		{
 			return (*this)[2];
@@ -601,7 +601,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 3)>>
+			EnableIfC<(N_ >= 3)>* = nullptr>
 		const Real& z() const
 		{
 			return (*this)[2];
@@ -609,7 +609,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 4)>>
+			EnableIfC<(N_ >= 4)>* = nullptr>
 		Real& w()
 		{
 			return (*this)[3];
@@ -617,7 +617,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			typename = EnableIfC<(N_ >= 4)>>
+			EnableIfC<(N_ >= 4)>* = nullptr>
 		const Real& w() const
 		{
 			return (*this)[3];

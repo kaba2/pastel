@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <
 		typename Finite_Integer,
-		typename = DisableIf<std::is_signed<Finite_Integer>>>
+		DisableIf<std::is_signed<Finite_Integer>>*>
 	Finite_Integer flipLeadingZeroBits(const Finite_Integer& that)
 	{
 		if (zero(that))
