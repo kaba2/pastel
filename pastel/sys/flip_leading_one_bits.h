@@ -26,9 +26,10 @@ namespace Pastel
 	has the leading one bits changed to 0;
 	x..x01..1 --> x..x00..0
 	*/
-	template <typename Finite_Integer>
-	DisableIf<std::is_signed<Finite_Integer>, Finite_Integer> 
-		flipLeadingOneBits(const Finite_Integer& that);
+	template <
+		typename Finite_Integer,
+		typename = DisableIf<std::is_signed<Finite_Integer>>>
+	Finite_Integer flipLeadingOneBits(const Finite_Integer& that);
 
 }
 

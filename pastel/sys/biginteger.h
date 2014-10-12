@@ -86,13 +86,15 @@ namespace Pastel
 	private:
 		using DigitContainer = std::vector<uint16>;
 
-		template <typename BuiltInInteger>
-		void construct(
-			EnableIf<std::is_signed<BuiltInInteger>, BuiltInInteger> that);
+		template <
+			typename BuiltInInteger,
+			typename = EnableIf<std::is_signed<BuiltInInteger>>>
+		void construct(BuiltInInteger that);
 
-		template <typename BuiltInInteger>
-		void construct(
-			DisableIf<std::is_signed<BuiltInInteger>, BuiltInInteger> that);
+		template <
+			typename BuiltInInteger,
+			typename = DisableIf<std::is_signed<BuiltInInteger>>>
+		void construct(BuiltInInteger that);
 
 		BigInteger(DigitContainer& digits,
 			bool sign);

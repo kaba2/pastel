@@ -66,10 +66,12 @@ namespace Pastel
 		{
 		}
 
-		template <typename That_Iterator, bool That_Const>
+		template <
+			typename That_Iterator, 
+			bool That_Const,
+			typename = DisableIfC<(!Const && That_Const)>>
 		Second_Iterator(
-			const Second_Iterator<That_Iterator, That_Const>& that,
-			DisableIfC<(!Const && That_Const), Disabler> disabler = Disabler())
+			const Second_Iterator<That_Iterator, That_Const>& that)
 			: iter_(that.iter_)
 		{
 		}
