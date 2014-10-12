@@ -3,10 +3,16 @@
 
 #include "test_pastelsys.h"
 
+#include <pastel/sys/sfinae_macros.h>
+#include <pastel/sys/sfinae_binary_reduce.h>
+
 using namespace Pastel;
 
 namespace
 {
+
+	template <typename... TypeSet>
+	using Sfinae_CommonType = Sfinae_Binary_Reduce<std::common_type, TypeSet...>;
 
 	struct True;
 	struct False;
