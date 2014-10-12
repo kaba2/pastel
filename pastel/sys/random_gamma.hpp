@@ -2,6 +2,7 @@
 #define PASTELSYS_RANDOM_GAMMA_HPP
 
 #include "pastel/sys/random_gamma.h"
+#include "pastel/sys/random_gaussian.h"
 #include "pastel/sys/math_functions.h"
 
 namespace Pastel
@@ -67,8 +68,7 @@ namespace Pastel
 			// y u^(1 / shape) ~ gamma(shape, 1)
 
 			Real u = randomOpen0<Real>();
-
-
+			
 			return std::pow(u, 1 / shape) * d * v;
 		}
 		
@@ -152,38 +152,6 @@ namespace Pastel
 
 		return std::exp(logPdf);
 	}
-
-	// This version does not seem to always work
-	// (very large number of iterations never pass the 
-	// rejection loop). 
-	/*
-	template <typename Real>
-	Real randomGamma(const NoDeduction<Real>& alpha)
-	{
-		// See "Sampling from the Gamma Distribution on a Computer",
-		// George F. Fishman, 1976.
-
-		integer maxIterations = 1000;
-
-		for (integer i = 0;i < maxIterations;++i)
-		{
-			Real randExp = randomExponential<Real>();
-			Real randUni = random<Real>();
-
-			if (randUni < std::pow(randExp / std::exp(randExp + 1), alpha - 1))
-			{
-
-				return alpha * randExp;
-			}
-		}
-
-		bool gammaDistributionSamplingFailed = true;
-		REPORT(gammaDistributionSamplingFailed);
-		
-		return 0;
-	}
-
-	*/
 
 }
 
