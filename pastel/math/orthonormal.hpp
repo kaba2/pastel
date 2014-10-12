@@ -32,7 +32,6 @@ namespace Pastel
 				// that we use the modified vectors in the dot product
 				// computation, rather than the original ones.
 				matrix.column(i) -= 
-
 					matrix.column(j) * dot(matrix.column(i), matrix.column(j));
 			}
 
@@ -54,7 +53,6 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> perpendicular(
 		integer dimension,
-
 		const std::vector<Vector<Real, N> >& orthonormalSet)
 	{
 		ENSURE_OP(dimension, >, 0);
@@ -108,8 +106,6 @@ namespace Pastel
 		for (integer i = 0;i < vectors;++i)
 		{
 			// Remove flat[i] directed contribution
-
-
 			result -= orthonormalSet[i] * dot(result, orthonormalSet[i]);
 		}
 

@@ -14,10 +14,11 @@ namespace Pastel
 		return hasher(that);
 	}
 
-	template <typename Integer>
-	PASTEL_ENABLE_IF_C(sizeof(Integer) == sizeof(uint32), Integer) 
-		combineHash(Integer left, Integer right)
-	{ 
+	template <
+		typename Integer,
+		EnableIfC<sizeof(Integer) == sizeof(uint32), void*>>
+	Integer combineHash(Integer left, Integer right)
+	{
 		// This code is from the Boost library.
 
 		// This is 2^32 / [(1 + sqrt(5)) / 2],
@@ -32,9 +33,10 @@ namespace Pastel
 			(left << 6) + (left >> 2));
 	} 
 
-	template <typename Integer>
-	PASTEL_ENABLE_IF_C(sizeof(Integer) == sizeof(uint64), Integer) 
-		combineHash(Integer left, Integer right)
+	template <
+		typename Integer,
+		EnableIfC<sizeof(Integer) == sizeof(uint64), void*>>
+	Integer combineHash(Integer left, Integer right)
 	{ 
 		// This is 2^64 / [(1 + sqrt(5)) / 2].
 		// See the combineHash() function for

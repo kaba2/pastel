@@ -19,14 +19,16 @@ namespace Pastel
 		const Type& that);
 
 	//! Combines an existing 32-bit hash with the hash of 'that'.
-	template <typename Integer>
-	PASTEL_ENABLE_IF_C(sizeof(Integer) == sizeof(uint32), Integer) 
-		combineHash(Integer left, Integer right);
+	template <
+		typename Integer,
+		EnableIfC<sizeof(Integer) == sizeof(uint32), void*> = 0>
+	Integer combineHash(Integer left, Integer right);
 
 	//! Combines an existing 64-bit hash with the hash of 'that'.
-	template <typename Integer>
-	PASTEL_ENABLE_IF_C(sizeof(Integer) == sizeof(uint64), Integer) 
-		combineHash(Integer left, Integer right);
+	template <
+		typename Integer,
+		EnableIfC<sizeof(Integer) == sizeof(uint64), void*> = 0>
+	Integer combineHash(Integer left, Integer right);
 
 	//! Sequentially combines the hashes of the input values.
 	template <typename ConstRange>

@@ -81,7 +81,7 @@ namespace Pastel
 		*/
 		template <typename That_Integer>
 		Rational(That_Integer wholes, 
-			PASTEL_ENABLE_IF(IsNativeOrInteger<That_Integer>, Private)* = 0);
+			EnableIf<IsNativeOrInteger<That_Integer>, Private>* = 0);
 
 		//! Constructs with the value (numerator / denominator).
 		template <
@@ -90,7 +90,7 @@ namespace Pastel
 		Rational(
 			Numerator_Integer numerator,
 			Denominator_Integer denominator,
-			PASTEL_ENABLE_IF((AreNativeOrInteger<Numerator_Integer, Denominator_Integer>), Private)* = 0);
+			EnableIf<AreNativeOrInteger<Numerator_Integer, Denominator_Integer>, Private>* = 0);
 
 		//! Constructs with the value of the ieee single floating point.
 		/*!

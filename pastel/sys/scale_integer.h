@@ -24,25 +24,40 @@ namespace Pastel
 	It turns out this can be computed efficiently by using 
 	integer shifts and additions alone.
 	*/
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits < FromBits), Integer)
-		scaleInteger(const Integer& number);
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits < FromBits)>* = 0>	
+	Integer scaleInteger(const Integer& number);
 
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits == FromBits), Integer)
-		scaleInteger(const Integer& number);
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits == FromBits)>* = 0>	
+	Integer scaleInteger(const Integer& number);
 
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits > FromBits && ToBits <= 2 * FromBits), Integer)
-		scaleInteger(const Integer& number);
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits > FromBits && ToBits <= 2 * FromBits)>* = 0>	
+	Integer scaleInteger(const Integer& number);
 
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer)
-		scaleInteger(const Integer& number);
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits)>* = 0>	
+	Integer scaleInteger(const Integer& number);
 
-	template <int FromBits, int ToBits, typename Integer>
-	PASTEL_ENABLE_IF_C((ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer)
-		scaleInteger(const Integer& number);
+	template <
+		int FromBits, 
+		int ToBits, 
+		typename Integer,
+		EnableIfC<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits)>* = 0>	
+	Integer scaleInteger(const Integer& number);
 
 }
 

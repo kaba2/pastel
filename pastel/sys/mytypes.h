@@ -26,7 +26,7 @@
 	} \
 	Type name##_
 
-#define PASTEL_FWD(member) typedef typename Fwd::member member
+#define PASTEL_FWD(member) using member = typename Fwd::member
 
 #define PASTEL_CALL_BRACKETS ()
 
@@ -193,7 +193,7 @@ namespace Pastel
 	integer sizeInBits();
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(std::is_arithmetic<Type>, Type) mabs(Type that);
+	EnableIf<std::is_arithmetic<Type>, Type> mabs(Type that);
 
 	//! Allocates a raw memory block.
 	/*!

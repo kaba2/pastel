@@ -41,7 +41,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Real>
-	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
+	EnableIf<std::is_floating_point<Real>, integer>
 		roundUpToOdd(const Real& that);
 
 	//! Rounds up to the next even number.
@@ -61,7 +61,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Real>
-	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
+	EnableIf<std::is_floating_point<Real>, integer>
 		roundUpToEven(const Real& that);
 
 	//! Rounds up to the next power of 2 (unsigned integers).
@@ -73,7 +73,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
+	EnableIf<std::is_unsigned<Integer>, Integer>
 		roundUpToPowerOfTwo(const Integer& that);
 
 	//! Rounds up to the next power of 2 (signed integers).
@@ -86,7 +86,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
+	EnableIf<std::is_signed<Integer>, Integer>
 		roundUpToPowerOfTwo(const Integer& that);
 
 	//! Rounds up 'that' to the next multiple of power of 2.

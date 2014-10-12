@@ -158,7 +158,7 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			typename = PASTEL_ENABLE_IF(std::is_unsigned<That_Integer>, void)
+			typename = EnableIf<std::is_unsigned<That_Integer>, void>
 			>
 		Integer(That_Integer that, Signed_Tag = Signed_Tag())
 		: wordSet_()
@@ -187,7 +187,7 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			typename = PASTEL_ENABLE_IF(std::is_signed<That_Integer>, void)
+			typename = EnableIf<std::is_signed<That_Integer>, void>
 			>
 		Integer(That_Integer that, Unsigned_Tag = Unsigned_Tag())
 			: Integer(signedToTwosComplement(that))

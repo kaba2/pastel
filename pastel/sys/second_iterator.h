@@ -69,7 +69,7 @@ namespace Pastel
 		template <typename That_Iterator, bool That_Const>
 		Second_Iterator(
 			const Second_Iterator<That_Iterator, That_Const>& that,
-			PASTEL_DISABLE_IF_C(!Const && That_Const, Disabler) disabler = Disabler())
+			DisableIfC<(!Const && That_Const), Disabler> disabler = Disabler())
 			: iter_(that.iter_)
 		{
 		}

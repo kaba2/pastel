@@ -36,7 +36,7 @@ namespace Pastel
 	template <typename That_Integer>
 	Rational<Integer>::Rational(
 		That_Integer wholes, 
-		PASTEL_ENABLE_IF(IsNativeOrInteger<That_Integer>, Private)*)
+		EnableIf<IsNativeOrInteger<That_Integer>, Private>*)
 		: numerator_(wholes)
 		, denominator_(1)
 	{
@@ -49,7 +49,7 @@ namespace Pastel
 	Rational<Integer>::Rational(
 		Numerator_Integer numerator,
 		Denominator_Integer denominator,
-		PASTEL_ENABLE_IF((AreNativeOrInteger<Numerator_Integer, Denominator_Integer>), Private)*)
+		EnableIf<AreNativeOrInteger<Numerator_Integer, Denominator_Integer>, Private>*)
 		: numerator_(std::move(numerator))
 		, denominator_(std::move(denominator))
 	{
@@ -601,14 +601,14 @@ namespace Pastel
 	// Real
 
 	template <typename Type>
-	PASTEL_ENABLE_IF_C(IsRational<Type>::value, Type)
+	EnableIfC<(IsRational<Type>::value), Type>
 		infinity()
 	{
 		return Type(1, 0);
 	}
 
 	template <typename Type>
-	PASTEL_ENABLE_IF_C(IsRational<Type>::value, Type)
+	EnableIfC<(IsRational<Type>::value), Type>
 		nan()
 	{
 		return Type(0, 0);

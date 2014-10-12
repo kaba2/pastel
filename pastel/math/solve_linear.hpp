@@ -61,14 +61,13 @@ namespace Pastel
 			// part of the k:th column.
 			for (integer i = k + 1;i < m;++i)
 			{
-				Real a = left(i, k) / left(k, k);
+				Real r = left(i, k) / left(k, k);
 				left(i, k) = 0;
 				for (integer j = k + 1;j < n;++j)
 				{
-
-					left(i, j) -= left(k, j) * a;
+					left(i, j) -= left(k, j) * r;
 				}
-				right[i] -= right[k] * a;
+				right[i] -= right[k] * r;
 			}
 		}
 
@@ -102,7 +101,6 @@ namespace Pastel
 			Real factor = right[j] / a(j, j);
 			for (integer i = j + 1;i < m;++i)
 			{
-
 				right[i] -= a(i, j) * factor;
 			}
 			right[j] /= a(j, j);
@@ -178,7 +176,6 @@ namespace Pastel
 			Real factor = right[j] / a(j, j);
 			for (integer i = j - 1;i >= 0;--i)
 			{
-
 				right[i] -= a(i, j) * factor;
 			}
 			right[j] /= a(j, j);
@@ -218,7 +215,6 @@ namespace Pastel
 			Real factor = right[j];
 			for (integer i = j - 1;i >= 0;--i)
 			{
-
 				right[i] -= a(i, j) * factor;
 			}
 		}

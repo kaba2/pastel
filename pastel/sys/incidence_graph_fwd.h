@@ -42,7 +42,7 @@ namespace Pastel
 
 			template <
 				typename That, 
-				typename = PASTEL_ENABLE_IF((std::is_convertible<That, Type>), void)>
+				typename = EnableIf<std::is_convertible<That, Type>, void>>
 			Incidence_Iterator(const Incidence_Iterator<That>& that)
 				: Incidence_Iterator::iterator_adaptor_(that.base()) 
 			{
@@ -58,9 +58,6 @@ namespace Pastel
 		};
 
 	}
-
-	template <typename, template <typename> class>
-	class IncidenceGraph;
 
 	template <typename Settings_>
 	class IncidenceGraph_Fwd
@@ -129,6 +126,59 @@ namespace Pastel
 		static PASTEL_CONSTEXPR int Outgoing = 
 			(Type == GraphType::Directed) ? 
 			1 : ((Type == GraphType::Mixed) ? 2 : IncidenceTypes);
+	};
+
+}
+
+namespace Pastel
+{
+
+	template <typename Settings>
+	class No_Incidence_Graph_Customization
+	{
+	protected:
+		using Fwd = IncidenceGraph_Fwd<Settings>;
+
+		PASTEL_FWD(Vertex_Iterator);
+		PASTEL_FWD(Vertex_ConstIterator);
+		PASTEL_FWD(Edge_Iterator);
+		PASTEL_FWD(Edge_ConstIterator);
+
+		No_Incidence_Graph_Customization() {}
+		void swap(No_Incidence_Graph_Customization& that) {}
+
+		void onClear() {}
+		void onAddVertex(const Vertex_Iterator& vertex) {}
+		void onRemoveVertex(const Vertex_Iterator& that) {}
+		void onAddEdge(const Edge_Iterator& that) {}
+		void onRemoveEdge(const Edge_Iterator& that) {}
+
+	private:
+		No_Incidence_Graph_Customization(const No_Incidence_Graph_Customization& that) = delete;
+		No_Incidence_Graph_Customization(No_Incidence_Graph_Customization&& that) = delete;
+		No_Incidence_Graph_Customization& operator=(No_Incidence_Graph_Customization) = delete;
+	};
+
+	template <
+		typename Settings, 
+		template <typename> class = No_Incidence_Graph_Customization>
+	class IncidenceGraph;
+
+}
+
+namespace Pastel
+{
+
+	template <
+		GraphType Type_, 
+		typename VertexData_ = void, 
+		typename EdgeData_ = void>
+	class IncidenceGraph_Settings
+	{
+	public:
+		static PASTEL_CONSTEXPR GraphType Type = Type_;
+		using VertexData = VertexData_;
+		using EdgeData = EdgeData_;
 	};
 
 }

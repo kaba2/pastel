@@ -25,21 +25,21 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, N>))
+	EnableIfC<(N == 1), Vector<Real, N>>
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius);
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, N>))
+	EnableIfC<(N == 2), Vector<Real), N>>
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius);
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 3, (Vector<Real, N>))
+	EnableIfC<(N == 3), Vector<Real), N>>
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
@@ -59,17 +59,17 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, N>))
+	EnableIfC<(N == 1), Vector<Real), N>>
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, N>))
+	EnableIfC<(N == 2), Vector<Real), N>>
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N >= 3 || N == Dynamic, (Vector<Real, N>))
+	EnableIfC<(N >= 3 || N == Dynamic), Vector<Real), N>>
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
@@ -86,17 +86,17 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, N>))
+	EnableIfC<(N == 1), Vector<Real), N>>
 		uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, N>))
+	EnableIfC<(N == 2), Vector<Real), N>>
 		uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 3, (Vector<Real, N>))
+	EnableIfC<(N == 3), Vector<Real), N>>
 		uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
@@ -115,12 +115,12 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, ModifyN<N, N + 1>::Result>))
+	EnableIfC<(N == 1), Vector<Real, ModifyN<N), N + 1>::Result>>
 		uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, ModifyN<N, N + 1>::Result>))
+	EnableIfC<(N == 2), (Vector<Real, ModifyN<N), N + 1>::Result>>
 		uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
@@ -139,12 +139,12 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, ModifyN<N, N + 1>::Result>))
+	EnableIfC<(N == 1), Vector<Real, ModifyN<N), N + 1>::Result>>
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, ModifyN<N, N + 1>::Result>))
+	EnableIfC<(N == 2), Vector<Real, ModifyN<N), N + 1>::Result>>
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 

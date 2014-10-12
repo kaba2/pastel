@@ -22,7 +22,7 @@ namespace Pastel
 	*/
 	template <
 		typename Settings_, 
-		template <typename> class Customization_ = IncidenceGraph_Concepts::Customization>
+		template <typename> class Customization_>
 	class IncidenceGraph
 	: public Customization_<Settings_>
 	{
@@ -582,37 +582,31 @@ namespace Pastel
 {
 
 	template <
-		GraphType Type_, 
-		typename VertexData_ = void, 
-		typename EdgeData_ = void>
-	class IncidenceGraph_Settings
-	{
-	public:
-		static PASTEL_CONSTEXPR GraphType Type = Type_;
-		using VertexData = VertexData_;
-		using EdgeData = EdgeData_;
-	};
-
-	template <
 		typename VertexData = void, 
-		typename EdgeData = void>
+		typename EdgeData = void, 
+		template <typename> class Customization = No_Incidence_Graph_Customization>
 	using Directed_Graph = 
 		IncidenceGraph<IncidenceGraph_Settings<
-		GraphType::Directed, VertexData, EdgeData>>;
+		GraphType::Directed, VertexData, EdgeData>,
+		Customization>;
 
 	template <
 		typename VertexData = void, 
-		typename EdgeData = void>
+		typename EdgeData = void, 
+		template <typename> class Customization = No_Incidence_Graph_Customization>
 	using Undirected_Graph = 
 		IncidenceGraph<IncidenceGraph_Settings<
-		GraphType::Undirected, VertexData, EdgeData>>;
+		GraphType::Undirected, VertexData, EdgeData>,
+		Customization>;
 
 	template <
 		typename VertexData = void, 
-		typename EdgeData = void>
+		typename EdgeData = void, 
+		template <typename> class Customization = No_Incidence_Graph_Customization>
 	using Mixed_Graph = 
 		IncidenceGraph<IncidenceGraph_Settings<
-		GraphType::Mixed, VertexData, EdgeData>>;
+		GraphType::Mixed, VertexData, EdgeData>,
+		Customization>;
 
 }
 

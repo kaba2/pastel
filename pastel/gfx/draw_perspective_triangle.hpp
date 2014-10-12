@@ -314,7 +314,6 @@ namespace Pastel
 		{
 			real yLeftDeltaInv = inverse(yLeftDelta);
 
-
 			dxLeftDy *= yLeftDeltaInv;
 			dUvLeftDy *= yLeftDeltaInv;
 			dtLeftDy *= yLeftDeltaInv;
@@ -326,7 +325,6 @@ namespace Pastel
 		if (yRightDelta != 0)
 		{
 			real yRightDeltaInv = inverse(yRightDelta);
-
 
 			dxRightDy *= yRightDeltaInv;
 			dUvRightDy *= yRightDeltaInv;
@@ -342,7 +340,6 @@ namespace Pastel
 		{
 			real xBottomDeltaInv = inverse(xBottomDelta);
 
-
 			dyBottomDx *= xBottomDeltaInv;
 			dUvBottomDx *= xBottomDeltaInv;
 			dtBottomDx *= xBottomDeltaInv;
@@ -355,7 +352,6 @@ namespace Pastel
 		{
 			real xTopDeltaInv = inverse(xTopDelta);
 
-
 			dyTopDx *= xTopDeltaInv;
 			dUvTopDx *= xTopDeltaInv;
 			dtTopDx *= xTopDeltaInv;
@@ -364,7 +360,6 @@ namespace Pastel
 		// Offset the start scanline to pixel rows.
 
 		real yOffset = ((real)yMin + 0.5) - yMinVertex.y_;
-
 
 		real xLeft = yMinVertex.x_ + dxLeftDy * yOffset;
 		Vector2 uvLeft = yMinVertex.uv_ + dUvLeftDy * yOffset;
@@ -384,19 +379,15 @@ namespace Pastel
 
 			real dx =
 				yMidVertex.x_ -
-
 				(yMinVertex.x_ + dxLeftDy * yDelta);
 			Vector2 dUv =
 				yMidVertex.uv_ -
-
 				(yMinVertex.uv_ + dUvLeftDy * yDelta);
 			tVector dt =
 				yMidVertex.t_ -
-
 				(yMinVertex.t_ + dtLeftDy * yDelta);
 
 			real invDx = inverse(dx);
-
 
 			dUvDx = dUv * invDx;
 			dtDx = dt * invDx;
@@ -417,7 +408,6 @@ namespace Pastel
 
 			real invDx = inverse(dx);
 
-
 			dUvDx = dUv * invDx;
 			dtDx = dt * invDx;
 		}
@@ -432,19 +422,15 @@ namespace Pastel
 
 			real dy =
 				xMidVertex.y_ -
-
 				(xMinVertex.y_ + dyBottomDx * xDelta);
 			Vector2 dUv =
 				xMidVertex.uv_ -
-
 				(xMinVertex.uv_ + dUvBottomDx * xDelta);
 			tVector dt =
 				xMidVertex.t_ -
-
 				(xMinVertex.t_ + dtBottomDx * xDelta);
 
 			real invDy = inverse(dy);
-
 
 			dUvDy = dUv * invDy;
 			dtDy = dt * invDy;
@@ -464,7 +450,6 @@ namespace Pastel
 				xMidVertex.t_;
 
 			real invDy = inverse(dy);
-
 
 			dUvDy = dUv * invDy;
 			dtDy = dt * invDy;
@@ -489,7 +474,6 @@ namespace Pastel
 			{
 				real xOffset = ((real)xBegin + 0.5) - xLeft;
 
-
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 				tPoint t = tLeft + dtDx * xOffset;
 
@@ -504,7 +488,6 @@ namespace Pastel
 				for (integer x = xBegin;x < xEnd;++x)
 				{
 					real w = inverse(wh);
-
 
 					const real dwDx = -dtDx[0] * w * w;
 					const real dwDy = -dtDy[0] * w * w;
@@ -551,7 +534,6 @@ namespace Pastel
 			{
 				real yRightDeltaInv = inverse(yRightDelta);
 
-
 				dxRightDy *= yRightDeltaInv;
 				dUvRightDy *= yRightDeltaInv;
 				dtRightDy *= yRightDeltaInv;
@@ -560,7 +542,6 @@ namespace Pastel
 			// Offset the scanline to pixel rows.
 
 			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
-
 
 			xRight = yMidVertex.x_ + dxRightDy * yOffset;
 			uvRight = yMidVertex.uv_ + dUvRightDy * yOffset;
@@ -581,7 +562,6 @@ namespace Pastel
 			{
 				real yLeftDeltaInv = inverse(yLeftDelta);
 
-
 				dxLeftDy *= yLeftDeltaInv;
 				dUvLeftDy *= yLeftDeltaInv;
 				dtLeftDy *= yLeftDeltaInv;
@@ -590,7 +570,6 @@ namespace Pastel
 			// Offset the scanline to pixel rows.
 
 			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
-
 
 			xLeft = yMidVertex.x_ + dxLeftDy * yOffset;
 			uvLeft = yMidVertex.uv_ + dUvLeftDy * yOffset;
@@ -607,7 +586,6 @@ namespace Pastel
 			if (xEnd - xBegin > 0)
 			{
 				real xOffset = ((real)xBegin + 0.5) - xLeft;
-
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 				tPoint t = tLeft + dtDx * xOffset;
@@ -629,7 +607,6 @@ namespace Pastel
 				for (integer x = xBegin;x < xEnd;++x)
 				{
 					real w = inverse(wh);
-
 
 					const real dwDx = -dtDx[0] * w * w;
 					const real dwDy = -dtDy[0] * w * w;

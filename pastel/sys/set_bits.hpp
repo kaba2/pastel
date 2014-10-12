@@ -8,7 +8,7 @@ namespace Pastel
 {
 
 	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
+	EnableIf<std::is_unsigned<Integer>, Integer>
 		setBits(
 		const Integer& that,
 		integer begin,

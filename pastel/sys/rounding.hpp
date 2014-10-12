@@ -32,7 +32,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
+	EnableIf<std::is_floating_point<Real>, integer>
 		roundUpToOdd(const Real& that)
 	{
 		return Pastel::roundUpToOdd((integer)std::ceil(that));
@@ -45,14 +45,14 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	PASTEL_ENABLE_IF(std::is_floating_point<Real>, integer)
+	EnableIf<std::is_floating_point<Real>, integer>
 		roundUpToEven(const Real& that)
 	{
 		return Pastel::roundUpToEven((integer)std::ceil(that));
 	}
 
 	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_unsigned<Integer>, Integer)
+	EnableIf<std::is_unsigned<Integer>, Integer>
 		roundUpToPowerOfTwo(const Integer& that)
 	{
 		if (zero(that))
@@ -70,7 +70,7 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	PASTEL_ENABLE_IF(std::is_signed<Integer>, Integer)
+	EnableIf<std::is_signed<Integer>, Integer>
 		roundUpToPowerOfTwo(const Integer& that)
 	{
 		return twosComplementToSigned(

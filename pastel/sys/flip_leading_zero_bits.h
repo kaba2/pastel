@@ -27,7 +27,7 @@ namespace Pastel
 	x..x10..0 --> x..x11..1
 	*/
 	template <typename Finite_Integer>
-	PASTEL_DISABLE_IF(std::is_signed<Finite_Integer>, Finite_Integer) 
+	DisableIf<std::is_signed<Finite_Integer>, Finite_Integer> 
 		flipLeadingZeroBits(const Finite_Integer& that);
 
 }

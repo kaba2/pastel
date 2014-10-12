@@ -8,9 +8,9 @@ namespace Pastel
 {
 
 	template <typename Integer>
-	PASTEL_DISABLE_IF(
+	DisableIf<
 		std::is_signed<Integer>, 
-		Integer)  
+		Integer>  
 		singleBitMask(integer bit)
 	{
 		PENSURE_OP(bit, >=, 0);
@@ -35,9 +35,9 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	PASTEL_DISABLE_IF(
+	DisableIf<
 		std::is_signed<Integer>, 
-		Integer)  
+		Integer>  
 		bitMask(integer endBit)
 	{
 		PENSURE_OP(endBit, >=, 0);
@@ -52,9 +52,9 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	PASTEL_DISABLE_IF(
+	DisableIf<
 		std::is_signed<Integer>, 
-		Integer)  
+		Integer>  
 		bitMask(integer beginBit, integer endBit)
 	{
 		PENSURE_OP(beginBit, >=, 0);

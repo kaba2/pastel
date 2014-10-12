@@ -295,25 +295,25 @@ namespace Pastel
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 1, Real) x() const
+		EnableIfC<(N_ >= 1), Real> x() const
 		{
 			return (*this)[0];
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 2, Real) y() const
+		EnableIfC<(N_ >= 2), Real> y() const
 		{
 			return (*this)[1];
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 3, Real) z() const
+		EnableIfC<(N_ >= 3), Real> z() const
 		{
 			return (*this)[2];
 		}
 
 		template <int N_ = N>
-		PASTEL_ENABLE_IF_C(N_ >= 4, Real) w() const
+		EnableIfC<(N_ >= 4), Real> w() const
 		{
 			return (*this)[3];
 		}

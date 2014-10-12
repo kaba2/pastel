@@ -326,14 +326,14 @@ namespace Pastel
 		}
 
 		template <integer I>
-		PASTEL_ENABLE_IF_C(I < IncidenceTypes, Incidence*) 
+		EnableIfC<(I < IncidenceTypes), Incidence*> 
 			begin_() const
 		{
 			return partitionSet_[I];
 		}
 
 		template <integer I>
-		PASTEL_ENABLE_IF_C(I < IncidenceTypes, Incidence*) 
+		EnableIfC<(I < IncidenceTypes), Incidence*> 
 			end_() const
 		{
 			if (incidencesSet_[I] > 0)
@@ -351,7 +351,7 @@ namespace Pastel
 		}
 
 		template <integer I>
-		PASTEL_ENABLE_IF_C(I < IncidenceTypes, integer) 
+		EnableIfC<(I < IncidenceTypes), integer> 
 			incidences_() const
 		{
 			return incidencesSet_[I];

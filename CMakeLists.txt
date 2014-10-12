@@ -240,6 +240,10 @@ if (MSVC)
 		/D_ITERATOR_DEBUG_LEVEL=0
 		# Use multiple processes for compiling.
 		/MP
+		# Undefine __STDC_UTF_16__, because Visual Studio 14 CTP4
+		# introduced it, but still does not implement char16_t etc.
+		# FIX: Remove when char16_t etc become available.
+		/U__STDC_UTF_16__
 	)
 
 	# Disable some warnings.
@@ -264,6 +268,10 @@ if (MSVC)
 		/wd4312
 		# "new behavior: elements of array 'array' will be default initialized"
 		/wd4351
+		# declaration of 'variable' hides previous local declaration
+		/wd4456
+		# declaration of 'type' hides class member
+		/wd4458
 		# 'type' : base-class 'type2' is already a base-class of 'type3'
 		/wd4584
 		# "'type' : forcing value to bool 'true' or 'false' (performance warning)"
