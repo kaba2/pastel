@@ -79,18 +79,19 @@ namespace Pastel
 		/*! 
 		Implicit conversion allowed.
 		*/
-		template <typename That_Integer>
-		Rational(That_Integer wholes, 
-			EnableIf<IsNativeOrInteger<That_Integer>, Private>* = 0);
+		template <
+			typename That_Integer,
+			typename = EnableIf<IsNativeOrInteger<That_Integer>>>
+		Rational(That_Integer wholes);
 
 		//! Constructs with the value (numerator / denominator).
 		template <
 			typename Numerator_Integer, 
-			typename Denominator_Integer>
+			typename Denominator_Integer,
+			typename = EnableIf<AreNativeOrInteger<Numerator_Integer, Denominator_Integer>>>
 		Rational(
 			Numerator_Integer numerator,
-			Denominator_Integer denominator,
-			EnableIf<AreNativeOrInteger<Numerator_Integer, Denominator_Integer>, Private>* = 0);
+			Denominator_Integer denominator);
 
 		//! Constructs with the value of the ieee single floating point.
 		/*!

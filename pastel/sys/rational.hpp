@@ -33,10 +33,11 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	template <typename That_Integer>
+	template <
+		typename That_Integer,
+		typename>
 	Rational<Integer>::Rational(
-		That_Integer wholes, 
-		EnableIf<IsNativeOrInteger<That_Integer>, Private>*)
+		That_Integer wholes)
 		: numerator_(wholes)
 		, denominator_(1)
 	{
@@ -45,11 +46,11 @@ namespace Pastel
 	template <typename Integer>
 	template <
 		typename Numerator_Integer, 
-		typename Denominator_Integer>
+		typename Denominator_Integer,
+		typename>
 	Rational<Integer>::Rational(
 		Numerator_Integer numerator,
-		Denominator_Integer denominator,
-		EnableIf<AreNativeOrInteger<Numerator_Integer, Denominator_Integer>, Private>*)
+		Denominator_Integer denominator)
 		: numerator_(std::move(numerator))
 		, denominator_(std::move(denominator))
 	{

@@ -20,11 +20,10 @@ namespace Pastel
 	In other words, mod(2^bit, 2^n), where n is the
 	number of bits in the integer.
 	*/
-	template <typename Integer>
-	DisableIf<
-		std::is_signed<Integer>, 
-		Integer>  
-		singleBitMask(integer bit);
+	template <
+		typename Integer,
+		typename = DisableIf<std::is_signed<Integer>>>
+	Integer singleBitMask(integer bit);
 
 	//! Returns an integer with lower bits set.
 	/*!
@@ -38,11 +37,10 @@ namespace Pastel
 	mod(2^endBit - 1, 2^n), where n is the number 
 	of bits.
 	*/
-	template <typename Integer>
-	DisableIf<
-		std::is_signed<Integer>, 
-		Integer>  
-		bitMask(integer endBit);
+	template <
+		typename Integer,
+		typename = DisableIf<std::is_signed<Integer>>>
+	Integer bitMask(integer endBit);
 
 	//! Returns an interval of bits set.
 	/*!
@@ -56,11 +54,10 @@ namespace Pastel
 	mod(2^endBit - 2^beginBit, 2^n),
 	where n is the number of bits.
 	*/
-	template <typename Integer>
-	DisableIf<
-		std::is_signed<Integer>, 
-		Integer>  
-		bitMask(integer beginBit, integer endBit);
+	template <
+		typename Integer,
+		typename = DisableIf<std::is_signed<Integer>>>	 
+	Integer bitMask(integer beginBit, integer endBit);
 
 }
 

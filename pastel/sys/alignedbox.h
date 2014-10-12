@@ -67,7 +67,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			EnableIfC<(N_ == 1)>* = 0
+			typename = EnableIfC<(N_ == 1)>
 			>
 		AlignedBox(
 			const Real& xMin, 
@@ -81,7 +81,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			EnableIfC<(N_ == 2)>* = 0
+			typename = EnableIfC<(N_ == 2)>
 			>
 		AlignedBox(
 			const Real& xMin, const Real& yMin,
@@ -95,7 +95,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			EnableIfC<(N_ == 3)>* = 0
+			typename = EnableIfC<(N_ == 3)>
 			>
 		AlignedBox(
 			const Real& xMin, const Real& yMin, const Real& zMin,
@@ -109,7 +109,7 @@ namespace Pastel
 
 		template <
 			int N_ = N,
-			EnableIfC<(N_ == 4)>* = 0>
+			typename = EnableIfC<(N_ == 4)>>
 		AlignedBox(
 			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
