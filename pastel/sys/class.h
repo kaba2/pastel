@@ -46,15 +46,30 @@ namespace Pastel
 	class Inherited_Class;
 
 	//! Wraps class -> Inherited_Class, non-class -> Member_Class.
+	/*!
+	This class is needed to get around the buggy support for
+	alias templates in Visual Studio 14 CTP4. That is, while
+	typename As_Class<Type, Tag>::type usually works ok,
+	Class<Type, Tag> sometimes causes a bug.
+	*/
+	template <
+		typename Type,
+		typename Tag = void>
+	struct As_Class
+	{
+		using type = 
+			typename std::conditional<
+				std::is_class<Type>::value,
+				Inherited_Class<Type, Tag>,
+				Member_Class<Type, Tag>
+			>::type;
+	};
+
 	template <
 		typename Type,
 		typename Tag = void>
 	using Class = 
-		typename std::conditional<
-		std::is_class<Type>::value,
-		Inherited_Class<Type, Tag>,
-		Member_Class<Type, Tag>
-		>::type;
+		typename As_Class<Type, Tag>::type;
 
 }
 
