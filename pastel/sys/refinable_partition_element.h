@@ -4,14 +4,6 @@
 #include "pastel/sys/refinable_partition.h"
 #include "pastel/sys/class.h"
 
-// Visual Studio generates "multiple assignment operators" warning,
-// because it does not implement the deletion of functions 
-// (which we simulate below).
-#if (defined _WIN32 || defined _WIN64)
-#	pragma warning(push)
-#	pragma warning(disable: 4522)
-#endif
-
 namespace Pastel
 {
 
@@ -134,9 +126,5 @@ namespace Pastel
 	};
 
 }
-
-#if (defined _WIN32 || defined _WIN64)
-#	pragma warning(pop)
-#endif
 
 #endif
