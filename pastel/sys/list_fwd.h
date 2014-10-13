@@ -50,7 +50,12 @@ namespace Pastel
 
 	}
 
-	template <typename, template <typename> class>
+	template <typename Settings>
+	class Empty_List_Customization;
+
+	template <
+		typename, 
+		template <typename> class = Empty_List_Customization>
 	class List;
 
 	template <typename Settings>
@@ -64,10 +69,12 @@ namespace Pastel
 			Settings::UserDataInEndNode;
 
 		struct Data_Tag;
-		using Data_Class = Class<Data, Data_Tag>;
+		using Data_Class = 
+			typename As_Class<Data, Data_Tag>::type;
 
 		struct EndData_Tag;
-		using EndData_Class = Class<EndData, EndData_Tag>;
+		using EndData_Class = 
+			typename As_Class<EndData, EndData_Tag>::type;
 
 		using Node = List_::Node;
 		using Data_Node = List_::Data_Node<Data_Class>;

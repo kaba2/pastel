@@ -5,7 +5,7 @@
 
 #include "pastel/sys/class.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/list.h"
+#include "pastel/sys/list_fwd.h"
 
 namespace Pastel
 {
@@ -27,7 +27,11 @@ namespace Pastel
 
 	}
 
-	template <typename, template <typename> class>
+	template <typename Settings>
+	class Empty_HalfMesh_Customization;
+
+	template <typename, 
+		template <typename> class = Empty_HalfMesh_Customization>
 	class HalfMesh;
 
 	template <typename Settings_>
@@ -46,37 +50,49 @@ namespace Pastel
 		static PASTEL_CONSTEXPR bool Loops = Settings::Loops;
 
 		struct Vertex_Tag;
-		using VertexData_Class = Class<VertexData, Vertex_Tag>;
+		using VertexData_Class = 
+			typename As_Class<VertexData, Vertex_Tag>::type;
 
 		struct Half_Tag;
-		using HalfData_Class = Class<HalfData, Half_Tag>;
+		using HalfData_Class = 
+			typename As_Class<HalfData, Half_Tag>::type;
 
 		struct Edge_Tag;
-		using EdgeData_Class = Class<EdgeData, Edge_Tag>;
+		using EdgeData_Class = 
+			typename As_Class<EdgeData, Edge_Tag>::type;
 
 		struct Polygon_Tag;
-		using PolygonData_Class = Class<PolygonData, Polygon_Tag>;
+		using PolygonData_Class = 
+			typename As_Class<PolygonData, Polygon_Tag>::type;
 
 		using Vertex = HalfMesh_::Vertex<Settings>;
 		using Half = HalfMesh_::Half<Settings>;
 		using Edge = HalfMesh_::Edge<Settings>;
 		using Polygon = HalfMesh_::Polygon<Settings>;
 
-		using VertexSet = List_Set<Vertex>;
-		using Vertex_Iterator = typename VertexSet::Iterator;
-		using Vertex_ConstIterator = typename VertexSet::ConstIterator;
+		using Vertex_Settings = List_Set_Settings<Vertex>;
+		using VertexSet = List<Vertex_Settings>;
+		using VertexSet_Fwd = List_Fwd<Vertex_Settings>;
+		using Vertex_Iterator = typename VertexSet_Fwd::Iterator;
+		using Vertex_ConstIterator = typename VertexSet_Fwd::ConstIterator;
 
-		using HalfSet = List_Set<Half>;
-		using Half_Iterator = typename HalfSet::Iterator;
-		using Half_ConstIterator = typename HalfSet::ConstIterator;
+		using Half_Settings = List_Set_Settings<Half>;
+		using HalfSet = List<Half_Settings>;
+		using HalfSet_Fwd = List_Fwd<Half_Settings>;
+		using Half_Iterator = typename HalfSet_Fwd::Iterator;
+		using Half_ConstIterator = typename HalfSet_Fwd::ConstIterator;
 
-		using EdgeSet = List_Set<Edge>;
-		using Edge_Iterator = typename EdgeSet::Iterator;
-		using Edge_ConstIterator = typename EdgeSet::ConstIterator;
+		using Edge_Settings = List_Set_Settings<Edge>;
+		using EdgeSet = List<Edge_Settings>;
+		using EdgeSet_Fwd = List_Fwd<Edge_Settings>;
+		using Edge_Iterator = typename EdgeSet_Fwd::Iterator;
+		using Edge_ConstIterator = typename EdgeSet_Fwd::ConstIterator;
 
-		using PolygonSet = List_Set<Polygon>;
-		using Polygon_Iterator = typename PolygonSet::Iterator;
-		using Polygon_ConstIterator = typename PolygonSet::ConstIterator;
+		using Polygon_Settings = List_Set_Settings<Polygon>;
+		using PolygonSet = List<Polygon_Settings>;
+		using PolygonSet_Fwd = List_Fwd<Polygon_Settings>;
+		using Polygon_Iterator = typename PolygonSet_Fwd::Iterator;
+		using Polygon_ConstIterator = typename PolygonSet_Fwd::ConstIterator;
 
 		using InsertEdge_Return =
 			typename std::conditional<

@@ -22,7 +22,7 @@ namespace Pastel
 	*/
 	template <
 		typename Settings_,
-		template <typename> class Customization_ = Empty_List_Customization>
+		template <typename> class Customization_>
 	class List
 	: boost::equality_comparable<List<Settings_, Customization_>
 	, boost::less_than_comparable<List<Settings_, Customization_>

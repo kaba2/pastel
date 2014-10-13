@@ -46,10 +46,12 @@ namespace Pastel
 	{
 	public:
 		//! The start/final-labeling of the state.
-		using StateLabel = Automaton_::StateLabel<Symbol, StateData, TransitionData>;
+		using StateLabel = 
+			Automaton_::StateLabel<Symbol, StateData, TransitionData>;
 
 		//! The symbol-labeling of the transition.
-		using TransitionLabel = Automaton_::TransitionLabel<Symbol, StateData, TransitionData>;
+		using TransitionLabel = 
+			Automaton_::TransitionLabel<Symbol, StateData, TransitionData>;
 
 		//! The underlying graph.
 		using Graph_Settings = IncidenceGraph_Settings<
@@ -72,7 +74,8 @@ namespace Pastel
 
 		//! The user-data for the states.
 		struct State_Tag;
-		using StateData_Class = Class<StateData, State_Tag>;
+		using StateData_Class = 
+			typename As_Class<StateData, State_Tag>::type;
 ;
 		//! The transitions.
 		/*!
@@ -86,7 +89,8 @@ namespace Pastel
 
 		//! The user-data for the transitions.
 		struct TransitionData_Tag;
-		using TransitionData_Class = Class<TransitionData, TransitionData_Tag>;
+		using TransitionData_Class = 
+			typename As_Class<TransitionData, TransitionData_Tag>::type;
 
 		typedef typename Graph_Fwd::Incidence_Iterator
 			Incidence_Iterator;

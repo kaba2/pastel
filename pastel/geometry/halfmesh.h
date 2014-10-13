@@ -12,6 +12,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/class.h"
+#include "pastel/sys/list.h"
 
 #include <boost/operators.hpp>
 
@@ -24,7 +25,7 @@ namespace Pastel
 	//! Half-edge structure
 	template <
 		typename Settings, 
-		template <typename> class Customization_ = Empty_HalfMesh_Customization>
+		template <typename> class Customization_>
 	class HalfMesh
 		: public Customization_<Settings>
 	{
