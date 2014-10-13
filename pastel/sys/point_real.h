@@ -17,19 +17,27 @@ namespace Pastel
 		// This is an SFINAE-friendly implementation;
 		// this is why this is so complex.
 
+		// Alias templates would give errors
+		// under Visual Studio 2014 CTP4.
 		template <typename Point>
-		using Apply = 
-			typename std::decay<
-				decltype(axis(std::declval<Point>(), 0))
-			>::type;
+		struct Apply
+		{
+			using type = 
+				typename std::decay<
+					decltype(axis(std::declval<Point>(), 0))
+				>::type;
+		};
 
 		template <typename Type>
-		using Void = 
-			typename std::conditional<
-				true,
-				void,
-				Type
-			>::type;
+		struct Void
+		{
+			using type = 
+				typename std::conditional<
+					true,
+					void,
+					typename Apply<Type>::type
+				>::type;
+		};
 
 		template <
 			typename,
@@ -43,14 +51,14 @@ namespace Pastel
 			typename Common,
 			typename Point, 
 			typename... PointSet>
-		struct Real<Void<Apply<Point>>, Common, Point, PointSet...>
+		struct Real<typename Void<Point>::type, Common, Point, PointSet...>
 		{
 			using type = 
 				typename Real<
 					void,
 					typename std::common_type<
 						Common, 
-						Apply<Point>
+						typename Apply<Point>::type
 					>::type,
 					PointSet...
 				>::type;
@@ -59,12 +67,12 @@ namespace Pastel
 		template <
 			typename Point, 
 			typename... PointSet>
-		struct Real<Void<Apply<Point>>, void, Point, PointSet...>
+		struct Real<typename Void<Point>::type, void, Point, PointSet...>
 		{
 			using type = 
 				typename Real<
 					void,
-					Apply<Point>,
+					typename Apply<Point>::type,
 					PointSet...
 				>::type;
 		};
