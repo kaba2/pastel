@@ -31,8 +31,8 @@ set (TbbLibraryDirectory ../tbb42/lib)
 
 # The directory of the Matlab header files.
 # The includes are of the form 'mex.h'.
-#set (MatlabIncludeDirectory "C:/Program Files/MATLAB/R2013a/extern/include")
-set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
+set (MatlabIncludeDirectory "C:/Program Files/MATLAB/R2013a/extern/include")
+#set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
 
 # Note: To successfully _compile_ Pastel's Matlab-libraries, 
 # you only need the header files for Matlab. 
