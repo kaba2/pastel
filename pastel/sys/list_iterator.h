@@ -254,7 +254,7 @@ namespace Pastel
 
 		private:
 			template <typename, template <typename> class>
-			friend class List;
+			friend class Pastel::List;
 
 			friend class boost::iterator_core_access;
 
