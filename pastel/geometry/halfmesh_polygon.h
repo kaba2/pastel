@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_HALFMESH_POLYGON_H
 #define PASTELGEOMETRY_HALFMESH_POLYGON_H
 
-#include "pastel/geometry/halfmesh.h"
+#include "pastel/geometry/halfmesh_fwd.h"
 
 namespace Pastel
 {

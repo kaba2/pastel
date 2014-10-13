@@ -21,10 +21,6 @@
 namespace Pastel
 {
 
-	template <typename Settings>
-	using Empty_HalfMesh_Customization =
-		HalfMesh_Concepts::Customization<Settings>;
-
 	//! Half-edge structure
 	template <
 		typename Settings, 
