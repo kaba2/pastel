@@ -79,9 +79,43 @@ namespace Pastel
 		using Polygon_ConstIterator = typename PolygonSet::ConstIterator;
 
 		using InsertEdge_Return =
-			typename std::conditional<MultipleEdges,
-			Edge_Iterator,
-			std::pair<Edge_Iterator, bool>>::type;
+			typename std::conditional<
+				MultipleEdges,
+				Edge_Iterator,
+				std::pair<Edge_Iterator, bool>
+			>::type;
+	};
+
+}
+
+namespace Pastel
+{
+
+	template <typename Settings>
+	class Empty_HalfMesh_Customization
+	{
+	protected:
+		using Fwd = HalfMesh_Fwd<Settings>;
+		PASTEL_FWD(Vertex_Iterator);
+		PASTEL_FWD(Half_Iterator);
+		PASTEL_FWD(Edge_Iterator);
+		PASTEL_FWD(Polygon_Iterator);
+
+		Empty_HalfMesh_Customization() {}
+		void swap(Empty_HalfMesh_Customization& that) {}
+
+		void onClear() {}
+		void onInsertVertex(const Vertex_Iterator& vertex) {}
+		void onRemoveVertex(const Vertex_Iterator& vertex) {}
+		void onInsertEdge(const Edge_Iterator& edge) {}
+		void onRemoveEdge(const Edge_Iterator& edge) {}
+		void onInsertPolygon(const Polygon_Iterator& polygon) {}
+		void onRemovePolygon(const Polygon_Iterator& polygon) {}
+
+	private:
+		Empty_HalfMesh_Customization(const Empty_HalfMesh_Customization& that) = delete;
+		Empty_HalfMesh_Customization(Empty_HalfMesh_Customization&& that) = delete;
+		Empty_HalfMesh_Customization& operator=(Empty_HalfMesh_Customization) = delete;
 	};
 
 }

@@ -16,10 +16,6 @@
 namespace Pastel
 {
 
-	template <typename Settings>
-	using Empty_List_Customization = 
-		List_Concepts::Customization<Settings>;
-
 	//! Doubly-linked list
 	/*!
 	Space complexity: O(size())

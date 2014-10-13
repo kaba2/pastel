@@ -101,6 +101,37 @@ namespace Pastel
 
 namespace Pastel
 {
+
+	template <typename Settings>
+	class Empty_List_Customization
+	{
+	protected:
+		using Fwd = List_Fwd<Settings>;
+
+		PASTEL_FWD(Iterator);
+		PASTEL_FWD(ConstIterator);
+
+		Empty_List_Customization() {}
+
+		void onConstruction() {};
+		void swap(Empty_List_Customization& that) {}
+
+		void onClear() {}
+		void onInsert(const Iterator& element) {}
+		void onErase(const Iterator& element) {}
+		void onSpliceFrom(const Iterator& element) {}
+		void onSplice(const Iterator& element) {}
+
+	private:
+		Empty_List_Customization(const Empty_List_Customization& that) = delete;
+		Empty_List_Customization(Empty_List_Customization&& that) = delete;
+		Empty_List_Customization& operator=(Empty_List_Customization) = delete;
+	};
+
+}
+
+namespace Pastel
+{
 	
 	template <
 		typename Data_ = void, 
