@@ -38,12 +38,12 @@ namespace Pastel
 			Node* node = parent->child(right);
 			if (node->red())
 			{ 
-				//      |B               |B   
-				//      p                p    
-				//    /   \R    ==>	   /   \B  
-				//   s     n          s     n
-				//  / \  B/ \B       / \  B/ \B
-				// 1   2 3   4      1   2 3   4
+				//      |B               |B            .
+				//      p                p             .
+				//    /   \R    ==>	   /   \B          .
+				//   s     n          s     n          .
+				//  / \  B/ \B       / \  B/ \B        .
+				// 1   2 3   4      1   2 3   4        .
 
 				node->setBlack();
 				update(node);
@@ -56,14 +56,14 @@ namespace Pastel
 			Node* sibling = parent->child(!right);
 			if (sibling->red())
 			{
-				//        |B             |B  
-				//        p              s
-				//     R/   \B   ==>   B/ \R 
-				//     s     n         1   p
-				//   B/ \B  / \          B/ \B
-				//   1   2 3   4         2   n
-				//                          / \  
-				//                         3   4
+				//        |B             |B          .
+				//        p              s           .
+				//     R/   \B   ==>   B/ \R         .
+				//     s     n         1   p         .
+				//   B/ \B  / \          B/ \B       .
+				//   1   2 3   4         2   n       .
+				//                          / \      .
+				//                         3   4     .
 
 				rotate(parent, right);
 				sibling->setBlack();
@@ -88,12 +88,12 @@ namespace Pastel
 			bool nextRight = (parent == nextParent->right());
 			if (sibling->isSentinel())
 			{
-				//   |B   
-				//   p    
-				//    \B  
-				//     n
-				//    / \
-				//   1   2
+				//   |B        .
+				//   p         .
+				//    \B       .
+				//     n       .
+				//    / \      .
+				//   1   2     .
 
 				update(parent);
 
@@ -109,23 +109,23 @@ namespace Pastel
 			Node* a = sibling->child(right);
 			if (a->red())
 			{
-				//       |                 |        
-				//       p      l(s)       p
-				//    B/   \B   ==>     R/   \B 
-				//    s     n           a     n
-				//   / \R  / \        B/ \B  / \
-				//  1   a 4   5       s   3	4   5
-				//    B/ \B          / \B    
-				//    2   3         1   2 
-				//
-				//          |R                 |R(p)
-				// r(p)     a                  a 
-				// ==>   B/   \    ==>      B/   \B
-				//       s     p            s     p
-				//      / \B B/ \B         / \B B/ \B
-				//     1   2 3   n        1   2 3   n
-				//              / \                / \
-				//             4   5              4   5
+				//       |                 |               .
+				//       p      l(s)       p               .
+				//    B/   \B   ==>     R/   \B            .
+				//    s     n           a     n            .
+				//   / \R  / \        B/ \B  / \           .
+				//  1   a 4   5       s   3	4   5          .
+				//    B/ \B          / \B                  .
+				//    2   3         1   2                  .
+				//                                         .
+				//          |R                 |R(p)       .
+				// r(p)     a                  a           .
+				// ==>   B/   \    ==>      B/   \B        .
+				//       s     p            s     p        .
+				//      / \B B/ \B         / \B B/ \B      .
+				//     1   2 3   n        1   2 3   n      .
+				//              / \                / \     .
+				//             4   5              4   5    .
 
 				rotate(sibling, !right);
 				rotate(parent, right);
@@ -146,14 +146,14 @@ namespace Pastel
 
 			if (parent->red())
 			{
-				//      |R             |B       
-				//      p              s
-				//   B/   \B   ==>   /   \R
-				//   s     n        1     p 
-				//  / \B  / \          B/   \B
-				// 1   a 4   5         a     n
-				//    / \             / \   / \
-				//   2   3           2   3 4   5
+				//      |R             |B          .
+				//      p              s           .
+				//   B/   \B   ==>   /   \R        .
+				//   s     n        1     p        .
+				//  / \B  / \          B/   \B     .
+				// 1   a 4   5         a     n     .
+				//    / \             / \   / \    .
+				//   2   3           2   3 4   5   .
 
 				rotate(parent, right);
 
@@ -170,14 +170,14 @@ namespace Pastel
 			Node* b = sibling->child(!right);
 			if (b->black())
 			{
-				//          |B                     |B      
-				//          p                      p      
-				//       B/   \B     ==>        R/   \B   
-				//      s       n              s       n  
-				//   B/   \B   / \          B/   \B   / \ 
-				//   b     a  5   6         b     a  5   6
-				//  / \   / \              / \   / \      
-				// 1   2 3   4            1   2 3   4     
+				//          |B                     |B        . 
+				//          p                      p         .
+				//       B/   \B     ==>        R/   \B      .
+				//      s       n              s       n     .
+				//   B/   \B   / \          B/   \B   / \    .
+				//   b     a  5   6         b     a  5   6   .
+				//  / \   / \              / \   / \         .
+				// 1   2 3   4            1   2 3   4        .
 
 				sibling->setRed();
 
@@ -201,14 +201,14 @@ namespace Pastel
 
 			// From now on 'b' is red.
 
-			//          |B                 |B      
-			//          p                  s      
-			//       B/   \B     ==>    B/   \B   
-			//      s       n          b       p  
-			//   R/   \B   / \        / \   B/   \B
-			//   b     a  5   6      1   2  a     n
-			//  / \   / \                  / \   / \
-			// 1   2 3   4                3   4 5   6 
+			//          |B                 |B            .
+			//          p                  s             .
+			//       B/   \B     ==>    B/   \B          .
+			//      s       n          b       p         .
+			//   R/   \B   / \        / \   B/   \B      .
+			//   b     a  5   6      1   2  a     n      .
+			//  / \   / \                  / \   / \     .
+			// 1   2 3   4                3   4 5   6    .
 
 			rotate(parent, right);
 			b->setBlack();

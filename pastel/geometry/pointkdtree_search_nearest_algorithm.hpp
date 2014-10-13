@@ -2,8 +2,8 @@
 #define PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_ALGORITHM_HPP
 
 #include "pastel/geometry/pointkdtree_search_nearest_algorithm.h"
-#include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/geometry/distance_point_point.h"
+#include "pastel/geometry/distance_alignedbox_point.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector_locator.h"

@@ -21,8 +21,11 @@ namespace Pastel
 	// point-type Point by specializing Default_Locator 
 	// for const Point&. The specialization must be done
 	// in the Pastel namespace. This is similar to how
-	// extending std::hash works.
-	template <typename Point>
+	// extending std::hash works. The Constraint parameter
+	// can be used for SFINAE constraints.
+	template <
+		typename Point,
+		typename Constraint = void>
 	class Default_Locator;
 
 }

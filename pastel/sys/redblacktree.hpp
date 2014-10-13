@@ -196,12 +196,12 @@ namespace Pastel
 	{
 		ASSERT(!node->isSentinel());
 
-		//     |            | 
-		//     n            l
-		//    / \   ==>    / \  
-		//   l                n
-		//  / \              / \
-		//     a            a    
+		//     |            |        .
+		//     n            l        .
+		//    / \   ==>    / \       .
+		//   l                n      .
+		//  / \              / \     .
+		//     a            a        .
 
 		Node* parent = node->parent();
 		Node* left = node->child(!rotateRight);

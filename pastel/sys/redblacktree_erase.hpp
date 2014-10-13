@@ -117,14 +117,14 @@ namespace Pastel
 		minNode()->left() = endNode();
 		maxNode()->right() = endNode();
 
-		//    |            | 
-		//    p            p
-		//     \      ==>   \ 
-		//      d            c
-		//       \          / \
-		//        c        1   2
-		//       / \
-		//      1   2
+		//    |            |          .
+		//    p            p          .
+		//     \      ==>   \         .
+		//      d            c        .
+		//       \          / \       .
+		//        c        1   2      .
+		//       / \                  .
+		//      1   2                 .
 
 		if (twoChildren)
 		{
@@ -145,10 +145,10 @@ namespace Pastel
 
 			if (child->red())
 			{
-				//   |R          |B
-				//   c           c
-				//  / \   ==>   / \    
-				// 1   2       1   2
+				//   |R          |B     .
+				//   c           c      .
+				//  / \   ==>   / \     .
+				// 1   2       1   2    .
 
 				// The root node must be black.
 				child->setBlack();
@@ -176,12 +176,12 @@ namespace Pastel
 
 		if (movedWasRed)
 		{
-			//    |B      
-			//    p       
-			//   / \B     
-			//  1   c     
-			//     / \ 
-			//    2   3
+			//    |B       .
+			//    p        .
+			//   / \B      .
+			//  1   c      .
+			//     / \     .
+			//    2   3    .
 
 			// No invariants are broken by detaching
 			// a red node with a single child. The
@@ -201,12 +201,12 @@ namespace Pastel
 
 		if (parent->red() && child->red())
 		{
-			//    |R             |R
-			//    p              p
-			//  B/ \R     ==>  B/ \B
-			//  1   c          1   c
-			//    B/ \B          B/ \B
-			//    2   3          2   3
+			//    |R             |R        .
+			//    p              p         .
+			//  B/ \R     ==>  B/ \B       .
+			//  1   c          1   c       .
+			//    B/ \B          B/ \B     .
+			//    2   3          2   3     .
 
 			// If 'parent' and 'child' are both red, then there 
 			// is in addition a red-red violation. We correct 
