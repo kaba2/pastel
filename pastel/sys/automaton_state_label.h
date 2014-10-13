@@ -70,7 +70,7 @@ namespace Pastel
 			template <
 				typename, typename,
 				typename, typename>
-				friend class Automaton;
+				friend class Pastel::Automaton;
 
 			StateLabel(
 				StateData_Class stateData)

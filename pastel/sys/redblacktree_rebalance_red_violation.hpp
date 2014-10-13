@@ -28,12 +28,12 @@ namespace Pastel
 			parent = node->parent();
 			if (parent->black())
 			{
-				//     |B 
-				//     p  
-				//   R/ \ 
-				//   n   3
-				// B/ \B  
-				// 1   2  
+				//     |B     .
+				//     p      .
+				//   R/ \     .
+				//   n   3    .
+				// B/ \B      .
+				// 1   2      .
 
 				// We have fixed all the violations. 
 				break;
@@ -48,12 +48,12 @@ namespace Pastel
 			Node* grandParent = parent->parent();
 			if (grandParent->isSentinel())
 			{
-				//     R             B
-				//     p		     p
-				//   R/ \B	==>	   R/ \B
-				//   n   3		   n   3
-				// B/ \B		 B/ \B
-				// 1   2		 1   2
+				//     R             B      .
+				//     p		     p      .
+				//   R/ \B	==>	   R/ \B    .
+				//   n   3		   n   3    .
+				// B/ \B		 B/ \B      .
+				// 1   2		 1   2      .
 
 				parent->setBlack();
 				++blackHeight_;
@@ -77,14 +77,14 @@ namespace Pastel
 				bool nodeIsRight = (node == parent->right());
 				if (nodeIsRight != parentIsRight)
 				{
-					//        |B               |B
-					//        g                g
-					//      R/ \B            R/ \B
-					//     p     u    ==>   n     u
-					//   B/ \R  / \       R/ \B  / \ 
-					//   1   n 4   5      p   3 4   5
-					//     B/ \B        B/ \B         
-					//     2   3        1   2
+					//        |B               |B         .
+					//        g                g          .
+					//      R/ \B            R/ \B        .
+					//     p     u    ==>   n     u       .
+					//   B/ \R  / \       R/ \B  / \      .
+					//   1   n 4   5      p   3 4   5     .
+					//     B/ \B        B/ \B             .
+					//     2   3        1   2             .
 
 					// If the grandparent-parent-node forms
 					// a turn, then we reduce it to a chain.
@@ -102,14 +102,14 @@ namespace Pastel
 					std::swap(node, parent);
 				}
 
-				//        |B               |B
-				//        g                p
-				//      R/ \B            R/ \R
-				//     p     u    ==>   n     g
-				//   R/ \B  / \       B/ \B B/ \B
-				//   n   3 4   5      1   2 3   u
-				// B/ \B                       / \
-				// 1   2                      4   5
+				//        |B               |B          .
+				//        g                p           .
+				//      R/ \B            R/ \R         .
+				//     p     u    ==>   n     g        .
+				//   R/ \B  / \       B/ \B B/ \B      .
+				//   n   3 4   5      1   2 3   u      .
+				// B/ \B                       / \     .
+				// 1   2                      4   5    .
 
 				// The 'node' is the left child of the
 				// 'parent'. In this case we do as above.
@@ -127,14 +127,14 @@ namespace Pastel
 			// From now on, both the parent and the uncle
 			// must be red.
 
-			//        |B               |R
-			//        g                g
-			//      R/ \R            B/ \B
-			//     p     u    ==>   p     u
-			//   R/ \B B/ \B      R/ \B B/ \B
-			//   n   3 4   5      n   3 4   5
-			// B/ \B            B/ \B
-			// 1   2            1   2
+			//        |B               |R        .
+			//        g                g         .
+			//      R/ \R            B/ \B       .
+			//     p     u    ==>   p     u      .
+			//   R/ \B B/ \B      R/ \B B/ \B    .
+			//   n   3 4   5      n   3 4   5    .
+			// B/ \B            B/ \B            .
+			// 1   2            1   2            .
 
 			// If the parent and the uncle are red,
 			// then the only violation is that 'node'

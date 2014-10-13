@@ -21,13 +21,13 @@ namespace Pastel
 	//! Combines an existing 32-bit hash with the hash of 'that'.
 	template <
 		typename Integer,
-		EnableIfC<sizeof(Integer) == sizeof(uint32), void*> = 0>
+		EnableIfC<sizeof(Integer) == sizeof(uint32)> = 0>
 	Integer combineHash(Integer left, Integer right);
 
 	//! Combines an existing 64-bit hash with the hash of 'that'.
 	template <
 		typename Integer,
-		EnableIfC<sizeof(Integer) == sizeof(uint64), void*> = 0>
+		EnableIfC<sizeof(Integer) == sizeof(uint64)> = 0>
 	Integer combineHash(Integer left, Integer right);
 
 	//! Sequentially combines the hashes of the input values.

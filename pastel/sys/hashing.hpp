@@ -16,7 +16,7 @@ namespace Pastel
 
 	template <
 		typename Integer,
-		EnableIfC<sizeof(Integer) == sizeof(uint32), void*>>
+		EnableIfC<sizeof(Integer) == sizeof(uint32)>>
 	Integer combineHash(Integer left, Integer right)
 	{
 		// This code is from the Boost library.
@@ -35,7 +35,7 @@ namespace Pastel
 
 	template <
 		typename Integer,
-		EnableIfC<sizeof(Integer) == sizeof(uint64), void*>>
+		EnableIfC<sizeof(Integer) == sizeof(uint64)>>
 	Integer combineHash(Integer left, Integer right)
 	{ 
 		// This is 2^64 / [(1 + sqrt(5)) / 2].

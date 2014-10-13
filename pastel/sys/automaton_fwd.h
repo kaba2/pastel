@@ -7,6 +7,7 @@
 #include "pastel/sys/optional.h"
 #include "pastel/sys/second_iterator.h"
 #include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/hashing.h"
 
 #include <unordered_map>
 

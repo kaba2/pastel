@@ -45,8 +45,8 @@ namespace Pastel
 		}
 	};
 
-	template <typename Real, integer N>
-	class Default_Locator<const std::array<Real, N>&>
+	template <typename Real, std::size_t N>
+	class Default_Locator<const std::array<Real, N>&, void>
 	{
 	public:
 		Array_Locator<Real, N> operator()(
@@ -56,7 +56,7 @@ namespace Pastel
 		}
 	};
 
-	template <typename Real_, integer N>
+	template <typename Real_, std::size_t N>
 	auto arrayPoint(const std::array<Real_, N>& point)
 		-> decltype(location(point, Array_Locator<Real_, N>()))
 	{

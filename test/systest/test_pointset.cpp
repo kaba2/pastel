@@ -65,7 +65,7 @@ namespace
 				TEST_ENSURE(pointSetEmpty(pointInput));
 			}
 
-			Point a = { 1, 2 };
+			Point a = {{1, 2}};
 			pointSet.emplace_back(a);
 
 			{

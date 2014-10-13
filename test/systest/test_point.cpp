@@ -72,7 +72,7 @@ namespace
 
 		void testAxis()
 		{
-			std::array<int, 2> x = { 1, 2 };
+			std::array<int, 2> x = {{1, 2}};
 			
 			TEST_ENSURE_OP(axis(x, 0), ==, x[0]);
 			TEST_ENSURE_OP(axis(x, 1), ==, x[1]);

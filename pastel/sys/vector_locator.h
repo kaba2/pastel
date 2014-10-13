@@ -44,7 +44,7 @@ namespace Pastel
 	};
 
 	template <typename Real, integer N>
-	class Default_Locator<const Vector<Real, N>&>
+	class Default_Locator<const Vector<Real, N>&, void>
 	{
 	public:
 		Vector_Locator<Real, N> operator()(
