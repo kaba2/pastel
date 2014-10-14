@@ -9,6 +9,9 @@ cmake_policy(SET CMP0015 NEW)
 
 project (Pastel)
 
+# Find out whether the generator is 32-bit or 64-bit.
+math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
+
 # Paths
 # -----
 
@@ -16,23 +19,24 @@ project (Pastel)
 # build environment. If a library is not used, the path
 # is ignored.
 
-# The directory of the Boost library's source code.
-# The includes are of the form 'boost/static_assert.hpp'.
-set (BoostIncludeDirectory ../boost_1_56_0)
+# The directory of Boost.
+set (BoostDirectory "../boost_1_56_0")
 
-# The directory of the Threading Building Blocks library's 
-# source code. The includes are of the form 'tbb/parallel_for.h'.
-set (TbbIncludeDirectory ../tbb42/include)
+# The directory of Threading Building Blocks. 
+set (TbbDirectory "../tbb42")
 
-# The directory of the Threading Building Blocks library's 
-# dynamic libraries.
-#set (TbbLibraryDirectory ../tbb42/lib/libc++)
-set (TbbLibraryDirectory ../tbb42/lib)
-
-# The directory of the Matlab header files.
-# The includes are of the form 'mex.h'.
-set (MatlabIncludeDirectory "C:/Program Files/MATLAB/R2013a/extern/include")
-#set (MatlabIncludeDirectory /Applications/MATLAB_R2013a.app/extern/include)
+# The directory of Matlab.
+if (WIN32)
+	if (${GENERATOR_BITS} EQUAL 32)
+		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R2013b")
+	elseif()
+		set (MatlabDirectory "C:/Program Files/MATLAB/R2013b")
+	endif()
+elseif(APPLE)
+	set (MatlabDirectory "/Applications/MATLAB_R2013a.app")
+elseif(UNIX)
+	set (MatlabDirectory "/usr/local/matlab/r2013a")
+endif()
 
 # Note: To successfully _compile_ Pastel's Matlab-libraries, 
 # you only need the header files for Matlab. 
@@ -44,6 +48,26 @@ set (MatlabIncludeDirectory "C:/Program Files/MATLAB/R2013a/extern/include")
 
 # No need to give a library path for Matlab:
 # Mex files are built from within Matlab.
+
+# Compute some additional directories.
+
+set (BoostIncludeDirectory ${BoostDirectory})
+
+set (TbbIncludeDirectory ${TbbDirectory}/include)
+
+if (WIN32)
+	if (${GENERATOR_BITS} EQUAL 32)
+		set (TbbLibraryDirectory ${TbbDirectory}/lib/ia32/vc11)
+	else()
+		set (TbbLibraryDirectory ${TbbDirectory}/lib/intel64/vc11)
+	endif()
+elseif (APPLE)
+	set (TbbLibraryDirectory ${TbbDirectory}/lib/libc++)
+elseif(UNIX)
+	set (TbbLibraryDirectory ${TbbDirectory}/lib)
+endif()
+
+set (MatlabIncludeDirectory ${MatlabDirectory}/extern/include)
 
 # For Pastel, the includes are of the form 'pastel/sys/mytypes.h'.
 include_directories (.)
@@ -108,9 +132,6 @@ if (NOT CMAKE_BUILD_TYPE AND
 endif()
 
 string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
-
-# Find out whether the generator is 32-bit or 64-bit.
-math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 
 # The directory to place the static libraries.
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY 

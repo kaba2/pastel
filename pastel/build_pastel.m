@@ -1,6 +1,7 @@
 % BUILD_PASTEL
 % Builds Pastel Matlab mex-libraries.
 %
+% build_pastel()
 % build_pastel('key', value, ...)
 %
 % Optional arguments
@@ -17,7 +18,6 @@
 % MODE ('mode') is a string which specifies the configuration to use for 
 % building the Pastel sub-library. It must be one of 
 %     debug
-%     develop
 %     release
 %     relwithdebinfo
 % Default: release
@@ -40,15 +40,15 @@ if maxArraySize >= 2^32
     bits = 64;
 end
 
-% Change this to the Boost include path.
-boostIncludePath = '../../boost_1_54_0';
+% Path to Boost.
+boostPath = '../../boost_1_56_0';
 
-% Change this to the Threading Building Blocks 
-% path (you may also need to change the
-% sub-directories below).
+% Path to Threading Building Blocks.
 tbbPath = '../../tbb42';
 
 % Compute the actual paths.
+
+boostIncludePath = boostPath;
 
 tbbIncludePath = [tbbPath, '/include'];
 tbbLibraryPath = [tbbPath, '/lib'];
@@ -60,12 +60,12 @@ if ispc()
     else
         tbbLibraryPath = [tbbLibraryPath, '/ia32/vc11'];
     end
-else
-    % Mac Os X, Linux, and others.
-    % This is for Clang:
+elseif ismac()
+    % Mac Os X
     tbbLibraryPath = [tbbLibraryPath, '/libc++'];
-    % This is for gcc:
-    %tbbLibraryPath = [tbbLibraryPath, ''];
+else
+    % Linux and others
+    tbbLibraryPath = [tbbLibraryPath, ''];
 end
 
 % Optional input arguments
@@ -79,6 +79,11 @@ eval(pastelsys.process_options(...
 modeSet = {'debug', 'release', 'relwithdebinfo'};
 if ~ismember(mode, modeSet)
     error(['MODE must be one of debug, release, or relwithdebinfo.']);
+end
+
+verboseSet = {'on', 'off'};
+if ~ismember(verbose, verboseSet)
+    error(['VERBOSE must be one on or off.']);
 end
 
 if iscell(libraryName)
@@ -111,7 +116,10 @@ disp(['Building a mex file for ', ...
 disp(' ');
 
 pastelIncludePath = '..';
-pastelLibraryPath = ['../lib/', num2str(bits), '/', mode];
+pastelLibraryPath = [...
+    '../lib', ...
+    '/', num2str(bits), ...
+    '/', mode];
 
 tbbName = 'tbb';
 if strcmp(mode, 'debug')
