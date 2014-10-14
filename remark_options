@@ -14,6 +14,7 @@ index.htm
 -x release/*
 -x lib/*
 -x bin/*
+-x build/*
 -x *CMake*
 -x .hg*
 -x .DS_Store
