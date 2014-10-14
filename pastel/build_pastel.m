@@ -32,16 +32,41 @@
 
 function build_pastel(varargin)
 
+% Determine the bitness of the running Matlab version
+% (not of the operating system or the computer).
+[ignore, maxArraySize] = computer;
+bits = 32;
+if maxArraySize >= 2^32
+    bits = 64;
+end
+
 % Change this to the Boost include path.
 boostIncludePath = '../../boost_1_54_0';
 
 % Change this to the Threading Building Blocks 
-% include path.
-tbbIncludePath = '../../tbb42/include';
+% path (you may also need to change the
+% sub-directories below).
+tbbPath = '../../tbb42';
 
-% Change this to the Threading Building Blocks 
-% library path.
-tbbLibraryPath = '../../tbb42/lib/intel64/vc11';
+% Compute the actual paths.
+
+tbbIncludePath = [tbbPath, '/include'];
+tbbLibraryPath = [tbbPath, '/lib'];
+
+if ispc()
+    % Windows
+    if bits == 64
+        tbbLibraryPath = [tbbLibraryPath, '/intel64/vc11'];
+    else
+        tbbLibraryPath = [tbbLibraryPath, '/ia32/vc11'];
+    end
+else
+    % Mac Os X, Linux, and others.
+    % This is for Clang:
+    tbbLibraryPath = [tbbLibraryPath, '/libc++'];
+    % This is for gcc:
+    %tbbLibraryPath = [tbbLibraryPath, ''];
+end
 
 % Optional input arguments
 libraryName = {'sys', 'math', 'geometry'};
@@ -78,12 +103,15 @@ if ~ismember(libraryName, libraryNameSet)
 end
 
 disp(' ');
-disp(['Building a mex file for pastel', libraryName, 'matlab in ', ...
+disp(['Building a mex file for ', ...
+    'pastel', libraryName, 'matlab', ...
+    ' in ', ...
+    num2str(bits), '-bit ', ...
     mode, ' mode.']);
 disp(' ');
 
 pastelIncludePath = '..';
-pastelLibraryPath = ['../lib/', mode];
+pastelLibraryPath = ['../lib/', num2str(bits), '/', mode];
 
 tbbName = 'tbb';
 if strcmp(mode, 'debug')
