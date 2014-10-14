@@ -1,4 +1,5 @@
 // Description: Locator of a point
+// DocumentationOf: point_concept.h
 
 #ifndef PASTELSYS_POINT_LOCATOR_H
 #define PASTELSYS_POINT_LOCATOR_H

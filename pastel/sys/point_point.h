@@ -1,4 +1,5 @@
 // Description: Point-object of a point
+// DocumentationOf: point_concept.h
 
 #ifndef PASTELSYS_POINT_POINT_H
 #define PASTELSYS_POINT_POINT_H

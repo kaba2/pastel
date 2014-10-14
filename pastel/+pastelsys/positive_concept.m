@@ -1,3 +1,5 @@
+% Description: Positive concept
+
 function messageSet = positive_concept(data)
 
 messageSet =  {};

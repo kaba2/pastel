@@ -1,4 +1,5 @@
 // Description: Dimension of a point
+// DocumentationOf: point_concept.h
 
 #ifndef PASTELSYS_POINT_DIMENSION_H
 #define PASTELSYS_POINT_DIMENSION_H

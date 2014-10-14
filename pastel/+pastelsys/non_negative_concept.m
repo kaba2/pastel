@@ -1,3 +1,5 @@
+% Description: Non-negative concept
+
 function messageSet = non_negative_concept(data)
 
 messageSet =  {};

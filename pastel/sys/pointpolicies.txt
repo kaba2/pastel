@@ -1,7 +1,7 @@
 Point abstraction
 =================
 
-[[Parent]]: maths.txt
+[[Parent]]: undocumented.txt
 
 The `PointPolicy` concept abstracts the representation of points 
 in ''RR^n'' by an arbitrary object. This allows to create generic 

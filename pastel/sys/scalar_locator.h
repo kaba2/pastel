@@ -1,4 +1,5 @@
 // Description: Scalar locator
+// Documentation: locators.txt
 
 #ifndef PASTELSYS_SCALAR_LOCATOR_H
 #define PASTELSYS_SCALAR_LOCATOR_H

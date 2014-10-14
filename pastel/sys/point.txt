@@ -1,0 +1,8 @@
+Point
+=====
+
+[[Parent]]: maths.txt
+
+A _point_ is a concept which pairs an object with a [locator][Locator]. An object is a point if its type has been given a default locator, or it has been explicitly been paired with a locator using a Location.
+
+[Locator]: [[Ref]]: locators.txt
