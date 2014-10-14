@@ -1,9 +1,12 @@
 // Description: Point-set concept
+// Documentation: pointset.txt
 
 #ifndef PASTELSYS_POINTSET_CONCEPT_H
 #define PASTELSYS_POINTSET_CONCEPT_H
 
 #include "pastel/sys/input_concept.h"
+#include "pastel/sys/point_concept.h"
+#include "pastel/sys/location_set.h"
 
 namespace Pastel
 {

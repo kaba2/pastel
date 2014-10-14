@@ -1,3 +1,5 @@
+% Description: String concept
+
 function messageSet = string_concept(data)
 
 messageSet = {};

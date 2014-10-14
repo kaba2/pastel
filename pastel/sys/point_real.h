@@ -1,4 +1,5 @@
 // Description: Coordinate-type of a point
+// DocumentationOf: point_concept.h
 
 #ifndef PASTELSYS_POINT_REAL_H
 #define PASTELSYS_POINT_REAL_H

@@ -3,7 +3,9 @@ Interval sequences
 
 [[Parent]]: maths.txt
 
-An _interval sequence_ is a finite even-length sequence of a strictly weak ordered set ''X''. Subsequent pairs of this sequence are called _intervals_. Each interval ''(a, b)'' represents the set ''{x in X : a <= x < b}''. The interval sequence represents the union of its intervals. Note that an interval is empty whenever ''b <= a'', but still well-defined. Sometimes it is useful to restrict to non-decreasing interval sequences, so that union, intersection, and difference, of interval sequences, can be computed efficiently.
+An _interval sequence_ is a finite even-length sequence of a [strictly weak ordered set][StrictWeak] ''X''. Subsequent pairs of this sequence are called _intervals_. Each interval ''(a, b)'' represents the set ''{x in X : a <= x < b}''. The interval sequence represents the union of its intervals. Note that an interval is empty whenever ''b <= a'', but still well-defined. Sometimes it is useful to restrict to non-decreasing interval sequences, so that union, intersection, and difference, of interval sequences, can be computed efficiently.
+
+[StrictWeak]: [[Ref]]: strict_weak_order.txt
 
 History
 -------

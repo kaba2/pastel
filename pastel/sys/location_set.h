@@ -1,3 +1,6 @@
+// Description: Pairing of a point-input and a locator
+// Documentation: pointset.txt
+
 #ifndef PASTELSYS_LOCATION_SET_H
 #define PASTELSYS_LOCATION_SET_H
 

@@ -1,0 +1,11 @@
+Point-set
+=========
+
+[[Parent]]: maths.txt
+
+A _point-set_ is a concept which pairs an [input][Input] of elements with a [locator][Locator]. If each element in the input is already a [point][Point], then the input itself is a point-set, and the pairing is implicit. Otherwise the input must be explicitly paired with a locator by wrapping it into a LocationSet, or by specifying a default locator for the elements.
+
+[Input]: [[Ref]]: input.txt
+[Locator]: [[Ref]]: locators.txt
+[Point]: [[Ref]]: point.txt
+

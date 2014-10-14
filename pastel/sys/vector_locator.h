@@ -1,4 +1,5 @@
 // Description: Vector locator
+// Documentation: locators.txt
 
 #ifndef PASTELSYS_VECTOR_LOCATOR_H
 #define PASTELSYS_VECTOR_LOCATOR_H

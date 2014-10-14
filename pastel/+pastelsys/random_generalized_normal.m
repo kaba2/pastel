@@ -26,6 +26,7 @@
 % Default: 1
 
 % Description: Generates samples from a generalized normal distribution.
+% Documentation: random_generalizedgaussian.txt
 
 function X = random_generalized_normal(d, n, varargin)
 

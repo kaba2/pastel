@@ -1,3 +1,6 @@
+// Description: Element of a point-set
+// DocumentationOf: pointset_concept.h
+
 #ifndef PASTELSYS_POINTSET_GET_H
 #define PASTELSYS_POINTSET_GET_H
 

@@ -1,3 +1,5 @@
+% Description: Square matrix concept
+
 function messageSet = square_matrix_concept(data)
 
 messageSet =  {};
