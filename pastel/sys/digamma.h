@@ -9,22 +9,9 @@
 namespace Pastel
 {
 
-	//! Digamma function for integer arguments.
-	/*!
-	Preconditions:
-	n > 0
-
-	digamma(n) = harmonicNumber(n - 1) - constantEulerMascheroni
-	*/
-	real64 digammaReal64(integer n);
-
-	//! [Digamma function]
-	/*!
-	Preconditions :
-	n > 0
-	*/
+	//! Digamma function
 	template <typename Real>
-	Real digamma(integer n);
+	Real digamma(const NoDeduction<Real>& x);
 
 }
 

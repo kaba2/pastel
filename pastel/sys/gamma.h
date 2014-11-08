@@ -11,11 +11,11 @@ namespace Pastel
 
 	//! Returns the gamma function.
 	template <typename Real>
-	Real gamma(NoDeduction<Real> z);
+	Real gamma(const NoDeduction<Real>& x);
 
 	//! Returns the logarithm of the gamma function.
 	template <typename Real>
-	Real lnGamma(NoDeduction<Real> z);
+	Real lnGamma(const NoDeduction<Real>& x);
 
 }
 
