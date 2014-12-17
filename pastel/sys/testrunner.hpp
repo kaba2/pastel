@@ -74,9 +74,10 @@ namespace Pastel
 			}
 			catch(...)
 			{
-				log() << "An unknown exception was thrown while running the test " 
+				log() << "An exception was thrown while running the test " 
 					<< iter->first << "."
 					<< logNewLine;
+				throw;
 			};
 		}
 	}
