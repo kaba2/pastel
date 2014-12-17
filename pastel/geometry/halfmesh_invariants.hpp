@@ -27,6 +27,12 @@ namespace Pastel
 				mesh.vertexEnd();
 			while (vertex != vertexEnd)
 			{
+				if (vertex.empty())
+				{
+					// A vertex always exist.
+					return false;
+				}
+
 				Half_ConstIterator half = vertex->half();
 				if (!half.empty() && half->origin() != vertex)
 				{
@@ -47,6 +53,12 @@ namespace Pastel
 				mesh.edgeEnd();
 			while (edge != edgeEnd)
 			{
+				if (edge.empty())
+				{
+					// An edge always exist.
+					return false;
+				}
+
 				Half_ConstIterator half = edge->half();
 				if (half.empty())
 				{
@@ -74,6 +86,12 @@ namespace Pastel
 
 			while (polygon != polygonEnd)
 			{
+				if (polygon.empty())
+				{
+					// An polygon always exist.
+					return false;
+				}
+
 				Half_ConstIterator half = polygon->half();
 				if (half.empty())
 				{
@@ -101,6 +119,12 @@ namespace Pastel
 
 			while (half != halfEnd)
 			{
+				if (half.empty())
+				{
+					// A half-edge always exist.
+					return false;
+				}
+
 				Half_ConstIterator previous = half->previous();
 				Half_ConstIterator next = half->next();
 				Half_ConstIterator pair = half->pair();

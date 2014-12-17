@@ -1,11 +1,14 @@
-#ifndef PASTELGEOMETRY_HALFMESH_REMOVE_EDGE_HPP
-#define PASTELGEOMETRY_HALFMESH_REMOVE_EDGE_HPP
+// Description: Removes an edge.
+
+#ifndef PASTELGEOMETRY_HALFMESH_MERGE_HPP
+#define PASTELGEOMETRY_HALFMESH_MERGE_HPP
 
 #include "pastel/geometry/halfmesh.h"
 
 namespace Pastel
 {
-	
+
+
 	template <
 		typename Settings, 
 		template <typename> class Customization>
@@ -13,71 +16,26 @@ namespace Pastel
 		const Edge_ConstIterator& edge)
 	-> Edge_Iterator
 	{
-		ENSURE(!edge.empty());
-
-		if (edge.isEnd())
+		if (edge.isEnd() || edge.empty())
 		{
 			return cast(edge);
 		}
 
 		this->onRemoveEdge(cast(edge));
 
-		Half_Iterator fromToHalf = 
+		Half_Iterator fromTo = 
 			cast(edge->half());
-		ASSERT(!fromToHalf.empty());
+		ASSERT(!fromTo.empty());
 		
-		Half_Iterator toFromHalf = 
-			fromToHalf->pair();
+		Edge_Iterator nextEdge = std::next(cast(edge));
 
-		// Remove the neighbouring polygons.
+		// Remove the left polygon.
+		removePolygon(fromTo->left());
 
-		if (!fromToHalf->left().empty())
-		{
-			removePolygon(fromToHalf->left());
-		}
+		// Merge the left polygon to the right polygon.
+		merge(fromTo);
 
-		if (!toFromHalf->left().empty())
-		{
-			removePolygon(toFromHalf->left());
-		}
-
-		// Link the from-side of the edge off the model.
-
-		Vertex_Iterator fromVertex = fromToHalf->origin();
-		Half_Iterator fromIn = fromToHalf->previous();
-		Half_Iterator fromOut = fromToHalf->rotateNext();
-
-		if (fromVertex->half() == fromToHalf)
-		{
-			fromVertex->half_ = 
-				(fromOut == fromToHalf) ?
-				Half_Iterator() : fromOut;
-		}
-
-		fromIn->next_ = fromOut;
-		fromOut->previous_ = fromIn;
-
-		// Link the to-side of the edge off the model.
-
-		Vertex_Iterator toVertex = toFromHalf->origin();
-		Half_Iterator toIn = toFromHalf->previous();
-		Half_Iterator toOut = toFromHalf->rotateNext();
-
-		if (toVertex->half() == toFromHalf)
-		{
-			toVertex->half_ = 
-				(toOut == toFromHalf) ?
-				Half_Iterator() : toOut;
-		}
-
-		toIn->next_ = toOut;
-		toOut->previous_ = toIn;
-
-		// Deallocate data
-		halfSet_.erase(fromToHalf);
-		halfSet_.erase(toFromHalf);
-
-		return edgeSet_.erase(edge);
+		return nextEdge;
 	}
 
 }

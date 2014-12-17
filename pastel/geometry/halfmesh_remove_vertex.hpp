@@ -1,3 +1,5 @@
+// Description: Removes a vertex.
+
 #ifndef PASTELGEOMETRY_HALFMESH_REMOVE_VERTEX_HPP
 #define PASTELGEOMETRY_HALFMESH_REMOVE_VERTEX_HPP
 
@@ -13,9 +15,7 @@ namespace Pastel
 		const Vertex_ConstIterator& vertex)
 	-> Vertex_Iterator
 	{
-		ENSURE(!vertex.empty());
-
-		if (vertex.isSentinel())
+		if (vertex.isSentinel() || vertex.empty())
 		{
 			return cast(vertex);
 		}

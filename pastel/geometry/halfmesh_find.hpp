@@ -1,3 +1,5 @@
+// Description: Searches for certain half-edges.
+
 #ifndef PASTELGEOMETRY_HALFMESH_FIND_HPP
 #define PASTELGEOMETRY_HALFMESH_FIND_HPP
 
