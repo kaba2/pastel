@@ -166,6 +166,10 @@ set (CMAKE_CXX_FLAGS_DEBUG
 	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG"
 )
 
+# Make the special functions in Boost return infinity on overflow
+# (rather than throw an exception).
+add_definitions(-DBOOST_MATH_OVERFLOW_ERROR_POLICY=ignore_error)
+
 # Clang and g++
 # -------------
 
