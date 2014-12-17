@@ -1,3 +1,5 @@
+// Description: Removes a polygon.
+
 #ifndef PASTELGEOMETRY_HALFMESH_REMOVE_POLYGON_HPP
 #define PASTELGEOMETRY_HALFMESH_REMOVE_POLYGON_HPP
 
@@ -13,9 +15,7 @@ namespace Pastel
 		const Polygon_ConstIterator& polygon)
 	-> Polygon_Iterator
 	{
-		ENSURE(!polygon.empty());
-
-		if (polygon.isEnd())
+		if (polygon.isEnd() || polygon.empty())
 		{
 			return cast(polygon);
 		}

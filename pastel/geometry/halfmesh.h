@@ -431,7 +431,33 @@ namespace Pastel
 			return polygonSet_.size();
 		}
 
+		//! Merges polygons across the half-edge.
+		/*!
+		Time complexity: O(n)
+		where
+		n is the number of vertices in half.righ().
+
+		Exception safety: nothrow
+
+		The half, half.pair(), and half.edge() are removed.
+		The half.left() is extended, and half.right() is 
+		removed (unless half.left() == half.right()).
+
+		returns:
+		half.left()
+		*/
+		auto merge(const Half_ConstIterator& half)
+			-> Polygon_Iterator;
+
 	private:
+		//! Detaches a half-edge from its origin.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		void detachHalf(
+			const Half_ConstIterator& half);
+
 		Half_ConstIterator findFreeIncident(
 			const Vertex_ConstIterator& vertex) const;
 		
@@ -527,7 +553,9 @@ namespace Pastel
 }
 
 #include "pastel/geometry/halfmesh.hpp"
+#include "pastel/geometry/halfmesh_detach_half.hpp"
 #include "pastel/geometry/halfmesh_find.hpp"
+#include "pastel/geometry/halfmesh_merge_half.hpp"
 #include "pastel/geometry/halfmesh_remove_edge.hpp"
 #include "pastel/geometry/halfmesh_remove_polygon.hpp"
 #include "pastel/geometry/halfmesh_remove_vertex.hpp"

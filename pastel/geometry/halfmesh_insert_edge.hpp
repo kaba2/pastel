@@ -1,3 +1,5 @@
+// Description: Inserts an edge.
+
 #ifndef PASTELGEOMETRY_HALFMESH_INSERT_EDGE_HPP
 #define PASTELGEOMETRY_HALFMESH_INSERT_EDGE_HPP
 
