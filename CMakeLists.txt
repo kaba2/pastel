@@ -20,10 +20,10 @@ math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 # is ignored.
 
 # The directory of Boost.
-set (BoostDirectory "../boost_1_56_0")
+set (BoostDirectory "../boost_1_57_0")
 
 # The directory of Threading Building Blocks. 
-set (TbbDirectory "../tbb42")
+set (TbbDirectory "../tbb43")
 
 # The directory of Matlab.
 if (WIN32)
@@ -169,8 +169,8 @@ set (CMAKE_CXX_FLAGS_DEBUG
 # Clang and g++
 # -------------
 
-if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") OR 
-	("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")) 
+if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") OR 
+	(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")) 
 	add_definitions (
 		# Enables C++14 compiler support.
 		-std=c++1y 
@@ -207,7 +207,7 @@ endif()
 # g++
 # ---
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") 
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") 
 	# Disable some warnings.
 	add_definitions (
 		# Unused but set variable.
@@ -220,7 +220,7 @@ endif()
 # Clang
 # -----
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang") 
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang") 
 	add_definitions (
 		# Enables C++14 library support.
 		-stdlib=libc++
