@@ -9,7 +9,7 @@
 #include "pastel/geometry/tdtree_entry.h"
 #include "pastel/geometry/tdtree_node.h"
 #include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/bounding_alignedbox.h"
+#include "pastel/geometry/bounding/bounding_alignedbox.h"
 #include "pastel/geometry/longestmedian_splitrule.h"
 
 #include "pastel/sys/fair_stable_partition.h"

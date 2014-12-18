@@ -4,7 +4,7 @@
 #include "pastel/gfx/draw_segment.h"
 #include "pastel/gfx/draw_pixel.h"
 
-#include "pastel/geometry/intersect_alignedbox_segment.h"
+#include "pastel/geometry/intersect/intersect_alignedbox_segment.h"
 
 namespace Pastel
 {

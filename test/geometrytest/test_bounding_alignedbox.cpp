@@ -7,7 +7,7 @@
 #include <pastel/sys/vector.h>
 #include <pastel/sys/inputs.h>
 
-#include <pastel/geometry/bounding_alignedbox.h>
+#include <pastel/geometry/bounding/bounding_alignedbox.h>
 
 using namespace Pastel;
 

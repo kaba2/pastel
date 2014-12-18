@@ -5,7 +5,7 @@
 #include "pastel/gfx/assign_colormixer.h"
 #include "pastel/gfx/color_texture.h"
 
-#include "pastel/geometry/intersect_alignedbox_alignedbox.h"
+#include "pastel/geometry/intersect/intersect_alignedbox_alignedbox.h"
 
 #include "pastel/sys/alignedbox.h"
 #include "pastel/sys/syscommon.h"

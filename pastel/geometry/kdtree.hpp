@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_KDTREE_HPP
 
 #include "pastel/geometry/kdtree.h"
-#include "pastel/geometry/bounding_alignedbox.h"
+#include "pastel/geometry/bounding/bounding_alignedbox.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/list.h"

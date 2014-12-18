@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/contains_alignedbox_alignedbox.h"
+#include "pastel/geometry/contains/contains_alignedbox_alignedbox.h"
 
 #include "pastel/sys/rational.h"
 

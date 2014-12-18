@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_SHAPE_RELATIONS_H
 #define PASTELGEOMETRY_SHAPE_RELATIONS_H
 
-#include "pastel/geometry/contains.h"
-#include "pastel/geometry/overlaps.h"
+#include "pastel/geometry/contains/contains.h"
+#include "pastel/geometry/overlaps/overlaps.h"
 
 #endif

@@ -5,7 +5,7 @@
 
 #include "pastel/sys/biginteger.h"
 #include "pastel/sys/rational.h"
-#include "pastel/geometry/intersect_line_alignedbox.h"
+#include "pastel/geometry/intersect/intersect_line_alignedbox.h"
 
 #include <iostream>
 
