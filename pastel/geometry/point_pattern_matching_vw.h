@@ -5,7 +5,7 @@
 
 #include "pastel/sys/tuple.h"
 
-#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/sphere.h"
 
 #include "pastel/math/conformalaffine2d.h"

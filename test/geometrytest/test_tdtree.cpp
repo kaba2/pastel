@@ -3,9 +3,9 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/tdtree.h"
+#include "pastel/geometry/tdtree/tdtree.h"
 
-#include "pastel/geometry/pointkdtree_search_nearest.h"
+#include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
 #include "pastel/geometry/distance/distance_point_point.h"
 #include "pastel/geometry/search_nearest_bruteforce.h"
 

@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/reconstruct_nearest.h"
 
-#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/overlaps/overlaps_alignedbox_point.h"
 
 #include "pastel/sys/vector_tools.h"

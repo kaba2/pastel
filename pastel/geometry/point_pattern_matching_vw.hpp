@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_POINT_PATTERN_MATCHING_VW_HPP
 
 #include "pastel/geometry/point_pattern_matching_vw.h"
-#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/bounding/bounding_sphere.h"
 
 #include "pastel/math/affine_transformation.h"

@@ -1,9 +1,9 @@
 // Description: PointKdTree Matlab interface
 // Documentation: pointkdtree_matlab.txt
 
-#include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/pointkdtree_search_nearest.h"
-#include "pastel/geometry/pointkdtree_count_nearest.h"
+#include "pastel/geometry/pointkdtree/pointkdtree.h"
+#include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
+#include "pastel/geometry/pointkdtree/pointkdtree_count_nearest.h"
 
 #include "pastel/matlab/pastelmatlab.h"
 
