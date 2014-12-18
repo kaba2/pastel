@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_CLOSEST_LINE_POINT_H
 #define PASTELGEOMETRY_CLOSEST_LINE_POINT_H
 
-#include "pastel/geometry/line.h"
+#include "pastel/geometry/shapes/line.h"
 
 #include "pastel/sys/vector.h"
 

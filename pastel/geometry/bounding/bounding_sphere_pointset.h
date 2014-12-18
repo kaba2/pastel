@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_BOUNDING_SPHERE_POINTSET_H
 #define PASTELGEOMETRY_BOUNDING_SPHERE_POINTSET_H
 
-#include "pastel/geometry/sphere.h"
+#include "pastel/geometry/shapes/sphere.h"
 
 #include "pastel/sys/range.h"
 

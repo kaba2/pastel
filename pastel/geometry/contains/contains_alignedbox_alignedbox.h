@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
 #define PASTELGEOMETRY_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 namespace Pastel
 {

@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include <pastel/geometry/sphere_volume.h>
+#include <pastel/geometry/volume/sphere_volume.h>
 #include <pastel/sys/math_functions.h>
 
 using namespace Pastel;

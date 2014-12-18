@@ -3,9 +3,9 @@
 
 #include "pastel/geometry/overlaps/overlaps_flat_plane.h"
 
-#include "pastel/geometry/flat.h"
-#include "pastel/geometry/plane.h"
-#include "pastel/geometry/line.h"
+#include "pastel/geometry/shapes/flat.h"
+#include "pastel/geometry/shapes/plane.h"
+#include "pastel/geometry/shapes/line.h"
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/constants.h"

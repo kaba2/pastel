@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_OVERLAPS_BOX_POINT_H
 #define PASTELGEOMETRY_OVERLAPS_BOX_POINT_H
 
-#include "pastel/geometry/box.h"
+#include "pastel/geometry/shapes/box.h"
 
 #include "pastel/sys/vector.h"
 

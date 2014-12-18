@@ -6,7 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tuple.h"
 
-#include "pastel/geometry/line.h"
+#include "pastel/geometry/shapes/line.h"
 
 namespace Pastel
 {

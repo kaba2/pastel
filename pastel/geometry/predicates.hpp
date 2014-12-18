@@ -4,7 +4,7 @@
 #include "pastel/geometry/predicates.h"
 
 #include "pastel/sys/vector.h"
-#include "pastel/geometry/line.h"
+#include "pastel/geometry/shapes/line.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 

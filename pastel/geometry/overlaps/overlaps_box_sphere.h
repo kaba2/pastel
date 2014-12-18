@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_OVERLAPBOXSPHERE_H
 #define PASTELGEOMETRY_OVERLAPBOXSPHERE_H
 
-#include "pastel/geometry/box.h"
-#include "pastel/geometry/sphere.h"
+#include "pastel/geometry/shapes/box.h"
+#include "pastel/geometry/shapes/sphere.h"
 
 namespace Pastel
 {

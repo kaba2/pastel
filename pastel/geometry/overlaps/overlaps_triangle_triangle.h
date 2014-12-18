@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_OVERLAPS_TRIANGLE_TRIANGLE_H
 #define PASTELGEOMETRY_OVERLAPS_TRIANGLE_TRIANGLE_H
 
-#include "pastel/geometry/triangle.h"
-#include "pastel/geometry/line.h"
+#include "pastel/geometry/shapes/triangle.h"
+#include "pastel/geometry/shapes/line.h"
 
 namespace Pastel
 {

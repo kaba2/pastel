@@ -7,7 +7,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"
 
-#include "pastel/geometry/triangle.h"
+#include "pastel/geometry/shapes/triangle.h"
 
 namespace Pastel
 {

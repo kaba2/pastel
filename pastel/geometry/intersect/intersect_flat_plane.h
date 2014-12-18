@@ -3,9 +3,9 @@
 #ifndef PASTELGEOMETRY_INTERSECT_FLAT_PLANE_H
 #define PASTELGEOMETRY_INTERSECT_FLAT_PLANE_H
 
-#include "pastel/geometry/flat.h"
-#include "pastel/geometry/plane.h"
-#include "pastel/geometry/line.h"
+#include "pastel/geometry/shapes/flat.h"
+#include "pastel/geometry/shapes/plane.h"
+#include "pastel/geometry/shapes/line.h"
 
 namespace Pastel
 {

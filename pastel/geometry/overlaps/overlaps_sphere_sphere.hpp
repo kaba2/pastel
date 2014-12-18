@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_OVERLAPS_SPHERE_SPHERE_HPP
 
 #include "pastel/geometry/overlaps/overlaps_sphere_sphere.h"
-#include "pastel/geometry/sphere.h"
+#include "pastel/geometry/shapes/sphere.h"
 
 namespace Pastel
 {

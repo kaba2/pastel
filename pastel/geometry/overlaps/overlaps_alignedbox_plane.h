@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_PLANE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/plane.h"
+#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shapes/plane.h"
 
 namespace Pastel
 {

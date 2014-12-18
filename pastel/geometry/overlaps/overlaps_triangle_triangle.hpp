@@ -3,9 +3,9 @@
 
 #include "pastel/geometry/overlaps/overlaps_triangle_triangle.h"
 
-#include "pastel/geometry/triangle.h"
-#include "pastel/geometry/segment.h"
-#include "pastel/geometry/line.h"
+#include "pastel/geometry/shapes/triangle.h"
+#include "pastel/geometry/shapes/segment.h"
+#include "pastel/geometry/shapes/line.h"
 #include "pastel/sys/vector_tools.h"
 
 #include "pastel/geometry/intersect/intersect_triangle_triangle.h"

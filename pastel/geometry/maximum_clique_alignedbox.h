@@ -6,7 +6,7 @@
 #include "pastel/sys/output_concept.h"
 #include "pastel/sys/range.h"
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 #include <vector>
 #include <iterator>

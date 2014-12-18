@@ -3,8 +3,8 @@
 
 #include "pastel/geometry/overlaps/overlaps_alignedplane_triangle.h"
 
-#include "pastel/geometry/alignedplane.h"
-#include "pastel/geometry/triangle.h"
+#include "pastel/geometry/shapes/alignedplane.h"
+#include "pastel/geometry/shapes/triangle.h"
 
 namespace Pastel
 {

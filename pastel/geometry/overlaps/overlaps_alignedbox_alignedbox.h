@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_ALIGNEDBOX_H
 #define PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_ALIGNEDBOX_H
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 namespace Pastel
 {

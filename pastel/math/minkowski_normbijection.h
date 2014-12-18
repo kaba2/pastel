@@ -9,7 +9,7 @@
 #include "pastel/sys/gamma.h"
 #include "pastel/sys/constants.h"
 
-#include "pastel/geometry/sphere_volume.h"
+#include "pastel/geometry/volume/sphere_volume.h"
 
 namespace Pastel
 {

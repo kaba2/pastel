@@ -2,8 +2,8 @@
 #define PASTELGEOMETRY_ALIGNEDBOXPLANE_HPP
 
 #include "pastel/geometry/overlaps/overlaps_alignedbox_plane.h"
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/plane.h"
+#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shapes/plane.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

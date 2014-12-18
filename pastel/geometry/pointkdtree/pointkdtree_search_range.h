@@ -5,7 +5,7 @@
 #define PASTELGEOMETRY_POINTKDTREE_SEARCH_RANGE_H
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 #include "pastel/sys/output_concept.h"
 

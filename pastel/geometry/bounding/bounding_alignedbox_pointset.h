@@ -6,7 +6,7 @@
 #include "pastel/sys/input_concept.h"
 #include "pastel/sys/locator_concept.h"
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 namespace Pastel
 {

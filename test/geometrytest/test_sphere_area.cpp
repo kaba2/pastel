@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include <pastel/geometry/sphere_area.h>
+#include <pastel/geometry/area/sphere_area.h>
 
 using namespace Pastel;
 

@@ -5,7 +5,7 @@
 #include "pastel/gfx/draw_horizontal_line.h"
 #include "pastel/gfx/assign_colormixer.h"
 
-#include "pastel/geometry/plane.h"
+#include "pastel/geometry/shapes/plane.h"
 #include "pastel/geometry/predicates.h"
 
 #include "pastel/sys/syscommon.h"

@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_WINDOWED_POINTTREE_HPP
 
 #include "pastel/geometry/windowed_pointtree.h"
-#include "pastel/geometry/difference_alignedbox_alignedbox.h"
+#include "pastel/geometry/difference/difference_alignedbox_alignedbox.h"
 
 namespace Pastel
 {

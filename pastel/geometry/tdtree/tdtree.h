@@ -8,7 +8,7 @@
 #include "pastel/geometry/tdtree/tdtree_cursor.h"
 #include "pastel/geometry/tdtree/tdtree_entry.h"
 #include "pastel/geometry/tdtree/tdtree_node.h"
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 #include "pastel/geometry/bounding/bounding_alignedbox.h"
 #include "pastel/geometry/longestmedian_splitrule.h"
 
