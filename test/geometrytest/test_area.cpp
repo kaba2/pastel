@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/area/area.h"
+#include "pastel/geometry/area.h"
 #include "pastel/sys/rational.h"
 
 using namespace Pastel;
