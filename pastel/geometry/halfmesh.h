@@ -63,6 +63,7 @@ namespace Pastel
 		PASTEL_FWD(Polygon_ConstIterator);
 
 		PASTEL_FWD(InsertEdge_Return);
+		PASTEL_FWD(InsertEdge_Return_Pair);
 
 		template <typename Range, typename To>
 		struct IsConvertible
@@ -458,6 +459,29 @@ namespace Pastel
 		void detachHalf(
 			const Half_ConstIterator& half);
 
+		//! Detaches a polygon.
+		/*!
+		Time complexity: O(n)
+		where
+		n is the number of half-edges in the polygon.
+
+		Exception safety: nothrow
+		*/
+		void detachPolygon(
+			const Polygon_ConstIterator& polygon);
+
+		//! Link a polygon to a loop of half-edges.
+		/*!
+		Time complexity: O(n)
+		where
+		n is the number of half-edges in the loop
+
+		Exception safety: nothrow
+		*/
+		void linkPolygon(
+			const Half_ConstIterator& half,
+			const Polygon_ConstIterator& left);
+
 		Half_ConstIterator findFreeIncident(
 			const Vertex_ConstIterator& vertex) const;
 		
@@ -493,12 +517,12 @@ namespace Pastel
 			return insertEdgeReturn(edge, created, Tag());
 		}
 
-		std::pair<Edge_Iterator, bool> insertEdgeReturn(
+		InsertEdge_Return_Pair insertEdgeReturn(
 			const Edge_Iterator& edge, 
 			bool created,
 			PairTag) const
 		{
-			return std::make_pair(edge, created);
+			return InsertEdge_Return_Pair(edge, created);
 		}
 
 		Edge_Iterator insertEdgeReturn(
@@ -507,6 +531,26 @@ namespace Pastel
 			SingleTag) const
 		{
 			return edge;
+		}
+
+		Edge_Iterator insertEdgeEdge(const InsertEdge_Return_Pair& edgeReturn) const
+		{
+			return edgeReturn.first;
+		}
+
+		Edge_Iterator insertEdgeEdge(const Edge_Iterator& edgeReturn) const
+		{
+			return edgeReturn;
+		}
+
+		bool insertEdgeCreated(const InsertEdge_Return_Pair& edgeReturn) const
+		{
+			return edgeReturn.second;
+		}
+
+		bool insertEdgeCreated(const Edge_Iterator& edgeReturn) const
+		{
+			return true;
 		}
 
 		VertexSet vertexSet_;

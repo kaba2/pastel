@@ -14,7 +14,7 @@ namespace Pastel
 	void HalfMesh<Settings, Customization>::detachHalf(
 		const Half_ConstIterator& half)
 	{
-		if (half.isEnd())
+		if (!half.isNormal())
 		{
 			return;
 		}

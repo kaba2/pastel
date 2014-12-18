@@ -47,10 +47,10 @@ namespace Pastel
 					thatEdge->half()->destination();
 				ASSERT(vertexMap.count(destination));
 
-				Edge_Iterator edge = insertEdge(
+				Edge_Iterator edge = insertEdgeEdge(insertEdge(
 					vertexMap[origin],
 					vertexMap[destination],
-					*thatEdge);
+					*thatEdge));
 				ASSERT(edge.isNormal());
 
 				++thatEdge;

@@ -94,11 +94,13 @@ namespace Pastel
 		using Polygon_Iterator = typename PolygonSet_Fwd::Iterator;
 		using Polygon_ConstIterator = typename PolygonSet_Fwd::ConstIterator;
 
+		using InsertEdge_Return_Pair = std::pair<Edge_Iterator, bool>;
+
 		using InsertEdge_Return =
 			typename std::conditional<
 				MultipleEdges,
 				Edge_Iterator,
-				std::pair<Edge_Iterator, bool>
+				InsertEdge_Return_Pair				
 			>::type;
 	};
 

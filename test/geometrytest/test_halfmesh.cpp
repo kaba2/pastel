@@ -14,7 +14,7 @@ using namespace Pastel;
 namespace
 {
 
-	using Mesh = HalfEdge<int, int, int, int>;
+	using Mesh = HalfEdge<int, int, int, int, false, true>;
 	using Vertex_Iterator = Mesh::Vertex_Iterator;
 	using Half_Iterator = Mesh::Half_Iterator;
 	using Edge_Iterator = Mesh::Edge_Iterator;
@@ -60,6 +60,7 @@ namespace
 			testPolygon();
 			testPolygon2();
 			testEdge();
+			testMerge();
 		}
 
 		void testBasic()
@@ -133,13 +134,17 @@ namespace
 					integer aVertex = randomInteger(VertexCount);
 					integer bVertex = randomInteger(VertexCount);
 					
-					Edge_Iterator edge = 
+					auto edgePair = 
 						mesh.insertEdge(vertex[aVertex], vertex[bVertex]);
 					TEST_ENSURE(testInvariants(mesh));
+
+					auto edge = edgePair.first;
 					ENSURE(edge.isNormal());
-
-					edgeList[i * BucketSize + j] = edge;
-
+					
+					if (edgePair.second)
+					{
+						edgeList[i * BucketSize + j] = edge;
+					}
 				}
 
 			}
@@ -520,6 +525,71 @@ namespace
 
 			mesh.insertPolygon(points);
 			TEST_ENSURE(testInvariants(mesh));
+		}
+
+		void testMerge()
+		{
+			Mesh mesh;
+
+			Vertex_Iterator vertex[4][4];
+
+			for (integer i = 0; i < 4; ++i)
+			{
+				for (integer j = 0; j < 4; ++j)
+				{
+					vertex[i][j] = mesh.insertVertex();
+					TEST_ENSURE(testInvariants(mesh));
+					TEST_ENSURE(!vertex[i][j].empty());
+					(vertex[i][j])->data() = i * 10 + j;
+				}
+			}
+
+			// o   o   o   o
+			//
+			// o   o   o   o
+			//          
+			// o---o---o---o
+			// |   |       |
+			// o---o---o---o
+
+			{
+				Polygon_Iterator aPolygon = 
+					mesh.insertPolygon(
+					range({
+						vertex[0][0],
+						vertex[1][0],
+						vertex[1][1],
+						vertex[0][1]
+					}));
+
+				TEST_ENSURE(testInvariants(mesh));
+				TEST_ENSURE_OP(mesh.vertices(), == , 16);
+				TEST_ENSURE_OP(mesh.edges(), == , 4);
+				TEST_ENSURE_OP(mesh.polygons(), == , 1);
+
+				Polygon_Iterator bPolygon =
+					mesh.insertPolygon(
+					range({
+						vertex[1][0],
+						vertex[2][0],
+						vertex[3][0],
+						vertex[3][1],
+						vertex[2][1],
+						vertex[1][1]
+					}));
+
+				TEST_ENSURE(testInvariants(mesh));
+				TEST_ENSURE_OP(mesh.vertices(), == , 16);
+				TEST_ENSURE_OP(mesh.edges(), == , 9);
+				TEST_ENSURE_OP(mesh.polygons(), == , 2);
+
+				mesh.merge(mesh.findHalf(vertex[1][0], vertex[1][1]));
+				
+				TEST_ENSURE(testInvariants(mesh));
+				TEST_ENSURE_OP(mesh.vertices(), == , 16);
+				TEST_ENSURE_OP(mesh.edges(), == , 8);
+				TEST_ENSURE_OP(mesh.polygons(), == , 1);
+			}
 		}
 	};
 

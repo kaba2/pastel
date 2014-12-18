@@ -26,16 +26,28 @@ namespace Pastel
 		Half_Iterator fromTo = 
 			cast(edge->half());
 		ASSERT(!fromTo.empty());
-		
-		Edge_Iterator nextEdge = std::next(cast(edge));
 
+		Half_Iterator toFrom =
+			fromTo->pair();
+		
 		// Remove the left polygon.
 		removePolygon(fromTo->left());
 
-		// Merge the left polygon to the right polygon.
-		merge(fromTo);
+		// Remove the right polygon.
+		removePolygon(toFrom->left());
 
-		return nextEdge;
+		// Link the from-side of the edge off the model.
+		detachHalf(fromTo);
+
+		// Link the to-side of the edge off the model.
+		detachHalf(toFrom);
+
+		// Deallocate half-edges.
+		halfSet_.erase(fromTo);
+		halfSet_.erase(toFrom);
+
+		// Deallocate edge.
+		return edgeSet_.erase(edge);
 	}
 
 }
