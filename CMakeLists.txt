@@ -312,6 +312,46 @@ if (MSVC)
 
 endif()
 
+# Adds a library, or an executable, and creates source-groups based on 
+# the physical directory tree.
+
+macro (PastelAdd Type LibraryName)
+	file (GLOB_RECURSE SourceSet ${PastelSourceGlobSet})
+
+	foreach (FilePath ${SourceSet})
+		# Get the path to the source file, relative to the current directory.
+	    file (RELATIVE_PATH FileRelativePath ${CMAKE_CURRENT_LIST_DIR} ${FilePath})
+
+	    # Append / to the beginning, so that the regex-replacement
+	    # works also in the current directory.
+	    set (FileRelativePath "/${FileRelativePath}")
+
+	    # Get the directory-part of the path.
+	    # I could not find a way for specifying a non-capturing group, 
+	    # so I opted to append the / to the beginning, and then do
+	    # the following.
+	    string (REGEX REPLACE "(.*/)[^/]*$" "\\1" DirectoryRelativePath ${FileRelativePath})
+
+	    # Replace / with \.
+	    string (REPLACE "/" "\\" SourceGroupName ${DirectoryRelativePath})
+
+	    #message (STATUS ${FileRelativePath})
+	    #message (STATUS ${DirectoryRelativePath})
+	    #message (STATUS ${SourceGroupName})
+
+	    # Create a source group.
+	    source_group(${SourceGroupName} FILES ${FilePath})
+	endforeach()
+
+	if (${Type} EQUAL "library")
+		add_library (${LibraryName} ${PastelLibraryType} ${SourceSet})
+	else (${Type} EQUAL "executable")
+		add_library (${LibraryName} ${PastelLibraryType} ${SourceSet})
+	else ()
+		message (FATAL_ERROR "Unknown library type ${Type}.")
+	endif()
+endmacro (PastelAdd)
+
 # Recurse to sub-projects
 # -----------------------
 
@@ -328,42 +368,38 @@ endif()
 # Solution folders
 # ----------------
 
-set (TestSet 
-	pastelsystest 
-	pastelmathtest 
-	pastelgeometrytest 
-	pastelgfxtest)
-
-set (LibrarySet 
-	pastelsys 
-	pastelmath 
-	pastelgeometry 
-	pastelgfx
-	pasteldoc)
-
-set (MatlabLibrarySet
-	pastelmatlab
-	pastelsysmatlab
-	pastelmathmatlab
-	pastelgeometrymatlab)
-
-set (ExampleSet)
-
 set_property( GLOBAL PROPERTY USE_FOLDERS ON)
 
 if (BuildTests)
+	set (TestSet 
+		pastelsystest 
+		pastelmathtest 
+		pastelgeometrytest 
+		pastelgfxtest)
 	set_property( TARGET ${TestSet} PROPERTY FOLDER "Tests")
 endif()
 
 if (BuildLibraries)
+	set (LibrarySet 
+		pastelsys 
+		pastelmath 
+		pastelgeometry 
+		pastelgfx
+		pasteldoc)
 	set_property( TARGET ${LibrarySet} PROPERTY FOLDER "Libraries")
 endif()
 
 if (BuildMatlab)
+	set (MatlabLibrarySet
+		pastelmatlab
+		pastelsysmatlab
+		pastelmathmatlab
+		pastelgeometrymatlab)
 	set_property( TARGET ${MatlabLibrarySet} PROPERTY FOLDER "Matlab Libraries")
 endif()
 
 if (BuildExamples)
+	set (ExampleSet)
 	set_property( TARGET ${ExampleSet} PROPERTY FOLDER "Examples")
 endif()
 
