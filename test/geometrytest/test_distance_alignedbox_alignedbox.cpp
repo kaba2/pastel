@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include <pastel/geometry/distance_alignedbox_alignedbox.h>
+#include <pastel/geometry/distance/distance_alignedbox_alignedbox.h>
 #include <pastel/sys/rational.h>
 
 using namespace Pastel;

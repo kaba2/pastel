@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_DRAW_VIEW_HPP
 #define PASTELGFX_DRAW_VIEW_HPP
 
-#include "pastel/geometry/intersect_alignedbox_alignedbox.h"
+#include "pastel/geometry/intersect/intersect_alignedbox_alignedbox.h"
 
 #include "pastel/gfx/draw_view.h"
 #include "pastel/gfx/assign_colormixer.h"

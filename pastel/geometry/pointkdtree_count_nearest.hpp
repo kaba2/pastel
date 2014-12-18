@@ -4,7 +4,7 @@
 #include "pastel/geometry/pointkdtree_count_nearest.h"
 #include "pastel/geometry/pointkdtree_search_nearest_algorithm.h"
 #include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
-#include "pastel/geometry/distance_alignedbox_point.h"
+#include "pastel/geometry/distance/distance_alignedbox_point.h"
 #include "pastel/sys/all_indicator.h"
 
 namespace Pastel

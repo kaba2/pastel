@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/halfmesh.h"
+#include "pastel/geometry/halfmesh/halfmesh.h"
 #include "pastel/sys/random.h"
 
 #include <algorithm>

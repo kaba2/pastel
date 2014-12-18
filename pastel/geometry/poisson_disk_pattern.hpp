@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_POISSON_DISK_PATTERN_HPP
 
 #include "pastel/geometry/poisson_disk_pattern.h"
-#include "pastel/geometry/intersect_alignedbox_alignedbox.h"
+#include "pastel/geometry/intersect/intersect_alignedbox_alignedbox.h"
 
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/vector.h"
@@ -12,7 +12,7 @@
 
 #include "pastel/math/uniform_sampling.h"
 
-#include "pastel/geometry/overlaps_alignedbox_point.h"
+#include "pastel/geometry/overlaps/overlaps_alignedbox_point.h"
 
 #include <vector>
 

@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/intersect_line_triangle.h"
+#include "pastel/geometry/intersect/intersect_line_triangle.h"
 #include "pastel/sys/rational.h"
 #include "pastel/sys/biginteger.h"
 

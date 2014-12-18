@@ -6,7 +6,7 @@
 #include <pastel/sys/point_concept.h>
 #include <pastel/sys/locators.h>
 
-#include <pastel/geometry/distance_point_point.h>
+#include <pastel/geometry/distance/distance_point_point.h>
 
 using namespace Pastel;
 

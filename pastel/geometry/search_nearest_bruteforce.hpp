@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_SEARCH_NEAREST_BRUTEFORCE_HPP
 
 #include "pastel/geometry/search_nearest_bruteforce.h"
-#include "pastel/geometry/distance_point_point.h"
+#include "pastel/geometry/distance/distance_point_point.h"
 
 #include <set>
 
