@@ -1,12 +1,7 @@
 project (PastelMath)
 
-file (GLOB SourceSet ${PastelSourceGlobSet})
-source_group (Code FILES ${SourceSet})
+PastelAdd (library pastelmath)
 
-file (GLOB DocumentationSet ${PastelDocumentationGlobSet})
-source_group (Documentation FILES ${DocumentationSet})
-
-add_library (pastelmath ${PastelLibraryType} ${SourceSet})
 target_link_libraries (
 	pastelmath 
 	pastelsys
