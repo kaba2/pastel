@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_FAIR_SPLITRULE_H
 #define PASTELGEOMETRY_FAIT_SPLITRULE_H
 
-#include "pastel/geometry/splitrule_concept.h"
+#include "pastel/geometry/splitrules/splitrule_concept.h"
 
 namespace Pastel
 {
@@ -13,6 +13,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/fair_splitrule.hpp"
+#include "pastel/geometry/splitrules/fair_splitrule.hpp"
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef PASTELGEOMETRY_SLIDINGMIDPOINT2_SPLITRULE_HPP
 #define PASTELGEOMETRY_SLIDINGMIDPOINT2_SPLITRULE_HPP
 
-#include "pastel/geometry/slidingmidpoint2_splitrule.h"
+#include "pastel/geometry/splitrules/slidingmidpoint2_splitrule.h"
 
 #include "pastel/sys/vector_tools.h"
 

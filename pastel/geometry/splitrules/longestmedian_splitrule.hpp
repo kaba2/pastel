@@ -1,7 +1,7 @@
 #ifndef PASTELGEOMETRY_LONGESTMEDIAN_SPLITRULE_HPP
 #define PASTELGEOMETRY_LONGESTMEDIAN_SPLITRULE_HPP
 
-#include "pastel/geometry/longestmedian_splitrule.h"
+#include "pastel/geometry/splitrules/longestmedian_splitrule.h"
 
 #include "pastel/sys/vector_tools.h"
 

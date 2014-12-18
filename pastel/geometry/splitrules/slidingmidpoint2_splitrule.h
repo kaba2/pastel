@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_SLIDINGMIDPOINT2_SPLITRULE_H
 #define PASTELGEOMETRY_SLIDINGMIDPOINT2_SPLITRULE_H
 
-#include "pastel/geometry/splitrule_concept.h"
+#include "pastel/geometry/splitrules/splitrule_concept.h"
 
 namespace Pastel
 {
@@ -13,6 +13,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/slidingmidpoint2_splitrule.hpp"
+#include "pastel/geometry/splitrules/slidingmidpoint2_splitrule.hpp"
 
 #endif
