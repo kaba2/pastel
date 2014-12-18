@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_POINTKDTREE_PRIVATE_HPP
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
-#include "pastel/geometry/longestmedian_splitrule.h"
+#include "pastel/geometry/splitrules/longestmedian_splitrule.h"
 
 #include "pastel/sys/range.h"
 #include "pastel/sys/range_input.h"

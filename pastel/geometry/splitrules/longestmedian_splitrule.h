@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_LONGESTMEDIAN_SPLITRULE_H
 #define PASTELGEOMETRY_LONGESTMEDIAN_SPLITRULE_H
 
-#include "pastel/geometry/splitrule_concept.h"
+#include "pastel/geometry/splitrules/splitrule_concept.h"
 
 namespace Pastel
 {
@@ -13,6 +13,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/longestmedian_splitrule.hpp"
+#include "pastel/geometry/splitrules/longestmedian_splitrule.hpp"
 
 #endif

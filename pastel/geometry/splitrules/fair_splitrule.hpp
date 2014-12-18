@@ -1,7 +1,7 @@
 #ifndef PASTELGEOMETRY_FAIR_SPLITRULE_HPP
 #define PASTELGEOMETRY_FAIR_SPLITRULE_HPP
 
-#include "pastel/geometry/fair_splitrule.h"
+#include "pastel/geometry/splitrules/fair_splitrule.h"
 
 #include "pastel/sys/vector.h"
 
