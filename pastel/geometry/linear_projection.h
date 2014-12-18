@@ -7,9 +7,9 @@
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/vector.h"
 
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/sphere.h"
-#include "pastel/geometry/triangle.h"
+#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shapes/triangle.h"
 
 namespace Pastel
 {
@@ -121,6 +121,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/linear_projection.hpp"
+#include "pastel/geometry/shapes/linear_projection.hpp"
 
 #endif

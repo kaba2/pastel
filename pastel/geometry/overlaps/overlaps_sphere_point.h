@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_OVERLAPS_SPHERE_POINT_H
 #define PASTELGEOMETRY_OVERLAPS_SPHERE_POINT_H
 
-#include "pastel/geometry/sphere.h"
+#include "pastel/geometry/shapes/sphere.h"
 
 #include "pastel/sys/vector.h"
 

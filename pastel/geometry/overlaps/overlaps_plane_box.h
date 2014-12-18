@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_OVERLAPS_PLANE_BOX_H
 #define PASTELGEOMETRY_OVERLAPS_PLANE_BOX_H
 
-#include "pastel/geometry/plane.h"
-#include "pastel/geometry/box.h"
+#include "pastel/geometry/shapes/plane.h"
+#include "pastel/geometry/shapes/box.h"
 
 namespace Pastel
 {

@@ -11,7 +11,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tristate.h"
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 #include <boost/mpl/if.hpp>
 

@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_BOUNDING_SPHERE_SEGMENT_H
 #define PASTELGEOMETRY_BOUNDING_SPHERE_SEGMENT_H
 
-#include "pastel/geometry/sphere.h"
-#include "pastel/geometry/segment.h"
+#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shapes/segment.h"
 
 namespace Pastel
 {

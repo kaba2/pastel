@@ -3,8 +3,8 @@
 
 #include "pastel/geometry/overlaps/overlaps_box_box.h"
 #include "pastel/geometry/overlaps/overlaps_alignedbox_box.h"
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/box.h"
+#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shapes/box.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

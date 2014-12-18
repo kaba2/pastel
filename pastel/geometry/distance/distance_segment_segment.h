@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_DISTANCE_SEGMENT_SEGMENT_H
 #define PASTELGEOMETRY_DISTANCE_SEGMENT_SEGMENT_H
 
-#include "pastel/geometry/segment.h"
+#include "pastel/geometry/shapes/segment.h"
 
 namespace Pastel
 {

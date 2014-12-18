@@ -7,7 +7,7 @@
 
 #include "pastel/sys/vector_tools.h"
 
-#include "pastel/geometry/sphere_volume.h"
+#include "pastel/geometry/volume/sphere_volume.h"
 
 namespace Pastel
 {

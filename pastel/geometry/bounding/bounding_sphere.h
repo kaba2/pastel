@@ -8,8 +8,8 @@
 #include "pastel/geometry/bounding/bounding_sphere_segment.h"
 #include "pastel/geometry/bounding/bounding_sphere_pointset.h"
 
-#include "pastel/geometry/sphere.h"
-#include "pastel/geometry/simplex.h"
+#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shapes/simplex.h"
 
 namespace Pastel
 {

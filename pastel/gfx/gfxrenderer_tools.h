@@ -6,10 +6,10 @@
 
 #include "pastel/gfx/gfxrenderer.h"
 
-#include "pastel/geometry/triangle.h"
-#include "pastel/geometry/sphere.h"
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/box.h"
+#include "pastel/geometry/shapes/triangle.h"
+#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shapes/box.h"
 
 namespace Pastel
 {

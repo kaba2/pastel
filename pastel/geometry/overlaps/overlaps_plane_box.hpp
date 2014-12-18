@@ -3,8 +3,8 @@
 
 #include "pastel/geometry/overlaps/overlaps_plane_box.h"
 #include "pastel/geometry/distance/distance_plane_point.h"
-#include "pastel/geometry/plane.h"
-#include "pastel/geometry/box.h"
+#include "pastel/geometry/shapes/plane.h"
+#include "pastel/geometry/shapes/box.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

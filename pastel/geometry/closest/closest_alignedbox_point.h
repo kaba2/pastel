@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_CLOSEST_ALIGNEDBOX_POINT_H
 #define PASTELGEOMETRY_CLOSEST_ALIGNEDBOX_POINT_H
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 namespace Pastel
 {

@@ -7,6 +7,6 @@
 #include "pastel/geometry/convexhull.h"
 #include "pastel/geometry/intersect/intersect.h"
 #include "pastel/geometry/poisson_disk_pattern.h"
-#include "pastel/geometry/difference.h"
+#include "pastel/geometry/difference/difference.h"
 
 #endif

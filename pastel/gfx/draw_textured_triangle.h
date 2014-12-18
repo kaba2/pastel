@@ -9,7 +9,7 @@
 
 #include "pastel/gfx/texture.h"
 
-#include "pastel/geometry/triangle.h"
+#include "pastel/geometry/shapes/triangle.h"
 
 namespace Pastel
 {

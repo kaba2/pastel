@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_BOX_H
 #define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_BOX_H
 
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/box.h"
+#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shapes/box.h"
 
 namespace Pastel
 {

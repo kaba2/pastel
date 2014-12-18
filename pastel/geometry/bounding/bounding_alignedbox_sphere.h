@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_SPHERE_H
 #define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_SPHERE_H
 
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/sphere.h"
+#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shapes/sphere.h"
 
 #include "pastel/math/affine_transformation.h"
 

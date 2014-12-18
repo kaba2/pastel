@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_POISSON_DISK_PATTERN_H
 #define PASTELGEOMETRY_POISSON_DISK_PATTERN_H
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 namespace Pastel
 {

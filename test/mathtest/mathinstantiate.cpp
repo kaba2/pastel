@@ -3,7 +3,7 @@
 
 #include "pastel/sys/mytypes.h"
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 namespace Pastel
 {
 
@@ -15,7 +15,7 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/alignedplane.h"
+#include "pastel/geometry/shapes/alignedplane.h"
 namespace Pastel
 {
 
@@ -27,7 +27,7 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/sphere.h"
+#include "pastel/geometry/shapes/sphere.h"
 namespace Pastel
 {
 
@@ -39,7 +39,7 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/segment.h"
+#include "pastel/geometry/shapes/segment.h"
 namespace Pastel
 {
 
@@ -51,7 +51,7 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/line.h"
+#include "pastel/geometry/shapes/line.h"
 namespace Pastel
 {
 
@@ -75,7 +75,7 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/box.h"
+#include "pastel/geometry/shapes/box.h"
 namespace Pastel
 {
 
@@ -87,7 +87,7 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/plane.h"
+#include "pastel/geometry/shapes/plane.h"
 namespace Pastel
 {
 

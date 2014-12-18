@@ -8,7 +8,7 @@
 
 #include "pastel/gfx/filter.h"
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 #include <vector>
 

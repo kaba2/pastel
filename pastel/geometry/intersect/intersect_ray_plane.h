@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_INTERSECT_RAY_PLANE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/ray.h"
-#include "pastel/geometry/plane.h"
+#include "pastel/geometry/shapes/ray.h"
+#include "pastel/geometry/shapes/plane.h"
 
 namespace Pastel
 {

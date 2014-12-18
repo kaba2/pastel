@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_OVERLAPS_CAPSULE_CAPSULE_H
 #define PASTELGEOMETRY_OVERLAPS_CAPSULE_CAPSULE_H
 
-#include "pastel/geometry/capsule.h"
+#include "pastel/geometry/shapes/capsule.h"
 
 namespace Pastel
 {

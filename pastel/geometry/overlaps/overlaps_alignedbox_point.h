@@ -6,7 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 namespace Pastel
 {

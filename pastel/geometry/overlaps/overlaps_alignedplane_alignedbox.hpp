@@ -3,8 +3,8 @@
 
 #include "pastel/geometry/overlaps/overlaps_alignedplane_alignedbox.h"
 
-#include "pastel/geometry/alignedplane.h"
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/shapes/alignedplane.h"
+#include "pastel/geometry/shapes/alignedbox.h"
 
 namespace Pastel
 {

@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_INTERSECT_ALIGNEDBOX_PLANE_H
 #define PASTELGEOMETRY_INTERSECT_ALIGNEDBOX_PLANE_H
 
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/plane.h"
+#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shapes/plane.h"
 
 namespace Pastel
 {

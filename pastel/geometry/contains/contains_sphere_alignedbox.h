@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_CONTAINS_SPHERE_ALIGNEDBOX_H
 #define PASTELGEOMETRY_CONTAINS_SPHERE_ALIGNEDBOX_H
 
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/sphere.h"
+#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shapes/sphere.h"
 
 namespace Pastel
 {

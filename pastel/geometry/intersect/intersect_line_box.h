@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_INTERSECT_LINE_BOX_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/line.h"
-#include "pastel/geometry/box.h"
+#include "pastel/geometry/shapes/line.h"
+#include "pastel/geometry/shapes/box.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel

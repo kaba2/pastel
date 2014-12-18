@@ -4,7 +4,7 @@
 #include "pastel/geometry/overlaps/overlaps_alignedbox_box.h"
 #include "pastel/geometry/overlaps/overlaps_alignedbox_alignedbox.h"
 #include "pastel/geometry/bounding/bounding_alignedbox.h"
-#include "pastel/geometry/linear_projection.h"
+#include "pastel/geometry/shapes/linear_projection.h"
 
 #include "pastel/sys/mytypes.h"
 

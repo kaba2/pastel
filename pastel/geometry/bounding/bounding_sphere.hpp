@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_BOUNDING_SPHERE_HPP
 
 #include "pastel/geometry/bounding/bounding_sphere.h"
-#include "pastel/geometry/sphere.h"
+#include "pastel/geometry/shapes/sphere.h"
 
 #include "pastel/sys/tuple_tools.h"
 #include "pastel/sys/vector.h"

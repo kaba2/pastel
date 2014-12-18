@@ -4,8 +4,8 @@
 #include "pastel/geometry/overlaps/overlaps_plane_triangle.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/plane.h"
-#include "pastel/geometry/triangle.h"
+#include "pastel/geometry/shapes/plane.h"
+#include "pastel/geometry/shapes/triangle.h"
 
 namespace Pastel
 {

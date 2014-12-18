@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_DISTANCE_PLANE_POINT_H
 #define PASTELGEOMETRY_DISTANCE_PLANE_POINT_H
 
-#include "pastel/geometry/plane.h"
+#include "pastel/geometry/shapes/plane.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel
