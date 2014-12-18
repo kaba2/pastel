@@ -4,7 +4,7 @@
 #include "pastel/matlab/pastelmatlab.h"
 
 #include "pastel/geometry/point_pattern_matching_kr.h"
-#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/slidingmidpoint_splitrule.h"
 
 #include "pastel/sys/pointer_locator.h"

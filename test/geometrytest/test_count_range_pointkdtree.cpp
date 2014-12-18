@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include <pastel/geometry/pointkdtree_count_range.h>
+#include <pastel/geometry/pointkdtree/pointkdtree_count_range.h>
 #include <pastel/geometry/splitrules.h>
 #include <pastel/sys/locators.h>
 

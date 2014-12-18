@@ -3,8 +3,8 @@
 
 #include "test_pastelgeometry.h"
 
-#include <pastel/geometry/pointkdtree.h>
-#include <pastel/geometry/pointkdtree_search_range.h>
+#include <pastel/geometry/pointkdtree/pointkdtree.h>
+#include <pastel/geometry/pointkdtree/pointkdtree_search_range.h>
 
 using namespace Pastel;
 

@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_WINDOWED_POINTTREE_H
 #define PASTELGEOMETRY_WINDOWED_POINTTREE_H
 
-#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/alignedbox.h"
 
 #include <unordered_map>

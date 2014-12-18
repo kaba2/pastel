@@ -7,7 +7,7 @@
 #include "pastel/sys/output_concept.h"
 #include "pastel/sys/vector.h"
 
-#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree/pointkdtree.h"
 
 namespace Pastel
 {

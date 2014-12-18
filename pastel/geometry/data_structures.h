@@ -4,7 +4,7 @@
 #define PASTELGEOMETRY_DATA_STRUCTURES_H
 
 #include "pastel/geometry/halfmesh/halfmesh.h"
-#include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/tdtree.h"
+#include "pastel/geometry/pointkdtree/pointkdtree.h"
+#include "pastel/geometry/tdtree/tdtree.h"
 
 #endif
