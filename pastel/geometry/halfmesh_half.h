@@ -124,7 +124,7 @@ namespace Pastel
 
 			Polygon_Iterator right()
 			{
-				ASSERT(pair().normal());
+				ASSERT(pair().isNormal());
 				return pair()->left();
 			}
 

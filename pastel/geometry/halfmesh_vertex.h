@@ -56,7 +56,7 @@ namespace Pastel
 
 			bool free() const
 			{
-				return findFree().empty();
+				return isolated() || !findFree().empty();
 			}
 
 			Half_ConstIterator findFree() const

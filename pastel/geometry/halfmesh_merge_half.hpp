@@ -15,14 +15,10 @@ namespace Pastel
 		const Half_ConstIterator& half)
 	-> Polygon_Iterator
 	{
-		ENSURE(!half.empty());
-
-		if (half.isEnd())
+		if (!half.isNormal())
 		{
 			return Polygon_Iterator();
 		}
-
-		Edge_Iterator edge = cast(half->edge());
 
 		Half_Iterator fromTo = cast(half);
 		Polygon_Iterator left = fromTo->left();
@@ -30,44 +26,75 @@ namespace Pastel
 		Half_Iterator toFrom = fromTo->pair();
 		Polygon_Iterator right = toFrom->left();
 
-		if (right != left)
+		if (left.empty() || right.empty() ||
+			left == right)
 		{
-			// Remove the right polygon.
-			removePolygon(right);
-
-			// Connect the half-edges in the right
-			// polygon to the left polygon; this 
-			// expands the left polygon.
-			Half_Iterator h = toFrom;
-			do
-			{
-				h->left() = left;
-				h = h->next();
-			}
-			while(h != toFrom);
+			return Polygon_Iterator();
 		}
 
-		// Note that we notify the user before
-		// removing the half-edges; the user has
-		// to have a consistent view of the data
-		// at all times.
-		onRemoveEdge(edge);
+		Edge_Iterator edge = cast(half->edge());
 
-		// Link the from-side of the edge off the model.
-		detachHalf(fromTo);
+		// Remove the right polygon.
+		removePolygon(right);
 
-		// Link the to-side of the edge off the model.
-		detachHalf(toFrom);
+		// Detach the left polygon.
+		detachPolygon(left);
 
-		// Deallocate half-edges.
-		halfSet_.erase(fromTo);
-		halfSet_.erase(toFrom);
+		if (left->half() == fromTo)
+		{
+			// The left polygon references a to-be-removed half-edge.
+			
+			ASSERT(half->next() != fromTo);
 
-		// Deallocate edge.
-		edgeSet_.erase(edge);
+			// Provide the left polygon with the next half-edge.
+			left->half_ = fromTo->next();
+		}
+
+		// Remove the edge.
+		removeEdge(edge);
+
+		// Mark the merged polygon.
+		linkPolygon(left->half(), left);
+
+		// Notify the insertion of a new polygon.
+		onInsertPolygon(left);
 
 		// Return the expanded polygon.
 		return left;
+	}
+
+	template <
+		typename Settings, 
+		template <typename> class Customization>
+	void HalfMesh<Settings, Customization>::detachPolygon(
+		const Polygon_ConstIterator& polygon)
+	{
+		// Act as if the left polygon were to be removed.
+		onRemovePolygon(cast(polygon));
+
+		// Detach the left polygon.
+		linkPolygon(polygon->half(), Polygon_Iterator());
+	}
+
+	template <
+		typename Settings, 
+		template <typename> class Customization>
+	void HalfMesh<Settings, Customization>::linkPolygon(
+		const Half_ConstIterator& half,
+		const Polygon_ConstIterator& left)
+	{
+		Half_Iterator h = cast(half);
+		do
+		{
+			h->left_ = cast(left);
+			h = h->next();
+		}
+		while(h != half);
+
+		if (!left.empty())
+		{
+			cast(left)->half_ = cast(half);
+		}
 	}
 
 }

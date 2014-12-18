@@ -29,14 +29,33 @@ namespace Pastel
 			{
 				if (vertex.empty())
 				{
-					// A vertex always exist.
+					// A vertex must exist.
+					return false;
+				}
+
+				if (!vertex.isNormal())
+				{
+					// A vertex must be normal.
+					return false;
+				}
+
+				if (vertex->isolated() != vertex->half().empty())
+				{
+					// An isolated vertex must not be connected 
+					// to any half-edge.
+					return false;
+				}
+
+				if (vertex->isolated() && !vertex->free())
+				{
+					// An isolated vertex must be free.
 					return false;
 				}
 
 				Half_ConstIterator half = vertex->half();
 				if (!half.empty() && half->origin() != vertex)
 				{
-					// If the half exists, the origin of the half 
+					// If the half-edge exists, the origin of the half-edge
 					// must be the vertex itself.
 					return false;
 				}

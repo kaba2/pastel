@@ -177,8 +177,8 @@ namespace Pastel
 
 				if (halfSet[i].empty())
 				{
-					Edge_Iterator newEdge = insertEdge(
-						vertexSet[i], vertexSet[j]);
+					Edge_Iterator newEdge = insertEdgeEdge(insertEdge(
+						vertexSet[i], vertexSet[j]));
 					ASSERT(newEdge.isNormal());
 
 					Half_Iterator newHalf = newEdge->half();

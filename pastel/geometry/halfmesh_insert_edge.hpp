@@ -168,7 +168,7 @@ namespace Pastel
 
 		this->onInsertEdge(edge);
 
-		return edge;
+		return insertEdgeReturn(edge, true);
 	}
 
 }
