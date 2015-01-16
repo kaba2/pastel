@@ -1,11 +1,11 @@
-// Description: An aggregate file for hash objects.
+// Description: Hashing module
 
-#ifndef PASTELSYS_HASHES_H
-#define PASTELSYS_HASHES_H
+#ifndef PASTELSYS_HASHING_H_MODULE
+#define PASTELSYS_HASHING_H_MODULE
 
-#include "pastel/sys/dereferenced_hash.h"
-#include "pastel/sys/embedded_hash.h"
-#include "pastel/sys/iteratoraddress_hash.h"
-#include "pastel/sys/pair_hash.h"
+#include "pastel/sys/hashing/dereferenced_hash.h"
+#include "pastel/sys/hashing/embedded_hash.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
+#include "pastel/sys/hashing/pair_hash.h"
 
 #endif

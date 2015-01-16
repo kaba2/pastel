@@ -1,7 +1,7 @@
-// Description: An aggregate file for directors
+// Description: Director module
 
-#ifndef PASTELSYS_DIRECTORS_H
-#define PASTELSYS_DIRECTORS_H
+#ifndef PASTELSYS_DIRECTORS_H_MODULE
+#define PASTELSYS_DIRECTORS_H_MODULE
 
 #include "pastel/sys/step_indicator_director.h"
 

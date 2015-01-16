@@ -14,12 +14,49 @@ Principles
 
 * Use English everywhere. Most computer-related terms have their roots in English and are well known, while their translations in other languages are probable to be less known and thus hard to decipher.
 
+Source code directory structure
+-------------------------------
+
+* Code: `pastel/`
+
+* Sub-library: `pastel/sub/`
+
+* Sub-library import: `pastel/pastelsub.h`
+
+* Module: `pastel/sub/module/`
+
+* Module code: `pastel/sub/module/code.h`
+
+* Module import: `pastel/sub/module.h`
+
+* An aggregate file `pastel/sub/aggregate.h`
+
+* A class is a module.
+
+* A concept is a module. Example: `pastel/sys/input/`
+
+* A model of a concept is in the same module as the concept. Example: `pastel/sys/inputs/counting_input.h`
+
+* A collection of tightly related concepts is a module. Example: `pastel/sys/algebra/`.
+
+* A collection of algorithms solving the same problem with different kinds of things is a module. Example: `pastel/geometry/distance/`.
+
+* Test code: `test/`
+
+* Testing for a sub-library: `pastel/sub/`
+
+* A sub-library `pastel/sub/` contains a documentation file `pastel/sub/pastelsub.txt`.
+
+* A module `pastel/sub/module/` contains a documentation file `pastel/sub/module/module.txt`.
+
+* A module `pastel/sub/module/` has a module import file `pastel/sub/module.h`.
+
 Naming
 ------
 
 * Types: `LikeThis`
 
-* [Forward-declaration types][Forward]: `LikeThis_Fwd`.
+* [Forward-declaration types][Forward]: `LikeThis_Fwd`
 
 * Public namespaces: `LikeThis`
 

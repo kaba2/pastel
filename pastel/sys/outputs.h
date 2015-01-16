@@ -1,13 +1,13 @@
-// Description: An aggregate file for reporters.
+// Description: Output module
 
-#ifndef PASTELSYS_OUTPUTS_H
-#define PASTELSYS_OUTPUTS_H
+#ifndef PASTELSYS_OUTPUT_H_MODULE
+#define PASTELSYS_OUTPUT_H_MODULE
 
-#include "pastel/sys/emplace_back_output.h"
-#include "pastel/sys/iterator_output.h"
-#include "pastel/sys/null_output.h"
-#include "pastel/sys/push_back_output.h"
-#include "pastel/sys/range_output.h"
-#include "pastel/sys/single_output.h"
+#include "pastel/sys/output/emplace_back_output.h"
+#include "pastel/sys/output/iterator_output.h"
+#include "pastel/sys/output/null_output.h"
+#include "pastel/sys/output/push_back_output.h"
+#include "pastel/sys/output/range_output.h"
+#include "pastel/sys/output/single_output.h"
 
 #endif

@@ -1,13 +1,14 @@
-// Description: An aggregate file for inputs.
+// Description: Input module.
+// Documentation: input.txt
 
-#ifndef PASTELSYS_INPUTS_H
-#define PASTELSYS_INPUTS_H
+#ifndef PASTELSYS_INPUT_H_MODULE
+#define PASTELSYS_INPUT_H_MODULE
 
-#include "pastel/sys/counting_input.h"
-#include "pastel/sys/infinite_counting_input.h"
-#include "pastel/sys/input_as_vector.h"
-#include "pastel/sys/range_input.h"
-#include "pastel/sys/single_input.h"
-#include "pastel/sys/transform_input.h"
+#include "pastel/sys/input/counting_input.h"
+#include "pastel/sys/input/infinite_counting_input.h"
+#include "pastel/sys/input/input_as_vector.h"
+#include "pastel/sys/input/range_input.h"
+#include "pastel/sys/input/single_input.h"
+#include "pastel/sys/input/transform_input.h"
 
 #endif
