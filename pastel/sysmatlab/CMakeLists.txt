@@ -1,6 +1,6 @@
 project (PastelSysMatlab)
 
-PastelAdd (executable pastelsysmatlab)
+PastelAdd (library pastelsysmatlab)
 
 target_link_libraries (
 	pastelsysmatlab 

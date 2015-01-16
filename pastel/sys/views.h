@@ -1,10 +1,10 @@
-// Description: An aggregate file for array views
+// Description: View module
 
-#ifndef PASTELSYS_VIEWS_H
-#define PASTELSYS_VIEWS_H
+#ifndef PASTELSYS_VIEW_H_MODULE
+#define PASTELSYS_VIEW_H_MODULE
 
-#include "pastel/sys/concrete_views.h"
-#include "pastel/sys/extendedconstviews.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/concrete_views.h"
+#include "pastel/sys/view/extendedconstviews.h"
+#include "pastel/sys/view/view.h"
 
 #endif

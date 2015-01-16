@@ -1,4 +1,4 @@
-// Description: An aggregate file for bit tricks
+// Description: Bit tricks module
 
 #ifndef PASTELSYS_BIT_TRICKS_H
 #define PASTELSYS_BIT_TRICKS_H

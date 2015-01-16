@@ -1,4 +1,4 @@
-// Description: An aggregate file for down filters
+// Description: Down-filter module
 // Documentation: downfilter.txt
 
 #ifndef PASTELSYS_DOWNFILTERS_H

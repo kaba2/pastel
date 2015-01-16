@@ -1,9 +1,9 @@
-// Description: An aggregate file for trindicators
+// Description: Trindicator module
 // Documentation: trindicator.txt
 
-#ifndef PASTELSYS_TRINDICATORS_H
-#define PASTELSYS_TRINDICATORS_H
+#ifndef PASTELSYS_TRINDICATOR_H_MODULE
+#define PASTELSYS_TRINDICATOR_H_MODULE
 
-#include "pastel/sys/indicator_trindicator.h"
+#include "pastel/sys/trindicator/indicator_trindicator.h"
 
 #endif
