@@ -5,7 +5,7 @@
 
 #include <pastel/sys/locators.h>
 #include <pastel/sys/vector.h>
-#include <pastel/sys/inputs.h>
+#include <pastel/sys/input.h>
 
 #include <pastel/geometry/bounding/bounding_alignedbox.h>
 

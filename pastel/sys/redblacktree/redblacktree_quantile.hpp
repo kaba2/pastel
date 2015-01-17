@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_REDBLACKTREE_QUANTILE_HPP
 #define PASTELSYS_REDBLACKTREE_QUANTILE_HPP
 
-#include "pastel/sys/redblacktree_quantile.h"
+#include "pastel/sys/redblacktree/redblacktree_quantile.h"
 
 namespace Pastel
 {

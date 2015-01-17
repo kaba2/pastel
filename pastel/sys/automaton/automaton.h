@@ -3,10 +3,10 @@
 #ifndef PASTELSYS_AUTOMATON_H
 #define PASTELSYS_AUTOMATON_H
 
-#include "pastel/sys/automaton_concepts.h"
-#include "pastel/sys/automaton_fwd.h"
+#include "pastel/sys/automaton/automaton_concepts.h"
+#include "pastel/sys/automaton/automaton_fwd.h"
 #include "pastel/sys/optional.h"
-#include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
 #include "pastel/sys/incidence_graph.h"
 
 #include <unordered_map>

@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_TRANSITIVE_CLOSURE_HPP
 #define PASTELSYS_TRANSITIVE_CLOSURE_HPP
 
-#include "pastel/sys/transitive_closure.h"
+#include "pastel/sys/transitive_closure/transitive_closure.h"
 
 #include <unordered_map>
 #include <vector>

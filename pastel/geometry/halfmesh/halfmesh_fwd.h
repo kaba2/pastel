@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_HALFMESH_FWD_H
 #define PASTELGEOMETRY_HALFMESH_FWD_H
 
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/list_fwd.h"
 

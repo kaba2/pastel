@@ -6,7 +6,7 @@
 #include <pastel/geometry/rangetree/rangetree.h>
 #include <pastel/sys/math/eps.h>
 #include <pastel/sys/for_each_point.h>
-#include <pastel/sys/inputs.h>
+#include <pastel/sys/input.h>
 
 #include <iostream>
 #include <queue>

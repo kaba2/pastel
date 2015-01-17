@@ -2,7 +2,7 @@
 #define PASTELSYS_INCIDENCE_GRAPH_VERTEX_H
 
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 
 #include <array>
 

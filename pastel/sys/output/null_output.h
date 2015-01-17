@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_NULL_OUTPUT_H
 #define PASTELSYS_NULL_OUTPUT_H
 
-#include "pastel/sys/output_concept.h"
+#include "pastel/sys/output/output_concept.h"
 
 namespace Pastel
 {

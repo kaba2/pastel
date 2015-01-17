@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_REACHABLE_STATES_CONCEPTS_H
 #define PASTELSYS_REACHABLE_STATES_CONCEPTS_H
 
-#include "pastel/sys/reachable_states.h"
+#include "pastel/sys/automaton/reachable_states.h"
 
 #include "pastel/sys/mytypes.h"
 

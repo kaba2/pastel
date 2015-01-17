@@ -3,11 +3,11 @@
 #ifndef PASTELSYS_REDBLACKTREE_H
 #define PASTELSYS_REDBLACKTREE_H
 
-#include "pastel/sys/redblacktree_fwd.h"
-#include "pastel/sys/redblacktree_concepts.h"
-#include "pastel/sys/redblacktree_node.h"
-#include "pastel/sys/redblacktree_iterator.h"
-#include "pastel/sys/all_downfilter.h"
+#include "pastel/sys/redblacktree/redblacktree_fwd.h"
+#include "pastel/sys/redblacktree/redblacktree_concepts.h"
+#include "pastel/sys/redblacktree/redblacktree_node.h"
+#include "pastel/sys/redblacktree/redblacktree_iterator.h"
+#include "pastel/sys/downfilter/all_downfilter.h"
 
 namespace Pastel
 {
@@ -1474,21 +1474,21 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/redblacktree.hpp"
-#include "pastel/sys/redblacktree_copy.hpp"
-#include "pastel/sys/redblacktree_count.hpp"
-#include "pastel/sys/redblacktree_erase.hpp"
-#include "pastel/sys/redblacktree_find_below.hpp"
-#include "pastel/sys/redblacktree_insert.hpp"
-#include "pastel/sys/redblacktree_invariants.h"
-#include "pastel/sys/redblacktree_join.hpp"
-#include "pastel/sys/redblacktree_rebalance_black_loss.hpp"
-#include "pastel/sys/redblacktree_rebalance_red_violation.hpp"
-#include "pastel/sys/redblacktree_search.hpp"
-#include "pastel/sys/redblacktree_sentinels.hpp"
-#include "pastel/sys/redblacktree_splice.hpp"
-#include "pastel/sys/redblacktree_split.hpp"
-#include "pastel/sys/redblacktree_swap.hpp"
-#include "pastel/sys/redblacktree_quantile.h"
+#include "pastel/sys/redblacktree/redblacktree.hpp"
+#include "pastel/sys/redblacktree/redblacktree_copy.hpp"
+#include "pastel/sys/redblacktree/redblacktree_count.hpp"
+#include "pastel/sys/redblacktree/redblacktree_erase.hpp"
+#include "pastel/sys/redblacktree/redblacktree_find_below.hpp"
+#include "pastel/sys/redblacktree/redblacktree_insert.hpp"
+#include "pastel/sys/redblacktree/redblacktree_invariants.h"
+#include "pastel/sys/redblacktree/redblacktree_join.hpp"
+#include "pastel/sys/redblacktree/redblacktree_rebalance_black_loss.hpp"
+#include "pastel/sys/redblacktree/redblacktree_rebalance_red_violation.hpp"
+#include "pastel/sys/redblacktree/redblacktree_search.hpp"
+#include "pastel/sys/redblacktree/redblacktree_sentinels.hpp"
+#include "pastel/sys/redblacktree/redblacktree_splice.hpp"
+#include "pastel/sys/redblacktree/redblacktree_split.hpp"
+#include "pastel/sys/redblacktree/redblacktree_swap.hpp"
+#include "pastel/sys/redblacktree/redblacktree_quantile.h"
 
 #endif

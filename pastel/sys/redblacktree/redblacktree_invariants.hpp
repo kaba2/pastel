@@ -2,7 +2,7 @@
 #define PASTELSYS_REDBLACKTREE_INVARIANTS_HPP
 
 #include "pastel/sys/redblacktree.h"
-#include "pastel/sys/pairwise_all_of.h"
+#include "pastel/sys/sequence/pairwise_all_of.h"
 
 #include <iterator>
 

@@ -4,7 +4,7 @@
 #include "test_pastelsys.h"
 
 #include <pastel/sys/bit/integer_complexity.h>
-#include <pastel/sys/pairwise_all_of.h>
+#include <pastel/sys/sequence/pairwise_all_of.h>
 
 using namespace Pastel;
 

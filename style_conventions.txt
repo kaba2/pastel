@@ -35,7 +35,7 @@ Source code directory structure
 
 * A concept is a module. Example: `pastel/sys/input/`
 
-* A model of a concept is in the same module as the concept. Example: `pastel/sys/inputs/counting_input.h`
+* A model of a concept is in the same module as the concept. Example: `pastel/sys/input/counting_input.h`
 
 * A collection of tightly related concepts is a module. Example: `pastel/sys/algebra/`.
 

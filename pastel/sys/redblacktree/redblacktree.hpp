@@ -4,7 +4,7 @@
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/predicate/directed_predicate.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/iterator/counting_iterator.h"
 
 namespace Pastel
 {

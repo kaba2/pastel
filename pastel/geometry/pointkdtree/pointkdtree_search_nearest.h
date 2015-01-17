@@ -9,7 +9,7 @@
 #include "pastel/math/normbijection_concept.h"
 
 #include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
-#include "pastel/sys/all_indicator.h"
+#include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/math/euclidean_normbijection.h"
 
 #include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.hpp"

@@ -73,6 +73,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/class.hpp"
+#include "pastel/sys/generic/class.hpp"
 
 #endif

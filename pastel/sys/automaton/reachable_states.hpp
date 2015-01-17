@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_REACHABLE_STATES_HPP
 #define PASTELSYS_REACHABLE_STATES_HPP
 
-#include "pastel/sys/reachable_states.h"
+#include "pastel/sys/automaton/reachable_states.h"
 #include "pastel/sys/depth_first_traversal.h"
 
 namespace Pastel

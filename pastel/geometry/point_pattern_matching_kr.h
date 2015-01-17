@@ -4,7 +4,7 @@
 #ifndef PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_H
 #define PASTELGEOMETRY_POINT_PATTERN_MATCHING_KR_H
 
-#include "pastel/sys/output_concept.h"
+#include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/vector.h"
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"

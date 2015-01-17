@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_ARENA_ALLOCATOR_H_MODULE
 #define PASTELSYS_ARENA_ALLOCATOR_H_MODULE
 
-#include "pastel/sys/allocators/arena_allocator/arena_allocator.h"
+#include "pastel/sys/arena_allocator/arena_allocator.h"
 
 #endif
 

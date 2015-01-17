@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_PRODUCTIVE_STATES_HPP
 #define PASTELSYS_PRODUCTIVE_STATES_HPP
 
-#include "pastel/sys/productive_states.h"
+#include "pastel/sys/automaton/productive_states.h"
 
 #include "pastel/sys/depth_first_traversal.h"
 

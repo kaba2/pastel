@@ -2,11 +2,11 @@
 #define PASTELSYS_AUTOMATON_FWD_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/incidence_graph_fwd.h"
-#include "pastel/sys/class.h"
+#include "pastel/sys/incidence_graph/incidence_graph_fwd.h"
+#include "pastel/sys/generic/class.h"
 #include "pastel/sys/optional.h"
-#include "pastel/sys/second_iterator.h"
-#include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/iterator/second_iterator.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
 #include "pastel/sys/hashing.h"
 
 #include <unordered_map>
@@ -208,8 +208,8 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/automaton_state_label.h"
-#include "pastel/sys/automaton_transition_label.h"
+#include "pastel/sys/automaton/automaton_state_label.h"
+#include "pastel/sys/automaton/automaton_transition_label.h"
 
 namespace Pastel
 {

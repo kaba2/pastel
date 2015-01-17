@@ -11,7 +11,7 @@
 #include "pastel/geometry/halfmesh/halfmesh_polygon.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 #include "pastel/sys/list.h"
 
 #include <boost/operators.hpp>

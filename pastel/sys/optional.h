@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_OPTIONAL_H
 #define PASTELSYS_OPTIONAL_H
 
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 #include "pastel/sys/hashing.h"
 
 #include <utility>

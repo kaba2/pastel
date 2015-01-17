@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_REACHABLE_STATES_H
 #define PASTELSYS_REACHABLE_STATES_H
 
-#include "pastel/sys/reachable_states_concepts.h"
+#include "pastel/sys/automaton/reachable_states_concepts.h"
 
 #include "pastel/sys/automaton.h"
 
@@ -25,6 +25,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/reachable_states.hpp"
+#include "pastel/sys/automaton/reachable_states.hpp"
 
 #endif

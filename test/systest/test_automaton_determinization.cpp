@@ -3,8 +3,8 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/automaton_determinization.h"
-#include "pastel/sys/automaton_minimization.h"
+#include "pastel/sys/automaton/automaton_determinization.h"
+#include "pastel/sys/automaton/automaton_minimization.h"
 
 #include <boost/range/algorithm/for_each.hpp>
 

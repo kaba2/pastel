@@ -6,7 +6,7 @@
 #include "pastel/sys/tree_node.h"
 #include "pastel/sys/tree_iterator.h"
 #include "pastel/sys/destruct.h"
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 
 namespace Pastel
 {

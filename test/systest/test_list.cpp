@@ -5,7 +5,7 @@
 
 #include "pastel/sys/list.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/all_indicator.h"
+#include "pastel/sys/indicator/all_indicator.h"
 
 #include <iostream>
 

@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_REDBLACKTREE_CONCEPTS_H
 #define PASTELSYS_REDBLACKTREE_CONCEPTS_H
 
-#include "pastel/sys/redblacktree_fwd.h"
+#include "pastel/sys/redblacktree/redblacktree_fwd.h"
 #include "pastel/sys/algebra/less_concept.h"
 
 namespace Pastel

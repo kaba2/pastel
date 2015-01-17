@@ -8,7 +8,7 @@
 
 #include "pastel/sys/range_input.h"
 #include "pastel/sys/transform_input.h"
-#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/iterator/counting_iterator.h"
 
 namespace Pastel
 {

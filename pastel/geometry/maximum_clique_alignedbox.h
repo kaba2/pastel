@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 #define PASTELGEOMETRY_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 
-#include "pastel/sys/output_concept.h"
+#include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/range.h"
 
 #include "pastel/geometry/shapes/alignedbox.h"

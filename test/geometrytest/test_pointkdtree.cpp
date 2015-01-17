@@ -11,7 +11,7 @@
 #include "pastel/math/uniform_sampling.h"
 
 #include "pastel/sys/iterators.h"
-#include "pastel/sys/outputs.h"
+#include "pastel/sys/output.h"
 #include "pastel/sys/locators.h"
 #include "pastel/sys/indicators.h"
 

@@ -7,7 +7,7 @@
 #include "pastel/geometry/overlaps/overlaps_alignedbox_point.h"
 
 #include "pastel/sys/view_visit.h"
-#include "pastel/sys/outputs.h"
+#include "pastel/sys/output.h"
 
 namespace Pastel
 {
