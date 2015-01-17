@@ -34,6 +34,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/factorial.hpp"
+#include "pastel/sys/math/factorial.hpp"
 
 #endif

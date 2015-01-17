@@ -4,7 +4,7 @@
 #include "pastel/math/qr_decomposition.h"
 #include "pastel/math/householder_reflection.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel
 {

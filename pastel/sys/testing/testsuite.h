@@ -5,7 +5,7 @@
 #ifndef PASTELSYS_TESTSUITE_H
 #define PASTELSYS_TESTSUITE_H
 
-#include "pastel/sys/testreport.h"
+#include "pastel/sys/testing/testreport.h"
 #include "pastel/sys/ensure.h"
 
 #define TEST_ENSURE(expr)\

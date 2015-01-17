@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_UNARY_VECTOREXPRESSION_DETAIL_H
 #define PASTELSYS_UNARY_VECTOREXPRESSION_DETAIL_H
 
-#include "pastel/sys/unary_vectorexpression.h"
+#include "pastel/sys/vector/unary_vectorexpression.h"
 
 #define PASTEL_UNARY_VECTOREXPRESSION_CLASS(CLASS, UNARY_FUNCTION) \
 	template <  \

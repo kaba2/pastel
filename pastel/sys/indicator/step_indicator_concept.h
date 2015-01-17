@@ -3,9 +3,9 @@
 #ifndef PASTELSYS_STEP_INDICATOR_CONCEPT_H
 #define PASTELSYS_STEP_INDICATOR_CONCEPT_H
 
-#include "pastel/sys/indicator_concept.h"
-#include "pastel/sys/integer_concept.h"
-#include "pastel/sys/linearly_ordered_set_concept.h"
+#include "pastel/sys/indicator/indicator_concept.h"
+#include "pastel/sys/integer/integer_concept.h"
+#include "pastel/sys/algebra/linearly_ordered_set_concept.h"
 
 namespace Pastel
 {

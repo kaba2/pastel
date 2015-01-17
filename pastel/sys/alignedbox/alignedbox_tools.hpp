@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_ALIGNEDBOX_TOOLS_HPP
 #define PASTELSYS_ALIGNEDBOX_TOOLS_HPP
 
-#include "pastel/sys/alignedbox_tools.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/alignedbox/alignedbox_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel
 {

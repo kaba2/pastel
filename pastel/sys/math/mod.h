@@ -5,7 +5,7 @@
 #define PASTELSYS_MOD_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/integer_concept.h"
+#include "pastel/sys/integer/integer_concept.h"
 
 #include <type_traits>
 
@@ -70,6 +70,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/mod.hpp"
+#include "pastel/sys/math/mod.hpp"
 
 #endif

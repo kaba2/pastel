@@ -4,7 +4,7 @@
 #include "pastel/gfx/draw_pixel.h"
 #include "pastel/gfx/assign_colormixer.h"
 
-#include "pastel/sys/vector_compare.h"
+#include "pastel/sys/vector/vector_compare.h"
 
 namespace Pastel
 {

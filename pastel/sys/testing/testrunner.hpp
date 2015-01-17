@@ -1,10 +1,10 @@
 #ifndef PASTELSYS_TESTRUNNER_HPP
 #define PASTELSYS_TESTRUNNER_HPP
 
-#include "pastel/sys/testrunner.h"
+#include "pastel/sys/testing/testrunner.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/log.h"
-#include "pastel/sys/string_algorithms.h"
+#include "pastel/sys/logging/log.h"
+#include "pastel/sys/string.h"
 
 #include <vector>
 #include <iostream>

@@ -4,14 +4,14 @@
 #ifndef PASTELSYS_ITERATORADDRESS_PREDICATE_H
 #define PASTELSYS_ITERATORADDRESS_PREDICATE_H
 
-#include "pastel/sys/predicate_concept.h"
+#include "pastel/sys/predicate/predicate_concept.h"
 
-#include "pastel/sys/equalto.h"
-#include "pastel/sys/notequalto.h"
-#include "pastel/sys/lessequal.h"
-#include "pastel/sys/greaterequal.h"
-#include "pastel/sys/lessthan.h"
-#include "pastel/sys/greaterthan.h"
+#include "pastel/sys/predicate/equalto.h"
+#include "pastel/sys/predicate/notequalto.h"
+#include "pastel/sys/predicate/lessequal.h"
+#include "pastel/sys/predicate/greaterequal.h"
+#include "pastel/sys/predicate/lessthan.h"
+#include "pastel/sys/predicate/greaterthan.h"
 
 namespace Pastel
 {

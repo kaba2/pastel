@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_UNARY_VECTOREXPRESSION_H
 #define PASTELSYS_UNARY_VECTOREXPRESSION_H
 
-#include "pastel/sys/vectorexpression.h"
-#include "pastel/sys/unary_vectorexpression_detail.h"
+#include "pastel/sys/vector/vectorexpression.h"
+#include "pastel/sys/vector/unary_vectorexpression_detail.h"
 
 #include <cmath>
 

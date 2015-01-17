@@ -4,7 +4,7 @@
 #define PASTELSYS_LIST_REMOVE_IF_H
 
 #include "pastel/sys/list.h"
-#include "pastel/sys/indicator_concept.h"
+#include "pastel/sys/indicator/indicator_concept.h"
 
 namespace Pastel
 {

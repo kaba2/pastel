@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_POWERS_HPP
 #define PASTELSYS_POWERS_HPP
 
-#include "pastel/sys/powers.h"
+#include "pastel/sys/math/powers.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel

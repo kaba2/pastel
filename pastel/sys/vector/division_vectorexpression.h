@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_DIVISION_VECTOREXPRESSION_H
 #define PASTELSYS_DIVISION_VECTOREXPRESSION_H
 
-#include "pastel/sys/vectorexpression.h"
+#include "pastel/sys/vector/vectorexpression.h"
 
 namespace Pastel
 {

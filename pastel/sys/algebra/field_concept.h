@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_FIELD_CONCEPT_H
 #define PASTELSYS_FIELD_CONCEPT_H
 
-#include "pastel/sys/ring_concept.h"
+#include "pastel/sys/algebra/ring_concept.h"
 
 namespace Pastel
 {

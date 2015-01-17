@@ -19,6 +19,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/gamma.hpp"
+#include "pastel/sys/math/gamma.hpp"
 
 #endif

@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/sign.h"
+#include "pastel/sys/math/sign.h"
 
 using namespace Pastel;
 

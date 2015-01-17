@@ -23,6 +23,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/binomial.hpp"
+#include "pastel/sys/math/binomial.hpp"
 
 #endif

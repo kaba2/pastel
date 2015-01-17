@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_ORDERED_ADDITIVE_SEMIGROUP_CONCEPT_H
 #define PASTELSYS_ORDERED_ADDITIVE_SEMIGROUP_CONCEPT_H
 
-#include "pastel/sys/additive_semigroup_concept.h"
-#include "pastel/sys/ordered_set_concept.h"
+#include "pastel/sys/algebra/additive_semigroup_concept.h"
+#include "pastel/sys/algebra/ordered_set_concept.h"
 
 namespace Pastel
 {

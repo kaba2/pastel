@@ -18,7 +18,7 @@
 #include "pastel/sys/view_tools.h"
 #include "pastel/sys/views.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 using namespace Pastel;
 

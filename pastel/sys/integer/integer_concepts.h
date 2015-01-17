@@ -4,7 +4,7 @@
 #define PASTELSYS_INTEGER_CONCEPTS_H
 
 #include "pastel/sys/integer.h"
-#include "pastel/sys/integer_concept.h"
+#include "pastel/sys/integer/integer_concept.h"
 
 namespace Pastel
 {

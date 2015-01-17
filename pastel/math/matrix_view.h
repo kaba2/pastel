@@ -7,7 +7,7 @@
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/arrayview.h"
-#include "pastel/sys/sparse_iterator.h"
+#include "pastel/sys/iterator/sparse_iterator.h"
 #include "pastel/sys/memory_overlaps.h"
 
 namespace Pastel

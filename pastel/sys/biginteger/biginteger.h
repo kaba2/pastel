@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_BIGINTEGER_H
 #define PASTELSYS_BIGINTEGER_H
 
-#include "pastel/sys/integer_concept.h"
-#include "pastel/sys/real_concept.h"
+#include "pastel/sys/integer/integer_concept.h"
+#include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/mytypes.h"
 
 #include <vector>

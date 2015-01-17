@@ -2,8 +2,8 @@
 #define PASTELSYS_SKIPLIST_HPP
 
 #include "pastel/sys/skiplist.h"
-#include "pastel/sys/rounding.h"
-#include "pastel/sys/logarithm.h"
+#include "pastel/sys/math/rounding.h"
+#include "pastel/sys/math/logarithm.h"
 
 namespace Pastel
 {

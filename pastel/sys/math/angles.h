@@ -47,6 +47,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/angles.hpp"
+#include "pastel/sys/math/angles.hpp"
 
 #endif

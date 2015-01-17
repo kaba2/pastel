@@ -3,8 +3,8 @@
 
 #include "pastel/math/conformalaffine2d_tools.h"
 
-#include "pastel/sys/angles.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/math/angles.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 #include <cmath>
 

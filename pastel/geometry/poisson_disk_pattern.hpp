@@ -4,7 +4,7 @@
 #include "pastel/geometry/poisson_disk_pattern.h"
 #include "pastel/geometry/intersect/intersect_alignedbox_alignedbox.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/subview.h"

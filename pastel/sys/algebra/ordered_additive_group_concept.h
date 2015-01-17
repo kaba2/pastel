@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_ORDERED_ADDITIVE_GROUP_CONCEPT_H
 #define PASTELSYS_ORDERED_ADDITIVE_GROUP_CONCEPT_H
 
-#include "pastel/sys/ordered_additive_monoid_concept.h"
-#include "pastel/sys/additive_group_concept.h"
+#include "pastel/sys/algebra/ordered_additive_monoid_concept.h"
+#include "pastel/sys/algebra/additive_group_concept.h"
 
 namespace Pastel
 {

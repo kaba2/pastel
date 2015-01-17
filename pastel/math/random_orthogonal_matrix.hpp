@@ -5,7 +5,7 @@
 #include "pastel/math/qr_decomposition.h"
 
 #include "pastel/sys/random_gaussian.h"
-#include "pastel/sys/sign.h"
+#include "pastel/sys/math/sign.h"
 
 namespace Pastel
 {

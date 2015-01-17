@@ -6,7 +6,7 @@
 #define PASTELSYS_LOG_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/logger_fwd.h"
+#include "pastel/sys/logging/logger_fwd.h"
 
 #include <set>
 
@@ -71,7 +71,7 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/log.hpp"
-#include "pastel/sys/logger.h"
+#include "pastel/sys/logging/log.hpp"
+#include "pastel/sys/logging/logger.h"
 
 #endif

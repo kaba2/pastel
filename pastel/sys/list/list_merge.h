@@ -4,7 +4,7 @@
 #define PASTELSYS_LIST_MERGE_H
 
 #include "pastel/sys/list.h"
-#include "pastel/sys/lessthan.h"
+#include "pastel/sys/predicate/lessthan.h"
 
 namespace Pastel
 {

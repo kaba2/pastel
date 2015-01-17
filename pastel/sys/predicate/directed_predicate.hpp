@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_DIRECTED_PREDICATE_HPP
 #define PASTELSYS_DIRECTED_PREDICATE_HPP
 
-#include "pastel/sys/directed_predicate.h"
+#include "pastel/sys/predicate/directed_predicate.h"
 
 namespace Pastel
 {

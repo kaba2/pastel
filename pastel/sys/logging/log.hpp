@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_LOG_HPP
 #define PASTELSYS_LOG_HPP
 
-#include "pastel/sys/log.h"
+#include "pastel/sys/logging/log.h"
 #include "pastel/sys/ensure.h"
 
 #include <sstream>

@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_INDICATOR_TRINDICATOR_H
 #define PASTELSYS_INDICATOR_TRINDICATOR_H
 
-#include "pastel/sys/indicator_concept.h"
+#include "pastel/sys/indicator/indicator_concept.h"
 
 namespace Pastel
 {

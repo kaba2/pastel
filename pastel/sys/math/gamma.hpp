@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_GAMMA_HPP
 #define PASTELSYS_GAMMA_HPP
 
-#include "pastel/sys/gamma.h"
+#include "pastel/sys/math/gamma.h"
 
 #include <boost/math/special_functions/gamma.hpp>
 

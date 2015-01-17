@@ -2,7 +2,7 @@
 #define PASTELSYS_INTERVAL_SEQUENCE_HPP
 
 #include "pastel/sys/interval_sequence.h"
-#include "pastel/sys/number_tests.h"
+#include "pastel/sys/math/number_tests.h"
 
 namespace Pastel
 {

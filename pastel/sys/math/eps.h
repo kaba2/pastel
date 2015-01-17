@@ -41,6 +41,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/eps.hpp"
+#include "pastel/sys/math/eps.hpp"
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_SIGN_HPP
 #define PASTELSYS_SIGN_HPP
 
-#include "pastel/sys/sign.h"
+#include "pastel/sys/math/sign.h"
 
 namespace Pastel
 {

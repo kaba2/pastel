@@ -5,7 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/constants.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/topology.h"
 
@@ -382,7 +382,7 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/alignedbox.hpp"
-#include "pastel/sys/alignedbox_tools.h"
+#include "pastel/sys/alignedbox/alignedbox.hpp"
+#include "pastel/sys/alignedbox/alignedbox_tools.h"
 
 #endif

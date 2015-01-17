@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/eps.h"
+#include "pastel/sys/math/eps.h"
 
 using namespace Pastel;
 

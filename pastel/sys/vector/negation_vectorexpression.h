@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_NEGATION_VECTOREXPRESSION_H
 #define PASTELSYS_NEGATION_VECTOREXPRESSION_H
 
-#include "pastel/sys/negation_vectorexpression.h"
+#include "pastel/sys/vector/negation_vectorexpression.h"
 
 namespace Pastel
 {

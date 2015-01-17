@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_LOGARITHM_H
 #define PASTELSYS_LOGARITHM_H
 
-#include "pastel/sys/finite_integer_concept.h"
-#include "pastel/sys/real_concept.h"
+#include "pastel/sys/integer/finite_integer_concept.h"
+#include "pastel/sys/real/real_concept.h"
 
 namespace Pastel
 {
@@ -52,6 +52,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/logarithm.hpp"
+#include "pastel/sys/math/logarithm.hpp"
 
 #endif

@@ -8,7 +8,7 @@
 #include "pastel/sys/exponential_binary_search.h"
 #include "pastel/sys/graph_algorithms.h"
 #include "pastel/sys/sequence_algorithms.h"
-#include "pastel/sys/string_algorithms.h"
+#include "pastel/sys/string.h"
 #include "pastel/sys/syscommon.h"
 
 #endif

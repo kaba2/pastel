@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_NOT_PREDICATE_H
 #define PASTELSYS_NOT_PREDICATE_H
 
-#include "pastel/sys/predicate_concept.h"
+#include "pastel/sys/predicate/predicate_concept.h"
 
 namespace Pastel
 {

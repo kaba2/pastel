@@ -3,8 +3,8 @@
 #ifndef PASTELSYS_UNIT_TESTING_H
 #define PASTELSYS_UNIT_TESTING_H
 
-#include "pastel/sys/testreport.h"
-#include "pastel/sys/testrunner.h"
-#include "pastel/sys/testsuite.h"
+#include "pastel/sys/testing/testreport.h"
+#include "pastel/sys/testing/testrunner.h"
+#include "pastel/sys/testing/testsuite.h"
 
 #endif

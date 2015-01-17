@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_ADDITIVE_MONOID_CONCEPT_H
 #define PASTELSYS_ADDITIVE_MONOID_CONCEPT_H
 
-#include "pastel/sys/additive_semigroup_concept.h"
+#include "pastel/sys/algebra/additive_semigroup_concept.h"
 
 namespace Pastel
 {

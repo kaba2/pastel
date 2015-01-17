@@ -229,6 +229,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/vector_compare.hpp"
+#include "pastel/sys/vector/vector_compare.hpp"
 
 #endif

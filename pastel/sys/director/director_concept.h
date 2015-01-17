@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_DIRECTOR_CONCEPT_H
 #define PASTELSYS_DIRECTOR_CONCEPT_H
 
-#include "pastel/sys/integer_concept.h"
+#include "pastel/sys/integer/integer_concept.h"
 
 namespace Pastel
 {

@@ -4,9 +4,9 @@
 #ifndef PASTELSYS_SUBARRAY_H
 #define PASTELSYS_SUBARRAY_H
 
-#include "pastel/sys/sparse_iterator.h"
+#include "pastel/sys/iterator/sparse_iterator.h"
 #include "pastel/sys/memory_overlaps.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/subarray_iterator.h"
 
 namespace Pastel

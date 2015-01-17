@@ -10,7 +10,7 @@
 #include "pastel/sys/math_functions.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 #include <algorithm>
 #include <vector>

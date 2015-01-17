@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_LOGGER_H
 #define PASTELSYS_LOGGER_H
 
-#include "pastel/sys/logger_fwd.h"
-#include "pastel/sys/log.h"
+#include "pastel/sys/logging/logger_fwd.h"
+#include "pastel/sys/logging/log.h"
 
 #include <string>
 #include <unordered_set>

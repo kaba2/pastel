@@ -1,12 +1,12 @@
 #ifndef PASTELGEOMETRY_PREDICATES_HPP
 #define PASTELGEOMETRY_PREDICATES_HPP
 
-#include "pastel/geometry/predicates.h"
+#include "pastel/geometry/predicate.h"
 
 #include "pastel/sys/vector.h"
 #include "pastel/geometry/shapes/line.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel
 {

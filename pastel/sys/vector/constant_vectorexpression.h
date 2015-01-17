@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_CONSTANT_VECTOREXPRESSION_H
 #define PASTELSYS_CONSTANT_VECTOREXPRESSION_H
 
-#include "pastel/sys/vectorexpression.h"
+#include "pastel/sys/vector/vectorexpression.h"
 
 namespace Pastel
 {

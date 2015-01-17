@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_DIGAMMA_HPP
 #define PASTELSYS_DIGAMMA_HPP
 
-#include "pastel/sys/digamma.h"
+#include "pastel/sys/math/digamma.h"
 
 #include <boost/math/special_functions/digamma.hpp>
 

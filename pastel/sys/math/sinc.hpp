@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_SINC_HPP
 #define PASTELSYS_SINC_HPP
 
-#include "pastel/sys/sinc.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/sinc.h"
+#include "pastel/sys/math/constants.h"
 
 #include <cmath>
 

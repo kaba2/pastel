@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_FACTORIAL_HPP
 #define PASTELSYS_FACTORIAL_HPP
 
-#include "pastel/sys/factorial.h"
+#include "pastel/sys/math/factorial.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel

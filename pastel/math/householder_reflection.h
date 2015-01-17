@@ -4,7 +4,7 @@
 #define PASTELMATH_HOUSEHOLDER_REFLECTION_H
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/sign.h"
+#include "pastel/sys/math/sign.h"
 
 #include <cmath>
 

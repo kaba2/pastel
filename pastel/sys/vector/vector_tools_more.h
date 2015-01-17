@@ -4,11 +4,11 @@
 #ifndef PASTELSYS_VECTOR_TOOLS_MORE_H
 #define PASTELSYS_VECTOR_TOOLS_MORE_H
 
-#include "pastel/sys/vector_tools.h"
-#include "pastel/sys/vector.h"
+#include "pastel/sys/vector/vector_tools.h"
+#include "pastel/sys/vector/vector.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/tuple.h"
+#include "pastel/sys/tuple/tuple.h"
 
 #include "pastel/sys/math_functions.h"
 

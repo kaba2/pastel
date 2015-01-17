@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_ANGLES_HPP
 #define PASTELSYS_ANGLES_HPP
 
-#include "pastel/sys/angles.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/angles.h"
+#include "pastel/sys/math/constants.h"
 
 namespace Pastel
 {

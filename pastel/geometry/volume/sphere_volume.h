@@ -7,8 +7,8 @@
 
 #include "pastel/geometry/shapes/sphere.h"
 
-#include "pastel/sys/gamma.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/gamma.h"
+#include "pastel/sys/math/constants.h"
 
 namespace Pastel
 {

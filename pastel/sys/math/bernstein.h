@@ -25,6 +25,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/bernstein.hpp"
+#include "pastel/sys/math/bernstein.hpp"
 
 #endif

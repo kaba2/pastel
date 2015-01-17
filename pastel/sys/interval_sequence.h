@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_INTERVAL_SEQUENCE_H
 #define PASTELSYS_INTERVAL_SEQUENCE_H
 
-#include "pastel/sys/integer_concept.h"
+#include "pastel/sys/integer/integer_concept.h"
 #include "pastel/sys/output_concept.h"
 #include "pastel/sys/range.h"
 

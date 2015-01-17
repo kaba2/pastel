@@ -4,7 +4,7 @@
 #include "test_pastelmath.h"
 
 #include "pastel/sys/arrayview.h"
-#include "pastel/sys/tuple_tools.h"
+#include "pastel/sys/tuple/tuple_tools.h"
 
 #include "pastel/sys/rational.h"
 #include "pastel/math/lu_decomposition.h"

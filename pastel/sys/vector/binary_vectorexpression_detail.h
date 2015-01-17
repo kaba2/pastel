@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_BINARY_VECTOREXPRESSION_DETAIL_H
 #define PASTELSYS_BINARY_VECTOREXPRESSION_DETAIL_H
 
-#include "pastel/sys/binary_vectorexpression.h"
+#include "pastel/sys/vector/binary_vectorexpression.h"
 
 #define PASTEL_BINARY_VECTOREXPRESSION_CLASS(CLASS, BINARY_FUNCTION) \
 	template <  \

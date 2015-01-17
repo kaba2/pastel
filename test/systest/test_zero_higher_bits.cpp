@@ -2,7 +2,7 @@
 // DocumentationOf: zero_higher_bits.h
 
 #include "test_pastelsys.h"
-#include <pastel/sys/zero_higher_bits.h>
+#include <pastel/sys/bit/zero_higher_bits.h>
 
 using namespace Pastel;
 

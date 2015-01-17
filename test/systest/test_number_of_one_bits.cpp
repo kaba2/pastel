@@ -2,7 +2,7 @@
 // DocumentationOf: number_of_one_bits.h
 
 #include "test_pastelsys.h"
-#include <pastel/sys/number_of_one_bits.h>
+#include <pastel/sys/bit/number_of_one_bits.h>
 
 using namespace Pastel;
 

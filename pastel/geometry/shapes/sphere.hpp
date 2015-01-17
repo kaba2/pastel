@@ -4,7 +4,7 @@
 #include "pastel/geometry/shapes/sphere.h"
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/constants.h"
 
 namespace Pastel
 {

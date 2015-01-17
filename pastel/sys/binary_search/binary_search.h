@@ -3,8 +3,8 @@
 #ifndef PASTELSYS_BINARY_SEARCH_H
 #define PASTELSYS_BINARY_SEARCH_H
 
-#include "pastel/sys/step_indicator_concept.h"
-#include "pastel/sys/director_concept.h"
+#include "pastel/sys/indicator/step_indicator_concept.h"
+#include "pastel/sys/director/director_concept.h"
 
 namespace Pastel
 {
@@ -59,6 +59,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/binary_search.hpp"
+#include "pastel/sys/binary_search/binary_search.hpp"
 
 #endif

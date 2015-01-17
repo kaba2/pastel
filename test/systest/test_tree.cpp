@@ -4,7 +4,7 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/tree.h"
-#include "pastel/sys/predicates.h"
+#include "pastel/sys/predicate.h"
 
 #include <boost/range/algorithm/equal.hpp>
 

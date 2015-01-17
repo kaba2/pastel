@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/fourier_transform.h"
 
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/constants.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/sparseview.h"

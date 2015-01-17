@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_INTEGER_COMPLEXITY_HPP
 #define PASTELSYS_INTEGER_COMPLEXITY_HPP
 
-#include "pastel/sys/integer_complexity.h"
-#include "pastel/sys/number_of_one_bits.h"
+#include "pastel/sys/bit/integer_complexity.h"
+#include "pastel/sys/bit/number_of_one_bits.h"
 
 namespace Pastel
 {

@@ -3,9 +3,9 @@
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/gamma.h>
-#include <pastel/sys/factorial.h>
-#include <pastel/sys/error.h>
+#include <pastel/sys/math/gamma.h>
+#include <pastel/sys/math/factorial.h>
+#include <pastel/sys/math/error.h>
 #include <boost/math/special_functions/gamma.hpp>
 
 using namespace Pastel;

@@ -8,8 +8,8 @@
 #include "pastel/geometry/rangetree/rangetree_entry.h"
 #include "pastel/geometry/rangetree/rangetree_node.h"
 
-#include "pastel/sys/less_concept.h"
-#include "pastel/sys/dereferenced_predicate.h"
+#include "pastel/sys/algebra/less_concept.h"
+#include "pastel/sys/predicate/dereferenced_predicate.h"
 #include "pastel/sys/vector.h"
 
 #include <boost/range/algorithm/sort.hpp>

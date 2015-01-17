@@ -8,7 +8,7 @@
 #include "pastel/sys/skiplist_iterator.h"
 #include "pastel/sys/binary_search.h"
 #include "pastel/sys/copy_n.h"
-#include "pastel/sys/powers.h"
+#include "pastel/sys/math/powers.h"
 
 #include <memory>
 #include <vector>
@@ -828,7 +828,7 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/lessthan.h"
+#include "pastel/sys/predicate/lessthan.h"
 
 namespace Pastel
 {

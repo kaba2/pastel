@@ -2,7 +2,7 @@
 // DocumentationOf: bitmask.h
 
 #include "test_pastelsys.h"
-#include <pastel/sys/bitmask.h>
+#include <pastel/sys/bit/bitmask.h>
 
 using namespace Pastel;
 

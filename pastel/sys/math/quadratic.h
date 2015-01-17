@@ -40,6 +40,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/quadratic.hpp"
+#include "pastel/sys/math/quadratic.hpp"
 
 #endif

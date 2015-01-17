@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_CONSTANTS_HPP
 #define PASTELSYS_CONSTANTS_HPP
 
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/constants.h"
 #include "pastel/sys/ensure.h"
 
 #include <cctype>

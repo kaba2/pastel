@@ -6,7 +6,7 @@
 #define PASTELSYS_TESTREPORT_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/log.h"
+#include "pastel/sys/logging/log.h"
 
 #include <string>
 #include <vector>
@@ -234,6 +234,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/testreport.hpp"
+#include "pastel/sys/testing/testreport.hpp"
 
 #endif

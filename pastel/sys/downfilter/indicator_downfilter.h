@@ -5,7 +5,7 @@
 #define PASTELSYS_INDICATOR_DOWNFILTER_H
 
 #include "pastel/sys/downfilter_concept.h"
-#include "pastel/sys/indicator_concept.h"
+#include "pastel/sys/indicator/indicator_concept.h"
 
 namespace Pastel
 {

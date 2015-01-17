@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_STREAM_LOGGER_H
 #define PASTELSYS_STREAM_LOGGER_H
 
-#include "pastel/sys/logger.h"
+#include "pastel/sys/logging/logger.h"
 
 #include <iostream>
 

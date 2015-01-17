@@ -15,6 +15,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/digamma.hpp"
+#include "pastel/sys/math/digamma.hpp"
 
 #endif

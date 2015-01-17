@@ -5,9 +5,9 @@
 #include "pastel/gfx/assign_colormixer.h"
 
 #include "pastel/geometry/shapes/plane.h"
-#include "pastel/geometry/predicates.h"
+#include "pastel/geometry/predicate.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/syscommon.h"
 
 #include <vector>

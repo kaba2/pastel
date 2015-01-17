@@ -33,6 +33,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/constants.hpp"
+#include "pastel/sys/math/constants.hpp"
 
 #endif

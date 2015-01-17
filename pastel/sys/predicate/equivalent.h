@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_EQUIVALENT_H
 #define PASTELSYS_EQUIVALENT_H
 
-#include "pastel/sys/less_concept.h"
+#include "pastel/sys/algebra/less_concept.h"
 
 namespace Pastel
 {

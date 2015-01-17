@@ -70,6 +70,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/quantization.hpp"
+#include "pastel/sys/math/quantization.hpp"
 
 #endif

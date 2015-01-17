@@ -3,8 +3,8 @@
 
 #include "pastel/sys/exponential_binary_search.h"
 #include "pastel/sys/binary_search.h"
-#include "pastel/sys/powers.h"
-#include "pastel/sys/step_indicator_director.h"
+#include "pastel/sys/math/powers.h"
+#include "pastel/sys/director/step_indicator_director.h"
 
 namespace Pastel
 {

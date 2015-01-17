@@ -3,10 +3,10 @@
 #ifndef PASTEL_TEST_PASTELMATH_H
 #define PASTEL_TEST_PASTELMATH_H
 
-#include "pastel/sys/testrunner.h"
+#include "pastel/sys/testing/testrunner.h"
 #include "pastel/sys/callfunction.h"
-#include "pastel/sys/log.h"
-#include "pastel/sys/testsuite.h"
+#include "pastel/sys/logging/log.h"
+#include "pastel/sys/testing/testsuite.h"
 
 #include <iostream>
 

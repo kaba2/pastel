@@ -22,6 +22,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/clamp.hpp"
+#include "pastel/sys/math/clamp.hpp"
 
 #endif

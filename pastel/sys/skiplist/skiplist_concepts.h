@@ -5,7 +5,7 @@
 #define PASTELSYS_SKIPLIST_CONCEPTS_H
 
 #include "pastel/sys/skiplist.h"
-#include "pastel/sys/less_concept.h"
+#include "pastel/sys/algebra/less_concept.h"
 
 namespace Pastel
 {

@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_ALIGNEDBOX_TOOLS_H
 #define PASTELGEOMETRY_ALIGNEDBOX_TOOLS_H
 
-#include "pastel/sys/alignedbox_tools.h"
+#include "pastel/sys/alignedbox/alignedbox_tools.h"
 
 #include "pastel/math/affine_transformation.h"
 
