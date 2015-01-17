@@ -1,9 +1,9 @@
-// Description: A fixed-size integer in twos complement form.
+// Description: A fized-size integer in twos complement form.
 
-#ifndef PASTELSYS_INTEGER_H
-#define PASTELSYS_INTEGER_H
+#ifndef PASTELSYS_MULTI_INTEGER_H
+#define PASTELSYS_MULTI_INTEGER_H
 
-#include "pastel/sys/integer_concepts.h"
+#include "pastel/sys/multi_integer/multi_integer_concepts.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hashing.h"
 #include "pastel/sys/bit/bitmask.h"
@@ -26,7 +26,7 @@
 #include <iterator>
 
 #define PASTEL_INTEGER_ASSIGN_OPERATOR(op) \
-	Integer& operator op(const Integer& that) \
+	MultiInteger& operator op(const MultiInteger& that) \
 	{ \
 		for (integer i = 0;i < Words;++i) \
 		{ \
@@ -51,12 +51,12 @@ namespace Pastel
 	the interpretation of the logical bits.
 	*/
 	template <typename Integer_Settings>
-	class Integer
-	: boost::bitwise<Integer<Integer_Settings>
-	, boost::ring_operators<Integer<Integer_Settings>
-	, boost::unit_steppable<Integer<Integer_Settings>
-	, boost::shiftable2<Integer<Integer_Settings>, integer
-	, boost::totally_ordered<Integer<Integer_Settings>
+	class MultiInteger
+	: boost::bitwise<MultiInteger<Integer_Settings>
+	, boost::ring_operators<MultiInteger<Integer_Settings>
+	, boost::unit_steppable<MultiInteger<Integer_Settings>
+	, boost::shiftable2<MultiInteger<Integer_Settings>, integer
+	, boost::totally_ordered<MultiInteger<Integer_Settings>
 	> > > > >
 	{
 	private:
@@ -120,7 +120,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: strong
 		*/
-		Integer()
+		MultiInteger()
 			: wordSet_()
 		{
 		}
@@ -134,7 +134,7 @@ namespace Pastel
 		of the initializer-list. The assignment is the
 		concatenation of the words modulo 2^N.
 		*/
-		Integer(std::initializer_list<Word> wordSet)
+		MultiInteger(std::initializer_list<Word> wordSet)
 			: wordSet_()
 		{
 			// FIX: Replace with std::rbegin(), once gcc starts
@@ -159,7 +159,7 @@ namespace Pastel
 		template <
 			typename That_Integer,
 			EnableIf<std::is_unsigned<That_Integer>> = 0>
-		Integer(That_Integer that, Signed_Tag = Signed_Tag())
+		MultiInteger(That_Integer that, Signed_Tag = Signed_Tag())
 		: wordSet_()
 		{
 			for (integer i = 0;i < Words;++i)
@@ -187,8 +187,8 @@ namespace Pastel
 		template <
 			typename That_Integer,
 			EnableIf<std::is_signed<That_Integer>> = 0>
-		Integer(That_Integer that, Unsigned_Tag = Unsigned_Tag())
-			: Integer(signedToTwosComplement(that))
+		MultiInteger(That_Integer that, Unsigned_Tag = Unsigned_Tag())
+			: MultiInteger(signedToTwosComplement(that))
 		{
 			if (that < 0)
 			{
@@ -207,7 +207,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: strong
 		*/
-		Integer(const Integer& that)
+		MultiInteger(const MultiInteger& that)
 		: wordSet_(that.wordSet_)
 		{
 		}
@@ -217,7 +217,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: strong
 		*/
-		Integer(Integer&& that)
+		MultiInteger(MultiInteger&& that)
 		: wordSet_(std::move(that.wordSet_))
 		{
 		}
@@ -234,7 +234,7 @@ namespace Pastel
 		in [beginBit, endBit), then
 		x...xy...yz...z ==> 0...0y...y0...0
 		*/
-		Integer(const Integer& that, 
+		MultiInteger(const MultiInteger& that, 
 			integer beginBit, integer endBit)
 		: wordSet_()
 		{
@@ -264,14 +264,14 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		~Integer() = default;
+		~MultiInteger() = default;
 
 		//! Copy-assigns from another integer.
 		/*!
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& operator=(const Integer& that)
+		MultiInteger& operator=(const MultiInteger& that)
 		{
 			std::copy(
 				that.wordSet_.cbegin(),
@@ -315,7 +315,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		void swap(Integer& that)
+		void swap(MultiInteger& that)
 		{
 			wordSet_.swap(that.wordSet_);
 		}
@@ -351,7 +351,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& flipBits()
+		MultiInteger& flipBits()
 		{
 			for (Word& word : wordSet_)
 			{
@@ -368,7 +368,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Integer& flipBit(integer i)
+		MultiInteger& flipBit(integer i)
 		{
 			PENSURE_OP(i, >=, 0);
 			PENSURE_OP(i, <, bits());
@@ -388,7 +388,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& setBits()
+		MultiInteger& setBits()
 		{
 			boost::fill(wordSet_, (Word)-1);
 			signExtend();
@@ -403,7 +403,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Integer& setBits(
+		MultiInteger& setBits(
 			integer begin, integer end,
 			bool value = true)
 		{
@@ -473,7 +473,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Integer& setBit(integer i)
+		MultiInteger& setBit(integer i)
 		{
 			PENSURE_OP(i, >= , 0);
 			PENSURE_OP(i, <, bits());
@@ -493,7 +493,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Integer& setBit(integer i, bool value)
+		MultiInteger& setBit(integer i, bool value)
 		{
 			PENSURE_OP(i, >= , 0);
 			PENSURE_OP(i, <, bits());
@@ -515,7 +515,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& clearBits()
+		MultiInteger& clearBits()
 		{
 			boost::fill(wordSet_, (Word)0);
 			signExtend();
@@ -527,7 +527,7 @@ namespace Pastel
 		This is a convenience function which calls
 		setBits(begin, end, false).
 		*/
-		Integer& clearBits(
+		MultiInteger& clearBits(
 			integer begin, integer end)
 		{
 			return setBits(begin, end, false);
@@ -538,7 +538,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Integer& clearBit(integer i)
+		MultiInteger& clearBit(integer i)
 		{
 			PENSURE_OP(i, >=, 0);
 			PENSURE_OP(i, <, bits());
@@ -612,7 +612,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		bool operator<(const Integer& that) const
+		bool operator<(const MultiInteger& that) const
 		{
 			bool sign = lastBit();
 
@@ -661,7 +661,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		bool operator==(const Integer& that) const
+		bool operator==(const MultiInteger& that) const
 		{
 			return boost::equal(wordSet_, that.wordSet_);
 		}
@@ -671,7 +671,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& operator+=(const Integer& that)
+		MultiInteger& operator+=(const MultiInteger& that)
 		{
 			Word carry = 0;
 			for (integer i = 0;i < Words;++i)
@@ -690,7 +690,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& operator-=(const Integer& that)
+		MultiInteger& operator-=(const MultiInteger& that)
 		{
 			Word borrow = 0;
 			for (integer i = 0;i < Words;++i)
@@ -709,7 +709,7 @@ namespace Pastel
 		Time complexity: O(N^2)
 		Exception safety: nothrow
 		*/
-		Integer& operator*=(const Integer& that)
+		MultiInteger& operator*=(const MultiInteger& that)
 		{
 			WordSet left = wordSet_;
 			const WordSet& right = that.wordSet_;
@@ -738,7 +738,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& operator++()
+		MultiInteger& operator++()
 		{
 			for (integer i = 0;i < Words;++i)
 			{
@@ -767,7 +767,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& operator--()
+		MultiInteger& operator--()
 		{
 			for (integer i = 0;i < Words;++i)
 			{
@@ -790,9 +790,9 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer operator~() const
+		MultiInteger operator~() const
 		{
-			return Integer(*this).flipBits();
+			return MultiInteger(*this).flipBits();
 		}
 
 		//! Computes the negation of the integer.
@@ -807,7 +807,7 @@ namespace Pastel
 		whose negation is itself, so that for this case it does
 		not hold that the negation changes sign.
 		*/
-		Integer& negate()
+		MultiInteger& negate()
 		{
 			// The two's complement of x is given by (~x + 1).
 			return ++flipBits();
@@ -817,9 +817,9 @@ namespace Pastel
 		/*!
 		See the documentation for negate().
 		*/
-		Integer operator-() const
+		MultiInteger operator-() const
 		{
-			return Integer(*this).negate();
+			return MultiInteger(*this).negate();
 		}
 
 		//! Shifts the bits to the left.
@@ -827,7 +827,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& operator<<=(integer amount)
+		MultiInteger& operator<<=(integer amount)
 		{
 			PENSURE_OP(amount, >=, 0);
 
@@ -863,7 +863,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		Integer& operator>>=(integer amount)
+		MultiInteger& operator>>=(integer amount)
 		{
 			PENSURE_OP(amount, >=, 0);
 
@@ -1006,10 +1006,10 @@ namespace Pastel
 	};
 
 	template <int N, typename Word = uinteger_half>
-	using Signed_Integer = Integer<Integer_Settings<N, Word, true>>;
+	using Signed_Integer = MultiInteger<Integer_Settings<N, Word, true>>;
 
 	template <int N, typename Word = uinteger_half>
-	using Unsigned_Integer = Integer<Integer_Settings<N, Word, false>>;
+	using Unsigned_Integer = MultiInteger<Integer_Settings<N, Word, false>>;
 
 }
 
@@ -1024,7 +1024,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer_Settings>
-	integer bits(const Integer<Integer_Settings>& that)
+	integer bits(const MultiInteger<Integer_Settings>& that)
 	{
 		return Integer_Settings::N;
 	}
@@ -1037,7 +1037,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer_Settings>
-	bool odd(const Integer<Integer_Settings>& that)
+	bool odd(const MultiInteger<Integer_Settings>& that)
 	{
 		return that.bit(0);
 	}
@@ -1048,7 +1048,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer_Settings>
-	bool even(const Integer<Integer_Settings>& that)
+	bool even(const MultiInteger<Integer_Settings>& that)
 	{
 		return !odd(that);
 	}
@@ -1061,8 +1061,8 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer_Settings>
-	Integer<Integer_Settings> abs(
-		const Integer<Integer_Settings>& that)
+	MultiInteger<Integer_Settings> abs(
+		const MultiInteger<Integer_Settings>& that)
 	{
 		return (!Integer_Settings::Signed || positive(that)) ? that : -that;
 	}
@@ -1073,7 +1073,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer_Settings>
-	bool negative(const Integer<Integer_Settings>& that)
+	bool negative(const MultiInteger<Integer_Settings>& that)
 	{
 		// Since the integer is in two's complement
 		// form, we may look at the last word.
@@ -1087,7 +1087,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer_Settings>
-	bool positive(const Integer<Integer_Settings>& that)
+	bool positive(const MultiInteger<Integer_Settings>& that)
 	{
 		return !negative(that) && !zero(that);
 	}
@@ -1100,7 +1100,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer_Settings>
-	bool zero(const Integer<Integer_Settings>& that)
+	bool zero(const MultiInteger<Integer_Settings>& that)
 	{
 		using Word = typename Integer_Settings::Word;
 		return std::all_of(
@@ -1121,7 +1121,7 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 	template <typename Integer_Settings>
-	integer numberOfOneBits(const Integer<Integer_Settings>& that)
+	integer numberOfOneBits(const MultiInteger<Integer_Settings>& that)
 	{
 		integer count = 0;
 		for (auto&& word : that.cwordRange())
@@ -1142,7 +1142,7 @@ namespace Pastel
 	template <typename Integer_Settings>
 	std::ostream& operator<<(
 		std::ostream& stream, 
-		const Integer<Integer_Settings>& that)
+		const MultiInteger<Integer_Settings>& that)
 	{
 		for (integer i = that.words() - 1;i >= 0;--i)
 		{
@@ -1157,6 +1157,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/integer_hash.h"
+#include "pastel/sys/multi_integer/multi_integer_hash.h"
 
 #endif
