@@ -4,7 +4,7 @@
 #define PASTELSYS_INCIDENCE_GRAPH_FWD_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 

@@ -5,7 +5,7 @@
 
 #include "pastel/sys/automaton.h"
 
-#include "pastel/sys/productive_states_concepts.h"
+#include "pastel/sys/automaton/productive_states_concepts.h"
 
 namespace Pastel
 {
@@ -25,6 +25,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/productive_states.hpp"
+#include "pastel/sys/automaton/productive_states.hpp"
 
 #endif

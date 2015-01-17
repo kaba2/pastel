@@ -4,12 +4,12 @@
 #include "pastel/geometry/point_pattern_matching_kr.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
 
-#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/maximum_bipartite_matching.h"
-#include "pastel/sys/outputs.h"
+#include "pastel/sys/output.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/stdpair_as_pair.h"
-#include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
 
 #include <boost/range/adaptor/transformed.hpp>
 #include <map>

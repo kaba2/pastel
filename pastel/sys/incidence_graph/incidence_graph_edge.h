@@ -2,7 +2,7 @@
 #define PASTELSYS_INCIDENCE_GRAPH_EDGE_H
 
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 
 namespace Pastel
 {

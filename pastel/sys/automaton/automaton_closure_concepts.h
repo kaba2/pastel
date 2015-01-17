@@ -1,10 +1,10 @@
 #ifndef PASTELSYS_AUTOMATON_CLOSURE_CONCEPTS_H
 #define PASTELSYS_AUTOMATON_CLOSURE_CONCEPTS_H
 
-#include "pastel/sys/automaton_closure.h"
+#include "pastel/sys/automaton/automaton_closure.h"
 
-#include "pastel/sys/output_concept.h"
-#include "pastel/sys/automaton_fwd.h"
+#include "pastel/sys/output/output_concept.h"
+#include "pastel/sys/automaton/automaton_fwd.h"
 #include "pastel/sys/optional.h"
 
 namespace Pastel

@@ -116,6 +116,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/arena_allocator.hpp"
+#include "pastel/sys/arena_allocator/arena_allocator.hpp"
 
 #endif

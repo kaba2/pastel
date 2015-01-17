@@ -8,7 +8,7 @@
 
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/view_visit.h"
-#include "pastel/sys/outputs.h"
+#include "pastel/sys/output.h"
 
 namespace Pastel
 {

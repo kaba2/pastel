@@ -4,7 +4,7 @@
 #include "pastel/geometry/maximum_clique_alignedbox.h"
 
 #include "pastel/sys/redblacktree.h"
-#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/null_output.h"
 #include "pastel/sys/push_back_output.h"
 #include "pastel/sys/random_uniform.h"

@@ -3,11 +3,11 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/transitive_closure.h"
+#include "pastel/sys/transitive_closure/transitive_closure.h"
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
 
 #include <unordered_set>
 

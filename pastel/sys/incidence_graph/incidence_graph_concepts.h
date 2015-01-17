@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_INCIDENCE_GRAPH_CONCEPTS_H
 #define PASTELSYS_INCIDENCE_GRAPH_CONCEPTS_H
 
-#include "pastel/sys/incidence_graph_fwd.h"
+#include "pastel/sys/incidence_graph/incidence_graph_fwd.h"
 
 namespace Pastel
 {

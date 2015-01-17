@@ -3,8 +3,8 @@
 #ifndef PASTELSYS_REDBLACKTREE_NODE_H
 #define PASTELSYS_REDBLACKTREE_NODE_H
 
-#include "pastel/sys/redblacktree_fwd.h"
-#include "pastel/sys/class.h"
+#include "pastel/sys/redblacktree/redblacktree_fwd.h"
+#include "pastel/sys/generic/class.h"
 
 namespace Pastel
 {

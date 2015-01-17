@@ -11,7 +11,7 @@
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/outputs.h"
+#include "pastel/sys/output.h"
 
 #include <boost/range/algorithm/equal.hpp>
 

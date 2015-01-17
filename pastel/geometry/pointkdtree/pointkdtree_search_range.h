@@ -7,7 +7,7 @@
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/shapes/alignedbox.h"
 
-#include "pastel/sys/output_concept.h"
+#include "pastel/sys/output/output_concept.h"
 
 #include <vector>
 

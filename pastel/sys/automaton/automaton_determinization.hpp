@@ -1,11 +1,11 @@
 #ifndef PASTELSYS_AUTOMATON_DETERMINIZATION_HPP
 #define PASTELSYS_AUTOMATON_DETERMINIZATION_HPP
 
-#include "pastel/sys/automaton_determinization.h"
-#include "pastel/sys/automaton_closure.h"
+#include "pastel/sys/automaton/automaton_determinization.h"
+#include "pastel/sys/automaton/automaton_closure.h"
 #include "pastel/sys/hashed_tree.h"
-#include "pastel/sys/iteratoraddress_hash.h"
-#include "pastel/sys/dereferenced_hash.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
+#include "pastel/sys/hashing/dereferenced_hash.h"
 
 #include <list>
 #include <unordered_set>

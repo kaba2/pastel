@@ -84,7 +84,7 @@ Example
 An example is given by a [generic graph data structure][Graph] which allows to embed user-defined labels into the edges and vertices. In case the user data-type (say, for the edges) is `void`, no memory should be allocated for the user data. Using the class-wrapping pattern in this section, this would be implemented similarly to the following.
 
 [[CppCode]]:
-	#include "pastel/sys/class.h"
+	#include "pastel/sys/generic/class.h"
 
 	using namespace Pastel;
 

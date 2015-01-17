@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_ALL_DOWNFILTER_H
 #define PASTELSYS_ALL_DOWNFILTER_H
 
-#include "pastel/sys/downfilter_concept.h"
+#include "pastel/sys/downfilter/downfilter_concept.h"
 
 namespace Pastel
 {

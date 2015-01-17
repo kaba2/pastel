@@ -3,12 +3,12 @@
 #ifndef PASTELSYS_INCIDENCE_GRAPH_H
 #define PASTELSYS_INCIDENCE_GRAPH_H
 
-#include "pastel/sys/incidence_graph_concepts.h"
-#include "pastel/sys/incidence_graph_fwd.h"
-#include "pastel/sys/incidence_graph_incidence.h"
-#include "pastel/sys/incidence_graph_vertex.h"
-#include "pastel/sys/incidence_graph_edge.h"
-#include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/incidence_graph/incidence_graph_concepts.h"
+#include "pastel/sys/incidence_graph/incidence_graph_fwd.h"
+#include "pastel/sys/incidence_graph/incidence_graph_incidence.h"
+#include "pastel/sys/incidence_graph/incidence_graph_vertex.h"
+#include "pastel/sys/incidence_graph/incidence_graph_edge.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
 
 #include <unordered_map>
 #include <memory>

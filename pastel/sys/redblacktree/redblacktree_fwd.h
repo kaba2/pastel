@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_REDBLACKTREE_FWD_H
 #define PASTELSYS_REDBLACKTREE_FWD_H
 
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 #include "pastel/sys/range.h"
 
 #include <type_traits>

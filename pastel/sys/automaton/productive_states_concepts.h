@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_PRODUCTIVE_STATES_CONCEPTS_H
 #define PASTELSYS_PRODUCTIVE_STATES_CONCEPTS_H
 
-#include "pastel/sys/productive_states.h"
+#include "pastel/sys/automaton/productive_states.h"
 
 #include "pastel/sys/mytypes.h"
 

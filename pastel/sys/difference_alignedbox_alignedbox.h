@@ -5,7 +5,7 @@
 #define PASTELSYS_DIFFERENCE_ALIGNEDBOX_ALIGNEDBOX_H
 
 #include "pastel/sys/alignedbox.h"
-#include "pastel/sys/output_concept.h"
+#include "pastel/sys/output/output_concept.h"
 
 namespace Pastel
 {

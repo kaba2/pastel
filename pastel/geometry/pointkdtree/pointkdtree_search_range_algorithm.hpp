@@ -5,7 +5,7 @@
 #include "pastel/geometry/overlaps/overlaps_alignedbox_point.h"
 #include "pastel/geometry/overlaps/overlaps_alignedbox_alignedbox.h"
 
-#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/iterator/counting_iterator.h"
 
 namespace Pastel
 {

@@ -12,7 +12,7 @@
 #include "pastel/sys/range.h"
 #include "pastel/sys/alignedbox.h"
 
-#include "pastel/sys/array_cursor.h"
+#include "pastel/sys/array/array_cursor.h"
 
 namespace Pastel
 {
@@ -578,6 +578,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/array.hpp"
+#include "pastel/sys/array/array.hpp"
 
 #endif

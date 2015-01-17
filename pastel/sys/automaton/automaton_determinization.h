@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_AUTOMATON_DETERMINIZATION_H
 #define PASTELSYS_AUTOMATON_DETERMINIZATION_H
 
-#include "pastel/sys/automaton_determinization_concepts.h"
+#include "pastel/sys/automaton/automaton_determinization_concepts.h"
 
 #include "pastel/sys/automaton.h"
 
@@ -25,6 +25,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/automaton_determinization.hpp"
+#include "pastel/sys/automaton/automaton_determinization.hpp"
 
 #endif

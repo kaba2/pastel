@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
 #define PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
 
-#include "pastel/sys/output_concept.h"
+#include "pastel/sys/output/output_concept.h"
 
 namespace Pastel
 {

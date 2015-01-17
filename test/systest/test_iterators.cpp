@@ -3,12 +3,12 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/constant_iterator.h"
-#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/iterator/constant_iterator.h"
+#include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/iterator/sparse_iterator.h"
-#include "pastel/sys/rectangle_iterator.h"
+#include "pastel/sys/iterator/rectangle_iterator.h"
 
-#include "pastel/sys/second_iterator.h"
+#include "pastel/sys/iterator/second_iterator.h"
 
 #include <boost/iterator/transform_iterator.hpp>
 

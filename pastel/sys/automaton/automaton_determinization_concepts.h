@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_AUTOMATON_DETERMINIZATION_CONCEPTS_H
 #define PASTELSYS_AUTOMATON_DETERMINIZATION_CONCEPTS_H
 
-#include "pastel/sys/automaton_fwd.h"
+#include "pastel/sys/automaton/automaton_fwd.h"
 #include "pastel/sys/hashed_tree.h"
 #include "pastel/sys/optional.h"
 #include "pastel/sys/predicate/iterator_address_predicate.h"

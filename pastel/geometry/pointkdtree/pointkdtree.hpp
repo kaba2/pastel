@@ -6,7 +6,7 @@
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/list.h"
-#include "pastel/sys/constant_iterator.h"
+#include "pastel/sys/iterator/constant_iterator.h"
 #include "pastel/sys/null_output.h"
 
 #include <boost/operators.hpp>

@@ -5,7 +5,7 @@
 
 #include "pastel/sys/array.h"
 
-#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/iterator/counting_iterator.h"
 
 using namespace Pastel;
 

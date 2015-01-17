@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_AUTOMATON_CLOSURE_H
 #define PASTELSYS_AUTOMATON_CLOSURE_H
 
-#include "pastel/sys/automaton_closure_concepts.h"
+#include "pastel/sys/automaton/automaton_closure_concepts.h"
 
 #include "pastel/sys/automaton.h"
 
@@ -66,6 +66,6 @@ namespace Pastel
 		const Closure_Output& report);
 }
 
-#include "pastel/sys/automaton_closure.hpp"
+#include "pastel/sys/automaton/automaton_closure.hpp"
 
 #endif

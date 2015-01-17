@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_LIST_FWD_H
 #define PASTELSYS_LIST_FWD_H
 
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 #include "pastel/sys/range.h"
 
 namespace Pastel

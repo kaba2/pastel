@@ -30,6 +30,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/automaton_minimization.hpp"
+#include "pastel/sys/automaton/automaton_minimization.hpp"
 
 #endif

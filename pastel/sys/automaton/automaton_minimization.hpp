@@ -1,13 +1,13 @@
 #ifndef PASTELSYS_AUTOMATON_MINIMIZATION_HPP
 #define PASTELSYS_AUTOMATON_MINIMIZATION_HPP
 
-#include "pastel/sys/automaton_minimization.h"
+#include "pastel/sys/automaton/automaton_minimization.h"
 
-#include "pastel/sys/counting_iterator.h"
-#include "pastel/sys/productive_states.h"
-#include "pastel/sys/reachable_states.h"
+#include "pastel/sys/iterator/counting_iterator.h"
+#include "pastel/sys/automaton/productive_states.h"
+#include "pastel/sys/automaton/reachable_states.h"
 #include "pastel/sys/refinable_partition.h"
-#include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
 
 #include <unordered_map>
 #include <unordered_set>

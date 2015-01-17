@@ -7,7 +7,7 @@
 #include "pastel/math/euclidean_normbijection.h"
 
 #include "pastel/sys/point_concept.h"
-#include "pastel/sys/all_indicator.h"
+#include "pastel/sys/indicator/all_indicator.h"
 
 namespace Pastel
 {

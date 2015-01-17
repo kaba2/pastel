@@ -5,6 +5,6 @@
 
 #include "pastel/sys/graph_traversal.h"
 #include "pastel/sys/maximum_bipartite_matching.h"
-#include "pastel/sys/transitive_closure.h"
+#include "pastel/sys/transitive_closure/transitive_closure.h"
 
 #endif

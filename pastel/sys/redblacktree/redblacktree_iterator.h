@@ -4,10 +4,10 @@
 #define PASTELSYS_REDBLACKTREE_ITERATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/redblacktree_fwd.h"
-#include "pastel/sys/redblacktree_node.h"
-#include "pastel/sys/all_indicator.h"
-#include "pastel/sys/all_downfilter.h"
+#include "pastel/sys/redblacktree/redblacktree_fwd.h"
+#include "pastel/sys/redblacktree/redblacktree_node.h"
+#include "pastel/sys/indicator/all_indicator.h"
+#include "pastel/sys/downfilter/all_downfilter.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 

@@ -1,9 +1,9 @@
 #ifndef PASTELSYS_AUTOMATON_CLOSURE_HPP
 #define PASTELSYS_AUTOMATON_CLOSURE_HPP
 
-#include "pastel/sys/automaton_closure.h"
-#include "pastel/sys/transitive_closure.h"
-#include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/automaton/automaton_closure.h"
+#include "pastel/sys/transitive_closure/transitive_closure.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
 
 #include <unordered_set>
 #include <functional>

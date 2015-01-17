@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_CLASS_HPP
 #define PASTELSYS_CLASS_HPP
 
-#include "pastel/sys/class.h"
+#include "pastel/sys/generic/class.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hashing.h"
 
