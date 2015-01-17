@@ -885,6 +885,6 @@ namespace Pastel
 #include "pastel/sys/skiplist/skiplist_insert.hpp"
 #include "pastel/sys/skiplist/skiplist_invariants.hpp"
 #include "pastel/sys/skiplist/skiplist_erase.hpp"
-#include "pastel/sys/skiplist.hpp"
+#include "pastel/sys/skiplist/skiplist.hpp"
 
 #endif

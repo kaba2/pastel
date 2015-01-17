@@ -3,9 +3,9 @@
 
 #include "pastel/gfx/table_filter.h"
 
-#include "pastel/sys/subview.h"
-#include "pastel/sys/view_tools.h"
-#include "pastel/sys/arrayview.h"
+#include "pastel/sys/view/subview.h"
+#include "pastel/sys/view/view_tools.h"
+#include "pastel/sys/view/arrayview.h"
 
 #include "pastel/sys/math_functions.h"
 

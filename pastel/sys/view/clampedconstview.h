@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_CLAMPEDCONSTVIEW_H
 #define PASTELSYS_CLAMPEDCONSTVIEW_H
 
-#include "pastel/sys/extendedconstview.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/extendedconstview.h"
+#include "pastel/sys/view/view.h"
 #include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel

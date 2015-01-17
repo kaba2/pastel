@@ -9,8 +9,8 @@
 
 #include "pastel/sys/math/clampextender.h"
 #include "pastel/sys/arrayextender.h"
-#include "pastel/sys/view.h"
-#include "pastel/sys/arrayview.h"
+#include "pastel/sys/view/view.h"
+#include "pastel/sys/view/arrayview.h"
 
 #include <vector>
 

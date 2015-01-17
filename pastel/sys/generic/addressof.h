@@ -26,6 +26,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/addressof.hpp"
+#include "pastel/sys/generic/addressof.hpp"
 
 #endif

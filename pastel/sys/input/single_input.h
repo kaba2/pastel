@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_SINGLE_INPUT_H
 #define PASTELSYS_SINGLE_INPUT_H
 
-#include "pastel/sys/input_concept.h"
+#include "pastel/sys/input/input_concept.h"
 
 namespace Pastel
 {

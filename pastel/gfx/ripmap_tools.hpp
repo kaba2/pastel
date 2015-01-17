@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/ripmap_tools.h"
 
-#include "pastel/sys/view_tools.h"
+#include "pastel/sys/view/view_tools.h"
 
 namespace Pastel
 {

@@ -266,6 +266,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/rational.hpp"
+#include "pastel/sys/rational/rational.hpp"
 
 #endif

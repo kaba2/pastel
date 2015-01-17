@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_PERMUTEDVIEWCURSOR_H
 #define PASTELSYS_PERMUTEDVIEWCURSOR_H
 
-#include "pastel/sys/permutedview.h"
+#include "pastel/sys/view/permutedview.h"
 
 namespace Pastel
 {

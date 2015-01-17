@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_EXTENDEDCONSTVIEW_H
 #define PASTELSYS_EXTENDEDCONSTVIEW_H
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {

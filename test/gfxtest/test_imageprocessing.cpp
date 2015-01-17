@@ -12,7 +12,7 @@
 #include "pastel/gfx/image_dilation.h"
 #include "pastel/gfx/structuring_elements.h"
 
-#include "pastel/sys/arrayview.h"
+#include "pastel/sys/view/arrayview.h"
 #include "pastel/sys/borderedconstview.h"
 
 using namespace Pastel;

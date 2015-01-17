@@ -6,7 +6,7 @@
 
 #include "pastel/math/matrix_expression.h"
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {

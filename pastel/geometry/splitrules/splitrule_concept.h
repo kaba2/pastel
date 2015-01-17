@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_SPLITRULE_CONCEPT_H
 #define PASTELGEOMETRY_SPLITRULE_CONCEPT_H
 
-#include "pastel/sys/input_concept.h"
+#include "pastel/sys/input/input_concept.h"
 #include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/real/real_concept.h"
 #include "pastel/geometry/shapes/alignedbox.h"

@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_INPUT_AS_VECTOR_H
 #define PASTELSYS_INPUT_AS_VECTOR_H
 
-#include "pastel/sys/input_concept.h"
+#include "pastel/sys/input/input_concept.h"
 
 #include <vector>
 

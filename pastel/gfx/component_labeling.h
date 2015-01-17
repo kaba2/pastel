@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_COMPONENT_LABELING_H
 #define PASTELGFX_COMPONENT_LABELING_H
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {

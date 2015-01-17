@@ -7,7 +7,7 @@
 
 #include "pastel/sys/math/clampextender.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/arrayview.h"
+#include "pastel/sys/view/arrayview.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel

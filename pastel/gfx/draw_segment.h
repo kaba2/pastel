@@ -7,7 +7,7 @@
 #include "pastel/geometry/shapes/segment.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {

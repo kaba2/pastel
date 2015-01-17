@@ -3,8 +3,8 @@
 #ifndef PASTELSYS_TREE_H
 #define PASTELSYS_TREE_H
 
-#include "pastel/sys/tree_node.h"
-#include "pastel/sys/tree_iterator.h"
+#include "pastel/sys/tree/tree_node.h"
+#include "pastel/sys/tree/tree_iterator.h"
 #include "pastel/sys/destruct.h"
 #include "pastel/sys/generic/class.h"
 

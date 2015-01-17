@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_ADAPTEDVIEWCURSOR_H
 #define PASTELSYS_ADAPTEDVIEWCURSOR_H
 
-#include "pastel/sys/adaptedview.h"
+#include "pastel/sys/view/adaptedview.h"
 
 namespace Pastel
 {

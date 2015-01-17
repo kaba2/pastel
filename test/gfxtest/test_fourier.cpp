@@ -11,9 +11,9 @@
 
 #include "pastel/gfx/signal_transforms.h"
 
-#include "pastel/sys/arrayview.h"
-#include "pastel/sys/view_tools.h"
-#include "pastel/sys/adaptedview.h"
+#include "pastel/sys/view/arrayview.h"
+#include "pastel/sys/view/view_tools.h"
+#include "pastel/sys/view/adaptedview.h"
 #include "pastel/sys/subarray_for_each.h"
 
 #include <iostream>

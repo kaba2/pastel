@@ -3,7 +3,7 @@
 
 #include "pastel/matlab/pastelmatlab.h"
 
-#include "pastel/sys/maximum_bipartite_matching.h"
+#include "pastel/sys/graph/maximum_bipartite_matching.h"
 #include "pastel/sys/range.h"
 
 #include <boost/range/algorithm/copy.hpp>

@@ -5,7 +5,7 @@
 #define PASTELGFX_DRAW_TEXTURED_TRIANGLE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 #include "pastel/gfx/texture.h"
 

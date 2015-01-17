@@ -4,8 +4,8 @@
 #include "pastel/gfx/structuring_elements.h"
 
 #include "pastel/sys/vector/vector_tools.h"
-#include "pastel/sys/view_tools.h"
-#include "pastel/sys/view_visit.h"
+#include "pastel/sys/view/view_tools.h"
+#include "pastel/sys/view/view_visit.h"
 
 namespace Pastel
 {

@@ -6,8 +6,8 @@
 #include "pastel/gfx/draw_view.h"
 #include "pastel/gfx/assign_colormixer.h"
 
-#include "pastel/sys/view_visit.h"
-#include "pastel/sys/subview.h"
+#include "pastel/sys/view/view_visit.h"
+#include "pastel/sys/view/subview.h"
 
 namespace Pastel
 {

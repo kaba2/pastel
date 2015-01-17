@@ -5,7 +5,7 @@
 #include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
 
 #include "pastel/sys/iterator/counting_iterator.h"
-#include "pastel/sys/maximum_bipartite_matching.h"
+#include "pastel/sys/graph/maximum_bipartite_matching.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/stdpair_as_pair.h"

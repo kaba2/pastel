@@ -4,7 +4,7 @@
 #ifndef PASTELGEOMETRY_SEARCH_NEAREST_BRUTEFORCE_H
 #define PASTELGEOMETRY_SEARCH_NEAREST_BRUTEFORCE_H
 
-#include "pastel/sys/input_concept.h"
+#include "pastel/sys/input/input_concept.h"
 #include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/output/output_concept.h"

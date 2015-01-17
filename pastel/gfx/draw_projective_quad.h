@@ -5,7 +5,7 @@
 #define PASTELGFX_DRAW_PROJECTIVE_QUAD_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 #include "pastel/sys/tuple.h"
 
 #include "pastel/gfx/texture.h"

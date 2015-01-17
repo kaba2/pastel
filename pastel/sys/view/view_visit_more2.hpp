@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_VIEW_VISIT_MORE2_HPP
 #define PASTELSYS_VIEW_VISIT_MORE2_HPP
 
-#include "pastel/sys/view_visit_more2.h"
-#include "pastel/sys/rowview.h"
+#include "pastel/sys/view/view_visit_more2.h"
+#include "pastel/sys/view/rowview.h"
 
 namespace Pastel
 {

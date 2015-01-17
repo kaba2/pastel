@@ -4,7 +4,7 @@
 #include "pastel/gfx/box_labeling.h"
 #include "pastel/gfx/drawing.h"
 
-#include "pastel/sys/arrayview.h"
+#include "pastel/sys/view/arrayview.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel

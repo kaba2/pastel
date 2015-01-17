@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_VIEW_VISIT_HPP
 #define PASTELSYS_VIEW_VISIT_HPP
 
-#include "pastel/sys/view_visit.h"
+#include "pastel/sys/view/view_visit.h"
 
 namespace Pastel
 {

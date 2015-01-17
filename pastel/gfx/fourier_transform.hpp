@@ -6,8 +6,8 @@
 #include "pastel/sys/math/constants.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/sparseview.h"
-#include "pastel/sys/view_tools.h"
+#include "pastel/sys/view/sparseview.h"
+#include "pastel/sys/view/view_tools.h"
 
 #include <complex>
 

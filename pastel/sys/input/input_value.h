@@ -3,8 +3,8 @@
 #ifndef PASTEL_INPUT_VALUE_H
 #define PASTEL_INPUT_VALUE_H
 
-#include "pastel/sys/input_concept.h"
-#include "pastel/sys/input_return.h"
+#include "pastel/sys/input/input_concept.h"
+#include "pastel/sys/input/input_return.h"
 
 #include <type_traits>
 

@@ -1,9 +1,9 @@
 #ifndef PASTELSYS_VIEW_TOOLS_HPP
 #define PASTELSYS_VIEW_TOOLS_HPP
 
-#include "pastel/sys/view_tools.h"
+#include "pastel/sys/view/view_tools.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/view_visit.h"
+#include "pastel/sys/view/view_visit.h"
 
 namespace Pastel
 {

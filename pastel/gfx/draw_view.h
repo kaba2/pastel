@@ -5,7 +5,7 @@
 #define PASTELGFX_DRAW_VIEW_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel

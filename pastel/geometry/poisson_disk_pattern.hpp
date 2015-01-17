@@ -7,8 +7,8 @@
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/subview.h"
-#include "pastel/sys/arrayview.h"
+#include "pastel/sys/view/subview.h"
+#include "pastel/sys/view/arrayview.h"
 
 #include "pastel/math/uniform_sampling.h"
 

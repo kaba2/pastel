@@ -5,8 +5,8 @@
 #define PASTELGFX_IMAGE_ERODING_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/view.h"
-#include "pastel/sys/extendedconstview.h"
+#include "pastel/sys/view/view.h"
+#include "pastel/sys/view/extendedconstview.h"
 
 namespace Pastel
 {
