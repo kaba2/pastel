@@ -4,7 +4,7 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/views.h"
+#include "pastel/sys/view.h"
 
 using namespace Pastel;
 

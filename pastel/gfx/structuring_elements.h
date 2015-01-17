@@ -5,7 +5,7 @@
 #ifndef PASTELGFX_STRUCTURING_ELEMENTS_H
 #define PASTELGFX_STRUCTURING_ELEMENTS_H
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {

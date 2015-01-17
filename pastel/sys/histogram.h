@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_HISTOGRAM_H
 #define PASTELSYS_HISTOGRAM_H
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 #include "pastel/sys/range.h"
 
 #include <iterator>

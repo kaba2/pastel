@@ -5,8 +5,8 @@
 #define PASTELGFX_PACKRANGE_H
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/view_visit.h"
-#include "pastel/sys/view_tools.h"
+#include "pastel/sys/view/view_visit.h"
+#include "pastel/sys/view/view_tools.h"
 #include "pastel/sys/math/constants.h"
 
 namespace Pastel

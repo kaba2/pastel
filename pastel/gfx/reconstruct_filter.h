@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_RECONSTRUCT_FILTER_H
 #define PASTELGFX_RECONSTRUCT_FILTER_H
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 #include "pastel/geometry/shapes/alignedbox.h"
 

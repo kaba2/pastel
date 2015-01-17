@@ -5,7 +5,7 @@
 #ifndef PASTELSYS_MIRRORVIEW_H
 #define PASTELSYS_MIRRORVIEW_H
 
-#include "pastel/sys/mirrorviewcursor.h"
+#include "pastel/sys/view/mirrorviewcursor.h"
 
 namespace Pastel
 {

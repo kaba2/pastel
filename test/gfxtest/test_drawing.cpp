@@ -3,7 +3,7 @@
 
 #include "test_pastelgfx.h"
 
-#include "pastel/sys/extendedconstviews.h"
+#include "pastel/sys/view/extendedconstviews.h"
 #include "pastel/sys/views.h"
 
 #include "pastel/gfx/pcx.h"

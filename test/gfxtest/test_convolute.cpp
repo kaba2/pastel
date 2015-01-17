@@ -3,7 +3,7 @@
 
 #include "test_pastelgfx.h"
 
-#include "pastel/sys/arrayview.h"
+#include "pastel/sys/view/arrayview.h"
 
 #include "pastel/math/uniform_sampling.h"
 

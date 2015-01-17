@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_ROWVIEWCURSOR_H
 #define PASTELSYS_ROWVIEWCURSOR_H
 
-#include "pastel/sys/rowview.h"
+#include "pastel/sys/view/rowview.h"
 
 namespace Pastel
 {

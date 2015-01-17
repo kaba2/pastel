@@ -5,7 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 #include "pastel/sys/range.h"
 

@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_SLICEVIEWCURSOR_H
 #define PASTELSYS_SLICEVIEWCURSOR_H
 
-#include "pastel/sys/sliceview.h"
+#include "pastel/sys/view/sliceview.h"
 
 namespace Pastel
 {

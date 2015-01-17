@@ -7,7 +7,7 @@
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/borderedconstview.h"
-#include "pastel/sys/transformedview.h"
+#include "pastel/sys/view/transformedview.h"
 
 namespace Pastel
 {

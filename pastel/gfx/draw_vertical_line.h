@@ -5,7 +5,7 @@
 #define PASTELGFX_DRAW_VERTICAL_LINE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {

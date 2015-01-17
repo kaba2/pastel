@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_VIEW_TOOLS_H
 #define PASTELSYS_VIEW_TOOLS_H
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {
@@ -46,6 +46,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/view_tools.hpp"
+#include "pastel/sys/view/view_tools.hpp"
 
 #endif

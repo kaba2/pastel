@@ -4,8 +4,8 @@
 #ifndef PASTELGFX_DISCRETE_POISSON_DISK_PATTERN_H
 #define PASTELGFX_DISCRETE_POISSON_DISK_PATTERN_H
 
-#include "pastel/sys/view.h"
-#include "pastel/sys/view_visit.h"
+#include "pastel/sys/view/view.h"
+#include "pastel/sys/view/view_visit.h"
 #include "pastel/sys/array.h"
 
 #include "pastel/gfx/drawing.h"

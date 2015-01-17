@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_SPARSEVIEWCURSOR_H
 #define PASTELSYS_SPARSEVIEWCURSOR_H
 
-#include "pastel/sys/sparseview.h"
+#include "pastel/sys/view/sparseview.h"
 
 namespace Pastel
 {

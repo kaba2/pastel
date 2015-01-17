@@ -3,15 +3,15 @@
 #ifndef PASTELSYS_CONCRETE_VIEWS_H
 #define PASTELSYS_CONCRETE_VIEWS_H
 
-#include "pastel/sys/adaptedview.h"
-#include "pastel/sys/arrayview.h"
-#include "pastel/sys/cursorview.h"
-#include "pastel/sys/mirrorview.h"
-#include "pastel/sys/permutedview.h"
-#include "pastel/sys/rowview.h"
-#include "pastel/sys/sliceview.h"
-#include "pastel/sys/sparseview.h"
-#include "pastel/sys/subview.h"
-#include "pastel/sys/transformedview.h"
+#include "pastel/sys/view/adaptedview.h"
+#include "pastel/sys/view/arrayview.h"
+#include "pastel/sys/view/cursorview.h"
+#include "pastel/sys/view/mirrorview.h"
+#include "pastel/sys/view/permutedview.h"
+#include "pastel/sys/view/rowview.h"
+#include "pastel/sys/view/sliceview.h"
+#include "pastel/sys/view/sparseview.h"
+#include "pastel/sys/view/subview.h"
+#include "pastel/sys/view/transformedview.h"
 
 #endif

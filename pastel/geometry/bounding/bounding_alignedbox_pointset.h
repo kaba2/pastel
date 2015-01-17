@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_POINTSET_H
 #define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_POINTSET_H
 
-#include "pastel/sys/input_concept.h"
+#include "pastel/sys/input/input_concept.h"
 #include "pastel/sys/locator/locator_concept.h"
 
 #include "pastel/geometry/shapes/alignedbox.h"

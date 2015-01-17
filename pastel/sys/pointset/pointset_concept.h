@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_POINTSET_CONCEPT_H
 #define PASTELSYS_POINTSET_CONCEPT_H
 
-#include "pastel/sys/input_concept.h"
+#include "pastel/sys/input/input_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/locator/location_set.h"
 

@@ -5,7 +5,7 @@
 #define PASTELMATH_SCALAR_MEAN_SQUARE_ERROR_H
 
 #include "pastel/sys/real/real_concept.h"
-#include "pastel/sys/input_concept.h"
+#include "pastel/sys/input/input_concept.h"
 
 namespace Pastel
 {

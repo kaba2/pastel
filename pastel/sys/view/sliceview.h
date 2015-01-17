@@ -5,8 +5,8 @@
 #ifndef PASTELSYS_SLICEVIEW_H
 #define PASTELSYS_SLICEVIEW_H
 
-#include "pastel/sys/view.h"
-#include "pastel/sys/sliceviewcursor.h"
+#include "pastel/sys/view/view.h"
+#include "pastel/sys/view/sliceviewcursor.h"
 
 namespace Pastel
 {

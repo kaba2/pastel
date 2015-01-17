@@ -4,9 +4,9 @@
 #include "test_pastelgfx.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/view_visit.h"
-#include "pastel/sys/extendedconstviews.h"
-#include "pastel/sys/view_tools.h"
+#include "pastel/sys/view/view_visit.h"
+#include "pastel/sys/view/extendedconstviews.h"
+#include "pastel/sys/view/view_tools.h"
 #include "pastel/sys/indexextenders.h"
 
 #include "pastel/gfx/colormixers.h"

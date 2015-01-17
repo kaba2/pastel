@@ -51,7 +51,7 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/input_return.h"
-#include "pastel/sys/input_value.h"
+#include "pastel/sys/input/input_return.h"
+#include "pastel/sys/input/input_value.h"
 
 #endif

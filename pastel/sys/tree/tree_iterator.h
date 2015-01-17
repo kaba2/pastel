@@ -4,7 +4,7 @@
 #define PASTELSYS_TREE_ITERATOR_H
 
 #include "pastel/sys/tree.h"
-#include "pastel/sys/tree_node.h"
+#include "pastel/sys/tree/tree_node.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 

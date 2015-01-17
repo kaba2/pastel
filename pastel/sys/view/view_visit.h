@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_VIEW_VISIT_H
 #define PASTELSYS_VIEW_VISIT_H
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 #include "pastel/sys/alignedbox.h"
 
 namespace Pastel
@@ -80,11 +80,11 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/view_visit_more.h"
-#include "pastel/sys/view_visit_more2.h"
+#include "pastel/sys/view/view_visit_more.h"
+#include "pastel/sys/view/view_visit_more2.h"
 
-#include "pastel/sys/view_visit.hpp"
-#include "pastel/sys/view_visit_more.hpp"
-#include "pastel/sys/view_visit_more2.hpp"
+#include "pastel/sys/view/view_visit.hpp"
+#include "pastel/sys/view/view_visit_more.hpp"
+#include "pastel/sys/view/view_visit_more2.hpp"
 
 #endif

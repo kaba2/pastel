@@ -13,8 +13,8 @@
 #include "pastel/sys/logging/log.h"
 #include "pastel/sys/binaryfile.h"
 #include "pastel/sys/tuple.h"
-#include "pastel/sys/view_tools.h"
-#include "pastel/sys/arrayview.h"
+#include "pastel/sys/view/view_tools.h"
+#include "pastel/sys/view/arrayview.h"
 #include "pastel/sys/vector.h"
 
 #include <algorithm>

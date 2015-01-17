@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_MIRROREDCONSTVIEW_H
 #define PASTELSYS_MIRROREDCONSTVIEW_H
 
-#include "pastel/sys/extendedconstview.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/extendedconstview.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {

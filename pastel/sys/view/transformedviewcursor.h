@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_TRANSFORMEDVIEWCURSOR_H
 #define PASTELSYS_TRANSFORMEDVIEWCURSOR_H
 
-#include "pastel/sys/transformedview.h"
+#include "pastel/sys/view/transformedview.h"
 
 namespace Pastel
 {

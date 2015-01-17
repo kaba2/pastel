@@ -8,9 +8,9 @@
 #include "pastel/gfx/coloradapter.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/view.h"
-#include "pastel/sys/arrayview.h"
-#include "pastel/sys/adaptedview.h"
+#include "pastel/sys/view/view.h"
+#include "pastel/sys/view/arrayview.h"
+#include "pastel/sys/view/adaptedview.h"
 
 #include <vector>
 

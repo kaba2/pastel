@@ -5,8 +5,8 @@
 #ifndef PASTELSYS_ROWVIEW_H
 #define PASTELSYS_ROWVIEW_H
 
-#include "pastel/sys/view.h"
-#include "pastel/sys/rowviewcursor.h"
+#include "pastel/sys/view/view.h"
+#include "pastel/sys/view/rowviewcursor.h"
 
 namespace Pastel
 {

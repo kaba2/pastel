@@ -118,6 +118,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/indexallocator.hpp"
+#include "pastel/sys/indexallocator/indexallocator.hpp"
 
 #endif

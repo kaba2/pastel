@@ -7,7 +7,7 @@
 #include "pastel/gfx/filter.h"
 #include "pastel/gfx/gaussian_filter.h"
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 #include <vector>
 

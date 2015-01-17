@@ -7,7 +7,7 @@
 
 #include "pastel/sys/alignedbox.h"
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {

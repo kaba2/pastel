@@ -71,6 +71,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/maximum_bipartite_matching.hpp"
+#include "pastel/sys/graph/maximum_bipartite_matching/maximum_bipartite_matching.hpp"
 
 #endif

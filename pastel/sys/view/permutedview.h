@@ -5,8 +5,8 @@
 #ifndef PASTELSYS_PERMUTEDVIEW_H
 #define PASTELSYS_PERMUTEDVIEW_H
 
-#include "pastel/sys/view.h"
-#include "pastel/sys/permutedviewcursor.h"
+#include "pastel/sys/view/view.h"
+#include "pastel/sys/view/permutedviewcursor.h"
 
 namespace Pastel
 {

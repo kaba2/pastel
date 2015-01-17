@@ -4,7 +4,7 @@
 #define PASTELGFX_RESAMPLING_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 #include "pastel/sys/arrayextender.h"
 #include "pastel/sys/range.h"
 

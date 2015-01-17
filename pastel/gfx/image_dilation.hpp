@@ -4,8 +4,8 @@
 #include "pastel/gfx/image_dilation.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/addressof.h"
-#include "pastel/sys/view_tools.h"
+#include "pastel/sys/generic/addressof.h"
+#include "pastel/sys/view/view_tools.h"
 #include "pastel/sys/intersect_alignedbox_alignedbox.h"
 
 namespace Pastel

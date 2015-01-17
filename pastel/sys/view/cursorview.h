@@ -5,7 +5,7 @@
 #ifndef PASTELSYS_CURSORVIEW_H
 #define PASTELSYS_CURSORVIEW_H
 
-#include "pastel/sys/view.h"
+#include "pastel/sys/view/view.h"
 
 namespace Pastel
 {
