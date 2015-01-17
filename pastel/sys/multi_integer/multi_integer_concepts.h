@@ -1,22 +1,22 @@
 // Description: Concepts for multi-integer
 
-#ifndef PASTELSYS_INTEGER_CONCEPTS_H
-#define PASTELSYS_INTEGER_CONCEPTS_H
+#ifndef PASTELSYS_MULTI_INTEGER_CONCEPTS_H
+#define PASTELSYS_MULTI_INTEGER_CONCEPTS_H
 
-#include "pastel/sys/integer.h"
+#include "pastel/sys/multi_integer.h"
 #include "pastel/sys/integer/integer_concept.h"
 
 namespace Pastel
 {
 
-	namespace Multi_Integer_Concepts
+	namespace MultiInteger_Concepts
 	{
 
-		class Multi_Integer_Settings_Concept
+		class MultiInteger_Settings_Concept
 		{
 		public:
 			//! The number of bits in the integer.
-			static PASTEL_CONSTEXPR int N = UserDefinedMulti_Integer;
+			static PASTEL_CONSTEXPR int N = UserDefinedInteger;
 
 			//! The type of the underlying word.
 			/*!
