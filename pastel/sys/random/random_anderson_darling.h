@@ -18,6 +18,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_anderson_darling.hpp"
+#include "pastel/sys/random/random_anderson_darling.hpp"
 
 #endif

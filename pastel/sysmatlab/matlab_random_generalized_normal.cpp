@@ -3,7 +3,7 @@
 
 #include "pastel/matlab/pastelmatlab.h"
 
-#include "pastel/sys/random_generalizedgaussian.h"
+#include "pastel/sys/random/random_generalizedgaussian.h"
 
 void force_linking_random_generalized_normal() {};
 

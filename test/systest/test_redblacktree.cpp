@@ -4,8 +4,8 @@
 #include "test_pastelsys.h"
 
 #include <pastel/sys/redblacktree.h>
-#include <pastel/sys/random_uniform.h>
-#include <pastel/sys/random_integer.h>
+#include <pastel/sys/random/random_uniform.h>
+#include <pastel/sys/random/random_integer.h>
 #include <pastel/sys/downfilters.h>
 
 #include <boost/range/adaptor/reversed.hpp> 

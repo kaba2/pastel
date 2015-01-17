@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_FAIR_STABLE_PARTITION_H
 #define PASTELSYS_FAIR_STABLE_PARTITION_H
 
-#include "pastel/sys/trindicator_concept.h"
+#include "pastel/sys/trindicator/trindicator_concept.h"
 #include "pastel/sys/range.h"
 
 namespace Pastel
@@ -45,6 +45,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/fair_stable_partition.hpp"
+#include "pastel/sys/sequence/fair_stable_partition.hpp"
 
 #endif

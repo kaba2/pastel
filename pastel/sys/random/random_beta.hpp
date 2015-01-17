@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_RANDOM_BETA_HPP
 #define PASTELSYS_RANDOM_BETA_HPP
 
-#include "pastel/sys/random_beta.h"
-#include "pastel/sys/random_gamma.h"
+#include "pastel/sys/random/random_beta.h"
+#include "pastel/sys/random/random_gamma.h"
 #include "pastel/sys/math_functions.h"
 
 #include <cmath>

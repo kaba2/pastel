@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_RANDOM_CAUCHY_HPP
 #define PASTELSYS_RANDOM_CAUCHY_HPP
 
-#include "pastel/sys/random_cauchy.h"
-#include "pastel/sys/random_gaussian.h"
+#include "pastel/sys/random/random_cauchy.h"
+#include "pastel/sys/random/random_gaussian.h"
 #include "pastel/sys/math/constants.h"
 #include "pastel/sys/math_functions.h"
 

@@ -73,6 +73,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_uniform.hpp"
+#include "pastel/sys/random/random_uniform.hpp"
 
 #endif

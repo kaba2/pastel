@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_RANDOM_GAMMA_HPP
 #define PASTELSYS_RANDOM_GAMMA_HPP
 
-#include "pastel/sys/random_gamma.h"
-#include "pastel/sys/random_gaussian.h"
+#include "pastel/sys/random/random_gamma.h"
+#include "pastel/sys/random/random_gaussian.h"
 #include "pastel/sys/math_functions.h"
 
 namespace Pastel

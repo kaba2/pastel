@@ -47,6 +47,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_triangle.hpp"
+#include "pastel/sys/random/random_triangle.hpp"
 
 #endif

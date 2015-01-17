@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_FAIR_STABLE_PARTITION_HPP
 #define PASTELSYS_FAIR_STABLE_PARTITION_HPP
 
-#include "pastel/sys/fair_stable_partition.h"
-#include "pastel/sys/trindicator_concept.h"
+#include "pastel/sys/sequence/fair_stable_partition.h"
+#include "pastel/sys/trindicator/trindicator_concept.h"
 
 namespace Pastel
 {

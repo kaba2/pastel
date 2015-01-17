@@ -101,6 +101,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_generalizedgaussian.hpp"
+#include "pastel/sys/random/random_generalizedgaussian.hpp"
 
 #endif

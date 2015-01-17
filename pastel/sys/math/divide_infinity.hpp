@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_DIVIDE_INFINITY_HPP
 #define PASTELSYS_DIVIDE_INFINITY_HPP
 
-#include "pastel/sys/divide_infinity.h"
+#include "pastel/sys/math/divide_infinity.h"
 
 namespace Pastel
 {

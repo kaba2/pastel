@@ -49,6 +49,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_integer.hpp"
+#include "pastel/sys/random/random_integer.hpp"
 
 #endif

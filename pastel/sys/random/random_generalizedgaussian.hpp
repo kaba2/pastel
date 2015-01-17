@@ -1,9 +1,9 @@
 #ifndef	PASTELSYS_RANDOM_GENERALIZEDGAUSSIAN_HPP
 #define PASTELSYS_RANDOM_GENERALIZEDGAUSSIAN_HPP
 
-#include "pastel/sys/random_generalizedgaussian.h"
-#include "pastel/sys/random_uniform.h"
-#include "pastel/sys/random_gamma.h"
+#include "pastel/sys/random/random_generalizedgaussian.h"
+#include "pastel/sys/random/random_uniform.h"
+#include "pastel/sys/random/random_gamma.h"
 
 #include <cmath>
 

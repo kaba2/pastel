@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_REFINABLE_PARTITION_ELEMENT_H
 #define PASTELSYS_REFINABLE_PARTITION_ELEMENT_H
 
-#include "pastel/sys/refinable_partition.h"
+#include "pastel/sys/refinable_partition/refinable_partition.h"
 #include "pastel/sys/generic/class.h"
 
 namespace Pastel

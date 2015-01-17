@@ -4,9 +4,9 @@
 #define PASTELSYS_REFINABLE_PARTITION_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/refinable_partition_fwd.h"
-#include "pastel/sys/refinable_partition_element.h"
-#include "pastel/sys/refinable_partition_set.h"
+#include "pastel/sys/refinable_partition/refinable_partition_fwd.h"
+#include "pastel/sys/refinable_partition/refinable_partition_element.h"
+#include "pastel/sys/refinable_partition/refinable_partition_set.h"
 
 #include <iterator>
 

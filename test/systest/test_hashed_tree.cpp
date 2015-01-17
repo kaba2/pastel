@@ -4,7 +4,7 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/hashed_tree.h"
-#include "pastel/sys/random_uniform.h"
+#include "pastel/sys/random/random_uniform.h"
 
 #include <iostream>
 #include <list>

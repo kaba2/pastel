@@ -16,6 +16,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/insertion_sort.hpp"
+#include "pastel/sys/sequence/insertion_sort.hpp"
 
 #endif

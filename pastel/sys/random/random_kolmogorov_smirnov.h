@@ -18,6 +18,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_kolmogorov_smirnov.hpp"
+#include "pastel/sys/random/random_kolmogorov_smirnov.hpp"
 
 #endif

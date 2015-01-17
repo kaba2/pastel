@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_DEPTH_FIRST_TRAVERSAL_HPP
 #define PASTELSYS_DEPTH_FIRST_TRAVERSAL_HPP
 
-#include "pastel/sys/depth_first_traversal.h"
+#include "pastel/sys/graph/depth_first/depth_first.h"
 
 #include <boost/bind.hpp>
 

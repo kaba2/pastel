@@ -27,6 +27,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_subset.hpp"
+#include "pastel/sys/sequence/random_subset.hpp"
 
 #endif

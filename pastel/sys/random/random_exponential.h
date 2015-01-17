@@ -58,6 +58,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_exponential.hpp"
+#include "pastel/sys/random/random_exponential.hpp"
 
 #endif

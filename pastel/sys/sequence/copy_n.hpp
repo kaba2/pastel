@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_COPY_N_HPP
 #define PASTELSYS_COPY_N_HPP
 
-#include "pastel/sys/copy_n.h"
+#include "pastel/sys/sequence/copy_n.h"
 
 #include <boost/mpl/if.hpp>
 

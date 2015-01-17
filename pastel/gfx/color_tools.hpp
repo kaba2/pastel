@@ -5,7 +5,7 @@
 
 #include "pastel/sys/math/constants.h"
 #include "pastel/sys/math_functions.h"
-#include "pastel/sys/random_uniform.h"
+#include "pastel/sys/random/random_uniform.h"
 #include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel

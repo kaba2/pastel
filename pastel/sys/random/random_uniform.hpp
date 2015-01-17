@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_RANDOM_UNIFORM_HPP
 #define PASTELSYS_RANDOM_UNIFORM_HPP
 
-#include "pastel/sys/random_uniform.h"
-#include "pastel/sys/random_integer.h"
+#include "pastel/sys/random/random_uniform.h"
+#include "pastel/sys/random/random_integer.h"
 
 namespace Pastel
 {

@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_RANDOM_TRIANGLE_HPP
 #define PASTELSYS_RANDOM_TRIANGLE_HPP
 
-#include "pastel/sys/random_triangle.h"
+#include "pastel/sys/random/random_triangle.h"
 
 namespace Pastel
 {

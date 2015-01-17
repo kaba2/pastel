@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_TRANSITIVE_CLOSURE_CONCEPTS_H
 #define PASTELSYS_TRANSITIVE_CLOSURE_CONCEPTS_H
 
-#include "pastel/sys/transitive_closure/transitive_closure.h"
+#include "pastel/sys/graph/transitive_closure.h"
 
 #include <functional>
 

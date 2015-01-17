@@ -28,6 +28,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_beta.hpp"
+#include "pastel/sys/random/random_beta.hpp"
 
 #endif

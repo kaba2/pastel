@@ -1,4 +1,4 @@
-#include "pastel/sys/mt19937.h"
+#include "pastel/sys/random/mt19937.h"
 
 // The following code is a modification of the official 
 // Mersenne Twister source code. I have modified it as 

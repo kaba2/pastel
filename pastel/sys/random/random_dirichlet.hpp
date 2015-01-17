@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_RANDOM_DIRICHLET_HPP
 #define PASTELSYS_RANDOM_DIRICHLET_HPP
 
-#include "pastel/sys/random_dirichlet.h"
-#include "pastel/sys/random_gamma.h"
+#include "pastel/sys/random/random_dirichlet.h"
+#include "pastel/sys/random/random_gamma.h"
 #include "pastel/sys/vector/vector_compare.h"
 
 namespace Pastel

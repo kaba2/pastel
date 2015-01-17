@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_REFINABLE_PARTITION_SET_H
 #define PASTELSYS_REFINABLE_PARTITION_SET_H
 
-#include "pastel/sys/refinable_partition.h"
+#include "pastel/sys/refinable_partition/refinable_partition.h"
 #include "pastel/sys/generic/class.h"
 
 // For swap, FIX: replace with utility once C++11 support improves.

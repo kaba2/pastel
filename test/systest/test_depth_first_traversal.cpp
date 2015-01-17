@@ -1,9 +1,9 @@
 // Description: Testing for depth-first traversal
-// DocumentationOf: depth_first_traversal.h
+// DocumentationOf: depth_first.h
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/depth_first_traversal.h"
+#include "pastel/sys/graph/depth_first/depth_first.h"
 
 using namespace Pastel;
 
