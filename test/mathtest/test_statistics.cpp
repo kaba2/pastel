@@ -3,11 +3,10 @@
 
 #include "test_pastelmath.h"
 
-#include <pastel/sys/range_input.h>
+#include <pastel/sys/input.h>
 #include <pastel/math/statistics.h>
 
 #include <pastel/sys/rational.h>
-#include <pastel/sys/array_locator.h>
 #include <pastel/sys/locator.h>
 
 using namespace Pastel;

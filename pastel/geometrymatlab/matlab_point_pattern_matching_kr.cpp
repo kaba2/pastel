@@ -7,7 +7,7 @@
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/splitrules/slidingmidpoint_splitrule.h"
 
-#include "pastel/sys/pointer_locator.h"
+#include "pastel/sys/locator/pointer_locator.h"
 
 void force_linking_point_pattern_matching_kr() {}
 

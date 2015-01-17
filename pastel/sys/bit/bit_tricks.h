@@ -5,7 +5,7 @@
 
 #include "pastel/sys/bit/bitmask.h"
 #include "pastel/sys/math/divide_infinity.h"
-#include "pastel/sys/extract_bits.h"
+#include "pastel/sys/bit/extract_bits.h"
 #include "pastel/sys/bit/flip_leading_one_bits.h"
 #include "pastel/sys/bit/flip_leading_zero_bits.h"
 #include "pastel/sys/highest_bit.h"

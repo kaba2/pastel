@@ -3,8 +3,8 @@
 #include "test_pastelgfx.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/views.h"
-#include "pastel/sys/indexextenders.h"
+#include "pastel/sys/view.h"
+#include "pastel/sys/extender/indexextenders.h"
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"

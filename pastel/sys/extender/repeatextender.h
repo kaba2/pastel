@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_REPEATEXTENDER_H
 #define PASTELSYS_REPEATEXTENDER_H
 
-#include "pastel/sys/indexextender.h"
+#include "pastel/sys/extender/indexextender.h"
 
 namespace Pastel
 {

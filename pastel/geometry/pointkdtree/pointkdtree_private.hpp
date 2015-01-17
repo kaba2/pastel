@@ -5,8 +5,8 @@
 #include "pastel/geometry/splitrules/longestmedian_splitrule.h"
 
 #include "pastel/sys/range.h"
-#include "pastel/sys/range_input.h"
-#include "pastel/sys/transform_input.h"
+#include "pastel/sys/input/range_input.h"
+#include "pastel/sys/input/transform_input.h"
 
 #include <type_traits>
 

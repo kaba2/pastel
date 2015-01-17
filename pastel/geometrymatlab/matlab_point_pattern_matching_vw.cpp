@@ -4,7 +4,7 @@
 #include "pastel/matlab/pastelmatlab.h"
 
 #include "pastel/geometry/point_pattern_matching_vw.h"
-#include "pastel/sys/pointer_locator.h"
+#include "pastel/sys/locator/pointer_locator.h"
 
 void force_linking_point_pattern_matching_vw() {}
 

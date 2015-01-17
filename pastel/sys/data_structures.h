@@ -16,6 +16,6 @@
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/refinable_partition/refinable_partition.h"
 #include "pastel/sys/skiplist.h"
-#include "pastel/sys/views.h"
+#include "pastel/sys/view.h"
 
 #endif

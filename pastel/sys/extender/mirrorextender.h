@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_MIRROREXTENDER_H
 #define PASTELSYS_MIRROREXTENDER_H
 
-#include "pastel/sys/indexextender.h"
+#include "pastel/sys/extender/indexextender.h"
 
 namespace Pastel
 {

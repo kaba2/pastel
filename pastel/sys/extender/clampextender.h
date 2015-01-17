@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_CLAMPEXTENDER_H
 #define PASTELSYS_CLAMPEXTENDER_H
 
-#include "pastel/sys/indexextender.h"
+#include "pastel/sys/extender/indexextender.h"
 
 #include <cmath>
 

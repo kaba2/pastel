@@ -5,7 +5,7 @@
 #define PASTELSYS_ARRAYEXTENDER_H
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/indexextender.h"
+#include "pastel/sys/extender/indexextender.h"
 #include "pastel/sys/view/view.h"
 
 namespace Pastel

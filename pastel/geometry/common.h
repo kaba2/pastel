@@ -5,6 +5,6 @@
 
 #include "pastel/geometry/barycentric.h"
 #include "pastel/geometry/nearest_main_axis.h"
-#include "pastel/geometry/predicate.h"
+#include "pastel/geometry/predicates.h"
 
 #endif

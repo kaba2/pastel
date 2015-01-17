@@ -7,7 +7,7 @@
 #include "pastel/sys/configuration.h"
 #include "pastel/sys/data_structures.h"
 #include "pastel/sys/generic_programming.h"
-#include "pastel/sys/iterators.h"
+#include "pastel/sys/iterator.h"
 #include "pastel/sys/maths.h"
 #include "pastel/sys/memory.h"
 #include "pastel/sys/portability.h"

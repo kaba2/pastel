@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_EXTRACT_BITS_HPP
 #define PASTELSYS_EXTRACT_BITS_HPP
 
-#include "pastel/sys/extract_bits.h"
+#include "pastel/sys/bit/extract_bits.h"
 
 namespace Pastel
 {

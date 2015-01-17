@@ -13,7 +13,7 @@
 #include "pastel/gfx/structuring_elements.h"
 
 #include "pastel/sys/view/arrayview.h"
-#include "pastel/sys/borderedconstview.h"
+#include "pastel/sys/view/borderedconstview.h"
 
 using namespace Pastel;
 

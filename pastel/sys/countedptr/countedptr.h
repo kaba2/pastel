@@ -5,7 +5,7 @@
 #define PASTELSYS_COUNTEDPTR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/referencecounted.h"
+#include "pastel/sys/countedptr/referencecounted.h"
 #include "pastel/sys/weakptr.h"
 
 #include <boost/operators.hpp>
@@ -200,6 +200,6 @@ namespace std
 
 }
 
-#include "pastel/sys/countedptr.hpp"
+#include "pastel/sys/countedptr/countedptr.hpp"
 
 #endif

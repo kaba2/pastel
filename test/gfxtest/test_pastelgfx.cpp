@@ -11,8 +11,8 @@ using namespace Pastel;
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/mipmap.h"
 
-#include "pastel/sys/arrayextender.h"
-#include "pastel/sys/indexextenders.h"
+#include "pastel/sys/extender/arrayextender.h"
+#include "pastel/sys/extender/indexextenders.h"
 
 using namespace Pastel;
 

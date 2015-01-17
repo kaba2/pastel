@@ -6,7 +6,7 @@
 #include "pastel/sys/random.h"
 #include "pastel/sys/math_functions.h"
 
-#include "pastel/geometry/predicate.h"
+#include "pastel/geometry/predicates.h"
 
 using namespace Pastel;
 

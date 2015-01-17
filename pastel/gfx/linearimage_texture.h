@@ -6,7 +6,7 @@
 
 #include "pastel/gfx/texture.h"
 
-#include "pastel/sys/arrayextender.h"
+#include "pastel/sys/extender/arrayextender.h"
 
 namespace Pastel
 {

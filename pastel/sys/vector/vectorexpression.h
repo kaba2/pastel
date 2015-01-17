@@ -331,5 +331,6 @@ namespace Pastel
 #include "pastel/sys/vector/array_vectorexpression.h"
 #include "pastel/sys/vector/binary_vectorexpression.h"
 #include "pastel/sys/vector/unary_vectorexpression.h"
+#include "pastel/sys/vector/point_vectorexpression.h"
 
 #endif

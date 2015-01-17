@@ -5,7 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view/view.h"
-#include "pastel/sys/arrayextender.h"
+#include "pastel/sys/extender/arrayextender.h"
 #include "pastel/sys/range.h"
 
 #include "pastel/gfx/table_filter.h"

@@ -6,7 +6,7 @@
 #include "pastel/gfx/additive_colormixer.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/borderedconstview.h"
+#include "pastel/sys/view/borderedconstview.h"
 #include "pastel/sys/view/transformedview.h"
 
 namespace Pastel
