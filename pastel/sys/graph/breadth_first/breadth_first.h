@@ -3,9 +3,9 @@
 #ifndef PASTELSYS_BREADTH_FIRST_TRAVERSAL_H
 #define PASTELSYS_BREADTH_FIRST_TRAVERSAL_H
 
-#include "pastel/sys/graph_traversal_concepts.h"
+#include "pastel/sys/graph/graph_traversal_concepts.h"
 
-#include "pastel/sys/generic_traversal.h"
+#include "pastel/sys/graph/generic_traversal.h"
 
 namespace Pastel
 {
@@ -15,6 +15,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/breadth_first_traversal.hpp"
+#include "pastel/sys/graph/breadth_first/breadth_first.hpp"
 
 #endif

@@ -13,7 +13,7 @@
 #include "pastel/sys/iterators.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/locators.h"
-#include "pastel/sys/indicators.h"
+#include "pastel/sys/indicator.h"
 
 using namespace Pastel;
 

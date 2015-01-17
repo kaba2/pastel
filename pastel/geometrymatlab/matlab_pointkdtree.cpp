@@ -9,7 +9,7 @@
 
 #include "pastel/sys/pointpolicies.h"
 #include "pastel/sys/pool_allocator.h"
-#include "pastel/sys/predicate_indicator.h"
+#include "pastel/sys/indicator/predicate_indicator.h"
 
 #include <boost/range/algorithm/fill.hpp>
 

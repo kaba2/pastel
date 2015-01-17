@@ -61,6 +61,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/exponential_binary_search.hpp"
+#include "pastel/sys/sequence/exponential_binary_search/exponential_binary_search.hpp"
 
 #endif

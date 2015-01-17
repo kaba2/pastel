@@ -4,8 +4,8 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/biginteger.h"
-#include "pastel/sys/integer.h"
-#include "pastel/sys/gcd.h"
+#include "pastel/sys/multi_integer.h"
+#include "pastel/sys/integer/gcd.h"
 
 namespace
 {

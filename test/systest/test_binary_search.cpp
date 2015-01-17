@@ -3,9 +3,9 @@
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/binary_search.h>
-#include <pastel/sys/exponential_binary_search.h>
-#include <pastel/sys/predicate_indicator.h>
+#include <pastel/sys/sequence/binary_search.h>
+#include <pastel/sys/sequence/exponential_binary_search.h>
+#include <pastel/sys/indicator/predicate_indicator.h>
 
 using namespace Pastel;
 

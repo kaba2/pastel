@@ -29,6 +29,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/gcd.hpp"
+#include "pastel/sys/integer/gcd.hpp"
 
 #endif

@@ -10,7 +10,7 @@
 #include <pastel/sys/vector.h>
 #include <pastel/sys/input.h>
 #include <pastel/sys/output.h>
-#include <pastel/sys/indicators.h>
+#include <pastel/sys/indicator.h>
 #include <pastel/sys/locators.h>
 #include <pastel/sys/iterator/counting_iterator.h>
 

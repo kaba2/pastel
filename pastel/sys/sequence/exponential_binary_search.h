@@ -4,6 +4,6 @@
 #ifndef PASTELSYS_EXPONENTIAL_BINARY_SEARCH_H_MODULE
 #define PASTELSYS_EXPONENTIAL_BINARY_SEARCH_H_MODULE
 
-#include "pastel/sys/exponential_binary_search/exponential_binary_search.h"
+#include "pastel/sys/sequence/exponential_binary_search/exponential_binary_search.h"
 
 #endif

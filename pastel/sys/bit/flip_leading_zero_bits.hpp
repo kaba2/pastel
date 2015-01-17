@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_FLIP_LEADING_ZERO_BITS_HPP
 #define PASTELSYS_FLIP_LEADING_ZERO_BITS_HPP
 
-#include "pastel/sys/flip_leading_zero_bits.h"
+#include "pastel/sys/bit/flip_leading_zero_bits.h"
 
 namespace Pastel
 {

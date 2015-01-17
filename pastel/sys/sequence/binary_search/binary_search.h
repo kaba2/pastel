@@ -59,6 +59,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/binary_search/binary_search.hpp"
+#include "pastel/sys/sequence/binary_search/binary_search.hpp"
 
 #endif

@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_GENERIC_TRAVERSAL_H
 #define PASTELSYS_GENERIC_TRAVERSAL_H
 
-#include "pastel/sys/graph_traversal_concepts.h"
+#include "pastel/sys/graph/graph_traversal_concepts.h"
 
 namespace Pastel
 {

@@ -4,8 +4,8 @@
 #include "test_pastelsys.h"
 
 #include <pastel/sys/sequence/fair_stable_partition.h>
-#include <pastel/sys/trindicators.h>
-#include <pastel/sys/indicators.h>
+#include <pastel/sys/trindicator.h>
+#include <pastel/sys/indicator.h>
 
 using namespace Pastel;
 

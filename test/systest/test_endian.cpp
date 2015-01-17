@@ -2,6 +2,7 @@
 // DocumentationOf: endian.h
 
 #include "test_pastelsys.h"
+
 #include "pastel/sys/endian.h"
 
 using namespace Pastel;
