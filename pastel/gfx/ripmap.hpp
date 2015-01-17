@@ -5,7 +5,7 @@
 #include "pastel/gfx/filter.h"
 #include "pastel/gfx/resampling.h"
 
-#include "pastel/sys/math/clampextender.h"
+#include "pastel/sys/extender/clampextender.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/view/arrayview.h"
 #include "pastel/sys/vector.h"

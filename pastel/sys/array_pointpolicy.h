@@ -6,7 +6,6 @@
 #define PASTELSYS_ARRAY_POINTPOLICY_H
 
 #include "pastel/sys/pointpolicy_concept.h"
-#include "pastel/sys/array_vectorexpression.h"
 
 namespace Pastel
 {

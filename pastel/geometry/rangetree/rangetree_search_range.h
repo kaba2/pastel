@@ -6,7 +6,7 @@
 
 #include "pastel/geometry/rangetree/rangetree.h"
 #include "pastel/geometry/shapes/alignedbox.h"
-#include "pastel/sys/null_output.h"
+#include "pastel/sys/output/null_output.h"
 
 namespace Pastel
 {

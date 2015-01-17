@@ -90,6 +90,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/binaryfile.hpp"
+#include "pastel/sys/binaryfile/binaryfile.hpp"
 
 #endif

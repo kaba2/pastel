@@ -7,7 +7,7 @@
 #include "pastel/sys/directors.h"
 #include "pastel/sys/indicator.h"
 #include "pastel/sys/input.h"
-#include "pastel/sys/iterators.h"
+#include "pastel/sys/iterator.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/read_protected.h"
 #include "pastel/sys/trindicator.h"

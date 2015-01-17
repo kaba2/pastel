@@ -10,7 +10,7 @@
 
 #include "pastel/math/uniform_sampling.h"
 
-#include "pastel/sys/iterators.h"
+#include "pastel/sys/iterator.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/locator.h"
 #include "pastel/sys/indicator.h"

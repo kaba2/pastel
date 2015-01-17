@@ -29,6 +29,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/extract_bits.hpp"
+#include "pastel/sys/bit/extract_bits.hpp"
 
 #endif

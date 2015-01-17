@@ -46,6 +46,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/referencecounted.hpp"
+#include "pastel/sys/countedptr/referencecounted.hpp"
 
 #endif

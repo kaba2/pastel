@@ -4,7 +4,7 @@
 #include "test_pastelgfx.h"
 
 #include "pastel/sys/view/extendedconstviews.h"
-#include "pastel/sys/views.h"
+#include "pastel/sys/view.h"
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"

@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/overlaps/overlaps_segments.h"
 #include "pastel/geometry/overlaps/overlaps_segment_segment.h"
-#include "pastel/geometry/predicate.h"
+#include "pastel/geometry/predicates.h"
 
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/listarray.h"

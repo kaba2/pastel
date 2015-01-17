@@ -6,8 +6,8 @@
 #include "pastel/geometry/tdtree/tdtree.h"
 #include "pastel/geometry/tdtree/tdtree_fwd.h"
 
-#include "pastel/sys/range_input.h"
-#include "pastel/sys/transform_input.h"
+#include "pastel/sys/input/range_input.h"
+#include "pastel/sys/input/transform_input.h"
 
 #include <boost/operators.hpp>
 

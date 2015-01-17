@@ -6,7 +6,7 @@
 #include "pastel/gfx/color.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/extract_bits.h"
+#include "pastel/sys/bit/extract_bits.h"
 
 namespace Pastel
 {

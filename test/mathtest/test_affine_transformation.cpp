@@ -5,7 +5,7 @@
 
 #include "pastel/math/affine_transformation.h"
 
-#include "pastel/sys/views.h"
+#include "pastel/sys/view.h"
 
 #include <algorithm>
 

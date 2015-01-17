@@ -14,7 +14,7 @@
 #include "pastel/sys/sequence/random_subset.h"
 #include "pastel/sys/indicator/predicate_indicator.h"
 #include "pastel/sys/predicate/notequalto.h"
-#include "pastel/sys/vector_locator.h"
+#include "pastel/sys/locator/vector_locator.h"
 
 namespace Pastel
 {

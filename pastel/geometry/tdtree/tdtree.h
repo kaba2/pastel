@@ -13,7 +13,7 @@
 #include "pastel/geometry/splitrules/longestmedian_splitrule.h"
 
 #include "pastel/sys/sequence/fair_stable_partition.h"
-#include "pastel/sys/infinite_counting_input.h"
+#include "pastel/sys/input/infinite_counting_input.h"
 
 #include <boost/range/algorithm/stable_sort.hpp>
 

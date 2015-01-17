@@ -7,7 +7,7 @@
 #include "pastel/sys/view/view_visit.h"
 #include "pastel/sys/view/extendedconstviews.h"
 #include "pastel/sys/view/view_tools.h"
-#include "pastel/sys/indexextenders.h"
+#include "pastel/sys/extender/indexextenders.h"
 
 #include "pastel/gfx/colormixers.h"
 #include "pastel/gfx/textures.h"

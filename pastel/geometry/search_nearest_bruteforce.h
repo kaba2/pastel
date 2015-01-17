@@ -12,7 +12,7 @@
 #include "pastel/sys/pointset/pointset_concept.h"
 
 #include "pastel/sys/indicator/all_indicator.h"
-#include "pastel/sys/null_output.h"
+#include "pastel/sys/output/null_output.h"
 
 #include "pastel/math/euclidean_normbijection.h"
 #include "pastel/math/normbijection_concept.h"

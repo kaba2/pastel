@@ -11,7 +11,7 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
 
-#include "pastel/sys/arrayextender.h"
+#include "pastel/sys/extender/arrayextender.h"
 
 #include <vector>
 

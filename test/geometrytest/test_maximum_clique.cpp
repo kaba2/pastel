@@ -9,7 +9,7 @@
 #include "pastel/geometry/shapes/alignedbox.h"
 
 #include "pastel/sys/vector/vector_tools.h"
-#include "pastel/sys/push_back_output.h"
+#include "pastel/sys/output/push_back_output.h"
 
 using namespace Pastel;
 

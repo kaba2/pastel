@@ -6,7 +6,7 @@
 #define PASTELSYS_WEAKPTR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/referencecounted.h"
+#include "pastel/sys/countedptr/referencecounted.h"
 #include "pastel/sys/hashing.h"
 
 #include <boost/operators.hpp>
@@ -192,6 +192,6 @@ namespace std
 
 }
 
-#include "pastel/sys/weakptr.hpp"
+#include "pastel/sys/weakptr/weakptr.hpp"
 
 #endif
