@@ -52,8 +52,8 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/locator_n.h"
-#include "pastel/sys/locator_point.h"
-#include "pastel/sys/locator_real.h"
+#include "pastel/sys/locator/locator_n.h"
+#include "pastel/sys/locator/locator_point.h"
+#include "pastel/sys/locator/locator_real.h"
 
 #endif

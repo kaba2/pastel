@@ -4,7 +4,7 @@
 #ifndef PASTELGEOMETRY_POINTSET_EIGEN_H
 #define PASTELGEOMETRY_POINTSET_EIGEN_H
 
-#include "pastel/sys/locator_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/range.h"

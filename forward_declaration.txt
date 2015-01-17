@@ -17,7 +17,7 @@ Example
 
 
 [[CppCode]]:
-	#include "pastel/sys/list_fwd.h"	
+	#include "pastel/sys/list/list_fwd.h"	
 
 	template <typename Settings>
 	class Example_Fwd

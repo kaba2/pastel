@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_LIST_NODE_H
 #define PASTELSYS_LIST_NODE_H
 
-#include "pastel/sys/list_fwd.h"
+#include "pastel/sys/list/list_fwd.h"
 
 namespace Pastel
 {

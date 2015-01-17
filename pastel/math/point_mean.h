@@ -5,7 +5,7 @@
 #define PASTELMATH_POINT_MEAN_H
 
 #include "pastel/sys/input_concept.h"
-#include "pastel/sys/locator_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/vector.h"
 

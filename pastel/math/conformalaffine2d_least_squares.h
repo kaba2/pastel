@@ -6,7 +6,7 @@
 
 #include "pastel/math/conformalaffine2d.h"
 
-#include "pastel/sys/locator_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
 
 #include "pastel/sys/range.h"
 

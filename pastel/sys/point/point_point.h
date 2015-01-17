@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_POINT_POINT_H
 #define PASTELSYS_POINT_POINT_H
 
-#include "pastel/sys/point_concept.h"
+#include "pastel/sys/point/point_concept.h"
 
 namespace Pastel
 {

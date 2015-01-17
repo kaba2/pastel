@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_POINTSET_INPUT_H
 #define PASTELSYS_POINTSET_INPUT_H
 
-#include "pastel/sys/pointset_concept.h"
+#include "pastel/sys/pointset/pointset_concept.h"
 
 namespace Pastel
 {

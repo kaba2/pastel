@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_LIST_UNIQUE_HPP
 #define PASTELSYS_LIST_UNIQUE_HPP
 
-#include "pastel/sys/list_unique.h"
+#include "pastel/sys/list/list_unique.h"
 
 namespace Pastel
 {

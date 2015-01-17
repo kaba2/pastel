@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_POINT_REAL_H
 #define PASTELSYS_POINT_REAL_H
 
-#include "pastel/sys/point_concept.h"
-#include "pastel/sys/point_axis.h"
+#include "pastel/sys/point/point_concept.h"
+#include "pastel/sys/point/point_axis.h"
 
 #include <type_traits>
 

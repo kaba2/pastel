@@ -5,8 +5,8 @@
 #define PASTELSYS_POINTSET_CONCEPT_H
 
 #include "pastel/sys/input_concept.h"
-#include "pastel/sys/point_concept.h"
-#include "pastel/sys/location_set.h"
+#include "pastel/sys/point/point_concept.h"
+#include "pastel/sys/locator/location_set.h"
 
 namespace Pastel
 {
@@ -22,14 +22,14 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/pointset_dimension.h"
-#include "pastel/sys/pointset_empty.h"
-#include "pastel/sys/pointset_get.h"
-#include "pastel/sys/pointset_input.h"
-#include "pastel/sys/pointset_locator.h"
-#include "pastel/sys/pointset_location.h"
-#include "pastel/sys/pointset_point.h"
-#include "pastel/sys/pointset_pop.h"
-#include "pastel/sys/pointset_real.h"
+#include "pastel/sys/pointset/pointset_dimension.h"
+#include "pastel/sys/pointset/pointset_empty.h"
+#include "pastel/sys/pointset/pointset_get.h"
+#include "pastel/sys/pointset/pointset_input.h"
+#include "pastel/sys/pointset/pointset_locator.h"
+#include "pastel/sys/pointset/pointset_location.h"
+#include "pastel/sys/pointset/pointset_point.h"
+#include "pastel/sys/pointset/pointset_pop.h"
+#include "pastel/sys/pointset/pointset_real.h"
 
 #endif

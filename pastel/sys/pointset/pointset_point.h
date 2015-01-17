@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_POINTSET_POINT_H
 #define PASTELSYS_POINTSET_POINT_H
 
-#include "pastel/sys/pointset_concept.h"
-#include "pastel/sys/location_set.h"
+#include "pastel/sys/pointset/pointset_concept.h"
+#include "pastel/sys/locator/location_set.h"
 
 #include <type_traits>
 

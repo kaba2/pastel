@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_POINT_DIMENSION_H
 #define PASTELSYS_POINT_DIMENSION_H
 
-#include "pastel/sys/point_concept.h"
-#include "pastel/sys/point_locator.h"
+#include "pastel/sys/point/point_concept.h"
+#include "pastel/sys/point/point_locator.h"
 
 namespace Pastel
 {

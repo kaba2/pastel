@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_LOCATION_SET_H
 #define PASTELSYS_LOCATION_SET_H
 
-#include "pastel/sys/locator_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
 
 namespace Pastel
 {

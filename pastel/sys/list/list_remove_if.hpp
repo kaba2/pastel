@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_LIST_REMOVE_IF_HPP
 #define PASTELSYS_LIST_REMOVE_IF_HPP
 
-#include "pastel/sys/list_remove_if.h"
+#include "pastel/sys/list/list_remove_if.h"
 
 namespace Pastel
 {

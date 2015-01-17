@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_VECTOR_LOCATOR_H
 #define PASTELSYS_VECTOR_LOCATOR_H
 
-#include "pastel/sys/locator_concept.h"
-#include "pastel/sys/point_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
+#include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel
