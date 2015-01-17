@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_EXPONENTIAL_BINARY_SEARCH_HPP
 #define PASTELSYS_EXPONENTIAL_BINARY_SEARCH_HPP
 
-#include "pastel/sys/exponential_binary_search.h"
-#include "pastel/sys/binary_search.h"
+#include "pastel/sys/sequence/exponential_binary_search.h"
+#include "pastel/sys/sequence/binary_search.h"
 #include "pastel/sys/math/powers.h"
 #include "pastel/sys/director/step_indicator_director.h"
 

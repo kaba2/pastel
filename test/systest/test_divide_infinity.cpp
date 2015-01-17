@@ -2,6 +2,7 @@
 // DocumentationOf: divide_infinity.h
 
 #include "test_pastelsys.h"
+
 #include <pastel/sys/math/divide_infinity.h>
 
 using namespace Pastel;

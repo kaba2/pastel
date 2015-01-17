@@ -1,4 +1,4 @@
-// Description: Concepts for Integer
+// Description: Concepts for multi-integer
 
 #ifndef PASTELSYS_INTEGER_CONCEPTS_H
 #define PASTELSYS_INTEGER_CONCEPTS_H
@@ -9,14 +9,14 @@
 namespace Pastel
 {
 
-	namespace Integer_Concepts
+	namespace Multi_Integer_Concepts
 	{
 
-		class Integer_Settings_Concept
+		class Multi_Integer_Settings_Concept
 		{
 		public:
 			//! The number of bits in the integer.
-			static PASTEL_CONSTEXPR int N = UserDefinedInteger;
+			static PASTEL_CONSTEXPR int N = UserDefinedMulti_Integer;
 
 			//! The type of the underlying word.
 			/*!

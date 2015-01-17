@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_GCD_HPP
 #define PASTELSYS_GCD_HPP
 
-#include "pastel/sys/gcd.h"
+#include "pastel/sys/integer/gcd.h"
 #include "pastel/sys/math/number_tests.h"
 
 namespace Pastel

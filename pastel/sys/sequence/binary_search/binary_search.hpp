@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_BINARY_SEARCH_HPP
 #define PASTELSYS_BINARY_SEARCH_HPP
 
-#include "pastel/sys/binary_search.h"
+#include "pastel/sys/sequence/binary_search.h"
 #include "pastel/sys/math/logarithm.h"
 #include "pastel/sys/director/step_indicator_director.h"
 

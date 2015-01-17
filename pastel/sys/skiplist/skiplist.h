@@ -3,10 +3,10 @@
 #ifndef PASTELSYS_SKIPLIST_H
 #define PASTELSYS_SKIPLIST_H
 
-#include "pastel/sys/skiplist_concepts.h"
-#include "pastel/sys/skiplist_node.h"
-#include "pastel/sys/skiplist_iterator.h"
-#include "pastel/sys/binary_search.h"
+#include "pastel/sys/skiplist/skiplist_concepts.h"
+#include "pastel/sys/skiplist/skiplist_node.h"
+#include "pastel/sys/skiplist/skiplist_iterator.h"
+#include "pastel/sys/sequence/binary_search.h"
 #include "pastel/sys/sequence/copy_n.h"
 #include "pastel/sys/math/powers.h"
 
@@ -882,9 +882,9 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/skiplist_insert.hpp"
-#include "pastel/sys/skiplist_invariants.hpp"
-#include "pastel/sys/skiplist_erase.hpp"
+#include "pastel/sys/skiplist/skiplist_insert.hpp"
+#include "pastel/sys/skiplist/skiplist_invariants.hpp"
+#include "pastel/sys/skiplist/skiplist_erase.hpp"
 #include "pastel/sys/skiplist.hpp"
 
 #endif

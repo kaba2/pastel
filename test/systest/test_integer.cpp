@@ -1,9 +1,9 @@
-// Description: Testing for Integer
-// DocumentationOf: integer.h
+// Description: Testing for MultiInteger
+// DocumentationOf: multi_integer.h
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/integer.h"
+#include "pastel/sys/multi_integer.h"
 
 using namespace Pastel;
 
@@ -588,7 +588,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("Integer", test);
+		testRunner().add("MultiInteger", test);
 	}
 
 	CallFunction run(addTest);

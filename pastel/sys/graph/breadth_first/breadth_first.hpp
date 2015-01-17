@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_BREADTH_FIRST_TRAVERSAL_HPP
 #define PASTELSYS_BREADTH_FIRST_TRAVERSAL_HPP
 
-#include "pastel/sys/breadth_first_traversal.h"
+#include "pastel/sys/graph/breadth_first.h"
 
 #include <list>
 #include <functional>

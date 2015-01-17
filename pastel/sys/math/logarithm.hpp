@@ -5,7 +5,7 @@
 #include "pastel/sys/math/constants.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/math/number_tests.h"
-#include "pastel/sys/binary_search.h"
+#include "pastel/sys/sequence/binary_search.h"
 
 #include <cmath>
 #include <iostream>

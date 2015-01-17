@@ -6,7 +6,6 @@
 #include <pastel/sys/math/gamma.h>
 #include <pastel/sys/math/factorial.h>
 #include <pastel/sys/math/error.h>
-#include <boost/math/special_functions/gamma.hpp>
 
 using namespace Pastel;
 

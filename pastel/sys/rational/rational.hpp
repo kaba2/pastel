@@ -2,7 +2,7 @@
 #define PASTELSYS_RATIONAL_HPP
 
 #include "pastel/sys/rational.h"
-#include "pastel/sys/gcd.h"
+#include "pastel/sys/integer/gcd.h"
 
 #include <type_traits>
 

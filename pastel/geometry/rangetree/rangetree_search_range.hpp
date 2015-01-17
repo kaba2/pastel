@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_RANGETREE_SEARCH_RANGE_HPP
 
 #include "pastel/geometry/rangetree/rangetree_search_range.h"
-#include "pastel/sys/binary_search.h"
+#include "pastel/sys/sequence/binary_search.h"
 
 #include <boost/range/algorithm/lower_bound.hpp>
 #include <boost/range/adaptor/transformed.hpp>

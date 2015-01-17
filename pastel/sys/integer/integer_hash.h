@@ -1,9 +1,9 @@
-// Description: Hashing for fixed-sized integers
+// Description: Hashing for multi-integers
 
-#ifndef PASTELSYS_INTEGER_HASH_H
-#define PASTELSYS_INTEGER_HASH_H
+#ifndef PASTELSYS_MULTI_INTEGER_HASH_H
+#define PASTELSYS_MULTI_INTEGER_HASH_H
 
-#include "pastel/sys/integer.h"
+#include "pastel/sys/multi_integer.h"
 #include "pastel/sys/embedded_hash.h"
 
 namespace std

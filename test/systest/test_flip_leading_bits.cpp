@@ -3,8 +3,8 @@
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/flip_leading_zero_bits.h>
-#include <pastel/sys/flip_leading_one_bits.h>
+#include <pastel/sys/bit/flip_leading_zero_bits.h>
+#include <pastel/sys/bit/flip_leading_one_bits.h>
 
 using namespace Pastel;
 

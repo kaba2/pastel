@@ -33,7 +33,7 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/flip_leading_zero_bits.hpp"
+#include "pastel/sys/bit/flip_leading_zero_bits.hpp"
 
 #endif
 

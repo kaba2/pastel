@@ -3,8 +3,8 @@
 #ifndef PASTELSYS_CLONE_PTR_H
 #define PASTELSYS_CLONE_PTR_H
 
-#include "pastel/sys/clone_ptr_concepts.h"
-#include "pastel/sys/clone_ptr_private.h"
+#include "pastel/sys/clone_ptr/clone_ptr_concepts.h"
+#include "pastel/sys/clone_ptr/clone_ptr_private.h"
 
 #include <cstddef>
 #include <memory>

@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/graph/depth_first/depth_first.h"
+#include "pastel/sys/graph/depth_first.h"
 
 using namespace Pastel;
 

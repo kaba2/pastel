@@ -12,7 +12,7 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/sequence/random_subset.h"
-#include "pastel/sys/predicate_indicator.h"
+#include "pastel/sys/indicator/predicate_indicator.h"
 #include "pastel/sys/predicate/notequalto.h"
 #include "pastel/sys/vector_locator.h"
 
