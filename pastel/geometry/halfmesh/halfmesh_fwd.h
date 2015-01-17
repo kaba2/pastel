@@ -5,7 +5,7 @@
 
 #include "pastel/sys/generic/class.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/list_fwd.h"
+#include "pastel/sys/list/list_fwd.h"
 
 namespace Pastel
 {

@@ -20,6 +20,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/leading_zero_bits.hpp"
+#include "pastel/sys/bit/leading_zero_bits.hpp"
 
 #endif

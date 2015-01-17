@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_LIST_MERGE_HPP
 #define PASTELSYS_LIST_MERGE_HPP
 
-#include "pastel/sys/list_merge.h"
+#include "pastel/sys/list/list_merge.h"
 
 namespace Pastel
 {

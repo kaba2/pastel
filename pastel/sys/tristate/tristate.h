@@ -36,6 +36,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/tristate.hpp"
+#include "pastel/sys/tristate/tristate.hpp"
 
 #endif

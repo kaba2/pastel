@@ -9,7 +9,7 @@
 #include "pastel/geometry/distance/distance_point_point.h"
 #include "pastel/geometry/search_nearest_bruteforce.h"
 
-#include "pastel/sys/locators.h"
+#include "pastel/sys/locator.h"
 #include "pastel/sys/input.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/for_each_point.h"

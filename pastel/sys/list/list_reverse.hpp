@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_LIST_REVERSE_HPP
 #define PASTELSYS_LIST_REVERSE_HPP
 
-#include "pastel/sys/list_reverse.h"
+#include "pastel/sys/list/list_reverse.h"
 
 namespace Pastel
 {

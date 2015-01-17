@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_POINT_CONCEPT_H
 #define PASTELSYS_POINT_CONCEPT_H
 
-#include "pastel/sys/location.h"
+#include "pastel/sys/locator/location.h"
 
 namespace Pastel
 {
@@ -30,10 +30,10 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/point_locator.h"
-#include "pastel/sys/point_axis.h"
-#include "pastel/sys/point_dimension.h"
-#include "pastel/sys/point_point.h"
-#include "pastel/sys/point_real.h"
+#include "pastel/sys/point/point_locator.h"
+#include "pastel/sys/point/point_axis.h"
+#include "pastel/sys/point/point_dimension.h"
+#include "pastel/sys/point/point_point.h"
+#include "pastel/sys/point/point_real.h"
 
 #endif

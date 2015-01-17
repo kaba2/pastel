@@ -4,7 +4,7 @@
 #define PASTELSYS_LIST_ITERATOR_H
 
 #include "pastel/sys/list.h"
-#include "pastel/sys/list_node.h"
+#include "pastel/sys/list/list_node.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 

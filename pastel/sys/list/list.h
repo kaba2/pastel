@@ -3,9 +3,9 @@
 #ifndef PASTELSYS_LIST_H
 #define PASTELSYS_LIST_H
 
-#include "pastel/sys/list_concepts.h"
-#include "pastel/sys/list_node.h"
-#include "pastel/sys/list_iterator.h"
+#include "pastel/sys/list/list_concepts.h"
+#include "pastel/sys/list/list_node.h"
+#include "pastel/sys/list/list_iterator.h"
 
 #include <iterator>
 #include <functional>
@@ -547,16 +547,16 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/list_erase.hpp"
-#include "pastel/sys/list_insert.hpp"
-#include "pastel/sys/list_splice.hpp"
+#include "pastel/sys/list/list_erase.hpp"
+#include "pastel/sys/list/list_insert.hpp"
+#include "pastel/sys/list/list_splice.hpp"
 
-#include "pastel/sys/list_invariants.h"
-#include "pastel/sys/list_merge.h"
-#include "pastel/sys/list_partition.h"
-#include "pastel/sys/list_remove_if.h"
-#include "pastel/sys/list_reverse.h"
-#include "pastel/sys/list_sort.h"
-#include "pastel/sys/list_unique.h"
+#include "pastel/sys/list/list_invariants.h"
+#include "pastel/sys/list/list_merge.h"
+#include "pastel/sys/list/list_partition.h"
+#include "pastel/sys/list/list_remove_if.h"
+#include "pastel/sys/list/list_reverse.h"
+#include "pastel/sys/list/list_sort.h"
+#include "pastel/sys/list/list_unique.h"
 
 #endif

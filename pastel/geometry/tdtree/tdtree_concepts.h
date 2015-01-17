@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/tdtree/tdtree.h"
 
-#include "pastel/sys/locator_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
 
 namespace Pastel
 {

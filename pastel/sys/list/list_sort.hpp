@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_LIST_SORT_HPP
 #define PASTELSYS_LIST_SORT_HPP
 
-#include "pastel/sys/list_sort.h"
+#include "pastel/sys/list/list_sort.h"
 
 #include <vector>
 

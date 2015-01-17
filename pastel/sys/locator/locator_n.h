@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_LOCATOR_N_H
 #define PASTELSYS_LOCATOR_N_H
 
-#include "pastel/sys/locator_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
 
 #include <type_traits>
 

@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_LIST_INVARIANTS_HPP
 #define PASTELSYS_LIST_INVARIANTS_HPP
 
-#include "pastel/sys/list_invariants.h"
+#include "pastel/sys/list/list_invariants.h"
 
 #include <iterator>
 

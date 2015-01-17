@@ -5,11 +5,11 @@
 #define PASTELGEOMETRY_SEARCH_NEAREST_BRUTEFORCE_H
 
 #include "pastel/sys/input_concept.h"
-#include "pastel/sys/pointset_concept.h"
+#include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/indicator/indicator_concept.h"
-#include "pastel/sys/pointset_concept.h"
+#include "pastel/sys/pointset/pointset_concept.h"
 
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/null_output.h"

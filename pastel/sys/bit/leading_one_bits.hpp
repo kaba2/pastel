@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_LEADING_ONE_BITS_HPP
 #define PASTELSYS_LEADING_ONE_BITS_HPP
 
-#include "pastel/sys/leading_one_bits.h"
-#include "pastel/sys/leading_zero_bits.h"
+#include "pastel/sys/bit/leading_one_bits.h"
+#include "pastel/sys/bit/leading_zero_bits.h"
 
 namespace Pastel
 {

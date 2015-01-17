@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/locators.h>
+#include <pastel/sys/locator.h>
 
 namespace
 {

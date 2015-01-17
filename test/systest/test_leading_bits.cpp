@@ -2,8 +2,9 @@
 // DocumentationOf: leading_zero_bits.h
 
 #include "test_pastelsys.h"
-#include <pastel/sys/leading_zero_bits.h>
-#include <pastel/sys/leading_one_bits.h>
+
+#include <pastel/sys/bit/leading_zero_bits.h>
+#include <pastel/sys/bit/leading_one_bits.h>
 
 using namespace Pastel;
 

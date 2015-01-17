@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include <pastel/sys/locators.h>
+#include <pastel/sys/locator.h>
 #include <pastel/sys/vector.h>
 #include <pastel/sys/input.h>
 

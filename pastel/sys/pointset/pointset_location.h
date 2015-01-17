@@ -4,9 +4,9 @@
 #ifndef PASTELSYS_POINTSET_LOCATION_H
 #define PASTELSYS_POINTSET_LOCATION_H
 
-#include "pastel/sys/location.h"
-#include "pastel/sys/pointset_point.h"
-#include "pastel/sys/pointset_locator.h"
+#include "pastel/sys/locator/location.h"
+#include "pastel/sys/pointset/pointset_point.h"
+#include "pastel/sys/pointset/pointset_locator.h"
 
 namespace Pastel
 {

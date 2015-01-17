@@ -8,7 +8,7 @@
 
 #include <pastel/sys/rational.h>
 #include <pastel/sys/array_locator.h>
-#include <pastel/sys/locators.h>
+#include <pastel/sys/locator.h>
 
 using namespace Pastel;
 
