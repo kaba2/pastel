@@ -210,9 +210,9 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/native_integer.h"
-#include "pastel/sys/native_real.h"
-#include "pastel/sys/predicates.h"
+#include "pastel/sys/integer/native_integer.h"
+#include "pastel/sys/real/native_real.h"
+#include "pastel/sys/predicate.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/type_checks.h"
 

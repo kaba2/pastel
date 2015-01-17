@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_RANGETREE_CONCEPTS_H
 
 #include "pastel/geometry/rangetree/rangetree.h"
-#include "pastel/sys/real_concept.h"
-#include "pastel/sys/less_concept.h"
+#include "pastel/sys/real/real_concept.h"
+#include "pastel/sys/algebra/less_concept.h"
 
 namespace Pastel
 {

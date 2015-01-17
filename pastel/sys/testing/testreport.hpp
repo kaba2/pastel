@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_TESTREPORT_HPP
 #define PASTELSYS_TESTREPORT_HPP
 
-#include "pastel/sys/testreport.h"
-#include "pastel/sys/log.h"
+#include "pastel/sys/testing/testreport.h"
+#include "pastel/sys/logging/log.h"
 
 #include <algorithm>
 

@@ -22,6 +22,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/harmonic.hpp"
+#include "pastel/sys/math/harmonic.hpp"
 
 #endif

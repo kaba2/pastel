@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_VECTOR_COMPARE_HPP
 #define PASTELSYS_VECTOR_COMPARE_HPP
 
-#include "pastel/sys/vector_compare.h"
-#include "pastel/sys/tuple_tools.h"
+#include "pastel/sys/vector/vector_compare.h"
+#include "pastel/sys/tuple/tuple_tools.h"
 
 namespace Pastel
 {

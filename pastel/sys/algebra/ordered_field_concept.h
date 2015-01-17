@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_ORDERED_FIELD_CONCEPT_H
 #define PASTELSYS_ORDERED_FIELD_CONCEPT_H
 
-#include "pastel/sys/ordered_ring_concept.h"
-#include "pastel/sys/field_concept.h"
+#include "pastel/sys/algebra/ordered_ring_concept.h"
+#include "pastel/sys/algebra/field_concept.h"
 
 namespace Pastel
 {

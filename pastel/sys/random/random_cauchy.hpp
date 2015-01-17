@@ -3,7 +3,7 @@
 
 #include "pastel/sys/random_cauchy.h"
 #include "pastel/sys/random_gaussian.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/constants.h"
 #include "pastel/sys/math_functions.h"
 
 namespace Pastel

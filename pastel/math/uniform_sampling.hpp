@@ -4,7 +4,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/random.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 #include "pastel/math/uniform_sampling.h"
 

@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_BETA_HPP
 #define PASTELSYS_BETA_HPP
 
-#include "pastel/sys/beta.h"
-#include "pastel/sys/gamma.h"
+#include "pastel/sys/math/beta.h"
+#include "pastel/sys/math/gamma.h"
 
 namespace Pastel
 {

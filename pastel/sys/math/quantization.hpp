@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_QUANTIZATION_HPP
 #define PASTELSYS_QUANTIZATION_HPP
 
-#include "pastel/sys/quantization.h"
+#include "pastel/sys/math/quantization.h"
 
 namespace Pastel
 {

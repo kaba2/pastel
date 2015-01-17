@@ -5,7 +5,7 @@
 #define PASTELSYS_ROUNDING_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/integer_concept.h"
+#include "pastel/sys/integer/integer_concept.h"
 
 #include <type_traits>
 
@@ -110,6 +110,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/rounding.hpp"
+#include "pastel/sys/math/rounding.hpp"
 
 #endif

@@ -321,16 +321,15 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/addition_vectorexpression.h"
-#include "pastel/sys/constant_vectorexpression.h"
-#include "pastel/sys/division_vectorexpression.h"
-#include "pastel/sys/multiplication_vectorexpression.h"
-#include "pastel/sys/negation_vectorexpression.h"
-#include "pastel/sys/subtraction_vectorexpression.h"
+#include "pastel/sys/vector/addition_vectorexpression.h"
+#include "pastel/sys/vector/constant_vectorexpression.h"
+#include "pastel/sys/vector/division_vectorexpression.h"
+#include "pastel/sys/vector/multiplication_vectorexpression.h"
+#include "pastel/sys/vector/negation_vectorexpression.h"
+#include "pastel/sys/vector/subtraction_vectorexpression.h"
 
-#include "pastel/sys/array_vectorexpression.h"
-#include "pastel/sys/binary_vectorexpression.h"
-#include "pastel/sys/unary_vectorexpression.h"
-#include "pastel/sys/point_vectorexpression.h"
+#include "pastel/sys/vector/array_vectorexpression.h"
+#include "pastel/sys/vector/binary_vectorexpression.h"
+#include "pastel/sys/vector/unary_vectorexpression.h"
 
 #endif

@@ -4,8 +4,8 @@
 #define PASTELSYS_VECTOR_TOOLS_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/vector.h"
-#include "pastel/sys/tuple_tools.h"
+#include "pastel/sys/vector/vector.h"
+#include "pastel/sys/tuple/tuple_tools.h"
 
 #include <vector>
 #include <iostream>
@@ -225,13 +225,13 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/array_vectorexpression.h"
-#include "pastel/sys/unary_vectorexpression.h"
-#include "pastel/sys/binary_vectorexpression.h"
+#include "pastel/sys/vector/array_vectorexpression.h"
+#include "pastel/sys/vector/unary_vectorexpression.h"
+#include "pastel/sys/vector/binary_vectorexpression.h"
 
-#include "pastel/sys/vector_tools_more.h"
+#include "pastel/sys/vector/vector_tools_more.h"
 
-#include "pastel/sys/vector_tools.hpp"
-#include "pastel/sys/vector_tools_more.hpp"
+#include "pastel/sys/vector/vector_tools.hpp"
+#include "pastel/sys/vector/vector_tools_more.hpp"
 
 #endif

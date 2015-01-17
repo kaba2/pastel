@@ -4,9 +4,9 @@
 #ifndef PASTELSYS_BINARY_VECTOREXPRESSION_H
 #define PASTELSYS_BINARY_VECTOREXPRESSION_H
 
-#include "pastel/sys/vectorexpression.h"
-#include "pastel/sys/binary_vectorexpression_detail.h"
-#include "pastel/sys/predicates.h"
+#include "pastel/sys/vector/vectorexpression.h"
+#include "pastel/sys/vector/binary_vectorexpression_detail.h"
+#include "pastel/sys/predicate.h"
 
 #include <algorithm>
 #include <cmath>

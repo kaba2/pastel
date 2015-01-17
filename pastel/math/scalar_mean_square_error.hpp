@@ -2,7 +2,7 @@
 #define PASTELMATH_SCALAR_MEAN_SQUARE_ERROR_HPP
 
 #include "pastel/math/scalar_mean_square_error.h"
-#include "pastel/sys/powers.h"
+#include "pastel/sys/math/powers.h"
 
 namespace Pastel
 {

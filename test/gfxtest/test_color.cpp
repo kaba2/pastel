@@ -9,7 +9,7 @@
 #include "pastel/gfx/color_illuminant.h"
 #include "pastel/gfx/drawing.h"
 
-#include "pastel/sys/string_algorithms.h"
+#include "pastel/sys/string.h"
 #include "pastel/sys/views.h"
 
 #include <iostream>

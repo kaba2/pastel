@@ -5,7 +5,7 @@
 
 #include "pastel/sys/algorithm_concept.h"
 #include "pastel/sys/functions.h"
-#include "pastel/sys/predicates.h"
+#include "pastel/sys/predicate.h"
 #include "pastel/sys/range_algorithms.h"
 
 #endif

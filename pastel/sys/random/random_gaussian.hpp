@@ -3,7 +3,7 @@
 
 #include "pastel/sys/random_gaussian.h"
 #include "pastel/sys/random_uniform.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/constants.h"
 
 #include <boost/math/distributions/normal.hpp>
 

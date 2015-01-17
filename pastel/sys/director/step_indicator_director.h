@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_STEP_INDICATOR_DIRECTOR_H
 #define PASTELSYS_STEP_INDICATOR_DIRECTOR_H
 
-#include "pastel/sys/step_indicator_concept.h"
-#include "pastel/sys/director_concept.h"
+#include "pastel/sys/indicator/step_indicator_concept.h"
+#include "pastel/sys/director/director_concept.h"
 
 namespace Pastel
 {

@@ -2,7 +2,7 @@
 #define PASTELSYS_SUBARRAY_FOR_EACH_HPP
 
 #include "pastel/sys/subarray_for_each.h"
-#include "pastel/sys/sparse_iterator.h"
+#include "pastel/sys/iterator/sparse_iterator.h"
 
 namespace Pastel
 {

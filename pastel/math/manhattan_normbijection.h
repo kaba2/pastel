@@ -5,7 +5,7 @@
 #ifndef PASTELMATH_MANHATTAN_NORMBIJECTION_H
 #define PASTELMATH_MANHATTAN_NORMBIJECTION_H
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 #include "pastel/geometry/volume/sphere_volume.h"
 

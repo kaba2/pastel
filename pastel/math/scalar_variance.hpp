@@ -3,7 +3,7 @@
 
 #include "pastel/math/scalar_variance.h"
 #include "pastel/math/scalar_mean.h"
-#include "pastel/sys/powers.h"
+#include "pastel/sys/math/powers.h"
 
 namespace Pastel
 {

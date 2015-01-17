@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/closest/closest_segment_point.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel
 {

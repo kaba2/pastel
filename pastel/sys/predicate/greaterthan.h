@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_GREATERTHAN_H
 #define PASTELSYS_GREATERTHAN_H
 
-#include "pastel/sys/predicate_concept.h"
+#include "pastel/sys/predicate/predicate_concept.h"
 
 namespace Pastel
 {

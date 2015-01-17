@@ -7,7 +7,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/sparse_iterator.h"
+#include "pastel/sys/iterator/sparse_iterator.h"
 #include "pastel/sys/subarray.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/alignedbox.h"

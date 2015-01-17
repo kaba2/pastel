@@ -2,8 +2,8 @@
 #define PASTELSYS_BINARY_SEARCH_HPP
 
 #include "pastel/sys/binary_search.h"
-#include "pastel/sys/logarithm.h"
-#include "pastel/sys/step_indicator_director.h"
+#include "pastel/sys/math/logarithm.h"
+#include "pastel/sys/director/step_indicator_director.h"
 
 namespace Pastel
 {

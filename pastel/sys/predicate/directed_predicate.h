@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_DIRECTED_PREDICATE_H
 #define PASTELSYS_DIRECTED_PREDICATE_H
 
-#include "pastel/sys/predicate_concept.h"
+#include "pastel/sys/predicate/predicate_concept.h"
 
 namespace Pastel
 {
@@ -19,6 +19,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/directed_predicate.hpp"
+#include "pastel/sys/predicate/directed_predicate.hpp"
 
 #endif

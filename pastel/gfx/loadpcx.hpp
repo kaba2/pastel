@@ -8,7 +8,7 @@
 #include "pastel/sys/adaptedarray.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/endian.h"
-#include "pastel/sys/log.h"
+#include "pastel/sys/logging/log.h"
 #include "pastel/sys/binaryfile.h"
 
 #include "pastel/gfx/pcxheader.h"

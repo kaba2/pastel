@@ -4,7 +4,7 @@
 #define PASTELSYS_LOCATOR_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/real_concept.h"
+#include "pastel/sys/real/real_concept.h"
 
 namespace Pastel
 {

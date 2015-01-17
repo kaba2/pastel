@@ -6,9 +6,9 @@
 
 #include "pastel/sys/input_concept.h"
 #include "pastel/sys/pointset_concept.h"
-#include "pastel/sys/real_concept.h"
+#include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/output_concept.h"
-#include "pastel/sys/indicator_concept.h"
+#include "pastel/sys/indicator/indicator_concept.h"
 #include "pastel/sys/pointset_concept.h"
 
 #include "pastel/sys/all_indicator.h"

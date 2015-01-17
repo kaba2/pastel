@@ -3,7 +3,7 @@
 
 #include "pastel/sys/random_dirichlet.h"
 #include "pastel/sys/random_gamma.h"
-#include "pastel/sys/vector_compare.h"
+#include "pastel/sys/vector/vector_compare.h"
 
 namespace Pastel
 {

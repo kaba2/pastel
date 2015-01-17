@@ -17,6 +17,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/predicates.hpp"
+#include "pastel/geometry/predicate.hpp"
 
 #endif

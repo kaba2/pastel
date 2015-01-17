@@ -5,7 +5,7 @@
 #ifndef PASTELSYS_ALL_INDICATOR_H
 #define PASTELSYS_ALL_INDICATOR_H
 
-#include "pastel/sys/indicator_concept.h"
+#include "pastel/sys/indicator/indicator_concept.h"
 
 namespace Pastel
 {

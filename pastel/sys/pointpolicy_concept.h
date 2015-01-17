@@ -5,7 +5,7 @@
 #define PASTELSYS_POINTPOLICY_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/vectorexpression_concept.h"
+#include "pastel/sys/vector/vectorexpression_concept.h"
 
 namespace Pastel
 {

@@ -1,9 +1,9 @@
 #ifndef PASTELSYS_VECTOR_TOOLS_MORE_HPP
 #define PASTELSYS_VECTOR_TOOLS_MORE_HPP
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/constants.h"
 
 namespace Pastel
 {

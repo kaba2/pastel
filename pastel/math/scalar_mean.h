@@ -4,7 +4,7 @@
 #ifndef PASTELMATH_SCALAR_MEAN_H
 #define PASTELMATH_SCALAR_MEAN_H
 
-#include "pastel/sys/real_concept.h"
+#include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/input_concept.h"
 
 namespace Pastel

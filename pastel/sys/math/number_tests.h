@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_NUMBER_TESTS_H
 #define PASTELSYS_NUMBER_TESTS_H
 
-#include "pastel/sys/integer_concept.h"
+#include "pastel/sys/integer/integer_concept.h"
 
 namespace Pastel
 {
@@ -22,6 +22,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/number_tests.hpp"
+#include "pastel/sys/math/number_tests.hpp"
 
 #endif

@@ -23,6 +23,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/beta.hpp"
+#include "pastel/sys/math/beta.hpp"
 
 #endif

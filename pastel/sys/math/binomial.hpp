@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_BINOMIAL_HPP
 #define PASTELSYS_BINOMIAL_HPP
 
-#include "pastel/sys/binomial.h"
+#include "pastel/sys/math/binomial.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel

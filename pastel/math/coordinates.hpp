@@ -2,7 +2,7 @@
 #define PASTELMATH_COORDINATES_HPP
 
 #include "pastel/math/coordinates.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 #include "pastel/sys/math_functions.h"
 

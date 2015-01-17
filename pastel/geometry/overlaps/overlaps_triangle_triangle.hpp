@@ -6,7 +6,7 @@
 #include "pastel/geometry/shapes/triangle.h"
 #include "pastel/geometry/shapes/segment.h"
 #include "pastel/geometry/shapes/line.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 #include "pastel/geometry/intersect/intersect_triangle_triangle.h"
 #include "pastel/geometry/overlaps/overlaps_plane_triangle.h"

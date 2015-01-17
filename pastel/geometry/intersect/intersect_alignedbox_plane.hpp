@@ -6,7 +6,7 @@
 
 #include "pastel/geometry/nearest_main_axis.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel
 {

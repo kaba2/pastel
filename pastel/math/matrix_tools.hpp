@@ -4,7 +4,7 @@
 #include "pastel/math/matrix_tools.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/tuple_tools.h"
+#include "pastel/sys/tuple/tuple_tools.h"
 
 namespace Pastel
 {

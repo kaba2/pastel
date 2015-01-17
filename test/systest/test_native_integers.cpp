@@ -2,7 +2,7 @@
 // DocumentationOf: native_integer.h
 
 #include "test_pastelsys.h"
-#include <pastel/sys/number_tests.h>
+#include <pastel/sys/math/number_tests.h>
 
 using namespace Pastel;
 

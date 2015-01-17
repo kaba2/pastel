@@ -4,9 +4,9 @@
 #include "pastel/geometry/bounding/bounding_sphere.h"
 #include "pastel/geometry/shapes/sphere.h"
 
-#include "pastel/sys/tuple_tools.h"
+#include "pastel/sys/tuple/tuple_tools.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/math_functions.h"
 
 #include "pastel/geometry/bounding/bounding_alignedbox.h"

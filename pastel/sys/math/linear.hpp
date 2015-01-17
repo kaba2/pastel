@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_LINEAR_HPP
 #define PASTELSYS_LINEAR_HPP
 
-#include "pastel/sys/linear.h"
+#include "pastel/sys/math/linear.h"
 
 namespace Pastel
 {

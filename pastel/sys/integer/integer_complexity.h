@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_INTEGER_COMPLEXITY_H
 #define PASTELSYS_INTEGER_COMPLEXITY_H
 
-#include "pastel/sys/finite_integer_concept.h"
+#include "pastel/sys/integer/finite_integer_concept.h"
 
 namespace Pastel
 {
@@ -32,6 +32,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/integer_complexity.hpp"
+#include "pastel/sys/bit/integer_complexity.hpp"
 
 #endif

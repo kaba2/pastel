@@ -10,7 +10,7 @@
 #include "pastel/gfx/coloradapter.h"
 
 #include "pastel/sys/adaptedarray.h"
-#include "pastel/sys/log.h"
+#include "pastel/sys/logging/log.h"
 #include "pastel/sys/binaryfile.h"
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/view_tools.h"

@@ -21,6 +21,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/powers.hpp"
+#include "pastel/sys/math/powers.hpp"
 
 #endif

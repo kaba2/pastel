@@ -1,10 +1,10 @@
 #ifndef PASTELSYS_MOD_HPP
 #define PASTELSYS_MOD_HPP
 
-#include "pastel/sys/mod.h"
+#include "pastel/sys/math/mod.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/twos_complement.h"
-#include "pastel/sys/bitmask.h"
+#include "pastel/sys/bit/twos_complement.h"
+#include "pastel/sys/bit/bitmask.h"
 
 #include <cmath>
 

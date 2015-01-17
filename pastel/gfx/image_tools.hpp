@@ -5,7 +5,7 @@
 
 #include "pastel/gfx/color_tools.h"
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/constants.h"
 
 namespace Pastel
 {

@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_ORDERED_SET_CONCEPT_H
 #define PASTELSYS_ORDERED_SET_CONCEPT_H
 
-#include "pastel/sys/set_concept.h"
+#include "pastel/sys/algebra/set_concept.h"
 
 namespace Pastel
 {

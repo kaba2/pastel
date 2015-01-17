@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_RATIONAL_H
 #define PASTELSYS_RATIONAL_H
 
-#include <pastel/sys/integer_concept.h>
+#include <pastel/sys/integer/integer_concept.h>
 
 #include <boost/operators.hpp>
 #include <boost/mpl/if.hpp>

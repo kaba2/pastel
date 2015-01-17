@@ -5,7 +5,7 @@
 #ifndef PASTELSYS_LESS_CONCEPT_H
 #define PASTELSYS_LESS_CONCEPT_H
 
-#include "pastel/sys/predicate_concept.h"
+#include "pastel/sys/predicate/predicate_concept.h"
 
 namespace Pastel
 {

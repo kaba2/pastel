@@ -9,7 +9,7 @@
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/memory_overlaps.h"
-#include "pastel/sys/vectorexpression.h"
+#include "pastel/sys/vector/vectorexpression.h"
 
 #include <boost/operators.hpp>
 
@@ -679,9 +679,9 @@ namespace std
 
 }
 
-#include "pastel/sys/vector.hpp"
+#include "pastel/sys/vector/vector.hpp"
 
-#include "pastel/sys/vector_tools.h"
-#include "pastel/sys/vector_compare.h"
+#include "pastel/sys/vector/vector_tools.h"
+#include "pastel/sys/vector/vector_compare.h"
 
 #endif

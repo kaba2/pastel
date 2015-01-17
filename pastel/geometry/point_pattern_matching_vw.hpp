@@ -13,7 +13,7 @@
 #include "pastel/sys/outputs.h"
 #include "pastel/sys/random_subset.h"
 #include "pastel/sys/predicate_indicator.h"
-#include "pastel/sys/notequalto.h"
+#include "pastel/sys/predicate/notequalto.h"
 #include "pastel/sys/vector_locator.h"
 
 namespace Pastel

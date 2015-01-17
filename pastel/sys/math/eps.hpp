@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_EPS_HPP
 #define PASTELSYS_EPS_HPP
 
-#include "pastel/sys/eps.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/eps.h"
+#include "pastel/sys/math/constants.h"
 
 namespace Pastel
 {

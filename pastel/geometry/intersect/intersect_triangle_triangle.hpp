@@ -11,9 +11,9 @@
 #include "pastel/geometry/shapes/linear_projection.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
-#include "pastel/sys/minmax.h"
+#include "pastel/sys/math/minmax.h"
 
 namespace Pastel
 {

@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_CLAMP_HPP
 #define PASTELSYS_CLAMP_HPP
 
-#include "pastel/sys/clamp.h"
+#include "pastel/sys/math/clamp.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel

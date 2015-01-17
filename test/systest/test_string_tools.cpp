@@ -3,8 +3,8 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/string_algorithms.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/string.h"
+#include "pastel/sys/math/constants.h"
 
 using namespace Pastel;
 

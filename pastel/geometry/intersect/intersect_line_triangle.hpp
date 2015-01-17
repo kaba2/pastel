@@ -8,7 +8,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel
 {

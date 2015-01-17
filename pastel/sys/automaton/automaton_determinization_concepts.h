@@ -4,7 +4,7 @@
 #include "pastel/sys/automaton_fwd.h"
 #include "pastel/sys/hashed_tree.h"
 #include "pastel/sys/optional.h"
-#include "pastel/sys/iterator_address_predicate.h"
+#include "pastel/sys/predicate/iterator_address_predicate.h"
 
 namespace Pastel
 {

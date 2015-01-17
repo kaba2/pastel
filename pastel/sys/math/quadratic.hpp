@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_QUADRATIC_HPP
 #define PASTELSYS_QUADRATIC_HPP
 
-#include "pastel/sys/quadratic.h"
+#include "pastel/sys/math/quadratic.h"
 
 #include <algorithm>
 

@@ -2,7 +2,7 @@
 #define PASTELSYS_ENSURE_HPP
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/log.h"
+#include "pastel/sys/logging/log.h"
 
 #ifdef _MSC_VER
 #include <crtdbg.h>

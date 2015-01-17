@@ -3,8 +3,8 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/logarithm.h"
-#include "pastel/sys/error.h"
+#include "pastel/sys/math/logarithm.h"
+#include "pastel/sys/math/error.h"
 
 using namespace Pastel;
 

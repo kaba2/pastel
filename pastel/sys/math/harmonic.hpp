@@ -1,10 +1,10 @@
 #ifndef PASTELSYS_HARMONIC_HPP
 #define PASTELSYS_HARMONIC_HPP
 
-#include "pastel/sys/harmonic.h"
+#include "pastel/sys/math/harmonic.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/digamma.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/digamma.h"
+#include "pastel/sys/math/constants.h"
 
 namespace Pastel
 {

@@ -3,9 +3,9 @@
 
 #include "pastel/sys/random_integer.h"
 #include "pastel/sys/mt19937.h"
-#include "pastel/sys/bitmask.h"
+#include "pastel/sys/bit/bitmask.h"
 #include "pastel/sys/divide_infinity.h"
-#include "pastel/sys/number_tests.h"
+#include "pastel/sys/math/number_tests.h"
 
 namespace Pastel
 {

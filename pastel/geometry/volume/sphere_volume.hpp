@@ -4,9 +4,9 @@
 #include "pastel/geometry/volume/sphere_volume.h"
 #include "pastel/geometry/area/sphere_area.h"
 
-#include "pastel/sys/factorial.h"
-#include "pastel/sys/gamma.h"
-#include "pastel/sys/powers.h"
+#include "pastel/sys/math/factorial.h"
+#include "pastel/sys/math/gamma.h"
+#include "pastel/sys/math/powers.h"
 
 namespace Pastel
 {

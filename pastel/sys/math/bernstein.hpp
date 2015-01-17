@@ -1,9 +1,9 @@
 #ifndef PASTELSYS_BERNSTEIN_HPP
 #define PASTELSYS_BERNSTEIN_HPP
 
-#include "pastel/sys/bernstein.h"
+#include "pastel/sys/math/bernstein.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/binomial.h"
+#include "pastel/sys/math/binomial.h"
 
 #include <cmath>
 

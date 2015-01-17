@@ -3,7 +3,7 @@
 
 #include "pastel/sys/intersect_alignedbox_alignedbox.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel
 {

@@ -7,7 +7,7 @@
 
 #include "pastel/gfx/filter.h"
 
-#include "pastel/sys/sinc.h"
+#include "pastel/sys/math/sinc.h"
 
 #include <cmath>
 

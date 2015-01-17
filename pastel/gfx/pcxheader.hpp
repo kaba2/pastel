@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/pcxheader.h"
 #include "pastel/sys/endian.h"
-#include "pastel/sys/log.h"
+#include "pastel/sys/logging/log.h"
 
 namespace Pastel
 {

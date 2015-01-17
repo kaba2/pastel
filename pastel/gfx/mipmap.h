@@ -7,7 +7,7 @@
 #include "pastel/gfx/filter.h"
 #include "pastel/gfx/gaussian_filter.h"
 
-#include "pastel/sys/clampextender.h"
+#include "pastel/sys/math/clampextender.h"
 #include "pastel/sys/arrayextender.h"
 #include "pastel/sys/view.h"
 #include "pastel/sys/arrayview.h"

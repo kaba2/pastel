@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_CONVEXHULL_HPP
 
 #include "pastel/geometry/convexhull.h"
-#include "pastel/geometry/predicates.h"
+#include "pastel/geometry/predicate.h"
 
 #include "pastel/sys/math_functions.h"
 

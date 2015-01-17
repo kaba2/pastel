@@ -18,7 +18,7 @@
 #include "pastel/gfx/ripmap_tools.h"
 #include "pastel/gfx/filters.h"
 
-#include "pastel/sys/string_algorithms.h"
+#include "pastel/sys/string.h"
 
 #include "pastel/geometry/planar_projection.h"
 

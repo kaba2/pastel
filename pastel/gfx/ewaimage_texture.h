@@ -7,8 +7,8 @@
 #include "pastel/gfx/texture.h"
 
 #include "pastel/sys/syscommon.h"
-#include "pastel/sys/vector_tools.h"
-#include "pastel/sys/clampextender.h"
+#include "pastel/sys/vector/vector_tools.h"
+#include "pastel/sys/math/clampextender.h"
 
 #include "pastel/gfx/triangle_filter.h"
 #include "pastel/gfx/lanczos_filter.h"

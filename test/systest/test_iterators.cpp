@@ -5,7 +5,7 @@
 
 #include "pastel/sys/constant_iterator.h"
 #include "pastel/sys/counting_iterator.h"
-#include "pastel/sys/sparse_iterator.h"
+#include "pastel/sys/iterator/sparse_iterator.h"
 #include "pastel/sys/rectangle_iterator.h"
 
 #include "pastel/sys/second_iterator.h"

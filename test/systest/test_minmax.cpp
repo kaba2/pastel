@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/minmax.h"
+#include "pastel/sys/math/minmax.h"
 
 namespace
 {

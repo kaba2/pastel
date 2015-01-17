@@ -5,7 +5,7 @@
 #define PASTELSYS_INTEGER_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/ordered_ring_concept.h"
+#include "pastel/sys/algebra/ordered_ring_concept.h"
 
 namespace Pastel
 {

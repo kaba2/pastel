@@ -6,7 +6,7 @@
 #include "pastel/geometry/shapes/line.h"
 #include "pastel/geometry/shapes/box.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/constants.h"
+#include "pastel/sys/math/constants.h"
 
 namespace Pastel
 {

@@ -3,8 +3,8 @@
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/rounding.h>
-#include <pastel/sys/powers.h>
+#include <pastel/sys/math/rounding.h>
+#include <pastel/sys/math/powers.h>
 
 using namespace Pastel;
 

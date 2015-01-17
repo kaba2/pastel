@@ -18,6 +18,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/sinc.hpp"
+#include "pastel/sys/math/sinc.hpp"
 
 #endif

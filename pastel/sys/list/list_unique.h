@@ -4,7 +4,7 @@
 #define PASTELSYS_LIST_UNIQUE_H
 
 #include "pastel/sys/list.h"
-#include "pastel/sys/equalto.h"
+#include "pastel/sys/predicate/equalto.h"
 
 namespace Pastel
 {

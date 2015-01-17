@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_RING_CONCEPT_H
 #define PASTELSYS_RING_CONCEPT_H
 
-#include "pastel/sys/additive_group_concept.h"
+#include "pastel/sys/algebra/additive_group_concept.h"
 
 namespace Pastel
 {

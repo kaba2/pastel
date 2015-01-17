@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/splitrules/longestmedian_splitrule.h"
 
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 #include <algorithm>
 

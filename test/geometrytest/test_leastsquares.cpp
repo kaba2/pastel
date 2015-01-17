@@ -9,7 +9,7 @@
 #include "pastel/math/conformalaffine2d_least_squares.h"
 
 #include "pastel/sys/locators.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/vector/vector_tools.h"
 
 using namespace Pastel;
 
