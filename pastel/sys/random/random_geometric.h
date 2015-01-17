@@ -48,6 +48,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_geometric.hpp"
+#include "pastel/sys/random/random_geometric.hpp"
 
 #endif

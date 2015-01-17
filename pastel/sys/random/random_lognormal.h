@@ -46,6 +46,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_lognormal.hpp"
+#include "pastel/sys/random/random_lognormal.hpp"
 
 #endif

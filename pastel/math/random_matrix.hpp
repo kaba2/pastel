@@ -3,7 +3,7 @@
 
 #include "pastel/math/random_matrix.h"
 
-#include "pastel/sys/random_uniform.h"
+#include "pastel/sys/random/random_uniform.h"
 
 namespace Pastel
 {

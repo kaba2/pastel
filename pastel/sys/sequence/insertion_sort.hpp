@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_INSERTION_SORT_HPP
 #define PASTELSYS_INSERTION_SORT_HPP
 
-#include "pastel/sys/insertion_sort.h"
+#include "pastel/sys/sequence/insertion_sort.h"
 
 #include <algorithm>
 

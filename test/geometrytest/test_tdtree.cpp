@@ -13,7 +13,7 @@
 #include "pastel/sys/input.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/for_each_point.h"
-#include "pastel/sys/random_gaussian.h"
+#include "pastel/sys/random/random_gaussian.h"
 #include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/iterator/constant_iterator.h"
 

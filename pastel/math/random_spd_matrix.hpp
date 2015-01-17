@@ -4,7 +4,7 @@
 #include "pastel/math/random_spd_matrix.h"
 #include "pastel/math/random_orthogonal_matrix.h"
 
-#include "pastel/sys/random_uniform.h"
+#include "pastel/sys/random/random_uniform.h"
 
 #include <algorithm>
 #include <vector>

@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/transitive_closure/transitive_closure.h"
+#include "pastel/sys/graph/transitive_closure.h"
 #include "pastel/sys/incidence_graph.h"
 #include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/mytypes.h"

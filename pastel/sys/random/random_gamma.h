@@ -79,6 +79,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_gamma.hpp"
+#include "pastel/sys/random/random_gamma.hpp"
 
 #endif

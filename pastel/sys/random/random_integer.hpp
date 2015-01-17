@@ -1,10 +1,10 @@
 #ifndef PASTELSYS_RANDOM_INTEGER_HPP
 #define PASTELSYS_RANDOM_INTEGER_HPP
 
-#include "pastel/sys/random_integer.h"
-#include "pastel/sys/mt19937.h"
+#include "pastel/sys/random/random_integer.h"
+#include "pastel/sys/random/mt19937.h"
 #include "pastel/sys/bit/bitmask.h"
-#include "pastel/sys/divide_infinity.h"
+#include "pastel/sys/math/divide_infinity.h"
 #include "pastel/sys/math/number_tests.h"
 
 namespace Pastel

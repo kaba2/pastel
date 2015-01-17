@@ -28,6 +28,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_chisquared.hpp"
+#include "pastel/sys/random/random_chisquared.hpp"
 
 #endif

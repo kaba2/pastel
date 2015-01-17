@@ -6,7 +6,7 @@
 #include "pastel/sys/maximum_bipartite_matching.h"
 #include "pastel/sys/tuple/tuple_tools.h"
 #include "pastel/sys/output.h"
-#include "pastel/sys/random_subset.h"
+#include "pastel/sys/sequence/random_subset.h"
 #include "pastel/sys/random.h"
 
 #include <boost/range/adaptor/transformed.hpp>

@@ -37,6 +37,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/hashing.hpp"
+#include "pastel/sys/hashing/hashing.hpp"
 
 #endif

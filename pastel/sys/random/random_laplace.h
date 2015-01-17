@@ -47,6 +47,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_laplace.hpp"
+#include "pastel/sys/random/random_laplace.hpp"
 
 #endif

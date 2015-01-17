@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_RANDOM_GEOMETRIC_HPP
 #define PASTELSYS_RANDOM_GEOMETRIC_HPP
 
-#include "pastel/sys/random_geometric.h"
-#include "pastel/sys/random_uniform.h"
+#include "pastel/sys/random/random_geometric.h"
+#include "pastel/sys/random/random_uniform.h"
 
 #include <cmath>
 

@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/refinable_partition.h>
+#include <pastel/sys/refinable_partition/refinable_partition.h>
 
 #include <algorithm>
 

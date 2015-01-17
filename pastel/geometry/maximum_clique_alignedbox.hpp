@@ -7,7 +7,7 @@
 #include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/null_output.h"
 #include "pastel/sys/push_back_output.h"
-#include "pastel/sys/random_uniform.h"
+#include "pastel/sys/random/random_uniform.h"
 
 #include <type_traits>
 #include <unordered_map>

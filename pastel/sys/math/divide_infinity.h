@@ -25,6 +25,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/divide_infinity.hpp"
+#include "pastel/sys/math/divide_infinity.hpp"
 
 #endif

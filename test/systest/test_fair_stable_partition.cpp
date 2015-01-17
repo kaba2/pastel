@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/fair_stable_partition.h>
+#include <pastel/sys/sequence/fair_stable_partition.h>
 #include <pastel/sys/trindicators.h>
 #include <pastel/sys/indicators.h>
 

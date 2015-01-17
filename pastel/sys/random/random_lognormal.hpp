@@ -1,8 +1,8 @@
 #ifndef PASTELSYS_RANDOM_LOGNORMAL_HPP
 #define PASTELSYS_RANDOM_LOGNORMAL_HPP
 
-#include "pastel/sys/random_lognormal.h"
-#include "pastel/sys/random_gaussian.h"
+#include "pastel/sys/random/random_lognormal.h"
+#include "pastel/sys/random/random_gaussian.h"
 #include "pastel/sys/math_functions.h"
 
 namespace Pastel

@@ -79,6 +79,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_gaussian.hpp"
+#include "pastel/sys/random/random_gaussian.hpp"
 
 #endif

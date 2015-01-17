@@ -4,7 +4,7 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/skiplist.h"
-#include "pastel/sys/random_integer.h"
+#include "pastel/sys/random/random_integer.h"
 
 #include <boost/range/adaptor/reversed.hpp> 
 

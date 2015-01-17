@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_TRANSITIVE_CLOSURE_H
 #define PASTELSYS_TRANSITIVE_CLOSURE_H
 
-#include "pastel/sys/transitive_closure/transitive_closure_concepts.h"
+#include "pastel/sys/graph/transitive_closure/transitive_closure_concepts.h"
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/hashing.h"
 
@@ -113,6 +113,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/transitive_closure/transitive_closure.hpp"
+#include "pastel/sys/graph/transitive_closure/transitive_closure.hpp"
 
 #endif

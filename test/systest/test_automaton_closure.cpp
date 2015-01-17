@@ -4,7 +4,7 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/automaton/automaton_closure.h"
-#include "pastel/sys/sequence_algorithms.h"
+#include "pastel/sys/sequence.h"
 #include "pastel/sys/predicate.h"
 
 using namespace Pastel;

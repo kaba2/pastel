@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/insertion_sort.h"
+#include "pastel/sys/sequence/insertion_sort.h"
 
 using namespace Pastel;
 

@@ -1,9 +1,9 @@
 #ifndef PASTELSYS_RANDOM_LAPLACE_HPP
 #define PASTELSYS_RANDOM_LAPLACE_HPP
 
-#include "pastel/sys/random_laplace.h"
-#include "pastel/sys/random_uniform.h"
-#include "pastel/sys/random_exponential.h"
+#include "pastel/sys/random/random_laplace.h"
+#include "pastel/sys/random/random_uniform.h"
+#include "pastel/sys/random/random_exponential.h"
 
 namespace Pastel
 {

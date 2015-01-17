@@ -18,6 +18,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/copy_n.hpp"
+#include "pastel/sys/sequence/copy_n.hpp"
 
 #endif

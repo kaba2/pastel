@@ -50,6 +50,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_cauchy.hpp"
+#include "pastel/sys/random/random_cauchy.hpp"
 
 #endif

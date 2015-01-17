@@ -23,6 +23,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/random_dirichlet.hpp"
+#include "pastel/sys/random/random_dirichlet.hpp"
 
 #endif

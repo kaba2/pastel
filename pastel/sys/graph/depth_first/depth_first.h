@@ -15,6 +15,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/depth_first_traversal.hpp"
+#include "pastel/sys/graph/depth_first/depth_first.hpp"
 
 #endif

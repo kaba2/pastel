@@ -4,7 +4,7 @@
 #include "pastel/math/random_orthogonal_matrix.h"
 #include "pastel/math/qr_decomposition.h"
 
-#include "pastel/sys/random_gaussian.h"
+#include "pastel/sys/random/random_gaussian.h"
 #include "pastel/sys/math/sign.h"
 
 namespace Pastel

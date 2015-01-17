@@ -4,7 +4,7 @@
 #include "pastel/gfx/gradientfield.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/random_uniform.h"
+#include "pastel/sys/random/random_uniform.h"
 
 namespace Pastel
 {
