@@ -11,6 +11,6 @@
 #include "pastel/math/matrix/matrix_inverse.h"
 #include "pastel/math/matrix/matrix_norm.h"
 #include "pastel/math/matrix/matrix_trace.h"
-#include "pastel/math/matrix/solve_linear.h"
+#include "pastel/math/matrix/orthonormal.h"
 
 #endif

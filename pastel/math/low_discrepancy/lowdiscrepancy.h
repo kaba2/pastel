@@ -61,6 +61,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/lowdiscrepancy.hpp"
+#include "pastel/math/low_discrepancy/lowdiscrepancy.hpp"
 
 #endif

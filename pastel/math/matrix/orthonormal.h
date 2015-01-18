@@ -58,6 +58,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/orthonormal.hpp"
+#include "pastel/math/matrix/orthonormal.hpp"
 
 #endif

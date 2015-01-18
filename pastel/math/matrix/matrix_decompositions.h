@@ -4,6 +4,7 @@
 #define PASTELMATH_MATRIX_DECOMPOSITIONS_H
 
 #include "pastel/math/matrix/cholesky_decomposition.h"
+#include "pastel/math/matrix/householder_reflection.h"
 #include "pastel/math/matrix/lu_decomposition.h"
 #include "pastel/math/matrix/qr_decomposition.h"
 
