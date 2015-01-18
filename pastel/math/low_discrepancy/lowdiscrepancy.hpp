@@ -1,7 +1,7 @@
 #ifndef PASTELMATH_LOWDISCREPANCY_HPP
 #define PASTELMATH_LOWDISCREPANCY_HPP
 
-#include "pastel/math/lowdiscrepancy.h"
+#include "pastel/math/low_discrepancy/lowdiscrepancy.h"
 
 namespace Pastel
 {

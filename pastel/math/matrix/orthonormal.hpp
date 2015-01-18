@@ -1,7 +1,7 @@
 #ifndef PASTELMATH_ORTHONORMAL_HPP
 #define PASTELMATH_ORTHONORMAL_HPP
 
-#include "pastel/math/orthonormal.h"
+#include "pastel/math/matrix/orthonormal.h"
 
 #include "pastel/sys/vector/vector_tools.h"
 
