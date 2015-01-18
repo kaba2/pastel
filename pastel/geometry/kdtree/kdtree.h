@@ -10,7 +10,7 @@
 #include "pastel/sys/tristate.h"
 //#include "pastel/sys/pool_allocator.h"
 
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/alignedbox.h"
 
 namespace Pastel
 {

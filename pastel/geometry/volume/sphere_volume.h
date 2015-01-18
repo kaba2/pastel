@@ -5,7 +5,7 @@
 #ifndef PASTELGEOMETRY_SPHERE_VOLUME_H
 #define PASTELGEOMETRY_SPHERE_VOLUME_H
 
-#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shape/sphere.h"
 
 #include "pastel/sys/math/gamma.h"
 #include "pastel/sys/math/constants.h"

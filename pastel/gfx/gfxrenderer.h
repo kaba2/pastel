@@ -5,10 +5,10 @@
 #ifndef PASTELGFX_GFXRENDERER_H
 #define PASTELGFX_GFXRENDERER_H
 
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/alignedbox.h"
 #include "pastel/math/affine_transformation.h"
-#include "pastel/geometry/shapes/triangle.h"
-#include "pastel/geometry/shapes/segment.h"
+#include "pastel/geometry/shape/triangle.h"
+#include "pastel/geometry/shape/segment.h"
 
 #include "pastel/gfx/color.h"
 

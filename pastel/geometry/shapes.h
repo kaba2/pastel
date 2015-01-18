@@ -3,17 +3,17 @@
 #ifndef PASTELGEOMETRY_SHAPES_H
 #define PASTELGEOMETRY_SHAPES_H
 
-#include "pastel/geometry/shapes/alignedbox.h"
-#include "pastel/geometry/shapes/box.h"
-#include "pastel/geometry/shapes/capsule.h"
-#include "pastel/geometry/shapes/sphere.h"
-#include "pastel/geometry/shapes/plane.h"
-#include "pastel/geometry/shapes/triangle.h"
-#include "pastel/geometry/shapes/polygon.h"
-#include "pastel/geometry/shapes/alignedplane.h"
-#include "pastel/geometry/shapes/line.h"
-#include "pastel/geometry/shapes/segment.h"
-#include "pastel/geometry/shapes/ray.h"
-#include "pastel/geometry/shapes/flat.h"
+#include "pastel/geometry/shape/alignedbox.h"
+#include "pastel/geometry/shape/box.h"
+#include "pastel/geometry/shape/capsule.h"
+#include "pastel/geometry/shape/sphere.h"
+#include "pastel/geometry/shape/plane.h"
+#include "pastel/geometry/shape/triangle.h"
+#include "pastel/geometry/shape/polygon.h"
+#include "pastel/geometry/shape/alignedplane.h"
+#include "pastel/geometry/shape/line.h"
+#include "pastel/geometry/shape/segment.h"
+#include "pastel/geometry/shape/ray.h"
+#include "pastel/geometry/shape/flat.h"
 
 #endif

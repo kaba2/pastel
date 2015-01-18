@@ -4,7 +4,7 @@
 #ifndef PASTELGEOMETRY_ALIGNEDBOX_DIAMETER_H
 #define PASTELGEOMETRY_ALIGNEDBOX_DIAMETER_H
 
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/alignedbox.h"
 
 namespace Pastel
 {

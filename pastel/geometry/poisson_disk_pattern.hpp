@@ -12,7 +12,7 @@
 
 #include "pastel/math/uniform_sampling.h"
 
-#include "pastel/geometry/overlaps/overlaps_alignedbox_point.h"
+#include "pastel/geometry/overlap/overlaps_alignedbox_point.h"
 
 #include <vector>
 

@@ -3,8 +3,8 @@
 
 #include "pastel/geometry/intersect/intersect_plane_sphere.h"
 #include "pastel/geometry/intersect/intersect_line_plane.h"
-#include "pastel/geometry/overlaps/overlaps_plane_sphere.h"
-#include "pastel/geometry/shapes/line.h"
+#include "pastel/geometry/overlap/overlaps_plane_sphere.h"
+#include "pastel/geometry/shape/line.h"
 
 #include "pastel/sys/vector.h"
 

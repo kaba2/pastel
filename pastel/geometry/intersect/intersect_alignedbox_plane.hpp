@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_INTERSECT_ALIGNEDBOX_PLANE_HPP
 
 #include "pastel/geometry/intersect/intersect_alignedbox_plane.h"
-#include "pastel/geometry/overlaps/overlaps_alignedbox_plane.h"
+#include "pastel/geometry/overlap/overlaps_alignedbox_plane.h"
 
 #include "pastel/geometry/nearest_main_axis.h"
 

@@ -9,4 +9,4 @@ for some class of transformations, and for some criterion of
 optimality. The corresponding global problem is called
 [point pattern matching][PPM].
 
-[PPM]: [[Ref: point_pattern_matching.txt]]
+[PPM]: [[Ref: match_points.txt]]

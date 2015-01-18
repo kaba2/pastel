@@ -5,7 +5,7 @@
 #define PASTELGEOMETRY_POINTKDTREE_COUNT_RANGE_H
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/alignedbox.h"
 
 namespace Pastel
 {

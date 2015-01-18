@@ -1,8 +1,8 @@
 #ifndef PASTELGEOMETRY_INTERSECT_LINE_SPHERE_HPP
 #define PASTELGEOMETRY_INTERSECT_LINE_SPHERE_HPP
 
-#include "pastel/geometry/shapes/line.h"
-#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shape/line.h"
+#include "pastel/geometry/shape/sphere.h"
 
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/math_functions.h"

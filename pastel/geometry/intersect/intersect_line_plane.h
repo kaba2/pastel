@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_INTERSECT_LINE_PLANE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/shapes/line.h"
-#include "pastel/geometry/shapes/plane.h"
+#include "pastel/geometry/shape/line.h"
+#include "pastel/geometry/shape/plane.h"
 
 namespace Pastel
 {

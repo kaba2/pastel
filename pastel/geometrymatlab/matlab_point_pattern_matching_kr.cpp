@@ -1,15 +1,15 @@
-// Description: point_pattern_matching_kr
-// DocumentationOf: point_pattern_matching_kr.m
+// Description: match_points_kr
+// DocumentationOf: match_points_kr.m
 
 #include "pastel/matlab/pastelmatlab.h"
 
-#include "pastel/geometry/point_pattern_matching_kr.h"
+#include "pastel/geometry/pattern_matching/match_points_kr.h"
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
-#include "pastel/geometry/splitrules/slidingmidpoint_splitrule.h"
+#include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 
 #include "pastel/sys/locator/pointer_locator.h"
 
-void force_linking_point_pattern_matching_kr() {}
+void force_linking_match_points_kr() {}
 
 namespace Pastel
 {
@@ -157,7 +157,7 @@ namespace Pastel
 		void addFunction()
 		{
 			matlabAddFunction(
-				"point_pattern_matching_kr",
+				"match_points_kr",
 				matlabPointPatternMatchKr);
 		}
 

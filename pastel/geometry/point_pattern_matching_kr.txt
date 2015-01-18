@@ -1,8 +1,0 @@
-Translational point-pattern matching
-====================================
-
-[[Parent]]: point_pattern_matching.txt
-
-This section contains an algorithm for point-pattern matching under
-translations in ''RR^n''.
-

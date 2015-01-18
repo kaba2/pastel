@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_RECONSTRUCT_NEAREST_H
 #define PASTELGFX_RECONSTRUCT_NEAREST_H
 
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/alignedbox.h"
 
 #include "pastel/sys/view/view.h"
 

@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_INTERSECT_RAY_ALIGNEDPLANE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/shapes/ray.h"
-#include "pastel/geometry/shapes/alignedplane.h"
+#include "pastel/geometry/shape/ray.h"
+#include "pastel/geometry/shape/alignedplane.h"
 
 namespace Pastel
 {

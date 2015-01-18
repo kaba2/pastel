@@ -5,7 +5,7 @@
 #define PASTELGEOMETRY_PREDICATES_H
 
 #include "pastel/sys/vector.h"
-#include "pastel/geometry/shapes/plane.h"
+#include "pastel/geometry/shape/plane.h"
 
 namespace Pastel
 {

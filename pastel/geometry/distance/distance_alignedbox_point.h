@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_POINT_H
 #define PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_POINT_H
 
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/alignedbox.h"
 
 #include "pastel/math/euclidean_normbijection.h"
 
