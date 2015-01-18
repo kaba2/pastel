@@ -24,7 +24,7 @@ namespace Pastel
 
 	If startVelocity = endVelocity = 0,
 	then you should consider the 'smoothStep()' functions
-	in 'pastel/math/smoothstep.h' instead.
+	in 'pastel/math/interpolation/smoothstep.h' instead.
 	*/
 
 	template <
@@ -57,7 +57,7 @@ namespace Pastel
 	If startVelocity = endVelocity = 0 and
 	startAcceleration = endAcceleration = 0
 	then you should consider the 'smoothStep()' functions
-	in 'pastel/math/smoothstep.h' instead.
+	in 'pastel/math/interpolation/smoothstep.h' instead.
 	*/
 
 	template <

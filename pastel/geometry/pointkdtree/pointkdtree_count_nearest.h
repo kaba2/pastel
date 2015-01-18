@@ -7,7 +7,7 @@
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 
 #include "pastel/sys/indicator/indicator_concept.h"
-#include "pastel/math/normbijection_concept.h"
+#include "pastel/math/normbijection/normbijection_concept.h"
 
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/math/normbijection/euclidean_normbijection.h"

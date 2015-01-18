@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_DISTANCE_POINT_POINT_H
 #define PASTELGEOMETRY_DISTANCE_POINT_POINT_H
 
-#include "pastel/math/normbijection_concept.h"
+#include "pastel/math/normbijection/normbijection_concept.h"
 #include "pastel/math/normbijection/euclidean_normbijection.h"
 
 #include "pastel/sys/point/point_concept.h"

@@ -6,7 +6,7 @@
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/sys/indicator/indicator_concept.h"
-#include "pastel/math/normbijection_concept.h"
+#include "pastel/math/normbijection/normbijection_concept.h"
 
 #include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
 #include "pastel/sys/indicator/all_indicator.h"

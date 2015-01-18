@@ -1,7 +1,7 @@
 #ifndef PASTELMATH_SMOOTHSTEP_HPP
 #define PASTELMATH_SMOOTHSTEP_HPP
 
-#include "pastel/math/smoothstep.h"
+#include "pastel/math/interpolation/smoothstep.h"
 
 #include "pastel/sys/math_functions.h"
 

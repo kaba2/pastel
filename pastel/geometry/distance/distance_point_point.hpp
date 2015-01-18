@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/distance/distance_point_point.h"
 
-#include "pastel/math/normbijections.h"
+#include "pastel/math/normbijection/normbijections.h"
 
 namespace Pastel
 {

@@ -13,7 +13,7 @@ namespace Pastel
 	This function considers the matrix as a long vector, and
 	computes a vector norm for it. In particular, a euclidean norm 
 	bijection gives the Frobenius norm (without the square root).
-	See 'pastel/math/normbijections.h" for predefined norm bijections.
+	See 'pastel/math/normbijection/normbijections.h" for predefined norm bijections.
 	*/
 	template <typename Real,  
 		typename Expression, typename NormBijection>

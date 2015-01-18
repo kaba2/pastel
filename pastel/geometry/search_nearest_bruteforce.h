@@ -15,7 +15,7 @@
 #include "pastel/sys/output/null_output.h"
 
 #include "pastel/math/normbijection/euclidean_normbijection.h"
-#include "pastel/math/normbijection_concept.h"
+#include "pastel/math/normbijection/normbijection_concept.h"
 
 #include <utility>
 #include <type_traits>
