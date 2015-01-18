@@ -5,7 +5,7 @@
 
 #include <pastel/geometry/search_nearest_bruteforce.h>
 
-#include <pastel/math/normbijections.h>
+#include <pastel/math/normbijection/normbijections.h>
 
 #include <pastel/sys/vector.h>
 #include <pastel/sys/input.h>

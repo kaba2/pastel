@@ -7,7 +7,7 @@
 #include "pastel/math/coordinate/coordinates_derivatives.h"
 #include "pastel/math/interpolation.h"
 #include "pastel/math/lowdiscrepancy.h"
-#include "pastel/math/normbijections.h"
+#include "pastel/math/normbijection/normbijections.h"
 #include "pastel/math/transformations.h"
 #include "pastel/math/uniform_distortion.h"
 #include "pastel/math/sampling/uniform_sampling.h"

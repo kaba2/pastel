@@ -91,6 +91,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/smoothstep.hpp"
+#include "pastel/math/interpolation/smoothstep.hpp"
 
 #endif

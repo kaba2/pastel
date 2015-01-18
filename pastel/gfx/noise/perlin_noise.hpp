@@ -7,7 +7,7 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/math_functions.h"
 
-#include "pastel/math/smoothstep.h"
+#include "pastel/math/interpolation/smoothstep.h"
 
 #include <vector>
 
