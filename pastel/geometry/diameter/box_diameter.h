@@ -4,7 +4,7 @@
 #ifndef PASTELGEOMETRY_BOX_DIAMETER_H
 #define PASTELGEOMETRY_BOX_DIAMETER_H
 
-#include "pastel/geometry/shapes/box.h"
+#include "pastel/geometry/shape/box.h"
 
 namespace Pastel
 {

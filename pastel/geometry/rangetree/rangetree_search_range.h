@@ -5,7 +5,7 @@
 #define PASTELGEOMETRY_RANGETREE_SEARCH_RANGE_H
 
 #include "pastel/geometry/rangetree/rangetree.h"
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/alignedbox.h"
 #include "pastel/sys/output/null_output.h"
 
 namespace Pastel

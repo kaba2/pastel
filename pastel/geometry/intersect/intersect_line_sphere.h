@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_INTERSECT_LINE_SPHERE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/shapes/line.h"
-#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shape/line.h"
+#include "pastel/geometry/shape/sphere.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel

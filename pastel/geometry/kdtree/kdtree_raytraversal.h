@@ -5,7 +5,7 @@
 #define PASTELGEOMETRY_KDTREE_RAYTRAVERSAL_H
 
 #include "pastel/geometry/kdtree/kdtree.h"
-#include "pastel/geometry/shapes/line.h"
+#include "pastel/geometry/shape/line.h"
 
 namespace Pastel
 {

@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_H
 #define PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_H
 
-#include "pastel/geometry/shapes/triangle.h"
-#include "pastel/geometry/shapes/segment.h"
+#include "pastel/geometry/shape/triangle.h"
+#include "pastel/geometry/shape/segment.h"
 
 namespace Pastel
 {

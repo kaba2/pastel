@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_DRAW_SEGMENT_H
 #define PASTELGFX_DRAW_SEGMENT_H
 
-#include "pastel/geometry/shapes/segment.h"
+#include "pastel/geometry/shape/segment.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view/view.h"

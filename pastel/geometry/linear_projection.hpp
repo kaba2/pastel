@@ -1,7 +1,7 @@
 #ifndef PASTELGEOMETRY_LINEAR_PROJECTION_HPP
 #define PASTELGEOMETRY_LINEAR_PROJECTION_HPP
 
-#include "pastel/geometry/shapes/linear_projection.h"
+#include "pastel/geometry/shape/linear_projection.h"
 
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/vector/vector_tools.h"

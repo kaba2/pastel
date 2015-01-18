@@ -6,7 +6,7 @@
 
 #include "pastel/sys/view/view.h"
 
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/alignedbox.h"
 
 #include <vector>
 

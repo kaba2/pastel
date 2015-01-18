@@ -4,7 +4,7 @@
 #ifndef PASTELGEOMETRY_POLYGON_AREA_H
 #define PASTELGEOMETRY_POLYGON_AREA_H
 
-#include "pastel/geometry/shapes/polygon.h"
+#include "pastel/geometry/shape/polygon.h"
 
 namespace Pastel
 {

@@ -7,7 +7,7 @@
 #include "pastel/math/matrix_determinant.h"
 #include "pastel/math/matrix_eigen.h"
 
-#include "pastel/geometry/shapes/ellipsoid.h"
+#include "pastel/geometry/shape/ellipsoid.h"
 
 namespace Pastel
 {

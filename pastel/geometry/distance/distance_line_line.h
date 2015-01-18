@@ -4,7 +4,7 @@
 #define PASTELGEOMETRY_DISTANCE_LINE_LINE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/shapes/line.h"
+#include "pastel/geometry/shape/line.h"
 
 namespace Pastel
 {

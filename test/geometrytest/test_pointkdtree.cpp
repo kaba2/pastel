@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/pointkdtree/pointkdtree_count_nearest.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
-#include "pastel/geometry/splitrules/slidingmidpoint_splitrule.h"
+#include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 
 #include "pastel/math/uniform_sampling.h"

@@ -4,7 +4,7 @@
 #ifndef PASTELGEOMETRY_SPHERE_DIAMETER_H
 #define PASTELGEOMETRY_SPHERE_DIAMETER_H
 
-#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shape/sphere.h"
 
 namespace Pastel
 {

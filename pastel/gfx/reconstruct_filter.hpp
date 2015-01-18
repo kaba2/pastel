@@ -4,7 +4,7 @@
 #include "pastel/gfx/reconstruct_filter.h"
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
-#include "pastel/geometry/overlaps/overlaps_alignedbox_point.h"
+#include "pastel/geometry/overlap/overlaps_alignedbox_point.h"
 
 #include "pastel/sys/view/view_visit.h"
 #include "pastel/sys/output.h"

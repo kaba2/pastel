@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_INTERSECT_LINE_TRIANGLE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/shapes/line.h"
-#include "pastel/geometry/shapes/triangle.h"
+#include "pastel/geometry/shape/line.h"
+#include "pastel/geometry/shape/triangle.h"
 
 namespace Pastel
 {

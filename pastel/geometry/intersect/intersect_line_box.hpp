@@ -3,8 +3,8 @@
 
 #include "pastel/geometry/intersect/intersect_line_box.h"
 
-#include "pastel/geometry/shapes/line.h"
-#include "pastel/geometry/shapes/box.h"
+#include "pastel/geometry/shape/line.h"
+#include "pastel/geometry/shape/box.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/math/constants.h"
 

@@ -16,7 +16,7 @@
 
 #include "pastel/math/matrix.h"
 
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/alignedbox.h"
 
 namespace Pastel
 {

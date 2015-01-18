@@ -3,7 +3,7 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/geometry/overlaps/overlaps_alignedbox_alignedbox.h"
+#include "pastel/geometry/overlap/overlaps_alignedbox_alignedbox.h"
 
 #include "pastel/sys/rational.h"
 

@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_INTERSECT_RAY_ALIGNEDBOX_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/shapes/ray.h"
-#include "pastel/geometry/shapes/alignedbox.h"
+#include "pastel/geometry/shape/ray.h"
+#include "pastel/geometry/shape/alignedbox.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel

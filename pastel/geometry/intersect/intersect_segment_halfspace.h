@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_INTERSECT_SEGMENT_HALFSPACE_H
 #define PASTELGEOMETRY_INTERSECT_SEGMENT_HALFSPACE_H
 
-#include "pastel/geometry/shapes/segment.h"
-#include "pastel/geometry/shapes/plane.h"
+#include "pastel/geometry/shape/segment.h"
+#include "pastel/geometry/shape/plane.h"
 
 namespace Pastel
 {

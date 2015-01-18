@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_BOUNDING_SPHERE_BOX_H
 #define PASTELGEOMETRY_BOUNDING_SPHERE_BOX_H
 
-#include "pastel/geometry/shapes/sphere.h"
-#include "pastel/geometry/shapes/box.h"
+#include "pastel/geometry/shape/sphere.h"
+#include "pastel/geometry/shape/box.h"
 
 namespace Pastel
 {

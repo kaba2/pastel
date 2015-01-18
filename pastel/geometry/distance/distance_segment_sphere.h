@@ -3,8 +3,8 @@
 #ifndef PASTELGEOMETRY_DISTANCE_SEGMENT_SPHERE_H
 #define PASTELGEOMETRY_DISTANCE_SEGMENT_SPHERE_H
 
-#include "pastel/geometry/shapes/segment.h"
-#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shape/segment.h"
+#include "pastel/geometry/shape/sphere.h"
 
 namespace Pastel
 {

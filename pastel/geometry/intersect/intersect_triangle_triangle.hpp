@@ -2,13 +2,13 @@
 #define PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_HPP
 
 #include "pastel/geometry/intersect/intersect_triangle_triangle.h"
-#include "pastel/geometry/shapes/segment.h"
-#include "pastel/geometry/shapes/plane.h"
-#include "pastel/geometry/shapes/flat.h"
-#include "pastel/geometry/overlaps/overlaps_plane_triangle.h"
+#include "pastel/geometry/shape/segment.h"
+#include "pastel/geometry/shape/plane.h"
+#include "pastel/geometry/shape/flat.h"
+#include "pastel/geometry/overlap/overlaps_plane_triangle.h"
 #include "pastel/geometry/intersect/intersect_flat_plane.h"
 #include "pastel/geometry/intersect/intersect_alignedbox_alignedbox.h"
-#include "pastel/geometry/shapes/linear_projection.h"
+#include "pastel/geometry/shape/linear_projection.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/vector/vector_tools.h"

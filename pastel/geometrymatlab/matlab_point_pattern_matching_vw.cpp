@@ -1,12 +1,12 @@
-// Description: point_pattern_matching_vw
-// DocumentationOf: point_pattern_matching_vw.m
+// Description: match_points_vw
+// DocumentationOf: match_points_vw.m
 
 #include "pastel/matlab/pastelmatlab.h"
 
-#include "pastel/geometry/point_pattern_matching_vw.h"
+#include "pastel/geometry/pattern_matching/match_points_vw.h"
 #include "pastel/sys/locator/pointer_locator.h"
 
-void force_linking_point_pattern_matching_vw() {}
+void force_linking_match_points_vw() {}
 
 namespace Pastel
 {
@@ -94,7 +94,7 @@ namespace Pastel
 		void addFunction()
 		{
 			matlabAddFunction(
-				"point_pattern_matching_vw",
+				"match_points_vw",
 				matlabPointPatternMatchVw);
 		}
 

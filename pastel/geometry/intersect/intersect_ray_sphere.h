@@ -5,8 +5,8 @@
 
 #include "pastel/sys/mytypes.h"
 
-#include "pastel/geometry/shapes/ray.h"
-#include "pastel/geometry/shapes/sphere.h"
+#include "pastel/geometry/shape/ray.h"
+#include "pastel/geometry/shape/sphere.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel

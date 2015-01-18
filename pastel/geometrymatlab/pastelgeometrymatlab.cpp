@@ -7,7 +7,7 @@
 		force_linking_##name(); \
 	}
 
-FORCE_LINKING(point_pattern_matching_vw);
-FORCE_LINKING(point_pattern_matching_kr);
+FORCE_LINKING(match_points_vw);
+FORCE_LINKING(match_points_kr);
 FORCE_LINKING(pointkdtree);
 

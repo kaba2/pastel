@@ -4,8 +4,8 @@
 #ifndef PASTELGEOMETRY_BOX_AREA_H
 #define PASTELGEOMETRY_BOX_AREA_H
 
-#include "pastel/geometry/shapes/alignedbox.h"
-#include "pastel/geometry/shapes/box.h"
+#include "pastel/geometry/shape/alignedbox.h"
+#include "pastel/geometry/shape/box.h"
 
 namespace Pastel
 {
