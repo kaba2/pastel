@@ -158,6 +158,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/uniform_distortion.hpp"
+#include "pastel/math/sampling/uniform_distortion.hpp"
 
 #endif
