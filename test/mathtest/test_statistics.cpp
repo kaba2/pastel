@@ -4,10 +4,10 @@
 #include "test_pastelmath.h"
 
 #include <pastel/sys/input.h>
-#include <pastel/math/statistics.h>
-
 #include <pastel/sys/rational.h>
 #include <pastel/sys/locator.h>
+
+#include <pastel/math/statistic.h>
 
 using namespace Pastel;
 

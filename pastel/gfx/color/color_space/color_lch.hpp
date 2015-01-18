@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/color/color_space/color_lch.h"
 
-#include "pastel/math/coordinates.h"
+#include "pastel/math/coordinate/coordinates.h"
 
 namespace Pastel
 {

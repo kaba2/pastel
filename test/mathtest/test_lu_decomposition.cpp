@@ -3,13 +3,12 @@
 
 #include "test_pastelmath.h"
 
-#include "pastel/sys/view/arrayview.h"
-#include "pastel/sys/tuple/tuple_tools.h"
-
+#include "pastel/sys/view.h"
+#include "pastel/sys/tuple.h"
 #include "pastel/sys/rational.h"
-#include "pastel/math/lu_decomposition.h"
-#include "pastel/math/random_matrix.h"
-#include "pastel/math/uniform_sampling.h"
+
+#include "pastel/math/matrix.h"
+#include "pastel/math/sampling/uniform_sampling.h"
 
 using namespace Pastel;
 

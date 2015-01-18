@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_ELLIPSOID_H
 #define PASTELGEOMETRY_ELLIPSOID_H
 
-#include "pastel/math/matrix.h"
+#include "pastel/math/matrix/matrix.h"
 
 namespace Pastel
 {

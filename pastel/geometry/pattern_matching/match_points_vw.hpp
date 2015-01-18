@@ -5,9 +5,9 @@
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/bounding/bounding_sphere.h"
 
-#include "pastel/math/affine_transformation.h"
-#include "pastel/math/conformalaffine2d_tools.h"
-#include "pastel/math/conformalaffine2d_least_squares.h"
+#include "pastel/math/affine/affine_transformation.h"
+#include "pastel/math/conformalaffine2d/conformalaffine2d_tools.h"
+#include "pastel/math/conformalaffine2d/conformalaffine2d_least_squares.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/output.h"

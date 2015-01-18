@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/pointset_eigen.h"
 
-#include "pastel/math/statistics.h"
+#include "pastel/math/statistic.h"
 
 #include "pastel/sys/vector/vector_tools.h"
 

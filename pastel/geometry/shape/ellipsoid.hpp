@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/shape/ellipsoid.h"
 
-#include "pastel/math/matrix_inverse.h"
+#include "pastel/math/matrix/matrix_inverse.h"
 
 namespace Pastel
 {

@@ -6,7 +6,7 @@
 #include "pastel/geometry/shape/alignedbox.h"
 #include "pastel/geometry/shape/sphere.h"
 
-#include "pastel/math/affine_transformation.h"
+#include "pastel/math/affine/affine_transformation.h"
 
 namespace Pastel
 {

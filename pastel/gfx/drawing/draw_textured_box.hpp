@@ -4,7 +4,7 @@
 #include "pastel/gfx/drawing/draw_textured_box.h"
 #include "pastel/gfx/color/colormixer/assign_colormixer.h"
 
-#include "pastel/math/matrix.h"
+#include "pastel/math/matrix/matrix.h"
 
 #include "pastel/sys/intersect_alignedbox_alignedbox.h"
 #include "pastel/sys/syscommon.h"

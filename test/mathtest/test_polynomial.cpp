@@ -4,7 +4,6 @@
 #include "test_pastelmath.h"
 
 #include "pastel/math/polynomial.h"
-#include "pastel/math/polynomial_tools.h"
 #include "pastel/sys/rational.h"
 
 using namespace Pastel;

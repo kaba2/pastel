@@ -3,9 +3,9 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/math/conformalaffine2d_tools.h"
-#include "pastel/math/conformalaffine2d_least_squares.h"
-#include "pastel/math/uniform_sampling.h"
+#include "pastel/math/conformalaffine2d/conformalaffine2d_tools.h"
+#include "pastel/math/conformalaffine2d/conformalaffine2d_least_squares.h"
+#include "pastel/math/sampling/uniform_sampling.h"
 
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/locator/vector_locator.h"

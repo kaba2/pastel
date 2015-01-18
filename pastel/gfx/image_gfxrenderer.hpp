@@ -7,7 +7,7 @@
 
 #include "pastel/sys/extender/indexextenders.h"
 
-#include "pastel/math/affine_transformation.h"
+#include "pastel/math/affine/affine_transformation.h"
 
 namespace Pastel
 {

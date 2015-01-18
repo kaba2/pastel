@@ -8,7 +8,7 @@
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 
-#include "pastel/math/uniform_sampling.h"
+#include "pastel/math/sampling/uniform_sampling.h"
 
 #include "pastel/sys/iterator.h"
 #include "pastel/sys/output.h"

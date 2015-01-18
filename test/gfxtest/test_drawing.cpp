@@ -15,7 +15,7 @@
 #include "pastel/gfx/mipmap.h"
 #include "pastel/gfx/filter.h"
 
-#include "pastel/math/uniform_sampling.h"
+#include "pastel/math/sampling/uniform_sampling.h"
 
 #include <boost/lambda/lambda.hpp>
 using namespace boost::lambda;

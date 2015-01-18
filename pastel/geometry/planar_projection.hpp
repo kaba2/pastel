@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/planar_projection.h"
 
-#include "pastel/math/solve_linear.h"
+#include "pastel/math/matrix/solve_linear.h"
 
 namespace Pastel
 {

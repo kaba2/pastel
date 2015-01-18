@@ -3,10 +3,10 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/math/affine_transformation.h"
-#include "pastel/math/uniform_sampling.h"
-#include "pastel/math/conformalaffine2d_tools.h"
-#include "pastel/math/conformalaffine2d_least_squares.h"
+#include "pastel/math/affine/affine_transformation.h"
+#include "pastel/math/sampling/uniform_sampling.h"
+#include "pastel/math/conformalaffine2d/conformalaffine2d_tools.h"
+#include "pastel/math/conformalaffine2d/conformalaffine2d_least_squares.h"
 
 #include "pastel/sys/locator.h"
 #include "pastel/sys/vector/vector_tools.h"

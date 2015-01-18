@@ -5,7 +5,7 @@
 
 #include "pastel/sys/view/arrayview.h"
 
-#include "pastel/math/uniform_sampling.h"
+#include "pastel/math/sampling/uniform_sampling.h"
 
 #include "pastel/gfx/image_file.h"
 #include "pastel/gfx/color.h"

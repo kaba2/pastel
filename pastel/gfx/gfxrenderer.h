@@ -6,7 +6,7 @@
 #define PASTELGFX_GFXRENDERER_H
 
 #include "pastel/geometry/shape/alignedbox.h"
-#include "pastel/math/affine_transformation.h"
+#include "pastel/math/affine/affine_transformation.h"
 #include "pastel/geometry/shape/triangle.h"
 #include "pastel/geometry/shape/segment.h"
 

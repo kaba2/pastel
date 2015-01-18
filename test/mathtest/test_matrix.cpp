@@ -3,9 +3,8 @@
 
 #include "test_pastelmath.h"
 
-#include "pastel/math/matrix_algorithms.h"
-#include "pastel/math/lu_decomposition.h"
-#include "pastel/math/uniform_sampling.h"
+#include "pastel/math/matrix.h"
+#include "pastel/math/sampling.h"
 
 #include "pastel/sys/view.h"
 

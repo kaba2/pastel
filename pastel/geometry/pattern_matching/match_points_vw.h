@@ -8,7 +8,7 @@
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/shape/sphere.h"
 
-#include "pastel/math/conformalaffine2d.h"
+#include "pastel/math/conformalaffine2d/conformalaffine2d.h"
 
 namespace Pastel
 {
