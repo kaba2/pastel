@@ -1,10 +1,10 @@
 #ifndef PASTELGFX_MIPIMAGE_TEXTURE_HPP
 #define PASTELGFX_MIPIMAGE_TEXTURE_HPP
 
-#include "pastel/gfx/mipimage_texture.h"
-#include "pastel/gfx/linearimage_texture.h"
+#include "pastel/gfx/texture/mipimage_texture.h"
+#include "pastel/gfx/texture/linearimage_texture.h"
 
-#include "pastel/gfx/mipmap.h"
+#include "pastel/gfx/mipmap/mipmap.h"
 
 #include "pastel/sys/view/arrayview.h"
 #include "pastel/sys/view/repeatedconstview.h"

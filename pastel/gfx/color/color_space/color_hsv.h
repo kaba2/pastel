@@ -5,7 +5,7 @@
 #ifndef PASTELGFX_COLOR_HSV_H
 #define PASTELGFX_COLOR_HSV_H
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 namespace Pastel
 {
@@ -18,6 +18,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/color_hsv.hpp"
+#include "pastel/gfx/color/color_space/color_hsv.hpp"
 
 #endif

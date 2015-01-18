@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_COMPONENT_LABELING_HPP
 #define PASTELGFX_COMPONENT_LABELING_HPP
 
-#include "pastel/gfx/component_labeling.h"
+#include "pastel/gfx/image_processing/component_labeling.h"
 
 namespace Pastel
 {

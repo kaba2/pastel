@@ -18,6 +18,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/diffusion_quantization.hpp"
+#include "pastel/gfx/quantization/diffusion_quantization.hpp"
 
 #endif

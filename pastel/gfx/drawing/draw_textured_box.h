@@ -7,7 +7,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view/view.h"
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 #include "pastel/geometry/shape/alignedbox.h"
 
@@ -61,6 +61,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_textured_box.hpp"
+#include "pastel/gfx/drawing/draw_textured_box.hpp"
 
 #endif

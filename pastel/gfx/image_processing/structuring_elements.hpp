@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_STRUCTURING_ELEMENTS_HPP
 #define PASTELGFX_STRUCTURING_ELEMENTS_HPP
 
-#include "pastel/gfx/structuring_elements.h"
+#include "pastel/gfx/image_processing/structuring_elements.h"
 
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/view/view_tools.h"

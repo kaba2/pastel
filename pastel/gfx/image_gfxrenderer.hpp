@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/drawing.h"
-#include "pastel/gfx/textures.h"
+#include "pastel/gfx/texture/textures.h"
 
 #include "pastel/sys/extender/indexextenders.h"
 

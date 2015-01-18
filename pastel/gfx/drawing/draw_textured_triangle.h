@@ -7,7 +7,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view/view.h"
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 #include "pastel/geometry/shape/triangle.h"
 
@@ -42,6 +42,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_textured_triangle.hpp"
+#include "pastel/gfx/drawing/draw_textured_triangle.hpp"
 
 #endif

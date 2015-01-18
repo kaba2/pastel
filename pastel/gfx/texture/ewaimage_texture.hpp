@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_EWAIMAGE_TEXTURE_HPP
 #define PASTELGFX_EWAIMAGE_TEXTURE_HPP
 
-#include "pastel/gfx/ewaimage_texture.h"
-#include "pastel/gfx/linearimage_texture.h"
+#include "pastel/gfx/texture/ewaimage_texture.h"
+#include "pastel/gfx/texture/linearimage_texture.h"
 
 #include "pastel/math/matrix_determinant.h"
 #include "pastel/math/matrix_eigen.h"

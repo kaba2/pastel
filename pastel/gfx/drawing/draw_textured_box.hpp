@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_DRAW_TEXTURED_BOX_HPP
 #define PASTELGFX_DRAW_TEXTURED_BOX_HPP
 
-#include "pastel/gfx/draw_textured_box.h"
-#include "pastel/gfx/assign_colormixer.h"
+#include "pastel/gfx/drawing/draw_textured_box.h"
+#include "pastel/gfx/color/colormixer/assign_colormixer.h"
 
 #include "pastel/math/matrix.h"
 

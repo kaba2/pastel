@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_COLOR_LCH_HPP
 #define PASTELGFX_COLOR_LCH_HPP
 
-#include "pastel/gfx/color_lch.h"
+#include "pastel/gfx/color/color_space/color_lch.h"
 
 #include "pastel/math/coordinates.h"
 

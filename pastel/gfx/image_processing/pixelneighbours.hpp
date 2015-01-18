@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_PIXELNEIGHBOURS_HPP
 #define PASTELGFX_PIXELNEIGHBOURS_HPP
 
-#include "pastel/gfx/pixelneighbours.h"
+#include "pastel/gfx/image_processing/pixelneighbours.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel

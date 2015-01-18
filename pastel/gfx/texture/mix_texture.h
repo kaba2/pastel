@@ -4,8 +4,8 @@
 #ifndef PASTELGFX_MIX_TEXTURE_H
 #define PASTELGFX_MIX_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
-#include "pastel/gfx/colormixer.h"
+#include "pastel/gfx/texture/texture.h"
+#include "pastel/gfx/color/colormixer.h"
 
 namespace Pastel
 {

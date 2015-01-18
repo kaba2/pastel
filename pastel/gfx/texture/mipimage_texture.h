@@ -4,9 +4,9 @@
 #ifndef PASTELGFX_MIPIMAGE_TEXTURE_H
 #define PASTELGFX_MIPIMAGE_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
-#include "pastel/gfx/mipmap.h"
+#include "pastel/gfx/mipmap/mipmap.h"
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
@@ -64,6 +64,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/mipimage_texture.hpp"
+#include "pastel/gfx/texture/mipimage_texture.hpp"
 
 #endif

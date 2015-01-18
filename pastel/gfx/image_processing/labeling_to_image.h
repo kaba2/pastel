@@ -6,7 +6,7 @@
 
 #include "pastel/sys/array.h"
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 #include <vector>
 
@@ -27,6 +27,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/labeling_to_image.hpp"
+#include "pastel/gfx/image_processing/labeling_to_image.hpp"
 
 #endif

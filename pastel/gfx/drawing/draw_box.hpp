@@ -1,9 +1,9 @@
 #ifndef PASTELGFX_DRAW_BOX_HPP
 #define PASTELGFX_DRAW_BOX_HPP
 
-#include "pastel/gfx/draw_box.h"
-#include "pastel/gfx/assign_colormixer.h"
-#include "pastel/gfx/color_texture.h"
+#include "pastel/gfx/drawing/draw_box.h"
+#include "pastel/gfx/color/colormixer/assign_colormixer.h"
+#include "pastel/gfx/texture/color_texture.h"
 
 #include "pastel/geometry/intersect/intersect_alignedbox_alignedbox.h"
 

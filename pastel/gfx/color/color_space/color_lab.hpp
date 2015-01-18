@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_COLOR_LAB_HPP
 #define PASTELGFX_COLOR_LAB_HPP
 
-#include "pastel/gfx/color_lab.h"
-#include "pastel/gfx/color_illuminant.h"
+#include "pastel/gfx/color/color_space/color_lab.h"
+#include "pastel/gfx/color/color_illuminant.h"
 
 #include "pastel/sys/math_functions.h"
 

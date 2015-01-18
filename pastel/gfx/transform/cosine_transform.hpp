@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_COSINE_TRANSFORM_HPP
 #define PASTELGFX_COSINE_TRANSFORM_HPP
 
-#include "pastel/gfx/cosine_transform.h"
-#include "pastel/gfx/fourier_transform.h"
+#include "pastel/gfx/transform/cosine_transform.h"
+#include "pastel/gfx/transform/fourier_transform.h"
 
 #include <complex>
 

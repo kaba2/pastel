@@ -1,9 +1,9 @@
 #ifndef PASTELGFX_SIMPLEX_NOISE_HPP
 #define PASTELGFX_SIMPLEX_NOISE_HPP
 
-#include "pastel/gfx/simplex_noise.h"
-#include "pastel/gfx/gradientfield.h"
-#include "pastel/gfx/perlin_noise.h"
+#include "pastel/gfx/noise/simplex_noise.h"
+#include "pastel/gfx/noise/gradientfield.h"
+#include "pastel/gfx/noise/perlin_noise.h"
 
 namespace Pastel
 {

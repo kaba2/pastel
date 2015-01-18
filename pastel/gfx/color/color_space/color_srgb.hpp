@@ -1,10 +1,10 @@
 #ifndef PASTELGFX_COLOR_SRGB_HPP
 #define PASTELGFX_COLOR_SRGB_HPP
 
-#include "pastel/gfx/color_srgb.h"
-#include "pastel/gfx/color_xyy.h"
-#include "pastel/gfx/color_illuminant.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color/color_space/color_srgb.h"
+#include "pastel/gfx/color/color_space/color_xyy.h"
+#include "pastel/gfx/color/color_illuminant.h"
+#include "pastel/gfx/color/color_tools.h"
 
 #include "pastel/sys/math_functions.h"
 

@@ -4,9 +4,9 @@
 #ifndef PASTELGFX_RIPIMAGE_TEXTURE_H
 #define PASTELGFX_RIPIMAGE_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
-#include "pastel/gfx/ripmap.h"
+#include "pastel/gfx/ripmap/ripmap.h"
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
@@ -61,6 +61,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/ripimage_texture.hpp"
+#include "pastel/gfx/texture/ripimage_texture.hpp"
 
 #endif

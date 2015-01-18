@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_LABELING_TO_IMAGE_HPP
 #define PASTELGFX_LABELING_TO_IMAGE_HPP
 
-#include "pastel/gfx/labeling_to_image.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/image_processing/labeling_to_image.h"
+#include "pastel/gfx/color/color_tools.h"
 
 #include "pastel/sys/hashing.h"
 

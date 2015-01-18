@@ -5,7 +5,7 @@
 #ifndef PASTELGFX_COLOR_SRGB_H
 #define PASTELGFX_COLOR_SRGB_H
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 #include "pastel/math/matrix.h"
 
@@ -49,6 +49,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/color_srgb.hpp"
+#include "pastel/gfx/color/color_space/color_srgb.hpp"
 
 #endif

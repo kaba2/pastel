@@ -3,10 +3,9 @@
 
 #include "test_pastelgfx.h"
 
-#include "pastel/gfx/image_quantization.h"
+#include "pastel/gfx/quantization.h"
 
-#include "pastel/gfx/loadpcx.h"
-#include "pastel/gfx/savepcx.h"
+#include "pastel/gfx/image_file.h"
 #include "pastel/gfx/image_tools.h"
 
 using namespace Pastel;

@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_ROUNDING_QUANTIZATION_HPP
 #define PASTELGFX_ROUNDING_QUANTIZATION_HPP
 
-#include "pastel/gfx/rounding_quantization.h"
+#include "pastel/gfx/quantization/rounding_quantization.h"
 
 namespace Pastel
 {

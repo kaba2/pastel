@@ -42,6 +42,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/gradientfield.hpp"
+#include "pastel/gfx/noise/gradientfield.hpp"
 
 #endif

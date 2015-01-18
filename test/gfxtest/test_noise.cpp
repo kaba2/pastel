@@ -4,7 +4,7 @@
 #include "test_pastelgfx.h"
 
 #include "pastel/gfx/noise.h"
-#include "pastel/gfx/savepcx.h"
+#include "pastel/gfx/image_file.h"
 
 namespace
 {

@@ -5,7 +5,7 @@
 #ifndef PASTELGFX_ADDITIVE_COLORMIXER_H
 #define PASTELGFX_ADDITIVE_COLORMIXER_H
 
-#include "pastel/gfx/colormixer.h"
+#include "pastel/gfx/color/colormixer.h"
 
 #include "pastel/sys/mytypes.h"
 

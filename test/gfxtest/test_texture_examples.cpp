@@ -3,8 +3,8 @@
 
 #include "test_pastelgfx.h"
 
-#include <pastel/gfx/color_tools.h>
-#include <pastel/gfx/textures.h>
+#include <pastel/gfx/color.h>
+#include <pastel/gfx/texture.h>
 #include <pastel/gfx/drawing.h>
 #include <pastel/gfx/image_gfxrenderer.h>
 #include <pastel/gfx/gfxrenderer_tools.h>

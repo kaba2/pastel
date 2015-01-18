@@ -3,7 +3,7 @@
 #ifndef PASTELGFX_COLOR_ILLUMINANT_H
 #define PASTELGFX_COLOR_ILLUMINANT_H
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 namespace Pastel
 {
@@ -21,6 +21,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/color_illuminant.hpp"
+#include "pastel/gfx/color/color_illuminant.hpp"
 
 #endif

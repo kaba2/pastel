@@ -1,9 +1,9 @@
 #ifndef PASTELGFX_DRAW_TRIANGLE_HPP
 #define PASTELGFX_DRAW_TRIANGLE_HPP
 
-#include "pastel/gfx/draw_triangle.h"
-#include "pastel/gfx/draw_horizontal_line.h"
-#include "pastel/gfx/assign_colormixer.h"
+#include "pastel/gfx/drawing/draw_triangle.h"
+#include "pastel/gfx/drawing/draw_horizontal_line.h"
+#include "pastel/gfx/color/colormixer/assign_colormixer.h"
 
 #include "pastel/geometry/shape/plane.h"
 #include "pastel/geometry/predicates.h"

@@ -116,6 +116,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/fourier_transform.hpp"
+#include "pastel/gfx/transform/fourier_transform.hpp"
 
 #endif

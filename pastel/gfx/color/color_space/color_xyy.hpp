@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_COLOR_XYY_HPP
 #define PASTELGFX_COLOR_XYY_HPP
 
-#include "pastel/gfx/color_xyy.h"
+#include "pastel/gfx/color/color_space/color_xyy.h"
 
 namespace Pastel
 {

@@ -10,7 +10,7 @@
 #include "pastel/geometry/shape/triangle.h"
 #include "pastel/geometry/shape/segment.h"
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 #include "pastel/sys/array.h"
 

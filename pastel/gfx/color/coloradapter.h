@@ -3,7 +3,7 @@
 #ifndef PASTELGFX_COLORADAPTER_H
 #define PASTELGFX_COLORADAPTER_H
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/bit/extract_bits.h"
@@ -284,6 +284,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/coloradapter.hpp"
+#include "pastel/gfx/color/coloradapter.hpp"
 
 #endif

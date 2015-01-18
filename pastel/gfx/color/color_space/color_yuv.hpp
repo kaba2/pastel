@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_COLOR_YUV_HPP
 #define PASTELGFX_COLOR_YUV_HPP
 
-#include "pastel/gfx/color_yuv.h"
+#include "pastel/gfx/color/color_yuv.h"
 
 #include "pastel/math/matrix.h"
 

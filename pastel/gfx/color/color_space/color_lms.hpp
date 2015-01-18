@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_COLOR_LMS_HPP
 #define PASTELGFX_COLOR_LMS_HPP
 
-#include "pastel/gfx/color_lms.h"
+#include "pastel/gfx/color/color_space/color_lms.h"
 
 #include "pastel/math/matrix_inverse.h"
 

@@ -19,6 +19,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/rounding_quantization.hpp"
+#include "pastel/gfx/quantization/rounding_quantization.hpp"
 
 #endif

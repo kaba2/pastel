@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_DILATE_HPP
 #define PASTELGFX_DILATE_HPP
 
-#include "pastel/gfx/image_dilation.h"
+#include "pastel/gfx/image_processing/image_dilation.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/generic/addressof.h"

@@ -3,8 +3,8 @@
 #ifndef PASTELGFX_RADIAL_TEXTURE_H
 #define PASTELGFX_RADIAL_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
-#include "pastel/gfx/colormixer.h"
+#include "pastel/gfx/texture/texture.h"
+#include "pastel/gfx/color/colormixer.h"
 
 #include "pastel/math/coordinates.h"
 #include "pastel/math/coordinates_derivatives.h"

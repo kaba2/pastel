@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_BOX_LABELING_HPP
 #define PASTELGFX_BOX_LABELING_HPP
 
-#include "pastel/gfx/box_labeling.h"
+#include "pastel/gfx/image_processing/box_labeling.h"
 #include "pastel/gfx/drawing.h"
 
 #include "pastel/sys/view/arrayview.h"

@@ -4,19 +4,16 @@
 #include "test_pastelgfx.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/view/view_visit.h"
-#include "pastel/sys/view/extendedconstviews.h"
-#include "pastel/sys/view/view_tools.h"
+#include "pastel/sys/view.h"
 #include "pastel/sys/extender/indexextenders.h"
 
-#include "pastel/gfx/colormixers.h"
-#include "pastel/gfx/textures.h"
+#include "pastel/gfx/color.h"
+#include "pastel/gfx/texture.h"
 #include "pastel/gfx/drawing.h"
-#include "pastel/gfx/pcx.h"
-#include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/mipmap_tools.h"
-#include "pastel/gfx/ripmap_tools.h"
-#include "pastel/gfx/filters.h"
+#include "pastel/gfx/image_file.h"
+#include "pastel/gfx/mipmap.h"
+#include "pastel/gfx/ripmap.h"
+#include "pastel/gfx/filter.h"
 
 #include "pastel/sys/string.h"
 

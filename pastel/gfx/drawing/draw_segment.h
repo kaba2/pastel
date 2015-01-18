@@ -30,6 +30,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_segment.hpp"
+#include "pastel/gfx/drawing/draw_segment.hpp"
 
 #endif

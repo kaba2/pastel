@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_LINEARIMAGE_TEXTURE_H
 #define PASTELGFX_LINEARIMAGE_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 #include "pastel/sys/extender/arrayextender.h"
 
@@ -89,6 +89,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/linearimage_texture.hpp"
+#include "pastel/gfx/texture/linearimage_texture.hpp"
 
 #endif

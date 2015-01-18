@@ -6,20 +6,16 @@
 #include "pastel/sys/view/extendedconstviews.h"
 #include "pastel/sys/view.h"
 
-#include "pastel/gfx/pcx.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/image_file.h"
+#include "pastel/gfx/color.h"
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
-#include "pastel/gfx/radial_texture.h"
-
-#include "pastel/gfx/mipmap_tools.h"
-#include "pastel/gfx/filters.h"
+#include "pastel/gfx/texture.h"
+#include "pastel/gfx/mipmap.h"
+#include "pastel/gfx/filter.h"
 
 #include "pastel/math/uniform_sampling.h"
-
-#include "pastel/gfx/colormixers.h"
-#include "pastel/gfx/textures.h"
 
 #include <boost/lambda/lambda.hpp>
 using namespace boost::lambda;

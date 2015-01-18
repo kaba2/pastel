@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_COLORADAPTER_HPP
 #define PASTELGFX_COLORADAPTER_HPP
 
-#include "pastel/gfx/coloradapter.h"
+#include "pastel/gfx/color/coloradapter.h"
 
 namespace Pastel
 {

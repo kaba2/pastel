@@ -7,7 +7,7 @@
 
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
-#include "pastel/gfx/savepcx.h"
+#include "pastel/gfx/image_file/pcx/savepcx.h"
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/array.h"

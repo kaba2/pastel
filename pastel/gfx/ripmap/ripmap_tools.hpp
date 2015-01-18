@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_RIPMAP_TOOLS_HPP
 #define PASTELGFX_RIPMAP_TOOLS_HPP
 
-#include "pastel/gfx/ripmap_tools.h"
+#include "pastel/gfx/ripmap/ripmap_tools.h"
 
 #include "pastel/sys/view/view_tools.h"
 

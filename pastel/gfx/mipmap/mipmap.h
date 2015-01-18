@@ -5,7 +5,7 @@
 #define PASTELGFX_MIPMAP_H
 
 #include "pastel/gfx/filter.h"
-#include "pastel/gfx/gaussian_filter.h"
+#include "pastel/gfx/filter/gaussian_filter.h"
 
 #include "pastel/sys/extender/clampextender.h"
 #include "pastel/sys/extender/arrayextender.h"
@@ -94,8 +94,8 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/mipmap.hpp"
+#include "pastel/gfx/mipmap/mipmap.hpp"
 
-#include "pastel/gfx/mipmap_tools.h"
+#include "pastel/gfx/mipmap/mipmap_tools.h"
 
 #endif

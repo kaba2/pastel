@@ -36,6 +36,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_triangle.hpp"
+#include "pastel/gfx/drawing/draw_triangle.hpp"
 
 #endif

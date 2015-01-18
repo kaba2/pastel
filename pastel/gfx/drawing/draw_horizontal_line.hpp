@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_DRAW_HORIZONTAL_LINE_HPP
 #define PASTELGFX_DRAW_HORIZONTAL_LINE_HPP
 
-#include "pastel/gfx/draw_horizontal_line.h"
-#include "pastel/gfx/assign_colormixer.h"
+#include "pastel/gfx/drawing/draw_horizontal_line.h"
+#include "pastel/gfx/color/colormixer/assign_colormixer.h"
 
 #include "pastel/sys/syscommon.h"
 

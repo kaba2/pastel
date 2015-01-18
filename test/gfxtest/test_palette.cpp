@@ -3,13 +3,11 @@
 
 #include "test_pastelgfx.h"
 
-#include "pastel/sys/view/arrayview.h"
+#include "pastel/sys/view.h"
 
-#include "pastel/gfx/loadpcx.h"
-#include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/image_file.h"
+#include "pastel/gfx/color.h"
 #include "pastel/gfx/drawing.h"
-#include "pastel/gfx/color_palette.h"
 
 #include <iostream>
 #include <string>

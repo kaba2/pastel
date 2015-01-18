@@ -1,9 +1,9 @@
 #ifndef PASTELGFX_COLOR_PALETTE_HPP
 #define PASTELGFX_COLOR_PALETTE_HPP
 
-#include "pastel/gfx/color_palette.h"
-#include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/color_hsv.h"
+#include "pastel/gfx/color/color_palette.h"
+#include "pastel/gfx/color/color_tools.h"
+#include "pastel/gfx/color/color_space/color_hsv.h"
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/ensure.h"

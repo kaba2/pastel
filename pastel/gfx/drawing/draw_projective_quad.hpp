@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_DRAW_PROJECTIVE_QUAD_HPP
 #define PASTELGFX_DRAW_PROJECTIVE_QUAD_HPP
 
-#include "pastel/gfx/draw_projective_quad.h"
-#include "pastel/gfx/assign_colormixer.h"
+#include "pastel/gfx/drawing/draw_projective_quad.h"
+#include "pastel/gfx/color/colormixer/assign_colormixer.h"
 
 #include "pastel/geometry/planar_projection.h"
 
