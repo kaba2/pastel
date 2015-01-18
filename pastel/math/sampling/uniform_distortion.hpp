@@ -1,7 +1,7 @@
 #ifndef PASTELMATH_UNIFORM_DISTORTION_HPP
 #define PASTELMATH_UNIFORM_DISTORTION_HPP
 
-#include "pastel/math/uniform_distortion.h"
+#include "pastel/math/sampling/uniform_distortion.h"
 #include "pastel/math/coordinate/coordinates.h"
 
 #include "pastel/sys/math_functions.h"
@@ -289,7 +289,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, EnableIfC<(N == 2)>>
-	Vector<Real), N> uniformlySampleSimplex(
+	Vector<Real, N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv)
 	{
 		// Let p be a uniform probability distribution
@@ -363,14 +363,14 @@ namespace Pastel
 	// uniformlySampleBall
 
 	template <typename Real, int N, EnableIfC<(N == 1)>>
-	Vector<Real), N> uniformlySampleBall(
+	Vector<Real, N> uniformlySampleBall(
 		const Vector<Real, N>& uv)
 	{
 		return 2 * uv - 1;
 	}
 
 	template <typename Real, int N, EnableIfC<(N == 2)>>
-	Vector<Real), N> uniformlySampleBall(
+	Vector<Real, N> uniformlySampleBall(
 		const Vector<Real, N>& uv)
 	{
 		// "A Low Distortion Map Between Disk and Square",
