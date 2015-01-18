@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_BRANCHING_NUMBER_HPP
 #define PASTELGFX_BRANCHING_NUMBER_HPP
 
-#include "pastel/gfx/branching_number.h"
-#include "pastel/gfx/pixelneighbours.h"
+#include "pastel/gfx/image_processing/branching_number.h"
+#include "pastel/gfx/image_processing/pixelneighbours.h"
 
 #include <vector>
 

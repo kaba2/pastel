@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_DRAW_SEGMENT_HPP
 #define PASTELGFX_DRAW_SEGMENT_HPP
 
-#include "pastel/gfx/draw_segment.h"
-#include "pastel/gfx/draw_pixel.h"
+#include "pastel/gfx/drawing/draw_segment.h"
+#include "pastel/gfx/drawing/draw_pixel.h"
 
 #include "pastel/geometry/intersect/intersect_alignedbox_segment.h"
 

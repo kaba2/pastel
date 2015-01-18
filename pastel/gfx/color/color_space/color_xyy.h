@@ -5,7 +5,7 @@
 #ifndef PASTELGFX_COLOR_XYY_H
 #define PASTELGFX_COLOR_XYY_H
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 namespace Pastel
 {
@@ -18,6 +18,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/color_xyy.hpp"
+#include "pastel/gfx/color/color_space/color_xyy.hpp"
 
 #endif

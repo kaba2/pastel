@@ -4,8 +4,8 @@
 #ifndef PASTELGFX_IMAGETOOLS_H
 #define PASTELGFX_IMAGETOOLS_H
 
-#include "pastel/gfx/color.h"
-#include "pastel/gfx/coloradapter.h"
+#include "pastel/gfx/color/color.h"
+#include "pastel/gfx/color/coloradapter.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view/view.h"

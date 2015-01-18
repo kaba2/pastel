@@ -1,9 +1,9 @@
 #ifndef PASTELGFX_CONVOLUTION_HPP
 #define PASTELGFX_CONVOLUTION_HPP
 
-#include "pastel/gfx/convolution.h"
-#include "pastel/gfx/nearestimage_texture.h"
-#include "pastel/gfx/additive_colormixer.h"
+#include "pastel/gfx/image_processing/convolution.h"
+#include "pastel/gfx/texture/nearestimage_texture.h"
+#include "pastel/gfx/color/colormixer/additive_colormixer.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/view/borderedconstview.h"

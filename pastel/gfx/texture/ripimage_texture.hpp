@@ -1,10 +1,10 @@
 #ifndef PASTELGFX_RIPIMAGE_TEXTURE_HPP
 #define PASTELGFX_RIPIMAGE_TEXTURE_HPP
 
-#include "pastel/gfx/ripimage_texture.h"
-#include "pastel/gfx/linearimage_texture.h"
+#include "pastel/gfx/texture/ripimage_texture.h"
+#include "pastel/gfx/texture/linearimage_texture.h"
 
-#include "pastel/gfx/ripmap.h"
+#include "pastel/gfx/ripmap/ripmap.h"
 
 #include "pastel/sys/vector/vector_tools.h"
 

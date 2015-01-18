@@ -203,6 +203,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/cosine_transform.hpp"
+#include "pastel/gfx/transform/cosine_transform.hpp"
 
 #endif

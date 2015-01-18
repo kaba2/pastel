@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/image_tools.h"
 
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color/color_tools.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/math/constants.h"
 

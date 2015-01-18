@@ -5,5 +5,6 @@
 #define PASTELGFX_COLORMIXER_H_MODULE
 
 #include "pastel/gfx/color/colormixer/colormixer.h"
+#include "pastel/gfx/color/colormixer/colormixers.h"
 
 #endif

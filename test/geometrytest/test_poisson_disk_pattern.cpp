@@ -7,11 +7,11 @@
 #include "pastel/geometry/distance/distance_point_point.h"
 #include "pastel/geometry/poisson_disk_pattern.h"
 
-#include "pastel/gfx/savepcx.h"
+#include "pastel/gfx/image_file/pcx/savepcx.h"
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
-#include "pastel/gfx/color_space.h"
+#include "pastel/gfx/color/color_space.h"
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/view/arrayview.h"

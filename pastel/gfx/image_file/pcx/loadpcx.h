@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_LOADPCX_H
 #define PASTELGFX_LOADPCX_H
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/abstractarray.h"
@@ -181,6 +181,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/loadpcx.hpp"
+#include "pastel/gfx/image_file/pcx/loadpcx.hpp"
 
 #endif

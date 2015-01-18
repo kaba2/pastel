@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_MIPMAP_HPP
 #define PASTELGFX_MIPMAP_HPP
 
-#include "pastel/gfx/mipmap.h"
+#include "pastel/gfx/mipmap/mipmap.h"
 #include "pastel/gfx/filter.h"
 #include "pastel/gfx/resampling.h"
 

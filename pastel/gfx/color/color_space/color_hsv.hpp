@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_COLOR_HSV_HPP
 #define PASTELGFX_COLOR_HSV_HPP
 
-#include "pastel/gfx/color_hsv.h"
+#include "pastel/gfx/color/color_space/color_hsv.h"
 
 namespace Pastel
 {

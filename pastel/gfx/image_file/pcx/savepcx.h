@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_SAVEPCX_H
 #define PASTELGFX_SAVEPCX_H
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 #include "pastel/sys/abstractarray.h"
 #include "pastel/sys/array.h"
@@ -79,6 +79,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/savepcx.hpp"
+#include "pastel/gfx/image_file/pcx/savepcx.hpp"
 
 #endif

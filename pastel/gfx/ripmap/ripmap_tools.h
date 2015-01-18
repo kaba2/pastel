@@ -3,7 +3,7 @@
 #ifndef PASTELGFX_RIPMAP_TOOLS_H
 #define PASTELGFX_RIPMAP_TOOLS_H
 
-#include "pastel/gfx/ripmap.h"
+#include "pastel/gfx/ripmap/ripmap.h"
 
 namespace Pastel
 {
@@ -15,6 +15,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/ripmap_tools.hpp"
+#include "pastel/gfx/ripmap/ripmap_tools.hpp"
 
 #endif

@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_DRAW_PIXEL_HPP
 #define PASTELGFX_DRAW_PIXEL_HPP
 
-#include "pastel/gfx/draw_pixel.h"
-#include "pastel/gfx/assign_colormixer.h"
+#include "pastel/gfx/drawing/draw_pixel.h"
+#include "pastel/gfx/color/colormixer/assign_colormixer.h"
 
 #include "pastel/sys/vector/vector_compare.h"
 

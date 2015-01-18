@@ -106,6 +106,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/haar_transform.hpp"
+#include "pastel/gfx/transform/haar_transform.hpp"
 
 #endif

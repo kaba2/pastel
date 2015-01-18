@@ -9,7 +9,7 @@
 
 #include "pastel/geometry/shape/triangle.h"
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 namespace Pastel
 {
@@ -42,6 +42,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_perspective_triangle.hpp"
+#include "pastel/gfx/drawing/draw_perspective_triangle.hpp"
 
 #endif

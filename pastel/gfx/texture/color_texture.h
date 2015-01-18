@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_COLOR_TEXTURE_H
 #define PASTELGFX_COLOR_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 namespace Pastel
 {

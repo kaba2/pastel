@@ -30,6 +30,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_pixel.hpp"
+#include "pastel/gfx/drawing/draw_pixel.hpp"
 
 #endif

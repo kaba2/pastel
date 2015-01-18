@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_MIPMAP_TOOLS_HPP
 #define PASTELGFX_MIPMAP_TOOLS_HPP
 
-#include "pastel/gfx/mipmap_tools.h"
+#include "pastel/gfx/mipmap/mipmap_tools.h"
 
 #include "pastel/sys/view/view_tools.h"
 

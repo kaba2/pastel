@@ -25,6 +25,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/perlin_noise.hpp"
+#include "pastel/gfx/noise/perlin_noise.hpp"
 
 #endif

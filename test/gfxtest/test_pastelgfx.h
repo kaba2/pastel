@@ -10,7 +10,7 @@
 #include "pastel/sys/callfunction.h"
 #include "pastel/sys/anystorage.h"
 
-#include "pastel/gfx/pcx.h"
+#include "pastel/gfx/image_file/pcx.h"
 
 inline Pastel::TestRunner& testRunner()
 {

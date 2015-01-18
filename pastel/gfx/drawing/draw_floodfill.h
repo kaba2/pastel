@@ -25,6 +25,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_floodfill.hpp"
+#include "pastel/gfx/drawing/draw_floodfill.hpp"
 
 #endif

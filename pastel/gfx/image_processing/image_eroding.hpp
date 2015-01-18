@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_IMAGE_ERODING_HPP
 #define PASTELGFX_IMAGE_ERODING_HPP
 
-#include "pastel/gfx/image_eroding.h"
+#include "pastel/gfx/image_processing/image_eroding.h"
 
 #include "pastel/sys/ensure.h"
 

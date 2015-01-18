@@ -19,6 +19,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/simplex_noise.hpp"
+#include "pastel/gfx/noise/simplex_noise.hpp"
 
 #endif

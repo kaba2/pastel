@@ -7,14 +7,14 @@
 
 #include "pastel/math/uniform_sampling.h"
 
-#include "pastel/gfx/pcx.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/image_file.h"
+#include "pastel/gfx/color.h"
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
-#include "pastel/gfx/mipimage_texture.h"
-#include "pastel/gfx/convolution.h"
-#include "pastel/gfx/packrange.h"
+#include "pastel/gfx/texture.h"
+#include "pastel/gfx/image_processing.h"
+#include "pastel/gfx/image_processing/packrange.h"
 #include "pastel/gfx/noise.h"
 
 using namespace Pastel;

@@ -3,7 +3,7 @@
 #ifndef PASTELGFX_TRANSFORM_TEXTURE_H
 #define PASTELGFX_TRANSFORM_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 #include "pastel/math/affine_transformation.h"
 

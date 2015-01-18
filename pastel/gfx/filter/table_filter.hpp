@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_TABLE_FILTER_HPP
 #define PASTELGFX_TABLE_FILTER_HPP
 
-#include "pastel/gfx/table_filter.h"
+#include "pastel/gfx/filter/table_filter.h"
 
 #include "pastel/sys/view/subview.h"
 #include "pastel/sys/view/view_tools.h"

@@ -6,9 +6,9 @@
 
 using namespace Pastel;
 
-#include "pastel/gfx/pcx.h"
-#include "pastel/gfx/ewaimage_texture.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/image_file.h"
+#include "pastel/gfx/texture.h"
+#include "pastel/gfx/color.h"
 #include "pastel/gfx/mipmap.h"
 
 #include "pastel/sys/extender/arrayextender.h"

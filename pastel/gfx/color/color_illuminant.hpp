@@ -1,9 +1,9 @@
 #ifndef PASTELGFX_COLOR_ILLUMINANT_HPP
 #define PASTELGFX_COLOR_ILLUMINANT_HPP
 
-#include "pastel/gfx/color_illuminant.h"
-#include "pastel/gfx/color_space.h"
-#include "pastel/gfx/color_xyy.h"
+#include "pastel/gfx/color/color_illuminant.h"
+#include "pastel/gfx/color/color_space.h"
+#include "pastel/gfx/color/color_space/color_xyy.h"
 
 namespace Pastel
 {

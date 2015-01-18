@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_DIFFUSION_QUANTIZATION_HPP
 #define PASTELGFX_DIFFUSION_QUANTIZATION_HPP
 
-#include "pastel/gfx/diffusion_quantization.h"
+#include "pastel/gfx/quantization/diffusion_quantization.h"
 
 namespace Pastel
 {

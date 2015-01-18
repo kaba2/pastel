@@ -3,7 +3,7 @@
 #ifndef PASTELGFX_COLOR_PALETTE_H
 #define PASTELGFX_COLOR_PALETTE_H
 
-#include "pastel/gfx/color.h"
+#include "pastel/gfx/color/color.h"
 
 #include "pastel/sys/mytypes.h"
 
@@ -44,6 +44,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/color_palette.hpp"
+#include "pastel/gfx/color/color_palette.hpp"
 
 #endif

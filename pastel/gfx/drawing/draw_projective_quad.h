@@ -8,7 +8,7 @@
 #include "pastel/sys/view/view.h"
 #include "pastel/sys/tuple.h"
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 namespace Pastel
 {
@@ -36,6 +36,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_projective_quad.hpp"
+#include "pastel/gfx/drawing/draw_projective_quad.hpp"
 
 #endif

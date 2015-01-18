@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_GRADIENTFIELD_HPP
 #define PASTELGFX_GRADIENTFIELD_HPP
 
-#include "pastel/gfx/gradientfield.h"
+#include "pastel/gfx/noise/gradientfield.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/random/random_uniform.h"

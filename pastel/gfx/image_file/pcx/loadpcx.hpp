@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_LOADPCX_HPP
 #define PASTELGFX_LOADPCX_HPP
 
-#include "pastel/gfx/loadpcx.h"
+#include "pastel/gfx/image_file/pcx/loadpcx.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/abstractarray.h"
@@ -11,10 +11,10 @@
 #include "pastel/sys/logging/log.h"
 #include "pastel/sys/binaryfile.h"
 
-#include "pastel/gfx/pcxheader.h"
-#include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/coloradapter.h"
-#include "pastel/gfx/color_palette.h"
+#include "pastel/gfx/image_file/pcx/pcxheader.h"
+#include "pastel/gfx/color/color_tools.h"
+#include "pastel/gfx/color/coloradapter.h"
+#include "pastel/gfx/color/color_palette.h"
 
 #include <memory>
 

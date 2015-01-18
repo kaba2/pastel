@@ -3,8 +3,8 @@
 #ifndef PASTELGFX_COLOR_TOOLS_H
 #define PASTELGFX_COLOR_TOOLS_H
 
-#include "pastel/gfx/color.h"
-#include "pastel/gfx/coloradapter.h"
+#include "pastel/gfx/color/color.h"
+#include "pastel/gfx/color/coloradapter.h"
 
 namespace Pastel
 {
@@ -65,6 +65,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/color_tools.hpp"
+#include "pastel/gfx/color/color_tools.hpp"
 
 #endif

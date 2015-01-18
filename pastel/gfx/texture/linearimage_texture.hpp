@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_LINEARIMAGE_TEXTURE_HPP
 #define PASTELGFX_LINEARIMAGE_TEXTURE_HPP
 
-#include "pastel/gfx/linearimage_texture.h"
+#include "pastel/gfx/texture/linearimage_texture.h"
 
 #include "pastel/sys/vector/vector_tools.h"
 

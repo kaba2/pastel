@@ -65,6 +65,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/table_filter.hpp"
+#include "pastel/gfx/filter/table_filter.hpp"
 
 #endif

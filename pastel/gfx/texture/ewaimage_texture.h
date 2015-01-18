@@ -4,15 +4,15 @@
 #ifndef PASTELGFX_EWAIMAGE_TEXTURE_H
 #define PASTELGFX_EWAIMAGE_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/extender/clampextender.h"
 
-#include "pastel/gfx/triangle_filter.h"
-#include "pastel/gfx/lanczos_filter.h"
-#include "pastel/gfx/mipmap.h"
+#include "pastel/gfx/filter/triangle_filter.h"
+#include "pastel/gfx/filter/lanczos_filter.h"
+#include "pastel/gfx/mipmap/mipmap.h"
 
 #include "pastel/math/matrix.h"
 
@@ -124,6 +124,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/ewaimage_texture.hpp"
+#include "pastel/gfx/texture/ewaimage_texture.hpp"
 
 #endif

@@ -8,7 +8,7 @@
 #include "pastel/sys/extender/arrayextender.h"
 #include "pastel/sys/range.h"
 
-#include "pastel/gfx/table_filter.h"
+#include "pastel/gfx/filter/table_filter.h"
 
 namespace Pastel
 {
@@ -122,6 +122,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/resampling.hpp"
+#include "pastel/gfx/resampling/resampling.hpp"
 
 #endif

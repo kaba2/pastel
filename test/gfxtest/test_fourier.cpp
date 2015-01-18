@@ -3,17 +3,12 @@
 
 #include "test_pastelgfx.h"
 
-#include "pastel/gfx/loadpcx.h"
-#include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/coloradapter.h"
-#include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/packrange.h"
+#include "pastel/gfx/image_file.h"
+#include "pastel/gfx/color.h"
+#include "pastel/gfx/image_processing.h"
+#include "pastel/gfx/transform.h"
 
-#include "pastel/gfx/signal_transforms.h"
-
-#include "pastel/sys/view/arrayview.h"
-#include "pastel/sys/view/view_tools.h"
-#include "pastel/sys/view/adaptedview.h"
+#include "pastel/sys/view.h"
 #include "pastel/sys/subarray_for_each.h"
 
 #include <iostream>

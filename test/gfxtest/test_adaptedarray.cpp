@@ -6,13 +6,13 @@
 #include "pastel/sys/view.h"
 #include "pastel/sys/extender/indexextenders.h"
 
-#include "pastel/gfx/pcx.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/image_file/pcx.h"
+#include "pastel/gfx/color/color_tools.h"
 #include "pastel/gfx/resampling.h"
 #include "pastel/gfx/image_tools.h"
-#include "pastel/gfx/filters.h"
+#include "pastel/gfx/filter/filters.h"
 
-#include "pastel/gfx/coloradapter.h"
+#include "pastel/gfx/color/coloradapter.h"
 
 using namespace Pastel;
 

@@ -3,7 +3,7 @@
 #ifndef PASTELGFX_MIPMAP_TOOLS_H
 #define PASTELGFX_MIPMAP_TOOLS_H
 
-#include "pastel/gfx/mipmap.h"
+#include "pastel/gfx/mipmap/mipmap.h"
 
 namespace Pastel
 {
@@ -15,6 +15,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/mipmap_tools.hpp"
+#include "pastel/gfx/mipmap/mipmap_tools.hpp"
 
 #endif

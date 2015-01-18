@@ -21,6 +21,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/component_labeling.hpp"
+#include "pastel/gfx/image_processing/component_labeling.hpp"
 
 #endif

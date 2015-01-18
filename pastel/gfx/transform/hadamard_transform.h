@@ -102,6 +102,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/hadamard_transform.hpp"
+#include "pastel/gfx/transform/hadamard_transform.hpp"
 
 #endif

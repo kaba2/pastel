@@ -8,10 +8,10 @@
 #include "pastel/gfx/gfxrenderer.h"
 #include "pastel/gfx/mipmap.h"
 
-#include "pastel/gfx/nearestimage_texture.h"
-#include "pastel/gfx/linearimage_texture.h"
-#include "pastel/gfx/mipimage_texture.h"
-#include "pastel/gfx/ewaimage_texture.h"
+#include "pastel/gfx/texture/nearestimage_texture.h"
+#include "pastel/gfx/texture/linearimage_texture.h"
+#include "pastel/gfx/texture/mipimage_texture.h"
+#include "pastel/gfx/texture/ewaimage_texture.h"
 
 #include "pastel/sys/array.h"
 

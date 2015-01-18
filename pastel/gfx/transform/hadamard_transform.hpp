@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_HADAMARD_TRANSFORM_HPP
 #define PASTELGFX_HADAMARD_TRANSFORM_HPP
 
-#include "pastel/gfx/hadamard_transform.h"
+#include "pastel/gfx/transform/hadamard_transform.h"
 
 #include "pastel/sys/ensure.h"
 

@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_HAAR_TRANSFORM_HPP
 #define PASTELGFX_HAAR_TRANSFORM_HPP
 
-#include "pastel/gfx/haar_transform.h"
+#include "pastel/gfx/transform/haar_transform.h"
 
 #include "pastel/sys/ensure.h"
 

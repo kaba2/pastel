@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_LINEARCOLOR_TEXTURE_H
 #define PASTELGFX_LINEARCOLOR_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/range.h"

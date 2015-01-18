@@ -3,8 +3,8 @@
 
 #include "pastel/geometry/intersect/intersect_alignedbox_alignedbox.h"
 
-#include "pastel/gfx/draw_view.h"
-#include "pastel/gfx/assign_colormixer.h"
+#include "pastel/gfx/drawing/draw_view.h"
+#include "pastel/gfx/color/colormixer/assign_colormixer.h"
 
 #include "pastel/sys/view/view_visit.h"
 #include "pastel/sys/view/subview.h"

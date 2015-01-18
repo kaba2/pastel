@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_COLOR_TOOLS_HPP
 #define PASTELGFX_COLOR_TOOLS_HPP
 
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color/color_tools.h"
 
 #include "pastel/sys/math/constants.h"
 #include "pastel/sys/math_functions.h"

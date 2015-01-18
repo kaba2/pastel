@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_NEARESTIMAGE_TEXTURE_H
 #define PASTELGFX_NEARESTIMAGE_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 #include "pastel/sys/extender/arrayextender.h"
 
@@ -83,6 +83,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/nearestimage_texture.hpp"
+#include "pastel/gfx/texture/nearestimage_texture.hpp"
 
 #endif

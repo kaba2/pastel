@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_DRAW_FLOODFILL_HPP
 #define PASTELGFX_DRAW_FLOODFILL_HPP
 
-#include "pastel/gfx/draw_floodfill.h"
+#include "pastel/gfx/drawing/draw_floodfill.h"
 
 #include <vector>
 

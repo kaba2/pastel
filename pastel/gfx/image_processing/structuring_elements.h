@@ -109,6 +109,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/structuring_elements.hpp"
+#include "pastel/gfx/image_processing/structuring_elements.hpp"
 
 #endif

@@ -3,17 +3,13 @@
 
 #include "test_pastelgfx.h"
 
-#include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/loadpcx.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/image_file.h"
+#include "pastel/gfx/color.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
-#include "pastel/gfx/image_eroding.h"
-#include "pastel/gfx/image_dilation.h"
-#include "pastel/gfx/structuring_elements.h"
+#include "pastel/gfx/image_processing.h"
 
-#include "pastel/sys/view/arrayview.h"
-#include "pastel/sys/view/borderedconstview.h"
+#include "pastel/sys/view.h"
 
 using namespace Pastel;
 

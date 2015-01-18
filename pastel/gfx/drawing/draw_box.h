@@ -7,7 +7,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view/view.h"
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 #include "pastel/geometry/shape/alignedbox.h"
 
@@ -51,6 +51,6 @@ namespace Pastel
 		const ColorMixer& colorMixer);
 }
 
-#include "pastel/gfx/draw_box.hpp"
+#include "pastel/gfx/drawing/draw_box.hpp"
 
 #endif

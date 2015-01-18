@@ -4,7 +4,7 @@
 #ifndef PASTELGFX_LINEARSIMPLEX_TEXTURE_H
 #define PASTELGFX_LINEARSIMPLEX_TEXTURE_H
 
-#include "pastel/gfx/texture.h"
+#include "pastel/gfx/texture/texture.h"
 
 #include "pastel/geometry/barycentric.h"
 

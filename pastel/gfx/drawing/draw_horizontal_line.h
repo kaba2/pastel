@@ -29,6 +29,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_horizontal_line.hpp"
+#include "pastel/gfx/drawing/draw_horizontal_line.hpp"
 
 #endif

@@ -3,8 +3,8 @@
 
 #include "test_pastelgfx.h"
 
-#include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/color_space.h"
+#include "pastel/gfx/image_file.h"
+#include "pastel/gfx/color.h"
 
 using namespace Pastel;
 

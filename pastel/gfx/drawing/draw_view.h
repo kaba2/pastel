@@ -40,6 +40,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/draw_view.hpp"
+#include "pastel/gfx/drawing/draw_view.hpp"
 
 #endif

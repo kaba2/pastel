@@ -41,6 +41,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/image_eroding.hpp"
+#include "pastel/gfx/image_processing/image_eroding.hpp"
 
 #endif

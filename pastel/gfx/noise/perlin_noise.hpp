@@ -1,8 +1,8 @@
 #ifndef PASTELGFX_PERLIN_NOISE_HPP
 #define PASTELGFX_PERLIN_NOISE_HPP
 
-#include "pastel/gfx/perlin_noise.h"
-#include "pastel/gfx/gradientfield.h"
+#include "pastel/gfx/noise/perlin_noise.h"
+#include "pastel/gfx/noise/gradientfield.h"
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/math_functions.h"

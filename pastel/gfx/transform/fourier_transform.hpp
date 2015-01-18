@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_FOURIER_TRANSFORM_HPP
 #define PASTELGFX_FOURIER_TRANSFORM_HPP
 
-#include "pastel/gfx/fourier_transform.h"
+#include "pastel/gfx/transform/fourier_transform.h"
 
 #include "pastel/sys/math/constants.h"
 #include "pastel/sys/ensure.h"

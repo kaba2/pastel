@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_RIPMAP_HPP
 #define PASTELGFX_RIPMAP_HPP
 
-#include "pastel/gfx/ripmap.h"
+#include "pastel/gfx/ripmap/ripmap.h"
 #include "pastel/gfx/filter.h"
 #include "pastel/gfx/resampling.h"
 

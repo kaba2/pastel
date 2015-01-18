@@ -5,7 +5,7 @@
 #define PASTELGFX_RIPMAP_H
 
 #include "pastel/gfx/filter.h"
-#include "pastel/gfx/gaussian_filter.h"
+#include "pastel/gfx/filter/gaussian_filter.h"
 
 #include "pastel/sys/view/view.h"
 
@@ -88,8 +88,8 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/ripmap.hpp"
+#include "pastel/gfx/ripmap/ripmap.hpp"
 
-#include "pastel/gfx/ripmap_tools.h"
+#include "pastel/gfx/ripmap/ripmap_tools.h"
 
 #endif
