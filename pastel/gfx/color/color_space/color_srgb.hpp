@@ -8,8 +8,8 @@
 
 #include "pastel/sys/math_functions.h"
 
-#include "pastel/math/matrix_inverse.h"
-#include "pastel/math/solve_linear.h"
+#include "pastel/math/matrix/matrix_inverse.h"
+#include "pastel/math/matrix/solve_linear.h"
 
 namespace Pastel
 {

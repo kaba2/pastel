@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/color/color_space/color_lms.h"
 
-#include "pastel/math/matrix_inverse.h"
+#include "pastel/math/matrix/matrix_inverse.h"
 
 namespace Pastel
 {

@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/color/color_yuv.h"
 
-#include "pastel/math/matrix.h"
+#include "pastel/math/matrix/matrix.h"
 
 namespace Pastel
 {

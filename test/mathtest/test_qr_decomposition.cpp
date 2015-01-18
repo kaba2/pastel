@@ -3,9 +3,9 @@
 
 #include "test_pastelmath.h"
 
-#include "pastel/math/qr_decomposition.h"
-#include "pastel/math/random_matrix.h"
-#include "pastel/math/uniform_sampling.h"
+#include "pastel/math/matrix/qr_decomposition.h"
+#include "pastel/math/matrix/random_matrix.h"
+#include "pastel/math/sampling.h"
 
 #include <iostream>
 

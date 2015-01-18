@@ -7,7 +7,7 @@
 
 #include "pastel/gfx/color/color.h"
 
-#include "pastel/math/matrix.h"
+#include "pastel/math/matrix/matrix.h"
 
 namespace Pastel
 {

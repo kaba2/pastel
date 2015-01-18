@@ -5,7 +5,7 @@
 
 #include "pastel/sys/random.h"
 
-#include "pastel/math/uniform_sampling.h"
+#include "pastel/math/sampling/uniform_sampling.h"
 #include "pastel/math/orthonormal.h"
 
 namespace Pastel

@@ -10,7 +10,7 @@
 #include "pastel/sys/view/subview.h"
 #include "pastel/sys/view/arrayview.h"
 
-#include "pastel/math/uniform_sampling.h"
+#include "pastel/math/sampling/uniform_sampling.h"
 
 #include "pastel/geometry/overlap/overlaps_alignedbox_point.h"
 

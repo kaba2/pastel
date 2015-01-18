@@ -7,7 +7,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
 
-#include "pastel/math/matrix.h"
+#include "pastel/math/matrix/matrix.h"
 
 namespace Pastel
 {

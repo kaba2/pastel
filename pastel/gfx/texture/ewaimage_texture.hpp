@@ -4,8 +4,8 @@
 #include "pastel/gfx/texture/ewaimage_texture.h"
 #include "pastel/gfx/texture/linearimage_texture.h"
 
-#include "pastel/math/matrix_determinant.h"
-#include "pastel/math/matrix_eigen.h"
+#include "pastel/math/matrix/matrix_determinant.h"
+#include "pastel/math/matrix/matrix_eigen.h"
 
 #include "pastel/geometry/shape/ellipsoid.h"
 

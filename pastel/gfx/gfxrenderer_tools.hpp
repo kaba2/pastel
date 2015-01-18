@@ -5,8 +5,8 @@
 
 #include "pastel/sys/math_functions.h"
 
-#include "pastel/math/coordinates.h"
-#include "pastel/math/affine_transformation.h"
+#include "pastel/math/coordinate/coordinates.h"
+#include "pastel/math/affine/affine_transformation.h"
 
 namespace Pastel
 {

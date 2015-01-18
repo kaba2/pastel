@@ -14,7 +14,7 @@
 #include "pastel/gfx/filter/lanczos_filter.h"
 #include "pastel/gfx/mipmap/mipmap.h"
 
-#include "pastel/math/matrix.h"
+#include "pastel/math/matrix/matrix.h"
 
 #include "pastel/geometry/shape/alignedbox.h"
 

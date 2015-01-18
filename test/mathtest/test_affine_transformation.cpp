@@ -3,7 +3,7 @@
 
 #include "test_pastelmath.h"
 
-#include "pastel/math/affine_transformation.h"
+#include "pastel/math/affine/affine_transformation.h"
 
 #include "pastel/sys/view.h"
 

@@ -6,7 +6,7 @@
 
 #include "pastel/sys/vector.h"
 
-#include "pastel/math/matrix.h"
+#include "pastel/math/matrix/matrix.h"
 
 #include <string>
 

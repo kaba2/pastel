@@ -3,8 +3,8 @@
 
 #include "test_pastelmath.h"
 
-#include "pastel/math/cholesky_decomposition.h"
-#include "pastel/math/matrix_norm.h"
+#include "pastel/math/matrix/cholesky_decomposition.h"
+#include "pastel/math/matrix/matrix_norm.h"
 
 using namespace Pastel;
 

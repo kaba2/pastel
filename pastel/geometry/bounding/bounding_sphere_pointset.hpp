@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/bounding/bounding_sphere_pointset.h"
 
-#include "pastel/math/statistics.h"
+#include "pastel/math/statistic/point_mean.h"
 
 #include "pastel/sys/vector/vector_tools.h"
 

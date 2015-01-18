@@ -4,8 +4,7 @@
 #include "test_pastelmath.h"
 
 #include "pastel/math/orthonormal.h"
-#include "pastel/math/random_matrix.h"
-#include "pastel/math/matrix_norm.h"
+#include "pastel/math/matrix.h"
 
 using namespace Pastel;
 

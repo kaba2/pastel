@@ -6,8 +6,8 @@
 #include "pastel/gfx/texture/texture.h"
 #include "pastel/gfx/color/colormixer.h"
 
-#include "pastel/math/coordinates.h"
-#include "pastel/math/coordinates_derivatives.h"
+#include "pastel/math/coordinate/coordinates.h"
+#include "pastel/math/coordinate/coordinates_derivatives.h"
 
 namespace Pastel
 {
