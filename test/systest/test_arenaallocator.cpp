@@ -2,7 +2,7 @@
 // DocumentationOf: arena_allocator.h
 
 #include "test_pastelsys.h"
-#include "pastel/sys/arena_allocator.h"
+#include "pastel/sys/allocator/arena_allocator.h"
 
 #include <vector>
 

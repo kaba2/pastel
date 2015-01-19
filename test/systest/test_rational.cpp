@@ -4,7 +4,7 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/rational.h"
-#include "pastel/sys/biginteger.h"
+#include "pastel/sys/integer/biginteger.h"
 
 #include <iostream>
 

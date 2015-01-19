@@ -2,7 +2,7 @@
 // DocumentationOf: pool_allocator.h
 
 #include "test_pastelsys.h"
-#include "pastel/sys/pool_allocator.h"
+#include "pastel/sys/allocator/pool_allocator.h"
 
 #include "pastel/sys/random.h"
 

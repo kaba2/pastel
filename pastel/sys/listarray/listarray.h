@@ -6,7 +6,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/list.h"
-#include "pastel/sys/pool_allocator.h"
+#include "pastel/sys/allocator/pool_allocator.h"
 
 namespace Pastel
 {

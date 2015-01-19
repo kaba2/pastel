@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/intersect/intersect_line_triangle.h"
 #include "pastel/sys/rational.h"
-#include "pastel/sys/biginteger.h"
+#include "pastel/sys/integer/biginteger.h"
 
 #include <iostream>
 

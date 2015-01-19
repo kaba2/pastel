@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/clone_ptr.h"
+#include "pastel/sys/pointer/clone_ptr.h"
 
 using namespace Pastel;
 
