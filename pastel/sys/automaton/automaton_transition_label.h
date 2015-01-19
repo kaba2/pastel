@@ -2,7 +2,7 @@
 #define PASTELSYS_AUTOMATON_TRANSITION_LABEL_H
 
 #include "pastel/sys/automaton/automaton_fwd.h"
-#include "pastel/sys/optional.h"
+#include "pastel/sys/optional/optional.h"
 
 namespace Pastel
 {
