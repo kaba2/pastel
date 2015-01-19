@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_POINTKDTREE_FWD_H
 #define PASTELGEOMETRY_POINTKDTREE_FWD_H
 
-#include "pastel/sys/pool_allocator.h"
+#include "pastel/sys/allocator/pool_allocator.h"
 #include "pastel/sys/list.h"
 #include "pastel/sys/range.h"
 

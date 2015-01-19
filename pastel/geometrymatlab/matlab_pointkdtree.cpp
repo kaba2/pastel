@@ -8,7 +8,7 @@
 #include "pastel/matlab/pastelmatlab.h"
 
 #include "pastel/sys/pointpolicies.h"
-#include "pastel/sys/pool_allocator.h"
+#include "pastel/sys/allocator/pool_allocator.h"
 #include "pastel/sys/indicator/predicate_indicator.h"
 
 #include <boost/range/algorithm/fill.hpp>

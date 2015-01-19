@@ -5,7 +5,7 @@
 #define PASTELSYS_INDEXEXTENDER_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/countedptr.h"
+#include "pastel/sys/pointer/countedptr.h"
 
 namespace Pastel
 {

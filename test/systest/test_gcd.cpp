@@ -3,8 +3,8 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/biginteger.h"
-#include "pastel/sys/multi_integer.h"
+#include "pastel/sys/integer/biginteger.h"
+#include "pastel/sys/integer/multi_integer.h"
 #include "pastel/sys/integer/gcd.h"
 
 namespace

@@ -6,7 +6,7 @@
 #include "pastel/sys/skiplist.h"
 #include "pastel/sys/generic/class.h"
 #include "pastel/sys/named_tuples.h"
-#include "pastel/sys/arrayptr.h"
+#include "pastel/sys/pointer/arrayptr.h"
 
 #include <vector>
 

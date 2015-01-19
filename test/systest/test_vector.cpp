@@ -5,7 +5,7 @@
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/biginteger.h"
+#include "pastel/sys/integer/biginteger.h"
 
 using namespace Pastel;
 
