@@ -5,7 +5,7 @@
 
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/automaton/automaton_fwd.h"
-#include "pastel/sys/optional.h"
+#include "pastel/sys/optional/optional.h"
 
 namespace Pastel
 {

@@ -4,7 +4,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/incidence_graph/incidence_graph_fwd.h"
 #include "pastel/sys/generic/class.h"
-#include "pastel/sys/optional.h"
+#include "pastel/sys/optional/optional.h"
 #include "pastel/sys/iterator/second_iterator.h"
 #include "pastel/sys/hashing/iteratoraddress_hash.h"
 #include "pastel/sys/hashing.h"

@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/optional.h"
+#include "pastel/sys/optional/optional.h"
 
 using namespace Pastel;
 
