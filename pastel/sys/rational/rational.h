@@ -266,6 +266,28 @@ namespace Pastel
 
 }
 
+#include "pastel/sys/point.h"
+#include "pastel/sys/locator/scalar_locator.h"
+
+namespace Pastel
+{
+
+	template <typename Integer>
+	class Default_Locator<const Rational<Integer>&>
+	{
+	public:
+		Scalar_Locator<Rational<Integer>> operator()(
+			const Rational<Integer>&) const
+		{
+			// FIX: Replace with decltype(auto) after
+			// Visual Studio implements it correctly.
+			return Scalar_Locator<Rational<Integer>>();
+		}
+	};
+
+}
+
+
 #include "pastel/sys/rational/rational.hpp"
 
 #endif

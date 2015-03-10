@@ -7,35 +7,36 @@ namespace Pastel
 {
 
 	template <
-		typename Real, 
-		typename Point_Input, 
+		typename PointSet,
+		typename Real,
 		typename Locator>
-	Vector<Real, Locator::N> pointMean(
-		Point_Input pointSet,
-		const Locator& locator)
+		auto pointMean(PointSet pointSet)
+		-> Vector<Real, Locator::N>
 	{
+		auto&& locator = pointSetLocator(pointSet);
+
 		integer d = locator.n();
 		ENSURE_OP(d, >=, 0);
 	
 		Vector<Real, Locator::N> result(ofDimension(d), 0);
 
-		if (pointSet.empty() ||
+		if (pointSetEmpty(pointSet) ||
 			d == 0)
 		{
 			return result;
 		}
 
 		integer n = 0;
-		while (!pointSet.empty())
+		while (!pointSetEmpty(pointSet))
 		{
-			auto&& point = pointSet.get();
+			auto&& point = pointSetGet(pointSet);
 			for (integer i = 0;i < d;++i)
 			{
-				result[i] += locator(point, i);
+				result[i] += locator(pointPoint(point), i);
 			}
 			++n;
 
-			pointSet.pop();
+			pointSetPop(pointSet);
 		}
 
 		return result / n;

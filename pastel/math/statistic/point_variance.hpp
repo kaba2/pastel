@@ -7,38 +7,39 @@ namespace Pastel
 {
 
 	template <
-		typename Real, 
-		typename Point_Input, 
+		typename PointSet,
+		typename Real,
 		typename Locator>
-	Vector<Real, Locator::N> pointVariance(
-		Point_Input pointSet,
-		const Locator& locator,
+	auto pointVariance(
+		PointSet pointSet,
 		bool biased,
 		const Vector<Real, Locator::N>& mean)
+		-> Vector<Real, Locator::N>
 	{
+		auto&& locator = pointSetLocator(pointSet);
+
 		integer d = locator.n();
 		ENSURE_OP(d, >=, 0);
 
 		Vector<Real, Locator::N> result(ofDimension(d), 0);
 
-		if (pointSet.empty() || d == 0)
+		if (pointSetEmpty(pointSet) || d == 0)
 		{
 			return result;
 		}
 
 		integer n = 0;
-		while(!pointSet.empty())
+		while(!pointSetEmpty(pointSet))
 		{
-
-			auto&& point = pointSet.get();
+			auto&& point = pointSetGet(pointSet);
 			for (integer i = 0; i < d;++i)
 			{
 				result[i] += 
-					square(locator(point, i) - mean[i]);
+					square(locator(pointPoint(point), i) - mean[i]);
 			}
 			++n;
 
-			pointSet.pop();
+			pointSetPop(pointSet);
 		}
 
 		if (n == 0)

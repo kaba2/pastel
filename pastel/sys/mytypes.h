@@ -9,6 +9,7 @@
 #include "pastel/sys/sfinae_macros.h"
 #include "pastel/sys/iterator_macros.h"
 #include "pastel/sys/settings_type.h"
+#include "pastel/sys/named_parameter.h"
 
 #ifdef PASTEL_ENABLE_OMP
 #include "omp.h"
@@ -17,14 +18,6 @@
 #include <cstddef>
 #include <climits>
 #include <type_traits>
-
-#define PASTEL_PARAMETER(Type, name) \
-	Self& name(Type name##__) \
-	{ \
-		name##_ = name##__; \
-		return *this; \
-	} \
-	Type name##_
 
 #define PASTEL_FWD(member) using member = typename Fwd::member
 

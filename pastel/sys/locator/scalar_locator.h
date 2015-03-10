@@ -16,8 +16,6 @@ namespace Pastel
 	class Scalar_Locator
 	{
 	public:
-		PASTEL_STATIC_ASSERT(std::is_arithmetic<Real_>::value);
-		
 		using Real = Real_;
 		using Point = Real_;
 		static PASTEL_CONSTEXPR integer N = Dynamic;
@@ -48,7 +46,7 @@ namespace Pastel
 	};
 
 	template <typename Point>
-	class Default_Locator<Point, EnableIf<std::is_arithmetic<Point>, void>>
+	class Default_Locator<const Point&, EnableIf<std::is_arithmetic<Point>, void>>
 	{
 	public:
 		Scalar_Locator<Point> operator()(

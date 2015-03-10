@@ -21,12 +21,11 @@ namespace Pastel
 	d = locator.n().
 	*/
 	template <
-		typename Real, 
-		typename Point_Input, 
-		typename Locator>
-	Vector<Real, Locator::N> pointMean(
-		Point_Input pointSet,
-		const Locator& locator);
+		typename PointSet,
+		typename Real = PointSet_Real<PointSet>,
+		typename Locator = PointSet_Locator<PointSet>>
+	auto pointMean(PointSet pointSet)
+		-> Vector<Real, Locator::N>;
 
 }
 

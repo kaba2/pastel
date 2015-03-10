@@ -22,32 +22,34 @@ namespace Pastel
 	d = locator.n().
 	*/
 	template <
-		typename Real, 
-		typename Point_Input, 
-		typename Locator>
-	Vector<Real, Locator::N> pointVariance(
-		Point_Input pointSet,
-		const Locator& locator,
+		typename PointSet,
+		typename Real = PointSet_Real<PointSet>,
+		typename Locator = PointSet_Locator<PointSet>>
+	auto pointVariance(
+		PointSet pointSet,
 		bool biased,
-		const Vector<Real, Locator::N>& mean);
+		const Vector<Real, Locator::N>& mean)
+		-> Vector<Real, Locator::N>;
 
 	//! Returns the point-set variance.
 	/*!
 	This is a convenience function which calss
-	pointVariance(pointSet, locator, biased,
-		pointMean(pointSet, locator)).
+	pointVariance(
+		pointSet, biased,
+		pointMean(pointSet)).
 	*/
 	template <
-		typename Real, 
-		typename Point_Input, 
-		typename Locator>
-	Vector<Real, Locator::N> pointVariance(
-		Point_Input pointSet,
-		const Locator& locator,
+		typename PointSet,
+		typename Real = PointSet_Real<PointSet>,
+		typename Locator = PointSet_Locator<PointSet>>
+	auto pointVariance(
+		PointSet pointSet, 
 		bool biased = true)
+		-> Vector<Real, Locator::N>
 	{
-		return Pastel::pointVariance(pointSet, locator, biased,
-			pointMean<Real>(pointSet, locator));
+		return Pastel::pointVariance(
+			pointSet, biased,
+			pointMean(pointSet));
 	}
 
 }
