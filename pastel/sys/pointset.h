@@ -4,6 +4,6 @@
 #ifndef PASTELSYS_POINTSET_H_MODULE
 #define PASTELSYS_POINTSET_H_MODULE
 
-#include "pastel/sys/pointset/pointset.h"
+#include "pastel/sys/pointset/pointset_concept.h"
 
 #endif

@@ -62,7 +62,7 @@ namespace Pastel
 		// FIX: Replace with decltype(auto) when available.
 		return location(
 			point,
-			Vector_Locator<Real_, N>());
+			Vector_Locator<Real_, N>(point.n()));
 	}
 
 }
