@@ -17,7 +17,7 @@
 namespace Pastel
 {
 
-	namespace PointPatternMatch_
+	namespace MatchPointsKr_
 	{
 
 		template <
@@ -32,7 +32,7 @@ namespace Pastel
 			using Real = typename Locator::Real;
 			static PASTEL_CONSTEXPR integer N = Locator::N;
 
-			using Match = Result_PointPatternMatchKr<Real, N>;
+			using Match = Result_MatchPointsKr<Real, N>;
 
 			using ModelTree = PointKdTree<Model_Settings, Model_Customization>;
 			typedef typename ModelTree::Point_ConstIterator 
@@ -243,8 +243,7 @@ namespace Pastel
 					});
 				}
 
-				// TODO: Replace with uniform initialization later.
-				return Match(success, bestTranslation, bestBias);
+				return Match{ success, bestTranslation, bestBias };
 			}
 		};
 	
@@ -255,28 +254,37 @@ namespace Pastel
 		typename Scene_Settings, template <typename> class Scene_Customization,
 		typename NormBijection,
 		typename Scene_Model_Output,
+		typename SetOptionals,
 		typename Locator,
 		typename Real,
 		integer N>
-	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
+	auto matchPointsKr(
 		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
-		integer kNearest,
-		const NoDeduction<Real>& minMatchRatio,
-		const NoDeduction<Real>& matchingDistance,
-		const NoDeduction<Real>& maxBias,
-		MatchingMode matchingMode,
 		const NormBijection& normBijection,
-		Scene_Model_Output report)
+		Scene_Model_Output report,
+		SetOptionals setOptionals)
+		-> Result_MatchPointsKr<Real, N>
 	{
-		ENSURE_OP(kNearest, >, 0);
-		ENSURE_OP(minMatchRatio, >=, 0);
-		ENSURE_OP(minMatchRatio, <=, 1);
-		ENSURE_OP(matchingDistance, >=, 0);
-		ENSURE_OP(maxBias, >=, 0);
-		ENSURE_OP(maxBias, <=, 1);
+		struct Optionals
+		{
+			integer kNearest = 16;
+			Real minMatchRatio = 0.8;
+			Real matchingDistance = 0.1;
+			Real maxBias = 0.1;
+			MatchingMode matchingMode = MatchingMode::FirstMatch;
+		} o;
 
-		PointPatternMatch_::PointPatternKr<
+		setOptionals(o);
+
+		ENSURE_OP(o.kNearest, >, 0);
+		ENSURE_OP(o.minMatchRatio, >=, 0);
+		ENSURE_OP(o.minMatchRatio, <=, 1);
+		ENSURE_OP(o.matchingDistance, >=, 0);
+		ENSURE_OP(o.maxBias, >=, 0);
+		ENSURE_OP(o.maxBias, <=, 1);
+
+		MatchPointsKr_::PointPatternKr<
 			Model_Settings, Model_Customization,
 			Scene_Settings, Scene_Customization,
 			Scene_Model_Output,
@@ -285,11 +293,11 @@ namespace Pastel
 
 		return pointPattern.match(
 			modelTree, sceneTree,
-			kNearest,
-			minMatchRatio,
-			matchingDistance,
-			maxBias,
-			matchingMode,
+			o.kNearest,
+			o.minMatchRatio,
+			o.matchingDistance,
+			o.maxBias,
+			o.matchingMode,
 			normBijection,
 			report);
 	}

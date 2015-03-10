@@ -6,6 +6,8 @@
 
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/vector.h"
+#include "pastel/sys/output/null_output.h"
+#include "pastel/sys/function/identity_function.h"
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 
@@ -19,20 +21,8 @@ namespace Pastel
 	};
 
 	template <typename Real, int N>
-	struct Result_PointPatternMatchKr
+	struct Result_MatchPointsKr
 	{
-		// TODO: Remove after uniform initialization 
-		// becomes available in Visual Studio 2012.
-		Result_PointPatternMatchKr(
-			bool success_,
-			Vector<Real, N> translation_,
-			Real bias_)
-			: success(success_)
-			, translation(translation_)
-			, bias(bias_)
-		{
-		}
-
 		bool success;
 		Vector<Real, N> translation;
 		Real bias;
@@ -52,6 +42,16 @@ namespace Pastel
 
 	sceneTree:
 	The point-set from which to search for.
+
+	normBijection:
+	The distance measure.
+
+	report:
+	The point-pairs are reported in the form
+	std::make_pair(modelIter, sceneIter).
+
+	Optional arguments
+	------------------
 
 	kNearest:
 	The number of nearest neighbors to use for disambiguation
@@ -75,32 +75,23 @@ namespace Pastel
 	matchingMode:
 	MatchingMode::FirstMatch: Accept the first match.
 	MatchingMode::BestMatch: Search for the best match.
-
-	normBijection:
-	The distance measure.
-
-	report:
-	The point-pairs are reported in the form
-	std::make_pair(modelIter, sceneIter).
 	*/
 	template <
 		typename Model_Settings, template <typename> class Model_Customization,
 		typename Scene_Settings, template <typename> class Scene_Customization,
 		typename NormBijection,
-		typename Scene_Model_Output,
+		typename Scene_Model_Output = Null_Output,
+		typename SetOptionals = Identity_Function,
 		typename Locator = typename Scene_Settings::Locator,
 		typename Real = typename Locator::Real,
 		integer N = Locator::N>
-	Result_PointPatternMatchKr<Real, N> pointPatternMatchKr(
+	auto matchPointsKr(
 		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
-		integer kNearest,
-		const NoDeduction<Real>& minMatchRatio,
-		const NoDeduction<Real>& matchingDistance,
-		const NoDeduction<Real>& maxBias,
-		MatchingMode matchingMode,
 		const NormBijection& normBijection,
-		Scene_Model_Output report);
+		Scene_Model_Output report = Scene_Model_Output(),
+		SetOptionals setOptionals = SetOptionals())
+		-> Result_MatchPointsKr<Real, N>;
 
 }
 
