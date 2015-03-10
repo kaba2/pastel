@@ -39,7 +39,9 @@ namespace Pastel
 				while(!pointSet.empty())
 				{
 					Real position = 
-						locator(pointSet(), splitAxis);
+						locator(pointSet.get(), splitAxis);
+					pointSet.pop();
+						
 					if (position < minPosition)
 					{
 						minPosition = position;

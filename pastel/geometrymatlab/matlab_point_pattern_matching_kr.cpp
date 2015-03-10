@@ -17,7 +17,7 @@ namespace Pastel
 	namespace
 	{
 
-		void matlabPointPatternMatchKr(
+		void matlabMatchPointsKr(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -118,11 +118,19 @@ namespace Pastel
 			// Compute the point pattern match.
 
 			Euclidean_NormBijection<real> normBijection;
-			auto match = Pastel::pointPatternMatchKr(
-				modelTree, sceneTree, kNearest,
-				minMatchRatio, matchingDistance, maxBias,
-				matchingMode, normBijection, 
-				pushBackOutput(pairSet));
+			auto match = Pastel::matchPointsKr(
+				modelTree,
+				sceneTree, 
+				normBijection, 
+				pushBackOutput(pairSet),
+				[&](auto& p)
+			{
+				p.kNearest = kNearest;
+				p.minMatchRatio = minMatchRatio;
+				p.matchingDistance = matchingDistance;
+				p.maxBias = maxBias;
+				p.matchingMode = matchingMode;
+			});
 
 			// Output the pairing.
 
@@ -158,7 +166,7 @@ namespace Pastel
 		{
 			matlabAddFunction(
 				"match_points_kr",
-				matlabPointPatternMatchKr);
+				matlabMatchPointsKr);
 		}
 
 		CallFunction run(addFunction);

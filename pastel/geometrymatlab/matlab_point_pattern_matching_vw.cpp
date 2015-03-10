@@ -14,7 +14,7 @@ namespace Pastel
 	namespace
 	{
 
-		void matlabPointPatternMatchVw(
+		void matlabMatchPointsVw(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -55,7 +55,7 @@ namespace Pastel
 
 			ConformalAffine2D<real> similarity;
 
-			bool success = pointPatternMatch(
+			bool success = pointPatternMatchVw(
 				range(
 				constSparseIterator(countingIterator(sceneData), 2), 
 				scenePoints),
@@ -95,7 +95,7 @@ namespace Pastel
 		{
 			matlabAddFunction(
 				"match_points_vw",
-				matlabPointPatternMatchVw);
+				matlabMatchPointsVw);
 		}
 
 		CallFunction call(addFunction);

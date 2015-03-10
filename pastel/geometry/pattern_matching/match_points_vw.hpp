@@ -37,7 +37,7 @@ namespace Pastel
 			sceneSphere.radius() / (2 * std::sqrt((Real)pointSet.size()));
 	}
 
-	namespace PointPatternMatch_
+	namespace MatchPointsVw_
 	{
 
 		template <
@@ -103,7 +103,7 @@ namespace Pastel
 
 				if (relativeMatchingDistance > matchingFactorUpperBound)
 				{
-					log() << "pointPatternMatch(): warning: the matching distance is greater than the upper bound"
+					log() << "pointPatternMatchVw(): warning: the matching distance is greater than the upper bound"
 						<< " to guarantee optimal asymptotic performance." << logNewLine;
 				}
 
@@ -546,7 +546,7 @@ namespace Pastel
 		typename Scene_Settings, template <typename> class Scene_Customization,
 		typename Model_Settings, template <typename> class Model_Customization,
 		typename Real>
-	bool pointPatternMatch(
+	bool pointPatternMatchVw(
 		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
 		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const NoDeduction<Real>& minMatchRatio,
@@ -564,7 +564,7 @@ namespace Pastel
 		using SceneTree = PointKdTree<Scene_Settings, Scene_Customization>; 
 		using ModelTree = PointKdTree<Model_Settings, Model_Customization>;
 
-		PointPatternMatch_::PatternMatcher<
+		MatchPointsVw_::PatternMatcher<
 			Scene_Settings, Scene_Customization,
 			Model_Settings, Model_Customization>
 		patternMatcher(
@@ -590,7 +590,7 @@ namespace Pastel
 	template <
 		typename Real, typename SceneRange, typename ModelRange,
 		typename Scene_Locator, typename Model_Locator>
-	bool pointPatternMatch(
+	bool pointPatternMatchVw(
 		const SceneRange& scene,
 		const ModelRange& model,
 		const NoDeduction<Real>& minMatchRatio,
@@ -615,14 +615,14 @@ namespace Pastel
 		sceneTree.refine(SlidingMidpoint_SplitRule());
 		modelTree.refine(SlidingMidpoint_SplitRule());
 
-		return Pastel::pointPatternMatch(
+		return Pastel::pointPatternMatchVw(
 			sceneTree, modelTree, 
 			minMatchRatio, relativeMatchingDistance,
 			confidence, similarityResult);
 	}
 
 	template <typename Real, typename SceneRange, typename ModelRange>
-	bool pointPatternMatch(
+	bool pointPatternMatchVw(
 		const SceneRange& scene,
 		const ModelRange& model,
 		const NoDeduction<Real>& minMatchRatio,
@@ -630,7 +630,7 @@ namespace Pastel
 		const NoDeduction<Real>& confidence,
 		ConformalAffine2D<Real>& similarityResult)
 	{
-		return Pastel::pointPatternMatch(
+		return Pastel::pointPatternMatchVw(
 			scene, model,
 			minMatchRatio, 
 			relativeMatchingDistance,

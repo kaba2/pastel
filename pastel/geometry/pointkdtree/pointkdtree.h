@@ -7,6 +7,7 @@
 #include "pastel/geometry/pointkdtree/pointkdtree_fwd.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_node.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_cursor.h"
+#include "pastel/geometry/splitrules.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tristate.h"
@@ -223,8 +224,9 @@ namespace Pastel
 		This operation is always immediate. The tree will be
 		up to date after this operation.
 		*/
-		template <typename SplitRule>
-		void refine(const SplitRule& splitRule,
+		template <typename SplitRule = SlidingMidpoint2_SplitRule>
+		void refine(
+			const SplitRule& splitRule = SplitRule(),
 			integer bucketSize = 8);
 
 		//! Insert a point into the tree.

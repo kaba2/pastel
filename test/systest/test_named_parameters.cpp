@@ -25,8 +25,6 @@ namespace
 		} p;
 
 		setOptionals(p);
-
-		std::cout << title << " by " << p.author << std::endl;
 	}
 
 }

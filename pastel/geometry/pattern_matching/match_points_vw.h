@@ -13,6 +13,15 @@
 namespace Pastel
 {
 
+	template <
+		typename Real, int N, 
+		typename Point_ConstRange, 
+		typename Locator>
+	Sphere<typename Locator::Real, Locator::N> 
+		relativeMatchingDistance(
+		const Point_ConstRange& pointSet,
+		const Locator& locator);
+
 	//! Finds a given model point pattern from the scene point pattern.
 	/*!
 	Preconditions:
@@ -24,19 +33,11 @@ namespace Pastel
 	point in their t-neighborhood. The 't' is computed by
 	t = relativeMatchingDistance * sceneSphere.radius() / (2 * sqrt(scenePoints)).
 	*/
-
-	template <typename Real, int N, 
-		typename Point_ConstRange, typename Locator>
-	Sphere<typename Locator::Real, Locator::N> 
-		relativeMatchingDistance(
-		const Point_ConstRange& pointSet,
-		const Locator& locator);
-
 	template <
 		typename Scene_Settings, template <typename> class Scene_Customization,
 		typename Model_Settings, template <typename> class Model_Customization,
 		typename Real = typename Scene_Settings::Real>
-	bool pointPatternMatch(
+	bool pointPatternMatchVw(
 		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
 		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
 		const NoDeduction<Real>& minMatchRatio,
@@ -47,14 +48,14 @@ namespace Pastel
 	//! Finds the given model point pattern from the scene point pattern.
 	/*!
 	This is a convenience function which builds kd-trees from the point sets 
-	and calls the more general 'pointPatternMatch()'.
+	and calls the more general 'pointPatternMatchVw()'.
 	*/
 
 	template <
 		typename Real, typename SceneRange, typename ModelRange,
 		typename Scene_Locator,
 		typename Model_Locator>
-	bool pointPatternMatch(
+	bool pointPatternMatchVw(
 		const SceneRange& scene,
 		const ModelRange& model,
 		const NoDeduction<Real>& minMatchRatio,
@@ -67,7 +68,7 @@ namespace Pastel
 	//! Finds the given model point pattern from the scene point pattern.
 	/*!
 	This is a convenience function which calls:
-	pointPatternMatch(
+	pointPatternMatchVw(
 		scene, model,
 		minMatchRatio, relativeMatchingDistance,
 		confidence,
@@ -77,7 +78,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, typename SceneRange, typename ModelRange>
-	bool pointPatternMatch(
+	bool pointPatternMatchVw(
 		const SceneRange& scene,
 		const ModelRange& model,
 		const NoDeduction<Real>& minMatchRatio,
