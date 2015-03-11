@@ -20,6 +20,11 @@ namespace Pastel
 		using Iterator = typename boost::range_iterator<const Range>::type;
 		using Type = typename boost::range_value<Range>::type;
 
+		static PASTEL_CONSTEXPR bool IsRandomAccess =
+			std::is_same<
+				typename boost::iterator_traversal<Iterator>::type,
+				boost::random_access_traversal_tag>::value;
+
 	public:
 		Range_Input()
 			: begin_()
@@ -35,17 +40,18 @@ namespace Pastel
 
 		integer nHint() const
 		{
-			static PASTEL_CONSTEXPR bool IsRandomAccess =
-				std::is_same<
-					typename boost::iterator_traversal<Iterator>::type,
-					boost::random_access_traversal_tag>::value;
-
 			if (IsRandomAccess)
 			{
 				return std::distance(begin_, end_);
 			}
 
 			return 0;
+		}
+
+		template <typename = EnableIfC<IsRandomAccess, void>>
+		integer n() const
+		{
+			return nHint();
 		}
 
 		bool empty() const
@@ -61,6 +67,15 @@ namespace Pastel
 		{
 			PENSURE(!empty());
 			return *begin_;
+		}
+
+		template <typename = EnableIfC<IsRandomAccess, void>>
+		Return operator[](integer i) const
+		{
+			PENSURE_OP(i, >=, 0);
+			PENSURE_OP(i, <, n());
+
+			return begin_[i];
 		}
 
 		void pop()

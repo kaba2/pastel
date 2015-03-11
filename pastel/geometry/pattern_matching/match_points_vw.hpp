@@ -557,7 +557,6 @@ namespace Pastel
 		ENSURE_OP(minMatchRatio, >=, 0); 
 		ENSURE_OP(minMatchRatio, <=, 1);
 		ENSURE_OP(relativeMatchingDistance, >=, 0);
-		ENSURE_OP(relativeMatchingDistance, <=, 1);
 		ENSURE_OP(confidence, >=, 0);
 		ENSURE_OP(confidence, <=, 1);
 

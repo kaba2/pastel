@@ -26,7 +26,7 @@ namespace Pastel
 	/*!
 	Preconditions:
 	0 <= minMatchRatio <= 1
-	0 <= relativeMatchingDistance <= 1
+	relativeMatchingDistance >= 0
 
 	This function searches for such a similarity transformation that 
 	'minMatchRatio'-ratio of the mapped model points have a unique scene 
@@ -70,7 +70,8 @@ namespace Pastel
 	This is a convenience function which calls:
 	pointPatternMatchVw(
 		scene, model,
-		minMatchRatio, relativeMatchingDistance,
+		minMatchRatio, 
+		relativeMatchingDistance,
 		confidence,
 		similarityResult,
 		Vector_Locator<Real, N>(),
