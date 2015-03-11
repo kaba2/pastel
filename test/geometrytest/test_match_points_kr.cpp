@@ -65,7 +65,7 @@ namespace
 
 			// Randomize the order of the translated point-set.
 			std::random_shuffle(bSet.begin(), bSet.end());
-					
+
 			Tree modelTree;
 			modelTree.insertRange(range(bSet.begin(), bSet.end()));
 			modelTree.refine();

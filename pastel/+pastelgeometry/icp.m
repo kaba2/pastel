@@ -260,7 +260,8 @@ for iteration = 0 : maxIterations - 1
     matchingDistanceSet = Inf(1, n);
     neighborSet = kdTree.search_nearest(...
         transformedSet, ...
-        matchingDistanceSet, kNearest);
+        'maxDistanceSet', matchingDistanceSet, ...
+        'kNearest', kNearest);
 
     if biunique
         neighborGraph = biunique_matching(neighborSet');

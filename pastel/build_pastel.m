@@ -41,10 +41,10 @@ if maxArraySize >= 2^32
 end
 
 % Path to Boost.
-boostPath = '../../boost_1_56_0';
+boostPath = '../../boost_1_57_0';
 
 % Path to Threading Building Blocks.
-tbbPath = '../../tbb42';
+tbbPath = '../../tbb43';
 
 % Compute the actual paths.
 
