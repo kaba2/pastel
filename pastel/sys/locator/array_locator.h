@@ -49,10 +49,12 @@ namespace Pastel
 	class Default_Locator<const std::array<Real, N>&, void>
 	{
 	public:
-		Array_Locator<Real, N> operator()(
-			const std::array<Real, N>&) const
+		using Point = std::array<Real, N>;
+		using Locator = Array_Locator<Real, N>;
+
+		Locator operator()(const Point&) const
 		{
-			return Array_Locator<Real, N>();
+			return Locator();
 		}
 	};
 

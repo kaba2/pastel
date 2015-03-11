@@ -11,12 +11,15 @@ namespace Pastel
 {
 
 	template <typename Real>
-	class Default_Locator<Real* const&>
+	class Default_Locator<Real* const&, void>
 	{
 	public:
-		Pointer_Locator<Real> operator()(Real* point)
+		using Point = Real*;
+		using Locator = Pointer_Locator<Real>;
+
+		Locator operator()(Point point)
 		{
-			return Pointer_Locator<Real>(2);
+			return Locator(2);
 		}
 	};
 

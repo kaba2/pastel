@@ -273,15 +273,15 @@ namespace Pastel
 {
 
 	template <typename Integer>
-	class Default_Locator<const Rational<Integer>&>
+	class Default_Locator<const Rational<Integer>&, void>
 	{
 	public:
-		Scalar_Locator<Rational<Integer>> operator()(
-			const Rational<Integer>&) const
+		using Point = Rational<Integer>;
+		using Locator = Scalar_Locator<Point>;
+
+		Locator operator()(const Point&) const
 		{
-			// FIX: Replace with decltype(auto) after
-			// Visual Studio implements it correctly.
-			return Scalar_Locator<Rational<Integer>>();
+			return Locator();
 		}
 	};
 
