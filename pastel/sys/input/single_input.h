@@ -1,8 +1,8 @@
-// Description: Single input
+// Description: Scalar input
 // Documentation: input.txt
 
-#ifndef PASTELSYS_SINGLE_INPUT_H
-#define PASTELSYS_SINGLE_INPUT_H
+#ifndef PASTELSYS_SCALAR_INPUT_H
+#define PASTELSYS_SCALAR_INPUT_H
 
 #include "pastel/sys/input/input_concept.h"
 
@@ -10,57 +10,66 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class Single_Input
+	class Scalar_Input
 	{
 	public:
-		Single_Input()
+		Scalar_Input()
 		: data_()
-		, read_(false)
+		, n_(1)
 		{
 		}
 
-		explicit Single_Input(Type&& data)
+		explicit Scalar_Input(Type data, integer n = 1)
 		: data_(std::move(data))
-		, read_(false)
+		, n_(n)
 		{
-		}
-
-		explicit Single_Input(const Type& data)
-		: data_(data)
-		, read_(false)
-		{
+			PENSURE_OP(n, >=, 0);
 		}
 
 		integer nHint() const
 		{
-			return !read_;
+			return n_;
+		}
+
+		integer n() const
+		{
+			return nHint();
 		}
 
 		bool empty() const
 		{
-			return read_;
+			return n_ == 0;
 		}
 
 		const Type& get() const
 		{
+			PENSURE(!empty());
+			return data_;
+		}
+
+		const Type& operator[](integer i) const
+		{
+			PENSURE_OP(i, >=, 0);
+			PENSURE_OP(i, <, n());
 			return data_;
 		}
 
 		void pop()
 		{
-			read_ = true;
+			PENSURE(!empty());
+			--n_;
 		}
 
 	private:
 		Type data_;
-		bool read_;
+		integer n_;
 	};
 
 	template <typename Type>
-	Single_Input<typename std::decay<Type>::type> singleInput(Type&& that)
+	Scalar_Input<typename std::decay<Type>::type> scalarInput(Type&& that, integer n = 1)
 	{
-		return Single_Input<typename std::decay<Type>::type>(
-			std::forward<Type>(that));
+		return Scalar_Input<typename std::decay<Type>::type>(
+			std::forward<Type>(that), n);
 	}
 
 }

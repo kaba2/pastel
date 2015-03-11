@@ -17,7 +17,7 @@ namespace Pastel
 		class Input
 		{
 		public:
-			//! Returns the number of elements left.
+			//! Returns an approximation of the number of elements left.
 			/*!
 			This number is only a hint;
 			the implementation must be able to deal with
@@ -40,11 +40,32 @@ namespace Pastel
 			*/
 			UserDefinedType get() const;
 
-			//! Retrieves the next element.
+			//! Drops the current element off from the input.
 			/*!
+			Preconditions:
 			!empty()
 			*/
 			void pop();
+		};
+
+		class Sized_Input
+		: public Input
+		{
+		public:
+			//! Returns the exact number of elements left.
+			integer n() const;
+		};
+
+		class Indexed_Input
+		: public Sized_Input
+		{
+		public:
+			//! Returns the i:th next element.
+			/*!
+			Preconditions:
+			0 <= i < n()
+			*/
+			UserDefinedType operator[](integer i) const;
 		};
 
 	}

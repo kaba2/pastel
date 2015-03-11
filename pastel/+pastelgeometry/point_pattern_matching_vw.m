@@ -120,8 +120,8 @@ if minMatchRatio < 0 || minMatchRatio > 1
     error('minMatchRatio must be in the range [0, 1].');
 end
 
-if relativeMatchingDistance < 0 || relativeMatchingDistance > 1
-    error('relativeMatchingDistance must be in the range [0, 1]');
+if relativeMatchingDistance < 0
+    error('relativeMatchingDistance must be non-negative.');
 end
 
 if confidence < 0 || confidence > 1

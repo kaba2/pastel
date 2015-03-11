@@ -12,12 +12,12 @@ eval(import_pastel);
 % At least 90% of the transformed model points must 
 % each match a unique scene point. 'To match' means
 % to be at a matching distance.
-minMatchRatio = 0.9;
+minMatchRatio = 0.3;
 
 % The matching distance is given relative to the
 % expected distance to the nearest neighbor, under
 % the assumption of uniform distribution in a sphere.
-relativeMatchingDistance = 0.01;
+relativeMatchingDistance = 10;
 
 % This should correspond roughly to the probability that
 % if the algorithm finds no match, then there really is no
@@ -36,7 +36,7 @@ noiseAmount = 0;
 %  1250 |   45s
 %   625 |   11s
 
-m = 1250;
+m = 625;
 M = randn(2, m);
 
 % Generate a random similarity.
