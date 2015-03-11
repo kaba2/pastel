@@ -48,10 +48,12 @@ namespace Pastel
 	class Default_Locator<const Vector<Real, N>&, void>
 	{
 	public:
-		Vector_Locator<Real, N> operator()(
-			const Vector<Real, N>& point) const
+		using Point = Vector<Real, N>;
+		using Locator = Vector_Locator<Real, N>;
+
+		Locator operator()(const Point& point) const
 		{
-			return Vector_Locator<Real, N>(point.n());
+			return Locator(point.n());
 		}
 	};
 

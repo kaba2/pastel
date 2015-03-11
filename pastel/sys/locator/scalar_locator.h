@@ -45,14 +45,16 @@ namespace Pastel
 		integer n_;
 	};
 
-	template <typename Point>
-	class Default_Locator<const Point&, EnableIf<std::is_arithmetic<Point>, void>>
+	template <typename Point_>
+	class Default_Locator<const Point_&, EnableIf<std::is_arithmetic<Point_>, void>>
 	{
 	public:
-		Scalar_Locator<Point> operator()(
-			const Point&) const
+		using Point = Point_;
+		using Locator = Scalar_Locator<Point>;
+
+		Locator operator()(const Point&) const
 		{
-			return Scalar_Locator<Point>();
+			return Locator();
 		}
 	};
 

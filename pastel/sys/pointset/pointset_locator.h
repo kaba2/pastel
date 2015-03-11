@@ -14,11 +14,13 @@ namespace Pastel
 	namespace PointSet_
 	{
 
-		template <typename PointSet>
+		template <typename Point_Input>
 		struct PointSet_Locator
 		{
+			using Point = 
+				decltype(std::declval<Point_Input>().get());
 			using type = 
-				decltype(locator(std::declval<PointSet>().get()));
+				typename Default_Locator<const Point&>::Locator;
 		};
 
 		template <typename Point_Input, typename Locator>
@@ -34,16 +36,11 @@ namespace Pastel
 		typename PointSet_::PointSet_Locator<PointSet>::type;
 
 	//! Returns the default locator of a point-set.
-	/*!
-	The default locator is the default locator
-	of the first point of the point-set.
-	*/
 	template <typename Point_Input>
-	auto pointSetLocator(const Point_Input& pointSet)
-		-> decltype(locator(pointSet.get()))
+	PointSet_Locator<Point_Input> 
+		pointSetLocator(const Point_Input& pointSet)
 	{
-		// FIX: Replace with decltype(auto) when available.
-		return locator(pointSet.get());
+		return PointSet_Locator<Point_Input>();
 	}
 
 	//! Retrieves the locator of a location-set.

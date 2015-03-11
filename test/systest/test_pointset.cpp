@@ -23,19 +23,31 @@ namespace
 
 		virtual void run()
 		{
-			testTypes();
+			testHomogeneous();
+			testArray();
 			testFunctions();
 		}
 
-		using Real = real;
-		using Point = std::array<Real, 2>;
-		using Locator = Array_Locator<Real, 2>;
-
-		void testTypes()
+		void testHomogeneous()
 		{
-			std::vector<Point> pointSet;
+			using Point = Vector<real, 2>;
+			
+			std::vector<Point> inputSet;
+			auto pointSet = rangeInput(range(inputSet.begin(), inputSet.end()));
+			
+			//TEST_ENSURE_OP(pointSetDimension(pointSet), == , 0);
+		}
+
+		void testArray()
+		{
+			using Real = real;
+			using Point = std::array<Real, 2>;
+			using Locator = Array_Locator<Real, 2>;
+
+			std::vector<Point> inputSet;
+			auto pointSet = rangeInput(range(inputSet.begin(), inputSet.end()));
 			{
-				using PointSet = decltype(rangeInput(pointSet));
+				using PointSet = decltype(pointSet);
 
 				using Input_ = PointSet_Input<PointSet>;
 				PASTEL_STATIC_ASSERT((std::is_same<Input_, PointSet>::value));
@@ -52,15 +64,16 @@ namespace
 				using Location_ = PointSet_Location<PointSet>;
 				PASTEL_STATIC_ASSERT((std::is_same<Location_, Location<Point, Locator>>::value));
 
-				// FIX: How to assign a dimension to an empty point-set?
-				// We should be able to provide the dimension based on the
-				// point-type.
-				//TEST_ENSURE_OP(pointSetDimension(rangeInput(pointSet)), ==, 2);
+				TEST_ENSURE_OP(pointSetDimension(pointSet), ==, 2);
 			}
 		}
 
 		void testFunctions()
 		{
+			using Real = real;
+			using Point = std::array<Real, 2>;
+			using Locator = Array_Locator<Real, 2>;
+
 			std::vector<Point> pointSet;
 
 			{
