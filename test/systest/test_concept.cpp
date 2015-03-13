@@ -95,11 +95,20 @@ namespace
 			PASTEL_STATIC_ASSERT((Models_Directly<Something_Else, FooGoo_Concept>::value));
 			PASTEL_STATIC_ASSERT((!Models_Base<Something_Else, FooGoo_Concept>::value));
 			PASTEL_STATIC_ASSERT((!Models<Something_Else, FooGoo_Concept>::value));
+			
+			PASTEL_STATIC_ASSERT((!IsRefinesClass<int>::value));
+			PASTEL_STATIC_ASSERT((!IsRefinesClass<Goo_Concept>::value));
+			PASTEL_STATIC_ASSERT((!IsRefinesClass<FooGoo_Concept>::value));
+			
+			PASTEL_STATIC_ASSERT((IsRefinesClass<Refines<>>::value));
+			PASTEL_STATIC_ASSERT((IsRefinesClass<Refines<Goo_Concept>>::value));
+			PASTEL_STATIC_ASSERT((IsRefinesClass<Refines<Goo_Concept, FooGoo_Concept>>::value));
 
 			PASTEL_STATIC_ASSERT((!IsRefined<Goo_Concept>::value));
 			PASTEL_STATIC_ASSERT((!IsRefined<Empty_Concept>::value));
+
 			PASTEL_STATIC_ASSERT((IsRefined<FooGoo_Concept>::value));
-			PASTEL_STATIC_ASSERT((IsRefined<Baseless_Concept>::value));
+			PASTEL_STATIC_ASSERT((!IsRefined<Baseless_Concept>::value));
 		}
 	};
 
