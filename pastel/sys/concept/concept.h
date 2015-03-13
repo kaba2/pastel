@@ -21,6 +21,11 @@ namespace Pastel
 	template <typename Type, typename... ConceptSet>
 	struct Models;
 
+}
+
+namespace Pastel
+{
+
 	//! Refined concept
 	/*!
 	The Refines-class has two roles.
@@ -45,6 +50,11 @@ namespace Pastel
 				Models<Type, ConceptSet...>::value
 			));
 	};
+
+}
+
+namespace Pastel
+{
 
 	//! Checks direct requirements of a concept.
 	/*!
@@ -111,19 +121,70 @@ namespace Pastel
 		: std::true_type
 	{};
 
-	//! Checks whether a concept is refined.
+}
+
+namespace Pastel
+{
+
+	//! Returns whether a type is a Refines<...> class.
 	template <typename Concept>
-	struct IsRefined
+	struct IsRefinesClass
+		: std::false_type
+	{};
+
+	template <typename... ConceptSet>
+	struct IsRefinesClass<Refines<ConceptSet...>>
+		: std::true_type
+	{};
+
+}
+
+namespace Pastel
+{
+
+	//! Retrieves the base-concepts.
+	/*!
+	returns:
+	The base-concepts in a Refine<...> class.
+	*/
+	template <typename Concept>
+	struct BaseConcepts
 	{
 	private:
 		template <typename... ConceptSet>
-		static std::true_type test(Refines<ConceptSet...>&&);
+		static Refines<ConceptSet...> test(Refines<ConceptSet...>&&);
 		
-		static std::false_type test(...);
+		static Refines<> test(...);
 
 	public:
-		static constexpr bool value =
-			decltype(test(std::declval<Concept>()))::value;
+		using type = 
+			typename std::conditional<
+				IsRefinesClass<Concept>::value,
+				void,
+				decltype(test(std::declval<Concept>()))
+				>::type;
+	};
+
+}
+
+namespace Pastel
+{
+
+	//! Checks whether a concept is refined.
+	template <typename Concept>
+	struct IsRefined
+		: std::integral_constant<bool, !std::is_same<
+		typename BaseConcepts<Concept>::type, Refines<>>::value>
+	{};
+
+}
+
+namespace Pastel
+{
+
+	template <typename Type, typename Concept>
+	struct MostRefined
+	{
 	};
 
 }
