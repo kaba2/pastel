@@ -142,27 +142,72 @@ namespace Pastel
 namespace Pastel
 {
 
+	template <
+		typename A_Refines,
+		typename B_Refines>
+	struct JoinRefines;
+
+	template <
+		typename... A_ConceptSet,
+		typename... B_ConceptSet>
+	struct JoinRefines<Refines<A_ConceptSet...>, Refines<B_ConceptSet...>>
+	{
+		using type = Refines<A_ConceptSet..., B_ConceptSet...>;
+	};
+
+}
+
+namespace Pastel
+{
+
+	namespace Concept_
+	{
+
+		template <typename Concept>
+		struct BaseConcepts
+		{
+		private:
+			template <typename... ConceptSet>
+			static Refines<ConceptSet...> test(Refines<ConceptSet...>&&);
+			
+			static Refines<> test(...);
+
+		public:
+			using type = 
+				typename std::conditional<
+					IsRefinesClass<Concept>::value,
+					void,
+					decltype(test(std::declval<Concept>()))
+				>::type;
+		};
+
+	}
+
 	//! Retrieves the base-concepts.
 	/*!
 	returns:
-	The base-concepts in a Refine<...> class.
+	The base-concepts of each concept combined 
+	into a Refine<...> class.
 	*/
-	template <typename Concept>
-	struct BaseConcepts
-	{
-	private:
-		template <typename... ConceptSet>
-		static Refines<ConceptSet...> test(Refines<ConceptSet...>&&);
-		
-		static Refines<> test(...);
+	template <typename... ConceptSet>
+	struct BaseConcepts;
 
-	public:
+	template <
+		typename Concept,
+		typename... ConceptSet>
+	struct BaseConcepts<Concept, ConceptSet...>
+	{
 		using type = 
-			typename std::conditional<
-				IsRefinesClass<Concept>::value,
-				void,
-				decltype(test(std::declval<Concept>()))
-				>::type;
+			typename JoinRefines<
+				typename Concept_::BaseConcepts<Concept>::type,
+				typename BaseConcepts<ConceptSet...>::type
+			>::type;
+	};
+
+	template <>
+	struct BaseConcepts<>
+	{
+		using type = Refines<>;
 	};
 
 }
@@ -182,9 +227,103 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Type, typename Concept>
-	struct MostRefined
+	//! Returns the first modeled concept.
+	/*!
+	returns:
+	The first concept in ConceptSet whose model Type is.
+	If there is no such concept, then void.
+	*/
+	template <typename Type, typename... ConceptSet>
+	struct FirstModeledConcept;
+
+	template <
+		typename Type,
+		typename Concept,
+		typename... ConceptSet>
+	struct FirstModeledConcept<Type, Concept, ConceptSet...>
 	{
+		using type = 
+			typename std::conditional<
+				Models<Type, Concept>::value,
+				Concept,
+				typename FirstModeledConcept<Type, ConceptSet...>::type
+			>::type;
+	};
+
+	template <typename Type>
+	struct FirstModeledConcept<Type>
+	{
+		using type = void;
+	};
+
+}
+
+namespace Pastel
+{
+
+	namespace Concept_
+	{
+
+		template <
+			typename Type,
+			typename... ConceptSet>
+		struct MostRefinedConcept
+		{
+		private:
+			using ModeledConcept =
+				typename FirstModeledConcept<
+					Type, ConceptSet...
+				>::type;
+
+		public:
+			template <typename>
+			struct BreadthFirst;
+
+			template <typename... BaseSet>
+			struct BreadthFirst<Refines<BaseSet...>>
+			{
+				using type =
+					typename MostRefinedConcept<
+						Type, BaseSet...
+					>::type;
+			};
+
+			using BaseSet =
+				typename BaseConcepts<ConceptSet...>::type;
+
+			using type =
+				typename std::conditional<
+					std::is_same<ModeledConcept, void>::value,
+					typename BreadthFirst<BaseSet>::type,
+					ModeledConcept
+				>::type;
+		};
+
+		template <typename Type>
+		struct MostRefinedConcept<Type>
+		{
+			using type = void;
+		};
+
+	}
+
+	//! Returns the most refined concept modeled by Type.
+	/*!
+	This is a breadth-first search over the Refines<...>
+	inheritance hierarchy. Sequences (i.e. arguments of 
+	Refines<...>) are searched from first to last.
+
+	returns:
+	The first matching concept. If there is none,
+	then void.
+	*/
+	template <
+		typename Type,
+		typename Concept>
+	struct MostRefinedConcept
+	{
+		using type = 
+			typename Concept_::MostRefinedConcept<Type, Concept>::type;
 	};
 
 }
