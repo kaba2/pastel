@@ -25,6 +25,11 @@
 
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 
+#define PASTEL_TYPE_FUNCTION(F) \
+	template <typename... TypeSet> \
+	using F##_t = \
+		typename F##<TypeSet...>::type;
+
 #if _MSC_VER <= 1900
 #	define PASTEL_CONSTEXPR const
 #	define PASTEL_NOEXCEPT_C(x)

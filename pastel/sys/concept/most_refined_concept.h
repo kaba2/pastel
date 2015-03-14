@@ -1,3 +1,5 @@
+// Descriptions: Find the most refined concept modeled by a type
+
 #ifndef PASTELSYS_MOST_REFINED_CONCEPT_H
 #define PASTELSYS_MOST_REFINED_CONCEPT_H
 
@@ -78,6 +80,8 @@ namespace Pastel
 	{
 		using type = void;
 	};
+
+	PASTEL_TYPE_FUNCTION(MostRefinedConcept);
 
 }
 
