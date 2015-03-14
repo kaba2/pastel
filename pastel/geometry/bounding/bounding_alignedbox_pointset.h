@@ -14,11 +14,17 @@ namespace Pastel
 	//! Bounding aligned box of a point set.
 	template <
 		typename Input,
-		typename Locator>
+		typename Locator,
+		typename = 
+			Requires<
+				Models<Input, Input_Concept>, 
+				Models<Locator, Locator_Concept>
+			>
+	>
 	auto boundingAlignedBox(
 		Input pointSet,
 		const Locator& locator)
-	-> AlignedBox<typename Locator::Real, Locator::N>;
+	-> AlignedBox<Locator_Real<Locator>, Locator::N>;
 
 }
 

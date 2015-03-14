@@ -4,6 +4,7 @@
 #define PASTELSYS_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/type_traits/and.h"
 
 #include <type_traits>
 
@@ -36,6 +37,9 @@ namespace Pastel
 	*/
 	template <typename... TypeSet>
 	void conceptCheck(TypeSet&&... that);
+
+	template <typename... BoolSet>
+	using Requires = EnableIf<And<BoolSet...>>;
 
 	namespace Concept
 	{

@@ -11,17 +11,15 @@ namespace Pastel
 
 	template <
 		typename Input,
-		typename Locator>
+		typename Locator,
+		typename>
 	auto boundingAlignedBox(
 		Input pointSet,
 		const Locator& locator)
-	-> AlignedBox<typename Locator::Real, Locator::N>
+	-> AlignedBox<Locator_Real<Locator>, Locator::N>
 	{
-		PASTEL_CONCEPT_CHECK(Input, Input_Concept);
-		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
-
-		using Real = typename Locator::Real;
-		static PASTEL_CONSTEXPR integer N = Locator::N;
+		using Real = Locator_Real<Locator>;
+		static PASTEL_CONSTEXPR integer N = Locator_N<Locator>::value;
 		integer d = locator.n();
 		
 		AlignedBox<Real, N> bound(d);

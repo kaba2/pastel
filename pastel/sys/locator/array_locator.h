@@ -65,8 +65,6 @@ namespace Pastel
 	auto arrayPoint(const std::array<Real_, N>& point)
 		-> decltype(location(point, Array_Locator<Real_, N>()))
 	{
-		PASTEL_CONCEPT_CHECK(Real_, Real_Concept);
-
 		// FIX: Replace with decltype(auto) when available.
 		return location(
 			point,
