@@ -155,6 +155,22 @@ namespace
 			PASTEL_CONCEPT_CHECK(A_Doo, Doo_Concept(Green_Goo));
 		}
 
+		template <
+			typename A_Doo,
+			EnableIf<Models<A_Doo, Doo_Concept(Green_Goo)>> = 0>
+		std::true_type g(const A_Doo& a)
+		{
+			return std::true_type();
+		}
+
+		template <
+			typename A_Doo,
+			DisableIf<Models<A_Doo, Doo_Concept(Green_Goo)>> = 0>
+		std::false_type g(const A_Doo& a)
+		{
+			return std::false_type();
+		}
+
 		void testFunctionModels()
 		{
 			f(Green_Doo());
@@ -162,6 +178,12 @@ namespace
 
 			// This should trigger a nice error.
 			//f(Blue_Doo());
+
+			PASTEL_STATIC_ASSERT(decltype(g(Green_Doo()))::value);
+			PASTEL_STATIC_ASSERT(decltype(g(Red_Doo()))::value);
+
+			PASTEL_STATIC_ASSERT(!decltype(g(Green_Goo()))::value);
+			PASTEL_STATIC_ASSERT(!decltype(g(Something_Else()))::value);
 		}
 
 		template <typename A_Doo>
