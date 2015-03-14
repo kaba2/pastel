@@ -41,11 +41,28 @@ namespace
 
 		virtual void run()
 		{
+			testConcept();
 			testPoint();
 			testLocator();
 			testReal();
 			testAxis();
 			testDimension();
+		}
+
+		void testConcept()
+		{
+			PASTEL_STATIC_ASSERT((Models<real*, Point_Concept>::value));
+			PASTEL_STATIC_ASSERT((Models<std::array<real, 2>, Point_Concept>::value));
+			PASTEL_STATIC_ASSERT((Models<Vector<real, 2>, Point_Concept>::value));
+
+			PASTEL_STATIC_ASSERT((Models<real, Point_Concept>::value));
+			PASTEL_STATIC_ASSERT((Models<integer, Point_Concept>::value));
+			PASTEL_STATIC_ASSERT((Models<Rational<integer>, Point_Concept>::value));
+			PASTEL_STATIC_ASSERT((Models<Location<real, Scalar_Locator<real>>, Point_Concept>::value));
+
+			struct Something_Else {};
+
+			PASTEL_STATIC_ASSERT((!Models<Something_Else, Point_Concept>::value));
 		}
 
 		void testPoint()

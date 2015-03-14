@@ -4,7 +4,7 @@
 #define PASTELSYS_IS_REFINES_CLASS_H
 
 #include "pastel/sys/concept/refines.h"
-#include "pastel/sys/generic/is_template_instance.h"
+#include "pastel/sys/type_traits/is_template_instance.h"
 
 #include <type_traits>
 

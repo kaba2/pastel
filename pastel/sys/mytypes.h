@@ -213,6 +213,7 @@ namespace Pastel
 #include "pastel/sys/predicate.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/type_checks.h"
+#include "pastel/sys/type_traits.h"
 
 #include "pastel/sys/mytypes.hpp"
 
