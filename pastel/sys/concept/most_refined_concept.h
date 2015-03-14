@@ -3,6 +3,7 @@
 
 #include "pastel/sys/concept/concept.h"
 #include "pastel/sys/concept/first_modeled_concept.h"
+#include "pastel/sys/concept/base_concepts.h"
 
 namespace Pastel
 {

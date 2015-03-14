@@ -14,7 +14,7 @@ namespace Pastel
 	{
 
 		template <typename Concept>
-		struct BaseConcepts
+		struct BaseConcepts_
 		{
 		private:
 			template <typename... ConceptSet>
@@ -49,7 +49,7 @@ namespace Pastel
 	{
 		using type = 
 			typename JoinRefines<
-				typename Concept_::BaseConcepts<Concept>::type,
+				typename Concept_::BaseConcepts_<Concept>::type,
 				typename BaseConcepts<ConceptSet...>::type
 			>::type;
 	};

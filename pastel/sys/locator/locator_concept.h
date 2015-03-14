@@ -9,46 +9,47 @@
 namespace Pastel
 {
 
-	namespace Locator_Concept
+	struct Locator_Concept
 	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				//! Compile-time dimension.
+				/*!
+				If the dimension is dynamic,
+				specify N = Dynamic.
+				*/
+				Concept::convertsTo<integer>(Type::N),
 
-		class Locator
-		{
-		public:
-			//! Compile-time dimension.
-			/*!
-			If the dimension is dynamic,
-			specify N = Dynamic.
-			*/
-			static PASTEL_CONSTEXPR integer N = UserDefinedInteger;
+				//! The type of the coordinates.
+				std::declval<typename Type::Real>(),
 
-			//! The type of the coordinates.
-			using Real = UserDefinedType;
+				//! The type of the points.
+				std::declval<typename Type::Point>(),
 
-			//! The type of the points.
-			using Point = UserDefinedType;
+				//! Run-time dimension.
+				/*!
+				Returns:
+				N, if N != Dynamic, and
+				non-negative integer, otherwise.
+				*/
+				Concept::convertsTo<integer>(t.n()),
 
-			//! Run-time dimension.
-			/*!
-			Returns:
-			N, if N != Dynamic, and
-			non-negative integer, otherwise.
-			*/
-			integer n() const;
+				//! Swaps two locators.
+				(t.swap(t), 0),
 
-			//! Swaps two locators.
-			void swap(Locator& that);
-
-			//! Returns the i:th coordinate of the given point.
-			/*!
-			Preconditions:
-			0 <= i < n()
-			*/
-			Real operator()(
-				const Point& point, integer i) const;
-		};
-
-	}
+				//! Returns the i:th coordinate of the given point.
+				/*!
+				Preconditions:
+				0 <= i < n()
+				*/
+				Concept::convertsTo<typename Type::Real>(
+					t(std::declval<typename Type::Point>(),
+					  (integer)0))
+			)
+		);
+	};
 
 }
 

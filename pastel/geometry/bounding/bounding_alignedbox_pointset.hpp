@@ -17,6 +17,9 @@ namespace Pastel
 		const Locator& locator)
 	-> AlignedBox<typename Locator::Real, Locator::N>
 	{
+		PASTEL_CONCEPT_CHECK(Input, Input_Concept);
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+
 		using Real = typename Locator::Real;
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 		integer d = locator.n();

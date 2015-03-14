@@ -17,6 +17,8 @@ namespace Pastel
 		template <typename Point_Input>
 		struct PointSet_Locator
 		{
+			PASTEL_CONCEPT_CHECK(Point_Input, Input_Concept);
+
 			using Point = 
 				decltype(std::declval<Point_Input>().get());
 			using type = 
@@ -40,6 +42,7 @@ namespace Pastel
 	PointSet_Locator<Point_Input> 
 		pointSetLocator(const Point_Input& pointSet)
 	{
+		PASTEL_CONCEPT_CHECK(Point_Input, Input_Concept);
 		return PointSet_Locator<Point_Input>();
 	}
 

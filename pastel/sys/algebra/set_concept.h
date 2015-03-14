@@ -4,29 +4,29 @@
 #ifndef PASTELSYS_SET_CONCEPT_H
 #define PASTELSYS_SET_CONCEPT_H
 
+#include "pastel/sys/concept.h"
+
 namespace Pastel
 {
 
-	namespace Set_Concept
+	//! A set.
+	/*!
+	A set is any type whose objects can be
+	compared with == and !=.
+	*/
+	struct Set_Concept
 	{
-
-		//! A set.
-		/*!
-		A set is any type whose objects can be
-		compared with == and !=.
-		*/
-		class Set {};
-
-		//! Returns whether left == right.
-		bool operator==(
-			const Set& left,
-			const Set& right);
-		
-		//! Returns whether left != right.
-		bool operator!=(
-			const Set& left,
-			const Set& right);
-	}
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				//! Returns whether left == right.
+				Concept::convertsTo<bool>(t == t),
+				//! Returns whether left != right.
+				Concept::convertsTo<bool>(t != t)
+			)
+		);
+	};
 
 }
 

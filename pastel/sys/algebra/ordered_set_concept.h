@@ -9,42 +9,31 @@
 namespace Pastel
 {
 
-	namespace Ordered_Set_Concept
+	//! An ordered-set.
+	/*! 
+	An ordered-set is a set X together with
+	a partial order < in X. The other relations
+	>, <=, and >= are defined in the obvious
+	way.
+	*/
+	struct Ordered_Set_Concept
+		: Refines<Set_Concept>
 	{
-
-		//! An ordered-set.
-		/*! 
-		An ordered-set is a set X together with
-		a partial order < in X. The other relations
-		>, <=, and >= are defined in the obvious
-		way.
-		*/
-		class Ordered_Set
-		: public Set_Concept::Set
-		{
-		};
-
-		//! Returns whether left < right.
-		bool operator<(
-			const Ordered_Set& left,
-			const Ordered_Set& right);
-
-		//! Returns whether left > right.
-		bool operator>(
-			const Ordered_Set& left,
-			const Ordered_Set& right);
-
-		//! Returns whether left <= right.
-		bool operator<=(
-			const Ordered_Set& left,
-			const Ordered_Set& right);
-		
-		//! Returns whether left >= right.
-		bool operator>=(
-			const Ordered_Set& left,
-			const Ordered_Set& right);
-
-	}
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				//! Returns whether left < right.
+				Concept::convertsTo<bool>(t < t),
+				//! Returns whether left > right.
+				Concept::convertsTo<bool>(t > t),
+				//! Returns whether left <= right.
+				Concept::convertsTo<bool>(t <= t),
+				//! Returns whether left >= right.
+				Concept::convertsTo<bool>(t >= t)
+			)
+		);
+	};
 
 }
 

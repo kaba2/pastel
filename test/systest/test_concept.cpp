@@ -39,7 +39,7 @@ namespace
 		template <typename Type, typename A_Goo>
 		auto requires(Type&& t, A_Goo&& a) -> decltype(
 			conceptCheck(
-				isModelOf<Goo_Concept>(a),
+				Concept::isModelOf<Goo_Concept>(a),
 				t += a
 			));
 	};
