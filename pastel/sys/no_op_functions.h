@@ -7,14 +7,14 @@
 namespace Pastel
 {
 
-	//! A no-op function taking a variable.
+	//! Suppresses warnings from unused variables.
 	/*!
 	The purpose of this function is to supress warnings
 	that are caused by not using a local variable.
 	It doesn't do anything by itself.
 	*/
-	template <typename Type>
-	void unused(const Type&);
+	template <typename... Type>
+	void unused(const Type&...);
 
 	//! Casts a reference to a const-reference.
 	/*!
