@@ -10,26 +10,22 @@
 namespace Pastel
 {
 
-	namespace Ordered_Additive_SemiGroup_Concept
+	//! An ordered additive semi-group.
+	/*! 
+	An ordered additive semi-group is
+	a semi-group (X, +) which is also
+	an ordered set such that
+		
+		    x <= y ==> c + x <= c + y,
+		
+	for all c, x, y in X.
+	*/
+	struct Ordered_Additive_SemiGroup_Concept
+	: Refines<
+		Additive_SemiGroup_Concept,
+		Ordered_Set_Concept>
 	{
-
-		//! An ordered additive semi-group.
-		/*! 
-		An ordered additive semi-group is
-		a semi-group (X, +) which is also
-		an ordered set such that
-		
-		     x <= y ==> c + x <= c + y,
-		
-		for all c, x, y in X.
-		*/
-		class Ordered_Additive_SemiGroup
-		: public Additive_SemiGroup_Concept::Additive_SemiGroup
-		, public Ordered_Set_Concept::Ordered_Set
-		{
-		};
-
-	}
+	};
 
 }
 

@@ -9,26 +9,23 @@
 namespace Pastel
 {
 
-	namespace Finite_Integer_Concept
+	//! A finite integer.
+	/*!
+	A finite integer is an integer with a finite
+	number of bits.
+	*/
+	struct Finite_Integer_Concept
+		: Refines<Integer_Concept>
 	{
-
-		//! A finite integer.
-		/*!
-		A finite integer is an integer with a finite
-		number of bits.
-		*/
-		class Finite_Integer
-			: public Integer_Concept::Integer
-		{
-		public:
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
 			//! Returns the binary not of the element.
-			Finite_Integer operator~() const;
-		};
-
-		//! Returns the number of bits in 'that'.
-		integer bits(const Finite_Integer& that);
-
-	}
+			Concept::convertsTo<Type>(~t),
+			//! Returns the number of bits in 'that'.
+			Concept::convertsTo<integer>(bits(t))
+		);
+	};
 
 }
 

@@ -6,6 +6,7 @@
 
 #include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/point/point_concept.h"
+#include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/ensure.h"
 
 #include <type_traits>
@@ -18,6 +19,8 @@ namespace Pastel
 	class Array_Locator
 	{
 	public:
+		//PASTEL_CONCEPT_CHECK(Real_, Real_Concept);
+
 		using Real = Real_;
 		static PASTEL_CONSTEXPR integer N = N_;
 
@@ -62,6 +65,8 @@ namespace Pastel
 	auto arrayPoint(const std::array<Real_, N>& point)
 		-> decltype(location(point, Array_Locator<Real_, N>()))
 	{
+		PASTEL_CONCEPT_CHECK(Real_, Real_Concept);
+
 		// FIX: Replace with decltype(auto) when available.
 		return location(
 			point,

@@ -9,20 +9,14 @@
 namespace Pastel
 {
 
-	namespace Linearly_Ordered_Set_Concept
-	{
-
-		//! A linearly-ordered set.
-		/*! 
-		A linearly-ordered set is an ordered-set
-		whose order relation is total.
-		*/
-		class Linearly_Ordered_Set
-		: public Ordered_Set_Concept::Ordered_Set
-		{
-		};
-
-	}
+	//! A linearly-ordered set.
+	/*! 
+	A linearly-ordered set is an ordered-set
+	whose order relation is total.
+	*/
+	struct Linearly_Ordered_Set_Concept
+		: Refines<Ordered_Set_Concept>
+	{};
 
 }
 

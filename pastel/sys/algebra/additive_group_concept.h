@@ -9,33 +9,29 @@
 namespace Pastel
 {
 
-	namespace Additive_Group_Concept
+	//! An additive group.
+	/*!
+	An additive group is an additive monoid (X, +)
+	such that for every x in X there exists y in X
+	such that x + y = 0. Since the y is unique,
+	it is denoted by -x.
+	*/
+	struct Additive_Group_Concept
+	: Refines<Additive_Monoid_Concept>
 	{
-
-		//! An additive group.
-		/*!
-		An additive group is an additive monoid (X, +)
-		such that for every x in X there exists y in X
-		such that x + y = 0. Since the y is unique,
-		it is denoted by -x.
-		*/
-		class Additive_Group
-		: public Additive_Monoid_Concept::Additive_Monoid
-		{
-		public:
-			//! Adds -that to the element.
-			Additive_Group& operator-=(const Additive_Group& that);
-
-			//! Returns -x for an element x.
-			Additive_Group operator-();
-		};
-
-		//! Returns left - right.
-		Additive_Group operator-(
-			const Additive_Group& left,
-			const Additive_Group& right);
-
-	}
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				//! Adds -that to the element.
+				Concept::hasType<Type&>(t -= t),
+				//! Returns left - right.
+				Concept::convertsTo<Type>(t - t),
+				//! Returns -x for an element x.
+				Concept::convertsTo<Type>(-t)
+			)
+		);
+	};
 
 }
 

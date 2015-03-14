@@ -11,64 +11,70 @@
 namespace Pastel
 {
 
-	namespace Input_Concept
+	struct Input_Concept
 	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				//! Returns an approximation of the number of elements left.
+				/*!
+				This number is only a hint;
+				the implementation must be able to deal with
+				either a smaller or a larger amounts of elements.
+				This can be used, for example, to pre-allocate memory
+				for an array. A zero specifies that the number is 
+				not known; it conveys zero information.
 
-		class Input
-		{
-		public:
-			//! Returns an approximation of the number of elements left.
-			/*!
-			This number is only a hint;
-			the implementation must be able to deal with
-			either a smaller or a larger amounts of elements.
-			This can be used, for example, to pre-allocate memory
-			for an array. A zero specifies that the number is 
-			not known; it conveys zero information.
+				Must return a non-negative number.
+				*/
+				Concept::convertsTo<integer>(t.nHint()),
 
-			Must return a non-negative number.
-			*/
-			integer nHint() const;
+				//! Returns whether there are elements left.
+				Concept::convertsTo<bool>(t.empty()),
 
-			//! Returns whether there are elements left.
-			bool empty() const;
+				//! Returns the current element.
+				/*!
+				Preconditions:
+				!empty()
+				*/
+				(t.get(), 0),
 
-			//! Returns the current element.
-			/*!
-			Preconditions:
-			!empty()
-			*/
-			UserDefinedType get() const;
+				//! Drops the current element off from the input.
+				/*!
+				Preconditions:
+				!empty()
+				*/
+				(t.pop(), 0)
+			)
+		);
+	};
 
-			//! Drops the current element off from the input.
-			/*!
-			Preconditions:
-			!empty()
-			*/
-			void pop();
-		};
-
-		class Sized_Input
-		: public Input
-		{
-		public:
+	struct Sized_Input_Concept
+	: Refines<Input_Concept>
+	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
 			//! Returns the exact number of elements left.
-			integer n() const;
-		};
+			Concept::convertsTo<integer>(t.n())
+		);
+	};
 
-		class Indexed_Input
-		: public Sized_Input
-		{
-		public:
+	struct Indexed_Input_Concept
+	: Refines<Sized_Input_Concept>
+	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
 			//! Returns the i:th next element.
 			/*!
 			Preconditions:
 			0 <= i < n()
 			*/
-			UserDefinedType operator[](integer i) const;
-		};
-
-	}
+			Concept::sameTypes(t[(integer)0], t.get())
+		);
+	};
 
 }
 

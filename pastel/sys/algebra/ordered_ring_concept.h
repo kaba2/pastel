@@ -10,22 +10,17 @@
 namespace Pastel
 {
 
-	namespace Ordered_Ring_Concept
-	{
-
-		//! An ordered ring.
-		/*! 
-		An ordered ring is a ring (X, +, *) such that
-		1) (X, +) is an ordered additive group, and
-		2) x >= 0 and y >= 0 ==> x * y >= 0, for all x, y in X.
-		*/
-		class Ordered_Ring
-		: public Ordered_Additive_Group_Concept::Ordered_Additive_Group
-		, public Ring_Concept::Ring
-		{
-		};
-
-	}
+	//! An ordered ring.
+	/*! 
+	An ordered ring is a ring (X, +, *) such that
+	1) (X, +) is an ordered additive group, and
+	2) x >= 0 and y >= 0 ==> x * y >= 0, for all x, y in X.
+	*/
+	struct Ordered_Ring_Concept
+	: Refines<
+		Ordered_Additive_Group_Concept,
+		Ring_Concept>
+	{};
 
 }
 

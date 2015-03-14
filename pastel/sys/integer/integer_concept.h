@@ -10,52 +10,40 @@
 namespace Pastel
 {
 
-	namespace Integer_Concept
+	//! An integer.
+	struct Integer_Concept
+	: Refines<Ordered_Ring_Concept>
 	{
-
-		//! An integer.
-		class Integer
-		: public Ordered_Ring_Concept::Ordered_Ring
-		{
-		public:
-			Integer();
-			Integer(int8 that);
-			Integer(uint8 that);
-
-			Integer(int16 that);
-			Integer(uint16 that);
-
-			Integer(int32 that);
-			Integer(uint32 that);
-			
-			Integer(int64 that);
-			Integer(uint64 that);
-
-			// Bitwise operations.
-
-			Integer& operator&=(const Integer& that);
-			Integer operator&(const Integer& that) const;
-
-			Integer& operator|=(const Integer& that);
-			Integer operator|(const Integer& that) const;
-
-			Integer& operator^=(const Integer& that);
-			Integer operator^(const Integer& that) const;
-
-			Integer& operator<<=(const Integer& that);
-			Integer operator<<(const Integer& that) const;
-
-			Integer& operator>>=(const Integer& that);
-			Integer operator>>(const Integer& that) const;
-		};
-
-		//! Returns whether 'that' is even.
-		bool even(const Integer& that);
-
-		//! Returns whether 'that' is odd.
-		bool odd(const Integer& that);
-
-	}
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+			(
+			conceptCheck(
+				Type(),
+				Type((int8)0),
+				Type((uint8)0),
+				Type((int16)0),
+				Type((uint16)0),
+				Type((int32)0),
+				Type((uint32)0),
+				Type((int64)0),
+				Type((uint64)0),
+				Concept::hasType<Type&>(t &= t),
+				Concept::convertsTo<Type>(t & t),
+				Concept::hasType<Type&>(t |= t),
+				Concept::convertsTo<Type>(t | t),
+				Concept::hasType<Type&>(t ^= t),
+				Concept::convertsTo<Type>(t ^ t),
+				Concept::hasType<Type&>(t <<= (integer)0),
+				Concept::convertsTo<Type>(t << (integer)0),
+				Concept::hasType<Type&>(t >>= (integer)0),
+				Concept::convertsTo<Type>(t >> (integer)0),
+				//! Returns whether 'that' is even.
+				Concept::convertsTo<bool>(even(t)),
+				//! Returns whether 'that' is odd.
+				Concept::convertsTo<bool>(odd(t))
+			)
+		);
+	};
 
 }
 

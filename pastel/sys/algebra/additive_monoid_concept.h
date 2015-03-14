@@ -9,25 +9,25 @@
 namespace Pastel
 {
 
-	namespace Additive_Monoid_Concept
-	{
-
-		//! An additive monoid.
-		/*!
-		An additive monoid is an additive semi-group (X, +)
-		such that there exist 0 in X such that 
+	//! An additive monoid.
+	/*!
+	An additive monoid is an additive semi-group (X, +)
+	such that there exist 0 in X such that 
 		
-		     x + 0 = x, for all x in X.
-		*/
-		class Additive_Monoid
-		: public Additive_SemiGroup_Concept::Additive_SemiGroup
-		{
-		};
-
-		//! Returns whether that == 0.
-		bool zero(const Additive_Monoid& that);
-
-	}
+		    x + 0 = x, for all x in X.
+	*/
+	struct Additive_Monoid_Concept
+	: Refines<Additive_SemiGroup_Concept>
+	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				// Returns whether t == 0.
+				Concept::convertsTo<bool>(zero(t))
+			)
+		);
+	};
 
 }
 

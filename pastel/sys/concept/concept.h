@@ -3,7 +3,18 @@
 #ifndef PASTELSYS_CONCEPT_H
 #define PASTELSYS_CONCEPT_H
 
+#include "pastel/sys/mytypes.h"
+
 #include <type_traits>
+
+#define PASTEL_CONCEPT_CHECK(Type, Concept) \
+	PASTEL_STATIC_ASSERT((Models<Type, Concept>::value))
+
+#define PASTEL_CONCEPT_CHECK_DIRECT(Type, Concept) \
+	PASTEL_STATIC_ASSERT((Models_Directly<Type, Concept>::value))
+
+#define PASTEL_CONCEPT_CHECK_BASE(Type, Concept) \
+	PASTEL_STATIC_ASSERT((Models_Base<Type, Concept>::value))
 
 namespace Pastel
 {
@@ -16,6 +27,44 @@ namespace Pastel
 	*/
 	template <typename... TypeSet>
 	void conceptCheck(TypeSet&&... that);
+
+	namespace Concept
+	{
+
+		template <
+			typename Required,
+			typename Type>
+		auto hasType(Type that) -> decltype
+		(
+			std::is_same<Type, Required>::value
+		);
+
+		template <
+			typename Required, 
+			typename Type>
+		auto convertsTo(Type that) -> decltype
+		(
+			std::is_convertible<Type, Required>::value
+		);
+
+		template <
+			typename Left,
+			typename Right>
+		auto sameTypes(Left left, Right right) -> decltype
+		(
+			std::is_same<Left, Right>::value
+		);
+
+		template <
+			typename Type,
+			typename Concept>
+		void printMostRefined()
+		{
+			using A = typename MostRefinedConcept<Type, Concept>::type;
+			A::errorToPrintMostRefined();
+		}
+
+	}
 
 }
 

@@ -10,21 +10,16 @@
 namespace Pastel
 {
 
-	namespace Ordered_Field_Concept
-	{
-
-		//! An ordered field.
-		/*! 
-		An ordered field is a field which is also
-		an ordered ring.
-		*/
-		class Ordered_Field
-		: public Ordered_Ring_Concept::Ordered_Ring
-		, public Field_Concept::Field
-		{
-		};
-
-	}
+	//! An ordered field.
+	/*! 
+	An ordered field is a field which is also
+	an ordered ring.
+	*/
+	struct Ordered_Field_Concept
+	: Refines<
+		Ordered_Ring_Concept,
+		Field_Concept>
+	{};
 
 }
 

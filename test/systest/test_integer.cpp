@@ -37,6 +37,7 @@ namespace
 		void testConstruction()
 		{
 			using F = Unsigned_Integer<20, uint8>;
+			PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 			//std::cout << F(0x12345678) << std::endl;
 			
@@ -81,6 +82,8 @@ namespace
 
 			{
 				using F = Unsigned_Integer<20, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
 				F a(0x12345678);
 
 				TEST_ENSURE(F(a, 0, 0) == F(0x00000000));
@@ -127,6 +130,7 @@ namespace
 		{
 			{
 				using F = Signed_Integer<16, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 				for (integer i = -512; i <= 512; ++i)
 				{
@@ -137,6 +141,7 @@ namespace
 
 			{
 				using F = Unsigned_Integer<16, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 				for (integer i = -512; i < 512; ++i)
 				{
@@ -149,6 +154,7 @@ namespace
 		void testIncrementDecrement()
 		{
 			using F = Signed_Integer<20, uint8>;
+			PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 			for (integer i = -512; i <= 512; ++i)
 			{
@@ -165,6 +171,7 @@ namespace
 		void testComparison()
 		{
 			using F = Signed_Integer<20, uint8>;
+			PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 			
 			TEST_ENSURE(negative(F(-0x00001)));
 			TEST_ENSURE(negative(F(-0x23456)));
@@ -190,6 +197,8 @@ namespace
 		void testClearBits()
 		{
 				using F = Unsigned_Integer<16, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
 				auto f = [&](integer begin, integer end) -> F
 				{
 					return F(0xFFFF).clearBits(begin, end);
@@ -321,6 +330,7 @@ namespace
 		{
 			{
 				using F = Unsigned_Integer<1, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 				TEST_ENSURE(F(0) + F(0) == F(0));
 				TEST_ENSURE(F(0) + F(1) == F(1));
@@ -335,6 +345,7 @@ namespace
 
 			{
 				using F = Unsigned_Integer<2, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 				TEST_ENSURE(F(0) + F(0) == F(0));
 				TEST_ENSURE(F(0) + F(1) == F(1));
@@ -373,6 +384,7 @@ namespace
 
 			{
 				using F = Unsigned_Integer<20, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 				auto f = [](integer a, integer b) -> bool
 				{
@@ -386,6 +398,7 @@ namespace
 
 			{
 				using F = Unsigned_Integer<20, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 				auto f = [](integer a, integer b) -> bool
 				{
@@ -399,6 +412,7 @@ namespace
 
 			{
 				using F = Unsigned_Integer<32, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 				uint32 a = 0x12345678;
 				for (integer i = 0;i < 32;++i)
@@ -425,6 +439,7 @@ namespace
 		void testBitOperators()
 		{
 			using F = Unsigned_Integer<20, uint8>;
+			PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 			
 			TEST_ENSURE((F(0x12345678u) ^ F(0x45635603u)) == (0x12345678u ^ 0x45635603u));
 			TEST_ENSURE((F(0x12345678u) | F(0x45635603u)) == (0x12345678u | 0x45635603u));
@@ -436,6 +451,7 @@ namespace
 		{
 			{
 				using F = Unsigned_Integer<1, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 				TEST_ENSURE_OP(F(0).oneBits(), == , 0);
 				TEST_ENSURE_OP(F(1).oneBits(), == , 1);
@@ -443,6 +459,7 @@ namespace
 
 			{
 				using F = Unsigned_Integer<32, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 				TEST_ENSURE_OP(F(0x12345678).oneBits(), == ,
 					1 + 1 + 2 + 1 + 2 + 2 + 3 + 1);
@@ -458,6 +475,7 @@ namespace
 		void testSetBits()
 		{
 			using F = Unsigned_Integer<20, uint8>;
+			PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 			{
 				TEST_ENSURE(!F(0).bit(0));
@@ -546,6 +564,8 @@ namespace
 		{
 			{
 				using F = Unsigned_Integer<20, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
 				for (integer i = 0; i < 256; ++i)
 				{
 					for (integer j = 0; j < 256; ++j)
@@ -556,6 +576,8 @@ namespace
 			}
 			{
 				using F = Signed_Integer<20, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
 				for (integer i = -127; i <= 128; ++i)
 				{
 					for (integer j = -127; j <= 128; ++j)
@@ -569,6 +591,7 @@ namespace
 		void testNumberOfOneBits()
 		{
 			using F = Unsigned_Integer<20, uint8>;
+			PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 			auto test = [&](F that, integer correct)
 			{

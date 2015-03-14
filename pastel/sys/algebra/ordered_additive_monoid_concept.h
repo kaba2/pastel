@@ -10,33 +10,29 @@
 namespace Pastel
 {
 
-	namespace Ordered_Additive_Monoid_Concept
+	//! An ordered additive monoid.
+	/*! 
+	An ordered additive monoid is an additive monoid
+	which is also an ordered additive semigroup.
+	*/
+	struct Ordered_Additive_Monoid_Concept
+	: Refines<
+		Ordered_Additive_SemiGroup_Concept,
+		Additive_Monoid_Concept>
 	{
-
-		//! An ordered additive monoid.
-		/*! 
-		An ordered additive monoid is an additive monoid
-		which is also an ordered additive semigroup.
-		*/
-		class Ordered_Additive_Monoid
-		: public Ordered_Additive_SemiGroup_Concept::Ordered_Additive_SemiGroup
-		, public Additive_Monoid_Concept::Additive_Monoid
-		{
-		};
-
-		//! Returns whether 'that' > 0.
-		bool positive(
-			const Ordered_Additive_Monoid& that);
-
-		//! Returns whether 'that' < 0.
-		bool negative(
-			const Ordered_Additive_Monoid& that);
-
-		//! Returns the absolute value of 'that'.
-		Ordered_Additive_Monoid abs(
-			const Ordered_Additive_Monoid& that);
-
-	}
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				//! Returns whether 'that' > 0.
+				Concept::convertsTo<bool>(positive(t)),
+				//! Returns whether 'that' < 0.
+				Concept::convertsTo<bool>(negative(t)),
+				//! Returns the absolute value of 'that'.
+				Concept::convertsTo<Type>(abs(t))
+			)
+		);
+	};
 
 }
 

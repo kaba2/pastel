@@ -67,14 +67,19 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <
-		typename Concept, 
-		typename Type,
-		bool Value = Models<Type, Concept>::value>
-	PASTEL_CONSTEXPR bool isModelOf(Type&& that)
+	namespace Concept
 	{
-		return Value;
+
+		template <
+			typename Concept, 
+			typename Type>
+		auto isModelOf(Type&& that) -> decltype
+		(
+			Models<Type, Concept>::value
+		);
+
 	}
+
 
 }
 

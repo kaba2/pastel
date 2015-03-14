@@ -11,60 +11,45 @@
 namespace Pastel
 {
 
-	namespace Real_Concept
+	//! A real number.
+	struct Real_Concept
+	: Refines<Ordered_Field_Concept>
 	{
-
-		//! A real number.
-		class Real
-		: public Ordered_Field_Concept::Ordered_Field
-		{
-		public:
-			//! Default-constructed Real's assume value 0.
-			Real();
-
-			//! Constructs from an int8.
-			Real(int8 that);
-
-			//! Constructs from an uint8.
-			Real(uint8 that);
-
-			//! Constructs from an int16.
-			Real(int16 that);
-
-			//! Constructs from an uint16.
-			Real(uint16 that);
-
-			//! Constructs from an int32.
-			Real(int32 that);
-
-			//! Constructs from an uint32.
-			Real(uint32 that);
-
-			//! Constructs from a float.
-			Real(float that);
-
-			//! Constructs from a double.
-			Real(double that);
-		};
-
-		//! Returns infinity.	
-		template <typename Type, EnableIf<std::is_same<Type, Real>> = 0>
-		Type infinity();
-
-		//! Returns not-a-number.	
-		template <typename Type, EnableIf<std::is_same<Type, Real>> = 0>
-		Type nan();
-
-		//! Returns 1 / that.	
-		Real inverse(const Real& that);
-
-		//! Returns the greatest integer <= that.
-		Real floor(const Real& that);
-
-		//! Returns the least integer >= that.
-		Real ceil(const Real& that);
-
-	}
+	public:
+		template <typename Type>
+		auto requires(Type&& t) -> decltype(
+			conceptCheck(
+				//! Default-constructed Type's assume value 0.
+				Type(),
+				//! Constructs from an int8.
+				Type((int8)0),
+				//! Constructs from an uint8.
+				Type((uint8)0),
+				//! Constructs from an int16.
+				Type((int16)0),
+				//! Constructs from an uint16.
+				Type((uint16)0),
+				//! Constructs from an int32.
+				Type((int32)0),
+				//! Constructs from an uint32.
+				Type((uint32)0),
+				//! Constructs from a float.
+				Type((float)0),
+				//! Constructs from a double.
+				Type((double)0),
+				//! Returns infinity.	
+				Concept::convertsTo<Type>(infinity<Type>()),
+				//! Returns not-a-number.	
+				Concept::convertsTo<Type>(nan<Type>()),
+				//! Returns 1 / that.	
+				Concept::convertsTo<Type>(inverse(t)),
+				//! Returns the greatest integer <= that.
+				Concept::convertsTo<Type>(floor(t)),
+				//! Returns the least integer >= that.
+				Concept::convertsTo<Type>(ceil(t))
+			)
+		);
+	};
 
 }
 

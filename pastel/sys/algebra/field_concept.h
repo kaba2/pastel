@@ -9,30 +9,26 @@
 namespace Pastel
 {
 
-	namespace Field_Concept
+	//! A field.
+	/*!
+	A field is a commutative division ring.
+	*/
+	struct Field_Concept
+	: Refines<Ring_Concept>
 	{
-
-		//! A field.
-		/*!
-		A field is a commutative division ring.
-		*/
-		class Field
-		: public Ring_Concept::Ring
-		{
-		public:
-			//! Divides thie element by 'that'.
-			Field& operator/=(const Field& that);
-		};
-
-		//! Returns left / right.
-		Field operator/(
-			const Field& left,
-			const Field& right);
-
-		//! Returns 1 / that.
-		Field inverse(const Field& that);
-
-	}
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				//! Divides this element by 'that'.
+				Concept::hasType<Type&>(t /= t),
+				//! Returns left / right.
+				Concept::convertsTo<Type>(t / t),
+				//! Returns 1 / that.
+				Concept::convertsTo<Type>(inverse(t))
+			)
+		);
+	};
 
 }
 
