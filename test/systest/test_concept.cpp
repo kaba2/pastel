@@ -44,12 +44,6 @@ namespace
 			));
 	};
 
-	template <typename A_Doo>
-	void f(const A_Doo& a)
-	{
-		PASTEL_STATIC_ASSERT((Models<A_Doo, Doo_Concept(Green_Goo)>::value));
-	}
-
 	struct Empty_Concept
 	{
 		template <typename Type>
@@ -120,6 +114,8 @@ namespace
 		virtual void run()
 		{
 			testModels();
+			testParametrizedModels();
+			testFunctionModels();
 			testRefines();
 			testFirstModeledConcept();
 			testMostRefinedConcept();
@@ -141,15 +137,48 @@ namespace
 			PASTEL_STATIC_ASSERT((Models_Directly<Something_Else, FooGoo_Concept>::value));
 			PASTEL_STATIC_ASSERT((!Models_Base<Something_Else, FooGoo_Concept>::value));
 			PASTEL_STATIC_ASSERT((!Models<Something_Else, FooGoo_Concept>::value));
+		}
 
+		void testParametrizedModels()
+		{
 			PASTEL_STATIC_ASSERT((Models<Green_Doo, Doo_Concept(Green_Goo)>::value));
 			PASTEL_STATIC_ASSERT((Models<Red_Doo, Doo_Concept(Green_Goo)>::value));
 			PASTEL_STATIC_ASSERT((Models<Red_Doo, Doo_Concept(SuperGreen_FooGoo)>::value));
 			PASTEL_STATIC_ASSERT((Models<Blue_Doo, Doo_Concept(SuperGreen_FooGoo)>::value));
 			PASTEL_STATIC_ASSERT((!Models<Blue_Doo, Doo_Concept(Green_Goo)>::value));
 			PASTEL_STATIC_ASSERT((!Models<Something_Else, Doo_Concept(Green_Goo)>::value));
+		}
 
+		template <typename A_Doo>
+		void f(const A_Doo& a)
+		{
+			PASTEL_STATIC_ASSERT((Models<A_Doo, Doo_Concept(Green_Goo)>::value));
+		}
+
+		void testFunctionModels()
+		{
 			f(Green_Doo());
+			f(Red_Doo());
+
+			// This should trigger a nice error.
+			//f(Blue_Doo());
+		}
+
+		template <typename A_Doo>
+		class TestClass
+		{
+			PASTEL_STATIC_ASSERT((Models<A_Doo, Doo_Concept(Green_Goo)>::value));
+		};
+
+		void testClassModels()
+		{
+			TestClass<Green_Doo> green;
+			TestClass<Red_Doo> red;
+
+			// This should trigger a nice error.
+			//TestClass<Blue_Doo> blue;
+
+			unused(red, green);
 		}
 
 		void testRefines()

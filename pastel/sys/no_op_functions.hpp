@@ -6,8 +6,8 @@
 namespace Pastel
 {
 
-	template <typename Type>
-	void unused(const Type&)
+	template <typename... Type>
+	void unused(const Type&...)
 	{
 		// Do nothing.
 	}
