@@ -21,6 +21,15 @@ namespace Pastel
 	template <typename Type, typename... ConceptSet>
 	struct Models;
 
+	template <
+		typename Concept, 
+		typename Type,
+		bool Value = Models<Type, Concept>::value>
+	PASTEL_CONSTEXPR bool isModelOf(Type&& that)
+	{
+		return Value;
+	}
+
 }
 
 namespace Pastel
@@ -66,17 +75,30 @@ namespace Pastel
 		typename Concept>
 	struct Models_Directly
 	{
+		// The concept is not in functional form.
+		// Convert it to such, assuming no parameters.
+		static PASTEL_CONSTEXPR bool value =
+			Models_Directly<Type, Concept()>::value;
+	};
+
+	template <
+		typename Type, 
+		typename Concept,
+		typename... ParameterSet>
+	struct Models_Directly<Type, Concept(ParameterSet...)>
+	{
 	private:
 		template <
 			typename T,
-			typename = decltype(std::declval<Concept>().requires(std::declval<T>()))>
+			typename = decltype(std::declval<Concept>().requires(
+				std::declval<T>(), std::declval<ParameterSet>()...))>
 		static std::true_type test();
 		
 		template <typename T>
 		static std::false_type test(...);
 
 	public:
-		static constexpr bool value =
+		static PASTEL_CONSTEXPR bool value =
 			decltype(test<Type>())::value;
 	};
 
@@ -99,7 +121,7 @@ namespace Pastel
 		static std::true_type test(...);
 
 	public:
-		static constexpr bool value =
+		static PASTEL_CONSTEXPR bool value =
 			decltype(test(std::declval<Concept>()))::value;
 	};
 
@@ -110,7 +132,7 @@ namespace Pastel
 		typename... ConceptSet>
 	struct Models<Type, Concept, ConceptSet...>
 	{
-		static constexpr bool value =
+		static PASTEL_CONSTEXPR bool value =
 			Models_Directly<Type, Concept>::value &&
 			Models_Base<Type, Concept>::value &&
 			Models<Type, ConceptSet...>::value;
@@ -324,6 +346,12 @@ namespace Pastel
 	{
 		using type = 
 			typename Concept_::MostRefinedConcept<Type, Concept>::type;
+	};
+
+	template <typename Type>
+	struct MostRefinedConcept<Type, void>
+	{
+		using type = void;
 	};
 
 }
