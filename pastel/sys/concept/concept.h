@@ -16,6 +16,15 @@
 #define PASTEL_CONCEPT_CHECK_BASE(Type, Concept) \
 	PASTEL_STATIC_ASSERT((Models_Base<Type, Concept>::value))
 
+#define PASTEL_CONCEPT_REJECT(Type, Concept) \
+	PASTEL_STATIC_ASSERT((!Models<Type, Concept>::value))
+
+#define PASTEL_CONCEPT_REJECT_DIRECT(Type, Concept) \
+	PASTEL_STATIC_ASSERT((!Models_Directly<Type, Concept>::value))
+
+#define PASTEL_CONCEPT_REJECT_BASE(Type, Concept) \
+	PASTEL_STATIC_ASSERT((!Models_Base<Type, Concept>::value))
+
 namespace Pastel
 {
 

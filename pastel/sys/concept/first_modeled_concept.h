@@ -16,7 +16,9 @@ namespace Pastel
 	The first concept in ConceptSet whose model Type is.
 	If there is no such concept, then void.
 	*/
-	template <typename Type, typename... ConceptSet>
+	template <
+		typename Type, 
+		typename... ConceptSet>
 	struct FirstModeledConcept;
 
 	template <
@@ -38,6 +40,8 @@ namespace Pastel
 	{
 		using type = void;
 	};
+
+	PASTEL_TYPE_FUNCTION(FirstModeledConcept);
 
 }
 

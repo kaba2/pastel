@@ -123,36 +123,36 @@ namespace
 
 		void testModels()
 		{
-			PASTEL_STATIC_ASSERT((Models<Green_Goo, Goo_Concept>::value));
-			PASTEL_STATIC_ASSERT((Models<Green_Goo, Goo_Concept>::value));
-			PASTEL_STATIC_ASSERT((Models<Green_Goo, Empty_Concept>::value));
-			PASTEL_STATIC_ASSERT((Models<Green_Goo, Baseless_Concept>::value));
-			PASTEL_STATIC_ASSERT((!Models<Green_Goo, FooGoo_Concept>::value));
+			PASTEL_CONCEPT_CHECK(Green_Goo, Goo_Concept);
+			PASTEL_CONCEPT_CHECK(Green_Goo, Goo_Concept);
+			PASTEL_CONCEPT_CHECK(Green_Goo, Empty_Concept);
+			PASTEL_CONCEPT_CHECK(Green_Goo, Baseless_Concept);
+			PASTEL_CONCEPT_REJECT(Green_Goo, FooGoo_Concept);
 
-			PASTEL_STATIC_ASSERT((Models<SuperGreen_FooGoo, Goo_Concept>::value));
-			PASTEL_STATIC_ASSERT((Models<SuperGreen_FooGoo, FooGoo_Concept>::value));
-			PASTEL_STATIC_ASSERT((Models<SuperGreen_FooGoo, Empty_Concept>::value));
-			PASTEL_STATIC_ASSERT((Models<SuperGreen_FooGoo, Baseless_Concept>::value));
+			PASTEL_CONCEPT_CHECK(SuperGreen_FooGoo, Goo_Concept);
+			PASTEL_CONCEPT_CHECK(SuperGreen_FooGoo, FooGoo_Concept);
+			PASTEL_CONCEPT_CHECK(SuperGreen_FooGoo, Empty_Concept);
+			PASTEL_CONCEPT_CHECK(SuperGreen_FooGoo, Baseless_Concept);
 
-			PASTEL_STATIC_ASSERT((Models_Directly<Something_Else, FooGoo_Concept>::value));
-			PASTEL_STATIC_ASSERT((!Models_Base<Something_Else, FooGoo_Concept>::value));
-			PASTEL_STATIC_ASSERT((!Models<Something_Else, FooGoo_Concept>::value));
+			PASTEL_CONCEPT_CHECK_DIRECT(Something_Else, FooGoo_Concept);
+			PASTEL_CONCEPT_REJECT_BASE(Something_Else, FooGoo_Concept);
+			PASTEL_CONCEPT_REJECT(Something_Else, FooGoo_Concept);
 		}
 
 		void testParametrizedModels()
 		{
-			PASTEL_STATIC_ASSERT((Models<Green_Doo, Doo_Concept(Green_Goo)>::value));
-			PASTEL_STATIC_ASSERT((Models<Red_Doo, Doo_Concept(Green_Goo)>::value));
-			PASTEL_STATIC_ASSERT((Models<Red_Doo, Doo_Concept(SuperGreen_FooGoo)>::value));
-			PASTEL_STATIC_ASSERT((Models<Blue_Doo, Doo_Concept(SuperGreen_FooGoo)>::value));
-			PASTEL_STATIC_ASSERT((!Models<Blue_Doo, Doo_Concept(Green_Goo)>::value));
-			PASTEL_STATIC_ASSERT((!Models<Something_Else, Doo_Concept(Green_Goo)>::value));
+			PASTEL_CONCEPT_CHECK(Green_Doo, Doo_Concept(Green_Goo));
+			PASTEL_CONCEPT_CHECK(Red_Doo, Doo_Concept(Green_Goo));
+			PASTEL_CONCEPT_CHECK(Red_Doo, Doo_Concept(SuperGreen_FooGoo));
+			PASTEL_CONCEPT_CHECK(Blue_Doo, Doo_Concept(SuperGreen_FooGoo));
+			PASTEL_CONCEPT_REJECT(Blue_Doo, Doo_Concept(Green_Goo));
+			PASTEL_CONCEPT_REJECT(Something_Else, Doo_Concept(Green_Goo));
 		}
 
 		template <typename A_Doo>
 		void f(const A_Doo& a)
 		{
-			PASTEL_STATIC_ASSERT((Models<A_Doo, Doo_Concept(Green_Goo)>::value));
+			PASTEL_CONCEPT_CHECK(A_Doo, Doo_Concept(Green_Goo));
 		}
 
 		void testFunctionModels()
@@ -167,7 +167,7 @@ namespace
 		template <typename A_Doo>
 		class TestClass
 		{
-			PASTEL_STATIC_ASSERT((Models<A_Doo, Doo_Concept(Green_Goo)>::value));
+			PASTEL_CONCEPT_CHECK(A_Doo, Doo_Concept(Green_Goo));
 		};
 
 		void testClassModels()
@@ -202,31 +202,31 @@ namespace
 		{
 			PASTEL_STATIC_ASSERT((
 				std::is_same<
-					typename FirstModeledConcept<Green_Goo, Goo_Concept, FooGoo_Concept>::type,
+					FirstModeledConcept_t<Green_Goo, Goo_Concept, FooGoo_Concept>,
 					Goo_Concept
 				>::value));
 
 			PASTEL_STATIC_ASSERT((
 				std::is_same<
-					typename FirstModeledConcept<Green_Goo, FooGoo_Concept, Goo_Concept>::type,
+					FirstModeledConcept_t<Green_Goo, FooGoo_Concept, Goo_Concept>,
 					Goo_Concept
 				>::value));
 
 			PASTEL_STATIC_ASSERT((
 				std::is_same<
-					typename FirstModeledConcept<SuperGreen_FooGoo, Goo_Concept, FooGoo_Concept>::type,
+					FirstModeledConcept_t<SuperGreen_FooGoo, Goo_Concept, FooGoo_Concept>,
 					Goo_Concept
 				>::value));
 
 			PASTEL_STATIC_ASSERT((
 				std::is_same<
-					typename FirstModeledConcept<SuperGreen_FooGoo, FooGoo_Concept, Goo_Concept>::type,
+					FirstModeledConcept_t<SuperGreen_FooGoo, FooGoo_Concept, Goo_Concept>,
 					FooGoo_Concept
 				>::value));
 
 			PASTEL_STATIC_ASSERT((
 				std::is_same<
-					typename FirstModeledConcept<Green_Goo>::type,
+					FirstModeledConcept_t<Green_Goo>,
 					void
 				>::value));
 		}
@@ -235,19 +235,19 @@ namespace
 		{
 			PASTEL_STATIC_ASSERT((
 				std::is_same<
-					typename MostRefinedConcept<Green_Goo, FooGoo_Concept>::type, 
+					MostRefinedConcept_t<Green_Goo, FooGoo_Concept>, 
 					Goo_Concept
 				>::value));
 
 			PASTEL_STATIC_ASSERT((
 				std::is_same<
-					typename MostRefinedConcept<SuperGreen_FooGoo, FooGoo_Concept>::type, 
+					MostRefinedConcept_t<SuperGreen_FooGoo, FooGoo_Concept>, 
 					FooGoo_Concept
 				>::value));
 
 			PASTEL_STATIC_ASSERT((
 				std::is_same<
-					typename MostRefinedConcept<Green_Goo, void>::type, 
+					MostRefinedConcept_t<Green_Goo, void>, 
 					void
 				>::value));
 		}
