@@ -6,6 +6,8 @@
 
 #include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/locator/location_set.h"
+#include "pastel/sys/input/input_value.h"
+#include "pastel/sys/type_traits/remove_cvref.h"
 
 #include <type_traits>
 
@@ -31,11 +33,19 @@ namespace Pastel
 
 	}
 
+	template <typename PointSet>
+	struct PointSet_Point_F
+	{
+		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
+
+		using type = 
+			typename PointSet_::Point<PointSet>::type;
+	};
+
 	//! Returns the underlying point-type of a point-set-type.
 	template <typename PointSet>
-	using PointSet_Point = typename PointSet_::Point<
-			typename std::decay<PointSet>::type
-		>::type;
+	using PointSet_Point = 
+		typename PointSet_Point_F<PointSet>::type;
 
 }
 

@@ -5,26 +5,22 @@
 
 #include "pastel/sys/input/input_concept.h"
 #include "pastel/sys/input/input_return.h"
-
-#include <type_traits>
+#include "pastel/sys/type_traits/remove_cvref.h"
 
 namespace Pastel
 {
 
-	namespace Input_Value_
-	{
-
-		template <typename Input>
-		struct Compute
-		{
-			using type = typename std::decay<Input_Return<Input>>::type;
-		};
-
-	}
-
 	//! Input value-type
 	template <typename Input>
-	using Input_Value = typename Input_Value_::Compute<Input>::type;
+	struct Input_Value_F
+	{
+		using type = 
+			RemoveCvRef<Input_Return<Input>>;
+	};
+
+	template <typename Input>
+	using Input_Value = 
+		typename Input_Value_F<Input>::type;
 
 }
 	
