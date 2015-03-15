@@ -22,6 +22,7 @@ namespace
 		virtual void run()
 		{
 			test();
+			testArray();
 			testTypes();
 		}
 
@@ -38,6 +39,28 @@ namespace
 				{
 					TEST_ENSURE(locator(dataSet + i, j) == i + j);
 				}
+			}
+		}
+
+		void testArray()
+		{
+			{
+				using Locator = Array_Locator<real, 1>;
+				PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+			}
+			{
+				using Point = std::array<real, 2>;
+				using Locator = Array_Locator<real, 2>;
+				PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+
+				PASTEL_STATIC_ASSERT(
+					(std::is_same<Locator_Real<Locator>, real>::value));
+
+				PASTEL_STATIC_ASSERT(
+					(std::is_same<Locator_Point<Locator>, Point>::value));
+				
+				PASTEL_STATIC_ASSERT(
+					Locator_N<Locator>::value == 2);
 			}
 		}
 

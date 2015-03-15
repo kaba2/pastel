@@ -14,7 +14,7 @@ namespace Pastel
 	{
 
 		template <typename Locator>
-		struct Locator_Real_F
+		struct Locator_Real_F_
 		{
 			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
 
@@ -31,7 +31,7 @@ namespace Pastel
 	template <typename... LocatorSet>
 	using Locator_Real_F =
 		std::common_type<
-			typename Locator_::Locator_Real_F<LocatorSet>::type...
+			typename Locator_::Locator_Real_F_<LocatorSet>::type...
 		>;
 
 	template <typename... LocatorSet>

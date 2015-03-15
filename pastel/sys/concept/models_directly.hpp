@@ -3,6 +3,7 @@
 
 #include "pastel/sys/concept/models_directly.h"
 #include "pastel/sys/type_traits/compiles.h"
+#include "pastel/sys/type_traits/remove_cvref.h"
 
 #include <type_traits>
 
@@ -39,14 +40,10 @@ namespace Pastel
 				decltype(
 					std::declval<Concept>().requires(
 						std::declval<
-							typename std::remove_cv<
-								typename std::remove_reference<T>::type
-							>::type
+							RemoveCvRef<T>
 						>(), 
 						std::declval<
-							typename std::remove_cv<
-								typename std::remove_reference<ParameterSet>::type
-							>::type
+							RemoveCvRef<ParameterSet>
 						>()...
 					)
 				);
