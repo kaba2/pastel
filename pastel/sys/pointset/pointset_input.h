@@ -28,6 +28,13 @@ namespace Pastel
 			return pointSet.pointInput();
 		}
 
+		template <typename Point_Input, typename Locator>
+		decltype(auto) pointSetInput(
+			LocationSet<Point_Input, Locator>& pointSet)
+		{
+			return pointSet.pointInput();
+		}
+
 	}
 
 	//! Returns the point-input.
