@@ -38,7 +38,7 @@ namespace Pastel
 			};
 
 			using BaseSet =
-				typename BaseConcepts<ConceptSet...>::type;
+				BaseConcepts<ConceptSet...>;
 
 			using type =
 				typename std::conditional<

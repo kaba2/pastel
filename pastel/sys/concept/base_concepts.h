@@ -4,8 +4,9 @@
 #define PASTELSYS_BASE_CONCEPTS_H
 
 #include "pastel/sys/concept/refines.h"
-#include "pastel/sys/concept/is_refines_class.h"
 #include "pastel/sys/concept/join_refines.h"
+#include "pastel/sys/type_traits/is_template_instance.h"
+#include "pastel/sys/type_traits/template_base.h"
 
 namespace Pastel
 {
@@ -14,20 +15,22 @@ namespace Pastel
 	{
 
 		template <typename Concept>
-		struct BaseConcepts_
+		struct BaseConcepts_F_
 		{
 		private:
-			template <typename... ConceptSet>
-			static Refines<ConceptSet...> test(Refines<ConceptSet...>&&);
-			
-			static Refines<> test(...);
-
-		public:
-			using type = 
+			using preType =
 				typename std::conditional<
-					IsRefinesClass<Concept>::value,
+					IsTemplateInstance<Concept, Refines>::value,
 					void,
-					decltype(test(std::declval<Concept>()))
+					TemplateBase<Refines, Concept>
+				>::type;
+			
+		public:
+			using type =
+				typename std::conditional<
+					std::is_same<preType, void>::value,
+					Refines<>,
+					preType
 				>::type;
 		};
 
@@ -40,25 +43,15 @@ namespace Pastel
 	into a Refine<...> class.
 	*/
 	template <typename... ConceptSet>
-	struct BaseConcepts;
-
-	template <
-		typename Concept,
-		typename... ConceptSet>
-	struct BaseConcepts<Concept, ConceptSet...>
+	struct BaseConcepts_F
 	{
 		using type = 
-			typename JoinRefines<
-				typename Concept_::BaseConcepts_<Concept>::type,
-				typename BaseConcepts<ConceptSet...>::type
-			>::type;
+			JoinRefines<typename Concept_::BaseConcepts_F_<ConceptSet>::type...>;
 	};
 
-	template <>
-	struct BaseConcepts<>
-	{
-		using type = Refines<>;
-	};
+	template <typename... ConceptSet>
+	using BaseConcepts =
+		typename BaseConcepts_F<ConceptSet...>::type;
 
 }
 
