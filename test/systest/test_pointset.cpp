@@ -34,6 +34,8 @@ namespace
 			
 			std::vector<Point> inputSet;
 			auto pointSet = rangeInput(range(inputSet.begin(), inputSet.end()));
+
+			PASTEL_STATIC_ASSERT((Models<decltype(pointSet), PointSet_Concept>::value));
 			
 			//TEST_ENSURE_OP(pointSetDimension(pointSet), == , 0);
 		}
@@ -46,6 +48,7 @@ namespace
 
 			std::vector<Point> inputSet;
 			auto pointSet = rangeInput(range(inputSet.begin(), inputSet.end()));
+			PASTEL_STATIC_ASSERT((Models<decltype(pointSet), PointSet_Concept>::value));
 			{
 				using PointSet = decltype(pointSet);
 

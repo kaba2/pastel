@@ -57,6 +57,11 @@ namespace Pastel
 			{
 			}
 
+			void swap(TreePoint_Locator& that)
+			{
+				std::swap(dimension_, that.dimension_);
+			}
+
 			const Real& operator()(
 				const Point& point, integer i) const
 			{

@@ -21,11 +21,10 @@ namespace Pastel
 	public:
 		//PASTEL_CONCEPT_CHECK(Real_, Real_Concept);
 
-		using Real = Real_;
 		static PASTEL_CONSTEXPR integer N = N_;
 
+		using Real = Real_;
 		using Point = std::array<Real, N>;
-		using Return = decltype(std::declval<const Point>()[0]);
 
 		explicit Array_Locator(integer n = N)
 		{
@@ -42,7 +41,8 @@ namespace Pastel
 			return N;
 		}
 
-		Return operator()(const Point& point, integer i) const
+		decltype(auto) operator()(
+			const Point& point, integer i) const
 		{
 			return point[i];
 		}
@@ -62,10 +62,8 @@ namespace Pastel
 	};
 
 	template <typename Real_, std::size_t N>
-	auto arrayPoint(const std::array<Real_, N>& point)
-		-> decltype(location(point, Array_Locator<Real_, N>()))
+	decltype(auto) arrayPoint(const std::array<Real_, N>& point)
 	{
-		// FIX: Replace with decltype(auto) when available.
 		return location(
 			point,
 			Array_Locator<Real_, N>());

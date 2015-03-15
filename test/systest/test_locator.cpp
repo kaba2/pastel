@@ -55,9 +55,9 @@ namespace
 			PASTEL_STATIC_ASSERT(
 				(std::is_same<Locator_Point<Pointer_Locator<integer>>, const integer*>::value));
 
-			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 0>>()), ==, 0);
-			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 1>>()), ==, 1);
-			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 2>>()), ==, 2);
+			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 0>>::value), ==, 0);
+			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 1>>::value), ==, 1);
+			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 2>>::value), ==, 2);
 		}
 	};
 

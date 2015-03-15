@@ -10,6 +10,41 @@
 namespace Pastel
 {
 
+	namespace FirstModeledConcept_
+	{
+
+		template <
+			typename Type,
+			typename... ConceptSet>
+		struct FirstModeledConcept_F;
+
+		template <
+			typename Type,
+			typename Concept,
+			typename... ConceptSet>
+		struct FirstModeledConcept_F<Type, Concept, ConceptSet...>
+		{
+			using type =
+				typename std::conditional<
+					Models<Type, Concept>::value,
+					Concept,
+					typename FirstModeledConcept_F<Type, ConceptSet...>::type
+				>::type;
+		};
+
+		template <typename Type>
+		struct FirstModeledConcept_F<Type>
+		{
+			using type = void;
+		};
+
+	}
+
+}
+
+namespace Pastel
+{
+
 	//! Returns the first modeled concept.
 	/*!
 	returns:
@@ -17,31 +52,16 @@ namespace Pastel
 	If there is no such concept, then void.
 	*/
 	template <
-		typename Type, 
+		typename Type,
 		typename... ConceptSet>
-	struct FirstModeledConcept;
+	using FirstModeledConcept_F =
+		FirstModeledConcept_::FirstModeledConcept_F<Type, ConceptSet...>;
 
 	template <
 		typename Type,
-		typename Concept,
 		typename... ConceptSet>
-	struct FirstModeledConcept<Type, Concept, ConceptSet...>
-	{
-		using type = 
-			typename std::conditional<
-				Models<Type, Concept>::value,
-				Concept,
-				typename FirstModeledConcept<Type, ConceptSet...>::type
-			>::type;
-	};
-
-	template <typename Type>
-	struct FirstModeledConcept<Type>
-	{
-		using type = void;
-	};
-
-	PASTEL_TYPE_FUNCTION(FirstModeledConcept);
+	using FirstModeledConcept =
+		typename FirstModeledConcept_F<Type, ConceptSet...>::type;
 
 }
 

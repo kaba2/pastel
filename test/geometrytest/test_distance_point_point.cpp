@@ -51,6 +51,10 @@ namespace
 			using Real = real;
 			using Point = Custom_Point;
 
+			void swap(Custom_Locator& that)
+			{
+			}
+
 			const real& operator()(const Point& point, integer i) const
 			{
 				return i != 0 ? point.y : point.x;
@@ -61,6 +65,8 @@ namespace
 				return N;
 			}
 		};
+
+		PASTEL_CONCEPT_CHECK(Custom_Locator, Locator_Concept);
 
 		void testCustom()
 		{

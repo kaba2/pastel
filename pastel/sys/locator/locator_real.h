@@ -13,27 +13,30 @@ namespace Pastel
 	namespace Locator_
 	{
 
-		template <typename... LocatorSet>
-		struct Locator_Real;
-
-		template <typename Locator, typename... LocatorSet>
-		struct Locator_Real<Locator, LocatorSet...>
-		{
-			using type = typename std::common_type<
-				typename Locator_Real<Locator>::type, 
-				typename Locator_Real<LocatorSet...>::type>::type;
-		};
-
 		template <typename Locator>
-		struct Locator_Real<Locator>
+		struct Locator_Real_F
 		{
+			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+
 			using type = typename Locator::Real;
 		};
 
 	}
 
+}
+
+namespace Pastel
+{
+
 	template <typename... LocatorSet>
-	using Locator_Real = typename Locator_::Locator_Real<LocatorSet...>::type;
+	using Locator_Real_F =
+		std::common_type<
+			typename Locator_::Locator_Real_F<LocatorSet>::type...
+		>;
+
+	template <typename... LocatorSet>
+	using Locator_Real = 
+		typename Locator_Real_F<LocatorSet...>::type;
 
 }
 	

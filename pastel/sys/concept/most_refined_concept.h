@@ -16,13 +16,13 @@ namespace Pastel
 		template <
 			typename Type,
 			typename... ConceptSet>
-		struct MostRefinedConcept
+		struct MostRefinedConcept_F
 		{
 		private:
 			using ModeledConcept =
-				typename FirstModeledConcept<
+				FirstModeledConcept<
 					Type, ConceptSet...
-				>::type;
+				>;
 
 		public:
 			template <typename>
@@ -32,7 +32,7 @@ namespace Pastel
 			struct BreadthFirst<Refines<BaseSet...>>
 			{
 				using type =
-					typename MostRefinedConcept<
+					typename MostRefinedConcept_F<
 						Type, BaseSet...
 					>::type;
 			};
@@ -49,7 +49,7 @@ namespace Pastel
 		};
 
 		template <typename Type>
-		struct MostRefinedConcept<Type>
+		struct MostRefinedConcept_F<Type>
 		{
 			using type = void;
 		};
@@ -69,19 +69,14 @@ namespace Pastel
 	template <
 		typename Type,
 		typename Concept>
-	struct MostRefinedConcept
-	{
-		using type = 
-			typename Concept_::MostRefinedConcept<Type, Concept>::type;
-	};
+	using MostRefinedConcept_F =
+		Concept_::MostRefinedConcept_F<Type, Concept>;
 
-	template <typename Type>
-	struct MostRefinedConcept<Type, void>
-	{
-		using type = void;
-	};
-
-	PASTEL_TYPE_FUNCTION(MostRefinedConcept);
+	template <
+		typename Type,
+		typename Concept>
+	using MostRefinedConcept =
+		typename MostRefinedConcept_F<Type, Concept>::type;
 
 }
 

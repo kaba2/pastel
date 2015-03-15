@@ -12,9 +12,14 @@ namespace Pastel
 
 	template <typename Locator>
 	struct Locator_N
-		: std::integral_constant<integer, Locator::N>
 	{
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+		
+		static PASTEL_CONSTEXPR integer value = 
+			Locator::N;
 	};
+
+
 
 }
 

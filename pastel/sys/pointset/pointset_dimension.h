@@ -11,14 +11,11 @@ namespace Pastel
 {
 
 	//! Returns the dimension of a point-set.
-	/*!
-	Preconditions:
-	Point has a default locator.
-	*/
 	template <typename PointSet>
 	integer pointSetDimension(
 		const PointSet& pointSet)
 	{
+		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 		return pointSetLocator(pointSet).n();
 	}
 
