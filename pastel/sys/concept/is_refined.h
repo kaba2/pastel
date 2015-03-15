@@ -14,10 +14,8 @@ namespace Pastel
 	//! Checks whether a concept is refined.
 	template <typename Concept>
 	struct IsRefined
-	{
-		static PASTEL_CONSTEXPR bool value =
-			Not<std::is_same<BaseConcepts<Concept>, Refines<>>>::value;
-	};
+		: Not<std::is_same<BaseConcepts<Concept>, Refines<>>>
+	{};
 
 }
 

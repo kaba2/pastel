@@ -130,6 +130,8 @@ namespace
 			PASTEL_CONCEPT_CHECK(Green_Goo&, Goo_Concept);
 			PASTEL_CONCEPT_CHECK(Green_Goo&&, Goo_Concept);
 			PASTEL_CONCEPT_CHECK(const Green_Goo, Goo_Concept);
+			PASTEL_CONCEPT_CHECK(const Green_Goo&, Goo_Concept);
+			PASTEL_CONCEPT_CHECK(const Green_Goo&&, Goo_Concept);
 
 			PASTEL_CONCEPT_CHECK(SuperGreen_FooGoo, Goo_Concept);
 			PASTEL_CONCEPT_CHECK(SuperGreen_FooGoo, FooGoo_Concept);
@@ -138,6 +140,8 @@ namespace
 			PASTEL_CONCEPT_CHECK(SuperGreen_FooGoo&, Goo_Concept);
 			PASTEL_CONCEPT_CHECK(SuperGreen_FooGoo&&, Goo_Concept);
 			PASTEL_CONCEPT_CHECK(const SuperGreen_FooGoo, Goo_Concept);
+			PASTEL_CONCEPT_CHECK(const SuperGreen_FooGoo&, Goo_Concept);
+			PASTEL_CONCEPT_CHECK(const SuperGreen_FooGoo&&, Goo_Concept);
 
 			PASTEL_CONCEPT_CHECK_DIRECT(Something_Else, FooGoo_Concept);
 			PASTEL_CONCEPT_REJECT_BASE(Something_Else, FooGoo_Concept);

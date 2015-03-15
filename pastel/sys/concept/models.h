@@ -51,7 +51,7 @@ namespace Pastel
 		template <
 			typename Type, 
 			typename Concept>
-		struct Models
+		struct Models_
 			: And<
 				Models_Directly<Type, Concept>,
 				Models_Base<Type, Concept>
@@ -64,7 +64,7 @@ namespace Pastel
 		typename Type, 
 		typename... ConceptSet>
 	struct Models
-		: And<Models_::Models<Type, ConceptSet>...>
+		: And<Models_::Models_<Type, ConceptSet>...>
 	{};
 
 }
