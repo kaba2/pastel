@@ -6,48 +6,75 @@
 namespace Pastel
 {
 
-	template <
-		template <typename, typename> class Binary_TypeFunction,
-		typename... TypeSet>
-	struct Fold_F;
-
-	template <
-		template <typename, typename> class Binary_TypeFunction,
-		typename Type,
-		typename... TypeSet>
-	struct Fold_F<Binary_TypeFunction, Type, TypeSet...>
+	namespace Fold_
 	{
-		using type = 
-			typename Binary_TypeFunction<
-				Type,
-				typename Fold_F<Binary_TypeFunction, TypeSet...>::type
-			>::type;
-	};
 
-	template <
-		template <typename, typename> class Binary_TypeFunction,
-		typename Type>
-	struct Fold_F<Binary_TypeFunction, Type>
-	{
-		using type = Type;
-	};
+		template <
+			template <typename, typename, typename...> class Binary_TypeFunction,
+			typename Identity,
+			typename... TypeSet>
+		struct Fold_F_;
 
-	template <template <typename, typename> class Binary_TypeFunction>
-	struct Fold_F<Binary_TypeFunction>
-	{
-		using type = void;
-	};
+		template <
+			template <typename, typename, typename...> class Binary_TypeFunction,
+			typename Identity,
+			typename Type,
+			typename... TypeSet>
+		struct Fold_F_<Binary_TypeFunction, Identity, Type, TypeSet...>
+		{
+			using type = 
+				typename Binary_TypeFunction<
+					Type,
+					typename Fold_F_<Binary_TypeFunction, Identity, TypeSet...>::type
+				>::type;
+		};
+
+		template <
+			template <typename, typename, typename...> class Binary_TypeFunction,
+			typename Identity,
+			typename Type>
+		struct Fold_F_<Binary_TypeFunction, Identity, Type>
+		{
+			using type = Type;
+		};
+
+		template <
+			template <typename, typename, typename...> class Binary_TypeFunction,
+			typename Identity>
+		struct Fold_F_<Binary_TypeFunction, Identity>
+		{
+			using type = Identity;
+		};
+
+	}
 
 }
 
 namespace Pastel
 {
 
+	//! Folds types with a binary type-function.
+	/*!
+	Identity:
+	The identity element of the binary operation. 
+	This is returned for the empty fold.
+	*/
 	template <
-		template <typename, typename> class Binary_TypeFunction,
+		template <typename, typename, typename...> class Binary_TypeFunction,
+		typename Identity,
+		typename... TypeSet>
+	struct Fold_F
+	{
+		using type = 
+			typename Fold_::Fold_F_<Binary_TypeFunction, Identity, TypeSet...>::type;
+	};
+
+	template <
+		template <typename, typename, typename...> class Binary_TypeFunction,
+		typename Identity,
 		typename... TypeSet>
 	using Fold = 
-		typename Fold_F<Binary_TypeFunction, TypeSet...>::type;
+		typename Fold_F<Binary_TypeFunction, Identity, TypeSet...>::type;
 
 }
 

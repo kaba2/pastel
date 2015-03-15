@@ -213,14 +213,6 @@ namespace
 
 		void testRefines()
 		{
-			PASTEL_STATIC_ASSERT((!IsRefinesClass<int>::value));
-			PASTEL_STATIC_ASSERT((!IsRefinesClass<Goo_Concept>::value));
-			PASTEL_STATIC_ASSERT((!IsRefinesClass<FooGoo_Concept>::value));
-
-			PASTEL_STATIC_ASSERT((IsRefinesClass<Refines<>>::value));
-			PASTEL_STATIC_ASSERT((IsRefinesClass<Refines<Goo_Concept>>::value));
-			PASTEL_STATIC_ASSERT((IsRefinesClass<Refines<Goo_Concept, FooGoo_Concept>>::value));
-
 			PASTEL_STATIC_ASSERT((!IsRefined<Goo_Concept>::value));
 			PASTEL_STATIC_ASSERT((!IsRefined<Empty_Concept>::value));
 

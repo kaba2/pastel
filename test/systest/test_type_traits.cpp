@@ -21,8 +21,56 @@ namespace
 
 		virtual void run()
 		{
+			testFold();
+			testIsTemplateBaseOf();
+			testTemplateBase();
 			testIsTemplateInstance();
 			testAnd();
+			testOr();
+			testNot();
+		}
+
+		template <
+			typename Left,
+			typename Right>
+		struct Plus
+		{
+			using type = 
+				std::integral_constant<integer, 
+				Left::value + Right::value>;
+		};
+
+		void testFold()
+		{
+			using Identity = std::integral_constant<integer, 0>;
+			{
+				using Sum = Fold<Plus, Identity>;
+			}
+			{
+				using Sum = Fold<Plus, Identity>;
+				PASTEL_STATIC_ASSERT(Sum::value == Identity::value);
+			}
+			{
+				using Sum = 
+					Fold<Plus,
+						Identity,
+						std::integral_constant<integer, 1>
+					>;
+				
+				PASTEL_STATIC_ASSERT(Sum::value == 1);
+			}
+			{
+				using Sum = 
+					Fold<
+						Plus,
+						Identity,
+						std::integral_constant<integer, 1>,
+						std::integral_constant<integer, 2>,
+						std::integral_constant<integer, 3>
+					>;
+
+				PASTEL_STATIC_ASSERT(Sum::value == 6);
+			}
 		}
 
 		template <typename...>
@@ -60,6 +108,47 @@ namespace
 			PASTEL_STATIC_ASSERT((!IsTemplateInstance<A2, B_Template>::value));
 		}
 
+		class C0
+			: public B0
+		{};
+
+		class C1
+			: public B1
+		{};
+
+		class C2
+			: public B2
+		{};
+
+		void testIsTemplateBaseOf()
+		{
+			PASTEL_STATIC_ASSERT((IsTemplateBaseOf<B_Template, C0>::value));
+			PASTEL_STATIC_ASSERT((IsTemplateBaseOf<B_Template, C1>::value));
+			PASTEL_STATIC_ASSERT((IsTemplateBaseOf<B_Template, C2>::value));
+
+			PASTEL_STATIC_ASSERT((!IsTemplateBaseOf<A_Template, C0>::value));
+			PASTEL_STATIC_ASSERT((!IsTemplateBaseOf<A_Template, C1>::value));
+			PASTEL_STATIC_ASSERT((!IsTemplateBaseOf<A_Template, C2>::value));
+
+			PASTEL_STATIC_ASSERT((!IsTemplateBaseOf<A_Template, A0>::value));
+			PASTEL_STATIC_ASSERT((!IsTemplateBaseOf<A_Template, A1>::value));
+			PASTEL_STATIC_ASSERT((!IsTemplateBaseOf<A_Template, A2>::value));
+		}
+
+		void testTemplateBase()
+		{
+			PASTEL_STATIC_ASSERT((
+				std::is_same<TemplateBase<B_Template, C0>, B0>::value));
+			PASTEL_STATIC_ASSERT((
+				std::is_same<TemplateBase<B_Template, C1>, B1>::value));
+			PASTEL_STATIC_ASSERT((
+				std::is_same<TemplateBase<B_Template, C2>, B2>::value));
+			PASTEL_STATIC_ASSERT((
+				std::is_same<TemplateBase<A_Template, C0>, void>::value));
+			PASTEL_STATIC_ASSERT((
+				std::is_same<TemplateBase<B_Template, A0>, void>::value));
+		}
+
 		void testAnd()
 		{
 			PASTEL_STATIC_ASSERT((And<>::value));
@@ -68,6 +157,23 @@ namespace
 			PASTEL_STATIC_ASSERT((!And<std::true_type, std::false_type>::value));
 			PASTEL_STATIC_ASSERT((!And<std::false_type, std::true_type>::value));
 			PASTEL_STATIC_ASSERT((And<std::true_type, std::true_type>::value));
+		}
+
+		void testOr()
+		{
+			PASTEL_STATIC_ASSERT((!Or<>::value));
+			PASTEL_STATIC_ASSERT((Or<std::true_type>::value));
+			PASTEL_STATIC_ASSERT((!Or<std::false_type>::value));
+			PASTEL_STATIC_ASSERT((!Or<std::false_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::true_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::false_type, std::true_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::true_type, std::true_type>::value));
+		}
+
+		void testNot()
+		{
+			PASTEL_STATIC_ASSERT((Not<std::true_type>::value == false));
+			PASTEL_STATIC_ASSERT((Not<std::false_type>::value == true));
 		}
 	};
 

@@ -33,17 +33,16 @@ namespace Pastel
 	struct HasDefaultLocator
 	{
 	private:
-		template <
-			typename T,
-			typename = typename Default_Locator<const T&>::Locator>
-		std::true_type test();
-
 		template <typename T>
-		std::false_type test(...);
+		struct Test
+		{
+			using type =
+				typename Default_Locator<const T&>::Locator;
+		};
 
 	public:
 		static PASTEL_CONSTEXPR bool value =
-			decltype(test<Type>())::value;
+			Compiles<Test, Type>::value;
 	};
 
 }
