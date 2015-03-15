@@ -13,6 +13,7 @@ namespace Pastel
 	template <typename PointSet>
 	auto pointSetPop(PointSet& pointSet)
 	{
+		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 		pointSetInput(pointSet).pop();
 	}
 

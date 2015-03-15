@@ -13,6 +13,8 @@ namespace Pastel
 		auto pointMean(PointSet pointSet)
 		-> Vector<Real, Locator::N>
 	{
+		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
+
 		auto&& locator = pointSetLocator(pointSet);
 
 		integer d = locator.n();

@@ -31,15 +31,23 @@ namespace Pastel
 		{
 			// Type models Concept if it is possible to call
 			// the requires() member function of Concept.
-			// The concept is always given non-const, non-volatile
-			// arguments to work with, no matter what the passed-in
-			// types are.
+			// The concept is always given non-const, non-volatile,
+			// non-reference arguments to work with, no matter what 
+			// the passed-in types are.
 			
 			using type = 
 				decltype(
 					std::declval<Concept>().requires(
-						std::declval<typename std::remove_cv<T>::type>(), 
-						std::declval<typename std::remove_cv<ParameterSet>::type>()...
+						std::declval<
+							typename std::remove_cv<
+								typename std::remove_reference<T>::type
+							>::type
+						>(), 
+						std::declval<
+							typename std::remove_cv<
+								typename std::remove_reference<ParameterSet>::type
+							>::type
+						>()...
 					)
 				);
 			
