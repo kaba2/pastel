@@ -9,28 +9,30 @@
 namespace Pastel
 {
 
-	//! A point and a locator.
+	//! Pairing of a locator and a variable.
 	/*!
 	This class is used to explicitly assign a locator to a 
-	point. An alternative is to assign a default locator for
-	the point-type to by specializing the Default_Locator 
-	class template.
+	variable. An alternative is to assign a default locator for
+	the type by specializing the Default_Locator class template.
 	*/
 	template <
-		typename Point,
+		typename Type,
 		typename Locator>
 	class Location
 	{
 	public:
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+		PASTEL_STATIC_ASSERT((std::is_convertible<Type, Locator_Point<Locator>>::value));
+
 		Location(
-			const Point& point,
+			const Type& point,
 			const Locator& locator)
 			: point_(point)
 			, locator_(locator)
 		{
 		}
 
-		const Point& point() const
+		const Type& point() const
 		{
 			return point_;
 		}
@@ -41,17 +43,19 @@ namespace Pastel
 		}
 
 	private:
-		Point point_;
+		Type point_;
 		Locator locator_;
 	};
 
-	//! Constructs a location from a point and a locator.
-	template <typename Point, typename Locator>
-	Location<Point, Locator> location(
-		const Point& point,
+	//! Constructs a location from a variable and a locator.
+	template <
+		typename Type, 
+		typename Locator>
+	Location<Type, Locator> location(
+		const Type& point,
 		const Locator& locator)
 	{
-		return Location<Point, Locator>(
+		return Location<Type, Locator>(
 			point, locator);
 	}
 

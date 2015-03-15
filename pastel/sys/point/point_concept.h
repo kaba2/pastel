@@ -19,8 +19,18 @@ namespace Pastel
 		typename Constraint = void>
 	class Default_Locator;
 
+	template <
+		typename Point,
+		typename Locator>
+	class Location;
+
+}
+
+namespace Pastel
+{
+
 	template <typename Type>
-	struct IsPoint
+	struct HasDefaultLocator
 	{
 	private:
 		template <
@@ -36,22 +46,24 @@ namespace Pastel
 			decltype(test<Type>())::value;
 	};
 
-	template <typename Point, typename Locator>
-	struct IsPoint<Location<Point, Locator>>
-		: std::true_type
-	{};
+}
+
+namespace Pastel
+{
 
 	struct Point_Concept
 	{
-		// A Point is either an arbitrary type, which has a 
-		// default locator, or a Location, which pairs a point 
-		// with a locator.
-
+		// A Point is either an arbitrary type with a 
+		// default locator, or a Location, which pairs a 
+		// point with a locator.
 		template <typename Type>
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				EnableIf<IsPoint<Type>>()
+				RequiresSome<
+					HasDefaultLocator<Type>,
+					IsTemplateInstance<Type, Location>
+				>()
 			)
 		);
 	};

@@ -34,7 +34,7 @@ namespace Pastel
 				N, if N != Dynamic, and
 				non-negative integer, otherwise.
 				*/
-				Concept::convertsTo<integer>(t.n()),
+				Concept::convertsTo<integer>(addConst(t).n()),
 
 				//! Swaps two locators.
 				(t.swap(t), 0),
@@ -45,11 +45,32 @@ namespace Pastel
 				0 <= i < n()
 				*/
 				Concept::convertsTo<typename Type::Real>(
-					t(std::declval<typename Type::Point>(),
+					addConst(t)(std::declval<typename Type::Point>(),
 					  (integer)0))
 			)
 		);
 	};
+
+	struct Locator_Archetype
+	{
+		static PASTEL_CONSTEXPR integer N = 1;
+		using Real = real;
+		using Point = real;
+
+		void swap(Locator_Archetype& that) {}
+
+		const Real& operator()(const Point& point, integer i) const
+		{
+			return point;
+		}
+
+		integer n() const
+		{
+			return 1;
+		}
+	};
+
+	PASTEL_CONCEPT_CHECK(Locator_Archetype, Locator_Concept);
 
 }
 

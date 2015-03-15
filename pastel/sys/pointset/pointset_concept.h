@@ -7,18 +7,28 @@
 #include "pastel/sys/input/input_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/locator/location_set.h"
+#include "pastel/sys/type_traits/is_template_instance.h"
+#include "pastel/sys/type_traits/or.h"
 
 namespace Pastel
 {
 
-	namespace PointSet_Concept
+	struct PointSet_Concept
 	{
-
-		// A model of the PointSet concept is either 
-		// * a model of the Input, with Point elements, or
+		// A PointSet is either 
+		// * an Input, or
 		// * a LocationSet, which pairs an Input with a Locator.
-
-	}
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				RequiresSome<
+					Models<Type, Input_Concept>,
+					IsTemplateInstance<Type, LocationSet>
+				>()
+			)
+		);
+	};
 
 }
 

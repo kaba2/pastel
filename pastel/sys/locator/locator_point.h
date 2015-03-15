@@ -8,19 +8,17 @@
 namespace Pastel
 {
 
-	namespace Locator_
+	template <typename Locator>
+	struct Locator_Point_F
 	{
-
-		template <typename Locator>
-		struct Locator_Point
-		{
-			using type = typename Locator::Point;
-		};
-
-	}
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+		
+		using type = typename Locator::Point;
+	};
 
 	template <typename Locator>
-	using Locator_Point = typename Locator_::Locator_Point<Locator>::type;
+	using Locator_Point = 
+		typename Locator_Point_F<Locator>::type;
 
 }
 

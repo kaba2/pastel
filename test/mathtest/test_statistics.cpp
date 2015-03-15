@@ -41,6 +41,9 @@ namespace
 				std::vector<Point> aSet = { -1, 7, 4, -3, 7, 8 };
 				std::vector<Point> bSet = { -6, 4, 3, 2, -6, -1 };
 
+				using PointSet = decltype(rangeInput(aSet));
+				PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
+
 				TEST_ENSURE(allEqual(pointMean(rangeInput(aSet)), Real(11, 3)));
 				TEST_ENSURE(allEqual(pointVariance(rangeInput(aSet), false), Real(322, 15)));
 				TEST_ENSURE(allEqual(pointVariance(rangeInput(aSet)), Real(322, 18)));
@@ -52,6 +55,7 @@ namespace
 				TEST_ENSURE(scalarCovariance<Real>(rangeInput(aSet), rangeInput(bSet), false) == Real(14, 15));
 				TEST_ENSURE(scalarMeanSquareError<Real>(rangeInput(aSet), rangeInput(bSet)) == Real(310, 6));
 			}
+			/*
 			{
 				std::vector<Real> aSet = { -1, 7, 4, -3, 7, 8 };
 				std::vector<Real> bSet = { -6, 4, 3, 2, -6, -1 };
@@ -77,6 +81,7 @@ namespace
 				TEST_ENSURE(pointVariance(locationSet(rangeInput(aSet), Locator()), false) == Point(Real(322, 15), Real(298, 15)));
 				TEST_ENSURE(pointVariance(locationSet(rangeInput(aSet), Locator())) == Point(Real(322, 18), Real(298, 18)));
 			}
+			*/
 		}
 	};
 

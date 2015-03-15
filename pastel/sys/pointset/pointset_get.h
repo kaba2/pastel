@@ -11,20 +11,34 @@
 namespace Pastel
 {
 
-	template <typename Point_Input>
-	auto pointSetGet(const Point_Input& pointSet)
-	-> decltype(pointSet.get())
+	namespace PointSet_
 	{
-		return pointSet.get();
+
+		template <typename Point_Input>
+		decltype(auto) pointSetGet(
+			const Point_Input& pointSet)
+		{
+			return pointSet.get();
+		}
+
+		template <
+			typename Point_Input,
+			typename Locator>
+		decltype(auto) pointSetGet(
+			const LocationSet<Point_Input, Locator>& pointSet)
+		{
+			return location(
+				pointSet.pointInput().get(), 
+				pointSet.locator());
+		}
+
 	}
 
-	template <
-		typename Point_Input,
-		typename Locator>
-	auto pointSetGet(const LocationSet<Point_Input, Locator>& pointSet)
-	-> decltype(location(pointSet.pointInput().get(), pointSet.locator()))
+	template <typename PointSet>
+	decltype(auto) pointSetGet(const PointSet& pointSet)
 	{
-		return location(pointSet.pointInput().get(), pointSet.locator());
+		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
+		return PointSet_::pointSetGet(pointSet);
 	}
 
 }

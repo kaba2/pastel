@@ -5,5 +5,6 @@
 
 #include "pastel/sys/type_traits/and.h"
 #include "pastel/sys/type_traits/is_template_instance.h"
+#include "pastel/sys/type_traits/or.h"
 
 #endif

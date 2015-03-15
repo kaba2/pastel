@@ -5,6 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/type_traits/and.h"
+#include "pastel/sys/type_traits/or.h"
 
 #include <type_traits>
 
@@ -40,6 +41,9 @@ namespace Pastel
 
 	template <typename... BoolSet>
 	using Requires = EnableIf<And<BoolSet...>>;
+
+	template <typename... BoolSet>
+	using RequiresSome = EnableIf<Or<BoolSet...>>;
 
 	namespace Concept
 	{

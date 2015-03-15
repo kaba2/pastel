@@ -30,7 +30,7 @@ namespace Pastel
 	private:
 		template <typename... ConceptSet>
 		static auto test(Refines<ConceptSet...>&&)
-		-> std::integral_constant<bool, Models<Type, ConceptSet...>::value>;
+		-> Models<Type, ConceptSet...>;
 		
 		// The concept does not refine other concepts.
 		static std::true_type test(...);
@@ -45,21 +45,26 @@ namespace Pastel
 namespace Pastel
 {
 
+	namespace Models_
+	{
+
+		template <
+			typename Type, 
+			typename Concept>
+		struct Models
+			: And<
+				Models_Directly<Type, Concept>,
+				Models_Base<Type, Concept>
+			>
+		{};
+
+	}
+
 	template <
 		typename Type, 
-		typename Concept, 
 		typename... ConceptSet>
-	struct Models<Type, Concept, ConceptSet...>
-	{
-		static PASTEL_CONSTEXPR bool value =
-			Models_Directly<Type, Concept>::value &&
-			Models_Base<Type, Concept>::value &&
-			Models<Type, ConceptSet...>::value;
-	};
-
-	template <typename Type>
-	struct Models<Type>
-		: std::true_type
+	struct Models
+		: And<Models_::Models<Type, ConceptSet>...>
 	{};
 
 }
