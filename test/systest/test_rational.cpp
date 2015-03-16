@@ -4,7 +4,8 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/rational.h"
-#include "pastel/sys/integer/biginteger.h"
+#include "pastel/sys/integer/multi_integer.h"
+#include "pastel/sys/math/mod.h"
 
 #include <iostream>
 
@@ -13,8 +14,11 @@ namespace
 
 	using namespace Pastel;
 
-	using Integer = BigInteger;
+	using Integer = Signed_Integer<128>;
+	PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
+
 	using Rat = Rational<Integer>;
+	PASTEL_CONCEPT_CHECK_BASE(Rat, Real_Concept);
 
 	class Test
 		: public TestSuite
@@ -27,6 +31,9 @@ namespace
 
 		virtual void run()
 		{
+			testClassify();
+			testFloor();
+			testCeil();
 			testSyntax();
 			testSimple();
 			testSpecial();
@@ -34,6 +41,130 @@ namespace
 			testMultiply();
 			testFloat();
 			testDouble();
+		}
+
+		void testClassify()
+		{
+			{
+				TEST_ENSURE(!negative(-nan<Rat>()));
+				TEST_ENSURE(negative(-infinity<Rat>()));
+				TEST_ENSURE(negative(Rat(-2)));
+				TEST_ENSURE(negative(Rat(-1)));
+				TEST_ENSURE(!negative(Rat(0)));
+				TEST_ENSURE(!negative(Rat(1)));
+				TEST_ENSURE(!negative(Rat(2)));
+				TEST_ENSURE(!negative(infinity<Rat>()));
+				TEST_ENSURE(!negative(nan<Rat>()));
+			}
+			{
+				TEST_ENSURE(!positive(-nan<Rat>()));
+				TEST_ENSURE(!positive(-infinity<Rat>()));
+				TEST_ENSURE(!positive(Rat(-2)));
+				TEST_ENSURE(!positive(Rat(-1)));
+				TEST_ENSURE(!positive(Rat(0)));
+				TEST_ENSURE(positive(Rat(1)));
+				TEST_ENSURE(positive(Rat(2)));
+				TEST_ENSURE(positive(infinity<Rat>()));
+				TEST_ENSURE(!positive(nan<Rat>()));
+			}
+			{
+				TEST_ENSURE(!zero(-nan<Rat>()));
+				TEST_ENSURE(!zero(-infinity<Rat>()));
+				TEST_ENSURE(!zero(Rat(-2)));
+				TEST_ENSURE(!zero(Rat(-1)));
+				TEST_ENSURE(zero(Rat(0)));
+				TEST_ENSURE(!zero(Rat(1)));
+				TEST_ENSURE(!zero(Rat(2)));
+				TEST_ENSURE(!zero(infinity<Rat>()));
+				TEST_ENSURE(!zero(nan<Rat>()));
+			}
+			{
+				TEST_ENSURE(!-nan<Rat>().isInfinity());
+				TEST_ENSURE(!(-infinity<Rat>()).isInfinity());
+				TEST_ENSURE(!Rat(-2).isInfinity());
+				TEST_ENSURE(!Rat(-1).isInfinity());
+				TEST_ENSURE(!Rat(0).isInfinity());
+				TEST_ENSURE(!Rat(1).isInfinity());
+				TEST_ENSURE(!Rat(2).isInfinity());
+				TEST_ENSURE(infinity<Rat>().isInfinity());
+				TEST_ENSURE(!nan<Rat>().isInfinity());
+			}
+			{
+				TEST_ENSURE((-nan<Rat>()).isNan());
+				TEST_ENSURE(!-infinity<Rat>().isNan());
+				TEST_ENSURE(!Rat(-2).isNan());
+				TEST_ENSURE(!Rat(-1).isNan());
+				TEST_ENSURE(!Rat(0).isNan());
+				TEST_ENSURE(!Rat(1).isNan());
+				TEST_ENSURE(!Rat(2).isNan());
+				TEST_ENSURE(nan<Rat>().isNan());
+			}
+			{
+				TEST_ENSURE(!-nan<Rat>().isInteger());
+				TEST_ENSURE(!-infinity<Rat>().isInteger());
+				TEST_ENSURE(Rat(-2).isInteger());
+				TEST_ENSURE(Rat(-1).isInteger());
+				TEST_ENSURE(Rat(0).isInteger());
+				TEST_ENSURE(Rat(1).isInteger());
+				TEST_ENSURE(Rat(2).isInteger());
+				TEST_ENSURE(!infinity<Rat>().isInteger());
+				TEST_ENSURE(!nan<Rat>().isInteger());
+				TEST_ENSURE(Rat(2, 2).isInteger());
+			}
+		}
+
+		void testFloor()
+		{
+			TEST_ENSURE(floor(-infinity<Rat>()) == -infinity<Rat>());
+			TEST_ENSURE(floor(Rat(-2)) == -2);
+			TEST_ENSURE(floor(Rat(-1)) == -1);
+			TEST_ENSURE(floor(Rat(0)) == 0);
+			TEST_ENSURE(floor(Rat(1)) == 1);
+			TEST_ENSURE(floor(Rat(2)) == 2);
+			TEST_ENSURE(floor(infinity<Rat>()) == infinity<Rat>());
+
+			TEST_ENSURE(floor(Rat(1, 2)) == 0);
+			TEST_ENSURE(floor(Rat(1, 3)) == 0);
+			TEST_ENSURE(floor(Rat(1, 4)) == 0);
+			TEST_ENSURE(floor(Rat(1, 5)) == 0);
+
+			TEST_ENSURE(floor(Rat(4, 1)) == 4);
+			TEST_ENSURE(floor(Rat(4, 2)) == 2);
+			TEST_ENSURE(floor(Rat(4, 3)) == 1);
+			TEST_ENSURE(floor(Rat(4, 4)) == 1);
+
+			TEST_ENSURE(floor(Rat(-4, 1)) == -4);
+			TEST_ENSURE(floor(Rat(-4, 2)) == -2);
+			TEST_ENSURE(floor(Rat(-4, 3)) == -2);
+			TEST_ENSURE(floor(Rat(-4, 4)) == -1);
+		}
+
+		void testCeil()
+		{
+			TEST_ENSURE(ceil(-infinity<Rat>()) == -infinity<Rat>());
+			TEST_ENSURE(ceil(Rat(-2)) == -2);
+			TEST_ENSURE(ceil(Rat(-1)) == -1);
+			TEST_ENSURE(ceil(Rat(0)) == 0);
+			TEST_ENSURE(ceil(Rat(1)) == 1);
+			TEST_ENSURE(ceil(Rat(2)) == 2);
+			TEST_ENSURE(ceil(infinity<Rat>()) == infinity<Rat>());
+
+			TEST_ENSURE(ceil(Rat(1, 2)) == 1);
+			TEST_ENSURE(ceil(Rat(1, 3)) == 1);
+			TEST_ENSURE(ceil(Rat(1, 4)) == 1);
+			TEST_ENSURE(ceil(Rat(1, 5)) == 1);
+
+			TEST_ENSURE(ceil(Rat(4, 1)) == 4);
+			TEST_ENSURE(ceil(Rat(4, 2)) == 2);
+			TEST_ENSURE(ceil(Rat(4, 3)) == 2);
+			TEST_ENSURE(ceil(Rat(4, 4)) == 1);
+
+			TEST_ENSURE(ceil(Rat(-4, 1)) == -4);
+			TEST_ENSURE(ceil(Rat(-4, 2)) == -2);
+			TEST_ENSURE(ceil(Rat(-4, 3)) == -1);
+			TEST_ENSURE(ceil(Rat(-4, 4)) == -1);
+
+			TEST_ENSURE(mod(Rat(4, 3)) == Rat(1, 3));
 		}
 
 		void testSimple()
@@ -57,8 +188,8 @@ namespace
 			{
 				Rat a(5 * 1234235, 7 * 1234235);
 				TEST_ENSURE(a == Rat(5, 7));
-				TEST_ENSURE(a.numerator() == 5);
-				TEST_ENSURE(a.denominator() == 7);
+				TEST_ENSURE(a.m() == 5);
+				TEST_ENSURE(a.n() == 7);
 			}
 			{
 				Rat a(2, 5);

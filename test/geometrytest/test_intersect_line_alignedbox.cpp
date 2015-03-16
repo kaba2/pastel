@@ -3,7 +3,6 @@
 
 #include "test_pastelgeometry.h"
 
-#include "pastel/sys/integer/biginteger.h"
 #include "pastel/sys/rational.h"
 #include "pastel/geometry/intersect/intersect_line_alignedbox.h"
 
@@ -14,7 +13,7 @@ using namespace Pastel;
 namespace
 {
 
-	using Real = Rational<BigInteger>;
+	using Real = Rational<integer>;
 
 	class Test
 		: public TestSuite

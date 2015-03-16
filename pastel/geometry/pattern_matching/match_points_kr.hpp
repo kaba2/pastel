@@ -84,7 +84,7 @@ namespace Pastel
 				Real maxRelativeError = 1;
 
 				integer minMatches =
-					std::min((integer)std::ceil(minMatchRatio * modelSet.size()),
+					std::min((integer)ceil(minMatchRatio * (integer)modelSet.size()),
 					(integer)modelSet.size());
 
 				PairSet bestPairSet;
@@ -278,11 +278,11 @@ namespace Pastel
 		setOptionals(o);
 
 		ENSURE_OP(o.kNearest, >, 0);
-		ENSURE_OP(o.minMatchRatio, >=, 0);
-		ENSURE_OP(o.minMatchRatio, <=, 1);
-		ENSURE_OP(o.matchingDistance, >=, 0);
-		ENSURE_OP(o.maxBias, >=, 0);
-		ENSURE_OP(o.maxBias, <=, 1);
+		ENSURE(o.minMatchRatio >= 0);
+		ENSURE(o.minMatchRatio <= 1);
+		ENSURE(o.matchingDistance >= 0);
+		ENSURE(o.maxBias >= 0);
+		ENSURE(o.maxBias <= 1);
 
 		MatchPointsKr_::PointPatternKr<
 			Model_Settings, Model_Customization,

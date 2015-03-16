@@ -52,9 +52,15 @@ namespace Pastel
 	0 <= x < 1
 
 	Returns:
-	x - std::floor(x)
+	x - floor(x)
 	*/
-	template <typename Real, EnableIf<std::is_floating_point<Real>> = 0>
+	template <
+		typename Real, 
+		typename = 
+			Requires<
+				Models<Real, Real_Concept>
+			>
+		>
 	Real mod(const Real& x);
 
 	//! Returns x mod n.
@@ -62,10 +68,16 @@ namespace Pastel
 	Preconditions:
 	n > 0
 
-	This is a convenience function that calls
+	This is a convenience function that returns
 	mod(x / n) * n
 	*/
-	template <typename Real, EnableIf<std::is_floating_point<Real>> = 0>
+	template <
+		typename Real, 
+		typename = 
+			Requires<
+				Models<Real, Real_Concept>
+			>
+		>
 	Real mod(const Real& x, const Real& n);
 
 }

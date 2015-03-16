@@ -74,13 +74,17 @@ namespace Pastel
 		return n - absMod;
 	}
 
-	template <typename Real, EnableIf<std::is_floating_point<Real>>>
+	template <
+		typename Real, 
+		typename>
 	Real mod(const Real& x)
 	{
-		return x - std::floor(x);
+		return x - floor(x);
 	}
 
-	template <typename Real, EnableIf<std::is_floating_point<Real>>>
+	template <
+		typename Real, 
+		typename>
 	Real mod(const Real& x, const Real& n)
 	{
 		PENSURE_OP(n, >, 0);

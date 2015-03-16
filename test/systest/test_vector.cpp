@@ -5,7 +5,6 @@
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/integer/biginteger.h"
 
 using namespace Pastel;
 
@@ -64,8 +63,6 @@ namespace
 		template <int N>
 		void testNullPointerStatic()
 		{
-			using Real = Rational<BigInteger>;
-
 			Vector<Real, N> au2(0);
 			Vector<Real, N> au3(0.0);
 

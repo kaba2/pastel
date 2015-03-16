@@ -37,11 +37,13 @@ namespace
 	struct Doo_Concept
 	{
 		template <typename Type, typename A_Goo>
-		auto requires(Type&& t, A_Goo&& a) -> decltype(
+		auto requires(Type&& t, A_Goo&& a) -> decltype
+		(
 			conceptCheck(
 				Concept::isModelOf<Goo_Concept>(a),
-				t += a
-			));
+				Concept::hasType<Type&>(t += a)
+			)
+		);
 	};
 
 	struct Empty_Concept
@@ -224,6 +226,21 @@ namespace
 			PASTEL_STATIC_ASSERT((!IsRefined<Baseless_Concept>::value));
 		}
 
+		void testBaseConcepts()
+		{
+			PASTEL_STATIC_ASSERT((
+				std::is_same<
+					BaseConcepts<Goo_Concept>,
+					Refines<>
+				>::value));
+
+			PASTEL_STATIC_ASSERT((
+				std::is_same<
+					BaseConcepts<FooGoo_Concept>,
+					Refines<Goo_Concept>
+				>::value));
+		}
+
 		void testFirstModeledConcept()
 		{
 			PASTEL_STATIC_ASSERT((
@@ -281,6 +298,27 @@ namespace
 				std::is_same<
 					MostRefinedConcept<Something_Else, FooGoo_Concept>, 
 					void
+				>::value));
+		}
+
+		void testCoarsestFailedConcept()
+		{
+			PASTEL_STATIC_ASSERT((
+				std::is_same<
+					CoarsestFailedConcept<Green_Goo, FooGoo_Concept>, 
+					Refines<FooGoo_Concept>
+				>::value));
+
+			PASTEL_STATIC_ASSERT((
+				std::is_same<
+					CoarsestFailedConcept<SuperGreen_FooGoo, FooGoo_Concept>, 
+					Refines<>
+				>::value));
+
+			PASTEL_STATIC_ASSERT((
+				std::is_same<
+					CoarsestFailedConcept<Something_Else, FooGoo_Concept>, 
+					Refines<Goo_Concept>
 				>::value));
 		}
 	};

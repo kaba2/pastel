@@ -76,12 +76,11 @@ namespace Pastel
 	{
 
 		template <
-			typename Concept, 
-			typename Type>
-		auto isModelOf(Type&& that) -> decltype
-		(
-			Models<Type, Concept>::value
-		);
+			typename Concept_, 
+			typename Type
+			>
+		auto isModelOf(Type&& that) -> 
+			EnableIf<Models<Type, Concept_>>;
 
 	}
 

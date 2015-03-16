@@ -61,5 +61,5 @@ It holds that:
 Thus we can simply speak of Infinity and -Infinity.
 The `Rational` class maintains two invariants:
 
-* If the number is not NaN, GCD(numerator, denominator) = 1.
-* denominator >= 0.
+* If the number is not NaN, GCD(m, n) = 1.
+* n >= 0.

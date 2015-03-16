@@ -53,13 +53,14 @@ namespace Pastel
 	template <typename Integer_Settings>
 	class MultiInteger
 	: boost::bitwise<MultiInteger<Integer_Settings>
-	, boost::ring_operators<MultiInteger<Integer_Settings>
+	, boost::ordered_euclidean_ring_operators<MultiInteger<Integer_Settings>
 	, boost::unit_steppable<MultiInteger<Integer_Settings>
 	, boost::shiftable2<MultiInteger<Integer_Settings>, integer
-	, boost::totally_ordered<MultiInteger<Integer_Settings>
-	> > > > >
+	> > > >
 	{
 	private:
+		PASTEL_CONCEPT_CHECK(Integer_Settings, MultiInteger_Settings_Concept)
+
 		struct Signed_Tag {};
 		struct Unsigned_Tag {};
 		
@@ -733,6 +734,58 @@ namespace Pastel
 			return *this;
 		}
 
+		//! Divides this with 'that'.
+		/*!
+		Time complexity: O(N^2)
+		Exception safety: nothrow
+		*/
+		MultiInteger& operator/=(const MultiInteger& that)
+		{
+			ENSURE(!zero(that));
+
+			if (zero(*this))
+			{
+				return *this;
+			}
+
+			MultiInteger left = *this;
+			const MultiInteger& right = that;
+			MultiInteger& result = *this;
+
+			clearBits();
+
+			integer iLeft = Words - 1;
+			while(left.word(iLeft) == 0)
+			{
+				--iLeft;
+			}
+			ASSERT_OP(iLeft, >=, 0);
+
+			integer iRight = Words - 1;
+			while(right.word(iRight) == 0)
+			{
+				--iRight;
+			}
+			ASSERT_OP(iRight, >=, 0);
+
+			while(iLeft >= iRight)
+			{
+				if (left.word(iLeft) > 0)
+				{
+					Word wholes = 
+						left.word(iLeft) / right.word(iRight);
+					result.wordSet_[iLeft - iRight] = wholes;
+					left -= wholes * right;
+				}
+
+				--iLeft;
+			}
+
+			signExtend();
+
+			return *this;
+		}
+
 		//! Adds 1 to this.
 		/*!
 		Time complexity: O(N)
@@ -1013,102 +1066,6 @@ namespace Pastel
 
 }
 
-namespace Pastel
-{
-
-	// Fixed integer
-
-	//! Returns the number of bits in 'that'.
-	/*!
-	Time complexity: O(1)
-	Exception safety: nothrow
-	*/
-	template <typename Integer_Settings>
-	integer bits(const MultiInteger<Integer_Settings>& that)
-	{
-		return Integer_Settings::N;
-	}
-
-	// Integer
-
-	//! Returns whether 'that' is odd.
-	/*!
-	Time complexity: O(1)
-	Exception safety: nothrow
-	*/
-	template <typename Integer_Settings>
-	bool odd(const MultiInteger<Integer_Settings>& that)
-	{
-		return that.bit(0);
-	}
-
-	//! Returns whether 'that' is even.
-	/*!
-	Time complexity: O(1)
-	Exception safety: nothrow
-	*/
-	template <typename Integer_Settings>
-	bool even(const MultiInteger<Integer_Settings>& that)
-	{
-		return !odd(that);
-	}
-
-	// Ordered additive monoid
-
-	//! Returns the absolute value of 'that'.
-	/*!
-	Time complexity: O(N)
-	Exception safety: nothrow
-	*/
-	template <typename Integer_Settings>
-	MultiInteger<Integer_Settings> abs(
-		const MultiInteger<Integer_Settings>& that)
-	{
-		return (!Integer_Settings::Signed || positive(that)) ? that : -that;
-	}
-
-	//! Returns whether 'that' is negative.
-	/*!
-	Time complexity: O(1)
-	Exception safety: nothrow
-	*/
-	template <typename Integer_Settings>
-	bool negative(const MultiInteger<Integer_Settings>& that)
-	{
-		// Since the integer is in two's complement
-		// form, we may look at the last word.
-		return Integer_Settings::Signed &&
-			twosComplementNegative(that.word(that.words() - 1));
-	}
-
-	//! Returns whether 'that' is positive.
-	/*!
-	Time complexity: O(N)
-	Exception safety: nothrow
-	*/
-	template <typename Integer_Settings>
-	bool positive(const MultiInteger<Integer_Settings>& that)
-	{
-		return !negative(that) && !zero(that);
-	}
-
-	// Additive monoid
-
-	//! Returns whether 'that' is zero.
-	/*!
-	Time complexity: O(N)
-	Exception safety: nothrow
-	*/
-	template <typename Integer_Settings>
-	bool zero(const MultiInteger<Integer_Settings>& that)
-	{
-		using Word = typename Integer_Settings::Word;
-		return std::all_of(
-			that.cwordBegin(), that.cwordEnd(),
-			[](const Word& word) {return word == 0;});
-	}
-
-}
 
 #include "pastel/sys/bit/number_of_one_bits.h"
 
@@ -1133,30 +1090,8 @@ namespace Pastel
 
 }
 
-#include <iostream>
-#include <iomanip>
-
-namespace Pastel
-{
-
-	template <typename Integer_Settings>
-	std::ostream& operator<<(
-		std::ostream& stream, 
-		const MultiInteger<Integer_Settings>& that)
-	{
-		for (integer i = that.words() - 1;i >= 0;--i)
-		{
-			stream << std::setw(that.BitsInWord / 4)
-				<< std::setfill('0')
-				<< std::hex
-				<< (uinteger)that.word(i);
-		}
-
-		return stream;
-	}
-
-}
-
+#include "pastel/sys/integer/multi_integer/multi_integer_as_integer.hpp"
 #include "pastel/sys/integer/multi_integer/multi_integer_hash.h"
+#include "pastel/sys/integer/multi_integer/multi_integer_stream.hpp"
 
 #endif

@@ -9,42 +9,48 @@
 namespace Pastel
 {
 
-	namespace MultiInteger_Concepts
+	struct MultiInteger_Settings_Concept
 	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				//! The number of bits in the integer.
+				Concept::convertsTo<integer>(Type::N),
 
-		class MultiInteger_Settings_Concept
-		{
-		public:
-			//! The number of bits in the integer.
-			static PASTEL_CONSTEXPR int N = UserDefinedInteger;
+				//! The type of the underlying word.
+				/*!
+				The basic type from which to build the integer.
+				Choosing this type other than uinteger is mainly 
+				useful for testing the correctness of the 
+				implementation, although for small bit-counts 
+				one may also choose to minimize the wasted space 
+				by choosing the basic type smaller.
+				*/
+				Concept::holds<std::is_unsigned<typename Type::Word>>(),
 
-			//! The type of the underlying word.
-			/*!
-			Preconditions:
-			std::is_unsigned<Word>
+				//! Whether to interpret as a signed integer.
+				/*!
+				If Signed is true, then the integer is interpreted
+				as a signed integer in two's complement form.
+				If Signed is false, then the integer is interpreted
+				as an unsigned integer, so that it's always
+				positive, and the arithmetic works modulo 2^N,
+				except for the division.
+				*/
+				Concept::convertsTo<bool>(Type::Signed)
+			)
+		);
+	};
 
-			The basic type from which to build the integer.
-			Choosing this type other than uinteger is mainly 
-			useful for testing the correctness of the 
-			implementation, although for small bit-counts 
-			one may also choose to minimize the wasted space 
-			by choosing the basic type smaller.
-			*/
-			using Word = UserDefinedType;
+	struct MultiInteger_Settings_Archetype
+	{
+		static PASTEL_CONSTEXPR int N = 2;
+		using Word = uint32;
+		static PASTEL_CONSTEXPR bool Signed = true;
+	};
 
-			//! Whether to interpret as a signed integer.
-			/*!
-			If Signed is true, then the integer is interpreted
-			as a signed integer in two's complement form.
-			If Signed is false, then the integer is interpreted
-			as an unsigned integer, so that it's always
-			positive, and the arithmetic works modulo 2^N,
-			except for the division.
-			*/
-			static PASTEL_CONSTEXPR bool Signed = UserDefinedBoolean;
-		};
-
-	}
+	PASTEL_CONCEPT_CHECK(MultiInteger_Settings_Archetype, MultiInteger_Settings_Concept);
 
 }
 

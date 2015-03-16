@@ -32,14 +32,14 @@ namespace Pastel
 		// If dot(N, D) == 0, then
 		// the line and plane are parallel.
 
-		Real denominator = dot(line.direction(), plane.normal());
-		Real numerator = dot(plane.normal(), plane.position() - line.position());
+		Real n = dot(line.direction(), plane.normal());
+		Real m = dot(plane.normal(), plane.position() - line.position());
 
 		// EPSILON
-		if (denominator == 0)
+		if (n == 0)
 		{
 			// EPSILON
-			if (numerator == 0)
+			if (m == 0)
 			{
 				t = 0;
 				return true;
@@ -47,7 +47,7 @@ namespace Pastel
 			return false;
 		}
 
-		t = numerator / denominator;
+		t = m / n;
 
 		return true;
 	}

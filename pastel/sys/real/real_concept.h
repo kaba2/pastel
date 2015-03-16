@@ -19,7 +19,7 @@ namespace Pastel
 		template <typename Type>
 		auto requires(Type&& t) -> decltype(
 			conceptCheck(
-				//! Default-constructed Type's assume value 0.
+				//! Constructs with value 0.
 				Type(),
 				//! Constructs from an int8.
 				Type((int8)0),
@@ -39,8 +39,12 @@ namespace Pastel
 				Type((double)0),
 				//! Returns infinity.	
 				Concept::convertsTo<Type>(infinity<Type>()),
+				//! Returns whether a number is infinity.
+				Concept::convertsTo<bool>(isInfinity(t)),
 				//! Returns not-a-number.	
 				Concept::convertsTo<Type>(nan<Type>()),
+				//! Returns whether a number is not-a-number.
+				Concept::convertsTo<bool>(isNan(t)),
 				//! Returns 1 / that.	
 				Concept::convertsTo<Type>(inverse(t)),
 				//! Returns the greatest integer <= that.
