@@ -12,11 +12,9 @@ namespace Pastel
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere)
 	{
-		AlignedBox<Real, N> result(
+		return AlignedBox<Real, N>(
 			sphere.position() - sphere.radius(),
 			sphere.position() + sphere.radius());
-
-		return result;
 	}
 
 	template <typename Real, int N>
@@ -54,19 +52,16 @@ namespace Pastel
 			sqrt(
 				diagonal(
 					transformation.matrix() * 
-					transpose(
-						transformation.matrix()
-					)
+					transpose(transformation.matrix())
 				)
 			) * sphere.radius();
 
 		Vector<Real, N> center =
 			transformPoint(transformation, sphere.position());
 
-		AlignedBox<Real, N> result(
-			center - radius, center + radius);
-
-		return result;
+		return AlignedBox<Real, N>(
+			center - radius, 
+			center + radius);
 	}
 
 }
