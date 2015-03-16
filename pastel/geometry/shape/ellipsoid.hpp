@@ -48,16 +48,9 @@ namespace Pastel
 		//
 		// The unit sphere is given by S = I. Thus if we are given
 		// a linear transformation of this sphere then
-		// the resulting quadric has S' = L^-T L^-1.
+		// the resulting quadric has S' = L^-T L^-1 = (L L^T)^-1.
 
-		// Of course, we work with row vectors
-		// and thus the correct matrix to return is
-		// ((L^T)^-T (L^T)^-1)^T = L^-1 L^-T.
-
-		Matrix<Real> result = inverse(basis);
-		result *= transpose(result);
-		
-		return result;
+		return inverse(basis * transpose(basis));
 	}
 
 	template <typename Real>
@@ -140,14 +133,10 @@ namespace Pastel
 		// e_i^T x = +/- sqrt(e_i^T S^-1 e_i)
 		// = +/- sqrt(S^-1(i, i))
 
-		Matrix<Real> invQuadraticForm =
-			inverse(quadraticForm);
+		Vector<Real> radius = 
+			sqrt(diagonal(inverse(quadraticForm)));
 
-		Vector<Real> radius = sqrt(diagonal(invQuadraticForm));
-
-		AlignedBox<Real> bound(-radius, radius);
-
-		return bound;
+		return AlignedBox<Real>(-radius, radius);
 	}
 
 }
