@@ -15,7 +15,7 @@ namespace Pastel
 	{
 
 		template <typename PointSet>
-		struct PointSet_Real
+		struct PointSet_Real_F_
 		{
 			PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
@@ -25,8 +25,11 @@ namespace Pastel
 	}
 
 	template <typename... PointSetSet>
-	using PointSet_Real_F =
-		std::common_type<typename PointSet_::PointSet_Real<PointSetSet>::type...>;
+	struct PointSet_Real_F
+	{
+		using type = 
+			std::common_type_t<typename PointSet_::PointSet_Real_F_<PointSetSet>::type...>;
+	};
 
 	template <typename... PointSetSet>
 	using PointSet_Real =

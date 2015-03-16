@@ -3,7 +3,7 @@
 #ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_POINTSET_H
 #define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_POINTSET_H
 
-#include "pastel/sys/input/input_concept.h"
+#include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/locator/locator_concept.h"
 
 #include "pastel/geometry/shape/alignedbox.h"
@@ -13,18 +13,14 @@ namespace Pastel
 
 	//! Bounding aligned box of a point set.
 	template <
-		typename Input,
-		typename Locator,
+		typename PointSet,
 		typename = 
 			Requires<
-				Models<Input, Input_Concept>, 
-				Models<Locator, Locator_Concept>
+				Models<PointSet, PointSet_Concept>
 			>
 	>
-	auto boundingAlignedBox(
-		Input pointSet,
-		const Locator& locator)
-	-> AlignedBox<Locator_Real<Locator>, Locator::N>;
+	auto boundingAlignedBox(PointSet pointSet)
+	-> AlignedBox<PointSet_Real<PointSet>, PointSet_N<PointSet>::value>;
 
 }
 
