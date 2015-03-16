@@ -3,7 +3,6 @@
 #ifndef PASTELSYS_INTEGER_H_MODULE
 #define PASTELSYS_INTEGER_H_MODULE
 
-#include "pastel/sys/integer/biginteger.h"
 #include "pastel/sys/integer/gcd.h"
 #include "pastel/sys/integer/integer_concept.h"
 #include "pastel/sys/integer/multi_integer.h"
