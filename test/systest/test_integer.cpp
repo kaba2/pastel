@@ -31,6 +31,7 @@ namespace
 			testCounting();
 			testSetBits();
 			testMultiplication();
+			testDivision();
 			testNumberOfOneBits();
 		}
 
@@ -583,6 +584,22 @@ namespace
 					for (integer j = -127; j <= 128; ++j)
 					{
 						TEST_ENSURE(F(i) * F(j) == F(i * j));
+					}
+				}
+			}
+		}
+
+		void testDivision()
+		{
+			{
+				using F = Unsigned_Integer<20, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
+				for (integer i = 0; i < 256; ++i)
+				{
+					for (integer j = 1; j < 256; ++j)
+					{
+						TEST_ENSURE(F(i * 132) / F(j) == F((i * 132) / j));
 					}
 				}
 			}

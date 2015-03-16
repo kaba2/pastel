@@ -20,7 +20,7 @@ namespace Pastel
 
 		template <typename That_Integer>
 		struct IsNative
-			: std::is_signed<That_Integer> 
+			: std::is_integral<That_Integer> 
 		{};
 
 		template <
@@ -28,7 +28,7 @@ namespace Pastel
 			typename That_Integer>
 		struct IsInteger
 			: boost::mpl::and_<
-			boost::mpl::not_<std::is_signed<That_Integer>>, 
+			boost::mpl::not_<std::is_integral<That_Integer>>, 
 			std::is_same<That_Integer, Integer>>
 		{};
 
@@ -56,17 +56,15 @@ namespace Pastel
 	//! A rational number.
 	template <typename Integer_>
 	class Rational
-		: boost::totally_ordered<
-		Rational<Integer_>
-		, boost::field_operators1<
-		Rational<Integer_>
-		> >
+		: boost::totally_ordered<Rational<Integer_>
+		, boost::field_operators1<Rational<Integer_>
+		, boost::unit_steppable<Rational<Integer_>
+		> > >
 	{
 	public:
 		using Integer = Integer_;
 
-	public:
-		// Using default destructor.
+		//PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
 
 		//! Constructs with the value (0 / 1).
 		Rational();
@@ -93,14 +91,14 @@ namespace Pastel
 			EnableIf<Rational_::IsNativeOrInteger<Integer, That_Integer>> = 0>
 		Rational(That_Integer wholes);
 
-		//! Constructs with the value (numerator / denominator).
+		//! Constructs with the value (m / n).
 		template <
-			typename Numerator_Integer, 
-			typename Denominator_Integer,
-			EnableIf<Rational_::AreNativeOrInteger<Integer, Numerator_Integer, Denominator_Integer>> = 0>
+			typename M_Integer, 
+			typename N_Integer,
+			EnableIf<Rational_::AreNativeOrInteger<Integer, M_Integer, N_Integer>> = 0>
 		Rational(
-			Numerator_Integer numerator,
-			Denominator_Integer denominator);
+			M_Integer m,
+			N_Integer n);
 
 		//! Constructs with the value of the ieee single floating point.
 		/*!
@@ -120,16 +118,25 @@ namespace Pastel
 		//! Swaps two rational numbers.
 		void swap(Rational& that);
 
-		//! Sets the value to (numerator / denominator).
+		//! Sets the value to (m / n).
 		void set(
-			Integer numerator,
-			Integer denominator);
+			Integer m,
+			Integer n);
 
-		//! Returns the numerator.
-		const Integer& numerator() const;
+		//! Returns the m.
+		const Integer& m() const;
 
-		//! Returns the denominator.
-		const Integer& denominator() const;
+		//! Returns the n.
+		const Integer& n() const;
+
+		//! Returns whether the number is infinity.
+		bool isInfinity() const;
+
+		//! Returns whether the number is not-a-number.
+		bool isNan() const;
+
+		//! Returns whether the number is an integer.
+		bool isInteger() const;
 
 		//! Adds the given number to this number.
 		Rational<Integer>& operator+=(Rational that);
@@ -143,6 +150,20 @@ namespace Pastel
 		//! Divides this number with the given number.
 		Rational<Integer>& operator/=(Rational that);
 
+		//! Adds 1 to this number.
+		Rational<Integer>& operator++()
+		{
+			*this += 1;
+			return *this;
+		}
+
+		//! Subtracts 1 from this number.
+		Rational<Integer>& operator--()
+		{
+			*this -= 1;
+			return *this;
+		}
+
 		//! Returns the negation of this number.
 		Rational<Integer> operator-() const;
 
@@ -150,6 +171,7 @@ namespace Pastel
 		Rational<Integer> operator+() const;
 
 		// The following operators must be defined as global friends.
+
 		// Note for boost::operators to work the operators must
 		// be in this class scope, thus you can't turn them
 		// into template functions.
@@ -188,22 +210,22 @@ namespace Pastel
 		
 		class SkipSimplify {};
 
-		//! Constructs with the value (numerator / denominator).
-		Rational(Integer numerator,
-				 Integer denominator,
+		//! Constructs with the value (m / n).
+		Rational(Integer m,
+				 Integer n,
 				 SkipSimplify);
 
-		//! Sets the value to (numerator / denominator).
+		//! Sets the value to (m / n).
 		void set(
-			Integer numerator,
-			Integer denominator,
+			Integer m,
+			Integer n,
 			SkipSimplify);
 
 		//! Brings the rational number to a normal form.
 		/*!
 		If the number is not NaN (0, 0), then the normal
-		form is where gcd(numerator, denominator) = 1
-		and numerator >= 0.	The normal form for NaN is 
+		form is where gcd(m, n) = 1
+		and m >= 0.	The normal form for NaN is 
 		NaN itself.
 		*/
 		void simplify();
@@ -213,8 +235,8 @@ namespace Pastel
 		bool lessThan(const Rational& that) const;
 		bool equal(const Rational& that) const;
 
-		Integer numerator_;
-		Integer denominator_;
+		Integer m_;
+		Integer n_;
 	};
 
 }
@@ -255,39 +277,17 @@ namespace Pastel
 
 }
 
-#include <iostream>
-
-namespace Pastel
-{
-
-	template <typename Integer>
-	std::ostream& operator<<(std::ostream& stream,
-		const Rational<Integer>& number);
-
-}
-
-#include "pastel/sys/point.h"
-#include "pastel/sys/locator/scalar_locator.h"
-
-namespace Pastel
-{
-
-	template <typename Integer>
-	class Default_Locator<const Rational<Integer>&, void>
-	{
-	public:
-		using Point = Rational<Integer>;
-		using Locator = Scalar_Locator<Point>;
-
-		Locator operator()(const Point&) const
-		{
-			return Locator();
-		}
-	};
-
-}
-
 
 #include "pastel/sys/rational/rational.hpp"
+#include "pastel/sys/rational/rational_add.hpp"
+#include "pastel/sys/rational/rational_as_point.hpp"
+#include "pastel/sys/rational/rational_as_real.hpp"
+#include "pastel/sys/rational/rational_classify.hpp"
+#include "pastel/sys/rational/rational_compare.hpp"
+#include "pastel/sys/rational/rational_construct.hpp"
+#include "pastel/sys/rational/rational_multiply.hpp"
+#include "pastel/sys/rational/rational_real.hpp"
+#include "pastel/sys/rational/rational_simplify.hpp"
+#include "pastel/sys/rational/rational_stream.h"
 
 #endif

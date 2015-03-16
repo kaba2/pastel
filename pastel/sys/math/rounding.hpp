@@ -34,7 +34,7 @@ namespace Pastel
 	template <typename Real, EnableIf<std::is_floating_point<Real>>>
 	integer roundUpToOdd(const Real& that)
 	{
-		return Pastel::roundUpToOdd((integer)std::ceil(that));
+		return Pastel::roundUpToOdd((integer)ceil(that));
 	}
 
 	template <typename Integer>
@@ -46,7 +46,7 @@ namespace Pastel
 	template <typename Real, EnableIf<std::is_floating_point<Real>>>
 	integer roundUpToEven(const Real& that)
 	{
-		return Pastel::roundUpToEven((integer)std::ceil(that));
+		return Pastel::roundUpToEven((integer)ceil(that));
 	}
 
 	template <typename Integer, EnableIf<std::is_unsigned<Integer>>>

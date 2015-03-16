@@ -18,8 +18,8 @@ namespace Pastel
 	PASTEL_UNARY_VECTOREXPRESSION(VectorExp, std::exp, exp);
 	PASTEL_UNARY_VECTOREXPRESSION(VectorLog, std::log, log);
 	PASTEL_UNARY_VECTOREXPRESSION(VectorSqrt, std::sqrt, sqrt);
-	PASTEL_UNARY_VECTOREXPRESSION(VectorFloor, std::floor, floor);
-	PASTEL_UNARY_VECTOREXPRESSION(VectorCeil, std::ceil, ceil);
+	PASTEL_UNARY_VECTOREXPRESSION(VectorFloor, floor, floor);
+	PASTEL_UNARY_VECTOREXPRESSION(VectorCeil, ceil, ceil);
 	PASTEL_UNARY_VECTOREXPRESSION(VectorMod, mod, mod);
 	PASTEL_UNARY_VECTOREXPRESSION(VectorSin, std::sin, sin);
 	PASTEL_UNARY_VECTOREXPRESSION(VectorCos, std::cos, cos);

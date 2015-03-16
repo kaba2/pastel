@@ -5,7 +5,6 @@
 
 #include "pastel/geometry/intersect/intersect_line_triangle.h"
 #include "pastel/sys/rational.h"
-#include "pastel/sys/integer/biginteger.h"
 
 #include <iostream>
 
@@ -14,7 +13,7 @@ using namespace Pastel;
 namespace
 {
 
-	using Real = Rational<BigInteger>;
+	using Real = Rational<integer>;
 
 	class Test
 		: public TestSuite
