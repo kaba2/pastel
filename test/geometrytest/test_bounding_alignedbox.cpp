@@ -37,9 +37,7 @@ namespace
 				std::vector<Point> pointSet;
 
 				AlignedBox2i bound =
-					boundingAlignedBox(
-					rangeInput(pointSet),
-					Locator());
+					boundingAlignedBox(rangeInput(pointSet));
 
 				TEST_ENSURE(bound.min() == Vector2i(infinity<integer>()));
 				TEST_ENSURE(bound.max() == Vector2i(-infinity<integer>()));
@@ -51,9 +49,7 @@ namespace
 				};
 
 				AlignedBox2i bound =
-					boundingAlignedBox(
-					rangeInput(pointSet),
-					Locator());
+					boundingAlignedBox(rangeInput(pointSet));
 
 				TEST_ENSURE(bound.min() == Vector2i(3, 5));
 				TEST_ENSURE(bound.max() == Vector2i(3, 5));
@@ -78,9 +74,7 @@ namespace
 				};
 
 				AlignedBox2i bound =
-					boundingAlignedBox(
-						rangeInput(pointSet),
-						Locator());
+					boundingAlignedBox(rangeInput(pointSet));
 
 				TEST_ENSURE(bound.min() == Vector2i(0, 0));
 				TEST_ENSURE(bound.max() == Vector2i(5, 4));

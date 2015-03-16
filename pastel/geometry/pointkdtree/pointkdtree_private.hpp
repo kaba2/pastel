@@ -112,7 +112,7 @@ namespace Pastel
 		});
 
 		return boundingAlignedBox(
-			pointSet, locator());
+			locationSet(pointSet, locator()));
 	}
 
 	template <typename Settings, template <typename> class Customization>

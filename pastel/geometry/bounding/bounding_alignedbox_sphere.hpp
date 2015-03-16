@@ -38,12 +38,11 @@ namespace Pastel
 		// This is also shown in 'ellipsoid.hpp'.
 		//
 		// Combining, we obtain the axis-aligned bounding box by:
-		// +/- sqrt(diagonal(A A^T)). The results have to be modified
-		// a bit because we use row vectors:
-		// +/- sqrt(diagonal(A^T A))
+		// +/- sqrt(diagonal(A A^T)).
+
 		// The bounding box is invariant w.r.t to the position of
 		// the sphere. Thus the center of the sphere can simply be
-		// transfomed through the affine transformation.
+		// transformed through the affine transformation.
 		// The radius of the sphere simply scales the end-result
 		// uniformly w.r.t the center of the sphere.
 
@@ -53,9 +52,13 @@ namespace Pastel
 
 		Vector<Real, N> radius =
 			sqrt(
-			diagonal(
-			transpose(transformation.matrix()) * 
-			transformation.matrix())) * sphere.radius();
+				diagonal(
+					transformation.matrix() * 
+					transpose(
+						transformation.matrix()
+					)
+				)
+			) * sphere.radius();
 
 		Vector<Real, N> center =
 			transformPoint(transformation, sphere.position());

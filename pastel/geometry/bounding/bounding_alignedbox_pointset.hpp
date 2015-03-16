@@ -10,25 +10,23 @@ namespace Pastel
 {
 
 	template <
-		typename Input,
-		typename Locator,
-		typename>
-	auto boundingAlignedBox(
-		Input pointSet,
-		const Locator& locator)
-	-> AlignedBox<Locator_Real<Locator>, Locator::N>
+		typename PointSet,
+		typename
+	>
+	auto boundingAlignedBox(PointSet pointSet)
+	-> AlignedBox<PointSet_Real<PointSet>, PointSet_N<PointSet>::value>
 	{
-		using Real = Locator_Real<Locator>;
-		static PASTEL_CONSTEXPR integer N = Locator_N<Locator>::value;
-		integer d = locator.n();
+		using Real = PointSet_Real<PointSet>;
+		static PASTEL_CONSTEXPR integer N = PointSet_N<PointSet>::value;
+		integer d = pointSetDimension(pointSet);
 		
 		AlignedBox<Real, N> bound(d);
-		while (!pointSet.empty())
+		while (!pointSetEmpty(pointSet))
 		{
-			auto&& point = pointSet.get();
+			auto&& point = pointSetGet(pointSet);
 			for (integer i = 0;i < d;++i)
 			{
-				auto x = locator(point, i);
+				auto x = axis(point, i);
 
 				if (x < bound.min()[i])
 				{
@@ -41,7 +39,7 @@ namespace Pastel
 				}
 			}
 
-			pointSet.pop();
+			pointSetPop(pointSet);
 		}
 
 		return bound;

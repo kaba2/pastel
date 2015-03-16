@@ -155,12 +155,13 @@ namespace Pastel
 
 			// Compute a minimum bounding box for the points.
 			auto bound = boundingAlignedBox(
+				locationSet(
 				transformInput(rangeInput(iteratorSet),
 				[&](const Iterator& point)
 				{
 					return point->point();
 				}),
-				locator);
+				locator));
 
 			bound_ = bound;
 			root_ = construct(nullptr, false, iteratorSet, bound, splitRule);
