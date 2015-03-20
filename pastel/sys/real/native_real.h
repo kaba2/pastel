@@ -28,6 +28,18 @@ namespace Pastel
 	}
 
 	template <typename Type, EnableIf<std::is_floating_point<Type>> = 0>
+	bool isInfinity(const Type& that)
+	{
+		return that == std::numeric_limits<Type>::infinity();
+	}
+
+	template <typename Type, EnableIf<std::is_floating_point<Type>> = 0>
+	bool isMinusInfinity(const Type& that)
+	{
+		return that == -std::numeric_limits<Type>::infinity();
+	}
+
+	template <typename Type, EnableIf<std::is_floating_point<Type>> = 0>
 	Type nan()
 	{
 		return std::numeric_limits<Type>::quiet_NaN();

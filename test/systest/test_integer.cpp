@@ -592,14 +592,29 @@ namespace
 		void testDivision()
 		{
 			{
-				using F = Unsigned_Integer<20, uint8>;
+				using F = Unsigned_Integer<23, uint8>;
 				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
-				for (integer i = 0; i < 256; ++i)
+				for (integer i = 0; i < 300; i += 7)
 				{
-					for (integer j = 1; j < 256; ++j)
+					for (integer j = 1; j < 300; j += 5)
 					{
-						TEST_ENSURE(F(i * 132) / F(j) == F((i * 132) / j));
+						TEST_ENSURE(F(i * 213) / F(j) == F((i * 213) / j));
+					}
+				}
+			}
+			{
+				using F = Signed_Integer<23, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
+				for (integer i = -300; i < 300; i += 3)
+				{
+					for (integer j = -300; j < 300; j += 11)
+					{
+						if (j != 0)
+						{
+							TEST_ENSURE(F(i * 213) / F(j) == F((i * 213) / j));
+						}
 					}
 				}
 			}

@@ -41,6 +41,8 @@ namespace Pastel
 				Concept::convertsTo<Type>(infinity<Type>()),
 				//! Returns whether a number is infinity.
 				Concept::convertsTo<bool>(isInfinity(t)),
+				//! Returns whether a number is -infinity.
+				Concept::convertsTo<bool>(isMinusInfinity(t)),
 				//! Returns not-a-number.	
 				Concept::convertsTo<Type>(nan<Type>()),
 				//! Returns whether a number is not-a-number.
