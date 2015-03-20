@@ -7,9 +7,10 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hashing.h"
 #include "pastel/sys/bit/bitmask.h"
-#include "pastel/sys/math/rounding.h"
 #include "pastel/sys/bit/set_bits.h"
 #include "pastel/sys/bit/number_of_one_bits.h"
+#include "pastel/sys/bit/highest_bit.h"
+#include "pastel/sys/math/rounding.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -166,7 +167,7 @@ namespace Pastel
 			for (integer i = 0;i < Words;++i)
 			{
 				// The C++ standard guarantees that the
-				// assignment is module 2^N; therefore this
+				// assignment is modulo 2^N; therefore this
 				// automatically extracts the lowest N bits.
 				wordSet_[i] = that;
 
@@ -739,7 +740,7 @@ namespace Pastel
 		Time complexity: O(N^2)
 		Exception safety: nothrow
 		*/
-		MultiInteger& operator/=(const MultiInteger& that)
+		MultiInteger& operator/=(MultiInteger that)
 		{
 			ENSURE(!zero(that));
 
@@ -749,39 +750,80 @@ namespace Pastel
 			}
 
 			MultiInteger left = *this;
-			const MultiInteger& right = that;
+			MultiInteger& right = that;
 			MultiInteger& result = *this;
 
-			clearBits();
+			result.clearBits();
 
-			integer iLeft = Words - 1;
-			while(left.word(iLeft) == 0)
+			// Reduce to the case where both 
+			// factors are positive.
+			bool negateResult = false;
+			if (negative(left))
 			{
-				--iLeft;
+				left.negate();
+				negateResult = !negateResult;
 			}
+			if (negative(right))
+			{
+				right.negate();
+				negateResult = !negateResult;
+			}
+
+			if (left < right)
+			{
+				// The divisor is greater than the dividee.
+				// => the result is zero.
+				return *this;
+			}
+
+			integer iLeft = highestBit(left);
 			ASSERT_OP(iLeft, >=, 0);
 
-			integer iRight = Words - 1;
-			while(right.word(iRight) == 0)
-			{
-				--iRight;
-			}
+			integer iRight = highestBit(right);
 			ASSERT_OP(iRight, >=, 0);
 
-			while(iLeft >= iRight)
+			ASSERT_OP(iLeft, >=, iRight);
+
+			integer shift = iLeft - iRight;
+
+			integer i = shift;
+			right <<= shift;
+			while(i >= 0)
 			{
-				if (left.word(iLeft) > 0)
+				integer toRight = 1;
+				if (right <= left)
 				{
-					Word wholes = 
-						left.word(iLeft) / right.word(iRight);
-					result.wordSet_[iLeft - iRight] = wholes;
-					left -= wholes * right;
+					left -= right;
+					result.setBit(i);
+				}
+				else if (!left.bit(i + iRight))
+				{
+					iLeft = highestBit(left);
+					if (iLeft < 0)
+					{
+						// left == 0
+						break;
+					}
+
+					// Shift to the next 1-bit.
+					toRight = (i + iRight) - iLeft;
+					
+					if (toRight > i)
+					{
+						break;
+					}
 				}
 
-				--iLeft;
+				right >>= toRight;
+				i -= toRight;
 			}
 
 			signExtend();
+
+			if (negateResult)
+			{
+				result.negate();
+			}
 
 			return *this;
 		}

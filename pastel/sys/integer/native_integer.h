@@ -14,6 +14,17 @@
 namespace Pastel
 {
 
+	// Real (partial)
+
+	template <typename Type, EnableIf<std::is_integral<Type>> = 0>
+	Type infinity()
+	{
+		return std::numeric_limits<Type>::max();
+	}
+
+	using std::floor;
+	using std::ceil;
+
 	// Finite integer
 
 	template <typename Type, EnableIf<std::is_integral<Type>> = 0>
@@ -50,25 +61,16 @@ namespace Pastel
 		return !even(that);
 	}
 
-	namespace NativeInteger_
-	{
-
-		struct Tag {};
-
-	}
-
-	template <typename Type, EnableIf<std::is_integral<Type>> = 0>
-	Type infinity(NativeInteger_::Tag = NativeInteger_::Tag())
-	{
-		return std::numeric_limits<Type>::max();
-	}
-
-	using std::floor;
-	using std::ceil;
-
 	// Ordered additive monoid
 
 	using std::abs;
+
+	template <typename Type, EnableIf<std::is_unsigned<Type>> = 0>
+	const Type& abs(const Type& that)
+	{
+		// std::abs does not support unsigned types.
+		return that;
+	}
 
 	template <typename Type, EnableIf<std::is_integral<Type>> = 0>
 	bool negative(const Type& that)

@@ -21,13 +21,18 @@ namespace
 		{
 			test<float>();
 			test<double>();
-			test<long double>();
+			//test<long double>();
+
 		}
 
 		template <typename Type>
 		void test()
 		{
+			PASTEL_CONCEPT_CHECK(Type, Real_Concept);
+
 			infinity<Type>();
+			TEST_ENSURE(isInfinity(infinity<Type>()));
+			TEST_ENSURE(isMinusInfinity(-infinity<Type>()));
 			nan<Type>();
 			TEST_ENSURE(isNan(nan<Type>()));
 			TEST_ENSURE(inverse((Type)5) == 1 / (Type)5);

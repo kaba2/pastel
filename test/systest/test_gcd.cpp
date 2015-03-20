@@ -47,6 +47,7 @@ namespace
 			TEST_ENSURE(gcd(Integer(7), Integer(11)) == Integer(1));
 			TEST_ENSURE(gcd(Integer(3), Integer(2)) == Integer(1));
 
+			TEST_ENSURE(gcd(Integer(5 * 1234), Integer(7 * 1234)) == Integer(1234));
 			TEST_ENSURE(gcd(Integer(2), Integer(4)) == Integer(2));
 
 			TEST_ENSURE(gcd(Integer(16), Integer(256)) == Integer(16));
