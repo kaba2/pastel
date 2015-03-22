@@ -14,6 +14,8 @@ namespace Pastel
 	Integer roundUpTo(
 		const Integer& that, const Integer& to)
 	{
+		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
+
 		PENSURE(!negative(to));
 
 		Integer remainder = mod(that, to);
@@ -28,18 +30,24 @@ namespace Pastel
 	template <typename Integer>
 	Integer roundUpToOdd(const Integer& that)
 	{
+		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
+
 		return odd(that) ? that : (that + 1);
 	}
 
 	template <typename Real, EnableIf<std::is_floating_point<Real>>>
 	integer roundUpToOdd(const Real& that)
 	{
+		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
+
 		return Pastel::roundUpToOdd((integer)ceil(that));
 	}
 
 	template <typename Integer>
 	Integer roundUpToEven(const Integer& that)
 	{
+		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
+
 		return even(that) ? that : (that + 1);
 	}
 
@@ -58,7 +66,7 @@ namespace Pastel
 		}
 
 		Integer X = that - 1;
-		for (integer i = 1; i < sizeInBits<Integer>();i <<= 1)
+		for (integer i = 1; i < SizeInBits<Integer>::value;i <<= 1)
 		{
 			X |= X >> i;
 		}
@@ -78,6 +86,8 @@ namespace Pastel
 		const Integer& that, 
 		integer power)
 	{
+		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
+
 		PENSURE(!negative(power));
 
 		Integer remainder = modPowerOfTwo(that, power);
@@ -94,6 +104,8 @@ namespace Pastel
 		const Integer& divide, 
 		const Integer& byThis)
 	{
+		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
+
 		PENSURE(!zero(byThis));
 
 		if ((!negative(divide)) != (!negative(byThis)))

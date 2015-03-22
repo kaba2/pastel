@@ -31,10 +31,10 @@ namespace
 		{
 			auto t = [](bool negative, integer exponent, uint64 mantissa, Type correct)
 			{
-				return (asIeeeFloat<Type>(negative, exponent, mantissa) == correct);
+				return (asIeeeFloat<Type>(ScientificNotation{ negative, exponent, mantissa }) == correct);
 			};
 
-			uint64 oneHalf = singleBitMask<uint64>(sizeInBits<uint64>() - 1);
+			uint64 oneHalf = singleBitMask<uint64>(SizeInBits<uint64>::value - 1);
 
 			TEST_ENSURE(t(false, 0, 0, 1));
 			TEST_ENSURE(t(false, 1, 0, 2));

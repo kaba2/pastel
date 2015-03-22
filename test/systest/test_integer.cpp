@@ -21,6 +21,7 @@ namespace
 
 		virtual void run()
 		{
+			testAsNative();
 			testConstruction();
 			testNegation();
 			testIncrementDecrement();
@@ -33,6 +34,146 @@ namespace
 			testMultiplication();
 			testDivision();
 			testNumberOfOneBits();
+		}
+
+		void testAsNative()
+		{
+			{
+				using F = Unsigned_Integer<32, uint8>;
+				TEST_ENSURE(static_cast<uint64>(F(0x12345678)) == 0x12345678);
+			}
+			{
+				using F = Unsigned_Integer<31, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x12345678);
+			}
+			{
+				using F = Unsigned_Integer<30, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x12345678);
+			}
+			{
+				using F = Unsigned_Integer<29, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x12345678);
+			}
+			{
+				using F = Unsigned_Integer<28, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x02345678);
+			}
+			{
+				using F = Unsigned_Integer<20, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00045678);
+			}
+			{
+				using F = Unsigned_Integer<19, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00045678);
+			}
+			{
+				using F = Unsigned_Integer<18, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00005678);
+			}
+			{
+				using F = Unsigned_Integer<17, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00005678);
+			}
+			{
+				using F = Unsigned_Integer<16, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00005678);
+			}
+			{
+				using F = Unsigned_Integer<15, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00005678);
+			}
+			{
+				using F = Unsigned_Integer<14, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00001678);
+			}
+			{
+				using F = Unsigned_Integer<13, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00001678);
+			}
+			{
+				using F = Unsigned_Integer<12, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000678);
+			}
+			{
+				using F = Unsigned_Integer<11, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000678);
+			}
+			{
+				using F = Unsigned_Integer<10, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000278);
+			}
+			{
+				using F = Unsigned_Integer<9, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000078);
+			}
+			{
+				using F = Unsigned_Integer<8, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000078);
+			}
+			{
+				using F = Unsigned_Integer<7, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000078);
+			}
+			{
+				using F = Unsigned_Integer<6, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000038);
+			}
+			{
+				using F = Unsigned_Integer<5, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000018);
+			}
+			{
+				using F = Unsigned_Integer<4, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000008);
+			}
+			{
+				using F = Unsigned_Integer<3, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000000);
+			}
+			{
+				using F = Unsigned_Integer<2, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000000);
+			}
+			{
+				using F = Unsigned_Integer<1, uint8>;
+				TEST_ENSURE((uint64)F(0x12345678) == 0x00000000);
+			}
+			{
+				using F = Unsigned_Integer<32, uint8>;
+				TEST_ENSURE((uint64)F(0x87654321) == 0x87654321);
+			}
+			{
+				using F = Signed_Integer<32, uint8>;
+				TEST_ENSURE(static_cast<int64>(F(-0x12345678)) == -0x12345678);
+			}
+			{
+				using F = Signed_Integer<16, uint8>;
+				for (integer i = -40000; i < 40000; ++i)
+				{
+					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32768, 65536) - 32768);
+				}
+			}
+			{
+				using F = Signed_Integer<15, uint8>;
+				for (integer i = -40000; i < 40000; ++i)
+				{
+					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 16384, 32768) - 16384);
+				}
+			}
+			{
+				using F = Signed_Integer<6, uint8>;
+				for (integer i = -100; i < 100; ++i)
+				{
+					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32, 64) - 32);
+				}
+			}
+			{
+				using F = Signed_Integer<6, uint16>;
+				for (integer i = -100; i < 100; ++i)
+				{
+					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32, 64) - 32);
+				}
+			}
 		}
 
 		void testConstruction()

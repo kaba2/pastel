@@ -20,14 +20,17 @@ namespace Pastel
 
 				//! The type of the underlying word.
 				/*!
-				The basic type from which to build the integer.
-				Choosing this type other than uinteger is mainly 
+				A double-word type integer is required to exist,
+				so that multiplication of two words can be stored.
+
+				Choosing this type other than uinteger_half is mainly 
 				useful for testing the correctness of the 
 				implementation, although for small bit-counts 
 				one may also choose to minimize the wasted space 
 				by choosing the basic type smaller.
 				*/
 				Concept::holds<std::is_unsigned<typename Type::Word>>(),
+				Concept::exists<Uint<2 * SizeInBits<typename Type::Word>::value>>(),
 
 				//! Whether to interpret as a signed integer.
 				/*!

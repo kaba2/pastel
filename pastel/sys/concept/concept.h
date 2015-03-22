@@ -48,6 +48,7 @@ namespace Pastel
 	namespace Concept
 	{
 
+		//! Checks whether 'that' has type Required.
 		template <
 			typename Required,
 			typename Type,
@@ -55,6 +56,7 @@ namespace Pastel
 			>
 		bool hasType(Type&& that);
 
+		//! Checks whether Type is convertible to Required.
 		template <
 			typename Required, 
 			typename Type,
@@ -62,16 +64,22 @@ namespace Pastel
 			>
 		bool convertsTo(Type&& that);
 
+		//! Checks whether a bool-meta-function is true.
 		template <typename Required>
 		auto holds()
 			-> EnableIf<Required>;
 
+		//! Checks whether the types of 'left' and 'right' agree.
 		template <
 			typename Left,
 			typename Right
 		>
 		auto sameTypes(Left&& left, Right&& right)
 			-> EnableIf<std::is_same<Left, Right>>;
+
+		//! Checks whether Type is a valid type-expression.
+		template <typename Type>
+		bool exists();
 
 	}
 

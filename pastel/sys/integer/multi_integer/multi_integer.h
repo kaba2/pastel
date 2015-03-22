@@ -80,12 +80,8 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(std::is_unsigned<Word>::value);
 
 		//! Number of bits in a word.
-		/* 
-		FIX: Change to sizeInBits<Word>() after
-		constexpr becomes available in Visual Studio.
-		*/
-		static PASTEL_CONSTEXPR int BitsInWord = 
-			sizeof(Word) * CHAR_BIT;
+		static PASTEL_CONSTEXPR int BitsInWord =
+			SizeInBits<Word>::value;
 
 		// An unsigned integer with twice the number of bits in Word.
 		using DoubleWord = Uint<2 * BitsInWord>;
@@ -305,7 +301,7 @@ namespace Pastel
 		Exception safety: nothrow
 
 		The number of words is given by
-		divideAndRoundUp(N, sizeInBits<Word>()).
+		divideAndRoundUp(N, SizeInBits<Word>::value).
 		*/
 		integer words() const
 		{
@@ -987,6 +983,35 @@ namespace Pastel
 				padding);
 
 			return *this;
+		}
+
+		//! Converts the number to a native integer.
+		/*!
+		Time complexity: O(N)
+		Exception safety: nothrow
+		*/
+		template <
+			typename Integer,
+			EnableIf<std::is_integral<Integer>> = 0>
+		explicit operator Integer() const
+		{
+			integer Bits = SizeInBits<Integer>::value;
+
+			integer wordsToCopy = 
+				std::min(divideAndRoundUp(Bits, (integer)BitsInWord), words());
+			
+			Integer result = 0;
+			for (integer i = 0;i < wordsToCopy;++i)
+			{
+				result += (Integer)word(i) << (BitsInWord * i);
+			}
+
+			if (Signed && negative(*this))
+			{
+				result += bitMask<std::make_unsigned_t<Integer>>(wordsToCopy * BitsInWord, Bits);
+			}
+
+			return result;
 		}
 
 		//! Converts the number to a string of zeros and ones.

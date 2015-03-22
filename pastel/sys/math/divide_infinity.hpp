@@ -11,7 +11,7 @@ namespace Pastel
 	{
 		PENSURE_OP(n, >=, 2);
 
-		// Let w = sizeInBits<uinteger>().
+		// Let w = SizeInBits<uinteger>::value.
 
 		if (odd(n))
 		{

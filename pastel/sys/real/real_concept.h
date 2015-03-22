@@ -5,6 +5,7 @@
 #define PASTELSYS_REAL_CONCEPT_H
 
 #include "pastel/sys/algebra/ordered_field_concept.h"
+#include "pastel/sys/real/scientific_notation.h"
 
 #include <type_traits>
 
@@ -15,7 +16,6 @@ namespace Pastel
 	struct Real_Concept
 	: Refines<Ordered_Field_Concept>
 	{
-	public:
 		template <typename Type>
 		auto requires(Type&& t) -> decltype(
 			conceptCheck(
@@ -52,7 +52,9 @@ namespace Pastel
 				//! Returns the greatest integer <= that.
 				Concept::convertsTo<Type>(floor(t)),
 				//! Returns the least integer >= that.
-				Concept::convertsTo<Type>(ceil(t))
+				Concept::convertsTo<Type>(ceil(t)),
+				//! Returns the number in scientific notation.
+				Concept::convertsTo<ScientificNotation>(asScientific(t))
 			)
 		);
 	};

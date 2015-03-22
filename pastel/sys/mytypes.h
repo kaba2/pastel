@@ -76,45 +76,36 @@ namespace Pastel
 
 		// Parametrized absolute size types.
 
-		namespace Int_
-		{
+		//! A native signed integer with the given number of bits.
+		template <int N> struct Int_F {};
+		template <> struct Int_F<8> { using type = int8; };
+		template <> struct Int_F<16> { using type = int16; };
+		template <> struct Int_F<32> { using type = int32; };
+		template <> struct Int_F<64> { using type = int64; };
 
-			template <int N> struct Int {};
-			template <> struct Int<8> { using type = int8; };
-			template <> struct Int<16> { using type = int16; };
-			template <> struct Int<32> { using type = int32; };
-			template <> struct Int<64> { using type = int64; };
-
-		}
-
+		//! A native signed integer with the given number of bits.
 		template <int N>
-		using Int = typename Int_::Int<N>::type;
+		using Int = typename Int_F<N>::type;
 
-		namespace Uint_
+		//! A native unsigned integer with the given number of bits.
+		template <int N> 
+		struct Uint_F
 		{
+			using type = typename std::make_unsigned<Int<N>>::type;
+		};
 
-			template <int N> 
-			struct Uint 
-			{
-				using type = typename std::make_unsigned<Int<N>>::type;
-			};
-
-		}
-
+		//! A native unsigned integer with the given number of bits.
 		template <int N>
-		using Uint = typename Uint_::Uint<N>::type;
+		using Uint = typename Uint_F<N>::type;
 
-		namespace Real_
-		{
+		//! A native floating-point number with the given number of bits.
+		template <int N> struct Real_F {};
+		template <> struct Real_F<32> { using type = real32; };
+		template <> struct Real_F<64> { using type = real64; };
 
-			template <int N> struct Real {};
-			template <> struct Real<32> { using type = real32; };
-			template <> struct Real<64> { using type = real64; };
-
-		}
-
+		//! A native floating-point number with the given number of bits.
 		template <int N>
-		using Real = typename Real_::Real<N>::type;
+		using Real = typename Real_F<N>::type;
 
 		//! Integer capable of holding a pointer.
 		/*!
@@ -184,6 +175,20 @@ namespace Pastel
 	*/
 	template <typename Type>
 	integer sizeInBits();
+
+	template <typename Type>
+	struct SizeInBits
+	{
+		// Note that 
+		// std::numeric_limits<Type>::digits is 
+		// CHAR_BIT for unsigned integers, and
+		// CHAR_BIT - 1 for signed integers.
+		// So CHAR_BIT is really what we want 
+		// to use here.
+
+		static PASTEL_CONSTEXPR integer value =
+			sizeof(Type) * CHAR_BIT;
+	};
 
 	template <typename Type, EnableIf<std::is_arithmetic<Type>> = 0>
 	Type mabs(Type that);

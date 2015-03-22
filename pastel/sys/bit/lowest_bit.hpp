@@ -19,7 +19,7 @@ namespace Pastel
 			return -1;
 		}
 
-		integer bits = sizeInBits<Finite_Integer>();
+		integer bits = SizeInBits<Finite_Integer>::value;
 		
 		return binarySearch(
 			0,	bits,

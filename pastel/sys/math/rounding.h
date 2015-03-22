@@ -67,7 +67,7 @@ namespace Pastel
 	Preconditions:
 	Integer is an unsigned native integer.
 
-	Time complexity: O(log(sizeInBits<Integer>()) + 1)
+	Time complexity: O(log(SizeInBits<Integer>::value) + 1)
 	Exception safety: nothrow
 	*/
 	template <typename Integer, EnableIf<std::is_unsigned<Integer>> = 0>
@@ -79,7 +79,7 @@ namespace Pastel
 	Integer is a signed native integer.
 	The next power of 2 can be represented.
 
-	Time complexity: O(log(sizeInBits<Integer>()) + 1)
+	Time complexity: O(log(SizeInBits<Integer>::value) + 1)
 	Exception safety: nothrow
 	*/
 	template <typename Integer, EnableIf<std::is_signed<Integer>> = 0>

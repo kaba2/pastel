@@ -6,6 +6,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/algebra/ordered_ring_concept.h"
+#include "pastel/sys/real/scientific_notation.h"
 
 namespace Pastel
 {
@@ -40,7 +41,9 @@ namespace Pastel
 				//! Returns whether 'that' is even.
 				Concept::convertsTo<bool>(even(t)),
 				//! Returns whether 'that' is odd.
-				Concept::convertsTo<bool>(odd(t))
+				Concept::convertsTo<bool>(odd(t)),
+				//! Returns the number in scientific notation.
+				Concept::convertsTo<ScientificNotation>(asScientific(t))
 			)
 		);
 	};
