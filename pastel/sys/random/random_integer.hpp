@@ -41,18 +41,16 @@ namespace Pastel
 
 	inline uinteger randomUinteger()
 	{
-		// FIX: Replace with sizeInBits() when constexpr
-		// becomes supported in Visual Studio.
-		return Random_::RandomInteger<sizeof(uinteger) * CHAR_BIT>()();
+		return Random_::RandomInteger<SizeInBits<uinteger>::value>()();
 	}
 
 	inline uinteger randomUintegerBits(uinteger bits)
 	{
 		PENSURE_OP(bits, >, 0);
-		PENSURE_OP(bits, <=, sizeInBits<uinteger>());
+		PENSURE_OP(bits, <=, SizeInBits<uinteger>::value);
 
 		uinteger result = randomUinteger();
-		if (bits < sizeInBits<uinteger>())
+		if (bits < SizeInBits<uinteger>::value)
 		{
 			result &= bitMask<uinteger>(bits);
 		}
@@ -62,7 +60,7 @@ namespace Pastel
 
 	inline uinteger randomUinteger(uinteger n)
 	{
-		// Let w = sizeInBits<uinteger>(), and m = 2^w.
+		// Let w = SizeInBits<uinteger>::value, and m = 2^w.
 
 		// Let X ~ Uniform([0, m)).
 		// We wish to generate Y ~ Uniform([0, n)).

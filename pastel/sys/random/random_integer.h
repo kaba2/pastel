@@ -24,7 +24,7 @@ namespace Pastel
 	Exception safety: nothrow
 
 	The n = 0 is interpreted as spanning the whole range [0, 2^w),
-	where w = sizeInBits<uinteger>(). The excepted number of draws 
+	where w = SizeInBits<uinteger>::value. The excepted number of draws 
 	made from the underlying [0, 2^w)-random-number generator is always 
 	less than 2.
 	*/
@@ -33,7 +33,7 @@ namespace Pastel
 	//! Returns a uniformly distributed random unsigned integer in [0, 2^bits).
 	/*!
 	Preconditions:
-	0 < bits <= sizeInBits<uinteger>();
+	0 < bits <= SizeInBits<uinteger>::value;
 	*/
 	uinteger randomUintegerBits(uinteger bits);
 
@@ -43,7 +43,7 @@ namespace Pastel
 	n >= 0
 
 	The n = 0 is interpreted as spanning the whole range [0, 2^{w - 1}),
-	where w = sizeInBits<integer>().
+	where w = SizeInBits<integer>::value.
 	*/
 	integer randomInteger(integer n);
 

@@ -98,6 +98,13 @@ namespace Pastel
 			[](const Word& word) {return word == 0;});
 	}
 
+	template <typename Integer_Settings>
+	ScientificNotation asScientific(
+		const MultiInteger<Integer_Settings>& that)
+	{
+		return {0, 0, 0};
+	}
+
 }
 
 #endif

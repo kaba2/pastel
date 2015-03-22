@@ -84,7 +84,7 @@ namespace Pastel
 		{
 			// This is equivalent to that != 2^{n - 1}
 			// (because zero is not negative).
-			PENSURE(that != -that);
+			//PENSURE(that != -that);
 
 			return -((Signed)(-that));
 		}
