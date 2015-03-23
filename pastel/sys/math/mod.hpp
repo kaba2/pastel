@@ -54,6 +54,8 @@ namespace Pastel
 	template <typename Integer>
 	Integer mod(const Integer& x, const Integer& n)
 	{
+		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
+		
 		PENSURE(positive(n));
 
 		if (!negative(x))
@@ -74,21 +76,21 @@ namespace Pastel
 		return n - absMod;
 	}
 
-	template <
-		typename Real, 
-		typename>
-	Real mod(const Real& x)
+	template <typename Real>
+	Real realMod(const Real& x)
 	{
+		PASTEL_CONCEPT_CHECK(Real, Real_Concept);
+
 		return x - floor(x);
 	}
 
-	template <
-		typename Real, 
-		typename>
-	Real mod(const Real& x, const Real& n)
+	template <typename Real>
+	Real realMod(const Real& x, const Real& n)
 	{
+		PASTEL_CONCEPT_CHECK(Real, Real_Concept);
+
 		PENSURE_OP(n, >, 0);
-		return Pastel::mod(x / n) * n;
+		return Pastel::realMod(x / n) * n;
 	}
 
 }

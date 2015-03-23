@@ -57,7 +57,7 @@ namespace Pastel
 			return;
 		}
 
-		//log() << iter->first << logNewLine;
+		log() << iter->first << logNewLine;
 
 		Function function = iter->second;
 		if (function)

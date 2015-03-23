@@ -54,14 +54,8 @@ namespace Pastel
 	Returns:
 	x - floor(x)
 	*/
-	template <
-		typename Real, 
-		typename = 
-			Requires<
-				Models<Real, Real_Concept>
-			>
-		>
-	Real mod(const Real& x);
+	template <typename Real>
+	Real realMod(const Real& x);
 
 	//! Returns x mod n.
 	/*!
@@ -71,14 +65,8 @@ namespace Pastel
 	This is a convenience function that returns
 	mod(x / n) * n
 	*/
-	template <
-		typename Real, 
-		typename = 
-			Requires<
-				Models<Real, Real_Concept>
-			>
-		>
-	Real mod(const Real& x, const Real& n);
+	template <typename Real>
+	Real realMod(const Real& x, const Real& n);
 
 }
 

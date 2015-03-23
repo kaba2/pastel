@@ -14,12 +14,22 @@ namespace Pastel
 		std::ostream& stream, 
 		const MultiInteger<Integer_Settings>& that)
 	{
-		for (integer i = that.words() - 1;i >= 0;--i)
+		integer base = 10;
+
+		if (stream.flags() & std::ios_base::hex)
 		{
-			stream << std::setw(that.BitsInWord / 4)
-				<< std::setfill('0')
-				<< std::hex
-				<< (uinteger)that.word(i);
+			base = 16;
+		}
+		else if (stream.flags() & std::ios_base::oct)
+		{
+			base = 8;
+		}
+
+		stream << that.asString(base);
+
+		if (stream.flags() & std::ios_base::showbase)
+		{
+			stream << "_" << std::dec << base;
 		}
 
 		return stream;

@@ -5,6 +5,8 @@
 
 #include "pastel/sys/integer/multi_integer.h"
 
+#include <iomanip>
+
 using namespace Pastel;
 
 namespace
@@ -21,6 +23,7 @@ namespace
 
 		virtual void run()
 		{
+			testAsString();
 			testAsNative();
 			testConstruction();
 			testNegation();
@@ -33,7 +36,52 @@ namespace
 			testSetBits();
 			testMultiplication();
 			testDivision();
+			testModulo();
 			testNumberOfOneBits();
+		}
+
+		void testAsString()
+		{
+			{
+				using F = Unsigned_Integer<32, uint8>;
+
+				TEST_ENSURE(F(0x12345678).asString(16) == "12345678");
+				TEST_ENSURE(F(132).asString(10) == "132");
+				TEST_ENSURE(F(432874).asString(10) == "432874");
+
+				TEST_ENSURE(F(0x0).asString(16) == "0");
+				TEST_ENSURE(F(0xFFFFFFFF).asString(16) == "ffffffff");
+				
+				TEST_ENSURE(F(0x9ABCDEF0).asString(2) ==
+					"10011010101111001101111011110000");
+			}
+			{
+				using F = Signed_Integer<32, uint8>;
+
+				/*
+				std::cout << std::hex << F(-0x123) << std::endl;
+				std::cout << std::dec << F(-123) << std::endl;
+				std::cout << std::oct << F(-0123) << std::endl;
+
+				std::cout << std::hex << std::showbase << F(-0x123) << std::endl;
+				std::cout << std::dec << std::showbase << F(-123) << std::endl;
+				std::cout << std::oct << std::showbase << F(-0123) << std::endl;
+				*/
+
+				TEST_ENSURE(F(-132).asString(10) == "-132");
+				TEST_ENSURE(F(-0x12345678).asString(16) == "-12345678");
+				TEST_ENSURE(F(-1).asString(2) == "-1");
+				TEST_ENSURE(F(-2).asString(2) == "-10");
+				TEST_ENSURE(F(-3).asString(2) == "-11");
+				TEST_ENSURE(F(-4).asString(2) == "-100");
+			}
+			{
+				using F = Unsigned_Integer<32, uint8>;
+				TEST_ENSURE(F(0x12345678).asString(16) == "12345678");
+				
+				TEST_ENSURE(F(0x9ABCDEF0).asString(2) ==
+					"10011010101111001101111011110000");
+			}
 		}
 
 		void testAsNative()
@@ -148,14 +196,14 @@ namespace
 			}
 			{
 				using F = Signed_Integer<16, uint8>;
-				for (integer i = -40000; i < 40000; ++i)
+				for (integer i = -40000; i < 40000; i += 13)
 				{
 					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32768, 65536) - 32768);
 				}
 			}
 			{
 				using F = Signed_Integer<15, uint8>;
-				for (integer i = -40000; i < 40000; ++i)
+				for (integer i = -40000; i < 40000; i += 13)
 				{
 					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 16384, 32768) - 16384);
 				}
@@ -181,8 +229,6 @@ namespace
 			using F = Unsigned_Integer<20, uint8>;
 			PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
-			//std::cout << F(0x12345678) << std::endl;
-			
 			TEST_ENSURE(F(0x12345678) == F({ 0x12, 0x34, 0x56, 0x78 }));
 			TEST_ENSURE(F(0x12345678) == F({ 0x34, 0x56, 0x78 }));
 			TEST_ENSURE(F(0x12345678) == F({ 0x04, 0x56, 0x78 }));
@@ -608,9 +654,6 @@ namespace
 
 				TEST_ENSURE_OP(F(0x9ABCDEF0).oneBits(), == ,
 					2 + 2 + 3 + 2 + 3 + 3 + 4 + 0);
-
-				TEST_ENSURE(F(0x9ABCDEF0).to_string() ==
-					"10011010101111001101111011110000");
 			}
 		}
 
@@ -755,6 +798,37 @@ namespace
 						if (j != 0)
 						{
 							TEST_ENSURE(F(i * 213) / F(j) == F((i * 213) / j));
+						}
+					}
+				}
+			}
+		}
+
+		void testModulo()
+		{
+			{
+				using F = Unsigned_Integer<23, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
+				for (integer i = 0; i < 300; i += 7)
+				{
+					for (integer j = 1; j < 300; j += 5)
+					{
+						TEST_ENSURE(F(i * 213) % F(j) == F((i * 213) % j));
+					}
+				}
+			}
+			{
+				using F = Signed_Integer<23, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
+				for (integer i = -300; i < 300; i += 3)
+				{
+					for (integer j = -300; j < 300; j += 11)
+					{
+						if (j != 0)
+						{
+							TEST_ENSURE(F(i * 213) % F(j) == F((i * 213) % j));
 						}
 					}
 				}
