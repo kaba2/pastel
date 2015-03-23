@@ -72,7 +72,7 @@ namespace Pastel
 
 			Real depth =
 				(aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -110,7 +110,7 @@ namespace Pastel
 
 			Real depth =
 				(aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -245,7 +245,7 @@ namespace Pastel
 
 			Real signedProjectedDistance = delta[i];
 			Real projectedDistance =
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (projectedRadiusSum < projectedDistance)
 			{
@@ -325,7 +325,7 @@ namespace Pastel
 			Real signedProjectedDistance =
 				dot(box.rotation()[i], delta);
 			Real projectedDistance =
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (projectedRadiusSum < projectedDistance)
 			{
@@ -408,7 +408,7 @@ namespace Pastel
 				delta[i];
 
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -429,7 +429,7 @@ namespace Pastel
 				dot(delta, boxRotation[i]);
 
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -450,7 +450,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][0] +
 				boxWidth[1] * absRotation[2][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -469,7 +469,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][1] +
 				boxWidth[1] * absRotation[2][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -488,7 +488,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][2] +
 				boxWidth[1] * absRotation[2][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -507,7 +507,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][0] +
 				boxWidth[0] * absRotation[2][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -527,7 +527,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][1] +
 				boxWidth[0] * absRotation[2][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -546,7 +546,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][2] +
 				boxWidth[0] * absRotation[2][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -565,7 +565,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][0] +
 				boxWidth[0] * absRotation[1][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -584,7 +584,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][1] +
 				boxWidth[0] * absRotation[1][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -603,7 +603,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][2] +
 				boxWidth[0] * absRotation[1][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -660,7 +660,7 @@ namespace Pastel
 				delta[i];
 
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -694,7 +694,7 @@ namespace Pastel
 				dot(delta, boxRotation[i]);
 
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -728,7 +728,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][0] +
 				boxWidth[1] * absRotation[2][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -760,7 +760,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][1] +
 				boxWidth[1] * absRotation[2][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -792,7 +792,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][2] +
 				boxWidth[1] * absRotation[2][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -824,7 +824,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][0] +
 				boxWidth[0] * absRotation[2][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -856,7 +856,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][1] +
 				boxWidth[0] * absRotation[2][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -888,7 +888,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][2] +
 				boxWidth[0] * absRotation[2][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -920,7 +920,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][0] +
 				boxWidth[0] * absRotation[1][0];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -952,7 +952,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][1] +
 				boxWidth[0] * absRotation[1][1];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -984,7 +984,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][2] +
 				boxWidth[0] * absRotation[1][2];
 			Real depth = (aProjectedRadius + bProjectedRadius) -
-				mabs(signedProjectedDistance);
+				abs(signedProjectedDistance);
 
 			if (depth < 0)
 			{

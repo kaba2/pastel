@@ -299,12 +299,12 @@ namespace
 
 			Vector<Real, 3> b;
 
-			b = mabs(a);
+			b = abs(a);
 
 			TEST_ENSURE(
-				b[0] == mabs(a[0]) &&
-				b[1] == mabs(a[1]) &&
-				b[2] == mabs(a[2]));
+				b[0] == abs(a[0]) &&
+				b[1] == abs(a[1]) &&
+				b[2] == abs(a[2]));
 
 			a.set(0.25, 0.5, 0.75);
 

@@ -13,7 +13,7 @@ namespace Pastel
 {
 
 	PASTEL_UNARY_VECTOREXPRESSION(VectorInverse, inverse, inverse);
-	PASTEL_UNARY_VECTOREXPRESSION(VectorAbs, mabs, mabs);
+	PASTEL_UNARY_VECTOREXPRESSION(VectorAbs, abs, abs);
 	PASTEL_UNARY_VECTOREXPRESSION(VectorSquare, square, squarev);
 	PASTEL_UNARY_VECTOREXPRESSION(VectorExp, std::exp, exp);
 	PASTEL_UNARY_VECTOREXPRESSION(VectorLog, std::log, log);

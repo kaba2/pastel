@@ -11,7 +11,7 @@ namespace Pastel
 		const NoDeduction<Real>& measured,
 		const NoDeduction<Real>& correct)
 	{
-		return mabs(correct - measured);
+		return abs(correct - measured);
 	}
 
 	template <typename Real>
@@ -21,7 +21,7 @@ namespace Pastel
 	{
 		// If correct is zero, then the relative
 		// error is infinity.
-		return mabs((Real)1 - measured /  correct);
+		return abs((Real)1 - measured /  correct);
 	}
 
 }

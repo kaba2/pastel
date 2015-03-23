@@ -72,8 +72,8 @@ namespace
 
 				quadratic(aCoeff, bCoeff, cCoeff, t0, t1);
 
-				real aDelta = mabs(aRoot - t0);
-				real bDelta = mabs(bRoot - t1);
+				real aDelta = abs(aRoot - t0);
+				real bDelta = abs(bRoot - t1);
 
 				if (aDelta >= 0.1 || bDelta >= 0.1)
 				{

@@ -16,7 +16,7 @@ namespace Pastel
 		PENSURE_OP(plane.n(), ==, sphere.n());
 
 		Real distance = 
-			mabs(sphere.position()[plane.axis()] -
+			abs(sphere.position()[plane.axis()] -
 			plane.position());
 
 		if (distance >= sphere.radius())

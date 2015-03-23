@@ -185,7 +185,7 @@ namespace Pastel
 
 		Real operator()(integer y, integer x) const
 		{
-			return mabs(data_(y, x));
+			return abs(data_(y, x));
 		}
 
 		integer width() const

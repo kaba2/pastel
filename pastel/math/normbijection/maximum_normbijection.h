@@ -47,7 +47,7 @@ namespace Pastel
 		Real scalingFactor(
 			const Real& scaling) const
 		{
-			return mabs(scaling);
+			return abs(scaling);
 		}
 
 		Real axis(
@@ -59,7 +59,7 @@ namespace Pastel
 		Real signedAxis(
 			const Real& axisDistance) const
 		{
-			return mabs(axisDistance);
+			return abs(axisDistance);
 		}
 
 		Real addAxis(

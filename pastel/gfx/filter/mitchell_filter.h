@@ -74,7 +74,7 @@ namespace Pastel
 			// Mitchell-Netravali cubic splines
 			// with B and C as the parameter.
 
-			real xAbs = mabs(x);
+			real xAbs = abs(x);
 
 			if (xAbs < 1)
 			{

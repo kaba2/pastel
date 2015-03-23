@@ -187,7 +187,7 @@ namespace Pastel
 			SubArray<Type, N> result(
 				address(min),
 				stride_,
-				mabs(max - min));
+				abs(max - min));
 			
 			return result;
 		}
@@ -207,7 +207,7 @@ namespace Pastel
 				address(min),
 
 				stride_ * delta,
-				numbers(mabs(max - min), delta));
+				numbers(abs(max - min), delta));
 			
 			return result;
 		}

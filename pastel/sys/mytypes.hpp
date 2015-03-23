@@ -15,17 +15,6 @@ namespace Pastel
 		return SizeInBits<Type>::value;
 	}
 
-	template <typename Type, EnableIf<std::is_arithmetic<Type>>>
-	Type mabs(Type that)
-	{
-		if (that < 0)
-		{
-			return -that;
-		}
-
-		return that;
-	}
-
 	inline void* allocateRaw(integer size)
 	{
 		//PENSURE_OP(size, >, 0);

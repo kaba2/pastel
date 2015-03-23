@@ -37,7 +37,7 @@ namespace Pastel
 		for (integer i = 0;i < dimension;++i)
 		{
 
-			radius += mabs(dot(box.rotation()[i] * box.width()[i], unitAxis));
+			radius += abs(dot(box.rotation()[i] * box.width()[i], unitAxis));
 		}
 
 		return AlignedBox<Real, 1>(
@@ -67,7 +67,7 @@ namespace Pastel
 		Real position = dot(unitAxis,
 			linear(segment.start(), segment.end(), 0.5));
 
-		const Real radius = mabs(dot(unitAxis, delta)) * 0.5;
+		const Real radius = abs(dot(unitAxis, delta)) * 0.5;
 
 		return AlignedBox<Real, 1>(
 			position - radius,

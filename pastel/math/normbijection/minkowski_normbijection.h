@@ -71,7 +71,7 @@ namespace Pastel
 		Real scalingFactor(
 			const Real& scaling) const
 		{
-			return std::pow(mabs(scaling), power());
+			return std::pow(abs(scaling), power());
 		}
 
 		Real axis(
@@ -83,7 +83,7 @@ namespace Pastel
 		Real signedAxis(
 			const Real& axisDistance) const
 		{
-			return std::pow(mabs(axisDistance), power());
+			return std::pow(abs(axisDistance), power());
 		}
 
 		Real addAxis(

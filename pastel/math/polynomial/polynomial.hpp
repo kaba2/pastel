@@ -246,7 +246,7 @@ namespace Pastel
 
 		for (integer i = 0;i < n;++i)
 		{
-			if (mabs(data_[i] - that.data_[i]) > epsilon_)
+			if (abs(data_[i] - that.data_[i]) > epsilon_)
 			{
 				return false;
 			}
@@ -274,7 +274,7 @@ namespace Pastel
 		integer n = size();
 		for (integer i = n - 1;i >= 1;--i)
 		{
-			if (mabs(data_[i]) > epsilon_)
+			if (abs(data_[i]) > epsilon_)
 			{
 				return i;
 			}

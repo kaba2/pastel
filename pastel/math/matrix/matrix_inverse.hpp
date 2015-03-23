@@ -77,10 +77,10 @@ namespace Pastel
 			// From the k:th column, find the element with
 			// the maximum absolute value (with i >= k).
 			integer maxAbsRow = k;
-			Real maxAbsValue = mabs(left(k, k));
+			Real maxAbsValue = abs(left(k, k));
 			for (integer i = k + 1;i < m;++i)
 			{
-				Real currentAbsValue = mabs(left(i, k));
+				Real currentAbsValue = abs(left(i, k));
 				if (currentAbsValue > maxAbsValue)
 				{
 					maxAbsRow = i;
