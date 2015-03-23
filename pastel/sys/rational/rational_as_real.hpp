@@ -2,47 +2,40 @@
 #define PASTELSYS_RATIONAL_AS_REAL_HPP
 
 #include "pastel/sys/rational/rational.h"
-
-namespace Pastel
-{
-
-	template <typename Type>
-	struct IsRational
-	{
-	};
-
-	template <typename Integer>
-	struct IsRational<Rational<Integer>>
-	{
-		static PASTEL_CONSTEXPR bool value = true;
-	};
-
-}
+#include "pastel/sys/type_traits/is_template_instance.h"
 
 namespace Pastel
 {
 
 	// Real
 
-	template <typename Type, EnableIf<IsRational<Type>> = 0>
+	template <
+		typename Type, 
+		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
 	Type infinity()
 	{
 		return Type(1, 0);
 	}
 
-	template <typename Type, EnableIf<IsRational<Type>> = 0>
+	template <
+		typename Type, 
+		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
 	Type nan()
 	{
 		return Type(0, 0);
 	}
 
-	template <typename Type, EnableIf<IsRational<Type>> = 0>
+	template <
+		typename Type, 
+		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
 	bool isNan(const Type& that)
 	{
 		return that.isNan();
 	}
 
-	template <typename Type, EnableIf<IsRational<Type>> = 0>
+	template <
+		typename Type, 
+		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
 	bool isInfinity(const Type& that)
 	{
 		return that.isInfinity();
@@ -137,7 +130,12 @@ namespace Pastel
 	Rational<Integer> abs(
 		const Rational<Integer>& that)
 	{
-		return mabs(that);
+		if (negative(that))
+		{
+			return -that;
+		}
+
+		return that;
 	}
 
 	template <typename Integer>
@@ -166,23 +164,6 @@ namespace Pastel
 		const Rational<Integer>& that)
 	{
 		return Pastel::zero(that.m()) && !Pastel::zero(that.n());
-	}
-
-}
-
-namespace Pastel
-{
-
-	template <typename Integer>
-	Rational<Integer> mabs(
-		const Rational<Integer>& that)
-	{
-		if (negative(that))
-		{
-			return -that;
-		}
-
-		return that;
 	}
 
 }

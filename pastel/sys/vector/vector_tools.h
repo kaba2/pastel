@@ -152,7 +152,7 @@ namespace Pastel
 	//! Returns the Manhattan (L1) norm of a vector.
 	/*!
 	The Manhattan (L1) norm is:
-	norm_1(that) := sum(mabs(that[i]))
+	norm_1(that) := sum(abs(that[i]))
 	*/
 
 	template <typename Real, int N, typename Expression>
@@ -161,7 +161,7 @@ namespace Pastel
 
 	//! Returns the p:th-power of the Lp norm of a vector.
 	/*!
-	powerSum(that) := sum(mabs(that[i])^p)
+	powerSum(that) := sum(abs(that[i])^p)
 	*/
 
 	template <typename Real, int N, typename Expression>
@@ -189,7 +189,7 @@ namespace Pastel
 	//! Returns the max norm of a vector.
 	/*!
 	The max norm is
-	norm_max(that) := max(mabs(that[i])).
+	norm_max(that) := max(abs(that[i])).
 	*/
 
 	template <typename Real, int N, typename Expression>

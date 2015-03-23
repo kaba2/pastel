@@ -48,7 +48,7 @@ namespace Pastel
 
 		for (integer i = n;i >= m;--i)
 		{
-			if (mabs(remainder[i]) > that.epsilon())
+			if (abs(remainder[i]) > that.epsilon())
 			{
 
 				const Real quotientCoefficient = remainder[i] * invDividerLead;

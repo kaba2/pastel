@@ -336,13 +336,13 @@ namespace Pastel
 		EnableIfC<(N == 1)>>
 	Real norm(const VectorExpression<Real, N, Expression>& that)
 	{
-		return mabs(that[0]);
+		return abs(that[0]);
 	}
 
 	template <typename Real, int N, typename Expression>
 	Real manhattanNorm(const VectorExpression<Real, N, Expression>& that)
 	{
-		return sum(mabs(that));
+		return sum(abs(that));
 	}
 
 	template <typename Real, int N, typename Expression>
@@ -351,7 +351,7 @@ namespace Pastel
 		const NoDeduction<Real>& metric)
 	{
 		PENSURE_OP(metric, >=, 1);
-		return sum(pow(mabs(that), metric));
+		return sum(pow(abs(that), metric));
 	}
 
 	template <typename Real, int N, typename Expression>
@@ -367,7 +367,7 @@ namespace Pastel
 	template <typename Real, int N, typename Expression>
 	Real maxNorm(const VectorExpression<Real, N, Expression>& that)
 	{
-		return max(mabs(that));
+		return max(abs(that));
 	}
 
 	template <typename Real, int N>

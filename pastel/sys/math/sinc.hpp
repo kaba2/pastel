@@ -21,7 +21,7 @@ namespace Pastel
 		// sinc(-x) = sinc(x) = sinc(|x|)
 
 		// The sinc function is an even function.
-		const Real x = mabs(xInput * constantPi<Real>());
+		const Real x = abs(xInput * constantPi<Real>());
 
 		static PASTEL_CONSTEXPR Real ApproximationBound = 0.1;
 

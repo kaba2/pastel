@@ -11,7 +11,7 @@ namespace Pastel
 		const VectorExpression<integer, N, Extent_Expression>& extent,
 		const VectorExpression<integer, N, Stride_Expression>& stride)
 	{
-		return (extent + mabs(stride) - 1) / mabs(stride);
+		return (extent + abs(stride) - 1) / abs(stride);
 	}
 
 	template <typename Type, int N>

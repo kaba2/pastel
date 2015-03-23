@@ -51,7 +51,7 @@ namespace Pastel
 			// Calculate aligned box widths
 
 			Vector<Real, 2> halfWidths(
-				mabs(evaluate((box.max() - box.min()) * Real(0.5))));
+				abs(evaluate((box.max() - box.min()) * Real(0.5))));
 			Vector<Real, 2> boxCenter(
 				box.min() + halfWidths);
 
@@ -126,8 +126,8 @@ namespace Pastel
 				// (the aligned box is centered on the origin).
 
 				Real boxRadius(
-					halfWidths[0] * mabs(normal[0]) +
-					halfWidths[1] * mabs(normal[1]));
+					halfWidths[0] * abs(normal[0]) +
+					halfWidths[1] * abs(normal[1]));
 
 				// Is this a separating axis?
 
@@ -191,7 +191,7 @@ namespace Pastel
 			// Compute the radii of the box.
 
 			Vector<Real, N> boxRadius(
-				mabs((box.max() - box.min()) * 0.5));
+				abs((box.max() - box.min()) * 0.5));
 
 			// Calculate the box center.
 
@@ -310,9 +310,9 @@ namespace Pastel
 					// of the box's projection (remember the
 					// aligned box is centered on origin).
 
-					// r = dot(boxRadius, mabs(C))
-					r = boxRadius[1] * mabs(edges[i][2]) +
-						boxRadius[2] * mabs(edges[i][1]);
+					// r = dot(boxRadius, abs(C))
+					r = boxRadius[1] * abs(edges[i][2]) +
+						boxRadius[2] * abs(edges[i][1]);
 
 					// Check if this is a separating axis.
 					if (triangleMin > r || triangleMax < -r)
@@ -334,9 +334,9 @@ namespace Pastel
 					Pastel::minMax(triangleProj1, triangleProj2,
 						triangleMin, triangleMax);
 
-					// r = dot(boxRadius, mabs(C))
-					r = boxRadius[0] * mabs(edges[i][2]) +
-						boxRadius[2] * mabs(edges[i][0]);
+					// r = dot(boxRadius, abs(C))
+					r = boxRadius[0] * abs(edges[i][2]) +
+						boxRadius[2] * abs(edges[i][0]);
 
 					// Check if this is a separating axis.
 					if (triangleMin > r || triangleMax < -r)
@@ -358,9 +358,9 @@ namespace Pastel
 					Pastel::minMax(triangleProj1, triangleProj2,
 						triangleMin, triangleMax);
 
-					// r = dot(boxRadius, mabs(C))
-					r = boxRadius[0] * mabs(edges[i][1]) +
-						boxRadius[1] * mabs(edges[i][0]);
+					// r = dot(boxRadius, abs(C))
+					r = boxRadius[0] * abs(edges[i][1]) +
+						boxRadius[1] * abs(edges[i][0]);
 
 					// Check if this is a separating axis.
 					if (triangleMin > r || triangleMax < -r)

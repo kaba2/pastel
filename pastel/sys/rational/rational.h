@@ -250,17 +250,6 @@ namespace Pastel
 
 }
 
-namespace Pastel
-{
-
-	// Optimization functions
-
-	template <typename Integer>
-	Rational<Integer> mabs(const Rational<Integer>& that);
-
-}
-
-
 #include "pastel/sys/rational/rational.hpp"
 #include "pastel/sys/rational/rational_add.hpp"
 #include "pastel/sys/rational/rational_as_point.hpp"

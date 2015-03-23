@@ -37,7 +37,7 @@ namespace Pastel
 		Real d = 0;
 		for (integer i = 0;i < n;++i)
 		{
-			d += mabs(dot(box.rotation()[i], plane.normal()));
+			d += abs(dot(box.rotation()[i], plane.normal()));
 		}
 
 		// Calculate the distance of the center

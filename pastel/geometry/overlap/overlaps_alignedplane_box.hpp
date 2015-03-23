@@ -36,11 +36,11 @@ namespace Pastel
 			// w.r.t its axes, the minimal point
 			// is also found in -radius.
 
-			radius += mabs(box.rotation()[i][plane.axis()]);
+			radius += abs(box.rotation()[i][plane.axis()]);
 		}
 
 		Real centerDistance =
-			mabs(box.position()[plane.axis()] - plane.position());
+			abs(box.position()[plane.axis()] - plane.position());
 
 		return centerDistance <= radius;
 	}

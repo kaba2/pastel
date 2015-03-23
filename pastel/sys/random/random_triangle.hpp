@@ -128,7 +128,7 @@ namespace Pastel
 	Real trianglePdf(
 		const NoDeduction<Real>& x)
 	{
-		Real xAbs = mabs(x);
+		Real xAbs = abs(x);
 		if (xAbs > 1)
 		{
 			return 0;

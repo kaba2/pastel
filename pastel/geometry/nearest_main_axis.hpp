@@ -11,7 +11,7 @@ namespace Pastel
 		const Vector<Real, N>& that)
 	{
 		// projectedLength = |<e_i, that> / |e_i|| = |that[i]|
-		return maxIndex(mabs(that));
+		return maxIndex(abs(that));
 	}
 
 }

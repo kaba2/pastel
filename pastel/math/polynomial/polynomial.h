@@ -37,7 +37,7 @@ namespace Pastel
 		/*!
 		The degree of the polynomial is defined
 		as the greatest index such that
-		mabs(that[i]) > epsilon.
+		abs(that[i]) > epsilon.
 		If no such index is found, the degree of the
 		polynomial is 0.
 
@@ -61,7 +61,7 @@ namespace Pastel
 		//! Removes leading zeros.
 		/*!
 		A coefficient is deemed as zero if
-		mabs(coefficient) > epsilon.
+		abs(coefficient) > epsilon.
 
 		Exception safety:
 		basic

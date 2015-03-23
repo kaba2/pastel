@@ -85,7 +85,7 @@ namespace Pastel
 			Real maxDot = 0;
 			for (integer j = 0;j < vectors;++j)
 			{
-				Real absDot = mabs(orthonormalSet[j][i]);
+				Real absDot = abs(orthonormalSet[j][i]);
 				if (absDot > maxDot)
 				{
 					maxDot = absDot;
