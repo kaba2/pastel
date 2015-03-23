@@ -100,17 +100,14 @@ namespace Pastel
 			M_Integer m,
 			N_Integer n);
 
-		//! Constructs with the value of the ieee single floating point.
+		//! Constructs with the value of the ieee floating point.
 		/*!
 		Implicit conversion allowed.
 		*/
-		Rational(real32_ieee that);
-
-		//! Constructs with the value of the ieee double floating point.
-		/*! 
-		Implicit conversion allowed.
-		*/
-		Rational(real64_ieee that);
+		template <
+			typename Real,
+			EnableIf<std::is_floating_point<Real>> = 0>
+		Rational(Real that);
 
 		//! Assigns another rational number.
 		Rational<Integer>& operator=(Rational that);
@@ -128,6 +125,12 @@ namespace Pastel
 
 		//! Returns the n.
 		const Integer& n() const;
+
+		//! Returns an approximating real number.
+		template <
+			typename Real,
+			EnableIf<std::is_floating_point<Real>> = 0>
+		Real asReal() const;
 
 		//! Returns whether the number is infinity.
 		bool isInfinity() const;
@@ -221,6 +224,12 @@ namespace Pastel
 			Integer n,
 			SkipSimplify);
 
+		template <
+			integer ExponentBits, 
+			integer MantissaBits,
+			typename Float_Ieee>
+		void setIeee(Float_Ieee that);
+
 		//! Brings the rational number to a normal form.
 		/*!
 		If the number is not NaN (0, 0), then the normal
@@ -244,33 +253,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	//! Computes the fractional part of x e [0, 1[.
-	/*!
-	This function is equivalent to remainder(x, 1).
-	This version offers an optimization opportunity
-	in this case.
-	*/
-	template <typename Integer>
-	Rational<Integer> fraction(
-		const Rational<Integer>& x);
-
-	//! Computes the remainder of (x / divider) e [0, divider[.
-	template <typename Integer>
-	Rational<Integer> remainder(
-		const Rational<Integer>& x,
-		const Rational<Integer>& divider);
-
 	// Optimization functions
-
-	template <typename Integer>
-	Rational<Integer> multiplyByPowerOfTwo(
-		const Rational<Integer>& x,
-		integer power);
-
-	template <typename Integer>
-	Rational<Integer> divideByPowerOfTwo(
-		const Rational<Integer>& x,
-		integer power);
 
 	template <typename Integer>
 	Rational<Integer> mabs(const Rational<Integer>& that);
