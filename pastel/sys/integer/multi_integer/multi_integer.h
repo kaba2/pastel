@@ -11,6 +11,7 @@
 #include "pastel/sys/bit/number_of_one_bits.h"
 #include "pastel/sys/bit/highest_bit.h"
 #include "pastel/sys/math/rounding.h"
+#include "pastel/sys/math/mod.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -36,7 +37,7 @@
 		signExtend(); \
 	\
 		return *this; \
-	}
+	} 
 
 namespace Pastel
 {
@@ -731,6 +732,25 @@ namespace Pastel
 			return *this;
 		}
 
+		//! Computes the remainder when divided by 'that'.
+		/*!
+		Time complexity: O(N^2)
+		Exception safety: nothrow
+
+		The following holds:
+		a = (a / b) * b + (a % b)
+
+		Note that the remainder can be negative. For a
+		non-negative remainder, see the mod() functions.
+		*/
+		MultiInteger& operator%=(const MultiInteger& that)
+		{
+			ENSURE(!zero(that));
+
+			*this -= (*this / that) * that;
+			return *this;
+		}
+
 		//! Divides this with 'that'.
 		/*!
 		Time complexity: O(N^2)
@@ -990,11 +1010,11 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: nothrow
 		*/
-		template <
-			typename Integer,
-			EnableIf<std::is_integral<Integer>> = 0>
-		explicit operator Integer() const
+		template <typename Integer>
+		Integer asNative() const
 		{
+			PASTEL_STATIC_ASSERT(std::is_integral<Integer>::value);
+
 			integer Bits = SizeInBits<Integer>::value;
 
 			integer wordsToCopy = 
@@ -1008,48 +1028,76 @@ namespace Pastel
 
 			if (Signed && negative(*this))
 			{
-				result += bitMask<std::make_unsigned_t<Integer>>(wordsToCopy * BitsInWord, Bits);
+				// Note: Assumes two's-complement representation
+				// of signed native integers.
+				result += bitMask<std::make_unsigned_t<Integer>>(
+					wordsToCopy * BitsInWord, Bits);
 			}
 
 			return result;
 		}
 
-		//! Converts the number to a string of zeros and ones.
+		//! Converts the number to a native integer.
 		/*!
+		This calls asNative<Integer>().
+		*/
+		template <
+			typename Integer,
+			EnableIf<std::is_integral<Integer>> = 0>
+		explicit operator Integer() const
+		{
+			return asNative<Integer>();
+		}
+
+		//! Converts the number to a string.
+		/*!
+		Preconditions:
+		base >= 2
+		base <= 36
+
 		Time complexity: O(N)
 		Exception safety: strong
 		*/
-		std::string toString() const
+		std::string asString(integer base = 10) const
 		{
-			std::string result;
-			result.reserve(N);
-
-			Word mask = singleBitMask<Word>(BitsInWord - 1);
-
-			for (integer i = Words - 1;i >= 0;--i)
+			static PASTEL_CONSTEXPR char digitSet[] =
 			{
-				Word word = wordSet_[i];
-				for (integer j = BitsInWord - 1;j >= 0 && result.size() < N;--j)
-				{
-					if (word & mask)
-					{
-						result.push_back('1');
-					}
-					else
-					{
-						result.push_back('0');
-					}
+				'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 
+				'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
+				'u', 'v', 'w', 'x', 'y', 'z'
+			};
+			static PASTEL_CONSTEXPR integer maxBase = 
+				sizeof(digitSet) / sizeof(char);
 
-					word <<= 1;
-				}
+			ENSURE_OP(base, >=, 2);
+			ENSURE_OP(base, <=, maxBase);
+
+			if (zero(*this))
+			{
+				return "0";
 			}
 
-			return result;
-		}
+			MultiInteger Base = base;
 
-		std::string to_string() const
-		{
-			return toString();
+			MultiInteger t = abs(*this);
+
+	
+			std::string result;
+			while (!zero(t))
+			{
+				result += digitSet[(integer)mod(t, Base)];
+				t /= base;
+			}
+
+			if (Signed && negative(*this))
+			{
+				result += "-";
+			}
+
+			std::reverse(result.begin(), result.end());
+
+			return result;
 		}
 
 		//! Computes a hash of the bits in the range [beginBit, endBit).

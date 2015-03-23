@@ -19,6 +19,7 @@ namespace Pastel
 		auto requires(Type&& t) -> decltype
 			(
 			conceptCheck(
+				//! Constructs with zero.
 				Type(),
 				Type((int8)0),
 				Type((uint8)0),
@@ -28,14 +29,29 @@ namespace Pastel
 				Type((uint32)0),
 				Type((int64)0),
 				Type((uint64)0),
+				//! Computes roundTowardsZero(t / u).
+				Concept::hasType<Type&>(t /= t),
+				Concept::convertsTo<Type>(t / t),
+				//! Remainder of t when divided by u.
+				/*!
+				It holds that t = (t / u) * u + (t % u).
+				Note that the remainder can be negative.
+				*/
+				Concept::hasType<Type&>(t %= t),
+				Concept::convertsTo<Type>(t % t),
+				//! Bitwise logical and.
 				Concept::hasType<Type&>(t &= t),
 				Concept::convertsTo<Type>(t & t),
+				//! Bitwise logical or.
 				Concept::hasType<Type&>(t |= t),
 				Concept::convertsTo<Type>(t | t),
+				//! Bitwise logical xor.
 				Concept::hasType<Type&>(t ^= t),
 				Concept::convertsTo<Type>(t ^ t),
+				//! Computes t * 2^n.
 				Concept::hasType<Type&>(t <<= (integer)0),
 				Concept::convertsTo<Type>(t << (integer)0),
+				//! Computes floor(t / 2^n).
 				Concept::hasType<Type&>(t >>= (integer)0),
 				Concept::convertsTo<Type>(t >> (integer)0),
 				//! Returns whether 'that' is even.
