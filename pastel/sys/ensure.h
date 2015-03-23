@@ -18,16 +18,16 @@
 	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__), true))
 
 #define REPORT1(expr, a)\
-	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a)), true))
+	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a)), true))
 
 #define REPORT2(expr, a, b)\
-	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b)), true))
+	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b)), true))
 
 #define REPORT3(expr, a, b, c)\
-	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c)), true))
+	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b), Pastel::Ensure_::parameterInfo(#c, c)), true))
 
 #define REPORT4(expr, a, b, c, d)\
-	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d)), true))
+	((expr) && (Pastel::Ensure_::report(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b), Pastel::Ensure_::parameterInfo(#c, c), Pastel::Ensure_::parameterInfo(#d, d)), true))
 
 #define REPORT_OP(x, op, y) REPORT2(x op y, x, y)
 
@@ -37,16 +37,16 @@
 {if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__);}}
 
 #define ENSURE1(expr, a)\
-{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a));}}
+{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a));}}
 
 #define ENSURE2(expr, a, b)\
-{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
+{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b));}}
 
 #define ENSURE3(expr, a, b, c)\
-{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
+{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b), Pastel::Ensure_::parameterInfo(#c, c));}}
 
 #define ENSURE4(expr, a, b, c, d)\
-{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
+{if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b), Pastel::Ensure_::parameterInfo(#c, c), Pastel::Ensure_::parameterInfo(#d, d));}}
 
 #define ENSURE_OP(x, op, y) ENSURE2(x op y, x, y)
 
@@ -80,16 +80,16 @@
 {if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__);}}
 
 #define ASSERT1(expr, a)\
-{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a));}}
+{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a));}}
 
 #define ASSERT2(expr, a, b)\
-{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
+{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b));}}
 
 #define ASSERT3(expr, a, b, c)\
-{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
+{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b), Pastel::Ensure_::parameterInfo(#c, c));}}
 
 #define ASSERT4(expr, a, b, c, d)\
-{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
+{if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b), Pastel::Ensure_::parameterInfo(#c, c), Pastel::Ensure_::parameterInfo(#d, d));}}
 
 #define ASSERT_OP(x, op, y) ASSERT2(x op y, x, y)
 
@@ -112,38 +112,46 @@ namespace Pastel
 	namespace Ensure_
 	{
 
-		// Prints a report message. Used by REPORT macros.
+		template <typename Type>
+		struct ParameterInfo
+		{
+			const char* name;
+			Type value;
+		};
 
+		template <typename Type>
+		ParameterInfo<Type> parameterInfo(
+			const char* name, Type&& value)
+		{
+			return {name, std::forward<Type>(value)};
+		}
+
+		//! Prints a report message. Used by REPORT macros.
+		template <typename... TypeSet>
 		void report(
-			const char* testText = 0,
-			const char* functionName = 0,
-			const char* fileName = 0, int lineNumber = -1,
-			const char* info1Name = 0, real64 info1 = 0,
-			const char* info2Name = 0, real64 info2 = 0,
-			const char* info3Name = 0, real64 info3 = 0,
-			const char* info4Name = 0, real64 info4 = 0);
+			const char* testText,
+			const char* functionName,
+			const char* fileName, 
+			int lineNumber,
+			ParameterInfo<TypeSet>... parameterSet);
 
-		// Prints an error message and aborts the program.
-
+		//! Prints an error message and aborts the program.
+		template <typename... TypeSet>
 		void error(
-			const char* testText = 0,
-			const char* functionName = 0,
-			const char* fileName = 0, int lineNumber = -1,
-			const char* info1Name = 0, real64 info1 = 0,
-			const char* info2Name = 0, real64 info2 = 0,
-			const char* info3Name = 0, real64 info3 = 0,
-			const char* info4Name = 0, real64 info4 = 0);
+			const char* testText,
+			const char* functionName,
+			const char* fileName, 
+			int lineNumber,
+			ParameterInfo<TypeSet>... parameterSet);
 
-		// Prints an error message and aborts the program.
-
+		//! Prints an error message and aborts the program.
+		template <typename... TypeSet>
 		void assertionError(
-			const char* testText = 0,
-			const char* functionName = 0,
-			const char* fileName = 0, int lineNumber = -1,
-			const char* info1Name = 0, real64 info1 = 0,
-			const char* info2Name = 0, real64 info2 = 0,
-			const char* info3Name = 0, real64 info3 = 0,
-			const char* info4Name = 0, real64 info4 = 0);
+			const char* testText,
+			const char* functionName,
+			const char* fileName, 
+			int lineNumber,
+			ParameterInfo<TypeSet>... parameterSet);
 
 	}
 
