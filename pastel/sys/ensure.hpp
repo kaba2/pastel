@@ -27,14 +27,33 @@ namespace Pastel
 			throw InvariantFailure();
 		}
 
-		inline void report(
+		template <
+			typename Type,
+			typename... TypeSet>
+		void reportParameters(
+			ParameterInfo<Type> parameter, 
+			ParameterInfo<TypeSet>... parameterSet)
+		{
+			if (parameter.name)
+			{
+				log() << parameter.name << " == "
+					<< parameter.value << logNewLine;
+			}
+
+			reportParameters(parameterSet...);
+		}
+
+		inline void reportParameters()
+		{
+		}
+
+		template <typename... TypeSet>
+		void report(
 			const char* testText,
 			const char* functionName,
-			const char* fileName, int lineNumber,
-			const char* info1Name, real64 info1,
-			const char* info2Name, real64 info2,
-			const char* info3Name, real64 info3,
-			const char* info4Name, real64 info4)
+			const char* fileName, 
+			int lineNumber,
+			ParameterInfo<TypeSet>... parameterSet)
 		{
 			log() << "File: ";
 			if (fileName)
@@ -80,46 +99,22 @@ namespace Pastel
 			}
 			log() << logNewLine;
 
-			if (info1Name ||
-				info2Name ||
-				info3Name ||
-				info4Name)
+			if (sizeof...(TypeSet) > 0)
 			{
 				log() << "where" << logNewLine;
-
-				if (info1Name)
-				{
-					log() << info1Name << " == "
-						<< info1 << logNewLine;
-				}
-				if (info2Name)
-				{
-					log() << info2Name << " == "
-						<< info2 << logNewLine;
-				}
-				if (info3Name)
-				{
-					log() << info3Name << " == "
-						<< info3 << logNewLine;
-				}
-				if (info4Name)
-				{
-					log() << info4Name << " == "
-						<< info4 << logNewLine;
-				}
+				reportParameters(parameterSet...);
 			}
 
 			log() << logNewLine << logNewLine;
 		}
 
-		inline void error(
+		template <typename... TypeSet>
+		void error(
 			const char* testText,
 			const char* functionName,
-			const char* fileName, int lineNumber,
-			const char* info1Name, real64 info1,
-			const char* info2Name, real64 info2,
-			const char* info3Name, real64 info3,
-			const char* info4Name, real64 info4)
+			const char* fileName, 
+			int lineNumber,
+			ParameterInfo<TypeSet>... parameterSet)
 		{
 			log() << logNewLine;
 			log() << "Precondition check failed."
@@ -127,23 +122,20 @@ namespace Pastel
 
 			report(testText,
 				functionName,
-				fileName, lineNumber,
-				info1Name, info1,
-				info2Name, info2,
-				info3Name, info3,
-				info4Name, info4);
+				fileName, 
+				lineNumber,
+				parameterSet...);
 
 			invariantFailure();
 		}
 
-		inline void assertionError(
+		template <typename... TypeSet>
+		void assertionError(
 			const char* testText,
 			const char* functionName,
-			const char* fileName, int lineNumber,
-			const char* info1Name, real64 info1,
-			const char* info2Name, real64 info2,
-			const char* info3Name, real64 info3,
-			const char* info4Name, real64 info4)
+			const char* fileName, 
+			int lineNumber,
+			ParameterInfo<TypeSet>... parameterSet)
 		{
 			log() << logNewLine;
 			log() << "Internal check failed." 
@@ -151,11 +143,9 @@ namespace Pastel
 
 			report(testText,
 				functionName,
-				fileName, lineNumber,
-				info1Name, info1,
-				info2Name, info2,
-				info3Name, info3,
-				info4Name, info4);
+				fileName, 
+				lineNumber,
+				parameterSet...);
 
 			invariantFailure();
 		}
