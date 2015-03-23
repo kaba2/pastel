@@ -14,7 +14,7 @@ namespace
 
 	using namespace Pastel;
 
-	using Integer = Signed_Integer<128>;
+	using Integer = Signed_Integer<64, uint8>;
 	PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
 
 	using Rat = Rational<Integer>;
@@ -164,7 +164,7 @@ namespace
 			TEST_ENSURE(ceil(Rat(-4, 3)) == -1);
 			TEST_ENSURE(ceil(Rat(-4, 4)) == -1);
 
-			TEST_ENSURE(mod(Rat(4, 3)) == Rat(1, 3));
+			//TEST_ENSURE(mod(Rat(4, 3)) == Rat(1, 3));
 		}
 
 		void testSimple()
@@ -360,6 +360,8 @@ namespace
 
 		void testDouble()
 		{
+			Rat a(0.125);
+
 			TEST_ENSURE(Rat(0.125) == Rat(1, 8));
 			TEST_ENSURE(Rat(-0.125) == Rat(-1, 8));
 			TEST_ENSURE(Rat(0.0) == Rat(0));
@@ -400,7 +402,7 @@ namespace
 			a == b;
 			a != b;
 
-			Integer i;
+			Integer i = 0;
 
 			a += i;
 			a -= i;

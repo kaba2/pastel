@@ -49,35 +49,65 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	Integer floor(
+	Rational<Integer> floor(
 		const Rational<Integer>& that)
 	{
 		// Note: n is always >= 0.
+
+		if (zero(that.n()))
+		{
+			// 0, Nan, -infinity, +infinity.
+			return that;
+		}
+
 		if (that.n() == 1)
 		{
+			// Integers (including zero).
 			return that.m();
 		}
 
-		return that.m() / that.n();
+		if (positive(that))
+		{
+			// Integer-division rounds towards zero,
+			// which is floor for positive numbers.
+			return that.m() / that.n();
+		}
+		
+		// Integer-division rounds towards zero.
+		// Since the number is negative non-integer,
+		// integer-division rounds one too high.
+		return (that.m() / that.n()) - 1;
 	}
 
 	template <typename Integer>
-	Integer ceil(
+	Rational<Integer> ceil(
 		const Rational<Integer>& that)
 	{
 		// Note: n is always >= 0.
+
+		if (zero(that.n()))
+		{
+			// 0, Nan, -infinity, +infinity.
+			return that;
+		}
+
 		if (that.n() == 1)
 		{
+			// Integers (including zero).
 			return that.m();
 		}
 
-		Integer result = floor(that);
-		if (result * that.n() != that.m())
+		if (positive(that))
 		{
-			++result;
+			// Integer-division rounds towards zero.
+			// Since the number is positive non-integer,
+			// integer-division rounds one too low.
+			return (that.m() / that.n()) + 1;
 		}
-
-		return result;
+		
+		// Integer-division rounds towards zero,
+		// which is ceil for negative numbers.
+		return that.m() / that.n();
 	}
 
 }
@@ -142,62 +172,6 @@ namespace Pastel
 
 namespace Pastel
 {
-
-	template <typename Integer>
-	Rational<Integer> fraction(
-		const Rational<Integer>& that)
-	{
-		if (!positive(that) && that < 1)
-		{
-			return that;
-		}
-
-		return that - floor(that);
-	}
-
-	template <typename Integer>
-	Rational<Integer> remainder(
-		const Rational<Integer>& that,
-		const Rational<Integer>& divider)
-	{
-		if (!positive(that) && that < divider)
-		{
-			return that;
-		}
-
-		return that - floor(that / divider) * divider;
-	}
-
-	template <typename Integer>
-	Rational<Integer> multiplyByPowerOfTwo(
-		const Rational<Integer>& that,
-		integer power)
-	{
-		ENSURE_OP(power, >=, 0);
-		if (power == 0)
-		{
-			return that;
-		}
-
-		return Rational<Integer>(
-			that.m() << power,
-			that.n());
-	}
-
-	template <typename Integer>
-	Rational<Integer> divideByPowerOfTwo(
-		const Rational<Integer>& that,
-		integer power)
-	{
-		ENSURE_OP(power, >=, 0);
-		if (power == 0)
-		{
-			return that;
-		}
-
-		return Rational<Integer>(
-			that.m(), that.n() << power);
-	}
 
 	template <typename Integer>
 	Rational<Integer> mabs(
