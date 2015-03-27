@@ -43,6 +43,11 @@ namespace Pastel
 		integer dimension_;
 	};
 
+	inline std::string asString(Dimension n)
+	{
+		return Pastel::asString((integer)n);
+	}
+
 	template <typename Type>
 	class Alias
 	{

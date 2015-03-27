@@ -3,6 +3,7 @@
 
 #include "pastel/sys/logging/log.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/printable/native_printable.h"
 
 #include <sstream>
 #include <vector>
@@ -46,9 +47,7 @@ namespace Pastel
 		Logger_ConstIterator iterEnd = loggerSet_.end();
 		while (iter != iterEnd)
 		{
-
 			(*iter)->removeLog(this);
-
 			++iter;
 		}
 	}
@@ -59,9 +58,7 @@ namespace Pastel
 		Logger_ConstIterator iterEnd = loggerSet_.end();
 		while (iter != iterEnd)
 		{
-
 			(*iter)->finalize();
-
 			++iter;
 		}
 	}
@@ -73,122 +70,19 @@ namespace Pastel
 
 		while (iter != iterEnd)
 		{
-
 			*(*iter) << value;
-
 			++iter;
 		}
 
 		return *this;
 	}
 
-	inline Log& Log::operator<<(char value)
+	template <
+		typename Type,
+		typename>
+	Log& Log::operator<<(const Type& value)
 	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
-		return *this;
-	}
-
-	inline Log& Log::operator<<(uchar value)
-	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
-		return *this;
-	}
-
-	inline Log& Log::operator<<(int value)
-	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
-		return *this;
-	}
-
-	inline Log& Log::operator<<(uint value)
-	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
-		return *this;
-	}
-
-	inline Log& Log::operator<<(long value)
-	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
-		return *this;
-	}
-
-	inline Log& Log::operator<<(ulong value)
-	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
-		return *this;
-	}
-
-	inline Log& Log::operator<<(longlong value)
-	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
-		return *this;
-	}
-
-	inline Log& Log::operator<<(ulonglong value)
-	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
-		return *this;
-	}
-
-	inline Log& Log::operator<<(float value)
-	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
-		return *this;
-	}
-
-	inline Log& Log::operator<<(double value)
-	{
-		std::stringstream stream;
-		stream << value;
-		std::string text;
-		stream >> text;
-		(*this) << text;
-
+		*this << asString(value);
 		return *this;
 	}
 

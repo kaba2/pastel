@@ -7,6 +7,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/logging/logger_fwd.h"
+#include "pastel/sys/printable/printable_concept.h"
 
 #include <set>
 
@@ -33,16 +34,15 @@ namespace Pastel
 		virtual Log& operator<<(const std::string& value);
 		virtual void finalize();
 
-		Log& operator<<(char value);
-		Log& operator<<(uchar value);
-		Log& operator<<(int value);
-		Log& operator<<(uint value);
-		Log& operator<<(long value);
-		Log& operator<<(ulong value);
-		Log& operator<<(longlong value);
-		Log& operator<<(ulonglong value);
-		Log& operator<<(float value);
-		Log& operator<<(double value);
+		template <
+			typename Type,
+			typename = 
+				Requires<
+					Models<Type, Printable_Concept>
+				>
+			>
+		Log& operator<<(const Type& value);
+		
 		Log& operator<<(void (*function)(Log&));
 
 	private:
