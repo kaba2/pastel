@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <typename Type>
-	Type* createScalar(
+	Type* matlabCreateScalar(
 		mxArray*& output)
 	{
 		output = mxCreateNumericMatrix(1, 1,
@@ -20,7 +20,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	Array<Type> createArray(
+	Array<Type> matlabCreateArray(
 		const Vector2i& extent,
 		mxArray*& output)
 	{
@@ -39,16 +39,16 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	Array<Type> createArray(
+	Array<Type> matlabCreateArray(
 		integer width, integer height,
 		mxArray*& output)
 	{
-		return createArray<Type>(
+		return matlabCreateArray<Type>(
 			Vector2i(width, height), output);
 	}
 
 	template <typename Type>
-	Type asScalar(const mxArray* input,
+	Type matlabAsScalar(const mxArray* input,
 		integer index)
 	{
 		ENSURE(mxIsNumeric(input));
@@ -106,7 +106,7 @@ namespace Pastel
 	}
 
 
-	inline std::string asString(const mxArray* input)
+	inline std::string matlabAsString(const mxArray* input)
 	{
 		ENSURE(mxIsChar(input));
 
@@ -118,7 +118,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	Array<Type> asArray(
+	Array<Type> matlabAsArray(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
@@ -159,14 +159,14 @@ namespace Pastel
 				0,
 				StorageOrder::ColumnMajor);
 
-			getScalars(that, result.begin());
+			matlabGetScalars(that, result.begin());
 		}
 
 		return result;
 	}
 
 	template <typename Type>
-	Array<Type> asLinearizedArray(
+	Array<Type> matlabAsLinearizedArray(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
@@ -201,14 +201,14 @@ namespace Pastel
 
 			result = Array<Type>(Vector2i(n, 1));
 
-			getScalars(that, result.begin());
+			matlabGetScalars(that, result.begin());
 		}
 
 		return result;
 	}
 
 	template <typename Type, typename Array_Output>
-	integer getArrays(
+	integer matlabGetArrays(
 		const mxArray* cellArray,
 		Array_Output report)
 	{
@@ -221,14 +221,14 @@ namespace Pastel
 		{
 
 			const mxArray* cell = mxGetCell(cellArray, i);
-			report(asArray<Type>(cell));
+			report(matlabAsArray<Type>(cell));
 		}
 
 		return n;
 	}
 
 	template <typename Scalar_Iterator>
-	integer getScalars(
+	integer matlabGetScalars(
 		const mxArray* input,
 		Scalar_Iterator output,
 		integer offset)

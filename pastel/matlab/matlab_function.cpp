@@ -74,7 +74,7 @@ namespace Pastel
 
 			// The first parameter is the name of the
 			// function that should be called.
-			std::string name = asString(inputSet[FunctionName]);
+			std::string name = matlabAsString(inputSet[FunctionName]);
 
 			// See if a function with that name has
 			// been registered.

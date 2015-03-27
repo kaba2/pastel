@@ -34,13 +34,13 @@ namespace
 		ENSURE_OP(inputs, ==, Inputs);
 		ENSURE_OP(outputs, ==, Outputs);
 
-		integer m = asScalar<integer>(inputSet[M]);
-		integer n = asScalar<integer>(inputSet[N]);
-		real shape = asScalar<real>(inputSet[Shape]);
-		real scale = asScalar<real>(inputSet[Scale]);
+		integer m = matlabAsScalar<integer>(inputSet[M]);
+		integer n = matlabAsScalar<integer>(inputSet[N]);
+		real shape = matlabAsScalar<real>(inputSet[Shape]);
+		real scale = matlabAsScalar<real>(inputSet[Scale]);
 
 		Array<real> result =
-			createArray<real>(Vector2i(m, n),
+			matlabCreateArray<real>(Vector2i(m, n),
 			outputSet[Result]);
 
 		for (real& element : result)
