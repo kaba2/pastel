@@ -4,6 +4,7 @@
 #define PASTELMATH_COORDINATES_DERIVATES_H
 
 #include "pastel/sys/vector.h"
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {
