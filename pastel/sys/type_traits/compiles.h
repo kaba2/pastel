@@ -34,7 +34,7 @@ namespace Pastel
 		static std::false_type test(...);
 
 	public:
-		static PASTEL_CONSTEXPR bool value =
+		static constexpr bool value =
 			decltype(test<TypeSet...>())::value;
 	};
 

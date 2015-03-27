@@ -54,9 +54,9 @@ namespace Pastel
 		{
 			// Both are just normal numbers.
 			result.set(
-				m_ * that.n_ +
-				std::move(that.m_) * n_,
-				n_ * that.n_);
+				m() * that.n() +
+				that.m() * n(),
+				n() * that.n());
 		}
 
 		swap(result);

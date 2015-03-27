@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_SET_CONCEPT_H
 #define PASTELSYS_SET_CONCEPT_H
 
-#include "pastel/sys/concept.h"
+#include "pastel/sys/concept/concept.h"
 
 namespace Pastel
 {

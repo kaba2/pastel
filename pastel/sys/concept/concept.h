@@ -3,7 +3,9 @@
 #ifndef PASTELSYS_CONCEPT_H
 #define PASTELSYS_CONCEPT_H
 
-#include "pastel/sys/mytypes.h"
+#include "pastel/sys/sfinae_macros.h"
+#include "pastel/sys/concept/refines.h"
+#include "pastel/sys/concept/models.h"
 #include "pastel/sys/type_traits/and.h"
 #include "pastel/sys/type_traits/or.h"
 

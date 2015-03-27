@@ -5,6 +5,7 @@
 
 #include "pastel/sys/concept/refines.h"
 #include "pastel/sys/concept/models_directly.h"
+#include "pastel/sys/type_traits/and.h"
 
 #include <type_traits>
 
@@ -36,7 +37,7 @@ namespace Pastel
 		static std::true_type test(...);
 
 	public:
-		static PASTEL_CONSTEXPR bool value =
+		static constexpr bool value =
 			decltype(test(std::declval<Concept>()))::value;
 	};
 
