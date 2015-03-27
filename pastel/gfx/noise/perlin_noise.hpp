@@ -9,7 +9,7 @@
 
 #include "pastel/math/interpolation/smoothstep.h"
 
-#include <vector>
+#include <array>
 
 namespace Pastel
 {
@@ -30,15 +30,16 @@ namespace Pastel
 		
 		// Find out the contribution of each vertex of the
 		// containing cube.
-		std::vector<Real> vertexSet;
-		vertexSet.reserve(1 << n);
+		std::array<Real, (1 << N)> vertexSet;
 		
+		integer j = 0;
 		Vector<integer, N> p = floorPosition;
 		Vector<Real, N> f = minDelta;
 		uint32 state = 0;
 		while(true)
 		{
-			vertexSet.push_back(gradientField<Real, N>()(p, f));
+			vertexSet[j] = gradientField<Real, N>()(p, f);
+			++j;
 
 			integer axis = 0;
 			uint32 mask = 1;
