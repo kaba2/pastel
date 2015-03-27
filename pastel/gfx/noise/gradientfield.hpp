@@ -61,6 +61,7 @@ namespace Pastel
 
 			integer permutationSize = 
 				std::max(roundUpToPowerOfTwo(gradients), (integer)256);
+			permutationMask_ = permutationSize - 1;
 			
 			// Generate the standard permutation.
 
