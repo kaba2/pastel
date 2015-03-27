@@ -5,8 +5,6 @@
 #include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_count_nearest.h"
 
-#include "pastel/matlab/pastelmatlab.h"
-
 #include "pastel/sys/pointpolicies.h"
 #include "pastel/sys/allocator/pool_allocator.h"
 #include "pastel/sys/indicator/predicate_indicator.h"
@@ -17,6 +15,8 @@
 #include <tbb/parallel_for.h>
 
 #include <unordered_map>
+
+#include "pastel/matlab/pastelmatlab.h"
 
 void force_linking_pointkdtree() {}
 
@@ -196,7 +196,7 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 
 			KdState* state = asState(inputSet[State]);
-			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+			Array<integer> idSet = matlabAsLinearizedArray<integer>(inputSet[IdSet]);
 
 			integer d = state->tree.n();
 			integer n = idSet.size();
@@ -205,7 +205,7 @@ namespace Pastel
 
 			const Locator& locator = state->tree.locator();
 
-			Array<real> pointSet = createArray<real>(
+			Array<real> pointSet = matlabCreateArray<real>(
 				n, d, outputSet[PointSet]);
 			for (integer i = 0;i < n;++i)
 			{
@@ -244,11 +244,11 @@ namespace Pastel
 
 			ENSURE_OP(inputs, ==, Inputs);
 			
-			integer dimension = asScalar<integer>(inputSet[Dimension]);
+			integer dimension = matlabAsScalar<integer>(inputSet[Dimension]);
 
 			// Get enough memory to hold a KdState pointer.
 
-			KdState** rawResult = createScalar<KdState*>(outputSet[0]);
+			KdState** rawResult = matlabCreateScalar<KdState*>(outputSet[0]);
 
 			// Create a new KdState and store the pointer to
 			// the returned array.
@@ -287,7 +287,7 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 
 			// Get enough memory to hold a KdState pointer.
-			KdState** rawResult = createScalar<KdState*>(outputSet[0]);
+			KdState** rawResult = matlabCreateScalar<KdState*>(outputSet[0]);
 
 			// Create a new KdState and store the pointer to
 			// the returned array.
@@ -368,11 +368,11 @@ namespace Pastel
 			Tree& tree = state->tree;
 			integer dimension = tree.n();
 
-			Array<real> pointSet = asArray<real>(inputSet[PointSet]);
+			Array<real> pointSet = matlabAsArray<real>(inputSet[PointSet]);
 			integer points = pointSet.width();
 
 			Array<integer> result =
-				createArray<integer>(points, 1, outputSet[IdSet]);
+				matlabCreateArray<integer>(points, 1, outputSet[IdSet]);
 			for (integer i = 0;i < points;++i)
 			{
 
@@ -416,7 +416,7 @@ namespace Pastel
 				return;
 			}
 
-			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+			Array<integer> idSet = matlabAsLinearizedArray<integer>(inputSet[IdSet]);
 
 			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
@@ -460,7 +460,7 @@ namespace Pastel
 				return;
 			}
 
-			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+			Array<integer> idSet = matlabAsLinearizedArray<integer>(inputSet[IdSet]);
 
 			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
@@ -502,7 +502,7 @@ namespace Pastel
 				return;
 			}
 
-			Array<integer> idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+			Array<integer> idSet = matlabAsLinearizedArray<integer>(inputSet[IdSet]);
 
 			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
@@ -530,7 +530,7 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 
 			KdState* state = asState(inputSet[State]);
-			integer bucketSize = asScalar<integer>(inputSet[BucketSize]);
+			integer bucketSize = matlabAsScalar<integer>(inputSet[BucketSize]);
 
 			state->tree.refine(
 				SlidingMidpoint_SplitRule(), bucketSize);
@@ -556,7 +556,7 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 
-			integer *outNodes = createScalar<integer>(outputSet[Nodes]);
+			integer *outNodes = matlabCreateScalar<integer>(outputSet[Nodes]);
 			*outNodes = state->tree.nodes();
 		}
 
@@ -580,7 +580,7 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 
-			integer* outLeaves = createScalar<integer>(outputSet[Leaves]);
+			integer* outLeaves = matlabCreateScalar<integer>(outputSet[Leaves]);
 			*outLeaves = state->tree.leaves();
 		}
 
@@ -604,7 +604,7 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 
-			integer* outDimension = createScalar<integer>(
+			integer* outDimension = matlabCreateScalar<integer>(
 				outputSet[Dimension]);
 			*outDimension = state->tree.n();
 		}
@@ -629,7 +629,7 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 
-			integer* outPoints = createScalar<integer>(
+			integer* outPoints = matlabCreateScalar<integer>(
 				outputSet[Points]);
 			*outPoints = state->tree.points();
 		}
@@ -664,8 +664,8 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
-			Array<real> maxDistanceSet = asLinearizedArray<real>(inputSet[MaxDistanceSet]);
-			integer k = asScalar<integer>(inputSet[KNearest]);
+			Array<real> maxDistanceSet = matlabAsLinearizedArray<real>(inputSet[MaxDistanceSet]);
+			integer k = matlabAsScalar<integer>(inputSet[KNearest]);
 
 			mxClassID id = mxGetClassID(inputSet[QuerySet]);
 			
@@ -686,15 +686,15 @@ namespace Pastel
 			}
 
 			Array<integer> nearestArray =
-				createArray<integer>(k, queries, outputSet[IdSet]);
+				matlabCreateArray<integer>(k, queries, outputSet[IdSet]);
 
 			Array<real> distanceArray;
 			if (wantDistance)
 			{
-				// Having the createArray<real>() call directly
+				// Having the matlabCreateArray<real>() call directly
 				// inside the swap() function triggers an
 				// internal compiler error in Clang.
-				auto copyArray = createArray<real>(k, queries, outputSet[DistanceSet]);
+				auto copyArray = matlabCreateArray<real>(k, queries, outputSet[DistanceSet]);
 				distanceArray.swap(copyArray);
 				boost::fill(distanceArray.range(), infinity<real>());
 			}
@@ -705,7 +705,7 @@ namespace Pastel
 			{
 				// The queries are a set of points given explicitly
 				// by their coordinates. Each column is a query point.
-				Array<real> querySet = asArray<real>(inputSet[QuerySet]);
+				Array<real> querySet = matlabAsArray<real>(inputSet[QuerySet]);
 				integer n = state->tree.n();
 
 				// Find the k-nearest-neighbors for each point.
@@ -754,7 +754,7 @@ namespace Pastel
 			{
 				// The queries are over the points in the kd-tree,
 				// given by their ids.
-				Array<integer> querySet = asLinearizedArray<integer>(inputSet[QuerySet]);
+				Array<integer> querySet = matlabAsLinearizedArray<integer>(inputSet[QuerySet]);
 		
 				// Find the k-nearest-neighbors for each point.
 				auto search = [&](const Block& block)
@@ -829,7 +829,7 @@ namespace Pastel
 			// nearestIdSet = matlab_pointkdtree('pointkdtree_search_nearest', ...
 			//		kdtree, querySet, maxDistanceSet, kNearest, norm);
 
-			std::string norm = asString(inputSet[Norm]);
+			std::string norm = matlabAsString(inputSet[Norm]);
 			if (norm == "euclidean")
 			{
 				kdSearchNearest_<Euclidean_NormBijection<real>>(
@@ -877,17 +877,17 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
-			Array<real> maxDistanceSet = asLinearizedArray<real>(inputSet[MaxDistanceSet]);
+			Array<real> maxDistanceSet = matlabAsLinearizedArray<real>(inputSet[MaxDistanceSet]);
 			integer queries = mxGetNumberOfElements(inputSet[QuerySet]);
 			ENSURE_OP(maxDistanceSet.size(), ==, queries);
 
 			// The queries are over the points in the kd-tree,
 			// given by their ids.
-			Array<integer> querySet = asLinearizedArray<integer>(inputSet[QuerySet]);
+			Array<integer> querySet = matlabAsLinearizedArray<integer>(inputSet[QuerySet]);
 
 			// Create the result array.
 			Array<integer> result =
-				createArray<integer>(queries, 1, outputSet[IdSet]);
+				matlabCreateArray<integer>(queries, 1, outputSet[IdSet]);
 
 			// Count the neighbors for each point.
 
@@ -943,7 +943,7 @@ namespace Pastel
 			// nearestIdSet = matlab_pointkdtree('pointkdtree_count_nearest', ...
 			//		kdtree, querySet, maxDistanceSet, norm);
 
-			std::string norm = asString(inputSet[Norm]);
+			std::string norm = matlabAsString(inputSet[Norm]);
 			if (norm == "euclidean")
 			{
 				kdCountNearest_<Euclidean_NormBijection<real>>(

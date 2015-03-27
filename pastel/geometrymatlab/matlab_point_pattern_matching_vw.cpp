@@ -47,11 +47,11 @@ namespace Pastel
 			integer scenePoints = 
 				mxGetN(inputSet[SceneSet]);
 			real minMatchRatio = 
-				asScalar<real>(inputSet[MinMatchRatio]);
+				matlabAsScalar<real>(inputSet[MinMatchRatio]);
 			real relativeMatchingDistance = 
-				asScalar<real>(inputSet[RelativeMatchingDistance]);
+				matlabAsScalar<real>(inputSet[RelativeMatchingDistance]);
 			real confidence =
-				asScalar<real>(inputSet[Confidence]);
+				matlabAsScalar<real>(inputSet[Confidence]);
 
 			ConformalAffine2D<real> similarity;
 
@@ -74,7 +74,7 @@ namespace Pastel
 			if (outputs > 0)
 			{
 				Array<real> result =
-					createArray<real>(4, 1, outputSet[Similarity]);
+					matlabCreateArray<real>(4, 1, outputSet[Similarity]);
 
 				result(0) = similarity.scaling();
 				result(1) = similarity.rotation();
@@ -86,7 +86,7 @@ namespace Pastel
 			if (outputs > 1)
 			{
 
-				integer* outSuccess = createScalar<integer>(outputSet[Success]);
+				integer* outSuccess = matlabCreateScalar<integer>(outputSet[Success]);
 				*outSuccess = success ? 1 : 0;
 			}
 		}

@@ -58,13 +58,13 @@ namespace Pastel
 
 			const real* sceneData = mxGetPr(inputSet[SceneSet]);
 			integer scenePoints = mxGetN(inputSet[SceneSet]);
-			integer kNearest = asScalar<integer>(inputSet[KNearest]);
-			real minMatchRatio = asScalar<real>(inputSet[MinMatchRatio]);
+			integer kNearest = matlabAsScalar<integer>(inputSet[KNearest]);
+			real minMatchRatio = matlabAsScalar<real>(inputSet[MinMatchRatio]);
 			real matchingDistance = 
-				asScalar<real>(inputSet[MatchingDistance]);
+				matlabAsScalar<real>(inputSet[MatchingDistance]);
 			real maxBias =
-				asScalar<real>(inputSet[MaxBias]);
-			integer matchingModeId = asScalar<integer>(inputSet[MatchingModeId]);
+				matlabAsScalar<real>(inputSet[MaxBias]);
+			integer matchingModeId = matlabAsScalar<integer>(inputSet[MatchingModeId]);
 
 			ENSURE_OP(matchingModeId, >=, 0);
 			ENSURE_OP(matchingModeId, <, matchingModes);
@@ -134,7 +134,7 @@ namespace Pastel
 
 			// Output the pairing.
 
-			Array<int32> outPairSet = createArray<int32>(
+			Array<int32> outPairSet = matlabCreateArray<int32>(
 				Vector2i(pairSet.size(), 2), outputSet[PairSet]);
 
 			for (integer i = 0;i < pairSet.size();++i)
@@ -147,18 +147,18 @@ namespace Pastel
 			// Output the translation.
 
 			Array<real> outTranslation =
-				createArray<real>(Vector2i(1, n), outputSet[Translation]);
+				matlabCreateArray<real>(Vector2i(1, n), outputSet[Translation]);
 			std::copy(match.translation.begin(), match.translation.end(),
 				outTranslation.begin());
 
 			// Output the bias.
 
-			real* outBias = createScalar<real>(outputSet[Bias]);
+			real* outBias = matlabCreateScalar<real>(outputSet[Bias]);
 			*outBias = match.bias;
 
 			// Output the success flag.
 
-			int32* outSuccess = createScalar<int32>(outputSet[Success]);
+			int32* outSuccess = matlabCreateScalar<int32>(outputSet[Success]);
 			*outSuccess = match.success ? 1 : 0;
 		}
 

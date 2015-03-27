@@ -14,7 +14,7 @@ namespace Pastel
 
 	//! Creates a Matlab scalar.
 	template <typename Type>
-	Type* createScalar(
+	Type* matlabCreateScalar(
 		mxArray*& output);
 
 	//! Creates a Matlab numeric array.
@@ -23,17 +23,17 @@ namespace Pastel
 	allGreaterEqual(extent, 0)
 	*/
 	template <typename Type>
-	Array<Type> createArray(
+	Array<Type> matlabCreateArray(
 		const Vector2i& extent,
 		mxArray*& output);
 
 	//! Creates a Matlab numeric array.
 	/*!
 	This is a convenience function that calls
-	createArray(Vector2i(width, height), output)
+	matlabCreateArray(Vector2i(width, height), output)
 	*/
 	template <typename Type>
-	Array<Type> createArray(
+	Array<Type> matlabCreateArray(
 		integer width, integer height,
 		mxArray*& output);
 
@@ -48,7 +48,7 @@ namespace Pastel
 	from the type of 'input' to type 'Type'.
 	*/
 	template <typename Type>
-	Type asScalar(const mxArray* input,
+	Type matlabAsScalar(const mxArray* input,
 		integer index = 0);
 
 	//! Retrieves a copy of a string.
@@ -56,7 +56,7 @@ namespace Pastel
 	Preconditions:
 	mxIsChar(input)
 	*/
-	std::string asString(const mxArray* input);
+	std::string matlabAsString(const mxArray* input);
 
 	//! Retrieves a reference to a real array.
 	/*!
@@ -64,7 +64,7 @@ namespace Pastel
 	mxIsNumeric(that)
 	*/
 	template <typename Type>
-	Array<Type> asArray(const mxArray* that);
+	Array<Type> matlabAsArray(const mxArray* that);
 
 	//! Retrieves a reference to a linearized real array.
 	/*!
@@ -72,7 +72,7 @@ namespace Pastel
 	mxIsNumeric(that)
 	*/
 	template <typename Type>
-	Array<Type> asLinearizedArray(const mxArray* that);
+	Array<Type> matlabAsLinearizedArray(const mxArray* that);
 
 	//! Reports all real arrays in a cell-array.
 	/*!
@@ -90,7 +90,7 @@ namespace Pastel
 	order.
 	*/
 	template <typename Type, typename Array_Output>
-	integer getArrays(
+	integer matlabGetArrays(
 		const mxArray* cellArray,
 		Array_Output report);
 
@@ -112,7 +112,7 @@ namespace Pastel
 	type of 'input' to the iterators value-type.
 	*/
 	template <typename Scalar_Iterator>
-	integer getScalars(
+	integer matlabGetScalars(
 		const mxArray* input,
 		Scalar_Iterator output,
 		integer offset = 0);

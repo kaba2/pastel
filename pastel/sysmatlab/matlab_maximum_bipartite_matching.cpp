@@ -37,7 +37,7 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 			ENSURE_OP(outputs, <=, Outputs);
 
-			Array<integer> graph = asArray<integer>(inputSet[Graph]);
+			Array<integer> graph = matlabAsArray<integer>(inputSet[Graph]);
 
 			std::vector<integer> leftMatchSet;
 			std::vector<integer> rightMatchSet;
@@ -56,7 +56,7 @@ namespace Pastel
 			if (outputs > 0)
 			{
 				Array<int32> result =
-					createArray<int32>(leftMatchSet.size(), 2, outputSet[MatchSet]);
+					matlabCreateArray<int32>(leftMatchSet.size(), 2, outputSet[MatchSet]);
 
 				boost::copy(
 					range(leftMatchSet.cbegin(), leftMatchSet.cend()),
