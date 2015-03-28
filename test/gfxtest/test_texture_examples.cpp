@@ -83,23 +83,32 @@ namespace
 
 			savePcx(image, "radial_texture.pcx");
 
-			Image_GfxRenderer<Color> renderer;
-			renderer.setImage(&image);
-			renderer.setFilled(false);
-			renderer.setColor(Color(0, 1, 0));
-			renderer.setViewWindow(
-				AlignedBox2(0, 0, 1, 1));
+			{
+				Array<Color, 2> image(Vector2i(512, 512));
 
-			drawCircle(renderer, Sphere2(Vector2(0.5), minRadius), 40);
-			drawCircle(renderer, Sphere2(Vector2(0.5), maxRadius), 40);
-			drawSegment(renderer, Vector2(0.5) + Segment2(
-				transformPoint(affineRotation<real>(2, 0, 1, angleBegin), Vector2(minRadius, 0)), 
-				transformPoint(affineRotation<real>(2, 0, 1, angleBegin), Vector2(maxRadius, 0))));
-			drawSegment(renderer, Vector2(0.5) + Segment2(
-				transformPoint(affineRotation<real>(2, 0, 1, angleEnd), Vector2(minRadius, 0)), 
-				transformPoint(affineRotation<real>(2, 0, 1, angleEnd), Vector2(maxRadius, 0))));
+				drawBox(
+					AlignedBox2(0, 0, image.width(), image.height()),
+					texture,
+					arrayView(image));
 
-			savePcx(image, "radial_texture_input.pcx");
+				Image_GfxRenderer<Color> renderer;
+				renderer.setImage(&image);
+				renderer.setFilled(false);
+				renderer.setColor(Color(0, 1, 0));
+				renderer.setViewWindow(
+					AlignedBox2(0, 0, 1, 1));
+
+				drawCircle(renderer, Sphere2(Vector2(0.5), minRadius), 40);
+				drawCircle(renderer, Sphere2(Vector2(0.5), maxRadius), 40);
+				drawSegment(renderer, Vector2(0.5) + Segment2(
+					transformPoint(affineRotation<real>(2, 0, 1, angleBegin), Vector2(minRadius, 0)),
+					transformPoint(affineRotation<real>(2, 0, 1, angleBegin), Vector2(maxRadius, 0))));
+				drawSegment(renderer, Vector2(0.5) + Segment2(
+					transformPoint(affineRotation<real>(2, 0, 1, angleEnd), Vector2(minRadius, 0)),
+					transformPoint(affineRotation<real>(2, 0, 1, angleEnd), Vector2(maxRadius, 0))));
+
+				savePcx(image, "radial_texture_input.pcx");
+			}
 		}
 	
 	};
