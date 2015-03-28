@@ -43,7 +43,7 @@ namespace
 
 			Array<Color> image(Vector2i(512, 512));
 			drawBox(AlignedBox2(Vector2(0, 0), Vector2(image.extent())),
-				*inputTexture,
+				distortedTexture,
 				arrayView(image));
 			
 			savePcx(image, "transform_texture.pcx");
@@ -68,8 +68,8 @@ namespace
 
 			AffineTransformation<real> textureFlip(
 				matrix2x2<real>(0, 1,
-						-1, 0),
-				Vector2(1, 0));
+						1, 0),
+				Vector2(0, 0));
 
 			Transform_Texture<Color> flippedTexture = 
 				transformTexture(distortedTexture, textureFlip);
