@@ -31,6 +31,8 @@ namespace
 
 		virtual void run()
 		{
+			testAsReal<float>();
+			testAsReal<double>();
 			testAsString();
 			testClassify();
 			testFloor();
@@ -44,6 +46,14 @@ namespace
 			testDouble();
 		}
 
+		template <typename Real>
+		void testAsReal()
+		{
+			TEST_ENSURE(Rat(1, 8).asReal<Real>() == (Real)1 / 8);
+			TEST_ENSURE(Rat(22, 7).asReal<Real>() == (Real)22 / 7);
+			TEST_ENSURE(Rat(355, 133).asReal<Real>() == (Real)355 / 133);
+		}
+
 		void testAsString()
 		{
 			TEST_ENSURE(Rat(1, 3).asStringRatio() == "1/3");
@@ -53,6 +63,9 @@ namespace
 			TEST_ENSURE(Rat(-3, 3).asStringRatio() == "-1");
 			TEST_ENSURE(Rat(3, 3).asStringRatio() == "1");
 
+			TEST_ENSURE(Rat(22, 7).asString(10, 31) == "3.1428571428571428571428571428571");
+			// FIX: The correctly rounded value ends at 4.
+			TEST_ENSURE(Rat(355, 113).asString(10, 31) == "3.1415929203539823008849557522123");
 			TEST_ENSURE(Rat(1, 3).asString() == "0.333");
 			TEST_ENSURE(Rat(-1, 3).asString() == "-0.333");
 			TEST_ENSURE(Rat(1, 3).asString(3) == "0.1");
@@ -61,10 +74,10 @@ namespace
 			TEST_ENSURE(Rat(-1, 3).asString(3) == "-0.1");
 			TEST_ENSURE(Rat(-2, 3).asString(3) == "-0.2");
 			TEST_ENSURE(Rat(-3, 3).asString(3) == "-1");
-			TEST_ENSURE(Rat(-1, 3).asString(3, true, 10) == "-0.1_3");
-			TEST_ENSURE(Rat(-2, 3).asString(3, true, 10) == "-0.2_3");
-			TEST_ENSURE(Rat(-3, 3).asString(3, true, 10) == "-1_3");
-			TEST_ENSURE(Rat(-1, 3).asString(10, true, 10) == "-0.3333333333_10");
+			TEST_ENSURE(Rat(-1, 3).asString(3, 10, true) == "-0.1_3");
+			TEST_ENSURE(Rat(-2, 3).asString(3, 10, true) == "-0.2_3");
+			TEST_ENSURE(Rat(-3, 3).asString(3, 10, true) == "-1_3");
+			TEST_ENSURE(Rat(-1, 3).asString(10, 10, true) == "-0.3333333333_10");
 		}
 
 		void testClassify()

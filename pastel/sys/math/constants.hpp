@@ -3,14 +3,66 @@
 
 #include "pastel/sys/math/constants.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/string/digit.h"
+
+#include <sstream>
+#include <string>
 
 #include <cctype>
 
 namespace Pastel
 {
 
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>>>
+	Real stringAsReal(const std::string& that)
+	{
+		std::stringstream stream(that);
+		
+		Real result = 0;
+		stream >> result;
+
+		return result;
+	}
+
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>>>
+	Real constantPi()
+	{
+		return 3.1415926535897932384626433832795;
+	}
+
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>>>
+	Real constantNeper()
+	{
+		return 2.7182818284590452353602874713527;
+	}
+
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>>>
+	Real constantLn2()
+	{
+		return 0.69314718055994530941723212145818;
+	}
+
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>>>
+	Real constantEulerMascheroni()
+	{
+		return 0.57721566490153286060651209008240;
+	}
+
+	/*
 	template <typename Real>
-	Real constant(const std::string& number)
+	Real stringAsReal(
+		const std::string& number,
+		integer base)
 	{
 		ENSURE(!number.empty());
 
@@ -61,29 +113,19 @@ namespace Pastel
 		Real result(0);
 
 		{
-			Real unit(Real(1) / 10);
+			Real unit(Real(1) / base);
 			for (integer i = dotIndex + 1;i < length;++i)
 			{
-				ENSURE(isdigit(word.at(i)));
-
-				// PORTABILITY: relying on ascii
-				// FIX
-
-				result += unit * (word.at(i) - '0');
-				unit /= 10;
+				result += unit * digitAsInteger(word.at(i));
+				unit /= base;
 			}
 		}
 		{
 			Real unit(1);
 			for (integer i = dotIndex - 1;i > signIndex;--i)
 			{
-				ENSURE(isdigit(word.at(i)));
-
-				// PORTABILITY: relying on ascii
-				// FIX
-
-				result += unit * (word.at(i) - '0');
-				unit *= 10;
+				result += unit * digitAsInteger(word.at(i));
+				unit *= base;
 			}
 		}
 
@@ -97,42 +139,7 @@ namespace Pastel
 
 		return result;
 	}
-
-	template <typename Real>
-	Real constantPi()
-	{
-		static PASTEL_CONSTEXPR Real Pi(
-			constant<Real>("3.1415926535897932384626433832795"));
-
-		return Pi;
-	}
-
-	template <typename Real>
-	Real constantNeper()
-	{
-		static PASTEL_CONSTEXPR Real Neper(
-			constant<Real>("2.7182818284590452353602874713527"));
-
-		return Neper;
-	}
-
-	template <typename Real>
-	Real constantLn2()
-	{
-		static PASTEL_CONSTEXPR Real Ln2(
-			constant<Real>("0.69314718055994530941723212145818"));
-
-		return Ln2;
-	}
-
-	template <typename Real>
-	Real constantEulerMascheroni()
-	{
-		static PASTEL_CONSTEXPR Real EulerMascheroni(
-			constant<Real>("0.57721566490153286060651209008240"));
-
-		return EulerMascheroni;
-	}
+	*/
 
 }
 

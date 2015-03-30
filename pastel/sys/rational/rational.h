@@ -152,8 +152,8 @@ namespace Pastel
 		*/
 		std::string asString(
 			integer base = 10, 
-			bool showBase = false,
-			integer maxDigits = 3) const;
+			integer maxDigits = 3,
+			bool showBase = false) const;
 
 		//! Returns whether the number is infinity.
 		bool isInfinity() const;
