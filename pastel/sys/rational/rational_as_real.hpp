@@ -168,4 +168,18 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	// Printable
+
+	template <typename Integer>
+	std::string asString(
+		const Rational<Integer>& that)
+	{
+		return that.asString();
+	}
+
+}
+
 #endif

@@ -21,6 +21,14 @@ namespace Pastel
 
 	// Integer
 
+	template <typename Integer_Settings>
+	void swap(
+		MultiInteger<Integer_Settings>& left,
+		MultiInteger<Integer_Settings>& right)
+	{
+		left.swap(right);
+	}
+
 	//! Returns whether 'that' is odd.
 	/*!
 	Time complexity: O(1)
@@ -103,6 +111,15 @@ namespace Pastel
 		const MultiInteger<Integer_Settings>& that)
 	{
 		return {0, 0, 0};
+	}
+
+	// Printable
+
+	template <typename Integer_Settings>
+	std::string asString(
+		const MultiInteger<Integer_Settings>& that)
+	{
+		return that.asString();
 	}
 
 }
