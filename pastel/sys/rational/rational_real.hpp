@@ -5,6 +5,7 @@
 #include "pastel/sys/bit/lowest_bit.h"
 #include "pastel/sys/bit/highest_bit.h"
 #include "pastel/sys/real/ieee_float.h"
+#include "pastel/sys/string/digit.h"
 
 namespace Pastel
 {
@@ -15,56 +16,83 @@ namespace Pastel
 		EnableIf<std::is_floating_point<Real>>>
 	Real Rational<Integer>::asReal() const
 	{
-		// The binary expansion of a rational number
-		// can be computed by using long-division.
+		return 0;
+	}
 
-		/*
+	template <typename Integer>
+	std::string Rational<Integer>::asStringRatio() const
+	{
+		std::string text = Pastel::asString(m());
+		if (n() != 1)
+		{
+			text += "/" + Pastel::asString(n());
+		}
+		return text;
+	}
+
+	template <typename Integer>
+	std::string Rational<Integer>::asString(
+		integer base, 
+		bool showBase,
+		integer maxDigits) const
+	{
+		// Handle the degenerate cases.
 		switch(classify())
 		{
 			case NumberType::Infinity:
-				return infinity<Real>();
+				return "inf";
 			case NumberType::MinusInfinity:
-				return -infinity<Real>();
+				return "-inf";
 			case NumberType::Nan:
-				return nan<Real>();
-			case NumberType::Zero:
-				return 0;
+				return "nan";
 		};
 
-		Integer m = abs(m_);
-		Integer n = n_;
-
-		Integer wholes = m / n;
-		m -= wholes * n;
-
-		integer low = lowestBit(wholes);
-		integer high = highestBit(wholes) + 1;
-		integer wholesBits = high - low;
-
-		wholes >>= low;
-
-		if (wholesBits > 64)
+		// This is where the results is constructed.
+		std::string text;
+		if (isNegative())
 		{
-			integer truncatedBits = (wholesBits - 64);
-			wholes >>= truncatedBits;
+			// Print the minus-sign.
+			text += "-";
+		}		
 
-			return asIeeeFloat<Real>({ negative(*this), truncatedBits, (uint64)wholes });
+		// Reduce to a non-negative number.
+		Integer m = abs(m_);
+
+		// Compute the integer-part.
+		Integer wholes = m / n();
+
+		// Compute the fractional part.
+		m -= wholes * n();
+	
+		// Print the integer-part.
+		text += Pastel::asString(wholes);
+
+		if (!zero(m) && maxDigits > 0)
+		{
+			// The number has a fractional part.
+
+			// Print the fractional point.
+			text += '.';
+
+			// Print the fractional part.
+			for (integer i = 0; i < maxDigits && !zero(m); ++i)
+			{
+				m *= base;
+
+				integer d = (integer)(m / n());
+				text += digit(d);
+
+				m -= d * n();
+			}
 		}
-		integer exponent = low;
-		high -= low;
-		low = 0;
 
-		// The highest bit is pushed over;
-		// it is implicitly assumed to be 1.
-		integer shift = 64 - high;
-		exponent += shift;
-		
-		Integer mantissa = (wholes << shift);
+		if (showBase)
+		{
+			// Print the base.
+			text += '_' + Pastel::asString(base);
+		}
 
-		//integer nBits = highestBit(n) + 1;
-		*/
-
-		return 0;
+		return text;
 	}
 
 	template <typename Integer>

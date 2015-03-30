@@ -7,13 +7,16 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/algebra/ordered_ring_concept.h"
 #include "pastel/sys/real/scientific_notation.h"
+#include "pastel/sys/printable/printable_concept.h"
 
 namespace Pastel
 {
 
 	//! An integer.
 	struct Integer_Concept
-	: Refines<Ordered_Ring_Concept>
+	: Refines<
+		Ordered_Ring_Concept,
+		Printable_Concept>
 	{
 		template <typename Type>
 		auto requires(Type&& t) -> decltype
@@ -29,6 +32,8 @@ namespace Pastel
 				Type((uint32)0),
 				Type((int64)0),
 				Type((uint64)0),
+				// Swaps with another integer.
+				//swap(t, t),
 				//! Computes roundTowardsZero(t / u).
 				Concept::hasType<Type&>(t /= t),
 				Concept::convertsTo<Type>(t / t),

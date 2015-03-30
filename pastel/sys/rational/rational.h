@@ -132,6 +132,29 @@ namespace Pastel
 			EnableIf<std::is_floating_point<Real>> = 0>
 		Real asReal() const;
 
+		//! Returns the number as a ratio of integers.
+		std::string asStringRatio() const;
+
+		//! Returns a b-base expansion of the number.
+		/*!
+		Preconditions:
+		base > 1
+
+		base:
+		The base to use.
+
+		showBase:
+		Whether to show the base.
+
+		maxDigits:
+		The number of digits to show for the 
+		fractional part.
+		*/
+		std::string asString(
+			integer base = 10, 
+			bool showBase = false,
+			integer maxDigits = 3) const;
+
 		//! Returns whether the number is infinity.
 		bool isInfinity() const;
 
@@ -140,6 +163,24 @@ namespace Pastel
 
 		//! Returns whether the number is an integer.
 		bool isInteger() const;
+
+		//! Returns whether the number is == 0.
+		bool isZero() const
+		{
+			return zero(*this);
+		}
+
+		//! Returns whether the number is > 0.
+		bool isPositive() const
+		{
+			return positive(*this);
+		}
+
+		//! Returns whether the number is < 0.
+		bool isNegative() const
+		{
+			return negative(*this);
+		}
 
 		//! Adds the given number to this number.
 		Rational<Integer>& operator+=(Rational that);

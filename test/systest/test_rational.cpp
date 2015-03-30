@@ -31,6 +31,7 @@ namespace
 
 		virtual void run()
 		{
+			testAsString();
 			testClassify();
 			testFloor();
 			testCeil();
@@ -41,6 +42,29 @@ namespace
 			testMultiply();
 			testFloat();
 			testDouble();
+		}
+
+		void testAsString()
+		{
+			TEST_ENSURE(Rat(1, 3).asStringRatio() == "1/3");
+			TEST_ENSURE(Rat(-1, 3).asStringRatio() == "-1/3");
+			TEST_ENSURE(Rat(1, -3).asStringRatio() == "-1/3");
+			TEST_ENSURE(Rat(0, -3).asStringRatio() == "0");
+			TEST_ENSURE(Rat(-3, 3).asStringRatio() == "-1");
+			TEST_ENSURE(Rat(3, 3).asStringRatio() == "1");
+
+			TEST_ENSURE(Rat(1, 3).asString() == "0.333");
+			TEST_ENSURE(Rat(-1, 3).asString() == "-0.333");
+			TEST_ENSURE(Rat(1, 3).asString(3) == "0.1");
+			TEST_ENSURE(Rat(2, 3).asString(3) == "0.2");
+			TEST_ENSURE(Rat(3, 3).asString(3) == "1");
+			TEST_ENSURE(Rat(-1, 3).asString(3) == "-0.1");
+			TEST_ENSURE(Rat(-2, 3).asString(3) == "-0.2");
+			TEST_ENSURE(Rat(-3, 3).asString(3) == "-1");
+			TEST_ENSURE(Rat(-1, 3).asString(3, true, 10) == "-0.1_3");
+			TEST_ENSURE(Rat(-2, 3).asString(3, true, 10) == "-0.2_3");
+			TEST_ENSURE(Rat(-3, 3).asString(3, true, 10) == "-1_3");
+			TEST_ENSURE(Rat(-1, 3).asString(10, true, 10) == "-0.3333333333_10");
 		}
 
 		void testClassify()

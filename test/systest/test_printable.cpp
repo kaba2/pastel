@@ -26,19 +26,11 @@ namespace
 			test();
 		}
 
-		template <typename Type>
-		void operator<<(const Type& that)
-		{
-			asString(that);
-		}
-
 		void test()
 		{
 			char testArray[] = { 't', 'e', 's', 't'};
 
 			enum class A { a = 113 };
-
-			*this << "test";
 
 			TEST_ENSURE(asString(A::a) == "113");
 			TEST_ENSURE(asString(113) == "113");
@@ -47,7 +39,7 @@ namespace
 			TEST_ENSURE(asString('a') == "a");
 			TEST_ENSURE(asString("test") == "test");
 			TEST_ENSURE(asString(std::string("test")) == "test");
-			TEST_ENSURE(asString(testArray) == "test");
+			TEST_ENSURE(asString(testArray) == "test\0");
 			TEST_ENSURE(asString((short)113) == "113");
 			TEST_ENSURE(asString((ushort)113) == "113");
 			TEST_ENSURE(asString((int)113) == "113");

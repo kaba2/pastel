@@ -30,6 +30,7 @@ namespace
 			testIncrementDecrement();
 			testComparison();
 			testClearBits();
+			testAddition();
 			testArithmetic();
 			testBitOperators();
 			testCounting();
@@ -512,6 +513,16 @@ namespace
 				TEST_ENSURE(f(12, 14) == F(0xCFFF));
 				TEST_ENSURE(f(13, 15) == F(0x9FFF));
 				TEST_ENSURE(f(14, 16) == F(0x3FFF));
+		}
+
+		void testAddition()
+		{
+			{
+				using F = Signed_Integer<64, uint8>;
+				PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
+				TEST_ENSURE(F(-10) + F(-15) == F(-25));
+			}
 		}
 
 		void testArithmetic()

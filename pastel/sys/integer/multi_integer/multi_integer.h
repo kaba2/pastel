@@ -12,6 +12,7 @@
 #include "pastel/sys/bit/highest_bit.h"
 #include "pastel/sys/math/rounding.h"
 #include "pastel/sys/math/mod.h"
+#include "pastel/sys/string/digit.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -675,9 +676,10 @@ namespace Pastel
 			Word carry = 0;
 			for (integer i = 0;i < Words;++i)
 			{
-				Word before = wordSet_[i];
-				wordSet_[i] += that.wordSet_[i] + carry;
-				carry = (wordSet_[i] < before) ? 1 : 0;
+				Word before = word(i);
+				bool nonZero = that.word(i) > 0;
+				wordSet_[i] += that.word(i) + carry;
+				carry = ((nonZero || carry > 0) && word(i) <= before) ? 1 : 0;
 			}
 			signExtend();
 
@@ -691,16 +693,7 @@ namespace Pastel
 		*/
 		MultiInteger& operator-=(const MultiInteger& that)
 		{
-			Word borrow = 0;
-			for (integer i = 0;i < Words;++i)
-			{
-				Word before = wordSet_[i];
-				wordSet_[i] -= that.wordSet_[i] + borrow;
-				borrow = (wordSet_[i] > before) ? 1 : 0;
-			}
-			signExtend();
-
-			return *this;
+			return *this += (-that);
 		}
 
 		//! Multiplies this with 'that'.
@@ -1060,18 +1053,7 @@ namespace Pastel
 		*/
 		std::string asString(integer base = 10) const
 		{
-			static PASTEL_CONSTEXPR char digitSet[] =
-			{
-				'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 
-				'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
-				'u', 'v', 'w', 'x', 'y', 'z'
-			};
-			static PASTEL_CONSTEXPR integer maxBase = 
-				sizeof(digitSet) / sizeof(char);
-
 			ENSURE_OP(base, >=, 2);
-			ENSURE_OP(base, <=, maxBase);
 
 			if (zero(*this))
 			{
@@ -1081,12 +1063,11 @@ namespace Pastel
 			MultiInteger Base = base;
 
 			MultiInteger t = abs(*this);
-
 	
 			std::string result;
 			while (!zero(t))
 			{
-				result += digitSet[(integer)mod(t, Base)];
+				result += digit((integer)mod(t, Base));
 				t /= base;
 			}
 
