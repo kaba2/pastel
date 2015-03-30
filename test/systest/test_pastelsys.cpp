@@ -14,8 +14,6 @@ int main(int argc, const char* argv[])
 	log().addLogger(&streamLogger);
 	log().addLogger(&fileLogger);
 
-	log() << "Testi" << logNewLine;
-
 	if (argc > 1 && argv[1] == std::string("-r"))
 	{
 		testRunner().run();

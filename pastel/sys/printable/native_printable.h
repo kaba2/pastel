@@ -37,30 +37,23 @@ namespace Pastel
 	template <
 		typename Type,
 		EnableIfC<
-			std::is_pointer<Type>::value
+			Or<
+				std::is_same<Type, char>,
+				std::is_same<Type, wchar_t>,
+				std::is_same<Type, char16_t>,
+				std::is_same<Type, char32_t>
+			>::value
 		> = 0
 		>
-	std::string asString(Type that)
+	std::string asString(const Type* that)
 	{
 		return {that};
 	}
 
 	template <
 		typename Type,
-		EnableIf<
-			std::is_array<std::remove_reference_t<Type>>
-		> = 0
-		>
-	std::string asString(Type that)
-	{
-		// Reduce arrays to pointers.
-		return Pastel::asString((std::decay_t<Type>)that);
-	}
-
-	template <
-		typename Type,
-		EnableIf<
-			std::is_enum<Type>
+		EnableIfC<
+			std::is_enum<Type>::value
 		> = 0
 		>
 	std::string asString(Type that)

@@ -28,8 +28,6 @@ namespace
 
 		void test()
 		{
-			char testArray[] = { 't', 'e', 's', 't'};
-
 			enum class A { a = 113 };
 
 			TEST_ENSURE(asString(A::a) == "113");
@@ -39,13 +37,16 @@ namespace
 			TEST_ENSURE(asString('a') == "a");
 			TEST_ENSURE(asString("test") == "test");
 			TEST_ENSURE(asString(std::string("test")) == "test");
-			TEST_ENSURE(asString(testArray) == "test\0");
 			TEST_ENSURE(asString((short)113) == "113");
 			TEST_ENSURE(asString((ushort)113) == "113");
 			TEST_ENSURE(asString((int)113) == "113");
 			TEST_ENSURE(asString((uint)113) == "113");
 			TEST_ENSURE(asString((long)113) == "113");
 			TEST_ENSURE(asString((ulong)113) == "113");
+
+			char testArray[] = { 't', 'e', 's', 't'};
+			TEST_ENSURE(asString(testArray) == "test");
+
 		}
 	};
 
