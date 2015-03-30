@@ -12,23 +12,33 @@ namespace Pastel
 {
 
 	//! Converts a text string to number.
-	template <typename Real>
-	Real constant(const std::string& number);
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>> = 0>
+	Real stringAsReal(const std::string& number);
 
 	//! Returns pi constant.
-	template <typename Real>
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>> = 0>
 	Real constantPi();
 
 	//! Returns neper constant.
-	template <typename Real>
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>> = 0>
 	Real constantNeper();
 
 	//! Returns ln(2) constant.
-	template <typename Real>
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>> = 0>
 	Real constantLn2();
 
 	//! Returns Euler-Mascheroni constant.
-	template <typename Real>
+	template <
+		typename Real,
+		EnableIf<std::is_floating_point<Real>> = 0>
 	Real constantEulerMascheroni();
 
 }

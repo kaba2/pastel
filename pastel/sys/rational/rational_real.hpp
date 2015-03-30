@@ -16,7 +16,7 @@ namespace Pastel
 		EnableIf<std::is_floating_point<Real>>>
 	Real Rational<Integer>::asReal() const
 	{
-		return 0;
+		return stringAsReal<Real>(asString(10, 16));
 	}
 
 	template <typename Integer>
@@ -33,8 +33,8 @@ namespace Pastel
 	template <typename Integer>
 	std::string Rational<Integer>::asString(
 		integer base, 
-		bool showBase,
-		integer maxDigits) const
+		integer maxDigits,
+		bool showBase) const
 	{
 		// Handle the degenerate cases.
 		switch(classify())
@@ -80,9 +80,9 @@ namespace Pastel
 				m *= base;
 
 				integer d = (integer)(m / n());
-				text += digit(d);
-
 				m -= d * n();
+
+				text += integerAsDigit(d);
 			}
 		}
 

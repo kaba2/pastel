@@ -1067,7 +1067,7 @@ namespace Pastel
 			std::string result;
 			while (!zero(t))
 			{
-				result += digit((integer)mod(t, Base));
+				result += integerAsDigit((integer)mod(t, Base));
 				t /= base;
 			}
 

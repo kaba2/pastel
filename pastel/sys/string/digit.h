@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	inline char digit(integer i)
+	inline char integerAsDigit(integer i)
 	{
 		static PASTEL_CONSTEXPR char digitSet[] =
 		{
@@ -24,6 +24,29 @@ namespace Pastel
 		PENSURE_OP(i, <, maxBase);
 
 		return digitSet[i];
+	}
+
+	inline integer digitAsInteger(char digit)
+	{
+		if (digit >= '0' && digit <= '9')
+		{
+			return digit - '0';
+		}
+
+		if (digit >= 'a' && digit <= 'z')
+		{
+			return 10 + (digit - 'a');
+		}
+
+		if (digit >= 'A' && digit <= 'Z')
+		{
+			return 10 + (digit - 'A');
+		}
+
+		bool knownDigit = false;
+		ENSURE1(knownDigit, digit);
+
+		return 0;
 	}
 
 }

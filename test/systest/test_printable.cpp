@@ -30,6 +30,10 @@ namespace
 		{
 			enum class A { a = 113 };
 
+			TEST_ENSURE(abs(stringAsReal<float>("3.34897") - 3.34897) <= 0.000005);
+			TEST_ENSURE(abs(stringAsReal<float>("5.09865") - 5.09865) <= 0.000005);
+			TEST_ENSURE(abs(stringAsReal<double>("5.12345678901234567890") - 5.12345678901234567890) == 0);
+
 			TEST_ENSURE(asString(A::a) == "113");
 			TEST_ENSURE(asString(113) == "113");
 			TEST_ENSURE(asString((double)113) == "113");
