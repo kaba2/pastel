@@ -432,6 +432,7 @@ namespace
 				TEST_ENSURE(Rat(constantPi<Real>(), 995206) == Rat(1146408, 364913));
 				// This is 11 correct digits.
 				TEST_ENSURE(Rat(constantPi<Real>(), 995207) == Rat(3126535, 995207));
+				TEST_ENSURE(Rat(-constantPi<Real>(), 995207) == Rat(-3126535, 995207));
 			}
 		}
 

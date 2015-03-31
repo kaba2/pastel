@@ -135,6 +135,12 @@ namespace Pastel
 			return;
 		}
 
+		bool nonNegativeThat = (that >= 0);
+		if (!nonNegativeThat)
+		{
+			that = -that;
+		}
+
 		// Let n = floor(x).
 		Real n = floor(that);
 
@@ -217,6 +223,11 @@ namespace Pastel
 				best = mediant;
 				minError = error;
 			}
+		}
+
+		if (!nonNegativeThat)
+		{
+			best.m_ = -best.m_;
 		}
     }
 
