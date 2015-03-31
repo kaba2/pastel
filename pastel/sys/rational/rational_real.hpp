@@ -99,20 +99,13 @@ namespace Pastel
 	template <
 		typename Real,
 		EnableIf<std::is_floating_point<Real>>>
-	Rational<Integer>::Rational(Real that)
+	Rational<Integer>::Rational(
+		Real that,
+		Integer nMax)
 		: m_(0)
 		, n_(1)
 	{
-		/*
-		// The ieee float is a 32-bit number composed as
-		// * 1-bit sign (1 bit), 
-		// * 8-bit biased exponent, 
-		// * 23-bit mantissa.
-
-		// The ieee float is a 64-bit number composed as
-		// * 1-bit sign (1 bit), 
-		// * 11-bit biased exponent, 
-		// * 52-bit mantissa.
+		ENSURE(!negative(nMax));
 
 		Real logAbs = std::log2(abs(that));
 		if (logAbs < -(bits(m()) - 1))
@@ -145,6 +138,10 @@ namespace Pastel
 		// Let n = floor(x).
 		Real n = floor(that);
 
+		// What follows is a mediant-binary search over the
+		// rational numbers. The search process can be 
+		// visualized by the Stern-Brocot tree. 
+
 		// Suppose we start searching for the best mediant
 		// from [(0, 1), (1, 0)[. The mediant-binary search will
 		// then do the following steps:
@@ -164,19 +161,14 @@ namespace Pastel
 		// then the initialization would need to check whether
 		// (n + 1, 1) is better than (n, 1).
 
-		// FIX: generalize for a wider range of values
-		// by extracting the integer floor(that) directly 
-		// from its IEEE-presentation.
-
 		Rational left((integer)n);
-		Rational right(1, 0, SkipSimplify());
+		Rational right = infinity<Rational>();
 		
 		Rational& best = *this;
 		best = left;		
 		Real minError = that - left.asReal<Real>();
 
-		Real epsilon = 1E-15;
-		while(minError > epsilon) 
+		while(minError > 0)
 		{
 			// Compute the mediant of left and right.
 			Rational mediant(
@@ -184,8 +176,15 @@ namespace Pastel
 				left.n() + right.n(),
 				SkipSimplify());
 
-			if (mediant.m() < left.m() ||
-				mediant.n() < left.n())
+			// The simplification can be skipped, since
+			// gcd(mediant.m(), mediant.n()) == 1.
+
+			bool mOverflowed = mediant.m() < left.m();
+			bool nOverflowed = mediant.n() < left.n();
+
+			if (mOverflowed || 
+				nOverflowed ||
+				(positive(nMax) && mediant.n() > nMax))
 			{
 				// Either the numerator or the denominator 
 				// overflowed. Since their (non-overflow) gcd = 1, 
@@ -194,25 +193,31 @@ namespace Pastel
 				break;
 			}
 
-			//ASSERT(gcd(mediant.m(), mediant.n()) == 1);
+			ASSERT(gcd(mediant.m(), mediant.n()) == 1);
 
 			if (that < mediant.asReal<Real>())
 			{
+				// The mediant is too large. Update the
+				// search-interval to end at the mediant.
 				right = mediant;
 			}
 			else
 			{
+				// The mediant is too small. Update the
+				// search-interval to begin from the mediant.
 				left = mediant;
 			}
 
+			// Compute the error between the rational 
+			// approximation and the floating point number.
 			Real error = std::abs(mediant.asReal<Real>() - that); 
 			if (error < minError) 
 			{
+				// The error is the smallest thus far. Remember it.
 				best = mediant;
 				minError = error;
 			}
 		}
-		*/
     }
 
 	template <typename Integer>

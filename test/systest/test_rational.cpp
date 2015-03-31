@@ -42,8 +42,8 @@ namespace
 			testSpecial();
 			testAddition();
 			testMultiply();
-			testFloat();
-			testDouble();
+			testReal<float>();
+			testReal<double>();
 		}
 
 		template <typename Real>
@@ -365,63 +365,77 @@ namespace
 			}
 		}
 
-		void testFloat()
+		template <typename Real>
+		void testReal()
 		{
-			TEST_ENSURE(Rat(0.125f) == Rat(1, 8));
-			TEST_ENSURE(Rat(-0.125f) == Rat(-1, 8));
-			TEST_ENSURE(Rat(0.0f) == Rat(0));
-			TEST_ENSURE(Rat(-0.0f) == Rat(0));
-
-			real32_ieee number = 0;
-			uint32& bits = *((uint32*)&number);
+			using Rat = Rational<int32>;
+			PASTEL_CONCEPT_CHECK_BASE(Rat, Real_Concept);
 
 			// Positive zero.
-			bits = (0x0 << 31) + (0x00 << 23) + (0x000000);
-			TEST_ENSURE(Rat(number) == 0);
+			TEST_ENSURE(Rat((Real)0) == 0);
 
 			// Negative zero.
-			bits = (0x1 << 31) + (0x00 << 23) + (0x000000);
-			TEST_ENSURE(Rat(number) == 0);
+			TEST_ENSURE(Rat(-(Real)0) == 0);
 
 			// Positive infinity.
-			bits = (0x0 << 31) + (0xFF << 23) + (0x000000);
-			TEST_ENSURE(Rat(number) == infinity<Rat>());
+			TEST_ENSURE(Rat(infinity<Real>()) == infinity<Rat>());
 
 			// Negative infinity.
-			bits = (0x1 << 31) + (0xFF << 23) + (0x000000);
-			TEST_ENSURE(Rat(number) == -infinity<Rat>());
+			TEST_ENSURE(Rat(-infinity<Real>()) == -infinity<Rat>());
 
-			bits = (0x0 << 31) + (0x7F << 23) + (0x123456);
-			TEST_ENSURE(Rat(number) == Rat(0x123456 + 0x800000, 1 << 23));
-		}
+			TEST_ENSURE(Rat((Real)0.125) == Rat(1, 8));
+			TEST_ENSURE(Rat((Real)-0.125) == Rat(-1, 8));
 
-		void testDouble()
-		{
-			Rat a(0.125);
+			// The best rational approximations of pi.
+			TEST_ENSURE(Rat(constantPi<Real>(), 1) == Rat(3, 1));
+			TEST_ENSURE(Rat(constantPi<Real>(), 2) == Rat(6, 2));
+			TEST_ENSURE(Rat(constantPi<Real>(), 3) == Rat(9, 3));
+			TEST_ENSURE(Rat(constantPi<Real>(), 4) == Rat(13, 4));
+			TEST_ENSURE(Rat(constantPi<Real>(), 5) == Rat(16, 5));
+			TEST_ENSURE(Rat(constantPi<Real>(), 6) == Rat(19, 6));
+			TEST_ENSURE(Rat(constantPi<Real>(), 7) == Rat(22, 7));
+			TEST_ENSURE(Rat(constantPi<Real>(), 56) == Rat(22, 7));
+			TEST_ENSURE(Rat(constantPi<Real>(), 57) == Rat(179, 57));
+			TEST_ENSURE(Rat(constantPi<Real>(), 63) == Rat(179, 57));
+			TEST_ENSURE(Rat(constantPi<Real>(), 64) == Rat(201, 64));
+			TEST_ENSURE(Rat(constantPi<Real>(), 70) == Rat(201, 64));
+			TEST_ENSURE(Rat(constantPi<Real>(), 71) == Rat(223, 71));
+			TEST_ENSURE(Rat(constantPi<Real>(), 77) == Rat(223, 71));
+			TEST_ENSURE(Rat(constantPi<Real>(), 78) == Rat(245, 78));
+			TEST_ENSURE(Rat(constantPi<Real>(), 84) == Rat(245, 78));
+			TEST_ENSURE(Rat(constantPi<Real>(), 85) == Rat(267, 85));
+			TEST_ENSURE(Rat(constantPi<Real>(), 91) == Rat(267, 85));
+			TEST_ENSURE(Rat(constantPi<Real>(), 92) == Rat(289, 92));
+			TEST_ENSURE(Rat(constantPi<Real>(), 98) == Rat(289, 92));
+			TEST_ENSURE(Rat(constantPi<Real>(), 99) == Rat(311, 99));
+			TEST_ENSURE(Rat(constantPi<Real>(), 105) == Rat(311, 99));
+			TEST_ENSURE(Rat(constantPi<Real>(), 106) == Rat(333, 106));
+			TEST_ENSURE(Rat(constantPi<Real>(), 112) == Rat(333, 106));
+			TEST_ENSURE(Rat(constantPi<Real>(), 113) == Rat(355, 113));
+			TEST_ENSURE(Rat(constantPi<Real>(), 16603) == Rat(355, 113));
 
-			TEST_ENSURE(Rat(0.125) == Rat(1, 8));
-			TEST_ENSURE(Rat(-0.125) == Rat(-1, 8));
-			TEST_ENSURE(Rat(0.0) == Rat(0));
-			TEST_ENSURE(Rat(-0.0) == Rat(0));
+			if (std::is_same<Real, double>::value)
+			{
+				// The next rational approximation exceeds the precision of float.
+				TEST_ENSURE(Rat(constantPi<Real>(), 16604) == Rat(52163, 16604));
+				TEST_ENSURE(Rat(constantPi<Real>(), 16716) == Rat(52163, 16604));
+				TEST_ENSURE(Rat(constantPi<Real>(), 16717) == Rat(52518, 16717));
+				TEST_ENSURE(Rat(constantPi<Real>(), 16829) == Rat(52518, 16717));
+				TEST_ENSURE(Rat(constantPi<Real>(), 16830) == Rat(52873, 16830));
+				TEST_ENSURE(Rat(constantPi<Real>(), 16942) == Rat(52873, 16830));
+				TEST_ENSURE(Rat(constantPi<Real>(), 16943) == Rat(53228, 16943));
+				TEST_ENSURE(Rat(constantPi<Real>(), 17055) == Rat(53228, 16943));
+				TEST_ENSURE(Rat(constantPi<Real>(), 17056) == Rat(53583, 17056));
+				TEST_ENSURE(Rat(constantPi<Real>(), 17168) == Rat(53583, 17056));
+				TEST_ENSURE(Rat(constantPi<Real>(), 17169) == Rat(53938, 17169));
+				
+				// Skipping approximations...
 
-			real64_ieee number = 0;
-			uint64& bits = *((uint64*)&number);
-
-			// Positive zero.
-			bits = ((uint64)0x0 << 63) + ((uint64)0x000 << 52) + ((uint64)0x0000000000000);
-			TEST_ENSURE(Rat(number) == 0);
-
-			// Negative zero.
-			bits = ((uint64)0x1 << 63) + ((uint64)0x000 << 52) + ((uint64)0x0000000000000);
-			TEST_ENSURE(Rat(number) == 0);
-
-			// Positive infinity.
-			bits = ((uint64)0x0 << 63) + ((uint64)0x7FF << 52) + ((uint64)0x0000000000000);
-			TEST_ENSURE(Rat(number) == infinity<Rat>());
-
-			// Negative infinity.
-			bits = ((uint64)0x1 << 63) + ((uint64)0x7FF << 52) + ((uint64)0x0000000000000);
-			TEST_ENSURE(Rat(number) == -infinity<Rat>());
+				TEST_ENSURE(Rat(constantPi<Real>(), 364913) == Rat(1146408, 364913));
+				TEST_ENSURE(Rat(constantPi<Real>(), 995206) == Rat(1146408, 364913));
+				// This is 11 correct digits.
+				TEST_ENSURE(Rat(constantPi<Real>(), 995207) == Rat(3126535, 995207));
+			}
 		}
 
 		void testSyntax()
