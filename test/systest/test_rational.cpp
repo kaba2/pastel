@@ -368,9 +368,6 @@ namespace
 		template <typename Real>
 		void testReal()
 		{
-			using Rat = Rational<int32>;
-			PASTEL_CONCEPT_CHECK_BASE(Rat, Real_Concept);
-
 			// Positive zero.
 			TEST_ENSURE(Rat((Real)0) == 0);
 
