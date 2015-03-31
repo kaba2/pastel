@@ -100,14 +100,29 @@ namespace Pastel
 			M_Integer m,
 			N_Integer n);
 
-		//! Constructs with the value of the ieee floating point.
+		//! Constructs with a native floating point number.
 		/*!
 		Implicit conversion allowed.
+
+		Preconditions:
+		nMax >= 0
+
+		nMax:
+		The maximum allowed divisor. Setting this to 0
+		removes any restrictions.
+
+		returns:
+		On normal numbers, the best rational approximation.
+		On positive overflow, infinity<Rational>().
+		On negative overflow, -infinity<Rational>().
+		On underflow, 0.
 		*/
 		template <
 			typename Real,
 			EnableIf<std::is_floating_point<Real>> = 0>
-		Rational(Real that);
+		Rational(
+			Real that,
+			Integer nMax = 0);
 
 		//! Assigns another rational number.
 		Rational<Integer>& operator=(Rational that);
