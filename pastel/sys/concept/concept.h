@@ -41,11 +41,13 @@ namespace Pastel
 	template <typename... TypeSet>
 	void conceptCheck(TypeSet&&... that);
 
+	// A bug in Visual Studio 2015 CTP6 requires to
+	// use EnableIfC rather than EnableIf.
 	template <typename... BoolSet>
-	using Requires = EnableIf<And<BoolSet...>>;
+	using Requires = EnableIfC<And<BoolSet...>::value>;
 
 	template <typename... BoolSet>
-	using RequiresSome = EnableIf<Or<BoolSet...>>;
+	using RequiresSome = EnableIfC<Or<BoolSet...>::value>;
 
 	namespace Concept
 	{

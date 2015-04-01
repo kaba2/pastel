@@ -14,10 +14,11 @@ namespace Pastel
 		typename Type, 
 		typename Concept>
 	struct Models_Directly
-		: Models_Directly<Type, Concept()>
 	{
 		// The concept is not in functional form.
 		// Convert it to such, assuming no parameters.
+		static constexpr bool value = 
+			Models_Directly<Type, Concept()>::value;
 	};
 
 	template <

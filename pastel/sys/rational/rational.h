@@ -153,7 +153,8 @@ namespace Pastel
 		//! Returns a b-base expansion of the number.
 		/*!
 		Preconditions:
-		base > 1
+		base >= 2
+		maxDigits >= 0
 
 		base:
 		The base to use.

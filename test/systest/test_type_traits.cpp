@@ -21,13 +21,33 @@ namespace
 
 		virtual void run()
 		{
+			testCompiles();
 			testFold();
 			testIsTemplateBaseOf();
-			testTemplateBase();
+			testTemplateBase(); 
 			testIsTemplateInstance();
 			testAnd();
 			testOr();
 			testNot();
+		}
+
+		template <typename...>
+		struct FailingTest
+		{
+		};
+
+		template <typename Type>
+		struct IntegerTest
+		{
+			using type =
+				typename std::enable_if<std::is_same<Type, integer>::value>::type;
+		};
+
+		void testCompiles()
+		{
+			PASTEL_STATIC_ASSERT(!Compiles<FailingTest>::value);
+			PASTEL_STATIC_ASSERT((Compiles<IntegerTest, integer>::value));
+			PASTEL_STATIC_ASSERT(!(Compiles<IntegerTest, float>::value));
 		}
 
 		template <

@@ -55,6 +55,8 @@ namespace Pastel
 		const Type& point,
 		const Locator& locator)
 	{
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+
 		return Location<Type, Locator>(
 			point, locator);
 	}

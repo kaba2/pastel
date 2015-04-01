@@ -22,6 +22,15 @@ namespace Pastel
 		return locator(point).n();
 	}
 
+	template <typename Point>
+	struct Point_Dimension
+	{
+		PASTEL_CONCEPT_CHECK(Point, Point_Concept);
+
+		static PASTEL_CONSTEXPR integer value =
+			Locator_N<Point_Locator<Point>>::value;
+	};
+
 }
 
 #endif

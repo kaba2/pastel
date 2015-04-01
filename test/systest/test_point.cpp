@@ -52,18 +52,20 @@ namespace
 
 		void testConcept()
 		{
-			PASTEL_STATIC_ASSERT((Models<real*, Point_Concept>::value));
+			PASTEL_CONCEPT_CHECK(real*, Point_Concept);
 			PASTEL_STATIC_ASSERT((Models<std::array<real, 2>, Point_Concept>::value));
 			PASTEL_STATIC_ASSERT((Models<Vector<real, 2>, Point_Concept>::value));
 
-			PASTEL_STATIC_ASSERT((Models<real, Point_Concept>::value));
-			PASTEL_STATIC_ASSERT((Models<integer, Point_Concept>::value));
-			PASTEL_STATIC_ASSERT((Models<Rational<integer>, Point_Concept>::value));
+			PASTEL_CONCEPT_CHECK(real, Point_Concept);
+			PASTEL_CONCEPT_CHECK(integer, Point_Concept);
+			PASTEL_CONCEPT_CHECK(Rational<integer>, Point_Concept);
 			PASTEL_STATIC_ASSERT((Models<Location<real, Scalar_Locator<real>>, Point_Concept>::value));
 
 			struct Something_Else {};
 
-			PASTEL_STATIC_ASSERT((!Models<Something_Else, Point_Concept>::value));
+			PASTEL_STATIC_ASSERT(!HasDefaultLocator<Something_Else>::value);
+			PASTEL_STATIC_ASSERT(HasDefaultLocator<real*>::value);
+			PASTEL_CONCEPT_REJECT(Something_Else, Point_Concept);
 		}
 
 		void testAsVector()
@@ -190,20 +192,28 @@ namespace
 		void testDimension()
 		{
 			{
-				std::array<int, 2> x = { {1, 2} };
+				using Point = std::array<int, 2>;
+				Point x = { {1, 2} };
 				TEST_ENSURE_OP(dimension(x), == , 2);
+				PASTEL_STATIC_ASSERT(Point_Dimension<Point>::value == 2);
 			}
 			{
-				real x = 5;
+				using Point = real;
+				Point x = 5;
 				TEST_ENSURE_OP(dimension(x), == , 1);
+				PASTEL_STATIC_ASSERT(Point_Dimension<Point>::value == 1);
 			}
 			{
-				Vector<int, 2> x = { 1, 2 };
+				using Point = Vector<int, 2>;
+				Point x = { 1, 2 };
 				TEST_ENSURE_OP(dimension(x), == , 2);
+				PASTEL_STATIC_ASSERT(Point_Dimension<Point>::value == 2);
 			}
 			{
-				Vector<int> x(ofDimension(2));
+				using Point = Vector<int>;
+				Point x(ofDimension(2));
 				TEST_ENSURE_OP(dimension(x), == , 2);
+				PASTEL_STATIC_ASSERT(Point_Dimension<Point>::value == Dynamic);
 			}
 		}
 

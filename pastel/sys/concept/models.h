@@ -46,27 +46,17 @@ namespace Pastel
 namespace Pastel
 {
 
-	namespace Models_
-	{
-
-		template <
-			typename Type, 
-			typename Concept>
-		struct Models_
-			: And<
-				Models_Directly<Type, Concept>,
-				Models_Base<Type, Concept>
-			>
-		{};
-
-	}
-
 	template <
 		typename Type, 
 		typename... ConceptSet>
 	struct Models
-		: And<Models_::Models_<Type, ConceptSet>...>
-	{};
+	{
+		static PASTEL_CONSTEXPR bool value = 
+			And<
+				Models_Directly<Type, ConceptSet>...,
+				Models_Base<Type, ConceptSet>...
+			>::value;
+	};
 
 }
 

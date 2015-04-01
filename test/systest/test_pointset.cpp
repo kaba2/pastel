@@ -34,10 +34,12 @@ namespace
 			
 			std::vector<Point> inputSet;
 			auto pointSet = rangeInput(range(inputSet.begin(), inputSet.end()));
+			using PointSet = decltype(pointSet);
 
-			PASTEL_STATIC_ASSERT((Models<decltype(pointSet), PointSet_Concept>::value));
+			PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 			
-			//TEST_ENSURE_OP(pointSetDimension(pointSet), == , 0);
+			TEST_ENSURE_OP(pointSetDimension(pointSet), == , 2);
+			PASTEL_STATIC_ASSERT(PointSet_Dimension<PointSet>::value == 2);
 		}
 
 		void testArray()
@@ -48,10 +50,11 @@ namespace
 
 			std::vector<Point> inputSet;
 			auto pointSet = rangeInput(range(inputSet.begin(), inputSet.end()));
-			PASTEL_STATIC_ASSERT((Models<decltype(pointSet), PointSet_Concept>::value));
-			{
-				using PointSet = decltype(pointSet);
+			
+			using PointSet = decltype(pointSet);
+			PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
+			{
 				using Input_ = PointSet_Input<PointSet>;
 				PASTEL_STATIC_ASSERT((std::is_same<Input_, PointSet>::value));
 
@@ -68,6 +71,7 @@ namespace
 				PASTEL_STATIC_ASSERT((std::is_same<Location_, Location<Point, Locator>>::value));
 
 				TEST_ENSURE_OP(pointSetDimension(pointSet), ==, 2);
+				PASTEL_STATIC_ASSERT(PointSet_Dimension<PointSet>::value == 2);
 			}
 		}
 
