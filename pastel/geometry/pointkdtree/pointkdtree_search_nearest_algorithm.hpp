@@ -436,7 +436,7 @@ namespace Pastel
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 
 		Vector<Real, N> searchPoint =
-			pointAsVector(searchIter->point(), kdTree.locator());
+			pointAsVector(location(searchIter->point(), kdTree.locator()));
 
 		NearestAlgorithm_::GenericAlgorithm<KdTree, Indicator, NormBijection, CandidateFunctor, SearchAlgorithm_PointKdTree,
 			IntervalSequence>

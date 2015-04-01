@@ -5,41 +5,41 @@
 #define PASTELSYS_POINT_VECTOREXPRESSION_H
 
 #include "pastel/sys/vector/vectorexpression.h"
+#include "pastel/sys/point/point_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
 
 namespace Pastel
 {
 
-	template <
-		typename Point,
-		typename Locator>
+	template <typename Point>
 	class Point_VectorExpression
 		: public VectorExpression<
-			typename Locator::Real, Locator::N, 
-			Point_VectorExpression<Point, Locator>>
+			Point_Real<Point>, 
+			Locator_N<Point_Locator<Point>>::value, 
+			Point_VectorExpression<Point>>
 	{
 	public:
-		using Real = typename Locator::Real;
-		static PASTEL_CONSTEXPR integer N = Locator::N;
+		PASTEL_CONCEPT_CHECK(Point, Point_Concept);
+
+		using Real = Point_Real<Point>;
+		static PASTEL_CONSTEXPR integer N = 
+			Locator_N<Point_Locator<Point>>::value;
 
 		using StorageType = const Point_VectorExpression;
 
 		Point_VectorExpression()
 			: point_()
-			, locator_()
 		{
 		}
 
-		Point_VectorExpression(
-			const Point& point,
-			const Locator& locator)
+		Point_VectorExpression(const Point& point)
 			: point_(point)
-			, locator_(locator)
 		{
 		}
 
 		integer size() const
 		{
-			return locator_.n();
+			return dimension(point_);
 		}
 
 		bool involves(
@@ -56,14 +56,12 @@ namespace Pastel
 
 		integer n() const
 		{
-			return locator_.n();
+			return size();
 		}
 
 		void swap(Point_VectorExpression& that)
 		{
 			using std::swap;
-			
-			locator_.swap(that.locator_);
 			swap(point_, that.point_);
 		}
 
@@ -72,20 +70,18 @@ namespace Pastel
 			PENSURE2(index >= 0 && index < size(), 
 				index, size());
 
-			return locator_(point_, index);
+			return axis(point_, index);
 		}
 
 	private:
 		Point point_;
-		Locator locator_;
 	};
 
-	template <typename Point, typename Locator>
-	Point_VectorExpression<Point, Locator> pointAsVector(
-		const Point& point,
-		const Locator& locator)
+	template <typename Point>
+	Point_VectorExpression<Point> pointAsVector(
+		const Point& point)
 	{
-		return Point_VectorExpression<Point, Locator>(point, locator);
+		return Point_VectorExpression<Point>(point);
 	}
 
 }

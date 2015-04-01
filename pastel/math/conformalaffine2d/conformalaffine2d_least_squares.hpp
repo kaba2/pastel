@@ -59,16 +59,16 @@ namespace Pastel
 			++toSecond;
 
 			Vector<Real, 2> aFrom = 
-				pointAsVector(from.front(), fromLocator);
+				pointAsVector(location(from.front(), fromLocator));
 
 			Vector<Real, 2> bFrom =
-				pointAsVector(*fromSecond, fromLocator);
+				pointAsVector(location(*fromSecond, fromLocator));
 
 			Vector<Real, 2> aTo = 
-				pointAsVector(to.front(), toLocator);
+				pointAsVector(location(to.front(), toLocator));
 
 			Vector<Real, 2> bTo =
-				pointAsVector(*toSecond, toLocator);
+				pointAsVector(location(*toSecond, toLocator));
 
 			return conformalAffine(
 				aFrom, bFrom,
@@ -91,18 +91,18 @@ namespace Pastel
 		while(fromIter != fromEnd)
 		{
 
-			sumFrom += pointAsVector(*fromIter, fromLocator);
-			sumTo += pointAsVector(*toIter, toLocator);
+			sumFrom += pointAsVector(location(*fromIter, fromLocator));
+			sumTo += pointAsVector(location(*toIter, toLocator));
 
 			sumSquareFrom += dot(
-				pointAsVector(*fromIter, fromLocator));
+				pointAsVector(location(*fromIter, fromLocator)));
 			dotSum += dot(
-				pointAsVector(*fromIter, fromLocator),
-				pointAsVector(*toIter, toLocator));
+				pointAsVector(location(*fromIter, fromLocator)),
+				pointAsVector(location(*toIter, toLocator)));
 			crossDotSum += dot(
 				cross(
-				pointAsVector(*fromIter, fromLocator)),
-				pointAsVector(*toIter, toLocator));
+				pointAsVector(location(*fromIter, fromLocator))),
+				pointAsVector(location(*toIter, toLocator)));
 
 			++fromIter;
 			++toIter;

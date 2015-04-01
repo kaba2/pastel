@@ -42,6 +42,7 @@ namespace
 		virtual void run()
 		{
 			testConcept();
+			testAsVector();
 			testPoint();
 			testLocator();
 			testReal();
@@ -63,6 +64,13 @@ namespace
 			struct Something_Else {};
 
 			PASTEL_STATIC_ASSERT((!Models<Something_Else, Point_Concept>::value));
+		}
+
+		void testAsVector()
+		{
+			std::array<real, 2> p = { 1, 2 };
+			Vector<real, 2> q = pointAsVector(p);
+			TEST_ENSURE((q == Vector<real, 2>(1, 2)));
 		}
 
 		void testPoint()

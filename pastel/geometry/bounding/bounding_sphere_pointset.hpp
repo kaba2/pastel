@@ -60,7 +60,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			Real currentDistance2 =
-				dot(pointAsVector(*iter, locator) - midPoint);
+				dot(pointAsVector(location(*iter, locator)) - midPoint);
 			if (currentDistance2 > maxDistance2)
 			{
 				maxDistance2 = currentDistance2;
