@@ -6,9 +6,7 @@
 
 #include "pastel/math/conformalaffine2d/conformalaffine2d.h"
 
-#include "pastel/sys/locator/locator_concept.h"
-
-#include "pastel/sys/range.h"
+#include "pastel/sys/pointset/pointset_concept.h"
 
 namespace Pastel
 {
@@ -16,45 +14,26 @@ namespace Pastel
 	//! Finds an LS conformal affine transformation between point-sets.
 	/*!
 	Preconditions:
-	fromPointSet.size() == toPointSet.size()
-	fromLocator.n(fromPointSet.front()) ==
-	toLocator.n(toPointSet.front())
-	fromLocator.n(fromPointSet[i]) == 
-	fromLocator.n(fromPointSet.front())
-	toLocator.n(toPointSet[i]) == 
-	toLocator.n(toPointSet.front())
-	
-	Note: we are abusing notation here, since ForwardIterator_Range
-	does not support the [] operator. By [i] we mean here the 
-	i:th element of the range.
-
-	Static preconditions:
-	From_Locator::Real matches To_Locator::Real
+	pointSetDimension(fromSet) == pointSetDimension(toSet)
+	pointSetSize(fromSet) == pointSetSize(toSet)
 
 	The LS is an abbreviation from Least-Squares. 
 	
-	fromPointSet, toPointSet:
+	fromSet, toSet:
 	Two sets of points.
 
-	fromLocator, toLocator:
-	See the Locator concept from 'pastel/sys/pointpolicies.txt'.
-
 	returns:
-	A conformal affine transformation such that mapping 'fromPointSet'
+	A conformal affine transformation such that mapping 'fromSet'
 	with this transformation minimizes the average squared Euclidean
-	distance to 'toPointSet'.
+	distance to 'toSet'.
 	*/
 	template <
-		typename From_Point_ConstRange, 
-		typename To_Point_ConstRange,
-		typename From_Locator,
-		typename To_Locator>
-	ConformalAffine2D<typename From_Locator::Real> 
+		typename From_PointSet, 
+		typename To_PointSet>
+	ConformalAffine2D<PointSet_Real<From_PointSet>> 
 		lsConformalAffine(
-		const From_Point_ConstRange& from,
-		const To_Point_ConstRange& to,
-		const From_Locator& fromLocator,
-		const To_Locator& toLocator);
+			From_PointSet fromSet,
+			To_PointSet toSet);
 
 }
 

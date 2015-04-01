@@ -42,5 +42,6 @@ namespace Pastel
 #include "pastel/sys/pointset/pointset_point.h"
 #include "pastel/sys/pointset/pointset_pop.h"
 #include "pastel/sys/pointset/pointset_real.h"
+#include "pastel/sys/pointset/pointset_size.h"
 
 #endif

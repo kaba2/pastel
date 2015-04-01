@@ -92,8 +92,8 @@ namespace
 				TEST_ENSURE(!pointSetEmpty(pointInput));
 				TEST_ENSURE_OP(pointSetDimension(pointInput), ==, 2);
 
-				TEST_ENSURE(axis(pointSetGet(pointInput), 0) == 1);
-				TEST_ENSURE(axis(pointSetGet(pointInput), 1) == 2);
+				TEST_ENSURE(pointAxis(pointSetGet(pointInput), 0) == 1);
+				TEST_ENSURE(pointAxis(pointSetGet(pointInput), 1) == 2);
 
 				pointSetPop(pointInput);
 				TEST_ENSURE(pointSetEmpty(pointInput));

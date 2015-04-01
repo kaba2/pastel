@@ -26,7 +26,7 @@ namespace Pastel
 			auto&& point = pointSetGet(pointSet);
 			for (integer i = 0;i < d;++i)
 			{
-				auto x = axis(point, i);
+				auto x = pointAxis(point, i);
 
 				if (x < bound.min()[i])
 				{

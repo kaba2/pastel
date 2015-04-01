@@ -7,6 +7,7 @@
 #include "pastel/math/conformalaffine2d/conformalaffine2d_least_squares.h"
 #include "pastel/math/sampling/uniform_sampling.h"
 
+#include "pastel/sys/input.h"
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/locator/vector_locator.h"
 
@@ -86,10 +87,14 @@ namespace
 
 				ConformalAffine2D<real> matchedTransformation =
 					lsConformalAffine(
-					range(pattern.begin(), pattern.end()),
-					range(transformedPattern.begin(), transformedPattern.end()),
-					Vector_Locator<real, 2>(),
-					Vector_Locator<real, 2>());
+						locationSet(
+							rangeInput(range(pattern.begin(), pattern.end())),
+							Vector_Locator<real, 2>()
+						),
+						locationSet(
+							rangeInput(range(transformedPattern.begin(), transformedPattern.end())),
+							Vector_Locator<real, 2>()
+						));
 
 				real scalingDelta = absoluteError<real>(
 					matchedTransformation.scaling(), 

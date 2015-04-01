@@ -447,10 +447,15 @@ namespace Pastel
 
 					lsSimilarity =
 						lsConformalAffine(
-						range(modelGlobalMatch.begin(), modelGlobalMatch.end()),
-						range(sceneGlobalMatch.begin(), sceneGlobalMatch.end()),
-						Vector_Locator<Real, N>(),
-						Vector_Locator<Real, N>());
+							locationSet(
+								rangeInput(range(modelGlobalMatch.begin(), modelGlobalMatch.end())),
+								Vector_Locator<Real, N>()
+							),
+							locationSet(
+								rangeInput(range(sceneGlobalMatch.begin(), sceneGlobalMatch.end())),
+								Vector_Locator<Real, N>()
+							)
+						);
 
 					// Now see which of the mapped model points have
 					// t-neighbours in the scene set.

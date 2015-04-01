@@ -53,7 +53,7 @@ namespace Pastel
 			return constVectorExpression<N>(point, n());
 		}
 
-		const Real& axis(Point point, integer index) const
+		const Real& pointAxis(Point point, integer index) const
 		{
 			return point[index];
 		}

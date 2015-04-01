@@ -25,7 +25,7 @@ namespace Pastel
 		{
 			using type = 
 				typename std::decay<
-					decltype(axis(std::declval<Point>(), 0))
+					decltype(pointAxis(std::declval<Point>(), 0))
 				>::type;
 		};
 

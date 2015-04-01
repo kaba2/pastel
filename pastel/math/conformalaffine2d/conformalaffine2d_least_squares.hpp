@@ -7,78 +7,44 @@ namespace Pastel
 {
 
 	template <
-		typename From_Point_ConstRange, 
-		typename To_Point_ConstRange,
-		typename From_Locator,
-		typename To_Locator>
-	ConformalAffine2D<typename From_Locator::Real> 
+		typename From_PointSet, 
+		typename To_PointSet>
+	ConformalAffine2D<PointSet_Real<From_PointSet>> 
 		lsConformalAffine(
-		const From_Point_ConstRange& from,
-		const To_Point_ConstRange& to,
-		const From_Locator& fromLocator,
-		const To_Locator& toLocator)
+			From_PointSet fromSet,
+			To_PointSet toSet)
 	{
-		using Real = typename From_Locator::Real;
-		using FromPoint = typename From_Locator::Point;
-		using ToPoint = typename To_Locator::Point;
+		PASTEL_CONCEPT_CHECK(From_PointSet, PointSet_Concept);
+		PASTEL_CONCEPT_CHECK(To_PointSet, PointSet_Concept);
 
-		typedef typename boost::range_iterator<From_Point_ConstRange>::type
-			From_Point_ConstIterator;
-		typedef typename boost::range_iterator<To_Point_ConstRange>::type
-			To_Point_ConstIterator;
+		using Real = PointSet_Real<From_PointSet>;
+		using FromPoint =  PointSet_Point<From_PointSet>;
+		using ToPoint = PointSet_Point<To_PointSet>;
 
-		static PASTEL_CONSTEXPR int N = From_Locator::N;
+		static PASTEL_CONSTEXPR int N = PointSet_Dimension<From_PointSet>::value;
 
-		ENSURE_OP(from.size(), ==, to.size());
+		ENSURE_OP(pointSetSize(fromSet), ==, pointSetSize(toSet));
 
-		// Handle special cases.
+		integer n = pointSetSize(fromSet);
 
-		if (from.empty())
+		if (n == 0)
 		{
+			// There are no points in either set.
+			// Return the identity transformation.
 			return ConformalAffine2D<Real>();
 		}
 
-		if (from.size() == 1)
+		if (n == 1)
 		{
-			// If there is just one point in each
-			// set, we reduce the transformation to
-			// a pure translation.
+			// There is exactly one point in each set.
+			// Return a pure translation, without
+			// rotation or scaling.
 
 			return ConformalAffine2D<Real>(
-				1, 0, to.front() - from.front());
+				1, 0, 
+				pointAsVector(pointSetGet(toSet)) - 
+				pointAsVector(pointSetGet(fromSet)));
 		}
-
-		if (from.size() == 2)
-		{
-			// If there are two points in each set,
-			// we use the direct method instead.
-
-			From_Point_ConstIterator fromSecond = from.begin();
-			++fromSecond;
-			To_Point_ConstIterator toSecond = to.begin();
-			++toSecond;
-
-			Vector<Real, 2> aFrom = 
-				pointAsVector(location(from.front(), fromLocator));
-
-			Vector<Real, 2> bFrom =
-				pointAsVector(location(*fromSecond, fromLocator));
-
-			Vector<Real, 2> aTo = 
-				pointAsVector(location(to.front(), toLocator));
-
-			Vector<Real, 2> bTo =
-				pointAsVector(location(*toSecond, toLocator));
-
-			return conformalAffine(
-				aFrom, bFrom,
-				aTo, bTo);
-		}
-
-		From_Point_ConstIterator fromIter = from.begin();
-		From_Point_ConstIterator fromEnd = from.end();
-		To_Point_ConstIterator toIter = to.begin();
-		To_Point_ConstIterator toEnd = to.end();
 
 		Vector<Real, N> sumFrom(ofDimension(2), 0);
 		Vector<Real, N> sumTo(ofDimension(2) ,0);
@@ -86,30 +52,23 @@ namespace Pastel
 		Real dotSum = 0;
 		Real crossDotSum = 0;
 
-		integer points = 0;
-
-		while(fromIter != fromEnd)
+		while(!pointSetEmpty(fromSet))
 		{
+			auto from = pointAsVector(pointSetGet(fromSet));
+			auto to = pointAsVector(pointSetGet(toSet));
 
-			sumFrom += pointAsVector(location(*fromIter, fromLocator));
-			sumTo += pointAsVector(location(*toIter, toLocator));
+			sumFrom += from;
+			sumTo += to;
 
-			sumSquareFrom += dot(
-				pointAsVector(location(*fromIter, fromLocator)));
-			dotSum += dot(
-				pointAsVector(location(*fromIter, fromLocator)),
-				pointAsVector(location(*toIter, toLocator)));
-			crossDotSum += dot(
-				cross(
-				pointAsVector(location(*fromIter, fromLocator))),
-				pointAsVector(location(*toIter, toLocator)));
+			sumSquareFrom += dot(from);
+			dotSum += dot(from, to);
+			crossDotSum += dot(cross(from), to);
 
-			++fromIter;
-			++toIter;
-			++points;
+			pointSetPop(fromSet);
+			pointSetPop(toSet);
 		}
 
-		const Real det = points * sumSquareFrom - dot(sumFrom);
+		Real det = n * sumSquareFrom - dot(sumFrom);
 		Real invDet = inverse(det);
 
 		Vector<Real, N> translation(
@@ -119,12 +78,12 @@ namespace Pastel
 		// scaledCos = scale * cos(angle)
 
 		Real scaledCos =
-			(-sumFrom[0] * sumTo[0] - sumFrom[1] * sumTo[1] + points * dotSum) * invDet;
+			(-sumFrom[0] * sumTo[0] - sumFrom[1] * sumTo[1] + n * dotSum) * invDet;
 
 		// scaledSin = scale * sin(angle)
 
 		Real scaledSin =
-			(sumFrom[1] * sumTo[0] - sumFrom[0] * sumTo[1] + points * crossDotSum) * invDet;
+			(sumFrom[1] * sumTo[0] - sumFrom[0] * sumTo[1] + n * crossDotSum) * invDet;
 
 		// scaledCos^2 + scaledSin^2 = scale * cos^2(angle) + scale * sin^2(angle)
 		// = scale * (cos^2(angle) + sin^2(angle)) = scale

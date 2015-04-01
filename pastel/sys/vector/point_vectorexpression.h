@@ -70,7 +70,7 @@ namespace Pastel
 			PENSURE2(index >= 0 && index < size(), 
 				index, size());
 
-			return axis(point_, index);
+			return pointAxis(point_, index);
 		}
 
 	private:
