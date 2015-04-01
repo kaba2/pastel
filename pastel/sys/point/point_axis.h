@@ -18,6 +18,8 @@ namespace Pastel
 	template <typename Point>
 	decltype(auto) pointAxis(const Point& point, integer i)
 	{
+		PASTEL_CONCEPT_CHECK(Point, Point_Concept);
+
 		return locator(point)(point, i);
 	}
 

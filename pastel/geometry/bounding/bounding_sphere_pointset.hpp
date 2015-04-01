@@ -10,24 +10,34 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
-	Sphere<Real, N> boundingSphere(
-		const Vector<Real, N>& aPoint)
+	template <
+		typename Point,
+		typename>
+	Sphere<Point_Real<Point>, Point_Dimension<Point>::value> 
+		boundingSphere(const Point& point)
 	{
-		return Sphere<Real, N>(aPoint, 0);
+		return {pointAsVector(point), 0};
 	}
 
-	template <typename Real, int N>
-	Sphere<Real, N> boundingSphere(
-		const Vector<Real, N>& aPoint,
-		const Vector<Real, N>& bPoint)
+	template <
+		typename A_Point,
+		typename B_Point,
+		typename>
+	Sphere<Point_Real<A_Point>, Point_Dimension<A_Point>::value> 
+		boundingSphere(
+			const A_Point& aPoint,
+			const B_Point& bPoint)
 	{
-		return Sphere<Real, N>(
-			linear(aPoint, bPoint, 0.5),
-			norm(evaluate(bPoint - aPoint)) * 0.5);
+		return 
+			{
+				pointAsVector(aPoint) / 2 + pointAsVector(bPoint) / 2,
+				norm(evaluate(pointAsVector(bPoint) - pointAsVector(aPoint))) / 2
+			};
 	}
 
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		typename>
 	Sphere<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value> 
 		boundingSphere(PointSet pointSet)
 	{

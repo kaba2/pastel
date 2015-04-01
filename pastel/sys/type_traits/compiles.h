@@ -30,7 +30,7 @@ namespace Pastel
 			>
 		static std::true_type test();
 		
-		template <typename T>
+		template <typename... T>
 		static std::false_type test(...);
 
 	public:

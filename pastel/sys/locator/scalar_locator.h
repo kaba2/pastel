@@ -12,18 +12,21 @@
 namespace Pastel
 {
 
-	template <typename Real_>
+	template <
+		typename Real_,
+		integer N_ = 1>
 	class Scalar_Locator
 	{
 	public:
 		using Real = Real_;
 		using Point = Real_;
-		static PASTEL_CONSTEXPR integer N = Dynamic;
+		static PASTEL_CONSTEXPR integer N = N_;
 
 		explicit Scalar_Locator(integer n = 1)
 		: n_(n)
 		{
 			ENSURE_OP(n, >=, 0);
+			ENSURE(N == Dynamic || n == N)
 		}
 
 		void swap(Scalar_Locator& that)
@@ -59,12 +62,21 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	auto scalarPoint(const Real& point, integer n = 1)
-		-> decltype(location(point, Scalar_Locator<Real>(n)))
+	auto scalarPoint(const Real& point)
+		-> decltype(location(point, Scalar_Locator<Real>()))
 	{
 		return location(
 			point,
-			Scalar_Locator<Real>(n));
+			Scalar_Locator<Real>());
+	}
+
+	template <typename Real>
+	auto scalarPoint(const Real& point, integer n)
+		-> decltype(location(point, Scalar_Locator<Real, Dynamic>(n)))
+	{
+		return location(
+			point,
+			Scalar_Locator<Real, Dynamic>(n));
 	}
 
 }

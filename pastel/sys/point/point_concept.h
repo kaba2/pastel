@@ -4,6 +4,7 @@
 #define PASTELSYS_POINT_CONCEPT_H
 
 #include "pastel/sys/locator/location.h"
+#include "pastel/sys/type_traits/or.h"
 
 namespace Pastel
 {
@@ -59,11 +60,29 @@ namespace Pastel
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
+				Concept::holds<
+					Or<
+						HasDefaultLocator<Type>,
+						IsTemplateInstance<Type, Location>					
+					>
+				>()
+			)
+
+			// The following does not work, although I
+			// cannot see why. Some possibilities: 
+			// 1) This could invoke the most vexing parse,
+			// where the argument is interpreted as
+			// a function type.
+			// 2) Visual Studio 2015 CTP6 has a bug.
+
+			/*
+			conceptCheck(
 				RequiresSome<
 					HasDefaultLocator<Type>,
 					IsTemplateInstance<Type, Location>
 				>()
 			)
+			*/
 		);
 	};
 

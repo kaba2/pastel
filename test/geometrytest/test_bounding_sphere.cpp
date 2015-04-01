@@ -30,13 +30,35 @@ namespace
 		void test()
 		{
 			{
+				using Point = std::array<real, 2>;
+				Point a = { -1, 0 };
+				PASTEL_CONCEPT_CHECK(Point, Point_Concept);
+				PASTEL_CONCEPT_REJECT(Point, PointSet_Concept);
+				Sphere<real, 2> bound = boundingSphere(a);
+
+				TEST_ENSURE(abs(bound.radius()) < 0.001);
+				TEST_ENSURE(norm(bound.position()) < 0.001);
+			}
+			{
+				std::array<real, 2> a = { -1, 0 };
+				std::array<real, 2> b = { 0, 1 };
+				Sphere<real, 2> bound = boundingSphere(a, b);
+
+				TEST_ENSURE(abs(bound.radius() - 1) < 0.001);
+				TEST_ENSURE(norm(bound.position()) < 0.001);
+			}
+			{
 				auto check = [&](
 					std::initializer_list<Vector2> pointSet,
 					real radius,
 					Vector2 position)
 				{
-					Sphere2 bound = boundingSphere(
-						rangeInput(range(pointSet.begin(), pointSet.end())));
+					auto pointSet_ = rangeInput(range(pointSet.begin(), pointSet.end()));
+					using PointSet = decltype(pointSet_);
+					PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
+					PASTEL_CONCEPT_REJECT(PointSet, Point_Concept);
+
+					Sphere2 bound = boundingSphere(pointSet_);
 
 					return abs(bound.radius() - radius) < 0.001 &&
 						norm(bound.position() - position) < 0.001;
