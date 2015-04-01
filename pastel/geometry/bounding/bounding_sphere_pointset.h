@@ -5,34 +5,26 @@
 
 #include "pastel/geometry/shape/sphere.h"
 
-#include "pastel/sys/range.h"
+#include "pastel/sys/pointset/pointset_concept.h"
 
 namespace Pastel
 {
 
 	//! Finds the minimum volume bounding sphere of a point.
-
 	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const Vector<Real, N>& aPoint);
 
 	//! Finds the minimum volume bounding sphere of two points.
-
 	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint);
 
 	//! Finds a bounding sphere of a point set.
-	/*!
-	The InputIterator must dereference to Vector<Real, N>.
-	*/
-
-	template <typename Point_ConstRange, typename Locator>
-	Sphere<typename Locator::Real, Locator::N> 
-		boundingSphere(
-		const Point_ConstRange& pointSet,
-		const Locator& locator);
+	template <typename PointSet>
+	Sphere<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value> 
+		boundingSphere(PointSet pointSet);
 
 }
 
