@@ -58,14 +58,14 @@ namespace Pastel
 		{
 			Real y = dot(result, 
 
-				pointAsVector(*iter, locator) - meanPoint);
+				pointAsVector(location(*iter, locator)) - meanPoint);
 
 			// We take beta = 1.
 			
 			//d = beta * d + square(y);
 			d += square(y);
 
-			result += ((pointAsVector(*iter, locator) - meanPoint) - 
+			result += ((pointAsVector(location(*iter, locator)) - meanPoint) - 
 				result * y) * (y / d);
 
 			++iter;
@@ -110,7 +110,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 
-			x = pointAsVector(*iter, locator) - meanPoint;
+			x = pointAsVector(location(*iter, locator)) - meanPoint;
 
 			for (integer j = 0;j < eigenvectors;++j)
 			{

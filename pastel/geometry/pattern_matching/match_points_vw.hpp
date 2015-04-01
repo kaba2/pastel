@@ -308,7 +308,7 @@ namespace Pastel
 
 				Vector<Real, N> operator()(const ScenePoint& scenePoint) const
 				{
-					return pointAsVector(scenePoint, sceneTree_.locator());
+					return pointAsVector(location(scenePoint, sceneTree_.locator()));
 				}
 
 			private:
@@ -326,12 +326,12 @@ namespace Pastel
 
 			Vector<Real, N> scenePosition(const SceneIterator& sceneIter) const
 			{
-				return pointAsVector(sceneIter->point(), sceneTree_.locator());
+				return pointAsVector(location(sceneIter->point(), sceneTree_.locator()));
 			}
 
 			Vector<Real, N> modelPosition(const ModelIterator& modelIter) const
 			{
-				return pointAsVector(modelIter->point(), modelTree_.locator());
+				return pointAsVector(location(modelIter->point(), modelTree_.locator()));
 			}
 
 			bool matchLocal(

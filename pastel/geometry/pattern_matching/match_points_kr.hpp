@@ -61,9 +61,11 @@ namespace Pastel
 				const Scene_Model_Output& report)
 			{
 				/*
-				This function implements my algorithm from an upcoming paper
-				'Quantitative analysis of dynamic association in live biological 
-				fluorescent samples'.
+				'Quantitative analysis of dynamic association in 
+				live biological fluorescent samples',
+				Pekka Ruusuvuori, Lassi Paavolainen, Kalle Rutanen, 
+				Anita Mäki, Heikki Huttunen, Varpu Marjomäki, 
+				PLoS ONE 9 (4), 2014.
 				*/
 
 				integer d = modelTree.n();
@@ -84,8 +86,10 @@ namespace Pastel
 				Real maxRelativeError = 1;
 
 				integer minMatches =
-					std::min((integer)ceil(minMatchRatio * (integer)modelSet.size()),
-					(integer)modelSet.size());
+					std::min(
+						(integer)ceil(minMatchRatio * (integer)modelSet.size()),
+						(integer)modelSet.size()
+					);
 
 				PairSet bestPairSet;
 				Vector<Real, N> bestTranslation(ofDimension(d));
@@ -94,7 +98,6 @@ namespace Pastel
 				bool exitEarly = false;
 
 				integer n = modelSet.size();
-
 				for (integer i = 0;i < n && !exitEarly;++i)
 				{
 					// Pick a model pivot point.
@@ -107,8 +110,8 @@ namespace Pastel
 					while(scenePivotIter != scenePivotEnd && !exitEarly)
 					{
 						translation =
-							pointAsVector(scenePivotIter->point(), sceneTree.locator()) -
-							pointAsVector(modelPivotIter->point(), modelTree.locator());
+							pointAsVector(location(scenePivotIter->point(), sceneTree.locator())) -
+							pointAsVector(location(modelPivotIter->point(), modelTree.locator()));
 
 						// Find out how many points match
 						// under this translation.
@@ -118,7 +121,7 @@ namespace Pastel
 						{
 							Model_ConstIterator modelIter = modelSet[j];
 							
-							searchPoint = pointAsVector(modelIter->point(), modelTree.locator()) + 
+							searchPoint = pointAsVector(location(modelIter->point(), modelTree.locator())) + 
 								translation;
 
 
@@ -181,8 +184,8 @@ namespace Pastel
 								while(iter != iterEnd)
 								{
 									meanDelta += 
-										pointAsVector(iter->first->point(), sceneTree.locator()) -
-										(pointAsVector(iter->second->point(), modelTree.locator()) + 
+										pointAsVector(location(iter->first->point(), sceneTree.locator())) -
+										(pointAsVector(location(iter->second->point(), modelTree.locator())) + 
 										translation);
 
 									++iter;
