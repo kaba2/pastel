@@ -19,6 +19,14 @@ namespace Pastel
 		return pointSetLocator(pointSet).n();
 	}
 
+	//! Returns the compile-time dimension of a point-set.
+	template <typename PointSet>
+	struct PointSet_Dimension
+	{
+		static PASTEL_CONSTEXPR integer value =
+			Locator_N<PointSet_Locator<PointSet>>::value;
+	};
+
 }
 
 #endif

@@ -16,14 +16,14 @@ namespace Pastel
 	Point has a default locator.
 	*/
 	template <typename Point>
-	decltype(auto) axis(const Point& point, integer i)
+	decltype(auto) pointAxis(const Point& point, integer i)
 	{
 		return locator(point)(point, i);
 	}
 
 	//! Returns the i:th coordinate of a location.
 	template <typename Point, typename Locator>
-	decltype(auto) axis(const Location<Point, Locator>& location, integer i)
+	decltype(auto) pointAxis(const Location<Point, Locator>& location, integer i)
 	{
 		return location.locator()(location.point(), i);
 	}

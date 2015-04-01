@@ -152,38 +152,38 @@ namespace
 			{
 				std::array<int, 2> x = { {1, 2} };
 
-				TEST_ENSURE_OP(axis(x, 0), == , x[0]);
-				TEST_ENSURE_OP(axis(x, 1), == , x[1]);
+				TEST_ENSURE_OP(pointAxis(x, 0), == , x[0]);
+				TEST_ENSURE_OP(pointAxis(x, 1), == , x[1]);
 
-				TEST_ENSURE_OP(axis(&x[0], 0), == , x[0]);
-				TEST_ENSURE_OP(axis(&x[0], 1), == , x[1]);
+				TEST_ENSURE_OP(pointAxis(&x[0], 0), == , x[0]);
+				TEST_ENSURE_OP(pointAxis(&x[0], 1), == , x[1]);
 
-				TEST_ENSURE_OP(axis(arrayPoint(x), 0), == , x[0]);
-				TEST_ENSURE_OP(axis(arrayPoint(x), 1), == , x[1]);
+				TEST_ENSURE_OP(pointAxis(arrayPoint(x), 0), == , x[0]);
+				TEST_ENSURE_OP(pointAxis(arrayPoint(x), 1), == , x[1]);
 			}
 			{
 				real x = 5;
 
-				TEST_ENSURE_OP(axis(x, 0), == , 5);
-				TEST_ENSURE_OP(axis(x, 1), == , 5);
+				TEST_ENSURE_OP(pointAxis(x, 0), == , 5);
+				TEST_ENSURE_OP(pointAxis(x, 1), == , 5);
 			}
 			{
 				Vector<int, 2> x = { 1, 2 };
 
-				TEST_ENSURE_OP(axis(x, 0), == , x[0]);
-				TEST_ENSURE_OP(axis(x, 1), == , x[1]);
+				TEST_ENSURE_OP(pointAxis(x, 0), == , x[0]);
+				TEST_ENSURE_OP(pointAxis(x, 1), == , x[1]);
 
-				TEST_ENSURE_OP(axis(vectorPoint(x), 0), == , x[0]);
-				TEST_ENSURE_OP(axis(vectorPoint(x), 1), == , x[1]);
+				TEST_ENSURE_OP(pointAxis(vectorPoint(x), 0), == , x[0]);
+				TEST_ENSURE_OP(pointAxis(vectorPoint(x), 1), == , x[1]);
 			}
 			{
 				Vector<int> x(ofDimension(2));
 
-				TEST_ENSURE_OP(axis(x, 0), == , x[0]);
-				TEST_ENSURE_OP(axis(x, 1), == , x[1]);
+				TEST_ENSURE_OP(pointAxis(x, 0), == , x[0]);
+				TEST_ENSURE_OP(pointAxis(x, 1), == , x[1]);
 
-				TEST_ENSURE_OP(axis(vectorPoint(x), 0), == , x[0]);
-				TEST_ENSURE_OP(axis(vectorPoint(x), 1), == , x[1]);
+				TEST_ENSURE_OP(pointAxis(vectorPoint(x), 0), == , x[0]);
+				TEST_ENSURE_OP(pointAxis(vectorPoint(x), 1), == , x[1]);
 			}
 		}
 

@@ -27,6 +27,11 @@ namespace Pastel
 		decltype(auto) pointSetGet(
 			const LocationSet<Point_Input, Locator>& pointSet)
 		{
+			// Propagate the locator of the point-set.
+			// Note that we need to propagate the locator
+			// even when a point has a default-locator.
+			// This is because a locator can contain run-time
+			// data.
 			return location(
 				pointSet.pointInput().get(), 
 				pointSet.locator());

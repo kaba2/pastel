@@ -47,7 +47,7 @@ namespace Pastel
 			Expression operator()(const Point& point) const;
 
 			//! Returns the coordinate on the given axis.
-			Real axis(const Point& point, integer axis) const;
+			Real pointAxis(const Point& point, integer axis) const;
 
 			//! Returns a random-access range to coordinate data.
 			ConstRange range(const Point& point) const;

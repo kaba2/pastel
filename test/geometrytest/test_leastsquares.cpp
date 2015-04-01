@@ -10,6 +10,7 @@
 
 #include "pastel/sys/locator.h"
 #include "pastel/sys/vector/vector_tools.h"
+#include "pastel/sys/input.h"
 
 using namespace Pastel;
 
@@ -32,37 +33,44 @@ namespace
 
 		void testNoiselessSimilarity()
 		{
-			for (integer i = 0;i < 1000;++i)
+			for (integer points = 0;points < 1000;++points)
 			{
-				integer points = i + 2;
-
 				std::vector<Vector2> from;
 				from.reserve(points);
 				std::vector<Vector2> to;
 				to.reserve(points);
+				
+				real scale = random<real>() * 0.9 + 0.1;
+				real angle = random<real>() * 2 * constantPi<real>();
+				Vector2 translation(random<real>() * 2 - 1, random<real>() * 2 - 1);
 
+				if (points <= 1)
+				{
+					scale = 1;
+					angle = 0;
+				}
 
-				const real scale = random<real>() * 0.9 + 0.1;
-				const real angle = random<real>() * 2 * constantPi<real>();
-				const Vector2 translation(random<real>() * 2 - 1, random<real>() * 2 - 1);
+				if (points == 0)
+				{
+					translation = 0;
+				}
 
 				ConformalAffine2D<real> transformation(scale, angle, translation);
 
-				for (integer i = 0;i < points;++i)
+				for (integer j = 0;j < points;++j)
 				{
-					Vector2 fromPoint(randomVectorSphere<real, 2>());
+					Vector2 fromPoint = randomVectorSphere<real, 2>();
 					from.push_back(fromPoint);
 
-					Vector2 toPoint(transformPoint(transformation, fromPoint));
+					Vector2 toPoint = transformPoint(transformation, fromPoint);
 					to.push_back(toPoint);
 				}
 
 				ConformalAffine2D<real> similarity =
 					lsConformalAffine(
-					range(from.begin(), from.end()), 
-					range(to.begin(), to.end()),
-					Vector_Locator<real, 2>(),
-					Vector_Locator<real, 2>());
+						rangeInput(range(from.begin(), from.end())), 
+						rangeInput(range(to.begin(), to.end()))
+					);
 
 				TEST_ENSURE(absoluteError<real>(similarity.scaling(), scale) <= 0.001);
 				TEST_ENSURE(absoluteError<real>(similarity.rotation(), angle) <= 0.001);

@@ -118,7 +118,7 @@ namespace Pastel
 		{
 			result = normBijection.addAxis(result, 
 				normBijection.signedAxis(
-					axis(bPoint, i) - axis(aPoint, i)));
+					pointAxis(bPoint, i) - pointAxis(aPoint, i)));
 		}
 
 		return result;

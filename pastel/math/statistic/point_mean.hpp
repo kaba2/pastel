@@ -32,7 +32,7 @@ namespace Pastel
 			auto&& point = pointSetGet(pointSet);
 			for (integer i = 0;i < d;++i)
 			{
-				result[i] += axis(point, i);
+				result[i] += pointAxis(point, i);
 			}
 			++n;
 

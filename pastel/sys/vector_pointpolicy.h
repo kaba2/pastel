@@ -51,7 +51,7 @@ namespace Pastel
 				point.rawBegin(), n());
 		}
 
-		const Real& axis(const Point& point, integer axis) const
+		const Real& pointAxis(const Point& point, integer axis) const
 		{
 			return point[axis];
 		}
