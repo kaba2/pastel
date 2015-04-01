@@ -30,10 +30,8 @@ namespace
 		{
 			PASTEL_CONCEPT_CHECK(Type, Real_Concept);
 
-			infinity<Type>();
 			TEST_ENSURE(isInfinity(infinity<Type>()));
 			TEST_ENSURE(isMinusInfinity(-infinity<Type>()));
-			nan<Type>();
 			TEST_ENSURE(isNan(nan<Type>()));
 			TEST_ENSURE(inverse((Type)5) == 1 / (Type)5);
 			TEST_ENSURE(negative((Type)-1));
