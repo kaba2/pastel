@@ -27,46 +27,46 @@ namespace Pastel
 			norm(evaluate(bPoint - aPoint)) * 0.5);
 	}
 
-	template <typename Point_ConstRange, typename Locator>
-	Sphere<typename Locator::Real, Locator::N> 
-		boundingSphere(
-		const Point_ConstRange& pointSet,
-		const Locator& locator)
+	template <typename PointSet>
+	Sphere<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value> 
+		boundingSphere(PointSet pointSet)
 	{
-		using Real = typename Locator::Real;
-		static PASTEL_CONSTEXPR int N = Locator::N;
+		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
+
+		using Real = PointSet_Real<PointSet>;
+		static PASTEL_CONSTEXPR int N = 
+			PointSet_Dimension<PointSet>::value;
 
 		// This function does not give the minimum volume
 		// bounding sphere, but it does give something to
 		// that direction, and is fast.
 
-		integer n = locator.n();
-		ENSURE(n != Dynamic);
+		integer n = pointSetSize(pointSet);
 
 		Sphere<Real, N> result(n);
 		if (pointSet.empty())
 		{
+			result.setRadius(0);
 			return result;
 		}
 
 		// Compute the midpoint.
 		Vector<Real, N> midPoint = 
-			pointSetMean(pointSet, locator);
+			pointMean(pointSet);
 
 		// Compute the maximum distance from the midpoint.
 		Real maxDistance2 = 0;
-		auto iter = pointSet.begin();
-		auto iterEnd = pointSet.end();
-		while(iter != iterEnd)
+		while(!pointSetEmpty(pointSet))
 		{
-			Real currentDistance2 =
-				dot(pointAsVector(location(*iter, locator)) - midPoint);
+			auto p = pointAsVector(pointSetGet(pointSet));
+			
+			Real currentDistance2 = dot(p - midPoint);
 			if (currentDistance2 > maxDistance2)
 			{
 				maxDistance2 = currentDistance2;
 			}
 
-			++iter;
+			pointSetPop(pointSet);
 		}
 
 		return Sphere<Real, N>(
