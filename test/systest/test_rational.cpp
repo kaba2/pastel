@@ -18,7 +18,7 @@ namespace
 	PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
 
 	using Rat = Rational<Integer>;
-	PASTEL_CONCEPT_CHECK_BASE(Rat, Real_Concept);
+	PASTEL_CONCEPT_CHECK(Rat, Real_Concept);
 
 	class Test
 		: public TestSuite

@@ -52,9 +52,9 @@ namespace Pastel
 				//! Returns the greatest integer <= that.
 				Concept::convertsTo<Type>(floor(t)),
 				//! Returns the least integer >= that.
-				Concept::convertsTo<Type>(ceil(t)),
+				Concept::convertsTo<Type>(ceil(t))//,
 				//! Returns the number in scientific notation.
-				Concept::convertsTo<ScientificNotation>(asScientific(t))
+				//Concept::convertsTo<ScientificNotation>(asScientific(t))
 			)
 		);
 	};

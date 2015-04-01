@@ -41,6 +41,14 @@ namespace Pastel
 		return that.isInfinity();
 	}
 
+	template <
+		typename Type, 
+		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
+	bool isMinusInfinity(const Type& that)
+	{
+		return that.isMinusInfinity();
+	}
+
 	template <typename Integer>
 	Rational<Integer> floor(
 		const Rational<Integer>& that)
