@@ -37,11 +37,11 @@ namespace
 				Sphere<real, 2> bound = boundingSphere(a);
 
 				TEST_ENSURE(abs(bound.radius()) < 0.001);
-				TEST_ENSURE(norm(bound.position()) < 0.001);
+				TEST_ENSURE(norm(bound.position() - Vector2(-1, 0)) < 0.001);
 			}
 			{
 				std::array<real, 2> a = { -1, 0 };
-				std::array<real, 2> b = { 0, 1 };
+				std::array<real, 2> b = { 1, 0 };
 				Sphere<real, 2> bound = boundingSphere(a, b);
 
 				TEST_ENSURE(abs(bound.radius() - 1) < 0.001);
