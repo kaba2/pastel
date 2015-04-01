@@ -18,14 +18,14 @@ namespace Pastel
 	O(nd)
 	where
 	n = size(pointSet), and
-	d = locator.n().
+	d = pointSetDimension(pointSet).
+
+	returns:
+	[sum_{i = 1}^n x_i] / n
 	*/
-	template <
-		typename PointSet,
-		typename Real = PointSet_Real<PointSet>,
-		typename Locator = PointSet_Locator<PointSet>>
+	template <typename PointSet>
 	auto pointMean(PointSet pointSet)
-		-> Vector<Real, Locator::N>;
+		-> Vector<PointSet_Real<PointSet>, Locator_N<PointSet_Locator<PointSet>>::value>;
 
 }
 

@@ -6,21 +6,19 @@
 namespace Pastel
 {
 
-	template <
-		typename PointSet,
-		typename Real,
-		typename Locator>
-		auto pointMean(PointSet pointSet)
-		-> Vector<Real, Locator::N>
+	template <typename PointSet>
+	auto pointMean(PointSet pointSet)
+		-> Vector<PointSet_Real<PointSet>, Locator_N<PointSet_Locator<PointSet>>::value>
 	{
 		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
-		auto&& locator = pointSetLocator(pointSet);
+		using Locator = PointSet_Locator<PointSet>;
+		using Real = PointSet_Real<PointSet>;
 
-		integer d = locator.n();
+		integer d = pointSetDimension(pointSet);
 		ENSURE_OP(d, >=, 0);
 	
-		Vector<Real, Locator::N> result(ofDimension(d), 0);
+		Vector<Real, Locator_N<Locator>::value> result(ofDimension(d), 0);
 
 		if (pointSetEmpty(pointSet) ||
 			d == 0)
@@ -34,7 +32,7 @@ namespace Pastel
 			auto&& point = pointSetGet(pointSet);
 			for (integer i = 0;i < d;++i)
 			{
-				result[i] += locator(pointPoint(point), i);
+				result[i] += axis(point, i);
 			}
 			++n;
 
