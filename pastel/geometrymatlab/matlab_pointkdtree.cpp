@@ -5,7 +5,6 @@
 #include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_count_nearest.h"
 
-#include "pastel/sys/pointpolicies.h"
 #include "pastel/sys/allocator/pool_allocator.h"
 #include "pastel/sys/indicator/predicate_indicator.h"
 
