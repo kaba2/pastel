@@ -281,12 +281,6 @@ namespace Pastel
 			Integer n,
 			SkipSimplify);
 
-		template <
-			integer ExponentBits, 
-			integer MantissaBits,
-			typename Float_Ieee>
-		void setIeee(Float_Ieee that);
-
 		//! Brings the rational number to a normal form.
 		/*!
 		If the number is not NaN (0, 0), then the normal
