@@ -49,6 +49,9 @@ namespace
 		template <typename Real>
 		void testAsReal()
 		{
+			TEST_ENSURE(Rat(1, 0).asReal<Real>() == infinity<Real>());
+			TEST_ENSURE(Rat(-1, 0).asReal<Real>() == -infinity<Real>());
+			TEST_ENSURE(isNan(Rat(0, 0).asReal<Real>()));
 			TEST_ENSURE(Rat(1, 8).asReal<Real>() == (Real)1 / 8);
 			TEST_ENSURE(Rat(22, 7).asReal<Real>() == (Real)22 / 7);
 			TEST_ENSURE(Rat(355, 133).asReal<Real>() == (Real)355 / 133);

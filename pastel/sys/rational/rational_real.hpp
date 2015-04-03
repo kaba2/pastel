@@ -16,7 +16,38 @@ namespace Pastel
 		EnableIf<std::is_floating_point<Real>>>
 	Real Rational<Integer>::asReal() const
 	{
-		return stringAsReal<Real>(asString(10, std::numeric_limits<Real>::digits10 + 2));
+		// Handle the degenerate cases.
+		switch(classify())
+		{
+			case NumberType::Infinity:
+				return infinity<Real>();
+			case NumberType::MinusInfinity:
+				return -infinity<Real>();
+			case NumberType::Nan:
+				return nan<Real>();
+		};
+
+		// Finding the closest floating-point number is
+		// tricky, because we do not know the internal
+		// representation of the floating-point number.
+		// Therefore, we convert the rational number to
+		// a string, which is exact up to rounding, and 
+		// then use the C++ Standard Library to convert
+		// the string to a floating-point number.
+
+		// We choose the number of digits in the string
+		// as two digits more than what the precision
+		// of the floating-number is. This accounts for
+		// the fact that the number of correct digits has 
+		// been rounded down.
+		enum : integer 
+		{
+			maxDigits = 
+				std::numeric_limits<Real>::digits10 + 2
+		};
+
+		return stringAsReal<Real>(
+			asString(10, maxDigits));
 	}
 
 	template <typename Integer>
