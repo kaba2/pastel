@@ -64,6 +64,4 @@ The image below illustrates the multi-level kd-tree in ''RR^2''.
 See also
 --------
 
-[[Link]]: pointpolicies.txt
-
 [[Link]]: nearest_neighbors_semidynamic.txt
