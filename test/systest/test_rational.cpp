@@ -14,7 +14,7 @@ namespace
 
 	using namespace Pastel;
 
-	using Integer = Signed_Integer<64, uint8>;
+	using Integer = Signed_Integer<32, uint8>;
 	PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
 
 	using Rat = Rational<Integer>;
@@ -42,8 +42,8 @@ namespace
 			testSpecial();
 			testAddition();
 			testMultiply();
-			testReal<float>();
-			testReal<double>();
+			testFromReal<float>();
+			testFromReal<double>();
 		}
 
 		template <typename Real>
@@ -369,7 +369,7 @@ namespace
 		}
 
 		template <typename Real>
-		void testReal()
+		void testFromReal()
 		{
 			// Positive zero.
 			TEST_ENSURE(Rat((Real)0) == 0);

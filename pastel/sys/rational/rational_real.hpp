@@ -172,6 +172,7 @@ namespace Pastel
 		bool nonNegativeThat = (that >= 0);
 		if (!nonNegativeThat)
 		{
+			// Reduce to the non-negative case.
 			that = -that;
 		}
 
@@ -261,6 +262,7 @@ namespace Pastel
 
 		if (!nonNegativeThat)
 		{
+			// Negate the number to give the correct sign.
 			best.m_ = -best.m_;
 		}
     }
