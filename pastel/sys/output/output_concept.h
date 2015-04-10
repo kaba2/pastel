@@ -9,17 +9,19 @@
 namespace Pastel
 {
 
-	namespace Output_Concept
+	struct Output_Concept
 	{
-
-		class Output
-		{
-		public:
-			//! Reports 'that', and returns whether it was accepted.
-			bool operator()(const UserDefinedType& that);
-		};
-	
-	}
+		template <
+			typename Type,
+			typename That>
+		auto require(Type&& t, That&& that) -> decltype
+		(
+			conceptCheck(
+				//! Reports 'that'.
+				(t(that), 0)
+			)
+		);
+	};
 
 }
 

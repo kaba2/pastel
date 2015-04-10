@@ -9,7 +9,8 @@
 #include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/indicator/indicator_concept.h"
-#include "pastel/sys/pointset/pointset_concept.h"
+#include "pastel/geometry/nearestset/nearestset_concept.h"
+#include "pastel/geometry/distance/distance_point_point.h"
 
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/output/null_output.h"
@@ -17,125 +18,248 @@
 #include "pastel/math/normbijection/euclidean_normbijection.h"
 #include "pastel/math/normbijection/normbijection_concept.h"
 
+#include <set>
 #include <utility>
 #include <type_traits>
 
 namespace Pastel
 {
 
-	//! Finds the k nearest-neighbours of a point.
-	/*!
-	Preconditions:
-	kNearest >= 0
-	maxDistance >= 0
-
-	Time complexity:
-	O(d n log k + k)
-	where
-	d is the dimension,
-	n = pointSet.size()
-
-	pointSet:
-	The set of points to do the search in.
-
-	searchPoint:
-	The point for which to search the nearest neighbors.
-
-	report:
-	An output, called exactly 'kNearest' times with 
-	report(point, distance), for each of the k nearest 
-	neighbors in order of increasing distance. If there
-	are less than 'kNearest' number of neighbors, then
-	the remaining neighbors are reported as
-	report(Point(), infinity<Real>()).
-
-	accept:
-	An indicator which decides whether to accept a point
-	as a neighbor or not. For example, if the search point
-	is part of 'pointSet', then it can be useful to exclude
-	the point itself from being considered a neighbor.
-
-	normBijection:
-	The norm to use.
-
-	locator:
-	A locator for the points in the 'pointSet'.
-
-	searchLocator:
-	A locator for the 'searchPoint'.
-
-	Optional arguments
-	------------------
-
-	kNearest (integer):
-	The number of nearest neighbors to seek for.
-
-	maxDistance (Real):
-	A distance after which points aren't considered
-	neighbors. This distance is in terms of the
-	norm bijection. Note: Can be set to infinity.
-
-	Returns
-	-------
-
-	A pair (distance, point), where 'point' is the k:th nearest
-	neighbor of 'searchPoint' in 'pointSet', and 'distance'
-	is the distance between 'searchPoint' and the k:th nearest
-	neighbor, in terms of the norm bijection. In case the
-	k:th nearest neighbor does not exist, then 
-	(infinity<Real>(), Point()).
-	*/
-	template <
-		typename PointSet,
-		typename Search_Point,
-		typename Point_Output,
-		typename Point_Indicator,
-		typename Point = PointSet_Point<PointSet>,
-		typename Real,
-		typename NormBijection>
-	std::pair<Real, Point> searchNearestBruteForce(
-		PointSet pointSet,
-		const Search_Point& searchPoint,
-		Point_Output report,
-		const Point_Indicator& accept,
-		const NormBijection& normBijection,
-		integer kNearest,
-		const Real& maxDistance);
-
-	// FIX: This should be a single function.
-	// A bug in Visual Studio 2013 will not allow
-	// me to use infinity<Real>() as a default-argument
-	// for maxDistance. It incorrectly says that it is an 
-	// ambiguous call. This is a work-around.
-
-	template <
-		typename PointSet,
-		typename Search_Point,
-		typename Point_Output = Null_Output,
-		typename Point_Indicator = All_Indicator,
-		typename Point = PointSet_Point<PointSet>,
-		typename Real = PointSet_Real<PointSet>,
-		typename NormBijection = Euclidean_NormBijection<Real>>
-	std::pair<Real, Point> searchNearestBruteForce(
-		PointSet pointSet,
-		const Search_Point& searchPoint,
-		Point_Output report = Point_Output(),
-		const Point_Indicator& accept = Point_Indicator(),
-		const NormBijection& normBijection = NormBijection(),
-		integer kNearest = 1)
+	struct BruteForce_NearestSet_Settings_Concept
 	{
-		return Pastel::searchNearestBruteForce(
-			pointSet,
-			searchPoint,
-			report,
-			accept,
-			normBijection,
-			kNearest,
-			infinity<Real>());
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				Concept::holds<
+					Models<typename Type::PointSet, PointSet_Concept>
+				>()				
+			)
+		);
+	};
+
+	template <typename Settings>
+	class BruteForce_NearestSet
+	{
+	public:
+		PASTEL_CONCEPT_CHECK(Settings, BruteForce_NearestSet_Settings_Concept);
+
+		using Fwd = Settings;
+		PASTEL_FWD(PointSet);
+
+		using Point = PointSet_Point<PointSet>;
+		using Real = PointSet_Real<PointSet>;
+
+		BruteForce_NearestSet(PointSet pointSet)
+		: pointSet_(pointSet)
+		{
+		}
+
+		//! Finds the k nearest-neighbours of a point.
+		/*!
+		Preconditions:
+		kNearest >= 0
+		maxDistance >= 0
+
+		Time complexity:
+		O(d n log k + k)
+		where
+		d is the dimension,
+		n = pointSet.size()
+
+		pointSet:
+		The set of points to do the search in.
+
+		searchPoint:
+		The point for which to search the nearest neighbors.
+
+		report:
+		An output, called exactly 'kNearest' times with 
+		report(point, distance), for each of the k nearest 
+		neighbors in order of increasing distance. If there
+		are less than 'kNearest' number of neighbors, then
+		the remaining neighbors are reported as
+		report(Point(), infinity<Real>()).
+
+		accept:
+		An indicator which decides whether to accept a point
+		as a neighbor or not. For example, if the search point
+		is part of 'pointSet', then it can be useful to exclude
+		the point itself from being considered a neighbor.
+
+		normBijection:
+		The norm to use.
+
+		locator:
+		A locator for the points in the 'pointSet'.
+
+		searchLocator:
+		A locator for the 'searchPoint'.
+
+		Optional arguments
+		------------------
+
+		kNearest (integer):
+		The number of nearest neighbors to seek for.
+
+		maxDistance (Real):
+		A distance after which points aren't considered
+		neighbors. This distance is in terms of the
+		norm bijection. Note: Can be set to infinity.
+
+		Returns
+		-------
+
+		A pair (distance, point), where 'point' is the k:th nearest
+		neighbor of 'searchPoint' in 'pointSet', and 'distance'
+		is the distance between 'searchPoint' and the k:th nearest
+		neighbor, in terms of the norm bijection. In case the
+		k:th nearest neighbor does not exist, then 
+		(infinity<Real>(), Point()).
+		*/
+		template <
+			typename Search_Point,
+			typename Point_Output = Null_Output,
+			typename Point_Indicator = All_Indicator,
+			typename NormBijection = Euclidean_NormBijection<Real>,
+			typename Set_Optionals = Null_Output>
+		std::pair<Real, Point> searchNearest(
+			const Search_Point& searchPoint,
+			Point_Output report = Point_Output(),
+			const Point_Indicator& accept = Point_Indicator(),
+			const NormBijection& normBijection = NormBijection(),
+			Set_Optionals setOptionals = Set_Optionals())
+		{
+			struct Optional
+			{
+				integer k = 1;
+				Real maxDistance = infinity<Real>();
+			};
+
+			Optional optional;
+			setOptionals(optional);
+
+			ENSURE_OP(optional.k, >=, 0);
+
+			struct Entry
+			{
+				bool operator<(const Entry& that) const
+				{
+					return distance < that.distance;
+				}
+
+				Point point;
+				Real distance;
+			};
+
+			using Result = std::pair<Real, Point>;
+			Result notFound(infinity<Real>(), Point());
+
+			PointSet pointSet = pointSet_;
+
+			if (pointSetEmpty(pointSet) || optional.k == 0)
+			{
+				return notFound;
+			}
+		
+			// Due to rounding errors exact comparisons can miss
+			// reporting some of the points, giving incorrect results.
+			// For example, consider n > k points on a 2d circle and make a 
+			// k-nearest query to its center. With bad luck the algorithm
+			// can report less than k points. We avoid this behaviour
+			// by scaling the culling radius up by a protective factor.
+			Real protectiveFactor = 
+				normBijection.scalingFactor(1.01);
+
+			using NearestSet = std::set<Entry>;
+			using NearestIterator = typename NearestSet::iterator;
+
+			NearestSet nearestSet;
+
+			Real cullDistance = optional.maxDistance;
+			auto keepGoing = [&](const Real& that)
+			{
+				return that < cullDistance;
+			};
+
+			while (!pointSetEmpty(pointSet))
+			{
+				auto&& point = pointSetGet(pointSet);
+
+				if (!accept(pointPoint(point)))
+				{
+					pointSetPop(pointSet);
+					continue;
+				}
+
+				Real distance = distance2(
+					searchPoint, 
+					point,
+					normBijection, 
+					keepGoing);
+
+				if (distance < cullDistance)
+				{
+					nearestSet.insert(
+						Entry{pointPoint(point), distance});
+
+					if (nearestSet.size() > optional.k)
+					{
+						nearestSet.erase(
+							std::prev(nearestSet.end()));
+					}
+
+					if (nearestSet.size() == optional.k)
+					{
+						cullDistance = std::min(
+							std::prev(nearestSet.end())->distance * protectiveFactor,
+							optional.maxDistance);
+					}
+				}
+
+				pointSetPop(pointSet);
+			}
+
+			for (auto&& entry : nearestSet)
+			{
+				report(entry.distance, entry.point);
+			}
+
+			integer neighbors = nearestSet.size();
+			for (integer i = neighbors;i < optional.k;++i)
+			{
+				report(notFound.first, notFound.second);
+			}
+
+			if (neighbors < optional.k)
+			{
+				return notFound;
+			}
+
+			auto last = std::prev(nearestSet.end());
+			return std::make_pair(
+				last->distance,
+				last->point);
+		}
+
+	private:
+		PointSet pointSet_;
+	};
+
+	template <typename PointSet_>
+	struct BruteForce_NearestSet_Settings
+	{
+		using PointSet = PointSet_;
+	};
+
+	template <typename PointSet>
+	decltype(auto) bruteForceNearestSet(PointSet pointSet)
+	{
+		return BruteForce_NearestSet<
+				BruteForce_NearestSet_Settings<PointSet>
+			>(pointSet);
 	}
 
 }
-
-#include "pastel/geometry/search_nearest_bruteforce.hpp"
 
 #endif
