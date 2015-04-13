@@ -120,15 +120,16 @@ namespace Pastel
 		-> SearchNearest_<KdTree, SearchPoint, NearestOutput, 
 		Indicator, NormBijection, SearchAlgorithm, IntervalSequence>
 	{
-		return SearchNearest_<KdTree, SearchPoint, NearestOutput,
-			Indicator, NormBijection, SearchAlgorithm, IntervalSequence>(
+		return 
+			{
 				kdTree, 
 				searchPoint,
 				nearestOutput, 
 				acceptPoint, 
 				normBijection, 
 				searchAlgorithm,
-				timeIntervalSequence);
+				timeIntervalSequence
+			};
 	}
 
 }

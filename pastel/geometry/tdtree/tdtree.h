@@ -41,7 +41,6 @@ namespace Pastel
 		using Fwd = TdTree_Fwd<Settings>;
 		PASTEL_FWD(Real);
 		PASTEL_FWD(Point);
-		PASTEL_FWD(Point_Entry);
 		PASTEL_FWD(Locator);
 		PASTEL_FWD(PointSet);
 		PASTEL_FWD(Point_Iterator);

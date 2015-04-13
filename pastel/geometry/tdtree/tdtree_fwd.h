@@ -5,6 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/range.h"
+#include "pastel/sys/point/temporal_point.h"
 
 #include <vector>
 
@@ -20,38 +21,24 @@ namespace Pastel
 	public:
 		using Fwd = Settings;
 		PASTEL_FWD(Locator);
+
+		//! The type of the contained points.
 		using Point = typename Locator::Point;
+
+		//! The type of the point-coordinates.
 		using Real = typename Locator::Real;
+
+		//! The compile-time dimension of the points.
 		static PASTEL_CONSTEXPR integer N = Locator::N;
 
-		class Point_Entry
-		{
-		public:
-			Point_Entry(
-				const Point& point,
-				const Real& time)
-			: point_(point)
-			, time_(time)
-			{
-			}
-
-			const Point& point() const
-			{
-				return point_;
-			}
-
-			const Real& time() const
-			{
-				return time_;
-			}
-
-		private:
-			Point point_;
-			Real time_;
-		};
-
+		//! Storage for the temporal points.
+		/*!
+		The temporal points are stored in an array at each node.
+		The storage is an array, because we need indexing for the
+		fractional cascading.
+		*/
 		using PointSet = 
-			std::vector<Point_Entry>;
+			std::vector<Temporal_Point<Point, Real>>;
 		using Point_Iterator = 
 			typename PointSet::iterator;
 		using Point_ConstIterator = 
@@ -60,6 +47,7 @@ namespace Pastel
 		using Iterator = Point_Iterator;
 		using ConstIterator = Point_ConstIterator;
 
+		//! A node.
 		class Node;
 		class Entry;
 		class Cursor;
