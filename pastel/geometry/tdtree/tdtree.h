@@ -101,36 +101,35 @@ namespace Pastel
 		n is the size of 'pointSet'.
 		*/
 		template <
-			typename Point_Input,
+			typename PointSet,
 			typename Real_Input = Infinite_Counting_Input<Real>,
 			typename SplitRule = LongestMedian_SplitRule>
 		explicit TdTree(
-			Point_Input pointSet,
+			PointSet pointSet,
 			Real_Input timeSet = Real_Input(),
-			const Locator& locator = Locator(),
 			const SplitRule& splitRule = SplitRule())
 		: TdTree()
 		{
 			static PASTEL_CONSTEXPR bool Simple = 
 				std::is_same<Real_Input, Infinite_Counting_Input<Real>>::value;
 
-			locator_ = locator;
+			locator_ = pointSetLocator(pointSet);
 			simple_ = Simple;
 
 			std::vector<Iterator> iteratorSet;
 
-			integer nHint = pointSet.nHint();
+			integer nHint = pointSetInput(pointSet).nHint();
 			iteratorSet.reserve(nHint);
 			pointSet_.reserve(nHint);
 	
-			while (!pointSet.empty())
+			while (!pointSetEmpty(pointSet))
 			{
 				ENSURE(!timeSet.empty());
-				pointSet_.emplace_back(pointSet.get(), timeSet.get());
+				pointSet_.emplace_back(pointSetGet(pointSet), timeSet.get());
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
 
-				pointSet.pop();
+				pointSetPop(pointSet);
 				timeSet.pop();
 			}
 
@@ -160,7 +159,7 @@ namespace Pastel
 				{
 					return point->point();
 				}),
-				locator));
+				locator_));
 
 			bound_ = bound;
 			root_ = construct(nullptr, false, iteratorSet, bound, splitRule);
