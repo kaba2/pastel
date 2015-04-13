@@ -6,6 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/point/temporal_point.h"
+#include "pastel/sys/locator/locator_concept.h"
 
 #include <vector>
 
@@ -22,17 +23,19 @@ namespace Pastel
 		using Fwd = Settings;
 		PASTEL_FWD(Locator);
 
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+
 		//! The type of the contained points.
 		/*!
 		We denote the set of points by P.
 		*/
-		using Point = typename Locator::Point;
+		using Point = Locator_Point<Locator>;
 
 		//! The type of the point-coordinates.
-		using Real = typename Locator::Real;
+		using Real = Locator_Real<Locator>;
 
 		//! The compile-time dimension of the points.
-		static PASTEL_CONSTEXPR integer N = Locator::N;
+		static PASTEL_CONSTEXPR integer N = Locator_N<Locator>::value;
 
 		//! Storage for the temporal points.
 		/*!
