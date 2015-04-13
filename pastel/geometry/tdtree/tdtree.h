@@ -110,8 +110,14 @@ namespace Pastel
 			const SplitRule& splitRule = SplitRule())
 		: TdTree()
 		{
-			static PASTEL_CONSTEXPR bool Simple = 
-				std::is_same<Real_Input, Infinite_Counting_Input<Real>>::value;
+			enum : bool
+			{
+				PointSetHasCompatibleLocator = 
+					std::is_convertible<PointSet_Locator<PointSet>, Locator>::value,
+				Simple = 
+					std::is_same<Real_Input, Infinite_Counting_Input<Real>>::value
+			};
+			PASTEL_STATIC_ASSERT(PointSetHasCompatibleLocator);
 
 			locator_ = pointSetLocator(pointSet);
 			simple_ = Simple;
@@ -125,7 +131,10 @@ namespace Pastel
 			while (!pointSetEmpty(pointSet))
 			{
 				ENSURE(!timeSet.empty());
-				pointSet_.emplace_back(pointSetGet(pointSet), timeSet.get());
+				
+				pointSet_.emplace_back(
+					pointPoint(pointSetGet(pointSet)),
+					timeSet.get());
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
 
@@ -136,15 +145,12 @@ namespace Pastel
 			if (!Simple)
 			{
 				// Sort the points in increasing order by time.
-				
-				auto timeLess = [&](
-					const Iterator& left, 
-					const Iterator& right)
-				{
-					return left->time() < right->time();
-				};
-
-				boost::stable_sort(iteratorSet, timeLess);
+				boost::stable_sort(
+					iteratorSet,
+					[](auto&& a, auto&& b) 
+					{
+						return a->time() < b->time();
+					});
 
 				// Check explicitly for the simplicity of 
 				// the time-coordinates.
@@ -152,14 +158,19 @@ namespace Pastel
 			}
 
 			// Compute a minimum bounding box for the points.
-			auto bound = boundingAlignedBox(
-				locationSet(
-				transformInput(rangeInput(iteratorSet),
-				[&](const Iterator& point)
-				{
-					return point->point();
-				}),
-				locator_));
+			auto bound = 
+				boundingAlignedBox(
+					locationSet(
+						transformInput(
+							rangeInput(iteratorSet),
+							[](auto&& point)
+							{
+								return point->point();
+							}
+						),
+						locator_
+					)
+				);
 
 			bound_ = bound;
 			root_ = construct(nullptr, false, iteratorSet, bound, splitRule);
