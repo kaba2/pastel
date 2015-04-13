@@ -23,10 +23,10 @@ namespace Pastel
 				Concept::convertsTo<integer>(Type::N),
 
 				//! The type of the coordinates.
-				std::declval<typename Type::Real>(),
+				Concept::exists<typename Type::Real>(),
 
 				//! The type of the points.
-				std::declval<typename Type::Point>(),
+				Concept::exists<typename Type::Point>(),
 
 				//! Run-time dimension.
 				/*!
