@@ -4,14 +4,16 @@
 #ifndef PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_H
 #define PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_H
 
-#include "pastel/geometry/pointkdtree/pointkdtree.h"
-#include "pastel/sys/indicator/indicator_concept.h"
 #include "pastel/math/normbijection/normbijection_concept.h"
-
-#include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
-#include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/math/normbijection/euclidean_normbijection.h"
 
+#include "pastel/sys/indicator/indicator_concept.h"
+#include "pastel/sys/indicator/all_indicator.h"
+#include "pastel/sys/type_traits/is_template_instance.h"
+
+#include "pastel/geometry/pointkdtree/pointkdtree_fwd.h"
+#include "pastel/geometry/tdtree/tdtree_fwd.h"
+#include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.hpp"
 
 namespace Pastel
@@ -20,7 +22,8 @@ namespace Pastel
 	//! Finds the nearest neighbors of a point in a PointKdTree.
 	/*!
 	kdTree:
-	The kd-tree to search neighbors in.
+	The kd-tree to search neighbors in. 
+	Either a PointKdTree or a TdTree.
 
 	searchPoint:
 	The point for which to search a neighbor for.
@@ -99,7 +102,13 @@ namespace Pastel
 		typename Real = typename Locator::Real,
 		typename NormBijection = Euclidean_NormBijection<Real>, 
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree,
-		typename IntervalSequence = Vector<Real, 2>>
+		typename IntervalSequence = Vector<Real, 2>,
+		typename = 
+			RequiresSome<
+				IsPointKdTree<KdTree>,
+				IsTdTree<KdTree>
+			>
+		>
 	auto searchNearest(
 		const KdTree& kdTree,
 		const SearchPoint& searchPoint,

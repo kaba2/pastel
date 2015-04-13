@@ -2,6 +2,7 @@
 #define PASTELGEOMETRY_POINTKDTREE_SEARCH_NEAREST_HPP
 
 #include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
+#include "pastel/geometry/pointkdtree/pointkdtree_search_nearest_algorithm.h"
 
 #include "pastel/sys/interval.h"
 

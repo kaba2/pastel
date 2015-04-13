@@ -79,7 +79,8 @@ namespace
 				std::vector<std::pair<real, Point>> bruteSet;
 				bruteSet.reserve(k);
 
-				real kDistanceBrute = bruteForceNearestSet(rangeInput(pointSet)).searchNearest(
+				real kDistanceBrute = searchNearest(
+					bruteForceNearestSet(rangeInput(pointSet)),
 					pointSet[i],
 					emplaceBackOutput(bruteSet),
 					allIndicator(), 

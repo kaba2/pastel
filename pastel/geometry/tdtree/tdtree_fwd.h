@@ -73,4 +73,21 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	//! Returns whether Type is an instance of TdTree.
+	template <typename Type>
+	struct IsTdTree
+	: std::false_type
+	{};
+
+	template <typename Settings,
+		template <typename> class Customization>
+	struct IsTdTree<TdTree<Settings, Customization>>
+	: std::true_type
+	{};
+
+}
+
 #endif
