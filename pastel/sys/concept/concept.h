@@ -68,6 +68,10 @@ namespace Pastel
 			>
 		bool convertsTo(Type&& that);
 
+		template <typename Type, typename Concept>
+		auto models()
+			-> EnableIf<Models<Type, Concept>>;
+
 		//! Checks whether a bool-meta-function is true.
 		template <typename Required>
 		auto holds()

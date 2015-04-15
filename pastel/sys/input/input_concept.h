@@ -50,32 +50,6 @@ namespace Pastel
 		);
 	};
 
-	struct Sized_Input_Concept
-	: Refines<Input_Concept>
-	{
-		template <typename Type>
-		auto requires(Type&& t) -> decltype
-		(
-			//! Returns the exact number of elements left.
-			Concept::convertsTo<integer>(t.n())
-		);
-	};
-
-	struct Indexed_Input_Concept
-	: Refines<Sized_Input_Concept>
-	{
-		template <typename Type>
-		auto requires(Type&& t) -> decltype
-		(
-			//! Returns the i:th next element.
-			/*!
-			Preconditions:
-			0 <= i < n()
-			*/
-			Concept::sameTypes(t[(integer)0], t.get())
-		);
-	};
-
 }
 
 #include "pastel/sys/input/input_return.h"

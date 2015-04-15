@@ -22,9 +22,11 @@ namespace Pastel
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				RequiresSome<
-					Models<Type, Input_Concept>,
-					IsTemplateInstance<Type, LocationSet>
+				Concept::holds<
+					Or<
+						Models<Type, Input_Concept>,
+						IsTemplateInstance<Type, LocationSet>
+					>
 				>()
 			)
 		);
