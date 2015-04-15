@@ -30,8 +30,10 @@ namespace Pastel
 	class PointKdTree
 	{
 	public:
+		PASTEL_CONCEPT_CHECK(Settings, PointKdTree_Settings_Concept);
+
 		using Fwd = PointKdTree_Fwd<Settings>;
-		
+
 		PASTEL_FWD(Real);
 		PASTEL_FWD(Locator);
 		static PASTEL_CONSTEXPR integer N = Fwd::N;
