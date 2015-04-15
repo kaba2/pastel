@@ -50,7 +50,7 @@ namespace Pastel
 		PASTEL_FWD(Entry);
 		PASTEL_FWD(Cursor);
 		PASTEL_FWD(Node);
-		static PASTEL_CONSTEXPR integer N = Locator::N;
+		enum : integer {N = Locator::N};
 
 		//! Constructs an empty tree.
 		/*!
@@ -390,10 +390,18 @@ namespace Pastel
 		}
 
 	private:
+		//! Returns whether points are distributed simply in time.
+		/*!
+		returns:
+		Whether pointSet[i]->time() = b i + c, for all i,
+		for some integers b and c.
+		*/
 		bool isSimple(const std::vector<Iterator>& pointSet) const
 		{
 			if (pointSet.empty())
 			{
+				// There are no points; the points are
+				// vacuously simple.
 				return true;
 			}
 
@@ -404,23 +412,33 @@ namespace Pastel
 
 			if (!isInteger(pointSet.front()->time()))
 			{
+				// The starting time is not an integer;
+				// the points are not simple.
 				return false;
 			}
 
 			if (pointSet.size() == 1)
 			{
+				// There is only one point, with integer
+				// time-instant; the points are simple.
 				return true;
 			}
 
 			if (!isInteger(pointSet[1]->time() - pointSet[0]->time()))
 			{
+				// The distance between the time-instants of the 
+				// second point and the first point is not an integer; 
+				// the points are not simple.
 				return false;
 			}
 
+			// Find out the distance between time-instants.
 			integer delta = 
 				pointSet[1]->time() - 
 				pointSet[0]->time();
 
+			// Check if the distance between time-instants is the 
+			// same for all subsequent indices.
 			integer t = pointSet.front()->time();
 			for (integer i = 0;i < pointSet.size();++i)
 			{
@@ -595,10 +613,10 @@ namespace Pastel
 
 		//! Whether the temporal coordinates are subsequent integers.
 		/*!
-		Specifically, whether pointSet_[i]->time() = i + c, 
-		for some integer c. Whenever this is true, the initial 
+		Specifically, whether pointSet_[i]->time() = b i + c, 
+		for some integers b and c. Whenever this is true, the initial 
 		fractional cascading step can be performed in constant 
-		time.
+		time; otherwise it takes logarithmic time.
 		*/
 		bool simple_;
 
