@@ -3,10 +3,10 @@
 #ifndef PASTELGEOMETRY_NEAREST_SET_CONCEPT_H
 #define PASTELGEOMETRY_NEAREST_SET_CONCEPT_H
 
-#include "pastel/sys/point/point_concept.h"
-#include "pastel/sys/real/real_concept.h"
+#include "pastel/sys/pointset/pointset_concept.h"
+
 #include "pastel/math/normbijection/euclidean_normbijection.h"
-#include "pastel/sys/output/null_output.h"
+#include "pastel/sys/output/output_concept.h"
 
 namespace Pastel
 {
@@ -17,25 +17,25 @@ namespace Pastel
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				Concept::exists<typename Type::Real>(),
-				Concept::exists<typename Type::Point>(),
-				Concept::holds<
-					Models<typename Type::Real, Real_Concept>/*,
-					Models<typename Type::Point, Point_Concept>*/
-				>(),
+				Concept::exists<typename Type::PointSet>(),
+				Concept::models<typename Type::PointSet, PointSet_Concept>(),
+				Concept::convertsTo<typename Type::PointSet>(
+					addConst(t).pointSet()
+				)
+				#if 0
+				,
 				Concept::convertsTo<
 					std::pair<
-						typename Type::Real, 
-						typename Type::Point
+						PointSet_Real<typename Type::PointSet>, 
+						PointSet_Point<typename Type::PointSet>
 					>
 				>(
 					searchNearest(
 						// A nearest-set.
 						t,
 						//! The point for which to search nearest-neighbors.
-						std::declval<typename Type::Point>(),
-						Null_Output()
-						/*,
+						std::declval<PointSet_Point<typename Type::PointSet>>(),
+						Output_Archetype()/*,
 						//! The output to which to report the results.
 						[](typename Type::Real distance,
 						   typename Type::Point point) 
@@ -57,40 +57,15 @@ namespace Pastel
 						}*/
 					)
 				)
+				#endif
 			)
 		);
 	};
 
 }
 
-namespace Pastel
-{
-
-	template <typename NearestSet>
-	struct NearestSet_Point_F
-	{
-		using type = typename NearestSet::Point;
-	};
-
-	template <typename NearestSet>
-	using NearestSet_Point = 
-		typename NearestSet_Point_F<NearestSet>::type;
-
-}
-
-namespace Pastel
-{
-
-	template <typename NearestSet>
-	struct NearestSet_Real_F
-	{
-		using type = typename NearestSet::Real;
-	};
-
-	template <typename NearestSet>
-	using NearestSet_Real = 
-		typename NearestSet_Real_F<NearestSet>::type;
-
-}
+#include "pastel/geometry/nearestset/nearestset_pointset.h"
+#include "pastel/geometry/nearestset/nearestset_point.h"
+#include "pastel/geometry/nearestset/nearestset_real.h"
 
 #endif

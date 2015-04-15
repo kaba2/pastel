@@ -117,18 +117,20 @@ namespace
 			auto aNearestSet = bruteForceNearestSet(
 				rangeInput(pointSet));
 
+			PASTEL_CONCEPT_CHECK(decltype(aNearestSet), NearestSet_Concept);
+
 			auto bNearestSet = bruteForceNearestSet(
 					locationSet(rangeInput(countingRange(pointSet)), indirectLocator<Point_Iterator>(Locator()))
-				);
+			);
 
-			PASTEL_CONCEPT_CHECK(decltype(aNearestSet), NearestSet_Concept);
+			PASTEL_CONCEPT_CHECK(decltype(bNearestSet), NearestSet_Concept);
 			
 			integer j = 0;
 			for (auto i = pointSet.begin(); i != pointSet.end(); ++i)
 			{
 				{
 					std::pair<real, Vector2> result =
-						searchNearest(aNearestSet, *i);
+						searchNearest(addConst(aNearestSet), *i);
 
 					real distance2 = result.first;
 
@@ -139,7 +141,7 @@ namespace
 
 					std::pair<real, Point_Iterator> result =
 						searchNearest(
-							bNearestSet,
+							addConst(bNearestSet),
 							*i,
 							Null_Output(),
 							predicateIndicator(i, NotEqualTo()),
