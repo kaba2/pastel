@@ -28,14 +28,21 @@ namespace
 
 		void test()
 		{
-			integer d = 3;
-			Pointer_Locator<real, 3> locator(d);
+			enum : integer
+			{
+				D = 3
+			};
+			
+			using Locator = Pointer_Locator<real, D>;
+			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+
+			Locator locator(D);
 			real dataSet[] = {0, 1, 2, 3, 4, 5, 6};
 			integer n = sizeof(dataSet) / sizeof(real);
 			
-			for (integer i = 0;i < n - d;++i)
+			for (integer i = 0;i < n - D;++i)
 			{
-				for (integer j = 0;j < d;++j)
+				for (integer j = 0;j < D;++j)
 				{
 					TEST_ENSURE(locator(dataSet + i, j) == i + j);
 				}
