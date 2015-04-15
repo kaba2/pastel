@@ -25,4 +25,16 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	class Output_Archetype
+	{
+	public:
+		template <typename... TypeSet>
+		void operator()(TypeSet&&...) {}
+	};
+
+}
+
 #endif
