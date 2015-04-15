@@ -14,7 +14,7 @@ namespace Pastel
 		template <
 			typename Type,
 			typename That>
-		auto require(Type&& t, That&& that) -> decltype
+		auto requires(Type&& t, That&& that) -> decltype
 		(
 			conceptCheck(
 				//! Reports 'that'.
@@ -25,16 +25,6 @@ namespace Pastel
 
 }
 
-namespace Pastel
-{
-
-	class Output_Archetype
-	{
-	public:
-		template <typename... TypeSet>
-		void operator()(TypeSet&&...) {}
-	};
-
-}
+#include "pastel/sys/output/output_archetype.h"
 
 #endif
