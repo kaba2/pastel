@@ -15,23 +15,25 @@ namespace Pastel
 	namespace PointKdTree_Concepts
 	{
 
-		class Settings
-		{
-		public:
-			//! The point abstraction.
-			/*!
-			Models the Locator concept.
-			*/
-			using Locator = UserDefinedType;
-		};
-
 		template <typename Settings>
 		class Customization
 		{
 		public:
 		};
 
-	}	
+	}
+
+	struct PointKdTree_Settings_Concept
+	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				Concept::exists<typename Type::Locator>(),
+				Concept::models<typename Type::Locator, Locator_Concept>()
+			)
+		);
+	};
 
 }
 

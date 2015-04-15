@@ -36,6 +36,8 @@ namespace
 		using Tree = PointKdTree<Settings<2>>;
 		using Point_ConstIterator = Tree::Point_ConstIterator;
 
+		PASTEL_CONCEPT_CHECK(Tree::Point, Point_Concept);
+
 		Test()
 			: TestSuite(&testReport())
 		{
