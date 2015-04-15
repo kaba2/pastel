@@ -9,8 +9,9 @@
 #include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/indicator/indicator_concept.h"
-#include "pastel/geometry/nearestset/nearestset_concept.h"
+
 #include "pastel/geometry/distance/distance_point_point.h"
+#include "pastel/geometry/nearestset/bruteforce_nearestset.h"
 
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/output/null_output.h"
@@ -21,64 +22,6 @@
 #include <set>
 #include <utility>
 #include <type_traits>
-
-namespace Pastel
-{
-
-	struct BruteForce_NearestSet_Settings_Concept
-	{
-		template <typename Type>
-		auto requires(Type&& t) -> decltype
-		(
-			conceptCheck(
-				Concept::holds<
-					Models<typename Type::PointSet, PointSet_Concept>
-				>()				
-			)
-		);
-	};
-
-	template <typename Settings>
-	class BruteForce_NearestSet
-	{
-	public:
-		PASTEL_CONCEPT_CHECK(Settings, BruteForce_NearestSet_Settings_Concept);
-
-		using Fwd = Settings;
-		PASTEL_FWD(PointSet);
-
-		using Point = PointSet_Point<PointSet>;
-		using Real = PointSet_Real<PointSet>;
-
-		BruteForce_NearestSet(PointSet pointSet)
-		: pointSet_(pointSet)
-		{
-		}
-
-		PointSet pointSet() const
-		{
-			return pointSet_;
-		}
-
-	private:
-		PointSet pointSet_;
-	};
-
-	template <typename PointSet_>
-	struct BruteForce_NearestSet_Settings
-	{
-		using PointSet = PointSet_;
-	};
-
-	template <typename PointSet>
-	BruteForce_NearestSet<
-		BruteForce_NearestSet_Settings<PointSet>> 
-		bruteForceNearestSet(PointSet pointSet)
-	{
-		return {pointSet};
-	}
-
-}
 
 namespace Pastel
 {
