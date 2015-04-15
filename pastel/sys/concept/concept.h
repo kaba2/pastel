@@ -12,22 +12,22 @@
 #include <type_traits>
 
 #define PASTEL_CONCEPT_CHECK(Type, Concept) \
-	PASTEL_STATIC_ASSERT((Pastel::Models<Type, Concept>::value));
+	static_assert(Pastel::Models<Type, Concept>::value, #Type " is not a model of " #Concept ".")
 
 #define PASTEL_CONCEPT_CHECK_DIRECT(Type, Concept) \
-	PASTEL_STATIC_ASSERT((Pastel::Models_Directly<Type, Concept>::value))
+	static_assert(Pastel::Models_Directly<Type, Concept>::value, #Type " is not a direct model of " #Concept ".")
 
 #define PASTEL_CONCEPT_CHECK_BASE(Type, Concept) \
-	PASTEL_STATIC_ASSERT((Pastel::Models_Base<Type, Concept>::value))
+	static_assert(Pastel::Models_Base<Type, Concept>::value, #Type " is not a base model of " #Concept ".")
 
 #define PASTEL_CONCEPT_REJECT(Type, Concept) \
-	PASTEL_STATIC_ASSERT((!Pastel::Models<Type, Concept>::value))
+	static_assert(!Pastel::Models<Type, Concept>::value, #Type " is a model of " #Concept ", although it should not be.")
 
 #define PASTEL_CONCEPT_REJECT_DIRECT(Type, Concept) \
-	PASTEL_STATIC_ASSERT((!Pastel::Models_Directly<Type, Concept>::value))
+	static_assert(!Pastel::Models_Directly<Type, Concept>::value, #Type " is a direct model of " #Concept ", although it should not be.")
 
 #define PASTEL_CONCEPT_REJECT_BASE(Type, Concept) \
-	PASTEL_STATIC_ASSERT((!Pastel::Models_Base<Type, Concept>::value))
+	static_assert(!Pastel::Models_Base<Type, Concept>::value, #Type " is a base model of " #Concept ", although it should not be.")
 
 namespace Pastel
 {

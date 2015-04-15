@@ -62,7 +62,7 @@ namespace Pastel
 	> > > >
 	{
 	private:
-		PASTEL_CONCEPT_CHECK(Integer_Settings, MultiInteger_Settings_Concept)
+		PASTEL_CONCEPT_CHECK(Integer_Settings, MultiInteger_Settings_Concept);
 
 		struct Signed_Tag {};
 		struct Unsigned_Tag {};
