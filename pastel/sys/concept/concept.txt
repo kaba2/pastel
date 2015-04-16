@@ -1,0 +1,163 @@
+Concepts
+========
+
+[[Parent]]: generic_programming.txt
+
+[[set indent]]: CppCode
+
+A _concept_ is a set of syntactical requirements for a type. Concepts are used for constrained overloading of function templates, and to state requirements for the instantiation of function templates and class templates.
+
+Proper support for defining and checking concepts requires language support, which will be available shortly in the form of the Concepts Technical Specification. Meanwhile, we provide an emulation layer for concepts using C++14. 
+
+This emulation layer is based on the ideas of [Eric Niebler][EricConcepts]. 
+
+[EricConcepts]: http://ericniebler.com/2013/11/23/concept-checking-in-c11/
+
+Error messages
+--------------
+
+C++ is well known for its support for generic programming via templates. Almost as well known are the cryptic error messages which are triggered when a template argument does not conform to the required concept. The problem is that the unfilled requirement is often detected very late in a deep instantiation stack of generic code, thus exposing lots of implementation details, none of which clearly states what the missing requirement for a type was. 
+
+The cryptic error messages can be avoided by checking &mdash; at the time of instantation &mdash; whether the template arguments model their concepts. This is called _concept checking_.
+
+Defining concepts
+-----------------
+
+In the emulation layer, a concept is a class, together with a member function template `requires`. The template argument of `requires` encodes the type to be tested, and the argument of `requires` provides an object that type. 
+
+	struct Printable_Concept
+	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				Concept::convertsTo<std::string>(asString(t))
+			)
+		);
+	};
+
+Here we define the `Printable` concept, whose only requirement is that there must exist a free function `asString(t)`, which takes as input an object of the type, and outputs an object which is implicitly convertible to an `std::string`.
+
+### decltype
+
+By using the `decltype` in the return-type, we are able to write arbitrary expressions as concept-requirements.
+
+### conceptCheck
+
+The `conceptCheck` function is a variadic template which accepts anything, and has return type `void`. The reason for calling this function is to be able to write a sequence of expressions; without a function call a comma is interpreted as a comma-operator.
+
+Specifying requirements
+-----------------------
+
+### Function calls
+
+A free function with a non-`void` return-type is required by calling it:
+
+	asString(t)
+
+A free function with a `void` return-type is required by calling it, followed by the comma-operator:
+
+	(f(t), 0)
+
+The return-type of a function can be required to be _implicitly_ convertible to a given type by wrapping the call into the `Concept::convertsTo<ReturnType>(...)` function call:
+
+	Concept::convertsTo<std::string>(asString(t))
+
+The return-type can be required to be _explicitly_ convertible to a given type by explicit conversion:
+
+	(std::string)(asString(t))
+
+Note that this is weaker than implicit convertibility.
+
+### Member types
+
+A concept may require the existence of a member type. This requirement is best embedded into default template arguments.
+
+	struct Printable_Concept
+	{
+		template <
+			typename Type,
+			typename Member = typename Type::Member>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				Concept::convertsTo<std::string>(asString(t)),
+				Concept::holds<std::is_integral<Member>>()
+			)
+		);
+	};
+
+The template argument `Member` is useful as a shorthand for `typename Type::Member` in subsequent concept-requirements. Alternatively, the existence of a member type can be checked with
+
+	Concept::exists<typename Type::Member>()
+
+### Type-traits
+
+We may test whether a type-trait holds by calling
+
+	Concept::holds<std::is_integral<Member>>()
+
+Checking concepts
+-----------------
+
+If a type `T` does not model the `Printable_Concept`, then the return-type deduction of `C::requires` fails, and is treated by the compiler as an SFINAE error (Substitution Failure Is Not An Error). We can then test whether `T` satisfies the requirements of `Printable_Concept` based on SFINAE function overloading, using the type-function `Models`:
+
+	static_assert(Models<int, Printable_Concept>::value, "int does not model the Printable concept.");
+
+We may check that a type models a concept by:
+
+	PASTEL_CONCEPT_CHECK(int, Printable_Concept);
+
+We may check that a type does _not_ model a concept by:
+
+	PASTEL_CONCEPT_REJECT(void, Printable_Concept);
+
+Refining concepts
+-----------------
+
+A concept can be refined by deriving from the concept, wrapped in a `Refines` class template:
+
+	struct Additive_SemiGroup_Concept
+	: Refines<Set_Concept>
+	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				Concept::hasType<Type&>(t += t),
+				Concept::convertsTo<Type>(t + t)
+			)
+		);
+	};
+
+A concept can refine multiple concepts; the `Refines` class template is a variadic template. The `Refines` wrapper is needed to be able to traverse the concept-tree at compile-time.
+
+Most refined concept
+--------------------
+
+Given a type `T`, and a concept `C`, we can find the most-refined concept of `C` modeled by `T` by the alias template
+
+	MostRefinedConcept<T, Additive_SemiGroup_Concept>
+
+If `T` does not model any concept in `C`, then this type is `void`. The most-refined concept can be used for function overloading, when a better algorithm is available for a more refined concept. An example of this is advancing an iterator 10 times.
+
+Coarsest failed concepts
+------------------------
+
+Given a type `T`, and a concept `C`, we can find the coarsest concepts of `C` _not_ modeled by `T` by the alias template
+
+	CoarsestFailedConcept<std::string, Additive_SemiGroup_Concept>
+
+These concepts are encoded as the template arguments of the `Refines` template. The compiler can be forced to output the the coarsest concepts that `T` fails by using invalid syntax (`Type` is not a member of the `Refines` template):
+
+	CoarsestFailedConcept<std::string, Additive_SemiGroup_Concept>::Type;
+
+ This is useful for debugging concept-related issues.
+
+Issues in the emulation layer
+-----------------------------
+
+One issue in the emulation layer is that if there is a syntactic error in a concept-requirement itself, then this will also be treated as a SFINAE error, which causes the concept to trivially reject all types. Since the compiler cannot help here, such SFINAE errors can be somewhat hard to debug. Usually this involves a binary search (by commenting) on the concept requirements, to find the offending requirement.
+
+Naturally, with proper language support this problem will disappear &mdash; there will be a well-defined concept-definition syntax.
+
