@@ -10,15 +10,17 @@ namespace Pastel
 
 	struct NormBijection_Concept
 	{
-		template <typename Type>
+		template <
+			typename Type,
+			typename Real = typename Type::Real>
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! The computation type.
-				Concept::exists<typename Type::Real>(),
+				Concept::exists<Real>(),
 
 				//! Computes the logarithm of the volume of the unit norm sphere.
-				Concept::convertsTo<typename Type::Real>(
+				Concept::convertsTo<Real>(
 					addConst(t).lnVolumeUnitSphere(
 						// dimension
 						std::declval<integer>()
@@ -26,34 +28,34 @@ namespace Pastel
 				),
 
 				//! Maps a norm bijection value to a norm value.
-				Concept::convertsTo<typename Type::Real>(
+				Concept::convertsTo<Real>(
 					addConst(t).toNorm(
 						// normBijectionValue
-						std::declval<typename Type::Real>()
+						std::declval<Real>()
 					)
 				),
 
 				//! Maps a norm bijection value to a logarithm of the norm value.
-				Concept::convertsTo<typename Type::Real>(
+				Concept::convertsTo<Real>(
 					addConst(t).toLnNorm(
 						// normBijectionValue
-						std::declval<typename Type::Real>()
+						std::declval<Real>()
 					)
 				),
 
 				//! Maps a norm value to a norm bijection value.
-				Concept::convertsTo<typename Type::Real>(
+				Concept::convertsTo<Real>(
 					addConst(t).toBijection(
 						// norm
-						std::declval<typename Type::Real>()
+						std::declval<Real>()
 					)
 				),
 
 				//! Returns a scaling value for norm bijection for scaling the norm value.
-				Concept::convertsTo<typename Type::Real>(
+				Concept::convertsTo<Real>(
 					addConst(t).scalingFactor(
 						// scaling
-						std::declval<typename Type::Real>()
+						std::declval<Real>()
 					)
 				),
 				
@@ -65,10 +67,10 @@ namespace Pastel
 				axisDistance:
 				A norm bijection value.
 				*/
-				Concept::convertsTo<typename Type::Real>(
+				Concept::convertsTo<Real>(
 					addConst(t).axis(
 						// axisDistance
-						std::declval<typename Type::Real>()
+						std::declval<Real>()
 					)
 				),
 
@@ -77,10 +79,10 @@ namespace Pastel
 				axisDistance:
 				A norm bijection value (possibly negative).
 				*/
-				Concept::convertsTo<typename Type::Real>(
+				Concept::convertsTo<Real>(
 					addConst(t).signedAxis(
 						// axisDistance
-						std::declval<typename Type::Real>()
+						std::declval<Real>()
 					)
 				),
 				
@@ -93,12 +95,12 @@ namespace Pastel
 				A norm-bijection distance along a given standard 
 				basis axis.
 				*/
-				Concept::convertsTo<typename Type::Real>(
+				Concept::convertsTo<Real>(
 					addConst(t).addAxis(
 						// distance
-						std::declval<typename Type::Real>(),
+						std::declval<Real>(),
 						// newAxisDistance
-						std::declval<typename Type::Real>()
+						std::declval<Real>()
 					)
 				),
 
@@ -115,14 +117,14 @@ namespace Pastel
 				The new norm-bijection distance along the given 
 				standard basis axis.
 				*/
-				Concept::convertsTo<typename Type::Real>(
+				Concept::convertsTo<Real>(
 					addConst(t).replaceAxis(
 						// distance
-						std::declval<typename Type::Real>(),
+						std::declval<Real>(),
 						// oldAxisDistance
-						std::declval<typename Type::Real>(),
+						std::declval<Real>(),
 						// newAxisDistance
-						std::declval<typename Type::Real>()
+						std::declval<Real>()
 					)
 				)
 			)

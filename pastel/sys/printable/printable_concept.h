@@ -14,7 +14,7 @@ namespace Pastel
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				//Concept::convertsTo<std::string>(asString(t))
+				Concept::convertsTo<std::string>(asString(t))
 			)
 		);
 	};
