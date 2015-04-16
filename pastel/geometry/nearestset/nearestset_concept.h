@@ -5,7 +5,7 @@
 
 #include "pastel/sys/pointset/pointset_concept.h"
 
-#include "pastel/math/normbijection/euclidean_normbijection.h"
+#include "pastel/math/normbijection/normbijection_concept.h"
 #include "pastel/sys/output/output_concept.h"
 
 namespace Pastel
@@ -13,29 +13,31 @@ namespace Pastel
 
 	struct NearestSet_Concept
 	{
-		template <typename Type>
+		template <
+			typename Type,
+			typename PointSet = typename Type::PointSet>
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				Concept::exists<typename Type::PointSet>(),
-				Concept::models<typename Type::PointSet, PointSet_Concept>(),
-				Concept::convertsTo<typename Type::PointSet>(
-					addConst(t).pointSet()
-				)
-				#if 0
-				,
-				Concept::convertsTo<
+				Concept::exists<PointSet>(),
+				Concept::models<PointSet, PointSet_Concept>(),
+				Concept::convertsTo<PointSet>(addConst(t).pointSet())
+				/*
+				,				
+				(
 					std::pair<
-						PointSet_Real<typename Type::PointSet>, 
-						PointSet_Point<typename Type::PointSet>
+						PointSet_Real<PointSet), 
+						PointSet_Point<PointSet>
 					>
-				>(
+				)
+				(
 					searchNearest(
 						// A nearest-set.
-						t,
+						addConst(t),
 						//! The point for which to search nearest-neighbors.
-						std::declval<PointSet_Point<typename Type::PointSet>>(),
-						Output_Archetype()/*,
+						std::declval<PointSet_Point<PointSet>>()
+						/*,
+						Output_Archetype(),
 						//! The output to which to report the results.
 						[](typename Type::Real distance,
 						   typename Type::Point point) 
@@ -46,7 +48,7 @@ namespace Pastel
 						{
 							return true;
 						},
-						Euclidean_NormBijection<typename Type::Real>(),
+						NormBijection_Archetype(),
 						//! Optional arguments
 						[](auto& optional)
 						{
@@ -54,10 +56,9 @@ namespace Pastel
 							optional.maxDistance = 1;
 							//! The number of neighbors to search.
 							optional.k = 1;
-						}*/
+						}
 					)
-				)
-				#endif
+				)*/
 			)
 		);
 	};
