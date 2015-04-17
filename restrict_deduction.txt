@@ -3,8 +3,7 @@ Restricting function template type deduction
 
 [[Parent]]: techniques.txt
 
-In this article we present techniques for restricting function template
-type deduction.
+In this article we present techniques for restricting function template type deduction.
 
 Problem
 -------
@@ -58,13 +57,7 @@ Consider the following code:
 		return 0;
 	}
 	
-The problem is to make a generalization of class `A`, a class template `D<Type>`, 
-that can use `float`, or any other type `Type` as the underlying type, and that 
-works for float exactly like the given class `A`. This is a problem I had for 
-a long time thought to be unsolvable in an elegant way, however, discussions 
-in the newsgroup comp.std.c++ revealed corners of C++ that enable solving this 
-particular problem. I credit Greg Herlihy (solution 3) and Yechezkel Mett 
-(solution 4) for the upcoming solutions.
+The problem is to make a generalization of class `A`, a class template `D<Type>`, that can use `float`, or any other type `Type` as the underlying type, and that works for float exactly like the given class `A`. This is a problem I had for a long time thought to be unsolvable in an elegant way, however, discussions in the newsgroup comp.std.c++ revealed corners of C++ that enable solving this particular problem. I credit Greg Herlihy (solution 3) and Yechezkel Mett (solution 4) for the upcoming solutions.
 
 Attempt 1: Direct templatization
 ---------------------------------
@@ -121,10 +114,7 @@ Attempt 1: Direct templatization
 		return 0;
 	}
 
-All well, right? Unfortunately not. This code won't compile because the 
-left hand `operator+` is now a template function and the `1 + b` is ambiguous 
-w.r.t. the argument types: `1` is `int` and `b` is `B<float>`, but the `operator+`
-requires a combination of `float + B<float>`.
+All well, right? Unfortunately not. This code won't compile because the left hand `operator+` is now a template function and the `1 + b` is ambiguous w.r.t. the argument types: `1` is `int` and `b` is `B<float>`, but the `operator+` requires a combination of `float + B<float>`.
 
 Attempt 2: Overgeneralization
 -----------------------------
@@ -186,25 +176,9 @@ To fight the problem in the first try, lets make the left hand side type a templ
 		return 0;
 	}
 
-Now the program compiles, but the overgeneralization introduces 
-another problem. Because the original class `A` had a non-template 
-function for `operator+`, it used implicit conversion to convert `1` to 
-a `float`. But because the function template matches the types perfectly, 
-implicit conversions are not made. Then again, using `LeftType` in the 
-calculations might produce different results than with Type. Therefore, 
-inside the operator we have to simulate the effect of implicit conversion. 
-Note that `Type u(v);` and `Type u = v;` have different meanings: the 
-former allows for explicit conversions while the latter does not. Function 
-call arguments are not converted with explicit conversions, so the 
-"assignment initialization" is deliberately put there.
+Now the program compiles, but the overgeneralization introduces another problem. Because the original class `A` had a non-template function for `operator+`, it used implicit conversion to convert `1` to a `float`. But because the function template matches the types perfectly, implicit conversions are not made. Then again, using `LeftType` in the calculations might produce different results than with Type. Therefore, inside the operator we have to simulate the effect of implicit conversion. Note that `Type u(v);` and `Type u = v;` have different meanings: the former allows for explicit conversions while the latter does not. Function call arguments are not converted with explicit conversions, so the "assignment initialization" is deliberately put there.
 
-Is this a solution? Yes. But there are still impurities left. Because 
-the left hand operator is templatized, it generates function code for 
-each `LeftType` type. This is a shame, since we know we got away with one 
-function in the normal class implementation. In a way we have redundance. 
-This is manifested by the simulated implicit conversion whose only purpose 
-is to revert the generalization to the point as if the left parameter were 
-actually of the type `Type`.
+Is this a solution? Yes. But there are still impurities left. Because the left hand operator is templatized, it generates function code for each `LeftType` type. This is a shame, since we know we got away with one function in the normal class implementation. In a way we have redundance. This is manifested by the simulated implicit conversion whose only purpose is to revert the generalization to the point as if the left parameter were actually of the type `Type`.
 
 Attempt 3: Templates and friends
 --------------------------------
@@ -260,33 +234,23 @@ Attempt 3: Templates and friends
 		return 0;
 	}
 
-Finally a solution that is an exact match. `Operator+` has been declared as a 
-friend of the class `D<Type>` and is a normal function (not a member function). 
-The effect of the combination of a class template and an in-class friend 
-function definition is that when an object of `D<Type>` is first declared, the 
-code for the friend function is generated. This feature of C++ is quite well 
-hidden and probably comes as a surprise for many. This is understandable, as 
-it is commonly good style to define functions outside class definitions, and 
-because the use of friend declarations is often discouraged.
+Finally a solution that is an exact match. `Operator+` has been declared as a friend of the class `D<Type>` and is a normal function (not a member function). The effect of the combination of a class template and an in-class friend function definition is that when an object of `D<Type>` is first declared, the code for the friend function is generated. This feature of C++ is quite well hidden and probably comes as a surprise for many. This is understandable, as it is commonly good style to define functions outside class definitions, and because the use of friend declarations is often discouraged.
 
-Notice that the added friend function is a normal function, but still 
-dependent on `Type`. Thus there is no syntax to define this function outside 
-of the class automatically for an arbitrary `Type` (for any particular `Type` 
-you can explicitly define the function, n different types requires n different 
-function definitions). In particular, the function is not describable as a 
-function template.
+Notice that the added friend function is a normal function, but still dependent on `Type`. Thus there is no syntax to define this function outside of the class automatically for an arbitrary `Type` (for any particular `Type` you can explicitly define the function, n different types requires n different function definitions). In particular, the function is not describable as a function template.
 
 Attempt 4: Disabling template type deduction
 --------------------------------------------
 
 [[CppCode]]:
 	template <typename Type>
-	class Identity
+	struct Identity
 	{
-	public:
-		using Result = Type;
+		using type = Type;
 	}; 
 	
+	template <typename Type>
+	using NoDeduction = typename Identity<Type>::type
+
 	template <typename Type>
 	class D
 	{
@@ -322,7 +286,7 @@ Attempt 4: Disabling template type deduction
 	}
 	
 	template <typename Type>
-	D<Type> operator+(const typename Identity<Type>::Result& left,
+	D<Type> operator+(const NoDeduction<Type>& left,
 					  const D<Type>& right)
 	{
 		// Assuming symmetric addition.
@@ -340,71 +304,4 @@ Attempt 4: Disabling template type deduction
 		return 0;
 	}
 
-Here we deliberately disable the type deduction for the left hand parameter. 
-Because `Identity<Type>::Result` is dependent on `Type`, the matching of the left 
-type can't be done until the `Type` is known. Still `Identity<Type>::Result = Type` 
-and the left hand parameter type is thus right as deduced from the parameter of `D`. 
-This solution solves all problems in the previous solutions. Because the disabling 
-is a bit verbose, I prefer to define a macro something like this: 
-
-[[CppCode]]:
-	#define NoDeduction<x> typename Identity< x >::Result
-
-An even better solution
------------------------
-
-However, the given macro does not work if the type contains a comma like with
-multi-parameter class templates. You can get around this limitation by
-using the following trick. We first note that the type can be passed through 
-the macro by enclosing it in parentheses:
-
-[[CppCode]]:
-	template <typename Type>
-	void f(const NoDeduction<Vector<2, Type>>& left, const Type& right);
-
-This solves the problem with the comma. However, this
-introduces another problem: the macro expands into
-
-[[CppCode]]:
-	template <typename Type>
-	void f(const typename Identity<(Vector<2, Type>)>& left, const Type& right);
-
-which is not legal C++. To make it legal, we need to get
-rid of the parentheses. We do this by the following:
-
-[[CppCode]]:
-	template <typename Type>
-	class RemoveBrackets
-	{
-	};
-	
-	template <typename Type>
-	class RemoveBrackets<void (Type)>
-	{
-	public:
-		using type = Type;
-	};
-
-	#define NoDeduction<x> typename RemoveBrackets<void x>::type
-
-That is, in the macro we expand the parenthesized type into a function type.
-We then catch it by a partial template specialization that specializes
-in just such function types. This solves our problem. 
-
-However, now we must use double parenthesis even when the type does
-not contain commas. Fortunately we can solve this last minor troubling
-by noticing that multiple parentheses are allowed for a function parameter
-list. Thus we can rewrite the macro as:
-
-[[CppCode]]:
-	#define NoDeduction<x> typename RemoveBrackets<void (x)>::type
-
-And everything works nice again. To demonstrate:
-
-[[CppCode]]:
-	template <typename Type>
-	void f(const NoDeduction<Vector<2, Type>>& left, const Type& right);
-	
-	template <typename Type>
-	void g(const NoDeduction<Type>& that);
-
+Here we deliberately disable the type deduction for the left hand parameter. Because `NoDeduction<Type>` is dependent on `Type`, the matching of the left type can't be done until the `Type` is known. Still `NoDeduction<Type> = Type` and the left hand parameter type is thus right as deduced from the parameter of `D`. This solution solves all problems in the previous solutions.
