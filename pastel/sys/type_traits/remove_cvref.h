@@ -1,4 +1,5 @@
 // Description: Remove const-volatile-reference from a type
+// Documentation: type_traits.txt
 
 #ifndef PASTELSYS_REMOVE_CVREF_H
 #define PASTELSYS_REMOVE_CVREF_H

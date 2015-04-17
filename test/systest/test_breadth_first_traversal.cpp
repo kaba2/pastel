@@ -1,5 +1,5 @@
 // Description: Testing for breadth-first traversal
-// DocumentationOf: breadth_first_traversal.h
+// DocumentationOf: breadth_first.h
 
 #include "test_pastelsys.h"
 

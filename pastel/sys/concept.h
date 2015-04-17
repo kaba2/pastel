@@ -1,4 +1,5 @@
 // Description: Concept module
+// Documentation: concept.txt
 
 #ifndef PASTELSYS_CONCEPT_H_MODULE
 #define PASTELSYS_CONCEPT_H_MODULE

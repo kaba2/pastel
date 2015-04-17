@@ -1,4 +1,5 @@
 // Description: Find a template base-class
+// Documentation: type_traits.txt
 
 #ifndef PASTELSYS_TEMPLATE_BASE_H
 #define PASTELSYS_TEMPLATE_BASE_H

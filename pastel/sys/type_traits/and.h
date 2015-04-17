@@ -1,4 +1,5 @@
 // Description: Logical And type-function
+// Documentation: type_traits.txt
 
 #ifndef PASTELSYS_AND_H
 #define PASTELSYS_AND_H

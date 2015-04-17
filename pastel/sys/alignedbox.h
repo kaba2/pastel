@@ -1,5 +1,5 @@
 // Description: Aligned box module
-// Documentation: alignedbox.txt
+// Documentation: alignedbox/alignedbox.txt
 
 #ifndef PASTELSYS_ALIGNEDBOX_H_MODULE
 #define PASTELSYS_ALIGNEDBOX_H_MODULE

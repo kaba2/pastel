@@ -1,4 +1,5 @@
 // Description: Fold types with a binary type-function
+// Documentation: type_traits.txt
 
 #ifndef PASTELSYS_FOLD_H
 #define PASTELSYS_FOLD_H

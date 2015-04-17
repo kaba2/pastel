@@ -1,4 +1,5 @@
 // Description: Check whether a type is an instance of a template
+// Documentation: type_traits.txt
 
 #ifndef PASTELSYS_IS_TEMPLATE_INSTANCE_H
 #define PASTELSYS_IS_TEMPLATE_INSTANCE_H
