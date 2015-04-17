@@ -1,4 +1,5 @@
 // Description: Check whether a type derives from a template
+// Documentation: type_traits.txt
 
 #ifndef PASTELSYS_IS_TEMPLATE_BASE_OF_H
 #define PASTELSYS_IS_TEMPLATE_BASE_OF_H

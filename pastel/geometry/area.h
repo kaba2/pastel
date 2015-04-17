@@ -1,4 +1,5 @@
 // Description: An aggregate file for area computations
+// Documentation: area.txt
 
 #ifndef PASTELGEOMETRY_AREA_H
 #define PASTELGEOMETRY_AREA_H

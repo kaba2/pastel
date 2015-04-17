@@ -1,4 +1,5 @@
 // Description: Type-traits module
+// Documentation: type_traits.txt
 
 #ifndef PASTELSYS_TYPE_TRAITS_H_MODULE
 #define PASTELSYS_TYPE_TRAITS_H_MODULE

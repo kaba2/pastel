@@ -1,5 +1,5 @@
 // Description: Testing for named parameters
-// DocumentationOf: named_parameter.h
+// Documentation: named_parameter.txt
 
 #include "test_pastelsys.h"
 

@@ -1,7 +1,7 @@
-Integer design notes
-====================
+Multi-integer design notes
+=========================
 
-[[Parent]]: integer.txt
+[[Parent]]: multi_integer.txt
 
 * This class simulate a two's complement signed integer 
 by using multiple unsigned native integers; this is portable.
