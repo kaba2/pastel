@@ -1,0 +1,9 @@
+Nearest set
+===========
+
+[[Parent]]: data_structures.txt
+
+A _nearest set_ is a concept which abstracts 
+ 
+* a point-set ''S'' in ''RR^n'',
+* a way to search for the nearest neighbors of a point ''p'' in ''S''.
