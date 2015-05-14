@@ -1,3 +1,6 @@
+// Description: Point-type of a nearest set
+// Documentation: nearestset.txt
+
 #ifndef PASTELGEOMETRY_NEARESTSET_POINT_H
 #define PASTELGEOMETRY_NEARESTSET_POINT_H
 

@@ -1,4 +1,5 @@
-// Descriptions: Find the most refined concept modeled by a type
+// Description: Find the most refined concept modeled by a type
+// Documentation: concept.txt
 
 #ifndef PASTELSYS_MOST_REFINED_CONCEPT_H
 #define PASTELSYS_MOST_REFINED_CONCEPT_H

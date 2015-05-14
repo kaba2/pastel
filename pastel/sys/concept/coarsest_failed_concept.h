@@ -1,4 +1,5 @@
-// Descriptions: Find the coarsest concepts not modeled by a type
+// Description: Find the coarsest concepts not modeled by a type
+// Documentation: concept.txt
 
 #ifndef PASTELSYS_COARSEST_FAILED_CONCEPT_H
 #define PASTELSYS_COARSEST_FAILED_CONCEPT_H
