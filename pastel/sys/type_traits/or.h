@@ -1,4 +1,4 @@
-// Description: Logical Or type-function
+// Description: Logical-or type-function
 // Documentation: type_traits.txt
 
 #ifndef PASTELSYS_OR_H

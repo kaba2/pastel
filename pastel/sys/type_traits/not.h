@@ -1,4 +1,4 @@
-// Description: Logical Not type-function
+// Description: Logical-not type-function
 // Documentation: type_traits.txt
 
 #ifndef PASTELSYS_NOT_H
