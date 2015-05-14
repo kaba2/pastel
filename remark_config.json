@@ -1,0 +1,47 @@
+{
+	"disable" : 
+	[
+	],
+
+	"flags" :
+	[
+	],
+
+	"include" :
+	[
+		"*.txt ",
+		"*.cpp",
+		"*.h",
+		"*.hpp",
+		"*.m",
+		"*.py",
+		"*.png",
+		"*.pdf",
+		"*.svg",
+		"*.zip",
+		"index.htm"
+	],
+
+	"exclude" :
+	[
+		"docs/*",
+		"debug/*",
+		"release/*",
+		"lib/*",
+		"bin/*",
+		"build/*",
+		"*CMake*",
+		".hg*",
+		".DS_Store",
+		"*vcxproj*",
+		"*.sln",
+		"*.orig",
+		"*.mexmaci64",
+		"*.props",
+		"*.vsd",
+		"*.pcx",
+		"remark_options",
+		"pastel_license*",
+		"license.txt"
+	]
+}
