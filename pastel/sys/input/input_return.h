@@ -9,12 +9,10 @@
 namespace Pastel
 {
 
-	//! Input return-type
 	template <typename Input>
 	struct Input_Return_F
-	{
-		using type = decltype(std::declval<RemoveCvRef<Input>>().get());
-	};
+	: Identity_F<decltype(std::declval<RemoveCvRef<Input>>().get())>
+	{};
 
 	template <typename Input>
 	using Input_Return = 
