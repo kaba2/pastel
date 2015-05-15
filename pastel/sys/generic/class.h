@@ -56,14 +56,12 @@ namespace Pastel
 		typename Type,
 		typename Tag = void>
 	struct As_Class
-	{
-		using type = 
-			typename std::conditional<
-				std::is_class<Type>::value,
-				Inherited_Class<Type, Tag>,
-				Member_Class<Type, Tag>
-			>::type;
-	};
+	: std::conditional<
+		std::is_class<Type>::value,
+		Inherited_Class<Type, Tag>,
+		Member_Class<Type, Tag>
+	>
+	{};
 
 	template <
 		typename Type,

@@ -28,16 +28,14 @@ namespace Pastel
 	struct Models_Directly<Type, Concept(ParameterSet...)>
 	{
 	private:
-		template <typename T>
-		struct Test
-		{
-			// Type models Concept if it is possible to call
-			// the requires() member function of Concept.
-			// The concept is always given non-const, non-volatile,
-			// non-reference arguments to work with, no matter what 
-			// the passed-in types are.
-			
-			using type = 
+		// Type models Concept if it is possible to call
+		// the requires() member function of Concept.
+		// The concept is always given non-const, non-volatile,
+		// non-reference arguments to work with, no matter what 
+		// the passed-in types are.
+		template <
+			typename T,
+			typename =
 				decltype(
 					std::declval<Concept>().requires(
 						std::declval<
@@ -47,10 +45,12 @@ namespace Pastel
 							RemoveCvRef<ParameterSet>
 						>()...
 					)
-				);
-			
-			// For some reason using std::remove_cv_t here does not 
-			// work in Visual Studio 2015 CTP6. Perhaps a bug?
+				)
+		>
+		struct Test
+		{
+			// The class needs to be defined here ({};); otherwise 
+			// it triggers a bug in Visual Studio 2015 RC.
 		};
 
 	public:

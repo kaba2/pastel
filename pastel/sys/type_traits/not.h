@@ -11,10 +11,8 @@ namespace Pastel
 
 	template <typename Bool>
 	struct Not_F
-	{
-		using type = 
-			std::integral_constant<bool, !Bool::value>;
-	};
+	: Identity_F<std::integral_constant<bool, !Bool::value>>
+	{};
 
 	template <typename Bool>
 	using Not = 

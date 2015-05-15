@@ -50,39 +50,21 @@ namespace Pastel
 namespace Pastel
 {
 
-	namespace PointSet_
-	{
-
-		template <typename PointSet>
-		struct PointSet_Input_F
-		{
-			PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
-			using type = PointSet;
-		};
-
-		template <
-			typename Point_Input,
-			typename Locator>
-		struct PointSet_Input_F<LocationSet<Point_Input, Locator>>
-		{
-			using type = Point_Input;
-		};
-
-	}
-
 	template <typename PointSet>
-	using PointSet_Input_F = 
-		PointSet_::PointSet_Input_F<PointSet>;
+	struct PointSet_Input_F
+	: Identity_F<PointSet>
+	{};
 
-}
-
-namespace Pastel
-{
+	template <
+		typename Input,
+		typename Locator>
+	struct PointSet_Input_F<LocationSet<Input, Locator>>
+	: Identity_F<Input>
+	{};
 
 	template <typename PointSet>
 	using PointSet_Input = 
-		typename PointSet_::PointSet_Input_F<PointSet>::type;
-
+		typename PointSet_Input_F<PointSet>::type;
 
 }
 

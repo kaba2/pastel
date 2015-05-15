@@ -15,11 +15,8 @@ namespace Pastel
 
 		template <typename Locator>
 		struct Locator_Real_F_
-		{
-			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
-
-			using type = typename Locator::Real;
-		};
+		: Identity_F<typename Locator::Real>
+		{};
 
 	}
 

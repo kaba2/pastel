@@ -23,22 +23,20 @@ namespace Pastel
 		struct JoinRefines_F_<
 			Refines<A_ConceptSet...>, 
 			Refines<B_ConceptSet...>>
-		{
-			using type = 
-				Refines<
-					A_ConceptSet..., 
-					B_ConceptSet...
-				>;
-		};
+		: Identity_F<
+			Refines<
+				A_ConceptSet..., 
+				B_ConceptSet...
+			>
+		>
+		{};
 
 	}
 
 	template <typename... RefinesSet>
 	struct JoinRefines_F
-	{
-		using type =
-			Fold<JoinRefines_::JoinRefines_F_, Refines<>, RefinesSet...>;
-	};
+	: Fold_F<JoinRefines_::JoinRefines_F_, Refines<>, RefinesSet...>
+	{};
 
 	template <typename... RefinesSet>
 	using JoinRefines = 

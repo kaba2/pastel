@@ -31,12 +31,8 @@ namespace Pastel
 
 			template <typename... BaseSet>
 			struct BreadthFirst<Refines<BaseSet...>>
-			{
-				using type =
-					typename MostRefinedConcept_F<
-						Type, BaseSet...
-					>::type;
-			};
+			: MostRefinedConcept_F<Type, BaseSet...>
+			{};
 
 			using BaseSet =
 				BaseConcepts<ConceptSet...>;

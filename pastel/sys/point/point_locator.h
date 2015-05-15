@@ -9,27 +9,24 @@
 namespace Pastel
 {
 
-	namespace Point_
-	{
+	template <typename Point>
+	struct Point_Locator_F
+	: Identity_F<decltype(Default_Locator<const Point&>()(std::declval<Point>()))>
+	{};
 
-		template <typename Point>
-		struct Point_Locator
-		{
-			using type = 
-				decltype(Default_Locator<const Point&>()(std::declval<Point>()));
-		};
-
-		template <typename Point, typename Locator>
-		struct Point_Locator<Location<Point, Locator>>
-		{
-			using type = Locator;
-		};
-
-	}
+	template <typename Point, typename Locator>
+	struct Point_Locator_F<Location<Point, Locator>>
+	: Identity_F<Locator>
+	{};
 
 	template <typename Point>
 	using Point_Locator = 
-		typename Point_::Point_Locator<Point>::type;
+		typename Point_Locator_F<Point>::type;
+
+}
+
+namespace Pastel
+{
 
 	//! Returns the default locator of a point.
 	template <typename Point>
