@@ -10,9 +10,9 @@
 namespace Pastel
 {
 
-	namespace Step_Indicator_Concept
+	struct Step_Indicator_Concept
+		: Refines<Indicator_Concept>
 	{
-
 		//! A step-indicator.
 		/*!
 		A step-indicator is an indicator f : S --> {0, 1},
@@ -22,16 +22,16 @@ namespace Pastel
 		    f(n) = {0, if n < k
 		    	   {1, if otherwise
 		*/
-		class Step_Indicator
-		: public Indicator_Concept::Indicator
-		{
-		public:
-			//! Returns whether an element is >= k.
-			template <typename Linearly_Ordered_Set>
-			bool operator()(const Linearly_Ordered_Set& element) const;
-		};
-
-	}
+		template <
+			typename Type,
+			typename Element>
+		auto requires(Type&& t, Element&& e) -> decltype
+		(
+			conceptCheck(
+				Concept::isModelOf<Linearly_Ordered_Set_Concept>(e)
+			)
+		);
+	};
 
 }
 

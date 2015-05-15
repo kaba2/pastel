@@ -8,23 +8,24 @@
 namespace Pastel
 {
 
-	namespace Indicator_Concept
+	struct Indicator_Concept
 	{
-
-		class Indicator
-		{
-		public:
+		template <
+			typename Type,
+			typename Element>
+		auto requires(Type&& t, Element&& e) -> decltype
+		(
 			//! Returns whether an element is in the true-set.
 			/*!
 			The true-set is the set of those elements which the
 			indicator maps to true. Similarly for the false-set.
 			The false-set is the complement of the true-set.
 			*/
-			template <typename Type>
-			bool operator()(const Type& element) const;
-		};
-
-	}
+			conceptCheck(
+				Concept::convertsTo<bool>(t(e))
+			)
+		);
+	};
 
 }
 
