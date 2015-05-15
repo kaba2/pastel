@@ -51,19 +51,19 @@ namespace Pastel
 
 		struct Vertex_Tag;
 		using VertexData_Class = 
-			typename As_Class<VertexData, Vertex_Tag>::type;
+			Class<VertexData, Vertex_Tag>;
 
 		struct Half_Tag;
 		using HalfData_Class = 
-			typename As_Class<HalfData, Half_Tag>::type;
+			Class<HalfData, Half_Tag>;
 
 		struct Edge_Tag;
 		using EdgeData_Class = 
-			typename As_Class<EdgeData, Edge_Tag>::type;
+			Class<EdgeData, Edge_Tag>;
 
 		struct Polygon_Tag;
 		using PolygonData_Class = 
-			typename As_Class<PolygonData, Polygon_Tag>::type;
+			Class<PolygonData, Polygon_Tag>;
 
 		using Vertex = HalfMesh_::Vertex<Settings>;
 		using Half = HalfMesh_::Half<Settings>;

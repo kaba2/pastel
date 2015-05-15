@@ -75,7 +75,7 @@ namespace Pastel
 		//! The user-data for the states.
 		struct State_Tag;
 		using StateData_Class = 
-			typename As_Class<StateData, State_Tag>::type;
+			Class<StateData, State_Tag>;
 ;
 		//! The transitions.
 		/*!
@@ -90,7 +90,7 @@ namespace Pastel
 		//! The user-data for the transitions.
 		struct TransitionData_Tag;
 		using TransitionData_Class = 
-			typename As_Class<TransitionData, TransitionData_Tag>::type;
+			Class<TransitionData, TransitionData_Tag>;
 
 		typedef typename Graph_Fwd::Incidence_Iterator
 			Incidence_Iterator;
