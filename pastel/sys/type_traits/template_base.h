@@ -7,6 +7,17 @@
 namespace Pastel
 {
 
+	namespace Template_Base_
+	{
+
+		template <template <typename...> class Template, typename... TypeSet>
+		Template<TypeSet...> test(Template<TypeSet...>&&);
+		
+		template <template <typename...> class Template>
+		inline void test(...);
+
+	}
+
 	//! Returns a template base-class.
 	/*!
 	returns:
@@ -17,17 +28,8 @@ namespace Pastel
 		template <typename...> class Template,
 		typename Type>
 	struct TemplateBase_F
-	{
-	private:
-		template <typename... TypeSet>
-		static Template<TypeSet...> test(Template<TypeSet...>&&);
-		
-		static void test(...);
-
-	public:
-		using type =
-			decltype(test(std::declval<Type>()));
-	};
+	: Identity_F<decltype(Template_Base_::test<Template>(std::declval<Type>()))>
+	{};
 
 	template <
 		template <typename...> class Template,

@@ -19,28 +19,22 @@ namespace Pastel
 
 		template <typename PointSet>
 		struct Point
-		{
-			using type = Input_Value<PointSet>;
-		};
+		: Input_Value_F<PointSet>
+		{};
 
 		template <
 			typename Point_Input,
 			typename Locator>
 		struct Point<LocationSet<Point_Input, Locator>>
-		{
-			using type = typename Point<Point_Input>::type;
-		};
+		: Input_Value_F<Point_Input>
+		{};
 
 	}
 
 	template <typename PointSet>
 	struct PointSet_Point_F
-	{
-		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
-
-		using type = 
-			typename PointSet_::Point<PointSet>::type;
-	};
+	: PointSet_::Point<PointSet>
+	{};
 
 	//! Returns the underlying point-type of a point-set-type.
 	template <typename PointSet>

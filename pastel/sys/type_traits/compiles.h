@@ -26,7 +26,7 @@ namespace Pastel
 	private:
 		template <
 			typename... T,
-			typename = typename Code<T...>::type
+			typename = Code<T...>
 			>
 		static std::true_type test();
 		

@@ -22,30 +22,26 @@ namespace Pastel
 			typename Type,
 			typename... TypeSet>
 		struct Fold_F_<Binary_TypeFunction, Identity, Type, TypeSet...>
-		{
-			using type = 
-				typename Binary_TypeFunction<
-					Type,
-					typename Fold_F_<Binary_TypeFunction, Identity, TypeSet...>::type
-				>::type;
-		};
+		: Binary_TypeFunction<
+			Type,
+			typename Fold_F_<Binary_TypeFunction, Identity, TypeSet...>::type
+		>
+		{};
 
 		template <
 			template <typename, typename, typename...> class Binary_TypeFunction,
 			typename Identity,
 			typename Type>
 		struct Fold_F_<Binary_TypeFunction, Identity, Type>
-		{
-			using type = Type;
-		};
+		: Identity_F<Type>
+		{};
 
 		template <
 			template <typename, typename, typename...> class Binary_TypeFunction,
 			typename Identity>
 		struct Fold_F_<Binary_TypeFunction, Identity>
-		{
-			using type = Identity;
-		};
+		: Identity_F<Identity>
+		{};
 
 	}
 
@@ -65,10 +61,8 @@ namespace Pastel
 		typename Identity,
 		typename... TypeSet>
 	struct Fold_F
-	{
-		using type = 
-			typename Fold_::Fold_F_<Binary_TypeFunction, Identity, TypeSet...>::type;
-	};
+	: Fold_::Fold_F_<Binary_TypeFunction, Identity, TypeSet...>
+	{};
 
 	template <
 		template <typename, typename, typename...> class Binary_TypeFunction,

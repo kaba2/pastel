@@ -60,7 +60,6 @@ namespace
 				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(6) + square(6));
 				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(6) + square(6));
 			}
-
 			{
 				/*
 				7

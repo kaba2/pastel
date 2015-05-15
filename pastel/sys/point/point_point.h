@@ -24,27 +24,26 @@ namespace Pastel
 		return location.point();
 	}
 
-	namespace Point_
-	{
+}
 
-		template <typename Point>
-		struct Point_Point
-		{
-			using type = Point;
-		};
-
-		template <
-			typename Point,
-			typename Locator>
-		struct Point_Point<Location<Point, Locator>>
-		{
-			using type = typename Point_Point<Point>::type;
-		};
-
-	}
+namespace Pastel
+{
 
 	template <typename Point>
-	using Point_Point = typename Point_::Point_Point<Point>::type;
+	struct Point_Point_F
+	: Identity_F<Point>
+	{};
+
+	template <
+		typename Point,
+		typename Locator>
+	struct Point_Point_F<Location<Point, Locator>>
+	: Identity_F<Point>
+	{};
+
+	template <typename Point>
+	using Point_Point = 
+		typename Point_Point_F<Point>::type;
 
 }
 

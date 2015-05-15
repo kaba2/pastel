@@ -15,16 +15,27 @@ namespace Pastel
 	Preconditions:
 	Point has a default locator.
 	*/
-	template <typename Point>
+	template <
+		typename Point,
+		typename = Requires<
+			Models<Point, Point_Concept>
+		> 
+	>
 	decltype(auto) pointAxis(const Point& point, integer i)
 	{
-		PASTEL_CONCEPT_CHECK(Point, Point_Concept);
+		// Since the pointAxis() function itself is used for 
+		// concept-checking, and concept-checking reports using
+		// a static_assert, we cannot the Point concept here,
+		// or otherwise SFINAE overloading breaks.
 
 		return locator(point)(point, i);
 	}
 
 	//! Returns the i:th coordinate of a location.
-	template <typename Point, typename Locator>
+	template <
+		typename Point, 
+		typename Locator
+	>
 	decltype(auto) pointAxis(const Location<Point, Locator>& location, integer i)
 	{
 		return location.locator()(location.point(), i);

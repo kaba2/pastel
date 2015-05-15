@@ -24,28 +24,25 @@ namespace Pastel
 			typename Concept,
 			typename... ConceptSet>
 		struct CoarsestFailedConcept_F_<Type, Refines<Concept, ConceptSet...>>
-		{
-			using type = 
-				JoinRefines<
-					std::conditional_t<
-						Models_Directly<Type, Concept>::value,
-						typename CoarsestFailedConcept_F_<
-							Type, BaseConcepts<Concept>
-						>::type,
-						Refines<Concept>
-					>,
-					typename CoarsestFailedConcept_F_<
-						Type,
-						Refines<ConceptSet...>
-					>::type
-				>;
-		};
+		: JoinRefines_F<
+			std::conditional_t<
+				Models_Directly<Type, Concept>::value,
+				typename CoarsestFailedConcept_F_<
+					Type, BaseConcepts<Concept>
+				>::type,
+				Refines<Concept>
+			>,
+			typename CoarsestFailedConcept_F_<
+				Type,
+				Refines<ConceptSet...>
+			>::type
+		>
+		{};
 
 		template <typename Type>
 		struct CoarsestFailedConcept_F_<Type, Refines<>>
-		{
-			using type = Refines<>;
-		};
+		: Identity_F<Refines<>>
+		{};
 
 	}
 
@@ -62,10 +59,8 @@ namespace Pastel
 		typename Type,
 		typename... ConceptSet>
 	struct CoarsestFailedConcept_F
-	{
-		using type = 
-			typename Concept_::CoarsestFailedConcept_F_<Type, Refines<ConceptSet...>>::type;
-	};
+	: Concept_::CoarsestFailedConcept_F_<Type, Refines<ConceptSet...>>
+	{};
 
 	template <
 		typename Type,

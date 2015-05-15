@@ -23,20 +23,17 @@ namespace Pastel
 			typename Concept,
 			typename... ConceptSet>
 		struct FirstModeledConcept_F<Type, Concept, ConceptSet...>
-		{
-			using type =
-				typename std::conditional<
-					Models<Type, Concept>::value,
-					Concept,
-					typename FirstModeledConcept_F<Type, ConceptSet...>::type
-				>::type;
-		};
+		: std::conditional<
+			Models<Type, Concept>::value,
+			Concept,
+			typename FirstModeledConcept_F<Type, ConceptSet...>::type
+		>
+		{};
 
 		template <typename Type>
 		struct FirstModeledConcept_F<Type>
-		{
-			using type = void;
-		};
+		: Identity_F<void>
+		{};
 
 	}
 

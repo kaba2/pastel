@@ -7,50 +7,43 @@
 namespace Pastel
 {
 
-	namespace Settings_Type_
-	{
+	template <typename Type>
+	struct Settings_For_F;
 
-		template <typename Type>
-		class Settings;
-
-		template <
-			template <typename, template <typename> class> class Template,
-			typename Settings_,
-			template <typename> class Customization_>
-		class Settings<Template<Settings_, Customization_>>
-		{
-		public:
-			using type = Settings_;
-		};
-
-	}
-
-	namespace Settings_Type_
-	{
-
-		template <typename Type, typename New_Settings>
-		class Replace_Settings;
-
-		template <
-			template <typename, template <typename> class> class Template,
-			typename Settings_,
-			template <typename> class Customization_,
-			typename New_Settings>
-		class Replace_Settings<Template<Settings_, Customization_>, New_Settings>
-		{
-		public:
-			using type = Template<New_Settings, Customization_>;
-		};
-
-	}
+	template <
+		template <typename, template <typename> class> class Template,
+		typename Settings_,
+		template <typename> class Customization_>
+	struct Settings_For_F<Template<Settings_, Customization_>>
+	: Identity_F<Settings_>
+	{};
 
 	template <typename Type>
-	using Settings_For = typename Settings_Type_::Settings<Type>::type;
+	using Settings_For = 
+		typename Settings_For_F<Type>::type;
+
+}
+
+namespace Pastel
+{
+
+	template <typename Type, typename New_Settings>
+	struct Replace_Settings_F;
+
+	template <
+		template <typename, template <typename> class> class Template,
+		typename Settings_,
+		template <typename> class Customization_,
+		typename New_Settings>
+	struct Replace_Settings_F<Template<Settings_, Customization_>, New_Settings>
+	: Identity_F<Template<New_Settings, Customization_>>
+	{};
 
 	template <
 		typename Type, 
 		typename New_Settings>
-	using Replace_Settings = typename Settings_Type_::Replace_Settings<Type, New_Settings>::type;
+	using Replace_Settings = 
+		typename Replace_Settings_F<Type, New_Settings>::type;
 
 }
 

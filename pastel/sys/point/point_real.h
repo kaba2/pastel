@@ -15,80 +15,40 @@ namespace Pastel
 	namespace Point_Real_
 	{
 
-		// This is an SFINAE-friendly implementation;
-		// this is why this is so complex.
-
 		// Alias templates would give errors
 		// under Visual Studio 2014 CTP4.
 		template <typename Point>
 		struct Apply
-		{
-			using type = 
-				typename std::decay<
-					decltype(pointAxis(std::declval<Point>(), 0))
-				>::type;
-		};
-
-		template <typename Type>
-		struct Void
-		{
-			using type = 
-				typename std::conditional<
-					true,
-					void,
-					typename Apply<Type>::type
-				>::type;
-		};
+		: std::decay<
+			decltype(pointAxis(std::declval<Point>(), 0))
+		>
+		{};
 
 		template <
-			typename,
-			typename Common,
-			typename... PointSet>
-		struct Real 
-		{
-		};
+			bool AllCheckAsPoints,
+			typename... PointSet
+		>
+		struct Point_Real_F_
+		: std::common_type<typename Apply<PointSet>::type...>
+		{};
 
-		template <
-			typename Common,
-			typename Point, 
-			typename... PointSet>
-		struct Real<typename Void<Point>::type, Common, Point, PointSet...>
-		{
-			using type = 
-				typename Real<
-					void,
-					typename std::common_type<
-						Common, 
-						typename Apply<Point>::type
-					>::type,
-					PointSet...
-				>::type;
-		};
-
-		template <
-			typename Point, 
-			typename... PointSet>
-		struct Real<typename Void<Point>::type, void, Point, PointSet...>
-		{
-			using type = 
-				typename Real<
-					void,
-					typename Apply<Point>::type,
-					PointSet...
-				>::type;
-		};
-
-		template <typename Common>
-		struct Real<void, Common>
-		{
-			using type = Common;
-		};
+		template <typename... PointSet>
+		struct Point_Real_F_<false, PointSet...>
+		{};
 
 	}
 
 	template <typename... PointSet>
+	struct Point_Real_F
+	: Point_Real_::Point_Real_F_<
+		And<Models<PointSet, Point_Concept>...>::value,
+		PointSet...
+	>
+	{};
+
+	template <typename... PointSet>
 	using Point_Real = 
-		typename Point_Real_::Real<void, void, PointSet...>::type;
+		typename Point_Real_F<PointSet...>::type;
 
 }
 

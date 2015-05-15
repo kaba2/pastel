@@ -14,25 +14,22 @@ namespace Pastel
 	namespace Concept_
 	{
 
-		template <typename Concept>
-		struct BaseConcepts_F_
-		{
-		private:
-			using preType =
+		template <
+			typename Concept,
+			typename PreType =
 				typename std::conditional<
 					IsTemplateInstance<Concept, Refines>::value,
 					void,
 					TemplateBase<Refines, Concept>
-				>::type;
-			
-		public:
-			using type =
-				typename std::conditional<
-					std::is_same<preType, void>::value,
-					Refines<>,
-					preType
-				>::type;
-		};
+				>::type
+		 >
+		struct BaseConcepts_F_
+		: std::conditional<
+			std::is_same<PreType, void>::value,
+			Refines<>,
+			PreType
+		>
+		{};
 
 	}
 
@@ -44,10 +41,8 @@ namespace Pastel
 	*/
 	template <typename... ConceptSet>
 	struct BaseConcepts_F
-	{
-		using type = 
-			JoinRefines<typename Concept_::BaseConcepts_F_<ConceptSet>::type...>;
-	};
+	: JoinRefines_F<typename Concept_::BaseConcepts_F_<ConceptSet>::type...>
+	{};
 
 	template <typename... ConceptSet>
 	using BaseConcepts =

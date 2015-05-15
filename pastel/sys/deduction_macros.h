@@ -9,19 +9,17 @@
 namespace Pastel
 {
 
-	namespace Deduction_
+	template <typename Type>
+	struct Identity_F
 	{
-
-		template <typename Type>
-		struct Identity
-		{
-			using type = Type;
-		};
-
-	}
+		using type = Type;
+	};
 
 	template <typename Type>
-	using NoDeduction = typename Deduction_::Identity<Type>::type;
+	using Identity = typename Identity_F<Type>::type;
+
+	template <typename Type>
+	using NoDeduction = typename Identity_F<Type>::type;
 
 }
 

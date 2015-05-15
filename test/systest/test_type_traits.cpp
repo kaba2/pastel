@@ -31,17 +31,14 @@ namespace
 			testNot();
 		}
 
-		template <typename...>
-		struct FailingTest
-		{
-		};
+		template <
+			typename = typename std::disable_if<true>::type>
+		struct FailingTest;
 
-		template <typename Type>
-		struct IntegerTest
-		{
-			using type =
-				typename std::enable_if<std::is_same<Type, integer>::value>::type;
-		};
+		template <
+			typename Type,
+			typename = typename std::enable_if<std::is_same<Type, integer>::value>::type>
+		struct IntegerTest;
 
 		void testCompiles()
 		{
@@ -54,11 +51,8 @@ namespace
 			typename Left,
 			typename Right>
 		struct Plus
-		{
-			using type = 
-				std::integral_constant<integer, 
-				Left::value + Right::value>;
-		};
+		: std::integral_constant<integer, Left::value + Right::value>
+		{};
 
 		void testFold()
 		{

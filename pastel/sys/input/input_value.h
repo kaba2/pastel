@@ -13,10 +13,8 @@ namespace Pastel
 	//! Input value-type
 	template <typename Input>
 	struct Input_Value_F
-	{
-		using type = 
-			RemoveCvRef<Input_Return<Input>>;
-	};
+	: RemoveCvRef_F<Input_Return<Input>>
+	{};
 
 	template <typename Input>
 	using Input_Value = 

@@ -11,12 +11,8 @@ namespace Pastel
 
 	template <typename NearestSet>
 	struct NearestSet_Point_F
-	{
-		PASTEL_CONCEPT_CHECK(NearestSet, NearestSet_Concept);
-
-		using type = 
-			PointSet_Point<NearestSet_PointSet<NearestSet>>;
-	};
+	: PointSet_Point_F<NearestSet_PointSet<NearestSet>>
+	{};
 
 	template <typename NearestSet>
 	using NearestSet_Point = 

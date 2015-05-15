@@ -4,6 +4,7 @@
 #define PASTELMATH_CONFORMALAFFINE2D_H
 
 #include "pastel/sys/vector.h"
+#include "pastel/sys/real/real_concept.h"
 
 #include <boost/operators.hpp>
 
@@ -21,6 +22,8 @@ namespace Pastel
 		: boost::multipliable<ConformalAffine2D<Real> >
 	{
 	public:
+		PASTEL_CONCEPT_CHECK(Real, Real_Concept);
+
 		// Using default copy constructor.
 		// Using default destructor.
 

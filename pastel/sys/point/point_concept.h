@@ -34,11 +34,13 @@ namespace Pastel
 	struct HasDefaultLocator
 	{
 	private:
-		template <typename T>
-		struct Test
+		template <
+			typename T,
+			typename = typename Default_Locator<const T&>::Locator>
+		struct Test 
 		{
-			using type =
-				typename Default_Locator<const T&>::Locator;
+			// The class needs to be defined here ({};); otherwise 
+			// it triggers a bug in Visual Studio 2015 RC.
 		};
 
 	public:

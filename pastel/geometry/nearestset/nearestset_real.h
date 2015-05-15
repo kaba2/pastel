@@ -9,14 +9,15 @@
 namespace Pastel
 {
 
-	template <typename NearestSet>
+	template <
+		typename NearestSet,
+		typename = Requires<
+			Models<NearestSet, NearestSet_Concept>
+		>
+	>
 	struct NearestSet_Real_F
-	{
-		PASTEL_CONCEPT_CHECK(NearestSet, NearestSet_Concept);
-
-		using type = 
-			PointSet_Real<NearestSet_PointSet<NearestSet>>;
-	};
+	: PointSet_Real_F<NearestSet_PointSet<NearestSet>>
+	{};
 
 	template <typename NearestSet>
 	using NearestSet_Real = 

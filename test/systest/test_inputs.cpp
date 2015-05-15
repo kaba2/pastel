@@ -35,7 +35,12 @@ namespace
 			auto input = rangeInput(aSet.begin(), aSet.end());
 			TEST_ENSURE(!input.empty());
 
-			// The length of the sequence is not known,
+			PASTEL_STATIC_ASSERT(
+				(std::is_same<Input_Return<decltype(input)>, integer&>::value));
+			PASTEL_STATIC_ASSERT(
+				(std::is_same<Input_Value<decltype(input)>, integer>::value));
+
+				// The length of the sequence is not known,
 			// since the input range was constructed from two
 			// iterators.
 			TEST_ENSURE_OP(input.nHint(), == , 0);
@@ -51,6 +56,11 @@ namespace
 			auto input = rangeInput(aSet.begin(), aSet.end());
 			TEST_ENSURE(!input.empty());
 
+			PASTEL_STATIC_ASSERT(
+				(std::is_same<Input_Return<decltype(input)>, integer&>::value));
+			PASTEL_STATIC_ASSERT(
+				(std::is_same<Input_Value<decltype(input)>, integer>::value));
+
 			// Since the range is random-access, so is the input.
 			TEST_ENSURE_OP(input.n(), == , 4);
 			TEST_ENSURE_OP(input[0], == , 0);
@@ -65,6 +75,11 @@ namespace
 				auto input = Scalar_Input<integer>();
 				TEST_ENSURE_OP(input.n(), == , 1);
 				TEST_ENSURE(!input.empty());
+
+				PASTEL_STATIC_ASSERT(
+					(std::is_same<Input_Return<decltype(input)>, const integer&>::value));
+				PASTEL_STATIC_ASSERT(
+					(std::is_same<Input_Value<decltype(input)>, integer>::value));
 
 				TEST_ENSURE_OP(input.get(), == , 0);
 				TEST_ENSURE_OP(input[0], == , 0);
