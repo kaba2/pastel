@@ -70,11 +70,11 @@ namespace Pastel
 
 		struct Data_Tag;
 		using Data_Class = 
-			typename As_Class<Data, Data_Tag>::type;
+			Class<Data, Data_Tag>;
 
 		struct EndData_Tag;
 		using EndData_Class = 
-			typename As_Class<EndData, EndData_Tag>::type;
+			Class<EndData, EndData_Tag>;
 
 		using Node = List_::Node;
 		using Data_Node = List_::Data_Node<Data_Class>;
