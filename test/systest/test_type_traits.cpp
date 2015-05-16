@@ -166,22 +166,45 @@ namespace
 		void testAnd()
 		{
 			PASTEL_STATIC_ASSERT((And<>::value));
+
 			PASTEL_STATIC_ASSERT((And<std::true_type>::value));
 			PASTEL_STATIC_ASSERT((!And<std::false_type>::value));
+
+			PASTEL_STATIC_ASSERT((!And<std::false_type, std::false_type>::value));
 			PASTEL_STATIC_ASSERT((!And<std::true_type, std::false_type>::value));
 			PASTEL_STATIC_ASSERT((!And<std::false_type, std::true_type>::value));
 			PASTEL_STATIC_ASSERT((And<std::true_type, std::true_type>::value));
+
+			PASTEL_STATIC_ASSERT((!And<std::false_type, std::false_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((!And<std::false_type, std::false_type, std::true_type>::value));
+			PASTEL_STATIC_ASSERT((!And<std::false_type, std::true_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((!And<std::false_type, std::true_type, std::true_type>::value));
+			PASTEL_STATIC_ASSERT((!And<std::true_type, std::false_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((!And<std::true_type, std::false_type, std::true_type>::value));
+			PASTEL_STATIC_ASSERT((!And<std::true_type, std::true_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((And<std::true_type, std::true_type, std::true_type>::value));
 		}
 
 		void testOr()
 		{
 			PASTEL_STATIC_ASSERT((!Or<>::value));
+
 			PASTEL_STATIC_ASSERT((Or<std::true_type>::value));
 			PASTEL_STATIC_ASSERT((!Or<std::false_type>::value));
+
 			PASTEL_STATIC_ASSERT((!Or<std::false_type, std::false_type>::value));
 			PASTEL_STATIC_ASSERT((Or<std::true_type, std::false_type>::value));
 			PASTEL_STATIC_ASSERT((Or<std::false_type, std::true_type>::value));
 			PASTEL_STATIC_ASSERT((Or<std::true_type, std::true_type>::value));
+
+			PASTEL_STATIC_ASSERT((!Or<std::false_type, std::false_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::false_type, std::false_type, std::true_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::false_type, std::true_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::false_type, std::true_type, std::true_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::true_type, std::false_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::true_type, std::false_type, std::true_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::true_type, std::true_type, std::false_type>::value));
+			PASTEL_STATIC_ASSERT((Or<std::true_type, std::true_type, std::true_type>::value));
 		}
 
 		void testNot()
