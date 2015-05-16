@@ -18,7 +18,7 @@ Error messages
 
 C++ is well known for its support for generic programming via templates. Almost as well known are the cryptic error messages which are triggered when a template argument does not conform to the required concept. The problem is that the unfilled requirement is often detected very late in a deep instantiation stack of generic code, thus exposing lots of implementation details, none of which clearly states what the missing requirement for a type was. 
 
-The cryptic error messages can be avoided by checking &mdash; at the time of instantation &mdash; whether the template arguments model their concepts. This is called _concept checking_.
+The cryptic error messages can be avoided by checking --- at the time of instantation --- whether the template arguments model their concepts. This is called _concept checking_.
 
 Defining concepts
 -----------------
@@ -159,5 +159,5 @@ Issues in the emulation layer
 
 One issue in the emulation layer is that if there is a syntactic error in a concept-requirement itself, then this will also be treated as a SFINAE error, which causes the concept to trivially reject all types. Since the compiler cannot help here, such SFINAE errors can be somewhat hard to debug. Usually this involves a binary search (by commenting) on the concept requirements, to find the offending requirement.
 
-Naturally, with proper language support this problem will disappear &mdash; there will be a well-defined concept-definition syntax.
+Naturally, with proper language support this problem will disappear --- there will be a well-defined concept-definition syntax.
 

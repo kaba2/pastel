@@ -1,0 +1,68 @@
+SFINAE overloading
+==================
+
+[[Parent]]: techniques.txt
+
+16.05.2015
+
+_SFINAE_ --- an acronym for Substitution Failure Is Not An Error --- is a rule in the C++ standard. It specifies how the compiler should handle errors when substituting template-parameters in a function- or class-declaration. The rule states that if the substitution of a declaration generates errors, then the declaration is removed from the overload-set, and the errors are ignored.
+
+### Restricting the overload set
+
+Suppose we have
+
+[[CppCode]]:
+	template <typename Type>
+	void f(Type that);
+
+and would like to restrict `f` to only work on native integer types. We can do this with SFINAE as follows:
+
+[[CppCode]]:
+	template <bool Condition>
+	struct EnableIf_F
+	{
+		using type = void;
+	};
+
+	template <>
+	struct EnableIf_F<false>
+	{};
+
+	tepmlate <bool Condition>
+	using EnableIf = typename EnableIf_F<Condition>::type
+
+	template <
+		typename Type,
+		typename = EnableIf<std::is_integral<Type>::value>>
+	void f(Type that);
+
+When `f` is instantiated with something else than a native integer type, the `std::integral<Type>::value` evaluates to `false`, and the default template-argument becomes `typename EnableIf_F<false>::type`. Since `EnableIf_F<false>` does not contain a `type` member, an error occurs, which is then treated under the SFINAE rules.
+
+### Where to place the SFINAE error
+
+Since the SFINAE error must occur in the declaration, it must occur in
+
+* the return-type, or
+* in some parameter-type, or
+* in the template parameters.
+
+In C++03, only the first two options were present, which made the declarations hard to understand. In C++11, the SFINAE error can be placed in the default template-argument of an additional template parameter.
+
+We underline that SFINAE works only in _declarations_. In particular,
+
+* errors in the base-class list are not SFINAE errors; they are actual errors, and
+* errors in the function/class definition are not SFINAE errors; they are actual errors.
+
+### Enable if
+
+The `EnableIf` is a canonical way for causing SFINAE errors based on an arbitrary condition. Correspondingly, the C++ Standard provides the `std::enable_if_t` library type, defined as `EnableIf` above. We would then write:
+
+[[CppCode]]:
+	template <
+		typename Type,
+		typename = std::enable_if_t<std::is_integral<Type>::value>>
+	void f(Type that);
+
+### SFINAE friendliness
+
+A type-function is _SFINAE-friendly_, if an error in its instantiation can only happen in a declaration of that type, and all the types it references in the declaration are SFINAE-friendly. An SFINAE-friendly type-function can be used to restrict an overload-set.
