@@ -10,25 +10,14 @@
 namespace Pastel
 {
 
-	namespace Locator_
-	{
-
-		template <typename Locator>
-		struct Locator_Real_F_
-		: Identity_F<typename Locator::Real>
-		{};
-
-	}
-
-}
-
-namespace Pastel
-{
+	template <typename Locator>
+	using Locator_Real_ =
+		typename Locator::Real;
 
 	template <typename... LocatorSet>
 	using Locator_Real_F =
 		std::common_type<
-			typename Locator_::Locator_Real_F_<LocatorSet>::type...
+			Locator_Real_<LocatorSet>...
 		>;
 
 	template <typename... LocatorSet>

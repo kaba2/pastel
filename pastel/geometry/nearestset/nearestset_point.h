@@ -10,13 +10,12 @@ namespace Pastel
 {
 
 	template <typename NearestSet>
-	struct NearestSet_Point_F
-	: PointSet_Point_F<NearestSet_PointSet<NearestSet>>
-	{};
+	using NearestSet_Point =
+		PointSet_Point<NearestSet_PointSet<NearestSet>>;
 
 	template <typename NearestSet>
-	using NearestSet_Point = 
-		typename NearestSet_Point_F<NearestSet>::type;
+	using NearestSet_Point_F = 
+		Identity_F<NearestSet_Point<NearestSet>>;
 
 }
 
