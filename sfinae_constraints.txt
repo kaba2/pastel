@@ -92,10 +92,6 @@ Pastel also provides a struct named `EnableIf`, which --- instead of a boolean -
 		typename = EnableIf<std::is_integral<Type>>>
 	void f(Type that);
 
-### SFINAE friendliness
-
-A type-function is _SFINAE-friendly_, if an error in its instantiation can only happen in a declaration of that type, and all the types it references in the declaration are SFINAE-friendly. An SFINAE-friendly type-function can be used to constrain an overload-set.
-
 Future
 ------
 
