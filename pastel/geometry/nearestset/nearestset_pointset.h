@@ -14,7 +14,7 @@ namespace Pastel
 		typename NearestSet::PointSet;
 
 	template <typename NearestSet>
-	using NearestSet_PointSet = 
+	using NearestSet_PointSet_F = 
 		Identity_F<NearestSet_PointSet<NearestSet>>;
 
 }

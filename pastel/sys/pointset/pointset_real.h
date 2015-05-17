@@ -11,24 +11,13 @@
 namespace Pastel
 {
 
-	namespace PointSet_
-	{
+	template <typename PointSet>
+	using PointSet_Real = 
+		Point_Real<PointSet_Location<PointSet>>;
 
-		template <typename PointSet>
-		struct PointSet_Real_F_
-		: Point_Real_F<PointSet_Location<PointSet>>
-		{};
-
-	}
-
-	template <typename... PointSetSet>
-	struct PointSet_Real_F
-	: std::common_type<typename PointSet_::PointSet_Real_F_<PointSetSet>::type...>
-	{};
-
-	template <typename... PointSetSet>
-	using PointSet_Real =
-		typename PointSet_Real_F<PointSetSet...>::type;
+	template <typename PointSet>
+	using PointSet_Real_F =
+		Identity_F<PointSet_Real<PointSet>>;
 }
 
 #endif

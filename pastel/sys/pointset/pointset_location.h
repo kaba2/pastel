@@ -18,6 +18,10 @@ namespace Pastel
 			PointSet_Locator<PointSet>
 		>;
 
+	template <typename PointSet>
+	using PointSet_Location_F = 
+		Identity_F<PointSet_Location<PointSet>>;
+
 }
 
 #endif
