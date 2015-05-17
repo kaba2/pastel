@@ -9,13 +9,12 @@ namespace Pastel
 {
 
 	template <typename Locator>
-	struct Locator_Point_F
-	: Identity_F<typename Locator::Point>
-	{};
+	using Locator_Point = 
+		typename Locator::Point;
 
 	template <typename Locator>
-	using Locator_Point = 
-		typename Locator_Point_F<Locator>::type;
+	using Locator_Point_F = 
+		Identity_F<Locator_Point<Locator>>;
 
 }
 
