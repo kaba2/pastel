@@ -1,5 +1,5 @@
 // Description: SFINAE machinery
-// Documentation: environment.txt
+// Documentation: sfinae_overloading.txt
 
 #ifndef PASTELSYS_SFINAE_MACROS_H
 #define PASTELSYS_SFINAE_MACROS_H

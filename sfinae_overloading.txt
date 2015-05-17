@@ -5,57 +5,78 @@ SFINAE overloading
 
 16.05.2015
 
-_SFINAE_ --- an acronym for Substitution Failure Is Not An Error --- is a rule in the C++ standard. It specifies how the compiler should handle errors when substituting template-parameters in a function- or class-declaration. The rule states that if the substitution of a declaration generates errors, then the declaration is removed from the overload-set, and the errors are ignored.
+_SFINAE_ --- an acronym for Substitution Failure Is Not An Error --- is a rule in the C++ standard. The rule states that if the substitution of a template-declaration generates errors, then the declaration is removed from the overload-set, and the errors are ignored.
 
-### Restricting the overload set
+Context
+-------
+
+The SFINAE rule is only in effect when it occurs in a template _declaration_. That is,
+
+* in the return-type of a function-template, or
+* in a parameter-type of a function-template, or
+* in a template parameter.
+
+In particular,
+
+* errors in the base-class list are not SFINAE errors; they are actual errors, and
+* errors in the function/class definition are not SFINAE errors; they are actual errors.
+
+Restricting the overload set
+----------------------------
+
+The SFINAE rule can be abused to place constraints on the arguments of a function/class template. This modifies which overload-sets the function/class participates in. 
+
+### Example
 
 Suppose we have
 
 [[CppCode]]:
 	template <typename Type>
-	void f(Type that);
+	Type f(Type that);
 
-and would like to restrict `f` to only work on native integer types. We can do this with SFINAE as follows:
+and would like to constrain `f` to only work on native integer types. We can do this with SFINAE as follows:
 
 [[CppCode]]:
-	template <bool Condition>
-	struct EnableIf_F
+	template <bool Condition, typename Type = void>
+	struct EnableIfC_F
 	{
-		using type = void;
+		using type = Type;
 	};
 
-	template <>
-	struct EnableIf_F<false>
+	template <typename Type>
+	struct EnableIfC_F<false, Type>
 	{};
 
-	tepmlate <bool Condition>
-	using EnableIf = typename EnableIf_F<Condition>::type
+	template <bool Condition, typename Type>
+	using EnableIfC = typename EnableIfC_F<Condition, Type>::type
 
 	template <
 		typename Type,
-		typename = EnableIf<std::is_integral<Type>::value>>
-	void f(Type that);
+		typename = EnableIfC<std::is_integral<Type>::value>>
+	Type f(Type that);
 
-When `f` is instantiated with something else than a native integer type, the `std::integral<Type>::value` evaluates to `false`, and the default template-argument becomes `typename EnableIf_F<false>::type`. Since `EnableIf_F<false>` does not contain a `type` member, an error occurs, which is then treated under the SFINAE rules.
+When `f` is called with something else than a native integer type, the `std::integral<Type>::value` evaluates to `false`, and the default template-argument becomes `typename EnableIfC_F<false>::type`. Since `EnableIfC_F<false>` does not contain a `type` member, an error occurs. Since the error occurs due to a  substitution in a template declaration, the SFINAE rule applies, and the function is removed from the overload set.
 
-### Where to place the SFINAE error
+### Where to place an SFINAE constraint
 
-Since the SFINAE error must occur in the declaration, it must occur in
+Since C++03 did not support default function-template-parameters, the SFINAE constraint had to be generated either in the return-type, or in a parameter-type:
 
-* the return-type, or
-* in some parameter-type, or
-* in the template parameters.
+[[CppCode]]:
+	// SFINAE overloading in the return-type.
+	// Disadvantage: Garbles the return-type.
+	template <typename Type>
+	EnableIfC<std::is_integral<Type>::value, Type> f(Type that);
 
-In C++03, only the first two options were present, which made the declarations hard to understand. In C++11, the SFINAE error can be placed in the default template-argument of an additional template parameter.
+	// SFINAE overloading in a parameter-type.
+	// Disadvantage: Extraneous non-meaningful parameter.
+	template <typename Type>
+	Type f(Type that, EnableIfC<std::is_integral<Type>::value>* = 0);
 
-We underline that SFINAE works only in _declarations_. In particular,
-
-* errors in the base-class list are not SFINAE errors; they are actual errors, and
-* errors in the function/class definition are not SFINAE errors; they are actual errors.
+This made the function-declaration hard to understand. C++11 improved the situation by allowing default function-template-parameters, which now work as the canonical place for an SFINAE constraint.
 
 ### Enable if
 
-The `EnableIf` is a canonical way for causing SFINAE errors based on an arbitrary condition. Correspondingly, the C++ Standard provides the `std::enable_if_t` library type, defined as `EnableIf` above. We would then write:
+The `EnableIfC` is a canonical way for implementing SFINAE constraints based on an arbitrary condition. Correspondingly, the C++ Standard provides the `std::enable_if_t` library type, defined as `EnableIf` above:
 
 [[CppCode]]:
 	template <
@@ -63,6 +84,19 @@ The `EnableIf` is a canonical way for causing SFINAE errors based on an arbitrar
 		typename = std::enable_if_t<std::is_integral<Type>::value>>
 	void f(Type that);
 
+Pastel also provides a struct named `EnableIf`, which --- instead of a boolean --- takes the condition as a type-constant (a struct with a boolean member `value`). This allows to provide the SFINAE constraint as:
+
+[[CppCode]]:
+	template <
+		typename Type,
+		typename = EnableIf<std::is_integral<Type>>>
+	void f(Type that);
+
 ### SFINAE friendliness
 
-A type-function is _SFINAE-friendly_, if an error in its instantiation can only happen in a declaration of that type, and all the types it references in the declaration are SFINAE-friendly. An SFINAE-friendly type-function can be used to restrict an overload-set.
+A type-function is _SFINAE-friendly_, if an error in its instantiation can only happen in a declaration of that type, and all the types it references in the declaration are SFINAE-friendly. An SFINAE-friendly type-function can be used to constrain an overload-set.
+
+Future
+------
+
+Using the SFINAE rule is --- as of May 2015 --- the only way to implement template constraints. It was not intended for this task, which shows in that it makes code harder to understand, and that it changes the declaration itself in a way which is not meaningful to the user. A proper language support for template constraints is upcoming in the form of the Concepts Lite Technical Specification. 
