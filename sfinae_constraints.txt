@@ -1,4 +1,4 @@
-SFINAE overloading
+SFINAE constraints
 ==================
 
 [[Parent]]: techniques.txt
@@ -21,10 +21,10 @@ In particular,
 * errors in the base-class list are not SFINAE errors; they are actual errors, and
 * errors in the function/class definition are not SFINAE errors; they are actual errors.
 
-Restricting the overload set
-----------------------------
+Constraining the overload set
+-----------------------------
 
-The SFINAE rule can be abused to place constraints on the arguments of a function/class template. This modifies which overload-sets the function/class participates in. 
+The SFINAE rule can be abused to constrain the parameter-types of a function/class template. This modifies which overload-sets the function/class participates in. 
 
 ### Example
 
