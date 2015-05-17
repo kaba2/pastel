@@ -31,15 +31,17 @@ namespace Pastel
 
 	template <typename Point>
 	struct Point_Point_F
-	: Identity_F<Point>
-	{};
+	{
+		using type = Point;
+	};
 
 	template <
 		typename Point,
 		typename Locator>
 	struct Point_Point_F<Location<Point, Locator>>
-	: Identity_F<Point>
-	{};
+	{
+		using type = Point;
+	};
 
 	template <typename Point>
 	using Point_Point = 
