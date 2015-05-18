@@ -37,7 +37,9 @@ Suppose we have
 and would like to constrain `f` to only work on native integer types. We can do this with SFINAE as follows:
 
 [[CppCode]]:
-	template <bool Condition, typename Type = void>
+	enum class Enabler;
+
+	template <bool Condition, typename Type = Enabler>
 	struct EnableIfC_F
 	{
 		using type = Type;
@@ -48,49 +50,104 @@ and would like to constrain `f` to only work on native integer types. We can do 
 	{};
 
 	template <bool Condition, typename Type>
-	using EnableIfC = typename EnableIfC_F<Condition, Type>::type
+	using EnableIfC = 
+		typename EnableIfC_F<Condition, Type>::type;
+
+	template <typename Condition, typename Type>
+	using EnableIf = 
+		EnableIfC<Condition::value, Type>;
 
 	template <
 		typename Type,
-		typename = EnableIfC<std::is_integral<Type>::value>>
+		EnableIf<std::is_integral<Type>...>
 	Type f(Type that);
 
-When `f` is called with something else than a native integer type, the `std::integral<Type>::value` evaluates to `false`, and the default template-argument becomes `typename EnableIfC_F<false>::type`. Since `EnableIfC_F<false>` does not contain a `type` member, an error occurs. Since the error occurs due to a  substitution in a template declaration, the SFINAE rule applies, and the function is removed from the overload set.
+When `f` is called with something else than a native integer type, the `std::integral<Type>::value` evaluates to `false`, and the latter template-parameter becomes `typename EnableIfC_F<false>::type...`. Since `EnableIfC_F<false>` does not contain a `type` member, an error occurs. Since the error occurs due to a  substitution in a template declaration, the SFINAE rule applies, and the function is removed from the overload set.
 
-### Where to place an SFINAE constraint
+Where to place the SFINAE-constraint
+------------------------------------
 
-Since C++03 did not support default function-template-parameters, the SFINAE constraint had to be generated either in the return-type, or in a parameter-type:
+The SFINAE-constraint can be embedded in many ways into the declaration; some choices are better than others.
 
-[[CppCode]]:
-	// SFINAE overloading in the return-type.
-	// Disadvantage: Garbles the return-type.
-	template <typename Type>
-	EnableIfC<std::is_integral<Type>::value, Type> f(Type that);
+### SFINAE-constraint in a parameter-type
 
-	// SFINAE overloading in a parameter-type.
-	// Disadvantage: Extraneous non-meaningful parameter.
-	template <typename Type>
-	Type f(Type that, EnableIfC<std::is_integral<Type>::value>* = 0);
-
-This made the function-declaration hard to understand. C++11 improved the situation by allowing default function-template-parameters, which now work as the canonical place for an SFINAE constraint.
-
-### Enable if
-
-The `EnableIfC` is a canonical way for implementing SFINAE constraints based on an arbitrary condition. Correspondingly, the C++ Standard provides the `std::enable_if_t` library type, defined as `EnableIf` above:
+The SFINAE-constraint can be placed in the return-type:
 
 [[CppCode]]:
-	template <
-		typename Type,
-		typename = std::enable_if_t<std::is_integral<Type>::value>>
-	void f(Type that);
+	template <typename Type>
+	EnableIf<std::is_integral<Type>, Type> f(Type that);
 
-Pastel also provides a struct named `EnableIf`, which --- instead of a boolean --- takes the condition as a type-constant (a struct with a boolean member `value`). This allows to provide the SFINAE constraint as:
+The disadvantage is that the function is harder to understand, since the return-type is garbled.
+
+### SFINAE-constraint in a parameter-type.
+
+The SFINAE-constraint can be placed in a parameter-type:
+
+[[CppCode]]:
+	template <typename Type>
+	Type f(Type that, EnableIf<std::is_integral<Type>>* = 0);
+
+The disadvantage is that the function is harder to understand, since there is an extraneous parameter which is not meaningful to the user.
+
+### SFINAE-constraint in a template-parameter type (C++11)
+
+The SFINAE-constraint can be placed in a template-parameter type:
 
 [[CppCode]]:
 	template <
 		typename Type,
 		typename = EnableIf<std::is_integral<Type>>>
-	void f(Type that);
+	Type f(Type that);
+
+The disadvantage is that this does not always work:
+
+[[CppCode]]:
+	template <
+		typename Type,
+		typename = EnableIfC<!std::is_integral<Type>::value>>
+	void f()
+	{}
+
+	template <
+		typename Type,
+		typename = EnableIfC<std::is_integral<Type>>>
+	void f()
+	{}
+
+Rather than dividing `f` in two cases, this redefines the same function `f`; the return-type, the parameters, and the template-parameters are equal, and the default template-parameter does not differentiate the two.
+
+### SFINAE-constraint in a template-parameter value (C++11)
+
+The SFINAE-constraint can be placed in a template-parameter value:
+
+[[CppCode]]:
+	template <
+		typename Type,
+		EnableIf<std::is_integral<Type>>* = 0>
+	Type f(Type that);
+
+The disadvantage is that there is an extraneous template-parameter which has no meaning for the user.
+
+### SFINAE-constraint in a template-parameter value-pack (C++11)
+
+The SFINAE-constraint can be placed in a template-parameter value-pack:
+
+[[CppCode]]:
+	template <
+		typename Type,
+		EnableIf<std::is_integral<Type>>...>
+	Type f(Type that);
+
+The disadvantage is that there is an extraneous template-parameter-pack which has no meaning for the user. However, since the `Enabler` is only declared, not defined, the user can never provide those template-parameters. 
+
+### Choice in Pastel
+
+Storing the SFINAE-constraint in the template-parameter value-pack seems like a good approach. Unfortunately, Visual Studio 2015 RC has a bug in the compiler, and cannot deal with it. Therefore, for the time being, we chose to store the SFINAE-constraint in a template-parameter value.
+
+Standard library
+----------------
+
+The C++ Standard library provides the `std::enable_if_t` template, for which `std::enable_if_t<Condition, Type>` is equivalent to `EnableIfC<Condition, Type>`, and `std::enable_if_t<Condition>` is equivalent to `EnableIfC<Condition, void>`. Pastel uses `EnableIf`, `EnableIfC`, `DisableIf`, and `DisableIfC`.
 
 Future
 ------
