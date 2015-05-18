@@ -53,6 +53,16 @@ namespace
 				DepthFirst_SearchAlgorithm_PointKdTree());
 			testSearch(
 				BestFirst_SearchAlgorithm_PointKdTree());
+			testTypes();
+		}
+
+		void testTypes()
+		{
+			PASTEL_STATIC_ASSERT(IsPointKdTree<Tree>::value);
+			PASTEL_STATIC_ASSERT(IsPointKdTree<const Tree>::value);
+			PASTEL_STATIC_ASSERT(IsPointKdTree<const Tree&>::value);
+			PASTEL_STATIC_ASSERT(IsPointKdTree<const Tree&&>::value);
+			PASTEL_STATIC_ASSERT(!IsPointKdTree<int>::value);
 		}
 
 		template <typename SearchAlgorithm_PointKdTree>
@@ -378,7 +388,8 @@ namespace
 				};
 
 				searchNearest(
-					tree, Vector<real, N>(0), 
+					addConst(tree), 
+					Vector<real, N>(0), 
 					nearestOutput)
 					.kNearest(m);
 			

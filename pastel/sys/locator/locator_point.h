@@ -5,12 +5,14 @@
 
 #include "pastel/sys/locator/locator_concept.h"
 
+#include <type_traits>
+
 namespace Pastel
 {
 
 	template <typename Locator>
 	using Locator_Point = 
-		typename Locator::Point;
+		typename std::remove_reference_t<Locator>::Point;
 
 	template <typename Locator>
 	using Locator_Point_F = 
