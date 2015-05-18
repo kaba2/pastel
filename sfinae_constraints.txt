@@ -126,7 +126,10 @@ The SFINAE-constraint can be placed in a template-parameter value:
 		EnableIf<std::is_integral<Type>>* = 0>
 	Type f(Type that);
 
-The disadvantage is that there is an extraneous template-parameter which has no meaning for the user.
+The disadvantages are that:
+
+* there is an extraneous template-parameter which has no meaning for the user, and
+* the constraint has to be repeated in the definition.
 
 ### SFINAE-constraint in a template-parameter value-pack (C++11)
 
@@ -138,11 +141,16 @@ The SFINAE-constraint can be placed in a template-parameter value-pack:
 		EnableIf<std::is_integral<Type>>...>
 	Type f(Type that);
 
-The disadvantage is that there is an extraneous template-parameter-pack which has no meaning for the user. However, since the `Enabler` is only declared, not defined, the user can never provide those template-parameters. 
+The disadvantages are that:
+
+* there is an extraneous template-parameter pack which has no meaning for the user, and
+* the constraint has to be repeated in the definition.
+
+Since the `Enabler` is only declared, not defined, the user can never provide the parameters for the template-parameter pack. 
 
 ### Choice in Pastel
 
-Storing the SFINAE-constraint in the template-parameter value-pack seems like a good approach. Unfortunately, Visual Studio 2015 RC has a bug in the compiler, and cannot deal with it. Therefore, for the time being, we chose to store the SFINAE-constraint in a template-parameter value.
+Storing the SFINAE-constraint in the template-parameter value-pack seems like a good approach. Unfortunately, Visual Studio 2015 RC has a bug in the compiler, and cannot deal with it. Therefore, for the time being, we chose to store the SFINAE-constraint in a template-parameter value. In cases where a long constraint would replicated into the definition, we may also store the SFINAE-constraint into the template-parameter type.
 
 Standard library
 ----------------
