@@ -6,12 +6,14 @@
 
 #include "pastel/geometry/nearestset/nearestset_concept.h"
 
+#include <type_traits>
+
 namespace Pastel
 {
 
 	template <typename NearestSet>
 	using NearestSet_PointSet =
-		typename NearestSet::PointSet;
+		typename std::remove_reference_t<NearestSet>::PointSet;
 
 	template <typename NearestSet>
 	using NearestSet_PointSet_F = 

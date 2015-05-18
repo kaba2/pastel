@@ -20,6 +20,11 @@ namespace Pastel
 		}
 	};
 
+	inline Empty_Indicator emptyIndicator()
+	{
+		return Empty_Indicator();
+	}
+
 }
 
 #endif

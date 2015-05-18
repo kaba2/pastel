@@ -20,6 +20,10 @@
 namespace Pastel
 {
 
+	template <typename KdTree>
+	using KdTree_Locator =
+		typename std::remove_reference_t<KdTree>::Locator;
+
 	//! Finds the nearest neighbors of a point in a PointKdTree.
 	/*!
 	kdTree:
@@ -97,17 +101,10 @@ namespace Pastel
 	template <
 		typename KdTree,
 		typename SearchPoint,
-		typename NearestOutput = Null_Output,
-		typename Indicator = All_Indicator,
-		typename Locator = typename KdTree::Locator,
-		typename Real = Locator_Real<Locator>,
-		typename NormBijection = Euclidean_NormBijection<Real>, 
-		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree,
-		typename IntervalSequence = Vector<Real, 2>,
 		typename ConceptCheck = 
 			Requires<
 				// Visual Studio 2015 RC has bugs which cause these
-				// the commented stuff to fail.
+				// commented stuff to fail.
 				//Models<NormBijection, NormBijection_Concept>,
 				Or<
 					IsPointKdTree<KdTree>,
@@ -115,7 +112,14 @@ namespace Pastel
 				>
 				//Models<NearestOutput, Output_Concept(?)>,
 				//Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
-			>
+			>,
+		typename NearestOutput = Null_Output,
+		typename Indicator = All_Indicator,
+		typename Locator = typename KdTree::Locator,
+		typename Real = Locator_Real<Locator>,
+		typename NormBijection = Euclidean_NormBijection<Real>, 
+		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree,
+		typename IntervalSequence = Vector<Real, 2>
 		>
 	auto searchNearest(
 		const KdTree& kdTree,

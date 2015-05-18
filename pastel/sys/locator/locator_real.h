@@ -12,6 +12,7 @@ namespace Pastel
 
 	template <typename Locator>
 	using Locator_Real_ =
+		//typename std::remove_reference_t<Locator>::Real;
 		typename Locator::Real;
 
 	template <typename... LocatorSet>

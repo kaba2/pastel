@@ -168,7 +168,7 @@ namespace
 
 			auto nearestSet = createNearestSet(pointSet);
 
-			using NearestSet = decltype(nearestSet);
+			using NearestSet = decltype(addConst(nearestSet));
 			PASTEL_CONCEPT_CHECK(NearestSet, NearestSet_Concept);
 
 			Euclidean_NormBijection<real> normBijection;
@@ -185,15 +185,16 @@ namespace
 					TEST_ENSURE(distance2 == 0);
 				}
 
-				/*
 				{
+					auto indicator = predicateIndicator(*i, NotEqualTo());
+					PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(*i)));
 
 					auto result =
 						searchNearest(
 							addConst(nearestSet),
 							*i,
 							Null_Output(),
-							predicateIndicator(i, NotEqualTo()),
+							indicator,
 							normBijection
 						);
 
@@ -201,7 +202,6 @@ namespace
 
 					TEST_ENSURE(distance2 == distanceSet[j]);
 				}
-				*/
 				++j;
 			}
 		
