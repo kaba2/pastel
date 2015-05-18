@@ -38,6 +38,10 @@
 namespace Pastel
 {
 
+	template <bool Value>
+	using BoolConstant = 
+		std::integral_constant<bool, Value>;
+
 	namespace Types
 	{
 

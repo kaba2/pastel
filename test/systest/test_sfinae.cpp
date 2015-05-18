@@ -10,66 +10,6 @@ using namespace Pastel;
 namespace
 {
 
-	struct True;
-	struct False;
-
-	// SFINAE in the default template parameter value.
-	//
-	// Disadvantages:
-	// * extraneuous  = 0. 
-	//
-	// The nullptr cannot be changed to 0; this is a 
-	// special rule for template parameters.
-
-	template <
-		int N,
-		EnableIfC<N == 1> = 0>
-	True f();
-
-	template <
-		int N,
-		EnableIfC<N != 1> = 0>
-	False f();
-
-	// SFINAE in the default template parameter type.
-	// 
-	// Disadvantages:
-	// * If the function declarations are the same,
-	// then this style cannot be used for overloading
-	// (e.g if the return type of g was void instead).
-
-	template <
-		int N,
-		typename = EnableIfC<N == 1>>
-	True g();
-
-	template <
-		int N,
-		typename = EnableIfC<N != 1>>
-	False g();
-
-	// SFINAE in the return type.
-	//
-	// Disadvantages:
-	// * garbles the return type.
-
-	template <int N>
-	EnableIfC<N == 1, True> h();
-
-	template <int N>
-	EnableIfC<N != 1, False> h();
-
-	// SFINAE in the parameter
-	//
-	// Disadvantages:
-	// * garbles the parameter list
-
-	template <int N>
-	True k(EnableIfC<N == 1> = 0);
-
-	template <int N>
-	False k(EnableIfC<N != 1> = 0);
-
 	class A
 	{
 	public:
@@ -78,84 +18,41 @@ namespace
 		template <
 			int N,
 			EnableIfC<N == 1> = 0>
-		True f();
+		std::true_type f();
 
 		template <
 			int N,
 			EnableIfC<N != 1> = 0>
-		False f();
+		std::false_type f();
 
 		// SFINAE in the default template parameter type.
 
 		template <
 			int N,
 			typename = EnableIfC<N == 1>>
-		True g();
+		std::true_type g();
 
 		template <
 			int N,
 			typename = EnableIfC<N != 1 >>
-		False g();
+		std::false_type g();
 
 		// SFINAE in the return type.
 
 		template <int N>
-		EnableIfC<N == 1, True> h();
+		EnableIfC<N == 1, std::true_type> h();
 
 		template <int N>
-		EnableIfC<N != 1, False> h();
+		EnableIfC<N != 1, std::false_type> h();
 
 		// SFINAE in the parameter
 	
 		template <int N>
-		True k(EnableIfC<N == 1> = 0);
+		std::true_type k(EnableIfC<N == 1> = 0);
 
 		template <int N>
-		False k(EnableIfC<N != 1> = 0);
+		std::false_type k(EnableIfC<N != 1> = 0);
 	};
-
-	/*
-	template <int N_>
-	class F
-	{
-	public:
-		template <
-			int N = N_,
-			typename = EnableIfC<N == 1>>
-		F();
-
-		template <
-			int N = N_,
-			typename = EnableIfC<N != 1>>
-		F();
-	};
-
-	template <int N_>
-	class G
-	{
-	public:
-		template <
-			int N = N_,
-			typename = EnableIfC<N == 1>>
-		G();
-
-		template <
-			int N = N_,
-			typename = EnableIfC<N != 1>>
-		G();
-	};
-
-	template <int N_>
-	class H
-	{
-	public:
-		template <int N = N_>
-		H(typename = EnableIfC<N == 1>);
-
-		template <int N = N_>
-		H(typename = EnableIfC<N != 1>);
-	};
-	*/
 
 	class Test
 		: public TestSuite
@@ -168,61 +65,147 @@ namespace
 
 		virtual void run()
 		{
-			test();
-			testConstructor();
+			testDefaultTemplateParameterValue();
+			testDefaultTemplateParameterType();
+			testReturnType();
+			testParameter();
+			testComplex();
 			testClass();
 		}
 
-		void test()
+		// SFINAE in the default template parameter value.
+		//
+		// Disadvantages:
+		// * extraneuous  = 0. 
+		//
+		// The nullptr cannot be changed to 0; this is a 
+		// special rule for template parameters.
+
+		template <
+			int N,
+			EnableIfC<N == 1> = 0>
+		std::true_type f();
+
+		template <
+			int N,
+			EnableIfC<N != 1> = 0>
+		std::false_type f();
+
+		void testDefaultTemplateParameterValue()
 		{
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(f<0>()), False>::value));
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(f<1>()), True>::value));
+			PASTEL_STATIC_ASSERT(!decltype(f<0>())::value);
+			PASTEL_STATIC_ASSERT(decltype(f<1>())::value);
+		}
 
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(g<0>()), False>::value));
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(g<1>()), True>::value));
+		// SFINAE in the default template parameter type.
 
+		template <
+			int N,
+			typename = EnableIfC<N == 1>>
+		std::true_type g();
+
+		template <
+			int N,
+			typename = EnableIfC<N != 1>>
+		std::false_type g();
+		
+		void testDefaultTemplateParameterType()
+		{
+			PASTEL_STATIC_ASSERT(!decltype(g<0>())::value);
+			PASTEL_STATIC_ASSERT(decltype(g<1>())::value);
+		}
+
+		// SFINAE in the return type.
+		//
+		// Disadvantages:
+		// * garbles the return type.
+
+		template <int N>
+		EnableIfC<N == 1, std::true_type> h();
+
+		template <int N>
+		EnableIfC<N != 1, std::false_type> h();
+		
+		void testReturnType()
+		{
 			// Visual Studio 2013: pass
 			// Visual Studio 2013 Compiler Nov 2013 CTP: fail
 			// Visual Studio 14 CTP4: pass
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(h<0>()), False>::value));
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(h<1>()), True>::value));
-
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(k<0>()), False>::value));
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(k<1>()), True>::value));
+			PASTEL_STATIC_ASSERT(!decltype(h<0>())::value);
+			PASTEL_STATIC_ASSERT(decltype(h<1>())::value);
 		}
 
-		void testConstructor()
+		// SFINAE in the parameter
+		//
+		// Disadvantages:
+		// * garbles the parameter list
+
+		template <int N>
+		std::true_type k(EnableIfC<N == 1> = 0);
+
+		template <int N>
+		std::false_type k(EnableIfC<N != 1> = 0);
+
+		void testParameter()
 		{
-			/*
-			F<0>();
-			F<1>();
+			PASTEL_STATIC_ASSERT(!decltype(k<0>())::value);
+			PASTEL_STATIC_ASSERT(decltype(k<1>())::value);
+		}
 
-			G<0>();
-			G<1>();
+		// Complex SFINAE constraint
 
-			H<0>();
-			H<1>();
-			*/
+		template <
+			typename Type,
+			typename ConceptCheck = 
+				Requires<
+					Or<
+						And<
+							std::is_same<void, void>,
+							std::is_same<Type, void>,
+							std::is_same<void, Type>,
+							std::is_same<Type, Type>,
+							std::is_fundamental<Type>
+						>,
+						And<
+							std::is_same<int, int>,
+							std::is_same<Type, int>,
+							std::is_same<int, Type>,
+							std::is_same<Type, Type>,
+							std::is_integral<Type>
+						>
+					>,
+					std::is_same<Type, Type>
+				>
+		>
+		std::true_type m();
+
+		template <typename Type>
+		std::false_type m(...);
+
+		void testComplex()
+		{
+			PASTEL_STATIC_ASSERT(decltype(m<void>())::value);
+			PASTEL_STATIC_ASSERT(decltype(m<int>())::value);
 		}
 
 		void testClass()
 		{
 			A a;
 
-			static_assert(std::is_same<decltype(a.f<0>()), False>::value, "fail");
-			static_assert(std::is_same<decltype(a.f<1>()), True>::value, "fail");
+			static_assert(std::is_same<decltype(a.f<0>()), std::false_type>::value, "fail");
+			static_assert(std::is_same<decltype(a.f<1>()), std::true_type>::value, "fail");
 
-			static_assert(std::is_same<decltype(a.g<0>()), False>::value, "fail");
-			static_assert(std::is_same<decltype(a.g<1>()), True>::value, "fail");
+			static_assert(std::is_same<decltype(a.g<0>()), std::false_type>::value, "fail");
+			static_assert(std::is_same<decltype(a.g<1>()), std::true_type>::value, "fail");
 
 			// Visual Studio 2013: pass
 			// Visual Studio 2013 Compiler Nov 2013 CTP: fail
 			// Visual Studio 14 CTP4: pass
-			static_assert(std::is_same<decltype(a.h<0>()), False>::value, "fail");
-			static_assert(std::is_same<decltype(a.h<1>()), True>::value, "fail");
+			static_assert(std::is_same<decltype(a.h<0>()), std::false_type>::value, "fail");
+			static_assert(std::is_same<decltype(a.h<1>()), std::true_type>::value, "fail");
 
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(a.k<0>()), False>::value));
-			PASTEL_STATIC_ASSERT((std::is_same<decltype(a.k<1>()), True>::value));
+			PASTEL_STATIC_ASSERT((std::is_same<decltype(a.k<0>()), std::false_type>::value));
+			PASTEL_STATIC_ASSERT((std::is_same<decltype(a.k<1>()), std::true_type>::value));
 
 			a;
 		}

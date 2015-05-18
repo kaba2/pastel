@@ -190,6 +190,15 @@ namespace Pastel
 		PointData_ConstRange asPointData(
 			const Point_ConstRange& range) const;
 
+		/*
+		using PointSet = decltype(rangeInput(range()));
+
+		decltype(auto) pointSet() const
+		{
+			return rangeInput(range());
+		}
+		*/
+
 		//! Returns the number of nodes in the tree.
 		/*!
 		Exception safety:
@@ -576,24 +585,6 @@ namespace Pastel
 	{
 		using Locator = Locator_;
 	};
-
-}
-
-namespace Pastel
-{
-
-	//! Returns whether Type is an instance of PointKdTree.
-	template <typename Type>
-	struct IsPointKdTree
-	: std::false_type
-	{};
-
-	template <
-		typename Settings,
-		template <typename> class Customization>
-	struct IsPointKdTree<PointKdTree<Settings, Customization>>
-	: std::true_type
-	{};
 
 }
 
