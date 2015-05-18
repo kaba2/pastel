@@ -183,6 +183,8 @@ namespace
 			PASTEL_STATIC_ASSERT((!And<std::true_type, std::false_type, std::true_type>::value));
 			PASTEL_STATIC_ASSERT((!And<std::true_type, std::true_type, std::false_type>::value));
 			PASTEL_STATIC_ASSERT((And<std::true_type, std::true_type, std::true_type>::value));
+
+			PASTEL_STATIC_ASSERT(!(And<std::is_same<void, void>, std::is_same<void, int>>::value));
 		}
 
 		void testOr()

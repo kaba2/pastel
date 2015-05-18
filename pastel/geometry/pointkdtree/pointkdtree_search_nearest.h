@@ -106,11 +106,13 @@ namespace Pastel
 		typename IntervalSequence = Vector<Real, 2>,
 		typename ConceptCheck = 
 			Requires<
+				// Visual Studio 2015 RC has bugs which cause these
+				// the commented stuff to fail.
+				//Models<NormBijection, NormBijection_Concept>,
 				Or<
 					IsPointKdTree<KdTree>,
 					IsTdTree<KdTree>
-				>//,
-				//Models<NormBijection, NormBijection_Concept>
+				>
 				//Models<NearestOutput, Output_Concept(?)>,
 				//Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
 			>

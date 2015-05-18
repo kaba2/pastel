@@ -22,21 +22,22 @@ namespace Pastel
 		template <
 			typename Left_Bool,
 			typename Right_Bool>
-		struct And_F_
-		: Identity_F<std::integral_constant<bool,
-			Left_Bool::value && Right_Bool::value>>
-		{};
+		using And_F_ =
+			Identity_F<
+				BoolConstant<
+					Left_Bool::value && Right_Bool::value
+				>
+			>;
 
 	}
 
 	template <typename... BoolSet>
-	struct And_F
-	: Fold_F<And_::And_F_, std::true_type, BoolSet...>
-	{};
+	using And =
+		Fold<And_::And_F_, std::true_type, BoolSet...>;
 
 	template <typename... BoolSet>
-	using And = 
-		typename And_F<BoolSet...>::type;
+	using And_F = 
+		Identity_F<And<BoolSet...>>;
 
 }
 
