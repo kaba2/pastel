@@ -2,6 +2,7 @@
 #define PASTELSYS_IEEE_FLOAT_HPP
 
 #include "pastel/sys/real/ieee_float.h"
+#include "pastel/sys/bit/bitmask.h"
 
 namespace Pastel
 {
@@ -96,7 +97,7 @@ namespace Pastel
 			EnableIf<std::is_floating_point<Type>>>
 		ScientificNotation ieeeFloatAsScientific(Type that)
 		{
-			static PASTEL_CONSTEXPR Bits = SizeInBits<Type>::value;
+			static PASTEL_CONSTEXPR integer Bits = SizeInBits<Type>::value;
 
 			PASTEL_STATIC_ASSERT(Bits > 0);
 			PASTEL_STATIC_ASSERT(E > 0);

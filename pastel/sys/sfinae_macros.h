@@ -33,6 +33,10 @@ namespace Pastel
 	using DisableIfC = 
 		EnableIfC<!Condition, Return>;
 
+	template <typename Return>
+	using Disable = 
+		DisableIfC<true, Return>;
+
 }
 
 

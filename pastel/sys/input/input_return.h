@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <typename Input>
 	using Input_Return = 
-		decltype(std::declval<RemoveCvRef<Input>>().get());
+		decltype(std::declval<std::remove_reference_t<Input>>().get());
 
 	template <typename Input>
 	using Input_Return_F = 

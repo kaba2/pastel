@@ -190,14 +190,13 @@ namespace Pastel
 		PointData_ConstRange asPointData(
 			const Point_ConstRange& range) const;
 
-		/*
-		using PointSet = decltype(rangeInput(range()));
-
+		//! Returns the underlying point-set.
 		decltype(auto) pointSet() const
 		{
-			return rangeInput(range());
+			return locationSet(
+				rangeInput(asPointData(range())), 
+				locator_);
 		}
-		*/
 
 		//! Returns the number of nodes in the tree.
 		/*!
