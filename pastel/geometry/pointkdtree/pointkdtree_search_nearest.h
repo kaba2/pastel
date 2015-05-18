@@ -7,6 +7,7 @@
 #include "pastel/math/normbijection/normbijection_concept.h"
 #include "pastel/math/normbijection/euclidean_normbijection.h"
 
+#include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/indicator/indicator_concept.h"
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/type_traits/is_template_instance.h"
@@ -40,13 +41,13 @@ namespace Pastel
 
 	nearestOutput:
 	A reporter to which the found neighbors 
-	(Point_ConstIterator of 'kdTree') are reported to.
+	(KdTree::Point_ConstIterator) are reported to.
 	The reporting is done in the form
 	nearestOutput(distance, point).
 
 	acceptPoint:
 	An indicator which decides whether to accept a point 
-	as a neighbor or not.
+	(KdTree::Point_ConstIterator) as a neighbor or not.
 
 	normBijection:
 	The norm used to measure distance.
@@ -99,14 +100,19 @@ namespace Pastel
 		typename NearestOutput = Null_Output,
 		typename Indicator = All_Indicator,
 		typename Locator = typename KdTree::Locator,
-		typename Real = typename Locator::Real,
+		typename Real = Locator_Real<Locator>,
 		typename NormBijection = Euclidean_NormBijection<Real>, 
 		typename SearchAlgorithm = DepthFirst_SearchAlgorithm_PointKdTree,
 		typename IntervalSequence = Vector<Real, 2>,
-		typename = 
-			RequiresSome<
-				IsPointKdTree<KdTree>,
-				IsTdTree<KdTree>
+		typename ConceptCheck = 
+			Requires<
+				Or<
+					IsPointKdTree<KdTree>,
+					IsTdTree<KdTree>
+				>//,
+				//Models<NormBijection, NormBijection_Concept>
+				//Models<NearestOutput, Output_Concept(?)>,
+				//Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
 			>
 		>
 	auto searchNearest(

@@ -105,4 +105,22 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	//! Returns whether Type is an instance of PointKdTree.
+	template <typename Type>
+	struct IsPointKdTree
+	: std::false_type
+	{};
+
+	template <
+		typename Settings,
+		template <typename> class Customization>
+	struct IsPointKdTree<PointKdTree<Settings, Customization>>
+	: std::true_type
+	{};
+
+}
+
 #endif

@@ -92,8 +92,6 @@ namespace
 		void test(
 			Create_NearestSet createNearestSet)
 		{
-			//Euclidean_NormBijection<real> normBijection;
-
 			/*
 			 0   |
 			     |2  3
@@ -170,13 +168,16 @@ namespace
 
 			auto nearestSet = createNearestSet(pointSet);
 
-			//PASTEL_CONCEPT_CHECK(decltype(nearestSet), NearestSet_Concept);
+			using NearestSet = decltype(nearestSet);
+			PASTEL_CONCEPT_CHECK(NearestSet, NearestSet_Concept);
+
+			Euclidean_NormBijection<real> normBijection;
 
 			integer j = 0;
-			for (auto i = pointSet.begin(); i != pointSet.end(); ++i)
+			for (auto i = pointSet.begin(); i != pointSet.end();++i)
 			{
 				{
-					std::pair<real, NearestSet_Point<decltype(nearestSet)>> result =
+					std::pair<real, NearestSet_Point<NearestSet>> result =
 						searchNearest(addConst(nearestSet), *i);
 
 					real distance2 = result.first;
