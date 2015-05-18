@@ -97,7 +97,10 @@ namespace Pastel
 		typename Set_Optionals = Null_Output,
 		typename = 
 			Requires<
-				IsTemplateInstance<NearestSet, BruteForce_NearestSet>
+				IsTemplateInstance<NearestSet, BruteForce_NearestSet>,
+				Models<Search_Point, Point_Concept>,
+				Models<Point_Indicator, Indicator_Concept(NearestSet_Point<NearestSet>)>,
+				Models<NormBijection, NormBijection_Concept>
 			>
 		>
 	auto searchNearest(
