@@ -27,12 +27,12 @@ namespace Pastel
 	}
 
 	template <typename... BoolSet>
-	using Or_F =
-		Fold_F<Or_::Or_F_, std::false_type, BoolSet...>;
+	using Or =
+		Fold<Or_::Or_F_, std::false_type, BoolSet...>;
 
 	template <typename... BoolSet>
-	using Or = 
-		typename Or_F<BoolSet...>::type;
+	using Or_F = 
+		Identity_F<Or<BoolSet...>>;
 
 }
 
