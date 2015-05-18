@@ -8,6 +8,10 @@
 #include "pastel/math/normbijection/normbijection_concept.h"
 #include "pastel/sys/output/output_concept.h"
 
+#include "pastel/geometry/nearestset/nearestset_pointset.h"
+#include "pastel/geometry/nearestset/nearestset_point.h"
+#include "pastel/geometry/nearestset/nearestset_real.h"
+
 namespace Pastel
 {
 
@@ -15,13 +19,14 @@ namespace Pastel
 	{
 		template <
 			typename Type,
-			typename PointSet = typename Type::PointSet>
+			typename PointSet = NearestSet_PointSet<Type>,
+			typename Point = NearestSet_Point<Type>,
+			typename Real = NearestSet_Real<Type>
+		>
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				Concept::exists<PointSet>(),
-				Concept::models<PointSet, PointSet_Concept>(),
-				Concept::convertsTo<PointSet>(addConst(t).pointSet())
+				Concept::models<PointSet, PointSet_Concept>()
 				/*
 				,				
 				(
@@ -64,9 +69,5 @@ namespace Pastel
 	};
 
 }
-
-#include "pastel/geometry/nearestset/nearestset_pointset.h"
-#include "pastel/geometry/nearestset/nearestset_point.h"
-#include "pastel/geometry/nearestset/nearestset_real.h"
 
 #endif

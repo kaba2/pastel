@@ -52,45 +52,15 @@ namespace
 
 		virtual void run()
 		{
+			testSmall();
 			testBruteForce();
 			testPointKdTree(
 				DepthFirst_SearchAlgorithm_PointKdTree());
 			testPointKdTree(
 				BestFirst_SearchAlgorithm_PointKdTree());
-
-			{
-				auto createNearestSet = [](auto pointSet)
-				{
-					return bruteForceNearestSet(rangeInput(pointSet));
-				};
-
-				test(createNearestSet);
-			}
-
-			/*
-			{
-				auto createNearestSet = [&](auto pointSet)
-				{
-					Tree tree;
-					tree.insertRange(
-						range(pointSet.begin(), pointSet.end()),
-						nullOutput());
-					TEST_ENSURE(testInvariants(tree));
-
-					tree.refine(SlidingMidpoint_SplitRule(), 1);
-					TEST_ENSURE(testInvariants(tree));
-
-					return tree;
-				};
-
-				test(createNearestSet);
-			}
-			*/
 		}
 
-		template <typename Create_NearestSet>
-		void test(
-			Create_NearestSet createNearestSet)
+		void testSmall()
 		{
 			/*
 			 0   |
@@ -166,19 +136,50 @@ namespace
 				5, 4, 2, 5, 2, 2, 4, 1, 1, 1, 1, 1, 1, 4, 8
 			};
 
-			auto nearestSet = createNearestSet(pointSet);
+			{
+				auto nearestSet = bruteForceNearestSet(rangeInput(pointSet));
+				test(nearestSet, distanceSet);
+			}
+			{
+				Tree tree;
+				tree.insertRange(
+					range(pointSet.begin(), pointSet.end()),
+					nullOutput());
+				TEST_ENSURE(testInvariants(tree));
 
-			using NearestSet = decltype(addConst(nearestSet));
+				tree.refine(SlidingMidpoint_SplitRule(), 1);
+				TEST_ENSURE(testInvariants(tree));
+
+				//PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
+
+				//using PointSet = NearestSet_PointSet<Tree>;
+				//using Point = NearestSet_Point<Tree>;
+				//using Real = NearestSet_Real<Tree>;
+
+				//test(tree, distanceSet);
+			}
+		}
+
+		template <typename NearestSet>
+		void test(
+			const NearestSet& nearestSet,
+			const std::vector<real>& distanceSet)
+		{
 			PASTEL_CONCEPT_CHECK(NearestSet, NearestSet_Concept);
 
 			Euclidean_NormBijection<real> normBijection;
 
+			auto pointSet = nearestSet.pointSet();
+
 			integer j = 0;
-			for (auto i = pointSet.begin(); i != pointSet.end();++i)
+			while (!pointSet.empty())
 			{
+				auto i = pointSet.get();
+				pointSet.pop();
+
 				{
 					std::pair<real, NearestSet_Point<NearestSet>> result =
-						searchNearest(addConst(nearestSet), *i);
+						searchNearest(nearestSet, i);
 
 					real distance2 = result.first;
 
@@ -186,13 +187,13 @@ namespace
 				}
 
 				{
-					auto indicator = predicateIndicator(*i, NotEqualTo());
-					PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(*i)));
+					auto indicator = predicateIndicator(i, NotEqualTo());
+					PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(i)));
 
 					auto result =
 						searchNearest(
-							addConst(nearestSet),
-							*i,
+							nearestSet,
+							i,
 							Null_Output(),
 							indicator,
 							normBijection

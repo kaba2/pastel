@@ -5,6 +5,7 @@
 #define PASTELGEOMETRY_NEARESTSET_POINTSET_H
 
 #include "pastel/geometry/nearestset/nearestset_concept.h"
+#include "pastel/sys/type_traits/remove_cvref.h"
 
 #include <type_traits>
 
@@ -13,7 +14,8 @@ namespace Pastel
 
 	template <typename NearestSet>
 	using NearestSet_PointSet =
-		typename std::remove_reference_t<NearestSet>::PointSet;
+		RemoveCvRef<decltype(std::declval<std::remove_reference_t<NearestSet>>().pointSet())>;
+		//typename std::remove_reference_t<NearestSet>::PointSet;
 
 	template <typename NearestSet>
 	using NearestSet_PointSet_F = 
