@@ -5,6 +5,10 @@
 
 #include <string>
 
+// See concept.txt for why native types must be 
+// defined _before_ the concept.
+#include "pastel/sys/printable/native_printable.h"
+
 namespace Pastel
 {
 	

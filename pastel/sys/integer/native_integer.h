@@ -109,19 +109,6 @@ namespace Pastel
 		return SizeInBits<Type>::value;
 	}
 
-	// Real (partial)
-
-	template <
-		typename Type, 
-		EnableIf<std::is_integral<Type>> = 0>
-	Type infinity()
-	{
-		return std::numeric_limits<Type>::max();
-	}
-
-	using std::floor;
-	using std::ceil;
-
 }
 
 #endif

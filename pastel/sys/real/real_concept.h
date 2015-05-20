@@ -9,48 +9,12 @@
 
 #include <type_traits>
 
+// See concept.txt for why native types must be 
+// defined _before_ the concept.
+#include "pastel/sys/real/native_real.h"
+
 namespace Pastel
 {
-
-	template <
-		typename Real,
-		typename = Disable<Real>>
-	Real infinity();
-
-	template <
-		typename Real,
-		typename = Disable<Real>>
-	bool isInfinity(Real);
-
-	template <
-		typename Real,
-		typename = Disable<Real>>
-	bool isMinusInfinity(Real);
-
-	template <
-		typename Real,
-		typename = Disable<Real>>
-	Real nan();
-
-	template <
-		typename Real,
-		typename = Disable<Real>>
-	bool isNan(Real);
-
-	template <
-		typename Real,
-		typename = Disable<Real>>
-	Real inverse(Real);
-
-	template <
-		typename Real,
-		typename = Disable<Real>>
-	Real floor(Real);
-
-	template <
-		typename Real,
-		typename = Disable<Real>>
-	Real ceil(Real);
 
 	//! A real number.
 	struct Real_Concept
