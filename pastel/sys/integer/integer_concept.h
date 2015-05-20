@@ -9,6 +9,10 @@
 #include "pastel/sys/real/scientific_notation.h"
 #include "pastel/sys/printable/printable_concept.h"
 
+// See concept.txt for why native types must be 
+// defined _before_ the concept.
+#include "pastel/sys/integer/native_integer.h"
+
 namespace Pastel
 {
 

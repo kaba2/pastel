@@ -157,7 +157,55 @@ These concepts are encoded as the template arguments of the `Refines` template. 
 Issues in the emulation layer
 -----------------------------
 
-One issue in the emulation layer is that if there is a syntactic error in a concept-requirement itself, then this will also be treated as a SFINAE error, which causes the concept to trivially reject all types. Since the compiler cannot help here, such SFINAE errors can be somewhat hard to debug. Usually this involves a binary search (by commenting) on the concept requirements, to find the offending requirement.
+Here as some issues in the concept-emulation layer.
 
-Naturally, with proper language support this problem will disappear --- there will be a well-defined concept-definition syntax.
+### Concept-requirement errors
+
+If there is a syntactic error in a concept-requirement itself, then this will also be treated as a SFINAE error, which causes the concept to trivially reject all types. Clang and gcc will provide the reasons for why the SFINAE-error occurred. This is not so for Visual C++ 2015 RC, where debugging such errors will amount to a binary search on the concept requirements, to find the offending requirement. 
+
+### Native types
+
+Native types are sometimes treated differently in the concept-requirement check. This brings problems if a native type is supposed to model the concept. Consider:
+
+	struct Realish_Concept
+	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				Concept::convertsTo<bool>(isInfinity(t))
+			)
+		);
+	};
+
+	bool isInfinity(float that)
+	{
+		return true;
+	}
+
+	PASTEL_CONCEPT_CHECK(float, Realish_Concept);
+
+Logically, you would first define the concept (`Realish_Concept`), and then define models of that concept (`float`). However, this code does not compile in Clang and gcc. It compiles in Visual C++ 2015 RC, but only because it lacks support for two-phase name lookup. If `float` were a `struct` instead, this code would compile; there is a difference between user-defined types and native types. 
+
+I am not sure what the fundamental difference is. It may have to do with the fact that the set of associated namespaces for native types in argument-dependent lookup is empty.
+
+A workaround is to define the needed functions for native types _before_ the concept is defined:
+
+	bool isInfinity(float that)
+	{
+		return true;
+	}
+
+	struct Realish_Concept
+	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
+				Concept::convertsTo<bool>(isInfinity(t))
+			)
+		);
+	};
+
+	PASTEL_CONCEPT_CHECK(float, Realish_Concept);
 
