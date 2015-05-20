@@ -2,7 +2,6 @@
 #define PASTELSYS_IEEE_FLOAT_HPP
 
 #include "pastel/sys/real/ieee_float.h"
-#include "pastel/sys/bit/bitmask.h"
 
 namespace Pastel
 {
@@ -94,7 +93,7 @@ namespace Pastel
 			integer E,
 			integer M,
 			typename Type, 
-			EnableIf<std::is_floating_point<Type>>>
+			EnableIf<std::is_floating_point<Type>> = 0>
 		ScientificNotation ieeeFloatAsScientific(Type that)
 		{
 			static PASTEL_CONSTEXPR integer Bits = SizeInBits<Type>::value;
@@ -107,10 +106,11 @@ namespace Pastel
 			using Packed = Uint<Bits>;
 			Packed& packed = *reinterpret_cast<Packed*>(&that);
 
-			Packed mantissa = packed & bitMask<Packed>(0, M);
+			Packed packedMantissa = packed & bitMask<Packed>(0, M);
 			Packed biasedExponent = (packed >> M) & bitMask<Packed>(0, E);
 			integer bias = ((1 << (E - 1)) - 1);
 			integer exponent = biasedExponent - bias;
+			uint64 mantissa = (uint64)packedMantissa << (64 - M);
 
 			return ScientificNotation {negative(that), exponent, mantissa};
 		}
@@ -120,7 +120,7 @@ namespace Pastel
 	template <
 		typename Type,
 		EnableIf<std::is_same<Type, real32_ieee>>>
-	ScientificNotation asScientific(Type that)
+	ScientificNotation ieeeFloatAsScientific(Type that)
 	{
 		return IeeeFloat_::ieeeFloatAsScientific<8, 23>(that);
 	}
@@ -128,7 +128,7 @@ namespace Pastel
 	template <
 		typename Type,
 		EnableIf<std::is_same<Type, real64_ieee>>>
-	ScientificNotation asScientific(Type that)
+	ScientificNotation ieeeFloatAsScientific(Type that)
 	{
 		return IeeeFloat_::ieeeFloatAsScientific<11, 52>(that);
 	}

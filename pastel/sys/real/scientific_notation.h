@@ -3,40 +3,51 @@
 #ifndef PASTELSYS_SCIENTIFIC_NOTATION_H
 #define PASTELSYS_SCIENTIFIC_NOTATION_H
 
+#include "pastel/sys/real/scientific_notation_fwd.h"
+
 #include "pastel/sys/mytypes.h"
+
+#include "pastel/sys/integer/native_integer.h"
+
+#include <string>
 
 namespace Pastel
 {
 
-	//! A number in scientific notation.
-	/*! 
-	This representation of a number is meant to act as
-	an intermediate type to which all the native types
-	can be converted to without loss. In particular,
-	this representation is like the IEEE floating point
-	formats with extended bit-counts.
-
-	The value of the number is given by
-	
-		(-1)^s 2^e (1 + m / 2^64)
-
-	where
-
-		s is the sign of the number,
-		e is the exponent of the number, and
-		m is the mantissa of the number.
-	*/
-	struct ScientificNotation
+	inline bool operator==(
+		const ScientificNotation& left,
+		const ScientificNotation& right)
 	{
-		//! The sign s of the number (+ = false, - = true)
-		bool negative;
+		return 
+			left.negative == right.negative &&
+			left.exponent == right.exponent &&
+			left.mantissa == right.mantissa;
+	}
 
-		//! The exponent e of the number.
-		integer exponent;
+	inline bool operator!=(
+		const ScientificNotation& left,
+		const ScientificNotation& right)
+	{
+		return !(left == right);
+	}
 
-		//! The mantissa m of the number.
-		uint64 mantissa;
-	};
+	inline std::string asString(const ScientificNotation& scientific)
+	{
+		return std::string("(") + 
+			(scientific.negative ? "-" : "+") + 
+			", " +
+			asString(scientific.mantissa) +
+			", " +
+			asString(scientific.exponent) +
+			")";
+
+		// return 
+		// 	std::string(scientific.negative ? "-" : "") + 
+		// 	"1." + 
+		// 	Pastel::asString(scientific.mantissa) +
+		// 	"e" +
+		// 	Pastel::asString(scientific.exponent);
+	}
 
 }
 

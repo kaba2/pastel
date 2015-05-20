@@ -6,7 +6,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/algebra/ordered_ring_concept.h"
-#include "pastel/sys/real/scientific_notation.h"
+#include "pastel/sys/real/scientific_notation_fwd.h"
 #include "pastel/sys/printable/printable_concept.h"
 
 // See concept.txt for why native types must be 

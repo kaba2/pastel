@@ -5,7 +5,7 @@
 #define PASTELSYS_REAL_CONCEPT_H
 
 #include "pastel/sys/algebra/ordered_field_concept.h"
-#include "pastel/sys/real/scientific_notation.h"
+#include "pastel/sys/real/scientific_notation_fwd.h"
 
 #include <type_traits>
 
