@@ -5,6 +5,7 @@
 
 #include "pastel/sys/bit/bitmask.h"
 #include "pastel/sys/real/ieee_float.h"
+#include "pastel/sys/logging.h"
 
 using namespace Pastel;
 
@@ -31,7 +32,10 @@ namespace
 		{
 			auto t = [](bool negative, integer exponent, uint64 mantissa, Type correct)
 			{
-				return (asIeeeFloat<Type>(ScientificNotation{ negative, exponent, mantissa }) == correct);
+				ScientificNotation s{ negative, exponent, mantissa };
+
+				return (asIeeeFloat<Type>(s) == correct) &&
+					(asIeeeFloat<Type>(asScientific(correct)) == correct);
 			};
 
 			uint64 oneHalf = singleBitMask<uint64>(SizeInBits<uint64>::value - 1);
