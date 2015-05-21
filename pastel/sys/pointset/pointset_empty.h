@@ -11,10 +11,15 @@ namespace Pastel
 {
 
 	//! Returns whether a point-set is empty.
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		typename Constraint =
+			Requires<
+				Models<PointSet, PointSet_Concept>
+			>
+	>
 	bool pointSetEmpty(const PointSet& pointSet)
 	{
-		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 		return pointSetInput(pointSet).empty();
 	}
 

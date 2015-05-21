@@ -40,8 +40,7 @@ namespace Pastel
 						// A nearest-set.
 						addConst(t),
 						//! The point for which to search nearest-neighbors.
-						std::declval<PointSet_Point<PointSet>>()
-						/*,
+						std::declval<PointSet_Point<PointSet>>(),
 						Output_Archetype(),
 						//! The output to which to report the results.
 						[](typename Type::Real distance,

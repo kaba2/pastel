@@ -36,14 +36,18 @@ namespace Pastel
 
 	inline void Logger::addLog(Log* log)
 	{
-		ASSERT(log);
-		logSet_.insert(log);
+		if (log)
+		{
+			logSet_.insert(log);
+		}
 	}
 
 	inline void Logger::removeLog(Log* log)
 	{
-		ASSERT(log);
-		logSet_.erase(log);
+		if (log)
+		{
+			logSet_.erase(log);
+		}
 	}
 
 }

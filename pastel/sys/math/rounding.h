@@ -20,7 +20,9 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>> = 0>
 	Integer roundUpTo(
 		const Integer& that, const Integer& to);
 
@@ -29,7 +31,9 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>> = 0>
 	Integer roundUpToOdd(const Integer& that);
 	
 	//! Rounds up to the next odd number.
@@ -40,7 +44,9 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Real, EnableIf<std::is_floating_point<Real>> = 0>
+	template <
+		typename Real, 
+		EnableIf<std::is_floating_point<Real>> = 0>
 	integer roundUpToOdd(const Real& that);
 
 	//! Rounds up to the next even number.
@@ -48,7 +54,9 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>> = 0>
 	Integer roundUpToEven(const Integer& that);
 
 	//! Rounds up to the next even number.
@@ -59,7 +67,9 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Real, EnableIf<std::is_floating_point<Real>> = 0>
+	template <
+		typename Real, 
+		EnableIf<std::is_floating_point<Real>> = 0>
 	integer roundUpToEven(const Real& that);
 
 	//! Rounds up to the next power of 2 (unsigned integers).
@@ -70,7 +80,9 @@ namespace Pastel
 	Time complexity: O(log(SizeInBits<Integer>::value) + 1)
 	Exception safety: nothrow
 	*/
-	template <typename Integer, EnableIf<std::is_unsigned<Integer>> = 0>
+	template <
+		typename Integer, 
+		EnableIf<std::is_unsigned<Integer>> = 0>
 	Integer roundUpToPowerOfTwo(const Integer& that);
 
 	//! Rounds up to the next power of 2 (signed integers).
@@ -82,7 +94,9 @@ namespace Pastel
 	Time complexity: O(log(SizeInBits<Integer>::value) + 1)
 	Exception safety: nothrow
 	*/
-	template <typename Integer, EnableIf<std::is_signed<Integer>> = 0>
+	template <
+		typename Integer, 
+		EnableIf<std::is_signed<Integer>> = 0>
 	Integer roundUpToPowerOfTwo(const Integer& that);
 
 	//! Rounds up 'that' to the next multiple of power of 2.
@@ -93,7 +107,9 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>> = 0>
 	Integer roundUpToPowerOfTwo(
 		const Integer& that, 
 		integer power);
@@ -103,7 +119,9 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>> = 0>
 	Integer divideAndRoundUp(
 		const Integer& divide, 
 		const Integer& byThis);

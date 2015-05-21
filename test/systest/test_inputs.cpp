@@ -6,6 +6,7 @@
 #include "pastel/sys/input.h"
 
 #include <vector>
+#include <list>
 
 using namespace Pastel;
 

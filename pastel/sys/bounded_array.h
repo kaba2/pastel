@@ -34,10 +34,14 @@ namespace Pastel
 		PASTEL_FWD(const_iterator);
 		static PASTEL_CONSTEXPR integer N = Fwd::N;
 
+		#ifdef _MSC_VER
+		// The std::is_trivially_copyable is not implemented in gcc 4.
+
 		// We must require the Element to be trivially copyable,
 		// or else the swap() cannot be implemented with the nothrow
 		// guarantee.
 		PASTEL_STATIC_ASSERT(std::is_trivially_copyable<Element>::value);
+		#endif
 
 		using Base = Customization<Settings>;
 

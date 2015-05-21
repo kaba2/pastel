@@ -57,7 +57,7 @@ namespace Pastel
 		linkPolygon(left->half(), left);
 
 		// Notify the insertion of a new polygon.
-		onInsertPolygon(left);
+		this->onInsertPolygon(left);
 
 		// Return the expanded polygon.
 		return left;
@@ -70,7 +70,7 @@ namespace Pastel
 		const Polygon_ConstIterator& polygon)
 	{
 		// Act as if the left polygon were to be removed.
-		onRemovePolygon(cast(polygon));
+		this->onRemovePolygon(cast(polygon));
 
 		// Detach the left polygon.
 		linkPolygon(polygon->half(), Polygon_Iterator());

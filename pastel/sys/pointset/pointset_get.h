@@ -39,10 +39,15 @@ namespace Pastel
 
 	}
 
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		typename Constraint =
+			Requires<
+				Models<PointSet, PointSet_Concept>
+			>
+	>
 	decltype(auto) pointSetGet(const PointSet& pointSet)
 	{
-		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 		return PointSet_::pointSetGet(pointSet);
 	}
 

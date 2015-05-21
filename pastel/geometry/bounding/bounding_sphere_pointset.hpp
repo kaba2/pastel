@@ -41,8 +41,6 @@ namespace Pastel
 	Sphere<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value> 
 		boundingSphere(PointSet pointSet)
 	{
-		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
-
 		using Real = PointSet_Real<PointSet>;
 		static PASTEL_CONSTEXPR int N = 
 			PointSet_Dimension<PointSet>::value;

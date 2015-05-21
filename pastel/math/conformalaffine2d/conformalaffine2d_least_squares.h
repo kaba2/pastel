@@ -29,7 +29,13 @@ namespace Pastel
 	*/
 	template <
 		typename From_PointSet, 
-		typename To_PointSet>
+		typename To_PointSet,
+		typename = 
+			Requires<
+				Models<From_PointSet, PointSet_Concept>,
+				Models<To_PointSet, PointSet_Concept>
+			>
+	>
 	ConformalAffine2D<PointSet_Real<From_PointSet>> 
 		lsConformalAffine(
 			From_PointSet fromSet,

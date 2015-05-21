@@ -10,12 +10,12 @@
 namespace Pastel
 {
 
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>>>
 	Integer roundUpTo(
 		const Integer& that, const Integer& to)
 	{
-		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
-
 		PENSURE(!negative(to));
 
 		Integer remainder = mod(that, to);
@@ -27,7 +27,9 @@ namespace Pastel
 		return that;
 	}
 
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>>>
 	Integer roundUpToOdd(const Integer& that)
 	{
 		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
@@ -35,13 +37,17 @@ namespace Pastel
 		return odd(that) ? that : (that + 1);
 	}
 
-	template <typename Real, EnableIf<std::is_floating_point<Real>>>
+	template <
+		typename Real, 
+		EnableIf<std::is_floating_point<Real>>>
 	integer roundUpToOdd(const Real& that)
 	{
 		return Pastel::roundUpToOdd((integer)ceil(that));
 	}
 
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>>>
 	Integer roundUpToEven(const Integer& that)
 	{
 		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
@@ -49,13 +55,17 @@ namespace Pastel
 		return even(that) ? that : (that + 1);
 	}
 
-	template <typename Real, EnableIf<std::is_floating_point<Real>>>
+	template <
+		typename Real, 
+		EnableIf<std::is_floating_point<Real>>>
 	integer roundUpToEven(const Real& that)
 	{
 		return Pastel::roundUpToEven((integer)ceil(that));
 	}
 
-	template <typename Integer, EnableIf<std::is_unsigned<Integer>>>
+	template <
+		typename Integer, 
+		EnableIf<std::is_unsigned<Integer>>>
 	Integer roundUpToPowerOfTwo(const Integer& that)
 	{
 		if (zero(that))
@@ -72,14 +82,18 @@ namespace Pastel
 		return X + 1;
 	}
 
-	template <typename Integer, EnableIf<std::is_signed<Integer>>>
+	template <
+		typename Integer, 
+		EnableIf<std::is_signed<Integer>>>
 	Integer roundUpToPowerOfTwo(const Integer& that)
 	{
 		return twosComplementToSigned(
 			roundUpToPowerOfTwo(signedToTwosComplement(that)));
 	}
 
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>>>
 	Integer roundUpToPowerOfTwo(
 		const Integer& that, 
 		integer power)
@@ -97,7 +111,9 @@ namespace Pastel
 		return that;
 	}
 
-	template <typename Integer>
+	template <
+		typename Integer,
+		EnableIf<Models<Integer, Integer_Concept>>>
 	Integer divideAndRoundUp(
 		const Integer& divide, 
 		const Integer& byThis)
