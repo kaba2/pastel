@@ -10,7 +10,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
+		Requires<std::is_floating_point<Type>> = 0>
 	Type inverse(Type that)
 	{
 		return 1 / that;

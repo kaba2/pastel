@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Integer, EnableIf<std::is_signed<Integer>>>
+	template <typename Integer, Requires<std::is_signed<Integer>>>
 	typename std::make_unsigned<Integer>::type
 	signedToTwosComplement(const Integer& that)
 	{
@@ -27,7 +27,7 @@ namespace Pastel
 		return (Unsigned)that;
 	}
 
-	template <typename Finite_Integer, EnableIf<std::is_unsigned<Finite_Integer>>>
+	template <typename Finite_Integer, Requires<std::is_unsigned<Finite_Integer>>>
 	typename std::make_signed<Finite_Integer>::type
 	twosComplementToSigned(const Finite_Integer& that)
 	{
@@ -92,7 +92,7 @@ namespace Pastel
 		return (Signed)that;
 	}
 
-	template <typename Finite_Integer, EnableIf<std::is_unsigned<Finite_Integer>>>
+	template <typename Finite_Integer, Requires<std::is_unsigned<Finite_Integer>>>
 	bool twosComplementNegative(const Finite_Integer& that)
 	{
 		// A two's complement integer is negative if and only if
@@ -100,7 +100,7 @@ namespace Pastel
 		return (that & singleBitMask<Finite_Integer>(bits(that) - 1)) != 0;
 	}
 
-	template <typename Finite_Integer, EnableIf<std::is_unsigned<Finite_Integer>>>
+	template <typename Finite_Integer, Requires<std::is_unsigned<Finite_Integer>>>
 	Finite_Integer arithmeticShiftRight(
 			const Finite_Integer& that, 
 			integer n)
@@ -133,7 +133,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Finite_Integer, EnableIf<std::is_unsigned<Finite_Integer>>>
+	template <typename Finite_Integer, Requires<std::is_unsigned<Finite_Integer>>>
 	Finite_Integer shiftRight(
 			const Finite_Integer& that, 
 			integer n)
@@ -152,7 +152,7 @@ namespace Pastel
 		return that >> n;
 	}
 
-	template <typename Finite_Integer, EnableIf<std::is_signed<Finite_Integer>>>
+	template <typename Finite_Integer, Requires<std::is_signed<Finite_Integer>>>
 	Finite_Integer shiftRight(
 			const Finite_Integer& that, 
 			integer n)

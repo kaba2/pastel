@@ -10,7 +10,8 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_integral<Type>> = 0>
+		Requires<std::is_integral<Type>> = 0
+	>
 	integer bits(const Type& that)
 	{
 		return SizeInBits<Type>::value;

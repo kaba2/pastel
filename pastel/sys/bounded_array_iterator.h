@@ -32,7 +32,7 @@ namespace Pastel
 
 			template <
 				typename That_Element,
-				EnableIf<std::is_convertible<That_Element, Element>> = 0>
+				Requires<std::is_convertible<That_Element, Element>> = 0>
 			Iterator(const Iterator<That_Element>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{

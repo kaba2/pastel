@@ -15,7 +15,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		EnableIf<std::is_floating_point<Real>>>
+		Requires<std::is_floating_point<Real>>>
 	Real stringAsReal(const std::string& that)
 	{
 		std::stringstream stream(that);
@@ -28,7 +28,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		EnableIf<std::is_floating_point<Real>>>
+		Requires<std::is_floating_point<Real>>>
 	Real constantPi()
 	{
 		return 3.1415926535897932384626433832795;
@@ -36,7 +36,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		EnableIf<std::is_floating_point<Real>>>
+		Requires<std::is_floating_point<Real>>>
 	Real constantNeper()
 	{
 		return 2.7182818284590452353602874713527;
@@ -44,7 +44,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		EnableIf<std::is_floating_point<Real>>>
+		Requires<std::is_floating_point<Real>>>
 	Real constantLn2()
 	{
 		return 0.69314718055994530941723212145818;
@@ -52,7 +52,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		EnableIf<std::is_floating_point<Real>>>
+		Requires<std::is_floating_point<Real>>>
 	Real constantEulerMascheroni()
 	{
 		return 0.57721566490153286060651209008240;

@@ -12,7 +12,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_unsigned<Type>> = 0>
+		Requires<std::is_unsigned<Type>> = 0>
 	const Type& abs(const Type& that)
 	{
 		// std::abs does not support unsigned types.
@@ -23,7 +23,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_arithmetic<Type>> = 0>
+		Requires<std::is_arithmetic<Type>> = 0>
 	bool negative(const Type& that)
 	{
 		return that < 0;
@@ -31,7 +31,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_arithmetic<Type>> = 0>
+		Requires<std::is_arithmetic<Type>> = 0>
 	bool positive(const Type& that)
 	{
 		return that > 0;

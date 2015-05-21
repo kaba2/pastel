@@ -6,8 +6,6 @@
 #include "pastel/sys/sfinae_macros.h"
 #include "pastel/sys/concept/refines.h"
 #include "pastel/sys/concept/models.h"
-#include "pastel/sys/type_traits/and.h"
-#include "pastel/sys/type_traits/or.h"
 
 #include <type_traits>
 
@@ -41,14 +39,6 @@ namespace Pastel
 	template <typename... TypeSet>
 	void conceptCheck(TypeSet&&... that);
 
-	// A bug in Visual Studio 2015 CTP6 requires to
-	// use EnableIfC rather than EnableIf.
-	template <typename... BoolSet>
-	using Requires = EnableIfC<And<BoolSet...>::value>;
-
-	template <typename... BoolSet>
-	using RequiresSome = EnableIfC<Or<BoolSet...>::value>;
-
 	namespace Concept
 	{
 
@@ -56,34 +46,39 @@ namespace Pastel
 		template <
 			typename Required,
 			typename Type,
-			typename = EnableIf<std::is_same<Type, Required>>
-			>
+			Requires<std::is_same<Type, Required>> = 0
+		>
 		bool hasType(Type&& that);
 
 		//! Checks whether Type is convertible to Required.
 		template <
 			typename Required, 
 			typename Type,
-			EnableIf<std::is_convertible<Type, Required>> = 0
-			>
+			Requires<std::is_convertible<Type, Required>> = 0
+		>
 		bool convertsTo(Type&& that);
 
-		template <typename Type, typename Concept>
-		auto models()
-			-> EnableIf<Models<Type, Concept>>;
+		template <
+			typename Type, 
+			typename Concept,
+			Requires<Models<Type, Concept>> = 0
+		>
+		bool models();
 
 		//! Checks whether a bool-meta-function is true.
-		template <typename Required>
-		auto holds()
-			-> EnableIf<Required>;
+		template <
+			typename Required,
+			Requires<Required> = 0
+		>
+		bool holds();
 
 		//! Checks whether the types of 'left' and 'right' agree.
 		template <
 			typename Left,
-			typename Right
+			typename Right,
+			Requires<std::is_same<Left, Right>> = 0
 		>
-		auto sameTypes(Left&& left, Right&& right)
-			-> EnableIf<std::is_same<Left, Right>>;
+		bool sameTypes(Left&& left, Right&& right);
 
 		//! Checks whether Type is a valid type-expression.
 		template <typename Type>

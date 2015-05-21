@@ -10,7 +10,7 @@ namespace Pastel
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits < FromBits)>>
+		RequiresC<(ToBits < FromBits)>>
 	Integer scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
@@ -26,7 +26,7 @@ namespace Pastel
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits == FromBits)>>
+		RequiresC<(ToBits == FromBits)>>
 	Integer scaleInteger(const Integer& number)
 	{
 		return number;
@@ -36,7 +36,7 @@ namespace Pastel
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits > FromBits && ToBits <= 2 * FromBits)>>
+		RequiresC<(ToBits > FromBits && ToBits <= 2 * FromBits)>>
 	Integer scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
@@ -53,7 +53,7 @@ namespace Pastel
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits)>>
+		RequiresC<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits)>>
 	Integer scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
@@ -71,7 +71,7 @@ namespace Pastel
 		int FromBits, 
 		int ToBits, 
 		typename Integer,
-		EnableIfC<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits)>>
+		RequiresC<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits)>>
 	Integer scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);

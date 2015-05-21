@@ -24,19 +24,19 @@ namespace Pastel
 	variables uniformly distributed on the annulus.
 	*/
 
-	template <typename Real, int N, EnableIfC<(N == 1)> = 0>
+	template <typename Real, int N, RequiresC<(N == 1)> = 0>
 	Vector<Real, N> uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius);
 
-	template <typename Real, int N, EnableIfC<(N == 2)> = 0>
+	template <typename Real, int N, RequiresC<(N == 2)> = 0>
 	Vector<Real, N> uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius);
 
-	template <typename Real, int N, EnableIfC<(N == 3)> = 0>
+	template <typename Real, int N, RequiresC<(N == 3)> = 0>
 	Vector<Real, N> uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const NoDeduction<Real>& minRadius,
@@ -55,15 +55,15 @@ namespace Pastel
 	variables uniformly distributed on the simplex.
 	*/
 
-	template <typename Real, int N, EnableIfC<(N == 1)> = 0>
+	template <typename Real, int N, RequiresC<(N == 1)> = 0>
 	Vector<Real, N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N, EnableIfC<(N == 2)> = 0>
+	template <typename Real, int N, RequiresC<(N == 2)> = 0>
 	Vector<Real, N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N, EnableIfC<(N >= 3 || N == Dynamic)> = 0>
+	template <typename Real, int N, RequiresC<(N >= 3 || N == Dynamic)> = 0>
 	Vector<Real, N> uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
@@ -79,15 +79,15 @@ namespace Pastel
 	so is the returned value on the ball.
 	*/
 
-	template <typename Real, int N, EnableIfC<(N == 1)> = 0>
+	template <typename Real, int N, RequiresC<(N == 1)> = 0>
 	Vector<Real, N> uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N, EnableIfC<(N == 2)> = 0>
+	template <typename Real, int N, RequiresC<(N == 2)> = 0>
 	Vector<Real, N> uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N, EnableIfC<(N == 3)> = 0>
+	template <typename Real, int N, RequiresC<(N == 3)> = 0>
 	Vector<Real, N> uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
@@ -105,11 +105,11 @@ namespace Pastel
 	so is the returned value on the sphere.
 	*/
 
-	template <typename Real, int N, EnableIfC<(N == 1)> = 0>
+	template <typename Real, int N, RequiresC<(N == 1)> = 0>
 	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N, EnableIfC<(N == 2)> = 0>
+	template <typename Real, int N, RequiresC<(N == 2)> = 0>
 	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
@@ -127,12 +127,12 @@ namespace Pastel
 	so is the returned value on the hemisphere.
 	*/
 
-	template <typename Real, int N, EnableIfC<(N == 1)> = 0>
+	template <typename Real, int N, RequiresC<(N == 1)> = 0>
 	Vector<Real, ModifyN<N, N + 1>::Result>
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 
-	template <typename Real, int N, EnableIfC<(N == 2)> = 0>
+	template <typename Real, int N, RequiresC<(N == 2)> = 0>
 	Vector<Real, ModifyN<N, N + 1>::Result>
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);

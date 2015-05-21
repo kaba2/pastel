@@ -25,7 +25,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
+		Requires<std::is_floating_point<Type>> = 0>
 	Type infinity()
 	{
 		return std::numeric_limits<Type>::infinity();
@@ -35,7 +35,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_integral<Type>> = 0>
+		Requires<std::is_integral<Type>> = 0>
 	Type infinity()
 	{
 		return std::numeric_limits<Type>::max();
@@ -43,7 +43,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
+		Requires<std::is_floating_point<Type>> = 0>
 	bool isInfinity(const Type& that)
 	{
 		return that == std::numeric_limits<Type>::infinity();
@@ -51,7 +51,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
+		Requires<std::is_floating_point<Type>> = 0>
 	bool isMinusInfinity(const Type& that)
 	{
 		return that == -std::numeric_limits<Type>::infinity();
@@ -59,7 +59,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
+		Requires<std::is_floating_point<Type>> = 0>
 	Type nan()
 	{
 		return std::numeric_limits<Type>::quiet_NaN();
@@ -67,7 +67,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
+		Requires<std::is_floating_point<Type>> = 0>
 	bool isNan(const Type& that)
 	{
 		return that != that;
@@ -78,7 +78,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
+		Requires<std::is_floating_point<Type>> = 0>
 	ScientificNotation asScientific(const Type& that)
 	{
 		return ieeeFloatAsScientific(that);

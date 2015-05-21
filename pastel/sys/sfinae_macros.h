@@ -6,6 +6,9 @@
 
 #include <type_traits>
 
+#include "pastel/sys/type_traits/and.h"
+#include "pastel/sys/type_traits/or.h"
+
 namespace Pastel
 {
 
@@ -36,6 +39,17 @@ namespace Pastel
 	template <typename Return>
 	using Disable = 
 		DisableIfC<true, Return>;
+
+	// A bug in Visual Studio 2015 CTP6 requires to
+	// use RequiresC rather than Requires.
+	template <typename... BoolSet>
+	using Requires = EnableIfC<And<BoolSet...>::value>;
+
+	template <bool Bool>
+	using RequiresC = EnableIfC<Bool>;
+
+	template <typename... BoolSet>
+	using RequiresSome = EnableIfC<Or<BoolSet...>::value>;
 
 }
 

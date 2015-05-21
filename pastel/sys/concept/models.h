@@ -68,10 +68,10 @@ namespace Pastel
 
 		template <
 			typename Concept_, 
-			typename Type
+			typename Type,
+			Requires<Models<Type, Concept_>> = 0
 			>
-		auto isModelOf(Type&& that) -> 
-			EnableIf<Models<Type, Concept_>>;
+		bool isModelOf(Type&& that);
 
 	}
 

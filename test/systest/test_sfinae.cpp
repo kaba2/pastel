@@ -17,24 +17,24 @@ namespace
 
 		template <
 			int N,
-			EnableIfC<N == 1> = 0>
+			RequiresC<N == 1> = 0>
 		std::true_type f();
 
 		template <
 			int N,
-			EnableIfC<N != 1> = 0>
+			RequiresC<N != 1> = 0>
 		std::false_type f();
 
 		// SFINAE in the default template parameter type.
 
 		template <
 			int N,
-			typename = EnableIfC<N == 1>>
+			typename = RequiresC<N == 1>>
 		std::true_type g();
 
 		template <
 			int N,
-			typename = EnableIfC<N != 1 >>
+			typename = RequiresC<N != 1 >>
 		std::false_type g();
 
 		// SFINAE in the return type.
@@ -48,10 +48,10 @@ namespace
 		// SFINAE in the parameter
 	
 		template <int N>
-		std::true_type k(EnableIfC<N == 1> = 0);
+		std::true_type k(RequiresC<N == 1> = 0);
 
 		template <int N>
-		std::false_type k(EnableIfC<N != 1> = 0);
+		std::false_type k(RequiresC<N != 1> = 0);
 	};
 
 	class Test
@@ -83,12 +83,12 @@ namespace
 
 		template <
 			int N,
-			EnableIfC<N == 1> = 0>
+			RequiresC<N == 1> = 0>
 		std::true_type f();
 
 		template <
 			int N,
-			EnableIfC<N != 1> = 0>
+			RequiresC<N != 1> = 0>
 		std::false_type f();
 
 		void testDefaultTemplateParameterValue()
@@ -101,12 +101,12 @@ namespace
 
 		template <
 			int N,
-			typename = EnableIfC<N == 1>>
+			typename = RequiresC<N == 1>>
 		std::true_type g();
 
 		template <
 			int N,
-			typename = EnableIfC<N != 1>>
+			typename = RequiresC<N != 1>>
 		std::false_type g();
 		
 		void testDefaultTemplateParameterType()
@@ -141,10 +141,10 @@ namespace
 		// * garbles the parameter list
 
 		template <int N>
-		std::true_type k(EnableIfC<N == 1> = 0);
+		std::true_type k(RequiresC<N == 1> = 0);
 
 		template <int N>
-		std::false_type k(EnableIfC<N != 1> = 0);
+		std::false_type k(RequiresC<N != 1> = 0);
 
 		void testParameter()
 		{
