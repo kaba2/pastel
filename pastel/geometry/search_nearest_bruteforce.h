@@ -89,22 +89,22 @@ namespace Pastel
 	(infinity<Real>(), Point()).
 	*/
 	template <
-		typename NearestSet,
+		typename Settings,
 		typename Search_Point,
+		typename NearestSet = BruteForce_NearestSet<Settings>,
 		typename Point_Output = Null_Output,
 		typename Point_Indicator = All_Indicator,
 		typename NormBijection = Euclidean_NormBijection<NearestSet_Real<NearestSet>>,
 		typename Set_Optionals = Null_Output,
 		typename = 
 			Requires<
-				IsTemplateInstance<NearestSet, BruteForce_NearestSet>,
 				Models<Search_Point, Point_Concept>,
 				Models<Point_Indicator, Indicator_Concept(NearestSet_Point<NearestSet>)>,
 				Models<NormBijection, NormBijection_Concept>
 			>
 		>
 	auto searchNearest(
-		const NearestSet& nearestSet,
+		const BruteForce_NearestSet<Settings>& nearestSet,
 		const Search_Point& searchPoint,
 		Point_Output report = Point_Output(),
 		const Point_Indicator& accept = Point_Indicator(),
