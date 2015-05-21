@@ -21,7 +21,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_unsigned<Type>> = 0>
+		Requires<std::is_unsigned<Type>> = 0>
 	bool even(const Type& that)
 	{
 		return (that & 1) == 0;
@@ -29,7 +29,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_signed<Type>> = 0>
+		Requires<std::is_signed<Type>> = 0>
 	bool even(const Type& that)
 	{
 		// This should read the following, but I can not 
@@ -45,7 +45,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_integral<Type>> = 0>
+		Requires<std::is_integral<Type>> = 0>
 	bool odd(const Type& that)
 	{
 		return !even(that);
@@ -53,7 +53,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_integral<Type>> = 0>
+		Requires<std::is_integral<Type>> = 0>
 	ScientificNotation asScientific(const Type& that)
 	{
 		return ScientificNotation {negative(that), 0, abs(that)};

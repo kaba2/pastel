@@ -12,7 +12,7 @@ namespace Pastel
 
 	template <
 		typename Integer,
-		EnableIf<Models<Integer, Integer_Concept>>>
+		Requires<Models<Integer, Integer_Concept>>>
 	Integer roundUpTo(
 		const Integer& that, const Integer& to)
 	{
@@ -29,7 +29,7 @@ namespace Pastel
 
 	template <
 		typename Integer,
-		EnableIf<Models<Integer, Integer_Concept>>>
+		Requires<Models<Integer, Integer_Concept>>>
 	Integer roundUpToOdd(const Integer& that)
 	{
 		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
@@ -39,7 +39,7 @@ namespace Pastel
 
 	template <
 		typename Real, 
-		EnableIf<std::is_floating_point<Real>>>
+		Requires<std::is_floating_point<Real>>>
 	integer roundUpToOdd(const Real& that)
 	{
 		return Pastel::roundUpToOdd((integer)ceil(that));
@@ -47,7 +47,7 @@ namespace Pastel
 
 	template <
 		typename Integer,
-		EnableIf<Models<Integer, Integer_Concept>>>
+		Requires<Models<Integer, Integer_Concept>>>
 	Integer roundUpToEven(const Integer& that)
 	{
 		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
@@ -57,7 +57,7 @@ namespace Pastel
 
 	template <
 		typename Real, 
-		EnableIf<std::is_floating_point<Real>>>
+		Requires<std::is_floating_point<Real>>>
 	integer roundUpToEven(const Real& that)
 	{
 		return Pastel::roundUpToEven((integer)ceil(that));
@@ -65,7 +65,7 @@ namespace Pastel
 
 	template <
 		typename Integer, 
-		EnableIf<std::is_unsigned<Integer>>>
+		Requires<std::is_unsigned<Integer>>>
 	Integer roundUpToPowerOfTwo(const Integer& that)
 	{
 		if (zero(that))
@@ -84,7 +84,7 @@ namespace Pastel
 
 	template <
 		typename Integer, 
-		EnableIf<std::is_signed<Integer>>>
+		Requires<std::is_signed<Integer>>>
 	Integer roundUpToPowerOfTwo(const Integer& that)
 	{
 		return twosComplementToSigned(
@@ -93,7 +93,7 @@ namespace Pastel
 
 	template <
 		typename Integer,
-		EnableIf<Models<Integer, Integer_Concept>>>
+		Requires<Models<Integer, Integer_Concept>>>
 	Integer roundUpToPowerOfTwo(
 		const Integer& that, 
 		integer power)
@@ -113,7 +113,7 @@ namespace Pastel
 
 	template <
 		typename Integer,
-		EnableIf<Models<Integer, Integer_Concept>>>
+		Requires<Models<Integer, Integer_Concept>>>
 	Integer divideAndRoundUp(
 		const Integer& divide, 
 		const Integer& byThis)

@@ -34,7 +34,7 @@ namespace Pastel
 	template <typename Integer>
 	template <
 		typename That_Integer,
-		EnableIf<Rational_::IsNativeOrInteger<Integer, That_Integer>>>
+		Requires<Rational_::IsNativeOrInteger<Integer, That_Integer>>>
 	Rational<Integer>::Rational(
 		That_Integer wholes)
 		: m_(wholes)
@@ -46,7 +46,7 @@ namespace Pastel
 	template <
 		typename M_Integer, 
 		typename N_Integer,
-		EnableIf<Rational_::AreNativeOrInteger<Integer, M_Integer, N_Integer>>>
+		Requires<Rational_::AreNativeOrInteger<Integer, M_Integer, N_Integer>>>
 	Rational<Integer>::Rational(
 		M_Integer m,
 		N_Integer n)

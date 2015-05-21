@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
+		Requires<IsTemplateInstance<Type, Rational>> = 0>
 	Type infinity()
 	{
 		return Type(1, 0);
@@ -19,7 +19,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
+		Requires<IsTemplateInstance<Type, Rational>> = 0>
 	Type nan()
 	{
 		return Type(0, 0);
@@ -27,7 +27,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
+		Requires<IsTemplateInstance<Type, Rational>> = 0>
 	bool isNan(const Type& that)
 	{
 		return that.isNan();
@@ -35,7 +35,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
+		Requires<IsTemplateInstance<Type, Rational>> = 0>
 	bool isInfinity(const Type& that)
 	{
 		return that.isInfinity();
@@ -43,7 +43,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<IsTemplateInstance<Type, Rational>> = 0>
+		Requires<IsTemplateInstance<Type, Rational>> = 0>
 	bool isMinusInfinity(const Type& that)
 	{
 		return that.isMinusInfinity();

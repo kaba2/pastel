@@ -42,7 +42,7 @@ namespace Pastel
 
 			template <
 				typename That, 
-				EnableIf<std::is_convertible<That, Type>> = 0>
+				Requires<std::is_convertible<That, Type>> = 0>
 			Incidence_Iterator(const Incidence_Iterator<That>& that)
 				: Incidence_Iterator::iterator_adaptor_(that.base()) 
 			{

@@ -158,7 +158,8 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			EnableIf<std::is_unsigned<That_Integer>> = 0>
+			Requires<std::is_unsigned<That_Integer>> = 0
+		>
 		MultiInteger(That_Integer that, Signed_Tag = Signed_Tag())
 		: wordSet_()
 		{
@@ -186,7 +187,8 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			EnableIf<std::is_signed<That_Integer>> = 0>
+			Requires<std::is_signed<That_Integer>> = 0
+		>
 		MultiInteger(That_Integer that, Unsigned_Tag = Unsigned_Tag())
 			: MultiInteger(signedToTwosComplement(that))
 		{
@@ -1036,7 +1038,8 @@ namespace Pastel
 		*/
 		template <
 			typename Integer,
-			EnableIf<std::is_integral<Integer>> = 0>
+			Requires<std::is_integral<Integer>> = 0
+		>
 		explicit operator Integer() const
 		{
 			return asNative<Integer>();

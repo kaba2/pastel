@@ -317,14 +317,20 @@ namespace Pastel
 			sentinel->prev_ = sentinel;
 		}
 
-		template <integer I>
-		EnableIfC<(I < IncidenceTypes), Incidence*> begin_() const
+		template <
+			integer I,
+			typename = RequiresC<(I < IncidenceTypes)>
+		>
+		Incidence* begin_() const
 		{
 			return partitionSet_[I];
 		}
 
-		template <integer I>
-		EnableIfC<(I < IncidenceTypes), Incidence*> end_() const
+		template <
+			integer I,
+			typename = RequiresC<(I < IncidenceTypes)>
+		>
+		Incidence* end_() const
 		{
 			if (incidencesSet_[I] > 0)
 			{
@@ -340,8 +346,11 @@ namespace Pastel
 			return (Incidence*)&sentinel_;
 		}
 
-		template <integer I>
-		EnableIfC<(I < IncidenceTypes), integer> incidences_() const
+		template <
+			integer I,
+			typename = RequiresC<(I < IncidenceTypes)>
+		> 
+		integer incidences_() const
 		{
 			return incidencesSet_[I];
 		}

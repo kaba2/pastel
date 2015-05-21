@@ -14,12 +14,12 @@ namespace Pastel
 	// Printable
 
 	// Visual Studio 2015 CTP6 has a bug in SFINAE overloading,
-	// which is triggered by using EnableIf here. The use of 
-	// EnableIfC instead avoids the bug.
+	// which is triggered by using Requires here. The use of 
+	// RequiresC instead avoids the bug.
 
 	template <
 		typename Type,
-		EnableIfC<
+		RequiresC<
 			std::is_arithmetic<Type>::value
 		> = 0
 		>
@@ -36,7 +36,7 @@ namespace Pastel
 
 	template <
 		typename Type,
-		EnableIfC<
+		RequiresC<
 			Or<
 				std::is_same<Type, char>,
 				std::is_same<Type, wchar_t>,
@@ -52,7 +52,7 @@ namespace Pastel
 
 	template <
 		typename Type,
-		EnableIfC<
+		RequiresC<
 			std::is_enum<Type>::value
 		> = 0
 		>

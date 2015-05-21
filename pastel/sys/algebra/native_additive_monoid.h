@@ -10,7 +10,7 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		EnableIf<std::is_arithmetic<Type>> = 0>
+		Requires<std::is_arithmetic<Type>> = 0>
 	bool zero(Type that)
 	{
 		return that == 0;

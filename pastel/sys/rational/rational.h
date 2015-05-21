@@ -88,14 +88,14 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			EnableIf<Rational_::IsNativeOrInteger<Integer, That_Integer>> = 0>
+			Requires<Rational_::IsNativeOrInteger<Integer, That_Integer>> = 0>
 		Rational(That_Integer wholes);
 
 		//! Constructs with the value (m / n).
 		template <
 			typename M_Integer, 
 			typename N_Integer,
-			EnableIf<Rational_::AreNativeOrInteger<Integer, M_Integer, N_Integer>> = 0>
+			Requires<Rational_::AreNativeOrInteger<Integer, M_Integer, N_Integer>> = 0>
 		Rational(
 			M_Integer m,
 			N_Integer n);
@@ -119,7 +119,7 @@ namespace Pastel
 		*/
 		template <
 			typename Real,
-			EnableIf<std::is_floating_point<Real>> = 0>
+			Requires<std::is_floating_point<Real>> = 0>
 		Rational(
 			Real that,
 			Integer nMax = 0);
@@ -144,7 +144,7 @@ namespace Pastel
 		//! Returns an approximating real number.
 		template <
 			typename Real,
-			EnableIf<std::is_floating_point<Real>> = 0>
+			Requires<std::is_floating_point<Real>> = 0>
 		Real asReal() const;
 
 		//! Returns the number as a ratio of integers.

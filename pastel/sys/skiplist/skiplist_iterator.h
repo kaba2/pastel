@@ -59,7 +59,7 @@ namespace Pastel
 
 			template <
 				typename That,
-				EnableIf<std::is_convertible<That, NodePtr>> = 0>
+				Requires<std::is_convertible<That, NodePtr>> = 0>
 			Iterator(const Iterator<That, Key, Value_Class>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{

@@ -171,7 +171,7 @@ namespace
 
 		template <
 			typename A_Doo,
-			EnableIf<Models<A_Doo, Doo_Concept(Green_Goo)>> = 0>
+			Requires<Models<A_Doo, Doo_Concept(Green_Goo)>> = 0>
 		std::true_type g(const A_Doo& a)
 		{
 			return std::true_type();

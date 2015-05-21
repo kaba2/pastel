@@ -13,7 +13,7 @@ namespace Pastel
 	template <typename Integer>
 	template <
 		typename Real,
-		EnableIf<std::is_floating_point<Real>>>
+		Requires<std::is_floating_point<Real>>>
 	Real Rational<Integer>::asReal() const
 	{
 		// Handle the degenerate cases.
@@ -132,7 +132,7 @@ namespace Pastel
 	template <typename Integer>
 	template <
 		typename Real,
-		EnableIf<std::is_floating_point<Real>>>
+		Requires<std::is_floating_point<Real>>>
 	Rational<Integer>::Rational(
 		Real that,
 		Integer nMax)

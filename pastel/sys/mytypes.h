@@ -4,13 +4,6 @@
 #ifndef PASTELSYS_MYTYPES_H
 #define PASTELSYS_MYTYPES_H
 
-#include "pastel/sys/deduction_macros.h"
-#include "pastel/sys/no_op_functions.h"
-#include "pastel/sys/sfinae_macros.h"
-#include "pastel/sys/iterator_macros.h"
-#include "pastel/sys/settings_type.h"
-#include "pastel/sys/named_parameter.h"
-
 #ifdef PASTEL_ENABLE_OMP
 #include "omp.h"
 #endif
@@ -209,6 +202,12 @@ namespace Pastel
 
 }
 
+#include "pastel/sys/deduction_macros.h"
+#include "pastel/sys/no_op_functions.h"
+#include "pastel/sys/sfinae_macros.h"
+#include "pastel/sys/iterator_macros.h"
+#include "pastel/sys/settings_type.h"
+#include "pastel/sys/named_parameter.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/type_checks.h"
 #include "pastel/sys/predicate/operator_predicates.h"

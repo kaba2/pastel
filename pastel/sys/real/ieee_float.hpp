@@ -60,7 +60,7 @@ namespace Pastel
 
 	template <
 		typename Float_Ieee,
-		EnableIf<std::is_same<Float_Ieee, real32_ieee>>>
+		Requires<std::is_same<Float_Ieee, real32_ieee>>>
 	Float_Ieee asIeeeFloat(
 		const ScientificNotation& scientific)
 	{
@@ -75,7 +75,7 @@ namespace Pastel
 
 	template <
 		typename Float_Ieee,
-		EnableIf<std::is_same<Float_Ieee, real64_ieee>>>
+		Requires<std::is_same<Float_Ieee, real64_ieee>>>
 	Float_Ieee asIeeeFloat(const ScientificNotation& scientific)
 	{
 		uint64 packed = 
@@ -94,7 +94,7 @@ namespace Pastel
 			integer E,
 			integer M,
 			typename Type, 
-			EnableIf<std::is_floating_point<Type>> = 0>
+			Requires<std::is_floating_point<Type>> = 0>
 		ScientificNotation ieeeFloatAsScientific(Type that)
 		{
 			static PASTEL_CONSTEXPR integer Bits = SizeInBits<Type>::value;
@@ -120,7 +120,7 @@ namespace Pastel
 
 	template <
 		typename Type,
-		EnableIf<std::is_same<Type, real32_ieee>>>
+		Requires<std::is_same<Type, real32_ieee>>>
 	ScientificNotation ieeeFloatAsScientific(Type that)
 	{
 		return IeeeFloat_::ieeeFloatAsScientific<8, 23>(that);
@@ -128,7 +128,7 @@ namespace Pastel
 
 	template <
 		typename Type,
-		EnableIf<std::is_same<Type, real64_ieee>>>
+		Requires<std::is_same<Type, real64_ieee>>>
 	ScientificNotation ieeeFloatAsScientific(Type that)
 	{
 		return IeeeFloat_::ieeeFloatAsScientific<11, 52>(that);
