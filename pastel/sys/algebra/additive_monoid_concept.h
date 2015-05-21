@@ -6,6 +6,8 @@
 
 #include "pastel/sys/algebra/additive_semigroup_concept.h"
 
+#include "pastel/sys/algebra/native_additive_monoid.h"
+
 namespace Pastel
 {
 

@@ -17,49 +17,9 @@
 namespace Pastel
 {
 
-	// Additive monoid
-
-	template <
-		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
-	bool zero(Type that)
-	{
-		return that == 0;
-	}
-
-	// Ordered additive monoid.
-
-	using std::abs;
-
-	template <
-		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
-	bool negative(Type that)
-	{
-		return that < 0;
-	}
-
-	template <
-		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
-	bool positive(Type that)
-	{
-		return that > 0;
-	}
-
 	// Ring
 
 	// Operators *= and * are built-in.
-
-	// Field
-
-	template <
-		typename Type, 
-		EnableIf<std::is_floating_point<Type>> = 0>
-	Type inverse(Type that)
-	{
-		return 1 / that;
-	}
 
 	// Real
 

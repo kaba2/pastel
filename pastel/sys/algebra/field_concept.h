@@ -5,6 +5,7 @@
 #define PASTELSYS_FIELD_CONCEPT_H
 
 #include "pastel/sys/algebra/ring_concept.h"
+#include "pastel/sys/algebra/native_field.h"
 
 namespace Pastel
 {

@@ -5,6 +5,7 @@
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/memory_overlaps.h"
+#include "pastel/sys/real/real_concept.h"
 
 namespace Pastel
 {

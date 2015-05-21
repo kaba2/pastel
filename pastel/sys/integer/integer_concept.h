@@ -13,7 +13,7 @@
 // defined _before_ the concept.
 #include "pastel/sys/integer/native_integer.h"
 
-namespace Pastel
+namespace Pastel 
 {
 
 	//! An integer.

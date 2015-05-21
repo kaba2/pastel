@@ -48,7 +48,9 @@ namespace Pastel
 			return 0;
 		}
 
-		template <typename = EnableIfC<IsRandomAccess, void>>
+		template <
+			typename Type = void,
+			typename = EnableIfC<IsRandomAccess, Type>>
 		integer n() const
 		{
 			return nHint();
@@ -69,7 +71,9 @@ namespace Pastel
 			return *begin_;
 		}
 
-		template <typename = EnableIfC<IsRandomAccess, void>>
+		template <
+			typename Type = void,
+			typename = EnableIfC<IsRandomAccess, Type>>
 		Return operator[](integer i) const
 		{
 			PENSURE_OP(i, >=, 0);

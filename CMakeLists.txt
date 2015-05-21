@@ -20,7 +20,7 @@ math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 # is ignored.
 
 # The directory of Boost.
-set (BoostDirectory "../boost_1_57_0")
+set (BoostDirectory "../boost_1_58_0")
 
 # The directory of Threading Building Blocks. 
 set (TbbDirectory "../tbb43")

@@ -17,49 +17,6 @@
 namespace Pastel
 {
 
-	// Additive semi-group
-
-	// Operators += and + are inbuilt.
-
-	// Additive monoid
-
-	template <
-		typename Type, 
-		EnableIf<std::is_integral<Type>> = 0>
-	bool zero(const Type& that)
-	{
-		return that == 0;
-	}
-
-	// Ordered additive monoid
-
-	using std::abs;
-
-	template <
-		typename Type, 
-		EnableIf<std::is_unsigned<Type>> = 0>
-	const Type& abs(const Type& that)
-	{
-		// std::abs does not support unsigned types.
-		return that;
-	}
-
-	template <
-		typename Type, 
-		EnableIf<std::is_integral<Type>> = 0>
-	bool negative(const Type& that)
-	{
-		return that < 0;
-	}
-
-	template <
-		typename Type, 
-		EnableIf<std::is_integral<Type>> = 0>
-	bool positive(const Type& that)
-	{
-		return that > 0;
-	}
-
 	// Integer
 
 	template <
@@ -100,16 +57,6 @@ namespace Pastel
 	ScientificNotation asScientific(const Type& that)
 	{
 		return ScientificNotation {negative(that), 0, abs(that)};
-	}
-
-	// Finite integer
-
-	template <
-		typename Type, 
-		EnableIf<std::is_integral<Type>> = 0>
-	integer bits(const Type& that)
-	{
-		return SizeInBits<Type>::value;
 	}
 
 }

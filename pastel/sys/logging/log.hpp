@@ -2,7 +2,7 @@
 #define PASTELSYS_LOG_HPP
 
 #include "pastel/sys/logging/log.h"
-#include "pastel/sys/ensure.h"
+//#include "pastel/sys/ensure.h"
 #include "pastel/sys/printable/native_printable.h"
 
 #include <sstream>
