@@ -7,7 +7,9 @@
 #include "pastel/sys/algebra/ordered_additive_semigroup_concept.h"
 #include "pastel/sys/algebra/additive_monoid_concept.h"
 
-namespace Pastel
+#include "pastel/sys/algebra/native_ordered_additive_monoid.h"
+
+namespace Pastel 
 {
 
 	//! An ordered additive monoid.

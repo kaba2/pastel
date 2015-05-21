@@ -24,8 +24,7 @@ namespace Pastel
 	: Refines<
 		Additive_SemiGroup_Concept,
 		Ordered_Set_Concept>
-	{
-	};
+	{};
 
 }
 

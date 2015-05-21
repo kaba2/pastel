@@ -3,6 +3,8 @@
 #ifndef PASTELSYS_REFINES_H
 #define PASTELSYS_REFINES_H
 
+#include "pastel/sys/sfinae_macros.h"
+
 namespace Pastel
 {
 
@@ -22,18 +24,14 @@ namespace Pastel
 	template <typename... ConceptSet>
 	struct Refines 
 	{	
-		// Refines is also a concept;
-		// it requires all the requirements
-		// of its concepts. This way a
-		// refined concept does not need to
-		// implement requires(), if it does
-		// not add any new requirements.
+		// The Refines is itself a trivial
+		// concept, which requires nothing.
+		// This way a refined concept does 
+		// not need to implement requires(), 
+		// if it does not add any new requirements.
 
 		template <typename Type>
-		auto requires(Type&& t) -> decltype(
-			conceptCheck(
-				Models<Type, ConceptSet...>::value
-			));
+		void requires(Type&& t);
 	};
 
 }

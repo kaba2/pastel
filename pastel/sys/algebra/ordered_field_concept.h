@@ -19,7 +19,8 @@ namespace Pastel
 	: Refines<
 		Ordered_Ring_Concept,
 		Field_Concept>
-	{};
+	{
+	};
 
 }
 

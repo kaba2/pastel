@@ -30,6 +30,9 @@ namespace Pastel
 		);
 	};
 
+	// For native types the operators += and + 
+	// are inbuilt.
+
 }
 
 #endif

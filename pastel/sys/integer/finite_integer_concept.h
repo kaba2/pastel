@@ -6,7 +6,9 @@
 
 #include "pastel/sys/integer/integer_concept.h"
 
-namespace Pastel
+#include "pastel/sys/integer/native_finite_integer.h"
+
+namespace Pastel 
 {
 
 	//! A finite integer.
