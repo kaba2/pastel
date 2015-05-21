@@ -209,12 +209,10 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/integer/native_integer.h"
-#include "pastel/sys/real/native_real.h"
-#include "pastel/sys/predicate.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/type_checks.h"
-#include "pastel/sys/type_traits.h"
+#include "pastel/sys/predicate/operator_predicates.h"
+#include "pastel/sys/predicate/derived_predicates.h"
 
 #include "pastel/sys/mytypes.hpp"
 

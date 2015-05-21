@@ -6,12 +6,12 @@
 namespace Pastel
 {
 
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		typename>
 	auto pointMean(PointSet pointSet)
 		-> Vector<PointSet_Real<PointSet>, Locator_N<PointSet_Locator<PointSet>>::value>
 	{
-		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
-
 		using Locator = PointSet_Locator<PointSet>;
 		using Real = PointSet_Real<PointSet>;
 

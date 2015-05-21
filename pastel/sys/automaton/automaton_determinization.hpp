@@ -6,6 +6,7 @@
 #include "pastel/sys/hashed_tree.h"
 #include "pastel/sys/hashing/iteratoraddress_hash.h"
 #include "pastel/sys/hashing/dereferenced_hash.h"
+#include "pastel/sys/predicate/dereferenced_predicate.h"
 
 #include <list>
 #include <unordered_set>

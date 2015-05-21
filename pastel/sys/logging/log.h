@@ -5,14 +5,6 @@
 #ifndef PASTELSYS_LOG_H
 #define PASTELSYS_LOG_H
 
-namespace Pastel
-{
-
-	class Log;
-	Log& log();
-
-}
-
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/logging/logger_fwd.h"
 #include "pastel/sys/printable/printable_concept.h"

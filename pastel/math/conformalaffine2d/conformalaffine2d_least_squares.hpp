@@ -8,15 +8,13 @@ namespace Pastel
 
 	template <
 		typename From_PointSet, 
-		typename To_PointSet>
+		typename To_PointSet,
+		typename>
 	ConformalAffine2D<PointSet_Real<From_PointSet>> 
 		lsConformalAffine(
 			From_PointSet fromSet,
 			To_PointSet toSet)
 	{
-		PASTEL_CONCEPT_CHECK(From_PointSet, PointSet_Concept);
-		PASTEL_CONCEPT_CHECK(To_PointSet, PointSet_Concept);
-
 		using Real = PointSet_Real<From_PointSet>;
 		using FromPoint =  PointSet_Point<From_PointSet>;
 		using ToPoint = PointSet_Point<To_PointSet>;

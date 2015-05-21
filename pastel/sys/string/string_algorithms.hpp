@@ -4,6 +4,7 @@
 #include "pastel/sys/string/string_algorithms.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/math/constants.h"
+#include "pastel/sys/real/real_concept.h"
 
 #include <algorithm>
 #include <sstream>

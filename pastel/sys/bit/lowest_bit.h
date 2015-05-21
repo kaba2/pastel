@@ -4,8 +4,8 @@
 #ifndef PASTELSYS_LOWEST_BIT_H
 #define PASTELSYS_LOWEST_BIT_H
 
-#include "pastel/sys/integer/finite_integer_concept.h"
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/integer/finite_integer_concept.h"
 
 namespace Pastel
 {
@@ -16,7 +16,13 @@ namespace Pastel
 	The index of the lowest 1-bit, if non-zero.
 	Otherwise -1.
 	*/
-	template <typename Finite_Integer>
+	template <
+		typename Finite_Integer,
+		typename = 
+			Requires<
+				Models<Finite_Integer, Finite_Integer_Concept>
+			>
+	>
 	integer lowestBit(const Finite_Integer& data);
 
 }

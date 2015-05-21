@@ -11,11 +11,16 @@ namespace Pastel
 {
 
 	//! Returns the size of a point-set.
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		typename Constraint =
+			Requires<
+				Models<PointSet, PointSet_Concept>
+			>
+	>
 	integer pointSetSize(
 		const PointSet& pointSet)
 	{
-		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 		return pointSetInput(pointSet).n();
 	}
 

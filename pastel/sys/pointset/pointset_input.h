@@ -38,10 +38,15 @@ namespace Pastel
 	}
 
 	//! Returns the point-input.
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		typename Constraint =
+			Requires<
+				Models<PointSet, PointSet_Concept>
+			>
+	>
 	decltype(auto) pointSetInput(PointSet&& pointSet)
 	{
-		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 		return PointSet_::pointSetInput(std::forward<PointSet>(pointSet));
 	}
 

@@ -9,11 +9,11 @@
 namespace Pastel
 {
 
-	template <typename Finite_Integer>
+	template <
+		typename Finite_Integer,
+		typename>
 	integer lowestBit(const Finite_Integer& data)
 	{
-		PASTEL_CONCEPT_CHECK(Finite_Integer, Finite_Integer_Concept);
-
 		if (zero(data))
 		{
 			return -1;

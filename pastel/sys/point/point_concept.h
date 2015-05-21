@@ -5,6 +5,7 @@
 
 #include "pastel/sys/locator/location.h"
 #include "pastel/sys/type_traits/or.h"
+#include "pastel/sys/type_traits/is_template_instance.h"
 
 namespace Pastel
 {
