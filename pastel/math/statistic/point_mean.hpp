@@ -8,7 +8,8 @@ namespace Pastel
 
 	template <
 		typename PointSet,
-		typename>
+		Requires<Models<PointSet, PointSet_Concept>>
+	>
 	auto pointMean(PointSet pointSet)
 		-> Vector<PointSet_Real<PointSet>, Locator_N<PointSet_Locator<PointSet>>::value>
 	{

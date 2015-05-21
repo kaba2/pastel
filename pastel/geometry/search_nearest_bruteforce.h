@@ -96,13 +96,12 @@ namespace Pastel
 		typename Point_Indicator = All_Indicator,
 		typename NormBijection = Euclidean_NormBijection<NearestSet_Real<NearestSet>>,
 		typename Set_Optionals = Null_Output,
-		typename = 
-			Requires<
-				Models<Search_Point, Point_Concept>,
-				Models<Point_Indicator, Indicator_Concept(NearestSet_Point<NearestSet>)>,
-				Models<NormBijection, NormBijection_Concept>
-			>
-		>
+		Requires<
+			Models<Search_Point, Point_Concept>,
+			Models<Point_Indicator, Indicator_Concept(NearestSet_Point<NearestSet>)>,
+			Models<NormBijection, NormBijection_Concept>
+		> = 0
+	>
 	auto searchNearest(
 		const BruteForce_NearestSet<Settings>& nearestSet,
 		const Search_Point& searchPoint,

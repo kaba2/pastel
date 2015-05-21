@@ -101,18 +101,17 @@ namespace Pastel
 	template <
 		typename KdTree,
 		typename SearchPoint,
-		typename ConceptCheck = 
-			Requires<
-				// Visual Studio 2015 RC has bugs which cause these
-				// commented stuff to fail.
-				//Models<NormBijection, NormBijection_Concept>,
-				Or<
-					IsPointKdTree<KdTree>,
-					IsTdTree<KdTree>
-				>
-				//Models<NearestOutput, Output_Concept(?)>,
-				//Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
-			>,
+		Requires<
+			// Visual Studio 2015 RC has bugs which cause these
+			// commented stuff to fail.
+			//Models<NormBijection, NormBijection_Concept>,
+			Or<
+				IsPointKdTree<KdTree>,
+				IsTdTree<KdTree>
+			>
+			//Models<NearestOutput, Output_Concept(?)>,
+			//Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
+		> = 0,
 		typename NearestOutput = Null_Output,
 		typename Indicator = All_Indicator,
 		typename Locator = typename KdTree::Locator,
