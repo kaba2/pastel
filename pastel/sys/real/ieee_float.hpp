@@ -2,6 +2,7 @@
 #define PASTELSYS_IEEE_FLOAT_HPP
 
 #include "pastel/sys/real/ieee_float.h"
+#include "pastel/sys/bit/bitmask.h"
 
 namespace Pastel
 {
