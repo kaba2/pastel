@@ -38,8 +38,6 @@ namespace Pastel
 	template <typename Real, EnableIf<std::is_floating_point<Real>>>
 	integer roundUpToOdd(const Real& that)
 	{
-		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
-
 		return Pastel::roundUpToOdd((integer)ceil(that));
 	}
 

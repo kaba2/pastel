@@ -12,6 +12,7 @@
 // See concept.txt for why native types must be 
 // defined _before_ the concept.
 #include "pastel/sys/real/native_real.h"
+#include "pastel/sys/integer/native_integer.h"
 
 namespace Pastel
 {

@@ -4,7 +4,11 @@
 #ifndef PASTELSYS_NATIVE_REAL_H
 #define PASTELSYS_NATIVE_REAL_H
 
-#include "pastel/sys/real/real_concept.h"
+// See concept.txt on why real_concept.h must not
+// be included here.
+//#include "pastel/sys/real/real_concept.h"
+
+#include "pastel/sys/real/scientific_notation_fwd.h"
 #include "pastel/sys/real/ieee_float.h"
 
 #include <limits>

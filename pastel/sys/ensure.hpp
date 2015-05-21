@@ -27,6 +27,10 @@ namespace Pastel
 			throw InvariantFailure();
 		}
 
+		inline void reportParameters()
+		{
+		}
+
 		template <
 			typename Type,
 			typename... TypeSet>
@@ -41,10 +45,6 @@ namespace Pastel
 			}
 
 			reportParameters(parameterSet...);
-		}
-
-		inline void reportParameters()
-		{
 		}
 
 		template <typename... TypeSet>

@@ -28,14 +28,13 @@ namespace Pastel
 			typename... T,
 			typename = Code<T...>
 			>
-		static std::true_type test();
+		static std::true_type test(T&&...);
 		
-		template <typename... T>
 		static std::false_type test(...);
 
 	public:
 		static constexpr bool value =
-			decltype(test<TypeSet...>())::value;
+			decltype(test(std::declval<TypeSet>()...))::value;
 	};
 
 }

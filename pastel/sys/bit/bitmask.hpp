@@ -3,6 +3,7 @@
 
 #include "pastel/sys/bit/bitmask.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/integer/integer_concept.h"
 
 namespace Pastel
 {

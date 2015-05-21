@@ -4,7 +4,7 @@
 #define PASTELSYS_IEEE_FLOAT_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/real/scientific_notation.h"
+#include "pastel/sys/real/scientific_notation_fwd.h"
 
 #include <type_traits>
 
