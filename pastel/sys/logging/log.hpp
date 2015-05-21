@@ -79,7 +79,8 @@ namespace Pastel
 
 	template <
 		typename Type,
-		typename>
+		Requires<Models<Type, Printable_Concept>>
+	>
 	Log& Log::operator<<(const Type& value)
 	{
 		*this << asString(value);

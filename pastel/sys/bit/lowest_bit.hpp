@@ -11,7 +11,8 @@ namespace Pastel
 
 	template <
 		typename Finite_Integer,
-		typename>
+		Requires<Models<Finite_Integer, Finite_Integer_Concept>>
+	>
 	integer lowestBit(const Finite_Integer& data)
 	{
 		if (zero(data))

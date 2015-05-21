@@ -156,26 +156,25 @@ namespace
 
 		template <
 			typename Type,
-			typename ConceptCheck = 
-				Requires<
-					Or<
-						And<
-							std::is_same<void, void>,
-							std::is_same<Type, void>,
-							std::is_same<void, Type>,
-							std::is_same<Type, Type>,
-							std::is_fundamental<Type>
-						>,
-						And<
-							std::is_same<int, int>,
-							std::is_same<Type, int>,
-							std::is_same<int, Type>,
-							std::is_same<Type, Type>,
-							std::is_integral<Type>
-						>
+			Requires<
+				Or<
+					And<
+						std::is_same<void, void>,
+						std::is_same<Type, void>,
+						std::is_same<void, Type>,
+						std::is_same<Type, Type>,
+						std::is_fundamental<Type>
 					>,
-					std::is_same<Type, Type>
-				>
+					And<
+						std::is_same<int, int>,
+						std::is_same<Type, int>,
+						std::is_same<int, Type>,
+						std::is_same<Type, Type>,
+						std::is_integral<Type>
+					>
+				>,
+				std::is_same<Type, Type>
+			> = 0
 		>
 		std::true_type m();
 

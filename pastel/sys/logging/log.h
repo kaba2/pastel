@@ -36,11 +36,8 @@ namespace Pastel
 
 		template <
 			typename Type,
-			typename = 
-				Requires<
-					Models<Type, Printable_Concept>
-				>
-			>
+			Requires<Models<Type, Printable_Concept>> = 0
+		>
 		Log& operator<<(const Type& value);
 		
 		Log& operator<<(void (*function)(Log&));

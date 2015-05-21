@@ -13,10 +13,7 @@ namespace Pastel
 	//! Returns the dimension of a point-set.
 	template <
 		typename PointSet,
-		typename Constraint =
-			Requires<
-				Models<PointSet, PointSet_Concept>
-			>
+		Requires<Models<PointSet, PointSet_Concept>> = 0
 	>
 	integer pointSetDimension(
 		const PointSet& pointSet)

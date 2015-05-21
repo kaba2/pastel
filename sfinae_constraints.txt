@@ -116,6 +116,8 @@ The disadvantage is that this does not always work:
 
 Rather than dividing `f` in two cases, this redefines the same function `f`; the return-type, the parameters, and the template-parameters are equal, and the default template-parameter does not differentiate the two.
 
+_Since such overloads may need to be added later, this technique should be avoided._
+
 ### SFINAE-constraint in a template-parameter value (C++11)
 
 The SFINAE-constraint can be placed in a template-parameter value:
@@ -126,10 +128,7 @@ The SFINAE-constraint can be placed in a template-parameter value:
 		EnableIf<std::is_integral<Type>>* = 0>
 	Type f(Type that);
 
-The disadvantages are that:
-
-* there is an extraneous template-parameter which has no meaning for the user, and
-* the constraint has to be repeated in the definition.
+The disadvantage is that there is an extraneous template-parameter which has no meaning for the user.
 
 ### SFINAE-constraint in a template-parameter value-pack (C++11)
 
@@ -141,21 +140,16 @@ The SFINAE-constraint can be placed in a template-parameter value-pack:
 		EnableIf<std::is_integral<Type>>...>
 	Type f(Type that);
 
-The disadvantages are that:
-
-* there is an extraneous template-parameter pack which has no meaning for the user, and
-* the constraint has to be repeated in the definition.
-
-Since the `Enabler` is only declared, not defined, the user can never provide the parameters for the template-parameter pack. 
+The disadvantage is that there is an extraneous template-parameter which has no meaning for the user. However, since the `Enabler` is only declared --- not defined --- the user can never provide the parameters for the template-parameter pack. 
 
 ### Choice in Pastel
 
-Storing the SFINAE-constraint in the template-parameter value-pack seems like a good approach. Unfortunately, Visual Studio 2015 RC has a bug in the compiler, and cannot deal with it. Therefore, for the time being, we chose to store the SFINAE-constraint in a template-parameter value. In cases where a long constraint would replicated into the definition, we may also store the SFINAE-constraint into the template-parameter type.
+We choose to store the SFINAE-constraint either in a template-parameter value or in a template-parameter value-pack. We prefer the latter. Unfortunately, Visual Studio 2015 RC has a bug in the compiler, and cannot deal with it. Therefore, for the time being, we choose to store the SFINAE-constraint in a template-parameter value. 
 
 Standard library
 ----------------
 
-The C++ Standard library provides the `std::enable_if_t` template, for which `std::enable_if_t<Condition, Type>` is equivalent to `EnableIfC<Condition, Type>`, and `std::enable_if_t<Condition>` is equivalent to `EnableIfC<Condition, void>`. Pastel uses `EnableIf`, `EnableIfC`, `DisableIf`, and `DisableIfC`.
+The C++ Standard library provides the `std::enable_if_t` template, for which `std::enable_if_t<Condition, Type>` is equivalent to `EnableIfC<Condition, Type>`, and `std::enable_if_t<Condition>` is equivalent to `EnableIfC<Condition, void>`. Pastel provides and uses `EnableIf`, `EnableIfC`, `DisableIf`, and `DisableIfC`.
 
 Future
 ------

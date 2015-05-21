@@ -25,10 +25,7 @@ namespace Pastel
 	*/
 	template <
 		typename PointSet,
-		typename Constraint =
-			Requires<
-				Models<PointSet, PointSet_Concept>
-		>
+		Requires<Models<PointSet, PointSet_Concept>> = 0
 	>
 	auto pointMean(PointSet pointSet)
 		-> Vector<PointSet_Real<PointSet>, Locator_N<PointSet_Locator<PointSet>>::value>;
