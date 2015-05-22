@@ -159,9 +159,9 @@ namespace
 			Requires<
 				Or<
 					And<
-						std::is_same<void, void>,
-						std::is_same<Type, void>,
-						std::is_same<void, Type>,
+						std::is_same<float, float>,
+						std::is_same<Type, float>,
+						std::is_same<float, Type>,
 						std::is_same<Type, Type>,
 						std::is_fundamental<Type>
 					>,
@@ -176,15 +176,15 @@ namespace
 				std::is_same<Type, Type>
 			> = 0
 		>
-		std::true_type m();
+		std::true_type m(Type);
 
-		template <typename Type>
 		std::false_type m(...);
 
 		void testComplex()
 		{
-			PASTEL_STATIC_ASSERT(decltype(m<void>())::value);
-			PASTEL_STATIC_ASSERT(decltype(m<int>())::value);
+			PASTEL_STATIC_ASSERT(decltype(m(1.0f))::value);
+			PASTEL_STATIC_ASSERT(decltype(m(1))::value);
+			PASTEL_STATIC_ASSERT(!decltype(m('a'))::value);
 		}
 
 		void testClass()

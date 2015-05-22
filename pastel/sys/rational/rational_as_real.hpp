@@ -150,14 +150,16 @@ namespace Pastel
 	bool negative(
 		const Rational<Integer>& that)
 	{
-		return Pastel::negative(that.m());
+		using Pastel::negative;
+		return negative(that.m());
 	}
 
 	template <typename Integer>
 	bool positive(
 		const Rational<Integer>& that)
 	{
-		return Pastel::positive(that.m());
+		using Pastel::positive;
+		return positive(that.m());
 	}
 
 }
@@ -171,7 +173,8 @@ namespace Pastel
 	bool zero(
 		const Rational<Integer>& that)
 	{
-		return Pastel::zero(that.m()) && !Pastel::zero(that.n());
+		using Pastel::zero;
+		return zero(that.m()) && !zero(that.n());
 	}
 
 }

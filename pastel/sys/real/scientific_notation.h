@@ -33,6 +33,8 @@ namespace Pastel
 
 	inline std::string asString(const ScientificNotation& scientific)
 	{
+		using Pastel::asString;
+
 		return std::string("(") + 
 			(scientific.negative ? "-" : "+") + 
 			", " +
@@ -44,9 +46,9 @@ namespace Pastel
 		// return 
 		// 	std::string(scientific.negative ? "-" : "") + 
 		// 	"1." + 
-		// 	Pastel::asString(scientific.mantissa) +
+		// 	asString(scientific.mantissa) +
 		// 	"e" +
-		// 	Pastel::asString(scientific.exponent);
+		// 	asString(scientific.exponent);
 	}
 
 }
