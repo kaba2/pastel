@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_NATIVE_FIELD_H
 #define PASTELSYS_NATIVE_FIELD_H
 
-#include "pastel/sys/sfinae_macros.h"
+#include "pastel/sys/sfinae.h"
 
 namespace Pastel
 {

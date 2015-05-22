@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_NATIVE_ADDITIVE_MONOID_H
 #define PASTELSYS_NATIVE_ADDITIVE_MONOID_H
 
-#include "pastel/sys/sfinae_macros.h"
+#include "pastel/sys/sfinae.h"
 
 namespace Pastel
 {

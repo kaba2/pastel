@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_CONCEPT_H
 #define PASTELSYS_CONCEPT_H
 
-#include "pastel/sys/sfinae_macros.h"
+#include "pastel/sys/sfinae.h"
 #include "pastel/sys/concept/refines.h"
 #include "pastel/sys/concept/models.h"
 
@@ -43,42 +43,44 @@ namespace Pastel
 	{
 
 		//! Checks whether 'that' has type Required.
+		/*!
+		Visual Studio 2015 RC has a bug in that the Requires
+		cannot be placed in the trailing return-type.
+		*/
 		template <
 			typename Required,
 			typename Type,
-			Requires<std::is_same<Type, Required>> = 0
-		>
+			Requires<std::is_same<Type, Required>> = 0>
 		bool hasType(Type&& that);
 
 		//! Checks whether Type is convertible to Required.
+		/*!
+		Visual Studio 2015 RC has a bug in that the Requires
+		cannot be placed in the trailing return-type.
+		*/
 		template <
 			typename Required, 
 			typename Type,
-			Requires<std::is_convertible<Type, Required>> = 0
-		>
+			Requires<std::is_convertible<Type, Required>> = 0>
 		bool convertsTo(Type&& that);
 
 		template <
 			typename Type, 
-			typename Concept,
-			Requires<Models<Type, Concept>> = 0
-		>
-		bool models();
+			typename Concept>
+		auto models()
+			-> Requires<Models<Type, Concept>>;
 
 		//! Checks whether a bool-meta-function is true.
-		template <
-			typename Required,
-			Requires<Required> = 0
-		>
-		bool holds();
+		template <typename Required>
+		auto holds()
+			-> Requires<Required>;
 
 		//! Checks whether the types of 'left' and 'right' agree.
 		template <
 			typename Left,
-			typename Right,
-			Requires<std::is_same<Left, Right>> = 0
-		>
-		bool sameTypes(Left&& left, Right&& right);
+			typename Right>
+		auto sameTypes(Left&& left, Right&& right)
+			-> Requires<std::is_same<Left, Right>>;
 
 		//! Checks whether Type is a valid type-expression.
 		template <typename Type>
