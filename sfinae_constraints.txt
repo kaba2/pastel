@@ -26,6 +26,8 @@ Constraining the overload set
 
 The SFINAE rule can be abused to constrain the parameter-types of a function/class template. This modifies which overload-sets the function/class participates in. 
 
+Using the SFINAE rule is --- as of May 2015 --- the only way to implement template constraints. It was not intended for this task, which shows in that it can make code harder to understand, and/or change the declaration in a way which is not meaningful to the user. A proper language support for template constraints is upcoming in the form of the Concepts Lite Technical Specification. 
+
 ### Example
 
 Suppose we have
@@ -34,12 +36,10 @@ Suppose we have
 	template <typename Type>
 	Type f(Type that);
 
-and would like to constrain `f` to only work on native integer types. We can do this with SFINAE as follows:
+and would like to constrain `f` to only work on native integer types. We can achieve this using SFINAE as follows:
 
 [[CppCode]]:
-	enum class Enabler;
-
-	template <bool Condition, typename Type = Enabler>
+	template <bool Condition, typename Type = int>
 	struct RequiresC_F
 	{
 		using type = Type;
@@ -59,15 +59,15 @@ and would like to constrain `f` to only work on native integer types. We can do 
 
 	template <
 		typename Type,
-		Requires<std::is_integral<Type>...>
+		Requires<std::is_integral<Type> = 0>
 	Type f(Type that);
 
-When `f` is called with something else than a native integer type, the `std::integral<Type>::value` evaluates to `false`, and the latter template-parameter becomes `typename RequiresC_F<false>::type...`. Since `RequiresC_F<false>` does not contain a `type` member, an error occurs. Since the error occurs due to a  substitution in a template declaration, the SFINAE rule applies, and the function is removed from the overload set.
+When `f` is called with something else than a native integer type, the `std::integral<Type>::value` evaluates to `false`, and the latter template-parameter becomes `typename RequiresC_F<false>::type`. Since `RequiresC_F<false>` does not contain a `type` member, an error occurs. Since the error occurs due to a  substitution in a template declaration, the SFINAE rule applies, and the function is removed from the overload set.
 
 Where to place the SFINAE-constraint
 ------------------------------------
 
-The SFINAE-constraint can be embedded in many ways into the declaration; some choices are better than others. Knowing the choices is useful when the compiler has bugs in its SFINAE implementation (i.e. Visual C++ 2015 RC); usually one of them works.
+The SFINAE-constraint can be embedded in many ways into the declaration; some choices are better than others. Knowing all of them is useful for working around bugs in the compiler (i.e. Visual C++ 2015 RC); if one does not work, then usually some other does.
 
 ### SFINAE-constraint in a parameter-type
 
@@ -85,7 +85,7 @@ The SFINAE-constraint can be placed in a parameter-type:
 
 [[CppCode]]:
 	template <typename Type>
-	Type f(Type that, Requires<std::is_integral<Type>>* = 0);
+	Type f(Type that, Requires<std::is_integral<Type>> = 0);
 
 The disadvantage is that the function is harder to understand, since there is an extraneous parameter which is not meaningful to the user.
 
@@ -99,22 +99,16 @@ The SFINAE-constraint can be placed in a template-parameter type:
 		typename = Requires<std::is_integral<Type>>>
 	Type f(Type that);
 
-The disadvantage is that this does not always work:
+The disadvantage is that this does not allow for constraint-based overloading. Suppose we later add the following overload:
 
 [[CppCode]]:
 	template <
 		typename Type,
 		typename = RequiresC<!std::is_integral<Type>::value>>
-	void f()
+	Type f(Type that)
 	{}
 
-	template <
-		typename Type,
-		typename = RequiresC<std::is_integral<Type>>>
-	void f()
-	{}
-
-Rather than dividing `f` in two cases, this redefines the same function `f`; the return-type, the parameters, and the template-parameters are equal, and the default template-parameter does not differentiate the two.
+Rather than dividing `f` into two cases, this redefines the same function template `f`; the return-type, the parameters, and the template-parameters are equal, and the default template-parameter does not differentiate the two.
 
 _Since such overloads may need to be added later, this technique should be avoided._
 
@@ -125,10 +119,14 @@ The SFINAE-constraint can be placed in a template-parameter literal:
 [[CppCode]]:
 	template <
 		typename Type,
-		Requires<std::is_integral<Type>>* = 0>
+		Requires<std::is_integral<Type>> = 0>
 	Type f(Type that);
 
-The disadvantage is that there is an extraneous template-parameter which has no meaning for the user.
+The disadvantage is that there is an extraneous template-parameter which has no meaning for the user:
+
+[[CppCode]]:
+	// This is a valid call.
+	f<int, 1>(4);
 
 ### SFINAE-constraint in a template-parameter literal-pack (C++11)
 
@@ -140,18 +138,25 @@ The SFINAE-constraint can be placed in a template-parameter literal-pack:
 		Requires<std::is_integral<Type>>...>
 	Type f(Type that);
 
-The disadvantage is that there is an extraneous template-parameter which has no meaning for the user. However, since the `Enabler` is only declared --- not defined --- the user can never provide the parameters for the template-parameter pack. 
+The disadvantage is that there is an extraneous template-parameter-pack which has no meaning for the user:
 
-### Choice in Pastel
+[[CppCode]]:
+	// This is a valid call.
+	f<int, 1, 2, 3>(4);
 
-We choose to store the SFINAE-constraint either in a template-parameter literal or in a template-parameter literal-pack. We prefer the latter. Unfortunately, Visual Studio 2015 RC has a bug in the compiler, and cannot deal with it. Therefore, for the time being, we choose to store the SFINAE-constraint in a template-parameter literal. 
+An advantage of this technique over the literal one is that the default template-parameter need not be specified. Then the type underlying `Requires` (now `int`) can be changed to `enum class Enabler` --- which is declared, but not defined. This makes it impossible for the user to provide template-arguments in the literal-pack.
+
+_Visual C++ 2015 RC has a bug in the compiler, and cannot deal with the literal-pack approach._
+
+Pastel
+------
+
+In Pastel, we choose to store the SFINAE-constraint in a template-parameter literal --- unless we need to work around a bug in the compiler. 
+
+The `Requires` type in this section corresponds to `EnableIf` in the library. The `Requires` type in the library takes a template-pack of conditions, combines them with logical-and, and passes that to `EnableIf`.
 
 Standard library
 ----------------
 
 The C++ Standard library provides the `std::enable_if_t` template, for which `std::enable_if_t<Condition, Type>` is equivalent to `RequiresC<Condition, Type>`, and `std::enable_if_t<Condition>` is equivalent to `RequiresC<Condition, void>`. Pastel provides and uses `Requires`, `RequiresC`, `DisableIf`, and `DisableIfC`.
 
-Future
-------
-
-Using the SFINAE rule is --- as of May 2015 --- the only way to implement template constraints. It was not intended for this task, which shows in that it makes code harder to understand, and that it changes the declaration itself in a way which is not meaningful to the user. A proper language support for template constraints is upcoming in the form of the Concepts Lite Technical Specification. 
