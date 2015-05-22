@@ -204,7 +204,7 @@ namespace Pastel
 
 #include "pastel/sys/deduction_macros.h"
 #include "pastel/sys/no_op_functions.h"
-#include "pastel/sys/sfinae_macros.h"
+#include "pastel/sys/sfinae.h"
 #include "pastel/sys/iterator_macros.h"
 #include "pastel/sys/settings_type.h"
 #include "pastel/sys/named_parameter.h"

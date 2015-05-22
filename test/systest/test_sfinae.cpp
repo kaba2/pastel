@@ -1,9 +1,9 @@
 // Description: Testing for SFINAE
-// DocumentationOf: sfinae_macros.h
+// DocumentationOf: sfinae.h
 
 #include "test_pastelsys.h"
 
-#include <pastel/sys/sfinae_macros.h>
+#include <pastel/sys/sfinae.h>
 
 using namespace Pastel;
 
