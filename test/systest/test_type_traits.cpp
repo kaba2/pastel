@@ -110,13 +110,25 @@ namespace
 			PASTEL_STATIC_ASSERT((IsTemplateInstance<A1, A_Template>::value));
 			PASTEL_STATIC_ASSERT((IsTemplateInstance<A2, A_Template>::value));
 
+			PASTEL_STATIC_ASSERT((IsTemplateInstance<const volatile A0&, A_Template>::value));
+			PASTEL_STATIC_ASSERT((IsTemplateInstance<const volatile A1&, A_Template>::value));
+			PASTEL_STATIC_ASSERT((IsTemplateInstance<const volatile A2&, A_Template>::value));
+
 			PASTEL_STATIC_ASSERT((!IsTemplateInstance<B0, A_Template>::value));
 			PASTEL_STATIC_ASSERT((!IsTemplateInstance<B1, A_Template>::value));
 			PASTEL_STATIC_ASSERT((!IsTemplateInstance<B2, A_Template>::value));
 
+			PASTEL_STATIC_ASSERT((!IsTemplateInstance<const volatile B0&, A_Template>::value));
+			PASTEL_STATIC_ASSERT((!IsTemplateInstance<const volatile B1&, A_Template>::value));
+			PASTEL_STATIC_ASSERT((!IsTemplateInstance<const volatile B2&, A_Template>::value));
+
 			PASTEL_STATIC_ASSERT((IsTemplateInstance<B0, B_Template>::value));
 			PASTEL_STATIC_ASSERT((IsTemplateInstance<B1, B_Template>::value));
 			PASTEL_STATIC_ASSERT((IsTemplateInstance<B2, B_Template>::value));
+
+			PASTEL_STATIC_ASSERT((IsTemplateInstance<const volatile B0&&, B_Template>::value));
+			PASTEL_STATIC_ASSERT((IsTemplateInstance<const volatile B1&&, B_Template>::value));
+			PASTEL_STATIC_ASSERT((IsTemplateInstance<const volatile B2&&, B_Template>::value));
 
 			PASTEL_STATIC_ASSERT((!IsTemplateInstance<A0, B_Template>::value));
 			PASTEL_STATIC_ASSERT((!IsTemplateInstance<A1, B_Template>::value));
