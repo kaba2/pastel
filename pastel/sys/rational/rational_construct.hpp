@@ -46,7 +46,11 @@ namespace Pastel
 	template <
 		typename M_Integer, 
 		typename N_Integer,
-		Requires<Rational_::AreNativeOrInteger<Integer, M_Integer, N_Integer>>>
+		Requires<
+				Rational_::IsNativeOrInteger<Integer, M_Integer>,
+				Rational_::IsNativeOrInteger<Integer, N_Integer>
+			>
+	>
 	Rational<Integer>::Rational(
 		M_Integer m,
 		N_Integer n)
