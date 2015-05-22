@@ -32,7 +32,8 @@ namespace
 		}
 
 		template <
-			typename = typename std::disable_if<true>::type>
+			typename Type,
+			typename = typename std::enable_if<!std::is_same<Type, Type>::value>::type>
 		struct FailingTest;
 
 		template <
@@ -42,7 +43,7 @@ namespace
 
 		void testCompiles()
 		{
-			PASTEL_STATIC_ASSERT(!Compiles<FailingTest>::value);
+			PASTEL_STATIC_ASSERT(!(Compiles<FailingTest, integer>::value));
 			PASTEL_STATIC_ASSERT((Compiles<IntegerTest, integer>::value));
 			PASTEL_STATIC_ASSERT(!(Compiles<IntegerTest, float>::value));
 		}

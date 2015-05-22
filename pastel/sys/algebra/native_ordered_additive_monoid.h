@@ -5,20 +5,31 @@
 
 #include <cstdlib>
 
+#define PASTEL_DEFINE_ABS(T) inline const T abs(T that) {return that;}
+
 namespace Pastel
 {
 
 	// Ordered additive monoid
 
-	template <
-		typename Type, 
-		Requires<std::is_unsigned<Type>> = 0>
-	const Type& abs(const Type& that)
-	{
-		// std::abs does not support unsigned types.
-		// An unsigned integer is already non-negative.
-		return that;
-	}
+	// The abs-functions for unsigned integers
+	// need to be defined as normal functions;
+	// a single function template constrained
+	// to unsigned integers will not do. The
+	// reason is that otherwise abs((uchar)1)
+	// is ambiguous between std::abs(int) and
+	// the template.
+	PASTEL_DEFINE_ABS(uchar)
+	PASTEL_DEFINE_ABS(uint)
+	PASTEL_DEFINE_ABS(ulong)
+	PASTEL_DEFINE_ABS(ulonglong)
+
+}
+
+#undef PASTEL_DEFINE_ABS
+
+namespace Pastel
+{
 
 	// Support abs() for floating-point and signed integers.
 	using std::abs;

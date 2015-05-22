@@ -58,8 +58,9 @@ namespace Pastel
 		>
 	std::string asString(Type that)
 	{
+		using Pastel::asString;
 		// Reduce enums to integers.
-		return Pastel::asString((std::underlying_type_t<Type>)that);
+		return asString((std::underlying_type_t<Type>)that);
 	}
 
 	inline std::string asString(std::string that)

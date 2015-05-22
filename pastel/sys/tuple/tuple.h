@@ -45,7 +45,8 @@ namespace Pastel
 
 	inline std::string asString(Dimension n)
 	{
-		return Pastel::asString((integer)n);
+		using Pastel::asString;
+		return asString((integer)n);
 	}
 
 	template <typename Type>

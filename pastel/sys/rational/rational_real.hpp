@@ -25,6 +25,9 @@ namespace Pastel
 				return -infinity<Real>();
 			case NumberType::Nan:
 				return nan<Real>();
+			default:
+				// Fall-through
+				;
 		};
 
 		// Finding the closest floating-point number is
@@ -53,10 +56,12 @@ namespace Pastel
 	template <typename Integer>
 	std::string Rational<Integer>::asStringRatio() const
 	{
-		std::string text = Pastel::asString(m());
+		using Pastel::asString;
+
+		std::string text = asString(m());
 		if (n() != 1)
 		{
-			text += "/" + Pastel::asString(n());
+			text += "/" + asString(n());
 		}
 		return text;
 	}
@@ -67,6 +72,8 @@ namespace Pastel
 		integer maxDigits,
 		bool showBase) const
 	{
+		using Pastel::asString;
+
 		ENSURE_OP(base, >=, 2);
 		ENSURE_OP(base, >=, 0);
 
@@ -79,6 +86,9 @@ namespace Pastel
 				return "-inf";
 			case NumberType::Nan:
 				return "nan";
+			default:
+				// Fall-through
+				;
 		};
 
 		// This is where the results is constructed.
@@ -99,7 +109,7 @@ namespace Pastel
 		m -= wholes * n();
 	
 		// Print the integer-part.
-		text += Pastel::asString(wholes);
+		text += asString(wholes);
 
 		if (!zero(m) && maxDigits > 0)
 		{
@@ -123,7 +133,7 @@ namespace Pastel
 		if (showBase)
 		{
 			// Print the base.
-			text += '_' + Pastel::asString(base);
+			text += '_' + asString(base);
 		}
 
 		return text;
