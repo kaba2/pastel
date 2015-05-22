@@ -69,9 +69,9 @@ Where to place the SFINAE-constraint
 
 The SFINAE-constraint can be embedded in many ways into the declaration; some choices are better than others. Knowing all of them is useful for working around bugs in the compiler (i.e. Visual C++ 2015 RC); if one does not work, then usually some other does.
 
-### SFINAE-constraint in a parameter-type
+### SFINAE-constraint in a return-type
 
-The SFINAE-constraint can be placed in the return-type:
+The SFINAE-constraint can be embedded into the return-type:
 
 [[CppCode]]:
 	template <typename Type>
@@ -81,7 +81,7 @@ The disadvantage is that the function is harder to understand, since the return-
 
 ### SFINAE-constraint in a parameter-type.
 
-The SFINAE-constraint can be placed in a parameter-type:
+The SFINAE-constraint can be embedded into a parameter-type:
 
 [[CppCode]]:
 	template <typename Type>
@@ -91,7 +91,7 @@ The disadvantage is that the function is harder to understand, since there is an
 
 ### SFINAE-constraint in a template-parameter type (C++11)
 
-The SFINAE-constraint can be placed in a template-parameter type:
+The SFINAE-constraint can be embedded into a template-parameter type:
 
 [[CppCode]]:
 	template <
@@ -114,7 +114,7 @@ _Since such overloads may need to be added later, this technique should be avoid
 
 ### SFINAE-constraint in a template-parameter literal (C++11)
 
-The SFINAE-constraint can be placed in a template-parameter literal:
+The SFINAE-constraint can be embedded into a template-parameter literal:
 
 [[CppCode]]:
 	template <
@@ -130,7 +130,7 @@ The disadvantage is that there is an extraneous template-parameter which has no 
 
 ### SFINAE-constraint in a template-parameter literal-pack (C++11)
 
-The SFINAE-constraint can be placed in a template-parameter literal-pack:
+The SFINAE-constraint can be embedded into a template-parameter literal-pack:
 
 [[CppCode]]:
 	template <
