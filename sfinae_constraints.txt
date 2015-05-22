@@ -67,7 +67,7 @@ When `f` is called with something else than a native integer type, the `std::int
 Where to place the SFINAE-constraint
 ------------------------------------
 
-The SFINAE-constraint can be embedded in many ways into the declaration; some choices are better than others.
+The SFINAE-constraint can be embedded in many ways into the declaration; some choices are better than others. Knowing the choices is useful when the compiler has bugs in its SFINAE implementation (i.e. Visual C++ 2015 RC); usually one of them works.
 
 ### SFINAE-constraint in a parameter-type
 
