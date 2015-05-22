@@ -317,6 +317,10 @@ namespace Pastel
 			sentinel->prev_ = sentinel;
 		}
 
+		/*
+		Visual Studio 2015 RC has a bug in that
+		we can't use RequiresC<...> = 0 here.
+		*/
 		template <
 			integer I,
 			typename = RequiresC<(I < IncidenceTypes)>
@@ -326,6 +330,10 @@ namespace Pastel
 			return partitionSet_[I];
 		}
 
+		/*
+		Visual Studio 2015 RC has a bug in that
+		we can't use RequiresC<...> = 0 here.
+		*/
 		template <
 			integer I,
 			typename = RequiresC<(I < IncidenceTypes)>
@@ -346,6 +354,10 @@ namespace Pastel
 			return (Incidence*)&sentinel_;
 		}
 
+		/*
+		Visual Studio 2015 RC has a bug in that
+		we can't use RequiresC<...> = 0 here.
+		*/
 		template <
 			integer I,
 			typename = RequiresC<(I < IncidenceTypes)>
