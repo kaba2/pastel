@@ -9,17 +9,13 @@
 //#include "pastel/sys/real/real_concept.h"
 
 #include "pastel/sys/real/scientific_notation_fwd.h"
-#include "pastel/sys/real/ieee_float.h"
 
+#include <type_traits>
 #include <limits>
 #include <cmath>
 
 namespace Pastel
 {
-
-	// Ring
-
-	// Operators *= and * are built-in.
 
 	// Real
 
@@ -30,8 +26,6 @@ namespace Pastel
 	{
 		return std::numeric_limits<Type>::infinity();
 	}
-
-	// Real (partial for integers)
 
 	template <
 		typename Type, 
@@ -75,6 +69,13 @@ namespace Pastel
 
 	using std::floor;
 	using std::ceil;
+
+}
+
+#include "pastel/sys/real/ieee_float.h"
+
+namespace Pastel
+{
 
 	template <
 		typename Type, 
