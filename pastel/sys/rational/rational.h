@@ -4,13 +4,12 @@
 #ifndef PASTELSYS_RATIONAL_H
 #define PASTELSYS_RATIONAL_H
 
-#include <pastel/sys/integer/integer_concept.h>
+#include "pastel/sys/integer/integer_concept.h"
+#include "pastel/sys/type_traits/and.h"
+#include "pastel/sys/type_traits/or.h"
+#include "pastel/sys/type_traits/not.h"
 
 #include <boost/operators.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/or.hpp>
 
 namespace Pastel
 {
@@ -18,40 +17,30 @@ namespace Pastel
 	namespace Rational_
 	{
 
-		template <typename That_Integer>
-		struct IsNative
-			: std::is_integral<That_Integer> 
-		{};
+		template <
+			typename Integer,
+			typename That_Integer>
+		using IsInteger =
+			And<
+				Not<std::is_integral<That_Integer>>, 
+				std::is_same<That_Integer, Integer>
+			>;
 
 		template <
 			typename Integer,
 			typename That_Integer>
-		struct IsInteger
-			: boost::mpl::and_<
-			boost::mpl::not_<std::is_integral<That_Integer>>, 
-			std::is_same<That_Integer, Integer>>
-		{};
-
-		template <
-			typename Integer,
-			typename That_Integer>
-		struct IsNativeOrInteger
-			: boost::mpl::or_<
-			IsNative<That_Integer>,
-			IsInteger<Integer, That_Integer>> 
-		{};
-
-		template <
-			typename Integer, 
-			typename Left_Integer, 
-			typename Right_Integer>
-		struct AreNativeOrInteger
-			: boost::mpl::and_<
-			IsNativeOrInteger<Integer, Left_Integer>,
-			IsNativeOrInteger<Integer, Right_Integer>> 
-		{};
+		using IsNativeOrInteger =
+			Or<
+				std::is_integral<That_Integer>,
+				IsInteger<Integer, That_Integer>
+			>;
 
 	}
+
+}
+
+namespace Pastel
+{
 
 	//! A rational number.
 	template <typename Integer_>
@@ -95,7 +84,11 @@ namespace Pastel
 		template <
 			typename M_Integer, 
 			typename N_Integer,
-			Requires<Rational_::AreNativeOrInteger<Integer, M_Integer, N_Integer>> = 0>
+			Requires<
+				Rational_::IsNativeOrInteger<Integer, M_Integer>,
+				Rational_::IsNativeOrInteger<Integer, N_Integer>
+			> = 0
+		>
 		Rational(
 			M_Integer m,
 			N_Integer n);
