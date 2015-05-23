@@ -245,6 +245,9 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
 		# Compiler warns 'that >= 0' is always true for an 
 		# unsigned integer.
 		-Wno-tautological-compare
+		# Absolute value function on unsigned types.
+		-Wno-absolute-value
+		-Wno-unsupported-friend
 	)
 endif()
 

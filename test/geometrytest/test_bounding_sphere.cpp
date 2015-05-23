@@ -31,7 +31,7 @@ namespace
 		{
 			{
 				using Point = std::array<real, 2>;
-				Point a = { -1, 0 };
+				Point a = { {-1, 0} };
 				PASTEL_CONCEPT_CHECK(Point, Point_Concept);
 				PASTEL_CONCEPT_REJECT(Point, PointSet_Concept);
 				Sphere<real, 2> bound = boundingSphere(a);
@@ -40,8 +40,8 @@ namespace
 				TEST_ENSURE(norm(bound.position() - Vector2(-1, 0)) < 0.001);
 			}
 			{
-				std::array<real, 2> a = { -1, 0 };
-				std::array<real, 2> b = { 1, 0 };
+				std::array<real, 2> a = { {-1, 0} };
+				std::array<real, 2> b = { {1, 0} };
 				Sphere<real, 2> bound = boundingSphere(a, b);
 
 				TEST_ENSURE(abs(bound.radius() - 1) < 0.001);
