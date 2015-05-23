@@ -70,7 +70,7 @@ namespace
 
 		void testAsVector()
 		{
-			std::array<real, 2> p = { 1, 2 };
+			std::array<real, 2> p = { {1, 2} };
 			Vector<real, 2> q = pointAsVector(p);
 			TEST_ENSURE((q == Vector<real, 2>(1, 2)));
 		}
