@@ -7,8 +7,6 @@
 #include "pastel/sys/algebra/ordered_field_concept.h"
 #include "pastel/sys/real/scientific_notation_fwd.h"
 
-#include <type_traits>
-
 // See concept.txt for why native types must be 
 // defined _before_ the concept.
 #include "pastel/sys/real/native_real.h"
@@ -43,13 +41,19 @@ namespace Pastel
 				//! Constructs from a double.
 				Type((double)0),
 				//! Returns infinity.	
-				Concept::convertsTo<Type>(infinity<Type>()),
+				/*!
+				See concept.txt on why the requirement cannot be checked.
+				*/
+				//Concept::convertsTo<Type>(infinity<Type>()),
 				//! Returns whether a number is infinity.
 				Concept::convertsTo<bool>(isInfinity(t)),
 				//! Returns whether a number is -infinity.
 				Concept::convertsTo<bool>(isMinusInfinity(t)),
 				//! Returns not-a-number.	
-				Concept::convertsTo<Type>(nan<Type>()),
+				/*!
+				See concept.txt on why the requirement cannot be checked.
+				*/
+				//Concept::convertsTo<Type>(nan<Type>()),
 				//! Returns whether a number is not-a-number.
 				Concept::convertsTo<bool>(isNan(t)),
 				//! Returns 1 / that.	
