@@ -29,7 +29,7 @@
 		"release/*",
 		"lib/*",
 		"bin/*",
-		"build/*",
+		"build*",
 		"*CMake*",
 		".hg*",
 		".DS_Store",
