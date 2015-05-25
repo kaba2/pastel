@@ -111,4 +111,12 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	template <typename TdTree>
+	using TdTree_Locator = typename TdTree::Locator;
+
+}
+
 #endif
