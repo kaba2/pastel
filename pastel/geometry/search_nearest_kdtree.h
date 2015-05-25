@@ -155,6 +155,9 @@ namespace Pastel
 		PASTEL_FWD(Cursor);
 		PASTEL_FWD(Point_ConstIterator);
 
+		using IndexSequence = 
+			typename ToIndexSequence<IntervalSequence>::type;
+
 		struct Optionals
 		{
 			integer k = 1;
@@ -205,8 +208,87 @@ namespace Pastel
 			return notFound;
 		}
 
-		using IndexSequence = 
-			typename ToIndexSequence<IntervalSequence>::type;
+        // The temporal restriction is given as a union
+        // of time-intervals. Convert the time-points to
+        // indices in the point-set.
+		IndexSequence indexSequence(timeIntervalSequence);
+		for (integer i = 0;i < timeIntervalSequence.size();i += 2)
+		{
+			indexSequence[i] = kdTree.timeToIndex(
+				timeIntervalSequence[i]);
+			
+			if (i + 1 < timeIntervalSequence.size())
+			{
+				indexSequence[i + 1] = kdTree.timeToIndex(
+					timeIntervalSequence[i + 1]);
+			}
+		}
+
+		// This set contains the points currently closest
+		// to the search-point. There will be at most
+		// k elements in this set.
+		using ResultSet = std::set<Result>;
+		ResultSet resultSet;
+
+		auto considerPoint = [&](
+			const Real& distance2,
+			const Point_ConstIterator& iter)
+		{
+			if (resultSet.size() == k)
+			{
+				// There are k candidates already.
+
+				Real farthestDistance2 = 
+					resultSet.empty() ? 
+					infinity<Real>() :
+					std::prev(resultSet.end())->first;
+				if (distance2 < farthestDistance2)
+				{
+					// The new candidate is closer
+					// than the farthest candidate.
+
+					// Remove the farthest candidate.
+					resultSet.erase(
+						std::prev(resultSet.end()));
+				}
+				else
+				{
+					// The new candidate is farther
+					// than the farthest candidate.
+					return farthestDistance2;
+				}
+			}
+
+			// There are now less than k candidates
+			// in the candidate set.
+			ASSERT_OP(resultSet.size(), <, k)
+
+			// Add the new candidate.
+			resultSet.emplace(distance2, iter);
+
+			if (resultSet.size() == k)
+			{
+				// Since the candidate set contains k
+				// elements, everything beyond the
+				// farthest candidate can be rejected.
+				return std::prev(resultSet.end())->first;
+			}
+
+			// There are less than k candidate elements;
+			// we cannot yet reject any points based
+			// on distance.
+			return infinity<Real>();
+		};
+
+		// This is the condition for keeping computing
+		// the distance to the search-point component
+		// by component, used by distance2().
+		auto keepGoing = [&](const Real& that)
+		{
+			// Stop computing the distance if it exceeds
+			// the culling distance.
+			return that < cullDistance2;
+		};
 
 		struct State
 		: boost::less_than_comparable<State>
@@ -231,42 +313,10 @@ namespace Pastel
 			IndexSequence indexSequence;
 		};
 
-		typedef typename SearchAlgorithm_KdTree::template Instance<State>
-			SearchAlgorithm;
-
-		SearchAlgorithm searchAlgorithm;
-
-		using NearestSet = std::set<Result>;
-		NearestSet nearestSet;
-
-		auto considerPoint = [&](
-			const Real& distance,
-			const Point_ConstIterator& iter)
-		{
-			nearestSet.emplace(distance, iter);
-			if (nearestSet.size() > k)
-			{
-				nearestSet.erase(
-					std::prev(nearestSet.end()));
-			}
-
-			if (nearestSet.size() == k)
-			{
-				return std::prev(nearestSet.end())->first;
-			}
-
-			return infinity<Real>();
-		};
-
-		auto keepGoing = [&](const Real& that)
-		{
-			return that < cullDistance2;
-		};
-
+        // This is used to search through the points in 
+        // a node using brute-force.
 		auto searchBruteForce = [&](const State& state)
         {
-            // Search through the points in this node.
-
             // Each searched node is selected such that either
             // * the node is a leaf node, or
             // * the node has at most nBruteForce points.
@@ -279,8 +329,9 @@ namespace Pastel
 				// For each pair of integers in the index-sequence...
 
 				// The index-sequence is a sequence of integer 
-				// pairs (i, j). 
-
+				// pairs (i, j). If the index-sequence has an odd
+				// number of elements, then the last index is
+				// implicitly taken to be infinity.
 				integer indexMin = indexSequence[i];
 				integer indexMax = (i + 1) < indexSequence.size() ?
 					indexSequence[i + 1] : cursor.points();
@@ -302,7 +353,7 @@ namespace Pastel
 							keepGoing
 						);
 
-					// Reject the point if the user reject its or if we
+					// Reject the point if the user rejects it or if we
 					// already know the point cannot be among k nearest
 					// neighbors. Remember that we are using an open 
 					// search ball.
@@ -327,18 +378,10 @@ namespace Pastel
 			}
         };
 
-		IndexSequence indexSequence(timeIntervalSequence);
-		for (integer i = 0;i < timeIntervalSequence.size();i += 2)
-		{
-			indexSequence[i] = kdTree.timeToIndex(
-				timeIntervalSequence[i]);
-			
-			if (i + 1 < timeIntervalSequence.size())
-			{
-				indexSequence[i + 1] = kdTree.timeToIndex(
-					timeIntervalSequence[i + 1]);
-			}
-		}
+		typedef typename SearchAlgorithm_KdTree::template Instance<State>
+			SearchAlgorithm;
+
+		SearchAlgorithm searchAlgorithm;
 
 		// Start from the root node.
 		searchAlgorithm.insertNode(
@@ -481,12 +524,12 @@ namespace Pastel
 			}
 		}
 
-		for (auto&& entry : nearestSet)
+		for (auto&& entry : resultSet)
 		{
 			nearestOutput(entry.first, entry.second);
 		}
 
-		integer neighbors = nearestSet.size();
+		integer neighbors = resultSet.size();
 		for (integer i = neighbors;i < k;++i)
 		{
 			nearestOutput(notFound.first, notFound.second);
@@ -497,7 +540,7 @@ namespace Pastel
 			return notFound;
 		}
 
-		return *std::prev(nearestSet.end());
+		return *std::prev(resultSet.end());
 
 	}
 
