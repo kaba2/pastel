@@ -97,23 +97,19 @@ namespace Pastel
 	search in a node.
 	Default: 16
 
-	kNearest (integer > 0):
+	kNearest (integer >= 0):
 	The number of nearest neighbors to search.
 
-	Returns (by implicit conversion)
-	--------------------------------
-
-	Real:
-	The distance (in terms of the norm bijection) to 
-	the k:th nearest neighbor. If the k:th nearest 
-	neighbor does not exist, infinity<Real>().
-
-	Point_ConstIterator:
-	The k:th nearest neighbor. If the k:th nearest 
-	neighbor does not exist, kdTree.end().
-
-	std::pair<Real, Point_ConstIterator>:
-	A combination of the previous two.
+	returns (std::pair<Real, Point_ConstIterator>)
+	----------------------------------------------
+	
+	The first element is the distance 
+	(in terms of the norm bijection) to the k:th 
+	nearest neighbor. If the k:th nearest neighbor 
+	does not exist, infinity<Real>().
+	
+	The second element is the k:th nearest neighbor. 
+	If the k:th nearest neighbor does not exist, kdTree.end().
 	*/
 	template <
 		typename KdTree,
@@ -164,6 +160,7 @@ namespace Pastel
 			Real maxDistance2 = infinity<Real>();
 			Real maxRelativeError = 0;
 			integer nBruteForce = 16;
+			bool reportMissing = true;
 		} o;
 
 		setOptionals(o);
@@ -172,6 +169,7 @@ namespace Pastel
 		const Real& maxDistance2 = o.maxDistance2;
 		const Real& maxRelativeError = o.maxRelativeError;
 		const integer& nBruteForce = o.nBruteForce;
+		const bool& reportMissing = o.reportMissing;
 
 		ENSURE_OP(k, >=, 0);
 		ENSURE_OP(maxDistance2, >=, 0);
@@ -524,24 +522,35 @@ namespace Pastel
 			}
 		}
 
+		// There should be at most k neighbors.
+		integer neighbors = resultSet.size();
+		ASSERT_OP(neighbors, <=, k);
+
+		// Report the nearest neighbors.
 		for (auto&& entry : resultSet)
 		{
 			nearestOutput(entry.first, entry.second);
 		}
 
-		integer neighbors = resultSet.size();
-		for (integer i = neighbors;i < k;++i)
+		if (reportMissing)
 		{
-			nearestOutput(notFound.first, notFound.second);
+			// Report "not found" for the missing neighbors.
+			for (integer i = neighbors;i < k;++i)
+			{
+				nearestOutput(notFound.first, notFound.second);
+			}
 		}
 
 		if (neighbors < k)
 		{
+			// Since there are less than k neighbors,
+			// the k:th nearest neighbor does not
+			// exist.
 			return notFound;
 		}
 
+		// Return the k:th nearest neighbor.
 		return *std::prev(resultSet.end());
-
 	}
 
 }
