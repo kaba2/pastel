@@ -92,9 +92,9 @@ namespace Pastel
 	increases performance. Use 0 for exact matches. 
 	Default: 0
 
-	nBruteForce (integer > 0):
+	nBruteForce (integer >= 0):
 	The number of points under which to start a brute-force
-	search in a node.
+	search in a node. Leaf nodes will always be searched.
 	Default: 16
 
 	kNearest (integer >= 0):
@@ -174,7 +174,7 @@ namespace Pastel
 		ENSURE_OP(k, >=, 0);
 		ENSURE_OP(maxDistance2, >=, 0);
 		ENSURE_OP(maxRelativeError, >=, 0);
-		ENSURE_OP(nBruteForce, >, 0);
+		ENSURE_OP(nBruteForce, >=, 0);
 
 		const auto& locator = kdTree.locator();
 		Real protectiveFactor = normBijection.scalingFactor(1.01);
@@ -405,6 +405,9 @@ namespace Pastel
 				}
 			}
 
+			// Search a node with brute-force if it is a leaf node, or the 
+			// search-algorithm says so. Usually the latter is when 
+			// cursor.points() <= nBruteForce.
 			if (cursor.leaf() ||
 				searchAlgorithm.shouldSearchSplitNode(state, nBruteForce))
 			{
@@ -412,14 +415,14 @@ namespace Pastel
 				continue;
 			}
 
-			integer splitAxis = cursor.splitAxis();
-			Real searchPosition = 
-				searchPoint[splitAxis];
-
 			// For an intermediate node our task is to
 			// recurse to child nodes while updating
 			// incrementally the distance 
 			// to the current node. 
+
+			integer splitAxis = cursor.splitAxis();
+			Real searchPosition = 
+				pointAxis(searchPoint, splitAxis);
 
 			Cursor left = cursor.left();
 			Cursor right = cursor.right();

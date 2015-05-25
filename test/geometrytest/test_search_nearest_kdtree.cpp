@@ -44,7 +44,15 @@ namespace
 				allIndicator(),
 				Euclidean_NormBijection<real>(),
 				DepthFirst_SearchAlgorithm_PointKdTree(),
-				Vector2{-infinity<real>(), infinity<real>()});
+				Vector2{-infinity<real>(), infinity<real>()},
+				[](auto& o)
+			{
+				o.k = 10;
+				o.maxDistance2 = 10;
+				o.maxRelativeError = 0;
+				o.nBruteForce = 0;
+				o.reportMissing = true;				
+			});
 		}
 	};
 
