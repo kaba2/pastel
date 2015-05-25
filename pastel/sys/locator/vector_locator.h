@@ -44,6 +44,12 @@ namespace Pastel
 		integer n_;
 	};
 
+	using Vector1_Locator = Vector_Locator<real, 1>;
+	using Vector2_Locator = Vector_Locator<real, 2>;
+	using Vector3_Locator = Vector_Locator<real, 3>;
+	using Vector4_Locator = Vector_Locator<real, 4>;
+	using VectorD_Locator = Vector_Locator<real>;
+
 	template <typename Real, integer N>
 	class Default_Locator<const Vector<Real, N>&, void>
 	{
