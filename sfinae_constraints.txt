@@ -24,17 +24,21 @@ In particular,
 Constraining the overload set
 -----------------------------
 
-The SFINAE rule can be abused to constrain the parameter-types of a function/class template. This modifies which overload-sets the function/class participates in. 
-
-### Example
-
-Suppose we have
+The SFINAE rule can be abused to constrain the parameter-types of a function/class template. This modifies which overload-sets the function/class participates in. Suppose we have
 
 [[CppCode]]:
 	template <typename Type>
 	Type f(Type that);
 
 and would like to constrain `f` to only work on native integer types. We can achieve this using SFINAE as follows:
+
+[[CppCode]]:
+	template <
+		typename Type,
+		Requires<std::is_integral<Type>> = 0>
+	Type f(Type that);
+
+Here the `Requires` is defined as follows:
 
 [[CppCode]]:
 	template <bool Condition, typename Type = int>
@@ -54,11 +58,6 @@ and would like to constrain `f` to only work on native integer types. We can ach
 	template <typename Condition, typename Type>
 	using Requires = 
 		RequiresC<Condition::value, Type>;
-
-	template <
-		typename Type,
-		Requires<std::is_integral<Type> = 0>
-	Type f(Type that);
 
 When `f` is called with something else than a native integer type, the `std::integral<Type>::value` evaluates to `false`, and the latter template-parameter becomes `typename RequiresC_F<false>::type`. Since `RequiresC_F<false>` does not contain a `type` member, an error occurs. Since the error occurs due to a  substitution in a template declaration, the SFINAE rule applies, and the function is removed from the overload set.
 
@@ -103,7 +102,7 @@ The SFINAE-constraint can be embedded into a trailing argument-type:
 	template <typename Type>
 	Type f(Type that, Requires<std::is_integral<Type>> = 0);
 
-The advantage is that it is possible to refer to function arguments. The disadvantage is the addition of a non-meaningful parameter in the constraint-parameter:
+The advantage is that it is possible to refer to function arguments. The disadvantage is the addition of a non-meaningful parameter:
 
 [[CppCode]]:
 	// This is a valid call.
@@ -160,7 +159,7 @@ The SFINAE-constraint can be embedded into a template-parameter value-pack:
 		Requires<std::is_integral<Type>>...>
 	Type f(Type that);
 
-The disadvantage is that there is an extraneous template-parameter-pack which has no meaning for the user:
+The disadvantage is the addition of a non-meaningful template-parameter-pack:
 
 [[CppCode]]:
 	// This is a valid call.
