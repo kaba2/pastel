@@ -1,5 +1,5 @@
 // Description: SFINAE machinery
-// Documentation: sfinae_overloading.txt
+// Documentation: sfinae_constraints.txt
 
 #ifndef PASTELSYS_SFINAE_H
 #define PASTELSYS_SFINAE_H
