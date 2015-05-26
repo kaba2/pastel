@@ -26,8 +26,6 @@ Constraining the overload set
 
 The SFINAE rule can be abused to constrain the parameter-types of a function/class template. This modifies which overload-sets the function/class participates in. 
 
-Using the SFINAE rule is --- as of May 2015 --- the only way to implement template constraints. It was not intended for this task, which shows in that it can make code harder to understand, and/or change the declaration in a way which is not meaningful to the user. A proper language support for template constraints is upcoming in the form of the Concepts Lite Technical Specification. 
-
 ### Example
 
 Suppose we have
@@ -67,27 +65,51 @@ When `f` is called with something else than a native integer type, the `std::int
 Where to place the SFINAE-constraint
 ------------------------------------
 
-The SFINAE-constraint can be embedded in many ways into the declaration; some choices are better than others. Knowing all of them is useful for working around bugs in the compiler (i.e. Visual C++ 2015 RC); if one does not work, then usually some other does.
+An ideal template-constraint-description
+
+* preserves the readability of the declaration,
+* can refer to the function arguments (via `decltype`),
+* can be used to overload template functions differing only by the constraint, and
+* does not introduce non-meaningful parameters to the user.
+
+Currently --- in C++14 --- such an ideal constraint-description does not exist. Instead, it is approximated by an SFINAE-constraint, which can be embedded into a declaration in many ways, with different trade-offs.
 
 ### SFINAE-constraint in a return-type
 
-The SFINAE-constraint can be embedded into the return-type:
+The SFINAE-constraint can be embedded into a return-type:
 
 [[CppCode]]:
 	template <typename Type>
 	Requires<std::is_integral<Type>, Type> f(Type that);
 
-The disadvantage is that the function is harder to understand, since the return-type is garbled.
+The disadvantage is the loss of readability in the return-type.
 
-### SFINAE-constraint in a parameter-type.
+### SFINAE-constraint in a trailing return-type
 
-The SFINAE-constraint can be embedded into a parameter-type:
+The SFINAE-constraint can be embedded into a trailing return-type:
+
+[[CppCode]]:
+	template <typename Type>
+	auto f(Type that)
+		-> Requires<std::is_integral<Type>, decltype(that)>
+
+The advantage is that it is possible to refer to function arguments. The disadvantage is the loss of readability in the return-type.
+
+### SFINAE-constraint in a trailing argument-type.
+
+The SFINAE-constraint can be embedded into a trailing argument-type:
 
 [[CppCode]]:
 	template <typename Type>
 	Type f(Type that, Requires<std::is_integral<Type>> = 0);
 
-The disadvantage is that the function is harder to understand, since there is an extraneous parameter which is not meaningful to the user.
+The advantage is that it is possible to refer to function arguments. The disadvantage is the addition of a non-meaningful parameter in the constraint-parameter:
+
+[[CppCode]]:
+	// This is a valid call.
+	f(4, 1)
+
+ Readability is also somewhat affected.
 
 ### SFINAE-constraint in a template-parameter type (C++11)
 
@@ -99,7 +121,7 @@ The SFINAE-constraint can be embedded into a template-parameter type:
 		typename = Requires<std::is_integral<Type>>>
 	Type f(Type that);
 
-The disadvantage is that this does not allow for constraint-based overloading. Suppose we later add the following overload:
+The disadvantage is that this does not allow to overload functions with the same signatures --- excluding the constraints. Suppose we later add the following overload:
 
 [[CppCode]]:
 	template <
@@ -112,9 +134,9 @@ Rather than dividing `f` into two cases, this redefines the same function templa
 
 _Since such overloads may need to be added later, this technique should be avoided._
 
-### SFINAE-constraint in a template-parameter literal (C++11)
+### SFINAE-constraint in a template-parameter value (C++11)
 
-The SFINAE-constraint can be embedded into a template-parameter literal:
+The SFINAE-constraint can be embedded into a template-parameter value:
 
 [[CppCode]]:
 	template <
@@ -122,15 +144,15 @@ The SFINAE-constraint can be embedded into a template-parameter literal:
 		Requires<std::is_integral<Type>> = 0>
 	Type f(Type that);
 
-The disadvantage is that there is an extraneous template-parameter which has no meaning for the user:
+The disadvantage is the addition of a non-meaningful template-parameter:
 
 [[CppCode]]:
 	// This is a valid call.
 	f<int, 1>(4);
 
-### SFINAE-constraint in a template-parameter literal-pack (C++11)
+### SFINAE-constraint in a template-parameter value-pack (C++11)
 
-The SFINAE-constraint can be embedded into a template-parameter literal-pack:
+The SFINAE-constraint can be embedded into a template-parameter value-pack:
 
 [[CppCode]]:
 	template <
@@ -144,14 +166,34 @@ The disadvantage is that there is an extraneous template-parameter-pack which ha
 	// This is a valid call.
 	f<int, 1, 2, 3>(4);
 
-An advantage of this technique over the literal one is that the default template-parameter need not be specified. Then the type underlying `Requires` (now `int`) can be changed to `enum class Enabler` --- which is declared, but not defined. This makes it impossible for the user to provide template-arguments in the literal-pack.
+An advantage of this technique over the value one is that the default template-parameter need not be specified. Then the type underlying `Requires` (now `int`) can be changed to `enum class Enabler` --- which is declared, but not defined. This makes it impossible for the user to provide template-arguments in the value-pack.
 
-_Visual C++ 2015 RC has a bug in the compiler, and cannot deal with the literal-pack approach._
+_Visual C++ 2015 RC has a bug in the compiler, and cannot deal with the value-pack approach._
+
+### Summary
+
+Place                           | Clean declaration | Refer to arguments | Overload     | No user extra
+--------------------------------|-------------------|--------------------|--------------|--------------
+Return-type                     |                   |                    | $\checkmark$ | $\checkmark$
+Trailing return-type            |                   | $\checkmark$       | $\checkmark$ | $\checkmark$
+Trailing argument-type          |                   | $\checkmark$       | $\checkmark$ |  
+Template-parameter type         | $\checkmark$      |                    |              |  
+Template-parameter value        | $\checkmark$      |                    | $\checkmark$ |  
+Template-parameter value-pack   | $\checkmark$      |                    | $\checkmark$ | $\checkmark$
+
+If there is no need to refer to function arguments, a template-parameter value-pack is the best choice. A template-parameter value can be used if the compiler cannot handle a template-parameter value-pack. For referring to function arguments, a trailing return-type is the best choice. 
+
+A return-type and a trailing argument-type can be used if everything else fails due to compiler bugs.
+
+A template-parameter type should _not_ be used, because it does not always work with overloading. 
+
+Future
+------
+
+In C++14, using the SFINAE rule is the only way to implement template constraints. It was not intended for this task, which shows in that it can make code harder to understand, and/or change the declaration in a way which is not meaningful to the user. A proper language support for template constraints is upcoming in the form of the Concepts Lite Technical Specification. 
 
 Pastel
 ------
-
-In Pastel, we choose to store the SFINAE-constraint in a template-parameter literal --- unless we need to work around a bug in the compiler. 
 
 The `Requires` type in this section corresponds to `EnableIf` in the library. The `Requires` type in the library takes a template-pack of conditions, combines them with logical-and, and passes that to `EnableIf`.
 
