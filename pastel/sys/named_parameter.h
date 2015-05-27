@@ -23,9 +23,8 @@
 	\
 	Type name##_ = defaultValue
 
-#define PASTEL_ARG(name, def) argument<#name##_tag>(def, std::forward<ArgumentSet>(argumentSet)...);
-#define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;})
-#define PASTEL_ARG_T(name, def) Argument<#name##_tag, def (*)(), ArgumentSet...>
+#define PASTEL_ARG(name, ...) argument<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
+#define PASTEL_ARG_S(name, ...) PASTEL_ARG(name, [&](){return __VA_ARGS__;})
 
 namespace Pastel
 {
@@ -226,13 +225,23 @@ namespace Pastel
 			std::forward<ArgumentSet>(rest)...);
 	}
 
+}
+
+#define PASTEL_ARG_T(name, ...) Argument<#name##_tag, __VA_ARGS__ (*)(), ArgumentSet...>
+
+namespace Pastel
+{
+
 	template <
 		tag_integer KeyHash,
 		typename Default,
 		typename... ArgumentSet>
 	struct Argument_F
 	{
-		using type = decltype(argument<KeyHash>(std::declval<Default>(), std::declval<ArgumentSet>()...));
+		using type = 
+			std::remove_reference_t<
+				decltype(argument<KeyHash>(std::declval<Default>(), std::declval<ArgumentSet>()...))
+			>;
 	};
 
 	template <
