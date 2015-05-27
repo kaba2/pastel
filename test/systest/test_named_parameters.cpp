@@ -74,7 +74,9 @@ namespace
 
 			// These should give errors at compile-time.
 			//TEST_ENSURE_OP(distance(1, 6, 1), ==, 5 * 5);
+			//TEST_ENSURE_OP(distance(1, 6, 1, PASTEL_TAG(negate)), ==, 5 * 5);
 			//TEST_ENSURE_OP(distance(1, 6, 1, 2), ==, 5 * 5);
+			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 1, 2), ==, 5 * 5);
 		}
 	};
 

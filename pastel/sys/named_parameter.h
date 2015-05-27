@@ -40,31 +40,35 @@ namespace Pastel
 		return defaultValue();
 	}
 
-	// template <
-	// 	tag_integer KeyHash,
-	// 	typename Default,
-	// 	typename Value,
-	// 	typename... ArgumentSet,
-	// 	Requires<
-	// 		Not<IsTag<Value>>
-	// 	> = 0
-	// >
-	// void argument(
-	// 	Default&& defaultValue, 
-	// 	Value&& value, 
-	// 	ArgumentSet&&...)
-	// {
-	// 	// The list begins with a value.
-	// 	unused(defaultValue);
-	// 	unused(value);
+	template <
+		tag_integer KeyHash,
+		typename Default,
+		typename Value,
+		typename... ArgumentSet,
+		Requires<
+			Not<IsTag<Value>>
+		> = 0
+	>
+	decltype(auto) argument(
+		Default&& defaultValue, 
+		Value&& value, 
+		ArgumentSet&&...)
+	{
+		// The list begins with a value.
+		unused(defaultValue);
+		unused(value);
 
-	// 	// Report an error of a missing key-tag.
-	// 	static_assert(!std::is_same<Default, Default>::type,
-	// 		"An optional value is not preceded by a key-tag.");
+		static constexpr bool precededByKeyTag =
+			!std::is_same<Default, Default>::value;
 
-	// 	// Suppress possible compiler errors
-	// 	// by returning a meaningful object.
-	// }
+		// Report an error of a missing key-tag.
+		static_assert(precededByKeyTag,
+			"An optional value is not preceded by a key-tag.");
+
+		// Suppress possible compiler errors
+		// by returning a meaningful object.
+		return defaultValue();
+	}
 
 	template <
 		tag_integer KeyHash,
