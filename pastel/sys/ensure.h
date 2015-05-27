@@ -63,13 +63,12 @@
 
 #else
 
-#define PENSURE(expr) unused(expr)
-#define PENSURE1(expr, a) unused(expr, a)
-#define PENSURE2(expr, a, b) unused(expr, a, b)
-#define PENSURE3(expr, a, b, c) unused(expr, a, b, c)
-#define PENSURE4(expr, a, b, c, d) unused(expr, a, b, c, d)
-#define PENSURE_OP(x, op, y) unused(x op y, x, y)
-
+#define PENSURE(expr) 
+#define PENSURE1(expr, a) 
+#define PENSURE2(expr, a, b) 
+#define PENSURE3(expr, a, b, c) 
+#define PENSURE4(expr, a, b, c, d) 
+#define PENSURE_OP(x, op, y) 
 #endif
 
 // Assertions

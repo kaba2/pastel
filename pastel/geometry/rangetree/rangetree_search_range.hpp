@@ -109,7 +109,8 @@ namespace Pastel
 
 				ASSERT_OP(start, >=, 0);
 				ASSERT_OP(start, <=, end);
-				ASSERT_OP(end, <=, n);
+				ASSERT_OP(end, <=, n); 
+				unused(n);
 
 				integer localCount = end - start;
 

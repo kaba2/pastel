@@ -48,8 +48,8 @@ namespace
 			TEST_ENSURE(asString((long)113) == "113");
 			TEST_ENSURE(asString((ulong)113) == "113");
 
-			char testArray[] = { 't', 'e', 's', 't'};
 			// FIX: What should happen here?
+			//char testArray[] = { 't', 'e', 's', 't'};
 			//TEST_ENSURE(asString(testArray) == "test");
 		}
 	};

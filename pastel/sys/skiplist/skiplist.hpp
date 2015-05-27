@@ -180,6 +180,7 @@ namespace Pastel
 				bool isStrictWeakOrder = 
 					!Less()(key, nodeKey(node));
 				PENSURE(isStrictWeakOrder);
+				unused(isStrictWeakOrder);
 
 				// The 'key' is to the right of 'hint'. 
 				direction = true;

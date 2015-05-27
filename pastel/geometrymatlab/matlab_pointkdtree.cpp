@@ -200,10 +200,6 @@ namespace Pastel
 			integer d = state->tree.n();
 			integer n = idSet.size();
 
-			using Locator = Tree::Locator;
-
-			const Locator& locator = state->tree.locator();
-
 			Array<real> pointSet = matlabCreateArray<real>(
 				n, d, outputSet[PointSet]);
 			for (integer i = 0;i < n;++i)
@@ -365,7 +361,6 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			Tree& tree = state->tree;
-			integer dimension = tree.n();
 
 			Array<real> pointSet = matlabAsArray<real>(inputSet[PointSet]);
 			integer points = pointSet.width();
