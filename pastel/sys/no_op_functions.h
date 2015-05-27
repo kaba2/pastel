@@ -14,7 +14,10 @@ namespace Pastel
 	It doesn't do anything by itself.
 	*/
 	template <typename... Type>
-	void unused(const Type&...);
+	void unused(const Type&...)
+	{
+		// Do nothing.
+	}
 
 	//! Casts a reference to a const-reference.
 	/*!
@@ -27,17 +30,21 @@ namespace Pastel
 	iterator.
 	*/
 	template <typename Type>
-	const Type& addConst(Type& that);
+	const Type& addConst(Type& that)
+	{
+		return (const Type&)that;
+	}
 
 	//! Casts a const-reference to a reference.
 	/*!
 	See the documentation for addConst().
 	*/
 	template <typename Type>
-	Type& removeConst(const Type& that);
+	Type& removeConst(const Type& that)
+	{
+		return (Type&)that;
+	}
 
 }
-
-#include "pastel/sys/no_op_functions.hpp"
 
 #endif

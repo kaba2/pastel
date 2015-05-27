@@ -25,7 +25,7 @@ namespace Pastel
 	template <typename PointSet>
 	struct PointSet_Dimension
 	{
-		static PASTEL_CONSTEXPR integer value =
+		static constexpr integer value =
 			Locator_N<PointSet_Locator<PointSet>>::value;
 	};
 

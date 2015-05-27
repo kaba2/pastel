@@ -24,7 +24,7 @@ namespace Pastel
 		PASTEL_FWD(Locator);
 		using Point = typename Locator::Point;
 		using Real = typename Locator::Real;
-		static PASTEL_CONSTEXPR integer N = Locator::N;
+		static constexpr integer N = Locator::N;
 
 		class Cursor;
 		class SplitPredicate;

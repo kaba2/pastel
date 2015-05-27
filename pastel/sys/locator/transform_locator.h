@@ -17,7 +17,7 @@ namespace Pastel
 	class Transform_Locator
 	{
 	public:
-		static PASTEL_CONSTEXPR int N = Locator::N;
+		static constexpr int N = Locator::N;
 		using Real = typename Locator::Real;
 		using Point = Point_;
 

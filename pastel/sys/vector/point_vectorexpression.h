@@ -22,7 +22,7 @@ namespace Pastel
 		PASTEL_CONCEPT_CHECK(Point, Point_Concept);
 
 		using Real = Point_Real<Point>;
-		static PASTEL_CONSTEXPR integer N = 
+		static constexpr integer N = 
 			Locator_N<Point_Locator<Point>>::value;
 
 		using StorageType = const Point_VectorExpression;

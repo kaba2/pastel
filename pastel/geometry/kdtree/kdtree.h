@@ -80,7 +80,7 @@ namespace Pastel
 		using SplitNode = SplitNode_High;
 
 	public:
-		static PASTEL_CONSTEXPR int N_ = N;
+		static constexpr int N_ = N;
 
 		using Real_ = Real;
 		using ObjectPolicy_ = ObjectPolicy;

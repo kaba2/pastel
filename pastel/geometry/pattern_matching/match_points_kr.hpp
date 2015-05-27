@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_MATCH_POINTS_KR_HPP
 
 #include "pastel/geometry/pattern_matching/match_points_kr.h"
-#include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
+#include "pastel/geometry/search_nearest_kdtree.h"
 
 #include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/graph/maximum_bipartite_matching.h"
@@ -30,7 +30,7 @@ namespace Pastel
 		{
 		public:
 			using Real = typename Locator::Real;
-			static PASTEL_CONSTEXPR integer N = Locator::N;
+			static constexpr integer N = Locator::N;
 
 			using Match = Result_MatchPointsKr<Real, N>;
 

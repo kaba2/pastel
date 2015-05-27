@@ -21,7 +21,7 @@ namespace Pastel
 	public:
 		//PASTEL_CONCEPT_CHECK(Real_, Real_Concept);
 
-		static PASTEL_CONSTEXPR integer N = N_;
+		static constexpr integer N = N_;
 
 		using Real = Real_;
 		using Point = std::array<Real, N>;

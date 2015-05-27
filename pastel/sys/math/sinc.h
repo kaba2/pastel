@@ -9,12 +9,12 @@
 namespace Pastel
 {
 
-	//! Computes the [cardinal sine].
+	//! Computes the cardinal sine.
 	/*!
 	sinc(x) = sin(pi * x) / (pi * x).
 	*/
 	template <typename Real>
-	Real sinc(const NoDeduction<Real>& x);
+	Real sinc(NoDeduction<Real> x);
 
 }
 

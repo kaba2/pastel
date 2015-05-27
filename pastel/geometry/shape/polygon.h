@@ -17,7 +17,7 @@ namespace Pastel
 	{
 	public:
 		using Real_ = Real;
-		static PASTEL_CONSTEXPR int N_ = N;
+		static constexpr int N_ = N;
 
 		// Using default constructor.
 		// Using default copy constructor.

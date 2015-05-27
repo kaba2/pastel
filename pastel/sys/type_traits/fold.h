@@ -4,6 +4,8 @@
 #ifndef PASTELSYS_FOLD_H
 #define PASTELSYS_FOLD_H
 
+#include "pastel/sys/type_traits/identity.h"
+
 namespace Pastel
 {
 

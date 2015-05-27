@@ -44,7 +44,7 @@ namespace Pastel
 		public:
 			using Node_Settings = Node_Settings_;
 			using NodePtr = NodePtr_;
-			static PASTEL_CONSTEXPR bool UserDataInEndNode =
+			static constexpr bool UserDataInEndNode =
 				UserDataInEndNode_;
 		};
 
@@ -65,7 +65,7 @@ namespace Pastel
 		using Fwd = Settings;
 		PASTEL_FWD(Data);
 		PASTEL_FWD(EndData);
-		static PASTEL_CONSTEXPR bool UserDataInEndNode = 
+		static constexpr bool UserDataInEndNode = 
 			Settings::UserDataInEndNode;
 
 		struct Data_Tag;
@@ -149,7 +149,7 @@ namespace Pastel
 	public:
 		using Data = Data_;
 		using EndData = EndData_;
-		static PASTEL_CONSTEXPR bool UserDataInEndNode = UserDataInEndNode_;
+		static constexpr bool UserDataInEndNode = UserDataInEndNode_;
 	};
 
 	template <

@@ -22,7 +22,7 @@ namespace Pastel
 	class SubArray
 	{
 	private:
-		static PASTEL_CONSTEXPR int Smaller = ModifyN<N, N - 1>::Result;
+		static constexpr int Smaller = ModifyN<N, N - 1>::Result;
 
 	public:
 		friend class ConstSubArray<Type, N>;
@@ -410,7 +410,7 @@ namespace Pastel
 	class ConstSubArray
 	{
 	private:
-		static PASTEL_CONSTEXPR int Smaller = ModifyN<N, N - 1>::Result;
+		static constexpr int Smaller = ModifyN<N, N - 1>::Result;
 
 	public:
 		friend class SubArray<Type, N>;

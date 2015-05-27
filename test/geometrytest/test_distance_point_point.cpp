@@ -47,7 +47,7 @@ namespace
 		class Custom_Locator
 		{
 		public:
-			static PASTEL_CONSTEXPR integer N = 2;
+			static constexpr integer N = 2;
 			using Real = real;
 			using Point = Custom_Point;
 

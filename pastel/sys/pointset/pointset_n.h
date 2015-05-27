@@ -15,7 +15,7 @@ namespace Pastel
 	{
 		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
-		static PASTEL_CONSTEXPR integer value =
+		static constexpr integer value =
 			Locator_N<PointSet_Locator<PointSet>>::value;
 	};
 

@@ -39,7 +39,7 @@ namespace Pastel
 		struct Value_Tag;
 		using Value_Class = Class<Value, Value_Tag>;
 		
-		static PASTEL_CONSTEXPR bool MultipleKeys = Settings::MultipleKeys;
+		static constexpr bool MultipleKeys = Settings::MultipleKeys;
 
 	private:
 		using Node = SkipList_::Node;
@@ -844,7 +844,7 @@ namespace Pastel
 		using Key = Key_;
 		using Value = Value_;
 		using Less = Less_;
-		static PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
+		static constexpr bool MultipleKeys = MultipleKeys_;
 	};
 
 	template <typename Key, typename Value, typename Less = LessThan>

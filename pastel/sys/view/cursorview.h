@@ -14,7 +14,7 @@ namespace Pastel
 	class ConstCursorView
 	{
 	public:
-		static PASTEL_CONSTEXPR int Dimension = N;
+		static constexpr int Dimension = N;
 
 		using Element = typename ViewConstCursor::Element;
 		using ConstReference = typename ViewConstCursor::ConstReference;

@@ -12,19 +12,38 @@ using namespace Pastel;
 namespace
 {
 
-	template <
-		typename Set_Optionals = Identity_Function>
-		void generateArticle(
-		const std::string& title,
-		Set_Optionals setOptionals = Set_Optionals())
+	struct Euclidean_Metric
 	{
-		struct Optionals
+		template <typename Type>
+		decltype(auto) operator()(Type x, Type y) const
 		{
-			std::string author = "Anynomous";
-			bool interesting = false;
-		} p;
+			return ((x - y) * (x - y));
+		}
+	};
 
-		setOptionals(p);
+	struct Manhattan_Metric
+	{
+		template <typename Type>
+		decltype(auto) operator()(Type x, Type y) const
+		{
+			return std::abs(x - y);
+		}
+	};
+
+	template <
+		typename Point,
+		typename... ArgumentSet,
+		typename Metric = PASTEL_ARG_T(metric, Euclidean_Metric),
+		Requires<
+			std::is_integral<Point>
+		> = 0
+	>
+	float distance(const Point& a, const Point& b, ArgumentSet&&... argumentSet)
+	{
+		float scaling = PASTEL_ARG_S(scaling, 1);
+		auto&& metric = PASTEL_ARG(metric, ([&](){return Euclidean_Metric();}));
+
+		return metric(a, b) * scaling;
 	}
 
 }
@@ -43,14 +62,13 @@ namespace
 
 		virtual void run()
 		{
-			generateArticle("Going bananas");
+			TEST_ENSURE_OP(distance(1, 6), ==, 5 * 5);
+			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 2), ==, 2 * 5 * 5);
+			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 3.5), ==, 3.5 * 5 * 5);
 
-			generateArticle(
-				"Growing beans",
-				[](auto& p)
-			{
-				p.author = "Ben";
-			});
+			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(metric), Manhattan_Metric()), ==, 5);
+			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 2, PASTEL_TAG(metric), Manhattan_Metric()), ==, 2 * 5);
+			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 3.5, PASTEL_TAG(metric), Manhattan_Metric()), ==, 3.5 * 5);
 		}
 	};
 

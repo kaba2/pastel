@@ -15,7 +15,7 @@ namespace Pastel
 	class Vector_Locator
 	{
 	public:
-		static PASTEL_CONSTEXPR int N = N_;
+		static constexpr int N = N_;
 		using Real = Real_;
 		using Point = Vector<Real, N>;
 

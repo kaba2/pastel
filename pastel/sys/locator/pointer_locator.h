@@ -15,7 +15,7 @@ namespace Pastel
 	class Pointer_Locator
 	{
 	public:
-		static PASTEL_CONSTEXPR integer N = N_;
+		static constexpr integer N = N_;
 		using Real = Real_;
 		using Point = const Real*;
 

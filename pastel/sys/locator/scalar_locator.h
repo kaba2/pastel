@@ -20,7 +20,7 @@ namespace Pastel
 	public:
 		using Real = Real_;
 		using Point = Real_;
-		static PASTEL_CONSTEXPR integer N = N_;
+		static constexpr integer N = N_;
 
 		explicit Scalar_Locator(integer n = 1)
 		: n_(n)

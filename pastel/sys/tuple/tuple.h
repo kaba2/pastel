@@ -19,7 +19,7 @@ namespace Pastel
 	class ModifyN
 	{
 	public:
-		static PASTEL_CONSTEXPR int Result =
+		static constexpr int Result =
 			(N == Dynamic) ? Dynamic : NewN;
 	};
 
@@ -222,7 +222,7 @@ namespace Pastel
 		{
 			PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 
-			static PASTEL_CONSTEXPR bool IsBase =
+			static constexpr bool IsBase =
 				std::is_base_of<Tuple, Tuple<Type, N> >::value;
 
 			PASTEL_STATIC_ASSERT(IsBase);
@@ -502,7 +502,7 @@ namespace Pastel
 		: boost::equality_comparable<Tuple<Type, Dynamic> >
 	{
 	private:
-		static PASTEL_CONSTEXPR int N = Dynamic;
+		static constexpr int N = Dynamic;
 	
 	public:
 		template <typename, int>
@@ -658,7 +658,7 @@ namespace Pastel
 				deallocate();
 			}
 
-			static PASTEL_CONSTEXPR bool IsBase = std::is_base_of<Tuple, Tuple<Type, N> >::value;
+			static constexpr bool IsBase = std::is_base_of<Tuple, Tuple<Type, N> >::value;
 
 			PASTEL_STATIC_ASSERT(IsBase);
 		}

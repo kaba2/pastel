@@ -39,7 +39,7 @@ namespace Pastel
 			PASTEL_FWD(Data_Class);
 			PASTEL_FWD(Propagation_Class);
 			PASTEL_FWD(SentinelData_Class);
-			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
+			static constexpr bool UserDataInSentinelNodes =
 				Node_Settings::UserDataInSentinelNodes;
 
 			template <bool DereferenceToData_>

@@ -8,6 +8,9 @@
 
 #include "pastel/sys/type_traits/and.h"
 #include "pastel/sys/type_traits/or.h"
+#include "pastel/sys/type_traits/not.h"
+
+#define PASTEL_REMOVE_BRACKETS(x) typename Pastel::Deduction_::RemoveBrackets<void (x)>::Type
 
 namespace Pastel
 {
@@ -24,6 +27,11 @@ namespace Pastel
 	using EnableIf = 
 		EnableIfC<Condition::value, Return>;
 
+}
+
+namespace Pastel
+{
+
 	template <
 		typename Condition,
 		typename Return = int>
@@ -36,9 +44,19 @@ namespace Pastel
 	using DisableIfC = 
 		EnableIfC<!Condition, Return>;
 
+}
+
+namespace Pastel
+{
+
 	template <typename Return>
 	using Disable = 
 		DisableIfC<true, Return>;
+
+}
+
+namespace Pastel
+{
 
 	// A bug in Visual Studio 2015 CTP6 requires to
 	// use RequiresC rather than Requires.
@@ -53,5 +71,14 @@ namespace Pastel
 
 }
 
+#include "pastel/sys/type_traits/identity.h"
+
+namespace Pastel
+{
+
+	template <typename Type>
+	using NoDeduction = Identity<Type>;
+
+}
 
 #endif

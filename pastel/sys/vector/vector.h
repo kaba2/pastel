@@ -28,8 +28,6 @@ namespace Pastel
 		template <typename, int>
 		friend class Vector;
 
-		struct Enabler {};
-
 	public:
 		using StorageType = const Vector&;
 		//using ExpressionBase::operator-;

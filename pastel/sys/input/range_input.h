@@ -20,7 +20,7 @@ namespace Pastel
 		using Iterator = typename boost::range_iterator<const Range>::type;
 		using Type = typename boost::range_value<Range>::type;
 
-		static PASTEL_CONSTEXPR bool IsRandomAccess =
+		static constexpr bool IsRandomAccess =
 			std::is_same<
 				typename boost::iterator_traversal<Iterator>::type,
 				boost::random_access_traversal_tag>::value;

@@ -4,6 +4,7 @@
 #ifndef PASTELSYS_MYTYPES_H
 #define PASTELSYS_MYTYPES_H
 
+// FIX: Aim to remove this dependency.
 #ifdef PASTEL_ENABLE_OMP
 #include "omp.h"
 #endif
@@ -11,29 +12,15 @@
 #include <cstddef>
 #include <climits>
 #include <type_traits>
+#include <functional>
 
 #define PASTEL_FWD(member) using member = typename Fwd::member
 
-#define PASTEL_CALL_BRACKETS ()
-
+// FIX: Remove when default error-message becomes available in C++17.
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
-
-#if _MSC_VER <= 1900
-#	define PASTEL_CONSTEXPR const
-#	define PASTEL_NOEXCEPT_C(x)
-#	define PASTEL_NOEXCEPT
-#else
-#	define PASTEL_CONSTEXPR constexpr
-#	define PASTEL_NOEXCEPT_C(x) noexcept(x)
-#	define PASTEL_NOEXCEPT noexcept
-#endif
 
 namespace Pastel
 {
-
-	template <bool Value>
-	using BoolConstant = 
-		std::integral_constant<bool, Value>;
 
 	namespace Types
 	{
@@ -121,8 +108,31 @@ namespace Pastel
 		using uinteger = unsigned int;
 		using integer = std::make_signed<uinteger>::type;
 
+		template <typename Type>
+		struct SizeInBits
+		{
+			// Note that 
+			// std::numeric_limits<Type>::digits is 
+			// CHAR_BIT for unsigned integers, and
+			// CHAR_BIT - 1 for signed integers.
+			// So CHAR_BIT is really what we want 
+			// to use here.
+			static constexpr integer value =
+				sizeof(Type) * CHAR_BIT;
+		};
+
+		//! Returns the number of bits a type takes.
+		/*!
+		This is equal to sizeof(Type) * CHAR_BIT.
+		*/
+		template <typename Type>
+		constexpr integer sizeInBits()
+		{
+			return SizeInBits<Type>::value;
+		}
+
 		//! An integer with half the number of bits as in 'integer'.
-		using integer_half = Int<(sizeof(integer) * CHAR_BIT) / 2>;
+		using integer_half = Int<SizeInBits<integer>::value / 2>;
 		using uinteger_half = std::make_unsigned<integer_half>::type;
 	
 		//! Abstract native real type
@@ -139,80 +149,49 @@ namespace Pastel
 		*/
 		using hash_integer = std::size_t;
 
+		template <bool Value>
+		using BoolConstant = 
+			std::integral_constant<bool, Value>;
+
+	}
+
+	// FIX: Get rid of these by substituting proper concepts
+	// where they are used.
+	namespace Types
+	{
+
+		// An integer literal for documenting concepts.
+		static constexpr integer UserDefinedInteger = 0;
+		// A boolean literal for documenting concepts.
+		static constexpr bool UserDefinedBoolean = true;
+		// A type for documenting concepts.
+		class UserDefinedType {};
+
 	}
 
 	namespace Types
 	{
 
-		// An integer literal for documenting concepts.
-		static PASTEL_CONSTEXPR integer UserDefinedInteger = 0;
-		// A boolean literal for documenting concepts.
-		static PASTEL_CONSTEXPR bool UserDefinedBoolean = true;
-		// A type for documenting concepts.
-		class UserDefinedType {};
-
-		static PASTEL_CONSTEXPR int Dynamic = -1;
-
-		class EmptyClass {};
-
-		namespace MyTypes_
-		{
-
-			struct Enabler {};
-
-		}
+		static constexpr int Dynamic = -1;
 
 	}
 
 	using namespace Pastel::Types;
 
-	//! Returns the number of bits a type takes.
-	/*!
-	This is equal to sizeof(Type) * CHAR_BIT.
-	*/
-	template <typename Type>
-	integer sizeInBits();
-
-	template <typename Type>
-	struct SizeInBits
-	{
-		// Note that 
-		// std::numeric_limits<Type>::digits is 
-		// CHAR_BIT for unsigned integers, and
-		// CHAR_BIT - 1 for signed integers.
-		// So CHAR_BIT is really what we want 
-		// to use here.
-
-		static PASTEL_CONSTEXPR integer value =
-			sizeof(Type) * CHAR_BIT;
-	};
-
-	//! Allocates a raw memory block.
-	/*!
-	size:
-	The size of the memory block in bytes.
-
-	Preconditions:
-	size > 0
-	*/
-	void* allocateRaw(integer size);
-
-	//! Deallocates a raw memory block.
-	void deallocateRaw(const void* data);
-
 }
 
-#include "pastel/sys/deduction_macros.h"
-#include "pastel/sys/no_op_functions.h"
+// Note that the order of the includes here is important.
+// We are bringing basic functionality in one header at a time.
+
+#include "pastel/sys/type_checks.h"
 #include "pastel/sys/sfinae.h"
-#include "pastel/sys/iterator_macros.h"
 #include "pastel/sys/settings_type.h"
+#include "pastel/sys/iterator_macros.h"
+#include "pastel/sys/no_op_functions.h"
+#include "pastel/sys/allocation.h"
 #include "pastel/sys/named_parameter.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/type_checks.h"
 #include "pastel/sys/predicate/operator_predicates.h"
 #include "pastel/sys/predicate/derived_predicates.h"
-
-#include "pastel/sys/mytypes.hpp"
 
 #endif

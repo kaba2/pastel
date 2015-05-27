@@ -140,7 +140,7 @@ namespace
 				TEST_ENSURE(testInvariants(halfMesh));
 			}
 			{
-				static PASTEL_CONSTEXPR int Vertices = 100;
+				static constexpr int Vertices = 100;
 
 				HalfEdge<> halfMesh;
 				HalfEdge<>::Vertex_Iterator vertices[Vertices];
@@ -220,8 +220,8 @@ namespace
 
 		void testComplexHalfMesh()
 		{
-			static PASTEL_CONSTEXPR int Vertices = 1000;
-			static PASTEL_CONSTEXPR int Edges = 1000;
+			static constexpr int Vertices = 1000;
+			static constexpr int Edges = 1000;
 
 			std::vector<HalfEdge<>::Vertex_Iterator> vertices;
 			std::vector<HalfEdge<>::Edge_Iterator> edges;

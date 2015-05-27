@@ -29,7 +29,7 @@ namespace Pastel
 		using Fwd = KdTree;
 		PASTEL_FWD(Locator);
 		using Real = typename Locator::Real;
-		static PASTEL_CONSTEXPR integer N = Locator::N;
+		static constexpr integer N = Locator::N;
 
 		using Point_ConstIterator = typename KdTree::Point_ConstIterator;
 		using Result = std::pair<Real, Point_ConstIterator>;

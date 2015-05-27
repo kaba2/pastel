@@ -141,7 +141,7 @@ namespace Pastel
 
 
 		/*
-		static PASTEL_CONSTEXPR Real EPSILON(stringAsReal<Real>("0.01"));
+		static constexpr Real EPSILON(stringAsReal<Real>("0.01"));
 
 		// EPSILON
 		if (a * a <= dot(p, p) * dot(e1, e1) * EPSILON * EPSILON)

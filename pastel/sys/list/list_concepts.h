@@ -26,7 +26,7 @@ namespace Pastel
 			using Data = UserDefinedType;
 
 			//! Whether to store user-data also in the end-node.
-			static PASTEL_CONSTEXPR bool UserDataInEndNode = UserDefinedBoolean;
+			static constexpr bool UserDataInEndNode = UserDefinedBoolean;
 
 			//! The data stored in the end node.
 			/*!

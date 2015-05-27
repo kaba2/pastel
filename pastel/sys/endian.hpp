@@ -54,9 +54,9 @@ namespace Pastel
 
 	inline bool isLittleEndian()
 	{
-		static PASTEL_CONSTEXPR uint8 testTable[2] = {1, 0};
-		static PASTEL_CONSTEXPR uint16 value = *((uint16 *)testTable);
-		static PASTEL_CONSTEXPR bool littleEndian = (value == 0x1);
+		static const uint8 testTable[2] = {1, 0};
+		static const uint16 value = *((uint16 *)testTable);
+		static const bool littleEndian = (value == 0x1);
 
 		return littleEndian;
 	}

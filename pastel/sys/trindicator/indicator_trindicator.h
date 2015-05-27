@@ -22,7 +22,7 @@ namespace Pastel
 		template <typename Type>
 		integer operator()(const Type& that) const
 		{
-			static PASTEL_CONSTEXPR integer ValueSet[] = {1, -1};
+			static constexpr integer ValueSet[] = {1, -1};
 			return ValueSet[indicator_(that)];
 		}
 

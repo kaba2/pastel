@@ -23,7 +23,7 @@ namespace Pastel
 	{
 	public:
 		using Real_ = Real;
-		static PASTEL_CONSTEXPR int N_ = N;
+		static constexpr int N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -105,7 +105,7 @@ namespace Pastel
 	class AlignedPlane<Real, Dynamic>
 	{
 	private:
-		static PASTEL_CONSTEXPR int N = Dynamic;
+		static constexpr int N = Dynamic;
 
 	public:
 		// Using default copy constructor.

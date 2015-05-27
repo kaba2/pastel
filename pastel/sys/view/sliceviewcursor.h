@@ -16,7 +16,7 @@ namespace Pastel
 		class ConstSliceViewCursor
 		{
 		public:
-			static PASTEL_CONSTEXPR int Dimension = N - 1;
+			static constexpr int Dimension = N - 1;
 
 			using Element = typename ConstCursor::Element;
 			using ConstReference = typename ConstCursor::ConstReference;

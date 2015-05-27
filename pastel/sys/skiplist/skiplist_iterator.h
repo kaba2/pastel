@@ -19,7 +19,7 @@ namespace Pastel
 		struct Iterator_Value
 		{
 			using type = Value_Class;
-			static PASTEL_CONSTEXPR bool UseValue = true;
+			static constexpr bool UseValue = true;
 		};
 
 		template <
@@ -28,7 +28,7 @@ namespace Pastel
 		struct Iterator_Value<Key, Member_Class<void, Tag>>
 		{
 			using type = const Key;
-			static PASTEL_CONSTEXPR bool UseValue = false;
+			static constexpr bool UseValue = false;
 		};
 
 		template <

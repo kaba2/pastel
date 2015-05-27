@@ -36,7 +36,7 @@ namespace Pastel
 			using Data_Class = typename Node_Settings::Data_Class;
 			using EndData_Class = typename Node_Settings::EndData_Class;
 			using EndBase = typename Node_Settings::EndBase;
-			static PASTEL_CONSTEXPR bool UserDataInEndNode =
+			static constexpr bool UserDataInEndNode =
 				Settings::UserDataInEndNode;
 
 			template <typename That_Settings>
@@ -45,7 +45,7 @@ namespace Pastel
 			public:
 				using That_Node_Settings = typename That_Settings::Node_Settings;
 
-				static PASTEL_CONSTEXPR bool value = 
+				static constexpr bool value = 
 					std::is_convertible<typename That_Settings::NodePtr, NodePtr>::value &&
 					std::is_same<typename That_Node_Settings::Data_Class, Data_Class>::value &&
 					std::is_same<typename That_Node_Settings::EndData_Class, EndData_Class>::value;
