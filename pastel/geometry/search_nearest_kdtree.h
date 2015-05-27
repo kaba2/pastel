@@ -140,8 +140,6 @@ namespace Pastel
 		const Search_Point& searchPoint,
 		ArgumentSet&&... argumentSet)
 	{
-		using Locator = typename KdTree::Locator;
-		using Real = Locator_Real<Locator>;
 		using Fwd = KdTree;
 		PASTEL_FWD(Cursor);
 		PASTEL_FWD(Point_ConstIterator);
@@ -152,7 +150,6 @@ namespace Pastel
 		auto&& nearestOutput = PASTEL_ARG_S(nearestOutput, nullOutput());
 		auto&& acceptPoint = PASTEL_ARG_S(acceptPoint, allIndicator());
 		auto&& normBijection = PASTEL_ARG_S(normBijection, Euclidean_NormBijection<real>());
-		auto&& searchAlgorithm_ = PASTEL_ARG_S(searchAlgorithm, DepthFirst_SearchAlgorithm_PointKdTree());
 		auto&& timeIntervalSequence = PASTEL_ARG_S(intervalSequence, Vector<Real, 2>({-infinity<Real>(), infinity<Real>()}));
 
 		integer k = PASTEL_ARG_S(k, 1);
@@ -171,7 +168,6 @@ namespace Pastel
 		Real cullDistance2 = maxDistance2;
 		Real errorFactor = inverse(normBijection.scalingFactor(1 + maxRelativeError));
 		Real nodeCullDistance2 = cullDistance2 * errorFactor;
-		integer dimension = kdTree.n();
 
 		using Result = std::pair<Real, Point_ConstIterator>;
 		Result notFound(infinity<Real>(), kdTree.end());
