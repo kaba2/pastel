@@ -118,7 +118,7 @@ namespace Pastel
 			*/
 			Data_Class& data() const
 			{
-				PENSURE(!empty())
+				PENSURE(!empty());
 				PENSURE(UserDataInSentinelNodes || !isSentinel());
 				return ((Data_Node<Node_Settings>*)node())->data();
 			}

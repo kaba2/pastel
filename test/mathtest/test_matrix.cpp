@@ -140,7 +140,7 @@ namespace
 					 2, 3, 4};
 				{
 					real correct = 89;
-					TEST_ENSURE_OP(std::abs(determinant(m) - 89), <, 0.0001);
+					TEST_ENSURE_OP(std::abs(determinant(m) - correct), <, 0.0001);
 				}
 			}
 
