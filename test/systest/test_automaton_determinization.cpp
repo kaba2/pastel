@@ -70,7 +70,6 @@ namespace
 			{
 				stateMap[&stateSet] = det.addState();
 
-				bool allStartStates = true;
 				boost::for_each(stateSet.crange(),
 					[&](const State& state)
 				{

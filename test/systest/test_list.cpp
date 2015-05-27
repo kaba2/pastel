@@ -680,7 +680,10 @@ namespace
 				};
 
 				TEST_ENSURE_OP(b.size(), ==, 1);
+				TEST_ENSURE(boost::equal(b, bCorrectSet));
+
 				TEST_ENSURE_OP(c.size(), ==, 13);
+				TEST_ENSURE(boost::equal(c, cCorrectSet));
 			}
 			
 			b.splice(b.begin(), c, c.begin());
@@ -699,7 +702,10 @@ namespace
 				};
 
 				TEST_ENSURE_OP(b.size(), ==, 2);
+				TEST_ENSURE(boost::equal(b, bCorrectSet));
+
 				TEST_ENSURE_OP(c.size(), ==, 12);
+				TEST_ENSURE(boost::equal(c, cCorrectSet));
 			}
 
 			Iterator iter(--c.end());
