@@ -51,7 +51,7 @@ namespace Pastel
 		typename... ConceptSet>
 	struct Models
 	{
-		static PASTEL_CONSTEXPR bool value = 
+		static constexpr bool value = 
 			And<
 				Models_Directly<Type, ConceptSet>...,
 				Models_Base<Type, ConceptSet>...

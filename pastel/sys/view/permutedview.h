@@ -26,7 +26,7 @@ namespace Pastel
 	class ConstPermutedView
 	{
 	public:
-		static PASTEL_CONSTEXPR int Dimension = N;
+		static constexpr int Dimension = N;
 
 		using Element = typename Contained_ConstView::Element;
 		using ConstReference = typename Contained_ConstView::ConstReference;

@@ -4,14 +4,15 @@
 #ifndef PASTELSYS_NOT_H
 #define PASTELSYS_NOT_H
 
-#include <type_traits>
+#include "pastel/sys/mytypes.h"
+#include "pastel/sys/type_traits/identity.h"
 
 namespace Pastel
 {
 
 	template <typename Bool>
 	struct Not_F
-	: Identity_F<std::integral_constant<bool, !Bool::value>>
+	: Identity_F<BoolConstant<!Bool::value>>
 	{};
 
 	template <typename Bool>

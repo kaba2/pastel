@@ -14,7 +14,7 @@ namespace Pastel
 	class ResultN
 	{
 	public:
-		static PASTEL_CONSTEXPR int N = 
+		static constexpr int N = 
 			(LeftN == Dynamic) ? RightN : LeftN;
 	};
 

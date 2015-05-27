@@ -14,7 +14,7 @@ namespace Pastel
 	class RepeatedConstView
 	{
 	public:
-		static PASTEL_CONSTEXPR int Dimension = N;
+		static constexpr int Dimension = N;
 
 		using Element = typename Contained_ConstView::Element;
 

@@ -71,10 +71,10 @@ namespace Pastel
 			using Less = UserDefinedType;
 
 			//! Whether to allow multiple equal keys.
-			static PASTEL_CONSTEXPR bool MultipleKeys = UserDefinedBoolean;
+			static constexpr bool MultipleKeys = UserDefinedBoolean;
 
 			//! Whether to store user-data also in the sentinel nodes.
-			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes = UserDefinedBoolean;
+			static constexpr bool UserDataInSentinelNodes = UserDefinedBoolean;
 		};
 
 		//! Red-black tree customization

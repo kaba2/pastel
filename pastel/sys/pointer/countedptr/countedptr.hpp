@@ -163,7 +163,7 @@ namespace Pastel
 	template <typename Type>
 	integer CountedPtr<Type>::count() const
 	{
-		static PASTEL_CONSTEXPR bool IsBase =
+		static constexpr bool IsBase =
 			std::is_base_of<ReferenceCounted, Type>::value;
 
 		PASTEL_STATIC_ASSERT(IsBase);
@@ -194,7 +194,7 @@ namespace Pastel
 	template <typename Type>
 	void CountedPtr<Type>::increaseCount() const
 	{
-		static PASTEL_CONSTEXPR bool IsBase =
+		static constexpr bool IsBase =
 			std::is_base_of<ReferenceCounted, Type>::value;
 
 		PASTEL_STATIC_ASSERT(IsBase);
@@ -213,7 +213,7 @@ namespace Pastel
 	template <typename Type>
 	void CountedPtr<Type>::decreaseCount() const
 	{
-		static PASTEL_CONSTEXPR bool IsBase =
+		static constexpr bool IsBase =
 			std::is_base_of<ReferenceCounted, Type>::value;
 
 		PASTEL_STATIC_ASSERT(IsBase);

@@ -35,7 +35,7 @@ namespace Pastel
 		using Real = Locator_Real<Locator>;
 
 		//! The compile-time dimension of the points.
-		static PASTEL_CONSTEXPR integer N = Locator_N<Locator>::value;
+		static constexpr integer N = Locator_N<Locator>::value;
 
 		//! Storage for the temporal points.
 		/*!

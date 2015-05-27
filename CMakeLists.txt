@@ -293,6 +293,8 @@ if (MSVC)
 		/wd4267
 		# "'identifier' : truncation from 'type1' to 'type2'"
 		/wd4305
+		#  integral constant overflow
+		/wd4307
 		# "'operation' : conversion from 'type1' to 'type2' of greater size"
 		/wd4312
 		# "new behavior: elements of array 'array' will be default initialized"

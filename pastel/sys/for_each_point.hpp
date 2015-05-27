@@ -20,7 +20,7 @@ namespace Pastel
 		}
 
 		integer d = box.n();
-		static PASTEL_CONSTEXPR integer Step = RowMajor ? 1 : -1;
+		static constexpr integer Step = RowMajor ? 1 : -1;
 
 		Vector<integer, N> position = box.min();
 

@@ -48,7 +48,7 @@ namespace Pastel
 		public:
 			using Real = real;
 			using Point = TreePoint;
-			static PASTEL_CONSTEXPR integer N = Dynamic;
+			static constexpr integer N = Dynamic;
 
 			explicit TreePoint_Locator(
 				integer dimension)

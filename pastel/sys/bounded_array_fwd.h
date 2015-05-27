@@ -25,7 +25,7 @@ namespace Pastel
 	public:
 		using Fwd = Settings;
 		PASTEL_FWD(Element);
-		static PASTEL_CONSTEXPR integer N = Settings::N;
+		static constexpr integer N = Settings::N;
 
 		using Iterator = BoundedArray_::Iterator<Element>;
 		using ConstIterator = BoundedArray_::Iterator<const Element>;

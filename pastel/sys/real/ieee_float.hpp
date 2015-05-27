@@ -24,7 +24,7 @@ namespace Pastel
 		// Truncate the mantissa to available bits.
 		uint64 scaledMantissa = scientific.mantissa >> (64 - M);
 
-		static PASTEL_CONSTEXPR integer ExponentBias =
+		static constexpr integer ExponentBias =
 			(1 << (E - 1)) - 1;
 
 		integer biasedExponent = 
@@ -39,7 +39,7 @@ namespace Pastel
 		// Nothing special needs to be done for sub-normal
 		// numbers (biasedExponent == 0).
 
-		static PASTEL_CONSTEXPR integer maxBiasedExponent =
+		static constexpr integer maxBiasedExponent =
 			(1 << E) - 1;
 		
 		if (biasedExponent >= maxBiasedExponent)
@@ -97,7 +97,7 @@ namespace Pastel
 			Requires<std::is_floating_point<Type>> = 0>
 		ScientificNotation ieeeFloatAsScientific(Type that)
 		{
-			static PASTEL_CONSTEXPR integer Bits = SizeInBits<Type>::value;
+			static constexpr integer Bits = SizeInBits<Type>::value;
 
 			PASTEL_STATIC_ASSERT(Bits > 0);
 			PASTEL_STATIC_ASSERT(E > 0);

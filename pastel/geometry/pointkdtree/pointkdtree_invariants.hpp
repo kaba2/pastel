@@ -141,7 +141,7 @@ namespace Pastel
 		using Fwd = Settings;
 		PASTEL_FWD(Locator);
 		using Real = typename Locator::Real;
-		static PASTEL_CONSTEXPR integer N = Locator::N;
+		static constexpr integer N = Locator::N;
 
 		AlignedBox<Real, N> bound(
 			Vector<Real, N>(ofDimension(tree.n()), -infinity<Real>()),

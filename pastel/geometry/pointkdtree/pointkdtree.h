@@ -36,7 +36,7 @@ namespace Pastel
 
 		PASTEL_FWD(Real);
 		PASTEL_FWD(Locator);
-		static PASTEL_CONSTEXPR integer N = Fwd::N;
+		static constexpr integer N = Fwd::N;
 
 		PASTEL_FWD(NodeAllocator);
 		PASTEL_FWD(PointAllocator);
@@ -593,7 +593,6 @@ namespace Pastel
 #include "pastel/geometry/pointkdtree/pointkdtree_equivalent.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_invariants.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_private.hpp"
-#include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_search_range.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_splitpredicate.h"
 

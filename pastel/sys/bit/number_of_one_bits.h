@@ -17,7 +17,7 @@ namespace Pastel
 		struct IsUnsigned
 		{
 		public:
-			static PASTEL_CONSTEXPR bool value =
+			static constexpr bool value =
 				std::is_unsigned<Type>::value &&
 				(sizeof(Type) * CHAR_BIT) == N;
 		};

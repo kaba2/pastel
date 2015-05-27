@@ -100,7 +100,7 @@ namespace Pastel
 			Models<Search_Point, Point_Concept>,
 			Models<Point_Indicator, Indicator_Concept(NearestSet_Point<NearestSet>)>,
 			Models<NormBijection, NormBijection_Concept>
-		> = 0
+		> ConceptCheck = 0
 	>
 	auto searchNearest(
 		const BruteForce_NearestSet<Settings>& nearestSet,

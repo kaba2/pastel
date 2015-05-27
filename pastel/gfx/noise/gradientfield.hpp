@@ -127,8 +127,8 @@ namespace Pastel
 				// Let us target 256 different kinds of cubes,
 				// that is, 16 different gradients.
 
-				static PASTEL_CONSTEXPR int Gradients = 1 << 4;
-				static PASTEL_CONSTEXPR uint32 GradientMask = Gradients - 1;
+				static constexpr int Gradients = 1 << 4;
+				static constexpr uint32 GradientMask = Gradients - 1;
 
 				const integer index = permutation_[position[0] & permutationMask_];
 				const Real gradient = (((Real)(2 * (index & GradientMask))) / (Gradients - 1)) - 1;
@@ -141,8 +141,8 @@ namespace Pastel
 				// handled a special case. We want to choose gradient
 				// vectors from the set {-1, 1}^2.
 
-				static PASTEL_CONSTEXPR int Gradients = 1 << 3;
-				static PASTEL_CONSTEXPR uint32 GradientMask = Gradients - 1;
+				static constexpr int Gradients = 1 << 3;
+				static constexpr uint32 GradientMask = Gradients - 1;
 
 				integer index =
 					permutation_[(position[1] & permutationMask_) +

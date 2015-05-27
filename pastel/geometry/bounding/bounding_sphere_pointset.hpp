@@ -50,7 +50,7 @@ namespace Pastel
 		boundingSphere(PointSet pointSet)
 	{
 		using Real = PointSet_Real<PointSet>;
-		static PASTEL_CONSTEXPR int N = 
+		static constexpr int N = 
 			PointSet_Dimension<PointSet>::value;
 
 		// This function does not give the minimum volume

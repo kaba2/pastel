@@ -27,7 +27,7 @@ namespace Pastel
 		static std::false_type test(...);
 
 	public:
-		static PASTEL_CONSTEXPR bool value =
+		static constexpr bool value =
 			!IsTemplateInstance<Type, Template>::value &&
 			decltype(test(std::declval<Type>()))::value;
 	};

@@ -17,7 +17,7 @@ namespace Pastel
 	-> AlignedBox<PointSet_Real<PointSet>, PointSet_N<PointSet>::value>
 	{
 		using Real = PointSet_Real<PointSet>;
-		static PASTEL_CONSTEXPR integer N = PointSet_N<PointSet>::value;
+		static constexpr integer N = PointSet_N<PointSet>::value;
 		integer d = pointSetDimension(pointSet);
 		
 		AlignedBox<Real, N> bound(d);

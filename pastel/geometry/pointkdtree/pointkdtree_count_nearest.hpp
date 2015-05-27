@@ -22,7 +22,7 @@ namespace Pastel
 		using Fwd = Tree;
 		PASTEL_FWD(Locator);
 		using Real = typename Locator::Real;
-		static PASTEL_CONSTEXPR integer N = Locator::N;
+		static constexpr integer N = Locator::N;
 		PASTEL_FWD(Point_ConstIterator);
 
 		using Self = CountNearest_;

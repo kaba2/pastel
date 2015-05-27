@@ -15,7 +15,7 @@ namespace Pastel
 	{
 		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
 		
-		static PASTEL_CONSTEXPR integer value = 
+		static constexpr integer value = 
 			Locator::N;
 	};
 

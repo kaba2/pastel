@@ -45,7 +45,7 @@ namespace Pastel
 		};
 
 	public:
-		static PASTEL_CONSTEXPR bool value =
+		static constexpr bool value =
 			Compiles<Test, Type>::value;
 	};
 

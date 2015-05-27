@@ -31,10 +31,10 @@ namespace Pastel
 			using PolygonData = UserDefinedType;
 
 			//! Whether to allow multiple edges between two vertices.
-			static PASTEL_CONSTEXPR bool MultipleEdges = UserDefinedBoolean;
+			static constexpr bool MultipleEdges = UserDefinedBoolean;
 
 			//! Whether to allow equal end-vertices for an edge.
-			static PASTEL_CONSTEXPR bool Loops = UserDefinedBoolean;
+			static constexpr bool Loops = UserDefinedBoolean;
 		};
 
 		//! Half-edge structure customization

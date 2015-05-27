@@ -32,7 +32,7 @@ namespace Pastel
 		PASTEL_FWD(ConstRange);
 		PASTEL_FWD(iterator);
 		PASTEL_FWD(const_iterator);
-		static PASTEL_CONSTEXPR integer N = Fwd::N;
+		static constexpr integer N = Fwd::N;
 
 		#ifdef _MSC_VER
 		// The std::is_trivially_copyable is not implemented in gcc 4.
@@ -362,7 +362,7 @@ namespace Pastel
 	{
 	public:
 		using Element = Element_;
-		static PASTEL_CONSTEXPR integer N = N_;
+		static constexpr integer N = N_;
 	};
 
 }

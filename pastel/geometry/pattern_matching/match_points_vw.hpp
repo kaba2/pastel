@@ -3,6 +3,7 @@
 
 #include "pastel/geometry/pattern_matching/match_points_vw.h"
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
+#include "pastel/geometry/search_nearest_kdtree.h"
 #include "pastel/geometry/bounding/bounding_sphere.h"
 
 #include "pastel/math/affine/affine_transformation.h"
@@ -27,7 +28,7 @@ namespace Pastel
 		const typename Locator::Real& relativeMatchingDistance)
 	{
 		using Real = typename Locator::Real;
-		static PASTEL_CONSTEXPR int N = Locator::N;
+		static constexpr int N = Locator::N;
 
 		Sphere<Real, N> sceneSphere = boundingSphere(
 			pointSet, locator);
@@ -50,7 +51,7 @@ namespace Pastel
 			using Model_Locator = typename Model_Settings::Locator;
 			
 			using Real = typename Scene_Locator::Real;
-			static PASTEL_CONSTEXPR integer N = Scene_Locator::N;
+			static constexpr integer N = Scene_Locator::N;
 
 			PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
 

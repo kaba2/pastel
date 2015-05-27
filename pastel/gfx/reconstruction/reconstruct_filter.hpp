@@ -44,7 +44,7 @@ namespace Pastel
 		{
 		public:
 			using Real = Real_;
-			static PASTEL_CONSTEXPR integer N = N_;
+			static constexpr integer N = N_;
 			using Point = DataPoint<Real, N, Data>;
 
 			explicit DataPolicy(
@@ -78,7 +78,7 @@ namespace Pastel
 		public:
 			using Locator = typename Tree::Locator:
 			using Real = typename Locator::Real;
-			static PASTEL_CONSTEXPR integer N = Locator::N;
+			static constexpr integer N = Locator::N;
 
 			explicit ReconstructFunctor(
 				const Tree& kdTree,

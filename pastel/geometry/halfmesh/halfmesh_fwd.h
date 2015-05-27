@@ -46,8 +46,8 @@ namespace Pastel
 		PASTEL_FWD(HalfData);
 		PASTEL_FWD(EdgeData);
 		PASTEL_FWD(PolygonData);
-		static PASTEL_CONSTEXPR bool MultipleEdges = Settings::MultipleEdges;
-		static PASTEL_CONSTEXPR bool Loops = Settings::Loops;
+		static constexpr bool MultipleEdges = Settings::MultipleEdges;
+		static constexpr bool Loops = Settings::Loops;
 
 		struct Vertex_Tag;
 		using VertexData_Class = 

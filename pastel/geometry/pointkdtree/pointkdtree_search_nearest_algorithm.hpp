@@ -41,7 +41,7 @@ namespace Pastel
 			using Fwd = KdTree;
 			PASTEL_FWD(Locator);
 			using Real = typename Locator::Real;
-			static PASTEL_CONSTEXPR integer N = Locator::N;
+			static constexpr integer N = Locator::N;
 			PASTEL_FWD(Cursor);
 			PASTEL_FWD(Point_ConstIterator);
 
@@ -433,7 +433,7 @@ namespace Pastel
 
 		using Fwd = KdTree;
 		PASTEL_FWD(Cursor);
-		static PASTEL_CONSTEXPR integer N = Locator::N;
+		static constexpr integer N = Locator::N;
 
 		Vector<Real, N> searchPoint =
 			pointAsVector(location(searchIter->point(), kdTree.locator()));

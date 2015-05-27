@@ -35,7 +35,7 @@ namespace Pastel
 			// the maximum depth is tree.orders() - 2.
 			ASSERT_OP(depth, <, tree.orders() - 1);
 
-			static PASTEL_CONSTEXPR bool DiscardOutput =
+			static constexpr bool DiscardOutput =
 				std::is_same<Point_ConstIterator_Output, Null_Output>::value;
 
 			using Tree = RangeTree<Settings, Customization>;

@@ -53,7 +53,7 @@ namespace Pastel
 
 	struct Locator_Archetype
 	{
-		static PASTEL_CONSTEXPR integer N = 1;
+		static constexpr integer N = 1;
 		using Real = real;
 		using Point = real;
 

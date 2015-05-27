@@ -28,7 +28,7 @@ namespace Pastel
 			ENSURE_OP(box.n(), ==, 2);
 			ENSURE_OP(triangle.n(), ==, 2);
 
-			static PASTEL_CONSTEXPR int N = 2;
+			static constexpr int N = 2;
 
 			// Using the separating axis theorem.
 
@@ -155,7 +155,7 @@ namespace Pastel
 			// To avoid dynamic allocations, we
 			// will create the temporaries using
 			// a fixed dimension.
-			static PASTEL_CONSTEXPR int N = 3;
+			static constexpr int N = 3;
 
 			// Using the separating axis theorem.
 

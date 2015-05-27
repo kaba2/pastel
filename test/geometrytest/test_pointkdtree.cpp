@@ -29,7 +29,7 @@ namespace
 		{
 		public:
 			using Real = real;
-			static PASTEL_CONSTEXPR integer N = N_;
+			static constexpr integer N = N_;
 			using Locator = Vector_Locator<Real, N_>;
 		};
 

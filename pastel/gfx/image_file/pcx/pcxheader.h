@@ -22,8 +22,8 @@ namespace Pastel
 		integer width() const;
 		integer height() const;
 
-		static PASTEL_CONSTEXPR int Palette16Size = 48;
-		static PASTEL_CONSTEXPR int Reserved2Size = 54;
+		static constexpr int Palette16Size = 48;
+		static constexpr int Reserved2Size = 54;
 
 		uint8 manufacturer_;
 		uint8 version_;

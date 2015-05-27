@@ -31,7 +31,7 @@ namespace Pastel
 		using Customization = Customization_<Settings_>;
 
 		PASTEL_FWD(Settings);
-		static PASTEL_CONSTEXPR GraphType Type = Fwd::Type;
+		static constexpr GraphType Type = Fwd::Type;
 		PASTEL_FWD(VertexData);
 		PASTEL_FWD(EdgeData);
 
@@ -52,10 +52,10 @@ namespace Pastel
 		PASTEL_FWD(Incidence_Iterator);
 		PASTEL_FWD(Incidence_ConstIterator);
 
-		static PASTEL_CONSTEXPR int Outgoing = Fwd::Outgoing;
-		static PASTEL_CONSTEXPR int Incoming = Fwd::Incoming;
-		static PASTEL_CONSTEXPR int Undirected = Fwd::Undirected;
-		static PASTEL_CONSTEXPR int IncidenceTypes = Fwd::IncidenceTypes;
+		static constexpr int Outgoing = Fwd::Outgoing;
+		static constexpr int Incoming = Fwd::Incoming;
+		static constexpr int Undirected = Fwd::Undirected;
+		static constexpr int IncidenceTypes = Fwd::IncidenceTypes;
 
 		//! Constructs an empty graph.
 		/*!

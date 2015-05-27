@@ -283,7 +283,7 @@ namespace Pastel
 			return;
 		}
 
-		static PASTEL_CONSTEXPR integer FixedPoint = 16;
+		static constexpr integer FixedPoint = 16;
 
 		integer factor = 1 << FixedPoint;
 

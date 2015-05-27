@@ -49,13 +49,13 @@ namespace Pastel
 		PASTEL_FWD(SentinelData);
 		PASTEL_FWD(Less);
 
-		static PASTEL_CONSTEXPR bool MultipleKeys =
+		static constexpr bool MultipleKeys =
 			Settings::MultipleKeys;
 
-		static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
+		static constexpr bool UserDataInSentinelNodes =
 			Settings::UserDataInSentinelNodes;
 
-		static PASTEL_CONSTEXPR bool UserDataInSentinelNodes_ =
+		static constexpr bool UserDataInSentinelNodes_ =
 			UserDataInSentinelNodes;
 
 		struct Key_Tag;
@@ -70,7 +70,7 @@ namespace Pastel
 		struct SentinelData_Tag;
 		using SentinelData_Class = Class<SentinelData, SentinelData_Tag>;
 
-		static PASTEL_CONSTEXPR bool DereferenceToData =
+		static constexpr bool DereferenceToData =
 			!std::is_same<Data, void>::value;
 
 		class Node_Settings;
@@ -85,7 +85,7 @@ namespace Pastel
 			using Propagation_Class = Propagation_Class;
 			using Data_Class = Data_Class;
 			using SentinelData_Class = SentinelData_Class;
-			static PASTEL_CONSTEXPR bool UserDataInSentinelNodes =
+			static constexpr bool UserDataInSentinelNodes =
 				UserDataInSentinelNodes_;
 			using EndBase = typename std::conditional<
 				UserDataInSentinelNodes,
@@ -211,8 +211,8 @@ namespace Pastel
 		using Less = Less_;
 		using Propagation = Propagation_;
 		using SentinelData = SentinelData_;
-		static PASTEL_CONSTEXPR bool MultipleKeys = MultipleKeys_;
-		static PASTEL_CONSTEXPR bool UserDataInSentinelNodes = UserDataInSentinelNodes_;
+		static constexpr bool MultipleKeys = MultipleKeys_;
+		static constexpr bool UserDataInSentinelNodes = UserDataInSentinelNodes_;
 	};
 
 }
