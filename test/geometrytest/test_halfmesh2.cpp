@@ -55,6 +55,7 @@ namespace
 				TEST_ENSURE(testInvariants(halfMesh));
 
 				HalfEdge<>::Edge_Iterator e = halfMesh.insertEdge(a, b);
+				unused(e);
 				TEST_ENSURE(testInvariants(halfMesh));
 			}
 			{

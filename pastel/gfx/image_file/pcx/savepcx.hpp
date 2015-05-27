@@ -480,9 +480,6 @@ namespace Pastel
 		ReverseAdapter<Integer_To_Real<Real, uint8> > adapter(
 			Integer_To_Real<Real, uint8>(256, maxValue));
 
-		real32 paletteMaxValue = maximizeContrast ? 
-			1 : maxValue;
-
 		std::vector<Color> palette;
 		smoothFalseColorPalette(palette, 256);
 

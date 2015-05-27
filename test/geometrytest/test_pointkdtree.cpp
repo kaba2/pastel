@@ -216,6 +216,7 @@ namespace
 
 					real distance2 = result.first;
 					Point_ConstIterator iter = result.second;
+					unused(iter);
 
 					//TEST_ENSURE(iter == iteratorSet[i]);
 					TEST_ENSURE(distance2 == 0);
@@ -230,6 +231,7 @@ namespace
 					
 					real distance2 = result.first;
 					Point_ConstIterator iter = result.second;
+					unused(iter);
 
 					//TEST_ENSURE(iter == correctSet[i]);
 					TEST_ENSURE(distance2 == distanceSet[i]);

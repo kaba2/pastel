@@ -561,6 +561,7 @@ namespace
 						vertex[1][1],
 						vertex[0][1]
 					}));
+				unused(aPolygon);
 
 				TEST_ENSURE(testInvariants(mesh));
 				TEST_ENSURE_OP(mesh.vertices(), == , 16);
@@ -577,6 +578,7 @@ namespace
 						vertex[2][1],
 						vertex[1][1]
 					}));
+				unused(bPolygon);
 
 				TEST_ENSURE(testInvariants(mesh));
 				TEST_ENSURE_OP(mesh.vertices(), == , 16);
