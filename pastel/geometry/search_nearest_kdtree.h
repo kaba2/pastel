@@ -128,10 +128,10 @@ namespace Pastel
 			Or<
 				IsPointKdTree<KdTree>,
 				IsTdTree<KdTree>
-			>//,
-			//Models<NormBijection, NormBijection_Concept>,
-			//Models<Search_Point, Point_Concept>,
-			//Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
+			>,
+			Models<NormBijection, NormBijection_Concept>,
+			Models<Search_Point, Point_Concept>,
+			Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
 			//Models<NearestOutput, Output_Concept(?)>,
 		> ConceptCheck = 0
 	>
@@ -140,7 +140,7 @@ namespace Pastel
 		const Search_Point& searchPoint,
 		ArgumentSet&&... argumentSet)
 	{
-		using Locator = TdTree_Locator<KdTree>;
+		using Locator = typename KdTree::Locator;
 		using Real = Locator_Real<Locator>;
 		using Fwd = KdTree;
 		PASTEL_FWD(Cursor);
