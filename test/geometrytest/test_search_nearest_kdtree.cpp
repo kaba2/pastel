@@ -40,19 +40,16 @@ namespace
 			searchNearest(
 				tree, 
 				Point(1, 2),
-				nullOutput(),
-				allIndicator(),
-				Euclidean_NormBijection<real>(),
-				DepthFirst_SearchAlgorithm_PointKdTree(),
-				Vector2{-infinity<real>(), infinity<real>()},
-				[](auto& o)
-			{
-				o.k = 10;
-				o.maxDistance2 = 10;
-				o.maxRelativeError = 0;
-				o.nBruteForce = 0;
-				o.reportMissing = true;				
-			});
+				PASTEL_TAG(acceptPoint), nullOutput(),
+				PASTEL_TAG(indicator), allIndicator(),
+				PASTEL_TAG(normBijection), Euclidean_NormBijection<real>(),
+				PASTEL_TAG(searchAlgorithm), DepthFirst_SearchAlgorithm_PointKdTree(),
+				PASTEL_TAG(intervalSequence), Vector2{-infinity<real>(), infinity<real>()},
+				PASTEL_TAG(k), 10,
+				PASTEL_TAG(maxDistance2), 10,
+				PASTEL_TAG(maxRelativeError), 0,
+				PASTEL_TAG(nBruteForce), 0,
+				PASTEL_TAG(reportMissing));
 		}
 	};
 
