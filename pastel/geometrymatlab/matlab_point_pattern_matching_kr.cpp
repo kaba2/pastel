@@ -112,8 +112,6 @@ namespace Pastel
 			// Here's where we store the results.
 
 			std::vector<std::pair<SceneIterator, ModelIterator> > pairSet;
-			Vector<real> translation(ofDimension(n));
-			real bias = 0;
 
 			// Compute the point pattern match.
 
