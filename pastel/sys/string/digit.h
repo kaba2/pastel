@@ -23,6 +23,8 @@ namespace Pastel
 		PENSURE_OP(i, >=, 0);
 		PENSURE_OP(i, <, maxBase);
 
+		unused(maxBase);
+
 		return digitSet[i];
 	}
 

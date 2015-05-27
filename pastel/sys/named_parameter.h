@@ -40,43 +40,130 @@ namespace Pastel
 		return defaultValue();
 	}
 
+	// template <
+	// 	tag_integer KeyHash,
+	// 	typename Default,
+	// 	typename Value,
+	// 	typename... ArgumentSet,
+	// 	Requires<
+	// 		Not<IsTag<Value>>
+	// 	> = 0
+	// >
+	// void argument(
+	// 	Default&& defaultValue, 
+	// 	Value&& value, 
+	// 	ArgumentSet&&...)
+	// {
+	// 	// The list begins with a value.
+	// 	unused(defaultValue);
+	// 	unused(value);
+
+	// 	// Report an error of a missing key-tag.
+	// 	static_assert(!std::is_same<Default, Default>::type,
+	// 		"An optional value is not preceded by a key-tag.");
+
+	// 	// Suppress possible compiler errors
+	// 	// by returning a meaningful object.
+	// }
+
 	template <
 		tag_integer KeyHash,
 		typename Default,
 		typename Key,
 		Requires<
-			IsTag<Key>
-		> = 0
+			IsTag<Key>,
+			BoolConstant<Tag_Hash<Key>::value == KeyHash>
+		> ConceptCheck = 0
 	>
-	decltype(auto) argument(
+	bool argument(
 		Default&& defaultValue, 
 		Key&& key)
 	{
-		// The parameter is missing its value; raise an error.
-		static_assert(
-			!std::is_same<Default, Default>::value, 
-			"Named parameter does not have a value; end of argument-list.");
-		return 0;
+		// The list consists of a single key-tag,
+		// which is the searched tag.
+		unused(defaultValue);
+		unused(key);
+
+		// Interpret the value as boolean true.
+		return true;
 	}
 
 	template <
 		tag_integer KeyHash,
 		typename Default,
 		typename Key,
-		typename OtherKey,
-		typename... ArgumentSet,
 		Requires<
 			IsTag<Key>,
-			IsTag<OtherKey>
-		> = 0
+			BoolConstant<Tag_Hash<Key>::value != KeyHash>
+		> ConceptCheck = 0
 	>
-	decltype(auto) argument(Default&& defaultValue, Key&& key, OtherKey&& otherKey, ArgumentSet&&...)
+	decltype(auto) argument(
+		Default&& defaultValue, 
+		Key&& key)
 	{
-		// The parameter is missing its value; raise an error.
-		static_assert(
-			!std::is_same<Default, Default>::value, 
-			"Named parameter does not have a value; two sub-sequent tags.");
-		return 0;
+		// The list consists of a single key-tag,
+		// which is _not_ the searched tag.
+		unused(key);
+
+		// Return the default-value.
+		return defaultValue();
+	}
+
+	template <
+		tag_integer KeyHash,
+		typename Default,
+		typename A_Key,
+		typename B_Key,
+		typename... ArgumentSet,
+		Requires<
+			IsTag<A_Key>,
+			IsTag<B_Key>,
+			BoolConstant<Tag_Hash<A_Key>::value == KeyHash>
+		> ConceptCheck = 0
+	>
+	bool argument(
+		Default&& defaultValue, 
+		A_Key&& aKey, 
+		B_Key&& bKey, 
+		ArgumentSet&&...)
+	{
+		// The list begins with two subsequent key-tags,
+		// the first of which is the searched tag.
+		unused(defaultValue);
+		unused(aKey);
+		unused(bKey);
+
+		// Interpret the value as boolean true.
+		return true;
+	}
+
+	template <
+		tag_integer KeyHash,
+		typename Default,
+		typename A_Key,
+		typename B_Key,
+		typename... ArgumentSet,
+		Requires<
+			IsTag<A_Key>,
+			IsTag<B_Key>,
+			BoolConstant<Tag_Hash<A_Key>::value != KeyHash>
+		> ConceptCheck = 0
+	>
+	decltype(auto) argument(
+		Default&& defaultValue, 
+		A_Key&& aKey, 
+		B_Key&& bKey, 
+		ArgumentSet&&... rest)
+	{
+		// The list begins with two subsequent key-tags,
+		// the first of which is _not_ the searched tag.
+		unused(aKey);
+
+		// Continue searching from the next key-value pair.
+		return argument<KeyHash>(
+			std::forward<Default>(defaultValue), 
+			std::forward<B_Key>(bKey),
+			std::forward<ArgumentSet>(rest)...);
 	}
 
 	template <
@@ -87,8 +174,8 @@ namespace Pastel
 		typename... ArgumentSet,
 		Requires<
 			IsTag<Key>,
-			BoolConstant<Tag_Hash<Key>::value == KeyHash>,
-			Not<IsTag<Value>>
+			Not<IsTag<Value>>,
+			BoolConstant<Tag_Hash<Key>::value == KeyHash>
 		> ConceptCheck = 0
 	>
 	decltype(auto) argument(
@@ -97,6 +184,11 @@ namespace Pastel
 		Value&& value, 
 		ArgumentSet&&...)
 	{
+		// The list begins with a key-value pair,
+		// where the key is the searched tag.
+		unused(defaultValue);
+		unused(key);
+
 		// We have found the searched argument; return it.
 		return std::forward<Value>(value);
 	}
@@ -113,9 +205,17 @@ namespace Pastel
 			Not<IsTag<Value>>
 		> ConceptCheck = 0
 	>
-	decltype(auto) argument(Default&& defaultValue, Key&& key, Value&& value, ArgumentSet&&... rest)
+	decltype(auto) argument(
+		Default&& defaultValue, 
+		Key&& key, 
+		Value&& value, 
+		ArgumentSet&&... rest)
 	{
-		// This is not the parameter we are searching for.
+		// The list begins with a key-value pair,
+		// where the key is _not_ the searched tag.
+		unused(key);
+		unused(value);
+
 		// Continue searching from the next key-value pair.
 		return argument<KeyHash>(
 			std::forward<Default>(defaultValue), 
