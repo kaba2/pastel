@@ -134,12 +134,14 @@ namespace Pastel
 							};
 
 							searchNearest(
-								sceneTree, searchPoint,
-								neighborOutput,	allIndicator(),
-								normBijection)
-								.kNearest(kNearest)
-								.maxDistance(matchingDistance)
-								.maxRelativeError(maxRelativeError);
+								sceneTree, 
+								searchPoint,
+								PASTEL_TAG(nearestOutput), neighborOutput,
+								PASTEL_TAG(acceptPoint), allIndicator(),
+								PASTEL_TAG(normBijection), normBijection,
+								PASTEL_TAG(k), kNearest,
+								PASTEL_TAG(maxDistance), matchingDistance,
+								PASTEL_TAG(maxRelativeError), maxRelativeError);
 
 							//log() << "Distance " << neighbor.key() << logNewLine;
 						

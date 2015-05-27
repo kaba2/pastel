@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/tdtree/tdtree.h"
 
-#include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
+#include "pastel/geometry/search_nearest_kdtree.h"
 #include "pastel/geometry/distance/distance_point_point.h"
 #include "pastel/geometry/search_nearest_bruteforce.h"
 
@@ -69,9 +69,6 @@ namespace
 			
 			Tree tree(rangeInput(pointSet));
 
-			Array<Point_Iterator, 2> nearestSet(
-				Vector2i(1, n));
-
 			integer k = 7;
 
 			for (integer i = 0; i < n; ++i)
@@ -79,6 +76,8 @@ namespace
 				std::vector<std::pair<real, Point>> bruteSet;
 				bruteSet.reserve(k);
 
+				// Bug in here (.get()).
+				/*
 				real kDistanceBrute = searchNearest(
 					bruteForceNearestSet(rangeInput(pointSet)),
 					pointSet[i],
@@ -89,8 +88,14 @@ namespace
 				{
 					optional.k = k;
 				}).first;
-				
-				//real kDistanceBrute = 0;
+				*/
+
+				auto nearestSet = bruteForceNearestSet(rangeInput(pointSet));
+				PASTEL_CONCEPT_CHECK(decltype(nearestSet), NearestSet_Concept);
+
+				real kDistanceBrute = searchNearest(
+					nearestSet,
+					pointSet[i]).first;
 
 				std::vector<std::pair<real, ConstIterator>> treeSet;
 				treeSet.reserve(k);
@@ -98,8 +103,11 @@ namespace
 				real kDistanceTree = searchNearest(
 					tree,
 					pointSet[i],
-					emplaceBackOutput(treeSet)).
-					kNearest(k);
+					PASTEL_TAG(nearestOutput), emplaceBackOutput(treeSet),
+					PASTEL_TAG(acceptPoint), allIndicator(),
+					PASTEL_TAG(normBijection), Euclidean_NormBijection<real>(),
+					PASTEL_TAG(searchAlgorithm), DepthFirst_SearchAlgorithm_PointKdTree(),
+					PASTEL_TAG(k), k).first;
 
 				TEST_ENSURE_OP(kDistanceBrute, ==, kDistanceTree);
 
@@ -136,22 +144,40 @@ namespace
 				{
 					Vector2 timeInterval = { (real)i, (real)n };
 					integer distance =
-						searchNearest(tree, Point(0, 0), output, accept,
-						norm, algorithm, timeInterval);
+						searchNearest(
+							tree, 
+							Point(0, 0), 
+							PASTEL_TAG(nearestOutput), output, 
+							PASTEL_TAG(accept), accept,
+							PASTEL_TAG(normBijection), norm, 
+							PASTEL_TAG(searchAlgorithm), algorithm, 
+							PASTEL_TAG(intervalSequence), timeInterval).first;
 					TEST_ENSURE_OP(distance, ==, square(i));
 				}
 				{
 					Vector2 timeInterval = { (real)0, (real)i + 1 };
 					integer distance =
-						searchNearest(tree, Point(0, 0), output, accept,
-						norm, algorithm, timeInterval);
+						searchNearest(
+							tree, 
+							Point(0, 0), 
+							PASTEL_TAG(nearestOutput), output, 
+							PASTEL_TAG(accept), accept,
+							PASTEL_TAG(normBijection), norm, 
+							PASTEL_TAG(searchAlgorithm), algorithm, 
+							PASTEL_TAG(intervalSequence), timeInterval).first;
 					TEST_ENSURE_OP(distance, ==, 0);
 				}
 				{
 					Vector2 timeInterval = { (real)i, (real)i + 1 };
 					integer distance =
-						searchNearest(tree, Point(0, 0), output, accept,
-						norm, algorithm, timeInterval);
+						searchNearest(
+							tree, 
+							Point(0, 0),
+							PASTEL_TAG(nearestOutput), output, 
+							PASTEL_TAG(accept), accept,
+							PASTEL_TAG(normBijection), norm, 
+							PASTEL_TAG(searchAlgorithm), algorithm, 
+							PASTEL_TAG(intervalSequence), timeInterval).first;
 					TEST_ENSURE_OP(distance, ==, square(i));
 				}
 			}
@@ -161,24 +187,42 @@ namespace
 				Vector4 timeInterval = { (real)i, (real)i + 1, (real)i + 5, (real)i + 6 };
 				{
 					real distance =
-						searchNearest(tree, Point(i + 2, 0), output, accept,
-						norm, algorithm, timeInterval);
+						searchNearest(
+							tree, 
+							Point(i + 2, 0),
+							PASTEL_TAG(nearestOutput), output, 
+							PASTEL_TAG(accept), accept,
+							PASTEL_TAG(normBijection), norm, 
+							PASTEL_TAG(searchAlgorithm), algorithm, 
+							PASTEL_TAG(intervalSequence), timeInterval).first;
 
 					TEST_ENSURE_OP((integer)distance, ==, square(2));
 				}
 
 				{
 					real distance =
-						searchNearest(tree, Point(i - 3, 0), output, accept,
-						norm, algorithm, timeInterval);
+						searchNearest(
+							tree, 
+							Point(i - 3, 0), 
+							PASTEL_TAG(nearestOutput), output, 
+							PASTEL_TAG(accept), accept,
+							PASTEL_TAG(normBijection), norm, 
+							PASTEL_TAG(searchAlgorithm), algorithm, 
+							PASTEL_TAG(intervalSequence), timeInterval).first;
 
 					TEST_ENSURE_OP((integer)distance, ==, square(3));
 				}
 
 				{
 					real distance =
-						searchNearest(tree, Point(i + 4, 0), output, accept,
-						norm, algorithm, timeInterval);
+						searchNearest(
+							tree, 
+							Point(i + 4, 0), 
+							PASTEL_TAG(nearestOutput), output, 
+							PASTEL_TAG(accept), accept,
+							PASTEL_TAG(normBijection), norm, 
+							PASTEL_TAG(searchAlgorithm), algorithm, 
+							PASTEL_TAG(intervalSequence), timeInterval).first;
 					integer correct = i < (n - 5) ? square(1) : square(4);
 
 					TEST_ENSURE_OP((integer)distance, ==, correct);
@@ -186,8 +230,14 @@ namespace
 
 				{
 					real distance =
-						searchNearest(tree, Point(i + 7, 0), output, accept,
-						norm, algorithm, timeInterval);
+						searchNearest(
+							tree, 
+							Point(i + 7, 0), 
+							PASTEL_TAG(nearestOutput), output, 
+							PASTEL_TAG(accept), accept,
+							PASTEL_TAG(normBijection), norm, 
+							PASTEL_TAG(searchAlgorithm), algorithm, 
+							PASTEL_TAG(intervalSequence), timeInterval).first;
 					integer correct = i < (n - 5) ? square(2) : square(7);
 
 					TEST_ENSURE_OP((integer)distance, ==, correct);
@@ -242,7 +292,17 @@ namespace
 					neighborSet.emplace_back(point);
 				};
 
-				searchNearest(tree, Point(1, 3), report).kNearest(5);
+				searchNearest(
+					tree, 
+					Point(1, 3), 
+					report,
+					allIndicator(),
+					Euclidean_NormBijection<real>(),
+					DepthFirst_SearchAlgorithm_PointKdTree(),
+					[](auto& o)
+					{
+						o.k = 5;
+					});
 			}
 		}
 	};

@@ -114,36 +114,31 @@ namespace Pastel
 	template <
 		typename KdTree,
 		typename Search_Point,
-		typename NearestOutput = Null_Output,
-		typename Indicator = All_Indicator,
+		typename... ArgumentSet,
+		typename NearestOutput = PASTEL_ARG_T(nearestOutput, Null_Output),
+		typename Indicator = PASTEL_ARG_T(acceptPoint, All_Indicator),
 		typename Locator = typename KdTree::Locator,
 		typename Real = Locator_Real<Locator>,
-		typename NormBijection = Euclidean_NormBijection<Real>, 
-		typename SearchAlgorithm_KdTree = DepthFirst_SearchAlgorithm_PointKdTree,
-		typename IntervalSequence = Vector<Real, 2>,
-		typename SetOptionals = Null_Output,
+		typename NormBijection = PASTEL_ARG_T(normBijection, Euclidean_NormBijection<Real>), 
+		typename SearchAlgorithm_KdTree = PASTEL_ARG_T(searchAlgorithm, DepthFirst_SearchAlgorithm_PointKdTree),
+		typename IntervalSequence = PASTEL_ARG_T(intervalSequence, Vector<Real, 2>),
 		Requires<
 			// Visual Studio 2015 RC has bugs which cause these
 			// commented stuff to fail.
 			Or<
 				IsPointKdTree<KdTree>,
 				IsTdTree<KdTree>
-			>,
-			Models<NormBijection, NormBijection_Concept>,
-			Models<Search_Point, Point_Concept>,
-			Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
+			>//,
+			//Models<NormBijection, NormBijection_Concept>,
+			//Models<Search_Point, Point_Concept>,
+			//Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
 			//Models<NearestOutput, Output_Concept(?)>,
 		> ConceptCheck = 0
 	>
 	auto searchNearest(
 		const KdTree& kdTree,
 		const Search_Point& searchPoint,
-		const NearestOutput& nearestOutput = NearestOutput(),
-		const Indicator& acceptPoint = Indicator(),
-		const NormBijection& normBijection = NormBijection(),
-		const SearchAlgorithm_KdTree& searchAlgorithm_ = SearchAlgorithm_KdTree(),
-		const IntervalSequence& timeIntervalSequence = IntervalSequence({-infinity<Real>(), infinity<Real>()}),
-		SetOptionals setOptionals = SetOptionals())
+		ArgumentSet&&... argumentSet)
 	{
 		using Locator = TdTree_Locator<KdTree>;
 		using Real = Locator_Real<Locator>;
@@ -153,23 +148,18 @@ namespace Pastel
 
 		using IndexSequence = 
 			typename ToIndexSequence<IntervalSequence>::type;
+		
+		auto&& nearestOutput = PASTEL_ARG_S(nearestOutput, nullOutput());
+		auto&& acceptPoint = PASTEL_ARG_S(acceptPoint, allIndicator());
+		auto&& normBijection = PASTEL_ARG_S(normBijection, Euclidean_NormBijection<real>());
+		auto&& searchAlgorithm_ = PASTEL_ARG_S(searchAlgorithm, DepthFirst_SearchAlgorithm_PointKdTree());
+		auto&& timeIntervalSequence = PASTEL_ARG_S(intervalSequence, Vector<Real, 2>({-infinity<Real>(), infinity<Real>()}));
 
-		struct Optionals
-		{
-			integer k = 1;
-			Real maxDistance2 = infinity<Real>();
-			Real maxRelativeError = 0;
-			integer nBruteForce = 16;
-			bool reportMissing = true;
-		} o;
-
-		setOptionals(o);
-
-		const integer& k = o.k;
-		const Real& maxDistance2 = o.maxDistance2;
-		const Real& maxRelativeError = o.maxRelativeError;
-		const integer& nBruteForce = o.nBruteForce;
-		const bool& reportMissing = o.reportMissing;
+		integer k = PASTEL_ARG_S(k, 1);
+		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, infinity<Real>());
+		Real maxRelativeError = PASTEL_ARG_S(maxRelativeError, 0);
+		integer nBruteForce = PASTEL_ARG_S(nBruteForce, 16);
+		bool reportMissing = PASTEL_ARG_S(reportMissing, true);
 
 		ENSURE_OP(k, >=, 0);
 		ENSURE_OP(maxDistance2, >=, 0);
