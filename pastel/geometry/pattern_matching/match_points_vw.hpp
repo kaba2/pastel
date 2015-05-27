@@ -248,10 +248,11 @@ namespace Pastel
 							};
 
 							searchNearest(
-								sceneTree_, sceneIter,
-								nearestOutput,
-								predicateIndicator(sceneIter, NotEqualTo()))
-								.kNearest(k_);
+								sceneTree_, 
+								scenePosition(sceneIter),
+								PASTEL_TAG(nearestOutput), nearestOutput,
+								PASTEL_TAG(acceptPoint), predicateIndicator(sceneIter, NotEqualTo()),
+								PASTEL_TAG(k), k_);
 						}
 
 						// Get the k-nearest neighbors from the cache.
@@ -276,10 +277,11 @@ namespace Pastel
 							};
 
 							searchNearest(
-								modelTree_, modelIter,
-								nearestOutput,
-								predicateIndicator(modelIter, NotEqualTo()))
-								.kNearest(k_);
+								modelTree_, 
+								modelPosition(modelIter),
+								PASTEL_TAG(nearestOutput), nearestOutput,
+								PASTEL_TAG(acceptPoint), predicateIndicator(modelIter, NotEqualTo()),
+								PASTEL_TAG(k), k_);
 						}
 
 						// Try to match the nearest neighbours.
