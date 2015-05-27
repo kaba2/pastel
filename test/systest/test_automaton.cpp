@@ -45,6 +45,7 @@ namespace
 			State_ConstIterator c = automaton.addState();
 			State_ConstIterator d = automaton.addState();
 			State_ConstIterator e = automaton.addState();
+			unused(e);
 
 			automaton.addTransition(
 				a, 0, b);

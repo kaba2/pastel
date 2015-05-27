@@ -105,6 +105,7 @@ namespace
 				List_Set<integer, integer> b;
 				List_Set<void, integer> c;
 				auto i = a.begin();
+				unused(i);
 				// The following should not compile.
 				//i = a.cbegin();
 				//i = b.begin();

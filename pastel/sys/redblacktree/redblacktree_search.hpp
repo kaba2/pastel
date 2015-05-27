@@ -70,8 +70,6 @@ namespace Pastel
 		-> ConstIterator
 	{
 		ConstIterator equal = equalAndUpper.equal;
-		ConstIterator upper = equalAndUpper.upper;
-
 		if (equal.isSentinel())
 		{
 			// The key does not exist in the tree.

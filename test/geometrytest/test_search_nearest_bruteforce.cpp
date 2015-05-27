@@ -4,6 +4,7 @@
 #include "test_pastelgeometry.h"
 
 #include <pastel/geometry/search_nearest_bruteforce.h>
+#include "pastel/geometry/search_nearest_kdtree.h"
 
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
@@ -212,8 +213,6 @@ namespace
 		void testPointKdTree(
 			SearchAlgorithm_PointKdTree searchAlgorithm)
 		{
-			Euclidean_NormBijection<real> normBijection;
-
 			/*
 			 0   |
 			     |2  3
@@ -353,12 +352,15 @@ namespace
 			{
 				{
 					std::pair<real, Point_ConstIterator> result = 
-						searchNearest(tree, iteratorSet[i], Null_Output(), 
-						allIndicator(), normBijection, searchAlgorithm)
-						.bucketSize(1);
+						searchNearest(
+							tree, 
+							pointSet[i], 
+							PASTEL_TAG(searchAlgorithm), searchAlgorithm,
+							PASTEL_TAG(nBruteForce), 1);
 
 					real distance2 = result.first;
 					Point_ConstIterator iter = result.second;
+					unused(iter);
 
 					//TEST_ENSURE(iter == iteratorSet[i]);
 					TEST_ENSURE(distance2 == 0);
@@ -366,13 +368,16 @@ namespace
 				
 				{
 					std::pair<real, Point_ConstIterator> result = 
-						searchNearest(tree, iteratorSet[i], Null_Output(),
-						predicateIndicator(iteratorSet[i], NotEqualTo()),
-						normBijection, searchAlgorithm)
-						.bucketSize(1);
-					
+						searchNearest(
+							tree, 
+							pointSet[i], 
+							PASTEL_TAG(acceptPoint), predicateIndicator(iteratorSet[i], NotEqualTo()),
+							PASTEL_TAG(searchAlgorithm), searchAlgorithm,
+							PASTEL_TAG(nBruteForce), 1);
+
 					real distance2 = result.first;
 					Point_ConstIterator iter = result.second;
+					unused(iter);
 
 					//TEST_ENSURE(iter == correctSet[i]);
 					TEST_ENSURE(distance2 == distanceSet[i]);
@@ -382,8 +387,6 @@ namespace
 
 		void testBruteForce()
 		{
-			Euclidean_NormBijection<real> normBijection;
-
 			/*
 			 0   |
 			     |2  3

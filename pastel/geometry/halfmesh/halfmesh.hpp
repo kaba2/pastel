@@ -52,6 +52,7 @@ namespace Pastel
 					vertexMap[destination],
 					*thatEdge));
 				ASSERT(edge.isNormal());
+				unused(edge);
 
 				++thatEdge;
 			}
@@ -77,6 +78,7 @@ namespace Pastel
 				Polygon_Iterator polygon = 
 					insertPolygon(vertexLoop, *thatPolygon);
 				ASSERT(polygon.isNormal());
+				unused(polygon);
 
 				++thatPolygon;
 			}

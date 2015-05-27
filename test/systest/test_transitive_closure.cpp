@@ -56,6 +56,7 @@ namespace
 			Edge_Iterator dt = relation.insertEdge(d, d);
 			Edge_Iterator et = relation.insertEdge(e, e);
 			Edge_Iterator ft = relation.insertEdge(f, f);
+			unused(ft);
 
 			relation.insertEdge(a, b);
 			relation.insertEdge(c, b);

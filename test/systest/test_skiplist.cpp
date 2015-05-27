@@ -305,8 +305,6 @@ namespace
 				TEST_ENSURE_OP(copyList.size(), == , list.size());
 				TEST_ENSURE_OP(copyList.uniqueKeys(), == , list.uniqueKeys());
 
-				ConstIterator copyEnd = copyList.cend();
-				
 				TEST_ENSURE_OP(list.size(), ==, 11);
 				TEST_ENSURE(!list.empty());
 				TEST_ENSURE(listEnd == list.cend());

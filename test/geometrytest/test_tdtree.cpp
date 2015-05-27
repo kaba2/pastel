@@ -50,8 +50,6 @@ namespace
 			using Tree = TdTree<TdTree_Settings<Locator>>;
 			using ConstIterator = Tree::ConstIterator;
 
-			Euclidean_NormBijection<real> normBijection;
-
 			using PointSet = std::vector<Point>;
 			
 			integer n = 1000;
@@ -295,14 +293,8 @@ namespace
 				searchNearest(
 					tree, 
 					Point(1, 3), 
-					report,
-					allIndicator(),
-					Euclidean_NormBijection<real>(),
-					DepthFirst_SearchAlgorithm_PointKdTree(),
-					[](auto& o)
-					{
-						o.k = 5;
-					});
+					PASTEL_TAG(nearestOutput), report,
+					PASTEL_TAG(k), 5);
 			}
 		}
 	};

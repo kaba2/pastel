@@ -64,11 +64,6 @@ namespace
 			TEST_ENSURE(zeros(0xD0, 4 + 0));
 			TEST_ENSURE(zeros(0xE0, 4 + 1));
 			TEST_ENSURE(zeros(0xF0, 4 + 0));
-
-			auto ones = [](uint8 that, integer correct)
-			{
-				return leadingZeroBits(that) == correct;
-			};
 		}
 
 		void testOnes()

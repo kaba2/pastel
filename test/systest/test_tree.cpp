@@ -95,6 +95,7 @@ namespace
 			}
 
 			Iterator cIter = tree.insert(bIter, true, 2);
+			unused(cIter);
 			{
 				TEST_ENSURE_OP(tree.size(), ==, 3);
 				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
@@ -174,6 +175,7 @@ namespace
 			Iterator aIter = tree.insertRoot(0);
 			Iterator bIter = tree.insert(aIter, false, 1);
 			Iterator cIter = tree.insert(bIter, true, 2);
+			unused(cIter);
 			{
 				integer correctSet[] = {1, 2, 0};
 				TEST_ENSURE(same(tree, correctSet));

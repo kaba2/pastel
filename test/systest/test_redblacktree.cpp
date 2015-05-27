@@ -818,6 +818,7 @@ namespace
 			TEST_ENSURE(iter == bIter);
 
 			ConstIterator cIter = bIter;
+			unused(cIter);
 		}
 
 		template <typename Tree>

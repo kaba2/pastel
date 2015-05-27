@@ -194,6 +194,7 @@ namespace
 			Vertex a = graph.insertVertex();
 			Vertex b = graph.insertVertex();
 			Vertex c = graph.insertVertex();
+			unused(c);
 
 			Edge e1 = graph.insertEdge(a, b);
 			TEST_ENSURE(!e1->directed());
