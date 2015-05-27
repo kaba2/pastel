@@ -32,13 +32,6 @@ namespace
 
 			m = orthonormalize(m);
 			{
-				real correctSet[] = 
-				{
-					1, 0, 0,
-					0, 1, 0,
-					0, 0, 1
-				};
-
 				TEST_ENSURE(frobeniusNorm(m - identityMatrix<real>(3, 3)) < 0.0001);
 			}
 
