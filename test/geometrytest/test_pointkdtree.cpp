@@ -4,7 +4,7 @@
 #include "test_pastelgeometry.h"
 
 #include "pastel/geometry/pointkdtree/pointkdtree_count_nearest.h"
-#include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
+#include "pastel/geometry/search_nearest_kdtree.h"
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 
@@ -210,9 +210,12 @@ namespace
 			{
 				{
 					std::pair<real, Point_ConstIterator> result = 
-						searchNearest(tree, iteratorSet[i], Null_Output(), 
-						allIndicator(), normBijection, searchAlgorithm)
-						.bucketSize(1);
+						searchNearest(
+							tree, 
+							iteratorSet[i]->point(), 
+							normBijection, 
+							PASTEL_TAG(searchAlgorithm), searchAlgorithm,
+							PASTEL_TAG(nBruteForce), 1);
 
 					real distance2 = result.first;
 					Point_ConstIterator iter = result.second;
@@ -224,10 +227,13 @@ namespace
 				
 				{
 					std::pair<real, Point_ConstIterator> result = 
-						searchNearest(tree, iteratorSet[i], Null_Output(),
-						predicateIndicator(iteratorSet[i], NotEqualTo()),
-						normBijection, searchAlgorithm)
-						.bucketSize(1);
+						searchNearest(
+							tree, 
+							iteratorSet[i]->point(),
+							PASTEL_TAG(acceptPoint), predicateIndicator(iteratorSet[i], NotEqualTo()),
+							normBijection, 
+							PASTEL_TAG(searchAlgorithm), searchAlgorithm,
+							PASTEL_TAG(nBruteForce), 1);
 					
 					real distance2 = result.first;
 					Point_ConstIterator iter = result.second;
@@ -392,8 +398,8 @@ namespace
 				searchNearest(
 					addConst(tree), 
 					Vector<real, N>(0), 
-					nearestOutput)
-					.kNearest(m);
+					PASTEL_TAG(nearestOutput), nearestOutput,
+					PASTEL_TAG(k), m);
 			
 				integer count = distanceSet.size();
 
