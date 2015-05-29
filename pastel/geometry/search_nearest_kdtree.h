@@ -115,24 +115,14 @@ namespace Pastel
 		typename KdTree,
 		typename Search_Point,
 		typename... ArgumentSet,
-		typename NearestOutput = PASTEL_ARG_T(nearestOutput, Null_Output),
-		typename Indicator = PASTEL_ARG_T(acceptPoint, All_Indicator),
 		typename Locator = typename KdTree::Locator,
 		typename Real = Locator_Real<Locator>,
-		typename NormBijection = PASTEL_ARG_T(normBijection, Euclidean_NormBijection<Real>), 
-		typename SearchAlgorithm_KdTree = PASTEL_ARG_T(searchAlgorithm, DepthFirst_SearchAlgorithm_PointKdTree),
-		typename IntervalSequence = PASTEL_ARG_T(intervalSequence, Vector<Real, 2>),
 		Requires<
-			// Visual Studio 2015 RC has bugs which cause these
-			// commented stuff to fail.
 			Or<
 				IsPointKdTree<KdTree>,
 				IsTdTree<KdTree>
 			>,
-			Models<NormBijection, NormBijection_Concept>,
-			Models<Search_Point, Point_Concept>,
-			Models<Indicator, Indicator_Concept(typename KdTree::Point_ConstIterator)>
-			//Models<NearestOutput, Output_Concept(?)>,
+			Models<Search_Point, Point_Concept>
 		> ConceptCheck = 0
 	>
 	auto searchNearest(
@@ -144,13 +134,44 @@ namespace Pastel
 		PASTEL_FWD(Cursor);
 		PASTEL_FWD(Point_ConstIterator);
 
-		using IndexSequence = 
-			typename ToIndexSequence<IntervalSequence>::type;
+		auto&& nearestOutput = 
+			PASTEL_ARG(
+				nearestOutput, 
+				[]() {return nullOutput();},
+				[](auto input) {return explicitArgument();}
+			);
 		
-		auto&& nearestOutput = PASTEL_ARG_S(nearestOutput, nullOutput());
-		auto&& acceptPoint = PASTEL_ARG_S(acceptPoint, allIndicator());
-		auto&& normBijection = PASTEL_ARG_S(normBijection, Euclidean_NormBijection<real>());
-		auto&& timeIntervalSequence = PASTEL_ARG_S(intervalSequence, Vector<Real, 2>({-infinity<Real>(), infinity<Real>()}));
+		auto&& acceptPoint = 
+			PASTEL_ARG(
+				acceptPoint, 
+				[]() {return allIndicator();},
+				[](auto input) 
+				{
+					return Models<decltype(input), 
+						Indicator_Concept(Point_ConstIterator)>();
+				}
+			);
+
+		auto&& normBijection = 
+			PASTEL_ARG(
+				normBijection, 
+				[]() {return Euclidean_NormBijection<real>();},
+				[](auto input) {return Models<decltype(input), NormBijection_Concept>();}
+			);
+		
+		auto&& timeIntervalSequence = 
+			PASTEL_ARG(
+				intervalSequence, 
+				[]() {return Vector<Real, 2>({-infinity<Real>(), infinity<Real>()});},
+				[](auto input) {return explicitArgument();}
+			);
+
+		auto&& searchAlgorithmObject =
+			PASTEL_ARG(
+				searchAlgorithm, 
+				[]() {return DepthFirst_SearchAlgorithm_PointKdTree();},
+				[](auto input) {return explicitArgument();}
+			);
 
 		integer k = PASTEL_ARG_S(k, 1);
 		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, infinity<Real>());
@@ -192,7 +213,10 @@ namespace Pastel
 			return notFound;
 		}
 
-        // The temporal restriction is given as a union
+		using IndexSequence = 
+			typename ToIndexSequence<RemoveCvRef<decltype(timeIntervalSequence)>>::type;
+
+		// The temporal restriction is given as a union
         // of time-intervals. Convert the time-points to
         // indices in the point-set.
 		IndexSequence indexSequence(timeIntervalSequence);
@@ -362,8 +386,7 @@ namespace Pastel
 			}
         };
 
-		typedef typename SearchAlgorithm_KdTree::template Instance<State>
-			SearchAlgorithm;
+		using SearchAlgorithm = RemoveCvRef<decltype(searchAlgorithmObject)>::template Instance<State>;
 
 		SearchAlgorithm searchAlgorithm;
 

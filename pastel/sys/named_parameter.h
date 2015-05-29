@@ -25,7 +25,7 @@
 	Type name##_ = defaultValue
 
 #define PASTEL_ARG(name, ...) argument<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
-#define PASTEL_ARG_S(name, def, ...) PASTEL_ARG(name, [&](){return def;}, __VA_ARGS__)
+#define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto) {return explicitArgument();})
 
 namespace Pastel
 {
@@ -170,9 +170,12 @@ namespace Pastel
 			using ConditionType =
 				decltype(condition(true));
 
+			// Note that we also accept the value when
+			// the argument is not explicit; the explicitness
+			// requires only that the key be specified, 
+			// not the value.
 			static constexpr bool ValueSatisfiesCondition =
-				ConditionType::value &&
-				!IsExplicitArgument<ConditionType>::value;
+				ConditionType::value;
 
 			// Check the argument satisfies the condition.
 			static_assert(ValueSatisfiesCondition,
@@ -360,31 +363,6 @@ namespace Pastel
 			std::forward<Condition>(condition),
 			std::forward<ArgumentSet>(argumentSet)...);
 	}
-
-}
-
-#define PASTEL_ARG_T(name, ...) Argument<#name##_tag, __VA_ARGS__ (*)(), ArgumentSet...>
-
-namespace Pastel
-{
-
-	template <
-		tag_integer KeyHash,
-		typename Default,
-		typename... ArgumentSet>
-	struct Argument_F
-	{
-		using type = 
-			std::remove_reference_t<
-				decltype(argument<KeyHash>(std::declval<Default>(), std::declval<ArgumentSet>()...))
-			>;
-	};
-
-	template <
-		tag_integer KeyHash,
-		typename Default,
-		typename... ArgumentSet>
-	using Argument = typename Argument_F<KeyHash, Default, ArgumentSet...>::type;
 
 }
 

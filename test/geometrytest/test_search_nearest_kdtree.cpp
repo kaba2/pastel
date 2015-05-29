@@ -42,7 +42,7 @@ namespace
 				Point(1, 2),
 				PASTEL_TAG(acceptPoint), nullOutput(),
 				PASTEL_TAG(indicator), allIndicator(),
-				PASTEL_TAG(normBijection), Euclidean_NormBijection<real>(),
+				Euclidean_NormBijection<real>(),
 				PASTEL_TAG(searchAlgorithm), DepthFirst_SearchAlgorithm_PointKdTree(),
 				PASTEL_TAG(intervalSequence), Vector2{-infinity<real>(), infinity<real>()},
 				PASTEL_TAG(k), 10,

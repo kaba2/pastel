@@ -91,39 +91,41 @@ namespace Pastel
 	template <
 		typename Settings,
 		typename Search_Point,
+		typename... ArgumentSet,
 		typename NearestSet = BruteForce_NearestSet<Settings>,
-		typename Point_Output = Null_Output,
-		typename Point_Indicator = All_Indicator,
-		typename NormBijection = Euclidean_NormBijection<NearestSet_Real<NearestSet>>,
-		typename Set_Optionals = Null_Output,
+		typename Point = NearestSet_Point<NearestSet>,
+		typename Real = NearestSet_Real<NearestSet>,
 		Requires<
-			Models<Search_Point, Point_Concept>,
-			Models<Point_Indicator, Indicator_Concept(NearestSet_Point<NearestSet>)>,
-			Models<NormBijection, NormBijection_Concept>
-		> ConceptCheck = 0
+			Models<Search_Point, Point_Concept>
+		> = 0
 	>
 	auto searchNearest(
 		const BruteForce_NearestSet<Settings>& nearestSet,
 		const Search_Point& searchPoint,
-		Point_Output report = Point_Output(),
-		const Point_Indicator& accept = Point_Indicator(),
-		const NormBijection& normBijection = NormBijection(),
-		Set_Optionals setOptionals = Set_Optionals())
-		-> std::pair<NearestSet_Real<NearestSet>, NearestSet_Point<NearestSet>>
+		ArgumentSet&&... argumentSet)
+	-> std::pair<Real, Point>
 	{
-		using Point = NearestSet_Point<NearestSet>;
-		using Real = NearestSet_Real<NearestSet>;
+		auto&& normBijection = 
+			PASTEL_ARG(
+				normBijection, 
+				[]() {return Euclidean_NormBijection<Real>();},
+				[](auto input) {return Models<decltype(input), NormBijection_Concept>();}
+			);
 
-		struct Optional
-		{
-			integer k = 1;
-			Real maxDistance = infinity<Real>();
-		};
+		auto&& accept = 
+			PASTEL_ARG(
+				accept, 
+				[]() {return allIndicator();},
+				[](auto input) {
+					return Models<decltype(input), 
+						Indicator_Concept(Point)>();}
+			);
 
-		Optional optional;
-		setOptionals(optional);
+		auto&& report = PASTEL_ARG_S(nearestOutput, nullOutput());
+		integer k = PASTEL_ARG_S(k, 1);
+		Real maxDistance = PASTEL_ARG_S(maxDistance, infinity<Real>());
 
-		ENSURE_OP(optional.k, >=, 0);
+		ENSURE_OP(k, >=, 0);
 
 		struct Entry
 		{
@@ -140,8 +142,7 @@ namespace Pastel
 		Result notFound(infinity<Real>(), Point());
 
 		auto pointSet = nearestSet.pointSet();
-
-		if (pointSetEmpty(pointSet) || optional.k == 0)
+		if (pointSetEmpty(pointSet) || k == 0)
 		{
 			return notFound;
 		}
@@ -160,7 +161,7 @@ namespace Pastel
 
 		EntrySet entrySet;
 
-		Real cullDistance = optional.maxDistance;
+		Real cullDistance = maxDistance;
 		auto keepGoing = [&](const Real& that)
 		{
 			return that < cullDistance;
@@ -187,17 +188,17 @@ namespace Pastel
 				entrySet.insert(
 					Entry{pointPoint(point), distance});
 
-				if (entrySet.size() > optional.k)
+				if (entrySet.size() > k)
 				{
 					entrySet.erase(
 						std::prev(entrySet.end()));
 				}
 
-				if (entrySet.size() == optional.k)
+				if (entrySet.size() == k)
 				{
 					cullDistance = std::min(
 						std::prev(entrySet.end())->distance * protectiveFactor,
-						optional.maxDistance);
+						maxDistance);
 				}
 			}
 
@@ -210,12 +211,12 @@ namespace Pastel
 		}
 
 		integer neighbors = entrySet.size();
-		for (integer i = neighbors;i < optional.k;++i)
+		for (integer i = neighbors;i < k;++i)
 		{
 			report(notFound.first, notFound.second);
 		}
 
-		if (neighbors < optional.k)
+		if (neighbors < k)
 		{
 			return notFound;
 		}
