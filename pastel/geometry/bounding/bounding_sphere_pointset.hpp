@@ -14,7 +14,7 @@ namespace Pastel
 		typename Point,
 		Requires<Models<Point, Point_Concept>>
 	>
-	Sphere<Point_Real<Point>, Point_Dimension<Point>::value> 
+	Sphere<Point_Real<Point>, Point_N<Point>::value> 
 		boundingSphere(const Point& point)
 	{
 		return {pointAsVector(point), 0};
@@ -28,7 +28,7 @@ namespace Pastel
 			Models<B_Point, Point_Concept>
 		>
 	>
-	Sphere<Point_Real<A_Point>, Point_Dimension<A_Point>::value> 
+	Sphere<Point_Real<A_Point>, Point_N<A_Point>::value> 
 		boundingSphere(
 			const A_Point& aPoint,
 			const B_Point& bPoint)

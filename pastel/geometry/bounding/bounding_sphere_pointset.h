@@ -16,7 +16,7 @@ namespace Pastel
 		typename Point,
 		Requires<Models<Point, Point_Concept>> = 0
 	>
-	Sphere<Point_Real<Point>, Point_Dimension<Point>::value> 
+	Sphere<Point_Real<Point>, Point_N<Point>::value> 
 		boundingSphere(const Point& point);
 
 	//! Finds the minimum volume bounding sphere of two points.
@@ -28,7 +28,7 @@ namespace Pastel
 			Models<B_Point, Point_Concept>
 		> = 0
 	>
-	Sphere<Point_Real<A_Point>, Point_Dimension<A_Point>::value> 
+	Sphere<Point_Real<A_Point>, Point_N<A_Point>::value> 
 		boundingSphere(
 			const A_Point& aPoint,
 			const B_Point& bPoint);
