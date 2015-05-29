@@ -588,7 +588,6 @@ namespace Pastel
 }
 
 #include "pastel/geometry/pointkdtree/pointkdtree.hpp"
-#include "pastel/geometry/pointkdtree/pointkdtree_count_nearest.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_depth.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_equivalent.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_invariants.h"

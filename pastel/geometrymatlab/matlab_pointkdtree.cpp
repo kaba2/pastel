@@ -3,7 +3,6 @@
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/search_nearest_kdtree.h"
-#include "pastel/geometry/pointkdtree/pointkdtree_count_nearest.h"
 #include "pastel/math/normbijection.h"
 
 #include "pastel/sys/allocator/pool_allocator.h"
@@ -899,12 +898,18 @@ namespace Pastel
 
 					Point_ConstIterator query = query_->second;
 
-					result(i) = countNearest(
+					integer count = 0;
+
+					searchNearest(
 						state->tree,
-						query,
-						allIndicator(),
-						NormBijection())
-						.maxDistance(maxDistanceSet(i));
+						location(query->point(), state->tree.locator()),
+						PASTEL_TAG(nearestOutput), [&](auto, auto) {++count;},
+						NormBijection(),
+						PASTEL_TAG(k), state->tree.points(),
+						PASTEL_TAG(maxDistance), maxDistanceSet(i),
+						PASTEL_TAG(reportMissing), false);
+
+					result(i) = count;
 				}
 			};
 
