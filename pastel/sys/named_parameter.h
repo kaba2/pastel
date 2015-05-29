@@ -66,6 +66,28 @@ namespace Pastel
 			return None();
 		}
 
+		//! Returns whether the condition matches some non-default argument.
+		template <
+			typename Condition,
+			typename... ArgumentSet
+		>
+		static constexpr decltype(auto) matches(
+			Condition&& condition, 
+			ArgumentSet&&... argumentSet)
+		{
+			return
+				std::is_same<
+					RemoveCvRef<decltype(
+						argument(
+							none,
+							std::forward<Condition>(condition),
+							std::forward<ArgumentSet>(argumentSet)...
+						)
+					)>, 
+					None
+				>();
+		}
+
 		template <
 			typename Default,
 			typename Condition
@@ -80,39 +102,6 @@ namespace Pastel
 		}
 
 		template <
-			typename Condition,
-			typename Value,
-			typename... ArgumentSet,
-			Requires<
-				Not<IsTag<Value>>
-			> ConceptCheck = 0
-		>
-		static decltype(auto) argumentFound(
-			Condition&& condition, 
-			Value&& value, 
-			ArgumentSet&&... argumentSet)
-		{
-			// FIX: Turn into constexpr once Visual Studio 
-			// supports the C++14 constexpr.
-
-			// Check that there are no other matches
-			using Match = RemoveCvRef<decltype(
-				argument(
-					none,
-					std::forward<Condition>(condition),
-					std::forward<ArgumentSet>(argumentSet)...
-				))>;
-
-			static constexpr bool UniqueMatch =
-				std::is_same<Match, None>::value;
-
-			static_assert(UniqueMatch,
-				"Multiple optional arguments match the parameter.");
-
-			return std::forward<Value>(value);
-		}
-
-		template <
 			typename Default,
 			typename Condition,
 			typename Key,
@@ -122,34 +111,34 @@ namespace Pastel
 				Bool<(Tag_Hash<Key>::value == KeyHash)>
 			> ConceptCheck = 0
 		>
-		static decltype(auto) argumentFoundFlag(
+		static constexpr bool argumentFoundFlag(
 			Default&& defaultValue,
 			Condition&& condition, 
 			Key&& key,
 			ArgumentSet&&... argumentSet)
 		{
-			// FIX: Turn into constexpr once Visual Studio 
-			// supports the C++14 constexpr.
-
-			using ConditionType =
-				decltype(condition(true));
-
 			// Note that we also accept the value when
 			// the argument is not explicit; the explicitness
 			// requires that the key be specified, 
 			// not the value.
-			static constexpr bool ValueSatisfiesCondition =
-				ConditionType::value;
 
-			// Check the argument satisfies the condition.
-			static_assert(ValueSatisfiesCondition,
+			// Check that the argument satisfies the condition.
+			static_assert(
+				decltype(condition(true))::value,
 				"Optional argument (implicit true) is not valid for the given parameter.");
 
+			// Check that the match is unique.
+			static_assert(
+				decltype(
+					matches(
+						std::forward<Condition>(condition),
+						std::forward<ArgumentSet>(argumentSet)...
+					)
+				)::value,
+				"Multiple optional arguments match the parameter.");
+
 			// Interpret the value as boolean true.
-			return argumentFound(
-				std::forward<Condition>(condition),
-				true,
-				std::forward<ArgumentSet>(argumentSet)...);
+			return true;
 		}
 
 		template <
@@ -161,7 +150,7 @@ namespace Pastel
 				Not<IsTag<Value>>
 			> = 0
 		>
-		static constexpr decltype(auto) argumentbranch(
+		static constexpr decltype(auto) argumentBranch(
 			Bool<true>,
 			Default&&,
 			Condition&& condition, 
@@ -171,11 +160,18 @@ namespace Pastel
 			// The list begins with a value, and the value
 			// satisfies the condition.
 
+			// Check that the match is unique.
+			static_assert(
+				decltype(
+					matches(
+						std::forward<Condition>(condition),
+						std::forward<ArgumentSet>(argumentSet)...
+					)
+				)::value,
+				"Multiple optional arguments match the parameter.");
+
 			// Return the value.
-			return argumentFound(
-				std::forward<Condition>(condition),
-				std::forward<Value>(value),
-				std::forward<ArgumentSet>(argumentSet)...);
+			return std::forward<Value>(value);
 		}
 
 		template <
@@ -187,7 +183,7 @@ namespace Pastel
 				Not<IsTag<Value>>
 			> = 0
 		>
-		static constexpr decltype(auto) argumentbranch(
+		static constexpr decltype(auto) argumentBranch(
 			Bool<false>,
 			Default&& defaultValue,
 			Condition&& condition, 
@@ -223,7 +219,7 @@ namespace Pastel
 			// missing a key-tag.
 
 			// Branch based on whether the condition is fulfilled or not.
-			return argumentbranch(
+			return argumentBranch(
 				Bool<
 					decltype(condition(value))::value &&
 					!IsExplicitArgument<decltype(condition(value))>::value
@@ -291,31 +287,33 @@ namespace Pastel
 				Bool<(Tag_Hash<Key>::value == KeyHash)>
 			> ConceptCheck = 0
 		>
-		static decltype(auto) argument(
+		static constexpr decltype(auto) argument(
 			Default&&,
 			Condition&& condition, 
 			Key&& key, 
 			Value&& value, 
 			ArgumentSet&&... argumentSet)
 		{
-			// FIX: Turn into constexpr once Visual Studio 
-			// supports the C++14 constexpr.
-
 			// The list begins with a key-value pair,
 			// where the key is the searched tag.
 
-			static constexpr bool ValueSatisfiesCondition =
-				decltype(condition(value))::value;
-
 			// Check the argument satisfies the condition.
-			static_assert(ValueSatisfiesCondition,
+			static_assert(
+				decltype(condition(value))::value,
 				"Optional argument is not valid for the given parameter.");
 
+			// Check that the match is unique.
+			static_assert(
+				decltype(
+					matches(
+						std::forward<Condition>(condition),
+						std::forward<ArgumentSet>(argumentSet)...
+					)
+				)::value,
+				"Multiple optional arguments match the parameter.");
+
 			// We have found the searched argument; return it.
-			return argumentFound(
-				std::forward<Condition>(condition),
-				std::forward<Value>(value),
-				std::forward<ArgumentSet>(argumentSet)...);
+			return std::forward<Value>(value);
 		}
 
 		template <
@@ -416,19 +414,13 @@ namespace Pastel
 		typename Condition,
 		typename... ArgumentSet
 	>
-	decltype(auto) argument(
+	constexpr decltype(auto) argument(
 		Default&& defaultValue,
 		Condition&& condition,
 		ArgumentSet&&... argumentSet)
 	{
-		// FIX: Turn into constexpr once Visual Studio 
-		// supports the C++14 constexpr.
-
-		static constexpr bool DefaultValueSatisfiesCondition =
-			decltype(condition(defaultValue()))::value;
-
-		// Check the argument satisfies the condition.
-		static_assert(DefaultValueSatisfiesCondition,
+		// Check that the argument satisfies the condition.
+		static_assert(decltype(condition(defaultValue()))::value,
 			"Default optional argument is not valid for the given parameter.");
 
 		return Argument<KeyHash>::argument(

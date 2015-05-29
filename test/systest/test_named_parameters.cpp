@@ -108,7 +108,7 @@ namespace
 
 			// Error: Multiple arguments for 'negate'.
 			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(negate), PASTEL_TAG(negate)), ==, (-1) * 5 * 5);
-			//TEST_ENSURE_OP(distance(1, 6, true, PASTEL_TAG(negate)), ==, (-1) * 5 * 5);
+			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling)), ==, 2 * 5 * 5);
 			//TEST_ENSURE_OP(distance(1, 6, true, true), ==, (-1) * 5 * 5);
 
 			// Error: 'metric' is required to be either Manhattan_Metric or Euclidean_Metric.
