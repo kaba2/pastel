@@ -8,6 +8,5 @@
 #include "pastel/sys/locator/pointer_locator.h"
 #include "pastel/sys/locator/scalar_locator.h"
 #include "pastel/sys/locator/transform_locator.h"
-#include "pastel/sys/locator/vector_locator.h"
 
 #endif

@@ -6,7 +6,7 @@
 
 #include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/point/point_concept.h"
-#include "pastel/sys/vector.h"
+#include "pastel/sys/vector/vector.h"
 
 namespace Pastel
 {
