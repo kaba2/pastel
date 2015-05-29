@@ -29,18 +29,6 @@
 namespace Pastel
 {
 
-	template <typename IntervalSequence>
-	class ToIndexSequence
-	{
-	};
-
-	template <typename Type, int N>
-	class ToIndexSequence<Vector<Type, N>>
-	{
-	public:
-		using type = Vector<integer, N>;
-	};
-
 	//! Finds the nearest neighbors of a point in a PointKdTree.
 	/*!
 	kdTree:
@@ -163,7 +151,7 @@ namespace Pastel
 			PASTEL_ARG(
 				intervalSequence, 
 				[]() {return Vector<Real, 2>({-infinity<Real>(), infinity<Real>()});},
-				[](auto input) {return explicitArgument();}
+				[](auto input) {return explicitArgument(Models<decltype(input), Point_Concept>());}
 			);
 
 		auto&& searchAlgorithmObject =
@@ -213,13 +201,15 @@ namespace Pastel
 			return notFound;
 		}
 
+		using TimeSequence = 
+			RemoveCvRef<decltype(timeIntervalSequence)>;
 		using IndexSequence = 
-			typename ToIndexSequence<RemoveCvRef<decltype(timeIntervalSequence)>>::type;
+			Vector<integer, Point_N<TimeSequence>::value>;
 
 		// The temporal restriction is given as a union
         // of time-intervals. Convert the time-points to
         // indices in the point-set.
-		IndexSequence indexSequence(timeIntervalSequence);
+		IndexSequence indexSequence(pointAsVector(timeIntervalSequence));
 		for (integer i = 0;i < timeIntervalSequence.size();i += 2)
 		{
 			indexSequence[i] = kdTree.timeToIndex(

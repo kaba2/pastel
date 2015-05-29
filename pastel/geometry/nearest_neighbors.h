@@ -4,8 +4,8 @@
 #define PASTELGEOMETRY_NEAREST_NEIGHBORS_H
 
 #include "pastel/geometry/pointkdtree/pointkdtree_count_nearest.h"
-#include "pastel/geometry/pointkdtree/pointkdtree_search_nearest.h"
 #include "pastel/geometry/search_nearest_bruteforce.h"
+#include "pastel/geometry/search_nearest_kdtree.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 #include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
 
