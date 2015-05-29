@@ -21,24 +21,24 @@ namespace Pastel
 		// with Pastel::And_F.
 
 		template <
-			typename Left_Bool,
-			typename Right_Bool>
+			typename Left_Condition,
+			typename Right_Condition>
 		using And_F_ =
 			Identity_F<
-				BoolConstant<
-					Left_Bool::value && Right_Bool::value
+				Bool<
+					Left_Condition::value && Right_Condition::value
 				>
 			>;
 
 	}
 
-	template <typename... BoolSet>
+	template <typename... ConditionSet>
 	using And =
-		Fold<And_::And_F_, std::true_type, BoolSet...>;
+		Fold<And_::And_F_, std::true_type, ConditionSet...>;
 
-	template <typename... BoolSet>
+	template <typename... ConditionSet>
 	using And_F = 
-		Identity_F<And<BoolSet...>>;
+		Identity_F<And<ConditionSet...>>;
 
 }
 

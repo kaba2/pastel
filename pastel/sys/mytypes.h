@@ -17,7 +17,7 @@
 #define PASTEL_FWD(member) using member = typename Fwd::member
 
 // FIX: Remove when default error-message becomes available in C++17.
-#define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
+#define PASTEL_STATIC_ASSERT(...) static_assert((__VA_ARGS__), #__VA_ARGS__);
 
 namespace Pastel
 {
@@ -150,8 +150,12 @@ namespace Pastel
 		using hash_integer = std::size_t;
 
 		template <bool Value>
-		using BoolConstant = 
+		using Bool = 
 			std::integral_constant<bool, Value>;
+
+		template <integer Value>
+		using Integer = 
+			std::integral_constant<integer, Value>;
 
 	}
 
