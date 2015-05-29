@@ -24,205 +24,322 @@
 	Type name##_ = defaultValue
 
 #define PASTEL_ARG(name, ...) argument<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
-#define PASTEL_ARG_S(name, ...) PASTEL_ARG(name, [&](){return __VA_ARGS__;})
+#define PASTEL_ARG_S(name, def, ...) PASTEL_ARG(name, [&](){return def;}, __VA_ARGS__)
 
 namespace Pastel
 {
 
-	template <
-		tag_integer KeyHash,
-		typename Default>
-	decltype(auto) argument(Default&& defaultValue)
+	namespace Argument_
 	{
-		// No optional parameters were given;
-		// return the default value.
-		return defaultValue();
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition
+		>
+		constexpr decltype(auto) argument_(
+			Default&& defaultValue,
+			Condition&&)
+		{
+			// No optional parameters were given;
+			// return the default value.
+			return defaultValue();
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename Value,
+			typename... ArgumentSet,
+			Requires<
+				Not<IsTag<Value>>
+			> = 0
+		>
+		constexpr decltype(auto) argument__(
+			Bool<true>,
+			Default&&,
+			Condition&&, 
+			Value&& value, 
+			ArgumentSet&&...)
+		{
+			// The list begins with a value, and the value
+			// satisfies the condition.
+
+			// Return the value.
+			return std::forward<Value>(value);
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename Value,
+			typename... ArgumentSet,
+			Requires<
+				Not<IsTag<Value>>
+			> = 0
+		>
+		constexpr decltype(auto) argument__(
+			Bool<false>,
+			Default&& defaultValue,
+			Condition&& condition, 
+			Value&&, 
+			ArgumentSet&&... argumentSet)
+		{
+			// The list begins with a value, but the value
+			// does not satisfy the condition.
+
+			// Move on.
+			return argument_<KeyHash>(
+				std::forward<Default>(defaultValue),
+				std::forward<Condition>(condition),
+				std::forward<ArgumentSet>(argumentSet)...);
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename Value,
+			typename... ArgumentSet,
+			Requires<
+				Not<IsTag<Value>>
+			> = 0
+		>
+		constexpr decltype(auto) argument_(
+			Default&& defaultValue,
+			Condition&& condition, 
+			Value&& value, 
+			ArgumentSet&&... argumentSet)
+		{
+			// The list begins with a value, so it is
+			// missing a key-tag.
+
+			// Branch based on whether the condition is fulfilled or not.
+			return argument__<KeyHash>(
+				Bool<decltype(condition(value))::value>(),
+				std::forward<Default>(defaultValue),
+				std::forward<Condition>(condition),
+				std::forward<Value>(value),
+				std::forward<ArgumentSet>(argumentSet)...);
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename Key,
+			Requires<
+				IsTag<Key>,
+				Bool<Tag_Hash<Key>::value == KeyHash>
+			> ConceptCheck = 0
+		>
+		bool argument_(
+			Default&&,
+			Condition&& condition, 
+			Key&&)
+		{
+			// FIX: Turn into constexpr once Visual Studio 
+			// supports the C++14 constexpr.
+
+			// The list consists of a single key-tag,
+			// which is the searched tag.
+
+			static constexpr bool ValueSatisfiesCondition =
+				decltype(condition(true))::value;
+
+			// Check the argument satisfies the condition.
+			static_assert(ValueSatisfiesCondition,
+				"Argument requires an explicit value for the given key-tag.");
+
+			// Interpret the value as boolean true.
+			return true;
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename Key,
+			Requires<
+				IsTag<Key>,
+				Bool<Tag_Hash<Key>::value != KeyHash>
+			> ConceptCheck = 0
+		>
+		constexpr decltype(auto) argument_(
+			Default&& defaultValue,
+			Condition&& condition, 
+			Key&&)
+		{
+			// The list consists of a single key-tag,
+			// which is _not_ the searched tag.
+
+			// Return the default-value.
+			return defaultValue();
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename A_Key,
+			typename B_Key,
+			typename... ArgumentSet,
+			Requires<
+				IsTag<A_Key>,
+				IsTag<B_Key>,
+				Bool<Tag_Hash<A_Key>::value == KeyHash>
+			> ConceptCheck = 0
+		>
+		bool argument_(
+			Default&&,
+			Condition&& condition, 
+			A_Key&&, 
+			B_Key&&, 
+			ArgumentSet&&...)
+		{
+			// FIX: Turn into constexpr once Visual Studio 
+			// supports the C++14 constexpr.
+
+			// The list begins with two subsequent key-tags,
+			// the first of which is the searched tag.
+
+			static constexpr bool ValueSatisfiesCondition =
+				decltype(condition(true))::value;
+
+			// Check the argument satisfies the condition.
+			static_assert(ValueSatisfiesCondition,
+				"Argument requires an explicit value for the given key-tag.");
+
+			// Interpret the value as boolean true.
+			return true;
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename A_Key,
+			typename B_Key,
+			typename... ArgumentSet,
+			Requires<
+				IsTag<A_Key>,
+				IsTag<B_Key>,
+				Bool<Tag_Hash<A_Key>::value != KeyHash>
+			> ConceptCheck = 0
+		>
+		constexpr decltype(auto) argument_(
+			Default&& defaultValue,
+			Condition&& condition, 
+			A_Key&&, 
+			B_Key&& bKey, 
+			ArgumentSet&&... rest)
+		{
+			// The list begins with two subsequent key-tags,
+			// the first of which is _not_ the searched tag.
+
+			// Continue searching from the next key-value pair.
+			return argument_<KeyHash>(
+				std::forward<Default>(defaultValue), 
+				std::forward<Condition>(condition), 
+				std::forward<B_Key>(bKey),
+				std::forward<ArgumentSet>(rest)...);
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename Key,
+			typename Value,
+			typename... ArgumentSet,
+			Requires<
+				IsTag<Key>,
+				Not<IsTag<Value>>,
+				Bool<Tag_Hash<Key>::value == KeyHash>
+			> ConceptCheck = 0
+		>
+		decltype(auto) argument_(
+			Default&&,
+			Condition&& condition, 
+			Key&&, 
+			Value&& value, 
+			ArgumentSet&&...)
+		{
+			// FIX: Turn into constexpr once Visual Studio 
+			// supports the C++14 constexpr.
+
+			// The list begins with a key-value pair,
+			// where the key is the searched tag.
+			static constexpr bool ValueSatisfiesCondition =
+				decltype(condition(value))::value;
+
+			// Check the argument satisfies the condition.
+			static_assert(ValueSatisfiesCondition,
+				"Argument is not valid for the given key-tag.");
+
+			// We have found the searched argument; return it.
+			return std::forward<Value>(value);
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename Key,
+			typename Value,
+			typename... ArgumentSet,
+			Requires<
+				IsTag<Key>,
+				Bool<Tag_Hash<Key>::value != KeyHash>,
+				Not<IsTag<Value>>
+			> ConceptCheck = 0
+		>
+		constexpr decltype(auto) argument_(
+			Default&& defaultValue,
+			Condition&& condition, 
+			Key&&, 
+			Value&&, 
+			ArgumentSet&&... rest)
+		{
+			// The list begins with a key-value pair,
+			// where the key is _not_ the searched tag.
+
+			// Continue searching from the next key-value pair.
+			return argument_<KeyHash>(
+				std::forward<Default>(defaultValue), 
+				std::forward<Condition>(condition), 
+				std::forward<ArgumentSet>(rest)...);
+		}
+
 	}
 
 	template <
 		tag_integer KeyHash,
 		typename Default,
-		typename Value,
-		typename... ArgumentSet,
-		Requires<
-			Not<IsTag<Value>>
-		> = 0
+		typename Condition,
+		typename... ArgumentSet
 	>
 	decltype(auto) argument(
-		Default&& defaultValue, 
-		Value&& value, 
-		ArgumentSet&&...)
+		Default&& defaultValue,
+		Condition&& condition,
+		ArgumentSet&&... argumentSet)
 	{
-		// The list begins with a value.
-		unused(defaultValue);
-		unused(value);
+		// FIX: Turn into constexpr once Visual Studio 
+		// supports the C++14 constexpr.
 
-		static constexpr bool precededByKeyTag =
-			!std::is_same<Default, Default>::value;
+		static constexpr bool DefaultValueSatisfiesCondition =
+			decltype(condition(defaultValue()))::value;
 
-		// Report an error of a missing key-tag.
-		static_assert(precededByKeyTag,
-			"An optional value is not preceded by a key-tag.");
+		// Check the argument satisfies the condition.
+		static_assert(DefaultValueSatisfiesCondition,
+			"Default argument is not valid for the given key-tag.");
 
-		// Suppress possible compiler errors
-		// by returning a meaningful object.
-		return defaultValue();
-	}
-
-	template <
-		tag_integer KeyHash,
-		typename Default,
-		typename Key,
-		Requires<
-			IsTag<Key>,
-			BoolConstant<Tag_Hash<Key>::value == KeyHash>
-		> ConceptCheck = 0
-	>
-	bool argument(
-		Default&& defaultValue, 
-		Key&& key)
-	{
-		// The list consists of a single key-tag,
-		// which is the searched tag.
-		unused(defaultValue);
-		unused(key);
-
-		// Interpret the value as boolean true.
-		return true;
-	}
-
-	template <
-		tag_integer KeyHash,
-		typename Default,
-		typename Key,
-		Requires<
-			IsTag<Key>,
-			BoolConstant<Tag_Hash<Key>::value != KeyHash>
-		> ConceptCheck = 0
-	>
-	decltype(auto) argument(
-		Default&& defaultValue, 
-		Key&& key)
-	{
-		// The list consists of a single key-tag,
-		// which is _not_ the searched tag.
-		unused(key);
-
-		// Return the default-value.
-		return defaultValue();
-	}
-
-	template <
-		tag_integer KeyHash,
-		typename Default,
-		typename A_Key,
-		typename B_Key,
-		typename... ArgumentSet,
-		Requires<
-			IsTag<A_Key>,
-			IsTag<B_Key>,
-			BoolConstant<Tag_Hash<A_Key>::value == KeyHash>
-		> ConceptCheck = 0
-	>
-	bool argument(
-		Default&& defaultValue, 
-		A_Key&& aKey, 
-		B_Key&& bKey, 
-		ArgumentSet&&...)
-	{
-		// The list begins with two subsequent key-tags,
-		// the first of which is the searched tag.
-		unused(defaultValue);
-		unused(aKey);
-		unused(bKey);
-
-		// Interpret the value as boolean true.
-		return true;
-	}
-
-	template <
-		tag_integer KeyHash,
-		typename Default,
-		typename A_Key,
-		typename B_Key,
-		typename... ArgumentSet,
-		Requires<
-			IsTag<A_Key>,
-			IsTag<B_Key>,
-			BoolConstant<Tag_Hash<A_Key>::value != KeyHash>
-		> ConceptCheck = 0
-	>
-	decltype(auto) argument(
-		Default&& defaultValue, 
-		A_Key&& aKey, 
-		B_Key&& bKey, 
-		ArgumentSet&&... rest)
-	{
-		// The list begins with two subsequent key-tags,
-		// the first of which is _not_ the searched tag.
-		unused(aKey);
-
-		// Continue searching from the next key-value pair.
-		return argument<KeyHash>(
-			std::forward<Default>(defaultValue), 
-			std::forward<B_Key>(bKey),
-			std::forward<ArgumentSet>(rest)...);
-	}
-
-	template <
-		tag_integer KeyHash,
-		typename Default,
-		typename Key,
-		typename Value,
-		typename... ArgumentSet,
-		Requires<
-			IsTag<Key>,
-			Not<IsTag<Value>>,
-			BoolConstant<Tag_Hash<Key>::value == KeyHash>
-		> ConceptCheck = 0
-	>
-	decltype(auto) argument(
-		Default&& defaultValue, 
-		Key&& key, 
-		Value&& value, 
-		ArgumentSet&&...)
-	{
-		// The list begins with a key-value pair,
-		// where the key is the searched tag.
-		unused(defaultValue);
-		unused(key);
-
-		// We have found the searched argument; return it.
-		return std::forward<Value>(value);
-	}
-
-	template <
-		tag_integer KeyHash,
-		typename Default,
-		typename Key,
-		typename Value,
-		typename... ArgumentSet,
-		Requires<
-			IsTag<Key>,
-			BoolConstant<Tag_Hash<Key>::value != KeyHash>,
-			Not<IsTag<Value>>
-		> ConceptCheck = 0
-	>
-	decltype(auto) argument(
-		Default&& defaultValue, 
-		Key&& key, 
-		Value&& value, 
-		ArgumentSet&&... rest)
-	{
-		// The list begins with a key-value pair,
-		// where the key is _not_ the searched tag.
-		unused(key);
-		unused(value);
-
-		// Continue searching from the next key-value pair.
-		return argument<KeyHash>(
-			std::forward<Default>(defaultValue), 
-			std::forward<ArgumentSet>(rest)...);
+		return Argument_::argument_<KeyHash>(
+			std::forward<Default>(defaultValue),
+			std::forward<Condition>(condition),
+			std::forward<ArgumentSet>(argumentSet)...);
 	}
 
 }
