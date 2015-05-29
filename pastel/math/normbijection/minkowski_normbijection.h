@@ -8,6 +8,7 @@
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/math/gamma.h"
 #include "pastel/sys/math/constants.h"
+#include "pastel/math/normbijection/normbijection_concept.h"
 
 #include "pastel/geometry/volume/sphere_volume.h"
 

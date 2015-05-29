@@ -6,7 +6,7 @@
 #define PASTELMATH_MANHATTAN_NORMBIJECTION_H
 
 #include "pastel/sys/vector/vector_tools.h"
-
+#include "pastel/math/normbijection/normbijection_concept.h"
 #include "pastel/geometry/volume/sphere_volume.h"
 
 namespace Pastel
