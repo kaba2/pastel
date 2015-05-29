@@ -46,7 +46,11 @@ namespace
 			PASTEL_ARG(
 				scaling,
 				[](){return 1.0;},
-				[](auto input) {return explicitArgument();}
+				[](auto input) 
+				{
+					return explicitArgument(
+						std::is_convertible<decltype(input), float>());
+				}
 			);
 		
 		auto&& metric = 
@@ -91,10 +95,11 @@ namespace
 			TEST_ENSURE_OP(distance(1, 6), ==, 5 * 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 2.0), ==, 2 * 5 * 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 3.5), ==, 3.5 * 5 * 5);
+			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling)), ==, 1 * 5 * 5);
 
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(negate)), ==, (-1) * 5 * 5);
 			TEST_ENSURE_OP(distance(1, 6, Manhattan_Metric()), ==, 5);
-			//TEST_ENSURE_OP(distance(1, 6, Manhattan_Metric(), true), ==, -5);
+			TEST_ENSURE_OP(distance(1, 6, Manhattan_Metric(), true), ==, -5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(metric), Manhattan_Metric()), ==, 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 2.0, PASTEL_TAG(negate), PASTEL_TAG(metric), Manhattan_Metric()), ==, 2 * (-1) * 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 3.5, PASTEL_TAG(metric), Manhattan_Metric()), ==, 3.5 * 5);
@@ -103,13 +108,12 @@ namespace
 
 			// Error: Multiple arguments for 'negate'.
 			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(negate), PASTEL_TAG(negate)), ==, (-1) * 5 * 5);
-
-			// Error: 'scaling' is an explicit argument.
-			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling)), ==, 2 * 5 * 5);
+			//TEST_ENSURE_OP(distance(1, 6, true, PASTEL_TAG(negate)), ==, (-1) * 5 * 5);
+			//TEST_ENSURE_OP(distance(1, 6, true, true), ==, (-1) * 5 * 5);
 
 			// Error: 'metric' is required to be either Manhattan_Metric or Euclidean_Metric.
 			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(metric), A()), ==, 5 * 5);
-			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(metric)), ==, 5 * 5);
+			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(metric)), ==, 5 * 5);
 
 			// Error: 'negate' is required to be of type bool.
 			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(negate), 4.0f), ==, 5 * 5);
