@@ -681,5 +681,6 @@ namespace std
 
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/vector/vector_compare.h"
+#include "pastel/sys/vector/vector_locator.h"
 
 #endif

@@ -9,7 +9,7 @@
 
 #include "pastel/sys/input.h"
 #include "pastel/sys/vector/vector_tools.h"
-#include "pastel/sys/locator/vector_locator.h"
+#include "pastel/sys/vector/vector_locator.h"
 
 using namespace Pastel;
 

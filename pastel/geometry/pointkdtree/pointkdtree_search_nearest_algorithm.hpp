@@ -6,7 +6,7 @@
 #include "pastel/geometry/distance/distance_alignedbox_point.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/locator/vector_locator.h"
+#include "pastel/sys/vector/vector_locator.h"
 
 #include <queue>
 
