@@ -36,9 +36,9 @@ namespace
 			{
 				/*
 				7
-				6    BBB
-				5    BBB
-				4    BBB
+				6     BBB
+				5     BBB
+				4     BBB
 				3
 				2 AA
 				1 AA
