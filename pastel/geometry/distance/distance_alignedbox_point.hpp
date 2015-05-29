@@ -49,7 +49,7 @@ namespace Pastel
 		integer n = alignedBox.n();
 		for (integer i = 0;i < n;++i)
 		{
-			if (point[i] < alignedBox.min()[i])
+			if (pointAxis(point, i) < alignedBox.min()[i])
 			{
 				// If the i:th point coordinate is
 				// on the lesser side of the range,
@@ -58,9 +58,9 @@ namespace Pastel
 
 				result = normBijection.addAxis(
 					result,
-					normBijection.axis(alignedBox.min()[i] - point[i]));
+					normBijection.axis(alignedBox.min()[i] - pointAxis(point, i)));
 			}
-			else if (point[i] > alignedBox.max()[i])
+			else if (pointAxis(point, i) > alignedBox.max()[i])
 			{
 				// If the i:th point coordinate is
 				// on the greater side of the range,
@@ -69,7 +69,7 @@ namespace Pastel
 
 				result = normBijection.addAxis(
 					result,
-					normBijection.axis(point[i] - alignedBox.max()[i]));
+					normBijection.axis(pointAxis(point, i) - alignedBox.max()[i]));
 			}
 		}
 
