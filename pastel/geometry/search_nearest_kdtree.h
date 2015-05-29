@@ -386,7 +386,8 @@ namespace Pastel
 			}
         };
 
-		using SearchAlgorithm = RemoveCvRef<decltype(searchAlgorithmObject)>::template Instance<State>;
+		using SearchAlgorithm = 
+			typename RemoveCvRef<decltype(searchAlgorithmObject)>::template Instance<State>;
 
 		SearchAlgorithm searchAlgorithm;
 
