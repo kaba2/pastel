@@ -50,6 +50,13 @@ namespace Pastel
 	namespace Argument_
 	{
 
+		struct None {};
+
+		constexpr None none()
+		{
+			return None();
+		}
+
 		template <
 			tag_integer KeyHash,
 			typename Default,
@@ -65,26 +72,36 @@ namespace Pastel
 		}
 
 		template <
-			tag_integer KeyHash,
-			typename Default,
+			int KeyHash,
 			typename Condition,
 			typename Value,
 			typename... ArgumentSet,
 			Requires<
 				Not<IsTag<Value>>
-			> = 0
+			> ConceptCheck = 0
 		>
-		constexpr decltype(auto) argument__(
-			Bool<true>,
-			Default&&,
-			Condition&&, 
+		decltype(auto) argument_found(
+			Condition&& condition, 
 			Value&& value, 
-			ArgumentSet&&...)
+			ArgumentSet&&... argumentSet)
 		{
-			// The list begins with a value, and the value
-			// satisfies the condition.
+			// FIX: Turn into constexpr once Visual Studio 
+			// supports the C++14 constexpr.
 
-			// Return the value.
+			// Check that there are no other matches
+			using Match = RemoveCvRef<decltype(
+				argument_<KeyHash>(
+					none,
+					std::forward<Condition>(condition),
+					std::forward<ArgumentSet>(argumentSet)...
+				))>;
+
+			static constexpr bool UniqueMatch =
+				std::is_same<Match, None>::value;
+
+			static_assert(UniqueMatch,
+				"Multiple optional arguments match the parameter.");
+
 			return std::forward<Value>(value);
 		}
 
@@ -98,7 +115,34 @@ namespace Pastel
 				Not<IsTag<Value>>
 			> = 0
 		>
-		constexpr decltype(auto) argument__(
+		constexpr decltype(auto) argument_branch(
+			Bool<true>,
+			Default&&,
+			Condition&& condition, 
+			Value&& value, 
+			ArgumentSet&&... argumentSet)
+		{
+			// The list begins with a value, and the value
+			// satisfies the condition.
+
+			// Return the value.
+			return argument_found<KeyHash>(
+				std::forward<Condition>(condition),
+				std::forward<Value>(value),
+				std::forward<ArgumentSet>(argumentSet)...);
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename Value,
+			typename... ArgumentSet,
+			Requires<
+				Not<IsTag<Value>>
+			> = 0
+		>
+		constexpr decltype(auto) argument_branch(
 			Bool<false>,
 			Default&& defaultValue,
 			Condition&& condition, 
@@ -135,7 +179,7 @@ namespace Pastel
 			// missing a key-tag.
 
 			// Branch based on whether the condition is fulfilled or not.
-			return argument__<KeyHash>(
+			return argument_branch<KeyHash>(
 				Bool<
 					decltype(condition(value))::value &&
 					!IsExplicitArgument<decltype(condition(value))>::value
@@ -151,38 +195,65 @@ namespace Pastel
 			typename Default,
 			typename Condition,
 			typename Key,
+			typename... ArgumentSet,
 			Requires<
 				IsTag<Key>,
 				Bool<Tag_Hash<Key>::value == KeyHash>
 			> ConceptCheck = 0
 		>
-		bool argument_(
-			Default&&,
+		bool argument_found_flag(
+			Default&& defaultValue,
 			Condition&& condition, 
-			Key&&)
+			Key&& key,
+			ArgumentSet&&... argumentSet)
 		{
 			// FIX: Turn into constexpr once Visual Studio 
 			// supports the C++14 constexpr.
-
-			// The list consists of a single key-tag,
-			// which is the searched tag.
 
 			using ConditionType =
 				decltype(condition(true));
 
 			// Note that we also accept the value when
 			// the argument is not explicit; the explicitness
-			// requires only that the key be specified, 
+			// requires that the key be specified, 
 			// not the value.
 			static constexpr bool ValueSatisfiesCondition =
 				ConditionType::value;
 
 			// Check the argument satisfies the condition.
 			static_assert(ValueSatisfiesCondition,
-				"Argument requires an explicit value for the given key-tag.");
+				"Optional argument (implicit true) is not valid for the given parameter.");
 
 			// Interpret the value as boolean true.
-			return true;
+			return argument_found<KeyHash>(
+				std::forward<Condition>(condition),
+				true,
+				std::forward<ArgumentSet>(argumentSet)...);
+		}
+
+		template <
+			tag_integer KeyHash,
+			typename Default,
+			typename Condition,
+			typename Key,
+			Requires<
+				IsTag<Key>,
+				Bool<Tag_Hash<Key>::value == KeyHash>
+			> ConceptCheck = 0
+		>
+		constexpr decltype(auto) argument_(
+			Default&& defaultValue,
+			Condition&& condition, 
+			Key&& key)
+		{
+			// The list consists of a single key-tag,
+			// which is the searched key.
+
+			// Reduce to the flag case.
+			return argument_found_flag<KeyHash>(
+				std::forward<Default>(defaultValue),
+				std::forward<Condition>(condition),
+				std::forward<Key>(key));
 		}
 
 		template <
@@ -197,11 +268,11 @@ namespace Pastel
 		>
 		constexpr decltype(auto) argument_(
 			Default&& defaultValue,
-			Condition&& condition, 
+			Condition&&,
 			Key&&)
 		{
 			// The list consists of a single key-tag,
-			// which is _not_ the searched tag.
+			// which is _not_ the searched key.
 
 			// Return the default-value.
 			return defaultValue();
@@ -216,57 +287,26 @@ namespace Pastel
 			typename... ArgumentSet,
 			Requires<
 				IsTag<A_Key>,
-				IsTag<B_Key>,
-				Bool<Tag_Hash<A_Key>::value == KeyHash>
+				IsTag<B_Key>
 			> ConceptCheck = 0
 		>
 		constexpr decltype(auto) argument_(
 			Default&& defaultValue,
 			Condition&& condition, 
 			A_Key&& aKey, 
-			B_Key&&, 
-			ArgumentSet&&...)
+			B_Key&& bKey, 
+			ArgumentSet&&... argumentSet)
 		{
-			// The list begins with two subsequent key-tags,
-			// the first of which is the searched tag.
+			// The list begins with two subsequent key-tags.
 
-			// Reduce to the case where the list contains
-			// only one key.
+			// Reduce to the key-value case.
 			return argument_<KeyHash>(
 				std::forward<Default>(defaultValue),
 				std::forward<Condition>(condition),
-				std::forward<A_Key>(aKey));
-		}
-
-		template <
-			tag_integer KeyHash,
-			typename Default,
-			typename Condition,
-			typename A_Key,
-			typename B_Key,
-			typename... ArgumentSet,
-			Requires<
-				IsTag<A_Key>,
-				IsTag<B_Key>,
-				Bool<Tag_Hash<A_Key>::value != KeyHash>
-			> ConceptCheck = 0
-		>
-		constexpr decltype(auto) argument_(
-			Default&& defaultValue,
-			Condition&& condition, 
-			A_Key&&, 
-			B_Key&& bKey, 
-			ArgumentSet&&... rest)
-		{
-			// The list begins with two subsequent key-tags,
-			// the first of which is _not_ the searched tag.
-
-			// Continue searching from the next key-value pair.
-			return argument_<KeyHash>(
-				std::forward<Default>(defaultValue), 
-				std::forward<Condition>(condition), 
+				std::forward<A_Key>(aKey),
+				true,
 				std::forward<B_Key>(bKey),
-				std::forward<ArgumentSet>(rest)...);
+				std::forward<ArgumentSet>(argumentSet)...);
 		}
 
 		template <
@@ -285,24 +325,28 @@ namespace Pastel
 		decltype(auto) argument_(
 			Default&&,
 			Condition&& condition, 
-			Key&&, 
+			Key&& key, 
 			Value&& value, 
-			ArgumentSet&&...)
+			ArgumentSet&&... argumentSet)
 		{
 			// FIX: Turn into constexpr once Visual Studio 
 			// supports the C++14 constexpr.
 
 			// The list begins with a key-value pair,
 			// where the key is the searched tag.
+
 			static constexpr bool ValueSatisfiesCondition =
 				decltype(condition(value))::value;
 
 			// Check the argument satisfies the condition.
 			static_assert(ValueSatisfiesCondition,
-				"Argument is not valid for the given key-tag.");
+				"Optional argument is not valid for the given parameter.");
 
 			// We have found the searched argument; return it.
-			return std::forward<Value>(value);
+			return argument_found<KeyHash>(
+				std::forward<Condition>(condition),
+				std::forward<Value>(value),
+				std::forward<ArgumentSet>(argumentSet)...);
 		}
 
 		template <
@@ -356,7 +400,7 @@ namespace Pastel
 
 		// Check the argument satisfies the condition.
 		static_assert(DefaultValueSatisfiesCondition,
-			"Default argument is not valid for the given key-tag.");
+			"Default optional argument is not valid for the given parameter.");
 
 		return Argument_::argument_<KeyHash>(
 			std::forward<Default>(defaultValue),
