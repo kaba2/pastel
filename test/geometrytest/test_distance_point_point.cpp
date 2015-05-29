@@ -7,6 +7,7 @@
 #include <pastel/sys/locator.h>
 
 #include <pastel/geometry/distance/distance_point_point.h>
+#include <pastel/math/normbijection.h>
 
 using namespace Pastel;
 
@@ -73,9 +74,10 @@ namespace
 			Custom_Point a(1, 4);
 			Custom_Point b(-5, 2);
 
-			TEST_ENSURE(manhattanDistance(
+			TEST_ENSURE(distance2(
 				location(a, Custom_Locator()), 
-				location(b, Custom_Locator())) == 6 + 2);
+				location(b, Custom_Locator()),
+				Manhattan_NormBijection<real>()) == 6 + 2);
 		}
 
 		void testPointer()
@@ -125,49 +127,49 @@ namespace
 			{
 				Real correct = 6 + 2;
 
-				TEST_ENSURE(manhattanDistance(a, b) == correct);
-				TEST_ENSURE(manhattanDistance(b, a) == correct);
-				TEST_ENSURE(manhattanDistance(a, b, keepGoing) == 6);
+				TEST_ENSURE(distance2(a, b, Manhattan_NormBijection<Real>()) == correct);
+				TEST_ENSURE(distance2(b, a) == correct);
+				TEST_ENSURE(distance2(a, b, keepGoing) == 6);
 			}
 
 			{
 				Real correct = std::max(6, 2);
 
-				TEST_ENSURE(maximumDistance(a, b) == correct);
-				TEST_ENSURE(maximumDistance(b, a) == correct);
-				TEST_ENSURE(maximumDistance(a, b, keepGoing) == 6);
+				TEST_ENSURE(distance2(a, b, Maximum_NormBijection<Real>()) == correct);
+				TEST_ENSURE(distance2(b, a, Maximum_NormBijection<Real>()) == correct);
+				TEST_ENSURE(distance2(a, b, keepGoing, Maximum_NormBijection<Real>()) == 6);
 			}
 
 			{
 				Real correct = std::sqrt(square(6) + square(2));
 
-				TEST_ENSURE(euclideanDistance(a, b) == correct);
-				TEST_ENSURE(euclideanDistance(b, a) == correct);
-				TEST_ENSURE(euclideanDistance(a, b, keepGoing) == 6);
+				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>()) == correct);
+				TEST_ENSURE(distance2(b, a, Euclidean_NormBijection<Real>()) == correct);
+				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>(), keepGoing) == 6);
 			}
 
 			{
 				Real correct = std::sqrt(square(6) + square(2));
 
-				TEST_ENSURE(minkowskiDistance(a, b, 2) == correct);
-				TEST_ENSURE(minkowskiDistance(b, a, 2) == correct);
-				TEST_ENSURE(minkowskiDistance(a, b, 2, keepGoing) == 6);
+				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(2)) == correct);
+				TEST_ENSURE(distance2(b, a, Minkowski_NormBijection<Real>(2)) == correct);
+				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(2), keepGoing) == 6);
 			}
 
 			{
 				Real correct = square(6) + square(2);
 
-				TEST_ENSURE(euclideanDistance2(a, b) == correct);
-				TEST_ENSURE(euclideanDistance2(b, a) == correct);
-				TEST_ENSURE(euclideanDistance2(a, b, keepGoing) == square(6));
+				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>()) == correct);
+				TEST_ENSURE(distance2(b, a, Euclidean_NormBijection<Real>()) == correct);
+				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>(), keepGoing) == square(6));
 			}
 
 			{
 				Real correct = 6 + 2;
 
-				TEST_ENSURE(minkowskiDistance2(a, b, 1) == correct);
-				TEST_ENSURE(minkowskiDistance2(b, a, 1) == correct);
-				TEST_ENSURE(minkowskiDistance2(a, b, 1, keepGoing) == 6);
+				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(1)) == correct);
+				TEST_ENSURE(distance2(b, a, Minkowski_NormBijection<Real>(1)) == correct);
+				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(1), keepGoing) == 6);
 			}
 		}
 	};

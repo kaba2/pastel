@@ -2,29 +2,35 @@
 #define PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_POINT_HPP
 
 #include "pastel/geometry/distance/distance_alignedbox_point.h"
+#include "pastel/geometry/distance/distance_point_point.h"
 
-#include "pastel/math/normbijection/normbijections.h"
+#include "pastel/math/normbijection/euclidean_normbijection.h"
 
 namespace Pastel
 {
 
-	template <typename Real, int N, typename NormBijection>
-	Real distance(
-		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point,
-		const NormBijection& normBijection)
-	{
-		return normBijection.toNorm(
-			distance2(alignedBox, point, normBijection));
-	}
-
-	template <typename Real, int N, typename NormBijection>
+	template <
+		typename Real, 
+		int N,
+		typename Point,
+		typename... ArgumentSet,
+		Requires<
+			Models<Point, Point_Concept>,
+			EqualDimension<Integer<N>, Point_N<Point>>
+		>>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point,
-		const NormBijection& normBijection)
+		const Point& point,
+		ArgumentSet&&... argumentSet)
 	{
-		PENSURE_OP(alignedBox.n(), ==, point.n());
+		PENSURE_OP(alignedBox.n(), ==, dimension(point));
+
+		auto&& normBijection = 
+			PASTEL_ARG(
+				normBijection,
+				[](){return Euclidean_NormBijection<Real>();},
+				[](auto input) {return Models<decltype(input), NormBijection_Concept>();}
+			);
 		
 		// The distance computation between an AlignedBox and a point can
 		// be decomposed into separate computations on each
@@ -70,22 +76,27 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N, typename NormBijection>
-	Real farthestDistance(
-		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point,
-		const NormBijection& normBijection)
-	{
-		return normBijection.toNorm(
-			farthestDistance2(alignedBox, point, normBijection));
-	}
-
-	template <typename Real, int N, typename NormBijection>
+	template <
+		typename Real, 
+		int N,
+		typename Point,
+		typename... ArgumentSet,
+		Requires<
+			Models<Point, Point_Concept>,
+			EqualDimension<Integer<N>, Point_N<Point>>
+		>>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point,
-		const NormBijection& normBijection)
+		const Point& point,
+		ArgumentSet&&... argumentSet)
 	{
+		auto&& normBijection = 
+			PASTEL_ARG(
+				normBijection,
+				[](){return Euclidean_NormBijection<Real>();},
+				[](auto input) {return Models<decltype(input), NormBijection_Concept>();}
+			);
+
 		return std::max(
 			distance2(alignedBox.min(), point, normBijection),
 			distance2(alignedBox.max(), point, normBijection));

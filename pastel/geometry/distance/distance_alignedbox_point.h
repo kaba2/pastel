@@ -5,25 +5,11 @@
 
 #include "pastel/geometry/shape/alignedbox.h"
 
-#include "pastel/math/normbijection/euclidean_normbijection.h"
-
-#include "pastel/sys/vector.h"
+#include "pastel/sys/point/point_concept.h"
+#include "pastel/math/normbijection/normbijection_concept.h"
 
 namespace Pastel
 {
-
-	//! Distance between an aligned box and a point.
-	/*!
-	This is a convenience function which returns
-	normBijection.toNorm(
-		distance2(alignedBox, point, normBijection)).
-	*/
-	template <typename Real, int N, 
-		typename NormBijection = Euclidean_NormBijection<Real>>
-	Real distance(
-		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point,
-		const NormBijection& normBijection = NormBijection());
 
 	//! Bijective distance between an aligned box and a point.
 	/*!
@@ -34,25 +20,19 @@ namespace Pastel
 
 	It is assumed that the aligned box is solid.
 	*/
-	template <typename Real, int N, 
-		typename NormBijection = Euclidean_NormBijection<Real>>
+	template <
+		typename Real, 
+		int N,
+		typename Point,
+		typename... ArgumentSet,
+		Requires<
+			Models<Point, Point_Concept>,
+			EqualDimension<Integer<N>, Point_N<Point>>
+		> ConceptCheck = 0>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point,
-		const NormBijection& normBijection = NormBijection());
-
-	//! Farthest distance between an aligned box and a point.
-	/*!
-	This is a convenience function which returns
-	normBijection.toNorm(
-		farthestDistance2(alignedBox, point, normBijection)).
-	*/
-	template <typename Real, int N, 
-		typename NormBijection = Euclidean_NormBijection<Real>>
-	Real farthestDistance(
-		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point,
-		const NormBijection& normBijection = NormBijection());
+		const Point& point,
+		ArgumentSet&&... argumentSet);
 
 	//! Farthest bijective distance between an aligned box and a point.
 	/*!
@@ -63,12 +43,19 @@ namespace Pastel
 
 	It is assumed that the aligned box is solid.
 	*/
-	template <typename Real, int N, 
-		typename NormBijection = Euclidean_NormBijection<Real>>
+	template <
+		typename Real, 
+		int N,
+		typename Point,
+		typename... ArgumentSet,
+		Requires<
+			Models<Point, Point_Concept>,
+			EqualDimension<Integer<N>, Point_N<Point>>
+		> ConceptCheck = 0>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Vector<Real, N>& point,
-		const NormBijection& normBijection = NormBijection());
+		const Point& point,
+		ArgumentSet&&... argumentSet);
 
 }
 
