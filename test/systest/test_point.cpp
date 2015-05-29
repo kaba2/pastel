@@ -6,6 +6,7 @@
 #include <pastel/sys/point.h>
 #include <pastel/sys/locator.h>
 #include <pastel/sys/rational.h>
+#include <pastel/sys/vector.h>
 
 namespace Pastel
 {
@@ -66,6 +67,28 @@ namespace
 			PASTEL_STATIC_ASSERT(!HasDefaultLocator<Something_Else>::value);
 			PASTEL_STATIC_ASSERT(HasDefaultLocator<real*>::value);
 			PASTEL_CONCEPT_REJECT(Something_Else, Point_Concept);
+
+			PASTEL_STATIC_ASSERT((EqualDimension<Integer<1>, Point_N<Vector<real, 1>>>::value));
+			PASTEL_STATIC_ASSERT((EqualDimension<Integer<1>, Point_N<Vector<real, -1>>>::value));
+			PASTEL_STATIC_ASSERT((EqualDimension<Integer<-1>, Point_N<Vector<real, 1>>>::value));
+			PASTEL_STATIC_ASSERT((EqualDimension<Integer<-1>, Point_N<Vector<real, -1>>>::value));
+
+			PASTEL_STATIC_ASSERT((EqualDimension_C<1, 1>::value));
+			PASTEL_STATIC_ASSERT((EqualDimension_C<0, 0>::value));
+			
+			PASTEL_STATIC_ASSERT((EqualDimension_C<0, 0>::value));
+			PASTEL_STATIC_ASSERT((EqualDimension_C<0, -1>::value));
+			PASTEL_STATIC_ASSERT((EqualDimension_C<-1, 0>::value));
+			PASTEL_STATIC_ASSERT((EqualDimension_C<-1, -1>::value));
+			
+			PASTEL_STATIC_ASSERT((EqualDimension_C<5, 5>::value));
+			PASTEL_STATIC_ASSERT((EqualDimension_C<-1, 5>::value));
+			PASTEL_STATIC_ASSERT((EqualDimension_C<5, -1>::value));
+
+			PASTEL_STATIC_ASSERT(!(EqualDimension_C<0, 1>::value));
+			PASTEL_STATIC_ASSERT(!(EqualDimension_C<1, 0>::value));
+			PASTEL_STATIC_ASSERT(!(EqualDimension_C<1, 2>::value));
+			PASTEL_STATIC_ASSERT(!(EqualDimension_C<2, 1>::value));
 		}
 
 		void testAsVector()
@@ -195,25 +218,25 @@ namespace
 				using Point = std::array<int, 2>;
 				Point x = { {1, 2} };
 				TEST_ENSURE_OP(dimension(x), == , 2);
-				PASTEL_STATIC_ASSERT(Point_Dimension<Point>::value == 2);
+				PASTEL_STATIC_ASSERT(Point_N<Point>::value == 2);
 			}
 			{
 				using Point = real;
 				Point x = 5;
 				TEST_ENSURE_OP(dimension(x), == , 1);
-				PASTEL_STATIC_ASSERT(Point_Dimension<Point>::value == 1);
+				PASTEL_STATIC_ASSERT(Point_N<Point>::value == 1);
 			}
 			{
 				using Point = Vector<int, 2>;
 				Point x = { 1, 2 };
 				TEST_ENSURE_OP(dimension(x), == , 2);
-				PASTEL_STATIC_ASSERT(Point_Dimension<Point>::value == 2);
+				PASTEL_STATIC_ASSERT(Point_N<Point>::value == 2);
 			}
 			{
 				using Point = Vector<int>;
 				Point x(ofDimension(2));
 				TEST_ENSURE_OP(dimension(x), == , 2);
-				PASTEL_STATIC_ASSERT(Point_Dimension<Point>::value == Dynamic);
+				PASTEL_STATIC_ASSERT(Point_N<Point>::value == Dynamic);
 			}
 		}
 

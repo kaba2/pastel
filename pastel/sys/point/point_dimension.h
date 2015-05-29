@@ -23,13 +23,20 @@ namespace Pastel
 	}
 
 	template <typename Point>
-	struct Point_Dimension
-	{
-		PASTEL_CONCEPT_CHECK(Point, Point_Concept);
+	using Point_N = 
+		Locator_N<Point_Locator<Point>>;
 
-		static constexpr integer value =
-			Locator_N<Point_Locator<Point>>::value;
-	};
+	template <typename Point>
+	using Point_Dimension = 
+		Point_N<Point>;
+
+	template <integer M, integer N>
+	using EqualDimension_C = 
+		Bool<(M == N || M < 0 || N < 0)>;
+
+	template <typename M, typename N>
+	using EqualDimension = 
+		EqualDimension_C<M::value, N::value>;
 
 }
 
