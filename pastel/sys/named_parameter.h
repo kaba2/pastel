@@ -5,6 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/generic/tag.h"
+#include "pastel/sys/type_traits/is_template_instance.h"
 
 #define PASTEL_PARAMETER(Type, name) \
 	Self& name(Type name##__) \
@@ -28,6 +29,23 @@
 
 namespace Pastel
 {
+
+	template <typename Condition>
+	struct ExplicitArgument
+	{
+		static constexpr bool value = Condition::value;
+	};
+
+	template <typename Type>
+	using IsExplicitArgument =
+		IsTemplateInstance<Type, ExplicitArgument>;
+
+	template <typename Condition = std::true_type>
+	constexpr ExplicitArgument<Condition> explicitArgument(
+		Condition&& condition = Condition())
+	{
+		return {};
+	}
 
 	namespace Argument_
 	{
@@ -118,7 +136,10 @@ namespace Pastel
 
 			// Branch based on whether the condition is fulfilled or not.
 			return argument__<KeyHash>(
-				Bool<decltype(condition(value))::value>(),
+				Bool<
+					decltype(condition(value))::value &&
+					!IsExplicitArgument<decltype(condition(value))>::value
+				>(),
 				std::forward<Default>(defaultValue),
 				std::forward<Condition>(condition),
 				std::forward<Value>(value),
@@ -146,8 +167,12 @@ namespace Pastel
 			// The list consists of a single key-tag,
 			// which is the searched tag.
 
+			using ConditionType =
+				decltype(condition(true));
+
 			static constexpr bool ValueSatisfiesCondition =
-				decltype(condition(true))::value;
+				ConditionType::value &&
+				!IsExplicitArgument<ConditionType>::value;
 
 			// Check the argument satisfies the condition.
 			static_assert(ValueSatisfiesCondition,
@@ -192,28 +217,22 @@ namespace Pastel
 				Bool<Tag_Hash<A_Key>::value == KeyHash>
 			> ConceptCheck = 0
 		>
-		bool argument_(
-			Default&&,
+		constexpr decltype(auto) argument_(
+			Default&& defaultValue,
 			Condition&& condition, 
-			A_Key&&, 
+			A_Key&& aKey, 
 			B_Key&&, 
 			ArgumentSet&&...)
 		{
-			// FIX: Turn into constexpr once Visual Studio 
-			// supports the C++14 constexpr.
-
 			// The list begins with two subsequent key-tags,
 			// the first of which is the searched tag.
 
-			static constexpr bool ValueSatisfiesCondition =
-				decltype(condition(true))::value;
-
-			// Check the argument satisfies the condition.
-			static_assert(ValueSatisfiesCondition,
-				"Argument requires an explicit value for the given key-tag.");
-
-			// Interpret the value as boolean true.
-			return true;
+			// Reduce to the case where the list contains
+			// only one key.
+			return argument_<KeyHash>(
+				std::forward<Default>(defaultValue),
+				std::forward<Condition>(condition),
+				std::forward<A_Key>(aKey));
 		}
 
 		template <
