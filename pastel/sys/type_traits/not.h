@@ -10,14 +10,14 @@
 namespace Pastel
 {
 
-	template <typename Bool>
+	template <typename Condition>
 	struct Not_F
-	: Identity_F<BoolConstant<!Bool::value>>
+	: Identity_F<Bool<!Condition::value>>
 	{};
 
-	template <typename Bool>
+	template <typename Condition>
 	using Not = 
-		typename Not_F<Bool>::type;
+		typename Not_F<Condition>::type;
 
 }
 

@@ -16,24 +16,24 @@ namespace Pastel
 	{
 
 		template <
-			typename Left_Bool,
-			typename Right_Bool>
+			typename Left_Condition,
+			typename Right_Condition>
 		using Or_F_ =
 			Identity_F<
-				BoolConstant< 
-					Left_Bool::value || Right_Bool::value
+				Bool< 
+					Left_Condition::value || Right_Condition::value
 				>
 			>;
 
 	}
 
-	template <typename... BoolSet>
+	template <typename... ConditionSet>
 	using Or =
-		Fold<Or_::Or_F_, std::false_type, BoolSet...>;
+		Fold<Or_::Or_F_, std::false_type, ConditionSet...>;
 
-	template <typename... BoolSet>
+	template <typename... ConditionSet>
 	using Or_F = 
-		Identity_F<Or<BoolSet...>>;
+		Identity_F<Or<ConditionSet...>>;
 
 }
 
