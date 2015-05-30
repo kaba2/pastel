@@ -97,9 +97,22 @@ namespace Pastel
 				[](auto input) {return Models<decltype(input), NormBijection_Concept>();}
 			);
 
-		return std::max(
-			distance2(alignedBox.min(), point, normBijection),
-			distance2(alignedBox.max(), point, normBijection));
+		Real result = 0;
+
+		integer n = alignedBox.n();
+		for (integer i = 0;i < n;++i)
+		{
+			result = normBijection.addAxis(
+				result,
+				normBijection.axis(
+					std::max(
+						abs(alignedBox.min()[i] - pointAxis(point, i)),
+						abs(alignedBox.max()[i] - pointAxis(point, i))
+					)
+				));
+		}
+
+		return result;
 	}
 
 }
