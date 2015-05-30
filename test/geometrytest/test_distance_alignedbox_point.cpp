@@ -59,8 +59,8 @@ namespace
 					Point(5, 4), 
 					Point(7, 7));
 
-				TEST_ENSURE(distance2(bBox, aPoint) == square(2) + square(1));
-				TEST_ENSURE(farthestDistance2(bBox, aPoint) == square(6) + square(6));
+				TEST_ENSURE(distance2(bBox, aPoint) == square(5 - 3) + square(4 - 3));
+				TEST_ENSURE(farthestDistance2(bBox, aPoint) == square(7 - 3) + square(7 - 3));
 			}
 			{
 				/*
@@ -82,7 +82,7 @@ namespace
 					Point(4, 7));
 
 				TEST_ENSURE(distance2(bBox, aPoint) == 1);
-				TEST_ENSURE(farthestDistance2(bBox, aPoint) == square(3) + square(6));
+				TEST_ENSURE(farthestDistance2(bBox, aPoint) == square(3 - 1) + square(3 - 7));
 			}
 
 			{
@@ -104,8 +104,8 @@ namespace
 					Point(1, 4), 
 					Point(4, 7));
 
-				TEST_ENSURE(distance2(bBox, aPoint) == 1);
-				TEST_ENSURE(farthestDistance2(bBox, aPoint) == square(4) + square(6));
+				TEST_ENSURE(distance2(bBox, aPoint) == square(5 - 4) + square(3 - 4));
+				TEST_ENSURE(farthestDistance2(bBox, aPoint) == square(5 - 1) + square(3 - 7));
 			}
 
 			{
@@ -128,7 +128,7 @@ namespace
 					Point(4, 7));
 
 				TEST_ENSURE(distance2(bBox, aPoint) == 4);
-				TEST_ENSURE(farthestDistance2(bBox, aPoint) == square(7) + square(3));
+				TEST_ENSURE_OP(farthestDistance2(bBox, aPoint), ==, square(6 - 1) + square(4 - 7));
 			}
 
 			{
