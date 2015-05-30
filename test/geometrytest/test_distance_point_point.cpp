@@ -128,8 +128,8 @@ namespace
 				Real correct = 6 + 2;
 
 				TEST_ENSURE(distance2(a, b, Manhattan_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(b, a) == correct);
-				TEST_ENSURE(distance2(a, b, keepGoing) == 6);
+				TEST_ENSURE(distance2(b, a, Manhattan_NormBijection<Real>()) == correct);
+				TEST_ENSURE(distance2(a, b, Manhattan_NormBijection<Real>(), keepGoing) == 6);
 			}
 
 			{
@@ -141,19 +141,11 @@ namespace
 			}
 
 			{
-				Real correct = std::sqrt(square(6) + square(2));
-
-				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(b, a, Euclidean_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>(), keepGoing) == 6);
-			}
-
-			{
-				Real correct = std::sqrt(square(6) + square(2));
+				Real correct = square(6) + square(2);
 
 				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(2)) == correct);
 				TEST_ENSURE(distance2(b, a, Minkowski_NormBijection<Real>(2)) == correct);
-				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(2), keepGoing) == 6);
+				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(2), keepGoing) >= 6);
 			}
 
 			{
