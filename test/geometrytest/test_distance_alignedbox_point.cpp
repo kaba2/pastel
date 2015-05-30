@@ -24,10 +24,8 @@ namespace
 		virtual void run()
 		{
 			test<real>();
-			/*
 			test<Rational<integer>>();
 			test<integer>();
-			*/
 		}
 
 		template <typename Real>
@@ -128,7 +126,7 @@ namespace
 					Point(4, 7));
 
 				TEST_ENSURE(distance2(bBox, aPoint) == 4);
-				TEST_ENSURE_OP(farthestDistance2(bBox, aPoint), ==, square(6 - 1) + square(4 - 7));
+				TEST_ENSURE(farthestDistance2(bBox, aPoint) == square(6 - 1) + square(4 - 7));
 			}
 
 			{
