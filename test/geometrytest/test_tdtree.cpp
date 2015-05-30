@@ -74,38 +74,22 @@ namespace
 				std::vector<std::pair<real, Point>> bruteSet;
 				bruteSet.reserve(k);
 
-				// Bug in here (.get()).
-				/*
 				real kDistanceBrute = searchNearest(
 					bruteForceNearestSet(rangeInput(pointSet)),
 					pointSet[i],
-					emplaceBackOutput(bruteSet),
-					allIndicator(), 
-					normBijection,
-					[&](auto&& optional)
-				{
-					optional.k = k;
-				}).first;
-				*/
-
-				auto nearestSet = bruteForceNearestSet(rangeInput(pointSet));
-				PASTEL_CONCEPT_CHECK(decltype(nearestSet), NearestSet_Concept);
-
-				real kDistanceBrute = searchNearest(
-					nearestSet,
-					pointSet[i]).first;
+					PASTEL_TAG(nearestOutput), emplaceBackOutput(bruteSet),
+					PASTEL_TAG(k), k
+					).first;
 
 				std::vector<std::pair<real, ConstIterator>> treeSet;
 				treeSet.reserve(k);
 
 				real kDistanceTree = searchNearest(
-					tree,
-					pointSet[i],
-					PASTEL_TAG(nearestOutput), emplaceBackOutput(treeSet),
-					PASTEL_TAG(acceptPoint), allIndicator(),
-					PASTEL_TAG(normBijection), Euclidean_NormBijection<real>(),
-					PASTEL_TAG(searchAlgorithm), DepthFirst_SearchAlgorithm_PointKdTree(),
-					PASTEL_TAG(k), k).first;
+						tree,
+						pointSet[i],
+						PASTEL_TAG(nearestOutput), emplaceBackOutput(treeSet),
+						PASTEL_TAG(k), k
+					).first;
 
 				TEST_ENSURE_OP(kDistanceBrute, ==, kDistanceTree);
 
@@ -132,11 +116,6 @@ namespace
 			Tree tree(rangeInput(pointSet));
 			TEST_ENSURE(tree.simple());
 
-			auto output = Null_Output();
-			auto accept = allIndicator();
-			auto norm = Euclidean_NormBijection<real>();
-			auto algorithm = DepthFirst_SearchAlgorithm_PointKdTree();
-			
 			for (integer i = 0; i < n; ++i)
 			{
 				{
@@ -145,10 +124,6 @@ namespace
 						searchNearest(
 							tree, 
 							Point(0, 0), 
-							PASTEL_TAG(nearestOutput), output, 
-							PASTEL_TAG(accept), accept,
-							PASTEL_TAG(normBijection), norm, 
-							PASTEL_TAG(searchAlgorithm), algorithm, 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 					TEST_ENSURE_OP(distance, ==, square(i));
 				}
@@ -158,10 +133,6 @@ namespace
 						searchNearest(
 							tree, 
 							Point(0, 0), 
-							PASTEL_TAG(nearestOutput), output, 
-							PASTEL_TAG(accept), accept,
-							PASTEL_TAG(normBijection), norm, 
-							PASTEL_TAG(searchAlgorithm), algorithm, 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 					TEST_ENSURE_OP(distance, ==, 0);
 				}
@@ -171,10 +142,6 @@ namespace
 						searchNearest(
 							tree, 
 							Point(0, 0),
-							PASTEL_TAG(nearestOutput), output, 
-							PASTEL_TAG(accept), accept,
-							PASTEL_TAG(normBijection), norm, 
-							PASTEL_TAG(searchAlgorithm), algorithm, 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 					TEST_ENSURE_OP(distance, ==, square(i));
 				}
@@ -188,10 +155,6 @@ namespace
 						searchNearest(
 							tree, 
 							Point(i + 2, 0),
-							PASTEL_TAG(nearestOutput), output, 
-							PASTEL_TAG(accept), accept,
-							PASTEL_TAG(normBijection), norm, 
-							PASTEL_TAG(searchAlgorithm), algorithm, 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 
 					TEST_ENSURE_OP((integer)distance, ==, square(2));
@@ -202,10 +165,6 @@ namespace
 						searchNearest(
 							tree, 
 							Point(i - 3, 0), 
-							PASTEL_TAG(nearestOutput), output, 
-							PASTEL_TAG(accept), accept,
-							PASTEL_TAG(normBijection), norm, 
-							PASTEL_TAG(searchAlgorithm), algorithm, 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 
 					TEST_ENSURE_OP((integer)distance, ==, square(3));
@@ -216,10 +175,6 @@ namespace
 						searchNearest(
 							tree, 
 							Point(i + 4, 0), 
-							PASTEL_TAG(nearestOutput), output, 
-							PASTEL_TAG(accept), accept,
-							PASTEL_TAG(normBijection), norm, 
-							PASTEL_TAG(searchAlgorithm), algorithm, 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 					integer correct = i < (n - 5) ? square(1) : square(4);
 
@@ -231,10 +186,6 @@ namespace
 						searchNearest(
 							tree, 
 							Point(i + 7, 0), 
-							PASTEL_TAG(nearestOutput), output, 
-							PASTEL_TAG(accept), accept,
-							PASTEL_TAG(normBijection), norm, 
-							PASTEL_TAG(searchAlgorithm), algorithm, 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 					integer correct = i < (n - 5) ? square(2) : square(7);
 
