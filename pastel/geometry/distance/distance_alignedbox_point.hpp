@@ -29,7 +29,7 @@ namespace Pastel
 			PASTEL_ARG(
 				normBijection,
 				[](){return Euclidean_NormBijection<Real>();},
-				[](auto input) {return Models<decltype(input), NormBijection_Concept>();}
+				[](auto input) {return implicitArgument(Models<decltype(input), NormBijection_Concept>());}
 			);
 		
 		// The distance computation between an AlignedBox and a point can
@@ -94,7 +94,7 @@ namespace Pastel
 			PASTEL_ARG(
 				normBijection,
 				[](){return Euclidean_NormBijection<Real>();},
-				[](auto input) {return Models<decltype(input), NormBijection_Concept>();}
+				[](auto input) {return implicitArgument(Models<decltype(input), NormBijection_Concept>());}
 			);
 
 		Real result = 0;

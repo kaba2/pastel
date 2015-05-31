@@ -216,7 +216,6 @@ namespace Pastel
 					searchPoint = pointAsVector(location(modelIter->point(), modelTree.locator())) + 
 						translation;
 
-
 					auto neighborOutput = [&](
 						const Real& distance,
 						const Scene_ConstIterator& scene)
@@ -228,9 +227,8 @@ namespace Pastel
 					searchNearest(
 						sceneTree, 
 						searchPoint,
+						normBijection,
 						PASTEL_TAG(nearestOutput), neighborOutput,
-						PASTEL_TAG(acceptPoint), allIndicator(),
-						PASTEL_TAG(normBijection), normBijection,
 						PASTEL_TAG(k), kNearest,
 						PASTEL_TAG(maxDistance), matchingDistance2,
 						PASTEL_TAG(maxRelativeError), maxRelativeError);
