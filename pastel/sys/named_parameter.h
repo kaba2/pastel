@@ -4,25 +4,7 @@
 #define PASTELSYS_NAMED_PARAMETER_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/generic/tag.h"
 #include "pastel/sys/type_traits/is_template_instance.h"
-
-#define PASTEL_PARAMETER(Type, name) \
-	Self& name(Type name##__) \
-	{ \
-		name##_ = std::move(name##__); \
-		return *this; \
-	} \
-	Type name##_
-
-#define PASTEL_PARAMETER_DEFAULT(Type, name, defaultValue) \
-	Self& name(Type name##__) \
-	{ \
-		name##_ = std::move(name##__); \
-		return *this; \
-	} \
-	\
-	Type name##_ = defaultValue
 
 #define PASTEL_ARG(name, ...) argument<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
 #define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto) {return std::true_type();})

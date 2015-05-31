@@ -85,8 +85,7 @@ namespace Pastel
 	matchingDistance2:
 	The maximum distance between a point in the model-set
 	and a point in the scene-set to accept them as a pair.
-	Measured in terms of the actual norm, not in terms of 
-	the norm-bijection.
+	Measured in terms of the norm-bijection.
 
 	maxBias:
 	The maximum bias which to accept from a match.
@@ -160,6 +159,9 @@ namespace Pastel
 
 		integer d = modelTree.n();
 
+		// FIX: Conversion to norm loses generality
+		// (e.g. euclidean norm with rational numbers 
+		// does not worK).
 		Real actualMatchingDistance =
 			normBijection.toNorm(matchingDistance2);
 

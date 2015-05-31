@@ -3,41 +3,4 @@ Named parameters
 
 [[Parent]]: techniques.txt
 
-As of C++14, C++ still does not have named parameters. We shall emulate them by the following technique.
-
-[[CppCode]]:
-	template <typename SetOptionals = Identity_Function>
-	void generateArticle(
-		const std::string& title,
-		SetOptionals setOptionals = SetOptionals())
-	{
-		struct Optionals
-		{
-			std::string author = "Ben";
-			bool interesting = false;
-		} o;
-
-		setOptionals(o);
-	}
-
-	int main()
-	{
-		generateArticle(
-			"Going Bananas over Bananas",
-			[](auto& o)
-			{
-				o.author = "Ana Ban";
-				o.interesting = true;
-			});
-
-		return 0;
-	}
-
-The important points here are:
-
-* The optional parameters are defined inside the function, so that they remain local to the function, and their types may depend on the function-template's template-arguments.
-
-* The default arguments for optional parameters are encoded using non-static member-initializers.
-
-* The optional-closure is generic, to avoid naming the type of the local optional-struct. In fact, the function-local type cannot even be referenced by name from outside.
 
