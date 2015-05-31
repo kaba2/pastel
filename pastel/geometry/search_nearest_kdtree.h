@@ -165,7 +165,7 @@ namespace Pastel
 		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, infinity<Real>());
 		Real maxRelativeError = PASTEL_ARG_S(maxRelativeError, 0);
 		integer nBruteForce = PASTEL_ARG_S(nBruteForce, 16);
-		bool reportMissing = PASTEL_ARG_S(reportMissing, true);
+		bool reportMissing = PASTEL_ARG_S(reportMissing, false);
 
 		ENSURE_OP(k, >=, 0);
 		ENSURE_OP(maxDistance2, >=, 0);
