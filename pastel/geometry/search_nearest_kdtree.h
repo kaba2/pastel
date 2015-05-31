@@ -126,7 +126,7 @@ namespace Pastel
 			PASTEL_ARG(
 				nearestOutput, 
 				[]() {return nullOutput();},
-				[](auto input) {return explicitArgument();}
+				[](auto input) {return std::true_type();}
 			);
 		
 		auto&& acceptPoint = 
@@ -144,21 +144,21 @@ namespace Pastel
 			PASTEL_ARG(
 				normBijection, 
 				[]() {return Euclidean_NormBijection<real>();},
-				[](auto input) {return Models<decltype(input), NormBijection_Concept>();}
+				[](auto input) {return implicitArgument(Models<decltype(input), NormBijection_Concept>());}
 			);
 		
 		auto&& timeIntervalSequence = 
 			PASTEL_ARG(
 				intervalSequence, 
 				[]() {return Vector<Real, 2>({-infinity<Real>(), infinity<Real>()});},
-				[](auto input) {return explicitArgument(Models<decltype(input), Point_Concept>());}
+				[](auto input) {return Models<decltype(input), Point_Concept>();}
 			);
 
 		auto&& searchAlgorithmObject =
 			PASTEL_ARG(
 				searchAlgorithm, 
 				[]() {return DepthFirst_SearchAlgorithm_PointKdTree();},
-				[](auto input) {return explicitArgument();}
+				[](auto input) {return std::true_type();}
 			);
 
 		integer k = PASTEL_ARG_S(k, 1);
