@@ -120,15 +120,12 @@ namespace Pastel
 				modelTree,
 				sceneTree, 
 				normBijection, 
-				pushBackOutput(pairSet),
-				[&](auto& p)
-			{
-				p.kNearest = kNearest;
-				p.minMatchRatio = minMatchRatio;
-				p.matchingDistance = matchingDistance;
-				p.maxBias = maxBias;
-				p.matchingMode = matchingMode;
-			});
+				PASTEL_TAG(report), pushBackOutput(pairSet),
+				PASTEL_TAG(kNearest), kNearest,
+				PASTEL_TAG(minMatchRatio), minMatchRatio,
+				PASTEL_TAG(matchingDistance), matchingDistance,
+				PASTEL_TAG(maxBias), maxBias,
+				PASTEL_TAG(matchingMode), matchingMode);
 
 			// Output the pairing.
 

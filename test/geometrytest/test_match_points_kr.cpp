@@ -76,14 +76,11 @@ namespace
 			auto result = matchPointsKr(
 				modelTree, sceneTree, 
 				Euclidean_NormBijection<Real>(), 
-				nullOutput(),
-				[](auto& p)
-			{
-				p.kNearest = 16;
-				p.minMatchRatio = 0.7;
-				p.matchingDistance = 0.01;
-				p.maxBias = 0.1;
-			});
+				PASTEL_TAG(report), nullOutput(),
+				PASTEL_TAG(kNearest), 16,
+				PASTEL_TAG(minMatchRatio), 0.7,
+				PASTEL_TAG(matchingDistance), 0.01,
+				PASTEL_TAG(maxBias), 0.1);
 
 			TEST_ENSURE(result.success);
 			TEST_ENSURE(allEqual(translation, result.translation));
