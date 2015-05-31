@@ -33,7 +33,7 @@ namespace Pastel
 			PASTEL_ARG(
 				normBijection, 
 				[](){return Euclidean_NormBijection<Real>();},
-				[](auto input) {return Models<decltype(input), NormBijection_Concept>();}
+				[](auto input) {return implicitArgument(Models<decltype(input), NormBijection_Concept>());}
 			);
 		
 		auto&& keepGoing = 
