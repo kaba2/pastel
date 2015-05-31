@@ -903,11 +903,10 @@ namespace Pastel
 					searchNearest(
 						state->tree,
 						location(query->point(), state->tree.locator()),
-						PASTEL_TAG(nearestOutput), [&](auto, auto) {++count;},
 						NormBijection(),
+						PASTEL_TAG(nearestOutput), [&](auto, auto) {++count;},
 						PASTEL_TAG(k), state->tree.points(),
-						PASTEL_TAG(maxDistance), maxDistanceSet(i),
-						PASTEL_TAG(reportMissing), false);
+						PASTEL_TAG(maxDistance), maxDistanceSet(i));
 
 					result(i) = count;
 				}
