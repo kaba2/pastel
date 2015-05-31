@@ -111,6 +111,14 @@ namespace Pastel
 		return that.m() / that.n();
 	}
 
+	template <typename Integer>
+	Rational<Integer> pow(
+		Rational<Integer>&& x,
+		integer p)
+	{
+		return genericPower(std::forward<Rational<Integer>>(x), p);
+	}
+
 }
 
 namespace Pastel
@@ -175,6 +183,28 @@ namespace Pastel
 	{
 		using Pastel::zero;
 		return zero(that.m()) && !zero(that.n());
+	}
+
+}
+
+namespace Pastel
+{
+
+	// Multiplicative monoid
+
+	template <typename Integer>
+	Rational<Integer> pow(
+		Rational<Integer> that,
+		integer p)
+	{
+		return groupPower(std::move(that), p);
+	}
+
+	template <typename Integer>
+	bool one(
+		const Rational<Integer>& that)
+	{
+		return that == 1;
 	}
 
 }

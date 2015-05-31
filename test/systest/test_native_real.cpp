@@ -21,8 +21,7 @@ namespace
 		{
 			test<float>();
 			test<double>();
-			//test<long double>();
-
+			test<long double>();
 		}
 
 		template <typename Type>
@@ -34,12 +33,25 @@ namespace
 			TEST_ENSURE(isMinusInfinity(-infinity<Type>()));
 			TEST_ENSURE(isNan(nan<Type>()));
 			TEST_ENSURE(inverse((Type)5) == 1 / (Type)5);
+			
 			TEST_ENSURE(negative((Type)-1));
+			TEST_ENSURE(!negative((Type)1));
+			TEST_ENSURE(!negative((Type)0));
+			
 			TEST_ENSURE(positive((Type)1));
+			TEST_ENSURE(!positive((Type)-1));
+			TEST_ENSURE(!positive((Type)0));
+			
 			TEST_ENSURE(zero((Type)0));
 			TEST_ENSURE(zero(-(Type)0));
+			TEST_ENSURE(!zero((Type)1));
+			TEST_ENSURE(!zero((Type)-1));
+			
 			TEST_ENSURE(floor((Type)0.5) == 0);
+			TEST_ENSURE(floor((Type)-0.5) == -1);
+			
 			TEST_ENSURE(ceil((Type)0.5) == 1);
+			TEST_ENSURE(ceil((Type)-0.5) == 0);
 		}
 	};
 

@@ -6,6 +6,7 @@
 #include <pastel/sys/integer/multi_integer.h>
 #include <pastel/sys/bit/lowest_bit.h>
 #include <pastel/sys/bit/highest_bit.h>
+#include <pastel/sys/concept.h>
 
 using namespace Pastel;
 

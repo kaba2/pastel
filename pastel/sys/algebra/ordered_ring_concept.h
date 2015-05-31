@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_ORDERED_RING_CONCEPT_H
 #define PASTELSYS_ORDERED_RING_CONCEPT_H
 
-#include "pastel/sys/algebra/ordered_additive_group_concept.h"
+#include "pastel/sys/algebra/ordered_group_concept.h"
 #include "pastel/sys/algebra/ring_concept.h"
 
 namespace Pastel

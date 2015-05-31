@@ -4,16 +4,16 @@
 #ifndef PASTELSYS_ALGEBRA_CONCEPTS_H
 #define PASTELSYS_ALGEBRA_CONCEPTS_H
 
-#include "pastel/sys/algebra/additive_group_concept.h"
-#include "pastel/sys/algebra/additive_monoid_concept.h"
-#include "pastel/sys/algebra/additive_semigroup_concept.h"
+#include "pastel/sys/algebra/group_concept.h"
+#include "pastel/sys/algebra/monoid_concept.h"
+#include "pastel/sys/algebra/semigroup_concept.h"
 #include "pastel/sys/algebra/set_concept.h"
 #include "pastel/sys/algebra/field_concept.h"
 #include "pastel/sys/integer/finite_integer_concept.h"
 #include "pastel/sys/integer/integer_concept.h"
-#include "pastel/sys/algebra/ordered_additive_group_concept.h"
-#include "pastel/sys/algebra/ordered_additive_monoid_concept.h"
-#include "pastel/sys/algebra/ordered_additive_semigroup_concept.h"
+#include "pastel/sys/algebra/ordered_group_concept.h"
+#include "pastel/sys/algebra/ordered_monoid_concept.h"
+#include "pastel/sys/algebra/ordered_semigroup_concept.h"
 #include "pastel/sys/algebra/ordered_field_concept.h"
 #include "pastel/sys/algebra/ordered_ring_concept.h"
 #include "pastel/sys/algebra/ordered_set_concept.h"

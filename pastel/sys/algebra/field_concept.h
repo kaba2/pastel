@@ -5,6 +5,8 @@
 #define PASTELSYS_FIELD_CONCEPT_H
 
 #include "pastel/sys/algebra/ring_concept.h"
+#include "pastel/sys/algebra/group_concept.h"
+
 #include "pastel/sys/algebra/native_field.h"
 
 namespace Pastel
@@ -12,24 +14,14 @@ namespace Pastel
 
 	//! A field.
 	/*!
-	A field is a commutative division ring.
+	A field (X, *, 1, +, 0) is a ring
+	such that (X, *, 1) is a commutative group.
 	*/
 	struct Field_Concept
-	: Refines<Ring_Concept>
-	{
-		template <typename Type>
-		auto requires(Type&& t) -> decltype
-		(
-			conceptCheck(
-				//! Divides this element by 'that'.
-				Concept::hasType<Type&>(t /= t),
-				//! Returns left / right.
-				Concept::convertsTo<Type>(t / t),
-				//! Returns 1 / that.
-				Concept::convertsTo<Type>(inverse(t))
-			)
-		);
-	};
+	: Refines<
+		Ring_Concept,
+		Multiplicative_Group_Concept>
+	{};
 
 }
 

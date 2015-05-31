@@ -24,7 +24,7 @@ namespace Pastel
 	{
 		template <typename Type>
 		auto requires(Type&& t) -> decltype
-			(
+		(
 			conceptCheck(
 				//! Constructs with zero.
 				Type(),
