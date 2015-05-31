@@ -25,23 +25,23 @@
 	Type name##_ = defaultValue
 
 #define PASTEL_ARG(name, ...) argument<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
-#define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto) {return explicitArgument();})
+#define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto) {return std::true_type();})
 
 namespace Pastel
 {
 
 	template <typename Condition>
-	struct ExplicitArgument
+	struct ImplicitArgument
 	{
 		static constexpr bool value = Condition::value;
 	};
 
 	template <typename Type>
-	using IsExplicitArgument =
-		IsTemplateInstance<Type, ExplicitArgument>;
+	using IsImplicitArgument =
+		IsTemplateInstance<Type, ImplicitArgument>;
 
 	template <typename Condition = std::true_type>
-	constexpr ExplicitArgument<Condition> explicitArgument(
+	constexpr ImplicitArgument<Condition> implicitArgument(
 		Condition&& condition = Condition())
 	{
 		return {};
@@ -222,7 +222,7 @@ namespace Pastel
 			return argumentBranch(
 				Bool<
 					decltype(condition(value))::value &&
-					!IsExplicitArgument<decltype(condition(value))>::value
+					IsImplicitArgument<decltype(condition(value))>::value
 				>(),
 				std::forward<Default>(defaultValue),
 				std::forward<Condition>(condition),

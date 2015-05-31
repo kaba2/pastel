@@ -1,4 +1,3 @@
-
 // Description: Testing for named parameters
 // Documentation: named_parameter.txt
 
@@ -48,8 +47,7 @@ namespace
 				[](){return 1.0;},
 				[](auto input) 
 				{
-					return explicitArgument(
-						std::is_convertible<decltype(input), float>());
+					return std::is_convertible<decltype(input), float>();
 				}
 			);
 		
@@ -58,10 +56,10 @@ namespace
 				metric, 
 				[](){return Euclidean_Metric();}, 
 				[](auto input) {return
-					Or<
+					implicitArgument(Or<
 						std::is_same<decltype(input), Euclidean_Metric>,
 						std::is_same<decltype(input), Manhattan_Metric>
-					>();} 
+					>());} 
 			);
 		
 		bool negate = 
@@ -99,7 +97,9 @@ namespace
 
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(negate)), ==, (-1) * 5 * 5);
 			TEST_ENSURE_OP(distance(1, 6, Manhattan_Metric()), ==, 5);
-			TEST_ENSURE_OP(distance(1, 6, Manhattan_Metric(), true), ==, -5);
+			// Since 'negate' is not an implicit parameter,
+			// the 'true' will not bind to it.
+			TEST_ENSURE_OP(distance(1, 6, Manhattan_Metric(), true), ==, 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(metric), Manhattan_Metric()), ==, 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 2.0, PASTEL_TAG(negate), PASTEL_TAG(metric), Manhattan_Metric()), ==, 2 * (-1) * 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 3.5, PASTEL_TAG(metric), Manhattan_Metric()), ==, 3.5 * 5);
@@ -107,16 +107,16 @@ namespace
 			// These should give errors at compile-time.
 
 			// Error: Multiple arguments for 'negate'.
-			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(negate), PASTEL_TAG(negate)), ==, (-1) * 5 * 5);
-			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling)), ==, 2 * 5 * 5);
-			//TEST_ENSURE_OP(distance(1, 6, true, true), ==, (-1) * 5 * 5);
+			//distance(1, 6, PASTEL_TAG(negate), PASTEL_TAG(negate));
+			//distance(1, 6, PASTEL_TAG(scaling));
+			//distance(1, 6, true, true);
 
 			// Error: 'metric' is required to be either Manhattan_Metric or Euclidean_Metric.
-			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(metric), A()), ==, 5 * 5);
-			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(metric)), ==, 5 * 5);
+			//distance(1, 6, PASTEL_TAG(metric), A());
+			//distance(1, 6, PASTEL_TAG(metric));
 
 			// Error: 'negate' is required to be of type bool.
-			//TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(negate), 4.0f), ==, 5 * 5);
+			//distance(1, 6, PASTEL_TAG(negate), 4.0f);
 		}
 	};
 
