@@ -129,7 +129,7 @@ namespace
 
 				TEST_ENSURE(distance2(a, b, Manhattan_NormBijection<Real>()) == correct);
 				TEST_ENSURE(distance2(b, a, Manhattan_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(a, b, Manhattan_NormBijection<Real>(), keepGoing) == 6);
+				TEST_ENSURE(distance2(a, b, Manhattan_NormBijection<Real>(), keepGoing) >= 6);
 			}
 
 			{
@@ -137,7 +137,7 @@ namespace
 
 				TEST_ENSURE(distance2(a, b, Maximum_NormBijection<Real>()) == correct);
 				TEST_ENSURE(distance2(b, a, Maximum_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(a, b, keepGoing, Maximum_NormBijection<Real>()) == 6);
+				TEST_ENSURE(distance2(a, b, keepGoing, Maximum_NormBijection<Real>()) >= 6);
 			}
 
 			{
@@ -153,7 +153,7 @@ namespace
 
 				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>()) == correct);
 				TEST_ENSURE(distance2(b, a, Euclidean_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>(), keepGoing) == square(6));
+				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>(), keepGoing) >= square(6));
 			}
 
 			{
@@ -161,7 +161,7 @@ namespace
 
 				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(1)) == correct);
 				TEST_ENSURE(distance2(b, a, Minkowski_NormBijection<Real>(1)) == correct);
-				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(1), keepGoing) == 6);
+				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(1), keepGoing) >= 6);
 			}
 		}
 	};
