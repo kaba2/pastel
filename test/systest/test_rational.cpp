@@ -42,6 +42,7 @@ namespace
 			testSpecial();
 			testAddition();
 			testMultiply();
+			testPower();
 			testFromReal<float>();
 			testFromReal<double>();
 		}
@@ -365,6 +366,17 @@ namespace
 					-infinity<Rat>());
 				TEST_ENSURE(-infinity<Rat>() * -infinity<Rat>() ==
 					infinity<Rat>());
+			}
+		}
+
+		void testPower()
+		{
+			for (integer i = -16;i < 16;++i)
+			{
+				for (integer j = -16; j < 16;++j)
+				{
+					TEST_ENSURE(pow(Rat(i), j) == (integer)pow((real)i, j));
+				}
 			}
 		}
 

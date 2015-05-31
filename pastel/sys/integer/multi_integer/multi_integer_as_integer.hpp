@@ -113,6 +113,23 @@ namespace Pastel
 		return {0, 0, 0};
 	}
 
+	// Multiplicative monoid
+
+	template <typename Integer_Settings>
+	bool one(const MultiInteger<Integer_Settings>& that)
+	{
+		return that == 1;
+	}
+
+	template <typename Integer_Settings>
+	MultiInteger<Integer_Settings> pow(
+		MultiInteger<Integer_Settings> that,
+		integer p)
+	{
+		PENSURE_OP(p, >=, 0);
+		return monoidPower(std::move(that), p);
+	}
+
 	// Printable
 
 	template <typename Integer_Settings>

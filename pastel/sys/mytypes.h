@@ -189,6 +189,7 @@ namespace Pastel
 
 #include "pastel/sys/type_checks.h"
 #include "pastel/sys/sfinae.h"
+#include "pastel/sys/concept.h"
 #include "pastel/sys/generic/tag.h"
 #include "pastel/sys/settings_type.h"
 #include "pastel/sys/iterator_macros.h"

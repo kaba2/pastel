@@ -3,19 +3,4 @@
 
 #include "pastel/sys/sfinae.h"
 
-namespace Pastel
-{
-
-	// Field
-
-	template <
-		typename Type, 
-		Requires<std::is_floating_point<Type>> = 0>
-	Type inverse(Type that)
-	{
-		return 1 / that;
-	}
-
-}
-
 #endif

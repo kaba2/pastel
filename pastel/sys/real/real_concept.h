@@ -56,12 +56,10 @@ namespace Pastel
 				//Concept::convertsTo<Type>(nan<Type>()),
 				//! Returns whether a number is not-a-number.
 				Concept::convertsTo<bool>(isNan(t)),
-				//! Returns 1 / that.	
-				Concept::convertsTo<Type>(inverse(t)),
 				//! Returns the greatest integer <= that.
 				Concept::convertsTo<Type>(floor(t)),
 				//! Returns the least integer >= that.
-				Concept::convertsTo<Type>(ceil(t))//,
+				Concept::convertsTo<Type>(ceil(t))
 				//! Returns the number in scientific notation.
 				//Concept::convertsTo<ScientificNotation>(asScientific(t))
 			)
