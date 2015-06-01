@@ -111,14 +111,6 @@ namespace Pastel
 		return that.m() / that.n();
 	}
 
-	template <typename Integer>
-	Rational<Integer> pow(
-		Rational<Integer>&& x,
-		integer p)
-	{
-		return genericPower(std::forward<Rational<Integer>>(x), p);
-	}
-
 }
 
 namespace Pastel

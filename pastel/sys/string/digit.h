@@ -46,7 +46,7 @@ namespace Pastel
 		}
 
 		bool knownDigit = false;
-		ENSURE1(knownDigit, digit);
+		ENSURE1(knownDigit, (integer)digit);
 
 		return 0;
 	}

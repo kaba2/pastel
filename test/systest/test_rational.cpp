@@ -67,21 +67,74 @@ namespace
 			TEST_ENSURE(Rat(-3, 3).asStringRatio() == "-1");
 			TEST_ENSURE(Rat(3, 3).asStringRatio() == "1");
 
-			TEST_ENSURE(Rat(22, 7).asString(10, 31) == "3.1428571428571428571428571428571");
-			// FIX: The correctly rounded value ends at 4.
-			TEST_ENSURE(Rat(355, 113).asString(10, 31) == "3.1415929203539823008849557522123");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 0) == "1");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 1) == "1.0");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 2) == "1.00");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 3) == "1.000");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 4) == "0.9999");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 5) == "0.9999");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 6) == "0.9999");
+
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 0, PASTEL_TAG(rounding), Rounding::Truncate) == "0");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 1, PASTEL_TAG(rounding), Rounding::Truncate) == "0.9");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 2, PASTEL_TAG(rounding), Rounding::Truncate) == "0.99");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 3, PASTEL_TAG(rounding), Rounding::Truncate) == "0.999");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 4, PASTEL_TAG(rounding), Rounding::Truncate) == "0.9999");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 5, PASTEL_TAG(rounding), Rounding::Truncate) == "0.9999");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 6, PASTEL_TAG(rounding), Rounding::Truncate) == "0.9999");
+																							
+			TEST_ENSURE(Rat(-9999, 10000).asString(PASTEL_TAG(digits), 0) == "-1");
+			TEST_ENSURE(Rat(-9999, 10000).asString(PASTEL_TAG(digits), 1) == "-1.0");
+			TEST_ENSURE(Rat(-9999, 10000).asString(PASTEL_TAG(digits), 2) == "-1.00");
+			TEST_ENSURE(Rat(-9999, 10000).asString(PASTEL_TAG(digits), 3) == "-1.000");
+			TEST_ENSURE(Rat(-9999, 10000).asString(PASTEL_TAG(digits), 4) == "-0.9999");
+			TEST_ENSURE(Rat(-9999, 10000).asString(PASTEL_TAG(digits), 5) == "-0.9999");
+			TEST_ENSURE(Rat(-9999, 10000).asString(PASTEL_TAG(digits), 6) == "-0.9999");
+
+			TEST_ENSURE(Rat(99999, 10000).asString(PASTEL_TAG(digits), 0) == "10");
+			TEST_ENSURE(Rat(99999, 10000).asString(PASTEL_TAG(digits), 1) == "10.0");
+			TEST_ENSURE(Rat(99999, 10000).asString(PASTEL_TAG(digits), 2) == "10.00");
+			TEST_ENSURE(Rat(99999, 10000).asString(PASTEL_TAG(digits), 3) == "10.000");
+			TEST_ENSURE(Rat(99999, 10000).asString(PASTEL_TAG(digits), 4) == "9.9999");
+			TEST_ENSURE(Rat(99999, 10000).asString(PASTEL_TAG(digits), 5) == "9.9999");
+			TEST_ENSURE(Rat(99999, 10000).asString(PASTEL_TAG(digits), 6) == "9.9999");
+
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 0, PASTEL_TAG(shortenExact), false) == "1");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 1, PASTEL_TAG(shortenExact), false) == "1.0");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 2, PASTEL_TAG(shortenExact), false) == "1.00");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 3, PASTEL_TAG(shortenExact), false) == "1.000");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 4, PASTEL_TAG(shortenExact), false) == "0.9999");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 5, PASTEL_TAG(shortenExact), false) == "0.99990");
+			TEST_ENSURE(Rat(9999, 10000).asString(PASTEL_TAG(digits), 6, PASTEL_TAG(shortenExact), false) == "0.999900");
+			
+			TEST_ENSURE(Rat(9995, 10000).asString(PASTEL_TAG(digits), 0) == "1");
+			TEST_ENSURE(Rat(9995, 10000).asString(PASTEL_TAG(digits), 1) == "1.0");
+			TEST_ENSURE(Rat(9995, 10000).asString(PASTEL_TAG(digits), 2) == "1.00");
+			TEST_ENSURE(Rat(9995, 10000).asString(PASTEL_TAG(digits), 3) == "1.000");
+			TEST_ENSURE(Rat(9995, 10000).asString(PASTEL_TAG(digits), 4) == "0.9995");
+			TEST_ENSURE(Rat(9995, 10000).asString(PASTEL_TAG(digits), 5) == "0.9995");
+
+			TEST_ENSURE(Rat(9994, 10000).asString(PASTEL_TAG(digits), 0) == "1");
+			TEST_ENSURE(Rat(9994, 10000).asString(PASTEL_TAG(digits), 1) == "1.0");
+			TEST_ENSURE(Rat(9994, 10000).asString(PASTEL_TAG(digits), 2) == "1.00");
+			TEST_ENSURE(Rat(9994, 10000).asString(PASTEL_TAG(digits), 3) == "0.999");
+			TEST_ENSURE(Rat(9994, 10000).asString(PASTEL_TAG(digits), 4) == "0.9994");
+			TEST_ENSURE(Rat(9994, 10000).asString(PASTEL_TAG(digits), 5) == "0.9994");
+
+			TEST_ENSURE(Rat(22, 7).asString(PASTEL_TAG(digits), 31) == "3.1428571428571428571428571428571");
+			TEST_ENSURE(Rat(355, 113).asString(PASTEL_TAG(digits), 31) == "3.1415929203539823008849557522124");
 			TEST_ENSURE(Rat(1, 3).asString() == "0.333");
 			TEST_ENSURE(Rat(-1, 3).asString() == "-0.333");
-			TEST_ENSURE(Rat(1, 3).asString(3) == "0.1");
-			TEST_ENSURE(Rat(2, 3).asString(3) == "0.2");
-			TEST_ENSURE(Rat(3, 3).asString(3) == "1");
-			TEST_ENSURE(Rat(-1, 3).asString(3) == "-0.1");
-			TEST_ENSURE(Rat(-2, 3).asString(3) == "-0.2");
-			TEST_ENSURE(Rat(-3, 3).asString(3) == "-1");
-			TEST_ENSURE(Rat(-1, 3).asString(3, 10, true) == "-0.1_3");
-			TEST_ENSURE(Rat(-2, 3).asString(3, 10, true) == "-0.2_3");
-			TEST_ENSURE(Rat(-3, 3).asString(3, 10, true) == "-1_3");
-			TEST_ENSURE(Rat(-1, 3).asString(10, 10, true) == "-0.3333333333_10");
+			TEST_ENSURE(Rat(1, 3).asString(PASTEL_TAG(base), 3) == "0.1");
+			TEST_ENSURE(Rat(2, 3).asString(PASTEL_TAG(base), 3) == "0.2");
+			TEST_ENSURE(Rat(3, 3).asString(PASTEL_TAG(base), 3) == "1");
+			TEST_ENSURE(Rat(-1, 3).asString(PASTEL_TAG(base), 3) == "-0.1");
+			TEST_ENSURE(Rat(-2, 3).asString(PASTEL_TAG(base), 3) == "-0.2");
+			TEST_ENSURE(Rat(-3, 3).asString(PASTEL_TAG(base), 3) == "-1");
+			TEST_ENSURE(Rat(-1, 3).asString(PASTEL_TAG(base), 3, PASTEL_TAG(showBase), true) == "-0.1_3");
+			TEST_ENSURE(Rat(-2, 3).asString(PASTEL_TAG(base), 3, PASTEL_TAG(showBase), true) == "-0.2_3");
+			TEST_ENSURE(Rat(-3, 3).asString(PASTEL_TAG(base), 3, PASTEL_TAG(showBase), true) == "-1_3");
+			TEST_ENSURE(Rat(-1, 3).asString(PASTEL_TAG(digits), 10, PASTEL_TAG(showBase), true) == "-0.3333333333_10");
 		}
 
 		void testClassify()
@@ -371,13 +424,20 @@ namespace
 
 		void testPower()
 		{
+			/*
+			Rat(pow(-14, -2));
+
 			for (integer i = -16;i < 16;++i)
 			{
-				for (integer j = -16; j < 16;++j)
+				for (integer j = -7; j < 8;++j)
 				{
-					TEST_ENSURE(pow(Rat(i), j) == (integer)pow((real)i, j));
+					std::cout << i << " " << j << std::endl;
+
+					Rat(pow(i, j));
+					//TEST_ENSURE(groupPower(Rat(i), j) == pow(i, j));
 				}
 			}
+			*/
 		}
 
 		template <typename Real>
