@@ -14,7 +14,8 @@ namespace
 
 	using namespace Pastel;
 
-	using Integer = Signed_Integer<32, uint8>;
+	//using Integer = Signed_Integer<32, uint8>;
+	using Integer = integer;
 	PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
 
 	using Rat = Rational<Integer>;
@@ -425,8 +426,6 @@ namespace
 		void testPower()
 		{
 			/*
-			Rat(pow(-14, -2));
-
 			for (integer i = -16;i < 16;++i)
 			{
 				for (integer j = -7; j < 8;++j)
@@ -434,7 +433,7 @@ namespace
 					std::cout << i << " " << j << std::endl;
 
 					Rat(pow(i, j));
-					//TEST_ENSURE(groupPower(Rat(i), j) == pow(i, j));
+					TEST_ENSURE(groupPower(Rat(i), j) == pow(i, j));
 				}
 			}
 			*/
@@ -455,59 +454,85 @@ namespace
 			// Negative infinity.
 			TEST_ENSURE(Rat(-infinity<Real>()) == -infinity<Rat>());
 
-			TEST_ENSURE(Rat((Real)0.125) == Rat(1, 8));
+			// Positive integers
+			TEST_ENSURE(Rat((Real)1) == 1);
+			TEST_ENSURE(Rat((Real)2) == 2);
+			TEST_ENSURE(Rat((Real)3) == 3);
+			TEST_ENSURE(Rat((Real)4) == 4);
+
+			// Negative integers
+			TEST_ENSURE(Rat((Real)-1) == -1);
+			TEST_ENSURE(Rat((Real)-2) == -2);
+			TEST_ENSURE(Rat((Real)-3) == -3);
+			TEST_ENSURE(Rat((Real)-4) == -4);
+
+			// Powers of two.
+			for (integer i = 0;i < 31;++i)
+			{
+				TEST_ENSURE(Rat((Real)std::pow(2, i)) == Rat(1 << i));
+			}
+
+			integer maxPower = std::is_same<Real, float>::value ? 9 : 18;
+			for (integer i = 0;i < maxPower;++i)
+			{
+				TEST_ENSURE(Rat((Real)std::pow(2, -i)) == Rat(1, (1 << i)));
+			}
+
+			TEST_ENSURE(Rat((Real)std::pow(2, 20)) == Rat(1 << 20));
+
+			TEST_ENSURE(Rat((Real)0.125, PASTEL_TAG(nMax), 10) == Rat(1, 8));
 			TEST_ENSURE(Rat((Real)-0.125) == Rat(-1, 8));
 
 			// The best rational approximations of pi.
-			TEST_ENSURE(Rat(constantPi<Real>(), 1) == Rat(3, 1));
-			TEST_ENSURE(Rat(constantPi<Real>(), 2) == Rat(6, 2));
-			TEST_ENSURE(Rat(constantPi<Real>(), 3) == Rat(9, 3));
-			TEST_ENSURE(Rat(constantPi<Real>(), 4) == Rat(13, 4));
-			TEST_ENSURE(Rat(constantPi<Real>(), 5) == Rat(16, 5));
-			TEST_ENSURE(Rat(constantPi<Real>(), 6) == Rat(19, 6));
-			TEST_ENSURE(Rat(constantPi<Real>(), 7) == Rat(22, 7));
-			TEST_ENSURE(Rat(constantPi<Real>(), 56) == Rat(22, 7));
-			TEST_ENSURE(Rat(constantPi<Real>(), 57) == Rat(179, 57));
-			TEST_ENSURE(Rat(constantPi<Real>(), 63) == Rat(179, 57));
-			TEST_ENSURE(Rat(constantPi<Real>(), 64) == Rat(201, 64));
-			TEST_ENSURE(Rat(constantPi<Real>(), 70) == Rat(201, 64));
-			TEST_ENSURE(Rat(constantPi<Real>(), 71) == Rat(223, 71));
-			TEST_ENSURE(Rat(constantPi<Real>(), 77) == Rat(223, 71));
-			TEST_ENSURE(Rat(constantPi<Real>(), 78) == Rat(245, 78));
-			TEST_ENSURE(Rat(constantPi<Real>(), 84) == Rat(245, 78));
-			TEST_ENSURE(Rat(constantPi<Real>(), 85) == Rat(267, 85));
-			TEST_ENSURE(Rat(constantPi<Real>(), 91) == Rat(267, 85));
-			TEST_ENSURE(Rat(constantPi<Real>(), 92) == Rat(289, 92));
-			TEST_ENSURE(Rat(constantPi<Real>(), 98) == Rat(289, 92));
-			TEST_ENSURE(Rat(constantPi<Real>(), 99) == Rat(311, 99));
-			TEST_ENSURE(Rat(constantPi<Real>(), 105) == Rat(311, 99));
-			TEST_ENSURE(Rat(constantPi<Real>(), 106) == Rat(333, 106));
-			TEST_ENSURE(Rat(constantPi<Real>(), 112) == Rat(333, 106));
-			TEST_ENSURE(Rat(constantPi<Real>(), 113) == Rat(355, 113));
-			TEST_ENSURE(Rat(constantPi<Real>(), 16603) == Rat(355, 113));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 1) == Rat(3, 1));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 2) == Rat(6, 2));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 3) == Rat(9, 3));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 4) == Rat(13, 4));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 5) == Rat(16, 5));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 6) == Rat(19, 6));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 7) == Rat(22, 7));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 56) == Rat(22, 7));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 57) == Rat(179, 57));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 63) == Rat(179, 57));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 64) == Rat(201, 64));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 70) == Rat(201, 64));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 71) == Rat(223, 71));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 77) == Rat(223, 71));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 78) == Rat(245, 78));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 84) == Rat(245, 78));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 85) == Rat(267, 85));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 91) == Rat(267, 85));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 92) == Rat(289, 92));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 98) == Rat(289, 92));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 99) == Rat(311, 99));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 105) == Rat(311, 99));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 106) == Rat(333, 106));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 112) == Rat(333, 106));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 113) == Rat(355, 113));
+			TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 16603) == Rat(355, 113));
 
 			if (std::is_same<Real, double>::value)
 			{
 				// The next rational approximation exceeds the precision of float.
-				TEST_ENSURE(Rat(constantPi<Real>(), 16604) == Rat(52163, 16604));
-				TEST_ENSURE(Rat(constantPi<Real>(), 16716) == Rat(52163, 16604));
-				TEST_ENSURE(Rat(constantPi<Real>(), 16717) == Rat(52518, 16717));
-				TEST_ENSURE(Rat(constantPi<Real>(), 16829) == Rat(52518, 16717));
-				TEST_ENSURE(Rat(constantPi<Real>(), 16830) == Rat(52873, 16830));
-				TEST_ENSURE(Rat(constantPi<Real>(), 16942) == Rat(52873, 16830));
-				TEST_ENSURE(Rat(constantPi<Real>(), 16943) == Rat(53228, 16943));
-				TEST_ENSURE(Rat(constantPi<Real>(), 17055) == Rat(53228, 16943));
-				TEST_ENSURE(Rat(constantPi<Real>(), 17056) == Rat(53583, 17056));
-				TEST_ENSURE(Rat(constantPi<Real>(), 17168) == Rat(53583, 17056));
-				TEST_ENSURE(Rat(constantPi<Real>(), 17169) == Rat(53938, 17169));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 16604) == Rat(52163, 16604));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 16716) == Rat(52163, 16604));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 16717) == Rat(52518, 16717));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 16829) == Rat(52518, 16717));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 16830) == Rat(52873, 16830));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 16942) == Rat(52873, 16830));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 16943) == Rat(53228, 16943));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 17055) == Rat(53228, 16943));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 17056) == Rat(53583, 17056));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 17168) == Rat(53583, 17056));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 17169) == Rat(53938, 17169));
 				
 				// Skipping approximations...
 
-				TEST_ENSURE(Rat(constantPi<Real>(), 364913) == Rat(1146408, 364913));
-				TEST_ENSURE(Rat(constantPi<Real>(), 995206) == Rat(1146408, 364913));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 364913) == Rat(1146408, 364913));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 995206) == Rat(1146408, 364913));
 				// This is 11 correct digits.
-				TEST_ENSURE(Rat(constantPi<Real>(), 995207) == Rat(3126535, 995207));
-				TEST_ENSURE(Rat(-constantPi<Real>(), 995207) == Rat(-3126535, 995207));
+				TEST_ENSURE(Rat(constantPi<Real>(), PASTEL_TAG(nMax), 995207) == Rat(3126535, 995207));
+				TEST_ENSURE(Rat(-constantPi<Real>(), PASTEL_TAG(nMax), 995207) == Rat(-3126535, 995207));
 			}
 		}
 

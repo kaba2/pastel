@@ -29,6 +29,24 @@ namespace Pastel
 		left.swap(right);
 	}
 
+	template <
+		typename Type,
+		Requires<
+			IsTemplateInstance<Type, MultiInteger>
+		> = 0>
+	Type infinity()
+	{
+		Type result;
+		
+		result.setBits();
+		if (Type::Signed)
+		{
+			result.clearBit(result.bits() - 1);
+		}
+
+		return result;
+	}
+
 	//! Returns whether 'that' is odd.
 	/*!
 	Time complexity: O(1)
