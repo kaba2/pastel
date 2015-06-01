@@ -23,7 +23,7 @@ namespace Pastel
 
 		return (bits - 1) - 
 			binarySearch(
-			0,	bits,
+			(integer)0,	bits,
 			[&](integer i)
 			{
 				return !zero(data & bitMask<Finite_Integer>(bits - (i + 1), bits));

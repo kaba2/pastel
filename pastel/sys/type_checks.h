@@ -38,6 +38,10 @@ namespace Pastel
 	PASTEL_STATIC_ASSERT(
 		sizeof(integer) >= sizeof(int32));
 
+	// Check that 'integer' is at least the same size as std::size_t
+	PASTEL_STATIC_ASSERT(
+		sizeof(integer) >= sizeof(std::size_t));
+
 	// Check that 'integer' is a native signed integer type.
 	PASTEL_STATIC_ASSERT(
 		std::is_signed<integer>::value);

@@ -466,14 +466,15 @@ namespace
 			TEST_ENSURE(Rat((Real)-3) == -3);
 			TEST_ENSURE(Rat((Real)-4) == -4);
 
-			// Powers of two.
+			// Non-negative powers of two.
 			for (integer i = 0;i < 31;++i)
 			{
 				TEST_ENSURE(Rat((Real)std::pow(2, i)) == Rat(1 << i));
 			}
 
+			// Negative powers of two.
 			integer maxPower = std::is_same<Real, float>::value ? 9 : 18;
-			for (integer i = 0;i < maxPower;++i)
+			for (integer i = 1;i < maxPower;++i)
 			{
 				TEST_ENSURE(Rat((Real)std::pow(2, -i)) == Rat(1, (1 << i)));
 			}
