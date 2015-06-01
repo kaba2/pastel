@@ -199,28 +199,28 @@ namespace
 				using F = Signed_Integer<16, uint8>;
 				for (integer i = -40000; i < 40000; i += 13)
 				{
-					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32768, 65536) - 32768);
+					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32768, (integer)65536) - 32768);
 				}
 			}
 			{
 				using F = Signed_Integer<15, uint8>;
 				for (integer i = -40000; i < 40000; i += 13)
 				{
-					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 16384, 32768) - 16384);
+					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 16384, (integer)32768) - 16384);
 				}
 			}
 			{
 				using F = Signed_Integer<6, uint8>;
 				for (integer i = -100; i < 100; ++i)
 				{
-					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32, 64) - 32);
+					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32, (integer)64) - 32);
 				}
 			}
 			{
 				using F = Signed_Integer<6, uint16>;
 				for (integer i = -100; i < 100; ++i)
 				{
-					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32, 64) - 32);
+					TEST_ENSURE(static_cast<int64>(F(i)) == mod(i + 32, (integer)64) - 32);
 				}
 			}
 		}

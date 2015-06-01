@@ -23,7 +23,7 @@ namespace Pastel
 		integer bits = SizeInBits<Finite_Integer>::value;
 		
 		return binarySearch(
-			0,	bits,
+			(integer)0, bits,
 			[&](integer i)
 			{
 				return !zero(data & bitMask<Finite_Integer>(0, i + 1));
