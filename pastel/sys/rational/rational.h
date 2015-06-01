@@ -122,11 +122,11 @@ namespace Pastel
 		*/
 		template <
 			typename Real,
+			typename... ArgumentSet,
 			Requires<std::is_floating_point<Real>> = 0>
 		Rational(
 			Real that,
-			Integer nMax = 0,
-			Real maxError = 0);
+			ArgumentSet&&... argumentSet);
 
 		//! Assigns another rational number.
 		Rational<Integer>& operator=(Rational that);
@@ -270,7 +270,7 @@ namespace Pastel
 			return left.lessThan(right);
 		}
 
-		//! Invert the 
+		//! Invert the number.
 		Rational<Integer>& invert()
 		{
 			using std::swap;
@@ -284,6 +284,13 @@ namespace Pastel
 				n_ = -n_;
 			}
 
+			return *this;
+		}
+
+		//! Negate the number.
+		Rational<Integer>& negate()
+		{
+			m_ = -m_;
 			return *this;
 		}
 

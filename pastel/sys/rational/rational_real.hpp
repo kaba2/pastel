@@ -6,6 +6,7 @@
 #include "pastel/sys/bit/highest_bit.h"
 #include "pastel/sys/real/ieee_float.h"
 #include "pastel/sys/string/digit.h"
+#include "pastel/sys/sequence/exponential_binary_search.h"
 
 namespace Pastel
 {
@@ -185,14 +186,16 @@ namespace Pastel
 	template <typename Integer>
 	template <
 		typename Real,
+		typename... ArgumentSet,
 		Requires<std::is_floating_point<Real>>>
 	Rational<Integer>::Rational(
 		Real that,
-		Integer nMax,
-		Real maxError)
+		ArgumentSet&&... argumentSet)
 		: m_(0)
 		, n_(1)
 	{
+		Integer nMax = PASTEL_ARG_S(nMax, infinity<Integer>());
+
 		Real logAbs = std::log2(abs(that));
 		if (logAbs < -(bits(m()) - 1))
 		{
@@ -221,24 +224,24 @@ namespace Pastel
 			return;
 		}
 
-		bool nonNegativeThat = (that >= 0);
-		if (!nonNegativeThat)
+		bool nonNegative = (that >= 0);
+		if (!nonNegative)
 		{
 			// Reduce to the non-negative case.
 			that = -that;
 		}
 
-		// An _irreducible pair_ is (m, n) in NN^{>= 0} such that
-		// gcd(m, n) = 1. The _value_ of an irreducible pair is m / n.
+		// A _rational pair_ is (m, n) in NN^{>= 0} such that
+		// gcd(m, n) = 1. The _value_ of a rational pair is m / n.
 		// We define n / 0 = infinity, for all n > 0.
 		//
-		// Let (a, b) and (c, d) be irreducible pairs, with a / b < c / d.
+		// Let (a, b) and (c, d) be rational pairs, with a / b < c / d.
 		// Then (a + c, b + d) --- called the _mediant_ of (a, b) and (c, d) 
-		// --- is an irreducible pair, such that
+		// --- is a rational pair, such that
 		//
 		//     a / b < (a + c) / (b + d) < c / d.
 		//
-		// The mediants --- incrementally computed between subsequent irreducible 
+		// The mediants --- incrementally computed between subsequent rational 
 		// pairs --- form a bijection with the rational numbers in the open interval 
 		// ]a / b, c / d[. Combined with the order-property, this means that
 		// the mediant can be used in a search analogous to a binary search.
@@ -307,8 +310,7 @@ namespace Pastel
 		// continue recursively.
 
 		// Let n = floor(x).
-		Real n = floor(that);
-
+		//
 		// Suppose we start searching for the best mediant
 		// from [(0, 1), (1, 0)[. The mediant-binary search will
 		// then do the following steps:
@@ -328,68 +330,94 @@ namespace Pastel
 		// then the initialization would need to check whether
 		// (n + 1, 1) is better than (n, 1).  
 
-		Rational left((integer)n);
+		Real n = floor(that);
+		Rational left = (integer)n;
 		Rational right = infinity<Rational>();
 		
 		Rational& best = *this;
 		best = left;		
 		Real minError = that - left.asReal<Real>();
 
-		while(minError > 0)
+		auto leftMediant = [&](const Integer& k)
 		{
-			// Compute the mediant of left and right.
-			Rational mediant(
-				left.m() + right.m(),
-				left.n() + right.n(),
+			return Rational(
+				k * left.m() + right.m(), 
+				k * left.n() + right.n(),
 				SkipSimplify());
+		};
 
-			// The simplification can be skipped, since
-			// gcd(mediant.m(), mediant.n()) == 1.
-
-			bool mOverflowed = mediant.m() < left.m();
-			bool nOverflowed = mediant.n() < left.n();
-
-			if (mOverflowed || 
-				nOverflowed ||
-				(positive(nMax) && mediant.n() > nMax))
+		auto consider = [&](const Rational& candidate)
+		{
+			Real error = abs(candidate.asReal<Real>() - that);
+			if (error < minError)
 			{
-				// Either the numerator or the denominator 
-				// overflowed. Since their (non-overflow) gcd = 1, 
-				// there cannot be a better approximation than 
-				// our current one. Stop the computation.
+				best = candidate;
+				minError = error;
+			}
+		};
+
+		auto pass = [&](auto&& indicator)
+		{
+			Integer kMax = 
+				std::min(
+					// Avoid overflowing the divisor.
+					zero(left.n()) ? infinity<Integer>() - 1 : (nMax - right.n()) / left.n(),
+					// Avoid overflowing the numerator.
+					zero(left.m()) ? infinity<Integer>() - 1 : (infinity<Integer>() - right.m()) / left.m()
+				) + 1;
+			
+			Integer k = exponentialBinarySearch(
+				Integer(1), kMax, indicator);
+
+			Rational newRight = leftMediant(k - 1);
+			consider(newRight);
+			right = newRight;
+
+			return k == kMax;
+		};
+
+		while(true)
+		{
+			ASSERT(left.asReal<Real>() <= that);
+			ASSERT(right.asReal<Real>() >= that);
+
+			if (minError == 0)
+			{
 				break;
 			}
 
-			ASSERT(gcd(mediant.m(), mediant.n()) == 1);
+			bool leftDone = pass(				
+				[&](Integer k)
+				{
+					return leftMediant(k).asReal<Real>() < that;
+				});
+			left.swap(right);
 
-			if (that < mediant.asReal<Real>())
+			if (minError == 0)
 			{
-				// The mediant is too large. Update the
-				// search-interval to end at the mediant.
-				right = mediant;
-			}
-			else
-			{
-				// The mediant is too small. Update the
-				// search-interval to begin from the mediant.
-				left = mediant;
+				break;
 			}
 
-			// Compute the error between the rational 
-			// approximation and the floating point number.
-			Real error = std::abs(mediant.asReal<Real>() - that); 
-			if (error < minError) 
+			bool rightDone = pass(
+				[&](Integer k)
+				{
+					return leftMediant(k).asReal<Real>() > that;
+				});
+			left.swap(right);
+
+			if (leftDone && rightDone)
 			{
-				// The error is the smallest thus far. Remember it.
-				best = mediant;
-				minError = error;
+				// The left and right bound cannot be improved
+				// further, because they would overflow either
+				// the numerator or the divisor. Stop here.
+				break;
 			}
 		}
 
-		if (!nonNegativeThat)
+		if (!nonNegative)
 		{
 			// Negate the number to give the correct sign.
-			best.m_ = -best.m_;
+			negate();
 		}
     }
 
