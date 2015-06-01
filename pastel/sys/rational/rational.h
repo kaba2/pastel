@@ -37,6 +37,12 @@ namespace Pastel
 
 	}
 
+	enum class Rounding : integer
+	{
+		Truncate,
+		RoundUp
+	};
+
 }
 
 namespace Pastel
@@ -100,6 +106,10 @@ namespace Pastel
 		Preconditions:
 		nMax >= 0
 
+		maxError:
+		Maximum allowed absolute error for the
+		approximation.
+
 		nMax:
 		The maximum allowed divisor. Setting this to 0
 		removes any restrictions.
@@ -115,7 +125,8 @@ namespace Pastel
 			Requires<std::is_floating_point<Real>> = 0>
 		Rational(
 			Real that,
-			Integer nMax = 0);
+			Integer nMax = 0,
+			Real maxError = 0);
 
 		//! Assigns another rational number.
 		Rational<Integer>& operator=(Rational that);
@@ -147,22 +158,30 @@ namespace Pastel
 		/*!
 		Preconditions:
 		base >= 2
-		maxDigits >= 0
+		digits >= 0
 
-		base:
+		Optional arguments
+		------------------
+
+		base (integer : 10):
 		The base to use.
 
-		showBase:
+		showBase (bool : false):
 		Whether to show the base.
 
-		maxDigits:
-		The number of digits to show for the 
-		fractional part.
+		digits (integer : 3):
+		The digits to show for the fractional part.
+
+		shortenExact (bool : true):
+		Whether to cut off trailing digits in case
+		of an exact number.
+
+		rounding (Rounding : Rouding::RoundUp):
+		How to handle rounding.
 		*/
+		template <typename... ArgumentSet>
 		std::string asString(
-			integer base = 10, 
-			integer maxDigits = 3,
-			bool showBase = false) const;
+			ArgumentSet&&... argumentSet) const;
 
 		//! Returns whether the number is infinity.
 		bool isInfinity() const;
@@ -249,6 +268,23 @@ namespace Pastel
 			const Rational& right)
 		{
 			return left.lessThan(right);
+		}
+
+		//! Invert the 
+		Rational<Integer>& invert()
+		{
+			using std::swap;
+			
+			swap(m_, n_);
+			if (negative(n_))
+			{
+				// As an invariant, the divisor
+				// is always positive. Make it so.
+				m_ = -m_;
+				n_ = -n_;
+			}
+
+			return *this;
 		}
 
 	private:
