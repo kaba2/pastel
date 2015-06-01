@@ -32,18 +32,24 @@ namespace Pastel
 	template <
 		typename Type,
 		Requires<
-			IsTemplateInstance<Type, MultiInteger>
+			IsTemplateInstance<Type, MultiInteger>,
+			Bool<!Type::Signed>
+		> = 0>
+	Type infinity()
+	{
+		return Type().setBits();
+	}
+
+	template <
+		typename Type,
+		Requires<
+			IsTemplateInstance<Type, MultiInteger>,
+			Bool<Type::Signed>
 		> = 0>
 	Type infinity()
 	{
 		Type result;
-		
-		result.setBits();
-		if (Type::Signed)
-		{
-			result.clearBit(result.bits() - 1);
-		}
-
+		result.setBits(0, result.bits() - 1);
 		return result;
 	}
 

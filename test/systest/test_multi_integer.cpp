@@ -23,6 +23,7 @@ namespace
 
 		virtual void run()
 		{
+			testInfinity();
 			testAsString();
 			testAsNative();
 			testConstruction();
@@ -39,6 +40,46 @@ namespace
 			testDivision();
 			testModulo();
 			testNumberOfOneBits();
+		}
+
+		void testInfinity()
+		{
+			{
+				using F = Unsigned_Integer<32, uint8>;
+				TEST_ENSURE(infinity<F>() == 0xFFFFFFFF);
+				TEST_ENSURE(positive(infinity<F>()));
+				TEST_ENSURE(zero(++infinity<F>()));
+			}
+			{
+				using F = Signed_Integer<32, uint8>;
+				TEST_ENSURE(infinity<F>() == 0x7FFFFFFF);
+				TEST_ENSURE(positive(infinity<F>()));
+				TEST_ENSURE(negative(++infinity<F>()));
+			}
+			{
+				using F = Unsigned_Integer<8, uint8>;
+				TEST_ENSURE(infinity<F>() == 255);
+				TEST_ENSURE(positive(infinity<F>()));
+				TEST_ENSURE(zero(++infinity<F>()));
+			}
+			{
+				using F = Signed_Integer<8, uint8>;
+				TEST_ENSURE(infinity<F>() == 127);
+				TEST_ENSURE(positive(infinity<F>()));
+				TEST_ENSURE(negative(++infinity<F>()));
+			}
+			{
+				using F = Unsigned_Integer<7, uint8>;
+				TEST_ENSURE(infinity<F>() == 127);
+				TEST_ENSURE(positive(infinity<F>()));
+				TEST_ENSURE(zero(++infinity<F>()));
+			}
+			{
+				using F = Signed_Integer<7, uint8>;
+				TEST_ENSURE(infinity<F>() == 63);
+				TEST_ENSURE(positive(infinity<F>()));
+				TEST_ENSURE(negative(++infinity<F>()));
+			}
 		}
 
 		void testAsString()
