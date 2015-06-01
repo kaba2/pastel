@@ -66,9 +66,9 @@ namespace Pastel
 	/*!
 	The notation x^p means to multiply x with itself p times.
 	*/
-	template <typename Multiplicative_Monoid>
-	Multiplicative_Monoid semiGroupPower(
-		Multiplicative_Monoid x,
+	template <typename Multiplicative_SemiGroup>
+	Multiplicative_SemiGroup semiGroupPower(
+		Multiplicative_SemiGroup x,
 		integer p)
 	{
 		ENSURE_OP(p, >, 0);
@@ -95,7 +95,7 @@ namespace Pastel
 		//     x^p = prod_{i in [0, n]} a_i^{b_i}.
 		//         = prod_{i in [0, n] : b_i = 1} a_i.
 
-		Multiplicative_Monoid result = x;
+		Multiplicative_SemiGroup result = x;
 		
 		--p;
 		if (p == 0)
