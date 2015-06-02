@@ -4,6 +4,7 @@
 #include "pastel/sys/sequence/binary_search.h"
 #include "pastel/sys/math/logarithm.h"
 #include "pastel/sys/director/step_indicator_director.h"
+#include "pastel/sys/integer/integer_mean.h"
 
 namespace Pastel
 {
@@ -45,7 +46,7 @@ namespace Pastel
 			// Pick 'mid' at the middle of the range.
 			// Note that, due to integer rounding, it 
 			// always holds that 'min <= mid < max'.
-			Integer mid = min + ((max - min) >> 1);
+			Integer mid = integerMean(min, max);
 			Integer directed = director(mid);
 
 			// See if the indicator holds at 'mid'.
