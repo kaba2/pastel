@@ -64,9 +64,6 @@ namespace Pastel
 	private:
 		PASTEL_CONCEPT_CHECK(Integer_Settings, MultiInteger_Settings_Concept);
 
-		struct Signed_Tag {};
-		struct Unsigned_Tag {};
-		
 	public:
 		// See the documentation for Integer_Settings_Concept.
 		using Settings = Integer_Settings;
@@ -158,9 +155,12 @@ namespace Pastel
 		*/
 		template <
 			typename That_Integer,
-			Requires<std::is_unsigned<That_Integer>> = 0
+			Requires<
+				std::is_unsigned<That_Integer>,
+				Not<std::is_same<That_Integer, bool>>
+			> = 0
 		>
-		MultiInteger(That_Integer that, Signed_Tag = Signed_Tag())
+		MultiInteger(That_Integer that)
 		: wordSet_()
 		{
 			for (integer i = 0;i < Words;++i)
@@ -178,6 +178,17 @@ namespace Pastel
 			signExtend();
 		}
 
+		template <
+			typename That_Integer,
+			Requires<
+				std::is_same<That_Integer, bool>
+			> = 0
+		>
+		MultiInteger(That_Integer that)
+		: MultiInteger((integer)that)
+		{
+		}
+
 		//! Constructs from a signed native integer.
 		/*!
 		Time complexity: O(N)
@@ -189,7 +200,7 @@ namespace Pastel
 			typename That_Integer,
 			Requires<std::is_signed<That_Integer>> = 0
 		>
-		MultiInteger(That_Integer that, Unsigned_Tag = Unsigned_Tag())
+		MultiInteger(That_Integer that)
 			: MultiInteger(signedToTwosComplement(that))
 		{
 			if (that < 0)
