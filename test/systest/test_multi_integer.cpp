@@ -130,6 +130,14 @@ namespace
 		{
 			{
 				using F = Unsigned_Integer<32, uint8>;
+				TEST_ENSURE(static_cast<uint64>(F(true)) == 1);
+			}
+			{
+				using F = Unsigned_Integer<32, uint8>;
+				TEST_ENSURE(static_cast<uint64>(F(false)) == 0);
+			}
+			{
+				using F = Unsigned_Integer<32, uint8>;
 				TEST_ENSURE(static_cast<uint64>(F(0x12345678)) == 0x12345678);
 			}
 			{
