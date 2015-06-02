@@ -43,6 +43,8 @@ namespace Pastel
 		RoundUp
 	};
 
+    struct Simplest {};
+
 }
 
 namespace Pastel
@@ -101,18 +103,19 @@ namespace Pastel
 
 		//! Constructs with a native floating point number.
 		/*!
+		Constructs with the closest rational number subject
+		to the divisor being <= nMax.
+
 		Implicit conversion allowed.
 
 		Preconditions:
-		nMax >= 0
+		nMax >= 1
 
-		maxError:
-		Maximum allowed absolute error for the
-		approximation.
+		Optional arguments
+		------------------
 
-		nMax:
-		The maximum allowed divisor. Setting this to 0
-		removes any restrictions.
+		nMax (Integer : infinity<Integer>()):
+		The maximum allowed divisor.
 
 		returns:
 		On normal numbers, the best rational approximation.
@@ -126,6 +129,36 @@ namespace Pastel
 			Requires<std::is_floating_point<Real>> = 0>
 		Rational(
 			Real that,
+			ArgumentSet&&... argumentSet);
+
+		//! Constructs with a native floating point number.
+		/*!
+		Constructs with the simplest rational number
+		subject to being in the closed interval
+		[that - maxError, that + maxError]. Here simplest
+		means with the smallest denominator. A solution
+		may not exist. 
+
+		Preconditions:
+		maxError >= 0
+
+		maxError (Rational : 0):
+		Maximum allowed absolute error for the approximation. 
+
+		returns:
+		On normal numbers, the simplest rational approximation.
+		On non-existence, nan<Rational>().
+		On positive overflow, infinity<Rational>().
+		On negative overflow, -infinity<Rational>().
+		On underflow, 0.
+		*/
+		template <
+			typename Real,
+			typename... ArgumentSet,
+			Requires<std::is_floating_point<Real>> = 0>
+		Rational(
+			Real that,
+			Simplest simplest,
 			ArgumentSet&&... argumentSet);
 
 		//! Assigns another rational number.
@@ -341,6 +374,7 @@ namespace Pastel
 #include "pastel/sys/rational/rational_add.hpp"
 #include "pastel/sys/rational/rational_as_point.hpp"
 #include "pastel/sys/rational/rational_as_real.hpp"
+#include "pastel/sys/rational/rational_as_string.hpp"
 #include "pastel/sys/rational/rational_classify.hpp"
 #include "pastel/sys/rational/rational_compare.hpp"
 #include "pastel/sys/rational/rational_construct.hpp"
