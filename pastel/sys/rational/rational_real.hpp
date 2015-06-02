@@ -63,47 +63,43 @@ namespace Pastel
 		Real that,
 		ArgumentSet&&... argumentSet)
 		: m_(0)
-		, n_(1)
+		, n_(0)
 	{
-		Integer nMax = PASTEL_ARG_S(nMax, infinity<Integer>());
+		// "Approximating Rational Numbers by Fractions",
+		// Michael Forisek,
+		// Fun with Algorithms
+		// Lecture Notes in Computer Science Volume 4475, 
+		// 2007, pp 156-165.
 
-		ENSURE(nMax >= 1);
+		// Paper's problem
+		// ---------------
+		//
+		// Let q_m in ZZ, d_m in ZZ^{>= 0}, 
+		// and q_n, d_n in ZZ^{> 0}. 
+		// Find p_m in ZZ, and p_n in ZZ^{> 0},
+		// with minimal p_n, such that
+		//
+		//         (q_m / q_n) - (d_m / d_n) 
+		//      <= p_m / p_n 
+		//      <= (q_m / q_n) + (d_m / d_n).
 
-		Real logAbs = std::log2(abs(that));
-		if (logAbs < -(bits(m()) - 1))
-		{
-			// The rational number underflows.
-			
-			// Zero
-			m_ = 0;
-			n_ = 1;
-			return;
-		}
+		// Our problem
+		// -----------
+		//
+		// Let q in RR, and d in RR^{>= 0}. 
+		// Find p_m in ZZ, and p_n in ZZ^{> 0},
+		// with minimal |p_n|, such that
+		//
+		//         q - d <= p_m / p_n <= q + d.
+		//
+		// To adapt the paper to this problem, we
+		// need to replace direct computation of 
+		// the number of mediant-iterations with an
+		// exponential binary search.
 
-		if (logAbs > bits(m()) - 1)
-		{
-			// The rational number overflows.
-			if (negative(that))
-			{
-				// -Infinity
-				m_ = -1;
-				n_ = 0;
-				return;
-			}
-
-			// +Infinity
-			m_ = 1;
-			n_ = 0;
-			return;
-		}
-
-		bool nonNegative = (that >= 0);
-		if (!nonNegative)
-		{
-			// Reduce to the non-negative case.
-			that = -that;
-		}
-
+		// Algorithm
+		// ---------
+		//
 		// A _rational pair_ is (m, n) in NN^{>= 0} such that
 		// gcd(m, n) = 1. The _value_ of a rational pair is m / n.
 		// We define n / 0 = infinity, for all n > 0.
@@ -203,137 +199,11 @@ namespace Pastel
 		// then the initialization would need to check whether
 		// (n + 1, 1) is better than (n, 1).  
 
-		Real n = floor(that);
-		Rational left = (integer)n;
-		Rational right = infinity<Rational>();
-		
-		Rational& best = *this;
-		best = left;		
-		Real minError = that - left.asReal<Real>();
-
-		auto leftMediant = [&](const Integer& k)
-		{
-			return Rational(
-				k * left.m() + right.m(), 
-				k * left.n() + right.n(),
-				SkipSimplify());
-		};
-
-		auto consider = [&](const Rational& candidate)
-		{
-			Real error = abs(candidate.asReal<Real>() - that);
-			if (error < minError)
-			{
-				best = candidate;
-				minError = error;
-			}
-		};
-
-		auto pass = [&](auto&& indicator)
-		{
-			Integer kMax = 
-				std::min(
-					// Avoid overflowing the divisor.
-					zero(left.n()) ? infinity<Integer>() - 1 : (nMax - right.n()) / left.n(),
-					// Avoid overflowing the numerator.
-					zero(left.m()) ? infinity<Integer>() - 1 : (infinity<Integer>() - right.m()) / left.m()
-				) + 1;
-			
-			Integer k = exponentialBinarySearch(
-				Integer(1), kMax, indicator);
-
-			Rational newRight = leftMediant(k - 1);
-			consider(newRight);
-			right = newRight;
-
-			return k == kMax;
-		};
-
-		while(minError > 0)
-		{
-			ASSERT(left.asReal<Real>() <= that);
-			ASSERT(right.asReal<Real>() >= that);
-
-			bool leftDone = pass(				
-				[&](Integer k)
-				{
-					return leftMediant(k).asReal<Real>() < that;
-				});
-			left.swap(right);
-
-			if (minError == 0)
-			{
-				break;
-			}
-
-			bool rightDone = pass(
-				[&](Integer k)
-				{
-					return leftMediant(k).asReal<Real>() > that;
-				});
-			left.swap(right);
-
-			if (leftDone && rightDone)
-			{
-				// The left and right bound cannot be improved
-				// further, because they would overflow either
-				// the numerator or the divisor. Stop here.
-				break;
-			}
-		}
-
-		if (!nonNegative)
-		{
-			// Negate the number to give the correct sign.
-			negate();
-		}
-    }
-
-	template <typename Integer>
-	template <
-		typename Real,
-		typename... ArgumentSet,
-		Requires<std::is_floating_point<Real>>>
-	Rational<Integer>::Rational(
-		Real that,
-		Simplest simplest,
-		ArgumentSet&&... argumentSet)
-		: m_(0)
-		, n_(0)
-	{
-		// "Approximating Rational Numbers by Fractions",
-		// Michael Forisek,
-		// Fun with Algorithms
-		// Lecture Notes in Computer Science Volume 4475, 
-		// 2007, pp 156-165.
-
-		// Paper's problem
-		// ---------------
-		//
-		// Let q_m in ZZ, d_m in ZZ^{>= 0}, 
-		// and q_n, d_n in ZZ^{> 0}. 
-		// Find p_m in ZZ, and p_n in ZZ^{> 0},
-		// with minimal p_n, such that
-		//
-		//         (q_m / q_n) - (d_m / d_n) 
-		//      <= p_m / p_n 
-		//      <= (q_m / q_n) + (d_m / d_n).
-
-		// Our problem
-		// -----------
-		//
-		// Let q in RR, and d in RR^{>= 0}. 
-		// Find p_m in ZZ, and p_n in ZZ^{> 0},
-		// with minimal |p_n|, such that
-		//
-		//         q - d <= p_m / p_n <= q + d.
-		//
-		// To adapt the paper to this problem, we
-		// need to replace direct computation of 
-		// the number of mediant-iterations with an
-		// exponential binary search.
-
 		Real maxError = PASTEL_ARG_S(maxError, 0);
+		Integer nMax = PASTEL_ARG_S(nMax, infinity<Integer>());
+
+		ENSURE(maxError >= 0);
+		ENSURE(nMax >= 1);
 
 		Real logAbs = std::log2(abs(that));
 		if (logAbs < -(bits(m()) - 1))
@@ -376,23 +246,33 @@ namespace Pastel
 		Real n = floor(that);
 		Rational left = (integer)n;
 		Rational right = infinity<Rational>();
-		Rational& best = *this;
+
+		Rational simplest = *this;
+		bool foundSimplest = false;
 		
-		bool found = false;
+		Rational& best = *this;
+		Real minError = infinity<Real>();
 
 		auto consider = [&](const Rational& candidate)
 		{
 			Real x = candidate.asReal<Real>();
 
+			Real error = abs(x - that);
+			if (error < minError)
+			{
+				best = candidate;
+				minError = error;
+			}
+
 			// Because of rounding errors, it is important
 			// to do this comparison exactly as in the
 			// exponential binary search. In particular,
-			// abs(x - that) <= maxError would give
+			// error <= maxError would give
 			// inconsistent results.
 			if (xMin <= x && x <= xMax)
 			{
-				best = candidate;
-				found = true;
+				simplest = candidate;
+				foundSimplest = true;
 			}
 		};
 
@@ -409,7 +289,7 @@ namespace Pastel
 			Integer kMax = 
 				std::min(
 					// Avoid overflowing the divisor.
-					zero(left.n()) ? infinity<Integer>() - 1 : (infinity<Integer>() - right.n()) / left.n(),
+					zero(left.n()) ? infinity<Integer>() - 1 : (nMax - right.n()) / left.n(),
 					// Avoid overflowing the numerator.
 					zero(left.m()) ? infinity<Integer>() - 1 : (infinity<Integer>() - right.m()) / left.m()
 				) + 1;
@@ -421,6 +301,10 @@ namespace Pastel
 			{
 				consider(leftMediant(k));
 			}
+			else
+			{
+				consider(leftMediant(k - 1));
+			}
 
 			right = leftMediant(k - 1);
 
@@ -429,7 +313,12 @@ namespace Pastel
 
 		consider(left);
 
-		while(!found)
+		auto done = [&]()
+		{
+			return foundSimplest || minError == 0;
+		};
+
+		while(!done())
 		{
 			ASSERT(left.asReal<Real>() < xMin);
 			ASSERT(right.asReal<Real>() > xMax);
@@ -441,7 +330,7 @@ namespace Pastel
 				});
 			left.swap(right);
 
-			if (found)
+			if (done())
 			{
 				break;
 			}
@@ -460,6 +349,11 @@ namespace Pastel
 				// the numerator or the divisor. Stop here.
 				break;
 			}
+		}
+
+		if (foundSimplest)
+		{
+			*this = simplest;			
 		}
 
 		if (!nonNegative)
