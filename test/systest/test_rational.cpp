@@ -14,8 +14,8 @@ namespace
 
 	using namespace Pastel;
 
-	//using Integer = Signed_Integer<32, uint8>;
-	using Integer = integer;
+	using Integer = Signed_Integer<32, uint8>;
+	//using Integer = integer;
 	PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
 
 	using Rat = Rational<Integer>;
@@ -549,43 +549,43 @@ namespace
 		void testSimplestApproximation()
 		{
 			// Positive zero.
-			TEST_ENSURE(Rat((Real)0, Simplest()) == 0);
+			TEST_ENSURE(Rat((Real)0) == 0);
 
 			// Negative zero.
-			TEST_ENSURE(Rat(-(Real)0, Simplest()) == 0);
+			TEST_ENSURE(Rat(-(Real)0) == 0);
 
 			// Positive infinity.
-			TEST_ENSURE(Rat(infinity<Real>(), Simplest()) == infinity<Rat>());
+			TEST_ENSURE(Rat(infinity<Real>()) == infinity<Rat>());
 
 			// Negative infinity.
-			TEST_ENSURE(Rat(-infinity<Real>(), Simplest()) == -infinity<Rat>());
+			TEST_ENSURE(Rat(-infinity<Real>()) == -infinity<Rat>());
 
 			// Positive integers
-			TEST_ENSURE(Rat((Real)1, Simplest()) == 1);
-			TEST_ENSURE(Rat((Real)2, Simplest()) == 2);
-			TEST_ENSURE(Rat((Real)3, Simplest()) == 3);
-			TEST_ENSURE(Rat((Real)4, Simplest()) == 4);
+			TEST_ENSURE(Rat((Real)1) == 1);
+			TEST_ENSURE(Rat((Real)2) == 2);
+			TEST_ENSURE(Rat((Real)3) == 3);
+			TEST_ENSURE(Rat((Real)4) == 4);
 
 			// Negative integers
-			TEST_ENSURE(Rat((Real)-1, Simplest()) == -1);
-			TEST_ENSURE(Rat((Real)-2, Simplest()) == -2);
-			TEST_ENSURE(Rat((Real)-3, Simplest()) == -3);
-			TEST_ENSURE(Rat((Real)-4, Simplest()) == -4);
+			TEST_ENSURE(Rat((Real)-1) == -1);
+			TEST_ENSURE(Rat((Real)-2) == -2);
+			TEST_ENSURE(Rat((Real)-3) == -3);
+			TEST_ENSURE(Rat((Real)-4) == -4);
 
-			TEST_ENSURE(Rat((Real)0.1, Simplest(), PASTEL_TAG(maxError), 0.05) == Rat(1, 7));
+			TEST_ENSURE(Rat((Real)0.1, PASTEL_TAG(maxError), 0.05) == Rat(1, 7));
 			
-			// There result here depends on the form of the search-interval:
+			// The result here depends on the form of the search-interval:
 			// Closed interval: 2 / 17
 			// Open interval: 1 / 8
-			TEST_ENSURE(Rat((Real)0.12, Simplest(), PASTEL_TAG(maxError), 0.005) == Rat(1, 8));
+			TEST_ENSURE(Rat((Real)0.12, PASTEL_TAG(maxError), 0.005) == Rat(1, 8));
 
-			TEST_ENSURE(Rat((Real)0.15, Simplest(), PASTEL_TAG(maxError), 0.005) == Rat(2, 13));
+			TEST_ENSURE(Rat((Real)0.15, PASTEL_TAG(maxError), 0.005) == Rat(2, 13));
 			
 			if (std::is_same<Real, double>::value)
 			{
 				// The accuracy of single-precision float falls short here.
-				TEST_ENSURE(Rat((Real)0.111112, Simplest(), PASTEL_TAG(maxError), 0.0000005) == Rat(8889, 80000));
-				TEST_ENSURE(Rat((Real)0.111125, Simplest(), PASTEL_TAG(maxError), 0.0000005) == Rat(859, 7730));
+				TEST_ENSURE(Rat((Real)0.111112, PASTEL_TAG(maxError), 0.0000005) == Rat(8889, 80000));
+				TEST_ENSURE(Rat((Real)0.111125, PASTEL_TAG(maxError), 0.0000005) == Rat(859, 7730));
 			}
 		}
 

@@ -43,8 +43,6 @@ namespace Pastel
 		RoundUp
 	};
 
-    struct Simplest {};
-
 }
 
 namespace Pastel
@@ -103,51 +101,36 @@ namespace Pastel
 
 		//! Constructs with a native floating point number.
 		/*!
-		Constructs with the closest rational number subject
-		to the divisor being <= nMax.
+		If possible, constructs the rational 
+		number m / n subject to
+		1) |that - (m / n)| <= maxError,
+		2) |n| <= |nMax|,
+		3) |n| is minimal.
+		
+		If not possible, constructs the rational
+		number m / n subject to
+		1) |that - (m / n)| is minimal,
+		2) |n| <= |nMax|
 
-		Implicit conversion allowed.
+		Best rational approximation: 
+		maxError = 0
 
-		Preconditions:
-		nMax >= 1
-
-		Optional arguments
-		------------------
-
-		nMax (Integer : infinity<Integer>()):
-		The maximum allowed divisor.
-
-		returns:
-		On normal numbers, the best rational approximation.
-		On positive overflow, infinity<Rational>().
-		On negative overflow, -infinity<Rational>().
-		On underflow, 0.
-		*/
-		template <
-			typename Real,
-			typename... ArgumentSet,
-			Requires<std::is_floating_point<Real>> = 0>
-		Rational(
-			Real that,
-			ArgumentSet&&... argumentSet);
-
-		//! Constructs with a native floating point number.
-		/*!
-		Constructs with the simplest rational number
-		subject to being in the closed interval
-		[that - maxError, that + maxError]. Here simplest
-		means with the smallest denominator. A solution
-		may not exist. 
+		Simplest rational approximation:
+		nMax = infinity<Integer>()
 
 		Preconditions:
 		maxError >= 0
+		nMax >= 1
 
 		maxError (Rational : 0):
-		Maximum allowed absolute error for the approximation. 
+		Maximum allowed absolute error below which to
+		stop searching. 
+
+		nMax (Integer : infinity<Integer>()):
+		Maximum allowed divisor.
 
 		returns:
-		On normal numbers, the simplest rational approximation.
-		On non-existence, nan<Rational>().
+		On normal numbers, as given above.
 		On positive overflow, infinity<Rational>().
 		On negative overflow, -infinity<Rational>().
 		On underflow, 0.
@@ -158,7 +141,6 @@ namespace Pastel
 			Requires<std::is_floating_point<Real>> = 0>
 		Rational(
 			Real that,
-			Simplest simplest,
 			ArgumentSet&&... argumentSet);
 
 		//! Assigns another rational number.
