@@ -2,7 +2,9 @@
 // DocumentationOf: native_integer.h
 
 #include "test_pastelsys.h"
+
 #include <pastel/sys/math/number_tests.h>
+#include <pastel/sys/integer/integer_mean.h>
 
 using namespace Pastel;
 
@@ -55,6 +57,7 @@ namespace
 		{
 			PASTEL_CONCEPT_CHECK(Type, Finite_Integer_Concept);
 
+			testIntegerMean<Type>();
 			testComparison<Type>();
 			testEvenOdd<Type>();
 			testIsPowerOfTwo<Type>();
@@ -80,6 +83,27 @@ namespace
 			TEST_ENSURE(infinity<int16>() == 0x7FFFu);
 			TEST_ENSURE(infinity<int32>() == 0x7FFFFFFFul);
 			TEST_ENSURE(infinity<int64>() == 0x7FFFFFFFFFFFFFFFull);
+		}
+
+		template <typename Type>
+		void testIntegerMean()
+		{
+			Type min = std::is_unsigned<Type>::value ? 
+				-16 : 0;
+
+			for (Type i = min; i < 16; ++i)
+			{
+				for (Type j = min; j < 16;++j)
+				{
+					TEST_ENSURE_OP(integerMean(i, j), ==, (i + j) / 2);
+				}				
+			}
+
+			TEST_ENSURE_OP(integerMean(infinity<Type>(), infinity<Type>()), ==, infinity<Type>());
+			if (std::is_signed<Type>::value)
+			{
+				TEST_ENSURE_OP(integerMean(-infinity<Type>(), -infinity<Type>()), ==, -infinity<Type>());
+			}
 		}
 
 		template <typename Type>

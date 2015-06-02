@@ -23,28 +23,42 @@ namespace
 
 		virtual void run()
 		{
-			testInteger();
+			testBinarySearch<int8>();
+			testBinarySearch<int16>();
+			testBinarySearch<int32>();
+			testBinarySearch<integer>();
+
+			testBinarySearch<uint8>();
+			testBinarySearch<uint16>();
+			testBinarySearch<uint32>();
+			testBinarySearch<uinteger>();
 		}
 
-		void testInteger()
+		template <typename Integer>
+		void testBinarySearch()
 		{
-			{
-				for (integer b = 0;b <= 256;++b)
-				{
-					integer a = binarySearch(
-						0, 256, [&](integer n) {return n >= b;});
+			Integer min = std::is_signed<Integer>::value ? -128 : 0;
+			Integer max = std::is_signed<Integer>::value ? 127 : 255;
 
-					TEST_ENSURE_OP(a, ==, b);
+			{
+				// This is deliberately integer instead of Integer, 
+				// because otherwise uint8 would loop forever.
+				for (Integer b = min;b < max;++b)
+				{
+					Integer a = binarySearch(
+						(Integer)min, (Integer)max, [&](Integer n) {return n >= b;});
+
+					TEST_ENSURE_OP(a, ==, (Integer)b);
 				}
 			}
 
 			{
-				for (integer b = 0;b <= 256;++b)
+				for (Integer b = min;b < max;++b)
 				{
-					integer a = exponentialBinarySearch(
-						0, 256, [&](integer n) {return n >= b;});
+					Integer a = exponentialBinarySearch(
+						(Integer)min, (Integer)max, [&](Integer n) {return n >= b;});
 
-					TEST_ENSURE_OP(a, ==, b);
+					TEST_ENSURE_OP(a, ==, (Integer)b);
 				}
 			}
 		}
