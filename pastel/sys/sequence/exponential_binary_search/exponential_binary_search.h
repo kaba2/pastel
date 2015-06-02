@@ -113,10 +113,17 @@ namespace Pastel
 			// take exponential steps. Note that when 'k == 0',
 			// it holds that 'mid == minLevel', and thus 'minLevel' also 
 			// gets tested.
-			Integer mid = minLevel + (powerOfTwo<Integer>(k) - 1);
+
+			// The step to take varies as 2^k.
+			// At some point the integer overflows, which can be
+			// detected by value 0 (due to mod arithmetic).
+			Integer power = powerOfTwo<Integer>(k);
+			Integer mid = zero(power) ? maxLevel - 1 : minLevel + (power - 1);
 
 			// Restrict tests to the given interval.
-			if (mid >= maxLevel)
+			// The case mid < minLevel happens when the
+			// integer overflows.
+			if (mid >= maxLevel || mid < minLevel)
 			{
 				// This element will be correctly in range because
 				// we tested the empty case in the beginning.
