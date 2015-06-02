@@ -36,7 +36,10 @@ namespace Pastel
 
 		Integer min = minLevel;
 		Integer max = maxLevel;
-		while (min + 1 < max)
+		// These conditions are almost equivalent.
+		// However, each fails at either the minimum
+		// or the maximum value, so both are needed.
+		while (min + 1 < max && min < max - 1)
 		{
 			// We maintain the loop invariant that the range
 			// [min, max] contains the first element

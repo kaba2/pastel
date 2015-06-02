@@ -18,7 +18,12 @@ namespace Pastel
 	{
 		PENSURE_OP(k, >=, 0);
 
-		return (Integer)1 << k;
+		if (k >= bits(Integer()))
+		{
+			return 0;
+		}
+
+		return Integer(1) << k;
 	}
 
 }
