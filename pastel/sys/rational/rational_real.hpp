@@ -286,18 +286,25 @@ namespace Pastel
 
 		auto pass = [&](auto&& indicator)
 		{
-			Integer kMax = 
-				std::min(
-					// Avoid overflowing the divisor.
-					zero(left.n()) ? infinity<Integer>() - 1 : (nMax - right.n()) / left.n(),
-					// Avoid overflowing the numerator.
-					zero(left.m()) ? infinity<Integer>() - 1 : (infinity<Integer>() - right.m()) / left.m()
-				) + 1;
+			// Avoid overflowing the numerator.
+			Integer kMaxNumerator = 
+				zero(left.m()) 
+				? infinity<Integer>() - 1 
+				: ((infinity<Integer>() - 1) - right.m()) / left.m();
+
+			// Avoid overflowing the divisor.
+			Integer kMaxDivisor =
+				zero(left.n()) 
+				? infinity<Integer>() - 1 
+				: ((nMax - 1) - right.n()) / left.n();
+
+			Integer kEnd = 
+				std::min(kMaxNumerator, kMaxDivisor) + 1;
 			
 			Integer k = exponentialBinarySearch(
-				Integer(1), kMax, indicator);
+				Integer(1), kEnd, indicator);
 
-			if (k < kMax)
+			if (k < kEnd)
 			{
 				consider(leftMediant(k));
 			}
@@ -308,7 +315,7 @@ namespace Pastel
 
 			right = leftMediant(k - 1);
 
-			return k == kMax;
+			return k == kEnd;
 		};
 
 		consider(left);
