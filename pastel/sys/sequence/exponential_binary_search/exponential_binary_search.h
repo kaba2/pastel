@@ -7,6 +7,12 @@
 #include "pastel/sys/indicator/step_indicator_concept.h"
 #include "pastel/sys/director/director_concept.h"
 
+// Implementation
+
+#include "pastel/sys/sequence/binary_search.h"
+#include "pastel/sys/math/powers.h"
+#include "pastel/sys/director/step_indicator_director.h"
+
 namespace Pastel
 {
 
@@ -19,11 +25,23 @@ namespace Pastel
 
 	See the documentation for directedBinarySearch().
 	*/
-	template <typename Integer, typename Integer_Step_Indicator>
+	template <
+		typename Integer, 
+		typename Integer_Step_Indicator,
+		Requires<
+			Models<Integer, Integer_Concept>,
+			Models<Integer_Step_Indicator, Step_Indicator_Concept(Integer)>
+		> ConceptCheck = 0
+	>
 	Integer exponentialBinarySearch(
 		const Integer& minLevel, 
 		const Integer& maxLevel,
-		Integer_Step_Indicator indicator);
+		Integer_Step_Indicator indicator)
+	{
+		return directedExponentialBinarySearch(
+			minLevel, maxLevel,
+			stepIndicatorDirector(indicator));
+	}
 
 	//! Directed exponential binary-search.
 	/*!
@@ -53,14 +71,96 @@ namespace Pastel
 	the induced indicator is false on [minLevel, k) and 
 	true on [k, maxLevel).
 	*/
-	template <typename Integer, typename Integer_Director>
+	template <
+		typename Integer, 
+		typename Integer_Director,
+		Requires<
+			Models<Integer, Integer_Concept>,
+			Models<Integer_Director, Director_Concept(Integer)>
+		> ConceptCheck = 0>
 	Integer directedExponentialBinarySearch(
 		const Integer& minLevel, 
 		const Integer& maxLevel,
-		Integer_Director director);
+		Integer_Director director)
+	{
+		ENSURE(minLevel <= maxLevel);
+
+		// Handle the empty case.
+		if (minLevel == maxLevel)
+		{
+			return maxLevel;
+		}
+
+		// For every director there is a unique 
+		// corresponding step-indicator. In the following
+		// we will reason in terms of the induced
+		// step-indicator.
+
+		// This is deliberately the native integer,
+		// since we want to support Integer being
+		// a random-access iterator, and those can't
+		// compute the power of two.
+		integer k = 0;
+
+		Integer min = minLevel;
+		while (min < maxLevel)
+		{
+			// We will maintain the loop invariant that
+			// the indicator is false on the range 
+			// [minLevel, min).
+
+			// While searching for the first true element, we
+			// take exponential steps. Note that when 'k == 0',
+			// it holds that 'mid == minLevel', and thus 'minLevel' also 
+			// gets tested.
+			Integer mid = minLevel + (powerOfTwo<Integer>(k) - 1);
+
+			// Restrict tests to the given interval.
+			if (mid >= maxLevel)
+			{
+				// This element will be correctly in range because
+				// we tested the empty case in the beginning.
+				mid = maxLevel - 1;
+			}
+
+			Integer directed = director(mid);
+			PENSURE(directed >= min);
+
+			if (directed > maxLevel)
+			{
+				directed = maxLevel;
+			}
+
+			// See if the indicator holds at 'mid'.
+			if (directed <= mid)
+			{
+				// The indicator is true on [directed, mid]. By the 
+				// loop invariant, the indicator is false on 
+				// [minLevel, min). Thus there exists a smallest 
+				// element 'level' in the range [min, directed] such 
+				// that the indicator is false on [minLevel, level),
+				// and true at 'level'.
+
+				// Search the range [min, directed] using binary search. 
+				// If the indicator is false on [min, directed), then
+				// by the binary search, and the loop invariant,
+				// the indicator is false on [minLevel, directed), and
+				// true at 'directed', so 'directed' is the correct result.
+				return directedBinarySearch(min, directed, director);
+			}
+
+			// The indicator is false on [mid, directed). Therefore
+			// the indicator is also false on [minLevel, directed).
+			min = directed;
+			++k;
+		}
+
+		// If we get here, then by the loop invariant the
+		// indicator is false on [minLevel, maxLevel),
+		// that is, for all elements.
+		return maxLevel;
+	}
 
 }
-
-#include "pastel/sys/sequence/exponential_binary_search/exponential_binary_search.hpp"
 
 #endif
