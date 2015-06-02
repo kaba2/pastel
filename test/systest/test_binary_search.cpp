@@ -23,7 +23,6 @@ namespace
 
 		virtual void run()
 		{
-			testIterator();
 			testInteger();
 		}
 
@@ -47,57 +46,6 @@ namespace
 
 					TEST_ENSURE_OP(a, ==, b);
 				}
-			}
-		}
-
-		void testIterator()
-		{
-			integer aSet[] = {0, 1, 2, 3, 4, 5, 6};
-			{
-				for (integer* b = aSet;b != std::end(aSet);++b)
-				{
-					integer* a = binarySearch(
-						std::begin(aSet), std::end(aSet),
-						[&](integer* level)
-					{
-						return *level >= *b;
-					});
-
-					TEST_ENSURE_OP(a - aSet, ==, b - aSet);
-				}
-			}
-			{
-				integer* a = binarySearch(
-					std::begin(aSet), std::end(aSet),
-					[&](integer* level)
-				{
-					return *level >= 7;
-				});
-
-				TEST_ENSURE_OP(a - aSet, ==, 7);
-			}
-			{
-				for (integer* b = aSet;b != std::end(aSet);++b)
-				{
-					integer* a = exponentialBinarySearch(
-						std::begin(aSet), std::end(aSet),
-						[&](integer* level)
-					{
-						return *level >= *b;
-					});
-
-					TEST_ENSURE_OP(a - aSet, ==, b - aSet);
-				}
-			}
-			{
-				integer* a = exponentialBinarySearch(
-					std::begin(aSet), std::end(aSet),
-					[&](integer* level)
-				{
-					return *level >= 7;
-				});
-
-				TEST_ENSURE_OP(a - aSet, ==, 7);
 			}
 		}
 	};

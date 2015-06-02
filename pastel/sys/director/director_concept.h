@@ -9,29 +9,29 @@
 namespace Pastel
 {
 
-	namespace Director_Concept
+	//! Director
+	/*! 
+	A director is a function f : ZZ --> ZZ
+	such that there exists k in ZZ such that
+	 
+	    f(n) in [k, n],   if n >= k, and
+	    f(n) in (n, k],   if n < k.
+	*/
+	struct Director_Concept
 	{
-
-		//! A director
-		/*! 
-		A director is a function f : ZZ --> ZZ
-		such that there exists k in ZZ such that
-		 
-		    f(n) in [k, n],   if n >= k, and
-		    f(n) in (n, k],   if n < k.
-		*/
-		class Director
-		{
-		private:
-			//! A type of the Integer concept.
-			using Integer = UserDefinedType;
-
-		public:
-			//! Returns f(n).
-			Integer operator()(const Integer& n);
-		};
-
-	}
+		template <
+			typename Type,
+			typename Integer>
+		auto requires(Type&& f, Integer&& n) -> decltype
+		(
+			conceptCheck(
+				// For some reason isModelOf is not defined
+				// here. Probably because of circular header inclusions.
+				//isModelOf<Integer_Concept>(n),
+				f(n)
+			)
+		);
+	};
 
 }
 
