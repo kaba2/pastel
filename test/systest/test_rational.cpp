@@ -14,8 +14,8 @@ namespace
 
 	using namespace Pastel;
 
-	//using Integer = Signed_Integer<32, uint8>;
-	using Integer = integer;
+	using Integer = Signed_Integer<32, uint8>;
+	//using Integer = integer;
 	PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
 
 	using Rat = Rational<Integer>;
@@ -425,18 +425,24 @@ namespace
 
 		void testPower()
 		{
-			/*
+			auto naivePower = [](Rat x, integer p)
+			{
+				Rat result = 1;
+				for (integer i = 0;i < abs(p);++i)
+				{
+					result *= x;
+				}
+
+				return (p < 0) ? inverse(result) : result;
+			};
+
 			for (integer i = -16;i < 16;++i)
 			{
 				for (integer j = -7; j < 8;++j)
 				{
-					std::cout << i << " " << j << std::endl;
-
-					Rat(pow(i, j));
-					TEST_ENSURE(groupPower(Rat(i), j) == pow(i, j));
+					TEST_ENSURE(pow(Rat(i), j) == naivePower(Rat(i), j));
 				}
 			}
-			*/
 		}
 
 		template <typename Real>
