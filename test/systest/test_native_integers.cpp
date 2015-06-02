@@ -45,6 +45,9 @@ namespace
 			testMany<uint>();
 			testMany<ulong>();
 			testMany<ulonglong>();
+
+			testMany<integer>();
+			testMany<uinteger>();
 		}
 
 		template <typename Type>
