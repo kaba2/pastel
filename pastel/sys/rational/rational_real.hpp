@@ -55,135 +55,6 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	std::string Rational<Integer>::asStringRatio() const
-	{
-		using Pastel::asString;
-
-		std::string text = asString(m());
-		if (n() != 1)
-		{
-			text += "/" + asString(n());
-		}
-		return text;
-	}
-
-	template <typename Integer>
-	template <typename... ArgumentSet>
-	std::string Rational<Integer>::asString(
-		ArgumentSet&&... argumentSet) const
-	{
-		using Pastel::asString;
-
-		integer base = PASTEL_ARG_S(base, 10);
-		integer digits = PASTEL_ARG_S(digits, 3);
-		bool showBase = PASTEL_ARG_S(showBase, false);
-		bool shortenExact = PASTEL_ARG_S(shortenExact, true);
-		Rounding rounding = PASTEL_ARG_S(rounding, Rounding::RoundUp);
-
-		ENSURE_OP(base, >=, 2);
-		ENSURE_OP(digits, >=, 0);
-
-		// Handle the degenerate cases.
-		switch(classify())
-		{
-			case NumberType::Infinity:
-				return "inf";
-			case NumberType::MinusInfinity:
-				return "-inf";
-			case NumberType::Nan:
-				return "nan";
-			default:
-				// Fall-through
-				;
-		};
-
-		// This is where the result is constructed.
-		std::string text;
-		if (isNegative())
-		{
-			// Print the minus-sign.
-			text += "-";
-		}		
-
-		// Reduce to a non-negative number.
-		Integer m = abs(m_);
-
-		// Compute the integer-part.
-		Integer wholes = m / n();
-
-		// Compute the fractional part.
-		m -= wholes * n();
-	
-		// Print the integer-part.
-		text += asString(wholes);
-
-		if ((!zero(m) || !shortenExact) && digits > 0)
-		{
-			// The number has a fractional part.
-
-			// Print the fractional point.
-			text += '.';
-
-			// Print the fractional part.
-			for (integer i = 0; i < digits && (!zero(m) || !shortenExact); ++i)
-			{
-				m *= base;
-
-				integer d = (integer)(m / n());
-				m -= d * n();
-
-				text += integerAsDigit(d);
-			}
-		}
-
-		// What we have now is a truncated version
-		// of the number.
-		if (!zero(m) && rounding == Rounding::RoundUp)
-		{
-			// Find out one digit more for rounding.
-			m *= base;
-
-			integer lastDigit = (integer)(m / n());
-			if (lastDigit >= base / 2)
-			{
-				// Round up.
-				bool carry = true;
-				for (integer i = text.size() - 1;i >= 0 && carry;--i)
-				{
-					if (text[i] == '.')
-					{
-						// Skip the fractional point.
-						continue;
-					}
-
-					integer digit = digitAsInteger(text[i]);
-					++digit;
-					carry = (digit == base);
-					if (carry)
-					{
-						digit = 0;
-					}
-
-					text[i] = integerAsDigit(digit);
-				}
-
-				if (carry)
-				{
-					text = integerAsDigit(1) + text;
-				}
-			}
-		}
-
-		if (showBase)
-		{
-			// Print the base.
-			text += '_' + asString(base);
-		}
-
-		return text;
-	}
-
-	template <typename Integer>
 	template <
 		typename Real,
 		typename... ArgumentSet,
@@ -195,6 +66,8 @@ namespace Pastel
 		, n_(1)
 	{
 		Integer nMax = PASTEL_ARG_S(nMax, infinity<Integer>());
+
+		ENSURE(nMax >= 1);
 
 		Real logAbs = std::log2(abs(that));
 		if (logAbs < -(bits(m()) - 1))
@@ -376,15 +249,10 @@ namespace Pastel
 			return k == kMax;
 		};
 
-		while(true)
+		while(minError > 0)
 		{
 			ASSERT(left.asReal<Real>() <= that);
 			ASSERT(right.asReal<Real>() >= that);
-
-			if (minError == 0)
-			{
-				break;
-			}
 
 			bool leftDone = pass(				
 				[&](Integer k)
@@ -402,6 +270,186 @@ namespace Pastel
 				[&](Integer k)
 				{
 					return leftMediant(k).asReal<Real>() > that;
+				});
+			left.swap(right);
+
+			if (leftDone && rightDone)
+			{
+				// The left and right bound cannot be improved
+				// further, because they would overflow either
+				// the numerator or the divisor. Stop here.
+				break;
+			}
+		}
+
+		if (!nonNegative)
+		{
+			// Negate the number to give the correct sign.
+			negate();
+		}
+    }
+
+	template <typename Integer>
+	template <
+		typename Real,
+		typename... ArgumentSet,
+		Requires<std::is_floating_point<Real>>>
+	Rational<Integer>::Rational(
+		Real that,
+		Simplest simplest,
+		ArgumentSet&&... argumentSet)
+		: m_(0)
+		, n_(0)
+	{
+		// "Approximating Rational Numbers by Fractions",
+		// Michael Forisek,
+		// Fun with Algorithms
+		// Lecture Notes in Computer Science Volume 4475, 
+		// 2007, pp 156-165.
+
+		// Paper's problem
+		// ---------------
+		//
+		// Let q_m in ZZ, d_m in ZZ^{>= 0}, 
+		// and q_n, d_n in ZZ^{> 0}. 
+		// Find p_m in ZZ, and p_n in ZZ^{> 0},
+		// with minimal p_n, such that
+		//
+		//         (q_m / q_n) - (d_m / d_n) 
+		//      <= p_m / p_n 
+		//      <= (q_m / q_n) + (d_m / d_n).
+
+		// Our problem
+		// -----------
+		//
+		// Let q in RR, and d in RR^{>= 0}. 
+		// Find p_m in ZZ, and p_n in ZZ^{> 0},
+		// with minimal |p_n|, such that
+		//
+		//         q - d <= p_m / p_n <= q + d.
+		//
+		// To adapt the paper to this problem, we
+		// need to replace direct computation of 
+		// the number of mediant-iterations with an
+		// exponential binary search.
+
+		Real maxError = PASTEL_ARG_S(maxError, 0);
+
+		Real logAbs = std::log2(abs(that));
+		if (logAbs < -(bits(m()) - 1))
+		{
+			// The rational number underflows.
+			
+			// Zero
+			m_ = 0;
+			n_ = 1;
+			return;
+		}
+
+		if (logAbs > bits(m()) - 1)
+		{
+			// The rational number overflows.
+			if (negative(that))
+			{
+				// -Infinity
+				m_ = -1;
+				n_ = 0;
+				return;
+			}
+
+			// +Infinity
+			m_ = 1;
+			n_ = 0;
+			return;
+		}
+
+		bool nonNegative = (that >= 0);
+		if (!nonNegative)
+		{
+			// Reduce to the non-negative case.
+			that = -that;
+		}
+
+		Real xMin = that - maxError;
+		Real xMax = that + maxError;
+
+		Real n = floor(that);
+		Rational left = (integer)n;
+		Rational right = infinity<Rational>();
+		Rational& best = *this;
+		
+		bool found = false;
+
+		auto consider = [&](const Rational& candidate)
+		{
+			Real x = candidate.asReal<Real>();
+
+			// Because of rounding errors, it is important
+			// to do this comparison exactly as in the
+			// exponential binary search. In particular,
+			// abs(x - that) <= maxError would give
+			// inconsistent results.
+			if (xMin <= x && x <= xMax)
+			{
+				best = candidate;
+				found = true;
+			}
+		};
+
+		auto leftMediant = [&](const Integer& k)
+		{
+			return Rational(
+				k * left.m() + right.m(), 
+				k * left.n() + right.n(),
+				SkipSimplify());
+		};
+
+		auto pass = [&](auto&& indicator)
+		{
+			Integer kMax = 
+				std::min(
+					// Avoid overflowing the divisor.
+					zero(left.n()) ? infinity<Integer>() - 1 : (infinity<Integer>() - right.n()) / left.n(),
+					// Avoid overflowing the numerator.
+					zero(left.m()) ? infinity<Integer>() - 1 : (infinity<Integer>() - right.m()) / left.m()
+				) + 1;
+			
+			Integer k = exponentialBinarySearch(
+				Integer(1), kMax, indicator);
+
+			if (k < kMax)
+			{
+				consider(leftMediant(k));
+			}
+
+			right = leftMediant(k - 1);
+
+			return k == kMax;
+		};
+
+		consider(left);
+
+		while(!found)
+		{
+			ASSERT(left.asReal<Real>() < xMin);
+			ASSERT(right.asReal<Real>() > xMax);
+
+			bool leftDone = pass(
+				[&](Integer k)
+				{
+					return leftMediant(k).asReal<Real>() <= xMax;
+				});
+			left.swap(right);
+
+			if (found)
+			{
+				break;
+			}
+
+			bool rightDone = pass(
+				[&](Integer k)
+				{
+					return leftMediant(k).asReal<Real>() >= xMin;
 				});
 			left.swap(right);
 
