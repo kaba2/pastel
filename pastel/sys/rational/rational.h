@@ -121,12 +121,13 @@ namespace Pastel
 		Preconditions:
 		maxError >= 0
 		nMax >= 1
+		nMax < infinity<Integer>()
 
 		maxError (Rational : 0):
 		Maximum allowed absolute error below which to
 		stop searching. 
 
-		nMax (Integer : infinity<Integer>()):
+		nMax (Integer : infinity<Integer>() - 1):
 		Maximum allowed divisor.
 
 		returns:

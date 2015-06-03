@@ -200,10 +200,11 @@ namespace Pastel
 		// (n + 1, 1) is better than (n, 1).  
 
 		Real maxError = PASTEL_ARG_S(maxError, 0);
-		Integer nMax = PASTEL_ARG_S(nMax, infinity<Integer>());
+		Integer nMax = PASTEL_ARG_S(nMax, infinity<Integer>() - 1);
 
 		ENSURE(maxError >= 0);
 		ENSURE(nMax >= 1);
+		ENSURE(nMax < infinity<Integer>());
 
 		Real logAbs = std::log2(abs(that));
 		if (logAbs < -(bits(m()) - 1))
@@ -296,7 +297,7 @@ namespace Pastel
 			Integer kMaxDivisor =
 				zero(left.n()) 
 				? infinity<Integer>() - 1 
-				: ((nMax - 1) - right.n()) / left.n();
+				: (nMax - right.n()) / left.n();
 
 			Integer kEnd = 
 				std::min(kMaxNumerator, kMaxDivisor) + 1;
@@ -306,16 +307,30 @@ namespace Pastel
 
 			if (k < kEnd)
 			{
+				// The k:th mediant is p <= xMax.
+				// Two cases:
+				//
+				// 1) p >= xMin; we have found
+				// the simplest approximation, and
+				// should return that.
+				//
+				// 2) p < xMin <= x; the mediant
+				// overshooted, and we should use
+				// the (k - 1):th mediant as the
+				// new right bound.
 				consider(leftMediant(k));
 			}
 			else
 			{
+				// The (k - 1):th mediant is q > xMax.
+				// We should use q as the new right bound.
 				consider(leftMediant(k - 1));
 			}
 
+			// Update the right bound.
 			right = leftMediant(k - 1);
 
-			return k == kEnd;
+			return k == 1;
 		};
 
 		consider(left);
