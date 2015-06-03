@@ -117,7 +117,7 @@ namespace Pastel
 		Real maxBias = 
 			PASTEL_ARG_S(maxBias, 0.1);
 		MatchingMode matchingMode = 
-			PASTEL_ARG_S(mathingMode, MatchingMode::FirstMatch);
+			PASTEL_ARG_S(matchingMode, MatchingMode::FirstMatch);
 		auto&& normBijection = PASTEL_ARG(
 			normBijection,
 			[](){return Euclidean_NormBijection<Real>();},
@@ -229,8 +229,8 @@ namespace Pastel
 						searchPoint,
 						normBijection,
 						PASTEL_TAG(nearestOutput), neighborOutput,
-						PASTEL_TAG(k), kNearest,
-						PASTEL_TAG(maxDistance), matchingDistance2,
+						PASTEL_TAG(kNearest), kNearest,
+						PASTEL_TAG(maxDistance2), matchingDistance2,
 						PASTEL_TAG(maxRelativeError), maxRelativeError);
 
 					//log() << "Distance " << neighbor.key() << logNewLine;

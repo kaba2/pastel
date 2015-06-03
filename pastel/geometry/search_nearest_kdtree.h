@@ -40,35 +40,17 @@ namespace Pastel
 	This can be either a Vector<Real, N>, or
 	a Point_ConstIterator of 'kdTree'.
 
-	timeIntervalSequence:
-	An interval sequence in time. A sequence 
-	(t_1, t_2, t_3, t_4, ...) corresponds to the
-	time-intervals [t_1, t_2), [t_3, t_4), ...
-	If the number of time-instants is odd, then
-	the sequence is implicitly appended 
-	infinity<Real>().
-
-	nearestOutput:
-	A reporter to which the found neighbors 
-	(KdTree::Point_ConstIterator) are reported to.
-	The reporting is done in the form
-	nearestOutput(distance, point).
+	Optional arguments
+	------------------
 
 	acceptPoint:
 	An indicator which decides whether to accept a point 
 	(KdTree::Point_ConstIterator) as a neighbor or not.
 
-	normBijection:
-	The norm used to measure distance.
+	kNearest (integer >= 0):
+	The number of nearest neighbors to search.
 
-	searchAlgorithm:
-	The search searchAlgorithm to use for searching the 'kdTree'.
-	See 'pointkdtree_searchsearchAlgorithm.txt'.
-
-	Optional arguments
-	------------------
-
-	maxDistance (Real >= 0):
+	maxDistance2 (Real >= 0):
 	The distance after which points are not considered neighbors
 	anymore. Can be set to infinity<Real>(). This distance
 	is in terms of the used norm bijection.
@@ -80,13 +62,31 @@ namespace Pastel
 	increases performance. Use 0 for exact matches. 
 	Default: 0
 
+	nearestOutput:
+	A reporter to which the found neighbors 
+	(KdTree::Point_ConstIterator) are reported to.
+	The reporting is done in the form
+	nearestOutput(distance, point).
+
 	nBruteForce (integer >= 0):
 	The number of points under which to start a brute-force
 	search in a node. Leaf nodes will always be searched.
 	Default: 16
 
-	kNearest (integer >= 0):
-	The number of nearest neighbors to search.
+	normBijection:
+	The norm used to measure distance.
+
+	searchAlgorithm:
+	The search searchAlgorithm to use for searching the 'kdTree'.
+	See 'pointkdtree_searchsearchAlgorithm.txt'.
+
+	timeIntervalSequence:
+	An interval sequence in time. A sequence 
+	(t_1, t_2, t_3, t_4, ...) corresponds to the
+	time-intervals [t_1, t_2), [t_3, t_4), ...
+	If the number of time-instants is odd, then
+	the sequence is implicitly appended 
+	infinity<Real>().
 
 	returns (std::pair<Real, Point_ConstIterator>)
 	----------------------------------------------
@@ -161,13 +161,13 @@ namespace Pastel
 				[](auto input) {return std::true_type();}
 			);
 
-		integer k = PASTEL_ARG_S(k, 1);
+		integer kNearest = PASTEL_ARG_S(kNearest, 1);
 		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, infinity<Real>());
 		Real maxRelativeError = PASTEL_ARG_S(maxRelativeError, 0);
 		integer nBruteForce = PASTEL_ARG_S(nBruteForce, 16);
 		bool reportMissing = PASTEL_ARG_S(reportMissing, false);
 
-		ENSURE_OP(k, >=, 0);
+		ENSURE_OP(kNearest, >=, 0);
 		ENSURE_OP(maxDistance2, >=, 0);
 		ENSURE_OP(maxRelativeError, >=, 0);
 		ENSURE_OP(nBruteForce, >=, 0);
@@ -181,7 +181,7 @@ namespace Pastel
 		using Result = std::pair<Real, Point_ConstIterator>;
 		Result notFound(infinity<Real>(), kdTree.end());
 
-		if (k == 0 ||
+		if (kNearest == 0 ||
 			kdTree.empty() ||
 			maxDistance2 == 0)
 		{
@@ -232,7 +232,7 @@ namespace Pastel
 			const Real& distance2,
 			const Point_ConstIterator& iter)
 		{
-			if (resultSet.size() == k)
+			if (resultSet.size() == kNearest)
 			{
 				// There are k candidates already.
 
@@ -259,12 +259,12 @@ namespace Pastel
 
 			// There are now less than k candidates
 			// in the candidate set.
-			ASSERT_OP(resultSet.size(), <, k)
+			ASSERT_OP(resultSet.size(), <, kNearest)
 
 			// Add the new candidate.
 			resultSet.emplace(distance2, iter);
 
-			if (resultSet.size() == k)
+			if (resultSet.size() == kNearest)
 			{
 				// Since the candidate set contains k
 				// elements, everything beyond the
@@ -527,7 +527,7 @@ namespace Pastel
 
 		// There should be at most k neighbors.
 		integer neighbors = resultSet.size();
-		ASSERT_OP(neighbors, <=, k);
+		ASSERT_OP(neighbors, <=, kNearest);
 
 		// Report the nearest neighbors.
 		for (auto&& entry : resultSet)
@@ -538,13 +538,13 @@ namespace Pastel
 		if (reportMissing)
 		{
 			// Report "not found" for the missing neighbors.
-			for (integer i = neighbors;i < k;++i)
+			for (integer i = neighbors;i < kNearest;++i)
 			{
 				nearestOutput(notFound.first, notFound.second);
 			}
 		}
 
-		if (neighbors < k)
+		if (neighbors < kNearest)
 		{
 			// Since there are less than k neighbors,
 			// the k:th nearest neighbor does not

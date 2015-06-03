@@ -78,7 +78,7 @@ namespace
 					bruteForceNearestSet(rangeInput(pointSet)),
 					pointSet[i],
 					PASTEL_TAG(nearestOutput), emplaceBackOutput(bruteSet),
-					PASTEL_TAG(k), k
+					PASTEL_TAG(kNearest), k
 					).first;
 
 				std::vector<std::pair<real, ConstIterator>> treeSet;
@@ -88,7 +88,7 @@ namespace
 						tree,
 						pointSet[i],
 						PASTEL_TAG(nearestOutput), emplaceBackOutput(treeSet),
-						PASTEL_TAG(k), k
+						PASTEL_TAG(kNearest), k
 					).first;
 
 				TEST_ENSURE_OP(kDistanceBrute, ==, kDistanceTree);
@@ -245,7 +245,7 @@ namespace
 					tree, 
 					Point(1, 3), 
 					PASTEL_TAG(nearestOutput), report,
-					PASTEL_TAG(k), 5);
+					PASTEL_TAG(kNearest), 5);
 			}
 		}
 	};

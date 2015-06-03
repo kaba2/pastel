@@ -659,7 +659,7 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
 			Array<real> maxDistanceSet = matlabAsLinearizedArray<real>(inputSet[MaxDistanceSet]);
-			integer k = matlabAsScalar<integer>(inputSet[KNearest]);
+			integer kNearest = matlabAsScalar<integer>(inputSet[KNearest]);
 
 			mxClassID id = mxGetClassID(inputSet[QuerySet]);
 			
@@ -680,7 +680,7 @@ namespace Pastel
 			}
 
 			Array<integer> nearestArray =
-				matlabCreateArray<integer>(k, queries, outputSet[IdSet]);
+				matlabCreateArray<integer>(kNearest, queries, outputSet[IdSet]);
 
 			Array<real> distanceArray;
 			if (wantDistance)
@@ -688,7 +688,7 @@ namespace Pastel
 				// Having the matlabCreateArray<real>() call directly
 				// inside the swap() function triggers an
 				// internal compiler error in Clang.
-				auto copyArray = matlabCreateArray<real>(k, queries, outputSet[DistanceSet]);
+				auto copyArray = matlabCreateArray<real>(kNearest, queries, outputSet[DistanceSet]);
 				distanceArray.swap(copyArray);
 				boost::fill(distanceArray.range(), infinity<real>());
 			}
@@ -736,7 +736,7 @@ namespace Pastel
 							query, 
 							PASTEL_TAG(nearestOutput), nearestOutput,
 							NormBijection(),
-							PASTEL_TAG(k), k,
+							PASTEL_TAG(kNearest), kNearest,
 							PASTEL_TAG(maxDistance2), maxDistanceSet(i));
 					}
 				};
@@ -785,7 +785,7 @@ namespace Pastel
 							PASTEL_TAG(nearestOutput), nearestOutput,
 							PASTEL_TAG(acceptPoint), predicateIndicator(query, NotEqualTo()), 
 							NormBijection(),
-							PASTEL_TAG(k), k,
+							PASTEL_TAG(kNearest), kNearest,
 							PASTEL_TAG(maxDistance2), maxDistanceSet(i));
 					}
 				};
@@ -905,8 +905,8 @@ namespace Pastel
 						location(query->point(), state->tree.locator()),
 						NormBijection(),
 						PASTEL_TAG(nearestOutput), [&](auto, auto) {++count;},
-						PASTEL_TAG(k), state->tree.points(),
-						PASTEL_TAG(maxDistance), maxDistanceSet(i));
+						PASTEL_TAG(kNearest), state->tree.points(),
+						PASTEL_TAG(maxDistance2), maxDistanceSet(i));
 
 					result(i) = count;
 				}

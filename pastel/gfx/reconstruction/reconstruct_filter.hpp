@@ -116,11 +116,10 @@ namespace Pastel
 				searchNearest(
 					kdTree_, 
 					evaluate(Vector<real, N>(position) + 0.5),
-					nearestOutput,
-					allIndicator(),
-					Maximum_NormBijection<Real>())
-					.kNearest(kdTree_.points())
-					.maxDistance(filter_.radius() * filterStretch_);
+					PASTEL_TAG(nearestOutput), nearestOutput,
+					Maximum_NormBijection<Real>(),
+					PASTEL_TAG(kNearest), kdTree_.points(),
+					PASTEL_TAG(maxDistance2), filter_.radius() * filterStretch_);
 
 				integer points = nearestSet.size();
 

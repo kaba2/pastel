@@ -399,7 +399,7 @@ namespace
 					addConst(tree), 
 					Vector<real, N>(0), 
 					PASTEL_TAG(nearestOutput), nearestOutput,
-					PASTEL_TAG(k), m);
+					PASTEL_TAG(kNearest), m);
 			
 				integer count = distanceSet.size();
 
@@ -422,7 +422,7 @@ namespace
 					Vector<real, N>(0),
 					PASTEL_TAG(nearestOutput), [&](auto, auto) {++outerCount;},
 					PASTEL_TAG(maxDistance2), normBijection.toBijection(2.001),
-					PASTEL_TAG(k), tree.points()
+					PASTEL_TAG(kNearest), tree.points()
 					);
 				TEST_ENSURE_OP(outerCount, ==, m);
 
@@ -433,7 +433,7 @@ namespace
 					Vector<real, N>(0),
 					PASTEL_TAG(nearestOutput), [&](auto, auto) {++innerCount;},
 					PASTEL_TAG(maxDistance2), normBijection.toBijection(1.999),
-					PASTEL_TAG(k), tree.points());
+					PASTEL_TAG(kNearest), tree.points());
 				TEST_ENSURE_OP(innerCount, ==, 0);
 			}
 		}
