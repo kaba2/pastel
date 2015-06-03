@@ -209,7 +209,8 @@ namespace Pastel
 		// The temporal restriction is given as a union
         // of time-intervals. Convert the time-points to
         // indices in the point-set.
-		IndexSequence indexSequence(pointAsVector(timeIntervalSequence));
+		IndexSequence indexSequence(
+			ofDimension(timeIntervalSequence.n()));
 		for (integer i = 0;i < timeIntervalSequence.size();i += 2)
 		{
 			indexSequence[i] = kdTree.timeToIndex(

@@ -155,10 +155,10 @@ namespace Pastel
 
 		EntrySet entrySet;
 
-		Real cullDistance = maxDistance2;
+		Real cullDistance2 = maxDistance2;
 		auto keepGoing = [&](const Real& that)
 		{
-			return that < cullDistance;
+			return that < cullDistance2;
 		};
 
 		while (!pointSetEmpty(pointSet))
@@ -177,7 +177,7 @@ namespace Pastel
 				normBijection, 
 				keepGoing);
 
-			if (distance < cullDistance)
+			if (distance < cullDistance2)
 			{
 				entrySet.insert(
 					Entry{pointPoint(point), distance});
@@ -190,7 +190,7 @@ namespace Pastel
 
 				if (entrySet.size() == kNearest)
 				{
-					cullDistance = std::min(
+					cullDistance2 = std::min(
 						std::prev(entrySet.end())->distance * protectiveFactor,
 						maxDistance2);
 				}

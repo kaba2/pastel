@@ -41,37 +41,37 @@ namespace
 
 			// Generate a point-set.
 			
-			integer n = 1;
-			std::vector<Point> aSet;
-			aSet.reserve(n);
+			integer n = 100;
+			std::vector<Point> modelSet;
+			modelSet.reserve(n);
 
 			for (integer i = 0;i < n;++i)
 			{
 				Point p = 2 * randomVector<Real, 2>() - 1;
-				aSet.push_back(p);
+				modelSet.push_back(p);
 			}
 			
-			Tree sceneTree;
-			sceneTree.insertRange(range(aSet.begin(), aSet.end()));
-			sceneTree.refine();
+			Tree modelTree;
+			modelTree.insertRange(range(modelSet.begin(), modelSet.end()));
+			modelTree.refine();
 
 			// Generate a translated point-set.
 
 			int m = n;
-			std::vector<Point> bSet;
-			bSet.reserve(m);
+			std::vector<Point> sceneSet;
+			sceneSet.reserve(m);
 
 			for (integer i = 0; i < m; ++i)
 			{
-				bSet.push_back(aSet[i] + translation);
+				sceneSet.push_back(modelSet[i] + translation);
 			}
 
 			// Randomize the order of the translated point-set.
-			std::random_shuffle(bSet.begin(), bSet.end());
+			std::random_shuffle(sceneSet.begin(), sceneSet.end());
 
-			Tree modelTree;
-			modelTree.insertRange(range(bSet.begin(), bSet.end()));
-			modelTree.refine();
+			Tree sceneTree;
+			sceneTree.insertRange(range(sceneSet.begin(), sceneSet.end()));
+			sceneTree.refine();
 			
 			auto result = matchPointsKr(
 				modelTree, sceneTree, 

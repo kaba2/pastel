@@ -63,37 +63,51 @@ namespace Pastel
 	sceneTree:
 	The point-set from which to search for.
 
-	normBijection:
-	The distance measure.
-
-	report:
-	The point-pairs are reported in the form
-	std::make_pair(modelIter, sceneIter).
-
 	Optional arguments
 	------------------
 
-	kNearest:
+	kNearest (integer : 16):
 	The number of nearest neighbors to use for disambiguation
 	in case a point has multiple candidate pairs in its 
 	matching distance.
 
-	minMatchRatio:
-	The minimum ratio of model-points that need to be 
-	paired scene-points to accept a match.
+	matchingMode (MatchingMode : FirstMatch):
+	MatchingMode::FirstMatch: Accept the first match.
+	MatchingMode::BestMatch: Search for the best match.
 
-	matchingDistance2:
+	matchingDistance2 (Real : 0.1):
 	The maximum distance between a point in the model-set
 	and a point in the scene-set to accept them as a pair.
 	Measured in terms of the norm-bijection.
 
-	maxBias:
+	maxBias (real : 0.1):
 	The maximum bias which to accept from a match.
+	The bias is the norm-bijection of the mean
+	error, divided by 'matchingDistance2'.
 	Matches with larger bias will be ignored.
 
-	matchingMode:
-	MatchingMode::FirstMatch: Accept the first match.
-	MatchingMode::BestMatch: Search for the best match.
+	minMatchRatio (Real : 0.8):
+	The minimum ratio of model-points that need to be 
+	paired scene-points to accept a match.
+
+	normBijection (NormBijection : Euclidean_NormBijection<Real>()):
+	The distance measure.
+
+	report (Output(Point, Point) : nullOutput()):
+	The point-pairs are reported in the form
+	std::make_pair(modelIter, sceneIter).
+
+	Returns
+	-------
+
+	success (bool):
+	Whether a match was found.
+
+	translation (Vector<Real, N>):
+	The translation which maps model-set to the scene-set.
+
+	bias (Real):
+	The bias of the match; in the range [0, 1].
 	*/
 	template <
 		typename Model_Settings, template <typename> class Model_Customization,
@@ -110,7 +124,8 @@ namespace Pastel
 	{
 		integer kNearest = 
 			PASTEL_ARG_S(kNearest, 16);
-		Real minMatchRatio = 
+		// This is deliberately real (not Real).
+		real minMatchRatio = 
 			PASTEL_ARG_S(minMatchRatio, 0.8);
 		Real matchingDistance2 = 
 			PASTEL_ARG_S(matchingDistance2, 0.1);
@@ -158,12 +173,6 @@ namespace Pastel
 		*/
 
 		integer d = modelTree.n();
-
-		// FIX: Conversion to norm loses generality
-		// (e.g. euclidean norm with rational numbers 
-		// does not worK).
-		Real actualMatchingDistance =
-			normBijection.toNorm(matchingDistance2);
 
 		std::vector<Model_ConstIterator> modelSet(
 			countingIterator(modelTree.begin()),
@@ -285,10 +294,10 @@ namespace Pastel
 
 						meanDelta /= pairSet.size();
 
-						Real meanNorm = 
-							normBijection.toNorm(norm2(meanDelta, normBijection));
+						Real meanDeltaNorm = 
+							norm2(meanDelta, normBijection);
 
-						bias = meanNorm / actualMatchingDistance;
+						bias = meanDeltaNorm / matchingDistance2;
 					}							
 
 					// Check that the bias is not too large.

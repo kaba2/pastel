@@ -52,7 +52,8 @@
 % is the index of its matched scene point. 
 %
 % TRANSLATION ('translation') is a (d x 1)-real-array which gives the 
-% matching translation in case such is found ('success' is 1).
+% matching translation in case such is found ('success' is 1). The 
+% translation transform the model-set into the scene-set.
 %
 % BIAS ('bias') is a real number in the range [0, 1] which gives the bias 
 % of the found match. See below for the definition of bias.
