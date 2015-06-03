@@ -28,6 +28,8 @@ namespace Pastel
 			conceptCheck(
 				//! Constructs with zero.
 				Type(),
+				// Constructs with a native integer.
+				Type(true),
 				Type((int8)0),
 				Type((uint8)0),
 				Type((int16)0),
@@ -67,6 +69,12 @@ namespace Pastel
 				Concept::convertsTo<bool>(even(t)),
 				//! Returns whether 'that' is odd.
 				Concept::convertsTo<bool>(odd(t)),
+				//! Returns an integer with maximum positive value.
+				/*!
+				We cannot check this requirement due to a limitation
+				in concept checking.
+				*/
+				//Concept::convertsTo<Type>(infinity<Type>())
 				//! Returns the number in scientific notation.
 				Concept::convertsTo<ScientificNotation>(asScientific(t))
 			)
