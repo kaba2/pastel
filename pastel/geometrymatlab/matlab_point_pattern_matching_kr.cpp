@@ -27,7 +27,7 @@ namespace Pastel
 				SceneSet,
 				KNearest,
 				MinMatchRatio,
-				MatchingDistance,
+				MatchingDistance2,
 				MaxBias,
 				MatchingModeId,
 				Inputs
@@ -60,8 +60,8 @@ namespace Pastel
 			integer scenePoints = mxGetN(inputSet[SceneSet]);
 			integer kNearest = matlabAsScalar<integer>(inputSet[KNearest]);
 			real minMatchRatio = matlabAsScalar<real>(inputSet[MinMatchRatio]);
-			real matchingDistance = 
-				matlabAsScalar<real>(inputSet[MatchingDistance]);
+			real matchingDistance2 = 
+				matlabAsScalar<real>(inputSet[MatchingDistance2]);
 			real maxBias =
 				matlabAsScalar<real>(inputSet[MaxBias]);
 			integer matchingModeId = matlabAsScalar<integer>(inputSet[MatchingModeId]);
@@ -123,8 +123,8 @@ namespace Pastel
 				PASTEL_TAG(report), pushBackOutput(pairSet),
 				PASTEL_TAG(kNearest), kNearest,
 				PASTEL_TAG(minMatchRatio), minMatchRatio,
-				PASTEL_TAG(matchingDistance), matchingDistance,
-				PASTEL_TAG(maxBias), maxBias,
+				PASTEL_TAG(matchingDistance2), matchingDistance2,
+				PASTEL_TAG(maxBias), square(maxBias),
 				PASTEL_TAG(matchingMode), matchingMode);
 
 			// Output the pairing.
@@ -149,7 +149,7 @@ namespace Pastel
 			// Output the bias.
 
 			real* outBias = matlabCreateScalar<real>(outputSet[Bias]);
-			*outBias = match.bias;
+			*outBias = std::sqrt(match.bias);
 
 			// Output the success flag.
 

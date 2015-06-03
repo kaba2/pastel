@@ -79,7 +79,7 @@ namespace Pastel
 				, k_(0)
 				, k2_(0)
 				, k3_(0)
-				, matchingDistance_(0)
+				, matchingDistance2_(0)
 				, bestGlobalTry_(0)
 				, bestLocalTry_(0)
 				, localMatches_(0)
@@ -385,8 +385,8 @@ namespace Pastel
 							// the matching threshold.
 							// However, the paper suggest the use of
 
-							// 2 * matchingDistance.
-							if (closestScenePoint.first <= 2 * matchingDistance_)
+							// 2 * matchingDistance2.
+							if (closestScenePoint.first <= 2 * matchingDistance2_)
 							{
 								modelMatch.push_back(modelPosition(modelSet[m]));
 								sceneMatch.push_back(scenePosition(closestScenePoint.second));
@@ -490,7 +490,7 @@ namespace Pastel
 						std::pair<Real, SceneIterator> closestScenePoint =
 							searchNearest(sceneTree_, transformedModelPoint);
 
-						if (closestScenePoint.first <= matchingDistance_ &&
+						if (closestScenePoint.first <= matchingDistance2_ &&
 							usedSet.find(closestScenePoint.second) == usedSet.end())
 						{
 							Vector<Real, N> scenePoint =
@@ -539,7 +539,7 @@ namespace Pastel
 			integer k_;
 			integer k2_;
 			integer k3_;
-			Real matchingDistance_;
+			Real matchingDistance2_;
 
 			mutable integer bestGlobalTry_;
 			mutable integer bestLocalTry_;
