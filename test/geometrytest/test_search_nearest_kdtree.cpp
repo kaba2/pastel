@@ -45,7 +45,7 @@ namespace
 				Euclidean_NormBijection<real>(),
 				PASTEL_TAG(searchAlgorithm), DepthFirst_SearchAlgorithm_PointKdTree(),
 				PASTEL_TAG(intervalSequence), Vector2{-infinity<real>(), infinity<real>()},
-				PASTEL_TAG(k), 10,
+				PASTEL_TAG(kNearest), 10,
 				PASTEL_TAG(maxDistance2), 10,
 				PASTEL_TAG(maxRelativeError), 0,
 				PASTEL_TAG(nBruteForce), 0,

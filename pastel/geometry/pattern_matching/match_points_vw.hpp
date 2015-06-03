@@ -252,7 +252,7 @@ namespace Pastel
 								scenePosition(sceneIter),
 								PASTEL_TAG(nearestOutput), nearestOutput,
 								PASTEL_TAG(acceptPoint), predicateIndicator(sceneIter, NotEqualTo()),
-								PASTEL_TAG(k), k_);
+								PASTEL_TAG(kNearest), k_);
 						}
 
 						// Get the k-nearest neighbors from the cache.
@@ -281,7 +281,7 @@ namespace Pastel
 								modelPosition(modelIter),
 								PASTEL_TAG(nearestOutput), nearestOutput,
 								PASTEL_TAG(acceptPoint), predicateIndicator(modelIter, NotEqualTo()),
-								PASTEL_TAG(k), k_);
+								PASTEL_TAG(kNearest), k_);
 						}
 
 						// Try to match the nearest neighbours.

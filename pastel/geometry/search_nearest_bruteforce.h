@@ -30,7 +30,7 @@ namespace Pastel
 	/*!
 	Preconditions:
 	kNearest >= 0
-	maxDistance >= 0
+	maxDistance2 >= 0
 
 	Time complexity:
 	O(d n log k + k)
@@ -38,42 +38,36 @@ namespace Pastel
 	d is the dimension,
 	n = pointSet.size()
 
-	pointSet:
+	nearestSet:
 	The set of points to do the search in.
 
 	searchPoint:
 	The point for which to search the nearest neighbors.
 
-	report:
+	Optional arguments
+	------------------
+
+	report (Output(Real, Point) : nullOutput()):
 	An output, called exactly 'kNearest' times with 
-	report(point, distance), for each of the k nearest 
+	report(distance, point), for each of the kNearest nearest 
 	neighbors in order of increasing distance. If there
 	are less than 'kNearest' number of neighbors, then
 	the remaining neighbors are reported as
-	report(Point(), infinity<Real>()).
+	report(infinity<Real>(), Point()).
 
-	accept:
+	accept (Indicator(Point) : allIndicator()):
 	An indicator which decides whether to accept a point
 	as a neighbor or not. For example, if the search point
 	is part of 'pointSet', then it can be useful to exclude
 	the point itself from being considered a neighbor.
 
-	normBijection:
+	normBijection (NormBijection : Euclidean_NormBijection<Real>()):
 	The norm to use.
 
-	locator:
-	A locator for the points in the 'pointSet'.
+	kNearest (integer : 1):
+	The number k of nearest neighbors to seek for.
 
-	searchLocator:
-	A locator for the 'searchPoint'.
-
-	Optional arguments
-	------------------
-
-	kNearest (integer):
-	The number of nearest neighbors to seek for.
-
-	maxDistance (Real):
+	maxDistance2 (Real : infinity<Real>()):
 	A distance after which points aren't considered
 	neighbors. This distance is in terms of the
 	norm bijection. Note: Can be set to infinity.
@@ -122,10 +116,10 @@ namespace Pastel
 			);
 
 		auto&& report = PASTEL_ARG_S(nearestOutput, nullOutput());
-		integer k = PASTEL_ARG_S(k, 1);
-		Real maxDistance = PASTEL_ARG_S(maxDistance, infinity<Real>());
+		integer kNearest = PASTEL_ARG_S(kNearest, 1);
+		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, infinity<Real>());
 
-		ENSURE_OP(k, >=, 0);
+		ENSURE_OP(kNearest, >=, 0);
 
 		struct Entry
 		{
@@ -142,7 +136,7 @@ namespace Pastel
 		Result notFound(infinity<Real>(), Point());
 
 		auto pointSet = nearestSet.pointSet();
-		if (pointSetEmpty(pointSet) || k == 0)
+		if (pointSetEmpty(pointSet) || kNearest == 0)
 		{
 			return notFound;
 		}
@@ -161,7 +155,7 @@ namespace Pastel
 
 		EntrySet entrySet;
 
-		Real cullDistance = maxDistance;
+		Real cullDistance = maxDistance2;
 		auto keepGoing = [&](const Real& that)
 		{
 			return that < cullDistance;
@@ -188,17 +182,17 @@ namespace Pastel
 				entrySet.insert(
 					Entry{pointPoint(point), distance});
 
-				if (entrySet.size() > k)
+				if (entrySet.size() > kNearest)
 				{
 					entrySet.erase(
 						std::prev(entrySet.end()));
 				}
 
-				if (entrySet.size() == k)
+				if (entrySet.size() == kNearest)
 				{
 					cullDistance = std::min(
 						std::prev(entrySet.end())->distance * protectiveFactor,
-						maxDistance);
+						maxDistance2);
 				}
 			}
 
@@ -211,12 +205,12 @@ namespace Pastel
 		}
 
 		integer neighbors = entrySet.size();
-		for (integer i = neighbors;i < k;++i)
+		for (integer i = neighbors;i < kNearest;++i)
 		{
 			report(notFound.first, notFound.second);
 		}
 
-		if (neighbors < k)
+		if (neighbors < kNearest)
 		{
 			return notFound;
 		}
