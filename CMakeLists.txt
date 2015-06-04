@@ -23,7 +23,7 @@ math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 set (BoostDirectory "../boost_1_58_0")
 
 # The directory of Threading Building Blocks. 
-set (TbbDirectory "../tbb43")
+set (TbbDirectory "../tbb-4.3")
 
 # The directory of Matlab.
 if (WIN32)
@@ -57,9 +57,9 @@ set (TbbIncludeDirectory ${TbbDirectory}/include)
 
 if (WIN32)
 	if (${GENERATOR_BITS} EQUAL 32)
-		set (TbbLibraryDirectory ${TbbDirectory}/lib/ia32/vc11)
+		set (TbbLibraryDirectory ${TbbDirectory}/lib/ia32/vc12)
 	else()
-		set (TbbLibraryDirectory ${TbbDirectory}/lib/intel64/vc11)
+		set (TbbLibraryDirectory ${TbbDirectory}/lib/intel64/vc12)
 	endif()
 else(APPLE)
 	set (TbbLibraryDirectory ${TbbDirectory}/lib/libc++)
@@ -84,6 +84,9 @@ option (BuildLibraries "Build Pastel's main libraries." ON)
 option (BuildMatlab "Build Pastel's Matlab-libraries." ON)
 option (BuildTests "Build Pastel's tests." ON)
 option (BuildExamples "Build Pastel's examples." ON)
+option (BuildMatlabMex
+	"Make libraries usable for Matlab mex (force release-mode C and C++ standard libraries)." 
+	OFF)
 
 # Force to use an out-of-source build
 # -----------------------------------
@@ -98,6 +101,16 @@ if ("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
 	)
 
    return()
+endif()
+
+# Emit a warning about forcing release-mode libraries.
+# ----------------------------------------------------
+
+if (BuildMatlabMex)
+	message (WARNING
+		"BuildMatlabMex: Forcing release-mode C and C++ "
+		"standard libraries. Use this only when the intent is "
+		"to make Pastel libraries usable for Matlab mex.")
 endif()
 
 # Global variables for the build-script
@@ -161,9 +174,10 @@ endforeach()
 # Pastel's global definitions
 # ---------------------------
 
+
 # Debug-mode definitions.
 set (CMAKE_CXX_FLAGS_DEBUG 
-	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG"
+	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG"
 )
 
 # Make the special functions in Boost return infinity on overflow
@@ -267,6 +281,14 @@ if (MSVC)
 	# regenerate the project files manually whenever the CMake files
 	# are changed.
 	set(CMAKE_SUPPRESS_REGENERATION TRUE)
+
+	if (BuildMatlabMex)
+		# Force Visual Studio to use release-mode C and C++ standard libraries.
+		# This is needed for Matlab, because otherwise there will be LNK4098
+		# about conflicting versions of the standard library.
+		string(REPLACE "/MDd" "/MD" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+		string(REPLACE "/D_DEBUG" "" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+	endif()
 
 	add_definitions (
 		# Disable Microsoft's Secure STL.
