@@ -4,6 +4,8 @@
 #ifndef PASTELGEOMETRY_MATCH_POINTS_KR_H
 #define PASTELGEOMETRY_MATCH_POINTS_KR_H
 
+#include "pastel/geometry/nearestset/nearestset_concept.h"
+
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 
 // Optional argument requirements
@@ -57,10 +59,10 @@ namespace Pastel
 	maxBias <= 1
 	matchingDistance2 >= 0
 
-	modelTree:
+	model:
 	The point-set to search for.
 
-	sceneTree:
+	scene:
 	The point-set from which to search for.
 
 	Optional arguments
@@ -95,7 +97,7 @@ namespace Pastel
 
 	report (Output(Point, Point) : nullOutput()):
 	The point-pairs are reported in the form
-	std::make_pair(modelIter, sceneIter).
+	std::make_pair(modelPoint, sceneIter).
 
 	Returns
 	-------
@@ -110,15 +112,19 @@ namespace Pastel
 	The bias of the match; in the range [0, 1].
 	*/
 	template <
-		typename Model_Settings, template <typename> class Model_Customization,
-		typename Scene_Settings, template <typename> class Scene_Customization,
-		typename Locator = typename Scene_Settings::Locator,
-		typename Real = typename Locator::Real,
+		typename Model_NearestSet,
+		typename Scene_NearestSet,
+		typename Locator = PointSet_Locator<NearestSet_PointSet<Model_NearestSet>>,
+		typename Real = NearestSet_Real<Model_NearestSet>,
 		integer N = Locator::N,
-		typename... ArgumentSet>
+		typename... ArgumentSet,
+		Requires<
+			Models<Model_NearestSet, NearestSet_Concept>,
+			Models<Scene_NearestSet, NearestSet_Concept>
+		> = 0>
 	auto matchPointsKr(
-		const PointKdTree<Model_Settings, Model_Customization>& modelTree,
-		const PointKdTree<Scene_Settings, Scene_Customization>& sceneTree,
+		const Model_NearestSet& model,
+		const Scene_NearestSet& scene,
 		ArgumentSet&&... argumentSet)
 		-> Result_MatchPointsKr<Real, N>
 	{
@@ -151,13 +157,11 @@ namespace Pastel
 
 		using Match = Result_MatchPointsKr<Real, N>;
 
-		using ModelTree = PointKdTree<Model_Settings, Model_Customization>;
-		using Model_ConstIterator = typename ModelTree::Point_ConstIterator;
-		using ModelPoint = typename ModelTree::Point;
+		using Model_ConstIterator = typename Model_NearestSet::Point_ConstIterator;
+		using ModelPoint = typename Model_NearestSet::Point;
 
-		using SceneTree = PointKdTree<Scene_Settings, Scene_Customization>;
-		using Scene_ConstIterator = typename SceneTree::Point_ConstIterator;
-		using ScenePoint = typename SceneTree::Point;
+		using Scene_ConstIterator = typename Scene_NearestSet::Point_ConstIterator;
+		using ScenePoint = typename Scene_NearestSet::Point;
 
 		using Pair = std::pair<Scene_ConstIterator, Model_ConstIterator>;
 		using PairSet = std::vector<Pair>;
@@ -172,11 +176,11 @@ namespace Pastel
 		PLoS ONE 9 (4), 2014.
 		*/
 
-		integer d = modelTree.n();
+		integer d = model.n();
 
 		std::vector<Model_ConstIterator> modelSet(
-			countingIterator(modelTree.begin()),
-			countingIterator(modelTree.end()));
+			countingIterator(model.begin()),
+			countingIterator(model.end()));
 		std::random_shuffle(modelSet.begin(), modelSet.end());
 
 		Vector<Real, N> searchPoint(ofDimension(d));
@@ -202,17 +206,17 @@ namespace Pastel
 		for (integer i = 0;i < n && !exitEarly;++i)
 		{
 			// Pick a model pivot point.
-			Model_ConstIterator modelPivotIter = modelSet[i];
+			Model_ConstIterator modelPivot = modelSet[i];
 
 			// Go over all scene pivot points.
-			Scene_ConstIterator scenePivotIter = sceneTree.begin();
-			Scene_ConstIterator scenePivotEnd = sceneTree.end();
+			Scene_ConstIterator scenePivot = scene.begin();
+			Scene_ConstIterator scenePivotEnd = scene.end();
 
-			while(scenePivotIter != scenePivotEnd && !exitEarly)
+			while(scenePivot != scenePivotEnd && !exitEarly)
 			{
 				translation =
-					pointAsVector(location(scenePivotIter->point(), sceneTree.locator())) -
-					pointAsVector(location(modelPivotIter->point(), modelTree.locator()));
+					pointAsVector(location(scenePivot->point(), scene.locator())) -
+					pointAsVector(location(modelPivot->point(), model.locator()));
 
 				// Find out how many points match
 				// under this translation.
@@ -220,21 +224,21 @@ namespace Pastel
 				PairSet candidatePairSet;
 				for (integer j = 0;j < modelSet.size();++j)
 				{
-					Model_ConstIterator modelIter = modelSet[j];
+					Model_ConstIterator modelPoint = modelSet[j];
 					
-					searchPoint = pointAsVector(location(modelIter->point(), modelTree.locator())) + 
+					searchPoint = pointAsVector(location(modelPoint->point(), model.locator())) + 
 						translation;
 
 					auto neighborOutput = [&](
 						const Real& distance,
-						const Scene_ConstIterator& scene)
+						const Scene_ConstIterator& scenePoint)
 					{
 						candidatePairSet.push_back(
-							std::make_pair(scene, modelIter));
+							std::make_pair(scenePoint, modelPoint));
 					};
 
 					searchNearest(
-						sceneTree, 
+						scene, 
 						searchPoint,
 						normBijection,
 						PASTEL_TAG(nearestOutput), neighborOutput,
@@ -285,8 +289,8 @@ namespace Pastel
 						while(iter != iterEnd)
 						{
 							meanDelta += 
-								pointAsVector(location(iter->first->point(), sceneTree.locator())) -
-								(pointAsVector(location(iter->second->point(), modelTree.locator())) + 
+								pointAsVector(location(iter->first->point(), scene.locator())) -
+								(pointAsVector(location(iter->second->point(), model.locator())) + 
 								translation);
 
 							++iter;
@@ -329,7 +333,7 @@ namespace Pastel
 					}
 				}
 
-				++scenePivotIter;
+				++scenePivot;
 			}
 		}
 
