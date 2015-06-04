@@ -41,10 +41,10 @@ if maxArraySize >= 2^32
 end
 
 % Path to Boost.
-boostPath = '../../boost_1_57_0';
+boostPath = '../../boost_1_58_0';
 
 % Path to Threading Building Blocks.
-tbbPath = '../../tbb43';
+tbbPath = '../../tbb-4.3';
 
 % Compute the actual paths.
 
@@ -56,9 +56,9 @@ tbbLibraryPath = [tbbPath, '/lib'];
 if ispc()
     % Windows
     if bits == 64
-        tbbLibraryPath = [tbbLibraryPath, '/intel64/vc11'];
+        tbbLibraryPath = [tbbLibraryPath, '/intel64/vc12'];
     else
-        tbbLibraryPath = [tbbLibraryPath, '/ia32/vc11'];
+        tbbLibraryPath = [tbbLibraryPath, '/ia32/vc12'];
     end
 elseif ismac()
     % Mac Os X
@@ -138,6 +138,9 @@ libraryPathSet = {pastelLibraryPath, tbbLibraryPath};
 
 % Libraries
 
+% This is needed for Linux and Mac. Under Windows
+% the tbb header-files contain #pragma comments to
+% implicitly load the tbb-library.
 librarySet = {tbbName};
 
 if strcmp(libraryName, 'geometry')

@@ -223,7 +223,7 @@ namespace Pastel
 				state.join == state.tree->rootNode() ||
 				state.join == state.join->parent()->child(!right));
 
-#			if defined(DEBUG) || defined(_DEBUG)
+#			if defined(DEBUG)
 			// This code is for debugging purposes only.
 			if (!state.join->isSentinel())
 			{
