@@ -1,3 +1,6 @@
+// Description: Native types as a monoid concept
+// DocumentationOf: monoid_concept.h
+
 #ifndef PASTELSYS_NATIVE_MONOID_H
 #define PASTELSYS_NATIVE_MONOID_H
 

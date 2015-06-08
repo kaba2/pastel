@@ -15,6 +15,9 @@
 % g : [1, m] --> B is injective, and g(j) is one of the candidates in the
 % f(j):th column of COLUMNSET.
 
+% Description: Approximate weighted maximum bipartite matching
+% DocumentationOf: icp.m
+
 function pairSet = biunique_matching(candidateSet)
 
 % This is a greedy algorithm to approximate minimum weight

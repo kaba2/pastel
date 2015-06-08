@@ -1,3 +1,6 @@
+// Description: Native types as a group concept
+// DocumentationOf: group_concept.h
+
 #ifndef PASTELSYS_NATIVE_GROUP_H
 #define PASTELSYS_NATIVE_GROUP_H
 

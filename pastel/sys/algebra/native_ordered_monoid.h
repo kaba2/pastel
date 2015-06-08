@@ -1,3 +1,6 @@
+// Description: Native types as an ordered monoid concept
+// DocumentationOf: ordered_monoid_concept.h
+
 #ifndef PASTELSYS_NATIVE_ORDERED_MONOID_H
 #define PASTELSYS_NATIVE_ORDERED_MONOID_H
 

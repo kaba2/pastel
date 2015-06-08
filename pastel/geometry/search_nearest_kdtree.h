@@ -1,3 +1,6 @@
+// Description: Nearest neighbors searching in a kd-tree
+// Documentation: nearestset.txt
+
 #ifndef PASTELGEOMETRY_SEARCH_NEAREST_KDTREE_H
 #define PASTELGEOMETRY_SEARCH_NEAREST_KDTREE_H
 
