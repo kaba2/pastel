@@ -9,7 +9,7 @@ close all;
 eval(import_pastel);
 
 % Dimension of the point-sets.
-m = 2;
+d = 2;
 
 % Number of points to generate to the secondary cluster.
 %n2 = 0;
@@ -38,18 +38,18 @@ if useFish
 else
     % Generate a random point-set P.
     n = 100;
-    P = randn(m, n) * 100;
+    P = randn(d, n) * 100;
 end
 
 % Generate a random transformation.
-%Q = random_orthogonal(m, 'orientation', 1);
-%t = zeros(m, 1);
-Q = eye(m, m);
-t = (2 * rand(m, 1) - 1) * 1000;
+%Q = random_orthogonal(d, 'orientation', 1);
+Q = eye(d, d);
+t = (2 * rand(d, 1) - 1) * 1000;
+%t = zeros(d, 1);
 
 % Transform P augmented with the secondary cluster
 % to get the point-set R.
-PP = [P, randn(m, n2) * 100 + [700; 0] * ones(1, n2)];
+PP = [P, randn(d, n2) * 100 + [700; 0] * ones(1, n2)];
 R = Q * PP + t * ones(1, size(PP, 2));
 
 % Permute R.
@@ -73,16 +73,16 @@ alpha = size(commonSet, 2) / size(P, 2);
 % scaling modes work also.
 [qCpd, sCpd, tCpd] = coherent_point_drift(...
     P, R, ...,
-    'noiseRatio', 0.2, ...
-    'matrix', 'free', ...
-    'scaling', 'conformal', ...
+    'noiseRatio', 0.5, ...
+    'matrix', 'identity', ...
+    'scaling', 'rigid', ...
     'translation', 'free', ...
-    'drawPictures', 10);
+    'drawPictures', 5);
 
-function test_icp_reporter(match)
+function icpDraw(match)
     eval(import_pastel);
 
-    if mod(match.iteration, 10) == 0
+    if mod(match.iteration, 20) == 0
         draw_matching(match.transformedSet, match.sceneSet, match.pairSet);
         title(['ICP iteration ', num2str(match.iteration)]);
     end
@@ -91,7 +91,7 @@ end
 % Find the transformation from P to R using the ICP.
 match = icp(P, R, matchingDistance, ...
     'matrix', 'identity', ...
-    'reporter', @test_icp_reporter);
+    'reporter', @icpDraw);
 qIcp = match.Q;
 tIcp = match.t;
 rIcp = qIcp * P + tIcp * ones(1, size(P, 2));
@@ -108,7 +108,7 @@ tPpm = match.translation;
 bias = match.bias;
 success = match.success;
 
-qPpm = eye(m, m);
+qPpm = eye(d, d);
 rPpm = qPpm * P + tPpm * ones(1, size(P, 2));
 
 if ~success
