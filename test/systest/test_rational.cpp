@@ -3,8 +3,8 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/rational.h"
 #include "pastel/sys/integer/multi_integer.h"
+#include "pastel/sys/rational.h"
 #include "pastel/sys/math/mod.h"
 
 #include <iostream>
