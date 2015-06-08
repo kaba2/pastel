@@ -75,9 +75,18 @@ alpha = size(commonSet, 2) / size(P, 2);
     P, R, ...,
     'noiseRatio', 0.2, ...
     'matrix', 'free', ...
-    'scaling', 'rigid', ...
+    'scaling', 'conformal', ...
     'translation', 'free', ...
-    'drawPictures', true);
+    'drawPictures', 10);
+
+function test_icp_reporter(match)
+    eval(import_pastel);
+
+    if mod(match.iteration, 10) == 0
+        draw_matching(match.transformedSet, match.sceneSet, match.pairSet);
+        title(['ICP iteration ', num2str(match.iteration)]);
+    end
+end
 
 % Find the transformation from P to R using the ICP.
 match = icp(P, R, matchingDistance, ...
@@ -108,10 +117,10 @@ end
 
 % Draw a nice picture.
 figure;
-scatter(R(1, :), R(2, :), 'r')
+scatter(R(1, :), R(2, :), 'r.')
 hold on
 axis equal
-scatter(rIcp(1, :), rIcp(2, :), 'g.')
+scatter(rIcp(1, :), rIcp(2, :), 'g')
 scatter(rPpm(1, :), rPpm(2, :), 'b.')
 % for i = 1 : size(R, 2)
 %     k = rPermutation(i);
@@ -127,4 +136,4 @@ title('ICP vs PPM')
 legend('Goal', 'ICP', 'PPM')
 hold off
 
-
+end

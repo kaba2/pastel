@@ -48,7 +48,7 @@
 % ORIENTATION ('orientation') is an integer which specifies constraints
 % for the determinant of A. Must be one of
 %    -1: det(A) < 0,
-%     0: det(A) free (free), or
+%     0: det(A) free (default), or
 %     1: det(A) > 0.
 %
 % Q0 ('Q0') is a (d x d) real orthogonal matrix, containing the initial 
@@ -76,9 +76,9 @@
 % which to accept the transformation and stop iteration. 
 % Default: 1e-11.
 %
-% DRAWPICTURES ('drawPictures') is a boolean which specifies whether
-% the algorithm should draw pictures of the process (useful for 
-% debugging). Default: false
+% DRAWPICTURES ('drawPictures') is an non-negative integer which specifies 
+% how many pictures the algorithm should draw of the process (useful for 
+% debugging). Default: 0
 %
 % It should approximately be true that 
 % 
@@ -123,7 +123,7 @@ orientation = 0;
 Q0 = eye(d, d);
 S0 = eye(d, d);
 t0 = {};
-drawPictures = false;
+drawPictures = 0;
 eval(process_options({...
     'noiseRatio', ...
     'minIterations', 'maxIterations', ...
@@ -152,6 +152,10 @@ end
 
 if minIterations > maxIterations
     error('It must hold that MINITERATIONS <= MAXITERATIONS.');
+end
+
+if drawPictures < 0
+    error('It must hold that drawPictures >= 0.');
 end
 
 if size(Q0, 1) ~= d || size(Q0, 2) ~= d
@@ -204,28 +208,30 @@ end
 sigma2 = sigma2 / (d * m * n);
 
 figuresDrawn = 0;
-figuresToDraw = 4;
+
+function draw(iteration)
+    % Draw a nice picture.
+    figure;
+    scatter(sceneSet(1, :), sceneSet(2, :), 'r.');
+    %axis([-10, 10, -10, 10]);
+    axis equal;
+    hold on;
+    scatter(transformedSet(1, :), transformedSet(2, :), 'g.');
+    title(['CPD iteration ', int2str(iteration)]);
+    legend('Model', 'Scene');
+    hold off;
+    figuresDrawn = figuresDrawn + 1;
+end
 
 W = zeros(m, n);
-f = (2 * pi * sigma2)^(d / 2) * ...
-    (noiseRatio / (1 - noiseRatio)) * (m / n);
 for iteration = 0 : maxIterations - 1
-    if drawPictures
-        % Draw a nice picture.
-        if mod(iteration, 5) == 0 && figuresDrawn < figuresToDraw
-            figure;
-            scatter(transformedSet(1, :), transformedSet(2, :), 'g.');
-            %axis([-10, 10, -10, 10]);
-            axis equal;
-            hold on;
-            scatter(sceneSet(1, :), sceneSet(2, :), 'r.');
-            title(['CPD iteration ', int2str(iteration)]);
-            legend('Model', 'Scene');
-            hold off;
-            figuresDrawn = figuresDrawn + 1;
-        end
+    if figuresDrawn < drawPictures - 1 && mod(iteration, 10) == 0
+        draw(iteration)
     end
     
+    f = (2 * pi * sigma2)^(d / 2) * ...
+        (noiseRatio / (1 - noiseRatio)) * (m / n);
+
     % Compute the weighting matrix.
     for j = 1 : n
         distanceSet = sum((transformedSet - sceneSet(:, j) * ones(1, m)).^2);
@@ -258,7 +264,7 @@ for iteration = 0 : maxIterations - 1
     end
     totalWeight = sum(W(:));
     sigma2 = sigma2 / (totalWeight * d);
-    
+
     % When the change to the previous transformation falls 
     % below the given error threshold, we will stop, provided that 
     % a minimum number of iterations has been performed.
@@ -271,3 +277,8 @@ for iteration = 0 : maxIterations - 1
     end
 end
 
+if drawPictures > 0
+    draw(maxIterations - 1);
+end
+
+end
