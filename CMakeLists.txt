@@ -25,17 +25,23 @@ set (BoostDirectory "../boost_1_58_0")
 # The directory of Threading Building Blocks. 
 set (TbbDirectory "../tbb-4.3")
 
+# The directory of Armadillo.
+set (ArmadilloDirectory "../armadillo-5.200")
+
+# The version of Matlab.
+set (MatlabVersion "2013b")
+
 # The directory of Matlab.
 if (WIN32)
 	if (${GENERATOR_BITS} EQUAL 32)
-		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R2013b")
+		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R${MatlabVersion}")
 	else()
-		set (MatlabDirectory "C:/Program Files/MATLAB/R2013b")
+		set (MatlabDirectory "C:/Program Files/MATLAB/R${MatlabVersion}")
 	endif()
 else (APPLE)
-	set (MatlabDirectory "/Applications/MATLAB_R2013a.app")
+	set (MatlabDirectory "/Applications/MATLAB_R${MatlabVersion}.app")
 else (UNIX)
-	set (MatlabDirectory "/usr/local/matlab/r2013a")
+	set (MatlabDirectory "/usr/local/matlab/r${MatlabVersion}")
 endif()
 
 # Note: To successfully _compile_ Pastel's Matlab-libraries, 
@@ -67,6 +73,8 @@ else(UNIX)
 	set (TbbLibraryDirectory ${TbbDirectory}/lib)
 endif()
 
+set (ArmadilloIncludeDirectory ${ArmadilloDirectory}/include)
+
 set (MatlabIncludeDirectory ${MatlabDirectory}/extern/include)
 
 # For Pastel, the includes are of the form 'pastel/sys/mytypes.h'.
@@ -74,6 +82,7 @@ include_directories (.)
 include_directories (${BoostIncludeDirectory})
 include_directories (${TbbIncludeDirectory})
 include_directories (${MatlabIncludeDirectory})
+include_directories (${ArmadilloIncludeDirectory})
 
 link_directories (${TbbLibraryDirectory})
 
