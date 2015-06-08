@@ -218,7 +218,7 @@ function draw(iteration)
     hold on;
     scatter(transformedSet(1, :), transformedSet(2, :), 'g.');
     title(['CPD iteration ', int2str(iteration)]);
-    legend('Model', 'Scene');
+    legend('Scene', 'Model');
     hold off;
     figuresDrawn = figuresDrawn + 1;
 end
