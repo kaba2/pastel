@@ -9,6 +9,9 @@
 #define PASTEL_ARG(name, ...) argument<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
 #define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto) {return std::true_type();})
 
+#define PASTEL_ARG_USES_DEFAULT(name, ...) decltype(argumentUsesDefault<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...))::value
+#define PASTEL_ARG_S_USES_DEFAULT(name, ...) PASTEL_ARG_USES_DEFAULT(name, [](auto) {return std::true_type();})
+
 namespace Pastel
 {
 
@@ -409,6 +412,33 @@ namespace Pastel
 			std::forward<Default>(defaultValue),
 			std::forward<Condition>(condition),
 			std::forward<ArgumentSet>(argumentSet)...);
+	}
+
+	template <
+		tag_integer KeyHash,
+		typename Condition,
+		typename... ArgumentSet
+	>
+	constexpr decltype(auto) argumentUsesDefault(
+		Condition&& condition,
+		ArgumentSet&&... argumentSet)
+	{
+		struct Test {};
+
+		return std::is_same
+		<
+			RemoveCvRef
+			<
+				decltype
+				(
+					argument<KeyHash>(
+						[](){return Test();}, 
+						std::forward<Condition>(condition), 
+						std::forward<ArgumentSet>(argumentSet)...  )
+				)
+			>,
+			Test
+		>();
 	}
 
 }
