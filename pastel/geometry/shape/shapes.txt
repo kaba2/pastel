@@ -1,7 +1,7 @@
 Shapes
 ======
 
-[[Parent]]: pastelgeometry.txt
+[[Parent]]: geometry/data_structures.txt
 [[set indent]]: EquationSet
 
 A _shape_ is a closed and simply connected subset of ''RR^n''. A shape ''S'' is called _convex_, if it holds that 

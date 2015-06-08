@@ -1,3 +1,6 @@
+// Description: Raw memory allocation
+// DocumentationOf: environment.h
+
 #ifndef PASTELSYS_ALLOCATION_H
 #define PASTELSYS_ALLOCATION_H
 
