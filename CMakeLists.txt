@@ -75,6 +75,9 @@ endif()
 
 set (ArmadilloIncludeDirectory ${ArmadilloDirectory}/include)
 
+set (BlasLibraryDirectory ${ArmadilloDirectory}/examples/lib_win64)
+set (LapackLibraryDirectory ${ArmadilloDirectory}/examples/lib_win64)
+
 set (MatlabIncludeDirectory ${MatlabDirectory}/extern/include)
 
 # For Pastel, the includes are of the form 'pastel/sys/mytypes.h'.
@@ -85,6 +88,8 @@ include_directories (${MatlabIncludeDirectory})
 include_directories (${ArmadilloIncludeDirectory})
 
 link_directories (${TbbLibraryDirectory})
+link_directories (${LapackLibraryDirectory})
+link_directories (${BlasLibraryDirectory})
 
 # CMake build options
 # -------------------
