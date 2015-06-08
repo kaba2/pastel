@@ -6,14 +6,25 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/type_traits/is_template_instance.h"
 
-#define PASTEL_ARG(name, ...) argument<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
-#define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto) {return std::true_type();})
+#define PASTEL_ARG(name, ...) Pastel::argument<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
+#define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, Pastel::Argument_::returnTrue)
 
-#define PASTEL_ARG_USES_DEFAULT(name, ...) decltype(argumentUsesDefault<#name##_tag>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...))::value
-#define PASTEL_ARG_S_USES_DEFAULT(name, ...) PASTEL_ARG_USES_DEFAULT(name, [](auto) {return std::true_type();})
+#define PASTEL_ARG_MATCHES(name, ...) Pastel::Argument<#name##_tag>::matches(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...).value
+#define PASTEL_ARG_S_MATCHES(name) PASTEL_ARG_MATCHES(name, Pastel::Argument_::returnTrue)
 
 namespace Pastel
 {
+
+	namespace Argument_
+	{
+
+		constexpr decltype(auto) returnTrue(...)
+		{
+			return std::true_type();
+		}
+
+	}
+
 
 	template <typename Condition>
 	struct ImplicitArgument
@@ -61,7 +72,7 @@ namespace Pastel
 			ArgumentSet&&... argumentSet)
 		{
 			return
-				std::is_same<
+				Not<std::is_same<
 					RemoveCvRef<decltype(
 						argument(
 							none,
@@ -70,7 +81,7 @@ namespace Pastel
 						)
 					)>, 
 					None
-				>();
+				>>();
 		}
 
 		template <
@@ -114,7 +125,7 @@ namespace Pastel
 
 			// Check that the match is unique.
 			static_assert(
-				decltype(
+				!decltype(
 					matches(
 						std::forward<Condition>(condition),
 						std::forward<ArgumentSet>(argumentSet)...
@@ -147,7 +158,7 @@ namespace Pastel
 
 			// Check that the match is unique.
 			static_assert(
-				decltype(
+				!decltype(
 					matches(
 						std::forward<Condition>(condition),
 						std::forward<ArgumentSet>(argumentSet)...
@@ -289,7 +300,7 @@ namespace Pastel
 
 			// Check that the match is unique.
 			static_assert(
-				decltype(
+				!decltype(
 					matches(
 						std::forward<Condition>(condition),
 						std::forward<ArgumentSet>(argumentSet)...
@@ -419,26 +430,13 @@ namespace Pastel
 		typename Condition,
 		typename... ArgumentSet
 	>
-	constexpr decltype(auto) argumentUsesDefault(
+	constexpr decltype(auto) argumentMatches(
 		Condition&& condition,
 		ArgumentSet&&... argumentSet)
 	{
-		struct Test {};
-
-		return std::is_same
-		<
-			RemoveCvRef
-			<
-				decltype
-				(
-					argument<KeyHash>(
-						[](){return Test();}, 
-						std::forward<Condition>(condition), 
-						std::forward<ArgumentSet>(argumentSet)...  )
-				)
-			>,
-			Test
-		>();
+		return Argument<KeyHash>::matches(
+				std::forward<Condition>(condition), 
+				std::forward<ArgumentSet>(argumentSet)...);
 	}
 
 }
