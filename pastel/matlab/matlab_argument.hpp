@@ -55,7 +55,7 @@ namespace Pastel
 		mxArray*& output)
 	{
 		Array<To_Type> to = matlabCreateArray<To_Type>(
-			Vector2i(from.n_rows, from.n_cols),
+			Vector2i(from.n_cols, from.n_rows),
 			output);
 
 		std::copy(from.begin(), from.end(), to.begin());
