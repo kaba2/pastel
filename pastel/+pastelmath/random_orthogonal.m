@@ -33,4 +33,6 @@ if n < 0
     error('N must be non-negative.');
 end
 
-Q = pastelmath('random_orthogonal', n, orientation)
+Q = pastelmathmatlab('random_orthogonal', n, orientation);
+
+end
