@@ -32,23 +32,20 @@
 
 function build_pastel(varargin)
 
+% Optional input arguments
+libraryName = {'sys', 'math', 'geometry'};
+mode = 'release';
+verbose = 'off';
+eval(pastelsys.process_options(...
+    {'libraryName', 'mode', 'verbose'}, ...
+    varargin));
+
 % Determine the bitness of the running Matlab version
 % (not of the operating system or the computer).
 [ignore, maxArraySize] = computer;
 bits = 32;
 if maxArraySize >= 2^32
     bits = 64;
-end
-
-% The name of the Blas library.
-blasName = 'blas_win64_MT';
-% The name of the Lapack library.
-lapackName = 'lapack_win64_MT';
-
-% The name of the Threading Building Blocks library.
-tbbName = 'tbb';
-if strcmp(mode, 'debug')
-    tbbName = 'tbb_debug';
 end
 
 % Path to Boost.
@@ -65,6 +62,17 @@ lapackLibraryPath = [armadilloPath, '/examples/lib_win64'];
 
 % Path to Blas library.
 blasLibraryPath = [armadilloPath, '/examples/lib_win64'];
+
+% The name of the Blas library.
+blasName = 'blas_win64_MT';
+% The name of the Lapack library.
+lapackName = 'lapack_win64_MT';
+
+% The name of the Threading Building Blocks library.
+tbbName = 'tbb';
+if strcmp(mode, 'debug')
+    tbbName = 'tbb_debug';
+end
 
 % Compute the actual paths.
 
@@ -88,14 +96,6 @@ else
     % Linux and others
     tbbLibraryPath = [tbbLibraryPath, ''];
 end
-
-% Optional input arguments
-libraryName = {'sys', 'math', 'geometry'};
-mode = 'release';
-verbose = 'off';
-eval(pastelsys.process_options(...
-    {'libraryName', 'mode', 'verbose'}, ...
-    varargin));
 
 modeSet = {'debug', 'release', 'relwithdebinfo'};
 if ~ismember(mode, modeSet)
