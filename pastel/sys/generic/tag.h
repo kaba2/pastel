@@ -23,7 +23,7 @@ namespace Pastel
 	{
 		// This is the Fowler-Noll-Vo 1a hash-function (FNV-1a) for 32-bit integers.
 		return n > 0
-			? (operator""_tag(tagName + 1, n - 1) ^ (tag_integer)tagName[n - 1]) * 16777619UL
+			? (operator""_tag(tagName, n - 1) ^ (tag_integer)tagName[n - 1]) * 16777619UL
 			: 2166136261UL;
 	}
 
