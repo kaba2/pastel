@@ -9,6 +9,8 @@
 
 #include "pastel/matlab/matlab_mex.h"
 
+#include <armadillo>
+
 namespace Pastel
 {
 
@@ -37,6 +39,14 @@ namespace Pastel
 		integer width, integer height,
 		mxArray*& output);
 
+	//! Constructs a Matlab numeric array.
+	template <
+		typename To_Type,
+		typename From_Type>
+	Array<To_Type> matlabCreateArray(
+		const arma::Mat<From_Type>& from,
+		mxArray*& output);
+
 	//! Retrieves a copy of a scalar number.
 	/*!
 	Preconditions:
@@ -57,6 +67,28 @@ namespace Pastel
 	mxIsChar(input)
 	*/
 	std::string matlabAsString(const mxArray* input);
+
+	//! Retrieves an enum given as strings.
+	/*!
+	input:
+	A matlab array which contains the enum
+	value as a string.
+
+	argumentSet:
+	Subsequent key-value arguments,
+	with the key convertible to std::string,
+	and the value with type 'Type'.
+
+	returns:
+	The value of the key which matches the
+	string in 'input'.
+	*/
+	template <
+		typename Type,
+		typename... ArgumentSet>
+	Type matlabStringAsEnum(
+		const mxArray* input,
+		ArgumentSet&&... argumentSet);
 
 	//! Retrieves a reference to a real array.
 	/*!
