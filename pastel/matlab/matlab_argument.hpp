@@ -47,6 +47,22 @@ namespace Pastel
 			Vector2i(width, height), output);
 	}
 
+	template <
+		typename To_Type,
+		typename From_Type>
+	Array<To_Type> matlabCreateArray(
+		const arma::Mat<From_Type>& from,
+		mxArray*& output)
+	{
+		Array<To_Type> to = matlabCreateArray<To_Type>(
+			Vector2i(from.n_rows, from.n_cols),
+			output);
+
+		std::copy(from.begin(), from.end(), to.begin());
+
+		return to;
+	}
+
 	template <typename Type>
 	Type matlabAsScalar(const mxArray* input,
 		integer index)
@@ -117,6 +133,52 @@ namespace Pastel
 		return result;
 	}
 
+	namespace MatlabStringAsEnum_
+	{
+
+		template <
+			typename Type,
+			typename... ArgumentSet>
+		Type matlabStringAsEnum(
+			const std::string input)
+		{
+			bool unknownEnum = true;
+			ENSURE(!unknownEnum);
+			return Type();
+		}
+
+		template <
+			typename Type,
+			typename... ArgumentSet>
+		Type matlabStringAsEnum(
+			const std::string input,
+			const std::string& key,
+			NoDeduction<Type> value,
+			ArgumentSet&&... argumentSet)
+		{
+			if (input == key)
+			{
+				return value;
+			}
+			
+			return matlabStringAsEnum<Type>(input, 
+				std::forward<ArgumentSet>(argumentSet)...);
+		}
+
+	}
+
+	template <
+		typename Type,
+		typename... ArgumentSet>
+	Type matlabStringAsEnum(
+		const mxArray* input,
+		ArgumentSet&&... argumentSet)
+	{
+		return MatlabStringAsEnum_::matlabStringAsEnum<Type>(
+			matlabAsString(input),
+			std::forward<ArgumentSet>(argumentSet)...);
+	}
+
 	template <typename Type>
 	Array<Type> matlabAsArray(
 		const mxArray* that)
@@ -126,41 +188,54 @@ namespace Pastel
 		integer width = mxGetN(that);
 		integer height = mxGetM(that);
 
-		const integer n = width * height;
+		if (typeToMatlabClassId<Type>() == mxGetClassID(that))
+		{
+			// The type of the array matches the requested
+			// type. Aliase the existing data.
+			return Array<Type>(
+				Vector2i(width, height), 
+				withAliasing((Type*)mxGetData(that)), 
+				StorageOrder::ColumnMajor);
+		}
 
-		Array<Type> result;
+		// Copy the data into an array of the required type.
+		Array<Type> result(
+			Vector2i(width, height),
+			0,
+			StorageOrder::ColumnMajor);
+
+		matlabGetScalars(that, result.begin());
+
+		return result;
+	}
+
+	template <typename Type>
+	arma::Mat<Type> matlabAsMatrix(
+		const mxArray* that)
+	{
+		ENSURE(mxIsNumeric(that));
+
+		integer m = mxGetM(that);
+		integer n = mxGetN(that);
 
 		if (typeToMatlabClassId<Type>() == mxGetClassID(that))
 		{
-			// No copying is done here. Rather, we aliase
-			// the existing data.
-
-			Type* rawData = (Type*)mxGetData(that);
-
-			result = Array<Type>(
-				Vector2i(width, height), 
-				withAliasing(rawData), 
-				StorageOrder::ColumnMajor);
+			// The type of the array matches the requested
+			// type. Aliase the existing data.
+			return arma::Mat<Type>(
+				// Aliase the existing data.
+				(Type*)mxGetData(that), 
+				m, n,
+				// Use Matlab's memory for the matrix.
+				false,
+				// Matrix cannot be reallocated.
+				true);
 		}
-		else
-		{
-			// Copy the data into an array of the required type.
 
-			if (n >= (1 << 14))
-			{
-				log() << "Warning: Copying a large amount of data "
-					<< "because of type mismatch. Using a matching type, " 
-					<< "if possible, avoids any copying." 
-					<< logNewLine;
-			}
+		// Copy the data into an array of the required type.
+		arma::Mat<Type> result(m, n);
 
-			result = Array<Type>(
-				Vector2i(width, height),
-				0,
-				StorageOrder::ColumnMajor);
-
-			matlabGetScalars(that, result.begin());
-		}
+		matlabGetScalars(that, result.begin());
 
 		return result;
 	}
