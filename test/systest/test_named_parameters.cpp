@@ -90,6 +90,14 @@ namespace
 
 		virtual void run()
 		{
+			// The tag hashing uses the Fowler-Noll-Vo 1a hash-function 
+			// (FNV-1a) for 32-bit integers. Check the hashes of some
+			// known strings. Initially I had a bug in the implementation 
+			// which I noticed only because I had a hash collision between
+			// these strings.
+			PASTEL_STATIC_ASSERT("translation"_tag == 3419592236UL);
+			PASTEL_STATIC_ASSERT("orientation"_tag == 3309681697UL);
+
 			TEST_ENSURE_OP(distance(1, 6), ==, 5 * 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 2.0), ==, 2 * 5 * 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 3.5), ==, 3.5 * 5 * 5);
