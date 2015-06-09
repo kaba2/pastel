@@ -7,3 +7,4 @@
 		force_linking_##name(); \
 	}
 
+FORCE_LINKING(random_orthogonal);
