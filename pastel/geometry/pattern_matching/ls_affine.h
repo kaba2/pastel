@@ -11,20 +11,20 @@
 namespace Pastel
 {
 
-	enum class LsAffine_Matrix
+	enum class LsAffine_Matrix : integer
 	{
 		Free,
 		Identity
 	};
 
-	enum class LsAffine_Scaling
+	enum class LsAffine_Scaling : integer
 	{
 		Free,
 		Conformal,
 		Rigid
 	};
 
-	enum class LsAffine_Translation
+	enum class LsAffine_Translation : integer
 	{
 		Free,
 		Identity
@@ -98,11 +98,11 @@ namespace Pastel
 		 0: det(QS)
 		>0: det(QS) > 0
 
-	W ((m x n)-matrix): 
-	A non-negative matrix, which contains the weights for the 
-	least-squares error metric. If it is not given, then 
-	it is required that m = n, and it is assumed that 
-	W = eye(m, n). 
+	W (arma::Mat<Real> : arma::Mat<Real>()): 
+	A non-negative (m x n) matrix, which contains the weights 
+	for the least-squares error metric. If W is not given, or is
+	the empty matrix, then it is required that m = n, and it 
+	is assumed that W is the (n x n) identity matrix. 
 	*/
 	template <
 		typename Real,
@@ -131,16 +131,15 @@ namespace Pastel
 			PASTEL_ARG_S(scaling, LsAffine_Scaling::Free);
 		LsAffine_Matrix matrix =
 			PASTEL_ARG_S(matrix, LsAffine_Matrix::Free);
+		integer orientation = 0;
+		/*
 		integer orientation =
 			PASTEL_ARG_S(orientation, (integer)0);
-		auto&& W = 
-			PASTEL_ARG_S(W, arma::eye(m, n));
+		*/
+		arma::Mat<Real> W = 
+			PASTEL_ARG_S(W, arma::Mat<Real>());
 
-		enum : bool 
-		{
-			wSpecified =
-				PASTEL_ARG_S_MATCHES(W)
-		};
+		bool wSpecified = !W.is_empty();
 
 		// Defaults for Q and S.
 		arma::Mat<Real> Q = arma::eye(d, d);
@@ -198,8 +197,8 @@ namespace Pastel
 		    // Form the centered point-sets. The optimal transformation
 		    // will map fromCentroid to toCentroid. After this the problem
 		    // has been reduced from affine to linear.
-		    P -= fromCentroid * arma::ones(1, m);
-		    R -= toCentroid * arma::ones(1, n);
+		    P.each_col() -= fromCentroid;
+		    R.each_col() -= toCentroid;
 		}
 
 		arma::Mat<Real> PP(d, d);
