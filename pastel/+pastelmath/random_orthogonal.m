@@ -29,29 +29,8 @@ orientation = 0;
 eval(process_options({'orientation'}, ...
     varargin));
 
-% See "How to Generate Random Matrices
-% from the Classical Compact Groups",
-% Francesco Mezzadri,
-% Notices of the AMS,
-% Volume 54, Number 5, 2007.
-
 if n < 0
     error('N must be non-negative.');
 end
 
-% Check orientation requirements.
-orientationSet = [-1, 0, 1];
-if ~any(orientationSet == orientation)
-    error('ORIENTATION must be one of -1, 0, or 1.')
-end
-
-M = randn(n, n);
-[Q, R] = qr(M);
-Q(:, diag(R) < 0) = -Q(:, diag(R) < 0);
-
-if orientation ~= 0 
-    % Take care of orientation.
-    if sign(det(Q)) ~= sign(orientation)
-        Q(:, 1) = -Q(:, 1);
-    end
-end
+Q = pastelmath('random_orthogonal', n, orientation)
