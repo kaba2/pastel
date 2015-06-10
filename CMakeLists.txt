@@ -31,6 +31,9 @@ set (ArmadilloDirectory "../armadillo-5.200")
 # The version of Matlab.
 set (MatlabVersion "2013b")
 
+set (BlasLibraryName blas_win64_MT)
+set (LapackLibraryName lapack_win64_MT)
+
 # The directory of Matlab.
 if (WIN32)
 	if (${GENERATOR_BITS} EQUAL 32)
@@ -143,6 +146,15 @@ set (PastelDocumentationGlobSet *.txt)
 # linked to every executable.
 set (ExecutableLibrarySet tbb)
 
+set (LapackDllName ${LapackLibraryName}.dll)
+set (BlasDllName ${BlasLibraryName}.dll)
+
+# The set of dll-libraries to copy into the 
+# executable directory.
+set (DllSet
+	${LapackDllName}
+	${BlasDllName})
+
 # Set a default build type if none was specified.
 # This only applies to single-configuration tool-sets,
 # such as Unix Makefiles.
@@ -183,11 +195,15 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     	${CMAKE_SOURCE_DIR}/lib/${GENERATOR_BITS}/${LOWER_OUTPUTCONFIG})
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
     	${CMAKE_SOURCE_DIR}/bin/${GENERATOR_BITS}/${LOWER_OUTPUTCONFIG})
+
+    foreach (dllFile ${DllSet})
+		file (COPY pastel/${dllFile} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
+    endforeach()
 endforeach()
+
 
 # Pastel's global definitions
 # ---------------------------
-
 
 # Debug-mode definitions.
 set (CMAKE_CXX_FLAGS_DEBUG 
