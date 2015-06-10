@@ -146,60 +146,72 @@ namespace Pastel
             PASTEL_ARG_S(translation, Cpd_Translation::Free);
         integer orientation = 
             PASTEL_ARG_S(orientation, (integer)0);
-        // The Q0, S0, and t0 are deliberately
-        // captured by value; we std::move
-        // them later.
-        auto Q0 = 
+        arma::Mat<Real> Q = 
             PASTEL_ARG_S(Q0, arma::Mat<Real>());
-        auto S0 = 
+        arma::Mat<Real> S = 
             PASTEL_ARG_S(S0, arma::Mat<Real>());
-        auto t0 = 
+        arma::Col<Real> t = 
             PASTEL_ARG_S(t0, arma::Col<Real>());
 
-        if (Q0.is_empty())
-        {
-            Q0 = arma::eye<arma::Mat<Real>>(d, d);
-        }
-
-        if (S0.is_empty())
-        {
-            S0 = arma::eye<arma::Mat<Real>>(d, d);
-        }
-
-        ENSURE_OP(Q0.n_rows, ==, d);
-        ENSURE_OP(Q0.n_cols, ==, d);
-        ENSURE_OP(S0.n_rows, ==, d);
-        ENSURE_OP(S0.n_cols, ==, d);
         ENSURE(noiseRatio > 0);
         ENSURE(noiseRatio < 1);
         ENSURE_OP(minIterations, >=, 0);
         ENSURE_OP(minIterations, <=, maxIterations);
 
-        if (t0.is_empty())
+        if (Q.is_empty())
         {
-            // Compute centroids for both point-sets.
-            arma::Col<Real> modelCentroid = 
-                arma::sum(fromSet, 1) / m;
-            arma::Col<Real> sceneCentroid = 
-                arma::sum(toSet, 1) / n;
-            
-            t0 = sceneCentroid - Q0 * S0 * modelCentroid;
+            // The initial Q was not specified; 
+            // use the identity matrix.
+            Q.eye(d, d);
+        }
+        else
+        {
+            // Use the initial value for Q 
+            // specified by the caller.
+        }
+        
+        ENSURE_OP(Q.n_rows, ==, d);
+        ENSURE_OP(Q.n_cols, ==, d);
+
+        if (S.is_empty())
+        {
+            // The initial S was not specified; 
+            // use the identity matrix.
+            S.eye(d, d);
+        }
+        else
+        {
+            // Use the initial value for S 
+            // specified by the caller.
         }
 
-        ENSURE_OP(t0.n_rows, ==, d);
-        ENSURE_OP(t0.n_cols, ==, 1);
+        ENSURE_OP(S.n_rows, ==, d);
+        ENSURE_OP(S.n_cols, ==, d);
+
+        if (t.is_empty())
+        {
+            // The initial t was not specified; 
+            // use that translation which matches 
+            // the centroids.
+            t = (arma::sum(toSet, 1) / n) - 
+                Q * S * (arma::sum(fromSet, 1) / m);
+        }
+        else
+        {
+            // Use the initial value for t
+            // specified by the caller.
+        }
+
+        ENSURE_OP(t.n_rows, ==, d);
+        ENSURE_OP(t.n_cols, ==, 1);
 
         // Store the memory pointer into Q0.
-        auto* q0Pointer = Q0.memptr();
-
-        // Set the initial guesses.
-        arma::Mat<Real> Q = std::move(Q0);
-        arma::Mat<Real> S = std::move(S0);
-        arma::Col<Real> t = std::move(t0);
+        auto* qPointer = Q.memptr();
 
         // Compute the transformed model-set according
         // to the initial guess.
-        arma::Mat<Real> transformedSet = Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);
+        arma::Mat<Real> transformedSet = 
+            Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);
 
         // Returns the transformed set centered on toSet.col(j).
         // Note that it is important that we return by decltype(auto),
@@ -251,9 +263,11 @@ namespace Pastel
             }
 
             // Store the previous transformation for comparison.
-            qPrev.swap(Q);
-            sPrev.swap(S);
-            tPrev.swap(t);
+            qPrev = Q;
+            sPrev = S;
+            tPrev = t;
+
+			auto* qPointer = Q.memptr();
 
             // Compute a new estimate for the optimal transformation.
             auto lsMatch = lsAffine(
@@ -269,6 +283,8 @@ namespace Pastel
                 PASTEL_TAG(S), std::move(S),
                 PASTEL_TAG(t), std::move(t)
                 );
+
+			ENSURE(qPointer == lsMatch.Q.memptr());
 
             Q = std::move(lsMatch.Q);
             S = std::move(lsMatch.S);
@@ -302,24 +318,7 @@ namespace Pastel
             }
         }
 
-        ENSURE(qPrev.memptr() == q0Pointer ||
-            Q.memptr() == q0Pointer);
-
-        if (Q.memptr() != q0Pointer)
-        {
-            // We want to store the result in the
-            // memory space of the original Q0, S0
-            // and t0. This is so that the user
-            // gets back the passed matrices.
-
-            qPrev.swap(Q);
-            sPrev.swap(S);
-            tPrev.swap(t);
-
-            Q = qPrev;
-            S = sPrev;
-            t = tPrev;
-        }
+        ENSURE(Q.memptr() == qPointer);
 
         return {std::move(Q), std::move(S), std::move(t)};
     }
