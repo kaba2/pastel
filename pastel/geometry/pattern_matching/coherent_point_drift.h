@@ -281,9 +281,9 @@ namespace Pastel
             // Compute a new estimate for the optimal transformation.
             auto lsMatch = lsAffine(
                 fromSet, toSet,
-                PASTEL_TAG(matrix), matrix,
-                PASTEL_TAG(scaling), scaling,
-                PASTEL_TAG(translation), translation,
+                matrix,
+                scaling,
+                translation,
                 PASTEL_TAG(orientation), orientation,
                 PASTEL_TAG(W), W,
                 // This avoids the reallocation of 
@@ -293,12 +293,12 @@ namespace Pastel
                 PASTEL_TAG(t), std::move(t)
                 );
 
-			ENSURE(qPointer == lsMatch.Q.memptr());
-
             Q = std::move(lsMatch.Q);
             S = std::move(lsMatch.S);
             t = std::move(lsMatch.t);
             
+            ENSURE(qPointer == lsMatch.Q.memptr());
+
             // Compute the transformed model-set.
             transformedSet = 
                 Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);
