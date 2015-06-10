@@ -91,14 +91,16 @@ namespace
 		real minError = 
 			matlabAsScalar<real>(inputSet[MinError]);
 
-		auto* q0Pointer = Q0.memptr();
+		real* q0Pointer = Q0.memptr();
+		real* s0Pointer = S0.memptr();
+		real* t0Pointer = t0.memptr();
 
 		auto match = coherentPointDrift(
 			std::move(fromSet), 
 			std::move(toSet),
-			PASTEL_TAG(matrix), matrix,
-			PASTEL_TAG(scaling), scaling,
-			PASTEL_TAG(translation), translation,
+			matrix,
+			scaling,
+			translation,
 			PASTEL_TAG(orientation), orientation,
 			PASTEL_TAG(Q0), std::move(Q0),
 			PASTEL_TAG(S0), std::move(S0),
@@ -109,6 +111,8 @@ namespace
 
 		// Make sure memory was not reallocated.
 		ENSURE(match.Q.memptr() == q0Pointer);
+		ENSURE(match.S.memptr() == s0Pointer);
+		ENSURE(match.t.memptr() == t0Pointer);
 
 		outputSet[Qi] = (mxArray*)inputSet[Q0i];
 		outputSet[Si] = (mxArray*)inputSet[S0i];
