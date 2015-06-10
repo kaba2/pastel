@@ -98,7 +98,7 @@ namespace Pastel
 			else
 			{
 				// There is no such function.
-				mexPrintf("There is no function named %s.", name.c_str());
+				mexPrintf("PastelMatlab: There is no function named %s.", name.c_str());
 				mexPrintf("\n");
 			}
 
