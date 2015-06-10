@@ -1,17 +1,17 @@
 % COHERENT_POINT_DRIFT
 % Locally optimal transformation between unpaired point-sets.
 %
-% [Q, S, t] = coherent_point_drift(modelSet, sceneSet, ...
+% [Q, S, t] = coherent_point_drift(fromSet, toSet, ...
 %                 matchingDistance, 'key', value, ...)
 %
 % where
 %
-% MODELSET is an (d x n) numeric array, where each column
+% FROMSET is an (d x n) numeric array, where each column
 % contains the coordinates of a d-dimensional point. The
-% points in the MODELSET are attempted to match to the points
-% in the SCENESET.
+% points in the FROMSET are attempted to match to the points
+% in the TOSET.
 %
-% SCENESET is an (d x m) numeric array, where each column
+% TOSET is an (d x m) numeric array, where each column
 % contains the coordinates of a d-dimensional point.
 %
 % Q is a (d x d) orthogonal matrix, giving the estimated 
@@ -60,7 +60,7 @@
 % T0 ('t0') is a (d x 1) vector, containing the initial guess on
 % the matching translation T. Default: s - Q0 * S0 * m, where s and m are
 % the centroids of the scene and model point-sets, respectively. This
-% is the optimal translation assuming SCENESET and MODELSET match
+% is the optimal translation assuming TOSET and FROMSET match
 % bijectively and Q0 = Q, and S0 = S.
 %
 % MINITERATIONS ('minIterations') is a positive integer which specifies 
@@ -76,40 +76,22 @@
 % which to accept the transformation and stop iteration. 
 % Default: 1e-11.
 %
-% DRAWPICTURES ('drawPictures') is an non-negative integer which specifies 
-% how many pictures the algorithm should draw of the process (useful for 
-% debugging). Default: 0
-%
 % It should approximately be true that 
 % 
-%     Q * S * modelSet + t * ones(1, n)
+%     Q * S * fromSet + t * ones(1, n)
 %
-% matches sceneSet.
-%
-% Reference:
-%
-% Point Set Registration: Coherent Point Drift,
-% Andriy Myronenko, Xubo Song,
-% IEEE Transactions on Pattern Analysis and Machine Intelligence,
-% Volume 32, Number 12, December 2010.
+% matches toSet.
 
 % Description: Point-set registration between unpaired point-sets.
 % Detail: Coherent Point Drift algorithm.
 % Documentation: coherent_point_drift.txt
 
 function [Q, S, t] = coherent_point_drift(...
-    modelSet, sceneSet, varargin)
+    fromSet, toSet, varargin)
 
 eval(import_pastel);
 
-% Check that the dimensions of the point-sets are equal.
-if size(modelSet, 1) ~= size(sceneSet, 1)
-    error('The dimensions of MODELSET and SCENESET must be equal.')    
-end
-
-d = size(sceneSet, 1);
-m = size(modelSet, 2);
-n = size(sceneSet, 2);
+d = size(toSet, 1);
 
 % Optional input arguments
 noiseRatio = 0.2;
@@ -122,163 +104,29 @@ translation = 'free';
 orientation = 0;
 Q0 = eye(d, d);
 S0 = eye(d, d);
-t0 = {};
-drawPictures = 0;
+t0 = [];
+
 eval(process_options({...
     'noiseRatio', ...
     'minIterations', 'maxIterations', ...
     'minError', 'matrix', 'scaling', 'translation', ...
-    'orientation', 'Q0', 'S0', 't0', ...
-    'drawPictures'}, ...
+    'orientation', 'Q0', 'S0', 't0'}, ...
     varargin));
 
-if iscell(t0)
-    % Compute centroids for both point-sets.
-    modelCentroid = sum(modelSet, 2) / m;
-    sceneCentroid = sum(sceneSet, 2) / n;
-    
-    t0 = sceneCentroid - Q0 * S0 * modelCentroid;
-end
-
-concept_check(...
-    modelSet, 'pointset', ...
-    sceneSet, 'pointset', ...
-    minError, 'real', ...
-    noiseRatio, 'real');
-
-if noiseRatio <= 0 || noiseRatio >= 1
-    error('It must hold that 0 < NOISERATIO < 1.');
-end
-
-if minIterations > maxIterations
-    error('It must hold that MINITERATIONS <= MAXITERATIONS.');
-end
-
-if drawPictures < 0
-    error('It must hold that drawPictures >= 0.');
-end
-
-if size(Q0, 1) ~= d || size(Q0, 2) ~= d
-    error(['Q0 must be of size d x d, where d is ', ...
-        'the dimension of the point-sets.']);
-end
-
-if size(t0, 1) ~= d || size(t0, 2) ~= 1
-    error(['t0 must be of size d x 1, where d is ', ...
-        'the dimension of the point-sets.']);
-end
-
-% Check matrix.
-matrixSet = {'free', 'identity'};
-if ~ismember(matrix, matrixSet)
-    error('MATRIX must be either free, or identity.');
-end
-
-% Check scaling.
-scalingSet = {'free', 'conformal', 'rigid'};
-if ~ismember(scaling, scalingSet)
-    error('SCALING must be either free, conformal, or rigid.');
-end
-
-% Check translation.
-translationSet = {'free', 'identity'};
-if ~ismember(translation, translationSet)
-    error('TRANSLATION must be either free or identity.');
-end
-
-% Check orientation.
-orientationSet = [-1, 0, 1];
-if ~any(orientation == orientationSet)
-    error('ORIENTATION must be one of -1, 0, or 1.')
-end
-
-Q = Q0;
-S = S0;
-t = t0;
-
-% Compute the transformed model-set.
-transformedSet = Q * S * modelSet + t * ones(1, m);
-
-% Compute an initial estimate for sigma^2.
-sigma2 = 0;
-for j = 1 : n
-    distanceSet = sum((transformedSet - sceneSet(:, j) * ones(1, m)).^2);
-    sigma2 = sigma2 + sum(distanceSet);
-end
-sigma2 = sigma2 / (d * m * n);
-
-figuresDrawn = 0;
-
-function draw(iteration)
-    % Draw a nice picture.
-    figure;
-    scatter(sceneSet(1, :), sceneSet(2, :), 'r.');
-    %axis([-10, 10, -10, 10]);
-    axis equal;
-    hold on;
-    scatter(transformedSet(1, :), transformedSet(2, :), 'g.');
-    title(['CPD iteration ', int2str(iteration)]);
-    legend('Scene', 'Model');
-    hold off;
-    figuresDrawn = figuresDrawn + 1;
-end
-
-W = zeros(m, n);
-for iteration = 0 : maxIterations - 1
-    if figuresDrawn < drawPictures - 1 && mod(iteration, 10) == 0
-        draw(iteration)
-    end
-    
-    f = (2 * pi * sigma2)^(d / 2) * ...
-        (noiseRatio / (1 - noiseRatio)) * (m / n);
-
-    % Compute the weighting matrix.
-    for j = 1 : n
-        distanceSet = sum((transformedSet - sceneSet(:, j) * ones(1, m)).^2);
-        expSet = exp(-distanceSet / (2 * sigma2));
-        W(:, j) = expSet / (sum(expSet) + f);
-    end
-
-    % Store the previous transformation for comparison.
-    qPrev = Q;
-    sPrev = S;
-    tPrev = t;
-    
-    % Compute a new estimate for the optimal transformation.
-    [Q, S, t] = ls_affine(...
-        modelSet, sceneSet, ...
-        'matrix', matrix, ...
-        'scaling', scaling, ...
-        'translation', translation, ...
-        'orientation', orientation, ...
-        'W', W);
-    
-    % Compute the transformed model-set.
-    transformedSet = Q * S * modelSet + t * ones(1, m);
-
-    % Compute a new estimate for sigma^2.
-    sigma2 = 0;
-    for j = 1 : n
-        distanceSet = sum((transformedSet - sceneSet(:, j) * ones(1, m)).^2);
-        sigma2 = sigma2 + sum(W(:, j)' .* distanceSet);
-    end
-    totalWeight = sum(W(:));
-    sigma2 = sigma2 / (totalWeight * d);
-
-    % When the change to the previous transformation falls 
-    % below the given error threshold, we will stop, provided that 
-    % a minimum number of iterations has been performed.
-    if norm(sPrev - S) < minError && ...
-       norm(qPrev - Q) < minError && ...
-       norm(tPrev - t) < minError && ...
-       iteration >= minIterations - 1
-       % We have convergence.
-       break;
-    end
-end
-
-if drawPictures > 0
-    draw(maxIterations - 1);
-end
+pastelgeometrymatlab(...
+    'coherent_point_drift', ...
+    fromSet, ...
+    toSet, ...
+    noiseRatio, ...
+    matrix, ...
+    scaling, ...
+    translation, ...
+    orientation, ...
+    Q0, ...
+    S0, ...
+    t0, ...
+    minIterations, ...
+    maxIterations, ...
+    minError);
 
 end
