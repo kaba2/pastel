@@ -116,11 +116,15 @@ namespace
 				auto&& tE = lsMatch.t;
     
 				// Check that the errors are small.
-				if (arma::norm(QE - Q, "fro") > threshold || 
-				   arma::norm(SE - S, "fro") > threshold ||
-				   arma::norm(tE - t, "fro") > threshold ||
+				real qError = arma::norm(QE - Q, "fro");
+				real sError = arma::norm(SE - S, "fro");
+				real tError = arma::norm(tE - t, "fro");
+
+				if (std::max(std::max(qError, sError), tError) > threshold ||
 				   (orientation != 0 && sign(arma::det(QE * SE)) != sign(orientation)))
 				{
+					std::cout << orientation << " " << (integer)matrix << " " << (integer)scaling << " " << (integer)translation << std::endl;
+
 					fails = fails + 1;
 				}
 			}

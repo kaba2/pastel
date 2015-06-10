@@ -159,24 +159,15 @@ namespace Pastel
 		arma::Col<Real> t= 
 			PASTEL_ARG_S(t, arma::Col<Real>());
 
-		if (Q.is_empty())
-		{
-			Q.eye(d, d);
-		}
+		Q.eye(d, d);
+		S.eye(d, d);
+		t.zeros(d);
 
-		if (S.is_empty())
-		{
-			S.eye(d, d);
-		}
-
-		if (t.is_empty())
-		{
-			t.zeros(d);
-		}
+		auto* qPointer = Q.memptr();
 
 		bool wSpecified = !W.is_empty();
 
-		// When W is not specified, we required
+		// When W is not specified, we require
 		// the point-sets to have an equal number
 		// of points.
 		ENSURE2(
@@ -193,6 +184,11 @@ namespace Pastel
 			matrix != LsAffine_Matrix::Identity ||
 			(scaling == LsAffine_Scaling::Rigid && orientation == 1));
 
+		if (d == 0 || m == 0 || n == 0)
+		{
+			return {};
+		}
+
 		Real totalWeight = n;
 		if (wSpecified)
 		{
@@ -201,8 +197,8 @@ namespace Pastel
 
 		ENSURE(!negative(totalWeight));
 
-		arma::Col<Real> fromCentroid(n);
-		arma::Col<Real> toCentroid(m);
+		arma::Col<Real> fromCentroid(d);
+		arma::Col<Real> toCentroid(d);
 
 		if (translation == LsAffine_Translation::Free)
 		{
@@ -250,7 +246,7 @@ namespace Pastel
 		    // f(x) = Sx
 		    
 		    // Find the optimal scaling.
-		    S = arma::syl(PP, PP.t(), -(RP + RP.t()));
+		    arma::syl(S, PP, PP.t(), -(RP + RP.t()));
 		}
 
 		if (scaling == LsAffine_Scaling::Free && 
@@ -281,9 +277,13 @@ namespace Pastel
 		    // Compute the optimal orthogonal transformation.
 		    arma::Mat<Real> U, V;
 			arma::Col<Real> s;
+		    unused(s);
+
 		    arma::svd(U, s, V, RP);
 
-		    unused(s);
+		    // This is optimal if orientation is not
+		    // restricted.
+		    Q = U * V.t();
 
 		    if (orientation != 0 &&
 		    	sign(arma::det(Q)) != sign(orientation))
@@ -300,12 +300,6 @@ namespace Pastel
 		        // Compute the optimal oriented orthogonal Q.
 		        Q = U * arma::diagmat(s) * V.t();
 		    }
-		    else
-		    {
-		    	// Either orientation is correct or it is 
-		    	// not enforced.
-			    Q = U * V.t();
-		    }
 		}
 
 		if (scaling == LsAffine_Scaling::Conformal)
@@ -313,8 +307,7 @@ namespace Pastel
 		    // f(x) = sQx
 		    
 		    // Compute the optimal scaling parameter.
-		    Real s = arma::trace(Q.t() * RP) / arma::trace(PP);
-		    S = s * arma::eye(d, d);
+		    S *= arma::trace(Q.t() * RP) / arma::trace(PP);
 		}
 
 		if (translation == LsAffine_Translation::Free)
@@ -322,6 +315,8 @@ namespace Pastel
 		    // Compute the optimal translation.
 		    t = toCentroid - Q * S * fromCentroid;
 		}
+
+		ENSURE(qPointer == Q.memptr());
 
 		return {std::move(Q), std::move(S), std::move(t)};
 	}
