@@ -53,12 +53,18 @@ namespace Pastel
 		// Notices of the AMS,
 		// Volume 54, Number 5, 2007.
 
+		arma::Mat<Real> Q;
+		if (n == 0)
+		{
+			return Q;
+		}
+
 		// Generate a random matrix M where each 
 		// element is normally distributed.
 		arma::Mat<Real> M = arma::randn<arma::Mat<Real>>(n, n);
 
 		// Take the qr-decomposition of M.
-		arma::Mat<Real> Q, R;
+		arma::Mat<Real> R;
 		arma::qr(Q, R, M);
 
 		// The Q is now a random orthogonal matrix, but it
