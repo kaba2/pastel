@@ -199,7 +199,15 @@ namespace Pastel
 
         // Compute the transformed model-set according
         // to the initial guess.
-        arma::Mat<Real> transformedSet = Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, n);
+        arma::Mat<Real> transformedSet = Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);
+
+        // Returns the transformed set centered on toSet.col(j).
+        // Note that it is important that we return by decltype(auto),
+        // to capture the expression template.
+        auto deltaSet = [&](integer j) -> decltype(auto)
+        {
+            return transformedSet - toSet.col(j) * arma::ones<arma::Mat<Real>>(1, m);
+        };
 
         // Compute a constant to be used later.
         Real c = (noiseRatio / (1 - noiseRatio)) * ((Real)m / n);
@@ -208,8 +216,7 @@ namespace Pastel
         Real sigma2 = 0;
         for (integer j = 0; j < n;++j)
         {
-            sigma2 += arma::accu(arma::square(
-                transformedSet - toSet.col(j) * arma::ones<arma::Mat<Real>>(1, n)));
+            sigma2 += arma::accu(arma::square(deltaSet(j)));
         }
         sigma2 = sigma2 / (d * m * n);
 
@@ -238,14 +245,9 @@ namespace Pastel
             {
                 expSet = 
                     arma::exp(
-                        -arma::sum(
-                            arma::square(
-                                transformedSet - toSet.col(j) * arma::ones<arma::Mat<Real>>(1, n)
-                            )
-                        )
-                        / (2 * sigma2)
+                        -arma::sum(arma::square(deltaSet(j))) / (2 * sigma2)
                     );
-                W.col(j) = expSet / (arma::accu(expSet) + f);
+                W.col(j) = expSet.t() / (arma::accu(expSet) + f);
             }
 
             // Store the previous transformation for comparison.
@@ -274,7 +276,7 @@ namespace Pastel
             
             // Compute the transformed model-set.
             transformedSet = 
-                Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, n);
+                Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);
 
             // Compute a new estimate for sigma^2.
             sigma2 = 0;
@@ -282,12 +284,7 @@ namespace Pastel
             {
                 sigma2 += 
                     arma::accu(
-                        W.col(j).t() %
-                        arma::sum(
-                            arma::square(
-                                transformedSet - toSet.col(j) * arma::ones<arma::Mat<Real>>(1, n)
-                            )
-                        ) 
+                        W.col(j).t() % arma::sum(arma::square(deltaSet(j))) 
                     );
             }
             sigma2 /= arma::accu(W) * d;

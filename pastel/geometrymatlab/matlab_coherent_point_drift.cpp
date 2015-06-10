@@ -123,7 +123,7 @@ namespace
 	void addFunction()
 	{
 		matlabAddFunction(
-			"ls_affine",
+			"coherent_point_drift",
 			matlabCoherentPointDrift);
 	}
 
