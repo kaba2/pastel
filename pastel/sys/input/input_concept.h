@@ -28,17 +28,17 @@ namespace Pastel
 
 				Must return a non-negative number.
 				*/
-				Concept::convertsTo<integer>(t.nHint()),
+				Concept::convertsTo<integer>(addConst(t).nHint()),
 
 				//! Returns whether there are elements left.
-				Concept::convertsTo<bool>(t.empty()),
+				Concept::convertsTo<bool>(addConst(t).empty()),
 
 				//! Returns the current element.
 				/*!
 				Preconditions:
 				!empty()
 				*/
-				(t.get(), 0),
+				(addConst(t).get(), 0),
 
 				//! Drops the current element off from the input.
 				/*!
