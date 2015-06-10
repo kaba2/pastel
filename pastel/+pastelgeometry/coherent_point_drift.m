@@ -103,7 +103,7 @@ scaling = 'free';
 translation = 'free';
 orientation = 0;
 Q0 = [];
-S0 = []];
+S0 = [];
 t0 = [];
 
 eval(process_options({...
