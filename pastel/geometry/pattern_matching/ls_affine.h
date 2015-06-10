@@ -103,13 +103,28 @@ namespace Pastel
 	for the least-squares error metric. If W is not given, or is
 	the empty matrix, then it is required that m = n, and it 
 	is assumed that W is the (n x n) identity matrix. 
+
+	Q (arma::Mat<Real> : arma::Mat<ReaL>()):
+	A (d, d) matrix by which to initialize the returned Q.
+	If empty, then Q is initialized with the identity matrix,
+	with fresh memory.
+
+	S (arma::Mat<Real> : arma::Mat<ReaL>()):
+	A (d, d) matrix by which to initialize the returned S.
+	If empty, then S is initialized with the identity matrix,
+	with fresh memory.
+
+	t (arma::Col<Real> : arma::Col<ReaL>()):
+	A (d, 1) matrix by which to initialize the returned t.
+	If empty, then t is initialized with the zero matrix,
+	with fresh memory.
 	*/
 	template <
 		typename Real,
 		typename... ArgumentSet>
 	LsAffine_Return<Real> lsAffine(
-		const arma::Mat<Real>& fromSet,
-		const arma::Mat<Real>& toSet,
+		arma::Mat<Real> fromSet,
+		arma::Mat<Real> toSet,
 		ArgumentSet&&... argumentSet)
 	{
 		// Least-Squares Transformations between Point-Sets_,
@@ -118,36 +133,48 @@ namespace Pastel
 		// 18th Scandinavian Conference on Image Analysis, 
 		// pp.501-511, June 17-20, 2013.
 
-		// Check equal dimension of point-sets.
 		ENSURE_OP(fromSet.n_rows, ==, toSet.n_rows);
+
+		arma::Mat<Real>& P = fromSet;
+		arma::Mat<Real>& R = toSet;
 
 		integer d = fromSet.n_rows;
 		integer m = fromSet.n_cols;
 		integer n = toSet.n_cols;
 
-		LsAffine_Translation translation =
-			PASTEL_ARG_S(translation, LsAffine_Translation::Free);
-		LsAffine_Scaling scaling =
-			PASTEL_ARG_S(scaling, LsAffine_Scaling::Free);
 		LsAffine_Matrix matrix =
 			PASTEL_ARG_S(matrix, LsAffine_Matrix::Free);
-		integer orientation = 0;
-		/*
+		LsAffine_Scaling scaling =
+			PASTEL_ARG_S(scaling, LsAffine_Scaling::Free);
+		LsAffine_Translation translation =
+			PASTEL_ARG_S(translation, LsAffine_Translation::Free);
 		integer orientation =
 			PASTEL_ARG_S(orientation, (integer)0);
-		*/
 		arma::Mat<Real> W = 
 			PASTEL_ARG_S(W, arma::Mat<Real>());
+		arma::Mat<Real> Q = 
+			PASTEL_ARG_S(Q, arma::Mat<Real>());
+		arma::Mat<Real> S = 
+			PASTEL_ARG_S(S, arma::Mat<Real>());
+		arma::Col<Real> t= 
+			PASTEL_ARG_S(t, arma::Col<Real>());
+
+		if (Q.is_empty())
+		{
+			Q.eye(d, d);
+		}
+
+		if (S.is_empty())
+		{
+			S.eye(d, d);
+		}
+
+		if (t.is_empty())
+		{
+			t.zeros(d);
+		}
 
 		bool wSpecified = !W.is_empty();
-
-		// Defaults for Q and S.
-		arma::Mat<Real> Q(d, d, arma::fill::eye);
-		arma::Mat<Real> S(d, d, arma::fill::eye);
-		arma::Col<Real> t(d, arma::fill::zeros);
-
-		arma::Mat<Real> P = fromSet;
-		arma::Mat<Real> R = toSet;
 
 		// When W is not specified, we required
 		// the point-sets to have an equal number
@@ -296,7 +323,7 @@ namespace Pastel
 		    t = toCentroid - Q * S * fromCentroid;
 		}
 
-		return {Q, S, t};
+		return {std::move(Q), std::move(S), std::move(t)};
 	}
 
 }
