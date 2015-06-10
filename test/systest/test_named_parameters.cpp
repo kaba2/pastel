@@ -12,6 +12,27 @@ using namespace Pastel;
 namespace
 {
 
+	struct Offset
+	{
+		explicit Offset(integer id_ = 0)
+			: amount(id_)
+		{
+		}
+
+		Offset(const Offset& that)
+			: amount(0)
+		{
+		}
+
+		Offset(Offset&& that)
+			: amount(that.amount)
+		{
+			that.amount = 0;
+		}
+		
+		integer amount;
+	};
+
 	struct Euclidean_Metric
 	{
 		template <typename Type>
@@ -69,7 +90,10 @@ namespace
 				[](auto input) {return std::is_same<decltype(input), bool>();} 
 			);
 
-		return metric(a, b) * scaling * (negate ? -1 : 1);
+		auto offset =
+			PASTEL_ARG_S(offset, Offset());
+				
+		return metric(a, b) * scaling * (negate ? -1 : 1) + offset.amount;
 	}
 
 }
@@ -102,6 +126,22 @@ namespace
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 2.0), ==, 2 * 5 * 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 3.5), ==, 3.5 * 5 * 5);
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling)), ==, 1 * 5 * 5);
+
+			{
+				// Test that arguments are perfectly forwarded; moved
+				// objects should be moved.
+				Offset offset(543);
+				TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(offset), std::move(offset)), ==, 5 * 5 + 543);
+				TEST_ENSURE_OP(offset.amount, ==, 0);
+			}
+
+			{
+				// Test that arguments are perfectly forwarded; non-moved
+				// objects should not be moved.
+				Offset offset(543);
+				TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(offset), offset), ==, 5 * 5 + 0);
+				TEST_ENSURE_OP(offset.amount, ==, 543);
+			}
 
 			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(negate)), ==, (-1) * 5 * 5);
 			TEST_ENSURE_OP(distance(1, 6, Manhattan_Metric()), ==, 5);
