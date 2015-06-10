@@ -184,6 +184,18 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	//! Returns the size of an array.
+	template <typename Type, integer N>
+	constexpr integer arraySize(Type (&)[N])
+	{
+		return N;
+	}
+
+}
+
 // Note that the order of the includes here is important.
 // We are bringing basic functionality in one header at a time.
 
