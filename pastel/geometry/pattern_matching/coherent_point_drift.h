@@ -15,7 +15,13 @@ namespace Pastel
     using Cpd_Translation = LsAffine_Translation;
 
     template <typename Real>
-    using Cpd_Return = LsAffine_Return<Real>;
+    struct Cpd_Return
+    {
+        arma::Mat<Real> Q;
+        arma::Mat<Real> S;
+        arma::Mat<Real> t;
+        Real sigma2;
+    };
 
     //! Coherent point drift algorithm.
     /*!
@@ -54,6 +60,9 @@ namespace Pastel
     t ((d x 1) real matrix):
     The estimated translation.
     Will use the memory space of t0, if t0 is std::moved in.
+
+    sigma2 (Real):
+    The estimated variance is eye(d, d) * sigma2.
 
     Optional input arguments
     ------------------------
@@ -320,7 +329,7 @@ namespace Pastel
 
         ENSURE(Q.memptr() == qPointer);
 
-        return {std::move(Q), std::move(S), std::move(t)};
+        return {std::move(Q), std::move(S), std::move(t), sigma2};
     }
 
 }
