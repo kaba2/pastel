@@ -142,9 +142,9 @@ namespace Pastel
 		bool wSpecified = !W.is_empty();
 
 		// Defaults for Q and S.
-		arma::Mat<Real> Q = arma::eye(d, d);
-		arma::Mat<Real> S = arma::eye(d, d);
-		arma::Mat<Real> t = arma::zeros(d, 1);
+		arma::Mat<Real> Q(d, d, arma::fill::eye);
+		arma::Mat<Real> S(d, d, arma::fill::eye);
+		arma::Col<Real> t(d, arma::fill::zeros);
 
 		arma::Mat<Real> P = fromSet;
 		arma::Mat<Real> R = toSet;
@@ -174,8 +174,8 @@ namespace Pastel
 
 		ENSURE(!negative(totalWeight));
 
-		arma::Mat<Real> fromCentroid(n, 1);
-		arma::Mat<Real> toCentroid(m, 1);
+		arma::Col<Real> fromCentroid(n);
+		arma::Col<Real> toCentroid(m);
 
 		if (translation == LsAffine_Translation::Free)
 		{
@@ -185,13 +185,13 @@ namespace Pastel
 				fromCentroid = 
 					P * W * arma::ones(n, 1) / totalWeight;
 		        toCentroid = 
-		        	Q * W.t() * (arma::ones(m, 1) / totalWeight);
+		        	R * W.t() * (arma::ones(m, 1) / totalWeight);
 			}
 	    	else
 	    	{
 	        	// Without weighting.
 	        	fromCentroid = arma::sum(P, 1) / m;
-	        	toCentroid = arma::sum(Q, 1) / n;
+	        	toCentroid = arma::sum(R, 1) / n;
 			}
 		    
 		    // Form the centered point-sets. The optimal transformation
@@ -267,7 +267,7 @@ namespace Pastel
 		        //    Q = UDV^T, where
 		        //    D = [1, ..., 1, g det(UV^T)].
 
-		        arma::Col<Real> s = arma::ones<arma::Col<Real>>(d);
+		        arma::Col<Real> s(d, arma::fill::ones);
 		        s(d - 1) = -1;
 
 		        // Compute the optimal oriented orthogonal Q.
