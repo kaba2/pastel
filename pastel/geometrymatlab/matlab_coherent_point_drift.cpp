@@ -41,6 +41,7 @@ namespace
 			Qi,
 			Si,
 			Ti,
+			Sigma2,
 			Outputs
 		};
 
@@ -106,18 +107,13 @@ namespace
 			PASTEL_TAG(maxIterations), maxIterations,
 			PASTEL_TAG(minError), minError);
 
-		// Make sure memory was no reallocated.
+		// Make sure memory was not reallocated.
 		ENSURE(match.Q.memptr() == q0Pointer);
 
 		outputSet[Qi] = (mxArray*)inputSet[Q0i];
 		outputSet[Si] = (mxArray*)inputSet[S0i];
 		outputSet[Ti] = (mxArray*)inputSet[T0i];
-
-		/*
-		matlabCreateArray<real>(match.Q, outputSet[Qi]);
-		matlabCreateArray<real>(match.S, outputSet[Si]);
-		matlabCreateArray<real>(match.t, outputSet[Ti]);
-		*/
+		*matlabCreateScalar<real>(outputSet[Sigma2]) = match.sigma2;
 	}
 
 	void addFunction()
