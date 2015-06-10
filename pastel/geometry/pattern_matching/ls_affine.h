@@ -33,12 +33,6 @@ namespace Pastel
 	template <typename Real>
 	struct LsAffine_Return
 	{
-		LsAffine_Return() = default;
-		LsAffine_Return(const LsAffine_Return& that) = default;
-		LsAffine_Return(LsAffine_Return&& that) = default;
-		LsAffine_Return& operator=(const LsAffine_Return& that) = default;
-		LsAffine_Return& operator=(LsAffine_Return&& that) = default;
-
 		arma::Mat<Real> Q;
 		arma::Mat<Real> S;
 		arma::Mat<Real> t;
