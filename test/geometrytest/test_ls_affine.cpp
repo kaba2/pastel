@@ -102,18 +102,33 @@ namespace
 				arma::Mat<real> P = arma::randn<arma::Mat<real>>(d, n);
 				arma::Mat<real> R = Q * S * P + t * arma::ones<arma::Mat<real>>(1, n);
 
+				arma::Mat<real> QE(d, d);
+				arma::Mat<real> SE(d, d);
+				arma::Col<real> tE(d);
+
+				auto* qePointer = QE.memptr();
+				auto* sePointer = SE.memptr();
+				auto* tePointer = tE.memptr();
+
 				// Compute the transformation back by least-squares.
 				auto lsMatch = lsAffine(
 					P, R,
 					PASTEL_TAG(orientation), orientation,
-					PASTEL_TAG(matrix), matrix,
-					PASTEL_TAG(scaling), scaling,
-					PASTEL_TAG(translation), translation,
-					PASTEL_TAG(W), W);
+					matrix,
+					scaling,
+					translation,
+					PASTEL_TAG(W), W,
+					PASTEL_TAG(Q), std::move(QE),
+					PASTEL_TAG(S), std::move(SE),
+					PASTEL_TAG(t), std::move(tE));
 
-				auto&& QE = lsMatch.Q;
-				auto&& SE = lsMatch.S;
-				auto&& tE = lsMatch.t;
+				QE = std::move(lsMatch.Q);
+				SE = std::move(lsMatch.S);
+				tE = std::move(lsMatch.t);
+
+				TEST_ENSURE(qePointer == QE.memptr());
+				TEST_ENSURE(sePointer == SE.memptr());
+				TEST_ENSURE(tePointer == tE.memptr());
     
 				// Check that the errors are small.
 				real qError = arma::norm(QE - Q, "fro");

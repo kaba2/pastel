@@ -33,6 +33,12 @@ namespace Pastel
 	template <typename Real>
 	struct LsAffine_Return
 	{
+		LsAffine_Return() = default;
+		LsAffine_Return(const LsAffine_Return& that) = default;
+		LsAffine_Return(LsAffine_Return&& that) = default;
+		LsAffine_Return& operator=(const LsAffine_Return& that) = default;
+		LsAffine_Return& operator=(LsAffine_Return&& that) = default;
+
 		arma::Mat<Real> Q;
 		arma::Mat<Real> S;
 		arma::Mat<Real> t;
@@ -143,11 +149,11 @@ namespace Pastel
 		integer n = toSet.n_cols;
 
 		LsAffine_Matrix matrix =
-			PASTEL_ARG_S(matrix, LsAffine_Matrix::Free);
+			PASTEL_ARG_ENUM(matrix, LsAffine_Matrix::Free);
 		LsAffine_Scaling scaling =
-			PASTEL_ARG_S(scaling, LsAffine_Scaling::Free);
+			PASTEL_ARG_ENUM(scaling, LsAffine_Scaling::Free);
 		LsAffine_Translation translation =
-			PASTEL_ARG_S(translation, LsAffine_Translation::Free);
+			PASTEL_ARG_ENUM(translation, LsAffine_Translation::Free);
 		integer orientation =
 			PASTEL_ARG_S(orientation, (integer)0);
 		arma::Mat<Real> W = 
@@ -159,6 +165,7 @@ namespace Pastel
 		arma::Col<Real> t= 
 			PASTEL_ARG_S(t, arma::Col<Real>());
 
+		// Initialize Q, S, and t.
 		Q.eye(d, d);
 		S.eye(d, d);
 		t.zeros(d);
