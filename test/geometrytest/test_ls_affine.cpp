@@ -1,9 +1,10 @@
-// Description: Testing for least-squares transformatins
+// Description: Testing for least-squares transformations
 // DocumentationOf: ls_affine.h
 
 #include "test_pastelgeometry.h"
 
 #include <pastel/geometry/pattern_matching/ls_affine.h>
+#include <pastel/geometry/pattern_matching/coherent_point_drift.h>
 #include <pastel/math/sampling/random_orthogonal.h>
 #include <pastel/sys/random.h>
 
@@ -23,13 +24,15 @@ namespace
 
 		virtual void run()
 		{
-			test();
+			test<float>();
+			test<double>();
 		}
 
+		template <typename Real>
 		void test()
 		{
 			integer trials = 400;
-			real threshold = 1e-11;
+			Real threshold = 1e-11;
 
 			// Randomly chosen cases.
 
@@ -38,8 +41,8 @@ namespace
 			{
 				integer d = randomInteger(10) + 1;
 				integer n = randomInteger(100) + 10;
-				arma::Mat<real> W(n, n, arma::fill::eye);
-				W *= random<real>() * 10;
+				arma::Mat<Real> W(n, n, arma::fill::eye);
+				W *= random<Real>() * 10;
 
 				LsAffine_Matrix matrix = randomElement({
 					LsAffine_Matrix::Free, 
@@ -64,23 +67,23 @@ namespace
 					orientation = 0;
 				}
        
-				arma::Mat<real> Q(d, d, arma::fill::eye);
+				arma::Mat<Real> Q(d, d, arma::fill::eye);
 
 				if (matrix == LsAffine_Matrix::Free)
 				{
-					Q = randomOrthogonal<real>(d, 
+					Q = randomOrthogonal<Real>(d, 
 						PASTEL_TAG(orientation), orientation);
 				}
     
-				arma::Mat<real> S(d, d, arma::fill::eye);
+				arma::Mat<Real> S(d, d, arma::fill::eye);
 				if (scaling == LsAffine_Scaling::Free)
 				{
-					S = arma::randn<arma::Mat<real>>(d, d);
+					S = arma::randn<arma::Mat<Real>>(d, d);
 					S = S + S.t();
 					if (matrix == LsAffine_Matrix::Free)
 					{
-						arma::Mat<real> U, V;
-						arma::Col<real> D;
+						arma::Mat<Real> U, V;
+						arma::Col<Real> D;
 						arma::svd(U, D, V, Q * S);
 						Q = U * V.t();
 						S = V * arma::diagmat(D) * V.t();
@@ -89,26 +92,26 @@ namespace
 
 				if (scaling == LsAffine_Scaling::Conformal)
 				{
-					S *= random<real>() * 5;
+					S *= random<Real>() * 5;
 				}
     
-				arma::Col<real> t(d, arma::fill::zeros);
+				arma::Col<Real> t(d, arma::fill::zeros);
 				if (translation == LsAffine_Translation::Free)
 				{
-					t = arma::randn(d, 1) * 10;
+					t = arma::randn<arma::Col<Real>>(d, 1) * 10;
 				}
 
 				// Generate test point-sets.
-				arma::Mat<real> P = arma::randn<arma::Mat<real>>(d, n);
-				arma::Mat<real> R = Q * S * P + t * arma::ones<arma::Mat<real>>(1, n);
+				arma::Mat<Real> P = arma::randn<arma::Mat<Real>>(d, n);
+				arma::Mat<Real> R = Q * S * P + t * arma::ones<arma::Mat<Real>>(1, n);
 
-				arma::Mat<real> QE(d, d);
-				arma::Mat<real> SE(d, d);
-				arma::Col<real> tE(d);
+				arma::Mat<Real> QE(d, d);
+				arma::Mat<Real> SE(d, d);
+				arma::Col<Real> tE(d);
 
-				const real* qePointer = QE.memptr();
-				const real* sePointer = SE.memptr();
-				const real* tePointer = tE.memptr();
+				const Real* qePointer = QE.memptr();
+				const Real* sePointer = SE.memptr();
+				const Real* tePointer = tE.memptr();
 
 				// Compute the transformation back by least-squares.
 				auto lsMatch = lsAffine(
@@ -129,11 +132,22 @@ namespace
 				TEST_ENSURE(qePointer == QE.memptr());
 				TEST_ENSURE(sePointer == SE.memptr());
 				TEST_ENSURE(tePointer == tE.memptr());
-    
+
+				auto cpdMatch = coherentPointDrift(
+					P, R,
+					PASTEL_TAG(orientation), orientation,
+					matrix,
+					scaling,
+					translation);
+
+				arma::Mat<Real> qCpd = std::move(cpdMatch.Q);
+				arma::Mat<Real> sCpd = std::move(cpdMatch.S);
+				arma::Col<Real> tCpd = std::move(cpdMatch.t);
+
 				// Check that the errors are small.
-				real qError = arma::norm(QE - Q, "fro");
-				real sError = arma::norm(SE - S, "fro");
-				real tError = arma::norm(tE - t, "fro");
+				Real qError = arma::norm(QE - Q, "fro");
+				Real sError = arma::norm(SE - S, "fro");
+				Real tError = arma::norm(tE - t, "fro");
 
 				if (std::max(std::max(qError, sError), tError) > threshold ||
 				   (orientation != 0 && sign(arma::det(QE * SE)) != sign(orientation)))

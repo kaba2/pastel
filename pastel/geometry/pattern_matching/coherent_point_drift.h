@@ -102,7 +102,7 @@ namespace Pastel
         Free: no constraint
         Identity: T = 0
 
-    orientation (integer : 0): 
+    orientation (integer : 1): 
     Specifies constraints for the determinant of A.
         <0: det(A) < 0,
          0: no constraint
@@ -154,7 +154,7 @@ namespace Pastel
         Cpd_Translation translation = 
             PASTEL_ARG_ENUM(translation, Cpd_Translation::Free);
         integer orientation = 
-            PASTEL_ARG_S(orientation, (integer)0);
+            PASTEL_ARG_S(orientation, (integer)1);
         arma::Mat<Real> Q = 
             PASTEL_ARG_S(Q0, arma::Mat<Real>());
         arma::Mat<Real> S = 

@@ -95,7 +95,7 @@ namespace Pastel
 		Free: -
 		Identity: t = 0
 
-	orientation (integer : 0):
+	orientation (integer : 1):
 	Constraint for the determinant of QS.
 		<0: det(QS) < 0
 		 0: det(QS)
@@ -152,7 +152,7 @@ namespace Pastel
 		LsAffine_Translation translation =
 			PASTEL_ARG_ENUM(translation, LsAffine_Translation::Free);
 		integer orientation =
-			PASTEL_ARG_S(orientation, (integer)0);
+			PASTEL_ARG_S(orientation, (integer)1);
 		arma::Mat<Real> W = 
 			PASTEL_ARG_S(W, arma::Mat<Real>());
 		arma::Mat<Real> Q = 
@@ -230,9 +230,9 @@ namespace Pastel
 			{
 				// With weighting.
 				fromCentroid = 
-					P * W * arma::ones(n, 1) / totalWeight;
+					P * W * arma::ones<arma::Mat<Real>>(n, 1) / totalWeight;
 		        toCentroid = 
-		        	R * W.t() * (arma::ones(m, 1) / totalWeight);
+		        	R * W.t() * (arma::ones<arma::Mat<Real>>(m, 1) / totalWeight);
 			}
 	    	else
 	    	{
