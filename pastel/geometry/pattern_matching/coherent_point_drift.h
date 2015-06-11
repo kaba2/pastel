@@ -28,6 +28,9 @@ namespace Pastel
     Preconditions:
     0 <= minIterations <= maxIterations
     0 < noiseRatio < 1
+    n > 0
+    m > 0
+    d > 0
 
     Finds matrices Q, S, and t such that
 
@@ -137,6 +140,10 @@ namespace Pastel
         integer d = toSet.n_rows;
         integer m = fromSet.n_cols;
         integer n = toSet.n_cols;
+
+        ENSURE_OP(d, >, 0);
+        ENSURE_OP(m, >, 0);
+        ENSURE_OP(n, >, 0);
 
         // Optional input arguments
         Real noiseRatio = 

@@ -40,6 +40,11 @@ namespace Pastel
 
 	//! Least-squares affine transformation between point-sets
 	/*!
+	Preconditions:
+	d > 0
+	m > 0
+	n > 0
+
 	The Q, S, and t are chosen such that they minimize the error metric
 
 	  sum_{i = 1}^m sum_{j = 1}^n w_{ij} ||(QS p_i + t) - r_j||^2
@@ -145,6 +150,10 @@ namespace Pastel
 		integer m = fromSet.n_cols;
 		integer n = toSet.n_cols;
 
+		ENSURE_OP(d, >, 0);
+		ENSURE_OP(m, >, 0);
+		ENSURE_OP(n, >, 0);
+
 		LsAffine_Matrix matrix =
 			PASTEL_ARG_ENUM(matrix, LsAffine_Matrix::Free);
 		LsAffine_Scaling scaling =
@@ -207,11 +216,6 @@ namespace Pastel
 			orientation == 0 ||
 			matrix != LsAffine_Matrix::Identity ||
 			(scaling == LsAffine_Scaling::Rigid && orientation == 1));
-
-		if (d == 0 || m == 0 || n == 0)
-		{
-			return result();
-		}
 
 		Real totalWeight = n;
 		if (wSpecified)
