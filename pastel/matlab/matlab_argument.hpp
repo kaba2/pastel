@@ -220,6 +220,16 @@ namespace Pastel
 
 		if (typeToMatlabClassId<Type>() == mxGetClassID(that))
 		{
+			// This controls whether the matrix can be
+			// reallocated to different sizes. At first I
+			// had it set to true. However, this caused
+			// problems later on, because I wanted to use
+			// an empty matrix on the Matlab side to 
+			// mean that the default should be used in the
+			// C++ side. Then I could do not Q.eye(d, d),
+			// for example. So we allow reallocations.
+			bool strict = false;
+
 			// The type of the array matches the requested
 			// type. Aliase the existing data.
 			return arma::Mat<Type>(
@@ -228,8 +238,7 @@ namespace Pastel
 				m, n,
 				// Use Matlab's memory for the matrix.
 				false,
-				// Matrix cannot be reallocated.
-				true);
+				strict);
 		}
 
 		// Copy the data into an array of the required type.
