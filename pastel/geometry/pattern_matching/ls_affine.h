@@ -164,7 +164,27 @@ namespace Pastel
 		S.eye(d, d);
 		t.zeros(d);
 
-		auto* qPointer = Q.memptr();
+        // We wish to preserve the memory storage
+        // of Q, S, and t. Store the memory addresses
+        // to check the preservation later.
+        const Real* qPointer = Q.memptr();
+        const Real* sPointer = S.memptr();
+        const Real* tPointer = t.memptr();
+
+		auto result = [&]()
+		{
+	        // Make sure that memory was not reallocated.
+	        ASSERT(Q.memptr() == qPointer);
+	        unused(qPointer);
+
+	        ASSERT(S.memptr() == sPointer);
+	        unused(sPointer);
+
+	        ASSERT(t.memptr() == tPointer);
+	        unused(tPointer);
+
+			return LsAffine_Return<Real>{std::move(Q), std::move(S), std::move(t)};
+		};
 
 		bool wSpecified = !W.is_empty();
 
@@ -187,7 +207,7 @@ namespace Pastel
 
 		if (d == 0 || m == 0 || n == 0)
 		{
-			return {};
+			return result();
 		}
 
 		Real totalWeight = n;
@@ -247,7 +267,15 @@ namespace Pastel
 		    // f(x) = Sx
 		    
 		    // Find the optimal scaling.
-		    arma::syl(S, PP, PP.t(), -(RP + RP.t()));
+		    arma::Mat<Real> S_;
+		    if (!arma::syl(S_, PP, PP.t(), -(RP + RP.t())))
+		    {
+			    // In failure, the output matrix is resetted,
+			    // so we cannot use S as the output matrix.
+		    	return result();
+		    }
+
+		    S = S_;
 		}
 
 		if (scaling == LsAffine_Scaling::Free && 
@@ -258,16 +286,26 @@ namespace Pastel
 		    // Compute the optimal linear transformation.
 		    //[UP, UR, X, DP, DR] = arma::gsvd(PP, RP);
 		    //A = UR * (DR * arma::pinv(DP)) * UP.t();
-		    arma::Mat<Real> A = RP * arma::pinv(PP);
-		    
-		    // Compute Q and S from A such that
-		    // A = QS and S is symmetric positive semi-definite.
-		    arma::Mat<Real> U, V;
+		    arma::Mat<Real> pinvPP;
+		    if (!arma::pinv(pinvPP, PP))
+			{
+				return result();
+			}
+
+			arma::Mat<Real> A = RP * pinvPP;
+
+			// Compute Q and S from A such that
+			// A = QS and S is symmetric positive semi-definite.
+			arma::Mat<Real> U;
+			arma::Mat<Real> V;
 			arma::Col<Real> s;
-		    arma::svd(U, s, V, A);
-		    
-		    Q = U * V.t();
-		    S = V * arma::diagmat(s) * V.t();
+			if (!arma::svd(U, s, V, A))
+			{
+				return result();
+			}
+
+			Q = U * V.t();
+			S = V * arma::diagmat(s) * V.t();
 		}
 
 		if (scaling != LsAffine_Scaling::Free && 
@@ -276,11 +314,15 @@ namespace Pastel
 		    // f(x) = sQx
 		    
 		    // Compute the optimal orthogonal transformation.
-		    arma::Mat<Real> U, V;
+		    arma::Mat<Real> U;
+			arma::Mat<Real> V;
 			arma::Col<Real> s;
 		    unused(s);
 
-		    arma::svd(U, s, V, RP);
+		    if (!arma::svd(U, s, V, RP))
+			{
+				return result();
+			}
 
 		    // This is optimal if orientation is not
 		    // restricted.
@@ -317,9 +359,7 @@ namespace Pastel
 		    t = toCentroid - Q * S * fromCentroid;
 		}
 
-		ENSURE(qPointer == Q.memptr());
-
-		return {std::move(Q), std::move(S), std::move(t)};
+		return result();
 	}
 
 }
