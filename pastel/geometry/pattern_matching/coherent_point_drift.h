@@ -148,11 +148,11 @@ namespace Pastel
         Real minError = 
             PASTEL_ARG_S(minError, 1e-11);
         Cpd_Matrix matrix = 
-            PASTEL_ARG_S(matrix, Cpd_Matrix::Free);
+            PASTEL_ARG_ENUM(matrix, Cpd_Matrix::Free);
         Cpd_Scaling scaling = 
-            PASTEL_ARG_S(scaling, Cpd_Scaling::Free);
+            PASTEL_ARG_ENUM(scaling, Cpd_Scaling::Free);
         Cpd_Translation translation = 
-            PASTEL_ARG_S(translation, Cpd_Translation::Free);
+            PASTEL_ARG_ENUM(translation, Cpd_Translation::Free);
         integer orientation = 
             PASTEL_ARG_S(orientation, (integer)0);
         arma::Mat<Real> Q = 
@@ -214,10 +214,15 @@ namespace Pastel
         ENSURE_OP(t.n_rows, ==, d);
         ENSURE_OP(t.n_cols, ==, 1);
 
-        // Store the memory pointer into Q0.
-        auto* qPointer = Q.memptr();
+        // We wish to preserve the memory storage
+        // of Q, S, and t. Store the memory addresses
+        // to check the preservation later.
+        const Real* qPointer = Q.memptr();
+        const Real* sPointer = S.memptr();
+        const Real* tPointer = t.memptr();
 
         // Compute the transformed model-set according
+
         // to the initial guess.
         arma::Mat<Real> transformedSet = 
             Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);
@@ -276,8 +281,6 @@ namespace Pastel
             sPrev = S;
             tPrev = t;
 
-			auto* qPointer = Q.memptr();
-
             // Compute a new estimate for the optimal transformation.
             auto lsMatch = lsAffine(
                 fromSet, toSet,
@@ -296,9 +299,7 @@ namespace Pastel
             Q = std::move(lsMatch.Q);
             S = std::move(lsMatch.S);
             t = std::move(lsMatch.t);
-            
-            ENSURE(qPointer == lsMatch.Q.memptr());
-
+           
             // Compute the transformed model-set.
             transformedSet = 
                 Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);
@@ -327,7 +328,15 @@ namespace Pastel
             }
         }
 
-        ENSURE(Q.memptr() == qPointer);
+        // Make sure that memory was not reallocated.
+        ASSERT(Q.memptr() == qPointer);
+        unused(qPointer);
+
+        ASSERT(S.memptr() == sPointer);
+        unused(sPointer);
+
+        ASSERT(t.memptr() == tPointer);
+        unused(tPointer);
 
         return {std::move(Q), std::move(S), std::move(t), sigma2};
     }

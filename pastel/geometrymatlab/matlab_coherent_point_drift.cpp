@@ -91,9 +91,9 @@ namespace
 		real minError = 
 			matlabAsScalar<real>(inputSet[MinError]);
 
-		real* q0Pointer = Q0.memptr();
-		real* s0Pointer = S0.memptr();
-		real* t0Pointer = t0.memptr();
+		const real* q0Pointer = Q0.memptr();
+		const real* s0Pointer = S0.memptr();
+		const real* t0Pointer = t0.memptr();
 
 		auto match = coherentPointDrift(
 			std::move(fromSet), 
