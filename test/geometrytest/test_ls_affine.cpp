@@ -83,7 +83,7 @@ namespace
 				{
 					// When Q = I and S = +/- I, a negative
 					// det(QS) is only possible in odd dimensions.
-					orientation = 1;
+					orientation = randomElement({0, 1});
 				}
 
 				arma::Mat<Real> Q(d, d, arma::fill::eye);
@@ -111,14 +111,14 @@ namespace
 
 				if (scaling == LsAffine_Scaling::Conformal)
 				{
-					S *= random<Real>() * 10;
+					S *= random<Real>() * 10 + 1;
 				}
 
 				if (scaling == LsAffine_Scaling::Diagonal)
 				{
 					for (integer i = 0; i < d; ++i)
 					{
-						S(i, i) *= random<Real>() * 10;
+						S(i, i) *= random<Real>() * 10 + 1;
 					}	
 				}
     
@@ -189,6 +189,7 @@ namespace
 				if (std::max(std::max(qError, sError), tError) > threshold ||
 				   (orientation != 0 && sign(arma::det(QE * SE)) != sign(orientation)))
 				{
+					/*
 					std::cout << orientation << " " 
 						<< (integer)matrix << " "
 						<< (integer)scaling << " " 
@@ -197,6 +198,15 @@ namespace
 					std::cout << qError << " " 
 						<< sError << " "
 						<< tError << std::endl;
+
+					std::cout << "Q" << Q << std::endl;
+					std::cout << "S" << S << std::endl;
+					std::cout << "t" << t << std::endl;
+
+					std::cout << "QE" << QE << std::endl;
+					std::cout << "SE" << SE << std::endl;
+					std::cout << "tE" << tE << std::endl;
+					*/
 
 					fails = fails + 1;
 				}
