@@ -78,6 +78,8 @@ alpha = size(commonSet, 2) / size(P, 2);
     'scaling', 'rigid', ...
     'translation', 'free');
 
+rCpd = qCpd * P + tCpd * ones(1, size(P, 2));
+
 function icpDraw(match)
     eval(import_pastel);
 
@@ -119,8 +121,9 @@ figure;
 scatter(R(1, :), R(2, :), 'r.')
 hold on
 axis equal
-scatter(rIcp(1, :), rIcp(2, :), 'g')
+scatter(rIcp(1, :), rIcp(2, :), 'g.')
 scatter(rPpm(1, :), rPpm(2, :), 'b.')
+scatter(rCpd(1, :), rCpd(2, :), 'c.')
 % for i = 1 : size(R, 2)
 %     k = rPermutation(i);
 %     j = find(pPermutation == k);
@@ -131,8 +134,8 @@ scatter(rPpm(1, :), rPpm(2, :), 'b.')
 %         set(L, 'Color', [0, 0, 1]);
 %     end
 % end
-title('ICP vs PPM')
-legend('Goal', 'ICP', 'PPM')
+title('ICP vs PPM vs CPD')
+legend('Goal', 'ICP', 'PPM', 'CPD')
 hold off
 
 end
