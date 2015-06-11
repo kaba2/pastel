@@ -48,8 +48,8 @@
 % ORIENTATION ('orientation') is an integer which specifies constraints
 % for the determinant of A. Must be one of
 %    -1: det(A) < 0,
-%     0: det(A) free (default), or
-%     1: det(A) > 0.
+%     0: det(A) free, or
+%     1: det(A) > 0 (default).
 %
 % Q0 ('Q0') is a (d x d) real orthogonal matrix, containing the initial 
 % guess on Q. Default: eye(d, d).
@@ -101,7 +101,7 @@ minError = 1e-11;
 matrix = 'free';
 scaling = 'free';
 translation = 'free';
-orientation = 0;
+orientation = 1;
 Q0 = [];
 S0 = [];
 t0 = [];

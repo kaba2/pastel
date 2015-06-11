@@ -42,8 +42,8 @@
 % ORIENTATION ('orientation') is an integer which specifies constraints
 % for the determinant of QS. Must be one of
 %    -1: det(QS) < 0,
-%     0: det(QS) free (default), or
-%     1: det(QS) > 0.
+%     0: det(QS) free, or
+%     1: det(QS) > 0 (default).
 %
 % W ('W') is a (m x n) non-negative real matrix, which contains the 
 % weights for the least-squares error metric. If W is not given, then 
@@ -73,7 +73,7 @@ concept_check(...
 matrix = 'free';
 scaling = 'free';
 translation = 'free';
-orientation = 0;
+orientation = 1;
 W = [];
 eval(process_options({...
     'matrix', 'scaling', 'translation', ...

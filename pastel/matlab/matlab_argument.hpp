@@ -226,7 +226,7 @@ namespace Pastel
 			// problems later on, because I wanted to use
 			// an empty matrix on the Matlab side to 
 			// mean that the default should be used in the
-			// C++ side. Then I could do not Q.eye(d, d),
+			// C++ side. Then I could not do Q.eye(d, d),
 			// for example. So we allow reallocations.
 			bool strict = false;
 
