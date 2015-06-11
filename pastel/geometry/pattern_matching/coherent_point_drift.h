@@ -6,6 +6,7 @@
 
 #include "pastel/geometry/pattern_matching/ls_affine.h"
 #include "pastel/geometry/nearestset/nearestset_concept.h"
+#include "pastel/sys/output/null_output.h"
 
 namespace Pastel
 {
@@ -54,15 +55,15 @@ namespace Pastel
 
     Q ((d x d) real matrix):
     The estimated rotation/reflection; an orthogonal matrix.
-    Will use the memory space of Q0, if Q0 is std::moved in.
+    Initialized with Q0.
 
     S ((d x d) real matrix):
     The estimated scaling; a symmetric matrix.
-    Will use the memory space of S0, if S0 is std::moved in.
+    Initialized with S0.
 
     t ((d x 1) real matrix):
     The estimated translation.
-    Will use the memory space of t0, if t0 is std::moved in.
+	Initialized with t0.
 
     sigma2 (Real):
     The estimated variance is eye(d, d) * sigma2.
@@ -76,11 +77,8 @@ namespace Pastel
     S0 ((d x d) real matrix : arma::eye(d, d)):
     Initial guess on S; a symmetric matrix.
 
-    t0 ((d x 1) real vector : see below): 
-    Initial guess on t. Default: s - Q0 * S0 * m, where 's' and 'm' are
-    the centroids of the scene and model point-sets, respectively. This
-    is the optimal translation assuming 'toSet' and 'fromSet' match
-    bijectively and Q0 = Q, and S0 = S.
+    t0 ((d x 1) real vector : arma::zeros(d)): 
+    Initial guess on t.
 
     noiseRatio (Real : 0.2):
     A real number between (0, 1), which gives the weight for an 
@@ -117,9 +115,9 @@ namespace Pastel
     maxIterations (integer : std::max(minIterations, 100)):
     The maximum number of iterations for the algorithm to take. 
 
-    minError (Real : 1e-11):
+    minError (Real : see below):
     The minimum error under which to accept the transformation 
-    and stop iteration.
+    and stop iteration. For float 1e-4; for double 1e-11.
     */
     template <
 		typename Real,
@@ -145,6 +143,9 @@ namespace Pastel
         ENSURE_OP(m, >, 0);
         ENSURE_OP(n, >, 0);
 
+        constexpr Real defaultMinError = 
+            std::is_same<Real, float>::value ? 1e-4 : 1e-11;
+
         // Optional input arguments
         Real noiseRatio = 
             PASTEL_ARG_S(noiseRatio, 0.2);
@@ -153,7 +154,7 @@ namespace Pastel
         integer maxIterations = 
             PASTEL_ARG_S(maxIterations, std::max(minIterations, (integer)100));
         Real minError = 
-            PASTEL_ARG_S(minError, 1e-11);
+            PASTEL_ARG_S(minError, defaultMinError);
         Cpd_Matrix matrix = 
             PASTEL_ARG_ENUM(matrix, Cpd_Matrix::Free);
         Cpd_Scaling scaling = 
@@ -168,6 +169,8 @@ namespace Pastel
             PASTEL_ARG_S(S0, arma::Mat<Real>());
         arma::Col<Real> t = 
             PASTEL_ARG_S(t0, arma::Col<Real>());
+		auto&& report =
+			PASTEL_ARG_S(report, nullOutput());
 
         ENSURE(noiseRatio > 0);
         ENSURE(noiseRatio < 1);
@@ -176,8 +179,13 @@ namespace Pastel
 
         if (Q.is_empty())
         {
-            // The initial Q was not specified; 
-            // use the identity matrix.
+            // The initial Q was not specified.
+			
+			// Reset the matrix, to clear a possible
+			// replicated strict flag.
+			Q.reset();
+
+            // Use the identity matrix.
             Q.eye(d, d);
         }
         else
@@ -191,8 +199,13 @@ namespace Pastel
 
         if (S.is_empty())
         {
-            // The initial S was not specified; 
-            // use the identity matrix.
+            // The initial S was not specified.
+			
+			// Reset the matrix, to clear a possible
+			// replicated strict flag.
+			S.reset();
+
+            // Use the identity matrix.
             S.eye(d, d);
         }
         else
@@ -206,11 +219,14 @@ namespace Pastel
 
         if (t.is_empty())
         {
-            // The initial t was not specified; 
-            // use that translation which matches 
-            // the centroids.
-            t = (arma::sum(toSet, 1) / n) - 
-                Q * S * (arma::sum(fromSet, 1) / m);
+            // The initial t was not specified.
+			
+			// Reset the matrix, to clear a possible
+			// replicated strict flag.
+			t.reset();
+
+			// Use the zero matrix.
+			t.zeros(d);
         }
         else
         {
@@ -322,9 +338,24 @@ namespace Pastel
             }
             sigma2 /= arma::accu(W) * d;
 
-            if (arma::norm(qPrev - Q, "fro") < minError && 
-                arma::norm(sPrev - S, "fro") < minError &&
-                arma::norm(tPrev - t, "fro") < minError &&
+			// Report the current estimate.
+			Cpd_Return<Real> match = 
+			{
+				std::move(Q),
+				std::move(S),
+				std::move(t),
+				sigma2
+			};
+
+			report(addConst(match));
+
+			Q = std::move(match.Q);
+			S = std::move(match.S);
+			t = std::move(match.t);
+
+			if (arma::norm(qPrev - Q, "inf") < minError && 
+                arma::norm(sPrev - S, "inf") < minError &&
+                arma::norm(tPrev - t, "inf") < minError &&
                 iteration >= minIterations - 1)
             {
                 // When the change to the previous transformation 
