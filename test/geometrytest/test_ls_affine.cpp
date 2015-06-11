@@ -132,11 +132,9 @@ namespace
 				{
 					if (matrix == LsAffine_Matrix::Identity)
 					{
-						if (scaling == LsAffine_Scaling::Diagonal)
-						{
-							S.col(0) = -S.col(0);
-						}
-
+						ASSERT(scaling != LsAffine_Scaling::Diagonal);
+						ASSERT(scaling != LsAffine_Scaling::Free);
+						
 						if (scaling == LsAffine_Scaling::Rigid)
 						{
 							S = -S;
@@ -145,7 +143,8 @@ namespace
 					else
 					{
 						// The orientation has already been
-						// handled for the free case.
+						// handled for the free case in the
+						// generation of Q.
 					}
 				}
 
