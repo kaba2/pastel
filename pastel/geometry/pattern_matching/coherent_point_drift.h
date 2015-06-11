@@ -24,6 +24,16 @@ namespace Pastel
         Real sigma2;
     };
 
+    template <typename Real>
+    struct Cpd_State
+    {
+        arma::Mat<Real> Q;
+        arma::Mat<Real> S;
+        arma::Mat<Real> t;
+        Real sigma2;
+        arma::Mat<Real> W;
+    };
+
     //! Coherent point drift algorithm.
     /*!
     Preconditions:
@@ -283,6 +293,14 @@ namespace Pastel
 
         for (integer iteration = 0; iteration < maxIterations; ++iteration)
         {
+            if (sigma2 == 0)
+            {
+                // Having zero sigma^2 can happen at least with easy
+                // cases where there is an exact solution; it is related
+                // to fast convergence.
+                break;
+            }
+
             // Compute a constant for the improper uniform distribution.
             // Note that this is dependent on 'sigma2', which is being
             // updated at each iteration; this cannot be moved out of
@@ -339,12 +357,13 @@ namespace Pastel
             sigma2 /= arma::accu(W) * d;
 
 			// Report the current estimate.
-			Cpd_Return<Real> match = 
+			Cpd_State<Real> match = 
 			{
 				std::move(Q),
 				std::move(S),
 				std::move(t),
-				sigma2
+				sigma2,
+                std::move(W)
 			};
 
 			report(addConst(match));
@@ -352,11 +371,14 @@ namespace Pastel
 			Q = std::move(match.Q);
 			S = std::move(match.S);
 			t = std::move(match.t);
+            W = std::move(match.W);
 
-			if (arma::norm(qPrev - Q, "inf") < minError && 
-                arma::norm(sPrev - S, "inf") < minError &&
-                arma::norm(tPrev - t, "inf") < minError &&
-                iteration >= minIterations - 1)
+            real qError = arma::norm(qPrev - Q, "inf");
+            real sError = arma::norm(sPrev - S, "inf");
+            real tError = arma::norm(tPrev - t, "inf");
+
+			if (std::max(std::max(qError, sError), tError) <= minError && 
+                iteration + 1 >= minIterations)
             {
                 // When the change to the previous transformation 
                 // falls below the given error threshold, we will 
