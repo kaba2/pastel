@@ -79,7 +79,7 @@ namespace
 		arma::Mat<real> S0 = 
 			matlabAsMatrix<real>(inputSet[S0i]);
 
-		arma::Mat<real> t0 = 
+		arma::Col<real> t0 = 
 			matlabAsMatrix<real>(inputSet[T0i]);
 
 		integer minIterations =
@@ -90,6 +90,10 @@ namespace
 
 		real minError = 
 			matlabAsScalar<real>(inputSet[MinError]);
+
+		bool qSpecified = !Q0.is_empty();
+		bool sSpecified = !S0.is_empty();
+		bool tSpecified = !t0.is_empty();
 
 		const real* q0Pointer = Q0.memptr();
 		const real* s0Pointer = S0.memptr();
@@ -109,14 +113,36 @@ namespace
 			PASTEL_TAG(maxIterations), maxIterations,
 			PASTEL_TAG(minError), minError);
 
-		// Make sure memory was not reallocated.
-		ENSURE(match.Q.memptr() == q0Pointer);
-		ENSURE(match.S.memptr() == s0Pointer);
-		ENSURE(match.t.memptr() == t0Pointer);
+		if (qSpecified)
+		{
+			ENSURE(match.Q.memptr() == q0Pointer);
+			outputSet[Qi] = (mxArray*)inputSet[Q0i];
+		}
+		else
+		{
+			matlabCreateArray<real>(match.Q, outputSet[Qi]);
+		}
 
-		outputSet[Qi] = (mxArray*)inputSet[Q0i];
-		outputSet[Si] = (mxArray*)inputSet[S0i];
-		outputSet[Ti] = (mxArray*)inputSet[T0i];
+		if (sSpecified)
+		{
+			ENSURE(match.S.memptr() == s0Pointer);
+			outputSet[Si] = (mxArray*)inputSet[S0i];
+		}
+		else
+		{
+			matlabCreateArray<real>(match.S, outputSet[Si]);
+		}
+
+		if (tSpecified)
+		{
+			ENSURE(match.t.memptr() == t0Pointer);
+			outputSet[Ti] = (mxArray*)inputSet[T0i];
+		}
+		else
+		{
+			matlabCreateArray<real>(match.t, outputSet[Ti]);
+		}
+
 		*matlabCreateScalar<real>(outputSet[Sigma2]) = match.sigma2;
 	}
 
