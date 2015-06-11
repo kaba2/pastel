@@ -304,7 +304,8 @@ namespace Pastel
 
 		    S = S_;
 
-			// Forced oriented solutions would have det(QS) < 0.
+			// Forced oriented solution would have det(QS) < 0;
+			// oriented solution is not implemented.
 			ASSERT_OP(orientation, ==, 0);
 		}
 
@@ -337,7 +338,8 @@ namespace Pastel
 			Q = U * V.t();
 			S = V * arma::diagmat(s) * V.t();
 
-			// Forced oriented solutions would have det(QS) < 0.
+			// Forced oriented solution would have det(QS) < 0;
+			// oriented solution is not implemented.
 			ASSERT_OP(orientation, ==, 0);
 		}
 
@@ -430,24 +432,25 @@ namespace Pastel
 		{
 			// f(x) = sQx
 
-			// Compute the optimal non-oriented scaling parameter.
+			// Compute the optimal scaling parameter.
 			Real s = arma::trace(Q.t() * RP) / arma::trace(PP);
 			S *= s;
 
 			if (matrix == LsAffine_Matrix::Free)
 			{
-				Real sDet = arma::prod(S.diag());
-				if (orientation != 0 && 
-					sign(sDet) != sign(orientation))
+				if (orientation != 0)
 				{
-					// FIX: Add oriented solution.
+					// The orientation has already been handled
+					// in the selection of Q.
+					ASSERT(sign(arma::det(Q * S)) == sign(orientation));
 				}
 			}
 			else
 			{
 				// det(sQ) < 0 is possible only when d is odd.
 				// In addition, forced oriented solutions would 
-				// have det(sQ) = 0.
+				// have det(sQ) = 0; oriented solution is not 
+				// implemented.
 				ASSERT_OP(orientation, ==, 0);
 			}
 		}
