@@ -106,9 +106,9 @@ namespace
 				arma::Mat<real> SE(d, d);
 				arma::Col<real> tE(d);
 
-				auto* qePointer = QE.memptr();
-				auto* sePointer = SE.memptr();
-				auto* tePointer = tE.memptr();
+				const real* qePointer = QE.memptr();
+				const real* sePointer = SE.memptr();
+				const real* tePointer = tE.memptr();
 
 				// Compute the transformation back by least-squares.
 				auto lsMatch = lsAffine(
@@ -118,9 +118,9 @@ namespace
 					scaling,
 					translation,
 					PASTEL_TAG(W), W,
-					PASTEL_TAG(Q), std::move(QE),
-					PASTEL_TAG(S), std::move(SE),
-					PASTEL_TAG(t), std::move(tE));
+					PASTEL_TAG(Q0), std::move(QE),
+					PASTEL_TAG(S0), std::move(SE),
+					PASTEL_TAG(t0), std::move(tE));
 
 				QE = std::move(lsMatch.Q);
 				SE = std::move(lsMatch.S);
