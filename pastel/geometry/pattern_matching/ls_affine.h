@@ -303,6 +303,9 @@ namespace Pastel
 		    }
 
 		    S = S_;
+
+			// Forced oriented solutions would have det(QS) < 0.
+			ASSERT_OP(orientation, ==, 0);
 		}
 
 		if (scaling == LsAffine_Scaling::Free && 
@@ -333,6 +336,9 @@ namespace Pastel
 
 			Q = U * V.t();
 			S = V * arma::diagmat(s) * V.t();
+
+			// Forced oriented solutions would have det(QS) < 0.
+			ASSERT_OP(orientation, ==, 0);
 		}
 
 		if (scaling != LsAffine_Scaling::Free && 
@@ -428,13 +434,21 @@ namespace Pastel
 			Real s = arma::trace(Q.t() * RP) / arma::trace(PP);
 			S *= s;
 
-			Real sDet = arma::prod(S.diag());
-
-			if (orientation != 0 &&
-				sign(sDet) != sign(orientation))
+			if (matrix == LsAffine_Matrix::Free)
 			{
-				ASSERT(matrix != LsAffine_Matrix::Identity);
-				// FIX: Add oriented solution.
+				Real sDet = arma::prod(S.diag());
+				if (orientation != 0 && 
+					sign(sDet) != sign(orientation))
+				{
+					// FIX: Add oriented solution.
+				}
+			}
+			else
+			{
+				// det(sQ) < 0 is possible only when d is odd.
+				// In addition, forced oriented solutions would 
+				// have det(sQ) = 0.
+				ASSERT_OP(orientation, ==, 0);
 			}
 		}
 
