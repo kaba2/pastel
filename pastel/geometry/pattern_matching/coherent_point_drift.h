@@ -291,9 +291,9 @@ namespace Pastel
                 PASTEL_TAG(W), W,
                 // This avoids the reallocation of 
                 // Q, S. and t.
-                PASTEL_TAG(Q), std::move(Q),
-                PASTEL_TAG(S), std::move(S),
-                PASTEL_TAG(t), std::move(t)
+                PASTEL_TAG(Q0), std::move(Q),
+                PASTEL_TAG(S0), std::move(S),
+                PASTEL_TAG(t0), std::move(t)
                 );
 
             Q = std::move(lsMatch.Q);

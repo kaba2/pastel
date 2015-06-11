@@ -64,14 +64,17 @@ namespace Pastel
 
 	Q ((d x d)-matrix):
 	An orthogonal matrix, representing a rotation or a reflection.
+	Initialized with Q0 (e.g. avoid reallocation using std::move).
 
 	S ((d x d)-matrix):
 	A symmetric matrix, representing a scaling. By the eigenvalue 
 	decomposition, a symmetric matrix is the composition of a 
 	rotation, axis-aligned scaling, and a reverse rotation. 
+	Initialized with S0 (e.g. avoid reallocation using std::move).
 
 	t ((d x 1)-matrix):
-	A vector, representing a translation.
+	A vector, representing a translation. 
+	Initialized with t0 (e.g. avoid reallocation using std::move).
 
 	Optional arguments
 	------------------
@@ -104,17 +107,17 @@ namespace Pastel
 	the empty matrix, then it is required that m = n, and it 
 	is assumed that W is the (n x n) identity matrix. 
 
-	Q (arma::Mat<Real> : arma::Mat<ReaL>()):
+	Q0 (arma::Mat<Real> : arma::Mat<ReaL>()):
 	A (d, d) matrix by which to initialize the returned Q.
 	If empty, then Q is initialized with the identity matrix,
 	with fresh memory.
 
-	S (arma::Mat<Real> : arma::Mat<ReaL>()):
+	S0 (arma::Mat<Real> : arma::Mat<ReaL>()):
 	A (d, d) matrix by which to initialize the returned S.
 	If empty, then S is initialized with the identity matrix,
 	with fresh memory.
 
-	t (arma::Col<Real> : arma::Col<ReaL>()):
+	t0 (arma::Col<Real> : arma::Col<ReaL>()):
 	A (d, 1) matrix by which to initialize the returned t.
 	If empty, then t is initialized with the zero matrix,
 	with fresh memory.
@@ -153,11 +156,11 @@ namespace Pastel
 		arma::Mat<Real> W = 
 			PASTEL_ARG_S(W, arma::Mat<Real>());
 		arma::Mat<Real> Q = 
-			PASTEL_ARG_S(Q, arma::Mat<Real>());
+			PASTEL_ARG_S(Q0, arma::Mat<Real>());
 		arma::Mat<Real> S = 
-			PASTEL_ARG_S(S, arma::Mat<Real>());
+			PASTEL_ARG_S(S0, arma::Mat<Real>());
 		arma::Col<Real> t= 
-			PASTEL_ARG_S(t, arma::Col<Real>());
+			PASTEL_ARG_S(t0, arma::Col<Real>());
 
 		// Initialize Q, S, and t.
 		Q.eye(d, d);
