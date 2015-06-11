@@ -4,7 +4,6 @@
 #include "test_pastelgeometry.h"
 
 #include <pastel/geometry/pattern_matching/ls_affine.h>
-#include <pastel/geometry/pattern_matching/coherent_point_drift.h>
 #include <pastel/math/sampling/random_orthogonal.h>
 #include <pastel/sys/random.h>
 
@@ -24,15 +23,16 @@ namespace
 
 		virtual void run()
 		{
-			test<float>();
-			test<double>();
+			testRandom<float>();
+			testRandom<double>();
 		}
 
 		template <typename Real>
-		void test()
+		void testRandom()
 		{
 			integer trials = 400;
-			Real threshold = 1e-11;
+			Real threshold = 
+				std::is_same<Real, float>::value ? 1e-4 : 1e-12;
 
 			// Randomly chosen cases.
 
@@ -133,21 +133,10 @@ namespace
 				TEST_ENSURE(sePointer == SE.memptr());
 				TEST_ENSURE(tePointer == tE.memptr());
 
-				auto cpdMatch = coherentPointDrift(
-					P, R,
-					PASTEL_TAG(orientation), orientation,
-					matrix,
-					scaling,
-					translation);
-
-				arma::Mat<Real> qCpd = std::move(cpdMatch.Q);
-				arma::Mat<Real> sCpd = std::move(cpdMatch.S);
-				arma::Col<Real> tCpd = std::move(cpdMatch.t);
-
 				// Check that the errors are small.
-				Real qError = arma::norm(QE - Q, "fro");
-				Real sError = arma::norm(SE - S, "fro");
-				Real tError = arma::norm(tE - t, "fro");
+				Real qError = arma::norm(QE - Q, "inf");
+				Real sError = arma::norm(SE - S, "inf");
+				Real tError = arma::norm(tE - t, "inf");
 
 				if (std::max(std::max(qError, sError), tError) > threshold ||
 				   (orientation != 0 && sign(arma::det(QE * SE)) != sign(orientation)))
