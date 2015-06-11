@@ -32,7 +32,7 @@ namespace
 		{
 			integer trials = 400;
 			Real threshold = 
-				std::is_same<Real, float>::value ? 1e-4 : 1e-12;
+				std::is_same<Real, float>::value ? 1e-4 : 1e-11;
 
 			// Randomly chosen cases.
 
@@ -50,6 +50,7 @@ namespace
 
 				LsAffine_Scaling scaling = randomElement({
 					LsAffine_Scaling::Free, 
+					LsAffine_Scaling::Diagonal,
 					LsAffine_Scaling::Conformal, 
 					LsAffine_Scaling::Rigid});
 
@@ -60,13 +61,31 @@ namespace
 				integer orientation = randomElement({-1, 0, 1});
     
 				if (scaling == LsAffine_Scaling::Free || 
-					matrix == LsAffine_Matrix::Identity)
+					(matrix == LsAffine_Matrix::Identity &&
+					scaling != LsAffine_Scaling::Rigid))
 				{
 					// Orientation can not be forced when scaling is free or
-					// the matrix Q is identity.
+					// the matrix Q is identity and scaling is not rigid.
 					orientation = 0;
 				}
+
+				if (matrix == LsAffine_Matrix::Free &&
+					scaling == LsAffine_Scaling::Diagonal)
+				{
+					// This is not implemented.
+					continue;
+				}
        
+				if (orientation < 0 &&
+					matrix == LsAffine_Matrix::Identity &&
+					scaling == LsAffine_Scaling::Rigid &&
+					even(d))
+				{
+					// When Q = I and S = +/- I, a negative
+					// det(QS) is only possible in odd dimensions.
+					orientation = 1;
+				}
+
 				arma::Mat<Real> Q(d, d, arma::fill::eye);
 
 				if (matrix == LsAffine_Matrix::Free)
@@ -92,13 +111,42 @@ namespace
 
 				if (scaling == LsAffine_Scaling::Conformal)
 				{
-					S *= random<Real>() * 5;
+					S *= random<Real>() * 10;
+				}
+
+				if (scaling == LsAffine_Scaling::Diagonal)
+				{
+					for (integer i = 0; i < d; ++i)
+					{
+						S(i, i) *= random<Real>() * 10;
+					}	
 				}
     
 				arma::Col<Real> t(d, arma::fill::zeros);
 				if (translation == LsAffine_Translation::Free)
 				{
 					t = arma::randn<arma::Col<Real>>(d, 1) * 10;
+				}
+
+				if (orientation < 0)
+				{
+					if (matrix == LsAffine_Matrix::Identity)
+					{
+						if (scaling == LsAffine_Scaling::Diagonal)
+						{
+							S.col(0) = -S.col(0);
+						}
+
+						if (scaling == LsAffine_Scaling::Rigid)
+						{
+							S = -S;
+						}
+					}
+					else
+					{
+						// The orientation has already been
+						// handled for the free case.
+					}
 				}
 
 				// Generate test point-sets.
@@ -141,7 +189,14 @@ namespace
 				if (std::max(std::max(qError, sError), tError) > threshold ||
 				   (orientation != 0 && sign(arma::det(QE * SE)) != sign(orientation)))
 				{
-					//std::cout << orientation << " " << (integer)matrix << " " << (integer)scaling << " " << (integer)translation << std::endl;
+					std::cout << orientation << " " 
+						<< (integer)matrix << " "
+						<< (integer)scaling << " " 
+						<< (integer)translation << std::endl;
+
+					std::cout << qError << " " 
+						<< sError << " "
+						<< tError << std::endl;
 
 					fails = fails + 1;
 				}
