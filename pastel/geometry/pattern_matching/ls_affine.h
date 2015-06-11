@@ -343,11 +343,12 @@ namespace Pastel
 			ASSERT_OP(orientation, ==, 0);
 		}
 
-		if (scaling != LsAffine_Scaling::Free && 
-			matrix == LsAffine_Matrix::Free)
+		if (matrix == LsAffine_Matrix::Free &&
+			(scaling == LsAffine_Scaling::Rigid ||
+			scaling == LsAffine_Scaling::Conformal))
 		{
 		    // f(x) = sQx
-		    
+
 		    // Compute the optimal orthogonal transformation.
 		    arma::Mat<Real> U;
 			arma::Mat<Real> V;
