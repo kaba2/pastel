@@ -20,6 +20,7 @@ namespace Pastel
 	enum class LsAffine_Scaling : integer
 	{
 		Free,
+		Diagonal,
 		Conformal,
 		Rigid
 	};
@@ -92,6 +93,7 @@ namespace Pastel
 	scaling (LsAffine_Scaling : Free):
 	Constraint for the scaling S.
 		Free: S^T = S
+		Diagonal: S is diagonal
 		Conformal: S = sI
 		Rigid: S = +/- I
 
@@ -223,6 +225,18 @@ namespace Pastel
 		ENSURE(!(scaling == LsAffine_Scaling::Free &&
 			orientation != 0));
 
+		// This case is not implemented; I do not know
+		// the solution to this problem.
+		ENSURE(!(matrix == LsAffine_Matrix::Free &&
+			scaling == LsAffine_Scaling::Diagonal));
+
+		// When Q = I and S = +/- I, a negative
+		// det(QS) is only possible in odd dimensions.
+		ENSURE(!(orientation < 0 &&
+			matrix == LsAffine_Matrix::Identity &&
+			scaling == LsAffine_Scaling::Rigid &&
+			even(d)));
+
 		Real totalWeight = n;
 		if (wSpecified)
 		{
@@ -337,8 +351,7 @@ namespace Pastel
 				return result();
 			}
 
-		    // This is optimal if orientation is not
-		    // restricted.
+		    // Compute the optimal non-oriented orthogonal Q.
 		    Q = U * V.t();
 
 		    if (orientation != 0 &&
@@ -358,20 +371,82 @@ namespace Pastel
 		    }
 		}
 
+		if (matrix == LsAffine_Matrix::Identity &&
+			scaling == LsAffine_Scaling::Diagonal)
+		{
+			// f(x) = Dx
+
+			// The error is given by
+			// sum_{i = 1}^d S_{ii}^2 (PP^T)_{ii} - 
+			// 2 sum_{i = 1}^d S_{ii}  (RP^T)_{ii}
+
+			// Compute the optimal diagonal scaling S.
+			// FIX: Make this orthogonality-maximizing.
+			S.diag() = RP.diag() / PP.diag();
+
+			// Compute det(QS) = det(S).
+			Real sDet = arma::prod(S.diag());
+
+			if (orientation != 0 &&
+				sign(sDet) != sign(orientation))
+			{
+				// From the form of the error functional
+				// we see that we can obtain the solution
+				// of the oriented problem by negating that
+				// diagonal element of S for which 
+				// S_{ii} (RP^T)_{ii} is the smallest.
+				
+				arma::Col<Real> product = S.diag() * RP.diag();
+
+				// Find smallest S_{ii} (RP^T)_{ii}.
+				integer iMin = 0;
+				Real minValue = infinity<Real>();
+				for (integer i = 1;i < d;++i)
+				{
+					// S_{ii} (RP^T)_{ii} >= 0; otherwise
+					// the non-oriented solution would not
+					// have minimum error.
+					ASSERT_OP(product(i), >=, 0);
+					if (product(i) < minValue)
+					{
+						iMin = i;
+						minValue = product(i);
+					}
+				}
+
+				// Negate that diagonal element which causes
+				// the least error.
+				S(iMin, iMin) = -S(iMin, iMin);
+			}
+		}
+
 		if (scaling == LsAffine_Scaling::Conformal)
 		{
-		    // f(x) = sQx
-		    
-		    // Compute the optimal scaling parameter.
-		    S *= arma::trace(Q.t() * RP) / arma::trace(PP);
+			// f(x) = sQx
+
+			// Compute the optimal non-oriented scaling parameter.
+			Real s = arma::trace(Q.t() * RP) / arma::trace(PP);
+			S *= s;
+
+			Real sDet = arma::prod(S.diag());
+
+			if (orientation != 0 &&
+				sign(sDet) != sign(orientation))
+			{
+				ASSERT(matrix != LsAffine_Matrix::Identity);
+				// FIX: Add oriented solution.
+			}
 		}
 
 		if (matrix == LsAffine_Matrix::Identity &&
 			scaling == LsAffine_Scaling::Rigid &&
 			orientation < 0)
 		{
-			// The optimal scaling parameter is the
-			// only possible with det(QS) = det(S) < 0.
+			ASSERT1(odd(d), d);
+
+			// S = -I is the only possible choice, since
+			// det(QS) = det(S) = det(-I) = (-1)^d = -1;
+			// here we require d to be odd.
 			S = -S;
 		}
 
