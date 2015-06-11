@@ -93,18 +93,21 @@ namespace Pastel
 	Constraint for the scaling S.
 		Free: S^T = S
 		Conformal: S = sI
-		Rigid: S = I
+		Rigid: S = +/- I
 
 	translation (LsAffine_Translation : Free):
 	Constraint for the translation t.
-		Free: -
+		Free: no constraint
 		Identity: t = 0
 
 	orientation (integer : 1):
 	Constraint for the determinant of QS.
 		<0: det(QS) < 0
-		 0: det(QS)
+		 0: no constraint
 		>0: det(QS) > 0
+	Orientation cannot be constrained when 
+	scaling == Free; this would result in solutions 
+	with det(QS) = 0.
 
 	W (arma::Mat<Real> : arma::Mat<Real>()): 
 	A non-negative (m x n) matrix, which contains the weights 
@@ -208,14 +211,17 @@ namespace Pastel
 			(fromSet.n_cols == toSet.n_cols), 
 			fromSet.n_cols, toSet.n_cols);
 
-		// Orientation can not be forced when 'scaling' is Free.
-		ENSURE(!(scaling == LsAffine_Scaling::Free && orientation != 0));
+		// When Q = I, and S is not rigid, forcing the
+		// orientation results in solutions for which
+		// det(QS) = 0.
+		ENSURE(!(matrix == LsAffine_Matrix::Identity &&
+			scaling != LsAffine_Scaling::Rigid &&
+			orientation != 0));
 
-		// Orientation can not be forced when 'matrix' is Identity.
-		ENSURE(
-			orientation == 0 ||
-			matrix != LsAffine_Matrix::Identity ||
-			(scaling == LsAffine_Scaling::Rigid && orientation == 1));
+		// When S is free, forcing the orientation
+		// results in solutions for which det(QS) = 0.
+		ENSURE(!(scaling == LsAffine_Scaling::Free &&
+			orientation != 0));
 
 		Real totalWeight = n;
 		if (wSpecified)
@@ -358,6 +364,15 @@ namespace Pastel
 		    
 		    // Compute the optimal scaling parameter.
 		    S *= arma::trace(Q.t() * RP) / arma::trace(PP);
+		}
+
+		if (matrix == LsAffine_Matrix::Identity &&
+			scaling == LsAffine_Scaling::Rigid &&
+			orientation < 0)
+		{
+			// The optimal scaling parameter is the
+			// only possible with det(QS) = det(S) < 0.
+			S = -S;
 		}
 
 		if (translation == LsAffine_Translation::Free)
