@@ -23,41 +23,106 @@ namespace
 
 		virtual void run()
 		{
-			test<float>();
-			test<double>();
+			testTranslation<float>();
+			testTranslation<double>();
+
+			testRotation<float>();
+			testRotation<double>();
 		}
 
-		template <typename Real>
-		void test()
+		struct Report
 		{
-			Real threshold = 
-				std::is_same<Real, float>::value ? 1e-4 : 1e-12;
-
-			// pi / 3 works; pi / 2 does not work.
-			Real alpha = constantPi<Real>() / 8;
-
-			arma::Mat<Real> Q = 
+			template <typename State>
+			void operator()(State&& state)
 			{
-				{std::cos(alpha), -std::sin(alpha)},
-				{std::sin(alpha), std::cos(alpha)}
-			};
+				std::cout << "Q" << std::endl;
+				std::cout << state.Q << std::endl;
 
-			arma::Mat<Real> S =
-			{
-				{1, 0},
-				{0, 1}
-			};
+				std::cout << "S" << std::endl;
+				std::cout << state.S << std::endl;
 
-			arma::Col<Real> t =
-			{
-				0, 0
+				std::cout << "t" << std::endl;
+				std::cout << state.t << std::endl;
+
+				std::cout << "sigma2" << std::endl;
+				std::cout << state.sigma2 << std::endl;
+
+				std::cout << "W" << std::endl;
+				std::cout << state.W << std::endl;
 			};
+		};
+
+		template <typename Real>
+		void testRotation()
+		{
+			arma::Mat<Real> S(2, 2, arma::fill::eye);
+			arma::Col<Real> t(2, arma::fill::zeros);
 
 			arma::Mat<Real> fromSet = 
 			{
 				{0, 1, 0},
 				{0, 0, 1} 
 			};
+
+			// Angle pi / 3 often matches to another minimum.
+			Real maxAngle = constantPi<Real>() / 4;
+			for (Real alpha = 0; alpha <= maxAngle; alpha += maxAngle / 10)
+			{
+				arma::Mat<Real> Q = 
+				{
+					{std::cos(alpha), -std::sin(alpha)},
+					{std::sin(alpha), std::cos(alpha)}
+				};
+
+				testCase(
+					Q, S, t, fromSet,
+					{Cpd_Matrix::Free},
+					{Cpd_Scaling::Rigid, Cpd_Scaling::Conformal, Cpd_Scaling::Free},
+					{Cpd_Translation::Free, Cpd_Translation::Identity});
+			}
+		}
+
+		template <typename Real>
+		void testTranslation()
+		{
+			arma::Mat<Real> Q(2, 2, arma::fill::eye);
+			arma::Mat<Real> S(2, 2, arma::fill::eye);
+
+			arma::Mat<Real> fromSet = 
+			{
+				{0, 1, 0},
+				{0, 0, 1} 
+			};
+
+			// Angle pi / 3 often matches to another minimum.
+			Real offsetMin = -2;
+			Real offsetMax = 2;
+			for (Real alpha = offsetMin; alpha <= offsetMax; alpha += (offsetMax - offsetMin) / 10)
+			{
+				arma::Col<Real> t = 
+				{
+					alpha, alpha
+				};
+
+				testCase(
+					Q, S, t, fromSet,
+					{Cpd_Matrix::Free, Cpd_Matrix::Identity},
+					{Cpd_Scaling::Rigid, Cpd_Scaling::Conformal, Cpd_Scaling::Free},
+					{Cpd_Translation::Free});
+			}
+		}
+
+		template <typename Real>
+		void testCase(
+			arma::Mat<Real> Q,
+			arma::Mat<Real> S,
+			arma::Col<Real> t,
+			arma::Mat<Real> fromSet,
+			std::initializer_list<Cpd_Matrix> matrixSet,
+			std::initializer_list<Cpd_Scaling> scalingSet,
+			std::initializer_list<Cpd_Translation> translationSet)
+		{
+			Real threshold = 1e-5;
 
 			arma::Mat<Real> toSet = Q * S * fromSet + 
 				t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols);
@@ -66,27 +131,19 @@ namespace
 			TEST_ENSURE_OP(fromSet.n_rows, ==, 2);
 
 			Cpd_Return<Real> match;
-			auto maxError = [&]()
+			auto deltaNorm = [&]()
 			{
-				Real qError = std::abs(arma::norm(Q - match.Q, "inf"));
-				Real sError = std::abs(arma::norm(S - match.S, "inf"));
-				Real tError = std::abs(arma::norm(t - match.t, "inf"));
+				arma::Mat<Real> delta = 
+					(match.Q * match.S * fromSet + match.t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols)) - toSet;
 
-				/*
-				std::cout << qError 
-					<< " " << sError
-					<< " " << tError
-					<< std::endl;
-				*/
-
-				return std::max(std::max(qError, sError), tError);
+				return arma::norm(delta, "inf");
 			};
 
-			for (auto scaling : {Cpd_Scaling::Rigid, Cpd_Scaling::Conformal, Cpd_Scaling::Free})
+			for (auto scaling : scalingSet)
 			{
-				for (auto translation : {Cpd_Translation::Free, Cpd_Translation::Identity})
+				for (auto translation : translationSet)
 				{
-					for (auto matrix : {Cpd_Matrix::Free})
+					for (auto matrix : matrixSet)
 					{
 						integer orientation = 1;
 
@@ -108,47 +165,7 @@ namespace
 							matrix,
 							PASTEL_TAG(orientation), orientation);
 
-						if (maxError() >= threshold)
-						{
-							std::cout << (integer)matrix << (integer)scaling << (integer)translation << std::endl;
-							std::cout << "maxError: " << maxError() << std::endl;
-
-							std::cout << "Q" << std::endl;
-							std::cout << Q << std::endl;
-
-							std::cout << "S" << std::endl;
-							std::cout << S << std::endl;
-
-							std::cout << "t" << std::endl;
-							std::cout << t << std::endl;
-
-							auto report = [](auto&& match)
-							{
-								std::cout << "Q" << std::endl;
-								std::cout << match.Q << std::endl;
-
-								std::cout << "S" << std::endl;
-								std::cout << match.S << std::endl;
-
-								std::cout << "t" << std::endl;
-								std::cout << match.t << std::endl;
-
-								std::cout << "sigma2" << std::endl;
-								std::cout << match.sigma2 << std::endl;
-							};
-
-							match = coherentPointDrift(
-								fromSet, toSet,
-								scaling,
-								translation,
-								matrix,
-								PASTEL_TAG(orientation), orientation,
-								PASTEL_TAG(report), report);
-
-							return;
-						}
-
-						TEST_ENSURE_OP(maxError(), <, threshold);
+						TEST_ENSURE_OP(deltaNorm(), <, threshold);
 					}
 				}
 			}
