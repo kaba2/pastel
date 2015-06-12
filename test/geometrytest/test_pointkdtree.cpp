@@ -230,7 +230,7 @@ namespace
 						searchNearest(
 							tree, 
 							iteratorSet[i]->point(),
-							PASTEL_TAG(acceptPoint), predicateIndicator(iteratorSet[i], NotEqualTo()),
+							PASTEL_TAG(accept), predicateIndicator(iteratorSet[i], NotEqualTo()),
 							normBijection, 
 							PASTEL_TAG(searchAlgorithm), searchAlgorithm,
 							PASTEL_TAG(nBruteForce), 1);

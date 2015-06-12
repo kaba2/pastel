@@ -46,7 +46,7 @@ namespace Pastel
 	Optional arguments
 	------------------
 
-	acceptPoint:
+	accept:
 	An indicator which decides whether to accept a point 
 	(KdTree::Point_ConstIterator) as a neighbor or not.
 
@@ -132,9 +132,9 @@ namespace Pastel
 				[](auto input) {return std::true_type();}
 			);
 		
-		auto&& acceptPoint = 
+		auto&& accept = 
 			PASTEL_ARG(
-				acceptPoint, 
+				accept, 
 				[]() {return allIndicator();},
 				[](auto input) 
 				{
@@ -359,7 +359,7 @@ namespace Pastel
 					// already know the point cannot be among k nearest
 					// neighbors. Remember that we are using an open 
 					// search ball.
-					if (currentDistance2 >= cullDistance2 || !acceptPoint(iter))
+					if (currentDistance2 >= cullDistance2 || !accept(iter))
 					{
 						continue;
 					}

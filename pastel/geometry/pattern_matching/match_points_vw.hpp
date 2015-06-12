@@ -251,7 +251,7 @@ namespace Pastel
 								sceneTree_, 
 								scenePosition(sceneIter),
 								PASTEL_TAG(nearestOutput), nearestOutput,
-								PASTEL_TAG(acceptPoint), predicateIndicator(sceneIter, NotEqualTo()),
+								PASTEL_TAG(accept), predicateIndicator(sceneIter, NotEqualTo()),
 								PASTEL_TAG(kNearest), k_);
 						}
 
@@ -280,7 +280,7 @@ namespace Pastel
 								modelTree_, 
 								modelPosition(modelIter),
 								PASTEL_TAG(nearestOutput), nearestOutput,
-								PASTEL_TAG(acceptPoint), predicateIndicator(modelIter, NotEqualTo()),
+								PASTEL_TAG(accept), predicateIndicator(modelIter, NotEqualTo()),
 								PASTEL_TAG(kNearest), k_);
 						}
 

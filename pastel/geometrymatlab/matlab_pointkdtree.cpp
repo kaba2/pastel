@@ -783,7 +783,7 @@ namespace Pastel
 							state->tree,
 							location(query->point(), state->tree.locator()),
 							PASTEL_TAG(nearestOutput), nearestOutput,
-							PASTEL_TAG(acceptPoint), predicateIndicator(query, NotEqualTo()), 
+							PASTEL_TAG(accept), predicateIndicator(query, NotEqualTo()), 
 							NormBijection(),
 							PASTEL_TAG(kNearest), kNearest,
 							PASTEL_TAG(maxDistance2), maxDistanceSet(i));
