@@ -28,7 +28,8 @@ set (MatlabVersion 2013b)
 
 set (PastelDirectory ${CMAKE_SOURCE_DIR})
 set (PastelIncludeDirectory ${PastelDirectory})
-set (PastelLibraryDirectory ${PastelDirectory}/lib/${GENERATOR_BITS})
+set (PastelLibraryDirectory "${PastelDirectory}/lib/${GENERATOR_BITS}")
+set (PastelMatlabDirectory "${PastelDirectory}/bin/${GENERATOR_BITS}/matlab")
 
 if (WIN32)
 	# Under Windows, there are no standard
@@ -282,6 +283,16 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PastelLibraryDirectory_})
 # The directory to place the built executables.
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PastelLibraryDirectory_})
 
+if (WIN32)
+	# On Windows, copy the dll-libraries to where
+	# the Matlab interface is.
+    foreach (dllFile ${DllSet})
+		file (COPY pastel/${dllFile} DESTINATION 
+			${PastelMatlabDirectory}
+			${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
+    endforeach()
+endif()
+
 # This is for the multi-configuration build-scripts
 # (such as Visual Studio or XCode).
 foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
@@ -527,7 +538,7 @@ endmacro()
 macro (PastelAddMatlab)
 	file (GLOB_RECURSE SourceSet RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${PastelMatlabSourceGlobSet})
 	foreach(FilePath ${SourceSet})
-		set (OutputFilePath ${CMAKE_SOURCE_DIR}/bin/matlab/${FilePath})
+		set (OutputFilePath ${PastelMatlabDirectory}/${FilePath})
 		set (Options "")
 
 		get_filename_component(FileExtension ${FilePath} EXT)

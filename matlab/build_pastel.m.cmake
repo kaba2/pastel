@@ -101,7 +101,7 @@ disp(['Building a mex file for ', ...
     mode, ' mode.']);
 disp(' ');
 
-inputDirectory = ['../../pastel/', libraryName, 'matlab'];
+inputDirectory = ['${PastelDirectory}/pastel/', libraryName, 'matlab'];
 outputDirectory = ['+pastel', libraryName];
 
 % Directories
