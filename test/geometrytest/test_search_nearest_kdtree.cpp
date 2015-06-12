@@ -40,7 +40,7 @@ namespace
 			searchNearest(
 				tree, 
 				Point(1, 2),
-				PASTEL_TAG(acceptPoint), nullOutput(),
+				PASTEL_TAG(accept), nullOutput(),
 				PASTEL_TAG(indicator), allIndicator(),
 				Euclidean_NormBijection<real>(),
 				PASTEL_TAG(searchAlgorithm), DepthFirst_SearchAlgorithm_PointKdTree(),

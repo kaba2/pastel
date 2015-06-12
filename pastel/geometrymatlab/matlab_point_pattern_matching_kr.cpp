@@ -95,7 +95,6 @@ namespace Pastel
 			sceneTree.insertRange(
 				constSparseRange(
 				countingIterator(sceneData),
-
 				countingIterator(sceneData + scenePoints * n),
 				n));
 
