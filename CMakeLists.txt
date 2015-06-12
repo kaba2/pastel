@@ -433,8 +433,8 @@ macro (PastelAddMatlab LibraryName)
 			set (Options COPY_ONLY)
 		endif()
 		
-		#configure_file(${FilePath} ${OutputFilePath} ${Options})
-		message (STATUS "Configured ${FilePath} to ${OutputFilePath}.")
+		configure_file(${FilePath} ${OutputFilePath} ${Options})
+		#message (STATUS "Configured ${FilePath} to ${OutputFilePath}.")
 	endforeach()
 endmacro()
 
@@ -442,6 +442,10 @@ endmacro()
 # -----------------------
 
 add_subdirectory (pastel)
+
+if (BuildMatlab)
+	add_subdirectory (matlab)
+endif()
 
 if (BuildTests)
 	add_subdirectory (test)
