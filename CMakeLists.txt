@@ -136,8 +136,11 @@ endif()
 # By default, the libraries are built static.
 set (PastelLibraryType STATIC)
 
-# The source files to include in the build.
+# The source files to include in a C++ build.
 set (PastelSourceGlobSet *.cpp *.h *.hpp *.txt)
+
+# The source files to include in a Matlab build.
+set (PastelMatlabSourceGlobSet *.m)
 
 # The documentation files of the project.
 set (PastelDocumentationGlobSet *.txt)
@@ -414,7 +417,26 @@ macro (PastelAdd Type LibraryName)
 	else ()
 		message (FATAL_ERROR "Unknown library type ${Type}.")
 	endif()
-endmacro (PastelAdd)
+endmacro()
+
+# Configures a Pastel Matlab library.
+macro (PastelAddMatlab LibraryName)
+	file (GLOB_RECURSE SourceSet RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${PastelMatlabSourceGlobSet})
+	foreach(FilePath ${SourceSet})
+		set (OutputFilePath bin/matlab/${FilePath})
+		set (Options "")
+
+		get_filename_component(FileExtension ${FilePath} EXT)
+		if (${FileExtension} STREQUAL ".m.cmake")
+			string (REGEX REPLACE "(.*).cmake$" "\\1" OutputFilePath ${FilePath})
+		else()
+			set (Options COPY_ONLY)
+		endif()
+		
+		#configure_file(${FilePath} ${OutputFilePath} ${Options})
+		message (STATUS "Configured ${FilePath} to ${OutputFilePath}.")
+	endforeach()
+endmacro()
 
 # Recurse to sub-projects
 # -----------------------
