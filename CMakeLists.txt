@@ -26,8 +26,8 @@ math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 
 set (MatlabVersion 2013b)
 
-set (PastelDirectory ${CMAKE_SOURCE_DIR})
-set (PastelIncludeDirectory ${PastelDirectory})
+set (PastelDirectory "${CMAKE_SOURCE_DIR}")
+set (PastelIncludeDirectory "${PastelDirectory}")
 set (PastelLibraryDirectory "${PastelDirectory}/lib/${GENERATOR_BITS}")
 set (PastelMatlabDirectory "${PastelDirectory}/bin/${GENERATOR_BITS}/matlab")
 
@@ -45,9 +45,9 @@ if (WIN32)
 	set (TbbLibraryName "tbb")
 	set (TbbLibraryNameDebug "tbb_debug")
 	if (${GENERATOR_BITS} EQUAL 32)
-		set (TbbLibraryDirectory ${TbbDirectory}/lib/ia32/vc12)
+		set (TbbLibraryDirectory "${TbbDirectory}/lib/ia32/vc12")
 	else()
-		set (TbbLibraryDirectory ${TbbDirectory}/lib/intel64/vc12)
+		set (TbbLibraryDirectory "${TbbDirectory}/lib/intel64/vc12")
 	endif()
 
 
@@ -74,7 +74,7 @@ else(UNIX)
 	set (TbbDirectory "~/code/tbb-4.3")
 	set (TbbLibraryName "tbb")
 	set (TbbLibraryNameDebug "tbb_debug")
-	set (TbbLibraryDirectory ${TbbDirectory}/lib)
+	set (TbbLibraryDirectory "${TbbDirectory}/lib")
 
 	set (BlasLibraryDirectory "")
 	set (BlasLibraryName "")
@@ -95,7 +95,7 @@ else(APPLE)
 	set (TbbDirectory "~/code/tbb-4.3")
 	set (TbbLibraryName "tbb")
 	set (TbbLibraryNameDebug "tbb_debug")
-	set (TbbLibraryDirectory ${TbbDirectory}/lib/libc++)
+	set (TbbLibraryDirectory "${TbbDirectory}/lib/libc++")
 
 	set (BlasLibraryDirectory "")
 	set (BlasLibraryName "")
@@ -111,39 +111,39 @@ endif()
 
 # This often only works on Linux and Mac OS X.
 
-if (${BoostDirectory} STREQUAL "" OR NOT EXISTS ${BoostDirectory})
+if (("${BoostDirectory}" STREQUAL "") OR (NOT EXISTS "${BoostDirectory}"))
 	set (BoostVersion 1.58.0)
-	find_package(Boost ${BoostVersion})
+	find_package(Boost "${BoostVersion}")
 	if (BOOST_FOUND)
-		set (BoostDirectory ${BOOST_INCLUDE_DIRS}/..)
+		set (BoostDirectory "${BOOST_INCLUDE_DIRS}/..")
 	endif()
 endif()
 
-if (${ArmadilloDirectory} STREQUAL "" OR NOT EXISTS ${ArmadilloDirectory})
+if (("${ArmadilloDirectory}" STREQUAL "") OR (NOT EXISTS "${ArmadilloDirectory}"))
 	find_package(Armadillo)
 	if (ARMADILLO_FOUND)
-		set (ArmadilloDirectory ${ARMADILLO_INCLUDE_DIRS}/..)
+		set (ArmadilloDirectory "${ARMADILLO_INCLUDE_DIRS}/..")
 	endif()
 endif()
 
-if (${LapackLibraryDirectory} STREQUAL "" OR NOT EXISTS ${LapackLibraryDirectory})
+if (("${LapackLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${LapackLibraryDirectory}"))
 	find_package(LAPACK)
 	if (LAPACK_FOUND)
 		set (LapackLibraryName LAPACK_LIBRARIES)
-		get_filename_component(LapackLibraryDirectory ${LapackLibraryName} DIRECTORY)
+		get_filename_component(LapackLibraryDirectory "${LapackLibraryName}" DIRECTORY)
 	endif()
 endif()
 
-if (${BlasLibraryDirectory} STREQUAL "" OR NOT EXISTS ${BlasLibraryDirectory})
+if (("${BlasLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${BlasLibraryDirectory}"))
 	find_package(BLAS)
 	if (BLAS_FOUND)
 		set (BlasLibraryName BLAS_LIBRARIES)
-		get_filename_component(BlasLibraryDirectory ${BlasLibraryName} DIRECTORY)
+		get_filename_component(BlasLibraryDirectory "${BlasLibraryName}" DIRECTORY)
 	endif()
 endif()
 
-macro (CheckPathExists Name Directory)
-	if (EXISTS ${Directory})
+macro(CheckPathExists Name Directory)
+	if (EXISTS "${Directory}")
 		message (STATUS "Using ${Name} from ${Directory}.")
 	else()
 		message (SEND_ERROR "Cannot find ${Name} (tried ${Directory}). Specify the path in Pastel's root CMakeLists.txt.")
@@ -154,24 +154,24 @@ endmacro()
 # Verify that the library paths exist.
 # ------------------------------------
 
-CheckPathExists(Boost ${BoostDirectory})
-CheckPathExists(Armadillo ${ArmadilloDirectory})
-CheckPathExists(Tbb ${TbbDirectory})
-CheckPathExists("Tbb library" ${TbbLibraryDirectory})
-CheckPathExists("Lapack library" ${LapackLibraryDirectory})
-CheckPathExists("Blas library" ${BlasLibraryDirectory})
+CheckPathExists("Boost" "${BoostDirectory}")
+CheckPathExists("Armadillo" "${ArmadilloDirectory}")
+CheckPathExists("Tbb" "${TbbDirectory}")
+CheckPathExists("Tbb library" "${TbbLibraryDirectory}")
+CheckPathExists("Lapack library" "${LapackLibraryDirectory}")
+CheckPathExists("Blas library" "${BlasLibraryDirectory}")
 
 if (BuildMatlab)
-	CheckPathExists(Matlab ${MatlabDirectory})
+	CheckPathExists("Matlab" "${MatlabDirectory}")
 endif()
 
 # Compute some additional directories.
 # ------------------------------------
 
-set (BoostIncludeDirectory ${BoostDirectory})
-set (TbbIncludeDirectory ${TbbDirectory}/include)
-set (ArmadilloIncludeDirectory ${ArmadilloDirectory}/include)
-set (MatlabIncludeDirectory ${MatlabDirectory}/extern/include)
+set (BoostIncludeDirectory "${BoostDirectory}")
+set (TbbIncludeDirectory "${TbbDirectory}/include")
+set (ArmadilloIncludeDirectory "${ArmadilloDirectory}/include")
+set (MatlabIncludeDirectory "${MatlabDirectory}/extern/include")
 
 # Add the include directories.
 # ----------------------------
@@ -250,8 +250,8 @@ set (DllSet "")
 
 if (WIN32)
 	set (DllSet
-		${LapackLibraryName}.dll
-		${BlasLibraryName}.dll)
+		"${LapackLibraryName}.dll"
+		"${BlasLibraryName}.dll")
 endif()
 
 # Set a default build type if none was specified.
@@ -272,23 +272,23 @@ endif()
 string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
 
 # The library output directory is of the form "lib/64/release".
-set (PastelLibraryDirectory_ ${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE})
+set (PastelLibraryDirectory_ "${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
 
 # The directory to place the static libraries.
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PastelLibraryDirectory_})
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PastelLibraryDirectory_}")
 
 # The directory to place the shared libraries.
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PastelLibraryDirectory_})
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PastelLibraryDirectory_}")
 
 # The directory to place the built executables.
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PastelLibraryDirectory_})
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PastelLibraryDirectory_}")
 
 if (WIN32)
 	# On Windows, copy the dll-libraries to where
 	# the Matlab interface is.
     foreach (dllFile ${DllSet})
-		file (COPY pastel/${dllFile} DESTINATION 
-			${PastelMatlabDirectory}
+		file (COPY "pastel/${dllFile}" DESTINATION 
+			"${PastelMatlabDirectory}"
 			${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
     endforeach()
 endif()
@@ -303,17 +303,17 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     set (PastelLibraryDirectory_ "${PastelLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
 
     set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	${PastelLibraryDirectory_})
+    	"${PastelLibraryDirectory_}")
     set (CMAKE_LIBRARY_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	${PastelLibraryDirectory_})
+    	"${PastelLibraryDirectory_}")
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	${PastelLibraryDirectory_})
+    	"${PastelLibraryDirectory_}")
 
     if (WIN32)
     	# On Windows, copy the dll-libraries to where
     	# the executables are.
 	    foreach (dllFile ${DllSet})
-			file (COPY pastel/${dllFile} DESTINATION 
+			file (COPY "pastel/${dllFile}" DESTINATION 
 				${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
 	    endforeach()
 	endif()
@@ -338,8 +338,8 @@ add_definitions(-DBOOST_MATH_OVERFLOW_ERROR_POLICY=ignore_error)
 # Clang and g++
 # -------------
 
-if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") OR 
-	(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")) 
+if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") OR 
+	("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")) 
 	add_definitions (
 		# Enables C++14 compiler support.
 		-std=c++1y 
@@ -378,7 +378,7 @@ endif()
 # g++
 # ---
 
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") 
 	# Disable some warnings.
 	add_definitions (
 		# Unused but set variable.
@@ -391,7 +391,7 @@ endif()
 # Clang
 # -----
 
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang") 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang") 
 	add_definitions (
 		# Enables C++14 library support.
 		-stdlib=libc++
@@ -525,9 +525,9 @@ macro (PastelAdd Type LibraryName)
 
 	#message (STATUS "${LibraryName} is ${Type}" )
 
-	if (${Type} STREQUAL "library")
+	if ("${Type}" STREQUAL "library")
 		add_library (${LibraryName} ${PastelLibraryType} ${SourceSet})
-	else (${Type} STREQUAL "executable")
+	else ("${Type}" STREQUAL "executable")
 		add_executable (${LibraryName} ${SourceSet})
 	else ()
 		message (FATAL_ERROR "Unknown library type ${Type}.")
