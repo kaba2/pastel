@@ -105,6 +105,7 @@ namespace Pastel
     scaling (Cpd_Scaling : Free):
     Specifies constraints for the scaling S.
         Free: S^T = S
+        Diagonal: S is diagonal
         Conformal: S = sI
         Rigid: S = I
 
@@ -357,7 +358,7 @@ namespace Pastel
             sigma2 /= arma::accu(W) * d;
 
 			// Report the current estimate.
-			Cpd_State<Real> match = 
+			Cpd_State<Real> state = 
 			{
 				std::move(Q),
 				std::move(S),
@@ -366,12 +367,12 @@ namespace Pastel
                 std::move(W)
 			};
 
-			report(addConst(match));
+			report(addConst(state));
 
-			Q = std::move(match.Q);
-			S = std::move(match.S);
-			t = std::move(match.t);
-            W = std::move(match.W);
+			Q = std::move(state.Q);
+			S = std::move(state.S);
+			t = std::move(state.t);
+            W = std::move(state.W);
 
             real qError = arma::norm(qPrev - Q, "inf");
             real sError = arma::norm(sPrev - S, "inf");

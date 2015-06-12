@@ -58,6 +58,7 @@ namespace
 		auto scaling = matlabStringAsEnum<LsAffine_Scaling>(
 			inputSet[Scaling],
 			"free", LsAffine_Scaling::Free,
+			"diagonal", LsAffine_Scaling::Diagonal,
 			"conformal", LsAffine_Scaling::Conformal,
 			"rigid", LsAffine_Scaling::Rigid);
 

@@ -62,6 +62,7 @@ namespace
 		auto scaling = matlabStringAsEnum<Cpd_Scaling>(
 			inputSet[Scaling],
 			"free", Cpd_Scaling::Free,
+			"diagonal", Cpd_Scaling::Diagonal,
 			"conformal", Cpd_Scaling::Conformal,
 			"rigid", Cpd_Scaling::Rigid);
 
