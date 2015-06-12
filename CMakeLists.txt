@@ -21,6 +21,9 @@ math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 # automatically. The latter is possible only on
 # Linux and Mac OS X.
 
+# There is no need to give a library path for Matlab;
+# mex files are built from within Matlab.
+
 set (MatlabVersion 2013b)
 
 set (PastelDirectory ${CMAKE_SOURCE_DIR})
@@ -40,17 +43,22 @@ if (WIN32)
 	set (TbbDirectory "C:/code/tbb-4.3")
 	set (TbbLibraryName "tbb")
 	set (TbbLibraryNameDebug "tbb_debug")
+	if (${GENERATOR_BITS} EQUAL 32)
+		set (TbbLibraryDirectory ${TbbDirectory}/lib/ia32/vc12)
+	else()
+		set (TbbLibraryDirectory ${TbbDirectory}/lib/intel64/vc12)
+	endif()
+
 
 	set (BlasLibraryDirectory "${PastelDirectory}/pastel")
 	set (BlasLibraryName "blas_win64_MT")
+
 	set (LapackLibraryDirectory "${PastelDirectory}/pastel")
 	set (LapackLibraryName "lapack_win64_MT")
 
 	if (${GENERATOR_BITS} EQUAL 32)
-		set (TbbLibraryDirectory ${TbbDirectory}/lib/ia32/vc12)
 		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R${MatlabVersion}")
 	else()
-		set (TbbLibraryDirectory ${TbbDirectory}/lib/intel64/vc12)
 		set (MatlabDirectory "C:/Program Files/MATLAB/R${MatlabVersion}")
 	endif()
 else(UNIX)
@@ -65,13 +73,14 @@ else(UNIX)
 	set (TbbDirectory "~/code/tbb-4.3")
 	set (TbbLibraryName "tbb")
 	set (TbbLibraryNameDebug "tbb_debug")
+	set (TbbLibraryDirectory ${TbbDirectory}/lib)
 
 	set (BlasLibraryDirectory "")
 	set (BlasLibraryName "")
+	
 	set (LapackLibraryDirectory "")
 	set (LapackLibraryName "")
 
-	set (TbbLibraryDirectory ${TbbDirectory}/lib)
 	set (MatlabDirectory "/usr/local/matlab/r${MatlabVersion}")
 else(APPLE)
 	# On Mac OS X things are stored in standard places, so it 
@@ -85,17 +94,21 @@ else(APPLE)
 	set (TbbDirectory "~/code/tbb-4.3")
 	set (TbbLibraryName "tbb")
 	set (TbbLibraryNameDebug "tbb_debug")
+	set (TbbLibraryDirectory ${TbbDirectory}/lib/libc++)
 
 	set (BlasLibraryDirectory "")
 	set (BlasLibraryName "")
+
 	set (LapackLibraryDirectory "")
 	set (LapackLibraryName "")
 
-	set (TbbLibraryDirectory ${TbbDirectory}/lib/libc++)
 	set (MatlabDirectory "/Applications/MATLAB_R${MatlabVersion}.app")
 endif()
 
-# The directory of Matlab.
+# Attempt to find missing paths automatically
+# -------------------------------------------
+
+# This often only works on Linux and Mac OS X.
 
 if (${BoostDirectory} STREQUAL "" OR NOT EXISTS ${BoostDirectory})
 	set (BoostVersion 1.58.0)
@@ -137,6 +150,9 @@ macro (CheckPathExists Name Directory)
 	endif()
 endmacro()
 
+# Verify that the library paths exist.
+# ------------------------------------
+
 CheckPathExists(Boost ${BoostDirectory})
 CheckPathExists(Armadillo ${ArmadilloDirectory})
 CheckPathExists(Tbb ${TbbDirectory})
@@ -148,33 +164,25 @@ if (BuildMatlab)
 	CheckPathExists(Matlab ${MatlabDirectory})
 endif()
 
-# Note: To successfully _compile_ Pastel's Matlab-libraries, 
-# you only need the header files for Matlab. 
-# This allows you to try the compilation
-# even if you do not have the external library
-# binaries. It is only in the _linking_ phase of 
-# executables and shared libraries (i.e. tests and 
-# examples) where the binaries are needed .
-
-# No need to give a library path for Matlab:
-# Mex files are built from within Matlab.
-
 # Compute some additional directories.
+# ------------------------------------
 
 set (BoostIncludeDirectory ${BoostDirectory})
-
 set (TbbIncludeDirectory ${TbbDirectory}/include)
-
 set (ArmadilloIncludeDirectory ${ArmadilloDirectory}/include)
-
 set (MatlabIncludeDirectory ${MatlabDirectory}/extern/include)
 
-# For Pastel, the includes are of the form 'pastel/sys/mytypes.h'.
-include_directories (.)
+# Add the include directories.
+# ----------------------------
+
+include_directories (${PastelIncludeDirectory})
 include_directories (${BoostIncludeDirectory})
 include_directories (${TbbIncludeDirectory})
 include_directories (${MatlabIncludeDirectory})
 include_directories (${ArmadilloIncludeDirectory})
+
+# Add the library directories.
+# ----------------------------
 
 link_directories (${TbbLibraryDirectory})
 link_directories (${LapackLibraryDirectory})
@@ -235,14 +243,15 @@ set (PastelDocumentationGlobSet *.txt)
 # linked to every executable.
 set (ExecutableLibrarySet tbb)
 
-set (LapackDllName ${LapackLibraryName}.dll)
-set (BlasDllName ${BlasLibraryName}.dll)
-
 # The set of dll-libraries to copy into the 
-# executable directory.
-set (DllSet
-	${LapackDllName}
-	${BlasDllName})
+# executable directory (Windows only).
+set (DllSet "")
+
+if (WIN32)
+	set (DllSet
+		${LapackLibraryName}.dll
+		${BlasLibraryName}.dll)
+endif()
 
 # Set a default build type if none was specified.
 # This only applies to single-configuration tool-sets,
@@ -299,8 +308,8 @@ set (CMAKE_CXX_FLAGS_DEBUG
 	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG"
 )
 
-add_definitions(
-	-DARMA_USE_CXX11)
+# Make Armadillo use C++11 (e.g. move constructors).
+add_definitions(-DARMA_USE_CXX11)
 
 # Make the special functions in Boost return infinity on overflow
 # (rather than throw an exception).
