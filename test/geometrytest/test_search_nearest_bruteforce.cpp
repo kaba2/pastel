@@ -62,7 +62,6 @@ namespace
 
 		void testSmall()
 		{
-#if 0
 			/*
 			 0   |
 			     |2  3
@@ -151,11 +150,11 @@ namespace
 				tree.refine(SlidingMidpoint_SplitRule(), 1);
 				TEST_ENSURE(testInvariants(tree));
 
-				//PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
+				PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
 
-				//using PointSet = NearestSet_PointSet<Tree>;
-				//using Point = NearestSet_Point<Tree>;
-				//using Real = NearestSet_Real<Tree>;
+				using PointSet = NearestSet_PointSet<Tree>;
+				using Point = NearestSet_Point<Tree>;
+				using Real = NearestSet_Real<Tree>;
 
 				//test(tree, distanceSet);
 			}
@@ -173,13 +172,13 @@ namespace
 			auto pointSet = nearestSet.pointSet();
 
 			integer j = 0;
-			while (!pointSet.empty())
+			while (!pointSetEmpty(pointSet))
 			{
-				auto i = pointSet.get();
-				pointSet.pop();
+				auto i = pointSetGet(pointSet);
+				pointSetPop(pointSet);
 
 				{
-					std::pair<real, NearestSet_Point<NearestSet>> result =
+					auto result =
 						searchNearest(nearestSet, i);
 
 					real distance2 = result.first;
@@ -195,8 +194,7 @@ namespace
 						searchNearest(
 							nearestSet,
 							i,
-							Null_Output(),
-							indicator,
+							PASTEL_TAG(accept), indicator,
 							normBijection
 						);
 
@@ -206,9 +204,8 @@ namespace
 				}
 				++j;
 			}
-		
-#endif
 		}
+
 		template <typename SearchAlgorithm_PointKdTree>
 		void testPointKdTree(
 			SearchAlgorithm_PointKdTree searchAlgorithm)
@@ -371,7 +368,7 @@ namespace
 						searchNearest(
 							tree, 
 							pointSet[i], 
-							PASTEL_TAG(acceptPoint), predicateIndicator(iteratorSet[i], NotEqualTo()),
+							PASTEL_TAG(accept), predicateIndicator(iteratorSet[i], NotEqualTo()),
 							PASTEL_TAG(searchAlgorithm), searchAlgorithm,
 							PASTEL_TAG(nBruteForce), 1);
 
@@ -476,31 +473,25 @@ namespace
 			for (auto i = pointSet.begin(); i != pointSet.end(); ++i)
 			{
 				{
-					/*
 					std::pair<real, Vector2> result =
 						searchNearest(addConst(aNearestSet), *i);
 
 					real distance2 = result.first;
 
 					TEST_ENSURE(distance2 == 0);
-					*/
 				}
 
 				{
-					/*
 					std::pair<real, Point_Iterator> result =
 						searchNearest(
 							addConst(bNearestSet),
 							*i,
-							Null_Output(),
-							predicateIndicator(i, NotEqualTo()),
-							normBijection
+							PASTEL_TAG(accept), predicateIndicator(i, NotEqualTo())
 						);
 
 					real distance2 = result.first;
 
 					TEST_ENSURE(distance2 == distanceSet[j]);
-					*/
 				}
 				++j;
 			}
