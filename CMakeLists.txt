@@ -15,36 +15,137 @@ math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 # Paths
 # -----
 
-# Change the following directories to reflect your own
-# build environment. If a library is not used, the path
-# is ignored.
+# An explicitly-specified non-empty library path
+# will be used as it is --- provided it exists. 
+# Otherwise the path is attempted to be detected 
+# automatically. The latter is possible only on
+# Linux and Mac OS X.
 
-# The directory of Boost.
-set (BoostDirectory "../boost_1_58_0")
+set (MatlabVersion 2013b)
 
-# The directory of Threading Building Blocks. 
-set (TbbDirectory "../tbb-4.3")
+set (PastelDirectory ${CMAKE_SOURCE_DIR})
+set (PastelIncludeDirectory ${PastelDirectory})
+set (PastelLibraryDirectory ${PastelDirectory}/lib)
 
-# The directory of Armadillo.
-set (ArmadilloDirectory "../armadillo-5.200")
-
-# The version of Matlab.
-set (MatlabVersion "2013b")
-
-set (BlasLibraryName blas_win64_MT)
-set (LapackLibraryName lapack_win64_MT)
-
-# The directory of Matlab.
 if (WIN32)
+	# Under Windows, there are no standard
+	# directories to store libraries, so
+	# we must specify the directories
+	# manually.
+
+	set (BoostDirectory "C:/code/boost_1_58_0")
+
+	set (ArmadilloDirectory "C:/code/armadillo-5.200.1")
+
+	set (TbbDirectory "C:/code/tbb-4.3")
+	set (TbbLibraryName "tbb")
+	set (TbbLibraryNameDebug "tbb_debug")
+
+	set (BlasLibraryDirectory "${PastelDirectory}/pastel")
+	set (BlasLibraryName "blas_win64_MT")
+	set (LapackLibraryDirectory "${PastelDirectory}/pastel")
+	set (LapackLibraryName "lapack_win64_MT")
+
 	if (${GENERATOR_BITS} EQUAL 32)
+		set (TbbLibraryDirectory ${TbbDirectory}/lib/ia32/vc12)
 		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R${MatlabVersion}")
 	else()
+		set (TbbLibraryDirectory ${TbbDirectory}/lib/intel64/vc12)
 		set (MatlabDirectory "C:/Program Files/MATLAB/R${MatlabVersion}")
 	endif()
-else (APPLE)
-	set (MatlabDirectory "/Applications/MATLAB_R${MatlabVersion}.app")
-else (UNIX)
+else(UNIX)
+	# On Linux things are stored in standard places, so it 
+	# is often possible to find libraries automatically; 
+	# empty strings denote that.
+
+	set (BoostDirectory "")
+
+	set (ArmadilloDirectory "")
+
+	set (TbbDirectory "~/code/tbb-4.3")
+	set (TbbLibraryName "tbb")
+	set (TbbLibraryNameDebug "tbb_debug")
+
+	set (BlasLibraryDirectory "")
+	set (BlasLibraryName "")
+	set (LapackLibraryDirectory "")
+	set (LapackLibraryName "")
+
+	set (TbbLibraryDirectory ${TbbDirectory}/lib)
 	set (MatlabDirectory "/usr/local/matlab/r${MatlabVersion}")
+else(APPLE)
+	# On Mac OS X things are stored in standard places, so it 
+	# is often possible to find libraries automatically; 
+	# empty strings denote that.
+
+	set (BoostDirectory "")
+
+	set (ArmadilloDirectory "")
+
+	set (TbbDirectory "~/code/tbb-4.3")
+	set (TbbLibraryName "tbb")
+	set (TbbLibraryNameDebug "tbb_debug")
+
+	set (BlasLibraryDirectory "")
+	set (BlasLibraryName "")
+	set (LapackLibraryDirectory "")
+	set (LapackLibraryName "")
+
+	set (TbbLibraryDirectory ${TbbDirectory}/lib/libc++)
+	set (MatlabDirectory "/Applications/MATLAB_R${MatlabVersion}.app")
+endif()
+
+# The directory of Matlab.
+
+if (${BoostDirectory} STREQUAL "" OR NOT EXISTS ${BoostDirectory})
+	set (BoostVersion 1.58.0)
+	find_package(Boost ${BoostVersion})
+	if (BOOST_FOUND)
+		set (BoostDirectory ${BOOST_INCLUDE_DIRS}/..)
+	endif()
+endif()
+
+if (${ArmadilloDirectory} STREQUAL "" OR NOT EXISTS ${ArmadilloDirectory})
+	find_package(Armadillo)
+	if (ARMADILLO_FOUND)
+		set (ArmadilloDirectory ${ARMADILLO_INCLUDE_DIRS}/..)
+	endif()
+endif()
+
+if (${LapackLibraryDirectory} STREQUAL "" OR NOT EXISTS ${LapackLibraryDirectory})
+	find_package(LAPACK)
+	if (LAPACK_FOUND)
+		set (LapackLibraryName LAPACK_LIBRARIES)
+		get_filename_component(LapackLibraryDirectory ${LapackLibraryName} DIRECTORY)
+	endif()
+endif()
+
+if (${BlasLibraryDirectory} STREQUAL "" OR NOT EXISTS ${BlasLibraryDirectory})
+	find_package(BLAS)
+	if (BLAS_FOUND)
+		set (BlasLibraryName BLAS_LIBRARIES)
+		get_filename_component(BlasLibraryDirectory ${BlasLibraryName} DIRECTORY)
+	endif()
+endif()
+
+macro (CheckPathExists Name Directory)
+	if (EXISTS ${Directory})
+		message (STATUS "Using ${Name} from ${Directory}.")
+	else()
+		message (SEND_ERROR "Cannot find ${Name} (tried ${Directory}). Specify the path in Pastel's root CMakeLists.txt.")
+		return()
+	endif()
+endmacro()
+
+CheckPathExists(Boost ${BoostDirectory})
+CheckPathExists(Armadillo ${ArmadilloDirectory})
+CheckPathExists(Tbb ${TbbDirectory})
+CheckPathExists("Tbb library" ${TbbLibraryDirectory})
+CheckPathExists("Lapack library" ${LapackLibraryDirectory})
+CheckPathExists("Blas library" ${BlasLibraryDirectory})
+
+if (BuildMatlab)
+	CheckPathExists(Matlab ${MatlabDirectory})
 endif()
 
 # Note: To successfully _compile_ Pastel's Matlab-libraries, 
@@ -64,22 +165,7 @@ set (BoostIncludeDirectory ${BoostDirectory})
 
 set (TbbIncludeDirectory ${TbbDirectory}/include)
 
-if (WIN32)
-	if (${GENERATOR_BITS} EQUAL 32)
-		set (TbbLibraryDirectory ${TbbDirectory}/lib/ia32/vc12)
-	else()
-		set (TbbLibraryDirectory ${TbbDirectory}/lib/intel64/vc12)
-	endif()
-else(APPLE)
-	set (TbbLibraryDirectory ${TbbDirectory}/lib/libc++)
-else(UNIX)
-	set (TbbLibraryDirectory ${TbbDirectory}/lib)
-endif()
-
 set (ArmadilloIncludeDirectory ${ArmadilloDirectory}/include)
-
-set (BlasLibraryDirectory ${ArmadilloDirectory}/examples/lib_win64)
-set (LapackLibraryDirectory ${ArmadilloDirectory}/examples/lib_win64)
 
 set (MatlabIncludeDirectory ${MatlabDirectory}/extern/include)
 
@@ -140,7 +226,7 @@ set (PastelLibraryType STATIC)
 set (PastelSourceGlobSet *.cpp *.h *.hpp *.txt)
 
 # The source files to include in a Matlab build.
-set (PastelMatlabSourceGlobSet *.m)
+set (PastelMatlabSourceGlobSet *.m *.m.cmake)
 
 # The documentation files of the project.
 set (PastelDocumentationGlobSet *.txt)
@@ -420,22 +506,23 @@ macro (PastelAdd Type LibraryName)
 endmacro()
 
 # Configures a Pastel Matlab library.
-macro (PastelAddMatlab LibraryName)
+macro (PastelAddMatlab)
 	file (GLOB_RECURSE SourceSet RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${PastelMatlabSourceGlobSet})
 	foreach(FilePath ${SourceSet})
-		set (OutputFilePath bin/matlab/${FilePath})
+		set (OutputFilePath ${CMAKE_SOURCE_DIR}/bin/matlab/${FilePath})
 		set (Options "")
 
 		get_filename_component(FileExtension ${FilePath} EXT)
+
 		if (${FileExtension} STREQUAL ".m.cmake")
-			string (REGEX REPLACE "(.*).cmake$" "\\1" OutputFilePath ${FilePath})
+			string (REGEX REPLACE "(.*).cmake$" "\\1" OutputFilePath ${OutputFilePath})
 		else()
 			set (Options COPY_ONLY)
 		endif()
 		
 		configure_file(${FilePath} ${OutputFilePath} ${Options})
 		#message (STATUS "Configured ${FilePath} to ${OutputFilePath}.")
-	endforeach()
+		endforeach()
 endmacro()
 
 # Recurse to sub-projects

@@ -1,0 +1,3 @@
+if (BuildMatlab)
+	PastelAddMatlab()
+endif()
