@@ -28,7 +28,7 @@ set (MatlabVersion 2013b)
 
 set (PastelDirectory ${CMAKE_SOURCE_DIR})
 set (PastelIncludeDirectory ${PastelDirectory})
-set (PastelLibraryDirectory ${PastelDirectory}/lib)
+set (PastelLibraryDirectory ${PastelDirectory}/lib/${GENERATOR_BITS})
 
 if (WIN32)
 	# Under Windows, there are no standard
@@ -270,33 +270,42 @@ endif()
 
 string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
 
+# The library output directory is of the form "lib/64/release".
+set (PastelLibraryDirectory_ ${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE})
+
 # The directory to place the static libraries.
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY 
-	${CMAKE_SOURCE_DIR}/lib/${GENERATOR_BITS}/${LOWER_CMAKE_BUILD_TYPE})
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PastelLibraryDirectory_})
 
 # The directory to place the shared libraries.
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY 
-	${CMAKE_SOURCE_DIR}/lib/${GENERATOR_BITS}/${LOWER_CMAKE_BUILD_TYPE})
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PastelLibraryDirectory_})
 
 # The directory to place the built executables.
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY 
-	${CMAKE_SOURCE_DIR}/bin/${GENERATOR_BITS}/${LOWER_CMAKE_BUILD_TYPE})
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PastelLibraryDirectory_})
 
 # This is for the multi-configuration build-scripts
 # (such as Visual Studio or XCode).
 foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
     string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
-    set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	${CMAKE_SOURCE_DIR}/lib/${GENERATOR_BITS}/${LOWER_OUTPUTCONFIG})
-    set (CMAKE_LIBRARY_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	${CMAKE_SOURCE_DIR}/lib/${GENERATOR_BITS}/${LOWER_OUTPUTCONFIG})
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	${CMAKE_SOURCE_DIR}/bin/${GENERATOR_BITS}/${LOWER_OUTPUTCONFIG})
 
-    foreach (dllFile ${DllSet})
-		file (COPY pastel/${dllFile} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
-    endforeach()
+	# The library output directory is of the form "lib/64/config".
+    set (PastelLibraryDirectory_ "${PastelLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
+
+    set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
+    	${PastelLibraryDirectory_})
+    set (CMAKE_LIBRARY_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
+    	${PastelLibraryDirectory_})
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
+    	${PastelLibraryDirectory_})
+
+    if (WIN32)
+    	# On Windows, copy the dll-libraries to where
+    	# the executables are.
+	    foreach (dllFile ${DllSet})
+			file (COPY pastel/${dllFile} DESTINATION 
+				${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
+	    endforeach()
+	endif()
 endforeach()
 
 

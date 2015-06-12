@@ -30,6 +30,7 @@ log.txt
 *.make
 *CMakeFiles*
 bin*
+lib*
 build*
 docs*
 CMakeCache.txt
