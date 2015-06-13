@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N_A, int N_B,
+	template <typename Real, integer N_A, integer N_B,
 		typename AlignedBox_Output>
 	integer difference(
 		const AlignedBox<Real, N_A>& aBox,
@@ -157,7 +157,7 @@ namespace Pastel
 	}
 
 	template <
-		typename Real, int N_A, int N_B,
+		typename Real, integer N_A, integer N_B,
 		typename AlignedBox_Output>
 	integer symmetricDifference(
 		const AlignedBox<Real, N_A>& aBox,

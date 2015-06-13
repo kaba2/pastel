@@ -15,7 +15,7 @@ namespace Pastel
 {
 
 	//! An axis-aligned box
-	template <typename Real, int N = Dynamic>
+	template <typename Real, integer N = Dynamic>
 	class AlignedBox
 		: boost::multipliable<AlignedBox<Real, N>, Real
 		, boost::dividable<AlignedBox<Real, N>, Real
