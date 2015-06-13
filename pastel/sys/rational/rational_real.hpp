@@ -348,7 +348,7 @@ namespace Pastel
 			bool leftDone = pass(
 				[&](Integer k)
 				{
-					return leftMediant(k).asReal<Real>() <= xMax;
+					return leftMediant(k).template asReal<Real>() <= xMax;
 				});
 			left.swap(right);
 
@@ -360,7 +360,7 @@ namespace Pastel
 			bool rightDone = pass(
 				[&](Integer k)
 				{
-					return leftMediant(k).asReal<Real>() >= xMin;
+					return leftMediant(k).template asReal<Real>() >= xMin;
 				});
 			left.swap(right);
 
