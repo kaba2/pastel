@@ -12,7 +12,7 @@ namespace Pastel
 		return std::ceil(t - (real)0.5);
 	}
 
-	template <int N>
+	template <integer N>
 	inline Vector<integer, N> toPixelSpanPoint(
 		const Vector<real, N>& that)
 	{

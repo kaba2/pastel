@@ -18,7 +18,7 @@ namespace Pastel
 	once for each row.
 	*/
 
-	template <int N, 
+	template <integer N, 
 		typename Input_Element, typename Input_ConstView,
 		typename RowVisitorFunctor>
 		void visitRows(
@@ -35,7 +35,7 @@ namespace Pastel
 	rowVisitor(rowView(view, freeIndex, position))
 	once for each row.
 	*/
-	template <int N, 
+	template <integer N, 
 		typename Input_Element, typename Input_View,
 		typename RowVisitorFunctor>
 		void visitRows(
@@ -54,7 +54,7 @@ namespace Pastel
 	rowView(right, freeIndex, position))
 	once for each row.
 	*/
-	template <int N, 
+	template <integer N, 
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>
@@ -75,7 +75,7 @@ namespace Pastel
 	rowView(right, freeIndex, position))
 	once for each row.
 	*/
-	template <int N, 
+	template <integer N, 
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>
@@ -96,7 +96,7 @@ namespace Pastel
 	constRowView(right, freeIndex, position))
 	once for each row.
 	*/
-	template <int N, 
+	template <integer N, 
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>

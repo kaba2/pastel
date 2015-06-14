@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N>& transformVectorInplace(
 		const ConformalAffine2D<Real>& transform,
 		Vector<Real, N>& that)
@@ -33,7 +33,7 @@ namespace Pastel
 		return that;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> transformVector(
 		const ConformalAffine2D<Real>& transform,
 		const Vector<Real, N>& that)
@@ -49,7 +49,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N>& transformPointInplace(
 		const ConformalAffine2D<Real>& transform,
 		Vector<Real, N>& that)
@@ -65,7 +65,7 @@ namespace Pastel
 		return that;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> transformPoint(
 		const ConformalAffine2D<Real>& transform,
 		const Vector<Real, N>& that)
@@ -96,7 +96,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	ConformalAffine2D<Real> conformalAffine(
 		const Vector<Real, N>& aFrom, const Vector<Real, N>& bFrom,
 		const Vector<Real, N>& aTo, const Vector<Real, N>& bTo)

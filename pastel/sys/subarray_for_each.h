@@ -16,7 +16,7 @@ namespace Pastel
 	axis < aArray.n()
 	*/
 	template <
-		typename Type, int N,
+		typename Type, integer N,
 		typename RangeAlgorithm>
 	void forEachRow(
 		const SubArray<Type, N>& subArray,
@@ -30,7 +30,7 @@ namespace Pastel
 	successively with 'axis' increasing from 0 to subArray.n().
 	*/
 	template <
-		typename Type, int N,
+		typename Type, integer N,
 		typename RangeAlgorithm>
 	void forEachRowOnAllAxes(
 		const SubArray<Type, N>& subArray,
@@ -46,8 +46,8 @@ namespace Pastel
 	The visited rows correspond to each other in position.
 	*/
 	template <
-		typename Type_A, int N_A, 
-		typename Type_B, int N_B, 
+		typename Type_A, integer N_A, 
+		typename Type_B, integer N_B, 
 		typename RangeAlgorithm2>
 	void forEachRow(
 		const ConstSubArray<Type_A, N_A>& aArray,

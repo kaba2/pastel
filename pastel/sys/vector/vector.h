@@ -18,14 +18,14 @@
 namespace Pastel
 {
 
-	template <typename Real, int N = Dynamic>
+	template <typename Real, integer N = Dynamic>
 	class Vector
 		: public VectorExpression<Real, N, Vector<Real, N>>
 	{
 	private:
 		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 
-		template <typename, int>
+		template <typename, integer>
 		friend class Vector;
 
 	public:
@@ -61,14 +61,14 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal, int ThatN>
+		template <typename ThatReal, integer ThatN>
 		explicit Vector(const Tuple<ThatReal, ThatN>& that)
 			: data_(that)
 		{
 			PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
 		}
 
-		template <typename ThatReal, int ThatN>
+		template <typename ThatReal, integer ThatN>
 		Vector(const Vector<ThatReal, ThatN>& that)
 			: data_(that.data_)
 		{
@@ -103,7 +103,7 @@ namespace Pastel
 			PASTEL_STATIC_ASSERT(N != Dynamic);
 		}
 
-		template <typename ThatReal, int ThatN, typename Expression>
+		template <typename ThatReal, integer ThatN, typename Expression>
 		Vector(const VectorExpression<ThatReal, ThatN, Expression>& that)
 			: data_(ofDimension(that.size()))
 		{
@@ -120,7 +120,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 2)> = 0>
 		Vector(const Real& x, const Real& y)
 		{
@@ -128,7 +128,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 3)> = 0>
 		Vector(const Real& x, const Real& y, const Real& z)
 		{
@@ -136,7 +136,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 4)> = 0>
 		Vector(const Real& x, const Real& y, 
 			const Real& z, const Real& w)
@@ -255,13 +255,13 @@ namespace Pastel
 		}
 
 		/*
-		template <typename ThatReal, int ThatN, typename Expression>
+		template <typename ThatReal, integer ThatN, typename Expression>
 		DisableIf<
 			(std::is_same<Expression, Vector<ThatReal, ThatN> >>,
 			(Vector<Real, N>&)) assign(
 			const VectorExpression<ThatReal, ThatN, Expression>& that)
 		*/
-		template <typename ThatReal, int ThatN, typename Expression>
+		template <typename ThatReal, integer ThatN, typename Expression>
 		Vector<Real, N>& assign(
 			const VectorExpression<ThatReal, ThatN, Expression>& that)
 		{
@@ -405,7 +405,7 @@ namespace Pastel
 			return (*this *= Pastel::inverse(that));
 		}
 
-		template <typename ThatReal, int ThatN, typename Expression>
+		template <typename ThatReal, integer ThatN, typename Expression>
 		Vector<Real, N>& operator+=(
 			const VectorExpression<ThatReal, ThatN, Expression>& that)
 		{
@@ -431,7 +431,7 @@ namespace Pastel
 			return (Vector<Real, N>&)*this;
 		}
 
-		template <typename ThatReal, int ThatN, typename Expression>
+		template <typename ThatReal, integer ThatN, typename Expression>
 		Vector<Real, N>& operator-=(
 			const VectorExpression<ThatReal, ThatN, Expression>& that)
 		{
@@ -457,7 +457,7 @@ namespace Pastel
 			return (Vector<Real, N>&)*this;
 		}
 
-		template <typename ThatReal, int ThatN, typename Expression>
+		template <typename ThatReal, integer ThatN, typename Expression>
 		Vector<Real, N>& operator*=(
 			const VectorExpression<ThatReal, ThatN, Expression>& that)
 		{
@@ -483,7 +483,7 @@ namespace Pastel
 			return (Vector<Real, N>&)*this;
 		}
 
-		template <typename ThatReal, int ThatN, typename Expression>
+		template <typename ThatReal, integer ThatN, typename Expression>
 		Vector<Real, N>& operator/=(
 			const VectorExpression<ThatReal, ThatN, Expression>& that)
 		{
@@ -520,7 +520,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 2)> = 0>
 		void set(
 			const Real& x, const Real& y)
@@ -531,7 +531,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 3)> = 0>
 		void set(
 			const Real& x, const Real& y, 
@@ -544,7 +544,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 4)> = 0>
 		void set(
 			const Real& x, const Real& y, 
@@ -558,7 +558,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 1)> = 0>
 		Real& x()
 		{
@@ -566,7 +566,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 1)> = 0>
 		const Real& x() const
 		{
@@ -574,7 +574,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 2)> = 0>
 		Real& y()
 		{
@@ -582,7 +582,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 2)> = 0>
 		const Real& y() const
 		{
@@ -590,7 +590,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 3)> = 0>
 		Real& z()
 		{
@@ -598,7 +598,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 3)> = 0>
 		const Real& z() const
 		{
@@ -606,7 +606,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 4)> = 0>
 		Real& w()
 		{
@@ -614,7 +614,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 4)> = 0>
 		const Real& w() const
 		{
@@ -642,19 +642,19 @@ namespace Pastel
 	using UnitVector3 = Vector3;
 	using UnitVector4 = Vector4;
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void swap(Vector<Real, N>& left,
 		Vector<Real, N>& right);
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	Vector<Real, N> evaluate(
 		const VectorExpression<Real, N, Expression>& that);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Tuple<Real, N>& asTuple(
 		Vector<Real, N>& that);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	const Tuple<Real, N>& asTuple(
 		const Vector<Real, N>& that);
 
@@ -663,7 +663,7 @@ namespace Pastel
 namespace std
 {
 
-	template <typename Real, int N>
+	template <typename Real, Pastel::integer N>
 	struct hash<Pastel::Vector<Real, N>>
 	{
 	public:

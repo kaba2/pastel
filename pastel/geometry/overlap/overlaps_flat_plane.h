@@ -11,7 +11,7 @@ namespace Pastel
 {
 
 	//! Tests if a 2-flat and a hyperplane overlap.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Flat<Real, N, 2>& aPlane,
 		const Plane<Real, N>& bPlane);

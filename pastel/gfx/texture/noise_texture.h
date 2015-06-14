@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N = 2>
+	template <integer N = 2>
 	class Noise_Texture
 		: public Texture<real, N>
 	{
@@ -64,7 +64,7 @@ namespace Pastel
 		Vector<real, N> translation_;
 	};
 
-	template <int N>
+	template <integer N>
 	Noise_Texture<N> noiseTexture()
 	{
 		return Noise_Texture<N>();

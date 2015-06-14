@@ -124,7 +124,7 @@ namespace Pastel
 		const QrDecomposition<Real>& qr);
 
 	//! Solves the linear system QRx = b.
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	Vector<Real> solveLinear(
 		const QrDecomposition<Real>& qr,
 		const VectorExpression<Real, N, Expression>& b);

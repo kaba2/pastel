@@ -50,7 +50,7 @@ namespace Pastel
 		return matrix;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> perpendicular(
 		integer dimension,
 		const std::vector<Vector<Real, N> >& orthonormalSet)

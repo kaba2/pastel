@@ -19,7 +19,7 @@ namespace Pastel
 		const Locator& locator)
 	{
 		using Real = typename Locator::Real;
-		static constexpr int N = Locator::N;
+		static constexpr integer N = Locator::N;
 
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",

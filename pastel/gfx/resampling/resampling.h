@@ -82,7 +82,7 @@ namespace Pastel
 
 	template <
 		typename Computation_Element,
-		int N,
+		integer N,
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,
@@ -107,7 +107,7 @@ namespace Pastel
 
 	template <
 		typename Computation_Element,
-		int N,
+		integer N,
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,

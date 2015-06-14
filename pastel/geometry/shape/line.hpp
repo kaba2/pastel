@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Line<Real, N>::Line()
 		: position_(0)
 		, direction_(unitAxis<Real, N>(0))
@@ -18,7 +18,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Line<Real, N>::Line(integer dimension)
 		: position_(ofDimension(dimension), 0)
 		, direction_(unitAxis<Real, N>(dimension, 0))
@@ -26,7 +26,7 @@ namespace Pastel
 	{
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Line<Real, N>::Line(
 		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitDirection)
@@ -37,7 +37,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Line<Real, N>::Line(
 		integer dimension,
 		const Vector<Real, N>& position,
@@ -50,13 +50,13 @@ namespace Pastel
 		PENSURE_OP(dimension, ==, unitDirection.n());
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Line<Real, N>::~Line()
 	{
 		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Line<Real, N>::swap(Line<Real, N>& that)
 	{
 		using std::swap;
@@ -67,13 +67,13 @@ namespace Pastel
 		swap(inverseDirection_, that.inverseDirection_);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	integer Line<Real, N>::n() const
 	{
 		return position_.n();
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Line<Real, N>::set(
 		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitDirection)
@@ -82,7 +82,7 @@ namespace Pastel
 		setDirection(unitDirection);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Line<Real, N>::setPosition(
 		const Vector<Real, N>& position)
 	{
@@ -91,13 +91,13 @@ namespace Pastel
 		position_ = position;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	const Vector<Real, N>& Line<Real, N>::position() const
 	{
 		return position_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Line<Real, N>::setDirection(
 		const Vector<Real, N>& unitDirection)
 	{
@@ -109,25 +109,25 @@ namespace Pastel
 			inverse(unitDirection);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	const Vector<Real, N>& Line<Real, N>::direction() const
 	{
 		return direction_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	const Vector<Real, N>& Line<Real, N>::inverseDirection() const
 	{
 		return inverseDirection_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> Line<Real, N>::at(const Real& t) const
 	{
 		return position_ + direction_ * t;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Line<Real, N>& Line<Real, N>::operator+=(
 		const Vector<Real, N>& that)
 	{
@@ -136,7 +136,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Line<Real, N>& Line<Real, N>::operator-=(
 		const Vector<Real, N>& that)
 	{
@@ -145,7 +145,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Line<Real, N>& Line<Real, N>::operator*=(
 		const Real& that)
 	{
@@ -156,7 +156,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Line<Real, N>& Line<Real, N>::operator/=(
 		const Real& that)
 	{

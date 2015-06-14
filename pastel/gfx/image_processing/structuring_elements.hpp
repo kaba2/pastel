@@ -13,7 +13,7 @@ namespace Pastel
 	namespace EllipsoidElement_
 	{
 
-		template <int N>
+		template <integer N>
 		class VisitFunctor
 		{
 		public:
@@ -45,7 +45,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Image_View>
+	template <integer N, typename Image_View>
 	void ellipsoidElement(
 		const View<N, bool, Image_View>& image,
 		const NoDeduction<Vector<real, N>>& diameter)
@@ -56,7 +56,7 @@ namespace Pastel
 		visitPosition(image, visitFunctor);
 	}
 
-	template <int N, typename Image_View>
+	template <integer N, typename Image_View>
 	void ellipsoidElement(
 		const View<N, bool, Image_View>& image)
 	{
@@ -66,7 +66,7 @@ namespace Pastel
 	namespace DiamondElement_
 	{
 
-		template <int N>
+		template <integer N>
 		class VisitFunctor
 		{
 		public:
@@ -98,7 +98,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Image_View>
+	template <integer N, typename Image_View>
 	void diamondElement(
 		const View<N, bool, Image_View>& image,
 		const NoDeduction<Vector<real, N>>& diameter)
@@ -109,7 +109,7 @@ namespace Pastel
 		visitPosition(image, visitFunctor);
 	}
 
-	template <int N, typename Image_View>
+	template <integer N, typename Image_View>
 	void diamondElement(
 		const View<N, bool, Image_View>& image)
 	{
@@ -119,7 +119,7 @@ namespace Pastel
 	namespace pEllipsoidElement_
 	{
 
-		template <int N>
+		template <integer N>
 		class VisitFunctor
 		{
 		public:
@@ -154,7 +154,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Image_View>
+	template <integer N, typename Image_View>
 	void pEllipsoidElement(
 		const View<N, bool, Image_View>& image,
 		real power,
@@ -168,7 +168,7 @@ namespace Pastel
 		visitPosition(image, visitFunctor);
 	}
 
-	template <int N, typename Image_View>
+	template <integer N, typename Image_View>
 	void pEllipsoidElement(
 		const View<N, bool, Image_View>& image,
 		real power)
@@ -179,7 +179,7 @@ namespace Pastel
 	namespace BoxElement_
 	{
 
-		template <int N>
+		template <integer N>
 		class VisitFunctor
 		{
 		public:
@@ -211,7 +211,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Image_View>
+	template <integer N, typename Image_View>
 	void boxElement(
 		const View<N, bool, Image_View>& image,
 		const NoDeduction<Vector<real, N>>& diameter)
@@ -222,7 +222,7 @@ namespace Pastel
 		visitPosition(image, visitFunctor);
 	}
 
-	template <int N, typename Image_View>
+	template <integer N, typename Image_View>
 	void boxElement(
 		const View<N, bool, Image_View>& image)
 	{

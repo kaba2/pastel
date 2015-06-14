@@ -13,7 +13,7 @@ namespace Pastel
 	This is a convenience function which returns
 	std::sqrt(distance2(aSegment, bSegment)).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance(
 		const Segment<Real, N>& aSegment,
 		const Segment<Real, N>& bSegment);
@@ -25,7 +25,7 @@ namespace Pastel
 
 	Time complexity: O(aSegment.n())
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance2(
 		const Segment<Real, N>& aSegment,
 		const Segment<Real, N>& bSegment);

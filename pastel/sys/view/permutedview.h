@@ -22,7 +22,7 @@ namespace Pastel
 	p is in [1, n]^n
 	*/
 
-	template <int N, typename Contained_ConstView>
+	template <integer N, typename Contained_ConstView>
 	class ConstPermutedView
 	{
 	public:
@@ -62,7 +62,7 @@ namespace Pastel
 		Vector<integer, N> extent_;
 	};
 
-	template <int N, typename Input_Element, typename Input_ConstView>
+	template <integer N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstPermutedView<N, Input_ConstView> >
 		constPermutedView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
@@ -83,7 +83,7 @@ namespace Pastel
 	p is in [1, n]^n
 	*/
 
-	template <int N, typename Contained_View>
+	template <integer N, typename Contained_View>
 	class PermutedView
 		: public ConstPermutedView<N, Contained_View>
 	{
@@ -120,7 +120,7 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Input_Element, typename Input_View>
+	template <integer N, typename Input_Element, typename Input_View>
 	View<N, Input_Element, PermutedView<N, Input_View> > permutedView(
 		const View<N, Input_Element, Input_View>& view,
 		const Tuple<integer, N>& permutation)

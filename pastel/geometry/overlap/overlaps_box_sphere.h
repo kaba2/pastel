@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	//! Tests if an box and a sphere overlap.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Box<Real, N>& box,
 		const Sphere<Real, N>& sphere);

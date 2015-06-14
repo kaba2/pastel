@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class Sub_Texture
 		: public Texture<Type, N>
 	{
@@ -62,7 +62,7 @@ namespace Pastel
 		AlignedBox<real, N> window_;
 	};
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Sub_Texture<Type, N> subTexture(
 		const Texture<Type, N>& texture, 
 		const AlignedBox<real, N>& window)

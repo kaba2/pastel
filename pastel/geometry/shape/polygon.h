@@ -12,12 +12,12 @@
 namespace Pastel
 {
 
-	template <typename Real, int N = Dynamic>
+	template <typename Real, integer N = Dynamic>
 	class Polygon
 	{
 	public:
 		using Real_ = Real;
-		static constexpr int N_ = N;
+		static constexpr integer N_ = N;
 
 		// Using default constructor.
 		// Using default copy constructor.

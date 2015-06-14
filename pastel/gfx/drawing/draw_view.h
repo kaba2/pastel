@@ -13,7 +13,7 @@ namespace Pastel
 
 	//! Draws a texture in its native size.
 
-	template <int N,
+	template <integer N,
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View,
 		typename ColorMixer>
@@ -30,7 +30,7 @@ namespace Pastel
 	as the color mixer.
 	*/
 
-	template <int N,
+	template <integer N,
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View>
 	void drawView(

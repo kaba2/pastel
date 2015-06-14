@@ -14,7 +14,7 @@ homogeneous-type multi-dimensional arrays with dynamic extents.
 `Array` is a class template defined as:
 
 [[CppCode]]:
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class Array;
 	
 The first template parameter `Type` is the type of the elements that are stored

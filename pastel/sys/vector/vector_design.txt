@@ -29,7 +29,7 @@ It should be possible to pass a vector to a
 function requiring a tuple:
 
 [[CppCode]]:
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	void f(const Tuple<N, Type>& left)
 	{
 		//...

@@ -22,7 +22,7 @@ namespace Pastel
 	namespace PoissonDiskPattern_
 	{
 
-		template <typename Real, int N>
+		template <typename Real, integer N>
 		class Visitor
 		{
 		public:
@@ -56,7 +56,7 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename ReportFunctor, typename ConstSeedIterator>
+	template <typename Real, integer N, typename ReportFunctor, typename ConstSeedIterator>
 	void poissonDiskPattern(
 		const AlignedBox<Real, N>& window,
 		const NoDeduction<Real>& minDistance,
@@ -212,7 +212,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ReportFunctor>
+	template <typename Real, integer N, typename ReportFunctor>
 	void poissonDiskPattern(
 		const AlignedBox<Real, N>& window,
 		const NoDeduction<Real>& minDistance,

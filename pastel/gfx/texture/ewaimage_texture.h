@@ -50,7 +50,7 @@ namespace Pastel
 	the defaults.
 	*/
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class EwaImage_Texture
 		: public Texture<Type, N>
 	{

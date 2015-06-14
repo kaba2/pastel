@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class Color_Texture
 		: public Texture<Type, N>
 	{
@@ -45,7 +45,7 @@ namespace Pastel
 		Type color_;
 	};
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Color_Texture<Type, N> colorTexture(
 		const NoDeduction<Type>& color)
 	{

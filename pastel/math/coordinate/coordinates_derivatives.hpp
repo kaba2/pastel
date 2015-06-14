@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Matrix<Real> cartesianToSphericalDerivative(
 		const Vector<Real, N>& cartesian)
 	{
@@ -61,7 +61,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Matrix<Real> sphericalToCartesianDerivative(
 		const Vector<Real, N>& spherical)
 	{
@@ -121,7 +121,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> sphericalToCartesianDerivative(
 		const Vector<Real, N>& spherical,
 		const Vector<integer, N>& index)

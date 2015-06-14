@@ -14,13 +14,13 @@ namespace Pastel
 	This is a convenience function which returns
 	std::sqrt(distance2(line, point)).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance(
 		const Line<Real, N>& line,
 		const Vector<Real, N>& point);
 
 	//! Squared Euclidean distance between a point and a line.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance2(
 		const Line<Real, N>& line,
 		const Vector<Real, N>& point);

@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere)
 	{
@@ -17,7 +17,7 @@ namespace Pastel
 			sphere.position() + sphere.radius());
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere,
 		const AffineTransformation<Real>& transformation)

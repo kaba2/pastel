@@ -15,7 +15,7 @@
 namespace Pastel
 {
 
-	template <int N, int NewN>
+	template <integer N, integer NewN>
 	class ModifyN
 	{
 	public:
@@ -100,12 +100,12 @@ namespace Pastel
 		return Alias<Type*>(data);
 	}
 
-	template <typename Type, int N = Dynamic>
+	template <typename Type, integer N = Dynamic>
 	class Tuple
 		: boost::equality_comparable<Tuple<Type, N> >
 	{
 	public:
-		template <typename, int>
+		template <typename, integer>
 		friend class Tuple;
 
 		using value_type = Type;
@@ -183,7 +183,7 @@ namespace Pastel
 		*/
 
 		// Note copy constructor won't match this function.
-		template <typename ThatType, int ThatN>
+		template <typename ThatType, integer ThatN>
 		Tuple(const Tuple<ThatType, ThatN>& that)
 			: data_()
 		{
@@ -192,7 +192,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 2)> = 0>
 		Tuple(const Type& x, const Type& y)
 		{
@@ -200,7 +200,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 3)> = 0>
 		Tuple(const Type& x, const Type& y, const Type& z)
 		{
@@ -208,7 +208,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 4)> = 0>
 		Tuple(const Type& x, const Type& y, 
 			const Type& z, const Type& w)
@@ -392,7 +392,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 2)> = 0>
 		void set(
 			const Type& x, const Type& y)
@@ -403,7 +403,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 3)> = 0>
 		void set(
 			const Type& x, const Type& y, 
@@ -416,7 +416,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 4)> = 0>
 		void set(
 			const Type& x, const Type& y, 
@@ -430,7 +430,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 1)> = 0>
 		Type& x()
 		{
@@ -438,7 +438,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 1)> = 0>
 		const Type& x() const
 		{
@@ -446,7 +446,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 2)> = 0>
 		Type& y()
 		{
@@ -454,7 +454,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 2)> = 0>
 		const Type& y() const
 		{
@@ -462,7 +462,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 3)> = 0>
 		Type& z()
 		{
@@ -470,7 +470,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 3)> = 0>
 		const Type& z() const
 		{
@@ -478,7 +478,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 4)> = 0>
 		Type& w()
 		{
@@ -486,7 +486,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ >= 4)> = 0>
 		const Type& w() const
 		{
@@ -502,10 +502,10 @@ namespace Pastel
 		: boost::equality_comparable<Tuple<Type, Dynamic> >
 	{
 	private:
-		static constexpr int N = Dynamic;
+		static constexpr integer N = Dynamic;
 	
 	public:
-		template <typename, int>
+		template <typename, integer>
 		friend class Tuple;
 
 		using value_type = Type;
@@ -584,7 +584,7 @@ namespace Pastel
 			};
 		}
 
-		template <typename ThatType, int ThatN>
+		template <typename ThatType, integer ThatN>
 		Tuple(
 			const Tuple<ThatType, ThatN>& that)
 			: data_(0)
@@ -604,7 +604,7 @@ namespace Pastel
 			};
 		}
 
-		template <typename ThatType, int ThatN>
+		template <typename ThatType, integer ThatN>
 		Tuple(
 			const Tuple<ThatType, ThatN>& that,
 			const Dimension& dimension,
@@ -858,7 +858,7 @@ namespace Pastel
 			size_ = 0;
 		}
 
-		template <typename ThatType, int ThatN>
+		template <typename ThatType, integer ThatN>
 		void copyConstruct(
 			const Tuple<ThatType, ThatN>& that)
 		{
@@ -879,7 +879,7 @@ namespace Pastel
 			};
 		}
 
-		template <typename ThatType, int ThatN>
+		template <typename ThatType, integer ThatN>
 		void copyConstruct(
 			const Tuple<ThatType, ThatN>& that,
 			const Dimension& dimension,

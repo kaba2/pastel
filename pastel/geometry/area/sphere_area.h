@@ -32,7 +32,7 @@ namespace Pastel
 	Real areaUnitSphere(integer n);
 
 	//! The area of the Euclidean unit sphere.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real area(const Sphere<Real, N>& sphere);
 
 }

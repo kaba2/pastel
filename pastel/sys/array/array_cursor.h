@@ -8,18 +8,18 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	class Array;
 
 	namespace Array_
 	{
 
-		template <typename Type, int N>
+		template <typename Type, integer N>
 		class ConstCursor
 			: boost::equality_comparable<ConstCursor<Type, N> >
 		{
 		public:
-			template <typename, int>
+			template <typename, integer>
 			friend class Pastel::Array;
 
 			using Element = Type;
@@ -138,12 +138,12 @@ namespace Pastel
 			Vector<integer, N> factor_;
 		};
 
-		template <typename Type, int N>
+		template <typename Type, integer N>
 		class Cursor
 			: public ConstCursor<Type, N>
 		{
 		private:
-			template <typename, int>
+			template <typename, integer>
 			friend class Pastel::Array;
 
 			using Base = ConstCursor<Type, N>;

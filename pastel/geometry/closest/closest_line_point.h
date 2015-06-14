@@ -15,7 +15,7 @@ namespace Pastel
 	Returns:
 	A parameter t such that 'line.at(t)' and 'point' are closest points.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real closest(
 		const Line<Real, N>& line,
 		const Vector<Real, N>& point);

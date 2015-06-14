@@ -20,7 +20,7 @@ namespace Pastel
 	Note: Only dimensions 2 and 3 are supported.
 	Note: Currently the box is assumed to be closed.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const AlignedBox<Real, N>& box,
 		const PASTEL_TRIANGLE(Real, N)& triangle);

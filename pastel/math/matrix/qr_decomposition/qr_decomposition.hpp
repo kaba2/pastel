@@ -198,7 +198,7 @@ namespace Pastel
 		return abs(diagonalProduct(qr.r()));
 	}
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	Vector<Real> solveLinear(
 		const QrDecomposition<Real>& qr,
 		const VectorExpression<Real, N, Expression>& b)

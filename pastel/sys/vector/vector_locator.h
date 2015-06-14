@@ -11,11 +11,11 @@
 namespace Pastel
 {
 
-	template <typename Real_, int N_ = Dynamic>
+	template <typename Real_, integer N_ = Dynamic>
 	class Vector_Locator
 	{
 	public:
-		static constexpr int N = N_;
+		static constexpr integer N = N_;
 		using Real = Real_;
 		using Point = Vector<Real, N>;
 

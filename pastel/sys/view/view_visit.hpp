@@ -14,7 +14,7 @@ namespace Pastel
 		class NormalTag {};
 		class TerminateTag {};
 
-		template <int Index, int N, typename VisitRectangleFunctor>
+		template <integer Index, integer N, typename VisitRectangleFunctor>
 		void visitRectangleDimension(
 			const Vector<integer, N>& extent,
 			const Vector<integer, N>& startPosition,
@@ -41,7 +41,7 @@ namespace Pastel
 			}
 		}
 
-		template <int Index, int N, typename VisitRectangleFunctor>
+		template <integer Index, integer N, typename VisitRectangleFunctor>
 		void visitRectangleDimension(
 			const Vector<integer, N>& extent,
 			const Vector<integer, N>& startPosition,
@@ -64,7 +64,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename VisitorFunctor>
+	template <integer N, typename VisitorFunctor>
 	void visit(
 		const AlignedBox<integer, N>& rectangle,
 		const VisitorFunctor& visitor)
@@ -89,7 +89,7 @@ namespace Pastel
 		class NormalTag {};
 		class TerminateTag {};
 
-		template <int Index, int N, typename Cursor, typename VisitFunctor>
+		template <integer Index, integer N, typename Cursor, typename VisitFunctor>
 		void visitDimension(
 			const Vector<integer, N>& extent,
 			const Cursor& startCursor,
@@ -111,7 +111,7 @@ namespace Pastel
 			}
 		}
 
-		template <int Index, int N, typename Cursor, typename VisitFunctor>
+		template <integer Index, integer N, typename Cursor, typename VisitFunctor>
 		void visitDimension(
 			const Vector<integer, N>& extent,
 			const Cursor& startCursor,
@@ -140,7 +140,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Input_Element, typename Input_ConstView, typename VisitFunctor>
+	template <integer N, typename Input_Element, typename Input_ConstView, typename VisitFunctor>
 	void visit(
 		const ConstView<N, Input_Element, Input_ConstView>& input,
 		const VisitFunctor& visitor)
@@ -157,7 +157,7 @@ namespace Pastel
 			Tag());
 	}
 
-	template <int N, typename Input_Element, typename Input_View, typename VisitFunctor>
+	template <integer N, typename Input_Element, typename Input_View, typename VisitFunctor>
 	void visit(
 		const View<N, Input_Element, Input_View>& input,
 		const VisitFunctor& visitor)
@@ -179,7 +179,7 @@ namespace Pastel
 	namespace Visit_
 	{
 
-		template <int Index, int N,
+		template <integer Index, integer N,
 			typename Left_Cursor,
 			typename Right_Cursor,
 			typename VisitFunctor>
@@ -212,7 +212,7 @@ namespace Pastel
 			}
 		}
 
-		template <int Index, int N,
+		template <integer Index, integer N,
 			typename Left_Cursor,
 			typename Right_Cursor,
 			typename VisitFunctor>
@@ -242,7 +242,7 @@ namespace Pastel
 
 	}
 
-	template <int N,
+	template <integer N,
 		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_View,
 		typename VisitFunctor>
@@ -266,7 +266,7 @@ namespace Pastel
 			Tag());
 	}
 
-	template <int N,
+	template <integer N,
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename VisitFunctor>
@@ -290,7 +290,7 @@ namespace Pastel
 			Tag());
 	}
 
-	template <int N,
+	template <integer N,
 		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_ConstView,
 		typename VisitFunctor>

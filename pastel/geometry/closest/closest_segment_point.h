@@ -16,7 +16,7 @@ namespace Pastel
 	A parameter t such that 'segment.at(t)' and 'point' are 
 	closest points.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real closest(
 		const Segment<Real, N>& segment,
 		const Vector<Real, N>& point);

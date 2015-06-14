@@ -16,41 +16,41 @@ namespace
 		// SFINAE in the default template parameter value.
 
 		template <
-			int N,
+			integer N,
 			RequiresC<N == 1> = 0>
 		std::true_type f();
 
 		template <
-			int N,
+			integer N,
 			RequiresC<N != 1> = 0>
 		std::false_type f();
 
 		// SFINAE in the default template parameter type.
 
 		template <
-			int N,
+			integer N,
 			typename = RequiresC<N == 1>>
 		std::true_type g();
 
 		template <
-			int N,
+			integer N,
 			typename = RequiresC<N != 1 >>
 		std::false_type g();
 
 		// SFINAE in the return type.
 
-		template <int N>
+		template <integer N>
 		EnableIfC<N == 1, std::true_type> h();
 
-		template <int N>
+		template <integer N>
 		EnableIfC<N != 1, std::false_type> h();
 
 		// SFINAE in the parameter
 	
-		template <int N>
+		template <integer N>
 		std::true_type k(RequiresC<N == 1> = 0);
 
-		template <int N>
+		template <integer N>
 		std::false_type k(RequiresC<N != 1> = 0);
 	};
 
@@ -82,12 +82,12 @@ namespace
 		// special rule for template parameters.
 
 		template <
-			int N,
+			integer N,
 			RequiresC<N == 1> = 0>
 		std::true_type f();
 
 		template <
-			int N,
+			integer N,
 			RequiresC<N != 1> = 0>
 		std::false_type f();
 
@@ -100,12 +100,12 @@ namespace
 		// SFINAE in the default template parameter type.
 
 		template <
-			int N,
+			integer N,
 			typename = RequiresC<N == 1>>
 		std::true_type g();
 
 		template <
-			int N,
+			integer N,
 			typename = RequiresC<N != 1>>
 		std::false_type g();
 		
@@ -120,10 +120,10 @@ namespace
 		// Disadvantages:
 		// * garbles the return type.
 
-		template <int N>
+		template <integer N>
 		EnableIfC<N == 1, std::true_type> h();
 
-		template <int N>
+		template <integer N>
 		EnableIfC<N != 1, std::false_type> h();
 		
 		void testReturnType()
@@ -140,10 +140,10 @@ namespace
 		// Disadvantages:
 		// * garbles the parameter list
 
-		template <int N>
+		template <integer N>
 		std::true_type k(RequiresC<N == 1> = 0);
 
-		template <int N>
+		template <integer N>
 		std::false_type k(RequiresC<N != 1> = 0);
 
 		void testParameter()

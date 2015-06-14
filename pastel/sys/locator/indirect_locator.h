@@ -16,7 +16,7 @@ namespace Pastel
 	class Indirect_Locator
 	{
 	public:
-		static constexpr int N = Locator::N;
+		static constexpr integer N = Locator::N;
 		using Real = typename Locator::Real;
 		using Point = Point_;
 

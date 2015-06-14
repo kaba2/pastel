@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance(
 		const AlignedBox<Real, N>& box,
 		const Sphere<Real, N>& sphere)
@@ -34,7 +34,7 @@ namespace Pastel
 		return std::sqrt(centerDistance2) - sphere.radius();
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance2(
 		const AlignedBox<Real, N>& box,
 		const Sphere<Real, N>& sphere)

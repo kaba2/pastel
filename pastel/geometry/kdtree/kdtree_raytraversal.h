@@ -27,7 +27,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename ObjectPolicy,
 		typename Intersector>
 	typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator

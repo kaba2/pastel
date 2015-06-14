@@ -56,7 +56,7 @@ namespace
 			testIterator<Iterator>();
 		}
 
-		template <int N>
+		template <integer N>
 		bool same(const Tree_& tree, integer (&correctSet)[N]) const
 		{
 			return boost::equal(range(correctSet), tree.crange(), EqualTo());

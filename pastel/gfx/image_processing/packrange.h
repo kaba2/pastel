@@ -71,7 +71,7 @@ namespace Pastel
 		};
 	}
 
-	template <typename Real, int N, typename Image_View>
+	template <typename Real, integer N, typename Image_View>
 	void minMax(
 		const ConstView<N, Real, Image_View>& image,
 		Real& min,
@@ -84,7 +84,7 @@ namespace Pastel
 		visit(image, minMaxFunctor);
 	}
 
-	template <typename Real, int N, typename Image_View>
+	template <typename Real, integer N, typename Image_View>
 	void packRange(
 		const View<N, Real, Image_View>& image,
 		const NoDeduction<Real>& newMin,

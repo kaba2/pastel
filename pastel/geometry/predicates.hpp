@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real side(
 		const Vector<Real, N>& point,
 		const Plane<Real, N>& plane)

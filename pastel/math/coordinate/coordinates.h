@@ -25,7 +25,7 @@ namespace Pastel
 	s_i = atan(sqrt((x_i)^2 + ... + (x_k)^2) / x_(i - 1)), for i in ]1, k[.
 	s_k = atan(x_k / x_(k - 1))
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian, integer k);
 
@@ -45,7 +45,7 @@ namespace Pastel
 	x_k = s_1 sin(s_2) ... sin(s_(k - 1)) sin(s_(k))
 	*/
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> cylinderToCartesian(
 		const Vector<Real, N>& cylinder, integer k);
 
@@ -54,7 +54,7 @@ namespace Pastel
 	This is a convenience function that calls
 	cartesianToCylinder(cartesian, dimension - 1).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian);
 
@@ -63,7 +63,7 @@ namespace Pastel
 	This is a convenience function that calls
 	cylinderToCartesian(cartesian, dimension - 1).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> cylinderToCartesian(
 		const Vector<Real, N>& cylinder);
 
@@ -72,7 +72,7 @@ namespace Pastel
 	This is a convenience function that calls
 	cartesianToCylinder(cartesian, dimension).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> cartesianToSpherical(
 		const Vector<Real, N>& cartesian);
 
@@ -81,7 +81,7 @@ namespace Pastel
 	This is a convenience function that calls
 	cylinderToCartesian(cartesian, dimension).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> sphericalToCartesian(
 		const Vector<Real, N>& spherical);
 

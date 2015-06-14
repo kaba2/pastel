@@ -20,7 +20,7 @@ namespace Pastel
 	*/
 	integer toPixelSpanPoint(real t);
 
-	template <int N>
+	template <integer N>
 	Vector<integer, N> toPixelSpanPoint(
 		const Vector<real, N>& that);
 

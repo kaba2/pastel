@@ -12,7 +12,7 @@ namespace Pastel
 	namespace ExtendedConstView_
 	{
 
-		template <int N, typename Contained_Element, typename Contained_ExtendedConstView>
+		template <integer N, typename Contained_Element, typename Contained_ExtendedConstView>
 		class ExtendedConstViewBase
 		{
 		public:
@@ -53,7 +53,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Contained_Element, typename Contained_ExtendedConstView>
+	template <integer N, typename Contained_Element, typename Contained_ExtendedConstView>
 	class ExtendedConstView
 		: public ExtendedConstView_::ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
 	{
@@ -86,7 +86,7 @@ namespace Pastel
 		: public ExtendedConstView_::ExtendedConstViewBase<1, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
-		static constexpr int N = 1;
+		static constexpr integer N = 1;
 
 		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
@@ -126,7 +126,7 @@ namespace Pastel
 		: public ExtendedConstView_::ExtendedConstViewBase<2, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
-		static constexpr int N = 2;
+		static constexpr integer N = 2;
 
 		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
@@ -171,7 +171,7 @@ namespace Pastel
 		: public ExtendedConstView_::ExtendedConstViewBase<3, Contained_Element, Contained_ExtendedConstView>
 	{
 	private:
-		static constexpr int N = 3;
+		static constexpr integer N = 3;
 
 		typedef ExtendedConstView_::
 			ExtendedConstViewBase<N, Contained_Element, Contained_ExtendedConstView>
@@ -217,7 +217,7 @@ namespace Pastel
 	};
 
 
-	template <int N, typename Input_ExtendedConstView>
+	template <integer N, typename Input_ExtendedConstView>
 	ExtendedConstView<N, typename Input_ExtendedConstView::Element, Input_ExtendedConstView>
 		extendedConstView(const Input_ExtendedConstView& view)
 	{

@@ -11,13 +11,13 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Type sampleLinear(
 		const Vector<real, N>& uv,
 		const Array<Type, N>& image,
 		const ArrayExtender<N, Type>& extender);
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class LinearImage_Texture
 		: public Texture<Type, N>
 	{
@@ -79,7 +79,7 @@ namespace Pastel
 		Vector<real, N> extent_;
 	};
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	LinearImage_Texture<Type, N> linearImageTexture(
 		const Array<Type, N>& image,
 		const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>())

@@ -39,7 +39,7 @@ namespace
 		typedef Partition::Element_ConstIterator 
 			Element_ConstIterator;
 
-		template <int N, typename Type>
+		template <integer N, typename Type>
 		bool same(Type (&data)[N], 
 			Partition::Set_ConstIterator set) const
 		{

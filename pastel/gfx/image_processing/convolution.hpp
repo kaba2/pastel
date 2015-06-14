@@ -37,7 +37,7 @@ namespace Pastel
 		};
 
 		template <
-			int N,
+			integer N,
 			typename Input_RingElement,
 			typename Input_ConstView,
 			typename Filter_RingElement,
@@ -85,7 +85,7 @@ namespace Pastel
 	}
 
 	template <
-		int N,
+		integer N,
 		typename Input_RingElement,
 		typename Input_ConstView,
 		typename Filter_RingElement,
@@ -145,7 +145,7 @@ namespace Pastel
 	}
 
 	template <
-		int N,
+		integer N,
 		typename Input_RingElement,
 		typename Input_ConstView,
 		typename Filter_RingElement,

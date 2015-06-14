@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Sphere<Real, N> boundingSphere(
 		const Box<Real, N>& box)
 	{

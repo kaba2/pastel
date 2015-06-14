@@ -14,7 +14,7 @@ namespace Pastel
 	This is a convenience function which returns
 	std::sqrt(distance2(plane, sphere)).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere);
@@ -27,7 +27,7 @@ namespace Pastel
 	Time complexity:
 	O(n), where n is the dimension.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance2(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere);

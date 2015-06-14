@@ -8,27 +8,27 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, int M>
+	template <typename Real, integer N, integer M>
 	Flat<Real, N, M>::~Flat()
 	{
 		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 		PASTEL_STATIC_ASSERT(M <= N);
 	}
 
-	template <typename Real, int N, int M>
+	template <typename Real, integer N, integer M>
 	void Flat<Real, N, M>::setPosition(
 		const Vector<Real, N>& position)
 	{
 		position_ = position;
 	}
 
-	template <typename Real, int N, int M>
+	template <typename Real, integer N, integer M>
 	const Vector<Real, N>& Flat<Real, N, M>::position() const
 	{
 		return position_;
 	}
 
-	template <typename Real, int N, int M>
+	template <typename Real, integer N, integer M>
 	Vector<Real, N>&
 		Flat<Real, N, M>::operator[](integer index)
 	{
@@ -37,7 +37,7 @@ namespace Pastel
 		return tangent_[index];
 	}
 
-	template <typename Real, int N, int M>
+	template <typename Real, integer N, integer M>
 	const Vector<Real, N>&
 		Flat<Real, N, M>::operator[](integer index) const
 	{

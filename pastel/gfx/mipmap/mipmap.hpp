@@ -12,14 +12,14 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	MipMap<Type, N>::MipMap()
 		: mipMapArray_()
 		, extender_()
 	{
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	template <typename Image_ConstView>
 	MipMap<Type, N>::MipMap(
 		const ConstView<N, Type, Image_ConstView>& image,
@@ -79,20 +79,20 @@ namespace Pastel
 		mipMapArray_.swap(mipMapArray);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 
 	void MipMap<Type, N>::swap(MipMap& that)
 	{
 		mipMapArray_.swap(that.mipMapArray_);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	void MipMap<Type, N>::clear()
 	{
 		mipMapArray_.clear();
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	MipMap<Type, N>& MipMap<Type, N>::operator=(const MipMap& that)
 	{
 		MipMap copy(that);
@@ -100,7 +100,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	template <typename Image_ConstView>
 	void MipMap<Type, N>::setImage(
 		const ConstView<N, Type, Image_ConstView>& image,
@@ -111,7 +111,7 @@ namespace Pastel
 		swap(copy);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	const Array<Type, N>&
 		MipMap<Type, N>::operator()(
 		integer level) const
@@ -121,21 +121,21 @@ namespace Pastel
 		return mipMapArray_[level];
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	const Array<Type, N>&
 		MipMap<Type, N>::mostDetailed() const
 	{
 		return (*this)(0);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	const Array<Type, N>&
 		MipMap<Type, N>::coarsest() const
 	{
 		return (*this)(levels() - 1);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	typename MipMap<Type, N>::MipView 
 		MipMap<Type, N>::view(
 		integer level)
@@ -145,7 +145,7 @@ namespace Pastel
 		return arrayView(mipMapArray_[level]);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	typename MipMap<Type, N>::ConstMipView 
 		MipMap<Type, N>::view(
 		integer level) const
@@ -155,35 +155,35 @@ namespace Pastel
 		return constArrayView(mipMapArray_[level]);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	typename MipMap<Type, N>::MipView 
 		MipMap<Type, N>::mostDetailedView()
 	{
 		return view(0);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	typename MipMap<Type, N>::ConstMipView 
 		MipMap<Type, N>::mostDetailedView() const
 	{
 		return view(0);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	typename MipMap<Type, N>::MipView 
 		MipMap<Type, N>::coarsestView()
 	{
 		return view(levels() - 1);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	typename MipMap<Type, N>::ConstMipView 
 		MipMap<Type, N>::coarsestView() const
 	{
 		return view(levels() - 1);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Vector<integer, N> MipMap<Type, N>::extent() const
 	{
 		if (empty())
@@ -194,13 +194,13 @@ namespace Pastel
 		return mipMapArray_.front().extent();
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	integer MipMap<Type, N>::levels() const
 	{
 		return mipMapArray_.size();
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	bool MipMap<Type, N>::empty() const
 	{
 		return mipMapArray_.empty();

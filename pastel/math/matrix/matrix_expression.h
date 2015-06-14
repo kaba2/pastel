@@ -55,13 +55,13 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixVectorMultiplication;
 
 	template <
-		typename Real, int N,
+		typename Real, integer N,
 		typename VectorExpression,
 		typename MatrixExpression>
 	class VectorMatrixMultiplication;

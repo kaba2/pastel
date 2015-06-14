@@ -12,7 +12,7 @@ namespace Pastel
 	namespace SliceView_
 	{
 
-		template <int N, typename ConstCursor>
+		template <integer N, typename ConstCursor>
 		class ConstSliceViewCursor
 		{
 		public:
@@ -96,7 +96,7 @@ namespace Pastel
 			integer fixedIndex_;
 		};
 
-		template <int N, typename Cursor>
+		template <integer N, typename Cursor>
 		class SliceViewCursor
 			: public ConstSliceViewCursor<N, Cursor>
 		{

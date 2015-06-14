@@ -358,7 +358,7 @@ namespace
 			}
 		}
 
-		template <int N>
+		template <integer N>
 		void testCircular()
 		{
 			using Tree = PointKdTree<Settings<N>>;

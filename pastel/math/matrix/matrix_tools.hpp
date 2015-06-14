@@ -39,7 +39,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void setDiagonal(
 		Matrix<Real>& matrix,
 		const NoDeduction<Real>& value)
@@ -57,7 +57,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void setDiagonal(
 		Matrix<Real>& matrix,
 		const Vector<Real, N>& values)
@@ -75,7 +75,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int Height, int Width>
+	template <typename Real, integer Height, integer Width>
 	void transponate(
 		Matrix<Real>& matrix)
 	{
@@ -93,7 +93,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	MatrixDiagonal<Real, Expression> diagonalMatrix(
 		integer m, integer n,
 
@@ -104,7 +104,7 @@ namespace Pastel
 			(const Expression&)diagonal);
 	}
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	MatrixDiagonal<Real, Expression> diagonalMatrix(
 		const VectorExpression<Real, N, Expression>& diagonal)
 	{
@@ -181,7 +181,7 @@ namespace Pastel
 			(const Expression&)that, yBlocks, xBlocks);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	ArrayMatrix<Real> arrayMatrix(
 		integer height, integer width,
 		Real (&data)[N])
@@ -204,7 +204,7 @@ namespace Pastel
 		return ArrayMatrix<Real>(height, width, data);
 	}
 
-	template <typename Real, int M, int N>
+	template <typename Real, integer M, integer N>
 	ArrayMatrix<Real> arrayMatrix(
 		Real (&data)[M][N])
 	{
@@ -220,7 +220,7 @@ namespace Pastel
 	}
 
 	template <
-		typename Real, int N, 
+		typename Real, integer N, 
 		typename Expression1>
 	Matrix<Real> matrix1x1(
 		const VectorExpression<Real, N, Expression1>& firstColumn)
@@ -243,7 +243,7 @@ namespace Pastel
 	}
 
 	template <
-		typename Real, int N, 
+		typename Real, integer N, 
 		typename Expression1, 
 		typename Expression2>
 	Matrix<Real> matrix2x2(
@@ -275,7 +275,7 @@ namespace Pastel
 	}
 
 	template <
-		typename Real, int N, 
+		typename Real, integer N, 
 		typename Expression1, 
 		typename Expression2,
 		typename Expression3>
@@ -318,7 +318,7 @@ namespace Pastel
 	}
 
 	template <
-		typename Real, int N, 
+		typename Real, integer N, 
 		typename Expression1, 
 		typename Expression2,
 		typename Expression3,
@@ -338,7 +338,7 @@ namespace Pastel
 	}
 
 	template <typename Real, 
-		int Height, int Width, 
+		int Height, integer Width, 
 		typename LeftExpression,
 		typename RightExpression>
 		OuterProduct<Real, LeftExpression, RightExpression>
@@ -350,7 +350,7 @@ namespace Pastel
 			(const LeftExpression&)left, (const RightExpression&)right);
 	}
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 		OuterProduct<Real, Expression, Expression>
 		outerProduct(
 		const VectorExpression<Real, N, Expression>& that)
@@ -364,7 +364,7 @@ namespace Pastel
 		left.swap(right);
 	}
 
-	template <typename Real, int N, 
+	template <typename Real, integer N, 
 	typename LeftExpression, typename RightExpression>
 	const VectorMatrixMultiplication<Real, N, LeftExpression, RightExpression> operator *(
 		const VectorExpression<Real, N, LeftExpression>& left,
@@ -375,7 +375,7 @@ namespace Pastel
 			(const RightExpression&)right);
 	}
 
-	template <typename Real, int N,
+	template <typename Real, integer N,
 	typename LeftExpression, typename RightExpression>
 	const MatrixVectorMultiplication<Real, N, LeftExpression, RightExpression> operator *(
 		const MatrixExpression<Real, LeftExpression>& left,

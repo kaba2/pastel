@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere)
@@ -15,7 +15,7 @@ namespace Pastel
 		return std::sqrt(distance2(plane, sphere));
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance2(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere)

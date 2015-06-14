@@ -28,7 +28,7 @@ namespace Pastel
 		const typename Locator::Real& relativeMatchingDistance)
 	{
 		using Real = typename Locator::Real;
-		static constexpr int N = Locator::N;
+		static constexpr integer N = Locator::N;
 
 		Sphere<Real, N> sceneSphere = boundingSphere(
 			pointSet, locator);

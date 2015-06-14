@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <int N, typename ConstView>
+	template <integer N, typename ConstView>
 	class ConstSparseView
 	{
 	public:
@@ -55,7 +55,7 @@ namespace Pastel
 		Vector<integer, N> extent_;
 	};
 
-	template <int N, typename Input_Element, typename Input_ConstView>
+	template <integer N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstSparseView<N, Input_ConstView> >
 		constSparseView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
@@ -66,7 +66,7 @@ namespace Pastel
 			ConstSparseView<N, Input_ConstView>(view.contained(), pivot, step));
 	}
 
-	template <int N, typename Contained_View>
+	template <integer N, typename Contained_View>
 	class SparseView
 		: public ConstSparseView<N, Contained_View>
 	{
@@ -103,7 +103,7 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Input_Element, typename Input_View>
+	template <integer N, typename Input_Element, typename Input_View>
 	View<N, Input_Element, SparseView<N, Input_View> >
 		sparseView(
 		const View<N, Input_Element, Input_View>& view,

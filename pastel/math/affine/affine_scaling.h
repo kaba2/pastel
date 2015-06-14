@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	//! Returns a scaling affine transformation.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AffineTransformation<Real> affineScaling(
 		const Vector<Real, N>& scaling);
 

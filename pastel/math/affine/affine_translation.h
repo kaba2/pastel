@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	//! Returns a translating affine transformation.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AffineTransformation<Real> affineTranslation(
 		const Vector<Real, N>& translation);
 

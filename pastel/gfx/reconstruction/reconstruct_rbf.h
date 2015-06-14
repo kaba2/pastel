@@ -45,7 +45,7 @@ namespace Pastel
 	};
 
 
-	template <typename Real, int N, typename Data, typename Output_View>
+	template <typename Real, integer N, typename Data, typename Output_View>
 	void reconstructRbf(
 		const std::vector<Vector<Data, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -63,7 +63,7 @@ namespace Pastel
 	namespace ReconstructRbf_
 	{
 
-		template <typename Real, int N, typename Data>
+		template <typename Real, integer N, typename Data>
 		class ReconstructFunctor
 		{
 		public:
@@ -109,7 +109,7 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename Data, typename Output_View>
+	template <typename Real, integer N, typename Data, typename Output_View>
 	void reconstructRbf(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,

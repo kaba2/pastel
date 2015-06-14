@@ -13,13 +13,13 @@ namespace Pastel
 
 	//! Bounding aligned box of a sphere.
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere);
 
 	//! Bounding aligned box of an affinely transformed sphere.
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere,
 		const AffineTransformation<Real>& transformation);

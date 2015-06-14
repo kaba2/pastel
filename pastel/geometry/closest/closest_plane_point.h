@@ -19,7 +19,7 @@ namespace Pastel
 	A parameter t such that 'point + t * plane.normal()' and
 	'point' are closest points.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real closest(
 		const Plane<Real, N>& plane,
 		const Vector<Real, N>& point);

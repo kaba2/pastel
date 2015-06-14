@@ -10,59 +10,59 @@
 namespace Pastel
 {
 
-	template <int LeftN, int RightN>
+	template <integer LeftN, integer RightN>
 	class ResultN
 	{
 	public:
-		static constexpr int N = 
+		static constexpr integer N = 
 			(LeftN == Dynamic) ? RightN : LeftN;
 	};
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	class Vector;
 
 	template <
 		typename Real,
-		int N>
+		integer N>
 	class VectorConstant;
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename Expression>
 	class VectorNegation;
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorAddition;
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorSubtraction;
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorMultiplication;
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorDivision;
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename Expression>
 	class VectorExpression
 	{
@@ -108,7 +108,7 @@ namespace Pastel
 			return ((const Expression&)*this).evaluateBeforeAssignment(memoryBegin, memoryEnd);
 		}
 
-		template <int RightN, typename RightExpression>
+		template <integer RightN, typename RightExpression>
 		bool operator==(const VectorExpression<Real, RightN, RightExpression>& right) const
 		{
 			const Expression& left = (const Expression&)*this;
@@ -127,7 +127,7 @@ namespace Pastel
 			return true;
 		}
 
-		template <int RightN, typename RightExpression>
+		template <integer RightN, typename RightExpression>
 
 		bool operator!=(const VectorExpression<Real, RightN, RightExpression>& right) const
 		{
@@ -144,7 +144,7 @@ namespace Pastel
 
 		// Summation
 
-		template <int RightN, typename RightExpression>
+		template <integer RightN, typename RightExpression>
 		VectorAddition<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator+(const VectorExpression
@@ -181,7 +181,7 @@ namespace Pastel
 
 		// Subtraction
 
-		template <int RightN, typename RightExpression>
+		template <integer RightN, typename RightExpression>
 		VectorSubtraction<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator-(const VectorExpression
@@ -218,7 +218,7 @@ namespace Pastel
 
 		// Multiplication
 
-		template <int RightN, typename RightExpression>
+		template <integer RightN, typename RightExpression>
 		VectorMultiplication<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 
@@ -255,7 +255,7 @@ namespace Pastel
 
 		// Division
 
-		template <int RightN, typename RightExpression>
+		template <integer RightN, typename RightExpression>
 		VectorDivision<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator/(const VectorExpression
@@ -295,25 +295,25 @@ namespace Pastel
 				(const Expression&)right);
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 1)> = 0>
+		template <integer N_ = N, RequiresC<(N_ >= 1)> = 0>
 		Real x() const
 		{
 			return (*this)[0];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 2)> = 0>
+		template <integer N_ = N, RequiresC<(N_ >= 2)> = 0>
 		Real y() const
 		{
 			return (*this)[1];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 3)> = 0>
+		template <integer N_ = N, RequiresC<(N_ >= 3)> = 0>
 		Real z() const
 		{
 			return (*this)[2];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 4)> = 0>
+		template <integer N_ = N, RequiresC<(N_ >= 4)> = 0>
 		Real w() const
 		{
 			return (*this)[3];

@@ -30,7 +30,7 @@ namespace Pastel
 		return boost::make_iterator_range(begin, end);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	boost::iterator_range<Type*> range(
 		Type (&that)[N])
 	{

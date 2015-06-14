@@ -21,7 +21,7 @@ namespace Pastel
 
 		// We prefer to use a static dimension
 		// for the reported boxes.
-		static constexpr int N = (N_A == Dynamic) ? N_B : N_A;
+		static constexpr integer N = (N_A == Dynamic) ? N_B : N_A;
 
 		// In case the dimension is static, this gives the compiler a 
 		// chance to unroll the loop.

@@ -9,12 +9,12 @@ namespace Pastel
 {
 
 	//! Tests if two box's overlap.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,
@@ -33,7 +33,7 @@ namespace Pastel
 	If the boxes intersect, a point in the
 	intersection
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,

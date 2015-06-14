@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-		template <typename Real, int N = 2>
+		template <typename Real, integer N = 2>
 		class GradientField
 		{
 		public:
@@ -37,7 +37,7 @@ namespace Pastel
 			Real normalizationFactor_;
 		};
 
-		template <typename Real, int N>
+		template <typename Real, integer N>
 		GradientField<Real, N>& gradientField();
 
 }

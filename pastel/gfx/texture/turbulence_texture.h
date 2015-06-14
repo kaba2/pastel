@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N = 2>
+	template <integer N = 2>
 	class Turbulence_Texture
 		: public Texture<real, N>
 	{
@@ -76,7 +76,7 @@ namespace Pastel
 		real lacunarity_;
 	};
 
-	template <int N>
+	template <integer N>
 	Turbulence_Texture<N> turbulenceTexture()
 	{
 		return Turbulence_Texture<N>();

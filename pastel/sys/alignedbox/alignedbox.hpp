@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void swap(AlignedBox<Real, N>& left,
 		AlignedBox<Real, N>& right)
 	{

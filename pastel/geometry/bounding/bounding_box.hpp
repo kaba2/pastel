@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Box<Real, N> boundingBox(const AlignedBox<Real, N>& alignedBox)
 	{
 		integer n = alignedBox.n();

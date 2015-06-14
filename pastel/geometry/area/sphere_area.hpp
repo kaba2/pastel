@@ -58,7 +58,7 @@ namespace Pastel
 		return n * volumeUnitSphere<Real>(n);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real area(const Sphere<Real, N>& sphere)
 	{
 		return areaUnitSphere<Real>(sphere.n()) * 

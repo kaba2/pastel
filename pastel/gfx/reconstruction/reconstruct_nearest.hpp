@@ -16,7 +16,7 @@ namespace Pastel
 	namespace ReconstructNearest_
 	{
 
-		template <typename Real, int N, typename Data>
+		template <typename Real, integer N, typename Data>
 		class DataPoint
 		{
 		public:
@@ -41,7 +41,7 @@ namespace Pastel
 		};
 
 		template <
-			typename Real_, int N_, typename Data>
+			typename Real_, integer N_, typename Data>
 		class DataPolicy
 		{
 		public:
@@ -123,7 +123,7 @@ namespace Pastel
 		};
 	}
 
-	template <typename Real, int N, typename Data, typename Output_View>
+	template <typename Real, integer N, typename Data, typename Output_View>
 	void reconstructNearest(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -172,7 +172,7 @@ namespace Pastel
 			view, reconstructFunctor);
 	}
 
-	template <typename Real, int N, typename Data, typename Output_View>
+	template <typename Real, integer N, typename Data, typename Output_View>
 	void reconstructNearest(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -185,7 +185,7 @@ namespace Pastel
 			region, view, kNearest, 0);
 	}
 
-	template <typename Real, int N, typename Data, typename Output_View>
+	template <typename Real, integer N, typename Data, typename Output_View>
 	void reconstructNearest(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,

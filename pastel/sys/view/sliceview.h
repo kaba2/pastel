@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Contained_ConstView>
+	template <integer N, typename Contained_ConstView>
 	class ConstSliceView
 	{
 	public:
@@ -57,7 +57,7 @@ namespace Pastel
 		integer fixedIndex_;
 	};
 
-	template <int N, typename Input_Element, typename Input_ConstView>
+	template <integer N, typename Input_Element, typename Input_ConstView>
 	ConstView<N - 1, Input_Element, ConstSliceView<N, Input_ConstView> >
 		constSliceView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
@@ -70,7 +70,7 @@ namespace Pastel
 			pivot));
 	}
 
-	template <int N, typename Contained_View>
+	template <integer N, typename Contained_View>
 	class SliceView
 		: public ConstSliceView<N, Contained_View>
 	{
@@ -111,7 +111,7 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Input_Element, typename Input_View>
+	template <integer N, typename Input_Element, typename Input_View>
 	View<N - 1, Input_Element, SliceView<N, Input_View> > sliceView(
 		const View<N, Input_Element, Input_View>& view,
 		integer fixedIndex,

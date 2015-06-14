@@ -27,7 +27,7 @@ namespace Pastel
 	namespace KdTree_
 	{
 
-		template <typename Real, int N, typename ObjectPolicy>
+		template <typename Real, integer N, typename ObjectPolicy>
 		integer depth(const KdTree<Real, N, ObjectPolicy>& tree,
 			const typename KdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			integer currentDepth)
@@ -44,7 +44,7 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
+	template <typename Real, integer N, typename ObjectPolicy>
 	integer depth(const KdTree<Real, N, ObjectPolicy>& tree)
 	{
 		return KdTree_::depth(tree, tree.root(), 0);
@@ -53,7 +53,7 @@ namespace Pastel
 	namespace KdTree_
 	{
 
-		template <typename Real, int N, typename ObjectPolicy>
+		template <typename Real, integer N, typename ObjectPolicy>
 		bool check(const KdTree<Real, N, ObjectPolicy>& tree,
 			const typename KdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			const AlignedBox<Real, N>& bound)
@@ -114,7 +114,7 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
+	template <typename Real, integer N, typename ObjectPolicy>
 	bool check(const KdTree<Real, N, ObjectPolicy>& tree)
 	{
 		return KdTree_::check(tree, tree.root(), tree.bound());
@@ -163,8 +163,8 @@ namespace Pastel
 		}
 
 	}
-	template <int N_A, typename Real, typename ObjectPolicy_A, 
-		int N_B, typename ObjectPolicy_B>
+	template <integer N_A, typename Real, typename ObjectPolicy_A, 
+		integer N_B, typename ObjectPolicy_B>
 	bool equivalent(const KdTree<Real, N_A, ObjectPolicy_A>& aTree,
 	const KdTree<Real, N_B, ObjectPolicy_B>& bTree)
 	{

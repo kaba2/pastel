@@ -18,7 +18,7 @@ namespace Pastel
 
 	The box and the sphere are assumed to be solid.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance(
 		const AlignedBox<Real, N>& box,
 		const Sphere<Real, N>& sphere);
@@ -28,7 +28,7 @@ namespace Pastel
 	This is a convenience function which returns
 	square(distance(box, sphere)).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance2(
 		const AlignedBox<Real, N>& box,
 		const Sphere<Real, N>& sphere);

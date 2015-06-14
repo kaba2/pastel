@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class Combine_Texture
 		: public Texture<Type, N>
 	{
@@ -50,7 +50,7 @@ namespace Pastel
 		const ColorMixer<Type>& colorMixer_;
 	};
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Combine_Texture<Type, N> combineTexture(
 		const Texture<Type, N>& aTexture,
 		const Texture<Type, N>& bTexture,

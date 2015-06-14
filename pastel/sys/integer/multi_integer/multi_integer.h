@@ -67,7 +67,7 @@ namespace Pastel
 	public:
 		// See the documentation for Integer_Settings_Concept.
 		using Settings = Integer_Settings;
-		static constexpr int N = Settings::N;
+		static constexpr integer N = Settings::N;
 		static constexpr bool Signed = Settings::Signed;
 		using Word = typename Settings::Word;
 
@@ -1159,19 +1159,19 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N_, typename Word_, bool Signed_>
+	template <integer N_, typename Word_, bool Signed_>
 	class Integer_Settings
 	{
 	public:
-		static constexpr int N = N_; 
+		static constexpr integer N = N_; 
 		using Word = Word_;
 		static constexpr bool Signed = Signed_;
 	};
 
-	template <int N, typename Word = uinteger_half>
+	template <integer N, typename Word = uinteger_half>
 	using Signed_Integer = MultiInteger<Integer_Settings<N, Word, true>>;
 
-	template <int N, typename Word = uinteger_half>
+	template <integer N, typename Word = uinteger_half>
 	using Unsigned_Integer = MultiInteger<Integer_Settings<N, Word, false>>;
 
 }

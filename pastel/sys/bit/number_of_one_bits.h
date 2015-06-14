@@ -13,7 +13,7 @@ namespace Pastel
 	namespace NumberOfOneBits_
 	{
 
-		template <typename Type, int N>
+		template <typename Type, integer N>
 		struct IsUnsigned
 		{
 		public:

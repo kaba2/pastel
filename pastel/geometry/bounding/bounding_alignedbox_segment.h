@@ -11,7 +11,7 @@ namespace Pastel
 
 	//! Bounding aligned box of a line segment.
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Segment<Real, N>& segment);
 

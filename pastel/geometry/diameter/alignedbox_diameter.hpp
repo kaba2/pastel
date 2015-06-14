@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real diameter2(
 		const AlignedBox<Real, N>& box)
 	{

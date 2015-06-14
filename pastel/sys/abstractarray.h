@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Type>
+	template <integer N, typename Type>
 	class ConstAbstractArray
 	{
 	public:
@@ -24,7 +24,7 @@ namespace Pastel
 			const Vector<integer, N>& position) const = 0;
 	};
 
-	template <int N, typename Type>
+	template <integer N, typename Type>
 	class AbstractArray
 		: public ConstAbstractArray<N, Type>
 	{

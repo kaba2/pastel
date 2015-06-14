@@ -9,7 +9,7 @@ namespace Pastel
 	namespace Linear_
 	{
 
-		template <typename Type, int N, typename Vector_Range>
+		template <typename Type, integer N, typename Vector_Range>
 		Type linear(
 			const Vector<real, N>& position,
 			const Vector_Range& data, 
@@ -36,7 +36,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Vector_Range>
+	template <integer N, typename Vector_Range>
 	typename boost::range_value<Vector_Range>::type linear(
 		const Vector<real, N>& position,
 		const Vector_Range& data)
@@ -62,7 +62,7 @@ namespace Pastel
 			(endPoint - startPoint) * time;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> linear(
 		const Vector<Real, N>& startPoint,
 		const Vector<Real, N>& endPoint,
@@ -72,7 +72,7 @@ namespace Pastel
 		return startPoint * (1 - time) + endPoint * time;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> midpoint(
 		const Vector<Real, N>& startPoint,
 		const Vector<Real, N>& endPoint)

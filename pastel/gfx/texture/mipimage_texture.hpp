@@ -13,14 +13,14 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	MipImage_Texture<Type, N>::MipImage_Texture()
 		: mipMap_(0)
 		, extender_()
 	{
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	MipImage_Texture<Type, N>::MipImage_Texture(
 		const MipMap<Type, N>& mipMap,
 		const ArrayExtender_& extender)
@@ -29,7 +29,7 @@ namespace Pastel
 	{
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Type MipImage_Texture<Type, N>::operator()(
 		const Vector<real, N>& uv,
 		const Matrix<real>& m) const

@@ -14,7 +14,7 @@ namespace
 	using Real = Rational<integer>;
 	//using Real = real;
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	void someFunction(const Tuple<Type, N>& jorma)
 	{
 	}
@@ -60,7 +60,7 @@ namespace
 			testCollaboration<Dynamic>();
 		}
 		
-		template <int N>
+		template <integer N>
 		void testNullPointerStatic()
 		{
 			Vector<Real, N> au2(0);
@@ -73,7 +73,7 @@ namespace
 			Vector<int, N> ai2(0.0);
 		}
 
-		template <int N>
+		template <integer N>
 		void testNullPointer()
 		{
 			integer n = (N == Dynamic) ? 3 : N;
@@ -400,7 +400,7 @@ namespace
 				b[2] == inverse(a[2]));
 		}
 
-		template <int N>
+		template <integer N>
 		void testVectorArithmetic2()
 		{
 			integer size = (N == Dynamic) ? 100 : N;
@@ -722,7 +722,7 @@ namespace
 			}
 		}
 
-		template <int N>
+		template <integer N>
 		void testCollaboration()
 		{
 			integer size = (N == Dynamic) ? 10 : N;

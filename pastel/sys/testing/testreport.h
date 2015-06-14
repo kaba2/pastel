@@ -162,7 +162,7 @@ namespace Pastel
 
 		void reportError(
 			const std::string& testText = "",
-			const std::string& fileName = "", int lineNumber = -1,
+			const std::string& fileName = "", integer lineNumber = -1,
 			const std::string& info1Name = "", real64 info1 = 0,
 			const std::string& info2Name = "", real64 info2 = 0,
 			const std::string& info3Name = "", real64 info3 = 0,

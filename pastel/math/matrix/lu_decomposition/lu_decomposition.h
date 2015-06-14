@@ -84,7 +84,7 @@ namespace Pastel
 {
 
 	//! Solves the linear system PLUx = b.
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	Vector<Real> solveLinear(
 		const LuDecomposition<Real>& lu,
 		const VectorExpression<Real, N, Expression>& b);
