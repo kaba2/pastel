@@ -124,6 +124,7 @@ if (("${ArmadilloIncludeDirectory}" STREQUAL "") OR (NOT EXISTS "${ArmadilloIncl
 		# The found path allows includes of the form:
 		# #include <armadillo>
 		set (ArmadilloIncludeDirectory "${ARMADILLO_INCLUDE_DIRS}")
+		set (ArmadilloLibraryPath "${ARMADILLO_LIBRARIES}")
 	endif()
 endif()
 
@@ -132,7 +133,7 @@ if (("${LapackLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${LapackLibraryDir
 	if (LAPACK_FOUND)
 		set (LapackLibraryDirectory "${LAPACK_LIBRARIES_DIR}")
 		set (LapackLibraryPath "${LAPACK_LIBRARIES}")
-		get_filename_component (LapackLibraryName ${LapackLibraryPath} NAME)
+		get_filename_component (LapackLibraryName "${LapackLibraryPath}" NAME)
 	endif()
 endif()
 
@@ -141,7 +142,7 @@ if (("${BlasLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${BlasLibraryDirecto
 	if (BLAS_FOUND)
 		set (BlasLibraryDirectory "${BLAS_LIBRARIES_DIR}")
 		set (BlasLibraryPath "${BLAS_LIBRARIES}")
-		get_filename_component (BlasLibraryName ${BlasLibraryPath} NAME)
+		get_filename_component (BlasLibraryName "${BlasLibraryPath}" NAME)
 	endif()
 endif()
 
