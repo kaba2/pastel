@@ -29,7 +29,7 @@ namespace Pastel
 	public:
 		using Real_ = Real;
 
-		static constexpr int N_ = N;
+		static constexpr integer N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -66,7 +66,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 1)> = 0
 			>
 		AlignedBox(
@@ -80,7 +80,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 2)> = 0
 			>
 		AlignedBox(
@@ -94,7 +94,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 3)> = 0
 			>
 		AlignedBox(
@@ -108,7 +108,7 @@ namespace Pastel
 		}
 
 		template <
-			int N_ = N,
+			integer N_ = N,
 			RequiresC<(N_ == 4)> = 0>
 		AlignedBox(
 			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
@@ -303,7 +303,7 @@ namespace Pastel
 		}
 
 
-		template <int N_ = N, RequiresC<(N_ == 1)> = 0>
+		template <integer N_ = N, RequiresC<(N_ == 1)> = 0>
 		void set(
 			const Real& xMin,
 			const Real& xMax)
@@ -312,7 +312,7 @@ namespace Pastel
 				Vector<Real, N>(xMax));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <integer N_ = N, RequiresC<(N_ == 2)> = 0>
 		void set(
 			const Real& xMin, const Real& yMin,
 			const Real& xMax, const Real& yMax)
@@ -321,7 +321,7 @@ namespace Pastel
 				Vector<Real, N>(xMax, yMax));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 3)> = 0>
+		template <integer N_ = N, RequiresC<(N_ == 3)> = 0>
 		void set(
 			const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
@@ -330,7 +330,7 @@ namespace Pastel
 				Vector<Real, N>(xMax, yMax, zMax));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 4)> = 0>
+		template <integer N_ = N, RequiresC<(N_ == 4)> = 0>
 		void set(
 			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
@@ -339,19 +339,19 @@ namespace Pastel
 				Vector<Real, N>(xMax, yMax, zMax, wMax));
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 1)> = 0>
+		template <integer N_ = N, RequiresC<(N_ >= 1)> = 0>
 		Real width() const
 		{
 			return extent()[0];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 2)> = 0>
+		template <integer N_ = N, RequiresC<(N_ >= 2)> = 0>
 		Real height() const
 		{
 			return extent()[1];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 3)> = 0>
+		template <integer N_ = N, RequiresC<(N_ >= 3)> = 0>
 		Real depth() const
 		{
 			return extent()[2];
@@ -364,7 +364,7 @@ namespace Pastel
 		Tuple<Topology, N> maxTopology_;
 	};
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void swap(AlignedBox<Real, N>& left,
 		AlignedBox<Real, N>& right);
 

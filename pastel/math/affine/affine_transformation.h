@@ -177,19 +177,19 @@ namespace Pastel
 		const AffineTransformation<Real>& that);
 
 	//! Transforms a vector by the affine transformation.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> transformVector(
 		const AffineTransformation<Real>& affine,
 		const Vector<Real, N>& vector);
 
 	//! Transforms a point by the affine transformation.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> transformPoint(
 		const AffineTransformation<Real>& affine,
 		const Vector<Real, N>& point);
 
 	//! Transforms a normal by the affine transformation.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> transformNormal(
 		const AffineTransformation<Real>& affineInverse,
 		const Vector<Real, N>& normal);

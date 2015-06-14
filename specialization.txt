@@ -32,7 +32,7 @@ Setting up the scene
 Assume we have implemented a mathematical vector class template which models vectors in ''RR^n'' (''RR'' for the set of real numbers) and which is templated with respect to dimension and its number type:
 
 [[CppCode]]:
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	class Vector
 	{
 	public:
@@ -118,7 +118,7 @@ The simplest approach is to use copy & paste. Here we replicate the common imple
 [[CppCode]]:
 	// The general version
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	class Vector
 	{
 	public:
@@ -213,13 +213,13 @@ We shall now introduce an important template technique called the _Curiously Rec
 
 [[CppCode]]:
 	
-	template <typename Real, int N, typename Derived>
+	template <typename Real, integer N, typename Derived>
 	class VectorBase
 	{
 		// ...
 	};
 	
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	class Vector
 	: public VectorBase<Real, N, Vector<Real, N> >
 	{
@@ -245,7 +245,7 @@ Here's how we achieve that:
 [[CppCode]]:
 	// Common code
 
-	template <typename Real, int N, Derived>
+	template <typename Real, integer N, Derived>
 	class VectorBase
 	{
 	public:
@@ -283,7 +283,7 @@ Here's how we achieve that:
 
 	// The general version.
 	
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	class Vector
 	: public VectorBase<Real, N, Vector<Real, N> >
 	{

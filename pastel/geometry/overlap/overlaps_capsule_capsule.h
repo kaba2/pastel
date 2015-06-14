@@ -19,7 +19,7 @@ namespace Pastel
 	Returns:
 	Whether the capsules overlap.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Capsule<Real, N>& aCapsule,
 		const Capsule<Real, N>& bCapsule);

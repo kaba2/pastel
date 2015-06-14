@@ -12,7 +12,7 @@ namespace Pastel
 	/*!
 	Note: an empty box is contained in every box (even in an empty box).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool contains(
 		const AlignedBox<Real, N>& outer,
 		const AlignedBox<Real, N>& inner);

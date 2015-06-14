@@ -27,7 +27,7 @@ namespace Pastel
 		const Real& time);
 
 	//! Interpolates linearly between vectors.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> linear(
 		const Vector<Real, N>& startPoint,
 		const Vector<Real, N>& endPoint,
@@ -45,7 +45,7 @@ namespace Pastel
 	The values of the cube vertices 
 	in lexicographical order in coordinates.
 	*/
-	template <int N, typename Vector_Range>
+	template <integer N, typename Vector_Range>
 	typename boost::range_value<Vector_Range>::type linear(
 		const Vector<real, N>& position,
 		const Vector_Range& data);
@@ -56,7 +56,7 @@ namespace Pastel
 
 	linear(startPoint, endPoint, (Real)0.5);
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> midpoint(
 		const Vector<Real, N>& startPoint,
 		const Vector<Real, N>& endPoint);

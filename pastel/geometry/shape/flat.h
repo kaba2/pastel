@@ -21,12 +21,12 @@ namespace Pastel
 	Clearly it must be that M <= N.
 	*/
 
-	template <typename Real, int N, int M>
+	template <typename Real, integer N, integer M>
 	class Flat
 	{
 	public:
 		using Real_ = Real;
-		static constexpr int N_ = N;
+		static constexpr integer N_ = N;
 		static constexpr int M_ = M;
 
 		// Using default constructor.

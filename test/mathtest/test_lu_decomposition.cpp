@@ -31,7 +31,7 @@ namespace
 			testLu();
 		}
 
-		template <int N>
+		template <integer N>
 		void testLuCase()
 		{
 			integer bad = 0;

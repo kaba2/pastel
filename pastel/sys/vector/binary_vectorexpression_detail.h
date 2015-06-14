@@ -5,7 +5,7 @@
 
 #define PASTEL_BINARY_VECTOREXPRESSION_CLASS(CLASS, BINARY_FUNCTION) \
 	template <  \
-		typename Real, int N,  \
+		typename Real, integer N,  \
 		typename LeftExpression,  \
 		typename RightExpression>  \
 	class CLASS \
@@ -55,7 +55,7 @@
 	};
 
 #define PASTEL_BINARY_VECTOREXPRESSION_FUNCTION(CLASS, VECTOR_FUNCTION) \
-	template <typename Real, int N, \
+	template <typename Real, integer N, \
 		typename LeftExpression, typename RightExpression> \
 	inline const CLASS<Real, N, LeftExpression, RightExpression> \
 		VECTOR_FUNCTION( \
@@ -68,7 +68,7 @@
 	}
 
 #define PASTEL_BINARY_VECTOREXPRESSION_FUNCTION_RIGHTCONSTANT(CLASS, VECTOR_FUNCTION) \
-	template <typename Real, int N, typename LeftExpression> \
+	template <typename Real, integer N, typename LeftExpression> \
 		const CLASS<Real, N, LeftExpression, VectorConstant<Real, N> > \
 		VECTOR_FUNCTION( \
 		const VectorExpression<Real, N, LeftExpression>& left, \
@@ -79,7 +79,7 @@
 	}
 
 #define PASTEL_BINARY_VECTOREXPRESSION_FUNCTION_LEFTCONSTANT(CLASS, VECTOR_FUNCTION) \
-	template <typename Real, int N, typename RightExpression> \
+	template <typename Real, integer N, typename RightExpression> \
 		const CLASS<Real, N, VectorConstant<Real, N>, RightExpression> \
 		VECTOR_FUNCTION( \
 		const NoDeduction<Real>& left, \

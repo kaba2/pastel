@@ -13,7 +13,7 @@ namespace Pastel
 
 	//! Draws a pixel.
 
-	template <int N, typename Type, typename Image_View, typename ColorMixer>
+	template <integer N, typename Type, typename Image_View, typename ColorMixer>
 	void drawPixel(
 		const NoDeduction<Vector<integer, N>>& position,
 		const NoDeduction<Type>& color,
@@ -22,7 +22,7 @@ namespace Pastel
 
 	//! Draws a pixel.
 
-	template <int N, typename Type, typename Image_View>
+	template <integer N, typename Type, typename Image_View>
 	void drawPixel(
 		const NoDeduction<Vector<integer, N>>& position,
 		const NoDeduction<Type>& color,

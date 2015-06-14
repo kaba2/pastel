@@ -11,7 +11,7 @@ namespace Pastel
 
 	//! Bounding aligned box of an oriented box.
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Box<Real, N>& box);
 

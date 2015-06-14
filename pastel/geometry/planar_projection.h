@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> wDivide(const Vector<Real, N>& that);
 
 	//! Returns a homogeneous 3D perspective projection matrix.

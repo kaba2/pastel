@@ -20,7 +20,7 @@ namespace Pastel
 	Returns:
 	Whether the plane and the box overlap.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Plane<Real, N>& plane,
 		const Box<Real, N>& box);
@@ -35,7 +35,7 @@ namespace Pastel
 	Returns:
 	overlaps(plane, box)
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Plane<Real, N>& plane,
 		const Box<Real, N>& box,

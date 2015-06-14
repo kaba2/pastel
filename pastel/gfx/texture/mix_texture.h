@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <typename Type, typename Inter_Type = Type, int N = 2>
+	template <typename Type, typename Inter_Type = Type, integer N = 2>
 	class Mix_Texture
 		: public Texture<Type, N>
 	{
@@ -59,7 +59,7 @@ namespace Pastel
 		const Texture<Inter_Type, N>& tTexture_;
 	};
 
-	template <typename Type, typename Inter_Type, int N>
+	template <typename Type, typename Inter_Type, integer N>
 	Mix_Texture<Type, Inter_Type, N> mixTexture(
 		const Texture<Type, N>& aTexture,
 		const Texture<Type, N>& bTexture,

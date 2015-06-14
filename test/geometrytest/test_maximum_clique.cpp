@@ -34,7 +34,7 @@ namespace
 
 		using Box = AlignedBox<Real, 2>;
 
-		template <int N>
+		template <integer N>
 		void testCase(
 			const Box (&boxSet)[N],
 			const Box& correct,
@@ -45,7 +45,7 @@ namespace
 				sweepDirection, correctSet);
 		}
 
-		template <int N, int M>
+		template <integer N, integer M>
 		void testCase(
 			const Box (&boxSet)[N],
 			const Box& correct,

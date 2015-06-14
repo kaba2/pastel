@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance(
 		const Line<Real, N>& line,
 		const Vector<Real, N>& point)
@@ -15,7 +15,7 @@ namespace Pastel
 		return std::sqrt(distance2(line, point));
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real distance2(
 		const Line<Real, N>& line,
 		const Vector<Real, N>& point)

@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Segment<Real, N>::Segment()
 		: start_()
 		, end_()
@@ -18,7 +18,7 @@ namespace Pastel
 	{
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Segment<Real, N>::Segment(
 		const Vector<Real, N>& start,
 		const Vector<Real, N>& end)
@@ -29,7 +29,7 @@ namespace Pastel
 	{
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Segment<Real, N>::Segment(
 		const Vector<Real, N>& start,
 		const Vector<Real, N>& end,
@@ -42,13 +42,13 @@ namespace Pastel
 	{
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Segment<Real, N>::~Segment()
 	{
 		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Segment<Real, N>::swap(
 		Segment& that)
 	{
@@ -60,7 +60,7 @@ namespace Pastel
 		swap(endTopology_, that.endTopology_);
 	}
 	
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Segment<Real, N>::set(
 		const Vector<Real, N>& start,
 		const Vector<Real, N>& end)
@@ -69,63 +69,63 @@ namespace Pastel
 		end_ = end;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N>& Segment<Real, N>::start()
 	{
 		return start_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	const Vector<Real, N>& Segment<Real, N>::start() const
 	{
 		return start_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N>& Segment<Real, N>::end()
 	{
 		return end_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	const Vector<Real, N>& Segment<Real, N>::end() const
 	{
 		return end_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Segment<Real, N>::setStartTopology(
 		Topology startTopology)
 	{
 		startTopology_ = startTopology;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Topology Segment<Real, N>::startTopology() const
 	{
 		return startTopology_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Segment<Real, N>::setEndTopology(
 		Topology endTopology)
 	{
 		endTopology_ = endTopology;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Topology Segment<Real, N>::endTopology() const
 	{
 		return endTopology_;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> Segment<Real, N>::at(const Real& t) const
 	{
 		return linear(start_, end_, t);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Segment<Real, N>& Segment<Real, N>::operator+=(
 		const Vector<Real, N>& that)
 	{
@@ -135,7 +135,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Segment<Real, N>& Segment<Real, N>::operator-=(
 		const Vector<Real, N>& that)
 	{
@@ -145,7 +145,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Segment<Real, N>& Segment<Real, N>::operator*=(
 		const Real& that)
 	{
@@ -158,7 +158,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Segment<Real, N>& Segment<Real, N>::operator/=(
 		const Real& that)
 	{
@@ -167,7 +167,7 @@ namespace Pastel
 		return (*this) *= inverse(that);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void swap(
 		Segment<Real, N>& left,
 		Segment<Real, N>& right)

@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <
 		typename Real, 
-		int N,
+		integer N,
 		typename Point,
 		typename... ArgumentSet,
 		Requires<
@@ -78,7 +78,7 @@ namespace Pastel
 
 	template <
 		typename Real, 
-		int N,
+		integer N,
 		typename Point,
 		typename... ArgumentSet,
 		Requires<

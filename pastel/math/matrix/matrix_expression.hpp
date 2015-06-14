@@ -763,7 +763,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixVectorMultiplication
@@ -823,7 +823,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorMatrixMultiplication

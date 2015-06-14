@@ -13,7 +13,7 @@ namespace Pastel
 	and radius. The disk's normal is the plane's normal.
 	*/
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 		bool intersect(
 			const Plane<Real, N>& plane,
 			const Sphere<Real, N>& sphere,

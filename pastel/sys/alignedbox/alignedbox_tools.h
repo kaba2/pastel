@@ -20,7 +20,7 @@ namespace Pastel
 	returns:
 	The linear index, which is computed from 'dot(point, stride)'.
 	*/
-	template <int N>
+	template <integer N>
 	integer linearIndex(
 		const Vector<integer, N>& point,
 		const Vector<integer, N>& stride);
@@ -30,7 +30,7 @@ namespace Pastel
 	This is the inverse function of 'linearIndex()'. 
 	See the documentation for that function.
 	*/
-	template <int N>
+	template <integer N>
 	Vector<integer, N> position(
 		integer linearIndex,
 		const Vector<integer, N>& stride,
@@ -41,7 +41,7 @@ namespace Pastel
 	This function assumes that order = [0, 1, ..., n - 1],
 	i.e. row-major.
 	*/
-	template <int N>
+	template <integer N>
 	Vector<integer, N> position(
 		integer linearIndex,
 		const Vector<integer, N>& stride);
@@ -62,30 +62,30 @@ namespace Pastel
 	of points in the 'region', because the 'positionVisitor'
 	can ask for an early exit.
 	*/
-	template <int N, typename PositionVisitor>
+	template <integer N, typename PositionVisitor>
 	integer forEach(
 		const AlignedBox<integer, N>& region,
 		PositionVisitor positionVisitor);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> discreteToContinuous(
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,
 		const Vector<integer, N>& discretePoint);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> discreteToContinuous(
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,
 		const AlignedBox<integer, N>& discreteBox);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<integer, N> continuousToDiscrete(
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,
 		const Vector<Real, N>& continuousPoint);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<integer, N> continuousToDiscrete(
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,

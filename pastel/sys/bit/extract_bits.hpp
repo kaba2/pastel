@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <int FromBit, int Bits, typename Integer>
+	template <integer FromBit, integer Bits, typename Integer>
 	Integer extractBits(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBit >= 0);

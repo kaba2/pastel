@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	void EwaImage_Texture<Type, N>::setFilter(
 		const FilterPtr& maxFilter,
 		const FilterPtr& minFilter)
@@ -44,7 +44,7 @@ namespace Pastel
 		filterRadius_ = filterRadius;
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Type EwaImage_Texture<Type, N>::operator()(
 		const Vector<real, N>& p_,
 		const Matrix<real>& m_) const
@@ -249,7 +249,7 @@ namespace Pastel
 		return linear(detailSample, coarseSample, level - detailLevel);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Type EwaImage_Texture<Type, N>::sampleEwa(
 		const Vector<real, N>& p,
 		const Matrix<real>& quadraticForm,

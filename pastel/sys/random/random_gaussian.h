@@ -27,12 +27,12 @@ namespace Pastel
 
 	//! Returns a random vector standard-normally distributed in a hyperball.
 	
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> randomGaussianVector();
 
 	//! Returns a random vector standard-normally distributed in a hyperball.
 	
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> randomGaussianVector(integer dimension);
 
 	//! Probability density function of the Gaussian distribution.

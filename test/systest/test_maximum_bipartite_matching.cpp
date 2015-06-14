@@ -153,7 +153,7 @@ namespace
 			}
 		}
 
-		template <int N>
+		template <integer N>
 		bool testCase(
 			Integer2 (&edgeSet)[N],
 			integer maximumMatchSize)

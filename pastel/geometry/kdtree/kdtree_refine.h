@@ -56,7 +56,7 @@ namespace Pastel
 	*/
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename ObjectPolicy>
 		void refineSurfaceAreaHeuristic(
 		integer maxDepth,

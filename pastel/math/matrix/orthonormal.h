@@ -47,11 +47,11 @@ namespace Pastel
 	orthonormalize()
 	*/
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> perpendicular(
 		const std::vector<Vector<Real, N> >& orthonormalSet);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> perpendicular(
 		integer dimension,
 		const std::vector<Vector<Real, N> >& orthonormalSet);

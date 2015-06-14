@@ -16,7 +16,7 @@ namespace Pastel
 	plane normal.
 	*/
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 		bool intersect(
 			const Ray<Real, N>& ray,
 			const Plane<Real, N>& plane,

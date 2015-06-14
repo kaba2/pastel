@@ -30,7 +30,7 @@ namespace Pastel
 	'width()' >= 0
 	*/
 
-	template <typename Real, int N = Dynamic>
+	template <typename Real, integer N = Dynamic>
 	class Box
 		: boost::multipliable<Box<Real, N>, Real
 		, boost::dividable<Box<Real, N>, Real
@@ -40,7 +40,7 @@ namespace Pastel
 	{
 	public:
 		using Real_ = Real;
-		static constexpr int N_ = N;
+		static constexpr integer N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.

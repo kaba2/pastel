@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class LinearColor_Texture
 		: public Texture<Type, N>
 	{
@@ -52,7 +52,7 @@ namespace Pastel
 		std::vector<Type> data_;
 	};
 
-	template <typename Type, int N, typename Type_Range>
+	template <typename Type, integer N, typename Type_Range>
 	LinearColor_Texture<Type, N> linearColorTexture(
 		const Type_Range& data)
 	{

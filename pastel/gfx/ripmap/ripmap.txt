@@ -21,7 +21,7 @@ Pastel implements the `RipMap` class for storing and manipulating
 rip-maps. It is declared as:
 
 [[CppCode]]:
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class RipMap;
 
 ### Memory requirements

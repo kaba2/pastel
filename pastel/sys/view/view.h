@@ -15,7 +15,7 @@ namespace Pastel
 	namespace View_
 	{
 
-		template <int N, typename Type, typename Contained_ConstView>
+		template <integer N, typename Type, typename Contained_ConstView>
 		class ConstViewBase
 		{
 		public:
@@ -66,7 +66,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Type, typename Contained_ConstView>
+	template <integer N, typename Type, typename Contained_ConstView>
 	class ConstView
 		: public View_::ConstViewBase<N, Type, Contained_ConstView>
 	{
@@ -260,7 +260,7 @@ namespace Pastel
 	namespace View_
 	{
 
-		template <int N, typename Type, typename Contained_View>
+		template <integer N, typename Type, typename Contained_View>
 		class ViewBase
 			: public ConstView<N, Type, Contained_View>
 		{
@@ -310,7 +310,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Type, typename Contained_View>
+	template <integer N, typename Type, typename Contained_View>
 	class View
 		: public View_::ViewBase<N, Type, Contained_View>
 	{

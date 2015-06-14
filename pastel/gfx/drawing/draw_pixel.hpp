@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Type, typename Image_View, typename ColorMixer>
+	template <integer N, typename Type, typename Image_View, typename ColorMixer>
 	void drawPixel(
 		const NoDeduction<Vector<integer, N>>& position,
 		const NoDeduction<Type>& color,
@@ -25,7 +25,7 @@ namespace Pastel
 		image(position) = colorMixer(image(position), color);
 	}
 
-	template <int N, typename Type, typename Image_View>
+	template <integer N, typename Type, typename Image_View>
 	void drawPixel(
 		const NoDeduction<Vector<integer, N>>& position,
 		const NoDeduction<Type>& color,

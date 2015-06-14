@@ -29,7 +29,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> transformVector(
 		const AffineTransformation<Real>& affine,
 		const Vector<Real, N>& vector)
@@ -38,7 +38,7 @@ namespace Pastel
 		return affine.matrix() * vector;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> transformPoint(
 		const AffineTransformation<Real>& affine,
 		const Vector<Real, N>& point)
@@ -47,7 +47,7 @@ namespace Pastel
 		return affine.matrix() * point + affine.translation();
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> transformNormal(
 		const AffineTransformation<Real>& affineInverse,
 		const Vector<Real, N>& normal)

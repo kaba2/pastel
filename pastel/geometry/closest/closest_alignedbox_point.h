@@ -13,7 +13,7 @@ namespace Pastel
 	Returns:
 	A point C on the box such that C and 'point' are closest points.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> closest(
 		const AlignedBox<Real, N>& box,
 		const Vector<Real, N>& point);

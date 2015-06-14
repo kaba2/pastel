@@ -12,7 +12,7 @@ namespace Pastel
 	namespace MirrorView_
 	{
 
-		template <int N, int MirrorIndex, typename ConstCursor>
+		template <integer N, integer MirrorIndex, typename ConstCursor>
 		class ConstMirrorViewCursor
 		{
 		public:
@@ -50,7 +50,7 @@ namespace Pastel
 			ConstCursor cursor_;
 		};
 
-		template <int N, int MirrorIndex, typename Cursor>
+		template <integer N, integer MirrorIndex, typename Cursor>
 		class MirrorViewCursor
 			: public ConstMirrorViewCursor<N, MirrorIndex, Cursor>
 		{

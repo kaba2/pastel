@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Sphere<Real, N>& aSphere,
 		const Sphere<Real, N>& bSphere)

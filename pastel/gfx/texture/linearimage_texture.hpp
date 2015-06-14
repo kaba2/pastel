@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Type sampleLinear(
 		const Vector<real, N>& uv,
 		const Array<Type, N>& image,

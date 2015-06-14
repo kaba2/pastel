@@ -20,7 +20,7 @@ namespace Pastel
 	Returns:
 	Whether the plane and the sphere overlap.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere);
@@ -35,7 +35,7 @@ namespace Pastel
 	Returns:
 	overlaps(plane, sphere)
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool overlaps(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere,

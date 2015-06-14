@@ -10,7 +10,7 @@ namespace Pastel
 
 	// Polygon
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Polygon<Real, N>& Polygon<Real, N>::operator=(
 		const Polygon& that)
 	{
@@ -19,7 +19,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N>&
 		Polygon<Real, N>::operator[](integer index)
 	{
@@ -29,7 +29,7 @@ namespace Pastel
 		return data_[index];
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	const Vector<Real, N>&
 		Polygon<Real, N>::operator[](integer index) const
 	{
@@ -39,33 +39,33 @@ namespace Pastel
 		return data_[index];
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Polygon<Real, N>::swap(Polygon& that)
 	{
 		data_.swap(that.data_);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	integer Polygon<Real, N>::size() const
 	{
 		return data_.size();
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Polygon<Real, N>::pushBack(
 		const Vector<Real, N>& that)
 	{
 		data_.push_back(that);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Polygon<Real, N>::popBack()
 	{
 		PENSURE(!data_.empty());
 		data_.pop_back();
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Polygon<Real, N>::insert(
 		integer index, const Vector<Real, N>& that)
 	{
@@ -75,7 +75,7 @@ namespace Pastel
 			data_.begin() + index, that);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Polygon<Real, N>::erase(
 		integer index)
 	{
@@ -86,7 +86,7 @@ namespace Pastel
 			data_.begin() + index);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void Polygon<Real, N>::reserve(
 		integer size)
 	{

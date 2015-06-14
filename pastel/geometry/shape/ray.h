@@ -20,12 +20,12 @@ namespace Pastel
 	by the algorithms.
 	*/
 
-	template <typename Real, int N = Dynamic>
+	template <typename Real, integer N = Dynamic>
 	class Ray
 	{
 	public:
 		using Real_ = Real;
-		static constexpr int N_ = N;
+		static constexpr integer N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.

@@ -17,13 +17,13 @@ namespace Pastel
 	as an exact translation (although here PP^T is always
 	singular).
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AffineTransformation<Real, N> affineLeastSquares(
 		const Matrix<Real>& from,
 		const Matrix<Real>& to)
 
 	//! Returns the least squares affine transformation relating two point sets.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AffineTransformation<Real, N> affineLeastSquares(
 		integer dimension,
 		const std::vector<Vector<Real, N> >& from,

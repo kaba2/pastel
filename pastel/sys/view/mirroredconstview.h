@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Contained_ConstView>
+	template <integer N, typename Contained_ConstView>
 	class MirroredConstView
 	{
 	public:
@@ -60,7 +60,7 @@ namespace Pastel
 		Vector<integer, N> doubleExtent_;
 	};
 
-	template <int N, typename Input_Element, typename Input_ConstView>
+	template <integer N, typename Input_Element, typename Input_ConstView>
 	ExtendedConstView<N, Input_Element, MirroredConstView<N, Input_ConstView> >
 
 		mirroredConstView(const ConstView<N, Input_Element, Input_ConstView>& view)

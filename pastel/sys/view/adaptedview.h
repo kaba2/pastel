@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Adapter, typename Contained_ConstView>
+	template <integer N, typename Adapter, typename Contained_ConstView>
 	class ConstAdaptedView
 	{
 	public:
@@ -47,7 +47,7 @@ namespace Pastel
 		Vector<integer, N> extent_;
 	};
 
-	template <int N, typename Input_Element, typename Input_ConstView, typename Adapter>
+	template <integer N, typename Input_Element, typename Input_ConstView, typename Adapter>
 	ConstView<N, typename ConstAdaptedView<N, Adapter, Input_ConstView>::Element,
 		ConstAdaptedView<N, Adapter, Input_ConstView> >
 		constAdaptedView(
@@ -58,7 +58,7 @@ namespace Pastel
 			ConstAdaptedView<N, Adapter, Input_ConstView>(view.contained(), adapter));
 	}
 
-	template <int N, typename Adapter, typename Contained_View>
+	template <integer N, typename Adapter, typename Contained_View>
 	class AdaptedView
 		: public ConstAdaptedView<N, Adapter, Contained_View>
 	{
@@ -92,7 +92,7 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Input_Element, typename Input_View, typename Adapter>
+	template <integer N, typename Input_Element, typename Input_View, typename Adapter>
 	View<N, typename AdaptedView<N, Adapter, Input_View>::Element,
 		AdaptedView<N, Adapter, Input_View> > adaptedView(
 		const View<N, Input_Element, Input_View>& view,

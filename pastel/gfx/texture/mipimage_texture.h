@@ -18,7 +18,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class MipImage_Texture
 		: public Texture<Type, N>
 	{
@@ -55,7 +55,7 @@ namespace Pastel
 		ArrayExtender_ extender_;
 	};
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	MipImage_Texture<Type, N> mipImageTexture(
 		const MipMap<Type, N>& mipMap)
 	{

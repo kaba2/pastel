@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class Radial_Texture
 		: public Texture<Type, N>
 	{
@@ -57,7 +57,7 @@ namespace Pastel
 		Vector<real, N> sphericalEnd_;
 	};
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Radial_Texture<Type, N> radialTexture(
 		const Texture<Type, N>& texture,
 		const Vector<real, N>& center,

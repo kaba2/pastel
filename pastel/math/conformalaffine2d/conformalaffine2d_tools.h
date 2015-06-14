@@ -38,7 +38,7 @@ namespace Pastel
 	AffineTransformation<Real> toAffine(
 		const ConformalAffine2D<Real>& that);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	ConformalAffine2D<Real> conformalAffine(
 		const Vector<Real, N>& aFrom, const Vector<Real, N>& bFrom,
 		const Vector<Real, N>& aTo, const Vector<Real, N>& bTo);

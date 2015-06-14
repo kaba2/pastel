@@ -60,14 +60,14 @@ namespace Pastel
 		return minValue + Pastel::random<Real>() * (maxValue - minValue);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> randomVector()
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVector<Real, N>(N);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> randomVector(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);

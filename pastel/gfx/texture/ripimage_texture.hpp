@@ -11,14 +11,14 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	RipImage_Texture<Type, N>::RipImage_Texture()
 		: ripMap_(0)
 		, extender_()
 	{
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	RipImage_Texture<Type, N>::RipImage_Texture(
 		const RipMap<Type, N>& ripMap,
 		const ArrayExtender_& extender)
@@ -27,7 +27,7 @@ namespace Pastel
 	{
 	}
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Type RipImage_Texture<Type, N>::operator()(
 		const Vector<real, N>& uv,
 		const Matrix<real>& m) const

@@ -10,7 +10,7 @@ namespace Pastel
 	{
 	public:
 		template <
-			typename Real, int N, 
+			typename Real, integer N, 
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
 			const Vector<Real, N>& minBound,
@@ -33,7 +33,7 @@ namespace Pastel
 	{
 	public:
 		template <
-			typename Real, int N,
+			typename Real, integer N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
 			const Vector<Real, N>& minBound,
@@ -89,7 +89,7 @@ namespace Pastel
 	{
 	public:
 		template <
-			typename Real, int N,
+			typename Real, integer N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
 			const Vector<Real, N>& minBound,
@@ -174,7 +174,7 @@ namespace Pastel
 	namespace KdTree_
 	{
 
-		template <typename Real, int N, typename ObjectPolicy>
+		template <typename Real, integer N, typename ObjectPolicy>
 		class BoundPoint
 		{
 		private:
@@ -224,7 +224,7 @@ namespace Pastel
 		};
 
 		template <
-			typename Real, int N,
+			typename Real, integer N,
 			typename ObjectPolicy>
 			void refineSurfaceAreaHeuristic(
 			const typename KdTree<Real, N, ObjectPolicy>::Cursor& cursor,
@@ -397,7 +397,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int N,
+		integer N,
 		typename ObjectPolicy>
 		void refineSurfaceAreaHeuristic(
 		integer maxDepth,

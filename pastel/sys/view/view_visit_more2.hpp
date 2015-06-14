@@ -10,7 +10,7 @@ namespace Pastel
 	namespace VisitRows_
 	{
 
-		template <int N, typename Contained_View, typename RowVisitorFunctor>
+		template <integer N, typename Contained_View, typename RowVisitorFunctor>
 		class ConstRowViewVisitor
 		{
 		public:
@@ -37,7 +37,7 @@ namespace Pastel
 			integer freeIndex_;
 		};
 
-		template <int N, typename Contained_View, typename RowVisitorFunctor>
+		template <integer N, typename Contained_View, typename RowVisitorFunctor>
 		class RowViewVisitor
 		{
 		public:
@@ -66,7 +66,7 @@ namespace Pastel
 
 	}
 
-	template <int N, 
+	template <integer N, 
 		typename Input_Element, typename Input_ConstView,
 		typename RowVisitorFunctor>
 		void visitRows(const ConstView<N, Input_Element, Input_ConstView>& view,
@@ -94,7 +94,7 @@ namespace Pastel
 	}
 
 
-	template <int N, 
+	template <integer N, 
 		typename Input_Element, typename Input_View,
 		typename RowVisitorFunctor>
 
@@ -125,7 +125,7 @@ namespace Pastel
 	namespace VisitRows_
 	{
 
-		template <int N, 
+		template <integer N, 
 			typename Left_View, 
 			typename Right_View,
 			typename RowVisitorFunctor>
@@ -159,7 +159,7 @@ namespace Pastel
 			integer freeIndex_;
 		};
 
-		template <int N, 
+		template <integer N, 
 			typename Left_View, 
 			typename Right_View,
 			typename RowVisitorFunctor>
@@ -193,7 +193,7 @@ namespace Pastel
 			integer freeIndex_;
 		};
 
-		template <int N, 
+		template <integer N, 
 			typename Left_View, 
 			typename Right_View,
 			typename RowVisitorFunctor>
@@ -229,7 +229,7 @@ namespace Pastel
 
 	}
 
-	template <int N, 
+	template <integer N, 
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>
@@ -270,7 +270,7 @@ namespace Pastel
 		visit(leftRectangle, rowViewVisitor);
 	}
 
-	template <int N, 
+	template <integer N, 
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>
@@ -311,7 +311,7 @@ namespace Pastel
 		visit(leftRectangle, rowViewVisitor);
 	}
 
-	template <int N, 
+	template <integer N, 
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>

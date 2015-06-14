@@ -23,36 +23,36 @@ namespace Pastel
 
 	// Permutation
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	inline Vector<Real, N> permute(
 		const VectorExpression<Real, N, Expression>& that,
 		const Tuple<integer, N>& permutation);
 
 	//! Returns the index of the minimum element.
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	inline integer minIndex(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the minimum of elements.
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	inline Real min(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the index of the maximum element.
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	inline integer maxIndex(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the maximum of elements.
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	inline Real max(
 		const VectorExpression<Real, N, Expression>& that);
 
-	template <typename Real, int N,
+	template <typename Real, integer N,
 	typename ThatExpression, typename MinExpression,
 	typename MaxExpression>
 	inline Vector<Real, N> clamp(

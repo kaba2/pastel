@@ -14,7 +14,7 @@ namespace Pastel
 		return perlinNoise<Real>(position);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Real simplexNoise(const Vector<Real, N>& x)
 	{
 		integer n = x.size();

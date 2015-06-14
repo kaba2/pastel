@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, 
+	template <typename Real, integer N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveLinear(
 		const MatrixExpression<Real, Expression_A>& a,
@@ -77,7 +77,7 @@ namespace Pastel
 		return solveUpperTriangular(left, right);
 	}
 
-	template <typename Real, int N, 
+	template <typename Real, integer N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveLowerTriangular(
 		const MatrixExpression<Real, Expression_A>& a,
@@ -110,7 +110,7 @@ namespace Pastel
 		return right;
 	}
 
-	template <typename Real, int N, 
+	template <typename Real, integer N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUnitLowerTriangular(
 		const MatrixExpression<Real, Expression_A>& a,
@@ -143,7 +143,7 @@ namespace Pastel
 		return right;
 	}
 
-	template <typename Real, int N, 
+	template <typename Real, integer N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUpperTriangular(
 		const MatrixExpression<Real, Expression_A>& a,
@@ -186,7 +186,7 @@ namespace Pastel
 		return right;
 	}
 
-	template <typename Real, int N, 
+	template <typename Real, integer N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUnitUpperTriangular(
 		const MatrixExpression<Real, Expression_A>& a,

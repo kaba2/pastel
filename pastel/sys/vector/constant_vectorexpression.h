@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		int N>
+		integer N>
 	class VectorConstant
 		: public VectorExpression<Real, N, VectorConstant<Real, N> >
 	{

@@ -12,13 +12,13 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	class Array;
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	class ConstSubArray;
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class SubArray
 	{
 	private:
@@ -406,7 +406,7 @@ namespace Pastel
 		Type* dataEnd_;
 	};
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class ConstSubArray
 	{
 	private:

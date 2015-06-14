@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class LinearSimplex_Texture
 		: public Texture<Type, N>
 	{
@@ -66,7 +66,7 @@ namespace Pastel
 		Tuple<Type, ModifyN<N, N + 1>::Result> colorSimplex_;
 	};
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	LinearSimplex_Texture<Type, ModifyN<N, N - 1>::Result> linearSimplexTexture(
 		const Tuple<Type, N>& colorSimplex)
 	{

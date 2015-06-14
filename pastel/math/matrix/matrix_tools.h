@@ -27,7 +27,7 @@ namespace Pastel
 	Preconditions:
 	matrix.width() == matrix.height()
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void setDiagonal(
 		Matrix<Real>& matrix,
 		const NoDeduction<Real>& value);
@@ -37,13 +37,13 @@ namespace Pastel
 	Preconditions:
 	matrix.width() == matrix.height() == values.size()
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	void setDiagonal(
 		Matrix<Real>& matrix,
 		const Vector<Real, N>& values);
 
 	//! Transponates a matrix in-place.
-	template <typename Real, int Height, int Width>
+	template <typename Real, integer Height, integer Width>
 	void transponate(
 		Matrix<Real>& matrix);
 
@@ -53,13 +53,13 @@ namespace Pastel
 	m >= 0
 	n >= 0
 	*/
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	MatrixDiagonal<Real, Expression> diagonalMatrix(
 		integer m, integer n,
 		const VectorExpression<Real, N, Expression>& diagonal);
 
 	//! Returns a square diagonal matrix.
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	MatrixDiagonal<Real, Expression> diagonalMatrix(
 		const VectorExpression<Real, N, Expression>& diagonal);
 
@@ -103,7 +103,7 @@ namespace Pastel
 	Here 'left' is v and 'right' is w.
 	*/
 	template <typename Real, 
-		int Height, int Width, 
+		int Height, integer Width, 
 		typename LeftExpression,
 		typename RightExpression>
 		OuterProduct<Real, LeftExpression, RightExpression>
@@ -117,7 +117,7 @@ namespace Pastel
 	outerProduct(that, that). See the documentation
 	for that function.
 	*/
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 		OuterProduct<Real, Expression, Expression>
 		outerProduct(
 		const VectorExpression<Real, N, Expression>& that);
@@ -138,7 +138,7 @@ namespace Pastel
 		const MatrixExpression<Real, Expression>& that,
 		integer yBlocks, integer xBlocks);
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	ArrayMatrix<Real> arrayMatrix(
 		integer height, integer width,
 		Real (&data)[N]);
@@ -148,7 +148,7 @@ namespace Pastel
 		integer height, integer width,
 		const Real* data);
 
-	template <typename Real, int M, int N>
+	template <typename Real, integer M, integer N>
 	ArrayMatrix<Real> arrayMatrix(
 		Real (&data)[M][N]);
 
@@ -156,7 +156,7 @@ namespace Pastel
 	Matrix<Real> matrix1x1(NoDeduction<Real> a00);
 
 	template <
-		typename Real, int N, 
+		typename Real, integer N, 
 		typename Expression1>
 	Matrix<Real> matrix1x1(
 		const VectorExpression<Real, N, Expression1>& firstColumn);
@@ -167,7 +167,7 @@ namespace Pastel
 		NoDeduction<Real> a10, NoDeduction<Real> a11);
 
 	template <
-		typename Real, int N, 
+		typename Real, integer N, 
 		typename Expression1, 
 		typename Expression2>
 	Matrix<Real> matrix2x2(
@@ -181,7 +181,7 @@ namespace Pastel
 		NoDeduction<Real> a20, NoDeduction<Real> a21, NoDeduction<Real> a22);
 
 	template <
-		typename Real, int N, 
+		typename Real, integer N, 
 		typename Expression1, 
 		typename Expression2,
 		typename Expression3>
@@ -198,7 +198,7 @@ namespace Pastel
 		NoDeduction<Real> a30, NoDeduction<Real> a31, NoDeduction<Real> a32, NoDeduction<Real> a33);
 
 	template <
-		typename Real, int N, 
+		typename Real, integer N, 
 		typename Expression1, 
 		typename Expression2,
 		typename Expression3,
@@ -212,13 +212,13 @@ namespace Pastel
     template <typename Real>
 	void swap(Matrix<Real>& left, Matrix<Real>& right);
 
-	template <typename Real, int N,
+	template <typename Real, integer N,
 	typename LeftExpression, typename RightExpression>
 	const MatrixVectorMultiplication<Real, N, LeftExpression, RightExpression> operator *(
 		const MatrixExpression<Real, LeftExpression>& left,
 		const VectorExpression<Real, N, RightExpression>& right);
 
-	template <typename Real, int N,
+	template <typename Real, integer N,
 	typename LeftExpression, typename RightExpression>
 	const VectorMatrixMultiplication<Real, N, LeftExpression, RightExpression> operator *(
 		const VectorExpression<Real, N, LeftExpression>& left,

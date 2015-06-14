@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	//! Finds out if a sphere is contained in an aligned box.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool contains(
 		const AlignedBox<Real, N>& outerBox,
 		const Sphere<Real, N>& innerSphere);

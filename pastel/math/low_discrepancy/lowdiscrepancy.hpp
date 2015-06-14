@@ -61,7 +61,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, N> haltonSequence(integer n, 
 		const Vector<integer, N>& bases)
 	{
@@ -81,7 +81,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	Vector<Real, ModifyN<N, N + 1>::Result> hammersleySequence(
 		integer n, const Vector<integer, N>& bases, integer size)
 	{

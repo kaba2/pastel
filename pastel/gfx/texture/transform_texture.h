@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N = 2>
+	template <typename Type, integer N = 2>
 	class Transform_Texture
 		: public Texture<Type, N>
 	{
@@ -42,7 +42,7 @@ namespace Pastel
 		AffineTransformation<real> invTransformation_;
 	};
 
-	template <typename Type, int N>
+	template <typename Type, integer N>
 	Transform_Texture<Type, N> transformTexture(
 		const Texture<Type, N>& texture,
 		const AffineTransformation<real>& transformation)

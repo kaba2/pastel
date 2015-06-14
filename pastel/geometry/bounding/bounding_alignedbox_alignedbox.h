@@ -11,19 +11,19 @@ namespace Pastel
 {
 
 	//! Bounding aligned box of two aligned boxes.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const AlignedBox<Real, N>& aAlignedBox,
 		const AlignedBox<Real, N>& bAlignedBox);
 
 	//! Bounding aligned box of an affinely transformed aligned box.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const AlignedBox<Real, N>& alignedBox,
 		const AffineTransformation<Real>& transformation);
 
 	//! Bounding aligned cube of an aligned box.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	AlignedBox<Real, N> boundingAlignedCube(
 		const AlignedBox<Real, N>& box);
 
@@ -32,7 +32,7 @@ namespace Pastel
 	Returns:
 	If the box needed to be extended.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool extendToCover(
 		const AlignedBox<Real, N>& boxToCover,
 		AlignedBox<Real, N>& boxToExtend);
@@ -42,7 +42,7 @@ namespace Pastel
 	Returns:
 	If the box needed to be extended.
 	*/
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool extendToCover(
 		const Vector<Real, N>& pointToCover,
 		AlignedBox<Real, N>& boxToExtend);

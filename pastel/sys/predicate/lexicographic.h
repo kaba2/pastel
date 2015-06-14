@@ -19,7 +19,7 @@ namespace Pastel
 		const NoDeduction<Type>& rightSecondary);
 
 	//! Returns whether left comes before right in lexicographic order.
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	bool lexicographicLess(
 		const Vector<Real, N>& left,
 		const Vector<Real, N>& right);

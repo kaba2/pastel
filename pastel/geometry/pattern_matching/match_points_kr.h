@@ -42,7 +42,7 @@ namespace Pastel
 		MaximumMatch
 	};
 
-	template <typename Real, int N>
+	template <typename Real, integer N>
 	struct Result_MatchPointsKr
 	{
 		bool success;

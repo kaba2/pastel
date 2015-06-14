@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	inline Vector<Real, N> permute(
 		const VectorExpression<Real, N, Expression>& that,
 		const Tuple<integer, N>& permutation)
@@ -27,7 +27,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	integer minIndex(
 		const VectorExpression<Real, N, Expression>& that)
 	{
@@ -49,14 +49,14 @@ namespace Pastel
 		return index;
 	}
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	Real min(
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		return that[minIndex(that)];
 	}
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	integer maxIndex(
 		const VectorExpression<Real, N, Expression>& that)
 	{
@@ -78,14 +78,14 @@ namespace Pastel
 		return index;
 	}
 
-	template <typename Real, int N, typename Expression>
+	template <typename Real, integer N, typename Expression>
 	Real max(
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		return that[maxIndex(that)];
 	}
 
-	template <typename Real, int N,
+	template <typename Real, integer N,
 	typename ThatExpression,
 	typename MinExpression,
 	typename MaxExpression>
