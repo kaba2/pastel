@@ -41,6 +41,7 @@ if (WIN32)
 	set (ArmadilloIncludeDirectory "C:/code/armadillo-5.200.1/include")
 	set (TbbDirectory "C:/code/tbb-4.3")
 	set (TbbIncludeDirectory "${TbbDirectory}/include")
+	set (TbbLibraryName "tbb")
 
 	if (${GENERATOR_BITS} EQUAL 32)
 		set (TbbLibraryDirectory "${TbbDirectory}/lib/ia32/vc12")
@@ -48,13 +49,17 @@ if (WIN32)
 		set (TbbLibraryDirectory "${TbbDirectory}/lib/intel64/vc12")
 	endif()
 
-	set (TbbLibraryPath "${TbbLibraryDirectory}/tbb.lib")
+	set (TbbLibraryPath "${TbbLibraryDirectory}/${TbbLibraryName}.lib")
 
+	set (BlasLibraryName "blas_win64_MT")
 	set (BlasLibraryDirectory "${PastelDirectory}/pastel")
-	set (BlasLibraryPath "${BlasLibraryDirectory}/blas_win64_MT.lib")
+	set (BlasLibraryPath "${BlasLibraryDirectory}/${BlasLibraryName}.lib")
+	set (BlasDllPath "${BlasLibraryDirectory}/${BlasLibraryName}.dll")
 
+	set (LapackLibraryName "lapack_win64_MT")
 	set (LapackLibraryDirectory "${PastelDirectory}/pastel")
-	set (LapackLibraryPath "${LapackLibraryDirectory}/lapack_win64_MT.lib")
+	set (LapackLibraryPath "${LapackLibraryDirectory}/${LapackLibraryName}.lib")
+	set (LapackDllPath "${LapackLibraryDirectory}/${LapackLibraryName}.dll")
 
 	if (${GENERATOR_BITS} EQUAL 32)
 		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R2013b")
@@ -74,6 +79,7 @@ if (UNIX)
 	set (ArmadilloDirectory "")
 	set (TbbDirectory "/Users/kaba/code/tbb-4.3")
 	set (TbbIncludeDirectory "${TbbDirectory}/include")
+	set (TbbLibraryName "libtbb")
 
 	if (APPLE)
 		set (TbbLibraryDirectory "${TbbDirectory}/lib")
@@ -81,9 +87,12 @@ if (UNIX)
 		set (TbbLibraryDirectory "${TbbDirectory}/lib/libc++")
 	endif()
 
-	set (TbbLibraryPath "${TbbLibraryDirectory}/libtbb.dylib")
+	set (TbbLibraryPath "${TbbLibraryDirectory}/${TbbLibraryName}.dylib")
 
+	set (BlasLibraryName "")
 	set (BlasLibraryPath "")
+
+	set (LapackLibraryName "")
 	set (LapackLibraryPath "")
 
 	if (APPLE)
@@ -123,6 +132,7 @@ if (("${LapackLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${LapackLibraryDir
 	if (LAPACK_FOUND)
 		set (LapackLibraryDirectory "${LAPACK_LIBRARIES_DIR}")
 		set (LapackLibraryPath "${LAPACK_LIBRARIES}")
+		get_filename_component (LapackLibraryName ${LapackLibraryPath} NAME)
 	endif()
 endif()
 
@@ -131,6 +141,7 @@ if (("${BlasLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${BlasLibraryDirecto
 	if (BLAS_FOUND)
 		set (BlasLibraryDirectory "${BLAS_LIBRARIES_DIR}")
 		set (BlasLibraryPath "${BLAS_LIBRARIES}")
+		get_filename_component (BlasLibraryName ${BlasLibraryPath} NAME)
 	endif()
 endif()
 
@@ -169,13 +180,6 @@ include_directories (${BoostIncludeDirectory})
 include_directories (${TbbIncludeDirectory})
 include_directories (${MatlabIncludeDirectory})
 include_directories (${ArmadilloIncludeDirectory})
-
-# Add the library directories.
-# ----------------------------
-
-link_directories (${TbbLibraryDirectory})
-link_directories (${LapackLibraryPath})
-link_directories (${BlasLibraryPath})
 
 # CMake build options
 # -------------------
@@ -238,8 +242,8 @@ set (DllSet "")
 
 if (WIN32)
 	set (DllSet
-		"${LapackLibraryPath}.dll"
-		"${BlasLibraryPath}.dll")
+		"${LapackDllPath}"
+		"${BlasDllPath}")
 endif()
 
 # Set a default build type if none was specified.
@@ -274,8 +278,8 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PastelLibraryDirectory_}")
 if (WIN32)
 	# On Windows, copy the dll-libraries to where
 	# the Matlab interface is.
-    foreach (dllFile ${DllSet})
-		file (COPY "pastel/${dllFile}" DESTINATION 
+    foreach (dllPath ${DllSet})
+		file (COPY "${dllPath}" DESTINATION 
 			"${PastelMatlabDirectory}"
 			${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
     endforeach()
@@ -300,8 +304,8 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     if (WIN32)
     	# On Windows, copy the dll-libraries to where
     	# the executables are.
-	    foreach (dllFile ${DllSet})
-			file (COPY "pastel/${dllFile}" DESTINATION 
+	    foreach (dllPath ${DllSet})
+			file (COPY "${dllPath}" DESTINATION 
 				${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
 	    endforeach()
 	endif()
@@ -326,8 +330,8 @@ add_definitions(-DBOOST_MATH_OVERFLOW_ERROR_POLICY=ignore_error)
 # Clang and g++
 # -------------
 
-if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") OR 
-	("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")) 
+if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") OR 
+	(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")) 
 	add_definitions (
 		# Enables C++14 compiler support.
 		-std=c++1y 
@@ -366,7 +370,7 @@ endif()
 # g++
 # ---
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") 
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") 
 	# Disable some warnings.
 	add_definitions (
 		# Unused but set variable.
@@ -379,7 +383,7 @@ endif()
 # Clang
 # -----
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang") 
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang") 
 	add_definitions (
 		# Enables C++14 library support.
 		-stdlib=libc++

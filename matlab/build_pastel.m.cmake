@@ -56,12 +56,6 @@ if bits ~= generatedBits
         num2str(bits), '-bit generator.'])
 end
 
-% The name of the Threading Building Blocks library.
-tbbLibraryName = '${TbbLibraryName}';
-if strcmp(mode, 'debug')
-    tbbLibraryName = '${TbbLibraryNameDebug}';
-end
-
 modeSet = {'debug', 'release', 'relwithdebinfo'};
 if ~ismember(mode, modeSet)
     error(['MODE must be one of debug, release, or relwithdebinfo.']);
@@ -122,7 +116,7 @@ libraryDirectorySet = {...
 % Libraries
 
 librarySet = {...
-    tbbLibraryName, ...
+    '${TbbLibraryName}', ...
     '${BlasLibraryName}', ...
     '${LapackLibraryName}'
     };
