@@ -39,6 +39,9 @@ if (WIN32)
 
 	set (BoostIncludeDirectory "C:/code/boost_1_58_0")
 	set (ArmadilloIncludeDirectory "C:/code/armadillo-5.200.1/include")
+	set (ArmadilloLibraryDirectory "")
+	set (ArmadilloLibraryPath "")
+
 	set (TbbDirectory "C:/code/tbb-4.3")
 	set (TbbIncludeDirectory "${TbbDirectory}/include")
 	set (TbbLibraryName "tbb")
@@ -170,13 +173,17 @@ endmacro()
 # Verify that the library paths exist.
 # ------------------------------------
 
-CheckPathExists("Boost (include)" ${BoostIncludeDirectory})
-CheckPathExists("Armadillo (include)" ${ArmadilloIncludeDirectory})
-CheckPathExists("Armadillo (library)" ${ArmadilloLibraryPath})
-CheckPathExists("Tbb (include)" ${TbbIncludeDirectory})
-CheckPathExists("Tbb (library)" ${TbbLibraryPath})
-CheckPathExists("Lapack (library)" ${LapackLibraryDirectory})
-CheckPathExists("Blas (library)" ${BlasLibraryDirectory})
+CheckPathExists("Boost (include)" "${BoostIncludeDirectory}")
+CheckPathExists("Armadillo (include)" "${ArmadilloIncludeDirectory}")
+
+if (APPLE)
+	CheckPathExists("Armadillo (library)" "${ArmadilloLibraryPath}")
+endif()
+
+CheckPathExists("Tbb (include)" "${TbbIncludeDirectory}")
+CheckPathExists("Tbb (library)" "${TbbLibraryPath}")
+CheckPathExists("Lapack (library)" "${LapackLibraryDirectory}")
+CheckPathExists("Blas (library)" "${BlasLibraryDirectory}")
 
 if (BuildMatlab)
 	CheckPathExists("Matlab (include)" "${MatlabIncludeDirectory}")
