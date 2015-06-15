@@ -71,15 +71,14 @@ endif()
 set (PastelDirectory "${CMAKE_SOURCE_DIR}")
 set (PastelIncludeDirectory "${PastelDirectory}")
 set (PastelLibraryDirectory "${PastelDirectory}/lib/${GENERATOR_BITS}")
-set (PastelMatlabDirectory "${PastelDirectory}/bin/${GENERATOR_BITS}/matlab")
+set (PastelExecutableDirectory "${PastelDirectory}/bin/${GENERATOR_BITS}")
+set (PastelMatlabDirectory "${PastelExecutableDirectory}/matlab")
 
 include_directories (${PastelIncludeDirectory})
 
-# An explicitly-specified non-empty library path
-# will be used as it is --- provided it exists. 
-# Otherwise the path is attempted to be detected 
-# automatically. The latter is possible only on
-# Linux and Mac OS X.
+# The set of dll-libraries to copy into the 
+# executable directory (Windows only).
+set (DllSet "")
 
 set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -114,39 +113,16 @@ set (PastelDocumentationGlobSet *.txt)
 # linked to every executable.
 set (ExecutableLibrarySet tbb)
 
-# The set of dll-libraries to copy into the 
-# executable directory (Windows only).
-set (DllSet "")
-
-if (WIN32)
-	set (DllSet
-		"${LapackDllPath}"
-		"${BlasDllPath}")
-endif()
-
 string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
 
-# The library output directory is of the form "lib/64/release".
-set (PastelLibraryDirectory_ "${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
+# The directory to place the static libraries (e.g. lib/64/release).
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
 
-# The directory to place the static libraries.
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PastelLibraryDirectory_}")
+# The directory to place the shared libraries (e.g. lib/64/release).
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
 
-# The directory to place the shared libraries.
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PastelLibraryDirectory_}")
-
-# The directory to place the built executables.
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PastelLibraryDirectory_}")
-
-if (WIN32)
-	# On Windows, copy the dll-libraries to where
-	# the Matlab interface is.
-    foreach (dllPath ${DllSet})
-		file (COPY "${dllPath}" DESTINATION 
-			"${PastelMatlabDirectory}"
-			${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
-    endforeach()
-endif()
+# The directory to place the built executables (e.g. bin/64/release).
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PastelExecutableDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
 
 # This is for the multi-configuration build-scripts
 # (such as Visual Studio or XCode).
@@ -154,15 +130,15 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
     string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
 
-	# The library output directory is of the form "lib/64/config".
-    set (PastelLibraryDirectory_ "${PastelLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
-
+	# The library output directory is of the form "lib/64/release".
     set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	"${PastelLibraryDirectory_}")
+    	"${PastelLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
     set (CMAKE_LIBRARY_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	"${PastelLibraryDirectory_}")
+    	"${PastelLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
+
+	# The executable output directory is of the form "bin/64/release".
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	"${PastelLibraryDirectory_}")
+    	"${PastelExecutableDirectory}/${LOWER_OUTPUTCONFIG}")
 
     if (WIN32)
     	# On Windows, copy the dll-libraries to where
@@ -173,6 +149,15 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
 	    endforeach()
 	endif()
 endforeach()
+
+if (WIN32)
+	# On Windows, copy the dll-libraries to where
+	# the Matlab interface is.
+    foreach (dllPath ${DllSet})
+		file (COPY "${dllPath}" DESTINATION 
+			"${PastelMatlabDirectory}")
+    endforeach()
+endif()
 
 # Set compiler options.
 include ("SetupCompilers")

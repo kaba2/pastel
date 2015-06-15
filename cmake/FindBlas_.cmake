@@ -16,15 +16,12 @@
 #    The directory-part of ${BlasLibraryPath}.
 
 if (WIN32)
-	if (MINGW)
-		set (BlasLibraryName "blas_${GENERATOR_BITS}_release_mingw")
-	else()
-		set (BlasLibraryName "blas_${GENERATOR_BITS}_release_vs12")
-	endif()
-
-	set (BlasLibraryDirectory "${PastelDirectory}/pastel")
+	set (BlasLibraryName "blas_win${GENERATOR_BITS}_MT")
+	set (BlasLibraryDirectory "${PastelDirectory}/external/${GENERATOR_BITS}")
 	set (BlasLibraryPath "${BlasLibraryDirectory}/${BlasLibraryName}.lib")
-	set (BlasDllPath "${BlasLibraryDirectory}/${BlasLibraryName}.dll")
+	set (DllSet 
+		${DllSet}
+		"${BlasLibraryDirectory}/${BlasLibraryName}.dll")
 elseif (UNIX)
 	set (BlasLibraryName "")
 	set (BlasLibraryPath "")
