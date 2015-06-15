@@ -53,6 +53,7 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 		-Wno-unused-but-set-variable
 		# Unused local typedef
 		-Wno-unused-local-typedefs
+		-Wno-deprecated-declarations
 	)
 endif()
 
