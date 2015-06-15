@@ -16,7 +16,11 @@
 #    The directory-part of ${LapackLibraryPath}.
 
 if (WIN32)
-	set (LapackLibraryName "lapack_win64_MT")
+	if (MINGW)
+		set (LapackLibraryName "lapack_${GENERATOR_BITS}_release_mingw")
+	else()
+		set (LapackLibraryName "lapack_${GENERATOR_BITS}_release_vs12")
+	endif()
 	set (LapackLibraryDirectory "${PastelDirectory}/pastel")
 	set (LapackLibraryPath "${LapackLibraryDirectory}/${LapackLibraryName}.lib")
 	set (LapackDllPath "${LapackLibraryDirectory}/${LapackLibraryName}.dll")
