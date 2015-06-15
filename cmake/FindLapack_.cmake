@@ -16,14 +16,13 @@
 #    The directory-part of ${LapackLibraryPath}.
 
 if (WIN32)
-	if (MINGW)
-		set (LapackLibraryName "lapack_${GENERATOR_BITS}_release_mingw")
-	else()
-		set (LapackLibraryName "lapack_${GENERATOR_BITS}_release_vs12")
-	endif()
-	set (LapackLibraryDirectory "${PastelDirectory}/pastel")
+	set (LapackLibraryName "lapack_win${GENERATOR_BITS}_MT")
+	set (LapackLibraryDirectory "${PastelDirectory}/external/${GENERATOR_BITS}")
 	set (LapackLibraryPath "${LapackLibraryDirectory}/${LapackLibraryName}.lib")
-	set (LapackDllPath "${LapackLibraryDirectory}/${LapackLibraryName}.dll")
+	set (DllSet 
+		${DllSet}
+		"${LapackLibraryDirectory}/${LapackLibraryName}.dll")
+
 elseif (UNIX)
 	set (LapackLibraryName "")
 	set (LapackLibraryPath "")
