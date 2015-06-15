@@ -324,7 +324,10 @@ namespace Pastel
             // * the node has at most nBruteForce points.
 
             Cursor cursor = state.cursor;
-			const IndexSequence& indexSequence = state.indexSequence;
+
+            // Having const IndexSequence& here triggers a
+            // bug in gcc 4.9.2. But const auto& works!
+			const auto& indexSequence = state.indexSequence;
 
 			for (integer i = 0; i < indexSequence.size(); i += 2)
 			{

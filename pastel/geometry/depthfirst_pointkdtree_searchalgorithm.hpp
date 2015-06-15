@@ -57,7 +57,13 @@ namespace Pastel
 				const State& left, 
 				const State& right)
 			{
-				if (left.distance < right.distance)
+				const auto& leftDistance = left.distance;
+				const auto& rightDistance = right.distance;
+
+				// Having left.distance and right.distance
+				// here triggers a bug in g++ 4.9.2.
+				// But taking a reference beforehand works!
+				if (leftDistance < rightDistance)
 				{
 					stateSet_.emplace_back(right);
 					stateSet_.emplace_back(left);
