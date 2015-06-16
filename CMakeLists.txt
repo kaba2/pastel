@@ -29,7 +29,7 @@ option (BuildMatlabMex
 if ("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
 	message (SEND_ERROR 
    		"Pastel does not allow in-source builds (e.g. 'cmake .'); you should do an "
-   		"out-of-source build instead (e.g. 'cmake ..' in 'release/' directory). "
+   		"out-of-source build instead (e.g. 'cmake ..' in 'build_${ToolSet}/' directory). "
    		"This call produced the file 'CMakeCache.txt' and the 'CMakeFiles' directory "
    		"in the Pastel's source directory. You must remove them for the out-of-source "
    		" build to work; otherwise CMake attempts an in-source build again."
@@ -70,8 +70,8 @@ endif()
 
 set (PastelDirectory "${CMAKE_SOURCE_DIR}")
 set (PastelIncludeDirectory "${PastelDirectory}")
-set (PastelLibraryDirectory "${PastelDirectory}/lib/${GENERATOR_BITS}")
-set (PastelExecutableDirectory "${PastelDirectory}/bin/${GENERATOR_BITS}")
+set (PastelLibraryDirectory "${PastelDirectory}/lib/${ToolSet}")
+set (PastelExecutableDirectory "${PastelDirectory}/bin/${ToolSet}")
 set (PastelMatlabDirectory "${PastelExecutableDirectory}/matlab")
 
 include_directories (${PastelIncludeDirectory})
@@ -115,13 +115,13 @@ set (ExecutableLibrarySet tbb)
 
 string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
 
-# The directory to place the static libraries (e.g. lib/64/release).
+# The directory to place the static libraries (e.g. lib/msvc64/release).
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
 
-# The directory to place the shared libraries (e.g. lib/64/release).
+# The directory to place the shared libraries (e.g. lib/msvc64/release).
 set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
 
-# The directory to place the built executables (e.g. bin/64/release).
+# The directory to place the built executables (e.g. bin/msvc64/release).
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PastelExecutableDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
 
 # This is for the multi-configuration build-scripts
@@ -130,13 +130,13 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
     string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
 
-	# The library output directory is of the form "lib/64/release".
+	# The library output directory is of the form "lib/msvc64/release".
     set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
     	"${PastelLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
     set (CMAKE_LIBRARY_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
     	"${PastelLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
 
-	# The executable output directory is of the form "bin/64/release".
+	# The executable output directory is of the form "bin/msvc64/release".
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
     	"${PastelExecutableDirectory}/${LOWER_OUTPUTCONFIG}")
 
