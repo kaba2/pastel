@@ -12,6 +12,13 @@ project (Pastel)
 # Find out whether the generator is 32-bit or 64-bit.
 math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 
+# We use a tool-set id to separate the outputs of 
+# different compilers to different directories.
+# The tool-set id consists of a compiler-id and
+# the bitness of the generator.
+string (TOLOWER ${CMAKE_CXX_COMPILER_ID} CompilerId)
+set (ToolSet ${CompilerId}${GENERATOR_BITS})
+
 # CMake build options
 # -------------------
 
