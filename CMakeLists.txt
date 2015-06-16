@@ -131,7 +131,7 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PastelLibraryDirectory}/${LOWER_CMAKE_BUI
 # The directory to place the built executables (e.g. bin/msvc64/release).
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PastelExecutableDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
 
-if (WIN32 AND NOT MSVC)
+if (WIN32 AND ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 	# On Windows under MinGW, copy the dll-libraries to 
 	# where the executables are.
 	CopyDllsTo("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
