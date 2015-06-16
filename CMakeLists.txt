@@ -89,7 +89,7 @@ set (DllSet "")
 
 set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-include ("CheckPath")
+include ("Utilities")
 
 find_package("Boost_")
 find_package("Armadillo_")
@@ -131,8 +131,14 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PastelLibraryDirectory}/${LOWER_CMAKE_BUI
 # The directory to place the built executables (e.g. bin/msvc64/release).
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PastelExecutableDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
 
+if (WIN32 AND NOT MSVC)
+	# On Windows under MinGW, copy the dll-libraries to 
+	# where the executables are.
+	CopyDllsTo("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+endif()
+
 # This is for the multi-configuration build-scripts
-# (such as Visual Studio or XCode).
+# (such as Visual Studio and XCode).
 foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
     string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
@@ -148,22 +154,16 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     	"${PastelExecutableDirectory}/${LOWER_OUTPUTCONFIG}")
 
     if (WIN32)
-    	# On Windows, copy the dll-libraries to where
-    	# the executables are.
-	    foreach (dllPath ${DllSet})
-			file (COPY "${dllPath}" DESTINATION 
-				${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}})
-	    endforeach()
+    	# On Windows under MSVC, copy the dll-libraries to 
+    	# where the executables are.
+    	CopyDllsTo("${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}}")
 	endif()
 endforeach()
 
 if (WIN32)
 	# On Windows, copy the dll-libraries to where
 	# the Matlab interface is.
-    foreach (dllPath ${DllSet})
-		file (COPY "${dllPath}" DESTINATION 
-			"${PastelMatlabDirectory}")
-    endforeach()
+	CopyDllsTo("${PastelMatlabDirectory}")
 endif()
 
 # Set compiler options.
