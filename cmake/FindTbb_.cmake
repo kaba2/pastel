@@ -27,17 +27,18 @@ if (WIN32)
 
 	set (TbbLibraryPath "${TbbLibraryDirectory}/${TbbLibraryName}.lib")
 elseif (UNIX)
-	set (TbbDirectory "/Users/kaba/code/tbb-4.3")
+	set (TbbDirectory "/usr")
 	set (TbbIncludeDirectory "${TbbDirectory}/include")
 	set (TbbLibraryName "tbb")
 
 	if (APPLE)
-		set (TbbLibraryDirectory "${TbbDirectory}/lib")
-	else()
 		set (TbbLibraryDirectory "${TbbDirectory}/lib/libc++")
+		set (TbbLibraryPath "${TbbLibraryDirectory}/lib${TbbLibraryName}.dylib")
+	else()
+		set (TbbLibraryDirectory "${TbbDirectory}/lib")
+		set (TbbLibraryPath "${TbbLibraryDirectory}/lib${TbbLibraryName}.so")
 	endif()
 
-	set (TbbLibraryPath "${TbbLibraryDirectory}/lib${TbbLibraryName}.dylib")
 endif()
 
 CheckPathExists("Tbb (include)" "${TbbIncludeDirectory}")

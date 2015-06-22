@@ -36,10 +36,13 @@ namespace
 	using MultiLess_ = MultiLess;
 
 	template <integer N>
+	using Point_ = Point<N>;
+
+	template <integer N>
 	class Settings
 	{
 	public:
-		using Point = Point<N>;
+		using Point = Point_<N>;
 		using MultiLess = MultiLess_;
 	};
 
