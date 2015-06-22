@@ -60,9 +60,10 @@ namespace
 
 			arma::Mat<Real> fromSet = 
 			{
-				{0, 1, 0},
-				{0, 0, 1} 
+				0, 1, 0,
+				0, 0, 1 
 			};
+			fromSet.reshape(2, 3);
 
 			// Angle pi / 3 often matches to another minimum.
 			Real maxAngle = constantPi<Real>() / 4;
@@ -70,9 +71,10 @@ namespace
 			{
 				arma::Mat<Real> Q = 
 				{
-					{std::cos(alpha), -std::sin(alpha)},
-					{std::sin(alpha), std::cos(alpha)}
+					std::cos(alpha), -std::sin(alpha),
+					std::sin(alpha), std::cos(alpha)
 				};
+				Q.reshape(2, 2);
 
 				testCase(
 					Q, S, t, fromSet,
@@ -89,10 +91,9 @@ namespace
 			arma::Mat<Real> S(2, 2, arma::fill::eye);
 
 			arma::Mat<Real> fromSet = 
-			{
-				{0, 1, 0},
-				{0, 0, 1} 
-			};
+				{0, 1, 0,
+				0, 0, 1}; 
+			fromSet.reshape(2, 3);
 
 			// Angle pi / 3 often matches to another minimum.
 			Real offsetMin = -2;

@@ -8,7 +8,10 @@
 #    #include <boost/type_traits/remove_ref.h>
 #    becomes valid.
 
-set (BoostVersion 1.58.0)
+# Uncomment this to debug CMake's Boost search.
+#set (Boost_DEBUG 1)
+
+set (BoostVersion 1.55.0)
 string (REGEX REPLACE \\. _ BoostVersion_ ${BoostVersion})
 
 if (WIN32)
