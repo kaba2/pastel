@@ -24,7 +24,12 @@ Ideally, named parameters would have language support, and look something like t
 		return scaling * metric(a, b);
 	}
 
-	distance(1, 4, "scaling" : 2, Euclidean_Metric());
+### Usage
+
+The example function would be called as follows:
+
+[[CppCode]]:
+	distance(1, 4, scaling : 2, Euclidean_Metric());
 
 ### Parameter names
 
