@@ -32,13 +32,12 @@ elseif (UNIX)
 	set (TbbLibraryName "tbb")
 
 	if (APPLE)
-		set (TbbLibraryDirectory "${TbbDirectory}/lib/libc++")
+		set (TbbLibraryDirectory "${TbbDirectory}/local/lib")
 		set (TbbLibraryPath "${TbbLibraryDirectory}/lib${TbbLibraryName}.dylib")
 	else()
 		set (TbbLibraryDirectory "${TbbDirectory}/lib")
 		set (TbbLibraryPath "${TbbLibraryDirectory}/lib${TbbLibraryName}.so")
 	endif()
-
 endif()
 
 CheckPathExists("Tbb (include)" "${TbbIncludeDirectory}")
