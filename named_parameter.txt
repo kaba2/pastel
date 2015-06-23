@@ -3,27 +3,7 @@ Named parameters
 
 [[Parent]]: techniques.txt
 
-A _named parameter_ specifies a way to assign a function argument to a function parameter by its name. Unfortunately, C++14 does not support named parameters. In this section we provide a way to simulate them.
-
-Requirements
-------------
-
-A good simulation of named parameters
-
-* supports a default-argument, 
-* supports passing template arguments,
-* supports constraints on a parameter,
-* supports implicit association of an argument to a parameter, provided the argument satisfies the parameter's constraints,
-* supports specifying whether a parameter should be matched implicitly or not,
-* forwards arguments perfectly into the function,
-* does not pollute the namespace with key-tags for parameter names,
-* has zero overhead,
-* constructs a default-argument only if the parameter is not given,
-* checks that the constraints are satisfied for an argument,
-* checks that the constraints are satisfied for the default-argument,
-* checks that the constraints are satisfied for at most one non-default argument,
-* checks for extraneous named arguments,
-* requires minimal boilerplate code.
+A _named parameter_ specifies a way to assign a function argument to a function parameter by its name. Since C++14 does not support named parameters, we provide a way to simulate them.
 
 Ideal solution
 --------------
@@ -78,7 +58,7 @@ Enumerations are good candidates for implicit association, because the same enum
 
 ### Checks
 
-When calling a function with a named parameter, the compiler checks that each association of an argument to a parameter is unique, and that the argument satisfies the constraints of the parameter. Violations of these checks are reported as errors.
+When calling a function with a named parameter, the compiler checks that each argument matches exactly one parameter, and that the argument satisfies the constraints of the parameter. Violations of these checks are reported as errors.
 
 Practical solution
 ------------------
@@ -113,7 +93,9 @@ Since C++14 does not support named parameters, we simulate them. The named param
 		return scaling * metric(a, b);
 	}
 
-### Use
+The `PASTEL_ARG*` macros encapsulate the conversion of the name to a compile-time tag, and the perfect-forwarding of the `argumentSet`. The `PASTEL_ARG_S` is a simplified specification, useful for simple types. The `PASTEL_ARG*` macro forwards the matching argument perfectly, where the matching is resolved at compile-time.
+
+### Usage
 
 The example function is called like this:
 
@@ -193,41 +175,23 @@ When a default-argument does not satisfy the constraint, we raise the compilatio
 
 	Default optional argument is not valid for the given parameter.
 
-#### Extraneous arguments
+#### Unused arguments
 
-When an argument is specified explicitly by name, but does not match any parameter name, we _silently ignore it_. 
+When an argument does not match any parameter, we _silently ignore it_. 
 
 This is a current weakness of the simulation system. It sometimes leads to bugs, since a typo in a name of a parameter will not be catched.
 
-Comparison
-----------
+Shortcomings
+------------
 
-[[set x]]: $\checkmark$
+The shortcomings of the the current simulation system for named parameters are that
 
-Property                                | Pastel | Idiom
-----------------------------------------|--------|-----------------
-Default arguments                       | [[x]]  | [[x]]
-Template arguments                      | [[x]]  | [[x]]
-Parameter constraints                   | [[x]]  | [[x]]
-Implicit association                    | [[x]]  |
-Perfect forwarding                      | [[x]]  |
-Key-tags without namespace pollution    | [[x]]  | [[x]]
-Zero overhead                           | [[x]]  |
-Elide default-argument construction     | [[x]]  |
-Check argument constraints              | [[x]]  | [[x]]
-Check default-argument constraints      | [[x]]  | [[x]]
-Check uniqueness of match               | [[x]]  | [[x]]
-Check extraneous arguments              | [[x]]  | [[x]]
-Minimal boilerplate                     | [[x]]  |
+* it does not check for unused arguments, and
+* it is harder to debug, because for the debugger the parameter names are integer-hashes, rather than strings.
 
-Use
----
+The former can probably be fixed, but I haven't yet been able to come up with something neat which would also work with Visual Studio 2015 RC.
 
-The zero overhead -principle implies that
+The latter could be somewhat mitigated, if C++ --- in some restricted form --- was extended to accept strings as template-arguments.
 
-* the name of a parameter must be a compile-time construct,
-* the search for a named parameter must be done compile-time,
-* the check for constraints must be done at compile-time, and
-* the check for extraneous arguments must be done at compile-time.
-
+Despite these shortcomings, I find the simulation system really nice to use both as a library writer and a library user.
 

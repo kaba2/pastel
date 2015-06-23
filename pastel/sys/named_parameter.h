@@ -1,4 +1,5 @@
 // Description: Named parameters
+// Documentation: named_parameter.txt
 
 #ifndef PASTELSYS_NAMED_PARAMETER_H
 #define PASTELSYS_NAMED_PARAMETER_H
