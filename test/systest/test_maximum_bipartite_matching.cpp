@@ -9,8 +9,6 @@
 #include "pastel/sys/sequence/random_subset.h"
 #include "pastel/sys/random.h"
 
-#include <boost/range/adaptor/transformed.hpp>
-
 using namespace Pastel;
 
 namespace
@@ -32,138 +30,147 @@ namespace
 			testRandom();
 		}
 
+		using EdgeSet = std::vector<std::vector<integer>>;
+
 		void testRandom()
 		{
-			integer n = 100;
-			integer vertices = 100;
-			integer maxEdges = square(vertices);
-
-			// Generate all edges.
-			std::vector<Integer2> edgeSet;
-			edgeSet.reserve(maxEdges);
-			for (integer i = 0;i < vertices;++i)
+			integer trials = 10;
+			for (integer trial = 0;trial < trials;++trial)
 			{
-				for (integer j = 0;j < vertices;++j)
+				integer nA = randomInteger(100);
+				integer nB = randomInteger(100);
+				
+				std::vector<integer> allEdgeSet;
+				allEdgeSet.reserve(nB);
+				for (integer b = 0;b < nB;++b)
 				{
-					edgeSet.push_back(Integer2(i, j));
+					allEdgeSet.push_back(b);
 				}
-			}
 
-			for (integer i = 0;i < n;++i)
-			{
-				integer edges =
-					randomInteger(maxEdges) + 1;
+				integer maxEdges = std::min(nB, (integer)10);
+
+				EdgeSet edgeSet;
+				edgeSet.resize(nA);
+
+				for (integer a = 0;a < nA;++a)
+				{
+					integer edges = randomInteger(maxEdges);
+					randomSubset(
+						allEdgeSet.begin(), allEdgeSet.end(), edges);
+
+					edgeSet[a].resize(edges);
+					std::copy(
+						allEdgeSet.begin(), allEdgeSet.begin() + edges, 
+						edgeSet[a].begin());
+				}
+
+				auto forEachAdjacent = [&](
+					integer a, auto&& visit)
+				{
+					for (integer b : edgeSet[a])
+					{
+						if (!visit(b))
+						{
+							break;
+						}
+					}
+				};
 				
-				randomSubset(
-					edgeSet.begin(), edgeSet.end(), edges);
-				
-				testCase(range(edgeSet.begin(), edgeSet.begin() + edges), 0);
+				testCase(nB, std::move(edgeSet), 0);
 			}
 		}
 
 		void testNonTrivial()
 		{
 			{
-				Integer2 edgeSet[] =
+				EdgeSet edgeSet =
 				{
-					Integer2(0, 0),
-					Integer2(1, 1),
-					Integer2(2, 2),
-					Integer2(2, 0),
-					Integer2(3, 1),
+					{0},
+					{1},
+					{0, 2},
+					{1}
 				};
 
-				TEST_ENSURE(testCase(edgeSet, 3));
+				TEST_ENSURE(testCase(10, std::move(edgeSet), 3));
 			}
 		}
 
 		void testSimple()
 		{
 			{
-				Integer2 edgeSet[] =
+				EdgeSet edgeSet =
 				{
-					Integer2(0, 0)
+					{0}
 				};
 
-				TEST_ENSURE(testCase(edgeSet, 1));
+				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
-				Integer2 edgeSet[] =
+				EdgeSet edgeSet =
 				{
-					Integer2(0, 1)
+					{1}
 				};
 
-				TEST_ENSURE(testCase(edgeSet, 1));
+				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
-				Integer2 edgeSet[] =
+				EdgeSet edgeSet =
 				{
-					Integer2(1, 0)
+					{},
+					{0}
 				};
 
-				TEST_ENSURE(testCase(edgeSet, 1));
+				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
-				Integer2 edgeSet[] =
+				EdgeSet edgeSet =
 				{
-					Integer2(0, 0),
-					Integer2(1, 1)
+					{0},
+					{1}
 				};
 
-				TEST_ENSURE(testCase(edgeSet, 2));
+				TEST_ENSURE(testCase(10, std::move(edgeSet), 2));
 			}
 			{
-				Integer2 edgeSet[] =
+				EdgeSet edgeSet =
 				{
-					Integer2(0, 0),
-					Integer2(1, 0)
+					{0},
+					{0}
 				};
 
-				TEST_ENSURE(testCase(edgeSet, 1));
+				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
-				Integer2 edgeSet[] =
+				EdgeSet edgeSet =
 				{
-					Integer2(0, 0),
-					Integer2(0, 1)
+					{0, 1}
 				};
 
-				TEST_ENSURE(testCase(edgeSet, 1));
+				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
-				Integer2 edgeSet[] =
+				EdgeSet edgeSet =
 				{
-					Integer2(0, 0),
-					Integer2(1, 0),
-					Integer2(1, 1)
+					{0},
+					{0, 1}
 				};
 
-				TEST_ENSURE(testCase(edgeSet, 2));
+				TEST_ENSURE(testCase(10, std::move(edgeSet), 2));
 			}
 			{
-				Integer2 edgeSet[] =
+				EdgeSet edgeSet =
 				{
-					Integer2(0, 0),
-					Integer2(0, 1),
-					Integer2(1, 0),
-					Integer2(1, 1)
+					{0, 1},
+					{0, 1}
 				};
 
-				TEST_ENSURE(testCase(edgeSet, 2));
+				TEST_ENSURE(testCase(10, std::move(edgeSet), 2));
 			}
 		}
 
-		template <integer N>
 		bool testCase(
-			Integer2 (&edgeSet)[N],
-			integer maximumMatchSize)
-		{
-			return testCase(range(edgeSet), maximumMatchSize);
-		}
-
-		template <typename Range>
-		bool testCase(
-			Range edgeSet,
+			integer nB,
+			EdgeSet&& edgeSet,
 			integer maximumMatchSize)
 		{
 			integer n = edgeSet.size();
@@ -171,21 +178,24 @@ namespace
 			using Pair = std::pair<integer, integer>;
 			std::vector<Pair> matchSet;
 
-			using namespace boost::adaptors;
+			auto forEachAdjacent = [&](
+				integer a, auto&& visit)
+			{
+				for (integer b : edgeSet[a])
+				{
+					if (!visit(b))
+					{
+						break;
+					}
+				}
+			};
 
+			integer matchSize = maximumBipartiteMatching(
+				n,
+				nB,
+				forEachAdjacent);
 
-			std::function<integer(const Integer2&)> firstElement = 
-				[](const Integer2& pair) {return pair[0];};
-
-			std::function<integer(const Integer2&)> secondElement = 
-				[](const Integer2& pair) {return pair[1];};
-
-			maximumBipartiteMatching(
-				edgeSet | transformed(firstElement),
-				edgeSet | transformed(secondElement),
-				pushBackOutput(matchSet));
-
-			if (maximumMatchSize > 0 && matchSet.size() != maximumMatchSize)
+			if (maximumMatchSize > 0 && matchSize != maximumMatchSize)
 			{
 				// The matching set must be of the maximum size.
 				return false;
@@ -269,3 +279,4 @@ namespace
 	CallFunction run(addTest);
 
 }
+

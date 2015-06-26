@@ -3,15 +3,17 @@
 #ifndef PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
 #define PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
 
+#include "pastel/sys/mytypes.h"
 #include "pastel/sys/output/output_concept.h"
 
 namespace Pastel
 {
 
-	//! Computes a maximum matching in a bipartite graph.
+	//! Maximum bipartite matching
 	/*!
 	Preconditions:
-	boost::size(leftRange) == boost::size(rightRange)
+	nA >= 0
+	nB >= 0
 
 	Time complexity:
 	O(sqrt(V) E) worst case, or
@@ -20,54 +22,40 @@ namespace Pastel
 	V is the number of vertices, and
 	E is the number of edges.
 
-	leftRange, rightRange:
-	Sequences of vertices L(i) and R(i), 0 < i < n, denoting
-	the class of left vertices and right vertices, respectively. 
-	The edges of the graph are formed from (L(i), R(i)), 
-	for 0 < i < n. The type of the left vertices may differ
-	from the type of the right vertices. The left vertices are
-	always treated as disjoint from the right vertices, even
-	if the objects themselves would be equal.
+	A bipartite graph is defined as follows.
+	Let A = [0, nA[ and B = [0, nB[ be sets of
+	integers identified with disjoint sets of 
+	vertices. An edge is an element of E subset A x B,
+	directed from A to B.
 
-	reporter:
-	A reporter to report the edges in the maximum bipartite
-	matching.
+	nA, nB:
+	The number of vertices in the A and B set,
+	respectively.
 
-	leftHash, rightHash:
-	Hash functions for hashing elements of the left vertex-set
-	and the right vertex-set, respectively.
+	returns:
+	The number of edges in the maximum matching.
+
+	Optional arguments
+	------------------
+
+	forEachAdjacentToA (A x (B -> bool)) -> C):
+	A function g : A x (B -> bool) -> C, which for
+	g(a, f) calls f(b) for all (a, b) in E. The f
+	returns whether to continue iterating over adjacent
+	vertices, to which g must respond.
+
+	report (A x B -> C):
+	The edges in the maximum matching will be reported
+	in the form report(a, b), where a in A and b in B.
 	*/
 	template <
-		typename Left_Vertex_Range, 
-		typename Right_Vertex_Range, 
-		typename Vertex_Pair_Output,
-		typename Left_Hash,
-		typename Right_Hash>
-	void maximumBipartiteMatching(
-		Left_Vertex_Range leftRange,
-		Right_Vertex_Range rightRange,
-		const Vertex_Pair_Output& reporter,
-		const Left_Hash& leftHash,
-		const Right_Hash& rightHash);
-
-	//! Computes the maximum matching in a bipartite graph.
-	/*!
-	This is a convenience function which calls
-
-	maximumBipartiteMatching(
-		leftRange, rightRange, reporter,
-		std::hash<Left>(), std::hash<Right>());
-
-	See the documentation for that function.
-	*/
-	template <
-		typename Left_Vertex_Range, 
-		typename Right_Vertex_Range, 
-		typename Vertex_Pair_Output>
-	void maximumBipartiteMatching(
-		Left_Vertex_Range leftRange,
-		Right_Vertex_Range rightRange,
-		const Vertex_Pair_Output& reporter);
+		typename ForEachAdjacentToA,
+		typename... ArgumentSet>
+	integer maximumBipartiteMatching(
+		integer nA,
+		integer nB,
+		const ForEachAdjacentToA& forEachAdjacentToA,
+		ArgumentSet&&... argumentSet);
 
 }
 

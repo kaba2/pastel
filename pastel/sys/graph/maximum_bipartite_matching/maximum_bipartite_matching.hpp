@@ -3,483 +3,301 @@
 
 #include "pastel/sys/graph/maximum_bipartite_matching.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/output/null_output.h"
 
 #include <vector>
 #include <queue>
-#include <algorithm>
-#include <unordered_map>
+#include <stack>
 
 namespace Pastel
 {
 
-	namespace MaximumBipartiteMatching
+	template <
+		typename ForEachAdjacentToA,
+		typename... ArgumentSet>
+	integer maximumBipartiteMatching(
+		integer nA,
+		integer nB,
+		const ForEachAdjacentToA& forEachAdjacentToA,
+		ArgumentSet&&... argumentSet)
 	{
+		// "An n^(5/2) algorithm for maximum matchings in bipartite graphs",
+		// Hopcroft, John E.; Karp, Richard M., 
+		// SIAM Journal on Computing 2 (4): 225–231, 1973.
 
-		template <
-			typename Left_Vertex_Range, 
-			typename Right_Vertex_Range, 
-			typename Vertex_Pair_Output,
-			typename Left_Hash,
-			typename Right_Hash>
-		class Algorithm
+		ENSURE_OP(nA, >=, 0);
+		ENSURE_OP(nB, >=, 0);
+
+		// Let G = (V, E) be a simple directed graph, such that
+		// 
+		//     A = {0} x [0, nA[,
+		//     B = {1} x [0, nB[,
+		//     V = A union B,
+		//     E subset A x B.
+		//
+		// The G is a bipartite graph. A _matching_ in G is M subset E,
+		// such that 
+		//
+		//     (a_1, b_1), (a_2, b_2) in M ==> a_1 != a_2 and b_1 != b_2,
+		//
+		// for all a_1, a_2 in A, b_1, b_2 in B. We wish to find a 
+		// matching with maximum cardinality |M|.
+
+		if (nA == 0 || nB == 0)
 		{
-		public:
-			using Left = typename boost::range_value<Left_Vertex_Range>::type;
-			using Right = typename boost::range_value<Right_Vertex_Range>::type;
-			typedef typename boost::range_iterator<Left_Vertex_Range>::type
-				Left_Iterator;
-			typedef typename boost::range_iterator<Right_Vertex_Range>::type
-				Right_Iterator;
+			// Since either A or B is empty, there are no matchings 
+			// in the graph.
+			return 0;
+		}
 
-			using LeftMap = std::unordered_map<Left, integer, Left_Hash>;
-			using RightMap = std::unordered_map<Right, integer, Right_Hash>;
-			using InverseLeftMap = std::unordered_map<integer, Left>;
-			using InverseRightMap = std::unordered_map<integer, Right>;
+		auto&& report = PASTEL_ARG_S(report, nullOutput());
 
-			void work(
-				Left_Vertex_Range leftRange,
-				Right_Vertex_Range rightRange,
-				const Vertex_Pair_Output& reporter,
-				const Left_Hash& leftHash,
-				const Right_Hash& rightHash)
+		// We store sentinel vertices for both sets
+		// at the last index.
+		integer A_Sentinel = nA;
+		integer B_Sentinel = nB;
+
+		// The A-set of vertices.
+		struct A_Vertex
+		{
+			// In the current matching, the vertex 
+			// in the B-set this vertex is paired to.
+			integer pair;
+			// The shortest distance to an unpaired
+			// vertex in the A-set. 
+			integer distance; 
+		};
+
+		// The A-set of vertices + A-sentinel.
+		std::vector<A_Vertex> aSet(nA + 1);
+		for (auto&& aVertex : aSet)
+		{
+			aVertex.pair = B_Sentinel;
+			aVertex.distance = infinity<integer>();
+		}
+
+		A_Vertex& aSentinel = aSet[A_Sentinel];
+
+		// The B-set of vertices.
+		struct B_Vertex
+		{
+			// In the current matching, the vertex 
+			// in the A-set this vertex is paired to.
+			integer pair;
+		};
+		
+		// The B-set of vertices + B-sentinel.
+		std::vector<B_Vertex> bSet(nB + 1);
+		for (auto&& bVertex : bSet)
+		{
+			bVertex.pair = A_Sentinel;
+		}
+
+		// Conceptually, the A-sentinel (B-Sentinel)
+		// is connected to every vertex in the A-set (B-Set)
+		// (and not any other vertex). An _augmenting-path_ is
+		// a path which starts at the A-sentinel, alternates 
+		// between an edge in M and an edge not in M, and 
+		// ends at the B-sentinel. 
+
+		// For each vertex reachable from an unpaired
+		// vertex of A, computes the shortest distance
+		// to an unpaired vertex of A. Returns whether
+		// the A-sentinel was reached or not.
+		auto computeDistances = [&]() -> bool
+		{
+			// This is a breadth-first search; the
+			// queue keeps up the order of the search.
+			std::queue<integer> queue;
+
+			// Initialize the queue with unpaired
+			// vertices of A, and initialize the
+			// distances in A.
+			for (integer a = 0;a < nA;++a)
 			{
-				// This is the Hopcroft-Karp algorithm for 
-				// maximum bipartite matching.
+				// This initialization is only for 
+				// non-sentinel vertices.
+				ASSERT(a != A_Sentinel);
 
-				ENSURE_OP(boost::size(leftRange), ==, boost::size(rightRange));
-				if (leftRange.empty() && rightRange.empty())
+				if (aSet[a].pair == B_Sentinel)
 				{
-					return;
+					// The 'a' is an unpaired vertex of A.
+					aSet[a].distance = 0;
+					queue.push(a);
 				}
-
-				initialize(leftRange, rightRange);
-
-				leftHash_ = leftHash;
-				rightHash_ = rightHash;
-
-				while(findAugmentingPaths())
+				else
 				{
-					// As long as there are augmenting paths...
-					integer leftVertices = leftSet_.size();
-					for (integer i = 0;i < leftVertices;++i)
-					{
-						integer leftIndex = leftSet_[i];
-
-						Vertex& left = vertexSet_[leftIndex];
-						if (!left.paired())
-						{
-							// ... flip the augmenting paths to 
-							// give a larger matching.
-							flipPossibleAugmentingPath(leftIndex);
-						}
-					}
-				}
-
-				// Report the matching edges.
-				integer leftVertices = leftSet_.size();
-				for (integer i = 0;i < leftVertices;++i)
-				{
-					integer leftIndex = leftSet_[i];
-
-					Vertex& left = vertexSet_[leftIndex];
-					if (left.paired())
-					{
-						integer rightIndex = left.pairIndex();
-
-						reporter(
-							std::make_pair(
-							inverseLeftMap_[leftIndex],
-							inverseRightMap_[rightIndex]));
-					}
+					// The 'a' is a paired vertex of A.
+					// Set its distance to infinity; this
+					// denotes that it has not been computed yet.
+					// The distance to 'a' stays at infinity
+					// if 'a' cannot be reached from 
+					// an unpaired vertex of A, or it takes
+					// too many steps.
+					aSet[a].distance = infinity<integer>();
 				}
 			}
 
-		private:
-			bool findAugmentingPaths()
+			// Mark the A-sentinel distance as not computed yet.
+			aSentinel.distance = infinity<integer>();
+			while(!queue.empty())
 			{
-				std::queue<integer> eventSet;
+				integer a = queue.front();
+				ASSERT(a != A_Sentinel);
 
-				vertexSet_[Sentinel].unvisit();
+				queue.pop();
 
-				integer leftVertices = leftSet_.size();
-				for (integer i = 0;i < leftVertices;++i)
+				if (aSet[a].distance >= aSentinel.distance)
 				{
-					integer leftIndex = leftSet_[i];
-
-
-					Vertex& vertex = 
-						vertexSet_[leftIndex];
-					if (!vertex.paired())
-					{
-						vertex.visit(0);
-						eventSet.push(leftIndex);
-					}
-					else
-					{
-						vertex.unvisit();
-					}
+					// At each phase, we accept only shortest paths
+					// leading to the A-sentinel. This is important
+					// for algorithm correctness. Since at 'a' the 
+					// path already is as long as a shortest path, 
+					// it cannot produce new shortest paths.
+					continue;
 				}
 
-				// The information whether the right vertices
-				// are visited or not is not used.
-
-				while(!eventSet.empty())
+				forEachAdjacentToA(a, [&](integer b)
 				{
-					// Pick up the next vertex from the queue.
-					// This gives a breadth-first ordering for
-					// visiting the graph.
-					integer leftIndex = eventSet.front();
-					ASSERT_OP(leftIndex, !=, Sentinel);
+					PENSURE_RANGE(b, 0, nB);
 
+					integer aNext = bSet[b].pair;
 
-					Vertex& left = 
-						vertexSet_[leftIndex];
-					eventSet.pop();
-
-					integer edges = left.edges();
-					for (integer i = 0;i < edges;++i)
+					// Using < instead of != here triggers 
+					// a bug in Visual Studio 2015 RC, in which
+					// the compiler hangs.
+					if (aSet[aNext].distance != infinity<integer>())
 					{
-
-						Vertex& right =
-							adjacent(left, i);
-
-						// The 'nextLeft' is either a sentinel
-						// node or a left vertex. If it is a 
-						// sentinel (i.e. 'right' is not paired),
-						// then it means we have found at least 
-						// one augmenting path.
-						Vertex& nextLeft = pair(right);
-
-						if (!nextLeft.visited())
-						{
-							// If 'nextLeft' is not visited,
-							// visit it now.
-							nextLeft.visit(left.level() + 1);
-
-							// And continue the breadth-first
-							// traversal...
-							integer nextLeftIndex =
-								right.pairIndex();
-							if (nextLeftIndex != Sentinel)
-							{
-								eventSet.push(nextLeftIndex);
-							}
-						}
-
-						// If 'nextLeft' is already visited, the 
-						// traversal ends here, since it is not
-						// possible to form any more augmenting
-						// paths.
+						// The distance to 'aNext' has already been
+						// computed.
+						return  true;
 					}
-				}
 
-				// Whether at least one augmented path was found
-				// is seen by whether the sentinel node was visited
-				// or not.
-				return vertexSet_[Sentinel].visited();
+					// Compute the distance to 'aNext'.	
+					aSet[aNext].distance = aSet[a].distance + 1;
+
+					if (aNext != A_Sentinel)
+					{
+						// Recurse back to 'aNext' later, provided
+						// it is not the A-sentinel.
+						queue.push(aNext);
+					}
+
+					// Proceed to the next vertex adjacent to 'a'.
+					return true;
+				});
 			}
 
-			bool flipPossibleAugmentingPath(integer leftIndex)
+			// Return whether the A-sentinel was reached or not.
+			return aSentinel.distance < infinity<integer>();
+		};
+
+		// Using the distances computed by 'computeDistances',
+		// flips a shortest augmenting-path to produce
+		// a larger matching. Returns whether an
+		// augmenting path was found.
+		auto flipAugmentingPath = [&](
+			auto&& self, integer a) -> bool
+		{
+			// Here we use a generic lambda to
+			// pass 'flipAugmentingPath' to 'self', so that it
+			// can be recursively called.
+			ASSERT_RANGE(a, 0, nA + 1);
+			
+			if (a == A_Sentinel)
 			{
-				if (leftIndex == Sentinel)
+				// Since we reached the A-sentinel, 
+				// we found an augmenting path.
+				return true;
+			}
+
+			bool foundPath = false;
+			forEachAdjacentToA(a, [&](integer b)
+			{
+				PENSURE_RANGE(b, 0, nB);
+				// This line triggers a bug in Visual Studio 2015 RC.
+				//ASSERT(aSet[a].distance < infinity<integer>());
+
+				bool UserStoppedCallingWhenRequested = !foundPath;
+				PENSURE(UserStoppedCallingWhenRequested);
+
+				integer aNext = bSet[b].pair;
+				if (aSet[aNext].distance != aSet[a].distance + 1)
 				{
+					// The vertex 'aNext' is not on a shortest 
+					// path; do not follow it.
+
+					// Next adjacent vertex.
 					return true;
 				}
 
-
-				Vertex& left = vertexSet_[leftIndex];
-				integer edges = left.edges();
-				for (integer i = 0;i < edges;++i)
+				// Follow the shortest path recursively;
+				// this is a depth-first search.
+				foundPath = self(self, aNext);
+				if (foundPath)
 				{
+					// We are on a shortest augmenting path.
+					// Pair the edges on it as we back off.
+					aSet[a].pair = b;
+					bSet[b].pair = a;
 
-					Vertex& right = adjacent(left, i);
-					Vertex& nextLeft = pair(right);
-					if (nextLeft.level() == left.level() + 1)
-					{
-						integer nextLeftIndex =
-							right.pairIndex();
-						if (flipPossibleAugmentingPath(nextLeftIndex))
-						{
-							right.setPair(leftIndex);
-							integer rightIndex = 
-								left.edge(i);
-							left.setPair(rightIndex);
-
-							return true;
-						}
-					}
+					// Stop visiting adjacent vertices.
+					return false;
 				}
 
-				left.unvisit();
+				// Next adjacent vertex.
+				return true;
+			});
 
-				return false;
+			if (foundPath)
+			{
+				// Mark 'aStart' so that it will not be
+				// searched again.
+				aSet[a].distance = infinity<integer>();
 			}
 
-			void initialize(
-				Left_Vertex_Range leftRange,
-				Right_Vertex_Range rightRange)
-			{
-				// Throw away duplicate edges
-				// --------------------------
-
-				// The left vertices and right vertices
-				// are disjoint sets. Since we allow to use equal
-				// objects for both vertex sets, the disjointness
-				// must be guaranteed by separate identification 
-				// maps. Separate maps are also needed because we
-				// allow the types of the left and right vertices
-				// to differ.
-
-				// Associates each left vertex with an integer.
-				LeftMap leftMap(1, leftHash_);
-				// Associates each right vertex with an integer.
-				RightMap rightMap(1, rightHash_);
-
-				// Directed edges between integers.
-				std::vector<std::pair<integer, integer> > edgeSet;
-
-				// The 0 index is reserved to the sentinel 
-				// vertex here.
-				Left_Iterator leftIter = boost::begin(leftRange);
-				Left_Iterator leftEnd = boost::end(leftRange);
-				Right_Iterator rightIter = boost::begin(rightRange);
-
-				integer vertices = 1;
-				while(leftIter != leftEnd)
-				{
-
-					const Left& left = *leftIter;
-					const Right& right = *rightIter;
-
-					integer i = vertices;
-					if (leftMap.count(left))
-					{
-						// We have already identified this left vertex
-						// with an integer.
-						i = leftMap[left];
-					}
-					else
-					{
-						// This is a new left vertex, which we shall
-						// identify with the integer i.
-						leftMap.insert(
-							std::make_pair(left, i));
-						inverseLeftMap_.insert(
-							std::make_pair(i, left));
-						leftSet_.push_back(i);
-						++vertices;
-					}
-
-					integer j = vertices;
-					if (rightMap.count(right))
-					{
-						// We have already identified this right vertex
-						// with an integer.
-						j = rightMap[right];
-					}
-					else
-					{
-						// This is a new right vertex, which we shall
-						// identify with the integer i.
-						rightMap.insert(
-							std::make_pair(right, j));
-						inverseRightMap_.insert(
-							std::make_pair(j, right));
-						++vertices;
-					}
-
-					ASSERT_OP(i, !=, j);
-
-					// Add an edge to both directions.
-					edgeSet.push_back(std::make_pair(i, j));
-					edgeSet.push_back(std::make_pair(j, i));
-
-					++leftIter;
-					++rightIter;
-				}
-
-				// Sort the edge-set of each vertex to an interval.
-				std::sort(edgeSet.begin(), edgeSet.end());
-
-				// This is the number of _directed_ edges.
-				integer edges = edgeSet.size();
-
-				// Reserving memory in advance here is important to
-				// avoid pointer-invalidating reallocations later.
-				// We are using resize() because I don't know whether
-				// reserve() guarantees the validity of 
-
-				// &adjacencySet_[edge] on an empty vector.
-				adjacencySet_.resize(edges);
-				// No such worries here, this is only for performance.
-				vertexSet_.reserve(vertices);
-
-				integer edge = 0;
-				for (integer i = 0;i < vertices;++i)
-				{
-					// The pointer remains valid, since there will be no
-					// resizes thanks to an early reserve() call.
-					integer* edgeBegin = 
-						&adjacencySet_[edge];
-
-					integer adjacencies = 0;
-					// Since edgeSet is sorted primarily according to
-					// the first vertex, the edges of a vertex are
-					// grouped in an interval.
-					while(edge < edges && edgeSet[edge].first == i)
-					{
-						adjacencySet_[edge] = edgeSet[edge].second;
-						++adjacencies;
-						++edge;
-					}
-
-					// Each non-sentinel vertex has at least one adjacent 
-					// edge, since the vertices are induced by the input 
-					// edge-set.
-					ASSERT(
-						(i == 0 && adjacencies == 0) || 
-						(i > 0 && adjacencies > 0));
-
-					// Create the vertex.
-					vertexSet_.push_back(
-						Vertex(edgeBegin, adjacencies));
-				}
-			}
-
-		private:
-			static constexpr int Sentinel = 0;
-
-			class Vertex
-			{
-			public:
-				Vertex(integer* edgeBegin, integer edges)
-					: pair_(Sentinel)
-					, level_(0)
-					, edgeBegin_(edgeBegin)
-					, edges_(edges)
-				{
-					ASSERT(edgeBegin);
-					ASSERT_OP(edges, >=, 0);
-				}
-
-				void visit(integer level)
-				{
-					ASSERT_OP(level, >=, 0);
-					level_ = level;
-				}
-
-				void unvisit()
-				{
-					level_ = -1;
-				}
-
-				bool visited() const
-				{
-					return level_ >= 0;
-				}
-
-				bool paired() const
-				{
-					return pair_ != Sentinel;
-				}
-
-				integer* edgeBegin() const
-				{
-					return edgeBegin_;
-				}
-
-				integer edges() const
-				{
-					return edges_;
-				}
-
-				integer edge(integer index)
-				{
-					ASSERT_OP(index, <, edges());
-					ASSERT_OP(index, >=, 0);
-
-					return edgeBegin_[index];
-				}
-
-				void setPair(integer pair)
-				{
-					pair_ = pair;
-				}
-
-				integer pairIndex() const
-				{
-					return pair_;
-				};
-
-				integer level() const
-				{
-					return level_;
-				}
-
-			private:
-				integer pair_;
-				integer level_;
-				integer* edgeBegin_;
-				integer edges_;
-			};
-
-			Vertex& pair(Vertex& vertex)
-			{
-				return vertexSet_[vertex.pairIndex()];
-			}
-
-			Vertex& adjacent(Vertex& vertex, integer i)
-			{
-				return vertexSet_[vertex.edge(i)];
-			}
-
-			std::vector<integer> adjacencySet_;
-			std::vector<Vertex> vertexSet_;
-			std::vector<integer> leftSet_;
-
-			InverseLeftMap inverseLeftMap_;
-			InverseRightMap inverseRightMap_;
-
-			Left_Hash leftHash_;
-			Right_Hash rightHash_;
+			return foundPath;
 		};
 
-	}
+		// The algorithm is finished when the A-sentinel cannot
+		// be reached; then there are no augmenting-paths.
+		while(computeDistances())
+		{
+			integer flips = 0;
+			for (integer a = 0;a < nA;++a)
+			{
+				if (aSet[a].pair != B_Sentinel)
+				{
+					continue;
+				}
 
-	template <
-		typename Left_Vertex_Range, 
-		typename Right_Vertex_Range, 
-		typename Vertex_Pair_Output,
-		typename Left_Hash,
-		typename Right_Hash>
-	void maximumBipartiteMatching(
-		Left_Vertex_Range leftRange,
-		Right_Vertex_Range rightRange,
-		const Vertex_Pair_Output& reporter,
-		const Left_Hash& leftHash,
-		const Right_Hash& rightHash)
-	{
-		MaximumBipartiteMatching::Algorithm<Left_Vertex_Range, Right_Vertex_Range,
-			Vertex_Pair_Output, Left_Hash, Right_Hash> algorithm;
+				// This is an unpaired vertex of A.
+				// Find a shortest augmenting-path 
+				// starting from this vertex, and flip it.
+				if (flipAugmentingPath(flipAugmentingPath, a))
+				{
+					++flips;
+				}
+			}
+			ASSERT(flips > 0);
+		}
 
-		algorithm.work(leftRange, rightRange, reporter, leftHash, rightHash);
-	}
+		// Report and count the edges in the matching.
+		integer nMatch = 0;
+		for (integer a = 0;a < nA;++a)
+		{
+			integer b = aSet[a].pair;
+			if (b != B_Sentinel)
+			{
+				ASSERT_OP(bSet[b].pair, ==, a);
+				report(a, b);
+				++nMatch;
+			}
+		}
 
-	template <
-		typename Left_Vertex_Range, 
-		typename Right_Vertex_Range, 
-		typename Vertex_Pair_Output>
-	void maximumBipartiteMatching(
-		Left_Vertex_Range leftRange,
-		Right_Vertex_Range rightRange,
-		const Vertex_Pair_Output& reporter)
-	{
-		using Left = typename boost::range_value<Left_Vertex_Range>::type;
-		using Right = typename boost::range_value<Right_Vertex_Range>::type;
-
-		Pastel::maximumBipartiteMatching(leftRange, rightRange, reporter, 
-			std::hash<Left>(), std::hash<Right>());
-	}
+		// Return the number of edges in the matching.
+		return nMatch;
+	};
 
 }
 

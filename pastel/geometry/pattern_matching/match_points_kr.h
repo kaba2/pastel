@@ -21,6 +21,7 @@
 // Implementation
 
 #include "pastel/sys/iterator/counting_iterator.h"
+#include "pastel/sys/hashing/iteratoraddress_hash.h"
 #include "pastel/sys/graph/maximum_bipartite_matching.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/vector.h"
@@ -30,8 +31,8 @@
 
 #include "pastel/geometry/search_nearest_kdtree.h"
 
-#include <boost/range/adaptor/transformed.hpp>
 #include <vector>
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -178,10 +179,24 @@ namespace Pastel
 
 		integer d = model.n();
 
-		std::vector<Model_ConstIterator> modelSet(
+		std::vector<Model_ConstIterator> indexToModel(
 			countingIterator(model.begin()),
 			countingIterator(model.end()));
-		std::random_shuffle(modelSet.begin(), modelSet.end());
+		std::random_shuffle(indexToModel.begin(), indexToModel.end());
+
+		std::vector<Scene_ConstIterator> indexToScene(
+			countingIterator(scene.begin()),
+			countingIterator(scene.end()));
+
+		std::unordered_map<Scene_ConstIterator, integer, IteratorAddress_Hash> sceneToIndex;
+		{
+			integer j = 0;
+			for (auto i = scene.begin();i != scene.end();++i)
+			{
+				sceneToIndex[i] = j;
+				++j;
+			}
+		}
 
 		Vector<Real, N> searchPoint(ofDimension(d));
 		Vector<Real, N> translation(ofDimension(d));
@@ -192,21 +207,23 @@ namespace Pastel
 
 		integer minMatches =
 			std::min(
-				(integer)ceil(minMatchRatio * (integer)modelSet.size()),
-				(integer)modelSet.size()
+				(integer)ceil(minMatchRatio * (integer)indexToModel.size()),
+				(integer)indexToModel.size()
 			);
 
 		PairSet bestPairSet;
 		Vector<Real, N> bestTranslation(ofDimension(d));
 		Real bestBias = 1;
 
+		Array<integer> nearestSet(Vector2i(indexToModel.size(), kNearest));
+
 		bool exitEarly = false;
 
-		integer n = modelSet.size();
+		integer n = indexToModel.size();
 		for (integer i = 0;i < n && !exitEarly;++i)
 		{
 			// Pick a model pivot point.
-			Model_ConstIterator modelPivot = modelSet[i];
+			Model_ConstIterator modelPivot = indexToModel[i];
 
 			// Go over all scene pivot points.
 			Scene_ConstIterator scenePivot = scene.begin();
@@ -220,21 +237,23 @@ namespace Pastel
 
 				// Find out how many points match
 				// under this translation.
-
-				PairSet candidatePairSet;
-				for (integer j = 0;j < modelSet.size();++j)
+				std::fill(nearestSet.begin(), nearestSet.end(), -1);
+				for (integer j = 0;j < indexToModel.size();++j)
 				{
-					Model_ConstIterator modelPoint = modelSet[j];
+					Model_ConstIterator modelPoint = indexToModel[j];
 					
-					searchPoint = pointAsVector(location(modelPoint->point(), model.locator())) + 
-						translation;
+					searchPoint = 
+						pointAsVector(
+							location(modelPoint->point(), model.locator())
+						) + translation;
 
+					integer k = 0;
 					auto neighborOutput = [&](
 						const Real& distance,
 						const Scene_ConstIterator& scenePoint)
 					{
-						candidatePairSet.push_back(
-							std::make_pair(scenePoint, modelPoint));
+						nearestSet(j, k) = sceneToIndex[scenePoint];
+						++k;
 					};
 
 					searchNearest(
@@ -250,24 +269,28 @@ namespace Pastel
 				
 				}
 
-				using namespace boost::adaptors;
-
-				// FIX: It's a bit inefficient to use polymorphic function
-				// objects. But the Boost::Range adaptor can not currently
-				// deal with lambdas directly.
-				std::function<Scene_ConstIterator(const Pair&)> firstElement =
-					[](const Pair& pair) {return pair.first;};
-
-				std::function<Model_ConstIterator(const Pair&)> secondElement =
-					[](const Pair& pair) {return pair.second;};
+				auto forEachAdjacent = [&](integer iModel, auto&& visit)
+				{
+					for (integer k = 0;k < kNearest;++k)
+					{
+						integer iScene = nearestSet(iModel, k);
+						if (iScene < 0 || !visit(iScene))
+						{
+							break;
+						}
+					}
+				};
 
 				PairSet pairSet;
 				maximumBipartiteMatching(
-					candidatePairSet | transformed(firstElement),
-					candidatePairSet | transformed(secondElement),
-					pushBackOutput(pairSet),
-					IteratorAddress_Hash(),
-					IteratorAddress_Hash());
+					indexToModel.size(),
+					sceneToIndex.size(),
+					forEachAdjacent,
+					PASTEL_TAG(report), 
+					[&](integer iModel, integer iScene)
+					{
+						pairSet.push_back(std::make_pair(indexToScene[iScene], indexToModel[iModel]));
+					});
 
 				//log() << pairSet.size() << " ";
 

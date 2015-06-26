@@ -38,17 +38,51 @@ namespace Pastel
 			ENSURE_OP(outputs, <=, Outputs);
 
 			Array<integer> graph = matlabAsArray<integer>(inputSet[Graph]);
+			ENSURE_OP(graph.height(), ==, 2);
+
+			integer nA = 0;
+			integer nB = 0;
+
+			std::vector<std::vector<integer>> edgeSet;
+			edgeSet.resize(graph.width());
+			for (integer i = 0;i < graph.width();++i)
+			{
+				integer from = graph(i, 0);
+				if (nA < from + 1)
+				{
+					nA = from + 1;
+				}
+
+				integer to = graph(i, 1);
+				if (nB < to + 1)
+				{
+					nB = to + 1;
+				}
+
+				edgeSet[from].push_back(to);
+			}
+
+			auto forEachAdjacent = [&](integer a, auto&& visit)
+			{
+				for (auto&& b : edgeSet[a])
+				{
+					if (!visit(b))
+					{
+						break;						
+					}
+				}
+			};
 
 			std::vector<integer> leftMatchSet;
 			std::vector<integer> rightMatchSet;
 
 			maximumBipartiteMatching(
-				graph.cRowRange(0),
-				graph.cRowRange(1),
-				[&](const std::pair<integer, integer>& that)
+				nA, nB,
+				forEachAdjacent,
+				[&](integer a, integer b)
 			{
-				leftMatchSet.push_back(that.first);
-				rightMatchSet.push_back(that.second);
+				leftMatchSet.push_back(a);
+				rightMatchSet.push_back(b);
 			});				
 
 			// Output the matching.
