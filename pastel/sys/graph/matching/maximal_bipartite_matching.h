@@ -1,7 +1,7 @@
-// Description: Maximum bipartite matching
+// Description: Maximal bipartite matching
 
-#ifndef PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
-#define PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_H
+#ifndef PASTELSYS_MAXIMAL_BIPARTITE_MATCHING_H
+#define PASTELSYS_MAXIMAL_BIPARTITE_MATCHING_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/output/output_concept.h"
@@ -9,31 +9,31 @@
 namespace Pastel
 {
 
-	//! Maximum bipartite matching
+	//! Maximal bipartite matching
 	/*!
+	Maximal matching works as a fast
+	approximation to the maximum matching.
+	A maximal matching is not necessary
+	a maximum matching; see 
+	maximum_bipartite_matching.h 
+	for that. 
+
 	Preconditions:
 	nA >= 0
 	nB >= 0
 
 	Time complexity:
-	O(sqrt(V) E) worst case, or
-	O(log(V) E) average on random graphs,
+	O(|A| + |E|) worst case
 	where 
-	V is the number of vertices, and
-	E is the number of edges.
-
-	A bipartite graph is defined as follows.
-	Let A = [0, nA[ and B = [0, nB[ be sets of
-	integers identified with disjoint sets of 
-	vertices. An edge is an element of E subset A x B,
-	directed from A to B.
+	V = A union B is the set of vertices, and
+	E subset A x B is the set of edges.
 
 	nA, nB:
 	The number of vertices in the A and B set,
 	respectively.
 
 	returns:
-	The number of edges in the maximum matching.
+	The number of edges in the maximal matching.
 
 	Optional arguments
 	------------------
@@ -45,13 +45,13 @@ namespace Pastel
 	vertices, to which g must respond.
 
 	report (A x B -> C):
-	The edges in the maximum matching will be reported
+	The edges in the maximal matching will be reported
 	in the form report(a, b), where a in A and b in B.
 	*/
 	template <
 		typename ForEachAdjacentToA,
 		typename... ArgumentSet>
-	integer maximumBipartiteMatching(
+	integer maximalBipartiteMatching(
 		integer nA,
 		integer nB,
 		const ForEachAdjacentToA& forEachAdjacentToA,
@@ -59,6 +59,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/graph/maximum_bipartite_matching/maximum_bipartite_matching.hpp"
+#include "pastel/sys/graph/matching/maximal_bipartite_matching.hpp"
 
 #endif

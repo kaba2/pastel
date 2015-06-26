@@ -1,7 +1,7 @@
 #ifndef PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_HPP
 #define PASTELSYS_MAXIMUM_BIPARTITE_MATCHING_HPP
 
-#include "pastel/sys/graph/maximum_bipartite_matching.h"
+#include "pastel/sys/graph/matching/maximum_bipartite_matching.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/output/null_output.h"
 

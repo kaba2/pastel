@@ -1,0 +1,6 @@
+Graph matching
+==============
+
+[[Parent]]: graph_algorithms.txt
+
+A _matching_ in a directed graph ''G = (V, E)'', where ''E subset V^2'', is a subset ''M sub E'', such that the edges in ''M''do not share vertices. A _maximal matching_ in ''G'' is a matching ''M'' in ''G'' which is not a proper subset of another matching in ''G''. A _maximum matching_ in ''G'' is a matching ''M'' in ''G'' of maximum cardinality ''|M|''. 

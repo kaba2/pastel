@@ -3,7 +3,7 @@
 
 #include "test_pastelsys.h"
 
-#include "pastel/sys/graph/maximum_bipartite_matching.h"
+#include "pastel/sys/graph/matching.h"
 #include "pastel/sys/tuple/tuple_tools.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/sequence/random_subset.h"
