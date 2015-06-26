@@ -20,7 +20,7 @@ namespace Pastel
     {
         arma::Mat<Real> Q;
         arma::Mat<Real> S;
-        arma::Mat<Real> t;
+        arma::Col<Real> t;
         Real sigma2;
     };
 
@@ -29,7 +29,7 @@ namespace Pastel
     {
         arma::Mat<Real> Q;
         arma::Mat<Real> S;
-        arma::Mat<Real> t;
+        arma::Col<Real> t;
         Real sigma2;
         arma::Mat<Real> W;
     };
@@ -81,14 +81,17 @@ namespace Pastel
     Optional input arguments
     ------------------------
 
-    Q0 ((d x d) real matrix : arma::eye(d, d)):
-    Initial guess on Q; an orthogonal matrix.
+    Q0 ((d x d) real matrix : arma::Mat<Real>()):
+    Initial guess on Q; an orthogonal matrix. Empty matrix is
+    interpreted as a (d x d) identity matrix.
 
-    S0 ((d x d) real matrix : arma::eye(d, d)):
-    Initial guess on S; a symmetric matrix.
+    S0 ((d x d) real matrix : arma::Mat<Real>()):
+    Initial guess on S; a symmetric matrix. Empty matrix is
+    interpreted as a (d x d) identity matrix.
 
-    t0 ((d x 1) real vector : arma::zeros(d)): 
-    Initial guess on t.
+    t0 ((d x 1) real vector : arma::Col<Real>()): 
+    Initial guess on t. Empty matrix is
+    interpreted as a (d x 1) zero matrix.
 
     noiseRatio (Real : 0.2):
     A real number between (0, 1), which gives the weight for an 
@@ -199,11 +202,6 @@ namespace Pastel
             // Use the identity matrix.
             Q.eye(d, d);
         }
-        else
-        {
-            // Use the initial value for Q 
-            // specified by the caller.
-        }
         
         ENSURE_OP(Q.n_rows, ==, d);
         ENSURE_OP(Q.n_cols, ==, d);
@@ -219,11 +217,6 @@ namespace Pastel
             // Use the identity matrix.
             S.eye(d, d);
         }
-        else
-        {
-            // Use the initial value for S 
-            // specified by the caller.
-        }
 
         ENSURE_OP(S.n_rows, ==, d);
         ENSURE_OP(S.n_cols, ==, d);
@@ -238,11 +231,6 @@ namespace Pastel
 
 			// Use the zero matrix.
 			t.zeros(d);
-        }
-        else
-        {
-            // Use the initial value for t
-            // specified by the caller.
         }
 
         ENSURE_OP(t.n_rows, ==, d);
