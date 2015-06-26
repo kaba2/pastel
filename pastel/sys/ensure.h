@@ -49,6 +49,7 @@
 {if (!(expr)) {Pastel::Ensure_::error(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b), Pastel::Ensure_::parameterInfo(#c, c), Pastel::Ensure_::parameterInfo(#d, d));}}
 
 #define ENSURE_OP(x, op, y) ENSURE2(x op y, x, y)
+#define ENSURE_RANGE(x, min, max) ENSURE3(min <= x && x < max, x, min, max)
 
 // PENSURES
 
@@ -60,6 +61,7 @@
 #define PENSURE3(expr, a, b, c) ENSURE3(expr, a, b, c)
 #define PENSURE4(expr, a, b, c, d) ENSURE4(expr, a, b, c, d)
 #define PENSURE_OP(x, op, y) ENSURE_OP(x, op, y)
+#define PENSURE_RANGE(x, min, max) ENSURE_RANGE(x, min, max)
 
 #else
 
@@ -69,6 +71,8 @@
 #define PENSURE3(expr, a, b, c) 
 #define PENSURE4(expr, a, b, c, d) 
 #define PENSURE_OP(x, op, y) 
+#define PENSURE_RANGE(x, min, max)
+
 #endif
 
 // Assertions
@@ -91,6 +95,7 @@
 {if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__, Pastel::Ensure_::parameterInfo(#a, a), Pastel::Ensure_::parameterInfo(#b, b), Pastel::Ensure_::parameterInfo(#c, c), Pastel::Ensure_::parameterInfo(#d, d));}}
 
 #define ASSERT_OP(x, op, y) ASSERT2(x op y, x, y)
+#define ASSERT_RANGE(x, min, max) ASSERT3(min <= x && x < max, x, min, max)
 
 #else
 
@@ -100,6 +105,7 @@
 #define ASSERT3(expr, a, b, c)
 #define ASSERT4(expr, a, b, c, d)
 #define ASSERT_OP(x, op, y)
+#define ASSERT_RANGE(x, op, y)
 
 #endif
 
