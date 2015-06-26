@@ -190,10 +190,20 @@ namespace
 				}
 			};
 
+			std::unordered_set<integer> aSet;
+			std::unordered_set<integer> bSet;
+
+			auto report = [&](integer a, integer b)
+			{
+				aSet.insert(a);
+				bSet.insert(b);
+			};
+
 			integer matchSize = maximumBipartiteMatching(
 				n,
 				nB,
-				forEachAdjacent);
+				forEachAdjacent,
+				PASTEL_TAG(report), report);
 
 			if (maximumMatchSize > 0 && matchSize != maximumMatchSize)
 			{
@@ -201,8 +211,8 @@ namespace
 				return false;
 			}
 
-			// The left vertices must not be shared between 
-			// matching edges.
+			// Check that each left-vertex of the matching is 
+			// part of exactly one matching edge.
 			{
 				std::set<integer> vertexSet;
 				for (integer i = 0;i < matchSet.size();++i)
@@ -216,8 +226,8 @@ namespace
 				}
 			}
 
-			// The right vertices must not be shared between 
-			// matching edges.
+			// Check that each right-vertex of the matching is 
+			// part of exactly one matching edge.
 			{
 				std::set<integer> vertexSet;
 				for (integer i = 0;i < matchSet.size();++i)
@@ -231,6 +241,9 @@ namespace
 				}
 			}
 
+			// Check that the matching is a subset of the
+			// input edge set, and that the matching does
+			// not contain duplicates.
 			std::vector<bool> foundSet(n, false);
 			for (integer i = 0;i < matchSet.size();++i)
 			{
@@ -256,8 +269,24 @@ namespace
 				if (!foundInOriginal)
 				{
 					// The matching set must be a subset 
-					// of the input set.
+					// of the input edge set.
 					return false;
+				}
+			}
+
+			// Check that the matching is maximal.
+			for (integer a = 0;a < edgeSet.size();++a)
+			{
+				for (integer j = 0;j < edgeSet[a].size();++j)
+				{
+					integer b = edgeSet[a][j];
+					if (aSet.count(a) == 0 && bSet.count(b) == 0)
+					{
+						// Neither vertex of edge (a, b) is 
+						// part of the matching; the matching 
+						// is not maximal.
+						return false;
+					}
 				}
 			}
 
