@@ -3,7 +3,7 @@
 
 #include "pastel/matlab/pastelmatlab.h"
 
-#include "pastel/sys/graph/maximum_bipartite_matching.h"
+#include "pastel/sys/graph/matching.h"
 #include "pastel/sys/range.h"
 
 #include <boost/range/algorithm/copy.hpp>
@@ -25,6 +25,7 @@ namespace Pastel
 			enum
 			{
 				Graph,
+				Mode,
 				Inputs
 			};
 
@@ -39,6 +40,9 @@ namespace Pastel
 
 			Array<integer> graph = matlabAsArray<integer>(inputSet[Graph]);
 			ENSURE_OP(graph.height(), ==, 2);
+
+			std::string mode = matlabAsString(inputSet[Mode]);
+			ENSURE(mode == "maximum" || mode == "maximal");
 
 			integer nA = 0;
 			integer nB = 0;
@@ -79,15 +83,30 @@ namespace Pastel
 			std::vector<integer> leftMatchSet;
 			std::vector<integer> rightMatchSet;
 
-			maximumBipartiteMatching(
-				nA, nB,
-				forEachAdjacent,
-				PASTEL_TAG(report),
-				[&](integer a, integer b)
+			if (mode == "maximum")
 			{
-				leftMatchSet.push_back(a);
-				rightMatchSet.push_back(b);
-			});				
+				maximumBipartiteMatching(
+					nA, nB,
+					forEachAdjacent,
+					PASTEL_TAG(report),
+					[&](integer a, integer b)
+				{
+					leftMatchSet.push_back(a);
+					rightMatchSet.push_back(b);
+				});				
+			}
+			else
+			{
+				maximalBipartiteMatching(
+					nA, nB,
+					forEachAdjacent,
+					PASTEL_TAG(report),
+					[&](integer a, integer b)
+				{
+					leftMatchSet.push_back(a);
+					rightMatchSet.push_back(b);
+				});				
+			}
 
 			// Output the matching.
 

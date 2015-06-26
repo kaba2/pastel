@@ -1,7 +1,7 @@
 % MAXIMUM_BIPARTITE_MATCHING
 % Maximum bipartite matching
 %
-% matchSet = maximum_bipartite_matching(edgeSet)
+% matchSet = maximum_bipartite_matching(edgeSet, 'key', value, ...)
 %
 % where
 %
@@ -15,11 +15,17 @@
 % such that it forms a maximum bipartite matching in G. That is, each
 % vertex is covered by at most one edge, and there is included a 
 % maximum amount of edges from G subject to this constraint.
+%
+% Optional input arguments in 'key'-value pairs:
+%
+% MODE ('mode') is a string which specifies the search mode:
+%     maximal: maximal matching (approximate maximum matching)
+%     maximum: maximum matching (default)
 
 % Description: Maximum bipartite matching
 % Documentation: maximum_bipartite_matching.txt
 
-function matchSet = maximum_bipartite_matching(edgeSet)
+function matchSet = maximum_bipartite_matching(edgeSet, varargin)
 
 eval(import_pastel);
 
@@ -27,6 +33,11 @@ if size(edgeSet, 1) ~= 2
 	error('The height of EDGESET must be 2.');
 end
 
-matchSet = pastelsysmatlab('maximum_bipartite_matching', edgeSet);
+% Optional input arguments
+mode = 'maximum';
+eval(process_options({'mode'}, ...
+    varargin));
+
+matchSet = pastelsysmatlab('maximum_bipartite_matching', edgeSet, mode);
 
 
