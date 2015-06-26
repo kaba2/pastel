@@ -59,6 +59,9 @@ namespace Pastel
 					nB = to + 1;
 				}
 
+				bool nonNegativeVertex = (from >= 0) && (to >= 0);
+				ENSURE2(nonNegativeVertex, from, to);
+
 				edgeSet[from].push_back(to);
 			}
 
@@ -79,6 +82,7 @@ namespace Pastel
 			maximumBipartiteMatching(
 				nA, nB,
 				forEachAdjacent,
+				PASTEL_TAG(report),
 				[&](integer a, integer b)
 			{
 				leftMatchSet.push_back(a);
