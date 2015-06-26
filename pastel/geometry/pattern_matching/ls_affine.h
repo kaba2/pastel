@@ -36,7 +36,7 @@ namespace Pastel
 	{
 		arma::Mat<Real> Q;
 		arma::Mat<Real> S;
-		arma::Mat<Real> t;
+		arma::Col<Real> t;
 	};
 
 	//! Least-squares affine transformation between point-sets
