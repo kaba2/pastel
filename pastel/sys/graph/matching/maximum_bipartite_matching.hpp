@@ -7,7 +7,6 @@
 
 #include <vector>
 #include <queue>
-#include <stack>
 
 namespace Pastel
 {
@@ -189,7 +188,8 @@ namespace Pastel
 			}
 
 			// Return whether the A-sentinel was reached or not.
-			return aSentinel.distance < infinity<integer>();
+			// Using < here instead of != triggers a bug in g++ 5.1.0.
+			return aSentinel.distance != infinity<integer>();
 		};
 
 		// Using the distances computed by 'computeDistances',
@@ -220,6 +220,7 @@ namespace Pastel
 
 				bool UserStoppedCallingWhenRequested = !foundPath;
 				PENSURE(UserStoppedCallingWhenRequested);
+				unused(UserStoppedCallingWhenRequested);
 
 				integer aNext = bSet[b].pair;
 				if (aSet[aNext].distance != aSet[a].distance + 1)
