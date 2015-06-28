@@ -118,7 +118,7 @@ Refining concepts
 A concept can be refined by deriving from the concept, wrapped in a `Refines` class template:
 
 	struct Additive_SemiGroup_Concept
-	: Refines<Set_Concept>
+	: Refines<Element_Concept>
 	{
 		template <typename Type>
 		auto requires(Type&& t) -> decltype
