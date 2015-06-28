@@ -11,6 +11,11 @@
 #define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, Pastel::Argument_::returnTrue)
 #define PASTEL_ARG_ENUM(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto input){return implicitArgument(std::is_same<RemoveCvRef<decltype(input)>, RemoveCvRef<decltype(def)>>());})
 
+#define PASTEL_ARG_T(name, ...) decltype(PASTEL_ARG(name, __VA_ARGS__))
+#define PASTEL_ARG_S_T(name, def) decltype(PASTEL_ARG_S(name, def))
+#define PASTEL_ARG_ENUM_T(name, def) decltype(PASTEL_ARG_ENUM(name, def))
+
+
 #define PASTEL_ARG_MATCHES(name, ...) Pastel::Argument<#name##_tag>::matches(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...).value
 #define PASTEL_ARG_S_MATCHES(name) PASTEL_ARG_MATCHES(name, Pastel::Argument_::returnTrue)
 
