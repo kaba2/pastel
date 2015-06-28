@@ -2,6 +2,7 @@
 #define PASTELSYS_MAXIMAL_BIPARTITE_MATCHING_HPP
 
 #include "pastel/sys/graph/matching/maximal_bipartite_matching.h"
+#include "pastel/sys/output/null_output.h"
 
 #include <unordered_set>
 
