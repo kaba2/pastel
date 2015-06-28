@@ -5,7 +5,7 @@
 
 #include "pastel/sys/indicator/indicator_concept.h"
 #include "pastel/sys/integer/integer_concept.h"
-#include "pastel/sys/algebra/linearly_ordered_set_concept.h"
+#include "pastel/sys/algebra/linearly_ordered_element_concept.h"
 
 namespace Pastel
 {
@@ -28,7 +28,7 @@ namespace Pastel
 		auto requires(Type&& t, Element&& e) -> decltype
 		(
 			conceptCheck(
-				Concept::isModelOf<Linearly_Ordered_Set_Concept>(e)
+				Concept::isModelOf<Linearly_Ordered_Element_Concept>(e)
 			)
 		);
 	};

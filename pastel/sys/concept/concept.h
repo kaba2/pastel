@@ -86,6 +86,10 @@ namespace Pastel
 		template <typename Type>
 		bool exists();
 
+		//! An archetype for functions.
+		template <typename Return, typename... ArgumentSet>
+		Return function(ArgumentSet&&... argumentSet);
+
 	}
 
 }

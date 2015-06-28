@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_SEMIGROUP_CONCEPT_H
 #define PASTELSYS_SEMIGROUP_CONCEPT_H
 
-#include "pastel/sys/algebra/set_concept.h"
+#include "pastel/sys/algebra/element_concept.h"
 
 #include "pastel/sys/algebra/native_semigroup.h"
 
@@ -17,7 +17,7 @@ namespace Pastel
 	and + : X^2 --> X is associative.
 	*/
 	struct Additive_SemiGroup_Concept
-	: Refines<Set_Concept>
+	: Refines<Element_Concept>
 	{
 		template <typename Type>
 		auto requires(Type&& t) -> decltype
@@ -39,7 +39,7 @@ namespace Pastel
 	and * : X^2 --> X is associative.
 	*/
 	struct Multiplicative_SemiGroup_Concept
-	: Refines<Set_Concept>
+	: Refines<Element_Concept>
 	{
 		template <typename Type>
 		auto requires(Type&& t) -> decltype

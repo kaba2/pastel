@@ -5,7 +5,7 @@
 #define PASTELSYS_ORDERED_SEMIGROUP_CONCEPT_H
 
 #include "pastel/sys/algebra/semigroup_concept.h"
-#include "pastel/sys/algebra/ordered_set_concept.h"
+#include "pastel/sys/algebra/ordered_element_concept.h"
 
 namespace Pastel
 {
@@ -23,7 +23,7 @@ namespace Pastel
 	struct Ordered_Additive_SemiGroup_Concept
 	: Refines<
 		Additive_SemiGroup_Concept,
-		Ordered_Set_Concept>
+		Ordered_Element_Concept>
 	{};
 
 }

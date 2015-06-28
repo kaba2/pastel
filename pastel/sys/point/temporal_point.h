@@ -21,7 +21,7 @@ namespace Pastel
 	{
 	public:
 		PASTEL_CONCEPT_CHECK(Point, Point_Concept);
-		// FIX: Should this be weaker, say Ordered_Set_Concept?
+		// FIX: Should this be weaker, say Ordered_Element_Concept?
 		PASTEL_CONCEPT_CHECK(Real, Real_Concept);
 
 		//! Constructs with default values.

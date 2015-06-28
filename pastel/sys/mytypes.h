@@ -199,6 +199,7 @@ namespace Pastel
 // Note that the order of the includes here is important.
 // We are bringing basic functionality in one header at a time.
 
+#include "pastel/sys/template_class.h"
 #include "pastel/sys/type_checks.h"
 #include "pastel/sys/sfinae.h"
 #include "pastel/sys/concept.h"

@@ -1,20 +1,20 @@
-// Description: Set concept
+// Description: Element concept
 // Documentation: algebra.txt
 
-#ifndef PASTELSYS_SET_CONCEPT_H
-#define PASTELSYS_SET_CONCEPT_H
+#ifndef PASTELSYS_ELEMENT_CONCEPT_H
+#define PASTELSYS_ELEMENT_CONCEPT_H
 
 #include "pastel/sys/concept/concept.h"
 
 namespace Pastel
 {
 
-	//! A set.
+	//! A set element.
 	/*!
-	A set is any type whose objects can be
-	compared with == and !=.
+	A set element is any type whose objects can 
+	be compared with == and !=.
 	*/
-	struct Set_Concept
+	struct Element_Concept
 	{
 		template <typename Type>
 		auto requires(Type&& t) -> decltype
