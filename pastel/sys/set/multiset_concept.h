@@ -14,7 +14,8 @@ namespace Pastel
 	{
 		template <
 			typename Type,
-			typename Element = typename Type::Element>
+			typename Element = typename Type::Element,
+			typename State = typename Type::State>
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
@@ -33,7 +34,16 @@ namespace Pastel
 				*/
 				Concept::convertsTo<bool>(
 					addConst(t).forEach(Concept::function<bool, Element>)
-				)
+				),
+				//! A state for iterating incrementally over elements.
+				Concept::convertsTo<State>(
+					addConst(t).state()),
+				//! Returns the next element referred to by the state.
+				Concept::convertsTo<Element>(
+					addConst(t).element(std::declval<State&>())),
+				//! Returns whether there are no elements referred to by the state.
+				Concept::convertsTo<bool>(
+					addConst(t).empty(std::declval<State>()))
 			)
 		);
 	};
