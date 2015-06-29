@@ -1,26 +1,28 @@
-// Description: Function algorithm concept
+// Description: Function concept
 // Documentation: functions.txt
 
 #ifndef PASTELSYS_FUNCTION_CONCEPT_H
 #define PASTELSYS_FUNCTION_CONCEPT_H
 
-#include "pastel/sys/mytypes.h"
+#include "pastel/sys/concept/concept.h"
 
 namespace Pastel
 {
 
-	namespace Function_Concept
+	struct Function_Concept
 	{
-
-		class Function
-		{
-		public:
-			//! Returns the value of the function at x.
-			UserDefinedType operator()(
-				const UserDefinedType& x) const;
-		};
-
-	}
+		template <
+			typename Type,
+			typename Return,
+			typename... ArgumentSet>
+		auto requires(Type&& t, Return&& function, ArgumentSet&&... argumentSet) -> decltype
+		(
+			conceptCheck(
+				//! Returns the value of the function at given arguments.
+				t(std::forward<ArgumentSet>()...)
+			)
+		);
+	};
 
 }
 
