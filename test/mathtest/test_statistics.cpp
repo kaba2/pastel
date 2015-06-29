@@ -46,11 +46,11 @@ namespace
 				PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 				TEST_ENSURE(allEqual(pointMean(rangeInput(aSet)), Real(11, 3)));
-				TEST_ENSURE(allEqual(pointVariance(rangeInput(aSet), false), Real(322, 15)));
+				TEST_ENSURE(allEqual(pointVariance(rangeInput(aSet), PASTEL_TAG(biased), false), Real(322, 15)));
 				TEST_ENSURE(allEqual(pointVariance(rangeInput(aSet)), Real(322, 18)));
 
 				TEST_ENSURE(allEqual(pointMean(rangeInput(bSet)), Real(-2, 3)));
-				TEST_ENSURE(allEqual(pointVariance(rangeInput(bSet), false), Real(298, 15)));
+				TEST_ENSURE(allEqual(pointVariance(rangeInput(bSet), PASTEL_TAG(biased), false), Real(298, 15)));
 				TEST_ENSURE(allEqual(pointVariance(rangeInput(bSet)), Real(298, 18)));
 
 				TEST_ENSURE(scalarCovariance<Real>(rangeMultiSet(aSet), rangeMultiSet(bSet), PASTEL_TAG(biased), false) == Real(14, 15));
