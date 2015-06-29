@@ -5,7 +5,11 @@
 #define PASTELMATH_SCALAR_MEAN_SQUARE_ERROR_H
 
 #include "pastel/sys/real/real_concept.h"
-#include "pastel/sys/input/input_concept.h"
+#include "pastel/sys/set/multiset_concept.h"
+
+// Implementation
+
+#include "pastel/sys/math/powers.h"
 
 namespace Pastel
 {
@@ -22,15 +26,39 @@ namespace Pastel
 	*/
 	template <
 		typename Real, 
-		typename A_Real_Input,
-		typename B_Real_Input>
+		typename A_Real_MultiSet, 
+		typename B_Real_MultiSet,
+		Requires<
+			Models<Real, Real_Concept>,
+			Models<A_Real_MultiSet, MultiSet_Concept>,
+			Models<B_Real_MultiSet, MultiSet_Concept>
+		> = 0>
 	Real scalarMeanSquareError(
-		A_Real_Input aSet,
-		B_Real_Input bSet);
+		A_Real_MultiSet aSet,
+		B_Real_MultiSet bSet)
+	{
+		integer n = 0;
+		Real result = 0;
+
+		auto aState = aSet.state();
+		auto bState = bSet.state();
+
+		while (!aSet.empty(aState) && 
+			!bSet.empty(bState))
+		{
+			result += square(aSet.element(aState) - bSet.element(bState));
+			++n;
+		}
+
+		if (n == 0)
+		{
+			return 0;
+		}
+
+		return result / n;
+	}
 
 }
-
-#include "pastel/math/statistic/scalar_mean_square_error.hpp"
 
 #endif
 

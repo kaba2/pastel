@@ -43,6 +43,7 @@ namespace Pastel
 		typename Real_MultiSet,
 		typename... ArgumentSet,
 		Requires<
+			Models<Real, Real_Concept>,
 			Models<Real_MultiSet, MultiSet_Concept>,
 			Models<Real, Real_Concept>
 		> = 0

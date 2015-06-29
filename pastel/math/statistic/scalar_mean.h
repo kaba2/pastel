@@ -5,7 +5,7 @@
 #define PASTELMATH_SCALAR_MEAN_H
 
 #include "pastel/sys/real/real_concept.h"
-#include "pastel/sys/input/input_concept.h"
+#include "pastel/sys/set/multiset_concept.h"
 
 namespace Pastel
 {
@@ -24,14 +24,26 @@ namespace Pastel
 		typename Real,
 		typename Real_MultiSet,
 		Requires<
+			Models<Real, Real_Concept>,
 			Models<Real_MultiSet, MultiSet_Concept>
 		> = 0
 	>
 	Real scalarMean(
-		const Real_MultiSet& inputSet);
+		const Real_MultiSet& inputSet)
+	{
+		integer n = 0;
+		Real mean = 0;
+
+		inputSet.forEach([&](auto&& x)
+		{
+			mean += x;
+			++n;
+			return true;
+		});
+		
+		return mean / n;
+	}
 
 }
-
-#include "pastel/math/statistic/scalar_mean.hpp"
 
 #endif
