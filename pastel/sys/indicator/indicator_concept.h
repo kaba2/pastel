@@ -22,7 +22,7 @@ namespace Pastel
 			The false-set is the complement of the true-set.
 			*/
 			conceptCheck(
-				Concept::convertsTo<bool>(t(e))
+				Concept::convertsTo<bool>(addConst(t)(e))
 			)
 		);
 	};
