@@ -61,7 +61,7 @@ namespace Pastel
 
 		decltype(auto) element(State& state) const
 		{
-			PENSURE(!empty());
+			PENSURE(!empty(state));
 
 			return transform_(set_.element(state));
 		}
