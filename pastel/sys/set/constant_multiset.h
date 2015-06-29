@@ -13,6 +13,7 @@ namespace Pastel
 	{
 	public:
 		using Element = Element_;
+		using State = integer;
 
 		template <typename... ArgumentSet>
 		explicit Constant_MultiSet(
@@ -27,6 +28,23 @@ namespace Pastel
 		integer n() const
 		{
 			return n_;
+		}
+
+		State state() const
+		{
+			return 0;
+		}
+
+		bool empty(const State& state) const
+		{
+			return state == n();
+		}
+
+		const Element& element(State& state) const
+		{
+			PENSURE_OP(state, <, n);
+			++state;
+			return element_;
 		}
 
 		template <typename Visit>

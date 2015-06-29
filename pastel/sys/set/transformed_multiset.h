@@ -22,11 +22,16 @@ namespace Pastel
 	{
 	public:
 		using Element = 
-			decltype(
-				std::declval<Transform>()(
-					std::declval<typename MultiSet::Element>()
+			RemoveCvRef<
+				decltype(
+					std::declval<Transform>()(
+						std::declval<typename MultiSet::Element>()
+					)
 				)
-			);
+			>;
+
+		using State =
+			typename MultiSet::State;
 
 		template <
 			typename MultiSet_,
@@ -42,6 +47,23 @@ namespace Pastel
 		integer n() const
 		{
 			return set_.n();
+		}
+
+		State state() const
+		{
+			return set_.state();
+		}
+
+		bool empty(const State& state) const
+		{
+			return set_.empty(state);
+		}
+
+		decltype(auto) element(State& state) const
+		{
+			PENSURE(!empty());
+
+			return transform_(set_.element(state));
 		}
 
 		template <typename Visit>

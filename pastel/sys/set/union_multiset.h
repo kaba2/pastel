@@ -26,6 +26,12 @@ namespace Pastel
 	public:
 		using Element = MultiSet_Element<A_MultiSet>;
 
+		struct State
+		{
+			A_MultiSet aState;
+			B_MultiSet bState;
+		};
+
 		Union_MultiSet(
 			A_MultiSet aSet,
 			B_MultiSet bSet)
@@ -37,6 +43,29 @@ namespace Pastel
 		integer n() const
 		{
 			return aSet_.n() + bSet_.n();
+		}
+
+		State state() const
+		{
+			return {aSet_.state(), bSet_.state()};
+		}
+
+		bool empty(const State& state) const
+		{
+			return state.aState.empty() && 
+				state.bState.empty();
+		}
+
+		const Element& element(State& state) const
+		{
+			PENSURE(!empty(state));
+
+			if (state.aState.empty())
+			{
+				return bSet_.element(state.bState);
+			}
+			
+			return aSet_.element(state.aState);
 		}
 
 		template <typename Visit>

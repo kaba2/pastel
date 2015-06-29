@@ -42,6 +42,7 @@ namespace Pastel
 	{
 	public:
 		using Element = Element_;
+		using State = Element;
 
 		Interval_Set(
 			Element begin,
@@ -54,6 +55,23 @@ namespace Pastel
 		integer n() const
 		{
 			return end_ - begin_;
+		}
+
+		State state() const
+		{
+			return begin_;
+		}
+
+		bool empty(const State& state) const
+		{
+			return state == end_;
+		}
+
+		Element element(State& state) const
+		{
+			Element element = state;
+			++state;
+			return element;
 		}
 
 		template <typename Visit>
