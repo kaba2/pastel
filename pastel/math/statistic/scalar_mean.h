@@ -22,9 +22,13 @@ namespace Pastel
 	*/
 	template <
 		typename Real,
-		typename Real_Input>
+		typename Real_MultiSet,
+		Requires<
+			Models<Real_MultiSet, MultiSet_Concept>
+		> = 0
+	>
 	Real scalarMean(
-		Real_Input inputSet);
+		const Real_MultiSet& inputSet);
 
 }
 
