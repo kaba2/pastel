@@ -8,19 +8,23 @@ namespace Pastel
 
 	template <
 		typename Real,
-		typename Real_Input>
-	Real scalarMean(Real_Input inputSet)
+		typename Real_MultiSet,
+		Requires<
+			Models<Real_MultiSet, MultiSet_Concept>
+		>
+	>
+	Real scalarMean(
+		const Real_MultiSet& inputSet)
 	{
 		integer n = 0;
 		Real mean = 0;
 
-		while (!inputSet.empty())
+		inputSet.forEach([&](auto&& x)
 		{
-			mean += inputSet.get();
+			mean += x;
 			++n;
-			
-			inputSet.pop();
-		}
+			return true;
+		});
 		
 		return mean / n;
 	}
