@@ -8,6 +8,7 @@
 #include "pastel/sys/concept/models.h"
 
 #include <type_traits>
+#include <utility>
 
 #define PASTEL_CONCEPT_CHECK(Type, Concept) \
 	static_assert(Pastel::Models<Type, Concept>::value, #Type " is not a model of " #Concept ".")
