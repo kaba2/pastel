@@ -4,6 +4,7 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/set.h"
+#include "pastel/sys/function.h"
 
 #include <unordered_set>
 
@@ -26,6 +27,7 @@ namespace
 			testInterval();
 			testConstant();
 			testUnion();
+			testTransformed();
 		}
 
 		template <typename MultiSet, typename Element>
@@ -141,6 +143,31 @@ namespace
 
 				TEST_ENSURE_OP(actualSet.count(aElement), ==, 5);
 				TEST_ENSURE_OP(actualSet.count(bElement), ==, 3);
+			}
+		}
+
+		void testTransformed()
+		{
+			std::vector<integer> dataSet = {0, 1, 2, 3, 4};
+			integer n = dataSet.size();
+
+			auto inputSet = intervalSet(
+				dataSet.begin(), dataSet.end());
+			
+			auto dereferencedSet = transformedMultiSet(
+				inputSet, Dereference_Function());
+
+			std::unordered_set<integer> actualSet;
+			dereferencedSet.forEach([&](integer x)
+			{
+				actualSet.insert(x);
+				return true;
+			});
+
+			TEST_ENSURE_OP(actualSet.size(), ==, n);
+			for (integer i = 0;i < n;++i)
+			{
+				TEST_ENSURE_OP(actualSet.count(i), ==, 1);
 			}
 		}
 	};

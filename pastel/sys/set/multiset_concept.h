@@ -1,3 +1,5 @@
+// Description: Multi-set concept
+
 #ifndef PASTELSYS_MULTISET_CONCEPT_H
 #define PASTELSYS_MULTISET_CONCEPT_H
 
