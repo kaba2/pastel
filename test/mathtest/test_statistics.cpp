@@ -54,7 +54,7 @@ namespace
 				TEST_ENSURE(allEqual(pointVariance(rangeInput(bSet)), Real(298, 18)));
 
 				TEST_ENSURE(scalarCovariance<Real>(rangeMultiSet(aSet), rangeMultiSet(bSet), PASTEL_TAG(biased), false) == Real(14, 15));
-				TEST_ENSURE(scalarMeanSquareError<Real>(rangeInput(aSet), rangeInput(bSet)) == Real(310, 6));
+				TEST_ENSURE(scalarMeanSquareError<Real>(rangeMultiSet(aSet), rangeMultiSet(bSet)) == Real(310, 6));
 			}
 			{
 				std::vector<Real> aSet = { -1, 7, 4, -3, 7, 8 };
@@ -69,7 +69,7 @@ namespace
 				TEST_ENSURE(scalarVariance<Real>(rangeMultiSet(bSet)) == Real(298, 18));
 
 				TEST_ENSURE(scalarCovariance<Real>(rangeMultiSet(aSet), rangeMultiSet(bSet), PASTEL_TAG(biased), false) == Real(14, 15));
-				TEST_ENSURE(scalarMeanSquareError<Real>(rangeInput(aSet), rangeInput(bSet)) == Real(310, 6));
+				TEST_ENSURE(scalarMeanSquareError<Real>(rangeMultiSet(aSet), rangeMultiSet(bSet)) == Real(310, 6));
 			}
 			/*
 			{

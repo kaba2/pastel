@@ -5,36 +5,49 @@
 #define PASTELMATH_SCALAR_PEAK_SIGNAL_TO_NOISE_H
 
 #include "pastel/sys/real/real_concept.h"
-#include "pastel/sys/input/input_concept.h"
+#include "pastel/sys/set/multiset_concept.h"
+
+// Implementation
+
+#include "pastel/math/statistic/scalar_mean_square_error.h"
+
+#include <cmath>
 
 namespace Pastel
 {
 
 	//! Returns the peak-signal-to-noise-ratio between sequences.
-	template <
-		typename Real, 
-		typename A_Real_Input, 
-		typename B_Real_Input>
-	Real peakSignalToNoise(
-		A_Real_Input aSet,
-		B_Real_Input bSet,
-		const NoDeduction<Real>& maxValue);
-
-	//! Returns the peak-signal-to-noise-ratio between sequences.
 	/*!
-	This is a convenience function which calls
-	peakSignalToNoise<Real>(aSet, bSet, 1).
+	Optional arguments
+	------------------
+
+	maxValue (Real : 1):
+	The maximum value for the mean-square error.
 	*/
 	template <
 		typename Real, 
-		typename A_Real_Input, 
-		typename B_Real_Input>
+		typename A_Real_MultiSet, 
+		typename B_Real_MultiSet,
+		typename... ArgumentSet,
+		Requires<
+			Models<Real, Real_Concept>,
+			Models<A_Real_MultiSet, MultiSet_Concept>,
+			Models<B_Real_MultiSet, MultiSet_Concept>
+		> = 0>
 	Real peakSignalToNoise(
-		A_Real_Input aSet,
-		B_Real_Input bSet);
-	
-}
+		const A_Real_MultiSet& aSet,
+		const B_Real_MultiSet& bSet,
+		ArgumentSet&&... argumentSet)
+	{
+		Real maxValue = PASTEL_ARG_S(maxValue, Real(1));
 
-#include "pastel/math/statistic/scalar_peak_signal_to_noise.hpp"
+		return 
+			10 * std::log10(
+				square(maxValue) / 
+				scalarMeanSquareError<Real>(aSet, bSet)
+			);
+	}
+
+}
 
 #endif
