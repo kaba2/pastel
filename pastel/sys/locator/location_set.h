@@ -67,7 +67,7 @@ namespace Pastel
 		}
 		
 		template <typename Visit>
-		bool forEach(const Visit& visit)
+		bool forEach(const Visit& visit) const
 		{
 			return set_.forEach([&](auto&& x)
 			{
