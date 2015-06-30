@@ -1,18 +1,17 @@
-// Description: Identity function algorithm
+// Description: Identity function
 // Documentation: functions.txt
 
 #ifndef PASTELSYS_IDENTITY_FUNCTION_H
 #define PASTELSYS_IDENTITY_FUNCTION_H
 
-#include "pastel/sys/algorithm_concept.h"
+#include "pastel/sys/function/function_concept.h"
 
 namespace Pastel
 {
 
-	//! A function algorithm object which returns its argument.
-	class Identity_Function
+	//! A function f(x) = x.
+	struct Identity_Function
 	{
-	public:
 		template <typename Type>
 		const Type& operator()(const Type& x) const
 		{
