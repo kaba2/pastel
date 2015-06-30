@@ -3,7 +3,9 @@
 
 #include "pastel/geometry/splitrule/fair_splitrule.h"
 
-#include "pastel/sys/vector.h"
+#include "pastel/sys/pointset/pointset_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
+#include "pastel/geometry/shape/alignedbox.h"
 
 namespace Pastel
 {
@@ -12,13 +14,15 @@ namespace Pastel
 	{
 	public:
 		template <
-			typename Point_Input,
-			typename Locator,
-			typename Real = typename Locator::Real,
-			integer N = Locator::N>
+			typename PointSet,
+			typename Real = PointSet_Real<PointSet>,
+			integer N = PointSet_N<PointSet>::value,
+			Requires<
+				Models<PointSet, PointSet_Concept>
+			> = 0
+		>
 		std::pair<Real, integer> operator()(
-			Point_Input pointSet,
-			const Locator& locator,
+			const PointSet& pointSet,
 			const AlignedBox<Real, N>& bound) const
 		{
 			// Split along the longest dimension.
@@ -28,36 +32,39 @@ namespace Pastel
 				bound.min()[splitAxis], 
 				bound.max()[splitAxis], 0.5);
 
-			if (!pointSet.empty())
+			if (pointSet.empty())
 			{
-				// Find out the minimum bounding interval for
-				// the contained points on the splitting axis.
+				return std::make_pair(splitPosition, splitAxis);
+			}
 
-				Real minPosition = infinity<Real>();
-				Real maxPosition = -infinity<Real>();
+			// Find out the minimum bounding interval for
+			// the contained points on the splitting axis.
 
-				while(!pointSet.empty())
+			Real minPosition = infinity<Real>();
+			Real maxPosition = -infinity<Real>();
+
+			pointSet.forEach([&](auto&& point)
+			{
+				Real position = 
+					pointAxis(point, splitAxis);
+					
+				if (position < minPosition)
 				{
-					Real position = 
-						locator(pointSet.get(), splitAxis);
-					pointSet.pop();
-						
-					if (position < minPosition)
-					{
-						minPosition = position;
-					}
-					if (position > maxPosition)
-					{
-						maxPosition = position;
-					}
+					minPosition = position;
+				}
+				if (position > maxPosition)
+				{
+					maxPosition = position;
 				}
 
-				// Split at the midpoint of the minimum
-				// bounding interval.
+				return true;
+			});
 
-				splitPosition = 
-					linear(minPosition, maxPosition, 0.5);
-			}
+			// Split at the midpoint of the minimum
+			// bounding interval.
+
+			splitPosition = 
+				linear(minPosition, maxPosition, 0.5);
 
 			return std::make_pair(splitPosition, splitAxis);
 		}

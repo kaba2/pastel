@@ -528,9 +528,14 @@ namespace Pastel
 
 			integer splitAxis = 0;
 			Real splitPosition = 0;
-			std::tie(splitPosition, splitAxis) = splitRule(
-				transformInput(rangeInput(pointSet), pointFromIterator),
-				locator(), bound);
+			std::tie(splitPosition, splitAxis) = 
+				splitRule(
+					locationSet(
+						transformedSet(rangeSet(pointSet), pointFromIterator),
+						locator()
+					), 
+					bound
+				);
 
 			ENSURE_OP(splitAxis, >=, 0);
 			ENSURE_OP(splitAxis, <, dimension());

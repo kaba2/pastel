@@ -3,7 +3,9 @@
 
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 
-#include "pastel/sys/vector/vector_tools.h"
+#include "pastel/sys/pointset/pointset_concept.h"
+#include "pastel/sys/locator/locator_concept.h"
+#include "pastel/geometry/shape/alignedbox.h"
 
 namespace Pastel
 {
@@ -12,13 +14,15 @@ namespace Pastel
 	{
 	public:
 		template <
-			typename Point_Input,
-			typename Locator,
-			typename Real = typename Locator::Real,
-			integer N = Locator::N>
+			typename PointSet,
+			typename Real = PointSet_Real<PointSet>,
+			integer N = PointSet_N<PointSet>::value,
+			Requires<
+				Models<PointSet, PointSet_Concept>
+			> = 0
+		>
 		std::pair<Real, integer> operator()(
-			Point_Input pointSet,
-			const Locator& locator,
+			const PointSet& pointSet,
 			const AlignedBox<Real, N>& bound) const
 		{
 			// Split along the longest dimension.
@@ -29,47 +33,49 @@ namespace Pastel
 				bound.min()[splitAxis], 
 				bound.max()[splitAxis], 0.5);
 
-			if (!pointSet.empty())
+			if (pointSet.empty())
 			{
-				// Sliding mid-point
+				return std::make_pair(splitPosition, splitAxis);
+			}
+				
+			// Sliding mid-point
 
-				Real leftMax = -infinity<Real>();
-				integer leftCount = 0;
+			Real leftMax = -infinity<Real>();
+			integer leftCount = 0;
 
-				Real rightMin = infinity<Real>();
-				integer rightCount = 0;
+			Real rightMin = infinity<Real>();
+			integer rightCount = 0;
 
-				while(!pointSet.empty())
+			pointSet.forEach([&](auto&& point)
+			{
+				Real position = pointAxis(point, splitAxis);
+				if (position < splitPosition)
 				{
-					Real position = locator(pointSet.get(), splitAxis);
-					if (position < splitPosition)
+					if (position > leftMax)
 					{
-						if (position > leftMax)
-						{
-							leftMax = position;
-						}
-						++leftCount;
+						leftMax = position;
 					}
-					else
+					++leftCount;
+				}
+				else
+				{
+					if (position < rightMin)
 					{
-						if (position < rightMin)
-						{
-							rightMin = position;
-						}
-						++rightCount;
+						rightMin = position;
 					}
-
-					pointSet.pop();
+					++rightCount;
 				}
 
-				if (leftCount == 0)
-				{
-					splitPosition = rightMin;
-				}
-				else if (rightCount == 0)
-				{
-					splitPosition = leftMax;
-				}
+				return true;
+			});
+
+			if (leftCount == 0)
+			{
+				splitPosition = rightMin;
+			}
+			else if (rightCount == 0)
+			{
+				splitPosition = leftMax;
 			}
 
 			return std::make_pair(splitPosition, splitAxis);
