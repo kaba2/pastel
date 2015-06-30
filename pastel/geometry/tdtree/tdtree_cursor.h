@@ -6,8 +6,8 @@
 #include "pastel/geometry/tdtree/tdtree.h"
 #include "pastel/geometry/tdtree/tdtree_fwd.h"
 
-#include "pastel/sys/input/range_input.h"
-#include "pastel/sys/input/transform_input.h"
+#include "pastel/sys/set/range_set.h"
+#include "pastel/sys/set/transformed_set.h"
 
 #include <boost/operators.hpp>
 
@@ -82,19 +82,15 @@ namespace Pastel
 			}
 		};
 
-		using A_Input = Range_Input<Entry_ConstRange>;
-		using B_Input = Transform_Input<A_Input, EntryAsPoint>;
-
-		// FIX: Replace with decltype(auto) after Visual Studio 2013
-		// fixes its bugs.
-		B_Input pointSetAsInput(integer min, integer max) const
+		decltype(auto) pointSet(integer min, integer max) const
 		{
-			Entry_ConstRange fullRange = node_->entryRange();
+			Entry_ConstRange fullRange = 
+				node_->entryRange();
 			Entry_ConstRange subRange = 
 				range(std::begin(fullRange) + min, std::begin(fullRange) + max);
 
-			return transformInput(
-				rangeInput(subRange),
+			return transformedSet(
+				rangeSet(subRange),
 				EntryAsPoint());
 		}
 

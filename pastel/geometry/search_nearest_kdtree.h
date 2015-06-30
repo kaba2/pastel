@@ -341,18 +341,14 @@ namespace Pastel
 				integer indexMax = (i + 1) < indexSequence.size() ?
 					indexSequence[i + 1] : cursor.points();
 
-				auto pointSet = cursor.pointSetAsInput(indexMin, indexMax);
-				while (!pointSet.empty())
+				auto pointSet = cursor.pointSet(indexMin, indexMax);
+				pointSet.forEach([&](auto&& point)
 				{
-					// Get the next node-point.
-					Point_ConstIterator iter = pointSet.get();
-					pointSet.pop();
-
 					// Compute the distance from the node-point
 					// to the search-point.
 					Real currentDistance2 = 
 						distance2(
-							location(iter->point(), locator),
+							location(point->point(), locator),
 							searchPoint,
 							normBijection,
 							keepGoing
@@ -362,9 +358,9 @@ namespace Pastel
 					// already know the point cannot be among k nearest
 					// neighbors. Remember that we are using an open 
 					// search ball.
-					if (currentDistance2 >= cullDistance2 || !accept(iter))
+					if (currentDistance2 >= cullDistance2 || !accept(point))
 					{
-						continue;
+						return true;
 					}
 
 					// Note that if there are multiple points at the same 
@@ -372,14 +368,16 @@ namespace Pastel
 					// be culled away. We deal with this by expanding the 
 					// suggested culling radius by a protective factor.
 					Real cullSuggestion2 =
-						considerPoint(currentDistance2, iter) * protectiveFactor;
+						considerPoint(currentDistance2, point) * protectiveFactor;
 					if (cullSuggestion2 < cullDistance2)
 					{
 						// The cull-radius got smaller; update it.
 						cullDistance2 = cullSuggestion2;
 						nodeCullDistance2 = cullDistance2 * errorFactor;
 					}
-				}
+
+					return true;
+				});
 			}
         };
 
