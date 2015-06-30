@@ -50,13 +50,18 @@ namespace Pastel
 			return {aSet_.state(), bSet_.state()};
 		}
 
-		bool empty(const State& state) const
+		bool empty() const
 		{
-			return state.aState.empty() && 
-				state.bState.empty();
+			return aSet_.empty() && bSet_.empty();
 		}
 
-		const Element& element(State& state) const
+		bool empty(const State& state) const
+		{
+			return aSet_.empty(state.aState) && 
+				bSet_.empty(state.bState);
+		}
+
+		const Element& element(const State& state) const
 		{
 			PENSURE(!empty(state));
 
@@ -68,15 +73,25 @@ namespace Pastel
 			return aSet_.element(state.aState);
 		}
 
+		void next(State& state) const
+		{
+			PENSURE(!empty(state));
+			if (state.aState.empty())
+			{
+				bSet_.next(state.bState);
+			}
+			else
+			{
+				aSet_.next(state.aState);
+			}
+		}
+
 		template <typename Visit>
 		bool forEach(const Visit& visit) const
 		{
-			if (aSet_.forEach(visit))
-			{
-				return bSet_.forEach(visit);
-			}
-
-			return false;
+			return 
+				aSet_.forEach(visit) &&
+				bSet_.forEach(visit);
 		}
 
 	private:

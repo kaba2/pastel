@@ -46,6 +46,8 @@ namespace
 			{
 				integer n = 8;
 				auto set = intervalSet((integer)3, (integer)3 + n);
+				auto state = set.state();
+				set.next(state);
 				TEST_ENSURE_OP(set.n(), ==, n);
 
 				PASTEL_STATIC_ASSERT(
@@ -125,17 +127,17 @@ namespace
 				integer bElement = 3;
 				Constant_Set<integer> bSet(nB, bElement);
 
-				auto unionSet = unionSet(aSet, bSet);
+				auto abSet = unionSet(aSet, bSet);
 				
-				TEST_ENSURE_OP(unionSet.n(), ==, 5 + 3);
+				TEST_ENSURE_OP(abSet.n(), ==, 5 + 3);
 				PASTEL_STATIC_ASSERT(
 					std::is_same<
-						Set_Element<decltype(unionSet)>,
+						Set_Element<decltype(abSet)>,
 						integer
 					>::value);
 
 				std::unordered_multiset<integer> actualSet;
-				unionSet.forEach([&](integer a)
+				abSet.forEach([&](integer a)
 				{
 					actualSet.insert(a);
 					return true;
