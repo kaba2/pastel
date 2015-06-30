@@ -4,7 +4,6 @@
 #include "test_pastelsys.h"
 
 #include <pastel/sys/pointset/pointset_concept.h>
-#include <pastel/sys/input.h>
 #include <pastel/sys/set.h>
 #include <pastel/sys/locator.h>
 #include <pastel/sys/vector.h>

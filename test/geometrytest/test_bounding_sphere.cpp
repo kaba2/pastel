@@ -6,7 +6,6 @@
 #include <pastel/geometry/bounding/bounding_sphere_pointset.h>
 
 #include <pastel/sys/locator.h>
-#include <pastel/sys/input.h>
 #include <pastel/sys/set.h>
 
 using namespace Pastel;

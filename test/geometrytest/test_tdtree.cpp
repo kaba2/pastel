@@ -10,7 +10,6 @@
 #include "pastel/geometry/search_nearest_bruteforce.h"
 
 #include "pastel/sys/locator.h"
-#include "pastel/sys/input.h"
 #include "pastel/sys/set.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/for_each_point.h"
