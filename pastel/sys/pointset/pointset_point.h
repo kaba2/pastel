@@ -6,8 +6,8 @@
 
 #include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/locator/location_set.h"
-#include "pastel/sys/input/input_value.h"
-#include "pastel/sys/type_traits/remove_cvref.h"
+#include "pastel/sys/set/set_concept.h"
+#include "pastel/sys/function/identity_function.h"
 
 #include <type_traits>
 
@@ -16,7 +16,7 @@ namespace Pastel
 
 	template <typename PointSet>
 	using PointSet_Point = 
-		Input_Value<PointSet_Input<PointSet>>;
+		Set_Element<PointSet_Set<PointSet>>;
 
 	template <typename PointSet>
 	using PointSet_Point_F = 

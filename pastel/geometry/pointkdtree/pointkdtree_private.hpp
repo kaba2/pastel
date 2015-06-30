@@ -5,6 +5,8 @@
 #include "pastel/geometry/splitrule/longestmedian_splitrule.h"
 
 #include "pastel/sys/range.h"
+#include "pastel/sys/set/range_set.h"
+#include "pastel/sys/set/transformed_set.h"
 #include "pastel/sys/input/range_input.h"
 #include "pastel/sys/input/transform_input.h"
 
@@ -105,7 +107,7 @@ namespace Pastel
 		-> AlignedBox<Real, N>
 	{
 		auto pointSet = 
-			transformInput(rangeInput(begin, end),
+			transformedSet(rangeSet(begin, end),
 			[&](const PointInfo& point)
 		{
 			return point.point();

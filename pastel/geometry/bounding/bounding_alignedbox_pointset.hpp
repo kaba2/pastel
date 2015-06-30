@@ -21,9 +21,8 @@ namespace Pastel
 		integer d = pointSetDimension(pointSet);
 		
 		AlignedBox<Real, N> bound(d);
-		while (!pointSetEmpty(pointSet))
+		pointSet.forEach([&](auto&& point)
 		{
-			auto&& point = pointSetGet(pointSet);
 			for (integer i = 0;i < d;++i)
 			{
 				auto x = pointAxis(point, i);
@@ -39,8 +38,8 @@ namespace Pastel
 				}
 			}
 
-			pointSetPop(pointSet);
-		}
+			return true;
+		});
 
 		return bound;
 	}

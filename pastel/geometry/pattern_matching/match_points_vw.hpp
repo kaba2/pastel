@@ -451,11 +451,11 @@ namespace Pastel
 					lsSimilarity =
 						lsConformalAffine(
 							locationSet(
-								rangeInput(range(modelGlobalMatch.begin(), modelGlobalMatch.end())),
+								rangeSet(modelGlobalMatch),
 								Vector_Locator<Real, N>()
 							),
 							locationSet(
-								rangeInput(range(sceneGlobalMatch.begin(), sceneGlobalMatch.end())),
+								rangeSet(sceneGlobalMatch),
 								Vector_Locator<Real, N>()
 							)
 						);

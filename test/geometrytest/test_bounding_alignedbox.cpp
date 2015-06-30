@@ -6,6 +6,7 @@
 #include <pastel/sys/locator.h>
 #include <pastel/sys/vector.h>
 #include <pastel/sys/input.h>
+#include <pastel/sys/set.h>
 #include <pastel/sys/rational.h>
 
 #include <pastel/geometry/bounding/bounding_alignedbox.h>
@@ -96,7 +97,7 @@ namespace
 				std::vector<Point> pointSet;
 
 				AlignedBox2i bound =
-					boundingAlignedBox(rangeInput(pointSet));
+					boundingAlignedBox(rangeSet(pointSet));
 
 				TEST_ENSURE(bound.min() == Point(infinity<integer>()));
 				TEST_ENSURE(bound.max() == Point(-infinity<integer>()));
@@ -108,7 +109,7 @@ namespace
 				};
 
 				AlignedBox2i bound =
-					boundingAlignedBox(rangeInput(pointSet));
+					boundingAlignedBox(rangeSet(pointSet));
 
 				TEST_ENSURE(bound.min() == Point(3, 5));
 				TEST_ENSURE(bound.max() == Point(3, 5));
@@ -133,7 +134,7 @@ namespace
 				};
 
 				AlignedBox2i bound =
-					boundingAlignedBox(rangeInput(pointSet));
+					boundingAlignedBox(rangeSet(pointSet));
 
 				TEST_ENSURE(bound.min() == Point(0, 0));
 				TEST_ENSURE(bound.max() == Point(5, 4));

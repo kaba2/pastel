@@ -8,6 +8,7 @@
 #include "pastel/math/sampling/uniform_sampling.h"
 
 #include "pastel/sys/input.h"
+#include "pastel/sys/set.h"
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/vector/vector_locator.h"
 
@@ -88,11 +89,11 @@ namespace
 				ConformalAffine2D<real> matchedTransformation =
 					lsConformalAffine(
 						locationSet(
-							rangeInput(range(pattern.begin(), pattern.end())),
+							rangeSet(pattern),
 							Vector_Locator<real, 2>()
 						),
 						locationSet(
-							rangeInput(range(transformedPattern.begin(), transformedPattern.end())),
+							rangeSet(transformedPattern),
 							Vector_Locator<real, 2>()
 						));
 

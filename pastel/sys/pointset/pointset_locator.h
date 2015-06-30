@@ -14,17 +14,17 @@ namespace Pastel
 	namespace PointSet_
 	{
 
-		template <typename Point_Input>
+		template <typename Point_Set>
 		struct PointSet_Locator_F_
 			: Identity_F<
 				typename Default_Locator<
-					const Input_Value<Point_Input>&
+					const Set_Element<Point_Set>&
 				>::Locator
 			>
 		{};
 
-		template <typename Point_Input, typename Locator>
-		struct PointSet_Locator_F_<LocationSet<Point_Input, Locator>>
+		template <typename Point_Set, typename Locator>
+		struct PointSet_Locator_F_<LocationSet<Point_Set, Locator>>
 		: Identity_F<Locator>
 		{};
 
@@ -45,17 +45,17 @@ namespace Pastel
 {
 
 	//! Returns the default locator of a point-set.
-	template <typename Point_Input>
-	decltype(auto) pointSetLocator(const Point_Input& pointSet)
+	template <typename Point_Set>
+	decltype(auto) pointSetLocator(const Point_Set& pointSet)
 	{
-		PASTEL_CONCEPT_CHECK(Point_Input, Input_Concept);
-		return PointSet_Locator<Point_Input>();
+		PASTEL_CONCEPT_CHECK(Point_Set, Set_Concept);
+		return PointSet_Locator<Point_Set>();
 	}
 
 	//! Retrieves the locator of a location-set.
-	template <typename Point_Input, typename Locator>
+	template <typename Point_Set, typename Locator>
 	const Locator& pointSetLocator(
-		const LocationSet<Point_Input, Locator>& pointSet)
+		const LocationSet<Point_Set, Locator>& pointSet)
 	{
 		return pointSet.locator();
 	}

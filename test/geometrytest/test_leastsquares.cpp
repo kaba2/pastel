@@ -11,6 +11,7 @@
 #include "pastel/sys/locator.h"
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/input.h"
+#include "pastel/sys/set.h"
 
 using namespace Pastel;
 
@@ -67,10 +68,7 @@ namespace
 				}
 
 				ConformalAffine2D<real> similarity =
-					lsConformalAffine(
-						rangeInput(range(from.begin(), from.end())), 
-						rangeInput(range(to.begin(), to.end()))
-					);
+					lsConformalAffine(rangeSet(from), rangeSet(to));
 
 				TEST_ENSURE(absoluteError<real>(similarity.scaling(), scale) <= 0.001);
 				TEST_ENSURE(absoluteError<real>(similarity.rotation(), angle) <= 0.001);

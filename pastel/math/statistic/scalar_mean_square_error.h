@@ -47,6 +47,9 @@ namespace Pastel
 			!bSet.empty(bState))
 		{
 			result += square(aSet.element(aState) - bSet.element(bState));
+
+			aSet.next(aState);
+			bSet.next(bState);
 			++n;
 		}
 

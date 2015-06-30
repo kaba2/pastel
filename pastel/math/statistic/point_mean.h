@@ -38,24 +38,22 @@ namespace Pastel
 	
 		Vector<Real, Locator_N<Locator>::value> result(ofDimension(d), 0);
 
-		if (pointSetEmpty(pointSet) ||
-			d == 0)
+		if (pointSet.empty() || d == 0)
 		{
 			return result;
 		}
 
 		integer n = 0;
-		while (!pointSetEmpty(pointSet))
+		pointSet.forEach([&](auto&& point)
 		{
-			auto&& point = pointSetGet(pointSet);
 			for (integer i = 0;i < d;++i)
 			{
 				result[i] += pointAxis(point, i);
 			}
 			++n;
-
-			pointSetPop(pointSet);
-		}
+			
+			return true;
+		});
 
 		return result / n;
 	}

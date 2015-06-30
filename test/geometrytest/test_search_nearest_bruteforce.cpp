@@ -14,6 +14,7 @@
 
 #include <pastel/sys/vector.h>
 #include <pastel/sys/input.h>
+#include <pastel/sys/set.h>
 #include <pastel/sys/output.h>
 #include <pastel/sys/indicator.h>
 #include <pastel/sys/locator.h>
@@ -137,7 +138,7 @@ namespace
 			};
 
 			{
-				auto nearestSet = bruteForceNearestSet(rangeInput(pointSet));
+				auto nearestSet = bruteForceNearestSet(rangeSet(pointSet));
 				test(nearestSet, distanceSet);
 			}
 			{
@@ -172,11 +173,8 @@ namespace
 			auto pointSet = nearestSet.pointSet();
 
 			integer j = 0;
-			while (!pointSetEmpty(pointSet))
+			pointSet.forEach([&](auto&& i)
 			{
-				auto i = pointSetGet(pointSet);
-				pointSetPop(pointSet);
-
 				{
 					auto result =
 						searchNearest(nearestSet, i);
@@ -203,7 +201,9 @@ namespace
 					TEST_ENSURE(distance2 == distanceSet[j]);
 				}
 				++j;
-			}
+				
+				return true;
+			});
 		}
 
 		template <typename SearchAlgorithm_PointKdTree>
@@ -459,13 +459,17 @@ namespace
 			};
 
 			auto aNearestSet = bruteForceNearestSet(
-				rangeInput(pointSet));
+				rangeSet(pointSet));
 
 			PASTEL_CONCEPT_CHECK(decltype(aNearestSet), NearestSet_Concept);
 
-			auto bNearestSet = bruteForceNearestSet(
-					locationSet(rangeInput(countingRange(pointSet)), indirectLocator<Point_Iterator>(Locator()))
-			);
+			auto bNearestSet = 
+				bruteForceNearestSet(
+					locationSet(
+						intervalSet(pointSet.begin(), pointSet.end()), 
+						indirectLocator<Point_Iterator>(Locator())
+					)
+				);
 
 			PASTEL_CONCEPT_CHECK(decltype(bNearestSet), NearestSet_Concept);
 			
