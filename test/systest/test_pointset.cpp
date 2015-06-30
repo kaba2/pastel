@@ -5,6 +5,7 @@
 
 #include <pastel/sys/pointset/pointset_concept.h>
 #include <pastel/sys/input.h>
+#include <pastel/sys/set.h>
 #include <pastel/sys/locator.h>
 #include <pastel/sys/vector.h>
 
@@ -34,7 +35,7 @@ namespace
 			using Point = Vector<real, 2>;
 			
 			std::vector<Point> inputSet;
-			auto pointSet = rangeInput(range(inputSet.begin(), inputSet.end()));
+			auto pointSet = rangeSet(inputSet);
 			using PointSet = decltype(pointSet);
 
 			PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
@@ -50,14 +51,14 @@ namespace
 			using Locator = Array_Locator<Real, 2>;
 
 			std::vector<Point> inputSet;
-			auto pointSet = rangeInput(range(inputSet.begin(), inputSet.end()));
+			auto pointSet = rangeSet(inputSet);
 			
 			using PointSet = decltype(pointSet);
 			PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 			{
-				using Input_ = PointSet_Input<PointSet>;
-				PASTEL_STATIC_ASSERT((std::is_same<Input_, PointSet>::value));
+				using Set_ = PointSet_Set<PointSet>;
+				PASTEL_STATIC_ASSERT((std::is_same<Set_, PointSet>::value));
 
 				using Point_ = PointSet_Point<PointSet>;
 				PASTEL_STATIC_ASSERT((std::is_same<Point_, Point>::value));
@@ -82,26 +83,28 @@ namespace
 			using Point = std::array<Real, 2>;
 			using Locator = Array_Locator<Real, 2>;
 
-			std::vector<Point> pointSet;
+			std::vector<Point> pointSet_;
 
 			{
-				auto pointInput = rangeInput(pointSet);
-				TEST_ENSURE(pointSetEmpty(pointInput));
+				auto pointSet = rangeSet(pointSet_);
+				TEST_ENSURE_OP(pointSet.n(), ==, 0);
 			}
 
 			Point a = {{1, 2}};
-			pointSet.emplace_back(a);
+			pointSet_.emplace_back(a);
 
 			{
-				auto pointInput = rangeInput(pointSet);
-				TEST_ENSURE(!pointSetEmpty(pointInput));
-				TEST_ENSURE_OP(pointSetDimension(pointInput), ==, 2);
+				auto pointSet = rangeSet(pointSet_);
+				TEST_ENSURE_OP(pointSet.n(), ==, 1);
+				TEST_ENSURE_OP(pointSetDimension(pointSet), ==, 2);
 
-				TEST_ENSURE(pointAxis(pointSetGet(pointInput), 0) == 1);
-				TEST_ENSURE(pointAxis(pointSetGet(pointInput), 1) == 2);
+				auto state = pointSet.state();
 
-				pointSetPop(pointInput);
-				TEST_ENSURE(pointSetEmpty(pointInput));
+				TEST_ENSURE(pointAxis(pointSet.element(state), 0) == 1);
+				TEST_ENSURE(pointAxis(pointSet.element(state), 1) == 2);
+
+				pointSet.next(state);
+				TEST_ENSURE(pointSet.empty(state));
 			}
 		}
 	};

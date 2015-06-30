@@ -25,9 +25,11 @@ namespace Pastel
 
 		static constexpr integer N = PointSet_Dimension<From_PointSet>::value;
 
-		ENSURE_OP(pointSetSize(fromSet), ==, pointSetSize(toSet));
+		ENSURE_OP(fromSet.n(), ==, toSet.n());
 
-		integer n = pointSetSize(fromSet);
+		integer n = fromSet.n();
+		auto fromState = fromSet.state();
+		auto toState = toSet.state();
 
 		if (n == 0)
 		{
@@ -44,8 +46,8 @@ namespace Pastel
 
 			return ConformalAffine2D<Real>(
 				1, 0, 
-				pointAsVector(pointSetGet(toSet)) - 
-				pointAsVector(pointSetGet(fromSet)));
+				pointAsVector(toSet.element(toState)) - 
+				pointAsVector(fromSet.element(fromState)));
 		}
 
 		Vector<Real, N> sumFrom(ofDimension(2), 0);
@@ -54,10 +56,11 @@ namespace Pastel
 		Real dotSum = 0;
 		Real crossDotSum = 0;
 
-		while(!pointSetEmpty(fromSet))
+		while(!fromSet.empty(fromState) &&
+			!toSet.empty(toState))
 		{
-			auto from = pointAsVector(pointSetGet(fromSet));
-			auto to = pointAsVector(pointSetGet(toSet));
+			auto from = pointAsVector(fromSet.element(fromState));
+			auto to = pointAsVector(toSet.element(toState));
 
 			sumFrom += from;
 			sumTo += to;
@@ -66,8 +69,8 @@ namespace Pastel
 			dotSum += dot(from, to);
 			crossDotSum += dot(cross(from), to);
 
-			pointSetPop(fromSet);
-			pointSetPop(toSet);
+			fromSet.next(fromState);
+			toSet.next(toState);
 		}
 
 		Real det = n * sumSquareFrom - dot(sumFrom);

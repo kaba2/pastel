@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_POINTSET_CONCEPT_H
 #define PASTELSYS_POINTSET_CONCEPT_H
 
-#include "pastel/sys/input/input_concept.h"
+#include "pastel/sys/set/set_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/locator/location_set.h"
 #include "pastel/sys/type_traits/is_template_instance.h"
@@ -16,15 +16,15 @@ namespace Pastel
 	struct PointSet_Concept
 	{
 		// A PointSet is either 
-		// * an Input, or
-		// * a LocationSet, which pairs an Input with a Locator.
+		// * a Set of Points, or
+		// * a LocationSet, which pairs a Set with a Locator.
 		template <typename Type>
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::holds<
 					Or<
-						Models<Type, Input_Concept>,
+						Models<Type, Set_Concept>,
 						IsTemplateInstance<Type, LocationSet>
 					>
 				>()
@@ -35,15 +35,11 @@ namespace Pastel
 }
 
 #include "pastel/sys/pointset/pointset_dimension.h"
-#include "pastel/sys/pointset/pointset_empty.h"
-#include "pastel/sys/pointset/pointset_get.h"
-#include "pastel/sys/pointset/pointset_input.h"
+#include "pastel/sys/pointset/pointset_set.h"
 #include "pastel/sys/pointset/pointset_location.h"
 #include "pastel/sys/pointset/pointset_locator.h"
 #include "pastel/sys/pointset/pointset_n.h"
 #include "pastel/sys/pointset/pointset_point.h"
-#include "pastel/sys/pointset/pointset_pop.h"
 #include "pastel/sys/pointset/pointset_real.h"
-#include "pastel/sys/pointset/pointset_size.h"
 
 #endif

@@ -47,7 +47,7 @@ namespace Pastel
 		>
 	>
 	Sphere<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value> 
-		boundingSphere(PointSet pointSet)
+		boundingSphere(const PointSet& pointSet)
 	{
 		using Real = PointSet_Real<PointSet>;
 		static constexpr integer N = 
@@ -57,7 +57,7 @@ namespace Pastel
 		// bounding sphere, but it does give something to
 		// that direction, and is fast.
 
-		integer n = pointSetSize(pointSet);
+		integer n = pointSetDimension(pointSet);
 
 		Sphere<Real, N> result(n);
 		if (pointSet.empty())
@@ -72,18 +72,16 @@ namespace Pastel
 
 		// Compute the maximum distance from the midpoint.
 		Real maxDistance2 = 0;
-		while(!pointSetEmpty(pointSet))
+		pointSet.forEach([&](auto&& point)
 		{
-			auto p = pointAsVector(pointSetGet(pointSet));
-			
-			Real currentDistance2 = dot(p - midPoint);
+			Real currentDistance2 = dot(pointAsVector(point) - midPoint);
 			if (currentDistance2 > maxDistance2)
 			{
 				maxDistance2 = currentDistance2;
 			}
 
-			pointSetPop(pointSet);
-		}
+			return true;
+		});
 
 		return Sphere<Real, N>(
 			midPoint,

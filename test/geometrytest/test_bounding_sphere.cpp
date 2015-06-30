@@ -7,6 +7,7 @@
 
 #include <pastel/sys/locator.h>
 #include <pastel/sys/input.h>
+#include <pastel/sys/set.h>
 
 using namespace Pastel;
 
@@ -53,7 +54,7 @@ namespace
 					real radius,
 					Vector2 position)
 				{
-					auto pointSet_ = rangeInput(range(pointSet.begin(), pointSet.end()));
+					auto pointSet_ = rangeSet(pointSet);
 					using PointSet = decltype(pointSet_);
 					PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 					PASTEL_CONCEPT_REJECT(PointSet, Point_Concept);

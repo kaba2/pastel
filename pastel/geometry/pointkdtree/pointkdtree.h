@@ -194,7 +194,7 @@ namespace Pastel
 		decltype(auto) pointSet() const
 		{
 			return locationSet(
-				rangeInput(asPointData(range())), 
+				rangeSet(asPointData(range())), 
 				locator_);
 		}
 

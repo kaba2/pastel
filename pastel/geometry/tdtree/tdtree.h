@@ -13,7 +13,10 @@
 #include "pastel/geometry/splitrule/longestmedian_splitrule.h"
 
 #include "pastel/sys/sequence/fair_stable_partition.h"
-#include "pastel/sys/input/infinite_counting_input.h"
+#include "pastel/sys/set/set_concept.h"
+#include "pastel/sys/set/range_set.h"
+#include "pastel/sys/set/interval_set.h"
+#include "pastel/sys/set/transformed_set.h"
 
 #include <boost/range/algorithm/stable_sort.hpp>
 
@@ -101,21 +104,25 @@ namespace Pastel
 		n is the size of 'pointSet'.
 		*/
 		template <
-			typename PointSet,
-			typename Real_Input = Infinite_Counting_Input<Real>,
-			typename SplitRule = LongestMedian_SplitRule>
+			typename Point_Set,
+			typename... ArgumentSet,
+			Requires<
+				Models<Point_Set, PointSet_Concept>
+			> = 0
+		>
 		explicit TdTree(
-			PointSet pointSet,
-			Real_Input timeSet = Real_Input(),
-			const SplitRule& splitRule = SplitRule())
+			const Point_Set& pointSet,
+			ArgumentSet&&... argumentSet)
 		: TdTree()
 		{
+			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalSet(Real(0), infinity<Real>()));
+			auto&& splitRule = PASTEL_ARG_S(splitRule, LongestMedian_SplitRule());
+				
 			enum : bool
 			{
 				PointSetHasCompatibleLocator = 
-					std::is_convertible<PointSet_Locator<PointSet>, Locator>::value,
-				Simple = 
-					std::is_same<Real_Input, Infinite_Counting_Input<Real>>::value
+					std::is_convertible<PointSet_Locator<Point_Set>, Locator>::value,
+				Simple = false
 			};
 			PASTEL_STATIC_ASSERT(PointSetHasCompatibleLocator);
 
@@ -124,22 +131,27 @@ namespace Pastel
 
 			std::vector<Iterator> iteratorSet;
 
-			integer nHint = pointSetInput(pointSet).nHint();
-			iteratorSet.reserve(nHint);
-			pointSet_.reserve(nHint);
-	
-			while (!pointSetEmpty(pointSet))
+			integer n = pointSet.n();
+			if (n < infinity<integer>())
 			{
-				ENSURE(!timeSet.empty());
-				
+				iteratorSet.reserve(n);
+				pointSet_.reserve(n);
+			}
+
+			auto pointState = pointSet.state();
+			auto timeState = timeSet.state();
+	
+			while (!pointSet.empty(pointState) &&
+				!timeSet.empty(timeState))
+			{
 				pointSet_.emplace_back(
-					pointPoint(pointSetGet(pointSet)),
-					timeSet.get());
+					pointPoint(pointSet.element(pointState)),
+					timeSet.element(timeState));
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
 
-				pointSetPop(pointSet);
-				timeSet.pop();
+				pointSet.next(pointState);
+				timeSet.next(timeState);
 			}
 
 			if (!Simple)
@@ -161,8 +173,8 @@ namespace Pastel
 			auto bound = 
 				boundingAlignedBox(
 					locationSet(
-						transformInput(
-							rangeInput(iteratorSet),
+						transformedSet(
+							rangeSet(iteratorSet),
 							[](auto&& point)
 							{
 								return point->point();

@@ -11,6 +11,7 @@
 
 #include "pastel/sys/locator.h"
 #include "pastel/sys/input.h"
+#include "pastel/sys/set.h"
 #include "pastel/sys/output.h"
 #include "pastel/sys/for_each_point.h"
 #include "pastel/sys/random/random_gaussian.h"
@@ -65,7 +66,7 @@ namespace
 					randomGaussianVector<real, 3>());
 			}
 			
-			Tree tree(rangeInput(pointSet));
+			Tree tree(rangeSet(pointSet));
 
 			integer k = 7;
 
@@ -75,7 +76,7 @@ namespace
 				bruteSet.reserve(k);
 
 				real kDistanceBrute = searchNearest(
-					bruteForceNearestSet(rangeInput(pointSet)),
+					bruteForceNearestSet(rangeSet(pointSet)),
 					pointSet[i],
 					PASTEL_TAG(nearestOutput), emplaceBackOutput(bruteSet),
 					PASTEL_TAG(kNearest), k
@@ -113,7 +114,7 @@ namespace
 				pointSet.emplace_back(i, 0);
 			}
 
-			Tree tree(rangeInput(pointSet));
+			Tree tree(rangeSet(pointSet));
 			TEST_ENSURE(tree.simple());
 
 			for (integer i = 0; i < n; ++i)
@@ -216,7 +217,7 @@ namespace
 					pointSet.emplace_back(point);
 				});
 
-				Tree tree(rangeInput(pointSet));
+				Tree tree(rangeSet(pointSet));
 				TEST_ENSURE(tree.simple());
 					
 				TEST_ENSURE_OP(tree.timeToIndex(-infinity<real>()), ==, 0);

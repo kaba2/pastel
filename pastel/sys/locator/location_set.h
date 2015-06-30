@@ -1,42 +1,88 @@
-// Description: Pairing of a point-input and a locator
+// Description: A set with a locator; a point-set.
 // Documentation: pointset.txt
 
 #ifndef PASTELSYS_LOCATION_SET_H
 #define PASTELSYS_LOCATION_SET_H
 
+#include "pastel/sys/set/set_concept.h"
 #include "pastel/sys/locator/locator_concept.h"
 
 namespace Pastel
 {
 
-	//! A point-input and a locator.
-	/*!
-	This class is used to explicitly assign a locator to a point-input.
-	Alternatively, if the underlying point-type has a default locator,
-	then this assignment need not be done.
-	*/
+	//! A set with a locator; a point-set.
 	template <
-		typename Point_Input,
-		typename Locator>
+		typename Set,
+		typename Locator
+		// This check triggers an internal compiler
+		// error in Visual Studio 2015 RC.
+		/*,
+		Requires<
+			Models<Set, Set_Concept>,
+			Models<Locator, Locator_Concept>
+		> = 0*/
+	>
 	class LocationSet
 	{
 	public:
+		using Element = Location<Set_Element<Set>, Locator>;
+		using State = Set_State<Set>;
+
 		LocationSet(
-			const Point_Input& pointInput,
+			const Set& set,
 			const Locator& locator)
-			: pointInput_(pointInput)
+			: set_(set)
 			, locator_(locator)
 		{
 		}
 
-		Point_Input& pointInput()
+		integer n() const
 		{
-			return pointInput_;
+			return set_.n();
+		}
+
+		State state() const
+		{
+			return set_.state();
+		}
+
+		Element element(const State& state) const
+		{
+			return {set_.element(state), locator_};
+		}
+
+		bool empty() const
+		{
+			return set_.empty();
+		}
+
+		bool empty(const State& state) const
+		{
+			return set_.empty(state);
+		}
+
+		void next(State& state) const
+		{
+			set_.next(state);
 		}
 		
-		const Point_Input& pointInput() const
+		template <typename Visit>
+		bool forEach(const Visit& visit)
 		{
-			return pointInput_;
+			return set_.forEach([&](auto&& x)
+			{
+				return visit(Element(std::forward<decltype(x)>(x), locator_));
+			});
+		}
+
+		Set& pointSet()
+		{
+			return set_;
+		}
+		
+		const Set& pointSet() const
+		{
+			return set_;
 		}
 
 		const Locator& locator() const
@@ -45,18 +91,17 @@ namespace Pastel
 		}
 
 	private:
-		Point_Input pointInput_;
+		Set set_;
 		Locator locator_;
 	};
 
 	//! Constructs a location-set from a point-set and a locator.
-	template <typename Point_Input, typename Locator>
-	LocationSet<Point_Input, Locator> locationSet(
-		const Point_Input& pointInput,
+	template <typename Set, typename Locator>
+	LocationSet<Set, Locator> locationSet(
+		const Set& set,
 		const Locator& locator)
 	{
-		return LocationSet<Point_Input, Locator>(
-			pointInput, locator);
+		return {set, locator};
 	}
 
 }

@@ -73,6 +73,9 @@ namespace Pastel
 			covariance += 
 				(aSet.element(aState) - aMean) * 
 				(bSet.element(bState) - bMean);
+
+			aSet.next(aState);
+			bSet.next(bState);
 			++n;
 		}
 

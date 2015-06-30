@@ -41,7 +41,7 @@ namespace Pastel
 		> = 0
 	>
 	Sphere<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value> 
-		boundingSphere(PointSet pointSet);
+		boundingSphere(const PointSet& pointSet);
 
 }
 

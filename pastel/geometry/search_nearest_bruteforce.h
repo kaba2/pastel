@@ -136,7 +136,7 @@ namespace Pastel
 		Result notFound(infinity<Real>(), Point());
 
 		auto pointSet = nearestSet.pointSet();
-		if (pointSetEmpty(pointSet) || kNearest == 0)
+		if (pointSet.empty() || kNearest == 0)
 		{
 			return notFound;
 		}
@@ -161,14 +161,11 @@ namespace Pastel
 			return that < cullDistance2;
 		};
 
-		while (!pointSetEmpty(pointSet))
+		pointSet.forEach([&](auto&& point)
 		{
-			auto&& point = pointSetGet(pointSet);
-
 			if (!accept(pointPoint(point)))
 			{
-				pointSetPop(pointSet);
-				continue;
+				return true;
 			}
 
 			Real distance = distance2(
@@ -195,9 +192,9 @@ namespace Pastel
 						maxDistance2);
 				}
 			}
-
-			pointSetPop(pointSet);
-		}
+			
+			return true;
+		});
 
 		for (auto&& entry : entrySet)
 		{
