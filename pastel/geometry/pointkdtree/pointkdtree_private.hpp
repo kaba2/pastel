@@ -7,8 +7,6 @@
 #include "pastel/sys/range.h"
 #include "pastel/sys/set/range_set.h"
 #include "pastel/sys/set/transformed_set.h"
-#include "pastel/sys/input/range_input.h"
-#include "pastel/sys/input/transform_input.h"
 
 #include <type_traits>
 
@@ -620,15 +618,18 @@ namespace Pastel
 			else
 			{
 				auto pointSet = 
-					transformInput(
-						rangeInput(node->first(), node->end()),
+					transformedSet(
+						rangeSet(node->first(), node->end()),
 						[&](const PointInfo& point)
 						{
 							return point.point();
 						});
 
 				std::pair<Real, integer> split = 
-					splitRule(pointSet, locator(), bound);
+					splitRule(
+						locationSet(pointSet, locator()), 
+						bound
+					);
 
 				Real splitPosition = split.first;
 				integer splitAxis = split.second;
