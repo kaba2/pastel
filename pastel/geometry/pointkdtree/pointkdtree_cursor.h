@@ -6,9 +6,7 @@
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_fwd.h"
 
-#include "pastel/sys/input/range_input.h"
-#include "pastel/sys/input/transform_input.h"
-#include "pastel/sys/iterator/counting_iterator.h"
+#include "pastel/sys/set/interval_set.h"
 
 namespace Pastel
 {
@@ -72,21 +70,13 @@ namespace Pastel
 
 		// Points
 
-		using A_Iterator = CountingIterator<Point_ConstIterator>;
-		using A_Range = boost::iterator_range<A_Iterator>;
-		using A_Input = Range_Input<A_Range>;
-
-		// FIX: Replace with decltype(auto) after
-		// Visual Studio 2013 fixes its bugs.
-		A_Input pointSetAsInput(integer min, integer max) const
+		decltype(auto) pointSet(integer min, integer max) const
 		{
 			// The 'tMin' and 'tMin' are present only for the
 			// TdTree and PointKdTree to have similar interfaces.
 			// The PointKdTree does not support temporal queries.
 
-			return rangeInput(Pastel::range(
-				countingIterator(begin()), 
-				countingIterator(end())));
+			return intervalSet(begin(), end());
 		}
 
 		Point_ConstIterator begin() const
