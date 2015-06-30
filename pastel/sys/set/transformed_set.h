@@ -54,16 +54,26 @@ namespace Pastel
 			return set_.state();
 		}
 
+		bool empty() const
+		{
+			return set_.empty();
+		}
+
 		bool empty(const State& state) const
 		{
 			return set_.empty(state);
 		}
 
-		decltype(auto) element(State& state) const
+		decltype(auto) element(const State& state) const
 		{
 			PENSURE(!empty(state));
-
 			return transform_(set_.element(state));
+		}
+
+		void next(State& state) const
+		{
+			PENSURE(!empty(state));
+			set_.next(state);
 		}
 
 		template <typename Visit>

@@ -5,6 +5,7 @@
 
 #include "pastel/sys/set/set_concept.h"
 #include "pastel/sys/algebra/element_concept.h"
+#include "pastel/sys/type_traits/is_subtractable.h"
 
 namespace Pastel
 {
@@ -20,9 +21,13 @@ namespace Pastel
 				//! Constructs from another element.
 				Type{t},
 				//! Advances to the next element.
-				++t,
+				++t
 				//! Computes the distance between elements.
-				Concept::convertsTo<integer>(t - t)
+				/*!
+				This is optional, and can be used to accelerate
+				the computation of n().
+				*/
+				//Concept::convertsTo<integer>(t - t)
 			)
 		);
 	};
@@ -52,9 +57,33 @@ namespace Pastel
 		{
 		}
 
+		template <
+			typename Type = Element,
+			Requires<
+				Is_Subtractable<Type>
+			> = 0
+		>
 		integer n() const
 		{
 			return end_ - begin_;
+		}
+
+		template <
+			typename Type = Element,
+			Requires<
+				Not<Is_Subtractable<Type>>
+			> = 0
+		>
+		integer n() const
+		{
+			integer count = 0;
+			forEach([&](auto&&)
+			{
+				++count;
+				return true;
+			});
+
+			return count;
 		}
 
 		State state() const
@@ -62,16 +91,26 @@ namespace Pastel
 			return begin_;
 		}
 
+		bool empty() const
+		{
+			return n() == 0;
+		}
+
 		bool empty(const State& state) const
 		{
 			return state == end_;
 		}
 
-		Element element(State& state) const
+		Element element(const State& state) const
 		{
 			Element element = state;
-			++state;
 			return element;
+		}
+
+		void next(State& state) const
+		{
+			PENSURE(!empty(state));
+			++state;
 		}
 
 		template <typename Visit>

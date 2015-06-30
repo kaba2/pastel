@@ -35,16 +35,26 @@ namespace Pastel
 			return 0;
 		}
 
+		bool empty() const
+		{
+			return n() == 0;
+		}
+
 		bool empty(const State& state) const
 		{
 			return state == n();
 		}
 
-		const Element& element(State& state) const
+		const Element& element(const State& state) const
 		{
-			PENSURE_OP(state, <, n);
-			++state;
+			PENSURE(!empty(state));
 			return element_;
+		}
+
+		void next(State& state) const
+		{
+			PENSURE(!empty(state));
+			++state;
 		}
 
 		template <typename Visit>

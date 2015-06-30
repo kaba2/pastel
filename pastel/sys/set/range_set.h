@@ -24,8 +24,8 @@ namespace Pastel
 		Container&& container)
 	{
 		return Pastel::rangeSet(
-			std::forward<Container>(container).begin(),
-			std::forward<Container>(container).end());
+			std::begin(container),
+			std::end(container));
 	}
 
 }

@@ -38,12 +38,17 @@ namespace Pastel
 				//! A state for iterating incrementally over elements.
 				Concept::convertsTo<State>(
 					addConst(t).state()),
-				//! Returns the next element referred to by the state.
+				//! Returns the element referred to by the state.
 				Concept::convertsTo<Element>(
-					addConst(t).element(std::declval<State&>())),
+					addConst(t).element(std::declval<State>())),
+				//! Advances the state to the next element.
+				(addConst(t).next(std::declval<State&>()), 0),
 				//! Returns whether there are no elements referred to by the state.
 				Concept::convertsTo<bool>(
-					addConst(t).empty(std::declval<State>()))
+					addConst(t).empty(std::declval<State>())),
+				//! Returns whether the set is empty.
+				Concept::convertsTo<bool>(
+					addConst(t).empty())
 			)
 		);
 	};
