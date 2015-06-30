@@ -53,23 +53,23 @@ namespace
 				TEST_ENSURE(allEqual(pointVariance(rangeInput(bSet), PASTEL_TAG(biased), false), Real(298, 15)));
 				TEST_ENSURE(allEqual(pointVariance(rangeInput(bSet)), Real(298, 18)));
 
-				TEST_ENSURE(scalarCovariance<Real>(rangeMultiSet(aSet), rangeMultiSet(bSet), PASTEL_TAG(biased), false) == Real(14, 15));
-				TEST_ENSURE(scalarMeanSquareError<Real>(rangeMultiSet(aSet), rangeMultiSet(bSet)) == Real(310, 6));
+				TEST_ENSURE(scalarCovariance<Real>(rangeSet(aSet), rangeSet(bSet), PASTEL_TAG(biased), false) == Real(14, 15));
+				TEST_ENSURE(scalarMeanSquareError<Real>(rangeSet(aSet), rangeSet(bSet)) == Real(310, 6));
 			}
 			{
 				std::vector<Real> aSet = { -1, 7, 4, -3, 7, 8 };
 				std::vector<Real> bSet = { -6, 4, 3, 2, -6, -1 };
 
-				TEST_ENSURE(scalarMean<Real>(rangeMultiSet(aSet)) == Real(11, 3));
-				TEST_ENSURE(scalarVariance<Real>(rangeMultiSet(aSet), PASTEL_TAG(biased), false) == Real(322, 15));
-				TEST_ENSURE(scalarVariance<Real>(rangeMultiSet(aSet)) == Real(322, 18));
+				TEST_ENSURE(scalarMean<Real>(rangeSet(aSet)) == Real(11, 3));
+				TEST_ENSURE(scalarVariance<Real>(rangeSet(aSet), PASTEL_TAG(biased), false) == Real(322, 15));
+				TEST_ENSURE(scalarVariance<Real>(rangeSet(aSet)) == Real(322, 18));
 
-				TEST_ENSURE(scalarMean<Real>(rangeMultiSet(bSet)) == Real(-2, 3));
-				TEST_ENSURE(scalarVariance<Real>(rangeMultiSet(bSet), PASTEL_TAG(biased), false) == Real(298, 15));
-				TEST_ENSURE(scalarVariance<Real>(rangeMultiSet(bSet)) == Real(298, 18));
+				TEST_ENSURE(scalarMean<Real>(rangeSet(bSet)) == Real(-2, 3));
+				TEST_ENSURE(scalarVariance<Real>(rangeSet(bSet), PASTEL_TAG(biased), false) == Real(298, 15));
+				TEST_ENSURE(scalarVariance<Real>(rangeSet(bSet)) == Real(298, 18));
 
-				TEST_ENSURE(scalarCovariance<Real>(rangeMultiSet(aSet), rangeMultiSet(bSet), PASTEL_TAG(biased), false) == Real(14, 15));
-				TEST_ENSURE(scalarMeanSquareError<Real>(rangeMultiSet(aSet), rangeMultiSet(bSet)) == Real(310, 6));
+				TEST_ENSURE(scalarCovariance<Real>(rangeSet(aSet), rangeSet(bSet), PASTEL_TAG(biased), false) == Real(14, 15));
+				TEST_ENSURE(scalarMeanSquareError<Real>(rangeSet(aSet), rangeSet(bSet)) == Real(310, 6));
 			}
 			/*
 			{

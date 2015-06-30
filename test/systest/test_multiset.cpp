@@ -30,10 +30,10 @@ namespace
 			testTransformed();
 		}
 
-		template <typename MultiSet, typename Element>
+		template <typename Set, typename Element>
 		using CorrectElement = 
 			std::is_same<
-				MultiSet_Element<MultiSet>,
+				Set_Element<Set>,
 				Element
 			>;
 
@@ -70,12 +70,12 @@ namespace
 		void testConstant()
 		{
 			PASTEL_CONCEPT_CHECK(
-				Constant_MultiSet<integer>, MultiSet_Concept);
+				Constant_Set<integer>, Set_Concept);
 
 			{
 				integer n = 4;
 				integer element = 7;
-				Constant_MultiSet<integer> set(n, element);
+				Constant_Set<integer> set(n, element);
 
 				PASTEL_STATIC_ASSERT(
 					CorrectElement<decltype(set), integer>::value);
@@ -98,7 +98,7 @@ namespace
 			{
 				integer n = 0;
 				integer element = 7;
-				Constant_MultiSet<integer> set(n, element);
+				Constant_Set<integer> set(n, element);
 
 				bool correct = set.forEach([&](integer a)
 				{
@@ -111,26 +111,26 @@ namespace
 
 		void testUnion()
 		{
-			using Union = Union_MultiSet<
-					Constant_MultiSet<integer>,
-					Constant_MultiSet<integer>>;
-			PASTEL_CONCEPT_CHECK(Union, MultiSet_Concept);
+			using Union = Union_Set<
+					Constant_Set<integer>,
+					Constant_Set<integer>>;
+			PASTEL_CONCEPT_CHECK(Union, Set_Concept);
 
 			{
 				integer nA = 5;
 				integer aElement = 7;
-				Constant_MultiSet<integer> aSet(nA, aElement);
+				Constant_Set<integer> aSet(nA, aElement);
 
 				integer nB = 3;
 				integer bElement = 3;
-				Constant_MultiSet<integer> bSet(nB, bElement);
+				Constant_Set<integer> bSet(nB, bElement);
 
-				auto unionSet = unionMultiSet(aSet, bSet);
+				auto unionSet = unionSet(aSet, bSet);
 				
 				TEST_ENSURE_OP(unionSet.n(), ==, 5 + 3);
 				PASTEL_STATIC_ASSERT(
 					std::is_same<
-						MultiSet_Element<decltype(unionSet)>,
+						Set_Element<decltype(unionSet)>,
 						integer
 					>::value);
 
@@ -154,7 +154,7 @@ namespace
 			auto inputSet = intervalSet(
 				dataSet.begin(), dataSet.end());
 			
-			auto dereferencedSet = transformedMultiSet(
+			auto dereferencedSet = transformedSet(
 				inputSet, Dereference_Function());
 
 			std::unordered_set<integer> actualSet;
@@ -180,7 +180,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("MultiSet", test);
+		testRunner().add("Set", test);
 	}
 
 	CallFunction run(addTest);
