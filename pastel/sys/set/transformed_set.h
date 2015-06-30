@@ -10,36 +10,36 @@ namespace Pastel
 {
 
 	template <
-		typename MultiSet,
+		typename Set,
 		typename Transform,
 		Requires<
-			Models<MultiSet, MultiSet_Concept>/*,
+			Models<Set, Set_Concept>/*,
 			Models<Transform, 
-				Function_Concept(void (&)(typename MultiSet::Element))
+				Function_Concept(void (&)(typename Set::Element))
 			>*/
 		> = 0>
-	class Transformed_MultiSet
+	class Transformed_Set
 	{
 	public:
 		using Element = 
 			RemoveCvRef<
 				decltype(
 					std::declval<Transform>()(
-						std::declval<typename MultiSet::Element>()
+						std::declval<typename Set::Element>()
 					)
 				)
 			>;
 
 		using State =
-			typename MultiSet::State;
+			typename Set::State;
 
 		template <
-			typename MultiSet_,
+			typename Set_,
 			typename Transform_>
-		Transformed_MultiSet(
-			MultiSet_ set,
+		Transformed_Set(
+			Set_ set,
 			Transform_ transform)
-		: set_(std::forward<MultiSet_>(set))
+		: set_(std::forward<Set_>(set))
 		, transform_(std::forward<Transform_>(transform))
 		{
 		}
@@ -76,27 +76,27 @@ namespace Pastel
 		}
 
 	private:
-		MultiSet set_;
+		Set set_;
 		Transform transform_;
 	};
 
 	template <
-		typename MultiSet,
+		typename Set,
 		typename Transform,
 		Requires<
-			Models<MultiSet, MultiSet_Concept>/*,
+			Models<Set, Set_Concept>/*,
 			Models<Transform, 
-				Function_Concept(int, typename RemoveCvRef<MultiSet>::Element)
+				Function_Concept(int, typename RemoveCvRef<Set>::Element)
 			>*/
 		> = 0>
-	auto transformedMultiSet(
-		MultiSet&& set,
+	auto transformedSet(
+		Set&& set,
 		Transform&& transform)
-	-> Transformed_MultiSet<RemoveCvRef<MultiSet>, RemoveCvRef<Transform>>
+	-> Transformed_Set<RemoveCvRef<Set>, RemoveCvRef<Transform>>
 	{
 		return
 		{
-			std::forward<MultiSet>(set),
+			std::forward<Set>(set),
 			std::forward<Transform>(transform)
 		};
 	}

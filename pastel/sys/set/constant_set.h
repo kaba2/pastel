@@ -1,22 +1,22 @@
 // Description: Constant multi-set
 
-#ifndef PASTELSYS_CONSTANT_MULTISET_H
-#define PASTELSYS_CONSTANT_MULTISET_H
+#ifndef PASTELSYS_CONSTANT_SET_H
+#define PASTELSYS_CONSTANT_SET_H
 
-#include "pastel/sys/set/multiset_concept.h"
+#include "pastel/sys/set/set_concept.h"
 
 namespace Pastel
 {
 
 	template <typename Element_>
-	class Constant_MultiSet
+	class Constant_Set
 	{
 	public:
 		using Element = Element_;
 		using State = integer;
 
 		template <typename... ArgumentSet>
-		explicit Constant_MultiSet(
+		explicit Constant_Set(
 			integer n,
 			ArgumentSet&&... argumentSet)
 		: element_(std::forward<ArgumentSet>(argumentSet)...)
@@ -69,7 +69,7 @@ namespace Pastel
 	template <
 		typename Element,
 		typename... ArgumentSet>
-	Constant_MultiSet<Element> constantMultiSet(integer n, ArgumentSet&&... argumentSet)
+	Constant_Set<Element> constantSet(integer n, ArgumentSet&&... argumentSet)
 	{
 		return {n, std::forward<ArgumentSet>(argumentSet)...};
 	}

@@ -1,7 +1,7 @@
 // Description: Interval multi-set
 
-#ifndef PASTELSYS_INTERVAL_MULTISET_H
-#define PASTELSYS_INTERVAL_MULTISET_H
+#ifndef PASTELSYS_INTERVAL_SET_H
+#define PASTELSYS_INTERVAL_SET_H
 
 #include "pastel/sys/set/set_concept.h"
 #include "pastel/sys/algebra/element_concept.h"

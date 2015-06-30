@@ -5,7 +5,7 @@
 #define PASTELMATH_SCALAR_PEAK_SIGNAL_TO_NOISE_H
 
 #include "pastel/sys/real/real_concept.h"
-#include "pastel/sys/set/multiset_concept.h"
+#include "pastel/sys/set/set_concept.h"
 
 // Implementation
 
@@ -26,17 +26,17 @@ namespace Pastel
 	*/
 	template <
 		typename Real, 
-		typename A_Real_MultiSet, 
-		typename B_Real_MultiSet,
+		typename A_Real_Set, 
+		typename B_Real_Set,
 		typename... ArgumentSet,
 		Requires<
 			Models<Real, Real_Concept>,
-			Models<A_Real_MultiSet, MultiSet_Concept>,
-			Models<B_Real_MultiSet, MultiSet_Concept>
+			Models<A_Real_Set, Set_Concept>,
+			Models<B_Real_Set, Set_Concept>
 		> = 0>
 	Real peakSignalToNoise(
-		const A_Real_MultiSet& aSet,
-		const B_Real_MultiSet& bSet,
+		const A_Real_Set& aSet,
+		const B_Real_Set& bSet,
 		ArgumentSet&&... argumentSet)
 	{
 		Real maxValue = PASTEL_ARG_S(maxValue, Real(1));

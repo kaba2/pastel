@@ -5,7 +5,7 @@
 #define PASTELMATH_SCALAR_MEAN_SQUARE_ERROR_H
 
 #include "pastel/sys/real/real_concept.h"
-#include "pastel/sys/set/multiset_concept.h"
+#include "pastel/sys/set/set_concept.h"
 
 // Implementation
 
@@ -26,16 +26,16 @@ namespace Pastel
 	*/
 	template <
 		typename Real, 
-		typename A_Real_MultiSet, 
-		typename B_Real_MultiSet,
+		typename A_Real_Set, 
+		typename B_Real_Set,
 		Requires<
 			Models<Real, Real_Concept>,
-			Models<A_Real_MultiSet, MultiSet_Concept>,
-			Models<B_Real_MultiSet, MultiSet_Concept>
+			Models<A_Real_Set, Set_Concept>,
+			Models<B_Real_Set, Set_Concept>
 		> = 0>
 	Real scalarMeanSquareError(
-		A_Real_MultiSet aSet,
-		B_Real_MultiSet bSet)
+		A_Real_Set aSet,
+		B_Real_Set bSet)
 	{
 		integer n = 0;
 		Real result = 0;
