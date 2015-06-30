@@ -8,20 +8,23 @@
 #include "pastel/sys/testing/testreport.h"
 #include "pastel/sys/ensure.h"
 
+// The 'this->' prefixes here avoid triggering 
+// a bug in g++ 5.1.0.
+
 #define TEST_ENSURE(expr)\
-{if (!(expr)) {reportError(#expr, __FILE__, __LINE__);}}
+{if (!(expr)) {this->reportError(#expr, __FILE__, __LINE__);}}
 
 #define TEST_ENSURE1(expr, a)\
-{if (!(expr)) {reportError(#expr, __FILE__, __LINE__, #a, (real64)(a));}}
+{if (!(expr)) {this->reportError(#expr, __FILE__, __LINE__, #a, (real64)(a));}}
 
 #define TEST_ENSURE2(expr, a, b)\
-{if (!(expr)) {reportError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
+{if (!(expr)) {this->reportError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
 
 #define TEST_ENSURE3(expr, a, b, c)\
-{if (!(expr)) {reportError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
+{if (!(expr)) {this->reportError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
 
 #define TEST_ENSURE4(expr, a, b, c, d)\
-{if (!(expr)) {reportError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
+{if (!(expr)) {this->reportError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
 #define TEST_ENSURE_OP(x, op, y) TEST_ENSURE2(x op y, x, y)
 

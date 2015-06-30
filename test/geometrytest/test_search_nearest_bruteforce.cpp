@@ -171,36 +171,36 @@ namespace
 
 			auto pointSet = nearestSet.pointSet();
 
+			pointSet.forEach([&](auto&& i)
+			{
+				auto result =
+					searchNearest(nearestSet, i);
+
+				real distance2 = result.first;
+
+				TEST_ENSURE(distance2 == 0);
+
+				return true;
+			});
+
 			integer j = 0;
 			pointSet.forEach([&](auto&& i)
 			{
-				{
-					auto result =
-						searchNearest(nearestSet, i);
+				auto indicator = predicateIndicator(i, NotEqualTo());
+				PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(i)));
 
-					real distance2 = result.first;
+				auto result =
+					searchNearest(
+						nearestSet,
+						i,
+						PASTEL_TAG(accept), indicator,
+						normBijection
+					);
 
-					TEST_ENSURE(distance2 == 0);
-				}
+				real distance2 = result.first;
 
-				{
-					auto indicator = predicateIndicator(i, NotEqualTo());
-					PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(i)));
-
-					auto result =
-						searchNearest(
-							nearestSet,
-							i,
-							PASTEL_TAG(accept), indicator,
-							normBijection
-						);
-
-					real distance2 = result.first;
-
-					TEST_ENSURE(distance2 == distanceSet[j]);
-				}
+				TEST_ENSURE(distance2 == distanceSet[j]);
 				++j;
-				
 				return true;
 			});
 		}
