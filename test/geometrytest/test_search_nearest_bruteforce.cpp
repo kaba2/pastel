@@ -13,7 +13,6 @@
 #include <pastel/math/normbijection/normbijections.h>
 
 #include <pastel/sys/vector.h>
-#include <pastel/sys/input.h>
 #include <pastel/sys/set.h>
 #include <pastel/sys/output.h>
 #include <pastel/sys/indicator.h>

@@ -7,7 +7,6 @@
 #include "pastel/math/conformalaffine2d/conformalaffine2d_least_squares.h"
 #include "pastel/math/sampling/uniform_sampling.h"
 
-#include "pastel/sys/input.h"
 #include "pastel/sys/set.h"
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/vector/vector_locator.h"

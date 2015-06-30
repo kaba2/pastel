@@ -5,7 +5,6 @@
 
 #include <pastel/sys/locator.h>
 #include <pastel/sys/vector.h>
-#include <pastel/sys/input.h>
 #include <pastel/sys/set.h>
 #include <pastel/sys/rational.h>
 
