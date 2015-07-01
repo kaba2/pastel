@@ -15,11 +15,13 @@ namespace Pastel
 			typename Type,
 			typename Return,
 			typename... ArgumentSet>
-		auto requires(Type&& t, Return&& function, ArgumentSet&&... argumentSet) -> decltype
+		auto requires(Type&& t, Return&& return_, ArgumentSet&&... argumentSet) -> decltype
 		(
 			conceptCheck(
 				//! Returns the value of the function at given arguments.
-				t(std::forward<ArgumentSet>()...)
+				Concept::convertsTo<Return>(
+					t(std::forward<ArgumentSet>(argumentSet)...)
+				)
 			)
 		);
 	};
