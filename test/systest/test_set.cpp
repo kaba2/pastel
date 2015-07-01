@@ -7,6 +7,7 @@
 #include "pastel/sys/function.h"
 
 #include <unordered_set>
+#include <list>
 
 using namespace Pastel;
 
@@ -46,6 +47,32 @@ namespace
 			{
 				integer n = 8;
 				auto set = intervalSet((integer)3, (integer)3 + n);
+				auto index = set.index();
+				set.next(index);
+				TEST_ENSURE_OP(set.n(), ==, n);
+
+				PASTEL_STATIC_ASSERT(
+					CorrectElement<decltype(set), integer>::value);
+
+				std::unordered_set<integer> actualSet;
+
+				forEach(set, [&](integer a)
+				{
+					actualSet.insert(a);
+					return true;
+				});
+				TEST_ENSURE_OP(actualSet.size(), ==, n);
+
+				for (integer i = 0;i < n;++i)
+				{
+					TEST_ENSURE(actualSet.count(3 + i) == 1);
+				}
+			}
+			{
+				std::list<integer> aSet = {3, 4, 5, 6, 7, 8, 9, 10, 11};
+				integer n = aSet.size();
+				auto set = rangeSet(aSet.begin(), aSet.end());
+				
 				auto index = set.index();
 				set.next(index);
 				TEST_ENSURE_OP(set.n(), ==, n);

@@ -28,7 +28,8 @@ namespace Pastel
 		(
 			conceptCheck(
 				//! Returns the number of elements in the set.
-				Concept::convertsTo<integer>(addConst(t).n()),
+				Concept::convertsTo<integer>(
+					addConst(t).n()),
 				//! Returns whether the set is empty.
 				Concept::convertsTo<bool>(
 					addConst(t).empty()),
@@ -38,8 +39,17 @@ namespace Pastel
 				//! Returns the element at the index.
 				Concept::convertsTo<Element>(
 					addConst(t).element(std::declval<Index>())),
-				//! Advances the index to the next element.
-				(addConst(t).next(std::declval<Index&>()), 0),
+				//! Advances the index by the given number of steps.
+				/*!
+				Preconditions:
+				steps >= 0
+
+				returns:
+				The number of steps which could not be taken, because
+				the one-past-last element was reached.
+				*/
+				Concept::convertsTo<integer>(
+					addConst(t).next(std::declval<Index&>(), std::declval<integer>())),
 				//! Returns whether there are no elements at the index.
 				Concept::convertsTo<bool>(
 					addConst(t).empty(std::declval<Index>()))
