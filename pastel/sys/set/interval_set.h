@@ -10,8 +10,8 @@
 namespace Pastel
 {
 
-	//! An interval element.
-	struct Interval_Element_Concept
+	//! A random-access interval element.
+	struct Interval_Set_Element_Seq_Concept
 		: Refines<Element_Concept>
 	{
 		template <typename Type>
@@ -22,12 +22,29 @@ namespace Pastel
 				Type{t},
 				//! Advances to the next element.
 				++t
+			)
+		);
+	};
+
+}
+
+namespace Pastel
+{
+
+	//! A random-access interval element.
+	struct Interval_Set_Element_Ra_Concept
+		: Refines<Interval_Set_Element_Seq_Concept>
+	{
+		template <typename Type>
+		auto requires(Type&& t) -> decltype
+		(
+			conceptCheck(
 				//! Computes the distance between elements.
-				/*!
-				This is optional, and can be used to accelerate
-				the computation of n().
-				*/
-				//Concept::convertsTo<integer>(t - t)
+				Concept::convertsTo<integer>(
+					t - t),
+				//! Advances an element by the given number of steps.
+				Concept::convertsTo<Type>(
+					t + std::declval<integer>())
 			)
 		);
 	};
@@ -38,10 +55,7 @@ namespace Pastel
 {
 
 	template <
-		typename Element_,
-		Requires<
-			Models<Element_, Interval_Element_Concept>
-		> = 0
+		typename Element_
 	>
 	class Interval_Set_Seq
 	{
@@ -111,10 +125,7 @@ namespace Pastel
 {
 
 	template <
-		typename Element_,
-		Requires<
-			Models<Element_, Interval_Element_Concept>
-		> = 0
+		typename Element_
 	>
 	class Interval_Set_Ra
 	{
@@ -183,9 +194,14 @@ namespace Pastel
 	template <typename Element>
 	using Interval_Set =
 		std::conditional_t<
-			Is_Subtractable<Element>::value,
+			Models<Element, Interval_Set_Element_Ra_Concept>::value,
 			Interval_Set_Ra<Element>,
-			Interval_Set_Seq<Element>>;
+			std::conditional_t<
+				Models<Element, Interval_Set_Element_Seq_Concept>::value,
+				Interval_Set_Seq<Element>,
+				void
+			>
+		>;
 
 	template <typename Element>
 	Interval_Set<RemoveCvRef<Element>> intervalSet(
