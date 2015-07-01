@@ -138,20 +138,20 @@ namespace Pastel
 				pointSet_.reserve(n);
 			}
 
-			auto pointState = pointSet.state();
-			auto timeState = timeSet.state();
+			auto pointIndex = pointSet.index();
+			auto timeIndex = timeSet.index();
 	
-			while (!pointSet.empty(pointState) &&
-				!timeSet.empty(timeState))
+			while (!pointSet.empty(pointIndex) &&
+				!timeSet.empty(timeIndex))
 			{
 				pointSet_.emplace_back(
-					pointPoint(pointSet.element(pointState)),
-					timeSet.element(timeState));
+					pointPoint(pointSet.element(pointIndex)),
+					timeSet.element(timeIndex));
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
 
-				pointSet.next(pointState);
-				timeSet.next(timeState);
+				pointSet.next(pointIndex);
+				timeSet.next(timeIndex);
 			}
 
 			if (!Simple)

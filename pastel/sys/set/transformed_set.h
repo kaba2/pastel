@@ -30,8 +30,8 @@ namespace Pastel
 				)
 			>;
 
-		using State =
-			typename Set::State;
+		using Index =
+			typename Set::Index;
 
 		template <
 			typename Set_,
@@ -49,9 +49,9 @@ namespace Pastel
 			return set_.n();
 		}
 
-		State state() const
+		Index index() const
 		{
-			return set_.state();
+			return set_.index();
 		}
 
 		bool empty() const
@@ -59,21 +59,29 @@ namespace Pastel
 			return set_.empty();
 		}
 
-		bool empty(const State& state) const
+		bool empty(const Index& index) const
 		{
-			return set_.empty(state);
+			return set_.empty(index);
 		}
 
-		decltype(auto) element(const State& state) const
+		decltype(auto) element(const Index& index) const
 		{
-			PENSURE(!empty(state));
-			return transform_(set_.element(state));
+			PENSURE(!empty(index));
+			return transform_(set_.element(index));
 		}
 
-		void next(State& state) const
+		/*
+		void goto(Index& index, integer i)
 		{
-			PENSURE(!empty(state));
-			set_.next(state);
+			PENSURE_RANGE(i, 0, n());
+			set_.goto(index, i);
+		}
+		*/
+
+		void next(Index& index) const
+		{
+			PENSURE(!empty(index));
+			set_.next(index);
 		}
 
 		template <typename Visit>
