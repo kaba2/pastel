@@ -48,10 +48,8 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	auto pointerPoint(Real* point, integer n)
-		-> decltype(location(point, Pointer_Locator<Real>(n)))
+	decltype(auto) pointerPoint(Real* point, integer n)
 	{
-		// FIX: Replace with decltype(auto) when available.
 		return location(
 			point,
 			Pointer_Locator<Real>(n));

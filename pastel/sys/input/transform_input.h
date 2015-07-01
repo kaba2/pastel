@@ -41,12 +41,7 @@ namespace Pastel
 			return input_.empty();
 		}
 
-		using Return =
-			decltype(std::declval<Function>()(std::declval<Input>().get()));
-
-		// FIX: Replace with decltype(auto) after
-		// Visual Studio 2013 fixes its bugs.
-		Return get() const
+		decltype(auto) get() const
 		{
 			PENSURE(!empty());
 			return transform_(input_.get());

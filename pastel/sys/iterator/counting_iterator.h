@@ -155,12 +155,8 @@ namespace Pastel
 	}
 
 	template <typename Range>
-	auto countingRange(Range&& range)
-	-> decltype(countingRange(
-			std::begin(std::forward<Range>(range)),
-			std::end(std::forward<Range>(range))))
+	decltype(auto) countingRange(Range&& range)
 	{
-		// FIX: Replace with decltype(auto) when available.
 		return countingRange(
 			std::begin(std::forward<Range>(range)),
 			std::end(std::forward<Range>(range)));
