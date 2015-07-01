@@ -161,7 +161,7 @@ namespace Pastel
 			return that < cullDistance2;
 		};
 
-		pointSet.forEach([&](auto&& point)
+		forEach(pointSet, [&](auto&& point)
 		{
 			if (!accept(pointPoint(point)))
 			{

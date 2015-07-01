@@ -58,7 +58,7 @@ namespace Pastel
 		integer n = 0;
 		Real variance = 0;
 
-		inputSet.forEach([&](Real x)
+		forEach(inputSet, [&](Real x)
 		{
 			variance += square(x - mean);
 			++n;

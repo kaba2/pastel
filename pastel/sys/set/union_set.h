@@ -28,8 +28,8 @@ namespace Pastel
 
 		struct Index
 		{
-			A_Set aIndex;
-			B_Set bIndex;
+			Set_Index<A_Set> aIndex;
+			Set_Index<B_Set> bIndex;
 		};
 
 		Union_Set(
@@ -99,14 +99,6 @@ namespace Pastel
 			{
 				aSet_.next(index.aIndex);
 			}
-		}
-
-		template <typename Visit>
-		bool forEach(const Visit& visit) const
-		{
-			return 
-				aSet_.forEach(visit) &&
-				bSet_.forEach(visit);
 		}
 
 	private:

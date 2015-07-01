@@ -34,7 +34,7 @@ namespace Pastel
 		integer n = 0;
 		Real mean = 0;
 
-		inputSet.forEach([&](auto&& x)
+		forEach(inputSet, [&](auto&& x)
 		{
 			mean += x;
 			++n;

@@ -65,20 +65,6 @@ namespace Pastel
 			++index;
 		}
 
-		template <typename Visit>
-		bool forEach(const Visit& visit) const
-		{
-			for (integer i = 0;i < n();++i)
-			{
-				if (!visit(element_))
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
-
 	private:
 		Element element_;
 		integer n_;

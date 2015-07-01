@@ -84,15 +84,6 @@ namespace Pastel
 			set_.next(index);
 		}
 
-		template <typename Visit>
-		bool forEach(const Visit& visit) const
-		{
-			return set_.forEach([&](auto&& element)
-			{
-				return visit(transform_(element));
-			});
-		}
-
 	private:
 		Set set_;
 		Transform transform_;

@@ -72,7 +72,7 @@ namespace Pastel
 
 		// Compute the maximum distance from the midpoint.
 		Real maxDistance2 = 0;
-		pointSet.forEach([&](auto&& point)
+		forEach(pointSet, [&](auto&& point)
 		{
 			Real currentDistance2 = dot(pointAsVector(point) - midPoint);
 			if (currentDistance2 > maxDistance2)

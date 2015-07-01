@@ -46,32 +46,25 @@ namespace Pastel
 	class Interval_Set_Seq
 	{
 	public:
-		struct Index_
-		{
-			Element_ element_;
-			integer number_;
-		};
-
 		using Element = Element_;
-		using Index = Index_;
+		using Index = Element_;
 
 		Interval_Set_Seq(
 			Element begin,
 			Element end)
-		: begin_{begin, 0}
-		, end_{end, 0}
+		: begin_(begin)
+		, end_(end)
 		{
-			integer count = 0;
-			for (Element i{begin};i != end;++i)
-			{
-				++count;
-			}
-			end_.number_ = count;
 		}
 
 		integer n() const
 		{
-			return end_.number();
+			integer count = 0;
+			for (Element i{begin_};i != end_;++i)
+			{
+				++count;
+			}
+			return count;
 		}
 
 		const Index& index() const
@@ -81,22 +74,17 @@ namespace Pastel
 
 		bool empty() const
 		{
-			return end_.number_ == 0;
+			return begin_ == end_;
 		}
 
 		bool empty(const Index& index) const
 		{
-			return index.number_ == end_.number_;
-		}
-
-		integer number(const Index& index) const
-		{
-			return index.number_;
+			return index == end_;
 		}
 
 		Element element(const Index& index) const
 		{
-			return index.element_;
+			return index;
 		}
 
 		/*
@@ -115,25 +103,20 @@ namespace Pastel
 		}
 		*/
 
-		void next(Index& index) const
+		void next(Index& index, integer steps = 1) const
 		{
-			PENSURE(!empty(index));
-			++index.element_;
-			++index.number_;
-		}
-
-		template <typename Visit>
-		bool forEach(const Visit& visit) const
-		{
-			for (Element i{begin_.element_};i != end_.element_;++i)
+			while (steps > 0)
 			{
-				if (!visit(i))
-				{
-					return false;
-				}
+				PENSURE(!empty(index));
+				++index;
+				--steps;
 			}
-
-			return true;
+			while (steps < 0)
+			{
+				PENSURE(!empty(index));
+				--index;
+				++steps;
+			}
 		}
 
 	private:
@@ -168,7 +151,7 @@ namespace Pastel
 
 		integer n() const
 		{
-			return number(end_);
+			return end_ - begin_;
 		}
 
 		Index index() const
@@ -178,7 +161,7 @@ namespace Pastel
 
 		bool empty() const
 		{
-			return n() == 0;
+			return begin_ == end_;
 		}
 
 		bool empty(const Index& index) const
@@ -186,42 +169,15 @@ namespace Pastel
 			return index == end_;
 		}
 
-		integer number(const Index& index) const
-		{
-			return index - begin_;
-		}
-
 		Element element(const Index& index) const
 		{
 			return index;
 		}
 
-		/*
-		void goto(Index& index, integer i)
+		void next(Index& index, integer steps = 1) const
 		{
-			PENSURE_RANGE(i, 0, n());
-			index.goto(i, begin_);
-		}
-		*/
-
-		void next(Index& index) const
-		{
-			PENSURE(!empty(index));
-			++index;
-		}
-
-		template <typename Visit>
-		bool forEach(const Visit& visit) const
-		{
-			for (Element i{begin_};i != end_;++i)
-			{
-				if (!visit(i))
-				{
-					return false;
-				}
-			}
-
-			return true;
+			PENSURE(end - (index + steps) >= 0);
+			index += steps;
 		}
 
 	private:
