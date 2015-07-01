@@ -19,28 +19,28 @@ namespace Pastel
 	{
 		template <
 			typename Type,
-			//! The type of the elements in the set.
+			//! The type of the elements inside the set.
 			typename Element = typename Type::Element,
-			//! The state of iteration in the sequence.
+			//! The type of the index into the set.
 			typename Index = typename Type::Index
 		>
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				//! Returns the number of elements in the multi-set.
+				//! Returns the number of elements in the set.
 				Concept::convertsTo<integer>(addConst(t).n()),
 				//! Returns whether the set is empty.
 				Concept::convertsTo<bool>(
 					addConst(t).empty()),
-				//! Returns a state for iterating over elements.
+				//! Returns an index to the first element.
 				Concept::convertsTo<Index>(
 					addConst(t).index()),
-				//! Returns the element referred to by the state.
+				//! Returns the element at the index.
 				Concept::convertsTo<Element>(
 					addConst(t).element(std::declval<Index>())),
-				//! Advances the state to the next element.
+				//! Advances the index to the next element.
 				(addConst(t).next(std::declval<Index&>()), 0),
-				//! Returns whether there are no elements referred to by the state.
+				//! Returns whether there are no elements at the index.
 				Concept::convertsTo<bool>(
 					addConst(t).empty(std::declval<Index>()))
 			)
