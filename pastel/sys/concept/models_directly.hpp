@@ -42,7 +42,7 @@ namespace Pastel
 							RemoveCvRef<T>
 						>(), 
 						std::declval<
-							RemoveCvRef<ParameterSet>
+							ParameterSet
 						>()...
 					)
 				)
