@@ -15,7 +15,9 @@ namespace Pastel
 		template <typename Type>
 		decltype(auto) operator()(Type&& x) const
 		{
-			return std::forward<Type>(x).second;
+			// The parenthesis here are important,
+			// to create a reference.
+			return (x.second);
 		}
 	};
 
