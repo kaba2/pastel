@@ -61,11 +61,8 @@ namespace Pastel
 		Visual Studio 2015 RC has a bug in that the Requires
 		cannot be placed in the trailing return-type.
 		*/
-		template <
-			typename Required, 
-			typename Type,
-			Requires<std::is_convertible<Type, Required>> = 0>
-		bool convertsTo(Type&& that);
+		template <typename Required>
+		bool convertsTo(NoDeduction<Required> that);
 
 		template <
 			typename Type, 
