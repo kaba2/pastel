@@ -28,8 +28,8 @@ namespace Pastel
 		ENSURE_OP(fromSet.n(), ==, toSet.n());
 
 		integer n = fromSet.n();
-		auto fromState = fromSet.state();
-		auto toState = toSet.state();
+		auto fromIndex = fromSet.index();
+		auto toIndex = toSet.index();
 
 		if (n == 0)
 		{
@@ -46,8 +46,8 @@ namespace Pastel
 
 			return ConformalAffine2D<Real>(
 				1, 0, 
-				pointAsVector(toSet.element(toState)) - 
-				pointAsVector(fromSet.element(fromState)));
+				pointAsVector(toSet.element(toIndex)) - 
+				pointAsVector(fromSet.element(fromIndex)));
 		}
 
 		Vector<Real, N> sumFrom(ofDimension(2), 0);
@@ -56,11 +56,11 @@ namespace Pastel
 		Real dotSum = 0;
 		Real crossDotSum = 0;
 
-		while(!fromSet.empty(fromState) &&
-			!toSet.empty(toState))
+		while(!fromSet.empty(fromIndex) &&
+			!toSet.empty(toIndex))
 		{
-			auto from = pointAsVector(fromSet.element(fromState));
-			auto to = pointAsVector(toSet.element(toState));
+			auto from = pointAsVector(fromSet.element(fromIndex));
+			auto to = pointAsVector(toSet.element(toIndex));
 
 			sumFrom += from;
 			sumTo += to;
@@ -69,8 +69,8 @@ namespace Pastel
 			dotSum += dot(from, to);
 			crossDotSum += dot(cross(from), to);
 
-			fromSet.next(fromState);
-			toSet.next(toState);
+			fromSet.next(fromIndex);
+			toSet.next(toIndex);
 		}
 
 		Real det = n * sumSquareFrom - dot(sumFrom);

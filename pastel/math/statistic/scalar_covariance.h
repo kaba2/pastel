@@ -64,18 +64,18 @@ namespace Pastel
 		integer n = 0;
 		Real covariance = 0;
 
-		auto aState = aSet.state();
-		auto bState = bSet.state();
+		auto aIndex = aSet.index();
+		auto bIndex = bSet.index();
 
-		while(!aSet.empty(aState) &&
-			!bSet.empty(bState))
+		while(!aSet.empty(aIndex) &&
+			!bSet.empty(bIndex))
 		{
 			covariance += 
-				(aSet.element(aState) - aMean) * 
-				(bSet.element(bState) - bMean);
+				(aSet.element(aIndex) - aMean) * 
+				(bSet.element(bIndex) - bMean);
 
-			aSet.next(aState);
-			bSet.next(bState);
+			aSet.next(aIndex);
+			bSet.next(bIndex);
 			++n;
 		}
 

@@ -26,7 +26,7 @@ namespace Pastel
 	{
 	public:
 		using Element = Location<Set_Element<Set>, Locator>;
-		using State = Set_State<Set>;
+		using Index = Set_Index<Set>;
 
 		LocationSet(
 			const Set& set,
@@ -41,14 +41,14 @@ namespace Pastel
 			return set_.n();
 		}
 
-		State state() const
+		Index index() const
 		{
-			return set_.state();
+			return set_.index();
 		}
 
-		Element element(const State& state) const
+		Element element(const Index& index) const
 		{
-			return {set_.element(state), locator_};
+			return {set_.element(index), locator_};
 		}
 
 		bool empty() const
@@ -56,14 +56,21 @@ namespace Pastel
 			return set_.empty();
 		}
 
-		bool empty(const State& state) const
+		bool empty(const Index& index) const
 		{
-			return set_.empty(state);
+			return set_.empty(index);
 		}
 
-		void next(State& state) const
+		/*
+		Index goto(integer i, const Index& index) const
 		{
-			set_.next(state);
+			return set_.goto(i, index);
+		}
+		*/
+
+		void next(Index& index) const
+		{
+			set_.next(index);
 		}
 		
 		template <typename Visit>

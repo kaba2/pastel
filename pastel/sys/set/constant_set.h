@@ -13,7 +13,7 @@ namespace Pastel
 	{
 	public:
 		using Element = Element_;
-		using State = integer;
+		using Index = integer;
 
 		template <typename... ArgumentSet>
 		explicit Constant_Set(
@@ -30,7 +30,7 @@ namespace Pastel
 			return n_;
 		}
 
-		State state() const
+		Index index() const
 		{
 			return 0;
 		}
@@ -40,21 +40,29 @@ namespace Pastel
 			return n() == 0;
 		}
 
-		bool empty(const State& state) const
+		bool empty(const Index& index) const
 		{
-			return state == n();
+			return index == n();
 		}
 
-		const Element& element(const State& state) const
+		const Element& element(const Index& index) const
 		{
-			PENSURE(!empty(state));
+			PENSURE(!empty(index));
 			return element_;
 		}
 
-		void next(State& state) const
+		/*
+		void goto(Index& index, integer i)
 		{
-			PENSURE(!empty(state));
-			++state;
+			PENSURE_RANGE(i, 0, n());
+			index = i;
+		}
+		*/
+
+		void next(Index& index) const
+		{
+			PENSURE(!empty(index));
+			++index;
 		}
 
 		template <typename Visit>

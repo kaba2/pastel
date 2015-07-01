@@ -43,13 +43,122 @@ namespace Pastel
 			Models<Element_, Interval_Element_Concept>
 		> = 0
 	>
-	class Interval_Set
+	class Interval_Set_Seq
+	{
+	public:
+		struct Index_
+		{
+			Element_ element_;
+			integer number_;
+		};
+
+		using Element = Element_;
+		using Index = Index_;
+
+		Interval_Set_Seq(
+			Element begin,
+			Element end)
+		: begin_{begin, 0}
+		, end_{end, 0}
+		{
+			integer count = 0;
+			for (Element i{begin};i != end;++i)
+			{
+				++count;
+			}
+			end_.number_ = count;
+		}
+
+		integer n() const
+		{
+			return end_.number();
+		}
+
+		const Index& index() const
+		{
+			return begin_;
+		}
+
+		bool empty() const
+		{
+			return end_.number_ == 0;
+		}
+
+		bool empty(const Index& index) const
+		{
+			return index.number_ == end_.number_;
+		}
+
+		integer number(const Index& index) const
+		{
+			return index.number_;
+		}
+
+		Element element(const Index& index) const
+		{
+			return index.element_;
+		}
+
+		/*
+		void goto(Index& index, integer i)
+		{
+			PENSURE_RANGE(i, 0, n() + 1);
+			if (index.number_ > i)
+			{
+				index = this->index();
+			}
+
+			while (index.number_ < i)
+			{
+				next(index);
+			}
+		}
+		*/
+
+		void next(Index& index) const
+		{
+			PENSURE(!empty(index));
+			++index.element_;
+			++index.number_;
+		}
+
+		template <typename Visit>
+		bool forEach(const Visit& visit) const
+		{
+			for (Element i{begin_.element_};i != end_.element_;++i)
+			{
+				if (!visit(i))
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+	private:
+		Index begin_;
+		Index end_;
+	};
+
+}
+
+namespace Pastel
+{
+
+	template <
+		typename Element_,
+		Requires<
+			Models<Element_, Interval_Element_Concept>
+		> = 0
+	>
+	class Interval_Set_Ra
 	{
 	public:
 		using Element = Element_;
-		using State = Element;
+		using Index = Element_;
 
-		Interval_Set(
+		Interval_Set_Ra(
 			Element begin,
 			Element end)
 		: begin_(begin)
@@ -57,36 +166,12 @@ namespace Pastel
 		{
 		}
 
-		template <
-			typename Type = Element,
-			Requires<
-				Is_Subtractable<Type>
-			> = 0
-		>
 		integer n() const
 		{
-			return end_ - begin_;
+			return number(end_);
 		}
 
-		template <
-			typename Type = Element,
-			Requires<
-				Not<Is_Subtractable<Type>>
-			> = 0
-		>
-		integer n() const
-		{
-			integer count = 0;
-			forEach([&](auto&&)
-			{
-				++count;
-				return true;
-			});
-
-			return count;
-		}
-
-		State state() const
+		Index index() const
 		{
 			return begin_;
 		}
@@ -96,21 +181,33 @@ namespace Pastel
 			return n() == 0;
 		}
 
-		bool empty(const State& state) const
+		bool empty(const Index& index) const
 		{
-			return state == end_;
+			return index == end_;
 		}
 
-		Element element(const State& state) const
+		integer number(const Index& index) const
 		{
-			Element element = state;
-			return element;
+			return index - begin_;
 		}
 
-		void next(State& state) const
+		Element element(const Index& index) const
 		{
-			PENSURE(!empty(state));
-			++state;
+			return index;
+		}
+
+		/*
+		void goto(Index& index, integer i)
+		{
+			PENSURE_RANGE(i, 0, n());
+			index.goto(i, begin_);
+		}
+		*/
+
+		void next(Index& index) const
+		{
+			PENSURE(!empty(index));
+			++index;
 		}
 
 		template <typename Visit>
@@ -131,6 +228,18 @@ namespace Pastel
 		Element begin_;
 		Element end_;
 	};
+
+}
+
+namespace Pastel
+{
+
+	template <typename Element>
+	using Interval_Set =
+		std::conditional_t<
+			Is_Subtractable<Element>::value,
+			Interval_Set_Ra<Element>,
+			Interval_Set_Seq<Element>>;
 
 	template <typename Element>
 	Interval_Set<RemoveCvRef<Element>> intervalSet(

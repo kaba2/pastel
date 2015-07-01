@@ -97,13 +97,13 @@ namespace
 				TEST_ENSURE_OP(pointSet.n(), ==, 1);
 				TEST_ENSURE_OP(pointSetDimension(pointSet), ==, 2);
 
-				auto state = pointSet.state();
+				auto index = pointSet.index();
 
-				TEST_ENSURE(pointAxis(pointSet.element(state), 0) == 1);
-				TEST_ENSURE(pointAxis(pointSet.element(state), 1) == 2);
+				TEST_ENSURE(pointAxis(pointSet.element(index), 0) == 1);
+				TEST_ENSURE(pointAxis(pointSet.element(index), 1) == 2);
 
-				pointSet.next(state);
-				TEST_ENSURE(pointSet.empty(state));
+				pointSet.next(index);
+				TEST_ENSURE(pointSet.empty(index));
 			}
 		}
 	};

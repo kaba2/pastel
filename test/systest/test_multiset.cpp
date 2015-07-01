@@ -46,8 +46,8 @@ namespace
 			{
 				integer n = 8;
 				auto set = intervalSet((integer)3, (integer)3 + n);
-				auto state = set.state();
-				set.next(state);
+				auto index = set.index();
+				set.next(index);
 				TEST_ENSURE_OP(set.n(), ==, n);
 
 				PASTEL_STATIC_ASSERT(

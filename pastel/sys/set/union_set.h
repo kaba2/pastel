@@ -26,10 +26,10 @@ namespace Pastel
 	public:
 		using Element = Set_Element<A_Set>;
 
-		struct State
+		struct Index
 		{
-			A_Set aState;
-			B_Set bState;
+			A_Set aIndex;
+			B_Set bIndex;
 		};
 
 		Union_Set(
@@ -45,9 +45,9 @@ namespace Pastel
 			return aSet_.n() + bSet_.n();
 		}
 
-		State state() const
+		Index index() const
 		{
-			return {aSet_.state(), bSet_.state()};
+			return {aSet_.index(), bSet_.index()};
 		}
 
 		bool empty() const
@@ -55,34 +55,49 @@ namespace Pastel
 			return aSet_.empty() && bSet_.empty();
 		}
 
-		bool empty(const State& state) const
+		bool empty(const Index& index) const
 		{
-			return aSet_.empty(state.aState) && 
-				bSet_.empty(state.bState);
+			return aSet_.empty(index.aIndex) && 
+				bSet_.empty(index.bIndex);
 		}
 
-		const Element& element(const State& state) const
+		const Element& element(const Index& index) const
 		{
-			PENSURE(!empty(state));
+			PENSURE(!empty(index));
 
-			if (state.aState.empty())
+			if (aSet_.empty(index.aIndex))
 			{
-				return bSet_.element(state.bState);
+				return bSet_.element(index.bIndex);
 			}
 			
-			return aSet_.element(state.aState);
+			return aSet_.element(index.aIndex);
 		}
 
-		void next(State& state) const
+		/*
+		void goto(Index& index, integer i)
 		{
-			PENSURE(!empty(state));
-			if (state.aState.empty())
+			PENSURE_RANGE(i, 0, n());
+			if (i < aSet_.n())
 			{
-				bSet_.next(state.bState);
+				aSet_.goto(index.aIndex, i);
 			}
 			else
 			{
-				aSet_.next(state.aState);
+				bSet_.goto(index.bIndex, i - aSet_.n());
+			}
+		}
+		*/
+
+		void next(Index& index) const
+		{
+			PENSURE(!empty(index));
+			if (aSet_.empty(index.aIndex))
+			{
+				bSet_.next(index.bIndex);
+			}
+			else
+			{
+				aSet_.next(index.aIndex);
 			}
 		}
 
