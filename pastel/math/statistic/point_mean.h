@@ -44,7 +44,7 @@ namespace Pastel
 		}
 
 		integer n = 0;
-		pointSet.forEach([&](auto&& point)
+		forEach(pointSet, [&](auto&& point)
 		{
 			for (integer i = 0;i < d;++i)
 			{

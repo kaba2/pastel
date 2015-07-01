@@ -21,7 +21,7 @@ namespace Pastel
 		integer d = pointSetDimension(pointSet);
 		
 		AlignedBox<Real, N> bound(d);
-		pointSet.forEach([&](auto&& point)
+		forEach(pointSet, [&](auto&& point)
 		{
 			for (integer i = 0;i < d;++i)
 			{

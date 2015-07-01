@@ -73,15 +73,6 @@ namespace Pastel
 			set_.next(index);
 		}
 		
-		template <typename Visit>
-		bool forEach(const Visit& visit) const
-		{
-			return set_.forEach([&](auto&& x)
-			{
-				return visit(Element(std::forward<decltype(x)>(x), locator_));
-			});
-		}
-
 		Set& pointSet()
 		{
 			return set_;

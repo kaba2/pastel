@@ -43,7 +43,7 @@ namespace Pastel
 			Real minPosition = infinity<Real>();
 			Real maxPosition = -infinity<Real>();
 
-			pointSet.forEach([&](auto&& point)
+			forEach(pointSet, [&](auto&& point)
 			{
 				Real position = 
 					pointAxis(point, splitAxis);

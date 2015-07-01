@@ -29,18 +29,6 @@ namespace Pastel
 			conceptCheck(
 				//! Returns the number of elements in the multi-set.
 				Concept::convertsTo<integer>(addConst(t).n()),
-				//! Calls the given function for each element in the multi-set.
-				/*!
-				The visitor function returns whether to continue iterating
-				over elements. The implementation of forEach must respect
-				this request.
-
-				returns:
-				Whether the for-each was uninterrupted by the user.
-				*/
-				Concept::convertsTo<bool>(
-					addConst(t).forEach(Concept::function<bool, Element>)
-				),
 				//! Returns whether the set is empty.
 				Concept::convertsTo<bool>(
 					addConst(t).empty()),
@@ -76,5 +64,7 @@ namespace Pastel
 		Identity_F<Set_Index<Set>>;
 
 }
+
+#include "pastel/sys/set/set_for_each.h"
 
 #endif

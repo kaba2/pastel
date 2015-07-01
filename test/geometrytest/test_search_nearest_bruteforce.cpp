@@ -171,7 +171,7 @@ namespace
 
 			auto pointSet = nearestSet.pointSet();
 
-			pointSet.forEach([&](auto&& i)
+			forEach(pointSet, [&](auto&& i)
 			{
 				auto result =
 					searchNearest(nearestSet, i);
@@ -184,7 +184,7 @@ namespace
 			});
 
 			integer j = 0;
-			pointSet.forEach([&](auto&& i)
+			forEach(pointSet, [&](auto&& i)
 			{
 				auto indicator = predicateIndicator(i, NotEqualTo());
 				PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(i)));

@@ -342,7 +342,7 @@ namespace Pastel
 					indexSequence[i + 1] : cursor.points();
 
 				auto pointSet = cursor.pointSet(indexMin, indexMax);
-				pointSet.forEach([&](auto&& point)
+				forEach(pointSet, [&](auto&& point)
 				{
 					// Compute the distance from the node-point
 					// to the search-point.

@@ -46,7 +46,7 @@ namespace Pastel
 			Real rightMin = infinity<Real>();
 			integer rightCount = 0;
 
-			pointSet.forEach([&](auto&& point)
+			forEach(pointSet, [&](auto&& point)
 			{
 				Real position = pointAxis(point, splitAxis);
 				if (position < splitPosition)

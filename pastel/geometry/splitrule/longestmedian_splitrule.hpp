@@ -45,7 +45,7 @@ namespace Pastel
 			std::vector<Real> positionSet;
 			positionSet.reserve(pointSet.n());
 
-			pointSet.forEach([&](auto&& point)
+			forEach(pointSet, [&](auto&& point)
 			{
 				positionSet.emplace_back(
 					pointAxis(point, splitAxis));

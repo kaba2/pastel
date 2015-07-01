@@ -49,7 +49,7 @@ namespace Pastel
 			// point on the left side and the minimum
 			// on the right side.
 
-			pointSet.forEach([&](auto&& point)
+			forEach(pointSet, [&](auto&& point)
 			{
 				Real position = 
 					pointAxis(point, splitAxis);

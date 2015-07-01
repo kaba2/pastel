@@ -55,7 +55,7 @@ namespace
 
 				std::unordered_set<integer> actualSet;
 
-				set.forEach([&](integer a)
+				forEach(set, [&](integer a)
 				{
 					actualSet.insert(a);
 					return true;
@@ -83,7 +83,7 @@ namespace
 					CorrectElement<decltype(set), integer>::value);
 
 				integer m = 0;
-				bool correct = set.forEach([&](integer a)
+				bool correct = forEach(set, [&](integer a)
 				{
 					if (a != element)
 					{
@@ -102,7 +102,7 @@ namespace
 				integer element = 7;
 				Constant_Set<integer> set(n, element);
 
-				bool correct = set.forEach([&](integer a)
+				bool correct = forEach(set, [&](integer a)
 				{
 					return false;
 				});
@@ -137,7 +137,7 @@ namespace
 					>::value);
 
 				std::unordered_multiset<integer> actualSet;
-				abSet.forEach([&](integer a)
+				forEach(abSet, [&](integer a)
 				{
 					actualSet.insert(a);
 					return true;
@@ -160,7 +160,7 @@ namespace
 				inputSet, Dereference_Function());
 
 			std::unordered_set<integer> actualSet;
-			dereferencedSet.forEach([&](integer x)
+			forEach(dereferencedSet, [&](integer x)
 			{
 				actualSet.insert(x);
 				return true;
