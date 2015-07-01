@@ -73,32 +73,10 @@ namespace Pastel
 			return aSet_.element(index.aIndex);
 		}
 
-		/*
-		void goto(Index& index, integer i)
+		integer next(Index& index, integer steps = 1) const
 		{
-			PENSURE_RANGE(i, 0, n());
-			if (i < aSet_.n())
-			{
-				aSet_.goto(index.aIndex, i);
-			}
-			else
-			{
-				bSet_.goto(index.bIndex, i - aSet_.n());
-			}
-		}
-		*/
-
-		void next(Index& index) const
-		{
-			PENSURE(!empty(index));
-			if (aSet_.empty(index.aIndex))
-			{
-				bSet_.next(index.bIndex);
-			}
-			else
-			{
-				aSet_.next(index.aIndex);
-			}
+			integer excess = aSet_.next(index.aIndex, steps);
+			return bSet_.next(index.bIndex, excess);
 		}
 
 	private:

@@ -70,18 +70,9 @@ namespace Pastel
 			return transform_(set_.element(index));
 		}
 
-		/*
-		void goto(Index& index, integer i)
+		integer next(Index& index, integer steps = 1) const
 		{
-			PENSURE_RANGE(i, 0, n());
-			set_.goto(index, i);
-		}
-		*/
-
-		void next(Index& index) const
-		{
-			PENSURE(!empty(index));
-			set_.next(index);
+			return set_.next(index, steps);
 		}
 
 	private:

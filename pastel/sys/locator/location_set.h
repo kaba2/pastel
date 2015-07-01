@@ -61,16 +61,9 @@ namespace Pastel
 			return set_.empty(index);
 		}
 
-		/*
-		Index goto(integer i, const Index& index) const
+		integer next(Index& index, integer steps = 1) const
 		{
-			return set_.goto(i, index);
-		}
-		*/
-
-		void next(Index& index) const
-		{
-			set_.next(index);
+			return set_.next(index, steps);
 		}
 		
 		Set& pointSet()

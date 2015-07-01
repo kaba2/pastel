@@ -51,18 +51,17 @@ namespace Pastel
 			return element_;
 		}
 
-		/*
-		void goto(Index& index, integer i)
+		integer next(Index& index, integer steps = 1) const
 		{
-			PENSURE_RANGE(i, 0, n());
-			index = i;
-		}
-		*/
+			integer excess = steps - (n() - index);
+			if (excess > 0)
+			{
+				index = n();
+				return excess;
+			}
 
-		void next(Index& index) const
-		{
-			PENSURE(!empty(index));
-			++index;
+			index += steps;
+			return 0;
 		}
 
 	private:

@@ -87,36 +87,17 @@ namespace Pastel
 			return index;
 		}
 
-		/*
-		void goto(Index& index, integer i)
+		integer next(Index& index, integer steps = 1) const
 		{
-			PENSURE_RANGE(i, 0, n() + 1);
-			if (index.number_ > i)
-			{
-				index = this->index();
-			}
+			PENSURE_OP(steps, >=, 0);
 
-			while (index.number_ < i)
+			while (steps > 0 && index != end_)
 			{
-				next(index);
-			}
-		}
-		*/
-
-		void next(Index& index, integer steps = 1) const
-		{
-			while (steps > 0)
-			{
-				PENSURE(!empty(index));
 				++index;
 				--steps;
 			}
-			while (steps < 0)
-			{
-				PENSURE(!empty(index));
-				--index;
-				++steps;
-			}
+
+			return steps;
 		}
 
 	private:
@@ -174,10 +155,19 @@ namespace Pastel
 			return index;
 		}
 
-		void next(Index& index, integer steps = 1) const
+		integer next(Index& index, integer steps = 1) const
 		{
-			PENSURE(end - (index + steps) >= 0);
+			PENSURE_OP(steps, >=, 0);
+
+			integer excess = steps - (end_ - index);
+			if (excess > 0)
+			{
+				index = end_;
+				return excess;
+			}
+
 			index += steps;
+			return 0;
 		}
 
 	private:
