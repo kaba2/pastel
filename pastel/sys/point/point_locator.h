@@ -39,10 +39,8 @@ namespace Pastel
 
 	//! Returns the default locator of a point.
 	template <typename Point>
-	auto locator(const Point& point)
-		-> decltype(Default_Locator<const Point&>()(point))
+	decltype(auto) locator(const Point& point)
 	{
-		// FIX: Replace with decltype(auto) when available.
 		return Default_Locator<const Point&>()(point);
 	}
 

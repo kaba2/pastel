@@ -62,11 +62,7 @@ namespace Pastel
 			return begin_ == end_;
 		}
 
-		using Return = decltype(*std::declval<Iterator>());
-
-		// FIX: Replace with decltype(auto) after
-		// Visual Studio 2013 fixes its bugs.
-		Return get() const
+		decltype(auto) get() const
 		{
 			PENSURE(!empty());
 			return *begin_;
@@ -76,7 +72,7 @@ namespace Pastel
 			typename Type = void,
 			typename = EnableIfC<IsRandomAccess, Type>
 		>
-		Return operator[](integer i) const
+		decltype(auto) operator[](integer i) const
 		{
 			PENSURE_OP(i, >=, 0);
 			PENSURE_OP(i, <, n());

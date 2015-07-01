@@ -64,10 +64,8 @@ namespace Pastel
 	};
 
 	template <typename Real_, integer N>
-	auto vectorPoint(const Vector<Real_, N>& point)
-		-> decltype(location(point, Vector_Locator<Real_, N>()))
+	decltype(auto) vectorPoint(const Vector<Real_, N>& point)
 	{
-		// FIX: Replace with decltype(auto) when available.
 		return location(
 			point,
 			Vector_Locator<Real_, N>(point.n()));
