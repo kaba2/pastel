@@ -65,7 +65,7 @@ namespace
 				{ 1, -3 }
 			};
 
-			tree.insertRange(range(pointSet));
+			tree.insertSet(rangeSet(pointSet));
 
 			tree.refine(SlidingMidpoint_SplitRule(), 1);
 

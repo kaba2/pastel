@@ -133,9 +133,10 @@ namespace
 			std::vector<Point_ConstIterator> iteratorSet;
 
 			Tree tree;
-			tree.insertRange(
-				range(pointSet.begin(), pointSet.end()),
-				pushBackOutput(iteratorSet));
+			tree.insertSet(
+				rangeSet(pointSet),
+				PASTEL_TAG(report), pushBackOutput(iteratorSet)
+			);
 			TEST_ENSURE(testInvariants(tree));
 
 			tree.refine(SlidingMidpoint_SplitRule(), 1);
@@ -253,17 +254,16 @@ namespace
 			pointSet.reserve(m);
 			for (integer i = 0;i < m;++i)
 			{
-
-
 				pointSet.push_back(2 * randomVectorBall<real, 2>());
 			}
 
 			std::vector<Point_ConstIterator> iteratorSet;
 
 			Tree tree;
-			tree.insertRange(
-				range(pointSet.begin(), pointSet.end()),
-				pushBackOutput(iteratorSet));
+			tree.insertSet(
+				rangeSet(pointSet),
+				PASTEL_TAG(report), pushBackOutput(iteratorSet)
+			);
 			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.points(), ==, m);
 			TEST_ENSURE_OP(tree.leaves(), ==, 1);
@@ -313,9 +313,10 @@ namespace
 			TEST_ENSURE(testInvariants(tree));
 			TEST_ENSURE_OP(tree.points(), ==, 0);
 
-			tree.insertRange(
-				range(pointSet.begin(), pointSet.end()),
-				pushBackOutput(iteratorSet));
+			tree.insertSet(
+				rangeSet(pointSet),
+				PASTEL_TAG(report), pushBackOutput(iteratorSet)
+			);
 			TEST_ENSURE(testInvariants(tree));
 
 			tree.clear();
@@ -376,9 +377,7 @@ namespace
 
 			Tree tree;
 
-			tree.insertRange(
-				range(pointSet.begin(), pointSet.end()));
-
+			tree.insertSet(rangeSet(pointSet));
 			tree.refine(SlidingMidpoint_SplitRule());
 			
 			Euclidean_NormBijection<real> normBijection;
