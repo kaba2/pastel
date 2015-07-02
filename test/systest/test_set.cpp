@@ -1,4 +1,4 @@
-// Description: Testing for multi-sets
+// Description: Testing for sets
 // Documentation: unit_testing.txt
 
 #include "test_pastelsys.h"
