@@ -37,14 +37,14 @@
 namespace Pastel
 {
 
-	enum class MatchingMode : integer
+	enum class MatchPointsKr_Mode : integer
 	{
 		FirstMatch,
 		MaximumMatch
 	};
 
 	template <typename Real, integer N>
-	struct Result_MatchPointsKr
+	struct MatchPointsKr_Return
 	{
 		bool success;
 		Vector<Real, N> translation;
@@ -74,9 +74,9 @@ namespace Pastel
 	in case a point has multiple candidate pairs in its 
 	matching distance.
 
-	matchingMode (MatchingMode : FirstMatch):
-	MatchingMode::FirstMatch: Accept the first match.
-	MatchingMode::BestMatch: Search for the best match.
+	matchingMode (MatchPointsKr_Mode : FirstMatch):
+	MatchPointsKr_Mode::FirstMatch: Accept the first match.
+	MatchPointsKr_Mode::BestMatch: Search for the best match.
 
 	matchingDistance2 (Real : 0.1):
 	The maximum distance between a point in the model-set
@@ -127,7 +127,7 @@ namespace Pastel
 		const Model_NearestSet& model,
 		const Scene_NearestSet& scene,
 		ArgumentSet&&... argumentSet)
-		-> Result_MatchPointsKr<Real, N>
+		-> MatchPointsKr_Return<Real, N>
 	{
 		integer kNearest = 
 			PASTEL_ARG_S(kNearest, 16);
@@ -138,8 +138,8 @@ namespace Pastel
 			PASTEL_ARG_S(matchingDistance2, 0.1);
 		Real maxBias = 
 			PASTEL_ARG_S(maxBias, 0.1);
-		MatchingMode matchingMode = 
-			PASTEL_ARG_S(matchingMode, MatchingMode::FirstMatch);
+		MatchPointsKr_Mode matchingMode = 
+			PASTEL_ARG_S(matchingMode, MatchPointsKr_Mode::FirstMatch);
 		auto&& normBijection = PASTEL_ARG(
 			normBijection,
 			[](){return Euclidean_NormBijection<Real>();},
@@ -156,7 +156,7 @@ namespace Pastel
 		ENSURE(maxBias >= 0);
 		ENSURE(maxBias <= 1);
 
-		using Match = Result_MatchPointsKr<Real, N>;
+		using Match = MatchPointsKr_Return<Real, N>;
 
 		using Model_ConstIterator = typename Model_NearestSet::Point_ConstIterator;
 		using ModelPoint = typename Model_NearestSet::Point;
@@ -345,7 +345,7 @@ namespace Pastel
 							bestBias = bias;
 						}
 
-						if (matchingMode == MatchingMode::FirstMatch)
+						if (matchingMode == MatchPointsKr_Mode::FirstMatch)
 						{
 							// The first match was asked for,
 							// so return this match.
