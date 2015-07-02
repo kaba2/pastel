@@ -46,15 +46,14 @@ namespace Pastel
 
 			ENSURE_OP(inputs, ==, Inputs);
 
-			MatchPointsKr_Mode matchingModeSet[] =
+			MatchPointsKr_MatchingMode matchingModeSet[] =
 			{
-				MatchPointsKr_Mode::FirstMatch,
-				MatchPointsKr_Mode::MaximumMatch
+				MatchPointsKr_MatchingMode::First,
+				MatchPointsKr_MatchingMode::Maximum
 			};
 			integer matchingModes = 
-				sizeof(matchingModeSet) / sizeof(MatchPointsKr_Mode);
-
-
+				sizeof(matchingModeSet) / sizeof(MatchPointsKr_MatchingMode);
+			
 			const real* modelData = mxGetPr(inputSet[ModelSet]);
 			integer modelPoints = mxGetN(inputSet[ModelSet]);
 
@@ -71,7 +70,7 @@ namespace Pastel
 			ENSURE_OP(matchingModeId, >=, 0);
 			ENSURE_OP(matchingModeId, <, matchingModes);
 			
-			MatchPointsKr_Mode matchingMode = 
+			MatchPointsKr_MatchingMode matchingMode = 
 				matchingModeSet[matchingModeId];
 
 			integer modelDimension = mxGetM(inputSet[ModelSet]);

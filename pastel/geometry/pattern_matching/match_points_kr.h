@@ -37,10 +37,10 @@
 namespace Pastel
 {
 
-	enum class MatchPointsKr_Mode : integer
+	enum class MatchPointsKr_MatchingMode : integer
 	{
-		FirstMatch,
-		MaximumMatch
+		First,
+		Maximum
 	};
 
 	template <typename Real, integer N>
@@ -74,9 +74,9 @@ namespace Pastel
 	in case a point has multiple candidate pairs in its 
 	matching distance.
 
-	matchingMode (MatchPointsKr_Mode : FirstMatch):
-	MatchPointsKr_Mode::FirstMatch: Accept the first match.
-	MatchPointsKr_Mode::BestMatch: Search for the best match.
+	matchingMode (MatchPointsKr_MatchingMode : First):
+	MatchPointsKr_MatchingMode::First: Accept the first match.
+	MatchPointsKr_MatchingMode::BestMatch: Search for the best match.
 
 	matchingDistance2 (Real : 0.1):
 	The maximum distance between a point in the model-set
@@ -138,8 +138,8 @@ namespace Pastel
 			PASTEL_ARG_S(matchingDistance2, 0.1);
 		Real maxBias = 
 			PASTEL_ARG_S(maxBias, 0.1);
-		MatchPointsKr_Mode matchingMode = 
-			PASTEL_ARG_S(matchingMode, MatchPointsKr_Mode::FirstMatch);
+		MatchPointsKr_MatchingMode matchingMode = 
+			PASTEL_ARG_S(matchingMode, MatchPointsKr_MatchingMode::First);
 		auto&& normBijection = PASTEL_ARG(
 			normBijection,
 			[](){return Euclidean_NormBijection<Real>();},
@@ -345,7 +345,7 @@ namespace Pastel
 							bestBias = bias;
 						}
 
-						if (matchingMode == MatchPointsKr_Mode::FirstMatch)
+						if (matchingMode == MatchPointsKr_MatchingMode::First)
 						{
 							// The first match was asked for,
 							// so return this match.
