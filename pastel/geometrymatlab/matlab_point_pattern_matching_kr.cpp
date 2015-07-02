@@ -7,6 +7,8 @@
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 
+#include "pastel/sys/set/sparse_set.h"
+#include "pastel/sys/set/interval_set.h"
 #include "pastel/sys/locator/pointer_locator.h"
 
 void force_linking_match_points_kr() {}
@@ -92,18 +94,24 @@ namespace Pastel
 			Locator locator(n);
 
 			SceneTree sceneTree(locator);
-			sceneTree.insertRange(
-				constSparseRange(
-				countingIterator(sceneData),
-				countingIterator(sceneData + scenePoints * n),
-				n));
+			sceneTree.insertSet(
+				sparseSet(
+					intervalSet(
+						sceneData, 
+						sceneData + scenePoints * n
+					),
+				n)
+			);
 
 			ModelTree modelTree(locator);
-			modelTree.insertRange(
-				constSparseRange(
-				countingIterator(modelData),
-				countingIterator(modelData + modelPoints * n),
-				n));
+			modelTree.insertSet(
+				sparseSet(
+					intervalSet(
+						modelData,
+						modelData + modelPoints * n
+					),
+				n)
+			);
 
 			sceneTree.refine(SlidingMidpoint_SplitRule());
 			modelTree.refine(SlidingMidpoint_SplitRule());

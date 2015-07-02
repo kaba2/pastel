@@ -463,30 +463,29 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	template <typename Input_Point_ConstIterator>
+	template <typename Point_Set>
 	auto PointKdTree<Settings, Customization>::copyToEnd(
-		const Input_Point_ConstIterator& begin, 
-		const Input_Point_ConstIterator& end,
+		const Point_Set& pointSet, 
 		bool hidden)
 		-> Point_Iterator
 	{
-		ASSERT(begin != end);
+		ASSERT(!pointSet.empty());
 
-		Input_Point_ConstIterator iter = begin;
+		auto&& index = pointSet.index();
 
 		pointSet_.insertBack(
-			PointInfo(*iter, 0, hidden));
-		++iter;
+			PointInfo(pointSet.element(index), 0, hidden));
+		pointSet.next(index);
 
 		Point_Iterator first = pointSet_.end();
 		--first;
 
-		while(iter != end)
+		while(!pointSet.empty(index))
 		{
 			pointSet_.insertBack(
-				PointInfo(*iter, 0, hidden));
+				PointInfo(pointSet.element(index), 0, hidden));
 
-			++iter;
+			pointSet.next(index);
 		}
 	
 		return first;

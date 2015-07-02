@@ -52,7 +52,7 @@ namespace
 			}
 			
 			Tree modelTree;
-			modelTree.insertRange(range(modelSet.begin(), modelSet.end()));
+			modelTree.insertSet(rangeSet(modelSet));
 			modelTree.refine();
 
 			// Generate a translated point-set.
@@ -70,7 +70,7 @@ namespace
 			std::random_shuffle(sceneSet.begin(), sceneSet.end());
 
 			Tree sceneTree;
-			sceneTree.insertRange(range(sceneSet.begin(), sceneSet.end()));
+			sceneTree.insertSet(rangeSet(sceneSet));
 			sceneTree.refine();
 			
 			auto result = matchPointsKr(

@@ -11,6 +11,8 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tristate.h"
+#include "pastel/sys/output/output_concept.h"
+#include "pastel/sys/set/set_concept.h"
 
 #include "pastel/geometry/shape/alignedbox.h"
 
@@ -249,32 +251,34 @@ namespace Pastel
 		Exception safety:
 		strong
 
-		begin, end:
-		An iterator range consisting of points to insert.
+		pointSet:
+		A set of elements convertible to a Point.
 
-		iteratorSet:
-		An output iterator to which the corresponding point
-		iterators are reported.
+		Optional arguments
+		------------------
+
+		report (Output_Concept(ConstIterator) : nullOutput()):
+		An output to report the Point_ConstIterators
+		of the inserted points.
+
+		hidden (bool : false):
+		Whether the points should be inserted as 
+		hidden points or not.
 		*/
 		template <
-			typename Input_Point_ConstRange,
-			typename Point_ConstIterator_Output>
-		void insertRange(
-			const Input_Point_ConstRange& pointSet, 
-			const Point_ConstIterator_Output& report,
-			bool hidden = false);
-
-		//! Insert points into the tree.
-		/*!
-		This is a convenience function that calls:
-		
-		insert(pointSet, NullIterator())
-		
-		See the documentation for that function.
-		*/
-		template <typename Input_Point_ConstRange>
-		void insertRange(
-			const Input_Point_ConstRange& pointSet);
+			typename Point_Set,
+			typename... ArgumentSet,
+			Requires<
+				Models<Point_Set, Set_Concept>/*,
+				std::is_convertible<
+					typename Point_Set::Element, 
+					Point
+				>*/
+			> = 0
+		>
+		void insertSet(
+			const Point_Set& pointSet, 
+			ArgumentSet&&... argumentSet);
 
 		//! Removes a point from the tree.
 		void erase(const Point_ConstIterator& iter);
@@ -428,21 +432,20 @@ namespace Pastel
 
 		//! Inserts new points at the end of the pointSet_.
 		/*!
-		begin, end:
-		The iterator range [begin, end[ contains the
-		new points to insert.
+		Also updates the bounding box.
+
+		pointSet:
+		A set of Points to insert.
 
 		returns:
-		The first iterator of the inserted points in
+		The first Point_Iterator of the inserted points in
 		'pointSet_'.
-
-		Also updates the bounding box.
 		*/
-		template <typename Input_Point_ConstIterator>
-		Point_Iterator copyToEnd(
-			const Input_Point_ConstIterator& begin,
-			const Input_Point_ConstIterator& end,
-			bool hidden);			
+		template <typename Point_Set>
+		auto copyToEnd(
+			const Point_Set& pointSet, 
+			bool hidden)
+			-> Point_Iterator;
 
 		//! Propagates new points to leaf nodes.
 		/*!

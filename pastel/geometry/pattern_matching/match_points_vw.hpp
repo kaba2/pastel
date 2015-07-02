@@ -614,10 +614,10 @@ namespace Pastel
 		using ModelTree = PointKdTree<PointKdTree_Settings<Model_Locator>>;
 
 		SceneTree sceneTree(sceneLocator);
-		sceneTree.insertRange(scene);
+		sceneTree.insertSet(rangeSet(scene));
 
 		ModelTree modelTree(modelLocator);
-		modelTree.insertRange(model);
+		modelTree.insertSet(rangeSet(model));
 
 		sceneTree.refine(SlidingMidpoint_SplitRule());
 		modelTree.refine(SlidingMidpoint_SplitRule());

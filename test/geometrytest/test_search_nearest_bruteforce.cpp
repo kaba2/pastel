@@ -142,9 +142,7 @@ namespace
 			}
 			{
 				Tree tree;
-				tree.insertRange(
-					range(pointSet.begin(), pointSet.end()),
-					nullOutput());
+				tree.insertSet(rangeSet(pointSet));
 				TEST_ENSURE(testInvariants(tree));
 
 				tree.refine(SlidingMidpoint_SplitRule(), 1);
@@ -271,9 +269,10 @@ namespace
 			std::vector<Point_ConstIterator> iteratorSet;
 
 			Tree tree;
-			tree.insertRange(
-				range(pointSet.begin(), pointSet.end()),
-				pushBackOutput(iteratorSet));
+			tree.insertSet(
+				rangeSet(pointSet),
+				PASTEL_TAG(report), pushBackOutput(iteratorSet)
+			);
 			TEST_ENSURE(testInvariants(tree));
 
 			tree.refine(SlidingMidpoint_SplitRule(), 1);

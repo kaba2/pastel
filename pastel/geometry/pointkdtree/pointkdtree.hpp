@@ -6,7 +6,7 @@
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/list.h"
-#include "pastel/sys/iterator/constant_iterator.h"
+#include "pastel/sys/set/constant_set.h"
 #include "pastel/sys/output/null_output.h"
 
 #include <boost/operators.hpp>
@@ -52,14 +52,25 @@ namespace Pastel
 		copyConstruct(root_, that.root_);
 
 		// Then insert the points into the nodes.
-		insertRange(that.asPointData(that.range()));
+		insertSet(rangeSet(that.asPointData(that.range())));
 
 		// Insert the hidden points.
-		insertRange(that.asPointData(that.hiddenRange()), Null_Output(), true);
+		insertSet(
+			rangeSet(that.asPointData(that.hiddenRange())), 
+			PASTEL_TAG(hidden), true);
 
 		// Insert the insertion points.
-		insertRange(that.asPointData(
-			Pastel::range(that.insertionSet_.begin(), that.insertionSet_.end())));
+		insertSet(
+			rangeSet(
+				that.asPointData(
+					Pastel::range(
+						that.insertionSet_.begin(), 
+						that.insertionSet_.end()
+					)
+				)
+			)
+		);
+
 	}
 
 	template <typename Settings, template <typename> class Customization>
@@ -274,32 +285,49 @@ namespace Pastel
 			iter = iter_;
 		};
 		
-		insertRange(constantRange(point, 1), report, hidden);
+		insertSet(
+			constantSet<Point>(1, point), 
+			PASTEL_TAG(report), report, 
+			PASTEL_TAG(hidden), hidden);
 
 		return iter;
 	}
 
 	template <typename Settings, template <typename> class Customization>
 	template <
-		typename Input_Point_ConstRange,
-		typename Point_ConstIterator_Output>
-	void PointKdTree<Settings, Customization>::insertRange(
-		const Input_Point_ConstRange& pointSet, 
-		const Point_ConstIterator_Output& report,
-		bool hidden)
+		typename Point_Set,
+		typename... ArgumentSet,
+		Requires<
+			Models<Point_Set, Set_Concept>/*,
+			std::is_convertible<
+				typename Point_Set::Element, 
+				typename PointKdTree<Settings, Customization>::Point
+			>*/
+		>
+	>
+	void PointKdTree<Settings, Customization>::insertSet(
+		const Point_Set& pointSet, 
+		ArgumentSet&&... argumentSet)
 	{
+		bool hidden = PASTEL_ARG_S(hidden, false);
+		auto&& report = PASTEL_ARG(
+			report, 
+			[]() {return nullOutput();}, 
+			[](auto input) 
+			{
+				return Models<decltype(input), Output_Concept(Point_ConstIterator)>();
+			}
+		);		
+
 		if (pointSet.empty())
 		{
 			// Nothing to do.
 			return;
 		}
 
-		auto inputBegin = pointSet.begin();
-		auto inputEnd = pointSet.end();
-
 		// Copy the points to the end of 'pointSet_'.
 		Point_Iterator first = 
-			copyToEnd(inputBegin, inputEnd, hidden);
+			copyToEnd(pointSet, hidden);
 
 		// Copy the new point iterators to the user.
 		for (auto point = first; point != pointSet_.end();++point)
@@ -325,16 +353,6 @@ namespace Pastel
 
 			commitInsertion();
 		}
-	}
-
-	template <typename Settings, template <typename> class Customization>
-	template <typename Input_Point_ConstRange>
-	void PointKdTree<Settings, Customization>::insertRange(
-		const Input_Point_ConstRange& pointSet)
-	{
-		// Insert the points, and get rid of the reported iterators.
-		// Note: the reporting is optimized away entirely.
-		insertRange(pointSet, Null_Output());
 	}
 
 	template <typename Settings, template <typename> class Customization>
