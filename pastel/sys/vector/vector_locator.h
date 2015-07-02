@@ -28,6 +28,7 @@ namespace Pastel
 
 		void swap(Vector_Locator& that)
 		{
+			std::swap(n_, that.n_);
 		}
 
 		integer n() const
