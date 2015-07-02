@@ -28,6 +28,7 @@ namespace
 			testInterval();
 			testConstant();
 			testUnion();
+			testSparse();
 			testTransformed();
 		}
 
@@ -172,6 +173,29 @@ namespace
 
 				TEST_ENSURE_OP(actualSet.count(aElement), ==, 5);
 				TEST_ENSURE_OP(actualSet.count(bElement), ==, 3);
+			}
+		}
+
+		void testSparse()
+		{
+			integer n = 10;
+
+ 			auto inputSet = intervalSet((integer)0, n);
+			
+			auto subSet = sparseSet(
+				inputSet, 2);
+
+			std::unordered_set<integer> actualSet;
+			forEach(subSet, [&](integer x)
+			{
+				actualSet.insert(x);
+				return true;
+			});
+
+			TEST_ENSURE_OP(actualSet.size(), ==, n / 2);
+			for (integer i = 0;i < n;i += 2)
+			{
+				TEST_ENSURE_OP(actualSet.count(i), ==, 1);
 			}
 		}
 

@@ -74,7 +74,9 @@ namespace Pastel
 		typename... ArgumentSet>
 	Constant_Set<Element> constantSet(integer n, ArgumentSet&&... argumentSet)
 	{
-		return {n, std::forward<ArgumentSet>(argumentSet)...};
+		// Visual Studio 2015 RC has a bug in that it does not accept
+		// just a braced list.
+		return Constant_Set<Element>{n, std::forward<ArgumentSet>(argumentSet)...};
 	}
 
 }

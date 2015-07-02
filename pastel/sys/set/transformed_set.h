@@ -37,11 +37,16 @@ namespace Pastel
 			typename Set_,
 			typename Transform_>
 		Transformed_Set(
-			Set_ set,
-			Transform_ transform)
+			Set_&& set,
+			Transform_&& transform)
 		: set_(std::forward<Set_>(set))
 		, transform_(std::forward<Transform_>(transform))
 		{
+		}
+
+		const Set& set() const
+		{
+			return set_;
 		}
 
 		integer n() const
