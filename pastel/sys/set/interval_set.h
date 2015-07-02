@@ -205,13 +205,13 @@ namespace Pastel
 
 	template <typename Element>
 	Interval_Set<RemoveCvRef<Element>> intervalSet(
-		Element&& begin, 
-		Element&& end)
+		Element begin, 
+		Element end)
 	{
 		return 
 		{
-			std::forward<Element>(begin), 
-			std::forward<Element>(end)
+			std::move(begin), 
+			std::move(end)
 		};
 	}
 
