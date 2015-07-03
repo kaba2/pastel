@@ -473,9 +473,17 @@ namespace Pastel
 
 		auto&& index = pointSet.index();
 
-		pointSet_.insertBack(
-			PointInfo(pointSet.element(index), 0, hidden));
-		pointSet.next(index);
+		{
+			pointSet_.insertBack(
+				PointInfo(
+					pointPoint(pointSet.element(index)), 
+					0, 
+					hidden
+				)
+			);
+			
+			pointSet.next(index);
+		}
 
 		Point_Iterator first = pointSet_.end();
 		--first;
@@ -483,7 +491,12 @@ namespace Pastel
 		while(!pointSet.empty(index))
 		{
 			pointSet_.insertBack(
-				PointInfo(pointSet.element(index), 0, hidden));
+				PointInfo(
+					pointPoint(pointSet.element(index)), 
+					0, 
+					hidden
+				)
+			);
 
 			pointSet.next(index);
 		}
