@@ -122,7 +122,8 @@ namespace Pastel
 		Requires<
 			Models<Model_NearestSet, NearestSet_Concept>,
 			Models<Scene_NearestSet, NearestSet_Concept>
-		> = 0>
+		> = 0
+	>
 	auto matchPointsKr(
 		const Model_NearestSet& model,
 		const Scene_NearestSet& scene,
