@@ -303,6 +303,43 @@ namespace Pastel
 			return Cursor(root_);
 		}
 
+		//! Returns all points.
+		/*!
+		This is a convenience function which returns
+		pointSet(-infinity<Real>(), infinity<Real>()).
+		*/
+		decltype(auto) pointSet() const
+		{
+			return pointSet(
+				-infinity<Real>(),
+				infinity<Real>());
+		}
+
+		//! Returns the points in the time-interval [tMin, tMax[.
+		/*!
+		returns:
+		A model of the PointSet_Concept.
+		*/
+		decltype(auto) pointSet(
+			const Real& tMin, 
+			const Real& tMax) const
+		{
+			PENSURE_OP(tMin, <=, tMax);
+
+			return locationSet(
+				transformedSet(
+					root().pointSet(
+						timeToIndex(tMin), 
+						timeToIndex(tMax)
+					),
+					[](const ConstIterator& iTemporalPoint)
+					{
+						return iTemporalPoint->point();
+					}
+				),
+				locator());
+		}
+
 		PASTEL_ITERATOR_FUNCTIONS(begin, pointSet_.begin());
 		PASTEL_ITERATOR_FUNCTIONS(end, pointSet_.end());
 

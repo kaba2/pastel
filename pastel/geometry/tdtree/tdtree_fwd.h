@@ -5,7 +5,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/point/temporal_point.h"
 #include "pastel/sys/locator/locator_concept.h"
 
 #include <vector>
@@ -37,6 +36,55 @@ namespace Pastel
 		//! The compile-time dimension of the points.
 		static constexpr integer N = Locator_N<Locator>::value;
 
+		//! Temporal point
+		/*!
+		A temporal point is a pairing of a position
+		and a time-instant.
+		*/
+		class Temporal_Point
+		{
+		public:
+			//! Constructs with default values.
+			Temporal_Point()
+			: point_()
+			, time_()
+			{
+			}
+
+			//! Constructs with given position and time-instant.
+			Temporal_Point(
+				const Point& point,
+				const Real& time)
+			: point_(point)
+			, time_(time)
+			{
+			}
+
+			//! Swaps two temporal points.
+			void swap(Temporal_Point& that)
+			{
+				using std::swap;
+				swap(point_, that.point_);
+				swap(time_, that.time_);
+			}
+
+			//! Returns the position.
+			const Point& point() const
+			{
+				return point_;
+			}
+
+			//! Returns the time-instant.
+			const Real& time() const
+			{
+				return time_;
+			}
+
+		private:
+			Point point_;
+			Real time_;
+		};
+
 		//! Storage for the temporal points.
 		/*!
 		The temporal points are stored in an array. The storage is an 
@@ -44,7 +92,7 @@ namespace Pastel
 		The entries in each node refer to this point-array by indices.
 		*/
 		using PointSet = 
-			std::vector<Temporal_Point<Point, Real>>;
+			std::vector<Temporal_Point>;
 		using Point_Iterator = 
 			typename PointSet::iterator;
 		using Point_ConstIterator = 
