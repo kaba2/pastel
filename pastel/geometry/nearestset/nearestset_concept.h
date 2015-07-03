@@ -26,13 +26,15 @@ namespace Pastel
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				Concept::models<PointSet, PointSet_Concept>()
+				//! Returns the underlying point-set.
+				Concept::isModelOf<PointSet_Concept>(
+					addConst(t).pointSet())
 				/*
 				,				
 				(
 					std::pair<
-						PointSet_Real<PointSet), 
-						PointSet_Point<PointSet>
+						Real, 
+						Point
 					>
 				)
 				(
@@ -40,7 +42,7 @@ namespace Pastel
 						// A nearest-set.
 						addConst(t),
 						//! The point for which to search nearest-neighbors.
-						std::declval<PointSet_Point<PointSet>>(),
+						std::declval<Point>(),
 						Output_Archetype(),
 						//! The output to which to report the results.
 						[](typename Type::Real distance,

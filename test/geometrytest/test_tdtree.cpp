@@ -40,9 +40,69 @@ namespace
 
 		virtual void run()
 		{
-			test();
+			testConstruction();
+			testGrid();
 			testLinear();
 			testGaussian();
+		}
+
+		void testConstruction()
+		{
+			Tree tree;
+			TEST_ENSURE(tree.simple());
+
+			tree.clear();
+			TEST_ENSURE(tree.simple());
+
+			tree.swap(Tree());
+		}
+
+		void testGrid()
+		{
+			Array<Point> pointSet(Vector2i(5, 5));
+			
+			forEachPoint(
+				AlignedBox2i(Point(0), Point(5)),
+				[&](const Point& point)
+			{
+				pointSet(point[0], point[1]) = point;
+			});
+
+			Tree tree(rangeSet(pointSet));
+			TEST_ENSURE(tree.simple());
+				
+			TEST_ENSURE_OP(tree.timeToIndex(-infinity<real>()), ==, 0);
+			TEST_ENSURE_OP(tree.timeToIndex(-2), ==, 0);
+			TEST_ENSURE_OP(tree.timeToIndex(-1), ==, 0);
+			TEST_ENSURE_OP(tree.timeToIndex(-0.5), ==, 0);
+			TEST_ENSURE_OP(tree.timeToIndex(0), ==, 0);
+			TEST_ENSURE_OP(tree.timeToIndex(0.5), ==, 1);
+			TEST_ENSURE_OP(tree.timeToIndex(1), ==, 1);
+			TEST_ENSURE_OP(tree.timeToIndex(24), ==, 24);
+			TEST_ENSURE_OP(tree.timeToIndex(24.5), ==, 25);
+			TEST_ENSURE_OP(tree.timeToIndex(25.5), ==, 25);
+			TEST_ENSURE_OP(tree.timeToIndex(26), ==, 25);
+			TEST_ENSURE_OP(tree.timeToIndex(infinity<real>()), ==, 25);
+
+			std::unordered_set<ConstIterator, IteratorAddress_Hash> neighborSet;
+
+			auto report = [&](
+				real distance,
+				const ConstIterator& point)
+			{
+				neighborSet.insert(point);
+			};
+
+			searchNearest(
+				tree, 
+				Point(1, 3), 
+				PASTEL_TAG(nearestOutput), report,
+				PASTEL_TAG(kNearest), 5);
+
+			auto pointSet_ = tree.pointSet();
+
+			TEST_ENSURE_OP(neighborSet.size(), ==, 5);
+			//TEST_ENSURE(neighborSet.count(pointSet(1, 3)) > 0);
 		}
 
 		void testGaussian()
@@ -193,61 +253,6 @@ namespace
 
 					TEST_ENSURE_OP((integer)distance, ==, correct);
 				}
-			}
-		}
-
-		void test()
-		{
-			{
-				Tree tree;
-				TEST_ENSURE(tree.simple());
-
-				tree.clear();
-				TEST_ENSURE(tree.simple());
-
-				tree.swap(Tree());
-			}
-
-			{
-				std::vector<Point> pointSet;
-				
-				forEachPoint(
-					AlignedBox2i(Point(0), Point(5)),
-					[&](const Point& point)
-				{
-					pointSet.emplace_back(point);
-				});
-
-				Tree tree(rangeSet(pointSet));
-				TEST_ENSURE(tree.simple());
-					
-				TEST_ENSURE_OP(tree.timeToIndex(-infinity<real>()), ==, 0);
-				TEST_ENSURE_OP(tree.timeToIndex(-2), ==, 0);
-				TEST_ENSURE_OP(tree.timeToIndex(-1), ==, 0);
-				TEST_ENSURE_OP(tree.timeToIndex(-0.5), ==, 0);
-				TEST_ENSURE_OP(tree.timeToIndex(0), ==, 0);
-				TEST_ENSURE_OP(tree.timeToIndex(0.5), ==, 1);
-				TEST_ENSURE_OP(tree.timeToIndex(1), ==, 1);
-				TEST_ENSURE_OP(tree.timeToIndex(24), ==, 24);
-				TEST_ENSURE_OP(tree.timeToIndex(24.5), ==, 25);
-				TEST_ENSURE_OP(tree.timeToIndex(25.5), ==, 25);
-				TEST_ENSURE_OP(tree.timeToIndex(26), ==, 25);
-				TEST_ENSURE_OP(tree.timeToIndex(infinity<real>()), ==, 25);
-
-				std::vector<ConstIterator> neighborSet;
-
-				auto report = [&](
-					real distance,
-					const ConstIterator& point)
-				{
-					neighborSet.emplace_back(point);
-				};
-
-				searchNearest(
-					tree, 
-					Point(1, 3), 
-					PASTEL_TAG(nearestOutput), report,
-					PASTEL_TAG(kNearest), 5);
 			}
 		}
 	};

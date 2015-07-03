@@ -75,6 +75,10 @@ namespace Pastel
 
 		decltype(auto) pointSet(integer min, integer max) const
 		{
+			ENSURE_OP(min, >=, 0);
+			ENSURE_OP(max, <=, points());
+			ENSURE_OP(min, <=, max);
+
 			Entry_ConstRange fullRange = 
 				node_->entryRange();
 
