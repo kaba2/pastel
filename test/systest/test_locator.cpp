@@ -1,5 +1,5 @@
 // Description: Testing for locators
-// DocumentationOf: locators.h
+// DocumentationOf: locator.h
 
 #include "test_pastelsys.h"
 
@@ -22,7 +22,9 @@ namespace
 		virtual void run()
 		{
 			test();
+			testScalar();
 			testArray();
+			testTransform();
 			testTypes();
 		}
 
@@ -46,6 +48,45 @@ namespace
 				{
 					TEST_ENSURE(locator(dataSet + i, j) == i + j);
 				}
+			}
+		}
+
+		void testScalar()
+		{
+			using DataSet = std::vector<real>;
+			using Data_ConstIterator = 
+				DataSet::const_iterator;
+
+			DataSet dataSet = {0, 7, 3, 5, 11, 13};
+
+			auto locator = scalarLocator<real, 1>();
+
+			for (integer i = 0;i < dataSet.size();++i)
+			{
+				TEST_ENSURE_OP(locator(dataSet[i], 0), ==, dataSet[i]);
+			}
+		}
+
+		void testTransform()
+		{
+			using DataSet = std::vector<real>;
+			using Data_ConstIterator = 
+				DataSet::const_iterator;
+
+			DataSet dataSet = {0, 1, 2, 3, 4, 5};
+
+			auto indirectLocator = 
+				transformLocator<Data_ConstIterator>(
+					scalarLocator<real>(1),
+					[](const Data_ConstIterator& iPoint)
+					{
+						return *iPoint;
+					}
+				);
+
+			for (integer i = 0;i < dataSet.size();++i)
+			{
+				TEST_ENSURE_OP(indirectLocator(dataSet.begin() + i, 0), ==, i);
 			}
 		}
 

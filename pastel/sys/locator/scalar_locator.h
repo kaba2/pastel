@@ -48,8 +48,22 @@ namespace Pastel
 		integer n_;
 	};
 
+	template <typename Real, integer N_ = 1>
+	Scalar_Locator<Real, N_> scalarLocator(
+		integer n = N_)
+	{
+		return Scalar_Locator<Real, N_>(n);
+	}
+
+}
+
+namespace Pastel
+{
+
 	template <typename Point_>
-	class Default_Locator<const Point_&, EnableIf<std::is_arithmetic<Point_>, void>>
+	class Default_Locator<
+		const Point_&, 
+		EnableIf<std::is_arithmetic<Point_>, void>>
 	{
 	public:
 		using Point = Point_;
@@ -62,21 +76,19 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	auto scalarPoint(const Real& point)
-		-> decltype(location(point, Scalar_Locator<Real>()))
+	decltype(auto) scalarPoint(const Real& point)
 	{
 		return location(
 			point,
-			Scalar_Locator<Real>());
+			scalarLocator<Real>());
 	}
 
 	template <typename Real>
-	auto scalarPoint(const Real& point, integer n)
-		-> decltype(location(point, Scalar_Locator<Real, Dynamic>(n)))
+	decltype(auto) scalarPoint(const Real& point, integer n)
 	{
 		return location(
 			point,
-			Scalar_Locator<Real, Dynamic>(n));
+			scalarLocator<Real, Dynamic>(n));
 	}
 
 }
