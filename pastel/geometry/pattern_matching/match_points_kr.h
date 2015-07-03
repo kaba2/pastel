@@ -218,6 +218,18 @@ namespace Pastel
 
 		Array<integer> nearestSet(Vector2i(indexToModel.size(), kNearest));
 
+		auto forEachAdjacent = [&](integer iModel, auto&& visit)
+		{
+			for (integer k = 0;k < kNearest;++k)
+			{
+				integer iScene = nearestSet(iModel, k);
+				if (iScene < 0 || !visit(iScene))
+				{
+					break;
+				}
+			}
+		};
+
 		bool exitEarly = false;
 
 		integer n = indexToModel.size();
@@ -269,18 +281,6 @@ namespace Pastel
 					//log() << "Distance " << neighbor.key() << logNewLine;
 				
 				}
-
-				auto forEachAdjacent = [&](integer iModel, auto&& visit)
-				{
-					for (integer k = 0;k < kNearest;++k)
-					{
-						integer iScene = nearestSet(iModel, k);
-						if (iScene < 0 || !visit(iScene))
-						{
-							break;
-						}
-					}
-				};
 
 				PairSet pairSet;
 				maximumBipartiteMatching(
