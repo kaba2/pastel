@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#define PASTEL_TAG(name) Pastel::Tag<#name##_tag>()
+#define PASTEL_TAG(name) Pastel::Tag<Pastel::tagHash(#name##)>()
 
 namespace Pastel
 {
@@ -19,12 +19,37 @@ namespace Pastel
 	struct Tag {};
 
 	//! Returns the hash for a tag-name.
-	inline constexpr tag_integer operator "" _tag(const char* tagName, std::size_t n)
+	/*!
+	Note that the N also contains the null-character at 
+	the end of the string. That is, for "liquid",
+	N = 6 + 1 = 7.
+	*/
+	template <integer N>
+	constexpr tag_integer tagHash(
+		const char (&tagName)[N],
+		// Skip the null-character at the end.
+		integer i = N - 1)
+	{
+		// This is the Fowler-Noll-Vo 1a hash-function (FNV-1a) for 32-bit integers.
+		return i > 0
+			? (tagHash(tagName, i - 1) ^ (tag_integer)tagName[i - 1]) * 16777619UL
+			: 2166136261UL;
+	}
+
+	//! Returns the hash for a tag-name.
+	constexpr tag_integer tagHash(
+		const char* tagName,
+		std::size_t n)
 	{
 		// This is the Fowler-Noll-Vo 1a hash-function (FNV-1a) for 32-bit integers.
 		return n > 0
-			? (operator""_tag(tagName, n - 1) ^ (tag_integer)tagName[n - 1]) * 16777619UL
+			? (tagHash(tagName, n - 1) ^ (tag_integer)tagName[n - 1]) * 16777619UL
 			: 2166136261UL;
+	}
+
+	inline constexpr tag_integer operator "" _tag(const char* tagName, std::size_t n)
+	{
+		return tagHash(tagName, n);
 	}
 
 }
