@@ -69,7 +69,7 @@ namespace Pastel
 			return set_.empty(index);
 		}
 
-		decltype(auto) element(const Index& index) const
+		Element element(const Index& index) const
 		{
 			PENSURE(!empty(index));
 			return transform_(set_.element(index));

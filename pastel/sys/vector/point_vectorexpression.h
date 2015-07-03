@@ -65,7 +65,7 @@ namespace Pastel
 			swap(point_, that.point_);
 		}
 
-		const Real& operator[](integer index) const
+		decltype(auto) operator[](integer index) const
 		{
 			PENSURE2(index >= 0 && index < size(), 
 				index, size());
