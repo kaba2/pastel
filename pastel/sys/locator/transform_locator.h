@@ -39,10 +39,10 @@ namespace Pastel
 			return locator_.n();
 		}
 
-		const Real& operator()(
+		decltype(auto) operator()(
 			const Point& point, integer i) const
 		{
-			return locator_(transform(point), i);
+			return locator_(transform_(point), i);
 		}
 
 	private:
