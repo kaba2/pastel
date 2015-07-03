@@ -36,6 +36,8 @@ namespace
 		using Tree = TdTree<TdTree_Settings<Locator>>;
 		using ConstIterator = Tree::ConstIterator;
 
+		PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
+
 		virtual void run()
 		{
 			test();

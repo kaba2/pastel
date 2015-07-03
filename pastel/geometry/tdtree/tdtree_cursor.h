@@ -73,25 +73,21 @@ namespace Pastel
 
 		// Points
 
-		class EntryAsPoint
-		{
-		public:
-			Point_ConstIterator operator()(const Entry& entry) const
-			{
-				return entry.point();
-			}
-		};
-
 		decltype(auto) pointSet(integer min, integer max) const
 		{
 			Entry_ConstRange fullRange = 
 				node_->entryRange();
-			Entry_ConstRange subRange = 
-				range(std::begin(fullRange) + min, std::begin(fullRange) + max);
 
 			return transformedSet(
-				rangeSet(subRange),
-				EntryAsPoint());
+				rangeSet(
+					std::begin(fullRange) + min,
+					std::begin(fullRange) + max
+				),
+				[](const Entry& entry)
+				{
+					return entry.point();
+				}
+			);
 		}
 
 		integer points() const
