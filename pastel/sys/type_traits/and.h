@@ -5,7 +5,6 @@
 #define PASTELSYS_AND_H
 
 #include "pastel/sys/type_traits/fold.h"
-#include "pastel/sys/mytypes.h"
 
 #include <type_traits>
 
@@ -25,7 +24,8 @@ namespace Pastel
 			typename Right_Condition>
 		using And_F_ =
 			Identity_F<
-				Bool<
+				std::integral_constant<
+					bool,
 					Left_Condition::value && Right_Condition::value
 				>
 			>;
