@@ -64,18 +64,6 @@ namespace
 						edgeSet[a].begin());
 				}
 
-				auto forEachAdjacent = [&](
-					integer a, auto&& visit)
-				{
-					for (integer b : edgeSet[a])
-					{
-						if (!visit(b))
-						{
-							break;
-						}
-					}
-				};
-				
 				testCase(nB, std::move(edgeSet), 0);
 			}
 		}
