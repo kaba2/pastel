@@ -140,8 +140,16 @@ namespace
 			// known strings. Initially I had a bug in the implementation 
 			// which I noticed only because I had a hash collision between
 			// these strings.
+			PASTEL_STATIC_ASSERT(tagHash("translation") == 3419592236UL);
+			PASTEL_STATIC_ASSERT(tagHash("orientation") == 3309681697UL);
+
 			PASTEL_STATIC_ASSERT("translation"_tag == 3419592236UL);
 			PASTEL_STATIC_ASSERT("orientation"_tag == 3309681697UL);
+
+			// These are the only english words which collide under the
+			// FNV1a hash function.
+			PASTEL_STATIC_ASSERT(tagHash("liquid") == tagHash("costarring"));
+			PASTEL_STATIC_ASSERT("liquid"_tag == "costarring"_tag);
 		}
 
 		void testEmpty()
