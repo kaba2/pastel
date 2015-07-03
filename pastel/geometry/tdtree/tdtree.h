@@ -17,6 +17,7 @@
 #include "pastel/sys/set/range_set.h"
 #include "pastel/sys/set/interval_set.h"
 #include "pastel/sys/set/transformed_set.h"
+#include "pastel/sys/locator/transform_locator.h"
 
 #include <boost/range/algorithm/stable_sort.hpp>
 
@@ -315,29 +316,40 @@ namespace Pastel
 				infinity<Real>());
 		}
 
-		//! Returns the points in the time-interval [tMin, tMax[.
+		//! Returns all points in the time-interval [tMin, tMax[.
 		/*!
+		Preconditions:
+		tMin <= tMax
+
 		returns:
-		A model of the PointSet_Concept.
+		A PointSet of ConstIterators, which contains the points 
+		in the time-interval [tMin, tMax[. In particular, the points
+		in this set are not user-defined Points; a ConstIterator 
+		contains more information than a Point (e.g. time).
 		*/
 		decltype(auto) pointSet(
 			const Real& tMin, 
 			const Real& tMax) const
 		{
-			PENSURE_OP(tMin, <=, tMax);
+			PENSURE(tMin <= tMax);
 
 			return locationSet(
-				transformedSet(
-					root().pointSet(
-						timeToIndex(tMin), 
-						timeToIndex(tMax)
-					),
+				intervalSet(
+					begin() + timeToIndex(tMin), 
+					begin() + timeToIndex(tMax)
+				),
+				// Since the user-defined locator
+				// works only for user-defined points, 
+				// we need to adapt it to work with
+				// ConstIterators.
+				transformLocator<ConstIterator>(
+					locator(),
 					[](const ConstIterator& iTemporalPoint)
 					{
 						return iTemporalPoint->point();
 					}
-				),
-				locator());
+				)
+			);
 		}
 
 		PASTEL_ITERATOR_FUNCTIONS(begin, pointSet_.begin());
