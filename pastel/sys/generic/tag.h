@@ -7,7 +7,7 @@
 
 #include <type_traits>
 
-#define PASTEL_TAG(name) Pastel::Tag<Pastel::tagHash(#name##)>()
+#define PASTEL_TAG(name) Pastel::Tag<Pastel::tagHash(#name)>()
 
 namespace Pastel
 {

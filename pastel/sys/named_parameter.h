@@ -7,7 +7,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/type_traits/is_template_instance.h"
 
-#define PASTEL_ARG(name, ...) Pastel::argument<tagHash(#name##)>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
+#define PASTEL_ARG(name, ...) Pastel::argument<tagHash(#name)>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
 #define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, Pastel::Argument_::returnTrue)
 #define PASTEL_ARG_ENUM(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto input){return implicitArgument(std::is_same<RemoveCvRef<decltype(input)>, RemoveCvRef<decltype(def)>>());})
 
