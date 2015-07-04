@@ -80,7 +80,7 @@ namespace
 
 			Tuple<float, N> t(ofDimension(n), 0);
 
-			Vector<float, N> c;
+			Vector<float, N> c(ofDimension(n));
 
 			Vector<float, N> af1(c + c);
 			Vector<float, N> af5(ofDimension(n), 0);
@@ -113,16 +113,12 @@ namespace
 
 			someFunction(asTuple(a));
 
-			Vector<float> cd;
-
 			a.assign({ 1, 2, 3});
 			TEST_ENSURE(a[0] == 1 && a[1] == 2 && a[2] == 3);
 
-			// Visual Studio 2013 has a bug which ambiguates
-			// this, although it shouldn't. A very weird bug:
-			// there is no ambiguity when the number of items
-			// is other than 3.
-			//a = { 1, 2, 3 };
+			a = { 1, 2, 3 };
+
+			Vector<float> cd(ofDimension(2));
 		}
 
 		void testVectorLowDimensional()
