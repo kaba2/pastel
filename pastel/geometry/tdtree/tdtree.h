@@ -54,19 +54,29 @@ namespace Pastel
 		PASTEL_FWD(Entry);
 		PASTEL_FWD(Cursor);
 		PASTEL_FWD(Node);
-		enum : integer {N = Locator::N};
+		
+		// Using an enum here triggers a bug in
+		// Visual Studio 2015 RC.
+		static constexpr integer N = Locator::N;
 
 		//! Constructs an empty tree.
 		/*!
 		Time complexity: O(1)
 		Exception safety: strong
 		*/
+		template <
+			integer N_ = N,
+			Requires<
+				Bool<(N_ >= 0)>
+			> = 0
+		>
 		TdTree()
 		: end_(new Node)
 		, root_(end_.get())
 		, pointSet_()
 		, locator_()
 		, simple_(true)
+		, bound_()
 		{
 		}
 
@@ -114,7 +124,12 @@ namespace Pastel
 		explicit TdTree(
 			const Point_Set& pointSet,
 			ArgumentSet&&... argumentSet)
-		: TdTree()
+		: end_(new Node)
+		, root_(end_.get())
+		, pointSet_()
+		, locator_(pointSetLocator(pointSet))
+		, simple_(true)
+		, bound_(pointSetDimension(pointSet))
 		{
 			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalSet(Real(0), infinity<Real>()));
 			auto&& splitRule = PASTEL_ARG_S(splitRule, LongestMedian_SplitRule());
@@ -127,7 +142,6 @@ namespace Pastel
 			};
 			PASTEL_STATIC_ASSERT(PointSetHasCompatibleLocator);
 
-			locator_ = pointSetLocator(pointSet);
 			simple_ = Simple;
 
 			std::vector<Iterator> iteratorSet;
@@ -172,18 +186,7 @@ namespace Pastel
 
 			// Compute a minimum bounding box for the points.
 			auto bound = 
-				boundingAlignedBox(
-					locationSet(
-						transformedSet(
-							rangeSet(iteratorSet),
-							[](auto&& point)
-							{
-								return point->point();
-							}
-						),
-						locator_
-					)
-				);
+				boundingAlignedBox(pointSet);
 
 			bound_ = bound;
 			root_ = construct(nullptr, false, iteratorSet, bound, splitRule);

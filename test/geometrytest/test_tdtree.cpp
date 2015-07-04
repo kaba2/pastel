@@ -70,6 +70,9 @@ namespace
 
 			Tree tree(rangeSet(pointSet));
 			TEST_ENSURE(tree.simple());
+
+			TEST_ENSURE(tree.bound() == 
+				AlignedBox2(Vector2(0, 0), Vector2(4, 4)));
 				
 			TEST_ENSURE_OP(tree.timeToIndex(-infinity<real>()), ==, 0);
 			TEST_ENSURE_OP(tree.timeToIndex(-2), ==, 0);
