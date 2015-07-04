@@ -21,7 +21,8 @@ namespace Pastel
 		, boost::dividable<AlignedBox<Real, N>, Real
 		, boost::addable<AlignedBox<Real, N>, Vector<Real, N>
 		, boost::subtractable<AlignedBox<Real, N>, Vector<Real, N>
-		> > > >
+		, boost::equality_comparable<AlignedBox<Real, N>
+		> > > > >
 	{
 	private:
 		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
@@ -355,6 +356,15 @@ namespace Pastel
 		Real depth() const
 		{
 			return extent()[2];
+		}
+
+		bool operator==(const AlignedBox& that) const
+		{
+			return 
+				min_ == that.min_ &&
+				max_ == that.max_ &&
+				minTopology_ == that.minTopology_ &&
+				maxTopology_ == that.maxTopology_;
 		}
 
 	private:

@@ -48,7 +48,6 @@ namespace Pastel
 	template <typename Point_Set>
 	decltype(auto) pointSetLocator(const Point_Set& pointSet)
 	{
-		PASTEL_CONCEPT_CHECK(Point_Set, Set_Concept);
 		return PointSet_Locator<Point_Set>();
 	}
 
