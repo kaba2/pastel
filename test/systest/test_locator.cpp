@@ -21,11 +21,26 @@ namespace
 
 		virtual void run()
 		{
+			testArchetype();
 			test();
 			testScalar();
 			testArray();
 			testTransform();
 			testTypes();
+		}
+
+		void testArchetype()
+		{
+			struct A {};
+			using Locator = Locator_Archetype<real, A, 3>;
+			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+
+			PASTEL_STATIC_ASSERT(
+				Locator_N<Locator>::value == 3);
+			PASTEL_STATIC_ASSERT(
+				std::is_same<Locator_Real<Locator>, real>::value);
+			PASTEL_STATIC_ASSERT(
+				std::is_same<Locator_Point<Locator>, A>::value);
 		}
 
 		void test()
@@ -126,9 +141,12 @@ namespace
 			PASTEL_STATIC_ASSERT(
 				(std::is_same<Locator_Point<Pointer_Locator<integer>>, const integer*>::value));
 
-			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 0>>::value), ==, 0);
-			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 1>>::value), ==, 1);
-			TEST_ENSURE_OP((Locator_N<Pointer_Locator<real, 2>>::value), ==, 2);
+			PASTEL_STATIC_ASSERT(
+				Locator_N<Pointer_Locator<real, 0>>::value == 0);
+			PASTEL_STATIC_ASSERT(
+				Locator_N<Pointer_Locator<real, 1>>::value == 1);
+			PASTEL_STATIC_ASSERT(
+				Locator_N<Pointer_Locator<real, 2>>::value == 2);
 		}
 	};
 

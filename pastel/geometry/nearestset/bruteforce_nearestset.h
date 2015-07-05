@@ -35,7 +35,7 @@ namespace Pastel
 		using Fwd = Settings;
 		PASTEL_FWD(PointSet);
 
-		using Point = PointSet_Point<PointSet>;
+		using Point = PointSet_PointId<PointSet>;
 		using Real = PointSet_Real<PointSet>;
 
 		BruteForce_NearestSet(PointSet pointSet)
