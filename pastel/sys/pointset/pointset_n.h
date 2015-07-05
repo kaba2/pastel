@@ -1,4 +1,4 @@
-// Description: Compile-time dimension of a point-set
+// Description: Number of points in a point-set
 // DocumentationOf: pointset_concept.h
 
 #ifndef PASTELSYS_POINTSET_N_H
@@ -10,14 +10,14 @@
 namespace Pastel
 {
 
-	template <typename PointSet>
-	struct PointSet_N
+	template <
+		typename PointSet,
+		Requires<Models<PointSet, PointSet_Concept>> = 0
+	>
+	integer pointSetN(const PointSet& pointSet)
 	{
-		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
-
-		static constexpr integer value =
-			Locator_N<PointSet_Locator<PointSet>>::value;
-	};
+		return pointSet.n();
+	}
 
 }
 

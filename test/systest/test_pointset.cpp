@@ -49,7 +49,12 @@ namespace
 			using Point = std::array<Real, 2>;
 			using Locator = Array_Locator<Real, 2>;
 
-			std::vector<Point> inputSet;
+			std::vector<Point> inputSet =
+			{
+				{1, 2},
+				{3, 4},
+				{5, 6}
+			};
 			auto pointSet = rangeSet(inputSet);
 			
 			using PointSet = decltype(pointSet);
@@ -73,6 +78,8 @@ namespace
 
 				TEST_ENSURE_OP(pointSetDimension(pointSet), ==, 2);
 				PASTEL_STATIC_ASSERT(PointSet_Dimension<PointSet>::value == 2);
+
+				TEST_ENSURE_OP(pointSetN(pointSet), ==, 3);
 			}
 		}
 

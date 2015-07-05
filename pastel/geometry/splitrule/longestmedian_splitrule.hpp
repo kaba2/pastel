@@ -19,7 +19,7 @@ namespace Pastel
 		template <
 			typename PointSet,
 			typename Real = PointSet_Real<PointSet>,
-			integer N = PointSet_N<PointSet>::value,
+			integer N = PointSet_Dimension<PointSet>::value,
 			Requires<
 				Models<PointSet, PointSet_Concept>
 			> = 0
