@@ -9,9 +9,6 @@
 #include "pastel/sys/function/function_concept.h"
 
 #include "pastel/geometry/nearestset/nearestset_pointset.h"
-#include "pastel/geometry/nearestset/nearestset_point.h"
-#include "pastel/geometry/nearestset/nearestset_real.h"
-#include "pastel/geometry/nearestset/nearestset_n.h"
 
 namespace Pastel
 {
@@ -21,8 +18,8 @@ namespace Pastel
 		template <
 			typename Type,
 			typename PointSet = NearestSet_PointSet<Type>,
-			typename Point = NearestSet_Point<Type>,
-			typename Real = NearestSet_Real<Type>
+			typename Point = PointSet_Point<PointSet>,
+			typename Real = PointSet_Real<PointSet>
 		>
 		auto requires(Type&& t) -> decltype
 		(
@@ -61,5 +58,9 @@ namespace Pastel
 	};
 
 }
+
+#include "pastel/geometry/nearestset/nearestset_point.h"
+#include "pastel/geometry/nearestset/nearestset_real.h"
+#include "pastel/geometry/nearestset/nearestset_n.h"
 
 #endif
