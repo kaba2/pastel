@@ -239,7 +239,7 @@ namespace Pastel
 
 							integer t = 0;
 
-							auto nearestOutput = [&](
+							auto report = [&](
 								const Real& distance,
 								SceneIterator point)
 							{
@@ -250,7 +250,7 @@ namespace Pastel
 							searchNearest(
 								sceneTree_, 
 								scenePosition(sceneIter),
-								PASTEL_TAG(nearestOutput), nearestOutput,
+								PASTEL_TAG(report), report,
 								PASTEL_TAG(accept), predicateIndicator(sceneIter, NotEqualTo()),
 								PASTEL_TAG(kNearest), k_);
 						}
@@ -268,7 +268,7 @@ namespace Pastel
 						modelSet.front() = modelIter;
 						{
 							integer t = 0;
-							auto nearestOutput = [&](
+							auto report = [&](
 								const Real& distance,
 								SceneIterator point)
 							{
@@ -279,7 +279,7 @@ namespace Pastel
 							searchNearest(
 								modelTree_, 
 								modelPosition(modelIter),
-								PASTEL_TAG(nearestOutput), nearestOutput,
+								PASTEL_TAG(report), report,
 								PASTEL_TAG(accept), predicateIndicator(modelIter, NotEqualTo()),
 								PASTEL_TAG(kNearest), k_);
 						}

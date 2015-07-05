@@ -716,7 +716,7 @@ namespace Pastel
 							query.begin());
 
 						integer j = 0;
-						auto nearestOutput = [&](
+						auto report = [&](
 							real distance,
 							Point_ConstIterator point)
 						{
@@ -734,7 +734,7 @@ namespace Pastel
 						searchNearest(
 							state->tree, 
 							query, 
-							PASTEL_TAG(nearestOutput), nearestOutput,
+							PASTEL_TAG(report), report,
 							NormBijection(),
 							PASTEL_TAG(kNearest), kNearest,
 							PASTEL_TAG(maxDistance2), maxDistanceSet(i));
@@ -755,7 +755,7 @@ namespace Pastel
 					for (integer i = block.begin(); i < block.end(); ++i)
 					{
 						integer j = 0;
-						auto nearestOutput = [&](
+						auto report = [&](
 							real distance,
 							Point_ConstIterator point)
 						{
@@ -782,7 +782,7 @@ namespace Pastel
 						searchNearest(
 							state->tree,
 							location(query->point(), state->tree.locator()),
-							PASTEL_TAG(nearestOutput), nearestOutput,
+							PASTEL_TAG(report), report,
 							PASTEL_TAG(accept), predicateIndicator(query, NotEqualTo()), 
 							NormBijection(),
 							PASTEL_TAG(kNearest), kNearest,
@@ -904,7 +904,7 @@ namespace Pastel
 						state->tree,
 						location(query->point(), state->tree.locator()),
 						NormBijection(),
-						PASTEL_TAG(nearestOutput), [&](auto, auto) {++count;},
+						PASTEL_TAG(report), [&](auto, auto) {++count;},
 						PASTEL_TAG(kNearest), state->tree.points(),
 						PASTEL_TAG(maxDistance2), maxDistanceSet(i));
 

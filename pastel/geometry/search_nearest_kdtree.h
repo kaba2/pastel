@@ -65,11 +65,11 @@ namespace Pastel
 	increases performance. Use 0 for exact matches. 
 	Default: 0
 
-	nearestOutput:
+	report:
 	A reporter to which the found neighbors 
 	(KdTree::Point_ConstIterator) are reported to.
 	The reporting is done in the form
-	nearestOutput(distance, point).
+	report(distance, point).
 
 	nBruteForce (integer >= 0):
 	The number of points under which to start a brute-force
@@ -125,9 +125,9 @@ namespace Pastel
 		PASTEL_FWD(Cursor);
 		PASTEL_FWD(Point_ConstIterator);
 
-		auto&& nearestOutput = 
+		auto&& report = 
 			PASTEL_ARG(
-				nearestOutput, 
+				report, 
 				[]() {return nullOutput();},
 				[](auto input) {return std::true_type();}
 			);
@@ -537,7 +537,7 @@ namespace Pastel
 		// Report the nearest neighbors.
 		for (auto&& entry : resultSet)
 		{
-			nearestOutput(entry.first, entry.second);
+			report(entry.first, entry.second);
 		}
 
 		if (reportMissing)
@@ -545,7 +545,7 @@ namespace Pastel
 			// Report "not found" for the missing neighbors.
 			for (integer i = neighbors;i < kNearest;++i)
 			{
-				nearestOutput(notFound.first, notFound.second);
+				report(notFound.first, notFound.second);
 			}
 		}
 

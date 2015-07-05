@@ -115,7 +115,7 @@ namespace Pastel
 						Indicator_Concept(Point)>();}
 			);
 
-		auto&& report = PASTEL_ARG_S(nearestOutput, nullOutput());
+		auto&& report = PASTEL_ARG_S(report, nullOutput());
 		integer kNearest = PASTEL_ARG_S(kNearest, 1);
 		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, infinity<Real>());
 
