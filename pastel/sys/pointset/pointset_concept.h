@@ -36,9 +36,9 @@ namespace Pastel
 
 #include "pastel/sys/pointset/pointset_dimension.h"
 #include "pastel/sys/pointset/pointset_set.h"
-#include "pastel/sys/pointset/pointset_location.h"
 #include "pastel/sys/pointset/pointset_locator.h"
 #include "pastel/sys/pointset/pointset_n.h"
+#include "pastel/sys/pointset/pointset_point_id.h"
 #include "pastel/sys/pointset/pointset_point.h"
 #include "pastel/sys/pointset/pointset_real.h"
 

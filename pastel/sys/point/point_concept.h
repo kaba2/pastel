@@ -89,6 +89,8 @@ namespace Pastel
 		);
 	};
 
+	using Point_Archetype = real;
+
 }
 
 #include "pastel/sys/point/point_locator.h"

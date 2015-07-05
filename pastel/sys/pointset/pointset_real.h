@@ -5,7 +5,7 @@
 #define PASTELSYS_POINTSET_REAL_H
 
 #include "pastel/sys/pointset/pointset_concept.h"
-#include "pastel/sys/pointset/pointset_location.h"
+#include "pastel/sys/pointset/pointset_point.h"
 #include "pastel/sys/point/point_real.h"
 
 namespace Pastel
@@ -13,7 +13,7 @@ namespace Pastel
 
 	template <typename PointSet>
 	using PointSet_Real = 
-		Point_Real<PointSet_Location<PointSet>>;
+		Point_Real<PointSet_Point<PointSet>>;
 
 	template <typename PointSet>
 	using PointSet_Real_F =

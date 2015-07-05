@@ -11,30 +11,30 @@ namespace Pastel
 
 	struct Locator_Concept
 	{
-		template <typename Type>
+		template <
+			typename Type,
+			//! The type of the coordinates.
+			typename Real = typename Type::Real,
+			//! The type of the point-ids.
+			typename PointId = typename Type::Point,
+			//! Compile-time dimension.
+			/*!
+			If the dimension is dynamic, specify N = Dynamic.
+			*/
+			integer N = Type::N
+		>
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				//! Compile-time dimension.
-				/*!
-				If the dimension is dynamic,
-				specify N = Dynamic.
-				*/
-				Concept::convertsTo<integer>(Type::N),
-
-				//! The type of the coordinates.
-				Concept::exists<typename Type::Real>(),
-
-				//! The type of the points.
-				Concept::exists<typename Type::Point>(),
-
 				//! Run-time dimension.
 				/*!
 				Returns:
 				N, if N != Dynamic, and
 				non-negative integer, otherwise.
 				*/
-				Concept::convertsTo<integer>(addConst(t).n()),
+				Concept::convertsTo<integer>(
+					addConst(t).n()
+				),
 
 				//! Swaps two locators.
 				(t.swap(t), 0),
@@ -44,24 +44,29 @@ namespace Pastel
 				Preconditions:
 				0 <= i < n()
 				*/
-				Concept::convertsTo<typename Type::Real>(
-					addConst(t)(std::declval<typename Type::Point>(),
-					  (integer)0))
+				Concept::convertsTo<Real>(
+					addConst(t)(std::declval<PointId>(),
+					  (integer)0)
+				)
 			)
 		);
 	};
 
+	template <
+		typename Real_,
+		typename Point_,
+		integer N_>
 	struct Locator_Archetype
 	{
-		static constexpr integer N = 1;
-		using Real = real;
-		using Point = real;
+		static constexpr integer N = N_;
+		using Real = Real_;
+		using Point = Point_;
 
 		void swap(Locator_Archetype& that) {}
 
-		const Real& operator()(const Point& point, integer i) const
+		Real operator()(const Point& point, integer i) const
 		{
-			return point;
+			return Real();
 		}
 
 		integer n() const
@@ -69,8 +74,6 @@ namespace Pastel
 			return 1;
 		}
 	};
-
-	PASTEL_CONCEPT_CHECK(Locator_Archetype, Locator_Concept);
 
 }
 

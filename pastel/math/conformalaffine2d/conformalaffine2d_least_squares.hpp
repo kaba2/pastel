@@ -20,8 +20,8 @@ namespace Pastel
 			To_PointSet toSet)
 	{
 		using Real = PointSet_Real<From_PointSet>;
-		using FromPoint =  PointSet_Point<From_PointSet>;
-		using ToPoint = PointSet_Point<To_PointSet>;
+		using FromPoint =  PointSet_PointId<From_PointSet>;
+		using ToPoint = PointSet_PointId<To_PointSet>;
 
 		static constexpr integer N = PointSet_Dimension<From_PointSet>::value;
 
