@@ -40,7 +40,9 @@ namespace Pastel
 	//! Returns the point-input.
 	template <
 		typename PointSet,
-		Requires<Models<PointSet, PointSet_Concept>> = 0
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
 	>
 	decltype(auto) pointSetSet(PointSet&& pointSet)
 	{

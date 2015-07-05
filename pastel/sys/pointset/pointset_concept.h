@@ -16,7 +16,7 @@ namespace Pastel
 	struct PointSet_Concept
 	{
 		// A PointSet is either 
-		// * a Set of Points, or
+		// * a Set whose elements have a default-locator, or
 		// * a LocationSet, which pairs a Set with a Locator.
 		template <typename Type>
 		auto requires(Type&& t) -> decltype
@@ -24,7 +24,10 @@ namespace Pastel
 			conceptCheck(
 				Concept::holds<
 					Or<
-						Models<Type, Set_Concept>,
+						And<
+							Models<Type, Set_Concept>,
+							HasDefaultLocator<Set_Element<Type>>
+						>,
 						IsTemplateInstance<Type, LocationSet>
 					>
 				>()

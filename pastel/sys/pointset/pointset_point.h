@@ -35,13 +35,23 @@ namespace Pastel
 
 	}
 
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
 	using PointSet_Point = 
 		typename PointSet_Point_::PointSet_Point_F_<
 			RemoveCvRef<PointSet>
 		>::type;
 
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
 	using PointSet_Point_F = 
 		Identity_F<PointSet_Point<PointSet>>;
 
