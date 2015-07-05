@@ -57,24 +57,10 @@ namespace Pastel
 		);
 	};
 
-	template <typename Set>
-	using Set_Element = 
-		typename RemoveCvRef<Set>::Element;
-	
-	template <typename Set>
-	using Set_Element_F = 
-		Identity_F<Set_Element<Set>>;
-
-	template <typename Set>
-	using Set_Index = 
-		typename RemoveCvRef<Set>::Index;
-	
-	template <typename Set>
-	using Set_Index_F = 
-		Identity_F<Set_Index<Set>>;
-
 }
 
+#include "pastel/sys/set/set_element.h"
+#include "pastel/sys/set/set_index.h"
 #include "pastel/sys/set/set_for_each.h"
 
 #endif
