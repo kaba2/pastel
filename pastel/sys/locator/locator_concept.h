@@ -52,33 +52,11 @@ namespace Pastel
 		);
 	};
 
-	template <
-		typename Real_,
-		typename Point_,
-		integer N_>
-	struct Locator_Archetype
-	{
-		static constexpr integer N = N_;
-		using Real = Real_;
-		using Point = Point_;
-
-		void swap(Locator_Archetype& that) {}
-
-		Real operator()(const Point& point, integer i) const
-		{
-			return Real();
-		}
-
-		integer n() const
-		{
-			return 1;
-		}
-	};
-
 }
 
 #include "pastel/sys/locator/locator_n.h"
 #include "pastel/sys/locator/locator_point.h"
 #include "pastel/sys/locator/locator_real.h"
+#include "pastel/sys/locator/locator_archetype.h"
 
 #endif

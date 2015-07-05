@@ -29,6 +29,8 @@ namespace Pastel
 		);
 	};
 
+	using Finite_Integer_Archetype = integer;
+
 }
 
 #endif
