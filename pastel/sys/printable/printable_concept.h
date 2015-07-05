@@ -23,6 +23,8 @@ namespace Pastel
 		);
 	};
 
+	using Printable_Archetype = integer;
+
 }
 
 #endif

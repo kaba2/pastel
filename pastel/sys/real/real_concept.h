@@ -66,6 +66,8 @@ namespace Pastel
 		);
 	};
 
+	using Real_Archetype = real;
+
 }
 
 #include "pastel/sys/real/real_concept.hpp"
