@@ -6,11 +6,12 @@
 #include "pastel/sys/pointset/pointset_concept.h"
 
 #include "pastel/math/normbijection/normbijection_concept.h"
-#include "pastel/sys/output/output_concept.h"
+#include "pastel/sys/function/function_concept.h"
 
 #include "pastel/geometry/nearestset/nearestset_pointset.h"
 #include "pastel/geometry/nearestset/nearestset_point.h"
 #include "pastel/geometry/nearestset/nearestset_real.h"
+#include "pastel/geometry/nearestset/nearestset_n.h"
 
 namespace Pastel
 {
@@ -28,43 +29,33 @@ namespace Pastel
 			conceptCheck(
 				//! Returns the underlying point-set.
 				Concept::isModelOf<PointSet_Concept>(
-					addConst(t).pointSet())
-				/*
-				,				
-				(
-					std::pair<
-						Real, 
-						Point
-					>
-				)
-				(
-					searchNearest(
+					addConst(t).pointSet())//,
+				//! Searches for nearest neighbors for a point.
+				//Concept::convertsTo<std::pair<Real, Point>>
+				//(
+				#if 0
+				searchNearest(
 						// A nearest-set.
 						addConst(t),
 						//! The point for which to search nearest-neighbors.
-						std::declval<Point>(),
-						Output_Archetype(),
+						std::declval<Point>()//,
 						//! The output to which to report the results.
-						[](typename Type::Real distance,
-						   typename Type::Point point) 
-						{
-						},
-						//! An indicator which decides whether to consider a given point.
-						[](typename Type::Point) 
-						{
-							return true;
-						},
-						NormBijection_Archetype(),
-						//! Optional arguments
-						[](auto& optional)
-						{
-							//! Maximum distance over which to search.
-							optional.maxDistance = 1;
-							//! The number of neighbors to search.
-							optional.k = 1;
-						}
-					)
-				)*/
+						/*!
+						The points will be reported as report(distance2, point).
+						*/
+						/*
+						PASTEL_TAG(report), Function_Archetype<void, Real, Point>(),
+						//! An indicator to decide whether to consider a given point.
+						PASTEL_TAG(accept), Function_Archetype<bool, Point>(),
+						//! The norm to use.
+						PASTEL_TAG(normBijection), NormBijection_Archetype(),
+						//! The number of nearest-neigbhors to search for.
+						PASTEL_TAG(kNearest), (integer)1,
+						//! The maximum distance to allow for a nearest-neighbors.
+						PASTEL_TAG(maxDistance2), (Real)infinity<Real>()*/
+				//	)
+				)
+				#endif
 			)
 		);
 	};
