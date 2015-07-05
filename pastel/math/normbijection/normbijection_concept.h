@@ -12,13 +12,11 @@ namespace Pastel
 	{
 		template <
 			typename Type,
+			//! The computation type.
 			typename Real = typename Type::Real>
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				//! The computation type.
-				Concept::exists<Real>(),
-
 				//! Computes the logarithm of the volume of the unit norm sphere.
 				Concept::convertsTo<Real>(
 					addConst(t).lnVolumeUnitSphere(

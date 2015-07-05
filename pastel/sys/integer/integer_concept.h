@@ -81,6 +81,8 @@ namespace Pastel
 		);
 	};
 
+	using Integer_Archetype = integer;
+
 }
 
 #endif
