@@ -139,6 +139,8 @@ namespace
 			{
 				auto nearestSet = bruteForceNearestSet(rangeSet(pointSet));
 				test(nearestSet, distanceSet);
+
+				TEST_ENSURE_OP(nearestSetN(nearestSet), ==, pointSet.size());
 			}
 			{
 				Tree tree;
