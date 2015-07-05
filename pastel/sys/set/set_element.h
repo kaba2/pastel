@@ -10,11 +10,20 @@
 namespace Pastel
 {
 
-	template <typename Set>
+	template <
+		typename Set,
+		Requires<
+			Models<Set, Set_Concept>
+		> = 0
+	>
 	using Set_Element = 
 		typename RemoveCvRef<Set>::Element;
 	
-	template <typename Set>
+	template <
+		typename Set,
+		Requires<
+			Models<Set, Set_Concept>
+		> = 0>
 	using Set_Element_F = 
 		Identity_F<Set_Element<Set>>;
 

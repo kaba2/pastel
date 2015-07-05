@@ -8,11 +8,21 @@
 namespace Pastel
 {
 
-	template <typename Set>
+	template <
+		typename Set,
+		Requires<
+			Models<Set, Set_Concept>
+		> = 0
+	>
 	using Set_Index = 
 		typename RemoveCvRef<Set>::Index;
 	
-	template <typename Set>
+	template <
+		typename Set,
+		Requires<
+			Models<Set, Set_Concept>
+		> = 0
+	>
 	using Set_Index_F = 
 		Identity_F<Set_Index<Set>>;
 
