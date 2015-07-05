@@ -17,7 +17,7 @@ namespace Pastel
 		Requires<Models<PointSet, PointSet_Concept>> = 0
 	>
 	auto boundingAlignedBox(PointSet pointSet)
-	-> AlignedBox<PointSet_Real<PointSet>, PointSet_N<PointSet>::value>;
+	-> AlignedBox<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value>;
 
 }
 

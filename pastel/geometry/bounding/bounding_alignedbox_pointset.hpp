@@ -14,10 +14,10 @@ namespace Pastel
 		Requires<Models<PointSet, PointSet_Concept>>
 	>
 	auto boundingAlignedBox(PointSet pointSet)
-	-> AlignedBox<PointSet_Real<PointSet>, PointSet_N<PointSet>::value>
+	-> AlignedBox<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value>
 	{
 		using Real = PointSet_Real<PointSet>;
-		static constexpr integer N = PointSet_N<PointSet>::value;
+		static constexpr integer N = PointSet_Dimension<PointSet>::value;
 		integer d = pointSetDimension(pointSet);
 		
 		AlignedBox<Real, N> bound(d);
