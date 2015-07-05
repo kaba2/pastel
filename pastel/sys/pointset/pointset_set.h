@@ -54,21 +54,45 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename PointSet>
-	struct PointSet_Set_F
-	: Identity_F<PointSet>
-	{};
+	namespace PointSet_Set_
+	{
+
+		template <typename PointSet>
+		struct PointSet_Set_F
+		{
+			using type = PointSet;
+		};
+
+		template <
+			typename Set,
+			typename Locator>
+		struct PointSet_Set_F<LocationSet<Set, Locator>>
+		{
+			using type = Set;
+		};
+
+	}
 
 	template <
-		typename Set,
-		typename Locator>
-	struct PointSet_Set_F<LocationSet<Set, Locator>>
-	: Identity_F<Set>
-	{};
-
-	template <typename PointSet>
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
 	using PointSet_Set = 
-		typename PointSet_Set_F<PointSet>::type;
+		typename PointSet_Set_::PointSet_Set_F<
+			RemoveCvRef<PointSet>
+		>::type;
+
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
+	using PointSet_Set_F = 
+		Identity_F<PointSet_Set<PointSet>>;
+
 
 }
 
