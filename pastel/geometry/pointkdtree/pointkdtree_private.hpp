@@ -476,7 +476,7 @@ namespace Pastel
 		{
 			pointSet_.insertBack(
 				PointInfo(
-					pointPoint(pointSet.element(index)), 
+					pointPointId(pointSet.element(index)), 
 					0, 
 					hidden
 				)
@@ -492,7 +492,7 @@ namespace Pastel
 		{
 			pointSet_.insertBack(
 				PointInfo(
-					pointPoint(pointSet.element(index)), 
+					pointPointId(pointSet.element(index)), 
 					0, 
 					hidden
 				)

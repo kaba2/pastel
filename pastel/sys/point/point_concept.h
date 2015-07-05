@@ -96,7 +96,7 @@ namespace Pastel
 #include "pastel/sys/point/point_locator.h"
 #include "pastel/sys/point/point_axis.h"
 #include "pastel/sys/point/point_dimension.h"
-#include "pastel/sys/point/point_point.h"
+#include "pastel/sys/point/point_point_id.h"
 #include "pastel/sys/point/point_real.h"
 
 #endif

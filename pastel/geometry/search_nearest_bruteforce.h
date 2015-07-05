@@ -163,7 +163,7 @@ namespace Pastel
 
 		forEach(pointSet, [&](auto&& point)
 		{
-			if (!accept(pointPoint(point)))
+			if (!accept(pointPointId(point)))
 			{
 				return true;
 			}
@@ -177,7 +177,7 @@ namespace Pastel
 			if (distance < cullDistance2)
 			{
 				entrySet.insert(
-					Entry{pointPoint(point), distance});
+					Entry{pointPointId(point), distance});
 
 				if (entrySet.size() > kNearest)
 				{

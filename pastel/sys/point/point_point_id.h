@@ -1,25 +1,25 @@
-// Description: Point-object of a point
+// Description: Point-id of a point
 // DocumentationOf: point_concept.h
 
-#ifndef PASTELSYS_POINT_POINT_H
-#define PASTELSYS_POINT_POINT_H
+#ifndef PASTELSYS_POINT_POINT_ID_H
+#define PASTELSYS_POINT_POINT_ID_H
 
 #include "pastel/sys/point/point_concept.h"
 
 namespace Pastel
 {
 
-	//! Returns the point itself.
-	template <typename Point>
-	const Point& pointPoint(const Point& that)
+	//! Returns the point-id itself.
+	template <typename PointId>
+	const PointId& pointPointId(const PointId& that)
 	{
 		return that;
 	}
 
-	//! Returns the point of a location.
-	template <typename Point, typename Locator>
-	const Point& pointPoint(
-		const Location<Point, Locator>& location)
+	//! Returns the point-id of a location.
+	template <typename PointId, typename Locator>
+	const PointId& pointPointId(
+		const Location<PointId, Locator>& location)
 	{
 		return location.point();
 	}
