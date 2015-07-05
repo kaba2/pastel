@@ -9,11 +9,20 @@
 namespace Pastel
 {
 
-	template <typename Input>
+	template <
+		typename Input,
+		Requires<
+			Models<Input, Input_Concept>
+		> = 0
+	>
 	using Input_Return = 
 		decltype(std::declval<std::remove_reference_t<Input>>().get());
 
-	template <typename Input>
+	template <
+		typename Input,
+		Requires<
+			Models<Input, Input_Concept>
+		> = 0>
 	using Input_Return_F = 
 		Identity_F<Input_Return<Input>>;
 
