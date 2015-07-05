@@ -30,12 +30,22 @@ namespace Pastel
 
 	}
 
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
 	struct PointSet_Locator_F
 	: PointSet_::PointSet_Locator_F_<PointSet>
 	{};
 
-	template <typename PointSet>
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
 	using PointSet_Locator =
 		typename PointSet_Locator_F<PointSet>::type;
 
@@ -45,16 +55,21 @@ namespace Pastel
 {
 
 	//! Returns the default locator of a point-set.
-	template <typename Point_Set>
-	decltype(auto) pointSetLocator(const Point_Set& pointSet)
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
+	decltype(auto) pointSetLocator(const PointSet& pointSet)
 	{
-		return PointSet_Locator<Point_Set>();
+		return PointSet_Locator<PointSet>();
 	}
 
 	//! Retrieves the locator of a location-set.
-	template <typename Point_Set, typename Locator>
+	template <typename Set, typename Locator>
 	const Locator& pointSetLocator(
-		const LocationSet<Point_Set, Locator>& pointSet)
+		const LocationSet<Set, Locator>& pointSet)
 	{
 		return pointSet.locator();
 	}
