@@ -261,7 +261,7 @@ namespace Pastel
 						) + translation;
 
 					integer k = 0;
-					auto neighborOutput = [&](
+					auto nearestReport = [&](
 						const Real& distance,
 						const Scene_ConstIterator& scenePoint)
 					{
@@ -273,7 +273,7 @@ namespace Pastel
 						scene, 
 						searchPoint,
 						normBijection,
-						PASTEL_TAG(nearestOutput), neighborOutput,
+						PASTEL_TAG(report), nearestReport,
 						PASTEL_TAG(kNearest), kNearest,
 						PASTEL_TAG(maxDistance2), matchingDistance2,
 						PASTEL_TAG(maxRelativeError), maxRelativeError);

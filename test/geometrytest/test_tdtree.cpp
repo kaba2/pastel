@@ -99,7 +99,7 @@ namespace
 			searchNearest(
 				tree, 
 				Point(1, 3), 
-				PASTEL_TAG(nearestOutput), report,
+				PASTEL_TAG(report), report,
 				PASTEL_TAG(kNearest), 5);
 
 			auto pointSet_ = tree.pointSet();
@@ -142,7 +142,7 @@ namespace
 				real kDistanceBrute = searchNearest(
 					bruteForceNearestSet(rangeSet(pointSet)),
 					pointSet[i],
-					PASTEL_TAG(nearestOutput), emplaceBackOutput(bruteSet),
+					PASTEL_TAG(report), emplaceBackOutput(bruteSet),
 					PASTEL_TAG(kNearest), k
 					).first;
 
@@ -152,7 +152,7 @@ namespace
 				real kDistanceTree = searchNearest(
 						tree,
 						pointSet[i],
-						PASTEL_TAG(nearestOutput), emplaceBackOutput(treeSet),
+						PASTEL_TAG(report), emplaceBackOutput(treeSet),
 						PASTEL_TAG(kNearest), k
 					).first;
 

@@ -386,7 +386,7 @@ namespace
 				std::vector<Point_ConstIterator> neighborSet;
 				std::vector<real> distanceSet;
 
-				auto nearestOutput = [&](
+				auto report = [&](
 					real distance,
 					Point_ConstIterator point)
 				{
@@ -397,7 +397,7 @@ namespace
 				searchNearest(
 					addConst(tree), 
 					Vector<real, N>(0), 
-					PASTEL_TAG(nearestOutput), nearestOutput,
+					PASTEL_TAG(report), report,
 					PASTEL_TAG(kNearest), m);
 			
 				integer count = distanceSet.size();
@@ -419,7 +419,7 @@ namespace
 				searchNearest(
 					tree, 
 					Vector<real, N>(0),
-					PASTEL_TAG(nearestOutput), [&](auto, auto) {++outerCount;},
+					PASTEL_TAG(report), [&](auto, auto) {++outerCount;},
 					PASTEL_TAG(maxDistance2), normBijection.toBijection(2.001),
 					PASTEL_TAG(kNearest), tree.points()
 					);
@@ -430,7 +430,7 @@ namespace
 				searchNearest(
 					tree, 
 					Vector<real, N>(0),
-					PASTEL_TAG(nearestOutput), [&](auto, auto) {++innerCount;},
+					PASTEL_TAG(report), [&](auto, auto) {++innerCount;},
 					PASTEL_TAG(maxDistance2), normBijection.toBijection(1.999),
 					PASTEL_TAG(kNearest), tree.points());
 				TEST_ENSURE_OP(innerCount, ==, 0);
