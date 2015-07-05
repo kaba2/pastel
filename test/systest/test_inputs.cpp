@@ -41,7 +41,7 @@ namespace
 			PASTEL_STATIC_ASSERT(
 				(std::is_same<Input_Value<decltype(input)>, integer>::value));
 
-				// The length of the sequence is not known,
+			// The length of the sequence is not known,
 			// since the input range was constructed from two
 			// iterators.
 			TEST_ENSURE_OP(input.nHint(), == , 0);
