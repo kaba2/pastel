@@ -91,7 +91,7 @@ namespace Pastel
 		Requires<
 			Models<Set, Set_Concept>/*,
 			Models<Transform, 
-				Function_Concept(int, typename RemoveCvRef<Set>::Element)
+				Function_Concept<int>(typename RemoveCvRef<Set>::Element)
 			>*/
 		> = 0>
 	auto transformedSet(

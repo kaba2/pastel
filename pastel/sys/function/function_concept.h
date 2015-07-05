@@ -9,21 +9,65 @@
 namespace Pastel
 {
 
+	template <typename Return>
 	struct Function_Concept
 	{
 		template <
 			typename Type,
-			typename Return,
 			typename... ArgumentSet>
-		auto requires(Type&& t, Return&& return_, ArgumentSet&&... argumentSet) -> decltype
+		auto requires(Type&& t, ArgumentSet&&... argumentSet) -> decltype
 		(
 			conceptCheck(
 				//! Returns the value of the function at given arguments.
 				Concept::convertsTo<Return>(
-					t(std::forward<ArgumentSet>(argumentSet)...)
+					addConst(t)(std::forward<ArgumentSet>(argumentSet)...)
 				)
 			)
 		);
+	};
+
+	template <>
+	struct Function_Concept<void>
+	{
+		template <
+			typename Type,
+			typename... ArgumentSet>
+		auto requires(Type&& t, ArgumentSet&&... argumentSet) -> decltype
+		(
+			conceptCheck(
+				//! Calls the function with the given arguments.
+				(addConst(t)(std::forward<ArgumentSet>(argumentSet)...), 0)
+			)
+		);
+	};
+
+}
+
+namespace Pastel
+{
+
+	template <
+		typename Return,
+		typename... ArgumentSet
+	>
+	struct Function_Archetype
+	{
+		Return operator()(
+			ArgumentSet&&... argumentSet) const
+		{
+			return Return();
+		}
+	};
+
+	template <
+		typename... ArgumentSet
+	>
+	struct Function_Archetype<void, ArgumentSet...>
+	{
+		void operator()(
+			ArgumentSet&&... argumentSet) const
+		{
+		}
 	};
 
 }

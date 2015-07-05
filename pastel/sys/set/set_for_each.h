@@ -24,7 +24,7 @@ namespace Pastel
 			Models<Set, Set_Concept>
 			// This triggers a bug in Visual Studio 2015 RC.
 			/*,
-			Models<Element_Function, Function_Concept(bool, Set_Element<Set>)>
+			Models<Element_Function, Function_Concept<bool>(Set_Element<Set>)>
 			*/
 		> = 0
 	>
