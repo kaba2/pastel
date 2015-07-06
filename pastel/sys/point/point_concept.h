@@ -58,7 +58,7 @@ namespace Pastel
 	{
 		// A Point is either an arbitrary type with a 
 		// default locator, or a Location, which pairs a 
-		// point with a locator.
+		// type with a locator.
 		template <typename Type>
 		auto requires(Type&& t) -> decltype
 		(
@@ -70,22 +70,6 @@ namespace Pastel
 					>
 				>()
 			)
-
-			// The following does not work, although I
-			// cannot see why. Some possibilities: 
-			// 1) This could invoke the most vexing parse,
-			// where the argument is interpreted as
-			// a function type.
-			// 2) Visual Studio 2015 CTP6 has a bug.
-
-			/*
-			conceptCheck(
-				RequiresSome<
-					HasDefaultLocator<Type>,
-					IsTemplateInstance<Type, Location>
-				>()
-			)
-			*/
 		);
 	};
 

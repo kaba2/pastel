@@ -5,6 +5,8 @@
 #define PASTELSYS_POINT_LOCATOR_H
 
 #include "pastel/sys/point/point_concept.h"
+#include "pastel/sys/function/identity_function.h"
+#include "pastel/sys/type_traits/remove_cvref.h"
 
 namespace Pastel
 {
@@ -14,23 +16,42 @@ namespace Pastel
 
 		template <typename Point>
 		struct Point_Locator_F_
-			: Identity_F<decltype(Default_Locator<const Point&>()(std::declval<Point>()))>
-		{};
+		{
+			using type = 
+				decltype(
+					Default_Locator<const Point&>()(
+						std::declval<Point>()
+					)
+				);
+		};
 
 		template <typename Point, typename Locator>
 		struct Point_Locator_F_<Location<Point, Locator>>
-			: Identity_F<Locator>
-		{};
+		{
+			using type = Locator;
+		};
 
 	}
 
-	template <typename Point>
-	using Point_Locator_F = 
-		Point_Locator_::Point_Locator_F_<Point>;
-
-	template <typename Point>
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
 	using Point_Locator = 
-		typename Point_Locator_F<Point>::type;
+		typename Point_Locator_::Point_Locator_F_<
+			RemoveCvRef<Point>
+		>::type;
+
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
+	using Point_Locator_F = 
+		Identity_F<Point_Locator<Point>>;
 
 }
 
