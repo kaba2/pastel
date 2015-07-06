@@ -5,8 +5,8 @@
 #define PASTELSYS_DIVIDE_INFINITY_H
 
 #include "pastel/sys/mytypes.h"
-
-#include <type_traits>
+#include "pastel/sys/integer/integer_concept.h"
+#include "pastel/sys/real/real_concept.h"
 
 namespace Pastel
 {

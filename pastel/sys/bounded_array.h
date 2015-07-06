@@ -7,6 +7,7 @@
 #include "pastel/sys/bounded_array_fwd.h"
 #include "pastel/sys/bounded_array_iterator.h"
 #include "pastel/sys/destruct.h"
+#include "pastel/sys/ensure.h"
 
 #include <type_traits>
 

@@ -6,6 +6,7 @@
 #include "pastel/sys/set/set_concept.h"
 #include "pastel/sys/algebra/element_concept.h"
 #include "pastel/sys/type_traits/is_subtractable.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {

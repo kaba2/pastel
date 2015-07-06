@@ -5,6 +5,8 @@
 #define PASTELSYS_RANGE_INPUT_H
 
 #include "pastel/sys/range.h"
+#include "pastel/sys/mytypes.h"
+#include "pastel/sys/ensure.h"
 
 #include <type_traits>
 #include <iterator>

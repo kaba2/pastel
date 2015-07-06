@@ -4,6 +4,7 @@
 #define PASTELSYS_CONSTANT_SET_H
 
 #include "pastel/sys/set/set_concept.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
