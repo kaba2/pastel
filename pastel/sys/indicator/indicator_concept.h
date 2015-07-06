@@ -3,12 +3,13 @@
 #ifndef PASTELSYS_INDICATOR_CONCEPT_H
 #define PASTELSYS_INDICATOR_CONCEPT_H
 
-#include "pastel/sys/mytypes.h"
+#include "pastel/sys/function/function_concept.h"
 
 namespace Pastel
 {
 
 	struct Indicator_Concept
+	: Refines<Function_Concept<bool>>
 	{
 		template <
 			typename Type,
