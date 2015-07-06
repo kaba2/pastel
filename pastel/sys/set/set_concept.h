@@ -24,7 +24,9 @@ namespace Pastel
 			//! The type of the index into the set.
 			typename Index = typename Type::Index
 		>
-		auto requires(Type&& t) -> decltype
+		auto requires(
+			Type&& t,
+			Element&& element = std::declval<Element>()) -> decltype
 		(
 			conceptCheck(
 				//! Returns the number of elements in the set.
@@ -49,7 +51,7 @@ namespace Pastel
 				the one-past-last element was reached.
 				*/
 				Concept::convertsTo<integer>(
-					addConst(t).next(std::declval<Index&>(), std::declval<integer>())),
+					addConst(t).next(std::declval<Index&>(), (integer)0)),
 				//! Returns whether there are no elements at the index.
 				Concept::convertsTo<bool>(
 					addConst(t).empty(std::declval<Index>()))
