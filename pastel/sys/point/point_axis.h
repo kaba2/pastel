@@ -17,7 +17,9 @@ namespace Pastel
 	*/
 	template <
 		typename Point,
-		Requires<Models<Point, Point_Concept>> = 0
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
 	>
 	decltype(auto) pointAxis(const Point& point, integer i)
 	{

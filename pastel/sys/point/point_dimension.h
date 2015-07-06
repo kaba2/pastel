@@ -15,18 +15,33 @@ namespace Pastel
 	Preconditions:
 	Point has a default locator.
 	*/
-	template <typename Point>
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
 	integer dimension(
 		const Point& point)
 	{
 		return locator(point).n();
 	}
 
-	template <typename Point>
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
 	using Point_N = 
 		Locator_N<Point_Locator<Point>>;
 
-	template <typename Point>
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
 	using Point_Dimension = 
 		Point_N<Point>;
 

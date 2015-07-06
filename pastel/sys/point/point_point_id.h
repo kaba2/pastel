@@ -5,13 +5,20 @@
 #define PASTELSYS_POINT_POINT_ID_H
 
 #include "pastel/sys/point/point_concept.h"
+#include "pastel/sys/function/identity_function.h"
+#include "pastel/sys/type_traits/remove_cvref.h"
 
 namespace Pastel
 {
 
 	//! Returns the point-id itself.
-	template <typename PointId>
-	const PointId& pointPointId(const PointId& that)
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
+	const Point& pointPointId(const Point& that)
 	{
 		return that;
 	}
@@ -29,23 +36,45 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Point>
-	struct Point_Point_F
+	namespace Point_Point_
 	{
-		using type = Point;
-	};
+
+		template <
+			typename Point>
+		struct Point_Point_F
+		{
+			using type = Point;
+		};
+
+		template <
+			typename Point,
+			typename Locator>
+		struct Point_Point_F<Location<Point, Locator>>
+		{
+			using type = Point;
+		};
+
+	}
 
 	template <
 		typename Point,
-		typename Locator>
-	struct Point_Point_F<Location<Point, Locator>>
-	{
-		using type = Point;
-	};
-
-	template <typename Point>
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
 	using Point_Point = 
-		typename Point_Point_F<Point>::type;
+		typename Point_Point_::Point_Point_F<
+			RemoveCvRef<Point>
+		>::type;
+
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
+	using Point_Point_F = 
+		Identity_F<Point_Point<Point>>;
 
 }
 
