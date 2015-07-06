@@ -115,14 +115,15 @@ namespace Pastel
 		n is the size of 'pointSet'.
 		*/
 		template <
-			typename Point_Set,
+			typename PointSet_,
 			typename... ArgumentSet,
 			Requires<
-				Models<Point_Set, PointSet_Concept>
+				Models<PointSet_, PointSet_Concept>,
+				Models<Locator, Locator_Concept(PointSet_PointId<PointSet_>)>
 			> = 0
 		>
 		explicit TdTree(
-			const Point_Set& pointSet,
+			const PointSet_& pointSet,
 			ArgumentSet&&... argumentSet)
 		: end_(new Node)
 		, root_(end_.get())
@@ -136,11 +137,8 @@ namespace Pastel
 				
 			enum : bool
 			{
-				PointSetHasCompatibleLocator = 
-					std::is_convertible<PointSet_Locator<Point_Set>, Locator>::value,
 				Simple = false
 			};
-			PASTEL_STATIC_ASSERT(PointSetHasCompatibleLocator);
 
 			simple_ = Simple;
 
