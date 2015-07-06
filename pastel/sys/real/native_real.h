@@ -29,14 +29,6 @@ namespace Pastel
 
 	template <
 		typename Type, 
-		Requires<std::is_integral<Type>> = 0>
-	Type infinity()
-	{
-		return std::numeric_limits<Type>::max();
-	}
-
-	template <
-		typename Type, 
 		Requires<std::is_floating_point<Type>> = 0>
 	bool isInfinity(const Type& that)
 	{

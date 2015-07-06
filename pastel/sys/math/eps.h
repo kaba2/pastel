@@ -5,6 +5,7 @@
 #define PASTELSYS_EPS_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/real/real_concept.h"
 
 namespace Pastel
 {

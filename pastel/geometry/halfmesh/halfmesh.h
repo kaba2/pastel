@@ -3,16 +3,17 @@
 #ifndef PASTELGEOMETRY_HALFMESH_H
 #define PASTELGEOMETRY_HALFMESH_H
 
+#include "pastel/sys/mytypes.h"
+#include "pastel/sys/ensure.h"
+#include "pastel/sys/generic/class.h"
+#include "pastel/sys/list.h"
+
 #include "pastel/geometry/halfmesh/halfmesh_concepts.h"
 #include "pastel/geometry/halfmesh/halfmesh_fwd.h"
 #include "pastel/geometry/halfmesh/halfmesh_vertex.h"
 #include "pastel/geometry/halfmesh/halfmesh_half.h"
 #include "pastel/geometry/halfmesh/halfmesh_edge.h"
 #include "pastel/geometry/halfmesh/halfmesh_polygon.h"
-
-#include "pastel/sys/mytypes.h"
-#include "pastel/sys/generic/class.h"
-#include "pastel/sys/list.h"
 
 #include <boost/operators.hpp>
 

@@ -3,6 +3,8 @@
 #ifndef PASTELSYS_LIST_H
 #define PASTELSYS_LIST_H
 
+#include "pastel/sys/ensure.h"
+
 #include "pastel/sys/list/list_concepts.h"
 #include "pastel/sys/list/list_node.h"
 #include "pastel/sys/list/list_iterator.h"

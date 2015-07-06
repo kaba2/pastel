@@ -2,6 +2,7 @@
 #define PASTELGEOMETRY_HALFMESH_HPP
 
 #include "pastel/geometry/halfmesh/halfmesh.h"
+#include "pastel/sys/ensure.h"
 
 #include <unordered_map>
 

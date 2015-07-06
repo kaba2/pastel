@@ -5,6 +5,7 @@
 
 #include "pastel/sys/redblacktree/redblacktree_fwd.h"
 #include "pastel/sys/generic/class.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
@@ -28,7 +29,7 @@ namespace Pastel
 			{
 				return !red();
 			}
-			
+
 			bool isSentinel() const
 			{
 				// A sentinel is identified by the unique property
@@ -139,7 +140,7 @@ namespace Pastel
 
 			//! The parent node.
 			Node* parent_;
-			
+
 			//! The child nodes.
 			/*
 			The child_[0] is the left child, while
@@ -152,7 +153,7 @@ namespace Pastel
 			member-initialize arrays.
 			*/
 			Node* child_[2];
-			
+
 			//! Whether the node is red.
 			/*
 			A bit-field can not be member-initialized in C++11.

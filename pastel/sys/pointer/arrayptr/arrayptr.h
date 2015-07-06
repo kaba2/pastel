@@ -5,6 +5,7 @@
 #define PASTELSYS_ARRAYPTR_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {

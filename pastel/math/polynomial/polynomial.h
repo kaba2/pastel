@@ -4,6 +4,7 @@
 #define PASTELMATH_POLYNOMIAL_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/ensure.h"
 
 #include <boost/operators.hpp>
 

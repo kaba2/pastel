@@ -6,6 +6,7 @@
 #define PASTELSYS_SPARSE_ITERATOR_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/ensure.h"
 #include "pastel/sys/range.h"
 
 #include <boost/operators.hpp>

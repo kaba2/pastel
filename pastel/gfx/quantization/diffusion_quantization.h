@@ -6,6 +6,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/array.h"
 
 namespace Pastel
 {
