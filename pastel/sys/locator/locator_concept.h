@@ -23,7 +23,10 @@ namespace Pastel
 			*/
 			integer N = Type::N
 		>
-		auto requires(Type&& t) -> decltype
+		auto requires(
+			Type&& t, 
+			Real&& s = std::declval<Real>(), 
+			PointId&& pointId = std::declval<PointId>()) -> decltype
 		(
 			conceptCheck(
 				//! Run-time dimension.
@@ -45,8 +48,7 @@ namespace Pastel
 				0 <= i < n()
 				*/
 				Concept::convertsTo<Real>(
-					addConst(t)(std::declval<PointId>(),
-					  (integer)0)
+					addConst(t)(pointId, (integer)0)
 				)
 			)
 		);

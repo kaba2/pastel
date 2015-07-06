@@ -34,6 +34,11 @@ namespace
 			struct A {};
 			using Locator = Locator_Archetype<real, A, 3>;
 			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept());
+			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(real));
+			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(real, A));
+			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(Locator_Real<Locator>, A));
+			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(real, Locator_Point<Locator>));
 
 			PASTEL_STATIC_ASSERT(
 				Locator_N<Locator>::value == 3);
