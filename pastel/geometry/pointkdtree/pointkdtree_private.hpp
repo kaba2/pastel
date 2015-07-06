@@ -463,9 +463,9 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	template <typename Point_Set>
+	template <typename PointId_Set>
 	auto PointKdTree<Settings, Customization>::copyToEnd(
-		const Point_Set& pointSet, 
+		const PointId_Set& pointSet, 
 		bool hidden)
 		-> Point_Iterator
 	{
@@ -476,7 +476,7 @@ namespace Pastel
 		{
 			pointSet_.insertBack(
 				PointInfo(
-					pointPointId(pointSet.element(index)), 
+					pointSet.element(index), 
 					0, 
 					hidden
 				)
@@ -492,7 +492,7 @@ namespace Pastel
 		{
 			pointSet_.insertBack(
 				PointInfo(
-					pointPointId(pointSet.element(index)), 
+					pointSet.element(index), 
 					0, 
 					hidden
 				)

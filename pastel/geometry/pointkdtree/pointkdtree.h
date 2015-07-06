@@ -266,18 +266,14 @@ namespace Pastel
 		hidden points or not.
 		*/
 		template <
-			typename Point_Set,
+			typename PointId_Set,
 			typename... ArgumentSet,
 			Requires<
-				Models<Point_Set, Set_Concept>/*,
-				std::is_convertible<
-					typename Point_Set::Element, 
-					Point
-				>*/
+				Models<PointId_Set, Set_Concept>
 			> = 0
 		>
 		void insertSet(
-			const Point_Set& pointSet, 
+			const PointId_Set& pointSet, 
 			ArgumentSet&&... argumentSet);
 
 		//! Removes a point from the tree.
@@ -441,9 +437,9 @@ namespace Pastel
 		The first Point_Iterator of the inserted points in
 		'pointSet_'.
 		*/
-		template <typename Point_Set>
+		template <typename PointId_Set>
 		auto copyToEnd(
-			const Point_Set& pointSet, 
+			const PointId_Set& pointSet, 
 			bool hidden)
 			-> Point_Iterator;
 

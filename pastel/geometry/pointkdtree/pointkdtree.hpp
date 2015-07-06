@@ -298,11 +298,7 @@ namespace Pastel
 		typename Point_Set,
 		typename... ArgumentSet,
 		Requires<
-			Models<Point_Set, Set_Concept>/*,
-			std::is_convertible<
-				typename Point_Set::Element, 
-				typename PointKdTree<Settings, Customization>::Point
-			>*/
+			Models<Point_Set, Set_Concept>
 		>
 	>
 	void PointKdTree<Settings, Customization>::insertSet(
