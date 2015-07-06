@@ -22,8 +22,10 @@ namespace Pastel
 	class Default_Locator;
 
 	template <
-		typename Point,
-		typename Locator>
+		typename Type,
+		typename Locator,
+		typename
+	>
 	class Location;
 
 }
