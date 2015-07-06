@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_SIGN_H
 #define PASTELSYS_SIGN_H
 
-#include "pastel/sys/mytypes.h"
+#include "pastel/sys/real/real_concept.h"
 
 namespace Pastel
 {
@@ -16,11 +16,18 @@ namespace Pastel
 	 0, if zero (or NaN), or
 	+1, if positive.
 	*/
-	template <typename Type>
-	integer sign(const Type& that);
+	template <typename Real>
+	integer sign(const Real& that)
+	{
+		// x>0  x<0   Result
+		//  no   no   0 (could also be NaN)
+		//  no  yes   -1
+		// yes   no   +1
+		// yes  yes   Impossible.
+
+		return (integer)positive(that) - (integer)negative(that);
+	}
 
 }
-
-#include "pastel/sys/math/sign.hpp"
 
 #endif
