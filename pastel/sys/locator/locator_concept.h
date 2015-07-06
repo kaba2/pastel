@@ -13,10 +13,10 @@ namespace Pastel
 	{
 		template <
 			typename Type,
-			//! The type of the coordinates.
-			typename Real = typename Type::Real,
 			//! The type of the point-ids.
 			typename PointId = typename Type::Point,
+			//! The type of the coordinates.
+			typename Real = typename Type::Real,
 			//! Compile-time dimension.
 			/*!
 			If the dimension is dynamic, specify N = Dynamic.
@@ -25,8 +25,8 @@ namespace Pastel
 		>
 		auto requires(
 			Type&& t, 
-			Real&& s = std::declval<Real>(), 
-			PointId&& pointId = std::declval<PointId>()) -> decltype
+			PointId&& pointId = std::declval<PointId>(),
+			Real&& s = std::declval<Real>()) -> decltype
 		(
 			conceptCheck(
 				//! Run-time dimension.
