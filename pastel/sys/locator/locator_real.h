@@ -4,16 +4,39 @@
 #define PASTELSYS_LOCATOR_REAL_H
 
 #include "pastel/sys/locator/locator_concept.h"
-
-#include <type_traits>
+#include "pastel/sys/function/identity_function.h"
+#include "pastel/sys/type_traits/remove_cvref.h"
 
 namespace Pastel
 {
 
-	template <typename Locator>
-	using Locator_Real_ =
-		//typename std::remove_reference_t<Locator>::Real;
-		typename Locator::Real;
+	#ifdef _MSC_VER
+		// The Locator_Real_ was refactored here,
+		// because doing this directly triggers
+		// a bug in Visual Studio 2015 RC.
+
+		// Using RemoveCvRef here triggers a bug in
+		// Visual Studio 2015 RC.
+
+		// FIX: Add RemoveCvRef once the bug is fixed.
+		template <
+			typename Locator,
+			Requires<
+				Models<Locator, Locator_Concept>
+			> = 0
+		>
+		using Locator_Real_ =
+			typename Locator::Real;
+	#else
+		template <
+			typename Locator,
+			Requires<
+				Models<Locator, Locator_Concept>
+			> = 0
+		>
+		using Locator_Real_ =
+			typename RemoveCvRef<Locator>::Real;
+	#endif
 
 	template <typename... LocatorSet>
 	using Locator_Real_F =
