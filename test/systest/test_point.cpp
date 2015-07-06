@@ -102,19 +102,19 @@ namespace
 		{
 			// Default-locator for native arithmetic types.
 			PASTEL_STATIC_ASSERT(
-				(std::is_same<Point_Point<integer>, integer>::value));
+				(std::is_same<Point_PointId<integer>, integer>::value));
 			PASTEL_STATIC_ASSERT(
-				(std::is_same<Point_Point<real>, real>::value));
+				(std::is_same<Point_PointId<real>, real>::value));
 
 			// Default-locator for rational numbers.
 			PASTEL_STATIC_ASSERT(
-				(std::is_same<Point_Point<Rational<integer>>, Rational<integer>>::value));
+				(std::is_same<Point_PointId<Rational<integer>>, Rational<integer>>::value));
 
 			// Default-locator for pointers, which we defined above.
 			PASTEL_STATIC_ASSERT(
-				(std::is_same<Point_Point<real*>, real*>::value));
+				(std::is_same<Point_PointId<real*>, real*>::value));
 			PASTEL_STATIC_ASSERT(
-				(std::is_same<Point_Point<const real*>, const real*>::value));
+				(std::is_same<Point_PointId<const real*>, const real*>::value));
 		}
 
 		void testLocator()

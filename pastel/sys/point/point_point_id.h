@@ -36,12 +36,12 @@ namespace Pastel
 namespace Pastel
 {
 
-	namespace Point_Point_
+	namespace Point_PointId_
 	{
 
 		template <
 			typename Point>
-		struct Point_Point_F
+		struct Point_PointId_F
 		{
 			using type = Point;
 		};
@@ -49,7 +49,7 @@ namespace Pastel
 		template <
 			typename Point,
 			typename Locator>
-		struct Point_Point_F<Location<Point, Locator>>
+		struct Point_PointId_F<Location<Point, Locator>>
 		{
 			using type = Point;
 		};
@@ -62,8 +62,8 @@ namespace Pastel
 			Models<Point, Point_Concept>
 		> = 0
 	>
-	using Point_Point = 
-		typename Point_Point_::Point_Point_F<
+	using Point_PointId = 
+		typename Point_PointId_::Point_PointId_F<
 			RemoveCvRef<Point>
 		>::type;
 
@@ -73,8 +73,8 @@ namespace Pastel
 			Models<Point, Point_Concept>
 		> = 0
 	>
-	using Point_Point_F = 
-		Identity_F<Point_Point<Point>>;
+	using Point_PointId_F = 
+		Identity_F<Point_PointId<Point>>;
 
 }
 
