@@ -59,7 +59,7 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/nearestset/nearestset_point.h"
+#include "pastel/geometry/nearestset/nearestset_point_id.h"
 #include "pastel/geometry/nearestset/nearestset_real.h"
 #include "pastel/geometry/nearestset/nearestset_n.h"
 

@@ -4,6 +4,7 @@
 #ifndef PASTELGEOMETRY_NEARESTSET_REAL_H
 #define PASTELGEOMETRY_NEARESTSET_REAL_H
 
+#include "pastel/geometry/nearestset/nearestset_concept.h"
 #include "pastel/geometry/nearestset/nearestset_pointset.h"
 #include "pastel/sys/pointset/pointset_real.h"
 

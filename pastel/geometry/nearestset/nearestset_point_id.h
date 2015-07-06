@@ -1,9 +1,10 @@
-// Description: Point-type of a nearest set
+// Description: Point-id-type of a nearest set
 // Documentation: nearestset.txt
 
-#ifndef PASTELGEOMETRY_NEARESTSET_POINT_H
-#define PASTELGEOMETRY_NEARESTSET_POINT_H
+#ifndef PASTELGEOMETRY_NEARESTSET_POINT_ID_H
+#define PASTELGEOMETRY_NEARESTSET_POINT_ID_H
 
+#include "pastel/geometry/nearestset/nearestset_concept.h"
 #include "pastel/geometry/nearestset/nearestset_pointset.h"
 
 namespace Pastel
@@ -15,7 +16,7 @@ namespace Pastel
 			Models<NearestSet, NearestSet_Concept>
 		> = 0
 	>
-	using NearestSet_Point =
+	using NearestSet_PointId =
 		PointSet_PointId<NearestSet_PointSet<NearestSet>>;
 
 	template <
@@ -24,8 +25,8 @@ namespace Pastel
 			Models<NearestSet, NearestSet_Concept>
 		> = 0
 	>
-	using NearestSet_Point_F = 
-		Identity_F<NearestSet_Point<NearestSet>>;
+	using NearestSet_PointId_F = 
+		Identity_F<NearestSet_PointId<NearestSet>>;
 
 }
 

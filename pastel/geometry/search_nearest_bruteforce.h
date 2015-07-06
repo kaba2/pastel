@@ -87,7 +87,7 @@ namespace Pastel
 		typename Search_Point,
 		typename... ArgumentSet,
 		typename NearestSet = BruteForce_NearestSet<Settings>,
-		typename Point = NearestSet_Point<NearestSet>,
+		typename Point = NearestSet_PointId<NearestSet>,
 		typename Real = NearestSet_Real<NearestSet>,
 		Requires<
 			Models<Search_Point, Point_Concept>
