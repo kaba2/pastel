@@ -43,6 +43,12 @@ namespace
 		{
 			PASTEL_CONCEPT_CHECK(
 				Interval_Set<integer>, Set_Concept);
+			PASTEL_CONCEPT_CHECK(
+				Interval_Set<integer>, Set_Concept());
+			PASTEL_CONCEPT_CHECK(
+				Interval_Set<integer>, Set_Concept(integer));
+			PASTEL_CONCEPT_CHECK(
+				Interval_Set<integer>, Set_Concept(real));
 			PASTEL_STATIC_ASSERT(
 				CorrectElement<Interval_Set<integer>, integer>::value);
 			{
@@ -101,6 +107,12 @@ namespace
 		{
 			PASTEL_CONCEPT_CHECK(
 				Constant_Set<integer>, Set_Concept);
+			PASTEL_CONCEPT_CHECK(
+				Constant_Set<integer>, Set_Concept());
+			PASTEL_CONCEPT_CHECK(
+				Constant_Set<integer>, Set_Concept(integer));
+			PASTEL_CONCEPT_CHECK(
+				Constant_Set<integer>, Set_Concept(real));
 
 			{
 				integer n = 4;
@@ -145,6 +157,9 @@ namespace
 					Constant_Set<integer>,
 					Constant_Set<integer>>;
 			PASTEL_CONCEPT_CHECK(Union, Set_Concept);
+			PASTEL_CONCEPT_CHECK(Union, Set_Concept());
+			PASTEL_CONCEPT_CHECK(Union, Set_Concept(integer));
+			PASTEL_CONCEPT_CHECK(Union, Set_Concept(real));
 
 			{
 				integer nA = 5;
