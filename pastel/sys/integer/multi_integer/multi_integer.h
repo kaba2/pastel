@@ -1075,7 +1075,6 @@ namespace Pastel
 				return "0";
 			}
 
-			MultiInteger Base = base;
 			std::string result;
 
 			MultiInteger t = abs(*this);
@@ -1085,15 +1084,15 @@ namespace Pastel
 				// The t is negative if and only if
 				// *this == -2^Bits. Compute one digit
 				// in advance.
-				result += integerAsDigit((integer)(mod(t, Base)));
-				t = divideInfinity(Base);
+				result += integerAsDigit((integer)(mod(t, base)));
+				t = divideInfinity<MultiInteger>(base);
 			}
 
 			ASSERT(!negative(t));
 	
 			while (!zero(t))
 			{
-				result += integerAsDigit((integer)mod(t, Base));
+				result += integerAsDigit((integer)mod(t, base));
 				t /= base;
 			}
 

@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	//! Returns floor((infinity<uinteger>() + 1) / n).
+	//! Returns floor((infinity<Integer>() + 1) / n).
 	/*!
 	Preconditions:
 	n >= 2
@@ -21,11 +21,13 @@ namespace Pastel
 	*/
 	template <
 		typename Integer,
+		typename N_Integer,
 		Requires<
-			Models<Integer, Integer_Concept>
+			Models<Integer, Integer_Concept>,
+			Models<N_Integer, Integer_Concept>
 		> = 0
 	>
-	Integer divideInfinity(const Integer& n);
+	Integer divideInfinity(const N_Integer& n);
 
 }
 

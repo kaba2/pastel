@@ -52,11 +52,16 @@ namespace Pastel
 		return x & bitMask<Integer>(n);
 	}
 
-	template <typename Integer>
-	Integer mod(const Integer& x, const Integer& n)
+	template <
+		typename Integer,
+		typename N_Integer,
+		Requires<
+			Models<Integer, Integer_Concept>,
+			Models<N_Integer, Integer_Concept>
+		>
+	>
+	Integer mod(const Integer& x, const N_Integer& n)
 	{
-		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
-		
 		PENSURE(positive(n));
 
 		if (!negative(x))
@@ -76,7 +81,7 @@ namespace Pastel
 			// The multiplication must be done using
 			// negative numbers, since the result may
 			// be -2^B.
-			return (-divideInfinity(n)) * n - x;
+			return (-divideInfinity<Integer>(n)) * n - x;
 		}
 
 		// Compute mod(|x|, n).
