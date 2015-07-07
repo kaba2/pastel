@@ -12,6 +12,7 @@
 #include "pastel/sys/bit/highest_bit.h"
 #include "pastel/sys/math/rounding.h"
 #include "pastel/sys/math/mod.h"
+#include "pastel/sys/math/divide_infinity.h"
 #include "pastel/sys/string/digit.h"
 
 #include "boost/operators.hpp"
@@ -1075,10 +1076,21 @@ namespace Pastel
 			}
 
 			MultiInteger Base = base;
+			std::string result;
 
 			MultiInteger t = abs(*this);
+
+			if (negative(t))
+			{
+				// The t is negative if and only if
+				// *this == -2^Bits. Compute one digit
+				// in advance.
+				result += integerAsDigit((integer)(mod(t, Base)));
+				t = divideInfinity(Base);
+			}
+
+			ASSERT(!negative(t));
 	
-			std::string result;
 			while (!zero(t))
 			{
 				result += integerAsDigit((integer)mod(t, Base));
