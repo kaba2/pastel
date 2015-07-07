@@ -10,10 +10,9 @@
 #include "pastel/sys/bit/set_bits.h"
 #include "pastel/sys/bit/number_of_one_bits.h"
 #include "pastel/sys/bit/highest_bit.h"
-#include "pastel/sys/math/rounding.h"
-#include "pastel/sys/math/mod.h"
-#include "pastel/sys/math/divide_infinity.h"
+#include "pastel/sys/bit/twos_complement.h"
 #include "pastel/sys/string/digit.h"
+#include "pastel/sys/math/divide_and_round_up.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -1066,45 +1065,7 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: strong
 		*/
-		std::string asString(integer base = 10) const
-		{
-			ENSURE_OP(base, >=, 2);
-
-			if (zero(*this))
-			{
-				return "0";
-			}
-
-			std::string result;
-
-			MultiInteger t = abs(*this);
-
-			if (negative(t))
-			{
-				// The t is negative if and only if
-				// *this == -2^Bits. Compute one digit
-				// in advance.
-				result += integerAsDigit((integer)(mod(t, base)));
-				t = divideInfinity<MultiInteger>(base);
-			}
-
-			ASSERT(!negative(t));
-	
-			while (!zero(t))
-			{
-				result += integerAsDigit((integer)mod(t, base));
-				t /= base;
-			}
-
-			if (Signed && negative(*this))
-			{
-				result += "-";
-			}
-
-			std::reverse(result.begin(), result.end());
-
-			return result;
-		}
+		std::string asString(integer base = 10) const;
 
 		//! Computes a hash of the bits in the range [beginBit, endBit).
 		/*!
@@ -1211,6 +1172,57 @@ namespace Pastel
 }
 
 #include "pastel/sys/integer/multi_integer/multi_integer_as_integer.hpp"
+
+#include "pastel/sys/math/divide_infinity.h"
+#include "pastel/sys/math/mod.h"
+
+namespace Pastel
+{
+
+	template <typename MultiInteger_Settings_Concept>
+	std::string MultiInteger<MultiInteger_Settings_Concept>::asString(
+		integer base) const
+	{
+		ENSURE_OP(base, >=, 2);
+
+		if (zero(*this))
+		{
+			return "0";
+		}
+
+		std::string result;
+
+		MultiInteger t = abs(*this);
+
+		if (negative(t))
+		{
+			// The t is negative if and only if
+			// *this == -2^Bits. Compute one digit
+			// in advance.
+			result += integerAsDigit((integer)(mod(t, base)));
+			t = divideInfinity<MultiInteger>(base);
+		}
+
+		ASSERT(!negative(t));
+
+		while (!zero(t))
+		{
+			result += integerAsDigit((integer)mod(t, base));
+			t /= base;
+		}
+
+		if (Signed && negative(*this))
+		{
+			result += "-";
+		}
+
+		std::reverse(result.begin(), result.end());
+
+		return result;
+	}
+
+}
+
 #include "pastel/sys/integer/multi_integer/multi_integer_hash.h"
 #include "pastel/sys/integer/multi_integer/multi_integer_stream.hpp"
 

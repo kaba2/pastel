@@ -114,18 +114,6 @@ namespace Pastel
 		const Integer& that, 
 		integer power);
 
-	//! Returns ceil(divide / byThis).
-	/*!
-	Time complexity: O(1)
-	Exception safety: nothrow
-	*/
-	template <
-		typename Integer,
-		Requires<Models<Integer, Integer_Concept>> = 0>
-	Integer divideAndRoundUp(
-		const Integer& divide, 
-		const Integer& byThis);
-
 }
 
 #include "pastel/sys/math/rounding.hpp"

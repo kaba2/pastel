@@ -4,6 +4,7 @@
 #include "test/test_init.h"
 
 #include <pastel/sys/math/rounding.h>
+#include <pastel/sys/math/divide_and_round_up.h>
 #include <pastel/sys/math/powers.h>
 
 TEST_CASE("RoundUpTo (rounding)")
