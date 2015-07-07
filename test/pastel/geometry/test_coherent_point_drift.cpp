@@ -33,6 +33,65 @@ namespace
 	};
 
 	template <typename Real>
+	void testCase(
+		arma::Mat<Real> Q,
+		arma::Mat<Real> S,
+		arma::Col<Real> t,
+		arma::Mat<Real> fromSet,
+		std::initializer_list<Cpd_Matrix> matrixSet,
+		std::initializer_list<Cpd_Scaling> scalingSet,
+		std::initializer_list<Cpd_Translation> translationSet)
+	{
+		Real threshold = 1e-5;
+
+		arma::Mat<Real> toSet = Q * S * fromSet + 
+			t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols);
+
+		REQUIRE(fromSet.n_cols == 3);
+		REQUIRE(fromSet.n_rows == 2);
+
+		Cpd_Return<Real> match;
+		auto deltaNorm = [&]()
+		{
+			arma::Mat<Real> delta = 
+				(match.Q * match.S * fromSet + match.t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols)) - toSet;
+
+			return arma::norm(delta, "inf");
+		};
+
+		for (auto scaling : scalingSet)
+		{
+			for (auto translation : translationSet)
+			{
+				for (auto matrix : matrixSet)
+				{
+					integer orientation = 1;
+
+					if (matrix == LsAffine_Matrix::Identity &&
+						scaling != LsAffine_Scaling::Rigid)
+					{
+						orientation = 0;
+					}
+
+					if (scaling == LsAffine_Scaling::Free)
+					{
+						orientation = 0;
+					}
+
+					match = coherentPointDrift(
+						fromSet, toSet,
+						scaling,
+						translation,
+						matrix,
+						PASTEL_TAG(orientation), orientation);
+
+					REQUIRE(deltaNorm() < threshold);
+				}
+			}
+		}
+	}
+
+	template <typename Real>
 	void testRotation()
 	{
 		arma::Mat<Real> S(2, 2, arma::fill::eye);
@@ -90,65 +149,6 @@ namespace
 				{Cpd_Matrix::Free, Cpd_Matrix::Identity},
 				{Cpd_Scaling::Rigid, Cpd_Scaling::Conformal, Cpd_Scaling::Free},
 				{Cpd_Translation::Free});
-		}
-	}
-
-	template <typename Real>
-	void testCase(
-		arma::Mat<Real> Q,
-		arma::Mat<Real> S,
-		arma::Col<Real> t,
-		arma::Mat<Real> fromSet,
-		std::initializer_list<Cpd_Matrix> matrixSet,
-		std::initializer_list<Cpd_Scaling> scalingSet,
-		std::initializer_list<Cpd_Translation> translationSet)
-	{
-		Real threshold = 1e-5;
-
-		arma::Mat<Real> toSet = Q * S * fromSet + 
-			t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols);
-
-		REQUIRE(fromSet.n_cols == 3);
-		REQUIRE(fromSet.n_rows == 2);
-
-		Cpd_Return<Real> match;
-		auto deltaNorm = [&]()
-		{
-			arma::Mat<Real> delta = 
-				(match.Q * match.S * fromSet + match.t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols)) - toSet;
-
-			return arma::norm(delta, "inf");
-		};
-
-		for (auto scaling : scalingSet)
-		{
-			for (auto translation : translationSet)
-			{
-				for (auto matrix : matrixSet)
-				{
-					integer orientation = 1;
-
-					if (matrix == LsAffine_Matrix::Identity &&
-						scaling != LsAffine_Scaling::Rigid)
-					{
-						orientation = 0;
-					}
-
-					if (scaling == LsAffine_Scaling::Free)
-					{
-						orientation = 0;
-					}
-
-					match = coherentPointDrift(
-						fromSet, toSet,
-						scaling,
-						translation,
-						matrix,
-						PASTEL_TAG(orientation), orientation);
-
-					REQUIRE(deltaNorm() < threshold);
-				}
-			}
 		}
 	}
 

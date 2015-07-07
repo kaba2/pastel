@@ -553,7 +553,6 @@ TEST_CASE("Arithmetic (MultiInteger)")
 		PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
 
 		REQUIRE(F(0) + F(0) == F(0));
-		ASSERT(F(0) + F(1) == F(1));
 		REQUIRE(F(0) + F(1) == F(1));
 		REQUIRE(F(1) + F(0) == F(1));
 		REQUIRE(F(1) + F(1) == F(0));

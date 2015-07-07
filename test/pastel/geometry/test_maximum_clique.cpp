@@ -17,17 +17,6 @@ namespace
 	using Real = Rational<integer>;
 	using Box = AlignedBox<Real, 2>;
 
-	template <integer N>
-	void testCase(
-		const Box (&boxSet)[N],
-		const Box& correct,
-		integer sweepDirection = 1)
-	{
-		integer correctSet[] = {-1};
-		testCase(boxSet, correct, 
-			sweepDirection, correctSet);
-	}
-
 	template <integer N, integer M>
 	void testCase(
 		const Box (&boxSet)[N],
@@ -71,6 +60,17 @@ namespace
 		std::cout << clique.min() << clique.max() << std::endl;
 		std::cout << std::endl;
 		*/
+	}
+
+	template <integer N>
+	void testCase(
+		const Box (&boxSet)[N],
+		const Box& correct,
+		integer sweepDirection = 1)
+	{
+		integer correctSet[] = {-1};
+		testCase(boxSet, correct, 
+			sweepDirection, correctSet);
 	}
 
 }

@@ -141,12 +141,6 @@ namespace
 		return true;
 	}
 
-	template <integer N>
-	bool testDct(const real (&input)[N])
-	{
-		return testDct(range(input));
-	}
-
 	template <typename Complex_RandomAccessRange>
 	bool testDct(
 		const Complex_RandomAccessRange& input)
@@ -161,9 +155,9 @@ namespace
 	}
 
 	template <integer N>
-	bool testHaar(const real (&input)[N])
+	bool testDct(const real (&input)[N])
 	{
-		return testHaar(range(input));
+		return testDct(range(input));
 	}
 
 	template <typename Complex_RandomAccessRange>
@@ -180,9 +174,9 @@ namespace
 	}
 
 	template <integer N>
-	bool testHadamard(const real (&input)[N])
+	bool testHaar(const real (&input)[N])
 	{
-		return testHadamard(range(input));
+		return testHaar(range(input));
 	}
 
 	template <typename Complex_RandomAccessRange>
@@ -196,6 +190,12 @@ namespace
 		}
 
 		return true;
+	}
+
+	template <integer N>
+	bool testHadamard(const real (&input)[N])
+	{
+		return testHadamard(range(input));
 	}
 
 }
