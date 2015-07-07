@@ -24,86 +24,86 @@ namespace
 		return xyzToSrgb(labToXyz(lab));
 	}
 
-	void testGray()
+}
+
+TEST_CASE("Gray (Gray)")
+{
+	Array<Color, 2> image;
+	loadPcx("lena.pcx", image);
+
+	Array<Color, 2> transformed(image.extent());
+
+	transform(constArrayView(image),
+		arrayView(transformed), lumaColor);
+
+	savePcx(transformed, "gray_luma.pcx");
+
+	transform(constArrayView(image),
+		arrayView(transformed), lightness);
+
+	savePcx(transformed, "gray_lightness.pcx");
+}
+
+TEST_CASE("LinearLuminance (LinearLuminance)")
+{
+	real Width = 400;
+	real Height = 100;
+	Array<Color, 2> image(Vector2i(Width, Height));
+
+	real32 Step = 1 / Width;
+
+	for (integer x = 0;x < Width;++x)
 	{
-		Array<Color, 2> image;
-		loadPcx("lena.pcx", image);
-
-		Array<Color, 2> transformed(image.extent());
-
-		transform(constArrayView(image),
-			arrayView(transformed), lumaColor);
-
-		savePcx(transformed, "gray_luma.pcx");
-
-		transform(constArrayView(image),
-			arrayView(transformed), lightness);
-
-		savePcx(transformed, "gray_lightness.pcx");
-	}
-
-	void testLinearLuminance()
-	{
-		real Width = 400;
-		real Height = 100;
-		Array<Color, 2> image(Vector2i(Width, Height));
-
-		real32 Step = 1 / Width;
-
-		for (integer x = 0;x < Width;++x)
+		Color color(
+			linearSrgbToSrgb(
+			Color(Step * x)));
+		for (integer y = 0;y < Height;++y)
 		{
-			Color color(
-				linearSrgbToSrgb(
-				Color(Step * x)));
-			for (integer y = 0;y < Height;++y)
-			{
-				image(x, y) = color;
-			}
+			image(x, y) = color;
 		}
-
-		savePcx(image, "gray_linear_luminance.pcx");
 	}
 
-	void testLinearLuma()
+	savePcx(image, "gray_linear_luminance.pcx");
+}
+
+TEST_CASE("LinearLuma (LinearLuma)")
+{
+	real Width = 400;
+	real Height = 100;
+	Array<Color, 2> image(Vector2i(Width, Height));
+
+	real32 Step = 1 / Width;
+
+	for (integer x = 0;x < Width;++x)
 	{
-		real Width = 400;
-		real Height = 100;
-		Array<Color, 2> image(Vector2i(Width, Height));
-
-		real32 Step = 1 / Width;
-
-		for (integer x = 0;x < Width;++x)
+		Color color(
+			Color(Step * x));
+		for (integer y = 0;y < Height;++y)
 		{
-			Color color(
-				Color(Step * x));
-			for (integer y = 0;y < Height;++y)
-			{
-				image(x, y) = color;
-			}
+			image(x, y) = color;
 		}
-
-		savePcx(image, "gray_linear_luma.pcx");
 	}
 
-	void testLinearLightness()
+	savePcx(image, "gray_linear_luma.pcx");
+}
+
+TEST_CASE("LinearLightness (LinearLightness)")
+{
+	real Width = 400;
+	real Height = 100;
+	Array<Color, 2> image(Vector2i(Width, Height));
+
+	real32 Step = 100 / Width;
+
+	for (integer x = 0;x < Width;++x)
 	{
-		real Width = 400;
-		real Height = 100;
-		Array<Color, 2> image(Vector2i(Width, Height));
-
-		real32 Step = 100 / Width;
-
-		for (integer x = 0;x < Width;++x)
+		Color color(
+			xyzToSrgb(labToXyz(Color(Step * x, 0, 0))));
+		for (integer y = 0;y < Height;++y)
 		{
-			Color color(
-				xyzToSrgb(labToXyz(Color(Step * x, 0, 0))));
-			for (integer y = 0;y < Height;++y)
-			{
-				image(x, y) = color;
-			}
+			image(x, y) = color;
 		}
-
-		savePcx(image, "gray_linear_lightness.pcx");
 	}
 
+	savePcx(image, "gray_linear_lightness.pcx");
 }

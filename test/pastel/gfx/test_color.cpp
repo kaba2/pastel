@@ -17,7 +17,7 @@
 namespace
 {
 
-	void testChromaticity()
+	TEST_CASE("Chromaticity (Chromaticity)")
 	{
 		real Width = 500;
 		real Height = 500;
@@ -45,52 +45,41 @@ namespace
 		}
 	}
 
-	class TransformVisitor
+	TEST_CASE("ChromaticAdaptation (ChromaticAdaptation)")
 	{
-	public:
-		TransformVisitor()
-			: transform_(3, 3)
+		Color lmsObserved(
+			xyzToLms(srgbToXyz(Color(142, 98, 29) / 255)));
+
+		Color lmsDesired(
+			xyzToLms(srgbToXyz(Color(1, 1, 1))));
+
+		Matrix<real32> observedToDesired = 
+			xyzToLinearSrgbTransform() * 
+			lmsToXyzTransform();
+
+		for (integer j = 0;j < 3;++j)
 		{
-			Color lmsObserved(
-				xyzToLms(srgbToXyz(Color(142, 98, 29) / 255)));
-
-			Color lmsDesired(
-				xyzToLms(srgbToXyz(Color(1, 1, 1))));
-
-			transform_ =
-
-				 xyzToLinearSrgbTransform() * lmsToXyzTransform();
-
-			for (integer j = 0;j < 3;++j)
+			for (integer i = 0;i < 3;++i)
 			{
-				for (integer i = 0;i < 3;++i)
-				{
-					transform_(i, j) *= 0.1 * lmsDesired[i] / lmsObserved[i];
-				}
+				observedToDesired(i, j) *= 0.1 * lmsDesired[i] / lmsObserved[i];
 			}
-
-			transform_ *=
-				xyzToLmsTransform() * linearSrgbToXyzTransform();
 		}
 
-		Color operator()(
-			const Color& that) const
-		{
-			return linearSrgbToSrgb(
-				fitColor(transform_ * srgbToLinearSrgb(that)));
-		}
+		observedToDesired *=
+			xyzToLmsTransform() * linearSrgbToXyzTransform();
 
-	private:
-		Matrix<real32> transform_;
-	};
-
-	void testChromaticAdaptation()
-	{
 		Array<Color> image;
 		loadPcx("lena.pcx", image);
 
-		TransformVisitor transformVisitor;
-		transform(arrayView(image), transformVisitor);
+		transform(arrayView(image), [&](const Color& observed)
+		{
+			return 
+				linearSrgbToSrgb(
+					fitColor(
+						observedToDesired * srgbToLinearSrgb(observed)
+					)
+				);
+		});
 
 		savePcx(image, "chromatic_adaptation.pcx");
 	}

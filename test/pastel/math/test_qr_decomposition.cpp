@@ -9,51 +9,29 @@
 
 #include <iostream>
 
-namespace
+TEST_CASE("qr_decomposition (qr_decomposition)")
 {
+	integer n = 10;
 
-	class TestQrDecomposition
+	integer attempts = 10000;
+	integer errorCount = 0;
+
+	for (integer i = 0;i < attempts;++i)
 	{
-	public:
-		TestQrDecomposition()
+		Matrix<real> a = randomMatrix<real>(n, n);
+		Vector<real> b = randomVectorCube<real, Dynamic>(n);
+		QrDecomposition<real> qr(a);
+		Vector<real> qrSolution =
+			solveLinear(qr, b);
+
+		real error =
+			norm(a * qrSolution  - b);
+
+		if (error > 0.001)
 		{
+			++errorCount;
 		}
-
-		virtual void run()
-		{
-			testQrCase();
-		}
-
-		void testQrCase()
-		{
-			integer n = 10;
-
-			integer attempts = 10000;
-			integer errorCount = 0;
-
-			for (integer i = 0;i < attempts;++i)
-			{
-				Matrix<real> a = randomMatrix<real>(n, n);
-				Vector<real> b = randomVectorCube<real, Dynamic>(n);
-				QrDecomposition<real> qr(a);
-				Vector<real> qrSolution =
-					solveLinear(qr, b);
-
-				real error =
-					norm(a * qrSolution  - b);
-
-				if (error > 0.001)
-				{
-					++errorCount;
-				}
-			}
-
-			REQUIRE(errorCount < attempts - 100);
-		}
-	};
-
-	TEST_CASE("qr_decomposition", "[qr_decomposition]")
-	{
 	}
 
+	REQUIRE(errorCount < attempts - 100);
 }

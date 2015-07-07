@@ -14,33 +14,26 @@
 
 #include "pastel/gfx/color/coloradapter.h"
 
-using namespace Pastel;
-
-namespace
+TEST_CASE("AdaptedView (AdaptedView)")
 {
+	Array<uint32, 2> image;
 
-	void test()
-	{
-		Array<uint32, 2> image;
+	loadPcx("lena.pcx", image);
 
-		loadPcx("lena.pcx", image);
+	Array<uint32, 2> smallerImage(Vector2i(200, 200));
 
-		Array<uint32, 2> smallerImage(Vector2i(200, 200));
+	savePcx(image, "adaptedview1.pcx");
 
-		savePcx(image, "adaptedview1.pcx");
+	resample<Color>(
+		constRgb888View(image), clampExtender(), lanczosFilter(2),
+		rgb888View(smallerImage));
 
-		resample<Color>(
-			constRgb888View(image), clampExtender(), lanczosFilter(2),
-			rgb888View(smallerImage));
+	savePcx(smallerImage, "adaptedview2.pcx");
 
-		savePcx(smallerImage, "adaptedview2.pcx");
+	Array<uint32, 2> copySmallerImage(smallerImage.extent());
 
-		Array<uint32, 2> copySmallerImage(smallerImage.extent());
+	copy(constArrayView(smallerImage),
+		arrayView(copySmallerImage));
 
-		copy(constArrayView(smallerImage),
-			arrayView(copySmallerImage));
-
-		savePcx(copySmallerImage, "adaptedview3.pcx");
-	}
-
+	savePcx(copySmallerImage, "adaptedview3.pcx");
 }

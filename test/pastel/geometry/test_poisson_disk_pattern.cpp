@@ -56,52 +56,49 @@ namespace
 		Array<Color, 2>& data_;
 	};
 
-	void testPoissonDiskPattern()
-	{
-		integer width = 500;
-		integer height = 500;
-
-		Array<Color, 2> image;
-
-		PoissonDiskOutput poissonDiskOutput(image);
-
-		image.setExtent(Vector2i(width, 100), Color(0));
-		clear(Color(0), arrayView(image));
-
-		poissonDiskPattern(
-			AlignedBox1(0, width),
-			5, poissonDiskOutput);
-
-		savePcx(image, "testpointpattern_poissondisk_1d.pcx");
-
-		image.setExtent(Vector2i(width, height), Color(0));
-		clear(Color(0), arrayView(image));
-
-		poissonDiskPattern(
-			AlignedBox2(Vector2(0), Vector2(width, height)),
-			5, poissonDiskOutput);
-
-		savePcx(image, "testpointpattern_poissondisk_2d.pcx");
-
-		clear(Color(0), arrayView(image));
-
-		poissonDiskPattern(
-			AlignedBox3(Vector3(0), Vector3(width, height, 500)),
-			35, poissonDiskOutput);
-
-		savePcx(image, "testpointpattern_poissondisk_3d.pcx");
-
-		clear(Color(0), arrayView(image));
-
-		poissonDiskPattern(
-			AlignedBox4(Vector4(0), Vector4(width, height, 500, 500)),
-			70, poissonDiskOutput);
-
-		savePcx(image, "testpointpattern_poissondisk_4d.pcx");
-	}
-
-	TEST_CASE("PointPattern", "[PointPattern]")
-	{
-	}
-
 }
+
+TEST_CASE("PoissonDiskPattern (PointPattern)")
+{
+	integer width = 500;
+	integer height = 500;
+
+	Array<Color, 2> image;
+
+	PoissonDiskOutput poissonDiskOutput(image);
+
+	image.setExtent(Vector2i(width, 100), Color(0));
+	clear(Color(0), arrayView(image));
+
+	poissonDiskPattern(
+		AlignedBox1(0, width),
+		5, poissonDiskOutput);
+
+	savePcx(image, "testpointpattern_poissondisk_1d.pcx");
+
+	image.setExtent(Vector2i(width, height), Color(0));
+	clear(Color(0), arrayView(image));
+
+	poissonDiskPattern(
+		AlignedBox2(Vector2(0), Vector2(width, height)),
+		5, poissonDiskOutput);
+
+	savePcx(image, "testpointpattern_poissondisk_2d.pcx");
+
+	clear(Color(0), arrayView(image));
+
+	poissonDiskPattern(
+		AlignedBox3(Vector3(0), Vector3(width, height, 500)),
+		35, poissonDiskOutput);
+
+	savePcx(image, "testpointpattern_poissondisk_3d.pcx");
+
+	clear(Color(0), arrayView(image));
+
+	poissonDiskPattern(
+		AlignedBox4(Vector4(0), Vector4(width, height, 500, 500)),
+		70, poissonDiskOutput);
+
+	savePcx(image, "testpointpattern_poissondisk_4d.pcx");
+}
+

@@ -11,102 +11,83 @@
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/vector/vector_locator.h"
 
-namespace
+TEST_CASE("SimilaritySimple (Transformation)")
 {
-
-	class Test
+	for (integer i = 0;i < 10000;++i)
 	{
-	public:
-		virtual void run()
-		{
-			testSimilaritySimple();
-			testSimilarityLs();
-		}
+		ConformalAffine2D<real> transformation(
+			random<real>() * 2 + 1,
+			random<real>() * 2 * constantPi<real>(),
+			Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
 
-		void testSimilaritySimple()
-		{
-			for (integer i = 0;i < 10000;++i)
-			{
-				ConformalAffine2D<real> transformation(
-					random<real>() * 2 + 1,
-					random<real>() * 2 * constantPi<real>(),
-					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
+		Vector2 aFrom(random<real>(), random<real>());
+		Vector2 bFrom(random<real>(), random<real>());
 
-				Vector2 aFrom(random<real>(), random<real>());
-				Vector2 bFrom(random<real>(), random<real>());
+		Vector2 aTo(transformPoint(transformation, aFrom));
+		Vector2 bTo(transformPoint(transformation, bFrom));
 
-				Vector2 aTo(transformPoint(transformation, aFrom));
-				Vector2 bTo(transformPoint(transformation, bFrom));
+		ConformalAffine2D<real> matchedTransformation =
+			conformalAffine(aFrom, bFrom, aTo, bTo);
 
-				ConformalAffine2D<real> matchedTransformation =
-					conformalAffine(aFrom, bFrom, aTo, bTo);
+		real scalingDelta = absoluteError<real>(
+			matchedTransformation.scaling(), 
+			transformation.scaling());
+		real angleDelta = absoluteError<real>(
+			matchedTransformation.rotation(), 
+			transformation.rotation());
+		real tDelta = norm(
+			matchedTransformation.translation() - 
+			transformation.translation());
 
-				real scalingDelta = absoluteError<real>(
-					matchedTransformation.scaling(), 
-					transformation.scaling());
-				real angleDelta = absoluteError<real>(
-					matchedTransformation.rotation(), 
-					transformation.rotation());
-				real tDelta = norm(
-					matchedTransformation.translation() - 
-					transformation.translation());
-
-				REQUIRE(scalingDelta <= 0.001);
-				REQUIRE(angleDelta <= 0.001);
-				REQUIRE(tDelta <=  0.001);
-			}
-
-		}
-
-		void testSimilarityLs()
-		{
-			for (integer i = 0;i < 10000;++i)
-			{
-				ConformalAffine2D<real> transformation(
-					random<real>() * 2 + 1,
-					random<real>() * 2 * constantPi<real>(),
-					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
-
-				std::vector<Vector2> pattern;
-				std::vector<Vector2> transformedPattern;
-
-				for (integer i = 0;i < 1000;++i)
-				{
-					pattern.push_back(randomVector<real, 2>());
-					transformedPattern.push_back(
-						transformPoint(transformation, pattern.back()));
-				}
-
-				ConformalAffine2D<real> matchedTransformation =
-					lsConformalAffine(
-						locationSet(
-							rangeSet(pattern),
-							Vector_Locator<real, 2>()
-						),
-						locationSet(
-							rangeSet(transformedPattern),
-							Vector_Locator<real, 2>()
-						));
-
-				real scalingDelta = absoluteError<real>(
-					matchedTransformation.scaling(), 
-					transformation.scaling());
-				real angleDelta = absoluteError<real>(
-					matchedTransformation.rotation(), 
-					transformation.rotation());
-				real tDelta = norm(
-					matchedTransformation.translation() - 
-					transformation.translation());
-
-				REQUIRE(scalingDelta <= 0.001);
-				REQUIRE(angleDelta <= 0.001);
-				REQUIRE(tDelta <=  0.001);
-			}
-		}
-	};
-
-	TEST_CASE("Transformation", "[Transformation]")
-	{
+		REQUIRE(scalingDelta <= 0.001);
+		REQUIRE(angleDelta <= 0.001);
+		REQUIRE(tDelta <=  0.001);
 	}
 
+}
+
+TEST_CASE("SimilarityLs (Transformation)")
+{
+	for (integer i = 0;i < 10000;++i)
+	{
+		ConformalAffine2D<real> transformation(
+			random<real>() * 2 + 1,
+			random<real>() * 2 * constantPi<real>(),
+			Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
+
+		std::vector<Vector2> pattern;
+		std::vector<Vector2> transformedPattern;
+
+		for (integer i = 0;i < 1000;++i)
+		{
+			pattern.push_back(randomVector<real, 2>());
+			transformedPattern.push_back(
+				transformPoint(transformation, pattern.back()));
+		}
+
+		ConformalAffine2D<real> matchedTransformation =
+			lsConformalAffine(
+				locationSet(
+					rangeSet(pattern),
+					Vector_Locator<real, 2>()
+				),
+				locationSet(
+					rangeSet(transformedPattern),
+					Vector_Locator<real, 2>()
+				));
+
+		real scalingDelta = absoluteError<real>(
+			matchedTransformation.scaling(), 
+			transformation.scaling());
+		real angleDelta = absoluteError<real>(
+			matchedTransformation.rotation(), 
+			transformation.rotation());
+		real tDelta = norm(
+			matchedTransformation.translation() - 
+			transformation.translation());
+
+		REQUIRE(scalingDelta <= 0.001);
+		REQUIRE(angleDelta <= 0.001);
+		REQUIRE(tDelta <=  0.001);
+	}
 }
