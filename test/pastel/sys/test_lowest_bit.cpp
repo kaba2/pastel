@@ -11,37 +11,30 @@
 namespace
 {
 
-	class Test
+	template <typename Finite_Integer>
+	void testCase()
 	{
-	public:
-		virtual void run()
+		REQUIRE(lowestBit(Finite_Integer(0)) == -1);
+		REQUIRE(highestBit(Finite_Integer(0)) == -1);
+
+		Finite_Integer a = 1;
+		for (integer i = 0;i < bits(a);++i)
 		{
-			test<uint8>();
-			test<uint16>();
-			test<uint32>();
-			test<uint64>();
-			test<Signed_Integer<113, uint8>>();
-			test<Unsigned_Integer<113, uint8>>();
+			REQUIRE(lowestBit(a) == i);
+			REQUIRE(highestBit(a) == i);
+			a <<= 1;
 		}
-
-		template <typename Finite_Integer>
-		void test()
-		{
-			REQUIRE(lowestBit(Finite_Integer(0)) == -1);
-			REQUIRE(highestBit(Finite_Integer(0)) == -1);
-
-			Finite_Integer a = 1;
-			for (integer i = 0;i < bits(a);++i)
-			{
-				REQUIRE(lowestBit(a) == i);
-				REQUIRE(highestBit(a) == i);
-				a <<= 1;
-			}
-		}
-	};
-
-	TEST_CASE("lowest_bit", "[lowest_bit]")
-	{
 	}
 
 }
+
+TEST_CASE("lowest_bit (lowest_bit)")
+{
+	testCase<uint8>();
+	testCase<uint16>();
+	testCase<uint32>();
+	testCase<uint64>();
+	testCase<Signed_Integer<113, uint8>>();
+	testCase<Unsigned_Integer<113, uint8>>();
+}
+

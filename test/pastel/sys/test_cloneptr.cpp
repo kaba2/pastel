@@ -49,88 +49,76 @@ namespace
 	class D
 		: public A
 	{
-	public:
 	};
-
-	class Test
-	{
-	public:
-		virtual void run()
-		{
-			test();
-		}
-
-		void test()
-		{
-			{
-				ClonePtr<A> a;
-			}
-			{
-				ClonePtr<A> a(nullptr);
-			}
-			{
-				ClonePtr<A> a(new A);
-				*a;
-				a->data = 3;
-			}
-			{
-				ClonePtr<A> b(new B);
-				b.reset();
-			}
-			{
-				// This should not compile because C 
-				// is incompatible with A.
-				//ClonePtr<A> c(new C);
-			}
-
-			{
-				// This will slice on copy.
-				// Unfortunately there is no way
-				// to force D to override clone().
-				ClonePtr<A> d(new D);
-			}
-			{
-				ClonePtr<C> c(new C);
-
-				bool copyConstructionOccurred = false;
-				try 
-				{
-					ClonePtr<C> c2(c);
-				}
-				catch(...) 
-				{ 
-					copyConstructionOccurred = true;					
-				}
-
-				REQUIRE(copyConstructionOccurred);
-			}
-			{
-				ClonePtr<A> a;
-				REQUIRE(!(a < a));
-				REQUIRE(!(a > a));
-				REQUIRE(a <= a);
-				REQUIRE(a >= a);
-				REQUIRE(a == a);
-				REQUIRE(!(a != a));
-
-				REQUIRE(!(a < nullptr));
-				REQUIRE(!(nullptr < a));
-				REQUIRE(!(a > nullptr));
-				REQUIRE(!(nullptr > a));
-				REQUIRE(a <= nullptr);
-				REQUIRE(nullptr <= a);
-				REQUIRE(a >= nullptr);
-				REQUIRE(nullptr >= a);
-				REQUIRE(a == nullptr);
-				REQUIRE(nullptr == a);
-				REQUIRE(!(a != nullptr));
-				REQUIRE(!(nullptr != a));
-			}
-		}
-	};
-
-	TEST_CASE("ClonePtr", "[ClonePtr]")
-	{
-	}
 
 }
+
+TEST_CASE("ClonePtr (ClonePtr)")
+{
+	{
+		ClonePtr<A> a;
+	}
+	{
+		ClonePtr<A> a(nullptr);
+	}
+	{
+		ClonePtr<A> a(new A);
+		*a;
+		a->data = 3;
+	}
+	{
+		ClonePtr<A> b(new B);
+		b.reset();
+	}
+	{
+		// This should not compile because C 
+		// is incompatible with A.
+		//ClonePtr<A> c(new C);
+	}
+
+	{
+		// This will slice on copy.
+		// Unfortunately there is no way
+		// to force D to override clone().
+		ClonePtr<A> d(new D);
+	}
+	{
+		ClonePtr<C> c(new C);
+
+		bool copyConstructionOccurred = false;
+		try 
+		{
+			ClonePtr<C> c2(c);
+		}
+		catch(...) 
+		{ 
+			copyConstructionOccurred = true;					
+		}
+
+		REQUIRE(copyConstructionOccurred);
+	}
+	{
+		ClonePtr<A> a;
+		REQUIRE(!(a < a));
+		REQUIRE(!(a > a));
+		REQUIRE(a <= a);
+		REQUIRE(a >= a);
+		REQUIRE(a == a);
+		REQUIRE(!(a != a));
+
+		REQUIRE(!(a < nullptr));
+		REQUIRE(!(nullptr < a));
+		REQUIRE(!(a > nullptr));
+		REQUIRE(!(nullptr > a));
+		REQUIRE(a <= nullptr);
+		REQUIRE(nullptr <= a);
+		REQUIRE(a >= nullptr);
+		REQUIRE(nullptr >= a);
+		REQUIRE(a == nullptr);
+		REQUIRE(nullptr == a);
+		REQUIRE(!(a != nullptr));
+		REQUIRE(!(nullptr != a));
+	}
+}
+
+

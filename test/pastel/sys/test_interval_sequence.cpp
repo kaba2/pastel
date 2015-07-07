@@ -6,96 +6,76 @@
 #include "pastel/sys/interval_sequence.h"
 #include "pastel/sys/range.h"
 
-namespace
+TEST_CASE("Simple (interval_sequence)")
 {
-
-	class Test
+	integer aSet[] = 
 	{
-	public:
-		virtual void run()
-		{
-			testSimple();
-		}
-
-		void testSimple()
-		{
-			integer aSet[] = 
-			{
-				0, 2,
-				2, 2,
-				3, 6,
-				6, 8,
-				10, 11
-			};
-
-			integer bSet[] = 
-			{
-				-1, -1,
-				0, 1,
-				2, 2,
-				4, 5,
-				6, 9,
-				11, 12
-			};
-
-			{
-				std::vector<integer> cSet;
-
-				auto report = [&](const std::pair<integer, integer>& that)
-				{
-					cSet.push_back(that.first);
-					cSet.push_back(that.second);
-				};
-				difference(aSet, bSet, report);
-
-				integer correctSet[] = 
-				{
-					1, 2,
-					3, 4,
-					5, 6,
-					10, 11
-				};
-
-				REQUIRE(boost::equal(cSet, correctSet));
-			}
-
-			std::vector<integer> emptySet;
-			{
-				std::vector<integer> cSet;
-				auto report = [&](const std::pair<integer, integer>& that)
-				{
-					cSet.push_back(that.first);
-					cSet.push_back(that.second);
-				};
-				difference(emptySet, bSet, report);
-				REQUIRE(cSet.empty());
-			}
-			{
-				std::vector<integer> cSet;
-				auto report = [&](const std::pair<integer, integer>& that)
-				{
-					cSet.push_back(that.first);
-					cSet.push_back(that.second);
-				};
-				difference(aSet, emptySet, report);
-
-				integer correctSet[] = 
-				{
-					0, 2,
-					3, 6,
-					6, 8,
-					10, 11
-				};
-
-				REQUIRE(boost::equal(cSet, correctSet));
-			}
-		}
+		0, 2,
+		2, 2,
+		3, 6,
+		6, 8,
+		10, 11
 	};
 
-	void test()
+	integer bSet[] = 
 	{
-		Test test;
-		test.run();		
+		-1, -1,
+		0, 1,
+		2, 2,
+		4, 5,
+		6, 9,
+		11, 12
+	};
+
+	{
+		std::vector<integer> cSet;
+
+		auto report = [&](const std::pair<integer, integer>& that)
+		{
+			cSet.push_back(that.first);
+			cSet.push_back(that.second);
+		};
+		difference(aSet, bSet, report);
+
+		integer correctSet[] = 
+		{
+			1, 2,
+			3, 4,
+			5, 6,
+			10, 11
+		};
+
+		REQUIRE(boost::equal(cSet, correctSet));
 	}
 
+	std::vector<integer> emptySet;
+	{
+		std::vector<integer> cSet;
+		auto report = [&](const std::pair<integer, integer>& that)
+		{
+			cSet.push_back(that.first);
+			cSet.push_back(that.second);
+		};
+		difference(emptySet, bSet, report);
+		REQUIRE(cSet.empty());
+	}
+	{
+		std::vector<integer> cSet;
+		auto report = [&](const std::pair<integer, integer>& that)
+		{
+			cSet.push_back(that.first);
+			cSet.push_back(that.second);
+		};
+		difference(aSet, emptySet, report);
+
+		integer correctSet[] = 
+		{
+			0, 2,
+			3, 6,
+			6, 8,
+			10, 11
+		};
+
+		REQUIRE(boost::equal(cSet, correctSet));
+	}
 }

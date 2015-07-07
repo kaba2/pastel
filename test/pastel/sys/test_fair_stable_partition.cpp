@@ -7,83 +7,66 @@
 #include <pastel/sys/trindicator.h>
 #include <pastel/sys/indicator.h>
 
-namespace
+TEST_CASE("fair_stable_partition (fair_stable_partition)")
 {
-
-	class Test
 	{
-	public:
-		virtual void run()
+		std::vector<integer> elementSet =
 		{
-			test();
-		}
+			1, 6, 3, 4, 6, 8, 9, 0, 4
+		};
 
-		void test()
+		auto trindicator = [](integer)
 		{
-			{
-				std::vector<integer> elementSet =
-				{
-					1, 6, 3, 4, 6, 8, 9, 0, 4
-				};
+			return 0;
+		};
 
-				auto trindicator = [](integer)
-				{
-					return 0;
-				};
+		auto rightBegin = 
+			fairStablePartition(
+				range(elementSet.begin(), elementSet.end()), trindicator);
 
-				auto rightBegin = 
-					fairStablePartition(
-						range(elementSet.begin(), elementSet.end()), trindicator);
+		std::vector<integer> leftSet =
+		{
+			1, 3, 6, 9, 4
+		};
 
-				std::vector<integer> leftSet =
-				{
-					1, 3, 6, 9, 4
-				};
+		std::vector<integer> rightSet =
+		{
+			6, 4, 8, 0
+		};
 
-				std::vector<integer> rightSet =
-				{
-					6, 4, 8, 0
-				};
+		REQUIRE(boost::equal(leftSet, 
+			range(elementSet.begin(), rightBegin)));
 
-				REQUIRE(boost::equal(leftSet, 
-					range(elementSet.begin(), rightBegin)));
-
-				REQUIRE(boost::equal(rightSet, 
-					range(rightBegin, elementSet.end())));
-			}
-
-			{
-				std::vector<integer> elementSet =
-				{
-					1, 6, 3, 4, 6, 8, 9, 0, 4
-				};
-
-				auto rightBegin =
-					fairStablePartition(
-					range(elementSet.begin(), elementSet.end()), 
-					indicatorTrindicator(predicateIndicator(5, LessThan())));
-
-				std::vector<integer> leftSet =
-				{
-					1, 3, 4, 0, 4
-				};
-
-				std::vector<integer> rightSet =
-				{
-					6, 6, 8, 9
-				};
-
-				REQUIRE(boost::equal(leftSet,
-					range(elementSet.begin(), rightBegin)));
-
-				REQUIRE(boost::equal(rightSet,
-					range(rightBegin, elementSet.end())));
-			}
-		}
-	};
-
-	TEST_CASE("fair_stable_partition", "[fair_stable_partition]")
-	{
+		REQUIRE(boost::equal(rightSet, 
+			range(rightBegin, elementSet.end())));
 	}
 
+	{
+		std::vector<integer> elementSet =
+		{
+			1, 6, 3, 4, 6, 8, 9, 0, 4
+		};
+
+		auto rightBegin =
+			fairStablePartition(
+			range(elementSet.begin(), elementSet.end()), 
+			indicatorTrindicator(predicateIndicator(5, LessThan())));
+
+		std::vector<integer> leftSet =
+		{
+			1, 3, 4, 0, 4
+		};
+
+		std::vector<integer> rightSet =
+		{
+			6, 6, 8, 9
+		};
+
+		REQUIRE(boost::equal(leftSet,
+			range(elementSet.begin(), rightBegin)));
+
+		REQUIRE(boost::equal(rightSet,
+			range(rightBegin, elementSet.end())));
+	}
 }
+

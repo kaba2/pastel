@@ -103,117 +103,93 @@ namespace
 		return metric(a, b) * scaling * (negate ? -1 : 1) + offset.amount + (integer)enumValue;
 	}
 
+	struct A {};
+
 }
 
-namespace
+TEST_CASE("Tag (named_parameter)")
 {
+	// The tag hashing uses the Fowler-Noll-Vo 1a hash-function 
+	// (FNV-1a) for 32-bit integers. Check the hashes of some
+	// known strings. Initially I had a bug in the implementation 
+	// which I noticed only because I had a hash collision between
+	// these strings.
+	PASTEL_STATIC_ASSERT(tagHash("translation") == 3419592236UL);
+	PASTEL_STATIC_ASSERT(tagHash("orientation") == 3309681697UL);
 
-	class Test
+	PASTEL_STATIC_ASSERT("translation"_tag == 3419592236UL);
+	PASTEL_STATIC_ASSERT("orientation"_tag == 3309681697UL);
+
+	// These are the only english words which collide under the
+	// FNV1a hash function.
+	PASTEL_STATIC_ASSERT(tagHash("liquid") == tagHash("costarring"));
+	PASTEL_STATIC_ASSERT("liquid"_tag == "costarring"_tag);
+}
+
+TEST_CASE("Empty (Empty)")
+{
+	REQUIRE(distance(1, 6) == 5 * 5);
+}
+
+TEST_CASE("Explicit (named_parameter)")
+{
+	REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 2.0) == 2 * 5 * 5);
+	REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 3.5) == 3.5 * 5 * 5);
+	REQUIRE(distance(1, 6, PASTEL_TAG(metric), Manhattan_Metric()) == 5);
+	REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 3.5, PASTEL_TAG(metric), Manhattan_Metric()) == 3.5 * 5);
+}
+
+TEST_CASE("Enum (named_parameter)")
+{
+	REQUIRE(distance(1, 6, Enum::Off) == 5 * 5 + 0);
+	REQUIRE(distance(1, 6, Enum::On) == 5 * 5 + 1);
+}
+
+TEST_CASE("Forwarding (named_parameter)")
+{
+	// Test that arguments are perfectly forwarded
 	{
-	public:
-		struct A {};
-
-		virtual void run()
-		{
-			testTag();
-			testEmpty();
-			testExplicit();
-			testEnum();
-			testForwarding();
-			testFlag();
-			testImplicit();
-			testErroneous();
-		}
-
-		void testTag()
-		{
-			// The tag hashing uses the Fowler-Noll-Vo 1a hash-function 
-			// (FNV-1a) for 32-bit integers. Check the hashes of some
-			// known strings. Initially I had a bug in the implementation 
-			// which I noticed only because I had a hash collision between
-			// these strings.
-			PASTEL_STATIC_ASSERT(tagHash("translation") == 3419592236UL);
-			PASTEL_STATIC_ASSERT(tagHash("orientation") == 3309681697UL);
-
-			PASTEL_STATIC_ASSERT("translation"_tag == 3419592236UL);
-			PASTEL_STATIC_ASSERT("orientation"_tag == 3309681697UL);
-
-			// These are the only english words which collide under the
-			// FNV1a hash function.
-			PASTEL_STATIC_ASSERT(tagHash("liquid") == tagHash("costarring"));
-			PASTEL_STATIC_ASSERT("liquid"_tag == "costarring"_tag);
-		}
-
-		void testEmpty()
-		{
-			REQUIRE(distance(1, 6) == 5 * 5);
-		}
-
-		void testExplicit()
-		{
-			REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 2.0) == 2 * 5 * 5);
-			REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 3.5) == 3.5 * 5 * 5);
-			REQUIRE(distance(1, 6, PASTEL_TAG(metric), Manhattan_Metric()) == 5);
-			REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 3.5, PASTEL_TAG(metric), Manhattan_Metric()) == 3.5 * 5);
-		}
-
-		void testEnum()
-		{
-			REQUIRE(distance(1, 6, Enum::Off) == 5 * 5 + 0);
-			REQUIRE(distance(1, 6, Enum::On) == 5 * 5 + 1);
-		}
-
-		void testForwarding()
-		{
-			// Test that arguments are perfectly forwarded
-			{
-				Offset offset(543);
-				REQUIRE(distance(1, 6, PASTEL_TAG(offset), std::move(offset)) == 5 * 5 + 543);
-				REQUIRE(offset.amount == 0);
-			}
-
-			{
-				Offset offset(543);
-				REQUIRE(distance(1, 6, PASTEL_TAG(offset), offset) == 5 * 5 + 0);
-				REQUIRE(offset.amount == 543);
-			}
-		}
-
-		void testFlag()
-		{
-			REQUIRE(distance(1, 6, PASTEL_TAG(negate)) == (-1) * 5 * 5);
-			REQUIRE(distance(1, 6, PASTEL_TAG(scaling)) == 1 * 5 * 5);
-			REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 2.0, PASTEL_TAG(negate), PASTEL_TAG(metric), Manhattan_Metric()) == 2 * (-1) * 5);
-		}
-
-		void testImplicit()
-		{
-			REQUIRE(distance(1, 6, Manhattan_Metric()) == 5);
-			// Since 'negate' is not an implicit parameter,
-			// the 'true' will not bind to it.
-			REQUIRE(distance(1, 6, Manhattan_Metric(), true) == 5);
-		}
-
-		void testErroneous()
-		{
-			// These should give errors at compile-time.
-
-			// Error: Multiple arguments for 'negate'.
-			//distance(1, 6, PASTEL_TAG(negate), PASTEL_TAG(negate));
-			//distance(1, 6, PASTEL_TAG(scaling));
-			//distance(1, 6, true, true);
-
-			// Error: 'metric' is required to be either Manhattan_Metric or Euclidean_Metric.
-			//distance(1, 6, PASTEL_TAG(metric), A());
-			//distance(1, 6, PASTEL_TAG(metric));
-
-			// Error: 'negate' is required to be of type bool.
-			//distance(1, 6, PASTEL_TAG(negate), 4.0f);
-		}
-	};
-
-	TEST_CASE("named_parameter", "[named_parameter]")
-	{
+		Offset offset(543);
+		REQUIRE(distance(1, 6, PASTEL_TAG(offset), std::move(offset)) == 5 * 5 + 543);
+		REQUIRE(offset.amount == 0);
 	}
 
+	{
+		Offset offset(543);
+		REQUIRE(distance(1, 6, PASTEL_TAG(offset), offset) == 5 * 5 + 0);
+		REQUIRE(offset.amount == 543);
+	}
 }
+
+TEST_CASE("Flag (named_parameter)")
+{
+	REQUIRE(distance(1, 6, PASTEL_TAG(negate)) == (-1) * 5 * 5);
+	REQUIRE(distance(1, 6, PASTEL_TAG(scaling)) == 1 * 5 * 5);
+	REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 2.0, PASTEL_TAG(negate), PASTEL_TAG(metric), Manhattan_Metric()) == 2 * (-1) * 5);
+}
+
+TEST_CASE("Implicit (named_parameter)")
+{
+	REQUIRE(distance(1, 6, Manhattan_Metric()) == 5);
+	// Since 'negate' is not an implicit parameter,
+	// the 'true' will not bind to it.
+	REQUIRE(distance(1, 6, Manhattan_Metric(), true) == 5);
+}
+
+TEST_CASE("Erroneous (named_parameter)")
+{
+	// These should give errors at compile-time.
+
+	// Error: Multiple arguments for 'negate'.
+	//distance(1, 6, PASTEL_TAG(negate), PASTEL_TAG(negate));
+	//distance(1, 6, PASTEL_TAG(scaling));
+	//distance(1, 6, true, true);
+
+	// Error: 'metric' is required to be either Manhattan_Metric or Euclidean_Metric.
+	//distance(1, 6, PASTEL_TAG(metric), A());
+	//distance(1, 6, PASTEL_TAG(metric));
+
+	// Error: 'negate' is required to be of type bool.
+	//distance(1, 6, PASTEL_TAG(negate), 4.0f);
+}
+

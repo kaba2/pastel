@@ -3,24 +3,6 @@
 
 #include "test/test_init.h"
 
-namespace
+TEST_CASE("None (None)")
 {
-
-	class Test
-	{
-	public:
-		virtual void run()
-		{
-			test();
-		}
-
-		void test()
-		{
-		}
-	};
-
-	TEST_CASE("None", "[None]")
-	{
-	}
-
 }

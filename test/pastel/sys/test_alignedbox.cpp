@@ -7,7 +7,7 @@
 
 using Real_ = real;
 
-TEST_CASE("1d", "[AlignedBox]")
+TEST_CASE("1d (AlignedBox)")
 {
 	AlignedBox<Real_, 1> a;
 	{
@@ -22,7 +22,7 @@ TEST_CASE("1d", "[AlignedBox]")
 	}
 }
 
-void test2d()
+TEST_CASE("2d (AlignedBox)")
 {
 	AlignedBox<Real_, 2> a;
 	{
@@ -41,7 +41,7 @@ void test2d()
 	}
 }
 
-void test3d()
+TEST_CASE("3d (AlignedBox)")
 {
 	AlignedBox<Real_, 3> a;
 	{
@@ -64,7 +64,7 @@ void test3d()
 	}
 }
 
-void test4d()
+TEST_CASE("4d (AlignedBox)")
 {
 	AlignedBox<Real_, 4> a;
 	{

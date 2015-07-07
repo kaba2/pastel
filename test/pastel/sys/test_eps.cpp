@@ -8,46 +8,31 @@
 namespace
 {
 
-	class Test
+	template <typename Type>
+	void testCase()
 	{
-	public:
-		virtual void run()
-		{
-			test();
-		}
+		const Type minusZero = (Type)-1 * 0;
 
-		template <typename Type>
-		void testCase()
-		{
-			const Type minusZero = (Type)-1 * 0;
-
-			REQUIRE(minusZero == 0);
-			REQUIRE(nextGreater((Type)1) > 1);
-			REQUIRE(nextSmaller((Type)1) < 1);
-			REQUIRE(nextGreater((Type)0) > 0);
-			REQUIRE(nextSmaller((Type)0) < 0);
-			REQUIRE(nextGreater(minusZero) > 0);
-			REQUIRE(nextSmaller(minusZero) < 0);
-			REQUIRE(nextGreater((Type)-1) > -1);
-			REQUIRE(nextSmaller((Type)-1) < -1);
-			REQUIRE(nextGreater(infinity<Type>()) == infinity<Type>());
-			REQUIRE(nextSmaller(infinity<Type>()) == infinity<Type>());
-			REQUIRE(nextGreater(-infinity<Type>()) == -infinity<Type>());
-			REQUIRE(nextSmaller(-infinity<Type>()) == -infinity<Type>());
-			REQUIRE(isNan(nextSmaller(nan<Type>())));
-		}
-
-		void test()
-		{
-			testCase<real64_ieee>();
-			testCase<real32_ieee>();
-		}
-	};
-
-	void testEps()
-	{
-		Test test;
-		test.run();
+		REQUIRE(minusZero == 0);
+		REQUIRE(nextGreater((Type)1) > 1);
+		REQUIRE(nextSmaller((Type)1) < 1);
+		REQUIRE(nextGreater((Type)0) > 0);
+		REQUIRE(nextSmaller((Type)0) < 0);
+		REQUIRE(nextGreater(minusZero) > 0);
+		REQUIRE(nextSmaller(minusZero) < 0);
+		REQUIRE(nextGreater((Type)-1) > -1);
+		REQUIRE(nextSmaller((Type)-1) < -1);
+		REQUIRE(nextGreater(infinity<Type>()) == infinity<Type>());
+		REQUIRE(nextSmaller(infinity<Type>()) == infinity<Type>());
+		REQUIRE(nextGreater(-infinity<Type>()) == -infinity<Type>());
+		REQUIRE(nextSmaller(-infinity<Type>()) == -infinity<Type>());
+		REQUIRE(isNan(nextSmaller(nan<Type>())));
 	}
 
+}
+
+TEST_CASE("Eps (Eps)")
+{
+	testCase<real64_ieee>();
+	testCase<real32_ieee>();
 }

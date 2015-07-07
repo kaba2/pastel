@@ -14,36 +14,23 @@ using namespace Pastel;
 namespace
 {
 
-	class Test
-	{
-	public:
-		virtual void run()
-		{
-			test();
-		}
-
 		using Tree = Hashed_Map<integer, integer>;
 		using Iterator = Tree::Iterator;
 		using ConstIterator = Tree::ConstIterator;
 
-		void test()
-		{
-			integer keySet[] = {1, 5, 3, 2, 7};
+}
 
-			Tree tree;
-			REQUIRE(tree.hash() == 0);
+TEST_CASE("HashedTree (HashedTree)")
+{
+	integer keySet[] = {1, 5, 3, 2, 7};
 
-			std::vector<hash_integer> hashSet;
-			for (integer key : keySet)
-			{
-				tree.insert(key, 0);
-				hashSet.push_back(tree.hash());
-			}
-		}
-	};
+	Tree tree;
+	REQUIRE(tree.hash() == 0);
 
-	TEST_CASE("HashedTree", "[HashedTree]")
+	std::vector<hash_integer> hashSet;
+	for (integer key : keySet)
 	{
+		tree.insert(key, 0);
+		hashSet.push_back(tree.hash());
 	}
-
 }
