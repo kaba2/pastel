@@ -6,7 +6,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/integer/integer_concept.h"
-#include "pastel/sys/real/real_concept.h"
 
 namespace Pastel
 {
@@ -20,8 +19,13 @@ namespace Pastel
 	due to two's complement arithmetic when using
 	unsigned integers.
 	*/
-	template <typename Type, Requires<std::is_unsigned<Type>> = 0>
-	Type divideInfinity(Type n);
+	template <
+		typename Integer,
+		Requires<
+			Models<Integer, Integer_Concept>
+		> = 0
+	>
+	Integer divideInfinity(const Integer& n);
 
 }
 

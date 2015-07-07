@@ -2,12 +2,18 @@
 #define PASTELSYS_DIVIDE_INFINITY_HPP
 
 #include "pastel/sys/math/divide_infinity.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
 
-	template <typename Type, Requires<std::is_unsigned<Type>>>
-	Type divideInfinity(Type n)
+	template <
+		typename Integer,
+		Requires<
+			Models<Integer, Integer_Concept>
+		>
+	>
+	Integer divideInfinity(const Integer& n)
 	{
 		PENSURE_OP(n, >=, 2);
 
@@ -27,7 +33,7 @@ namespace Pastel
 			//
 			//     floor(2^w / n) = a = floor((2^w - 1) / n).
 
-			return infinity<Type>() / n;
+			return infinity<Integer>() / n;
 		}
 
 		// Suppose n is even. Then
@@ -36,7 +42,7 @@ namespace Pastel
 		//   = floor(2^{w - 1} / (n / 2))
 		//   = floor([floor((2^w - 1) / 2) + 1] / (n / 2))
 
-		return ((infinity<Type>() >> 1) + 1) / (n >> 1);
+		return ((infinity<Integer>() >> 1) + 1) / (n >> 1);
 	}
 
 }

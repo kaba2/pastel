@@ -5,6 +5,7 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/bit/twos_complement.h"
 #include "pastel/sys/bit/bitmask.h"
+#include "pastel/sys/math/divide_infinity.h"
 
 #include <cmath>
 
@@ -64,9 +65,23 @@ namespace Pastel
 			// the % already does what we want.
 			return x % n;
 		}
+		
+		if (negative(-x))
+		{
+			// x = -2^B
+
+			// This has to be handled specially,
+			// since -2^B does not have a negation.
+
+			// The multiplication must be done using
+			// negative numbers, since the result may
+			// be -2^B.
+			return (-divideInfinity(n)) * n - x;
+		}
 
 		// Compute mod(|x|, n).
 		Integer absMod = (-x) % n;
+
 		if (zero(absMod))
 		{
 			return 0;
