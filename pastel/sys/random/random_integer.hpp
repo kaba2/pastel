@@ -85,7 +85,7 @@ namespace Pastel
 		// Let n' = floor(m / n) n.
 		// This is well-defined, since n > 2 and
 		// n does not divide m.
-		uinteger rejectionCutoff = divideInfinity(n) * n;
+		uinteger rejectionCutoff = divideInfinity<uinteger>(n) * n;
 	
 		// Rejection sampling.
 		uinteger result = 0;
