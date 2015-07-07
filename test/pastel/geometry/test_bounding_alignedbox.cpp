@@ -1,7 +1,7 @@
 // Description: Testing for bounding aligned box
 // DocumentationOf: bounding_alignedbox.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/locator.h>
 #include <pastel/sys/vector.h>
@@ -10,20 +10,12 @@
 
 #include <pastel/geometry/bounding/bounding_alignedbox.h>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testTransformedSphere();
@@ -41,36 +33,36 @@ namespace
 
 				AffineTransformation<Real> transform =
 					affineScaling(Point(2, 1));								
-				
+
 				AlignedBox<Real, 2> bound =
 					boundingAlignedBox(sphere, transform);
 
-				TEST_ENSURE(bound.min() == Point(0 - 2 * 4, 0 - 1 * 4));
-				TEST_ENSURE(bound.max() == Point(0 + 2 * 4, 0 + 1 * 4));
+				REQUIRE(bound.min() == Point(0 - 2 * 4, 0 - 1 * 4));
+				REQUIRE(bound.max() == Point(0 + 2 * 4, 0 + 1 * 4));
 			}
 			{
 				Sphere<Real, 2> sphere(Point(3, 5), 4);
 
 				AffineTransformation<Real> transform =
 					affineScaling(Point(2, 1));								
-				
+
 				AlignedBox<Real, 2> bound =
 					boundingAlignedBox(sphere, transform);
 
-				TEST_ENSURE(bound.min() == Point(3 * 2 - 2 * 4, 5 - 1 * 4));
-				TEST_ENSURE(bound.max() == Point(3 * 2 + 2 * 4, 5 + 1 * 4));
+				REQUIRE(bound.min() == Point(3 * 2 - 2 * 4, 5 - 1 * 4));
+				REQUIRE(bound.max() == Point(3 * 2 + 2 * 4, 5 + 1 * 4));
 			}
 			{
 				Sphere<Real, 2> sphere(Point(3, 5), 4);
 
 				AffineTransformation<Real> transform =
 					affineTranslation(Point(1, -4)) * affineScaling(Point(2, 1));
-				
+
 				AlignedBox<Real, 2> bound =
 					boundingAlignedBox(sphere, transform);
 
-				TEST_ENSURE(bound.min() == Point((3 * 2 + 1) - 2 * 4, (5 - 4) - 1 * 4));
-				TEST_ENSURE(bound.max() == Point((3 * 2 + 1) + 2 * 4, (5 - 4) + 1 * 4));
+				REQUIRE(bound.min() == Point((3 * 2 + 1) - 2 * 4, (5 - 4) - 1 * 4));
+				REQUIRE(bound.max() == Point((3 * 2 + 1) + 2 * 4, (5 - 4) + 1 * 4));
 			}
 		}
 
@@ -82,9 +74,9 @@ namespace
 				Sphere2 sphere(Point(3, 5), 4);
 				AlignedBox2 bound =
 					boundingAlignedBox(sphere);
-				
-				TEST_ENSURE(bound.min() == Point(3 - 4, 5 - 4));
-				TEST_ENSURE(bound.max() == Point(3 + 4, 5 + 4));
+
+				REQUIRE(bound.min() == Point(3 - 4, 5 - 4));
+				REQUIRE(bound.max() == Point(3 + 4, 5 + 4));
 			}
 		}
 
@@ -98,8 +90,8 @@ namespace
 				AlignedBox2i bound =
 					boundingAlignedBox(rangeSet(pointSet));
 
-				TEST_ENSURE(bound.min() == Point(infinity<integer>()));
-				TEST_ENSURE(bound.max() == Point(-infinity<integer>()));
+				REQUIRE(bound.min() == Point(infinity<integer>()));
+				REQUIRE(bound.max() == Point(-infinity<integer>()));
 			}
 			{
 				std::vector<Point> pointSet =
@@ -110,8 +102,8 @@ namespace
 				AlignedBox2i bound =
 					boundingAlignedBox(rangeSet(pointSet));
 
-				TEST_ENSURE(bound.min() == Point(3, 5));
-				TEST_ENSURE(bound.max() == Point(3, 5));
+				REQUIRE(bound.min() == Point(3, 5));
+				REQUIRE(bound.max() == Point(3, 5));
 			}
 			{
 				// 5  
@@ -135,23 +127,14 @@ namespace
 				AlignedBox2i bound =
 					boundingAlignedBox(rangeSet(pointSet));
 
-				TEST_ENSURE(bound.min() == Point(0, 0));
-				TEST_ENSURE(bound.max() == Point(5, 4));
+				REQUIRE(bound.min() == Point(0, 0));
+				REQUIRE(bound.max() == Point(5, 4));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("bounding_alignedbox", "[bounding_alignedbox]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("bounding_alignedbox", test);
-	}
-
-	CallFunction run(addTest);
 
 }

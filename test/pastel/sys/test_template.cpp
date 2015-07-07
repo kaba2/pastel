@@ -1,22 +1,14 @@
 // Description: Testing template
 // Documentation: unit_testing.txt
 
-#include "test_pastelsys.h"
-
-using namespace Pastel;
+#include "test/test_init.h"
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -27,17 +19,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("None", "[None]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("None", test);
-	}
-
-	CallFunction run(addTest);
 
 }

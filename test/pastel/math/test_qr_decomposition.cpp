@@ -1,7 +1,7 @@
 // Description: Testing for QrDecomposition
 // DocumentationOf: qr_decomposition.h
 
-#include "test_pastelmath.h"
+#include "test/test_init.h"
 
 #include "pastel/math/matrix/qr_decomposition.h"
 #include "pastel/math/matrix/random_matrix.h"
@@ -9,17 +9,13 @@
 
 #include <iostream>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class TestQrDecomposition
-		: public TestSuite
 	{
 	public:
 		TestQrDecomposition()
-			: TestSuite(&testReport())
 		{
 		}
 
@@ -51,22 +47,13 @@ namespace
 					++errorCount;
 				}
 			}
-			
-			TEST_ENSURE_OP(errorCount, <, attempts - 100);
+
+			REQUIRE(errorCount < attempts - 100);
 		}
 	};
 
-	void testQrDecomposition()
+	TEST_CASE("qr_decomposition", "[qr_decomposition]")
 	{
-		TestQrDecomposition test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("qr_decomposition", testQrDecomposition);
-	}
-
-	CallFunction run(addTest);
 
 }

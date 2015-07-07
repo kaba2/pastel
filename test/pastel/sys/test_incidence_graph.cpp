@@ -1,24 +1,16 @@
 // Description: Testing for incidence graph
 // DocumentationOf: incidence_graph.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/incidence_graph.h"
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		using Graph = Directed_Graph<integer, integer>;
 		using Vertex = Graph::Vertex_Iterator;
 		using Edge = Graph::Edge_Iterator;
@@ -36,118 +28,118 @@ namespace
 		{
 			Graph graph;
 
-			TEST_ENSURE_OP(graph.vertices(), ==, 0);
-			TEST_ENSURE_OP(graph.edges(), ==, 0);
+			REQUIRE(graph.vertices() == 0);
+			REQUIRE(graph.edges() == 0);
 
 			Vertex a = graph.insertVertex(1);
-			TEST_ENSURE_OP(graph.vertices(), ==, 1);
-			TEST_ENSURE_OP(graph.edges(), ==, 0);
-			TEST_ENSURE_OP(*a, ==, 1);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
+			REQUIRE(graph.vertices() == 1);
+			REQUIRE(graph.edges() == 0);
+			REQUIRE(*a == 1);
+			REQUIRE(a->outgoingEdges() == 0);
 
 			Vertex b = graph.insertVertex(2);
-			TEST_ENSURE_OP(graph.vertices(), ==, 2);
-			TEST_ENSURE_OP(*b, ==, 2);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
+			REQUIRE(graph.vertices() == 2);
+			REQUIRE(*b == 2);
+			REQUIRE(b->outgoingEdges() == 0);
 
 			Vertex c = graph.insertVertex(3);
-			TEST_ENSURE_OP(graph.vertices(), ==, 3);
-			TEST_ENSURE_OP(*c, ==, 3);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 0);
+			REQUIRE(graph.vertices() == 3);
+			REQUIRE(*c == 3);
+			REQUIRE(c->outgoingEdges() == 0);
 
 			*c = 4;
-			TEST_ENSURE_OP(*c, ==, 4);
-		
+			REQUIRE(*c == 4);
+
 			Edge e1 = graph.insertEdge(a, b, 1);
-			TEST_ENSURE(e1->from() == a);
-			TEST_ENSURE(e1->to() == b);
-			TEST_ENSURE_OP(graph.edges(), ==, 1);
-			TEST_ENSURE_OP(*e1, ==, 1);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 0);
+			REQUIRE(e1->from() == a);
+			REQUIRE(e1->to() == b);
+			REQUIRE(graph.edges() == 1);
+			REQUIRE(*e1 == 1);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 0);
+			REQUIRE(c->outgoingEdges() == 0);
 
 			Edge e2 = graph.insertEdge(b, c, 2);
-			TEST_ENSURE(e2->from() == b);
-			TEST_ENSURE(e2->to() == c);
-			TEST_ENSURE_OP(graph.edges(), ==, 2);
-			TEST_ENSURE_OP(*e2, ==, 2);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 0);
+			REQUIRE(e2->from() == b);
+			REQUIRE(e2->to() == c);
+			REQUIRE(graph.edges() == 2);
+			REQUIRE(*e2 == 2);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 1);
+			REQUIRE(c->outgoingEdges() == 0);
 
 			Edge e3 = graph.insertEdge(c, a, 3);
-			TEST_ENSURE(e3->from() == c);
-			TEST_ENSURE(e3->to() == a);
-			TEST_ENSURE_OP(graph.edges(), ==, 3);
-			TEST_ENSURE_OP(*e3, ==, 3);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 1);
+			REQUIRE(e3->from() == c);
+			REQUIRE(e3->to() == a);
+			REQUIRE(graph.edges() == 3);
+			REQUIRE(*e3 == 3);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 1);
+			REQUIRE(c->outgoingEdges() == 1);
 
 			Edge e4 = graph.insertEdge(b, a, 4);
-			TEST_ENSURE(e4->from() == b);
-			TEST_ENSURE(e4->to() == a);
-			TEST_ENSURE_OP(graph.edges(), ==, 4);
-			TEST_ENSURE_OP(*e4, ==, 4);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 2);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 1);
+			REQUIRE(e4->from() == b);
+			REQUIRE(e4->to() == a);
+			REQUIRE(graph.edges() == 4);
+			REQUIRE(*e4 == 4);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 2);
+			REQUIRE(c->outgoingEdges() == 1);
 
 			Edge e5 = graph.insertEdge(c, b, 5);
-			TEST_ENSURE(e5->from() == c);
-			TEST_ENSURE(e5->to() == b);
-			TEST_ENSURE_OP(graph.edges(), ==, 5);
-			TEST_ENSURE_OP(*e5, ==, 5);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 2);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 2);
+			REQUIRE(e5->from() == c);
+			REQUIRE(e5->to() == b);
+			REQUIRE(graph.edges() == 5);
+			REQUIRE(*e5 == 5);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 2);
+			REQUIRE(c->outgoingEdges() == 2);
 
 			Edge e6 = graph.insertEdge(a, c, 6);
-			TEST_ENSURE(e6->from() == a);
-			TEST_ENSURE(e6->to() == c);
-			TEST_ENSURE_OP(graph.edges(), ==, 6);
-			TEST_ENSURE_OP(*e6, ==, 6);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 2);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 2);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 2);
+			REQUIRE(e6->from() == a);
+			REQUIRE(e6->to() == c);
+			REQUIRE(graph.edges() == 6);
+			REQUIRE(*e6 == 6);
+			REQUIRE(a->outgoingEdges() == 2);
+			REQUIRE(b->outgoingEdges() == 2);
+			REQUIRE(c->outgoingEdges() == 2);
 
 			Graph copy(graph);
-			TEST_ENSURE_OP(copy.vertices(), ==, graph.vertices());
-			TEST_ENSURE_OP(copy.edges(), ==, graph.edges());
+			REQUIRE(copy.vertices() == graph.vertices());
+			REQUIRE(copy.edges() == graph.edges());
 
 			graph.removeEdge(e1);
-			TEST_ENSURE_OP(graph.edges(), ==, 5);
-			TEST_ENSURE_OP(graph.vertices(), ==, 3);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 2);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 2);
+			REQUIRE(graph.edges() == 5);
+			REQUIRE(graph.vertices() == 3);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 2);
+			REQUIRE(c->outgoingEdges() == 2);
 
 			graph.removeEdge(e2);
-			TEST_ENSURE_OP(graph.edges(), ==, 4);
-			TEST_ENSURE_OP(graph.vertices(), ==, 3);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 2);
+			REQUIRE(graph.edges() == 4);
+			REQUIRE(graph.vertices() == 3);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 1);
+			REQUIRE(c->outgoingEdges() == 2);
 
 			graph.removeEdge(e3);
-			TEST_ENSURE_OP(graph.edges(), ==, 3);
-			TEST_ENSURE_OP(graph.vertices(), ==, 3);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(c->outgoingEdges(), ==, 1);
+			REQUIRE(graph.edges() == 3);
+			REQUIRE(graph.vertices() == 3);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 1);
+			REQUIRE(c->outgoingEdges() == 1);
 
 			graph.removeVertex(a);
-			TEST_ENSURE_OP(graph.vertices(), ==, 2);
-			TEST_ENSURE_OP(graph.edges(), ==, 1);
+			REQUIRE(graph.vertices() == 2);
+			REQUIRE(graph.edges() == 1);
 
 			graph.removeVertex(b);
-			TEST_ENSURE_OP(graph.vertices(), ==, 1);
-			TEST_ENSURE_OP(graph.edges(), ==, 0);
+			REQUIRE(graph.vertices() == 1);
+			REQUIRE(graph.edges() == 0);
 
 			graph.removeVertex(c);
-			TEST_ENSURE_OP(graph.vertices(), ==, 0);
-			TEST_ENSURE_OP(graph.edges(), ==, 0);
+			REQUIRE(graph.vertices() == 0);
+			REQUIRE(graph.edges() == 0);
 		}
 
 		void testSelfLoops()
@@ -155,32 +147,32 @@ namespace
 			Graph graph;
 
 			Vertex a = graph.insertVertex();
-			TEST_ENSURE_OP(graph.vertices(), ==, 1);
-			TEST_ENSURE_OP(graph.edges(), ==, 0);
+			REQUIRE(graph.vertices() == 1);
+			REQUIRE(graph.edges() == 0);
 
 			Edge e1 = graph.insertEdge(a, a);
-			TEST_ENSURE(e1->from() == a);
-			TEST_ENSURE(e1->to() == a);
-			TEST_ENSURE_OP(graph.vertices(), ==, 1);
-			TEST_ENSURE_OP(graph.edges(), ==, 1);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
+			REQUIRE(e1->from() == a);
+			REQUIRE(e1->to() == a);
+			REQUIRE(graph.vertices() == 1);
+			REQUIRE(graph.edges() == 1);
+			REQUIRE(a->outgoingEdges() == 1);
 
 			Edge e2 = graph.insertEdge(a, a);
-			TEST_ENSURE(e2->from() == a);
-			TEST_ENSURE(e2->to() == a);
-			TEST_ENSURE_OP(graph.vertices(), ==, 1);
-			TEST_ENSURE_OP(graph.edges(), ==, 2);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 2);
+			REQUIRE(e2->from() == a);
+			REQUIRE(e2->to() == a);
+			REQUIRE(graph.vertices() == 1);
+			REQUIRE(graph.edges() == 2);
+			REQUIRE(a->outgoingEdges() == 2);
 
 			graph.removeEdge(e1);
-			TEST_ENSURE_OP(graph.vertices(), ==, 1);
-			TEST_ENSURE_OP(graph.edges(), ==, 1);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
+			REQUIRE(graph.vertices() == 1);
+			REQUIRE(graph.edges() == 1);
+			REQUIRE(a->outgoingEdges() == 1);
 
 			graph.removeEdge(e2);
-			TEST_ENSURE_OP(graph.vertices(), ==, 1);
-			TEST_ENSURE_OP(graph.edges(), ==, 0);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
+			REQUIRE(graph.vertices() == 1);
+			REQUIRE(graph.edges() == 0);
+			REQUIRE(a->outgoingEdges() == 0);
 		}
 
 		void testMixed()
@@ -197,48 +189,48 @@ namespace
 			unused(c);
 
 			Edge e1 = graph.insertEdge(a, b);
-			TEST_ENSURE(!e1->directed());
-			TEST_ENSURE(e1->from() == a);
-			TEST_ENSURE(e1->to() == b);
-			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
-			TEST_ENSURE_OP(a->undirectedEdges(), ==, 1);
-			TEST_ENSURE_OP(b->incomingEdges(), ==, 0);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
-			TEST_ENSURE_OP(b->undirectedEdges(), ==, 1);
-			
+			REQUIRE(!e1->directed());
+			REQUIRE(e1->from() == a);
+			REQUIRE(e1->to() == b);
+			REQUIRE(a->incomingEdges() == 0);
+			REQUIRE(a->outgoingEdges() == 0);
+			REQUIRE(a->undirectedEdges() == 1);
+			REQUIRE(b->incomingEdges() == 0);
+			REQUIRE(b->outgoingEdges() == 0);
+			REQUIRE(b->undirectedEdges() == 1);
+
 			graph.reverse(e1);
-			TEST_ENSURE(!e1->directed());
-			TEST_ENSURE(e1->from() == b);
-			TEST_ENSURE(e1->to() == a);
-			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
-			TEST_ENSURE_OP(a->undirectedEdges(), ==, 1);
-			TEST_ENSURE_OP(b->incomingEdges(), ==, 0);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
-			TEST_ENSURE_OP(b->undirectedEdges(), ==, 1);
+			REQUIRE(!e1->directed());
+			REQUIRE(e1->from() == b);
+			REQUIRE(e1->to() == a);
+			REQUIRE(a->incomingEdges() == 0);
+			REQUIRE(a->outgoingEdges() == 0);
+			REQUIRE(a->undirectedEdges() == 1);
+			REQUIRE(b->incomingEdges() == 0);
+			REQUIRE(b->outgoingEdges() == 0);
+			REQUIRE(b->undirectedEdges() == 1);
 
 			graph.setDirected(e1, true);
-			TEST_ENSURE(e1->directed());
-			TEST_ENSURE(e1->from() == b);
-			TEST_ENSURE(e1->to() == a);
-			TEST_ENSURE_OP(a->incomingEdges(), ==, 1);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
-			TEST_ENSURE_OP(a->undirectedEdges(), ==, 0);
-			TEST_ENSURE_OP(b->incomingEdges(), ==, 0);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->undirectedEdges(), ==, 0);
+			REQUIRE(e1->directed());
+			REQUIRE(e1->from() == b);
+			REQUIRE(e1->to() == a);
+			REQUIRE(a->incomingEdges() == 1);
+			REQUIRE(a->outgoingEdges() == 0);
+			REQUIRE(a->undirectedEdges() == 0);
+			REQUIRE(b->incomingEdges() == 0);
+			REQUIRE(b->outgoingEdges() == 1);
+			REQUIRE(b->undirectedEdges() == 0);
 
 			graph.reverse(e1);
-			TEST_ENSURE(e1->directed());
-			TEST_ENSURE(e1->from() == a);
-			TEST_ENSURE(e1->to() == b);
-			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE_OP(a->undirectedEdges(), ==, 0);
-			TEST_ENSURE_OP(b->incomingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
-			TEST_ENSURE_OP(b->undirectedEdges(), ==, 0);
+			REQUIRE(e1->directed());
+			REQUIRE(e1->from() == a);
+			REQUIRE(e1->to() == b);
+			REQUIRE(a->incomingEdges() == 0);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(a->undirectedEdges() == 0);
+			REQUIRE(b->incomingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 0);
+			REQUIRE(b->undirectedEdges() == 0);
 		}
 
 		void testPure()
@@ -251,30 +243,30 @@ namespace
 			Vertex a = graph.insertVertex();
 			Vertex b = graph.insertVertex();
 
-			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
-			TEST_ENSURE(b->cOutgoingBegin() == b->cOutgoingEnd());
+			REQUIRE(a->cIncomingBegin() == a->cIncomingEnd());
+			REQUIRE(b->cOutgoingBegin() == b->cOutgoingEnd());
 
 			Edge A = graph.insertEdge(a, b);
-			
-			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
-			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
-			TEST_ENSURE(a->cOutgoingBegin()->vertex() == b);
 
-			TEST_ENSURE(b->cOutgoingBegin() == b->cOutgoingEnd());
-			TEST_ENSURE_OP(b->incomingEdges(), ==, 1);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
-			TEST_ENSURE(b->cIncomingBegin()->vertex() == a);
+			REQUIRE(a->cIncomingBegin() == a->cIncomingEnd());
+			REQUIRE(a->incomingEdges() == 0);
+			REQUIRE(a->outgoingEdges() == 1);
+			REQUIRE(a->cOutgoingBegin()->vertex() == b);
+
+			REQUIRE(b->cOutgoingBegin() == b->cOutgoingEnd());
+			REQUIRE(b->incomingEdges() == 1);
+			REQUIRE(b->outgoingEdges() == 0);
+			REQUIRE(b->cIncomingBegin()->vertex() == a);
 
 			graph.removeEdge(A);
 
-			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
-			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
-			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
+			REQUIRE(a->cIncomingBegin() == a->cIncomingEnd());
+			REQUIRE(a->incomingEdges() == 0);
+			REQUIRE(a->outgoingEdges() == 0);
 
-			TEST_ENSURE(b->cOutgoingBegin() == b->cOutgoingEnd());
-			TEST_ENSURE_OP(b->incomingEdges(), ==, 0);
-			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
+			REQUIRE(b->cOutgoingBegin() == b->cOutgoingEnd());
+			REQUIRE(b->incomingEdges() == 0);
+			REQUIRE(b->outgoingEdges() == 0);
 		}
 
 		void testMerge()
@@ -285,14 +277,14 @@ namespace
 			Vertex b = aGraph.insertVertex();
 			Vertex c = aGraph.insertVertex();
 			{
-				TEST_ENSURE_OP(aGraph.vertices(), ==, 3);
+				REQUIRE(aGraph.vertices() == 3);
 			}
 
 			aGraph.insertEdge(a, b);
 			aGraph.insertEdge(b, c);
 			aGraph.insertEdge(c, a);
 			{
-				TEST_ENSURE_OP(aGraph.edges(), ==, 3);
+				REQUIRE(aGraph.edges() == 3);
 			}
 
 			Graph bGraph;
@@ -300,22 +292,22 @@ namespace
 			Vertex e = bGraph.insertVertex();
 			Vertex f = bGraph.insertVertex();
 			{
-				TEST_ENSURE_OP(bGraph.vertices(), ==, 3);
+				REQUIRE(bGraph.vertices() == 3);
 			}
 
 			bGraph.insertEdge(d, e);
 			bGraph.insertEdge(e, f);
 			bGraph.insertEdge(f, d);
 			{
-				TEST_ENSURE_OP(bGraph.edges(), ==, 3);
+				REQUIRE(bGraph.edges() == 3);
 			}
-			
+
 			aGraph.merge(bGraph);
 			{
-				TEST_ENSURE_OP(aGraph.vertices(), ==, 6);
-				TEST_ENSURE_OP(aGraph.edges(), ==, 6);
-				TEST_ENSURE_OP(bGraph.vertices(), ==, 0);
-				TEST_ENSURE_OP(bGraph.edges(), ==, 0);
+				REQUIRE(aGraph.vertices() == 6);
+				REQUIRE(aGraph.edges() == 6);
+				REQUIRE(bGraph.vertices() == 0);
+				REQUIRE(bGraph.edges() == 0);
 			}
 		}
 
@@ -326,12 +318,5 @@ namespace
 		Test test;
 		test.run();		
 	}
-
-	void addTests()
-	{
-		testRunner().add("IncidenceGraph", test);
-	}
-
-	CallFunction run(addTests);
 
 }

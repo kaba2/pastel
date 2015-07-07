@@ -1,7 +1,7 @@
 // Description: Testing for noise
 // DocumentationOf: noise.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/gfx/noise/gradientfield.h"
 #include "pastel/gfx/image_file.h"
@@ -9,9 +9,7 @@
 namespace
 {
 
-	using namespace Pastel;
-
-	void test2d()
+		void test2d()
 	{
 		integer Width = 400;
 		integer Height = 400;
@@ -37,16 +35,8 @@ namespace
 		savePcx(image, "gradient_field.pcx");
 	}
 
-	void test()
+	TEST_CASE("gradientfield", "[gradientfield]")
 	{
-		test2d();
 	}
-
-	void addTest()
-	{
-		testRunner().add("gradientfield", test);
-	}
-
-	CallFunction run(addTest);
 
 }

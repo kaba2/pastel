@@ -1,12 +1,10 @@
 // Description: Testing for ArenaAllocator
 // DocumentationOf: arena_allocator.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 #include "pastel/sys/allocator/arena_allocator.h"
 
 #include <vector>
-
-using namespace Pastel;
 
 namespace
 {
@@ -97,20 +95,5 @@ namespace
 
 		allocator.clear();
 	}
-
-	void test()
-	{
-		testAllocate();
-		testDeallocate();
-		testLarge();
-	}
-
-	void addTest()
-	{
-		testRunner().add(
-			"ArenaAllocator", test);
-	}
-
-	CallFunction run(addTest);
 
 }

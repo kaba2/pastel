@@ -1,24 +1,16 @@
 // Description: Testing for type traits
 // DocumentationOf: type_traits.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/type_traits.h"
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testCompiles();
@@ -71,7 +63,7 @@ namespace
 						Identity,
 						std::integral_constant<integer, 1>
 					>;
-				
+
 				PASTEL_STATIC_ASSERT(Sum::value == 1);
 			}
 			{
@@ -229,17 +221,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("type_traits", "[type_traits]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("type_traits", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,27 +1,19 @@
 // Description: Testing for math functions
 // DocumentationOf: math_functions.h
 
-#include "test_pastelmath.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/math_functions.h"
 
 #include "pastel/geometry/predicates.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testCcwAngle();
@@ -30,23 +22,23 @@ namespace
 
 		void testCcwAngle()
 		{
-			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(0, 1))) - 90, <, 0.001);
-			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(0, 1), Vector2(-1, 0))) - 90, <, 0.001);
-			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(-1, 0), Vector2(0, -1))) - 90, < , 0.001);
-			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(0, -1), Vector2(1, 0))) - 90, <, 0.001);
+			REQUIRE(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(0, 1))) - 90 < 0.001);
+			REQUIRE(radiansToDegrees<real>(
+				ccwAngle(Vector2(0, 1), Vector2(-1, 0))) - 90 < 0.001);
+			REQUIRE(radiansToDegrees<real>(
+				ccwAngle(Vector2(-1, 0), Vector2(0, -1))) - 90 < 0.001);
+			REQUIRE(radiansToDegrees<real>(
+				ccwAngle(Vector2(0, -1), Vector2(1, 0))) - 90 < 0.001);
 
-			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(1, 1))) - 45, <, 0.001);
-			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(-1, 1))) - 135, <, 0.001);
-			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(-1, -1))) - 225, <, 0.001);
-			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(1, -1))) - 315, <, 0.001);
+			REQUIRE(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(1, 1))) - 45 < 0.001);
+			REQUIRE(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(-1, 1))) - 135 < 0.001);
+			REQUIRE(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(-1, -1))) - 225 < 0.001);
+			REQUIRE(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(1, -1))) - 315 < 0.001);
 		}
 
 		void testQuadratic()
@@ -81,21 +73,12 @@ namespace
 				}
 			}
 
-			TEST_ENSURE_OP(failings, <=, 10);
+			REQUIRE(failings <= 10);
 		}
 	};
 
-	void test()
+	TEST_CASE("Common", "[Common]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Common", test);
-	}
-
-	CallFunction run(addTest);
 
 }

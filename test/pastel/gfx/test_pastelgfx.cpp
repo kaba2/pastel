@@ -1,10 +1,11 @@
+#define CATCH_CONFIG_RUNNER
+#include "test/test_init.h"
+
 #include "test_pastelgfx.h"
 
 #include "pastel/sys/logging.h"
 
 #include <iostream>
-
-using namespace Pastel;
 
 #include "pastel/gfx/image_file.h"
 #include "pastel/gfx/texture.h"
@@ -14,9 +15,7 @@ using namespace Pastel;
 #include "pastel/sys/extender/arrayextender.h"
 #include "pastel/sys/extender/indexextenders.h"
 
-using namespace Pastel;
-
-int main(int argc, const char* argv[])
+int main(int argc, char* const argv[])
 {
 	Stream_Logger streamLogger(&std::cout);
 	File_Logger fileLogger("log.txt");
@@ -44,21 +43,7 @@ int main(int argc, const char* argv[])
 	gfxStorage().set("lena_mipmap", &mipMap);
 	gfxStorage().set("lena_texture", &texture);
 
-	if (argc > 1 && argv[1] == std::string("-r"))
-	{
-		testRunner().run();
-	}
-	else
-	{
-		testRunner().console();
-	}
-	
-	if (testReport().totalErrors() > 0)
-	{
-		generateTestReport(testReport(), log());
-	}
-
-	return testReport().totalErrors();
+	return Catch::Session().run(argc, argv);
 }
 
 

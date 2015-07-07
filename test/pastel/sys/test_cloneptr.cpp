@@ -1,11 +1,9 @@
 // Description: Testing for ClonePtr
 // DocumentationOf: clone_ptr.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/pointer/clone_ptr.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -55,14 +53,8 @@ namespace
 	};
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -110,44 +102,35 @@ namespace
 					copyConstructionOccurred = true;					
 				}
 
-				TEST_ENSURE(copyConstructionOccurred);
+				REQUIRE(copyConstructionOccurred);
 			}
 			{
 				ClonePtr<A> a;
-				TEST_ENSURE(!(a < a));
-				TEST_ENSURE(!(a > a));
-				TEST_ENSURE(a <= a);
-				TEST_ENSURE(a >= a);
-				TEST_ENSURE(a == a);
-				TEST_ENSURE(!(a != a));
-				
-				TEST_ENSURE(!(a < nullptr));
-				TEST_ENSURE(!(nullptr < a));
-				TEST_ENSURE(!(a > nullptr));
-				TEST_ENSURE(!(nullptr > a));
-				TEST_ENSURE(a <= nullptr);
-				TEST_ENSURE(nullptr <= a);
-				TEST_ENSURE(a >= nullptr);
-				TEST_ENSURE(nullptr >= a);
-				TEST_ENSURE(a == nullptr);
-				TEST_ENSURE(nullptr == a);
-				TEST_ENSURE(!(a != nullptr));
-				TEST_ENSURE(!(nullptr != a));
+				REQUIRE(!(a < a));
+				REQUIRE(!(a > a));
+				REQUIRE(a <= a);
+				REQUIRE(a >= a);
+				REQUIRE(a == a);
+				REQUIRE(!(a != a));
+
+				REQUIRE(!(a < nullptr));
+				REQUIRE(!(nullptr < a));
+				REQUIRE(!(a > nullptr));
+				REQUIRE(!(nullptr > a));
+				REQUIRE(a <= nullptr);
+				REQUIRE(nullptr <= a);
+				REQUIRE(a >= nullptr);
+				REQUIRE(nullptr >= a);
+				REQUIRE(a == nullptr);
+				REQUIRE(nullptr == a);
+				REQUIRE(!(a != nullptr));
+				REQUIRE(!(nullptr != a));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("ClonePtr", "[ClonePtr]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("ClonePtr", test);
-	}
-
-	CallFunction run(addTest);
 
 }

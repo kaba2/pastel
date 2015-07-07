@@ -1,7 +1,7 @@
 // Description: Testing for PluDecomposition
 // DocumentationOf: lu_decomposition.h
 
-#include "test_pastelmath.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/tuple.h"
@@ -10,22 +10,14 @@
 #include "pastel/math/matrix.h"
 #include "pastel/math/sampling/uniform_sampling.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	using Real = Rational<integer>;
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testLu();
@@ -58,7 +50,7 @@ namespace
 				}
 			}
 
-			TEST_ENSURE_OP(bad, <, 100);
+			REQUIRE(bad < 100);
 		}
 
 		void testLu()
@@ -74,8 +66,8 @@ namespace
 					Real(1, 2), Real(3, 4));
 				Tuple<integer, 2> correctRowPermutation(
 					0, 1);
-				TEST_ENSURE(lu.packedLu() == correctPackedLu);
-				TEST_ENSURE(lu.rowPermutation() == correctRowPermutation);
+				REQUIRE(lu.packedLu() == correctPackedLu);
+				REQUIRE(lu.rowPermutation() == correctRowPermutation);
 
 				//std::cout << lu.packedLu() << std::endl;
 				//std::cout << lu.rowPermutation() << std::endl;
@@ -93,8 +85,8 @@ namespace
 					Real(4, 7), Real(1, 2), 0);
 				Tuple<integer, 3> correctRowPermutation(
 					2, 0, 1);
-				TEST_ENSURE(lu.packedLu() == correctPackedLu);
-				TEST_ENSURE(lu.rowPermutation() == correctRowPermutation);
+				REQUIRE(lu.packedLu() == correctPackedLu);
+				REQUIRE(lu.rowPermutation() == correctRowPermutation);
 
 				//std::cout << lu.packedLu() << std::endl;
 				//std::cout << lu.rowPermutation() << std::endl;
@@ -108,17 +100,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("lu_decomposition", "[lu_decomposition]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("lu_decomposition", test);
-	}
-
-	CallFunction run(addTest);
 
 }

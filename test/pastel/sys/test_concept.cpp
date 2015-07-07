@@ -1,11 +1,9 @@
 // Description: Testing for concepts
 // DocumentationOf: concept.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/concept.h>
-
-using namespace Pastel;
 
 namespace
 {
@@ -105,14 +103,8 @@ namespace
 	};
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testModels();
@@ -323,17 +315,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("concept", "[concept]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("concept", test);
-	}
-
-	CallFunction run(addTest);
 
 }

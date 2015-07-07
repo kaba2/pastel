@@ -1,7 +1,7 @@
 // Description: More testing for conformal affine transformations
 // DocumentationOf: conformalaffine2d.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/math/conformalaffine2d/conformalaffine2d_tools.h"
 #include "pastel/math/conformalaffine2d/conformalaffine2d_least_squares.h"
@@ -11,20 +11,12 @@
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/vector/vector_locator.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testSimilaritySimple();
@@ -59,9 +51,9 @@ namespace
 					matchedTransformation.translation() - 
 					transformation.translation());
 
-				TEST_ENSURE_OP(scalingDelta, <=, 0.001);
-				TEST_ENSURE_OP(angleDelta, <=, 0.001);
-				TEST_ENSURE_OP(tDelta, <=,  0.001);
+				REQUIRE(scalingDelta <= 0.001);
+				REQUIRE(angleDelta <= 0.001);
+				REQUIRE(tDelta <=  0.001);
 			}
 
 		}
@@ -106,24 +98,15 @@ namespace
 					matchedTransformation.translation() - 
 					transformation.translation());
 
-				TEST_ENSURE_OP(scalingDelta, <=, 0.001);
-				TEST_ENSURE_OP(angleDelta, <=, 0.001);
-				TEST_ENSURE_OP(tDelta, <=,  0.001);
+				REQUIRE(scalingDelta <= 0.001);
+				REQUIRE(angleDelta <= 0.001);
+				REQUIRE(tDelta <=  0.001);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("Transformation", "[Transformation]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Transformation", test);
-	}
-
-	CallFunction run(addTest);
 
 }

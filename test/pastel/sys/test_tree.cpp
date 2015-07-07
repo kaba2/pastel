@@ -1,7 +1,7 @@
 // Description: Testing for Tree
 // DocumentationOf: tree.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/tree.h"
 #include "pastel/sys/predicate.h"
@@ -10,13 +10,10 @@
 
 #include <iostream>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
 		class Label
@@ -40,11 +37,6 @@ namespace
 		using ConstIterator = Tree_::ConstIterator;
 		using Range = Tree_::Range;
 		using ConstRange = Tree_::ConstRange;
-
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
 
 		virtual void run()
 		{
@@ -71,101 +63,101 @@ namespace
 		{
 			Tree_ tree;
 			{
-				TEST_ENSURE(tree.empty());
-				TEST_ENSURE_OP(tree.size(), ==, 0);
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 1);
+				REQUIRE(tree.empty());
+				REQUIRE(tree.size() == 0);
+				REQUIRE(tree.sentinelCount() == 1);
 			}
 			Iterator aIter = tree.insertRoot(0);
 			{
-				TEST_ENSURE_OP(tree.size(), ==, 1);
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 3);
+				REQUIRE(tree.size() == 1);
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.sentinelCount() == 3);
 
 				integer correctSet[] = {0};
-				TEST_ENSURE(same(tree, correctSet));
+				REQUIRE(same(tree, correctSet));
 			}
 
 			Iterator bIter = tree.insert(aIter, false, 1);
 			{
-				TEST_ENSURE_OP(tree.size(), ==, 2);
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 4);
+				REQUIRE(tree.size() == 2);
+				REQUIRE(tree.sentinelCount() == 4);
 
 				integer correctSet[] = {1, 0};
-				TEST_ENSURE(same(tree, correctSet));
+				REQUIRE(same(tree, correctSet));
 			}
 
 			Iterator cIter = tree.insert(bIter, true, 2);
 			unused(cIter);
 			{
-				TEST_ENSURE_OP(tree.size(), ==, 3);
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
+				REQUIRE(tree.size() == 3);
+				REQUIRE(tree.sentinelCount() == 5);
 
 				integer correctSet[] = {1, 2, 0};
-				TEST_ENSURE(same(tree, correctSet));
+				REQUIRE(same(tree, correctSet));
 			}
 
 			tree.rotate(aIter, true);
 			{
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
+				REQUIRE(tree.sentinelCount() == 5);
 
 				integer correctSet[] = {1, 2, 0};
-				TEST_ENSURE(same(tree, correctSet));
+				REQUIRE(same(tree, correctSet));
 			}
 
 			Tree_ copyTree(tree);
 			{
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
-				TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 5);
-				TEST_ENSURE(!copyTree.empty());
-				TEST_ENSURE_OP(copyTree.size(), ==, 3);
-				TEST_ENSURE(same(tree, copyTree));
+				REQUIRE(tree.sentinelCount() == 5);
+				REQUIRE(copyTree.sentinelCount() == 5);
+				REQUIRE(!copyTree.empty());
+				REQUIRE(copyTree.size() == 3);
+				REQUIRE(same(tree, copyTree));
 			}
 
 			tree.clear();
 			{
-				TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 5);
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 1);
-				TEST_ENSURE(tree.empty());
-				TEST_ENSURE_OP(tree.size(), ==, 0);
+				REQUIRE(copyTree.sentinelCount() == 5);
+				REQUIRE(tree.sentinelCount() == 1);
+				REQUIRE(tree.empty());
+				REQUIRE(tree.size() == 0);
 			}
 
 			tree = copyTree;
 			{
-				TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 5);
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), ==, 3);
-				TEST_ENSURE(same(tree, copyTree));
+				REQUIRE(copyTree.sentinelCount() == 5);
+				REQUIRE(tree.sentinelCount() == 5);
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 3);
+				REQUIRE(same(tree, copyTree));
 			}
 
 			copyTree = std::move(tree);
 			{
-				TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 2);
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 4);
+				REQUIRE(copyTree.sentinelCount() == 2);
+				REQUIRE(tree.sentinelCount() == 4);
 				integer correctSet[] = {1, 2, 0};
-				TEST_ENSURE(tree.empty());
-				TEST_ENSURE_OP(tree.size(), ==, 0);
-				TEST_ENSURE(!copyTree.empty());
-				TEST_ENSURE_OP(copyTree.size(), ==, 3);
-				TEST_ENSURE(same(copyTree, correctSet));
+				REQUIRE(tree.empty());
+				REQUIRE(tree.size() == 0);
+				REQUIRE(!copyTree.empty());
+				REQUIRE(copyTree.size() == 3);
+				REQUIRE(same(copyTree, correctSet));
 			}
 
 			{
 				Tree_ anotherTree(std::move(copyTree));
 				{
-					TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 1);
-					TEST_ENSURE_OP(tree.sentinelCount(), ==, 4);
-					TEST_ENSURE_OP(anotherTree.sentinelCount(), ==, 2);
+					REQUIRE(copyTree.sentinelCount() == 1);
+					REQUIRE(tree.sentinelCount() == 4);
+					REQUIRE(anotherTree.sentinelCount() == 2);
 					integer correctSet[] = {1, 2, 0};
-					TEST_ENSURE(copyTree.empty());
-					TEST_ENSURE_OP(copyTree.size(), ==, 0);
-					TEST_ENSURE(!anotherTree.empty());
-					TEST_ENSURE_OP(anotherTree.size(), ==, 3);
-					TEST_ENSURE(same(anotherTree, correctSet));
+					REQUIRE(copyTree.empty());
+					REQUIRE(copyTree.size() == 0);
+					REQUIRE(!anotherTree.empty());
+					REQUIRE(anotherTree.size() == 3);
+					REQUIRE(same(anotherTree, correctSet));
 				}
 			}
 			{
-				TEST_ENSURE_OP(tree.sentinelCount(), ==, 1);
+				REQUIRE(tree.sentinelCount() == 1);
 			}
 		}
 
@@ -178,22 +170,22 @@ namespace
 			unused(cIter);
 			{
 				integer correctSet[] = {1, 2, 0};
-				TEST_ENSURE(same(tree, correctSet));
+				REQUIRE(same(tree, correctSet));
 			}
-			
+
 			Iterator newIter = tree.insert(bIter, false, tree);
 			{
 				integer correctSet[] = {1, 2, 0, 1, 2, 0};
-				TEST_ENSURE(same(tree, correctSet));
+				REQUIRE(same(tree, correctSet));
 			}
 
 			Tree_ detached = tree.detach(newIter);
 			{
 				integer correctSet[] = {1, 2, 0};
-				TEST_ENSURE(same(tree, correctSet));
-				TEST_ENSURE_OP(tree.size(), ==, 3);
-				TEST_ENSURE(same(detached, correctSet));
-				TEST_ENSURE_OP(detached.size(), ==, 3);
+				REQUIRE(same(tree, correctSet));
+				REQUIRE(tree.size() == 3);
+				REQUIRE(same(detached, correctSet));
+				REQUIRE(detached.size() == 3);
 			}
 		}
 
@@ -208,8 +200,8 @@ namespace
 			Tree_ tree;
 			Iterator aIter = tree.insertRoot(0);
 			{
-				TEST_ENSURE_OP(*aIter, ==, 0);
-				TEST_ENSURE_OP(aIter->label, ==, 0);
+				REQUIRE(*aIter == 0);
+				REQUIRE(aIter->label == 0);
 			}
 		}
 
@@ -224,60 +216,60 @@ namespace
 			// Finding the leftmost.
 			{
 				Iter iter = aIter.leftMost();
-				TEST_ENSURE(iter == bIter);
+				REQUIRE(iter == bIter);
 			}
 			{
 				Iter iter = bIter.leftMost();
-				TEST_ENSURE(iter == bIter);
+				REQUIRE(iter == bIter);
 			}
 			{
 				Iter iter = tree.end().leftMost();
-				TEST_ENSURE(iter == tree.end());
+				REQUIRE(iter == tree.end());
 			}
 			{
 				Iter iter = cIter.leftMost();
-				TEST_ENSURE(iter == cIter);
+				REQUIRE(iter == cIter);
 			}
-			
+
 			// Finding the rightmost.
 			{
 				Iter iter = aIter.rightMost();
-				TEST_ENSURE(iter == aIter);
+				REQUIRE(iter == aIter);
 			}
 			{
 				Iter iter = bIter.rightMost();
-				TEST_ENSURE(iter == cIter);
+				REQUIRE(iter == cIter);
 			}
 			{
 				Iter iter = tree.end().rightMost();
-				TEST_ENSURE(iter == tree.end());
+				REQUIRE(iter == tree.end());
 			}
 			{
 				Iter iter = cIter.rightMost();
-				TEST_ENSURE(iter == cIter);
+				REQUIRE(iter == cIter);
 			}
 
 			// Finding the root.
 			{
 				Iter iter = cIter.root();
-				TEST_ENSURE(iter == tree.root());
+				REQUIRE(iter == tree.root());
 			}
 			{
 				Iter iter = bIter.root();
-				TEST_ENSURE(iter == tree.root());
+				REQUIRE(iter == tree.root());
 			}
 			{
 				Iter iter = aIter.root();
-				TEST_ENSURE(iter == tree.root());
+				REQUIRE(iter == tree.root());
 			}
 			{
 				Iter iter = tree.end().root();
 				++iter;
-				TEST_ENSURE(iter == tree.end());
+				REQUIRE(iter == tree.end());
 			}
 			{
 				Iter iter = tree.end().root();
-				TEST_ENSURE(iter == tree.end());
+				REQUIRE(iter == tree.end());
 			}
 
 			// Wrapping behaviour.
@@ -285,13 +277,13 @@ namespace
 				// The beginning wraps around to the one-past-end.
 				Iter iter = tree.begin();
 				--iter;
-				TEST_ENSURE(iter == tree.end());
+				REQUIRE(iter == tree.end());
 			}
 			{
 				// The one-past one-past-end stays where it is.
 				Iter iter = tree.end();
 				++iter;
-				TEST_ENSURE(iter == tree.end());
+				REQUIRE(iter == tree.end());
 			}
 		}
 
@@ -308,17 +300,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("Tree", "[Tree]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Tree", test);
-	}
-
-	CallFunction run(addTest);
 
 }

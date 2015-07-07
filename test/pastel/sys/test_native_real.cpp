@@ -1,22 +1,16 @@
 // Description: Testing for native reals
 // DocumentationOf: native_real.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
-using namespace Pastel;
+#include <pastel/sys/real/real_concept.h>
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test<float>();
@@ -29,43 +23,34 @@ namespace
 		{
 			PASTEL_CONCEPT_CHECK(Type, Real_Concept);
 
-			TEST_ENSURE(isInfinity(infinity<Type>()));
-			TEST_ENSURE(isMinusInfinity(-infinity<Type>()));
-			TEST_ENSURE(isNan(nan<Type>()));
-			TEST_ENSURE(inverse((Type)5) == 1 / (Type)5);
-			
-			TEST_ENSURE(negative((Type)-1));
-			TEST_ENSURE(!negative((Type)1));
-			TEST_ENSURE(!negative((Type)0));
-			
-			TEST_ENSURE(positive((Type)1));
-			TEST_ENSURE(!positive((Type)-1));
-			TEST_ENSURE(!positive((Type)0));
-			
-			TEST_ENSURE(zero((Type)0));
-			TEST_ENSURE(zero(-(Type)0));
-			TEST_ENSURE(!zero((Type)1));
-			TEST_ENSURE(!zero((Type)-1));
-			
-			TEST_ENSURE(floor((Type)0.5) == 0);
-			TEST_ENSURE(floor((Type)-0.5) == -1);
-			
-			TEST_ENSURE(ceil((Type)0.5) == 1);
-			TEST_ENSURE(ceil((Type)-0.5) == 0);
+			REQUIRE(isInfinity(infinity<Type>()));
+			REQUIRE(isMinusInfinity(-infinity<Type>()));
+			REQUIRE(isNan(nan<Type>()));
+			REQUIRE(inverse((Type)5) == 1 / (Type)5);
+
+			REQUIRE(negative((Type)-1));
+			REQUIRE(!negative((Type)1));
+			REQUIRE(!negative((Type)0));
+
+			REQUIRE(positive((Type)1));
+			REQUIRE(!positive((Type)-1));
+			REQUIRE(!positive((Type)0));
+
+			REQUIRE(zero((Type)0));
+			REQUIRE(zero(-(Type)0));
+			REQUIRE(!zero((Type)1));
+			REQUIRE(!zero((Type)-1));
+
+			REQUIRE(floor((Type)0.5) == 0);
+			REQUIRE(floor((Type)-0.5) == -1);
+
+			REQUIRE(ceil((Type)0.5) == 1);
+			REQUIRE(ceil((Type)-0.5) == 0);
 		}
 	};
 
-	void test()
+	TEST_CASE("native_real", "[native_real]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("native_real", test);
-	}
-
-	CallFunction run(addTest);
 
 }

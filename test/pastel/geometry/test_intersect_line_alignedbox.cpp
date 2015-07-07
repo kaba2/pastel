@@ -1,14 +1,12 @@
 // Description: Testing for line-alignedbox intersection
 // DocumentationOf: intersect_line_alignedbox.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/rational.h"
 #include "pastel/geometry/intersect/intersect_line_alignedbox.h"
 
 #include <iostream>
-
-using namespace Pastel;
 
 namespace
 {
@@ -16,14 +14,8 @@ namespace
 	using Real = Rational<integer>;
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testPositive();
@@ -61,21 +53,21 @@ namespace
 
 				Vector<Real, 2> hitList;
 
-				TEST_ENSURE(intersect(a, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == -1);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(a, alignedBox, hitList));
+				REQUIRE(hitList[0] == -1);
+				REQUIRE(hitList[1] == 1);
 
-				TEST_ENSURE(intersect(b, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == -1);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(b, alignedBox, hitList));
+				REQUIRE(hitList[0] == -1);
+				REQUIRE(hitList[1] == 1);
 
-				TEST_ENSURE(intersect(c, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == -1);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(c, alignedBox, hitList));
+				REQUIRE(hitList[0] == -1);
+				REQUIRE(hitList[1] == 1);
 
-				TEST_ENSURE(intersect(d, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == -1);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(d, alignedBox, hitList));
+				REQUIRE(hitList[0] == -1);
+				REQUIRE(hitList[1] == 1);
 			}
 			// Rays are inside the aligned box.
 			// The rays are diagonal.
@@ -106,21 +98,21 @@ namespace
 
 				Vector<Real, 2> hitList;
 
-				TEST_ENSURE(intersect(a, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == -1);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(a, alignedBox, hitList));
+				REQUIRE(hitList[0] == -1);
+				REQUIRE(hitList[1] == 1);
 
-				TEST_ENSURE(intersect(b, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == -1);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(b, alignedBox, hitList));
+				REQUIRE(hitList[0] == -1);
+				REQUIRE(hitList[1] == 1);
 
-				TEST_ENSURE(intersect(c, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == -1);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(c, alignedBox, hitList));
+				REQUIRE(hitList[0] == -1);
+				REQUIRE(hitList[1] == 1);
 
-				TEST_ENSURE(intersect(d, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == -1);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(d, alignedBox, hitList));
+				REQUIRE(hitList[0] == -1);
+				REQUIRE(hitList[1] == 1);
 			}
 
 			// The aligned box is centered on origin.
@@ -153,17 +145,17 @@ namespace
 
 				Vector<Real, 2> hitList;
 
-				TEST_ENSURE(intersect(a, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == 0);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(a, alignedBox, hitList));
+				REQUIRE(hitList[0] == 0);
+				REQUIRE(hitList[1] == 1);
 
-				TEST_ENSURE(intersect(b, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == 0);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(b, alignedBox, hitList));
+				REQUIRE(hitList[0] == 0);
+				REQUIRE(hitList[1] == 1);
 
-				TEST_ENSURE(intersect(c, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == 0);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(c, alignedBox, hitList));
+				REQUIRE(hitList[0] == 0);
+				REQUIRE(hitList[1] == 1);
 			}
 			// These rays have origin outside the aligned boxes,
 			// but still intersect the aligned box.
@@ -186,13 +178,13 @@ namespace
 
 				Vector<Real, 2> hitList;
 
-				TEST_ENSURE(intersect(a, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == Real(1, 4));
-				TEST_ENSURE(hitList[1] == Real(3, 4));
+				REQUIRE(intersect(a, alignedBox, hitList));
+				REQUIRE(hitList[0] == Real(1, 4));
+				REQUIRE(hitList[1] == Real(3, 4));
 
-				TEST_ENSURE(intersect(b, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == 1);
-				TEST_ENSURE(hitList[1] == 3);
+				REQUIRE(intersect(b, alignedBox, hitList));
+				REQUIRE(hitList[0] == 1);
+				REQUIRE(hitList[1] == 3);
 			}
 			// These rays just touch the aligned box corners.
 			{
@@ -226,21 +218,21 @@ namespace
 
 				Vector<Real, 2> hitList;
 
-				TEST_ENSURE(intersect(a, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == Real(1, 2));
-				TEST_ENSURE(hitList[1] == Real(1, 2));
+				REQUIRE(intersect(a, alignedBox, hitList));
+				REQUIRE(hitList[0] == Real(1, 2));
+				REQUIRE(hitList[1] == Real(1, 2));
 
-				TEST_ENSURE(intersect(b, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == 1);
-				TEST_ENSURE(hitList[1] == 1);
+				REQUIRE(intersect(b, alignedBox, hitList));
+				REQUIRE(hitList[0] == 1);
+				REQUIRE(hitList[1] == 1);
 
-				TEST_ENSURE(intersect(c, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == 1);
-				TEST_ENSURE(hitList[1] == 3);
+				REQUIRE(intersect(c, alignedBox, hitList));
+				REQUIRE(hitList[0] == 1);
+				REQUIRE(hitList[1] == 3);
 
-				TEST_ENSURE(intersect(d, alignedBox, hitList));
-				TEST_ENSURE(hitList[0] == 1);
-				TEST_ENSURE(hitList[1] == 3);
+				REQUIRE(intersect(d, alignedBox, hitList));
+				REQUIRE(hitList[0] == 1);
+				REQUIRE(hitList[1] == 3);
 			}
 		}
 
@@ -277,25 +269,16 @@ namespace
 
 				Vector<Real, 2> hitList;
 
-				TEST_ENSURE(!intersect(a, alignedBox, hitList));
-				TEST_ENSURE(!intersect(b, alignedBox, hitList));
-				TEST_ENSURE(!intersect(c, alignedBox, hitList));
-				TEST_ENSURE(!intersect(d, alignedBox, hitList));
+				REQUIRE(!intersect(a, alignedBox, hitList));
+				REQUIRE(!intersect(b, alignedBox, hitList));
+				REQUIRE(!intersect(c, alignedBox, hitList));
+				REQUIRE(!intersect(d, alignedBox, hitList));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("intersect_line_alignedbox", "[intersect_line_alignedbox]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("intersect_line_alignedbox", test);
-	}
-
-	CallFunction run(addTest);
 
 }

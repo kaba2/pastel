@@ -1,24 +1,16 @@
 // Description: Testing for grid traversal
 // Documentation: unit_testing.txt
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/for_each_point.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -41,7 +33,7 @@ namespace
 					Box(Point(3, 3), Point(3, 3)),
 					report);
 
-				TEST_ENSURE(pointSet.empty());
+				REQUIRE(pointSet.empty());
 			}
 
 			{
@@ -49,7 +41,7 @@ namespace
 					Box(Point(3, 3), Point(0, 2)),
 					report);
 
-				TEST_ENSURE(pointSet.empty());
+				REQUIRE(pointSet.empty());
 			}
 
 			{
@@ -68,7 +60,7 @@ namespace
 					Box(Point(1, 2), Point(3, 5)),
 					report);
 
-				TEST_ENSURE(boost::equal(pointSet, correctSet));
+				REQUIRE(boost::equal(pointSet, correctSet));
 			}
 
 			{
@@ -87,22 +79,13 @@ namespace
 					Box(Point(1, 2), Point(3, 5)),
 					report);
 
-				TEST_ENSURE(boost::equal(pointSet, correctSet));
+				REQUIRE(boost::equal(pointSet, correctSet));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("for_each_point", "[for_each_point]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("for_each_point", test);
-	}
-
-	CallFunction run(addTest);
 
 }

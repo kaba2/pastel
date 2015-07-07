@@ -1,15 +1,13 @@
 // Description: Testing for List
 // DocumentationOf: list.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/list.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/indicator/all_indicator.h"
 
 #include <iostream>
-
-using namespace Pastel;
 
 namespace
 {
@@ -19,14 +17,8 @@ namespace
 	using ConstIterator = Set::ConstIterator;
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testIterators();
@@ -56,32 +48,32 @@ namespace
 		{
 			Set a({1, 2, 3});
 			{
-				TEST_ENSURE_OP(*a.begin(), ==, 1);
-				TEST_ENSURE_OP(*a.last(), ==, 3);
-				TEST_ENSURE(a.last() == std::prev(a.end()));
-				TEST_ENSURE(boost::equal(a.crange(), std::initializer_list<int>({1, 2, 3})));
+				REQUIRE(*a.begin() == 1);
+				REQUIRE(*a.last() == 3);
+				REQUIRE(a.last() == std::prev(a.end()));
+				REQUIRE(boost::equal(a.crange(), std::initializer_list<int>({1, 2, 3})));
 			}
 			{
 				Iterator i = a.begin();
 				ConstIterator j = i;
-				TEST_ENSURE(i == j);
-				TEST_ENSURE(i <= j);
-				TEST_ENSURE(i >= j);
+				REQUIRE(i == j);
+				REQUIRE(i <= j);
+				REQUIRE(i >= j);
 				i < j;
 				i > j;
 
-				TEST_ENSURE(j == i);
-				TEST_ENSURE(j <= i);
-				TEST_ENSURE(j >= i);
+				REQUIRE(j == i);
+				REQUIRE(j <= i);
+				REQUIRE(j >= i);
 				j < i;
 				j > i;
 			}
 			{
-				TEST_ENSURE(a.cend().isEnd());
+				REQUIRE(a.cend().isEnd());
 			}
 			{
 				a.end().endData() = 4;
-				TEST_ENSURE_OP(a.end().endData(), == , 4);
+				REQUIRE(a.end().endData() == 4);
 			}
 			{
 				Iterator iter;
@@ -89,16 +81,16 @@ namespace
 
 				iter = a.end();
 				ENSURE(iter.isEnd());
-				
+
 				iter.clear();
 				ENSURE(iter.empty());
 			}
 			{
 				*a.begin() = 4;
-				TEST_ENSURE_OP(*a.begin(), ==, 4);
+				REQUIRE(*a.begin() == 4);
 
 				Iterator j = a.insertFront(*a.begin());
-				TEST_ENSURE_OP(*j, ==, 4);
+				REQUIRE(*j == 4);
 			}
 			{
 				List_Set<integer, void> a;
@@ -117,16 +109,16 @@ namespace
 		{
 			{
 				Set a({1, 2, 3, 4});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b;
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
 				a.swap(b);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE(equal(b, { 1, 2, 3, 4 }));
-				TEST_ENSURE(a.empty());
+				REQUIRE(testInvariants(a));
+				REQUIRE(testInvariants(b));
+				REQUIRE(equal(b, { 1, 2, 3, 4 }));
+				REQUIRE(a.empty());
 
 				swap(a, b);
 			}
@@ -136,12 +128,12 @@ namespace
 		{
 			{
 				Set a({1, 2, 3, 4});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 				Iterator aEnd = a.end();
 
 				a.clear();
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(a.end() == aEnd);
+				REQUIRE(testInvariants(a));
+				REQUIRE(a.end() == aEnd);
 			}
 		}
 
@@ -149,43 +141,43 @@ namespace
 		{
 			{
 				Set a({1, 2, 3, 4});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE(boost::equal(a, b));
+				REQUIRE(testInvariants(a));
+				REQUIRE(testInvariants(b));
+				REQUIRE(boost::equal(a, b));
 
 				Set c;
-				TEST_ENSURE(testInvariants(c));
+				REQUIRE(testInvariants(c));
 				Iterator cEnd = c.end();
 
 				c = b;
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE(testInvariants(c));
-				TEST_ENSURE(boost::equal(b, c));
-				TEST_ENSURE(c.end() == cEnd);
+				REQUIRE(testInvariants(b));
+				REQUIRE(testInvariants(c));
+				REQUIRE(boost::equal(b, c));
+				REQUIRE(c.end() == cEnd);
 
 				Set d = std::move(c);
-				TEST_ENSURE(testInvariants(c));
-				TEST_ENSURE(testInvariants(d));
-				TEST_ENSURE(boost::equal(b, d));
-				TEST_ENSURE(c.empty());
-				TEST_ENSURE(c.end() == cEnd);
+				REQUIRE(testInvariants(c));
+				REQUIRE(testInvariants(d));
+				REQUIRE(boost::equal(b, d));
+				REQUIRE(c.empty());
+				REQUIRE(c.end() == cEnd);
 
 				c = std::move(d);
-				TEST_ENSURE(testInvariants(c));
-				TEST_ENSURE(testInvariants(d));
-				TEST_ENSURE(boost::equal(b, c));
-				TEST_ENSURE(d.empty());
-				TEST_ENSURE(c.end() == cEnd);
+				REQUIRE(testInvariants(c));
+				REQUIRE(testInvariants(d));
+				REQUIRE(boost::equal(b, c));
+				REQUIRE(d.empty());
+				REQUIRE(c.end() == cEnd);
 
 				Set e;
-				TEST_ENSURE(testInvariants(e));
+				REQUIRE(testInvariants(e));
 
 				e = { 1, 2, 3, 4 };
-				TEST_ENSURE(testInvariants(e));
-				TEST_ENSURE(equal(e, { 1, 2, 3, 4 }));
+				REQUIRE(testInvariants(e));
+				REQUIRE(equal(e, { 1, 2, 3, 4 }));
 			}
 		}
 
@@ -193,50 +185,50 @@ namespace
 		{
 			{
 				Set a;
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(a == a);
-				TEST_ENSURE(!(a != a));
+				REQUIRE(testInvariants(a));
+				REQUIRE(a == a);
+				REQUIRE(!(a != a));
 			}
 			{
 				Set a({1, 6, 3, 4, 5});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b({1, 6, 3, 4, 5});
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
-				TEST_ENSURE(a == b);
-				TEST_ENSURE(!(a != b));
-				TEST_ENSURE(!(a < b));
-				TEST_ENSURE(!(a > b));
-				TEST_ENSURE(a <= b);
-				TEST_ENSURE(a >= b);
+				REQUIRE(a == b);
+				REQUIRE(!(a != b));
+				REQUIRE(!(a < b));
+				REQUIRE(!(a > b));
+				REQUIRE(a <= b);
+				REQUIRE(a >= b);
 			}
 			{
 				Set a({1, 5, 3, 4, 5});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b({1, 5, 3, 6, 7});
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
-				TEST_ENSURE(a != b);
-				TEST_ENSURE(a <= b);
-				TEST_ENSURE(a < b);
-				TEST_ENSURE(!(a >= b));
-				TEST_ENSURE(!(a > b));
+				REQUIRE(a != b);
+				REQUIRE(a <= b);
+				REQUIRE(a < b);
+				REQUIRE(!(a >= b));
+				REQUIRE(!(a > b));
 			}
 			{
 				Set a({1, 6, 3, 4});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b({1, 6, 3, 4, 5});
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
-				TEST_ENSURE(a != b);
-				TEST_ENSURE(!(a == b));
-				TEST_ENSURE(a < b);
-				TEST_ENSURE(!(a > b));
-				TEST_ENSURE(!(a >= b));
-				TEST_ENSURE(a <= b);
+				REQUIRE(a != b);
+				REQUIRE(!(a == b));
+				REQUIRE(a < b);
+				REQUIRE(!(a > b));
+				REQUIRE(!(a >= b));
+				REQUIRE(a <= b);
 			}
 		}
 
@@ -247,84 +239,84 @@ namespace
 
 			{
 				Iterator iter = a.insertBack(1);
-				TEST_ENSURE_OP(*iter, ==, 1);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1 }));
+				REQUIRE(*iter == 1);
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1 }));
 			}
 
 			{
 				four = a.insertBack(4);
-				TEST_ENSURE_OP(*four, ==, 4);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1, 4 }));
+				REQUIRE(*four == 4);
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1, 4 }));
 			}
 
 			{
 				Iterator iter = a.insertBack(8);
-				TEST_ENSURE_OP(*iter, ==, 8);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1, 4, 8 }));
+				REQUIRE(*iter == 8);
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1, 4, 8 }));
 			}
 
 			{
 				Iterator iter = a.insertFront(7);
-				TEST_ENSURE_OP(*iter, ==, 7);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {7, 1, 4, 8 }));
-				TEST_ENSURE_OP(a.size(), ==, 4);
+				REQUIRE(*iter == 7);
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {7, 1, 4, 8 }));
+				REQUIRE(a.size() == 4);
 			}
 
 			{
 				a.insert(four, 9);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {7, 1, 9, 4, 8 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {7, 1, 9, 4, 8 }));
 			}
 
 			{
 				a.insert(four, 10);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {7, 1, 9, 10, 4, 8 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {7, 1, 9, 10, 4, 8 }));
 			}
 
 			{
 				a.insert(a.end(), 11);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {7, 1, 9, 10, 4, 8, 11 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {7, 1, 9, 10, 4, 8, 11 }));
 			}
 
 			{
 				a.eraseFront();
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {1, 9, 10, 4, 8, 11 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {1, 9, 10, 4, 8, 11 }));
 			}
 			{
 				a.eraseBack();
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {1, 9, 10, 4, 8 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {1, 9, 10, 4, 8 }));
 			}
 			{
 				a.erase(four);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {1, 9, 10, 8 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {1, 9, 10, 8 }));
 			}
 			{
 				a.eraseFront();
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {9, 10, 8 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {9, 10, 8 }));
 			}
 			{
 				a.eraseFront();
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {10, 8 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {10, 8 }));
 			}
 			{
 				a.eraseBack();
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {10}));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {10}));
 			}
 			{
 				a.eraseBack();
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 			}
 		}
 
@@ -332,42 +324,42 @@ namespace
 		{
 			{
 				Set a;
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				sort(a);
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 			}
 			{
 				Set a({0});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				sort(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 0 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 0 }));
 			}
 			{
 				Set a({0, 1, 2, 3});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				sort(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 0, 1, 2, 3 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 0, 1, 2, 3 }));
 			}
 			{
 				Set a({3, 2, 1, 0});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				sort(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 0, 1, 2, 3 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 0, 1, 2, 3 }));
 			}
 			{
 				Set a({1, 5, 3, 2, 4, 0});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				sort(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 0, 1, 2, 3, 4, 5 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 0, 1, 2, 3, 4, 5 }));
 			}
 		}
 
@@ -375,46 +367,46 @@ namespace
 		{
 			{
 				Set a;
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				unique(a);
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 			}
 
 			{
 				Set a({1});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				unique(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1 }));
 			}
 
 			{
 				Set a({1, 1, 1});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				unique(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1 }));
 			}
 
 			{
 				Set a({1, 1, 2, 2, 3, 4, 4, 5});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				unique(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1, 2, 3, 4, 5 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1, 2, 3, 4, 5 }));
 			}
 
 			{
 				Set a({1, 1, 5, 5, 4, 4, 3, 3, 3, 3});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				unique(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1, 5, 4, 3 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1, 5, 4, 3 }));
 			}
 		}
 
@@ -424,36 +416,36 @@ namespace
 
 			{
 				Set a;
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				removeIf(a, allIndicator());
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 			}
 			{
 				Set a({1, 2, 5, 3, 4, 5, 6, 5});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				removeIf(a, std::bind(EqualTo(), _1, 5));
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {1, 2, 3, 4, 6}));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {1, 2, 3, 4, 6}));
 			}	
 
 			{
 				Set a({1, 2, 5, 3, 4, 5, 6, 5});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				removeIf(a, std::bind(LessThan(), _1, 4));
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {5, 4, 5, 6, 5}));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {5, 4, 5, 6, 5}));
 			}	
 
 			{
 				Set a({1, 2, 5, 3, 4, 5, 6, 5});
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				removeIf(a, std::bind(GreaterThan(), _1, 6));
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, {1, 2, 5, 3, 4, 5, 6, 5}));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, {1, 2, 5, 3, 4, 5, 6, 5}));
 			}	
 		}
 
@@ -461,88 +453,88 @@ namespace
 		{
 			{
 				Set a;
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b;
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
 				merge(a, b);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(a));
+				REQUIRE(testInvariants(b));
 			}
 			{
 				Set a({ 1 });
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b;
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
 				merge(a, b);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE(equal(a, { 1 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(testInvariants(b));
+				REQUIRE(equal(a, { 1 }));
 			}		
 			{
 				Set a({ 1 });
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b({ 2 });
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
 				merge(a, b);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE(equal(a, { 1, 2 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(testInvariants(b));
+				REQUIRE(equal(a, { 1, 2 }));
 			}		
 			{
 				Set a({ 1, 3 });
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b({ 2 });
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
 				merge(a, b);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE(equal(a, { 1, 2, 3 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(testInvariants(b));
+				REQUIRE(equal(a, { 1, 2, 3 }));
 			}		
 			{
 				Set a({ 2 });
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b({ 1, 3 });
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
 				merge(a, b);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE(equal(a, { 1, 2, 3 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(testInvariants(b));
+				REQUIRE(equal(a, { 1, 2, 3 }));
 			}		
 			{
 				Set a({ 1, 4, 6, 7, 8, 9 });
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b({ 1, 1, 3, 5, 6, 8, 10 });
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
 				merge(a, b);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE(equal(a, 
+				REQUIRE(testInvariants(a));
+				REQUIRE(testInvariants(b));
+				REQUIRE(equal(a, 
 					{ 1, 1, 1, 3, 4, 5, 6, 6, 7, 8, 8, 9, 10 }));
 			}		
 
 			{
 				Set a({ 1, 2, 3, 4 });
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				Set b({ 5, 6 });
-				TEST_ENSURE(testInvariants(b));
+				REQUIRE(testInvariants(b));
 
 				merge(a, b);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE(equal(a, { 1, 2, 3, 4, 5, 6 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(testInvariants(b));
+				REQUIRE(equal(a, { 1, 2, 3, 4, 5, 6 }));
 			}		
 		}
 
@@ -550,59 +542,59 @@ namespace
 		{
 			{
 				Set a;
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				reverse(a);
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				reverse(a);
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 			}
 			{
 				Set a({ 1 });
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				reverse(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1 }));
 
 				reverse(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1 }));
 			}		
 			{
 				Set a({ 1, 2 });
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				reverse(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 2, 1 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 2, 1 }));
 
 				reverse(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1, 2 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1, 2 }));
 			}
 			{
 				Set a({ 1, 2, 3, 4, 5 });
-				TEST_ENSURE(testInvariants(a));
+				REQUIRE(testInvariants(a));
 
 				reverse(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 5, 4, 3, 2, 1 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 5, 4, 3, 2, 1 }));
 
 				reverse(a);
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE(equal(a, { 1, 2, 3, 4, 5 }));
+				REQUIRE(testInvariants(a));
+				REQUIRE(equal(a, { 1, 2, 3, 4, 5 }));
 			}
 		}
 
 		void testSplice()
 		{
 			Set c;
-			TEST_ENSURE(testInvariants(c));
-			
+			REQUIRE(testInvariants(c));
+
 			Set b = { 6, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, -4, 5};
-			TEST_ENSURE(testInvariants(b));
+			REQUIRE(testInvariants(b));
 
 			{
 				integer correctSet[] = 
@@ -612,12 +604,12 @@ namespace
 					5, 5, 5, 5, 5,
 					-4, 5
 				};
-				TEST_ENSURE_OP(b.size(), ==, 14);
-				TEST_ENSURE(boost::equal(b, correctSet));
+				REQUIRE(b.size() == 14);
+				REQUIRE(boost::equal(b, correctSet));
 			}
 
 			b.splice(b.begin(), b, b.last());
-			TEST_ENSURE(testInvariants(b));
+			REQUIRE(testInvariants(b));
 			{
 				integer correctSet[] = 
 				{
@@ -627,12 +619,12 @@ namespace
 					5, 5, 5, 5, 5,
 					-4
 				};
-				TEST_ENSURE_OP(b.size(), ==, 14);
-				TEST_ENSURE(boost::equal(b, correctSet));
+				REQUIRE(b.size() == 14);
+				REQUIRE(boost::equal(b, correctSet));
 			}
 
 			b.splice(b.begin(), b);
-			TEST_ENSURE(testInvariants(b));
+			REQUIRE(testInvariants(b));
 			{
 				integer correctSet[] = 
 				{
@@ -642,13 +634,13 @@ namespace
 					5, 5, 5, 5, 5,
 					-4
 				};
-				TEST_ENSURE_OP(b.size(), ==, 14);
-				TEST_ENSURE(boost::equal(b, correctSet));
+				REQUIRE(b.size() == 14);
+				REQUIRE(boost::equal(b, correctSet));
 			}
 
 			c.splice(c.begin(), b);
-			TEST_ENSURE(testInvariants(b));
-			TEST_ENSURE(testInvariants(c));
+			REQUIRE(testInvariants(b));
+			REQUIRE(testInvariants(c));
 			{
 				integer correctSet[] = 
 				{
@@ -658,15 +650,15 @@ namespace
 					5, 5, 5, 5, 5,
 					-4
 				};
-				TEST_ENSURE_OP(c.size(), ==, 14);
-				TEST_ENSURE(boost::equal(c, correctSet));
-				TEST_ENSURE(b.empty());
-				TEST_ENSURE_OP(b.size(), ==, 0);
+				REQUIRE(c.size() == 14);
+				REQUIRE(boost::equal(c, correctSet));
+				REQUIRE(b.empty());
+				REQUIRE(b.size() == 0);
 			}
 
 			b.splice(b.begin(), c, c.last());
-			TEST_ENSURE(testInvariants(b));
-			TEST_ENSURE(testInvariants(c));
+			REQUIRE(testInvariants(b));
+			REQUIRE(testInvariants(c));
 			{
 				integer bCorrectSet[] = 
 				{
@@ -680,16 +672,16 @@ namespace
 					5, 5, 5, 5, 5
 				};
 
-				TEST_ENSURE_OP(b.size(), ==, 1);
-				TEST_ENSURE(boost::equal(b, bCorrectSet));
+				REQUIRE(b.size() == 1);
+				REQUIRE(boost::equal(b, bCorrectSet));
 
-				TEST_ENSURE_OP(c.size(), ==, 13);
-				TEST_ENSURE(boost::equal(c, cCorrectSet));
+				REQUIRE(c.size() == 13);
+				REQUIRE(boost::equal(c, cCorrectSet));
 			}
-			
+
 			b.splice(b.begin(), c, c.begin());
-			TEST_ENSURE(testInvariants(b));
-			TEST_ENSURE(testInvariants(c));
+			REQUIRE(testInvariants(b));
+			REQUIRE(testInvariants(c));
 			{
 				integer bCorrectSet[] = 
 				{
@@ -702,21 +694,21 @@ namespace
 					5, 5, 5, 5, 5
 				};
 
-				TEST_ENSURE_OP(b.size(), ==, 2);
-				TEST_ENSURE(boost::equal(b, bCorrectSet));
+				REQUIRE(b.size() == 2);
+				REQUIRE(boost::equal(b, bCorrectSet));
 
-				TEST_ENSURE_OP(c.size(), ==, 12);
-				TEST_ENSURE(boost::equal(c, cCorrectSet));
+				REQUIRE(c.size() == 12);
+				REQUIRE(boost::equal(c, cCorrectSet));
 			}
 
 			Iterator iter(--c.end());
 			b.splice(b.end(), c);
 			*iter = -18;
-			TEST_ENSURE(testInvariants(b));
-			TEST_ENSURE(testInvariants(c));
+			REQUIRE(testInvariants(b));
+			REQUIRE(testInvariants(c));
 			{
-				TEST_ENSURE_OP(b.size(), ==, 14);
-				TEST_ENSURE(b.back() == -18);
+				REQUIRE(b.size() == 14);
+				REQUIRE(b.back() == -18);
 			}
 		}
 
@@ -726,49 +718,40 @@ namespace
 
 			Set a;
 
-			TEST_ENSURE(a == a);
+			REQUIRE(a == a);
 
 			for (integer value : valueSet)
 			{
 				a.insertBack(value);
 			}
 
-			TEST_ENSURE(a == a);
+			REQUIRE(a == a);
 
 			Set b(a);
-			TEST_ENSURE(b == a);
+			REQUIRE(b == a);
 
 			b.eraseBack();
-			TEST_ENSURE(b != a);
+			REQUIRE(b != a);
 
 			a.eraseBack();
-			TEST_ENSURE(b == a);
+			REQUIRE(b == a);
 
 			a.front() = -5;
-			TEST_ENSURE(b != a);
+			REQUIRE(b != a);
 
 			a.swap(b);
-			TEST_ENSURE(b != a);
+			REQUIRE(b != a);
 
 			a = b;
-			TEST_ENSURE(b == a);
+			REQUIRE(b == a);
 
 			a.swap(b);
-			TEST_ENSURE(b == a);
+			REQUIRE(b == a);
 		}
 	};
 
-	void test()
+	TEST_CASE("List", "[List]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("List", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,26 +1,18 @@
 // Description: Testing for automaton closure
 // DocumentationOf: automaton_closure.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/automaton/automaton_closure.h"
 #include "pastel/sys/sequence.h"
 #include "pastel/sys/predicate.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -33,7 +25,7 @@ namespace
 ;
 
 			Automaton automaton;
-			
+
 			State a = automaton.addState();
 			State b = automaton.addState();
 			State c = automaton.addState();
@@ -74,17 +66,17 @@ namespace
 			};
 
 			epsilonClosure(automaton, StateSet(), insert, report);
-			
+
 			{
 				State correctClosure[] = {a, b, c};
 				std::sort(
 					std::begin(correctClosure), 
 					std::end(correctClosure),
 					IteratorAddress_LessThan());
-				
-				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[a]));
-				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[b]));
-				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[c]));
+
+				REQUIRE(boost::equal(range(correctClosure), closureMap[a]));
+				REQUIRE(boost::equal(range(correctClosure), closureMap[b]));
+				REQUIRE(boost::equal(range(correctClosure), closureMap[c]));
 			}
 
 			{
@@ -93,8 +85,8 @@ namespace
 					std::begin(correctClosure), 
 					std::end(correctClosure),
 					IteratorAddress_LessThan());
-				
-				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[d]));
+
+				REQUIRE(boost::equal(range(correctClosure), closureMap[d]));
 			}
 
 			{
@@ -103,23 +95,14 @@ namespace
 					std::begin(correctClosure), 
 					std::end(correctClosure),
 					IteratorAddress_LessThan());
-				
-				TEST_ENSURE(boost::equal(range(correctClosure), closureMap[e]));
+
+				REQUIRE(boost::equal(range(correctClosure), closureMap[e]));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("automatonClosure", "[automatonClosure]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("automatonClosure", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,7 +1,7 @@
 // Description: Testing for palettes
 // DocumentationOf: color_palette.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/view.h"
 
@@ -12,8 +12,6 @@
 #include <iostream>
 #include <string>
 
-using namespace Pastel;
-
 namespace
 {
 
@@ -23,7 +21,6 @@ namespace
 	{
 		integer colorWidth = 32;
 		integer colorHeight = 32;
-
 
 		const integer width = colorWidth * 16;
 		const integer height = colorHeight * 16;
@@ -69,16 +66,8 @@ namespace
 		savePalette(palette, "palette_random.pcx");
 }
 
-	void test()
+	TEST_CASE("Palette", "[Palette]")
 	{
-		testPalette();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Palette", test);
-	}
-
-	CallFunction run(addTest);
 
 }

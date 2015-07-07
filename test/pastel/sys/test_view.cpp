@@ -1,12 +1,10 @@
 // Description: Testing for Views
 // DocumentationOf: views.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -48,16 +46,8 @@ namespace
 		a.setExtent(Vector2i(53, 45), 15);
 	}
 
-	void test()
+	TEST_CASE("View", "[View]")
 	{
-		testTrivial();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Array", test);
-	}
-
-	CallFunction run(addTest);
 
 }

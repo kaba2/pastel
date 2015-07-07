@@ -1,7 +1,7 @@
 // Description: Testing for HashedTree
 // DocumentationOf: hashed_tree.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/hashed_tree.h"
 #include "pastel/sys/random/random_uniform.h"
@@ -15,14 +15,8 @@ namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -37,7 +31,7 @@ namespace
 			integer keySet[] = {1, 5, 3, 2, 7};
 
 			Tree tree;
-			TEST_ENSURE_OP(tree.hash(), ==, 0);
+			REQUIRE(tree.hash() == 0);
 
 			std::vector<hash_integer> hashSet;
 			for (integer key : keySet)
@@ -48,17 +42,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("HashedTree", "[HashedTree]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("HashedTree", test);
-	}
-
-	CallFunction run(addTest);
 
 }

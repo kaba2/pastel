@@ -1,7 +1,7 @@
 // Description: Testing for signal transforms
 // DocumentationOf: signal_transforms.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/gfx/image_file.h"
 #include "pastel/gfx/color.h"
@@ -13,8 +13,6 @@
 
 #include <iostream>
 #include <string>
-
-using namespace Pastel;
 
 namespace
 {
@@ -56,20 +54,14 @@ namespace
 	};
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testSimple();
 			testRandom();
 		}
-	
+
 		template <typename Complex_RandomAccessRange>
 		bool testDft(
 			const Complex_RandomAccessRange& input)
@@ -130,7 +122,6 @@ namespace
 			std::vector<real> output(input.begin(), input.end());
 			transform(
 				range(output.begin(), output.end()));
-
 
 			/*
 			std::cout << "Input: " << std::endl;
@@ -239,52 +230,52 @@ namespace
 		{
 			{
 				real input[] = {1};
-				TEST_ENSURE(testDft(input));
-				TEST_ENSURE(testDct(input));
-				TEST_ENSURE(testHaar(input));
-				TEST_ENSURE(testHadamard(input));
+				REQUIRE(testDft(input));
+				REQUIRE(testDct(input));
+				REQUIRE(testHaar(input));
+				REQUIRE(testHadamard(input));
 			}
 			{
 				real input[] = {1, 2};
-				TEST_ENSURE(testDft(input));
-				TEST_ENSURE(testDct(input));
-				TEST_ENSURE(testHaar(input));
-				TEST_ENSURE(testHadamard(input));
+				REQUIRE(testDft(input));
+				REQUIRE(testDct(input));
+				REQUIRE(testHaar(input));
+				REQUIRE(testHadamard(input));
 			}
 			{
 				real input[] = {1, 2, 3, 4};
-				TEST_ENSURE(testDft(input));
-				TEST_ENSURE(testDct(input));
-				TEST_ENSURE(testHaar(input));
-				TEST_ENSURE(testHadamard(input));
+				REQUIRE(testDft(input));
+				REQUIRE(testDct(input));
+				REQUIRE(testHaar(input));
+				REQUIRE(testHadamard(input));
 			}
 			{
 				real input[] = {4, 3, 2, 1};
-				TEST_ENSURE(testDft(input));
-				TEST_ENSURE(testDct(input));
-				TEST_ENSURE(testHaar(input));
-				TEST_ENSURE(testHadamard(input));
+				REQUIRE(testDft(input));
+				REQUIRE(testDct(input));
+				REQUIRE(testHaar(input));
+				REQUIRE(testHadamard(input));
 			}
 			{
 				real input[] = {1, 2, 3, 4, 5, 6, 7, 8};
-				TEST_ENSURE(testDft(input));
-				TEST_ENSURE(testDct(input));
-				TEST_ENSURE(testHaar(input));
-				TEST_ENSURE(testHadamard(input));
+				REQUIRE(testDft(input));
+				REQUIRE(testDct(input));
+				REQUIRE(testHaar(input));
+				REQUIRE(testHadamard(input));
 			}
 			{
 				real input[] = {1, 5, 2, 3, 4, 9, 5, 5};
-				TEST_ENSURE(testDft(input));
-				TEST_ENSURE(testDct(input));
-				TEST_ENSURE(testHaar(input));
-				TEST_ENSURE(testHadamard(input));
+				REQUIRE(testDft(input));
+				REQUIRE(testDct(input));
+				REQUIRE(testHaar(input));
+				REQUIRE(testHadamard(input));
 			}
 			{
 				real input[] = {2, 5, 8, 9, 7, 4, -1, 1};
-				TEST_ENSURE(testDft(input));
-				TEST_ENSURE(testDct(input));
-				TEST_ENSURE(testHaar(input));
-				TEST_ENSURE(testHadamard(input));
+				REQUIRE(testDft(input));
+				REQUIRE(testDct(input));
+				REQUIRE(testHaar(input));
+				REQUIRE(testHadamard(input));
 			}
 			{
 				real input[] = 
@@ -292,25 +283,12 @@ namespace
 					0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8,
 					0, 8, 0, 7, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1
 				};
-				TEST_ENSURE(testDft(input));
-				TEST_ENSURE(testDct(input));
-				TEST_ENSURE(testHaar(input));
-				TEST_ENSURE(testHadamard(input));
+				REQUIRE(testDft(input));
+				REQUIRE(testDct(input));
+				REQUIRE(testHaar(input));
+				REQUIRE(testHadamard(input));
 			}
 		}
 	};
-
-	void testFourier()
-	{
-		Test test;
-		test.run();
-	}
-
-	void addTest()
-	{
-		testRunner().add("Fourier", testFourier);
-	}
-
-	CallFunction run(addTest);
 
 }

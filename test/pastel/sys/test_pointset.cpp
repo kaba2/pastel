@@ -1,7 +1,7 @@
 // Description: Testing for point-sets
 // DocumentationOf: pointset_concept.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/pointset/pointset_concept.h>
 #include <pastel/sys/set.h>
@@ -11,17 +11,9 @@
 namespace
 {
 
-	using namespace Pastel;
-
-	class Test
-		: public TestSuite
+		class Test
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testHomogeneous();
@@ -33,14 +25,14 @@ namespace
 		void testHomogeneous()
 		{
 			using Point = Vector<real, 2>;
-			
+
 			std::vector<Point> inputSet;
 			auto pointSet = rangeSet(inputSet);
 			using PointSet = decltype(pointSet);
 
 			PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
-			
-			TEST_ENSURE_OP(pointSetDimension(pointSet), == , 2);
+
+			REQUIRE(pointSetDimension(pointSet) == 2);
 			PASTEL_STATIC_ASSERT(PointSet_Dimension<PointSet>::value == 2);
 		}
 
@@ -59,7 +51,7 @@ namespace
 
 			auto pointIdSet = rangeSet(inputSet);
 			auto pointSet = locationSet(pointIdSet, Locator());
-			
+
 			using PointIdSet = decltype(pointIdSet);
 
 			using PointSet = decltype(pointSet);
@@ -81,10 +73,10 @@ namespace
 				using Locator_ = PointSet_Locator<PointSet>;
 				PASTEL_STATIC_ASSERT((std::is_same<Locator_, Locator>::value));
 
-				TEST_ENSURE_OP(pointSetDimension(pointSet), ==, 1);
+				REQUIRE(pointSetDimension(pointSet) == 1);
 				PASTEL_STATIC_ASSERT(PointSet_Dimension<PointSet>::value == 1);
-				
-				TEST_ENSURE_OP(pointSetN(pointSet), ==, 3);
+
+				REQUIRE(pointSetN(pointSet) == 3);
 			}
 		}
 
@@ -101,7 +93,7 @@ namespace
 				{5, 6}
 			};
 			auto pointSet = rangeSet(inputSet);
-			
+
 			using PointSet = decltype(pointSet);
 			PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
@@ -121,10 +113,10 @@ namespace
 				using Locator_ = PointSet_Locator<PointSet>;
 				PASTEL_STATIC_ASSERT((std::is_same<Locator_, Locator>::value));
 
-				TEST_ENSURE_OP(pointSetDimension(pointSet), ==, 2);
+				REQUIRE(pointSetDimension(pointSet) == 2);
 				PASTEL_STATIC_ASSERT(PointSet_Dimension<PointSet>::value == 2);
 
-				TEST_ENSURE_OP(pointSetN(pointSet), ==, 3);
+				REQUIRE(pointSetN(pointSet) == 3);
 			}
 		}
 
@@ -138,7 +130,7 @@ namespace
 
 			{
 				auto pointSet = rangeSet(pointSet_);
-				TEST_ENSURE_OP(pointSet.n(), ==, 0);
+				REQUIRE(pointSet.n() == 0);
 			}
 
 			Point a = {{1, 2}};
@@ -146,31 +138,22 @@ namespace
 
 			{
 				auto pointSet = rangeSet(pointSet_);
-				TEST_ENSURE_OP(pointSet.n(), ==, 1);
-				TEST_ENSURE_OP(pointSetDimension(pointSet), ==, 2);
+				REQUIRE(pointSet.n() == 1);
+				REQUIRE(pointSetDimension(pointSet) == 2);
 
 				auto index = pointSet.index();
 
-				TEST_ENSURE(pointAxis(pointSet.element(index), 0) == 1);
-				TEST_ENSURE(pointAxis(pointSet.element(index), 1) == 2);
+				REQUIRE(pointAxis(pointSet.element(index), 0) == 1);
+				REQUIRE(pointAxis(pointSet.element(index), 1) == 2);
 
 				pointSet.next(index);
-				TEST_ENSURE(pointSet.empty(index));
+				REQUIRE(pointSet.empty(index));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("pointset_concept", "[pointset_concept]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("pointset_concept", test);
-	}
-
-	CallFunction run(addTest);
 
 }

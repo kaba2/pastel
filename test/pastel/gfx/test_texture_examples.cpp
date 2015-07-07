@@ -1,28 +1,23 @@
 // Description: More testing for Textures
 // DocumentationOf: textures.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
+
+#include <test/pastel/gfx/test_pastelgfx.h>
 
 #include <pastel/gfx/color.h>
 #include <pastel/gfx/texture.h>
 #include <pastel/gfx/drawing.h>
+#include <pastel/gfx/image_file/pcx.h>
 #include <pastel/gfx/image_gfxrenderer.h>
 #include <pastel/gfx/gfxrenderer_tools.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testTransform();
@@ -45,7 +40,7 @@ namespace
 			drawBox(AlignedBox2(Vector2(0, 0), Vector2(image.extent())),
 				distortedTexture,
 				arrayView(image));
-			
+
 			savePcx(image, "transform_texture.pcx");
 		}
 
@@ -110,20 +105,11 @@ namespace
 				savePcx(image, "radial_texture_input.pcx");
 			}
 		}
-	
+
 	};
 
-	void testTextureExamples()
+	TEST_CASE("Texture_Examples", "[Texture_Examples]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Texture_Examples", testTextureExamples);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,7 +1,7 @@
 // Description: Testing for alignedbox-alignedbox containment
 // DocumentationOf: contains_alignedbox_alignedbox.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/containment/contains_alignedbox_alignedbox.h"
 
@@ -11,22 +11,14 @@
 using std::cout;
 using std::endl;
 
-using namespace Pastel;
-
 namespace
 {
 
 	using Real = Rational<integer>;
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testEasy();
@@ -40,12 +32,12 @@ namespace
 			AlignedBox<Real, 2> aBox(0, 0, 1, 1);
 			AlignedBox<Real, 2> bBox(0, 0, 1, 1);
 
-			TEST_ENSURE(contains(aBox, bBox));
-			TEST_ENSURE(contains(bBox, aBox));
+			REQUIRE(contains(aBox, bBox));
+			REQUIRE(contains(bBox, aBox));
 
 			aBox.maxTopology().set(Topology::Closed);
-			TEST_ENSURE(contains(aBox, bBox));
-			TEST_ENSURE(!contains(bBox, aBox));
+			REQUIRE(contains(aBox, bBox));
+			REQUIRE(!contains(bBox, aBox));
 		}
 
 		void testEasy()
@@ -53,8 +45,8 @@ namespace
 			AlignedBox<Real, 2> aBox(0, 0, 3, 3);
 			AlignedBox<Real, 2> bBox(1, 1, 2, 2);
 
-			TEST_ENSURE(contains(aBox, bBox));
-			TEST_ENSURE(!contains(bBox, aBox));
+			REQUIRE(contains(aBox, bBox));
+			REQUIRE(!contains(bBox, aBox));
 		}
 
 		void testEmpty()
@@ -63,36 +55,36 @@ namespace
 				AlignedBox<Real, 2> aBox(0, 0, 2, 2);
 				AlignedBox<Real, 2> bBox(1, 1, 1, 1);
 
-				TEST_ENSURE(contains(aBox, bBox));
-				TEST_ENSURE(!contains(bBox, aBox));
+				REQUIRE(contains(aBox, bBox));
+				REQUIRE(!contains(bBox, aBox));
 			}
 			{
 				AlignedBox<Real, 2> aBox(0, 0, 2, 2);
 				AlignedBox<Real, 2> bBox(-1, -3, -1, -3);
 
-				TEST_ENSURE(contains(aBox, bBox));
-				TEST_ENSURE(!contains(bBox, aBox));
+				REQUIRE(contains(aBox, bBox));
+				REQUIRE(!contains(bBox, aBox));
 			}
 			{
 				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
 				AlignedBox<Real, 2> bBox(1, 1, -1, 2);
 
-				TEST_ENSURE(contains(aBox, bBox));
-				TEST_ENSURE(!contains(bBox, aBox));
+				REQUIRE(contains(aBox, bBox));
+				REQUIRE(!contains(bBox, aBox));
 			}
 			{
 				AlignedBox<Real, 2> aBox(0, 0, 0, 0);
 				AlignedBox<Real, 2> bBox(0, 0, 0, 0);
 
-				TEST_ENSURE(contains(aBox, bBox));
-				TEST_ENSURE(contains(bBox, aBox));
+				REQUIRE(contains(aBox, bBox));
+				REQUIRE(contains(bBox, aBox));
 			}
 			{
 				AlignedBox<Real, 2> aBox(0, 0, 0, 0);
 				AlignedBox<Real, 2> bBox(1, 1, 1, 1);
 
-				TEST_ENSURE(contains(aBox, bBox));
-				TEST_ENSURE(contains(bBox, aBox));
+				REQUIRE(contains(aBox, bBox));
+				REQUIRE(contains(bBox, aBox));
 			}
 		}
 
@@ -102,44 +94,35 @@ namespace
 				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
 				AlignedBox<Real, 2> bBox(1, 1, 4, 2);
 
-				TEST_ENSURE(!contains(aBox, bBox));
-				TEST_ENSURE(!contains(bBox, aBox));
+				REQUIRE(!contains(aBox, bBox));
+				REQUIRE(!contains(bBox, aBox));
 			}
 			{
 				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
 				AlignedBox<Real, 2> bBox(-1, 1, 2, 2);
 
-				TEST_ENSURE(!contains(aBox, bBox));
-				TEST_ENSURE(!contains(bBox, aBox));
+				REQUIRE(!contains(aBox, bBox));
+				REQUIRE(!contains(bBox, aBox));
 			}
 			{
 				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
 				AlignedBox<Real, 2> bBox(1, 1, 2, 4);
 
-				TEST_ENSURE(!contains(aBox, bBox));
-				TEST_ENSURE(!contains(bBox, aBox));
+				REQUIRE(!contains(aBox, bBox));
+				REQUIRE(!contains(bBox, aBox));
 			}
 			{
 				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
 				AlignedBox<Real, 2> bBox(1, -1, 2, 2);
 
-				TEST_ENSURE(!contains(aBox, bBox));
-				TEST_ENSURE(!contains(bBox, aBox));
+				REQUIRE(!contains(aBox, bBox));
+				REQUIRE(!contains(bBox, aBox));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("contains_alignedbox_alignedbox", "[contains_alignedbox_alignedbox]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("contains_alignedbox_alignedbox", test);
-	}
-
-	CallFunction run(addTest);
 
 }

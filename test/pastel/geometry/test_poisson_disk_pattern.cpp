@@ -1,7 +1,7 @@
 // Description: Testing for poisson-disk pattern
 // DocumentationOf: poisson_disk_pattern.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/distance/distance_point_point.h"
@@ -19,8 +19,6 @@
 #include "pastel/sys/view.h"
 
 #include "pastel/sys/vector/vector_tools.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -102,16 +100,8 @@ namespace
 		savePcx(image, "testpointpattern_poissondisk_4d.pcx");
 	}
 
-	void test()
+	TEST_CASE("PointPattern", "[PointPattern]")
 	{
-		testPoissonDiskPattern();
 	}
-
-	void addTest()
-	{
-		testRunner().add("PointPattern", test);
-	}
-
-	CallFunction run(addTest);
 
 }

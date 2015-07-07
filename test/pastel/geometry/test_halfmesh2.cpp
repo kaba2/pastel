@@ -1,25 +1,17 @@
 // Description: More testing for HalfMesh
 // DocumentationOf: halfmesh.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/halfmesh/halfmesh.h"
 #include "pastel/sys/random.h"
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testTrivial();
@@ -36,12 +28,12 @@ namespace
 			for (int i = 0;i < 10000;++i)
 			{
 				halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 			}
 
 			{
 				HalfEdge<> otherMesh(halfMesh);
-				TEST_ENSURE(testInvariants(otherMesh));
+				REQUIRE(testInvariants(otherMesh));
 			}
 		}
 
@@ -50,36 +42,36 @@ namespace
 			{
 				HalfEdge<> halfMesh;
 				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 
 				HalfEdge<>::Edge_Iterator e = halfMesh.insertEdge(a, b);
 				unused(e);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 			}
 			{
 				HalfEdge<> halfMesh;
 				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				HalfEdge<>::Vertex_Iterator c = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 
 				halfMesh.insertEdge(a, b);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(b, c);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(a, c);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 			}
 			{
 				HalfEdge<> halfMesh;
 				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(a, a);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 			}
 		}
 
@@ -89,40 +81,40 @@ namespace
 				HalfEdge<> halfMesh;
 
 				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 
 				halfMesh.insertEdge(a, b);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(b, a);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(b, a);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 			}
 			{
 				HalfEdge<> halfMesh;
 
 				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 
 				halfMesh.insertEdge(a, b);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(b, a);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(b, a);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 
 				halfMesh.insertEdge(a, a);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(b, b);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(a, a);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				halfMesh.insertEdge(b, b);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 			}
 		}
 
@@ -131,14 +123,14 @@ namespace
 			{
 				HalfEdge<> halfMesh;
 				HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 				HalfEdge<>::Edge_Iterator edge = halfMesh.insertEdge(a, b);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 
 				halfMesh.removeEdge(edge);
-				TEST_ENSURE(testInvariants(halfMesh));
+				REQUIRE(testInvariants(halfMesh));
 			}
 			{
 				static constexpr int Vertices = 100;
@@ -149,31 +141,31 @@ namespace
 				for (int i = 0;i < Vertices;++i)
 				{
 					vertices[i] = halfMesh.insertVertex();
-					TEST_ENSURE(testInvariants(halfMesh));
+					REQUIRE(testInvariants(halfMesh));
 				}
 
 				for (int i = 1;i < Vertices;++i)
 				{
 					edges[i - 1] = halfMesh.insertEdge(vertices[0], vertices[i]);
-					TEST_ENSURE(testInvariants(halfMesh));
+					REQUIRE(testInvariants(halfMesh));
 				}
 
 				for (int i = 0;i < Vertices - 1;++i)
 				{
 					halfMesh.removeEdge(edges[i]);
-					TEST_ENSURE(testInvariants(halfMesh));
+					REQUIRE(testInvariants(halfMesh));
 				}
 			}
 			/*
 			{
 			HalfEdge<> halfMesh;
 			HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			HalfEdge<>::Edge_Iterator edge = halfMesh.insertEdge(a, a);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 
 			halfMesh.removeEdge(edge);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			}
 			*/
 
@@ -182,39 +174,39 @@ namespace
 			HalfEdge<> halfMesh;
 
 			HalfEdge<>::Vertex_Iterator a = halfMesh.insertVertex();
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			HalfEdge<>::Vertex_Iterator b = halfMesh.insertVertex();
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 
 			HalfEdge<>::Edge_Iterator A = halfMesh.insertEdge(a, b);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			HalfEdge<>::Edge_Iterator B = halfMesh.insertEdge(b, a);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			HalfEdge<>::Edge_Iterator C = halfMesh.insertEdge(b, a);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			HalfEdge<>::Edge_Iterator D = halfMesh.insertEdge(a, a);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			HalfEdge<>::Edge_Iterator E = halfMesh.insertEdge(b, b);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			HalfEdge<>::Edge_Iterator F = halfMesh.insertEdge(a, a);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			HalfEdge<>::Edge_Iterator G = halfMesh.insertEdge(b, b);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 
 			halfMesh.removeEdge(D);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			halfMesh.removeEdge(E);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			halfMesh.removeEdge(A);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			halfMesh.removeEdge(B);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			halfMesh.removeEdge(F);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			halfMesh.removeEdge(C);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			halfMesh.removeEdge(G);
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 			}
 			*/
 		}
@@ -235,8 +227,8 @@ namespace
 					vertices.push_back(halfMesh.insertVertex());
 				}
 			}
-			TEST_ENSURE(testInvariants(halfMesh));
-			TEST_ENSURE_OP(vertices.size(), ==, Vertices);
+			REQUIRE(testInvariants(halfMesh));
+			REQUIRE(vertices.size() == Vertices);
 
 			{
 				edges.reserve(Edges);
@@ -252,37 +244,28 @@ namespace
 						HalfEdge<>::Vertex_Iterator b = vertices[bIndex];
 						edge = halfMesh.insertEdge(a, b);
 					}
-					TEST_ENSURE(testInvariants(halfMesh));
+					REQUIRE(testInvariants(halfMesh));
 
 					edges.push_back(edge);
 				}
 			}
-			TEST_ENSURE(testInvariants(halfMesh));
-			TEST_ENSURE_OP(edges.size(), ==, Edges);
+			REQUIRE(testInvariants(halfMesh));
+			REQUIRE(edges.size() == Edges);
 
 			{
 				for (integer i = 0;i < Edges;++i)
 				{
 					HalfEdge<>::Edge_Iterator edge = edges[i];
-					TEST_ENSURE(testInvariants(halfMesh));
+					REQUIRE(testInvariants(halfMesh));
 					halfMesh.removeEdge(edge);
 				}
 			}
-			TEST_ENSURE(testInvariants(halfMesh));
+			REQUIRE(testInvariants(halfMesh));
 		}
 	};
 
-	void test()
+	TEST_CASE("MoreHalfMesh", "[MoreHalfMesh]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("MoreHalfMesh", test);
-	}
-
-	CallFunction run(addTest);
 
 }

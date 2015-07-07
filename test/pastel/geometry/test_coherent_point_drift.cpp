@@ -1,26 +1,18 @@
 // Description: Testing for coherent point-drift
 // DocumentationOf: coherent_point_drift.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/pattern_matching/coherent_point_drift.h>
 #include <pastel/math/sampling/random_orthogonal.h>
 #include <pastel/sys/random.h>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testTranslation<float>();
@@ -128,8 +120,8 @@ namespace
 			arma::Mat<Real> toSet = Q * S * fromSet + 
 				t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols);
 
-			TEST_ENSURE_OP(fromSet.n_cols, ==, 3);
-			TEST_ENSURE_OP(fromSet.n_rows, ==, 2);
+			REQUIRE(fromSet.n_cols == 3);
+			REQUIRE(fromSet.n_rows == 2);
 
 			Cpd_Return<Real> match;
 			auto deltaNorm = [&]()
@@ -166,24 +158,15 @@ namespace
 							matrix,
 							PASTEL_TAG(orientation), orientation);
 
-						TEST_ENSURE_OP(deltaNorm(), <, threshold);
+						REQUIRE(deltaNorm() < threshold);
 					}
 				}
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("coherent_point_drift", "[coherent_point_drift]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("coherent_point_drift", test);
-	}
-
-	CallFunction run(addTest);
 
 }

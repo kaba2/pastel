@@ -1,12 +1,10 @@
 // Description: Testing for Vector
 // DocumentationOf: vector.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/vector.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -20,14 +18,8 @@ namespace
 	}
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testNullPointerStatic<1>();
@@ -46,7 +38,7 @@ namespace
 			testVectorSimpleArithmetic();
 			testVectorArithmetic();
 			testVectorArray();
-			
+
 			testVectorArithmetic2<1>();
 			testVectorArithmetic2<2>();
 			testVectorArithmetic2<3>();
@@ -59,7 +51,7 @@ namespace
 			testCollaboration<4>();
 			testCollaboration<Dynamic>();
 		}
-		
+
 		template <integer N>
 		void testNullPointerStatic()
 		{
@@ -97,24 +89,36 @@ namespace
 			PASTEL_STATIC_ASSERT(sizeof(Vector<integer, 3>) == 3 * sizeof(integer));
 
 			Vector<Real, 3> a(1, 2, 3);
-			TEST_ENSURE(a[0] == 1 && a[1] == 2 && a[2] == 3);
+			REQUIRE(a[0] == 1);
+			REQUIRE(a[1] == 2);
+			REQUIRE(a[2] == 3);
 
 			Vector<Real, 3> b = Vector<Real, 3>(4, 5, 6);
-			TEST_ENSURE(b[0] == 4 && b[1] == 5 && b[2] == 6);
+			REQUIRE(b[0] == 4);
+			REQUIRE(b[1] == 5);
+			REQUIRE(b[2] == 6);
 
 			Vector<Real, 3> c(b);
-			TEST_ENSURE(c[0] == 4 && c[1] == 5 && c[2] == 6);
+			REQUIRE(c[0] == 4);
+			REQUIRE(c[1] == 5);
+			REQUIRE(c[2] == 6);
 
 			a = b;
-			TEST_ENSURE(a[0] == 4 && a[1] == 5 && a[2] == 6);
+			REQUIRE(a[0] == 4);
+			REQUIRE(a[1] == 5);
+			REQUIRE(a[2] == 6);
 
 			a = 3;
-			TEST_ENSURE(a[0] == 3 && a[1] == 3 && a[2] == 3);
+			REQUIRE(a[0] == 3);
+			REQUIRE(a[1] == 3);
+			REQUIRE(a[2] == 3);
 
 			someFunction(asTuple(a));
 
 			a.assign({ 1, 2, 3});
-			TEST_ENSURE(a[0] == 1 && a[1] == 2 && a[2] == 3);
+			REQUIRE(a[0] == 1);
+			REQUIRE(a[1] == 2);
+			REQUIRE(a[2] == 3);
 
 			a = { 1, 2, 3 };
 
@@ -128,72 +132,97 @@ namespace
 
 			{
 				Vector<Real, 1> a = Vector<Real, 1>(1);
-				TEST_ENSURE(a[0] == 1);
+				REQUIRE(a[0] == 1);
 
 				a.set(4);
-				TEST_ENSURE(a[0] == 4);
+				REQUIRE(a[0] == 4);
 
 				a = 7;
-				TEST_ENSURE(a[0] == 7);
+				REQUIRE(a[0] == 7);
 
 				Vector<Real, 1> b(8);
-				TEST_ENSURE(b[0] == 8);
+				REQUIRE(b[0] == 8);
 
 				b.set(9);
-				TEST_ENSURE(b[0] == 9);
+				REQUIRE(b[0] == 9);
 			}
 			{
 				Vector<Real, 2> a = Vector<Real, 2>(1, 2);
-				TEST_ENSURE(a[0] == 1 && a[1] == 2);
+				REQUIRE(a[0] == 1);
+				REQUIRE(a[1] == 2);
 
 				a.set(4, 5);
-				TEST_ENSURE(a[0] == 4 && a[1] == 5);
+				REQUIRE(a[0] == 4);
+				REQUIRE(a[1] == 5);
 
 				a = 7;
-				TEST_ENSURE(a[0] == 7 && a[1] == 7);
+				REQUIRE(a[0] == 7);
+				REQUIRE(a[1] == 7);
 
 				Vector<Real, 2> b(8);
-				TEST_ENSURE(b[0] == 8 && b[1] == 8);
+				REQUIRE(b[0] == 8);
+				REQUIRE(b[1] == 8);
 
 				b.set(9);
-				TEST_ENSURE(b[0] == 9 && b[1] == 9);
+				REQUIRE(b[0] == 9);
+				REQUIRE(b[1] == 9);
 			}
 			{
 				Vector<Real, 3> a = Vector<Real, 3>(1, 2, 3);
-				TEST_ENSURE(a[0] == 1 && a[1] == 2 && a[2] == 3);
+				REQUIRE(a[0] == 1);
+				REQUIRE(a[1] == 2);
+				REQUIRE(a[2] == 3);
 
 				a.set(4, 5, 6);
-				TEST_ENSURE(a[0] == 4 && a[1] == 5 && a[2] == 6);
+				REQUIRE(a[0] == 4);
+				REQUIRE(a[1] == 5);
+				REQUIRE(a[2] == 6);
 
 				a = 7;
-				TEST_ENSURE(a[0] == 7 && a[1] == 7 && a[2] == 7);
+				REQUIRE(a[0] == 7);
+				REQUIRE(a[1] == 7);
+				REQUIRE(a[2] == 7);
 
 				Vector<Real, 3> b(8);
-				TEST_ENSURE(b[0] == 8 && b[1] == 8 && b[2] == 8);
+				REQUIRE(b[0] == 8);
+				REQUIRE(b[1] == 8);
+				REQUIRE(b[2] == 8);
 
 				b.set(9);
-				TEST_ENSURE(b[0] == 9 && b[1] == 9 && b[2] == 9);
+				REQUIRE(b[0] == 9);
+				REQUIRE(b[1] == 9);
+				REQUIRE(b[2] == 9);
 			}
 			{
 				Vector<Real, 4> a = Vector<Real, 4>(1, 2, 3, 4);
-				TEST_ENSURE(a[0] == 1 && a[1] == 2 &&
-					 a[2] == 3 && a[3] == 4);
+				REQUIRE(a[0] == 1);
+				REQUIRE(a[1] == 2);
+				REQUIRE(a[2] == 3);
+				REQUIRE(a[3] == 4);
 
 				a.set(4, 5, 6, 7);
-				TEST_ENSURE(a[0] == 4 && a[1] == 5 &&
-					a[2] == 6 && a[3] == 7);
+				REQUIRE(a[0] == 4);
+				REQUIRE(a[1] == 5);
+				REQUIRE(a[2] == 6);
+				REQUIRE(a[3] == 7);
 
 				a = 7;
-				TEST_ENSURE(a[0] == 7 && a[1] == 7 &&
-					a[2] == 7 && a[3] == 7);
+				REQUIRE(a[0] == 7);
+				REQUIRE(a[1] == 7);
+				REQUIRE(a[2] == 7);
+				REQUIRE(a[3] == 7);
 
 				Vector<Real, 4> b(8);
-				TEST_ENSURE(b[0] == 8 && b[1] == 8 &&
-					b[2] == 8 && b[3] == 8);
+				REQUIRE(b[0] == 8);
+				REQUIRE(b[1] == 8);
+				REQUIRE(b[2] == 8);
+				REQUIRE(b[3] == 8);
 
 				b.set(9);
-				TEST_ENSURE(b[0] == 9 && b[1] == 9 &&
-					b[2] == 9 && b[3] == 9);
+				REQUIRE(b[0] == 9);
+				REQUIRE(b[1] == 9);
+				REQUIRE(b[2] == 9);
+				REQUIRE(b[3] == 9);
 			}
 		}
 
@@ -205,50 +234,59 @@ namespace
 			// Vector op Vector
 
 			a += b;
-			TEST_ENSURE(a[0] == (Real)1 + 4 && a[1] == (Real)2 + 5 &&
-				a[2] == (Real)3 + 6);
+			REQUIRE(a[0] == (Real)1 + 4);
+			REQUIRE(a[1] == (Real)2 + 5);
+			REQUIRE(a[2] == (Real)3 + 6);
 
 			a.set(1, 2, 3);
 			a -= b;
-			TEST_ENSURE(a[0] == (Real)1 - 4 && a[1] == (Real)2 - 5 &&
-				a[2] == (Real)3 - 6);
+			REQUIRE(a[0] == (Real)1 - 4);
+			REQUIRE(a[1] == (Real)2 - 5);
+			REQUIRE(a[2] == (Real)3 - 6);
 
 			a.set(1, 2, 3);
 			a *= b;
-			TEST_ENSURE(a[0] == (Real)1 * 4 && a[1] == (Real)2 * 5 &&
-				a[2] == (Real)3 * 6);
+			REQUIRE(a[0] == (Real)1 * 4);
+			REQUIRE(a[1] == (Real)2 * 5);
+			REQUIRE(a[2] == (Real)3 * 6);
 
 			a.set(1, 2, 3);
 			a /= b;
-			TEST_ENSURE(a[0] == (Real)1 / 4 && a[1] == (Real)2 / 5 &&
-				a[2] == (Real)3 / 6);
+			REQUIRE(a[0] == (Real)1 / 4);
+			REQUIRE(a[1] == (Real)2 / 5);
+			REQUIRE(a[2] == (Real)3 / 6);
 
 			// Vector op scalar
 
 			a.set(1, 2, 3);
 			a += 4;
-			TEST_ENSURE(a[0] == (Real)1 + 4 && a[1] == (Real)2 + 4 &&
-				a[2] == (Real)3 + 4);
+			REQUIRE(a[0] == (Real)1 + 4);
+			REQUIRE(a[1] == (Real)2 + 4);
+			REQUIRE(a[2] == (Real)3 + 4);
 
 			a.set(1, 2, 3);
 			a -= 4;
-			TEST_ENSURE(a[0] == (Real)1 - 4 && a[1] == (Real)2 - 4 &&
-				a[2] == (Real)3 - 4);
+			REQUIRE(a[0] == (Real)1 - 4);
+			REQUIRE(a[1] == (Real)2 - 4);
+			REQUIRE(a[2] == (Real)3 - 4);
 
 			a.set(1, 2, 3);
 			a *= 4;
-			TEST_ENSURE(a[0] == (Real)1 * 4 && a[1] == (Real)2 * 4 &&
-				a[2] == (Real)3 * 4);
+			REQUIRE(a[0] == (Real)1 * 4);
+			REQUIRE(a[1] == (Real)2 * 4);
+			REQUIRE(a[2] == (Real)3 * 4);
 
 			a.set(1, 2, 3);
 			a /= 4;
-			TEST_ENSURE(a[0] == (Real)1 / 4 && a[1] == (Real)2 / 4 &&
-				a[2] == (Real)3 / 4);
+			REQUIRE(a[0] == (Real)1 / 4);
+			REQUIRE(a[1] == (Real)2 / 4);
+			REQUIRE(a[2] == (Real)3 / 4);
 
 			a.set(1, 2, 3);
 			a = -a;
-			TEST_ENSURE(a[0] == (Real)-1 && a[1] == (Real)-2 &&
-				a[2] == (Real)-3);
+			REQUIRE(a[0] == (Real)-1);
+			REQUIRE(a[1] == (Real)-2);
+			REQUIRE(a[2] == (Real)-3);
 		};
 
 		void testVectorArithmetic()
@@ -259,32 +297,49 @@ namespace
 			Vector<Real, 3> b = Vector<Real, 3>(4, 5, 6);
 
 			Vector<Real, 3> c(a - b);
-			TEST_ENSURE(c[0] == -3 && c[1] == -3 && c[2] == -3);
+			REQUIRE(c[0] == -3);
+			REQUIRE(c[1] == -3);
+			REQUIRE(c[2] == -3);
 
 			c = a * b;
-			TEST_ENSURE(c[0] == 4 && c[1] == 10 && c[2] == 18);
+			REQUIRE(c[0] == 4);
+			REQUIRE(c[1] == 10);
+			REQUIRE(c[2] == 18);
 
 			c = a / b;
-			TEST_ENSURE(c[0] == (Real)1/4 &&
-				c[1] == (Real)2/5 && c[2] == (Real)3/6);
+			REQUIRE(c[0] == (Real)1/4);
+			REQUIRE(c[1] == (Real)2/5);
+			REQUIRE(c[2] == (Real)3/6);
 
 			c = a + b;
-			TEST_ENSURE(c[0] == 5 && c[1] == 7 && c[2] == 9);
+			REQUIRE(c[0] == 5);
+			REQUIRE(c[1] == 7);
+			REQUIRE(c[2] == 9);
 
 			c = (a + b) + 5;
-			TEST_ENSURE(c[0] == 10 && c[1] == 12 && c[2] == 14);
+			REQUIRE(c[0] == 10);
+			REQUIRE(c[1] == 12);
+			REQUIRE(c[2] == 14);
 
 			c = 5 + (a + b);
-			TEST_ENSURE(c[0] == 10 && c[1] == 12 && c[2] == 14);
+			REQUIRE(c[0] == 10);
+			REQUIRE(c[1] == 12);
+			REQUIRE(c[2] == 14);
 
 			c = (a + b) * 5;
-			TEST_ENSURE(c[0] == 25 && c[1] == 35 && c[2] == 45);
+			REQUIRE(c[0] == 25);
+			REQUIRE(c[1] == 35);
+			REQUIRE(c[2] == 45);
 
 			c = 5 * (a + b);
-			TEST_ENSURE(c[0] == 25 && c[1] == 35 && c[2] == 45);
+			REQUIRE(c[0] == 25);
+			REQUIRE(c[1] == 35);
+			REQUIRE(c[2] == 45);
 
 			c = -a;
-			TEST_ENSURE(c[0] == -1 && c[1] == -2 && c[2] == -3);
+			REQUIRE(c[0] == -1);
+			REQUIRE(c[1] == -2);
+			REQUIRE(c[2] == -3);
 		}
 
 		void testVectorArray()
@@ -297,103 +352,89 @@ namespace
 
 			b = abs(a);
 
-			TEST_ENSURE(
-				b[0] == abs(a[0]) &&
-				b[1] == abs(a[1]) &&
-				b[2] == abs(a[2]));
+			REQUIRE(b[0] == abs(a[0]));
+			REQUIRE(b[1] == abs(a[1]));
+			REQUIRE(b[2] == abs(a[2]));
 
 			a.set(0.25, 0.5, 0.75);
 
 			b = exp(a);
 
-			TEST_ENSURE(
-				b[0] == std::exp(a[0]) &&
-				b[1] == std::exp(a[1]) &&
-				b[2] == std::exp(a[2]));
+			REQUIRE(b[0] == std::exp(a[0]));
+			REQUIRE(b[1] == std::exp(a[1]));
+			REQUIRE(b[2] == std::exp(a[2]));
 
 			b = log(a);
 
-			TEST_ENSURE(
-				b[0] == std::log(a[0]) &&
-				b[1] == std::log(a[1]) &&
-				b[2] == std::log(a[2]));
+			REQUIRE(b[0] == std::log(a[0]));
+			REQUIRE(b[1] == std::log(a[1]));
+			REQUIRE(b[2] == std::log(a[2]));
 
 			b = pow(a, a);
 
-			TEST_ENSURE(
-				b[0] == std::pow(a[0], a[0]) &&
-				b[1] == std::pow(a[1], a[1]) &&
-				b[2] == std::pow(a[2], a[2]));
+			REQUIRE(b[0] == std::pow(a[0], a[0]));
+			REQUIRE(b[1] == std::pow(a[1], a[1]));
+			REQUIRE(b[2] == std::pow(a[2], a[2]));
 
 			b = pow(a, 2);
 
-			TEST_ENSURE(
-				b[0] == std::pow(a[0], (Real)2) &&
-				b[1] == std::pow(a[1], (Real)2) &&
-				b[2] == std::pow(a[2], (Real)2));
+			REQUIRE(b[0] == std::pow(a[0], (Real)2));
+			REQUIRE(b[1] == std::pow(a[1], (Real)2));
+			REQUIRE(b[2] == std::pow(a[2], (Real)2));
 
 			b = sqrt(a);
 
-			TEST_ENSURE(
-				b[0] == std::sqrt(a[0]) &&
-				b[1] == std::sqrt(a[1]) &&
-				b[2] == std::sqrt(a[2]));
+			REQUIRE(b[0] == std::sqrt(a[0]));
+			REQUIRE(b[1] == std::sqrt(a[1]));
+			REQUIRE(b[2] == std::sqrt(a[2]));
 
 			b = floor(a);
 
-			TEST_ENSURE(
-				b[0] == std::floor(a[0]) &&
-				b[1] == std::floor(a[1]) &&
-				b[2] == std::floor(a[2]));
+			REQUIRE(b[0] == std::floor(a[0]));
+			REQUIRE(b[1] == std::floor(a[1]));
+			REQUIRE(b[2] == std::floor(a[2]));
 
 			b = sin(a);
 
-			TEST_ENSURE(
-				b[0] == std::sin(a[0]) &&
-				b[1] == std::sin(a[1]) &&
-				b[2] == std::sin(a[2]));
+			REQUIRE(b[0] == std::sin(a[0]));
+			REQUIRE(b[1] == std::sin(a[1]));
+			REQUIRE(b[2] == std::sin(a[2]));
 
 			b = cos(a);
 
-			TEST_ENSURE(
-				b[0] == std::cos(a[0]) &&
-				b[1] == std::cos(a[1]) &&
-				b[2] == std::cos(a[2]));
+			REQUIRE(b[0] == std::cos(a[0]));
+			REQUIRE(b[1] == std::cos(a[1]));
+			REQUIRE(b[2] == std::cos(a[2]));
 
 			b = tan(a);
 
-			TEST_ENSURE(
-				b[0] == std::tan(a[0]) &&
-				b[1] == std::tan(a[1]) &&
-				b[2] == std::tan(a[2]));
+			REQUIRE(b[0] == std::tan(a[0]));
+			REQUIRE(b[1] == std::tan(a[1]));
+			REQUIRE(b[2] == std::tan(a[2]));
 
 			b = asin(a);
 
-			TEST_ENSURE(
-				b[0] == std::asin(a[0]) &&
-				b[1] == std::asin(a[1]) &&
-				b[2] == std::asin(a[2]));
+			REQUIRE(b[0] == std::asin(a[0]));
+			REQUIRE(b[1] == std::asin(a[1]));
+			REQUIRE(b[2] == std::asin(a[2]));
 
 			b = acos(a);
 
-			TEST_ENSURE(
-				b[0] == std::acos(a[0]) &&
-				b[1] == std::acos(a[1]) &&
-				b[2] == std::acos(a[2]));
+			REQUIRE(b[0] == std::acos(a[0]));
+			REQUIRE(b[1] == std::acos(a[1]));
+			REQUIRE(b[2] == std::acos(a[2]));
 
 			b = Pastel::atan2(a, a);
 
-			TEST_ENSURE(
-				b[0] == std::atan2(a[0], a[0]) &&
-				b[1] == std::atan2(a[1], a[1]) &&
-				b[2] == std::atan2(a[2], a[2]));
+			REQUIRE(b[0] == std::atan2(a[0], a[0]));
+			REQUIRE(b[1] == std::atan2(a[1], a[1]));
+			REQUIRE(b[2] == std::atan2(a[2], a[2]));
 
 			b = inverse(a);
 
-			TEST_ENSURE(
-				b[0] == inverse(a[0]) &&
-				b[1] == inverse(a[1]) &&
-				b[2] == inverse(a[2]));
+			REQUIRE(b[0] == inverse(a[0]));
+			REQUIRE(b[1] == inverse(a[1]));
+			REQUIRE(b[2] == inverse(a[2]));
 		}
 
 		template <integer N>
@@ -402,7 +443,7 @@ namespace
 			integer size = (N == Dynamic) ? 100 : N;
 
 			Vector<Real, N> a(ofDimension(size));
-			
+
 			for (integer i = 0;i < size;++i)
 			{
 				a[i] = i;
@@ -421,7 +462,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector += Vector.
@@ -436,7 +477,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector - Vector.
@@ -450,7 +491,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector -= Vector.
@@ -465,9 +506,8 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
-
 
 			// Vector * Vector.
 			{
@@ -480,7 +520,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector *= Vector.
@@ -495,7 +535,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector / Vector.
@@ -509,7 +549,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector /= Vector.
@@ -524,7 +564,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector + Scalar.
@@ -538,7 +578,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector + Scalar.
@@ -553,7 +593,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector - Scalar.
@@ -567,7 +607,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector -= Scalar.
@@ -582,7 +622,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector * Scalar.
@@ -596,7 +636,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector *= Scalar.
@@ -611,7 +651,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector / Scalar.
@@ -624,7 +664,6 @@ namespace
 					Real invFactor = 1 / five;
 					Real left = i;
 
-
 					if (c[i] != left * invFactor)
 					{
 						//log() << c[i] << " != " << i * invFactor << logNewLine;
@@ -633,7 +672,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Vector /= Scalar.
@@ -656,7 +695,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Scalar + Vector.
@@ -670,7 +709,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Scalar - Vector.
@@ -684,7 +723,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Scalar * Vector.
@@ -698,7 +737,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 
 			// Scalar / Vector.
@@ -714,7 +753,7 @@ namespace
 						++contentsDiffer;
 					}
 				}
-				TEST_ENSURE_OP(contentsDiffer, ==, 0);
+				REQUIRE(contentsDiffer == 0);
 			}
 		}
 
@@ -747,19 +786,19 @@ namespace
 			Vector<Real, N> b = a;
 
 			Vector<Real, N> e = a;
-			TEST_ENSURE_OP(e.size(), ==, size);
+			REQUIRE(e.size() == size);
 
 			Tuple<Real, N> c = b.asTuple();
-			TEST_ENSURE_OP(c.size(), ==, size);
+			REQUIRE(c.size() == size);
 
 			Tuple<Real, N> d = c;
-			TEST_ENSURE_OP(c.size(), ==, size);
+			REQUIRE(c.size() == size);
 
 			d = c;
-			TEST_ENSURE_OP(d.size(), ==, size);
+			REQUIRE(d.size() == size);
 
 			Tuple<Real, N> f = d;
-			TEST_ENSURE_OP(f.size(), ==, size);
+			REQUIRE(f.size() == size);
 
 			{
 				// Vectors must be constructible
@@ -777,24 +816,15 @@ namespace
 			{
 				Vector<Real, N> a(ofDimension(size));
 				Tuple<Real, N> b(a.asTuple());
-				TEST_ENSURE(b == a.asTuple());
+				REQUIRE(b == a.asTuple());
 				Tuple<Real, N> c(asTuple(a));
-				TEST_ENSURE(c == a.asTuple());
+				REQUIRE(c == a.asTuple());
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("Vector", "[Vector]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Vector", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,27 +1,19 @@
 // Description: Testing for binary search
 // DocumentationOf: binary_search.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/sequence/binary_search.h>
 #include <pastel/sys/sequence/exponential_binary_search.h>
 #include <pastel/sys/indicator/predicate_indicator.h>
 #include <pastel/sys/integer/multi_integer.h>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testBinarySearch<int8>();
@@ -57,20 +49,20 @@ namespace
 					Integer a = binarySearch(
 						(Integer)min, (Integer)max, [&](Integer n) {return n >= b;});
 
-					TEST_ENSURE(a == b);
+					REQUIRE(a == b);
 				}
 			}
 			{
 				Integer a = binarySearch(
 					(Integer)5, (Integer)infinity<Integer>(), [&](Integer n) {return n >= infinity<Integer>() - 1;});
 
-				TEST_ENSURE(a == (Integer)infinity<Integer>() - 1);
+				REQUIRE(a == (Integer)infinity<Integer>() - 1);
 			}
 			{
 				Integer a = binarySearch(
 					(Integer)5, (Integer)infinity<Integer>(), [&](Integer n) {return false;});
 
-				TEST_ENSURE(a == (Integer)infinity<Integer>());
+				REQUIRE(a == (Integer)infinity<Integer>());
 			}
 			{
 				Integer min = std::is_signed<Integer>::value ? -128 : 0;
@@ -81,35 +73,26 @@ namespace
 					Integer a = exponentialBinarySearch(
 						(Integer)min, (Integer)max, [&](Integer n) {return n >= b;});
 
-					TEST_ENSURE(a == (Integer)b);
+					REQUIRE(a == (Integer)b);
 				}
 			}
 			{
 				Integer a = exponentialBinarySearch(
 					(Integer)5, (Integer)infinity<Integer>(), [&](Integer n) {return n >= infinity<Integer>() - 1;});
 
-				TEST_ENSURE(a == (Integer)infinity<Integer>() - 1);
+				REQUIRE(a == (Integer)infinity<Integer>() - 1);
 			}
 			{
 				Integer a = exponentialBinarySearch(
 					(Integer)5, (Integer)infinity<Integer>(), [&](Integer n) {return false;});
 
-				TEST_ENSURE(a == (Integer)infinity<Integer>());
+				REQUIRE(a == (Integer)infinity<Integer>());
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("binarySearch", "[binarySearch]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("binarySearch", test);
-	}
-
-	CallFunction run(addTest);
 
 }

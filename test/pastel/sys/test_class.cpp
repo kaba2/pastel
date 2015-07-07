@@ -1,24 +1,16 @@
 // Description: Testing for class wrapping
 // DocumentationOf: class.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/generic/class.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testNonClass();
@@ -73,34 +65,34 @@ namespace
 		{
 			{
 				Class<A> a;
-				TEST_ENSURE_OP(a.a(), ==, 0);
+				REQUIRE(a.a() == 0);
 			}
 
 			{
 				Class<A> a(2);
-				TEST_ENSURE_OP(a.a(), ==, 2);
+				REQUIRE(a.a() == 2);
 			}
 
 			{
 				Class<A> a;
 				a = 2;
-				TEST_ENSURE_OP(a.a(), ==, 2);
+				REQUIRE(a.a() == 2);
 			}
 
 			{
 				A b(2);
-				
+
 				Class<A> a(std::move(b));
-				TEST_ENSURE_OP(a.a(), ==, 2);
-				TEST_ENSURE_OP(b.a(), ==, 0);
+				REQUIRE(a.a() == 2);
+				REQUIRE(b.a() == 0);
 			}
 
 			{
 				A b(2);
-				
+
 				Class<A> a(b);
-				TEST_ENSURE_OP(a.a(), ==, 2);
-				TEST_ENSURE_OP(b.a(), ==, 2);
+				REQUIRE(a.a() == 2);
+				REQUIRE(b.a() == 2);
 			}
 		}
 
@@ -108,52 +100,43 @@ namespace
 		{
 			{
 				Class<int> a(0);
-				TEST_ENSURE_OP(a, ==, 0);
+				REQUIRE(a == 0);
 
 				a = 0;
 			}
 
 			{
 				Class<int> a(5);
-				TEST_ENSURE_OP(a, ==, 5);
+				REQUIRE(a == 5);
 			}
 
 			{
 				Class<int> a(5);
 				a = 3;
-				TEST_ENSURE_OP(a, ==, 3);
+				REQUIRE(a == 3);
 			}
 
 			{
 				Class<int> a(5);
 				a += 3;
-				TEST_ENSURE_OP(a, ==, 8);
+				REQUIRE(a == 8);
 			}
 
 			{
 				Class<void> c;
 				c = nullptr;
-				TEST_ENSURE(c == nullptr);
+				REQUIRE(c == nullptr);
 			}
 
 			{
 				Class<void> c(nullptr);
-				TEST_ENSURE(c == nullptr);
+				REQUIRE(c == nullptr);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("class", "[class]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("class", test);
-	}
-
-	CallFunction run(addTest);
 
 }

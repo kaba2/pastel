@@ -1,7 +1,7 @@
 // Description: Testing for Color
 // DocumentationOf: color.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/gfx/image_file/pcx.h"
 #include "pastel/gfx/color/color_space.h"
@@ -13,8 +13,6 @@
 #include "pastel/sys/view.h"
 
 #include <iostream>
-
-using namespace Pastel;
 
 namespace
 {
@@ -96,12 +94,5 @@ namespace
 
 		savePcx(image, "chromatic_adaptation.pcx");
 	}
-
-	void addTest()
-	{
-		testRunner().add("Color.ChromaticAdaptation", testChromaticAdaptation);
-	}
-
-	CallFunction run(addTest);
 
 }

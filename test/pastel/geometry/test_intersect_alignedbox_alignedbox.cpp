@@ -1,7 +1,7 @@
 // Description: Testing for alignedbox-alignedbox intersection
 // DocumentationOf: intersect_alignedbox_alignedbox.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/intersect/intersect_alignedbox_alignedbox.h"
 
@@ -11,8 +11,6 @@
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/array.h"
-
-using namespace Pastel;
 
 using Real = Rational<integer>;
 
@@ -30,14 +28,8 @@ namespace
 	}
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testHollow();
@@ -75,7 +67,7 @@ namespace
 			bBox.minTopology().set(Topology::Open);
 			AlignedBox2 correctBox = bBox;
 
-			TEST_ENSURE(testPositiveCase(aBox, bBox, correctBox));
+			REQUIRE(testPositiveCase(aBox, bBox, correctBox));
 		}
 
 		void testNormal()
@@ -83,8 +75,8 @@ namespace
 			AlignedBox2 aBox(0, 0, 6, 6);
 			AlignedBox2 bBox(3, 2, 9, 4);
 			AlignedBox2 correctBox(3, 2, 6, 4);
-			
-			TEST_ENSURE(testPositiveCase(aBox, bBox, correctBox));
+
+			REQUIRE(testPositiveCase(aBox, bBox, correctBox));
 		}
 
 		void testEmptyB()
@@ -92,8 +84,8 @@ namespace
 			AlignedBox2 aBox(0, 0, 6, 6);
 			AlignedBox2 bBox(3, 3, 3, 3);
 			AlignedBox2 correctBox = bBox;
-			
-			TEST_ENSURE(testNegativeCase(aBox, bBox, correctBox));
+
+			REQUIRE(testNegativeCase(aBox, bBox, correctBox));
 		}
 
 		void testEmptyB2()
@@ -101,8 +93,8 @@ namespace
 			AlignedBox2 aBox(0, 0, 6, 6);
 			AlignedBox2 bBox(4, 3, 2, 1);
 			AlignedBox2 correctBox = bBox;
-			
-			TEST_ENSURE(testNegativeCase(aBox, bBox, correctBox));
+
+			REQUIRE(testNegativeCase(aBox, bBox, correctBox));
 		}
 
 		void testEmptyAB()
@@ -110,22 +102,13 @@ namespace
 			AlignedBox2 aBox(0, 0, 0, 0);
 			AlignedBox2 bBox(5, 4, 3, 2);
 			AlignedBox2 correctBox(5, 4, 0, 0);
-			
-			TEST_ENSURE(testNegativeCase(aBox, bBox, correctBox));
+
+			REQUIRE(testNegativeCase(aBox, bBox, correctBox));
 		}
 	};
 
-	void test()
+	TEST_CASE("intersect_alignedbox_alignedbox", "[intersect_alignedbox_alignedbox]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("intersect_alignedbox_alignedbox", test);
-	}
-
-	CallFunction run(addTest);
 
 }

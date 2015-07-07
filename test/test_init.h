@@ -5,9 +5,7 @@
 
 #include "test/catch.hpp"
 
-namespace Pastel
-{
-}
+#include "pastel/sys/mytypes.h"
 
 using namespace Pastel;
 

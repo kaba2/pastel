@@ -1,129 +1,92 @@
 // Description: Testing for AlignedBox
 // DocumentationOf: alignedbox.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/alignedbox.h>
 
-using namespace Pastel;
+using Real_ = real;
 
-namespace
+TEST_CASE("1d", "[AlignedBox]")
 {
-
-	class Test
-		: public TestSuite
+	AlignedBox<Real_, 1> a;
 	{
-	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
-		using Real = real;
-
-		virtual void run()
-		{
-			test1d();
-			test2d();
-			test3d();
-			test4d();
-		}
-
-		void test1d()
-		{
-			AlignedBox<Real, 1> a;
-			{
-				TEST_ENSURE_OP(a.width(), ==, -infinity<Real>());
-			}
-
-			a.set(1, 2);
-			{
-				TEST_ENSURE_OP(a.min().x(), ==, 1);
-				TEST_ENSURE_OP(a.max().x(), ==, 2);
-				TEST_ENSURE_OP(a.width(), ==, 1);
-			}
-		}
-
-		void test2d()
-		{
-			AlignedBox<Real, 2> a;
-			{
-				TEST_ENSURE_OP(a.width(), ==, -infinity<Real>());
-				TEST_ENSURE_OP(a.height(), ==, -infinity<Real>());
-			}
-
-			a.set(1, 2, 3, 5);
-			{
-				TEST_ENSURE_OP(a.min().x(), ==, 1);
-				TEST_ENSURE_OP(a.min().y(), ==, 2);
-				TEST_ENSURE_OP(a.max().x(), ==, 3);
-				TEST_ENSURE_OP(a.max().y(), ==, 5);
-				TEST_ENSURE_OP(a.width(), ==, 2);
-				TEST_ENSURE_OP(a.height(), ==, 3);
-			}
-		}
-
-		void test3d()
-		{
-			AlignedBox<Real, 3> a;
-			{
-				TEST_ENSURE_OP(a.width(), ==, -infinity<Real>());
-				TEST_ENSURE_OP(a.height(), ==, -infinity<Real>());
-				TEST_ENSURE_OP(a.depth(), ==, -infinity<Real>());
-			}
-
-			a.set(1, 2, 3, 5, 7, 9);
-			{
-				TEST_ENSURE_OP(a.min().x(), ==, 1);
-				TEST_ENSURE_OP(a.min().y(), ==, 2);
-				TEST_ENSURE_OP(a.min().z(), ==, 3);
-				TEST_ENSURE_OP(a.max().x(), ==, 5);
-				TEST_ENSURE_OP(a.max().y(), ==, 7);
-				TEST_ENSURE_OP(a.max().z(), ==, 9);
-				TEST_ENSURE_OP(a.width(), ==, 4);
-				TEST_ENSURE_OP(a.height(), ==, 5);
-				TEST_ENSURE_OP(a.depth(), ==, 6);
-			}
-		}
-
-		void test4d()
-		{
-			AlignedBox<Real, 4> a;
-			{
-				TEST_ENSURE_OP(a.width(), ==, -infinity<Real>());
-				TEST_ENSURE_OP(a.height(), ==, -infinity<Real>());
-				TEST_ENSURE_OP(a.depth(), ==, -infinity<Real>());
-			}
-
-			a.set(1, 2, 3, 4, 5, 7, 9, 11);
-			{
-				TEST_ENSURE_OP(a.min().x(), ==, 1);
-				TEST_ENSURE_OP(a.min().y(), ==, 2);
-				TEST_ENSURE_OP(a.min().z(), ==, 3);
-				TEST_ENSURE_OP(a.min().w(), ==, 4);
-				TEST_ENSURE_OP(a.max().x(), ==, 5);
-				TEST_ENSURE_OP(a.max().y(), ==, 7);
-				TEST_ENSURE_OP(a.max().z(), ==, 9);
-				TEST_ENSURE_OP(a.max().w(), ==, 11);
-				TEST_ENSURE_OP(a.width(), ==, 4);
-				TEST_ENSURE_OP(a.height(), ==, 5);
-				TEST_ENSURE_OP(a.depth(), ==, 6);
-				TEST_ENSURE_OP(a.extent().w(), ==, 7);
-			}
-		}
-	};
-
-	void test()
-	{
-		Test test;
-		test.run();
+		REQUIRE(a.width() == -infinity<Real_>());
 	}
 
-	void addTest()
+	a.set(1, 2);
 	{
-		testRunner().add("AlignedBox", test);
+		REQUIRE(a.min().x() == 1);
+		REQUIRE(a.max().x() == 2);
+		REQUIRE(a.width() == 1);
 	}
-
-	CallFunction run(addTest);
-
 }
+
+void test2d()
+{
+	AlignedBox<Real_, 2> a;
+	{
+		REQUIRE(a.width() == -infinity<Real_>());
+		REQUIRE(a.height() == -infinity<Real_>());
+	}
+
+	a.set(1, 2, 3, 5);
+	{
+		REQUIRE(a.min().x() == 1);
+		REQUIRE(a.min().y() == 2);
+		REQUIRE(a.max().x() == 3);
+		REQUIRE(a.max().y() == 5);
+		REQUIRE(a.width() == 2);
+		REQUIRE(a.height() == 3);
+	}
+}
+
+void test3d()
+{
+	AlignedBox<Real_, 3> a;
+	{
+		REQUIRE(a.width() == -infinity<Real_>());
+		REQUIRE(a.height() == -infinity<Real_>());
+		REQUIRE(a.depth() == -infinity<Real_>());
+	}
+
+	a.set(1, 2, 3, 5, 7, 9);
+	{
+		REQUIRE(a.min().x() == 1);
+		REQUIRE(a.min().y() == 2);
+		REQUIRE(a.min().z() == 3);
+		REQUIRE(a.max().x() == 5);
+		REQUIRE(a.max().y() == 7);
+		REQUIRE(a.max().z() == 9);
+		REQUIRE(a.width() == 4);
+		REQUIRE(a.height() == 5);
+		REQUIRE(a.depth() == 6);
+	}
+}
+
+void test4d()
+{
+	AlignedBox<Real_, 4> a;
+	{
+		REQUIRE(a.width() == -infinity<Real_>());
+		REQUIRE(a.height() == -infinity<Real_>());
+		REQUIRE(a.depth() == -infinity<Real_>());
+	}
+
+	a.set(1, 2, 3, 4, 5, 7, 9, 11);
+	{
+		REQUIRE(a.min().x() == 1);
+		REQUIRE(a.min().y() == 2);
+		REQUIRE(a.min().z() == 3);
+		REQUIRE(a.min().w() == 4);
+		REQUIRE(a.max().x() == 5);
+		REQUIRE(a.max().y() == 7);
+		REQUIRE(a.max().z() == 9);
+		REQUIRE(a.max().w() == 11);
+		REQUIRE(a.width() == 4);
+		REQUIRE(a.height() == 5);
+		REQUIRE(a.depth() == 6);
+		REQUIRE(a.extent().w() == 7);
+	}
+}
+

@@ -1,12 +1,10 @@
 // Description: Testing for Polynomial
 // DocumentationOf: polynomial.h
 
-#include "test_pastelmath.h"
+#include "test/test_init.h"
 
 #include "pastel/math/polynomial.h"
 #include "pastel/sys/rational.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -15,14 +13,8 @@ namespace
 	using Poly = Polynomial<Real>;
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testBasic();
@@ -33,31 +25,31 @@ namespace
 		void testBasic()
 		{
 			Poly a;
-			TEST_ENSURE_OP(a.size(), ==, 1);
-			TEST_ENSURE_OP(a[0], ==, 0);
-			TEST_ENSURE_OP(a.degree(), ==, 0);
+			REQUIRE(a.size() == 1);
+			REQUIRE(a[0] == 0);
+			REQUIRE(a.degree() == 0);
 
 			a[0] = 1;
-			TEST_ENSURE_OP(a.degree(), ==, 0);
+			REQUIRE(a.degree() == 0);
 
 			a.set(1, 0);
-			TEST_ENSURE_OP(a.size(), ==, 2);
-			TEST_ENSURE_OP(a.degree(), ==, 0);
+			REQUIRE(a.size() == 2);
+			REQUIRE(a.degree() == 0);
 
 			a.set(5, 0);
-			TEST_ENSURE_OP(a.size(), ==, 6);
-			TEST_ENSURE_OP(a.degree(), ==, 0);
+			REQUIRE(a.size() == 6);
+			REQUIRE(a.degree() == 0);
 			a.set(5, 1);
-			TEST_ENSURE_OP(a.size(), ==, 6);
-			TEST_ENSURE_OP(a.degree(), ==, 5);
+			REQUIRE(a.size() == 6);
+			REQUIRE(a.degree() == 5);
 
 			a.setSize(10);
-			TEST_ENSURE_OP(a.size(), ==, 10);
-			TEST_ENSURE_OP(a.degree(), ==, 5);
+			REQUIRE(a.size() == 10);
+			REQUIRE(a.degree() == 5);
 
 			a.setSize(4);
-			TEST_ENSURE_OP(a.size(), ==, 4);
-			TEST_ENSURE_OP(a.degree(), ==, 0);
+			REQUIRE(a.size() == 4);
+			REQUIRE(a.degree() == 0);
 		}
 
 		void testOperators()
@@ -65,22 +57,22 @@ namespace
 			Poly a;
 			a.set(0, 1);
 
-			TEST_ENSURE_OP(a.degree(), ==, 0);
+			REQUIRE(a.degree() == 0);
 			a <<= 1;
-			TEST_ENSURE_OP(a.degree(), ==, 1);
+			REQUIRE(a.degree() == 1);
 			a <<= 2;
-			TEST_ENSURE_OP(a.degree(), ==, 3);
+			REQUIRE(a.degree() == 3);
 
 			{
 				Poly b;
 				b.set(3, 1);
-				TEST_ENSURE(a == b);
+				REQUIRE(a == b);
 			}
 			a >>= 3;
 			{
 				Poly b;
 				b.set(0, 1);
-				TEST_ENSURE(a == b);
+				REQUIRE(a == b);
 			}
 
 			Poly c;
@@ -98,7 +90,7 @@ namespace
 				e.set(1, 7 + 5);
 				e.set(2, 5 + 0);
 
-				TEST_ENSURE(e == c + d);
+				REQUIRE(e == c + d);
 			}
 			{
 				Poly e;
@@ -106,7 +98,7 @@ namespace
 				e.set(1, 7 - 5);
 				e.set(2, 5 - 0);
 
-				TEST_ENSURE(e == c - d);
+				REQUIRE(e == c - d);
 			}
 			{
 				Poly e;
@@ -115,7 +107,7 @@ namespace
 				e.set(2, 40);
 				e.set(3, 25);
 
-				TEST_ENSURE(e == c * d);
+				REQUIRE(e == c * d);
 			}
 		}
 
@@ -133,7 +125,7 @@ namespace
 				b.set(0, 7);
 				b.set(1, 10);
 
-				TEST_ENSURE(a == b);
+				REQUIRE(a == b);
 			}
 			{
 				Poly a;
@@ -157,8 +149,8 @@ namespace
 				Poly d;
 				d.set(0, Real(9) / 5);
 
-				TEST_ENSURE(c == quotient);
-				TEST_ENSURE(d == remainder);
+				REQUIRE(c == quotient);
+				REQUIRE(d == remainder);
 			}
 			{
 				integer maxDegree = 10;
@@ -173,7 +165,6 @@ namespace
 					Poly remainder;
 					divide(poly, divider, quotient, remainder);
 
-
 					Poly error = poly - (quotient * divider + remainder);
 
 					if (error.degree() != 0)
@@ -182,22 +173,13 @@ namespace
 					}
 				}
 
-				TEST_ENSURE_OP(failings, <=, 200);
+				REQUIRE(failings <= 200);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("Polynomial", "[Polynomial]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Polynomial", test);
-	}
-
-	CallFunction run(addTest);
 
 }

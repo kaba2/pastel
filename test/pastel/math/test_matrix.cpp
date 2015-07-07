@@ -1,7 +1,7 @@
 // Description: Testing for Matrix
 // DocumentationOf: matrix.h
 
-#include "test_pastelmath.h"
+#include "test/test_init.h"
 
 #include "pastel/math/matrix.h"
 #include "pastel/math/sampling.h"
@@ -10,27 +10,19 @@
 
 #include <algorithm>
 
-using namespace Pastel;
-
 namespace Pastel
 {
 
 	template class Matrix<real>;
-	
+
 }
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		using MatrixD = Matrix<real>;
 
 		virtual void run()
@@ -71,18 +63,18 @@ namespace
 				real correct = 
 					square(-1) + square(2) + square(3) +
 					square(4) + square(-5) + square(6);
-				TEST_ENSURE_OP(frobeniusNorm2(m), ==, correct);
-				TEST_ENSURE_OP(frobeniusNorm(m), ==, std::sqrt(correct));
+				REQUIRE(frobeniusNorm2(m) == correct);
+				REQUIRE(frobeniusNorm(m) == std::sqrt(correct));
 			}
 
 			{
 				real correct = 4 + 5 + 6;
-				TEST_ENSURE_OP(maxNorm(m), ==, correct);
+				REQUIRE(maxNorm(m) == correct);
 			}
 
 			{
 				real correct = 3 + 6;
-				TEST_ENSURE_OP(manhattanNorm(m), ==, correct);
+				REQUIRE(manhattanNorm(m) == correct);
 			}
 		}
 
@@ -91,10 +83,10 @@ namespace
 			MatrixD m(2, 3);
 			m = {-1, 2, 3,
 				4, -5, 6};
-			
+
 			{
 				real correct = -1 + -5;
-				TEST_ENSURE_OP(trace(m), ==, correct);
+				REQUIRE(trace(m) == correct);
 			}
 		}
 
@@ -103,10 +95,10 @@ namespace
 			MatrixD m(2, 3);
 			m = {-1, 2, 3,
 				4, -5, 6};
-			
+
 			{
 				real correct = -1 * -5;
-				TEST_ENSURE_OP(diagonalProduct(m), ==, correct);
+				REQUIRE(diagonalProduct(m) == correct);
 			}
 		}
 
@@ -119,7 +111,7 @@ namespace
 				//m = { -1 };
 				{
 					real correct = -1;
-					TEST_ENSURE_OP(determinant(m), ==, correct);
+					REQUIRE(determinant(m) == correct);
 				}
 			}
 
@@ -129,7 +121,7 @@ namespace
 					4, -5};
 				{
 					real correct = (-1 * -5) - (2 * 4);
-					TEST_ENSURE_OP(determinant(m), ==, correct);
+					REQUIRE(determinant(m) == correct);
 				}
 			}
 
@@ -140,14 +132,14 @@ namespace
 					 2, 3, 4};
 				{
 					real correct = 89;
-					TEST_ENSURE_OP(std::abs(determinant(m) - correct), <, 0.0001);
+					REQUIRE(std::abs(determinant(m) - correct) < 0.0001);
 				}
 			}
 
 			{
 				MatrixD m = randomRotation<real>(10);
 				{
-					TEST_ENSURE_OP(std::abs(determinant(m) - 1), <, 0.0001);
+					REQUIRE(std::abs(determinant(m) - 1) < 0.0001);
 				}
 			}
 		}
@@ -157,9 +149,9 @@ namespace
 			// Construct an empty matrix.
 			MatrixD empty(0, 0);
 			{
-				TEST_ENSURE_OP(empty.size(), ==, 0);
-				TEST_ENSURE_OP(empty.width(), ==, 0);
-				TEST_ENSURE_OP(empty.height(), ==, 0);
+				REQUIRE(empty.size() == 0);
+				REQUIRE(empty.width() == 0);
+				REQUIRE(empty.height() == 0);
 			}
 
 			// Constructs from a matrix expression.
@@ -171,7 +163,7 @@ namespace
 					5, 7, 5
 				};
 
-				TEST_ENSURE(boost::equal(m.cRange(), range(correctSet)));
+				REQUIRE(boost::equal(m.cRange(), range(correctSet)));
 			}
 
 			{
@@ -188,7 +180,7 @@ namespace
 						4, 6, 6
 					};
 
-					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+					REQUIRE(boost::equal(test.cRange(), range(correctSet)));
 				}
 
 				// Subtracts a matrix expression.
@@ -200,7 +192,7 @@ namespace
 						4, 5, 6
 					};
 
-					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+					REQUIRE(boost::equal(test.cRange(), range(correctSet)));
 				}
 
 				// Multiplies with a matrix expression.
@@ -212,7 +204,7 @@ namespace
 						4, 5
 					};
 
-					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+					REQUIRE(boost::equal(test.cRange(), range(correctSet)));
 				}
 			}
 
@@ -227,12 +219,12 @@ namespace
 					0, 0, 0, 1, 0, 0
 				};
 
-				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
-				TEST_ENSURE_OP(a.height(), ==, 4);
-				TEST_ENSURE_OP(a.width(), ==, 6);
-				TEST_ENSURE_OP(a.m(), ==, 4);
-				TEST_ENSURE_OP(a.n(), ==, 6);
-				TEST_ENSURE_OP(a.size(), ==, 4 * 6);
+				REQUIRE(boost::equal(a.cRange(), range(correctSet)));
+				REQUIRE(a.height() == 4);
+				REQUIRE(a.width() == 6);
+				REQUIRE(a.m() == 4);
+				REQUIRE(a.n() == 6);
+				REQUIRE(a.size() == 4 * 6);
 			}
 
 			real dataSet[] = 
@@ -242,36 +234,36 @@ namespace
 				7, 8, 9,
 				10, 11, 12
 			};
-			
+
 			// Constructs from a shared array.
 			MatrixD shared(4, 3, withAliasing(dataSet));
 			{
-				TEST_ENSURE(boost::equal(shared.cRange(), range(dataSet)));
+				REQUIRE(boost::equal(shared.cRange(), range(dataSet)));
 			}
 
-			TEST_ENSURE(shared.valid(0, 0));
-			TEST_ENSURE(!shared.valid(-1, 0));
-			TEST_ENSURE(!shared.valid(0, -1));
-			TEST_ENSURE(!shared.valid(4, 3));
-			TEST_ENSURE(!shared.valid(3, 3));
-			TEST_ENSURE(shared.valid(3, 2));
+			REQUIRE(shared.valid(0, 0));
+			REQUIRE(!shared.valid(-1, 0));
+			REQUIRE(!shared.valid(0, -1));
+			REQUIRE(!shared.valid(4, 3));
+			REQUIRE(!shared.valid(3, 3));
+			REQUIRE(shared.valid(3, 2));
 
-			TEST_ENSURE(shared.involves(
+			REQUIRE(shared.involves(
 				dataSet, dataSet + 1));
-			TEST_ENSURE(shared.involves(
+			REQUIRE(shared.involves(
 				dataSet + shared.size() - 1, 
 				dataSet + shared.size()));
-			TEST_ENSURE(!shared.involves(
+			REQUIRE(!shared.involves(
 				dataSet + shared.size(), 
 				dataSet + shared.size() + 10));
-			TEST_ENSURE(!shared.involves(
+			REQUIRE(!shared.involves(
 				dataSet - 10, dataSet));
 
 			// Element access
 			for (integer i = 0;i < 12;++i)
 			{
-				TEST_ENSURE(shared(i) == i + 1);
-				TEST_ENSURE(shared(i / 3, i % 3) == i + 1);
+				REQUIRE(shared(i) == i + 1);
+				REQUIRE(shared(i / 3, i % 3) == i + 1);
 			}
 
 			// Column ranges
@@ -281,7 +273,7 @@ namespace
 					2, 5, 8, 11
 				};
 
-				TEST_ENSURE(boost::equal(shared.cColumnRange(1), range(correctSet)));
+				REQUIRE(boost::equal(shared.cColumnRange(1), range(correctSet)));
 			}
 
 			// Row ranges
@@ -291,14 +283,14 @@ namespace
 					4, 5, 6
 				};
 
-				TEST_ENSURE(boost::equal(shared.cRowRange(1), range(correctSet)));
+				REQUIRE(boost::equal(shared.cRowRange(1), range(correctSet)));
 			}
 
 			{
 				MatrixD test(3, 2);
 				test = {1, 2, 3,
 					4, 5, 6};
-				
+
 				// Subtracts a constant from all elements.
 				test -= 1;
 				{
@@ -308,7 +300,7 @@ namespace
 						3, 4, 5
 					};
 
-					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+					REQUIRE(boost::equal(test.cRange(), range(correctSet)));
 				}
 
 				// Adds a constant to all elements.
@@ -320,7 +312,7 @@ namespace
 						4, 5, 6
 					};
 
-					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+					REQUIRE(boost::equal(test.cRange(), range(correctSet)));
 				}
 
 				// Multiplies all elements with a constant.
@@ -332,7 +324,7 @@ namespace
 						8, 10, 12
 					};
 
-					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+					REQUIRE(boost::equal(test.cRange(), range(correctSet)));
 				}
 
 				// Divides all elements by a constant.
@@ -344,7 +336,7 @@ namespace
 						4, 5, 6
 					};
 
-					TEST_ENSURE(boost::equal(test.cRange(), range(correctSet)));
+					REQUIRE(boost::equal(test.cRange(), range(correctSet)));
 				}
 			}
 
@@ -361,9 +353,9 @@ namespace
 					0, 2, 0, 1, 0, 1
 				};
 
-				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+				REQUIRE(boost::equal(a.cRange(), range(correctSet)));
 			}
-			
+
 			// The 2x2 identity-matrix repeated 2 times vertically,
 			// and 3 times horizontally.
 			MatrixD b = repeat(
@@ -378,7 +370,7 @@ namespace
 					0, 1, 0, 1, 0, 1
 				};
 
-				TEST_ENSURE(boost::equal(b.cRange(), range(correctSet)));
+				REQUIRE(boost::equal(b.cRange(), range(correctSet)));
 			}
 
 			// You can refer to a submatrix of a matrix.
@@ -386,7 +378,7 @@ namespace
 			b(Vector2i(2, 0), Vector2i(4, 2)) = 
 				identityMatrix<real>(2, 2) * 2;
 
-			TEST_ENSURE(a == b);
+			REQUIRE(a == b);
 
 			MatrixD c(2, 9);
 			c = {1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -402,7 +394,7 @@ namespace
 			d = {1, 2, 3, 4, 5, 6, 7, 6, 7,
 				10, 11, 12, 13, 14, 15, 16, 15, 16};
 
-			TEST_ENSURE(c == d);
+			REQUIRE(c == d);
 
 			/*
 			c(Range(0, 1), Range(0, 2)) =
@@ -426,7 +418,7 @@ namespace
 			d = {3, 2, 1, 4, 5, 6, 7, 6, 7,
 				12, 11, 10, 13, 14, 15, 16, 15, 16};
 
-			TEST_ENSURE(c == d);
+			REQUIRE(c == d);
 		}
 
 		void testSubMatrix()
@@ -443,7 +435,7 @@ namespace
 					a(x, y) = x * y;
 				}
 			}
-			
+
 			// The matrix can also be viewed as a sequence
 			// of values, so that algorithms from the
 			// standard library can be used at will.
@@ -458,7 +450,7 @@ namespace
 				*iter = i;
 				++iter;
 				++i;
-				TEST_ENSURE_OP(i, <=, a.size());
+				REQUIRE(i <= a.size());
 			}
 			{
 				real32 correctSet[] = 
@@ -469,7 +461,7 @@ namespace
 					12, 13, 14, 15,
 				};
 
-				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+				REQUIRE(boost::equal(a.cRange(), range(correctSet)));
 			}
 
 			std::random_shuffle(a.begin(), a.end());
@@ -483,7 +475,7 @@ namespace
 					12, 13, 14, 15,
 				};
 
-				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+				REQUIRE(boost::equal(a.cRange(), range(correctSet)));
 			}
 
 			i = 0;
@@ -502,7 +494,7 @@ namespace
 					12, 13, 14, 15,
 				};
 
-				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+				REQUIRE(boost::equal(a.cRange(), range(correctSet)));
 			}
 
 			// Finally, a matrix can be viewed as
@@ -511,9 +503,9 @@ namespace
 			for (integer j = 0;j < width;++j)
 			{
 				a.column(j) = unitAxis<real32, Dynamic>(height, j) * 2;
-				TEST_ENSURE_OP(a(j, j), ==, 2);
+				REQUIRE(a(j, j) == 2);
 				a.column(j) = evaluate(unitAxis<real32, Dynamic>(height, j) * 3);
-				TEST_ENSURE_OP(a(j, j), ==, 3);
+				REQUIRE(a(j, j) == 3);
 			}
 
 			// Because of the way the matrix is stored,
@@ -536,7 +528,7 @@ namespace
 					0, 3
 				};
 
-				TEST_ENSURE(boost::equal(a.cRange(), range(correctSet)));
+				REQUIRE(boost::equal(a.cRange(), range(correctSet)));
 			}
 		}
 
@@ -548,21 +540,21 @@ namespace
 				 7, -3, 2};
 
 			Vector3 b = max(a);
-			TEST_ENSURE_OP(b[0], ==, 7);
-			TEST_ENSURE_OP(b[1], ==, 3);
-			TEST_ENSURE_OP(b[2], ==, 3);
+			REQUIRE(b[0] == 7);
+			REQUIRE(b[1] == 3);
+			REQUIRE(b[2] == 3);
 
 			Vector3 c = min(a);
-			TEST_ENSURE_OP(c[0], ==, -2);
-			TEST_ENSURE_OP(c[1], ==, -3);
-			TEST_ENSURE_OP(c[2], ==, -4);
+			REQUIRE(c[0] == -2);
+			REQUIRE(c[1] == -3);
+			REQUIRE(c[2] == -4);
 		}
 
 		void testMatrixLowDimensional()
 		{
 			{
 				Matrix<real> a = matrix1x1<real>(5);
-				TEST_ENSURE(
+				REQUIRE(
 					a(0, 0) == 5);
 			}
 			{
@@ -570,21 +562,25 @@ namespace
 					matrix2x2<real>(
 					1, 2,
 					3, 4);
-				TEST_ENSURE(
-					a(0, 0) == 1 && a(0, 1) == 2 &&
-					a(1, 0) == 3 && a(1, 1) == 4);
+				REQUIRE(a(0, 0) == 1);
+				REQUIRE(a(0, 1) == 2);
+				REQUIRE(a(1, 0) == 3);
+				REQUIRE(a(1, 1) == 4);
 
 				Matrix<real> b(2, 2);
 
 				b = a;
-				TEST_ENSURE(
-					b(0, 0) == 1 && b(0, 1) == 2 &&
-					b(1, 0) == 3 && b(1, 1) == 4);
+				REQUIRE(b(0, 0) == 1);
+				REQUIRE(b(0, 1) == 2);
+				REQUIRE(b(1, 0) == 3);
+				REQUIRE(b(1, 1) == 4);
 
 				Matrix<real> c(b);
-				TEST_ENSURE(
-					c(0, 0) == 1 && c(0, 1) == 2 &&
-					c(1, 0) == 3 && c(1, 1) == 4);
+				REQUIRE(c(0, 0) == 1);
+				REQUIRE(c(0, 1) == 2);
+				REQUIRE(c(1, 0) == 3);
+				REQUIRE(c(1, 1) == 4);
+
 			}
 
 			{
@@ -593,24 +589,40 @@ namespace
 					1, 2, 3,
 					4, 5, 6,
 					7, 8, 9);
-				TEST_ENSURE(
-					a(0, 0) == 1 && a(0, 1) == 2 && a(0, 2) == 3 &&
-					a(1, 0) == 4 && a(1, 1) == 5 && a(1, 2) == 6 &&
-					a(2, 0) == 7 && a(2, 1) == 8 && a(2, 2) == 9);
+				REQUIRE(a(0, 0) == 1);
+				REQUIRE(a(0, 1) == 2);
+				REQUIRE(a(0, 2) == 3);
+				REQUIRE(a(1, 0) == 4);
+				REQUIRE(a(1, 1) == 5);
+				REQUIRE(a(1, 2) == 6);
+				REQUIRE(a(2, 0) == 7);
+				REQUIRE(a(2, 1) == 8);
+				REQUIRE(a(2, 2) == 9);
 
 				Matrix<real> b(3, 3);
 
 				b = a;
-				TEST_ENSURE(
-					b(0, 0) == 1 && b(0, 1) == 2 && b(0, 2) == 3 &&
-					b(1, 0) == 4 && b(1, 1) == 5 && b(1, 2) == 6 &&
-					b(2, 0) == 7 && b(2, 1) == 8 && b(2, 2) == 9);
+				REQUIRE(b(0, 0) == 1);
+				REQUIRE(b(0, 1) == 2);
+				REQUIRE(b(0, 2) == 3);
+				REQUIRE(b(1, 0) == 4);
+				REQUIRE(b(1, 1) == 5);
+				REQUIRE(b(1, 2) == 6);
+				REQUIRE(b(2, 0) == 7);
+				REQUIRE(b(2, 1) == 8);
+				REQUIRE(b(2, 2) == 9);
 
 				Matrix<real> c(b);
-				TEST_ENSURE(
-					c(0, 0) == 1 && c(0, 1) == 2 && c(0, 2) == 3 &&
-					c(1, 0) == 4 && c(1, 1) == 5 && c(1, 2) == 6 &&
-					c(2, 0) == 7 && c(2, 1) == 8 && c(2, 2) == 9);
+				REQUIRE(c(0, 0) == 1);
+				REQUIRE(c(0, 1) == 2);
+				REQUIRE(c(0, 2) == 3);
+				REQUIRE(c(1, 0) == 4);
+				REQUIRE(c(1, 1) == 5);
+				REQUIRE(c(1, 2) == 6);
+				REQUIRE(c(2, 0) == 7);
+				REQUIRE(c(2, 1) == 8);
+				REQUIRE(c(2, 2) == 9);
+
 			}
 			{
 				Matrix<real> a =
@@ -619,39 +631,61 @@ namespace
 					5, 6, 7, 8,
 					9, 10, 11, 12,
 					13, 14, 15, 16);
-				TEST_ENSURE(
-					a(0, 0) == 1 && a(0, 1) == 2 &&
-					a(0, 2) == 3 && a(0, 3) == 4 &&
-					a(1, 0) == 5 && a(1, 1) == 6 &&
-					a(1, 2) == 7 && a(1, 3) == 8 &&
-					a(2, 0) == 9 && a(2, 1) == 10 &&
-					a(2, 2) == 11 && a(2, 3) == 12 &&
-					a(3, 0) == 13 && a(3, 1) == 14 &&
-					a(3, 2) == 15 && a(3, 3) == 16);
+				REQUIRE(a(0, 0) == 1);
+				REQUIRE(a(0, 1) == 2);
+				REQUIRE(a(0, 2) == 3);
+				REQUIRE(a(0, 3) == 4);
+				REQUIRE(a(1, 0) == 5);
+				REQUIRE(a(1, 1) == 6);
+				REQUIRE(a(1, 2) == 7);
+				REQUIRE(a(1, 3) == 8);
+				REQUIRE(a(2, 0) == 9);
+				REQUIRE(a(2, 1) == 10);
+				REQUIRE(a(2, 2) == 11);
+				REQUIRE(a(2, 3) == 12);
+				REQUIRE(a(3, 0) == 13);
+				REQUIRE(a(3, 1) == 14);
+				REQUIRE(a(3, 2) == 15);
+				REQUIRE(a(3, 3) == 16);
 
 				Matrix<real> b(4, 4);
 
 				b = a;
-				TEST_ENSURE(
-					b(0, 0) == 1 && b(0, 1) == 2 &&
-					b(0, 2) == 3 && b(0, 3) == 4 &&
-					b(1, 0) == 5 && b(1, 1) == 6 &&
-					b(1, 2) == 7 && b(1, 3) == 8 &&
-					b(2, 0) == 9 && b(2, 1) == 10 &&
-					b(2, 2) == 11 && b(2, 3) == 12 &&
-					b(3, 0) == 13 && b(3, 1) == 14 &&
-					b(3, 2) == 15 && b(3, 3) == 16);
+				REQUIRE(b(0, 0) == 1);
+				REQUIRE(b(0, 1) == 2);
+				REQUIRE(b(0, 2) == 3);
+				REQUIRE(b(0, 3) == 4);
+				REQUIRE(b(1, 0) == 5);
+				REQUIRE(b(1, 1) == 6);
+				REQUIRE(b(1, 2) == 7);
+				REQUIRE(b(1, 3) == 8);
+				REQUIRE(b(2, 0) == 9);
+				REQUIRE(b(2, 1) == 10);
+				REQUIRE(b(2, 2) == 11);
+				REQUIRE(b(2, 3) == 12);
+				REQUIRE(b(3, 0) == 13);
+				REQUIRE(b(3, 1) == 14);
+				REQUIRE(b(3, 2) == 15);
+				REQUIRE(b(3, 3) == 16);
 
 				Matrix<real> c(b);
-				TEST_ENSURE(
-					c(0, 0) == 1 && c(0, 1) == 2 &&
-					c(0, 2) == 3 && c(0, 3) == 4 &&
-					c(1, 0) == 5 && c(1, 1) == 6 &&
-					c(1, 2) == 7 && c(1, 3) == 8 &&
-					c(2, 0) == 9 && c(2, 1) == 10 &&
-					c(2, 2) == 11 && c(2, 3) == 12 &&
-					c(3, 0) == 13 && c(3, 1) == 14 &&
-					c(3, 2) == 15 && c(3, 3) == 16);
+				REQUIRE(c(0, 0) == 1);
+				REQUIRE(c(0, 1) == 2);
+				REQUIRE(c(0, 2) == 3);
+				REQUIRE(c(0, 3) == 4);
+				REQUIRE(c(1, 0) == 5);
+				REQUIRE(c(1, 1) == 6);
+				REQUIRE(c(1, 2) == 7);
+				REQUIRE(c(1, 3) == 8);
+				REQUIRE(c(2, 0) == 9);
+				REQUIRE(c(2, 1) == 10);
+				REQUIRE(c(2, 2) == 11);
+				REQUIRE(c(2, 3) == 12);
+				REQUIRE(c(3, 0) == 13);
+				REQUIRE(c(3, 1) == 14);
+				REQUIRE(c(3, 2) == 15);
+				REQUIRE(c(3, 3) == 16);
+
 			}
 		}
 
@@ -669,11 +703,10 @@ namespace
 				3, 6};
 
 			Matrix<real> c(a * b);
-			TEST_ENSURE(
-				c(0, 0) == 1 * 7 + 2 * 4 + 3 * 3 &&
-				c(0, 1) == 1 * 8 + 2 * 3 + 3 * 6 &&
-				c(1, 0) == 4 * 7 + 5 * 4 + 6 * 3 &&
-				c(1, 1) == 4 * 8 + 5 * 3 + 6 * 6);
+			REQUIRE(c(0, 0) == 1 * 7 + 2 * 4 + 3 * 3);
+			REQUIRE(c(0, 1) == 1 * 8 + 2 * 3 + 3 * 6);
+			REQUIRE(c(1, 0) == 4 * 7 + 5 * 4 + 6 * 3);
+			REQUIRE(c(1, 1) == 4 * 8 + 5 * 3 + 6 * 6);
 
 			Matrix<real> d(1, 3);
 			d = {5, 2, 6};
@@ -684,7 +717,7 @@ namespace
 			e(2, 0) = -4;
 			Matrix<real> f(d * e);
 
-			TEST_ENSURE_OP(f(0, 0), ==, 5 * -3 + 2 * 6 + 6 * -4);
+			REQUIRE(f(0, 0) == 5 * -3 + 2 * 6 + 6 * -4);
 
 			Matrix<real> g =
 				matrix2x2<real>(
@@ -695,17 +728,20 @@ namespace
 			{1, 2,
 			3, 4};
 			g *= 4;
-			TEST_ENSURE(
-				g(0, 0) == 1 * 4 && g(0, 1) == 2 * 4 &&
-				g(1, 0) == 3 * 4 && g(1, 1) == 4 * 4);
+			REQUIRE(g(0, 0) == 1 * 4);
+			REQUIRE(g(0, 1) == 2 * 4);
+			REQUIRE(g(1, 0) == 3 * 4);
+			REQUIRE(g(1, 1) == 4 * 4);
 
 			g =
 				{1, 2,
 				3, 4};
 			g /= 4;
-			TEST_ENSURE(
-				g(0, 0) == (real)1 / 4 && g(0, 1) == (real)2 / 4 &&
-				g(1, 0) == (real)3 / 4 && g(1, 1) == (real)4 / 4);
+			REQUIRE(g(0, 0) == (real)1 / 4);
+			REQUIRE(g(0, 1) == (real)2 / 4);
+			REQUIRE(g(1, 0) == (real)3 / 4);
+			REQUIRE(g(1, 1) == (real)4 / 4);
+
 		}
 
 		void testInverse()
@@ -732,7 +768,7 @@ namespace
 				}
 			}
 
-			TEST_ENSURE_OP(count, <, 3);
+			REQUIRE(count < 3);
 		}
 
 		void testMatrixMultiply()
@@ -748,7 +784,6 @@ namespace
 				Matrix<real> b = randomMatrix<real>(n, n);
 
 				VectorD v = randomVectorCube<real, Dynamic>(n);
-
 
 				VectorD result1 = v * (a * b);
 				VectorD result2 = (v * a) * b;
@@ -766,7 +801,7 @@ namespace
 				}
 			}
 
-			TEST_ENSURE_OP(count, <, 3);
+			REQUIRE(count < 3);
 		}
 
 		void testMatrixAssigns()
@@ -784,33 +819,32 @@ namespace
 				Matrix<real> b(n, n);
 				b = a;
 
-				TEST_ENSURE(b == a);
+				REQUIRE(b == a);
 
 				a += b;
 				b += b;
-				
-				TEST_ENSURE(a == b);
+
+				REQUIRE(a == b);
 
 				a -= b;
 				b -= b;
-				
-				TEST_ENSURE(a == b);
 
+				REQUIRE(a == b);
 
 				a *= b;
 				b *= b;
-				
-				TEST_ENSURE(a == b);
+
+				REQUIRE(a == b);
 
 				a += identityMatrix<real>(n, n) + (5 * b);
 				b += identityMatrix<real>(n, n) + (5 * b);
-				
-				TEST_ENSURE(a == b);
+
+				REQUIRE(a == b);
 
 				a += identityMatrix<real>(n, n) + (b * b);
 				b += identityMatrix<real>(n, n) + (b * b);
 
-				TEST_ENSURE(a == b);
+				REQUIRE(a == b);
 			}
 		}
 
@@ -838,23 +872,14 @@ namespace
 				}
 			}
 
-			TEST_ENSURE_OP(count, <, 3);
+			REQUIRE(count < 3);
 		}
 
 	};
 
-	void test()
+	TEST_CASE("Matrix", "[Matrix]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Matrix", test);
-	}
-
-	CallFunction run(addTest);
 
 }
 

@@ -1,12 +1,10 @@
 // Description: Testing for HSV color space
 // DocumentationOf: color_hsv.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/gfx/image_file.h"
 #include "pastel/gfx/color.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -32,16 +30,8 @@ namespace
 		savePcx(image, "hsv_scale.pcx");
 	}
 
-	void test()
+	TEST_CASE("Hsv", "[Hsv]")
 	{
-		testHsv();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Hsv", test);
-	}
-
-	CallFunction run(addTest);
 
 }

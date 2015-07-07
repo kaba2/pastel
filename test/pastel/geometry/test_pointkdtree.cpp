@@ -1,7 +1,7 @@
 // Description: Testing for PointKdTree
 // DocumentationOf: pointkdtree.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/search_nearest_kdtree.h"
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
@@ -15,13 +15,10 @@
 #include "pastel/sys/locator.h"
 #include "pastel/sys/indicator.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
 		template <integer N_>
@@ -37,11 +34,6 @@ namespace
 		using Point_ConstIterator = Tree::Point_ConstIterator;
 
 		PASTEL_CONCEPT_CHECK(Tree::Point, Point_Concept);
-
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
 
 		virtual void run()
 		{
@@ -137,11 +129,11 @@ namespace
 				rangeSet(pointSet),
 				PASTEL_TAG(report), pushBackOutput(iteratorSet)
 			);
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 
 			tree.refine(SlidingMidpoint_SplitRule(), 1);
-			TEST_ENSURE(testInvariants(tree));
-			
+			REQUIRE(testInvariants(tree));
+
 			/*
 			 0   |
 			     |2  3
@@ -153,7 +145,7 @@ namespace
 			     |    E
 				 |
 			*/
-			
+
 			/*
 			Nearest neighbors:
 			0 -> 1 (1^2 + 2^2 = 5)
@@ -222,10 +214,10 @@ namespace
 					Point_ConstIterator iter = result.second;
 					unused(iter);
 
-					//TEST_ENSURE(iter == iteratorSet[i]);
-					TEST_ENSURE(distance2 == 0);
+					//REQUIRE(iter == iteratorSet[i]);
+					REQUIRE(distance2 == 0);
 				}
-				
+
 				{
 					std::pair<real, Point_ConstIterator> result = 
 						searchNearest(
@@ -235,13 +227,13 @@ namespace
 							normBijection, 
 							PASTEL_TAG(searchAlgorithm), searchAlgorithm,
 							PASTEL_TAG(nBruteForce), 1);
-					
+
 					real distance2 = result.first;
 					Point_ConstIterator iter = result.second;
 					unused(iter);
 
-					//TEST_ENSURE(iter == correctSet[i]);
-					TEST_ENSURE(distance2 == distanceSet[i]);
+					//REQUIRE(iter == correctSet[i]);
+					REQUIRE(distance2 == distanceSet[i]);
 				}
 			}
 		}
@@ -264,98 +256,98 @@ namespace
 				rangeSet(pointSet),
 				PASTEL_TAG(report), pushBackOutput(iteratorSet)
 			);
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE_OP(tree.points(), ==, m);
-			TEST_ENSURE_OP(tree.leaves(), ==, 1);
-			TEST_ENSURE_OP(tree.nodes(), ==, 1);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.points() == m);
+			REQUIRE(tree.leaves() == 1);
+			REQUIRE(tree.nodes() == 1);
 
 			tree.refine(SlidingMidpoint_SplitRule());
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE_OP(tree.points(), ==, m);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.points() == m);
 
 			{
 				Tree bTree(tree);
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE(equivalent(tree, bTree));
+				REQUIRE(testInvariants(bTree));
+				REQUIRE(equivalent(tree, bTree));
 
 				tree.swap(bTree);
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE(equivalent(tree, bTree));
+				REQUIRE(testInvariants(bTree));
+				REQUIRE(equivalent(tree, bTree));
 			}
 
 			tree.merge();
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE_OP(tree.leaves(), ==, 1);
-			TEST_ENSURE_OP(tree.nodes(), ==, 1);
-			TEST_ENSURE_OP(tree.points(), ==, m);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.leaves() == 1);
+			REQUIRE(tree.nodes() == 1);
+			REQUIRE(tree.points() == m);
 
 			tree.refine(SlidingMidpoint_SplitRule());
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 
 			tree.merge(tree.root());
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE_OP(tree.leaves(), ==, 1);
-			TEST_ENSURE_OP(tree.nodes(), ==, 1);
-			TEST_ENSURE_OP(tree.points(), ==, m);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.leaves() == 1);
+			REQUIRE(tree.nodes() == 1);
+			REQUIRE(tree.points() == m);
 
 			tree.refine(SlidingMidpoint_SplitRule());
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 
 			tree.hide();
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE_OP(tree.points(), ==, 0);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.points() == 0);
 
 			tree.show();
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE_OP(tree.points(), ==, m);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.points() == m);
 
 			tree.erase();
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE_OP(tree.points(), ==, 0);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.points() == 0);
 
 			tree.insertSet(
 				rangeSet(pointSet),
 				PASTEL_TAG(report), pushBackOutput(iteratorSet)
 			);
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 
 			tree.clear();
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE_OP(tree.points(), ==, 0);
-			TEST_ENSURE_OP(tree.leaves(), ==, 1);
-			TEST_ENSURE_OP(tree.nodes(), ==, 1);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.points() == 0);
+			REQUIRE(tree.leaves() == 1);
+			REQUIRE(tree.nodes() == 1);
 			{
 				Tree emptyTree;
-				TEST_ENSURE(equivalent(tree, emptyTree));
+				REQUIRE(equivalent(tree, emptyTree));
 			}
 		}
 
 		void testEmpty()
 		{
 			Tree tree;
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE(tree.empty());
-			TEST_ENSURE_OP(tree.points(), ==, 0);
-			TEST_ENSURE(tree.bound().empty());
-			TEST_ENSURE_OP(tree.leaves(), ==, 1);
-			TEST_ENSURE_OP(tree.nodes(), ==, 1);
-						
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.empty());
+			REQUIRE(tree.points() == 0);
+			REQUIRE(tree.bound().empty());
+			REQUIRE(tree.leaves() == 1);
+			REQUIRE(tree.nodes() == 1);
+
 			tree.clear();
-			TEST_ENSURE(testInvariants(tree));
-			TEST_ENSURE(tree.empty());
-			TEST_ENSURE_OP(tree.points(), ==, 0);
-			TEST_ENSURE(tree.bound().empty());
-			TEST_ENSURE_OP(tree.leaves(), ==, 1);
-			TEST_ENSURE_OP(tree.nodes(), ==, 1);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(tree.empty());
+			REQUIRE(tree.points() == 0);
+			REQUIRE(tree.bound().empty());
+			REQUIRE(tree.leaves() == 1);
+			REQUIRE(tree.nodes() == 1);
 
 			{
 				Tree bTree(tree);
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE(equivalent(tree, bTree));
+				REQUIRE(testInvariants(tree));
+				REQUIRE(equivalent(tree, bTree));
 
 				tree.swap(bTree);
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE(equivalent(tree, bTree));
+				REQUIRE(testInvariants(tree));
+				REQUIRE(equivalent(tree, bTree));
 			}
 		}
 
@@ -379,7 +371,7 @@ namespace
 
 			tree.insertSet(rangeSet(pointSet));
 			tree.refine(SlidingMidpoint_SplitRule());
-			
+
 			Euclidean_NormBijection<real> normBijection;
 
 			{
@@ -399,23 +391,23 @@ namespace
 					Vector<real, N>(0), 
 					PASTEL_TAG(report), report,
 					PASTEL_TAG(kNearest), m);
-			
+
 				integer count = distanceSet.size();
 
-				TEST_ENSURE_OP(count, ==, m);
-				TEST_ENSURE_OP(neighborSet.size(), ==, m);
-				TEST_ENSURE_OP(distanceSet.size(), ==, m);
-		
+				REQUIRE(count == m);
+				REQUIRE(neighborSet.size() == m);
+				REQUIRE(distanceSet.size() == m);
+
 				for (integer i = 0;i < count;++i)
 				{
-					TEST_ENSURE_OP(relativeError<real>(distanceSet[i], 
-						normBijection.toBijection(2)), <, 0.001);
+					REQUIRE(relativeError<real>(distanceSet[i], 
+						normBijection.toBijection(2)) < 0.001);
 				}
 			}
 			{
 
 				integer outerCount = 0;
-				
+
 				searchNearest(
 					tree, 
 					Vector<real, N>(0),
@@ -423,32 +415,23 @@ namespace
 					PASTEL_TAG(maxDistance2), normBijection.toBijection(2.001),
 					PASTEL_TAG(kNearest), tree.points()
 					);
-				TEST_ENSURE_OP(outerCount, ==, m);
+				REQUIRE(outerCount == m);
 
 				integer innerCount = 0;
-				
+
 				searchNearest(
 					tree, 
 					Vector<real, N>(0),
 					PASTEL_TAG(report), [&](auto, auto) {++innerCount;},
 					PASTEL_TAG(maxDistance2), normBijection.toBijection(1.999),
 					PASTEL_TAG(kNearest), tree.points());
-				TEST_ENSURE_OP(innerCount, ==, 0);
+				REQUIRE(innerCount == 0);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("PointKdTree", "[PointKdTree]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("PointKdTree", test);
-	}
-
-	CallFunction run(addTest);
 
 }

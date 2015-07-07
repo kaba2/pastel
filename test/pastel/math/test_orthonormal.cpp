@@ -1,25 +1,17 @@
 // Description: Testing for orthonormal.h
 // DocumentationOf: orthonormal.h
 
-#include "test_pastelmath.h"
+#include "test/test_init.h"
 
 #include "pastel/math/matrix/orthonormal.h"
 #include "pastel/math/matrix.h"
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -32,29 +24,20 @@ namespace
 
 			m = orthonormalize(m);
 			{
-				TEST_ENSURE(frobeniusNorm(m - identityMatrix<real>(3, 3)) < 0.0001);
+				REQUIRE(frobeniusNorm(m - identityMatrix<real>(3, 3)) < 0.0001);
 			}
 
 			m = randomMatrix<real>(3, 3);
 			m = orthonormalize(m);
 			{
-				TEST_ENSURE(frobeniusNorm(transpose(m) * m - 
+				REQUIRE(frobeniusNorm(transpose(m) * m - 
 					identityMatrix<real>(3, 3)) < 0.0001);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("orthonormal", "[orthonormal]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("orthonormal", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,25 +1,17 @@
 // Description: Testing for distance between aligned boxes
 // DocumentationOf: distance_alignedbox_alignedbox.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/distance/distance_alignedbox_alignedbox.h>
 #include <pastel/sys/rational.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test<real>();
@@ -54,11 +46,11 @@ namespace
 					Point(5, 4), 
 					Point(7, 7));
 
-				TEST_ENSURE(distance2(aBox, bBox) == square(2) + square(1));
-				TEST_ENSURE(distance2(bBox, aBox) == square(2) + square(1));
+				REQUIRE(distance2(aBox, bBox) == square(2) + square(1));
+				REQUIRE(distance2(bBox, aBox) == square(2) + square(1));
 
-				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(6) + square(6));
-				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(6) + square(6));
+				REQUIRE(farthestDistance2(aBox, bBox) == square(6) + square(6));
+				REQUIRE(farthestDistance2(bBox, aBox) == square(6) + square(6));
 			}
 			{
 				/*
@@ -81,11 +73,11 @@ namespace
 					Point(1, 4), 
 					Point(4, 7));
 
-				TEST_ENSURE(distance2(aBox, bBox) == 1);
-				TEST_ENSURE(distance2(bBox, aBox) == 1);
+				REQUIRE(distance2(aBox, bBox) == 1);
+				REQUIRE(distance2(bBox, aBox) == 1);
 
-				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(3) + square(6));
-				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(3) + square(6));
+				REQUIRE(farthestDistance2(aBox, bBox) == square(3) + square(6));
+				REQUIRE(farthestDistance2(bBox, aBox) == square(3) + square(6));
 			}
 
 			{
@@ -109,11 +101,11 @@ namespace
 					Point(1, 4), 
 					Point(4, 7));
 
-				TEST_ENSURE(distance2(aBox, bBox) == 1);
-				TEST_ENSURE(distance2(bBox, aBox) == 1);
+				REQUIRE(distance2(aBox, bBox) == 1);
+				REQUIRE(distance2(bBox, aBox) == 1);
 
-				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(4) + square(6));
-				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(4) + square(6));
+				REQUIRE(farthestDistance2(aBox, bBox) == square(4) + square(6));
+				REQUIRE(farthestDistance2(bBox, aBox) == square(4) + square(6));
 			}
 
 			{
@@ -137,11 +129,11 @@ namespace
 					Point(1, 4), 
 					Point(4, 7));
 
-				TEST_ENSURE(distance2(aBox, bBox) == 4);
-				TEST_ENSURE(distance2(bBox, aBox) == 4);
+				REQUIRE(distance2(aBox, bBox) == 4);
+				REQUIRE(distance2(bBox, aBox) == 4);
 
-				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(7) + square(3));
-				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(7) + square(3));
+				REQUIRE(farthestDistance2(aBox, bBox) == square(7) + square(3));
+				REQUIRE(farthestDistance2(bBox, aBox) == square(7) + square(3));
 			}
 
 			{
@@ -165,26 +157,17 @@ namespace
 					Point(1, 4), 
 					Point(4, 7));
 
-				TEST_ENSURE(distance2(aBox, bBox) == 0);
-				TEST_ENSURE(distance2(bBox, aBox) == 0);
+				REQUIRE(distance2(aBox, bBox) == 0);
+				REQUIRE(distance2(bBox, aBox) == 0);
 
-				TEST_ENSURE(farthestDistance2(aBox, bBox) == square(2) + square(2));
-				TEST_ENSURE(farthestDistance2(bBox, aBox) == square(2) + square(2));
+				REQUIRE(farthestDistance2(aBox, bBox) == square(2) + square(2));
+				REQUIRE(farthestDistance2(bBox, aBox) == square(2) + square(2));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("distance_alignedbox_alignedbox", "[distance_alignedbox_alignedbox]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("distance_alignedbox_alignedbox", test);
-	}
-
-	CallFunction run(addTest);
 
 }

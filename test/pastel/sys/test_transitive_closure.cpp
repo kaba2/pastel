@@ -1,7 +1,7 @@
 // Description: Testing for functional transitive closure
 // DocumentationOf: transitive_closure.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/graph/transitive_closure.h"
 #include "pastel/sys/incidence_graph.h"
@@ -11,20 +11,12 @@
 
 #include <unordered_set>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testTransitiveClosureAddition();
@@ -49,7 +41,7 @@ namespace
 			Vertex_Iterator e = relation.insertVertex(6);
 			Vertex_Iterator f = relation.insertVertex(4);
 			Vertex_Iterator g = relation.insertVertex(8);
-		
+
 			Edge_Iterator at = relation.insertEdge(a, a);
 			Edge_Iterator bt = relation.insertEdge(b, b);
 			Edge_Iterator ct = relation.insertEdge(c, c);
@@ -110,13 +102,13 @@ namespace
 				0, forEachDomain, forEachRelated, fn, op, report,
 				false, IteratorAddress_Hash());
 			{
-				TEST_ENSURE_OP(closureMap[a], ==, 19);
-				TEST_ENSURE_OP(closureMap[b], ==, 18);
-				TEST_ENSURE_OP(closureMap[c], ==, 20);
-				TEST_ENSURE_OP(closureMap[d], ==, 13);
-				TEST_ENSURE_OP(closureMap[e], ==, 13);
-				TEST_ENSURE_OP(closureMap[f], ==, 4);
-				TEST_ENSURE_OP(closureMap[g], ==, 0);
+				REQUIRE(closureMap[a] == 19);
+				REQUIRE(closureMap[b] == 18);
+				REQUIRE(closureMap[c] == 20);
+				REQUIRE(closureMap[d] == 13);
+				REQUIRE(closureMap[e] == 13);
+				REQUIRE(closureMap[f] == 4);
+				REQUIRE(closureMap[g] == 0);
 			}
 
 			relation.removeEdge(at);
@@ -130,13 +122,13 @@ namespace
 				0, forEachDomain, forEachRelated, fn, op, report,
 				true, IteratorAddress_Hash());
 			{
-				TEST_ENSURE_OP(closureMap[a], ==, 19);
-				TEST_ENSURE_OP(closureMap[b], ==, 18);
-				TEST_ENSURE_OP(closureMap[c], ==, 20);
-				TEST_ENSURE_OP(closureMap[d], ==, 13);
-				TEST_ENSURE_OP(closureMap[e], ==, 13);
-				TEST_ENSURE_OP(closureMap[f], ==, 4);
-				TEST_ENSURE_OP(closureMap[g], ==, 8);
+				REQUIRE(closureMap[a] == 19);
+				REQUIRE(closureMap[b] == 18);
+				REQUIRE(closureMap[c] == 20);
+				REQUIRE(closureMap[d] == 13);
+				REQUIRE(closureMap[e] == 13);
+				REQUIRE(closureMap[f] == 4);
+				REQUIRE(closureMap[g] == 8);
 			}
 
 			closureMap.clear();
@@ -144,13 +136,13 @@ namespace
 				0, forEachDomain, forEachRelated, fn, op, report,
 				false, IteratorAddress_Hash());
 			{
-				TEST_ENSURE_OP(closureMap[a], ==, 18);
-				TEST_ENSURE_OP(closureMap[b], ==, 13);
-				TEST_ENSURE_OP(closureMap[c], ==, 18);
-				TEST_ENSURE_OP(closureMap[d], ==, 13);
-				TEST_ENSURE_OP(closureMap[e], ==, 13);
-				TEST_ENSURE_OP(closureMap[f], ==, 4);
-				TEST_ENSURE_OP(closureMap[g], ==, 0);
+				REQUIRE(closureMap[a] == 18);
+				REQUIRE(closureMap[b] == 13);
+				REQUIRE(closureMap[c] == 18);
+				REQUIRE(closureMap[d] == 13);
+				REQUIRE(closureMap[e] == 13);
+				REQUIRE(closureMap[f] == 4);
+				REQUIRE(closureMap[g] == 0);
 			}
 
 		}
@@ -167,11 +159,11 @@ namespace
 			using Incidence_Iterator = Graph::Incidence_Iterator;
 
 			Graph relation;
-	
+
 			Set aSet;
 			aSet.insert(1);
 			Vertex_Iterator a = relation.insertVertex(aSet);
-	
+
 			Set bSet;
 			bSet.insert(5);
 			Vertex_Iterator b = relation.insertVertex(bSet);
@@ -187,7 +179,7 @@ namespace
 			Set eSet;
 			eSet.insert(6);
 			Vertex_Iterator e = relation.insertVertex(eSet);
-		
+
 			relation.insertEdge(a, a);
 			relation.insertEdge(b, b);
 			relation.insertEdge(c, c);
@@ -212,7 +204,7 @@ namespace
 				{
 					left.insert(that);
 				});
-		
+
 				return left;
 			};
 
@@ -260,17 +252,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("transitive_closure", "[transitive_closure]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("transitive_closure", test);
-	}
-
-	CallFunction run(addTest);
 
 }

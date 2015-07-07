@@ -1,25 +1,17 @@
 // Description: Testing for mod
 // DocumentationOf: mod.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/math/mod.h>
 #include <pastel/sys/math/powers.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testSignedMod();
@@ -33,7 +25,7 @@ namespace
 				integer k = 0;
 				for (integer j = -5 * i;j <= 5 * i;++j)
 				{
-					TEST_ENSURE_OP(mod(j, i), ==, k);
+					REQUIRE(mod(j, i) == k);
 					++k;
 					if (k == i)
 					{
@@ -48,7 +40,7 @@ namespace
 				integer k = 0;
 				for (integer j = -5 * i;j <= 5 * i;++j)
 				{
-					TEST_ENSURE_OP(modPowerOfTwo(j, n), ==, k);
+					REQUIRE(modPowerOfTwo(j, n) == k);
 					++k;
 					if (k == i)
 					{
@@ -66,7 +58,7 @@ namespace
 				uinteger k = 0;
 				for (uinteger j = 0;j <= 5 * i;++j)
 				{
-					TEST_ENSURE_OP(modPowerOfTwo(j, n), ==, k);
+					REQUIRE(modPowerOfTwo(j, n) == k);
 					++k;
 					if (k == i)
 					{
@@ -77,17 +69,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("mod", "[mod]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("mod", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,11 +1,9 @@
 // Description: Testing for IndexAllocator
 // DocumentationOf: indexallocator.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/indexallocator.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -77,21 +75,8 @@ namespace
 		a.reserve(200);
 	}
 
-	void test()
+	TEST_CASE("IndexAllocator", "[IndexAllocator]")
 	{
-		testReserve();
-		testSingle();
-		testMany();
-		testAll();
-		testTooMany();
-		testDeallocate();
 	}
-
-	void addTest()
-	{
-		testRunner().add("IndexAllocator", test);
-	}
-
-	CallFunction run(addTest);
 
 }

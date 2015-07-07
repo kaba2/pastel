@@ -1,7 +1,7 @@
 // Description: Testing for temporal kd-tree
 // DocumentationOf: tdtree.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/tdtree/tdtree.h"
 
@@ -17,20 +17,12 @@
 #include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/iterator/constant_iterator.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		using Point = Vector2;
 		using Locator = Vector_Locator<real, 2>;
 		using Tree = TdTree<TdTree_Settings<Locator>>;
@@ -49,10 +41,10 @@ namespace
 		void testConstruction()
 		{
 			Tree tree;
-			TEST_ENSURE(tree.simple());
+			REQUIRE(tree.simple());
 
 			tree.clear();
-			TEST_ENSURE(tree.simple());
+			REQUIRE(tree.simple());
 
 			tree.swap(Tree());
 		}
@@ -60,7 +52,7 @@ namespace
 		void testGrid()
 		{
 			Array<Point> pointSet(Vector2i(5, 5));
-			
+
 			forEachPoint(
 				AlignedBox2i(Point(0), Point(5)),
 				[&](const Point& point)
@@ -69,23 +61,23 @@ namespace
 			});
 
 			Tree tree(rangeSet(pointSet));
-			TEST_ENSURE(tree.simple());
+			REQUIRE(tree.simple());
 
-			TEST_ENSURE(tree.bound() == 
+			REQUIRE(tree.bound() == 
 				AlignedBox2(Vector2(0, 0), Vector2(4, 4)));
-				
-			TEST_ENSURE_OP(tree.timeToIndex(-infinity<real>()), ==, 0);
-			TEST_ENSURE_OP(tree.timeToIndex(-2), ==, 0);
-			TEST_ENSURE_OP(tree.timeToIndex(-1), ==, 0);
-			TEST_ENSURE_OP(tree.timeToIndex(-0.5), ==, 0);
-			TEST_ENSURE_OP(tree.timeToIndex(0), ==, 0);
-			TEST_ENSURE_OP(tree.timeToIndex(0.5), ==, 1);
-			TEST_ENSURE_OP(tree.timeToIndex(1), ==, 1);
-			TEST_ENSURE_OP(tree.timeToIndex(24), ==, 24);
-			TEST_ENSURE_OP(tree.timeToIndex(24.5), ==, 25);
-			TEST_ENSURE_OP(tree.timeToIndex(25.5), ==, 25);
-			TEST_ENSURE_OP(tree.timeToIndex(26), ==, 25);
-			TEST_ENSURE_OP(tree.timeToIndex(infinity<real>()), ==, 25);
+
+			REQUIRE(tree.timeToIndex(-infinity<real>()) == 0);
+			REQUIRE(tree.timeToIndex(-2) == 0);
+			REQUIRE(tree.timeToIndex(-1) == 0);
+			REQUIRE(tree.timeToIndex(-0.5) == 0);
+			REQUIRE(tree.timeToIndex(0) == 0);
+			REQUIRE(tree.timeToIndex(0.5) == 1);
+			REQUIRE(tree.timeToIndex(1) == 1);
+			REQUIRE(tree.timeToIndex(24) == 24);
+			REQUIRE(tree.timeToIndex(24.5) == 25);
+			REQUIRE(tree.timeToIndex(25.5) == 25);
+			REQUIRE(tree.timeToIndex(26) == 25);
+			REQUIRE(tree.timeToIndex(infinity<real>()) == 25);
 
 			std::unordered_set<ConstIterator, IteratorAddress_Hash> neighborSet;
 
@@ -104,8 +96,8 @@ namespace
 
 			auto pointSet_ = tree.pointSet();
 
-			TEST_ENSURE_OP(neighborSet.size(), ==, 5);
-			//TEST_ENSURE(neighborSet.count(pointSet(1, 3)) > 0);
+			REQUIRE(neighborSet.size() == 5);
+			//REQUIRE(neighborSet.count(pointSet(1, 3)) > 0);
 		}
 
 		void testGaussian()
@@ -116,9 +108,9 @@ namespace
 			using ConstIterator = Tree::ConstIterator;
 
 			using PointSet = std::vector<Point>;
-			
+
 			integer n = 1000;
-			
+
 			PointSet pointSet;
 			pointSet.reserve(n);
 
@@ -129,7 +121,7 @@ namespace
 				pointSet.emplace_back(
 					randomGaussianVector<real, 3>());
 			}
-			
+
 			Tree tree(rangeSet(pointSet));
 
 			integer k = 7;
@@ -156,11 +148,11 @@ namespace
 						PASTEL_TAG(kNearest), k
 					).first;
 
-				TEST_ENSURE_OP(kDistanceBrute, ==, kDistanceTree);
+				REQUIRE(kDistanceBrute == kDistanceTree);
 
 				for (integer j = 0; j < k; ++j)
 				{
-					TEST_ENSURE_OP(bruteSet[j].first, ==, treeSet[j].first);
+					REQUIRE(bruteSet[j].first == treeSet[j].first);
 					if (bruteSet[j].first != treeSet[j].first)
 					{
 						std::cout << bruteSet[j].first << " != " << treeSet[j].first << std::endl;
@@ -179,7 +171,7 @@ namespace
 			}
 
 			Tree tree(rangeSet(pointSet));
-			TEST_ENSURE(tree.simple());
+			REQUIRE(tree.simple());
 
 			for (integer i = 0; i < n; ++i)
 			{
@@ -190,7 +182,7 @@ namespace
 							tree, 
 							Point(0, 0), 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
-					TEST_ENSURE_OP(distance, ==, square(i));
+					REQUIRE(distance == square(i));
 				}
 				{
 					Vector2 timeInterval = { (real)0, (real)i + 1 };
@@ -199,7 +191,7 @@ namespace
 							tree, 
 							Point(0, 0), 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
-					TEST_ENSURE_OP(distance, ==, 0);
+					REQUIRE(distance == 0);
 				}
 				{
 					Vector2 timeInterval = { (real)i, (real)i + 1 };
@@ -208,7 +200,7 @@ namespace
 							tree, 
 							Point(0, 0),
 							PASTEL_TAG(intervalSequence), timeInterval).first;
-					TEST_ENSURE_OP(distance, ==, square(i));
+					REQUIRE(distance == square(i));
 				}
 			}
 
@@ -222,7 +214,7 @@ namespace
 							Point(i + 2, 0),
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 
-					TEST_ENSURE_OP((integer)distance, ==, square(2));
+					REQUIRE((integer)distance == square(2));
 				}
 
 				{
@@ -232,7 +224,7 @@ namespace
 							Point(i - 3, 0), 
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 
-					TEST_ENSURE_OP((integer)distance, ==, square(3));
+					REQUIRE((integer)distance == square(3));
 				}
 
 				{
@@ -243,7 +235,7 @@ namespace
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 					integer correct = i < (n - 5) ? square(1) : square(4);
 
-					TEST_ENSURE_OP((integer)distance, ==, correct);
+					REQUIRE((integer)distance == correct);
 				}
 
 				{
@@ -254,23 +246,14 @@ namespace
 							PASTEL_TAG(intervalSequence), timeInterval).first;
 					integer correct = i < (n - 5) ? square(2) : square(7);
 
-					TEST_ENSURE_OP((integer)distance, ==, correct);
+					REQUIRE((integer)distance == correct);
 				}
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("TdTree", "[TdTree]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("TdTree", test);
-	}
-
-	CallFunction run(addTest);
 
 }

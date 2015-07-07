@@ -1,25 +1,17 @@
 // Description: Testing for sphere volume
 // DocumentationOf: sphere_volume.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/volume/sphere_volume.h>
 #include <pastel/sys/math_functions.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testEuclidean();
@@ -108,14 +100,14 @@ namespace
 					real maxError = 8e-15;
 					real measured = lnVolumeUnitSphere<real>(n);
 					real error = relativeError<real>(measured, correct);
-					TEST_ENSURE_OP(error, <, maxError);
+					REQUIRE(error < maxError);
 				}
 
 				{
 					real maxError = 2e-14;
 					real measured = std::log(volumeUnitSphere<real>(n));
 					real error = relativeError<real>(measured, correct);
-					TEST_ENSURE_OP(error, <, maxError);
+					REQUIRE(error < maxError);
 				}
 			}
 		}
@@ -224,7 +216,7 @@ namespace
 					real maxError = 7e-15;
 					real measured = lnVolumeUnitSphereManhattan<real>(n);
 					real error = relativeError<real>(measured, correct);
-					TEST_ENSURE_OP(error, <, maxError);
+					REQUIRE(error < maxError);
 				}
 
 				{
@@ -233,24 +225,15 @@ namespace
 					if (measured > -infinity<real>())
 					{
 						real error = relativeError<real>(measured, correct);
-						TEST_ENSURE_OP(error, <, maxError);
+						REQUIRE(error < maxError);
 					}
 				}
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("sphere_volume", "[sphere_volume]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("sphere_volume", test);
-	}
-
-	CallFunction run(addTest);
 
 }

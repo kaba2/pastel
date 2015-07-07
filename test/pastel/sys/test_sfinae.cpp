@@ -1,11 +1,9 @@
 // Description: Testing for SFINAE
 // DocumentationOf: sfinae.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/sfinae.h>
-
-using namespace Pastel;
 
 namespace
 {
@@ -46,7 +44,7 @@ namespace
 		EnableIfC<N != 1, std::false_type> h();
 
 		// SFINAE in the parameter
-	
+
 		template <integer N>
 		std::true_type k(RequiresC<N == 1> = 0);
 
@@ -55,14 +53,8 @@ namespace
 	};
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testDefaultTemplateParameterValue();
@@ -108,7 +100,7 @@ namespace
 			integer N,
 			typename = RequiresC<N != 1>>
 		std::false_type g();
-		
+
 		void testDefaultTemplateParameterType()
 		{
 			PASTEL_STATIC_ASSERT(!decltype(g<0>())::value);
@@ -125,7 +117,7 @@ namespace
 
 		template <integer N>
 		EnableIfC<N != 1, std::false_type> h();
-		
+
 		void testReturnType()
 		{
 			// Visual Studio 2013: pass
@@ -210,17 +202,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("sfinae", "[sfinae]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("sfinae", test);
-	}
-
-	CallFunction run(addTest);
 
 }

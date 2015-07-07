@@ -1,7 +1,7 @@
 // Description: Testing for convolution
 // DocumentationOf: convolution.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/view/arrayview.h"
 
@@ -16,8 +16,6 @@
 #include "pastel/gfx/image_processing.h"
 #include "pastel/gfx/image_processing/packrange.h"
 #include "pastel/gfx/noise.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -81,13 +79,5 @@ namespace
 			arrayView(output),
 			fitColor);
 	}
-
-	void addTest()
-	{
-		testRunner().add("Convolution.2D", testConvolute2);
-		testRunner().add("Convolution.3D", testConvolute3);
-	}
-
-	CallFunction run(addTest);
 
 }

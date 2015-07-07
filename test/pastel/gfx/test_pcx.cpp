@@ -1,7 +1,7 @@
 // Description: Testing for PCX files
 // DocumentationOf: loadpcx.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/gfx/image_file/pcx.h"
 
@@ -9,8 +9,6 @@
 
 #include <iostream>
 #include <string>
-
-using namespace Pastel;
 
 namespace
 {
@@ -95,16 +93,8 @@ namespace
 		saveBinaryPcx(binaryImage, "pcx_1bit_output_1bit.pcx");
 	}
 
-	void test()
+	TEST_CASE("Pcx", "[Pcx]")
 	{
-		testPcx();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Pcx", test);
-	}
-
-	CallFunction run(addTest);
 
 }
