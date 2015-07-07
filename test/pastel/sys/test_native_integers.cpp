@@ -11,16 +11,6 @@ namespace
 {
 
 	template <typename Type>
-	void testMany()
-	{
-		PASTEL_CONCEPT_CHECK(Type, Finite_Integer_Concept);
-
-		testComparison<Type>();
-		testEvenOdd<Type>();
-		testIsPowerOfTwo<Type>();
-	}
-
-	template <typename Type>
 	void testComparison()
 	{
 		REQUIRE((negative((Type)-1) || std::is_unsigned<Type>::value));
@@ -106,6 +96,16 @@ namespace
 		REQUIRE(f(32));
 		REQUIRE(f(64));
 		REQUIRE(!f(127));
+	}
+
+	template <typename Type>
+	void testMany()
+	{
+		PASTEL_CONCEPT_CHECK(Type, Finite_Integer_Concept);
+
+		testComparison<Type>();
+		testEvenOdd<Type>();
+		testIsPowerOfTwo<Type>();
 	}
 
 }

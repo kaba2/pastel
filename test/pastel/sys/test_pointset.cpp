@@ -74,9 +74,9 @@ TEST_CASE("Array (pointset_concept)")
 
 	std::vector<Point> inputSet =
 	{
-		{1, 2},
-		{3, 4},
-		{5, 6}
+		{{1, 2}},
+		{{3, 4}},
+		{{5, 6}}
 	};
 	auto pointSet = rangeSet(inputSet);
 

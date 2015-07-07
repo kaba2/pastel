@@ -111,44 +111,6 @@ namespace Pastel
 		return that;
 	}
 
-	template <
-		typename Integer,
-		Requires<Models<Integer, Integer_Concept>>>
-	Integer divideAndRoundUp(
-		const Integer& divide, 
-		const Integer& byThis)
-	{
-		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
-
-		PENSURE(!zero(byThis));
-
-		if ((!negative(divide)) != (!negative(byThis)))
-		{
-			// If the signs differ, then the integer division
-			// computes ceil(a / b), which is what we want.
-			return divide / byThis;
-		}
-
-		if (!negative(divide))
-		{
-			// Both are non-negative, and the integer division
-			// computes floor(a / b). We use the formula
-			// ceil(a / b) = floor((a + (b - 1)) / b).
-			return (divide + byThis - 1) / byThis;
-		}
-
-		// Both are negative. Turn them positive,
-		// and do as above:
-		//
-		// ceil(a / b) = ceil((-a) / (-b))
-		//             = floor((-a + ((-b) - 1)) / (-b))
-		//             = floor((-a - b - 1) / (-b))
-		//             = floor(-(a + b + 1) / (-b))
-		//             = floor((a + b + 1) / b)
-
-		return (divide + byThis + 1) / byThis;
-	}
-
 }
 
 #endif

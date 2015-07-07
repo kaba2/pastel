@@ -113,35 +113,6 @@ namespace
 	using MultiMap = RedBlackTree<MultiMap_Settings, Map_Counting_Customization>;
 
 	template <typename Tree>
-	void testManyThings()
-	{
-		testConstruction<Tree>();
-		testIterator<Tree>();
-		testInsert<Tree>();
-		testErase<Tree>();
-		testRandom<Tree>();
-		testSplice<Tree>();
-		testFind<Tree>();
-		testLowerBound<Tree>();
-		testUpperBound<Tree>();
-		testJoin<Tree>();
-		testQuantile<Tree>();
-	}
-
-}
-
-TEST_CASE("VoidSet (RedBlackTree)")
-{
-	using Set = RedBlackTree_Set<void>;
-	Set tree;
-	REQUIRE(testInvariants(tree));
-	tree.insert(nullptr);
-}
-
-namespace
-{
-
-	template <typename Tree>
 	void testMapFilteredIterator()
 	{
 		using ConstIterator = typename Tree::ConstIterator;
@@ -389,367 +360,189 @@ namespace
 		}
 	}
 
-}
-
-TEST_CASE("Set (RedBlackTree)")
-{
+	template <typename Tree>
+	void testMultiLowerBound()
 	{
-		Set tree;
-		auto test = [&](integer that)
 		{
-			auto iterAndNew = tree.insert(that);
+			Tree tree;
+
+			auto test = [&](integer that, integer index)
+			{
+				integer actualIndex =
+					std::distance(tree.begin(), tree.lowerBound(that));
+
+				return actualIndex == index;
+			};
+
+			{
+				tree = { 2, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
+				REQUIRE(testInvariants(tree));
+
+				REQUIRE(test(0, 0));
+				REQUIRE(test(1, 0));
+				REQUIRE(test(2, 0));
+				REQUIRE(test(3, 1));
+				REQUIRE(test(4, 1));
+				REQUIRE(test(5, 3));
+				REQUIRE(test(6, 7));
+				REQUIRE(test(7, 7));
+				REQUIRE(test(8, 7));
+				REQUIRE(test(9, 7));
+				REQUIRE(test(10, 8));
+				REQUIRE(test(11, 8));
+				REQUIRE(test(12, 8));
+				REQUIRE(test(13, 8));
+				REQUIRE(test(14, 8));
+				REQUIRE(test(15, 8));
+				REQUIRE(test(16, 9));
+				REQUIRE(test(17, 9));
+				REQUIRE(test(18, 9));
+				REQUIRE(test(19, 9));
+				REQUIRE(test(20, 9));
+				REQUIRE(test(21, 10));
+				REQUIRE(test(22, 10));
+			}
+
+			{
+				tree = { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
+				REQUIRE(testInvariants(tree));
+
+				REQUIRE(test(0, 0));
+				REQUIRE(test(1, 0));
+				REQUIRE(test(2, 0));
+				REQUIRE(test(3, 0));
+				REQUIRE(test(4, 1));
+				REQUIRE(test(5, 2));
+				REQUIRE(test(6, 9));
+				REQUIRE(test(7, 10));
+				REQUIRE(test(8, 11));
+				REQUIRE(test(9, 11));
+			}
+		}
+	}
+
+	template <typename Tree>
+	void testConstruction()
+	{
+		{
+			Tree tree;
 			REQUIRE(testInvariants(tree));
-			REQUIRE(iterAndNew.second);
-			REQUIRE(*iterAndNew.first == that);
-			REQUIRE(tree.find(that) == iterAndNew.first);
-			REQUIRE(tree.lowerBound(that) == iterAndNew.first);
-			REQUIRE(tree.exists(that));
-		};
-
-		test(1);
-		REQUIRE(tree.size() == 1);
-
-		test(5);
-		REQUIRE(tree.size() == 2);
-
-		test(3);
-		REQUIRE(tree.size() == 3);
-
-		auto iterAndNew = tree.insert(1);
-		REQUIRE(!iterAndNew.second);
-		REQUIRE(*iterAndNew.first == 1);
-		REQUIRE(tree.size() == 3);
-	}
-	{
-		Set tree({ 4, 2, 1, 1, 1, 3 });
-		integer correctSet[] = { 1, 2, 3, 4 };
-		REQUIRE(tree.size() == 4);
-		REQUIRE(boost::equal(tree, correctSet));
-	}
-	{
-		Set tree;
-		tree = { 4, 2, 1, 1, 1, 3 };
-
-		integer correctSet[] = { 1, 2, 3, 4 };
-		REQUIRE(tree.size() == 4);
-		REQUIRE(boost::equal(tree, correctSet));
-	}
-}
-
-TEST_CASE("MultiSet (RedBlackTree)")
-{
-	using Tree = MultiSet;
-
-	{
-		Tree tree;
-
-		auto test = [&](integer that)
-		{
-			auto iter = tree.insert(that);
-			REQUIRE(testInvariants(tree));
-			REQUIRE(*iter == that);
-			REQUIRE(tree.find(that) == iter);
-			REQUIRE(tree.lowerBound(that) == iter);
-			REQUIRE(tree.exists(that));
-		};
-
-		test(1);
-		REQUIRE(tree.size() == 1);
-
-		test(5);
-		REQUIRE(tree.size() == 2);
-
-		test(3);
-		REQUIRE(tree.size() == 3);
-	}
-	{
-		Tree tree;
-
-		auto test = [&](integer that)
-		{
-			auto iter = tree.insert(that);
-			REQUIRE(testInvariants(tree));
-			REQUIRE(*iter == that);
-			REQUIRE(iter == std::prev(tree.cend()));
-		};
-
-		test(1);
-		REQUIRE(tree.size() == 1);
-
-		test(1);
-		REQUIRE(tree.size() == 2);
-
-		test(1);
-		REQUIRE(tree.size() == 3);
-
-		test(5);
-		REQUIRE(tree.size() == 4);
-
-		test(5);
-		REQUIRE(tree.size() == 5);
-
-		test(5);
-		REQUIRE(tree.size() == 6);
-	}
-	{
-		Tree aTree = { 1, 1, 2, 3, 4, 5, 5, 5 };
-		REQUIRE(testInvariants(aTree));
-		REQUIRE(aTree.size() == 8);
-
-		Tree bTree;
-		bTree.useBottomFrom(aTree);
-		bTree = { 5, 5, 6, 7, 7, 8 };
-		REQUIRE(testInvariants(bTree));
-		REQUIRE(bTree.size() == 6);
-
-		aTree.join(bTree);
-		REQUIRE(testInvariants(aTree));
-		REQUIRE(testInvariants(bTree));
-		REQUIRE(aTree.size() == 14);
-		REQUIRE(bTree.empty());
-
-		integer correctSet[] =
-			{ 1, 1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 7, 7, 8 };
-		REQUIRE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
-	}
-}
-
-template <typename Tree>
-void testMultiLowerBound()
-{
-	{
-		Tree tree;
-
-		auto test = [&](integer that, integer index)
-		{
-			integer actualIndex =
-				std::distance(tree.begin(), tree.lowerBound(that));
-
-			return actualIndex == index;
-		};
-
-		{
-			tree = { 2, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
-			REQUIRE(testInvariants(tree));
-
-			REQUIRE(test(0, 0));
-			REQUIRE(test(1, 0));
-			REQUIRE(test(2, 0));
-			REQUIRE(test(3, 1));
-			REQUIRE(test(4, 1));
-			REQUIRE(test(5, 3));
-			REQUIRE(test(6, 7));
-			REQUIRE(test(7, 7));
-			REQUIRE(test(8, 7));
-			REQUIRE(test(9, 7));
-			REQUIRE(test(10, 8));
-			REQUIRE(test(11, 8));
-			REQUIRE(test(12, 8));
-			REQUIRE(test(13, 8));
-			REQUIRE(test(14, 8));
-			REQUIRE(test(15, 8));
-			REQUIRE(test(16, 9));
-			REQUIRE(test(17, 9));
-			REQUIRE(test(18, 9));
-			REQUIRE(test(19, 9));
-			REQUIRE(test(20, 9));
-			REQUIRE(test(21, 10));
-			REQUIRE(test(22, 10));
+			REQUIRE(!tree.hasSeparateSentinels());
+			REQUIRE(!tree.sharesBottom());
+			REQUIRE(tree.sharesBottom(tree));
+			REQUIRE(tree.size() == 0);
+			REQUIRE(tree.empty());
 		}
 
 		{
-			tree = { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
-			REQUIRE(testInvariants(tree));
+			Tree tree({ 1, 2, 3, 4, 5, 6, 7 });
+			integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
 
-			REQUIRE(test(0, 0));
-			REQUIRE(test(1, 0));
-			REQUIRE(test(2, 0));
-			REQUIRE(test(3, 0));
-			REQUIRE(test(4, 1));
-			REQUIRE(test(5, 2));
-			REQUIRE(test(6, 9));
-			REQUIRE(test(7, 10));
-			REQUIRE(test(8, 11));
-			REQUIRE(test(9, 11));
+			REQUIRE(tree.extremum(false) == tree.cbegin());
+			REQUIRE(tree.extremum(false).key() == 1);
+			REQUIRE(tree.extremum(true) == tree.clast());
+			REQUIRE(tree.extremum(true).key() == 7);
+
+			REQUIRE(testInvariants(tree));
+			REQUIRE(!tree.hasSeparateSentinels());
+			REQUIRE(!tree.sharesBottom());
+			REQUIRE(tree.sharesBottom(tree));
+			REQUIRE(tree.size() == 7);
+			REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+		}
+		{
+			Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
+			integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
+
+			Tree copy(tree);
+			REQUIRE(testInvariants(copy));
+			REQUIRE(copy.hasSeparateSentinels());
+			REQUIRE(copy.sharesBottom());
+			REQUIRE(copy.sharesBottom(copy));
+			REQUIRE(copy.sharesBottom(tree));
+			REQUIRE(copy.size() == 7);
+			REQUIRE(boost::equal(copy.crange().dereferenceKey(), correctSet));
+
+			REQUIRE(testInvariants(tree));
+			REQUIRE(!tree.hasSeparateSentinels());
+			REQUIRE(tree.sharesBottom());
+			REQUIRE(tree.sharesBottom(tree));
+			REQUIRE(tree.sharesBottom(copy));
+			REQUIRE(tree.size() == 7);
+			REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+		}
+		{
+			Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
+			integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
+
+			Tree copy{ 11, 12, 13, 14, 15, 16, 17 };
+			copy = tree;
+			REQUIRE(testInvariants(copy));
+			REQUIRE(!copy.hasSeparateSentinels());
+			REQUIRE(!copy.sharesBottom());
+			REQUIRE(copy.sharesBottom(copy));
+			REQUIRE(!copy.sharesBottom(tree));
+			REQUIRE(copy.size() == 7);
+			REQUIRE(boost::equal(copy.crange().dereferenceKey(), correctSet));
+
+			REQUIRE(testInvariants(tree));
+			REQUIRE(!tree.hasSeparateSentinels());
+			REQUIRE(!tree.sharesBottom());
+			REQUIRE(tree.sharesBottom(tree));
+			REQUIRE(!tree.sharesBottom(copy));
+			REQUIRE(tree.size() == 7);
+			REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+		}
+		{
+			Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
+			integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
+
+			Tree moved(std::move(tree));
+			REQUIRE(testInvariants(moved));
+			REQUIRE(moved.hasSeparateSentinels());
+			REQUIRE(moved.sharesBottom());
+			REQUIRE(moved.sharesBottom(moved));
+			REQUIRE(moved.sharesBottom(tree));
+			REQUIRE(moved.size() == 7);
+			REQUIRE(boost::equal(moved.crange().dereferenceKey(), correctSet));
+
+			REQUIRE(testInvariants(tree));
+			REQUIRE(!tree.hasSeparateSentinels());
+			REQUIRE(tree.sharesBottom());
+			REQUIRE(tree.sharesBottom(tree));
+			REQUIRE(tree.sharesBottom(moved));
+			REQUIRE(tree.size() == 0);
+			REQUIRE(tree.empty());
+		}
+		{
+			Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
+			integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
+			Tree moved{ 11, 12, 13, 14, 15, 16, 17 };
+			moved = std::move(tree);
+			REQUIRE(testInvariants(moved));
+			REQUIRE(moved.hasSeparateSentinels());
+			REQUIRE(moved.sharesBottom());
+			REQUIRE(moved.sharesBottom(moved));
+			REQUIRE(moved.sharesBottom(tree));
+			REQUIRE(moved.size() == 7);
+			REQUIRE(boost::equal(moved.crange().dereferenceKey(), correctSet));
+
+			REQUIRE(testInvariants(tree));
+			REQUIRE(!tree.hasSeparateSentinels());
+			REQUIRE(tree.sharesBottom());
+			REQUIRE(tree.sharesBottom(tree));
+			REQUIRE(tree.sharesBottom(moved));
+			REQUIRE(tree.size() == 0);
+			REQUIRE(tree.empty());
+		}
+		{
+			Tree tree;
+			Tree copy(tree);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(testInvariants(copy));
 		}
 	}
-}
 
-TEST_CASE("Map (RedBlackTree)")
-{
-	using Tree = Map;
-
-	{
-		Tree tree{ { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
-		REQUIRE(testInvariants(tree));
-		REQUIRE(tree.size() == 7);
-
-		integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
-		REQUIRE(boost::equal(tree.crange().dereferenceKey(), keySet));
-
-		integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-		REQUIRE(boost::equal(tree.crange().dereferenceData(), dataSet));
-
-		REQUIRE(*tree.begin().dereferenceKey() == 1);
-		REQUIRE(*tree.begin().dereferenceData() == 1);
-		REQUIRE(*std::next(tree.begin().dereferenceKey()) == 2);
-		REQUIRE(*std::next(tree.begin().dereferenceData()) == 4);
-	}
-	{
-		Map tree;
-		auto a = tree.insert(5).first;
-
-		*a = 4;
-		REQUIRE(*a == 4);
-
-		auto b = tree.insert(1, *a).first;
-		REQUIRE(*b == 4);
-
-	}
-}
-
-TEST_CASE("MultiMap (RedBlackTree)")
-{
-	using Tree = MultiMap;
-
-	{
-		Tree tree { { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
-		REQUIRE(testInvariants(tree));
-		REQUIRE(tree.size() == 7);
-
-		integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
-		REQUIRE(boost::equal(tree.crange().dereferenceKey(), keySet));
-
-		integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-		REQUIRE(boost::equal(tree.crange().dereferenceData(), dataSet));
-	}
-}
-
-template <typename Tree>
-void testConstruction()
-{
-	{
-		Tree tree;
-		REQUIRE(testInvariants(tree));
-		REQUIRE(!tree.hasSeparateSentinels());
-		REQUIRE(!tree.sharesBottom());
-		REQUIRE(tree.sharesBottom(tree));
-		REQUIRE(tree.size() == 0);
-		REQUIRE(tree.empty());
-	}
-
-	{
-		Tree tree({ 1, 2, 3, 4, 5, 6, 7 });
-		integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
-
-		REQUIRE(tree.extremum(false) == tree.cbegin());
-		REQUIRE(tree.extremum(false).key() == 1);
-		REQUIRE(tree.extremum(true) == tree.clast());
-		REQUIRE(tree.extremum(true).key() == 7);
-
-		REQUIRE(testInvariants(tree));
-		REQUIRE(!tree.hasSeparateSentinels());
-		REQUIRE(!tree.sharesBottom());
-		REQUIRE(tree.sharesBottom(tree));
-		REQUIRE(tree.size() == 7);
-		REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-	}
-	{
-		Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
-		integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
-
-		Tree copy(tree);
-		REQUIRE(testInvariants(copy));
-		REQUIRE(copy.hasSeparateSentinels());
-		REQUIRE(copy.sharesBottom());
-		REQUIRE(copy.sharesBottom(copy));
-		REQUIRE(copy.sharesBottom(tree));
-		REQUIRE(copy.size() == 7);
-		REQUIRE(boost::equal(copy.crange().dereferenceKey(), correctSet));
-
-		REQUIRE(testInvariants(tree));
-		REQUIRE(!tree.hasSeparateSentinels());
-		REQUIRE(tree.sharesBottom());
-		REQUIRE(tree.sharesBottom(tree));
-		REQUIRE(tree.sharesBottom(copy));
-		REQUIRE(tree.size() == 7);
-		REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-	}
-	{
-		Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
-		integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
-
-		Tree copy{ 11, 12, 13, 14, 15, 16, 17 };
-		copy = tree;
-		REQUIRE(testInvariants(copy));
-		REQUIRE(!copy.hasSeparateSentinels());
-		REQUIRE(!copy.sharesBottom());
-		REQUIRE(copy.sharesBottom(copy));
-		REQUIRE(!copy.sharesBottom(tree));
-		REQUIRE(copy.size() == 7);
-		REQUIRE(boost::equal(copy.crange().dereferenceKey(), correctSet));
-
-		REQUIRE(testInvariants(tree));
-		REQUIRE(!tree.hasSeparateSentinels());
-		REQUIRE(!tree.sharesBottom());
-		REQUIRE(tree.sharesBottom(tree));
-		REQUIRE(!tree.sharesBottom(copy));
-		REQUIRE(tree.size() == 7);
-		REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-	}
-	{
-		Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
-		integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
-
-		Tree moved(std::move(tree));
-		REQUIRE(testInvariants(moved));
-		REQUIRE(moved.hasSeparateSentinels());
-		REQUIRE(moved.sharesBottom());
-		REQUIRE(moved.sharesBottom(moved));
-		REQUIRE(moved.sharesBottom(tree));
-		REQUIRE(moved.size() == 7);
-		REQUIRE(boost::equal(moved.crange().dereferenceKey(), correctSet));
-
-		REQUIRE(testInvariants(tree));
-		REQUIRE(!tree.hasSeparateSentinels());
-		REQUIRE(tree.sharesBottom());
-		REQUIRE(tree.sharesBottom(tree));
-		REQUIRE(tree.sharesBottom(moved));
-		REQUIRE(tree.size() == 0);
-		REQUIRE(tree.empty());
-	}
-	{
-		Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
-		integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
-		Tree moved{ 11, 12, 13, 14, 15, 16, 17 };
-		moved = std::move(tree);
-		REQUIRE(testInvariants(moved));
-		REQUIRE(moved.hasSeparateSentinels());
-		REQUIRE(moved.sharesBottom());
-		REQUIRE(moved.sharesBottom(moved));
-		REQUIRE(moved.sharesBottom(tree));
-		REQUIRE(moved.size() == 7);
-		REQUIRE(boost::equal(moved.crange().dereferenceKey(), correctSet));
-
-		REQUIRE(testInvariants(tree));
-		REQUIRE(!tree.hasSeparateSentinels());
-		REQUIRE(tree.sharesBottom());
-		REQUIRE(tree.sharesBottom(tree));
-		REQUIRE(tree.sharesBottom(moved));
-		REQUIRE(tree.size() == 0);
-		REQUIRE(tree.empty());
-	}
-	{
-		Tree tree;
-		Tree copy(tree);
-		REQUIRE(testInvariants(tree));
-		REQUIRE(testInvariants(copy));
-	}
-}
-
-namespace
-{
-		
 	template <typename Tree>
 	void testIterator()
 	{
@@ -1325,6 +1118,265 @@ namespace
 		}
 	}
 
+	template <typename Tree>
+	void testQuantile()
+	{
+		Tree tree {0, 1, 2, 3, 4};
+
+		using ConstIterator = typename Tree::ConstIterator;
+
+		auto test = [&](real alpha, integer correct)
+		{
+			ConstIterator q = quantile(tree, alpha);
+			return q != tree.cend() && 
+				q.key() == correct;
+		};
+
+		REQUIRE(test(-0.10, 0));
+		REQUIRE(test(0.00, 0));
+		REQUIRE(test(0.10, 0));
+		REQUIRE(test(0.19, 0));
+		REQUIRE(test(0.20, 1));
+		REQUIRE(test(0.29, 1));
+		REQUIRE(test(0.30, 1));
+		REQUIRE(test(0.39, 1));
+		REQUIRE(test(0.40, 2));
+		REQUIRE(test(0.49, 2));
+		REQUIRE(test(0.50, 2));
+		REQUIRE(test(0.59, 2));
+		REQUIRE(test(0.60, 3));
+		REQUIRE(test(0.69, 3));
+		REQUIRE(test(0.70, 3));
+		REQUIRE(test(0.79, 3));
+		REQUIRE(test(0.80, 4));
+		REQUIRE(test(0.89, 4));
+		REQUIRE(test(0.90, 4));
+		REQUIRE(test(0.99, 4));
+		REQUIRE(test(1.00, 4));
+		REQUIRE(test(1.09, 4));
+		REQUIRE(test(1.10, 4));
+		REQUIRE(test(1.19, 4));
+	}
+
+	template <typename Tree>
+	void testMultiCount()
+	{
+		Tree tree = { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
+
+		auto test = [&](integer key, integer count)
+		{
+			return tree.count(key) == count;
+		};
+
+		REQUIRE(test(0, 0));
+		REQUIRE(test(1, 0));
+		REQUIRE(test(2, 0));
+		REQUIRE(test(3, 1));
+		REQUIRE(test(4, 1));
+		REQUIRE(test(5, 7));
+		REQUIRE(test(6, 1));
+		REQUIRE(test(7, 1));
+		REQUIRE(test(8, 0));
+		REQUIRE(test(9, 0));
+	}
+
+	template <typename Tree>
+	void testManyThings()
+	{
+		testConstruction<Tree>();
+		testIterator<Tree>();
+		testInsert<Tree>();
+		testErase<Tree>();
+		testRandom<Tree>();
+		testSplice<Tree>();
+		testFind<Tree>();
+		testLowerBound<Tree>();
+		testUpperBound<Tree>();
+		testJoin<Tree>();
+		testQuantile<Tree>();
+	}
+
+}
+
+TEST_CASE("VoidSet (RedBlackTree)")
+{
+	using Set = RedBlackTree_Set<void>;
+	Set tree;
+	REQUIRE(testInvariants(tree));
+	tree.insert(nullptr);
+}
+
+TEST_CASE("Set (RedBlackTree)")
+{
+	{
+		Set tree;
+		auto test = [&](integer that)
+		{
+			auto iterAndNew = tree.insert(that);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(iterAndNew.second);
+			REQUIRE(*iterAndNew.first == that);
+			REQUIRE(tree.find(that) == iterAndNew.first);
+			REQUIRE(tree.lowerBound(that) == iterAndNew.first);
+			REQUIRE(tree.exists(that));
+		};
+
+		test(1);
+		REQUIRE(tree.size() == 1);
+
+		test(5);
+		REQUIRE(tree.size() == 2);
+
+		test(3);
+		REQUIRE(tree.size() == 3);
+
+		auto iterAndNew = tree.insert(1);
+		REQUIRE(!iterAndNew.second);
+		REQUIRE(*iterAndNew.first == 1);
+		REQUIRE(tree.size() == 3);
+	}
+	{
+		Set tree({ 4, 2, 1, 1, 1, 3 });
+		integer correctSet[] = { 1, 2, 3, 4 };
+		REQUIRE(tree.size() == 4);
+		REQUIRE(boost::equal(tree, correctSet));
+	}
+	{
+		Set tree;
+		tree = { 4, 2, 1, 1, 1, 3 };
+
+		integer correctSet[] = { 1, 2, 3, 4 };
+		REQUIRE(tree.size() == 4);
+		REQUIRE(boost::equal(tree, correctSet));
+	}
+}
+
+TEST_CASE("MultiSet (RedBlackTree)")
+{
+	using Tree = MultiSet;
+
+	{
+		Tree tree;
+
+		auto test = [&](integer that)
+		{
+			auto iter = tree.insert(that);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(*iter == that);
+			REQUIRE(tree.find(that) == iter);
+			REQUIRE(tree.lowerBound(that) == iter);
+			REQUIRE(tree.exists(that));
+		};
+
+		test(1);
+		REQUIRE(tree.size() == 1);
+
+		test(5);
+		REQUIRE(tree.size() == 2);
+
+		test(3);
+		REQUIRE(tree.size() == 3);
+	}
+	{
+		Tree tree;
+
+		auto test = [&](integer that)
+		{
+			auto iter = tree.insert(that);
+			REQUIRE(testInvariants(tree));
+			REQUIRE(*iter == that);
+			REQUIRE(iter == std::prev(tree.cend()));
+		};
+
+		test(1);
+		REQUIRE(tree.size() == 1);
+
+		test(1);
+		REQUIRE(tree.size() == 2);
+
+		test(1);
+		REQUIRE(tree.size() == 3);
+
+		test(5);
+		REQUIRE(tree.size() == 4);
+
+		test(5);
+		REQUIRE(tree.size() == 5);
+
+		test(5);
+		REQUIRE(tree.size() == 6);
+	}
+	{
+		Tree aTree = { 1, 1, 2, 3, 4, 5, 5, 5 };
+		REQUIRE(testInvariants(aTree));
+		REQUIRE(aTree.size() == 8);
+
+		Tree bTree;
+		bTree.useBottomFrom(aTree);
+		bTree = { 5, 5, 6, 7, 7, 8 };
+		REQUIRE(testInvariants(bTree));
+		REQUIRE(bTree.size() == 6);
+
+		aTree.join(bTree);
+		REQUIRE(testInvariants(aTree));
+		REQUIRE(testInvariants(bTree));
+		REQUIRE(aTree.size() == 14);
+		REQUIRE(bTree.empty());
+
+		integer correctSet[] =
+			{ 1, 1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 7, 7, 8 };
+		REQUIRE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
+	}
+}
+
+TEST_CASE("Map (RedBlackTree)")
+{
+	using Tree = Map;
+
+	{
+		Tree tree{ { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
+		REQUIRE(testInvariants(tree));
+		REQUIRE(tree.size() == 7);
+
+		integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
+		REQUIRE(boost::equal(tree.crange().dereferenceKey(), keySet));
+
+		integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
+		REQUIRE(boost::equal(tree.crange().dereferenceData(), dataSet));
+
+		REQUIRE(*tree.begin().dereferenceKey() == 1);
+		REQUIRE(*tree.begin().dereferenceData() == 1);
+		REQUIRE(*std::next(tree.begin().dereferenceKey()) == 2);
+		REQUIRE(*std::next(tree.begin().dereferenceData()) == 4);
+	}
+	{
+		Map tree;
+		auto a = tree.insert(5).first;
+
+		*a = 4;
+		REQUIRE(*a == 4);
+
+		auto b = tree.insert(1, *a).first;
+		REQUIRE(*b == 4);
+
+	}
+}
+
+TEST_CASE("MultiMap (RedBlackTree)")
+{
+	using Tree = MultiMap;
+
+	{
+		Tree tree { { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
+		REQUIRE(testInvariants(tree));
+		REQUIRE(tree.size() == 7);
+
+		integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
+		REQUIRE(boost::equal(tree.crange().dereferenceKey(), keySet));
+
+		integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
+		REQUIRE(boost::equal(tree.crange().dereferenceData(), dataSet));
+	}
 }
 
 TEST_CASE("MultiSplit (RedBlackTree)")
@@ -1482,73 +1534,6 @@ TEST_CASE("MultiJoin (RedBlackTree)")
 			}
 		}
 	}
-}
-
-namespace
-{
-		
-	template <typename Tree>
-	void testQuantile()
-	{
-		Tree tree {0, 1, 2, 3, 4};
-
-		using ConstIterator = typename Tree::ConstIterator;
-
-		auto test = [&](real alpha, integer correct)
-		{
-			ConstIterator q = quantile(tree, alpha);
-			return q != tree.cend() && 
-				q.key() == correct;
-		};
-
-		REQUIRE(test(-0.10, 0));
-		REQUIRE(test(0.00, 0));
-		REQUIRE(test(0.10, 0));
-		REQUIRE(test(0.19, 0));
-		REQUIRE(test(0.20, 1));
-		REQUIRE(test(0.29, 1));
-		REQUIRE(test(0.30, 1));
-		REQUIRE(test(0.39, 1));
-		REQUIRE(test(0.40, 2));
-		REQUIRE(test(0.49, 2));
-		REQUIRE(test(0.50, 2));
-		REQUIRE(test(0.59, 2));
-		REQUIRE(test(0.60, 3));
-		REQUIRE(test(0.69, 3));
-		REQUIRE(test(0.70, 3));
-		REQUIRE(test(0.79, 3));
-		REQUIRE(test(0.80, 4));
-		REQUIRE(test(0.89, 4));
-		REQUIRE(test(0.90, 4));
-		REQUIRE(test(0.99, 4));
-		REQUIRE(test(1.00, 4));
-		REQUIRE(test(1.09, 4));
-		REQUIRE(test(1.10, 4));
-		REQUIRE(test(1.19, 4));
-	}
-
-	template <typename Tree>
-	void testMultiCount()
-	{
-		Tree tree = { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
-
-		auto test = [&](integer key, integer count)
-		{
-			return tree.count(key) == count;
-		};
-
-		REQUIRE(test(0, 0));
-		REQUIRE(test(1, 0));
-		REQUIRE(test(2, 0));
-		REQUIRE(test(3, 1));
-		REQUIRE(test(4, 1));
-		REQUIRE(test(5, 7));
-		REQUIRE(test(6, 1));
-		REQUIRE(test(7, 1));
-		REQUIRE(test(8, 0));
-		REQUIRE(test(9, 0));
-	}
-
 }
 
 TEST_CASE("RedBlackTree (RedBlackTree)")
