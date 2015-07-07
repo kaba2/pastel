@@ -16,113 +16,97 @@ namespace
 
 	using Real = Rational<integer>;
 
-	class Test
+}
+
+TEST_CASE("Same (contains_alignedbox_alignedbox)")
+{
+	AlignedBox<Real, 2> aBox(0, 0, 1, 1);
+	AlignedBox<Real, 2> bBox(0, 0, 1, 1);
+
+	REQUIRE(contains(aBox, bBox));
+	REQUIRE(contains(bBox, aBox));
+
+	aBox.maxTopology().set(Topology::Closed);
+	REQUIRE(contains(aBox, bBox));
+	REQUIRE(!contains(bBox, aBox));
+}
+
+TEST_CASE("Easy (contains_alignedbox_alignedbox)")
+{
+	AlignedBox<Real, 2> aBox(0, 0, 3, 3);
+	AlignedBox<Real, 2> bBox(1, 1, 2, 2);
+
+	REQUIRE(contains(aBox, bBox));
+	REQUIRE(!contains(bBox, aBox));
+}
+
+TEST_CASE("Empty (contains_alignedbox_alignedbox)")
+{
 	{
-	public:
-		virtual void run()
-		{
-			testEasy();
-			testEmpty();
-			testSame();
-			testPartial();
-		}
+		AlignedBox<Real, 2> aBox(0, 0, 2, 2);
+		AlignedBox<Real, 2> bBox(1, 1, 1, 1);
 
-		void testSame()
-		{
-			AlignedBox<Real, 2> aBox(0, 0, 1, 1);
-			AlignedBox<Real, 2> bBox(0, 0, 1, 1);
-
-			REQUIRE(contains(aBox, bBox));
-			REQUIRE(contains(bBox, aBox));
-
-			aBox.maxTopology().set(Topology::Closed);
-			REQUIRE(contains(aBox, bBox));
-			REQUIRE(!contains(bBox, aBox));
-		}
-
-		void testEasy()
-		{
-			AlignedBox<Real, 2> aBox(0, 0, 3, 3);
-			AlignedBox<Real, 2> bBox(1, 1, 2, 2);
-
-			REQUIRE(contains(aBox, bBox));
-			REQUIRE(!contains(bBox, aBox));
-		}
-
-		void testEmpty()
-		{
-			{
-				AlignedBox<Real, 2> aBox(0, 0, 2, 2);
-				AlignedBox<Real, 2> bBox(1, 1, 1, 1);
-
-				REQUIRE(contains(aBox, bBox));
-				REQUIRE(!contains(bBox, aBox));
-			}
-			{
-				AlignedBox<Real, 2> aBox(0, 0, 2, 2);
-				AlignedBox<Real, 2> bBox(-1, -3, -1, -3);
-
-				REQUIRE(contains(aBox, bBox));
-				REQUIRE(!contains(bBox, aBox));
-			}
-			{
-				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
-				AlignedBox<Real, 2> bBox(1, 1, -1, 2);
-
-				REQUIRE(contains(aBox, bBox));
-				REQUIRE(!contains(bBox, aBox));
-			}
-			{
-				AlignedBox<Real, 2> aBox(0, 0, 0, 0);
-				AlignedBox<Real, 2> bBox(0, 0, 0, 0);
-
-				REQUIRE(contains(aBox, bBox));
-				REQUIRE(contains(bBox, aBox));
-			}
-			{
-				AlignedBox<Real, 2> aBox(0, 0, 0, 0);
-				AlignedBox<Real, 2> bBox(1, 1, 1, 1);
-
-				REQUIRE(contains(aBox, bBox));
-				REQUIRE(contains(bBox, aBox));
-			}
-		}
-
-		void testPartial()
-		{
-			{
-				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
-				AlignedBox<Real, 2> bBox(1, 1, 4, 2);
-
-				REQUIRE(!contains(aBox, bBox));
-				REQUIRE(!contains(bBox, aBox));
-			}
-			{
-				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
-				AlignedBox<Real, 2> bBox(-1, 1, 2, 2);
-
-				REQUIRE(!contains(aBox, bBox));
-				REQUIRE(!contains(bBox, aBox));
-			}
-			{
-				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
-				AlignedBox<Real, 2> bBox(1, 1, 2, 4);
-
-				REQUIRE(!contains(aBox, bBox));
-				REQUIRE(!contains(bBox, aBox));
-			}
-			{
-				AlignedBox<Real, 2> aBox(0, 0, 3, 3);
-				AlignedBox<Real, 2> bBox(1, -1, 2, 2);
-
-				REQUIRE(!contains(aBox, bBox));
-				REQUIRE(!contains(bBox, aBox));
-			}
-		}
-	};
-
-	TEST_CASE("contains_alignedbox_alignedbox", "[contains_alignedbox_alignedbox]")
-	{
+		REQUIRE(contains(aBox, bBox));
+		REQUIRE(!contains(bBox, aBox));
 	}
+	{
+		AlignedBox<Real, 2> aBox(0, 0, 2, 2);
+		AlignedBox<Real, 2> bBox(-1, -3, -1, -3);
 
+		REQUIRE(contains(aBox, bBox));
+		REQUIRE(!contains(bBox, aBox));
+	}
+	{
+		AlignedBox<Real, 2> aBox(0, 0, 3, 3);
+		AlignedBox<Real, 2> bBox(1, 1, -1, 2);
+
+		REQUIRE(contains(aBox, bBox));
+		REQUIRE(!contains(bBox, aBox));
+	}
+	{
+		AlignedBox<Real, 2> aBox(0, 0, 0, 0);
+		AlignedBox<Real, 2> bBox(0, 0, 0, 0);
+
+		REQUIRE(contains(aBox, bBox));
+		REQUIRE(contains(bBox, aBox));
+	}
+	{
+		AlignedBox<Real, 2> aBox(0, 0, 0, 0);
+		AlignedBox<Real, 2> bBox(1, 1, 1, 1);
+
+		REQUIRE(contains(aBox, bBox));
+		REQUIRE(contains(bBox, aBox));
+	}
+}
+
+TEST_CASE("Partial (contains_alignedbox_alignedbox)")
+{
+	{
+		AlignedBox<Real, 2> aBox(0, 0, 3, 3);
+		AlignedBox<Real, 2> bBox(1, 1, 4, 2);
+
+		REQUIRE(!contains(aBox, bBox));
+		REQUIRE(!contains(bBox, aBox));
+	}
+	{
+		AlignedBox<Real, 2> aBox(0, 0, 3, 3);
+		AlignedBox<Real, 2> bBox(-1, 1, 2, 2);
+
+		REQUIRE(!contains(aBox, bBox));
+		REQUIRE(!contains(bBox, aBox));
+	}
+	{
+		AlignedBox<Real, 2> aBox(0, 0, 3, 3);
+		AlignedBox<Real, 2> bBox(1, 1, 2, 4);
+
+		REQUIRE(!contains(aBox, bBox));
+		REQUIRE(!contains(bBox, aBox));
+	}
+	{
+		AlignedBox<Real, 2> aBox(0, 0, 3, 3);
+		AlignedBox<Real, 2> bBox(1, -1, 2, 2);
+
+		REQUIRE(!contains(aBox, bBox));
+		REQUIRE(!contains(bBox, aBox));
+	}
 }

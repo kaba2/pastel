@@ -12,64 +12,46 @@
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/set.h"
 
-namespace
+TEST_CASE("NoiselessSimilarity (LeastSquares)")
 {
-
-	class Test
+	for (integer points = 0;points < 1000;++points)
 	{
-	public:
-		virtual void run()
+		std::vector<Vector2> from;
+		from.reserve(points);
+		std::vector<Vector2> to;
+		to.reserve(points);
+
+		real scale = random<real>() * 0.9 + 0.1;
+		real angle = random<real>() * 2 * constantPi<real>();
+		Vector2 translation(random<real>() * 2 - 1, random<real>() * 2 - 1);
+
+		if (points <= 1)
 		{
-			testNoiselessSimilarity();
+			scale = 1;
+			angle = 0;
 		}
 
-		void testNoiselessSimilarity()
+		if (points == 0)
 		{
-			for (integer points = 0;points < 1000;++points)
-			{
-				std::vector<Vector2> from;
-				from.reserve(points);
-				std::vector<Vector2> to;
-				to.reserve(points);
-
-				real scale = random<real>() * 0.9 + 0.1;
-				real angle = random<real>() * 2 * constantPi<real>();
-				Vector2 translation(random<real>() * 2 - 1, random<real>() * 2 - 1);
-
-				if (points <= 1)
-				{
-					scale = 1;
-					angle = 0;
-				}
-
-				if (points == 0)
-				{
-					translation = 0;
-				}
-
-				ConformalAffine2D<real> transformation(scale, angle, translation);
-
-				for (integer j = 0;j < points;++j)
-				{
-					Vector2 fromPoint = randomVectorSphere<real, 2>();
-					from.push_back(fromPoint);
-
-					Vector2 toPoint = transformPoint(transformation, fromPoint);
-					to.push_back(toPoint);
-				}
-
-				ConformalAffine2D<real> similarity =
-					lsConformalAffine(rangeSet(from), rangeSet(to));
-
-				REQUIRE(absoluteError<real>(similarity.scaling(), scale) <= 0.001);
-				REQUIRE(absoluteError<real>(similarity.rotation(), angle) <= 0.001);
-				REQUIRE(norm(similarity.translation() - translation) <= 0.001);
-			}
+			translation = 0;
 		}
-	};
 
-	TEST_CASE("LeastSquares", "[LeastSquares]")
-	{
+		ConformalAffine2D<real> transformation(scale, angle, translation);
+
+		for (integer j = 0;j < points;++j)
+		{
+			Vector2 fromPoint = randomVectorSphere<real, 2>();
+			from.push_back(fromPoint);
+
+			Vector2 toPoint = transformPoint(transformation, fromPoint);
+			to.push_back(toPoint);
+		}
+
+		ConformalAffine2D<real> similarity =
+			lsConformalAffine(rangeSet(from), rangeSet(to));
+
+		REQUIRE(absoluteError<real>(similarity.scaling(), scale) <= 0.001);
+		REQUIRE(absoluteError<real>(similarity.rotation(), angle) <= 0.001);
+		REQUIRE(norm(similarity.translation() - translation) <= 0.001);
 	}
-
 }
