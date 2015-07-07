@@ -103,7 +103,6 @@ namespace Pastel
 				real weight =
 					filter->evaluateInRange(xLocalFilter);
 
-
 				if (i >= introEnd && i < mainEnd)
 				{
 					result += weight * inputSet[i];
@@ -161,7 +160,6 @@ namespace Pastel
 			return;
 		}
 
-
 		/*
 		if (outputWidth == inputWidth)
 		{
@@ -174,7 +172,6 @@ namespace Pastel
 
 		const real filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);
 		real invFilterFactor = inverse(filterFactor);
-
 
 		const real filterRadius = filter->radius() * filterFactor;
 
@@ -212,7 +209,6 @@ namespace Pastel
 			{
 				real weight =
 					filter->evaluateInRange(xLocalFilter);
-				
 
 				result += weight *
 					arrayExtender(input, i);
@@ -276,7 +272,6 @@ namespace Pastel
 			{
 				real weight =
 					filter->evaluateInRange(xLocalFilter);
-				
 
 				result += weight *
 					arrayExtender(input, i);
@@ -352,7 +347,6 @@ namespace Pastel
 				, axis_(id)
 			{
 			}
-
 
 			bool operator<(const AxisValue& that) const
 			{

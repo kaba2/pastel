@@ -99,7 +99,6 @@ namespace Pastel
 
 		Vector<Real, N> invVoxelDelta = Vector<Real, N>(extent) / windowDelta;
 
-
 		//const Vector<integer, N> voxels = ceil(windowDelta * invDiagonal);
 
 		Array<Vector<Real, N>, N> grid(extent + 1, Vector<Real, N>(infinity<Real>()));
@@ -146,7 +145,6 @@ namespace Pastel
 			do
 			{
 				foundNewPoint = false;
-
 
 				for (integer i = 0;i < maxRejections && !foundNewPoint;++i)
 				{

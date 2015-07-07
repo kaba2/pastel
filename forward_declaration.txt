@@ -15,7 +15,6 @@ A forward-declaration type (file) is written so that it only references other fo
 Example
 -------
 
-
 [[CppCode]]:
 	#include "pastel/sys/list/list_fwd.h"	
 
@@ -29,7 +28,6 @@ Example
 		using Element_Iterator = typename List_Fwd::Iterator;
 		using Element_ConstIterator = typename List_Fwd::ConstIterator;
 	};
-
 
 [[Comment]]:
 	We wish to build a data-structure which consists of a [doubly-linked list][List], and a [red-black tree][RedBlack], such that the elements of the list and the tree are in one-to-one correspondence by iterators. That is, an element of the list contains an iterator to an element of the tree, and an element of the tree contains an iterators to an element of the list.

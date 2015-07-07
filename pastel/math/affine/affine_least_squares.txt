@@ -33,7 +33,3 @@ the solution is given by
 	A = (PR^T) (PP^T)^{-1} and 
 	b = r' - Ap'.
 
-
-
-
-	

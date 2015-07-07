@@ -46,5 +46,3 @@ int main(int argc, char* const argv[])
 	return Catch::Session().run(argc, argv);
 }
 
-
-

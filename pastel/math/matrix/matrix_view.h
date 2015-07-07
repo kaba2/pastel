@@ -166,7 +166,6 @@ namespace Pastel
 			return result;
 		}
 
-
 		void swap(ConstSubMatrix& that)
 		{
 			data_.swap(that.data_);
@@ -277,7 +276,6 @@ namespace Pastel
 						rowBegin(y));
 				}
 			}
-
 
 			return *this;
 		}

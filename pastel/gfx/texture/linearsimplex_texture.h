@@ -47,7 +47,6 @@ namespace Pastel
 				return Type(0);
 			}
 
-
 			Type result = bary[0] * colorSimplex_[0];
 			for (integer i = 1;i < n;++i)
 			{

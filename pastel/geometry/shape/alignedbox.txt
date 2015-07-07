@@ -53,5 +53,3 @@ than the PastelSys files.
 
 [SysBox]: [[Ref]]: sys/alignedbox.txt
 
-
-

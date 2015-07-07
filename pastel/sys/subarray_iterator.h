@@ -38,7 +38,6 @@ namespace Pastel
 			return extent_.n();
 		}
 
-
 		SubArray_Iterator& operator+=(integer amount)
 		{
 			PENSURE_OP(index_ + amount, <=, size_);

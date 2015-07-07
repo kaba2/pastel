@@ -27,7 +27,6 @@ namespace Pastel
 		// There is no way to miss the plane.
 		ASSERT(intersected);
 
-
 		const Real radius2 = sphere.radius() * sphere.radius();
 
 		// Let

@@ -18,7 +18,6 @@ Consider the following:
 
 Here we define the default for the `Member` template-parameter by mapping `Type` through the `RetrieveMember` type-function. This type-function is supposed to retrieve the member-type `Type::Member` from `Type`. If `Type` indeed has such a member, then calling `f` will work correctly. However, if not, then ideally we would like the `f` to disappear from the overload-set, rather than to  
 
-
 ### Computation in definition
 
 A first attempt could be:

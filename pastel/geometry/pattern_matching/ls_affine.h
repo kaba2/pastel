@@ -479,5 +479,4 @@ namespace Pastel
 
 }
 
-
 #endif

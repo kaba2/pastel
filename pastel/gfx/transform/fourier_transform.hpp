@@ -122,7 +122,6 @@ namespace Pastel
 					if (Normalize)
 					{
 
-
 						*output = (b0 + b2) * Normalization;
 						++output;
 

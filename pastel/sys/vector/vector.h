@@ -183,7 +183,6 @@ namespace Pastel
 				data_ = that.data_;
 			}
 
-
 			return *this;
 		}
 

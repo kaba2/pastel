@@ -22,7 +22,6 @@ namespace Pastel
 		real filterRadius =
 			std::max(minFilter->radius(), maxFilter->radius());
 
-
 		const integer tableSize = filterRadius * 1024;
 		real scaling = square(filterRadius) / tableSize;
 
@@ -63,7 +62,6 @@ namespace Pastel
 
 		// The derivative vectors along with 'uv' represent an affine
 		// transformation from the image plane to the texture plane.
-
 
 		const Vector<real, N> p(p_ * imageExtent);
 		Matrix<real> basis = m_;
@@ -164,7 +162,6 @@ namespace Pastel
 
 			Vector<real, N> minorAxis = cross(majorAxis);
 
-
 			minorAxisLength2 *= (eccentricity2 / MaxEccentricity2);
 
 			minorAxis *= std::sqrt(minorAxisLength2);
@@ -195,7 +192,6 @@ namespace Pastel
 		// We want 'f' to give the value of
 		// 'filterTableSize' at the edge of the ellipse.
 		// This normalization does that.
-
 
 		quadraticForm *= filterTableSize_;
 
@@ -270,7 +266,6 @@ namespace Pastel
 
 		real formScaling = inverse(square(scaling));
 
-
 		real fLeft = dot(pStart * quadraticForm, pStart) * formScaling;
 		Vector<real, N> dfLeft = (2 * (pStart * quadraticForm) + diagonal(quadraticForm)) * formScaling;
 		const Matrix<real> ddf = (2 * formScaling) * quadraticForm;
@@ -291,7 +286,6 @@ namespace Pastel
 				{
 					real weight = linear(maxFilterTable_[fClamped],
 						minFilterTable_[fClamped], tTransition);
-
 
 					imageSum += weight * extender_(image, Vector<integer, N>(j, i));
 					weightSum += weight;

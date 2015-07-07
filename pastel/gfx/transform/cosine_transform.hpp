@@ -98,7 +98,6 @@ namespace Pastel
 					Real w1 =
 						std::cos(NthRootAngle);
 
-
 					*output = extractOutput(
 						(a0 + a1) * FirstScaling);
 					++output;
@@ -236,7 +235,6 @@ namespace Pastel
 				std::cos(NthRootAngle),
 				std::sin(NthRootAngle));
 
-
 			// The dft computes 2 * dct.
 
 			// Orthogonal: 2 * (1 / sqrt(2 * n)) = sqrt(2) / sqrt(n)
@@ -311,7 +309,6 @@ namespace Pastel
 				std::cos(NthRootAngle),
 				std::sin(NthRootAngle));
 
-
 			// Orthogonal: (1 / n) * sqrt(2 * n) = sqrt(2 / n)
 			// Inverse: (1 / n) * 2 = 2 / n
 
@@ -336,7 +333,6 @@ namespace Pastel
 			Real FirstScaling =
 				Orthogonal ? inverse(std::sqrt((Real)2)) :
 				inverse((Real)2);
-
 
 			oddFourier.front() *= FirstScaling;
 

@@ -115,7 +115,6 @@ namespace Pastel
 
 		// Define the palette.
 
-
 		pcxHeader.palette16_[0 * 3 + 0] = 0;
 		pcxHeader.palette16_[0 * 3 + 1] = 0;
 		pcxHeader.palette16_[0 * 3 + 2] = 0;
@@ -221,7 +220,6 @@ namespace Pastel
 		for (integer i = 0;i < colors;++i)
 		{
 			Color color = fitColor(colorPalette[i]);
-
 
 			pcxHeader.palette16_[i * 3 + 0] = quantizeUnsigned(color[0], 256);
 			pcxHeader.palette16_[i * 3 + 1] = quantizeUnsigned(color[1], 256);

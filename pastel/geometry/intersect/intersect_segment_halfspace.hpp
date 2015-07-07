@@ -60,7 +60,6 @@ namespace Pastel
 			dot(segment.end() - halfSpace.position(),
 			halfSpace.normal());
 
-
 		Real& tMin = hitList[0];
 		Real& tMax = hitList[1];
 

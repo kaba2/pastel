@@ -553,7 +553,6 @@ namespace Pastel
 				Integer2 iSegment = segment[i];
 				Integer2 jSegment = segment[j];
 
-
 				if (iSegment[0] != jSegment[0] &&
 					iSegment[1] != jSegment[1] &&
 					iSegment[0] != jSegment[1] &&

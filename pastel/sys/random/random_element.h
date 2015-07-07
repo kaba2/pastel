@@ -12,7 +12,6 @@
 namespace Pastel
 {
 
-
 	template <
 		typename Indexed_Input,
 		Requires<

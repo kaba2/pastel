@@ -360,7 +360,6 @@ namespace Pastel
 		// No separating axis found, so the boxs
 		// are intersecting.
 
-
 		projection = minProjection * minDepth;
 		commonPoint = someCommonPoint;
 
@@ -1007,7 +1006,6 @@ namespace Pastel
 
 		// No separating axis found, so the boxs
 		// are intersecting.
-
 
 		projection = minProjection * minDepth;
 

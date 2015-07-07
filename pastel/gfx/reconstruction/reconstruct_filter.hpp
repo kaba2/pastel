@@ -184,7 +184,6 @@ namespace Pastel
 
 		Tree kdTree(locator);
 
-
 		const Vector<Real, N> scaling = inverse(region.extent()) * Vector<Real, N>(view.extent());
 
 		std::vector<DataPoint> dataPointList;

@@ -48,7 +48,6 @@ namespace Pastel
 
 		Real invScale = inverse(scale);
 
-
 		return Pastel::cauchyPdf<Real>(x * invScale) * invScale;
 	}
 

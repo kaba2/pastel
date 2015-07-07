@@ -28,4 +28,3 @@ vector of type real32. The color space is not enforced by
 the type system, so the user must keep
 in mind which color space a given color is from.
 
-

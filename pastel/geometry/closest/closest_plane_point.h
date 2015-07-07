@@ -28,5 +28,4 @@ namespace Pastel
 
 #include "pastel/geometry/closest/closest_plane_point.hpp"
 
-
 #endif

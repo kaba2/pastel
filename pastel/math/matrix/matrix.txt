@@ -133,5 +133,3 @@ aliased matrix is destroyed before the aliasing matrix,
 there is a danger of accessing unallocated memory.
 One must be wary for this not to happen.
 
-
-

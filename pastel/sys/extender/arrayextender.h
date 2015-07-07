@@ -123,8 +123,6 @@ namespace Pastel
 		Type border_;
 	};
 
-
-
 }
 
 #endif

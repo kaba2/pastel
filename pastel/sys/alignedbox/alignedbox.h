@@ -303,7 +303,6 @@ namespace Pastel
 			return (*this *= inverse(that));
 		}
 
-
 		template <integer N_ = N, RequiresC<(N_ == 1)> = 0>
 		void set(
 			const Real& xMin,

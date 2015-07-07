@@ -121,7 +121,6 @@ namespace Pastel
 		return result;
 	}
 
-
 	inline std::string matlabAsString(const mxArray* input)
 	{
 		ENSURE(mxIsChar(input));
@@ -263,7 +262,6 @@ namespace Pastel
 		{
 			// No copying is done here. Rather, we aliase
 			// the existing data.
-
 
 			Type* rawData = (Type*)mxGetData(that);
 			

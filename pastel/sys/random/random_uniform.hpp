@@ -7,7 +7,6 @@
 namespace Pastel
 {
 
-
 	template <typename Real>
 	Real random()
 	{
@@ -46,7 +45,6 @@ namespace Pastel
 
 		uint32 a = randomUint32() >> 5;
 		uint32 b = randomUint32() >> 6; 
-
 
 		return (a * (Real)67108864.0 + b) * 
 			((Real)1.0 / (Real)9007199254740992.0); 

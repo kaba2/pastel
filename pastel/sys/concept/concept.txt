@@ -236,7 +236,6 @@ Function templates without parameters are not dependent names, and so cannot be 
 
 	PASTEL_CONCEPT_CHECK(A, Realish_Concept);
 
-
 Since the `infinity` function template call does not depend on objects of type `Type`, it is resolved in the first non-dependent phase of two-phase name lookup. Since there is no preceding definition of the function template `infinity`, an error is generated. 
 
 In Pastel, we leave such concept-requirements unchecked.

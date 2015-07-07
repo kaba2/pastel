@@ -16,7 +16,6 @@ namespace Pastel
 		integer width = image.width();
 		integer height = image.height();
 
-
 		Vector halfInterval(interval * 0.5);
 
 		// By referring to floor without a namespace,

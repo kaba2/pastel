@@ -96,7 +96,6 @@ namespace Pastel
 		{
 			ENSURE(yIter != yEnd);
 
-
 			Real xValue = *xIter;
 
 			if (xValue >= xMin && xValue <= xMax)
@@ -129,7 +128,6 @@ namespace Pastel
 		ENSURE(yIter == yEnd);
 
 		// Normalize the pdf to 1.
-
 
 		const Real binSize = (xRangeDelta * yRangeDelta) / (xBins * yBins);
 		const Real factor = (Real)1 / (samples * binSize);

@@ -388,7 +388,6 @@ namespace Pastel
 
 		// Allocate the new leaf nodes.
 
-
 		Node* left = allocateLeaf(
 			node,
 			leftFirst, 
@@ -561,7 +560,6 @@ namespace Pastel
 			integer newLeftPoints = result.first.second;
 			Point_Iterator newLeftLast = newRightFirst;
 			--newLeftLast;
-
 
 			Node* left = node->left();
 			Node* right = node->right();

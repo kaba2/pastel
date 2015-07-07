@@ -174,7 +174,6 @@ This case
 	         /   \     /   \
 	       (3)   (5) (7)   (9)
 
-
 can be rebalanced to
 
 	          |
@@ -197,7 +196,6 @@ This case
 	(1)      [4]       [8|10]
 	        /   \     /  |  \
 	      (3)   (5) (7) (9) (11)
-
 
 can be rebalanced to
 

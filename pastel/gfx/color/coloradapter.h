@@ -199,7 +199,6 @@ namespace Pastel
 			return Logical(red, green, blue);
 		}
 
-
 		static Physical revert(const Logical& logical)
 		{
 			Integer red = scaleInteger<8, RedBits, uint32>(logical[0]);
@@ -242,7 +241,6 @@ namespace Pastel
 			PASTEL_STATIC_ASSERT(GreenFrom + GreenBits <= 32);
 			PASTEL_STATIC_ASSERT(BlueFrom + BlueBits <= 32);
 		}
-
 
 		static Logical convert(const Physical& physical)
 		{

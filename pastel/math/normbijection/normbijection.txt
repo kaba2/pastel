@@ -100,4 +100,3 @@ restricted norm bijections:
 
 ''f(x) = x''
 
-

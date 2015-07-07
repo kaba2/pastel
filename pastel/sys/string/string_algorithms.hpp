@@ -182,7 +182,6 @@ namespace Pastel
 
 		std::string result;
 
-
 		if (begin != std::string::npos &&
 			end != std::string::npos)
 		{
@@ -241,7 +240,6 @@ namespace Pastel
 
 		return true;
 	}
-
 
 	inline void getWords(const std::string& sentence,
 		std::vector<std::string>& words)

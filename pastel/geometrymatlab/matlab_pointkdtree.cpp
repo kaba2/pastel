@@ -169,7 +169,6 @@ namespace Pastel
 			integer index;
 		};
 
-
 		KdState* asState(const mxArray* matlabArray)
 		{
 			return *((KdState**)mxGetData(matlabArray));
@@ -703,7 +702,6 @@ namespace Pastel
 				integer n = state->tree.n();
 
 				// Find the k-nearest-neighbors for each point.
-
 
 				auto search = [&](const Block& block)
 				{

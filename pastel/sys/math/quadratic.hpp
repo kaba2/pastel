@@ -49,7 +49,6 @@ namespace Pastel
 			q += rootDiscriminant;
 		}
 
-
 		q *= (Real)-0.5;
 
 		t0 = q / aCoeff;

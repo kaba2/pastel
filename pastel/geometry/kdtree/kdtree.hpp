@@ -627,7 +627,6 @@ namespace Pastel
 
 		// Allocate the new leaf nodes.
 
-
 		LeafNode* negativeLeaf = (LeafNode*)nodeAllocator_.allocate();
 		new(negativeLeaf) LeafNode(negativeStart, negativeLast, negativeObjects);
 

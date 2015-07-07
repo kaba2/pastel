@@ -140,7 +140,6 @@ namespace Pastel
 			data_[i] += that.data_[i];
 		}
 
-
 		return *this;
 	}
 
@@ -158,7 +157,6 @@ namespace Pastel
 		{
 			data_[i] -= that.data_[i];
 		}
-
 
 		return *this;
 	}
@@ -207,7 +205,6 @@ namespace Pastel
 			data_[i] = 0;
 		}
 
-
 		return *this;
 	}
 
@@ -227,7 +224,6 @@ namespace Pastel
 		{
 			data_[i] = 0;
 		}
-
 
 		return *this;
 	}

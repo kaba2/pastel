@@ -89,7 +89,6 @@ namespace Pastel
 		{
 			Real fy = gaussianCdf<Real>(
 				(orderedSet[i] - mean) / deviation);
-			
 
 			S += j * std::log(fy) + k * std::log(1 - fy);
 			j += 2;
@@ -107,7 +106,6 @@ namespace Pastel
 			bothApproximated ?
 			(1 + (Real)4 / n - (Real)25 / square(n)) :
 			1;
-
 
 		return alpha * aSquared;
 	}

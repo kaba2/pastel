@@ -11,5 +11,3 @@ tools can be found from [PastelSys][Sys] sublibrary.
 [Geometry]: [[Ref]]: pastelgeometry.txt
 [Sys]: [[Ref]]: pastelsys.txt
 
-
-

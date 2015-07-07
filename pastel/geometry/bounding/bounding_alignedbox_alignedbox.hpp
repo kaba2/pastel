@@ -98,7 +98,6 @@ namespace Pastel
 		integer dimension = pointToCover.size();
 		PENSURE_OP(dimension, ==, boxToExtend.n());
 
-
 		Vector<Real, N>& min = boxToExtend.min();
 		Vector<Real, N>& max = boxToExtend.max();
 
