@@ -47,7 +47,7 @@ namespace Pastel
 
 	template <integer M, integer N>
 	using EqualDimension_C = 
-		Bool<(M == N || M < 0 || N < 0)>;
+		BoolConstant<(M == N || M < 0 || N < 0)>;
 
 	template <typename M, typename N>
 	using EqualDimension = 

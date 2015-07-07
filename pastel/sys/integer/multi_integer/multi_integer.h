@@ -83,7 +83,7 @@ namespace Pastel
 			SizeInBits<Word>::value;
 
 		// An unsigned integer with twice the number of bits in Word.
-		using DoubleWord = Uint<2 * BitsInWord>;
+		using DoubleWord = UIntegerOfSize<2 * BitsInWord>;
 
 		// The number of words is ceil(N / BitsInWord).
 		/*

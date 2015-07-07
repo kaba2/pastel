@@ -109,7 +109,7 @@ namespace Pastel
 			typename... ArgumentSet,
 			Requires<
 				IsTag<Key>,
-				Bool<(Tag_Hash<Key>::value == KeyHash)>
+				BoolConstant<(Tag_Hash<Key>::value == KeyHash)>
 			> ConceptCheck = 0
 		>
 		static constexpr bool argumentFoundFlag(
@@ -152,7 +152,7 @@ namespace Pastel
 			> = 0
 		>
 		static constexpr decltype(auto) argumentBranch(
-			Bool<true>,
+			BoolConstant<true>,
 			Default&&,
 			Condition&& condition, 
 			Value&& value, 
@@ -185,7 +185,7 @@ namespace Pastel
 			> = 0
 		>
 		static constexpr decltype(auto) argumentBranch(
-			Bool<false>,
+			BoolConstant<false>,
 			Default&& defaultValue,
 			Condition&& condition, 
 			Value&&, 
@@ -221,7 +221,7 @@ namespace Pastel
 
 			// Branch based on whether the condition is fulfilled or not.
 			return argumentBranch(
-				Bool<
+				BoolConstant<
 					decltype(condition(value))::value &&
 					IsImplicitArgument<decltype(condition(value))>::value
 				>(),
@@ -237,7 +237,7 @@ namespace Pastel
 			typename Key,
 			Requires<
 				IsTag<Key>,
-				Bool<(Tag_Hash<Key>::value == KeyHash)>
+				BoolConstant<(Tag_Hash<Key>::value == KeyHash)>
 			> ConceptCheck = 0
 		>
 		static constexpr decltype(auto) argument(
@@ -261,7 +261,7 @@ namespace Pastel
 			typename Key,
 			Requires<
 				IsTag<Key>,
-				Bool<(Tag_Hash<Key>::value != KeyHash)>
+				BoolConstant<(Tag_Hash<Key>::value != KeyHash)>
 			> ConceptCheck = 0
 		>
 		static constexpr decltype(auto) argument(
@@ -285,7 +285,7 @@ namespace Pastel
 			Requires<
 				IsTag<Key>,
 				Not<IsTag<Value>>,
-				Bool<(Tag_Hash<Key>::value == KeyHash)>
+				BoolConstant<(Tag_Hash<Key>::value == KeyHash)>
 			> ConceptCheck = 0
 		>
 		static constexpr decltype(auto) argument(
@@ -325,7 +325,7 @@ namespace Pastel
 			typename... ArgumentSet,
 			Requires<
 				IsTag<Key>,
-				Bool<(Tag_Hash<Key>::value != KeyHash)>,
+				BoolConstant<(Tag_Hash<Key>::value != KeyHash)>,
 				Not<IsTag<Value>>
 			> ConceptCheck = 0
 		>
@@ -355,7 +355,7 @@ namespace Pastel
 			Requires<
 				IsTag<A_Key>,
 				IsTag<B_Key>,
-				Bool<(Tag_Hash<A_Key>::value == KeyHash)>
+				BoolConstant<(Tag_Hash<A_Key>::value == KeyHash)>
 			> ConceptCheck = 0
 		>
 		static constexpr decltype(auto) argument(
@@ -386,7 +386,7 @@ namespace Pastel
 			Requires<
 				IsTag<A_Key>,
 				IsTag<B_Key>,
-				Bool<(Tag_Hash<A_Key>::value != KeyHash)>
+				BoolConstant<(Tag_Hash<A_Key>::value != KeyHash)>
 			> ConceptCheck = 0
 		>
 		static constexpr decltype(auto) argument(

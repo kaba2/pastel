@@ -67,7 +67,7 @@ namespace Pastel
 		template <
 			integer N_ = N,
 			Requires<
-				Bool<(N_ >= 0)>
+				BoolConstant<(N_ >= 0)>
 			> = 0
 		>
 		TdTree()

@@ -27,7 +27,7 @@ namespace Pastel
 		typename... ArgumentSet,
 		Requires<
 			Models<Point, Point_Concept>,
-			EqualDimension<Integer<N>, Point_N<Point>>
+			EqualDimension<IntegerConstant<N>, Point_N<Point>>
 		> ConceptCheck = 0>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
@@ -50,7 +50,7 @@ namespace Pastel
 		typename... ArgumentSet,
 		Requires<
 			Models<Point, Point_Concept>,
-			EqualDimension<Integer<N>, Point_N<Point>>
+			EqualDimension<IntegerConstant<N>, Point_N<Point>>
 		> ConceptCheck = 0>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,

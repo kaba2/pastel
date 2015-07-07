@@ -78,35 +78,35 @@ namespace Pastel
 		// Parametrized absolute size types.
 
 		//! A native signed integer with the given number of bits.
-		template <integer N> struct Int_F {};
-		template <> struct Int_F<8> { using type = int8; };
-		template <> struct Int_F<16> { using type = int16; };
-		template <> struct Int_F<32> { using type = int32; };
-		template <> struct Int_F<64> { using type = int64; };
+		template <integer N> struct IntegerOfSize_F {};
+		template <> struct IntegerOfSize_F<8> { using type = int8; };
+		template <> struct IntegerOfSize_F<16> { using type = int16; };
+		template <> struct IntegerOfSize_F<32> { using type = int32; };
+		template <> struct IntegerOfSize_F<64> { using type = int64; };
 
 		//! A native signed integer with the given number of bits.
 		template <integer N>
-		using Int = typename Int_F<N>::type;
+		using IntegerOfSize = typename IntegerOfSize_F<N>::type;
 
 		//! A native unsigned integer with the given number of bits.
 		template <integer N> 
-		struct Uint_F
+		struct UIntegerOfSize_F
 		{
-			using type = typename std::make_unsigned<Int<N>>::type;
+			using type = typename std::make_unsigned<IntegerOfSize<N>>::type;
 		};
 
 		//! A native unsigned integer with the given number of bits.
 		template <integer N>
-		using Uint = typename Uint_F<N>::type;
+		using UIntegerOfSize = typename UIntegerOfSize_F<N>::type;
 
 		//! A native floating-point number with the given number of bits.
-		template <integer N> struct Real_F {};
-		template <> struct Real_F<32> { using type = real32; };
-		template <> struct Real_F<64> { using type = real64; };
+		template <integer N> struct RealOfSize_F {};
+		template <> struct RealOfSize_F<32> { using type = real32; };
+		template <> struct RealOfSize_F<64> { using type = real64; };
 
 		//! A native floating-point number with the given number of bits.
 		template <integer N>
-		using Real = typename Real_F<N>::type;
+		using RealOfSize = typename RealOfSize_F<N>::type;
 
 		template <typename Type>
 		struct SizeInBits
@@ -132,7 +132,7 @@ namespace Pastel
 		}
 
 		//! An integer with half the number of bits as in 'integer'.
-		using integer_half = Int<SizeInBits<integer>::value / 2>;
+		using integer_half = IntegerOfSize<SizeInBits<integer>::value / 2>;
 		using uinteger_half = std::make_unsigned<integer_half>::type;
 	
 		//! Abstract native real type
@@ -150,11 +150,11 @@ namespace Pastel
 		using hash_integer = std::size_t;
 
 		template <bool Value>
-		using Bool = 
+		using BoolConstant = 
 			std::integral_constant<bool, Value>;
 
 		template <integer Value>
-		using Integer = 
+		using IntegerConstant = 
 			std::integral_constant<integer, Value>;
 
 	}

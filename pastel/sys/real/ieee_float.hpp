@@ -11,7 +11,7 @@ namespace Pastel
 		integer Bits,
 		integer E,
 		integer M>
-	Uint<Bits> asIeeeFloatBits(
+	UIntegerOfSize<Bits> asIeeeFloatBits(
 		const ScientificNotation& scientific)
 	{
 		PASTEL_STATIC_ASSERT(Bits > 0);
@@ -19,7 +19,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(M > 0);
 		PASTEL_STATIC_ASSERT(1 + E + M <= Bits);
 
-		using Packed = Uint<Bits>;
+		using Packed = UIntegerOfSize<Bits>;
 
 		// Truncate the mantissa to available bits.
 		uint64 scaledMantissa = scientific.mantissa >> (64 - M);
@@ -104,7 +104,7 @@ namespace Pastel
 			PASTEL_STATIC_ASSERT(M > 0);
 			PASTEL_STATIC_ASSERT(1 + E + M == Bits)
 
-			using Packed = Uint<Bits>;
+			using Packed = UIntegerOfSize<Bits>;
 			Packed& packed = *reinterpret_cast<Packed*>(&that);
 
 			Packed packedMantissa = packed & bitMask<Packed>(0, M);

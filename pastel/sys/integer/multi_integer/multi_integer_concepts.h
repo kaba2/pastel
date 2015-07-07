@@ -30,7 +30,7 @@ namespace Pastel
 				by choosing the basic type smaller.
 				*/
 				Concept::holds<std::is_unsigned<typename Type::Word>>(),
-				Concept::exists<Uint<2 * SizeInBits<typename Type::Word>::value>>(),
+				Concept::exists<UIntegerOfSize<2 * SizeInBits<typename Type::Word>::value>>(),
 
 				//! Whether to interpret as a signed integer.
 				/*!
