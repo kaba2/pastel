@@ -7,6 +7,7 @@
 #include "pastel/geometry/pattern_matching/ls_affine.h"
 #include "pastel/geometry/nearestset/nearestset_concept.h"
 #include "pastel/sys/output/null_output.h"
+#include "pastel/sys/math/constants.h"
 
 namespace Pastel
 {

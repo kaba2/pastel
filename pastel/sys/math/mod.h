@@ -5,6 +5,7 @@
 #define PASTELSYS_MOD_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/integer/integer_concept.h"
 
 #include <type_traits>

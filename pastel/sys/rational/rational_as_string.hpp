@@ -2,6 +2,7 @@
 #define PASTELSYS_RATIONAL_AS_STRING_HPP
 
 #include "pastel/sys/rational/rational.h"
+#include "pastel/sys/string/digit.h"
 
 namespace Pastel
 {

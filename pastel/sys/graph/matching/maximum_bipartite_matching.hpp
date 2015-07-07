@@ -4,6 +4,7 @@
 #include "pastel/sys/graph/matching/maximum_bipartite_matching.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/output/null_output.h"
+#include "pastel/sys/integer/integer_concept.h"
 
 #include <vector>
 #include <queue>

@@ -3,6 +3,8 @@
 #ifndef PASTELSYS_INTERVAL_H
 #define PASTELSYS_INTERVAL_H
 
+#include "pastel/sys/real/real_concept.h"
+
 namespace Pastel
 {
 
