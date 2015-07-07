@@ -251,5 +251,5 @@ For static vectors it holds that
 	sizeof(Vector<Real, N>) == N * sizeof(Real)
 
 This minimality is important because vectors are expected 
-to be stored in large amounts.  
+to be stored in large amounts. 
 

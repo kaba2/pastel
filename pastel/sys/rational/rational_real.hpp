@@ -197,7 +197,7 @@ namespace Pastel
 		//
 		// We do not start from [(n, 1), (n + 1, 1)[, since
 		// then the initialization would need to check whether
-		// (n + 1, 1) is better than (n, 1).  
+		// (n + 1, 1) is better than (n, 1). 
 
 		Real maxError = PASTEL_ARG_S(maxError, 0);
 		Integer nMax = PASTEL_ARG_S(nMax, infinity<Integer>() - 1);

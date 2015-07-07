@@ -202,7 +202,7 @@ namespace Pastel
             // Use the identity matrix.
             Q.eye(d, d);
         }
-        
+ 
         ENSURE_OP(Q.n_rows, ==, d);
         ENSURE_OP(Q.n_cols, ==, d);
 
@@ -329,7 +329,7 @@ namespace Pastel
             Q = std::move(lsMatch.Q);
             S = std::move(lsMatch.S);
             t = std::move(lsMatch.t);
-           
+ 
             // Compute the transformed model-set.
             transformedSet = 
                 Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);

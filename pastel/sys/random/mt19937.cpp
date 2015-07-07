@@ -20,11 +20,11 @@
    A C-program for MT19937, with initialization improved 2002/1/26.
    Coded by Takuji Nishimura and Makoto Matsumoto.
 
-   Before using, initialize the state by using init_genrand(seed)  
+   Before using, initialize the state by using init_genrand(seed)
    or init_by_array(init_key, key_length).
 
    Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
-   All rights reserved.                          
+   All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
@@ -61,7 +61,7 @@
 namespace Pastel
 {
 
-	/* Period parameters */  
+	/* Period parameters */
 	#define N 624
 	#define M 397
 	#define MATRIX_A 0x9908b0dfUL   /* constant vector a */
@@ -113,7 +113,7 @@ namespace Pastel
 
 			mti = 0;
 		}
-	  
+	
 		y = mt[mti++];
 
 		/* Tempering */

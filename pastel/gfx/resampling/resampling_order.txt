@@ -23,7 +23,7 @@ A cost function for each of these resamplings can be given recursively as follow
 ''r_0 = 1''
 
 ''C(0) = 1''
-      
+ 
 ''C(i) = C(i - 1) * r_{i - 1} * \max(1, r_i)''
 
 The total cost of the process is then given by

@@ -63,7 +63,7 @@ This has an exact solution of
 
 Dividing this by ''h - 1'' gives the ratio of moves compared to the search starting from the root. The first numbers in this sequence, starting from ''h = 2'', are
 
-	1.0000    1.2500    1.4167    1.5313    1.6125    1.6719    1.7165    1.7510    1.7782    1.8002    
+	1.0000    1.2500    1.4167    1.5313    1.6125    1.6719    1.7165    1.7510    1.7782    1.8002 
 	1.8183    1.8334    1.8462    1.8572    1.8667    1.8750    1.8824    1.8889    1.8947
 
 This sequence is increasing, and its limit is 2. Therefore a good rule of thumb is that the search starting from the minimum node takes roughly twice the time the search takes from the root node.
@@ -110,7 +110,7 @@ The nodes of the red-black tree form the following inheritance hierarchy:
 	  |    |
 	  |  Sentinel_Node --> SentinelData_Class
 	  |
-	Data_Node --> Data_Class          
+	Data_Node --> Data_Class 
 	  ^    ^
 	  |    |
 	  |  Sentinel_Node --> SentinelData_Class

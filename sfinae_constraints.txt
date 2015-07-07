@@ -175,9 +175,9 @@ Place                           | Clean declaration | Refer to arguments | Overl
 --------------------------------|-------------------|--------------------|--------------|--------------
 Return-type                     |                   |                    | $\checkmark$ | $\checkmark$
 Trailing return-type            |                   | $\checkmark$       | $\checkmark$ | $\checkmark$
-Trailing argument-type          |                   | $\checkmark$       | $\checkmark$ |  
-Template-parameter type         | $\checkmark$      |                    |              |  
-Template-parameter value        | $\checkmark$      |                    | $\checkmark$ |  
+Trailing argument-type          |                   | $\checkmark$       | $\checkmark$ | 
+Template-parameter type         | $\checkmark$      |                    |              | 
+Template-parameter value        | $\checkmark$      |                    | $\checkmark$ | 
 Template-parameter value-pack   | $\checkmark$      |                    | $\checkmark$ | $\checkmark$
 
 If there is no need to refer to function arguments, a template-parameter value-pack is the best choice. A template-parameter value can be used if the compiler cannot handle a template-parameter value-pack. For referring to function arguments, a trailing return-type is the best choice. 

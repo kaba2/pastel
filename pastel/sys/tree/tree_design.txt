@@ -114,7 +114,7 @@ Some of the flaws in this approach are:
  a node can have only one parent. If sharing subtrees is a point in
  this design, it is certainly not well realized. Subtrees are better
  shared by using iterators to them.
-  
+ 
  * There is nothing to prevent you from creating loops in the 'tree'. 
  Thus the design actually reflects a graph (although with a limited 
  amount of edges per node), and not a tree. Having a loop like this 

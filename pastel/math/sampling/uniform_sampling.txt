@@ -36,7 +36,7 @@ uniform sample from:
 
 If instead you need to distort an existing uniform sampling
 from one shape to another, see the link below.
-  
+ 
 See also
 --------
 

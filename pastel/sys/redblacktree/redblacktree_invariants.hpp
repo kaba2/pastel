@@ -123,7 +123,7 @@ namespace Pastel
 				Less()(iter.right().key(), iter.key()))
 			{
 				// The key on the right must be
-				// greater-than-or-equal-to the  
+				// greater-than-or-equal-to the 
 				// current key.
 				return false;
 			}

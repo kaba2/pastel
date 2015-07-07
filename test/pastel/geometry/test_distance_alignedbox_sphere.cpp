@@ -56,7 +56,7 @@ namespace
 				// 3 BBBB
 				// 2       S
 				// 1 
-				// 0       
+				// 0 
 				//  01234567
 
 				Box box(Point(1, 3), Point(5, 5));
@@ -68,9 +68,9 @@ namespace
 				// 5
 				// 4 BBBB
 				// 3 BBBS
-				// 2        
+				// 2 
 				// 1 
-				// 0       
+				// 0 
 				//  01234567
 
 				Box box(Point(1, 3), Point(5, 5));
@@ -82,9 +82,9 @@ namespace
 				// 5
 				// 4 BBBB
 				// 3 BBBB  S
-				// 2        
+				// 2 
 				// 1 
-				// 0       
+				// 0 
 				//  01234567
 
 				Box box(Point(1, 3), Point(5, 5));
