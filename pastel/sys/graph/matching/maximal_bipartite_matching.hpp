@@ -3,6 +3,7 @@
 
 #include "pastel/sys/graph/matching/maximal_bipartite_matching.h"
 #include "pastel/sys/output/null_output.h"
+#include "pastel/sys/ensure.h"
 
 #include <unordered_set>
 

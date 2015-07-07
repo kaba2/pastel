@@ -5,6 +5,7 @@
 
 #include "pastel/sys/bit/bitmask.h"
 #include "pastel/sys/real/ieee_float.h"
+#include "pastel/sys/real/real_concept.h"
 #include "pastel/sys/logging.h"
 
 namespace
