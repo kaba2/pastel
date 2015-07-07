@@ -30,7 +30,7 @@ namespace Pastel
 		integer Bits,
 		integer E,
 		integer M>
-	Uint<Bits> asIeeeFloatBits(
+	UIntegerOfSize<Bits> asIeeeFloatBits(
 		const ScientificNotation& scientific);
 
 	//! Returns the closest 32-bit IEEE floating-point number.

@@ -33,7 +33,7 @@ namespace Pastel
 		typename Type,
 		Requires<
 			IsTemplateInstance<Type, MultiInteger>,
-			Bool<!Type::Signed>
+			BoolConstant<!Type::Signed>
 		> = 0>
 	Type infinity()
 	{
@@ -44,7 +44,7 @@ namespace Pastel
 		typename Type,
 		Requires<
 			IsTemplateInstance<Type, MultiInteger>,
-			Bool<Type::Signed>
+			BoolConstant<Type::Signed>
 		> = 0>
 	Type infinity()
 	{
