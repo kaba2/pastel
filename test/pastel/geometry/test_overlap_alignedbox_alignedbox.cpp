@@ -1,7 +1,7 @@
 // Description: Testing for alignedbox-alignedbox overlap
 // DocumentationOf: overlaps_alignedbox_alignedbox.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/overlap/overlaps_alignedbox_alignedbox.h"
 
@@ -11,22 +11,14 @@
 using std::cout;
 using std::endl;
 
-using namespace Pastel;
-
 namespace
 {
 
 	using Real = Rational<integer>;
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testNegative();
@@ -61,94 +53,94 @@ namespace
 			// min-closed, max-open, there should
 			// be no overlaps.
 
-			TEST_ENSURE(!overlaps(e, a));
-			TEST_ENSURE(!overlaps(e, b));
-			TEST_ENSURE(!overlaps(e, c));
-			TEST_ENSURE(!overlaps(e, d));
+			REQUIRE(!overlaps(e, a));
+			REQUIRE(!overlaps(e, b));
+			REQUIRE(!overlaps(e, c));
+			REQUIRE(!overlaps(e, d));
 
-			TEST_ENSURE(!overlaps(e, f));
-			TEST_ENSURE(!overlaps(e, g));
-			TEST_ENSURE(!overlaps(e, h));
-			TEST_ENSURE(!overlaps(e, i));
+			REQUIRE(!overlaps(e, f));
+			REQUIRE(!overlaps(e, g));
+			REQUIRE(!overlaps(e, h));
+			REQUIRE(!overlaps(e, i));
 
-			TEST_ENSURE(!overlaps(a, e));
-			TEST_ENSURE(!overlaps(b, e));
-			TEST_ENSURE(!overlaps(c, e));
-			TEST_ENSURE(!overlaps(d, e));
+			REQUIRE(!overlaps(a, e));
+			REQUIRE(!overlaps(b, e));
+			REQUIRE(!overlaps(c, e));
+			REQUIRE(!overlaps(d, e));
 
-			TEST_ENSURE(!overlaps(f, e));
-			TEST_ENSURE(!overlaps(g, e));
-			TEST_ENSURE(!overlaps(h, e));
-			TEST_ENSURE(!overlaps(i, e));
+			REQUIRE(!overlaps(f, e));
+			REQUIRE(!overlaps(g, e));
+			REQUIRE(!overlaps(h, e));
+			REQUIRE(!overlaps(i, e));
 
 			e.maxTopology().set(Topology::Closed);
 
 			// Now the e-box should overlap
 			// with some of the boxes.
 
-			TEST_ENSURE(!overlaps(e, a));
-			TEST_ENSURE(!overlaps(e, b));
-			TEST_ENSURE(!overlaps(e, c));
-			TEST_ENSURE(!overlaps(e, d));
+			REQUIRE(!overlaps(e, a));
+			REQUIRE(!overlaps(e, b));
+			REQUIRE(!overlaps(e, c));
+			REQUIRE(!overlaps(e, d));
 
-			TEST_ENSURE(overlaps(e, f));
-			TEST_ENSURE(!overlaps(e, g));
-			TEST_ENSURE(overlaps(e, h));
-			TEST_ENSURE(overlaps(e, i));
+			REQUIRE(overlaps(e, f));
+			REQUIRE(!overlaps(e, g));
+			REQUIRE(overlaps(e, h));
+			REQUIRE(overlaps(e, i));
 
-			TEST_ENSURE(!overlaps(a, e));
-			TEST_ENSURE(!overlaps(b, e));
-			TEST_ENSURE(!overlaps(c, e));
-			TEST_ENSURE(!overlaps(d, e));
+			REQUIRE(!overlaps(a, e));
+			REQUIRE(!overlaps(b, e));
+			REQUIRE(!overlaps(c, e));
+			REQUIRE(!overlaps(d, e));
 
-			TEST_ENSURE(overlaps(f, e));
-			TEST_ENSURE(!overlaps(g, e));
-			TEST_ENSURE(overlaps(h, e));
-			TEST_ENSURE(overlaps(i, e));
+			REQUIRE(overlaps(f, e));
+			REQUIRE(!overlaps(g, e));
+			REQUIRE(overlaps(h, e));
+			REQUIRE(overlaps(i, e));
 
 			e.minTopology().set(Topology::Open);
 
-			TEST_ENSURE(!overlaps(e, a));
-			TEST_ENSURE(!overlaps(e, b));
-			TEST_ENSURE(!overlaps(e, c));
-			TEST_ENSURE(!overlaps(e, d));
+			REQUIRE(!overlaps(e, a));
+			REQUIRE(!overlaps(e, b));
+			REQUIRE(!overlaps(e, c));
+			REQUIRE(!overlaps(e, d));
 
-			TEST_ENSURE(overlaps(e, f));
-			TEST_ENSURE(!overlaps(e, g));
-			TEST_ENSURE(overlaps(e, h));
-			TEST_ENSURE(overlaps(e, i));
+			REQUIRE(overlaps(e, f));
+			REQUIRE(!overlaps(e, g));
+			REQUIRE(overlaps(e, h));
+			REQUIRE(overlaps(e, i));
 
-			TEST_ENSURE(!overlaps(a, e));
-			TEST_ENSURE(!overlaps(b, e));
-			TEST_ENSURE(!overlaps(c, e));
-			TEST_ENSURE(!overlaps(d, e));
+			REQUIRE(!overlaps(a, e));
+			REQUIRE(!overlaps(b, e));
+			REQUIRE(!overlaps(c, e));
+			REQUIRE(!overlaps(d, e));
 
-			TEST_ENSURE(overlaps(f, e));
-			TEST_ENSURE(!overlaps(g, e));
-			TEST_ENSURE(overlaps(h, e));
-			TEST_ENSURE(overlaps(i, e));
+			REQUIRE(overlaps(f, e));
+			REQUIRE(!overlaps(g, e));
+			REQUIRE(overlaps(h, e));
+			REQUIRE(overlaps(i, e));
 
 			e.maxTopology().set(Topology::Open);
 
-			TEST_ENSURE(!overlaps(e, a));
-			TEST_ENSURE(!overlaps(e, b));
-			TEST_ENSURE(!overlaps(e, c));
-			TEST_ENSURE(!overlaps(e, d));
+			REQUIRE(!overlaps(e, a));
+			REQUIRE(!overlaps(e, b));
+			REQUIRE(!overlaps(e, c));
+			REQUIRE(!overlaps(e, d));
 
-			TEST_ENSURE(!overlaps(e, f));
-			TEST_ENSURE(!overlaps(e, g));
-			TEST_ENSURE(!overlaps(e, h));
-			TEST_ENSURE(!overlaps(e, i));
+			REQUIRE(!overlaps(e, f));
+			REQUIRE(!overlaps(e, g));
+			REQUIRE(!overlaps(e, h));
+			REQUIRE(!overlaps(e, i));
 
-			TEST_ENSURE(!overlaps(a, e));
-			TEST_ENSURE(!overlaps(b, e));
-			TEST_ENSURE(!overlaps(c, e));
-			TEST_ENSURE(!overlaps(d, e));
+			REQUIRE(!overlaps(a, e));
+			REQUIRE(!overlaps(b, e));
+			REQUIRE(!overlaps(c, e));
+			REQUIRE(!overlaps(d, e));
 
-			TEST_ENSURE(!overlaps(f, e));
-			TEST_ENSURE(!overlaps(g, e));
-			TEST_ENSURE(!overlaps(h, e));
-			TEST_ENSURE(!overlaps(i, e));
+			REQUIRE(!overlaps(f, e));
+			REQUIRE(!overlaps(g, e));
+			REQUIRE(!overlaps(h, e));
+			REQUIRE(!overlaps(i, e));
 		}
 
 		void testNegative()
@@ -171,25 +163,25 @@ namespace
 			AlignedBox<Real, 2> h(2, 4, 3, 5);
 			AlignedBox<Real, 2> i(4, 4, 5, 5);
 
-			TEST_ENSURE(!overlaps(e, a));
-			TEST_ENSURE(!overlaps(e, b));
-			TEST_ENSURE(!overlaps(e, c));
-			TEST_ENSURE(!overlaps(e, d));
+			REQUIRE(!overlaps(e, a));
+			REQUIRE(!overlaps(e, b));
+			REQUIRE(!overlaps(e, c));
+			REQUIRE(!overlaps(e, d));
 
-			TEST_ENSURE(!overlaps(e, f));
-			TEST_ENSURE(!overlaps(e, g));
-			TEST_ENSURE(!overlaps(e, h));
-			TEST_ENSURE(!overlaps(e, i));
+			REQUIRE(!overlaps(e, f));
+			REQUIRE(!overlaps(e, g));
+			REQUIRE(!overlaps(e, h));
+			REQUIRE(!overlaps(e, i));
 
-			TEST_ENSURE(!overlaps(a, e));
-			TEST_ENSURE(!overlaps(b, e));
-			TEST_ENSURE(!overlaps(c, e));
-			TEST_ENSURE(!overlaps(d, e));
+			REQUIRE(!overlaps(a, e));
+			REQUIRE(!overlaps(b, e));
+			REQUIRE(!overlaps(c, e));
+			REQUIRE(!overlaps(d, e));
 
-			TEST_ENSURE(!overlaps(f, e));
-			TEST_ENSURE(!overlaps(g, e));
-			TEST_ENSURE(!overlaps(h, e));
-			TEST_ENSURE(!overlaps(i, e));
+			REQUIRE(!overlaps(f, e));
+			REQUIRE(!overlaps(g, e));
+			REQUIRE(!overlaps(h, e));
+			REQUIRE(!overlaps(i, e));
 		}
 
 		void testPositive()
@@ -201,8 +193,8 @@ namespace
 				AlignedBox<Real, 2> b(
 					5, 4, 8, 15);
 
-				TEST_ENSURE(overlaps(a, b));
-				TEST_ENSURE(overlaps(b, a));
+				REQUIRE(overlaps(a, b));
+				REQUIRE(overlaps(b, a));
 			}
 
 			// A overlaps B
@@ -212,8 +204,8 @@ namespace
 				AlignedBox<Real, 2> b(
 					6, 3, 15, 18);
 
-				TEST_ENSURE(overlaps(a, b));
-				TEST_ENSURE(overlaps(b, a));
+				REQUIRE(overlaps(a, b));
+				REQUIRE(overlaps(b, a));
 			}
 
 			// A overlaps B
@@ -223,8 +215,8 @@ namespace
 				AlignedBox<Real, 2> b(
 					1, -5, 8, 25);
 
-				TEST_ENSURE(overlaps(a, b));
-				TEST_ENSURE(overlaps(b, a));
+				REQUIRE(overlaps(a, b));
+				REQUIRE(overlaps(b, a));
 			}
 		}
 
@@ -235,13 +227,13 @@ namespace
 				AlignedBox<Real, 2> a(0, 0, 1, 1);
 				AlignedBox<Real, 2> b(1, 1, 2, 2);
 
-				TEST_ENSURE(!overlaps(a, b));
-				TEST_ENSURE(!overlaps(b, a));
+				REQUIRE(!overlaps(a, b));
+				REQUIRE(!overlaps(b, a));
 
 				a.maxTopology().set(Topology::Closed);
 
-				TEST_ENSURE(overlaps(a, b));
-				TEST_ENSURE(overlaps(b, a));
+				REQUIRE(overlaps(a, b));
+				REQUIRE(overlaps(b, a));
 			}
 
 			// Boxes share an edge
@@ -249,28 +241,19 @@ namespace
 				AlignedBox<Real, 2> a(0, 0, 1, 1);
 				AlignedBox<Real, 2> b(1, 0, 2, 1);
 
-				TEST_ENSURE(!overlaps(a, b));
-				TEST_ENSURE(!overlaps(b, a));
+				REQUIRE(!overlaps(a, b));
+				REQUIRE(!overlaps(b, a));
 
 				a.maxTopology().set(Topology::Closed);
 
-				TEST_ENSURE(overlaps(a, b));
-				TEST_ENSURE(overlaps(b, a));
+				REQUIRE(overlaps(a, b));
+				REQUIRE(overlaps(b, a));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("overlaps_alignedbox_alignedbox", "[overlaps_alignedbox_alignedbox]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("overlaps_alignedbox_alignedbox", test);
-	}
-
-	CallFunction run(addTest);
 
 }

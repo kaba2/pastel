@@ -1,7 +1,7 @@
 // Description: Testing for sets
 // Documentation: unit_testing.txt
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/set.h"
 #include "pastel/sys/function.h"
@@ -9,20 +9,12 @@
 #include <unordered_set>
 #include <list>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testInterval();
@@ -56,7 +48,7 @@ namespace
 				auto set = intervalSet((integer)3, (integer)3 + n);
 				auto index = set.index();
 				set.next(index);
-				TEST_ENSURE_OP(set.n(), ==, n);
+				REQUIRE(set.n() == n);
 
 				PASTEL_STATIC_ASSERT(
 					CorrectElement<decltype(set), integer>::value);
@@ -68,21 +60,21 @@ namespace
 					actualSet.insert(a);
 					return true;
 				});
-				TEST_ENSURE_OP(actualSet.size(), ==, n);
+				REQUIRE(actualSet.size() == n);
 
 				for (integer i = 0;i < n;++i)
 				{
-					TEST_ENSURE(actualSet.count(3 + i) == 1);
+					REQUIRE(actualSet.count(3 + i) == 1);
 				}
 			}
 			{
 				std::list<integer> aSet = {3, 4, 5, 6, 7, 8, 9, 10, 11};
 				integer n = aSet.size();
 				auto set = rangeSet(aSet.begin(), aSet.end());
-				
+
 				auto index = set.index();
 				set.next(index);
-				TEST_ENSURE_OP(set.n(), ==, n);
+				REQUIRE(set.n() == n);
 
 				PASTEL_STATIC_ASSERT(
 					CorrectElement<decltype(set), integer>::value);
@@ -94,11 +86,11 @@ namespace
 					actualSet.insert(a);
 					return true;
 				});
-				TEST_ENSURE_OP(actualSet.size(), ==, n);
+				REQUIRE(actualSet.size() == n);
 
 				for (integer i = 0;i < n;++i)
 				{
-					TEST_ENSURE(actualSet.count(3 + i) == 1);
+					REQUIRE(actualSet.count(3 + i) == 1);
 				}
 			}
 		}
@@ -134,8 +126,8 @@ namespace
 					return true;
 				});
 
-				TEST_ENSURE(correct);
-				TEST_ENSURE_OP(m, ==, n);
+				REQUIRE(correct);
+				REQUIRE(m == n);
 			}
 			{
 				integer n = 0;
@@ -147,7 +139,7 @@ namespace
 					return false;
 				});
 
-				TEST_ENSURE(correct);
+				REQUIRE(correct);
 			}
 		}
 
@@ -171,8 +163,8 @@ namespace
 				Constant_Set<integer> bSet(nB, bElement);
 
 				auto abSet = unionSet(aSet, bSet);
-				
-				TEST_ENSURE_OP(abSet.n(), ==, 5 + 3);
+
+				REQUIRE(abSet.n() == 5 + 3);
 				PASTEL_STATIC_ASSERT(
 					std::is_same<
 						Set_Element<decltype(abSet)>,
@@ -186,8 +178,8 @@ namespace
 					return true;
 				});
 
-				TEST_ENSURE_OP(actualSet.count(aElement), ==, 5);
-				TEST_ENSURE_OP(actualSet.count(bElement), ==, 3);
+				REQUIRE(actualSet.count(aElement) == 5);
+				REQUIRE(actualSet.count(bElement) == 3);
 			}
 		}
 
@@ -196,7 +188,7 @@ namespace
 			integer n = 10;
 
  			auto inputSet = intervalSet((integer)0, n);
-			
+
 			auto subSet = sparseSet(
 				inputSet, 2);
 
@@ -207,10 +199,10 @@ namespace
 				return true;
 			});
 
-			TEST_ENSURE_OP(actualSet.size(), ==, n / 2);
+			REQUIRE(actualSet.size() == n / 2);
 			for (integer i = 0;i < n;i += 2)
 			{
-				TEST_ENSURE_OP(actualSet.count(i), ==, 1);
+				REQUIRE(actualSet.count(i) == 1);
 			}
 		}
 
@@ -221,7 +213,7 @@ namespace
 
 			auto inputSet = intervalSet(
 				dataSet.begin(), dataSet.end());
-			
+
 			auto dereferencedSet = transformedSet(
 				inputSet, Dereference_Function());
 
@@ -232,25 +224,16 @@ namespace
 				return true;
 			});
 
-			TEST_ENSURE_OP(actualSet.size(), ==, n);
+			REQUIRE(actualSet.size() == n);
 			for (integer i = 0;i < n;++i)
 			{
-				TEST_ENSURE_OP(actualSet.count(i), ==, 1);
+				REQUIRE(actualSet.count(i) == 1);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("Set", "[Set]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Set", test);
-	}
-
-	CallFunction run(addTest);
 
 }

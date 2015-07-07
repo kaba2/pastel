@@ -1,24 +1,16 @@
 // Description: Testing for optional objects
 // DocumentationOf: optional.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/optional/optional.h"
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -51,32 +43,32 @@ namespace
 		void test()
 		{
 			Optional<integer> a;
-			TEST_ENSURE(a.empty());
+			REQUIRE(a.empty());
 			// The zero is treated as a non-empty
 			// optional: therefore it should not
 			// match.
-			TEST_ENSURE(a != 0);
-			TEST_ENSURE(a != 0.0);
+			REQUIRE(a != 0);
+			REQUIRE(a != 0.0);
 
 			a = 2;
-			TEST_ENSURE(!a.empty());
-			TEST_ENSURE(a == 2);
-			TEST_ENSURE(a == 2.0);
+			REQUIRE(!a.empty());
+			REQUIRE(a == 2);
+			REQUIRE(a == 2.0);
 
 			a.clear();
-			TEST_ENSURE(a.empty());
+			REQUIRE(a.empty());
 
 			Optional<B> b;
-			TEST_ENSURE(b.empty());
-			TEST_ENSURE(b.b == 0);
-			
+			REQUIRE(b.empty());
+			REQUIRE(b.b == 0);
+
 			b.b = 3;
-			TEST_ENSURE(b.empty());
-			TEST_ENSURE(b.b == 3);
-			
+			REQUIRE(b.empty());
+			REQUIRE(b.b == 3);
+
 			b = B(2);
-			TEST_ENSURE(!b.empty());
-			TEST_ENSURE(b.b == 2);
+			REQUIRE(!b.empty());
+			REQUIRE(b.b == 2);
 
 			// Optional<Type> is implicitly convertible 
 			// to type.
@@ -87,17 +79,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("Optional", "[Optional]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Optional", test);
-	}
-
-	CallFunction run(addTest);
 
 }

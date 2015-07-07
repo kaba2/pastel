@@ -1,26 +1,18 @@
 // Description: Testing for fair stable partitioning
 // DocumentationOf: fair_stable_partition.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/sequence/fair_stable_partition.h>
 #include <pastel/sys/trindicator.h>
 #include <pastel/sys/indicator.h>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -53,10 +45,10 @@ namespace
 					6, 4, 8, 0
 				};
 
-				TEST_ENSURE(boost::equal(leftSet, 
+				REQUIRE(boost::equal(leftSet, 
 					range(elementSet.begin(), rightBegin)));
 
-				TEST_ENSURE(boost::equal(rightSet, 
+				REQUIRE(boost::equal(rightSet, 
 					range(rightBegin, elementSet.end())));
 			}
 
@@ -81,26 +73,17 @@ namespace
 					6, 6, 8, 9
 				};
 
-				TEST_ENSURE(boost::equal(leftSet,
+				REQUIRE(boost::equal(leftSet,
 					range(elementSet.begin(), rightBegin)));
 
-				TEST_ENSURE(boost::equal(rightSet,
+				REQUIRE(boost::equal(rightSet,
 					range(rightBegin, elementSet.end())));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("fair_stable_partition", "[fair_stable_partition]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("fair_stable_partition", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,27 +1,19 @@
 // Description: Testing for automaton determinization
 // DocumentationOf: automaton_determinization.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/automaton/automaton_determinization.h"
 #include "pastel/sys/automaton/automaton_minimization.h"
 
 #include <boost/range/algorithm/for_each.hpp>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -47,11 +39,11 @@ namespace
 			automaton.addTransition(a, 0, b);
 			automaton.addTransition(b, 0, c);
 			automaton.addTransition(b, 1, c);
-			
+
 			automaton.addStart(a);
 			automaton.addFinal(c);
 
-			TEST_ENSURE(!automaton.deterministic());
+			REQUIRE(!automaton.deterministic());
 
 			//std::cout << automaton << std::endl;
 
@@ -63,7 +55,7 @@ namespace
 
 			std::unordered_map<
 				const StateSet*, State> stateMap;
-			
+
 			auto reportState =
 				[&](const StateSet& stateSet,
 				bool start)
@@ -84,7 +76,7 @@ namespace
 					det.addStart(stateMap[&stateSet]);
 				}
 			};
-			
+
 			auto reportTransition =
 				[&](const StateSet& fromStateSet,
 				const Optional<integer>& symbol,
@@ -98,28 +90,19 @@ namespace
 
 			determinizeAutomaton(automaton,
 				reportState, reportTransition);
-			TEST_ENSURE(det.deterministic());
+			REQUIRE(det.deterministic());
 
 			//std::cout << det << std::endl;
 
 			Automaton_ minimal = minimizeAutomaton(det);
-			TEST_ENSURE(minimal.deterministic());
+			REQUIRE(minimal.deterministic());
 
 			//std::cout << minimal << std::endl;
 		}
 	};
 
-	void test()
+	TEST_CASE("determinizeAutomaton", "[determinizeAutomaton]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("determinizeAutomaton", test);
-	}
-
-	CallFunction run(addTest);
 
 }

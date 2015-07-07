@@ -1,24 +1,16 @@
 // Description: Testing for norm-bijections
 // DocumentationOf: normbijection.h
 
-#include "test_pastelmath.h"
+#include "test/test_init.h"
 
 #include <pastel/math/normbijection.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testEuclidean();
@@ -37,19 +29,19 @@ namespace
 
 			for (auto&& x : valueSet)
 			{
-				TEST_ENSURE_OP(n.axis(x), == , x * x);
-				TEST_ENSURE_OP(n.signedAxis(x), == , x * x);
-				TEST_ENSURE_OP(n.signedAxis(-x), == , (-x) * (-x));
-				TEST_ENSURE_OP(n.addAxis(100, x), == , 100 + x);
-				TEST_ENSURE_OP(n.replaceAxis(100, 10, x), == , (100 - 10) + x);
-				TEST_ENSURE_OP(n.toNorm(x * x), == , x);
-				TEST_ENSURE_OP(n.toLnNorm(x * x), == , std::log(x));
-				TEST_ENSURE_OP(n.toBijection(x), == , x * x);
-				TEST_ENSURE_OP(n.scalingFactor(x), == , x * x);
+				REQUIRE(n.axis(x) == x * x);
+				REQUIRE(n.signedAxis(x) == x * x);
+				REQUIRE(n.signedAxis(-x) == (-x) * (-x));
+				REQUIRE(n.addAxis(100, x) == 100 + x);
+				REQUIRE(n.replaceAxis(100, 10, x) == (100 - 10) + x);
+				REQUIRE(n.toNorm(x * x) == x);
+				REQUIRE(n.toLnNorm(x * x) == std::log(x));
+				REQUIRE(n.toBijection(x) == x * x);
+				REQUIRE(n.scalingFactor(x) == x * x);
 			}
 
-			TEST_ENSURE_OP(n.lnVolumeUnitSphere(1), == , std::log(2));
-			TEST_ENSURE_OP(n.lnVolumeUnitSphere(2), == , std::log(constantPi<real>()));
+			REQUIRE(n.lnVolumeUnitSphere(1) == std::log(2));
+			REQUIRE(n.lnVolumeUnitSphere(2) == std::log(constantPi<real>()));
 		}
 
 		void testManhattan()
@@ -63,19 +55,19 @@ namespace
 
 			for (auto&& x : valueSet)
 			{
-				TEST_ENSURE_OP(n.axis(x), == , x);
-				TEST_ENSURE_OP(n.signedAxis(x), == , x);
-				TEST_ENSURE_OP(n.signedAxis(-x), == , x);
-				TEST_ENSURE_OP(n.addAxis(100, x), == , 100 + x);
-				TEST_ENSURE_OP(n.replaceAxis(100, 10, x), == , (100 - 10) + x);
-				TEST_ENSURE_OP(n.toNorm(x), == , x);
-				TEST_ENSURE_OP(n.toLnNorm(x), == , std::log(x));
-				TEST_ENSURE_OP(n.toBijection(x), == , x);
-				TEST_ENSURE_OP(n.scalingFactor(x), == , x);
+				REQUIRE(n.axis(x) == x);
+				REQUIRE(n.signedAxis(x) == x);
+				REQUIRE(n.signedAxis(-x) == x);
+				REQUIRE(n.addAxis(100, x) == 100 + x);
+				REQUIRE(n.replaceAxis(100, 10, x) == (100 - 10) + x);
+				REQUIRE(n.toNorm(x) == x);
+				REQUIRE(n.toLnNorm(x) == std::log(x));
+				REQUIRE(n.toBijection(x) == x);
+				REQUIRE(n.scalingFactor(x) == x);
 			}
 
-			TEST_ENSURE_OP(n.lnVolumeUnitSphere(1), == , std::log(2));
-			TEST_ENSURE_OP(n.lnVolumeUnitSphere(2), == , std::log(2));
+			REQUIRE(n.lnVolumeUnitSphere(1) == std::log(2));
+			REQUIRE(n.lnVolumeUnitSphere(2) == std::log(2));
 		}
 
 		void testMaximum()
@@ -89,33 +81,24 @@ namespace
 
 			for (auto&& x : valueSet)
 			{
-				TEST_ENSURE_OP(n.axis(x), == , x);
-				TEST_ENSURE_OP(n.signedAxis(x), == , x);
-				TEST_ENSURE_OP(n.signedAxis(-x), == , x);
-				TEST_ENSURE_OP(n.addAxis(100, x), == , std::max((real)100, x));
-				TEST_ENSURE_OP(n.replaceAxis(100, 10, x), == ,  std::max((real)100, x));
-				TEST_ENSURE_OP(n.toNorm(x), == , x);
-				TEST_ENSURE_OP(n.toLnNorm(x), == , std::log(x));
-				TEST_ENSURE_OP(n.toBijection(x), == , x);
-				TEST_ENSURE_OP(n.scalingFactor(x), == , x);
+				REQUIRE(n.axis(x) == x);
+				REQUIRE(n.signedAxis(x) == x);
+				REQUIRE(n.signedAxis(-x) == x);
+				REQUIRE(n.addAxis(100, x) == std::max((real)100, x));
+				REQUIRE(n.replaceAxis(100, 10, x) ==  std::max((real)100, x));
+				REQUIRE(n.toNorm(x) == x);
+				REQUIRE(n.toLnNorm(x) == std::log(x));
+				REQUIRE(n.toBijection(x) == x);
+				REQUIRE(n.scalingFactor(x) == x);
 			}
 
-			TEST_ENSURE_OP(n.lnVolumeUnitSphere(1), == , std::log(2));
-			TEST_ENSURE_OP(n.lnVolumeUnitSphere(2), == , std::log(4));
+			REQUIRE(n.lnVolumeUnitSphere(1) == std::log(2));
+			REQUIRE(n.lnVolumeUnitSphere(2) == std::log(4));
 		}
 	};
 
-	void test()
+	TEST_CASE("NormBijection", "[NormBijection]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("NormBijection", test);
-	}
-
-	CallFunction run(addTest);
 
 }

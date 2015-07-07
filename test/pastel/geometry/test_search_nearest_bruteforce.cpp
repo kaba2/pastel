@@ -1,7 +1,7 @@
 // Description: Testing for nearest-set.
 // DocumentationOf: nearestset_concept.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/search_nearest_bruteforce.h>
 #include "pastel/geometry/search_nearest_kdtree.h"
@@ -22,20 +22,12 @@
 #include <vector>
 #include <list>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		template <integer N_>
 		class Settings
 		{
@@ -47,7 +39,7 @@ namespace
 
 		using Tree = PointKdTree<Settings<2>>;
 		using Point_ConstIterator = Tree::Point_ConstIterator;
-			
+
 		PASTEL_CONCEPT_CHECK(Tree::Point, Point_Concept);
 
 		virtual void run()
@@ -77,7 +69,7 @@ namespace
 			using PointSet = std::list<Vector2>;
 			using Point_Iterator = PointSet::iterator;
 			using Locator = Vector_Locator<real, 2>;
-			
+
 			PointSet pointSet =
 			{
 				// 0
@@ -140,15 +132,15 @@ namespace
 				auto nearestSet = bruteForceNearestSet(rangeSet(pointSet));
 				test(nearestSet, distanceSet);
 
-				TEST_ENSURE_OP(nearestSetN(nearestSet), ==, pointSet.size());
+				REQUIRE(nearestSetN(nearestSet) == pointSet.size());
 			}
 			{
 				Tree tree;
 				tree.insertSet(rangeSet(pointSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(testInvariants(tree));
 
 				tree.refine(SlidingMidpoint_SplitRule(), 1);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(testInvariants(tree));
 
 				PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
 
@@ -178,7 +170,7 @@ namespace
 
 				real distance2 = result.first;
 
-				TEST_ENSURE(distance2 == 0);
+				REQUIRE(distance2 == 0);
 
 				return true;
 			});
@@ -199,7 +191,7 @@ namespace
 
 				real distance2 = result.first;
 
-				TEST_ENSURE(distance2 == distanceSet[j]);
+				REQUIRE(distance2 == distanceSet[j]);
 				++j;
 				return true;
 			});
@@ -275,11 +267,11 @@ namespace
 				rangeSet(pointSet),
 				PASTEL_TAG(report), pushBackOutput(iteratorSet)
 			);
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 
 			tree.refine(SlidingMidpoint_SplitRule(), 1);
-			TEST_ENSURE(testInvariants(tree));
-			
+			REQUIRE(testInvariants(tree));
+
 			/*
 			 0   |
 			     |2  3
@@ -291,7 +283,7 @@ namespace
 			     |    E
 				 |
 			*/
-			
+
 			/*
 			Nearest neighbors:
 			0 -> 1 (1^2 + 2^2 = 5)
@@ -359,10 +351,10 @@ namespace
 					Point_ConstIterator iter = result.second;
 					unused(iter);
 
-					//TEST_ENSURE(iter == iteratorSet[i]);
-					TEST_ENSURE(distance2 == 0);
+					//REQUIRE(iter == iteratorSet[i]);
+					REQUIRE(distance2 == 0);
 				}
-				
+
 				{
 					std::pair<real, Point_ConstIterator> result = 
 						searchNearest(
@@ -376,8 +368,8 @@ namespace
 					Point_ConstIterator iter = result.second;
 					unused(iter);
 
-					//TEST_ENSURE(iter == correctSet[i]);
-					TEST_ENSURE(distance2 == distanceSet[i]);
+					//REQUIRE(iter == correctSet[i]);
+					REQUIRE(distance2 == distanceSet[i]);
 				}
 			}
 		}
@@ -399,7 +391,7 @@ namespace
 			using PointSet = std::list<Vector2>;
 			using Point_Iterator = PointSet::iterator;
 			using Locator = Vector_Locator<real, 2>;
-			
+
 			PointSet pointSet =
 			{
 				// 0
@@ -472,7 +464,7 @@ namespace
 				);
 
 			PASTEL_CONCEPT_CHECK(decltype(bNearestSet), NearestSet_Concept);
-			
+
 			integer j = 0;
 			for (auto i = pointSet.begin(); i != pointSet.end(); ++i)
 			{
@@ -482,7 +474,7 @@ namespace
 
 					real distance2 = result.first;
 
-					TEST_ENSURE(distance2 == 0);
+					REQUIRE(distance2 == 0);
 				}
 
 				{
@@ -495,24 +487,15 @@ namespace
 
 					real distance2 = result.first;
 
-					TEST_ENSURE(distance2 == distanceSet[j]);
+					REQUIRE(distance2 == distanceSet[j]);
 				}
 				++j;
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("search_nearest_bruteforce", "[search_nearest_bruteforce]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("search_nearest_bruteforce", test);
-	}
-
-	CallFunction run(addTest);
 
 }

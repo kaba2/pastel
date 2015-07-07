@@ -1,7 +1,7 @@
 // Description: Testing for drawing
 // DocumentationOf: drawing.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/view/extendedconstviews.h"
 #include "pastel/sys/view.h"
@@ -19,8 +19,6 @@
 
 #include <boost/lambda/lambda.hpp>
 using namespace boost::lambda;
-
-using namespace Pastel;
 
 namespace
 {
@@ -306,7 +304,6 @@ namespace
 		savePcx(image, "drawing_solidtriangle.pcx");
 	}
 
-
 	void testBoxes()
 	{
 		Array<Color, 2> image(Vector2i(640, 480));
@@ -477,7 +474,6 @@ namespace
 		real XYStep = (real)(YEnd - YStart) / (XLines - 1);
 		real YYStep = (real)(YEnd - YStart) / (YLines - 1);
 
-
 		Array<Color, 2> image(Vector2i(XLines* BoxWidth, YLines * BoxHeight));
 
 		for (integer y = 0;y < YLines;++y)
@@ -497,26 +493,5 @@ namespace
 
 		savePcx(image, "drawing_evenmorelines.pcx");
 	}
-
-	void addTest()
-	{
-		testRunner().add("Drawing.Texture", testTexture);
-		testRunner().add("Drawing.View", testView);
-		testRunner().add("Drawing.Binary", testBinary);
-		testRunner().add("Drawing.FloodFill", testFloodFill);
-		testRunner().add("Drawing.Lines", testLines);
-		testRunner().add("Drawing.MoreLines", testMoreLines);
-		testRunner().add("Drawing.EvenMoreLines", testEvenMoreLines);
-		testRunner().add("Drawing.SolidTriangle", testSolidTriangle);
-		testRunner().add("Drawing.TextureTriangle", testTextureTriangle);
-		testRunner().add("Drawing.EwaTriangle", testEwaTriangle);
-		testRunner().add("Drawing.PerspectiveTriangle", testPerspectiveTriangle);
-		testRunner().add("Drawing.EwaPerspectiveTriangle", testEwaPerspectiveTriangle);
-		testRunner().add("Drawing.Boxes", testBoxes);
-		testRunner().add("Drawing.Circles", testCircles);
-		testRunner().add("Drawing.MoreCircles", testMoreCircles);
-	}
-
-	CallFunction run(addTest);
 
 }

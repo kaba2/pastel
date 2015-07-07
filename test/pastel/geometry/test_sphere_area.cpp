@@ -1,24 +1,16 @@
 // Description: Testing for sphere area
 // DocumentationOf: sphere_area.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/area/sphere_area.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testEuclidean();
@@ -119,8 +111,8 @@ namespace
 				-344.3348756540148
 			};
 
-			TEST_ENSURE_OP(areaUnitSphere<real>(1), ==, 0);
-			TEST_ENSURE_OP(lnAreaUnitSphere<real>(1), ==, -infinity<real>());
+			REQUIRE(areaUnitSphere<real>(1) == 0);
+			REQUIRE(lnAreaUnitSphere<real>(1) == -infinity<real>());
 
 			integer elements = sizeof(correctSet) / sizeof(real);
 			for (integer n = 2; n < elements; ++n)
@@ -131,30 +123,21 @@ namespace
 					real maxError = 4e-14;
 					real measured = lnAreaUnitSphere<real>(n);
 					real error = relativeError<real>(measured, correct);
-					TEST_ENSURE_OP(error, <, maxError);
+					REQUIRE(error < maxError);
 				}
 
 				{
 					real maxError = 4e-14;
 					real measured = std::log(areaUnitSphere<real>(n));
 					real error = relativeError<real>(measured, correct);
-					TEST_ENSURE_OP(error, <, maxError);
+					REQUIRE(error < maxError);
 				}
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("sphere_area", "[sphere_area]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("sphere_area", test);
-	}
-
-	CallFunction run(addTest);
 
 }

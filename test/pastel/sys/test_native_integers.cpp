@@ -1,25 +1,18 @@
 // Description: Testing for native integers
 // DocumentationOf: native_integer.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
+#include <pastel/sys/integer/finite_integer_concept.h>
 #include <pastel/sys/math/number_tests.h>
 #include <pastel/sys/integer/integer_mean.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testInfinity();
@@ -66,23 +59,23 @@ namespace
 		template <typename Type>
 		void testComparison()
 		{
-			TEST_ENSURE(negative((Type)-1) || std::is_unsigned<Type>::value);
-			TEST_ENSURE(!negative((Type)0));
-			TEST_ENSURE(positive((Type)1));
-			TEST_ENSURE(!positive((Type)0));
+			REQUIRE((negative((Type)-1) || std::is_unsigned<Type>::value));
+			REQUIRE(!negative((Type)0));
+			REQUIRE(positive((Type)1));
+			REQUIRE(!positive((Type)0));
 		}
 
 		void testInfinity()
 		{
-			TEST_ENSURE(infinity<uint8>() == 0xFFu);
-			TEST_ENSURE(infinity<uint16>() == 0xFFFFu);
-			TEST_ENSURE(infinity<uint32>() == 0xFFFFFFFFul);
-			TEST_ENSURE(infinity<uint64>() == 0xFFFFFFFFFFFFFFFFull);
+			REQUIRE(infinity<uint8>() == 0xFFu);
+			REQUIRE(infinity<uint16>() == 0xFFFFu);
+			REQUIRE(infinity<uint32>() == 0xFFFFFFFFul);
+			REQUIRE(infinity<uint64>() == 0xFFFFFFFFFFFFFFFFull);
 
-			TEST_ENSURE(infinity<int8>() == 0x7Fu);
-			TEST_ENSURE(infinity<int16>() == 0x7FFFu);
-			TEST_ENSURE(infinity<int32>() == 0x7FFFFFFFul);
-			TEST_ENSURE(infinity<int64>() == 0x7FFFFFFFFFFFFFFFull);
+			REQUIRE(infinity<int8>() == 0x7Fu);
+			REQUIRE(infinity<int16>() == 0x7FFFu);
+			REQUIRE(infinity<int32>() == 0x7FFFFFFFul);
+			REQUIRE(infinity<int64>() == 0x7FFFFFFFFFFFFFFFull);
 		}
 
 		template <typename Type>
@@ -95,14 +88,14 @@ namespace
 			{
 				for (Type j = min; j < 16;++j)
 				{
-					TEST_ENSURE_OP(integerMean(i, j), ==, (i + j) / 2);
+					REQUIRE(integerMean(i, j) == (i + j) / 2);
 				}				
 			}
 
-			TEST_ENSURE_OP(integerMean(infinity<Type>(), infinity<Type>()), ==, infinity<Type>());
+			REQUIRE(integerMean(infinity<Type>(), infinity<Type>()) == infinity<Type>());
 			if (std::is_signed<Type>::value)
 			{
-				TEST_ENSURE_OP(integerMean(-infinity<Type>(), -infinity<Type>()), ==, -infinity<Type>());
+				REQUIRE(integerMean(-infinity<Type>(), -infinity<Type>()) == -infinity<Type>());
 			}
 		}
 
@@ -111,12 +104,12 @@ namespace
 		{
 			for (integer i = 1;i < 100;i += 2)
 			{
-				TEST_ENSURE(odd((Type)i));
+				REQUIRE(odd((Type)i));
 			}
 
 			for (integer i = 0;i < 100;i += 2)
 			{
-				TEST_ENSURE(even((Type)i));
+				REQUIRE(even((Type)i));
 			}
 		}
 
@@ -128,54 +121,45 @@ namespace
 				return isPowerOfTwo((Type)t);
 			};
 
-			TEST_ENSURE(f(1));
-			TEST_ENSURE(f(2));
-			TEST_ENSURE(!f(3));
-			TEST_ENSURE(f(4));
-			TEST_ENSURE(!f(5));
-			TEST_ENSURE(!f(6));
-			TEST_ENSURE(!f(7));
-			TEST_ENSURE(f(8));
-			TEST_ENSURE(!f(9));
-			TEST_ENSURE(!f(10));
-			TEST_ENSURE(!f(11));
-			TEST_ENSURE(!f(12));
-			TEST_ENSURE(!f(13));
-			TEST_ENSURE(!f(14));
-			TEST_ENSURE(!f(15));
-			TEST_ENSURE(f(16));
-			TEST_ENSURE(!f(17));
-			TEST_ENSURE(!f(18));
-			TEST_ENSURE(!f(19));
-			TEST_ENSURE(!f(20));
-			TEST_ENSURE(!f(21));
-			TEST_ENSURE(!f(22));
-			TEST_ENSURE(!f(23));
-			TEST_ENSURE(!f(24));
-			TEST_ENSURE(!f(25));
-			TEST_ENSURE(!f(26));
-			TEST_ENSURE(!f(27));
-			TEST_ENSURE(!f(28));
-			TEST_ENSURE(!f(29));
-			TEST_ENSURE(!f(30));
-			TEST_ENSURE(!f(31));
-			TEST_ENSURE(f(32));
-			TEST_ENSURE(f(64));
-			TEST_ENSURE(!f(127));
+			REQUIRE(f(1));
+			REQUIRE(f(2));
+			REQUIRE(!f(3));
+			REQUIRE(f(4));
+			REQUIRE(!f(5));
+			REQUIRE(!f(6));
+			REQUIRE(!f(7));
+			REQUIRE(f(8));
+			REQUIRE(!f(9));
+			REQUIRE(!f(10));
+			REQUIRE(!f(11));
+			REQUIRE(!f(12));
+			REQUIRE(!f(13));
+			REQUIRE(!f(14));
+			REQUIRE(!f(15));
+			REQUIRE(f(16));
+			REQUIRE(!f(17));
+			REQUIRE(!f(18));
+			REQUIRE(!f(19));
+			REQUIRE(!f(20));
+			REQUIRE(!f(21));
+			REQUIRE(!f(22));
+			REQUIRE(!f(23));
+			REQUIRE(!f(24));
+			REQUIRE(!f(25));
+			REQUIRE(!f(26));
+			REQUIRE(!f(27));
+			REQUIRE(!f(28));
+			REQUIRE(!f(29));
+			REQUIRE(!f(30));
+			REQUIRE(!f(31));
+			REQUIRE(f(32));
+			REQUIRE(f(64));
+			REQUIRE(!f(127));
 		}
 	};
 
-	void test()
+	TEST_CASE("native_integer", "[native_integer]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("native_integer", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,7 +1,7 @@
 // Description: Testing for maximum bipartite matching
 // DocumentationOf: maximum_bipartite_matching.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/graph/matching.h"
 #include "pastel/sys/tuple/tuple_tools.h"
@@ -9,20 +9,12 @@
 #include "pastel/sys/sequence/random_subset.h"
 #include "pastel/sys/random.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testSimple();
@@ -39,7 +31,7 @@ namespace
 			{
 				integer nA = randomInteger(100);
 				integer nB = randomInteger(100);
-				
+
 				std::vector<integer> allEdgeSet;
 				allEdgeSet.reserve(nB);
 				for (integer b = 0;b < nB;++b)
@@ -79,7 +71,7 @@ namespace
 					{1}
 				};
 
-				TEST_ENSURE(testCase(10, std::move(edgeSet), 3));
+				REQUIRE(testCase(10, std::move(edgeSet), 3));
 			}
 		}
 
@@ -91,7 +83,7 @@ namespace
 					{0}
 				};
 
-				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
+				REQUIRE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
 				EdgeSet edgeSet =
@@ -99,7 +91,7 @@ namespace
 					{1}
 				};
 
-				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
+				REQUIRE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
 				EdgeSet edgeSet =
@@ -108,7 +100,7 @@ namespace
 					{0}
 				};
 
-				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
+				REQUIRE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
 				EdgeSet edgeSet =
@@ -117,7 +109,7 @@ namespace
 					{1}
 				};
 
-				TEST_ENSURE(testCase(10, std::move(edgeSet), 2));
+				REQUIRE(testCase(10, std::move(edgeSet), 2));
 			}
 			{
 				EdgeSet edgeSet =
@@ -126,7 +118,7 @@ namespace
 					{0}
 				};
 
-				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
+				REQUIRE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
 				EdgeSet edgeSet =
@@ -134,7 +126,7 @@ namespace
 					{0, 1}
 				};
 
-				TEST_ENSURE(testCase(10, std::move(edgeSet), 1));
+				REQUIRE(testCase(10, std::move(edgeSet), 1));
 			}
 			{
 				EdgeSet edgeSet =
@@ -143,7 +135,7 @@ namespace
 					{0, 1}
 				};
 
-				TEST_ENSURE(testCase(10, std::move(edgeSet), 2));
+				REQUIRE(testCase(10, std::move(edgeSet), 2));
 			}
 			{
 				EdgeSet edgeSet =
@@ -152,7 +144,7 @@ namespace
 					{0, 1}
 				};
 
-				TEST_ENSURE(testCase(10, std::move(edgeSet), 2));
+				REQUIRE(testCase(10, std::move(edgeSet), 2));
 			}
 		}
 
@@ -282,18 +274,9 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("maximumBipartiteMatching", "[maximumBipartiteMatching]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("maximumBipartiteMatching", test);
-	}
-
-	CallFunction run(addTest);
 
 }
 

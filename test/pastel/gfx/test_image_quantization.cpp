@@ -1,27 +1,19 @@
 // Description: Testing for image quantization
 // DocumentationOf: image_quantization.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/gfx/quantization.h"
 
 #include "pastel/gfx/image_file.h"
 #include "pastel/gfx/image_tools.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testErrorDiffusion();
@@ -50,18 +42,5 @@ namespace
 			savePcx(image, "lena_rounding_quantized.pcx");
 		}
 	};
-
-	void test()
-	{
-		Test test;
-		test.run();
-	}
-
-	void addTests()
-	{
-		testRunner().add("image_quantization", test);
-	}
-
-	CallFunction run(addTests);
 
 }

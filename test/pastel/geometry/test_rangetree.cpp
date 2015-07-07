@@ -1,7 +1,7 @@
 // Description: Testing for range tree
 // DocumentationOf: rangetree.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/rangetree/rangetree.h>
 #include <pastel/sys/math/eps.h>
@@ -11,8 +11,6 @@
 #include <iostream>
 #include <queue>
 #include <list>
-
-using namespace Pastel;
 
 namespace
 {
@@ -69,14 +67,8 @@ namespace
 	}
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testSimple();
@@ -90,7 +82,7 @@ namespace
 			Node_ConstIterator node = tree.root();
 
 			integer prevLevel = -1;
-			
+
 			std::list<std::pair<Node_ConstIterator, integer>> nodeSet;
 			nodeSet.push_back(std::make_pair(node, 0));
 			while (!nodeSet.empty())
@@ -107,7 +99,7 @@ namespace
 					nodeSet.push_back(std::make_pair(node->child(false), level + 1));
 					nodeSet.push_back(std::make_pair(node->child(true), level + 1));
 				}
-				
+
 				if (prevLevel != level)
 				{
 					std::cout << std::endl;
@@ -120,7 +112,7 @@ namespace
 					for (integer i = 0; i < n; ++i)
 					{
 						const auto& entry = node->entryRange()[i];
-						
+
 						Node_ConstIterator left = node->child(false);
 						const auto& leftEntry = left->entryRange()[entry.cascade(false)];
 
@@ -146,7 +138,7 @@ namespace
 			// 1  * *  
 			// 0      *
 			//  012345678
-			
+
 			std::vector<Point<2>> pointSet;
 
 			pointSet.emplace_back(0, 3);
@@ -160,7 +152,7 @@ namespace
 			pointSet.emplace_back(8, 2);
 
 			Tree tree(rangeInput(pointSet), 2);
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 
 			std::vector<Point<2>> resultSet;
 
@@ -190,45 +182,45 @@ namespace
 					return searchRange(tree, min, max) == correct;
 				};
 
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(0, 4), 1));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(1, 4), 2));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(2, 4), 5));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(3, 4), 5));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(4, 4), 6));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(5, 4), 7));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(6, 4), 8));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(7, 4), 8));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 4), 9));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(0, 4), 1));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(1, 4), 2));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(2, 4), 5));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(3, 4), 5));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(4, 4), 6));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(5, 4), 7));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(6, 4), 8));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(7, 4), 8));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(8, 4), 9));
 
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 0), 1));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 1), 3));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 2), 5));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 3), 8));
-				TEST_ENSURE(test(Point<2>(0, 0), Point<2>(8, 4), 9));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(8, 0), 1));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(8, 1), 3));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(8, 2), 5));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(8, 3), 8));
+				REQUIRE(test(Point<2>(0, 0), Point<2>(8, 4), 9));
 			}
 			{
 				integer count = 
 					searchRange(tree, Point<2>(2, 1), Point<2>(4, 3), report);
 				boost::sort(resultSet, order);
-				TEST_ENSURE_OP(count, ==, resultSet.size());
+				REQUIRE(count == resultSet.size());
 
 				std::vector<Point<2>> correctSet;
 				correctSet.emplace_back(2, 1);
 				correctSet.emplace_back(2, 3);
 				correctSet.emplace_back(4, 1);
 
-				TEST_ENSURE(boost::equal(resultSet, correctSet));
+				REQUIRE(boost::equal(resultSet, correctSet));
 			}
 
 			{
 				resultSet.clear();
-				
+
 				integer count = 
 					searchRange(tree, Point<2>(0), Point<2>(8, 4), report);
-				TEST_ENSURE_OP(count, ==, resultSet.size());
+				REQUIRE(count == resultSet.size());
 
 				boost::sort(resultSet, order);
-				TEST_ENSURE(boost::equal(resultSet, pointSet));
+				REQUIRE(boost::equal(resultSet, pointSet));
 			}
 		}
 
@@ -245,7 +237,7 @@ namespace
 			using Box = AlignedBox<integer, N>;
 
 			Box grid(Point(0), Point(width));
-									
+
 			std::vector<Point> pointSet;
 			pointSet.reserve(product(grid.extent()));
 			forEachPoint(
@@ -256,7 +248,7 @@ namespace
 			});
 
 			Tree tree(rangeInput(pointSet), N);
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 
 			forEachPoint(
 				grid,
@@ -271,13 +263,13 @@ namespace
 				};
 
 				integer count = searchRange(tree, point, point, report);
-				TEST_ENSURE_OP(count, ==, resultSet.size());
+				REQUIRE(count == resultSet.size());
 
 				std::vector<Point> correctSet;
 				correctSet.emplace_back(point);
 
-				TEST_ENSURE(boost::equal(resultSet, correctSet));
-				
+				REQUIRE(boost::equal(resultSet, correctSet));
+
 				Point a = point;
 				a[0] = nextGreater(a[0]);
 
@@ -286,24 +278,15 @@ namespace
 
 				resultSet.clear();
 				count = searchRange(tree, a, b, report);
-				TEST_ENSURE_OP(count, ==, resultSet.size());
+				REQUIRE(count == resultSet.size());
 
-				TEST_ENSURE(resultSet.empty());
+				REQUIRE(resultSet.empty());
 			});
 		}
 	};
 
-	void test()
+	TEST_CASE("RangeTree", "[RangeTree]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("RangeTree", test);
-	}
-
-	CallFunction run(addTest);
 
 }

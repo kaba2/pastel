@@ -1,7 +1,7 @@
 // Description: Testing for image processing
 // DocumentationOf: image_eroding.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/gfx/image_file.h"
 #include "pastel/gfx/color.h"
@@ -10,8 +10,6 @@
 #include "pastel/gfx/image_processing.h"
 
 #include "pastel/sys/view.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -78,8 +76,6 @@ namespace
 
 		saveBinaryPcx(image, "structuring_element_small_ellipsoid5.pcx");
 
-
-
 		diamondElement(arrayView(image), Vector2(1));
 
 		saveBinaryPcx(image, "structuring_element_small_diamond.pcx");
@@ -99,8 +95,6 @@ namespace
 		diamondElement(arrayView(image), Vector2(5));
 
 		saveBinaryPcx(image, "structuring_element_small_diamond5.pcx");
-
-
 
 		pEllipsoidElement(arrayView(image), 1.5, Vector2(1));
 
@@ -129,7 +123,6 @@ namespace
 		integer height = 500;
 
 		Array<bool, 2> image(Vector2i(width, height), false);
-
 
 		Image_GfxRenderer<bool> renderer(&image);
 
@@ -171,18 +164,8 @@ namespace
 		saveBinaryPcx(image, "dilate_output.pcx");
 	}
 
-	void test()
+	TEST_CASE("Erode", "[Erode]")
 	{
-		testStructuringElementLarge();
-		testStructuringElementSmall();
-		testErode();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Erode", test);
-	}
-
-	CallFunction run(addTest);
 
 }

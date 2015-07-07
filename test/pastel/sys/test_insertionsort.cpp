@@ -1,24 +1,16 @@
 // Description: Testing for insertion sort
 // DocumentationOf: insertion_sort.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/sequence/insertion_sort.h"
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testInsertionSort();
@@ -68,22 +60,13 @@ namespace
 
 			for (integer i = 0;i < n;++i)
 			{
-				TEST_ENSURE_OP(v[i], ==, i);
+				REQUIRE(v[i] == i);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("insertionSort ", "[insertionSort ]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("insertionSort ", test);
-	}
-
-	CallFunction run(addTest);
 
 }

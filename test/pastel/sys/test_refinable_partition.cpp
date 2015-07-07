@@ -1,26 +1,19 @@
 // Description: Testing for refinable partition
 // DocumentationOf: refinable_partition.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/refinable_partition/refinable_partition.h>
 
 #include <algorithm>
-
-using namespace Pastel;
+#include <iostream>
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -79,62 +72,54 @@ namespace
 			partition.insert(
 				set, std::begin(data), std::end(data));
 			{
-				TEST_ENSURE_OP(partition.splits(), ==, 0);
-				TEST_ENSURE_OP(partition.sets(), ==, 1);
-				TEST_ENSURE_OP(partition.elements(), ==, 5);
-				TEST_ENSURE(same(data, partition.setBegin()));
-				TEST_ENSURE_OP(*partition.setBegin(), ==, 0);
+				REQUIRE(partition.splits() == 0);
+				REQUIRE(partition.sets() == 1);
+				REQUIRE(partition.elements() == 5);
+				REQUIRE(same(data, partition.setBegin()));
+				REQUIRE(*partition.setBegin() == 0);
 			}
 
 			partition.mark(
 				partition.elementBegin());
 			{
-				TEST_ENSURE_OP(partition.splits(), ==, 1);
+				REQUIRE(partition.splits() == 1);
 			}
 
 			partition.mark(
 				std::next(partition.elementBegin(), 2));
 			{
-				TEST_ENSURE_OP(partition.splits(), ==, 1);
+				REQUIRE(partition.splits() == 1);
 			}
 
 			partition.mark(
 				std::next(partition.elementBegin(), 4));
 			{
-				TEST_ENSURE_OP(
-					partition.setBegin()->marked(), ==, 3);
-				TEST_ENSURE_OP(
-					partition.setBegin()->unmarked(), ==, 2);
+				REQUIRE(partition.setBegin()->marked() == 3);
+				REQUIRE(partition.setBegin()->unmarked() == 2);
 			}
 
 			partition.split();
 			{
-				TEST_ENSURE_OP(
-					partition.splits(), ==, 0);
-				TEST_ENSURE_OP(
-					partition.sets(), ==, 2);
-				TEST_ENSURE_OP(
-					partition.elements(), ==, 5);
+				REQUIRE(partition.splits() == 0);
+				REQUIRE(partition.sets() == 2);
+				REQUIRE(partition.elements() == 5);
 
 				// In the splitting, the smaller part
 				// should get the new set.
 				int data[] = {0, 2, 4};
-				TEST_ENSURE(
-					same(data, partition.setBegin()));
+				REQUIRE(same(data, partition.setBegin()));
 
 				auto set = partition.setBegin();
 				++set;
 
 				int data2[] = {1, 3};
-				TEST_ENSURE(same(data2, set));
-				TEST_ENSURE_OP(set->marked(), ==, 0);
-				TEST_ENSURE_OP(set->unmarked(), ==, 2);
-				TEST_ENSURE_OP(set->elements(), ==, 2);
+				REQUIRE(same(data2, set));
+				REQUIRE(set->marked() == 0);
+				REQUIRE(set->unmarked() == 2);
+				REQUIRE(set->elements() == 2);
 
-				TEST_ENSURE(
-					std::next(partition.elementBegin())->set() == set);
-				TEST_ENSURE(
-					std::next(partition.elementBegin(), 3)->set() == set);
+				REQUIRE(std::next(partition.elementBegin())->set() == set);
+				REQUIRE(std::next(partition.elementBegin(), 3)->set() == set);
 			}
 
 			partition.mark(
@@ -146,14 +131,10 @@ namespace
 					partition.setBegin();
 				++set;
 
-				TEST_ENSURE_OP(
-					set->elements(), ==, 2);
-				TEST_ENSURE_OP(
-					set->marked(), ==, 2);
-				TEST_ENSURE_OP(
-					set->unmarked(), ==, 0);
-				TEST_ENSURE_OP(
-					partition.splits(), ==, 1);
+				REQUIRE(set->elements() == 2);
+				REQUIRE(set->marked() == 2);
+				REQUIRE(set->unmarked() == 0);
+				REQUIRE(partition.splits() == 1);
 			}
 
 			partition.split();
@@ -161,17 +142,15 @@ namespace
 				// Nothing should happen when all
 				// the elements in a set are marked.
 
-				TEST_ENSURE_OP(
-					partition.sets(), ==, 2);
+				REQUIRE(partition.sets() == 2);
 
-				TEST_ENSURE_OP(
-					partition.splits(), ==, 0);
+				REQUIRE(partition.splits() == 0);
 			}
 
 			partition.clear();
-			TEST_ENSURE_OP(partition.splits(), ==, 0);
-			TEST_ENSURE_OP(partition.sets(), ==, 0);
-			TEST_ENSURE_OP(partition.elements(), ==, 0);
+			REQUIRE(partition.splits() == 0);
+			REQUIRE(partition.sets() == 0);
+			REQUIRE(partition.elements() == 0);
 		}
 
 		void testCopy()
@@ -181,23 +160,23 @@ namespace
 			partition.insertOne(set, 0);
 			partition.insertOne(set, 1);
 			partition.insertOne(set, 2);
-			
+
 			partition.mark(partition.elementBegin());
-			
+
 			Partition copy(partition);
 			{
-				TEST_ENSURE_OP(partition.elements(), ==, copy.elements());
-				TEST_ENSURE_OP(partition.splits(), ==, copy.splits());
-				TEST_ENSURE_OP(partition.sets(), ==, copy.sets());
+				REQUIRE(partition.elements() == copy.elements());
+				REQUIRE(partition.splits() == copy.splits());
+				REQUIRE(partition.sets() == copy.sets());
 
 				Set_ConstIterator set =
 					partition.cSetBegin();
 				Set_ConstIterator copySet =
 					copy.cSetBegin();
-				
-				TEST_ENSURE_OP(set->elements(), ==, copySet->elements());
-				TEST_ENSURE_OP(set->marked(), ==, copySet->marked());
-				TEST_ENSURE_OP(set->unmarked(), ==, copySet->unmarked());
+
+				REQUIRE(set->elements() == copySet->elements());
+				REQUIRE(set->marked() == copySet->marked());
+				REQUIRE(set->unmarked() == copySet->unmarked());
 			}
 		}
 
@@ -228,14 +207,14 @@ namespace
 				Set_ConstIterator set =
 					partition.setBegin();
 
-				TEST_ENSURE_OP(set->elements(), ==, 4);
-				TEST_ENSURE_OP(set->marked(), ==, 0);
-				TEST_ENSURE_OP(set->unmarked(), ==, 4);
-				TEST_ENSURE_OP(partition.elements(), ==, 4);
-				TEST_ENSURE_OP(partition.sets(), ==, 1);
+				REQUIRE(set->elements() == 4);
+				REQUIRE(set->marked() == 0);
+				REQUIRE(set->unmarked() == 4);
+				REQUIRE(partition.elements() == 4);
+				REQUIRE(partition.sets() == 1);
 
 				integer data[] = {0, 2, 3, 4};
-				TEST_ENSURE(same(data, set));
+				REQUIRE(same(data, set));
 			}
 
 			partition.mark(
@@ -244,12 +223,12 @@ namespace
 				Set_ConstIterator set =
 					partition.setBegin();
 
-				TEST_ENSURE_OP(set->elements(), ==, 4);
-				TEST_ENSURE_OP(set->marked(), ==, 1);
-				TEST_ENSURE_OP(set->unmarked(), ==, 3);
-				TEST_ENSURE_OP(partition.elements(), ==, 4);
-				TEST_ENSURE_OP(partition.splits(), ==, 1);
-				TEST_ENSURE_OP(partition.sets(), ==, 1);
+				REQUIRE(set->elements() == 4);
+				REQUIRE(set->marked() == 1);
+				REQUIRE(set->unmarked() == 3);
+				REQUIRE(partition.elements() == 4);
+				REQUIRE(partition.splits() == 1);
+				REQUIRE(partition.sets() == 1);
 			}
 
 			partition.erase(
@@ -258,15 +237,15 @@ namespace
 				Set_ConstIterator set =
 					partition.setBegin();
 
-				TEST_ENSURE_OP(set->elements(), ==, 3);
-				TEST_ENSURE_OP(set->marked(), ==, 0);
-				TEST_ENSURE_OP(set->unmarked(), ==, 3);
-				TEST_ENSURE_OP(partition.elements(), ==, 3);
-				TEST_ENSURE_OP(partition.splits(), ==, 0);
-				TEST_ENSURE_OP(partition.sets(), ==, 1);
+				REQUIRE(set->elements() == 3);
+				REQUIRE(set->marked() == 0);
+				REQUIRE(set->unmarked() == 3);
+				REQUIRE(partition.elements() == 3);
+				REQUIRE(partition.splits() == 0);
+				REQUIRE(partition.sets() == 1);
 
 				integer data[] = {0, 3, 4};
-				TEST_ENSURE(same(data, set));
+				REQUIRE(same(data, set));
 			}
 
 			partition.erase(
@@ -279,45 +258,36 @@ namespace
 				Set_ConstIterator set =
 					partition.setBegin();
 
-				TEST_ENSURE_OP(set->elements(), ==, 0);
-				TEST_ENSURE_OP(set->marked(), ==, 0);
-				TEST_ENSURE_OP(set->unmarked(), ==, 0);
-				TEST_ENSURE_OP(partition.elements(), ==, 0);
-				TEST_ENSURE_OP(partition.splits(), ==, 0);
-				TEST_ENSURE_OP(partition.sets(), ==, 1);
+				REQUIRE(set->elements() == 0);
+				REQUIRE(set->marked() == 0);
+				REQUIRE(set->unmarked() == 0);
+				REQUIRE(partition.elements() == 0);
+				REQUIRE(partition.splits() == 0);
+				REQUIRE(partition.sets() == 1);
 			}
-			
+
 			partition.erase(
 				partition.setBegin());
 			{
-				TEST_ENSURE_OP(partition.elements(), ==, 0);
-				TEST_ENSURE_OP(partition.splits(), ==, 0);
-				TEST_ENSURE_OP(partition.sets(), ==, 0);
+				REQUIRE(partition.elements() == 0);
+				REQUIRE(partition.splits() == 0);
+				REQUIRE(partition.sets() == 0);
 			}
 
 			Set_Iterator set = partition.addSet(
 				std::begin(data), std::end(data));
-			
+
 			partition.erase(set);
 			{
-				TEST_ENSURE_OP(partition.elements(), ==, 0);
-				TEST_ENSURE_OP(partition.splits(), ==, 0);
-				TEST_ENSURE_OP(partition.sets(), ==, 0);
+				REQUIRE(partition.elements() == 0);
+				REQUIRE(partition.splits() == 0);
+				REQUIRE(partition.sets() == 0);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("RefinablePartition", "[RefinablePartition]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("RefinablePartition", test);
-	}
-
-	CallFunction run(addTest);
 
 }

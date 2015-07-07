@@ -1,24 +1,16 @@
 // Description: Testing for locators
 // DocumentationOf: locator.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/locator.h>
 
 namespace
 {
 
-	using namespace Pastel;
-
-	class Test
-		: public TestSuite
+		class Test
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testArchetype();
@@ -55,19 +47,19 @@ namespace
 			{
 				D = 3
 			};
-			
+
 			using Locator = Pointer_Locator<real, D>;
 			PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
 
 			Locator locator(D);
 			real dataSet[] = {0, 1, 2, 3, 4, 5, 6};
 			integer n = sizeof(dataSet) / sizeof(real);
-			
+
 			for (integer i = 0;i < n - D;++i)
 			{
 				for (integer j = 0;j < D;++j)
 				{
-					TEST_ENSURE(locator(dataSet + i, j) == i + j);
+					REQUIRE(locator(dataSet + i, j) == i + j);
 				}
 			}
 		}
@@ -84,7 +76,7 @@ namespace
 
 			for (integer i = 0;i < dataSet.size();++i)
 			{
-				TEST_ENSURE_OP(locator(dataSet[i], 0), ==, dataSet[i]);
+				REQUIRE(locator(dataSet[i], 0) == dataSet[i]);
 			}
 		}
 
@@ -107,7 +99,7 @@ namespace
 
 			for (integer i = 0;i < dataSet.size();++i)
 			{
-				TEST_ENSURE_OP(indirectLocator(dataSet.begin() + i, 0), ==, i);
+				REQUIRE(indirectLocator(dataSet.begin() + i, 0) == i);
 			}
 		}
 
@@ -127,7 +119,7 @@ namespace
 
 				PASTEL_STATIC_ASSERT(
 					(std::is_same<Locator_Point<Locator>, Point>::value));
-				
+
 				PASTEL_STATIC_ASSERT(
 					Locator_N<Locator>::value == 2);
 			}
@@ -156,17 +148,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("Locator", "[Locator]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Locator", test);
-	}
-
-	CallFunction run(addTest);
 
 }

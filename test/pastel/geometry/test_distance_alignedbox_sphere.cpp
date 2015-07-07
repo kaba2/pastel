@@ -1,24 +1,16 @@
 // Description: Testing for distance between aligned box and a sphere
 // DocumentationOf: distance_alignedbox_sphere.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/distance/distance_alignedbox_sphere.h>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -41,7 +33,7 @@ namespace
 
 				Box box(Point(1, 3), Point(5, 5));
 				Sphere sphere(Point(1, 0), 1);
-				TEST_ENSURE_OP(distance(box, sphere), ==, std::sqrt(square(0) + square(3)) - 1);
+				REQUIRE(distance(box, sphere) == std::sqrt(square(0) + square(3)) - 1);
 			}
 
 			{
@@ -55,7 +47,7 @@ namespace
 
 				Box box(Point(1, 3), Point(5, 5));
 				Sphere sphere(Point(0, 0), 1);
-				TEST_ENSURE(distance(box, sphere) == std::sqrt(square(1) + square(3)) - 1);
+				REQUIRE(distance(box, sphere) == std::sqrt(square(1) + square(3)) - 1);
 			}
 
 			{
@@ -69,7 +61,7 @@ namespace
 
 				Box box(Point(1, 3), Point(5, 5));
 				Sphere sphere(Point(7, 2), 1);
-				TEST_ENSURE(distance(box, sphere) == std::sqrt(square(2) + square(1)) - 1);
+				REQUIRE(distance(box, sphere) == std::sqrt(square(2) + square(1)) - 1);
 			}
 
 			{
@@ -83,7 +75,7 @@ namespace
 
 				Box box(Point(1, 3), Point(5, 5));
 				Sphere sphere(Point(5, 3), 1);
-				TEST_ENSURE(distance(box, sphere) == 0);
+				REQUIRE(distance(box, sphere) == 0);
 			}
 
 			{
@@ -97,22 +89,13 @@ namespace
 
 				Box box(Point(1, 3), Point(5, 5));
 				Sphere sphere(Point(7, 3), 1);
-				TEST_ENSURE(distance(box, sphere) == std::sqrt(square(2) + square(0)) - 1);
+				REQUIRE(distance(box, sphere) == std::sqrt(square(2) + square(0)) - 1);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("distance_alignedbox_sphere", "[distance_alignedbox_sphere]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("distance_alignedbox_sphere", test);
-	}
-
-	CallFunction run(addTest);
 
 }

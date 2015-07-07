@@ -1,24 +1,19 @@
 // Description: Testing for depth-first traversal
 // DocumentationOf: depth_first.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/graph/depth_first.h"
 
-using namespace Pastel;
+#include <vector>
+#include <unordered_set>
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -68,29 +63,20 @@ namespace
 
 			integer correctSet[] = {0, 1, 3, 7, 8, 4, 9, 10, 2, 5, 11, 12, 6, 13, 14};
 			integer correctSize = std::end(correctSet) - std::begin(correctSet);
-			
-			TEST_ENSURE_OP(reportSet.size(), ==, correctSize);
+
+			REQUIRE(reportSet.size() == correctSize);
 
 			if (reportSet.size() == correctSize)
 			{
-				TEST_ENSURE(
+				REQUIRE(
 					std::equal(std::begin(correctSet), std::end(correctSet),
 					std::begin(reportSet)));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("traverseDepthFirst", "[traverseDepthFirst]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("traverseDepthFirst", test);
-	}
-
-	CallFunction run(addTest);
 
 }

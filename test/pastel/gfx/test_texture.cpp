@@ -1,7 +1,9 @@
 // Description: Testing for textures
 // DocumentationOf: textures.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
+
+#include <test/pastel/gfx/test_pastelgfx.h>
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view.h"
@@ -18,8 +20,6 @@
 #include "pastel/sys/string.h"
 
 #include "pastel/geometry/planar_projection.h"
-
-using namespace Pastel;
 
 #include <boost/bind.hpp>
 
@@ -235,7 +235,6 @@ namespace
 			arrayView(image));
 
 		// Something else.
-
 
 		/*
 		drawTexturedBox(
@@ -621,20 +620,8 @@ namespace
 		savePcx(image, "texture_mix.pcx");
 	}
 
-	void test()
+	TEST_CASE("Texture", "[Texture]")
 	{
-		//testMix();
-		testSamplers();
-		testChecker();
-		testEwaMagnification();
-		testEwaMagnification2();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Texture", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,7 +1,7 @@
 // Description: Testing for iterators
 // Documentation: iterator.txt
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/iterator/constant_iterator.h"
 #include "pastel/sys/iterator/counting_iterator.h"
@@ -11,8 +11,7 @@
 #include "pastel/sys/iterator/second_iterator.h"
 
 #include <boost/iterator/transform_iterator.hpp>
-
-using namespace Pastel;
+#include <map>
 
 namespace
 {
@@ -45,14 +44,8 @@ namespace
 	};
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testSecond();
@@ -76,18 +69,18 @@ namespace
 			b.push_back(-2);
 			b.push_back(1);
 
-			TEST_ENSURE(std::equal(b.begin(), b.end(), 
+			REQUIRE(std::equal(b.begin(), b.end(), 
 				Pair_Iterator(a.begin())));
-			
+
 			{
 				Pair_Iterator aIter(a.begin());
 				Pair_ConstIterator bIter(aIter);
 				//Pair_Iterator c(b);
 
-				TEST_ENSURE(aIter == aIter);
-				TEST_ENSURE(aIter == bIter);
-				TEST_ENSURE(!(aIter != aIter));
-				TEST_ENSURE(!(aIter != bIter));
+				REQUIRE(aIter == aIter);
+				REQUIRE(aIter == bIter);
+				REQUIRE(!(aIter != aIter));
+				REQUIRE(!(aIter != bIter));
 
 				++aIter;
 				--aIter;
@@ -114,7 +107,7 @@ namespace
 			b[2] = 2;
 			b[3] = 3;
 
-			TEST_ENSURE(std::equal(b.begin(), b.end(), 
+			REQUIRE(std::equal(b.begin(), b.end(), 
 				Pair_ConstIterator(a.begin())));
 		}
 
@@ -134,7 +127,7 @@ namespace
 			iter <= iter;
 			iter >= iter;
 			iter - iter;
-			
+
 			//*iter = 2;
 		}
 
@@ -150,66 +143,66 @@ namespace
 			// SparseIterator
 
 			SparseIterator<integer*> iter(a, 2);
-			TEST_ENSURE_OP(*iter, ==, 0);
+			REQUIRE(*iter == 0);
 			++iter;
-			TEST_ENSURE_OP(*iter, ==, 2);
+			REQUIRE(*iter == 2);
 			--iter;
-			TEST_ENSURE_OP(*iter, ==, 0);
+			REQUIRE(*iter == 0);
 			iter += 2;
-			TEST_ENSURE_OP(*iter, ==, 4);
+			REQUIRE(*iter == 4);
 			iter -= 2;
-			TEST_ENSURE_OP(*iter, ==, 0);
+			REQUIRE(*iter == 0);
 			iter = iter + 1;
-			TEST_ENSURE_OP(*iter, ==, 2);
+			REQUIRE(*iter == 2);
 			iter = iter - 1;
-			TEST_ENSURE_OP(*iter, ==, 0);
-			TEST_ENSURE(iter == iter);
-			TEST_ENSURE(!(iter != iter));
-			TEST_ENSURE(!(iter < iter));
-			TEST_ENSURE(!(iter > iter));
-			TEST_ENSURE(iter <= iter);
-			TEST_ENSURE(iter >= iter);
-			TEST_ENSURE_OP(iter - iter, ==, 0);
+			REQUIRE(*iter == 0);
+			REQUIRE(iter == iter);
+			REQUIRE(!(iter != iter));
+			REQUIRE(!(iter < iter));
+			REQUIRE(!(iter > iter));
+			REQUIRE(iter <= iter);
+			REQUIRE(iter >= iter);
+			REQUIRE(iter - iter == 0);
 
 			// ConstSparseIterator
 
 			ConstSparseIterator<const integer*> cIter(iter);
-			TEST_ENSURE_OP(*cIter, ==, 0);
+			REQUIRE(*cIter == 0);
 			++cIter;
-			TEST_ENSURE_OP(*cIter, ==, 2);
+			REQUIRE(*cIter == 2);
 			--cIter;
-			TEST_ENSURE_OP(*cIter, ==, 0);
+			REQUIRE(*cIter == 0);
 			cIter += 2;
-			TEST_ENSURE_OP(*cIter, ==, 4);
+			REQUIRE(*cIter == 4);
 			cIter -= 2;
-			TEST_ENSURE_OP(*cIter, ==, 0);
+			REQUIRE(*cIter == 0);
 			cIter = cIter + 1;
-			TEST_ENSURE_OP(*cIter, ==, 2);
+			REQUIRE(*cIter == 2);
 			cIter = cIter - 1;
-			TEST_ENSURE_OP(*cIter, ==, 0);
-			TEST_ENSURE(cIter == cIter);
-			TEST_ENSURE(!(cIter != cIter));
-			TEST_ENSURE(!(cIter < cIter));
-			TEST_ENSURE(!(cIter > cIter));
-			TEST_ENSURE(cIter <= cIter);
-			TEST_ENSURE(cIter >= cIter);
-			TEST_ENSURE_OP(cIter - cIter, ==, 0);
+			REQUIRE(*cIter == 0);
+			REQUIRE(cIter == cIter);
+			REQUIRE(!(cIter != cIter));
+			REQUIRE(!(cIter < cIter));
+			REQUIRE(!(cIter > cIter));
+			REQUIRE(cIter <= cIter);
+			REQUIRE(cIter >= cIter);
+			REQUIRE(cIter - cIter == 0);
 
 			// Co-operation
 
 			cIter = iter;
 			cIter += 2;
 
-			TEST_ENSURE_OP(cIter - iter, ==, 2);
-			TEST_ENSURE_OP(iter - cIter, ==, -2);
-			TEST_ENSURE(cIter != iter);
+			REQUIRE(cIter - iter == 2);
+			REQUIRE(iter - cIter == -2);
+			REQUIRE(cIter != iter);
 
 			cIter = iter;
-			TEST_ENSURE(cIter == cIter);
-			TEST_ENSURE(iter == cIter);
+			REQUIRE(cIter == cIter);
+			REQUIRE(iter == cIter);
 
 			*iter = 2;
-			TEST_ENSURE_OP(*iter, ==, 2);
+			REQUIRE(*iter == 2);
 
 			*cIter;
 
@@ -222,56 +215,56 @@ namespace
 			{
 				RectangleIterator<2> iter(
 					Vector2i(1, 2), Vector2i(3, 4));
-				
-				TEST_ENSURE(iter.position() == Vector2i(1, 2));
-				TEST_ENSURE(!iter.done());
+
+				REQUIRE(iter.position() == Vector2i(1, 2));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(2, 2));
-				TEST_ENSURE(!iter.done());
+				REQUIRE(iter.position() == Vector2i(2, 2));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(1, 3));
-				TEST_ENSURE(!iter.done());
+				REQUIRE(iter.position() == Vector2i(1, 3));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(2, 3));
-				TEST_ENSURE(!iter.done());
+				REQUIRE(iter.position() == Vector2i(2, 3));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(1, 2));
-				TEST_ENSURE(iter.done());
+				REQUIRE(iter.position() == Vector2i(1, 2));
+				REQUIRE(iter.done());
 			}
 			{
 				RectangleIterator<2> iter(
 					Vector2i(2, 3));
-				
-				TEST_ENSURE(iter.position() == Vector2i(0, 0));
-				TEST_ENSURE(!iter.done());
+
+				REQUIRE(iter.position() == Vector2i(0, 0));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(1, 0));
-				TEST_ENSURE(!iter.done());
+				REQUIRE(iter.position() == Vector2i(1, 0));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(0, 1));
-				TEST_ENSURE(!iter.done());
+				REQUIRE(iter.position() == Vector2i(0, 1));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(1, 1));
-				TEST_ENSURE(!iter.done());
+				REQUIRE(iter.position() == Vector2i(1, 1));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(0, 2));
-				TEST_ENSURE(!iter.done());
+				REQUIRE(iter.position() == Vector2i(0, 2));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(1, 2));
-				TEST_ENSURE(!iter.done());
+				REQUIRE(iter.position() == Vector2i(1, 2));
+				REQUIRE(!iter.done());
 				++iter;
 
-				TEST_ENSURE(iter.position() == Vector2i(0, 0));
-				TEST_ENSURE(iter.done());
+				REQUIRE(iter.position() == Vector2i(0, 0));
+				REQUIRE(iter.done());
 			}
 		}
 
@@ -286,7 +279,7 @@ namespace
 				a.push_back(5);
 				a.push_back(6);
 
-				TEST_ENSURE(
+				REQUIRE(
 					std::equal(a.begin(), a.end(), 
 					CountingIterator<integer>(1)));
 			}
@@ -297,7 +290,7 @@ namespace
 				a.push_back(5);
 				a.push_back(7);
 
-				TEST_ENSURE(
+				REQUIRE(
 					std::equal(a.begin(), a.end(), 
 					SparseIterator<CountingIterator<integer> >(
 					CountingIterator<integer>(1), 2)));
@@ -310,12 +303,5 @@ namespace
 		Test test;
 		test.run();		
 	}
-
-	void addTests()
-	{
-		testRunner().add("Iterators", testIterators);
-	}
-
-	CallFunction run(addTests);
 
 }

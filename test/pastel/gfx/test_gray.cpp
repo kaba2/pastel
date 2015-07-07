@@ -1,14 +1,12 @@
 // Description: Testing for lightness
 // DocumentationOf: color_tools.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/view.h"
 
 #include "pastel/gfx/image_file.h"
 #include "pastel/gfx/color.h"
-
-using namespace Pastel;
 
 namespace
 {
@@ -107,15 +105,5 @@ namespace
 
 		savePcx(image, "gray_linear_lightness.pcx");
 	}
-
-	void addTest()
-	{
-		testRunner().add("Gray.Image", testGray);
-		testRunner().add("Gray.Scale.Luma", testLinearLuma);
-		testRunner().add("Gray.Scale.Lightness", testLinearLightness);
-		testRunner().add("Gray.Scale.Luminance", testLinearLuminance);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,7 +1,7 @@
 // Description: Testing for Automaton
 // DocumentationOf: automaton.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/automaton.h>
 #include <pastel/sys/automaton/reachable_states.h>
@@ -12,20 +12,12 @@
 #include <algorithm>
 #include <unordered_set>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testSimple();
@@ -61,7 +53,7 @@ namespace
 				d, 1, b);
 			automaton.addTransition(
 				d, 2, c);
-			
+
 			automaton.addStart(a);
 			automaton.addFinal(b);
 			automaton.addFinal(c);
@@ -98,10 +90,10 @@ namespace
 					std::end(correctSet), 
 					IteratorAddress_LessThan());
 
-				TEST_ENSURE_OP(reachableSet.size(), ==, 3);
+				REQUIRE(reachableSet.size() == 3);
 				if (reachableSet.size() == 3)
 				{
-					TEST_ENSURE(
+					REQUIRE(
 						std::equal(
 						std::begin(reachableSet),
 						std::end(reachableSet),
@@ -142,10 +134,10 @@ namespace
 					std::end(correctSet), 
 					IteratorAddress_LessThan());
 
-				TEST_ENSURE_OP(productiveSet.size(), ==, 4);
+				REQUIRE(productiveSet.size() == 4);
 				if (productiveSet.size() == 4)
 				{
-					TEST_ENSURE(
+					REQUIRE(
 						std::equal(
 						std::begin(productiveSet),
 						std::end(productiveSet),
@@ -156,17 +148,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("Automaton", "[Automaton]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Automaton", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,7 +1,7 @@
 // Description: Testing for alignedbox-alignedbox difference
 // DocumentationOf: difference_alignedbox_alignedbox.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/difference/difference_alignedbox_alignedbox.h"
 
@@ -14,8 +14,6 @@
 #include "pastel/sys/output.h"
 
 #include <boost/range/algorithm/equal.hpp>
-
-using namespace Pastel;
 
 using Real = Rational<integer>;
 
@@ -33,14 +31,8 @@ namespace
 	}
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testSame();
@@ -88,12 +80,12 @@ namespace
 				0, 0, 6, 6);
 
 			std::vector<AlignedBox2> correctSet;
-			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+			REQUIRE(testCase(aBox, bBox, correctSet));
 
 			aBox.maxTopology().set(Topology::Closed);
 			bBox.maxTopology().set(Topology::Closed);
 
-			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+			REQUIRE(testCase(aBox, bBox, correctSet));
 		}
 
 		void testCorner()
@@ -109,7 +101,7 @@ namespace
 			correctSet.push_back(
 				AlignedBox2(3, 0, 6, 3));
 
-			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+			REQUIRE(testCase(aBox, bBox, correctSet));
 		}
 
 		void testHollow()
@@ -117,7 +109,7 @@ namespace
 			AlignedBox2 aBox(
 				0, 0, 6, 6);
 			aBox.maxTopology().set(Topology::Closed);
-			
+
 			AlignedBox2 bBox(
 				0, 0, 6, 6);
 			bBox.minTopology().set(Topology::Open);
@@ -141,7 +133,7 @@ namespace
 			correctSet.back().minTopology().set(Topology::Open, Topology::Closed);
 			correctSet.back().maxTopology().set(Topology::Open, Topology::Closed);
 
-			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+			REQUIRE(testCase(aBox, bBox, correctSet));
 		}
 
 		void testHole()
@@ -161,7 +153,7 @@ namespace
 			correctSet.push_back(
 				AlignedBox2(2, 5, 4, 6));
 
-			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+			REQUIRE(testCase(aBox, bBox, correctSet));
 		}
 
 		void testEmptyB()
@@ -173,7 +165,7 @@ namespace
 
 			std::vector<AlignedBox2> correctSet;
 			correctSet.push_back(aBox);
-			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+			REQUIRE(testCase(aBox, bBox, correctSet));
 		}
 
 		void testEmptyA()
@@ -184,21 +176,12 @@ namespace
 				0, 0, 6, 6);
 
 			std::vector<AlignedBox2> correctSet;
-			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+			REQUIRE(testCase(aBox, bBox, correctSet));
 		}
 	};
 
-	void test()
+	TEST_CASE("DifferenceAlignedBox", "[DifferenceAlignedBox]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("DifferenceAlignedBox", test);
-	}
-
-	CallFunction run(addTest);
 
 }

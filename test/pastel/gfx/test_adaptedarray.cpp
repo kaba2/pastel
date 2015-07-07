@@ -43,11 +43,4 @@ namespace
 		savePcx(copySmallerImage, "adaptedview3.pcx");
 	}
 
-	void addTest()
-	{
-		testRunner().add("AdaptedView", test);
-	}
-
-	CallFunction run(addTest);
-
 }

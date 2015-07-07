@@ -1,7 +1,7 @@
 // Description: Testing for noise
 // DocumentationOf: noise.h
 
-#include "test_pastelgfx.h"
+#include "test/test_init.h"
 
 #include "pastel/gfx/noise.h"
 #include "pastel/gfx/image_file.h"
@@ -9,9 +9,7 @@
 namespace
 {
 
-	using namespace Pastel;
-
-	void test1d()
+		void test1d()
 	{
 		integer Width = 400;
 		integer Height = 80;
@@ -129,21 +127,8 @@ namespace
 		savePcx(image, "simplex_noise_3d.pcx");
 	}
 
-	void test()
+	TEST_CASE("Noise", "[Noise]")
 	{
-		testSimplex2d();
-		testSimplex3d();
-
-		test1d();
-		test2d();
-		test3d();
 	}
-
-	void addTest()
-	{
-		testRunner().add("Noise", test);
-	}
-
-	CallFunction run(addTest);
 
 }

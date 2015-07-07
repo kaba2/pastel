@@ -1,27 +1,19 @@
 // Description: Testing for searching in a kd-tree.
 // DocumentationOf: search_nearest_kdtree.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/search_nearest_kdtree.h>
 #include <pastel/geometry/tdtree.h>
 #include <pastel/sys/vector.h>
 #include <pastel/sys/locator.h>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -34,7 +26,7 @@ namespace
 			using Settings = TdTree_Settings<Locator>;
 			using Tree = TdTree<Settings>;
 			using Point_ConstIterator = Tree::Point_ConstIterator;
-			
+
 			Tree tree;
 
 			searchNearest(
@@ -53,17 +45,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("search_nearest_kdtree", "[search_nearest_kdtree]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("search_nearest_kdtree", test);
-	}
-
-	CallFunction run(addTest);
 
 }

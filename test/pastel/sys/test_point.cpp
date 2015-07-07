@@ -1,7 +1,7 @@
 // Description: Testing for points
 // DocumentationOf: point_concept.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/point.h>
 #include <pastel/sys/locator.h>
@@ -29,17 +29,9 @@ namespace Pastel
 namespace
 {
 
-	using namespace Pastel;
-
-	class Test
-		: public TestSuite
+		class Test
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testConcept();
@@ -75,12 +67,12 @@ namespace
 
 			PASTEL_STATIC_ASSERT((EqualDimension_C<1, 1>::value));
 			PASTEL_STATIC_ASSERT((EqualDimension_C<0, 0>::value));
-			
+
 			PASTEL_STATIC_ASSERT((EqualDimension_C<0, 0>::value));
 			PASTEL_STATIC_ASSERT((EqualDimension_C<0, -1>::value));
 			PASTEL_STATIC_ASSERT((EqualDimension_C<-1, 0>::value));
 			PASTEL_STATIC_ASSERT((EqualDimension_C<-1, -1>::value));
-			
+
 			PASTEL_STATIC_ASSERT((EqualDimension_C<5, 5>::value));
 			PASTEL_STATIC_ASSERT((EqualDimension_C<-1, 5>::value));
 			PASTEL_STATIC_ASSERT((EqualDimension_C<5, -1>::value));
@@ -95,7 +87,7 @@ namespace
 		{
 			std::array<real, 2> p = { {1, 2} };
 			Vector<real, 2> q = pointAsVector(p);
-			TEST_ENSURE((q == Vector<real, 2>(1, 2)));
+			REQUIRE((q == Vector<real, 2>(1, 2)));
 		}
 
 		void testPoint()
@@ -177,38 +169,38 @@ namespace
 			{
 				std::array<int, 2> x = { {1, 2} };
 
-				TEST_ENSURE_OP(pointAxis(x, 0), == , x[0]);
-				TEST_ENSURE_OP(pointAxis(x, 1), == , x[1]);
+				REQUIRE(pointAxis(x, 0) == x[0]);
+				REQUIRE(pointAxis(x, 1) == x[1]);
 
-				TEST_ENSURE_OP(pointAxis(&x[0], 0), == , x[0]);
-				TEST_ENSURE_OP(pointAxis(&x[0], 1), == , x[1]);
+				REQUIRE(pointAxis(&x[0], 0) == x[0]);
+				REQUIRE(pointAxis(&x[0], 1) == x[1]);
 
-				TEST_ENSURE_OP(pointAxis(arrayPoint(x), 0), == , x[0]);
-				TEST_ENSURE_OP(pointAxis(arrayPoint(x), 1), == , x[1]);
+				REQUIRE(pointAxis(arrayPoint(x), 0) == x[0]);
+				REQUIRE(pointAxis(arrayPoint(x), 1) == x[1]);
 			}
 			{
 				real x = 5;
 
-				TEST_ENSURE_OP(pointAxis(x, 0), == , 5);
-				TEST_ENSURE_OP(pointAxis(x, 1), == , 5);
+				REQUIRE(pointAxis(x, 0) == 5);
+				REQUIRE(pointAxis(x, 1) == 5);
 			}
 			{
 				Vector<int, 2> x = { 1, 2 };
 
-				TEST_ENSURE_OP(pointAxis(x, 0), == , x[0]);
-				TEST_ENSURE_OP(pointAxis(x, 1), == , x[1]);
+				REQUIRE(pointAxis(x, 0) == x[0]);
+				REQUIRE(pointAxis(x, 1) == x[1]);
 
-				TEST_ENSURE_OP(pointAxis(vectorPoint(x), 0), == , x[0]);
-				TEST_ENSURE_OP(pointAxis(vectorPoint(x), 1), == , x[1]);
+				REQUIRE(pointAxis(vectorPoint(x), 0) == x[0]);
+				REQUIRE(pointAxis(vectorPoint(x), 1) == x[1]);
 			}
 			{
 				Vector<int> x(ofDimension(2));
 
-				TEST_ENSURE_OP(pointAxis(x, 0), == , x[0]);
-				TEST_ENSURE_OP(pointAxis(x, 1), == , x[1]);
+				REQUIRE(pointAxis(x, 0) == x[0]);
+				REQUIRE(pointAxis(x, 1) == x[1]);
 
-				TEST_ENSURE_OP(pointAxis(vectorPoint(x), 0), == , x[0]);
-				TEST_ENSURE_OP(pointAxis(vectorPoint(x), 1), == , x[1]);
+				REQUIRE(pointAxis(vectorPoint(x), 0) == x[0]);
+				REQUIRE(pointAxis(vectorPoint(x), 1) == x[1]);
 			}
 		}
 
@@ -217,42 +209,33 @@ namespace
 			{
 				using Point = std::array<int, 2>;
 				Point x = { {1, 2} };
-				TEST_ENSURE_OP(dimension(x), == , 2);
+				REQUIRE(dimension(x) == 2);
 				PASTEL_STATIC_ASSERT(Point_N<Point>::value == 2);
 			}
 			{
 				using Point = real;
 				Point x = 5;
-				TEST_ENSURE_OP(dimension(x), == , 1);
+				REQUIRE(dimension(x) == 1);
 				PASTEL_STATIC_ASSERT(Point_N<Point>::value == 1);
 			}
 			{
 				using Point = Vector<int, 2>;
 				Point x = { 1, 2 };
-				TEST_ENSURE_OP(dimension(x), == , 2);
+				REQUIRE(dimension(x) == 2);
 				PASTEL_STATIC_ASSERT(Point_N<Point>::value == 2);
 			}
 			{
 				using Point = Vector<int>;
 				Point x(ofDimension(2));
-				TEST_ENSURE_OP(dimension(x), == , 2);
+				REQUIRE(dimension(x) == 2);
 				PASTEL_STATIC_ASSERT(Point_N<Point>::value == Dynamic);
 			}
 		}
 
 	};
 
-	void test()
+	TEST_CASE("point", "[point]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("point", test);
-	}
-
-	CallFunction run(addTest);
 
 }

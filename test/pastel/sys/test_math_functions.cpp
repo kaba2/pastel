@@ -1,24 +1,16 @@
 // Description: Testing for math functions
 // DocumentationOf: math_functions.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/math_functions.h"
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -40,14 +32,13 @@ namespace
 
 		void test()
 		{
-			TEST_ENSURE(std::abs(relativeError<real>(2, 1) - 1) < 0.001);
-			TEST_ENSURE(std::abs(relativeError<real>(3, 1) - 2) < 0.001);
-			TEST_ENSURE(std::abs(relativeError<real>(4, 1) - 3) < 0.001);
-			TEST_ENSURE(std::abs(relativeError<real>(5, 1) - 4) < 0.001);
-			TEST_ENSURE(std::abs(relativeError<real>(4, 2) - 1) < 0.001);
-			TEST_ENSURE(std::abs(relativeError<real>(6, 2) - 2) < 0.001);
-			TEST_ENSURE(std::abs(relativeError<real>(8, 2) - 3) < 0.001);
-
+			REQUIRE(std::abs(relativeError<real>(2, 1) - 1) < 0.001);
+			REQUIRE(std::abs(relativeError<real>(3, 1) - 2) < 0.001);
+			REQUIRE(std::abs(relativeError<real>(4, 1) - 3) < 0.001);
+			REQUIRE(std::abs(relativeError<real>(5, 1) - 4) < 0.001);
+			REQUIRE(std::abs(relativeError<real>(4, 2) - 1) < 0.001);
+			REQUIRE(std::abs(relativeError<real>(6, 2) - 2) < 0.001);
+			REQUIRE(std::abs(relativeError<real>(8, 2) - 3) < 0.001);
 
 			check(radiansToDegrees<real>(-3 * constantPi<real>()), -540);
 			check(radiansToDegrees<real>(-2 * constantPi<real>()), -360);
@@ -149,18 +140,5 @@ namespace
 			check(digamma<real>(10000), 9.210290371142850);
 		}
 	};
-
-	void test()
-	{
-		Test test;
-		test.run();
-	}
-
-	void addTests()
-	{
-		testRunner().add("math_functions", test);
-	}
-
-	CallFunction run(addTests);
 
 }

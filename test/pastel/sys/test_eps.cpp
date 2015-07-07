@@ -1,24 +1,16 @@
 // Description: Testing for adjacent floating point numbers
 // DocumentationOf: eps.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/math/eps.h"
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -29,20 +21,20 @@ namespace
 		{
 			const Type minusZero = (Type)-1 * 0;
 
-			TEST_ENSURE_OP(minusZero, == , 0);
-			TEST_ENSURE_OP(nextGreater((Type)1), >, 1);
-			TEST_ENSURE_OP(nextSmaller((Type)1), <, 1);
-			TEST_ENSURE_OP(nextGreater((Type)0), >, 0);
-			TEST_ENSURE_OP(nextSmaller((Type)0), <, 0);
-			TEST_ENSURE_OP(nextGreater(minusZero), >, 0);
-			TEST_ENSURE_OP(nextSmaller(minusZero), <, 0);
-			TEST_ENSURE_OP(nextGreater((Type)-1), >, -1);
-			TEST_ENSURE_OP(nextSmaller((Type)-1), <, -1);
-			TEST_ENSURE_OP(nextGreater(infinity<Type>()), ==, infinity<Type>());
-			TEST_ENSURE_OP(nextSmaller(infinity<Type>()), ==, infinity<Type>());
-			TEST_ENSURE_OP(nextGreater(-infinity<Type>()), ==, -infinity<Type>());
-			TEST_ENSURE_OP(nextSmaller(-infinity<Type>()), ==, -infinity<Type>());
-			TEST_ENSURE(isNan(nextSmaller(nan<Type>())));
+			REQUIRE(minusZero == 0);
+			REQUIRE(nextGreater((Type)1) > 1);
+			REQUIRE(nextSmaller((Type)1) < 1);
+			REQUIRE(nextGreater((Type)0) > 0);
+			REQUIRE(nextSmaller((Type)0) < 0);
+			REQUIRE(nextGreater(minusZero) > 0);
+			REQUIRE(nextSmaller(minusZero) < 0);
+			REQUIRE(nextGreater((Type)-1) > -1);
+			REQUIRE(nextSmaller((Type)-1) < -1);
+			REQUIRE(nextGreater(infinity<Type>()) == infinity<Type>());
+			REQUIRE(nextSmaller(infinity<Type>()) == infinity<Type>());
+			REQUIRE(nextGreater(-infinity<Type>()) == -infinity<Type>());
+			REQUIRE(nextSmaller(-infinity<Type>()) == -infinity<Type>());
+			REQUIRE(isNan(nextSmaller(nan<Type>())));
 		}
 
 		void test()
@@ -57,12 +49,5 @@ namespace
 		Test test;
 		test.run();
 	}
-
-	void addTests()
-	{
-		testRunner().add("eps", testEps);
-	}
-
-	CallFunction run(addTests);
 
 }

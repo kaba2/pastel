@@ -1,13 +1,11 @@
 // Description: Testing for named parameters
 // Documentation: named_parameter.txt
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/function/identity_function.h>
 
 #include <string>
-
-using namespace Pastel;
 
 namespace
 {
@@ -35,7 +33,7 @@ namespace
 		{
 			that.amount = 0;
 		}
-		
+
 		integer amount;
 	};
 
@@ -77,7 +75,7 @@ namespace
 					return std::is_convertible<decltype(input), float>();
 				}
 			);
-		
+
 		auto&& metric = 
 			PASTEL_ARG(
 				metric, 
@@ -88,7 +86,7 @@ namespace
 						std::is_same<decltype(input), Manhattan_Metric>
 					>());} 
 			);
-		
+
 		bool negate = 
 			PASTEL_ARG(
 				negate, 
@@ -101,7 +99,7 @@ namespace
 
 		Enum enumValue =
 			PASTEL_ARG_ENUM(enumValue, Enum::Off);
-				
+
 		return metric(a, b) * scaling * (negate ? -1 : 1) + offset.amount + (integer)enumValue;
 	}
 
@@ -111,14 +109,8 @@ namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		struct A {};
 
 		virtual void run()
@@ -154,21 +146,21 @@ namespace
 
 		void testEmpty()
 		{
-			TEST_ENSURE_OP(distance(1, 6), ==, 5 * 5);
+			REQUIRE(distance(1, 6) == 5 * 5);
 		}
 
 		void testExplicit()
 		{
-			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 2.0), ==, 2 * 5 * 5);
-			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 3.5), ==, 3.5 * 5 * 5);
-			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(metric), Manhattan_Metric()), ==, 5);
-			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 3.5, PASTEL_TAG(metric), Manhattan_Metric()), ==, 3.5 * 5);
+			REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 2.0) == 2 * 5 * 5);
+			REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 3.5) == 3.5 * 5 * 5);
+			REQUIRE(distance(1, 6, PASTEL_TAG(metric), Manhattan_Metric()) == 5);
+			REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 3.5, PASTEL_TAG(metric), Manhattan_Metric()) == 3.5 * 5);
 		}
 
 		void testEnum()
 		{
-			TEST_ENSURE_OP(distance(1, 6, Enum::Off), ==, 5 * 5 + 0);
-			TEST_ENSURE_OP(distance(1, 6, Enum::On), ==, 5 * 5 + 1);
+			REQUIRE(distance(1, 6, Enum::Off) == 5 * 5 + 0);
+			REQUIRE(distance(1, 6, Enum::On) == 5 * 5 + 1);
 		}
 
 		void testForwarding()
@@ -176,30 +168,30 @@ namespace
 			// Test that arguments are perfectly forwarded
 			{
 				Offset offset(543);
-				TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(offset), std::move(offset)), ==, 5 * 5 + 543);
-				TEST_ENSURE_OP(offset.amount, ==, 0);
+				REQUIRE(distance(1, 6, PASTEL_TAG(offset), std::move(offset)) == 5 * 5 + 543);
+				REQUIRE(offset.amount == 0);
 			}
 
 			{
 				Offset offset(543);
-				TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(offset), offset), ==, 5 * 5 + 0);
-				TEST_ENSURE_OP(offset.amount, ==, 543);
+				REQUIRE(distance(1, 6, PASTEL_TAG(offset), offset) == 5 * 5 + 0);
+				REQUIRE(offset.amount == 543);
 			}
 		}
 
 		void testFlag()
 		{
-			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(negate)), ==, (-1) * 5 * 5);
-			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling)), ==, 1 * 5 * 5);
-			TEST_ENSURE_OP(distance(1, 6, PASTEL_TAG(scaling), 2.0, PASTEL_TAG(negate), PASTEL_TAG(metric), Manhattan_Metric()), ==, 2 * (-1) * 5);
+			REQUIRE(distance(1, 6, PASTEL_TAG(negate)) == (-1) * 5 * 5);
+			REQUIRE(distance(1, 6, PASTEL_TAG(scaling)) == 1 * 5 * 5);
+			REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 2.0, PASTEL_TAG(negate), PASTEL_TAG(metric), Manhattan_Metric()) == 2 * (-1) * 5);
 		}
 
 		void testImplicit()
 		{
-			TEST_ENSURE_OP(distance(1, 6, Manhattan_Metric()), ==, 5);
+			REQUIRE(distance(1, 6, Manhattan_Metric()) == 5);
 			// Since 'negate' is not an implicit parameter,
 			// the 'true' will not bind to it.
-			TEST_ENSURE_OP(distance(1, 6, Manhattan_Metric(), true), ==, 5);
+			REQUIRE(distance(1, 6, Manhattan_Metric(), true) == 5);
 		}
 
 		void testErroneous()
@@ -220,17 +212,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("named_parameter", "[named_parameter]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("named_parameter", test);
-	}
-
-	CallFunction run(addTest);
 
 }

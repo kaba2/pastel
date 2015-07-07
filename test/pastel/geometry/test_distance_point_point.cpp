@@ -1,7 +1,7 @@
 // Description: Testing for distance between points
 // DocumentationOf: distance_point_point.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/point/point_concept.h>
 #include <pastel/sys/locator.h>
@@ -9,20 +9,12 @@
 #include <pastel/geometry/distance/distance_point_point.h>
 #include <pastel/math/normbijection.h>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testCustom();
@@ -74,7 +66,7 @@ namespace
 			Custom_Point a(1, 4);
 			Custom_Point b(-5, 2);
 
-			TEST_ENSURE(distance2(
+			REQUIRE(distance2(
 				location(a, Custom_Locator()), 
 				location(b, Custom_Locator()),
 				Manhattan_NormBijection<real>()) == 6 + 2);
@@ -85,7 +77,7 @@ namespace
 			using Point = real*;
 
 			real data[] = { 1, 4, -5, 2 };
-		
+
 			Point a = &data[0];
 			Point b = &data[2];
 
@@ -127,56 +119,47 @@ namespace
 			{
 				Real correct = 6 + 2;
 
-				TEST_ENSURE(distance2(a, b, Manhattan_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(b, a, Manhattan_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(a, b, Manhattan_NormBijection<Real>(), keepGoing) >= 6);
+				REQUIRE(distance2(a, b, Manhattan_NormBijection<Real>()) == correct);
+				REQUIRE(distance2(b, a, Manhattan_NormBijection<Real>()) == correct);
+				REQUIRE(distance2(a, b, Manhattan_NormBijection<Real>(), keepGoing) >= 6);
 			}
 
 			{
 				Real correct = std::max(6, 2);
 
-				TEST_ENSURE(distance2(a, b, Maximum_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(b, a, Maximum_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(a, b, keepGoing, Maximum_NormBijection<Real>()) >= 6);
+				REQUIRE(distance2(a, b, Maximum_NormBijection<Real>()) == correct);
+				REQUIRE(distance2(b, a, Maximum_NormBijection<Real>()) == correct);
+				REQUIRE(distance2(a, b, keepGoing, Maximum_NormBijection<Real>()) >= 6);
 			}
 
 			{
 				Real correct = square(6) + square(2);
 
-				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(2)) == correct);
-				TEST_ENSURE(distance2(b, a, Minkowski_NormBijection<Real>(2)) == correct);
-				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(2), keepGoing) >= 6);
+				REQUIRE(distance2(a, b, Minkowski_NormBijection<Real>(2)) == correct);
+				REQUIRE(distance2(b, a, Minkowski_NormBijection<Real>(2)) == correct);
+				REQUIRE(distance2(a, b, Minkowski_NormBijection<Real>(2), keepGoing) >= 6);
 			}
 
 			{
 				Real correct = square(6) + square(2);
 
-				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(b, a, Euclidean_NormBijection<Real>()) == correct);
-				TEST_ENSURE(distance2(a, b, Euclidean_NormBijection<Real>(), keepGoing) >= square(6));
+				REQUIRE(distance2(a, b, Euclidean_NormBijection<Real>()) == correct);
+				REQUIRE(distance2(b, a, Euclidean_NormBijection<Real>()) == correct);
+				REQUIRE(distance2(a, b, Euclidean_NormBijection<Real>(), keepGoing) >= square(6));
 			}
 
 			{
 				Real correct = 6 + 2;
 
-				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(1)) == correct);
-				TEST_ENSURE(distance2(b, a, Minkowski_NormBijection<Real>(1)) == correct);
-				TEST_ENSURE(distance2(a, b, Minkowski_NormBijection<Real>(1), keepGoing) >= 6);
+				REQUIRE(distance2(a, b, Minkowski_NormBijection<Real>(1)) == correct);
+				REQUIRE(distance2(b, a, Minkowski_NormBijection<Real>(1)) == correct);
+				REQUIRE(distance2(a, b, Minkowski_NormBijection<Real>(1), keepGoing) >= 6);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("distance_point_point", "[distance_point_point]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("distance_point_point", test);
-	}
-
-	CallFunction run(addTest);
 
 }

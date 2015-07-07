@@ -1,14 +1,12 @@
 // Description: Testing for PoolAllocator
 // DocumentationOf: pool_allocator.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 #include "pastel/sys/allocator/pool_allocator.h"
 
 #include "pastel/sys/random.h"
 
 #include <vector>
-
-using namespace Pastel;
 
 namespace
 {
@@ -125,18 +123,8 @@ namespace
 
 	}
 
-	void test()
+	TEST_CASE("PoolAllocator", "[PoolAllocator]")
 	{
-		testAllocate();
-		testDeallocate();
-		testRandomDeallocate();
 	}
-
-	void addTest()
-	{
-		testRunner().add("PoolAllocator", test);
-	}
-
-	CallFunction run(addTest);
 
 }

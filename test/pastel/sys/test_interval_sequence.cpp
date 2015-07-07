@@ -1,25 +1,17 @@
 // Description: Testing for interval sequences
 // DocumentationOf: interval_sequence.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/interval_sequence.h"
 #include "pastel/sys/range.h"
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testSimple();
@@ -64,9 +56,9 @@ namespace
 					10, 11
 				};
 
-				TEST_ENSURE(boost::equal(cSet, correctSet));
+				REQUIRE(boost::equal(cSet, correctSet));
 			}
-			
+
 			std::vector<integer> emptySet;
 			{
 				std::vector<integer> cSet;
@@ -76,7 +68,7 @@ namespace
 					cSet.push_back(that.second);
 				};
 				difference(emptySet, bSet, report);
-				TEST_ENSURE(cSet.empty());
+				REQUIRE(cSet.empty());
 			}
 			{
 				std::vector<integer> cSet;
@@ -95,7 +87,7 @@ namespace
 					10, 11
 				};
 
-				TEST_ENSURE(boost::equal(cSet, correctSet));
+				REQUIRE(boost::equal(cSet, correctSet));
 			}
 		}
 	};
@@ -105,12 +97,5 @@ namespace
 		Test test;
 		test.run();		
 	}
-
-	void addTests()
-	{
-		testRunner().add("IntervalSequence", test);
-	}
-
-	CallFunction run(addTests);
 
 }

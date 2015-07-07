@@ -1,7 +1,7 @@
 // Description: Testing for aligned box maximum clique
 // DocumentationOf: maximum_clique_alignedbox.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/rational.h"
 
@@ -11,21 +11,13 @@
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/output/push_back_output.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
 		using Real = Rational<integer>;
-
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
 
 		virtual void run()
 		{
@@ -58,8 +50,8 @@ namespace
 				maximumClique(range(boxSet), 
 				sweepDirection,
 				pushBackOutput(resultSet));
-			TEST_ENSURE(correct.min() == clique.min());
-			TEST_ENSURE(correct.max() == clique.max());
+			REQUIRE(correct.min() == clique.min());
+			REQUIRE(correct.max() == clique.max());
 
 			std::sort(resultSet.begin(), resultSet.end());
 
@@ -73,10 +65,9 @@ namespace
 					resultSet[i] - boxSet);
 			}
 
-			TEST_ENSURE(correctSet[0] == -1 ||
+			REQUIRE((correctSet[0] == -1 ||
 				std::equal(correctSet, correctSet + M, 
-				resultIndexSet.begin()));
-
+				resultIndexSet.begin())));
 
 			/*
 			for (integer i = 0;i < n;++i)
@@ -273,18 +264,5 @@ namespace
 			}
 		}
 	};
-
-	void testMaximumClique()
-	{
-		Test test;
-		test.run();
-	}
-
-	void addTest()
-	{
-		testRunner().add("MaximumClique", testMaximumClique);
-	}
-
-	CallFunction run(addTest);
 
 }

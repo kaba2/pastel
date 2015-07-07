@@ -1,15 +1,13 @@
 // Description: Testing for HalfMesh
 // DocumentationOf: halfmesh.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/halfmesh/halfmesh.h"
 #include "pastel/sys/random.h"
 
 #include <algorithm>
 #include <iostream>
-
-using namespace Pastel;
 
 namespace
 {
@@ -45,14 +43,8 @@ namespace
 	}
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testBasic();
@@ -66,24 +58,24 @@ namespace
 		void testBasic()
 		{
 			Mesh mesh;
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			mesh.clear();
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			Mesh otherMesh(mesh);
-			TEST_ENSURE(testInvariants(mesh));
-			TEST_ENSURE(testInvariants(otherMesh));
+			REQUIRE(testInvariants(mesh));
+			REQUIRE(testInvariants(otherMesh));
 
 			otherMesh.swap(mesh);
-			TEST_ENSURE(testInvariants(mesh));
-			TEST_ENSURE(testInvariants(otherMesh));
+			REQUIRE(testInvariants(mesh));
+			REQUIRE(testInvariants(otherMesh));
 
 			otherMesh.clear();
-			TEST_ENSURE(testInvariants(otherMesh));
+			REQUIRE(testInvariants(otherMesh));
 
 			mesh.clear();
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 		}
 
 		void testVertexAdd()
@@ -94,12 +86,12 @@ namespace
 			for (integer i = 0;i < n;++i)
 			{
 				mesh.insertVertex();
-				TEST_ENSURE(testInvariants(mesh));
+				REQUIRE(testInvariants(mesh));
 			}
 
 			Mesh otherMesh(mesh);
-			TEST_ENSURE(testInvariants(mesh));
-			TEST_ENSURE(testInvariants(otherMesh));
+			REQUIRE(testInvariants(mesh));
+			REQUIRE(testInvariants(otherMesh));
 		}
 
 		void testEdge()
@@ -112,13 +104,13 @@ namespace
 			for (integer i = 0;i < VertexCount;++i)
 			{
 				vertex[i] = mesh.insertVertex();
-				TEST_ENSURE(testInvariants(mesh));
+				REQUIRE(testInvariants(mesh));
 			}
 
 			{
 				Mesh otherMesh(mesh);
-				TEST_ENSURE(testInvariants(mesh));
-				TEST_ENSURE(testInvariants(otherMesh));
+				REQUIRE(testInvariants(mesh));
+				REQUIRE(testInvariants(otherMesh));
 			}
 
 			integer BucketSize = 100;
@@ -133,14 +125,14 @@ namespace
 				{
 					integer aVertex = randomInteger(VertexCount);
 					integer bVertex = randomInteger(VertexCount);
-					
+
 					auto edgePair = 
 						mesh.insertEdge(vertex[aVertex], vertex[bVertex]);
-					TEST_ENSURE(testInvariants(mesh));
+					REQUIRE(testInvariants(mesh));
 
 					auto edge = edgePair.first;
 					ENSURE(edge.isNormal());
-					
+
 					if (edgePair.second)
 					{
 						edgeList[i * BucketSize + j] = edge;
@@ -149,12 +141,12 @@ namespace
 
 			}
 
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			{
 				Mesh otherMesh(mesh);
-				TEST_ENSURE(testInvariants(mesh));
-				TEST_ENSURE(testInvariants(otherMesh));
+				REQUIRE(testInvariants(mesh));
+				REQUIRE(testInvariants(otherMesh));
 			}
 
 			for (integer i = 0;i < EdgeCount;++i)
@@ -166,7 +158,7 @@ namespace
 					edgeList[index].clear();
 				}
 
-				TEST_ENSURE(testInvariants(mesh));
+				REQUIRE(testInvariants(mesh));
 			}
 		}
 
@@ -181,8 +173,8 @@ namespace
 				for (integer j = 0;j < 4;++j)
 				{
 					vertex[i][j] = mesh.insertVertex();
-					TEST_ENSURE(testInvariants(mesh));
-					TEST_ENSURE(!vertex[i][j].empty());
+					REQUIRE(testInvariants(mesh));
+					REQUIRE(!vertex[i][j].empty());
 					(vertex[i][j])->data() = i * 10 + j;
 				}
 			}
@@ -205,7 +197,7 @@ namespace
 			points.push_back(vertex[1][1]);
 
 			polygon[0] = mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			// o   o   o   o
 			// |0\.
@@ -221,7 +213,7 @@ namespace
 			points.push_back(vertex[0][1]);
 
 			polygon[1] = mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			// o---o   o   o
 			// |0\1|
@@ -242,7 +234,7 @@ namespace
 			points.push_back(vertex[0][2]);
 
 			polygon[2] = mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			// o---o---o   o
 			// |0\1|###|
@@ -259,7 +251,7 @@ namespace
 			points.push_back(vertex[2][3]);
 
 			polygon[3] = mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			// o---o---o   o
 			// |0\1|###|
@@ -275,7 +267,7 @@ namespace
 			points.push_back(vertex[1][3]);
 
 			polygon[4] = mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			// o---o---o   o
 			// |0\1|###|
@@ -291,7 +283,7 @@ namespace
 			points.push_back(vertex[2][3]);
 
 			polygon[5] = mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			// o---o---o   o
 			// |0\1|###|
@@ -308,7 +300,7 @@ namespace
 			points.push_back(vertex[0][3]);
 
 			polygon[6] = mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			// o---o---o---o
 			// |0\1|###|#6#|
@@ -327,7 +319,7 @@ namespace
 			points.push_back(vertex[2][1]);
 
 			polygon[7] = mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			// o---o---o---o
 			// |0\1|###|#6#|
@@ -338,28 +330,28 @@ namespace
 			// o---o---o---o
 
 			mesh.removePolygon(polygon[5]);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			mesh.removePolygon(polygon[0]);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			mesh.removePolygon(polygon[7]);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			mesh.removePolygon(polygon[6]);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			mesh.removePolygon(polygon[4]);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			mesh.removePolygon(polygon[1]);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			mesh.removePolygon(polygon[2]);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			mesh.removePolygon(polygon[3]);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 		}
 
 		void testPolygon2()
@@ -373,9 +365,9 @@ namespace
 				for (integer j = 0;j < 4;++j)
 				{
 					vertex[i][j] = mesh.insertVertex();
-					TEST_ENSURE(testInvariants(mesh));
+					REQUIRE(testInvariants(mesh));
 
-					TEST_ENSURE(!vertex[i][j].empty());
+					REQUIRE(!vertex[i][j].empty());
 					(vertex[i][j])->data() = i * 10 + j;
 				}
 			}
@@ -396,7 +388,7 @@ namespace
 			points.push_back(vertex[4][0]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[2][1]);
@@ -404,7 +396,7 @@ namespace
 			points.push_back(vertex[3][1]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[2][2]);
@@ -412,7 +404,7 @@ namespace
 			points.push_back(vertex[3][3]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[1][2]);
@@ -420,7 +412,7 @@ namespace
 			points.push_back(vertex[2][2]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[0][1]);
@@ -428,7 +420,7 @@ namespace
 			points.push_back(vertex[1][2]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[0][1]);
@@ -436,7 +428,7 @@ namespace
 			points.push_back(vertex[1][1]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[1][3]);
@@ -444,7 +436,7 @@ namespace
 			points.push_back(vertex[2][2]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[3][2]);
@@ -452,7 +444,7 @@ namespace
 			points.push_back(vertex[4][1]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[3][2]);
@@ -460,7 +452,7 @@ namespace
 			points.push_back(vertex[4][2]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[2][2]);
@@ -468,7 +460,7 @@ namespace
 			points.push_back(vertex[3][2]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[0][2]);
@@ -476,7 +468,7 @@ namespace
 			points.push_back(vertex[1][2]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[3][1]);
@@ -484,7 +476,7 @@ namespace
 			points.push_back(vertex[4][1]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[2][2]);
@@ -492,7 +484,7 @@ namespace
 			points.push_back(vertex[3][1]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[1][1]);
@@ -500,7 +492,7 @@ namespace
 			points.push_back(vertex[2][0]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[1][1]);
@@ -508,7 +500,7 @@ namespace
 			points.push_back(vertex[2][1]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[0][0]);
@@ -516,7 +508,7 @@ namespace
 			points.push_back(vertex[1][0]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 
 			points.clear();
 			points.push_back(vertex[1][1]);
@@ -524,7 +516,7 @@ namespace
 			points.push_back(vertex[2][2]);
 
 			mesh.insertPolygon(points);
-			TEST_ENSURE(testInvariants(mesh));
+			REQUIRE(testInvariants(mesh));
 		}
 
 		void testMerge()
@@ -538,8 +530,8 @@ namespace
 				for (integer j = 0; j < 4; ++j)
 				{
 					vertex[i][j] = mesh.insertVertex();
-					TEST_ENSURE(testInvariants(mesh));
-					TEST_ENSURE(!vertex[i][j].empty());
+					REQUIRE(testInvariants(mesh));
+					REQUIRE(!vertex[i][j].empty());
 					(vertex[i][j])->data() = i * 10 + j;
 				}
 			}
@@ -563,10 +555,10 @@ namespace
 					}));
 				unused(aPolygon);
 
-				TEST_ENSURE(testInvariants(mesh));
-				TEST_ENSURE_OP(mesh.vertices(), == , 16);
-				TEST_ENSURE_OP(mesh.edges(), == , 4);
-				TEST_ENSURE_OP(mesh.polygons(), == , 1);
+				REQUIRE(testInvariants(mesh));
+				REQUIRE(mesh.vertices() == 16);
+				REQUIRE(mesh.edges() == 4);
+				REQUIRE(mesh.polygons() == 1);
 
 				Polygon_Iterator bPolygon =
 					mesh.insertPolygon(
@@ -580,32 +572,23 @@ namespace
 					}));
 				unused(bPolygon);
 
-				TEST_ENSURE(testInvariants(mesh));
-				TEST_ENSURE_OP(mesh.vertices(), == , 16);
-				TEST_ENSURE_OP(mesh.edges(), == , 9);
-				TEST_ENSURE_OP(mesh.polygons(), == , 2);
+				REQUIRE(testInvariants(mesh));
+				REQUIRE(mesh.vertices() == 16);
+				REQUIRE(mesh.edges() == 9);
+				REQUIRE(mesh.polygons() == 2);
 
 				mesh.merge(mesh.findHalf(vertex[1][0], vertex[1][1]));
-				
-				TEST_ENSURE(testInvariants(mesh));
-				TEST_ENSURE_OP(mesh.vertices(), == , 16);
-				TEST_ENSURE_OP(mesh.edges(), == , 8);
-				TEST_ENSURE_OP(mesh.polygons(), == , 1);
+
+				REQUIRE(testInvariants(mesh));
+				REQUIRE(mesh.vertices() == 16);
+				REQUIRE(mesh.edges() == 8);
+				REQUIRE(mesh.polygons() == 1);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("HalfMesh", "[HalfMesh]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("HalfMesh", test);
-	}
-
-	CallFunction run(addTest);
 
 }

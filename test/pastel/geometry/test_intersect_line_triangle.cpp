@@ -1,14 +1,12 @@
 // Description: Testing for line-triangle intersection
 // DocumentationOf: intersect_line_triangle.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/geometry/intersect/intersect_line_triangle.h"
 #include "pastel/sys/rational.h"
 
 #include <iostream>
-
-using namespace Pastel;
 
 namespace
 {
@@ -16,14 +14,8 @@ namespace
 	using Real = Rational<integer>;
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testPositive2();
@@ -73,22 +65,22 @@ namespace
 				Vector<Real, 2>(-2, -2));
 
 			Real t(0);
-			TEST_ENSURE(intersect(a, triangle, t));
-			TEST_ENSURE(t == 3);
-			TEST_ENSURE(intersect(b, triangle, t));
-			TEST_ENSURE(t == 2);
-			TEST_ENSURE(intersect(c, triangle, t));
-			TEST_ENSURE(t == 1);
-			TEST_ENSURE(intersect(d, triangle, t));
-			TEST_ENSURE(t == Real(5, 3));
-			TEST_ENSURE(intersect(e, triangle, t));
-			TEST_ENSURE(t == 1);
-			TEST_ENSURE(intersect(f, triangle, t));
-			TEST_ENSURE(t == Real(3, 2));
-			TEST_ENSURE(intersect(g, triangle, t));
-			TEST_ENSURE(t == Real(3, 2));
-			TEST_ENSURE(intersect(h, triangle, t));
-			TEST_ENSURE(t == Real(3, 2));
+			REQUIRE(intersect(a, triangle, t));
+			REQUIRE(t == 3);
+			REQUIRE(intersect(b, triangle, t));
+			REQUIRE(t == 2);
+			REQUIRE(intersect(c, triangle, t));
+			REQUIRE(t == 1);
+			REQUIRE(intersect(d, triangle, t));
+			REQUIRE(t == Real(5, 3));
+			REQUIRE(intersect(e, triangle, t));
+			REQUIRE(t == 1);
+			REQUIRE(intersect(f, triangle, t));
+			REQUIRE(t == Real(3, 2));
+			REQUIRE(intersect(g, triangle, t));
+			REQUIRE(t == Real(3, 2));
+			REQUIRE(intersect(h, triangle, t));
+			REQUIRE(t == Real(3, 2));
 
 			*/
 		}
@@ -158,20 +150,20 @@ namespace
 				Vector<Real, 2>(0, 1));
 
 			Real t(0);
-			TEST_ENSURE(!intersect(a, triangle, t));
-			TEST_ENSURE(!intersect(b, triangle, t));
-			TEST_ENSURE(!intersect(c, triangle, t));
-			TEST_ENSURE(!intersect(d, triangle, t));
-			TEST_ENSURE(!intersect(e, triangle, t));
-			TEST_ENSURE(!intersect(f, triangle, t));
-			TEST_ENSURE(!intersect(g, triangle, t));
-			TEST_ENSURE(!intersect(h, triangle, t));
-			TEST_ENSURE(!intersect(i, triangle, t));
-			TEST_ENSURE(!intersect(j, triangle, t));
-			TEST_ENSURE(!intersect(k, triangle, t));
-			TEST_ENSURE(!intersect(l, triangle, t));
-			TEST_ENSURE(!intersect(m, triangle, t));
-			TEST_ENSURE(!intersect(n, triangle, t));
+			REQUIRE(!intersect(a, triangle, t));
+			REQUIRE(!intersect(b, triangle, t));
+			REQUIRE(!intersect(c, triangle, t));
+			REQUIRE(!intersect(d, triangle, t));
+			REQUIRE(!intersect(e, triangle, t));
+			REQUIRE(!intersect(f, triangle, t));
+			REQUIRE(!intersect(g, triangle, t));
+			REQUIRE(!intersect(h, triangle, t));
+			REQUIRE(!intersect(i, triangle, t));
+			REQUIRE(!intersect(j, triangle, t));
+			REQUIRE(!intersect(k, triangle, t));
+			REQUIRE(!intersect(l, triangle, t));
+			REQUIRE(!intersect(m, triangle, t));
+			REQUIRE(!intersect(n, triangle, t));
 
 			*/
 		}
@@ -214,20 +206,20 @@ namespace
 			Real t(0);
 			Real u(0);
 			Real v(0);
-			TEST_ENSURE(intersect(a, triangle, t, u, v));
-			TEST_ENSURE(t == 1);
-			TEST_ENSURE(intersect(b, triangle, t, u, v));
-			TEST_ENSURE(t == 1);
-			TEST_ENSURE(intersect(c, triangle, t, u, v));
-			TEST_ENSURE(t == 1);
-			TEST_ENSURE(intersect(d, triangle, t, u, v));
-			TEST_ENSURE(t == 1);
-			TEST_ENSURE(intersect(e, triangle, t, u, v));
-			TEST_ENSURE(t == 1);
-			TEST_ENSURE(intersect(f, triangle, t, u, v));
-			TEST_ENSURE(t == 1);
-			TEST_ENSURE(intersect(g, triangle, t, u, v));
-			TEST_ENSURE(t == 1);
+			REQUIRE(intersect(a, triangle, t, u, v));
+			REQUIRE(t == 1);
+			REQUIRE(intersect(b, triangle, t, u, v));
+			REQUIRE(t == 1);
+			REQUIRE(intersect(c, triangle, t, u, v));
+			REQUIRE(t == 1);
+			REQUIRE(intersect(d, triangle, t, u, v));
+			REQUIRE(t == 1);
+			REQUIRE(intersect(e, triangle, t, u, v));
+			REQUIRE(t == 1);
+			REQUIRE(intersect(f, triangle, t, u, v));
+			REQUIRE(t == 1);
+			REQUIRE(intersect(g, triangle, t, u, v));
+			REQUIRE(t == 1);
 		}
 
 		void testNegative3()
@@ -268,27 +260,18 @@ namespace
 			Real t(0);
 			Real u(0);
 			Real v(0);
-			TEST_ENSURE(!intersect(a, triangle, t, u, v));
-			TEST_ENSURE(!intersect(b, triangle, t, u, v));
-			TEST_ENSURE(!intersect(c, triangle, t, u, v));
-			TEST_ENSURE(!intersect(d, triangle, t, u, v));
-			TEST_ENSURE(!intersect(e, triangle, t, u, v));
-			TEST_ENSURE(!intersect(f, triangle, t, u, v));
-			TEST_ENSURE(!intersect(g, triangle, t, u, v));
+			REQUIRE(!intersect(a, triangle, t, u, v));
+			REQUIRE(!intersect(b, triangle, t, u, v));
+			REQUIRE(!intersect(c, triangle, t, u, v));
+			REQUIRE(!intersect(d, triangle, t, u, v));
+			REQUIRE(!intersect(e, triangle, t, u, v));
+			REQUIRE(!intersect(f, triangle, t, u, v));
+			REQUIRE(!intersect(g, triangle, t, u, v));
 		}
 	};
 
-	void test()
+	TEST_CASE("intersect_line_triangle", "[intersect_line_triangle]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("intersect_line_triangle", test);
-	}
-
-	CallFunction run(addTest);
 
 }

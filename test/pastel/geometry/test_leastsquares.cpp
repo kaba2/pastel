@@ -1,7 +1,7 @@
 // Description: Testing for least-squares conformal affine transformation
 // DocumentationOf: conformalaffine2d.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include "pastel/math/affine/affine_transformation.h"
 #include "pastel/math/sampling/uniform_sampling.h"
@@ -12,20 +12,12 @@
 #include "pastel/sys/vector/vector_tools.h"
 #include "pastel/sys/set.h"
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testNoiselessSimilarity();
@@ -39,7 +31,7 @@ namespace
 				from.reserve(points);
 				std::vector<Vector2> to;
 				to.reserve(points);
-				
+
 				real scale = random<real>() * 0.9 + 0.1;
 				real angle = random<real>() * 2 * constantPi<real>();
 				Vector2 translation(random<real>() * 2 - 1, random<real>() * 2 - 1);
@@ -69,24 +61,15 @@ namespace
 				ConformalAffine2D<real> similarity =
 					lsConformalAffine(rangeSet(from), rangeSet(to));
 
-				TEST_ENSURE(absoluteError<real>(similarity.scaling(), scale) <= 0.001);
-				TEST_ENSURE(absoluteError<real>(similarity.rotation(), angle) <= 0.001);
-				TEST_ENSURE(norm(similarity.translation() - translation) <= 0.001);
+				REQUIRE(absoluteError<real>(similarity.scaling(), scale) <= 0.001);
+				REQUIRE(absoluteError<real>(similarity.rotation(), angle) <= 0.001);
+				REQUIRE(norm(similarity.translation() - translation) <= 0.001);
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("LeastSquares", "[LeastSquares]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("LeastSquares", test);
-	}
-
-	CallFunction run(addTest);
 
 }

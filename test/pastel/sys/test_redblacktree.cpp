@@ -1,7 +1,7 @@
 // Description: Testing for red-black tree
 // DocumentationOf: redblacktree.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include <pastel/sys/redblacktree.h>
 #include <pastel/sys/random/random_uniform.h>
@@ -14,20 +14,12 @@
 #include <iostream>
 #include <list>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		class Propagation
 		{
 		public:
@@ -170,7 +162,7 @@ namespace
 		{
 			using Set = RedBlackTree_Set<void>;
 			Set tree;
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 			tree.insert(nullptr);
 		}
 
@@ -206,103 +198,103 @@ namespace
 				};
 
 				ConstIterator i = map.cbegin();
-				TEST_ENSURE(test(i, 2));
-				
-				i = i.next(onlyMarked);
-				TEST_ENSURE(test(i, 5));
+				REQUIRE(test(i, 2));
 
 				i = i.next(onlyMarked);
-				TEST_ENSURE(test(i, 10));
+				REQUIRE(test(i, 5));
 
 				i = i.next(onlyMarked);
-				TEST_ENSURE(test(i, 14));
+				REQUIRE(test(i, 10));
 
 				i = i.next(onlyMarked);
-				TEST_ENSURE(test(i, 20));
+				REQUIRE(test(i, 14));
 
 				i = i.next(onlyMarked);
-				TEST_ENSURE(i == map.cend());
+				REQUIRE(test(i, 20));
+
+				i = i.next(onlyMarked);
+				REQUIRE(i == map.cend());
 
 				i = i.prev(onlyMarked);
-				TEST_ENSURE(test(i, 20));
+				REQUIRE(test(i, 20));
 
 				i = i.prev(onlyMarked);
-				TEST_ENSURE(test(i, 14));
+				REQUIRE(test(i, 14));
 
 				i = i.prev(onlyMarked);
-				TEST_ENSURE(test(i, 10));
+				REQUIRE(test(i, 10));
 
 				i = i.prev(onlyMarked);
-				TEST_ENSURE(test(i, 5));
+				REQUIRE(test(i, 5));
 
 				i = i.prev(onlyMarked);
-				TEST_ENSURE(i == map.cend());
+				REQUIRE(i == map.cend());
 
 				i = map.begin();
-				TEST_ENSURE(test(i, 2));
+				REQUIRE(test(i, 2));
 
 				++i;
-				TEST_ENSURE(test(i, 4));
+				REQUIRE(test(i, 4));
 
 				++i;
-				TEST_ENSURE(test(i, 5));
+				REQUIRE(test(i, 5));
 
 				++i;
-				TEST_ENSURE(test(i, 6));
+				REQUIRE(test(i, 6));
 
 				++i;
-				TEST_ENSURE(test(i, 9));
+				REQUIRE(test(i, 9));
 
 				++i;
-				TEST_ENSURE(test(i, 10));
+				REQUIRE(test(i, 10));
 
 				++i;
-				TEST_ENSURE(test(i, 14));
+				REQUIRE(test(i, 14));
 
 				++i;
-				TEST_ENSURE(test(i, 16));
+				REQUIRE(test(i, 16));
 
 				++i;
-				TEST_ENSURE(test(i, 19));
+				REQUIRE(test(i, 19));
 
 				++i;
-				TEST_ENSURE(test(i, 20));
+				REQUIRE(test(i, 20));
 
 				++i;
-				TEST_ENSURE(i == map.cend());
+				REQUIRE(i == map.cend());
 
 				--i;
-				TEST_ENSURE(test(i, 20));
+				REQUIRE(test(i, 20));
 
 				--i;
-				TEST_ENSURE(test(i, 19));
+				REQUIRE(test(i, 19));
 
 				--i;
-				TEST_ENSURE(test(i, 16));
+				REQUIRE(test(i, 16));
 
 				--i;
-				TEST_ENSURE(test(i, 14));
+				REQUIRE(test(i, 14));
 
 				--i;
-				TEST_ENSURE(test(i, 10));
+				REQUIRE(test(i, 10));
 
 				--i;
-				TEST_ENSURE(test(i, 9));
+				REQUIRE(test(i, 9));
 
 				--i;
-				TEST_ENSURE(test(i, 6));
+				REQUIRE(test(i, 6));
 
 				--i;
-				TEST_ENSURE(test(i, 5));
+				REQUIRE(test(i, 5));
 
 				--i;
-				TEST_ENSURE(test(i, 4));
+				REQUIRE(test(i, 4));
 
 				--i;
-				TEST_ENSURE(test(i, 2));
+				REQUIRE(test(i, 2));
 
 				--i;
-				TEST_ENSURE(i == map.cend());
+				REQUIRE(i == map.cend());
 			}
 		}
 
@@ -341,17 +333,17 @@ namespace
 						map.exists(i, onlyMarked);
 				};
 
-				TEST_ENSURE(!test(2));
-				TEST_ENSURE(!test(4));
-				TEST_ENSURE(!test(6));
-				TEST_ENSURE(!test(9));
-				TEST_ENSURE(!test(16));
-				TEST_ENSURE(!test(19));
+				REQUIRE(!test(2));
+				REQUIRE(!test(4));
+				REQUIRE(!test(6));
+				REQUIRE(!test(9));
+				REQUIRE(!test(16));
+				REQUIRE(!test(19));
 
-				TEST_ENSURE(test(5));
-				TEST_ENSURE(test(10));
-				TEST_ENSURE(test(14));
-				TEST_ENSURE(test(20));
+				REQUIRE(test(5));
+				REQUIRE(test(10));
+				REQUIRE(test(14));
+				REQUIRE(test(20));
 			}
 			{
 				auto test = [&](integer i, integer correct)
@@ -362,29 +354,29 @@ namespace
 					return !iter.isSentinel() &&
 						iter.key() == correct;
 				};
-				
-				TEST_ENSURE(test(-1, 5));
-				TEST_ENSURE(test(0, 5));
-				TEST_ENSURE(test(1, 5));
-				TEST_ENSURE(test(2, 5));
-				TEST_ENSURE(test(3, 5));
-				TEST_ENSURE(test(4, 5));
-				TEST_ENSURE(test(5, 5));
-				TEST_ENSURE(test(6, 10));
-				TEST_ENSURE(test(7, 10));
-				TEST_ENSURE(test(8, 10));
-				TEST_ENSURE(test(9, 10));
-				TEST_ENSURE(test(10, 10));
-				TEST_ENSURE(test(11, 14));
-				TEST_ENSURE(test(12, 14));
-				TEST_ENSURE(test(13, 14));
-				TEST_ENSURE(test(14, 14));
-				TEST_ENSURE(test(15, 20));
-				TEST_ENSURE(test(16, 20));
-				TEST_ENSURE(test(17, 20));
-				TEST_ENSURE(test(18, 20));
-				TEST_ENSURE(test(19, 20));
-				TEST_ENSURE(test(20, 20));
+
+				REQUIRE(test(-1, 5));
+				REQUIRE(test(0, 5));
+				REQUIRE(test(1, 5));
+				REQUIRE(test(2, 5));
+				REQUIRE(test(3, 5));
+				REQUIRE(test(4, 5));
+				REQUIRE(test(5, 5));
+				REQUIRE(test(6, 10));
+				REQUIRE(test(7, 10));
+				REQUIRE(test(8, 10));
+				REQUIRE(test(9, 10));
+				REQUIRE(test(10, 10));
+				REQUIRE(test(11, 14));
+				REQUIRE(test(12, 14));
+				REQUIRE(test(13, 14));
+				REQUIRE(test(14, 14));
+				REQUIRE(test(15, 20));
+				REQUIRE(test(16, 20));
+				REQUIRE(test(17, 20));
+				REQUIRE(test(18, 20));
+				REQUIRE(test(19, 20));
+				REQUIRE(test(20, 20));
 			}
 
 			{
@@ -396,29 +388,29 @@ namespace
 					return !iter.isSentinel() &&
 						iter.key() == correct;
 				};
-				
-				TEST_ENSURE(test(-1, 5));
-				TEST_ENSURE(test(0, 5));
-				TEST_ENSURE(test(1, 5));
-				TEST_ENSURE(test(2, 5));
-				TEST_ENSURE(test(3, 5));
-				TEST_ENSURE(test(4, 5));
-				TEST_ENSURE(test(5, 10));
-				TEST_ENSURE(test(6, 10));
-				TEST_ENSURE(test(7, 10));
-				TEST_ENSURE(test(8, 10));
-				TEST_ENSURE(test(9, 10));
-				TEST_ENSURE(test(10, 14));
-				TEST_ENSURE(test(11, 14));
-				TEST_ENSURE(test(12, 14));
-				TEST_ENSURE(test(13, 14));
-				TEST_ENSURE(test(14, 20));
-				TEST_ENSURE(test(15, 20));
-				TEST_ENSURE(test(16, 20));
-				TEST_ENSURE(test(17, 20));
-				TEST_ENSURE(test(18, 20));
-				TEST_ENSURE(test(19, 20));
-				TEST_ENSURE(map.upperBound(20) == map.cend());
+
+				REQUIRE(test(-1, 5));
+				REQUIRE(test(0, 5));
+				REQUIRE(test(1, 5));
+				REQUIRE(test(2, 5));
+				REQUIRE(test(3, 5));
+				REQUIRE(test(4, 5));
+				REQUIRE(test(5, 10));
+				REQUIRE(test(6, 10));
+				REQUIRE(test(7, 10));
+				REQUIRE(test(8, 10));
+				REQUIRE(test(9, 10));
+				REQUIRE(test(10, 14));
+				REQUIRE(test(11, 14));
+				REQUIRE(test(12, 14));
+				REQUIRE(test(13, 14));
+				REQUIRE(test(14, 20));
+				REQUIRE(test(15, 20));
+				REQUIRE(test(16, 20));
+				REQUIRE(test(17, 20));
+				REQUIRE(test(18, 20));
+				REQUIRE(test(19, 20));
+				REQUIRE(map.upperBound(20) == map.cend());
 			}
 		}
 
@@ -429,41 +421,41 @@ namespace
 				auto test = [&](integer that)
 				{
 					auto iterAndNew = tree.insert(that);
-					TEST_ENSURE(testInvariants(tree));
-					TEST_ENSURE(iterAndNew.second);
-					TEST_ENSURE_OP(*iterAndNew.first, == , that);
-					TEST_ENSURE(tree.find(that) == iterAndNew.first);
-					TEST_ENSURE(tree.lowerBound(that) == iterAndNew.first);
-					TEST_ENSURE(tree.exists(that));
+					REQUIRE(testInvariants(tree));
+					REQUIRE(iterAndNew.second);
+					REQUIRE(*iterAndNew.first == that);
+					REQUIRE(tree.find(that) == iterAndNew.first);
+					REQUIRE(tree.lowerBound(that) == iterAndNew.first);
+					REQUIRE(tree.exists(that));
 				};
 
 				test(1);
-				TEST_ENSURE_OP(tree.size(), == , 1);
+				REQUIRE(tree.size() == 1);
 
 				test(5);
-				TEST_ENSURE_OP(tree.size(), == , 2);
+				REQUIRE(tree.size() == 2);
 
 				test(3);
-				TEST_ENSURE_OP(tree.size(), == , 3);
-				
+				REQUIRE(tree.size() == 3);
+
 				auto iterAndNew = tree.insert(1);
-				TEST_ENSURE(!iterAndNew.second);
-				TEST_ENSURE_OP(*iterAndNew.first, == , 1);
-				TEST_ENSURE_OP(tree.size(), == , 3);
+				REQUIRE(!iterAndNew.second);
+				REQUIRE(*iterAndNew.first == 1);
+				REQUIRE(tree.size() == 3);
 			}
 			{
 				Set tree({ 4, 2, 1, 1, 1, 3 });
 				integer correctSet[] = { 1, 2, 3, 4 };
-				TEST_ENSURE_OP(tree.size(), == , 4);
-				TEST_ENSURE(boost::equal(tree, correctSet));
+				REQUIRE(tree.size() == 4);
+				REQUIRE(boost::equal(tree, correctSet));
 			}
 			{
 				Set tree;
 				tree = { 4, 2, 1, 1, 1, 3 };
-				
+
 				integer correctSet[] = { 1, 2, 3, 4 };
-				TEST_ENSURE_OP(tree.size(), == , 4);
-				TEST_ENSURE(boost::equal(tree, correctSet));
+				REQUIRE(tree.size() == 4);
+				REQUIRE(boost::equal(tree, correctSet));
 			}
 		}
 
@@ -477,21 +469,21 @@ namespace
 				auto test = [&](integer that)
 				{
 					auto iter = tree.insert(that);
-					TEST_ENSURE(testInvariants(tree));
-					TEST_ENSURE_OP(*iter, == , that);
-					TEST_ENSURE(tree.find(that) == iter);
-					TEST_ENSURE(tree.lowerBound(that) == iter);
-					TEST_ENSURE(tree.exists(that));
+					REQUIRE(testInvariants(tree));
+					REQUIRE(*iter == that);
+					REQUIRE(tree.find(that) == iter);
+					REQUIRE(tree.lowerBound(that) == iter);
+					REQUIRE(tree.exists(that));
 				};
 
 				test(1);
-				TEST_ENSURE_OP(tree.size(), == , 1);
+				REQUIRE(tree.size() == 1);
 
 				test(5);
-				TEST_ENSURE_OP(tree.size(), == , 2);
+				REQUIRE(tree.size() == 2);
 
 				test(3);
-				TEST_ENSURE_OP(tree.size(), == , 3);
+				REQUIRE(tree.size() == 3);
 			}
 			{
 				Tree tree;
@@ -499,49 +491,49 @@ namespace
 				auto test = [&](integer that)
 				{
 					auto iter = tree.insert(that);
-					TEST_ENSURE(testInvariants(tree));
-					TEST_ENSURE_OP(*iter, == , that);
-					TEST_ENSURE(iter == std::prev(tree.cend()));
+					REQUIRE(testInvariants(tree));
+					REQUIRE(*iter == that);
+					REQUIRE(iter == std::prev(tree.cend()));
 				};
 
 				test(1);
-				TEST_ENSURE_OP(tree.size(), ==, 1);
+				REQUIRE(tree.size() == 1);
 
 				test(1);
-				TEST_ENSURE_OP(tree.size(), ==, 2);
+				REQUIRE(tree.size() == 2);
 
 				test(1);
-				TEST_ENSURE_OP(tree.size(), ==, 3);
+				REQUIRE(tree.size() == 3);
 
 				test(5);
-				TEST_ENSURE_OP(tree.size(), == , 4);
+				REQUIRE(tree.size() == 4);
 
 				test(5);
-				TEST_ENSURE_OP(tree.size(), == , 5);
+				REQUIRE(tree.size() == 5);
 
 				test(5);
-				TEST_ENSURE_OP(tree.size(), == , 6);
+				REQUIRE(tree.size() == 6);
 			}
 			{
 				Tree aTree = { 1, 1, 2, 3, 4, 5, 5, 5 };
-				TEST_ENSURE(testInvariants(aTree));
-				TEST_ENSURE_OP(aTree.size(), == , 8);
+				REQUIRE(testInvariants(aTree));
+				REQUIRE(aTree.size() == 8);
 
 				Tree bTree;
 				bTree.useBottomFrom(aTree);
 				bTree = { 5, 5, 6, 7, 7, 8 };
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE_OP(bTree.size(), == , 6);
+				REQUIRE(testInvariants(bTree));
+				REQUIRE(bTree.size() == 6);
 
 				aTree.join(bTree);
-				TEST_ENSURE(testInvariants(aTree));
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE_OP(aTree.size(), == , 14);
-				TEST_ENSURE(bTree.empty());
+				REQUIRE(testInvariants(aTree));
+				REQUIRE(testInvariants(bTree));
+				REQUIRE(aTree.size() == 14);
+				REQUIRE(bTree.empty());
 
 				integer correctSet[] =
 					{ 1, 1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 7, 7, 8 };
-				TEST_ENSURE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
 			}
 		}
 
@@ -561,47 +553,47 @@ namespace
 
 				{
 					tree = { 2, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
-					TEST_ENSURE(testInvariants(tree));
+					REQUIRE(testInvariants(tree));
 
-					TEST_ENSURE(test(0, 0));
-					TEST_ENSURE(test(1, 0));
-					TEST_ENSURE(test(2, 0));
-					TEST_ENSURE(test(3, 1));
-					TEST_ENSURE(test(4, 1));
-					TEST_ENSURE(test(5, 3));
-					TEST_ENSURE(test(6, 7));
-					TEST_ENSURE(test(7, 7));
-					TEST_ENSURE(test(8, 7));
-					TEST_ENSURE(test(9, 7));
-					TEST_ENSURE(test(10, 8));
-					TEST_ENSURE(test(11, 8));
-					TEST_ENSURE(test(12, 8));
-					TEST_ENSURE(test(13, 8));
-					TEST_ENSURE(test(14, 8));
-					TEST_ENSURE(test(15, 8));
-					TEST_ENSURE(test(16, 9));
-					TEST_ENSURE(test(17, 9));
-					TEST_ENSURE(test(18, 9));
-					TEST_ENSURE(test(19, 9));
-					TEST_ENSURE(test(20, 9));
-					TEST_ENSURE(test(21, 10));
-					TEST_ENSURE(test(22, 10));
+					REQUIRE(test(0, 0));
+					REQUIRE(test(1, 0));
+					REQUIRE(test(2, 0));
+					REQUIRE(test(3, 1));
+					REQUIRE(test(4, 1));
+					REQUIRE(test(5, 3));
+					REQUIRE(test(6, 7));
+					REQUIRE(test(7, 7));
+					REQUIRE(test(8, 7));
+					REQUIRE(test(9, 7));
+					REQUIRE(test(10, 8));
+					REQUIRE(test(11, 8));
+					REQUIRE(test(12, 8));
+					REQUIRE(test(13, 8));
+					REQUIRE(test(14, 8));
+					REQUIRE(test(15, 8));
+					REQUIRE(test(16, 9));
+					REQUIRE(test(17, 9));
+					REQUIRE(test(18, 9));
+					REQUIRE(test(19, 9));
+					REQUIRE(test(20, 9));
+					REQUIRE(test(21, 10));
+					REQUIRE(test(22, 10));
 				}
 
 				{
 					tree = { 3, 4, 5, 5, 5, 5, 5, 5, 5, 6, 7 };
-					TEST_ENSURE(testInvariants(tree));
+					REQUIRE(testInvariants(tree));
 
-					TEST_ENSURE(test(0, 0));
-					TEST_ENSURE(test(1, 0));
-					TEST_ENSURE(test(2, 0));
-					TEST_ENSURE(test(3, 0));
-					TEST_ENSURE(test(4, 1));
-					TEST_ENSURE(test(5, 2));
-					TEST_ENSURE(test(6, 9));
-					TEST_ENSURE(test(7, 10));
-					TEST_ENSURE(test(8, 11));
-					TEST_ENSURE(test(9, 11));
+					REQUIRE(test(0, 0));
+					REQUIRE(test(1, 0));
+					REQUIRE(test(2, 0));
+					REQUIRE(test(3, 0));
+					REQUIRE(test(4, 1));
+					REQUIRE(test(5, 2));
+					REQUIRE(test(6, 9));
+					REQUIRE(test(7, 10));
+					REQUIRE(test(8, 11));
+					REQUIRE(test(9, 11));
 				}
 			}
 		}
@@ -612,29 +604,29 @@ namespace
 
 			{
 				Tree tree{ { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE_OP(tree.size(), == , 7);
+				REQUIRE(testInvariants(tree));
+				REQUIRE(tree.size() == 7);
 
 				integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), keySet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), keySet));
 
 				integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceData(), dataSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceData(), dataSet));
 
-				TEST_ENSURE_OP(*tree.begin().dereferenceKey(), == , 1);
-				TEST_ENSURE_OP(*tree.begin().dereferenceData(), == , 1);
-				TEST_ENSURE_OP(*std::next(tree.begin().dereferenceKey()), == , 2);
-				TEST_ENSURE_OP(*std::next(tree.begin().dereferenceData()), == , 4);
+				REQUIRE(*tree.begin().dereferenceKey() == 1);
+				REQUIRE(*tree.begin().dereferenceData() == 1);
+				REQUIRE(*std::next(tree.begin().dereferenceKey()) == 2);
+				REQUIRE(*std::next(tree.begin().dereferenceData()) == 4);
 			}
 			{
 				Map tree;
 				auto a = tree.insert(5).first;
-				
+
 				*a = 4;
-				TEST_ENSURE_OP(*a, == , 4);
-				
+				REQUIRE(*a == 4);
+
 				auto b = tree.insert(1, *a).first;
-				TEST_ENSURE_OP(*b, == , 4);
+				REQUIRE(*b == 4);
 
 			}
 		}
@@ -645,14 +637,14 @@ namespace
 
 			{
 				Tree tree { { 1, 1 }, { 2, 4 }, { 3, 9 }, { 4, 16 }, { 5, 25 }, { 6, 36 }, { 7, 49 } };
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE_OP(tree.size(), == , 7);
+				REQUIRE(testInvariants(tree));
+				REQUIRE(tree.size() == 7);
 
 				integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), keySet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), keySet));
 
 				integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceData(), dataSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceData(), dataSet));
 			}
 		}
 
@@ -661,50 +653,50 @@ namespace
 		{
 			{
 				Tree tree;
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE(!tree.hasSeparateSentinels());
-				TEST_ENSURE(!tree.sharesBottom());
-				TEST_ENSURE(tree.sharesBottom(tree));
-				TEST_ENSURE_OP(tree.size(), == , 0);
-				TEST_ENSURE(tree.empty());
+				REQUIRE(testInvariants(tree));
+				REQUIRE(!tree.hasSeparateSentinels());
+				REQUIRE(!tree.sharesBottom());
+				REQUIRE(tree.sharesBottom(tree));
+				REQUIRE(tree.size() == 0);
+				REQUIRE(tree.empty());
 			}
 
 			{
 				Tree tree({ 1, 2, 3, 4, 5, 6, 7 });
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
 
-				TEST_ENSURE(tree.extremum(false) == tree.cbegin());
-				TEST_ENSURE_OP(tree.extremum(false).key(), ==, 1);
-				TEST_ENSURE(tree.extremum(true) == tree.clast());
-				TEST_ENSURE_OP(tree.extremum(true).key(), ==, 7);
+				REQUIRE(tree.extremum(false) == tree.cbegin());
+				REQUIRE(tree.extremum(false).key() == 1);
+				REQUIRE(tree.extremum(true) == tree.clast());
+				REQUIRE(tree.extremum(true).key() == 7);
 
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE(!tree.hasSeparateSentinels());
-				TEST_ENSURE(!tree.sharesBottom());
-				TEST_ENSURE(tree.sharesBottom(tree));
-				TEST_ENSURE_OP(tree.size(), == , 7);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
+				REQUIRE(!tree.hasSeparateSentinels());
+				REQUIRE(!tree.sharesBottom());
+				REQUIRE(tree.sharesBottom(tree));
+				REQUIRE(tree.size() == 7);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 			{
 				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
 
 				Tree copy(tree);
-				TEST_ENSURE(testInvariants(copy));
-				TEST_ENSURE(copy.hasSeparateSentinels());
-				TEST_ENSURE(copy.sharesBottom());
-				TEST_ENSURE(copy.sharesBottom(copy));
-				TEST_ENSURE(copy.sharesBottom(tree));
-				TEST_ENSURE_OP(copy.size(), == , 7);
-				TEST_ENSURE(boost::equal(copy.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(copy));
+				REQUIRE(copy.hasSeparateSentinels());
+				REQUIRE(copy.sharesBottom());
+				REQUIRE(copy.sharesBottom(copy));
+				REQUIRE(copy.sharesBottom(tree));
+				REQUIRE(copy.size() == 7);
+				REQUIRE(boost::equal(copy.crange().dereferenceKey(), correctSet));
 
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE(!tree.hasSeparateSentinels());
-				TEST_ENSURE(tree.sharesBottom());
-				TEST_ENSURE(tree.sharesBottom(tree));
-				TEST_ENSURE(tree.sharesBottom(copy));
-				TEST_ENSURE_OP(tree.size(), == , 7);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
+				REQUIRE(!tree.hasSeparateSentinels());
+				REQUIRE(tree.sharesBottom());
+				REQUIRE(tree.sharesBottom(tree));
+				REQUIRE(tree.sharesBottom(copy));
+				REQUIRE(tree.size() == 7);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 			{
 				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
@@ -712,69 +704,69 @@ namespace
 
 				Tree copy{ 11, 12, 13, 14, 15, 16, 17 };
 				copy = tree;
-				TEST_ENSURE(testInvariants(copy));
-				TEST_ENSURE(!copy.hasSeparateSentinels());
-				TEST_ENSURE(!copy.sharesBottom());
-				TEST_ENSURE(copy.sharesBottom(copy));
-				TEST_ENSURE(!copy.sharesBottom(tree));
-				TEST_ENSURE_OP(copy.size(), == , 7);
-				TEST_ENSURE(boost::equal(copy.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(copy));
+				REQUIRE(!copy.hasSeparateSentinels());
+				REQUIRE(!copy.sharesBottom());
+				REQUIRE(copy.sharesBottom(copy));
+				REQUIRE(!copy.sharesBottom(tree));
+				REQUIRE(copy.size() == 7);
+				REQUIRE(boost::equal(copy.crange().dereferenceKey(), correctSet));
 
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE(!tree.hasSeparateSentinels());
-				TEST_ENSURE(!tree.sharesBottom());
-				TEST_ENSURE(tree.sharesBottom(tree));
-				TEST_ENSURE(!tree.sharesBottom(copy));
-				TEST_ENSURE_OP(tree.size(), == , 7);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
+				REQUIRE(!tree.hasSeparateSentinels());
+				REQUIRE(!tree.sharesBottom());
+				REQUIRE(tree.sharesBottom(tree));
+				REQUIRE(!tree.sharesBottom(copy));
+				REQUIRE(tree.size() == 7);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 			{
 				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
 
 				Tree moved(std::move(tree));
-				TEST_ENSURE(testInvariants(moved));
-				TEST_ENSURE(moved.hasSeparateSentinels());
-				TEST_ENSURE(moved.sharesBottom());
-				TEST_ENSURE(moved.sharesBottom(moved));
-				TEST_ENSURE(moved.sharesBottom(tree));
-				TEST_ENSURE_OP(moved.size(), == , 7);
-				TEST_ENSURE(boost::equal(moved.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(moved));
+				REQUIRE(moved.hasSeparateSentinels());
+				REQUIRE(moved.sharesBottom());
+				REQUIRE(moved.sharesBottom(moved));
+				REQUIRE(moved.sharesBottom(tree));
+				REQUIRE(moved.size() == 7);
+				REQUIRE(boost::equal(moved.crange().dereferenceKey(), correctSet));
 
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE(!tree.hasSeparateSentinels());
-				TEST_ENSURE(tree.sharesBottom());
-				TEST_ENSURE(tree.sharesBottom(tree));
-				TEST_ENSURE(tree.sharesBottom(moved));
-				TEST_ENSURE_OP(tree.size(), == , 0);
-				TEST_ENSURE(tree.empty());
+				REQUIRE(testInvariants(tree));
+				REQUIRE(!tree.hasSeparateSentinels());
+				REQUIRE(tree.sharesBottom());
+				REQUIRE(tree.sharesBottom(tree));
+				REQUIRE(tree.sharesBottom(moved));
+				REQUIRE(tree.size() == 0);
+				REQUIRE(tree.empty());
 			}
 			{
 				Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7 };
 				Tree moved{ 11, 12, 13, 14, 15, 16, 17 };
 				moved = std::move(tree);
-				TEST_ENSURE(testInvariants(moved));
-				TEST_ENSURE(moved.hasSeparateSentinels());
-				TEST_ENSURE(moved.sharesBottom());
-				TEST_ENSURE(moved.sharesBottom(moved));
-				TEST_ENSURE(moved.sharesBottom(tree));
-				TEST_ENSURE_OP(moved.size(), == , 7);
-				TEST_ENSURE(boost::equal(moved.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(moved));
+				REQUIRE(moved.hasSeparateSentinels());
+				REQUIRE(moved.sharesBottom());
+				REQUIRE(moved.sharesBottom(moved));
+				REQUIRE(moved.sharesBottom(tree));
+				REQUIRE(moved.size() == 7);
+				REQUIRE(boost::equal(moved.crange().dereferenceKey(), correctSet));
 
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE(!tree.hasSeparateSentinels());
-				TEST_ENSURE(tree.sharesBottom());
-				TEST_ENSURE(tree.sharesBottom(tree));
-				TEST_ENSURE(tree.sharesBottom(moved));
-				TEST_ENSURE_OP(tree.size(), == , 0);
-				TEST_ENSURE(tree.empty());
+				REQUIRE(testInvariants(tree));
+				REQUIRE(!tree.hasSeparateSentinels());
+				REQUIRE(tree.sharesBottom());
+				REQUIRE(tree.sharesBottom(tree));
+				REQUIRE(tree.sharesBottom(moved));
+				REQUIRE(tree.size() == 0);
+				REQUIRE(tree.empty());
 			}
 			{
 				Tree tree;
 				Tree copy(tree);
-				TEST_ENSURE(testInvariants(tree));
-				TEST_ENSURE(testInvariants(copy));
+				REQUIRE(testInvariants(tree));
+				REQUIRE(testInvariants(copy));
 			}
 		}
 
@@ -792,22 +784,22 @@ namespace
 			// The next element from the end-node is 
 			// the first element of the tree.
 			++iter;
-			TEST_ENSURE_OP(iter.key(), ==, 1);
+			REQUIRE(iter.key() == 1);
 
 			// The previous element from the first element
 			// is the end-node.
 			--iter;
-			TEST_ENSURE(iter == aTree.cend());
+			REQUIRE(iter == aTree.cend());
 
 			// The previous element from the end-node is
 			// the last element.
 			--iter;
-			TEST_ENSURE_OP(iter.key(), ==, 4);
+			REQUIRE(iter.key() == 4);
 
 			// The next element from the last node is the
 			// end-node.
 			++iter;
-			TEST_ENSURE(iter == aTree.cend());
+			REQUIRE(iter == aTree.cend());
 
 			// A const-iterator can be explicitly converted to an iterator,
 			// provided one has a mutable reference to the tree.
@@ -815,7 +807,7 @@ namespace
 
 			// An iterator can be converted to a const-iterator.
 			iter = bIter;
-			TEST_ENSURE(iter == bIter);
+			REQUIRE(iter == bIter);
 
 			ConstIterator cIter = bIter;
 			unused(cIter);
@@ -843,21 +835,21 @@ namespace
 					dataSet.push_back(n);
 
 					tree.insert(n);
-					TEST_ENSURE(testInvariants(tree));
+					REQUIRE(testInvariants(tree));
 
 					if (tree.size() > treeSize)
 					{
 						tree.erase(dataSet.front());
-						TEST_ENSURE(testInvariants(tree));
+						REQUIRE(testInvariants(tree));
 						dataSet.pop_front();
 					}
 				}
 
 				{
 					Tree copy(tree);
-					TEST_ENSURE(testInvariants(copy));
-					TEST_ENSURE_OP(tree.size(), == , copy.size());
-					TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), copy.crange().dereferenceKey()));
+					REQUIRE(testInvariants(copy));
+					REQUIRE(tree.size() == copy.size());
+					REQUIRE(boost::equal(tree.crange().dereferenceKey(), copy.crange().dereferenceKey()));
 				}
 			}
 		}
@@ -869,99 +861,99 @@ namespace
 
 			Tree tree;
 			{
-				TEST_ENSURE(tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 0);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.empty());
+				REQUIRE(tree.size() == 0);
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.insert(1);
 			{
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 1);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 1);
+				REQUIRE(testInvariants(tree));
 
 				integer correctSet[] = { 1 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(5);
 			{
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 2);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 2);
+				REQUIRE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 5 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(3);
 			{
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 3);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 3);
+				REQUIRE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 5 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(4);
 			{
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 4);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 4);
+				REQUIRE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(8);
 			{
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 5);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 5);
+				REQUIRE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5, 8 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(7);
 			{
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 6);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 6);
+				REQUIRE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5, 7, 8 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(6);
 			{
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 7);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 7);
+				REQUIRE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5, 6, 7, 8 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(9);
 			{
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 8);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 8);
+				REQUIRE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 3, 4, 5, 6, 7, 8, 9 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			tree.insert(2);
 			{
-				TEST_ENSURE(!tree.empty());
-				TEST_ENSURE_OP(tree.size(), == , 9);
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(!tree.empty());
+				REQUIRE(tree.size() == 9);
+				REQUIRE(testInvariants(tree));
 
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			integer correctSet[] =
@@ -970,19 +962,19 @@ namespace
 			};
 
 			{
-				TEST_ENSURE_OP(boost::distance(tree), == , 9);
-				TEST_ENSURE_OP(boost::distance(tree.crange().dereferenceKey()), == , 9);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::distance(tree) == 9);
+				REQUIRE(boost::distance(tree.crange().dereferenceKey()) == 9);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
 			}
 
 			{
 				ConstIterator copyIter = tree.cend();
 				++copyIter;
-				TEST_ENSURE(copyIter == tree.cbegin());
+				REQUIRE(copyIter == tree.cbegin());
 			}
 
 			{
-				TEST_ENSURE(boost::equal(
+				REQUIRE(boost::equal(
 					tree.crange().dereferenceKey() | boost::adaptors::reversed,
 					correctSet | boost::adaptors::reversed));
 			}
@@ -990,7 +982,7 @@ namespace
 			{
 				ConstIterator copyIter = tree.cbegin();
 				--copyIter;
-				TEST_ENSURE(copyIter == tree.cend());
+				REQUIRE(copyIter == tree.cend());
 			}
 		}
 
@@ -1000,88 +992,88 @@ namespace
 			Tree tree{ 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			{
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-				TEST_ENSURE_OP(tree.size(), == , 9);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 9);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(0);
 			{
 				integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-				TEST_ENSURE_OP(tree.size(), == , 9);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 9);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(4);
 			{
 				integer correctSet[] = { 1, 2, 3, 5, 6, 7, 8, 9 };
-				TEST_ENSURE_OP(tree.size(), == , 8);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 8);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(7);
 			{
 				integer correctSet[] = { 1, 2, 3, 5, 6, 8, 9 };
-				TEST_ENSURE_OP(tree.size(), == , 7);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 7);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(1);
 			{
 				integer correctSet[] = { 2, 3, 5, 6, 8, 9 };
-				TEST_ENSURE_OP(tree.size(), == , 6);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 6);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(9);
 			{
 				integer correctSet[] = { 2, 3, 5, 6, 8};
-				TEST_ENSURE_OP(tree.size(), == , 5);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 5);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(5);
 			{
 				integer correctSet[] = { 2, 3, 6, 8 };
-				TEST_ENSURE_OP(tree.size(), == , 4);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 4);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(3);
 			{
 				integer correctSet[] = { 2, 6, 8 };
-				TEST_ENSURE_OP(tree.size(), == , 3);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 3);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(2);
 			{
 				integer correctSet[] = { 6, 8 };
-				TEST_ENSURE_OP(tree.size(), == , 2);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 2);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(6);
 			{
 				integer correctSet[] = { 8 };
-				TEST_ENSURE_OP(tree.size(), == , 1);
-				TEST_ENSURE(boost::equal(tree.crange().dereferenceKey(), correctSet));
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 1);
+				REQUIRE(boost::equal(tree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(tree));
 			}
 
 			tree.erase(8);
 			{
-				TEST_ENSURE_OP(tree.size(), == , 0);
-				TEST_ENSURE(tree.empty());
-				TEST_ENSURE(testInvariants(tree));
+				REQUIRE(tree.size() == 0);
+				REQUIRE(tree.empty());
+				REQUIRE(testInvariants(tree));
 			}
 		}
 
@@ -1089,37 +1081,37 @@ namespace
 		void testSplice()
 		{
 			Tree a{ 0, 1, 4, 5, 9, 15, 20 };
-			TEST_ENSURE(testInvariants(a));
+			REQUIRE(testInvariants(a));
 
 			Tree b{ 1, 2, 6, 7, 8, 9, 10 };
-			TEST_ENSURE(testInvariants(b));
+			REQUIRE(testInvariants(b));
 
 			{
 				a.splice(b, b.find(6));
-				
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE_OP(a.size(), == , 8);
-				integer aCorrectSet[] = { 0, 1, 4, 5, 6, 9, 15, 20 };
-				TEST_ENSURE(boost::equal(a.crange().dereferenceKey(), aCorrectSet));
 
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE_OP(b.size(), == , 6);
+				REQUIRE(testInvariants(a));
+				REQUIRE(a.size() == 8);
+				integer aCorrectSet[] = { 0, 1, 4, 5, 6, 9, 15, 20 };
+				REQUIRE(boost::equal(a.crange().dereferenceKey(), aCorrectSet));
+
+				REQUIRE(testInvariants(b));
+				REQUIRE(b.size() == 6);
 				integer bCorrectSet[] = { 1, 2, 7, 8, 9, 10 };
-				TEST_ENSURE(boost::equal(b.crange().dereferenceKey(), bCorrectSet));
+				REQUIRE(boost::equal(b.crange().dereferenceKey(), bCorrectSet));
 			}
 
 			{
 				a.splice(b, b.find(10));
 
-				TEST_ENSURE(testInvariants(a));
-				TEST_ENSURE_OP(a.size(), == , 9);
+				REQUIRE(testInvariants(a));
+				REQUIRE(a.size() == 9);
 				integer aCorrectSet[] = { 0, 1, 4, 5, 6, 9, 10, 15, 20 };
-				TEST_ENSURE(boost::equal(a.crange().dereferenceKey(), aCorrectSet));
+				REQUIRE(boost::equal(a.crange().dereferenceKey(), aCorrectSet));
 
-				TEST_ENSURE(testInvariants(b));
-				TEST_ENSURE_OP(b.size(), == , 5);
+				REQUIRE(testInvariants(b));
+				REQUIRE(b.size() == 5);
 				integer bCorrectSet[] = { 1, 2, 7, 8, 9};
-				TEST_ENSURE(boost::equal(b.crange().dereferenceKey(), bCorrectSet));
+				REQUIRE(boost::equal(b.crange().dereferenceKey(), bCorrectSet));
 			}
 		}
 
@@ -1199,7 +1191,7 @@ namespace
 		void testFind()
 		{
 			Tree tree{ 2, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 
 			auto test = [&](integer that)
 			{
@@ -1214,29 +1206,29 @@ namespace
 					!tree.exists(that);
 			};
 
-			TEST_ENSURE(notFound(0));
-			TEST_ENSURE(notFound(1));
-			TEST_ENSURE(notFound(3));
-			TEST_ENSURE(notFound(6));
-			TEST_ENSURE(notFound(7));
-			TEST_ENSURE(notFound(8));
-			TEST_ENSURE(notFound(10));
-			TEST_ENSURE(notFound(11));
-			TEST_ENSURE(notFound(12));
-			TEST_ENSURE(notFound(13));
-			TEST_ENSURE(notFound(14));
-			TEST_ENSURE(notFound(16));
-			TEST_ENSURE(notFound(17));
-			TEST_ENSURE(notFound(18));
-			TEST_ENSURE(notFound(19));
-			TEST_ENSURE(notFound(21));
+			REQUIRE(notFound(0));
+			REQUIRE(notFound(1));
+			REQUIRE(notFound(3));
+			REQUIRE(notFound(6));
+			REQUIRE(notFound(7));
+			REQUIRE(notFound(8));
+			REQUIRE(notFound(10));
+			REQUIRE(notFound(11));
+			REQUIRE(notFound(12));
+			REQUIRE(notFound(13));
+			REQUIRE(notFound(14));
+			REQUIRE(notFound(16));
+			REQUIRE(notFound(17));
+			REQUIRE(notFound(18));
+			REQUIRE(notFound(19));
+			REQUIRE(notFound(21));
 
-			TEST_ENSURE(test(2));
-			TEST_ENSURE(test(4));
-			TEST_ENSURE(test(5));
-			TEST_ENSURE(test(9));
-			TEST_ENSURE(test(15));
-			TEST_ENSURE(test(20));
+			REQUIRE(test(2));
+			REQUIRE(test(4));
+			REQUIRE(test(5));
+			REQUIRE(test(9));
+			REQUIRE(test(15));
+			REQUIRE(test(20));
 		}
 
 		template <typename Tree>
@@ -1249,7 +1241,7 @@ namespace
 		void testUpperBound()
 		{
 			Tree tree{ 2, 4, 4, 5, 5, 5, 5, 9, 15, 20 };
-			TEST_ENSURE(testInvariants(tree));
+			REQUIRE(testInvariants(tree));
 
 			auto test = [&](integer that, integer bound)
 			{
@@ -1262,28 +1254,28 @@ namespace
 				return tree.upperBound(that) == tree.cend();
 			};
 
-			TEST_ENSURE(test(0, 2));
-			TEST_ENSURE(test(1, 2));
-			TEST_ENSURE(test(2, 4));
-			TEST_ENSURE(test(3, 4));
-			TEST_ENSURE(test(4, 5));
-			TEST_ENSURE(test(5, 9));
-			TEST_ENSURE(test(6, 9));
-			TEST_ENSURE(test(7, 9));
-			TEST_ENSURE(test(8, 9));
-			TEST_ENSURE(test(9, 15));
-			TEST_ENSURE(test(10, 15));
-			TEST_ENSURE(test(11, 15));
-			TEST_ENSURE(test(12, 15));
-			TEST_ENSURE(test(13, 15));
-			TEST_ENSURE(test(14, 15));
-			TEST_ENSURE(test(15, 20));
-			TEST_ENSURE(test(16, 20));
-			TEST_ENSURE(test(17, 20));
-			TEST_ENSURE(test(18, 20));
-			TEST_ENSURE(test(19, 20));
-			TEST_ENSURE(notFound(20));
-			TEST_ENSURE(notFound(21));
+			REQUIRE(test(0, 2));
+			REQUIRE(test(1, 2));
+			REQUIRE(test(2, 4));
+			REQUIRE(test(3, 4));
+			REQUIRE(test(4, 5));
+			REQUIRE(test(5, 9));
+			REQUIRE(test(6, 9));
+			REQUIRE(test(7, 9));
+			REQUIRE(test(8, 9));
+			REQUIRE(test(9, 15));
+			REQUIRE(test(10, 15));
+			REQUIRE(test(11, 15));
+			REQUIRE(test(12, 15));
+			REQUIRE(test(13, 15));
+			REQUIRE(test(14, 15));
+			REQUIRE(test(15, 20));
+			REQUIRE(test(16, 20));
+			REQUIRE(test(17, 20));
+			REQUIRE(test(18, 20));
+			REQUIRE(test(19, 20));
+			REQUIRE(notFound(20));
+			REQUIRE(notFound(21));
 		}
 
 		template <typename Tree>
@@ -1291,65 +1283,65 @@ namespace
 		{
 			{
 				Tree aTree = { 1, 2, 3, 4, 5 };
-				TEST_ENSURE(testInvariants(aTree));
+				REQUIRE(testInvariants(aTree));
 
 				Tree bTree;
 				bTree.useBottomFrom(aTree);
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE(bTree.sharesBottom(aTree));
+				REQUIRE(testInvariants(bTree));
+				REQUIRE(bTree.sharesBottom(aTree));
 
 				aTree.join(bTree);
-				TEST_ENSURE(testInvariants(aTree));
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE(bTree.empty());
+				REQUIRE(testInvariants(aTree));
+				REQUIRE(testInvariants(bTree));
+				REQUIRE(bTree.empty());
 
 				integer correctSet[] =
 					{ 1, 2, 3, 4, 5 };
-				TEST_ENSURE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
 
 				bTree.join(aTree);
-				TEST_ENSURE(testInvariants(aTree));
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE(aTree.empty());
-				TEST_ENSURE(boost::equal(bTree.crange().dereferenceKey(), correctSet));
+				REQUIRE(testInvariants(aTree));
+				REQUIRE(testInvariants(bTree));
+				REQUIRE(aTree.empty());
+				REQUIRE(boost::equal(bTree.crange().dereferenceKey(), correctSet));
 			}
 
 			{
 				Tree aTree = { 1, 2, 3, 4, 5 };
-				TEST_ENSURE(testInvariants(aTree));
+				REQUIRE(testInvariants(aTree));
 
 				Tree bTree;
 				bTree.useBottomFrom(aTree);
 				bTree = { 6, 7, 8 };
-				TEST_ENSURE(testInvariants(bTree));
+				REQUIRE(testInvariants(bTree));
 
 				bTree.join(aTree);
-				TEST_ENSURE(testInvariants(aTree));
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE(aTree.empty());
+				REQUIRE(testInvariants(aTree));
+				REQUIRE(testInvariants(bTree));
+				REQUIRE(aTree.empty());
 
 				integer correctSet[] =
 					{ 1, 2, 3, 4, 5, 6, 7, 8 };
-				TEST_ENSURE(boost::equal(bTree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(bTree.crange().dereferenceKey(), correctSet));
 			}
 
 			{
 				Tree aTree = { 1, 2, 3, 4, 5 };
-				TEST_ENSURE(testInvariants(aTree));
+				REQUIRE(testInvariants(aTree));
 
 				Tree bTree;
 				bTree.useBottomFrom(aTree);
 				bTree = { 6, 7, 8 };
-				TEST_ENSURE(testInvariants(bTree));
+				REQUIRE(testInvariants(bTree));
 
 				aTree.join(bTree);
-				TEST_ENSURE(testInvariants(aTree));
-				TEST_ENSURE(testInvariants(bTree));
-				TEST_ENSURE(bTree.empty());
+				REQUIRE(testInvariants(aTree));
+				REQUIRE(testInvariants(bTree));
+				REQUIRE(bTree.empty());
 
 				integer correctSet[] = 
 					{1, 2, 3, 4, 5, 6, 7, 8};
-				TEST_ENSURE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
+				REQUIRE(boost::equal(aTree.crange().dereferenceKey(), correctSet));
 			}
 		}
 
@@ -1367,11 +1359,11 @@ namespace
 					dataSet.push_back(data);
 
 					tree.insert(0, data);
-					//TEST_ENSURE(testInvariants(tree));
+					//REQUIRE(testInvariants(tree));
 				}
 
 				std::vector<integer> correctSet = dataSet;
-				TEST_ENSURE(boost::equal(tree.range().dereferenceData(), correctSet));
+				REQUIRE(boost::equal(tree.range().dereferenceData(), correctSet));
 
 				std::vector<integer> indexSet;
 				for (integer i = 0; i < 25; ++i)
@@ -1396,7 +1388,7 @@ namespace
 				for (integer i : indexSet)
 				{
 					Tree aTree = tree;
-					TEST_ENSURE(testInvariants(aTree));
+					REQUIRE(testInvariants(aTree));
 
 					Tree bTree;
 
@@ -1411,15 +1403,15 @@ namespace
 						Iterator aBottomAfter = aTree.bottom();
 						Iterator aEndAfter = aTree.end();
 
-						TEST_ENSURE(aEndBefore == aEndAfter);
-						TEST_ENSURE(aBottomBefore == aBottomAfter);
-						TEST_ENSURE(bEndBefore == bEndAfter);
+						REQUIRE(aEndBefore == aEndAfter);
+						REQUIRE(aBottomBefore == aBottomAfter);
+						REQUIRE(bEndBefore == bEndAfter);
 					}
 
-					TEST_ENSURE(testInvariants(aTree));
-					TEST_ENSURE_OP(aTree.size(), == , i);
-					TEST_ENSURE(testInvariants(bTree));
-					TEST_ENSURE_OP(bTree.size(), == , n - i);
+					REQUIRE(testInvariants(aTree));
+					REQUIRE(aTree.size() == i);
+					REQUIRE(testInvariants(bTree));
+					REQUIRE(bTree.size() == n - i);
 
 					{
 						Iterator aEndBefore = aTree.end();
@@ -1434,18 +1426,17 @@ namespace
 						Iterator aBottomAfter = aTree.bottom();
 						Iterator aEndAfter = aTree.end();
 
-						TEST_ENSURE(aEndBefore == aEndAfter);
-						TEST_ENSURE(aBottomBefore == aBottomAfter);
-						TEST_ENSURE(bEndBefore == bEndAfter);
-						TEST_ENSURE(bBottomBefore == bBottomAfter);
+						REQUIRE(aEndBefore == aEndAfter);
+						REQUIRE(aBottomBefore == aBottomAfter);
+						REQUIRE(bEndBefore == bEndAfter);
+						REQUIRE(bBottomBefore == bBottomAfter);
 					}
 
-
-					TEST_ENSURE(testInvariants(aTree));
-					TEST_ENSURE_OP(aTree.size(), == , n);
-					TEST_ENSURE(boost::equal(aTree.range().dereferenceData(), correctSet));
-					TEST_ENSURE(testInvariants(bTree));
-					TEST_ENSURE_OP(bTree.size(), == , 0);
+					REQUIRE(testInvariants(aTree));
+					REQUIRE(aTree.size() == n);
+					REQUIRE(boost::equal(aTree.range().dereferenceData(), correctSet));
+					REQUIRE(testInvariants(bTree));
+					REQUIRE(bTree.size() == 0);
 				}
 			}
 		}
@@ -1469,7 +1460,7 @@ namespace
 							correctSet.push_back(data);
 
 							aTree.insert(0, data);
-							TEST_ENSURE(testInvariants(aTree));
+							REQUIRE(testInvariants(aTree));
 						}
 
 						Tree bTree;
@@ -1481,7 +1472,7 @@ namespace
 							correctSet.push_back(data);
 
 							bTree.insert(0, data);
-							TEST_ENSURE(testInvariants(bTree));
+							REQUIRE(testInvariants(bTree));
 						}
 
 						{
@@ -1497,15 +1488,15 @@ namespace
 							Iterator aBottomAfter = aTree.bottom();
 							Iterator aEndAfter = aTree.end();
 
-							TEST_ENSURE(aEndBefore == aEndAfter);
-							TEST_ENSURE(aBottomBefore == aBottomAfter);
-							TEST_ENSURE(bEndBefore == bEndAfter);
-							TEST_ENSURE(bBottomBefore == bBottomAfter);
+							REQUIRE(aEndBefore == aEndAfter);
+							REQUIRE(aBottomBefore == aBottomAfter);
+							REQUIRE(bEndBefore == bEndAfter);
+							REQUIRE(bBottomBefore == bBottomAfter);
 						}
 
-						TEST_ENSURE(testInvariants(aTree));
-						TEST_ENSURE(testInvariants(bTree));
-						TEST_ENSURE(boost::equal(aTree.crange().dereferenceData(), correctSet));
+						REQUIRE(testInvariants(aTree));
+						REQUIRE(testInvariants(bTree));
+						REQUIRE(boost::equal(aTree.crange().dereferenceData(), correctSet));
 					}
 				}
 			}
@@ -1525,30 +1516,30 @@ namespace
 					q.key() == correct;
 			};
 
-			TEST_ENSURE(test(-0.10, 0));
-			TEST_ENSURE(test(0.00, 0));
-			TEST_ENSURE(test(0.10, 0));
-			TEST_ENSURE(test(0.19, 0));
-			TEST_ENSURE(test(0.20, 1));
-			TEST_ENSURE(test(0.29, 1));
-			TEST_ENSURE(test(0.30, 1));
-			TEST_ENSURE(test(0.39, 1));
-			TEST_ENSURE(test(0.40, 2));
-			TEST_ENSURE(test(0.49, 2));
-			TEST_ENSURE(test(0.50, 2));
-			TEST_ENSURE(test(0.59, 2));
-			TEST_ENSURE(test(0.60, 3));
-			TEST_ENSURE(test(0.69, 3));
-			TEST_ENSURE(test(0.70, 3));
-			TEST_ENSURE(test(0.79, 3));
-			TEST_ENSURE(test(0.80, 4));
-			TEST_ENSURE(test(0.89, 4));
-			TEST_ENSURE(test(0.90, 4));
-			TEST_ENSURE(test(0.99, 4));
-			TEST_ENSURE(test(1.00, 4));
-			TEST_ENSURE(test(1.09, 4));
-			TEST_ENSURE(test(1.10, 4));
-			TEST_ENSURE(test(1.19, 4));
+			REQUIRE(test(-0.10, 0));
+			REQUIRE(test(0.00, 0));
+			REQUIRE(test(0.10, 0));
+			REQUIRE(test(0.19, 0));
+			REQUIRE(test(0.20, 1));
+			REQUIRE(test(0.29, 1));
+			REQUIRE(test(0.30, 1));
+			REQUIRE(test(0.39, 1));
+			REQUIRE(test(0.40, 2));
+			REQUIRE(test(0.49, 2));
+			REQUIRE(test(0.50, 2));
+			REQUIRE(test(0.59, 2));
+			REQUIRE(test(0.60, 3));
+			REQUIRE(test(0.69, 3));
+			REQUIRE(test(0.70, 3));
+			REQUIRE(test(0.79, 3));
+			REQUIRE(test(0.80, 4));
+			REQUIRE(test(0.89, 4));
+			REQUIRE(test(0.90, 4));
+			REQUIRE(test(0.99, 4));
+			REQUIRE(test(1.00, 4));
+			REQUIRE(test(1.09, 4));
+			REQUIRE(test(1.10, 4));
+			REQUIRE(test(1.19, 4));
 		}
 
 		template <typename Tree>
@@ -1561,30 +1552,21 @@ namespace
 				return tree.count(key) == count;
 			};
 
-			TEST_ENSURE(test(0, 0));
-			TEST_ENSURE(test(1, 0));
-			TEST_ENSURE(test(2, 0));
-			TEST_ENSURE(test(3, 1));
-			TEST_ENSURE(test(4, 1));
-			TEST_ENSURE(test(5, 7));
-			TEST_ENSURE(test(6, 1));
-			TEST_ENSURE(test(7, 1));
-			TEST_ENSURE(test(8, 0));
-			TEST_ENSURE(test(9, 0));
+			REQUIRE(test(0, 0));
+			REQUIRE(test(1, 0));
+			REQUIRE(test(2, 0));
+			REQUIRE(test(3, 1));
+			REQUIRE(test(4, 1));
+			REQUIRE(test(5, 7));
+			REQUIRE(test(6, 1));
+			REQUIRE(test(7, 1));
+			REQUIRE(test(8, 0));
+			REQUIRE(test(9, 0));
 		}
 	};
 
-	void test()
+	TEST_CASE("RedBlackTree", "[RedBlackTree]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("RedBlackTree", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,7 +1,7 @@
 // Description: Testing for skip lists.
 // DocumentationOf: skiplist.h
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 
 #include "pastel/sys/skiplist.h"
 #include "pastel/sys/random/random_integer.h"
@@ -11,20 +11,12 @@
 #include <iostream>
 #include <list>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			for (integer i = 0; i < 10; ++i)
@@ -45,7 +37,7 @@ namespace
 		{
 			List list;
 			list.setMaxHeight(maxHeight);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 
 			ConstIterator listEnd = list.cend();
 
@@ -58,7 +50,7 @@ namespace
 				for (integer i : insertSet)
 				{
 					list.insert(i);
-					TEST_ENSURE(testInvariants(list));
+					REQUIRE(testInvariants(list));
 				}
 			}
 
@@ -68,158 +60,158 @@ namespace
 					1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9
 				};
 
-				TEST_ENSURE_OP(list.size(), ==, 11);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 9);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(list.size() == 11);
+				REQUIRE(list.uniqueKeys() == 9);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 
 			list.erase(8);
 			{
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
 				integer correctSet[] =
 				{
 					1, 2, 3, 4, 4, 4, 5, 6, 7, 9
 				};
 
-				TEST_ENSURE_OP(list.size(), ==, 10);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 8);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(list.size() == 10);
+				REQUIRE(list.uniqueKeys() == 8);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 
 			list.erase(4);
 			{
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
 				integer correctSet[] =
 				{
 					1, 2, 3, 5, 6, 7, 9
 				};
 
-				TEST_ENSURE_OP(list.size(), ==, 7);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 7);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(list.size() == 7);
+				REQUIRE(list.uniqueKeys() == 7);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 
 			list.erase(2);
 			{
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
 				integer correctSet[] =
 				{
 					1, 3, 5, 6, 7, 9
 				};
 
-				TEST_ENSURE_OP(list.size(), ==, 6);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 6);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(list.size() == 6);
+				REQUIRE(list.uniqueKeys() == 6);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 
 			list.erase(1);
 			{
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
 				integer correctSet[] =
 				{
 					3, 5, 6, 7, 9
 				};
 
-				TEST_ENSURE_OP(list.size(), ==, 5);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 5);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(list.size() == 5);
+				REQUIRE(list.uniqueKeys() == 5);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 
 			list.erase(9);
 			{
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
 				integer correctSet[] =
 				{
 					3, 5, 6, 7
 				};
 
-				TEST_ENSURE_OP(list.size(), ==, 4);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 4);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(list.size() == 4);
+				REQUIRE(list.uniqueKeys() == 4);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 
 			list.erase(6);
 			{
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
 				integer correctSet[] =
 				{
 					3, 5, 7
 				};
 
-				TEST_ENSURE_OP(list.size(), ==, 3);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 3);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(list.size() == 3);
+				REQUIRE(list.uniqueKeys() == 3);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 
 			list.erase(5);
 			{
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
 				integer correctSet[] =
 				{
 					3, 7
 				};
 
-				TEST_ENSURE_OP(list.size(), ==, 2);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 2);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(list.size() == 2);
+				REQUIRE(list.uniqueKeys() == 2);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 
 			list.erase(7);
 			{
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
 				integer correctSet[] =
 				{
 					3
 				};
 
-				TEST_ENSURE_OP(list.size(), ==, 1);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 1);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(list.size() == 1);
+				REQUIRE(list.uniqueKeys() == 1);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 
 			list.erase(3);
 			{
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
-				TEST_ENSURE_OP(list.size(), ==, 0);
-				TEST_ENSURE_OP(list.uniqueKeys(), ==, 0);
-				TEST_ENSURE(list.empty());
+				REQUIRE(list.size() == 0);
+				REQUIRE(list.uniqueKeys() == 0);
+				REQUIRE(list.empty());
 			}
 
 			ConstIterator one = list.insert(1).first;
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(5);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(3);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			ConstIterator four = list.insert(4).first;
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(8);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(7);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(6);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(9);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(2);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 
 			{
-				TEST_ENSURE_OP(four.equivalents(), ==, 3);
-				TEST_ENSURE_OP(one.equivalents(), ==, 1);
+				REQUIRE(four.equivalents() == 3);
+				REQUIRE(one.equivalents() == 1);
 			}
 
 			integer correctSet[] =
@@ -235,143 +227,143 @@ namespace
 				// which compares the sizes of the ranges first.
 				// Adding the bidirectional-traversal tag fixed the
 				// bug. This line tests for that.
-				TEST_ENSURE_OP(boost::distance(list), ==, 11);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(boost::distance(list) == 11);
+				REQUIRE(boost::equal(list, correctSet));
 
 				// Test iterator decrement.
-				TEST_ENSURE(boost::equal(
+				REQUIRE(boost::equal(
 					list | boost::adaptors::reversed, 
 					correctSet | boost::adaptors::reversed));
 			}
 
 			// Test lowerBound(), upperBound(), and find().
 			{
-				TEST_ENSURE_OP(*list.lowerBound(0), ==, 1);
-				TEST_ENSURE_OP(*list.lowerBound(1), ==, 1);
-				TEST_ENSURE_OP(*list.lowerBound(2), ==, 2);
-				TEST_ENSURE_OP(*list.lowerBound(4), ==, 4);
-				TEST_ENSURE_OP(*list.lowerBound(8), ==, 8);
-				TEST_ENSURE_OP(*list.lowerBound(9), ==, 9);
-				TEST_ENSURE(list.lowerBound(10) == list.cend());
+				REQUIRE(*list.lowerBound(0) == 1);
+				REQUIRE(*list.lowerBound(1) == 1);
+				REQUIRE(*list.lowerBound(2) == 2);
+				REQUIRE(*list.lowerBound(4) == 4);
+				REQUIRE(*list.lowerBound(8) == 8);
+				REQUIRE(*list.lowerBound(9) == 9);
+				REQUIRE(list.lowerBound(10) == list.cend());
 
-				TEST_ENSURE_OP(*list.lowerBound(0, four), ==, 1);
-				TEST_ENSURE_OP(*list.lowerBound(1, four), ==, 1);
-				TEST_ENSURE_OP(*list.lowerBound(2, four), ==, 2);
-				TEST_ENSURE_OP(*list.lowerBound(4, four), ==, 4);
-				TEST_ENSURE_OP(*list.lowerBound(8, four), ==, 8);
-				TEST_ENSURE_OP(*list.lowerBound(9, four), ==, 9);
-				TEST_ENSURE(list.lowerBound(10, four) == list.cend());
+				REQUIRE(*list.lowerBound(0, four) == 1);
+				REQUIRE(*list.lowerBound(1, four) == 1);
+				REQUIRE(*list.lowerBound(2, four) == 2);
+				REQUIRE(*list.lowerBound(4, four) == 4);
+				REQUIRE(*list.lowerBound(8, four) == 8);
+				REQUIRE(*list.lowerBound(9, four) == 9);
+				REQUIRE(list.lowerBound(10, four) == list.cend());
 
-				TEST_ENSURE_OP(*list.upperBound(0), ==, 1);
-				TEST_ENSURE_OP(*list.upperBound(1), ==, 2);
-				TEST_ENSURE_OP(*list.upperBound(2), ==, 3);
-				TEST_ENSURE_OP(*list.upperBound(4), ==, 5);
-				TEST_ENSURE_OP(*list.upperBound(8), ==, 9);
-				TEST_ENSURE(list.upperBound(9) == list.cend());
+				REQUIRE(*list.upperBound(0) == 1);
+				REQUIRE(*list.upperBound(1) == 2);
+				REQUIRE(*list.upperBound(2) == 3);
+				REQUIRE(*list.upperBound(4) == 5);
+				REQUIRE(*list.upperBound(8) == 9);
+				REQUIRE(list.upperBound(9) == list.cend());
 
-				TEST_ENSURE_OP(*list.upperBound(0, four), ==, 1);
-				TEST_ENSURE_OP(*list.upperBound(1, four), ==, 2);
-				TEST_ENSURE_OP(*list.upperBound(2, four), ==, 3);
-				TEST_ENSURE_OP(*list.upperBound(4, four), ==, 5);
-				TEST_ENSURE_OP(*list.upperBound(8, four), ==, 9);
-				TEST_ENSURE(list.upperBound(9, four) == list.cend());
+				REQUIRE(*list.upperBound(0, four) == 1);
+				REQUIRE(*list.upperBound(1, four) == 2);
+				REQUIRE(*list.upperBound(2, four) == 3);
+				REQUIRE(*list.upperBound(4, four) == 5);
+				REQUIRE(*list.upperBound(8, four) == 9);
+				REQUIRE(list.upperBound(9, four) == list.cend());
 
-				TEST_ENSURE(list.find(0) == list.end());
-				TEST_ENSURE(
-					list.find(1) != list.end() &&
-					*list.find(1) == 1);
-				TEST_ENSURE(
-					list.find(2) != list.end() &&
-					*list.find(2) == 2);
-				TEST_ENSURE(
-					list.find(4) != list.end() &&
-					*list.find(4) == 4);
-				TEST_ENSURE(
-					list.find(8) != list.end() &&
-					*list.find(8) == 8);
-				TEST_ENSURE(
-					list.find(9) != list.end() &&
-					*list.find(9) == 9);
-				TEST_ENSURE(list.find(10) == list.end());
+				REQUIRE(list.find(0) == list.end());
+				REQUIRE(list.find(1) != list.end());
+				REQUIRE(*list.find(1) == 1);
+
+				REQUIRE(list.find(2) != list.end());
+				REQUIRE(*list.find(2) == 2);
+
+				REQUIRE(list.find(4) != list.end());
+				REQUIRE(*list.find(4) == 4);
+
+				REQUIRE(list.find(8) != list.end());
+				REQUIRE(*list.find(8) == 8);
+
+				REQUIRE(list.find(9) != list.end());
+				REQUIRE(*list.find(9) == 9);
+
+				REQUIRE(list.find(10) == list.end());
 			}
 
 			// Test copy-construction, and move-construction.
 			{
 				List copyList(list);
-				TEST_ENSURE(testInvariants(copyList));
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(copyList.maxHeight(), == , list.maxHeight());
-				TEST_ENSURE_OP(copyList.height(), == , list.height());
-				TEST_ENSURE_OP(copyList.size(), == , list.size());
-				TEST_ENSURE_OP(copyList.uniqueKeys(), == , list.uniqueKeys());
+				REQUIRE(testInvariants(copyList));
+				REQUIRE(testInvariants(list));
+				REQUIRE(copyList.maxHeight() == list.maxHeight());
+				REQUIRE(copyList.height() == list.height());
+				REQUIRE(copyList.size() == list.size());
+				REQUIRE(copyList.uniqueKeys() == list.uniqueKeys());
 
-				TEST_ENSURE_OP(list.size(), ==, 11);
-				TEST_ENSURE(!list.empty());
-				TEST_ENSURE(listEnd == list.cend());
-				TEST_ENSURE(boost::equal(list, correctSet));
-				
-				TEST_ENSURE_OP(copyList.size(), ==, 11);
-				TEST_ENSURE(!copyList.empty());
-				TEST_ENSURE(listEnd != copyList.cend());
-				TEST_ENSURE(boost::equal(copyList, correctSet));
+				REQUIRE(list.size() == 11);
+				REQUIRE(!list.empty());
+				REQUIRE(listEnd == list.cend());
+				REQUIRE(boost::equal(list, correctSet));
+
+				REQUIRE(copyList.size() == 11);
+				REQUIRE(!copyList.empty());
+				REQUIRE(listEnd != copyList.cend());
+				REQUIRE(boost::equal(copyList, correctSet));
 
 				List moveList(std::move(copyList));
-				TEST_ENSURE(testInvariants(moveList));
-				TEST_ENSURE(testInvariants(copyList));
+				REQUIRE(testInvariants(moveList));
+				REQUIRE(testInvariants(copyList));
 
-				TEST_ENSURE_OP(copyList.size(), ==, 0);
-				TEST_ENSURE(copyList.empty());
-				
-				TEST_ENSURE_OP(moveList.size(), ==, 11);
-				TEST_ENSURE(!moveList.empty());
-				TEST_ENSURE(boost::equal(moveList, correctSet));
+				REQUIRE(copyList.size() == 0);
+				REQUIRE(copyList.empty());
+
+				REQUIRE(moveList.size() == 11);
+				REQUIRE(!moveList.empty());
+				REQUIRE(boost::equal(moveList, correctSet));
 			}
 
 			// Test copy-assign, move-assign, and swap.
 			{
 				List copyList;
-				TEST_ENSURE(testInvariants(copyList));
+				REQUIRE(testInvariants(copyList));
 
 				copyList = list;
-				TEST_ENSURE(testInvariants(copyList));
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(copyList.maxHeight(), == , list.maxHeight());
-				TEST_ENSURE_OP(copyList.height(), == , list.height());
-				TEST_ENSURE_OP(copyList.size(), == , list.size());
-				TEST_ENSURE_OP(copyList.uniqueKeys(), == , list.uniqueKeys());
+				REQUIRE(testInvariants(copyList));
+				REQUIRE(testInvariants(list));
+				REQUIRE(copyList.maxHeight() == list.maxHeight());
+				REQUIRE(copyList.height() == list.height());
+				REQUIRE(copyList.size() == list.size());
+				REQUIRE(copyList.uniqueKeys() == list.uniqueKeys());
 
-				TEST_ENSURE_OP(list.size(), ==, 11);
-				TEST_ENSURE(!list.empty());
-				TEST_ENSURE(boost::equal(list, correctSet));
-				
-				TEST_ENSURE_OP(copyList.size(), ==, 11);
-				TEST_ENSURE(!copyList.empty());
-				TEST_ENSURE(boost::equal(copyList, correctSet));
+				REQUIRE(list.size() == 11);
+				REQUIRE(!list.empty());
+				REQUIRE(boost::equal(list, correctSet));
+
+				REQUIRE(copyList.size() == 11);
+				REQUIRE(!copyList.empty());
+				REQUIRE(boost::equal(copyList, correctSet));
 
 				List moveList;
-				TEST_ENSURE(testInvariants(moveList));
+				REQUIRE(testInvariants(moveList));
 
 				moveList = std::move(list);
-				TEST_ENSURE(testInvariants(moveList));
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(moveList.maxHeight(), == , maxHeight);
+				REQUIRE(testInvariants(moveList));
+				REQUIRE(testInvariants(list));
+				REQUIRE(moveList.maxHeight() == maxHeight);
 
-				TEST_ENSURE_OP(list.size(), ==, 0);
-				TEST_ENSURE(list.empty());
-				
-				TEST_ENSURE_OP(moveList.size(), ==, 11);
-				TEST_ENSURE(!moveList.empty());
-				TEST_ENSURE(boost::equal(moveList, correctSet));
+				REQUIRE(list.size() == 0);
+				REQUIRE(list.empty());
+
+				REQUIRE(moveList.size() == 11);
+				REQUIRE(!moveList.empty());
+				REQUIRE(boost::equal(moveList, correctSet));
 
 				moveList.swap(list);
-				TEST_ENSURE(testInvariants(moveList));
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(moveList));
+				REQUIRE(testInvariants(list));
 
-				TEST_ENSURE_OP(list.size(), ==, 11);
-				TEST_ENSURE(!list.empty());
-				
-				TEST_ENSURE_OP(moveList.size(), ==, 0);
-				TEST_ENSURE(moveList.empty());
+				REQUIRE(list.size() == 11);
+				REQUIRE(!list.empty());
+
+				REQUIRE(moveList.size() == 0);
+				REQUIRE(moveList.empty());
 			}
 		}
 
@@ -382,162 +374,162 @@ namespace
 
 			list.insert(1);
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), == , 0);
-				TEST_ENSURE_OP(list.count(0), ==, 0);
-				TEST_ENSURE_OP(list.count(1), ==, 1);
-				TEST_ENSURE_OP(list.count(2), ==, 0);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 0);
+				REQUIRE(list.count(1) == 1);
+				REQUIRE(list.count(2) == 0);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.insert(2);
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), == , 0);
-				TEST_ENSURE_OP(list.count(0), ==, 0);
-				TEST_ENSURE_OP(list.count(1), ==, 1);
-				TEST_ENSURE_OP(list.count(2), ==, 1);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 0);
+				REQUIRE(list.count(1) == 1);
+				REQUIRE(list.count(2) == 1);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.insert(0);
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), == , 0);
-				TEST_ENSURE_OP(list.count(0), ==, 1);
-				TEST_ENSURE_OP(list.count(1), ==, 1);
-				TEST_ENSURE_OP(list.count(2), ==, 1);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 1);
+				REQUIRE(list.count(1) == 1);
+				REQUIRE(list.count(2) == 1);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.insert(1);
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), == , 0);
-				TEST_ENSURE_OP(list.count(0), ==, 1);
-				TEST_ENSURE_OP(list.count(1), ==, 2);
-				TEST_ENSURE_OP(list.count(2), ==, 1);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 1);
+				REQUIRE(list.count(1) == 2);
+				REQUIRE(list.count(2) == 1);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.insert(0);
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), == , 0);
-				TEST_ENSURE_OP(list.count(0), ==, 2);
-				TEST_ENSURE_OP(list.count(1), ==, 2);
-				TEST_ENSURE_OP(list.count(2), ==, 1);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 2);
+				REQUIRE(list.count(1) == 2);
+				REQUIRE(list.count(2) == 1);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.insert(2);
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), == , 0);
-				TEST_ENSURE_OP(list.count(0), ==, 2);
-				TEST_ENSURE_OP(list.count(1), ==, 2);
-				TEST_ENSURE_OP(list.count(2), ==, 2);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 2);
+				REQUIRE(list.count(1) == 2);
+				REQUIRE(list.count(2) == 2);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.insert(1);
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), == , 0);
-				TEST_ENSURE_OP(list.count(0), ==, 2);
-				TEST_ENSURE_OP(list.count(1), ==, 3);
-				TEST_ENSURE_OP(list.count(2), ==, 2);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 2);
+				REQUIRE(list.count(1) == 3);
+				REQUIRE(list.count(2) == 2);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.insert(0);
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), == , 0);
-				TEST_ENSURE_OP(list.count(0), ==, 3);
-				TEST_ENSURE_OP(list.count(1), ==, 3);
-				TEST_ENSURE_OP(list.count(2), ==, 2);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 3);
+				REQUIRE(list.count(1) == 3);
+				REQUIRE(list.count(2) == 2);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.erase(list.lowerBound(2));
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), == , 0);
-				TEST_ENSURE_OP(list.count(0), ==, 3);
-				TEST_ENSURE_OP(list.count(1), ==, 3);
-				TEST_ENSURE_OP(list.count(2), ==, 1);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 3);
+				REQUIRE(list.count(1) == 3);
+				REQUIRE(list.count(2) == 1);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.erase(list.lowerBound(0));
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), ==, 0);
-				TEST_ENSURE_OP(list.count(0), ==, 2);
-				TEST_ENSURE_OP(list.count(1), ==, 3);
-				TEST_ENSURE_OP(list.count(2), ==, 1);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 2);
+				REQUIRE(list.count(1) == 3);
+				REQUIRE(list.count(2) == 1);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.erase(list.lowerBound(2));
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), ==, 0);
-				TEST_ENSURE_OP(list.count(0), ==, 2);
-				TEST_ENSURE_OP(list.count(1), ==, 3);
-				TEST_ENSURE_OP(list.count(2), ==, 0);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 2);
+				REQUIRE(list.count(1) == 3);
+				REQUIRE(list.count(2) == 0);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.erase(list.lowerBound(0));
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), ==, 0);
-				TEST_ENSURE_OP(list.count(0), ==, 1);
-				TEST_ENSURE_OP(list.count(1), ==, 3);
-				TEST_ENSURE_OP(list.count(2), ==, 0);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 1);
+				REQUIRE(list.count(1) == 3);
+				REQUIRE(list.count(2) == 0);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.erase(list.lowerBound(0));
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), ==, 0);
-				TEST_ENSURE_OP(list.count(0), ==, 0);
-				TEST_ENSURE_OP(list.count(1), ==, 3);
-				TEST_ENSURE_OP(list.count(2), ==, 0);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 0);
+				REQUIRE(list.count(1) == 3);
+				REQUIRE(list.count(2) == 0);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.erase(list.lowerBound(1));
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), ==, 0);
-				TEST_ENSURE_OP(list.count(0), ==, 0);
-				TEST_ENSURE_OP(list.count(1), ==, 2);
-				TEST_ENSURE_OP(list.count(2), ==, 0);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 0);
+				REQUIRE(list.count(1) == 2);
+				REQUIRE(list.count(2) == 0);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.erase(list.lowerBound(1));
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), ==, 0);
-				TEST_ENSURE_OP(list.count(0), ==, 0);
-				TEST_ENSURE_OP(list.count(1), ==, 1);
-				TEST_ENSURE_OP(list.count(2), ==, 0);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 0);
+				REQUIRE(list.count(1) == 1);
+				REQUIRE(list.count(2) == 0);
+				REQUIRE(list.count(3) == 0);
 			}
 
 			list.erase(list.lowerBound(1));
 			{
-				TEST_ENSURE(testInvariants(list));
-				TEST_ENSURE_OP(list.count(-1), ==, 0);
-				TEST_ENSURE_OP(list.count(0), ==, 0);
-				TEST_ENSURE_OP(list.count(1), ==, 0);
-				TEST_ENSURE_OP(list.count(2), ==, 0);
-				TEST_ENSURE_OP(list.count(3), ==, 0);
+				REQUIRE(testInvariants(list));
+				REQUIRE(list.count(-1) == 0);
+				REQUIRE(list.count(0) == 0);
+				REQUIRE(list.count(1) == 0);
+				REQUIRE(list.count(2) == 0);
+				REQUIRE(list.count(3) == 0);
 			}
 		}
 
@@ -546,26 +538,26 @@ namespace
 			SkipList_MultiMap<integer, integer> list;
 			list.setMaxHeight(maxHeight);
 
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 
 			list.insert(1, 1);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(5, 2);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(3, 3);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(4, 4);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(4, 5);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(4, 6);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(2, 7);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(7, 8);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(6, 9);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 
 			integer correctSet[] = 
 			{
@@ -575,9 +567,9 @@ namespace
 			{
 				// A skip-list with values has iterators
 				// which derereference to the value.
-				TEST_ENSURE(!list.empty());
-				TEST_ENSURE_OP(list.size(), ==, 9);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(!list.empty());
+				REQUIRE(list.size() == 9);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 		}
 
@@ -586,26 +578,26 @@ namespace
 			SkipList_MultiSet<integer> list;
 			list.setMaxHeight(maxHeight);
 
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 
 			list.insert(1);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(5);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(3);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(4);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(2);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(7);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 			list.insert(6);
-			TEST_ENSURE(testInvariants(list));
+			REQUIRE(testInvariants(list));
 
 			integer correctSet[] = 
 			{
@@ -615,9 +607,9 @@ namespace
 			{
 				// A skip-list without values has iterators
 				// which derereference to the key.
-				TEST_ENSURE(!list.empty());
-				TEST_ENSURE_OP(list.size(), ==, 9);
-				TEST_ENSURE(boost::equal(list, correctSet));
+				REQUIRE(!list.empty());
+				REQUIRE(list.size() == 9);
+				REQUIRE(boost::equal(list, correctSet));
 			}
 		}
 
@@ -633,7 +625,7 @@ namespace
 			for (integer listSize : listSizeSet)
 			{
 				list.clear();
-				TEST_ENSURE(testInvariants(list));
+				REQUIRE(testInvariants(list));
 
 				dataSet.clear();
 
@@ -643,12 +635,12 @@ namespace
 					dataSet.push_back(n);
 
 					list.insert(n);
-					TEST_ENSURE(testInvariants(list));
+					REQUIRE(testInvariants(list));
 
 					if (list.size() > listSize)
 					{
 						list.erase(dataSet.front());
-						TEST_ENSURE(testInvariants(list));
+						REQUIRE(testInvariants(list));
 						dataSet.pop_front();
 					}
 				}
@@ -656,17 +648,8 @@ namespace
 		}
 	};
 
-	void test()
+	TEST_CASE("SkipList", "[SkipList]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("SkipList", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,7 +1,7 @@
 // Description: Testing for matchPointsKr
 // DocumentationOf: match_points_kr.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/pattern_matching/match_points_kr.h>
 #include <pastel/sys/random.h>
@@ -10,20 +10,12 @@
 
 #include <pastel/geometry/pointkdtree.h>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			test();
@@ -40,7 +32,7 @@ namespace
 			Point translation(1, 5);
 
 			// Generate a point-set.
-			
+
 			integer n = 100;
 			std::vector<Point> modelSet;
 			modelSet.reserve(n);
@@ -50,7 +42,7 @@ namespace
 				Point p = 2 * randomVector<Real, 2>() - 1;
 				modelSet.push_back(p);
 			}
-			
+
 			Tree modelTree;
 			modelTree.insertSet(rangeSet(modelSet));
 			modelTree.refine();
@@ -72,7 +64,7 @@ namespace
 			Tree sceneTree;
 			sceneTree.insertSet(rangeSet(sceneSet));
 			sceneTree.refine();
-			
+
 			auto result = matchPointsKr(
 				modelTree, sceneTree, 
 				PASTEL_TAG(kNearest), 16,
@@ -80,22 +72,13 @@ namespace
 				PASTEL_TAG(matchingDistance2), 0.01,
 				PASTEL_TAG(maxBias), 0.1);
 
-			TEST_ENSURE(result.success);
-			TEST_ENSURE(allEqual(translation, result.translation));
+			REQUIRE(result.success);
+			REQUIRE(allEqual(translation, result.translation));
 		}
 	};
 
-	void test()
+	TEST_CASE("matchPointsKr", "[matchPointsKr]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("matchPointsKr", test);
-	}
-
-	CallFunction run(addTest);
 
 }

@@ -1,24 +1,16 @@
 // Description: Testing for random variables
 // Documentation: unit_testing.txt
 
-#include "test_pastelsys.h"
+#include "test/test_init.h"
 #include <pastel/sys/random.h>
 #include <vector>
-
-using namespace Pastel;
 
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testRandomInteger();
@@ -68,37 +60,28 @@ namespace
 			};
 
 			{
-				TEST_ENSURE(test(1));
-				TEST_ENSURE(test(2));
-				TEST_ENSURE(test(3));
-				TEST_ENSURE(test(4));
-				TEST_ENSURE(test(5));
-				TEST_ENSURE(test(6));
-				TEST_ENSURE(test(7));
-				TEST_ENSURE(test(8));
-				TEST_ENSURE(test(9));
-				TEST_ENSURE(test(10));
-				TEST_ENSURE(test(11));
-				TEST_ENSURE(test(12));
-				TEST_ENSURE(test(13));
-				TEST_ENSURE(test(14));
-				TEST_ENSURE(test(15));
-				TEST_ENSURE(test(16));
+				REQUIRE(test(1));
+				REQUIRE(test(2));
+				REQUIRE(test(3));
+				REQUIRE(test(4));
+				REQUIRE(test(5));
+				REQUIRE(test(6));
+				REQUIRE(test(7));
+				REQUIRE(test(8));
+				REQUIRE(test(9));
+				REQUIRE(test(10));
+				REQUIRE(test(11));
+				REQUIRE(test(12));
+				REQUIRE(test(13));
+				REQUIRE(test(14));
+				REQUIRE(test(15));
+				REQUIRE(test(16));
 			}
 		}
 	};
 
-	void test()
+	TEST_CASE("random", "[random]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("random", test);
-	}
-
-	CallFunction run(addTest);
 
 }

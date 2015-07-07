@@ -1,26 +1,18 @@
 // Description: Testing for least-squares transformations
 // DocumentationOf: ls_affine.h
 
-#include "test_pastelgeometry.h"
+#include "test/test_init.h"
 
 #include <pastel/geometry/pattern_matching/ls_affine.h>
 #include <pastel/math/sampling/random_orthogonal.h>
 #include <pastel/sys/random.h>
 
-using namespace Pastel;
-
 namespace
 {
 
 	class Test
-		: public TestSuite
 	{
 	public:
-		Test()
-			: TestSuite(&testReport())
-		{
-		}
-
 		virtual void run()
 		{
 			testRandom<float>();
@@ -59,7 +51,7 @@ namespace
 					LsAffine_Translation::Identity});
 
 				integer orientation = randomElement({-1, 0, 1});
-    
+
 				if (scaling == LsAffine_Scaling::Free || 
 					(matrix == LsAffine_Matrix::Identity &&
 					scaling != LsAffine_Scaling::Rigid))
@@ -75,7 +67,7 @@ namespace
 					// This is not implemented.
 					continue;
 				}
-       
+
 				if (orientation < 0 &&
 					matrix == LsAffine_Matrix::Identity &&
 					scaling == LsAffine_Scaling::Rigid &&
@@ -93,7 +85,7 @@ namespace
 					Q = randomOrthogonal<Real>(d, 
 						PASTEL_TAG(orientation), orientation);
 				}
-    
+
 				arma::Mat<Real> S(d, d, arma::fill::eye);
 				if (scaling == LsAffine_Scaling::Free)
 				{
@@ -121,7 +113,7 @@ namespace
 						S(i, i) *= random<Real>() * 10 + 1;
 					}	
 				}
-    
+
 				arma::Col<Real> t(d, arma::fill::zeros);
 				if (translation == LsAffine_Translation::Free)
 				{
@@ -134,7 +126,7 @@ namespace
 					{
 						ASSERT(scaling != LsAffine_Scaling::Diagonal);
 						ASSERT(scaling != LsAffine_Scaling::Free);
-						
+
 						if (scaling == LsAffine_Scaling::Rigid)
 						{
 							S = -S;
@@ -176,9 +168,9 @@ namespace
 				SE = std::move(lsMatch.S);
 				tE = std::move(lsMatch.t);
 
-				TEST_ENSURE(qePointer == QE.memptr());
-				TEST_ENSURE(sePointer == SE.memptr());
-				TEST_ENSURE(tePointer == tE.memptr());
+				REQUIRE(qePointer == QE.memptr());
+				REQUIRE(sePointer == SE.memptr());
+				REQUIRE(tePointer == tE.memptr());
 
 				// Check that the errors are small.
 				Real qError = arma::norm(QE - Q, "inf");
@@ -211,21 +203,12 @@ namespace
 				}
 			}
 
-			TEST_ENSURE_OP(fails, ==, 0);
+			REQUIRE(fails == 0);
 		}
 	};
 
-	void test()
+	TEST_CASE("lsAffine", "[lsAffine]")
 	{
-		Test test;
-		test.run();
 	}
-
-	void addTest()
-	{
-		testRunner().add("lsAffine", test);
-	}
-
-	CallFunction run(addTest);
 
 }
