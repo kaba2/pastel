@@ -7,6 +7,7 @@
 #include "pastel/sys/algebra/semigroup_concept.h"
 
 #include "pastel/sys/algebra/native_monoid.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {

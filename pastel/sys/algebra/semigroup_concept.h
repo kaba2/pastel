@@ -6,7 +6,9 @@
 
 #include "pastel/sys/algebra/element_concept.h"
 #include "pastel/sys/algebra/native_semigroup.h"
+
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {

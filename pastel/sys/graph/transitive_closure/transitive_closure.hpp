@@ -2,6 +2,7 @@
 #define PASTELSYS_TRANSITIVE_CLOSURE_HPP
 
 #include "pastel/sys/graph/transitive_closure.h"
+#include "pastel/sys/ensure.h"
 
 #include <unordered_map>
 #include <vector>
