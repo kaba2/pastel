@@ -51,7 +51,6 @@ namespace Pastel
 		return rgb;
 	}
 
-
 	inline Color fitColor(const Color& rgb)
 	{
 		Color clampedZero = max(rgb, 0);
@@ -68,7 +67,6 @@ namespace Pastel
 
 		return clampedZero;
 	}
-
 
 	inline Color fitNegativeColor(const Color& rgb)
 	{

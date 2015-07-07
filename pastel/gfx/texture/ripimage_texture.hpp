@@ -39,7 +39,6 @@ namespace Pastel
 
 		integer n = uv.size();
 
-
 		const Array<Type, N>& mostDetailedImage = 
 			ripMap_->mostDetailed();
 

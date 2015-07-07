@@ -145,7 +145,6 @@ namespace Pastel
 		Real dotdq(dot(d, q));
 		Real dotds(dot(d, s));
 
-
 		const Real skewness(dotsq * dotsq - 1);
 
 		Real u(0);

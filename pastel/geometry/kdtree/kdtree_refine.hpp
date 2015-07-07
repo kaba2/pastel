@@ -265,7 +265,6 @@ namespace Pastel
 					Real nodeArea = area(bound);
 					Real invNodeArea = inverse(nodeArea);
 
-
 					const Real leafCost = cursor.objects() * costToIntersect;
 
 					bool foundSplit = false;
@@ -309,7 +308,6 @@ namespace Pastel
 							}
 
 							real position = pointList[i].position_;
-
 
 							if (position >= bound.min()[axis] &&
 								position < bound.max()[axis])

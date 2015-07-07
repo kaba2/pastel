@@ -14,7 +14,6 @@
 namespace Pastel
 {
 
-
 	template <typename Real, integer N>
 	bool overlaps(
 		const Box<Real, N>& aBox,

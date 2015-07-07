@@ -174,7 +174,6 @@ namespace Pastel
 		return true;
 	}
 
-
 }
 
 #endif

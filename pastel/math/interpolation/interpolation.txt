@@ -15,10 +15,3 @@ curves and then asks for an algorithm that for a given set ''X'' returns an
 interpolating function from C. In case ''X'' does not uniquely determine a
 function, additional conditions might be imposed for the solution.
 
-
-
-
-
-
-
-

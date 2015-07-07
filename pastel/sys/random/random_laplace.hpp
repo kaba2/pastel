@@ -59,7 +59,6 @@ namespace Pastel
 	{
 		Real invScale = inverse(scale);
 
-
 		return Pastel::laplacePdf<Real>(x * invScale) * invScale;
 	}
 

@@ -216,7 +216,6 @@ namespace Pastel
 		}
 	};
 
-
 	template <integer N, typename Input_ExtendedConstView>
 	ExtendedConstView<N, typename Input_ExtendedConstView::Element, Input_ExtendedConstView>
 		extendedConstView(const Input_ExtendedConstView& view)

@@ -254,7 +254,6 @@ namespace Pastel
 		{
 			real yLeftDeltaInv = inverse(yLeftDelta);
 
-
 			dxLeftDy *= yLeftDeltaInv;
 			dUvLeftDy *= yLeftDeltaInv;
 		}
@@ -264,7 +263,6 @@ namespace Pastel
 		if (yRightDelta != 0)
 		{
 			real yRightDeltaInv = inverse(yRightDelta);
-
 
 			dxRightDy *= yRightDeltaInv;
 			dUvRightDy *= yRightDeltaInv;
@@ -278,7 +276,6 @@ namespace Pastel
 		{
 			real xBottomDeltaInv = inverse(xBottomDelta);
 
-
 			dyBottomDx *= xBottomDeltaInv;
 			dUvBottomDx *= xBottomDeltaInv;
 		}
@@ -289,7 +286,6 @@ namespace Pastel
 		{
 			real xTopDeltaInv = inverse(xTopDelta);
 
-
 			dyTopDx *= xTopDeltaInv;
 			dUvTopDx *= xTopDeltaInv;
 		}
@@ -297,7 +293,6 @@ namespace Pastel
 		// Offset the start scanline to pixel rows.
 
 		real yOffset = ((real)yMin + 0.5) - yMinVertex.y_;
-
 
 		real xLeft = yMinVertex.x_ + dxLeftDy * yOffset;
 		Vector2 uvLeft = yMinVertex.uv_ + dUvLeftDy * yOffset;
@@ -323,7 +318,6 @@ namespace Pastel
 
 			real invDx = inverse(dx);
 
-
 			dUvDx = dUv * invDx;
 		}
 		else
@@ -338,7 +332,6 @@ namespace Pastel
 				yMidVertex.uv_;
 
 			real invDx = inverse(dx);
-
 
 			dUvDx = dUv * invDx;
 		}
@@ -361,7 +354,6 @@ namespace Pastel
 
 			real invDy = inverse(dy);
 
-
 			dUvDy = dUv * invDy;
 		}
 		else
@@ -377,7 +369,6 @@ namespace Pastel
 
 			real invDy = inverse(dy);
 
-
 			dUvDy = dUv * invDy;
 		}
 
@@ -391,7 +382,6 @@ namespace Pastel
 			if (xEnd - xBegin > 0)
 			{
 				real xOffset = ((real)xBegin + 0.5) - xLeft;
-
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 
@@ -428,7 +418,6 @@ namespace Pastel
 			{
 				real yRightDeltaInv = inverse(yRightDelta);
 
-
 				dxRightDy *= yRightDeltaInv;
 				dUvRightDy *= yRightDeltaInv;
 			}
@@ -436,7 +425,6 @@ namespace Pastel
 			// Offset the scanline to pixel rows.
 
 			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
-
 
 			xRight = yMidVertex.x_ + dxRightDy * yOffset;
 			uvRight = yMidVertex.uv_ + dUvRightDy * yOffset;
@@ -454,7 +442,6 @@ namespace Pastel
 			{
 				real yLeftDeltaInv = inverse(yLeftDelta);
 
-
 				dxLeftDy *= yLeftDeltaInv;
 				dUvLeftDy *= yLeftDeltaInv;
 			}
@@ -462,7 +449,6 @@ namespace Pastel
 			// Offset the scanline to pixel rows.
 
 			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
-
 
 			xLeft = yMidVertex.x_ + dxLeftDy * yOffset;
 			uvLeft = yMidVertex.uv_ + dUvLeftDy * yOffset;
@@ -478,7 +464,6 @@ namespace Pastel
 			if (xEnd - xBegin > 0)
 			{
 				real xOffset = ((real)xBegin + 0.5) - xLeft;
-
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 

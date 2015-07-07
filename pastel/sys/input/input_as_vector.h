@@ -27,7 +27,6 @@ namespace Pastel
 		return outputSet;
 	}
 
-
 }
 
 #endif

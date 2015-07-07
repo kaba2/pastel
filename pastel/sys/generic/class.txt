@@ -137,7 +137,6 @@ An example is given by a [generic graph data structure][Graph] which allows to e
 	
 		return 0;
 	}
-	
 
 [Graph]: [[Ref]]: incidence_graph.txt
 

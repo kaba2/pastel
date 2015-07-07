@@ -478,7 +478,6 @@ namespace Pastel
 				here.empty();
 			ENSURE(!insertAtSentinel);
 
-
 			Node* parent = (Node*)here.base();
 
 			Node* node = allocate(std::move(data));
@@ -605,7 +604,6 @@ namespace Pastel
 				bool emptyWhenInsertingToSentinel =
 					empty();
 				ENSURE(emptyWhenInsertingToSentinel);
-
 
 				*this = std::move(that);
 			}
@@ -765,7 +763,6 @@ namespace Pastel
 			bool rotationWellDefined = 
 				!rightLeft.empty();
 			ENSURE(rotationWellDefined);
-
 
 			Node* thatNode = (Node*)that.base();
 			Node* rightNode = (Node*)right.base();

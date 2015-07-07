@@ -44,7 +44,6 @@ namespace Pastel
 		real beta_;
 	};
 
-
 	template <typename Real, integer N, typename Data, typename Output_View>
 	void reconstructRbf(
 		const std::vector<Vector<Data, N> >& positionList,

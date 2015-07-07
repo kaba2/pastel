@@ -1242,7 +1242,6 @@ namespace Pastel
 		return stream;
 	}
 
-
 }
 
 #endif

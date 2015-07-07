@@ -268,7 +268,6 @@ namespace Pastel
 					{
 						uint8 data = scanline[i];
 
-
 						image.write(Vector2i(xPos, yPos), (data >> 7) & 1);
 						++xPos;
 						image.write(Vector2i(xPos, yPos), (data >> 6) & 1);
@@ -340,7 +339,6 @@ namespace Pastel
 					{
 						uint8 data = scanline[i];
 
-
 						image.write(Vector2i(xPos, yPos), (data >> 6) & 3);
 						++xPos;
 						image.write(Vector2i(xPos, yPos), (data >> 4) & 3);
@@ -383,7 +381,6 @@ namespace Pastel
 					for (integer i = 0;i < bytesToRead - 1;++i)
 					{
 						uint8 data = scanline[i];
-
 
 						image.write(Vector2i(xPos, yPos), (data >> 4) & 15);
 						++xPos;
@@ -475,7 +472,6 @@ namespace Pastel
 						{
 							uint8 data = scanline[i];
 
-
 							image.write(Vector2i(xPos, yPos), palette[(data >> 7) & 1]);
 							++xPos;
 							image.write(Vector2i(xPos, yPos), palette[(data >> 6) & 1]);
@@ -547,7 +543,6 @@ namespace Pastel
 						{
 							uint8 data = scanline[i];
 
-
 							image.write(Vector2i(xPos, yPos), palette[(data >> 6) & 3]);
 							++xPos;
 							image.write(Vector2i(xPos, yPos), palette[(data >> 4) & 3]);
@@ -590,7 +585,6 @@ namespace Pastel
 						for (integer i = 0;i < bytesToRead - 1;++i)
 						{
 							uint8 data = scanline[i];
-
 
 							image.write(Vector2i(xPos, yPos), palette[(data >> 4) & 15]);
 							++xPos;

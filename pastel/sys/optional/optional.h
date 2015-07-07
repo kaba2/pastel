@@ -179,5 +179,4 @@ namespace std
 
 }
 
-
 #endif

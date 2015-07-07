@@ -48,7 +48,6 @@ namespace Pastel
 		std::array<integer, 2> cascadeSet_;
 	};
 
-
 }
 
 #endif

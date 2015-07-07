@@ -16,7 +16,6 @@ namespace Pastel
 		return Color(cylinder[2], cylinder[0], cylinder[1]);
 	}
 
-
 	inline Color lchToLab(const Color& lch)
 	{
 		Color cylinder = Color(lch[1], lch[2], lch[0]);

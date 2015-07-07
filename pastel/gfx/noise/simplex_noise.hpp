@@ -27,7 +27,6 @@ namespace Pastel
 		// Transform the point to the integer
 		// cube simplicial partitioning.
 
-
 		const Vector<Real, N> u = d * (x + s * sum(x));
 
 		// Find out in which integer cube we are.
@@ -86,7 +85,6 @@ namespace Pastel
 			}
 
 			integer axis = orderSet[i].second;
-
 
 			f += q * dInv;
 			f[axis] -= dInv;

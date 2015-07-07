@@ -69,7 +69,6 @@ namespace Pastel
 
 		integer points = 0;
 
-
 		hull.push_back(*current);
 		++points;
 		++current;

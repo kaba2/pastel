@@ -646,7 +646,6 @@ namespace Pastel
 			integer size = dimension;
 			allocate(size);
 
-
 			std::copy((const Type*)that, (const Type*)that + size, data_);
 		}
 
@@ -923,7 +922,6 @@ namespace Pastel
 		}
 
 		Tuple() = delete;
-
 
 		Type* data_;
 		integer size_;

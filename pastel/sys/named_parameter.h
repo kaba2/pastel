@@ -15,7 +15,6 @@
 #define PASTEL_ARG_S_T(name, def) decltype(PASTEL_ARG_S(name, def))
 #define PASTEL_ARG_ENUM_T(name, def) decltype(PASTEL_ARG_ENUM(name, def))
 
-
 #define PASTEL_ARG_MATCHES(name, ...) Pastel::Argument<tagHash(#name##)>::matches(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...).value
 #define PASTEL_ARG_S_MATCHES(name) PASTEL_ARG_MATCHES(name, Pastel::Argument_::returnTrue)
 
@@ -31,7 +30,6 @@ namespace Pastel
 		}
 
 	}
-
 
 	template <typename Condition>
 	struct ImplicitArgument

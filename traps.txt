@@ -69,4 +69,3 @@ The trap is that the literal integer 0 is implicitly convertible to a pointer, w
 		return 0;
 	}
 
-

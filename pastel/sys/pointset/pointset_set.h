@@ -93,7 +93,6 @@ namespace Pastel
 	using PointSet_Set_F = 
 		Identity_F<PointSet_Set<PointSet>>;
 
-
 }
 
 #endif

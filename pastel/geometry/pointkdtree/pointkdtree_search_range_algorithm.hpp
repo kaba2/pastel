@@ -45,7 +45,6 @@ namespace Pastel
 		integer n = kdTree.n();
 		Flags fullFlags = ((Flags)1 << n) - 1;
 
-
 		const Vector<Real, N>& rangeMin = range.min();
 		const Vector<Real, N>& rangeMax = range.max();
 
@@ -106,7 +105,6 @@ namespace Pastel
 				bool visitLeft = false;
 				Flags leftFlags = flags;
 				Flags rightFlags = flags;
-
 
 				if (rangeMin[splitAxis] < leftMax &&
 					rangeMax[splitAxis] > leftMin)

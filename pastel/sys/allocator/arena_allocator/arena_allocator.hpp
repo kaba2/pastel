@@ -157,7 +157,6 @@ namespace Pastel
 		// block.
 		Block block;
 
-
 		block.data_= (uint8*)allocateRaw(blockSize * unitSize_);
 		block.unitsAllocated_ = 0;
 		block.unitsReserved_ = blockSize;

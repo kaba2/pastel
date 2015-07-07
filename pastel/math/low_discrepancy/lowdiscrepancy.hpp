@@ -51,7 +51,6 @@ namespace Pastel
 		{
 			integer digit = n % base;
 
-
 			result += digit * invDigitFactor;
 
 			invDigitFactor *= invBase;

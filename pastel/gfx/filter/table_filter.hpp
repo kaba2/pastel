@@ -25,7 +25,6 @@ namespace Pastel
 
 		ENSURE(odd(width));
 
-
 		const integer paddedWidth = width + 2 * Padding;
 		
 		data_.setExtent(paddedWidth, 0);

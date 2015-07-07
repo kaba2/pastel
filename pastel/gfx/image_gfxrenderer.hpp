@@ -145,7 +145,6 @@ namespace Pastel
 			transform(segment.start()),
 			transform(segment.end()));
 
-
 		Pastel::drawSegment(screenSegment, currentColor, arrayView(*image_));
 	}
 

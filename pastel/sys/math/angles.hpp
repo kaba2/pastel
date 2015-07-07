@@ -67,7 +67,6 @@ namespace Pastel
 			return deltaAngle;
 		}
 
-
 		return deltaAngle + 2 * constantPi<Real>();
 	}
 

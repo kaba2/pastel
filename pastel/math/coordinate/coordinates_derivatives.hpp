@@ -154,7 +154,6 @@ namespace Pastel
 			// sin(x), cos(x), -sin(x), -cos(x), sin(x), ...
 			// Thus we can reduce the cases to those
 			// of 0, 1, 2, or 3 times differentiated.
-			
 
 			const integer timesMod4 = index[i + 1] & 3;
 

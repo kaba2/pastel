@@ -167,7 +167,6 @@ namespace Pastel
 
 		// Inspect the found block.
 
-
 		Block* block = *iter;
 		ASSERT(block);
 
@@ -225,7 +224,6 @@ namespace Pastel
 		// there is always at least
 		// one free block.
 
-
 		if (block->unitsAllocated_ == 0 &&
 			freeBlocks_ > 1)
 		{
@@ -245,7 +243,6 @@ namespace Pastel
 		integer MaxBlockSize = 255;
 		blockSize = std::max(blockSize, MinBlockSize);
 		blockSize = std::min(blockSize, MaxBlockSize);
-
 
 		Block* block = (Block*)allocateRaw(
 			sizeof(Block) + unitSize_ * blockSize);
@@ -312,7 +309,6 @@ namespace Pastel
 		{
 			removeFreeBlock(block);
 		}
-
 
 		deallocateRaw((void*)block);
 

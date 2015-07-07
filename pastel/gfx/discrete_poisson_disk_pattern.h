@@ -38,7 +38,6 @@ namespace Pastel
 			{
 			}
 
-
 			void operator()(
 				const Vector<integer, N>& position,
 				bool& image) const

@@ -118,7 +118,6 @@ namespace Pastel
 
 				Real y = dot(qOut[j], x);
 
-
 				d = beta * d + square(y);
 
 				qOut[j] += (x - qOut[j] * y) * (y / d);

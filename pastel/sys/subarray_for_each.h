@@ -8,7 +8,6 @@
 namespace Pastel
 {
 
-
 	//! Applies a range algorithm to rows of an array on a given axis.
 	/*!
 	Preconditions:

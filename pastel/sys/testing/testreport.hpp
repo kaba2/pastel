@@ -9,7 +9,6 @@
 namespace Pastel
 {
 
-
 	class SortErrorByFileName
 	{
 	public:

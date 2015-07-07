@@ -42,7 +42,6 @@ namespace Pastel
 			return sinc<real>(x) * sinc<real>(x * invRadius_);
 		}
 
-
 	private:
 		Lanczos_Filter(const Lanczos_Filter& that) = delete;
 		Lanczos_Filter& operator=(const Lanczos_Filter& that) = delete;

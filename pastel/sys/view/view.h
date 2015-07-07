@@ -83,7 +83,6 @@ namespace Pastel
 		{
 		}
 
-
 		explicit ConstView(const Contained_ConstView& view)
 			: Base(view)
 		{

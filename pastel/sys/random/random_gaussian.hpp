@@ -125,7 +125,6 @@ namespace Pastel
 		Real b5 = 1.330274429;
 		Real xAbs = std::abs(x);
 
-
 		const Real t = inverse(1 + b0 * xAbs);
 		
 		//Real result = gaussianPdf<Real>(xAbs) * (

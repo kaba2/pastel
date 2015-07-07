@@ -139,7 +139,6 @@ namespace Pastel
 
 		// Test for parallel plane case
 
-
 		/*
 		static constexpr Real EPSILON(stringAsReal<Real>("0.01"));
 

@@ -15,4 +15,3 @@ example, while normally you would pass a `std::less<int>()` to the
 `std::sort()`, with algorithm objects you would pass a `LessThan()`,
 which encapsulates a less-than comparison for all types.
 
-

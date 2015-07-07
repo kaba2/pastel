@@ -8,7 +8,6 @@
 namespace Pastel
 {
 
-
 	template <
 		typename Settings, 
 		template <typename> class Customization>

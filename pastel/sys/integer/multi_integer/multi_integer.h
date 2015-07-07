@@ -1176,7 +1176,6 @@ namespace Pastel
 
 }
 
-
 #include "pastel/sys/bit/number_of_one_bits.h"
 
 namespace Pastel

@@ -8,7 +8,6 @@
 namespace Pastel
 {
 
-
 	//! Returns a triangle-distributed random real.
 	/*!
 	This function assumes that

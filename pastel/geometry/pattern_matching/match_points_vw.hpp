@@ -33,7 +33,6 @@ namespace Pastel
 		Sphere<Real, N> sceneSphere = boundingSphere(
 			pointSet, locator);
 
-
 		return relativeMatchingDistance * 
 			sceneSphere.radius() / (2 * std::sqrt((Real)pointSet.size()));
 	}
@@ -581,7 +580,6 @@ namespace Pastel
 			confidence);
 
 		bool succeeded = patternMatcher(similarityResult);
-
 
 		/*
 		log() << "Local tries = " << patternMatcher.localTries() << logNewLine;

@@ -100,7 +100,6 @@ namespace Pastel
 
 		Vector2 normal = cross(delta) / normDelta;
 
-
 		const Vector2 startLeft = segment.start() + normal * startRadius;
 		const Vector2 startRight = segment.start() - normal * startRadius;
 		const Vector2 endLeft = segment.end() + normal * endRadius;
@@ -297,7 +296,6 @@ namespace Pastel
 		Vector2 delta = segment.end() - segment.start();
 		real normDelta = norm(delta);
 
-
 		if (normDelta < 2 * radius)
 		{
 			return;
@@ -305,7 +303,6 @@ namespace Pastel
 
 		Vector2 tangent = delta / normDelta;
 		Vector2 normal = cross(tangent);
-
 
 		const Vector2 endLeft = segment.end() + normal * radius - tangent * radius * 2;
 		const Vector2 endRight = segment.end() - normal * radius - tangent * radius * 2;
@@ -350,7 +347,6 @@ namespace Pastel
 			midpoint(viewWindow.min(), viewWindow.max());
 
 		viewWindow -= cameraCenter;
-
 
 		viewWindow.min() -= viewWindow.extent() * 0.05;
 		viewWindow.max() += viewWindow.extent() * 0.05;

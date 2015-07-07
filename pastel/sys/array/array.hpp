@@ -724,7 +724,6 @@ namespace Pastel
 			integer j = order_[i - 1];
 			integer k = order_[i];
 
-
 			stride[k] = stride[j] * extent_[j];
 		}
 
@@ -743,7 +742,6 @@ namespace Pastel
 		{
 			return;
 		}
-
 
 		Type* data = (Type*)allocateRaw(size * sizeof(Type));
 

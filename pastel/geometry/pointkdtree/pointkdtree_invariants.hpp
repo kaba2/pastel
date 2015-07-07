@@ -72,7 +72,6 @@ namespace Pastel
 					return false;
 				}
 
-
 				/*
 				if (REPORT(cursor.min() >= bound.min()[cursor.splitAxis()]))
 				{

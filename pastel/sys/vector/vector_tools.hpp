@@ -132,7 +132,6 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 		PASTEL_STATIC_ASSERT(N > 0);
 
-
 		PENSURE2(index >= 0 && index < N, index, N);
 
 		return Pastel::unitAxis<Real, N>(N, index);

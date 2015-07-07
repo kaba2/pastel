@@ -93,7 +93,6 @@ namespace Pastel
 		visit(rectangle, rowViewVisitor);
 	}
 
-
 	template <integer N, 
 		typename Input_Element, typename Input_View,
 		typename RowVisitorFunctor>

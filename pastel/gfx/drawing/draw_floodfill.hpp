@@ -26,7 +26,6 @@ namespace Pastel
 
 		using Cursor = typename Image_View::Cursor;
 
-
 		const Type source = *image.cursor(xStart, yStart);
 
 		if (source == color)
@@ -51,7 +50,6 @@ namespace Pastel
 			integer y = line[1];
 
 			Cursor yCursor = image.cursor(xLeft, y);
-
 
 			if (*yCursor != source)
 			{

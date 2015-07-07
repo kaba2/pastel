@@ -635,7 +635,6 @@ namespace Pastel
 						integer maxCliqueSize = 
 							tree.root().propagation().maxCliqueSize;
 
-
 						if (maxCliqueSize > 1 && maxCliqueSize >= maxMaxCliqueSize)
 						{
 							// Secondarily, we want to maximize the area
@@ -654,7 +653,6 @@ namespace Pastel
 
 							Real width = xMaxNew - xMinNew;
 							Real height = yMaxNew - yMinNew;
-
 
 							const Real area = width * height;
 

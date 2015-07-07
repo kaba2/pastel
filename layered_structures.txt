@@ -333,5 +333,3 @@ The basic principles are summarized as follows. A data-structure should
 * follow the principle of minimal requirements and maximal information, and
 * follow the open-closed principle.
 
-
-

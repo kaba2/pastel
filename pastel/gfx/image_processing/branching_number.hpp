@@ -266,7 +266,6 @@ namespace Pastel
 			}
 		}
 
-
 		if (width > 1 && height > 1)
 		{
 			// Left-bottom corner
@@ -377,7 +376,6 @@ namespace Pastel
 		integer width = image.width();
 		integer height = image.height();
 
-
 		ENSURE2(x >= 0 && x < width, x, width);
 		ENSURE2(y >= 0 && y < height, y, height);
 
@@ -409,7 +407,6 @@ namespace Pastel
 	{
 		integer width = image.width();
 		integer height = image.height();
-
 
 		ENSURE2(x >= 0 && x < width, x, width);
 		ENSURE2(y >= 0 && y < height, y, height);

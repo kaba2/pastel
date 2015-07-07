@@ -180,7 +180,6 @@ namespace Pastel
 		resultPalette.swap(palette);
 	}
 
-
 	inline void falseColorPalette(
 		std::vector<Color>& palette, 
 		integer count)

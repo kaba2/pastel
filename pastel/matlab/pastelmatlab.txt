@@ -10,4 +10,3 @@ functions to be callable via the entry point. It provides logging directly
 back to Matlab using the `mexPrintf` function. PastelMatlab also provides 
 convenient reporting in case an invariant failure occurs.
 
-
