@@ -5,43 +5,26 @@
 
 #include <pastel/sys/interval.h>
 
-namespace
+TEST_CASE("interval (interval)")
 {
+	using I = Interval<real>;
 
-	class Test
+	I a(1, 4);
 	{
-	public:
-		virtual void run()
-		{
-			test();
-		}
-
-		void test()
-		{
-			using I = Interval<real>;
-
-			I a(1, 4);
-			{
-				REQUIRE(a.min() == 1);
-				REQUIRE(a.max() == 4);
-			}
-			{
-				a.min() = 3;
-				a.max() = 5;
-
-				REQUIRE(a.min() == 3);
-				REQUIRE(a.max() == 5);
-			}
-			{
-				a.set(2, 6);
-				REQUIRE(a.min() == 2);
-				REQUIRE(a.max() == 6);
-			}
-		}
-	};
-
-	TEST_CASE("interval", "[interval]")
-	{
+		REQUIRE(a.min() == 1);
+		REQUIRE(a.max() == 4);
 	}
+	{
+		a.min() = 3;
+		a.max() = 5;
 
+		REQUIRE(a.min() == 3);
+		REQUIRE(a.max() == 5);
+	}
+	{
+		a.set(2, 6);
+		REQUIRE(a.min() == 2);
+		REQUIRE(a.max() == 6);
+	}
 }
+

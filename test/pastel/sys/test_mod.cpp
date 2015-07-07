@@ -6,71 +6,61 @@
 #include <pastel/sys/math/mod.h>
 #include <pastel/sys/math/powers.h>
 
-namespace
+TEST_CASE("SignedMod (mod)")
 {
-
-	class Test
+	for (integer i = 1; i < 10;++i)
 	{
-	public:
-		virtual void run()
+		integer k = 0;
+		for (integer j = -5 * i;j <= 5 * i;++j)
 		{
-			testSignedMod();
-			testUnsignedMod();
-		}
-
-		void testSignedMod()
-		{
-			for (integer i = 1; i < 10;++i)
+			REQUIRE(mod(j, i) == k);
+			++k;
+			if (k == i)
 			{
-				integer k = 0;
-				for (integer j = -5 * i;j <= 5 * i;++j)
-				{
-					REQUIRE(mod(j, i) == k);
-					++k;
-					if (k == i)
-					{
-						k = 0;
-					}
-				}
-			}
-
-			for (integer n = 0; n < 5;++n)
-			{
-				integer i = (1 << n);
-				integer k = 0;
-				for (integer j = -5 * i;j <= 5 * i;++j)
-				{
-					REQUIRE(modPowerOfTwo(j, n) == k);
-					++k;
-					if (k == i)
-					{
-						k = 0;
-					}
-				}
+				k = 0;
 			}
 		}
-
-		void testUnsignedMod()
-		{
-			for (integer n = 0; n < 5;++n)
-			{
-				uinteger i = powerOfTwo<uinteger>(n);
-				uinteger k = 0;
-				for (uinteger j = 0;j <= 5 * i;++j)
-				{
-					REQUIRE(modPowerOfTwo(j, n) == k);
-					++k;
-					if (k == i)
-					{
-						k = 0;
-					}
-				}
-			}
-		}
-	};
-
-	TEST_CASE("mod", "[mod]")
-	{
 	}
 
+	for (integer n = 0; n < 5;++n)
+	{
+		integer i = (1 << n);
+		integer k = 0;
+		for (integer j = -5 * i;j <= 5 * i;++j)
+		{
+			REQUIRE(modPowerOfTwo(j, n) == k);
+			++k;
+			if (k == i)
+			{
+				k = 0;
+			}
+		}
+	}
+}
+
+TEST_CASE("UnsignedMod (mod)")
+{
+	for (integer n = 0; n < 5;++n)
+	{
+		uinteger i = powerOfTwo<uinteger>(n);
+		uinteger k = 0;
+		for (uinteger j = 0;j <= 5 * i;++j)
+		{
+			REQUIRE(modPowerOfTwo(j, n) == k);
+			++k;
+			if (k == i)
+			{
+				k = 0;
+			}
+		}
+	}
+}
+
+TEST_CASE("-infinity (mod)")
+{
+	REQUIRE(mod(-infinity<integer>() - 1, (integer)4) == 0);
+	REQUIRE(mod(-infinity<integer>() - 1 + 1, (integer)4) == 1);
+	REQUIRE(mod(-infinity<integer>() - 1 + 2, (integer)4) == 2);
+	REQUIRE(mod(-infinity<integer>() - 1 + 3, (integer)4) == 3);
+	REQUIRE(mod(-infinity<integer>() - 1 + 4, (integer)4) == 0);
 }

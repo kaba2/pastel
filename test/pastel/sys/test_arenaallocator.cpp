@@ -6,94 +6,89 @@
 
 #include <vector>
 
-namespace
+TEST_CASE("Allocate (ArenaAllocator)")
 {
+	ArenaAllocator allocator;
 
-	void testAllocate()
+	void* memory = allocator.allocate(1);
+	unused(memory);
+
+	allocator.clear();
+
+	for (int i = 0;i < 5;++i)
 	{
-		ArenaAllocator allocator;
+		allocator.allocate(1);
+	}
 
+	allocator.clear();
+
+	for (int i = 0;i < 231;++i)
+	{
+		allocator.allocate(1);
+	}
+
+	allocator.clear();
+
+	for (int i = 0;i < 2054;++i)
+	{
+		allocator.allocate(1);
+	}
+
+	allocator.clear();
+}
+
+TEST_CASE("Deallocate (ArenaAllocator)")
+{
+	ArenaAllocator allocator;
+	std::vector<void*> memoryList;
+
+	{
 		void* memory = allocator.allocate(1);
-		unused(memory);
-
-		allocator.clear();
-
-		for (int i = 0;i < 5;++i)
-		{
-			allocator.allocate(1);
-		}
-
-		allocator.clear();
-
-		for (int i = 0;i < 231;++i)
-		{
-			allocator.allocate(1);
-		}
-
-		allocator.clear();
-
-		for (int i = 0;i < 2054;++i)
-		{
-			allocator.allocate(1);
-		}
-
-		allocator.clear();
+		memoryList.push_back(memory);
 	}
 
-	void testDeallocate()
+	allocator.clear();
+	memoryList.clear();
+
+	for (int i = 0;i < 5;++i)
 	{
-		ArenaAllocator allocator;
-		std::vector<void*> memoryList;
-
-		{
-			void* memory = allocator.allocate(1);
-			memoryList.push_back(memory);
-		}
-
-		allocator.clear();
-		memoryList.clear();
-
-		for (int i = 0;i < 5;++i)
-		{
-			void* memory = allocator.allocate(1);
-			memoryList.push_back(memory);
-		}
-
-		allocator.clear();
-		memoryList.clear();
-
-		for (int i = 0;i < 231;++i)
-		{
-			void* memory = allocator.allocate(1);
-			memoryList.push_back(memory);
-		}
-
-		allocator.clear();
-		memoryList.clear();
-
-		for (int i = 0;i < 2054;++i)
-		{
-			void* memory = allocator.allocate(1);
-			memoryList.push_back(memory);
-		}
-
-		allocator.clear();
-		memoryList.clear();
+		void* memory = allocator.allocate(1);
+		memoryList.push_back(memory);
 	}
 
-	void testLarge()
+	allocator.clear();
+	memoryList.clear();
+
+	for (int i = 0;i < 231;++i)
 	{
-		std::vector<int*> memoryList;
-		ArenaAllocator allocator;
-		int Units = 100000;
-
-		for (int i = 0;i < Units;++i)
-		{
-
-			memoryList.push_back((int*)allocator.allocate(sizeof(int)));
-		}
-
-		allocator.clear();
+		void* memory = allocator.allocate(1);
+		memoryList.push_back(memory);
 	}
 
+	allocator.clear();
+	memoryList.clear();
+
+	for (int i = 0;i < 2054;++i)
+	{
+		void* memory = allocator.allocate(1);
+		memoryList.push_back(memory);
+	}
+
+	allocator.clear();
+	memoryList.clear();
+}
+
+TEST_CASE("Large (ArenaAllocator)")
+{
+	std::vector<int*> memoryList;
+	ArenaAllocator allocator;
+	int Units = 100000;
+
+	for (int i = 0;i < Units;++i)
+	{
+
+		memoryList.push_back((int*)allocator.allocate(sizeof(int)));
+	}
+
+	allocator.clear();
 }

@@ -7,102 +7,84 @@
 #include "pastel/sys/sequence.h"
 #include "pastel/sys/predicate.h"
 
-namespace
+TEST_CASE("automaton_closure (automaton)")
 {
+	using Automaton = Automaton<integer>;
+	using State = Automaton::State_ConstIterator;
 
-	class Test
+	Automaton automaton;
+
+	State a = automaton.addState();
+	State b = automaton.addState();
+	State c = automaton.addState();
+	State d = automaton.addState();
+	State e = automaton.addState();
+
+	automaton.addTransition(
+		a, Epsilon(), b);
+
+	automaton.addTransition(
+		b, Epsilon(), c);
+
+	automaton.addTransition(
+		c, Epsilon(), a);
+
+	automaton.addTransition(
+		d, Epsilon(), c);
+
+	automaton.addTransition(
+		d, Epsilon(), e);
+
+	using StateSet = std::set<State, IteratorAddress_LessThan>;
+	std::unordered_map<State, StateSet, IteratorAddress_Hash> closureMap;
+
+	auto report =
+		[&](const State& state,
+		StateSet&& stateSet)
 	{
-	public:
-		virtual void run()
-		{
-			test();
-		}
-
-		void test()
-		{
-			using Automaton = Automaton<integer>;
-			using State = Automaton::State_ConstIterator
-;
-
-			Automaton automaton;
-
-			State a = automaton.addState();
-			State b = automaton.addState();
-			State c = automaton.addState();
-			State d = automaton.addState();
-			State e = automaton.addState();
-
-			automaton.addTransition(
-				a, Epsilon(), b);
-
-			automaton.addTransition(
-				b, Epsilon(), c);
-
-			automaton.addTransition(
-				c, Epsilon(), a);
-
-			automaton.addTransition(
-				d, Epsilon(), c);
-
-			automaton.addTransition(
-				d, Epsilon(), e);
-
-			using StateSet = std::set<State, IteratorAddress_LessThan>;
-			std::unordered_map<State, StateSet, IteratorAddress_Hash> closureMap;
-
-			auto report =
-				[&](const State& state,
-				StateSet&& stateSet)
-			{
-				closureMap.insert(
-					std::make_pair(state, std::move(stateSet)));
-			};
-
-			auto insert =
-				[&](const State& state,
-				StateSet& stateSet)
-			{
-				stateSet.insert(state);
-			};
-
-			epsilonClosure(automaton, StateSet(), insert, report);
-
-			{
-				State correctClosure[] = {a, b, c};
-				std::sort(
-					std::begin(correctClosure), 
-					std::end(correctClosure),
-					IteratorAddress_LessThan());
-
-				REQUIRE(boost::equal(range(correctClosure), closureMap[a]));
-				REQUIRE(boost::equal(range(correctClosure), closureMap[b]));
-				REQUIRE(boost::equal(range(correctClosure), closureMap[c]));
-			}
-
-			{
-				State correctClosure[] = {a, b, c, d, e};
-				std::sort(
-					std::begin(correctClosure), 
-					std::end(correctClosure),
-					IteratorAddress_LessThan());
-
-				REQUIRE(boost::equal(range(correctClosure), closureMap[d]));
-			}
-
-			{
-				State correctClosure[] = {e};
-				std::sort(
-					std::begin(correctClosure), 
-					std::end(correctClosure),
-					IteratorAddress_LessThan());
-
-				REQUIRE(boost::equal(range(correctClosure), closureMap[e]));
-			}
-		}
+		closureMap.insert(
+			std::make_pair(state, std::move(stateSet)));
 	};
 
-	TEST_CASE("automatonClosure", "[automatonClosure]")
+	auto insert =
+		[&](const State& state,
+		StateSet& stateSet)
 	{
+		stateSet.insert(state);
+	};
+
+	epsilonClosure(automaton, StateSet(), insert, report);
+
+	{
+		State correctClosure[] = {a, b, c};
+		std::sort(
+			std::begin(correctClosure), 
+			std::end(correctClosure),
+			IteratorAddress_LessThan());
+
+		REQUIRE(boost::equal(range(correctClosure), closureMap[a]));
+		REQUIRE(boost::equal(range(correctClosure), closureMap[b]));
+		REQUIRE(boost::equal(range(correctClosure), closureMap[c]));
 	}
 
+	{
+		State correctClosure[] = {a, b, c, d, e};
+		std::sort(
+			std::begin(correctClosure), 
+			std::end(correctClosure),
+			IteratorAddress_LessThan());
+
+		REQUIRE(boost::equal(range(correctClosure), closureMap[d]));
+	}
+
+	{
+		State correctClosure[] = {e};
+		std::sort(
+			std::begin(correctClosure), 
+			std::end(correctClosure),
+			IteratorAddress_LessThan());
+
+		REQUIRE(boost::equal(range(correctClosure), closureMap[e]));
+	}
 }
+

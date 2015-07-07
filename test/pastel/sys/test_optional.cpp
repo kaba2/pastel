@@ -8,79 +8,67 @@
 namespace
 {
 
-	class Test
+	class B
 	{
 	public:
-		virtual void run()
-		{
-			test();
-		}
-
-		class B
-		{
-		public:
-			B()
-				: b(0)
-			{
-			}
-
-			explicit B(int b_)
-				: b(b_)
-			{
-			}
-
-			int b;
-		};
-
-		void f(integer x)
+		B()
+			: b(0)
 		{
 		}
 
-		void g(Optional<integer> x)
+		explicit B(int b_)
+			: b(b_)
 		{
 		}
 
-		void test()
-		{
-			Optional<integer> a;
-			REQUIRE(a.empty());
-			// The zero is treated as a non-empty
-			// optional: therefore it should not
-			// match.
-			REQUIRE(a != 0);
-			REQUIRE(a != 0.0);
-
-			a = 2;
-			REQUIRE(!a.empty());
-			REQUIRE(a == 2);
-			REQUIRE(a == 2.0);
-
-			a.clear();
-			REQUIRE(a.empty());
-
-			Optional<B> b;
-			REQUIRE(b.empty());
-			REQUIRE(b.b == 0);
-
-			b.b = 3;
-			REQUIRE(b.empty());
-			REQUIRE(b.b == 3);
-
-			b = B(2);
-			REQUIRE(!b.empty());
-			REQUIRE(b.b == 2);
-
-			// Optional<Type> is implicitly convertible 
-			// to type.
-			f(a);
-
-			// Type is implicitly convertible to Optional<Type>.
-			g(3);
-		}
+		int b;
 	};
 
-	TEST_CASE("Optional", "[Optional]")
+	void f(integer x)
+	{
+	}
+
+	void g(Optional<integer> x)
 	{
 	}
 
 }
+
+TEST_CASE("Optional (Optional)")
+{
+	Optional<integer> a;
+	REQUIRE(a.empty());
+	// The zero is treated as a non-empty
+	// optional: therefore it should not
+	// match.
+	REQUIRE(a != 0);
+	REQUIRE(a != 0.0);
+
+	a = 2;
+	REQUIRE(!a.empty());
+	REQUIRE(a == 2);
+	REQUIRE(a == 2.0);
+
+	a.clear();
+	REQUIRE(a.empty());
+
+	Optional<B> b;
+	REQUIRE(b.empty());
+	REQUIRE(b.b == 0);
+
+	b.b = 3;
+	REQUIRE(b.empty());
+	REQUIRE(b.b == 3);
+
+	b = B(2);
+	REQUIRE(!b.empty());
+	REQUIRE(b.b == 2);
+
+	// Optional<Type> is implicitly convertible 
+	// to type.
+	f(a);
+
+	// Type is implicitly convertible to Optional<Type>.
+	g(3);
+}
+

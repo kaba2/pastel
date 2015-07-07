@@ -9,47 +9,39 @@
 namespace
 {
 
-		class Test
+	template <typename Integer>
+	void testCase()
 	{
-	public:
-		virtual void run()
-		{
-			testSome<int16>();
-			testSome<int32>();
-			testSome<integer>();
-			testSome<Signed_Integer<16>>();
-			testSome<Signed_Integer<32>>();
-		}
+		REQUIRE(gcd(Integer(1), Integer(5)) == Integer(1));
+		REQUIRE(gcd(Integer(1), Integer(3455)) == Integer(1));
+		REQUIRE(gcd(Integer(1), Integer(2235)) == Integer(1));
+		REQUIRE(gcd(Integer(1), Integer(2344)) == Integer(1));
 
-		template <typename Integer>
-		void testSome()
-		{
-			REQUIRE(gcd(Integer(1), Integer(5)) == Integer(1));
-			REQUIRE(gcd(Integer(1), Integer(3455)) == Integer(1));
-			REQUIRE(gcd(Integer(1), Integer(2235)) == Integer(1));
-			REQUIRE(gcd(Integer(1), Integer(2344)) == Integer(1));
+		REQUIRE(gcd(Integer(0), Integer(2344)) == Integer(2344));
+		REQUIRE(gcd(Integer(0), Integer(23455)) == Integer(23455));
+		REQUIRE(gcd(Integer(0), Integer(865)) == Integer(865));
+		REQUIRE(gcd(Integer(0), Integer(5487)) == Integer(5487));
 
-			REQUIRE(gcd(Integer(0), Integer(2344)) == Integer(2344));
-			REQUIRE(gcd(Integer(0), Integer(23455)) == Integer(23455));
-			REQUIRE(gcd(Integer(0), Integer(865)) == Integer(865));
-			REQUIRE(gcd(Integer(0), Integer(5487)) == Integer(5487));
+		REQUIRE(gcd(Integer(13), Integer(7)) == Integer(1));
+		REQUIRE(gcd(Integer(5), Integer(23)) == Integer(1));
+		REQUIRE(gcd(Integer(7), Integer(11)) == Integer(1));
+		REQUIRE(gcd(Integer(3), Integer(2)) == Integer(1));
 
-			REQUIRE(gcd(Integer(13), Integer(7)) == Integer(1));
-			REQUIRE(gcd(Integer(5), Integer(23)) == Integer(1));
-			REQUIRE(gcd(Integer(7), Integer(11)) == Integer(1));
-			REQUIRE(gcd(Integer(3), Integer(2)) == Integer(1));
+		REQUIRE(gcd(Integer(5 * 1234), Integer(7 * 1234)) == Integer(1234));
+		REQUIRE(gcd(Integer(2), Integer(4)) == Integer(2));
 
-			REQUIRE(gcd(Integer(5 * 1234), Integer(7 * 1234)) == Integer(1234));
-			REQUIRE(gcd(Integer(2), Integer(4)) == Integer(2));
-
-			REQUIRE(gcd(Integer(16), Integer(256)) == Integer(16));
-			REQUIRE(gcd(Integer(128), Integer(256)) == Integer(128));
-			REQUIRE(gcd(Integer(256), Integer(128)) == Integer(128));
-		}
-	};
-
-	TEST_CASE("Gcd", "[Gcd]")
-	{
+		REQUIRE(gcd(Integer(16), Integer(256)) == Integer(16));
+		REQUIRE(gcd(Integer(128), Integer(256)) == Integer(128));
+		REQUIRE(gcd(Integer(256), Integer(128)) == Integer(128));
 	}
 
+}
+
+TEST_CASE("Gcd (Gcd)")
+{
+	testCase<int16>();
+	testCase<int32>();
+	testCase<integer>();
+	testCase<Signed_Integer<16>>();
+	testCase<Signed_Integer<32>>();
 }
