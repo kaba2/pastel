@@ -264,7 +264,7 @@ namespace Pastel
 	        	fromCentroid = arma::sum(P, 1) / m;
 	        	toCentroid = arma::sum(R, 1) / n;
 			}
-		    
+		 
 		    // Form the centered point-sets. The optimal transformation
 		    // will map fromCentroid to toCentroid. After this the problem
 		    // has been reduced from affine to linear.
@@ -292,7 +292,7 @@ namespace Pastel
 			matrix == LsAffine_Matrix::Identity)
 		{
 		    // f(x) = Sx
-		    
+		 
 		    // Find the optimal scaling.
 		    arma::Mat<Real> S_;
 		    if (!arma::syl(S_, PP, PP.t(), -(RP + RP.t())))
@@ -313,7 +313,7 @@ namespace Pastel
 			matrix == LsAffine_Matrix::Free)
 		{
 		    // f(x) = Ax
-		    
+		 
 		    // Compute the optimal linear transformation.
 		    //[UP, UR, X, DP, DR] = arma::gsvd(PP, RP);
 		    //A = UR * (DR * arma::pinv(DP)) * UP.t();

@@ -106,7 +106,7 @@ namespace
 				REQUIRE(bound.max() == Point(3, 5));
 			}
 			{
-				// 5  
+				// 5 
 				// 4  *
 				// 3   * *
 				// 2  *

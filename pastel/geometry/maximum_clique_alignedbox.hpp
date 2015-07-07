@@ -61,9 +61,9 @@ namespace Pastel
 			//
 			//        r
 			//   < ( [ ] )
-			//   ( F      
-			// l [ T F T  
-			//   ] T   F  
+			//   ( F 
+			// l [ T F T 
+			//   ] T   F 
 			//   ) T T T F
 			//
 			// 5) Full relation matrix by antisymmetry:

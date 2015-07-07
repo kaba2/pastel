@@ -20,15 +20,15 @@ namespace Pastel
 		while (b != 0)
 		{
 			Integer quotient = a / b;
-	        
+	 
 			Integer temp = b;
 			b = a % b;
 			a = temp;
-	        
+	 
 			temp = x;
 			x = xLast - quotient * x;
 			xLast = temp;
-	        
+	 
 			temp = y;
 			y = yLast - quotient * y;
 			yLast = temp;

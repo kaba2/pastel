@@ -52,7 +52,7 @@ namespace Pastel
 
 	template <
 		typename Integer,
-		DisableIf<std::is_signed<Integer>>>	  
+		DisableIf<std::is_signed<Integer>>>	 
 	Integer bitMask(integer beginBit, integer endBit)
 	{
 		PENSURE_OP(beginBit, >=, 0);

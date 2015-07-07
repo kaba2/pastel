@@ -115,8 +115,8 @@ namespace
 				5 BBB  AA
 				4 BBB  AA
 				3
-				2        
-				1        
+				2 
+				1 
 				0
 				 01234567
 				*/
@@ -140,11 +140,11 @@ namespace
 				/*
 				7
 				6 BBB
-				5 BAB    
-				4 BBB    
+				5 BAB 
+				4 BBB 
 				3
-				2        
-				1        
+				2 
+				1 
 				0
 				 01234567
 				*/

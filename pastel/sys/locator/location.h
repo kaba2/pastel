@@ -21,7 +21,7 @@ namespace Pastel
 		// We have to use typename = constraint here, because
 		// otherwise IsTemplateInstance does not work
 		// with Location.
-		typename =  
+		typename = 
 			Requires<
 				Models<Locator, Locator_Concept(Type)>
 			>

@@ -64,7 +64,7 @@ namespace Pastel
 			// "Table of Low-Weight Binary Irreducible Polynomials",
 			// Gadiel Seroussi, 1998.
 
-			uint64 highestPowerSet[] =  
+			uint64 highestPowerSet[] =
 			{
 				0x0, 0x0, 0x3, 0x3, 
 				0x3, 0x5, 0x3, 0x3, 

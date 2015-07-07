@@ -15,7 +15,7 @@ namespace Pastel
 	bijection gives the Frobenius norm (without the square root).
 	See 'pastel/math/normbijection/normbijections.h" for predefined norm bijections.
 	*/
-	template <typename Real,  
+	template <typename Real, 
 		typename Expression, typename NormBijection>
 	Real norm2(const MatrixExpression<Real, Expression>& matrix,
 		const NormBijection& normBijection);

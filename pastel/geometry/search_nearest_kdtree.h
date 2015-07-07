@@ -60,7 +60,7 @@ namespace Pastel
 	Default: infinity<Real>()
 
 	maxRelativeError (Real >= 0):
-	Maximum allowed relative error in the distance of the  
+	Maximum allowed relative error in the distance of the 
 	result point to the true nearest neighbor. Allowing error
 	increases performance. Use 0 for exact matches. 
 	Default: 0

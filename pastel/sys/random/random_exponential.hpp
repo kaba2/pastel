@@ -32,7 +32,7 @@ namespace Pastel
 			 = -[t = 0..x] e^(-at) dt
 			 = -(e^(-ax) - 1)
 			 = 1 - e^(-ax)
-	    
+	 
 		(For a check, c(oo) = 1)
 		
 		Thus, the inverse of the cdf (for x >= 0) is

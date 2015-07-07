@@ -479,7 +479,7 @@ Shortcomings:
   * The adaptation is probably not that effective 
   in practice because it requires a wholly empty subtree
   before stepping into action.
-  
+ 
 ### Removal adaptation version
 
 Additional features to adaptable version:
