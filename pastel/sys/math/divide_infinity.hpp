@@ -21,6 +21,13 @@ namespace Pastel
 
 		// Let w = SizeInBits<uinteger>::value.
 
+		if (negative(Integer(1)))
+		{
+			// The number is 2-bit signed;
+			// the result is zero.
+			return Integer(0);
+		}
+
 		if (odd(n))
 		{
 			// Suppose n is odd. Then n does not divide 2^w. 

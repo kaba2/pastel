@@ -780,9 +780,21 @@ namespace Pastel
 		{
 			if (highestBit(abs(that)) >= unsignedBits())
 			{
-				// The divisor is greater than the dividee
-				// in absolute value. The number is
-				// unchanged.
+				if (negative(*this) && 
+					negative(-*this) && 
+					abs(that) == RemoveCvRef<Finite_Integer>(1) << unsignedBits())
+				{
+					// The dividee is -2^B, and the divisor is +/- 2^B;
+					// the result is zero.
+					clearBits();
+				}
+				else
+				{
+					// The divisor is greater than the dividee
+					// in absolute value. The number is
+					// unchanged.
+				}
+
 				return *this;
 			}
 
@@ -820,7 +832,7 @@ namespace Pastel
 
 			if (zero(*this))
 			{
-				// The divived number is zero;
+				// The divided number is zero;
 				// the result is zero.
 				return *this;
 			}
@@ -832,15 +844,29 @@ namespace Pastel
 			// For a symmetric name.
 			MultiInteger& right = that;
 
-			// Set the current number to 0.
-			result.clearBits();
-
 			// Reduce to the case where both 
 			// factors are positive.
 			bool negateResult = false;
 			if (negative(left))
 			{
 				left.negate();
+				if (negative(left))
+				{
+					// The divided number is -2^B.
+					if (abs(that) == 1)
+					{
+						return *this;
+					}
+					
+					result = -divideInfinity<MultiInteger>(abs(that));
+
+					if (negative(that))
+					{
+						result.negate();
+					}
+
+					return *this;
+				}
 				negateResult = !negateResult;
 			}
 			if (negative(that))
@@ -848,6 +874,9 @@ namespace Pastel
 				right.negate();
 				negateResult = !negateResult;
 			}
+
+			// Set the current number to 0.
+			result.clearBits();
 
 			if (right > left)
 			{
@@ -931,11 +960,24 @@ namespace Pastel
 		MultiInteger& operator/=(
 			Finite_Integer&& that)
 		{
+			ENSURE(!zero(that));
+
 			if (highestBit(abs(that)) >= unsignedBits())
 			{
-				// The divisor is greater than the dividee
-				// in absolute value. The result is zero.
-				clearBits();
+				if (negative(*this) && 
+					negative(-*this) && 
+					abs(that) == RemoveCvRef<Finite_Integer>(1) << unsignedBits())
+				{
+					// The dividee is -2^B, and the divisor is +/- 2^B.
+					*this = negative(that) ? 1 : -1;
+				}
+				else
+				{
+					// The divisor is greater than the dividee
+					// in absolute value. The result is zero.
+					clearBits();
+				}
+
 				return *this;
 			}
 
