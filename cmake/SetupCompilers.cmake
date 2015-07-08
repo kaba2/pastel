@@ -23,6 +23,7 @@ if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") OR
 
 	# Disable some warnings.
 	add_definitions (
+		-Wno-parentheses
 		# Pragma warnings caused by OpenMP support not being enabled.
 		-Wno-unknown-pragmas
 		# Comparison between an unsigned and a signed integer.
