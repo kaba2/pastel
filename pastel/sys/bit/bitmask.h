@@ -4,7 +4,7 @@
 #ifndef PASTELSYS_BITMASK_H
 #define PASTELSYS_BITMASK_H
 
-#include "pastel/sys/integer/integer_concept.h"
+#include "pastel/sys/integer/finite_integer_concept.h"
 
 namespace Pastel
 {
@@ -21,9 +21,12 @@ namespace Pastel
 	number of bits in the integer.
 	*/
 	template <
-		typename Integer,
-		DisableIf<std::is_signed<Integer>> = 0>
-	Integer singleBitMask(integer bit);
+		typename Finite_Integer,
+		Requires<
+			Models<Finite_Integer, Finite_Integer_Concept>
+		> = 0
+	>
+	Finite_Integer singleBitMask(integer bit);
 
 	//! Returns an integer with lower bits set.
 	/*!
@@ -38,9 +41,12 @@ namespace Pastel
 	of bits.
 	*/
 	template <
-		typename Integer,
-		DisableIf<std::is_signed<Integer>> = 0>
-	Integer bitMask(integer endBit);
+		typename Finite_Integer,
+		Requires<
+			Models<Finite_Integer, Finite_Integer_Concept>
+		> = 0
+	>
+	Finite_Integer bitMask(integer endBit);
 
 	//! Returns an interval of bits set.
 	/*!
@@ -55,9 +61,12 @@ namespace Pastel
 	where n is the number of bits.
 	*/
 	template <
-		typename Integer,
-		DisableIf<std::is_signed<Integer>> = 0>	 
-	Integer bitMask(integer beginBit, integer endBit);
+		typename Finite_Integer,
+		Requires<
+			Models<Finite_Integer, Finite_Integer_Concept>
+		> = 0
+	>
+	Finite_Integer bitMask(integer beginBit, integer endBit);
 
 }
 

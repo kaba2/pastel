@@ -9,9 +9,12 @@ namespace Pastel
 {
 
 	template <
-		typename Integer,
-		DisableIf<std::is_signed<Integer>>>
-	Integer singleBitMask(integer bit)
+		typename Finite_Integer,
+		Requires<
+			Models<Finite_Integer, Finite_Integer_Concept>
+		>
+	>
+	Finite_Integer singleBitMask(integer bit)
 	{
 		PENSURE_OP(bit, >=, 0);
 
@@ -26,40 +29,46 @@ namespace Pastel
 		// However, such a left-shift used to be implementation-defined.
 		// Indeed, Visual Studio 2013 still gives a warning about this.
 
-		if (bit >= bits(Integer()))
+		if (bit >= bits(Finite_Integer()))
 		{
 			return 0;
 		}
 
-		return (Integer)1 << bit;
+		return (Finite_Integer)1 << bit;
 	}
 
 	template <
-		typename Integer,
-		DisableIf<std::is_signed<Integer>>>
-	Integer bitMask(integer endBit)
+		typename Finite_Integer,
+		Requires<
+			Models<Finite_Integer, Finite_Integer_Concept>
+		>
+	>
+	Finite_Integer bitMask(integer endBit)
 	{
 		PENSURE_OP(endBit, >=, 0);
 
-		if (endBit >= bits(Integer()))
+		if (endBit >= bits(Finite_Integer()))
 		{
 			return -1;
 		}
 
 		// See the documentation for the singleBitMask().
-		return ((Integer)1 << endBit) - (Integer)1;
+		return ((Finite_Integer)1 << endBit) - (Finite_Integer)1;
 	}
 
 	template <
-		typename Integer,
-		DisableIf<std::is_signed<Integer>>>	 
-	Integer bitMask(integer beginBit, integer endBit)
+		typename Finite_Integer,
+		Requires<
+			Models<Finite_Integer, Finite_Integer_Concept>
+		>
+	>
+	Finite_Integer bitMask(integer beginBit, integer endBit)
 	{
 		PENSURE_OP(beginBit, >=, 0);
 		PENSURE_OP(beginBit, <=, endBit);
 
 		// See the documentation for the singleBitMask().
-		return bitMask<Integer>(endBit) ^ bitMask<Integer>(beginBit);
+		return bitMask<Finite_Integer>(endBit) ^ bitMask<Finite_Integer>(beginBit);
 	}
 
 }
