@@ -606,6 +606,16 @@ namespace Pastel
 			return N;
 		}
 
+		//! Returns the number of bits for the non-negative part.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		integer unsignedBits() const
+		{
+			return Signed ? (N - 1) : N;
+		}
+
 		//! Returns the last bit.
 		/*!
 		Time complexity: O(1)
@@ -749,12 +759,54 @@ namespace Pastel
 		Note that the remainder can be negative. For a
 		non-negative remainder, see the mod() functions.
 		*/
-		MultiInteger& operator%=(const MultiInteger& that)
+		MultiInteger& operator%=(MultiInteger that)
 		{
 			ENSURE(!zero(that));
 
 			*this -= (*this / that) * that;
 			return *this;
+		}
+
+		//! Computes the remainder when divided by 'that'.
+		template <
+			typename Finite_Integer,
+			Requires<
+				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>,
+				Models<Finite_Integer, Finite_Integer_Concept>
+			> = 0
+		>
+		MultiInteger& operator%=(
+			Finite_Integer&& that)
+		{
+			if (highestBit(abs(that)) >= unsignedBits())
+			{
+				// The divisor is greater than the dividee
+				// in absolute value. The number is
+				// unchanged.
+				return *this;
+			}
+
+			// We now know that 'that' fits into
+			// a multi-integer without overflow.
+			return operator%=(
+				MultiInteger(
+					std::forward<Finite_Integer>(that)
+				)
+			);
+		}
+
+		template <
+			typename Finite_Integer,
+			Requires<
+				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>,
+				Models<Finite_Integer, Finite_Integer_Concept>
+			> = 0
+		>
+		MultiInteger operator%(Finite_Integer&& that) const
+		{
+			MultiInteger result = *this;
+			result %= std::forward<Finite_Integer>(that);
+			return result;
 		}
 
 		//! Divides this with 'that'.
@@ -768,13 +820,19 @@ namespace Pastel
 
 			if (zero(*this))
 			{
+				// The divived number is zero;
+				// the result is zero.
 				return *this;
 			}
 
+			// Copy the current number into 'left'.
 			MultiInteger left = *this;
-			MultiInteger& right = that;
+			// Use the current number as the output.
 			MultiInteger& result = *this;
+			// For a symmetric name.
+			MultiInteger& right = that;
 
+			// Set the current number to 0.
 			result.clearBits();
 
 			// Reduce to the case where both 
@@ -785,13 +843,13 @@ namespace Pastel
 				left.negate();
 				negateResult = !negateResult;
 			}
-			if (negative(right))
+			if (negative(that))
 			{
 				right.negate();
 				negateResult = !negateResult;
 			}
 
-			if (left < right)
+			if (right > left)
 			{
 				// The divisor is greater than the dividee.
 				// => the result is zero.
@@ -804,7 +862,14 @@ namespace Pastel
 			integer iRight = highestBit(right);
 			ASSERT_OP(iRight, >=, 0);
 
-			ASSERT_OP(iLeft, >=, iRight);
+			ASSERT_OP(iRight, <=, iLeft);
+
+			// In a step of the division process, we 
+			// seek for the greatest left-shift S of 'right',
+			// such that (right << S) <= left. We then
+			// set the S:th bit of 'result', subtract
+			// (right << S) from 'left', and iterate the
+			// process.
 
 			integer shift = iLeft - iRight;
 
@@ -842,12 +907,59 @@ namespace Pastel
 
 			signExtend();
 
+			// Recover the correct sign.
 			if (negateResult)
 			{
 				result.negate();
 			}
 
 			return *this;
+		}
+
+		//! Divides this with 'that'.
+		/*!
+		Time complexity: O(N^2)
+		Exception safety: nothrow
+		*/
+		template <
+			typename Finite_Integer,
+			Requires<
+				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>,
+				Models<Finite_Integer, Finite_Integer_Concept>
+			> = 0
+		>
+		MultiInteger& operator/=(
+			Finite_Integer&& that)
+		{
+			if (highestBit(abs(that)) >= unsignedBits())
+			{
+				// The divisor is greater than the dividee
+				// in absolute value. The result is zero.
+				clearBits();
+				return *this;
+			}
+
+			// We now know that 'that' fits into
+			// a multi-integer without overflow.
+			return operator/=(
+				MultiInteger(
+					std::forward<Finite_Integer>(that)
+				)
+			);
+		}
+
+		template <
+			typename Finite_Integer,
+			Requires<
+				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>,
+				Models<Finite_Integer, Finite_Integer_Concept>
+			> = 0
+		>
+		MultiInteger operator/(Finite_Integer&& that) const
+		{
+			MultiInteger result = *this;
+			result /= std::forward<Finite_Integer>(that);
+			return result;
 		}
 
 		//! Adds 1 to this.
@@ -1199,7 +1311,14 @@ namespace Pastel
 			// The t is negative if and only if
 			// *this == -2^Bits. Compute one digit
 			// in advance.
-			result += integerAsDigit((integer)(mod(t, base)));
+			if (bits() == 1)
+			{
+				// There is only one bit. 
+			}
+			else
+			{
+				result += integerAsDigit((integer)(mod(t, base)));
+			}
 			t = divideInfinity<MultiInteger>(base);
 		}
 

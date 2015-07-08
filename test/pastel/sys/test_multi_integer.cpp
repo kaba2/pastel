@@ -50,23 +50,40 @@ TEST_CASE("Infinity (MultiInteger)")
 TEST_CASE("AsString (MultiInteger)")
 {
 	{
+		using F = Unsigned_Integer<1, uint8>;
+		CHECK(F(0).asString(2) == "0");
+		CHECK(F(1).asString(2) == "1");
+		CHECK(F(2).asString(2) == "0");
+		CHECK(F(3).asString(2) == "1");
+	}
+	{
+		using F = Signed_Integer<1, uint8>;
+
+		F(1).asString(2);
+
+		CHECK(F(0).asString(2) == "0");
+		CHECK(F(1).asString(2) == "-1");
+		CHECK(F(2).asString(2) == "0");
+		CHECK(F(3).asString(2) == "-1");
+	}
+	{
 		using F = Signed_Integer<20, uint8>;
-		REQUIRE(F(-0x80000).asString(2) == "-10000000000000000000");
-		REQUIRE(F(0x80000).asString(2) == "-10000000000000000000");
-		REQUIRE(F(-0x80000).asString() == "-524288");
-		REQUIRE(F(0x80000).asString() == "-524288");
+		CHECK(F(-0x80000).asString(2) == "-10000000000000000000");
+		CHECK(F(0x80000).asString(2) == "-10000000000000000000");
+		CHECK(F(-0x80000).asString() == "-524288");
+		CHECK(F(0x80000).asString() == "-524288");
 	}
 	{
 		using F = Unsigned_Integer<32, uint8>;
 
-		REQUIRE(F(0x12345678).asString(16) == "12345678");
-		REQUIRE(F(132).asString(10) == "132");
-		REQUIRE(F(432874).asString(10) == "432874");
+		CHECK(F(0x12345678).asString(16) == "12345678");
+		CHECK(F(132).asString(10) == "132");
+		CHECK(F(432874).asString(10) == "432874");
 
-		REQUIRE(F(0x0).asString(16) == "0");
-		REQUIRE(F(0xFFFFFFFF).asString(16) == "ffffffff");
+		CHECK(F(0x0).asString(16) == "0");
+		CHECK(F(0xFFFFFFFF).asString(16) == "ffffffff");
 
-		REQUIRE(F(0x9ABCDEF0).asString(2) ==
+		CHECK(F(0x9ABCDEF0).asString(2) ==
 			"10011010101111001101111011110000");
 	}
 	{
@@ -82,18 +99,18 @@ TEST_CASE("AsString (MultiInteger)")
 		std::cout << std::oct << std::showbase << F(-0123) << std::endl;
 		*/
 
-		REQUIRE(F(-132).asString(10) == "-132");
-		REQUIRE(F(-0x12345678).asString(16) == "-12345678");
-		REQUIRE(F(-1).asString(2) == "-1");
-		REQUIRE(F(-2).asString(2) == "-10");
-		REQUIRE(F(-3).asString(2) == "-11");
-		REQUIRE(F(-4).asString(2) == "-100");
+		CHECK(F(-132).asString(10) == "-132");
+		CHECK(F(-0x12345678).asString(16) == "-12345678");
+		CHECK(F(-1).asString(2) == "-1");
+		CHECK(F(-2).asString(2) == "-10");
+		CHECK(F(-3).asString(2) == "-11");
+		CHECK(F(-4).asString(2) == "-100");
 	}
 	{
 		using F = Unsigned_Integer<32, uint8>;
-		REQUIRE(F(0x12345678).asString(16) == "12345678");
+		CHECK(F(0x12345678).asString(16) == "12345678");
 
-		REQUIRE(F(0x9ABCDEF0).asString(2) ==
+		CHECK(F(0x9ABCDEF0).asString(2) ==
 			"10011010101111001101111011110000");
 	}
 }
@@ -831,6 +848,70 @@ TEST_CASE("Division (MultiInteger)")
 				}
 			}
 		}
+	}
+	{
+		using F = Signed_Integer<1, uint8>;
+		PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
+		REQUIRE(F(0) / -2 == F(0));
+		REQUIRE(F(0) / -1 == F(0));
+		REQUIRE(F(0) / 1 == F(0));
+		REQUIRE(F(0) / 2 == F(0));
+
+		REQUIRE(F(1) / -2 == F(0));
+		REQUIRE(F(1) / -1 == F(1));
+		REQUIRE(F(1) / 1 == F(1));
+		REQUIRE(F(1) / 2 == F(0));
+		REQUIRE(F(1) / 3 == F(0));
+	}
+
+	{
+		using F = Signed_Integer<2, uint8>;
+		PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
+		REQUIRE(F(0) / 1 == F(0));
+		REQUIRE(F(1) / 1 == F(1));
+		REQUIRE(F(-1) / 1 == F(-1));
+		REQUIRE(F(-2) / 1 == F(-2));
+
+		REQUIRE(F(0) / 2 == F(0));
+		REQUIRE(F(1) / 2 == F(0));
+		REQUIRE(F(-1) / 2 == F(0));
+		REQUIRE(F(-2) / 2 == F(-1));
+
+		REQUIRE(F(0) / 3 == F(0));
+		REQUIRE(F(1) / 3 == F(0));
+		REQUIRE(F(-1) / 3 == F(0));
+		REQUIRE(F(-2) / 3 == F(0));
+
+		REQUIRE(F(0) / 4 == F(0));
+		REQUIRE(F(1) / 4 == F(0));
+		REQUIRE(F(-1) / 4 == F(0));
+		REQUIRE(F(-2) / 4 == F(0));
+	}
+	{
+		using F = Unsigned_Integer<2, uint8>;
+		PASTEL_CONCEPT_CHECK(F, Finite_Integer_Concept);
+
+		REQUIRE(F(0) / 1 == F(0));
+		REQUIRE(F(1) / 1 == F(1));
+		REQUIRE(F(2) / 1 == F(1));
+		REQUIRE(F(3) / 1 == F(1));
+
+		REQUIRE(F(0) / 2 == F(0));
+		REQUIRE(F(1) / 2 == F(0));
+		REQUIRE(F(2) / 2 == F(1));
+		REQUIRE(F(3) / 2 == F(1));
+
+		REQUIRE(F(0) / 3 == F(0));
+		REQUIRE(F(1) / 3 == F(0));
+		REQUIRE(F(2) / 3 == F(0));
+		REQUIRE(F(3) / 3 == F(1));
+
+		REQUIRE(F(0) / 4 == F(0));
+		REQUIRE(F(1) / 4 == F(0));
+		REQUIRE(F(2) / 4 == F(0));
+		REQUIRE(F(3) / 4 == F(0));
 	}
 }
 
