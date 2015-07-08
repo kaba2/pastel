@@ -1311,15 +1311,16 @@ namespace Pastel
 			// The t is negative if and only if
 			// *this == -2^Bits. Compute one digit
 			// in advance.
-			if (bits() == 1)
+			if (unsignedBits() == 0)
 			{
-				// There is only one bit. 
+				result += "1";
+				t = 0;
 			}
 			else
 			{
 				result += integerAsDigit((integer)(mod(t, base)));
+				t = divideInfinity<MultiInteger>(base);
 			}
-			t = divideInfinity<MultiInteger>(base);
 		}
 
 		ASSERT(!negative(t));
