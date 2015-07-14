@@ -161,3 +161,12 @@ if (MSVC)
 	)
 
 endif()
+
+if (${CMAKE_GENERATOR} STREQUAL "NMake Makefiles" OR
+	${CMAKE_GENERATOR} STREQUAL "NMake Makefiles JOM")
+	add_definitions (
+		# Enable exceptions (for some reason they are not 
+		# enabled for NMake Makefiles).
+		/EHsc
+	)
+endif()
