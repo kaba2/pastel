@@ -4,6 +4,7 @@
 #include "test/test_init.h"
 
 #include <pastel/sys/locator.h>
+#include <pastel/sys/function/dereference_function.h>
 
 TEST_CASE("Archetype (Locator)")
 {
@@ -75,10 +76,7 @@ TEST_CASE("Transform (Locator)")
 	auto indirectLocator = 
 		transformLocator<Data_ConstIterator>(
 			scalarLocator<real>(1),
-			[](const Data_ConstIterator& iPoint)
-			{
-				return *iPoint;
-			}
+			Dereference_Function()
 		);
 
 	for (integer i = 0;i < dataSet.size();++i)
