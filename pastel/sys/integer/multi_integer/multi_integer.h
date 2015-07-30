@@ -858,7 +858,7 @@ namespace Pastel
 						return *this;
 					}
 					
-					result = -divideInfinity<MultiInteger>(abs(that));
+					result = -divideInfinity(abs(that));
 
 					if (negative(that))
 					{
@@ -1265,6 +1265,29 @@ namespace Pastel
 			}
 		}
 
+		template <
+			typename N_Integer,
+			Requires<
+				Models<N_Integer, Integer_Concept>
+			> = 0
+		>
+		Integer divideInfinity(const N_Integer& n) const
+		{
+			PENSURE_OP(n, >=, 2);
+
+			if (negative(Integer(1)))
+			{
+				return Integer(0);
+			}
+
+			if (odd(n))
+			{
+				return infinity<Integer>() / n;
+			}
+
+			return ((infinity<Integer>() >> 1) + 1) / (n >> 1);
+		}
+
 		//! The set of words.
 		/*!
 		When the words are concatenated as
@@ -1361,7 +1384,7 @@ namespace Pastel
 			else
 			{
 				result += integerAsDigit((integer)(mod(t, base)));
-				t = divideInfinity<MultiInteger>(base);
+				t = divideInfinity(base);
 			}
 		}
 

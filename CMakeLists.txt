@@ -28,7 +28,7 @@ option (BuildTests "Build Pastel's tests." ON)
 option (BuildExamples "Build Pastel's examples." ON)
 option (BuildMatlabMex
 	"Make libraries usable for Matlab mex (force release-mode C and C++ standard libraries)." 
-	OFF)
+	ON)
 
 # Force to use an out-of-source build
 # -----------------------------------
