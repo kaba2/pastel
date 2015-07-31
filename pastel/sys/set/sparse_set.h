@@ -59,7 +59,10 @@ namespace Pastel
 			return set_.empty(index);
 		}
 
-		decltype(auto) element(const Index& index) const
+		// FIX: Change to use decltype(auto) when possible.
+		// decltype(auto) in the return-type triggers
+		// a bug in Visual Studio 2015
+		Element element(const Index& index) const
 		{
 			return set_.element(index);
 		}

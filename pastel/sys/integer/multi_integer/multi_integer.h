@@ -43,6 +43,40 @@
 namespace Pastel
 {
 
+	template <typename Integer_Settings>
+	class MultiInteger;
+
+	template <
+		typename Type,
+		Requires<
+			IsTemplateInstance<Type, MultiInteger>,
+			BoolConstant<!Type::Signed>
+		> = 0>
+	Type infinity()
+	{
+		return Type().setBits();
+	}
+
+	template <
+		typename Type,
+		typename = Requires<
+			IsTemplateInstance<Type, MultiInteger>,
+			BoolConstant<Type::Signed>
+		>>
+	Type infinity()
+	{
+		Type result;
+		result.setBits(0, result.bits() - 1);
+		return result;
+	}
+
+}
+
+#include "pastel/sys/math/divide_infinity.h"
+
+namespace Pastel
+{
+
 	//! A fixed-size integer in two's complement form.
 	/*!
 	The integer is formed from a sequence of words,
@@ -858,7 +892,7 @@ namespace Pastel
 						return *this;
 					}
 					
-					result = -divideInfinity(abs(that));
+					result = -divideInfinity<MultiInteger>(abs(that));
 
 					if (negative(that))
 					{
@@ -1265,29 +1299,6 @@ namespace Pastel
 			}
 		}
 
-		template <
-			typename N_Integer,
-			Requires<
-				Models<N_Integer, Integer_Concept>
-			> = 0
-		>
-		Integer divideInfinity(const N_Integer& n) const
-		{
-			PENSURE_OP(n, >=, 2);
-
-			if (negative(Integer(1)))
-			{
-				return Integer(0);
-			}
-
-			if (odd(n))
-			{
-				return infinity<Integer>() / n;
-			}
-
-			return ((infinity<Integer>() >> 1) + 1) / (n >> 1);
-		}
-
 		//! The set of words.
 		/*!
 		When the words are concatenated as
@@ -1384,7 +1395,7 @@ namespace Pastel
 			else
 			{
 				result += integerAsDigit((integer)(mod(t, base)));
-				t = divideInfinity(base);
+				t = divideInfinity<MultiInteger>(base);
 			}
 		}
 
