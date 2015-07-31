@@ -29,29 +29,9 @@ namespace Pastel
 		left.swap(right);
 	}
 
-	template <
-		typename Type,
-		Requires<
-			IsTemplateInstance<Type, MultiInteger>,
-			BoolConstant<!Type::Signed>
-		> = 0>
-	Type infinity()
-	{
-		return Type().setBits();
-	}
-
-	template <
-		typename Type,
-		Requires<
-			IsTemplateInstance<Type, MultiInteger>,
-			BoolConstant<Type::Signed>
-		> = 0>
-	Type infinity()
-	{
-		Type result;
-		result.setBits(0, result.bits() - 1);
-		return result;
-	}
+	// The infinity() function had to be declared
+	// before the MultiInteger class, because the
+	// class uses it.
 
 	//! Returns whether 'that' is odd.
 	/*!

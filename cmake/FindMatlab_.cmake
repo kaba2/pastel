@@ -13,9 +13,9 @@
 
 if (WIN32)
 	if (${GENERATOR_BITS} EQUAL 32)
-		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/MATLAB Production Server/R2015a")
+		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R2015a")
 	else()
-		set (MatlabDirectory "C:/Program Files/MATLAB/MATLAB Production Server/R2015a")
+		set (MatlabDirectory "C:/Program Files/MATLAB/R2015a")
 	endif()
 
 	set (MatlabIncludeDirectory "${MatlabDirectory}/extern/include")

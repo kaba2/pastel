@@ -348,7 +348,13 @@ namespace Pastel
 			bool leftDone = pass(
 				[&](Integer k)
 				{
+#ifdef _MSC_VER
+					// Using template here triggers a bug in 
+					// Visual Studio 2015.
+					return leftMediant(k).asReal<Real>() <= xMax;
+#else
 					return leftMediant(k).template asReal<Real>() <= xMax;
+#endif
 				});
 			left.swap(right);
 
@@ -360,8 +366,14 @@ namespace Pastel
 			bool rightDone = pass(
 				[&](Integer k)
 				{
+#ifdef _MSC_VER
+					// Using template here triggers a bug in 
+					// Visual Studio 2015.
+					return leftMediant(k).asReal<Real>() >= xMin;
+#else
 					return leftMediant(k).template asReal<Real>() >= xMin;
-				});
+#endif
+			});
 			left.swap(right);
 
 			if (leftDone && rightDone)

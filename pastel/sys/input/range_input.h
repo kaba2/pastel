@@ -21,6 +21,7 @@ namespace Pastel
 	private:
 		using Iterator = typename boost::range_iterator<const Range>::type;
 		using Type = typename boost::range_value<Range>::type;
+		using Return = decltype(*std::declval<Iterator>());
 
 		static constexpr bool IsRandomAccess =
 			std::is_same<
@@ -64,17 +65,21 @@ namespace Pastel
 			return begin_ == end_;
 		}
 
-		decltype(auto) get() const
+		// FIX: Change to use decltype(auto) fter
+		// Visual Studio 2015 fixes its bugs.
+		Return get() const
 		{
 			PENSURE(!empty());
 			return *begin_;
 		}
 
+		// FIX: Change to use decltype(auto) fter
+		// Visual Studio 2015 fixes its bugs.
 		template <
 			typename Type = void,
 			typename = EnableIfC<IsRandomAccess, Type>
 		>
-		decltype(auto) operator[](integer i) const
+		Return operator[](integer i) const
 		{
 			PENSURE_OP(i, >=, 0);
 			PENSURE_OP(i, <, n());
