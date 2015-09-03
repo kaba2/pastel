@@ -42,12 +42,11 @@ namespace
 		std::initializer_list<Cpd_Scaling> scalingSet,
 		std::initializer_list<Cpd_Translation> translationSet)
 	{
-		Real threshold = 1e-5;
+		Real threshold = 1e-4;
 
 		arma::Mat<Real> toSet = Q * S * fromSet + 
 			t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols);
 
-		REQUIRE(fromSet.n_cols == 3);
 		REQUIRE(fromSet.n_rows == 2);
 
 		Cpd_Return<Real> match;
@@ -84,6 +83,15 @@ namespace
 						translation,
 						matrix,
 						PASTEL_TAG(orientation), orientation);
+
+					if (deltaNorm() >= threshold)
+					{
+						std::cout << "Matrix " << (integer)matrix
+							<< " Scaling " << (integer)scaling
+							<< " Orientation " << (integer)orientation
+							<< " Translation " << (integer)translation
+							<< std::endl;
+					}
 
 					REQUIRE(deltaNorm() < threshold);
 				}
@@ -130,13 +138,14 @@ namespace
 		arma::Mat<Real> S(2, 2, arma::fill::eye);
 
 		arma::Mat<Real> fromSet = 
-			{0, 1, 0,
-			0, 0, 1}; 
-		fromSet.reshape(2, 3);
+		{
+			0, 5, 10, 11, 12, 13, 15,
+			0, 6, 3, 7, 5, 6, -4
+		}; 
+		fromSet.reshape(2, 7);
 
-		// Angle pi / 3 often matches to another minimum.
-		Real offsetMin = -2;
-		Real offsetMax = 2;
+		Real offsetMin = -1;
+		Real offsetMax = 1;
 		for (Real alpha = offsetMin; alpha <= offsetMax; alpha += (offsetMax - offsetMin) / 10)
 		{
 			arma::Col<Real> t = 
@@ -154,11 +163,14 @@ namespace
 
 }
 
-TEST_CASE("coherent_point_drift (coherent_point_drift)")
+TEST_CASE("translation (coherent_point_drift)")
 {
 	testTranslation<float>();
 	testTranslation<double>();
+}
 
+TEST_CASE("rotation (coherent_point_drift)")
+{
 	testRotation<float>();
 	testRotation<double>();
 }

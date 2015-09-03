@@ -166,6 +166,10 @@ if (WIN32)
 	CopyDllsTo("${PastelMatlabDirectory}")
 endif()
 
+# Copy some data files.
+file (COPY "${PastelDirectory}/matlab/+pastelgeometry/fish.txt" 
+	DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/matlab/+pastelgeometry")
+
 # Set compiler options.
 include ("SetupCompilers")
 
