@@ -980,7 +980,7 @@ TEST_CASE("Modulo (MultiInteger)")
 		CHECK(F(-2) % -2 == F(0));
 		CHECK(F(-1) % -2 == F(-1));
 		CHECK(F(0) % -2 == F(0));
-		CHECK(F(1) % -2 == F(-1));
+		CHECK(F(1) % -2 == F(1));
 
 		CHECK(F(-2) % -1 == F(0));
 		CHECK(F(-1) % -1 == F(0));
@@ -993,7 +993,7 @@ TEST_CASE("Modulo (MultiInteger)")
 		CHECK(F(1) % 1 == F(0));
 
 		CHECK(F(-2) % 2 == F(0));
-		CHECK(F(-1) % 2 == F(1));
+		CHECK(F(-1) % 2 == F(-1));
 		CHECK(F(0) % 2 == F(0));
 		CHECK(F(1) % 2 == F(1));
 
