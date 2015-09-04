@@ -19,13 +19,13 @@ External dependencies
 
 Some, but not all, of the sub-libraries of Pastel are dependent on external libraries which must be installed in order to compile and link them. These external libraries are listed here. The detailed dependency relations are visualized in the graph above. The version number that follows the library name is the one that the current version of Pastel was used to develop against. This is useful to know in case a later version breaks backward compatibility.
 
-### Boost 1.54
+### Boost 1.59
 
 <http://www.boost.org/>
 
 Boost is licensed under the Boost license. Pastel only uses the template code found in Boost and thus requires no linking with object code. Pastel refers to Boost's include files in the form `boost/operators.hpp`.
 
-### Threading Building Blocks 4.2
+### Threading Building Blocks 4.4
 
 <https://www.threadingbuildingblocks.org/>
 
@@ -37,14 +37,14 @@ Threading Building Blocks is licensed under the GPLv2 license, with the run-time
 
 Pastel integrates a minimally modified version of the official Mersenne Twister source code directly into the PastelSys library. No installation is needed.
 
-### Remark 1.6
+### Remark 1.7
 
 <http://kaba.hilvi.org/remark>
 
 The documentation for Pastel is written in Remark. This library is not required to build Pastel.
 
-### CMake 3.0
+### CMake 3.3
 
 <http://www.cmake.org>
 
-The build-system is written in CMake. CMake takes in a generic description of the build-process and generates the build-files for a specific platform, such as Visual Studio projects, makefiles, or Xcode projects. This library is required to build Pastel. It is not required to use the build libraries.
+The build-system is written in CMake. CMake takes in a generic description of the build-process and generates the build-files for a specific platform, such as Visual Studio projects, makefiles, or Xcode projects. This library is required to build Pastel. It is not required to use the built libraries.
