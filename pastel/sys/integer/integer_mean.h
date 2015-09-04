@@ -1,5 +1,5 @@
 // Description: Mean of two integers without overflowing
-// Documentation: integer.txt
+// Documentation: integers.txt
 
 #ifndef PASTELSYS_INTEGER_MEAN_H
 #define PASTELSYS_INTEGER_MEAN_H

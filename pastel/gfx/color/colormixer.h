@@ -1,5 +1,5 @@
 // Description: Color-mixer module
-// Documentation: colormixer.txt
+// Documentation: color.txt
 
 #ifndef PASTELGFX_COLORMIXER_H_MODULE
 #define PASTELGFX_COLORMIXER_H_MODULE
