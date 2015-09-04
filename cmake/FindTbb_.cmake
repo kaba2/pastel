@@ -15,7 +15,7 @@
 #    The directory-part of ${ArmadilloLibraryPath}.
 
 if (WIN32)
-	set (TbbDirectory "C:/code/tbb-4.3")
+	set (TbbDirectory "C:/code/tbb-4.4")
 	set (TbbIncludeDirectory "${TbbDirectory}/include")
 	set (TbbLibraryName "tbb")
 

@@ -15,7 +15,7 @@ set (BoostVersion 1.55.0)
 string (REGEX REPLACE \\. _ BoostVersion_ ${BoostVersion})
 
 if (WIN32)
-	set (BoostIncludeDirectory "C:/code/boost_1_58_0")
+	set (BoostIncludeDirectory "C:/code/boost_1_59_0")
 elseif (UNIX)
 	set (BoostDirectory "")
 endif()
