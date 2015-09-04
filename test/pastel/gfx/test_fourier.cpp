@@ -1,5 +1,5 @@
 // Description: Testing for signal transforms
-// DocumentationOf: signal_transforms.h
+// DocumentationOf: fourier_transform.txt
 
 #include "test/test_init.h"
 
