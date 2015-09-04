@@ -1,3 +1,5 @@
+// Description: Set module
+
 #ifndef PASTELSYS_SET_H_MODULE
 #define PASTELSYS_SET_H_MODULE
 

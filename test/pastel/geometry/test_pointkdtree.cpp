@@ -1,5 +1,5 @@
 // Description: Testing for PointKdTree
-// DocumentationOf: pointkdtree.h
+// Documentation: pointkdtree.txt
 
 #include "test/test_init.h"
 

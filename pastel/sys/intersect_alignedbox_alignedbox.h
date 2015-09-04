@@ -1,5 +1,5 @@
 // Description: Intersection between two aligned boxes
-// Documentation: alignedbox.txt
+// Documentation: alignedbox/alignedbox.txt
 
 #ifndef PASTELSYS_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H
 #define PASTELSYS_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H

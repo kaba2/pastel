@@ -29,6 +29,6 @@ by providing a type modeling the [Real][Real] concept. The PastelGeometry
 library takes [this view further][GeometryBox].
 
 [NativeInteger]: [[Ref]]: native_integer.txt
-[GeometryBox]: [[Ref]]: geometry/shape/alignedbox.txt
+[GeometryBox]: [[Ref]]: shape/alignedbox.txt
 [Real]: [[Ref]]: reals.txt
 

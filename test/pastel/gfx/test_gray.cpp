@@ -1,5 +1,5 @@
 // Description: Testing for lightness
-// DocumentationOf: color_tools.h
+// Documentation: color.txt
 
 #include "test/test_init.h"
 

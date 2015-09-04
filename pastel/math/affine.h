@@ -1,5 +1,5 @@
 // Description: Affine transformation module
-// Documentation: affine.txt
+// Documentation: affine_transformation.txt
 
 #ifndef PASTELMATH_AFFINE_H_MODULE
 #define PASTELMATH_AFFINE_H_MODULE

@@ -23,7 +23,7 @@
 %     maximum: maximum matching (default)
 
 % Description: Maximum bipartite matching
-% Documentation: maximum_bipartite_matching.txt
+% Documentation: matching.txt
 
 function matchSet = maximum_bipartite_matching(edgeSet, varargin)
 

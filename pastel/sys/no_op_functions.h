@@ -1,5 +1,4 @@
 // Description: No-op functions
-// Documentation: environment.txt
 
 #ifndef PASTELSYS_NO_OP_FUNCTIONS_H
 #define PASTELSYS_NO_OP_FUNCTIONS_H

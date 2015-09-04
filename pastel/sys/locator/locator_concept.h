@@ -1,4 +1,5 @@
 // Description: Locator concept
+// Documentation: locators.txt
 
 #ifndef PASTELSYS_LOCATOR_CONCEPT_H
 #define PASTELSYS_LOCATOR_CONCEPT_H

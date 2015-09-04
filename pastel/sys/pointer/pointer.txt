@@ -1,0 +1,4 @@
+Smart pointers
+==============
+
+[[Parent]]: memory.txt

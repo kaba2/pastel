@@ -1,0 +1,4 @@
+Weak pointer
+============
+
+[[Parent]]: pointer.txt

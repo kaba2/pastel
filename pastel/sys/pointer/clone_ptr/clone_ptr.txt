@@ -1,7 +1,7 @@
 Cloning pointer
 ===============
 
-[[Parent]]: memory.txt
+[[Parent]]: pointer.txt
 
 The `ClonePtr` is a smart pointer which follows value semantics
 for its pointee. The cloning, and deletion, procedure for the pointee 
