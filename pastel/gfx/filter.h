@@ -1,5 +1,5 @@
 // Description: Filter module
-// Documentation: filter.txt
+// Documentation: filters.txt
 
 #ifndef PASTELGFX_FILTER_H_MODULE
 #define PASTELGFX_FILTER_H_MODULE

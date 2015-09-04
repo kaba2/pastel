@@ -1,85 +1,69 @@
 PCX file format
---------------------------------------------------------------------------------
+===============
 
-A PCX file contains a single image. 
-It supports 1 bit, 2 bit, 4 bit and 8 bit indexed images as
-well as 24-bit rgb images.
-There are two possible palettes for indexed images in a pcx file:
-the 16 color palette in the header, which is used for the indexed images
-with <= 4 bits. For the 8 bit indexed images, there can be a 
-separate 256 color palette of which presence can be detected from the 
-header information. If there is a 256 color palette it is located at
-the end of the file.
+[[Parent]]: pcx.txt
 
-A 'scanline' contains the information for a one row of the image. 
-A 'color plane' represents a single component of an image. Indexed images
-have only one color plane, but the 24-bit rgb images have three:
-red, green and blue.
-Multiple color planes are stored successively inside
-the scanline (first the whole row of red, then green, then blue).
-Each 'color plane scanline' must take an even number of bytes and
-so there might be a 'junk byte' at the end of each.
+A PCX file contains a single image. It supports 1 bit, 2 bit, 4 bit and 8 bit indexed images as well as 24-bit rgb images. There are two possible palettes for indexed images in a pcx file: the 16 color palette in the header, which is used for the indexed images with <= 4 bits. For the 8 bit indexed images, there can be a separate 256 color palette of which presence can be detected from the header information. If there is a 256 color palette it is located at the end of the file.
 
-Each scanline is stored run length encoded in the following manner:
-Read one byte. If the two most significant bits are set, then then
-lower six bits give the repetition count for the data that is found
-from the next byte. Otherwise the data represents itself. There is 
-an encoding break after each scanline, but there are no
-encoding breaks between color planes in a scanline.
+A _scanline_ contains the information for a one row of the image. A _color plane_ represents a single component of an image. Indexed images have only one color plane, but the 24-bit rgb images have three: red, green and blue. Multiple color planes are stored successively inside the scanline (first the whole row of red, then green, then blue). Each _color plane scanline_ must take an even number of bytes and so there might be a _junk byte_ at the end of each.
 
-PCX file format
----------------
+Each scanline is stored run-length-encoded (RLE) in the following manner: 
 
-The header has a fixed size of 128 bytes and looks like
-this:
+* Read one byte. 
+* If the two most significant bits are set, then then lower six bits give the repetition count for the data that is found from the next byte. 
+* Otherwise the data represents itself. 
 
-Offset  Type        Description
--------------------------------
-0000h   byte        Manufacturer.
-					10=ZSoft
-0001h   byte        Version information
-					0=PC Paintbrush v2.5
-					2=PC Paintbrush v2.8 w palette information
-					3=PC Paintbrush v2.8 w/o palette information
-					4=PC Paintbrush/Windows
-					5=PC Paintbrush v3.0+
-0002h   byte        Encoding scheme, 1 = RLE, none other known
-0003h   byte        Bits per pixel
-0004h   word        Left margin of image
-0006h   word        Upper margin of image
-0008h   word        Right margin of image
-000Ah   word        Lower margin of image
-000Ch   word        Horizontal DPI resolution
-000Eh   word        Vertical DPI resolution
-0010h   48 byte     Color palette for indexed images with <= 4 bits per pixel
-					16 RGB triplets
-0040h   byte        reserved
-0041h   byte        Number of color planes
-					="NCP"
-0042h   word        Number of bytes per scanline (always even,
-					use instead of right margin-left margin).
-					="NBS"
-0044h   word        Palette information
-					1=color/bw palette
-					2=grayscale image
-0046h   word        Horizontal screen size
-0048h   word        Vertical screen size
-004Ah   54 byte     Reserved, set to 0
+There is an encoding break after each scanline, but there are no encoding breaks between color planes in a scanline.
 
-0x80h               Image data
+Header
+------
 
-The  space needed to decode a single scan line is
-NCP * NBS bytes, the last byte may be a junk byte
-which is not displayed.
+The header has a fixed size of 128 bytes and looks like this:
+
+Offset  | Type     | Description
+--------|----------|-----------
+0000h   | byte     | Manufacturer.
+		| 		   | 10 = ZSoft
+0001h   | byte     | Version information
+		| 	       | 0 = PC Paintbrush v2.5
+		|          | 2 = PC Paintbrush v2.8 with palette information
+		|          | 3 = PC Paintbrush v2.8 without palette information
+		|          | 4 = PC Paintbrush/Windows
+		|          | 5 = PC Paintbrush v3.0+
+0002h   | byte     | Encoding scheme
+        |          | 1 = RLE
+0003h   | byte     | Bits per pixel
+0004h   | word     | Left margin of image
+0006h   | word     | Upper margin of image
+0008h   | word     | Right margin of image
+000Ah   | word     | Lower margin of image
+000Ch   | word     | Horizontal DPI resolution
+000Eh   | word     | Vertical DPI resolution
+0010h   | 48 bytes | Color palette for indexed images with <= 4 bits per pixel
+		| 		   | 16 RGB triplets
+0040h   | byte     | Reserved
+0041h   | byte     | Number of color planes
+		|          | ="NCP"
+0042h   | word     | Number of bytes per scanline (always even,
+		|          | use instead of right margin-left margin).
+		|          | ="NBS"
+0044h   | word     | Palette information
+		|          | 1 = color/bw palette
+		|          | 2 = grayscale image
+0046h   | word     | Horizontal screen size
+0048h   | word     | Vertical screen size
+004Ah   | 54 bytes | Reserved; set to 0
+ ...    | ...      | ...
+0080h   |          | Image data
+
+The  space needed to decode a single scan line is NCP * NBS bytes, the last byte may be a junk byte which is not displayed.
 
 VGA palette
 -----------
 
-After the image data, if the version number is 5 (or greater?) there
-possibly is a VGA color palette. The color ranges from 0 to 255, 0 is
-zero intensity, 255 is full intensity. The palette has the following
-format:
+After the image data, if the version number is 5 (or greater?) there possibly is a VGA color palette. The color ranges from 0 to 255; 0 is zero intensity, 255 is full intensity. The palette has the following format:
 
-OFFSET              Count Type   Description
-0000h                   1 byte   VGA palette integer (=0Ch)
-0001h                 768 byte   RGB triplets with palette information
+Offset  | Count | Type | Description
+--------|-------|------|---------------------------------------
+0000h   |     1 | byte | VGA palette integer (0Ch)
+0001h   |   768 | byte | RGB triplets with palette information

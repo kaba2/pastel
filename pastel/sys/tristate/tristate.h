@@ -1,5 +1,4 @@
 // Description: Fuzzy 3-state logic
-// Documentation: math_functions.txt
 
 #ifndef PASTELSYS_TRISTATE_H
 #define PASTELSYS_TRISTATE_H
