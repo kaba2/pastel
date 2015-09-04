@@ -75,7 +75,7 @@
 % with an extraneous point near an embedded model point.
 
 % Description: Finds a matching translation between unordered pointsets
-% Documentation: point_pattern_matching_kr.txt
+% Documentation: match_points_kr.txt
 
 function match = point_pattern_matching_kr(...
     modelSet, sceneSet, matchingDistance, varargin)

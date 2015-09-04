@@ -1,5 +1,5 @@
 // Description: Testing for temporal kd-tree
-// DocumentationOf: tdtree.h
+// Documentation: tdtree.txt
 
 #include "test/test_init.h"
 

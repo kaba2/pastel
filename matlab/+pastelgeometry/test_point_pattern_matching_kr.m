@@ -1,5 +1,5 @@
 % Description: Testing for point_pattern_matching_kr.m.
-% DocumentationOf: point_pattern_matching_kr.m
+% Documentation: match_points_kr.txt
 
 clear all;
 close all;

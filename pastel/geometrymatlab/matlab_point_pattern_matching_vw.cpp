@@ -1,5 +1,5 @@
 // Description: match_points_vw
-// DocumentationOf: match_points_vw.m
+// Documentation: match_points_vw.txt
 
 #include "pastel/matlab/pastelmatlab.h"
 

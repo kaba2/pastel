@@ -1,4 +1,5 @@
 // Description: Point kd-tree
+// Documentation: pointkdtree.txt
 
 #ifndef PASTELGEOMETRY_POINTKDTREE_H
 #define PASTELGEOMETRY_POINTKDTREE_H

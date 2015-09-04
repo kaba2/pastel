@@ -1,5 +1,5 @@
 // Description: Testing for Views
-// DocumentationOf: views.h
+// DocumentationOf: view/view.h
 
 #include "test/test_init.h"
 

@@ -1,5 +1,5 @@
 // Description: Testing for indicators
-// DocumentationOf: indicator.h
+// Documentation: indicator.txt
 
 #include "test/test_init.h"
 

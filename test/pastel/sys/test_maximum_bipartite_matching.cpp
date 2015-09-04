@@ -1,5 +1,5 @@
 // Description: Testing for maximum bipartite matching
-// DocumentationOf: maximum_bipartite_matching.h
+// Documentation: matching.txt
 
 #include "test/test_init.h"
 
