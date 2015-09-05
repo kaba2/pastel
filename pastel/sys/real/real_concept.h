@@ -40,22 +40,12 @@ namespace Pastel
 				Type((float)0),
 				//! Constructs from a double.
 				Type((double)0),
-				//! Returns infinity.	
-				/*!
-				See concept.txt on why the requirement cannot be checked.
-				*/
-				//Concept::convertsTo<Type>((Type)Infinity()),
-				//! Returns whether a number is infinity.
-				Concept::convertsTo<bool>(isInfinity(t)),
-				//! Returns whether a number is -infinity.
-				Concept::convertsTo<bool>(isMinusInfinity(t)),
-				//! Returns not-a-number.	
-				/*!
-				See concept.txt on why the requirement cannot be checked.
-				*/
-				//Concept::convertsTo<Type>(nan<Type>()),
-				//! Returns whether a number is not-a-number.
-				Concept::convertsTo<bool>(isNan(t)),
+				//! Constructs from a NaN.
+				Type(Nan()),
+				//! Constructs from an Infinity.
+				Type(Infinity()),
+				//! Constructs from -Infinity.
+				Type(-Infinity()),
 				//! Returns the greatest integer <= that.
 				Concept::convertsTo<Type>(floor(t)),
 				//! Returns the least integer >= that.

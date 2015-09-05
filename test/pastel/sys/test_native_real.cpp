@@ -15,7 +15,7 @@ namespace
 
 		REQUIRE(isInfinity((Type)Infinity()));
 		REQUIRE(isMinusInfinity(-(Type)Infinity()));
-		REQUIRE(isNan(nan<Type>()));
+		REQUIRE(isNan((Type)Nan()));
 		REQUIRE(inverse((Type)5) == 1 / (Type)5);
 
 		REQUIRE(negative((Type)-1));

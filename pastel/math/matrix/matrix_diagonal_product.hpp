@@ -18,7 +18,7 @@ namespace Pastel
 
 		if (minSize == 0)
 		{
-			return nan<Real>();
+			return (Real)Nan();
 		}
 
 		Real result = matrix(0, 0);

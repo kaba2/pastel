@@ -19,38 +19,6 @@ namespace Pastel
 
 	// Real
 
-	template <
-		typename Type, 
-		Requires<std::is_floating_point<Type>> = 0>
-	bool isInfinity(const Type& that)
-	{
-		return that == std::numeric_limits<Type>::infinity();
-	}
-
-	template <
-		typename Type, 
-		Requires<std::is_floating_point<Type>> = 0>
-	bool isMinusInfinity(const Type& that)
-	{
-		return that == -std::numeric_limits<Type>::infinity();
-	}
-
-	template <
-		typename Type, 
-		Requires<std::is_floating_point<Type>> = 0>
-	Type nan()
-	{
-		return std::numeric_limits<Type>::quiet_NaN();
-	}
-
-	template <
-		typename Type, 
-		Requires<std::is_floating_point<Type>> = 0>
-	bool isNan(const Type& that)
-	{
-		return that != that;
-	}
-
 	using std::floor;
 	using std::ceil;
 

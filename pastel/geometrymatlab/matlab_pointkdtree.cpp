@@ -221,7 +221,7 @@ namespace Pastel
 					std::fill(
 						pointSet.columnBegin(i),
 						pointSet.columnEnd(i),
-						nan<real>());
+						(real)Nan());
 				}
 			}
 		}

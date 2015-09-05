@@ -13,7 +13,7 @@ namespace Pastel
 	/*!
 	returns:
 	The diagonal product, if the matrix is not empty,
-	nan<Real>() otherwise.
+	(Real)Nan() otherwise.
 	*/
 	template <typename Real, typename Expression>
 	Real diagonalProduct(

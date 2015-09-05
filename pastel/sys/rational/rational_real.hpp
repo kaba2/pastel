@@ -25,7 +25,7 @@ namespace Pastel
 			case NumberType::MinusInfinity:
 				return -Infinity();
 			case NumberType::Nan:
-				return nan<Real>();
+				return (Real)Nan();
 			default:
 				// Fall-through
 				;

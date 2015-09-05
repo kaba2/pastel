@@ -13,8 +13,8 @@ namespace Pastel
 	template <typename Real, typename Real_ConstRange>
 	Real gaussianKolmogorovSmirnov(
 		const Real_ConstRange& input,
-		NoDeduction<Real> mean = nan<Real>(),
-		NoDeduction<Real> deviation = nan<Real>());
+		NoDeduction<Real> mean = (Real)Nan(),
+		NoDeduction<Real> deviation = (Real)Nan());
 
 }
 

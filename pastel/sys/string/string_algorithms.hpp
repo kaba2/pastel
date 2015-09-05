@@ -280,7 +280,7 @@ namespace Pastel
 		integer trimmed = 0;
 		std::string nText = lowercase(ltrim(text, &trimmed));
 
-		real result = nan<real>();
+		real result = (real)Nan();
 		integer matchSize = trimmed;
 		bool foundMatch = false;
 		bool positive = true;
@@ -300,7 +300,7 @@ namespace Pastel
 		if (startsWith(nText, "nan"))
 		{
 			matchSize += 3;
-			result = nan<real>();
+			result = (real)Nan();
 			foundMatch = true;
 		}
 		else if (startsWith(nText, "inf"))

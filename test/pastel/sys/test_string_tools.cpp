@@ -28,7 +28,7 @@ TEST_CASE("realToString (string_algorithms)")
 {
 	REQUIRE(realToString((real)Infinity()) == "inf");
 	REQUIRE(realToString(-(real)Infinity()) == "-inf");
-	REQUIRE(realToString(nan<real>()) == "nan");
+	REQUIRE(realToString((real)Nan()) == "nan");
 	REQUIRE(realToString(123) == "123");
 	REQUIRE(realToString(-123) == "-123");
 }
