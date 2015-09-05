@@ -36,8 +36,8 @@ namespace Pastel
 
 		// "If the destination type is signed, the value is 
 		// unchanged if it can be represented in the destination 
-		// type (and bit-ﬁeld width); otherwise, the value is 
-		// implementation-deﬁned."
+		// type (and bit-field width); otherwise, the value is 
+		// implementation-defined."
 
 		// "Unsigned integers, declared unsigned, shall obey the 
 		// laws of arithmetic modulo 2^n where n is the number of 
