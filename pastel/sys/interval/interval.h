@@ -20,8 +20,8 @@ namespace Pastel
 
 		//! Constructs [oo, -oo]
 		Interval()
-		: min_(infinity<Real>())
-		, max_(-infinity<Real>())
+		: min_((Real)Infinity())
+		, max_(-(Real)Infinity())
 		{
 		}
 

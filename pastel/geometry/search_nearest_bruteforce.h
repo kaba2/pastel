@@ -53,7 +53,7 @@ namespace Pastel
 	neighbors in order of increasing distance. If there
 	are less than 'kNearest' number of neighbors, then
 	the remaining neighbors are reported as
-	report(infinity<Real>(), Point()).
+	report((Real)Infinity(), Point()).
 
 	accept (Indicator(Point) : allIndicator()):
 	An indicator which decides whether to accept a point
@@ -67,7 +67,7 @@ namespace Pastel
 	kNearest (integer : 1):
 	The number k of nearest neighbors to seek for.
 
-	maxDistance2 (Real : infinity<Real>()):
+	maxDistance2 (Real : (Real)Infinity()):
 	A distance after which points aren't considered
 	neighbors. This distance is in terms of the
 	norm bijection. Note: Can be set to infinity.
@@ -80,7 +80,7 @@ namespace Pastel
 	is the distance between 'searchPoint' and the k:th nearest
 	neighbor, in terms of the norm bijection. In case the
 	k:th nearest neighbor does not exist, then 
-	(infinity<Real>(), Point()).
+	((Real)Infinity(), Point()).
 	*/
 	template <
 		typename Settings,
@@ -117,7 +117,7 @@ namespace Pastel
 
 		auto&& report = PASTEL_ARG_S(report, nullOutput());
 		integer kNearest = PASTEL_ARG_S(kNearest, 1);
-		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, infinity<Real>());
+		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, (Real)Infinity());
 
 		ENSURE_OP(kNearest, >=, 0);
 
@@ -133,7 +133,7 @@ namespace Pastel
 		};
 
 		using Result = std::pair<Real, Point>;
-		Result notFound(infinity<Real>(), Point());
+		Result notFound((Real)Infinity(), Point());
 
 		auto pointSet = nearestSet.pointSet();
 		if (pointSet.empty() || kNearest == 0)

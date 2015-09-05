@@ -23,7 +23,7 @@ Practice
 In Pastel, a rectangle is modeled with the `AlignedBox<integer, N>` 
 class using the min-max representation. The minimum point and the 
 maximum point are initialized to [`infinity\<integer\>()`][NativeInteger], 
-and `-infinity<integer>()`, respectively, to represent an empty rectangle.
+and `-(integer)Infinity()`, respectively, to represent an empty rectangle.
 The same class template is used to represent axis-aligned boxes in ''RR^n'',
 by providing a type modeling the [Real][Real] concept. The PastelGeometry 
 library takes [this view further][GeometryBox].

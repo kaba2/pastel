@@ -689,7 +689,7 @@ namespace Pastel
 				// internal compiler error in Clang.
 				auto copyArray = matlabCreateArray<real>(kNearest, queries, outputSet[DistanceSet]);
 				distanceArray.swap(copyArray);
-				boost::fill(distanceArray.range(), infinity<real>());
+				boost::fill(distanceArray.range(), (real)Infinity());
 			}
 
 			using Block = tbb::blocked_range<integer>;

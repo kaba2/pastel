@@ -49,10 +49,6 @@ void testNativeSignedInteger()
 	{
 		Type a = -Infinity();
 		REQUIRE(negative(a));
-
-		Type b = a;
-		--b;
-		REQUIRE(positive(b));
 	}
 }
 

@@ -269,7 +269,7 @@ namespace Pastel
 
 					bool foundSplit = false;
 					Real minPosition = 0;
-					Real minCost = infinity<Real>();
+					Real minCost = (Real)Infinity();
 					integer minAxis = 0;
 
 					integer n = tree.n();

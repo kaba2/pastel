@@ -78,7 +78,7 @@ namespace Pastel
 		// with the set flat.
 
 		integer minMaxDotIndex = 0;
-		Real minMaxDot = infinity<Real>();
+		Real minMaxDot = (Real)Infinity();
 
 		for (integer i = 0;i < dimension;++i)
 		{

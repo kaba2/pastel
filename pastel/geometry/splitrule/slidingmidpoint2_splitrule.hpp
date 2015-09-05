@@ -39,8 +39,8 @@ namespace Pastel
 				return std::make_pair(splitPosition, splitAxis);
 			}
 
-			Real leftMax = -infinity<Real>();
-			Real rightMin = infinity<Real>();
+			Real leftMax = -(Real)Infinity();
+			Real rightMin = (Real)Infinity();
 			integer leftCount = 0;
 			integer rightCount = 0;
 

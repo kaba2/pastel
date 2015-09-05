@@ -101,7 +101,7 @@ TEST_CASE("sphere_area (sphere_area)")
 	};
 
 	REQUIRE(areaUnitSphere<real>(1) == 0);
-	REQUIRE(lnAreaUnitSphere<real>(1) == -infinity<real>());
+	REQUIRE(lnAreaUnitSphere<real>(1) == -(real)Infinity());
 
 	integer elements = sizeof(correctSet) / sizeof(real);
 	for (integer n = 2; n < elements; ++n)

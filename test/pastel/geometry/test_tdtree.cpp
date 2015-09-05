@@ -57,7 +57,7 @@ TEST_CASE("Grid (TdTree)")
 	REQUIRE(tree.bound() == 
 		AlignedBox2(Vector2(0, 0), Vector2(4, 4)));
 
-	REQUIRE(tree.timeToIndex(-infinity<real>()) == 0);
+	REQUIRE(tree.timeToIndex(-(real)Infinity()) == 0);
 	REQUIRE(tree.timeToIndex(-2) == 0);
 	REQUIRE(tree.timeToIndex(-1) == 0);
 	REQUIRE(tree.timeToIndex(-0.5) == 0);
@@ -68,7 +68,7 @@ TEST_CASE("Grid (TdTree)")
 	REQUIRE(tree.timeToIndex(24.5) == 25);
 	REQUIRE(tree.timeToIndex(25.5) == 25);
 	REQUIRE(tree.timeToIndex(26) == 25);
-	REQUIRE(tree.timeToIndex(infinity<real>()) == 25);
+	REQUIRE(tree.timeToIndex((real)Infinity()) == 25);
 
 	std::unordered_set<ConstIterator, IteratorAddress_Hash> neighborSet;
 

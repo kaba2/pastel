@@ -73,7 +73,7 @@ namespace Pastel
 		for (auto&& aVertex : aSet)
 		{
 			aVertex.pair = B_Sentinel;
-			aVertex.distance = infinity<integer>();
+			aVertex.distance = (integer)Infinity();
 		}
 
 		A_Vertex& aSentinel = aSet[A_Sentinel];
@@ -134,12 +134,12 @@ namespace Pastel
 					// if 'a' cannot be reached from 
 					// an unpaired vertex of A, or it takes
 					// too many steps.
-					aSet[a].distance = infinity<integer>();
+					aSet[a].distance = (integer)Infinity();
 				}
 			}
 
 			// Mark the A-sentinel distance as not computed yet.
-			aSentinel.distance = infinity<integer>();
+			aSentinel.distance = (integer)Infinity();
 			while(!queue.empty())
 			{
 				integer a = queue.front();
@@ -166,7 +166,7 @@ namespace Pastel
 					// Using < instead of != here triggers 
 					// a bug in Visual Studio 2015 RC, in which
 					// the compiler hangs.
-					if (aSet[aNext].distance != infinity<integer>())
+					if (aSet[aNext].distance != (integer)Infinity())
 					{
 						// The distance to 'aNext' has already been
 						// computed.
@@ -190,7 +190,7 @@ namespace Pastel
 
 			// Return whether the A-sentinel was reached or not.
 			// Using < here instead of != triggers a bug in g++ 5.1.0.
-			return aSentinel.distance != infinity<integer>();
+			return aSentinel.distance != (integer)Infinity();
 		};
 
 		// Using the distances computed by 'computeDistances',
@@ -217,7 +217,7 @@ namespace Pastel
 			{
 				PENSURE_RANGE(b, 0, nB);
 				// This line triggers a bug in Visual Studio 2015 RC.
-				//ASSERT(aSet[a].distance < infinity<integer>());
+				//ASSERT(aSet[a].distance < (integer)Infinity());
 
 				bool UserStoppedCallingWhenRequested = !foundPath;
 				PENSURE(UserStoppedCallingWhenRequested);
@@ -255,7 +255,7 @@ namespace Pastel
 			{
 				// Mark 'aStart' so that it will not be
 				// searched again.
-				aSet[a].distance = infinity<integer>();
+				aSet[a].distance = (integer)Infinity();
 			}
 
 			return foundPath;

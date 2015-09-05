@@ -78,8 +78,8 @@ namespace Pastel
 	Exception safety: strong
 
 	Special meanings:
-	inf, +inf: infinity<real>()
-	-inf: -infinity<real>()
+	inf, +inf: (real)Infinity()
+	-inf: -(real)Infinity()
 	nan, +nan, -nan: nan<real>()	
 	*/
 	real stringToReal(const std::string& text, 

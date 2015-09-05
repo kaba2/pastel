@@ -12,14 +12,6 @@ namespace Pastel
 	template <
 		typename Type, 
 		Requires<IsTemplateInstance<Type, Rational>> = 0>
-	Type infinity()
-	{
-		return Type(1, 0);
-	}
-
-	template <
-		typename Type, 
-		Requires<IsTemplateInstance<Type, Rational>> = 0>
 	Type nan()
 	{
 		return Type(0, 0);

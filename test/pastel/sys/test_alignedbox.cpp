@@ -11,7 +11,7 @@ TEST_CASE("1d (AlignedBox)")
 {
 	AlignedBox<Real_, 1> a;
 	{
-		REQUIRE(a.width() == -infinity<Real_>());
+		REQUIRE(a.width() == -(Real_)Infinity());
 	}
 
 	a.set(1, 2);
@@ -26,8 +26,8 @@ TEST_CASE("2d (AlignedBox)")
 {
 	AlignedBox<Real_, 2> a;
 	{
-		REQUIRE(a.width() == -infinity<Real_>());
-		REQUIRE(a.height() == -infinity<Real_>());
+		REQUIRE(a.width() == -(Real_)Infinity());
+		REQUIRE(a.height() == -(Real_)Infinity());
 	}
 
 	a.set(1, 2, 3, 5);
@@ -45,9 +45,9 @@ TEST_CASE("3d (AlignedBox)")
 {
 	AlignedBox<Real_, 3> a;
 	{
-		REQUIRE(a.width() == -infinity<Real_>());
-		REQUIRE(a.height() == -infinity<Real_>());
-		REQUIRE(a.depth() == -infinity<Real_>());
+		REQUIRE(a.width() == -(Real_)Infinity());
+		REQUIRE(a.height() == -(Real_)Infinity());
+		REQUIRE(a.depth() == -(Real_)Infinity());
 	}
 
 	a.set(1, 2, 3, 5, 7, 9);
@@ -68,9 +68,9 @@ TEST_CASE("4d (AlignedBox)")
 {
 	AlignedBox<Real_, 4> a;
 	{
-		REQUIRE(a.width() == -infinity<Real_>());
-		REQUIRE(a.height() == -infinity<Real_>());
-		REQUIRE(a.depth() == -infinity<Real_>());
+		REQUIRE(a.width() == -(Real_)Infinity());
+		REQUIRE(a.height() == -(Real_)Infinity());
+		REQUIRE(a.depth() == -(Real_)Infinity());
 	}
 
 	a.set(1, 2, 3, 4, 5, 7, 9, 11);

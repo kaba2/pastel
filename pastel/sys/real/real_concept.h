@@ -44,7 +44,7 @@ namespace Pastel
 				/*!
 				See concept.txt on why the requirement cannot be checked.
 				*/
-				//Concept::convertsTo<Type>(infinity<Type>()),
+				//Concept::convertsTo<Type>((Type)Infinity()),
 				//! Returns whether a number is infinity.
 				Concept::convertsTo<bool>(isInfinity(t)),
 				//! Returns whether a number is -infinity.

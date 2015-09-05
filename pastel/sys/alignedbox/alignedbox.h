@@ -37,8 +37,8 @@ namespace Pastel
 
 		//! Constructs a unit box centered at the origin.
 		explicit AlignedBox(integer dimension = N)
-			: min_(Dimension(dimension), infinity<Real>())
-			, max_(Dimension(dimension), -infinity<Real>())
+			: min_(Dimension(dimension), (Real)Infinity())
+			, max_(Dimension(dimension), -(Real)Infinity())
 			, minTopology_(ofDimension(dimension), Topology::Closed)
 			, maxTopology_(ofDimension(dimension), Topology::Open)
 		{

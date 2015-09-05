@@ -23,7 +23,7 @@ namespace Pastel
 		// Using default assignment.
 
 		explicit MultiQuadric_Rbf(real beta = 1)
-			: Filter(infinity<real>(), "multiquadric")
+			: Filter((real)Infinity(), "multiquadric")
 			, beta_(beta)
 		{
 		}

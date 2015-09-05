@@ -123,7 +123,7 @@ namespace Pastel
 		-> std::pair<Real, Real>
 	{
 		std::pair<Real, Real> bound(
-			infinity<Real>(), -infinity<Real>());
+			(Real)Infinity(), -(Real)Infinity());
 
 		Point_ConstIterator iter = begin;
 		Point_ConstIterator iterEnd = end;
@@ -327,8 +327,8 @@ namespace Pastel
 		node->setFirst(pointSet_.end());
 		node->setLast(pointSet_.end());
 		node->setPoints(0);
-		node->setMin(infinity<Real>());
-		node->setMax(-infinity<Real>());
+		node->setMin((Real)Infinity());
+		node->setMax(-(Real)Infinity());
 
 		if (!node->leaf())
 		{

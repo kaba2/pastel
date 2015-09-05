@@ -77,8 +77,8 @@ namespace Pastel
 		Real& min,
 		Real& max)
 	{
-		min = infinity<Real>();
-		max = -infinity<Real>();
+		min = (Real)Infinity();
+		max = -(Real)Infinity();
 
 		PackRange_::MinMaxFunctor<Real> minMaxFunctor(min, max);
 		visit(image, minMaxFunctor);

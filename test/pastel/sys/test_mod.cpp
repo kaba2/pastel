@@ -58,9 +58,9 @@ TEST_CASE("UnsignedMod (mod)")
 
 TEST_CASE("-infinity (mod)")
 {
-	REQUIRE(mod(-infinity<integer>() - 1, (integer)4) == 0);
-	REQUIRE(mod(-infinity<integer>() - 1 + 1, (integer)4) == 1);
-	REQUIRE(mod(-infinity<integer>() - 1 + 2, (integer)4) == 2);
-	REQUIRE(mod(-infinity<integer>() - 1 + 3, (integer)4) == 3);
-	REQUIRE(mod(-infinity<integer>() - 1 + 4, (integer)4) == 0);
+	REQUIRE(mod(-(integer)Infinity() - 1, (integer)4) == 0);
+	REQUIRE(mod(-(integer)Infinity() - 1 + 1, (integer)4) == 1);
+	REQUIRE(mod(-(integer)Infinity() - 1 + 2, (integer)4) == 2);
+	REQUIRE(mod(-(integer)Infinity() - 1 + 3, (integer)4) == 3);
+	REQUIRE(mod(-(integer)Infinity() - 1 + 4, (integer)4) == 0);
 }

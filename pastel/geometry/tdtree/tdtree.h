@@ -132,7 +132,7 @@ namespace Pastel
 		, simple_(true)
 		, bound_(pointSetDimension(pointSet))
 		{
-			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalSet(Real(0), infinity<Real>()));
+			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalSet(Real(0), (Real)Infinity()));
 			auto&& splitRule = PASTEL_ARG_S(splitRule, LongestMedian_SplitRule());
 				
 			enum : bool
@@ -145,7 +145,7 @@ namespace Pastel
 			std::vector<Iterator> iteratorSet;
 
 			integer n = pointSet.n();
-			if (n < infinity<integer>())
+			if (n < (integer)Infinity())
 			{
 				iteratorSet.reserve(n);
 				pointSet_.reserve(n);
@@ -308,13 +308,13 @@ namespace Pastel
 		//! Returns all points.
 		/*!
 		This is a convenience function which returns
-		pointSet(-infinity<Real>(), infinity<Real>()).
+		pointSet(-(Real)Infinity(), (Real)Infinity()).
 		*/
 		decltype(auto) pointSet() const
 		{
 			return pointSet(
-				-infinity<Real>(),
-				infinity<Real>());
+				-(Real)Infinity(),
+				(Real)Infinity());
 		}
 
 		//! Returns all points in the time-interval [tMin, tMax[.

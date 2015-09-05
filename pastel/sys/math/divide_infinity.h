@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	//! Returns floor((infinity<Integer>() + 1) / n).
+	//! Returns floor(((Integer)Infinity() + 1) / n).
 	/*!
 	Preconditions:
 	n >= 2

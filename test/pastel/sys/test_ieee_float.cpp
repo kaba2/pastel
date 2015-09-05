@@ -68,14 +68,14 @@ namespace
 		REQUIRE(t(true, -3, oneHalf, (Type)-1.5 / 8));
 		REQUIRE(t(true, -4, oneHalf, (Type)-1.5 / 16));
 
-		REQUIRE(t(false, 1000000, 0, infinity<Type>()));
-		REQUIRE(t(true, 1000000, 0, -infinity<Type>()));
+		REQUIRE(t(false, 1000000, 0, (Type)Infinity()));
+		REQUIRE(t(true, 1000000, 0, -(Type)Infinity()));
 
 		REQUIRE(t(false, -1000000, 0, 0));
 		REQUIRE(t(true, -1000000, 0, 0));
 
-		REQUIRE(t(false, 1000000, oneHalf, infinity<Type>()));
-		REQUIRE(t(true, 1000000, oneHalf, -infinity<Type>()));
+		REQUIRE(t(false, 1000000, oneHalf, (Type)Infinity()));
+		REQUIRE(t(true, 1000000, oneHalf, -(Type)Infinity()));
 
 		REQUIRE(t(false, -1000000, oneHalf, 0));
 		REQUIRE(t(true, -1000000, oneHalf, 0));

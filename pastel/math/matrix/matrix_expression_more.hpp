@@ -74,7 +74,7 @@ namespace Pastel
 
 		Real operator[](integer index) const
 		{
-			Real minValue = infinity<Real>();
+			Real minValue = (Real)Infinity();
 			integer n = data_.height();
 			
 			for (integer i = 0;i < n;++i)
@@ -129,7 +129,7 @@ namespace Pastel
 
 		Real operator[](integer index) const
 		{
-			Real maxValue = -infinity<Real>();
+			Real maxValue = -(Real)Infinity();
 			integer n = data_.height();
 			
 			for (integer i = 0;i < n;++i)

@@ -22,10 +22,10 @@ namespace
 		REQUIRE(nextSmaller(minusZero) < 0);
 		REQUIRE(nextGreater((Type)-1) > -1);
 		REQUIRE(nextSmaller((Type)-1) < -1);
-		REQUIRE(nextGreater(infinity<Type>()) == infinity<Type>());
-		REQUIRE(nextSmaller(infinity<Type>()) == infinity<Type>());
-		REQUIRE(nextGreater(-infinity<Type>()) == -infinity<Type>());
-		REQUIRE(nextSmaller(-infinity<Type>()) == -infinity<Type>());
+		REQUIRE(nextGreater((Type)Infinity()) == (Type)Infinity());
+		REQUIRE(nextSmaller((Type)Infinity()) == (Type)Infinity());
+		REQUIRE(nextGreater(-(Type)Infinity()) == -(Type)Infinity());
+		REQUIRE(nextSmaller(-(Type)Infinity()) == -(Type)Infinity());
 		REQUIRE(isNan(nextSmaller(nan<Type>())));
 	}
 

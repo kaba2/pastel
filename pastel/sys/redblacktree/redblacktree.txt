@@ -93,7 +93,7 @@ Name                             | Propagation type | Propagation function      
 ---------------------------------|------------------|-------------------------------------------------------------------------------------------------|---------------------
 Number of elements in a subtree  | `integer`        | `node.left().propagation() + 1 + node.right().propagation()`                                    | `0`
 The sum of keys in a subtree     | `Key`            | `node.left().propagation() + node.key() + node.right().propagation()`                           | `0`
-The maximum of keys in a subtree | `Key`            | `std::max(std::max(node.left().propagation(), node.right().propagation()), node.propagation())` | `-infinity<Key>()`
+The maximum of keys in a subtree | `Key`            | `std::max(std::max(node.left().propagation(), node.right().propagation()), node.propagation())` | `-(Key)Infinity()`
 Black-height of a node           | `integer`        | `node.left().propagation() + node.black()`                                                      | `0`
 
 The number of elements in a subtree can be used to find any quantile in ''O(log(n))'' time. The sum of keys in a subtree can be used to draw a random sample from any finite distribution with `n` values in ''O(log(n))'' time. Computing the black-height is useful for testing the implementation of the red-black tree. 

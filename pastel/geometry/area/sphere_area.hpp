@@ -23,7 +23,7 @@ namespace Pastel
 		if (n == 1)
 		{
 			// log(0) = -infinity
-			return -infinity<Real>();
+			return -(Real)Infinity();
 		}
 
 		return std::log((Real)n) + lnVolumeUnitSphere<Real>(n);
