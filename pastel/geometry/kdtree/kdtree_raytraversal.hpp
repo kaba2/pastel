@@ -77,7 +77,7 @@ namespace Pastel
 				Cursor farChild;
 				stack.push_back(StackElement(tree.root(), tHit[0], tHit[1]));
 
-				Real tClosest = (Real)Infinity();
+				Real tClosest = Infinity();
 				ConstObjectIterator iterClosest = tree.end();
 
 				while(!stack.empty())
