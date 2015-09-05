@@ -50,6 +50,9 @@ void testNativeSignedInteger()
 		Type a = -Infinity();
 		REQUIRE(negative(a));
 	}
+
+	Type c = infinity<Type>();
+	REQUIRE(c == (Type)Infinity());
 }
 
 TEST_CASE("Native signed (infinity)")
@@ -69,6 +72,9 @@ void testNativeUnsignedInteger()
 	Type b = a;
 	++b;
 	REQUIRE(zero(b));
+
+	Type c = infinity<Type>();
+	REQUIRE(c == (Type)Infinity());
 }
 
 TEST_CASE("Native unsigned (infinity)")
