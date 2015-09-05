@@ -1,6 +1,8 @@
 Some C++ traps
 ==============
 
+[[Parent]]: techniques.txt
+
 This sections contains some C++ traps I encounter now and then.
 
 Initializer list does not match a free template parameter

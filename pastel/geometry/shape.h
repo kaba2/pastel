@@ -1,7 +1,7 @@
-// Description: An aggregate file for geometric shapes
+// Description: Shape module
 
-#ifndef PASTELGEOMETRY_SHAPES_H
-#define PASTELGEOMETRY_SHAPES_H
+#ifndef PASTELGEOMETRY_SHAPE_H_MODULE
+#define PASTELGEOMETRY_SHAPE_H_MODULE
 
 #include "pastel/geometry/shape/alignedbox.h"
 #include "pastel/geometry/shape/box.h"
