@@ -29,10 +29,6 @@ namespace Pastel
 		left.swap(right);
 	}
 
-	// The infinity() function had to be declared
-	// before the MultiInteger class, because the
-	// class uses it.
-
 	//! Returns whether 'that' is odd.
 	/*!
 	Time complexity: O(1)

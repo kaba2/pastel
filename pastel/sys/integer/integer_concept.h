@@ -74,7 +74,7 @@ namespace Pastel
 				We cannot check this requirement due to a limitation
 				in concept checking.
 				*/
-				//Concept::convertsTo<Type>(infinity<Type>())
+				//Concept::convertsTo<Type>((Type)Infinity())
 				//! Returns the number in scientific notation.
 				Concept::convertsTo<ScientificNotation>(asScientific(t))
 			)

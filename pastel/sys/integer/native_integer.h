@@ -54,14 +54,6 @@ namespace Pastel
 	template <
 		typename Type, 
 		Requires<std::is_integral<Type>> = 0>
-	Type infinity()
-	{
-		return std::numeric_limits<Type>::max();
-	}
-
-	template <
-		typename Type, 
-		Requires<std::is_integral<Type>> = 0>
 	ScientificNotation asScientific(const Type& that)
 	{
 		return ScientificNotation {negative(that), 0, abs(that)};

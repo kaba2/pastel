@@ -25,7 +25,7 @@ TEST_CASE("search_nearest_kdtree (search_nearest_kdtree)")
 		PASTEL_TAG(indicator), allIndicator(),
 		Euclidean_NormBijection<real>(),
 		PASTEL_TAG(searchAlgorithm), DepthFirst_SearchAlgorithm_PointKdTree(),
-		PASTEL_TAG(intervalSequence), Vector2{-infinity<real>(), infinity<real>()},
+		PASTEL_TAG(intervalSequence), Vector2{-(real)Infinity(), (real)Infinity()},
 		PASTEL_TAG(kNearest), 10,
 		PASTEL_TAG(maxDistance2), 10,
 		PASTEL_TAG(maxRelativeError), 0,

@@ -21,9 +21,9 @@ namespace Pastel
 		switch(classify())
 		{
 			case NumberType::Infinity:
-				return infinity<Real>();
+				return (Real)Infinity();
 			case NumberType::MinusInfinity:
-				return -infinity<Real>();
+				return -(Real)Infinity();
 			case NumberType::Nan:
 				return nan<Real>();
 			default:
@@ -200,11 +200,11 @@ namespace Pastel
 		// (n + 1, 1) is better than (n, 1). 
 
 		Real maxError = PASTEL_ARG_S(maxError, 0);
-		Integer nMax = PASTEL_ARG_S(nMax, infinity<Integer>() - 1);
+		Integer nMax = PASTEL_ARG_S(nMax, (Integer)Infinity() - 1);
 
 		ENSURE(maxError >= 0);
 		ENSURE(nMax >= 1);
-		ENSURE(nMax < infinity<Integer>());
+		ENSURE(nMax < (Integer)Infinity());
 
 		Real logAbs = std::log2(abs(that));
 		if (logAbs < -(bits(m()) - 1))
@@ -246,13 +246,13 @@ namespace Pastel
 
 		Real n = floor(that);
 		Rational left = (integer)n;
-		Rational right = infinity<Rational>();
+		Rational right = (Rational)Infinity();
 
 		Rational simplest = *this;
 		bool foundSimplest = false;
 		
 		Rational& best = *this;
-		Real minError = infinity<Real>();
+		Real minError = (Real)Infinity();
 
 		auto consider = [&](const Rational& candidate)
 		{
@@ -290,13 +290,13 @@ namespace Pastel
 			// Avoid overflowing the numerator.
 			Integer kMaxNumerator = 
 				zero(left.m()) 
-				? infinity<Integer>() - 1 
-				: ((infinity<Integer>() - 1) - right.m()) / left.m();
+				? (Integer)Infinity() - 1 
+				: (((Integer)Infinity() - 1) - right.m()) / left.m();
 
 			// Avoid overflowing the divisor.
 			Integer kMaxDivisor =
 				zero(left.n()) 
-				? infinity<Integer>() - 1 
+				? (Integer)Infinity() - 1 
 				: (nMax - right.n()) / left.n();
 
 			Integer kEnd = 

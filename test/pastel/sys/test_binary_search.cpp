@@ -28,15 +28,15 @@ namespace
 		}
 		{
 			Integer a = binarySearch(
-				(Integer)5, (Integer)infinity<Integer>(), [&](Integer n) {return n >= infinity<Integer>() - 1;});
+				(Integer)5, (Integer)(Integer)Infinity(), [&](Integer n) {return n >= (Integer)Infinity() - 1;});
 
-			REQUIRE(a == (Integer)infinity<Integer>() - 1);
+			REQUIRE(a == (Integer)(Integer)Infinity() - 1);
 		}
 		{
 			Integer a = binarySearch(
-				(Integer)5, (Integer)infinity<Integer>(), [&](Integer n) {return false;});
+				(Integer)5, (Integer)(Integer)Infinity(), [&](Integer n) {return false;});
 
-			REQUIRE(a == (Integer)infinity<Integer>());
+			REQUIRE(a == (Integer)(Integer)Infinity());
 		}
 		{
 			Integer min = std::is_signed<Integer>::value ? -128 : 0;
@@ -52,15 +52,15 @@ namespace
 		}
 		{
 			Integer a = exponentialBinarySearch(
-				(Integer)5, (Integer)infinity<Integer>(), [&](Integer n) {return n >= infinity<Integer>() - 1;});
+				(Integer)5, (Integer)(Integer)Infinity(), [&](Integer n) {return n >= (Integer)Infinity() - 1;});
 
-			REQUIRE(a == (Integer)infinity<Integer>() - 1);
+			REQUIRE(a == (Integer)(Integer)Infinity() - 1);
 		}
 		{
 			Integer a = exponentialBinarySearch(
-				(Integer)5, (Integer)infinity<Integer>(), [&](Integer n) {return false;});
+				(Integer)5, (Integer)(Integer)Infinity(), [&](Integer n) {return false;});
 
-			REQUIRE(a == (Integer)infinity<Integer>());
+			REQUIRE(a == (Integer)(Integer)Infinity());
 		}
 	}
 

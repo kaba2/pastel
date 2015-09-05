@@ -59,7 +59,7 @@ namespace Pastel
 		// right shift by a greater amount of bits is undefined. 
 		// In particular, such a right shift may not always be zero.
 		// I hit this problem while testing this function with an
-		// upper-bound of 64 and infinity<integer>().
+		// upper-bound of 64 and (integer)Infinity().
 
 		return binarySearch(
 			(integer)0, bits(that), 

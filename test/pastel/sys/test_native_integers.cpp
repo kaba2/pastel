@@ -33,10 +33,10 @@ namespace
 			}				
 		}
 
-		REQUIRE(integerMean(infinity<Type>(), infinity<Type>()) == infinity<Type>());
+		REQUIRE(integerMean((Type)Infinity(), (Type)Infinity()) == (Type)Infinity());
 		if (std::is_signed<Type>::value)
 		{
-			REQUIRE(integerMean(-infinity<Type>(), -infinity<Type>()) == -infinity<Type>());
+			REQUIRE(integerMean(-(Type)Infinity(), -(Type)Infinity()) == -(Type)Infinity());
 		}
 	}
 
@@ -142,14 +142,14 @@ TEST_CASE("various (native_integer)")
 
 TEST_CASE("Infinity (native_integer)")
 {
-	REQUIRE(infinity<uint8>() == 0xFFu);
-	REQUIRE(infinity<uint16>() == 0xFFFFu);
-	REQUIRE(infinity<uint32>() == 0xFFFFFFFFul);
-	REQUIRE(infinity<uint64>() == 0xFFFFFFFFFFFFFFFFull);
+	REQUIRE((uint8)Infinity() == 0xFFu);
+	REQUIRE((uint16)Infinity() == 0xFFFFu);
+	REQUIRE((uint32)Infinity() == 0xFFFFFFFFul);
+	REQUIRE((uint64)Infinity() == 0xFFFFFFFFFFFFFFFFull);
 
-	REQUIRE(infinity<int8>() == 0x7Fu);
-	REQUIRE(infinity<int16>() == 0x7FFFu);
-	REQUIRE(infinity<int32>() == 0x7FFFFFFFul);
-	REQUIRE(infinity<int64>() == 0x7FFFFFFFFFFFFFFFull);
+	REQUIRE((int8)Infinity() == 0x7Fu);
+	REQUIRE((int16)Infinity() == 0x7FFFu);
+	REQUIRE((int32)Infinity() == 0x7FFFFFFFul);
+	REQUIRE((int64)Infinity() == 0x7FFFFFFFFFFFFFFFull);
 }
 

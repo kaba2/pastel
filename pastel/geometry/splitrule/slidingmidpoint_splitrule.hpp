@@ -40,10 +40,10 @@ namespace Pastel
 				
 			// Sliding mid-point
 
-			Real leftMax = -infinity<Real>();
+			Real leftMax = -(Real)Infinity();
 			integer leftCount = 0;
 
-			Real rightMin = infinity<Real>();
+			Real rightMin = (Real)Infinity();
 			integer rightCount = 0;
 
 			forEach(pointSet, [&](auto&& point)

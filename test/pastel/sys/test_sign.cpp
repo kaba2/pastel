@@ -22,8 +22,8 @@ TEST_CASE("sign (sign)")
 	REQUIRE(sign(0.0f) == 0);
 	REQUIRE(sign(1.0f) == 1);
 
-	REQUIRE(sign(infinity<float>()) == 1);
-	REQUIRE(sign(-infinity<float>()) == -1);
+	REQUIRE(sign((float)Infinity()) == 1);
+	REQUIRE(sign(-(float)Infinity()) == -1);
 	REQUIRE(sign(nan<float>()) == 0);
 	REQUIRE(sign(-0.0f) == 0);
 }

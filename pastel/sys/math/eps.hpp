@@ -63,8 +63,8 @@ namespace Pastel
 		// the input. By the ieee-floating-point, -0 = +0.
 
 		if (isNan(that) ||
-			that == infinity<real64_ieee>() ||
-			that == -infinity<real64_ieee>())
+			that == (real64_ieee)Infinity() ||
+			that == -(real64_ieee)Infinity())
 		{
 			return that;			
 		}
@@ -98,8 +98,8 @@ namespace Pastel
 	inline real64_ieee nextSmaller(real64_ieee that)
 	{
 		if (isNan(that) ||
-			that == infinity<real64_ieee>() ||
-			that == -infinity<real64_ieee>())
+			that == (real64_ieee)Infinity() ||
+			that == -(real64_ieee)Infinity())
 		{
 			return that;			
 		}
@@ -137,8 +137,8 @@ namespace Pastel
 	inline real32_ieee nextGreater(real32_ieee that)
 	{
 		if (isNan(that) ||
-			that == infinity<real32_ieee>() ||
-			that == -infinity<real32_ieee>())
+			that == (real32_ieee)Infinity() ||
+			that == -(real32_ieee)Infinity())
 		{
 			return that;			
 		}
@@ -172,8 +172,8 @@ namespace Pastel
 	inline real32_ieee nextSmaller(real32_ieee that)
 	{
 		if (isNan(that) ||
-			that == infinity<real32_ieee>() ||
-			that == -infinity<real32_ieee>())
+			that == (real32_ieee)Infinity() ||
+			that == -(real32_ieee)Infinity())
 		{
 			return that;			
 		}

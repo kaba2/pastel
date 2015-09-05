@@ -55,9 +55,9 @@ namespace Pastel
 
 	maxDistance2 (Real >= 0):
 	The distance after which points are not considered neighbors
-	anymore. Can be set to infinity<Real>(). This distance
+	anymore. Can be set to (Real)Infinity(). This distance
 	is in terms of the used norm bijection.
-	Default: infinity<Real>()
+	Default: (Real)Infinity()
 
 	maxRelativeError (Real >= 0):
 	Maximum allowed relative error in the distance of the 
@@ -89,7 +89,7 @@ namespace Pastel
 	time-intervals [t_1, t_2), [t_3, t_4), ...
 	If the number of time-instants is odd, then
 	the sequence is implicitly appended 
-	infinity<Real>().
+	(Real)Infinity().
 
 	returns (std::pair<Real, Point_ConstIterator>)
 	----------------------------------------------
@@ -97,7 +97,7 @@ namespace Pastel
 	The first element is the distance 
 	(in terms of the norm bijection) to the k:th 
 	nearest neighbor. If the k:th nearest neighbor 
-	does not exist, infinity<Real>().
+	does not exist, (Real)Infinity().
 	
 	The second element is the k:th nearest neighbor. 
 	If the k:th nearest neighbor does not exist, kdTree.end().
@@ -153,7 +153,7 @@ namespace Pastel
 		auto&& timeIntervalSequence = 
 			PASTEL_ARG(
 				intervalSequence, 
-				[]() {return Vector<Real, 2>({-infinity<Real>(), infinity<Real>()});},
+				[]() {return Vector<Real, 2>({-(Real)Infinity(), (Real)Infinity()});},
 				[](auto input) {return Models<decltype(input), Point_Concept>();}
 			);
 
@@ -165,7 +165,7 @@ namespace Pastel
 			);
 
 		integer kNearest = PASTEL_ARG_S(kNearest, 1);
-		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, infinity<Real>());
+		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, (Real)Infinity());
 		Real maxRelativeError = PASTEL_ARG_S(maxRelativeError, 0);
 		integer nBruteForce = PASTEL_ARG_S(nBruteForce, 16);
 		bool reportMissing = PASTEL_ARG_S(reportMissing, false);
@@ -182,7 +182,7 @@ namespace Pastel
 		Real nodeCullDistance2 = cullDistance2 * errorFactor;
 
 		using Result = std::pair<Real, Point_ConstIterator>;
-		Result notFound(infinity<Real>(), kdTree.end());
+		Result notFound((Real)Infinity(), kdTree.end());
 
 		if (kNearest == 0 ||
 			kdTree.empty() ||
@@ -242,7 +242,7 @@ namespace Pastel
 
 				Real farthestDistance2 = 
 					resultSet.empty() ? 
-					infinity<Real>() :
+					(Real)Infinity() :
 					std::prev(resultSet.end())->first;
 				if (distance2 < farthestDistance2)
 				{
@@ -279,7 +279,7 @@ namespace Pastel
 			// There are less than k candidate elements;
 			// we cannot yet reject any points based
 			// on distance.
-			return infinity<Real>();
+			return (Real)Infinity();
 		};
 
 		// This is the condition for keeping computing

@@ -42,7 +42,7 @@ namespace Pastel
 			//
 			//     floor(2^w / n) = a = floor((2^w - 1) / n).
 
-			return infinity<Integer>() / n;
+			return (Integer)Infinity() / n;
 		}
 
 		// Suppose n is even. Then
@@ -51,7 +51,7 @@ namespace Pastel
 		//   = floor(2^{w - 1} / (n / 2))
 		//   = floor([floor((2^w - 1) / 2) + 1] / (n / 2))
 
-		return ((infinity<Integer>() >> 1) + 1) / (n >> 1);
+		return (((Integer)Infinity() >> 1) + 1) / (n >> 1);
 	}
 
 }

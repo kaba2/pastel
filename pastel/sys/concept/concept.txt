@@ -219,7 +219,7 @@ Function templates without parameters are not dependent names, and so cannot be 
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				Concept::convertsTo<Type>(infinity<Type>())
+				Concept::convertsTo<Type>((Type)Infinity())
 			)
 		);
 	};

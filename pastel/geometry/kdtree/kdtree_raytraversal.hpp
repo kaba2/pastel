@@ -77,7 +77,7 @@ namespace Pastel
 				Cursor farChild;
 				stack.push_back(StackElement(tree.root(), tHit[0], tHit[1]));
 
-				Real tClosest = infinity<Real>();
+				Real tClosest = (Real)Infinity();
 				ConstObjectIterator iterClosest = tree.end();
 
 				while(!stack.empty())
@@ -152,8 +152,8 @@ namespace Pastel
 						const Real t = (splitPosition - ray.position()[splitAxis]) *
 							ray.inverseDirection()[splitAxis];
 
-						ASSERT(t != infinity<Real>());
-						ASSERT(t != -infinity<Real>());
+						ASSERT(t != (Real)Infinity());
+						ASSERT(t != -(Real)Infinity());
 
 						stack.push_back(StackElement(farChild, t, tMax));
 

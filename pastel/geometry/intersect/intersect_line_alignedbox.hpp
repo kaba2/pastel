@@ -19,8 +19,8 @@ namespace Pastel
 	{
 		PENSURE_OP(line.n(), ==, alignedBox.n());
 
-		Real tMin = -infinity<Real>();
-		Real tMax = infinity<Real>();
+		Real tMin = -(Real)Infinity();
+		Real tMax = (Real)Infinity();
 
 		AlignedBox<Real, N> testAlignedBox = 
 			alignedBox - line.position();

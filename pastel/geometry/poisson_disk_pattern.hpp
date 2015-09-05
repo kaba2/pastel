@@ -38,7 +38,7 @@ namespace Pastel
 
 			void operator()(const Vector<Real, N>& point) const
 			{
-				if (validNewPoint_ && point.x() != infinity<Real>())
+				if (validNewPoint_ && point.x() != (Real)Infinity())
 				{
 					Vector<Real, N> delta = newPoint_ - point;
 					if (dot(delta) < minDistance2_)
@@ -101,7 +101,7 @@ namespace Pastel
 
 		//const Vector<integer, N> voxels = ceil(windowDelta * invDiagonal);
 
-		Array<Vector<Real, N>, N> grid(extent + 1, Vector<Real, N>(infinity<Real>()));
+		Array<Vector<Real, N>, N> grid(extent + 1, Vector<Real, N>((Real)Infinity()));
 		AlignedBox<integer, N> gridWindow(Vector<integer, N>(0), extent);
 
 		std::vector<Vector<integer, N> > activeSet;

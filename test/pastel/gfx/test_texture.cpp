@@ -304,7 +304,7 @@ namespace
 		const std::string& testName,
 		const std::string& name)
 	{
-		real yMax = -infinity<real>();
+		real yMax = -(real)Infinity();
 		for (integer i = 0;i < 4;++i)
 		{
 			if (quad[i].y() > yMax)

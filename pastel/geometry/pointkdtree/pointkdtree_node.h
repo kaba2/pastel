@@ -30,8 +30,8 @@ namespace Pastel
 			, points_(points)
 			, splitAxis_(splitAxis)
 			, splitPosition_(splitPosition)
-			, min_(infinity<Real>())
-			, max_(-infinity<Real>())
+			, min_((Real)Infinity())
+			, max_(-(Real)Infinity())
 		{
 			ASSERT_OP(points, >=, 0);
 			ASSERT_OP(splitAxis, >=, 0);

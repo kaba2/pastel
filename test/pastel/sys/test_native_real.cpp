@@ -13,8 +13,8 @@ namespace
 	{
 		PASTEL_CONCEPT_CHECK(Type, Real_Concept);
 
-		REQUIRE(isInfinity(infinity<Type>()));
-		REQUIRE(isMinusInfinity(-infinity<Type>()));
+		REQUIRE(isInfinity((Type)Infinity()));
+		REQUIRE(isMinusInfinity(-(Type)Infinity()));
 		REQUIRE(isNan(nan<Type>()));
 		REQUIRE(inverse((Type)5) == 1 / (Type)5);
 

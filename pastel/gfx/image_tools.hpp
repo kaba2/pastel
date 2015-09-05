@@ -114,8 +114,8 @@ namespace Pastel
 	void scaleGrayscaleImage(
 		const View<N, real32, Image_View>& image)
 	{
-		real32 min = infinity<real32>();
-		real32 max = -infinity<real32>();
+		real32 min = (real32)Infinity();
+		real32 max = -(real32)Infinity();
 
 		ScaleGrayScaleImage_::MinMaxVisitor<real32> minMaxVisitor(min, max);
 

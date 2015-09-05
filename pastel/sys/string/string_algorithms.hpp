@@ -306,7 +306,7 @@ namespace Pastel
 		else if (startsWith(nText, "inf"))
 		{
 			matchSize += 3;
-			result = infinity<real>();
+			result = (real)Infinity();
 			foundMatch = true;
 		}
 		else
@@ -381,11 +381,11 @@ namespace Pastel
 	inline std::string realToString(real number,
 		integer digits)
 	{
-		if (number == infinity<real>())
+		if (number == (real)Infinity())
 		{
 			return std::string("inf");
 		}
-		else if (number == -infinity<real>())
+		else if (number == -(real)Infinity())
 		{
 			return std::string("-inf");
 		}

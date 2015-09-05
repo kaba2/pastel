@@ -22,8 +22,8 @@ namespace
 	template <typename Real>
 	void testAsReal()
 	{
-		REQUIRE(Rat(1, 0).asReal<Real>() == infinity<Real>());
-		REQUIRE(Rat(-1, 0).asReal<Real>() == -infinity<Real>());
+		REQUIRE(Rat(1, 0).asReal<Real>() == (Real)Infinity());
+		REQUIRE(Rat(-1, 0).asReal<Real>() == -(Real)Infinity());
 		REQUIRE(isNan(Rat(0, 0).asReal<Real>()));
 		REQUIRE(Rat(1, 8).asReal<Real>() == (Real)1 / 8);
 		REQUIRE(Rat(22, 7).asReal<Real>() == (Real)22 / 7);
@@ -121,51 +121,51 @@ TEST_CASE("Classify (Rational)")
 {
 	{
 		REQUIRE(!negative(-nan<Rat>()));
-		REQUIRE(negative(-infinity<Rat>()));
+		REQUIRE(negative(-(Rat)Infinity()));
 		REQUIRE(negative(Rat(-2)));
 		REQUIRE(negative(Rat(-1)));
 		REQUIRE(!negative(Rat(0)));
 		REQUIRE(!negative(Rat(1)));
 		REQUIRE(!negative(Rat(2)));
-		REQUIRE(!negative(infinity<Rat>()));
+		REQUIRE(!negative((Rat)Infinity()));
 		REQUIRE(!negative(nan<Rat>()));
 	}
 	{
 		REQUIRE(!positive(-nan<Rat>()));
-		REQUIRE(!positive(-infinity<Rat>()));
+		REQUIRE(!positive(-(Rat)Infinity()));
 		REQUIRE(!positive(Rat(-2)));
 		REQUIRE(!positive(Rat(-1)));
 		REQUIRE(!positive(Rat(0)));
 		REQUIRE(positive(Rat(1)));
 		REQUIRE(positive(Rat(2)));
-		REQUIRE(positive(infinity<Rat>()));
+		REQUIRE(positive((Rat)Infinity()));
 		REQUIRE(!positive(nan<Rat>()));
 	}
 	{
 		REQUIRE(!zero(-nan<Rat>()));
-		REQUIRE(!zero(-infinity<Rat>()));
+		REQUIRE(!zero(-(Rat)Infinity()));
 		REQUIRE(!zero(Rat(-2)));
 		REQUIRE(!zero(Rat(-1)));
 		REQUIRE(zero(Rat(0)));
 		REQUIRE(!zero(Rat(1)));
 		REQUIRE(!zero(Rat(2)));
-		REQUIRE(!zero(infinity<Rat>()));
+		REQUIRE(!zero((Rat)Infinity()));
 		REQUIRE(!zero(nan<Rat>()));
 	}
 	{
 		REQUIRE(!-nan<Rat>().isInfinity());
-		REQUIRE(!(-infinity<Rat>()).isInfinity());
+		REQUIRE(!(-(Rat)Infinity()).isInfinity());
 		REQUIRE(!Rat(-2).isInfinity());
 		REQUIRE(!Rat(-1).isInfinity());
 		REQUIRE(!Rat(0).isInfinity());
 		REQUIRE(!Rat(1).isInfinity());
 		REQUIRE(!Rat(2).isInfinity());
-		REQUIRE(infinity<Rat>().isInfinity());
+		REQUIRE(((Rat)Infinity()).isInfinity());
 		REQUIRE(!nan<Rat>().isInfinity());
 	}
 	{
 		REQUIRE((-nan<Rat>()).isNan());
-		REQUIRE(!-infinity<Rat>().isNan());
+		REQUIRE(!(-(Rat)Infinity()).isNan());
 		REQUIRE(!Rat(-2).isNan());
 		REQUIRE(!Rat(-1).isNan());
 		REQUIRE(!Rat(0).isNan());
@@ -175,13 +175,13 @@ TEST_CASE("Classify (Rational)")
 	}
 	{
 		REQUIRE(!-nan<Rat>().isInteger());
-		REQUIRE(!-infinity<Rat>().isInteger());
+		REQUIRE(!(-(Rat)Infinity()).isInteger());
 		REQUIRE(Rat(-2).isInteger());
 		REQUIRE(Rat(-1).isInteger());
 		REQUIRE(Rat(0).isInteger());
 		REQUIRE(Rat(1).isInteger());
 		REQUIRE(Rat(2).isInteger());
-		REQUIRE(!infinity<Rat>().isInteger());
+		REQUIRE(!((Rat)Infinity()).isInteger());
 		REQUIRE(!nan<Rat>().isInteger());
 		REQUIRE(Rat(2, 2).isInteger());
 	}
@@ -189,13 +189,13 @@ TEST_CASE("Classify (Rational)")
 
 TEST_CASE("Floor (Rational)")
 {
-	REQUIRE(floor(-infinity<Rat>()) == -infinity<Rat>());
+	REQUIRE(floor(-(Rat)Infinity()) == -(Rat)Infinity());
 	REQUIRE(floor(Rat(-2)) == -2);
 	REQUIRE(floor(Rat(-1)) == -1);
 	REQUIRE(floor(Rat(0)) == 0);
 	REQUIRE(floor(Rat(1)) == 1);
 	REQUIRE(floor(Rat(2)) == 2);
-	REQUIRE(floor(infinity<Rat>()) == infinity<Rat>());
+	REQUIRE(floor((Rat)Infinity()) == (Rat)Infinity());
 
 	REQUIRE(floor(Rat(1, 2)) == 0);
 	REQUIRE(floor(Rat(1, 3)) == 0);
@@ -215,13 +215,13 @@ TEST_CASE("Floor (Rational)")
 
 TEST_CASE("Ceil (Rational)")
 {
-	REQUIRE(ceil(-infinity<Rat>()) == -infinity<Rat>());
+	REQUIRE(ceil(-(Rat)Infinity()) == -(Rat)Infinity());
 	REQUIRE(ceil(Rat(-2)) == -2);
 	REQUIRE(ceil(Rat(-1)) == -1);
 	REQUIRE(ceil(Rat(0)) == 0);
 	REQUIRE(ceil(Rat(1)) == 1);
 	REQUIRE(ceil(Rat(2)) == 2);
-	REQUIRE(ceil(infinity<Rat>()) == infinity<Rat>());
+	REQUIRE(ceil((Rat)Infinity()) == (Rat)Infinity());
 
 	REQUIRE(ceil(Rat(1, 2)) == 1);
 	REQUIRE(ceil(Rat(1, 3)) == 1);
@@ -283,22 +283,22 @@ TEST_CASE("Special (Rational)")
 {
 	{
 		Rat a(1, 0);
-		REQUIRE(a == infinity<Rat>());
+		REQUIRE(a == (Rat)Infinity());
 
 		Rat b(2, 0);
-		REQUIRE(b == infinity<Rat>());
+		REQUIRE(b == (Rat)Infinity());
 
 		Rat c(-1, 0);
-		REQUIRE(c == -infinity<Rat>());
+		REQUIRE(c == -(Rat)Infinity());
 
 		Rat d(-2, 0);
-		REQUIRE(d == -infinity<Rat>());
+		REQUIRE(d == -(Rat)Infinity());
 	}
 	{
-		REQUIRE(infinity<Rat>() >= 23435);
-		REQUIRE(-2312 >= -infinity<Rat>());
-		REQUIRE(Integer(-2312) >= -infinity<Rat>());
-		REQUIRE(infinity<Rat>() >= -infinity<Rat>());
+		REQUIRE((Rat)Infinity() >= 23435);
+		REQUIRE(-2312 >= -(Rat)Infinity());
+		REQUIRE(Integer(-2312) >= -(Rat)Infinity());
+		REQUIRE((Rat)Infinity() >= -(Rat)Infinity());
 	}
 }
 
@@ -385,20 +385,20 @@ TEST_CASE("Multiply (Rational)")
 
 		// Infinities with zeros should give zero:
 
-		REQUIRE(infinity<Rat>() * 0 == 0);
-		REQUIRE(-infinity<Rat>() * 0 == 0);
+		REQUIRE((Rat)Infinity() * 0 == 0);
+		REQUIRE(-(Rat)Infinity() * 0 == 0);
 
 		// Infinities together should maintain
 		// infinity.
 
-		REQUIRE(infinity<Rat>() * infinity<Rat>() ==
-			infinity<Rat>());
-		REQUIRE(infinity<Rat>() * -infinity<Rat>() ==
-			-infinity<Rat>());
-		REQUIRE(-infinity<Rat>() * infinity<Rat>() ==
-			-infinity<Rat>());
-		REQUIRE(-infinity<Rat>() * -infinity<Rat>() ==
-			infinity<Rat>());
+		REQUIRE((Rat)Infinity() * (Rat)Infinity() ==
+			(Rat)Infinity());
+		REQUIRE((Rat)Infinity() * -(Rat)Infinity() ==
+			-(Rat)Infinity());
+		REQUIRE(-(Rat)Infinity() * (Rat)Infinity() ==
+			-(Rat)Infinity());
+		REQUIRE(-(Rat)Infinity() * -(Rat)Infinity() ==
+			(Rat)Infinity());
 	}
 }
 
@@ -437,10 +437,10 @@ namespace
 		REQUIRE(Rat(-(Real)0) == 0);
 
 		// Positive infinity.
-		REQUIRE(Rat(infinity<Real>()) == infinity<Rat>());
+		REQUIRE(Rat((Real)Infinity()) == (Rat)Infinity());
 
 		// Negative infinity.
-		REQUIRE(Rat(-infinity<Real>()) == -infinity<Rat>());
+		REQUIRE(Rat(-(Real)Infinity()) == -(Rat)Infinity());
 
 		// Positive integers
 		REQUIRE(Rat((Real)1) == 1);
@@ -535,10 +535,10 @@ namespace
 		REQUIRE(Rat(-(Real)0) == 0);
 
 		// Positive infinity.
-		REQUIRE(Rat(infinity<Real>()) == infinity<Rat>());
+		REQUIRE(Rat((Real)Infinity()) == (Rat)Infinity());
 
 		// Negative infinity.
-		REQUIRE(Rat(-infinity<Real>()) == -infinity<Rat>());
+		REQUIRE(Rat(-(Real)Infinity()) == -(Rat)Infinity());
 
 		// Positive integers
 		REQUIRE(Rat((Real)1) == 1);

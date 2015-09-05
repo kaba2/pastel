@@ -191,7 +191,7 @@ namespace Pastel
 	{
 		// Using the separating axis theorem.
 
-		Real minDepth = infinity<Real>();
+		Real minDepth = (Real)Infinity();
 		Vector<Real, 2> minProjection;
 
 		// In dimension 2, there are only 4 axes to test,
@@ -625,7 +625,7 @@ namespace Pastel
 		// Use separating axis theorem to
 		// test for aligned box-box overlap.
 
-		Real minDepth = infinity<Real>();
+		Real minDepth = (Real)Infinity();
 		Vector<Real, 3> minProjection;
 
 		// In dimension 3, there are 15 axes to test:
