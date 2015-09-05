@@ -9,7 +9,7 @@ the partitioning of a (dynamic) set of elements.
 Definitions
 -----------
 
-A _partition_ of a set ''S'' is a set of disjoint subsets ''P subset power-set(S)'' such that ''Union P = S''. A partition ''Q'' is called a refinement of a partition ''P'', if each ''p in P'' can be given as a union of some sets in ''Q''. In such a case the ''Q'' is called _finer than_ ''P'', and ''P'' is called _coarser than_ ''Q''. The coarsest partition is the singleton set ''{S}'', while the finest partition is the set of singletons of ''S''. The refinement relation is a partial order on the set of partitions.
+A _partition_ of a set ''S'' is a set of disjoint subsets $P \subset \mathcal{P}(S)$ such that $\bigcup P = S$. A partition ''Q'' is called a refinement of a partition ''P'', if each ''p in P'' can be given as a union of some sets in ''Q''. In such a case the ''Q'' is called _finer than_ ''P'', and ''P'' is called _coarser than_ ''Q''. The coarsest partition is the singleton set ''{S}'', while the finest partition is the set of singletons of ''S''. The refinement relation is a partial order on the set of partitions.
 
 Data structure
 --------------

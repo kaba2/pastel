@@ -1,5 +1,6 @@
-# Blas configuration
-#
+# Description: Blas configuration
+# Documentation: building.txt
+
 # returns
 # -------
 #

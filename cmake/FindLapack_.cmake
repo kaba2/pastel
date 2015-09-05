@@ -1,5 +1,6 @@
-# Lapack configuration
-#
+# Description: Lapack configuration
+# Documentation: building.txt
+
 # returns
 # -------
 #

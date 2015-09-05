@@ -1,3 +1,6 @@
+# Description: Compiler setup
+# Documentation: building.txt
+
 # Debug-mode definitions.
 set (CMAKE_CXX_FLAGS_DEBUG 
 	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG"

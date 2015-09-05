@@ -1,5 +1,6 @@
-# Matlab configuration
-#
+# Description: Matlab configuration
+# Documentation: building.txt
+
 # returns
 # -------
 #

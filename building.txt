@@ -8,11 +8,11 @@ This section describes how to build the Pastel library.
 Compiler
 --------
 
-Since Pastel uses C++14, it requires a recent compiler to
-be built. 
+Since Pastel uses C++14, it requires a recent compiler to be built. The following work:
 
-If you also want to build the Matlab libraries, then the compiler
-version must _match_ the version of the supported compiler in Matlab.
+* Windows: Visual Studio 2015
+* Linux: Gcc 4.?
+* MacOsX: XCode ?.?
 
 Build process
 -------------
@@ -46,8 +46,8 @@ libraries at:
 
 ### 4. Generate tool-specific build-scripts using CMake. 
 
-* In the Pastel root directory, create the `release/` directory.
-* In the Pastel `release/` directory, type `cmake-gui ..`
+* In the Pastel root directory, create the `build/` directory (say).
+* In the Pastel `build/` directory, type `cmake-gui ..`
 * Press the `Configure` button.
 * Select the tool-set to generate build-scripts for from the menu.
 * Make sure the `Advanced` button is not checked.
@@ -55,7 +55,7 @@ libraries at:
 * Press the `Configure` button again.
 * Press the `Generate` button.
 
-The build options are:
+#### Build options
 
 BuildExamples
 : Whether to build Pastel's example executables.
@@ -69,65 +69,54 @@ BuildMatlab
 BuildTests
 : Whether to build Pastel's test executables.
 
-SharedLibraries
-: Whether to build shared libraries rather than static libraries. The Matlab libraries will always be built as static libraries.
+#### Tool-set
 
-Note: If you want to change the tool-set later, you need
-to remove the `CMakeCache.txt` file, and run these 
-instructions again. The purpose of this file is to remember 
-options so that they need not specified repeatedly.
+If you want to change the tool-set later, you need to remove the `CMakeCache.txt` file, and run these instructions again. The purpose of this file is to remember options so that they need not specified repeatedly.
 
-Note: You can follow similar instructions to create a debug build
-instead. The only difference is that you create a `debug/` directory,
-and choose `Debug` as the `CMAKE_BUILD_TYPE` in `cmake-gui`. 
+#### Build type
+
+For a single-configuration tool-set, such as makefiles, you choose a debug build by choosing `Debug` as the `CMAKE_BUILD_TYPE` in `cmake-gui`. For a multiple-configuration tool-set, such as Visual Studio or XCode, you choose the debug configuration from inside the IDE. Similarly for other build-types.
 
 Configurations
 --------------
 
-Pastel comes with two different build configurations. These are:
+Pastel comes with the standard CMake build configurations, which are
 
- * debug
- * release
+ * Debug 
+ * Release
+ * RelWithDebInfo --- release with debug info
+ * MinSizeRel --- release with minimum size
 
-The `debug` configuration enables debugging information and turns on all
-[ASSERTs and PENSUREs][InvariantChecking]. The `release` configuration 
-disables debugging information, and enables multi-core processing for
-some algorithms.
+The `Debug` configuration enables debugging information and [ASSERTs and PENSUREs][InvariantChecking]. The `RelWithDebInfo` configuration disables ASSERTs and PENSUREs, but enables debug information. The `Release` configuration disables both.
 
-Property / Config  | debug |release 
--------------------|-------|--------
-ASSERT and PENSURE | x     | 
-ENSURE             | x     | x 
-Debug information  | x     | 
-Multiple cores     |       | x 
+Property / Config  | Debug |Release | RelWithDebInfo
+-------------------|-------|--------|---------------
+ASSERT and PENSURE | x     |        |
+ENSURE             | x     | x      | x
+Debug information  | x     |        | x
 
 [InvariantChecking]: [[Ref]]: ensure.txt
 
 Building
 --------
 
-When CMake has generated you the build-scripts, you probably already
-know how to proceed. However, here are some specific examples:
+When CMake has generated the build-scripts, you probably already know how to proceed. However, here are some specific examples.
 
 ### Makefiles
 
 In the `build/` directory, run
 
-	make -j 8
+	make -j 4
 
-The `j` option specifies the number of threads to use in
-the building process. On multi-core machines this shortens the
-build-times dramatically.
+The `j` option specifies the number of threads to use in the building process. On multi-core machines this shortens the build-times dramatically.
 
 ### Visual Studio
 
 To build Pastel using Visual Studio:
 
  * Open the solution file `Pastel.sln`. 
- * Right click on the solution in Solution Explorer, and choose 
- Configuration Manager. 
- * Select the desired Active Solution Configuration as Release
- (or Debug if you want to do debugging).
+ * Right click on the solution in Solution Explorer, and choose Configuration Manager. 
+ * Select the desired Active Solution Configuration as Release (or something else).
  * Build the solution (F7).
 
 ### XCode
@@ -135,19 +124,14 @@ To build Pastel using Visual Studio:
 To build Pastel in XCode 4:
 
  * Open the solution file `Pastel.xcodeproj`.
- * In the menu at the top of the screen, choose 
- `Product` --> `Scheme` --> `Edit scheme...`.
- * Select the Build Configuration as Release
- (or Debub if you want to do debugging).
+ * In the menu at the top of the screen, choose `Product` --> `Scheme` --> `Edit scheme...`.
+ * Select the Build Configuration as Release (or something else).
  * Build the solution (Shift + Command + R, or the play button).
 
 Output files
 ------------
 
-The libraries will be placed in the `lib/config` directory, and
-the executables will be placed in the `bin/config` directory,
-where the `config` corresponds to either `debug` or `release`, depending
-on the chosen configuration.
+The libraries will be placed in the `lib/toolset/config` directory, and the executables will be placed in the `bin/toolset/config` directory, where the `toolset` is the used tool-set, and `config` is the used configuration.
 
 [CMake]: http://www.cmake.org/
 

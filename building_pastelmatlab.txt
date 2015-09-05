@@ -22,74 +22,61 @@ to an external compiler, such as Visual Studio or gcc.
 
 To select the compiler Matlab uses, type
 
-	mex -setup
+	mex -setup cpp
 	
-on the Matlab command line, and follow the instructions. 
-A compiler can be used to build the Pastel Matlab 
-interface if
- 
- * The compiler is [supported by Matlab][MatlabSupported], meaning also 
-   that the compiler has been used to build the Matlab external interface
-   libraries (i.e. it is not ok to change the used gcc version 
-   manually). The used C++ standard libraries must match across 
-   all libraries.
- 
- * The same compiler is used to build the Pastel libraries.
+on the Matlab command line, and follow the instructions. A compiler can be used to build the Pastel Matlab interface if 
+
+* The same compiler is used to build the Pastel libraries.
  
  * The architectures of the libraries match: 
  32-bit libraries against 32-bit libraries,
  and 64-bit libraries against 64-bit libraries.
- 
-__Note__: Matlab 32-bit is required to build 32-bit mex files, and
-Matlab 64-bit is required to build 64-bit mex files. In particular, it 
-is not possible to do 32-bit builds from Matlab 64-bit.
+
+#### Supported compilers
+
+The list of compilers which work out-of-the-box in Matlab is given in [here][MatlabSupported]. However, it is not necessary for the compiler to be in this list; new compilers can unofficially be added into Matlab. This is useful, for example, when developing for a pre-release version of a new version of Visual Studio.
 
 [MatlabSupported]: http://www.mathworks.com/support/compilers
 
-### 2. Set the external library directories
+#### Bitness
 
-In `pastel/` directory, open the file `build_pastel.m`,
-which will read something like this:
+Matlab 32-bit is required to build 32-bit mex files, and Matlab 64-bit is required to build 64-bit mex files. In particular, it is not possible to do 32-bit builds from Matlab 64-bit.
 
-	% Change this to the boost include path.
-	boostIncludePath = '../../boost_1_53_0';
-	
-Replace the directory to reflect the location of the Boost library.
+### 2. Build
 
-### 3. Build
-
-To build Pastel Matlab interface in release mode, 
-type in Matlab command line:
+To build Pastel Matlab interface in Release mode, set the folder to `bin/toolset/matlab`, and type in Matlab command line
 
 	>> build_pastel
 
-To build the Pastel Matlab interface in debug mode,
-type in Matlab command line:
+To build the Pastel Matlab interface in debug mode, set the folder to `bin/toolset/matlab`, and type in Matlab command line
 
 	>> build_pastel('mode', 'debug')
+
+For further options, type
+
+	>> help build_pastel
+
+#### Build script
+
+The `build_pastel.m` file is automatically generated from the template [[Link: build_pastel.m.cmake]] when building Pastel, by substituting the correct build-information.
 
 Output files
 ------------
 
-The output will be a set of dynamic libraries (mex files), 
-whose names without file-extensions are
+The output will be a set of dynamic libraries (mex files), whose names without file-extensions are
 
  * `pastelsysmatlab`
  * `pastelmathmatlab`
  * `pastelgeometrymatlab`
 
-The file-extension depends on the operating system,
-and whether the Matlab that is being used to build the
-mex file is 32-bit or 64-bit. The file-extensions are:
+The file-extension depends on the operating system, and whether the Matlab that is being used to build the mex file is 32-bit or 64-bit. The file-extensions are:
 
- * Mac (64-bit): `.mexmaci64`
- * Linux (64-bit): `.mexa64`
- * Linux (32-bit): `.mexglx`
- * Windows (64-bit): `.mexw64`
- * Windows (32-bit): `.mexw32`
+OS                | Bits | File extension
+------------------|------|---------------
+Mac               | 64   | `.mexmaci64`
+Linux             | 64   | `.mexa64`
+Linux             | 32   | `.mexglx`
+Windows           | 64   | `.mexw64`
+Windows           | 32   | `.mexw32`
 
-Ideally, you would have all of these variations built, so 
-that you have a version of Pastel Matlab which works in any
-operating system, and whether Matlab is 32-bit or 64-bit.
-The prebuilt Pastel Matlab is published this way.
-
+Ideally, you would have all of these variations built, so that you have a version of Pastel Matlab which works in any operating system, and whether Matlab is 32-bit or 64-bit. The prebuilt Pastel Matlab is published this way.

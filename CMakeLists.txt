@@ -224,8 +224,8 @@ macro (PastelAddMatlab)
 
 		get_filename_component(FileExtension ${FilePath} EXT)
 
-		if (${FileExtension} STREQUAL ".m.cmake")
-			string (REGEX REPLACE "(.*).cmake$" "\\1" OutputFilePath ${OutputFilePath})
+		if (${FileExtension} MATCHES "template.(.+)$")
+			string (REGEX REPLACE "(.+).template.(.+)$" "\\1.\\2" OutputFilePath ${OutputFilePath})
 		else()
 			set (Options COPYONLY)
 		endif()
