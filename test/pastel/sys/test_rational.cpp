@@ -120,7 +120,7 @@ TEST_CASE("AsString (Rational)")
 TEST_CASE("Classify (Rational)")
 {
 	{
-		REQUIRE(!negative(-nan<Rat>()));
+		REQUIRE(!negative(-(Rat)Nan()));
 		REQUIRE(negative(-(Rat)Infinity()));
 		REQUIRE(negative(Rat(-2)));
 		REQUIRE(negative(Rat(-1)));
@@ -128,10 +128,10 @@ TEST_CASE("Classify (Rational)")
 		REQUIRE(!negative(Rat(1)));
 		REQUIRE(!negative(Rat(2)));
 		REQUIRE(!negative((Rat)Infinity()));
-		REQUIRE(!negative(nan<Rat>()));
+		REQUIRE(!negative((Rat)Nan()));
 	}
 	{
-		REQUIRE(!positive(-nan<Rat>()));
+		REQUIRE(!positive(-(Rat)Nan()));
 		REQUIRE(!positive(-(Rat)Infinity()));
 		REQUIRE(!positive(Rat(-2)));
 		REQUIRE(!positive(Rat(-1)));
@@ -139,10 +139,10 @@ TEST_CASE("Classify (Rational)")
 		REQUIRE(positive(Rat(1)));
 		REQUIRE(positive(Rat(2)));
 		REQUIRE(positive((Rat)Infinity()));
-		REQUIRE(!positive(nan<Rat>()));
+		REQUIRE(!positive((Rat)Nan()));
 	}
 	{
-		REQUIRE(!zero(-nan<Rat>()));
+		REQUIRE(!zero(-(Rat)Nan()));
 		REQUIRE(!zero(-(Rat)Infinity()));
 		REQUIRE(!zero(Rat(-2)));
 		REQUIRE(!zero(Rat(-1)));
@@ -150,10 +150,10 @@ TEST_CASE("Classify (Rational)")
 		REQUIRE(!zero(Rat(1)));
 		REQUIRE(!zero(Rat(2)));
 		REQUIRE(!zero((Rat)Infinity()));
-		REQUIRE(!zero(nan<Rat>()));
+		REQUIRE(!zero((Rat)Nan()));
 	}
 	{
-		REQUIRE(!-nan<Rat>().isInfinity());
+		REQUIRE(!(-(Rat)Nan()).isInfinity());
 		REQUIRE(!(-(Rat)Infinity()).isInfinity());
 		REQUIRE(!Rat(-2).isInfinity());
 		REQUIRE(!Rat(-1).isInfinity());
@@ -161,20 +161,20 @@ TEST_CASE("Classify (Rational)")
 		REQUIRE(!Rat(1).isInfinity());
 		REQUIRE(!Rat(2).isInfinity());
 		REQUIRE(((Rat)Infinity()).isInfinity());
-		REQUIRE(!nan<Rat>().isInfinity());
+		REQUIRE(!((Rat)Nan()).isInfinity());
 	}
 	{
-		REQUIRE((-nan<Rat>()).isNan());
+		REQUIRE((-(Rat)Nan()).isNan());
 		REQUIRE(!(-(Rat)Infinity()).isNan());
 		REQUIRE(!Rat(-2).isNan());
 		REQUIRE(!Rat(-1).isNan());
 		REQUIRE(!Rat(0).isNan());
 		REQUIRE(!Rat(1).isNan());
 		REQUIRE(!Rat(2).isNan());
-		REQUIRE(nan<Rat>().isNan());
+		REQUIRE(((Rat)Nan()).isNan());
 	}
 	{
-		REQUIRE(!-nan<Rat>().isInteger());
+		REQUIRE(!(-(Rat)Nan()).isInteger());
 		REQUIRE(!(-(Rat)Infinity()).isInteger());
 		REQUIRE(Rat(-2).isInteger());
 		REQUIRE(Rat(-1).isInteger());
@@ -182,7 +182,7 @@ TEST_CASE("Classify (Rational)")
 		REQUIRE(Rat(1).isInteger());
 		REQUIRE(Rat(2).isInteger());
 		REQUIRE(!((Rat)Infinity()).isInteger());
-		REQUIRE(!nan<Rat>().isInteger());
+		REQUIRE(!((Rat)Nan()).isInteger());
 		REQUIRE(Rat(2, 2).isInteger());
 	}
 }

@@ -82,6 +82,18 @@ namespace Pastel
 	using Infinity = Infinity_<true>;
 	using MinusInfinity = Infinity_<false>;
 
+	template <typename Type>
+	bool isInfinity(const Type& that)
+	{
+		return that == Infinity();
+	}
+
+	template <typename Type>
+	bool isMinusInfinity(const Type& that)
+	{
+		return that == MinusInfinity();
+	}
+
 }
 
 #endif

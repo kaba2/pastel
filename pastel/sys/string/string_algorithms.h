@@ -80,7 +80,7 @@ namespace Pastel
 	Special meanings:
 	inf, +inf: (real)Infinity()
 	-inf: -(real)Infinity()
-	nan, +nan, -nan: nan<real>()	
+	nan, +nan, -nan: (real)Nan()	
 	*/
 	real stringToReal(const std::string& text, 
 		integer* indexEnd = 0);

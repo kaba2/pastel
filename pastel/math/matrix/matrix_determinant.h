@@ -23,7 +23,7 @@ namespace Pastel
 	Square matrix A.
 
 	returns:
-	The determinant of A, if that.n() > 0. Otherwise nan<Real>().
+	The determinant of A, if that.n() > 0. Otherwise (Real)Nan().
 	*/
 	template <typename Real, typename Expression>
 	Real determinant(

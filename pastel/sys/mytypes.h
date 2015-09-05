@@ -203,6 +203,7 @@ namespace Pastel
 #include "pastel/sys/type_checks.h"
 #include "pastel/sys/sfinae.h"
 #include "pastel/sys/infinity.h"
+#include "pastel/sys/nan.h"
 #include "pastel/sys/concept.h"
 #include "pastel/sys/generic/tag.h"
 #include "pastel/sys/settings_type.h"

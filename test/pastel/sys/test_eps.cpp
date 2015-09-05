@@ -26,7 +26,7 @@ namespace
 		REQUIRE(nextSmaller((Type)Infinity()) == (Type)Infinity());
 		REQUIRE(nextGreater(-(Type)Infinity()) == -(Type)Infinity());
 		REQUIRE(nextSmaller(-(Type)Infinity()) == -(Type)Infinity());
-		REQUIRE(isNan(nextSmaller(nan<Type>())));
+		REQUIRE(isNan(nextSmaller((Type)Nan())));
 	}
 
 }

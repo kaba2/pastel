@@ -78,6 +78,13 @@ namespace Pastel
 		{
 		}
 
+		//! Constructs with Not-a-Number.
+		Rational(Nan)
+		: m_(0)
+		, n_(0)
+		{
+		}
+
 		// Note in the following the different
 		// kinds of constructors. The intent is
 		// to identify literals such as 1, 2.3f,
