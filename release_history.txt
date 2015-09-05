@@ -15,7 +15,7 @@ The versioning of Pastel is given in the form x.y.z, where x, y, and z are integ
 Pastel 1.4.0
 ------------
 
-Release date xx.x.2014
+Release date 05.09.2015
 
 [Original webpage][Pastel-1.4.0]
 
@@ -23,7 +23,7 @@ Release date xx.x.2014
 
 ### General
 
-* Started using more features of C++11.
+* Started using more features of C++14.
 * Changed to use the CMake build system (over Premake).
 * Changed to use Threading Building Blocks (over OpenMP).
 * Specified settings types.
