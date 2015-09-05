@@ -1,4 +1,5 @@
 // Description: Shape module
+// Documentation: shapes.txt
 
 #ifndef PASTELGEOMETRY_SHAPE_H_MODULE
 #define PASTELGEOMETRY_SHAPE_H_MODULE
