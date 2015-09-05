@@ -94,6 +94,12 @@ namespace Pastel
 		return that == MinusInfinity();
 	}
 
+	template <typename Type>
+	Type infinity()
+	{
+		return (Type)Infinity();
+	}
+
 }
 
 #endif
