@@ -143,8 +143,8 @@ namespace Pastel
 		static constexpr integer N = Locator::N;
 
 		AlignedBox<Real, N> bound(
-			Vector<Real, N>(ofDimension(tree.n()), -(Real)Infinity()),
-			Vector<Real, N>(ofDimension(tree.n()), (Real)Infinity()));;
+			Vector<Real, N>(ofDimension(tree.n()), -Infinity()),
+			Vector<Real, N>(ofDimension(tree.n()), Infinity()));;
 		
 		return PointKdTree_::testInvariants(tree, tree.root(), bound);
 	}

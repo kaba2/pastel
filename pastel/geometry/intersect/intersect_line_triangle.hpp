@@ -23,8 +23,8 @@ namespace Pastel
 		const Vector<Real, 2>& b = triangle[1];
 		const Vector<Real, 2>& c = triangle[2];
 
-		Real tMaxMin = -(Real)Infinity();
-		Real tMinMax = (Real)Infinity();
+		Real tMaxMin = -Infinity();
+		Real tMinMax = Infinity();
 
 		// Note: line-plane intersections
 		// do not require normalized plane normals.

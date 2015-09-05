@@ -409,7 +409,7 @@ namespace Pastel
 
 				// Find smallest S_{ii} (RP^T)_{ii}.
 				integer iMin = 0;
-				Real minValue = (Real)Infinity();
+				Real minValue = Infinity();
 				for (integer i = 1;i < d;++i)
 				{
 					// S_{ii} (RP^T)_{ii} >= 0; otherwise

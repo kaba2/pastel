@@ -19,8 +19,8 @@ namespace Pastel
 	{
 		PENSURE_OP(line.n(), ==, box.n());
 
-		Real tMin = -(Real)Infinity();
-		Real tMax = (Real)Infinity();
+		Real tMin = -Infinity();
+		Real tMax = Infinity();
 
 		const Matrix<Real>& axes = box.rotation();
 		const Vector<Real, N>& width = box.width();

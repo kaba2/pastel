@@ -49,7 +49,7 @@ namespace Pastel
 						//! The number of nearest-neigbhors to search for.
 						PASTEL_TAG(kNearest), (integer)1,
 						//! The maximum distance to allow for a nearest-neighbors.
-						PASTEL_TAG(maxDistance2), (Real)(Real)Infinity()*/
+						PASTEL_TAG(maxDistance2), (Real)Infinity()*/
 				//	)
 				)
 				#endif

@@ -21,9 +21,9 @@ namespace Pastel
 		switch(classify())
 		{
 			case NumberType::Infinity:
-				return (Real)Infinity();
+				return Infinity();
 			case NumberType::MinusInfinity:
-				return -(Real)Infinity();
+				return -Infinity();
 			case NumberType::Nan:
 				return nan<Real>();
 			default:
@@ -252,7 +252,7 @@ namespace Pastel
 		bool foundSimplest = false;
 		
 		Rational& best = *this;
-		Real minError = (Real)Infinity();
+		Real minError = Infinity();
 
 		auto consider = [&](const Rational& candidate)
 		{

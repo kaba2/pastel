@@ -75,8 +75,8 @@ namespace Pastel
 		// The separating axes that need to be considered
 		// are the standard basis vectors.
 
-		Real tMaxStart = -(Real)Infinity();
-		Real tMinEnd = (Real)Infinity();
+		Real tMaxStart = -Infinity();
+		Real tMinEnd = Infinity();
 
 		integer n = aBox.n();
 		for (integer i = 0;i < n;++i)

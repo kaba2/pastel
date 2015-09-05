@@ -40,8 +40,8 @@ namespace Pastel
 			// Find out the minimum bounding interval for
 			// the contained points on the splitting axis.
 
-			Real minPosition = (Real)Infinity();
-			Real maxPosition = -(Real)Infinity();
+			Real minPosition = Infinity();
+			Real maxPosition = -Infinity();
 
 			forEach(pointSet, [&](auto&& point)
 			{
