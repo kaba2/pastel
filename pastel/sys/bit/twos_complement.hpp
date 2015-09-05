@@ -21,7 +21,7 @@ namespace Pastel
 		// bits used to represent the unsigned type). [ Note: In 
 		// a two’s complement representation, this conversion is 
 		// conceptual and there is no change in the bit pattern 
-		// (if there is no truncation). — end note 
+		// (if there is no truncation). --- end note 
 
 		using Unsigned = typename std::make_unsigned<Integer>::type;
 		return (Unsigned)that;

@@ -51,5 +51,5 @@ files we provide additional algorithms specific to geometry. Therefore,
 when dealing with geometry, you should always include these files, rather
 than the PastelSys files.
 
-[SysBox]: [[Ref]]: sys/alignedbox.txt
+[SysBox]: [[Ref]]: alignedbox/alignedbox.txt
 
