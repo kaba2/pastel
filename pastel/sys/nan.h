@@ -1,4 +1,5 @@
 // Description: Not-a-Number
+// Documentation: numbers.txt
 
 #ifndef PASTELSYS_NAN_H
 #define PASTELSYS_NAN_H

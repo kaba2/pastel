@@ -1,4 +1,5 @@
 // Description: Infinity
+// Documentation: numbers.txt
 
 #ifndef PASTELSYS_INFINITY_H
 #define PASTELSYS_INFINITY_H

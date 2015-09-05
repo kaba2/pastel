@@ -58,7 +58,7 @@ For further options, type
 
 #### Build script
 
-The `build_pastel.m` file is automatically generated from the template [[Link: build_pastel.m.cmake]] when building Pastel, by substituting the correct build-information.
+The `build_pastel.m` file is automatically generated from the template [[Link: build_pastel.template.m]] when building Pastel, by substituting the correct build-information.
 
 Output files
 ------------

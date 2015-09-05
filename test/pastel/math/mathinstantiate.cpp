@@ -1,5 +1,5 @@
 // Description: Template instantiation of shapes for testing
-// DocumentationOf: shapes.h
+// DocumentationOf: shape.h
 
 #include "pastel/sys/mytypes.h"
 

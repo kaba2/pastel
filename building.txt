@@ -12,7 +12,7 @@ Since Pastel uses C++14, it requires a recent compiler to be built. The followin
 
 * Windows: Visual Studio 2015
 * Linux: Gcc 5.1
-* MacOsX: XCode ?.?
+* MacOsX: XCode 6.4
 
 Build process
 -------------
