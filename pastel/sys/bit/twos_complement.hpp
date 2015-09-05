@@ -19,7 +19,7 @@ namespace Pastel
 		// value is the least unsigned integer congruent to the 
 		// source integer (modulo 2^n where n is the number of 
 		// bits used to represent the unsigned type). [ Note: In 
-		// a two’s complement representation, this conversion is 
+		// a two's complement representation, this conversion is 
 		// conceptual and there is no change in the bit pattern 
 		// (if there is no truncation). --- end note 
 
