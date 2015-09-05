@@ -1,5 +1,5 @@
 // Description: Fundamental types and macros
-// Documentation: environment.txt
+// Documentation: pastelsys.txt
 
 #ifndef PASTELSYS_MYTYPES_H
 #define PASTELSYS_MYTYPES_H

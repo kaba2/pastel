@@ -1,3 +1,6 @@
+# Description: CMake utilities
+# Documentation: building.txt
+
 macro(CheckPathExists Name PathSet)
 	foreach(Path ${PathSet})
 		if(EXISTS ${Path})

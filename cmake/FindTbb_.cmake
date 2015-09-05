@@ -1,5 +1,6 @@
-# Tbb configuration
-#
+# Description: Tbb configuration
+# Documentation: building.txt
+
 # returns
 # -------
 #

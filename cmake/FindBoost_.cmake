@@ -1,5 +1,6 @@
-# Boost configuration
-#
+# Description: Boost configuration
+# Documentation: building.txt
+
 # returns
 # -------
 #

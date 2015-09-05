@@ -1,5 +1,6 @@
-# Armadillo configuration
-#
+# Description: Armadillo configuration
+# Documentation: building.txt
+
 # returns
 # -------
 #

@@ -1,5 +1,5 @@
 // Description: Raw memory allocation
-// DocumentationOf: environment.h
+// Documentation: memory.txt
 
 #ifndef PASTELSYS_ALLOCATION_H
 #define PASTELSYS_ALLOCATION_H

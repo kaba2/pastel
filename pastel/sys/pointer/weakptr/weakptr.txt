@@ -1,4 +1,4 @@
 Weak pointer
 ============
 
-[[Parent]]: pointer.txt
+[[Parent]]: undocumented.txt
