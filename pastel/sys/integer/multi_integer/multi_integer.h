@@ -13,6 +13,7 @@
 #include "pastel/sys/bit/twos_complement.h"
 #include "pastel/sys/string/digit.h"
 #include "pastel/sys/math/divide_and_round_up.h"
+#include "pastel/sys/math/divide_infinity.h"
 
 #include "boost/operators.hpp"
 #include "boost/range/algorithm/copy.hpp"
@@ -39,40 +40,6 @@
 	\
 		return *this; \
 	} 
-
-namespace Pastel
-{
-
-	template <typename Integer_Settings>
-	class MultiInteger;
-
-	template <
-		typename Type,
-		Requires<
-			IsTemplateInstance<Type, MultiInteger>,
-			BoolConstant<!Type::Signed>
-		> = 0>
-	Type infinity()
-	{
-		return Type().setBits();
-	}
-
-	template <
-		typename Type,
-		typename = Requires<
-			IsTemplateInstance<Type, MultiInteger>,
-			BoolConstant<Type::Signed>
-		>>
-	Type infinity()
-	{
-		Type result;
-		result.setBits(0, result.bits() - 1);
-		return result;
-	}
-
-}
-
-#include "pastel/sys/math/divide_infinity.h"
 
 namespace Pastel
 {
@@ -146,7 +113,7 @@ namespace Pastel
 		using Word_Range = boost::iterator_range<Word_Iterator>;
 		using Word_ConstRange = boost::iterator_range<Word_ConstIterator>;
 
-		//! Constructs a zero integer.
+		//! Constructs with zero.
 		/*!
 		Time complexity: O(N)
 		Exception safety: strong
@@ -154,6 +121,34 @@ namespace Pastel
 		MultiInteger()
 			: wordSet_()
 		{
+		}
+
+		//! Constructs with infinity.
+		/*!
+		Time complexity: O(N)
+		Exception safety: strong
+		*/
+		MultiInteger(Infinity)
+			: MultiInteger()
+		{
+			setBits(0, bits() - Signed);
+		}
+
+		//! Constructs with minus-infinity.
+		/*!
+		Time complexity: O(N)
+		Exception safety: strong
+		*/
+		template <
+			bool Signed_ = Signed,
+			Requires<
+				BoolConstant<Signed_>
+			> = 0
+		>
+		MultiInteger(MinusInfinity)
+			: MultiInteger(Infinity())
+		{
+			negate();
 		}
 
 		//! Constructs from a list of words.

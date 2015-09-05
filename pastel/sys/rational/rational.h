@@ -70,6 +70,14 @@ namespace Pastel
 		//! Move-constructs with another number.
 		Rational(Rational&& that);
 
+		//! Constructs with infinity.
+		template <bool Positive>
+		Rational(Infinity_<Positive>)
+		: m_(Positive ? 1 : -1)
+		, n_(0)
+		{
+		}
+
 		// Note in the following the different
 		// kinds of constructors. The intent is
 		// to identify literals such as 1, 2.3f,
@@ -116,24 +124,24 @@ namespace Pastel
 		maxError = 0
 
 		Simplest rational approximation:
-		nMax = infinity<Integer>()
+		nMax = (Integer)Infinity()
 
 		Preconditions:
 		maxError >= 0
 		nMax >= 1
-		nMax < infinity<Integer>()
+		nMax < (Integer)Infinity()
 
 		maxError (Rational : 0):
 		Maximum allowed absolute error below which to
 		stop searching. 
 
-		nMax (Integer : infinity<Integer>() - 1):
+		nMax (Integer : (Integer)Infinity() - 1):
 		Maximum allowed divisor.
 
 		returns:
 		On normal numbers, as given above.
-		On positive overflow, infinity<Rational>().
-		On negative overflow, -infinity<Rational>().
+		On positive overflow, (Rational)Infinity().
+		On negative overflow, -(Rational)Infinity().
 		On underflow, 0.
 		*/
 		template <

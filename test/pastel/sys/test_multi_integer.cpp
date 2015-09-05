@@ -11,39 +11,39 @@ TEST_CASE("Infinity (MultiInteger)")
 {
 	{
 		using F = Unsigned_Integer<32, uint8>;
-		CHECK(infinity<F>() == 0xFFFFFFFF);
-		CHECK(positive(infinity<F>()));
-		CHECK(zero(++infinity<F>()));
+		CHECK((F)Infinity() == 0xFFFFFFFF);
+		CHECK(positive((F)Infinity()));
+		CHECK(zero(++(F)Infinity()));
 	}
 	{
 		using F = Signed_Integer<32, uint8>;
-		CHECK(infinity<F>() == 0x7FFFFFFF);
-		CHECK(positive(infinity<F>()));
-		CHECK(negative(++infinity<F>()));
+		CHECK((F)Infinity() == 0x7FFFFFFF);
+		CHECK(positive((F)Infinity()));
+		CHECK(negative(++(F)Infinity()));
 	}
 	{
 		using F = Unsigned_Integer<8, uint8>;
-		CHECK(infinity<F>() == 255);
-		CHECK(positive(infinity<F>()));
-		CHECK(zero(++infinity<F>()));
+		CHECK((F)Infinity() == 255);
+		CHECK(positive((F)Infinity()));
+		CHECK(zero(++(F)Infinity()));
 	}
 	{
 		using F = Signed_Integer<8, uint8>;
-		CHECK(infinity<F>() == 127);
-		CHECK(positive(infinity<F>()));
-		CHECK(negative(++infinity<F>()));
+		CHECK((F)Infinity() == 127);
+		CHECK(positive((F)Infinity()));
+		CHECK(negative(++(F)Infinity()));
 	}
 	{
 		using F = Unsigned_Integer<7, uint8>;
-		CHECK(infinity<F>() == 127);
-		CHECK(positive(infinity<F>()));
-		CHECK(zero(++infinity<F>()));
+		CHECK((F)Infinity() == 127);
+		CHECK(positive((F)Infinity()));
+		CHECK(zero(++(F)Infinity()));
 	}
 	{
 		using F = Signed_Integer<7, uint8>;
-		CHECK(infinity<F>() == 63);
-		CHECK(positive(infinity<F>()));
-		CHECK(negative(++infinity<F>()));
+		CHECK((F)Infinity() == 63);
+		CHECK(positive((F)Infinity()));
+		CHECK(negative(++(F)Infinity()));
 	}
 }
 
