@@ -100,7 +100,7 @@ We may test whether a type-trait holds by calling
 Checking concepts
 -----------------
 
-If a type `T` does not model the `Printable_Concept`, then the return-type deduction of `C::requires` fails, and is treated by the compiler as an SFINAE error (Substitution Failure Is Not An Error). We can then test whether `T` satisfies the requirements of `Printable_Concept` based on SFINAE function overloading, using the type-function `Models`:
+If a type `T` does not model the `Printable_Concept`, then the return-type deduction of `Printable_Concept::requires` fails, and is treated by the compiler through the SFINAE rule (Substitution Failure Is Not An Error). We can then test whether `T` satisfies the requirements of `Printable_Concept` based on SFINAE function overloading, using the type-function `Models`:
 
 	static_assert(Models<int, Printable_Concept>::value, "int does not model the Printable concept.");
 
@@ -209,7 +209,7 @@ A workaround is to define the needed functions for native types _before_ the con
 
 	PASTEL_CONCEPT_CHECK(float, Realish_Concept);
 
-### Function templates without arguments
+### Function templates without parameters
 
 Function templates without parameters are not dependent names, and so cannot be checked in the concept:
 
@@ -219,7 +219,7 @@ Function templates without parameters are not dependent names, and so cannot be 
 		auto requires(Type&& t) -> decltype
 		(
 			conceptCheck(
-				Concept::convertsTo<Type>((Type)Infinity())
+				Concept::convertsTo<Type>(infinity<Type>())
 			)
 		);
 	};
@@ -237,6 +237,4 @@ Function templates without parameters are not dependent names, and so cannot be 
 	PASTEL_CONCEPT_CHECK(A, Realish_Concept);
 
 Since the `infinity` function template call does not depend on objects of type `Type`, it is resolved in the first non-dependent phase of two-phase name lookup. Since there is no preceding definition of the function template `infinity`, an error is generated. 
-
-In Pastel, we leave such concept-requirements unchecked.
 
