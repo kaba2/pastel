@@ -15,16 +15,6 @@
 # ArmadilloLibraryDirectory:
 #    The directory-part of ${ArmadilloLibraryPath}.
 
-if (WIN32)
-	set (ArmadilloIncludeDirectory "C:/code/armadillo-5.200.1/include")
-	set (ArmadilloLibraryDirectory "")
-	set (ArmadilloLibraryPath "")
-elseif (UNIX)
-	set (ArmadilloIncludeDirectory "")
-	set (ArmadilloLibraryDirectory "")
-	set (ArmadilloLibraryPath "")
-endif()
-
 if (("${ArmadilloIncludeDirectory}" STREQUAL "") OR (NOT EXISTS "${ArmadilloIncludeDirectory}"))
 	find_package(Armadillo)
 	if (ARMADILLO_FOUND)
