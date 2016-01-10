@@ -18,7 +18,7 @@ if (WIN32)
 
 	# Blas paths
 	set (BlasLibraryName "blas_win${GENERATOR_BITS}_MT")
-	set (BlasLibraryDirectory "${PastelDirectory}/external/${GENERATOR_BITS}")
+	set (BlasLibraryDirectory "${ProjectDirectory}/external/${GENERATOR_BITS}")
 	set (BlasLibraryPath "${BlasLibraryDirectory}/${BlasLibraryName}.lib")
 	set (DllSet 
 		${DllSet}
@@ -26,7 +26,7 @@ if (WIN32)
 
 	# Lapack paths
 	set (LapackLibraryName "lapack_win${GENERATOR_BITS}_MT")
-	set (LapackLibraryDirectory "${PastelDirectory}/external/${GENERATOR_BITS}")
+	set (LapackLibraryDirectory "${ProjectDirectory}/external/${GENERATOR_BITS}")
 	set (LapackLibraryPath "${LapackLibraryDirectory}/${LapackLibraryName}.lib")
 	set (DllSet 
 		${DllSet}
