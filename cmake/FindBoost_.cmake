@@ -1,13 +1,6 @@
 # Description: Boost configuration
 # Documentation: building.txt
 
-# Arguments
-# ---------
-#
-# BoostIncludeDirectory (string):
-#     Overrides Boost include directory manually,
-#     when a non-empty string.
-#
 # returns
 # -------
 #
