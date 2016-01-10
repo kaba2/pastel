@@ -22,8 +22,6 @@ option (BuildExamples "Build Pastel's examples." ON)
 # Configure external libraries
 # ----------------------------
 
-include_directories (${ProjectIncludeDirectory})
-
 # Manual override for paths.
 include ("Paths")
 
