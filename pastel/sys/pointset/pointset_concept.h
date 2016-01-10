@@ -26,7 +26,9 @@ namespace Pastel
 					Or<
 						And<
 							Models<Type, Set_Concept>,
-							HasDefaultLocator<Set_Element<Type>>
+							// We must use Set_Element_F rather than Set_Element here
+							// to avoid a bug in Visual Studio 2015 Update 1 RTM.
+							HasDefaultLocator<typename Set_Element_F<Type>::type>
 						>,
 						IsTemplateInstance<Type, LocationSet>
 					>
