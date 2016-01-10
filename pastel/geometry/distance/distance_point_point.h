@@ -18,7 +18,9 @@ namespace Pastel
 	template <
 		typename A_Point,
 		typename B_Point, 
-		typename Real = Point_Real<A_Point, B_Point>,
+		// We need to use Point_Real_F instead of Point_Real to
+		// avoid a bug in Visual Studio 2015 Update 1.
+		typename Real = typename Point_Real_F<A_Point, B_Point>::type,
 		typename... ArgumentSet,
 		Requires<
 			Models<A_Point, Point_Concept>,
