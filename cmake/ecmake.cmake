@@ -1,3 +1,5 @@
+# Description: ECMake
+
 # Interpret relative paths w.r.t. the source directory in
 # in link_directories().
 cmake_policy(SET CMP0015 NEW)
@@ -123,14 +125,32 @@ macro(CheckPathExists Name PathSet)
 	endforeach()
 endmacro()
 
-# The set of dll-libraries to copy into the 
-# executable directory (Windows only).
-set (DllSet "")
+# Copies a file aside executables.
+macro (CopyAsideExecutables FilePath)
+	if (CMAKE_CONFIGURATION_TYPES)
+		# This is a multi-configuration generator,
+		# such as Visual Studio or XCode.
+		foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+		    string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
+		    string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
 
-macro (CopyDllsTo Directory)
-    foreach (dllPath ${DllSet})
-		file (COPY "${dllPath}" DESTINATION ${Directory})
-    endforeach()
+	    	# Copy the file to where the executables are,
+	    	# for each configuration.
+			file (COPY "${FilePath}" 
+				DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}}")
+		endforeach()
+	else()
+		# This is a single-configuration generator,
+		# such as Unix Makefiles.
+
+		# Copy the file to where the executables are.
+		file (COPY "${FilePath}" 
+			DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+	endif()
+
+	# Copy the file to where the Matlab interface is.
+	file (COPY "${FilePath}" 
+		DESTINATION "${ProjectMatlabDirectory}")
 endmacro()
 
 # Adds a library, or an executable, and creates source-groups based on 
