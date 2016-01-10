@@ -49,5 +49,77 @@ option (BuildMatlabMex
 	"Make libraries usable for Matlab mex (force release-mode C and C++ standard libraries)." 
 	ON)
 
-# Set compiler options.
+# The set of dll-libraries to copy into the 
+# executable directory (Windows only).
+set (DllSet "")
+
+# Define output directories
+# -------------------------
+
+set (ProjectDirectory "${CMAKE_SOURCE_DIR}")
+set (ProjectIncludeDirectory "${ProjectDirectory}")
+set (ProjectLibraryDirectory "${ProjectDirectory}/lib/${ToolSet}")
+set (ProjectExecutableDirectory "${ProjectDirectory}/bin/${ToolSet}")
+set (ProjectMatlabDirectory "${ProjectExecutableDirectory}/matlab")
+
+include_directories (${ProjectIncludeDirectory})
+
+# Set output directories
+# ----------------------
+
+string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
+
+# The directory to place the static libraries (e.g. lib/msvc64/release).
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${ProjectLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
+
+# The directory to place the shared libraries (e.g. lib/msvc64/release).
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${ProjectLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
+
+# The directory to place the built executables (e.g. bin/msvc64/release).
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${ProjectExecutableDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
+
+# This is for the multi-configuration build-scripts
+# (such as Visual Studio and XCode).
+foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+    string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
+    string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
+
+	# The library output directory is of the form "lib/msvc64/release".
+    set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
+    	"${ProjectLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
+    set (CMAKE_LIBRARY_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
+    	"${ProjectLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
+
+	# The executable output directory is of the form "bin/msvc64/release".
+    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
+    	"${ProjectExecutableDirectory}/${LOWER_OUTPUTCONFIG}")
+endforeach()
+
+# Set compiler options
+# --------------------
+
 include ("SetupCompilers")
+
+# Helper macros
+# -------------
+
+macro(CheckPathExists Name PathSet)
+	foreach(Path ${PathSet})
+		if(EXISTS ${Path})
+			message (STATUS "${Name}: ${Path}")
+		else()
+			set (Tried "")
+			if (NOT ("${Path}" STREQUAL ""))
+				set (Tried " (tried ${Path})")
+			endif()
+			message (SEND_ERROR "Cannot find ${Name}${Tried}. Either install ${Name}, or correct the path in Pastel's root CMakeLists.txt.")
+			return()
+		endif()
+	endforeach()
+endmacro()
+
+macro (CopyDllsTo Directory)
+    foreach (dllPath ${DllSet})
+		file (COPY "${dllPath}" DESTINATION ${Directory})
+    endforeach()
+endmacro()

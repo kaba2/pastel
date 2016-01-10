@@ -19,29 +19,13 @@ option (BuildMatlab "Build Pastel's Matlab-libraries." ON)
 option (BuildTests "Build Pastel's tests." ON)
 option (BuildExamples "Build Pastel's examples." ON)
 
-# Set some directories
-# --------------------
-
-set (PastelDirectory "${CMAKE_SOURCE_DIR}")
-set (PastelIncludeDirectory "${PastelDirectory}")
-set (PastelLibraryDirectory "${PastelDirectory}/lib/${ToolSet}")
-set (PastelExecutableDirectory "${PastelDirectory}/bin/${ToolSet}")
-set (PastelMatlabDirectory "${PastelExecutableDirectory}/matlab")
-
-# The set of dll-libraries to copy into the 
-# executable directory (Windows only).
-set (DllSet "")
-
-# Initialize CMake stuff
-# ----------------------
-
-include ("Utilities")
-include ("Paths")
-
 # Configure external libraries
 # ----------------------------
 
-include_directories (${PastelIncludeDirectory})
+include_directories (${ProjectIncludeDirectory})
+
+# Manual override for paths.
+include ("Paths")
 
 find_package("Boost_")
 find_package("Armadillo_")
@@ -72,16 +56,8 @@ set (PastelDocumentationGlobSet *.txt)
 # linked to every executable.
 set (ExecutableLibrarySet tbb)
 
-string (TOLOWER "${CMAKE_BUILD_TYPE}" LOWER_CMAKE_BUILD_TYPE)
-
-# The directory to place the static libraries (e.g. lib/msvc64/release).
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
-
-# The directory to place the shared libraries (e.g. lib/msvc64/release).
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PastelLibraryDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
-
-# The directory to place the built executables (e.g. bin/msvc64/release).
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PastelExecutableDirectory}/${LOWER_CMAKE_BUILD_TYPE}")
+# Copy dll-libraries
+# ------------------
 
 if (WIN32 AND ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 	# On Windows under MinGW, copy the dll-libraries to 
@@ -95,16 +71,6 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
     string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
 
-	# The library output directory is of the form "lib/msvc64/release".
-    set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	"${PastelLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
-    set (CMAKE_LIBRARY_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	"${PastelLibraryDirectory}/${LOWER_OUTPUTCONFIG}")
-
-	# The executable output directory is of the form "bin/msvc64/release".
-    set (CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG} 
-    	"${PastelExecutableDirectory}/${LOWER_OUTPUTCONFIG}")
-
     if (WIN32)
     	# On Windows under MSVC, copy the dll-libraries to 
     	# where the executables are.
@@ -115,11 +81,11 @@ endforeach()
 if (WIN32)
 	# On Windows, copy the dll-libraries to where
 	# the Matlab interface is.
-	CopyDllsTo("${PastelMatlabDirectory}")
+	CopyDllsTo("${ProjectMatlabDirectory}")
 endif()
 
 # Copy some data files.
-file (COPY "${PastelDirectory}/matlab/+pastelgeometry/fish.txt" 
+file (COPY "${ProjectDirectory}/matlab/+pastelgeometry/fish.txt" 
 	DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/matlab/+pastelgeometry")
 
 # Adds a library, or an executable, and creates source-groups based on 
@@ -168,7 +134,7 @@ endmacro()
 macro (PastelAddMatlab)
 	file (GLOB_RECURSE SourceSet RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${PastelMatlabSourceGlobSet})
 	foreach(FilePath ${SourceSet})
-		set (OutputFilePath ${PastelMatlabDirectory}/${FilePath})
+		set (OutputFilePath ${ProjectMatlabDirectory}/${FilePath})
 		set (Options "")
 
 		get_filename_component(FileExtension ${FilePath} EXT)
