@@ -16,18 +16,6 @@
 # BlasLibraryDirectory:
 #    The directory-part of ${BlasLibraryPath}.
 
-if (WIN32)
-	set (BlasLibraryName "blas_win${GENERATOR_BITS}_MT")
-	set (BlasLibraryDirectory "${PastelDirectory}/external/${GENERATOR_BITS}")
-	set (BlasLibraryPath "${BlasLibraryDirectory}/${BlasLibraryName}.lib")
-	set (DllSet 
-		${DllSet}
-		"${BlasLibraryDirectory}/${BlasLibraryName}.dll")
-elseif (UNIX)
-	set (BlasLibraryName "")
-	set (BlasLibraryPath "")
-endif()
-
 if (("${BlasLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${BlasLibraryDirectory}"))
 	find_package(BLAS)
 	if (BLAS_FOUND)

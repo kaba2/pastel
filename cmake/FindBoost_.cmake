@@ -1,10 +1,17 @@
 # Description: Boost configuration
 # Documentation: building.txt
 
+# Arguments
+# ---------
+#
+# BoostIncludeDirectory (string):
+#     Overrides Boost include directory manually,
+#     when a non-empty string.
+#
 # returns
 # -------
 #
-# BoostIncludeDirectory:
+# BoostIncludeDirectory (string):
 #    A directory to add to include directories, such that
 #    #include <boost/type_traits/remove_ref.h>
 #    becomes valid.
@@ -15,17 +22,12 @@
 set (BoostVersion 1.55.0)
 string (REGEX REPLACE \\. _ BoostVersion_ ${BoostVersion})
 
-if (WIN32)
-	set (BoostIncludeDirectory "C:/code/boost_1_59_0")
-elseif (UNIX)
-	set (BoostDirectory "")
-endif()
-
 if (("${BoostIncludeDirectory}" STREQUAL "") OR (NOT EXISTS "${BoostIncludeDirectory}"))
+	# Try to find Boost automatically.
 	find_package(Boost ${BoostVersion})
 	if (Boost_FOUND)
 		# The found path allows includes of the form:
-		# 
+		# boost/type_traits/remove_ref.h
 		set (BoostIncludeDirectory "${Boost_INCLUDE_DIRS}")
 	endif()
 endif()

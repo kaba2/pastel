@@ -72,8 +72,8 @@ if (NOT CMAKE_BUILD_TYPE AND
   		"Release")
 endif()
 
-# Paths
-# -----
+# Set some directories
+# --------------------
 
 set (PastelDirectory "${CMAKE_SOURCE_DIR}")
 set (PastelIncludeDirectory "${PastelDirectory}")
@@ -81,15 +81,23 @@ set (PastelLibraryDirectory "${PastelDirectory}/lib/${ToolSet}")
 set (PastelExecutableDirectory "${PastelDirectory}/bin/${ToolSet}")
 set (PastelMatlabDirectory "${PastelExecutableDirectory}/matlab")
 
-include_directories (${PastelIncludeDirectory})
+# Directory for CMake to search for CMake-included() files.
+set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # The set of dll-libraries to copy into the 
 # executable directory (Windows only).
 set (DllSet "")
 
-set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+# Initialize CMake stuff
+# ----------------------
 
 include ("Utilities")
+include ("Paths")
+
+# Configure external libraries
+# ----------------------------
+
+include_directories (${PastelIncludeDirectory})
 
 find_package("Boost_")
 find_package("Armadillo_")

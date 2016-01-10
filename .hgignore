@@ -26,7 +26,6 @@ syntax: glob
 log.txt
 *.o
 *.d
-*.cmake
 *.make
 *CMakeFiles*
 bin*

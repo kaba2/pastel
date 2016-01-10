@@ -16,19 +16,6 @@
 # LapackLibraryDirectory:
 #    The directory-part of ${LapackLibraryPath}.
 
-if (WIN32)
-	set (LapackLibraryName "lapack_win${GENERATOR_BITS}_MT")
-	set (LapackLibraryDirectory "${PastelDirectory}/external/${GENERATOR_BITS}")
-	set (LapackLibraryPath "${LapackLibraryDirectory}/${LapackLibraryName}.lib")
-	set (DllSet 
-		${DllSet}
-		"${LapackLibraryDirectory}/${LapackLibraryName}.dll")
-
-elseif (UNIX)
-	set (LapackLibraryName "")
-	set (LapackLibraryPath "")
-endif()
-
 if (("${LapackLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${LapackLibraryDirectory}"))
 	find_package(LAPACK)
 	if (LAPACK_FOUND)
