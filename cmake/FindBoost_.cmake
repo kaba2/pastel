@@ -25,7 +25,7 @@ if (("${BoostIncludeDirectory}" STREQUAL "") OR (NOT EXISTS "${BoostIncludeDirec
 	endif()
 endif()
 
-CheckPathExists("Boost (include)" "${BoostIncludeDirectory}")
+EcCheckPathExists("Boost (include)" "${BoostIncludeDirectory}")
 
 include_directories (${BoostIncludeDirectory})
 

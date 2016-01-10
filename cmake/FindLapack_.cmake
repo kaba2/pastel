@@ -25,4 +25,4 @@ if (("${LapackLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${LapackLibraryDir
 	endif()
 endif()
 
-CheckPathExists("Lapack (library)" "${LapackLibraryDirectory}")
+EcCheckPathExists("Lapack (library)" "${LapackLibraryDirectory}")

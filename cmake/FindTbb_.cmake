@@ -15,8 +15,8 @@
 # TbbLibraryDirectory:
 #    The directory-part of ${ArmadilloLibraryPath}.
 
-CheckPathExists("Tbb (include)" "${TbbIncludeDirectory}")
-CheckPathExists("Tbb (library)" "${TbbLibraryPath}")
+EcCheckPathExists("Tbb (include)" "${TbbIncludeDirectory}")
+EcCheckPathExists("Tbb (library)" "${TbbLibraryPath}")
 
 include_directories (${TbbIncludeDirectory})
 

@@ -12,7 +12,7 @@
 # MatlabDirectory:
 #    Matlab's installation directory.
 
-CheckPathExists("Matlab (include)" "${MatlabIncludeDirectory}")
+EcCheckPathExists("Matlab (include)" "${MatlabIncludeDirectory}")
 
 include_directories (${MatlabIncludeDirectory})
 

@@ -25,4 +25,4 @@ if (("${BlasLibraryDirectory}" STREQUAL "") OR (NOT EXISTS "${BlasLibraryDirecto
 	endif()
 endif()
 
-CheckPathExists("Blas (library)" "${BlasLibraryDirectory}")
+EcCheckPathExists("Blas (library)" "${BlasLibraryDirectory}")
