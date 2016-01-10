@@ -1,6 +1,6 @@
 project (PastelGeometryTest)
 
-PastelAdd (executable pastelgeometrytest)
+EcAddLibrary (executable pastelgeometrytest)
 
 target_link_libraries (
 	pastelgeometrytest 

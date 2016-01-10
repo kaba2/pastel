@@ -1,6 +1,6 @@
 project (PastelGeometry)
 
-PastelAdd (library pastelgeometry)
+EcAddLibrary (library pastelgeometry)
 
 target_link_libraries (
 	pastelgeometry 

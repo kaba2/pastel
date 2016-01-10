@@ -1,6 +1,6 @@
 project (PastelGfx)
 
-PastelAdd (library pastelgfx)
+EcAddLibrary (library pastelgfx)
 
 target_link_libraries (
 	pastelgfx 

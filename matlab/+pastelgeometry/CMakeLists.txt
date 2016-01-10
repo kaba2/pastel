@@ -1,4 +1,4 @@
 project (+pastelgeometry)
 
-PastelAddMatlab (+pastelgeometry)
+EcAddMatlabLibrary (+pastelgeometry)
 

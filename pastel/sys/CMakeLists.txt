@@ -1,3 +1,3 @@
 project (PastelSys)
 
-PastelAdd (library pastelsys)
+EcAddLibrary (library pastelsys)

@@ -8,8 +8,8 @@ project (Pastel)
 # Directory for CMake to search for CMake-included() files.
 set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-# Initialize the generic build system.
-include ("Initialize")
+# Initialize ECMake
+include ("ecmake")
 
 # Global variables for the build-script
 # -------------------------------------
@@ -89,7 +89,7 @@ file (COPY "${ProjectDirectory}/matlab/+pastelgeometry/fish.txt"
 # Adds a library, or an executable, and creates source-groups based on 
 # the physical directory tree.
 
-macro (PastelAdd Type LibraryName)
+macro (EcAddLibrary Type LibraryName)
 	file (GLOB_RECURSE SourceSet ${PastelSourceGlobSet})
 
 	foreach (FilePath ${SourceSet})
@@ -129,7 +129,7 @@ macro (PastelAdd Type LibraryName)
 endmacro()
 
 # Configures a Pastel Matlab library.
-macro (PastelAddMatlab)
+macro (EcAddMatlabLibrary)
 	file (GLOB_RECURSE SourceSet RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${PastelMatlabSourceGlobSet})
 	foreach(FilePath ${SourceSet})
 		set (OutputFilePath ${ProjectMatlabDirectory}/${FilePath})

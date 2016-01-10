@@ -1,6 +1,6 @@
 project (PastelMathTest)
 
-PastelAdd (executable pastelmathtest)
+EcAddLibrary (executable pastelmathtest)
 
 target_link_libraries (
 	pastelmathtest 

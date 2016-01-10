@@ -1,6 +1,6 @@
 project (PastelMath)
 
-PastelAdd (library pastelmath)
+EcAddLibrary (library pastelmath)
 
 target_link_libraries (
 	pastelmath 

@@ -1,4 +1,4 @@
 project (+pastelmath)
 
-PastelAddMatlab (+pastelmath)
+EcAddMatlabLibrary (+pastelmath)
 
