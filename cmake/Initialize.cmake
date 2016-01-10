@@ -2,6 +2,13 @@
 # in link_directories().
 cmake_policy(SET CMP0015 NEW)
 
+option (BuildMatlabMex
+	"Make libraries usable for Matlab mex (force release-mode C and C++ standard libraries)." 
+	ON)
+
+# Form tool-set string to differentiate builds
+# --------------------------------------------
+
 # Find out whether the generator is 32-bit or 64-bit.
 math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 
@@ -50,14 +57,6 @@ if (NOT CMAKE_BUILD_TYPE AND
  		"Debug" 
   		"Release")
 endif()
-
-option (BuildMatlabMex
-	"Make libraries usable for Matlab mex (force release-mode C and C++ standard libraries)." 
-	ON)
-
-# The set of dll-libraries to copy into the 
-# executable directory (Windows only).
-set (DllSet "")
 
 # Define output directories
 # -------------------------
@@ -123,6 +122,10 @@ macro(CheckPathExists Name PathSet)
 		endif()
 	endforeach()
 endmacro()
+
+# The set of dll-libraries to copy into the 
+# executable directory (Windows only).
+set (DllSet "")
 
 macro (CopyDllsTo Directory)
     foreach (dllPath ${DllSet})

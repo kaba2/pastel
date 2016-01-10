@@ -11,6 +11,25 @@ set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 # Initialize the generic build system.
 include ("Initialize")
 
+# Global variables for the build-script
+# -------------------------------------
+
+# By default, the libraries are built static.
+set (PastelLibraryType STATIC)
+
+# The source files to include in a C++ build.
+set (PastelSourceGlobSet *.cpp *.h *.hpp *.txt)
+
+# The source files to include in a Matlab build.
+set (PastelMatlabSourceGlobSet *.m *.m.cmake)
+
+# The documentation files of the project.
+set (PastelDocumentationGlobSet *.txt)
+
+# The Threading Building Blocks dynamic library is 
+# linked to every executable.
+set (ExecutableLibrarySet tbb)
+
 # CMake build options
 # -------------------
 
@@ -34,25 +53,6 @@ find_package("Lapack_")
 if (BuildMatlab)
 	find_package("Matlab_")
 endif()
-
-# Global variables for the build-script
-# -------------------------------------
-
-# By default, the libraries are built static.
-set (PastelLibraryType STATIC)
-
-# The source files to include in a C++ build.
-set (PastelSourceGlobSet *.cpp *.h *.hpp *.txt)
-
-# The source files to include in a Matlab build.
-set (PastelMatlabSourceGlobSet *.m *.m.cmake)
-
-# The documentation files of the project.
-set (PastelDocumentationGlobSet *.txt)
-
-# The Threading Building Blocks dynamic library is 
-# linked to every executable.
-set (ExecutableLibrarySet tbb)
 
 # Copy dll-libraries
 # ------------------
