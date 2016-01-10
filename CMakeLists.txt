@@ -3,21 +3,13 @@
 
 cmake_minimum_required (VERSION 2.8)
 
-# Interpret relative paths w.r.t. the source directory in
-# in link_directories().
-cmake_policy(SET CMP0015 NEW)
-
 project (Pastel)
 
-# Find out whether the generator is 32-bit or 64-bit.
-math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
+# Directory for CMake to search for CMake-included() files.
+set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-# We use a tool-set id to separate the outputs of 
-# different compilers to different directories.
-# The tool-set id consists of a compiler-id and
-# the bitness of the generator.
-string (TOLOWER ${CMAKE_CXX_COMPILER_ID} CompilerId)
-set (ToolSet ${CompilerId}${GENERATOR_BITS})
+# Initialize the generic build system.
+include ("Initialize")
 
 # CMake build options
 # -------------------
@@ -26,51 +18,6 @@ option (BuildLibraries "Build Pastel's main libraries." ON)
 option (BuildMatlab "Build Pastel's Matlab-libraries." ON)
 option (BuildTests "Build Pastel's tests." ON)
 option (BuildExamples "Build Pastel's examples." ON)
-option (BuildMatlabMex
-	"Make libraries usable for Matlab mex (force release-mode C and C++ standard libraries)." 
-	ON)
-
-# Force to use an out-of-source build
-# -----------------------------------
-
-if ("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
-	message (SEND_ERROR 
-   		"Pastel does not allow in-source builds (e.g. 'cmake .'); you should do an "
-   		"out-of-source build instead (e.g. 'cmake ..' in 'build_${ToolSet}/' directory). "
-   		"This call produced the file 'CMakeCache.txt' and the 'CMakeFiles' directory "
-   		"in the Pastel's source directory. You must remove them for the out-of-source "
-   		" build to work; otherwise CMake attempts an in-source build again."
-	)
-
-   return()
-endif()
-
-# Emit a warning about forcing release-mode libraries
-# ---------------------------------------------------
-
-if (BuildMatlabMex)
-	message (WARNING
-		"BuildMatlabMex: Forcing release-mode C and C++ "
-		"standard libraries. Use this only when the intent is "
-		"to make Pastel libraries usable for Matlab mex.")
-endif()
-
-# Set a default build type if none was specified
-# ----------------------------------------------
-
-# This only applies to single-configuration tool-sets,
-# such as Unix Makefiles.
-if (NOT CMAKE_BUILD_TYPE AND 
-	NOT CMAKE_CONFIGURATION_TYPES)
-	message(STATUS 
-		"Setting build type to 'Release' as none was specified.")
-	set(CMAKE_BUILD_TYPE Release CACHE STRING 
-		"Choose the type of build." FORCE)
-	# Set the possible values of build types for cmake-gui.
-	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS 
- 		"Debug" 
-  		"Release")
-endif()
 
 # Set some directories
 # --------------------
@@ -80,9 +27,6 @@ set (PastelIncludeDirectory "${PastelDirectory}")
 set (PastelLibraryDirectory "${PastelDirectory}/lib/${ToolSet}")
 set (PastelExecutableDirectory "${PastelDirectory}/bin/${ToolSet}")
 set (PastelMatlabDirectory "${PastelExecutableDirectory}/matlab")
-
-# Directory for CMake to search for CMake-included() files.
-set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # The set of dll-libraries to copy into the 
 # executable directory (Windows only).
@@ -177,9 +121,6 @@ endif()
 # Copy some data files.
 file (COPY "${PastelDirectory}/matlab/+pastelgeometry/fish.txt" 
 	DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/matlab/+pastelgeometry")
-
-# Set compiler options.
-include ("SetupCompilers")
 
 # Adds a library, or an executable, and creates source-groups based on 
 # the physical directory tree.
