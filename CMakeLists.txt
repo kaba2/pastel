@@ -23,10 +23,6 @@ set (PastelMatlabSourceGlobSet *.m *.m.cmake)
 # The documentation files of the project.
 set (PastelDocumentationGlobSet *.txt)
 
-# The Threading Building Blocks dynamic library is 
-# linked to every executable.
-set (ExecutableLibrarySet tbb)
-
 # CMake build options
 # -------------------
 
@@ -51,32 +47,13 @@ if (BuildMatlab)
 	find_package("Matlab_")
 endif()
 
-# Copy dll-libraries
-# ------------------
-
-if (WIN32 AND ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-	# On Windows under MinGW, copy the dll-libraries to 
-	# where the executables are.
-	CopyDllsTo("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
-endif()
-
-# This is for the multi-configuration build-scripts
-# (such as Visual Studio and XCode).
-foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
-    string (TOUPPER ${OUTPUTCONFIG} UPPER_OUTPUTCONFIG)
-    string (TOLOWER ${OUTPUTCONFIG} LOWER_OUTPUTCONFIG)
-
-    if (WIN32)
-    	# On Windows under MSVC, copy the dll-libraries to 
-    	# where the executables are.
-    	CopyDllsTo("${CMAKE_RUNTIME_OUTPUT_DIRECTORY_${UPPER_OUTPUTCONFIG}}")
-	endif()
-endforeach()
-
 if (WIN32)
-	# On Windows, copy the dll-libraries to where
-	# the Matlab interface is.
-	CopyDllsTo("${ProjectMatlabDirectory}")
+	# Copy dll-libraries aside executables for
+	# Windows to find them, when running an
+	# executable.
+	foreach (dllPath ${DllSet})
+		CopyAsideExecutables("${dllPath}")
+	endforeach()
 endif()
 
 # Copy some data files.
