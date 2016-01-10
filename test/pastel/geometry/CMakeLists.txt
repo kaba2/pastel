@@ -1,6 +1,6 @@
 project (PastelGeometryTest)
 
-EcAddLibrary (executable pastelgeometrytest)
+EcAddLibrary (executable pastelgeometrytest ${PastelSourceGlobSet})
 
 target_link_libraries (
 	pastelgeometrytest 

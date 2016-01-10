@@ -1,6 +1,6 @@
 project (PastelGfxTest)
 
-EcAddLibrary (executable pastelgfxtest)
+EcAddLibrary (executable pastelgfxtest ${PastelSourceGlobSet})
 
 target_link_libraries (
 	pastelgfxtest 

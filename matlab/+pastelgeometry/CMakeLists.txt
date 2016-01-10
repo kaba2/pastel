@@ -1,4 +1,4 @@
 project (+pastelgeometry)
 
-EcAddMatlabLibrary (+pastelgeometry)
+EcAddMatlabLibrary (+pastelgeometry ${PastelMatlabSourceGlobSet})
 

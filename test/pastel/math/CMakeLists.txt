@@ -1,6 +1,6 @@
 project (PastelMathTest)
 
-EcAddLibrary (executable pastelmathtest)
+EcAddLibrary (executable pastelmathtest ${PastelSourceGlobSet})
 
 target_link_libraries (
 	pastelmathtest 

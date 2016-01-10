@@ -1,3 +1,3 @@
 if (BuildMatlab)
-	EcAddMatlabLibrary()
+	EcAddMatlabLibrary(${PastelMatlabSourceGlobSet})
 endif()
