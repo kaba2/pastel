@@ -5,11 +5,17 @@ cmake_policy(SET CMP0015 NEW)
 # Find out whether the generator is 32-bit or 64-bit.
 math(EXPR GENERATOR_BITS "8*${CMAKE_SIZEOF_VOID_P}")
 
+# Find out the compiler-id in lower-case.
+# For example: msvc, gnu, clang
+string (TOLOWER ${CMAKE_CXX_COMPILER_ID} CompilerId)
+
 # We use a tool-set id to separate the outputs of 
 # different compilers to different directories.
 # The tool-set id consists of a compiler-id and
-# the bitness of the generator.
-string (TOLOWER ${CMAKE_CXX_COMPILER_ID} CompilerId)
+# the bitness of the generator. For example:
+# msvc64: Visual Studio, 64 bits
+# gnu32: GCC, 32 bits,
+# clang64: Clang, 64 bits
 set (ToolSet ${CompilerId}${GENERATOR_BITS})
 
 # Force to use an out-of-source build
