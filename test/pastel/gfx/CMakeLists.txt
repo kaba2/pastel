@@ -1,6 +1,6 @@
 project (PastelGfxTest)
 
-PastelAdd (executable pastelgfxtest)
+EcAddLibrary (executable pastelgfxtest)
 
 target_link_libraries (
 	pastelgfxtest 

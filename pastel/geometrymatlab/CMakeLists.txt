@@ -1,6 +1,6 @@
 project (PastelGeometryMatlab)
 
-PastelAdd (library pastelgeometrymatlab)
+EcAddLibrary (library pastelgeometrymatlab)
 
 target_link_libraries (
 	pastelgeometrymatlab 

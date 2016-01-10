@@ -1,6 +1,6 @@
 project (PastelSysTest)
 
-PastelAdd (executable pastelsystest)
+EcAddLibrary (executable pastelsystest)
 
 target_link_libraries (
 	pastelsystest 

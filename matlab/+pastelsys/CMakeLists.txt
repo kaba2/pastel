@@ -1,4 +1,4 @@
 project (+pastelsys)
 
-PastelAddMatlab (+pastelsys)
+EcAddMatlabLibrary (+pastelsys)
 
