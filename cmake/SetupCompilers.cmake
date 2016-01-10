@@ -114,10 +114,10 @@ if (MSVC)
 		string(REPLACE "/D_DEBUG" "" CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 
 		# Emit a warning about forcing release-mode libraries
-		message (WARNING
-			"BuildMatlabMex: Forcing release-mode C and C++ "
-			"standard libraries in Visual Studio. Use this only when the intent is "
-			"to make ${CMAKE_PROJECT_NAME} usable for Matlab mex.")
+		message (
+			"BuildMatlabMex: Forcing release-mode C and C++ standard libraries "
+			"in Visual Studio. Use this only when the intent is to make "
+			"${CMAKE_PROJECT_NAME} usable for Matlab mex.")
 	endif()
 
 	add_definitions (

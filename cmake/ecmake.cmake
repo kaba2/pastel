@@ -110,7 +110,7 @@ include ("SetupCompilers")
 # Helper macros
 # -------------
 
-macro(CheckPathExists Name PathSet)
+macro(EcCheckPathExists Name PathSet)
 	foreach(Path ${PathSet})
 		if(EXISTS ${Path})
 			message (STATUS "${Name}: ${Path}")
@@ -126,7 +126,7 @@ macro(CheckPathExists Name PathSet)
 endmacro()
 
 # Copies a file aside executables.
-macro (CopyAsideExecutables FilePath)
+macro (EcCopyAsideExecutables FilePath)
 	if (CMAKE_CONFIGURATION_TYPES)
 		# This is a multi-configuration generator,
 		# such as Visual Studio or XCode.

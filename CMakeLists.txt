@@ -34,6 +34,10 @@ option (BuildExamples "Build Pastel's examples." ON)
 # Configure external libraries
 # ----------------------------
 
+# The set of dll-libraries to copy into the 
+# executable directory (Windows only).
+set (DllSet "")
+
 # Manual override for paths.
 include ("Paths")
 
@@ -47,12 +51,15 @@ if (BuildMatlab)
 	find_package("Matlab_")
 endif()
 
+# Copy files
+# ----------
+
 if (WIN32)
 	# Copy dll-libraries aside executables for
 	# Windows to find them, when running an
 	# executable.
 	foreach (dllPath ${DllSet})
-		CopyAsideExecutables("${dllPath}")
+		EcCopyAsideExecutables("${dllPath}")
 	endforeach()
 endif()
 
@@ -88,7 +95,7 @@ if (BuildTests)
 		pastelmathtest 
 		pastelgeometrytest 
 		pastelgfxtest)
-	set_property( TARGET ${TestSet} PROPERTY FOLDER "Tests")
+	set_property(TARGET ${TestSet} PROPERTY FOLDER "Tests")
 endif()
 
 if (BuildLibraries)

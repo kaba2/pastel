@@ -28,10 +28,10 @@ if (("${ArmadilloIncludeDirectory}" STREQUAL "") OR (NOT EXISTS "${ArmadilloIncl
 	endif()
 endif()
 
-CheckPathExists("Armadillo (include)" "${ArmadilloIncludeDirectory}")
+EcCheckPathExists("Armadillo (include)" "${ArmadilloIncludeDirectory}")
 
 if (APPLE)
-	CheckPathExists("Armadillo (library)" "${ArmadilloLibraryPath}")
+	EcCheckPathExists("Armadillo (library)" "${ArmadilloLibraryPath}")
 endif()
 
 include_directories (${ArmadilloIncludeDirectory})

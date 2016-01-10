@@ -1,10 +1,6 @@
 # Description: Manual paths for external libraries
 # Documentation: building.txt
 
-# The set of dll-libraries to copy into the 
-# executable directory (Windows only).
-set (DllSet "")
-
 # Manual overrides for paths under Windows
 # ----------------------------------------
 
