@@ -1,4 +1,4 @@
 project (+pastelsys)
 
-EcAddMatlabLibrary (+pastelsys)
+EcAddMatlabLibrary (+pastelsys ${PastelMatlabSourceGlobSet})
 

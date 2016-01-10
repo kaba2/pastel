@@ -1,6 +1,6 @@
 project (PastelGeometry)
 
-EcAddLibrary (library pastelgeometry)
+EcAddLibrary (library pastelgeometry ${PastelSourceGlobSet})
 
 target_link_libraries (
 	pastelgeometry 

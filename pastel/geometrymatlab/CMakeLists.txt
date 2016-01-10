@@ -1,6 +1,6 @@
 project (PastelGeometryMatlab)
 
-EcAddLibrary (library pastelgeometrymatlab)
+EcAddLibrary (library pastelgeometrymatlab ${PastelSourceGlobSet})
 
 target_link_libraries (
 	pastelgeometrymatlab 

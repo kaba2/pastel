@@ -132,3 +132,64 @@ macro (CopyDllsTo Directory)
 		file (COPY "${dllPath}" DESTINATION ${Directory})
     endforeach()
 endmacro()
+
+# Adds a library, or an executable, and creates source-groups based on 
+# the physical directory tree.
+macro (EcAddLibrary Type LibraryName SourceGlobSet)
+	file (GLOB_RECURSE SourceSet ${SourceGlobSet})
+
+	foreach (FilePath ${SourceSet})
+		# Get the path to the source file, relative to the current directory.
+	    file (RELATIVE_PATH FileRelativePath ${CMAKE_CURRENT_LIST_DIR} ${FilePath})
+
+	    # Append / to the beginning, so that the regex-replacement
+	    # works also in the current directory.
+	    set (FileRelativePath "/${FileRelativePath}")
+
+	    # Get the directory-part of the path.
+	    # I could not find a way for specifying a non-capturing group, 
+	    # so I opted to append the / to the beginning, and then do
+	    # the following.
+	    string (REGEX REPLACE "(.*/)[^/]*$" "\\1" DirectoryRelativePath ${FileRelativePath})
+
+	    # Replace / with \.
+	    string (REPLACE "/" "\\" SourceGroupName ${DirectoryRelativePath})
+
+	    #message (STATUS ${FileRelativePath})
+	    #message (STATUS ${DirectoryRelativePath})
+	    #message (STATUS ${SourceGroupName})
+
+	    # Create a source group.
+	    source_group(${SourceGroupName} FILES ${FilePath})
+	endforeach()
+
+	#message (STATUS "${LibraryName} is ${Type}" )
+
+	if ("${Type}" STREQUAL "library")
+		add_library (${LibraryName} STATIC ${SourceSet})
+	else ("${Type}" STREQUAL "executable")
+		add_executable (${LibraryName} ${SourceSet})
+	else ()
+		message (FATAL_ERROR "Unknown library type ${Type}.")
+	endif()
+endmacro()
+
+# Configures a Pastel Matlab library.
+macro (EcAddMatlabLibrary SourceGlobSet)
+	file (GLOB_RECURSE SourceSet RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${SourceGlobSet})
+	foreach(FilePath ${SourceSet})
+		set (OutputFilePath ${ProjectMatlabDirectory}/${FilePath})
+		set (Options "")
+
+		get_filename_component(FileExtension ${FilePath} EXT)
+
+		if (${FileExtension} MATCHES "template.(.+)$")
+			string (REGEX REPLACE "(.+).template.(.+)$" "\\1.\\2" OutputFilePath ${OutputFilePath})
+		else()
+			set (Options COPYONLY)
+		endif()
+		
+		configure_file(${FilePath} ${OutputFilePath} ${Options})
+		#message (STATUS "Configured ${FilePath} to ${OutputFilePath}.")
+		endforeach()
+endmacro()
