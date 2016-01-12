@@ -4,6 +4,9 @@
 # in link_directories().
 cmake_policy(SET CMP0015 NEW)
 
+# Turn on solution folders.
+set_property( GLOBAL PROPERTY USE_FOLDERS ON)
+
 option (BuildMatlabMex
 	"Make libraries usable for Matlab mex (force release-mode C and C++ standard libraries)." 
 	ON)
