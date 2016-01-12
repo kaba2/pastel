@@ -8,8 +8,11 @@ project (Pastel)
 # Directory for CMake to search for CMake-included() files.
 set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-# Initialize ECMake
+# Initialize ECMake.
 include ("ecmake")
+
+# Setup compilers.
+include ("SetupCompilers")
 
 # Global variables for the build-script
 # -------------------------------------

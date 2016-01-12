@@ -93,19 +93,6 @@ endif()
 # -------------
 
 if (MSVC)
-	# Do not add ZERO_CHECK project into the Visual Studio solution.
-	# From VS2008 to VS2013, the ZERO_CHECK project is always out
-	# of date, which causes the Visual Studio to ask at every build
-	# whether ZERO_CHECK should be built, although nothing was changed.
-	# The purpose of the ZERO_CHECK project is to check whether there
-	# are changes to the CMake files themselves, and to regenerate the
-	# project files if so. But even then the projects are regenerated
-	# during the build, and they need to be reloaded, and that is not 
-	# very smooth. It is better to suppress this feature and to 
-	# regenerate the project files manually whenever the CMake files
-	# are changed.
-	set(CMAKE_SUPPRESS_REGENERATION TRUE)
-
 	if (BuildMatlabMex)
 		# Force Visual Studio to use release-mode C and C++ standard libraries.
 		# This is needed for Matlab, because otherwise there will be LNK4098
