@@ -125,12 +125,18 @@ if (MSVC)
 		/D_ITERATOR_DEBUG_LEVEL=0
 		# Use multiple processes for compiling.
 		/MP
+		# Enable exceptions.
+		/EHsc
 	)
 
 	# Disable some warnings.
 	add_definitions (
-		# "'expression' : signed/unsigned mismatch"
-		/wd4018 
+		# 'expression' : signed/unsigned mismatch
+		/wd4018
+		# 'variable' : unreferenced formal parameter
+		/wd4100
+		# conditional expression is constant
+		/wd4127
    		# unary minus operator applied to unsigned type, result still unsigned
    		/wd4146
 		# "qualifier applied to function type has no meaning; ignored"
@@ -139,6 +145,8 @@ if (MSVC)
 		/wd4224
 		# "'argument' : conversion from 'type1' to 'type2', possible loss of data."
 		/wd4244
+		# "'return' : conversion from 'A' to 'B', signed/unsigned mismatch"
+		/wd4245
 		# "'identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'"
 		/wd4251 
 		# "'var' : conversion from 'size_t' to 'type', possible loss of data"

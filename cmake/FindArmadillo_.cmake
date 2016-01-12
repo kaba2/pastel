@@ -1,32 +1,51 @@
 # Description: Armadillo configuration
 # Documentation: building.txt
 
+# Arguments
+# ---------
+#
+# ArmadilloDirectory (string):
+#    The directory to the Armadillo library.
+#
 # returns
 # -------
 #
-# ArmadilloIncludeDirectory:
+# ArmadilloIncludeDirectory (string):
 #    A directory to add to include directories, such that
 #    #include <armadillo>
 #    becomes valid.
 #
-# ArmadilloLibraryPath:
+# ArmadilloLibraryPath (string):
 #    Path to the Armadillo library.
 #
-# ArmadilloLibraryDirectory:
+# ArmadilloLibraryFilename (string):
+#    Filename-part of ${ArmadilloLibraryPath} (e.g. libarmadillo.a).
+#
+# ArmadilloLibraryDirectory (string):
 #    The directory-part of ${ArmadilloLibraryPath}.
+#
+# ArmadilloLibraryName (string):
+#    Name of the Armadillo library (e.g. armadillo).
 
-if (("${ArmadilloIncludeDirectory}" STREQUAL "") OR (NOT EXISTS "${ArmadilloIncludeDirectory}"))
+if (("${ArmadilloDirectory}" STREQUAL "") OR (NOT EXISTS "${ArmadilloDirectory}"))
 	find_package(Armadillo)
 	if (ARMADILLO_FOUND)
 		# The found path allows includes of the form:
 		# #include <armadillo>
-		set (ArmadilloIncludeDirectory "${ARMADILLO_INCLUDE_DIRS}")
+		set (ArmadilloDirectory "${ARMADILLO_INCLUDE_DIRS}")
+		string (REGEX REPLACE "(.*)/include$" "\\1" ArmadilloDirectory "${ArmadilloDirectory}")
 		set (ArmadilloLibraryPath "${ARMADILLO_LIBRARIES}")
-		get_filename_component (ArmadilloLibraryName "${ArmadilloLibraryPath}" NAME)
-		string (REGEX REPLACE "lib(.*).dylib$" "\\1" ArmadilloLibraryName "${ArmadilloLibraryName}")
-		get_filename_component (ArmadilloLibraryDirectory "${ArmadilloLibraryPath}" DIRECTORY)
 	endif()
+else()
+	set (ArmadilloLibraryPath "")
 endif()
+
+set (ArmadilloIncludeDirectory "${ArmadilloDirectory}/include")
+
+get_filename_component (ArmadilloLibraryFilename "${ArmadilloLibraryPath}" NAME)
+get_filename_component (ArmadilloLibraryDirectory "${ArmadilloLibraryPath}" DIRECTORY)
+
+EcLibraryNameFromFileName(ArmadilloLibraryName "${ArmadilloLibraryFilename}")
 
 EcCheckPathExists("Armadillo (include)" "${ArmadilloIncludeDirectory}")
 

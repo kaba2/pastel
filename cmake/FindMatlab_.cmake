@@ -1,16 +1,21 @@
 # Description: Matlab configuration
 # Documentation: building.txt
 
+# Arguments
+# ---------
+#
+# MatlabDirectory (string):
+#    Matlab's installation directory.
+# 
 # returns
 # -------
 #
-# MatlabIncludeDirectory:
+# MatlabIncludeDirectory (string):
 #    A directory to add to include directories, such that
 #    #include <mex.h>
 #    becomes valid.
-#
-# MatlabDirectory:
-#    Matlab's installation directory.
+
+set (MatlabIncludeDirectory "${MatlabDirectory}/extern/include")
 
 EcCheckPathExists("Matlab (include)" "${MatlabIncludeDirectory}")
 
