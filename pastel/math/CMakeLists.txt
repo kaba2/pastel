@@ -1,6 +1,6 @@
 project (PastelMath)
 
-EcAddLibrary (library pastelmath ${PastelSourceGlobSet})
+EcAddLibrary (library pastelmath "${PastelSourceGlobSet}")
 
 target_link_libraries (
 	pastelmath 
