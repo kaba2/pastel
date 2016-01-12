@@ -1,10 +1,22 @@
 # Description: Compiler setup
 # Documentation: building.txt
 
-# Debug-mode definitions.
+# Debug-mode definitions
+# ----------------------
+
 set (CMAKE_CXX_FLAGS_DEBUG 
-	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG"
+	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG"
 )
+
+if (NOT BuildMatlabMex)
+	# The flag _DEBUG enables additional debugging in the
+	# C++ Standard Library under Visual Studio. Using it
+	# requires the debug-mode C-runtime. However, BuildMatlabMex 
+	# forces release-mode C-runtime.
+	set (CMAKE_CXX_FLAGS_DEBUG 
+		"${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG"
+	)
+endif()
 
 # Clang and g++
 # -------------
