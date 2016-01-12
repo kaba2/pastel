@@ -40,7 +40,6 @@ EcLibraryNameFromFileName(LapackLibraryName "${LapackLibraryFilename}")
 
 if (WIN32)
 	string (REGEX REPLACE "\\.lib" ".dll" LapackDllPath ${LapackLibraryPath})
-	set (DllSet ${DllSet} "${LapackDllPath}")
 endif()
 
 EcCheckPathExists("Lapack (library)" "${LapackLibraryPath}")

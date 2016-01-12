@@ -34,10 +34,6 @@ option (BuildExamples "Build Pastel's examples." ON)
 # Configure external libraries
 # ----------------------------
 
-# The set of dll-libraries to copy into the 
-# executable directory (Windows only).
-set (DllSet "")
-
 # Manual override for paths.
 include ("Paths")
 
@@ -58,8 +54,13 @@ if (WIN32)
 	# Copy dll-libraries aside executables for
 	# Windows to find them, when running an
 	# executable.
-	foreach (dllPath ${DllSet})
-		EcCopyAsideExecutables("${dllPath}")
+
+	set (DllPathSet 
+		"${BlasDllPath}"
+		"${LapackDllPath}")
+
+	foreach (DllPath ${DllPathSet})
+		EcCopyAsideExecutables("${DllPath}")
 	endforeach()
 endif()
 
@@ -72,53 +73,15 @@ file (COPY "${ProjectDirectory}/matlab/+pastelgeometry/fish.txt"
 
 add_subdirectory (pastel)
 
-if (BuildMatlab)
-	add_subdirectory (matlab)
-endif()
-
 if (BuildTests)
 	add_subdirectory (test)
 endif()
 
+if (BuildMatlab)
+	add_subdirectory (matlab)
+endif()
+
 if (BuildExamples)
 	add_subdirectory (example)
-endif()
-
-# Solution folders
-# ----------------
-
-set_property( GLOBAL PROPERTY USE_FOLDERS ON)
-
-if (BuildTests)
-	set (TestSet 
-		pastelsystest 
-		pastelmathtest 
-		pastelgeometrytest 
-		pastelgfxtest)
-	set_property(TARGET ${TestSet} PROPERTY FOLDER "Tests")
-endif()
-
-if (BuildLibraries)
-	set (LibrarySet 
-		pastelsys 
-		pastelmath 
-		pastelgeometry 
-		pastelgfx
-		pasteldoc)
-	set_property( TARGET ${LibrarySet} PROPERTY FOLDER "Libraries")
-endif()
-
-if (BuildMatlab)
-	set (MatlabLibrarySet
-		pastelmatlab
-		pastelsysmatlab
-		pastelmathmatlab
-		pastelgeometrymatlab)
-	set_property( TARGET ${MatlabLibrarySet} PROPERTY FOLDER "Matlab Libraries")
-endif()
-
-if (BuildExamples)
-	set (ExampleSet)
-	set_property( TARGET ${ExampleSet} PROPERTY FOLDER "Examples")
 endif()
 

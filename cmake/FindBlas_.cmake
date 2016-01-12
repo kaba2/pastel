@@ -40,7 +40,6 @@ EcLibraryNameFromFileName(BlasLibraryName "${BlasLibraryFilename}")
 
 if (WIN32)
 	string (REGEX REPLACE "\\.lib" ".dll" BlasDllPath ${BlasLibraryPath})
-	set (DllSet ${DllSet} "${BlasDllPath}")
 endif()
 
 EcCheckPathExists("Blas (library)" "${BlasLibraryPath}")
