@@ -5,7 +5,7 @@
 cmake_policy(SET CMP0015 NEW)
 
 # Turn on solution folders.
-set_property( GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 option (BuildMatlabMex
 	"Make libraries usable for Matlab mex (force release-mode C and C++ standard libraries)." 
@@ -105,14 +105,28 @@ foreach (OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     	"${ProjectExecutableDirectory}/${LOWER_OUTPUTCONFIG}")
 endforeach()
 
-# Set compiler options
-# --------------------
+# Set some options
+# ----------------
 
-include ("SetupCompilers")
+if (MSVC)
+	# Do not add ZERO_CHECK project into the Visual Studio solution.
+	# From VS2008 to VS2013, the ZERO_CHECK project is always out
+	# of date, which causes the Visual Studio to ask at every build
+	# whether ZERO_CHECK should be built, although nothing was changed.
+	# The purpose of the ZERO_CHECK project is to check whether there
+	# are changes to the CMake files themselves, and to regenerate the
+	# project files if so. But even then the projects are regenerated
+	# during the build, and they need to be reloaded, and that is not 
+	# very smooth. It is better to suppress this feature and to 
+	# regenerate the project files manually whenever the CMake files
+	# are changed.
+	set(CMAKE_SUPPRESS_REGENERATION TRUE)
+endif()
 
 # Helper macros
 # -------------
 
+# Checks if the given paths exist.
 macro(EcCheckPathExists Name PathSet)
 	foreach(Path ${PathSet})
 		if(EXISTS ${Path})
@@ -217,6 +231,7 @@ macro (EcAddMatlabLibrary SourceGlobSet)
 		endforeach()
 endmacro()
 
+# Extracts library name from library filename.
 macro (EcLibraryNameFromFilename LibraryName LibraryFilename)
 	if (UNIX)
 		string (REGEX REPLACE "lib(.*)\\.(a|so|dylib)$" "\\1" ${LibraryName} "${LibraryFilename}")
