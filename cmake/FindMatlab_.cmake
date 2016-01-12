@@ -19,5 +19,4 @@ set (MatlabIncludeDirectory "${MatlabDirectory}/extern/include")
 
 EcCheckPathExists("Matlab (include)" "${MatlabIncludeDirectory}")
 
-include_directories (${MatlabIncludeDirectory})
 

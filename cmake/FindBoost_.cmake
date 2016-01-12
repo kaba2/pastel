@@ -40,8 +40,6 @@ set (BoostIncludeDirectory "${BoostDirectory}")
 
 EcCheckPathExists("Boost (include)" "${BoostIncludeDirectory}")
 
-include_directories (${BoostIncludeDirectory})
-
 # Make the special functions in Boost return infinity on overflow
 # (rather than throw an exception).
 add_definitions(-DBOOST_MATH_OVERFLOW_ERROR_POLICY=ignore_error)

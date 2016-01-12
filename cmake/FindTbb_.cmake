@@ -49,5 +49,4 @@ get_filename_component (TbbLibraryDirectory "${TbbLibraryPath}" DIRECTORY)
 EcCheckPathExists("Tbb (include)" "${TbbIncludeDirectory}")
 EcCheckPathExists("Tbb (library)" "${TbbLibraryPath}")
 
-include_directories (${TbbIncludeDirectory})
 

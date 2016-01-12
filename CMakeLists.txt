@@ -5,6 +5,17 @@ cmake_minimum_required (VERSION 2.8)
 
 project (Pastel)
 
+# CMake build options
+# -------------------
+
+option (BuildLibraries "Build Pastel's main libraries." ON)
+option (BuildMatlab "Build Pastel's Matlab-libraries." ON)
+option (BuildTests "Build Pastel's tests." ON)
+option (BuildExamples "Build Pastel's examples." ON)
+
+# ECMake
+# ------
+
 # Directory for CMake to search for CMake-included() files.
 set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
@@ -14,40 +25,27 @@ include ("ecmake")
 # Setup compilers.
 include ("SetupCompilers")
 
-# Global variables for the build-script
-# -------------------------------------
-
-# The source files to include in a C++ build.
-set (PastelSourceGlobSet *.cpp *.h *.hpp *.txt)
-
-# The source files to include in a Matlab build.
-set (PastelMatlabSourceGlobSet *.m *.m.cmake)
-
-# The documentation files of the project.
-set (PastelDocumentationGlobSet *.txt)
-
-# CMake build options
-# -------------------
-
-option (BuildLibraries "Build Pastel's main libraries." ON)
-option (BuildMatlab "Build Pastel's Matlab-libraries." ON)
-option (BuildTests "Build Pastel's tests." ON)
-option (BuildExamples "Build Pastel's examples." ON)
-
 # Configure external libraries
 # ----------------------------
 
-# Manual override for paths.
+# Manual override for external library paths.
 include ("Paths")
 
 find_package("Boost_")
+include_directories (${BoostIncludeDirectory})
+
 find_package("Armadillo_")
+include_directories (${ArmadilloIncludeDirectory})
+
 find_package("Tbb_")
+include_directories (${TbbIncludeDirectory})
+
 find_package("Blas_")
 find_package("Lapack_")
 
 if (BuildMatlab)
 	find_package("Matlab_")
+	include_directories (${MatlabIncludeDirectory})
 endif()
 
 # Copy files
@@ -70,6 +68,18 @@ endif()
 # Copy some data files.
 file (COPY "${ProjectDirectory}/matlab/+pastelgeometry/fish.txt" 
 	DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/matlab/+pastelgeometry")
+
+# Source file globs
+# -----------------
+
+# The source files to include in a C++ project.
+set (PastelSourceGlobSet *.cpp *.h *.hpp *.txt)
+
+# The source files to include in a Matlab project.
+set (PastelMatlabSourceGlobSet *.m *.m.cmake)
+
+# The documentation files of the project.
+set (PastelDocumentationGlobSet *.txt)
 
 # Recurse to sub-projects
 # -----------------------

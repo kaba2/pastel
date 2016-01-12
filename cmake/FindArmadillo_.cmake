@@ -53,7 +53,5 @@ if (APPLE)
 	EcCheckPathExists("Armadillo (library)" "${ArmadilloLibraryPath}")
 endif()
 
-include_directories (${ArmadilloIncludeDirectory})
-
 # Make Armadillo use C++11 (e.g. move constructors).
 add_definitions(-DARMA_USE_CXX11)
