@@ -8,29 +8,22 @@
 # be specified manually. 
 
 if (WIN32)
-	# Boost paths
-	set (BoostIncludeDirectory "C:/code/boost_1_59_0")
+	# Boost path
+	set (BoostDirectory "C:/code/boost_1_59_0")
 
-	# Armadillo paths
-	set (ArmadilloIncludeDirectory "C:/code/armadillo-5.200.1/include")
-	set (ArmadilloLibraryDirectory "")
-	set (ArmadilloLibraryPath "")
+	# Armadillo path
+	set (ArmadilloDirectory "C:/code/armadillo-5.200.1")
 
-	# Blas paths
-	set (BlasLibraryName "blas_win${GENERATOR_BITS}_MT")
-	set (BlasLibraryDirectory "${ProjectDirectory}/external/${GENERATOR_BITS}")
-	set (BlasLibraryPath "${BlasLibraryDirectory}/${BlasLibraryName}.lib")
-	set (DllSet 
-		${DllSet}
-		"${BlasLibraryDirectory}/${BlasLibraryName}.dll")
+	# Threading Building Blocks paths
+	set (TbbDirectory "C:/code/tbb-4.4")
 
-	# Lapack paths
-	set (LapackLibraryName "lapack_win${GENERATOR_BITS}_MT")
-	set (LapackLibraryDirectory "${ProjectDirectory}/external/${GENERATOR_BITS}")
-	set (LapackLibraryPath "${LapackLibraryDirectory}/${LapackLibraryName}.lib")
-	set (DllSet 
-		${DllSet}
-		"${LapackLibraryDirectory}/${LapackLibraryName}.dll")
+	# Blas library path
+	set (BlasLibraryPath 
+		"${ProjectDirectory}/external/${GENERATOR_BITS}/blas_win${GENERATOR_BITS}_MT.lib")
+
+	# Lapack library path
+	set (LapackLibraryPath 
+		"${ProjectDirectory}/external/${GENERATOR_BITS}/lapack_win${GENERATOR_BITS}_MT.lib")
 
 	# Matlab paths
 	if (${GENERATOR_BITS} EQUAL 32)
@@ -38,21 +31,6 @@ if (WIN32)
 	else()
 		set (MatlabDirectory "C:/Program Files/MATLAB/R2015a")
 	endif()
-
-	set (MatlabIncludeDirectory "${MatlabDirectory}/extern/include")
-
-	# Threading Building Blocks paths
-	set (TbbDirectory "C:/code/tbb-4.4")
-	set (TbbIncludeDirectory "${TbbDirectory}/include")
-	set (TbbLibraryName "tbb")
-
-	if (${GENERATOR_BITS} EQUAL 32)
-		set (TbbLibraryDirectory "${TbbDirectory}/lib/ia32/vc12")
-	else()
-		set (TbbLibraryDirectory "${TbbDirectory}/lib/intel64/vc12")
-	endif()
-
-	set (TbbLibraryPath "${TbbLibraryDirectory}/${TbbLibraryName}.lib")
 endif()
 
 # Manual overrides for paths under Linux and Mac OS X
@@ -60,23 +38,22 @@ endif()
 
 # Under Linux and Mac OS X, most of the libraries can be found
 # automatically. However, some of the paths have to be specified
-# manually, such as Matlab.
+# manually, such as Matlab and Threading Building Blocks.
 
 if (UNIX)
-	# Boost paths
-	set (BoostIncludeDirectory "")
+	# Boost path
+	set (BoostDirectory "")
 
-	# Armadillo paths
-	set (ArmadilloIncludeDirectory "")
-	set (ArmadilloLibraryDirectory "")
-	set (ArmadilloLibraryPath "")
+	# Armadillo path
+	set (ArmadilloDirectory "")
 
-	# Blas paths
-	set (BlasLibraryName "")
+	# Threading Building Blocks paths
+	set (TbbDirectory "/usr")
+
+	# Blas path
 	set (BlasLibraryPath "")
 
-	# Lapack paths
-	set (LapackLibraryName "")
+	# Lapack path
 	set (LapackLibraryPath "")
 
 	# Matlab paths
@@ -84,21 +61,6 @@ if (UNIX)
 		set (MatlabDirectory "/Applications/MATLAB_R2015a.app")
 	else()
 		set (MatlabDirectory "/usr/local/matlab/r2015a")
-	endif()
-
-	set (MatlabIncludeDirectory "${MatlabDirectory}/extern/include")
-
-	# Threading Building Blocks paths
-	set (TbbDirectory "/usr")
-	set (TbbIncludeDirectory "${TbbDirectory}/include")
-	set (TbbLibraryName "tbb")
-
-	if (APPLE)
-		set (TbbLibraryDirectory "${TbbDirectory}/local/lib")
-		set (TbbLibraryPath "${TbbLibraryDirectory}/lib${TbbLibraryName}.dylib")
-	else()
-		set (TbbLibraryDirectory "${TbbDirectory}/lib")
-		set (TbbLibraryPath "${TbbLibraryDirectory}/lib${TbbLibraryName}.so")
 	endif()
 endif()
 
