@@ -1,3 +1,3 @@
 project (PastelSys)
 
-EcAddLibrary (library pastelsys ${PastelSourceGlobSet})
+EcAddLibrary (library pastelsys "${PastelSourceGlobSet}")

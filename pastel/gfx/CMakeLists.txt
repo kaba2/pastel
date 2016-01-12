@@ -1,6 +1,6 @@
 project (PastelGfx)
 
-EcAddLibrary (library pastelgfx ${PastelSourceGlobSet})
+EcAddLibrary (library pastelgfx "${PastelSourceGlobSet}")
 
 target_link_libraries (
 	pastelgfx 
