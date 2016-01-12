@@ -10,7 +10,7 @@ Compiler
 
 Since Pastel uses C++14, it requires a recent compiler to be built. The following work:
 
-* Windows: Visual Studio 2015
+* Windows: Visual Studio 2015 Update 1
 * Linux: Gcc 5.1
 * MacOsX: XCode 6.4
 
@@ -27,22 +27,13 @@ See the [dependencies][Dependencies] page.
 
 ### 2. Install CMake
 
-Pastel uses the [CMake][CMake] build-script generator to abstract
-away the specifics of a given build-environment. CMake is a program
-which reads in a generic build-script and outputs a tool-specific 
-build-script (e.g. Unix makefiles, Visual Studio projects, etc.)
+Pastel uses the [CMake][CMake] build-script generator to abstract away the specifics of a given build-environment. CMake is a program which reads in a generic build-script and outputs a tool-specific build-script (e.g. Unix makefiles, Visual Studio projects, etc).
 
 CMake can be downloaded from [here][DownloadCMake]. 
 
 ### 3. Set the external library directories
 
-Modify the directories to refer to the locations you installed the external 
-libraries at:
-
-* Boost: [[Link: FindBoost_.cmake]]
-* Tbb: [[Link: FindTbb_.cmake]]
-* Armadillo: [[Link: FindArmadillo_.cmake]]
-* Matlab: [[Link: FindMatlab_.cmake]]
+Modify the directories to refer to the locations you installed the external libraries at [[Link: Paths.cmake]].
 
 ### 4. Generate tool-specific build-scripts using CMake. 
 

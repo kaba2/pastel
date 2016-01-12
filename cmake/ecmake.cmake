@@ -72,6 +72,12 @@ set (ProjectLibraryDirectory "${ProjectDirectory}/lib/${ToolSet}")
 set (ProjectExecutableDirectory "${ProjectDirectory}/bin/${ToolSet}")
 set (ProjectMatlabDirectory "${ProjectExecutableDirectory}/matlab")
 
+set (${CMAKE_PROJECT_NAME}Directory ${ProjectDirectory})
+set (${CMAKE_PROJECT_NAME}IncludeDirectory ${ProjectIncludeDirectory})
+set (${CMAKE_PROJECT_NAME}LibraryDirectory ${ProjectLibraryDirectory})
+set (${CMAKE_PROJECT_NAME}ExecutableDirectory ${ProjectExecutableDirectory})
+set (${CMAKE_PROJECT_NAME}MatlabDirectory ${ProjectMatlabDirectory})
+
 include_directories (${ProjectIncludeDirectory})
 
 # Set output directories
