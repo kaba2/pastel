@@ -3,7 +3,7 @@
 
 # Debug-mode definitions.
 set (CMAKE_CXX_FLAGS_DEBUG 
-	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG"
+	"${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG"
 )
 
 # Clang and g++
