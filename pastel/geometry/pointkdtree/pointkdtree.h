@@ -14,6 +14,8 @@
 #include "pastel/sys/tristate.h"
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/set/set_concept.h"
+#include "pastel/sys/set/interval_set.h"
+#include "pastel/sys/locator/transform_locator.h"
 
 #include "pastel/geometry/shape/alignedbox.h"
 
@@ -197,8 +199,19 @@ namespace Pastel
 		decltype(auto) pointSet() const
 		{
 			return locationSet(
-				rangeSet(asPointData(range())), 
-				locator_);
+				intervalSet(begin(), end()),
+				// Since the user-defined locator
+				// works only for user-defined points, 
+				// we need to adapt it to work with
+				// ConstIterators.
+				transformLocator<Point_ConstIterator>(
+					locator(),
+					[](const Point_ConstIterator& iPoint)
+					{
+						return iPoint->point();
+					}
+				)
+			);
 		}
 
 		//! Returns the number of nodes in the tree.
