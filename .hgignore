@@ -41,3 +41,5 @@ Makefile
 *.mexw64
 *.vcxproj*
 *.sln
+*.sublime-workspace
+
