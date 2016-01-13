@@ -312,3 +312,43 @@ TEST_CASE("CoarsestFailedConcept (concept)")
 		>::value));
 }
 
+// In this test we want to make sure that the concept-checking
+// does not look into the definition of those functions which are
+// called from the concept-check.
+
+namespace
+{
+
+	struct Some_Concept
+	{
+		template <
+			typename Type
+		>
+			auto requires(Type&& t) -> decltype
+			(
+				conceptCheck(
+					fSome(t)
+					)
+				);
+	};
+
+	struct A {};
+
+	template <typename Type>
+	integer fSome(Type a)
+	{
+		// We need to make the check dependent on Type,
+		// or otherwise the compiler checks the static assert
+		// already on the non-dependent phase.
+		static constexpr bool False = 
+			!std::is_same<Type, Type>::value;
+		static_assert(False, "Concept checking looks into the definition, although it should not.");
+		return 0;
+	}
+
+}
+
+TEST_CASE("Declaration")
+{
+	PASTEL_CONCEPT_CHECK(A, Some_Concept);
+}
