@@ -38,17 +38,15 @@ namespace Pastel
 	The kd-tree to search neighbors in. 
 	Either a PointKdTree or a TdTree.
 
-	searchPoint:
+	searchPoint (Point):
 	The point for which to search a neighbor for.
-	This can be either a Vector<Real, N>, or
-	a Point_ConstIterator of 'kdTree'.
 
 	Optional arguments
 	------------------
 
-	accept:
+	accept (Indicator(KdTree::Point_ConstIterator)):
 	An indicator which decides whether to accept a point 
-	(KdTree::Point_ConstIterator) as a neighbor or not.
+	as a neighbor or not.
 
 	kNearest (integer >= 0):
 	The number of nearest neighbors to search.
@@ -65,11 +63,10 @@ namespace Pastel
 	increases performance. Use 0 for exact matches. 
 	Default: 0
 
-	report:
-	A reporter to which the found neighbors 
-	(KdTree::Point_ConstIterator) are reported to.
-	The reporting is done in the form
-	report(distance, point).
+	report (Output(KdTree::Point_ConstIterator)):
+	An output to which the found neighbors 
+	are reported to. The reporting is done in the 
+	form report(distance, point).
 
 	nBruteForce (integer >= 0):
 	The number of points under which to start a brute-force
@@ -80,8 +77,8 @@ namespace Pastel
 	The norm used to measure distance.
 
 	searchAlgorithm:
-	The search searchAlgorithm to use for searching the 'kdTree'.
-	See 'pointkdtree_searchsearchAlgorithm.txt'.
+	The search-algorithm to use for searching the 'kdTree'.
+	See 'pointkdtree_searchalgorithm.txt'.
 
 	timeIntervalSequence:
 	An interval sequence in time. A sequence 
