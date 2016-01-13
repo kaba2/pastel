@@ -103,7 +103,7 @@ namespace Pastel
 	Here 'left' is v and 'right' is w.
 	*/
 	template <typename Real, 
-		int Height, integer Width, 
+		integer Height, integer Width, 
 		typename LeftExpression,
 		typename RightExpression>
 		OuterProduct<Real, LeftExpression, RightExpression>

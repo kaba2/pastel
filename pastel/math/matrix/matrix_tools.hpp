@@ -338,7 +338,7 @@ namespace Pastel
 	}
 
 	template <typename Real, 
-		int Height, integer Width, 
+		integer Height, integer Width, 
 		typename LeftExpression,
 		typename RightExpression>
 		OuterProduct<Real, LeftExpression, RightExpression>
