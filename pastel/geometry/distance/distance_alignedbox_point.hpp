@@ -15,14 +15,16 @@ namespace Pastel
 		typename Point,
 		typename... ArgumentSet,
 		Requires<
-			Models<Point, Point_Concept>,
-			EqualDimension<IntegerConstant<N>, Point_N<Point>>
+			Models<Point, Point_Concept>
 		>>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
 		const Point& point,
 		ArgumentSet&&... argumentSet)
 	{
+		PASTEL_STATIC_ASSERT(
+			(EqualDimension<IntegerConstant<N>, Point_N<Point>>::value));
+
 		PENSURE_OP(alignedBox.n(), ==, dimension(point));
 
 		auto&& normBijection = 
@@ -82,14 +84,16 @@ namespace Pastel
 		typename Point,
 		typename... ArgumentSet,
 		Requires<
-			Models<Point, Point_Concept>,
-			EqualDimension<IntegerConstant<N>, Point_N<Point>>
+			Models<Point, Point_Concept>
 		>>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
 		const Point& point,
 		ArgumentSet&&... argumentSet)
 	{
+		PASTEL_STATIC_ASSERT(
+			(EqualDimension<IntegerConstant<N>, Point_N<Point>>::value));
+
 		auto&& normBijection = 
 			PASTEL_ARG(
 				normBijection,
