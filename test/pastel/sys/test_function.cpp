@@ -10,10 +10,16 @@ TEST_CASE("Archetype (function)")
 	{
 		using F = Function_Archetype<void, integer>;
 		PASTEL_CONCEPT_CHECK(F, Function_Concept<void>(integer));
+		
+		F f;
+		f(3);
 	}
 	{
 		using F = Function_Archetype<integer, integer>;
 		PASTEL_CONCEPT_CHECK(F, Function_Concept<integer>(integer));
+
+		F f;
+		integer y = f(3);
 	}
 }
 
