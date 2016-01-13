@@ -53,7 +53,7 @@ namespace Pastel
 	struct Function_Archetype
 	{
 		Return operator()(
-			ArgumentSet&&... argumentSet) const
+			const ArgumentSet&... argumentSet) const
 		{
 			return Return();
 		}
@@ -65,7 +65,7 @@ namespace Pastel
 	struct Function_Archetype<void, ArgumentSet...>
 	{
 		void operator()(
-			ArgumentSet&&... argumentSet) const
+			const ArgumentSet&... argumentSet) const
 		{
 		}
 	};
