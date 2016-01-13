@@ -166,6 +166,8 @@ if (MSVC)
 		/wd4458
 		# declaration of 'type' hides global declaration
 		/wd4459
+		# decorated name length exceeded, name was truncated
+		/wd4503		
 		# 'type' : base-class 'type2' is already a base-class of 'type3'
 		/wd4584
 		# "'type' : forcing value to bool 'true' or 'false' (performance warning)"
