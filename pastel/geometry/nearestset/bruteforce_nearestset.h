@@ -39,7 +39,7 @@ namespace Pastel
 		using Real = PointSet_Real<PointSet>;
 
 		BruteForce_NearestSet(PointSet pointSet)
-		: pointSet_(pointSet)
+		: pointSet_(std::move(pointSet))
 		{
 		}
 

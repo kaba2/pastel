@@ -10,21 +10,11 @@
 namespace Pastel
 {
 
-	template <
-		typename NearestSet,
-		Requires<
-			Models<NearestSet, NearestSet_Concept>
-		> = 0
-	>
+	template <typename NearestSet>
 	using NearestSet_PointId =
 		PointSet_PointId<NearestSet_PointSet<NearestSet>>;
 
-	template <
-		typename NearestSet,
-		Requires<
-			Models<NearestSet, NearestSet_Concept>
-		> = 0
-	>
+	template <typename NearestSet>
 	using NearestSet_PointId_F = 
 		Identity_F<NearestSet_PointId<NearestSet>>;
 
