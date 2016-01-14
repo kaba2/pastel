@@ -20,7 +20,7 @@ namespace
 		>;
 
 }
-		
+
 TEST_CASE("Interval (Set)")
 {
 	PASTEL_CONCEPT_CHECK(
@@ -52,11 +52,30 @@ TEST_CASE("Interval (Set)")
 		});
 		REQUIRE(actualSet.size() == n);
 
-		for (integer i = 0;i < n;++i)
+		for (integer i = 0; i < n; ++i)
 		{
 			REQUIRE(actualSet.count(3 + i) == 1);
 		}
 	}
+}
+
+TEST_CASE("Basic interval (Set)")
+{
+	integer n = 8;
+	auto set = intervalSet((integer)3, (integer)3 + n);
+
+	auto index = set.index();
+	integer i = 3;
+	while (!set.empty(index))
+	{
+		REQUIRE(set[index] == i);
+		set.next(index);
+		++i;
+	}
+}
+
+TEST_CASE("Range (Set)")
+{
 	{
 		std::list<integer> aSet = {3, 4, 5, 6, 7, 8, 9, 10, 11};
 		integer n = aSet.size();
