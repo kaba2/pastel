@@ -47,6 +47,12 @@ namespace Pastel
 		integer n_;
 	};
 
+	template <typename Real_, integer N_ = Dynamic>
+	decltype(auto) pointerLocator(integer n = N_)
+	{
+		return Pointer_Locator<Real_, N_>(n);
+	}
+
 	template <typename Real>
 	decltype(auto) pointerPoint(Real* point, integer n)
 	{

@@ -107,6 +107,47 @@ TEST_CASE("Array (Locator)")
 	}
 }
 
+TEST_CASE("Sub (Locator)")
+{
+	{
+		using Point = std::array<real, 2>;
+		using Locator = Sub_Locator<Array_Locator<real, 2>>;
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+
+		PASTEL_STATIC_ASSERT(
+			(std::is_same<Locator_Real<Locator>, real>::value));
+
+		PASTEL_STATIC_ASSERT(
+			(std::is_same<Locator_Point<Locator>, Point>::value));
+
+		PASTEL_STATIC_ASSERT(
+			Locator_N<Locator>::value == Dynamic);
+	}
+	{
+		auto locator = subLocator(arrayLocator<real, 2>(), 0, 2);
+		std::array<real, 2> a = {1, 2};
+		REQUIRE(locator.n() == 2);
+		REQUIRE(locator(a, 0) == 1);
+		REQUIRE(locator(a, 1) == 2);
+	}
+	{
+		auto locator = subLocator(arrayLocator<real, 2>(), 0, 0);
+		REQUIRE(locator.n() == 0);
+	}
+	{
+		auto locator = subLocator(arrayLocator<real, 2>(), 1, 2);
+		std::array<real, 2> a = {1, 2};
+		REQUIRE(locator.n() == 1);
+		REQUIRE(locator(a, 0) == 2);
+	}
+	{
+		auto locator = subLocator(arrayLocator<real, 2>(), 0, 1);
+		std::array<real, 2> a = {1, 2};
+		REQUIRE(locator.n() == 1);
+		REQUIRE(locator(a, 0) == 1);
+	}
+}
+
 TEST_CASE("Types (Locator)")
 {
 	PASTEL_STATIC_ASSERT(
@@ -128,3 +169,4 @@ TEST_CASE("Types (Locator)")
 	PASTEL_STATIC_ASSERT(
 		Locator_N<Pointer_Locator<real, 2>>::value == 2);
 }
+

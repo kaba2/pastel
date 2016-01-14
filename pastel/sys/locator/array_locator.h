@@ -48,6 +48,12 @@ namespace Pastel
 		}
 	};
 
+	template <typename Real_, integer N_>
+	decltype(auto) arrayLocator(integer n = N_)
+	{
+		return Array_Locator<Real_, N_>(n);
+	}
+
 	template <typename Real, std::size_t N>
 	class Default_Locator<const std::array<Real, N>&, void>
 	{
