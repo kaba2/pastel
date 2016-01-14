@@ -59,6 +59,13 @@ namespace Pastel
 		using Row = Array_VectorExpression<Real, Dynamic>;
 		using ConstRow = ConstArray_VectorExpression<Real, Dynamic>;
 
+		//! Constructs a 0x0 matrix.
+		/*!
+		Time complexity: O(1)
+		Exception safety: strong
+		*/
+		Matrix() = default;
+
 		//! Copy-constructs from another matrix.
 		/*!
 		Time complexity: O(that.size())
@@ -834,12 +841,6 @@ namespace Pastel
 		}
 
 	private:
-		// We will not allow to default-construct
-		// a 0x0 matrix, because it easily leads 
-		// to bugs caused by forgetting to specify 
-		// the extents.
-		Matrix() = delete;
-
 		Array<Real> data_;
 	};
 
