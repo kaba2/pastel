@@ -64,12 +64,12 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: strong
 		*/
-		template <
-			integer N_ = N,
-			Requires<
-				BoolConstant<(N_ >= 0)>
-			> = 0
-		>
+		//template <
+		//	integer N_ = N,
+		//	Requires<
+		//		BoolConstant<(N_ >= 0)>
+		//	> = 0
+		//>
 		TdTree()
 		: end_(new Node)
 		, root_(end_.get())
@@ -209,7 +209,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		void swap(TdTree&& that)
+		void swap(TdTree& that)
 		{
 			end_.swap(that.end_);
 			std::swap(root_, that.root_);
