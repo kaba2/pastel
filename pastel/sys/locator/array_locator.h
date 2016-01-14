@@ -26,7 +26,7 @@ namespace Pastel
 		using Real = Real_;
 		using Point = std::array<Real, N>;
 
-		explicit Array_Locator(integer n = N)
+		explicit Array_Locator(integer n = ((N > 0) ? N : 0))
 		{
 			ENSURE_OP(n, ==, N);
 			ENSURE_OP(n, >=, 0);

@@ -19,7 +19,7 @@ namespace Pastel
 		using Real = Real_;
 		using Point = const Real*;
 
-		explicit Pointer_Locator(integer n = N)
+		explicit Pointer_Locator(integer n = ((N > 0) ? N : 0))
 			: n_(n)
 		{
 			ENSURE(N == Dynamic || n == N);
