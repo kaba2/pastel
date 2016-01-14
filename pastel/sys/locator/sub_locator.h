@@ -19,6 +19,13 @@ namespace Pastel
 		using Real = typename Locator::Real;
 		using Point = typename Locator::Point;
 
+		Sub_Locator()
+		: locator_()
+		, iBegin_(0)
+		, iEnd_(0)
+		{
+		}
+
 		Sub_Locator(
 			const Locator& locator,
 			integer iBegin,

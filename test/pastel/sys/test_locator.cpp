@@ -110,6 +110,10 @@ TEST_CASE("Array (Locator)")
 TEST_CASE("Sub (Locator)")
 {
 	{
+		using Locator = Sub_Locator<Pointer_Locator<real>>;
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+	}
+	{
 		using Point = std::array<real, 2>;
 		using Locator = Sub_Locator<Array_Locator<real, 2>>;
 		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
