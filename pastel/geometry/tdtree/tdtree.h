@@ -151,8 +151,8 @@ namespace Pastel
 				pointSet_.reserve(n);
 			}
 
-			auto pointIndex = pointSet.index();
-			auto timeIndex = timeSet.index();
+			auto pointIndex = pointSet.begin();
+			auto timeIndex = timeSet.begin();
 	
 			while (!pointSet.empty(pointIndex) &&
 				!timeSet.empty(timeIndex))

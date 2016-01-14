@@ -45,9 +45,9 @@ namespace Pastel
 			return aSet_.n() + bSet_.n();
 		}
 
-		Index index() const
+		Index begin() const
 		{
-			return {aSet_.index(), bSet_.index()};
+			return {aSet_.begin(), bSet_.begin()};
 		}
 
 		bool empty() const

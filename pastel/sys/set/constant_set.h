@@ -31,7 +31,7 @@ namespace Pastel
 			return n_;
 		}
 
-		Index index() const
+		Index begin() const
 		{
 			return 0;
 		}

@@ -127,7 +127,7 @@ TEST_CASE("Functions (pointset_concept)")
 		REQUIRE(pointSet.n() == 1);
 		REQUIRE(pointSetDimension(pointSet) == 2);
 
-		auto index = pointSet.index();
+		auto index = pointSet.begin();
 
 		REQUIRE(pointAxis(pointSet[index], 0) == 1);
 		REQUIRE(pointAxis(pointSet[index], 1) == 2);
