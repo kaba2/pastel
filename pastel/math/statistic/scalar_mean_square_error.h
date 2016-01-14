@@ -46,7 +46,7 @@ namespace Pastel
 		while (!aSet.empty(aIndex) && 
 			!bSet.empty(bIndex))
 		{
-			result += square(aSet.element(aIndex) - bSet.element(bIndex));
+			result += square(aSet[aIndex] - bSet[bIndex]);
 
 			aSet.next(aIndex);
 			bSet.next(bIndex);

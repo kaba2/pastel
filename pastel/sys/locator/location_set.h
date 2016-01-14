@@ -46,9 +46,9 @@ namespace Pastel
 			return set_.index();
 		}
 
-		Element element(const Index& index) const
+		Element operator[](const Index& index) const
 		{
-			return {set_.element(index), locator_};
+			return {set_[index], locator_};
 		}
 
 		bool empty() const

@@ -69,10 +69,10 @@ namespace Pastel
 			return set_.empty(index);
 		}
 
-		Element element(const Index& index) const
+		Element operator[](const Index& index) const
 		{
 			PENSURE(!empty(index));
-			return transform_(set_.element(index));
+			return transform_(set_[index]);
 		}
 
 		integer next(Index& index, integer steps = 1) const

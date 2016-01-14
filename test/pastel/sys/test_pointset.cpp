@@ -129,8 +129,8 @@ TEST_CASE("Functions (pointset_concept)")
 
 		auto index = pointSet.index();
 
-		REQUIRE(pointAxis(pointSet.element(index), 0) == 1);
-		REQUIRE(pointAxis(pointSet.element(index), 1) == 2);
+		REQUIRE(pointAxis(pointSet[index], 0) == 1);
+		REQUIRE(pointAxis(pointSet[index], 1) == 2);
 
 		pointSet.next(index);
 		REQUIRE(pointSet.empty(index));

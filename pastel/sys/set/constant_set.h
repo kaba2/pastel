@@ -46,7 +46,7 @@ namespace Pastel
 			return index == n();
 		}
 
-		const Element& element(const Index& index) const
+		const Element& operator[](const Index& index) const
 		{
 			PENSURE(!empty(index));
 			return element_;

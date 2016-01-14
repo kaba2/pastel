@@ -46,8 +46,8 @@ namespace Pastel
 
 			return ConformalAffine2D<Real>(
 				1, 0, 
-				pointAsVector(toSet.element(toIndex)) - 
-				pointAsVector(fromSet.element(fromIndex)));
+				pointAsVector(toSet[toIndex]) - 
+				pointAsVector(fromSet[fromIndex]));
 		}
 
 		Vector<Real, N> sumFrom(ofDimension(2), 0);
@@ -59,8 +59,8 @@ namespace Pastel
 		while(!fromSet.empty(fromIndex) &&
 			!toSet.empty(toIndex))
 		{
-			auto from = pointAsVector(fromSet.element(fromIndex));
-			auto to = pointAsVector(toSet.element(toIndex));
+			auto from = pointAsVector(fromSet[fromIndex]);
+			auto to = pointAsVector(toSet[toIndex]);
 
 			sumFrom += from;
 			sumTo += to;

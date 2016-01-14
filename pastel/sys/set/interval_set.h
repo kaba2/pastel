@@ -97,7 +97,7 @@ namespace Pastel
 			return index == end_;
 		}
 
-		Element element(const Index& index) const
+		Element operator[](const Index& index) const
 		{
 			return index;
 		}
@@ -162,7 +162,7 @@ namespace Pastel
 			return index == end_;
 		}
 
-		Element element(const Index& index) const
+		Element operator[](const Index& index) const
 		{
 			return index;
 		}

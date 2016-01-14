@@ -71,8 +71,8 @@ namespace Pastel
 			!bSet.empty(bIndex))
 		{
 			covariance += 
-				(aSet.element(aIndex) - aMean) * 
-				(bSet.element(bIndex) - bMean);
+				(aSet[aIndex] - aMean) * 
+				(bSet[bIndex] - bMean);
 
 			aSet.next(aIndex);
 			bSet.next(bIndex);
