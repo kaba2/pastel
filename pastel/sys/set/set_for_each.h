@@ -35,7 +35,7 @@ namespace Pastel
 		auto index = set.index();
 		while(!set.empty(index))
 		{
-			if (!visit(set.element(index)))
+			if (!visit(set[index]))
 			{
 				return false;
 			}

@@ -62,9 +62,9 @@ namespace Pastel
 		// FIX: Change to use decltype(auto) when possible.
 		// decltype(auto) in the return-type triggers
 		// a bug in Visual Studio 2015
-		Element element(const Index& index) const
+		Element operator[](const Index& index) const
 		{
-			return set_.element(index);
+			return set_[index];
 		}
 
 		integer next(Index& index, integer steps = 1) const

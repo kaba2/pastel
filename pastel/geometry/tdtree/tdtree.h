@@ -158,8 +158,8 @@ namespace Pastel
 				!timeSet.empty(timeIndex))
 			{
 				pointSet_.emplace_back(
-					pointPointId(pointSet.element(pointIndex)),
-					timeSet.element(timeIndex));
+					pointPointId(pointSet[pointIndex]),
+					timeSet[timeIndex]);
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
 

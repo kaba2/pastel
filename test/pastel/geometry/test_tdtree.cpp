@@ -37,7 +37,7 @@ TEST_CASE("Construction (TdTree)")
 	tree.clear();
 	REQUIRE(tree.simple());
 
-	tree.swap(Tree());
+	Tree().swap(tree);
 }
 
 TEST_CASE("Grid (TdTree)")

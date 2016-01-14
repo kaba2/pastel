@@ -40,7 +40,7 @@ namespace Pastel
 					addConst(t).index()),
 				//! Returns the element at the index.
 				Concept::convertsTo<Element>(
-					addConst(t).element(std::declval<Index>())),
+					addConst(t)[std::declval<Index>()]),
 				//! Advances the index by the given number of steps.
 				/*!
 				Preconditions:

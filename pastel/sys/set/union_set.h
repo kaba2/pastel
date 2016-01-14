@@ -61,16 +61,16 @@ namespace Pastel
 				bSet_.empty(index.bIndex);
 		}
 
-		const Element& element(const Index& index) const
+		const Element& operator[](const Index& index) const
 		{
 			PENSURE(!empty(index));
 
 			if (aSet_.empty(index.aIndex))
 			{
-				return bSet_.element(index.bIndex);
+				return bSet_[index.bIndex];
 			}
 			
-			return aSet_.element(index.aIndex);
+			return aSet_[index.aIndex];
 		}
 
 		integer next(Index& index, integer steps = 1) const
