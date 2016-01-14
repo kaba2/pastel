@@ -28,8 +28,8 @@ namespace Pastel
 		ENSURE_OP(fromSet.n(), ==, toSet.n());
 
 		integer n = fromSet.n();
-		auto fromIndex = fromSet.index();
-		auto toIndex = toSet.index();
+		auto fromIndex = fromSet.begin();
+		auto toIndex = toSet.begin();
 
 		if (n == 0)
 		{

@@ -36,7 +36,7 @@ TEST_CASE("Interval (Set)")
 	{
 		integer n = 8;
 		auto set = intervalSet((integer)3, (integer)3 + n);
-		auto index = set.index();
+		auto index = set.begin();
 		set.next(index);
 		REQUIRE(set.n() == n);
 
@@ -64,7 +64,7 @@ TEST_CASE("Basic interval (Set)")
 	integer n = 8;
 	auto set = intervalSet((integer)3, (integer)3 + n);
 
-	auto index = set.index();
+	auto index = set.begin();
 	integer i = 3;
 	while (!set.empty(index))
 	{
@@ -81,7 +81,7 @@ TEST_CASE("Range (Set)")
 		integer n = aSet.size();
 		auto set = rangeSet(aSet.begin(), aSet.end());
 
-		auto index = set.index();
+		auto index = set.begin();
 		set.next(index);
 		REQUIRE(set.n() == n);
 

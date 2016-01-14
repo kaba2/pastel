@@ -82,7 +82,7 @@ namespace Pastel
 			return count;
 		}
 
-		const Index& index() const
+		const Index& begin() const
 		{
 			return begin_;
 		}
@@ -147,7 +147,7 @@ namespace Pastel
 			return end_ - begin_;
 		}
 
-		Index index() const
+		Index begin() const
 		{
 			return begin_;
 		}

@@ -44,9 +44,9 @@ namespace Pastel
 			return set_.n() / factor_;
 		}
 
-		Index index() const
+		Index begin() const
 		{
-			return set_.index();
+			return set_.begin();
 		}
 
 		bool empty() const

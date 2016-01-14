@@ -470,7 +470,7 @@ namespace Pastel
 	{
 		ASSERT(!pointSet.empty());
 
-		auto&& index = pointSet.index();
+		auto&& index = pointSet.begin();
 
 		{
 			pointSet_.insertBack(

@@ -41,9 +41,9 @@ namespace Pastel
 			return set_.n();
 		}
 
-		Index index() const
+		Index begin() const
 		{
-			return set_.index();
+			return set_.begin();
 		}
 
 		Element operator[](const Index& index) const

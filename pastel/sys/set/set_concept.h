@@ -37,7 +37,7 @@ namespace Pastel
 					addConst(t).empty()),
 				//! Returns an index to the first element.
 				Concept::convertsTo<Index>(
-					addConst(t).index()),
+					addConst(t).begin()),
 				//! Returns the element at the index.
 				Concept::convertsTo<Element>(
 					addConst(t)[std::declval<Index>()]),

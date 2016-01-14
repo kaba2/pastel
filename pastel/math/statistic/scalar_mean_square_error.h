@@ -40,8 +40,8 @@ namespace Pastel
 		integer n = 0;
 		Real result = 0;
 
-		auto aIndex = aSet.index();
-		auto bIndex = bSet.index();
+		auto aIndex = aSet.begin();
+		auto bIndex = bSet.begin();
 
 		while (!aSet.empty(aIndex) && 
 			!bSet.empty(bIndex))
