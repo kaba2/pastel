@@ -6,6 +6,14 @@
 
 #include "pastel/sys/predicate/predicate_concept.h"
 
+#ifdef _MSC_VER
+	// Visual Studio 2015 Update 1 has a bug which gives
+	// a spurious warning here.
+	#pragma warning(push)
+	#pragma warning(disable: 4552)
+	#pragma warning(disable: 4553)
+#endif
+
 namespace Pastel
 {
 
@@ -16,7 +24,7 @@ namespace Pastel
 		template <
 			typename Left, 
 			typename Right>
-		bool operator()(
+		decltype(auto) operator()(
 			const Left& left, 
 			const Right& right) const
 		{
@@ -31,5 +39,9 @@ namespace Pastel
 	}
 
 }
+
+#ifdef _MSC_VER
+	#pragma warning(pop)
+#endif
 
 #endif
