@@ -15,8 +15,20 @@
 		} \
 	}
 
+#define PASTEL_CHECK_OPU(F, OP) \
+	for (integer i = -8;i < 8;++i) \
+	{ \
+		REQUIRE(F()(i) == OP i); \
+	}
+
 TEST_CASE("Operator (operator)")
 {
+	PASTEL_CHECK_OPU(Minus, -);
+	PASTEL_CHECK_OPU(Plus, +);
+	PASTEL_CHECK_OPU(LogicalNot, !);
+	PASTEL_CHECK_OPU(BitNot, ~);
+	//PASTEL_CHECK_OPU(Dereference, *);
+
 	PASTEL_CHECK_OP(EqualTo, ==);
 	PASTEL_CHECK_OP(NotEqualTo, !=);
 	PASTEL_CHECK_OP(LessThan, <);

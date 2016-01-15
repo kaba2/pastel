@@ -3,6 +3,18 @@
 #ifndef PASTELSYS_OPERATORS_H
 #define PASTELSYS_OPERATORS_H
 
+#define PASTEL_UNARY_OPERATOR(NAME, OP) \
+	class NAME \
+	{ \
+	public: \
+		template <typename Type> \
+		decltype(auto) operator()( \
+			const Type& that) const \
+		{ \
+			return OP that; \
+		} \
+	};
+
 #define PASTEL_BINARY_OPERATOR(NAME, OP) \
 	class NAME \
 	{ \
@@ -28,6 +40,12 @@
 
 namespace Pastel
 {
+
+	PASTEL_UNARY_OPERATOR(Minus, -);
+	PASTEL_UNARY_OPERATOR(Plus, +);
+	PASTEL_UNARY_OPERATOR(LogicalNot, !);
+	PASTEL_UNARY_OPERATOR(BitNot, ~);
+	PASTEL_UNARY_OPERATOR(Dereference, *);
 
 	PASTEL_BINARY_OPERATOR(EqualTo, ==);
 	PASTEL_BINARY_OPERATOR(NotEqualTo, !=);
