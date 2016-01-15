@@ -31,5 +31,10 @@ TEST_CASE("Operator (operator)")
 	PASTEL_CHECK_OP(LeftShift, <<);
 	PASTEL_CHECK_OP(RightShift, >>);
 	PASTEL_CHECK_OP(Quotient, %);
+	PASTEL_CHECK_OP(LogicalAnd, &&);
+	PASTEL_CHECK_OP(LogicalOr, || );
+	PASTEL_CHECK_OP(BitXor, ^);
+	PASTEL_CHECK_OP(BitAnd, &);
+	PASTEL_CHECK_OP(BitOr, |);
 }
 
