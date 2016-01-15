@@ -27,11 +27,11 @@ log.txt
 *.o
 *.d
 *.make
-*CMakeFiles*
-bin*
-lib*
+CMakeFiles/*
+bin/*
+lib/*
 build*
-docs*
+docs/*
 CMakeCache.txt
 Makefile
 *.a
