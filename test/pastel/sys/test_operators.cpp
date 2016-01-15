@@ -33,7 +33,7 @@ TEST_CASE("Operator (operator)")
 	PASTEL_CHECK_OP(NotEqualTo, !=);
 	PASTEL_CHECK_OP(LessThan, <);
 	PASTEL_CHECK_OP(LessEqual, <=);
-	PASTEL_CHECK_OP(GreaterThan, <);
+	PASTEL_CHECK_OP(GreaterThan, >);
 	PASTEL_CHECK_OP(GreaterEqual, >=);
 
 	PASTEL_CHECK_OP(Multiplication, *);
