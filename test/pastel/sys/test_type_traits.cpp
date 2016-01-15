@@ -33,7 +33,7 @@ namespace
 	template <
 		typename Left,
 		typename Right>
-	struct Plus
+	struct Plus_
 	: std::integral_constant<integer, Left::value + Right::value>
 	{};
 
@@ -43,15 +43,15 @@ TEST_CASE("Fold (type_traits)")
 {
 	using Identity = std::integral_constant<integer, 0>;
 	{
-		using Sum = Fold<Plus, Identity>;
+		using Sum = Fold<Plus_, Identity>;
 	}
 	{
-		using Sum = Fold<Plus, Identity>;
+		using Sum = Fold<Plus_, Identity>;
 		PASTEL_STATIC_ASSERT(Sum::value == Identity::value);
 	}
 	{
 		using Sum = 
-			Fold<Plus,
+			Fold<Plus_,
 				Identity,
 				std::integral_constant<integer, 1>
 			>;
@@ -61,7 +61,7 @@ TEST_CASE("Fold (type_traits)")
 	{
 		using Sum = 
 			Fold<
-				Plus,
+				Plus_,
 				Identity,
 				std::integral_constant<integer, 1>,
 				std::integral_constant<integer, 2>,
