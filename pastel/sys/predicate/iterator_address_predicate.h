@@ -6,12 +6,7 @@
 
 #include "pastel/sys/predicate/predicate_concept.h"
 
-#include "pastel/sys/predicate/equalto.h"
-#include "pastel/sys/predicate/notequalto.h"
-#include "pastel/sys/predicate/lessequal.h"
-#include "pastel/sys/predicate/greaterequal.h"
-#include "pastel/sys/predicate/lessthan.h"
-#include "pastel/sys/predicate/greaterthan.h"
+#include "pastel/sys/operators.h"
 
 namespace Pastel
 {

@@ -4,7 +4,6 @@
 #define PASTELSYS_LIST_SORT_H
 
 #include "pastel/sys/list.h"
-#include "pastel/sys/predicate/lessthan.h"
 
 namespace Pastel
 {

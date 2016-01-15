@@ -212,7 +212,7 @@ namespace Pastel
 #include "pastel/sys/allocation.h"
 #include "pastel/sys/named_parameter.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/predicate/operator_predicates.h"
+#include "pastel/sys/operators.h"
 #include "pastel/sys/predicate/derived_predicates.h"
 
 #endif

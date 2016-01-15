@@ -4,7 +4,6 @@
 #define PASTELSYS_HASHED_TREE_H
 
 #include "pastel/sys/redblacktree.h"
-#include "pastel/sys/predicate/lessthan.h"
 #include "pastel/sys/hashing.h"
 
 #include <utility>
