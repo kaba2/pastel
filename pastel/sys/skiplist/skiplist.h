@@ -828,8 +828,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/predicate/lessthan.h"
-
 namespace Pastel
 {
 

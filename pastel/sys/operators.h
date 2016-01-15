@@ -1,0 +1,52 @@
+// Description: Operators as functions
+
+#ifndef PASTELSYS_OPERATORS_H
+#define PASTELSYS_OPERATORS_H
+
+#define PASTEL_BINARY_OPERATOR(NAME, OP) \
+	class NAME \
+	{ \
+	public: \
+		template < \
+			typename Left, \
+			typename Right> \
+		decltype(auto) operator()( \
+			const Left& left,  \
+			const Right& right) const \
+		{ \
+			return left OP right; \
+		} \
+	};
+
+#ifdef _MSC_VER
+	// Visual Studio 2015 Update 1 has a bug which gives
+	// a spurious warning here.
+	#pragma warning(push)
+	#pragma warning(disable: 4552)
+	#pragma warning(disable: 4553)
+#endif
+
+namespace Pastel
+{
+
+	PASTEL_BINARY_OPERATOR(EqualTo, ==);
+	PASTEL_BINARY_OPERATOR(NotEqualTo, !=);
+	PASTEL_BINARY_OPERATOR(LessThan, <);
+	PASTEL_BINARY_OPERATOR(LessEqual, <=);
+	PASTEL_BINARY_OPERATOR(GreaterThan, >);
+	PASTEL_BINARY_OPERATOR(GreaterEqual, >=);
+	PASTEL_BINARY_OPERATOR(Multiplication, *);
+	PASTEL_BINARY_OPERATOR(Division, /);
+	PASTEL_BINARY_OPERATOR(Quotient, %);
+	PASTEL_BINARY_OPERATOR(Addition, +);
+	PASTEL_BINARY_OPERATOR(Subtraction, -);
+	PASTEL_BINARY_OPERATOR(LeftShift, <<);
+	PASTEL_BINARY_OPERATOR(RightShift, >>);
+
+}
+
+#ifdef _MSC_VER
+	#pragma warning(pop)
+#endif
+
+#endif

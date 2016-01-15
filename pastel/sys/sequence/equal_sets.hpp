@@ -3,8 +3,6 @@
 
 #include "pastel/sys/equal_sets.h"
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/predicate/lessthan.h"
-#include "pastel/sys/predicate/equalto.h"
 
 #include <algorithm>
 #include <iterator>
