@@ -119,6 +119,18 @@ if (MSVC)
 			"${CMAKE_PROJECT_NAME} usable for Matlab mex.")
 	endif()
 
+	if (${CMAKE_GENERATOR_TOOLSET} MATCHES ".*clang.*")
+		# This is the Clang code generator in Visual Studio.
+		add_definitions (
+			# Avoid a bug when using Clang with Visual Studio 2015.
+			/DBOOST_SP_USE_STD_ATOMIC
+			-Wno-unused-local-typedef
+			-Wno-unused-function
+			-Wno-self-move
+			-Wno-unsupported-friend
+		)
+	endif()
+
 	add_definitions (
 		# Disable Microsoft's Secure STL.
 		/D_ITERATOR_DEBUG_LEVEL=0
