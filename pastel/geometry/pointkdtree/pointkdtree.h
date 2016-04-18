@@ -196,6 +196,9 @@ namespace Pastel
 			const Point_ConstRange& range) const;
 
 		//! Returns the underlying point-set.
+		/*!
+		The point of the point-set is a Point_ConstIterator.
+		*/
 		decltype(auto) pointSet() const
 		{
 			return locationSet(

@@ -15,7 +15,7 @@
 #include "pastel/sys/extender/arrayextender.h"
 #include "pastel/sys/extender/indexextenders.h"
 
-int main(int argc, char* const argv[])
+int main(int argc, const char* argv[])
 {
 	Stream_Logger streamLogger(&std::cout);
 	File_Logger fileLogger("log.txt");

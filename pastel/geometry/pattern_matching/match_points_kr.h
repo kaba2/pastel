@@ -98,7 +98,7 @@ namespace Pastel
 
 	report (Output(Point, Point) : nullOutput()):
 	The point-pairs are reported in the form
-	std::make_pair(modelPoint, sceneIter).
+	std::make_pair(modelPoint, scenePoint).
 
 	Returns
 	-------
