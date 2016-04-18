@@ -37,19 +37,23 @@ namespace Pastel
 	}
 
 	//! Returns the hash for a tag-name.
-	constexpr tag_integer tagHash(
+	/*!
+	This should be named just tagHash(). However, a bug in Visual Studio 2015
+	update 2 forces this function to have another name.
+	*/
+	constexpr tag_integer tagHashString(
 		const char* tagName,
 		std::size_t n)
 	{
 		// This is the Fowler-Noll-Vo 1a hash-function (FNV-1a) for 32-bit integers.
 		return n > 0
-			? (tagHash(tagName, n - 1) ^ (tag_integer)tagName[n - 1]) * 16777619UL
+			? (tagHashString(tagName, n - 1) ^ (tag_integer)tagName[n - 1]) * 16777619UL
 			: 2166136261UL;
 	}
 
 	inline constexpr tag_integer operator "" _tag(const char* tagName, std::size_t n)
 	{
-		return tagHash(tagName, n);
+		return tagHashString(tagName, n);
 	}
 
 }
