@@ -42,7 +42,7 @@ namespace Pastel
 		template <typename Real, integer N>
 		void GradientField<Real, N>::initialize(integer n)
 		{
-			integer basicGradients = (1 << (n - 1));
+			integer basicGradients = (integer)1 << (n - 1);
 
 			const integer gradients = n * basicGradients;
 			
@@ -194,7 +194,7 @@ namespace Pastel
 				return dotProduct;
 			}
 
-			integer basicGradients = (1 << (n - 1));
+			integer basicGradients = (integer)1 << (n - 1);
 
 			const integer gradients = n * basicGradients;
 

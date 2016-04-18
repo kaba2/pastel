@@ -103,7 +103,7 @@ namespace Pastel
 
 			// Read the possible vga palette.
 
-			integer colors = 1 << pcxHeader.bitsPerPixel_;
+			integer colors = (integer)1 << pcxHeader.bitsPerPixel_;
 
 			palette.resize(colors);
 
