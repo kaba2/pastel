@@ -19,6 +19,8 @@ namespace
 	using Rat = Rational<Integer>;
 	PASTEL_CONCEPT_CHECK(Rat, Real_Concept);
 
+	PASTEL_CONCEPT_CHECK(int, Ring_Concept);
+
 	template <typename Real>
 	void testAsReal()
 	{
