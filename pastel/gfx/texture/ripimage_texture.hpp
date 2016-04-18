@@ -78,7 +78,7 @@ namespace Pastel
 		Vector<integer, N> p(floor(level));
 		Vector<real, N> tDetail = level - Vector<real, N>(p);
 
-		integer samples = 1 << n;
+		integer samples = (integer)1 << n;
 
 		Tuple<Type, ModifyN<N, 1 << N>::Result> valueSet(ofDimension(samples));
 		Tuple<bool, N> s(ofDimension(n), false);

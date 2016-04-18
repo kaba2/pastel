@@ -204,7 +204,7 @@ TEST_CASE("Random (Fourier)")
 {
 	for (integer i = 0;i < 100;++i)
 	{
-		integer n = (1 << randomInteger(9));
+		integer n = (integer)1 << randomInteger(9);
 
 		std::vector<real> input;
 		input.reserve(n);
