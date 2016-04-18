@@ -4,6 +4,8 @@
 #include "test/test_init.h"
 
 #include <pastel/geometry/pattern_matching/match_points_kr.h>
+#include <pastel/geometry/distance/distance_point_point.h>
+
 #include <pastel/sys/random.h>
 #include <pastel/sys/range.h>
 #include <pastel/sys/rational.h>
@@ -54,14 +56,27 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 	sceneTree.insertSet(rangeSet(sceneSet));
 	sceneTree.refine();
 
+	using Tree_ConstIterator = Tree::Point_ConstIterator;
+
+	std::vector<std::pair<Tree_ConstIterator, Tree_ConstIterator>> pairSet;
+
+	Real matchingDistance2 = 0.01;
+
 	auto result = matchPointsKr(
 		modelTree, sceneTree, 
 		PASTEL_TAG(kNearest), 16,
 		PASTEL_TAG(minMatchRatio), 0.7,
-		PASTEL_TAG(matchingDistance2), 0.01,
-		PASTEL_TAG(maxBias), 0.1);
+		PASTEL_TAG(matchingDistance2), matchingDistance2,
+		PASTEL_TAG(maxBias), 0.1,
+		PASTEL_TAG(report), pushBackOutput(pairSet));
 
 	REQUIRE(result.success);
 	REQUIRE(allEqual(translation, result.translation));
+
+	for (auto&& pairing : pairSet)
+	{
+		Real actualDistance = distance2(pairing.first->point(), evaluate(pairing.second->point() + result.translation));
+		REQUIRE(actualDistance <= matchingDistance2);
+	}
 }
 
