@@ -20,63 +20,117 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 	using Tree_Settings = PointKdTree_Settings<Vector_Locator<Real, 2>>;
 	using Tree = PointKdTree<Tree_Settings>;
 
-	Point translation(1, 5);
-
-	// Generate a point-set.
-
-	integer n = 100;
-	std::vector<Point> modelSet;
-	modelSet.reserve(n);
-
-	for (integer i = 0;i < n;++i)
+	for (real sceneRatio : {1.0, 0.75, 0.65})
 	{
-		Point p = 2 * randomVector<Real, 2>() - 1;
-		modelSet.push_back(p);
-	}
+		for (integer j = 0; j < 10; ++j)
+		{
+			integer kNearest = 1 + j;
+			Real minMatchRatio = 0.7;
+			Real maxBias = 0.1;
+			Real matchingDistance2 = 0.01;
 
-	Tree modelTree;
-	modelTree.insertSet(rangeSet(modelSet));
-	modelTree.refine();
+			Point translation(1 + j, 5 - 3 * j);
 
-	// Generate a translated point-set.
+			// Generate a point-set.
 
-	int m = n;
-	std::vector<Point> sceneSet;
-	sceneSet.reserve(m);
+			integer n = 10 + j * 10;
+			std::vector<Point> modelSet;
+			modelSet.reserve(n);
 
-	for (integer i = 0; i < m; ++i)
-	{
-		sceneSet.push_back(modelSet[i] + translation);
-	}
+			for (integer i = 0; i < n; ++i)
+			{
+				Point p = 2 * randomVector<Real, 2>() - 1;
+				modelSet.push_back(p);
+			}
 
-	// Randomize the order of the translated point-set.
-	std::random_shuffle(sceneSet.begin(), sceneSet.end());
+			Tree modelTree;
+			modelTree.insertSet(rangeSet(modelSet));
+			modelTree.refine();
 
-	Tree sceneTree;
-	sceneTree.insertSet(rangeSet(sceneSet));
-	sceneTree.refine();
+			// Generate a translated point-set.
 
-	using Tree_ConstIterator = Tree::Point_ConstIterator;
+			integer m = n;
+			std::vector<Point> sceneSet;
+			sceneSet.reserve(m);
 
-	std::vector<std::pair<Tree_ConstIterator, Tree_ConstIterator>> pairSet;
+			for (integer i = 0; i < m; ++i)
+			{
+				sceneSet.push_back(modelSet[i] + translation);
+			}
 
-	Real matchingDistance2 = 0.01;
+			// Randomize the order of the translated point-set.
+			std::random_shuffle(sceneSet.begin(), sceneSet.end());
 
-	auto result = matchPointsKr(
-		modelTree, sceneTree, 
-		PASTEL_TAG(kNearest), 16,
-		PASTEL_TAG(minMatchRatio), 0.7,
-		PASTEL_TAG(matchingDistance2), matchingDistance2,
-		PASTEL_TAG(maxBias), 0.1,
-		PASTEL_TAG(report), pushBackOutput(pairSet));
+			// Delete points from the scene-set.
+			sceneSet.resize(m * sceneRatio);
+			//std::cout << sceneSet.size() << std::endl;
 
-	REQUIRE(result.success);
-	REQUIRE(allEqual(translation, result.translation));
+			Tree sceneTree;
+			sceneTree.insertSet(rangeSet(sceneSet));
+			sceneTree.refine();
 
-	for (auto&& pairing : pairSet)
-	{
-		Real actualDistance = distance2(pairing.first->point(), evaluate(pairing.second->point() + result.translation));
-		REQUIRE(actualDistance <= matchingDistance2);
+			using Tree_ConstIterator = Tree::Point_ConstIterator;
+
+			{
+				std::vector<std::pair<Tree_ConstIterator, Tree_ConstIterator>> pairSet;
+
+				// Match model-set to scene-set.
+				auto result = matchPointsKr(
+					modelTree, sceneTree,
+					PASTEL_TAG(matchingMode), MatchPointsKr_MatchingMode::Maximum,
+					PASTEL_TAG(kNearest), kNearest,
+					PASTEL_TAG(minMatchRatio), minMatchRatio,
+					PASTEL_TAG(matchingDistance2), matchingDistance2,
+					PASTEL_TAG(maxBias), maxBias,
+					PASTEL_TAG(report), pushBackOutput(pairSet));
+
+				if (sceneRatio > minMatchRatio)
+				{
+					REQUIRE(result.success);
+					REQUIRE(pairSet.size() >= modelSet.size() * minMatchRatio);
+
+					// Check that the point-pairs are within given
+					// matching distance from each other.
+					for (auto&& pairing : pairSet)
+					{
+						Real actualDistance = distance2(pairing.first->point(), evaluate(pairing.second->point() + result.translation));
+						REQUIRE(actualDistance <= matchingDistance2);
+					}
+				}
+				else
+				{
+					// We removed so many points from scene-set,
+					// that there cannot exist a match with the
+					// given minimum matching ratio.
+					REQUIRE(!result.success);
+				}
+			}
+
+			{
+				std::vector<std::pair<Tree_ConstIterator, Tree_ConstIterator>> pairSet;
+
+				// Match scene-set to model-set.
+				auto result = matchPointsKr(
+					sceneTree, modelTree,
+					PASTEL_TAG(matchingMode), MatchPointsKr_MatchingMode::Maximum,
+					PASTEL_TAG(kNearest), kNearest,
+					PASTEL_TAG(minMatchRatio), minMatchRatio,
+					PASTEL_TAG(matchingDistance2), matchingDistance2,
+					PASTEL_TAG(maxBias), maxBias,
+					PASTEL_TAG(report), pushBackOutput(pairSet));
+
+				REQUIRE(result.success);
+				REQUIRE(pairSet.size() >= sceneSet.size() * minMatchRatio);
+
+				// Check that the point-pairs are within given
+				// matching distance from each other.
+				for (auto&& pairing : pairSet)
+				{
+					Real actualDistance = distance2(pairing.first->point(), evaluate(pairing.second->point() + result.translation));
+					REQUIRE(actualDistance <= matchingDistance2);
+				}
+			}
+		}
 	}
 }
 
