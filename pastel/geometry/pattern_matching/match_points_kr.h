@@ -76,7 +76,7 @@ namespace Pastel
 
 	matchingMode (MatchPointsKr_MatchingMode : First):
 	MatchPointsKr_MatchingMode::First: Accept the first match.
-	MatchPointsKr_MatchingMode::BestMatch: Search for the best match.
+	MatchPointsKr_MatchingMode::Maximum: Search for the best match.
 
 	matchingDistance2 (Real : 0.1):
 	The maximum distance between a point in the model-set
@@ -300,6 +300,7 @@ namespace Pastel
 					pairSet.size() >= bestPairSet.size())
 				{
 					// We have found a possible match.
+					//std::cout << pairSet.size() / (real)indexToModel.size() << std::endl;
 
 					// Compute the bias of the match.
 					// The bias is the norm of the mean difference
@@ -322,10 +323,10 @@ namespace Pastel
 
 						meanDelta /= pairSet.size();
 
-						Real meanDeltaNorm = 
+						Real meanDeltaNorm2 = 
 							norm2(meanDelta, normBijection);
 
-						bias = meanDeltaNorm / matchingDistance2;
+						bias = meanDeltaNorm2 / matchingDistance2;
 					}							
 
 					// Check that the bias is not too large.
@@ -337,7 +338,6 @@ namespace Pastel
 						// match. Larger match size is primarily better,
 						// smaller bias is secondarily better.
 						if (pairSet.size() > bestPairSet.size() ||
-
 							(pairSet.size() == bestPairSet.size() &&
 							bias < bestBias))
 						{
