@@ -130,7 +130,7 @@ namespace Pastel
 				PASTEL_TAG(kNearest), kNearest,
 				PASTEL_TAG(minMatchRatio), minMatchRatio,
 				PASTEL_TAG(matchingDistance2), matchingDistance2,
-				PASTEL_TAG(maxBias), square(maxBias),
+				PASTEL_TAG(maxBias), maxBias,
 				PASTEL_TAG(matchingMode), matchingMode);
 
 			// Output the pairing.
@@ -155,7 +155,7 @@ namespace Pastel
 			// Output the bias.
 
 			real* outBias = matlabCreateScalar<real>(outputSet[Bias]);
-			*outBias = std::sqrt(match.bias);
+			*outBias = match.bias;
 
 			// Output the success flag.
 
