@@ -265,3 +265,38 @@ TEST_CASE("Simple (maximumBipartiteMatching)")
 	}
 }
 
+TEST_CASE("OneOff (maximumBipartiteMatching)")
+{
+	{
+		EdgeSet edgeSet;
+		edgeSet.resize(20);
+		for (integer i = 0; i < 20; ++i)
+		{
+			for (integer j = 0; j < 20; ++j)
+			{
+				edgeSet[i].push_back(j);
+			}
+		}
+
+		REQUIRE(testCase(40, std::move(edgeSet), 20));
+	}
+
+	{
+		EdgeSet edgeSet;
+		edgeSet.resize(20);
+		for (integer i = 0; i < 20; ++i)
+		{
+			for (integer j = i; j < i + 2; ++j)
+			{
+				if (j >= 20)
+				{
+					continue;
+				}
+
+				edgeSet[i].push_back(j);
+			}
+		}
+
+		REQUIRE(testCase(40, std::move(edgeSet), 20));
+	}
+}
