@@ -43,23 +43,30 @@ namespace Pastel
 
 		// Now the numbers are both odd. 
 
-		// Suppose both are non-negative.
-		// Then, for m, n >= 0,
-		//
-		//       ((2m + 1) + (2n + 1)) / 2 
-		//     = (2m + 2n + 2) / 2
-		//     = m + n + 1.
-		//     = (left / 2) + (right / 2) + 1.
-		//
-		// Suppose both are negative.
-		// Then, for m, n >= 0,
-		//
-		//       (-(2m + 1) - (2n + 1)) / 2 
-		//     = (-2m - 2n - 2) / 2
-		//     = -m - n - 1.
-		//     = (left / 2) + (right / 2) - 1.
+		if (negative(left))
+		{
+			// Suppose both are negative.
+			// Then, for m, n >= 0,
+			//
+			//       (-(2m + 1) - (2n + 1)) / 2 
+			//     = (-2m - 2n - 2) / 2
+			//     = -m - n - 1.
+			//     = (left / 2) + (right / 2) - 1.
+			--result;
+		}
+		else
+		{
+			// Suppose both are non-negative.
+			// Then, for m, n >= 0,
+			//
+			//       ((2m + 1) + (2n + 1)) / 2 
+			//     = (2m + 2n + 2) / 2
+			//     = m + n + 1.
+			//     = (left / 2) + (right / 2) + 1.
+			++result;
+		}
 
-		return negative(left) ? (result - 1) : (result + 1);
+		return result;
 	}
 
 }
