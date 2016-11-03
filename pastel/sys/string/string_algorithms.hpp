@@ -318,7 +318,7 @@ namespace Pastel
 			if (stream)
 			{
 				result = number;
-				matchSize = stream.tellg();
+				matchSize = (integer)stream.tellg();
 				foundMatch = true;
 			}
 		}
