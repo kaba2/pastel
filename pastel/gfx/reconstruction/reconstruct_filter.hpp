@@ -196,7 +196,7 @@ namespace Pastel
 			}
 		}
 
-		kdTree.insertSet(rangeSet(dataPointList));
+		kdTree.insertSet(dataPointList);
 		kdTree.refine(SlidingMidpoint_SplitRule());
 
 		ReconstructFilter_::ReconstructFunctor<Tree, Filter>

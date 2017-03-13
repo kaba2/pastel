@@ -51,7 +51,7 @@ namespace Pastel
 		}
 
 		integer n = 0;
-		forEach(pointSet, [&](auto&& point)
+		for(auto&& point : pointSet)
 		{
 			for (integer i = 0; i < d;++i)
 			{
@@ -59,9 +59,7 @@ namespace Pastel
 					square(pointAxis(point, i) - mean[i]);
 			}
 			++n;
-
-			return true;
-		});
+		}
 
 		if (n == 0)
 		{

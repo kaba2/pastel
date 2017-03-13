@@ -44,7 +44,7 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 			}
 
 			Tree modelTree;
-			modelTree.insertSet(rangeSet(modelSet));
+			modelTree.insertSet(modelSet);
 			modelTree.refine();
 
 			// Generate a translated point-set.
@@ -66,7 +66,7 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 			//std::cout << sceneSet.size() << std::endl;
 
 			Tree sceneTree;
-			sceneTree.insertSet(rangeSet(sceneSet));
+			sceneTree.insertSet(sceneSet);
 			sceneTree.refine();
 
 			using Tree_ConstIterator = Tree::Point_ConstIterator;

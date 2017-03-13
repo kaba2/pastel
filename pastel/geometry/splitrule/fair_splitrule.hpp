@@ -43,7 +43,7 @@ namespace Pastel
 			Real minPosition = Infinity();
 			Real maxPosition = -Infinity();
 
-			forEach(pointSet, [&](auto&& point)
+			for(auto&& point : pointSet)
 			{
 				Real position = 
 					pointAxis(point, splitAxis);
@@ -56,9 +56,7 @@ namespace Pastel
 				{
 					maxPosition = position;
 				}
-
-				return true;
-			});
+			}
 
 			// Split at the midpoint of the minimum
 			// bounding interval.

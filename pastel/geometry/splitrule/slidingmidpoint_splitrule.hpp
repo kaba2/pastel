@@ -46,7 +46,7 @@ namespace Pastel
 			Real rightMin = Infinity();
 			integer rightCount = 0;
 
-			forEach(pointSet, [&](auto&& point)
+			for (auto&& point : pointSet)
 			{
 				Real position = pointAxis(point, splitAxis);
 				if (position < splitPosition)
@@ -65,9 +65,7 @@ namespace Pastel
 					}
 					++rightCount;
 				}
-
-				return true;
-			});
+			}
 
 			if (leftCount == 0)
 			{

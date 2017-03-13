@@ -75,7 +75,7 @@ TEST_CASE("Points (boundingAlignedBox)")
 		std::vector<Point> pointSet;
 
 		AlignedBox2i bound =
-			boundingAlignedBox(rangeSet(pointSet));
+			boundingAlignedBox(pointSet);
 
 		REQUIRE(bound.min() == Point((integer)Infinity()));
 		REQUIRE(bound.max() == Point(-(integer)Infinity()));
@@ -87,7 +87,7 @@ TEST_CASE("Points (boundingAlignedBox)")
 		};
 
 		AlignedBox2i bound =
-			boundingAlignedBox(rangeSet(pointSet));
+			boundingAlignedBox(pointSet);
 
 		REQUIRE(bound.min() == Point(3, 5));
 		REQUIRE(bound.max() == Point(3, 5));
@@ -112,7 +112,7 @@ TEST_CASE("Points (boundingAlignedBox)")
 		};
 
 		AlignedBox2i bound =
-			boundingAlignedBox(rangeSet(pointSet));
+			boundingAlignedBox(pointSet);
 
 		REQUIRE(bound.min() == Point(0, 0));
 		REQUIRE(bound.max() == Point(5, 4));

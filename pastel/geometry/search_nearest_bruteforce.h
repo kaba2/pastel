@@ -161,11 +161,11 @@ namespace Pastel
 			return that < cullDistance2;
 		};
 
-		forEach(pointSet, [&](auto&& point)
+		for(auto&& point : pointSet)
 		{
 			if (!accept(pointPointId(point)))
 			{
-				return true;
+				continue;
 			}
 
 			Real distance = distance2(
@@ -192,9 +192,7 @@ namespace Pastel
 						maxDistance2);
 				}
 			}
-			
-			return true;
-		});
+		}
 
 		for (auto&& entry : entrySet)
 		{

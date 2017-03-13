@@ -21,7 +21,7 @@ namespace Pastel
 		integer d = pointSetDimension(pointSet);
 		
 		AlignedBox<Real, N> bound(d);
-		forEach(pointSet, [&](auto&& point)
+		for(auto&& point : pointSet)
 		{
 			for (integer i = 0;i < d;++i)
 			{
@@ -37,9 +37,7 @@ namespace Pastel
 					bound.max()[i] = x;
 				}
 			}
-
-			return true;
-		});
+		}
 
 		return bound;
 	}

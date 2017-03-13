@@ -72,16 +72,14 @@ namespace Pastel
 
 		// Compute the maximum distance from the midpoint.
 		Real maxDistance2 = 0;
-		forEach(pointSet, [&](auto&& point)
+		for(auto&& point : pointSet)
 		{
 			Real currentDistance2 = dot(pointAsVector(point) - midPoint);
 			if (currentDistance2 > maxDistance2)
 			{
 				maxDistance2 = currentDistance2;
 			}
-
-			return true;
-		});
+		}
 
 		return Sphere<Real, N>(
 			midPoint,

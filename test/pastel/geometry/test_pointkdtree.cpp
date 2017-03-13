@@ -101,7 +101,7 @@ namespace
 
 		Tree tree;
 		tree.insertSet(
-			rangeSet(pointSet),
+			pointSet,
 			PASTEL_TAG(report), pushBackOutput(iteratorSet)
 		);
 		REQUIRE(testInvariants(tree));
@@ -239,7 +239,7 @@ TEST_CASE("various (PointKdTree)")
 
 	Tree tree;
 	tree.insertSet(
-		rangeSet(pointSet),
+		pointSet,
 		PASTEL_TAG(report), pushBackOutput(iteratorSet)
 	);
 	REQUIRE(testInvariants(tree));
@@ -292,7 +292,7 @@ TEST_CASE("various (PointKdTree)")
 	REQUIRE(tree.points() == 0);
 
 	tree.insertSet(
-		rangeSet(pointSet),
+		pointSet,
 		PASTEL_TAG(report), pushBackOutput(iteratorSet)
 	);
 	REQUIRE(testInvariants(tree));
@@ -358,7 +358,7 @@ namespace
 
 		Tree tree;
 
-		tree.insertSet(rangeSet(pointSet));
+		tree.insertSet(pointSet);
 		tree.refine(SlidingMidpoint_SplitRule());
 
 		Euclidean_NormBijection<real> normBijection;

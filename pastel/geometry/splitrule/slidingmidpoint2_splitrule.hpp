@@ -49,7 +49,7 @@ namespace Pastel
 			// point on the left side and the minimum
 			// on the right side.
 
-			forEach(pointSet, [&](auto&& point)
+			for(auto&& point : pointSet)
 			{
 				Real position = 
 					pointAxis(point, splitAxis);
@@ -70,8 +70,7 @@ namespace Pastel
 					}
 					++rightCount;
 				}
-				return true;
-			});
+			}
 
 			if (leftCount > 0)
 			{

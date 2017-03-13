@@ -48,7 +48,7 @@ TEST_CASE("NoiselessSimilarity (LeastSquares)")
 		}
 
 		ConformalAffine2D<real> similarity =
-			lsConformalAffine(rangeSet(from), rangeSet(to));
+			lsConformalAffine(from, to);
 
 		REQUIRE(absoluteError<real>(similarity.scaling(), scale) <= 0.001);
 		REQUIRE(absoluteError<real>(similarity.rotation(), angle) <= 0.001);

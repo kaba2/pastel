@@ -45,12 +45,11 @@ namespace Pastel
 			std::vector<Real> positionSet;
 			positionSet.reserve(setSize(pointSet));
 
-			forEach(pointSet, [&](auto&& point)
+			for(auto&& point : pointSet)
 			{
 				positionSet.emplace_back(
 					pointAxis(point, splitAxis));
-				return true;
-			});
+			}
 
 			// Get the median of the points on the splitting axis.
 			std::sort(positionSet.begin(), positionSet.end());
