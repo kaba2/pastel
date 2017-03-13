@@ -27,29 +27,28 @@ TEST_CASE("Interval (Set)")
 		Interval_Set<integer>, Set_Concept);
 	PASTEL_CONCEPT_CHECK(
 		Interval_Set<integer>, Set_Concept());
-	PASTEL_CONCEPT_CHECK(
-		Interval_Set<integer>, Set_Concept(integer));
-	PASTEL_CONCEPT_CHECK(
-		Interval_Set<integer>, Set_Concept(real));
+	//PASTEL_CONCEPT_CHECK(
+	//	Interval_Set<integer>, Set_Concept(integer));
+	//PASTEL_CONCEPT_CHECK(
+	//	Interval_Set<integer>, Set_Concept(real));
 	PASTEL_STATIC_ASSERT(
 		CorrectElement<Interval_Set<integer>, integer>::value);
 	{
 		integer n = 8;
 		auto set = intervalSet((integer)3, (integer)3 + n);
 		auto index = set.begin();
-		set.next(index);
-		REQUIRE(set.n() == n);
+		++index;
+		REQUIRE(ranges::distance(set) == n);
 
 		PASTEL_STATIC_ASSERT(
 			CorrectElement<decltype(set), integer>::value);
 
 		std::unordered_set<integer> actualSet;
 
-		forEach(set, [&](integer a)
+		for(auto&& a : set)
 		{
 			actualSet.insert(a);
-			return true;
-		});
+		}
 		REQUIRE(actualSet.size() == n);
 
 		for (integer i = 0; i < n; ++i)
@@ -63,13 +62,10 @@ TEST_CASE("Basic interval (Set)")
 {
 	integer n = 8;
 	auto set = intervalSet((integer)3, (integer)3 + n);
-
-	auto index = set.begin();
 	integer i = 3;
-	while (!set.empty(index))
+	for (auto&& element : set)
 	{
-		REQUIRE(set[index] == i);
-		set.next(index);
+		REQUIRE(element == i);
 		++i;
 	}
 }
@@ -77,13 +73,9 @@ TEST_CASE("Basic interval (Set)")
 TEST_CASE("Range (Set)")
 {
 	{
-		std::list<integer> aSet = {3, 4, 5, 6, 7, 8, 9, 10, 11};
-		integer n = aSet.size();
-		auto set = rangeSet(aSet.begin(), aSet.end());
-
-		auto index = set.begin();
-		set.next(index);
-		REQUIRE(set.n() == n);
+		std::list<integer> set = {3, 4, 5, 6, 7, 8, 9, 10, 11};
+		integer n = set.size();
+		REQUIRE(ranges::size(set) == n);
 
 		PASTEL_STATIC_ASSERT(
 			CorrectElement<decltype(set), integer>::value);
@@ -106,19 +98,10 @@ TEST_CASE("Range (Set)")
 
 TEST_CASE("Constant (Set)")
 {
-	PASTEL_CONCEPT_CHECK(
-		Constant_Set<integer>, Set_Concept);
-	PASTEL_CONCEPT_CHECK(
-		Constant_Set<integer>, Set_Concept());
-	PASTEL_CONCEPT_CHECK(
-		Constant_Set<integer>, Set_Concept(integer));
-	PASTEL_CONCEPT_CHECK(
-		Constant_Set<integer>, Set_Concept(real));
-
 	{
 		integer n = 4;
 		integer element = 7;
-		Constant_Set<integer> set(n, element);
+		auto set = constantSet(n, element);
 
 		PASTEL_STATIC_ASSERT(
 			CorrectElement<decltype(set), integer>::value);
@@ -141,7 +124,7 @@ TEST_CASE("Constant (Set)")
 	{
 		integer n = 0;
 		integer element = 7;
-		Constant_Set<integer> set(n, element);
+		auto set = constantSet(n, element);
 
 		bool correct = forEach(set, [&](integer a)
 		{
@@ -154,26 +137,23 @@ TEST_CASE("Constant (Set)")
 
 TEST_CASE("Union (Set)")
 {
-	using Union = Union_Set<
-			Constant_Set<integer>,
-			Constant_Set<integer>>;
-	PASTEL_CONCEPT_CHECK(Union, Set_Concept);
-	PASTEL_CONCEPT_CHECK(Union, Set_Concept());
-	PASTEL_CONCEPT_CHECK(Union, Set_Concept(integer));
-	PASTEL_CONCEPT_CHECK(Union, Set_Concept(real));
-
 	{
 		integer nA = 5;
 		integer aElement = 7;
-		Constant_Set<integer> aSet(nA, aElement);
+		auto aSet = constantSet(nA, aElement);
+		PASTEL_CONCEPT_CHECK(decltype(aSet), Set_Concept);
+		REQUIRE(ranges::size(aSet) == 5);
 
 		integer nB = 3;
 		integer bElement = 3;
-		Constant_Set<integer> bSet(nB, bElement);
+		auto bSet = constantSet(nB, bElement);
+		PASTEL_CONCEPT_CHECK(decltype(bSet), Set_Concept);
+		REQUIRE(ranges::size(bSet) == 3);
 
 		auto abSet = unionSet(aSet, bSet);
+		PASTEL_CONCEPT_CHECK(decltype(abSet), Set_Concept);
 
-		REQUIRE(abSet.n() == 5 + 3);
+		REQUIRE(ranges::size(abSet) == 5 + 3);
 		PASTEL_STATIC_ASSERT(
 			std::is_same<
 				Set_Element<decltype(abSet)>,
@@ -202,11 +182,10 @@ TEST_CASE("Sparse (Set)")
 		inputSet, 2);
 
 	std::unordered_set<integer> actualSet;
-	forEach(subSet, [&](integer x)
+	for(auto&& element : subSet)
 	{
-		actualSet.insert(x);
-		return true;
-	});
+		actualSet.insert(element);
+	}
 
 	REQUIRE(actualSet.size() == n / 2);
 	for (integer i = 0;i < n;i += 2)

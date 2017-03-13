@@ -33,7 +33,7 @@ namespace Pastel
 				bound.min()[splitAxis], 
 				bound.max()[splitAxis], 0.5);
 
-			if (pointSet.empty())
+			if (emptySet(pointSet))
 			{
 				return std::make_pair(splitPosition, splitAxis);
 			}

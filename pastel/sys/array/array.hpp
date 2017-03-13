@@ -448,22 +448,8 @@ namespace Pastel
 	}
 
 	template <typename Type, integer N>
-	typename Array<Type, N>::ConstIterator
-		Array<Type, N>::cbegin() const
-	{
-		return data_;
-	}
-
-	template <typename Type, integer N>
 	typename Array<Type, N>::Iterator
 		Array<Type, N>::end()
-	{
-		return data_ + size_;
-	}
-
-	template <typename Type, integer N>
-	typename Array<Type, N>::ConstIterator
-		Array<Type, N>::cend() const
 	{
 		return data_ + size_;
 	}

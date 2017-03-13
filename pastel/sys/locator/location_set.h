@@ -36,36 +36,16 @@ namespace Pastel
 		{
 		}
 
-		integer n() const
-		{
-			return set_.n();
-		}
-
-		Index begin() const
+		decltype(auto) begin() const
 		{
 			return set_.begin();
 		}
 
-		Element operator[](const Index& index) const
+		decltype(auto) end() const
 		{
-			return {set_[index], locator_};
+			return set_.end();
 		}
 
-		bool empty() const
-		{
-			return set_.empty();
-		}
-
-		bool empty(const Index& index) const
-		{
-			return set_.empty(index);
-		}
-
-		integer next(Index& index, integer steps = 1) const
-		{
-			return set_.next(index, steps);
-		}
-		
 		Set& pointSet()
 		{
 			return set_;

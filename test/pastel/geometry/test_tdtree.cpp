@@ -51,7 +51,7 @@ TEST_CASE("Grid (TdTree)")
 		pointSet(point[0], point[1]) = point;
 	});
 
-	Tree tree(rangeSet(pointSet));
+	Tree tree(pointSet);
 	REQUIRE(tree.simple());
 
 	REQUIRE(tree.bound() == 

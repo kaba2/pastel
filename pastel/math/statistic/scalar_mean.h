@@ -34,12 +34,11 @@ namespace Pastel
 		integer n = 0;
 		Real mean = 0;
 
-		forEach(inputSet, [&](auto&& x)
+		for (auto&& element : inputSet)
 		{
-			mean += x;
+			mean += element;
 			++n;
-			return true;
-		});
+		}
 		
 		return mean / n;
 	}

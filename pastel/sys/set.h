@@ -10,5 +10,6 @@
 #include "pastel/sys/set/sparse_set.h"
 #include "pastel/sys/set/transformed_set.h"
 #include "pastel/sys/set/union_set.h"
+#include "pastel/sys/set/zip_set.h"
 
 #endif

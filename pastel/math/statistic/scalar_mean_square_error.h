@@ -40,16 +40,9 @@ namespace Pastel
 		integer n = 0;
 		Real result = 0;
 
-		auto aIndex = aSet.begin();
-		auto bIndex = bSet.begin();
-
-		while (!aSet.empty(aIndex) && 
-			!bSet.empty(bIndex))
+		for (auto&& elements : zipSet(aSet, bSet))
 		{
-			result += square(aSet[aIndex] - bSet[bIndex]);
-
-			aSet.next(aIndex);
-			bSet.next(bIndex);
+			result += square(elements.first - elements.second);
 			++n;
 		}
 

@@ -38,7 +38,7 @@ namespace Pastel
 	
 		Vector<Real, Locator_N<Locator>::value> result(ofDimension(d), 0);
 
-		if (pointSet.empty() || d == 0)
+		if (emptySet(pointSet) || d == 0)
 		{
 			return result;
 		}

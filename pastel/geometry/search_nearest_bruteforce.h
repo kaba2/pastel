@@ -136,7 +136,7 @@ namespace Pastel
 		Result notFound((Real)Infinity(), Point());
 
 		auto pointSet = nearestSet.pointSet();
-		if (pointSet.empty() || kNearest == 0)
+		if (emptySet(pointSet) || kNearest == 0)
 		{
 			return notFound;
 		}

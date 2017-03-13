@@ -32,14 +32,12 @@ namespace Pastel
 		const Set& set,
 		const Element_Function& visit)
 	{
-		auto index = set.begin();
-		while(!set.empty(index))
+		for (auto&& element : set)
 		{
-			if (!visit(set[index]))
+			if (!visit(element))
 			{
 				return false;
 			}
-			set.next(index);
 		}
 
 		return true;
