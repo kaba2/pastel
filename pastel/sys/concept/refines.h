@@ -3,7 +3,7 @@
 #ifndef PASTELSYS_REFINES_H
 #define PASTELSYS_REFINES_H
 
-#include "pastel/sys/sfinae.h"
+#include <range/v3/utility/concepts.hpp>
 
 namespace Pastel
 {
@@ -22,17 +22,7 @@ namespace Pastel
 	concept-refinement when used as a base-class.
 	*/
 	template <typename... ConceptSet>
-	struct Refines 
-	{	
-		// The Refines is itself a trivial
-		// concept, which requires nothing.
-		// This way a refined concept does 
-		// not need to implement requires_(), 
-		// if it does not add any new requirements.
-
-		template <typename Type>
-		void requires_(Type&& t);
-	};
+	using Refines = ranges::concepts::refines<ConceptSet...>;
 
 }
 

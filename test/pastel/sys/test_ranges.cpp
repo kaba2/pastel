@@ -31,4 +31,6 @@ TEST_CASE("Ranges (Ranges)")
 	auto bSet = ranges::view::iota((integer)0, (integer)Infinity());
 	//ranges::sort(aSet);
 	f(ranges::view::zip(ranges::view::const_(aSet), bSet));
+
+	PASTEL_CONCEPT_CHECK(decltype(bSet), ranges::concepts::Range);
 }
