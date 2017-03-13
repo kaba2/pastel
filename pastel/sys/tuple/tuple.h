@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 #include <boost/operators.hpp>
 

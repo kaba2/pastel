@@ -22,7 +22,7 @@ namespace Pastel
 		template <
 			typename Type,
 			typename Integer>
-		auto requires(Type&& f, Integer&& n) -> decltype
+		auto requires_(Type&& f, Integer&& n) -> decltype
 		(
 			conceptCheck(
 				// For some reason isModelOf is not defined

@@ -12,7 +12,7 @@ namespace Pastel
 	: Refines<Input_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			//! Returns the exact number of elements left.
 			Concept::convertsTo<integer>(t.n())

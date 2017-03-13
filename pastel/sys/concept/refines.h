@@ -27,11 +27,11 @@ namespace Pastel
 		// The Refines is itself a trivial
 		// concept, which requires nothing.
 		// This way a refined concept does 
-		// not need to implement requires(), 
+		// not need to implement requires_(), 
 		// if it does not add any new requirements.
 
 		template <typename Type>
-		void requires(Type&& t);
+		void requires_(Type&& t);
 	};
 
 }

@@ -28,7 +28,7 @@ In the emulation layer, a concept is a class, together with a member function te
 	struct Printable_Concept
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::convertsTo<std::string>(asString(t))
@@ -78,7 +78,7 @@ A concept may require the existence of a member type. This requirement is best e
 		template <
 			typename Type,
 			typename Member = typename Type::Member>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::convertsTo<std::string>(asString(t)),
@@ -121,7 +121,7 @@ A concept can be refined by deriving from the concept, wrapped in a `Refines` cl
 	: Refines<Element_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::hasType<Type&>(t += t),
@@ -170,7 +170,7 @@ Native types are sometimes treated differently in the concept-requirement check:
 	struct Realish_Concept
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::convertsTo<bool>(isInfinity(t))
@@ -199,7 +199,7 @@ A workaround is to define the needed functions for native types _before_ the con
 	struct Realish_Concept
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::convertsTo<bool>(isInfinity(t))
@@ -216,7 +216,7 @@ Function templates without parameters are not dependent names, and so cannot be 
 	struct Realish_Concept
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::convertsTo<Type>(infinity<Type>())

@@ -29,7 +29,7 @@ namespace Pastel
 	{
 	private:
 		// Type models Concept if it is possible to call
-		// the requires() member function of Concept.
+		// the requires_() member function of Concept.
 		// The concept is always given non-const, non-volatile,
 		// non-reference arguments to work with, no matter what 
 		// the passed-in types are.
@@ -37,7 +37,7 @@ namespace Pastel
 			typename T,
 			typename =
 				decltype(
-					std::declval<Concept>().requires(
+					std::declval<Concept>().requires_(
 						std::declval<
 							RemoveCvRef<T>
 						>(), 

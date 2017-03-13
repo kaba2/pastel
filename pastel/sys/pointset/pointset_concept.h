@@ -19,7 +19,7 @@ namespace Pastel
 		// * a Set whose elements have a default-locator, or
 		// * a LocationSet, which pairs a Set with a Locator.
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::holds<

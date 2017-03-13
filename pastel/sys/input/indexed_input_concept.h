@@ -12,7 +12,7 @@ namespace Pastel
 	: Refines<Sized_Input_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			//! Returns the i:th next element.
 			/*!

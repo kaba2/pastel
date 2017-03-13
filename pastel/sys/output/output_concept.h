@@ -14,7 +14,7 @@ namespace Pastel
 		template <
 			typename Type,
 			typename That>
-		auto requires(Type&& t, That&& that) -> decltype
+		auto requires_(Type&& t, That&& that) -> decltype
 		(
 			conceptCheck(
 				//! Reports 'that'.

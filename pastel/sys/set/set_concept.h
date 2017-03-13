@@ -24,7 +24,7 @@ namespace Pastel
 			//! The type of the index into the set.
 			typename Index = typename Type::Index
 		>
-		auto requires(
+		auto requires_(
 			Type&& t,
 			Element&& element = std::declval<Element>()) -> decltype
 		(
