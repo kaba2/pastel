@@ -26,7 +26,7 @@ namespace Pastel
 	struct PointKdTree_Settings_Concept
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::exists<typename Type::Locator>(),

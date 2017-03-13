@@ -14,7 +14,7 @@ namespace Pastel
 		template <
 			typename Type,
 			typename Element>
-		auto requires(Type&& t, Element&& e) -> decltype
+		auto requires_(Type&& t, Element&& e) -> decltype
 		(
 			//! Returns whether an element is in the true-set.
 			/*!

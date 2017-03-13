@@ -22,7 +22,7 @@ namespace Pastel
 			typename Point = PointSet_Point<PointSet>,
 			typename Real = PointSet_Real<PointSet>
 		>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! Returns the underlying point-set.

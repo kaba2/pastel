@@ -25,7 +25,7 @@ namespace Pastel
 		template <
 			typename Type,
 			typename Element>
-		auto requires(Type&& t, Element&& e) -> decltype
+		auto requires_(Type&& t, Element&& e) -> decltype
 		(
 			conceptCheck(
 				Concept::isModelOf<Linearly_Ordered_Element_Concept>(e)

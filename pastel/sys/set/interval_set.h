@@ -16,7 +16,7 @@ namespace Pastel
 		: Refines<Element_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! Constructs from another element.
@@ -37,7 +37,7 @@ namespace Pastel
 		: Refines<Interval_Set_Element_Seq_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! Computes the distance between elements.

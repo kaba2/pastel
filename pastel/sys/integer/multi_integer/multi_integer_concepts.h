@@ -12,7 +12,7 @@ namespace Pastel
 	struct MultiInteger_Settings_Concept
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! The number of bits in the integer.

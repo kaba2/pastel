@@ -23,7 +23,7 @@ namespace Pastel
 	: Refines<Additive_SemiGroup_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				// Returns whether t == 0.
@@ -43,7 +43,7 @@ namespace Pastel
 	: Refines<Multiplicative_SemiGroup_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				// Returns whether t == 1.

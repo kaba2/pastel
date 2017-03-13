@@ -11,7 +11,7 @@ namespace
 	struct Goo_Concept
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype(
+		auto requires_(Type&& t) -> decltype(
 			conceptCheck(
 				++t,
 				t * t,
@@ -23,7 +23,7 @@ namespace
 		: Refines<Goo_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype(
+		auto requires_(Type&& t) -> decltype(
 			conceptCheck(
 				// The return-type of g() is void; 
 				// the comma can be used to assign
@@ -35,7 +35,7 @@ namespace
 	struct Doo_Concept
 	{
 		template <typename Type, typename A_Goo>
-		auto requires(Type&& t, A_Goo&& a) -> decltype
+		auto requires_(Type&& t, A_Goo&& a) -> decltype
 		(
 			conceptCheck(
 				Concept::isModelOf<Goo_Concept>(a),
@@ -47,7 +47,7 @@ namespace
 	struct Empty_Concept
 	{
 		template <typename Type>
-		void requires(Type&& t);
+		void requires_(Type&& t);
 	};
 
 	struct Baseless_Concept
@@ -324,7 +324,7 @@ namespace
 		template <
 			typename Type
 		>
-			auto requires(Type&& t) -> decltype
+			auto requires_(Type&& t) -> decltype
 			(
 				conceptCheck(
 					fSome(t)

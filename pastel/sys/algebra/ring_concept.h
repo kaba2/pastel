@@ -30,7 +30,7 @@ namespace Pastel
 		Multiplicative_Monoid_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! Adds 1 to the element, returns itself.

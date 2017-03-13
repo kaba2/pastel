@@ -20,7 +20,7 @@ namespace Pastel
 		: Refines<Integer_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			//! Returns the binary not of the element.
 			Concept::convertsTo<Type>(~t),

@@ -24,7 +24,7 @@ namespace Pastel
 			*/
 			integer N = Type::N
 		>
-		auto requires(
+		auto requires_(
 			Type&& t, 
 			PointId&& pointId = std::declval<PointId>(),
 			Real&& s = std::declval<Real>()) -> decltype

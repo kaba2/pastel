@@ -14,7 +14,7 @@ namespace Pastel
 			typename Type,
 			//! The computation type.
 			typename Real = typename Type::Real>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! Computes the logarithm of the volume of the unit norm sphere.

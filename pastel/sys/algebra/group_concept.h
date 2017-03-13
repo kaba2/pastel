@@ -22,7 +22,7 @@ namespace Pastel
 	: Refines<Additive_Monoid_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! Adds -that to the element.
@@ -46,7 +46,7 @@ namespace Pastel
 	: Refines<Multiplicative_Monoid_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! Multiplies with inverse(that) from the right.

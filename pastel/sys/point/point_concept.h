@@ -62,7 +62,7 @@ namespace Pastel
 		// default locator, or a Location, which pairs a 
 		// type with a locator.
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::holds<

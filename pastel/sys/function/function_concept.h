@@ -15,7 +15,7 @@ namespace Pastel
 		template <
 			typename Type,
 			typename... ArgumentSet>
-		auto requires(Type&& t, ArgumentSet&&... argumentSet) -> decltype
+		auto requires_(Type&& t, ArgumentSet&&... argumentSet) -> decltype
 		(
 			conceptCheck(
 				//! Returns the value of the function at given arguments.
@@ -32,7 +32,7 @@ namespace Pastel
 		template <
 			typename Type,
 			typename... ArgumentSet>
-		auto requires(Type&& t, ArgumentSet&&... argumentSet) -> decltype
+		auto requires_(Type&& t, ArgumentSet&&... argumentSet) -> decltype
 		(
 			conceptCheck(
 				//! Calls the function with the given arguments.

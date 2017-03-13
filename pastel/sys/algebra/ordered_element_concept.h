@@ -20,7 +20,7 @@ namespace Pastel
 		: Refines<Element_Concept>
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				//! Returns whether left < right.

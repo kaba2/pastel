@@ -12,6 +12,7 @@
 #include "pastel/sys/range.h"
 
 #include <algorithm>
+#include <memory>
 
 namespace Pastel
 {

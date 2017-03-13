@@ -11,7 +11,7 @@ namespace Pastel
 	struct BruteForce_NearestSet_Settings_Concept
 	{
 		template <typename Type>
-		auto requires(Type&& t) -> decltype
+		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::holds<
