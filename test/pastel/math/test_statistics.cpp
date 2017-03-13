@@ -27,34 +27,34 @@ TEST_CASE("statistics (statistics)")
 		std::vector<Point> aSet = { -1, 7, 4, -3, 7, 8 };
 		std::vector<Point> bSet = { -6, 4, 3, 2, -6, -1 };
 
-		using PointSet = decltype(rangeSet(aSet));
+		using PointSet = decltype(aSet);
 		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
-		REQUIRE(allEqual(pointMean(rangeSet(aSet)), Real(11, 3)));
-		REQUIRE(allEqual(pointVariance(rangeSet(aSet), PASTEL_TAG(biased), false), Real(322, 15)));
-		REQUIRE(allEqual(pointVariance(rangeSet(aSet)), Real(322, 18)));
+		REQUIRE(allEqual(pointMean(aSet), Real(11, 3)));
+		REQUIRE(allEqual(pointVariance(aSet, PASTEL_TAG(biased), false), Real(322, 15)));
+		REQUIRE(allEqual(pointVariance(aSet), Real(322, 18)));
 
-		REQUIRE(allEqual(pointMean(rangeSet(bSet)), Real(-2, 3)));
-		REQUIRE(allEqual(pointVariance(rangeSet(bSet), PASTEL_TAG(biased), false), Real(298, 15)));
-		REQUIRE(allEqual(pointVariance(rangeSet(bSet)), Real(298, 18)));
+		REQUIRE(allEqual(pointMean(bSet), Real(-2, 3)));
+		REQUIRE(allEqual(pointVariance(bSet, PASTEL_TAG(biased), false), Real(298, 15)));
+		REQUIRE(allEqual(pointVariance(bSet), Real(298, 18)));
 
-		REQUIRE(scalarCovariance<Real>(rangeSet(aSet), rangeSet(bSet), PASTEL_TAG(biased), false) == Real(14, 15));
-		REQUIRE(scalarMeanSquareError<Real>(rangeSet(aSet), rangeSet(bSet)) == Real(310, 6));
+		REQUIRE(scalarCovariance<Real>(aSet, bSet, PASTEL_TAG(biased), false) == Real(14, 15));
+		REQUIRE(scalarMeanSquareError<Real>(aSet, bSet) == Real(310, 6));
 	}
 	{
 		std::vector<Real> aSet = { -1, 7, 4, -3, 7, 8 };
 		std::vector<Real> bSet = { -6, 4, 3, 2, -6, -1 };
 
-		REQUIRE(scalarMean<Real>(rangeSet(aSet)) == Real(11, 3));
-		REQUIRE(scalarVariance<Real>(rangeSet(aSet), PASTEL_TAG(biased), false) == Real(322, 15));
-		REQUIRE(scalarVariance<Real>(rangeSet(aSet)) == Real(322, 18));
+		REQUIRE(scalarMean<Real>(aSet) == Real(11, 3));
+		REQUIRE(scalarVariance<Real>(aSet, PASTEL_TAG(biased), false) == Real(322, 15));
+		REQUIRE(scalarVariance<Real>(aSet) == Real(322, 18));
 
-		REQUIRE(scalarMean<Real>(rangeSet(bSet)) == Real(-2, 3));
-		REQUIRE(scalarVariance<Real>(rangeSet(bSet), PASTEL_TAG(biased), false) == Real(298, 15));
-		REQUIRE(scalarVariance<Real>(rangeSet(bSet)) == Real(298, 18));
+		REQUIRE(scalarMean<Real>(bSet) == Real(-2, 3));
+		REQUIRE(scalarVariance<Real>(bSet, PASTEL_TAG(biased), false) == Real(298, 15));
+		REQUIRE(scalarVariance<Real>(bSet) == Real(298, 18));
 
-		REQUIRE(scalarCovariance<Real>(rangeSet(aSet), rangeSet(bSet), PASTEL_TAG(biased), false) == Real(14, 15));
-		REQUIRE(scalarMeanSquareError<Real>(rangeSet(aSet), rangeSet(bSet)) == Real(310, 6));
+		REQUIRE(scalarCovariance<Real>(aSet, bSet, PASTEL_TAG(biased), false) == Real(14, 15));
+		REQUIRE(scalarMeanSquareError<Real>(aSet, bSet) == Real(310, 6));
 	}
 	/*
 	{

@@ -339,7 +339,7 @@ namespace Pastel
 					indexSequence[i + 1] : cursor.points();
 
 				auto pointSet = cursor.pointSet(indexMin, indexMax);
-				forEach(pointSet, [&](auto&& point)
+				for(auto&& point : pointSet)
 				{
 					// Compute the distance from the node-point
 					// to the search-point.
@@ -357,7 +357,7 @@ namespace Pastel
 					// search ball.
 					if (currentDistance2 >= cullDistance2 || !accept(point))
 					{
-						return true;
+						continue;
 					}
 
 					// Note that if there are multiple points at the same 
@@ -372,9 +372,7 @@ namespace Pastel
 						cullDistance2 = cullSuggestion2;
 						nodeCullDistance2 = cullDistance2 * errorFactor;
 					}
-
-					return true;
-				});
+				}
 			}
         };
 

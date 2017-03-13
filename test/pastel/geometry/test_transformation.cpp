@@ -68,11 +68,11 @@ TEST_CASE("SimilarityLs (Transformation)")
 		ConformalAffine2D<real> matchedTransformation =
 			lsConformalAffine(
 				locationSet(
-					rangeSet(pattern),
+					pattern,
 					Vector_Locator<real, 2>()
 				),
 				locationSet(
-					rangeSet(transformedPattern),
+					transformedPattern,
 					Vector_Locator<real, 2>()
 				));
 

@@ -585,7 +585,7 @@ namespace Pastel
 			std::tie(splitPosition, splitAxis) = 
 				splitRule(
 					locationSet(
-						transformedSet(rangeSet(pointSet), pointFromIterator),
+						transformedSet(pointSet, pointFromIterator),
 						locator()
 					), 
 					bound

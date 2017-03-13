@@ -160,7 +160,7 @@ namespace Pastel
 			}
 		}
 
-		kdTree.insertSet(rangeSet(dataPointList));
+		kdTree.insertSet(dataPointList);
 		kdTree.refine(SlidingMidpoint2_SplitRule());
 
 		ReconstructNearest_::ReconstructFunctor<Tree>

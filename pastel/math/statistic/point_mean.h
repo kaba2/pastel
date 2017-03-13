@@ -44,16 +44,14 @@ namespace Pastel
 		}
 
 		integer n = 0;
-		forEach(pointSet, [&](auto&& point)
+		for(auto&& point : pointSet)
 		{
 			for (integer i = 0;i < d;++i)
 			{
 				result[i] += pointAxis(point, i);
 			}
 			++n;
-			
-			return true;
-		});
+		}
 
 		return result / n;
 	}

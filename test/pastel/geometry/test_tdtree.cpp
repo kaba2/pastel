@@ -113,7 +113,7 @@ TEST_CASE("Gaussian (TdTree)")
 			randomGaussianVector<real, 3>());
 	}
 
-	Tree tree(rangeSet(pointSet));
+	Tree tree(pointSet);
 
 	integer k = 7;
 
@@ -123,7 +123,7 @@ TEST_CASE("Gaussian (TdTree)")
 		bruteSet.reserve(k);
 
 		real kDistanceBrute = searchNearest(
-			bruteForceNearestSet(rangeSet(pointSet)),
+			bruteForceNearestSet(pointSet),
 			pointSet[i],
 			PASTEL_TAG(report), emplaceBackOutput(bruteSet),
 			PASTEL_TAG(kNearest), k
@@ -161,7 +161,7 @@ TEST_CASE("Linear (TdTree)")
 		pointSet.emplace_back(i, 0);
 	}
 
-	Tree tree(rangeSet(pointSet));
+	Tree tree(pointSet);
 	REQUIRE(tree.simple());
 
 	for (integer i = 0; i < n; ++i)

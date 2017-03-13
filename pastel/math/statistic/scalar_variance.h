@@ -58,12 +58,11 @@ namespace Pastel
 		integer n = 0;
 		Real variance = 0;
 
-		forEach(inputSet, [&](Real x)
+		for(Real x : inputSet)
 		{
 			variance += square(x - mean);
 			++n;
-			return true;
-		});
+		}
 
 		if (n == 0)
 		{
