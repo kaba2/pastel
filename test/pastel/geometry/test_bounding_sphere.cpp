@@ -34,12 +34,11 @@ TEST_CASE("boundingSphere (boundingSphere)")
 			real radius,
 			Vector2 position)
 		{
-			auto pointSet_ = rangeSet(pointSet);
-			using PointSet = decltype(pointSet_);
+			using PointSet = decltype(pointSet);
 			PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 			PASTEL_CONCEPT_REJECT(PointSet, Point_Concept);
 
-			Sphere2 bound = boundingSphere(pointSet_);
+			Sphere2 bound = boundingSphere(pointSet);
 
 			return abs(bound.radius() - radius) < 0.001 &&
 				norm(bound.position() - position) < 0.001;

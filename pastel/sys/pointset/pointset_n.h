@@ -16,7 +16,7 @@ namespace Pastel
 	>
 	integer pointSetN(const PointSet& pointSet)
 	{
-		return pointSet.n();
+		return ranges::size(pointSet);
 	}
 
 }

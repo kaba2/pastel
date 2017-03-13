@@ -2,6 +2,7 @@
 #define PASTELMATH_CONFORMALAFFINE2D_LEAST_SQUARES_HPP
 
 #include "pastel/math/conformalaffine2d/conformalaffine2d_least_squares.h"
+#include "pastel/sys/set/zip_set.h"
 
 namespace Pastel
 {
@@ -25,9 +26,9 @@ namespace Pastel
 
 		static constexpr integer N = PointSet_Dimension<From_PointSet>::value;
 
-		ENSURE_OP(fromSet.n(), ==, toSet.n());
+		ENSURE_OP(setSize(fromSet), ==, setSize(toSet));
 
-		integer n = fromSet.n();
+		integer n = setSize(fromSet);
 		auto fromIndex = fromSet.begin();
 		auto toIndex = toSet.begin();
 
@@ -46,8 +47,8 @@ namespace Pastel
 
 			return ConformalAffine2D<Real>(
 				1, 0, 
-				pointAsVector(toSet[toIndex]) - 
-				pointAsVector(fromSet[fromIndex]));
+				pointAsVector(*toIndex) - 
+				pointAsVector(*fromIndex));
 		}
 
 		Vector<Real, N> sumFrom(ofDimension(2), 0);
@@ -56,11 +57,10 @@ namespace Pastel
 		Real dotSum = 0;
 		Real crossDotSum = 0;
 
-		while(!fromSet.empty(fromIndex) &&
-			!toSet.empty(toIndex))
+		for (auto&& elements : zipSet(fromSet, toSet))
 		{
-			auto from = pointAsVector(fromSet[fromIndex]);
-			auto to = pointAsVector(toSet[toIndex]);
+			auto from = pointAsVector(elements.first);
+			auto to = pointAsVector(elements.second);
 
 			sumFrom += from;
 			sumTo += to;
@@ -68,9 +68,6 @@ namespace Pastel
 			sumSquareFrom += dot(from);
 			dotSum += dot(from, to);
 			crossDotSum += dot(cross(from), to);
-
-			fromSet.next(fromIndex);
-			toSet.next(toIndex);
 		}
 
 		Real det = n * sumSquareFrom - dot(sumFrom);

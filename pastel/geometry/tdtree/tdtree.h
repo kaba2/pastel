@@ -13,11 +13,12 @@
 #include "pastel/geometry/splitrule/longestmedian_splitrule.h"
 
 #include "pastel/sys/sequence/fair_stable_partition.h"
-#include "pastel/sys/set/set_concept.h"
 #include "pastel/sys/set/range_set.h"
 #include "pastel/sys/set/interval_set.h"
 #include "pastel/sys/set/transformed_set.h"
 #include "pastel/sys/locator/transform_locator.h"
+
+#include <range/v3/all.hpp>
 
 #include <boost/range/algorithm/stable_sort.hpp>
 
@@ -113,12 +114,20 @@ namespace Pastel
 		O(n log(n))
 		where
 		n is the size of 'pointSet'.
+
+		Optional arguments:
+		
+		timeSet:
+		Time-points for the point-set.
+		Default: equal to index 0, 1, 2,...
+
+		splitRule:
+		The split-rule to use.
 		*/
 		template <
 			typename PointSet_,
 			typename... ArgumentSet,
 			Requires<
-				Models<PointSet_, PointSet_Concept>,
 				Models<Locator, Locator_Concept(PointSet_PointId<PointSet_>)>
 			> = 0
 		>
@@ -132,7 +141,7 @@ namespace Pastel
 		, simple_(true)
 		, bound_(pointSetDimension(pointSet))
 		{
-			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalSet(Real(0), (Real)Infinity()));
+			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalSet((integer)0, (integer)Infinity()));
 			auto&& splitRule = PASTEL_ARG_S(splitRule, LongestMedian_SplitRule());
 				
 			enum : bool
@@ -144,33 +153,28 @@ namespace Pastel
 
 			std::vector<Iterator> iteratorSet;
 
-			integer n = pointSet.n();
+			integer n = setSize(pointSet);
 			if (n < (integer)Infinity())
 			{
 				iteratorSet.reserve(n);
 				pointSet_.reserve(n);
 			}
 
-			auto pointIndex = pointSet.begin();
-			auto timeIndex = timeSet.begin();
-	
-			while (!pointSet.empty(pointIndex) &&
-				!timeSet.empty(timeIndex))
+			for (auto&& element : zipSet(pointSet, timeSet))
 			{
+				auto&& point = element.first;
+				auto&& time = element.second;
+
 				pointSet_.emplace_back(
-					pointPointId(pointSet[pointIndex]),
-					timeSet[timeIndex]);
+					pointPointId(point), time);
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
-
-				pointSet.next(pointIndex);
-				timeSet.next(timeIndex);
 			}
 
 			if (!Simple)
 			{
 				// Sort the points in increasing order by time.
-				boost::stable_sort(
+				ranges::action::stable_sort(
 					iteratorSet,
 					[](auto&& a, auto&& b) 
 					{

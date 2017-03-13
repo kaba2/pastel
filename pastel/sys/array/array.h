@@ -249,14 +249,11 @@ namespace Pastel
 		//! An iterator to the first element.
 		Iterator begin();
 
-		//! An iterator to the first element.
-		ConstIterator cbegin() const;
-
 		//! An iterator to one-past-end element.
 		Iterator end();
 
-		//! An iterator to one-past-end element.
-		ConstIterator cend() const;
+		PASTEL_CONST_ITERATOR_FUNCTIONS(begin, removeConst(*this).begin());
+		PASTEL_CONST_ITERATOR_FUNCTIONS(end, removeConst(*this).end());
 
 		//! An iterator range to all elements.
 		Range range();

@@ -163,14 +163,14 @@ TEST_CASE("Small (search_nearest_bruteforce)")
 	};
 
 	{
-		auto nearestSet = bruteForceNearestSet(rangeSet(pointSet));
+		auto nearestSet = bruteForceNearestSet(pointSet);
 		test(nearestSet, distanceSet);
 
 		REQUIRE(nearestSetN(nearestSet) == pointSet.size());
 	}
 	{
 		Tree tree;
-		tree.insertSet(rangeSet(pointSet));
+		tree.insertSet(pointSet);
 		REQUIRE(testInvariants(tree));
 
 		tree.refine(SlidingMidpoint_SplitRule(), 1);

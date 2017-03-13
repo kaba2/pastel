@@ -116,7 +116,7 @@ TEST_CASE("Functions (pointset_concept)")
 
 	{
 		auto pointSet = rangeSet(pointSet_);
-		REQUIRE(pointSet.n() == 0);
+		REQUIRE(ranges::size(pointSet) == 0);
 	}
 
 	Point a = {{1, 2}};
@@ -124,15 +124,15 @@ TEST_CASE("Functions (pointset_concept)")
 
 	{
 		auto pointSet = rangeSet(pointSet_);
-		REQUIRE(pointSet.n() == 1);
+		REQUIRE(ranges::size(pointSet) == 1);
 		REQUIRE(pointSetDimension(pointSet) == 2);
 
 		auto index = pointSet.begin();
 
-		REQUIRE(pointAxis(pointSet[index], 0) == 1);
-		REQUIRE(pointAxis(pointSet[index], 1) == 2);
+		REQUIRE(pointAxis(*index, 0) == 1);
+		REQUIRE(pointAxis(*index, 1) == 2);
 
-		pointSet.next(index);
-		REQUIRE(pointSet.empty(index));
+		++index;
+		REQUIRE(index == pointSet.end());
 	}
 }

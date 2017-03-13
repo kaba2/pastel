@@ -16,8 +16,7 @@ namespace Pastel
 			Models<Set, Set_Concept>
 		> = 0
 	>
-	using Set_Element = 
-		typename RemoveCvRef<Set>::Element;
+	using Set_Element = typename ranges::concepts::InputRange::value_t<Set>;
 	
 	template <
 		typename Set,

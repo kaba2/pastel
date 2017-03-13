@@ -286,7 +286,7 @@ namespace Pastel
 		};
 		
 		insertSet(
-			constantSet<Point>(1, point), 
+			constantSet(1, point), 
 			PASTEL_TAG(report), report, 
 			PASTEL_TAG(hidden), hidden);
 

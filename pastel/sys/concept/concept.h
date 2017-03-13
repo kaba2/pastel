@@ -71,9 +71,9 @@ namespace Pastel
 			-> Requires<Models<Type, Concept>>;
 
 		//! Checks whether a bool-meta-function is true.
-		template <typename Required>
+		template <typename... Required>
 		auto holds()
-			-> Requires<Required>;
+			-> Requires<Required...>;
 
 		//! Checks whether the types of 'left' and 'right' agree.
 		template <

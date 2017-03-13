@@ -63,19 +63,11 @@ namespace Pastel
 
 		integer n = 0;
 		Real covariance = 0;
-
-		auto aIndex = aSet.begin();
-		auto bIndex = bSet.begin();
-
-		while(!aSet.empty(aIndex) &&
-			!bSet.empty(bIndex))
+		for (auto&& elements : zipSet(aSet, bSet))
 		{
 			covariance += 
-				(aSet[aIndex] - aMean) * 
-				(bSet[bIndex] - bMean);
-
-			aSet.next(aIndex);
-			bSet.next(bIndex);
+				(elements.first - aMean) * 
+				(elements.second - bMean);
 			++n;
 		}
 

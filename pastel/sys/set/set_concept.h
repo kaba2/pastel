@@ -6,6 +6,8 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/type_traits/remove_cvref.h"
 
+#include <range/v3/range_concepts.hpp>
+
 namespace Pastel
 {
 
@@ -15,54 +17,15 @@ namespace Pastel
 	elements can occur multiple times. Here we use the term 
 	'set' a bit loosely, for brevity.
 	*/
-	struct Set_Concept
-	{
-		template <
-			typename Type,
-			//! The type of the elements inside the set.
-			typename Element = typename Type::Element,
-			//! The type of the index into the set.
-			typename Index = typename Type::Index
-		>
-		auto requires_(
-			Type&& t,
-			Element&& element = std::declval<Element>()) -> decltype
-		(
-			conceptCheck(
-				//! Returns the number of elements in the set.
-				Concept::convertsTo<integer>(
-					addConst(t).n()),
-				//! Returns whether the set is empty.
-				Concept::convertsTo<bool>(
-					addConst(t).empty()),
-				//! Returns an index to the first element.
-				Concept::convertsTo<Index>(
-					addConst(t).begin()),
-				//! Returns the element at the index.
-				Concept::convertsTo<Element>(
-					addConst(t)[std::declval<Index>()]),
-				//! Advances the index by the given number of steps.
-				/*!
-				Preconditions:
-				steps >= 0
-
-				returns:
-				The number of steps which could not be taken, because
-				the one-past-last element was reached.
-				*/
-				Concept::convertsTo<integer>(
-					addConst(t).next(std::declval<Index&>(), (integer)0)),
-				//! Returns whether there are no elements at the index.
-				Concept::convertsTo<bool>(
-					addConst(t).empty(std::declval<Index>()))
-			)
-		);
-	};
+	using Set_Concept = ranges::concepts::Range;
+	using Range_Concept = Set_Concept;
 
 }
 
 #include "pastel/sys/set/set_element.h"
+#include "pastel/sys/set/set_empty.h"
 #include "pastel/sys/set/set_index.h"
 #include "pastel/sys/set/set_for_each.h"
+#include "pastel/sys/set/set_size.h"
 
 #endif
