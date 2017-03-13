@@ -8,14 +8,17 @@
 # be specified manually. 
 
 if (WIN32)
+	# Ranges-v3 path
+	set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3")
+
 	# Boost path
-	set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_59_0")
+	set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_63_0")
 
 	# Armadillo path
-	set (ArmadilloDirectory "${CMAKE_SOURCE_DIR}/../armadillo-5.200.1")
+	set (ArmadilloDirectory "${CMAKE_SOURCE_DIR}/../armadillo-7.700.0")
 
 	# Threading Building Blocks paths
-	set (TbbDirectory "${CMAKE_SOURCE_DIR}/../tbb-4.4")
+	set (TbbDirectory "${CMAKE_SOURCE_DIR}/../tbb2017_20161128oss")
 
 	# Blas library path
 	set (BlasLibraryPath 
@@ -27,9 +30,9 @@ if (WIN32)
 
 	# Matlab paths
 	if (${GENERATOR_BITS} EQUAL 32)
-		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R2015a")
+		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R2016a")
 	else()
-		set (MatlabDirectory "C:/Program Files/MATLAB/R2015a")
+		set (MatlabDirectory "C:/Program Files/MATLAB/R2016a")
 	endif()
 endif()
 
@@ -41,6 +44,9 @@ endif()
 # manually, such as Matlab and Threading Building Blocks.
 
 if (UNIX)
+	# Ranges-v3 path
+	set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3")
+
 	# Boost path
 	set (BoostDirectory "")
 
