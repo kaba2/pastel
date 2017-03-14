@@ -139,6 +139,8 @@ TEST_CASE("Gaussian (TdTree)")
 				PASTEL_TAG(kNearest), k
 			).first;
 
+		ranges::reverse(treeSet);
+
 		REQUIRE(kDistanceBrute == kDistanceTree);
 
 		for (integer j = 0; j < k; ++j)

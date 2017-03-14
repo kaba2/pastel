@@ -7,7 +7,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/type_traits/is_template_instance.h"
 
-#define PASTEL_ARG(name, ...) Pastel::argument<tagHash(#name)>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
+#define PASTEL_ARG(name, ...) Pastel::argument<Pastel::tagHash(#name)>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
 #define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, Pastel::Argument_::returnTrue)
 #define PASTEL_ARG_ENUM(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto input){return implicitArgument(std::is_same<RemoveCvRef<decltype(input)>, RemoveCvRef<decltype(def)>>());})
 
@@ -15,7 +15,7 @@
 #define PASTEL_ARG_S_T(name, def) decltype(PASTEL_ARG_S(name, def))
 #define PASTEL_ARG_ENUM_T(name, def) decltype(PASTEL_ARG_ENUM(name, def))
 
-#define PASTEL_ARG_MATCHES(name, ...) Pastel::Argument<tagHash(#name##)>::matches(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...).value
+#define PASTEL_ARG_MATCHES(name, ...) Pastel::Argument<Pastel::tagHash(#name##)>::matches(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...).value
 #define PASTEL_ARG_S_MATCHES(name) PASTEL_ARG_MATCHES(name, Pastel::Argument_::returnTrue)
 
 namespace Pastel
