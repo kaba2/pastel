@@ -127,3 +127,10 @@ The libraries will be placed in the `lib/toolset/config` directory, and the exec
 [CMake]: http://www.cmake.org/
 
 [DownloadCMake]: http://www.cmake.org/cmake/resources/software.html
+
+Other stuff
+-----------
+
+The dependencies can be installed on Ubuntu Linux by:
+
+	sudo apt-get install cmake liblapack-dev libarmadillo-dev libboost-dev libtbb-dev
