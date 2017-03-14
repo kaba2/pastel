@@ -40,7 +40,7 @@ elseif (APPLE)
 		"${TbbDirectory}/local/lib/lib${TbbLibraryName}.dylib")
 else()
 	set (TbbLibraryPath 
-		"${TbbDirectory}/lib/lib${TbbLibraryName}.so")
+		"${TbbDirectory}/libx86_64-linux-gnu/lib${TbbLibraryName}.so")
 endif()
 
 get_filename_component (TbbLibraryFilename "${TbbLibraryPath}" NAME)
