@@ -23,8 +23,8 @@ namespace Pastel
 			>
 		{};
 
-		template <typename Point_Set, typename Locator>
-		struct PointSet_Locator_F_<LocationSet<Point_Set, Locator>>
+		template <typename Point_Set, typename Locator, typename Base>
+		struct PointSet_Locator_F_<LocationSet<Point_Set, Locator, Base>>
 		: Identity_F<Locator>
 		{};
 
@@ -67,9 +67,9 @@ namespace Pastel
 	}
 
 	//! Retrieves the locator of a location-set.
-	template <typename Set, typename Locator>
+	template <typename Set, typename Locator, typename Base>
 	const Locator& pointSetLocator(
-		const LocationSet<Set, Locator>& pointSet)
+		const LocationSet<Set, Locator, Base>& pointSet)
 	{
 		return pointSet.locator();
 	}

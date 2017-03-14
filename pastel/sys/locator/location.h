@@ -17,18 +17,12 @@ namespace Pastel
 	*/
 	template <
 		typename Type,
-		typename Locator,
-		// We have to use typename = constraint here, because
-		// otherwise IsTemplateInstance does not work
-		// with Location.
-		typename = 
-			Requires<
-				Models<Locator, Locator_Concept(Type)>
-			>
-	>
+		typename Locator>
 	class Location
 	{
 	public:
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+
 		Location(
 			const Type& point,
 			const Locator& locator)
@@ -55,11 +49,7 @@ namespace Pastel
 	//! Constructs a location from a variable and a locator.
 	template <
 		typename Type, 
-		typename Locator,
-		Requires<
-			Models<Locator, Locator_Concept(Type)>
-		> = 0
-	>
+		typename Locator>
 	Location<Type, Locator> location(
 		const Type& point,
 		const Locator& locator)

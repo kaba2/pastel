@@ -27,8 +27,9 @@ namespace Pastel
 
 		template <
 			typename Set, 
-			typename Locator>
-		struct PointSet_Point_F_<LocationSet<Set, Locator>>
+			typename Locator,
+			typename Base>
+		struct PointSet_Point_F_<LocationSet<Set, Locator, Base>>
 		{
 			using type = Location<Set_Element<Set>, Locator>;
 		};
