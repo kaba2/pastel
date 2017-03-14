@@ -50,7 +50,7 @@ namespace
 
 		auto pointSet = nearestSet.pointSet();
 
-		forEach(pointSet, [&](auto&& i)
+		for(auto&& i : pointSet)
 		{
 			auto result =
 				searchNearest(nearestSet, i);
@@ -58,12 +58,10 @@ namespace
 			real distance2 = result.first;
 
 			REQUIRE(distance2 == 0);
-
-			return true;
-		});
+		}
 
 		integer j = 0;
-		forEach(pointSet, [&](auto&& i)
+		for (auto&& i : pointSet)
 		{
 			auto indicator = predicateIndicator(i, NotEqualTo());
 			PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(i)));
@@ -80,8 +78,7 @@ namespace
 
 			REQUIRE(distance2 == distanceSet[j]);
 			++j;
-			return true;
-		});
+		}
 	}
 
 }

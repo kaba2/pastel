@@ -21,13 +21,6 @@ namespace Pastel
 		typename Constraint = void>
 	class Default_Locator;
 
-	template <
-		typename Type,
-		typename Locator,
-		typename
-	>
-	class Location;
-
 }
 
 namespace Pastel

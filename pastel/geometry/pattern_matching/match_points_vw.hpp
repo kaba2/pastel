@@ -449,11 +449,11 @@ namespace Pastel
 					lsSimilarity =
 						lsConformalAffine(
 							locationSet(
-								rangeSet(modelGlobalMatch),
+								modelGlobalMatch,
 								Vector_Locator<Real, N>()
 							),
 							locationSet(
-								rangeSet(sceneGlobalMatch),
+								sceneGlobalMatch,
 								Vector_Locator<Real, N>()
 							)
 						);
@@ -611,10 +611,10 @@ namespace Pastel
 		using ModelTree = PointKdTree<PointKdTree_Settings<Model_Locator>>;
 
 		SceneTree sceneTree(sceneLocator);
-		sceneTree.insertSet(rangeSet(scene));
+		sceneTree.insertSet(scene);
 
 		ModelTree modelTree(modelLocator);
-		modelTree.insertSet(rangeSet(model));
+		modelTree.insertSet(model);
 
 		sceneTree.refine(SlidingMidpoint_SplitRule());
 		modelTree.refine(SlidingMidpoint_SplitRule());
