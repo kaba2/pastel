@@ -10,33 +10,14 @@
 namespace Pastel
 {
 
-	#ifdef _MSC_VER
-		// The Locator_Real_ was refactored here,
-		// because doing this directly triggers
-		// a bug in Visual Studio 2015 RC.
-
-		// Using RemoveCvRef here triggers a bug in
-		// Visual Studio 2015 RC.
-
-		// FIX: Add RemoveCvRef once the bug is fixed.
-		template <
-			typename Locator,
-			Requires<
-				Models<Locator, Locator_Concept>
-			> = 0
-		>
-		using Locator_Real_ =
-			typename Locator::Real;
-	#else
-		template <
-			typename Locator,
-			Requires<
-				Models<Locator, Locator_Concept>
-			> = 0
-		>
-		using Locator_Real_ =
-			typename RemoveCvRef<Locator>::Real;
-	#endif
+	template <
+		typename Locator,
+		Requires<
+			Models<Locator, Locator_Concept>
+		> = 0
+	>
+	using Locator_Real_ =
+		typename RemoveCvRef<Locator>::Real;
 
 	template <typename... LocatorSet>
 	using Locator_Real_F =
