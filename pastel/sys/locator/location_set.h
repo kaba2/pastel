@@ -5,52 +5,41 @@
 #define PASTELSYS_LOCATION_SET_H
 
 #include "pastel/sys/set/set_concept.h"
+#include "pastel/sys/set/transformed_set.h"
 #include "pastel/sys/locator/locator_concept.h"
+#include "pastel/sys/locator/location.h"
+
+#include <range/v3/all.hpp>
 
 namespace Pastel
 {
 
+	using Assignable_Concept = ranges::concepts::Assignable;
+
 	//! A set with a locator; a point-set.
 	template <
 		typename Set,
-		typename Locator
-		// This check triggers an internal compiler
-		// error in Visual Studio 2015 RC.
-		/*,
-		Requires<
-			Models<Set, Set_Concept>,
-			Models<Locator, Locator_Concept>
-		> = 0*/
-	>
+		typename Locator,
+		typename Base>
 	class LocationSet
+	: public Base
 	{
 	public:
-		using Element = Location<Set_Element<Set>, Locator>;
-		using Index = Set_Index<Set>;
+		using Index = Set_Index<std::add_const_t<Set>>;
+
+		PASTEL_CONCEPT_CHECK(Set, Set_Concept);
+		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
 
 		LocationSet(
 			const Set& set,
-			const Locator& locator)
-			: set_(set)
+			const Locator& locator,
+			const Base& base)
+			: Base(base)
+			, set_(set)
 			, locator_(locator)
 		{
 		}
 
-		decltype(auto) begin() const
-		{
-			return set_.begin();
-		}
-
-		decltype(auto) end() const
-		{
-			return set_.end();
-		}
-
-		Set& pointSet()
-		{
-			return set_;
-		}
-		
 		const Set& pointSet() const
 		{
 			return set_;
@@ -62,17 +51,44 @@ namespace Pastel
 		}
 
 	private:
-		Set set_;
+		const Set& set_;
 		Locator locator_;
 	};
 
+	template <typename Type>
+	struct IsLocationSet
+		: std::false_type
+	{};
+
+	template <
+		typename Set, 
+		typename Locator,
+		typename Base>
+	struct IsLocationSet<LocationSet<Set, Locator, Base>>
+		: std::true_type
+	{};
+
+
 	//! Constructs a location-set from a point-set and a locator.
-	template <typename Set, typename Locator>
-	LocationSet<Set, Locator> locationSet(
+	template <
+		typename Set, 
+		typename Locator,
+		Requires<
+			Models<Set, Set_Concept>,
+			Models<Locator, Locator_Concept>
+		> = 0
+	>
+	decltype(auto) locationSet(
 		const Set& set,
 		const Locator& locator)
 	{
-		return {set, locator};
+		auto transformedSet_ = transformedSet(
+			set,
+			[=](auto&& element){return location(element, locator);});
+
+		using Base = decltype(transformedSet_);
+
+		return LocationSet<Set, Locator, Base>(set, locator, transformedSet_);
 	}
 
 }

@@ -21,16 +21,16 @@ namespace Pastel
 		}
 
 		//! Returns the point-set of a location-set.
-		template <typename Point_Set, typename Locator>
+		template <typename Point_Set, typename Locator, typename Base>
 		decltype(auto) pointSetSet(
-			const LocationSet<Point_Set, Locator>& pointSet)
+			const LocationSet<Point_Set, Locator, Base>& pointSet)
 		{
 			return pointSet.pointSet();
 		}
 
-		template <typename Point_Set, typename Locator>
+		template <typename Point_Set, typename Locator, typename Base>
 		decltype(auto) pointSetSet(
-			LocationSet<Point_Set, Locator>& pointSet)
+			LocationSet<Point_Set, Locator, Base>& pointSet)
 		{
 			return pointSet.pointSet();
 		}
@@ -65,8 +65,9 @@ namespace Pastel
 
 		template <
 			typename Set,
-			typename Locator>
-		struct PointSet_Set_F<LocationSet<Set, Locator>>
+			typename Locator,
+			typename Base>
+		struct PointSet_Set_F<LocationSet<Set, Locator, Base>>
 		{
 			using type = Set;
 		};
