@@ -23,7 +23,7 @@
 # Uncomment this to debug CMake's Boost search.
 #set (Boost_DEBUG 1)
 
-set (BoostMinimumVersion 1.55.0)
+set (BoostMinimumVersion 1.54.0)
 #string (REGEX REPLACE \\. _ BoostVersion_ ${BoostVersion})
 
 if (("${BoostDirectory}" STREQUAL "") OR (NOT EXISTS "${BoostDirectory}"))
