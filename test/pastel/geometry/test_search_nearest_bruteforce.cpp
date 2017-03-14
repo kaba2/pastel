@@ -253,7 +253,7 @@ namespace
 
 		Tree tree;
 		tree.insertSet(
-			rangeSet(pointSet),
+			pointSet,
 			PASTEL_TAG(report), pushBackOutput(iteratorSet)
 		);
 		REQUIRE(testInvariants(tree));
@@ -442,7 +442,7 @@ TEST_CASE("BruteForce (search_nearest_bruteforce)")
 	};
 
 	auto aNearestSet = bruteForceNearestSet(
-		rangeSet(pointSet));
+		pointSet);
 
 	PASTEL_CONCEPT_CHECK(decltype(aNearestSet), NearestSet_Concept);
 
