@@ -54,4 +54,4 @@ if (APPLE)
 endif()
 
 # Make Armadillo use C++11 (e.g. move constructors).
-add_definitions(-DARMA_USE_CXX11)
+add_definitions(-DARMA_USE_CXX11 -DARMA_DONT_PRINT_CXX11_WARNING)
