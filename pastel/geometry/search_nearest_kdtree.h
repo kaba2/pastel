@@ -29,6 +29,8 @@
 #include "pastel/geometry/distance/distance_point_point.h"
 #include "pastel/geometry/distance/distance_alignedbox_point.h"
 
+#include <queue>
+
 namespace Pastel
 {
 
@@ -66,7 +68,14 @@ namespace Pastel
 	report (Output(KdTree::Point_ConstIterator)):
 	An output to which the found neighbors 
 	are reported to. The reporting is done in the 
-	form report(distance, point).
+	form report(distance, point), in decreasing
+	order of distance.
+
+	reportMissing (bool):
+	Whether to always report kNearest points, even
+	if there are not so many neighbors. The missing 
+	points are reported as (Infinity(), kdTree.end()).
+	Default: true
 
 	nBruteForce (integer >= 0):
 	The number of points under which to start a brute-force
@@ -226,7 +235,8 @@ namespace Pastel
 		// This set contains the points currently closest
 		// to the search-point. There will be at most
 		// k elements in this set.
-		using ResultSet = std::set<Result>;
+		//using ResultSet = std::set<Result>;
+		using ResultSet = std::priority_queue<Result>;
 		ResultSet resultSet;
 
 		auto considerPoint = [&](
@@ -240,15 +250,14 @@ namespace Pastel
 				Real farthestDistance2 = 
 					resultSet.empty() ? 
 					(Real)Infinity() :
-					std::prev(resultSet.end())->first;
+					resultSet.top().first;
 				if (distance2 < farthestDistance2)
 				{
 					// The new candidate is closer
 					// than the farthest candidate.
 
 					// Remove the farthest candidate.
-					resultSet.erase(
-						std::prev(resultSet.end()));
+					resultSet.pop();
 				}
 				else
 				{
@@ -270,7 +279,7 @@ namespace Pastel
 				// Since the candidate set contains k
 				// elements, everything beyond the
 				// farthest candidate can be rejected.
-				return std::prev(resultSet.end())->first;
+				return resultSet.top().first;
 			}
 
 			// There are less than k candidate elements;
@@ -529,10 +538,18 @@ namespace Pastel
 		integer neighbors = resultSet.size();
 		ASSERT_OP(neighbors, <=, kNearest);
 
-		// Report the nearest neighbors.
-		for (auto&& entry : resultSet)
+		auto kthNeighbor = notFound;
+		if (!resultSet.empty())
 		{
+			kthNeighbor = resultSet.top();
+		}
+
+		// Report the nearest neighbors.
+		while(!resultSet.empty())
+		{
+			auto&& entry = resultSet.top();
 			report(entry.first, entry.second);
+			resultSet.pop();
 		}
 
 		if (reportMissing)
@@ -553,7 +570,7 @@ namespace Pastel
 		}
 
 		// Return the k:th nearest neighbor.
-		return *std::prev(resultSet.end());
+		return kthNeighbor;
 	}
 
 }
