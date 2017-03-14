@@ -16,6 +16,7 @@
 #include "pastel/sys/set/range_set.h"
 #include "pastel/sys/set/interval_set.h"
 #include "pastel/sys/set/transformed_set.h"
+#include "pastel/sys/set/zip_set.h"
 #include "pastel/sys/locator/transform_locator.h"
 
 #include <range/v3/all.hpp>
