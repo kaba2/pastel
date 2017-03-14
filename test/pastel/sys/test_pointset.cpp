@@ -115,7 +115,7 @@ TEST_CASE("Functions (pointset_concept)")
 	std::vector<Point> pointSet_;
 
 	{
-		auto pointSet = rangeSet(pointSet_);
+		auto pointSet = pointSet_;
 		REQUIRE(ranges::size(pointSet) == 0);
 	}
 
@@ -123,7 +123,7 @@ TEST_CASE("Functions (pointset_concept)")
 	pointSet_.emplace_back(a);
 
 	{
-		auto pointSet = rangeSet(pointSet_);
+		auto pointSet = pointSet_;
 		REQUIRE(ranges::size(pointSet) == 1);
 		REQUIRE(pointSetDimension(pointSet) == 2);
 

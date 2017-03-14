@@ -11,12 +11,12 @@ namespace Pastel
 {
 
 	template <
-		typename PointSet,
-		Requires<Models<PointSet, PointSet_Concept>> = 0
+		typename Set,
+		Requires<Models<Set, Set_Concept>> = 0
 	>
-	integer pointSetN(const PointSet& pointSet)
+	integer pointSetN(const Set& pointSet)
 	{
-		return ranges::size(pointSet);
+		return setSize(pointSetSet(pointSet));
 	}
 
 }

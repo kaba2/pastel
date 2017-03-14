@@ -34,6 +34,7 @@ namespace Pastel
 
 		using Fwd = Settings;
 		PASTEL_FWD(PointSet);
+		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 		using Point = PointSet_PointId<PointSet>;
 		using Real = PointSet_Real<PointSet>;

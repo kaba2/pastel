@@ -52,11 +52,11 @@ namespace Pastel
 		copyConstruct(root_, that.root_);
 
 		// Then insert the points into the nodes.
-		insertSet(rangeSet(that.asPointData(that.range())));
+		insertSet(that.asPointData(that.range()));
 
 		// Insert the hidden points.
 		insertSet(
-			rangeSet(that.asPointData(that.hiddenRange())), 
+			that.asPointData(that.hiddenRange()), 
 			PASTEL_TAG(hidden), true);
 
 		// Insert the insertion points.
@@ -315,7 +315,7 @@ namespace Pastel
 			}
 		);		
 
-		if (pointSet.empty())
+		if (emptySet(pointSet))
 		{
 			// Nothing to do.
 			return;

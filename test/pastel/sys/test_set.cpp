@@ -82,11 +82,10 @@ TEST_CASE("Range (Set)")
 
 		std::unordered_set<integer> actualSet;
 
-		forEach(set, [&](integer a)
+		for(integer a : set)
 		{
 			actualSet.insert(a);
-			return true;
-		});
+		}
 		REQUIRE(actualSet.size() == n);
 
 		for (integer i = 0;i < n;++i)
@@ -107,16 +106,16 @@ TEST_CASE("Constant (Set)")
 			CorrectElement<decltype(set), integer>::value);
 
 		integer m = 0;
-		bool correct = forEach(set, [&](integer a)
+		bool correct = true;
+		for(integer a : set)
 		{
 			if (a != element)
 			{
-				return false;
+				correct = false;
+				break;
 			}
 			++m;
-
-			return true;
-		});
+		}
 
 		REQUIRE(correct);
 		REQUIRE(m == n);
@@ -125,13 +124,6 @@ TEST_CASE("Constant (Set)")
 		integer n = 0;
 		integer element = 7;
 		auto set = constantSet(n, element);
-
-		bool correct = forEach(set, [&](integer a)
-		{
-			return false;
-		});
-
-		REQUIRE(correct);
 	}
 }
 
@@ -161,11 +153,10 @@ TEST_CASE("Union (Set)")
 			>::value);
 
 		std::unordered_multiset<integer> actualSet;
-		forEach(abSet, [&](integer a)
+		for(integer a : abSet)
 		{
 			actualSet.insert(a);
-			return true;
-		});
+		}
 
 		REQUIRE(actualSet.count(aElement) == 5);
 		REQUIRE(actualSet.count(bElement) == 3);
@@ -206,11 +197,10 @@ TEST_CASE("Transformed (Set)")
 		inputSet, Dereference_Function());
 
 	std::unordered_set<integer> actualSet;
-	forEach(dereferencedSet, [&](integer x)
+	for(integer x : dereferencedSet)
 	{
 		actualSet.insert(x);
-		return true;
-	});
+	}
 
 	REQUIRE(actualSet.size() == n);
 	for (integer i = 0;i < n;++i)
