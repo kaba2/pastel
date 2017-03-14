@@ -61,12 +61,10 @@ namespace Pastel
 
 		// Insert the insertion points.
 		insertSet(
-			rangeSet(
-				that.asPointData(
-					Pastel::range(
-						that.insertionSet_.begin(), 
-						that.insertionSet_.end()
-					)
+			that.asPointData(
+				Pastel::range(
+					that.insertionSet_.begin(), 
+					that.insertionSet_.end()
 				)
 			)
 		);

@@ -470,7 +470,7 @@ namespace Pastel
 	{
 		ASSERT(!pointSet.empty());
 
-		auto&& index = pointSet.begin();
+		auto&& index = ranges::begin(pointSet);
 
 		{
 			pointSet_.insertBack(
@@ -486,7 +486,7 @@ namespace Pastel
 		Point_Iterator first = pointSet_.end();
 		--first;
 
-		while(index != pointSet.end())
+		while(index != ranges::end(pointSet))
 		{
 			pointSet_.insertBack(
 				PointInfo(

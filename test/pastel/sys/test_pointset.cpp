@@ -13,7 +13,7 @@ TEST_CASE("Homogeneous (pointset_concept)")
 	using Point = Vector<real, 2>;
 
 	std::vector<Point> inputSet;
-	auto pointSet = rangeSet(inputSet);
+	auto pointSet = inputSet;
 	using PointSet = decltype(pointSet);
 
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
@@ -35,7 +35,7 @@ TEST_CASE("Real (pointset_concept)")
 		A(), A(), A()
 	};
 
-	auto pointIdSet = rangeSet(inputSet);
+	auto pointIdSet = addConst(inputSet);
 	auto pointSet = locationSet(pointIdSet, Locator());
 
 	using PointIdSet = decltype(pointIdSet);
@@ -72,13 +72,12 @@ TEST_CASE("Array (pointset_concept)")
 	using Point = std::array<Real, 2>;
 	using Locator = Array_Locator<Real, 2>;
 
-	std::vector<Point> inputSet =
+	std::vector<Point> pointSet =
 	{
 		{{1, 2}},
 		{{3, 4}},
 		{{5, 6}}
 	};
-	auto pointSet = rangeSet(inputSet);
 
 	using PointSet = decltype(pointSet);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);

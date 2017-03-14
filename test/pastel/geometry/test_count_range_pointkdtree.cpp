@@ -46,7 +46,7 @@ TEST_CASE("pointkdtree_count_range (pointkdtree_count_range)")
 		{ 1, -3 }
 	};
 
-	tree.insertSet(rangeSet(pointSet));
+	tree.insertSet(pointSet);
 
 	tree.refine(SlidingMidpoint_SplitRule(), 1);
 
