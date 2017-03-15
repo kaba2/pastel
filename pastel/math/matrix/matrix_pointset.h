@@ -6,7 +6,7 @@
 #include <pastel/sys/pointset/pointset_concept.h>
 #include <pastel/sys/set/sparse_set.h>
 #include <pastel/sys/set/interval_set.h>
-#include <pastel/sys/locator/pointer_locator.h>
+#include <pastel/sys/locator/pointerrange_locator.h>
 
 #include <armadillo>
 
@@ -41,9 +41,9 @@ namespace Pastel
 
 		return Pastel::locationSet(
 			Pastel::sparseSet(
-				Pastel::intervalSet(set.memptr() + dBegin, set.memptr() + set.size()), 
+				Pastel::intervalSet(set.memptr(), set.memptr() + set.size()), 
 				set.n_rows), 
-			Pastel::Pointer_Locator<real>(dEnd - dBegin));
+			Pastel::PointerRange_Locator<real>(dBegin, dEnd));
 	}
 
 }
