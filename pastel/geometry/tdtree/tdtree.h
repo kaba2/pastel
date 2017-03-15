@@ -216,11 +216,13 @@ namespace Pastel
 		*/
 		void swap(TdTree& that)
 		{
+			using std::swap;
+
 			end_.swap(that.end_);
-			std::swap(root_, that.root_);
+			swap(root_, that.root_);
 			pointSet_.swap(that.pointSet_);
-			locator_.swap(that.locator_);
-			std::swap(simple_, that.simple_);
+			swap(locator_, that.locator_);
+			swap(simple_, that.simple_);
 		}
 
 		//! Removes all points from the tree.

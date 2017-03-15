@@ -32,10 +32,6 @@ namespace Pastel
 			ENSURE_OP(n, >=, 0);
 		}
 
-		void swap(Array_Locator& that)
-		{
-		}
-
 		integer n() const
 		{
 			return N;

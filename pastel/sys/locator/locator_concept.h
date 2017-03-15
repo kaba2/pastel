@@ -40,9 +40,6 @@ namespace Pastel
 					addConst(t).n()
 				),
 
-				//! Swaps two locators.
-				(t.swap(t), 0),
-
 				//! Returns the i:th coordinate of the given point.
 				/*!
 				Preconditions:

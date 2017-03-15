@@ -26,11 +26,6 @@ namespace Pastel
 			ENSURE_OP(n, >=, 0);
 		}
 
-		void swap(Pointer_Locator& that)
-		{
-			std::swap(n_, that.n_);
-		}
-
 		integer n() const
 		{
 			return n_;

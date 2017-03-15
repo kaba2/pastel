@@ -39,11 +39,6 @@ namespace Pastel
 			PENSURE_OP(iEnd, <= , locator.n());
 		}
 
-		void swap(Sub_Locator& that)
-		{
-			locator_.swap(that.locator_);
-		}
-
 		integer n() const
 		{
 			return iEnd_ - iBegin_;

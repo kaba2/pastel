@@ -26,11 +26,6 @@ namespace Pastel
 		{
 		}
 
-		void swap(Indirect_Locator& that)
-		{
-			locator_.swap(that.locator_);
-		}
-
 		integer n() const
 		{
 			return locator_.n();
