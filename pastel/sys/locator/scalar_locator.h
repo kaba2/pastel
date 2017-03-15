@@ -29,11 +29,6 @@ namespace Pastel
 			ENSURE(N == Dynamic || n == N)
 		}
 
-		void swap(Scalar_Locator& that)
-		{
-			std::swap(n_, that.n_);
-		}
-
 		const Real& operator()(const Real& point, integer i) const
 		{
 			return point;
