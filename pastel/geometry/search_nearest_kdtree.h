@@ -29,7 +29,7 @@
 #include "pastel/geometry/distance/distance_point_point.h"
 #include "pastel/geometry/distance/distance_alignedbox_point.h"
 
-#include <queue>
+#include "pastel/sys/rankedset/rankedset.h"
 
 namespace Pastel
 {
@@ -236,45 +236,17 @@ namespace Pastel
 		// to the search-point. There will be at most
 		// k elements in this set.
 		//using ResultSet = std::set<Result>;
-		using ResultSet = std::priority_queue<Result>;
-		ResultSet resultSet;
+		using ResultSet = RankedSet<Result>;
+		ResultSet resultSet(kNearest);
 
 		auto considerPoint = [&](
 			const Real& distance2,
 			const Point_ConstIterator& iter)
 		{
-			if (resultSet.size() == kNearest)
-			{
-				// There are k candidates already.
-
-				Real farthestDistance2 = 
-					resultSet.empty() ? 
-					(Real)Infinity() :
-					resultSet.top().first;
-				if (distance2 < farthestDistance2)
-				{
-					// The new candidate is closer
-					// than the farthest candidate.
-
-					// Remove the farthest candidate.
-					resultSet.pop();
-				}
-				else
-				{
-					// The new candidate is farther
-					// than the farthest candidate.
-					return farthestDistance2;
-				}
-			}
-
-			// There are now less than k candidates
-			// in the candidate set.
-			ASSERT_OP(resultSet.size(), <, kNearest)
-
 			// Add the new candidate.
-			resultSet.emplace(distance2, iter);
+			resultSet.push(Result(distance2, iter));
 
-			if (resultSet.size() == kNearest)
+			if (resultSet.full())
 			{
 				// Since the candidate set contains k
 				// elements, everything beyond the

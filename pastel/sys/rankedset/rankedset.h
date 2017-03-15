@@ -76,6 +76,12 @@ namespace Pastel
 		//! Returns an iterator to the one-past-end element.
 		PASTEL_ITERATOR_FUNCTIONS(end, dataSet_.end());
 
+		//! Returns whether the set is full.
+		bool full() const
+		{
+			return size() == capacity();
+		}
+
 		//! Returns whether the set is empty.
 		bool empty() const
 		{
