@@ -70,6 +70,18 @@ namespace Pastel
 			dataSet_.pop_back();
 		}
 
+		//! Removes all elements.
+		void clear()
+		{
+			integer k = capacity();
+			dataSet_.clear();
+			// The implementation of std::vector 
+			// may or may not change the capacity 
+			// of the vector. Restore capacity to 
+			// be sure.
+			dataSet_.reserve(k);
+		}
+
 		//! Returns an iterator to the first element.
 		PASTEL_ITERATOR_FUNCTIONS(begin, dataSet_.begin());
 
