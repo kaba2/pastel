@@ -1,0 +1,29 @@
+Ranked set
+==========
+
+[[Parent]]: data_structures.txt
+
+A _ranked set_ is a data structure for storing and manipulating the $k$ smallest stored elements. 
+
+Types
+-----
+
+Generic data structure
+: `RankedSet`
+
+Properties
+----------
+
+The ranked set implementation in Pastel has the following properties:
+
+Task / Property                                                  | Complexity
+-----------------------------------------------------------------|------------------------
+Insert an element.                                               | ''Theta(log(n))''
+Remove the maximum element.                                      | ''Theta(log(n))''
+Find out the maximum element.                                    | ''Theta(1)''
+Find out the number of elements in a set.                        | ''Theta(1)''
+
+Versus `std::priority_queue`
+----------------------------
+
+The ranked-set is a bounded priority-queue. The main difference is that the ranked-set potentially removes an existing element on insertion, if the size already equals capacity.
