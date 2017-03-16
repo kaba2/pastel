@@ -41,6 +41,9 @@ TEST_CASE("Real (pointset_concept)")
 	using PointIdSet = decltype(pointIdSet);
 
 	using PointSet = decltype(pointSet);
+	PASTEL_CONCEPT_CHECK(PointSet, Set_Concept);
+	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept_Member);
+	PASTEL_CONCEPT_REJECT(PointSet, PointSet_Concept_Element);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 	{
