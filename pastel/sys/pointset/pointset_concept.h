@@ -6,68 +6,59 @@
 
 #include "pastel/sys/set/set_concept.h"
 #include "pastel/sys/point/point_concept.h"
-#include "pastel/sys/locator/location_set.h"
-#include "pastel/sys/type_traits/is_template_instance.h"
+#include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/type_traits/or.h"
 
 namespace Pastel
 {
 
-	namespace PointSet_
+	struct PointSet_Concept_Element
 	{
-
-		struct PointSet_Set_Concept
-		{
-			// A PointSet is either 
-			// * a Range whose elements have a default-locator, or
-			// * a LocationSet, which pairs a Set with a Locator.
-			template <typename Type>
-			auto requires_(Type&& t) -> decltype
-			(
-				conceptCheck(
-					Concept::holds<
-						And<
-							Models<Type, Set_Concept>,
-							HasDefaultLocator<Set_Element<Type>>
-						>
-					>()
-				)
-			);
-		};
-
-		struct PointSet_LocationSet_Concept
-		{
-			template <typename Type>
-			auto requires_(Type&& t) -> decltype
-			(
-				conceptCheck(
-					Concept::holds<
-						IsLocationSet<Type>
-					>()
-				)
-			);
-		};
-
-	}
-
-
-	struct PointSet_Concept
-	{
-		// A PointSet is either 
-		// * a Range whose elements have a default-locator, or
-		// * a LocationSet, which pairs a Set with a Locator.
 		template <typename Type>
 		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
 				Concept::holds<
+					Models<Type, Set_Concept>,
 					Not<Models<Type, Point_Concept>>,
+					HasDefaultLocator<Set_Element<Type>>
+				>()
+			)
+		);
+	};
+
+	struct PointSet_Concept_Member
+	{
+		template <typename Type>
+		auto requires_(Type&& t) -> decltype
+		(
+			conceptCheck(
+				Concept::holds<
+					Models<Type, Set_Concept>,
+					Not<Models<Type, Point_Concept>>,
+					Models<decltype(addConst(t).locator()), Locator_Concept>
+				>()
+			)
+		);
+	};
+
+	struct PointSet_Concept
+	{
+		// A PointSet is a Set with an associated locator.
+		// The locator is searched for in the following order:
+		// 1) class member function locator(),
+		// 2) the locator of a set-element.
+		template <typename Type>
+		auto requires_(Type&& t) -> decltype
+		(
+			conceptCheck(
+				Concept::holds<
 					Or<
 						// Note that the two cases below cannot be embedded
 						// here directly. This is because Set_Element<Type> 
 						// fails the concept-checking when Type is not Set.
-						Models<Type, PointSet_::PointSet_Set_Concept>,
-						Models<Type, PointSet_::PointSet_LocationSet_Concept>
+						Models<Type, PointSet_Concept_Element>,
+						Models<Type, PointSet_Concept_Member>
 					>
 				>()
 			)

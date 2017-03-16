@@ -11,24 +11,38 @@
 namespace Pastel
 {
 
-	namespace PointSet_
+	//! Returns the member-locator of a point-set.
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept_Member>
+		> = 0
+	>
+	decltype(auto) pointSetLocator(
+		const PointSet& pointSet)
 	{
-
-		template <typename Point_Set>
-		struct PointSet_Locator_F_
-			: Identity_F<
-				typename Default_Locator<
-					const Set_Element<Point_Set>&
-				>::Locator
-			>
-		{};
-
-		template <typename Point_Set, typename Locator, typename Base>
-		struct PointSet_Locator_F_<LocationSet<Point_Set, Locator, Base>>
-		: Identity_F<Locator>
-		{};
-
+		return pointSet.locator();
 	}
+
+	//! Returns the default locator of point-set elements.
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept_Element>,
+			// Give priority to the member-locator.
+			Not<Models<PointSet, PointSet_Concept_Member>>
+		> = 0
+	>
+	decltype(auto) pointSetLocator(const PointSet& pointSet)
+	{
+		using Locator = typename Default_Locator<const Set_Element<PointSet>&>::Locator;
+		return Locator();
+	}
+
+}
+
+namespace Pastel
+{
 
 	template <
 		typename PointSet,
@@ -36,8 +50,9 @@ namespace Pastel
 			Models<PointSet, PointSet_Concept>
 		> = 0
 	>
-	struct PointSet_Locator_F
-	: PointSet_::PointSet_Locator_F_<PointSet>
+	struct PointSet_Locator_F 
+		: Identity_F<
+			RemoveCvRef<decltype(pointSetLocator(std::declval<PointSet>()))>>
 	{};
 
 	template <
@@ -48,31 +63,6 @@ namespace Pastel
 	>
 	using PointSet_Locator =
 		typename PointSet_Locator_F<PointSet>::type;
-
-}
-
-namespace Pastel
-{
-
-	//! Returns the default locator of a point-set.
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
-	decltype(auto) pointSetLocator(const PointSet& pointSet)
-	{
-		return PointSet_Locator<PointSet>();
-	}
-
-	//! Retrieves the locator of a location-set.
-	template <typename Set, typename Locator, typename Base>
-	const Locator& pointSetLocator(
-		const LocationSet<Set, Locator, Base>& pointSet)
-	{
-		return pointSet.locator();
-	}
 
 }
 
