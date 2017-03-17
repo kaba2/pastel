@@ -45,7 +45,7 @@ namespace Pastel
 			return set_;
 		}
 
-		const Locator& locator() const
+		const Locator& pointSetLocator() const
 		{
 			return locator_;
 		}
