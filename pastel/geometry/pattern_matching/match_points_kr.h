@@ -115,8 +115,8 @@ namespace Pastel
 	template <
 		typename Model_NearestSet,
 		typename Scene_NearestSet,
-		typename Locator = PointSet_Locator<NearestSet_PointSet<Model_NearestSet>>,
-		typename Real = NearestSet_Real<Model_NearestSet>,
+		typename Locator = PointSet_Locator<Model_NearestSet>,
+		typename Real = PointSet_Real<Model_NearestSet>,
 		integer N = Locator::N,
 		typename... ArgumentSet,
 		Requires<

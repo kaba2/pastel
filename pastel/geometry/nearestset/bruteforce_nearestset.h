@@ -8,63 +8,41 @@
 namespace Pastel
 {
 
-	struct BruteForce_NearestSet_Settings_Concept
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				Concept::holds<
-					Models<typename Type::PointSet, PointSet_Concept>
-				>()				
-			)
-		);
-	};
-
-}
-
-namespace Pastel
-{
-
-	template <typename Settings>
+	template <typename PointSet>
 	class BruteForce_NearestSet
 	{
 	public:
-		PASTEL_CONCEPT_CHECK(Settings, BruteForce_NearestSet_Settings_Concept);
-
-		using Fwd = Settings;
-		PASTEL_FWD(PointSet);
-		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
-
-		using Point = PointSet_PointId<PointSet>;
-		using Real = PointSet_Real<PointSet>;
-
 		BruteForce_NearestSet(PointSet pointSet)
 		: pointSet_(std::move(pointSet))
 		{
 		}
 
-		PointSet pointSet() const
+		decltype(auto) pointSetSet() const
 		{
-			return pointSet_;
+			using Pastel::pointSetSet;
+			return pointSetSet(pointSet_);
+		}
+
+		decltype(auto) pointSetLocator() const
+		{
+			using Pastel::pointSetLocator;
+			return pointSetLocator(pointSet_);
 		}
 
 	private:
 		PointSet pointSet_;
 	};
 
-	template <typename PointSet_>
-	struct BruteForce_NearestSet_Settings
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
+	decltype(auto) bruteForceNearestSet(PointSet pointSet)
 	{
-		using PointSet = PointSet_;
-	};
-
-	template <typename PointSet>
-	BruteForce_NearestSet<
-		BruteForce_NearestSet_Settings<PointSet>> 
-		bruteForceNearestSet(PointSet pointSet)
-	{
-		return {pointSet};
+		return BruteForce_NearestSet<PointSet>(
+			std::move(pointSet));
 	}
 
 }
