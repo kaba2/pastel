@@ -30,7 +30,9 @@ namespace Pastel
 		(
 			conceptCheck(
 				Concept::exists<typename Type::Locator>(),
-				Concept::models<typename Type::Locator, Locator_Concept>()
+				Concept::holds<
+					Models<typename Type::Locator, Locator_Concept>
+				>()
 			)
 		);
 	};

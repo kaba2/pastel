@@ -28,6 +28,8 @@ namespace Pastel
 
 TEST_CASE("Concept (point)")
 {
+	PASTEL_CONCEPT_CHECK(Point_Archetype, Point_Concept);
+
 	PASTEL_CONCEPT_CHECK(real*, Point_Concept);
 	PASTEL_STATIC_ASSERT((Models<std::array<real, 2>, Point_Concept>::value));
 	PASTEL_STATIC_ASSERT((Models<Vector<real, 2>, Point_Concept>::value));

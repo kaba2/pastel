@@ -27,6 +27,8 @@ namespace
 		using Locator = Vector_Locator<Real, N_>;
 	};
 
+	PASTEL_CONCEPT_CHECK(Settings<2>, PointKdTree_Settings_Concept);
+
 	using Tree = PointKdTree<Settings<2>>;
 	using Point_ConstIterator = Tree::Point_ConstIterator;
 

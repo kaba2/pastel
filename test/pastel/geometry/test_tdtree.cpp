@@ -31,9 +31,7 @@ namespace
 TEST_CASE("Concepts (TdTree)")
 {
 	PASTEL_CONCEPT_CHECK(Tree, PointSet_Concept);
-	PASTEL_CONCEPT_CHECK(NearestSet_PointSet<Tree>, PointSet_Concept);
 	PASTEL_CONCEPT_CHECK(PointSet_Real<Tree>, Real_Concept);
-	PASTEL_CONCEPT_CHECK(PointSet_Point<Tree>, Point_Concept);
 	PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
 }
 
@@ -58,6 +56,10 @@ TEST_CASE("Grid (TdTree)")
 	{
 		pointSet(point[0], point[1]) = point;
 	});
+
+	using PointSet = decltype(pointSet);
+	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
+	PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(PointSet_PointId<PointSet>));
 
 	Tree tree(pointSet);
 	REQUIRE(tree.simple());
@@ -93,7 +95,7 @@ TEST_CASE("Grid (TdTree)")
 		PASTEL_TAG(report), report,
 		PASTEL_TAG(kNearest), 5);
 
-	auto pointSet_ = tree.pointSet();
+	auto pointSet_ = tree.pointSetSet();
 
 	REQUIRE(neighborSet.size() == 5);
 	//REQUIRE(neighborSet.count(pointSet(1, 3)) > 0);
@@ -130,8 +132,13 @@ TEST_CASE("Gaussian (TdTree)")
 		std::vector<std::pair<real, Point>> bruteSet;
 		bruteSet.reserve(k);
 
+		auto nearestSet = bruteForceNearestSet(pointSet);
+		using NearestSet = decltype(nearestSet);
+		PASTEL_CONCEPT_CHECK(NearestSet, PointSet_Concept);
+		PASTEL_CONCEPT_CHECK(NearestSet, NearestSet_Concept);
+
 		real kDistanceBrute = searchNearest(
-			bruteForceNearestSet(pointSet),
+			nearestSet,
 			pointSet[i],
 			PASTEL_TAG(report), emplaceBackOutput(bruteSet),
 			PASTEL_TAG(kNearest), k

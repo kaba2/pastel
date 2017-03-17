@@ -175,9 +175,8 @@ TEST_CASE("Small (search_nearest_bruteforce)")
 
 		PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
 
-		using PointSet = NearestSet_PointSet<Tree>;
 		using Point = PointSet_PointId<Tree>;
-		using Real = NearestSet_Real<Tree>;
+		using Real = PointSet_Real<Tree>;
 
 		//test(tree, distanceSet);
 	}

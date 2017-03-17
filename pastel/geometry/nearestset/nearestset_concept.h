@@ -8,24 +8,20 @@
 #include "pastel/math/normbijection/normbijection_concept.h"
 #include "pastel/sys/function/function_concept.h"
 
-#include "pastel/geometry/nearestset/nearestset_pointset.h"
-
 namespace Pastel
 {
 
 	struct NearestSet_Concept
+	: Refines<PointSet_Concept>
 	{
 		template <
 			typename Type,
-			typename PointSet = NearestSet_PointSet<Type>,
-			typename PointId = PointSet_PointId<PointSet>,
-			typename Point = PointSet_Point<PointSet>,
-			typename Real = PointSet_Real<PointSet>
+			typename PointId = PointSet_PointId<Type>,
+			typename Real = PointSet_Real<Type>
 		>
 		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
-				Concept::models<PointSet_Concept>(t),
 				//! Searches for nearest neighbors for a point.
 				Concept::convertsTo<std::pair<Real, PointId>>
 				(
@@ -38,7 +34,7 @@ namespace Pastel
 						not have to have Point type. However, for some reason that
 						triggers compiler errors.
 						*/
-						std::declval<Point>(),
+						std::declval<Point_Archetype>(),
 						//! The output to which to report the results.
 						/*!
 						The points will be reported as report(distance2, point).
@@ -60,7 +56,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/nearestset/nearestset_real.h"
 #include "pastel/geometry/nearestset/nearestset_n.h"
 
 #endif
