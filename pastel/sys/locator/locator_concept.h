@@ -7,6 +7,9 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/real/real_concept.h"
 
+#include "pastel/sys/locator/locator_point.h"
+#include "pastel/sys/locator/locator_real.h"
+
 namespace Pastel
 {
 
@@ -55,8 +58,6 @@ namespace Pastel
 }
 
 #include "pastel/sys/locator/locator_n.h"
-#include "pastel/sys/locator/locator_point.h"
-#include "pastel/sys/locator/locator_real.h"
 #include "pastel/sys/locator/locator_archetype.h"
 
 #endif

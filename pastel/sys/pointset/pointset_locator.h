@@ -11,31 +11,58 @@
 namespace Pastel
 {
 
+	namespace PointSet_
+	{
+
+		struct MemberPointSetLocator_Concept
+		{
+			template <typename Type>
+			auto requires_(Type&& t) -> decltype
+			(
+				conceptCheck(
+					Concept::holds<
+						Models<decltype(addConst(t).pointSetLocator()), Locator_Concept>
+					>()
+				)
+			);
+		};
+
+	}
+
+	template <typename Type>
+	using HasMemberPointSetLocator = 
+		Models<Type, PointSet_::MemberPointSetLocator_Concept>;
+	
+}
+
+namespace Pastel
+{
+
 	//! Returns the member-locator of a point-set.
 	template <
-		typename PointSet,
+		typename Type,
 		Requires<
-			Models<PointSet, PointSet_Concept_Member>
+			HasMemberPointSetLocator<Type>
 		> = 0
 	>
-	decltype(auto) pointSetLocator(
-		const PointSet& pointSet)
+	decltype(auto) pointSetLocator(Type&& that)
 	{
-		return pointSet.pointSetLocator();
+		return that.pointSetLocator();
 	}
 
 	//! Returns the default locator of point-set elements.
 	template <
-		typename PointSet,
+		typename Set,
 		Requires<
-			Models<PointSet, PointSet_Concept_Element>,
+			Models<Set, Set_Concept>,
+			HasDefaultLocator<Set_Element<Set>>,
 			// Give priority to the member-locator.
-			Not<Models<PointSet, PointSet_Concept_Member>>
+			Not<HasMemberPointSetLocator<Set>>
 		> = 0
 	>
-	decltype(auto) pointSetLocator(const PointSet& pointSet)
+	decltype(auto) pointSetLocator(const Set& set)
 	{
-		using Locator = typename Default_Locator<const Set_Element<PointSet>&>::Locator;
+		using Locator = typename Default_Locator<const Set_Element<Set>&>::Locator;
 		return Locator();
 	}
 

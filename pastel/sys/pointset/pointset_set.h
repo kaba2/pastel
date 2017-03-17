@@ -12,41 +12,49 @@ namespace Pastel
 	namespace PointSet_
 	{
 
-		//! Returns the point-set itself.
-		template <typename Point_Set>
-		decltype(auto) pointSetSet(
-			Point_Set&& that)
+		struct MemberPointSet_Concept
 		{
-			return std::forward<Point_Set>(that);
-		}
-
-		//! Returns the point-set of a location-set.
-		template <typename Point_Set, typename Locator, typename Base>
-		decltype(auto) pointSetSet(
-			const LocationSet<Point_Set, Locator, Base>& pointSet)
-		{
-			return pointSet.pointSet();
-		}
-
-		template <typename Point_Set, typename Locator, typename Base>
-		decltype(auto) pointSetSet(
-			LocationSet<Point_Set, Locator, Base>& pointSet)
-		{
-			return pointSet.pointSet();
-		}
+			template <typename Type>
+			auto requires_(Type&& t) -> decltype
+			(
+				conceptCheck(
+					Concept::holds<
+						Models<decltype(addConst(t).pointSetSet())>
+					>()
+				)
+			);
+		};
 
 	}
 
-	//! Returns the point-input.
+	template <typename Type>
+	using HasMemberPointSet = 
+		Models<Type, PointSet_::MemberPointSet_Concept>;
+
 	template <
-		typename PointSet,
+		typename Type,
 		Requires<
-			Models<PointSet, PointSet_Concept>
+			HasMemberPointSet<Type>
 		> = 0
 	>
-	decltype(auto) pointSetSet(PointSet&& pointSet)
+	decltype(auto) pointSetSet(Type&& that)
 	{
-		return PointSet_::pointSetSet(std::forward<PointSet>(pointSet));
+		return std::forward<Type>(that).pointSetSet();
+	}
+
+
+	template <
+		typename Set,
+		Requires<
+			Models<Set, Set_Concept>,
+			HasDefaultLocator<Set_Element<Set>>,
+			// Give priority to the member-locator.
+			Not<HasMemberPointSet<Set>>
+		> = 0
+	>
+	decltype(auto) pointSetSet(Set&& set)
+	{
+		return std::forward<Set>(set);
 	}
 
 }
@@ -54,25 +62,13 @@ namespace Pastel
 namespace Pastel
 {
 
-	namespace PointSet_Set_
-	{
-
-		template <typename PointSet>
-		struct PointSet_Set_F
-		{
-			using type = PointSet;
-		};
-
-		template <
-			typename Set,
-			typename Locator,
-			typename Base>
-		struct PointSet_Set_F<LocationSet<Set, Locator, Base>>
-		{
-			using type = Set;
-		};
-
-	}
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
+	using PointSet_Set = RemoveCvRef<decltype(pointSetSet(std::declval<PointSet>()))>;
 
 	template <
 		typename PointSet,
@@ -80,19 +76,9 @@ namespace Pastel
 			Models<PointSet, PointSet_Concept>
 		> = 0
 	>
-	using PointSet_Set = 
-		typename PointSet_Set_::PointSet_Set_F<
-			RemoveCvRef<PointSet>
-		>::type;
-
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
-	using PointSet_Set_F = 
-		Identity_F<PointSet_Set<PointSet>>;
+	struct PointSet_Set_F 
+		: Identity_F<PointSet_Set<PointSet>>
+	{};
 
 }
 

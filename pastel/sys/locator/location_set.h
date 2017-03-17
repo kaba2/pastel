@@ -40,7 +40,7 @@ namespace Pastel
 		{
 		}
 
-		const Set& pointSet() const
+		const Set& pointSetSet() const
 		{
 			return set_;
 		}

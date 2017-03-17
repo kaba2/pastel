@@ -6,18 +6,17 @@
 #include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/function/identity_function.h"
 #include "pastel/sys/type_traits/remove_cvref.h"
+#include "pastel/sys/locator/locator_point.h"
 
 namespace Pastel
 {
 
-	template <
-		typename Locator,
-		Requires<
-			Models<Locator, Locator_Concept>
-		> = 0
-	>
-	using Locator_Real_ =
-		typename RemoveCvRef<Locator>::Real;
+	template <typename Locator>
+	using Locator_Real_ = typename Locator::Real;
+		//decltype(
+		//	std::declval<Locator>()(
+		//		std::declval<Locator_Point<Locator>>(), 0)
+		//);
 
 	template <typename... LocatorSet>
 	using Locator_Real_F =

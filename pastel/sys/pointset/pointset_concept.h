@@ -12,39 +12,10 @@
 namespace Pastel
 {
 
-	struct PointSet_Concept_Element
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				Concept::holds<
-					Models<Type, Set_Concept>,
-					Not<Models<Type, Point_Concept>>,
-					HasDefaultLocator<Set_Element<Type>>
-				>()
-			)
-		);
-	};
-
-	struct PointSet_Concept_Member
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				Concept::holds<
-					Models<Type, Set_Concept>,
-					Not<Models<Type, Point_Concept>>,
-					Models<decltype(addConst(t).pointSetLocator()), Locator_Concept>
-				>()
-			)
-		);
-	};
-
 	struct PointSet_Concept
 	{
-		// A PointSet is a Set with an associated locator.
+		// A PointSet is a Set of elements together with an 
+		// associated locator for those elements.
 		// The locator is searched for in the following order:
 		// 1) class member function locator(),
 		// 2) the locator of a set-element.
@@ -52,15 +23,9 @@ namespace Pastel
 		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
-				Concept::holds<
-					Or<
-						// Note that the two cases below cannot be embedded
-						// here directly. This is because Set_Element<Type> 
-						// fails the concept-checking when Type is not Set.
-						Models<Type, PointSet_Concept_Element>,
-						Models<Type, PointSet_Concept_Member>
-					>
-				>()
+				Concept::models<Set_Concept>(pointSetSet(addConst(t))),
+				Concept::models<Locator_Concept>(pointSetLocator(addConst(t))),
+				Concept::modelsNot<Point_Concept>(t)
 			)
 		);
 	};

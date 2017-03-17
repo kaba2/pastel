@@ -17,7 +17,7 @@ namespace Pastel
 	>
 	integer nearestSetN(const NearestSet& nearestSet)
 	{
-		return pointSetN(nearestSet.pointSet());
+		return pointSetN(nearestSet);
 	}
 
 }

@@ -18,7 +18,7 @@ namespace Pastel
 		> = 0
 	>
 	using PointSet_Real = 
-		Point_Real<PointSet_Point<PointSet>>;
+		Locator_Real<PointSet_Locator<PointSet>>;
 
 	template <
 		typename PointSet,

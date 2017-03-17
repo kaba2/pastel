@@ -317,9 +317,9 @@ namespace Pastel
 		This is a convenience function which returns
 		pointSet(-(Real)Infinity(), (Real)Infinity()).
 		*/
-		decltype(auto) pointSet() const
+		decltype(auto) pointSetSet() const
 		{
-			return pointSet(
+			return pointSetSet(
 				-(Real)Infinity(),
 				(Real)Infinity());
 		}
@@ -335,29 +335,36 @@ namespace Pastel
 		in this set are not user-defined Points; a ConstIterator 
 		contains more information than a Point (e.g. time).
 		*/
-		decltype(auto) pointSet(
+		decltype(auto) pointSetSet(
 			const Real& tMin, 
 			const Real& tMax) const
 		{
 			PENSURE(tMin <= tMax);
 
-			return locationSet(
-				intervalSet(
-					begin() + timeToIndex(tMin), 
-					begin() + timeToIndex(tMax)
-				),
-				// Since the user-defined locator
-				// works only for user-defined points, 
-				// we need to adapt it to work with
-				// ConstIterators.
-				transformLocator<ConstIterator>(
-					locator(),
-					[](const ConstIterator& iTemporalPoint)
-					{
-						return iTemporalPoint->point();
-					}
-				)
+			return intervalSet(
+				begin() + timeToIndex(tMin), 
+				begin() + timeToIndex(tMax));
+		}
+
+		decltype(auto) pointSetLocator() const
+		{
+			// Since the user-defined locator
+			// works only for user-defined points, 
+			// we need to adapt it to work with
+			// ConstIterators.
+			return transformLocator<ConstIterator>(
+				locator(),
+				[](const ConstIterator& iTemporalPoint)
+				{
+					return iTemporalPoint->point();
+				}
 			);
+		}
+
+		decltype(auto) location(
+			const ConstIterator& point) const
+		{
+			return Pastel::location(point, pointSetLocator());
 		}
 
 		PASTEL_ITERATOR_FUNCTIONS(begin, pointSet_.begin());
