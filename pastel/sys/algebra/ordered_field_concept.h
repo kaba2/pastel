@@ -18,7 +18,7 @@ namespace Pastel
 	struct Ordered_Field_Concept
 	: Refines<
 		Ordered_Ring_Concept,
-		Field_Concept>
+		Multiplicative_Group_Concept>
 	{
 	};
 

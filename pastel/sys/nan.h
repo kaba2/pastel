@@ -28,8 +28,20 @@ namespace Pastel
 
 		template <
 			typename Type,
+			Requires<std::is_integral<Type>> = 0
+		>
+		operator Type() const
+		{
+			return std::numeric_limits<Type>::min();
+		}
+
+		template <
+			typename Type,
 			Requires<
-				std::is_floating_point<Type>
+				Or<
+					std::is_integral<Type>,
+					std::is_floating_point<Type>
+				>
 			> = 0
 		>
 		bool operator==(const Type& that) const
