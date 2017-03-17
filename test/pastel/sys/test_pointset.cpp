@@ -39,11 +39,14 @@ TEST_CASE("Real (pointset_concept)")
 	auto pointSet = locationSet(pointIdSet, Locator());
 
 	using PointIdSet = decltype(pointIdSet);
-
 	using PointSet = decltype(pointSet);
+
 	PASTEL_CONCEPT_CHECK(PointSet, Set_Concept);
-	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept_Member);
-	PASTEL_CONCEPT_REJECT(PointSet, PointSet_Concept_Element);
+	PASTEL_STATIC_ASSERT(HasMemberPointSet<PointSet>::value);
+
+	PASTEL_CONCEPT_CHECK(decltype(pointSetSet(pointSet)), Set_Concept);
+
+	PASTEL_STATIC_ASSERT(HasMemberPointSetLocator<PointSet>::value);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 	{
@@ -53,8 +56,8 @@ TEST_CASE("Real (pointset_concept)")
 		using PointId_ = PointSet_PointId<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<PointId_, PointId>::value));
 
-		using Point_ = PointSet_Point<PointSet>;
-		PASTEL_STATIC_ASSERT((std::is_same<Point_, Location<PointId, Locator>>::value));
+		//using Point_ = PointSet_Point<PointSet>;
+		//PASTEL_STATIC_ASSERT((std::is_same<Point_, Location<PointId, Locator>>::value));
 
 		using Real_ = PointSet_Real<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<Real_, Real>::value));

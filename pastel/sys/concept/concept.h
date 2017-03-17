@@ -65,10 +65,16 @@ namespace Pastel
 		bool convertsTo(NoDeduction<Required> that);
 
 		template <
-			typename Type, 
-			typename Concept>
-		auto models()
+			typename Concept,
+			typename Type>
+		auto models(Type&& that)
 			-> Requires<Models<Type, Concept>>;
+
+		template <
+			typename Concept,
+			typename Type>
+		auto modelsNot(Type&& that)
+			-> Requires<Not<Models<Type, Concept>>>;
 
 		//! Checks whether a bool-meta-function is true.
 		template <typename... Required>

@@ -7,7 +7,6 @@
 #include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/pointset/pointset_point_id.h"
 #include "pastel/sys/set/set_concept.h"
-#include "pastel/sys/locator/location_set.h"
 #include "pastel/sys/function/identity_function.h"
 #include "pastel/sys/type_traits/remove_cvref.h"
 
@@ -16,26 +15,6 @@
 namespace Pastel
 {
 
-	namespace PointSet_Point_
-	{
-
-		template <typename PointSet>
-		struct PointSet_Point_F_
-		{
-			using type = PointSet_PointId<PointSet>;
-		};
-
-		template <
-			typename Set, 
-			typename Locator,
-			typename Base>
-		struct PointSet_Point_F_<LocationSet<Set, Locator, Base>>
-		{
-			using type = Location<Set_Element<Set>, Locator>;
-		};
-
-	}
-
 	template <
 		typename PointSet,
 		Requires<
@@ -43,9 +22,7 @@ namespace Pastel
 		> = 0
 	>
 	using PointSet_Point = 
-		typename PointSet_Point_::PointSet_Point_F_<
-			RemoveCvRef<PointSet>
-		>::type;
+		Set_Element<decltype(pointSetSet(std::declval<PointSet>()))>;
 
 	template <
 		typename PointSet,

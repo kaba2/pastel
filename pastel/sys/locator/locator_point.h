@@ -10,21 +10,11 @@
 namespace Pastel
 {
 
-	template <
-		typename Locator,
-		Requires<
-			Models<Locator, Locator_Concept>
-		> = 0
-	>
+	template <typename Locator>
 	using Locator_Point = 
 		typename RemoveCvRef<Locator>::Point;
 
-	template <
-		typename Locator,
-		Requires<
-			Models<Locator, Locator_Concept>
-		> = 0
-	>
+	template <typename Locator>
 	using Locator_Point_F = 
 		Identity_F<Locator_Point<Locator>>;
 

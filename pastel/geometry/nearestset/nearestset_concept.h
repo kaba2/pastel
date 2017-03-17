@@ -25,9 +25,7 @@ namespace Pastel
 		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
-				//! Returns the underlying point-set.
-				Concept::isModelOf<PointSet_Concept>(
-					addConst(t).pointSet()),
+				Concept::models<PointSet_Concept>(t),
 				//! Searches for nearest neighbors for a point.
 				Concept::convertsTo<std::pair<Real, PointId>>
 				(
@@ -62,7 +60,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/nearestset/nearestset_point_id.h"
 #include "pastel/geometry/nearestset/nearestset_real.h"
 #include "pastel/geometry/nearestset/nearestset_n.h"
 

@@ -13,14 +13,7 @@ namespace Pastel
 {
 
 	template <typename NearestSet>
-	using NearestSet_PointSet =
-		RemoveCvRef<
-			decltype(
-				std::declval<
-					std::remove_reference_t<NearestSet>
-				>().pointSet()
-			)
-		>;
+	using NearestSet_PointSet = NearestSet;
 
 	template <typename NearestSet>
 	using NearestSet_PointSet_F = 

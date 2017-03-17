@@ -25,8 +25,16 @@ namespace
 	using Tree = TdTree<TdTree_Settings<Locator>>;
 	using ConstIterator = Tree::ConstIterator;
 
-	PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
 
+}
+
+TEST_CASE("Concepts (TdTree)")
+{
+	PASTEL_CONCEPT_CHECK(Tree, PointSet_Concept);
+	PASTEL_CONCEPT_CHECK(NearestSet_PointSet<Tree>, PointSet_Concept);
+	PASTEL_CONCEPT_CHECK(PointSet_Real<Tree>, Real_Concept);
+	PASTEL_CONCEPT_CHECK(PointSet_Point<Tree>, Point_Concept);
+	PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
 }
 
 TEST_CASE("Construction (TdTree)")
