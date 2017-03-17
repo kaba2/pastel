@@ -21,7 +21,7 @@ namespace Pastel
 	decltype(auto) pointSetLocator(
 		const PointSet& pointSet)
 	{
-		return pointSet.locator();
+		return pointSet.pointSetLocator();
 	}
 
 	//! Returns the default locator of point-set elements.

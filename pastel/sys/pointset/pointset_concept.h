@@ -36,7 +36,7 @@ namespace Pastel
 				Concept::holds<
 					Models<Type, Set_Concept>,
 					Not<Models<Type, Point_Concept>>,
-					Models<decltype(addConst(t).locator()), Locator_Concept>
+					Models<decltype(addConst(t).pointSetLocator()), Locator_Concept>
 				>()
 			)
 		);
