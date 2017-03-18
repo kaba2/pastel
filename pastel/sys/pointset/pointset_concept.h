@@ -24,8 +24,7 @@ namespace Pastel
 		(
 			conceptCheck(
 				Concept::models<Set_Concept>(pointSetSet(addConst(t))),
-				Concept::models<Locator_Concept>(pointSetLocator(addConst(t))),
-				Concept::modelsNot<Point_Concept>(t)
+				Concept::models<Locator_Concept>(pointSetLocator(addConst(t)))
 			)
 		);
 	};

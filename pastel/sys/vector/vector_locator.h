@@ -20,11 +20,15 @@ namespace Pastel
 	>
 	decltype(auto) pointLocator(Vector<Real, N>&& point)
 	{
-		return Usual_Locator<Vector<Real, N>, Real, N>(point.n());
+		return Default_Locator<Vector<Real, N>, Real, N>(point.n());
 	}
 
 	template <typename Real, integer N>
 	IntegerConstant<N> pointN(const Vector<Real, N>* point);
+
+
+	template <typename Real, int N>
+	using Vector_Locator = Default_Locator<Vector<Real, N>, Real, N>;
 
 }
 

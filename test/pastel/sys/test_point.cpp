@@ -108,8 +108,8 @@ TEST_CASE("Axis (point)")
 		REQUIRE(pointAxis(&x[0], 0) == x[0]);
 		REQUIRE(pointAxis(&x[0], 1) == x[1]);
 
-		REQUIRE(pointAxis(arrayPoint(x), 0) == x[0]);
-		REQUIRE(pointAxis(arrayPoint(x), 1) == x[1]);
+		REQUIRE(pointAxis(x, 0) == x[0]);
+		REQUIRE(pointAxis(x, 1) == x[1]);
 	}
 	{
 		real x = 5;

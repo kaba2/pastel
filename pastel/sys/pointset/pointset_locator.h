@@ -65,7 +65,7 @@ namespace Pastel
 	decltype(auto) pointSetLocator(const Set& set)
 	{
 		using Point = Set_Element<Set>;
-		return Usual_Locator<Point, Point_Real<Point>, Point_N<Point>::value>();
+		return Default_Locator<Point, Point_Real<Point>, Point_N<Point>::value>(Point_N<Point>::value);
 	}
 
 }
