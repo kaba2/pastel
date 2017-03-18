@@ -47,7 +47,6 @@ namespace Pastel
 		typename Set,
 		Requires<
 			Models<Set, Set_Concept>,
-			HasDefaultLocator<Set_Element<Set>>,
 			// Give priority to the member-locator.
 			Not<HasMemberPointSet<Set>>
 		> = 0

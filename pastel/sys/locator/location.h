@@ -36,6 +36,16 @@ namespace Pastel
 			return point_;
 		}
 
+		decltype(auto) pointAxis(integer axis) const
+		{
+			return locator_(point_, axis);
+		}
+
+		integer pointDimension() const
+		{
+			return locator_.n();
+		}
+
 		const Locator& locator() const
 		{
 			return locator_;
@@ -50,7 +60,7 @@ namespace Pastel
 	template <
 		typename Type, 
 		typename Locator>
-	Location<Type, Locator> location(
+	decltype(auto) location(
 		const Type& point,
 		const Locator& locator)
 	{

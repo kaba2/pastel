@@ -87,7 +87,7 @@ namespace Pastel
 		typename Search_Point,
 		typename... ArgumentSet,
 		typename NearestSet = BruteForce_NearestSet<Settings>,
-		typename Point = NearestSet_PointId<NearestSet>,
+		typename Point = PointSet_PointId<NearestSet>,
 		typename Real = PointSet_Real<NearestSet>,
 		Requires<
 			Models<Search_Point, Point_Concept>
@@ -135,7 +135,7 @@ namespace Pastel
 		using Result = std::pair<Real, Point>;
 		Result notFound((Real)Infinity(), Point());
 
-		auto pointSet = nearestSet.pointSet();
+		auto pointSet = nearestSet.pointSetSet();
 		if (emptySet(pointSet) || kNearest == 0)
 		{
 			return notFound;

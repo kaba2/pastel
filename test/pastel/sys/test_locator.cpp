@@ -26,6 +26,12 @@ TEST_CASE("Archetype (Locator)")
 		std::is_same<Locator_Point<Locator>, A>::value);
 }
 
+TEST_CASE("Usual (Locator)")
+{
+	using Locator = Usual_Locator<real, real>;
+	PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+}
+
 TEST_CASE("Various (Locator)")
 {
 	enum : integer
@@ -82,28 +88,6 @@ TEST_CASE("Transform (Locator)")
 	for (integer i = 0;i < dataSet.size();++i)
 	{
 		REQUIRE(indirectLocator(dataSet.begin() + i, 0) == i);
-	}
-}
-
-TEST_CASE("Array (Locator)")
-{
-	{
-		using Locator = Array_Locator<real, 1>;
-		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
-	}
-	{
-		using Point = std::array<real, 2>;
-		using Locator = Array_Locator<real, 2>;
-		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
-
-		PASTEL_STATIC_ASSERT(
-			(std::is_same<Locator_Real<Locator>, real>::value));
-
-		PASTEL_STATIC_ASSERT(
-			(std::is_same<Locator_Point<Locator>, Point>::value));
-
-		PASTEL_STATIC_ASSERT(
-			Locator_N<Locator>::value == 2);
 	}
 }
 

@@ -370,7 +370,6 @@ namespace Pastel
 
 #include "pastel/sys/rational/rational.hpp"
 #include "pastel/sys/rational/rational_add.hpp"
-#include "pastel/sys/rational/rational_as_point.hpp"
 #include "pastel/sys/rational/rational_as_real.hpp"
 #include "pastel/sys/rational/rational_as_string.hpp"
 #include "pastel/sys/rational/rational_classify.hpp"

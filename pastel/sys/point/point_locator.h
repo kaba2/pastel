@@ -5,33 +5,56 @@
 #define PASTELSYS_POINT_LOCATOR_H
 
 #include "pastel/sys/point/point_concept.h"
+#include "pastel/sys/point/point_real.h"
 #include "pastel/sys/function/identity_function.h"
 #include "pastel/sys/type_traits/remove_cvref.h"
 
 namespace Pastel
 {
 
-	namespace Point_Locator_
+	template <typename Point_, typename Real_, integer N_ = Dynamic>
+	class Usual_Locator
 	{
+	public:
+		static constexpr integer N = N_;
 
-		template <typename Point>
-		struct Point_Locator_F_
+		using Point = Point_;
+		using Real = Real_;
+
+		explicit Usual_Locator(integer dimension = N_)
+			: n_(dimension)
 		{
-			using type = 
-				decltype(
-					Default_Locator<const Point&>()(
-						std::declval<Point>()
-					)
-				);
-		};
+		}
 
-		template <typename Point, typename Locator>
-		struct Point_Locator_F_<Location<Point, Locator>>
+		integer n() const
 		{
-			using type = Locator;
-		};
+			return n_;
+		}
 
+		decltype(auto) operator()(
+			const Point& point, integer i) const
+		{
+			return pointAxis(point, i);
+		}
+
+		integer n_;
+	};
+
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
+	decltype(auto) pointLocator(const Point& point)
+	{
+		return Usual_Locator<Point, Point_Real<Point>>(dimension(point));
 	}
+
+}
+
+namespace Pastel
+{
 
 	template <
 		typename Point,
@@ -40,9 +63,7 @@ namespace Pastel
 		> = 0
 	>
 	using Point_Locator = 
-		typename Point_Locator_::Point_Locator_F_<
-			RemoveCvRef<Point>
-		>::type;
+		decltype(pointLocator(std::declval<Point>()));
 
 	template <
 		typename Point,
@@ -52,26 +73,6 @@ namespace Pastel
 	>
 	using Point_Locator_F = 
 		Identity_F<Point_Locator<Point>>;
-
-}
-
-namespace Pastel
-{
-
-	//! Returns the default locator of a point.
-	template <typename Point>
-	decltype(auto) locator(const Point& point)
-	{
-		return Default_Locator<const Point&>()(point);
-	}
-
-	//! Retrieves the locator of a location.
-	template <typename Point, typename Locator>
-	const Locator& locator(
-		const Location<Point, Locator>& location)
-	{
-		return location.locator();
-	}
 
 }
 

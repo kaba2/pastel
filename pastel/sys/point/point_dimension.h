@@ -10,31 +10,88 @@
 namespace Pastel
 {
 
-	//! Returns the dimension of a point.
-	/*!
-	Preconditions:
-	Point has a default locator.
-	*/
-	template <
-		typename Point,
-		Requires<
-			Models<Point, Point_Concept>
-		> = 0
-	>
-	integer dimension(
-		const Point& point)
-	{
-		return locator(point).n();
-	}
+	template <typename Point>
+	using Point_HasMemberDimension_Test = 
+		decltype(
+			Concept::convertsTo<integer>(std::declval<Point>().pointDimension())
+		);
+
+	template <typename Type>
+	using Point_HasMemberDimension = 
+		Compiles<Point_HasMemberDimension_Test, Type>;
 
 	template <
 		typename Point,
 		Requires<
-			Models<Point, Point_Concept>
+			Point_HasMemberDimension<Point>
 		> = 0
 	>
+	decltype(auto) dimension(Point&& point)
+	{
+		return std::forward<Point>(point).pointDimension();
+	}
+
+}
+
+namespace Pastel
+{
+
+	template <typename Point>
+	using Point_HasMemberSize_Test = 
+		decltype(
+			Concept::convertsTo<integer>(std::declval<Point>().size())
+		);
+
+	template <typename Type>
+	using Point_HasMemberSize = 
+		Compiles<Point_HasMemberSize_Test, Type>;
+
+	template <
+		typename Point,
+		Requires<
+			Point_HasMemberSize<Point>,
+			Not<Point_HasMemberDimension<Point>>
+		> = 0
+	>
+	decltype(auto) dimension(Point&& point)
+	{
+		return std::forward<Point>(point).size();
+	}
+
+}
+
+namespace Pastel
+{
+
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Real_Ring_Concept>
+		> = 0
+	>
+	IntegerConstant<1> pointN(const Point* point);
+
+	template <typename Real, integer N>
+	IntegerConstant<N> pointN(const std::array<Real, N>* point);
+
+	namespace Point_
+	{
+
+		template <typename Type>
+		using Point_N_ = 
+			decltype(pointN((const Type*)nullptr));
+
+	}
+
+	template <typename Point>
 	using Point_N = 
-		Locator_N<Point_Locator<Point>>;
+		Compute<IntegerConstant<Dynamic>, Point_::Point_N_, Point>;
+
+}
+
+
+namespace Pastel
+{
 
 	template <
 		typename Point,
