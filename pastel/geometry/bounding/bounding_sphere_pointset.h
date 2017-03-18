@@ -11,14 +11,6 @@
 namespace Pastel
 {
 
-	//! Finds the minimum volume bounding sphere of a point.
-	template <
-		typename Point,
-		Requires<Models<Point, Point_Concept>> = 0
-	>
-	Sphere<Point_Real<Point>, Point_N<Point>::value> 
-		boundingSphere(const Point& point);
-
 	//! Finds the minimum volume bounding sphere of two points.
 	template <
 		typename A_Point,

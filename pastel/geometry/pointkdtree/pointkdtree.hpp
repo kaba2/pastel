@@ -112,7 +112,7 @@ namespace Pastel
 		nodeAllocator_.swap(that.nodeAllocator_);
 		swap(root_, that.root_);
 		swap(leaves_, that.leaves_);
-		locator_.swap(that.locator_);
+		swap(locator_, that.locator_);
 		bound_.swap(that.bound_);
 		swap(simulateKdTree_, that.simulateKdTree_);
 	}
