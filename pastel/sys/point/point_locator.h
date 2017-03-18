@@ -12,8 +12,8 @@
 namespace Pastel
 {
 
-	template <typename Point_, typename Real_, integer N_ = Dynamic>
-	class Usual_Locator
+	template <typename Point_, typename Real_, integer N_>
+	class Default_Locator
 	{
 	public:
 		static constexpr integer N = N_;
@@ -21,7 +21,7 @@ namespace Pastel
 		using Point = Point_;
 		using Real = Real_;
 
-		explicit Usual_Locator(integer dimension = N_)
+		explicit Default_Locator(integer dimension)
 			: n_(dimension)
 		{
 		}
@@ -40,6 +40,31 @@ namespace Pastel
 		integer n_;
 	};
 
+	template <typename Point_, typename Real_>
+	class Default_Locator<Point_, Real_, Dynamic>
+	{
+	public:
+		static constexpr integer N = Dynamic;
+
+		using Point = Point_;
+		using Real = Real_;
+
+		explicit Default_Locator(integer dimension)
+		{
+		}
+
+		integer n() const
+		{
+			return N;
+		}
+
+		decltype(auto) operator()(
+			const Point& point, integer i) const
+		{
+			return pointAxis(point, i);
+		}
+	};
+
 	template <
 		typename Point,
 		Requires<
@@ -48,7 +73,7 @@ namespace Pastel
 	>
 	decltype(auto) pointLocator(const Point& point)
 	{
-		return Usual_Locator<Point, Point_Real<Point>>(dimension(point));
+		return Default_Locator<Point, Point_Real<Point>, Point_N<Point>::value>(dimension(point));
 	}
 
 }

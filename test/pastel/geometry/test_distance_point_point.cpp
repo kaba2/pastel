@@ -135,7 +135,7 @@ TEST_CASE("Array (distance_point_point)")
 	Point a = { {1, 4} };
 	Point b = { {-5, 2} };
 
-	testCase(arrayPoint(a), arrayPoint(b));
+	testCase(a, b);
 }
 
 TEST_CASE("Vector (distance_point_point)")

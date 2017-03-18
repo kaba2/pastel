@@ -48,9 +48,7 @@ namespace
 
 		Euclidean_NormBijection<real> normBijection;
 
-		auto pointSet = nearestSet.pointSet();
-
-		for(auto&& i : pointSet)
+		for(auto&& i : nearestSet)
 		{
 			auto result =
 				searchNearest(nearestSet, i);
@@ -61,7 +59,7 @@ namespace
 		}
 
 		integer j = 0;
-		for (auto&& i : pointSet)
+		for (auto&& i : nearestSet)
 		{
 			auto indicator = predicateIndicator(i, NotEqualTo());
 			PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(i)));

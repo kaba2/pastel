@@ -199,21 +199,23 @@ namespace Pastel
 		/*!
 		The point of the point-set is a Point_ConstIterator.
 		*/
-		decltype(auto) pointSet() const
+		decltype(auto) pointSetSet() const
 		{
-			return locationSet(
-				intervalSet(begin(), end()),
-				// Since the user-defined locator
-				// works only for user-defined points, 
-				// we need to adapt it to work with
-				// ConstIterators.
-				transformLocator<Point_ConstIterator>(
-					locator(),
-					[](const Point_ConstIterator& iPoint)
-					{
-						return iPoint->point();
-					}
-				)
+			return intervalSet(begin(), end());
+		}
+
+		decltype(auto) pointSetLocator() const
+		{
+			// Since the user-defined locator
+			// works only for user-defined points, 
+			// we need to adapt it to work with
+			// ConstIterators.
+			return transformLocator<Point_ConstIterator>(
+				locator(),
+				[](const Point_ConstIterator& iPoint)
+				{
+					return iPoint->point();
+				}
 			);
 		}
 

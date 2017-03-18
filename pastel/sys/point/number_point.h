@@ -39,7 +39,7 @@ namespace Pastel
 	>
 	decltype(auto) pointLocator(Point&& point)
 	{
-		return Usual_Locator<Point, Point_Real<Point>, 1>();
+		return Default_Locator<Point, Point_Real<Point>, 1>();
 	}
 
 }
@@ -56,7 +56,7 @@ namespace Pastel
 	>
 	decltype(auto) pointLocator(std::array<Type, N>&& point)
 	{
-		return Usual_Locator<std::array<Type, N>, Type, N>();
+		return Default_Locator<std::array<Type, N>, Type, N>(N);
 	}
 
 }
