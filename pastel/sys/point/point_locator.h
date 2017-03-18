@@ -21,7 +21,7 @@ namespace Pastel
 		using Point = Point_;
 		using Real = Real_;
 
-		explicit Default_Locator(integer dimension)
+		explicit Default_Locator(integer dimension = N)
 			: n_(dimension)
 		{
 		}
@@ -49,7 +49,7 @@ namespace Pastel
 		using Point = Point_;
 		using Real = Real_;
 
-		explicit Default_Locator(integer dimension)
+		explicit Default_Locator(integer dimension = N)
 		{
 		}
 

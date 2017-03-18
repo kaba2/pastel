@@ -11,16 +11,6 @@ namespace Pastel
 {
 
 	template <
-		typename Point,
-		Requires<Models<Point, Point_Concept>>
-	>
-	Sphere<Point_Real<Point>, Point_N<Point>::value> 
-		boundingSphere(const Point& point)
-	{
-		return {pointAsVector(point), 0};
-	}
-
-	template <
 		typename A_Point,
 		typename B_Point,
 		Requires<
