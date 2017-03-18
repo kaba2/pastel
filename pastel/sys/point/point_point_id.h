@@ -11,50 +11,21 @@
 namespace Pastel
 {
 
-	//! Returns the point-id itself.
 	template <
 		typename Point,
 		Requires<
 			Models<Point, Point_Concept>
 		> = 0
 	>
-	const Point& pointPointId(const Point& that)
+	decltype(auto) pointPointId(Point&& point)
 	{
-		return that;
-	}
-
-	//! Returns the point-id of a location.
-	template <typename PointId, typename Locator>
-	const PointId& pointPointId(
-		const Location<PointId, Locator>& location)
-	{
-		return location.point();
+		return std::forward<Point>(point);
 	}
 
 }
 
 namespace Pastel
 {
-
-	namespace Point_PointId_
-	{
-
-		template <
-			typename Point>
-		struct Point_PointId_F
-		{
-			using type = Point;
-		};
-
-		template <
-			typename Point,
-			typename Locator>
-		struct Point_PointId_F<Location<Point, Locator>>
-		{
-			using type = Point;
-		};
-
-	}
 
 	template <
 		typename Point,
@@ -63,9 +34,7 @@ namespace Pastel
 		> = 0
 	>
 	using Point_PointId = 
-		typename Point_PointId_::Point_PointId_F<
-			RemoveCvRef<Point>
-		>::type;
+		RemoveCvRef<decltype(pointPointId(std::declval<Point>()))>;
 
 	template <
 		typename Point,

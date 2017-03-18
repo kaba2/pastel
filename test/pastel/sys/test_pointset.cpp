@@ -12,10 +12,17 @@ TEST_CASE("Homogeneous (pointset_concept)")
 {
 	using Point = Vector<real, 2>;
 
-	std::vector<Point> inputSet;
-	auto pointSet = inputSet;
-	using PointSet = decltype(pointSet);
+	using PointSet = std::vector<Point>;
+	PointSet pointSet;
 
+	PASTEL_CONCEPT_CHECK(PointSet, Set_Concept);
+	PASTEL_STATIC_ASSERT(!HasMemberPointSetLocator<PointSet>::value);
+	PASTEL_STATIC_ASSERT(BoolConstant<Point_N<Set_Element<PointSet>>::value == 2>::value);
+
+	pointSetSet(pointSet);
+	pointSetLocator(pointSet);
+	
+	PASTEL_CONCEPT_REJECT(PointSet, Point_Concept);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 	REQUIRE(pointSetDimension(pointSet) == 2);
@@ -76,7 +83,6 @@ TEST_CASE("Array (pointset_concept)")
 {
 	using Real = real;
 	using Point = std::array<Real, 2>;
-	using Locator = Array_Locator<Real, 2>;
 
 	std::vector<Point> pointSet =
 	{
@@ -100,9 +106,6 @@ TEST_CASE("Array (pointset_concept)")
 
 		using Real_ = PointSet_Real<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<Real_, Real>::value));
-
-		using Locator_ = PointSet_Locator<PointSet>;
-		PASTEL_STATIC_ASSERT((std::is_same<Locator_, Locator>::value));
 
 		REQUIRE(pointSetDimension(pointSet) == 2);
 		PASTEL_STATIC_ASSERT(PointSet_Dimension<PointSet>::value == 2);

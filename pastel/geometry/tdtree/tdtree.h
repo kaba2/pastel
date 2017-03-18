@@ -138,9 +138,9 @@ namespace Pastel
 		: end_(new Node)
 		, root_(end_.get())
 		, pointSet_()
-		, locator_(pointSetLocator(pointSet))
+		, locator_(Pastel::pointSetLocator(pointSet))
 		, simple_(true)
-		, bound_(pointSetDimension(pointSet))
+		, bound_(Pastel::pointSetDimension(pointSet))
 		{
 			auto&& timeSet = PASTEL_ARG_S(timeSet, intervalSet((integer)0, (integer)Infinity()));
 			auto&& splitRule = PASTEL_ARG_S(splitRule, LongestMedian_SplitRule());

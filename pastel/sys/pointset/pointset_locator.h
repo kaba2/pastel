@@ -7,6 +7,7 @@
 #include "pastel/sys/pointset/pointset_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/locator/location_set.h"
+#include "pastel/sys/set/set_concept.h"
 
 namespace Pastel
 {
@@ -47,7 +48,7 @@ namespace Pastel
 	>
 	decltype(auto) pointSetLocator(Type&& that)
 	{
-		return that.pointSetLocator();
+		return std::forward<Type>(that).pointSetLocator();
 	}
 
 	//! Returns the default locator of point-set elements.
@@ -55,15 +56,16 @@ namespace Pastel
 		typename Set,
 		Requires<
 			Models<Set, Set_Concept>,
-			HasDefaultLocator<Set_Element<Set>>,
-			// Give priority to the member-locator.
-			Not<HasMemberPointSetLocator<Set>>
+			// // Give priority to the member-locator.
+			Not<HasMemberPointSetLocator<Set>>,
+			// Dimension has to be known at compile-time.
+			BoolConstant<(Point_N<Set_Element<Set>>::value >= 0)>
 		> = 0
 	>
 	decltype(auto) pointSetLocator(const Set& set)
 	{
-		using Locator = typename Default_Locator<const Set_Element<Set>&>::Locator;
-		return Locator();
+		using Point = Set_Element<Set>;
+		return Usual_Locator<Point, Point_Real<Point>, Point_N<Point>::value>();
 	}
 
 }

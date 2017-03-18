@@ -50,19 +50,6 @@ namespace Pastel
 		return Array_Locator<Real_, N_>(n);
 	}
 
-	template <typename Real, std::size_t N>
-	class Default_Locator<const std::array<Real, N>&, void>
-	{
-	public:
-		using Point = std::array<Real, N>;
-		using Locator = Array_Locator<Real, N>;
-
-		Locator operator()(const Point&) const
-		{
-			return Locator();
-		}
-	};
-
 	template <typename Real_, std::size_t N>
 	decltype(auto) arrayPoint(const std::array<Real_, N>& point)
 	{

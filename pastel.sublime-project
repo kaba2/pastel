@@ -4,7 +4,7 @@
 		{
 			"follow_symlinks": true,
 			"path": ".",
-			"folder_exclude_patterns": [".hg", "docs", "build*", "bin*"]
+			"folder_exclude_patterns": [".hg", ".vs", "docs", "build*", "bin*"]
 		}
 	]
 }
