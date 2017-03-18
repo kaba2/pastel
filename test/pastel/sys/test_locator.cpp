@@ -28,7 +28,7 @@ TEST_CASE("Archetype (Locator)")
 
 TEST_CASE("Usual (Locator)")
 {
-	using Locator = Usual_Locator<real, real>;
+	using Locator = Default_Locator<real, real, 2>;
 	PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
 }
 
@@ -55,41 +55,25 @@ TEST_CASE("Various (Locator)")
 	}
 }
 
-TEST_CASE("Scalar (Locator)")
-{
-	using DataSet = std::vector<real>;
-	using Data_ConstIterator = 
-		DataSet::const_iterator;
-
-	DataSet dataSet = {0, 7, 3, 5, 11, 13};
-
-	auto locator = scalarLocator<real, 1>();
-
-	for (integer i = 0;i < dataSet.size();++i)
-	{
-		REQUIRE(locator(dataSet[i], 0) == dataSet[i]);
-	}
-}
-
-TEST_CASE("Transform (Locator)")
-{
-	using DataSet = std::vector<real>;
-	using Data_ConstIterator = 
-		DataSet::const_iterator;
-
-	DataSet dataSet = {0, 1, 2, 3, 4, 5};
-
-	auto indirectLocator = 
-		transformLocator<Data_ConstIterator>(
-			scalarLocator<real>(1),
-			Dereference_Function()
-		);
-
-	for (integer i = 0;i < dataSet.size();++i)
-	{
-		REQUIRE(indirectLocator(dataSet.begin() + i, 0) == i);
-	}
-}
+//TEST_CASE("Transform (Locator)")
+//{
+//	using DataSet = std::vector<real>;
+//	using Data_ConstIterator = 
+//		DataSet::const_iterator;
+//
+//	DataSet dataSet = {0, 1, 2, 3, 4, 5};
+//
+//	auto indirectLocator = 
+//		transformLocator<Data_ConstIterator>(
+//			scalarLocator<real>(1),
+//			Dereference_Function()
+//		);
+//
+//	for (integer i = 0;i < dataSet.size();++i)
+//	{
+//		REQUIRE(indirectLocator(dataSet.begin() + i, 0) == i);
+//	}
+//}
 
 TEST_CASE("Sub (Locator)")
 {
