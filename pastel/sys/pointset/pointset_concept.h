@@ -13,16 +13,20 @@ namespace Pastel
 {
 
 	struct PointSet_Concept
+	: Refines<Set_Concept>
 	{
-		// A PointSet is a Set of elements together with an 
-		// associated locator for those elements.
-		// The locator is searched for in the following order:
-		// 1) class member function locator(),
-		// 2) the locator of a set-element.
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
+		template <
+			typename Type,
+			typename Element = Set_Element<Type>>
+		auto requires_(
+			Type&& t,
+			Element&& element = std::declval<Element>()) -> decltype
 		(
 			conceptCheck(
+				// A PointSet is a Set whose elements are Points.
+				Concept::models<Point_Concept>(addConst(element)),
+				// In addition, a PointSet can be decomposed into
+				// a set of point-ids and a locator.
 				Concept::models<Set_Concept>(pointSetSet(addConst(t))),
 				Concept::models<Locator_Concept>(pointSetLocator(addConst(t)))
 			)
