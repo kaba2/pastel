@@ -67,6 +67,15 @@ namespace Pastel
 		return Location<Type, Locator>(point, locator);
 	}
 
+	template <
+		typename Type,
+		typename Locator>
+	decltype(auto) pointPointId(const Location<Type, Locator>& location)
+	{
+		return location.point();
+	}
+
+
 }
 
 #endif

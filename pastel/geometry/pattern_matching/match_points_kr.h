@@ -29,7 +29,7 @@
 #include "pastel/sys/stdpair_as_pair.h"
 #include "pastel/sys/hashing/iteratoraddress_hash.h"
 
-#include "pastel/geometry/search_nearest_kdtree.h"
+#include "pastel/geometry/search_nearest.h"
 
 #include <vector>
 #include <unordered_map>
@@ -115,21 +115,26 @@ namespace Pastel
 	template <
 		typename Model_NearestSet,
 		typename Scene_NearestSet,
-		typename Locator = PointSet_Locator<Model_NearestSet>,
-		typename Real = PointSet_Real<Model_NearestSet>,
-		integer N = Locator::N,
 		typename... ArgumentSet,
 		Requires<
 			Models<Model_NearestSet, NearestSet_Concept>,
 			Models<Scene_NearestSet, NearestSet_Concept>
 		> = 0
 	>
-	auto matchPointsKr(
+	decltype(auto) matchPointsKr(
 		const Model_NearestSet& model,
 		const Scene_NearestSet& scene,
 		ArgumentSet&&... argumentSet)
-		-> MatchPointsKr_Return<Real, N>
 	{
+		using std::begin;
+		using std::end;
+
+		using Model_ConstIterator = PointSet_Point<Model_NearestSet>;
+		using Scene_ConstIterator = PointSet_Point<Scene_NearestSet>;
+		static constexpr integer N = Point_N<Model_ConstIterator>::value;
+		//using Real = Point_Real<Model_ConstIterator>;
+		using Real = real;
+
 		integer kNearest = 
 			PASTEL_ARG_S(kNearest, 16);
 		// This is deliberately real (not Real).
@@ -159,12 +164,6 @@ namespace Pastel
 
 		using Match = MatchPointsKr_Return<Real, N>;
 
-		using Model_ConstIterator = typename Model_NearestSet::Point_ConstIterator;
-		using ModelPoint = typename Model_NearestSet::Point;
-
-		using Scene_ConstIterator = typename Scene_NearestSet::Point_ConstIterator;
-		using ScenePoint = typename Scene_NearestSet::Point;
-
 		using Pair = std::pair<Scene_ConstIterator, Model_ConstIterator>;
 		using PairSet = std::vector<Pair>;
 		using Pair_Iterator = typename PairSet::iterator;
@@ -178,21 +177,28 @@ namespace Pastel
 		PLoS ONE 9 (4), 2014.
 		*/
 
-		integer d = model.n();
+		integer d = pointSetDimension(model);
 
-		std::vector<Model_ConstIterator> indexToModel(
-			countingIterator(model.begin()),
-			countingIterator(model.end()));
+		std::vector<Model_ConstIterator> indexToModel;
+		// FIX: Enable these two reserves.
+		//indexToModel.reserve(setSize(model));
+		for (auto&& point : model)
+		{
+			indexToModel.emplace_back(point);
+		}
 		std::random_shuffle(indexToModel.begin(), indexToModel.end());
 
-		std::vector<Scene_ConstIterator> indexToScene(
-			countingIterator(scene.begin()),
-			countingIterator(scene.end()));
+		std::vector<Scene_ConstIterator> indexToScene;
+		//indexToScene.reserve(setSize(scene));
+		for (auto&& point : scene)
+		{
+			indexToScene.emplace_back(point);
+		}
 
 		std::unordered_map<Scene_ConstIterator, integer, IteratorAddress_Hash> sceneToIndex;
 		{
 			integer j = 0;
-			for (auto i = scene.begin();i != scene.end();++i)
+			for (auto&& i : scene)
 			{
 				sceneToIndex[i] = j;
 				++j;
@@ -239,14 +245,16 @@ namespace Pastel
 			Model_ConstIterator modelPivot = indexToModel[i];
 
 			// Go over all scene pivot points.
-			Scene_ConstIterator scenePivot = scene.begin();
-			Scene_ConstIterator scenePivotEnd = scene.end();
-
-			while(scenePivot != scenePivotEnd && !exitEarly)
+			for (auto&& scenePivot : scene)
 			{
+				if (exitEarly)
+				{
+					break;
+				}
+
 				translation =
-					pointAsVector(location(scenePivot->point(), scene.locator())) -
-					pointAsVector(location(modelPivot->point(), model.locator()));
+					pointAsVector(scene.asPoint(scenePivot)) -
+					pointAsVector(model.asPoint(modelPivot));
 
 				// Find out how many points match
 				// under this translation.
@@ -256,9 +264,7 @@ namespace Pastel
 					Model_ConstIterator modelPoint = indexToModel[j];
 					
 					searchPoint = 
-						pointAsVector(
-							location(modelPoint->point(), model.locator())
-						) + translation;
+						pointAsVector(model.asPoint(modelPoint)) + translation;
 
 					integer k = 0;
 					auto nearestReport = [&](
@@ -314,8 +320,8 @@ namespace Pastel
 						while(iter != iterEnd)
 						{
 							meanDelta += 
-								pointAsVector(location(iter->first->point(), scene.locator())) -
-								(pointAsVector(location(iter->second->point(), model.locator())) + 
+								pointAsVector(scene.asPoint(iter->first)) -
+								(pointAsVector(model.asPoint(iter->second)) + 
 								translation);
 
 							++iter;

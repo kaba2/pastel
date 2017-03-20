@@ -135,7 +135,7 @@ namespace Pastel
 		using Result = std::pair<Real, Point>;
 		Result notFound((Real)Infinity(), Point());
 
-		auto pointSet = nearestSet.pointSetSet();
+		auto pointSet = nearestSet;
 		if (emptySet(pointSet) || kNearest == 0)
 		{
 			return notFound;
@@ -163,21 +163,21 @@ namespace Pastel
 
 		for(auto&& point : pointSet)
 		{
-			if (!accept(pointPointId(point)))
+			if (!accept(point))
 			{
 				continue;
 			}
 
 			Real distance = distance2(
 				searchPoint, 
-				point,
+				nearestSet.asPoint(point),
 				normBijection, 
 				keepGoing);
 
 			if (distance < cullDistance2)
 			{
 				entrySet.insert(
-					Entry{pointPointId(point), distance});
+					Entry{point, distance});
 
 				if (entrySet.size() > kNearest)
 				{

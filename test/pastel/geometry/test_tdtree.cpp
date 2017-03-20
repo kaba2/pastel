@@ -32,7 +32,6 @@ TEST_CASE("Concepts (TdTree)")
 {
 	PASTEL_CONCEPT_CHECK(Tree, PointSet_Concept);
 	PASTEL_CONCEPT_CHECK(PointSet_Real<Tree>, Real_Concept);
-	PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
 }
 
 TEST_CASE("Construction (TdTree)")
@@ -56,6 +55,9 @@ TEST_CASE("Grid (TdTree)")
 	{
 		pointSet(point[0], point[1]) = point;
 	});
+
+	PASTEL_CONCEPT_CHECK(decltype(pointSet), Set_Concept);
+	pointSetLocator(pointSet);
 
 	using PointSet = decltype(pointSet);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
@@ -115,7 +117,7 @@ TEST_CASE("Gaussian (TdTree)")
 	PointSet pointSet;
 	pointSet.reserve(n);
 
-	using Point_Iterator = PointSet::iterator;
+	using Point_ConstIterator = PointSet::const_iterator;
 
 	for (integer i = 0; i < n; ++i)
 	{
@@ -129,7 +131,7 @@ TEST_CASE("Gaussian (TdTree)")
 
 	for (integer i = 0; i < n; ++i)
 	{
-		std::vector<std::pair<real, Point>> bruteSet;
+		std::vector<std::pair<real, Point_ConstIterator>> bruteSet;
 		bruteSet.reserve(k);
 
 		auto nearestSet = bruteForceNearestSet(pointSet);

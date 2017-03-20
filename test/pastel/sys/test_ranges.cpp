@@ -6,6 +6,7 @@
 #include "pastel/sys/set/set_concept.h"
 
 #include <iostream>
+#include <list>
 
 using namespace ranges;
 
@@ -42,4 +43,7 @@ TEST_CASE("Ranges (Ranges)")
 	}
 
 	REQUIRE(ranges::size(aSet) == 4);
+
+	std::list<int> cSet = {4, 3, 2, 1};
+	REQUIRE(ranges::size(cSet) == 4);
 }

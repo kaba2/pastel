@@ -88,8 +88,8 @@ TEST_CASE("Real (pointset_concept)")
 	auto pointIdSet = addConst(inputSet);
 	auto pointSet = locationSet(pointIdSet, Locator());
 
-	using PointIdSet = decltype(pointIdSet);
-	using PointSet = decltype(pointSet);
+	using PointIdSet = RemoveCvRef<decltype(pointIdSet)>;
+	using PointSet = RemoveCvRef<decltype(pointSet)>;
 
 	PASTEL_CONCEPT_CHECK(PointSet, Set_Concept);
 	PASTEL_STATIC_ASSERT(HasMemberPointSet<PointSet>::value);
