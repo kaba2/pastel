@@ -7,14 +7,24 @@
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/function/identity_function.h"
 #include "pastel/sys/type_traits/remove_cvref.h"
+#include "pastel/sys/type_traits/compiles.h"
 
 namespace Pastel
 {
 
+	template <typename Type>
+	using Point_HasPointId_Test =
+		decltype(pointPointId(std::declval<Type>()));
+
+	template <typename Type>
+	using Point_HasPointId =
+		Compiles<Point_HasPointId_Test, Type>;
+
 	template <
 		typename Point,
 		Requires<
-			Models<Point, Point_Concept>
+			Models<Point, Point_Concept>,
+			Not<Point_HasPointId<Point>>
 		> = 0
 	>
 	decltype(auto) pointPointId(Point&& point)

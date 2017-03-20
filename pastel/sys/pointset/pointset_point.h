@@ -22,7 +22,7 @@ namespace Pastel
 		> = 0
 	>
 	using PointSet_Point = 
-		decltype(*ranges::begin(std::declval<PointSet>()));
+		RemoveCvRef<decltype(*ranges::begin(std::declval<PointSet>()))>;
 
 	template <
 		typename PointSet,
