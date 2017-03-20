@@ -11,22 +11,65 @@
 TEST_CASE("Homogeneous (pointset_concept)")
 {
 	using Point = Vector<real, 2>;
+	PASTEL_CONCEPT_CHECK(Point, Point_Concept);
 
 	using PointSet = std::vector<Point>;
 	PointSet pointSet;
+	pointSet.assign({{0, 2}, {2, 3}});
+
+	REQUIRE(dimension(pointSet[0]) == 2);
+	REQUIRE(dimension(pointSet[1]) == 2);
 
 	PASTEL_CONCEPT_CHECK(PointSet, Set_Concept);
 	PASTEL_STATIC_ASSERT(!HasMemberPointSetLocator<PointSet>::value);
 	PASTEL_STATIC_ASSERT(BoolConstant<Point_N<Set_Element<PointSet>>::value == 2>::value);
 
 	pointSetSet(pointSet);
-	pointSetLocator(pointSet);
+	auto locator = pointSetLocator(pointSet);
+
+	using Locator = decltype(locator);
+
+	PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
 	
 	PASTEL_CONCEPT_REJECT(PointSet, Point_Concept);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 	REQUIRE(pointSetDimension(pointSet) == 2);
 	PASTEL_STATIC_ASSERT(PointSet_Dimension<PointSet>::value == 2);
+}
+
+TEST_CASE("Heterogeneous (pointset_concept)")
+{
+	using Point = std::vector<real>;
+	PASTEL_CONCEPT_CHECK(Point, Point_Concept);
+
+	using PointSet = std::vector<Point>;
+	PointSet pointSet;
+	pointSet.assign({{0, 2}, {2, 3, 4}});
+
+	PASTEL_STATIC_ASSERT(Point_HasMemberSize<Point>::value);
+	PASTEL_STATIC_ASSERT(!Point_HasMemberDimension<Point>::value);
+
+	REQUIRE(pointSet[0].size() == 2);
+	REQUIRE(dimension(pointSet[0]) == 2);
+	REQUIRE(dimension(pointSet[1]) == 3);
+
+	PASTEL_CONCEPT_CHECK(PointSet, Set_Concept);
+	PASTEL_STATIC_ASSERT(!HasMemberPointSetLocator<PointSet>::value);
+	PASTEL_STATIC_ASSERT(BoolConstant<Point_N<Set_Element<PointSet>>::value == Dynamic>::value);
+
+	pointSetSet(pointSet);
+	auto locator = pointSetLocator(pointSet);
+
+	using Locator = decltype(locator);
+
+	PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
+	
+	PASTEL_CONCEPT_REJECT(PointSet, Point_Concept);
+	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
+
+	REQUIRE(pointSetDimension(pointSet) == Dynamic);
+	PASTEL_STATIC_ASSERT(PointSet_Dimension<PointSet>::value == Dynamic);
 }
 
 TEST_CASE("Real (pointset_concept)")
@@ -90,6 +133,10 @@ TEST_CASE("Array (pointset_concept)")
 		{{3, 4}},
 		{{5, 6}}
 	};
+
+	REQUIRE(dimension(pointSet[0]) == 2);
+	REQUIRE(dimension(pointSet[1]) == 2);
+	REQUIRE(dimension(pointSet[2]) == 2);
 
 	using PointSet = decltype(pointSet);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);

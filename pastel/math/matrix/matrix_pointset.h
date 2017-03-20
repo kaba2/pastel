@@ -39,11 +39,11 @@ namespace Pastel
 		ENSURE_OP(dBegin, <, dEnd);
 		ENSURE_OP(dEnd, <=, set.n_rows);
 
-		return Pastel::locationSet(
-			Pastel::sparseSet(
-				Pastel::intervalSet(set.memptr(), set.memptr() + set.size()), 
+		return locationSet(
+			sparseSet(
+				intervalSet(set.memptr(), set.memptr() + set.size()), 
 				set.n_rows), 
-			Pastel::PointerRange_Locator<real>(dBegin, dEnd));
+			PointerRange_Locator<real>(dBegin, dEnd));
 	}
 
 }
