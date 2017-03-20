@@ -34,6 +34,11 @@ namespace Pastel
 			return end_ - begin_;
 		}
 
+		integer n(const Point& point) const
+		{
+			return n();
+		}
+
 		const Real& operator()(Point point, integer i) const
 		{
 			PENSURE_OP(i, >=, 0);

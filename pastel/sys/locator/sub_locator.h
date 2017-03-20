@@ -44,6 +44,11 @@ namespace Pastel
 			return iEnd_ - iBegin_;
 		}
 
+		integer n(const Point& point) const
+		{
+			return n();
+		}
+
 		const Real& operator()(
 			const Point& point, integer i) const
 		{

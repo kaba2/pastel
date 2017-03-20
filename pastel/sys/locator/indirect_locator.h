@@ -31,6 +31,11 @@ namespace Pastel
 			return locator_.n();
 		}
 
+		integer n(const Point& point) const
+		{
+			return locator_.n(*point);
+		}
+
 		const Real& operator()(
 			const Point& point, integer i) const
 		{

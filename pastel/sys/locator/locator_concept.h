@@ -33,14 +33,25 @@ namespace Pastel
 			Real&& s = std::declval<Real>()) -> decltype
 		(
 			conceptCheck(
-				//! Run-time dimension.
+				//! Returns the dimension of the points.
 				/*!
-				Returns:
-				N, if N != Dynamic, and
-				non-negative integer, otherwise.
+				A non-negative number denotes that the
+				points all share the same dimension.
+				Negative number means the dimension changes
+				from point to point. 
 				*/
 				Concept::convertsTo<integer>(
 					addConst(t).n()
+				),
+
+				//! Returns the dimension of a point.
+				/*!
+				returns:
+				A non-negative integer denoting the
+				dimension of the given point.
+				*/
+				Concept::convertsTo<integer>(
+					addConst(t).n(pointId)
 				),
 
 				//! Returns the i:th coordinate of the given point.

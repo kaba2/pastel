@@ -19,8 +19,6 @@ namespace Pastel
 		using Real = Real_;
 		using Point = Point_;
 
-		void swap(Locator_Archetype& that) {}
-
 		Real operator()(const Point& point, integer i) const
 		{
 			return Real();
@@ -28,7 +26,12 @@ namespace Pastel
 
 		integer n() const
 		{
-			return 1;
+			return N;
+		}
+
+		integer n(const Point& point) const
+		{
+			return n();
 		}
 	};
 
