@@ -22,7 +22,7 @@ namespace Pastel
 		> = 0
 	>
 	using PointSet_Point = 
-		Set_Element<decltype(pointSetSet(std::declval<PointSet>()))>;
+		decltype(*ranges::begin(std::declval<PointSet>()));
 
 	template <
 		typename PointSet,

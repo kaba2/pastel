@@ -5,6 +5,7 @@
 
 #include <pastel/geometry/pattern_matching/match_points_kr.h>
 #include <pastel/geometry/distance/distance_point_point.h>
+#include <pastel/geometry/kdtree_nearestset.h>
 
 #include <pastel/sys/random.h>
 #include <pastel/sys/range.h>
@@ -76,7 +77,8 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 
 				// Match model-set to scene-set.
 				auto result = matchPointsKr(
-					modelTree, sceneTree,
+					kdTreeNearestSet(modelTree), 
+					kdTreeNearestSet(sceneTree),
 					PASTEL_TAG(matchingMode), MatchPointsKr_MatchingMode::Maximum,
 					PASTEL_TAG(kNearest), kNearest,
 					PASTEL_TAG(minMatchRatio), minMatchRatio,
@@ -111,7 +113,7 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 
 				// Match scene-set to model-set.
 				auto result = matchPointsKr(
-					sceneTree, modelTree,
+					kdTreeNearestSet(sceneTree), kdTreeNearestSet(modelTree),
 					PASTEL_TAG(matchingMode), MatchPointsKr_MatchingMode::Maximum,
 					PASTEL_TAG(kNearest), kNearest,
 					PASTEL_TAG(minMatchRatio), minMatchRatio,

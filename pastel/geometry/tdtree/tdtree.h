@@ -129,6 +129,7 @@ namespace Pastel
 			typename PointSet_,
 			typename... ArgumentSet,
 			Requires<
+				Models<PointSet_, PointSet_Concept>,
 				Models<Locator, Locator_Concept(PointSet_PointId<PointSet_>)>
 			> = 0
 		>

@@ -5,6 +5,7 @@
 #define PASTELSYS_POINTSET_POINT_ID_H
 
 #include "pastel/sys/pointset/pointset_concept.h"
+#include "pastel/sys/pointset/pointset_point.h"
 #include "pastel/sys/set/set_concept.h"
 #include "pastel/sys/function/identity_function.h"
 
@@ -20,7 +21,7 @@ namespace Pastel
 		> = 0
 	>
 	using PointSet_PointId = 
-		Set_Element<PointSet_Set<PointSet>>;
+		Point_PointId<PointSet_Point<PointSet>>;
 
 	template <
 		typename PointSet,

@@ -36,7 +36,7 @@ namespace Pastel
 
 		integer n(const Point& point) const
 		{
-			return locator_.n(point);
+			return locator_.n(transform_(point));
 		}
 
 		// Using decltype(auto) triggers a bug

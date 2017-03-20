@@ -3,7 +3,8 @@
 
 #include "test/test_init.h"
 
-#include <pastel/geometry/search_nearest_kdtree.h>
+#include <pastel/geometry/search_nearest.h>
+#include <pastel/geometry/kdtree_nearestset.h>
 #include <pastel/geometry/tdtree.h>
 #include <pastel/sys/vector.h>
 #include <pastel/sys/locator.h>
@@ -18,8 +19,12 @@ TEST_CASE("search_nearest_kdtree (search_nearest_kdtree)")
 
 	Tree tree;
 
+	auto nearestSet = kdTreeNearestSet(tree);
+
+	PASTEL_CONCEPT_CHECK(decltype(nearestSet), NearestSet_Concept);
+
 	searchNearest(
-		tree, 
+		nearestSet,		 
 		Point(1, 2),
 		PASTEL_TAG(accept), nullOutput(),
 		PASTEL_TAG(indicator), allIndicator(),
@@ -30,6 +35,7 @@ TEST_CASE("search_nearest_kdtree (search_nearest_kdtree)")
 		PASTEL_TAG(maxDistance2), 10,
 		PASTEL_TAG(maxRelativeError), 0,
 		PASTEL_TAG(nBruteForce), 0,
-		PASTEL_TAG(reportMissing));
+		PASTEL_TAG(reportMissing)
+	);
 }
 

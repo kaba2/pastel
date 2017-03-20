@@ -4,6 +4,10 @@
 #define PASTELGEOMETRY_BRUTEFORCE_NEARESTSET_H
 
 #include "pastel/geometry/nearestset/nearestset_concept.h"
+#include "pastel/sys/set/interval_set.h"
+#include "pastel/sys/locator/indirect_locator.h"
+
+#include <experimental/generator>
 
 namespace Pastel
 {
@@ -17,16 +21,50 @@ namespace Pastel
 		{
 		}
 
-		decltype(auto) pointSetSet() const
+		auto pointSet() const
 		{
-			using Pastel::pointSetSet;
-			return pointSetSet(pointSet_);
+			return intervalSet(pointSet_);
 		}
 
-		decltype(auto) pointSetLocator() const
+		auto begin() const
+		{
+			using std::begin;
+			return begin(pointSet());
+		}
+
+		auto end() const
+		{
+			using std::end;
+			return end(pointSet());
+		}
+
+		auto pointSetLocator() const
 		{
 			using Pastel::pointSetLocator;
-			return pointSetLocator(pointSet_);
+			return indirectLocator<decltype(begin())>(pointSetLocator(pointSet_));
+		}
+
+		template <typename Type>
+		decltype(auto) asPoint(const Type& point) const
+		{
+			return *point;
+		}
+
+		template <
+			typename Search_Point,
+			typename NormBijection,
+			typename Real,
+			Requires<
+				Models<Search_Point, Point_Concept>,
+				Models<NormBijection, NormBijection_Concept>
+			> = 0
+		>
+		decltype(auto) nearbyPointSetSet(
+			const Search_Point& searchPoint,
+			const NormBijection& normBijection,
+			const Real& cullDistance2) const
+		{
+			co_yield pointSet();
 		}
 
 	private:

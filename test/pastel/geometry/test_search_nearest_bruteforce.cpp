@@ -3,8 +3,9 @@
 
 #include "test/test_init.h"
 
-#include <pastel/geometry/search_nearest_bruteforce.h>
-#include "pastel/geometry/search_nearest_kdtree.h"
+#include "pastel/geometry/search_nearest.h"
+#include "pastel/geometry/kdtree_nearestset.h"
+#include "pastel/geometry/nearestset/bruteforce_nearestset.h"
 
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
@@ -51,7 +52,7 @@ namespace
 		for(auto&& i : nearestSet.pointSet())
 		{
 			auto result =
-				searchNearest(nearestSet, i);
+				searchNearest(nearestSet, nearestSet.asPoint(i));
 
 			real distance2 = result.first;
 
@@ -67,7 +68,7 @@ namespace
 			auto result =
 				searchNearest(
 					nearestSet,
-					i,
+					nearestSet.asPoint(i),
 					PASTEL_TAG(accept), indicator,
 					normBijection
 				);
@@ -160,8 +161,6 @@ TEST_CASE("Small (search_nearest_bruteforce)")
 	{
 		auto nearestSet = bruteForceNearestSet(pointSet);
 		test(nearestSet, distanceSet);
-
-		REQUIRE(nearestSetN(nearestSet) == pointSet.size());
 	}
 	{
 		Tree tree;
@@ -171,12 +170,7 @@ TEST_CASE("Small (search_nearest_bruteforce)")
 		tree.refine(SlidingMidpoint_SplitRule(), 1);
 		REQUIRE(testInvariants(tree));
 
-		PASTEL_CONCEPT_CHECK(Tree, NearestSet_Concept);
-
-		using Point = PointSet_PointId<Tree>;
-		using Real = PointSet_Real<Tree>;
-
-		//test(tree, distanceSet);
+		test(kdTreeNearestSet(tree), distanceSet);
 	}
 }
 
@@ -323,12 +317,14 @@ namespace
 		distanceSet.push_back(4);
 		distanceSet.push_back(8);
 
+		auto nearestSet = kdTreeNearestSet(tree);
+
 		for (integer i = 0;i < iteratorSet.size();++i)
 		{
 			{
 				std::pair<real, Point_ConstIterator> result = 
 					searchNearest(
-						tree, 
+						nearestSet, 
 						pointSet[i], 
 						PASTEL_TAG(searchAlgorithm), searchAlgorithm,
 						PASTEL_TAG(nBruteForce), 1);
@@ -344,7 +340,7 @@ namespace
 			{
 				std::pair<real, Point_ConstIterator> result = 
 					searchNearest(
-						tree, 
+						nearestSet, 
 						pointSet[i], 
 						PASTEL_TAG(accept), predicateIndicator(iteratorSet[i], NotEqualTo()),
 						PASTEL_TAG(searchAlgorithm), searchAlgorithm,
@@ -378,6 +374,7 @@ TEST_CASE("BruteForce (search_nearest_bruteforce)")
 
 	using PointSet = std::list<Vector2>;
 	using Point_Iterator = PointSet::iterator;
+	using Point_ConstIterator = PointSet::const_iterator;
 	using Locator = Vector_Locator<real, 2>;
 
 	PointSet pointSet =
@@ -457,7 +454,7 @@ TEST_CASE("BruteForce (search_nearest_bruteforce)")
 	for (auto i = pointSet.begin(); i != pointSet.end(); ++i)
 	{
 		{
-			std::pair<real, Vector2> result =
+			std::pair<real, Point_ConstIterator> result =
 				searchNearest(addConst(aNearestSet), *i);
 
 			real distance2 = result.first;
@@ -466,12 +463,8 @@ TEST_CASE("BruteForce (search_nearest_bruteforce)")
 		}
 
 		{
-			std::pair<real, Point_Iterator> result =
-				searchNearest(
-					addConst(bNearestSet),
-					*i,
-					PASTEL_TAG(accept), predicateIndicator(i, NotEqualTo())
-				);
+			auto result =
+				searchNearest(addConst(bNearestSet), *i);
 
 			real distance2 = result.first;
 
