@@ -138,6 +138,8 @@ if (MSVC)
 		/MP
 		# Enable exceptions.
 		/EHsc
+		# Enable coroutines.
+		/await
 	)
 
 	# Disable some warnings.
