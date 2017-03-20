@@ -43,7 +43,7 @@ namespace Pastel
 
 		integer pointDimension() const
 		{
-			return locator_.n();
+			return locator_.n(point_);
 		}
 
 		const Locator& locator() const

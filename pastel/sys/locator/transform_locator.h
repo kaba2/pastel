@@ -34,6 +34,11 @@ namespace Pastel
 			return locator_.n();
 		}
 
+		integer n(const Point& point) const
+		{
+			return locator_.n(point);
+		}
+
 		// Using decltype(auto) triggers a bug
 		// in Visual Studio 2015.
 		const Real& operator()(
