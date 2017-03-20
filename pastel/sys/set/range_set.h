@@ -10,12 +10,18 @@
 namespace Pastel
 {
 	
-	template <typename Iterator>
+	template <
+		typename Iterator,
+		typename Sentinel>
 	decltype(auto) rangeSet(
-		const Iterator& begin, const Iterator& end)
+		Iterator&& begin, 
+		Sentinel&& end)
 	{
 		return transformedSet(
-			intervalSet(begin, end),
+			intervalSet(
+				std::forward<Iterator>(begin), 
+				std::forward<Sentinel>(end)
+			),
 			Dereference_Function());
 	}
 
