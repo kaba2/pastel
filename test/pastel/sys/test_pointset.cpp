@@ -103,11 +103,9 @@ TEST_CASE("Real (pointset_concept)")
 		using Set_ = PointSet_Set<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<Set_, PointIdSet>::value));
 
+		using Point = PointSet_Point<PointSet>;
 		using PointId_ = PointSet_PointId<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<PointId_, PointId>::value));
-
-		//using Point_ = PointSet_Point<PointSet>;
-		//PASTEL_STATIC_ASSERT((std::is_same<Point_, Location<PointId, Locator>>::value));
 
 		using Real_ = PointSet_Real<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<Real_, Real>::value));
@@ -148,8 +146,8 @@ TEST_CASE("Array (pointset_concept)")
 		using PointId_ = PointSet_PointId<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<PointId_, Point>::value));
 
-		using Point_ = PointSet_Point<PointSet>;
-		PASTEL_STATIC_ASSERT((std::is_same<Point_, Point>::value));
+		using Point_B = PointSet_Point<PointSet>;
+		PASTEL_STATIC_ASSERT((std::is_same<Point_B, Point>::value));
 
 		using Real_ = PointSet_Real<PointSet>;
 		PASTEL_STATIC_ASSERT((std::is_same<Real_, Real>::value));
