@@ -46,6 +46,11 @@ namespace
 		{
 			return N;
 		}
+
+		integer n(const Point& point) const
+		{
+			return N;
+		}
 	};
 
 	PASTEL_CONCEPT_CHECK(Custom_Locator, Locator_Concept);
