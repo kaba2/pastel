@@ -129,8 +129,9 @@ namespace Pastel
 			typename PointSet_,
 			typename... ArgumentSet,
 			Requires<
-				Models<PointSet_, PointSet_Concept>,
-				Models<Locator, Locator_Concept(PointSet_PointId<PointSet_>)>
+				Models<PointSet_, PointSet_Concept>
+				// ,
+				// Models<Locator, Locator_Concept(PointSet_PointId<PointSet_>)>
 			> = 0
 		>
 		explicit TdTree(
