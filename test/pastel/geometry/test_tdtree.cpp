@@ -5,9 +5,10 @@
 
 #include "pastel/geometry/tdtree/tdtree.h"
 
-#include "pastel/geometry/search_nearest_kdtree.h"
+#include "pastel/geometry/search_nearest.h"
+#include "pastel/geometry/kdtree_nearestset.h"
+#include "pastel/geometry/nearestset/bruteforce_nearestset.h"
 #include "pastel/geometry/distance/distance_point_point.h"
-#include "pastel/geometry/search_nearest_bruteforce.h"
 
 #include "pastel/sys/locator.h"
 #include "pastel/sys/set.h"
@@ -92,7 +93,7 @@ TEST_CASE("Grid (TdTree)")
 	};
 
 	searchNearest(
-		tree, 
+		kdTreeNearestSet(tree), 
 		Point(1, 3), 
 		PASTEL_TAG(report), report,
 		PASTEL_TAG(kNearest), 5);
@@ -150,7 +151,7 @@ TEST_CASE("Gaussian (TdTree)")
 		treeSet.reserve(k);
 
 		real kDistanceTree = searchNearest(
-				tree,
+				kdTreeNearestSet(tree),
 				pointSet[i],
 				PASTEL_TAG(report), emplaceBackOutput(treeSet),
 				PASTEL_TAG(kNearest), k
@@ -189,7 +190,7 @@ TEST_CASE("Linear (TdTree)")
 			Vector2 timeInterval = { (real)i, (real)n };
 			integer distance =
 				searchNearest(
-					tree, 
+					kdTreeNearestSet(tree), 
 					Point(0, 0), 
 					PASTEL_TAG(intervalSequence), timeInterval).first;
 			REQUIRE(distance == square(i));
@@ -198,7 +199,7 @@ TEST_CASE("Linear (TdTree)")
 			Vector2 timeInterval = { (real)0, (real)i + 1 };
 			integer distance =
 				searchNearest(
-					tree, 
+					kdTreeNearestSet(tree), 
 					Point(0, 0), 
 					PASTEL_TAG(intervalSequence), timeInterval).first;
 			REQUIRE(distance == 0);
@@ -207,7 +208,7 @@ TEST_CASE("Linear (TdTree)")
 			Vector2 timeInterval = { (real)i, (real)i + 1 };
 			integer distance =
 				searchNearest(
-					tree, 
+					kdTreeNearestSet(tree), 
 					Point(0, 0),
 					PASTEL_TAG(intervalSequence), timeInterval).first;
 			REQUIRE(distance == square(i));
@@ -220,7 +221,7 @@ TEST_CASE("Linear (TdTree)")
 		{
 			real distance =
 				searchNearest(
-					tree, 
+					kdTreeNearestSet(tree), 
 					Point(i + 2, 0),
 					PASTEL_TAG(intervalSequence), timeInterval).first;
 
@@ -230,7 +231,7 @@ TEST_CASE("Linear (TdTree)")
 		{
 			real distance =
 				searchNearest(
-					tree, 
+					kdTreeNearestSet(tree), 
 					Point(i - 3, 0), 
 					PASTEL_TAG(intervalSequence), timeInterval).first;
 
@@ -240,7 +241,7 @@ TEST_CASE("Linear (TdTree)")
 		{
 			real distance =
 				searchNearest(
-					tree, 
+					kdTreeNearestSet(tree), 
 					Point(i + 4, 0), 
 					PASTEL_TAG(intervalSequence), timeInterval).first;
 			integer correct = i < (n - 5) ? square(1) : square(4);
@@ -251,7 +252,7 @@ TEST_CASE("Linear (TdTree)")
 		{
 			real distance =
 				searchNearest(
-					tree, 
+					kdTreeNearestSet(tree), 
 					Point(i + 7, 0), 
 					PASTEL_TAG(intervalSequence), timeInterval).first;
 			integer correct = i < (n - 5) ? square(2) : square(7);
