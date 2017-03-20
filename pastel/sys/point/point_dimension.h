@@ -5,7 +5,7 @@
 #define PASTELSYS_POINT_DIMENSION_H
 
 #include "pastel/sys/point/point_concept.h"
-#include "pastel/sys/point/point_locator.h"
+#include "pastel/sys/real/real_ring_concept.h"
 
 namespace Pastel
 {

@@ -17,11 +17,11 @@ TEST_CASE("Concept (point)")
 
 	Point_Archetype point;
 	PASTEL_CONCEPT_CHECK(Point_Real<Point_Archetype>, Real_Ring_Concept);
+	PASTEL_CONCEPT_CHECK(Point_Archetype, Point_Concept);
 
 	dimension(addConst(point));
 	pointAxis(addConst(point), 2);
 	pointLocator(addConst(point));
-	PASTEL_CONCEPT_CHECK(Point_Archetype, Point_Concept);
 
 	PASTEL_CONCEPT_REJECT(real*, Point_Concept);
 	PASTEL_STATIC_ASSERT((Models<std::array<real, 2>, Point_Concept>::value));

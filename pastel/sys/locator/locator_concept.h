@@ -13,6 +13,13 @@
 namespace Pastel
 {
 
+	//! Computes coordinates for a point.
+	/*!
+	There are three kinds of locators:
+	1) Compile-time dimension N for all points.
+	2) Run-time dimension n for all points (N < 0).
+	3) Run-time dimension n(p) for each point p (n, N < 0).
+	*/
 	struct Locator_Concept
 	{
 		template <

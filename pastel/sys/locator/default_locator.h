@@ -13,45 +13,14 @@ namespace Pastel
 	{
 	public:
 		static constexpr integer N = N_;
-
-		using Point = Point_;
-		using Real = Real_;
-
-		explicit Default_Locator(integer dimension = N)
-			: n_(dimension)
-		{
-		}
-
-		integer n() const
-		{
-			return n_;
-		}
-
-		integer n(const Point& point) const
-		{
-			return n();
-		}
-
-		decltype(auto) operator()(
-			const Point& point, integer i) const
-		{
-			return pointAxis(point, i);
-		}
-
-		integer n_;
-	};
-
-	template <typename Point_, typename Real_>
-	class Default_Locator<Point_, Real_, Dynamic>
-	{
-	public:
-		static constexpr integer N = Dynamic;
+		PASTEL_STATIC_ASSERT(N >= 0);
 
 		using Point = Point_;
 		using Real = Real_;
 
 		explicit Default_Locator(integer dimension = N)
 		{
+			ENSURE_OP(dimension, ==, N);
 		}
 
 		integer n() const
@@ -69,6 +38,40 @@ namespace Pastel
 		{
 			return pointAxis(point, i);
 		}
+	};
+
+	template <typename Point_, typename Real_>
+	class Default_Locator<Point_, Real_, Dynamic>
+	{
+	public:
+		static constexpr integer N = Dynamic;
+
+		using Point = Point_;
+		using Real = Real_;
+
+		explicit Default_Locator(integer dimension = N)
+			: n_(dimension)
+		{
+		}
+
+		integer n() const
+		{
+			return n_;
+		}
+
+		integer n(const Point& point) const
+		{
+			return pointDimension(point);
+		}
+
+		decltype(auto) operator()(
+			const Point& point, integer i) const
+		{
+			return pointAxis(point, i);
+		}
+
+	private:
+		integer n_;
 	};
 
 }

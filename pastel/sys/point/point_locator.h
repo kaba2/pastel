@@ -6,6 +6,7 @@
 
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/point/point_real.h"
+#include "pastel/sys/point/point_dimension.h"
 #include "pastel/sys/function/identity_function.h"
 #include "pastel/sys/type_traits/remove_cvref.h"
 #include "pastel/sys/locator/default_locator.h"
@@ -21,7 +22,8 @@ namespace Pastel
 	>
 	decltype(auto) pointLocator(const Point& point)
 	{
-		return Default_Locator<Point, Point_Real<Point>, Point_N<Point>::value>(dimension(point));
+		return Default_Locator<Point, Point_Real<Point>, Point_N<Point>::value>(
+			dimension(point));
 	}
 
 }
