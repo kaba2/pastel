@@ -502,12 +502,9 @@ TEST_CASE("BruteForce (search_nearest_bruteforce)")
 
 		real distance2 = result.first;
 
-		std::cout << "(" << distance2 << ", " << distanceSet[j] << ") " << std::flush;
-
 		REQUIRE(distance2 == distanceSet[j]);
 		++j;
 	}
-	std::cout << std::endl;
 }
 
 TEST_CASE("search_nearest_bruteforce (search_nearest_bruteforce)")

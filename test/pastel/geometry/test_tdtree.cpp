@@ -181,29 +181,29 @@ TEST_CASE("Linear (TdTree)")
 	{
 		{
 			Vector2 timeInterval = { (real)i, (real)n };
+			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			integer distance =
 				searchNearest(
-					kdTreeNearestSet(tree), 
-					Point(0, 0), 
-					PASTEL_TAG(intervalSequence), timeInterval).first;
+					nearestSet, 
+					Point(0, 0)).first;
 			REQUIRE(distance == square(i));
 		}
 		{
 			Vector2 timeInterval = { (real)0, (real)i + 1 };
+			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			integer distance =
 				searchNearest(
-					kdTreeNearestSet(tree), 
-					Point(0, 0), 
-					PASTEL_TAG(intervalSequence), timeInterval).first;
+					nearestSet, 
+					Point(0, 0)).first;
 			REQUIRE(distance == 0);
 		}
 		{
 			Vector2 timeInterval = { (real)i, (real)i + 1 };
+			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			integer distance =
 				searchNearest(
-					kdTreeNearestSet(tree), 
-					Point(0, 0),
-					PASTEL_TAG(intervalSequence), timeInterval).first;
+					nearestSet, 
+					Point(0, 0)).first;
 			REQUIRE(distance == square(i));
 		}
 	}
@@ -212,42 +212,42 @@ TEST_CASE("Linear (TdTree)")
 	{
 		Vector4 timeInterval = { (real)i, (real)i + 1, (real)i + 5, (real)i + 6 };
 		{
+			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			real distance =
 				searchNearest(
-					kdTreeNearestSet(tree), 
-					Point(i + 2, 0),
-					PASTEL_TAG(intervalSequence), timeInterval).first;
+					nearestSet, 
+					Point(i + 2, 0)).first;
 
 			REQUIRE((integer)distance == square(2));
 		}
 
 		{
+			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			real distance =
 				searchNearest(
-					kdTreeNearestSet(tree), 
-					Point(i - 3, 0), 
-					PASTEL_TAG(intervalSequence), timeInterval).first;
+					nearestSet, 
+					Point(i - 3, 0)).first;
 
 			REQUIRE((integer)distance == square(3));
 		}
 
 		{
+			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			real distance =
 				searchNearest(
-					kdTreeNearestSet(tree), 
-					Point(i + 4, 0), 
-					PASTEL_TAG(intervalSequence), timeInterval).first;
+					nearestSet, 
+					Point(i + 4, 0)).first;
 			integer correct = i < (n - 5) ? square(1) : square(4);
 
 			REQUIRE((integer)distance == correct);
 		}
 
 		{
+			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			real distance =
 				searchNearest(
-					kdTreeNearestSet(tree), 
-					Point(i + 7, 0), 
-					PASTEL_TAG(intervalSequence), timeInterval).first;
+					nearestSet, 
+					Point(i + 7, 0)).first;
 			integer correct = i < (n - 5) ? square(2) : square(7);
 
 			REQUIRE((integer)distance == correct);
