@@ -225,6 +225,7 @@ namespace Pastel
 			pointSet_.swap(that.pointSet_);
 			swap(locator_, that.locator_);
 			swap(simple_, that.simple_);
+			bound_.swap(that.bound_);
 		}
 
 		//! Removes all points from the tree.

@@ -54,11 +54,11 @@ namespace Pastel
 			const KdTree& kdTree_,
 			const Real& maxRelativeError_,
 			integer nBruteForce_,
-			const IntervalSequence& timeIntervalSequence_)
+			IntervalSequence timeIntervalSequence_)
 		: kdTree(kdTree_)
 		, maxRelativeError(maxRelativeError_)
 		, nBruteForce(nBruteForce_)
-		, timeIntervalSequence(timeIntervalSequence_)
+		, timeIntervalSequence(std::move(timeIntervalSequence_))
 		{
 		}
 
@@ -354,7 +354,7 @@ namespace Pastel
 		const KdTree& kdTree;
 		Real maxRelativeError;
 		integer nBruteForce;
-		const IntervalSequence& timeIntervalSequence;
+		IntervalSequence timeIntervalSequence;
 	};
 
 	template <
@@ -379,7 +379,9 @@ namespace Pastel
 				[]() {return Vector<Real, 2>({-(Real)Infinity(), (Real)Infinity()});},
 				[](auto input) {return Models<decltype(input), Point_Concept>();}
 			);
-		using IntervalSequence = decltype(timeIntervalSequence);
+
+		auto timeIntervalSequence_ = evaluate(pointAsVector(timeIntervalSequence));
+		using IntervalSequence = decltype(timeIntervalSequence_);
 
 		auto&& searchAlgorithmObject =
 			PASTEL_ARG(
@@ -393,7 +395,7 @@ namespace Pastel
 			kdTree,
 			maxRelativeError,
 			nBruteForce,
-			timeIntervalSequence);
+			std::move(timeIntervalSequence_));
 	}
 
 }
