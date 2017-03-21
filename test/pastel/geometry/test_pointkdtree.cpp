@@ -3,7 +3,8 @@
 
 #include "test/test_init.h"
 
-#include "pastel/geometry/search_nearest_kdtree.h"
+#include "pastel/geometry/search_nearest.h"
+#include "pastel/geometry/kdtree_nearestset.h"
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 #include "pastel/geometry/pointkdtree.h"
@@ -181,7 +182,7 @@ namespace
 			{
 				std::pair<real, Point_ConstIterator> result = 
 					searchNearest(
-						tree, 
+						kdTreeNearestSet(tree), 
 						iteratorSet[i]->point(), 
 						normBijection, 
 						PASTEL_TAG(searchAlgorithm), searchAlgorithm,
@@ -198,7 +199,7 @@ namespace
 			{
 				std::pair<real, Point_ConstIterator> result = 
 					searchNearest(
-						tree, 
+						kdTreeNearestSet(tree), 
 						iteratorSet[i]->point(),
 						PASTEL_TAG(accept), predicateIndicator(iteratorSet[i], NotEqualTo()),
 						normBijection, 
@@ -378,7 +379,7 @@ namespace
 			};
 
 			searchNearest(
-				addConst(tree), 
+				kdTreeNearestSet(addConst(tree)), 
 				Vector<real, N>(0), 
 				PASTEL_TAG(report), report,
 				PASTEL_TAG(kNearest), m);
@@ -400,7 +401,7 @@ namespace
 			integer outerCount = 0;
 
 			searchNearest(
-				tree, 
+				kdTreeNearestSet(tree), 
 				Vector<real, N>(0),
 				PASTEL_TAG(report), [&](auto, auto) {++outerCount;},
 				PASTEL_TAG(maxDistance2), normBijection.toBijection(2.001),
@@ -411,7 +412,7 @@ namespace
 			integer innerCount = 0;
 
 			searchNearest(
-				tree, 
+				kdTreeNearestSet(tree), 
 				Vector<real, N>(0),
 				PASTEL_TAG(report), [&](auto, auto) {++innerCount;},
 				PASTEL_TAG(maxDistance2), normBijection.toBijection(1.999),

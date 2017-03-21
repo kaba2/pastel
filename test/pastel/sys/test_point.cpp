@@ -8,6 +8,8 @@
 #include <pastel/sys/rational.h>
 #include <pastel/sys/vector.h>
 
+#include <string>
+
 TEST_CASE("Concept (point)")
 {
 	PASTEL_STATIC_ASSERT(Point_HasMemberPointAxis<Point_Archetype>::value);

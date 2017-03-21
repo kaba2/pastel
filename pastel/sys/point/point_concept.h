@@ -35,4 +35,33 @@ namespace Pastel
 
 #include "pastel/sys/point/number_point.h"
 
+#include <iostream>
+
+namespace Pastel
+{
+
+	template <typename Point,
+		Requires<
+			Models<Point, Point_Concept>
+		> = 0
+	>
+	void printPoint(
+		std::ostream& stream, 
+		const Point& point)
+	{
+		integer n = dimension(point);
+		stream << "(";
+		for (integer i = 0;i < n; ++i)
+		{
+			stream << pointAxis(point, i);
+			if (i < n - 1)
+			{
+				stream << ", ";
+			}
+		}
+		stream << ")";
+	}
+
+}
+
 #endif

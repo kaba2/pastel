@@ -135,13 +135,8 @@ TEST_CASE("Gaussian (TdTree)")
 		std::vector<std::pair<real, Point_ConstIterator>> bruteSet;
 		bruteSet.reserve(k);
 
-		auto nearestSet = bruteForceNearestSet(pointSet);
-		using NearestSet = decltype(nearestSet);
-		PASTEL_CONCEPT_CHECK(NearestSet, PointSet_Concept);
-		PASTEL_CONCEPT_CHECK(NearestSet, NearestSet_Concept);
-
 		real kDistanceBrute = searchNearest(
-			nearestSet,
+			bruteForceNearestSet(pointSet),
 			pointSet[i],
 			PASTEL_TAG(report), emplaceBackOutput(bruteSet),
 			PASTEL_TAG(kNearest), k
@@ -151,13 +146,11 @@ TEST_CASE("Gaussian (TdTree)")
 		treeSet.reserve(k);
 
 		real kDistanceTree = searchNearest(
-				kdTreeNearestSet(tree),
-				pointSet[i],
-				PASTEL_TAG(report), emplaceBackOutput(treeSet),
-				PASTEL_TAG(kNearest), k
-			).first;
-
-		ranges::reverse(treeSet);
+			kdTreeNearestSet(tree),
+			pointSet[i],
+			PASTEL_TAG(report), emplaceBackOutput(treeSet),
+			PASTEL_TAG(kNearest), k
+		).first;
 
 		REQUIRE(kDistanceBrute == kDistanceTree);
 

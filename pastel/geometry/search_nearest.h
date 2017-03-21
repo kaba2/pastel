@@ -125,8 +125,8 @@ namespace Pastel
 	{
 		using std::begin;
 
+		using PointId = RemoveCvRef<decltype(*begin(nearestSet.pointSet()))>;
 		using Real = Point_Real<Search_Point>;
-		using Point = RemoveCvRef<decltype(*begin(nearestSet.pointSet()))>;
 
 		auto&& report = 
 			PASTEL_ARG(
@@ -142,7 +142,7 @@ namespace Pastel
 				[](auto input) 
 				{
 					return Models<decltype(input), 
-						Indicator_Concept(Point)>();
+						Indicator_Concept(PointId)>();
 				}
 			);
 
@@ -160,19 +160,19 @@ namespace Pastel
 		ENSURE_OP(kNearest, >=, 0);
 		ENSURE_OP(maxDistance2, >=, 0);
 
-		using Result = std::pair<Real, Point>;
+		using Result = std::pair<Real, PointId>;
 		Result notFound((Real)Infinity(), *begin(nearestSet.pointSet()));
 
-		 if (kNearest == 0 || maxDistance2 == 0)
-		 {
-		 	// There is nothing to search for.
-		 	// Note that we consider the search-ball open.
-		 	return notFound;
-		 }
+		if (kNearest == 0 || maxDistance2 == 0)
+		{
+			// There is nothing to search for.
+			// Note that we consider the search-ball open.
+			return notFound;
+		}
 
-		 const Real protectiveFactor = normBijection.scalingFactor(1.01);
-		 // The distance beyond which points are ignored.
-		 Real cullDistance2 = maxDistance2;
+		const Real protectiveFactor = normBijection.scalingFactor(1.01);
+		// The distance beyond which points are ignored.
+		Real cullDistance2 = maxDistance2;
 
 		struct Less
 		{
@@ -183,108 +183,102 @@ namespace Pastel
 		};
 
 		// This set contains the points currently closest
-		 // to the search-point. 
-		 using ResultSet = RankedSet<Result, Less>;
-		 // There will be at most k elements in this set.
-		 ResultSet resultSet(kNearest);
+		// to the search-point. 
+		using ResultSet = RankedSet<Result, Less>;
+		// There will be at most k elements in this set.
+		ResultSet resultSet(kNearest);
 
-		 auto pointIdSetSet = nearestSet.nearbyPointSetSet(
-		 	searchPoint,
-		 	normBijection,
-		 	cullDistance2);
+		auto pointIdSetSet = nearestSet.nearbyPointSetSet(
+			searchPoint,
+			normBijection,
+			cullDistance2);
 
-		 for (auto&& pointIdSet : pointIdSetSet)
-		 {
-		 	for(auto&& pointId : pointIdSet)
-		 	{
-		 		// Compute the distance from the node-point
-		 		// to the search-point.
-		 		Real currentDistance2 = 
-		 			distance2(
-		 				nearestSet.asPoint(pointId),
-		 				searchPoint,
-		 				PASTEL_TAG(normBijection),
-		 				normBijection,
-		 				PASTEL_TAG(keepGoing),
-		 				// Stop computing the distance if it exceeds
-		 				// the culling distance.
-		 				[&](auto&& that) {return that < cullDistance2;}
-		 			);
+		for (auto&& pointIdSet : pointIdSetSet)
+		{
+			for(auto&& pointId : pointIdSet)
+			{
+				// Compute the distance from the node-point
+				// to the search-point.
+				Real currentDistance2 = 
+					distance2(
+						nearestSet.asPoint(pointId),
+						searchPoint,
+						PASTEL_TAG(normBijection),
+						normBijection,
+						PASTEL_TAG(keepGoing),
+						// Stop computing the distance if it exceeds
+						// the culling distance.
+						[&](auto&& that) {return that < cullDistance2;}
+					);
 
-		 		// Reject the point if the user rejects it or if we
-		 		// already know the point cannot be among k nearest
-		 		// neighbors. Remember that we are using an open 
-		 		// search ball.
-		 		if (currentDistance2 >= cullDistance2 || !accept(pointId))
-		 		{
-		 			continue;
-		 		}
+				// Reject the point if the user rejects it or if we
+				// already know the point cannot be among k nearest
+				// neighbors. Remember that we are using an open 
+				// search ball.
+				if (currentDistance2 >= cullDistance2 || !accept(pointId))
+				{
+					continue;
+				}
 
-		 		// Add the new candidate.
-		 		resultSet.push(Result(currentDistance2, pointId));
+				// Add the new candidate.
+				resultSet.push(Result(currentDistance2, pointId));
 
-		 		Real maxNearestDistance2 = (Real)Infinity();
-		 		if (resultSet.full())
-		 		{
-		 			// Since the candidate set contains k
-		 			// elements, everything beyond the
-		 			// farthest candidate can be rejected.
-		 			maxNearestDistance2 = resultSet.top().first;
-		 		}
+				Real maxNearestDistance2 = (Real)Infinity();
+				if (resultSet.full())
+				{
+					// Since the candidate set contains k
+					// elements, everything beyond the
+					// farthest candidate can be rejected.
+					maxNearestDistance2 = resultSet.top().first;
+				}
 
-		 		// Note that if there are multiple points at the same 
-		 		// distance, then the points after the first should _not_
-		 		// be culled away. We deal with this by expanding the 
-		 		// suggested culling radius by a protective factor.
-		 		const Real cullSuggestion2 =
-		 			maxNearestDistance2 * protectiveFactor;
-		 		if (cullSuggestion2 < cullDistance2)
-		 		{
-		 			// The cull-radius got smaller; update it.
-		 			cullDistance2 = cullSuggestion2;
-		 		}
-		 	}
-		 }
+				// Note that if there are multiple points at the same 
+				// distance, then the points after the first should _not_
+				// be culled away. We deal with this by expanding the 
+				// suggested culling radius by a protective factor.
+				const Real cullSuggestion2 =
+					maxNearestDistance2 * protectiveFactor;
+				if (cullSuggestion2 < cullDistance2)
+				{
+					// The cull-radius got smaller; update it.
+					cullDistance2 = cullSuggestion2;
+				}
+			}
+		}
 
-		 // There should be at most k neighbors.
-		 integer neighbors = resultSet.size();
-		 ASSERT_OP(neighbors, <=, kNearest);
+		// Sort the neighbors in order of
+		// increasing distance.
+		auto sortedSet = resultSet.release();
 
-		 auto kthNeighbor = notFound;
-		 if (!resultSet.empty())
-		 {
-		 	kthNeighbor = resultSet.top();
-		 }
+		// Report the nearest neighbors.
+		for (auto&& entry : sortedSet)
+		{
+			report(entry.first, entry.second);
+		}
 
-		 // Report the nearest neighbors.
-		 while(!resultSet.empty())
-		 {
-		 	auto&& entry = resultSet.top();
-		 	report(entry.first, entry.second);
-		 	resultSet.pop();
-		 }
+		// There should be at most k neighbors.
+		integer neighbors = sortedSet.size();
+		ASSERT_OP(neighbors, <=, kNearest);
 
-		 if (reportMissing)
-		 {
-		 	// Report "not found" for the missing neighbors.
-		 	for (integer i = neighbors;i < kNearest;++i)
-		 	{
-		 		report(notFound.first, notFound.second);
-		 	}
-		 }
+		if (reportMissing)
+		{
+			// Report "not found" for the missing neighbors.
+			for (integer i = neighbors;i < kNearest;++i)
+			{
+				report(notFound.first, notFound.second);
+			}
+		}
 
-		 if (neighbors < kNearest)
-		 {
-		 	// Since there are less than k neighbors,
-		 	// the k:th nearest neighbor does not
-		 	// exist.
-		 	return notFound;
-		 }
+		if (neighbors < kNearest)
+		{
+			// Since there are less than k neighbors,
+			// the k:th nearest neighbor does not
+			// exist.
+			return notFound;
+		}
 
-		 // Return the k:th nearest neighbor.
-		 return kthNeighbor;
-
-		return notFound;
+		// Return the k:th nearest neighbor.
+		return sortedSet.back();
 	}
 
 }

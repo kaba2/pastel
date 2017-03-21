@@ -456,7 +456,12 @@ namespace Pastel
 		The first Point_Iterator of the inserted points in
 		'pointSet_'.
 		*/
-		template <typename PointId_Set>
+		template <
+			typename PointId_Set,
+			Requires<
+				Models<PointId_Set, Set_Concept>
+			> = 0
+		>
 		auto copyToEnd(
 			const PointId_Set& pointSet, 
 			bool hidden)

@@ -59,7 +59,33 @@ namespace Pastel
 			
 			dataSet_.push_back(that);
 			std::push_heap(begin(), end(), less_);
-			return end() - 1;
+			return std::prev(end());
+		}
+
+		//! Releases the underlying data-set.
+		/*!
+		Post-conditions:
+		capacity() == 0
+		size() == 0
+
+		sorted (bool):
+		Whether to sort the data-set in 
+		increasing order using heap-sort.
+
+		returns:
+		The underlying data-set moved out
+		of the ranked-set.
+		*/
+		DataSet release(bool sorted = true)
+		{
+			if (sorted)
+			{
+				for (auto i = end(); i != begin();--i)
+				{
+					std::pop_heap(begin(), i, less_);
+				}
+			}
+			return std::move(dataSet_);
 		}
 
 		//! Removes the maximum element.

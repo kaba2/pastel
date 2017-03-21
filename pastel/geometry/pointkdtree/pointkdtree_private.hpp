@@ -462,13 +462,18 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
-	template <typename PointId_Set>
+	template <
+		typename PointId_Set,
+		Requires<
+			Models<PointId_Set, Set_Concept>
+		>
+	>
 	auto PointKdTree<Settings, Customization>::copyToEnd(
 		const PointId_Set& pointSet, 
 		bool hidden)
 		-> Point_Iterator
 	{
-		ASSERT(!pointSet.empty());
+		ASSERT(!emptySet(pointSet));
 
 		auto&& index = ranges::begin(pointSet);
 
