@@ -87,7 +87,90 @@ namespace
 
 }
 
-TEST_CASE("Small (search_nearest_bruteforce)")
+class CreateTree
+{
+public:
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
+	decltype(auto) createDataSet(
+		const PointSet& pointSet) const
+	{
+		std::map<Tree::Point_ConstIterator, integer> iteratorSet;
+		integer n = 0;
+
+		Tree tree;
+		tree.insertSet(
+			pointSet, 
+			PASTEL_TAG(report),
+			[&](auto&& i)
+			{
+				iteratorSet[i] = n; 
+				++n;
+			}
+		);
+
+		REQUIRE(tree.points() == pointSet.size());
+		REQUIRE(testInvariants(tree));
+
+		tree.refine(SlidingMidpoint_SplitRule(), 1);
+		REQUIRE(testInvariants(tree));
+
+		std::vector<integer> permutationSet;
+		for (auto&& point : intervalSet(tree))
+		{
+			permutationSet.push_back(iteratorSet[point]);
+		}
+
+		return std::make_pair(
+			std::move(tree), 
+			std::move(permutationSet));
+	}
+
+	template <typename DataSet>
+	decltype(auto) createNearestSet(const DataSet& dataSet) const
+	{
+		return kdTreeNearestSet(dataSet);
+	}
+};
+
+class CreateBruteForce
+{
+public:
+	template <
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0
+	>
+	decltype(auto) createDataSet(
+		PointSet&& pointSet) const
+	{
+		std::vector<integer> permutationSet;
+		integer i = 0;
+		for (auto&& point : pointSet)
+		{
+			permutationSet.push_back(i);
+			++i;
+		}
+
+		return std::make_pair(
+			std::move(pointSet), 
+			std::move(permutationSet));
+	}
+
+	template <typename DataSet>
+	decltype(auto) createNearestSet(const DataSet& dataSet) const
+	{
+		return bruteForceNearestSet(dataSet);
+	}
+};
+
+template <typename Create>
+void testCase(const Create& create)
 {
 	/*
 		0   |
@@ -163,44 +246,26 @@ TEST_CASE("Small (search_nearest_bruteforce)")
 		5, 4, 2, 5, 2, 2, 4, 1, 1, 1, 1, 1, 1, 4, 8
 	};
 
+	auto result = create.createDataSet(pointSet);
+	const auto& dataSet = result.first;
+	const std::vector<integer>& permutationSet = result.second;
+	
+	auto nearestSet = create.createNearestSet(dataSet);
+
+	std::vector<real> reorderedDistanceSet;
+	for (integer i = 0;i < permutationSet.size();++i)
 	{
-		auto nearestSet = bruteForceNearestSet(pointSet);
-		test(nearestSet, distanceSet);
+		reorderedDistanceSet.push_back(
+			distanceSet[permutationSet[i]]);
 	}
-	{
-		std::map<Tree::Point_ConstIterator, integer> iteratorSet;
-		integer n = 0;
+	
+	test(nearestSet, reorderedDistanceSet);
+}
 
-		Tree tree;
-		tree.insertSet(
-			pointSet, 
-			PASTEL_TAG(report),
-			[&](auto&& i)
-			{
-				iteratorSet[i] = n; 
-				++n;
-			}
-		);
-
-		REQUIRE(tree.points() == pointSet.size());
-		REQUIRE(testInvariants(tree));
-
-		tree.refine(SlidingMidpoint_SplitRule(), 1);
-		REQUIRE(testInvariants(tree));
-
-		auto nearestSet = kdTreeNearestSet(tree);
-		REQUIRE(setSize(nearestSet) == pointSet.size());
-
-		std::vector<real> reorderedDistanceSet;
-
-		for (auto&& point : nearestSet)
-		{
-			reorderedDistanceSet.push_back(
-				distanceSet[iteratorSet[point]]);
-		}
-
-		test(nearestSet, reorderedDistanceSet);
-	}
+TEST_CASE("Small (search_nearest_bruteforce)")
+{
+	testCase(CreateTree());
+	testCase(CreateBruteForce());
 }
 
 namespace
