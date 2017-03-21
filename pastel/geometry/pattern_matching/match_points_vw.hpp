@@ -3,7 +3,8 @@
 
 #include "pastel/geometry/pattern_matching/match_points_vw.h"
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
-#include "pastel/geometry/search_nearest_kdtree.h"
+#include "pastel/geometry/search_nearest.h"
+#include "pastel/geometry/kdtree_nearestset.h"
 #include "pastel/geometry/bounding/bounding_sphere.h"
 
 #include "pastel/math/affine/affine_transformation.h"
@@ -246,7 +247,7 @@ namespace Pastel
 							};
 
 							searchNearest(
-								sceneTree_, 
+								kdTreeNearestSet(sceneTree_), 
 								scenePosition(sceneIter),
 								PASTEL_TAG(report), report,
 								PASTEL_TAG(accept), predicateIndicator(sceneIter, NotEqualTo()),
@@ -275,7 +276,7 @@ namespace Pastel
 							};
 
 							searchNearest(
-								modelTree_, 
+								kdTreeNearestSet(modelTree_), 
 								modelPosition(modelIter),
 								PASTEL_TAG(report), report,
 								PASTEL_TAG(accept), predicateIndicator(modelIter, NotEqualTo()),
@@ -376,7 +377,9 @@ namespace Pastel
 								transformPoint(similarity, modelPosition(modelSet[m]));
 
 							std::pair<Real, SceneIterator> closestScenePoint =
-								searchNearest(sceneTree_, transformedModelPoint);
+								searchNearest(
+									kdTreeNearestSet(sceneTree_), 
+									transformedModelPoint);
 
 							// A transformed model point M' matches a scene point S
 							// if the distance between M' and S is below
@@ -486,7 +489,9 @@ namespace Pastel
 						// scene point.
 
 						std::pair<Real, SceneIterator> closestScenePoint =
-							searchNearest(sceneTree_, transformedModelPoint);
+							searchNearest(
+								kdTreeNearestSet(sceneTree_), 
+								transformedModelPoint);
 
 						if (closestScenePoint.first <= matchingDistance2_ &&
 							usedSet.find(closestScenePoint.second) == usedSet.end())

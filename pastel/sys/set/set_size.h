@@ -15,9 +15,9 @@ namespace Pastel
 			Models<Set, Set_Concept>
 		> = 0
 	>
-	integer setSize(const Set& set)
+	integer setSize(Set&& set)
 	{
-		return ranges::size(set);
+		return ranges::distance(std::forward<Set>(set));
 	}
 
 }

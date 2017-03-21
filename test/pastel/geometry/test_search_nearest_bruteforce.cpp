@@ -22,6 +22,7 @@
 
 #include <vector>
 #include <list>
+#include <map>
 
 namespace
 {
@@ -49,7 +50,7 @@ namespace
 
 		Euclidean_NormBijection<real> normBijection;
 
-		for(auto&& i : nearestSet.pointSet())
+		for(auto&& i : nearestSet)
 		{
 			auto result =
 				searchNearest(nearestSet, nearestSet.asPoint(i));
@@ -59,8 +60,12 @@ namespace
 			REQUIRE(distance2 == 0);
 		}
 
+		PASTEL_CONCEPT_CHECK(decltype(nearestSet), Set_Concept);
+
+		REQUIRE(setSize(nearestSet) == distanceSet.size());
+
 		integer j = 0;
-		for (auto&& i : nearestSet.pointSet())
+		for (auto&& i : nearestSet)
 		{
 			auto indicator = predicateIndicator(i, NotEqualTo());
 			PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(i)));
@@ -163,14 +168,38 @@ TEST_CASE("Small (search_nearest_bruteforce)")
 		test(nearestSet, distanceSet);
 	}
 	{
+		std::map<Tree::Point_ConstIterator, integer> iteratorSet;
+		integer n = 0;
+
 		Tree tree;
-		tree.insertSet(pointSet);
+		tree.insertSet(
+			pointSet, 
+			PASTEL_TAG(report),
+			[&](auto&& i)
+			{
+				iteratorSet[i] = n; 
+				++n;
+			}
+		);
+
+		REQUIRE(tree.points() == pointSet.size());
 		REQUIRE(testInvariants(tree));
 
 		tree.refine(SlidingMidpoint_SplitRule(), 1);
 		REQUIRE(testInvariants(tree));
 
-		test(kdTreeNearestSet(tree), distanceSet);
+		auto nearestSet = kdTreeNearestSet(tree);
+		REQUIRE(setSize(nearestSet) == pointSet.size());
+
+		std::vector<real> reorderedDistanceSet;
+
+		for (auto&& point : nearestSet)
+		{
+			reorderedDistanceSet.push_back(
+				distanceSet[iteratorSet[point]]);
+		}
+
+		test(nearestSet, reorderedDistanceSet);
 	}
 }
 
@@ -450,8 +479,7 @@ TEST_CASE("BruteForce (search_nearest_bruteforce)")
 
 	PASTEL_CONCEPT_CHECK(decltype(bNearestSet), NearestSet_Concept);
 
-	integer j = 0;
-	for (auto i = pointSet.begin(); i != pointSet.end(); ++i)
+	for (auto&& i : aNearestSet)
 	{
 		{
 			std::pair<real, Point_ConstIterator> result =
@@ -461,17 +489,25 @@ TEST_CASE("BruteForce (search_nearest_bruteforce)")
 
 			REQUIRE(distance2 == 0);
 		}
+	}
 
-		{
-			auto result =
-				searchNearest(addConst(bNearestSet), *i);
+	integer j = 0;
+	for (auto&& i : bNearestSet)
+	{
+		auto result =
+			searchNearest(addConst(bNearestSet), *i,
+				PASTEL_TAG(accept),
+				[&](auto&& that) {return i != that;}
+			);
 
-			real distance2 = result.first;
+		real distance2 = result.first;
 
-			REQUIRE(distance2 == distanceSet[j]);
-		}
+		std::cout << "(" << distance2 << ", " << distanceSet[j] << ") " << std::flush;
+
+		REQUIRE(distance2 == distanceSet[j]);
 		++j;
 	}
+	std::cout << std::endl;
 }
 
 TEST_CASE("search_nearest_bruteforce (search_nearest_bruteforce)")

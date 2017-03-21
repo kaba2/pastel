@@ -2,7 +2,8 @@
 // Documentation: pointkdtree_matlab.txt
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
-#include "pastel/geometry/search_nearest_kdtree.h"
+#include "pastel/geometry/search_nearest.h"
+#include "pastel/geometry/kdtree_nearestset.h"
 #include "pastel/math/normbijection.h"
 
 #include "pastel/sys/allocator/pool_allocator.h"
@@ -730,7 +731,7 @@ namespace Pastel
 						};
 
 						searchNearest(
-							state->tree, 
+							kdTreeNearestSet(state->tree), 
 							query, 
 							PASTEL_TAG(report), report,
 							NormBijection(),
@@ -778,7 +779,7 @@ namespace Pastel
 						Point_ConstIterator query = query_->second;
 
 						searchNearest(
-							state->tree,
+							kdTreeNearestSet(state->tree),
 							location(query->point(), state->tree.locator()),
 							PASTEL_TAG(report), report,
 							PASTEL_TAG(accept), predicateIndicator(query, NotEqualTo()), 
@@ -899,7 +900,7 @@ namespace Pastel
 					integer count = 0;
 
 					searchNearest(
-						state->tree,
+						kdTreeNearestSet(state->tree),
 						location(query->point(), state->tree.locator()),
 						NormBijection(),
 						PASTEL_TAG(report), [&](auto, auto) {++count;},

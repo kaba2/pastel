@@ -1,5 +1,5 @@
 // Description: Testing for searching in a kd-tree.
-// DocumentationOf: search_nearest_kdtree.h
+// DocumentationOf: search_nearest.h
 
 #include "test/test_init.h"
 
