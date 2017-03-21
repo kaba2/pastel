@@ -223,17 +223,7 @@ namespace Pastel
 						integer indexMax = (i + 1) < indexSequence.size() ?
 							indexSequence[i + 1] : cursor.points();
 
-						// FIX: The following should be
-						// co_yield cursor.pointSet(indexMin, indexMax);
-						// But this triggers an internal compiler error
-						// in Visual Studio 2017. The following avoids
-						// that error:
-
-						auto pointSet = rangeSet(
-								cursor.pointSet(indexMin, indexMax).begin(),
-								cursor.pointSet(indexMin, indexMax).end());
-
-						co_yield pointSet;
+						co_yield cursor.pointSet(indexMin, indexMax);
 					}
 
 					continue;
