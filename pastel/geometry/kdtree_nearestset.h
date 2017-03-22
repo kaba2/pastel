@@ -10,6 +10,7 @@
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/math/normbijection/normbijection_concept.h"
+#include "pastel/geometry/nearestset/nearestset_concept.h"
 
 // Template defaults
 
@@ -31,8 +32,6 @@
 
 #include "pastel/sys/rankedset/rankedset.h"
 #include "pastel/sys/set/range_set.h"
-
-#include <experimental/generator>
 
 namespace Pastel
 {
@@ -92,15 +91,18 @@ namespace Pastel
 		template <
 			typename Search_Point,
 			typename NormBijection,
+			typename Real,
+			typename Output,
 			Requires<
 				Models<Search_Point, Point_Concept>,
 				Models<NormBijection, NormBijection_Concept>
 			> = 0
 		>
-		decltype(auto) nearbyPointSetSet(
+		void nearbyPointSetSet(
 			const Search_Point& searchPoint,
 			const NormBijection& normBijection,
-			const Real& cullDistance2) const
+			const Real& cullDistance2,
+			const Output& report) const
 		{
 			Real errorFactor = inverse(normBijection.scalingFactor(1 + maxRelativeError));
 			Real nodeCullDistance2 = cullDistance2 * errorFactor;
@@ -109,7 +111,7 @@ namespace Pastel
 			{
 				// There is nothing to search for.
 				// Note that we consider the search-ball open.
-				co_return;
+				return;
 			}
 
 			// Compute the distance from the search-point to the
@@ -120,7 +122,7 @@ namespace Pastel
 			{
 				// The bounding box for the points does not
 				// intersect the search ball.
-				co_return;
+				return;
 			}
 
 			using TimeSequence = 
@@ -223,7 +225,7 @@ namespace Pastel
 						integer indexMax = (i + 1) < indexSequence.size() ?
 							indexSequence[i + 1] : cursor.points();
 
-						co_yield cursor.pointSet(indexMin, indexMax);
+						report(cursor.pointSet(indexMin, indexMax));
 					}
 
 					continue;

@@ -13,12 +13,14 @@ namespace Pastel
 	{
 		template <
 			typename Type,
-			typename That>
-		auto requires_(Type&& t, That&& that) -> decltype
+			typename... ArgumentSet>
+		auto requires_(
+			Type&& t, 
+			ArgumentSet&&... argumentSet) -> decltype
 		(
 			conceptCheck(
 				//! Reports 'that'.
-				(t(that), 0)
+				(t(argumentSet...), 0)
 			)
 		);
 	};
