@@ -68,6 +68,10 @@ namespace Pastel
 		}
 
 	private:
+		// It is important to copy the point-set
+		// here. This is because the point-set is
+		// often just a temporary view into the
+		// points.
 		PointSet pointSet_;
 	};
 
@@ -79,8 +83,7 @@ namespace Pastel
 	>
 	decltype(auto) bruteForceNearestSet(PointSet pointSet)
 	{
-		return BruteForce_NearestSet<PointSet>(
-			std::move(pointSet));
+		return BruteForce_NearestSet<PointSet>(std::move(pointSet));
 	}
 
 }
