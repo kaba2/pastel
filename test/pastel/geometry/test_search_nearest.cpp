@@ -91,11 +91,11 @@ public:
 	{
 		using Settings = PointKdTree_Settings<PointSet_Locator<PointSet>>;
 		using Tree = PointKdTree<Settings>;
-		using Point_ConstIterator = Tree::Point_ConstIterator;
+		using Point_ConstIterator = typename Tree::Point_ConstIterator;
 
-		PASTEL_CONCEPT_CHECK(Tree::Point, Point_Concept);
+		PASTEL_CONCEPT_CHECK(typename Tree::Point, Point_Concept);
 
-		std::map<Tree::Point_ConstIterator, integer> iteratorSet;
+		std::map<typename Tree::Point_ConstIterator, integer> iteratorSet;
 		integer n = 0;
 
 		Tree tree;
@@ -151,9 +151,9 @@ public:
 	{
 		using Settings = TdTree_Settings<PointSet_Locator<PointSet>>;
 		using Tree = TdTree<Settings>;
-		using Point_ConstIterator = Tree::Point_ConstIterator;
+		using Point_ConstIterator = typename Tree::Point_ConstIterator;
 
-		PASTEL_CONCEPT_CHECK(Tree::Point, Point_Concept);
+		PASTEL_CONCEPT_CHECK(typename Tree::Point, Point_Concept);
 		
 		Tree tree(
 			pointSet,

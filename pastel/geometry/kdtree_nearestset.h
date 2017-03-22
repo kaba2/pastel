@@ -171,7 +171,7 @@ namespace Pastel
 			};
 
 			using SearchAlgorithm_ = 
-				SearchAlgorithm::template Instance<State>;
+				typename SearchAlgorithm::template Instance<State>;
 
 			SearchAlgorithm_ searchAlgorithm;
 
