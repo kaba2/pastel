@@ -10,11 +10,10 @@
 namespace Pastel
 {
 
-	template <typename Point>
-	using Point_HasMemberDimension_Test = 
-		decltype(
-			Concept::convertsTo<integer>(std::declval<Point>().pointDimension())
-		);
+	template <
+		typename Point,
+		typename = decltype(Concept::convertsTo<integer>(std::declval<Point>().pointDimension()))>
+	struct Point_HasMemberDimension_Test {};
 
 	template <typename Type>
 	using Point_HasMemberDimension = 
@@ -36,12 +35,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Point>
-	using Point_HasMemberSize_Test = 
-		decltype(
-			Concept::convertsTo<integer>(std::declval<Point>().size())
-		);
-
+	template <
+		typename Point,
+		typename = decltype(Concept::convertsTo<integer>(std::declval<Point>().size()))>
+	struct Point_HasMemberSize_Test {};
+	
 	template <typename Type>
 	using Point_HasMemberSize = 
 		Compiles<Point_HasMemberSize_Test, Type>;
@@ -77,15 +75,22 @@ namespace Pastel
 	namespace Point_
 	{
 
-		template <typename Type>
-		using Point_N_ = 
-			decltype(pointN((const Type*)nullptr));
+		template <
+			typename Type,
+			typename Result = decltype(pointN((const Type*)nullptr))>
+		struct Point_N_ 
+		{
+			using type = Result;
+		};
 
 	}
 
 	template <typename Point>
-	using Point_N = 
+	using Point_N_F = 
 		Compute<IntegerConstant<Dynamic>, Point_::Point_N_, Point>;
+
+	template <typename Point>
+	using Point_N = typename Point_N_F<Point>::type;
 
 }
 

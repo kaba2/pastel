@@ -12,9 +12,11 @@ namespace Pastel
 
 	// Coordinates by point.pointAxis(i)
 
-	template <typename Point>
-	using Point_HasMemberPointAxis_Test = 
-		decltype(std::declval<Point>().pointAxis((integer)0));
+	template <
+		typename Point,
+		typename = decltype(std::declval<Point>().pointAxis((integer)0))>
+	struct Point_HasMemberPointAxis_Test
+	{};
 
 	template <typename Type>
 	using Point_HasMemberPointAxis = 
@@ -38,9 +40,10 @@ namespace Pastel
 
 	// Coordinates by point[i]
 
-	template <typename Point>
-	using Point_HasIndexing_Test = 
-		decltype(std::declval<Point>()[(integer)0]);
+	template <
+		typename Point,
+		typename = decltype(std::declval<Point>()[(integer)0])>
+	struct Point_HasIndexing_Test {};
 
 	template <typename Type>
 	using Point_HasIndexing = 
@@ -65,9 +68,10 @@ namespace Pastel
 
 	// Coordinates by point(i)
 
-	template <typename Point>
-	using Point_HasMemberCall_Test = 
-		decltype(std::declval<Point>()((integer)0));
+	template <
+		typename Point,
+		typename = decltype(std::declval<Point>()((integer)0))>
+	struct Point_HasMemberCall_Test {};
 
 	template <typename Type>
 	using Point_HasMemberCall = 
