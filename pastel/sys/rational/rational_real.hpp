@@ -348,9 +348,9 @@ namespace Pastel
 			bool leftDone = pass(
 				[&](Integer k)
 				{
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 					// Using template here triggers a bug in 
-					// Visual Studio 2015.
+					// Visual Studio 2017.
 					return leftMediant(k).asReal<Real>() <= xMax;
 #else
 					return leftMediant(k).template asReal<Real>() <= xMax;
@@ -366,9 +366,9 @@ namespace Pastel
 			bool rightDone = pass(
 				[&](Integer k)
 				{
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 					// Using template here triggers a bug in 
-					// Visual Studio 2015.
+					// Visual Studio 2017.
 					return leftMediant(k).asReal<Real>() >= xMin;
 #else
 					return leftMediant(k).template asReal<Real>() >= xMin;
