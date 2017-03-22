@@ -116,7 +116,7 @@ namespace Pastel
 		Requires<
 			Models<NearestSet, NearestSet_Concept>,
 			Models<Search_Point, Point_Concept>
-		> ConceptCheck = 0
+		> = 0
 	>
 	auto searchNearest(
 		const NearestSet& nearestSet,
@@ -188,12 +188,7 @@ namespace Pastel
 		// There will be at most k elements in this set.
 		ResultSet resultSet(kNearest);
 
-		auto pointIdSetSet = nearestSet.nearbyPointSetSet(
-			searchPoint,
-			normBijection,
-			cullDistance2);
-
-		for (auto&& pointIdSet : pointIdSetSet)
+		auto searchBruteForce = [&](auto&& pointIdSet)
 		{
 			for(auto&& pointId : pointIdSet)
 			{
@@ -244,7 +239,13 @@ namespace Pastel
 					cullDistance2 = cullSuggestion2;
 				}
 			}
-		}
+		};
+
+		nearestSet.nearbyPointSetSet(
+			searchPoint,
+			normBijection,
+			cullDistance2,
+			searchBruteForce);
 
 		// Sort the neighbors in order of
 		// increasing distance.

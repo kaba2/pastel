@@ -7,8 +7,6 @@
 #include "pastel/sys/set/interval_set.h"
 #include "pastel/sys/locator/indirect_locator.h"
 
-#include <experimental/generator>
-
 namespace Pastel
 {
 
@@ -54,17 +52,19 @@ namespace Pastel
 			typename Search_Point,
 			typename NormBijection,
 			typename Real,
+			typename Output,
 			Requires<
 				Models<Search_Point, Point_Concept>,
 				Models<NormBijection, NormBijection_Concept>
 			> = 0
 		>
-		decltype(auto) nearbyPointSetSet(
+		void nearbyPointSetSet(
 			const Search_Point& searchPoint,
 			const NormBijection& normBijection,
-			const Real& cullDistance2) const
+			const Real& cullDistance2,
+			const Output& report) const
 		{
-			co_yield pointSet();
+			report(pointSet());
 		}
 
 	private:
