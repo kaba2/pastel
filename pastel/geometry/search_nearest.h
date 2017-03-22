@@ -21,7 +21,6 @@
 
 // Template requirements
 
-#include "pastel/sys/type_traits/is_template_instance.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_fwd.h"
 #include "pastel/geometry/tdtree/tdtree_fwd.h"
 

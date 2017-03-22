@@ -104,67 +104,6 @@ TEST_CASE("Grid (TdTree)")
 	//REQUIRE(neighborSet.count(pointSet(1, 3)) > 0);
 }
 
-TEST_CASE("Gaussian (TdTree)")
-{
-	using Point = Vector3;
-	using Locator = Vector_Locator<real, 3>;
-	using Tree = TdTree<TdTree_Settings<Locator>>;
-	using ConstIterator = Tree::ConstIterator;
-
-	using PointSet = std::vector<Point>;
-
-	integer n = 1000;
-
-	PointSet pointSet;
-	pointSet.reserve(n);
-
-	using Point_ConstIterator = PointSet::const_iterator;
-
-	for (integer i = 0; i < n; ++i)
-	{
-		pointSet.emplace_back(
-			randomGaussianVector<real, 3>());
-	}
-
-	Tree tree(pointSet);
-
-	integer k = 7;
-
-	for (integer i = 0; i < n; ++i)
-	{
-		std::vector<std::pair<real, Point_ConstIterator>> bruteSet;
-		bruteSet.reserve(k);
-
-		real kDistanceBrute = searchNearest(
-			bruteForceNearestSet(pointSet),
-			pointSet[i],
-			PASTEL_TAG(report), emplaceBackOutput(bruteSet),
-			PASTEL_TAG(kNearest), k
-			).first;
-
-		std::vector<std::pair<real, ConstIterator>> treeSet;
-		treeSet.reserve(k);
-
-		real kDistanceTree = searchNearest(
-			kdTreeNearestSet(tree),
-			pointSet[i],
-			PASTEL_TAG(report), emplaceBackOutput(treeSet),
-			PASTEL_TAG(kNearest), k
-		).first;
-
-		REQUIRE(kDistanceBrute == kDistanceTree);
-
-		for (integer j = 0; j < k; ++j)
-		{
-			REQUIRE(bruteSet[j].first == treeSet[j].first);
-			if (bruteSet[j].first != treeSet[j].first)
-			{
-				std::cout << bruteSet[j].first << " != " << treeSet[j].first << std::endl;
-			}
-		}
-	}
-}
-
 TEST_CASE("Linear (TdTree)")
 {
 	std::vector<Point> pointSet;

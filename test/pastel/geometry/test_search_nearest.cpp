@@ -3,6 +3,7 @@
 
 #include "test/test_init.h"
 
+
 #include "pastel/geometry/search_nearest.h"
 #include "pastel/geometry/kdtree_nearestset.h"
 #include "pastel/geometry/nearestset/bruteforce_nearestset.h"
@@ -13,8 +14,9 @@
 #include "pastel/geometry/tdtree/tdtree.h"
 
 #include <pastel/math/normbijection/normbijections.h>
+#include <pastel/sys/random.h>
 
-#include <pastel/sys/vector.h>
+#include "pastel/sys/vector.h"
 #include <pastel/sys/set.h>
 #include <pastel/sys/output.h>
 #include <pastel/sys/indicator.h>
@@ -27,15 +29,6 @@
 
 namespace
 {
-
-	template <integer N_>
-	class Settings
-	{
-	public:
-		using Real = real;
-		static constexpr integer N = N_;
-		using Locator = Vector_Locator<Real, N_>;
-	};
 
 	template <typename NearestSet>
 	void test(
@@ -83,6 +76,7 @@ namespace
 
 }
 
+template <typename SearchAlgorithm>
 class CreatePointKdTree
 {
 public:
@@ -95,7 +89,8 @@ public:
 	decltype(auto) createDataSet(
 		const PointSet& pointSet) const
 	{
-		using Tree = PointKdTree<Settings<2>>;
+		using Settings = PointKdTree_Settings<PointSet_Locator<PointSet>>;
+		using Tree = PointKdTree<Settings>;
 		using Point_ConstIterator = Tree::Point_ConstIterator;
 
 		PASTEL_CONCEPT_CHECK(Tree::Point, Point_Concept);
@@ -134,10 +129,14 @@ public:
 	template <typename DataSet>
 	decltype(auto) createNearestSet(const DataSet& dataSet) const
 	{
-		return kdTreeNearestSet(dataSet);
+		return kdTreeNearestSet(
+			dataSet,
+			PASTEL_TAG(searchAlgorithm),
+			SearchAlgorithm());
 	}
 };
 
+template <typename SearchAlgorithm>
 class CreateTdTree
 {
 public:
@@ -150,18 +149,16 @@ public:
 	decltype(auto) createDataSet(
 		const PointSet& pointSet) const
 	{
-		using Settings = TdTree_Settings<Default_Locator<Vector2, real, 2>>;
+		using Settings = TdTree_Settings<PointSet_Locator<PointSet>>;
 		using Tree = TdTree<Settings>;
 		using Point_ConstIterator = Tree::Point_ConstIterator;
 
 		PASTEL_CONCEPT_CHECK(Tree::Point, Point_Concept);
 		
-		Tree tree(pointSet);
-
-		//Tree tree(
-		//	pointSet,
-		//	PASTEL_TAG(splitRule),
-		//	SlidingMidpoint_SplitRule());
+		Tree tree(
+			pointSet,
+			PASTEL_TAG(splitRule),
+			SlidingMidpoint_SplitRule());
 
 		REQUIRE(tree.points() == pointSet.size());
 		//REQUIRE(testInvariants(tree));
@@ -182,7 +179,10 @@ public:
 	template <typename DataSet>
 	decltype(auto) createNearestSet(const DataSet& dataSet) const
 	{
-		return kdTreeNearestSet(dataSet);
+		return kdTreeNearestSet(
+			dataSet,
+			PASTEL_TAG(searchAlgorithm),
+			SearchAlgorithm());
 	}
 };
 
@@ -196,7 +196,7 @@ public:
 		> = 0
 	>
 	decltype(auto) createDataSet(
-		PointSet&& pointSet) const
+		const PointSet& pointSet) const
 	{
 		std::vector<integer> permutationSet;
 		integer i = 0;
@@ -207,7 +207,7 @@ public:
 		}
 
 		return std::make_pair(
-			std::move(pointSet), 
+			pointSet, 
 			std::move(permutationSet));
 	}
 
@@ -313,7 +313,8 @@ void testCase(const Create& create)
 
 TEST_CASE("search_nearest (PointKdTree)")
 {
-	testCase(CreatePointKdTree());
+	testCase(CreatePointKdTree<DepthFirst_SearchAlgorithm_PointKdTree>());
+	testCase(CreatePointKdTree<BestFirst_SearchAlgorithm_PointKdTree>());
 }
 
 TEST_CASE("search_nearest (brute-force)")
@@ -323,13 +324,103 @@ TEST_CASE("search_nearest (brute-force)")
 
 TEST_CASE("search_nearest (TdTree)")
 {
-	testCase(CreateTdTree());
+	testCase(CreateTdTree<DepthFirst_SearchAlgorithm_PointKdTree>());
+	testCase(CreateTdTree<BestFirst_SearchAlgorithm_PointKdTree>());
 }
 
-//TEST_CASE("search_nearest_bruteforce (search_nearest_bruteforce)")
-//{
-//	testPointKdTree(
-//		DepthFirst_SearchAlgorithm_PointKdTree());
-//	testPointKdTree(
-//		BestFirst_SearchAlgorithm_PointKdTree());
-//}
+template <
+	typename A_Create,
+	typename B_Create>
+void testGaussian(
+	const A_Create& aCreate,
+	const B_Create& bCreate)
+{
+	static constexpr integer N = 3;
+	using PointSet = std::vector<Vector<real, N>>;
+	integer n = 1000;
+	PointSet pointSet;
+	pointSet.reserve(n);
+
+	for (integer i = 0; i < n; ++i)
+	{
+		pointSet.emplace_back(
+			randomGaussianVector<real, N>());
+	}
+	
+	auto aDataSet = aCreate.createDataSet(pointSet).first;
+	auto aNearestSet = aCreate.createNearestSet(aDataSet);
+	using A_NearestSet = decltype(aNearestSet);
+	using A_Point = PointSet_Point<A_NearestSet>;
+	PASTEL_CONCEPT_CHECK(RemoveCvRef<decltype(aNearestSet.asPoint(A_Point()))>, Point_Concept);
+	
+	auto bDataSet = bCreate.createDataSet(pointSet).first;
+	auto bNearestSet = bCreate.createNearestSet(bDataSet);
+	using B_NearestSet = decltype(bNearestSet);
+	using B_Point = PointSet_Point<B_NearestSet>;
+
+	integer k = 7;
+
+	REQUIRE(pointSet.size() == n);
+
+	std::vector<std::pair<real, A_Point>> aSet;
+	aSet.reserve(k);
+
+	std::vector<std::pair<real, B_Point>> bSet;
+	bSet.reserve(k);
+
+	for (integer i = 0; i < n; ++i)
+	{
+		aSet.clear();
+		real kDistanceA = searchNearest(
+			aNearestSet,
+			pointSet[i],
+			PASTEL_TAG(report), emplaceBackOutput(aSet),
+			PASTEL_TAG(kNearest), k,
+			PASTEL_TAG(reportMissing)
+			).first;
+		REQUIRE(aSet.size() == k);
+
+		bSet.clear();
+		real kDistanceB = searchNearest(
+			bNearestSet,
+			pointSet[i],
+			PASTEL_TAG(report), emplaceBackOutput(bSet),
+			PASTEL_TAG(kNearest), k,
+			PASTEL_TAG(reportMissing)
+		).first;
+		REQUIRE(bSet.size() == k);
+
+		REQUIRE(kDistanceA == kDistanceB);
+
+		for (integer j = 0; j < k; ++j)
+		{
+			REQUIRE(aSet[j].first == bSet[j].first);
+			if (aSet[j].first != bSet[j].first)
+			{
+				std::cout << aSet[j].first << " != " << bSet[j].first << std::endl;
+			}
+		}
+	}
+}
+
+TEST_CASE("search_nearest (gaussian)")
+{
+	auto aCreate = CreateBruteForce();
+
+	{
+		auto bCreate = CreateTdTree<DepthFirst_SearchAlgorithm_PointKdTree>();
+		testGaussian(aCreate, bCreate);
+	}
+	{
+		auto bCreate = CreateTdTree<BestFirst_SearchAlgorithm_PointKdTree>();
+		testGaussian(aCreate, bCreate);
+	}
+	{
+		auto bCreate = CreatePointKdTree<DepthFirst_SearchAlgorithm_PointKdTree>();
+		testGaussian(aCreate, bCreate);
+	}
+	{
+		auto bCreate = CreatePointKdTree<BestFirst_SearchAlgorithm_PointKdTree>();
+		testGaussian(aCreate, bCreate);
+	}
+}
