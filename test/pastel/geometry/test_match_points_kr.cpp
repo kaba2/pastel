@@ -5,7 +5,7 @@
 
 #include <pastel/geometry/pattern_matching/match_points_kr.h>
 #include <pastel/geometry/distance/distance_point_point.h>
-#include <pastel/geometry/kdtree_nearestset.h>
+#include <pastel/geometry/nearestset/kdtree_nearestset.h>
 
 #include <pastel/sys/random.h>
 #include <pastel/sys/range.h>

@@ -5,7 +5,7 @@
 
 
 #include "pastel/geometry/search_nearest.h"
-#include "pastel/geometry/kdtree_nearestset.h"
+#include "pastel/geometry/nearestset/kdtree_nearestset.h"
 #include "pastel/geometry/nearestset/bruteforce_nearestset.h"
 
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"

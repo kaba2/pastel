@@ -6,7 +6,7 @@
 #include "pastel/geometry/tdtree/tdtree.h"
 
 #include "pastel/geometry/search_nearest.h"
-#include "pastel/geometry/kdtree_nearestset.h"
+#include "pastel/geometry/nearestset/kdtree_nearestset.h"
 #include "pastel/geometry/nearestset/bruteforce_nearestset.h"
 #include "pastel/geometry/distance/distance_point_point.h"
 
