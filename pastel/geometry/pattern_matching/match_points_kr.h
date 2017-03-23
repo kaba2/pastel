@@ -182,7 +182,7 @@ namespace Pastel
 		std::vector<Model_ConstIterator> indexToModel;
 		// FIX: Enable these two reserves.
 		//indexToModel.reserve(setSize(model));
-		for (auto&& point : model)
+		RANGES_FOR(auto&& point, model)
 		{
 			indexToModel.emplace_back(point);
 		}
@@ -190,7 +190,7 @@ namespace Pastel
 
 		std::vector<Scene_ConstIterator> indexToScene;
 		//indexToScene.reserve(setSize(scene));
-		for (auto&& point : scene)
+		RANGES_FOR(auto&& point, scene)
 		{
 			indexToScene.emplace_back(point);
 		}
@@ -198,7 +198,7 @@ namespace Pastel
 		std::unordered_map<Scene_ConstIterator, integer, IteratorAddress_Hash> sceneToIndex;
 		{
 			integer j = 0;
-			for (auto&& i : scene)
+			RANGES_FOR(auto&& i, scene)
 			{
 				sceneToIndex[i] = j;
 				++j;
@@ -245,7 +245,7 @@ namespace Pastel
 			Model_ConstIterator modelPivot = indexToModel[i];
 
 			// Go over all scene pivot points.
-			for (auto&& scenePivot : scene)
+			RANGES_FOR(auto&& scenePivot, scene)
 			{
 				if (exitEarly)
 				{

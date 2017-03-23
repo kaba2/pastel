@@ -39,7 +39,7 @@ namespace
 
 		Euclidean_NormBijection<real> normBijection;
 
-		for(auto&& i : nearestSet)
+		RANGES_FOR(auto&& i, nearestSet)
 		{
 			auto result =
 				searchNearest(nearestSet, nearestSet.asPoint(i));
@@ -54,7 +54,7 @@ namespace
 		REQUIRE(setSize(nearestSet) == distanceSet.size());
 
 		integer j = 0;
-		for (auto&& i : nearestSet)
+		RANGES_FOR(auto&& i, nearestSet)
 		{
 			auto indicator = predicateIndicator(i, NotEqualTo());
 			PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(i)));
@@ -116,7 +116,7 @@ public:
 		REQUIRE(testInvariants(tree));
 
 		std::vector<integer> permutationSet;
-		for (auto&& point : intervalSet(tree))
+		RANGES_FOR(auto&& point, intervalSet(tree))
 		{
 			permutationSet.push_back(iteratorSet[point]);
 		}
@@ -165,7 +165,7 @@ public:
 
 		integer n = 0;
 		std::vector<integer> permutationSet;
-		for (auto&& point : pointSet)
+		RANGES_FOR(auto&& point, pointSet)
 		{
 			permutationSet.push_back(n);
 			++n;
@@ -200,7 +200,7 @@ public:
 	{
 		std::vector<integer> permutationSet;
 		integer i = 0;
-		for (auto&& point : pointSet)
+		RANGES_FOR(auto&& point, pointSet)
 		{
 			permutationSet.push_back(i);
 			++i;

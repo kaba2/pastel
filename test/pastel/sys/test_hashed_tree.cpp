@@ -28,7 +28,7 @@ TEST_CASE("HashedTree (HashedTree)")
 	REQUIRE(tree.hash() == 0);
 
 	std::vector<hash_integer> hashSet;
-	for (integer key : keySet)
+	RANGES_FOR(integer key, keySet)
 	{
 		tree.insert(key, 0);
 		hashSet.push_back(tree.hash());

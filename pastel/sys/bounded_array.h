@@ -120,7 +120,7 @@ namespace Pastel
 		template <typename That_Element>
 		BoundedArray(const std::initializer_list<That_Element>& thatSet)
 		{
-			for (auto&& value : thatSet)
+			RANGES_FOR(auto&& value, thatSet)
 			{
 				emplaceBack(value);
 			}

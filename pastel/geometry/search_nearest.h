@@ -189,7 +189,7 @@ namespace Pastel
 
 		auto searchBruteForce = [&](auto&& pointIdSet)
 		{
-			for(auto&& pointId : pointIdSet)
+			RANGES_FOR(auto&& pointId, pointIdSet)
 			{
 				// Compute the distance from the node-point
 				// to the search-point.
@@ -251,7 +251,7 @@ namespace Pastel
 		auto sortedSet = resultSet.release();
 
 		// Report the nearest neighbors.
-		for (auto&& entry : sortedSet)
+		RANGES_FOR(auto&& entry, sortedSet)
 		{
 			report(entry.first, entry.second);
 		}

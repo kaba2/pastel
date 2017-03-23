@@ -178,7 +178,7 @@ namespace Pastel
 		{
 			auto construct = [&](RedBlackTree& copy)
 			{
-				for (auto&& key : dataSet)
+				RANGES_FOR(auto&& key, dataSet)
 				{
 					copy.insert(key);
 				}
@@ -198,7 +198,7 @@ namespace Pastel
 		{
 			auto construct = [&](RedBlackTree& copy)
 			{
-				for (auto&& keyValue : dataSet)
+				RANGES_FOR(auto&& keyValue, dataSet)
 				{
 					copy.insert(keyValue.first, keyValue.second);
 				}

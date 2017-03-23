@@ -49,7 +49,7 @@ namespace Pastel
 			// point on the left side and the minimum
 			// on the right side.
 
-			for(auto&& point : pointSet)
+			RANGES_FOR(auto&& point, pointSet)
 			{
 				Real position = 
 					pointAxis(point, splitAxis);

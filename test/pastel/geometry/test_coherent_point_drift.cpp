@@ -58,11 +58,11 @@ namespace
 			return arma::norm(delta, "inf");
 		};
 
-		for (auto scaling : scalingSet)
+		RANGES_FOR(auto scaling, scalingSet)
 		{
-			for (auto translation : translationSet)
+			RANGES_FOR(auto translation, translationSet)
 			{
-				for (auto matrix : matrixSet)
+				RANGES_FOR(auto matrix, matrixSet)
 				{
 					integer orientation = 1;
 
