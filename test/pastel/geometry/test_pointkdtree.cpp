@@ -4,7 +4,7 @@
 #include "test/test_init.h"
 
 #include "pastel/geometry/search_nearest.h"
-#include "pastel/geometry/kdtree_nearestset.h"
+#include "pastel/geometry/nearestset/kdtree_nearestset.h"
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/bestfirst_pointkdtree_searchalgorithm.h"
 #include "pastel/geometry/pointkdtree.h"

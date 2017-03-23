@@ -6,7 +6,7 @@
 #include "pastel/geometry/pattern_matching/match_points_kr.h"
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
-#include "pastel/geometry/kdtree_nearestset.h"
+#include "pastel/geometry/nearestset/kdtree_nearestset.h"
 
 #include "pastel/sys/set/sparse_set.h"
 #include "pastel/sys/set/interval_set.h"

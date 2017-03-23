@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/search_nearest.h"
-#include "pastel/geometry/kdtree_nearestset.h"
+#include "pastel/geometry/nearestset/kdtree_nearestset.h"
 #include "pastel/math/normbijection.h"
 
 #include "pastel/sys/allocator/pool_allocator.h"

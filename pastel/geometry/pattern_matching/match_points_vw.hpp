@@ -4,7 +4,7 @@
 #include "pastel/geometry/pattern_matching/match_points_vw.h"
 #include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/search_nearest.h"
-#include "pastel/geometry/kdtree_nearestset.h"
+#include "pastel/geometry/nearestset/kdtree_nearestset.h"
 #include "pastel/geometry/bounding/bounding_sphere.h"
 
 #include "pastel/math/affine/affine_transformation.h"
