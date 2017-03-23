@@ -21,7 +21,7 @@ namespace Pastel
 		integer d = pointSetDimension(pointSet);
 		
 		AlignedBox<Real, N> bound(d);
-		for(auto&& point : pointSet)
+		RANGES_FOR(auto&& point, pointSet)
 		{
 			for (integer i = 0;i < d;++i)
 			{

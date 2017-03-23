@@ -14,7 +14,7 @@ TEST_CASE("Euclidean (NormBijection)")
 
 	real valueSet[] = { 0, 1, 2, 3.5, 5, 7, 9.25, 13 };
 
-	for (auto&& x : valueSet)
+	RANGES_FOR(auto&& x, valueSet)
 	{
 		REQUIRE(n.axis(x) == x * x);
 		REQUIRE(n.signedAxis(x) == x * x);
@@ -40,7 +40,7 @@ TEST_CASE("Manhattan (NormBijection)")
 
 	real valueSet[] = { 0, 1, 2, 3.5, 5, 7, 9.25, 13 };
 
-	for (auto&& x : valueSet)
+	RANGES_FOR(auto&& x, valueSet)
 	{
 		REQUIRE(n.axis(x) == x);
 		REQUIRE(n.signedAxis(x) == x);
@@ -66,7 +66,7 @@ TEST_CASE("Maximum (NormBijection)")
 
 	real valueSet[] = { 0, 1, 2, 3.5, 5, 7, 9.25, 13 };
 
-	for (auto&& x : valueSet)
+	RANGES_FOR(auto&& x, valueSet)
 	{
 		REQUIRE(n.axis(x) == x);
 		REQUIRE(n.signedAxis(x) == x);

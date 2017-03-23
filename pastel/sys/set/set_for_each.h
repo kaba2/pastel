@@ -32,7 +32,7 @@ namespace Pastel
 		const Set& set,
 		const Element_Function& visit)
 	{
-		for (auto&& element : set)
+		RANGES_FOR(auto&& element, set)
 		{
 			if (!visit(element))
 			{

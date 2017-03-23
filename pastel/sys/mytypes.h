@@ -214,5 +214,6 @@ namespace Pastel
 #include "pastel/sys/range.h"
 #include "pastel/sys/operators.h"
 #include "pastel/sys/predicate/derived_predicates.h"
+#include "range/v3/range_for.hpp"
 
 #endif

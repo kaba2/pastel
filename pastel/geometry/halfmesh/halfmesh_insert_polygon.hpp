@@ -93,7 +93,7 @@ namespace Pastel
 			polygon->half_ = *std::begin(halfSet);
 
 			// Link the half-edges to the polygon.
-			for (auto&& half : halfSet)
+			RANGES_FOR(auto&& half, halfSet)
 			{
 				half->left_ = polygon;
 			}

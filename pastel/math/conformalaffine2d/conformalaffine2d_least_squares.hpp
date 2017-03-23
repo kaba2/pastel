@@ -57,7 +57,7 @@ namespace Pastel
 		Real dotSum = 0;
 		Real crossDotSum = 0;
 
-		for (auto&& elements : zipSet(fromSet, toSet))
+		RANGES_FOR(auto&& elements, zipSet(fromSet, toSet))
 		{
 			auto from = pointAsVector(elements.first);
 			auto to = pointAsVector(elements.second);

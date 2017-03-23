@@ -43,7 +43,7 @@ namespace Pastel
 			Real minPosition = Infinity();
 			Real maxPosition = -Infinity();
 
-			for(auto&& point : pointSet)
+			RANGES_FOR(auto&& point, pointSet)
 			{
 				Real position = 
 					pointAxis(point, splitAxis);

@@ -34,7 +34,7 @@ namespace Pastel
 		integer n = 0;
 		Real mean = 0;
 
-		for (auto&& element : inputSet)
+		RANGES_FOR(auto&& element, inputSet)
 		{
 			mean += element;
 			++n;

@@ -701,7 +701,7 @@ TEST_CASE("Equal (List)")
 
 	REQUIRE(a == a);
 
-	for (integer value : valueSet)
+	RANGES_FOR(integer value, valueSet)
 	{
 		a.insertBack(value);
 	}

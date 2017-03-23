@@ -70,7 +70,7 @@ namespace Pastel
 
 		// The A-set of vertices + A-sentinel.
 		std::vector<A_Vertex> aSet(nA + 1);
-		for (auto&& aVertex : aSet)
+		RANGES_FOR(auto&& aVertex, aSet)
 		{
 			aVertex.pair = B_Sentinel;
 			aVertex.distance = (integer)Infinity();
@@ -88,7 +88,7 @@ namespace Pastel
 		
 		// The B-set of vertices + B-sentinel.
 		std::vector<B_Vertex> bSet(nB + 1);
-		for (auto&& bVertex : bSet)
+		RANGES_FOR(auto&& bVertex, bSet)
 		{
 			bVertex.pair = A_Sentinel;
 		}
