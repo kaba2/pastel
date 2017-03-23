@@ -6,6 +6,10 @@
 #include "pastel/sys/locator/location.h"
 #include "pastel/sys/real/real_ring_concept.h"
 
+#include "pastel/sys/point/point_dimension.h"
+#include "pastel/sys/point/point_axis.h"
+#include "pastel/sys/point/point_point_id.h"
+
 namespace Pastel
 {
 
@@ -26,14 +30,9 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/point/point_archetype.h"
 #include "pastel/sys/point/point_locator.h"
-#include "pastel/sys/point/point_axis.h"
-#include "pastel/sys/point/point_dimension.h"
-#include "pastel/sys/point/point_point_id.h"
 #include "pastel/sys/point/point_real.h"
-
-#include "pastel/sys/point/number_point.h"
+#include "pastel/sys/point/point_archetype.h"
 
 #include <iostream>
 

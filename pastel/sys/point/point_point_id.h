@@ -12,9 +12,10 @@
 namespace Pastel
 {
 
-	template <typename Type>
-	using Point_HasPointId_Test =
-		decltype(pointPointId(std::declval<Type>()));
+	template <
+		typename Type,
+		typename = decltype(pointPointId(std::declval<Type>()))>
+	struct Point_HasPointId_Test {};
 
 	template <typename Type>
 	using Point_HasPointId =
@@ -23,7 +24,6 @@ namespace Pastel
 	template <
 		typename Point,
 		Requires<
-			Models<Point, Point_Concept>,
 			Not<Point_HasPointId<Point>>
 		> = 0
 	>
@@ -37,21 +37,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <
-		typename Point,
-		Requires<
-			Models<Point, Point_Concept>
-		> = 0
-	>
+	template <typename Point>
 	using Point_PointId = 
 		RemoveCvRef<decltype(pointPointId(std::declval<Point>()))>;
 
-	template <
-		typename Point,
-		Requires<
-			Models<Point, Point_Concept>
-		> = 0
-	>
+	template <typename Point>
 	using Point_PointId_F = 
 		Identity_F<Point_PointId<Point>>;
 

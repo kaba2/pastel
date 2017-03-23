@@ -97,7 +97,7 @@ TEST_CASE("Sub (Locator)")
 	}
 	{
 		auto locator = subLocator(arrayLocator<real, 2>(), 0, 2);
-		std::array<real, 2> a = {1, 2};
+		std::array<real, 2> a = {{1, 2}};
 		REQUIRE(locator.n() == 2);
 		REQUIRE(locator(a, 0) == 1);
 		REQUIRE(locator(a, 1) == 2);
@@ -108,13 +108,13 @@ TEST_CASE("Sub (Locator)")
 	}
 	{
 		auto locator = subLocator(arrayLocator<real, 2>(), 1, 2);
-		std::array<real, 2> a = {1, 2};
+		std::array<real, 2> a = {{1, 2}};
 		REQUIRE(locator.n() == 1);
 		REQUIRE(locator(a, 0) == 2);
 	}
 	{
 		auto locator = subLocator(arrayLocator<real, 2>(), 0, 1);
-		std::array<real, 2> a = {1, 2};
+		std::array<real, 2> a = {{1, 2}};
 		REQUIRE(locator.n() == 1);
 		REQUIRE(locator(a, 0) == 1);
 	}
