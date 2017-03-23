@@ -13,8 +13,8 @@
 #include "pastel/sys/vector.h"
 
 #include <boost/range/algorithm/sort.hpp>
-#include <boost/range/algorithm/stable_partition.hpp>
 #include <boost/range/algorithm/unique.hpp>
+#include <range/v3/algorithm/stable_partition.hpp>
 
 #include <algorithm>
 #include <memory>
@@ -354,7 +354,10 @@ namespace Pastel
 
 				// The partitioning must be stable for the children
 				// to stay ordered with respect to the last order.
-				auto leftEnd = std::stable_partition(pointSet.begin(), pointSet.end(), lessMedian);
+				// Using std::stable_partition here triggers an
+				// internal compiler error in Visual C++ 2017 
+				// Clang/C2 v141 toolset.
+				auto leftEnd = ranges::stable_partition(pointSet, lessMedian);
 
 				// Recurse to the left child.
 				{
