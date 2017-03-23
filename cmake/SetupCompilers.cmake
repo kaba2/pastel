@@ -56,6 +56,8 @@ if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") OR
 		# Compiler warns that it optimizes code based on the 
 		# assumption that signed integer overflows do not occur.
 		-Wno-strict-overflow
+		# Compiler warns about code that is marked as deprecated.
+		-Wno-deprecated-declarations
 	)
 endif()
 
@@ -82,6 +84,8 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
 		-stdlib=libc++
 		# Not sure why.
 		-arch x86_64
+		# For the Visual Studio Clang/C2
+		-Qunused-arguments
 	)
 
 	# Enables C++11 linker support.
