@@ -6,6 +6,7 @@
 
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/type_traits/compiles.h"
+#include "pastel/sys/real/real_ring_concept.h"
 
 namespace Pastel
 {
@@ -88,6 +89,23 @@ namespace Pastel
 	decltype(auto) pointAxis(Point&& point, integer axis)
 	{
 		return std::forward<Point>(point)(axis);
+	}
+
+}
+
+namespace Pastel
+{
+	// Coordinates by being a number.
+
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Real_Ring_Concept>
+		> = 0
+	>
+	decltype(auto) pointAxis(Point&& point, integer axis)
+	{
+		return std::forward<Point>(point);
 	}
 
 }

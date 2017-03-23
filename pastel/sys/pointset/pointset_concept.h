@@ -9,6 +9,8 @@
 #include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/type_traits/or.h"
 
+#include "pastel/sys/pointset/pointset_locator.h"
+
 namespace Pastel
 {
 
@@ -31,7 +33,6 @@ namespace Pastel
 #include "pastel/sys/pointset/pointset_dimension.h"
 #include "pastel/sys/pointset/pointset_empty.h"
 #include "pastel/sys/pointset/pointset_set.h"
-#include "pastel/sys/pointset/pointset_locator.h"
 #include "pastel/sys/pointset/pointset_n.h"
 #include "pastel/sys/pointset/pointset_point_id.h"
 #include "pastel/sys/pointset/pointset_point.h"

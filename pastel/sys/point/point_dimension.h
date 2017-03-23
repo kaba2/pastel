@@ -6,9 +6,12 @@
 
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/real/real_ring_concept.h"
+#include <array>
 
 namespace Pastel
 {
+
+	// Dimension by having member .pointDimension().
 
 	template <
 		typename Point,
@@ -34,6 +37,8 @@ namespace Pastel
 
 namespace Pastel
 {
+
+	// Dimension by having member .size().
 
 	template <
 		typename Point,
@@ -61,6 +66,24 @@ namespace Pastel
 namespace Pastel
 {
 
+	// Dimension by being a number.
+
+	template <
+		typename Point,
+		Requires<
+			Models<Point, Real_Ring_Concept>
+		> = 0
+	>
+	integer dimension(Point&& point)
+	{
+		return 1;
+	}
+
+}
+
+namespace Pastel
+{
+
 	template <
 		typename Point,
 		Requires<
@@ -69,7 +92,7 @@ namespace Pastel
 	>
 	IntegerConstant<1> pointN(const Point* point);
 
-	template <typename Real, integer N>
+	template <typename Real, std::size_t N>
 	IntegerConstant<N> pointN(const std::array<Real, N>* point);
 
 	namespace Point_
@@ -98,12 +121,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <
-		typename Point,
-		Requires<
-			Models<Point, Point_Concept>
-		> = 0
-	>
+	template <typename Point>
 	using Point_Dimension = 
 		Point_N<Point>;
 

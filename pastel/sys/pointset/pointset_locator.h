@@ -76,23 +76,13 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <typename PointSet>
 	struct PointSet_Locator_F 
 		: Identity_F<
 			RemoveCvRef<decltype(pointSetLocator(std::declval<PointSet>()))>>
 	{};
 
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <typename PointSet>
 	using PointSet_Locator =
 		typename PointSet_Locator_F<PointSet>::type;
 

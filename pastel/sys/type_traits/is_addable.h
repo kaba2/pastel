@@ -14,7 +14,7 @@ namespace Pastel
 			typename = 
 				decltype(std::declval<Type>() + std::declval<Type>())
 		>
-		class Addition_Test {};
+		struct Addition_Test {};
 
 		template <typename Type>
 		using Is_Addable =

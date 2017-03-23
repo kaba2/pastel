@@ -14,7 +14,7 @@ namespace Pastel
 			typename = 
 				decltype(std::declval<Type>() - std::declval<Type>())
 		>
-		class Subtraction_Test {};
+		struct Subtraction_Test {};
 
 		template <typename Type>
 		using Is_Subtractable =
