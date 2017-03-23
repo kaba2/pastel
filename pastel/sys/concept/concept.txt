@@ -209,6 +209,10 @@ A workaround is to define the needed functions for native types _before_ the con
 
 	PASTEL_CONCEPT_CHECK(float, Realish_Concept);
 
+### Types in other namespaces
+
+The problem with native types generalizes. Suppose you wish to make `std::vector` support `Printable_Concept` by default, with this case implemented _after_ the concept. Then ADL fails to find `asString`, because it looks in the `std` namespace. One bad way to solve this would be open the `std` namespace and place the `asString` function for `std::vector` there. This is a bad solution; it may work today, but may not work tomorrow because of modifications to the `std` namespace. The correct solution, as with native types, is to place the version for `asString` _before_ the concept. Similarly for any other types you wish to model the concept by default.
+
 ### Function templates without parameters
 
 Function templates without parameters are not dependent names, and so cannot be checked in the concept:
