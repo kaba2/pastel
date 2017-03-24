@@ -349,6 +349,38 @@ namespace Pastel
 		IntervalSequence timeIntervalSequence;
 	};
 
+	//! Constructs a kd-tree nearest-set.
+	/*!
+	kdTree:
+	The kd-tree to search neighbors in. 
+	Either a PointKdTree or a TdTree.
+
+	Optional arguments
+	------------------
+
+	maxRelativeError (Real >= 0):
+	Maximum allowed relative error in the distance of the 
+	result point to the true nearest neighbor. Allowing error
+	increases performance. Use 0 for exact matches. 
+	Default: 0
+
+	nBruteForce (integer >= 0):
+	The number of points under which to start a brute-force
+	search in a node. Leaf nodes will always be searched.
+	Default: 16
+
+	searchAlgorithm:
+	The search-algorithm to use for searching the 'kdTree'.
+	See 'pointkdtree_searchalgorithm.txt'.
+
+	timeIntervalSequence:
+	An interval sequence in time. A sequence 
+	(t_1, t_2, t_3, t_4, ...) corresponds to the
+	time-intervals [t_1, t_2), [t_3, t_4), ...
+	If the number of time-instants is odd, then
+	the sequence is implicitly appended 
+	(Real)Infinity().
+	*/
 	template <
 		typename KdTree,
 		typename... ArgumentSet>

@@ -34,11 +34,10 @@
 namespace Pastel
 {
 
-	//! Finds the nearest neighbors of a point in a PointKdTree.
+	//! Finds the nearest neighbors of a point in a nearest-set.
 	/*!
-	kdTree:
-	The kd-tree to search neighbors in. 
-	Either a PointKdTree or a TdTree.
+	nearestSet (NearestSet):
+	The nearest-set in which to search neighbors in.
 
 	searchPoint (Point):
 	The point for which to search a neighbor for.
@@ -46,12 +45,17 @@ namespace Pastel
 	Optional arguments
 	------------------
 
-	accept (Indicator(KdTree::Point_ConstIterator)):
+	accept (Indicator(PointId)):
 	An indicator which decides whether to accept a point 
 	as a neighbor or not.
 
 	kNearest (integer >= 0):
 	The number of nearest neighbors to search.
+	Use (integer)Infinity() for a counting mode,
+	where neighbors are reported in random order;
+	this is faster and uses less memory. Usually
+	counting mode is used together with maxDistance2.
+	Default: 1
 
 	maxDistance2 (Real >= 0):
 	The distance after which points are not considered neighbors
@@ -59,43 +63,21 @@ namespace Pastel
 	is in terms of the used norm bijection.
 	Default: (Real)Infinity()
 
-	maxRelativeError (Real >= 0):
-	Maximum allowed relative error in the distance of the 
-	result point to the true nearest neighbor. Allowing error
-	increases performance. Use 0 for exact matches. 
-	Default: 0
-
-	report (Output(KdTree::Point_ConstIterator)):
+	report (Output(Real, PointId)):
 	An output to which the found neighbors 
 	are reported to. The reporting is done in the 
-	form report(distance, point), in decreasing
-	order of distance.
+	form report(distance, point) in increasing
+	order of distance. When counting mode is
+	enabled, the order is random.
 
 	reportMissing (bool):
 	Whether to always report kNearest points, even
 	if there are not so many neighbors. The missing 
-	points are reported as (Infinity(), kdTree.end()).
+	points are reported as (Infinity(), nearestSet.notFound()).
 	Default: true
-
-	nBruteForce (integer >= 0):
-	The number of points under which to start a brute-force
-	search in a node. Leaf nodes will always be searched.
-	Default: 16
 
 	normBijection:
 	The norm used to measure distance.
-
-	searchAlgorithm:
-	The search-algorithm to use for searching the 'kdTree'.
-	See 'pointkdtree_searchalgorithm.txt'.
-
-	timeIntervalSequence:
-	An interval sequence in time. A sequence 
-	(t_1, t_2, t_3, t_4, ...) corresponds to the
-	time-intervals [t_1, t_2), [t_3, t_4), ...
-	If the number of time-instants is odd, then
-	the sequence is implicitly appended 
-	(Real)Infinity().
 
 	returns (std::pair<Real, Point_ConstIterator>)
 	----------------------------------------------
@@ -106,7 +88,7 @@ namespace Pastel
 	does not exist, (Real)Infinity().
 	
 	The second element is the k:th nearest neighbor. 
-	If the k:th nearest neighbor does not exist, kdTree.end().
+	If the k:th nearest neighbor does not exist, nearestSet.notFound().
 	*/
 	template <
 		typename NearestSet,
@@ -124,7 +106,7 @@ namespace Pastel
 	{
 		using std::begin;
 
-		using PointId = RemoveCvRef<decltype(*begin(nearestSet.pointSet()))>;
+		using PointId = PointSet_PointId<NearestSet>;
 		using Real = Point_Real<Search_Point>;
 
 		auto&& report = 
@@ -181,11 +163,23 @@ namespace Pastel
 			}
 		};
 
+		// Counting-mode is specified by infinite k.
+		const bool weAreCounting = (kNearest == (integer)Infinity());
+
+		// The number of points in the point-set.
+		const integer n = setSize(nearestSet);
+
+		// There cannot be more than n neighbors; 
+		// avoid allocating storage in case kNearest
+		// is excessive. If we are counting, we 
+		// do not track any neighbor.
+		const integer resultSetSize = weAreCounting ? 0 : std::min(kNearest, n);
+
 		// This set contains the points currently closest
 		// to the search-point. 
 		using ResultSet = RankedSet<Result, Less>;
 		// There will be at most k elements in this set.
-		ResultSet resultSet(kNearest);
+		ResultSet resultSet(resultSetSize);
 
 		auto searchBruteForce = [&](auto&& pointIdSet)
 		{
@@ -214,7 +208,16 @@ namespace Pastel
 					continue;
 				}
 
-				// Add the new candidate.
+				if (weAreCounting)
+				{
+					// We are counting points; report
+					// the point immediately.
+					report(currentDistance2, pointId);
+					// Do not update cull-distance when counting.
+					continue;
+				}
+
+				// Track the k nearest neighbors.
 				resultSet.push(Result(currentDistance2, pointId));
 
 				Real maxNearestDistance2 = (Real)Infinity();
@@ -245,6 +248,12 @@ namespace Pastel
 			normBijection,
 			cullDistance2,
 			searchBruteForce);
+
+		if (weAreCounting)
+		{
+			// If we are counting, return no result.
+			return notFound;
+		}
 
 		// Sort the neighbors in order of
 		// increasing distance.
@@ -277,7 +286,9 @@ namespace Pastel
 			return notFound;
 		}
 
-		// Return the k:th nearest neighbor.
+		// Return the k:th nearest neighbor,
+		// or the farthest neighbor when
+		// counting.
 		return sortedSet.back();
 	}
 

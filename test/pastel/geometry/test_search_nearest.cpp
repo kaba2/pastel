@@ -311,11 +311,11 @@ void testCase(const Create& create)
 	test(nearestSet, reorderedDistanceSet);
 }
 
-TEST_CASE("search_nearest (PointKdTree)")
-{
-	testCase(CreatePointKdTree<DepthFirst_SearchAlgorithm_PointKdTree>());
-	testCase(CreatePointKdTree<BestFirst_SearchAlgorithm_PointKdTree>());
-}
+//TEST_CASE("search_nearest (PointKdTree)")
+//{
+//	testCase(CreatePointKdTree<DepthFirst_SearchAlgorithm_PointKdTree>());
+//	testCase(CreatePointKdTree<BestFirst_SearchAlgorithm_PointKdTree>());
+//}
 
 TEST_CASE("search_nearest (brute-force)")
 {
