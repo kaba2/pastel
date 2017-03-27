@@ -33,6 +33,7 @@ include ("Paths")
 
 find_package("Ranges_")
 include_directories (${RangesIncludeDirectory})
+add_definitions(-DRANGES_NO_STD_FORWARD_DECLARATIONS)
 
 find_package("Boost_")
 include_directories (${BoostIncludeDirectory})
