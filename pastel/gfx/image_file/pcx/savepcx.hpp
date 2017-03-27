@@ -10,7 +10,6 @@
 #include "pastel/gfx/color/coloradapter.h"
 
 #include "pastel/sys/adaptedarray.h"
-#include "pastel/sys/logging/log.h"
 #include "pastel/sys/binaryfile.h"
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/view/view_tools.h"
@@ -74,16 +73,16 @@ namespace Pastel
 		// TODO: This does not work with empty images!
 
 		/*
-		log() << "Saving a binary image to file "
+		std::cout << "Saving a binary image to file "
 			<< fileName
 			<< " in pcx format."
-			<< logNewLine;
+			<< std::endl;
 		*/
 
 		if (fileName.empty())
 		{
-			log() << "No filename given. Aborting..."
-				<< logNewLine;
+			std::cout << "No filename given. Aborting..."
+				<< std::endl;
 
 			return false;
 		}
@@ -160,7 +159,7 @@ namespace Pastel
 
 		file.close();
 
-		//log() << "Pcx image saving complete." << logNewLine;
+		//std::cout << "Pcx image saving complete." << std::endl;
 
 		return true;
 	}
@@ -181,15 +180,15 @@ namespace Pastel
 		// TODO: This does not work with empty images!
 
 		/*
-		log() << "Saving an indexed image to file "
+		std::cout << "Saving an indexed image to file "
 			<< fileName << " in pcx format."
-			<< logNewLine;
+			<< std::endl;
 		*/
 
 		if (fileName.empty())
 		{
-			log() << "No filename given. Aborting..."
-				<< logNewLine;
+			std::cout << "No filename given. Aborting..."
+				<< std::endl;
 
 			return false;
 		}
@@ -281,7 +280,7 @@ namespace Pastel
 
 		file.close();
 
-		//log() << "Pcx image saving complete." << logNewLine;
+		//std::cout << "Pcx image saving complete." << std::endl;
 
 		return true;
 	}
@@ -302,16 +301,16 @@ namespace Pastel
 		// TODO: This does not work with empty images!
 
 		/*
-		log() << "Saving an rgb image to file "
+		std::cout << "Saving an rgb image to file "
 			<< fileName
 			<< " in pcx format."
-			<< logNewLine;
+			<< std::endl;
 		*/
 
 		if (fileName.empty())
 		{
-			log() << "No filename given. Aborting..."
-				<< logNewLine;
+			std::cout << "No filename given. Aborting..."
+				<< std::endl;
 
 			return false;
 		}
@@ -365,7 +364,7 @@ namespace Pastel
 
 		file.close();
 
-		//log() << "Pcx image saving complete." << logNewLine;
+		//std::cout << "Pcx image saving complete." << std::endl;
 
 		return true;
 	}

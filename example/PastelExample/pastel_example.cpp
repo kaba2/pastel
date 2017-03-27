@@ -11,15 +11,6 @@ using namespace Pastel;
 
 int main()
 {
-	Stream_Logger streamLogger(&cout);
-	File_Logger fileLogger("log.txt");
-
-	log().addLogger(&streamLogger);
-	log().addLogger(&fileLogger);
-
-	setInvariantFailureAction(
-		InvariantFailureAction::Throw);
-
 	//testRunner().run();
 	testRunner().console();
 

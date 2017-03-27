@@ -103,8 +103,8 @@ namespace Pastel
 
 				if (relativeMatchingDistance > matchingFactorUpperBound)
 				{
-					log() << "pointPatternMatchVw(): warning: the matching distance is greater than the upper bound"
-						<< " to guarantee optimal asymptotic performance." << logNewLine;
+					std::cout << "pointPatternMatchVw(): warning: the matching distance is greater than the upper bound"
+						<< " to guarantee optimal asymptotic performance." << std::endl;
 				}
 
 				Real kSuggestion =
@@ -134,12 +134,12 @@ namespace Pastel
 					1, k_ - k3_ / 2);
 
 				/*
-				log() << "kSuggestion = " << kSuggestion << logNewLine;
-				log() << "k2Suggestion = " << k2Suggestion << logNewLine;
-				log() << "k3Suggestion = " << k3Suggestion << logNewLine;
-				log() << "k = " << k_ << logNewLine;
-				log() << "k2 = " << k2_ << logNewLine;
-				log() << "k3 = " << k3_ << logNewLine;
+				std::cout << "kSuggestion = " << kSuggestion << std::endl;
+				std::cout << "k2Suggestion = " << k2Suggestion << std::endl;
+				std::cout << "k3Suggestion = " << k3Suggestion << std::endl;
+				std::cout << "k = " << k_ << std::endl;
+				std::cout << "k2 = " << k2_ << std::endl;
+				std::cout << "k3 = " << k3_ << std::endl;
 				*/
 			}
 
@@ -586,11 +586,11 @@ namespace Pastel
 		bool succeeded = patternMatcher(similarityResult);
 
 		/*
-		log() << "Local tries = " << patternMatcher.localTries() << logNewLine;
-		log() << "Best local try = " << patternMatcher.bestLocalTry() << logNewLine;
-		log() << "Global tries = " << patternMatcher.localMatches() << logNewLine;
-		log() << "Best global try = " << patternMatcher.bestGlobalTry() << logNewLine;
-		log() << "Model points tried = " << patternMatcher.modelPointTries() << logNewLine;
+		std::cout << "Local tries = " << patternMatcher.localTries() << std::endl;
+		std::cout << "Best local try = " << patternMatcher.bestLocalTry() << std::endl;
+		std::cout << "Global tries = " << patternMatcher.localMatches() << std::endl;
+		std::cout << "Best global try = " << patternMatcher.bestGlobalTry() << std::endl;
+		std::cout << "Model points tried = " << patternMatcher.modelPointTries() << std::endl;
 		*/
 
 		return succeeded;

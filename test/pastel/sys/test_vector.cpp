@@ -636,8 +636,8 @@ namespace
 
 				if (c[i] != left * invFactor)
 				{
-					//log() << c[i] << " != " << i * invFactor << logNewLine;
-					//log() << i << " / " << size << logNewLine;
+					//std::cout << c[i] << " != " << i * invFactor << std::endl;
+					//std::cout << i << " / " << size << std::endl;
 
 					++contentsDiffer;
 				}
@@ -659,8 +659,8 @@ namespace
 				if (c[i] != result)
 				{
 					std::cout << c[i] << " != " << result << std::endl;
-					//log() << c[i] << " != " << i * invFactor << logNewLine;
-					log() << i << " / " << size << logNewLine;
+					//std::cout << c[i] << " != " << i * invFactor << std::endl;
+					std::cout << i << " / " << size << std::endl;
 
 					++contentsDiffer;
 				}
@@ -719,7 +719,7 @@ namespace
 				Real left = 5;
 				if (c[i] != left / i)
 				{
-					//log() << c[i] << " != " << left / i << logNewLine;
+					//std::cout << c[i] << " != " << left / i << std::endl;
 					++contentsDiffer;
 				}
 			}

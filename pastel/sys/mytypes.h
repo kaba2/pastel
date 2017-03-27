@@ -18,6 +18,8 @@
 
 // FIX: Remove when default error-message becomes available in C++17.
 #define PASTEL_STATIC_ASSERT(...) static_assert((__VA_ARGS__), #__VA_ARGS__);
+#define PASTEL_GETTER(name) \
+	const auto& name() const {return name##_;};
 
 namespace Pastel
 {
@@ -215,5 +217,7 @@ namespace Pastel
 #include "pastel/sys/operators.h"
 #include "pastel/sys/predicate/derived_predicates.h"
 #include "range/v3/range_for.hpp"
+#include "pastel/sys/printable/printable_concept.h"
+#include "pastel/sys/hashing.h"
 
 #endif

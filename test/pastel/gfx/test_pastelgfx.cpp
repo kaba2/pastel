@@ -3,8 +3,6 @@
 
 #include "test_pastelgfx.h"
 
-#include "pastel/sys/logging.h"
-
 #include <iostream>
 
 #include "pastel/gfx/image_file.h"
@@ -17,12 +15,6 @@
 
 int main(int argc, const char* argv[])
 {
-	Stream_Logger streamLogger(&std::cout);
-	File_Logger fileLogger("log.txt");
-
-	log().addLogger(&streamLogger);
-	log().addLogger(&fileLogger);
-
 	Array<Color> textureImage;
 	loadPcx("lena.pcx", textureImage);
 

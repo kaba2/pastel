@@ -34,8 +34,8 @@ namespace Pastel
 
 	inline void TestRunner::run() const
 	{
-		log() << "Testing " << name_ << "..."
-			<< logNewLine << logNewLine;
+		std::cout << "Testing " << name_ << "..."
+			<< std::endl << std::endl;
 
 		ConstIterator iter(functionSet_.begin());
 		ConstIterator iterEnd(functionSet_.end());
@@ -45,8 +45,8 @@ namespace Pastel
 			++iter;
 		}
 
-		//log() << name_ << " testing complete."
-		//	<< logNewLine << logNewLine;
+		//std::cout << name_ << " testing complete."
+		//	<< std::endl << std::endl;
 	}
 
 	inline void TestRunner::run(
@@ -57,7 +57,7 @@ namespace Pastel
 			return;
 		}
 
-		log() << iter->first << logNewLine;
+		std::cout << iter->first << std::endl;
 
 		Function function = iter->second;
 		if (function)
@@ -68,15 +68,15 @@ namespace Pastel
 			}
 			catch(const InvariantFailure&)
 			{
-				log() << "An invariant failure occurred while running the test " 
+				std::cout << "An invariant failure occurred while running the test " 
 					<< iter->first << "."
-					<< logNewLine;
+					<< std::endl;
 			}
 			catch(...)
 			{
-				log() << "An exception was thrown while running the test " 
+				std::cout << "An exception was thrown while running the test " 
 					<< iter->first << "."
-					<< logNewLine;
+					<< std::endl;
 				throw;
 			};
 		}

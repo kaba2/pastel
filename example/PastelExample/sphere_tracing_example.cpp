@@ -108,11 +108,11 @@ namespace
 		kdTree.reserveBound(AlignedBox3(Vector3(-10), Vector3(10)));
 		kdTree.insert(sphereList.begin(), sphereList.end());
 
-		log() << "The kdTree has " << logNewLine;
-		log() << kdTree.nodes() << " nodes" << logNewLine;
-		log() << "Depth of " << depth(kdTree) << logNewLine;
-		log() << kdTree.objects() << " object references ("
-			<< (real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
+		std::cout << "The kdTree has " << std::endl;
+		std::cout << kdTree.nodes() << " nodes" << std::endl;
+		std::cout << "Depth of " << depth(kdTree) << std::endl;
+		std::cout << kdTree.objects() << " object references ("
+			<< (real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << std::endl;
 
 		refineSurfaceAreaHeuristic(computeKdTreeMaxDepth(kdTree.objects()), 2, kdTree);
 		//refineSurfaceAreaHeuristic(0, 2, kdTree);
@@ -121,12 +121,12 @@ namespace
 
 		REPORT(!check(kdTree));
 
-		log() << "The kdTree has " << logNewLine;
-		log() << kdTree.nodes() << " nodes" << logNewLine;
-		log() << "Of which " << kdTree.leaves() << " are leaf nodes." << logNewLine;
-		log() << "Depth of " << depth(kdTree) << logNewLine;
-		log() << kdTree.objects() << " object references ("
-			<< (real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
+		std::cout << "The kdTree has " << std::endl;
+		std::cout << kdTree.nodes() << " nodes" << std::endl;
+		std::cout << "Of which " << kdTree.leaves() << " are leaf nodes." << std::endl;
+		std::cout << "Depth of " << depth(kdTree) << std::endl;
+		std::cout << kdTree.objects() << " object references ("
+			<< (real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << std::endl;
 
 		std::vector<Color> palette;
 		falseColorPalette(palette, 256);
@@ -143,7 +143,7 @@ namespace
 			const integer progress = 100 * ((real)y / (height - 1));
 			if (progress != reportedProgress)
 			{
-				log() << progress << "% ";
+				std::cout << progress << "% ";
 				reportedProgress = progress;
 			}
 			for (integer x = 0;x < width;++x)
@@ -166,7 +166,7 @@ namespace
 			}
 		}
 
-		log() << logNewLine;
+		std::cout << std::endl;
 
 		allocator.clear();
 
