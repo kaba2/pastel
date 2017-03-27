@@ -63,12 +63,17 @@ namespace Pastel
 	is in terms of the used norm bijection.
 	Default: (Real)Infinity()
 
+	sortDistances (bool):
+	Whether to report the neighbors in increasing
+	order of distance, as opposed to arbitrary order.
+	When counting mode is enabled, the order is 
+	always arbitrary.
+	Default: true
+
 	report (Output(Real, PointId)):
 	An output to which the found neighbors 
 	are reported to. The reporting is done in the 
-	form report(distance, point) in increasing
-	order of distance. When counting mode is
-	enabled, the order is random.
+	form report(distance, point). 
 
 	reportMissing (bool):
 	Whether to always report kNearest points, even
@@ -137,6 +142,7 @@ namespace Pastel
 		integer kNearest = PASTEL_ARG_S(kNearest, 1);
 		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, (Real)Infinity());
 		bool reportMissing = PASTEL_ARG_S(reportMissing, false);
+		bool sortDistances = PASTEL_ARG_S(sortDistances, true);
 
 		ENSURE_OP(kNearest, >=, 0);
 		ENSURE_OP(maxDistance2, >=, 0);
@@ -165,6 +171,10 @@ namespace Pastel
 
 		// Counting-mode is specified by infinite k.
 		const bool weAreCounting = (kNearest == (integer)Infinity());
+
+		// Counting-mode reports points in arbitrary order;
+		// sorting by distance is not possible.
+		ENSURE(!(sortDistances && weAreCounting));
 
 		// The number of points in the point-set.
 		const integer n = setSize(nearestSet);
@@ -257,7 +267,7 @@ namespace Pastel
 
 		// Sort the neighbors in order of
 		// increasing distance.
-		auto sortedSet = resultSet.release();
+		auto sortedSet = resultSet.release(sortDistances);
 
 		// Report the nearest neighbors.
 		RANGES_FOR(auto&& entry, sortedSet)
