@@ -48,14 +48,6 @@ if maxArraySize >= 2^32
     bits = 64;
 end
 
-generatedBits = ${GENERATOR_BITS};
-if bits ~= generatedBits
-    error(['Build file is ', num2str(generatedBits), '-bit, but ', ...
-        'Matlab is ', num2str(bits), '-bit. ', ...
-        'Switch to ', num2str(bits), '-bit Matlab, or rerun Pastel CMake with a ', ...
-        num2str(bits), '-bit generator.'])
-end
-
 modeSet = {'debug', 'release', 'relwithdebinfo'};
 if ~ismember(mode, modeSet)
     error(['MODE must be one of debug, release, or relwithdebinfo.']);
@@ -87,9 +79,11 @@ if ~ismember(libraryName, libraryNameSet)
     error('LIBRARYNAME must be one of sys, math, or geometry.');
 end
 
+completeLibraryName = ['pastel', libraryName, 'matlab'];
+
 disp(' ');
 disp(['Building a mex file for ', ...
-    'pastel', libraryName, 'matlab', ...
+    completeLibraryName, ...
     ' in ', ...
     num2str(bits), '-bit ', ...
     mode, ' mode.']);
@@ -105,6 +99,7 @@ defineSet = {};
 includeDirectorySet = ...
 {...
     '${PastelIncludeDirectory}', ...
+    '${RangesIncludeDirectory}', ...
     '${BoostIncludeDirectory}', ...
     '${TbbIncludeDirectory}', ...
     '${ArmadilloIncludeDirectory}'...
@@ -176,110 +171,17 @@ if strcmp(libraryName, 'sys')
     ];
 end
 
-% Handle semicolon-separated lists
-% --------------------------------
+fileSet = {[inputDirectory, '/', completeLibraryName, '.cpp']};
 
-function resultSet = breakSemicolons(stringSet)
-    resultSet = {};
-    for i = 1 : numel(stringSet)
-        string = stringSet{i};
-        splitSet = regexp(string, ';', 'split');
-        resultSet = [resultSet, splitSet];
-    end
-end
-
-includeDirectorySet = breakSemicolons(includeDirectorySet);
-libraryDirectorySet = breakSemicolons(libraryDirectorySet);
-librarySet = breakSemicolons(librarySet);
-
-% Preprocessor definitions 
-% ------------------------
-
-defineSet{end + 1} = '_ITERATOR_DEBUG_LEVEL=0';
-
-% Form the build-command
-% ----------------------
-
-commandSet = {};
-commandSet{end + 1} = 'mex';
-commandSet{end + 1} = [' ', inputDirectory, '/pastel', libraryName, 'matlab.cpp'];
-
-% Add preprocessor definitions.
-for i = 1 : numel(defineSet)
-    commandSet{end + 1} = [' -D', defineSet{i}];
-end
-
-% Add include paths.
-for i = 1 : numel(includeDirectorySet)
-    commandSet{end + 1} = [' -I''', includeDirectorySet{i}, ''''];
-end
-
-% Add library directories.
-for i = 1 : numel(libraryDirectorySet)
-    libraryDirectory = libraryDirectorySet{i};
-    if isempty(libraryDirectory)
-        % No directory was specified; skip it.
-        continue;
-    end
-
-    [iStart, iEnd] = regexp(libraryDirectory, '\.framework$');
-    if ~isempty(iStart) && ismac()
-        % This is a framework directory.
-        commandSet{end + 1} = [' LDFLAGS=''$LDFLAGS -F ', libraryDirectory, ''''];
-    else
-        % This is a normal library directory.
-        commandSet{end + 1} = [' -L''', libraryDirectory, ''''];
-    end
-end
-
-% Add output path.
-commandSet{end + 1} = [' -outdir ''', outputDirectory, ''''];
-
-% Add libraries.
-for i = 1 : numel(librarySet)
-    library = librarySet{i};
-    if isempty(library)
-        % No library was specified; skip it.
-        continue;
-    end
-
-    [iStart, iEnd] = regexp(library, '\.framework$');
-    if ~isempty(iStart) && ismac()
-        % This is a framework (Mac OS X).
-        
-        % Get the framework name by stripping out the
-        % trailing '.framework'.
-        frameworkName = library(1 : iStart - 1);
-
-        % Mex does not have a direct flag to specify
-        % frameworks. Instead, we embed it directly
-        % into compiler flags.
-        commandSet{end + 1} = [' CXXLIBS=''$CXXLIBS -framework ', frameworkName, ''''];
-    else
-        % This is a normal library.
-        commandSet{end + 1} = [' -l', librarySet{i}];
-    end
-end
-
-% Other flags.
-if strcmp(mode, 'debug')
-    commandSet{end + 1} = ' -g';
-end
-
-if strcmp(verbose, 'on')
-    commandSet{end + 1} = ' -v';
-end
-
-% Run the build-command
-% ---------------------
-
-% Print the executed build-command in pretty form.
-for i = 1 : numel(commandSet)
-    disp(commandSet{i});
-end
-
-% Run the command.
-buildCommand = [commandSet{:}];
-eval(buildCommand);
+commandSet = form_build_command(...
+    fileSet, ...
+    'includeDirectorySet', includeDirectorySet, ...
+    'libraryDirectorySet', libraryDirectorySet, ...
+    'librarySet', librarySet, ...
+    'defineSet', defineSet, ...
+    'outputDirectory', outputDirectory, ...
+    'mode', mode, ...
+    'verbose', verbose, ...
+    'run', true);
 
 end
