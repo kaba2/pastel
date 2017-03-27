@@ -81,4 +81,11 @@ namespace Pastel
 
 #include "pastel/sys/random/random_gaussian.hpp"
 
+#include "pastel/sys/random/normal_distribution.h"
+#include "pastel/sys/random/normal_entropy.h"
+#include "pastel/sys/random/normal_moments.h"
+#include "pastel/sys/random/normal_mutual_information.h"
+#include "pastel/sys/random/normal_pdf.h"
+#include "pastel/sys/random/normal_variate.h"
+
 #endif
