@@ -275,10 +275,10 @@ namespace Pastel
 
 			if (n >= (1 << 14))
 			{
-				log() << "Warning: Copying a large amount of data "
+				std::cout << "Warning: Copying a large amount of data "
 					<< "because of type mismatch. Using a matching type, " 
 					<< "if possible, avoids any copying." 
-					<< logNewLine;
+					<< std::endl;
 			}
 
 			result = Array<Type>(Vector2i(n, 1));

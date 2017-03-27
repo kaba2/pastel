@@ -2,7 +2,6 @@
 #include "pastel/matlab/matlab_argument.h"
 
 #include "pastel/sys/callfunction.h"
-#include "pastel/sys/logging.h"
 #include "pastel/sys/ensure.h"
 
 #include <map>
@@ -39,26 +38,6 @@ namespace Pastel
 
 	namespace
 	{
-
-		class Matlab_Logger
-			: public Logger
-		{
-		public:
-			virtual ~Matlab_Logger()
-			{
-			}
-
-			virtual Matlab_Logger& operator<<(
-				const std::string& text)
-			{
-				mexPrintf(text.c_str());
-				return *this;
-			}
-
-			virtual void finalize()
-			{
-			}
-		};
 
 		void matlabEntry(
 			int outputs, mxArray *outputSet[],
@@ -98,8 +77,7 @@ namespace Pastel
 			else
 			{
 				// There is no such function.
-				mexPrintf("PastelMatlab: There is no function named %s.", name.c_str());
-				mexPrintf("\n");
+				std::cout << "PastelMatlab: There is no function named " << name << std::endl;
 			}
 
 		}
@@ -124,21 +102,13 @@ namespace Pastel
 			
 			while(iter != iterEnd)
 			{
-				mexPrintf(iter->first.c_str());
-				mexPrintf("\n");
+				std::cout << iter->first << std::endl;
 				++iter;
 			}
 		}
 
 		void matlabInitialize()
 		{
-			// We'd like to see the logging done into
-			// the Matlab window. This is convenient when
-			// an invariant failure occurs, or a file can't 
-			// be found, etc.
-			static Pastel::Matlab_Logger matlabLogger;
-			log().addLogger(&matlabLogger);
-
 			// Initialize Threading Building Blocks.
 			static tbb::task_scheduler_init theTbbInit(
 				tbb::task_scheduler_init::automatic);
@@ -159,6 +129,14 @@ extern "C" void mexFunction(
 	int outputs, mxArray *outputSet[],
 	int inputs, const mxArray *inputSet[])
 {
+	// We'd like to see the logging done into
+	// the Matlab window. This is convenient when
+	// an invariant failure occurs, or a file can't 
+	// be found, etc.
+	std::streambuf* cout_sbuf = std::cout.rdbuf();
+    std::stringbuf sbuf;
+    std::cout.rdbuf(&sbuf);
+
 	try
 	{
 		Pastel::matlabEntry(
@@ -171,5 +149,11 @@ extern "C" void mexFunction(
 		// The error has already been logged.
 		// We simply absorb the exception here.
 	};
+
+	// Print any output to Matlab.
+    mexPrintf(sbuf.str().c_str());
+
+    // Restore std::cout.
+    std::cout.rdbuf(cout_sbuf);
 }
 

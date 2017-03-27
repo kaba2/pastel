@@ -5,7 +5,6 @@
 
 #include "test/catch.hpp"
 
-#include "pastel/sys/logging/log.h"
 #include "pastel/sys/callfunction.h"
 #include "pastel/sys/anystorage.h"
 

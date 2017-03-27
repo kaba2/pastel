@@ -221,7 +221,7 @@ namespace
 					2 * randomVector<real, 2>() - 1));
 			}
 
-			log() << "Computing kd-trees..." << logNewLine;
+			std::cout << "Computing kd-trees..." << std::endl;
 
 			// Compute the kd-tree for the scene set.
 
@@ -245,7 +245,7 @@ namespace
 
 			// Compute the pattern matching.
 
-			log() << "Computing point pattern match..." << logNewLine;
+			std::cout << "Computing point pattern match..." << std::endl;
 
 			ConformalAffine2D<real> similarity;
 			const bool success = pointPatternMatch(
@@ -256,14 +256,14 @@ namespace
 
 			if (success)
 			{
-				log() << "Found the model from the scene!" << logNewLine;
-				log() << "Scaling " << similarity.scaling() << logNewLine;
-				log() << "Ccw rotation " << radiansToDegrees<real>(similarity.rotation()) << logNewLine;
-				log() << "Translation " << similarity.translation()[0] << ", " << similarity.translation()[1] << logNewLine;
+				std::cout << "Found the model from the scene!" << std::endl;
+				std::cout << "Scaling " << similarity.scaling() << std::endl;
+				std::cout << "Ccw rotation " << radiansToDegrees<real>(similarity.rotation()) << std::endl;
+				std::cout << "Translation " << similarity.translation()[0] << ", " << similarity.translation()[1] << std::endl;
 			}
 			else
 			{
-				log() << "Failed to find the pattern from the background." << logNewLine;
+				std::cout << "Failed to find the pattern from the background." << std::endl;
 			}
 
 			AffineTransformation<real> matchedTransform = 
@@ -317,9 +317,9 @@ namespace
 			const real angle = random<real>(0, constantPi<real>());
 			const Vector2 translation = randomVectorSphere<real, 2>() * random<real>(0, 3);
 
-			log() << "Scaling = " << scaling << logNewLine;
-			log() << "Angle = " << radiansToDegrees<real>(angle) << " degrees." << logNewLine;
-			log() << "Translation = (" << translation.x() << ", " << translation.y() << ")" << logNewLine;
+			std::cout << "Scaling = " << scaling << std::endl;
+			std::cout << "Angle = " << radiansToDegrees<real>(angle) << " degrees." << std::endl;
+			std::cout << "Translation = (" << translation.x() << ", " << translation.y() << ")" << std::endl;
 
 			const ConformalAffine2D<real> transform(scaling, angle, translation);
 
@@ -347,14 +347,14 @@ namespace
 
 			if (success)
 			{
-				log() << "Found the model from the scene!" << logNewLine;
-				log() << "Scaling " << similarity.scaling() << logNewLine;
-				log() << "Ccw rotation " << radiansToDegrees<real>(similarity.rotation()) << logNewLine;
-				log() << "Translation " << similarity.translation()[0] << ", " << similarity.translation()[1] << logNewLine;
+				std::cout << "Found the model from the scene!" << std::endl;
+				std::cout << "Scaling " << similarity.scaling() << std::endl;
+				std::cout << "Ccw rotation " << radiansToDegrees<real>(similarity.rotation()) << std::endl;
+				std::cout << "Translation " << similarity.translation()[0] << ", " << similarity.translation()[1] << std::endl;
 			}
 			else
 			{
-				log() << "Failed to find the pattern from the background" << logNewLine;
+				std::cout << "Failed to find the pattern from the background" << std::endl;
 			}
 
 			AffineTransformation<real> matchedTransform = toAffine(similarity);

@@ -284,7 +284,7 @@ namespace Pastel
 						PASTEL_TAG(maxDistance2), matchingDistance2,
 						PASTEL_TAG(maxRelativeError), maxRelativeError);
 
-					//log() << "Distance " << neighbor.key() << logNewLine;
+					//std::cout << "Distance " << neighbor.key() << std::endl;
 				
 				}
 
@@ -299,7 +299,7 @@ namespace Pastel
 						pairSet.push_back(std::make_pair(indexToScene[iScene], indexToModel[iModel]));
 					});
 
-				//log() << pairSet.size() << " ";
+				//std::cout << pairSet.size() << " ";
 
 				if (!pairSet.empty() &&
 					pairSet.size() >= minMatches &&

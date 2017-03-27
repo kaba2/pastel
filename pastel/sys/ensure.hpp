@@ -2,7 +2,7 @@
 #define PASTELSYS_ENSURE_HPP
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/logging/log.h"
+#include <iostream>
 
 #ifdef _MSC_VER
 #include <crtdbg.h>
@@ -16,7 +16,7 @@ namespace Pastel
 
 		inline void invariantFailure()
 		{
-			log().finalize();
+			std::cout << std::flush;
 
 			#ifdef _MSC_VER
 				// If on Visual Studio, create a breakpoint
@@ -40,8 +40,8 @@ namespace Pastel
 		{
 			if (parameter.name)
 			{
-				log() << parameter.name << " == "
-					<< parameter.value << logNewLine;
+				std::cout << parameter.name << " == "
+					<< parameter.value << std::endl;
 			}
 
 			reportParameters(parameterSet...);
@@ -55,57 +55,57 @@ namespace Pastel
 			int lineNumber,
 			ParameterInfo<TypeSet>... parameterSet)
 		{
-			log() << "File: ";
+			std::cout << "File: ";
 			if (fileName)
 			{
-				log() << fileName;
+				std::cout << fileName;
 			}
 			else
 			{
-				log() << "Not available";
+				std::cout << "Not available";
 			}
-			log() << logNewLine;
+			std::cout << std::endl;
 
-			log() << "Line: ";
+			std::cout << "Line: ";
 			if (lineNumber >= 0)
 			{
-				log() << lineNumber;
+				std::cout << lineNumber;
 			}
 			else
 			{
-				log() << "Not available";
+				std::cout << "Not available";
 			}
-			log() << logNewLine;
+			std::cout << std::endl;
 
-			log() << "Function: ";
+			std::cout << "Function: ";
 			if (functionName)
 			{
-				log() << functionName;
+				std::cout << functionName;
 			}
 			else
 			{
-				log() << "Not available";
+				std::cout << "Not available";
 			}
-			log() << logNewLine;
+			std::cout << std::endl;
 
-			log() << "Expression: ";
+			std::cout << "Expression: ";
 			if (testText)
 			{
-				log() << testText;
+				std::cout << testText;
 			}
 			else
 			{
-				log() << "Not available";
+				std::cout << "Not available";
 			}
-			log() << logNewLine;
+			std::cout << std::endl;
 
 			if (sizeof...(TypeSet) > 0)
 			{
-				log() << "where" << logNewLine;
+				std::cout << "where" << std::endl;
 				reportParameters(parameterSet...);
 			}
 
-			log() << logNewLine << logNewLine;
+			std::cout << std::endl << std::endl;
 		}
 
 		template <typename... TypeSet>
@@ -116,9 +116,9 @@ namespace Pastel
 			int lineNumber,
 			ParameterInfo<TypeSet>... parameterSet)
 		{
-			log() << logNewLine;
-			log() << "Precondition check failed."
-				<< logNewLine;
+			std::cout << std::endl;
+			std::cout << "Precondition check failed."
+				<< std::endl;
 
 			report(testText,
 				functionName,
@@ -137,9 +137,9 @@ namespace Pastel
 			int lineNumber,
 			ParameterInfo<TypeSet>... parameterSet)
 		{
-			log() << logNewLine;
-			log() << "Internal check failed." 
-				<< logNewLine;
+			std::cout << std::endl;
+			std::cout << "Internal check failed." 
+				<< std::endl;
 
 			report(testText,
 				functionName,

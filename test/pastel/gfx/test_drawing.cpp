@@ -139,13 +139,13 @@ TEST_CASE("PerspectiveTriangle (PerspectiveTriangle)")
 	Array<Color, 2> texture;
 	loadPcx("lena.pcx", texture);
 
-	//log() << "Computing mipmaps.." << logNewLine;
+	//std::cout << "Computing mipmaps.." << std::endl;
 	MipMap<Color, 2> mipMap(constArrayView(texture));
 	transform(mipMap, fitColor);
 
 	MipImage_Texture<Color> sampler(mipMap);
 
-	//log() << "Rendering.." << logNewLine;
+	//std::cout << "Rendering.." << std::endl;
 
 	AlignedBox3 region(
 		Vector3(-100, -100, 0),
@@ -179,7 +179,7 @@ TEST_CASE("EwaPerspectiveTriangle (EwaPerspectiveTriangle)")
 	Array<Color, 2> textureImage;
 	loadPcx("lena.pcx", textureImage);
 
-	//log() << "Rendering.." << logNewLine;
+	//std::cout << "Rendering.." << std::endl;
 
 	AlignedBox3 region(
 		Vector3(-width / 4, -height / 4, 0),
@@ -221,13 +221,13 @@ TEST_CASE("TextureTriangle (TextureTriangle)")
 	Array<Color, 2> texture;
 	loadPcx("lena.pcx", texture);
 
-	//log() << "Computing mipmaps.." << logNewLine;
+	//std::cout << "Computing mipmaps.." << std::endl;
 	MipMap<Color, 2> mipMap(constArrayView(texture));
 	transform(mipMap, fitColor);
 
 	MipImage_Texture<Color> sampler(mipMap);
 
-	//log() << "Rendering.." << logNewLine;
+	//std::cout << "Rendering.." << std::endl;
 
 	AlignedBox2 region(
 		Vector2(-100, -100),
@@ -256,7 +256,7 @@ TEST_CASE("EwaTriangle (EwaTriangle)")
 	Array<Color, 2> textureImage;
 	loadPcx("lena.pcx", textureImage);
 
-	//log() << "Rendering.." << logNewLine;
+	//std::cout << "Rendering.." << std::endl;
 
 	AlignedBox2 region(
 		Vector2(-100, -100),
@@ -290,7 +290,7 @@ TEST_CASE("SolidTriangle (SolidTriangle)")
 	Array<Color, 2> texture;
 	loadPcx("lena.pcx", texture);
 
-	//log() << "Rendering.." << logNewLine;
+	//std::cout << "Rendering.." << std::endl;
 
 	AlignedBox2 region(
 		Vector2(-100, -100),

@@ -8,7 +8,6 @@
 #include "pastel/sys/adaptedarray.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/endian.h"
-#include "pastel/sys/logging/log.h"
 #include "pastel/sys/binaryfile.h"
 
 #include "pastel/gfx/image_file/pcx/pcxheader.h"
@@ -32,17 +31,17 @@ namespace Pastel
 		{
 			if (fileName.empty())
 			{
-				log() << "No fileName given, aborting..."
-					<< logNewLine;
+				std::cout << "No fileName given, aborting..."
+					<< std::endl;
 				return false;
 			}
 
 			file.open(fileName.c_str(), true, false);
 			if (!file.isOpen())
 			{
-				log() << "File " << fileName
+				std::cout << "File " << fileName
 					<< " could not be opened for reading. Aborting..."
-					<< logNewLine;
+					<< std::endl;
 
 				return false;
 			}
@@ -58,10 +57,10 @@ namespace Pastel
 
 			if (pcxHeader.encoding_ != 1)
 			{
-				log() << "Unsupported encoding type. Is "
+				std::cout << "Unsupported encoding type. Is "
 					<< (integer)pcxHeader.encoding_
 					<< ", must be 1. Aborting..."
-					<< logNewLine;
+					<< std::endl;
 				return false;
 			}
 
@@ -73,10 +72,10 @@ namespace Pastel
 				pcxHeader.bitsPerPixel_ != 4 &&
 				pcxHeader.bitsPerPixel_ != 8)
 			{
-				log() << "Unsupported number of bits per pixel. Is "
+				std::cout << "Unsupported number of bits per pixel. Is "
 					<< (integer)pcxHeader.bitsPerPixel_
 					<< ", must be 1, 2, 4, or 8. Aborting..."
-					<< logNewLine;
+					<< std::endl;
 				return false;
 			}
 
@@ -86,18 +85,18 @@ namespace Pastel
 			if (pcxHeader.colorPlanes_ != 1 &&
 				pcxHeader.colorPlanes_ != 3)
 			{
-				log() << "Unsupported number of color planes. Is "
+				std::cout << "Unsupported number of color planes. Is "
 					<< (integer)pcxHeader.colorPlanes_ << ", must be 1 or 3. Aborting..."
-					<< logNewLine;
+					<< std::endl;
 				return false;
 			}
 
 			if (pcxHeader.colorPlanes_ == 3 && pcxHeader.bitsPerPixel_ != 8)
 			{
-				log() << "Unsupported color planes - bits per pixel combination: "
+				std::cout << "Unsupported color planes - bits per pixel combination: "
 					<< "3 color planes, " << (integer)pcxHeader.bitsPerPixel_
 					<< " bits per pixel. Aborting..."
-					<< logNewLine;
+					<< std::endl;
 				return false;
 			}
 
@@ -237,9 +236,9 @@ namespace Pastel
 
 		if (pcxHeader.colorPlanes_ != 1)
 		{
-			log() << "An unsupported number of color planes for an indexed image. Is "
+			std::cout << "An unsupported number of color planes for an indexed image. Is "
 				<< (integer)pcxHeader.colorPlanes_ << ", must be 1. Aborting..."
-				<< logNewLine;
+				<< std::endl;
 			return false;
 		}
 

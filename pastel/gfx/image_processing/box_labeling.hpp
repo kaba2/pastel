@@ -61,8 +61,8 @@ namespace Pastel
 
 		while(stillWorkTodo)
 		{
-			log() << "Round " << roundCounter
-				<< ": min dimension " << minMinDimension << logNewLine;
+			std::cout << "Round " << roundCounter
+				<< ": min dimension " << minMinDimension << std::endl;
 
 			stillWorkTodo = false;
 			maxIndicatoredDimension = 0;
@@ -210,7 +210,7 @@ namespace Pastel
 			++roundCounter;
 		}
 
-		log() << "Labeling took " << roundCounter - 1 << " rounds." << logNewLine;
+		std::cout << "Labeling took " << roundCounter - 1 << " rounds." << std::endl;
 
 		return labelCounter;
 	}
