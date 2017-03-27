@@ -11,14 +11,6 @@ if maxArraySize >= 2^32
     bits = 64;
 end
 
-generatedBits = ${GENERATOR_BITS};
-if bits ~= generatedBits
-    error(['Build file is ', num2str(generatedBits), '-bit, but ', ...
-        'Matlab is ', num2str(bits), '-bit. ', ...
-        'Switch to ', num2str(bits), '-bit Matlab, or rerun Tim CMake with a ', ...
-        num2str(bits), '-bit generator.'])
-end
-
 % Add Pastel to Matlab path so that
 % process_options is available.
 addpath(['${PastelDirectory}', '/matlab']);
@@ -32,10 +24,11 @@ librarySet = {};
 outputDirectory = '.';
 libraryDirectorySet = {};
 includeDirectorySet = {};
+outputLibraryName = '';
 eval(pastelsys.process_options(...
     {'includeDirectorySet', 'libraryDirectorySet', ...
     'defineSet', 'outputDirectory', 'librarySet', ...
-    'mode', 'verbose', 'run'}, ...
+    'mode', 'verbose', 'run', 'outputLibraryName'}, ...
     varargin));
 
 modeSet = {'debug', 'release', 'relwithdebinfo'};
@@ -46,6 +39,27 @@ end
 verboseSet = {'on', 'off'};
 if ~ismember(verbose, verboseSet)
     error(['VERBOSE must be one on or off.']);
+end
+
+printOutputLibraryName = outputLibraryName;
+if isempty(outputLibraryName)
+    printOutputLibraryName = '<default-name>';
+end
+
+disp(' ');
+disp(['Building a mex file for ', ...
+    printOutputLibraryName, ...
+    ' in ', ...
+    num2str(bits), '-bit ', ...
+    mode, ' mode.']);
+disp(' ');
+
+generatedBits = ${GENERATOR_BITS};
+if bits ~= generatedBits
+    error(['Build file is ', num2str(generatedBits), '-bit, but ', ...
+        'Matlab is ', num2str(bits), '-bit. ', ...
+        'Switch to ', num2str(bits), '-bit Matlab, or regenerate the build-file with a ', ...
+        num2str(bits), '-bit CMake generator.'])
 end
 
 % Handle semicolon-separated lists
@@ -108,6 +122,11 @@ end
 
 % Add output path.
 commandSet{end + 1} = [' -outdir ''', outputDirectory, ''''];
+
+% Add output name.
+if ~isempty(outputLibraryName)
+    commandSet{end + 1} = [' -output ''', outputLibraryName, ''''];
+end
 
 % Add libraries.
 for i = 1 : numel(librarySet)
