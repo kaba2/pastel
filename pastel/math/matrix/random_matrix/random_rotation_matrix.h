@@ -4,6 +4,9 @@
 #define PASTELMATH_RANDOM_ROTATION_MATRIX_H
 
 #include "pastel/math/matrix/matrix.h"
+#include "pastel/math/matrix/random_matrix/random_orthogonal_matrix.h"
+
+#include <armadillo>
 
 namespace Pastel
 {
@@ -14,10 +17,12 @@ namespace Pastel
 	n >= 0
 	*/
 	template <typename Real>
-	Matrix<Real> randomRotation(integer n);
+	arma::Mat<Real> randomRotation(integer n)
+	{
+		ENSURE_OP(n, >=, 0);
+		return randomOrthogonal<Real>(n, 1);
+	}
 
 }
-
-#include "pastel/math/matrix/random_matrix/random_rotation_matrix.hpp"
 
 #endif
