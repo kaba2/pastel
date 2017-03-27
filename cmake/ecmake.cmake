@@ -218,6 +218,18 @@ macro (EcAddLibrary Type LibraryName SourceGlobSet)
 endmacro()
 
 # Configures a Pastel Matlab library.
+#
+# Copies each file 'path/name.ext' in the library 
+# into 'bin/matlab/path/name.ext'. When the
+# file-name is of the form 'path/name.template.ext', 
+# where ext is the file-name extension, the
+# CMake macros in the file are substituted,
+# and the file is renamed to 'path/name.ext'
+# before copying.
+#
+# SourceGlobSet:
+# A set of file-globs which determine the
+# files to be included in the library.
 macro (EcAddMatlabLibrary SourceGlobSet)
 	file (GLOB_RECURSE SourceSet RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${SourceGlobSet})
 	foreach(FilePath ${SourceSet})
