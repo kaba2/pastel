@@ -30,46 +30,91 @@
 namespace
 {
 
-	template <typename NearestSet>
+	template <
+		typename Create,
+		typename PointSet>
 	void test(
-		const NearestSet& nearestSet,
+		const Create& create,
+		const PointSet& pointSet,
 		const std::vector<real>& distanceSet)
 	{
-		PASTEL_CONCEPT_CHECK(NearestSet, NearestSet_Concept);
+		auto result = create.createDataSet(pointSet);
+		const auto& dataSet = result.first;
+		const std::vector<integer>& permutationSet = result.second;
+		
+		auto nearestSet = create.createNearestSet(dataSet);
+		REQUIRE(setSize(nearestSet) == distanceSet.size());
 
-		Euclidean_NormBijection<real> normBijection;
-
-		RANGES_FOR(auto&& i, nearestSet)
+		std::vector<real> reorderedDistanceSet;
+		for (integer i = 0;i < permutationSet.size();++i)
 		{
-			auto result =
-				searchNearest(nearestSet, nearestSet.asPoint(i));
-
-			real distance2 = result.first;
-
-			REQUIRE(distance2 == 0);
+			reorderedDistanceSet.push_back(
+				distanceSet[permutationSet[i]]);
 		}
 
-		PASTEL_CONCEPT_CHECK(decltype(nearestSet), Set_Concept);
-
-		REQUIRE(setSize(nearestSet) == distanceSet.size());
+		Euclidean_NormBijection<real> normBijection;
 
 		integer j = 0;
 		RANGES_FOR(auto&& i, nearestSet)
 		{
-			auto indicator = predicateIndicator(i, NotEqualTo());
-			PASTEL_CONCEPT_CHECK(decltype(indicator), Indicator_Concept(decltype(i)));
-
 			auto result =
 				searchNearest(
 					nearestSet,
 					nearestSet.asPoint(i),
-					PASTEL_TAG(accept), indicator,
+					PASTEL_TAG(accept), predicateIndicator(i, NotEqualTo()),
 					normBijection
 				);
 
 			real distance2 = result.first;
 
 			REQUIRE(distance2 == distanceSet[j]);
+			++j;
+		}
+	}
+
+	template <
+		typename Create,
+		typename PointSet>
+	void testCount(
+		const Create& create,
+		const PointSet& pointSet,
+		const real maxDistance2,
+		const std::vector<integer>& countSet)
+	{
+		auto result = create.createDataSet(pointSet);
+		const auto& dataSet = result.first;
+		const std::vector<integer>& permutationSet = result.second;
+		
+		auto nearestSet = create.createNearestSet(dataSet);
+		REQUIRE(setSize(nearestSet) == countSet.size());
+
+		std::vector<integer> reorderedCountSet;
+		for (integer i = 0;i < permutationSet.size();++i)
+		{
+			reorderedCountSet.push_back(
+				countSet[permutationSet[i]]);
+		}
+
+		Euclidean_NormBijection<real> normBijection;
+
+		integer j = 0;
+		RANGES_FOR(auto&& i, nearestSet)
+		{
+			integer count = 0;
+			auto report = [&](auto&&, auto&&){++count;};
+
+			auto result =
+				searchNearest(
+					nearestSet,
+					nearestSet.asPoint(i),
+					PASTEL_TAG(report), report, 
+					PASTEL_TAG(counting), true,
+					PASTEL_TAG(maxDistance2), maxDistance2,
+					PASTEL_TAG(accept), predicateIndicator(i, NotEqualTo()),
+					normBijection
+				);
+
+			REQUIRE(count == countSet[j]);
 			++j;
 		}
 	}
@@ -222,13 +267,13 @@ template <typename Create>
 void testCase(const Create& create)
 {
 	/*
-		0   |
-			|2  3
-		1  | 4
+	    0   |
+	        |2  3
+	     1  | 4
 			|5
-	--6--+--7---
+	   --6--+--7---
 			|  8
-	9ABC D
+	   9ABC D
 			|    E
 			|
 	*/
@@ -294,21 +339,13 @@ void testCase(const Create& create)
 	{
 		5, 4, 2, 5, 2, 2, 4, 1, 1, 1, 1, 1, 1, 4, 8
 	};
+	test(create, pointSet, distanceSet);
 
-	auto result = create.createDataSet(pointSet);
-	const auto& dataSet = result.first;
-	const std::vector<integer>& permutationSet = result.second;
-	
-	auto nearestSet = create.createNearestSet(dataSet);
-
-	std::vector<real> reorderedDistanceSet;
-	for (integer i = 0;i < permutationSet.size();++i)
+	std::vector<integer> countSet =
 	{
-		reorderedDistanceSet.push_back(
-			distanceSet[permutationSet[i]]);
-	}
-	
-	test(nearestSet, reorderedDistanceSet);
+		0, 0, 1, 0, 2, 1, 0, 1, 1, 1, 2, 2, 1, 0, 0
+	};
+	testCount(create, pointSet, 2.25, countSet);
 }
 
 //TEST_CASE("search_nearest (PointKdTree)")
