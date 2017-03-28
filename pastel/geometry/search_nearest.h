@@ -48,13 +48,10 @@ namespace Pastel
 	accept (Indicator(PointId)):
 	An indicator which decides whether to accept a point 
 	as a neighbor or not.
+	Default: allIndicator()
 
 	kNearest (integer >= 0):
-	The number of nearest neighbors to search.
-	Use (integer)Infinity() for a counting mode,
-	where neighbors are reported in random order;
-	this is faster and uses less memory. Usually
-	counting mode is used together with maxDistance2.
+	The number of nearest neighbors to search for.
 	Default: 1
 
 	maxDistance2 (Real >= 0):
@@ -66,14 +63,21 @@ namespace Pastel
 	sortDistances (bool):
 	Whether to report the neighbors in increasing
 	order of distance, as opposed to arbitrary order.
-	When counting mode is enabled, the order is 
-	always arbitrary and this flag is ignored.
 	Default: true
+
+	counting (bool):
+	Whether to enable counting mode, which reports
+	all points at maxDistance2. Counting mode ignores 
+	kNearest and sortDistances; the reporting order is 
+	arbitrary. This is faster and uses less memory than 
+	having kNearest set to n.
+	Default: false
 
 	report (Output(Real, PointId)):
 	An output to which the found neighbors 
 	are reported to. The reporting is done in the 
 	form report(distance, point). 
+	Default: nullOutput()
 
 	reportMissing (bool):
 	Whether to always report kNearest points, even
@@ -138,11 +142,12 @@ namespace Pastel
 				[]() {return Euclidean_NormBijection<real>();},
 				[](auto input) {return implicitArgument(Models<decltype(input), NormBijection_Concept>());}
 			);
-		
+
 		integer kNearest = PASTEL_ARG_S(kNearest, 1);
 		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, (Real)Infinity());
 		bool reportMissing = PASTEL_ARG_S(reportMissing, false);
 		bool sortDistances = PASTEL_ARG_S(sortDistances, true);
+		bool counting = PASTEL_ARG_S(counting, false);
 
 		ENSURE_OP(kNearest, >=, 0);
 		ENSURE_OP(maxDistance2, >=, 0);
@@ -169,14 +174,12 @@ namespace Pastel
 			}
 		};
 
-		// Counting-mode is specified by infinite k.
-		const bool weAreCounting = (kNearest == (integer)Infinity());
-
 		// Counting-mode reports points in arbitrary order;
 		// sorting by distance is not possible.
-		if (weAreCounting)
+		if (counting)
 		{
 			sortDistances = false;
+			kNearest = 0;
 		}
 
 		// The number of points in the point-set.
@@ -186,7 +189,7 @@ namespace Pastel
 		// avoid allocating storage in case kNearest
 		// is excessive. If we are counting, we 
 		// do not track any neighbor.
-		const integer resultSetSize = weAreCounting ? 0 : std::min(kNearest, n);
+		const integer resultSetSize = std::min(kNearest, n);
 
 		// This set contains the points currently closest
 		// to the search-point. 
@@ -221,11 +224,12 @@ namespace Pastel
 					continue;
 				}
 
-				if (weAreCounting)
+				if (counting)
 				{
 					// We are counting points; report
 					// the point immediately.
 					report(currentDistance2, pointId);
+
 					// Do not update cull-distance when counting.
 					continue;
 				}
@@ -262,7 +266,7 @@ namespace Pastel
 			cullDistance2,
 			searchBruteForce);
 
-		if (weAreCounting)
+		if (counting)
 		{
 			// If we are counting, return no result.
 			return notFound;
