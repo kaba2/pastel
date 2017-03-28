@@ -68,6 +68,14 @@ namespace Pastel
 	*/
 	std::string matlabAsString(const mxArray* input);
 
+	//! Retrieves a reference to a real matrix.
+	/*!
+	Preconditions:
+	mxIsNumeric(that)
+	*/
+	template <typename Type>
+	arma::Mat<Type> matlabAsMatrix(const mxArray* that);
+
 	//! Retrieves an enum given as strings.
 	/*!
 	input:

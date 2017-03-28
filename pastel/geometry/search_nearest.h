@@ -67,7 +67,7 @@ namespace Pastel
 	Whether to report the neighbors in increasing
 	order of distance, as opposed to arbitrary order.
 	When counting mode is enabled, the order is 
-	always arbitrary.
+	always arbitrary and this flag is ignored.
 	Default: true
 
 	report (Output(Real, PointId)):
@@ -174,7 +174,10 @@ namespace Pastel
 
 		// Counting-mode reports points in arbitrary order;
 		// sorting by distance is not possible.
-		ENSURE(!(sortDistances && weAreCounting));
+		if (weAreCounting)
+		{
+			sortDistances = false;
+		}
 
 		// The number of points in the point-set.
 		const integer n = setSize(nearestSet);
