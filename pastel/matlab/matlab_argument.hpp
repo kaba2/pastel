@@ -39,6 +39,20 @@ namespace Pastel
 	}
 
 	template <typename Type>
+	arma::Mat<Type> matlabCreateMatrix(
+		integer height, integer width,
+		mxArray*& output)
+	{
+		ENSURE_OP(width, >=, 0);
+		ENSURE_OP(height, >=, 0);
+
+		output = mxCreateNumericMatrix(height, width, 
+			typeToMatlabClassId<Type>(), mxREAL);
+		
+		return matlabAsMatrix<Type>(output);
+	}
+
+	template <typename Type>
 	Array<Type> matlabCreateArray(
 		integer width, integer height,
 		mxArray*& output)
