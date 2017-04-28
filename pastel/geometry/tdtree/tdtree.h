@@ -380,7 +380,7 @@ namespace Pastel
 		*/
 		Cursor endNode() const
 		{
-			return end_.get();
+			return Cursor(end_.get());
 		}
 
 		//! Returns a minimum bounding box for the points.

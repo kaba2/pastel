@@ -206,7 +206,7 @@ public:
 			SlidingMidpoint_SplitRule());
 
 		REQUIRE(tree.points() == pointSet.size());
-		//REQUIRE(testInvariants(tree));
+		REQUIRE(testInvariants(tree));
 
 		integer n = 0;
 		std::vector<integer> permutationSet;
@@ -226,6 +226,7 @@ public:
 	{
 		return kdTreeNearestSet(
 			dataSet,
+			PASTEL_TAG(nBruteForce), 1,
 			PASTEL_TAG(searchAlgorithm),
 			SearchAlgorithm());
 	}
