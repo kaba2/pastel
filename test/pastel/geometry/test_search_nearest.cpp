@@ -66,8 +66,8 @@ namespace
 				);
 
 			real distance2 = result.first;
+			REQUIRE(distance2 == reorderedDistanceSet[j]);
 
-			REQUIRE(distance2 == distanceSet[j]);
 			++j;
 		}
 	}
@@ -114,7 +114,7 @@ namespace
 					normBijection
 				);
 
-			REQUIRE(count == countSet[j]);
+			REQUIRE(count == reorderedCountSet[j]);
 			++j;
 		}
 	}
@@ -134,7 +134,8 @@ public:
 	decltype(auto) createDataSet(
 		const PointSet& pointSet) const
 	{
-		using Settings = PointKdTree_Settings<PointSet_Locator<PointSet>>;
+		using Locator = PointSet_Locator<PointSet>;
+		using Settings = PointKdTree_Settings<Locator>;
 		using Tree = PointKdTree<Settings>;
 		using Point_ConstIterator = typename Tree::Point_ConstIterator;
 
@@ -176,6 +177,7 @@ public:
 	{
 		return kdTreeNearestSet(
 			dataSet,
+			PASTEL_TAG(nBruteForce), 1,
 			PASTEL_TAG(searchAlgorithm),
 			SearchAlgorithm());
 	}
