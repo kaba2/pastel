@@ -73,7 +73,10 @@ namespace Pastel
 			const Locator& locator = Locator(),
 			bool simulateKdTree = false);
 
-		//! Constructs a copy from another tree.
+		//! Move-constructs from another tree.
+		PointKdTree(PointKdTree&& that);
+
+		//! Copy-constructs from another tree.
 		/*!
 		Exception safety:
 		?

@@ -35,6 +35,14 @@ namespace Pastel
 	}
 
 	template <typename Settings, template <typename> class Customization>
+	PointKdTree<Settings, Customization>::PointKdTree(
+		PointKdTree&& that)
+		: PointKdTree()
+	{
+		swap(that);
+	}
+
+	template <typename Settings, template <typename> class Customization>
 	PointKdTree<Settings, Customization>::PointKdTree(const PointKdTree& that)
 		: pointSet_()
 		, hiddenSet_()
