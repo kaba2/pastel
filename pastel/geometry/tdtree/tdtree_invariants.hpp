@@ -14,106 +14,66 @@ namespace Pastel
 			template <typename> class Customization>	
 		bool testInvariants(
 			const TdTree<Settings, Customization>& tree,
-			const typename TdTree<Settings, Customization>::Node_ConstIterator& parent,
+			const typename TdTree<Settings, Customization>::Cursor& parent,
 			bool right,
-			const typename TdTree<Settings, Customization>::Node_ConstIterator& node,
+			const typename TdTree<Settings, Customization>::Cursor& node,
 			integer depth)
 		{
 			using Tree = TdTree<Settings, Customization>;
 			
-			using Fwd = Tree;
-			PASTEL_FWD(Node_ConstIterator);
-			PASTEL_FWD(MultiLess);
-			PASTEL_FWD(Entry);
-
-			if (!node)
-			{
-				// No node reference is null.
-				return false;
-			}
-
-			if (node->isEnd())
+			if (node == tree.endNode())
 			{
 				return true;
 			}
 
-			MultiLess multiLess;
-
-			if (node->isBottom())
+			if (node.splitAxis() < 0 ||
+				node.splitAxis() >= tree.dimension())
 			{
-				if (parent)
-				{
-					// Check the fractional cascading information.
-
-					if (parent->entryRange()[parent->entries()].cascade(right) !=
-						node->entries())
-					{
-						// The last fractional cascading information must
-						// to the last entry of the child.
-						return false;
-					}
-
-					for (integer i = 0;i < parent->entries();++i)
-					{
-						const Entry& entry = parent->entryRange()[i];
-						integer cascade = entry.cascade(right);
-						if (cascade < 0 ||
-							cascade > node->entries())
-						{
-							// The parent node's cascading links must
-							// be in the range of the child's entry-set.
-							return false;
-						}
-
-						if (cascade < node->entries())
-						{
-							const Entry& childEntry = node->entryRange()[cascade];
-							if (multiLess(*childEntry.point(), *entry.point(), depth + 1))
-							{
-								// The fractional cascading link in the parent node 
-								// points to an entry >= in the child node.
-								return false;
-							}
-						}
-
-						if (cascade > 0)
-						{
-							const Entry& prevChildEntry = node->entryRange()[cascade - 1];
-							if (!multiLess(*prevChildEntry.point(), *entry.point(), depth + 1))
-							{
-								// The fractional cascading link in the parent node 
-								// points to the _smallest_ entry >= in the child node.
-								return false;
-							}
-						}
-					}
-				}
+				// The split-axis must be in the
+				// range [0, d[, where d is the
+				// dimension of the tree.
+				return false;
 			}
-			else
-			{
-				// Recurse down.
 
-				if (!testInvariants(tree, nullptr, false, node->down(), depth + 1))
-				{
-					return false;
-				}
+			if (node.min() > node.max() ||
+				node.prevMin() > node.prevMax())
+			{
+				// Node-bound minimum must not
+				// exceed node-bound maximum.
+				return false;
+			}
+
+			if (node.prevMin() > node.min() ||
+				node.prevMax() < node.max())
+			{
+				// The previous node-bounds must enclose the
+				// current node-bounds.
+				return false;
+			}
+
+			if (parent != tree.endNode() &&
+				node.points() > parent.points())
+			{
+				// The number of points in a child-node
+				// must not exceed that in the parent-node.
+				return false;
 			}
 
 			// Recurse to children.
 
-			if (!testInvariants(tree, node, false, node->child(false), depth))
+			if (!testInvariants(tree, node, false, node.left(), depth + 1))
 			{
 				return false;
 			}
 
-			if (!testInvariants(tree, node, true, node->child(true), depth))
+			if (!testInvariants(tree, node, true, node.right(), depth + 1))
 			{
 				return false;
 			}
 
 			return true;
 		}
-	
+
 	}
 
 	template <
@@ -129,7 +89,15 @@ namespace Pastel
 			return false;
 		}
 
-		return TdTree_::testInvariants(tree, nullptr, false, tree.root(), 0);
+		if (tree.size() != tree.root().points())
+		{
+			// The number of points in the tree
+			// must equal the number of points
+			// in the root node.
+			return false;
+		}
+
+		return TdTree_::testInvariants(tree, tree.endNode(), false, tree.root(), 0);
 	}
 
 }
