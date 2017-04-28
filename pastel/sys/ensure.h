@@ -53,7 +53,7 @@
 
 // PENSURES
 
-#if defined(DEBUG)
+#if (defined(DEBUG) || defined(PASTEL_ENABLE_ASSERTS))
 
 #define PENSURE(expr) ENSURE(expr)
 #define PENSURE1(expr, a) ENSURE1(expr, a)
@@ -77,7 +77,7 @@
 
 // Assertions
 
-#if defined(DEBUG)
+#if (defined(DEBUG) || defined(PASTEL_ENABLE_ASSERTS))
 
 #define ASSERT(expr)\
 {if (!(expr)) {Pastel::Ensure_::assertionError(#expr, PASTEL_FUNCTION_NAME, __FILE__, __LINE__);}}
@@ -105,7 +105,7 @@
 #define ASSERT3(expr, a, b, c)
 #define ASSERT4(expr, a, b, c, d)
 #define ASSERT_OP(x, op, y)
-#define ASSERT_RANGE(x, op, y)
+#define ASSERT_RANGE(x, min, max)
 
 #endif
 
