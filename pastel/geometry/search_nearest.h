@@ -163,8 +163,6 @@ namespace Pastel
 		}
 
 		const Real protectiveFactor = normBijection.scalingFactor(1.01);
-		// The distance beyond which points are ignored.
-		Real cullDistance2 = maxDistance2;
 
 		struct Less
 		{
@@ -197,7 +195,9 @@ namespace Pastel
 		// There will be at most k elements in this set.
 		ResultSet resultSet(resultSetSize);
 
-		auto searchBruteForce = [&](auto&& pointIdSet)
+		auto searchBruteForce = [&](
+			auto&& pointIdSet,
+			Real cullDistance2)
 		{
 			RANGES_FOR(auto&& pointId, pointIdSet)
 			{
@@ -258,12 +258,14 @@ namespace Pastel
 					cullDistance2 = cullSuggestion2;
 				}
 			}
+
+			return cullDistance2;
 		};
 
 		nearestSet.nearbyPointSetSet(
 			searchPoint,
 			normBijection,
-			cullDistance2,
+			maxDistance2,
 			searchBruteForce);
 
 		if (counting)

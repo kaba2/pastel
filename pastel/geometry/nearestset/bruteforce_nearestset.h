@@ -61,10 +61,10 @@ namespace Pastel
 		void nearbyPointSetSet(
 			const Search_Point& searchPoint,
 			const NormBijection& normBijection,
-			const Real& cullDistance2,
+			const Real& maxDistance2,
 			const Output& report) const
 		{
-			report(pointSet());
+			report(pointSet(), maxDistance2);
 		}
 
 	private:

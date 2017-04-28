@@ -101,11 +101,15 @@ namespace Pastel
 		void nearbyPointSetSet(
 			const Search_Point& searchPoint,
 			const NormBijection& normBijection,
-			const Real& cullDistance2,
+			const Real& maxDistance2,
 			const Output& report) const
 		{
-			Real errorFactor = inverse(normBijection.scalingFactor(1 + maxRelativeError));
-			Real nodeCullDistance2 = cullDistance2 * errorFactor;
+			Real cullDistance2 = maxDistance2;
+			
+			const Real errorFactor = 
+				inverse(normBijection.scalingFactor(1 + maxRelativeError));
+			Real nodeCullDistance2 = 
+				cullDistance2 * errorFactor;
 
 			if (kdTree.empty())
 			{
@@ -118,7 +122,7 @@ namespace Pastel
 			// bounding-box of the kd-tree.
 			Real rootDistance2 = 
 				distance2(kdTree.bound(), searchPoint, normBijection);
-			if (rootDistance2 >= cullDistance2)
+			if (rootDistance2 >= maxDistance2)
 			{
 				// The bounding box for the points does not
 				// intersect the search ball.
@@ -179,6 +183,66 @@ namespace Pastel
 			searchAlgorithm.insertNode(
 				State(kdTree.root(), rootDistance2, indexSequence));
 
+			auto intervalDistance = [&](
+				const Real& x,
+				const Real& min, 
+				const Real& max)
+			{
+				Real distance = 0;
+				
+				if (x < min)
+				{
+					distance = 
+						normBijection.axis(min - x);
+				}
+				else if (x > max)
+				{
+					distance =
+						normBijection.axis(x - max);
+				}
+
+				return distance;
+			};
+
+			auto queueNode = [&](
+				const State& parent,
+				const Real& searchPosition,
+				bool right)
+			{
+				const Cursor node = right ? parent.cursor.right() : parent.cursor.left();
+
+				const Real axisDistance = 
+					intervalDistance(
+						searchPosition, node.min(), node.max());
+				
+				const Real axisDistancePrev = 
+					intervalDistance(
+						searchPosition, node.prevMin(), node.prevMax());
+				
+				const Real newDistance2 = 
+					normBijection.replaceAxis(
+						parent.distance,
+						axisDistancePrev,
+						axisDistance);
+
+				IntervalSequence sequence(parent.indexSequence);
+				for (integer i = 0;i < parent.indexSequence.size();++i)
+				{
+					sequence[i] = parent.cursor.cascade(parent.indexSequence[i], right);
+				}
+
+				State state(node, newDistance2, sequence);
+
+				if (newDistance2 > nodeCullDistance2 ||
+					searchAlgorithm.skipNode(state))
+				{
+					return;
+				}
+
+				searchAlgorithm.insertNode(
+					std::move(state));
+			};
+
 			while (searchAlgorithm.nodesLeft())
 			{
 				State state = searchAlgorithm.nextNode();
@@ -193,10 +257,8 @@ namespace Pastel
 					{
 						break;
 					}
-					else
-					{
-						continue;
-					}
+
+					continue;
 				}
 
 				// Search a node with brute-force if it is a leaf node, or the 
@@ -225,7 +287,15 @@ namespace Pastel
 						integer indexMax = (i + 1) < indexSequence.size() ?
 							indexSequence[i + 1] : cursor.points();
 
-						report(cursor.pointSet(indexMin, indexMax));
+						const Real cullSuggestion2 = 
+							report(
+								cursor.pointSet(indexMin, indexMax), 
+								cullDistance2);
+						if (cullSuggestion2 < cullDistance2)
+						{
+							cullDistance2 = cullSuggestion2;
+							nodeCullDistance2 = cullDistance2 * errorFactor;
+						}
 					}
 
 					continue;
@@ -240,105 +310,10 @@ namespace Pastel
 				Real searchPosition = 
 					pointAxis(searchPoint, splitAxis);
 
-				Cursor left = cursor.left();
-				Cursor right = cursor.right();
-
-				// Compute the distances to the boundary 
-				// planes of the child nodes.
-
-				Real oldAxisDistance = 0;
-				Real leftAxisDistance = 0;
-				Real rightAxisDistance = 0;
-				if (searchPosition < right.min())
-				{
-					rightAxisDistance = 
-						normBijection.axis(right.min() - searchPosition);
-					if (searchPosition < left.min())
-					{
-						leftAxisDistance = 
-							normBijection.axis(left.min() - searchPosition);
-						if (searchPosition < left.prevMin())
-						{
-							oldAxisDistance = 
-								normBijection.axis(left.prevMin() - searchPosition);
-						}
-					}
-				}
-				if (searchPosition > left.max())
-				{
-					leftAxisDistance = 
-						normBijection.axis(searchPosition - left.max());
-					if (searchPosition > right.max())
-					{
-						rightAxisDistance = 
-							normBijection.axis(searchPosition - right.max());
-						if (searchPosition > right.prevMax())
-						{
-							oldAxisDistance = 
-								normBijection.axis(searchPosition - right.prevMax());
-						}
-					}
-				}
-				
-				// Compute the actual distances
-				// to the child nodes. These are
-				// only done if the nodes can't be
-				// culled by the boundary plane distance.
-
-				Real leftDistance = leftAxisDistance;
-				if (leftAxisDistance <= nodeCullDistance2)
-				{
-					leftDistance = 
-						normBijection.replaceAxis(
-						distance,
-						oldAxisDistance,
-						leftAxisDistance);
-				}
-
-				Real rightDistance = rightAxisDistance; 
-				if (rightAxisDistance <= nodeCullDistance2)
-				{
-					rightDistance = 
-						normBijection.replaceAxis(
-						distance,
-						oldAxisDistance,
-						rightAxisDistance);
-				}
-
 				// Queue non-culled child nodes for 
 				// future handling.
-
-				IntervalSequence leftSequence(intervalSequence);
-				IntervalSequence rightSequence(intervalSequence);
-				for (integer i = 0;i < intervalSequence.size();++i)
-				{
-					leftSequence[i] = cursor.cascade(intervalSequence[i], false);
-					rightSequence[i] = cursor.cascade(intervalSequence[i], true);
-				}
-
-				State leftState(left, leftDistance, leftSequence);
-				State rightState(right, rightDistance, rightSequence);
-
-				if (leftDistance <= nodeCullDistance2 &&
-					!searchAlgorithm.skipNode(leftState))
-				{
-					if (rightDistance <= nodeCullDistance2 && 
-						!searchAlgorithm.skipNode(rightState))
-					{
-						searchAlgorithm.insertNodes(
-							leftState,
-							rightState);
-					}
-					else
-					{
-						searchAlgorithm.insertNode(leftState);
-					}
-				}
-				else if (rightDistance <= nodeCullDistance2 && 
-					!searchAlgorithm.skipNode(rightState))
-				{
-					searchAlgorithm.insertNode(rightState);
-				}
+				queueNode(state, searchPosition, false);
+				queueNode(state, searchPosition, true);
 			}
 
 		}
