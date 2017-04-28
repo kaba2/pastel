@@ -161,6 +161,9 @@ public:
 		tree.refine(SlidingMidpoint_SplitRule(), 1);
 		REQUIRE(testInvariants(tree));
 
+		Tree copyTree(tree);
+		REQUIRE(testInvariants(copyTree));
+
 		std::vector<integer> permutationSet;
 		RANGES_FOR(auto&& point, intervalSet(tree))
 		{
