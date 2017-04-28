@@ -62,6 +62,25 @@ namespace Pastel
 			}
 			else
 			{
+				if (cursor != tree.root() && cursor.min() > cursor.max())
+				{
+					return false;
+				}
+
+				if (cursor != tree.root() && cursor.min() < cursor.prevMin())
+				{
+					// The minimum-bound must not decrease 
+					// when traversing down the tree.
+					return false;
+				}
+
+				if (cursor != tree.root() && cursor.max() > cursor.prevMax())
+				{
+					// The maximum-bound must not increase 
+					// when traversing down the tree.
+					return false;
+				}
+
 				if (REPORT(cursor.splitPosition() < bound.min()[cursor.splitAxis()]))
 				{
 					return false;
@@ -71,18 +90,6 @@ namespace Pastel
 				{
 					return false;
 				}
-
-				/*
-				if (REPORT(cursor.min() >= bound.min()[cursor.splitAxis()]))
-				{
-					return false;
-				}
-
-				if (REPORT(cursor.max() <= bound.max()[cursor.splitAxis()]))
-				{
-					return false;
-				}
-				*/
 
 				if (REPORT(cursor.left().points() + cursor.right().points() !=
 					cursor.points()))

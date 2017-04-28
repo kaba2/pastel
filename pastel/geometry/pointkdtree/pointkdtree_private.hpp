@@ -56,6 +56,11 @@ namespace Pastel
 				thatNode->min());
 			thisNode->setMax(
 				thatNode->max());
+			thisNode->setPrevMin(
+				thatNode->prevMin());
+			thisNode->setPrevMax(
+				thatNode->prevMax());
+
 			updateHierarchical(thisNode);
 		}
 	}
