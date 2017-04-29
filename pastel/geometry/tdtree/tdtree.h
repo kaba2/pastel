@@ -627,7 +627,8 @@ namespace Pastel
 
 			// Partition the elements with respect to the split-plane.
 			// The partitioning must be stable for the children
-			// to stay ordered with respect to time.
+			// to stay ordered with respect to time, and fair so
+			// that the number of points is eventually decreased.
 			auto leftEnd = fairStablePartition(
 				range(pointSet.begin(), pointSet.end()), trindicator);
 
