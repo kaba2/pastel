@@ -62,23 +62,18 @@ namespace Pastel
 			}
 			else
 			{
-				if (cursor != tree.root() && cursor.min() > cursor.max())
+				if (cursor != tree.root())
 				{
-					return false;
-				}
-
-				if (cursor != tree.root() && cursor.min() < cursor.prevMin())
-				{
-					// The minimum-bound must not decrease 
-					// when traversing down the tree.
-					return false;
-				}
-
-				if (cursor != tree.root() && cursor.max() > cursor.prevMax())
-				{
-					// The maximum-bound must not increase 
-					// when traversing down the tree.
-					return false;
+					if (cursor.min() > cursor.max() ||
+						// The minimum-bound must not decrease 
+						// when traversing down the tree.
+						cursor.min() < cursor.prevMin() ||
+						// The maximum-bound must not increase 
+						// when traversing down the tree.
+						cursor.max() > cursor.prevMax())
+					{
+						return false;
+					}
 				}
 
 				if (REPORT(cursor.splitPosition() < bound.min()[cursor.splitAxis()]))

@@ -332,8 +332,6 @@ namespace Pastel
 		node->setFirst(pointSet_.end());
 		node->setLast(pointSet_.end());
 		node->setPoints(0);
-		node->setMin((Real)Infinity());
-		node->setMax(-(Real)Infinity());
 
 		if (!node->leaf())
 		{
