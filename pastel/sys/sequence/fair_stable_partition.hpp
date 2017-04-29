@@ -36,7 +36,7 @@ namespace Pastel
 			// every second element with a zero indicator
 			// as a negative element, and the rest as 
 			// positive elements. 
-			bool zeroIsPositive = true;
+			integer zeroIndicator = -1;
 
 			Iterator begin = std::begin(elementSet);
 			Iterator end = std::end(elementSet);
@@ -54,36 +54,12 @@ namespace Pastel
 
 				if (i == 0)
 				{
-					// The element has a zero indicator.
-					// See if this element is to be interpreted
-					// as a negative or a positive element.
-
-					if (negativeEnd == begin)
-					{
-						// The negative set is empty.
-						// Treat as negative.
-						i = -1;
-
-						// The next one will be positive.
-						zeroIsPositive = true;
-					}
-					else if (positiveSet.empty())
-					{
-						// The positive set is empty.
-						// Treat as positive.
-						i = 1;
-
-						// The next one will be negative.
-						zeroIsPositive = false;
-					}
-					else
-					{
-						// Neither set is empty, so 
-						// alternate between the sets.
-						i = zeroIsPositive ? 1 : -1;
-						zeroIsPositive = !zeroIsPositive;
-						++zeros;
-					}
+					// The element has zero indicator.
+					++zeros;
+					
+					// Alternate zero-indicator.
+					i = zeroIndicator;
+					zeroIndicator = -zeroIndicator;
 				}
 
 				if (i < 0)
