@@ -446,7 +446,7 @@ void testGaussian(
 	}
 }
 
-TEST_CASE("search_nearest (gaussian)")
+TEST_CASE("search_nearest gaussian tdtree")
 {
 	auto aCreate = CreateBruteForce();
 
@@ -458,6 +458,12 @@ TEST_CASE("search_nearest (gaussian)")
 		auto bCreate = CreateTdTree<BestFirst_SearchAlgorithm_PointKdTree>();
 		testGaussian(aCreate, bCreate);
 	}
+}
+
+TEST_CASE("search_nearest gaussian pointkdtree")
+{
+	auto aCreate = CreateBruteForce();
+
 	{
 		auto bCreate = CreatePointKdTree<DepthFirst_SearchAlgorithm_PointKdTree>();
 		testGaussian(aCreate, bCreate);
