@@ -22,18 +22,8 @@ namespace Pastel
 	Stable means that the ordering of elements is preserved.
 	Fair means that half of the elements with a zero indicator 
 	are interpreted as negative, and the others as positive.
-	
-	Specifically, an element is interpreted as negative or 
-	positive by that
-	
-	1) if the positive set is currently empty, 
-	then the element is positive,
-	
-	2) if the negative set is currently empty, 
-	then the element is negative, and
-	
-	3) otherwise the element is alternately 
-	positive or negative.
+	When n >= 2, and at least one point has zero indicator,
+	both sets will be non-empty.
 	*/
 	template <
 		typename Range,

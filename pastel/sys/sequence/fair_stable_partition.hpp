@@ -3,6 +3,7 @@
 
 #include "pastel/sys/sequence/fair_stable_partition.h"
 #include "pastel/sys/trindicator/trindicator_concept.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
@@ -28,6 +29,8 @@ namespace Pastel
 			// sequence.
 			std::vector<Type> positiveSet;
 			positiveSet.reserve(n);
+
+			integer zeros = 0;
 
 			// To make the partition 'fair', we will interpret
 			// every second element with a zero indicator
@@ -79,6 +82,7 @@ namespace Pastel
 						// alternate between the sets.
 						i = zeroIsPositive ? 1 : -1;
 						zeroIsPositive = !zeroIsPositive;
+						++zeros;
 					}
 				}
 
@@ -106,6 +110,41 @@ namespace Pastel
 			// negative set.
 			std::move(positiveSet.begin(), positiveSet.end(),
 				negativeEnd);
+
+			if (n >= 2 && zeros > 0)
+			{
+				// There is the possibility that all points
+				// are assigned to the same set, although
+				// there is at least one boundary point.
+				//
+				// In this case we case we want the set B 
+				// (positive/negative) to get the boundary point. 
+				// For example, with kd-trees it is important 
+				// that splitting a node always decreases the 
+				// number of points in a node.
+
+				if (negativeEnd == end)
+				{
+					// All points are in negative set.
+					
+					// Since we have at least one
+					// boundary point, there is exactly
+					// one boundary point, since we
+					// alternate the assignment in the
+					// loop above.
+					ASSERT_OP(zeros, ==, 1);
+
+					// Move that boundary point into
+					// the positive set.
+					--negativeEnd;
+				}
+				else if (negativeEnd == begin)
+				{
+					// All points are in positive set.
+					ASSERT_OP(zeros, ==, 1);
+					++negativeEnd;
+				}
+			}
 
 			// Return the end of the negative set.
 			return negativeEnd;
