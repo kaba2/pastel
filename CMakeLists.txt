@@ -25,6 +25,8 @@ include ("ecmake")
 # Setup compilers.
 include ("SetupCompilers")
 
+add_definitions(-DPASTEL_ENABLE_ASSERTS)
+
 # Configure external libraries
 # ----------------------------
 
