@@ -16,15 +16,12 @@ void f(const Range& aSet)
 	ranges::for_each(aSet, 
 		[](auto x)
 		{
-			std::cout << x.first << x.second << " ";
 		}
 	);
 
 	RANGES_FOR(auto&& x, aSet)
 	{
 	}
-
-	std::cout << aSet.size() << std::endl;
 }
 
 TEST_CASE("Ranges (Ranges)")
