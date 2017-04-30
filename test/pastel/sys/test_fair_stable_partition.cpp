@@ -7,10 +7,10 @@
 #include <pastel/sys/trindicator.h>
 #include <pastel/sys/indicator.h>
 
-using vec = std::vector<int>;
-
 TEST_CASE("fair_stable_partition (fair_stable_partition)")
 {
+	using V = std::vector<std::pair<integer, integer>>;
+
 	auto test = [](
 		auto elementSet,
 		const auto& trindicator,
@@ -37,69 +37,69 @@ TEST_CASE("fair_stable_partition (fair_stable_partition)")
 		return true;
 	};
 
-	auto lessFive = [](auto element) {return element - 5;};
-
+	auto lessFive = [](auto element) {return element.first - 5;};
+	
 	REQUIRE(test(
-		vec({1, 6, 3, 4, 6, 8, 9, 0, 4}),
+		V({{1, 0}, {6, 1}, {3, 2}, {4, 3}, {6, 4}, {8, 5}, {9, 6}, {0, 7}, {4, 8}}),
 		[](auto element) {return 0;},
-		vec({1, 3, 6, 9, 4}),
-		vec({6, 4, 8, 0})
+		V({{1, 0}, {6, 1}, {3, 2}, {4, 3}, {6, 4}}),
+		V({{8, 5}, {9, 6}, {0, 7}, {4, 8}})
 	));
 
 	REQUIRE(test(
-		vec({1, 6, 3, 4, 6, 8, 9, 0, 4}),
+		V({{1, 0}, {6, 1}, {3, 2}, {4, 3}, {6, 4}, {8, 5}, {9, 6}, {0, 7}, {4, 8}}),
 		lessFive,
-		vec({1, 3, 4, 0, 4}),
-		vec({6, 6, 8, 9})
+		V({{1, 0}, {3, 2}, {4, 3}, {0, 7}, {4, 8}}),
+		V({{6, 1}, {6, 4}, {8, 5}, {9, 6}})
 	));
 
 	REQUIRE(test(
-		vec({1, 5}),
+		V({{1, 0}, {5, 1}}),
 		lessFive,
-		vec({1}),
-		vec({5})
+		V({{1, 0}}),
+		V({{5, 1}})
 	));
 
 	REQUIRE(test(
-		vec({1, 2, 5}),
+		V({{1, 0}, {2, 1}, {5, 2}}),
 		lessFive,
-		vec({1, 2}),
-		vec({5})
+		V({{1, 0}, {2, 1}}),
+		V({{5, 2}})
 	));
 
 	REQUIRE(test(
-		vec({5, 6}),
+		V({{5, 0}, {6, 1}}),
 		lessFive,
-		vec({5}),
-		vec({6})
+		V({{5, 0}}),
+		V({{6, 1}})
 	));
 
 	REQUIRE(test(
-		vec({5, 6, 7}),
+		V({{5, 0}, {6, 1}, {7, 2}}),
 		lessFive,
-		vec({5}),
-		vec({6, 7})
+		V({{5, 0}}),
+		V({{6, 1}, {7, 2}})
 	));
 
 	REQUIRE(test(
-		vec({5, 5}),
+		V({{5, 0}, {5, 1}}),
 		lessFive,
-		vec({5}),
-		vec({5})
+		V({{5, 0}}),
+		V({{5, 1}})
 	));
 
 	REQUIRE(test(
-		vec({5, 5, 5}),
+		V({{5, 0}, {5, 1}, {5, 2}}),
 		lessFive,
-		vec({5, 5}),
-		vec({5})
+		V({{5, 0}, {5, 1}}),
+		V({{5, 2}})
 	));
 
 	REQUIRE(test(
-		vec({5, 5, 5, 5}),
+		V({{5, 0}, {5, 1}, {5, 2}, {5, 3}}),
 		lessFive,
-		vec({5, 5}),
-		vec({5, 5})
+		V({{5, 0}, {5, 1}}),
+		V({{5, 2}, {5, 3}})
 	));
 }
 
