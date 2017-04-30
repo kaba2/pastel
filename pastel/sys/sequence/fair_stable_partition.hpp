@@ -18,10 +18,7 @@ namespace Pastel
 		{
 			using Iterator = typename boost::range_iterator<Range>::type;
 			using Type = typename boost::range_value<Range>::type;
-
-			// Compute the number of elements.
-			const integer n = boost::size(elementSet);
-			
+		
 			integer zeros = 0;
 			integer negatives = 0;
 			integer positives = 0;
@@ -44,9 +41,6 @@ namespace Pastel
 				}
 			}
 
-			Iterator begin = std::begin(elementSet);
-			Iterator end = std::end(elementSet);
-
 			integer negativeZeros = (zeros + 1) / 2;
 			if (negatives > positives && (zeros & 1) == 1)
 			{
@@ -65,7 +59,7 @@ namespace Pastel
 
 			// The end of the negative set. This will
 			// be tracked throughout the algorithm.
-			Iterator negativeEnd = begin;
+			Iterator negativeEnd = std::begin(elementSet);
 
 			// The number of zero-indicators seen
 			// thus far.

@@ -26,6 +26,8 @@ namespace
 	using Tree = TdTree<TdTree_Settings<Locator>>;
 	using ConstIterator = Tree::ConstIterator;
 
+	PASTEL_STATIC_ASSERT(IsTdTree<Tree>::value);
+
 
 }
 

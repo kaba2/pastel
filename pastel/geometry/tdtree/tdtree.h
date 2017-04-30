@@ -18,6 +18,7 @@
 #include "pastel/sys/set/transformed_set.h"
 #include "pastel/sys/set/zip_set.h"
 #include "pastel/sys/locator/transform_locator.h"
+#include "pastel/sys/math/sign.h"
 
 #include <range/v3/all.hpp>
 
@@ -578,7 +579,7 @@ namespace Pastel
 				parent->entrySet_.back().cascade(right) = node->points();
 			}
 
-			if (pointSet.size() <= 3)
+			if (pointSet.size() <= 1)
 			{
 				// This is a leaf node.
 				return node;
@@ -612,17 +613,7 @@ namespace Pastel
 			auto trindicator = [&](const Iterator& that)
 				-> integer
 			{
-				if (locator()(that->point(), splitAxis) == splitPosition)
-				{
-					return 0;
-				}
-
-				if (locator()(that->point(), splitAxis) < splitPosition)
-				{
-					return -1;
-				}
-
-				return 1;
+				return sign(locator()(that->point(), splitAxis) - splitPosition);
 			};
 
 			// Partition the elements with respect to the split-plane.
