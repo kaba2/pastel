@@ -289,6 +289,9 @@ namespace Pastel
                     transformedPoint(i) = transformedSet(i, j);
                 }
 
+                // TODO!
+                ENSURE(false);
+
                 searchNearest(
                     kdTree,
                     transformedPoint, 

@@ -19,10 +19,6 @@
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/output/null_output.h"
 
-// Implementation requirements
-
-#include "pastel/sys/rankedset/rankedset.h"
-
 namespace Pastel
 {
 
