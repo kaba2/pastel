@@ -23,7 +23,7 @@ namespace Pastel
 		(
 			conceptCheck(
 				addConst(nearestSet).asPoint(std::declval<Point>()),
-				(addConst(nearestSet).nearbyPointSetSet(
+				(addConst(nearestSet).findNearbyPointsets(
 					// Search-point
 					Point_Archetype(),
 					// Norm to use

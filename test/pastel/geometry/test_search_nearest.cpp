@@ -5,6 +5,7 @@
 
 
 #include "pastel/geometry/search_nearest.h"
+#include "pastel/geometry/count_nearest.h"
 #include "pastel/geometry/nearestset/kdtree_nearestset.h"
 #include "pastel/geometry/nearestset/bruteforce_nearestset.h"
 
@@ -119,19 +120,13 @@ namespace
 		integer j = 0;
 		RANGES_FOR(auto&& i, nearestSet)
 		{
-			integer count = 0;
-			auto report = [&](auto&&, auto&&){++count;};
-
-			auto result =
-				searchNearest(
-					nearestSet,
-					nearestSet.asPoint(i),
-					PASTEL_TAG(report), report, 
-					PASTEL_TAG(counting), true,
-					PASTEL_TAG(maxDistance2), maxDistance2,
-					PASTEL_TAG(accept), predicateIndicator(i, NotEqualTo()),
-					normBijection
-				);
+			integer count = countNearest(
+				nearestSet,
+				nearestSet.asPoint(i),
+				PASTEL_TAG(maxDistance2), maxDistance2,
+				PASTEL_TAG(accept), predicateIndicator(i, NotEqualTo()),
+				normBijection
+			);
 
 			REQUIRE(count == reorderedCountSet[j]);
 			++j;

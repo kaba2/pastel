@@ -58,7 +58,7 @@ namespace Pastel
 				Models<NormBijection, NormBijection_Concept>
 			> = 0
 		>
-		void nearbyPointSetSet(
+		void findNearbyPointsets(
 			const Search_Point& searchPoint,
 			const NormBijection& normBijection,
 			const Real& maxDistance2,

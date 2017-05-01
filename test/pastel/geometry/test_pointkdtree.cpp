@@ -3,6 +3,7 @@
 
 #include "test/test_init.h"
 
+#include "pastel/geometry/count_nearest.h"
 #include "pastel/geometry/search_nearest.h"
 #include "pastel/geometry/nearestset/kdtree_nearestset.h"
 #include "pastel/geometry/splitrule/slidingmidpoint_splitrule.h"
@@ -397,26 +398,16 @@ namespace
 			}
 		}
 		{
-
-			integer outerCount = 0;
-
-			searchNearest(
+			integer outerCount = countNearest(
 				kdTreeNearestSet(tree), 
 				Vector<real, N>(0),
-				PASTEL_TAG(report), [&](auto, auto) {++outerCount;},
-				PASTEL_TAG(maxDistance2), normBijection.toBijection(2.001),
-				PASTEL_TAG(kNearest), tree.points()
-				);
+				PASTEL_TAG(maxDistance2), normBijection.toBijection(2.001));
 			REQUIRE(outerCount == m);
 
-			integer innerCount = 0;
-
-			searchNearest(
+			integer innerCount = countNearest(
 				kdTreeNearestSet(tree), 
 				Vector<real, N>(0),
-				PASTEL_TAG(report), [&](auto, auto) {++innerCount;},
-				PASTEL_TAG(maxDistance2), normBijection.toBijection(1.999),
-				PASTEL_TAG(kNearest), tree.points());
+				PASTEL_TAG(maxDistance2), normBijection.toBijection(1.999));
 			REQUIRE(innerCount == 0);
 		}
 	}

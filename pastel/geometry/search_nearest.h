@@ -11,23 +11,15 @@
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/math/normbijection/normbijection_concept.h"
 #include "pastel/geometry/nearestset/nearestset_concept.h"
+#include "pastel/geometry/search_nearby.h"
 
 // Template defaults
 
 #include "pastel/math/normbijection/euclidean_normbijection.h"
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/output/null_output.h"
-#include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
-
-// Template requirements
-
-#include "pastel/geometry/pointkdtree/pointkdtree_fwd.h"
-#include "pastel/geometry/tdtree/tdtree_fwd.h"
 
 // Implementation requirements
-
-#include "pastel/geometry/distance/distance_point_point.h"
-#include "pastel/geometry/distance/distance_alignedbox_point.h"
 
 #include "pastel/sys/rankedset/rankedset.h"
 
@@ -65,14 +57,6 @@ namespace Pastel
 	order of distance, as opposed to arbitrary order.
 	Default: true
 
-	counting (bool):
-	Whether to enable counting mode, which reports
-	all points at maxDistance2. Counting mode ignores 
-	kNearest and sortDistances; the reporting order is 
-	arbitrary. This is faster and uses less memory than 
-	having kNearest set to n.
-	Default: false
-
 	report (Output(Real, PointId)):
 	An output to which the found neighbors 
 	are reported to. The reporting is done in the 
@@ -88,7 +72,7 @@ namespace Pastel
 	normBijection:
 	The norm used to measure distance.
 
-	returns (std::pair<Real, Point_ConstIterator>)
+	returns (std::pair<Real, PointId>)
 	----------------------------------------------
 	
 	The first element is the distance 
@@ -140,14 +124,18 @@ namespace Pastel
 			PASTEL_ARG(
 				normBijection, 
 				[]() {return Euclidean_NormBijection<real>();},
-				[](auto input) {return implicitArgument(Models<decltype(input), NormBijection_Concept>());}
+				[](auto input) 
+				{
+					return implicitArgument(
+						Models<decltype(input), 
+						NormBijection_Concept>());
+				}
 			);
 
 		integer kNearest = PASTEL_ARG_S(kNearest, 1);
 		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, (Real)Infinity());
 		bool reportMissing = PASTEL_ARG_S(reportMissing, false);
 		bool sortDistances = PASTEL_ARG_S(sortDistances, true);
-		bool counting = PASTEL_ARG_S(counting, false);
 
 		ENSURE_OP(kNearest, >=, 0);
 		ENSURE_OP(maxDistance2, >=, 0);
@@ -162,8 +150,6 @@ namespace Pastel
 			return notFound;
 		}
 
-		const Real protectiveFactor = normBijection.scalingFactor(1.01);
-
 		struct Less
 		{
 			bool operator()(const Result& left, const Result& right) const
@@ -171,14 +157,6 @@ namespace Pastel
 				return left.first < right.first;
 			}
 		};
-
-		// Counting-mode reports points in arbitrary order;
-		// sorting by distance is not possible.
-		if (counting)
-		{
-			sortDistances = false;
-			kNearest = 0;
-		}
 
 		// The number of points in the point-set.
 		const integer n = setSize(nearestSet);
@@ -195,84 +173,30 @@ namespace Pastel
 		// There will be at most k elements in this set.
 		ResultSet resultSet(resultSetSize);
 
-		auto searchBruteForce = [&](
-			auto&& pointIdSet,
-			Real cullDistance2)
+		auto reportCandidate = [&](
+			const Real& distance2,
+			const auto& pointId)
 		{
-			RANGES_FOR(auto&& pointId, pointIdSet)
+			resultSet.push(Result(distance2, pointId));
+			if (resultSet.full())
 			{
-				// Compute the distance from the node-point
-				// to the search-point.
-				Real currentDistance2 = 
-					distance2(
-						nearestSet.asPoint(pointId),
-						searchPoint,
-						PASTEL_TAG(normBijection),
-						normBijection,
-						PASTEL_TAG(keepGoing),
-						// Stop computing the distance if it exceeds
-						// the culling distance.
-						[&](auto&& that) {return that < cullDistance2;}
-					);
-
-				// Reject the point if the user rejects it or if we
-				// already know the point cannot be among k nearest
-				// neighbors. Remember that we are using an open 
-				// search ball.
-				if (currentDistance2 >= cullDistance2 || !accept(pointId))
-				{
-					continue;
-				}
-
-				if (counting)
-				{
-					// We are counting points; report
-					// the point immediately.
-					report(currentDistance2, pointId);
-
-					// Do not update cull-distance when counting.
-					continue;
-				}
-
-				// Track the k nearest neighbors.
-				resultSet.push(Result(currentDistance2, pointId));
-
-				Real maxNearestDistance2 = (Real)Infinity();
-				if (resultSet.full())
-				{
-					// Since the candidate set contains k
-					// elements, everything beyond the
-					// farthest candidate can be rejected.
-					maxNearestDistance2 = resultSet.top().first;
-				}
-
-				// Note that if there are multiple points at the same 
-				// distance, then the points after the first should _not_
-				// be culled away. We deal with this by expanding the 
-				// suggested culling radius by a protective factor.
-				const Real cullSuggestion2 =
-					maxNearestDistance2 * protectiveFactor;
-				if (cullSuggestion2 < cullDistance2)
-				{
-					// The cull-radius got smaller; update it.
-					cullDistance2 = cullSuggestion2;
-				}
+				return resultSet.top().first;
 			}
 
-			return cullDistance2;
+			return (Real)Infinity();
 		};
 
-		nearestSet.nearbyPointSetSet(
+		searchNearby(
+			nearestSet,
 			searchPoint,
+			PASTEL_TAG(accept),
+			accept,
+			PASTEL_TAG(report),
+			reportCandidate,
+			PASTEL_TAG(normBijection),
 			normBijection,
-			maxDistance2,
-			searchBruteForce);
-
-		if (counting)
-		{
-			// If we are counting, return no result.
-			return notFound;
-		}
+			PASTEL_TAG(maxDistance2),
+			maxDistance2);
 
 		// Sort the neighbors in order of
 		// increasing distance.
@@ -285,7 +209,7 @@ namespace Pastel
 		}
 
 		// There should be at most k neighbors.
-		integer neighbors = sortedSet.size();
+		const integer neighbors = sortedSet.size();
 		ASSERT_OP(neighbors, <=, kNearest);
 
 		if (reportMissing)
