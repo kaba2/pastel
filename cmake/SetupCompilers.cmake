@@ -142,6 +142,13 @@ if (MSVC)
 		/MP
 		# Enable exceptions.
 		/EHsc
+		# Use C++14 features.
+		/std:c++14
+		# Disable language extensions
+		# This flag is broken in that it
+		# is not supported even by Microsoft 
+		# itself. Do not enable.
+		# /Za
 	)
 
 	# Disable some warnings.
