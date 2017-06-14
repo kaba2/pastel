@@ -1,5 +1,5 @@
 // Description: Testing for operators
-// Documentation: predicate.txt
+// DocumentationOf: operators.h
 
 #include "test/test_init.h"
 

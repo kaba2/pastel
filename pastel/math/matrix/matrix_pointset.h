@@ -1,4 +1,5 @@
-// Documentation: Matrix columns as a point-set
+// Description: Matrix columns as a point-set
+// Documentation: pointset.txt
 
 #ifndef PASTELMATH_MATRIX_POINTSET_H
 #define PASTELMATH_MATRIX_POINTSET_H

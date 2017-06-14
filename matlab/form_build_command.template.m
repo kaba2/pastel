@@ -1,5 +1,5 @@
 % Description: Forms a mex-build-command.
-% Documentation: building_timmatlab.txt
+% Documentation: building_pastelmatlab.txt
 
 function commandSet = form_build_command(fileSet, varargin)
 

@@ -1,4 +1,4 @@
-// Documentation: Ranked set
+// Description: Ranked set
 
 #ifndef PASTELSYS_RANKEDSET_H
 #define PASTELSYS_RANKEDSET_H
