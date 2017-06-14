@@ -9,7 +9,7 @@
 
 if (WIN32)
 	# Ranges-v3 path
-	set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3")
+	set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3-vs")
 
 	# Boost path
 	set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_64_0")
