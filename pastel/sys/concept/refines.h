@@ -22,7 +22,18 @@ namespace Pastel
 	concept-refinement when used as a base-class.
 	*/
 	template <typename... ConceptSet>
-	using Refines = ranges::concepts::refines<ConceptSet...>;
+	struct Refines
+		: ranges::concepts::refines<ConceptSet...>
+	{
+		// Why not just an alias to refines<>?
+		// For some reason g++ cannot
+		// see the requires_() function is refines<>,
+		// which causes concept-checking to
+		// fail when a concept does not have
+		// direct requirements.
+		template <typename Type>
+		void requires_(Type&&);
+	};
 
 }
 
