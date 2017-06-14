@@ -38,7 +38,7 @@ namespace Pastel
 
 	template <
 		typename KdTree,
-		typename IntervalSequence,
+		typename IntervalSequence_,
 		typename SearchAlgorithm>
 	class KdTree_NearestSet
 	{
@@ -53,7 +53,7 @@ namespace Pastel
 			const KdTree& kdTree_,
 			const Real& maxRelativeError_,
 			integer nBruteForce_,
-			IntervalSequence timeIntervalSequence_)
+			IntervalSequence_ timeIntervalSequence_)
 		: kdTree(kdTree_)
 		, maxRelativeError(maxRelativeError_)
 		, nBruteForce(nBruteForce_)
@@ -321,7 +321,7 @@ namespace Pastel
 		const KdTree& kdTree;
 		Real maxRelativeError;
 		integer nBruteForce;
-		IntervalSequence timeIntervalSequence;
+		IntervalSequence_ timeIntervalSequence;
 	};
 
 	//! Constructs a kd-tree nearest-set.
