@@ -71,7 +71,9 @@ namespace Pastel
 	template <
 		typename Point,
 		Requires<
-			Models<Point, Real_Ring_Concept>
+			Models<Point, Real_Ring_Concept>,
+			Not<Point_HasMemberSize<Point>>,
+			Not<Point_HasMemberDimension<Point>>
 		> = 0
 	>
 	integer dimension(Point&& point)
