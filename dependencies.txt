@@ -88,3 +88,9 @@ The following dependencies do not require any action to build Pastel.
 <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/emt19937ar.html>
 
 Pastel integrates a minimally modified version of the official Mersenne Twister source code directly into the PastelSys library. No installation is needed.
+
+### Catch
+
+<https://github.com/philsquared/Catch>
+
+Catch is used for unit-testing. It is integrated into Pastel.
