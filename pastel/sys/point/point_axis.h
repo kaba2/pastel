@@ -100,7 +100,10 @@ namespace Pastel
 	template <
 		typename Point,
 		Requires<
-			Models<Point, Real_Ring_Concept>
+			Models<Point, Real_Ring_Concept>,
+			Not<Point_HasMemberCall<Point>>,
+			Not<Point_HasMemberPointAxis<Point>>,
+			Not<Point_HasIndexing<Point>>
 		> = 0
 	>
 	decltype(auto) pointAxis(Point&& point, integer axis)
