@@ -21,7 +21,7 @@ The source code always reflects the current development; it is unstable.
 To obtain the source code corresponding to this version, write
 
 [[+Verbatim]]:
-	hg update -r 1.4.0
+	hg update -r 1.5.0
 
 For previous versions, see the [release history][History]
 

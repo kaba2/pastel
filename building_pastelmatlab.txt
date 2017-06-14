@@ -3,20 +3,14 @@ Building the Pastel Matlab interface
 
 [[Parent]]: building.txt
 
-This section describes how to build the Pastel Matlab interface. 
-Before doing this, you must first [build the Pastel library][Core].
+This section describes how to build the Pastel Matlab interface. Before doing this, you must first [build the Pastel library][Core].
 
 [Core]: [[Ref]]: building.txt
 
 Build process
 -------------
 
-Matlab uses special kinds of shared libraries to extend it. These
-are called _mex files_. The building process for such files must be 
-driven from Matlab, because this is the only way that the approriate
-libraries will get linked into the resulting mex library, no matter
-what the Matlab version. Matlab redirects the compilation and linking
-to an external compiler, such as Visual Studio or gcc. 
+Matlab uses special kinds of shared libraries to extend it. These are called _mex files_. The build process for such files must be driven from Matlab, because this is the only way that the approriate libraries will get linked into the resulting mex library, no matter what the Matlab version. Matlab redirects the compilation and linking to an external compiler, such as Visual Studio or gcc.
 
 ### 1. Select a compiler
 
@@ -28,9 +22,7 @@ on the Matlab command line, and follow the instructions. A compiler can be used 
 
 * The same compiler is used to build the Pastel libraries.
  
- * The architectures of the libraries match: 
- 32-bit libraries against 32-bit libraries,
- and 64-bit libraries against 64-bit libraries.
+ * The architectures of the libraries match: 32-bit libraries against 32-bit libraries, and 64-bit libraries against 64-bit libraries.
 
 #### Supported compilers
 
@@ -40,7 +32,7 @@ The list of compilers which work out-of-the-box in Matlab is given in [here][Mat
 
 #### Bitness
 
-Matlab 32-bit is required to build 32-bit mex files, and Matlab 64-bit is required to build 64-bit mex files. In particular, it is not possible to do 32-bit builds from Matlab 64-bit.
+Matlab 32-bit is required to build 32-bit mex files, and Matlab 64-bit is required to build 64-bit mex files. In particular, it is not possible to do 32-bit builds from Matlab 64-bit. As of Matlab 2016a, a 32-bit version of Matlab is not produced anymore.
 
 ### 2. Build
 
