@@ -34,6 +34,11 @@ if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") OR
 		-fPIC
 		# Stop build after one error.
  		-Wfatal-errors
+ 		# Under Linux, Armadillo has to use
+ 		# long-long for BLAS, to not conflict
+ 		# with Matlab; otherwise there will
+ 		# be a segmentation fault.
+ 		-DARMA_BLAS_LONG_LONG
 	)
 
 	# Disable some warnings.
