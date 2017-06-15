@@ -31,7 +31,7 @@ if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") OR
 		# Enables position-independent code.
 		# This is needed to build the Matlab 
 		# libraries.
-		#-fPIC
+		-fPIC
 		# Stop build after one error.
  		-Wfatal-errors
 	)
