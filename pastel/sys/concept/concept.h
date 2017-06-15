@@ -33,6 +33,10 @@
 namespace Pastel
 {
 
+	//! Similar to std::declval, but does not static-assert when called.
+	template <typename Type>
+	Type&& conceptArg();
+
 	//! List expressions in a concept-check.
 	/*!
 	This function exists to avoid comma-separated
