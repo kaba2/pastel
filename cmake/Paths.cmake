@@ -66,7 +66,7 @@ if (UNIX)
 	if (APPLE)
 		set (MatlabDirectory "/Applications/MATLAB_R2015a.app")
 	else()
-		set (MatlabDirectory "/usr/local/matlab/r2015a")
+		set (MatlabDirectory "/usr/local/MATLAB/MATLAB_Production_Server/R2015a")
 	endif()
 endif()
 
