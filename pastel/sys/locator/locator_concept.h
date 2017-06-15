@@ -36,8 +36,8 @@ namespace Pastel
 		>
 		auto requires_(
 			Type&& t, 
-			PointId&& pointId = std::declval<PointId>(),
-			Real&& s = std::declval<Real>()) -> decltype
+			PointId&& pointId = conceptArg<PointId>(),
+			Real&& s = conceptArg<Real>()) -> decltype
 		(
 			conceptCheck(
 				//! Returns the dimension of the points.
