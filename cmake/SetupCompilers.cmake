@@ -102,6 +102,10 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
 		# Absolute value function on unsigned types.
 		-Wno-absolute-value
 		-Wno-unsupported-friend
+		-Wno-unused-local-typedef
+		-Wno-unused-variable
+		# For conceptArg()
+		-Wno-undefined-internal
 	)
 endif()
 
