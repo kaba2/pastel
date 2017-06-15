@@ -111,21 +111,24 @@ namespace Pastel
 		using Incidence_ConstIterator = 
 			IncidenceGraph_::Incidence_Iterator<const Incidence*>;
 
-		static constexpr int IncidenceTypes = 
-			(Type == GraphType::Undirected) ? 
-			1 : ((Type == GraphType::Directed) ? 2 : 3);
-		
-		static constexpr int Undirected = 
-			(Type == GraphType::Directed) ? 
-			IncidenceTypes : 0;
-		
-		static constexpr int Incoming = 
-			(Type == GraphType::Directed) ? 
-			0 : ((Type == GraphType::Mixed) ? 1 : IncidenceTypes);
-		
-		static constexpr int Outgoing = 
-			(Type == GraphType::Directed) ? 
-			1 : ((Type == GraphType::Mixed) ? 2 : IncidenceTypes);
+		enum : int
+		{
+			IncidenceTypes = 
+				(Type == GraphType::Undirected) ? 
+				1 : ((Type == GraphType::Directed) ? 2 : 3),
+			
+			Undirected = 
+				(Type == GraphType::Directed) ? 
+				IncidenceTypes : 0,
+			
+			Incoming = 
+				(Type == GraphType::Directed) ? 
+				0 : ((Type == GraphType::Mixed) ? 1 : IncidenceTypes),
+			
+			Outgoing = 
+				(Type == GraphType::Directed) ? 
+				1 : ((Type == GraphType::Mixed) ? 2 : IncidenceTypes)
+		};
 	};
 
 }
