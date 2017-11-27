@@ -12,7 +12,7 @@ if (WIN32)
 	set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3-vs")
 
 	# Boost path
-	set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_64_0")
+	set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_65_1")
 
 	# Armadillo path
 	set (ArmadilloDirectory "${CMAKE_SOURCE_DIR}/../armadillo-7.700.0")

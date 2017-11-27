@@ -54,7 +54,7 @@ namespace Pastel
 
 	sortDistances (bool):
 	Whether to report the neighbors in increasing
-	order of distance, as opposed to arbitrary order.
+	order of distance, as opposed to heap-order.
 	Default: true
 
 	report (Output(Real, PointId)):
@@ -198,19 +198,27 @@ namespace Pastel
 			PASTEL_TAG(maxDistance2),
 			maxDistance2);
 
-		// Sort the neighbors in order of
-		// increasing distance.
-		auto sortedSet = resultSet.release(sortDistances);
+		// There should be at most k neighbors.
+		const integer neighbors = resultSet.size();
+		ASSERT_OP(neighbors, <=, kNearest);
+
+		Result farthest = notFound;
+		if (neighbors == kNearest)
+		{
+			// Get the k:th nearest neighbor;
+			// it is at the top of the heap.
+			farthest = resultSet.top();
+		}
+
+		// Perhaps sort the neighbors in 
+		// order of increasing distance.
+		auto reportSet = resultSet.release(sortDistances);
 
 		// Report the nearest neighbors.
-		RANGES_FOR(auto&& entry, sortedSet)
+		RANGES_FOR(auto&& entry, reportSet)
 		{
 			report(entry.first, entry.second);
 		}
-
-		// There should be at most k neighbors.
-		const integer neighbors = sortedSet.size();
-		ASSERT_OP(neighbors, <=, kNearest);
 
 		if (reportMissing)
 		{
@@ -221,18 +229,10 @@ namespace Pastel
 			}
 		}
 
-		if (neighbors < kNearest)
-		{
-			// Since there are less than k neighbors,
-			// the k:th nearest neighbor does not
-			// exist.
-			return notFound;
-		}
-
 		// Return the k:th nearest neighbor,
 		// or the farthest neighbor when
 		// counting.
-		return sortedSet.back();
+		return farthest;
 	}
 
 }
