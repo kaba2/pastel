@@ -1,7 +1,7 @@
 // Description: An aggregate file for norms.
 
-#ifndef PASTELMATH_NORMS_H
-#define PASTELMATH_NORMS_H
+#ifndef PASTELMATH_DISTANCES_H
+#define PASTELMATH_DISTANCES_H
 
 #include "pastel/math/distance/distance_concept.h"
 #include "pastel/math/distance/euclidean_distance.h"
