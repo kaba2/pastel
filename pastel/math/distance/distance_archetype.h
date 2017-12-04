@@ -14,7 +14,7 @@ namespace Pastel
 	: DistanceBase<Distance_Archetype, real>
 	{
 	public:
-		using Real = real;
+		using Real_ = real;
 
 		explicit operator Real() const {
 			return 0;

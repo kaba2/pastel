@@ -1,5 +1,5 @@
-// Description: Minkowski norm
-// Documentation: norms.txt
+// Description: Minkowski distance
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_MINKOWSKI_DISTANCE_H
 #define PASTELMATH_MINKOWSKI_DISTANCE_H
@@ -19,8 +19,10 @@ namespace Pastel
 	: public DistanceBase<Minkowski_Distance<Real>, Real>
 	{
 	public:
+		using Real_ = Real;
+
 		explicit Minkowski_Distance(const Real& distance = 0, const Real& p = 2)
-		: distance_(distance)
+		: distance_(std::pow(distance, p))
 		, p_(p)
 		{}
 
@@ -49,20 +51,6 @@ namespace Pastel
 	private:
 		Real distance_;
 		Real p_;
-	};
-
-}
-
-namespace Pastel
-{
-
-	struct Minkowski_Norm
-	{
-		template <typename Real>
-		auto distance() const
-		{
-			return Minkowski_Distance<Real>();
-		}
 	};
 
 }

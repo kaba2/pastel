@@ -14,15 +14,12 @@ namespace Pastel
 		template <
 			typename Type,
 			//! The computation type.
-			typename Real = typename Type::Real>
+			typename Real = typename Type::Real_>
 		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
-				//! Constructs a zero distance.
-				Type(),
-
 				//! Returns the distance.
-				(Real)t,
+				(Real)addConst(t),
 
 				//! Multiplies the distance by the given value.
 				Concept::convertsTo<Type&>(

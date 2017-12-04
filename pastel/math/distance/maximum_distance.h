@@ -1,5 +1,5 @@
-// Description: Maximum norm
-// Documentation: norms.txt
+// Description: Maximum distance
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_MAXIMUM_DISTANCE_H
 #define PASTELMATH_MAXIMUM_DISTANCE_H
@@ -18,6 +18,8 @@ namespace Pastel
 	: public DistanceBase<Maximum_Distance<Real>, Real>
 	{
 	public:
+		using Real_ = Real;
+
 		explicit Maximum_Distance(const Real& distance = 0)
 		: distance_(distance)
 		{}
@@ -45,20 +47,6 @@ namespace Pastel
 
 	private:
 		Real distance_;
-	};
-
-}
-
-namespace Pastel
-{
-
-	struct Maximum_Norm
-	{
-		template <typename Real>
-		auto distance() const
-		{
-			return Maximum_Distance<Real>();
-		}
 	};
 
 }

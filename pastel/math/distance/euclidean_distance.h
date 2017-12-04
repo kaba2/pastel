@@ -1,5 +1,5 @@
-// Description: Euclidean norm
-// Documentation: norms.txt
+// Description: Euclidean distance
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_EUCLIDEAN_DISTANCE_H
 #define PASTELMATH_EUCLIDEAN_DISTANCE_H
@@ -19,6 +19,8 @@ namespace Pastel
 	: public DistanceBase<Euclidean_Distance<Real>, Real>
 	{
 	public:
+		using Real_ = Real;
+
 		explicit Euclidean_Distance(const Real& distance = 0) 
 		: distance_(square(distance))
 		{}
@@ -47,20 +49,6 @@ namespace Pastel
 
 	private:
 		Real distance_;
-	};
-
-}
-
-namespace Pastel
-{
-
-	struct Euclidean_Norm
-	{
-		template <typename Real>
-		auto distance() const
-		{
-			return Euclidean_Distance<Real>();
-		}
 	};
 
 }
