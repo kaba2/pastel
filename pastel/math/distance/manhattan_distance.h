@@ -12,18 +12,17 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N = Dynamic>
-	class ManhattanDistance
-	: public DistanceBase<ManhattanDistance<Real, N>, Real, N> 
+	template <typename Real>
+	class Manhattan_Distance
+	: public DistanceBase<Manhattan_Distance<Real>, Real> 
 	{
 	public:
-		ManhattanDistance(integer n = N) 
-		: DistanceBase<ManhattanDistance<Real, N>, Real, N>(n)
-		, distance_(0) 
+		Manhattan_Distance() 
+		: distance_(0) 
 		{}
 
-		ManhattanDistance(const ManhattanDistance&) = default;
-		ManhattanDistance(ManhattanDistance&&) = default;
+		Manhattan_Distance(const Manhattan_Distance&) = default;
+		Manhattan_Distance(Manhattan_Distance&&) = default;
 
 		explicit operator Real() const {
 			return distance_;

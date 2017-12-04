@@ -1,5 +1,5 @@
 // Description: Testing for distances
-// Documentation: unit_testing.txt
+// DocumentationOf: pastel/math/distance.h
 
 #include "test/test_init.h"
 
@@ -15,9 +15,8 @@ void testBasic(Distance distance)
 
 TEST_CASE("Distance (Manhattan)")
 {
-	auto distance = ManhattanDistance<real>(2);
+	auto distance = Manhattan_Distance<real>();
 	testBasic(distance);
-	REQUIRE(distance.n() == 2);
 
 	distance.set(0, 2);
 	REQUIRE((real)distance == 2);
@@ -28,9 +27,8 @@ TEST_CASE("Distance (Manhattan)")
 
 TEST_CASE("Distance (Euclidean)")
 {
-	auto distance = EuclideanDistance<real>(2);
+	auto distance = Euclidean_Distance<real>();
 	testBasic(distance);
-	REQUIRE(distance.n() == 2);
 
 	distance.set(0, 2);
 	REQUIRE((real)distance == std::sqrt(2*2));
@@ -41,9 +39,8 @@ TEST_CASE("Distance (Euclidean)")
 
 TEST_CASE("Distance (Maximum)")
 {
-	auto distance = MaximumDistance<real>(2);
+	auto distance = Maximum_Distance<real>();
 	testBasic(distance);
-	REQUIRE(distance.n() == 2);
 
 	distance.set(0, 2);
 	REQUIRE((real)distance == 2);
@@ -54,11 +51,8 @@ TEST_CASE("Distance (Maximum)")
 
 TEST_CASE("Distance (Product)")
 {
-	auto distance = productDistance<real>(
-		EuclideanDistance<real, 2>(),
-		ManhattanDistance<real, 2>());
+	auto distance = Product_Distance<real, Euclidean_Distance<real>, Manhattan_Distance<real>>(2);
 	testBasic(distance);
-	REQUIRE(distance.n() == 4);
 
 	distance.set(0, 2);
 	REQUIRE((real)distance == std::sqrt(2*2));

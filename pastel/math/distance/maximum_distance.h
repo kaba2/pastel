@@ -12,18 +12,17 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N = Dynamic>
-	class MaximumDistance
-	: public DistanceBase<MaximumDistance<Real, N>, Real, N>
+	template <typename Real>
+	class Maximum_Distance
+	: public DistanceBase<Maximum_Distance<Real>, Real>
 	{
 	public:
-		explicit MaximumDistance(integer n = N) 
-		: DistanceBase<MaximumDistance<Real, N>, Real, N>(n)
-		, distance_(0)
+		Maximum_Distance() 
+		: distance_(0)
 		{}
 
-		MaximumDistance(const MaximumDistance&) = default;
-		MaximumDistance(MaximumDistance&&) = default;
+		Maximum_Distance(const Maximum_Distance&) = default;
+		Maximum_Distance(Maximum_Distance&&) = default;
 
 		explicit operator Real() const {
 			return distance_;
@@ -49,7 +48,6 @@ namespace Pastel
 		}
 
 	private:
-		integer d_;
 		Real distance_;
 	};
 

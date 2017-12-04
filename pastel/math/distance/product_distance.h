@@ -17,21 +17,18 @@ namespace Pastel
 		typename XDistance,
 		typename YDistance
 	>
-	class ProductDistance
-	: public DistanceBase<ProductDistance<Real, XDistance, YDistance>, Real>
+	class Product_Distance
+	: public DistanceBase<Product_Distance<Real, XDistance, YDistance>, Real>
 	{
 	public:
-		explicit ProductDistance(
-			const XDistance& x = XDistance(),
-			const YDistance& y = YDistance())
-		: DistanceBase<ProductDistance<Real, XDistance, YDistance>, Real>(x.n() + y.n())
-		, x_(x)
-		, y_(y)
-		{
-		}
+		explicit Product_Distance(integer nx)
+		: x_()
+		, y_()
+		, nx_(nx)
+		{}
 
-		ProductDistance(const ProductDistance&) = default;
-		ProductDistance(ProductDistance&&) = default;
+		Product_Distance(const Product_Distance&) = default;
+		Product_Distance(Product_Distance&&) = default;
 
 		explicit operator Real() const {
 			using std::max;
@@ -44,10 +41,10 @@ namespace Pastel
 		}
 
 		auto replace(integer axis, const Real& from, const Real& to) {
-			if (axis < x_.n())
+			if (axis < nx_)
 				x_.replace(axis, from, to);
 			else
-				y_.replace(axis, from, to);
+				y_.replace(axis - nx_, from, to);
 			return *this;
 		}
 
@@ -66,6 +63,7 @@ namespace Pastel
 	private:
 		XDistance x_;
 		YDistance y_;
+		integer nx_;
 	};
 
 	template <
@@ -74,7 +72,7 @@ namespace Pastel
 	>
 	auto productDistance(Args&&... args)
 	{
-		return ProductDistance<Real, Args...>(std::forward<Args>(args)...);
+		return Product_Distance<Real, Args...>(std::forward<Args>(args)...);
 	}
 
 }

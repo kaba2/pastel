@@ -8,26 +8,22 @@
 #include "pastel/math/distance/distance_base.h"
 #include "pastel/sys/math/powers.h"
 
-#include <boost/operators.hpp>
-
 #include <cmath>
 
 namespace Pastel
 {
 
-	template <typename Real, integer N = Dynamic>
-	class EuclideanDistance
-	: public DistanceBase<EuclideanDistance<Real, N>, Real, N>
+	template <typename Real>
+	class Euclidean_Distance
+	: public DistanceBase<Euclidean_Distance<Real>, Real>
 	{
 	public:
-		explicit EuclideanDistance(integer n = N) 
-		: DistanceBase<EuclideanDistance<Real, N>, Real, N>(n)
-		, distance_(0) 
-		{
-		}
+		Euclidean_Distance() 
+		: distance_(0) 
+		{}
 
-		EuclideanDistance(const EuclideanDistance&) = default;
-		EuclideanDistance(EuclideanDistance&&) = default;
+		Euclidean_Distance(const Euclidean_Distance&) = default;
+		Euclidean_Distance(Euclidean_Distance&&) = default;
 
 		explicit operator Real() const {
 			using std::sqrt;
