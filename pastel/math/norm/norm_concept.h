@@ -1,15 +1,15 @@
-// Description: Distance concept
+// Description: Norm concept
 // Documentation: norms.txt
 
-#ifndef PASTELMATH_DISTANCE_CONCEPT_H
-#define PASTELMATH_DISTANCE_CONCEPT_H
+#ifndef PASTELMATH_NORM_CONCEPT_H
+#define PASTELMATH_NORM_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 
 namespace Pastel
 {
 
-	struct Distance_Concept
+	struct Norm_Concept
 	{
 		template <
 			typename Type,
