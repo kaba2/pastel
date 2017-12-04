@@ -1,12 +1,12 @@
-// Description: Manhattan distance
-// Documentation: distances.txt
+// Description: Manhattan norm
+// Documentation: norms.txt
 
-#ifndef PASTELMATH_MANHATTAN_DISTANCE_H
-#define PASTELMATH_MANHATTAN_DISTANCE_H
+#ifndef PASTELMATH_MANHATTAN_NORM_H
+#define PASTELMATH_MANHATTAN_NORM_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/math/distance/distance_concept.h"
-#include "pastel/math/distance/distance_base.h"
+#include "pastel/math/norm/norm_concept.h"
+#include "pastel/math/norm/norm_base.h"
 
 #include <cmath>
 
@@ -14,16 +14,16 @@ namespace Pastel
 {
 
 	template <typename Real>
-	class Manhattan_Distance
-	: public DistanceBase<Manhattan_Distance<Real>, Real> 
+	class Manhattan_Norm
+	: public NormBase<Manhattan_Norm<Real>, Real> 
 	{
 	public:
-		Manhattan_Distance() 
+		Manhattan_Norm() 
 		: distance_(0) 
 		{}
 
-		Manhattan_Distance(const Manhattan_Distance&) = default;
-		Manhattan_Distance(Manhattan_Distance&&) = default;
+		Manhattan_Norm(const Manhattan_Norm&) = default;
+		Manhattan_Norm(Manhattan_Norm&&) = default;
 
 		explicit operator Real() const {
 			return distance_;

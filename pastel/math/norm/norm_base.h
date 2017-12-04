@@ -1,10 +1,10 @@
 // Description: Euclidean distance
-// Documentation: distances.txt
+// Documentation: norms.txt
 
 #ifndef PASTELMATH_DISTANCE_BASE_H
 #define PASTELMATH_DISTANCE_BASE_H
 
-#include "pastel/math/distance/distance_concept.h"
+#include "pastel/math/norm/norm_concept.h"
 
 #include <boost/operators.hpp>
 
@@ -12,7 +12,7 @@ namespace Pastel
 {
 
 	template <typename Derived, typename Real_>
-	struct DistanceBase
+	struct NormBase
 	: boost::totally_ordered<Derived
 	, boost::multipliable<Derived, Real_
 	, boost::dividable<Derived, Real_
