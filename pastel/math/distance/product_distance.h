@@ -1,4 +1,5 @@
 // Description: Product distance
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_PRODUCT_DISTANCE_H
 #define PASTELMATH_PRODUCT_DISTANCE_H

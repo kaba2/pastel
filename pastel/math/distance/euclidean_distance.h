@@ -1,4 +1,5 @@
 // Description: Euclidean distance
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_EUCLIDEAN_DISTANCE_H
 #define PASTELMATH_EUCLIDEAN_DISTANCE_H

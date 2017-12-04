@@ -1,4 +1,5 @@
 // Description: Maximum distance
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_MAXIMUM_DISTANCE_H
 #define PASTELMATH_MAXIMUM_DISTANCE_H
