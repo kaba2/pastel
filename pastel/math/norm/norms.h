@@ -7,6 +7,7 @@
 #include "pastel/math/norm/euclidean_norm.h"
 #include "pastel/math/norm/manhattan_norm.h"
 #include "pastel/math/norm/maximum_norm.h"
+#include "pastel/math/norm/minkowski_norm.h"
 #include "pastel/math/norm/product_norm.h"
 
 #endif
