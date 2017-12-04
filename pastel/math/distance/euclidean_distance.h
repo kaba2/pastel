@@ -16,11 +16,11 @@ namespace Pastel
 
 	template <typename Real>
 	class Euclidean_Distance
-	: public NormBase<Euclidean_Distance<Real>, Real>
+	: public DistanceBase<Euclidean_Distance<Real>, Real>
 	{
 	public:
-		Euclidean_Distance() 
-		: distance_(0) 
+		explicit Euclidean_Distance(const Real& distance = 0) 
+		: distance_(square(distance))
 		{}
 
 		Euclidean_Distance(const Euclidean_Distance&) = default;
@@ -51,5 +51,18 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	struct Euclidean_Norm
+	{
+		template <typename Real>
+		auto distance() const
+		{
+			return Euclidean_Distance<Real>();
+		}
+	};
+
+}
 
 #endif

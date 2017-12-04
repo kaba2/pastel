@@ -1,8 +1,8 @@
-// Description: Norm concept
-// Documentation: norms.txt
+// Description: Distance concept
+// Documentation: distances.txt
 
-#ifndef PASTELMATH_NORM_CONCEPT_H
-#define PASTELMATH_NORM_CONCEPT_H
+#ifndef PASTELMATH_DISTANCE_CONCEPT_H
+#define PASTELMATH_DISTANCE_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 
@@ -31,7 +31,7 @@ namespace Pastel
 
 				//! Divides the distance by the given value.
 				/*!
-				Deriving from NormBase implements this automatically.
+				Deriving from DistanceBase implements this automatically.
 				*/
 				Concept::convertsTo<Type&>(
 					t /= std::declval<Real>()
@@ -39,15 +39,10 @@ namespace Pastel
 
 				//! Distances comparisons.
 				/*!
-				Deriving from NormBase implements these automatically.
+				Deriving from DistanceBase implements these automatically.
 				*/
 				Concept::convertsTo<bool>(
 					t < t && t <= t && t > t && t >= t && t == t && t != t
-				),
-
-				//! Returns the internal value for the distance.
-				Concept::convertsTo<Real>(
-					addConst(t).internal()
 				),
 
 				//! Replace distance along some standard basis axis.

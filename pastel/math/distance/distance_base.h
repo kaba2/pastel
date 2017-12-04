@@ -1,4 +1,4 @@
-// Description: Euclidean distance
+// Description: Distance CRTP base-class
 // Documentation: norms.txt
 
 #ifndef PASTELMATH_DISTANCE_BASE_H
@@ -12,7 +12,7 @@ namespace Pastel
 {
 
 	template <typename Derived, typename Real_>
-	struct NormBase
+	struct DistanceBase
 	: boost::totally_ordered<Derived
 	, boost::multipliable<Derived, Real_
 	, boost::dividable<Derived, Real_

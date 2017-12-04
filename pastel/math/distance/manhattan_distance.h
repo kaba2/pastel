@@ -15,11 +15,11 @@ namespace Pastel
 
 	template <typename Real>
 	class Manhattan_Distance
-	: public NormBase<Manhattan_Distance<Real>, Real> 
+	: public DistanceBase<Manhattan_Distance<Real>, Real> 
 	{
 	public:
-		Manhattan_Distance() 
-		: distance_(0) 
+		explicit Manhattan_Distance(const Real& distance = 0)
+		: distance_(distance)
 		{}
 
 		Manhattan_Distance(const Manhattan_Distance&) = default;
@@ -47,6 +47,20 @@ namespace Pastel
 
 	private:
 		Real distance_;
+	};
+
+}
+
+namespace Pastel
+{
+
+	struct Manhattan_Norm
+	{
+		template <typename Real>
+		auto distance() const
+		{
+			return Manhattan_Distance<Real>();
+		}
 	};
 
 }

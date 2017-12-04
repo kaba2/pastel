@@ -16,11 +16,11 @@ namespace Pastel
 
 	template <typename Real>
 	class Minkowski_Distance
-	: public NormBase<Minkowski_Distance<Real>, Real>
+	: public DistanceBase<Minkowski_Distance<Real>, Real>
 	{
 	public:
-		explicit Minkowski_Distance(const Real& p = 2) 
-		: distance_(0) 
+		explicit Minkowski_Distance(const Real& distance = 0, const Real& p = 2)
+		: distance_(distance)
 		, p_(p)
 		{}
 
@@ -28,8 +28,8 @@ namespace Pastel
 		Minkowski_Distance(Minkowski_Distance&&) = default;
 
 		explicit operator Real() const {
-			using std::sqrt;
-			return sqrt(distance_);
+			using std::pow;
+			return pow(distance_, inverse(p_));
 		}
 
 		const Real& internal() const {
@@ -53,5 +53,18 @@ namespace Pastel
 
 }
 
+namespace Pastel
+{
+
+	struct Minkowski_Norm
+	{
+		template <typename Real>
+		auto distance() const
+		{
+			return Minkowski_Distance<Real>();
+		}
+	};
+
+}
 
 #endif
