@@ -15,16 +15,25 @@ namespace Pastel
 
 	template <
 		typename Real,
-		typename XNorm,
-		typename YNorm
+		typename XDistance,
+		typename YDistance
 	>
 	class Product_Distance
-	: public NormBase<Product_Distance<Real, XNorm, YNorm>, Real>
+	: public DistanceBase<Product_Distance<Real, XDistance, YDistance>, Real>
 	{
 	public:
 		explicit Product_Distance(integer nx)
 		: x_()
 		, y_()
+		, nx_(nx)
+		{}
+
+		Product_Distance(
+			const XDistance& x, 
+			const YDistance& y,
+			integer nx)
+		: x_(x)
+		, y_(y)
 		, nx_(nx)
 		{}
 
@@ -56,8 +65,8 @@ namespace Pastel
 		}
 
 	private:
-		XNorm x_;
-		YNorm y_;
+		XDistance x_;
+		YDistance y_;
 		integer nx_;
 	};
 
@@ -65,9 +74,41 @@ namespace Pastel
 		typename Real,
 		typename... Args
 	>
-	auto productNorm(Args&&... args)
+	auto productDistance(Args&&... args)
 	{
 		return Product_Distance<Real, Args...>(std::forward<Args>(args)...);
+	}
+
+}
+
+namespace Pastel
+{
+
+	template <typename XNorm, typename YNorm>
+	struct Product_Norm
+	{
+		explicit Product_Norm(integer nx)
+		: nx_(nx)
+		{}
+
+		template <typename Real>
+		auto distance() const
+		{
+			return Product_Distance<Real, 
+				decltype(std::declval<XNorm>()()),
+				decltype(std::declval<YNorm>()())
+			>(nx_);
+		}
+	};
+
+	template <
+		typename Real,
+		typename XNorm,
+		typename YNorm
+	>
+	auto productNorm(const XNorm& xNorm, const YNorm& yNorm, integer nx)
+	{
+		return Product_Norm<Real, XNorm, YNorm>(nx);
 	}
 
 }

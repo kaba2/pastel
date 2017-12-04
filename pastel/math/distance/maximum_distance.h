@@ -15,11 +15,11 @@ namespace Pastel
 
 	template <typename Real>
 	class Maximum_Distance
-	: public NormBase<Maximum_Distance<Real>, Real>
+	: public DistanceBase<Maximum_Distance<Real>, Real>
 	{
 	public:
-		Maximum_Distance() 
-		: distance_(0)
+		explicit Maximum_Distance(const Real& distance = 0)
+		: distance_(distance)
 		{}
 
 		Maximum_Distance(const Maximum_Distance&) = default;
@@ -45,6 +45,20 @@ namespace Pastel
 
 	private:
 		Real distance_;
+	};
+
+}
+
+namespace Pastel
+{
+
+	struct Maximum_Norm
+	{
+		template <typename Real>
+		auto distance() const
+		{
+			return Maximum_Distance<Real>();
+		}
 	};
 
 }

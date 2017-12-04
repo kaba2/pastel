@@ -1,69 +1,69 @@
-// Description: Testing for norms
+// Description: Testing for distances
 // DocumentationOf: pastel/math/distance.h
 
 #include "test/test_init.h"
 
 #include "pastel/math/distance.h"
 
-template <typename Norm>
-void testBasic(Norm norm)
+template <typename Distance>
+void testBasic(Distance distance)
 {
-	auto copy = norm;
-	REQUIRE(copy == norm);
-	REQUIRE((real)copy == (real)norm);
+	auto copy = distance;
+	REQUIRE(copy == distance);
+	REQUIRE((real)copy == (real)distance);
 }
 
-TEST_CASE("Norm (Manhattan)")
+TEST_CASE("Distance (Manhattan)")
 {
-	auto norm = Manhattan_Distance<real>();
-	testBasic(norm);
+	auto distance = Manhattan_Distance<real>();
+	testBasic(distance);
 
-	norm.set(0, 2);
-	REQUIRE((real)norm == 2);
+	distance.set(0, 2);
+	REQUIRE((real)distance == 2);
 
-	norm.replace(0, 2, 4);
-	REQUIRE((real)norm == 4);
+	distance.replace(0, 2, 4);
+	REQUIRE((real)distance == 4);
 }
 
-TEST_CASE("Norm (Euclidean)")
+TEST_CASE("Distance (Euclidean)")
 {
-	auto norm = Euclidean_Distance<real>();
-	testBasic(norm);
+	auto distance = Euclidean_Distance<real>();
+	testBasic(distance);
 
-	norm.set(0, 2);
-	REQUIRE((real)norm == std::sqrt(2*2));
+	distance.set(0, 2);
+	REQUIRE((real)distance == std::sqrt(2*2));
 
-	norm.replace(0, 2, 4);
-	REQUIRE((real)norm == std::sqrt(4*4));
+	distance.replace(0, 2, 4);
+	REQUIRE((real)distance == std::sqrt(4*4));
 }
 
-TEST_CASE("Norm (Maximum)")
+TEST_CASE("Distance (Maximum)")
 {
-	auto norm = Maximum_Distance<real>();
-	testBasic(norm);
+	auto distance = Maximum_Distance<real>();
+	testBasic(distance);
 
-	norm.set(0, 2);
-	REQUIRE((real)norm == 2);
+	distance.set(0, 2);
+	REQUIRE((real)distance == 2);
 
-	norm.replace(0, 2, 4);
-	REQUIRE((real)norm == 4);
+	distance.replace(0, 2, 4);
+	REQUIRE((real)distance == 4);
 }
 
-TEST_CASE("Norm (Product)")
+TEST_CASE("Distance (Product)")
 {
-	auto norm = Product_Distance<real, Euclidean_Distance<real>, Manhattan_Distance<real>>(2);
-	testBasic(norm);
+	auto distance = Product_Distance<real, Euclidean_Distance<real>, Manhattan_Distance<real>>(2);
+	testBasic(distance);
 
-	norm.set(0, 2);
-	REQUIRE((real)norm == std::sqrt(2*2));
+	distance.set(0, 2);
+	REQUIRE((real)distance == std::sqrt(2*2));
 
-	norm.replace(0, 2, 4);
-	REQUIRE((real)norm == std::sqrt(4*4));
+	distance.replace(0, 2, 4);
+	REQUIRE((real)distance == std::sqrt(4*4));
 
-	norm.set(1, 2);
-	REQUIRE((real)norm == std::sqrt(4*4 + 2*2));
+	distance.set(1, 2);
+	REQUIRE((real)distance == std::sqrt(4*4 + 2*2));
 
-	norm.set(2, 100);
-	REQUIRE((real)norm == std::max(std::sqrt(4*4 + 2*2), (real)100));
+	distance.set(2, 100);
+	REQUIRE((real)distance == std::max(std::sqrt(4*4 + 2*2), (real)100));
 }
 
