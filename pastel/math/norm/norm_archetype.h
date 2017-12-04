@@ -1,17 +1,17 @@
 // Description: Distance archetype
-// Documentation: distances.txt
+// Documentation: norms.txt
 
 #ifndef PASTELMATH_DISTANCE_ARCHETYPE_H
 #define PASTELMATH_DISTANCE_ARCHETYPE_H
 
-#include "pastel/math/distance/distance_concept.h"
-#include "pastel/math/distance/distance_base.h"
+#include "pastel/math/norm/norm_concept.h"
+#include "pastel/math/norm/norm_base.h"
 
 namespace Pastel
 {
 
 	class Distance_Archetype
-	: DistanceBase<Distance_Archetype, real>
+	: NormBase<Distance_Archetype, real>
 	{
 	public:
 		using Real = real;

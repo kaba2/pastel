@@ -1,12 +1,12 @@
-// Description: Euclidean distance
-// Documentation: distances.txt
+// Description: Euclidean norm
+// Documentation: norms.txt
 
-#ifndef PASTELMATH_EUCLIDEAN_DISTANCE_H
-#define PASTELMATH_EUCLIDEAN_DISTANCE_H
+#ifndef PASTELMATH_EUCLIDEAN_NORM_H
+#define PASTELMATH_EUCLIDEAN_NORM_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/math/distance/distance_concept.h"
-#include "pastel/math/distance/distance_base.h"
+#include "pastel/math/norm/norm_concept.h"
+#include "pastel/math/norm/norm_base.h"
 #include "pastel/sys/math/powers.h"
 
 #include <cmath>
@@ -15,16 +15,16 @@ namespace Pastel
 {
 
 	template <typename Real>
-	class Euclidean_Distance
-	: public DistanceBase<Euclidean_Distance<Real>, Real>
+	class Euclidean_Norm
+	: public NormBase<Euclidean_Norm<Real>, Real>
 	{
 	public:
-		Euclidean_Distance() 
+		Euclidean_Norm() 
 		: distance_(0) 
 		{}
 
-		Euclidean_Distance(const Euclidean_Distance&) = default;
-		Euclidean_Distance(Euclidean_Distance&&) = default;
+		Euclidean_Norm(const Euclidean_Norm&) = default;
+		Euclidean_Norm(Euclidean_Norm&&) = default;
 
 		explicit operator Real() const {
 			using std::sqrt;

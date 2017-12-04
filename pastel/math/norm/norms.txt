@@ -1,4 +1,4 @@
-Distances
-=========
+Norms
+=====
 
 [[Parent]]: pastelmath.txt
