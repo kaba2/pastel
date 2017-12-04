@@ -14,18 +14,27 @@ namespace Pastel
 	template <typename Derived, typename Real_>
 	struct DistanceBase
 	: boost::totally_ordered<Derived
+	, boost::totally_ordered2<Derived, Real_
 	, boost::multipliable<Derived, Real_
 	, boost::dividable<Derived, Real_
-	> > >
+	> > > >
 	{
 		using Real = Real_;
 
 		friend bool operator<(const Derived& left, const Derived& right) {
-			return left.internal() < that.internal();
+			return left.internal() < right.internal();
 		}
 
 		friend bool operator==(const Derived& left, const Derived& right) {
 			return left.internal() == right.internal();
+		}
+
+		friend bool operator<(const Derived& left, const Real& right) {
+			return left < Derived(right);
+		}
+
+		friend bool operator==(const Derived& left, const Real& right) {
+			return left == Derived(right);
 		}
 
 		friend Derived& operator/=(const Derived& left, const Real& amount) {

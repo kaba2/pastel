@@ -21,7 +21,7 @@ namespace Pastel
 	public:
 		using Real_ = Real;
 
-		explicit Euclidean_Distance(const Real& distance = 0) 
+		Euclidean_Distance(const Real& distance = 0) 
 		: distance_(square(distance))
 		{}
 

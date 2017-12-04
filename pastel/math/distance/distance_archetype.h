@@ -16,6 +16,12 @@ namespace Pastel
 	public:
 		using Real_ = real;
 
+		Distance_Archetype() = default;
+		Distance_Archetype(Real_) {}
+
+		Distance_Archetype(const Distance_Archetype&) = default;
+		Distance_Archetype(Distance_Archetype&&) = default;
+
 		explicit operator Real() const {
 			return 0;
 		}

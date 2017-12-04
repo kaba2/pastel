@@ -18,6 +18,25 @@ namespace Pastel
 		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
+				//! Constructs a zero distance.
+				Type(),
+
+				//! Copy-constructs from a given distance.
+				Type(addConst(t)),
+
+				//! Move-constructs from a given distance.
+				Type(std::move(t)),
+
+				//! Constructs a distance with the given value.
+				/*!
+				There may be many distances which correspond to
+				the same value; this will pick one of them. 
+				An example of multiple equal distances is the 
+				product-distance.
+				*/
+				//Type(std::declval<Real>()),
+				Concept::convertsTo<Type>(std::declval<Real>()),
+
 				//! Returns the distance.
 				(Real)addConst(t),
 
