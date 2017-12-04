@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	struct Norm_Concept
+	struct Distance_Concept
 	{
 		template <
 			typename Type,

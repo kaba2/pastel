@@ -10,8 +10,8 @@
 namespace Pastel
 {
 
-	class Norm_Archetype
-	: NormBase<Norm_Archetype, real>
+	class Distance_Archetype
+	: NormBase<Distance_Archetype, real>
 	{
 	public:
 		using Real = real;
@@ -33,7 +33,7 @@ namespace Pastel
 		}
 	};
 
-	PASTEL_CONCEPT_CHECK(Norm_Archetype, Norm_Concept);
+	PASTEL_CONCEPT_CHECK(Distance_Archetype, Distance_Concept);
 
 }
 
