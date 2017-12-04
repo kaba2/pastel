@@ -20,8 +20,8 @@ namespace Pastel
 	public:
 		using Real_ = Real;
 
-		explicit Manhattan_Distance(const Real& distance = 0)
-		: distance_(distance)
+		Manhattan_Distance(const Real& distance = 0)
+		: distance_(abs(distance))
 		{}
 
 		Manhattan_Distance(const Manhattan_Distance&) = default;
@@ -36,13 +36,11 @@ namespace Pastel
 		}
 
 		auto replace(integer axis, const Real& from, const Real& to) {
-			using std::abs;
 			distance_ += abs(to) - abs(from);
 			return *this;
 		}
 
 		auto operator*=(const Real& amount) {
-			using std::abs;
 			distance_ *= abs(amount);
 			return *this;
 		}

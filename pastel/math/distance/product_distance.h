@@ -24,11 +24,16 @@ namespace Pastel
 	public:
 		using Real_ = Real;
 
-		explicit Product_Distance(
-			integer nx)
+		explicit Product_Distance(integer nx = 0)
 		: nx_(nx)
 		, x_()
 		, y_()
+		{}
+
+		Product_Distance(const Real& y)
+		: nx_(0)
+		, x_()
+		, y_(y)
 		{}
 
 		Product_Distance(
