@@ -77,7 +77,7 @@ namespace Pastel
 
 }
 
-#include "pastel/math/norm/norm_archetype.h"
+#include "pastel/math/distance/distance_archetype.h"
 
 #endif
 

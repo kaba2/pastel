@@ -1,12 +1,12 @@
-// Description: Euclidean norm
+// Description: Minkowski norm
 // Documentation: norms.txt
 
-#ifndef PASTELMATH_EUCLIDEAN_NORM_H
-#define PASTELMATH_EUCLIDEAN_NORM_H
+#ifndef PASTELMATH_MINKOWSKI_DISTANCE_H
+#define PASTELMATH_MINKOWSKI_DISTANCE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/math/norm/norm_concept.h"
-#include "pastel/math/norm/norm_base.h"
+#include "pastel/math/distance/distance_concept.h"
+#include "pastel/math/distance/distance_base.h"
 #include "pastel/sys/math/powers.h"
 
 #include <cmath>
@@ -15,16 +15,17 @@ namespace Pastel
 {
 
 	template <typename Real>
-	class Euclidean_Norm
-	: public NormBase<Euclidean_Norm<Real>, Real>
+	class Minkowski_Distance
+	: public NormBase<Minkowski_Distance<Real>, Real>
 	{
 	public:
-		Euclidean_Norm() 
+		explicit Minkowski_Distance(const Real& p = 2) 
 		: distance_(0) 
+		, p_(p)
 		{}
 
-		Euclidean_Norm(const Euclidean_Norm&) = default;
-		Euclidean_Norm(Euclidean_Norm&&) = default;
+		Minkowski_Distance(const Minkowski_Distance&) = default;
+		Minkowski_Distance(Minkowski_Distance&&) = default;
 
 		explicit operator Real() const {
 			using std::sqrt;
@@ -36,17 +37,18 @@ namespace Pastel
 		}
 
 		auto replace(integer axis, const Real& from, const Real& to) {
-			distance_ += square(to) - square(from);
+			distance_ += std::pow(to, p_) - std::pow(from, p_);
 			return *this;
 		}
 
 		auto operator*=(const Real& amount) {
-			distance_ *= square(amount);
+			distance_ *= std::pow(amount, p_);
 			return *this;
 		}
 
 	private:
 		Real distance_;
+		Real p_;
 	};
 
 }

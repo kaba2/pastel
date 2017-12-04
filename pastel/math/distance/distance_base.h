@@ -4,7 +4,7 @@
 #ifndef PASTELMATH_DISTANCE_BASE_H
 #define PASTELMATH_DISTANCE_BASE_H
 
-#include "pastel/math/norm/norm_concept.h"
+#include "pastel/math/distance/distance_concept.h"
 
 #include <boost/operators.hpp>
 
