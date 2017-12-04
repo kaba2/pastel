@@ -11,6 +11,7 @@ void testBasic(Distance distance)
 	auto copy = distance;
 	REQUIRE(copy == distance);
 	REQUIRE((real)copy == (real)distance);
+	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
 }
 
 TEST_CASE("Distance (Manhattan)")
