@@ -1,5 +1,5 @@
-// Description: Product norm
-// Documentation: norms.txt
+// Description: Product distance
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_PRODUCT_DISTANCE_H
 #define PASTELMATH_PRODUCT_DISTANCE_H
@@ -22,19 +22,22 @@ namespace Pastel
 	: public DistanceBase<Product_Distance<Real, XDistance, YDistance>, Real>
 	{
 	public:
-		explicit Product_Distance(integer nx)
-		: x_()
+		using Real_ = Real;
+
+		explicit Product_Distance(
+			integer nx)
+		: nx_(nx)
+		, x_()
 		, y_()
-		, nx_(nx)
 		{}
 
 		Product_Distance(
+			integer nx,
 			const XDistance& x, 
-			const YDistance& y,
-			integer nx)
-		: x_(x)
+			const YDistance& y)
+		: nx_(nx)
+		, x_(x)
 		, y_(y)
-		, nx_(nx)
 		{}
 
 		Product_Distance(const Product_Distance&) = default;
@@ -65,9 +68,9 @@ namespace Pastel
 		}
 
 	private:
+		integer nx_;
 		XDistance x_;
 		YDistance y_;
-		integer nx_;
 	};
 
 	template <
@@ -77,38 +80,6 @@ namespace Pastel
 	auto productDistance(Args&&... args)
 	{
 		return Product_Distance<Real, Args...>(std::forward<Args>(args)...);
-	}
-
-}
-
-namespace Pastel
-{
-
-	template <typename XNorm, typename YNorm>
-	struct Product_Norm
-	{
-		explicit Product_Norm(integer nx)
-		: nx_(nx)
-		{}
-
-		template <typename Real>
-		auto distance() const
-		{
-			return Product_Distance<Real, 
-				decltype(std::declval<XNorm>()()),
-				decltype(std::declval<YNorm>()())
-			>(nx_);
-		}
-	};
-
-	template <
-		typename Real,
-		typename XNorm,
-		typename YNorm
-	>
-	auto productNorm(const XNorm& xNorm, const YNorm& yNorm, integer nx)
-	{
-		return Product_Norm<Real, XNorm, YNorm>(nx);
 	}
 
 }

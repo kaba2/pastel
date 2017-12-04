@@ -1,5 +1,5 @@
-// Description: Manhattan norm
-// Documentation: norms.txt
+// Description: Manhattan distance
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_MANHATTAN_DISTANCE_H
 #define PASTELMATH_MANHATTAN_DISTANCE_H
@@ -18,6 +18,8 @@ namespace Pastel
 	: public DistanceBase<Manhattan_Distance<Real>, Real> 
 	{
 	public:
+		using Real_ = Real;
+
 		explicit Manhattan_Distance(const Real& distance = 0)
 		: distance_(distance)
 		{}
@@ -47,20 +49,6 @@ namespace Pastel
 
 	private:
 		Real distance_;
-	};
-
-}
-
-namespace Pastel
-{
-
-	struct Manhattan_Norm
-	{
-		template <typename Real>
-		auto distance() const
-		{
-			return Manhattan_Distance<Real>();
-		}
 	};
 
 }
