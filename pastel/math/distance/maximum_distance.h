@@ -42,11 +42,6 @@ namespace Pastel
 			return *this;
 		}
 
-		auto operator/=(const Real& amount) {
-			distance_ /= amount;
-			return *this;
-		}
-
 	private:
 		Real distance_;
 	};
