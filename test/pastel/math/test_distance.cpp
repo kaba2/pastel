@@ -1,9 +1,9 @@
 // Description: Testing for norms
-// DocumentationOf: pastel/math/norm.h
+// DocumentationOf: pastel/math/distance.h
 
 #include "test/test_init.h"
 
-#include "pastel/math/norm.h"
+#include "pastel/math/distance.h"
 
 template <typename Norm>
 void testBasic(Norm norm)
@@ -15,7 +15,7 @@ void testBasic(Norm norm)
 
 TEST_CASE("Norm (Manhattan)")
 {
-	auto norm = Manhattan_Norm<real>();
+	auto norm = Manhattan_Distance<real>();
 	testBasic(norm);
 
 	norm.set(0, 2);
@@ -27,7 +27,7 @@ TEST_CASE("Norm (Manhattan)")
 
 TEST_CASE("Norm (Euclidean)")
 {
-	auto norm = Euclidean_Norm<real>();
+	auto norm = Euclidean_Distance<real>();
 	testBasic(norm);
 
 	norm.set(0, 2);
@@ -39,7 +39,7 @@ TEST_CASE("Norm (Euclidean)")
 
 TEST_CASE("Norm (Maximum)")
 {
-	auto norm = Maximum_Norm<real>();
+	auto norm = Maximum_Distance<real>();
 	testBasic(norm);
 
 	norm.set(0, 2);
@@ -51,7 +51,7 @@ TEST_CASE("Norm (Maximum)")
 
 TEST_CASE("Norm (Product)")
 {
-	auto norm = Product_Norm<real, Euclidean_Norm<real>, Manhattan_Norm<real>>(2);
+	auto norm = Product_Distance<real, Euclidean_Distance<real>, Manhattan_Distance<real>>(2);
 	testBasic(norm);
 
 	norm.set(0, 2);

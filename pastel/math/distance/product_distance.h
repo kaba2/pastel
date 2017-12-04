@@ -1,12 +1,12 @@
 // Description: Product norm
 // Documentation: norms.txt
 
-#ifndef PASTELMATH_PRODUCT_NORM_H
-#define PASTELMATH_PRODUCT_NORM_H
+#ifndef PASTELMATH_PRODUCT_DISTANCE_H
+#define PASTELMATH_PRODUCT_DISTANCE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/math/norm/norm_concept.h"
-#include "pastel/math/norm/norm_base.h"
+#include "pastel/math/distance/distance_concept.h"
+#include "pastel/math/distance/distance_base.h"
 
 #include <algorithm>
 
@@ -18,18 +18,18 @@ namespace Pastel
 		typename XNorm,
 		typename YNorm
 	>
-	class Product_Norm
-	: public NormBase<Product_Norm<Real, XNorm, YNorm>, Real>
+	class Product_Distance
+	: public NormBase<Product_Distance<Real, XNorm, YNorm>, Real>
 	{
 	public:
-		explicit Product_Norm(integer nx)
+		explicit Product_Distance(integer nx)
 		: x_()
 		, y_()
 		, nx_(nx)
 		{}
 
-		Product_Norm(const Product_Norm&) = default;
-		Product_Norm(Product_Norm&&) = default;
+		Product_Distance(const Product_Distance&) = default;
+		Product_Distance(Product_Distance&&) = default;
 
 		explicit operator Real() const {
 			using std::max;
@@ -67,7 +67,7 @@ namespace Pastel
 	>
 	auto productNorm(Args&&... args)
 	{
-		return Product_Norm<Real, Args...>(std::forward<Args>(args)...);
+		return Product_Distance<Real, Args...>(std::forward<Args>(args)...);
 	}
 
 }

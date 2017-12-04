@@ -4,8 +4,8 @@
 #ifndef PASTELMATH_NORM_ARCHETYPE_H
 #define PASTELMATH_NORM_ARCHETYPE_H
 
-#include "pastel/math/norm/norm_concept.h"
-#include "pastel/math/norm/norm_base.h"
+#include "pastel/math/distance/distance_concept.h"
+#include "pastel/math/distance/distance_base.h"
 
 namespace Pastel
 {
