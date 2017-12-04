@@ -54,12 +54,6 @@ namespace Pastel
 			return *this;
 		}
 
-		auto operator/=(const Real& amount) {
-			x_ *= amount;
-			y_ *= amount;
-			return *this;
-		}
-
 	private:
 		XDistance x_;
 		YDistance y_;

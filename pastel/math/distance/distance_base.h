@@ -10,27 +10,28 @@
 namespace Pastel
 {
 
-	template <typename Derived, typename Real>
+	template <typename Derived, typename Real_>
 	struct DistanceBase
 	: boost::totally_ordered<Derived
-	, boost::multipliable<Derived, Real
-	, boost::dividable<Derived, Real
+	, boost::multipliable<Derived, Real_
+	, boost::dividable<Derived, Real_
 	> > >
 	{
-		bool operator<(const Derived& that) const
-		{
-			Derived& self = (Derived&)*this;
-			return self.internal() < that.internal();
+		using Real = Real_;
+
+		friend bool operator<(const Derived& left, const Derived& right) {
+			return left.internal() < that.internal();
 		}
 
-		bool operator==(const Derived& that) const
-		{
-			Derived& self = (Derived&)*this;
-			return self.internal() == that.internal();
+		friend bool operator==(const Derived& left, const Derived& right) {
+			return left.internal() == right.internal();
 		}
 
-		Derived& set(integer axis, const Real& amount)
-		{
+		friend Derived& operator/=(const Derived& left, const Real& amount) {
+			return left *= inverse(amount);
+		}
+
+		Derived& set(integer axis, const Real& amount) {
 			Derived& self = (Derived&)*this;
 			self.replace(axis, 0, amount);
 			return self;

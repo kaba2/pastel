@@ -17,103 +17,56 @@ namespace Pastel
 		auto requires_(Type&& t) -> decltype
 		(
 			conceptCheck(
-				//! Returns the dimension of the distance.
-				Concept::convertsTo<Real>(
-					addConst(t).d(
-						// normBijectionValue
-						std::declval<Real>()
-					)
+				//! Constructs a zero distance.
+				Type(),
+
+				//! Returns the distance.
+				(Real)t,
+
+				//! Multiplies the distance by the given value.
+				Concept::convertsTo<Type&>(
+					t *= std::declval<Real>()
 				),
 
-				//! Maps a norm bijection value to a logarithm of the norm value.
-				Concept::convertsTo<Real>(
-					addConst(t).toLnNorm(
-						// normBijectionValue
-						std::declval<Real>()
-					)
-				),
-
-				//! Maps a norm value to a norm bijection value.
-				Concept::convertsTo<Real>(
-					addConst(t).toBijection(
-						// norm
-						std::declval<Real>()
-					)
-				),
-
-				//! Returns a scaling value for norm bijection for scaling the norm value.
-				Concept::convertsTo<Real>(
-					addConst(t).scalingFactor(
-						// scaling
-						std::declval<Real>()
-					)
-				),
-				
-				//! Returns the norm bijection value along a standard basis axis.
+				//! Divides the distance by the given value.
 				/*!
-				Preconditions:
-				axisDistance >= 0
-
-				axisDistance:
-				A norm bijection value.
+				Deriving from DistanceBase implements this automatically.
 				*/
-				Concept::convertsTo<Real>(
-					addConst(t).axis(
-						// axisDistance
-						std::declval<Real>()
-					)
+				Concept::convertsTo<Type&>(
+					t /= std::declval<Real>()
 				),
 
-				//! Returns the norm bijection value along a standard basis axis.
+				//! Distances comparisons.
 				/*!
-				axisDistance:
-				A norm bijection value (possibly negative).
+				Deriving from DistanceBase implements these automatically.
 				*/
-				Concept::convertsTo<Real>(
-					addConst(t).signedAxis(
-						// axisDistance
-						std::declval<Real>()
-					)
+				Concept::convertsTo<bool>(
+					t < t && t <= t && t > t && t >= t && t == t && t != t
 				),
-				
-				//! Adds distance along some standard basis axis.
-				/*!
-				distance:
-				A norm-bijection distance.
 
-				newAxisDistance:
-				A norm-bijection distance along a given standard 
-				basis axis.
-				*/
+				//! Returns the internal value for the distance.
 				Concept::convertsTo<Real>(
-					addConst(t).addAxis(
-						// distance
-						std::declval<Real>(),
-						// newAxisDistance
-						std::declval<Real>()
-					)
+					addConst(t).internal()
 				),
 
 				//! Replace distance along some standard basis axis.
 				/*!
-				distance:
-				A norm-bijection distance.
+				axis:
+				The index of the axis to replace.
 
-				oldAxisDistance:
-				The current norm-bijection distance along a given 
-				standard basis axis.
+				from:
+				The current distance along the axis.
 
-				newAxisDistance:
-				The new norm-bijection distance along the given 
-				standard basis axis.
+				to:
+				The next distance along the axis.
 				*/
-				Concept::convertsTo<Real>(
-					addConst(t).replaceAxis(
-						// distance
+				Concept::convertsTo<Type&>(
+					t.replace(
+						// axis
+						std::declval<integer>(),
+						// from
 						std::declval<Real>(),
-						// oldAxisDistance
-						std::declval<Real>(),
-						// newAxisDistance
+						// to
 						std::declval<Real>()
 					)
 				)
@@ -123,7 +76,7 @@ namespace Pastel
 
 }
 
-#include "pastel/math/normbijection/normbijection_archetype.h"
+#include "pastel/math/distance/distance_archetype.h"
 
 #endif
 
