@@ -1,4 +1,5 @@
 // Description: Distance concept
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_DISTANCE_CONCEPT_H
 #define PASTELMATH_DISTANCE_CONCEPT_H

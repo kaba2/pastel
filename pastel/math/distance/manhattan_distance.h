@@ -1,4 +1,5 @@
 // Description: Manhattan distance
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_MANHATTAN_DISTANCE_H
 #define PASTELMATH_MANHATTAN_DISTANCE_H

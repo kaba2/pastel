@@ -1,5 +1,5 @@
 // Description: Distance archetype
-// Documentation: normbijection.txt
+// Documentation: distances.txt
 
 #ifndef PASTELMATH_DISTANCE_ARCHETYPE_H
 #define PASTELMATH_DISTANCE_ARCHETYPE_H
@@ -31,7 +31,6 @@ namespace Pastel
 		auto operator*=(const Real& amount) {
 			return *this;
 		}
-
 	};
 
 	PASTEL_CONCEPT_CHECK(Distance_Archetype, Distance_Concept);
