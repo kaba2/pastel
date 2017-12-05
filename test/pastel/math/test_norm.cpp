@@ -12,4 +12,5 @@ TEST_CASE("Norm (Euclidean)")
 	PASTEL_CONCEPT_CHECK(Maximum_Norm<real>, Norm_Concept);
 	PASTEL_CONCEPT_CHECK(Manhattan_Norm<real>, Norm_Concept);
 	PASTEL_CONCEPT_CHECK(Euclidean_Norm<real>, Norm_Concept);
+	PASTEL_CONCEPT_REJECT(Euclidean_Distance<real>, Norm_Concept);
 }

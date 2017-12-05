@@ -36,12 +36,12 @@ namespace Pastel
 		}
 
 		auto replace(integer axis, const Real& from, const Real& to) {
-			if (distance_ < to) distance_ = to;
+			if (distance_ < abs(to)) distance_ = abs(to);
 			return *this;
 		}
 
 		auto operator*=(const Real& amount) {
-			distance_ *= amount;
+			distance_ *= abs(amount);
 			return *this;
 		}
 
