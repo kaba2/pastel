@@ -17,6 +17,11 @@ namespace Pastel
 		{
 			return Euclidean_Distance<Real>(distance);
 		}
+
+		auto operator[](const Real& distance) const
+		{
+			return Euclidean_Distance<Real>(Distance_Native(), distance);
+		}
 	};
 
 }

@@ -20,8 +20,12 @@ namespace Pastel
 	public:
 		using Real_ = Real;
 
-		Maximum_Distance(const Real& distance = 0)
+		explicit Maximum_Distance(const Real& distance = 0)
 		: distance_(distance)
+		{}
+
+		Maximum_Distance(Distance_Native, const Real& distance)
+		: distance_(abs(distance))
 		{}
 
 		Maximum_Distance(const Maximum_Distance&) = default;

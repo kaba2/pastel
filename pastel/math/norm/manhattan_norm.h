@@ -17,6 +17,11 @@ namespace Pastel
 		{
 			return Manhattan_Distance<Real>(distance);
 		}
+
+		auto operator[](const Real& distance) const
+		{
+			return Manhattan_Distance<Real>(Distance_Native(), distance);
+		}
 	};
 
 }

@@ -30,7 +30,7 @@ namespace Pastel
 		, y_()
 		{}
 
-		Product_Distance(const Real& y)
+		explicit Product_Distance(const Real& y)
 		: nx_(0)
 		, x_()
 		, y_(y)
@@ -43,6 +43,12 @@ namespace Pastel
 		: nx_(nx)
 		, x_(x)
 		, y_(y)
+		{}
+
+		Product_Distance(Distance_Native, const Real& y)
+		: nx_(0)
+		, x_()
+		, y_(abs(y))
 		{}
 
 		Product_Distance(const Product_Distance&) = default;

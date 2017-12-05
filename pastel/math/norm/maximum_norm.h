@@ -17,6 +17,11 @@ namespace Pastel
 		{
 			return Maximum_Distance<Real>(distance);
 		}
+
+		auto operator[](const Real& distance) const
+		{
+			return Maximum_Distance<Real>(Distance_Native(), distance);
+		}
 	};
 
 }
