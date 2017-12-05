@@ -9,6 +9,8 @@
 namespace Pastel
 {
 
+	struct Distance_Native {};
+
 	struct Distance_Concept
 	{
 		template <
@@ -28,7 +30,7 @@ namespace Pastel
 				Type(std::move(t)),
 
 				//! Assigns from another distance.
-				t = t,
+				t = addConst(t),
 
 				//! Constructs a distance with the given value.
 				/*!
@@ -37,8 +39,7 @@ namespace Pastel
 				An example of multiple equal distances is the 
 				product-distance.
 				*/
-				//Type(std::declval<Real>()),
-				Concept::convertsTo<Type>(std::declval<Real>()),
+				Type(std::declval<Real>()),
 
 				//! Returns the distance.
 				(Real)addConst(t),

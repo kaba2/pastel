@@ -30,6 +30,14 @@ namespace Pastel
 			return Product_Distance<Real, decltype(xDistance), decltype(yDistance)>(nx_, xDistance, yDistance);
 		}
 
+		auto operator[](const Real& distance) const
+		{
+			auto xDistance = xNorm_(Distance_Native(), distance);
+			auto yDistance = yNorm_();
+
+			return Product_Distance<Real, decltype(xDistance), decltype(yDistance)>(nx_, xDistance, yDistance);
+		}
+
 		integer nx_;
 		XNorm xNorm_;
 		YNorm yNorm_;

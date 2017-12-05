@@ -23,6 +23,11 @@ namespace Pastel
 			return Minkowski_Distance<Real>(distance, p_);
 		}
 
+		auto operator[](const Real& distance) const
+		{
+			return Minkowski_Distance<Real>(Distance_Native(), distance, p_);
+		}
+
 		Real p_;
 	};
 

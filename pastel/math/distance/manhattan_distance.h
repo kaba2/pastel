@@ -20,7 +20,11 @@ namespace Pastel
 	public:
 		using Real_ = Real;
 
-		Manhattan_Distance(const Real& distance = 0)
+		explicit Manhattan_Distance(const Real& distance = 0)
+		: distance_(abs(distance))
+		{}
+
+		Manhattan_Distance(Distance_Native, const Real& distance)
 		: distance_(abs(distance))
 		{}
 
