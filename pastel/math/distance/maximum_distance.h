@@ -26,6 +26,7 @@ namespace Pastel
 
 		Maximum_Distance(const Maximum_Distance&) = default;
 		Maximum_Distance(Maximum_Distance&&) = default;
+		Maximum_Distance& operator=(const Maximum_Distance&) = default;
 
 		explicit operator Real() const {
 			return distance_;
