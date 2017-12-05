@@ -15,7 +15,7 @@ if (WIN32)
 	set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_65_1")
 
 	# Armadillo path
-	set (ArmadilloDirectory "${CMAKE_SOURCE_DIR}/../armadillo-7.700.0")
+	set (ArmadilloDirectory "${CMAKE_SOURCE_DIR}/../armadillo-8.300.1")
 
 	# Threading Building Blocks paths
 	set (TbbDirectory "${CMAKE_SOURCE_DIR}/../tbb2017_20161128oss")
