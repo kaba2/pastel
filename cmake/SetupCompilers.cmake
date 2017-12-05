@@ -151,13 +151,14 @@ if (MSVC)
 		/MP
 		# Enable exceptions.
 		/EHsc
-		# Use C++14 features.
-		/std:c++14
+		# Use C++17 features.
+		/std:c++17
+		# Boost uses std::unary_function etc which are removed from C++17.
+		# Bring them back.
+		/D_HAS_AUTO_PTR_ETC=1
 		# Disable language extensions
-		# This flag is broken in that it
-		# is not supported even by Microsoft 
-		# itself. Do not enable.
-		# /Za
+		# Arma does not work with this flag (maybe a compiler bug in VS2017?)
+		#/permissive-
 	)
 
 	# Disable some warnings.
