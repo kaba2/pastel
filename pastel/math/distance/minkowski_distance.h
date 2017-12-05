@@ -28,6 +28,7 @@ namespace Pastel
 
 		Minkowski_Distance(const Minkowski_Distance&) = default;
 		Minkowski_Distance(Minkowski_Distance&&) = default;
+		Minkowski_Distance& operator=(const Minkowski_Distance&) = default;
 
 		explicit operator Real() const {
 			using std::pow;

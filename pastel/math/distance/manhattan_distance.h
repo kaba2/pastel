@@ -26,6 +26,7 @@ namespace Pastel
 
 		Manhattan_Distance(const Manhattan_Distance&) = default;
 		Manhattan_Distance(Manhattan_Distance&&) = default;
+		Manhattan_Distance& operator=(const Manhattan_Distance&) = default;
 
 		explicit operator Real() const {
 			return distance_;

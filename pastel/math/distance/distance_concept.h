@@ -27,6 +27,9 @@ namespace Pastel
 				//! Move-constructs from a given distance.
 				Type(std::move(t)),
 
+				//! Assigns from another distance.
+				t = t,
+
 				//! Constructs a distance with the given value.
 				/*!
 				There may be many distances which correspond to

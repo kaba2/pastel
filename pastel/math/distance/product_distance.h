@@ -47,6 +47,7 @@ namespace Pastel
 
 		Product_Distance(const Product_Distance&) = default;
 		Product_Distance(Product_Distance&&) = default;
+		Product_Distance& operator=(const Product_Distance&) = default;
 
 		explicit operator Real() const {
 			using std::max;

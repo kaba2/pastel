@@ -27,6 +27,7 @@ namespace Pastel
 
 		Euclidean_Distance(const Euclidean_Distance&) = default;
 		Euclidean_Distance(Euclidean_Distance&&) = default;
+		Euclidean_Distance& operator=(const Euclidean_Distance&) = default;
 
 		explicit operator Real() const {
 			using std::sqrt;
