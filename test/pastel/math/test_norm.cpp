@@ -6,7 +6,8 @@
 
 TEST_CASE("Norm (Euclidean)")
 {
-	PASTEL_CONCEPT_CHECK(Product_Norm<real, Maximum_Norm<real>, Euclidean_Norm<real>>, Norm_Concept);
+	using Product = Product_Norm<real, Maximum_Norm<real>, Euclidean_Norm<real>>;
+	PASTEL_CONCEPT_CHECK(Product, Norm_Concept);
 	PASTEL_CONCEPT_CHECK(Minkowski_Norm<real>, Norm_Concept);
 	PASTEL_CONCEPT_CHECK(Maximum_Norm<real>, Norm_Concept);
 	PASTEL_CONCEPT_CHECK(Manhattan_Norm<real>, Norm_Concept);

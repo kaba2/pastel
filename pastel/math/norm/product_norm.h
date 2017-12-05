@@ -24,10 +24,10 @@ namespace Pastel
 
 		auto operator()(const Real& distance = 0) const
 		{
-			auto xDistance = xNorm_.distance(distance);
-			auto yDistance = yNorm_.distance();
+			auto xDistance = xNorm_(distance);
+			auto yDistance = yNorm_();
 
-			return productDistance<Real>(nx_, xDistance, yDistance);
+			return Product_Distance<Real, decltype(xDistance), decltype(yDistance)>(nx_, xDistance, yDistance);
 		}
 
 		integer nx_;
