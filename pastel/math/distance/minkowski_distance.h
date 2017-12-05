@@ -21,7 +21,7 @@ namespace Pastel
 	public:
 		using Real_ = Real;
 
-		explicit Minkowski_Distance(const Real& distance = 0, const Real& p = 2)
+		Minkowski_Distance(const Real& distance = 0, const Real& p = 2)
 		: distance_(std::pow(distance, p))
 		, p_(p)
 		{}

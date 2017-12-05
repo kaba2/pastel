@@ -5,16 +5,12 @@
 
 #include "pastel/math/distance.h"
 
-template <typename Distance>
-void testBasic(Distance distance)
-{
-	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
-}
-
 TEST_CASE("Distance (Manhattan)")
 {
-	auto distance = Manhattan_Distance<real>();
-	testBasic(distance);
+	using Distance = Manhattan_Distance<real>;
+	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
+
+	auto distance = Distance();
 
 	distance.set(0, 2);
 	REQUIRE(~distance == 2);
@@ -29,8 +25,10 @@ TEST_CASE("Distance (Manhattan)")
 
 TEST_CASE("Distance (Euclidean)")
 {
-	auto distance = Euclidean_Distance<real>();
-	testBasic(distance);
+	using Distance = Euclidean_Distance<real>;
+	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
+
+	auto distance = Distance();
 
 	distance.set(0, 2);
 	REQUIRE(~distance == 2*2);
@@ -45,8 +43,10 @@ TEST_CASE("Distance (Euclidean)")
 
 TEST_CASE("Distance (Maximum)")
 {
-	auto distance = Maximum_Distance<real>();
-	testBasic(distance);
+	using Distance = Maximum_Distance<real>;
+	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
+
+	auto distance = Distance();
 
 	distance.set(0, 2);
 	REQUIRE(~distance == 2);
@@ -59,10 +59,28 @@ TEST_CASE("Distance (Maximum)")
 	REQUIRE(~copy == 4);
 }
 
+TEST_CASE("Distance (Minkowski)")
+{
+	using Distance = Minkowski_Distance<real>;
+	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
+
+	auto distance = Distance();
+
+	distance.set(0, 2);
+	REQUIRE(~distance == 2*2);
+
+	distance.replace(0, 2, 4);
+	REQUIRE(~distance == 4*4);
+
+	auto copy = distance;
+	REQUIRE(copy == distance);
+	REQUIRE(~copy == 4*4);
+}
+
 TEST_CASE("Distance (Product)")
 {
-	auto distance = Product_Distance<real, Euclidean_Distance<real>, Manhattan_Distance<real>>((integer)2);
-	testBasic(distance);
+	using Distance = Product_Distance<real, Euclidean_Distance<real>, Manhattan_Distance<real>>;
+	auto distance = Distance((integer)2);
 
 	distance.set(0, 2);
 	REQUIRE(~distance == 2*2);
