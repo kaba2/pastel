@@ -11,6 +11,14 @@
 namespace Pastel
 {
 
+	//! Distance CRTP base-class
+	/*!
+	Automatically implements functions required by the
+	Distance concept. The Derived class only needs to
+	implement operator*=, replace(), and operator~,
+	and this class provides <, <=, >=, >, ==, !=, /=, 
+	set().
+	*/
 	template <typename Derived, typename Real_>
 	struct DistanceBase
 	: boost::totally_ordered<Derived
@@ -22,11 +30,11 @@ namespace Pastel
 		using Real = Real_;
 
 		friend bool operator<(const Derived& left, const Derived& right) {
-			return left.internal() < right.internal();
+			return ~left < ~right;
 		}
 
 		friend bool operator==(const Derived& left, const Derived& right) {
-			return left.internal() == right.internal();
+			return ~left == ~right;
 		}
 
 		friend bool operator<(const Derived& left, const Real& right) {

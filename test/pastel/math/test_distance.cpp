@@ -17,14 +17,14 @@ TEST_CASE("Distance (Manhattan)")
 	testBasic(distance);
 
 	distance.set(0, 2);
-	REQUIRE(distance == 2);
+	REQUIRE(~distance == 2);
 
 	distance.replace(0, 2, 4);
-	REQUIRE(distance == 4);
+	REQUIRE(~distance == 4);
 
 	auto copy = distance;
 	REQUIRE(copy == distance);
-	REQUIRE(copy == 4);
+	REQUIRE(~copy == 4);
 }
 
 TEST_CASE("Distance (Euclidean)")
@@ -33,14 +33,14 @@ TEST_CASE("Distance (Euclidean)")
 	testBasic(distance);
 
 	distance.set(0, 2);
-	REQUIRE(distance == std::sqrt(2*2));
+	REQUIRE(~distance == 2*2);
 
 	distance.replace(0, 2, 4);
-	REQUIRE(distance == std::sqrt(4*4));
+	REQUIRE(~distance == 4*4);
 
 	auto copy = distance;
 	REQUIRE(copy == distance);
-	REQUIRE(copy == std::sqrt(4*4));
+	REQUIRE(~copy == 4*4);
 }
 
 TEST_CASE("Distance (Maximum)")
@@ -49,14 +49,14 @@ TEST_CASE("Distance (Maximum)")
 	testBasic(distance);
 
 	distance.set(0, 2);
-	REQUIRE(distance == 2);
+	REQUIRE(~distance == 2);
 
 	distance.replace(0, 2, 4);
-	REQUIRE(distance == 4);
+	REQUIRE(~distance == 4);
 
 	auto copy = distance;
 	REQUIRE(copy == distance);
-	REQUIRE(copy == 4);
+	REQUIRE(~copy == 4);
 }
 
 TEST_CASE("Distance (Product)")
@@ -65,15 +65,15 @@ TEST_CASE("Distance (Product)")
 	testBasic(distance);
 
 	distance.set(0, 2);
-	REQUIRE(distance == std::sqrt(2*2));
+	REQUIRE(~distance == 2*2);
 
 	distance.replace(0, 2, 4);
-	REQUIRE(distance == std::sqrt(4*4));
+	REQUIRE(~distance == 4*4);
 
 	distance.set(1, 2);
-	REQUIRE(distance == std::sqrt(4*4 + 2*2));
+	REQUIRE(~distance == 4*4 + 2*2);
 
 	distance.set(2, 100);
-	REQUIRE(distance == std::max(std::sqrt(4*4 + 2*2), (real)100));
+	REQUIRE(~distance == std::max(4*4 + 2*2, 100));
 }
 

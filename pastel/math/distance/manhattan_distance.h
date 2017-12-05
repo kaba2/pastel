@@ -31,7 +31,7 @@ namespace Pastel
 			return distance_;
 		}
 
-		const Real& internal() const {
+		const Real& operator~() const {
 			return distance_;
 		}
 
