@@ -33,7 +33,7 @@ namespace Pastel
 			return sqrt(distance_);
 		}
 
-		const Real& internal() const {
+		const Real& operator~() const {
 			return distance_;
 		}
 

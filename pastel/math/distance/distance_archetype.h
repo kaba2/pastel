@@ -26,7 +26,7 @@ namespace Pastel
 			return 0;
 		}
 
-		Real internal() const {
+		Real operator~() const {
 			return 0;
 		}
 

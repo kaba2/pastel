@@ -53,9 +53,9 @@ namespace Pastel
 			return max((Real)x_, (Real)y_);
 		}
 
-		Real internal() const {
+		Real operator~() const {
 			using std::max;
-			return max(x_.internal(), y_.internal());
+			return max(~x_, ~y_);
 		}
 
 		auto replace(integer axis, const Real& from, const Real& to) {
