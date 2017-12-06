@@ -79,9 +79,9 @@ namespace
 
 					match = coherentPointDrift(
 						fromSet, toSet,
-						scaling,
-						translation,
-						matrix,
+						PASTEL_TAG(scaling), scaling,
+						PASTEL_TAG(translation), translation,
+						PASTEL_TAG(matrix), matrix,
 						PASTEL_TAG(orientation), orientation);
 
 					if (deltaNorm() >= threshold)

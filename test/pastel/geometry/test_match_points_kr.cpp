@@ -20,6 +20,8 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 	using Point = Vector<Real, 2>;
 	using Tree_Settings = PointKdTree_Settings<Vector_Locator<Real, 2>>;
 	using Tree = PointKdTree<Tree_Settings>;
+	
+	auto norm = Euclidean_Norm<Real>();
 
 	for (real sceneRatio : {1.0, 0.75, 0.65})
 	{
@@ -28,7 +30,7 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 			integer kNearest = 1 + j;
 			Real minMatchRatio = 0.7;
 			Real maxBias = 0.1;
-			Real matchingDistance2 = 0.01;
+			auto matchingDistance2 = norm[0.01];
 
 			Point translation(1 + j, 5 - 3 * j);
 
@@ -95,7 +97,9 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 					// matching distance from each other.
 					RANGES_FOR(auto&& pairing, pairSet)
 					{
-						Real actualDistance = distance2(pairing.first->point(), evaluate(pairing.second->point() + result.translation));
+						auto actualDistance = distance2(
+							pairing.first->point(), 
+							evaluate(pairing.second->point() + result.translation));
 						REQUIRE(actualDistance <= matchingDistance2);
 					}
 				}
@@ -128,7 +132,9 @@ TEST_CASE("matchPointsKr (matchPointsKr)")
 				// matching distance from each other.
 				RANGES_FOR(auto&& pairing, pairSet)
 				{
-					Real actualDistance = distance2(pairing.first->point(), evaluate(pairing.second->point() + result.translation));
+					auto actualDistance = distance2(
+						pairing.first->point(),
+						evaluate(pairing.second->point() + result.translation));
 					REQUIRE(actualDistance <= matchingDistance2);
 				}
 			}

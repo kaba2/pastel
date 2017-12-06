@@ -24,7 +24,7 @@ namespace Pastel
 		// d < 0 <=> s - r < 0 <=> s < r <=> s^2 < r^2
 
 		Real centerDistance2 =
-			distance2(box, sphere.position());
+			~distance2(box, sphere.position());
 
 		if (centerDistance2 <= square(sphere.radius()))
 		{

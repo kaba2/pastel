@@ -14,13 +14,13 @@ TEST_CASE("orthonormal (orthonormal)")
 
 	m = orthonormalize(m);
 	{
-		REQUIRE(frobeniusNorm(m - identityMatrix<real>(3, 3)) < 0.0001);
+		REQUIRE(frobeniusNorm2(m - identityMatrix<real>(3, 3)) < square(0.0001));
 	}
 
 	m = randomMatrix<real>(3, 3);
 	m = orthonormalize(m);
 	{
-		REQUIRE(frobeniusNorm(transpose(m) * m - 
-			identityMatrix<real>(3, 3)) < 0.0001);
+		REQUIRE(frobeniusNorm2(transpose(m) * m - 
+			identityMatrix<real>(3, 3)) < square(0.0001));
 	}
 }

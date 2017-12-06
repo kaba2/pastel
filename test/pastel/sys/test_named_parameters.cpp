@@ -81,10 +81,10 @@ namespace
 				metric, 
 				[](){return Euclidean_Metric();}, 
 				[](auto input) {return
-					implicitArgument(Or<
+					Or<
 						std::is_same<decltype(input), Euclidean_Metric>,
 						std::is_same<decltype(input), Manhattan_Metric>
-					>());} 
+					>();} 
 			);
 
 		bool negate = 
@@ -141,8 +141,8 @@ TEST_CASE("Explicit (named_parameter)")
 
 TEST_CASE("Enum (named_parameter)")
 {
-	REQUIRE(distance(1, 6, Enum::Off) == 5 * 5 + 0);
-	REQUIRE(distance(1, 6, Enum::On) == 5 * 5 + 1);
+	REQUIRE(distance(1, 6, PASTEL_TAG(enumValue), Enum::Off) == 5 * 5 + 0);
+	REQUIRE(distance(1, 6, PASTEL_TAG(enumValue), Enum::On) == 5 * 5 + 1);
 }
 
 TEST_CASE("Forwarding (named_parameter)")
@@ -166,14 +166,6 @@ TEST_CASE("Flag (named_parameter)")
 	REQUIRE(distance(1, 6, PASTEL_TAG(negate)) == (-1) * 5 * 5);
 	REQUIRE(distance(1, 6, PASTEL_TAG(scaling)) == 1 * 5 * 5);
 	REQUIRE(distance(1, 6, PASTEL_TAG(scaling), 2.0, PASTEL_TAG(negate), PASTEL_TAG(metric), Manhattan_Metric()) == 2 * (-1) * 5);
-}
-
-TEST_CASE("Implicit (named_parameter)")
-{
-	REQUIRE(distance(1, 6, Manhattan_Metric()) == 5);
-	// Since 'negate' is not an implicit parameter,
-	// the 'true' will not bind to it.
-	REQUIRE(distance(1, 6, Manhattan_Metric(), true) == 5);
 }
 
 TEST_CASE("Erroneous (named_parameter)")

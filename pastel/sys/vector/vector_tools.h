@@ -6,6 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector/vector.h"
 #include "pastel/sys/tuple/tuple_tools.h"
+#include "pastel/math/norm/norm_concept.h"
 
 #include <vector>
 #include <iostream>
@@ -117,11 +118,19 @@ namespace Pastel
 		const VectorExpression<Real, LeftN, LeftExpression>& left,
 		const VectorExpression<Real, RightN, RightExpression>& right);
 
+	//! Returns the squared Euclidean norm of a vector.
+	template <typename Real, integer N, typename Expression>
+	Real norm2(const VectorExpression<Real, N, Expression>& that);
+
 	//! Returns the norm bijection of a vector.
-	template <typename Real, integer N, typename Expression, 
-		typename NormBijection>
-	Real norm2(const VectorExpression<Real, N, Expression>& that,
-		const NormBijection& normBijection);
+	template <
+		typename Real, integer N, typename Expression, 
+		typename Norm,
+		Requires<
+			Models<Norm, Norm_Concept>
+		> = 0>
+	auto norm2(const VectorExpression<Real, N, Expression>& that,
+		const Norm& norm);
 
 	//! Returns the Euclidean norm of a vector.
 	/*!

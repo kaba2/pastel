@@ -15,7 +15,7 @@
 #include "pastel/geometry/tdtree/tdtree.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_equivalent.h"
 
-#include <pastel/math/normbijection/normbijections.h>
+#include <pastel/math/norm/norms.h>
 #include <pastel/sys/random.h>
 
 #include "pastel/sys/vector.h"
@@ -51,7 +51,10 @@ namespace
 
 	template <
 		typename Create,
-		typename PointSet>
+		typename PointSet,
+		Requires<
+			Models<PointSet, PointSet_Concept>
+		> = 0>
 	void test(
 		const Create& create,
 		const PointSet& pointSet,
@@ -71,7 +74,7 @@ namespace
 				distanceSet[permutationSet[i]]);
 		}
 
-		Euclidean_NormBijection<real> normBijection;
+		Euclidean_Norm<real> norm;
 
 		integer j = 0;
 		RANGES_FOR(auto&& i, nearestSet)
@@ -81,11 +84,11 @@ namespace
 					nearestSet,
 					nearestSet.asPoint(i),
 					PASTEL_TAG(accept), predicateIndicator(i, NotEqualTo()),
-					normBijection
+					PASTEL_TAG(norm), norm
 				);
 
-			real distance2 = result.first;
-			REQUIRE(distance2 == reorderedDistanceSet[j]);
+			auto distance2 = result.first;
+			REQUIRE(~distance2 == reorderedDistanceSet[j]);
 
 			++j;
 		}
@@ -93,11 +96,16 @@ namespace
 
 	template <
 		typename Create,
-		typename PointSet>
+		typename PointSet,
+		typename Distance,
+		Requires<
+			Models<PointSet, PointSet_Concept>,
+			Models<Distance, Distance_Concept>
+		> = 0>
 	void testCount(
 		const Create& create,
 		const PointSet& pointSet,
-		const real maxDistance2,
+		const Distance& maxDistance2,
 		const std::vector<integer>& countSet)
 	{
 		auto result = create.createDataSet(pointSet);
@@ -115,7 +123,7 @@ namespace
 				countSet[permutationSet[i]]);
 		}
 
-		Euclidean_NormBijection<real> normBijection;
+		Euclidean_Norm<real> norm;
 
 		integer j = 0;
 		RANGES_FOR(auto&& i, nearestSet)
@@ -125,7 +133,7 @@ namespace
 				nearestSet.asPoint(i),
 				PASTEL_TAG(maxDistance2), maxDistance2,
 				PASTEL_TAG(accept), predicateIndicator(i, NotEqualTo()),
-				normBijection
+				PASTEL_TAG(norm), norm
 			);
 
 			REQUIRE(count == reorderedCountSet[j]);
@@ -371,7 +379,7 @@ void testCase(const Create& create)
 	{
 		0, 0, 1, 0, 2, 1, 0, 1, 1, 1, 2, 2, 1, 0, 0
 	};
-	testCount(create, pointSet, 2.25, countSet);
+	testCount(create, pointSet, Euclidean_Norm<real>()[2.25], countSet);
 }
 
 //TEST_CASE("search_nearest (PointKdTree)")
@@ -405,47 +413,50 @@ void testGaussian(
 	auto aDataSet = aCreate.createDataSet(pointSet).first;
 	auto aNearestSet = aCreate.createNearestSet(aDataSet);
 	using A_NearestSet = decltype(aNearestSet);
+	PASTEL_CONCEPT_CHECK(A_NearestSet, NearestSet_Concept);
 	using A_Point = PointSet_Point<A_NearestSet>;
 	PASTEL_CONCEPT_CHECK(RemoveCvRef<decltype(aNearestSet.asPoint(A_Point()))>, Point_Concept);
 	
 	auto bDataSet = bCreate.createDataSet(pointSet).first;
 	auto bNearestSet = bCreate.createNearestSet(bDataSet);
 	using B_NearestSet = decltype(bNearestSet);
+	PASTEL_CONCEPT_CHECK(B_NearestSet, NearestSet_Concept);
 	using B_Point = PointSet_Point<B_NearestSet>;
 
 	integer k = 7;
 
-	auto normBijection = Maximum_NormBijection<real>();
+	auto norm = Maximum_Norm<real>();
+	using Distance = decltype(norm());
 
 	REQUIRE(pointSet.size() == n);
 
-	std::vector<std::pair<real, A_Point>> aSet;
+	std::vector<std::pair<Distance, A_Point>> aSet;
 	aSet.reserve(k);
 
-	std::vector<std::pair<real, B_Point>> bSet;
+	std::vector<std::pair<Distance, B_Point>> bSet;
 	bSet.reserve(k);
 
 	integer equalDistances = 0;
 	for (integer i = 0; i < n; ++i)
 	{
 		aSet.clear();
-		real kDistanceA = searchNearest(
+		Distance kDistanceA = searchNearest(
 			aNearestSet,
 			pointSet[i],
 			PASTEL_TAG(report), emplaceBackOutput(aSet),
 			PASTEL_TAG(kNearest), k,
-			PASTEL_TAG(normBijection), normBijection,
+			PASTEL_TAG(norm), norm,
 			PASTEL_TAG(reportMissing)
 			).first;
 		REQUIRE(aSet.size() == k);
 
 		bSet.clear();
-		real kDistanceB = searchNearest(
+		Distance kDistanceB = searchNearest(
 			bNearestSet,
 			pointSet[i],
 			PASTEL_TAG(report), emplaceBackOutput(bSet),
 			PASTEL_TAG(kNearest), k,
-			PASTEL_TAG(normBijection), normBijection,
+			PASTEL_TAG(norm), norm,
 			PASTEL_TAG(reportMissing)
 		).first;
 		REQUIRE(bSet.size() == k);

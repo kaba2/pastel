@@ -17,7 +17,7 @@ namespace
 		using Point = Vector<Real, 2>;
 
 		PASTEL_CONCEPT_CHECK(Point, Point_Concept);
-		PASTEL_CONCEPT_CHECK(Euclidean_NormBijection<Real>, NormBijection_Concept);
+		PASTEL_CONCEPT_CHECK(Euclidean_Distance<Real>, Distance_Concept);
 		PASTEL_STATIC_ASSERT(EqualDimension<IntegerConstant<2>, Point_N<Point>>::value);
 
 		{
@@ -39,8 +39,8 @@ namespace
 				Point(5, 4), 
 				Point(7, 7));
 
-			REQUIRE(distance2(bBox, aPoint) == square(5 - 3) + square(4 - 3));
-			REQUIRE(farthestDistance2(bBox, aPoint) == square(7 - 3) + square(7 - 3));
+			REQUIRE(~distance2(bBox, aPoint) == square(5 - 3) + square(4 - 3));
+			REQUIRE(~farthestDistance2(bBox, aPoint) == square(7 - 3) + square(7 - 3));
 		}
 		{
 			/*
@@ -61,8 +61,8 @@ namespace
 				Point(1, 4), 
 				Point(4, 7));
 
-			REQUIRE(distance2(bBox, aPoint) == 1);
-			REQUIRE(farthestDistance2(bBox, aPoint) == square(3 - 1) + square(3 - 7));
+			REQUIRE(~distance2(bBox, aPoint) == 1);
+			REQUIRE(~farthestDistance2(bBox, aPoint) == square(3 - 1) + square(3 - 7));
 		}
 
 		{
@@ -84,8 +84,8 @@ namespace
 				Point(1, 4), 
 				Point(4, 7));
 
-			REQUIRE(distance2(bBox, aPoint) == square(5 - 4) + square(3 - 4));
-			REQUIRE(farthestDistance2(bBox, aPoint) == square(5 - 1) + square(3 - 7));
+			REQUIRE(~distance2(bBox, aPoint) == square(5 - 4) + square(3 - 4));
+			REQUIRE(~farthestDistance2(bBox, aPoint) == square(5 - 1) + square(3 - 7));
 		}
 
 		{
@@ -107,8 +107,8 @@ namespace
 				Point(1, 4), 
 				Point(4, 7));
 
-			REQUIRE(distance2(bBox, aPoint) == 4);
-			REQUIRE(farthestDistance2(bBox, aPoint) == square(6 - 1) + square(4 - 7));
+			REQUIRE(~distance2(bBox, aPoint) == 4);
+			REQUIRE(~farthestDistance2(bBox, aPoint) == square(6 - 1) + square(4 - 7));
 		}
 
 		{
@@ -130,8 +130,8 @@ namespace
 				Point(1, 4), 
 				Point(4, 7));
 
-			REQUIRE(distance2(bBox, aPoint) == 0);
-			REQUIRE(farthestDistance2(bBox, aPoint) == square(2) + square(2));
+			REQUIRE(~distance2(bBox, aPoint) == 0);
+			REQUIRE(~farthestDistance2(bBox, aPoint) == square(2) + square(2));
 		}
 	}
 

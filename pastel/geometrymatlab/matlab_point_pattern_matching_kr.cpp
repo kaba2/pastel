@@ -47,6 +47,8 @@ namespace Pastel
 
 			ENSURE_OP(inputs, ==, Inputs);
 
+			auto norm = Euclidean_Norm<real>();
+
 			MatchPointsKr_MatchingMode matchingModeSet[] =
 			{
 				MatchPointsKr_MatchingMode::First,
@@ -62,8 +64,8 @@ namespace Pastel
 			integer scenePoints = mxGetN(inputSet[SceneSet]);
 			integer kNearest = matlabAsScalar<integer>(inputSet[KNearest]);
 			real minMatchRatio = matlabAsScalar<real>(inputSet[MinMatchRatio]);
-			real matchingDistance2 = 
-				matlabAsScalar<real>(inputSet[MatchingDistance2]);
+			auto matchingDistance2 = 
+				norm[matlabAsScalar<real>(inputSet[MatchingDistance2])];
 			real maxBias =
 				matlabAsScalar<real>(inputSet[MaxBias]);
 			integer matchingModeId = matlabAsScalar<integer>(inputSet[MatchingModeId]);
@@ -122,11 +124,10 @@ namespace Pastel
 
 			// Compute the point pattern match.
 
-			Euclidean_NormBijection<real> normBijection;
 			auto match = Pastel::matchPointsKr(
 				kdTreeNearestSet(modelTree),
 				kdTreeNearestSet(sceneTree), 
-				normBijection, 
+				PASTEL_TAG(norm), norm, 
 				PASTEL_TAG(report), pushBackOutput(pairSet),
 				PASTEL_TAG(kNearest), kNearest,
 				PASTEL_TAG(minMatchRatio), minMatchRatio,

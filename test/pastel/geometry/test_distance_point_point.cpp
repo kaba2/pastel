@@ -7,7 +7,9 @@
 #include <pastel/sys/locator.h>
 
 #include <pastel/geometry/distance/distance_point_point.h>
-#include <pastel/math/normbijection.h>
+#include <pastel/math/distance.h>
+#include <pastel/sys/vector.h>
+#include <pastel/math/norm.h>
 
 namespace
 {
@@ -62,49 +64,55 @@ namespace
 	{
 		using Real = real;
 
-		auto keepGoing = [&](const Real& that)
+		auto keepGoing = [&](const auto& that)
 		{
-			return that < 6;
+			return ~that < 6;
 		};
 
 		{
 			Real correct = 6 + 2;
 
-			REQUIRE(distance2(a, b, Manhattan_NormBijection<Real>()) == correct);
-			REQUIRE(distance2(b, a, Manhattan_NormBijection<Real>()) == correct);
-			REQUIRE(distance2(a, b, Manhattan_NormBijection<Real>(), keepGoing) >= 6);
+			auto norm = Manhattan_Norm<Real>();
+
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(b, a, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm, PASTEL_TAG(keepGoing), keepGoing) >= 6);
 		}
 
 		{
 			Real correct = std::max(6, 2);
+			auto norm = Maximum_Norm<Real>();
 
-			REQUIRE(distance2(a, b, Maximum_NormBijection<Real>()) == correct);
-			REQUIRE(distance2(b, a, Maximum_NormBijection<Real>()) == correct);
-			REQUIRE(distance2(a, b, keepGoing, Maximum_NormBijection<Real>()) >= 6);
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(b, a, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm, PASTEL_TAG(keepGoing), keepGoing) >= 6);
 		}
 
 		{
 			Real correct = square(6) + square(2);
+			auto norm = Minkowski_Norm<Real>(2);
 
-			REQUIRE(distance2(a, b, Minkowski_NormBijection<Real>(2)) == correct);
-			REQUIRE(distance2(b, a, Minkowski_NormBijection<Real>(2)) == correct);
-			REQUIRE(distance2(a, b, Minkowski_NormBijection<Real>(2), keepGoing) >= 6);
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(b, a, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm, PASTEL_TAG(keepGoing), keepGoing) >= 6);
 		}
 
 		{
 			Real correct = square(6) + square(2);
+			auto norm = Euclidean_Norm<Real>();
 
-			REQUIRE(distance2(a, b, Euclidean_NormBijection<Real>()) == correct);
-			REQUIRE(distance2(b, a, Euclidean_NormBijection<Real>()) == correct);
-			REQUIRE(distance2(a, b, Euclidean_NormBijection<Real>(), keepGoing) >= square(6));
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(b, a, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm, PASTEL_TAG(keepGoing), keepGoing) >= square(6));
 		}
 
 		{
 			Real correct = 6 + 2;
+			auto norm = Minkowski_Norm<Real>(1);
 
-			REQUIRE(distance2(a, b, Minkowski_NormBijection<Real>(1)) == correct);
-			REQUIRE(distance2(b, a, Minkowski_NormBijection<Real>(1)) == correct);
-			REQUIRE(distance2(a, b, Minkowski_NormBijection<Real>(1), keepGoing) >= 6);
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(b, a, PASTEL_TAG(norm), norm) == correct);
+			REQUIRE(~distance2(a, b, PASTEL_TAG(norm), norm, PASTEL_TAG(keepGoing), keepGoing) >= 6);
 		}
 	}
 	
@@ -115,10 +123,10 @@ TEST_CASE("Custom (distance_point_point)")
 	Custom_Point a(1, 4);
 	Custom_Point b(-5, 2);
 
-	REQUIRE(distance2(
+	REQUIRE(~distance2(
 		location(a, Custom_Locator()), 
 		location(b, Custom_Locator()),
-		Manhattan_NormBijection<real>()) == 6 + 2);
+		PASTEL_TAG(norm), Manhattan_Norm<real>()) == 6 + 2);
 }
 
 TEST_CASE("Pointer (distance_point_point)")

@@ -9,13 +9,13 @@
 #include "pastel/sys/indicator/indicator_concept.h"
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/point/point_concept.h"
-#include "pastel/math/normbijection/normbijection_concept.h"
+#include "pastel/math/norm/norm_concept.h"
 #include "pastel/geometry/nearestset/nearestset_concept.h"
 #include "pastel/geometry/search_nearby.h"
 
 // Template defaults
 
-#include "pastel/math/normbijection/euclidean_normbijection.h"
+#include "pastel/math/norm/euclidean_norm.h"
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/output/null_output.h"
 
@@ -54,7 +54,7 @@ namespace Pastel
 	form report(distance, point). 
 	Default: nullOutput()
 
-	normBijection:
+	norm (Norm):
 	The norm used to measure distance.
 	*/
 	template <
@@ -77,38 +77,19 @@ namespace Pastel
 		using Real = Point_Real<Search_Point>;
 
 		auto&& report = 
-			PASTEL_ARG(
-				report, 
-				[]() {return nullOutput();},
-				[](auto input) {return std::true_type();}
-			);
+			PASTEL_ARG_SC(report, nullOutput(), Trivial_Concept);
 
 		auto&& accept = 
-			PASTEL_ARG(
-				accept, 
-				[]() {return allIndicator();},
-				[](auto input) 
-				{
-					return Models<decltype(input), 
-						Indicator_Concept(PointId)>();
-				}
-			);
+			PASTEL_ARG_SC(accept, allIndicator(), Indicator_Concept(PointId));
 
-		auto&& normBijection = 
-			PASTEL_ARG(
-				normBijection, 
-				[]() {return Euclidean_NormBijection<real>();},
-				[](auto input) 
-				{
-					return implicitArgument(
-						Models<decltype(input), 
-						NormBijection_Concept>());
-				}
-			);
+		auto&& norm = 
+			PASTEL_ARG_SC(norm, Euclidean_Norm<Real>(), Norm_Concept);
 
-		const Real maxDistance2 = 
-			PASTEL_ARG_S(maxDistance2, (Real)Infinity());
-		ENSURE_OP(maxDistance2, >=, 0);
+		using Distance = decltype(norm());
+
+		Distance maxDistance2 = 
+			PASTEL_ARG_SC(maxDistance2, Distance((Real)Infinity()), Distance_Concept);
+		ENSURE(maxDistance2 >= 0);
 
 		if (maxDistance2 == 0)
 		{
@@ -119,25 +100,21 @@ namespace Pastel
 
 		integer count = 0;
 		auto reportCandidate = [&](
-			const Real& distance2,
+			const Distance& distance2,
 			const auto& pointId)
 		{
 			++count;
 			report(distance2, pointId);
-			return (Real)Infinity();
+			return Distance((Real)Infinity());
 		};
 
 		searchNearby(
 			nearestSet,
 			searchPoint,
-			PASTEL_TAG(accept),
-			accept,
-			PASTEL_TAG(report),
-			reportCandidate,
-			PASTEL_TAG(normBijection),
-			normBijection,
-			PASTEL_TAG(maxDistance2),
-			maxDistance2);
+			PASTEL_TAG(accept), accept,
+			PASTEL_TAG(report), reportCandidate,
+			PASTEL_TAG(norm), norm,
+			PASTEL_TAG(maxDistance2), maxDistance2);
 
 		return count;
 	}

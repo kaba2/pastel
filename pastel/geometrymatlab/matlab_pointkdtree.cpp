@@ -5,7 +5,7 @@
 #include "pastel/geometry/count_nearest.h"
 #include "pastel/geometry/search_nearest.h"
 #include "pastel/geometry/nearestset/kdtree_nearestset.h"
-#include "pastel/math/normbijection.h"
+#include "pastel/math/norm.h"
 
 #include "pastel/sys/allocator/pool_allocator.h"
 #include "pastel/sys/indicator/predicate_indicator.h"
@@ -629,7 +629,12 @@ namespace Pastel
 			*outPoints = state->tree.points();
 		}
 
-		template <typename NormBijection>
+		template <
+			typename Norm,
+			Requires<
+				Models<Norm, Norm_Concept>
+			> = 0
+		>
 		void kdSearchNearest_(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
@@ -661,6 +666,8 @@ namespace Pastel
 			const IndexMap& indexMap = state->indexMap;
 			Array<real> maxDistanceSet = matlabAsLinearizedArray<real>(inputSet[MaxDistanceSet]);
 			integer kNearest = matlabAsScalar<integer>(inputSet[KNearest]);
+
+			auto norm = Norm();
 
 			mxClassID id = mxGetClassID(inputSet[QuerySet]);
 			
@@ -717,7 +724,7 @@ namespace Pastel
 
 						integer j = 0;
 						auto report = [&](
-							real distance,
+							const auto& distance,
 							Point_ConstIterator point)
 						{
 							if (point != state->tree.end())
@@ -725,7 +732,7 @@ namespace Pastel
 								nearestArray(j, i) = point->point().id;
 								if (wantDistance)
 								{
-									distanceArray(j, i) = distance;
+									distanceArray(j, i) = ~distance;
 								}
 							}
 							++j;
@@ -735,9 +742,9 @@ namespace Pastel
 							kdTreeNearestSet(state->tree), 
 							query, 
 							PASTEL_TAG(report), report,
-							NormBijection(),
+							PASTEL_TAG(norm), norm,
 							PASTEL_TAG(kNearest), kNearest,
-							PASTEL_TAG(maxDistance2), maxDistanceSet(i));
+							PASTEL_TAG(maxDistance2), norm[maxDistanceSet(i)]);
 					}
 				};
 
@@ -756,7 +763,7 @@ namespace Pastel
 					{
 						integer j = 0;
 						auto report = [&](
-							real distance,
+							const auto& distance,
 							Point_ConstIterator point)
 						{
 							if (point != state->tree.end())
@@ -764,7 +771,7 @@ namespace Pastel
 								nearestArray(j, i) = point->point().id;
 								if (wantDistance)
 								{
-									distanceArray(j, i) = distance;
+									distanceArray(j, i) = ~distance;
 								}
 							}
 							++j;
@@ -784,9 +791,9 @@ namespace Pastel
 							location(query->point(), state->tree.locator()),
 							PASTEL_TAG(report), report,
 							PASTEL_TAG(accept), predicateIndicator(query, NotEqualTo()), 
-							NormBijection(),
+							PASTEL_TAG(norm), norm,
 							PASTEL_TAG(kNearest), kNearest,
-							PASTEL_TAG(maxDistance2), maxDistanceSet(i));
+							PASTEL_TAG(maxDistance2), norm[maxDistanceSet(i)]);
 					}
 				};
 
@@ -825,13 +832,13 @@ namespace Pastel
 			std::string norm = matlabAsString(inputSet[Norm]);
 			if (norm == "euclidean")
 			{
-				kdSearchNearest_<Euclidean_NormBijection<real>>(
+				kdSearchNearest_<Euclidean_Norm<real>>(
 					outputs, outputSet,
 					inputs - 1, inputSet);
 			}
 			else if (norm == "maximum")
 			{
-				kdSearchNearest_<Maximum_NormBijection<real>>(
+				kdSearchNearest_<Maximum_Norm<real>>(
 					outputs, outputSet,
 					inputs - 1, inputSet);
 			}
@@ -842,7 +849,12 @@ namespace Pastel
 			}
 		}
 
-		template <typename NormBijection>
+		template <
+			typename Norm,
+			Requires<
+				Models<Norm, Norm_Concept>
+			> = 0
+		>
 		void kdCountNearest_(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
@@ -885,6 +897,7 @@ namespace Pastel
 			// Count the neighbors for each point.
 
 			using Block = tbb::blocked_range<integer>;
+			auto norm = Norm();
 
 			auto count = [&](const Block& block)
 			{
@@ -901,9 +914,9 @@ namespace Pastel
 					integer count = countNearest(
 						kdTreeNearestSet(state->tree),
 						location(query->point(), state->tree.locator()),
-						NormBijection(),
+						PASTEL_TAG(norm), norm,
 						PASTEL_TAG(kNearest), state->tree.points(),
-						PASTEL_TAG(maxDistance2), maxDistanceSet(i));
+						PASTEL_TAG(maxDistance2), norm[maxDistanceSet(i)]);
 
 					result(i) = count;
 				}
@@ -941,13 +954,13 @@ namespace Pastel
 			std::string norm = matlabAsString(inputSet[Norm]);
 			if (norm == "euclidean")
 			{
-				kdCountNearest_<Euclidean_NormBijection<real>>(
+				kdCountNearest_<Euclidean_Norm<real>>(
 					outputs, outputSet,
 					inputs - 1, inputSet);
 			}
 			else if (norm == "maximum")
 			{
-				kdCountNearest_<Maximum_NormBijection<real>>(
+				kdCountNearest_<Maximum_Norm<real>>(
 					outputs, outputSet,
 					inputs - 1, inputSet);
 			}

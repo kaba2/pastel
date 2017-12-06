@@ -9,12 +9,12 @@
 #include "pastel/sys/indicator/indicator_concept.h"
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/point/point_concept.h"
-#include "pastel/math/normbijection/normbijection_concept.h"
+#include "pastel/math/norm/norm_concept.h"
 #include "pastel/geometry/nearestset/nearestset_concept.h"
 
 // Template defaults
 
-#include "pastel/math/normbijection/euclidean_normbijection.h"
+#include "pastel/math/distance/euclidean_distance.h"
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/output/null_output.h"
 #include "pastel/geometry/depthfirst_pointkdtree_searchalgorithm.h"
@@ -90,26 +90,26 @@ namespace Pastel
 
 		template <
 			typename Search_Point,
-			typename NormBijection,
-			typename Real,
+			typename Norm,
+			typename Distance,
 			typename Output,
 			Requires<
 				Models<Search_Point, Point_Concept>,
-				Models<NormBijection, NormBijection_Concept>
+				Models<Norm, Norm_Concept>,
+				Models<Distance, Distance_Concept>
+				/*, std::is_same<decltype(Norm()()), Distance>*/
 			> = 0
 		>
 		void findNearbyPointsets(
 			const Search_Point& searchPoint,
-			const NormBijection& normBijection,
-			const Real& maxDistance2,
+			const Norm& norm,
+			const Distance& maxDistance2,
 			const Output& report) const
 		{
-			Real cullDistance2 = maxDistance2;
-			
-			const Real errorFactor = 
-				inverse(normBijection.scalingFactor(1 + maxRelativeError));
-			Real nodeCullDistance2 = 
-				cullDistance2 * errorFactor;
+			Distance cullDistance2 = maxDistance2;
+
+			const Real errorFactor = inverse(1 + maxRelativeError);
+			Distance nodeCullDistance2 = cullDistance2 * errorFactor;
 
 			if (kdTree.empty())
 			{
@@ -120,8 +120,8 @@ namespace Pastel
 
 			// Compute the distance from the search-point to the
 			// bounding-box of the kd-tree.
-			Real rootDistance2 = 
-				distance2(kdTree.bound(), searchPoint, normBijection);
+			Distance rootDistance2 = 
+				distance2(kdTree.bound(), searchPoint, PASTEL_TAG(norm), norm);
 			if (rootDistance2 >= maxDistance2)
 			{
 				// The bounding box for the points does not
@@ -156,7 +156,7 @@ namespace Pastel
 			{
 				State(
 					const Cursor& cursor_,
-					const Real& distance_,
+					const Distance& distance_,
 					const IntervalSequence& indexSequence_)
 				: cursor(cursor_)
 				, distance(distance_)
@@ -170,7 +170,7 @@ namespace Pastel
 				}
 
 				Cursor cursor;
-				Real distance;
+				Distance distance;
 				IntervalSequence indexSequence;
 			};
 
@@ -188,20 +188,9 @@ namespace Pastel
 				const Real& min, 
 				const Real& max)
 			{
-				Real distance = 0;
-				
-				if (x < min)
-				{
-					distance = 
-						normBijection.axis(min - x);
-				}
-				else if (x > max)
-				{
-					distance =
-						normBijection.axis(x - max);
-				}
-
-				return distance;
+				if (x < min) return min - x;
+				if (x > max) return x - max;
+				return (Real)0;
 			};
 
 			auto queueNode = [&](
@@ -209,6 +198,7 @@ namespace Pastel
 				const Real& searchPosition,
 				bool right)
 			{
+				const integer axis = parent.cursor.splitAxis();
 				const Cursor node = right ? parent.cursor.right() : parent.cursor.left();
 
 				const Real axisDistance = 
@@ -218,10 +208,10 @@ namespace Pastel
 				const Real axisDistancePrev = 
 					intervalDistance(
 						searchPosition, node.prevMin(), node.prevMax());
-				
-				const Real newDistance2 = 
-					normBijection.replaceAxis(
-						parent.distance,
+
+				auto newDistance2 = 
+					Distance(parent.distance).replace(
+						axis,
 						axisDistancePrev,
 						axisDistance);
 
@@ -247,7 +237,7 @@ namespace Pastel
 			{
 				State state = searchAlgorithm.nextNode();
 				
-				const Real& distance = state.distance;
+				const auto& distance = state.distance;
 				const Cursor& cursor = state.cursor;
 				const IntervalSequence& intervalSequence = state.indexSequence;
 
@@ -287,7 +277,7 @@ namespace Pastel
 						integer indexMax = (i + 1) < indexSequence.size() ?
 							indexSequence[i + 1] : cursor.points();
 
-						const Real cullSuggestion2 = 
+						const Distance cullSuggestion2 = 
 							report(
 								cursor.pointSet(indexMin, indexMax), 
 								cullDistance2);
@@ -373,21 +363,20 @@ namespace Pastel
 		ENSURE_OP(nBruteForce, >=, 0);
 
 		auto&& timeIntervalSequence = 
-			PASTEL_ARG(
+			PASTEL_ARG_SC(
 				intervalSequence, 
-				[]() {return Vector<Real, 2>({-(Real)Infinity(), (Real)Infinity()});},
-				[](auto input) {return Models<decltype(input), Point_Concept>();}
-			);
+				(Vector<Real, 2>({-(Real)Infinity(), (Real)Infinity()})),
+				Point_Concept);
 
 		auto timeIntervalSequence_ = evaluate(pointAsVector(timeIntervalSequence));
 		using IntervalSequence = decltype(timeIntervalSequence_);
 
 		auto&& searchAlgorithmObject =
-			PASTEL_ARG(
+			PASTEL_ARG_SC(
 				searchAlgorithm, 
-				[]() {return DepthFirst_SearchAlgorithm_PointKdTree();},
-				[](auto input) {return std::true_type();}
-			);
+				DepthFirst_SearchAlgorithm_PointKdTree(),
+				Trivial_Concept);
+			
 		using SearchAlgorithm = RemoveCvRef<decltype(searchAlgorithmObject)>;
 
 		return KdTree_NearestSet<KdTree, IntervalSequence, SearchAlgorithm>(

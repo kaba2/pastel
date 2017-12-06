@@ -102,6 +102,15 @@ namespace Pastel
 
 	}
 
+	struct Trivial_Concept
+	{
+		template <typename Type>
+		auto requires_(Type&& t) -> decltype
+		(
+			conceptCheck()
+		);
+	};
+
 }
 
 #endif

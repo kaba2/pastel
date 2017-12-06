@@ -9,12 +9,12 @@
 #include "pastel/sys/indicator/indicator_concept.h"
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/point/point_concept.h"
-#include "pastel/math/normbijection/normbijection_concept.h"
+#include "pastel/math/norm/norm_concept.h"
 #include "pastel/geometry/nearestset/nearestset_concept.h"
 
 // Template defaults
 
-#include "pastel/math/normbijection/euclidean_normbijection.h"
+#include "pastel/math/norm/euclidean_norm.h"
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/output/null_output.h"
 
@@ -58,7 +58,7 @@ namespace Pastel
 	distance; 
 	Default: nullOutput()
 
-	normBijection (NormBijection):
+	norm (Norm):
 	The norm used to measure distance.
 
 	protection (Real >= 1):
@@ -66,7 +66,7 @@ namespace Pastel
 	to get the culling distance, in case culling is indicated
 	by the reporter. This guarantees robustness in case
 	of close-to-equal distances (e.g. points on a sphere).
-	Default: normBijection.scalingFactor(1.01)
+	Default: 1.01
 
 	returns (std::pair<Real, PointId>)
 	----------------------------------
@@ -100,40 +100,20 @@ namespace Pastel
 		using Real = Point_Real<Search_Point>;
 
 		auto&& report = 
-			PASTEL_ARG(
-				report, 
-				[]() {return nullOutput();},
-				[](auto input) {return std::true_type();}
-			);
+			PASTEL_ARG_SC(report, nullOutput(), Trivial_Concept);
 
 		auto&& accept = 
-			PASTEL_ARG(
-				accept, 
-				[]() {return allIndicator();},
-				[](auto input) 
-				{
-					return Models<decltype(input), 
-						Indicator_Concept(PointId)>();
-				}
-			);
+			PASTEL_ARG_SC(accept, allIndicator(), Indicator_Concept(PointId));
 
-		auto&& normBijection = 
-			PASTEL_ARG(
-				normBijection, 
-				[]() {return Euclidean_NormBijection<real>();},
-				[](auto input) {return implicitArgument(
-					Models<decltype(input), NormBijection_Concept>());}
-			);
+		auto&& norm = 
+			PASTEL_ARG_SC(norm, Euclidean_Norm<real>(), Norm_Concept);
 
-		const Real maxDistance2 = PASTEL_ARG_S(
-			maxDistance2, 
-			(Real)Infinity());
+		using Distance = decltype(norm());
+
+		const Distance maxDistance2 = PASTEL_ARG_SC(
+			maxDistance2, Distance((Real)Infinity()), Distance_Concept);
 		
-		const Real protection = PASTEL_ARG_S(
-			protection, 
-			normBijection.scalingFactor(1.01));
-
-		ENSURE_OP(maxDistance2, >=, 0);
+		const Real protection = PASTEL_ARG_S(protection, 1.01);
 		ENSURE_OP(protection, >=, 1);
 
 		if (maxDistance2 == 0)
@@ -144,19 +124,19 @@ namespace Pastel
 		}
 
 		auto searchBruteForce = [&](
-			auto&& pointIdSet,
-			Real cullDistance2)
+			const auto& pointIdSet,
+			Distance cullDistance2)
 		{
 			RANGES_FOR(auto&& pointId, pointIdSet)
 			{
 				// Compute the distance from the node-point
 				// to the search-point.
-				const Real currentDistance2 = 
+				Distance currentDistance2 = 
 					distance2(
 						nearestSet.asPoint(pointId),
 						searchPoint,
-						PASTEL_TAG(normBijection),
-						normBijection,
+						PASTEL_TAG(norm),
+						norm,
 						PASTEL_TAG(keepGoing),
 						// Stop computing the distance if it exceeds
 						// the culling distance.
@@ -174,7 +154,7 @@ namespace Pastel
 				// distance, then the points after the first should _not_
 				// be culled away. We deal with this by expanding the 
 				// suggested culling radius by a protective factor.
-				const Real cullSuggestion2 =
+				Distance cullSuggestion2 =
 					report(currentDistance2, pointId) * protection;
 				if (cullSuggestion2 < cullDistance2)
 				{
@@ -189,7 +169,7 @@ namespace Pastel
 
 		nearestSet.findNearbyPointsets(
 			searchPoint,
-			normBijection,
+			norm,
 			maxDistance2,
 			searchBruteForce);
 	}

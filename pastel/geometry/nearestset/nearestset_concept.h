@@ -3,7 +3,8 @@
 #ifndef PASTELGEOMETRY_NEAREST_SET_CONCEPT_H
 #define PASTELGEOMETRY_NEAREST_SET_CONCEPT_H
 
-#include "pastel/math/normbijection/normbijection_concept.h"
+#include "pastel/math/norm/norm_concept.h"
+#include "pastel/math/distance/distance_concept.h"
 #include "pastel/sys/set/set_concept.h"
 #include "pastel/sys/point/point_concept.h"
 #include "pastel/sys/pointset/pointset_concept.h"
@@ -27,9 +28,9 @@ namespace Pastel
 					// Search-point
 					Point_Archetype(),
 					// Norm to use
-					NormBijection_Archetype(),
-					// Reference to culling distance
-					(const real&)std::declval<real>(),
+					Norm_Archetype(),
+					// Culling distance
+					Distance_Archetype(),
 					Output_Archetype()), 0)
 			)
 		);
