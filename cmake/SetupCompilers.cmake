@@ -85,19 +85,11 @@ endif()
 
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang") 
 	add_definitions (
-		# Enables C++14 library support.
-		-stdlib=libc++
 		# Not sure why.
 		-arch x86_64
 		# For the Visual Studio Clang/C2
 		-Qunused-arguments
 	)
-
-	# Enables C++11 linker support.
-	set (CMAKE_EXE_LINKER_FLAGS 
-		"${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
-	set (CMAKE_SHARED_LINKER_FLAGS 
-		"${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
 
 	# Disable some warnings.
 	add_definitions (
