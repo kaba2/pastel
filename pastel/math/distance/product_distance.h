@@ -65,7 +65,7 @@ namespace Pastel
 			return max(~x_, ~y_);
 		}
 
-		auto replace(integer axis, const Real& from, const Real& to) {
+		decltype(auto) replace(integer axis, const Real& from, const Real& to) {
 			if (axis < nx_)
 				x_.replace(axis, from, to);
 			else
@@ -73,7 +73,7 @@ namespace Pastel
 			return *this;
 		}
 
-		auto operator*=(const Real& amount) {
+		decltype(auto) operator*=(const Real& amount) {
 			x_ *= amount;
 			y_ *= amount;
 			return *this;

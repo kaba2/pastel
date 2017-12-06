@@ -40,12 +40,12 @@ namespace Pastel
 			return distance_;
 		}
 
-		auto replace(integer axis, const Real& from, const Real& to) {
+		decltype(auto) replace(integer axis, const Real& from, const Real& to) {
 			if (distance_ < abs(to)) distance_ = abs(to);
 			return *this;
 		}
 
-		auto operator*=(const Real& amount) {
+		decltype(auto) operator*=(const Real& amount) {
 			distance_ *= abs(amount);
 			return *this;
 		}
