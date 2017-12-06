@@ -22,7 +22,7 @@ TEST_CASE("distance_alignedbox_sphere (distance_alignedbox_sphere)")
 
 		Box box(Point(1, 3), Point(5, 5));
 		Sphere sphere(Point(1, 0), 1);
-		REQUIRE(distance(box, sphere) == std::sqrt(square(0) + square(3)) - 1);
+		REQUIRE(distance2(box, sphere) == std::sqrt(square(0) + square(3)) - 1);
 	}
 
 	{
@@ -36,7 +36,7 @@ TEST_CASE("distance_alignedbox_sphere (distance_alignedbox_sphere)")
 
 		Box box(Point(1, 3), Point(5, 5));
 		Sphere sphere(Point(0, 0), 1);
-		REQUIRE(distance(box, sphere) == std::sqrt(square(1) + square(3)) - 1);
+		REQUIRE(distance2(box, sphere) == std::sqrt(square(1) + square(3)) - 1);
 	}
 
 	{
@@ -50,7 +50,7 @@ TEST_CASE("distance_alignedbox_sphere (distance_alignedbox_sphere)")
 
 		Box box(Point(1, 3), Point(5, 5));
 		Sphere sphere(Point(7, 2), 1);
-		REQUIRE(distance(box, sphere) == std::sqrt(square(2) + square(1)) - 1);
+		REQUIRE(distance2(box, sphere) == std::sqrt(square(2) + square(1)) - 1);
 	}
 
 	{
@@ -64,7 +64,7 @@ TEST_CASE("distance_alignedbox_sphere (distance_alignedbox_sphere)")
 
 		Box box(Point(1, 3), Point(5, 5));
 		Sphere sphere(Point(5, 3), 1);
-		REQUIRE(distance(box, sphere) == 0);
+		REQUIRE(distance2(box, sphere) == 0);
 	}
 
 	{
@@ -78,7 +78,7 @@ TEST_CASE("distance_alignedbox_sphere (distance_alignedbox_sphere)")
 
 		Box box(Point(1, 3), Point(5, 5));
 		Sphere sphere(Point(7, 3), 1);
-		REQUIRE(distance(box, sphere) == std::sqrt(square(2) + square(0)) - 1);
+		REQUIRE(distance2(box, sphere) == std::sqrt(square(2) + square(0)) - 1);
 	}
 }
 
