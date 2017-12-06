@@ -5,22 +5,35 @@
 
 #include "pastel/math/distance.h"
 
+template <typename Distance>
+void testBasic()
+{
+	auto distance = Distance((real)2);
+	auto copy = distance;
+	REQUIRE(copy == distance);
+	REQUIRE(copy <= distance);
+	REQUIRE(copy >= distance);
+	REQUIRE(!(copy != distance));
+	REQUIRE(!(copy < distance));
+	REQUIRE(!(copy > distance));
+	
+	REQUIRE(copy == 2);
+	REQUIRE(2 == copy);
+}
+
 TEST_CASE("Distance (Manhattan)")
 {
 	using Distance = Manhattan_Distance<real>;
 	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
 
 	auto distance = Distance();
+	testBasic<Distance>();
 
 	distance.set(0, 2);
 	REQUIRE(~distance == 2);
 
 	distance.replace(0, 2, 4);
 	REQUIRE(~distance == 4);
-
-	auto copy = distance;
-	REQUIRE(copy == distance);
-	REQUIRE(~copy == 4);
 }
 
 TEST_CASE("Distance (Euclidean)")
@@ -29,16 +42,13 @@ TEST_CASE("Distance (Euclidean)")
 	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
 
 	auto distance = Distance();
+	testBasic<Distance>();
 
 	distance.set(0, 2);
 	REQUIRE(~distance == 2*2);
 
 	distance.replace(0, 2, 4);
 	REQUIRE(~distance == 4*4);
-
-	auto copy = distance;
-	REQUIRE(copy == distance);
-	REQUIRE(~copy == 4*4);
 }
 
 TEST_CASE("Distance (Maximum)")
@@ -47,16 +57,13 @@ TEST_CASE("Distance (Maximum)")
 	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
 
 	auto distance = Distance();
+	testBasic<Distance>();
 
 	distance.set(0, 2);
 	REQUIRE(~distance == 2);
 
 	distance.replace(0, 2, 4);
 	REQUIRE(~distance == 4);
-
-	auto copy = distance;
-	REQUIRE(copy == distance);
-	REQUIRE(~copy == 4);
 }
 
 TEST_CASE("Distance (Minkowski)")
@@ -65,22 +72,21 @@ TEST_CASE("Distance (Minkowski)")
 	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
 
 	auto distance = Distance();
+	testBasic<Distance>();
 
 	distance.set(0, 2);
 	REQUIRE(~distance == 2*2);
 
 	distance.replace(0, 2, 4);
 	REQUIRE(~distance == 4*4);
-
-	auto copy = distance;
-	REQUIRE(copy == distance);
-	REQUIRE(~copy == 4*4);
 }
 
 TEST_CASE("Distance (Product)")
 {
 	using Distance = Product_Distance<real, Euclidean_Distance<real>, Manhattan_Distance<real>>;
+
 	auto distance = Distance((integer)2);
+	testBasic<Distance>();
 
 	distance.set(0, 2);
 	REQUIRE(~distance == 2*2);

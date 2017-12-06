@@ -5,21 +5,13 @@
 
 #include "pastel/geometry/shape/segment.h"
 #include "pastel/sys/vector.h"
+#include "pastel/geometry/closest/closest_segment_point.h"
+#include "pastel/math/norm/euclidean_norm.h"
 
 namespace Pastel
 {
 
 	//! Euclidean distance between a line segment and a point.
-	/*!
-	This is a convenience function which returns
-	std::sqrt(distance2(segment, point)).
-	*/
-	template <typename Real, integer N>
-	Real distance(
-		const Segment<Real, N>& segment,
-		const Vector<Real, N>& point);
-
-	//! Squared Euclidean distance between a line segment and a point.
 	/*!
 	Preconditions:
 	segment.n() == point.n()
@@ -27,12 +19,16 @@ namespace Pastel
 	Time complexity: O(segment.n())
 	*/
 	template <typename Real, integer N>
-	Real distance2(
+	auto distance2(
 		const Segment<Real, N>& segment,
-		const Vector<Real, N>& point);
+		const Vector<Real, N>& point)
+	{
+		PENSURE_OP(segment.n(), ==, point.n());
+		auto norm = Euclidean_Norm<Real>();
+		const Real t = closest(segment, point);
+		return norm[dot(segment.at(t) - point)];
+	}
 
 }
-
-#include "pastel/geometry/distance/distance_segment_point.hpp"
 
 #endif

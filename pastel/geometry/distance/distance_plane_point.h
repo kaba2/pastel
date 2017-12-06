@@ -5,21 +5,14 @@
 
 #include "pastel/geometry/shape/plane.h"
 #include "pastel/sys/vector.h"
+#include "pastel/sys/vector/vector_tools.h"
+#include "pastel/sys/math_functions.h"
+#include "pastel/math/norm/euclidean_norm.h"
 
 namespace Pastel
 {
 
 	//! Euclidean distance between a plane and a point.
-	/*!
-	This is a convenience function which returns
-	std::sqrt(distance2(plane, point)).
-	*/
-	template <typename Real, integer N>
-	Real distance(
-		const Plane<Real, N>& plane,
-		const Vector<Real, N>& point);
-
-	//! Squared Euclidean distance between a plane and a point.
 	/*!
 	Preconditions:
 	plane.n() == point.n()
@@ -28,12 +21,38 @@ namespace Pastel
 	O(plane.n())
 	*/
 	template <typename Real, integer N>
-	Real distance2(
+	auto distance2(
 		const Plane<Real, N>& plane,
-		const Vector<Real, N>& point);
+		const Vector<Real, N>& point)
+	{
+		PENSURE_OP(plane.n(), ==, point.n());
+
+		// Let
+		// D = plane.position() - point
+		//
+		// The length of the projection of D onto the
+		// plane normal is
+		// 
+		// |D_proj| 
+		// = |D| cos(alpha))
+		// = (|plane.normal()| |D| cos(alpha)) / |plane.normal()|
+		// = dot(plane.normal(), D) / |plane.normal()|
+		//
+		// where alpha is the angle between the plane normal
+		// and D.
+		//
+		// It then follows that:
+		// |D_proj|^2 = dot^2(plane.normal(), D) / dot(plane.normal())
+
+		auto norm = Euclidean_Norm<Real>();
+		return norm[
+			square(
+				dot(plane.normal(), 
+				plane.position() - point)
+			) / dot(plane.normal())
+		];
+	}
 
 }
-
-#include "pastel/geometry/distance/distance_plane_point.hpp"
 
 #endif

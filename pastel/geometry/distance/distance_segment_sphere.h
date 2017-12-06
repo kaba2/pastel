@@ -5,21 +5,15 @@
 
 #include "pastel/geometry/shape/segment.h"
 #include "pastel/geometry/shape/sphere.h"
+#include "pastel/geometry/distance/distance_segment_point.h"
+#include "pastel/math/norm/euclidean_norm.h"
+
+#include <cmath>
 
 namespace Pastel
 {
 
 	//! Euclidean distance between a line segment and a sphere.
-	/*!
-	This is a convenience function which returns
-	std::sqrt(distance2(segment, sphere)).
-	*/
-	template <typename Real, integer N>
-	Real distance(
-		const Segment<Real, N>& segment,
-		const Sphere<Real, N>& sphere);
-
-	//! Squared Euclidean distance between a line segment and a sphere.
 	/*!
 	Preconditions:
 	segment.n() == sphere.n()
@@ -27,12 +21,19 @@ namespace Pastel
 	Time complexity: O(segment.n())
 	*/
 	template <typename Real, integer N>
-	Real distance2(
+	auto distance2(
 		const Segment<Real, N>& segment,
-		const Sphere<Real, N>& sphere);
+		const Sphere<Real, N>& sphere)
+	{
+		PENSURE_OP(segment.n(), ==, sphere.n());
+		
+		auto norm = Euclidean_Norm<Real>();
+		auto centerDistance = Pastel::distance2(segment, sphere.position());
+		if (centerDistance <= sphere.radius()) return norm();
+		
+		return norm((Real)centerDistance - sphere.radius());
+	}
 
 }
-
-#include "pastel/geometry/distance/distance_segment_sphere.hpp"
 
 #endif

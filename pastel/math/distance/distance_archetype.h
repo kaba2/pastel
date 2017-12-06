@@ -17,7 +17,7 @@ namespace Pastel
 		using Real_ = real;
 
 		Distance_Archetype() = default;
-		Distance_Archetype(Real_) {}
+		explicit Distance_Archetype(Real_) {}
 
 		Distance_Archetype(const Distance_Archetype&) = default;
 		Distance_Archetype(Distance_Archetype&&) = default;

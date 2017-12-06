@@ -5,28 +5,23 @@
 
 #include "pastel/geometry/shape/line.h"
 #include "pastel/sys/vector.h"
+#include "pastel/geometry/closest/closest_line_point.h"
+#include "pastel/math/norm/euclidean_norm.h"
 
 namespace Pastel
 {
 
 	//! Euclidean distance between a point and a line.
-	/*!
-	This is a convenience function which returns
-	std::sqrt(distance2(line, point)).
-	*/
 	template <typename Real, integer N>
-	Real distance(
+	auto distance2(
 		const Line<Real, N>& line,
-		const Vector<Real, N>& point);
-
-	//! Squared Euclidean distance between a point and a line.
-	template <typename Real, integer N>
-	Real distance2(
-		const Line<Real, N>& line,
-		const Vector<Real, N>& point);
+		const Vector<Real, N>& point)
+	{
+		auto norm = Euclidean_Norm<Real>();
+		const Real t = closest(line, point);
+		return norm[dot(line.at(t) - point)];
+	}
 
 }
-
-#include "pastel/geometry/distance/distance_line_point.hpp"
 
 #endif
