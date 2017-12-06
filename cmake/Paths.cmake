@@ -48,7 +48,7 @@ if (UNIX)
 	set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3")
 
 	# Boost path
-	set (BoostDirectory "")
+	set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_65_1")
 
 	# Armadillo path
 	set (ArmadilloDirectory "")
@@ -66,7 +66,7 @@ if (UNIX)
 	if (APPLE)
 		set (MatlabDirectory "/Applications/MATLAB_R2015a.app")
 	else()
-		set (MatlabDirectory "/usr/local/MATLAB/MATLAB_Production_Server/R2015a")
+		set (MatlabDirectory "/mnt/c/Program Files/MATLAB/R2016a")
 	endif()
 endif()
 
