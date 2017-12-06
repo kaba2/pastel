@@ -31,11 +31,11 @@ namespace Pastel
 			return 0;
 		}
 
-		auto replace(integer axis, const Real& from, const Real& to) {
+		decltype(auto) replace(integer axis, const Real& from, const Real& to) {
 			return *this;
 		}
 
-		auto operator*=(const Real& amount) {
+		decltype(auto) operator*=(const Real& amount) {
 			return *this;
 		}
 	};

@@ -44,12 +44,12 @@ namespace Pastel
 			return distance_;
 		}
 
-		auto replace(integer axis, const Real& from, const Real& to) {
+		decltype(auto) replace(integer axis, const Real& from, const Real& to) {
 			distance_ += std::pow(abs(to), p_) - std::pow(abs(from), p_);
 			return *this;
 		}
 
-		auto operator*=(const Real& amount) {
+		decltype(auto) operator*=(const Real& amount) {
 			distance_ *= std::pow(abs(amount), p_);
 			return *this;
 		}

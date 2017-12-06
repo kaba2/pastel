@@ -42,12 +42,12 @@ namespace Pastel
 			return distance_;
 		}
 
-		auto replace(integer axis, const Real& from, const Real& to) {
+		decltype(auto) replace(integer axis, const Real& from, const Real& to) {
 			distance_ += square(to) - square(from);
 			return *this;
 		}
 
-		auto operator*=(const Real& amount) {
+		decltype(auto) operator*=(const Real& amount) {
 			distance_ *= square(amount);
 			return *this;
 		}
