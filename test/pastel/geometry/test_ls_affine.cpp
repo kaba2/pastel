@@ -15,7 +15,7 @@ namespace
 	{
 		integer trials = 400;
 		Real threshold = 
-			std::is_same<Real, float>::value ? 1e-4 : 1e-11;
+			std::is_same<Real, float>::value ? 1e-3 : 1e-11;
 
 		// Randomly chosen cases.
 
@@ -147,9 +147,9 @@ namespace
 			auto lsMatch = lsAffine(
 				P, R,
 				PASTEL_TAG(orientation), orientation,
-				matrix,
-				scaling,
-				translation,
+				PASTEL_TAG(matrix), matrix,
+				PASTEL_TAG(scaling), scaling,
+				PASTEL_TAG(translation), translation,
 				PASTEL_TAG(W), W,
 				PASTEL_TAG(Q0), std::move(QE),
 				PASTEL_TAG(S0), std::move(SE),
@@ -171,15 +171,16 @@ namespace
 			if (std::max(std::max(qError, sError), tError) > threshold ||
 				(orientation != 0 && sign(arma::det(QE * SE)) != sign(orientation)))
 			{
-				/*
 				std::cout << orientation << " " 
 					<< (integer)matrix << " "
 					<< (integer)scaling << " " 
 					<< (integer)translation << std::endl;
 
-				std::cout << qError << " " 
-					<< sError << " "
-					<< tError << std::endl;
+				std::cout 
+					<< "Q-error " << qError << std::endl 
+					<< "S-error " << sError << std::endl
+					<< "t-error " << tError << std::endl
+					<< "threshold " << threshold << std::endl;
 
 				std::cout << "Q" << Q << std::endl;
 				std::cout << "S" << S << std::endl;
@@ -188,7 +189,6 @@ namespace
 				std::cout << "QE" << QE << std::endl;
 				std::cout << "SE" << SE << std::endl;
 				std::cout << "tE" << tE << std::endl;
-				*/
 
 				fails = fails + 1;
 			}

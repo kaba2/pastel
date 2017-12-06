@@ -88,7 +88,7 @@ TEST_CASE("Grid (TdTree)")
 	std::unordered_set<ConstIterator, IteratorAddress_Hash> neighborSet;
 
 	auto report = [&](
-		real distance,
+		const auto& distance,
 		const ConstIterator& point)
 	{
 		neighborSet.insert(point);
@@ -124,7 +124,7 @@ TEST_CASE("Linear (TdTree)")
 			Vector2 timeInterval = { (real)i, (real)n };
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			integer distance =
-				searchNearest(
+				~searchNearest(
 					nearestSet, 
 					Point(0, 0)).first;
 			REQUIRE(distance == square(i));
@@ -133,7 +133,7 @@ TEST_CASE("Linear (TdTree)")
 			Vector2 timeInterval = { (real)0, (real)i + 1 };
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			integer distance =
-				searchNearest(
+				~searchNearest(
 					nearestSet, 
 					Point(0, 0)).first;
 			REQUIRE(distance == 0);
@@ -142,7 +142,7 @@ TEST_CASE("Linear (TdTree)")
 			Vector2 timeInterval = { (real)i, (real)i + 1 };
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			integer distance =
-				searchNearest(
+				~searchNearest(
 					nearestSet, 
 					Point(0, 0)).first;
 			REQUIRE(distance == square(i));
@@ -155,7 +155,7 @@ TEST_CASE("Linear (TdTree)")
 		{
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			real distance =
-				searchNearest(
+				~searchNearest(
 					nearestSet, 
 					Point(i + 2, 0)).first;
 
@@ -165,7 +165,7 @@ TEST_CASE("Linear (TdTree)")
 		{
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			real distance =
-				searchNearest(
+				~searchNearest(
 					nearestSet, 
 					Point(i - 3, 0)).first;
 
@@ -175,7 +175,7 @@ TEST_CASE("Linear (TdTree)")
 		{
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			real distance =
-				searchNearest(
+				~searchNearest(
 					nearestSet, 
 					Point(i + 4, 0)).first;
 			integer correct = i < (n - 5) ? square(1) : square(4);
@@ -186,7 +186,7 @@ TEST_CASE("Linear (TdTree)")
 		{
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			real distance =
-				searchNearest(
+				~searchNearest(
 					nearestSet, 
 					Point(i + 7, 0)).first;
 			integer correct = i < (n - 5) ? square(2) : square(7);

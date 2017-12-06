@@ -9,13 +9,13 @@
 #include "pastel/sys/indicator/indicator_concept.h"
 #include "pastel/sys/output/output_concept.h"
 #include "pastel/sys/point/point_concept.h"
-#include "pastel/math/normbijection/normbijection_concept.h"
+#include "pastel/math/norm/norm_concept.h"
 #include "pastel/geometry/nearestset/nearestset_concept.h"
 #include "pastel/geometry/search_nearby.h"
 
 // Template defaults
 
-#include "pastel/math/normbijection/euclidean_normbijection.h"
+#include "pastel/math/norm/euclidean_norm.h"
 #include "pastel/sys/indicator/all_indicator.h"
 #include "pastel/sys/output/null_output.h"
 
@@ -69,7 +69,7 @@ namespace Pastel
 	points are reported as (Infinity(), nearestSet.notFound()).
 	Default: true
 
-	normBijection:
+	norm (Norm):
 	The norm used to measure distance.
 
 	returns (std::pair<Real, PointId>)
@@ -103,45 +103,26 @@ namespace Pastel
 		using Real = Point_Real<Search_Point>;
 
 		auto&& report = 
-			PASTEL_ARG(
-				report, 
-				[]() {return nullOutput();},
-				[](auto input) {return std::true_type();}
-			);
+			PASTEL_ARG_SC(report, nullOutput(), Trivial_Concept);
 
 		auto&& accept = 
-			PASTEL_ARG(
-				accept, 
-				[]() {return allIndicator();},
-				[](auto input) 
-				{
-					return Models<decltype(input), 
-						Indicator_Concept(PointId)>();
-				}
-			);
+			PASTEL_ARG_SC(accept, allIndicator(), Indicator_Concept(PointId));
 
-		auto&& normBijection = 
-			PASTEL_ARG(
-				normBijection, 
-				[]() {return Euclidean_NormBijection<real>();},
-				[](auto input) 
-				{
-					return implicitArgument(
-						Models<decltype(input), 
-						NormBijection_Concept>());
-				}
-			);
+		auto&& norm = 
+			PASTEL_ARG_SC(norm, Euclidean_Norm<Real>(), Norm_Concept);
+
+		using Distance = decltype(norm());
 
 		integer kNearest = PASTEL_ARG_S(kNearest, 1);
-		Real maxDistance2 = PASTEL_ARG_S(maxDistance2, (Real)Infinity());
+		Distance maxDistance2 = PASTEL_ARG_S(maxDistance2, Distance((Real)Infinity()));
 		bool reportMissing = PASTEL_ARG_S(reportMissing, false);
 		bool sortDistances = PASTEL_ARG_S(sortDistances, true);
 
 		ENSURE_OP(kNearest, >=, 0);
-		ENSURE_OP(maxDistance2, >=, 0);
+		ENSURE(maxDistance2 >= 0);
 
-		using Result = std::pair<Real, PointId>;
-		Result notFound((Real)Infinity(), *begin(nearestSet.pointSet()));
+		using Result = std::pair<Distance, PointId>;
+		Result notFound(Distance((Real)Infinity()), *begin(nearestSet.pointSet()));
 
 		if (kNearest == 0 || maxDistance2 == 0)
 		{
@@ -174,7 +155,7 @@ namespace Pastel
 		ResultSet resultSet(resultSetSize);
 
 		auto reportCandidate = [&](
-			const Real& distance2,
+			const Distance& distance2,
 			const auto& pointId)
 		{
 			resultSet.push(Result(distance2, pointId));
@@ -183,20 +164,16 @@ namespace Pastel
 				return resultSet.top().first;
 			}
 
-			return (Real)Infinity();
+			return Distance((Real)Infinity());
 		};
 
 		searchNearby(
 			nearestSet,
 			searchPoint,
-			PASTEL_TAG(accept),
-			accept,
-			PASTEL_TAG(report),
-			reportCandidate,
-			PASTEL_TAG(normBijection),
-			normBijection,
-			PASTEL_TAG(maxDistance2),
-			maxDistance2);
+			PASTEL_TAG(accept), accept,
+			PASTEL_TAG(report), reportCandidate,
+			PASTEL_TAG(norm), norm,
+			PASTEL_TAG(maxDistance2), maxDistance2);
 
 		// There should be at most k neighbors.
 		const integer neighbors = resultSet.size();

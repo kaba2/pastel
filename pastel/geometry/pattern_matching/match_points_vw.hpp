@@ -239,7 +239,7 @@ namespace Pastel
 							integer t = 0;
 
 							auto report = [&](
-								const Real& distance,
+								const auto& distance,
 								SceneIterator point)
 							{
 								sceneNearest(t, j) = point;
@@ -268,7 +268,7 @@ namespace Pastel
 						{
 							integer t = 0;
 							auto report = [&](
-								const Real& distance,
+								const auto& distance,
 								SceneIterator point)
 							{
 								modelSet[t + 1] = point;
@@ -376,7 +376,7 @@ namespace Pastel
 							Vector<Real, N> transformedModelPoint =
 								transformPoint(similarity, modelPosition(modelSet[m]));
 
-							std::pair<Real, SceneIterator> closestScenePoint =
+							auto closestScenePoint =
 								searchNearest(
 									kdTreeNearestSet(sceneTree_), 
 									transformedModelPoint);
@@ -387,7 +387,7 @@ namespace Pastel
 							// However, the paper suggest the use of
 
 							// 2 * matchingDistance2.
-							if (closestScenePoint.first <= 2 * matchingDistance2_)
+							if (~closestScenePoint.first <= 2 * matchingDistance2_)
 							{
 								modelMatch.push_back(modelPosition(modelSet[m]));
 								sceneMatch.push_back(scenePosition(closestScenePoint.second));
@@ -488,12 +488,12 @@ namespace Pastel
 						// See if the model point maps near to some
 						// scene point.
 
-						std::pair<Real, SceneIterator> closestScenePoint =
+						auto closestScenePoint =
 							searchNearest(
 								kdTreeNearestSet(sceneTree_), 
 								transformedModelPoint);
 
-						if (closestScenePoint.first <= matchingDistance2_ &&
+						if (~closestScenePoint.first <= matchingDistance2_ &&
 							usedSet.find(closestScenePoint.second) == usedSet.end())
 						{
 							Vector<Real, N> scenePoint =

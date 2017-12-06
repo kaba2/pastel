@@ -103,9 +103,9 @@ namespace
 		auto match = coherentPointDrift(
 			std::move(fromSet), 
 			std::move(toSet),
-			matrix,
-			scaling,
-			translation,
+			PASTEL_TAG(matrix), matrix,
+			PASTEL_TAG(scaling), scaling,
+			PASTEL_TAG(translation), translation,
 			PASTEL_TAG(orientation), orientation,
 			PASTEL_TAG(Q0), std::move(Q0),
 			PASTEL_TAG(S0), std::move(S0),

@@ -46,7 +46,6 @@ TEST_CASE("Norm (Norm)")
 			square(-1) + square(2) + square(3) +
 			square(4) + square(-5) + square(6);
 		REQUIRE(frobeniusNorm2(m) == correct);
-		REQUIRE(frobeniusNorm(m) == std::sqrt(correct));
 	}
 
 	{

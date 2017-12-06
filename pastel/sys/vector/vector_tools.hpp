@@ -300,22 +300,28 @@ namespace Pastel
 		return sum(left * right);
 	}
 
-	template <typename Real, integer N, typename Expression, 
-		typename NormBijection>
-	Real norm2(const VectorExpression<Real, N, Expression>& that,
-		const NormBijection& normBijection)
+	template <
+		typename Real, integer N, typename Expression, 
+		typename Norm,
+		Requires<
+			Models<Norm, Norm_Concept>
+		>>
+	auto norm2(const VectorExpression<Real, N, Expression>& that,
+		const Norm& norm)
 	{
-		Real result = 0;
-
+		auto result = norm();
 		integer n = that.n();
 		for (integer i = 0;i < n;++i)
 		{
-			result = normBijection.addAxis(
-				result, 
-				normBijection.signedAxis(that[i]));
+			result.set(i, that[i]);
 		}
-
 		return result;
+	}
+
+	template <typename Real, integer N, typename Expression>
+	Real norm2(const VectorExpression<Real, N, Expression>& that)
+	{
+		return dot(that, that);
 	}
 
 	template <

@@ -1,7 +1,3 @@
-if (BuildExamples)
-	#add_subdirectory ("PastelExample")
+project (PastelExample)
 
-	# Create a solution folder for example projects.
-	#set (ExampleSet)
-	#set_property( TARGET ${ExampleSet} PROPERTY FOLDER "Examples")
-endif()
+#add_subdirectory ("PastelExample")

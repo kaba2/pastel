@@ -4,21 +4,42 @@
 #define PASTELMATH_MATRIX_NORM_H
 
 #include "pastel/math/matrix/matrix.h"
+#include "pastel/math/matrix/matrix_norm.h"
+#include "pastel/math/norm/norm_concept.h"
+#include "pastel/math/norm/euclidean_norm.h"
+
+#include <numeric>
 
 namespace Pastel
 {
 
-	//! Returns a pointwise matrix norm given by the norm bijection.
+	//! Returns a pointwise matrix norm given by a norm.
 	/*!
-	This function considers the matrix as a long vector, and
-	computes a vector norm for it. In particular, a euclidean norm 
-	bijection gives the Frobenius norm (without the square root).
-	See 'pastel/math/normbijection/normbijections.h" for predefined norm bijections.
+	This function considers the matrix as a long vector, 
+	and computes a vector norm for it. 
 	*/
-	template <typename Real, 
-		typename Expression, typename NormBijection>
-	Real norm2(const MatrixExpression<Real, Expression>& matrix,
-		const NormBijection& normBijection);
+	template <
+		typename Real, typename Expression, 
+		typename Norm = Euclidean_Norm<Real>,
+		Requires<
+			Models<Norm, Norm_Concept>
+		> = 0>
+	Real norm2(
+		const MatrixExpression<Real, Expression>& matrix,
+		const Norm& norm = Norm())
+	{
+		integer k = 0;
+		auto result = norm();
+		for (integer i = 0;i < matrix.height();++i)
+		{
+			for (integer j = 0;j < matrix.width();++j)
+			{
+				result.set(k, matrix(i, j));
+				++k;
+			}
+		}
+		return ~result;
+	}
 
 	//! Returns the induced manhattan matrix norm.
 	/*!
@@ -27,37 +48,34 @@ namespace Pastel
 	*/
 	template <typename Real, typename Expression>
 	Real manhattanNorm(
-		const MatrixExpression<Real, Expression>& matrix);
+		const MatrixExpression<Real, Expression>& matrix)
+	{
+		return max(sum(abs(matrix)));
+	}
 
 	//! Returns the squared Frobenius matrix norm.
 	/*!
 	returns:
-	norm2(matrix, Euclidean_NormBijection())
+	norm2(matrix)
 	*/
 	template <typename Real, typename Expression>
 	Real frobeniusNorm2(
-		const MatrixExpression<Real, Expression>& matrix);
+		const MatrixExpression<Real, Expression>& matrix)
+	{
+		return norm2(matrix);
+	}
 
-	//! Returns the Frobenius matrix norm.
-	/*!
-	returns:
-	sqrt(frobeniusNorm2(matrix))
-	*/
-	template <typename Real, typename Expression>
-	Real frobeniusNorm(
-		const MatrixExpression<Real, Expression>& matrix);
-
-	//! Returns the induced infinity matrix norm.
+	//! Returns the induced maximum matrix norm.
 	/*!
 	returns:
 	max(sum(abs(transpose(matrix))))
 	*/
 	template <typename Real, typename Expression>
 	Real maxNorm(
-		const MatrixExpression<Real, Expression>& matrix);
-
+		const MatrixExpression<Real, Expression>& matrix)
+	{
+		return max(sum(abs(transpose(matrix))));
+	}
 }
-
-#include "pastel/math/matrix/matrix_norm.hpp"
 
 #endif

@@ -101,7 +101,8 @@ namespace Pastel
 
 				std::vector<ConstIterator> nearestSet;
 				auto report = [&](
-					Real distance, ConstIterator point)
+					const auto& distance, 
+					ConstIterator point)
 				{
 					nearestSet.push_back(point);
 				};
@@ -109,9 +110,9 @@ namespace Pastel
 				searchNearest(
 					kdtree_, 
 					evaluate(Vector<Real, N>(position) + 0.5), 
-					report)
-					.kNearest(kNearest_)
-					.maxRelativeError(maxRelativeError_);
+					report,
+					PASTEL_TAG(kNearest), kNearest_,
+					PASTEL_TAG(maxRelativeError), maxRelativeError_);
 
 				data = nearestSet.back()->point().data_;
 			}

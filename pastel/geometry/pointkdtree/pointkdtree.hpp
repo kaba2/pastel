@@ -312,14 +312,7 @@ namespace Pastel
 		ArgumentSet&&... argumentSet)
 	{
 		bool hidden = PASTEL_ARG_S(hidden, false);
-		auto&& report = PASTEL_ARG(
-			report, 
-			[]() {return nullOutput();}, 
-			[](auto input) 
-			{
-				return Models<decltype(input), Output_Concept(Point_ConstIterator)>();
-			}
-		);		
+		auto&& report = PASTEL_ARG_SC(report, nullOutput(), Output_Concept(Point_ConstIterator));
 
 		if (emptySet(pointSet))
 		{

@@ -7,9 +7,10 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/type_traits/is_template_instance.h"
 
-#define PASTEL_ARG(name, ...) Pastel::argument<Pastel::tagHash(#name)>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...);
+#define PASTEL_ARG(name, ...) Pastel::argument<Pastel::tagHash(#name)>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...)
 #define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, Pastel::Argument_::returnTrue)
-#define PASTEL_ARG_ENUM(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto input){return implicitArgument(std::is_same<RemoveCvRef<decltype(input)>, RemoveCvRef<decltype(def)>>());})
+#define PASTEL_ARG_SC(name, def, concept) PASTEL_ARG(name, [&](){return def;}, [](auto input){return Models<decltype(input), concept>();})
+#define PASTEL_ARG_ENUM(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto input){return std::is_same<RemoveCvRef<decltype(input)>, RemoveCvRef<decltype(def)>>();})
 
 #define PASTEL_ARG_T(name, ...) decltype(PASTEL_ARG(name, __VA_ARGS__))
 #define PASTEL_ARG_S_T(name, def) decltype(PASTEL_ARG_S(name, def))
@@ -29,23 +30,8 @@ namespace Pastel
 			return std::true_type();
 		}
 
-	}
-
-	template <typename Condition>
-	struct ImplicitArgument
-	{
-		static constexpr bool value = Condition::value;
-	};
-
-	template <typename Type>
-	using IsImplicitArgument =
-		IsTemplateInstance<Type, ImplicitArgument>;
-
-	template <typename Condition = std::true_type>
-	constexpr ImplicitArgument<Condition> implicitArgument(
-		Condition&& condition = Condition())
-	{
-		return {};
+		template <typename Type>
+		struct False : std::false_type {};
 	}
 
 	//! Optional argument parsing
@@ -136,69 +122,10 @@ namespace Pastel
 						std::forward<ArgumentSet>(argumentSet)...
 					)
 				)::value,
-				"Multiple optional arguments match the parameter.");
+				"Named parameter defined multiple times.");
 
 			// Interpret the value as boolean true.
 			return true;
-		}
-
-		template <
-			typename Default,
-			typename Condition,
-			typename Value,
-			typename... ArgumentSet,
-			Requires<
-				Not<IsTag<Value>>
-			> = 0
-		>
-		static constexpr decltype(auto) argumentBranch(
-			BoolConstant<true>,
-			Default&&,
-			Condition&& condition, 
-			Value&& value, 
-			ArgumentSet&&... argumentSet)
-		{
-			// The list begins with a value, and the value
-			// satisfies the condition.
-
-			// Check that the match is unique.
-			static_assert(
-				!decltype(
-					matches(
-						std::forward<Condition>(condition),
-						std::forward<ArgumentSet>(argumentSet)...
-					)
-				)::value,
-				"Multiple optional arguments match the parameter.");
-
-			// Return the value.
-			return std::forward<Value>(value);
-		}
-
-		template <
-			typename Default,
-			typename Condition,
-			typename Value,
-			typename... ArgumentSet,
-			Requires<
-				Not<IsTag<Value>>
-			> = 0
-		>
-		static constexpr decltype(auto) argumentBranch(
-			BoolConstant<false>,
-			Default&& defaultValue,
-			Condition&& condition, 
-			Value&&, 
-			ArgumentSet&&... argumentSet)
-		{
-			// The list begins with a value, but the value
-			// does not satisfy the condition.
-
-			// Move on.
-			return argument(
-				std::forward<Default>(defaultValue),
-				std::forward<Condition>(condition),
-				std::forward<ArgumentSet>(argumentSet)...);
 		}
 
 		template <
@@ -218,17 +145,8 @@ namespace Pastel
 		{
 			// The list begins with a value, so it is
 			// missing a key-tag.
-
-			// Branch based on whether the condition is fulfilled or not.
-			return argumentBranch(
-				BoolConstant<
-					decltype(condition(value))::value &&
-					IsImplicitArgument<decltype(condition(value))>::value
-				>(),
-				std::forward<Default>(defaultValue),
-				std::forward<Condition>(condition),
-				std::forward<Value>(value),
-				std::forward<ArgumentSet>(argumentSet)...);
+			static_assert(Argument_::False<Value>::value, "Optional arguments must be given in tag-value pairs.");
+			return defaultValue;
 		}
 
 		template <
@@ -311,7 +229,7 @@ namespace Pastel
 						std::forward<ArgumentSet>(argumentSet)...
 					)
 				)::value,
-				"Multiple optional arguments match the parameter.");
+				"Named parameter defined multiple times.");
 
 			// We have found the searched argument; return it.
 			return std::forward<Value>(value);

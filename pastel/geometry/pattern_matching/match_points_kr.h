@@ -11,12 +11,12 @@
 // Optional argument requirements
 
 #include "pastel/sys/output/output_concept.h"
-#include "pastel/math/normbijection/normbijection_concept.h"
+#include "pastel/math/norm/norm_concept.h"
 
 // Default optional arguments
 
 #include "pastel/sys/output/null_output.h"
-#include "pastel/math/normbijection/euclidean_normbijection.h"
+#include "pastel/math/norm/euclidean_norm.h"
 
 // Implementation
 
@@ -93,7 +93,7 @@ namespace Pastel
 	The minimum ratio of model-points that need to be 
 	paired scene-points to accept a match.
 
-	normBijection (NormBijection : Euclidean_NormBijection<Real>()):
+	norm (Norm : Euclidean_Norm<Real>()):
 	The distance measure.
 
 	report (Output(Point, Point) : nullOutput()):
@@ -137,23 +137,22 @@ namespace Pastel
 
 		integer kNearest = 
 			PASTEL_ARG_S(kNearest, 16);
-		// This is deliberately real (not Real).
+
+		auto&& norm = PASTEL_ARG_SC(norm, Euclidean_Norm<Real>(), Norm_Concept);
+
+		using Distance = decltype(norm());
+
+		// This is deliberately real, not Real.
 		real minMatchRatio = 
 			PASTEL_ARG_S(minMatchRatio, 0.8);
-		Real matchingDistance2 = 
+
+		Distance matchingDistance2 = 
 			PASTEL_ARG_S(matchingDistance2, 0.1);
 		Real maxBias = 
 			PASTEL_ARG_S(maxBias, 0.1);
 		MatchPointsKr_MatchingMode matchingMode = 
 			PASTEL_ARG_S(matchingMode, MatchPointsKr_MatchingMode::First);
-		auto&& normBijection = PASTEL_ARG(
-			normBijection,
-			[](){return Euclidean_NormBijection<Real>();},
-			[](auto input) {return implicitArgument(Models<decltype(input), NormBijection_Concept>());});
-		auto&& report = PASTEL_ARG(
-			report,
-			[](){return nullOutput();},
-			[](auto input) {return std::true_type();});
+		auto&& report = PASTEL_ARG_SC(report, nullOutput(), Trivial_Concept);
 
 		ENSURE_OP(kNearest, >, 0);
 		ENSURE(minMatchRatio >= 0);
@@ -268,7 +267,7 @@ namespace Pastel
 
 					integer k = 0;
 					auto nearestReport = [&](
-						const Real& distance,
+						const Distance& distance,
 						const Scene_ConstIterator& scenePoint)
 					{
 						nearestSet(j, k) = sceneToIndex[scenePoint];
@@ -278,7 +277,7 @@ namespace Pastel
 					searchNearest(
 						scene, 
 						searchPoint,
-						normBijection,
+						PASTEL_TAG(norm), norm,
 						PASTEL_TAG(report), nearestReport,
 						PASTEL_TAG(kNearest), kNearest,
 						PASTEL_TAG(maxDistance2), matchingDistance2,
@@ -329,10 +328,10 @@ namespace Pastel
 
 						meanDelta /= pairSet.size();
 
-						Real meanDeltaNorm2 = 
-							norm2(meanDelta, normBijection);
+						Distance meanDeltaNorm2 = 
+							norm2(meanDelta, norm);
 
-						bias = meanDeltaNorm2 / matchingDistance2;
+						bias = ~meanDeltaNorm2 / ~matchingDistance2;
 					}							
 
 					// Check that the bias is not too large.

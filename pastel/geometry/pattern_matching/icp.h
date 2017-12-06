@@ -296,12 +296,7 @@ namespace Pastel
                     kdTree,
                     transformedPoint, 
                     PASTEL_TAG(maxDistance2), matchingDistance2, 
-                    PASTEL_TAG(kNearest), kNearest,
-                    PASTEL_TAG(report), 
-                    [&](Real distance2, auto&& point)
-                    {
-
-                    });
+                    PASTEL_TAG(kNearest), kNearest);
             }
 
             if (matching == Icp_Matching::Biunique)

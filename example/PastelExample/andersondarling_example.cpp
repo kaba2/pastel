@@ -8,7 +8,7 @@
 #include "pastel/sys/keyvalue.h"
 #include "pastel/sys/array.h"
 
-#include "pastel/math/normbijections.h"
+#include "pastel/math/distance.h"
 
 #include "pastel/geometry/distance_point_point.h"
 
@@ -185,7 +185,7 @@ namespace
 
 				const real distance =
 					distance2(differenceSet.begin(), differenceSet.begin() + i,
-					w, Euclidean_NormBijection<real>());
+					w, Euclidean_Distance<real>());
 
 				bNearestSet.insert(
 					keyValue(distance, i));

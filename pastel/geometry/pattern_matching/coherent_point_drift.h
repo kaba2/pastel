@@ -315,9 +315,9 @@ namespace Pastel
             // Compute a new estimate for the optimal transformation.
             auto lsMatch = lsAffine(
                 fromSet, toSet,
-                matrix,
-                scaling,
-                translation,
+                PASTEL_TAG(matrix), matrix,
+                PASTEL_TAG(scaling), scaling,
+                PASTEL_TAG(translation), translation,
                 PASTEL_TAG(orientation), orientation,
                 PASTEL_TAG(W), W,
                 // This avoids the reallocation of 

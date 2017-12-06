@@ -40,7 +40,7 @@ namespace
 	void testSearch(
 		SearchAlgorithm_PointKdTree searchAlgorithm)
 	{
-		Euclidean_NormBijection<real> normBijection;
+		Euclidean_Norm<real> norm;
 
 		/*
 			0   |
@@ -181,38 +181,38 @@ namespace
 		for (integer i = 0;i < iteratorSet.size();++i)
 		{
 			{
-				std::pair<real, Point_ConstIterator> result = 
+				auto result = 
 					searchNearest(
 						kdTreeNearestSet(tree), 
 						iteratorSet[i]->point(), 
-						normBijection, 
+						PASTEL_TAG(norm), norm, 
 						PASTEL_TAG(searchAlgorithm), searchAlgorithm,
 						PASTEL_TAG(nBruteForce), 1);
 
-				real distance2 = result.first;
+				auto distance2 = result.first;
 				Point_ConstIterator iter = result.second;
 				unused(iter);
 
 				//REQUIRE(iter == iteratorSet[i]);
-				REQUIRE(distance2 == 0);
+				REQUIRE(~distance2 == 0);
 			}
 
 			{
-				std::pair<real, Point_ConstIterator> result = 
+				auto result = 
 					searchNearest(
 						kdTreeNearestSet(tree), 
 						iteratorSet[i]->point(),
 						PASTEL_TAG(accept), predicateIndicator(iteratorSet[i], NotEqualTo()),
-						normBijection, 
+						PASTEL_TAG(norm), norm, 
 						PASTEL_TAG(searchAlgorithm), searchAlgorithm,
 						PASTEL_TAG(nBruteForce), 1);
 
-				real distance2 = result.first;
+				auto distance2 = result.first;
 				Point_ConstIterator iter = result.second;
 				unused(iter);
 
 				//REQUIRE(iter == correctSet[i]);
-				REQUIRE(distance2 == distanceSet[i]);
+				REQUIRE(~distance2 == distanceSet[i]);
 			}
 		}
 	}
@@ -365,14 +365,15 @@ namespace
 		tree.insertSet(pointSet);
 		tree.refine(SlidingMidpoint_SplitRule());
 
-		Euclidean_NormBijection<real> normBijection;
+		Euclidean_Norm<real> norm;
+		using Distance = decltype(norm());
 
 		{
 			std::vector<Point_ConstIterator> neighborSet;
-			std::vector<real> distanceSet;
+			std::vector<Distance> distanceSet;
 
 			auto report = [&](
-				real distance,
+				const auto& distance,
 				Point_ConstIterator point)
 			{
 				distanceSet.push_back(distance);
@@ -393,21 +394,20 @@ namespace
 
 			for (integer i = 0;i < count;++i)
 			{
-				REQUIRE(relativeError<real>(distanceSet[i], 
-					normBijection.toBijection(2)) < 0.001);
+				REQUIRE(relativeError<real>(~distanceSet[i], ~norm(2)) < 0.001);
 			}
 		}
 		{
 			integer outerCount = countNearest(
 				kdTreeNearestSet(tree), 
 				Vector<real, N>(0),
-				PASTEL_TAG(maxDistance2), normBijection.toBijection(2.001));
+				PASTEL_TAG(maxDistance2), norm(2.001));
 			REQUIRE(outerCount == m);
 
 			integer innerCount = countNearest(
 				kdTreeNearestSet(tree), 
 				Vector<real, N>(0),
-				PASTEL_TAG(maxDistance2), normBijection.toBijection(1.999));
+				PASTEL_TAG(maxDistance2), norm(1.999));
 			REQUIRE(innerCount == 0);
 		}
 	}

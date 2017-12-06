@@ -171,7 +171,6 @@ namespace Pastel
 		EntrySet entrySet_;
 
 		//! Node bounds on the splitting axis of the parent.
-
 		Real min_;
 		Real max_;
 

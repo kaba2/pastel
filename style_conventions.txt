@@ -96,7 +96,7 @@ Naming
 
 * Derived classes of an abstract class: `LikeThis_BaseClass`. For example, if `Filter` is an abstract class, then `Gaussian_Filter` could be one of its derived classes.
 
-* A class modeling a concept: `ClassName_ConceptName`. For example, if `NormBijection` is a concept, then `Euclidean_NormBijection` could be one of its models.
+* A class modeling a concept: `ClassName_ConceptName`. For example, if `Norm` is a concept, then `Euclidean_Distance` could be one of its models.
 
 * When using the Curiously Recurring Template Pattern with the class `MyClass`, name the super class `MyClass_Base`
 
