@@ -157,7 +157,6 @@ namespace Pastel
 		ENSURE_OP(kNearest, >, 0);
 		ENSURE(minMatchRatio >= 0);
 		ENSURE(minMatchRatio <= 1);
-		ENSURE(matchingDistance2 >= 0);
 		ENSURE(maxBias >= 0);
 		ENSURE(maxBias <= 1);
 

@@ -89,9 +89,8 @@ namespace Pastel
 
 		Distance maxDistance2 = 
 			PASTEL_ARG_SC(maxDistance2, Distance((Real)Infinity()), Distance_Concept);
-		ENSURE(maxDistance2 >= 0);
 
-		if (maxDistance2 == 0)
+		if (~maxDistance2 == 0)
 		{
 			// There is nothing to search for.
 			// Note that we consider the search-ball open.
