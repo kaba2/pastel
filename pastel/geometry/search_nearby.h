@@ -116,7 +116,7 @@ namespace Pastel
 		const Real protection = PASTEL_ARG_S(protection, 1.01);
 		ENSURE_OP(protection, >=, 1);
 
-		if (maxDistance2 == 0)
+		if (~maxDistance2 == 0)
 		{
 			// There is nothing to search for.
 			// Note that we consider the search-ball open.

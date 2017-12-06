@@ -119,12 +119,11 @@ namespace Pastel
 		bool sortDistances = PASTEL_ARG_S(sortDistances, true);
 
 		ENSURE_OP(kNearest, >=, 0);
-		ENSURE(maxDistance2 >= 0);
 
 		using Result = std::pair<Distance, PointId>;
 		Result notFound(Distance((Real)Infinity()), *begin(nearestSet.pointSet()));
 
-		if (kNearest == 0 || maxDistance2 == 0)
+		if (kNearest == 0 || ~maxDistance2 == 0)
 		{
 			// There is nothing to search for.
 			// Note that we consider the search-ball open.
