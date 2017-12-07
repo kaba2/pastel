@@ -46,11 +46,10 @@ namespace Pastel
 	The number of nearest neighbors to search for.
 	Default: 1
 
-	maxDistance2 (Real >= 0):
+	maxDistance2 (Distance):
 	The distance after which points are not considered neighbors
-	anymore. Can be set to (Real)Infinity(). This distance
-	is in terms of the used norm bijection.
-	Default: (Real)Infinity()
+	anymore. Can be set to (Real)Infinity(). 
+	Default: norm((Real)Infinity())
 
 	sortDistances (bool):
 	Whether to report the neighbors in increasing
@@ -114,14 +113,14 @@ namespace Pastel
 		using Distance = decltype(norm());
 
 		integer kNearest = PASTEL_ARG_S(kNearest, 1);
-		Distance maxDistance2 = PASTEL_ARG_S(maxDistance2, Distance((Real)Infinity()));
+		Distance maxDistance2 = PASTEL_ARG_S(maxDistance2, norm((Real)Infinity()));
 		bool reportMissing = PASTEL_ARG_S(reportMissing, false);
 		bool sortDistances = PASTEL_ARG_S(sortDistances, true);
 
 		ENSURE_OP(kNearest, >=, 0);
 
 		using Result = std::pair<Distance, PointId>;
-		Result notFound(Distance((Real)Infinity()), *begin(nearestSet.pointSet()));
+		Result notFound(norm((Real)Infinity()), *begin(nearestSet.pointSet()));
 
 		if (kNearest == 0 || ~maxDistance2 == 0)
 		{

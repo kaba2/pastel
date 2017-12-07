@@ -79,6 +79,14 @@ namespace Pastel
 			return *this;
 		}
 
+		const XDistance& x() const {
+			return x_;
+		}
+
+		const XDistance& y() const {
+			return y_;
+		}
+
 	private:
 		integer nx_;
 		XDistance x_;
