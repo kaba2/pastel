@@ -99,5 +99,8 @@ TEST_CASE("Distance (Product)")
 
 	distance.set(2, 100);
 	REQUIRE(~distance == std::max(4*4 + 2*2, 100));
+
+	distance.set(3, 10);
+	REQUIRE(~distance == std::max(4*4 + 2*2, 100 + 10));
 }
 

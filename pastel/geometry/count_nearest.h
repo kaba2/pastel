@@ -31,7 +31,7 @@ namespace Pastel
 	The point for which to search a neighbor for.
 
 	returns (integer):
-	The number of neighbors under distance 
+	The number of accepted neighbors under distance 
 	maxDistance2.
 
 	Optional arguments
@@ -42,11 +42,10 @@ namespace Pastel
 	as a neighbor or not.
 	Default: allIndicator()
 
-	maxDistance2 (Real >= 0):
+	maxDistance2 (Distance):
 	The distance after which points are not considered neighbors
-	anymore. Can be set to (Real)Infinity(). This distance
-	is in terms of the used norm bijection.
-	Default: (Real)Infinity()
+	anymore. Can be set to (Real)Infinity(). 
+	Default: norm((Real)Infinity())
 
 	report (Output(Real, PointId)):
 	An output to which the found neighbors 
@@ -88,7 +87,7 @@ namespace Pastel
 		using Distance = decltype(norm());
 
 		Distance maxDistance2 = 
-			PASTEL_ARG_SC(maxDistance2, Distance((Real)Infinity()), Distance_Concept);
+			PASTEL_ARG_SC(maxDistance2, norm((Real)Infinity()), Distance_Concept);
 
 		if (~maxDistance2 == 0)
 		{

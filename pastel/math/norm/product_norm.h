@@ -50,7 +50,7 @@ namespace Pastel
 	>
 	auto productNorm(const XNorm& xNorm, const YNorm& yNorm, integer nx)
 	{
-		return Product_Norm<Real, XNorm, YNorm>(nx);
+		return Product_Norm<Real, XNorm, YNorm>(nx, xNorm, yNorm);
 	}
 
 }
