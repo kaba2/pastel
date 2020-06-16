@@ -17,7 +17,7 @@ namespace Pastel
 		Set&& set,
 		Transform&& transform)
 	{
-		auto result = ranges::view::transform(
+		auto result = ranges::views::transform(
 				std::forward<Set>(set),
 				std::forward<Transform>(transform)
 			);

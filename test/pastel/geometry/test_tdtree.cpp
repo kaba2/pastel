@@ -18,6 +18,8 @@
 #include "pastel/sys/iterator/counting_iterator.h"
 #include "pastel/sys/iterator/constant_iterator.h"
 
+#include <unordered_set>
+
 namespace
 {
 

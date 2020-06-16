@@ -9,6 +9,8 @@
 #include "pastel/sys/sequence/random_subset.h"
 #include "pastel/sys/random.h"
 
+#include <set>
+
 namespace
 {
 

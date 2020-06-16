@@ -7,6 +7,8 @@
 #include "pastel/sys/sequence.h"
 #include "pastel/sys/predicate.h"
 
+#include <set>
+
 TEST_CASE("automaton_closure (automaton)")
 {
 	using Automaton = Automaton<integer>;

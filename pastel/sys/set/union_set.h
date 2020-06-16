@@ -17,7 +17,7 @@ namespace Pastel
 	decltype(auto) unionSet(
 		Set&&... setSet)
 	{
-		return ranges::view::concat(std::forward<Set>(setSet)...);
+		return ranges::views::concat(std::forward<Set>(setSet)...);
 	}
 
 }

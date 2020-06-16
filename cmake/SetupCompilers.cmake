@@ -143,8 +143,9 @@ if (MSVC)
 		/MP
 		# Enable exceptions.
 		/EHsc
-		# Use C++17 features.
-		/std:c++17
+		# Use C++20 features.
+		/std:c++latest
+		/permissive-
 		# Boost uses std::unary_function etc which are removed from C++17.
 		# Bring them back.
 		/D_HAS_AUTO_PTR_ETC=1

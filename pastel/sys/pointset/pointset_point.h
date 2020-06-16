@@ -21,8 +21,7 @@ namespace Pastel
 			Models<PointSet, PointSet_Concept>
 		> = 0
 	>
-	using PointSet_Point = 
-		RemoveCvRef<decltype(*ranges::begin(std::declval<PointSet>()))>;
+	using PointSet_Point = RemoveCvRef<ranges::range_value_t<PointSet>>;
 
 	template <
 		typename PointSet,

@@ -14,8 +14,6 @@
 namespace Pastel
 {
 
-	using Assignable_Concept = ranges::concepts::Assignable;
-
 	//! A set with a locator; a point-set.
 	template <
 		typename Set,

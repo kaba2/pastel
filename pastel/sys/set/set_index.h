@@ -15,7 +15,7 @@ namespace Pastel
 		> = 0
 	>
 	using Set_Index = 
-		typename ranges::concepts::Range::iterator_t<Set>;
+		typename ranges::iterator_t<Set>;
 	
 	template <
 		typename Set,

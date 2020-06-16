@@ -13,7 +13,7 @@ namespace Pastel
 	template <typename Element>
 	decltype(auto) constantSet(integer n, Element&& element)
 	{
-		return ranges::view::repeat_n(std::forward<Element>(element), n);
+		return ranges::views::repeat_n(std::forward<Element>(element), n);
 	}
 
 }

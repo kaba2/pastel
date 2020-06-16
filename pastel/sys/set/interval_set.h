@@ -25,7 +25,7 @@ namespace Pastel
 		Begin&& begin, 
 		End&& end)
 	{
-		return ranges::view::iota(
+		return ranges::views::iota(
 			std::forward<Begin>(begin),
 			std::forward<End>(end));
 	}

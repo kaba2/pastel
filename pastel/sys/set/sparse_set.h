@@ -18,7 +18,7 @@ namespace Pastel
 		Set&& set,
 		integer factor)
 	{
-		return ranges::view::stride(
+		return ranges::views::stride(
 			std::forward<Set>(set),
 			factor);
 	}

@@ -17,7 +17,7 @@ namespace Pastel
 	decltype(auto) zipSet(
 		Set&&... setSet)
 	{
-		return ranges::view::zip(std::forward<Set>(setSet)...);
+		return ranges::views::zip(std::forward<Set>(setSet)...);
 	}
 
 }

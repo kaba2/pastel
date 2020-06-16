@@ -210,7 +210,7 @@ macro (EcAddLibrary Type LibraryName SourceGlobSet)
 
 	if ("${Type}" STREQUAL "library")
 		add_library (${LibraryName} STATIC ${SourceSet})
-	else ("${Type}" STREQUAL "executable")
+	elseif ("${Type}" STREQUAL "executable")
 		add_executable (${LibraryName} ${SourceSet})
 	else ()
 		message (FATAL_ERROR "Unknown library type ${Type}.")
