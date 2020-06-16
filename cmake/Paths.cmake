@@ -8,32 +8,28 @@
 # be specified manually. 
 
 if (WIN32)
-	# Ranges-v3 path
-	set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3-vs")
+	# # Ranges-v3 path
+	# set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3-vs")
 
-	# Boost path
-	set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_65_1")
+	# # Boost path
+	# set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_65_1")
 
-	# Armadillo path
-	set (ArmadilloDirectory "${CMAKE_SOURCE_DIR}/../armadillo-8.300.1")
+	# # Armadillo path
+	# set (ArmadilloDirectory "${CMAKE_SOURCE_DIR}/../armadillo-8.300.1")
 
-	# Threading Building Blocks paths
-	set (TbbDirectory "${CMAKE_SOURCE_DIR}/../tbb2017_20161128oss")
+	# # Threading Building Blocks paths
+	# set (TbbDirectory "${CMAKE_SOURCE_DIR}/../tbb2017_20161128oss")
 
-	# Blas library path
-	set (BlasLibraryPath 
-		"${ProjectDirectory}/external/${GENERATOR_BITS}/blas_win${GENERATOR_BITS}_MT.lib")
+	# # Blas library path
+	# set (BlasLibraryPath 
+	# 	"${ProjectDirectory}/external/${GENERATOR_BITS}/blas_win${GENERATOR_BITS}_MT.lib")
 
-	# Lapack library path
-	set (LapackLibraryPath 
-		"${ProjectDirectory}/external/${GENERATOR_BITS}/lapack_win${GENERATOR_BITS}_MT.lib")
+	# # Lapack library path
+	# set (LapackLibraryPath 
+	# 	"${ProjectDirectory}/external/${GENERATOR_BITS}/lapack_win${GENERATOR_BITS}_MT.lib")
 
 	# Matlab paths
-	if (${GENERATOR_BITS} EQUAL 32)
-		set (MatlabDirectory "C:/Program Files (x86)/MATLAB/R2016a")
-	else()
-		set (MatlabDirectory "C:/Program Files/MATLAB/R2016a")
-	endif()
+	set (MatlabDirectory "C:/Program Files/Polyspace/R2020a")
 endif()
 
 # Manual overrides for paths under Linux and Mac OS X
@@ -44,29 +40,29 @@ endif()
 # manually, such as Matlab and Threading Building Blocks.
 
 if (UNIX)
-	# Ranges-v3 path
-	set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3")
+	# # Ranges-v3 path
+	# set (RangesDirectory "${CMAKE_SOURCE_DIR}/../ranges-v3")
 
-	# Boost path
-	set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_65_1")
+	# # Boost path
+	# set (BoostDirectory "${CMAKE_SOURCE_DIR}/../boost_1_65_1")
 
-	# Armadillo path
-	set (ArmadilloDirectory "")
+	# # Armadillo path
+	# set (ArmadilloDirectory "")
 
-	# Threading Building Blocks paths
-	set (TbbDirectory "/usr")
+	# # Threading Building Blocks paths
+	# set (TbbDirectory "/usr")
 
-	# Blas path
-	set (BlasLibraryPath "")
+	# # Blas path
+	# set (BlasLibraryPath "")
 
-	# Lapack path
-	set (LapackLibraryPath "")
+	# # Lapack path
+	# set (LapackLibraryPath "")
 
 	# Matlab paths
 	if (APPLE)
-		set (MatlabDirectory "/Applications/MATLAB_R2015a.app")
+		set (MatlabDirectory "/Applications/MATLAB_R2020a.app")
 	else()
-		set (MatlabDirectory "/mnt/c/Program Files/MATLAB/R2016a")
+		set (MatlabDirectory "/mnt/c/Program Files/Polyspace/R2020a")
 	endif()
 endif()
 

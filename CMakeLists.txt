@@ -3,6 +3,15 @@
 
 cmake_minimum_required (VERSION 2.8)
 
+if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+  set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+      CACHE STRING "")
+endif()
+
+if(DEFINED ENV{VCPKG_DEFAULT_TRIPLET} AND NOT DEFINED VCPKG_TARGET_TRIPLET)
+  set(VCPKG_TARGET_TRIPLET "$ENV{VCPKG_DEFAULT_TRIPLET}" CACHE STRING "")
+endif()
+
 project (Pastel)
 
 # CMake build options
@@ -28,7 +37,10 @@ include ("SetupCompilers")
 message(STATUS 
 	"Current compiler is ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
 
-add_definitions(-DPASTEL_ENABLE_ASSERTS)
+add_definitions(
+	-DPASTEL_ENABLE_ASSERTS
+	-DBOOST_BIND_GLOBAL_PLACEHOLDERS
+)
 
 # Configure external libraries
 # ----------------------------
@@ -36,21 +48,21 @@ add_definitions(-DPASTEL_ENABLE_ASSERTS)
 # Manual override for external library paths.
 include ("Paths")
 
-find_package("Ranges_")
-include_directories (${RangesIncludeDirectory})
+# find_package("Ranges")
+# include_directories (${RangesIncludeDirectory})
 add_definitions(-DRANGES_NO_STD_FORWARD_DECLARATIONS)
 
-find_package("Boost_")
-include_directories (${BoostIncludeDirectory})
+# find_package("Boost")
+# include_directories (${BoostIncludeDirectory})
 
-find_package("Armadillo_")
-include_directories (${ArmadilloIncludeDirectory})
+# find_package("Armadillo")
+# include_directories (${ArmadilloIncludeDirectory})
 
-find_package("Tbb_")
-include_directories (${TbbIncludeDirectory})
+# find_package("Tbb")
+# include_directories (${TbbIncludeDirectory})
 
-find_package("Blas_")
-find_package("Lapack_")
+# find_package("Blas")
+# find_package("Lapack")
 
 if (BuildMatlab)
 	find_package("Matlab_")
@@ -60,23 +72,23 @@ endif()
 # Copy files
 # ----------
 
-if (WIN32)
-	# Copy dll-libraries aside executables for
-	# Windows to find them, when running an
-	# executable.
+# if (WIN32)
+# 	# Copy dll-libraries aside executables for
+# 	# Windows to find them, when running an
+# 	# executable.
 
-	set (DllPathSet 
-		"${BlasDllPath}"
-		"${LapackDllPath}")
+# 	set (DllPathSet 
+# 		"${BlasDllPath}"
+# 		"${LapackDllPath}")
 
-	foreach (DllPath ${DllPathSet})
-		EcCopyAsideExecutables("${DllPath}")
-	endforeach()
-endif()
+# 	foreach (DllPath ${DllPathSet})
+# 		EcCopyAsideExecutables("${DllPath}")
+# 	endforeach()
+# endif()
 
-# Copy some data files.
-file (COPY "${ProjectDirectory}/matlab/+pastelgeometry/fish.txt" 
-	DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/matlab/+pastelgeometry")
+# # Copy some data files.
+# file (COPY "${ProjectDirectory}/matlab/+pastelgeometry/fish.txt" 
+# 	DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/matlab/+pastelgeometry")
 
 # Source file globs
 # -----------------
