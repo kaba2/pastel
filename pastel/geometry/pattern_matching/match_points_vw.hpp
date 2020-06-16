@@ -17,6 +17,8 @@
 #include "pastel/sys/indicator/predicate_indicator.h"
 #include "pastel/sys/vector/vector_locator.h"
 
+#include <unordered_set>
+
 namespace Pastel
 {
 

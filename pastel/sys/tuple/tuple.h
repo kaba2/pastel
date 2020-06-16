@@ -386,7 +386,8 @@ namespace Pastel
 			return data_ + N;
 		}
 
-		bool operator==(const Tuple<Type, N> & that) const
+		template <integer N_>
+		bool operator==(const Tuple<Type, N_> & that) const
 		{
 			return std::equal(
 				begin(), end(), that.begin());

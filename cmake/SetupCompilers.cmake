@@ -156,6 +156,8 @@ if (MSVC)
 
 	# Disable some warnings.
 	add_definitions (
+		# '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+		/wd4334
 		# 'expression' : signed/unsigned mismatch
 		/wd4018
 		# 'variable' : unreferenced formal parameter

@@ -15,8 +15,7 @@ namespace Pastel
 		template <typename, typename>
 		friend class RefinablePartition;
 
-		template <typename ElementData_, typename SetData_>
-		friend class RefinablePartition_Fwd<ElementData_, SetData_>::Set;
+		friend class RefinablePartition_Fwd<ElementData, SetData>::Set;
 
 		//! Move-constructs from another element.
 		/*!
