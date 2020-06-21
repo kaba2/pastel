@@ -58,42 +58,46 @@ namespace Pastel
 
 	//! A sub-ring of real numbers.
 	template <typename T>
-	concept Real_Ring_Concept_ = 
+	concept Real_Ring_Concept__ = 
 		Ordered_Ring_Concept_<T> &&
 		Ring_Concept_<T> &&
 		Additive_SemiGroup_Concept_<T> &&
 		requires(T t) {
 		//! Constructs with value 0.
-		RemoveCvRef<T>();
+		T();
 		//! Constructs from an int8.
-		RemoveCvRef<T>((int8)0);
+		T((int8)0);
 		//! Constructs from an uint8.
-		RemoveCvRef<T>((uint8)0);
+		T((uint8)0);
 		//! Constructs from an int16.
-		RemoveCvRef<T>((int16)0);
+		T((int16)0);
 		//! Constructs from an uint16.
-		RemoveCvRef<T>((uint16)0);
+		T((uint16)0);
 		//! Constructs from an int32.
-		RemoveCvRef<T>((int32)0);
+		T((int32)0);
 		//! Constructs from an uint32.
-		RemoveCvRef<T>((uint32)0);
+		T((uint32)0);
 		//! Constructs from a float.
-		RemoveCvRef<T>((float)0);
+		T((float)0);
 		//! Constructs from a double.
-		RemoveCvRef<T>((double)0);
+		T((double)0);
 		//! Constructs from a NaN.
-		RemoveCvRef<T>(Nan());
+		T(Nan());
 		//! Constructs from an Infinity.
-		RemoveCvRef<T>(Infinity());
+		T(Infinity());
 		//! Constructs from -Infinity.
-		RemoveCvRef<T>(-Infinity());
+		T(-Infinity());
 		//! Returns the greatest integer <= that.
-		{floor(addConst(t))} -> std::convertible_to<RemoveCvRef<T>>;
+		{floor(addConst(t))} -> std::convertible_to<T>;
 		//! Returns the least integer >= that.
-		{ceil(addConst(t))} -> std::convertible_to<RemoveCvRef<T>>;
+		{ceil(addConst(t))} -> std::convertible_to<T>;
 		// //! Returns the number in scientific notation.
 		// {asScientific(addConst(t))} -> std::convertible_to<ScientificNotation>;
 	};
+
+	template <typename T>
+	concept Real_Ring_Concept_ = 
+		Real_Ring_Concept__<RemoveCvRef<T>>;
 
 	using Real_Ring_Archetype = integer;
 

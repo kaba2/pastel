@@ -39,14 +39,18 @@ namespace Pastel
 	and + : X^2 --> X is associative.
 	*/
 	template <typename T>
-	concept Additive_SemiGroup_Concept_ = 
+	concept Additive_SemiGroup_Concept__ = 
 		Element_Concept_<T> && 
 		requires(T t) {
 		//! Adds 'that' to the element.
 		t += t;
 		//! Returns left + right.
-		{t + t} -> std::convertible_to<RemoveCvRef<T>>;
+		{t + t} -> std::convertible_to<T>;
 	};
+
+	template <typename T>
+	concept Additive_SemiGroup_Concept_ = 
+		Additive_SemiGroup_Concept__<RemoveCvRef<T>>;
 
 	// For native types the operators += and + are inbuilt.
 
@@ -78,16 +82,20 @@ namespace Pastel
 	and * : X^2 --> X is associative.
 	*/
 	template <typename T>
-	concept Multiplicative_SemiGroup_Concept_ = 
+	concept Multiplicative_SemiGroup_Concept__ = 
 		Element_Concept_<T> && 
 		requires(T t) {
 		//! Multiplies 'that' to the element.
-		{t *= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
+		{t *= t} -> std::convertible_to<T>;
 		//! Returns left * right.
-		{t * t} -> std::convertible_to<RemoveCvRef<T>>;
+		{t * t} -> std::convertible_to<T>;
 		//! Returns the power t^p, for p in NN^{> 0}.
-		{pow(t, (integer)1)} -> std::convertible_to<RemoveCvRef<T>>;
+		{pow(t, (integer)1)} -> std::convertible_to<T>;
 	};
+
+	template <typename T>
+	concept Multiplicative_SemiGroup_Concept_ = 
+		Multiplicative_SemiGroup_Concept__<RemoveCvRef<T>>;
 
 	// For native types the operators *= and * are inbuilt.
 

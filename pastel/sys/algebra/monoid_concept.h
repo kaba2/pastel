@@ -40,12 +40,16 @@ namespace Pastel
 		    x + 0 = x = 0 + x, for all x in X.
 	*/
 	template <typename T>
-	concept Additive_Monoid_Concept_ =
+	concept Additive_Monoid_Concept__ =
 		Additive_SemiGroup_Concept_<T> && 
 		requires(T t) {
 			// Returns whether t == 0.
 			{zero(t)} -> std::convertible_to<bool>;
 	};
+
+	template <typename T>
+	concept Additive_Monoid_Concept_ =
+		Additive_Monoid_Concept__<RemoveCvRef<T>>;
 
 	//! A multiplicative monoid.
 	/*!
@@ -77,14 +81,18 @@ namespace Pastel
 		    x * 1 = x = 1 * x, for all x in X.
 	*/
 	template <typename T>
-	concept Multiplicative_Monoid_Concept_ =
+	concept Multiplicative_Monoid_Concept__ =
 		Multiplicative_SemiGroup_Concept_<T> && 
 		requires(T t) {
 			// Returns whether t == 1.
 			{one(t)} -> std::convertible_to<bool>;
 			//! Returns the power t^p, for p in NN^{>= 0}.
-			{pow(t, (integer)0)} -> std::convertible_to<RemoveCvRef<T>>;
+			{pow(t, (integer)0)} -> std::convertible_to<T>;
 	};
+
+	template <typename T>
+	concept Multiplicative_Monoid_Concept_ =
+		Multiplicative_Monoid_Concept__<RemoveCvRef<T>>;
 
 }
 

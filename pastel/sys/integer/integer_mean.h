@@ -10,11 +10,7 @@ namespace Pastel
 {
 
 	//! Returns (left + right) / 2 (without overflowing).
-	template <
-		typename Integer,
-		Requires<
-			Models<Integer, Integer_Concept>
-		> = 0>
+	template <Integer_Concept_ Integer>
 	Integer integerMean(
 		const Integer& left, 
 		const Integer& right)

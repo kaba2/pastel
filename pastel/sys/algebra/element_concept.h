@@ -29,10 +29,14 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Element_Concept_ = requires(T t) {
+	concept Element_Concept__ = requires(T t) {
 		{t == t} -> std::convertible_to<bool>;
 		{t != t} -> std::convertible_to<bool>;
 	};
+
+	template <typename T>
+	concept Element_Concept_ = 
+		Element_Concept__<RemoveCvRef<T>>;
 
 }
 

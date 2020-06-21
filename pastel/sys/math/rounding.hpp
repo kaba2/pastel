@@ -10,9 +10,7 @@
 namespace Pastel
 {
 
-	template <
-		typename Integer,
-		Requires<Models<Integer, Integer_Concept>>>
+	template <Integer_Concept_ Integer>
 	Integer roundUpTo(
 		const Integer& that, const Integer& to)
 	{
@@ -27,9 +25,7 @@ namespace Pastel
 		return that;
 	}
 
-	template <
-		typename Integer,
-		Requires<Models<Integer, Integer_Concept>>>
+	template <Integer_Concept_ Integer>
 	Integer roundUpToOdd(const Integer& that)
 	{
 		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
@@ -37,17 +33,13 @@ namespace Pastel
 		return odd(that) ? that : (that + 1);
 	}
 
-	template <
-		typename Real, 
-		Requires<std::is_floating_point<Real>>>
+	template <std::floating_point Real>
 	integer roundUpToOdd(const Real& that)
 	{
 		return Pastel::roundUpToOdd((integer)ceil(that));
 	}
 
-	template <
-		typename Integer,
-		Requires<Models<Integer, Integer_Concept>>>
+	template <Integer_Concept_ Integer>
 	Integer roundUpToEven(const Integer& that)
 	{
 		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
@@ -55,17 +47,13 @@ namespace Pastel
 		return even(that) ? that : (that + 1);
 	}
 
-	template <
-		typename Real, 
-		Requires<std::is_floating_point<Real>>>
+	template <std::floating_point Real>
 	integer roundUpToEven(const Real& that)
 	{
 		return Pastel::roundUpToEven((integer)ceil(that));
 	}
 
-	template <
-		typename Integer, 
-		Requires<std::is_unsigned<Integer>>>
+	template <std::unsigned_integral Integer>
 	Integer roundUpToPowerOfTwo(const Integer& that)
 	{
 		if (zero(that))
@@ -82,18 +70,14 @@ namespace Pastel
 		return X + 1;
 	}
 
-	template <
-		typename Integer, 
-		Requires<std::is_signed<Integer>>>
+	template <std::signed_integral Integer>
 	Integer roundUpToPowerOfTwo(const Integer& that)
 	{
 		return twosComplementToSigned(
 			roundUpToPowerOfTwo(signedToTwosComplement(that)));
 	}
 
-	template <
-		typename Integer,
-		Requires<Models<Integer, Integer_Concept>>>
+	template <Integer_Concept_ Integer>
 	Integer roundUpToPowerOfTwo(
 		const Integer& that, 
 		integer power)

@@ -43,9 +43,13 @@ namespace Pastel
 				{1, if otherwise
 	*/
 	template <typename T, typename Element>
-	concept Step_Indicator_Concept_ =
+	concept Step_Indicator_Concept__ =
 		Indicator_Concept_<T, Element> && 
 		Linearly_Ordered_Element_Concept_<Element>;
+
+	template <typename T, typename Element>
+	concept Step_Indicator_Concept_ =
+		Step_Indicator_Concept__<RemoveCvRef<T>, RemoveCvRef<Element>>;
 
 }
 

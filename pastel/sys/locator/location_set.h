@@ -69,12 +69,8 @@ namespace Pastel
 
 	//! Constructs a location-set from a point-set and a locator.
 	template <
-		typename Set, 
-		typename Locator,
-		Requires<
-			Models<Set, Set_Concept>,
-			Models<Locator, Locator_Concept>
-		> = 0
+		Set_Concept_ Set, 
+		Locator_Concept_ Locator
 	>
 	decltype(auto) locationSet(
 		const Set& set,

@@ -13,9 +13,13 @@ namespace Pastel
 	// Coordinates by point.pointAxis(i)
 
 	template <typename T>
-	concept Point_HasMemberPointAxis_ = requires(T t) {
-		t.pointAxis((integer)0);
+	concept Point_HasMemberPointAxis__ = requires(T t) {
+		addConst(t).pointAxis((integer)0);
 	};
+
+	template <typename T>
+	concept Point_HasMemberPointAxis_ =
+		Point_HasMemberPointAxis__<RemoveCvRef<T>>;
 
 	template <typename T>
 	using Point_HasMemberPointAxis = 
@@ -35,18 +39,21 @@ namespace Pastel
 	// Coordinates by point[i]
 
 	template <typename T>
-	concept Point_HasIndexing_ = requires(T t) {
-		t[(integer)0];
+	concept Point_HasIndexing__ = requires(T t) {
+		addConst(t)[(integer)0];
 	};
+
+	template <typename T>
+	concept Point_HasIndexing_ = 
+		Point_HasIndexing__<RemoveCvRef<T>>;
 
 	template <typename T>
 	using Point_HasIndexing = 
 		std::bool_constant<Point_HasIndexing_<T>>;
 
 	template <
-		typename Point,
+		Point_HasIndexing_ Point,
 		Requires<
-			Point_HasIndexing<Point>,
 			Not<Point_HasMemberPointAxis<Point>>
 		> = 0
 	>
@@ -63,18 +70,21 @@ namespace Pastel
 	// Coordinates by point(i)
 
 	template <typename T>
-	concept Point_HasMemberCall_ = requires(T t) {
-		t((integer)0);
+	concept Point_HasMemberCall__ = requires(T t) {
+		addConst(t)((integer)0);
 	};
+
+	template <typename T>
+	concept Point_HasMemberCall_ =
+		Point_HasMemberCall__<RemoveCvRef<T>>;
 
 	template <typename T>
 	using Point_HasMemberCall = 
 		std::bool_constant<Point_HasMemberCall_<T>>;
 
 	template <
-		typename Point,
+		Point_HasMemberCall_ Point,
 		Requires<
-			Point_HasMemberCall<Point>,
 			Not<Point_HasMemberPointAxis<Point>>,
 			Not<Point_HasIndexing<Point>>
 		> = 0
@@ -91,17 +101,16 @@ namespace Pastel
 	// Coordinates by being a number.
 
 	template <
-		typename Point,
+		Real_Ring_Concept_ Point,
 		Requires<
-			Models<Point, Real_Ring_Concept>,
 			Not<Point_HasMemberCall<Point>>,
 			Not<Point_HasMemberPointAxis<Point>>,
 			Not<Point_HasIndexing<Point>>
 		> = 0
 	>
-	decltype(auto) pointAxis(Point&& point, integer axis)
+	Point pointAxis(Point point, integer axis)
 	{
-		return std::forward<Point>(point);
+		return point;
 	}
 
 }

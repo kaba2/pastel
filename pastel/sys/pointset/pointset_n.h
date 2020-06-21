@@ -10,10 +10,7 @@
 namespace Pastel
 {
 
-	template <
-		typename Set,
-		Requires<Models<Set, Set_Concept>> = 0
-	>
+	template <Set_Concept_ Set>
 	integer pointSetN(const Set& pointSet)
 	{
 		return setSize(pointSetSet(pointSet));

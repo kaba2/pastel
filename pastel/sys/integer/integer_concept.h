@@ -83,7 +83,7 @@ namespace Pastel
 
 	//! An integer.
 	template <typename T>
-	concept Integer_Concept_ = 
+	concept Integer_Concept__ = 
 		Ordered_Ring_Concept_<T> &&
 		Printable_Concept_<T> && 
 		requires(T t) {
@@ -102,39 +102,43 @@ namespace Pastel
 		// Swaps with another integer.
 		//swap(t, t);
 		//! Computes roundTowardsZero(t / u).
-		{t /= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
-		{t / t} -> std::convertible_to<RemoveCvRef<T>>;
+		{t /= t} -> std::convertible_to<T>;
+		{t / t} -> std::convertible_to<T>;
 		//! Remainder of t when divided by u.
 		/*!
 		It holds that t = (t / u) * u + (t % u).
 		Note that the remainder can be negative.
 		*/
-		{t %= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
-		{t % t} -> std::convertible_to<RemoveCvRef<T>>;
+		{t %= t} -> std::convertible_to<T>;
+		{t % t} -> std::convertible_to<T>;
 		//! Bitwise logical and.
-		{t &= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
-		{t & t} -> std::convertible_to<RemoveCvRef<T>>;
+		{t &= t} -> std::convertible_to<T>;
+		{t & t} -> std::convertible_to<T>;
 		//! Bitwise logical or.
-		{t |= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
-		{t | t} -> std::convertible_to<RemoveCvRef<T>>;
+		{t |= t} -> std::convertible_to<T>;
+		{t | t} -> std::convertible_to<T>;
 		//! Bitwise logical xor.
-		{t ^= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
-		{t ^ t} -> std::convertible_to<RemoveCvRef<T>>;
+		{t ^= t} -> std::convertible_to<T>;
+		{t ^ t} -> std::convertible_to<T>;
 		//! Computes t * 2^n.
-		{t <<= (integer)0} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
-		{t << (integer)0} -> std::convertible_to<RemoveCvRef<T>>;
+		{t <<= (integer)0} -> std::convertible_to<T>;
+		{t << (integer)0} -> std::convertible_to<T>;
 		//! Computes floor(t / 2^n).
-		{t >>= (integer)0} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
-		{t >> (integer)0} -> std::convertible_to<RemoveCvRef<T>>;
+		{t >>= (integer)0} -> std::convertible_to<T>;
+		{t >> (integer)0} -> std::convertible_to<T>;
 		//! Returns whether 'that' is even.
 		{even(t)} -> std::convertible_to<bool>;
 		//! Returns whether 'that' is odd.
 		{odd(t)} -> std::convertible_to<bool>;
 		//! Returns an integer with maximum positive value.
-		{Infinity()} -> std::convertible_to<RemoveCvRef<T>>;
+		{Infinity()} -> std::convertible_to<T>;
 		//! Returns the number in scientific notation.
 		{asScientific(t)} -> std::convertible_to<ScientificNotation>;
 	};
+
+	template <typename T>
+	concept Integer_Concept_ = 
+		Integer_Concept__<RemoveCvRef<T>>;
 
 	using Integer_Archetype = integer;
 

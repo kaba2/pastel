@@ -34,10 +34,7 @@ namespace Pastel
 		virtual Log& operator<<(const std::string& value);
 		virtual void finalize();
 
-		template <
-			typename Type,
-			Requires<Models<Type, Printable_Concept>> = 0
-		>
+		template <Printable_Concept_ Type>
 		Log& operator<<(const Type& value);
 		
 		Log& operator<<(void (*function)(Log&));

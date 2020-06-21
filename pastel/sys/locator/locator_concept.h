@@ -78,18 +78,18 @@ namespace Pastel
 	3) Run-time dimension n(p) for each point p (n, N < 0).
 	*/
 	template <typename T>
-	concept Locator_Concept_ = requires(T t) {
+	concept Locator_Concept__ = requires(T t) {
 		//! The type of the point-ids.
-		typename RemoveCvRef<T>::Point;
+		typename T::Point;
 		
 		//! The type of the coordinates.
-		typename RemoveCvRef<T>::Real;
+		typename T::Real;
 		
 		//! Compile-time dimension.
 		/*!
 		If the dimension is dynamic, specify N = Dynamic.
 		*/
-		{RemoveCvRef<T>::N} -> std::convertible_to<integer>;
+		{T::N} -> std::convertible_to<integer>;
 		
 		//! Returns the dimension of the points.
 		/*!
@@ -106,15 +106,19 @@ namespace Pastel
 		A non-negative integer denoting the
 		dimension of the given point.
 		*/
-		{addConst(t).n(std::declval<typename RemoveCvRef<T>::Point>())} -> std::convertible_to<integer>;
+		{addConst(t).n(std::declval<typename T::Point>())} -> std::convertible_to<integer>;
 
 		//! Returns the i:th coordinate of the given point.
 		/*!
 		Preconditions:
 		0 <= i < n()
 		*/
-		{addConst(t)(std::declval<typename RemoveCvRef<T>::Point>(), (integer)0)} -> std::convertible_to<typename RemoveCvRef<T>::Real>;
+		{addConst(t)(std::declval<typename T::Point>(), (integer)0)} -> std::convertible_to<typename T::Real>;
 	};
+
+	template <typename T>
+	concept Locator_Concept_ = 
+		Locator_Concept__<RemoveCvRef<T>>;
 
 }
 

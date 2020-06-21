@@ -19,8 +19,12 @@ namespace Pastel
 	{};
 
 	template <typename T>
-	concept Linearly_Ordered_Element_Concept_ =
+	concept Linearly_Ordered_Element_Concept__ =
 		Ordered_Element_Concept_<T>;
+
+	template <typename T>
+	concept Linearly_Ordered_Element_Concept_ =
+		Linearly_Ordered_Element_Concept__<RemoveCvRef<T>>;
 
 }
 

@@ -798,10 +798,9 @@ namespace Pastel
 
 		//! Computes the remainder when divided by 'that'.
 		template <
-			typename Finite_Integer,
+			Finite_Integer_Concept_ Finite_Integer,
 			Requires<
-				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>,
-				Models<Finite_Integer, Finite_Integer_Concept>
+				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>
 			> = 0
 		>
 		MultiInteger& operator%=(
@@ -837,10 +836,9 @@ namespace Pastel
 		}
 
 		template <
-			typename Finite_Integer,
+			Finite_Integer_Concept_ Finite_Integer,
 			Requires<
-				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>,
-				Models<Finite_Integer, Finite_Integer_Concept>
+				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>
 			> = 0
 		>
 		MultiInteger operator%(Finite_Integer&& that) const
@@ -980,10 +978,9 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		template <
-			typename Finite_Integer,
+			Finite_Integer_Concept_ Finite_Integer,
 			Requires<
-				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>,
-				Models<Finite_Integer, Finite_Integer_Concept>
+				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>
 			> = 0
 		>
 		MultiInteger& operator/=(
@@ -1020,10 +1017,9 @@ namespace Pastel
 		}
 
 		template <
-			typename Finite_Integer,
+			Finite_Integer_Concept_ Finite_Integer,
 			Requires<
-				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>,
-				Models<Finite_Integer, Finite_Integer_Concept>
+				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>
 			> = 0
 		>
 		MultiInteger operator/(Finite_Integer&& that) const

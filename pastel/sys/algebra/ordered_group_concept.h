@@ -28,9 +28,13 @@ namespace Pastel
 	monoid (X, +, 0) which is also a group.
 	*/
 	template <typename T>
-	concept Ordered_Additive_Group_Concept_ =
+	concept Ordered_Additive_Group_Concept__ =
 		Ordered_Additive_Monoid_Concept_<T> && 
 		Additive_Group_Concept_<T>;
+
+	template <typename T>
+	concept Ordered_Additive_Group_Concept_ =
+		Ordered_Additive_Group_Concept__<RemoveCvRef<T>>;
 
 }
 

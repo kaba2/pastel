@@ -43,7 +43,7 @@ namespace Pastel
 	way.
 	*/
 	template <typename T>
-	concept Ordered_Element_Concept_ =
+	concept Ordered_Element_Concept__ =
 		Element_Concept_<T> && 
 		requires(T t) {
 			//! Returns whether left < right.
@@ -56,6 +56,9 @@ namespace Pastel
 			{t >= t} -> std::convertible_to<bool>;
 	};
 
+	template <typename T>
+	concept Ordered_Element_Concept_ =
+		Ordered_Element_Concept__<RemoveCvRef<T>>;
 
 }
 

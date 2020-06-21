@@ -30,7 +30,7 @@ namespace Pastel
 	};
 
 	template <typename T, typename Element>
-	concept Indicator_Concept_ = 
+	concept Indicator_Concept__ = 
 		requires(T t, Element e) {
 		//! Returns whether an element is in the true-set.
 		/*!
@@ -40,6 +40,11 @@ namespace Pastel
 		*/
 		{t(e)} -> std::convertible_to<bool>;
 	};
+
+	template <typename T, typename Element>
+	concept Indicator_Concept_ = 
+		Indicator_Concept__<RemoveCvRef<T>, RemoveCvRef<Element>>;
+
 
 }
 

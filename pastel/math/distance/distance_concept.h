@@ -91,10 +91,10 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Distance_Concept_ =
+	concept Distance_Concept__ =
 		requires(T t) {
 			//! The computation type.
-			typename RemoveCvRef<T>::Real_;
+			typename T::Real_;
 
 			//! Constructs a zero distance.
 			T();
@@ -115,19 +115,19 @@ namespace Pastel
 			An example of multiple equal distances is the 
 			product-distance.
 			*/
-			T(std::declval<typename RemoveCvRef<T>::Real_>());
+			T(std::declval<typename T::Real_>());
 
 			//! Returns the distance.
-			(typename RemoveCvRef<T>::Real_)addConst(t);
+			(typename T::Real_)addConst(t);
 
 			//! Multiplies the distance by the given value.
-			{t *= std::declval<typename RemoveCvRef<T>::Real_>()} -> std::convertible_to<T&>;
+			{t *= std::declval<typename T::Real_>()} -> std::convertible_to<T&>;
 
 			//! Divides the distance by the given value.
 			/*!
 			Deriving from DistanceBase implements this automatically.
 			*/
-			{t /= std::declval<typename RemoveCvRef<T>::Real_>()} -> std::convertible_to<T&>;
+			{t /= std::declval<typename T::Real_>()} -> std::convertible_to<T&>;
 
 			//! Distances comparisons.
 			/*!
@@ -150,11 +150,15 @@ namespace Pastel
 				// axis
 				std::declval<integer>(),
 				// from
-				std::declval<typename RemoveCvRef<T>::Real_>(),
+				std::declval<typename T::Real_>(),
 				// to
-				std::declval<typename RemoveCvRef<T>::Real_>()
+				std::declval<typename T::Real_>()
 			)} -> std::convertible_to<T&>;
 		};
+
+	template <typename T>
+	concept Distance_Concept_ =
+		Distance_Concept__<RemoveCvRef<T>>;
 
 }
 

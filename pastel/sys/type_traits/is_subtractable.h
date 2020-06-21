@@ -3,22 +3,23 @@
 #ifndef PASTELSYS_IS_SUBTRACTABLE_H
 #define PASTELSYS_IS_SUBTRACTABLE_H
 
-#include "pastel/sys/type_traits/compiles.h"
-#include "pastel/sys/function/identity_function.h"
+#include "pastel/sys/type_traits.h"
 
 namespace Pastel
 {
 
-		template <
-			typename Type,
-			typename = 
-				decltype(std::declval<Type>() - std::declval<Type>())
-		>
-		struct Subtraction_Test {};
+		template <typename T>
+		concept Is_Subtractable__ = requires(T t) {
+			t - t;
+		};
+
+		template <typename T>
+		concept Is_Subtractable_ = 
+			Is_Subtractable__<RemoveCvRef<T>>;
 
 		template <typename Type>
-		using Is_Subtractable =
-			Compiles<Subtraction_Test, Type>;
+		using Is_Subtractable = 
+			std::bool_constant<Is_Subtractable_<Type>>;
 
 		template <typename Type>
 		using Is_Subtractable_F =

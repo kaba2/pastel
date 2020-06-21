@@ -37,9 +37,13 @@ namespace Pastel
 	for all c, x, y in X.
 	*/
 	template <typename T>
-	concept Ordered_Additive_SemiGroup_Concept_ =
+	concept Ordered_Additive_SemiGroup_Concept__ =
 		Additive_SemiGroup_Concept_<T> && 
 		Ordered_Element_Concept_<T>;
+
+	template <typename T>
+	concept Ordered_Additive_SemiGroup_Concept_ =
+		Ordered_Additive_SemiGroup_Concept__<RemoveCvRef<T>>;
 
 }
 

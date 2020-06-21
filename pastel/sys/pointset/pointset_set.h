@@ -10,9 +10,13 @@ namespace Pastel
 {
 
 	template <typename T>
-	concept HasMemberPointSet_ = requires(T t) {
+	concept HasMemberPointSet__ = requires(T t) {
 		addConst(t).pointSetSet();
 	};
+
+	template <typename T>
+	concept HasMemberPointSet_ = 
+		HasMemberPointSet__<RemoveCvRef<T>>;
 
 	template <typename Type>
 	using HasMemberPointSet = 

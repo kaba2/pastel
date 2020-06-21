@@ -51,7 +51,7 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Input_Concept_ = requires(T t) {
+	concept Input_Concept__ = requires(T t) {
 		//! Returns an approximation of the number of elements left.
 		/*!
 		This number is only a hint;
@@ -82,6 +82,10 @@ namespace Pastel
 		*/
 		t.pop();
 	};
+
+	template <typename T>
+	concept Input_Concept_ = 
+		Input_Concept__<RemoveCvRef<T>>;
 
 }
 

@@ -3,22 +3,23 @@
 #ifndef PASTELSYS_IS_ADDABLE_H
 #define PASTELSYS_IS_ADDABLE_H
 
-#include "pastel/sys/type_traits/compiles.h"
-#include "pastel/sys/function/identity_function.h"
+#include "pastel/sys/type_traits.h"
 
 namespace Pastel
 {
 
-		template <
-			typename Type,
-			typename = 
-				decltype(std::declval<Type>() + std::declval<Type>())
-		>
-		struct Addition_Test {};
+		template <typename T>
+		concept Is_Addable__ = requires(T t) {
+			t + t;			
+		};
+
+		template <typename T>
+		concept Is_Addable_ = 
+			Is_Addable__<RemoveCvRef<T>>;
 
 		template <typename Type>
 		using Is_Addable =
-			Compiles<Addition_Test, Type>;
+			std::bool_constant<Is_Addable_<Type>>;
 
 		template <typename Type>
 		using Is_Addable_F =

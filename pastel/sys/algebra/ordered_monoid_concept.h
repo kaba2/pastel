@@ -42,7 +42,7 @@ namespace Pastel
 	which is also an ordered additive semigroup.
 	*/
 	template <typename T>
-	concept Ordered_Additive_Monoid_Concept_ =
+	concept Ordered_Additive_Monoid_Concept__ =
 		Ordered_Additive_SemiGroup_Concept_<T> && 
 		Additive_Monoid_Concept_<T> && 
 		requires(T t) {
@@ -51,8 +51,12 @@ namespace Pastel
 		//! Returns whether 'that' < 0.
 		{negative(t)} -> std::convertible_to<bool>;
 		//! Returns the absolute value of 'that'.
-		{abs(t)} -> std::convertible_to<RemoveCvRef<T>>;
+		{abs(t)} -> std::convertible_to<T>;
 	};
+
+	template <typename T>
+	concept Ordered_Additive_Monoid_Concept_ =
+		Ordered_Additive_Monoid_Concept__<RemoveCvRef<T>>;
 
 }
 

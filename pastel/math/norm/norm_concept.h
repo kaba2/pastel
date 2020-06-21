@@ -25,9 +25,13 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Norm_Concept_ = requires(T t) {
+	concept Norm_Concept__ = requires(T t) {
 		{addConst(t)()} -> Distance_Concept_;
 	};
+
+	template <typename T>
+	concept Norm_Concept_ = 
+		Norm_Concept__<RemoveCvRef<T>>;
 
 }
 

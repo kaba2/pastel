@@ -13,19 +13,18 @@ namespace Pastel
 
 	// Dimension by having member .pointDimension().
 
-	template <
-		typename Point,
-		typename = decltype(Concept::convertsTo<integer>(std::declval<Point>().pointDimension()))>
-	struct Point_HasMemberDimension_Test {};
+	template <typename T>
+	concept Point_HasMemberDimension__ = requires(T t) {
+		{t.pointDimension()} -> std::convertible_to<integer>;
+	};
+
+	template <typename T>
+	concept Point_HasMemberDimension_ = 
+		Point_HasMemberDimension__<RemoveCvRef<T>>;
 
 	template <typename Type>
 	using Point_HasMemberDimension = 
-		Compiles<Point_HasMemberDimension_Test, Type>;
-
-	template <typename T>
-	concept Point_HasMemberDimension_ = requires(T t) {
-		{t.pointDimension()} -> std::convertible_to<integer>;
-	};
+		std::bool_constant<Point_HasMemberDimension_<Type>>;
 
 	template <Point_HasMemberDimension_ Point>
 	decltype(auto) dimension(Point&& point)
@@ -40,30 +39,28 @@ namespace Pastel
 
 	// Dimension by having member .size().
 
-	template <
-		typename Point,
-		typename = decltype(Concept::convertsTo<integer>(std::declval<Point>().size()))>
-	struct Point_HasMemberSize_Test {};
-	
-	template <typename Type>
-	using Point_HasMemberSize = 
-		Compiles<Point_HasMemberSize_Test, Type>;
-
 	template <typename T>
-	concept Point_HasMemberSize_ = requires(T t) {
+	concept Point_HasMemberSize__ = requires(T t) {
 		{addConst(t).size()} -> std::convertible_to<integer>;
 	};
 
+	template <typename T>
+	concept Point_HasMemberSize_ = 
+		Point_HasMemberSize__<RemoveCvRef<T>>;
+
+	template <typename Type>
+	using Point_HasMemberSize = 
+		std::bool_constant<Point_HasMemberSize_<Type>>;
+
 	template <
-		typename Point,
+		Point_HasMemberSize_ Point,
 		Requires<
-			Point_HasMemberSize<Point>,
 			Not<Point_HasMemberDimension<Point>>
 		> = 0
 	>
-	decltype(auto) dimension(Point&& point)
+	integer dimension(const Point& point)
 	{
-		return std::forward<Point>(point).size();
+		return point.size();
 	}
 
 }
@@ -74,14 +71,13 @@ namespace Pastel
 	// Dimension by being a number.
 
 	template <
-		typename Point,
+		Real_Ring_Concept_ Point,
 		Requires<
-			Models<Point, Real_Ring_Concept>,
 			Not<Point_HasMemberSize<Point>>,
 			Not<Point_HasMemberDimension<Point>>
 		> = 0
 	>
-	integer dimension(Point&& point)
+	integer dimension(const Point& point)
 	{
 		return 1;
 	}

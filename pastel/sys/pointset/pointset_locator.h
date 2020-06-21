@@ -14,9 +14,13 @@ namespace Pastel
 {
 
 	template <typename T>
-	concept HasMemberPointSetLocator_ = requires(T t) {
+	concept HasMemberPointSetLocator__ = requires(T t) {
 		{addConst(t).pointSetLocator()} -> Locator_Concept_;	
 	};
+
+	template <typename T>
+	concept HasMemberPointSetLocator_ = 
+		HasMemberPointSetLocator__<RemoveCvRef<T>>;
 
 	template <typename Type>
 	using HasMemberPointSetLocator = 

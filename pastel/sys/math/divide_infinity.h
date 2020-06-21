@@ -20,12 +20,8 @@ namespace Pastel
 	unsigned integers.
 	*/
 	template <
-		typename Integer,
-		typename N_Integer,
-		Requires<
-			Models<Integer, Integer_Concept>,
-			Models<N_Integer, Integer_Concept>
-		> = 0
+		Integer_Concept_ Integer,
+		Integer_Concept_ N_Integer
 	>
 	Integer divideInfinity(const N_Integer& n);
 

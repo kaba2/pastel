@@ -9,6 +9,7 @@
 #include "pastel/sys/type_traits/and.h"
 #include "pastel/sys/type_traits/or.h"
 #include "pastel/sys/type_traits/not.h"
+#include "pastel/sys/type_traits/remove_cvref.h"
 
 #define PASTEL_REMOVE_BRACKETS(x) typename Pastel::Deduction_::RemoveBrackets<void (x)>::Type
 
@@ -16,9 +17,7 @@ namespace Pastel
 {
 
 	template <typename T>
-	concept Arithmetic_Concept_ = requires {
-		requires std::is_arithmetic_v<T>;
-	};
+	concept Arithmetic_Concept_ = std::is_arithmetic_v<RemoveCvRef<T>>;
 
 	template <
 		bool Condition,

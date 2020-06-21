@@ -24,7 +24,7 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Indexed_Input_Concept_ =
+	concept Indexed_Input_Concept__ =
 		Sized_Input_Concept_<T> && 
 		requires(T t) {
 			//! Returns the i:th next element.
@@ -32,8 +32,12 @@ namespace Pastel
 			Preconditions:
 			0 <= i < n()
 			*/
-		requires std::is_same_v<decltype(t[(integer)0]), decltype(t.get())>;
+			{t[(integer)0]} -> std::same_as<decltype(t.get())>;
 	};
+
+	template <typename T>
+	concept Indexed_Input_Concept_ =
+		Indexed_Input_Concept__<RemoveCvRef<T>>;
 
 }
 

@@ -37,7 +37,7 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept NearestSet_Concept_ = requires(T t) {
+	concept NearestSet_Concept__ = requires(T t) {
 		addConst(t).asPoint(std::declval<PointSet_Point<T>>());
 		addConst(t).findNearbyPointsets(
 			// Search-point
@@ -48,6 +48,10 @@ namespace Pastel
 			Distance_Archetype(),
 			Output_Archetype());
 	};
+
+	template <typename T>
+	concept NearestSet_Concept_ =
+		NearestSet_Concept__<RemoveCvRef<T>>;
 
 	template <typename Type>
 	using NearestSet_Point = PointSet_Point<Type>;

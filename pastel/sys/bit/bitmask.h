@@ -20,12 +20,7 @@ namespace Pastel
 	In other words, mod(2^bit, 2^n), where n is the
 	number of bits in the integer.
 	*/
-	template <
-		typename Finite_Integer,
-		Requires<
-			Models<Finite_Integer, Finite_Integer_Concept>
-		> = 0
-	>
+	template <Finite_Integer_Concept_ Finite_Integer>
 	Finite_Integer singleBitMask(integer bit);
 
 	//! Returns an integer with lower bits set.
@@ -40,12 +35,7 @@ namespace Pastel
 	mod(2^endBit - 1, 2^n), where n is the number 
 	of bits.
 	*/
-	template <
-		typename Finite_Integer,
-		Requires<
-			Models<Finite_Integer, Finite_Integer_Concept>
-		> = 0
-	>
+	template <Finite_Integer_Concept_ Finite_Integer>
 	Finite_Integer bitMask(integer endBit);
 
 	//! Returns an interval of bits set.
@@ -60,12 +50,7 @@ namespace Pastel
 	mod(2^endBit - 2^beginBit, 2^n),
 	where n is the number of bits.
 	*/
-	template <
-		typename Finite_Integer,
-		Requires<
-			Models<Finite_Integer, Finite_Integer_Concept>
-		> = 0
-	>
+	template <Finite_Integer_Concept_ Finite_Integer>
 	Finite_Integer bitMask(integer beginBit, integer endBit);
 
 }

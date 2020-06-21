@@ -45,12 +45,8 @@ namespace Pastel
 	 0  1  2  0  1  2 0 1 2 0 1 2 0
 	*/
 	template <
-		typename Integer,
-		typename N_Integer,
-		Requires<
-			Models<Integer, Integer_Concept>,
-			Models<N_Integer, Integer_Concept>
-		> = 0
+		Integer_Concept_ Integer,
+		Integer_Concept_ N_Integer
 	>
 	Integer mod(const Integer& x, const N_Integer& n);
 

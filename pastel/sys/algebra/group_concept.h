@@ -43,16 +43,20 @@ namespace Pastel
 	it is denoted by -x.
 	*/
 	template <typename T>
-	concept Additive_Group_Concept_ = 
+	concept Additive_Group_Concept__ = 
 		Additive_Monoid_Concept_<T> && 
 		requires(T t) {
 		//! Adds -that to the element.
-		{t -= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
+		{t -= t} -> std::convertible_to<T>;
 		//! Returns left * (-right).
-		{t - t} -> std::convertible_to<RemoveCvRef<T>>;
+		{t - t} -> std::convertible_to<T>;
 		//! Returns -x for an element x.
-		{-t} -> std::convertible_to<RemoveCvRef<T>>;
+		{-t} -> std::convertible_to<T>;
 	};
+
+	template <typename T>
+	concept Additive_Group_Concept_ = 
+		Additive_Group_Concept__<RemoveCvRef<T>>;
 
 	//! A multiplicative group.
 	/*!
@@ -86,16 +90,20 @@ namespace Pastel
 	it is denoted by inverse(x).
 	*/
 	template <typename T>
-	concept Multiplicative_Group_Concept_ = 
+	concept Multiplicative_Group_Concept__ = 
 		Multiplicative_Monoid_Concept_<T> && 
 		requires(T t) {
 		//! Multiplies with inverse(that) from the right.
-		{t /= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
+		{t /= t} -> std::convertible_to<T>;
 		//! Returns left * inverse(right).
-		{t / t} -> std::convertible_to<RemoveCvRef<T>>;
+		{t / t} -> std::convertible_to<T>;
 		//! Returns inverse(x) for an element x.
-		{inverse(t)} -> std::convertible_to<RemoveCvRef<T>>;
+		{inverse(t)} -> std::convertible_to<T>;
 	};
+
+	template <typename T>
+	concept Multiplicative_Group_Concept_ = 
+		Multiplicative_Group_Concept__<RemoveCvRef<T>>;
 
 }
 
