@@ -17,6 +17,11 @@ namespace Pastel
 		Multiplicative_Group_Concept>
 	{};
 
+	template <typename T>
+	concept Real_Concept_ = 
+		Real_Ring_Concept_<T> && 
+		Multiplicative_Group_Concept_<T>;
+
 	using Real_Archetype = real;
 
 }

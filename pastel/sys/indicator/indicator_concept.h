@@ -4,6 +4,7 @@
 #define PASTELSYS_INDICATOR_CONCEPT_H
 
 #include "pastel/sys/function/function_concept.h"
+#include <concepts>
 
 namespace Pastel
 {
@@ -26,6 +27,18 @@ namespace Pastel
 				Concept::convertsTo<bool>(addConst(t)(e))
 			)
 		);
+	};
+
+	template <typename T, typename Element>
+	concept Indicator_Concept_ = 
+		requires(T t, Element e) {
+		//! Returns whether an element is in the true-set.
+		/*!
+		The true-set is the set of those elements which the
+		indicator maps to true. Similarly for the false-set.
+		The false-set is the complement of the true-set.
+		*/
+		{t(e)} -> std::convertible_to<bool>;
 	};
 
 }

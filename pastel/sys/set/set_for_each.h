@@ -18,19 +18,12 @@ namespace Pastel
 	Whether the for-each was uninterrupted by the user.
 	*/
 	template <
-		typename Set,
-		typename Element_Function,
-		Requires<
-			Models<Set, Set_Concept>
-			// This triggers a bug in Visual Studio 2015 RC.
-			/*,
-			Models<Element_Function, Function_Concept<bool>(Set_Element<Set>)>
-			*/
-		> = 0
+		Set_Concept_ Set,
+		typename Visit
 	>
 	bool forEach(
 		const Set& set,
-		const Element_Function& visit)
+		const Visit& visit)
 	{
 		RANGES_FOR(auto&& element, set)
 		{

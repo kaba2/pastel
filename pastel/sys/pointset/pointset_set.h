@@ -9,34 +9,16 @@
 namespace Pastel
 {
 
-	namespace PointSet_
-	{
-
-		struct MemberPointSet_Concept
-		{
-			template <typename Type>
-			auto requires_(Type&& t) -> decltype
-			(
-				conceptCheck(
-					Concept::holds<
-						Models<decltype(addConst(t).pointSetSet())>
-					>()
-				)
-			);
-		};
-
-	}
+	template <typename T>
+	concept HasMemberPointSet_ = requires(T t) {
+		addConst(t).pointSetSet();
+	};
 
 	template <typename Type>
 	using HasMemberPointSet = 
-		Models<Type, PointSet_::MemberPointSet_Concept>;
+		std::bool_constant<HasMemberPointSet_<Type>>;
 
-	template <
-		typename Type,
-		Requires<
-			HasMemberPointSet<Type>
-		> = 0
-	>
+	template <HasMemberPointSet_ Type>
 	decltype(auto) pointSetSet(Type&& that)
 	{
 		return std::forward<Type>(that).pointSetSet();
@@ -44,9 +26,8 @@ namespace Pastel
 
 
 	template <
-		typename Set,
+		Set_Concept_ Set,
 		Requires<
-			Models<Set, Set_Concept>,
 			// Give priority to the member-locator.
 			Not<HasMemberPointSet<Set>>
 		> = 0
@@ -61,20 +42,10 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	using PointSet_Set = RemoveCvRef<decltype(pointSetSet(std::declval<PointSet>()))>;
 
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	struct PointSet_Set_F 
 		: Identity_F<PointSet_Set<PointSet>>
 	{};

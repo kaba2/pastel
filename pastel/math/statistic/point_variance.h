@@ -23,13 +23,11 @@ namespace Pastel
 	d = locator.n().
 	*/
 	template <
-		typename PointSet,
+		PointSet_Concept_ PointSet,
 		typename Real = PointSet_Real<PointSet>,
 		typename Locator = PointSet_Locator<PointSet>,
-		typename... ArgumentSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0>
+		typename... ArgumentSet
+	>
 	auto pointVariance(
 		PointSet pointSet,
 		ArgumentSet&&... argumentSet)

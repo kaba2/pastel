@@ -20,12 +20,19 @@ namespace Pastel
 		(
 			conceptCheck(
 				Concept::models<Real_Ring_Concept>(pointAxis(addConst(t), (integer)0)),
-				Concept::convertsTo<integer>(dimension(addConst(t)))
-				// ,
-				// Concept::models<Locator>(pointLocator(addConst(t)))
-				// pointPointId(addConst(t))
+				Concept::convertsTo<integer>(dimension(addConst(t))),
+				//Concept::models<Locator>(pointLocator(addConst(t))),
+				pointPointId(addConst(t))
 			)
 		);
+	};
+
+	template <typename T>
+	concept Point_Concept_ = requires(T t) {
+		{removeReference(pointAxis(addConst(t), (integer)0))} -> Real_Ring_Concept_;
+		{dimension(addConst(t))} -> std::convertible_to<integer>;
+		// {removeReference(pointLocator(addConst(t)))} -> Locator_Concept_;
+		pointPointId(addConst(t));
 	};
 
 }
@@ -39,11 +46,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Point,
-		Requires<
-			Models<Point, Point_Concept>
-		> = 0
-	>
+	template <Point_Concept_ Point>
 	void printPoint(
 		std::ostream& stream, 
 		const Point& point)

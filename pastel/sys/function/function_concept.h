@@ -41,6 +41,13 @@ namespace Pastel
 		);
 	};
 
+	template <typename T, typename... Arguments>
+	concept Function_Concept_ =
+		requires(T t, Arguments... arguments) {
+		//! Returns the value of the function at given arguments.
+		{addConst(t)(arguments...)} -> std::convertible_to<RemoveCvRef<T>>;
+	};
+
 }
 
 namespace Pastel

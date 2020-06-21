@@ -28,6 +28,12 @@ namespace Pastel
 		);
 	};
 
+	template <typename T>
+	concept Element_Concept_ = requires(T t) {
+		{t == t} -> std::convertible_to<bool>;
+		{t != t} -> std::convertible_to<bool>;
+	};
+
 }
 
 #endif

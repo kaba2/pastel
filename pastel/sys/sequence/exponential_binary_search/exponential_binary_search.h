@@ -6,6 +6,7 @@
 
 #include "pastel/sys/indicator/step_indicator_concept.h"
 #include "pastel/sys/director/director_concept.h"
+#include "pastel/sys/integer/integer_concept.h"
 
 // Implementation
 
@@ -26,12 +27,8 @@ namespace Pastel
 	See the documentation for directedBinarySearch().
 	*/
 	template <
-		typename Integer, 
-		typename Integer_Step_Indicator,
-		Requires<
-			Models<Integer, Integer_Concept>,
-			Models<Integer_Step_Indicator, Step_Indicator_Concept(Integer)>
-		> ConceptCheck = 0
+		Integer_Concept_ Integer, 
+		Step_Indicator_Concept_<Integer> Integer_Step_Indicator
 	>
 	Integer exponentialBinarySearch(
 		const Integer& minLevel, 
@@ -72,12 +69,9 @@ namespace Pastel
 	true on [k, maxLevel).
 	*/
 	template <
-		typename Integer, 
-		typename Integer_Director,
-		Requires<
-			Models<Integer, Integer_Concept>,
-			Models<Integer_Director, Director_Concept(Integer)>
-		> ConceptCheck = 0>
+		Integer_Concept_ Integer, 
+		Director_Concept_<Integer> Integer_Director
+	>
 	Integer directedExponentialBinarySearch(
 		const Integer& minLevel, 
 		const Integer& maxLevel,

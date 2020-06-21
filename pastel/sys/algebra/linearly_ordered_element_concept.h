@@ -18,6 +18,10 @@ namespace Pastel
 		: Refines<Ordered_Element_Concept>
 	{};
 
+	template <typename T>
+	concept Linearly_Ordered_Element_Concept_ =
+		Ordered_Element_Concept_<T>;
+
 }
 
 #endif

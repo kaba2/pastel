@@ -19,6 +19,13 @@ namespace Pastel
 		);
 	};
 
+	template <typename T>
+	concept Sized_Input_Concept_ =
+		Input_Concept_<T> && requires(T t) {
+		//! Returns the exact number of elements left.
+		{t.n()} -> std::convertible_to<integer>;
+	};
+
 }
 
 #endif

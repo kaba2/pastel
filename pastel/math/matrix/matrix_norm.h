@@ -20,10 +20,8 @@ namespace Pastel
 	*/
 	template <
 		typename Real, typename Expression, 
-		typename Norm = Euclidean_Norm<Real>,
-		Requires<
-			Models<Norm, Norm_Concept>
-		> = 0>
+		Norm_Concept_ Norm = Euclidean_Norm<Real>
+	>
 	Real norm2(
 		const MatrixExpression<Real, Expression>& matrix,
 		const Norm& norm = Norm())

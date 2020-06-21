@@ -10,19 +10,10 @@
 namespace Pastel
 {
 
-	template <
-		typename Set,
-		Requires<
-			Models<Set, Set_Concept>
-		> = 0
-	>
+	template <Set_Concept_ Set>
 	using Set_Element = ranges::range_value_t<Set>;
 	
-	template <
-		typename Set,
-		Requires<
-			Models<Set, Set_Concept>
-		> = 0>
+	template <Set_Concept_ Set>
 	using Set_Element_F = 
 		Identity_F<Set_Element<Set>>;
 

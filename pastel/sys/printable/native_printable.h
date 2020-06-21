@@ -18,11 +18,8 @@ namespace Pastel
 	// RequiresC instead avoids the bug.
 
 	template <
-		typename Type,
-		RequiresC<
-			std::is_arithmetic<Type>::value
-		> = 0
-		>
+		Arithmetic_Concept_ Type
+	>
 	std::string asString(Type that)
 	{
 		std::stringstream stream;

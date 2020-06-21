@@ -11,12 +11,8 @@ namespace Pastel
 {
 
 	template <
-		typename A_Point,
-		typename B_Point,
-		Requires<
-			Models<A_Point, Point_Concept>,
-			Models<B_Point, Point_Concept>
-		>
+		Point_Concept_ A_Point,
+		Point_Concept_ B_Point
 	>
 	Sphere<Point_Real<A_Point>, Point_N<A_Point>::value> 
 		boundingSphere(
@@ -31,10 +27,7 @@ namespace Pastel
 	}
 
 	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		>
+		PointSet_Concept_ PointSet
 	>
 	Sphere<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value> 
 		boundingSphere(const PointSet& pointSet)

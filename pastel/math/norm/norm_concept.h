@@ -24,6 +24,11 @@ namespace Pastel
 		);
 	};
 
+	template <typename T>
+	concept Norm_Concept_ = requires(T t) {
+		{addConst(t)()} -> Distance_Concept_;
+	};
+
 }
 
 #include "pastel/math/norm/norm_archetype.h"

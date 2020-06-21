@@ -59,9 +59,7 @@ namespace Pastel
 		return false;
 	}
 
-	template <
-		typename Type, 
-		Requires<std::is_arithmetic<Type>> = 0>
+	template <Arithmetic_Concept_ Type>
 	bool positive(const Type& that)
 	{
 		return that > 0;

@@ -27,7 +27,8 @@ TEST_CASE("statistics (statistics)")
 		std::vector<Point> aSet = { -1, 7, 4, -3, 7, 8 };
 		std::vector<Point> bSet = { -6, 4, 3, 2, -6, -1 };
 
-		using PointSet = decltype(aSet);
+		using PointSet = RemoveCvRef<decltype(aSet)>;
+
 		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
 
 		REQUIRE(allEqual(pointMean(aSet), Real(11, 3)));

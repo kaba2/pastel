@@ -28,6 +28,15 @@ namespace Pastel
 		);
 	};
 
+	template <typename T>
+	concept PointSet_Concept_ =
+		Set_Concept_<T> && 
+		requires(T t) {
+		// A point-set is a set together with a locator. 
+		pointSetLocator(addConst(t));
+		{removeReference(pointSetLocator(addConst(t)))} -> Locator_Concept_;
+	};
+
 }
 
 #include "pastel/sys/pointset/pointset_dimension.h"

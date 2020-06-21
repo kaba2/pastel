@@ -89,16 +89,10 @@ namespace Pastel
 		}
 
 		template <
-			typename Search_Point,
-			typename Norm,
-			typename Distance,
-			typename Output,
-			Requires<
-				Models<Search_Point, Point_Concept>,
-				Models<Norm, Norm_Concept>,
-				Models<Distance, Distance_Concept>
-				/*, std::is_same<decltype(Norm()()), Distance>*/
-			> = 0
+			Point_Concept_ Search_Point,
+			Norm_Concept_ Norm,
+			Distance_Concept_ Distance,
+			typename Output
 		>
 		void findNearbyPointsets(
 			const Search_Point& searchPoint,

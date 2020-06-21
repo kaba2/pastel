@@ -81,13 +81,9 @@ namespace Pastel
 	*begin(nearestSet.pointSet()).
 	*/
 	template <
-		typename NearestSet,
-		typename Search_Point,
-		typename... ArgumentSet,
-		Requires<
-			Models<NearestSet, NearestSet_Concept>,
-			Models<Search_Point, Point_Concept>
-		> = 0
+		NearestSet_Concept_ NearestSet,
+		Point_Concept_ Search_Point,
+		typename... ArgumentSet
 	>
 	void searchNearby(
 		const NearestSet& nearestSet,

@@ -40,12 +40,7 @@ namespace Pastel
 				-std::numeric_limits<Type>::infinity();
 		}
 
-		template <
-			typename Type,
-			Requires<
-				std::is_arithmetic<Type>
-			> = 0
-		>
+		template <Arithmetic_Concept_ Type>
 		bool operator==(const Type& that) const
 		{
 			return that == (Type)*this;
@@ -57,12 +52,7 @@ namespace Pastel
 			return inf == that;
 		}
 
-		template <
-			typename Type,
-			Requires<
-				std::is_arithmetic<Type>
-			> = 0
-		>
+		template <Arithmetic_Concept_ Type>
 		bool operator!=(const Type& that) const
 		{
 			return !(that == *this);

@@ -8,21 +8,11 @@
 namespace Pastel
 {
 
-	template <
-		typename Set,
-		Requires<
-			Models<Set, Set_Concept>
-		> = 0
-	>
+	template <Set_Concept_ Set>
 	using Set_Index = 
 		typename ranges::iterator_t<Set>;
 	
-	template <
-		typename Set,
-		Requires<
-			Models<Set, Set_Concept>
-		> = 0
-	>
+	template <Set_Concept_ Set>
 	using Set_Index_F = 
 		Identity_F<Set_Index<Set>>;
 

@@ -33,6 +33,21 @@ namespace Pastel
 		);
 	};
 
+	//! An additive semi-group.
+	/*!
+	A semi-group is a pair (X, +), where X is a set 
+	and + : X^2 --> X is associative.
+	*/
+	template <typename T>
+	concept Additive_SemiGroup_Concept_ = 
+		Element_Concept_<T> && 
+		requires(T t) {
+		//! Adds 'that' to the element.
+		t += t;
+		//! Returns left + right.
+		{t + t} -> std::convertible_to<RemoveCvRef<T>>;
+	};
+
 	// For native types the operators += and + are inbuilt.
 
 	//! A multiplicative semi-group.
@@ -57,6 +72,23 @@ namespace Pastel
 		);
 	};
 
+	//! A multiplicative semi-group.
+	/*!
+	A semi-group is a pair (X, *), where X is a set 
+	and * : X^2 --> X is associative.
+	*/
+	template <typename T>
+	concept Multiplicative_SemiGroup_Concept_ = 
+		Element_Concept_<T> && 
+		requires(T t) {
+		//! Multiplies 'that' to the element.
+		{t *= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
+		//! Returns left * right.
+		{t * t} -> std::convertible_to<RemoveCvRef<T>>;
+		//! Returns the power t^p, for p in NN^{> 0}.
+		{pow(t, (integer)1)} -> std::convertible_to<RemoveCvRef<T>>;
+	};
+
 	// For native types the operators *= and * are inbuilt.
 
 }
@@ -68,10 +100,8 @@ namespace Pastel
 	/*!
 	The notation x^p means to multiply x with itself p times.
 	*/
-	template <typename Multiplicative_SemiGroup>
-	Multiplicative_SemiGroup semiGroupPower(
-		Multiplicative_SemiGroup x,
-		integer p)
+	template <Multiplicative_SemiGroup_Concept_ T>
+	T semiGroupPower(T x, integer p)
 	{
 		ENSURE_OP(p, >, 0);
 
@@ -97,7 +127,7 @@ namespace Pastel
 		//     x^p = prod_{i in [0, n]} a_i^{b_i}.
 		//         = prod_{i in [0, n] : b_i = 1} a_i.
 
-		Multiplicative_SemiGroup result = x;
+		T result = x;
 		
 		--p;
 		if (p == 0)

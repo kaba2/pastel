@@ -21,12 +21,8 @@ namespace Pastel
 	0, otherwise.
 	*/
 	template <
-		typename Real,
-		typename Real_Set,
-		Requires<
-			Models<Real, Real_Concept>,
-			Models<Real_Set, Set_Concept>
-		> = 0
+		Real_Concept_ Real,
+		Set_Concept_ Real_Set
 	>
 	Real scalarMean(
 		const Real_Set& inputSet)

@@ -13,27 +13,14 @@
 namespace Pastel
 {
 
-	namespace PointSet_
-	{
-
-		struct MemberPointSetLocator_Concept
-		{
-			template <typename Type>
-			auto requires_(Type&& t) -> decltype
-			(
-				conceptCheck(
-					Concept::holds<
-						Models<decltype(addConst(t).pointSetLocator()), Locator_Concept>
-					>()
-				)
-			);
-		};
-
-	}
+	template <typename T>
+	concept HasMemberPointSetLocator_ = requires(T t) {
+		{addConst(t).pointSetLocator()} -> Locator_Concept_;	
+	};
 
 	template <typename Type>
 	using HasMemberPointSetLocator = 
-		Models<Type, PointSet_::MemberPointSetLocator_Concept>;
+		std::bool_constant<HasMemberPointSetLocator_<Type>>;
 	
 }
 
@@ -41,12 +28,7 @@ namespace Pastel
 {
 
 	//! Returns the member-locator of a point-set.
-	template <
-		typename Type,
-		Requires<
-			HasMemberPointSetLocator<Type>
-		> = 0
-	>
+	template <HasMemberPointSetLocator_ Type>
 	decltype(auto) pointSetLocator(Type&& that)
 	{
 		return std::forward<Type>(that).pointSetLocator();
@@ -54,9 +36,8 @@ namespace Pastel
 
 	//! Returns the default locator of point-set elements.
 	template <
-		typename Set,
+		Set_Concept_ Set,
 		Requires<
-			Models<Set, Set_Concept>,
 			Models<Set_Element<Set>, Point_Concept>,
 			// Give priority to the member-locator.
 			Not<HasMemberPointSetLocator<Set>>

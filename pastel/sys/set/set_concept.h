@@ -6,7 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/type_traits/remove_cvref.h"
 
-#include <range/v3/range_concepts.hpp>
+#include <range/v3/range/concepts.hpp>
 
 namespace Pastel
 {
@@ -20,13 +20,23 @@ namespace Pastel
 	struct Set_Concept
 	{
 		template <typename Type>
-		auto requires_(Type&&) -> decltype
-		(
-			conceptCheck(
-				Concept::holds<ranges::concepts::models<ranges::concepts::Range, Type>>()
-			)
-		);
+		auto requires_(Type&&) -> void;
+		//decltype
+		//(
+		//	 conceptCheck(
+		//	 	Concept::holds<ranges::concepts::models<ranges::concepts::Range, Type>>()
+		//	 )
+		//);
 	};
+
+	template <typename T>
+	concept Set_Concept_ = requires(T t) {
+		t;
+		//Concept::holds<ranges::concepts::models<ranges::concepts::Range, Type>>()
+	};
+
+	template <typename T>
+	concept Range_Concept_ = Set_Concept_<T>;
 	
 	using Range_Concept = Set_Concept;
 

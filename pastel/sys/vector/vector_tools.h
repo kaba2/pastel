@@ -125,10 +125,8 @@ namespace Pastel
 	//! Returns the norm bijection of a vector.
 	template <
 		typename Real, integer N, typename Expression, 
-		typename Norm,
-		Requires<
-			Models<Norm, Norm_Concept>
-		> = 0>
+		Norm_Concept_ Norm
+	>
 	auto norm2(const VectorExpression<Real, N, Expression>& that,
 		const Norm& norm);
 

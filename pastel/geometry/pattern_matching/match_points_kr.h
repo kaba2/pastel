@@ -113,13 +113,9 @@ namespace Pastel
 	The bias of the match; in the range [0, 1].
 	*/
 	template <
-		typename Model_NearestSet,
-		typename Scene_NearestSet,
-		typename... ArgumentSet,
-		Requires<
-			Models<Model_NearestSet, NearestSet_Concept>,
-			Models<Scene_NearestSet, NearestSet_Concept>
-		> = 0
+		NearestSet_Concept_ Model_NearestSet,
+		NearestSet_Concept_ Scene_NearestSet,
+		typename... ArgumentSet
 	>
 	decltype(auto) matchPointsKr(
 		const Model_NearestSet& model,

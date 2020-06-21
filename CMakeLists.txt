@@ -1,7 +1,7 @@
 # Description: Main CMake build file for the Pastel library
 # Documentation: building.txt
 
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.18)
 
 if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
   set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
@@ -52,22 +52,32 @@ include ("Paths")
 # include_directories (${RangesIncludeDirectory})
 add_definitions(-DRANGES_NO_STD_FORWARD_DECLARATIONS)
 
-# find_package("Boost")
-# include_directories (${BoostIncludeDirectory})
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+link_libraries(${Boost_LIBRARIES})
 
-# find_package("Armadillo")
-# include_directories (${ArmadilloIncludeDirectory})
+find_package(Armadillo REQUIRED)
+include_directories(${ARMADILLO_INCLUDE_DIRS})
+link_libraries(${ARMADILLO_LIBRARIES})
 
-# find_package("Tbb")
+find_package(TBB REQUIRED)
 # include_directories (${TbbIncludeDirectory})
 
-# find_package("Blas")
-# find_package("Lapack")
+# find_package(BLAS)
+# link_libraries(${BLAS_LIBRARIES})
+
+find_package(LAPACK)
+link_libraries(${LAPACK_LIBRARIES})
 
 if (BuildMatlab)
 	find_package("Matlab_")
 	include_directories (${MatlabIncludeDirectory})
 endif()
+
+message(STATUS "Boost: ${Boost_INCLUDE_DIRS} ${Boost_LIBRARIES}")
+message(STATUS "Armadillo: ${ARMADILLO_INCLUDE_DIRS} ${ARMADILLO_LIBRARIES}")
+message(STATUS "BLAS: ${BLAS_LIBRARIES}")
+message(STATUS "LAPACK: ${LAPACK_LIBRARIES}")
 
 # Copy files
 # ----------

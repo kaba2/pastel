@@ -15,6 +15,11 @@
 namespace Pastel
 {
 
+	template <typename T>
+	concept Arithmetic_Concept_ = requires {
+		requires std::is_arithmetic_v<T>;
+	};
+
 	template <
 		bool Condition,
 		typename Return = int>

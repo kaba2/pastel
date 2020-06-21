@@ -14,21 +14,11 @@
 namespace Pastel
 {
 
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	using PointSet_PointId = 
 		Point_PointId<PointSet_Point<PointSet>>;
 
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	using PointSet_PointId_F = 
 		Identity_F<PointSet_PointId<PointSet>>;
 

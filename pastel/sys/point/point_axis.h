@@ -5,7 +5,6 @@
 #define PASTELSYS_POINT_AXIS_H
 
 #include "pastel/sys/point/point_concept.h"
-#include "pastel/sys/type_traits/compiles.h"
 #include "pastel/sys/real/real_ring_concept.h"
 
 namespace Pastel
@@ -13,22 +12,16 @@ namespace Pastel
 
 	// Coordinates by point.pointAxis(i)
 
-	template <
-		typename Point,
-		typename = decltype(std::declval<Point>().pointAxis((integer)0))>
-	struct Point_HasMemberPointAxis_Test
-	{};
+	template <typename T>
+	concept Point_HasMemberPointAxis_ = requires(T t) {
+		t.pointAxis((integer)0);
+	};
 
-	template <typename Type>
+	template <typename T>
 	using Point_HasMemberPointAxis = 
-		Compiles<Point_HasMemberPointAxis_Test, Type>;
+		std::bool_constant<Point_HasMemberPointAxis_<T>>;
 
-	template <
-		typename Point,
-		Requires<
-			Point_HasMemberPointAxis<Point>
-		> = 0
-	>
+	template <Point_HasMemberPointAxis_ Point>
 	decltype(auto) pointAxis(Point&& point, integer axis)
 	{
 		return std::forward<Point>(point).pointAxis(axis);
@@ -41,14 +34,14 @@ namespace Pastel
 
 	// Coordinates by point[i]
 
-	template <
-		typename Point,
-		typename = decltype(std::declval<Point>()[(integer)0])>
-	struct Point_HasIndexing_Test {};
+	template <typename T>
+	concept Point_HasIndexing_ = requires(T t) {
+		t[(integer)0];
+	};
 
-	template <typename Type>
+	template <typename T>
 	using Point_HasIndexing = 
-		Compiles<Point_HasIndexing_Test, Type>;
+		std::bool_constant<Point_HasIndexing_<T>>;
 
 	template <
 		typename Point,
@@ -69,14 +62,14 @@ namespace Pastel
 
 	// Coordinates by point(i)
 
-	template <
-		typename Point,
-		typename = decltype(std::declval<Point>()((integer)0))>
-	struct Point_HasMemberCall_Test {};
+	template <typename T>
+	concept Point_HasMemberCall_ = requires(T t) {
+		t((integer)0);
+	};
 
-	template <typename Type>
+	template <typename T>
 	using Point_HasMemberCall = 
-		Compiles<Point_HasMemberCall_Test, Type>;
+		std::bool_constant<Point_HasMemberCall_<T>>;
 
 	template <
 		typename Point,

@@ -25,10 +25,8 @@ namespace Pastel
 	*/
 	template <
 		typename Real, integer N, 
-		typename Norm = Euclidean_Norm<Real>,
-		Requires<
-			Models<Norm, Norm_Concept>
-		> = 0>
+		Norm_Concept_ Norm = Euclidean_Norm<Real>
+	>
 	auto distance2(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,
@@ -71,10 +69,8 @@ namespace Pastel
 	*/
 	template <
 		typename Real, integer N, 
-		typename Norm = Euclidean_Norm<Real>,
-		Requires<
-			Models<Norm, Norm_Concept>
-		> = 0>
+		Norm_Concept_ Norm = Euclidean_Norm<Real>
+	>
 	auto farthestDistance2(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,

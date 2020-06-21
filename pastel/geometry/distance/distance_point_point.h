@@ -16,16 +16,13 @@ namespace Pastel
 
 	//! Computes the distance between points.
 	template <
-		typename A_Point,
-		typename B_Point, 
+		Point_Concept_ A_Point,
+		Point_Concept_ B_Point, 
 		// We need to use Point_Real_F instead of Point_Real to
 		// avoid a bug in Visual Studio 2015 Update 1.
 		typename Real = typename Point_Real_F<A_Point, B_Point>::type,
-		typename... ArgumentSet,
-		Requires<
-			Models<A_Point, Point_Concept>,
-			Models<B_Point, Point_Concept>
-		> = 0>
+		typename... ArgumentSet
+	>
 	auto distance2(
 		const A_Point& aPoint,
 		const B_Point& bPoint,

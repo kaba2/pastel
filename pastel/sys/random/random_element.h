@@ -12,11 +12,7 @@
 namespace Pastel
 {
 
-	template <
-		typename Indexed_Input,
-		Requires<
-			Models<Indexed_Input, Indexed_Input_Concept>
-		> = 0>
+	template <Indexed_Input_Concept_ Indexed_Input>
 	decltype(auto) randomElement(
 		Indexed_Input input)
 	{

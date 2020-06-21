@@ -23,6 +23,11 @@ namespace Pastel
 		);
 	};
 
+	template <typename T>
+	concept Printable_Concept_ = requires(T t) {
+		{asString(t)} -> std::convertible_to<std::string>;
+	};
+
 	using Printable_Archetype = integer;
 
 }

@@ -25,6 +25,12 @@ namespace Pastel
 		);
 	};
 
+	template <typename T, typename... Arguments>
+	concept Output_Concept_ = requires(T t, Arguments... arguments) {
+		//! Reports 'that'.
+		{t(arguments...)};
+	};
+
 }
 
 #include "pastel/sys/output/output_archetype.h"

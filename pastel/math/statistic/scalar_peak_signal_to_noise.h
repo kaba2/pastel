@@ -25,15 +25,11 @@ namespace Pastel
 	The maximum value for the mean-square error.
 	*/
 	template <
-		typename Real, 
-		typename A_Real_Set, 
-		typename B_Real_Set,
-		typename... ArgumentSet,
-		Requires<
-			Models<Real, Real_Concept>,
-			Models<A_Real_Set, Set_Concept>,
-			Models<B_Real_Set, Set_Concept>
-		> = 0>
+		Real_Concept_ Real, 
+		Set_Concept_ A_Real_Set, 
+		Set_Concept_ B_Real_Set,
+		typename... ArgumentSet
+	>
 	Real peakSignalToNoise(
 		const A_Real_Set& aSet,
 		const B_Real_Set& bSet,

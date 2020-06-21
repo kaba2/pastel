@@ -22,6 +22,16 @@ namespace Pastel
 	{
 	};
 
+	//! An ordered additive group.
+	/*!
+	An ordered group (X, +, 0) is an ordered
+	monoid (X, +, 0) which is also a group.
+	*/
+	template <typename T>
+	concept Ordered_Additive_Group_Concept_ =
+		Ordered_Additive_Monoid_Concept_<T> && 
+		Additive_Group_Concept_<T>;
+
 }
 
 #endif

@@ -11,12 +11,7 @@ namespace Pastel
 {
 
 	//! Returns the dimension of a point-set.
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	integer pointSetDimension(
 		const PointSet& pointSet)
 	{
@@ -24,12 +19,7 @@ namespace Pastel
 	}
 
 	//! Returns the compile-time dimension of a point-set.
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	using PointSet_Dimension =
 		Locator_N<PointSet_Locator<PointSet>>;
 

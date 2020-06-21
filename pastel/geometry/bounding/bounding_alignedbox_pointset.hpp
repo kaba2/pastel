@@ -9,10 +9,7 @@
 namespace Pastel
 {
 
-	template <
-		typename PointSet,
-		Requires<Models<PointSet, PointSet_Concept>>
-	>
+	template <PointSet_Concept_ PointSet>
 	auto boundingAlignedBox(PointSet pointSet)
 	-> AlignedBox<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value>
 	{

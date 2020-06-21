@@ -35,6 +35,28 @@ namespace Pastel
 		);
 	};
 
+	//! An ordered-set element.
+	/*! 
+	An ordered-set is a set X together with
+	a partial order < in X. The other relations
+	>, <=, and >= are defined in the obvious
+	way.
+	*/
+	template <typename T>
+	concept Ordered_Element_Concept_ =
+		Element_Concept_<T> && 
+		requires(T t) {
+			//! Returns whether left < right.
+			{t < t} -> std::convertible_to<bool>;
+			//! Returns whether left > right.
+			{t > t} -> std::convertible_to<bool>;
+			//! Returns whether left <= right.
+			{t <= t} -> std::convertible_to<bool>;
+			//! Returns whether left >= right.
+			{t >= t} -> std::convertible_to<bool>;
+	};
+
+
 }
 
 #endif

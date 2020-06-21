@@ -29,6 +29,20 @@ namespace Pastel
 		);
 	};
 
+	//! A finite integer.
+	/*!
+	A finite integer is an integer with a finite
+	number of bits.
+	*/
+	template <typename T>
+	concept Finite_Integer_Concept_ = 
+		Integer_Concept_<T> && requires(T t) {
+		//! Returns the binary not of the element.
+		{~t} -> std::convertible_to<RemoveCvRef<T>>;
+		//! Returns the number of bits in 'that'.
+		{bits(t)} -> std::convertible_to<integer>;
+	};
+
 	using Finite_Integer_Archetype = integer;
 
 }

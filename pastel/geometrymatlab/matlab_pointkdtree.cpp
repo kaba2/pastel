@@ -629,12 +629,7 @@ namespace Pastel
 			*outPoints = state->tree.points();
 		}
 
-		template <
-			typename Norm,
-			Requires<
-				Models<Norm, Norm_Concept>
-			> = 0
-		>
+		template <Norm_Concept_ Norm>
 		void kdSearchNearest_(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
@@ -849,12 +844,7 @@ namespace Pastel
 			}
 		}
 
-		template <
-			typename Norm,
-			Requires<
-				Models<Norm, Norm_Concept>
-			> = 0
-		>
+		template <Norm_Concept_ Norm>
 		void kdCountNearest_(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])

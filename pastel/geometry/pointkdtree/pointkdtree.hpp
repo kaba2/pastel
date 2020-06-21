@@ -301,11 +301,8 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	template <
-		typename Point_Set,
-		typename... ArgumentSet,
-		Requires<
-			Models<Point_Set, Set_Concept>
-		>
+		Set_Concept_ Point_Set,
+		typename... ArgumentSet
 	>
 	void PointKdTree<Settings, Customization>::insertSet(
 		const Point_Set& pointSet, 

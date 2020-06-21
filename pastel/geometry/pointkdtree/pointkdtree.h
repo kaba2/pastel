@@ -288,11 +288,8 @@ namespace Pastel
 		hidden points or not.
 		*/
 		template <
-			typename PointId_Set,
-			typename... ArgumentSet,
-			Requires<
-				Models<PointId_Set, Set_Concept>
-			> = 0
+			Set_Concept_ PointId_Set,
+			typename... ArgumentSet
 		>
 		void insertSet(
 			const PointId_Set& pointSet, 
@@ -459,12 +456,7 @@ namespace Pastel
 		The first Point_Iterator of the inserted points in
 		'pointSet_'.
 		*/
-		template <
-			typename PointId_Set,
-			Requires<
-				Models<PointId_Set, Set_Concept>
-			> = 0
-		>
+		template <Set_Concept_ PointId_Set>
 		auto copyToEnd(
 			const PointId_Set& pointSet, 
 			bool hidden)

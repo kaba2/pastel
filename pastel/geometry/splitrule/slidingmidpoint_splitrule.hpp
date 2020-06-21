@@ -14,12 +14,9 @@ namespace Pastel
 	{
 	public:
 		template <
-			typename PointSet,
+			PointSet_Concept_ PointSet,
 			typename Real = PointSet_Real<PointSet>,
-			integer N = PointSet_Dimension<PointSet>::value,
-			Requires<
-				Models<PointSet, PointSet_Concept>
-			> = 0
+			integer N = PointSet_Dimension<PointSet>::value
 		>
 		std::pair<Real, integer> operator()(
 			const PointSet& pointSet,

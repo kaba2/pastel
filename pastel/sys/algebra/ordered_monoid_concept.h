@@ -36,6 +36,24 @@ namespace Pastel
 		);
 	};
 
+	//! An ordered additive monoid.
+	/*! 
+	An ordered monoid (X, +, 0) is an additive monoid (X, +, 0)
+	which is also an ordered additive semigroup.
+	*/
+	template <typename T>
+	concept Ordered_Additive_Monoid_Concept_ =
+		Ordered_Additive_SemiGroup_Concept_<T> && 
+		Additive_Monoid_Concept_<T> && 
+		requires(T t) {
+		//! Returns whether 'that' > 0.
+		{positive(t)} -> std::convertible_to<bool>;
+		//! Returns whether 'that' < 0.
+		{negative(t)} -> std::convertible_to<bool>;
+		//! Returns the absolute value of 'that'.
+		{abs(t)} -> std::convertible_to<RemoveCvRef<T>>;
+	};
+
 }
 
 #endif

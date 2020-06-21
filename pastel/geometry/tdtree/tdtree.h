@@ -127,13 +127,8 @@ namespace Pastel
 		The split-rule to use.
 		*/
 		template <
-			typename PointSet_,
-			typename... ArgumentSet,
-			Requires<
-				Models<PointSet_, PointSet_Concept>
-				// ,
-				// Models<Locator, Locator_Concept(PointSet_PointId<PointSet_>)>
-			> = 0
+			PointSet_Concept_ PointSet_,
+			typename... ArgumentSet
 		>
 		explicit TdTree(
 			const PointSet_& pointSet,

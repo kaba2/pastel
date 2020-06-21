@@ -26,11 +26,9 @@ namespace Pastel
 	template <
 		typename Real, 
 		integer N,
-		typename Point,
-		typename... ArgumentSet,
-		Requires<
-			Models<Point, Point_Concept>
-		> = 0>
+		Point_Concept_ Point,
+		typename... ArgumentSet
+	>
 	auto distance2(
 		const AlignedBox<Real, N>& alignedBox,
 		const Point& point,
@@ -97,11 +95,9 @@ namespace Pastel
 	template <
 		typename Real, 
 		integer N,
-		typename Point,
-		typename... ArgumentSet,
-		Requires<
-			Models<Point, Point_Concept>
-		> = 0>
+		Point_Concept_ Point,
+		typename... ArgumentSet
+	>
 	auto farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
 		const Point& point,

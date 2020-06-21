@@ -83,13 +83,9 @@ namespace Pastel
 	If the k:th nearest neighbor does not exist, nearestSet.notFound().
 	*/
 	template <
-		typename NearestSet,
-		typename Search_Point,
-		typename... ArgumentSet,
-		Requires<
-			Models<NearestSet, NearestSet_Concept>,
-			Models<Search_Point, Point_Concept>
-		> = 0
+		NearestSet_Concept_ NearestSet,
+		Point_Concept_ Search_Point,
+		typename... ArgumentSet
 	>
 	auto searchNearest(
 		const NearestSet& nearestSet,

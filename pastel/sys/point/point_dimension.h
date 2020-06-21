@@ -22,12 +22,12 @@ namespace Pastel
 	using Point_HasMemberDimension = 
 		Compiles<Point_HasMemberDimension_Test, Type>;
 
-	template <
-		typename Point,
-		Requires<
-			Point_HasMemberDimension<Point>
-		> = 0
-	>
+	template <typename T>
+	concept Point_HasMemberDimension_ = requires(T t) {
+		{t.pointDimension()} -> std::convertible_to<integer>;
+	};
+
+	template <Point_HasMemberDimension_ Point>
 	decltype(auto) dimension(Point&& point)
 	{
 		return std::forward<Point>(point).pointDimension();
@@ -48,6 +48,11 @@ namespace Pastel
 	template <typename Type>
 	using Point_HasMemberSize = 
 		Compiles<Point_HasMemberSize_Test, Type>;
+
+	template <typename T>
+	concept Point_HasMemberSize_ = requires(T t) {
+		{addConst(t).size()} -> std::convertible_to<integer>;
+	};
 
 	template <
 		typename Point,
@@ -86,12 +91,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <
-		typename Point,
-		Requires<
-			Models<Point, Real_Ring_Concept>
-		> = 0
-	>
+	template <Real_Ring_Concept_ Point>
 	IntegerConstant<1> pointN(const Point* point);
 
 	template <typename Real, std::size_t N>

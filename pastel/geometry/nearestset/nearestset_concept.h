@@ -36,6 +36,19 @@ namespace Pastel
 		);
 	};
 
+	template <typename T>
+	concept NearestSet_Concept_ = requires(T t) {
+		addConst(t).asPoint(std::declval<PointSet_Point<T>>());
+		addConst(t).findNearbyPointsets(
+			// Search-point
+			Point_Archetype(),
+			// Norm to use
+			Norm_Archetype(),
+			// Culling distance
+			Distance_Archetype(),
+			Output_Archetype());
+	};
+
 	template <typename Type>
 	using NearestSet_Point = PointSet_Point<Type>;
 

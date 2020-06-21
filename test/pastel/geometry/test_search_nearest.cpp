@@ -51,10 +51,8 @@ namespace
 
 	template <
 		typename Create,
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0>
+		PointSet_Concept_ PointSet
+	>
 	void test(
 		const Create& create,
 		const PointSet& pointSet,
@@ -96,12 +94,9 @@ namespace
 
 	template <
 		typename Create,
-		typename PointSet,
-		typename Distance,
-		Requires<
-			Models<PointSet, PointSet_Concept>,
-			Models<Distance, Distance_Concept>
-		> = 0>
+		PointSet_Concept_ PointSet,
+		Distance_Concept_ Distance
+	>
 	void testCount(
 		const Create& create,
 		const PointSet& pointSet,
@@ -147,12 +142,7 @@ template <typename SearchAlgorithm>
 class CreatePointKdTree
 {
 public:
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	decltype(auto) createDataSet(
 		const PointSet& pointSet) const
 	{
@@ -216,12 +206,7 @@ template <typename SearchAlgorithm>
 class CreateTdTree
 {
 public:
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	decltype(auto) createDataSet(
 		const PointSet& pointSet) const
 	{
@@ -268,12 +253,7 @@ public:
 class CreateBruteForce
 {
 public:
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	decltype(auto) createDataSet(
 		const PointSet& pointSet) const
 	{

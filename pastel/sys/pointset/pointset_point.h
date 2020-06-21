@@ -15,20 +15,10 @@
 namespace Pastel
 {
 
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	using PointSet_Point = RemoveCvRef<ranges::range_value_t<PointSet>>;
 
-	template <
-		typename PointSet,
-		Requires<
-			Models<PointSet, PointSet_Concept>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
 	using PointSet_Point_F = 
 		Identity_F<PointSet_Point<PointSet>>;
 

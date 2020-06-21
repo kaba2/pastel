@@ -10,20 +10,11 @@
 namespace Pastel
 {
 
-	template <
-		typename Input,
-		Requires<
-			Models<Input, Input_Concept>
-		> = 0
-	>
+	template <Input_Concept_ Input>
 	using Input_Value = 
 		RemoveCvRef<Input_Return<Input>>;
 
-	template <
-		typename Input,
-		Requires<
-			Models<Input, Input_Concept>
-		> = 0>
+	template <Input_Concept_ Input>
 	using Input_Value_F = 
 		Identity_F<Input_Value<Input>>;
 

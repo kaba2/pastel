@@ -50,6 +50,39 @@ namespace Pastel
 		);
 	};
 
+	template <typename T>
+	concept Input_Concept_ = requires(T t) {
+		//! Returns an approximation of the number of elements left.
+		/*!
+		This number is only a hint;
+		the implementation must be able to deal with
+		either a smaller or a larger amounts of elements.
+		This can be used, for example, to pre-allocate memory
+		for an array. A zero specifies that the number is 
+		not known; it conveys zero information.
+
+		Must return a non-negative number.
+		*/
+		{addConst(t).nHint()} -> std::convertible_to<integer>;
+
+		//! Returns whether there are elements left.
+		{addConst(t).empty()} -> std::convertible_to<bool>;
+
+		//! Returns the current element.
+		/*!
+		Preconditions:
+		!empty()
+		*/
+		addConst(t).get();
+
+		//! Drops the current element off from the input.
+		/*!
+		Preconditions:
+		!empty()
+		*/
+		t.pop();
+	};
+
 }
 
 #include "pastel/sys/input/input_return.h"

@@ -8,6 +8,7 @@
 #include "pastel/sys/concept/models.h"
 
 #include <type_traits>
+#include <concepts>
 
 // For std::declval, std::forward, and std::move.
 #include <utility>
@@ -32,10 +33,6 @@
 
 namespace Pastel
 {
-
-	//! Similar to std::declval, but does not static-assert when called.
-	template <typename Type>
-	Type&& conceptArg();
 
 	//! List expressions in a concept-check.
 	/*!

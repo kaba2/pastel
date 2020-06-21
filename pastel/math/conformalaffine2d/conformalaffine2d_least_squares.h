@@ -28,12 +28,8 @@ namespace Pastel
 	distance to 'toSet'.
 	*/
 	template <
-		typename From_PointSet, 
-		typename To_PointSet,
-		Requires<
-			Models<From_PointSet, PointSet_Concept>,
-			Models<To_PointSet, PointSet_Concept>
-		> = 0
+		PointSet_Concept_ From_PointSet, 
+		PointSet_Concept_ To_PointSet
 	>
 	ConformalAffine2D<PointSet_Real<From_PointSet>> 
 		lsConformalAffine(

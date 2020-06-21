@@ -39,14 +39,9 @@ namespace Pastel
 	0, otherwise.
 	*/
 	template <
-		typename Real,
-		typename Real_Set,
-		typename... ArgumentSet,
-		Requires<
-			Models<Real, Real_Concept>,
-			Models<Real_Set, Set_Concept>,
-			Models<Real, Real_Concept>
-		> = 0
+		Real_Concept_ Real,
+		Set_Concept_ Real_Set,
+		typename... ArgumentSet
 	>
 	Real scalarVariance(
 		const Real_Set& inputSet,

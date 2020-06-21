@@ -19,9 +19,8 @@ namespace Pastel
 	*/
 	template <
 		typename Real,
-		typename Set,
+		Set_Concept_ Set,
 		Requires<
-			Models<Set, Set_Concept>,
 			std::is_convertible<Set_Element<Set>, integer>
 		> = 0
 	>

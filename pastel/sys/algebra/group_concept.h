@@ -35,6 +35,25 @@ namespace Pastel
 		);
 	};
 
+	//! An additive group.
+	/*!
+	A group (X, +, 0) is a monoid (X, +, 0)
+	such that for every x in X there exists y in X
+	such that x + y = 0. Since the y is unique,
+	it is denoted by -x.
+	*/
+	template <typename T>
+	concept Additive_Group_Concept_ = 
+		Additive_Monoid_Concept_<T> && 
+		requires(T t) {
+		//! Adds -that to the element.
+		{t -= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
+		//! Returns left * (-right).
+		{t - t} -> std::convertible_to<RemoveCvRef<T>>;
+		//! Returns -x for an element x.
+		{-t} -> std::convertible_to<RemoveCvRef<T>>;
+	};
+
 	//! A multiplicative group.
 	/*!
 	A group (X, *, 1) is a monoid (X, *, 1)
@@ -59,19 +78,35 @@ namespace Pastel
 		);
 	};
 
+	//! A multiplicative group.
+	/*!
+	A group (X, *, 1) is a monoid (X, *, 1)
+	such that for every x in X there exists y in X
+	such that x * y = 1. Since the y is unique,
+	it is denoted by inverse(x).
+	*/
+	template <typename T>
+	concept Multiplicative_Group_Concept_ = 
+		Multiplicative_Monoid_Concept_<T> && 
+		requires(T t) {
+		//! Multiplies with inverse(that) from the right.
+		{t /= t} -> std::convertible_to<RemoveCvRef<T>>/*HERE*/;
+		//! Returns left * inverse(right).
+		{t / t} -> std::convertible_to<RemoveCvRef<T>>;
+		//! Returns inverse(x) for an element x.
+		{inverse(t)} -> std::convertible_to<RemoveCvRef<T>>;
+	};
+
 }
 
 namespace Pastel
 {
 
 	//! Computes x^p, for p an integer.
-	template <typename Multiplicative_Group>
-	Multiplicative_Group groupPower(
-		Multiplicative_Group x,
-		integer p)
+	template <Multiplicative_Group_Concept_ T>
+	T groupPower(T x, integer p)
 	{
-		Multiplicative_Group result = 
-			monoidPower(std::move(x), std::abs(p));
+		T result = monoidPower(std::move(x), std::abs(p));
 
 		if (p < 0)
 		{

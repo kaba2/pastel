@@ -25,14 +25,10 @@ namespace Pastel
 	0, otherwise.
 	*/
 	template <
-		typename Real, 
-		typename A_Real_Set, 
-		typename B_Real_Set,
-		Requires<
-			Models<Real, Real_Concept>,
-			Models<A_Real_Set, Set_Concept>,
-			Models<B_Real_Set, Set_Concept>
-		> = 0>
+		Real_Concept_ Real, 
+		Set_Concept_ A_Real_Set, 
+		Set_Concept_ B_Real_Set
+	>
 	Real scalarMeanSquareError(
 		A_Real_Set aSet,
 		B_Real_Set bSet)

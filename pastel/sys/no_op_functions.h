@@ -44,6 +44,13 @@ namespace Pastel
 		return (Type&)that;
 	}
 
+	//! Casts a const-reference to a value.
+	template <typename Type>
+	Type removeReference(const Type& that)
+	{
+		return that;
+	}
+
 }
 
 #endif

@@ -66,7 +66,7 @@ TEST_CASE("Grid (TdTree)")
 
 	using PointSet = decltype(pointSet);
 	PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
-	PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(PointSet_PointId<PointSet>));
+	PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
 
 	Tree tree(pointSet);
 	REQUIRE(tree.simple());

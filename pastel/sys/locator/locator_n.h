@@ -10,12 +10,7 @@
 namespace Pastel
 {
 
-	template <
-		typename Locator,
-		Requires<
-			Models<Locator, Locator_Concept>
-		> = 0
-	>
+	template <Locator_Concept_ Locator>
 	struct Locator_N
 	{
 		static constexpr integer value = RemoveCvRef<Locator>::N;

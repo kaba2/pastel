@@ -68,7 +68,7 @@ namespace Pastel
 			return false;
 		}
 
-		bool operator==(const Member_Class& that)
+		bool operator==(const Member_Class& that) const
 		{
 			return true;
 		}
