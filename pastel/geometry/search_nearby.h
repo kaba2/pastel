@@ -104,7 +104,7 @@ namespace Pastel
 		auto&& norm = 
 			PASTEL_ARG_SC(norm, Euclidean_Norm<real>(), Norm_Concept);
 
-		using Distance = decltype(norm());
+		using Distance = RemoveCvRef<decltype(norm())>;
 
 		const Distance maxDistance2 = PASTEL_ARG_SC(
 			maxDistance2, Distance((Real)Infinity()), Distance_Concept);

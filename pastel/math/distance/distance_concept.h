@@ -92,10 +92,7 @@ namespace Pastel
 
 	template <typename T>
 	concept Distance_Concept__ =
-		requires(T t) {
-			//! The computation type.
-			typename T::Real_;
-
+		requires(T t, typename T::Real_ s) {
 			//! Constructs a zero distance.
 			T();
 
@@ -115,19 +112,19 @@ namespace Pastel
 			An example of multiple equal distances is the 
 			product-distance.
 			*/
-			T(std::declval<typename T::Real_>());
+			T(s);
 
 			//! Returns the distance.
 			(typename T::Real_)addConst(t);
 
 			//! Multiplies the distance by the given value.
-			{t *= std::declval<typename T::Real_>()} -> std::convertible_to<T&>;
+			{t *= s} -> std::same_as<T&>;
 
 			//! Divides the distance by the given value.
 			/*!
 			Deriving from DistanceBase implements this automatically.
 			*/
-			{t /= std::declval<typename T::Real_>()} -> std::convertible_to<T&>;
+			{t /= s} -> std::same_as<T&>;
 
 			//! Distances comparisons.
 			/*!
@@ -148,12 +145,12 @@ namespace Pastel
 			*/
 			{t.replace(
 				// axis
-				std::declval<integer>(),
+				(integer)0,
 				// from
-				std::declval<typename T::Real_>(),
+				s,
 				// to
-				std::declval<typename T::Real_>()
-			)} -> std::convertible_to<T&>;
+				s
+			)} -> std::same_as<T&>;
 		};
 
 	template <typename T>
