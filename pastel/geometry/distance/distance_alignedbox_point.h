@@ -40,7 +40,7 @@ namespace Pastel
 		PENSURE_OP(alignedBox.n(), ==, dimension(point));
 
 		auto&& norm = 
-			PASTEL_ARG_SC(norm, Euclidean_Norm<Real>(), Norm_Concept);
+			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept_);
 		
 		// The distance computation between an AlignedBox and a point can
 		// be decomposed into separate computations on each
@@ -107,7 +107,7 @@ namespace Pastel
 			(EqualDimension<IntegerConstant<N>, Point_N<Point>>::value));
 
 		auto&& norm = 
-			PASTEL_ARG_SC(norm, Euclidean_Norm<Real>(), Norm_Concept);
+			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept_);
 
 		auto distance = norm();
 		

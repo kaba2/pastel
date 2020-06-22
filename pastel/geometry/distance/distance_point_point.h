@@ -29,7 +29,7 @@ namespace Pastel
 		ArgumentSet&&... argumentSet)
 	{
 		auto&& norm = 
-			PASTEL_ARG_SC(norm, Euclidean_Norm<Real>(), Norm_Concept);
+			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept_);
 
 		auto distance = norm();
 		using Distance = decltype(distance);

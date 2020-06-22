@@ -357,19 +357,19 @@ namespace Pastel
 		ENSURE_OP(nBruteForce, >=, 0);
 
 		auto&& timeIntervalSequence = 
-			PASTEL_ARG_SC(
+			PASTEL_ARG_SC_(
 				intervalSequence, 
 				(Vector<Real, 2>({-(Real)Infinity(), (Real)Infinity()})),
-				Point_Concept);
+				Point_Concept_);
 
 		auto timeIntervalSequence_ = evaluate(pointAsVector(timeIntervalSequence));
 		using IntervalSequence = decltype(timeIntervalSequence_);
 
 		auto&& searchAlgorithmObject =
-			PASTEL_ARG_SC(
+			PASTEL_ARG_SC_(
 				searchAlgorithm, 
 				DepthFirst_SearchAlgorithm_PointKdTree(),
-				Trivial_Concept);
+				Trivial_Concept_);
 			
 		using SearchAlgorithm = RemoveCvRef<decltype(searchAlgorithmObject)>;
 

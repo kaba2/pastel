@@ -108,6 +108,9 @@ namespace Pastel
 		);
 	};
 
+	template <typename T>
+	concept Trivial_Concept_ = std::same_as<T, T>;
+
 }
 
 #endif
