@@ -29,7 +29,7 @@ log.txt
 CMakeFiles/*
 bin/*
 lib/*
-build*
+build/*
 docs/*
 CMakeCache.txt
 Makefile

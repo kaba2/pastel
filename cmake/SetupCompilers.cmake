@@ -21,28 +21,37 @@ endif()
 # Clang and g++
 # -------------
 
-if ((${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") OR 
-	(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")) 
-	add_definitions (
-		# Enables C++14 compiler support.
-		-std=c++1y 
-		# Enables some additional warnings.
-		-Wall 
-		# Enables position-independent code.
-		# This is needed to build the Matlab 
-		# libraries.
-		-fPIC
-		# Stop build after one error.
- 		-Wfatal-errors
- 		# Under Linux, Armadillo has to use
- 		# long-long for BLAS, to not conflict
- 		# with Matlab; otherwise there will
- 		# be a segmentation fault.
- 		-DARMA_BLAS_LONG_LONG
-	)
+if ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") OR 
+	(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")) 
+
+	if (NOT CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC")
+		add_definitions (
+			# Enables C++20 compiler support.
+			-std=c++20
+			# Enables position-independent code.
+			# This is needed to build the Matlab 
+			# libraries.
+			-fPIC
+			# Enables some additional warnings.
+			-Wall 
+			# Stop build after one error.
+			-Wfatal-errors
+			# Under Linux, Armadillo has to use
+			# long-long for BLAS, to not conflict
+			# with Matlab; otherwise there will
+			# be a segmentation fault.
+			-DARMA_BLAS_LONG_LONG
+		)
+	endif()
 
 	# Disable some warnings.
 	add_definitions (
+		# Assigning objects to themselves is useful in testing.
+		-Wno-self-assign-overloaded
+		-Wno-self-move
+		# volatile-qualified parameter type 'const volatile long long' is deprecated
+		# These errors come from the TBB library.
+		-Wno-deprecated-volatile
 		-Wno-parentheses
 		# Pragma warnings caused by OpenMP support not being enabled.
 		-Wno-unknown-pragmas
@@ -69,7 +78,7 @@ endif()
 # g++
 # ---
 
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU") 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU") 
 	# Disable some warnings.
 	add_definitions (
 		# Unused but set variable.
@@ -83,10 +92,16 @@ endif()
 # Clang
 # -----
 
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang") 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang") 
+
+	if (NOT (CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC"))
+		add_definitions (
+			# Not sure why.
+			-arch x86_64
+			)
+	endif()
+
 	add_definitions (
-		# Not sure why.
-		-arch x86_64
 		# For the Visual Studio Clang/C2
 		-Qunused-arguments
 	)
@@ -122,18 +137,6 @@ if (MSVC)
 			"BuildMatlabMex: Forcing release-mode C and C++ standard libraries "
 			"in Visual Studio. Use this only when the intent is to make "
 			"${CMAKE_PROJECT_NAME} usable for Matlab mex.")
-	endif()
-
-	if (${CMAKE_GENERATOR_TOOLSET} MATCHES ".*clang.*")
-		# This is the Clang code generator in Visual Studio.
-		add_definitions (
-			# Avoid a bug when using Clang with Visual Studio 2015.
-			/DBOOST_SP_USE_STD_ATOMIC
-			-Wno-unused-local-typedef
-			-Wno-unused-function
-			-Wno-self-move
-			-Wno-unsupported-friend
-		)
 	endif()
 
 	add_definitions (
@@ -208,8 +211,8 @@ if (MSVC)
 
 endif()
 
-if (${CMAKE_GENERATOR} STREQUAL "NMake Makefiles" OR
-	${CMAKE_GENERATOR} STREQUAL "NMake Makefiles JOM")
+if ((CMAKE_GENERATOR STREQUAL "NMake Makefiles") OR
+	(CMAKE_GENERATOR STREQUAL "NMake Makefiles JOM"))
 	add_definitions (
 		# Enable exceptions (for some reason they are not 
 		# enabled for NMake Makefiles).
