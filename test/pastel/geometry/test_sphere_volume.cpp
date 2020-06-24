@@ -204,7 +204,7 @@ TEST_CASE("Manhattan (sphere_volume)")
 			real maxError = 7e-15;
 			real measured = lnVolumeUnitSphereManhattan<real>(n);
 			real error = relativeError<real>(measured, correct);
-			REQUIRE(error < maxError);
+			REQUIRE(error <= maxError);
 		}
 
 		{
@@ -213,7 +213,7 @@ TEST_CASE("Manhattan (sphere_volume)")
 			if (measured > -(real)Infinity())
 			{
 				real error = relativeError<real>(measured, correct);
-				REQUIRE(error < maxError);
+				REQUIRE(error <= maxError);
 			}
 		}
 	}

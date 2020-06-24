@@ -50,7 +50,7 @@ namespace Pastel
 			break;
 		};
 
-		return std::pow((Real)2, (Real)n) / gamma<Real>(n + 1);
+		return std::exp(lnVolumeUnitSphereManhattan<Real>(n));
 	} 
 
 	template <typename Real>
@@ -105,8 +105,7 @@ namespace Pastel
 			break;
 		};
 
-		Real nHalf = (Real)n / 2;
-		return std::pow(constantPi<Real>(), nHalf) / gamma<Real>(nHalf + 1);
+		return std::exp(lnVolumeUnitSphere<Real>(n));
 	} 
 
 	template <typename Real>
