@@ -193,7 +193,7 @@ TEST_CASE("TransitiveClosureUnion (transitive_closure)")
 			left.insert(that);
 		});
 
-		return left;
+		return std::move(left);
 	};
 
 	auto forEachDomain = [&relation](

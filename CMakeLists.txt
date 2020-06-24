@@ -59,6 +59,13 @@ link_libraries(${Boost_LIBRARIES})
 find_package(Armadillo REQUIRED)
 include_directories(${ARMADILLO_INCLUDE_DIRS})
 link_libraries(${ARMADILLO_LIBRARIES})
+add_definitions(
+	-DARMA_USE_CXX11 
+	-DARMA_USE_LAPACK
+	-DARMA_USE_BLAS
+	-DARMA_USE_ARPACK
+	-DARMA_DONT_PRINT_CXX11_WARNING
+)
 
 find_package(TBB REQUIRED)
 # include_directories (${TbbIncludeDirectory})

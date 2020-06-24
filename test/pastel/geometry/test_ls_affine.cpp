@@ -25,6 +25,12 @@ namespace
 			integer d = randomInteger(10) + 1;
 			integer n = randomInteger(100) + 10;
 			arma::Mat<Real> W(n, n, arma::fill::eye);
+			// Note that this is a multiple of the
+			// identity matrix, and so should not affect
+			// the solution at all. Note that if you
+			// use other types of W matrices, then
+			// you don't recover Q, S, and t, because
+			// the distance-measure is different.
 			W *= random<Real>() * 10;
 
 			LsAffine_Matrix matrix = randomElement({

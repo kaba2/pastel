@@ -65,7 +65,7 @@ namespace Pastel
 				insert(state, left);
 			}
 
-			return left;
+			return std::move(left);
 		};
 
 		// Compute the closure-sets by reflexive-transitive 
