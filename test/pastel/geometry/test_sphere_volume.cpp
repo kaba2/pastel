@@ -208,11 +208,17 @@ TEST_CASE("Manhattan (sphere_volume)")
 		}
 
 		{
-			real maxError = 7e-15;
-			real measured = std::log(volumeUnitSphereManhattan<real>(n));
+			real maxError = 7e-13;
+			real measured = volumeUnitSphereManhattan<real>(n);
+
+			if (std::exp(correct) == 0) {
+				REQUIRE(measured == 0);
+				continue;
+			}
+
 			if (measured > -(real)Infinity())
 			{
-				real error = relativeError<real>(measured, correct);
+				real error = relativeError<real>(measured, std::exp(correct));
 				REQUIRE(error <= maxError);
 			}
 		}
