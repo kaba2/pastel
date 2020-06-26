@@ -56,25 +56,11 @@ find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_libraries(${Boost_LIBRARIES})
 
-find_package(Armadillo REQUIRED)
-include_directories(${ARMADILLO_INCLUDE_DIRS})
-link_libraries(${ARMADILLO_LIBRARIES})
-add_definitions(
-	-DARMA_USE_CXX11 
-	-DARMA_USE_LAPACK
-	-DARMA_USE_BLAS
-	-DARMA_USE_ARPACK
-	-DARMA_DONT_PRINT_CXX11_WARNING
-)
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+include_directories(${EIGEN3_INCLUDE_DIRS})
 
 find_package(TBB REQUIRED)
 # include_directories (${TbbIncludeDirectory})
-
-# find_package(BLAS)
-# link_libraries(${BLAS_LIBRARIES})
-
-find_package(LAPACK)
-link_libraries(${LAPACK_LIBRARIES})
 
 if (BuildMatlab)
 	find_package("Matlab_")
@@ -82,9 +68,7 @@ if (BuildMatlab)
 endif()
 
 message(STATUS "Boost: ${Boost_INCLUDE_DIRS} ${Boost_LIBRARIES}")
-message(STATUS "Armadillo: ${ARMADILLO_INCLUDE_DIRS} ${ARMADILLO_LIBRARIES}")
-message(STATUS "BLAS: ${BLAS_LIBRARIES}")
-message(STATUS "LAPACK: ${LAPACK_LIBRARIES}")
+message(STATUS "Eigen: ${EIGEN3_INCLUDE_DIRS}")
 
 # Copy files
 # ----------
