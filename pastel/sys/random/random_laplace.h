@@ -8,14 +8,14 @@
 namespace Pastel
 {
 
-	//! Returns a Laplace-distributed random real.
+	//! Returns a Laplace-distributed random dreal.
 	/*!
 	This function assumes that the scale parameter is 1.
 	*/
 	template <typename Real>
 	Real randomLaplace();
 
-	//! Returns a Laplace-distributed random real.
+	//! Returns a Laplace-distributed random dreal.
 	/*!
 	Preconditions:
 	scale > 0

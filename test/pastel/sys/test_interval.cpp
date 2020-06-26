@@ -7,7 +7,7 @@
 
 TEST_CASE("interval (interval)")
 {
-	using I = Interval<real>;
+	using I = Interval<dreal>;
 
 	I a(1, 4);
 	{

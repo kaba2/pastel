@@ -12,7 +12,7 @@ namespace Pastel
 	class NormBijection_Archetype
 	{
 	public:
-		using Real = real;
+		using Real = dreal;
 
 		Real lnVolumeUnitSphere(integer dimension) const
 		{

@@ -19,7 +19,7 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit Gaussian_Filter(real radius = 2)
+		explicit Gaussian_Filter(dreal radius = 2)
 		: Filter(radius, "gaussian")
 		{
 		}
@@ -28,7 +28,7 @@ namespace Pastel
 		{
 		}
 
-		virtual real evaluateInRange(real x) const
+		virtual dreal evaluateInRange(dreal x) const
 		{
 			// I chose the factor -2 because
 			// it fitted well with the lobe of
@@ -46,7 +46,7 @@ namespace Pastel
 	using GaussianFilterPtr = std::shared_ptr<Gaussian_Filter>;
 	using ConstGaussianFilterPtr = std::shared_ptr<const Gaussian_Filter>;
 
-	inline GaussianFilterPtr gaussianFilter(real radius = 2)
+	inline GaussianFilterPtr gaussianFilter(dreal radius = 2)
 	{
 		return GaussianFilterPtr(new Gaussian_Filter(radius));
 	}

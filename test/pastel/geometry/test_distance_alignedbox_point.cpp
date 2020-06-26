@@ -139,7 +139,7 @@ namespace
 
 TEST_CASE("distance_alignedbox_point (distance_alignedbox_point)")
 {
-	test<real>();
+	test<dreal>();
 	test<Rational<integer>>();
 	test<integer>();
 }

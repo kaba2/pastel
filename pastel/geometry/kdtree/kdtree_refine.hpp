@@ -307,7 +307,7 @@ namespace Pastel
 								--positiveObjects;
 							}
 
-							real position = pointList[i].position_;
+							dreal position = pointList[i].position_;
 
 							if (position >= bound.min()[axis] &&
 								position < bound.max()[axis])

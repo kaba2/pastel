@@ -20,11 +20,11 @@ namespace
 
 	void test1d()
 	{
-		Array<real, 1> sound;
+		Array<dreal, 1> sound;
 
 		sound.setExtent(10);
 		
-		MipMap<real, 1> mipMap(arrayView(sound));
+		MipMap<dreal, 1> mipMap(arrayView(sound));
 		
 		sound(4) = 2;
 	}

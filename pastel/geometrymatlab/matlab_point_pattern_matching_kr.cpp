@@ -47,7 +47,7 @@ namespace Pastel
 
 			ENSURE_OP(inputs, ==, Inputs);
 
-			auto norm = Euclidean_Norm<real>();
+			auto norm = Euclidean_Norm<dreal>();
 
 			MatchPointsKr_MatchingMode matchingModeSet[] =
 			{
@@ -57,17 +57,17 @@ namespace Pastel
 			integer matchingModes = 
 				sizeof(matchingModeSet) / sizeof(MatchPointsKr_MatchingMode);
 			
-			const real* modelData = mxGetPr(inputSet[ModelSet]);
+			const dreal* modelData = mxGetPr(inputSet[ModelSet]);
 			integer modelPoints = mxGetN(inputSet[ModelSet]);
 
-			const real* sceneData = mxGetPr(inputSet[SceneSet]);
+			const dreal* sceneData = mxGetPr(inputSet[SceneSet]);
 			integer scenePoints = mxGetN(inputSet[SceneSet]);
 			integer kNearest = matlabAsScalar<integer>(inputSet[KNearest]);
-			real minMatchRatio = matlabAsScalar<real>(inputSet[MinMatchRatio]);
+			dreal minMatchRatio = matlabAsScalar<dreal>(inputSet[MinMatchRatio]);
 			auto matchingDistance2 = 
-				norm[matlabAsScalar<real>(inputSet[MatchingDistance2])];
-			real maxBias =
-				matlabAsScalar<real>(inputSet[MaxBias]);
+				norm[matlabAsScalar<dreal>(inputSet[MatchingDistance2])];
+			dreal maxBias =
+				matlabAsScalar<dreal>(inputSet[MaxBias]);
 			integer matchingModeId = matlabAsScalar<integer>(inputSet[MatchingModeId]);
 
 			ENSURE_OP(matchingModeId, >=, 0);
@@ -83,7 +83,7 @@ namespace Pastel
 
 			integer n = modelDimension;
 
-			using Locator = Pointer_Locator<real>;
+			using Locator = Pointer_Locator<dreal>;
 
 			using Settings = PointKdTree_Settings<Locator>;
 
@@ -149,14 +149,14 @@ namespace Pastel
 
 			// Output the translation.
 
-			Array<real> outTranslation =
-				matlabCreateArray<real>(Vector2i(1, n), outputSet[Translation]);
+			Array<dreal> outTranslation =
+				matlabCreateArray<dreal>(Vector2i(1, n), outputSet[Translation]);
 			std::copy(match.translation.begin(), match.translation.end(),
 				outTranslation.begin());
 
 			// Output the bias.
 
-			real* outBias = matlabCreateScalar<real>(outputSet[Bias]);
+			dreal* outBias = matlabCreateScalar<dreal>(outputSet[Bias]);
 			*outBias = match.bias;
 
 			// Output the success flag.

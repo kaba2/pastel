@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	//! Returns a generalized-gaussian-distributed random real.
+	//! Returns a generalized-gaussian-distributed random dreal.
 	/*!
 	Preconditions:
 	shape > 0
@@ -26,7 +26,7 @@ namespace Pastel
 	Real randomGeneralizedGaussian(
 		const NoDeduction<Real>& shape);
 
-	//! Returns a generalized-gaussian-distributed random real.
+	//! Returns a generalized-gaussian-distributed random dreal.
 	/*!
 	Preconditions:
 	shape > 0

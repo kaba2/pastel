@@ -32,7 +32,7 @@ TEST_CASE("Convolute2 (Convolute2)")
 	for (integer i = 0;i < points;++i)
 	{
 		input(
-			randomVector<real, 2>() * Vector2(extent - 1)) = randomRgbColor();
+			randomVector<dreal, 2>() * Vector2(extent - 1)) = randomRgbColor();
 	}
 
 	savePcx(input, "convolution_input.pcx");
@@ -63,7 +63,7 @@ TEST_CASE("Convolute3 (Convolute3)")
 	for (integer i = 0;i < points;++i)
 	{
 		input(
-			randomVector<real, 3>() * Vector3(extent - 1)) = randomRgbColor();
+			randomVector<dreal, 3>() * Vector3(extent - 1)) = randomRgbColor();
 	}
 
 	Array<Color, 3> output(extent);

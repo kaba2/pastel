@@ -14,11 +14,11 @@
 namespace Pastel
 {
 
-	using Triangle1 = PASTEL_TRIANGLE(real, 1);
-	using Triangle2 = PASTEL_TRIANGLE(real, 2);
-	using Triangle3 = PASTEL_TRIANGLE(real, 3);
-	using Triangle4 = PASTEL_TRIANGLE(real, 4);
-	using TriangleD = PASTEL_TRIANGLE(real, Dynamic);
+	using Triangle1 = PASTEL_TRIANGLE(dreal, 1);
+	using Triangle2 = PASTEL_TRIANGLE(dreal, 2);
+	using Triangle3 = PASTEL_TRIANGLE(dreal, 3);
+	using Triangle4 = PASTEL_TRIANGLE(dreal, 4);
+	using TriangleD = PASTEL_TRIANGLE(dreal, Dynamic);
 
 }
 

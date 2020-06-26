@@ -45,9 +45,9 @@ namespace Pastel
 		std::vector<Vector<Real, N> > data_;
 	};
 
-	using Polygon2 = Polygon<real, 2>;
-	using Polygon3 = Polygon<real, 3>;
-	using Polygon4 = Polygon<real, 4>;
+	using Polygon2 = Polygon<dreal, 2>;
+	using Polygon3 = Polygon<dreal, 3>;
+	using Polygon4 = Polygon<dreal, 4>;
 
 }
 

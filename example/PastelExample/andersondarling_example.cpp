@@ -41,7 +41,7 @@ namespace
 		{
 			const integer m = 100000;
 			const integer n = 64;
-			std::vector<real> input(n);
+			std::vector<dreal> input(n);
 
 			/*
 			Significance levels, when mean
@@ -75,10 +75,10 @@ namespace
 			M.A. Stephens
 			*/
 
-			real minThreshold = 1.0;
-			real maxThreshold = 2.0;
-			//real minThreshold = 0.631;
-			//real maxThreshold = 0.631;
+			dreal minThreshold = 1.0;
+			dreal maxThreshold = 2.0;
+			//dreal minThreshold = 0.631;
+			//dreal maxThreshold = 0.631;
 			integer thresholds = (maxThreshold - minThreshold) * 20;
 			if (thresholds == 0)
 			{
@@ -87,24 +87,24 @@ namespace
 
 			for (integer k = 0;k < thresholds;++k)
 			{
-				const real threshold = 
-					linear(minThreshold, maxThreshold, (real)k / thresholds);
+				const dreal threshold = 
+					linear(minThreshold, maxThreshold, (dreal)k / thresholds);
 				integer negatives = 0;
-				real mean = 0;
-				real deviation = 1;
-				//real populationMean = nan<real>();
-				real populationDeviation = nan<real>();
-				real populationMean = 0;
-				//real populationDeviation = 1;
+				dreal mean = 0;
+				dreal deviation = 1;
+				//dreal populationMean = nan<dreal>();
+				dreal populationDeviation = nan<dreal>();
+				dreal populationMean = 0;
+				//dreal populationDeviation = 1;
 				for (integer j = 0;j < m;++j)
 				{
 					for (integer i = 0;i < n;++i)
 					{
-						input[i] = mean + randomGaussian<real>() * deviation;
-						//input[i] = mean + (2 * random<real>() - 1) * std::sqrt((real)3) * deviation;
+						input[i] = mean + randomGaussian<dreal>() * deviation;
+						//input[i] = mean + (2 * random<dreal>() - 1) * std::sqrt((dreal)3) * deviation;
 
 						/*
-						input[i] = randomGaussian<real>();
+						input[i] = randomGaussian<dreal>();
 						if (i > n / 4)
 						{
 							input[i] += 2;
@@ -112,8 +112,8 @@ namespace
 						*/
 					}
 					/*
-					real sum = 0;
-					real squareSum = 0;
+					dreal sum = 0;
+					dreal squareSum = 0;
 					for (integer i = 0;i < n;++i)
 					{
 						sum += input[i];
@@ -125,7 +125,7 @@ namespace
 						<< std::endl;
 					*/
 
-					const real t = gaussianAndersonDarling<real>(
+					const dreal t = gaussianAndersonDarling<dreal>(
 						range(input.begin(), input.end()), 
 						populationMean, populationDeviation);
 					if (t > threshold)
@@ -134,8 +134,8 @@ namespace
 					}	
 				}
 
-				const real negativePercent =
-					(real)(100 * negatives) / m;
+				const dreal negativePercent =
+					(dreal)(100 * negatives) / m;
 
 				std::cout << threshold << ": " << negativePercent << "% negatives." << std::endl;
 
@@ -149,19 +149,19 @@ namespace
 			const integer w = 512;
 			const integer n = k + w - 1;
 			
-			std::vector<real> dataSet;
+			std::vector<dreal> dataSet;
 			dataSet.reserve(n);
 			for (integer i = 0;i < n;++i)
 			{
-				dataSet.push_back(randomGaussian<real>());
+				dataSet.push_back(randomGaussian<dreal>());
 			}
 
-			typedef std::set<KeyValue<real, integer> > NearestSet;
+			typedef std::set<KeyValue<dreal, integer> > NearestSet;
 
 			NearestSet aNearestSet;
 			NearestSet bNearestSet;
 
-			std::vector<real> differenceSet(w, 0);
+			std::vector<dreal> differenceSet(w, 0);
 			for (integer i = 0;i < n - w + 1;++i)
 			{
 				for (integer j = 0;j < w;++j)
@@ -169,8 +169,8 @@ namespace
 					differenceSet[j] = dataSet[i + j] - dataSet[j];
 				}
 
-				const real ad =
-					gaussianAndersonDarling<real>(
+				const dreal ad =
+					gaussianAndersonDarling<dreal>(
 					range(differenceSet.begin(), differenceSet.end()),
 					0, 1);
 
@@ -183,9 +183,9 @@ namespace
 					aNearestSet.erase(aLast);
 				}
 
-				const real distance =
+				const dreal distance =
 					distance2(differenceSet.begin(), differenceSet.begin() + i,
-					w, Euclidean_Distance<real>());
+					w, Euclidean_Distance<dreal>());
 
 				bNearestSet.insert(
 					keyValue(distance, i));

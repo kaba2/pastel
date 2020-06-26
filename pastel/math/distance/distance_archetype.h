@@ -11,10 +11,10 @@ namespace Pastel
 {
 
 	class Distance_Archetype
-	: DistanceBase<Distance_Archetype, real>
+	: DistanceBase<Distance_Archetype, dreal>
 	{
 	public:
-		using Real_ = real;
+		using Real_ = dreal;
 
 		Distance_Archetype() = default;
 		explicit Distance_Archetype(Real_) {}

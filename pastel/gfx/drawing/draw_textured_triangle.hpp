@@ -40,8 +40,8 @@ namespace Pastel
 			{
 			}
 
-			real x_;
-			real y_;
+			dreal x_;
+			dreal y_;
 			Vector2 uv_;
 			integer index_;
 		};
@@ -170,12 +170,12 @@ namespace Pastel
 
 		// Compute delta's w.r.t. y.
 
-		real xLeftDelta = 0;
-		real yLeftDelta = 0;
+		dreal xLeftDelta = 0;
+		dreal yLeftDelta = 0;
 		Vector2 uvLeftDelta;
 
-		real xRightDelta = 0;
-		real yRightDelta = 0;
+		dreal xRightDelta = 0;
+		dreal yRightDelta = 0;
 		Vector2 uvRightDelta;
 
 		bool longLeftEdge =
@@ -209,12 +209,12 @@ namespace Pastel
 
 		// Compute delta's w.r.t. x.
 
-		real yBottomDelta = 0;
-		real xBottomDelta = 0;
+		dreal yBottomDelta = 0;
+		dreal xBottomDelta = 0;
 		Vector2 uvBottomDelta;
 
-		real yTopDelta = 0;
-		real xTopDelta = 0;
+		dreal yTopDelta = 0;
+		dreal xTopDelta = 0;
 		Vector2 uvTopDelta;
 
 		bool longBottomEdge =
@@ -248,21 +248,21 @@ namespace Pastel
 
 		// Compute boundary derivatives w.r.t. y.
 
-		real dxLeftDy = xLeftDelta;
+		dreal dxLeftDy = xLeftDelta;
 		Vector2 dUvLeftDy = uvLeftDelta;
 		if (yLeftDelta != 0)
 		{
-			real yLeftDeltaInv = inverse(yLeftDelta);
+			dreal yLeftDeltaInv = inverse(yLeftDelta);
 
 			dxLeftDy *= yLeftDeltaInv;
 			dUvLeftDy *= yLeftDeltaInv;
 		}
 
-		real dxRightDy = xRightDelta;
+		dreal dxRightDy = xRightDelta;
 		Vector2 dUvRightDy = uvRightDelta;
 		if (yRightDelta != 0)
 		{
-			real yRightDeltaInv = inverse(yRightDelta);
+			dreal yRightDeltaInv = inverse(yRightDelta);
 
 			dxRightDy *= yRightDeltaInv;
 			dUvRightDy *= yRightDeltaInv;
@@ -270,21 +270,21 @@ namespace Pastel
 
 		// Compute boundary derivatives w.r.t. x.
 
-		real dyBottomDx = yBottomDelta;
+		dreal dyBottomDx = yBottomDelta;
 		Vector2 dUvBottomDx = uvBottomDelta;
 		if (xBottomDelta != 0)
 		{
-			real xBottomDeltaInv = inverse(xBottomDelta);
+			dreal xBottomDeltaInv = inverse(xBottomDelta);
 
 			dyBottomDx *= xBottomDeltaInv;
 			dUvBottomDx *= xBottomDeltaInv;
 		}
 
-		real dyTopDx = yTopDelta;
+		dreal dyTopDx = yTopDelta;
 		Vector2 dUvTopDx = uvTopDelta;
 		if (xTopDelta != 0)
 		{
-			real xTopDeltaInv = inverse(xTopDelta);
+			dreal xTopDeltaInv = inverse(xTopDelta);
 
 			dyTopDx *= xTopDeltaInv;
 			dUvTopDx *= xTopDeltaInv;
@@ -292,12 +292,12 @@ namespace Pastel
 
 		// Offset the start scanline to pixel rows.
 
-		real yOffset = ((real)yMin + 0.5) - yMinVertex.y_;
+		dreal yOffset = ((dreal)yMin + 0.5) - yMinVertex.y_;
 
-		real xLeft = yMinVertex.x_ + dxLeftDy * yOffset;
+		dreal xLeft = yMinVertex.x_ + dxLeftDy * yOffset;
 		Vector2 uvLeft = yMinVertex.uv_ + dUvLeftDy * yOffset;
 
-		real xRight = yMinVertex.x_ + dxRightDy * yOffset;
+		dreal xRight = yMinVertex.x_ + dxRightDy * yOffset;
 		Vector2 uvRight = yMinVertex.uv_ + dUvRightDy * yOffset;
 
 		// Compute data derivatives w.r.t. x.
@@ -305,9 +305,9 @@ namespace Pastel
 		Vector2 dUvDx;
 		if (longLeftEdge)
 		{
-			real yDelta = yMidVertex.y_ - yMinVertex.y_;
+			dreal yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			real dx =
+			dreal dx =
 				yMidVertex.x_ -
 
 				(yMinVertex.x_ + dxLeftDy * yDelta);
@@ -316,22 +316,22 @@ namespace Pastel
 
 				(yMinVertex.uv_ + dUvLeftDy * yDelta);
 
-			real invDx = inverse(dx);
+			dreal invDx = inverse(dx);
 
 			dUvDx = dUv * invDx;
 		}
 		else
 		{
-			real yDelta = yMidVertex.y_ - yMinVertex.y_;
+			dreal yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			real dx =
+			dreal dx =
 				(yMinVertex.x_ + dxRightDy * yDelta) -
 				yMidVertex.x_;
 			Vector2 dUv =
 				(yMinVertex.uv_ + dUvRightDy * yDelta) -
 				yMidVertex.uv_;
 
-			real invDx = inverse(dx);
+			dreal invDx = inverse(dx);
 
 			dUvDx = dUv * invDx;
 		}
@@ -341,9 +341,9 @@ namespace Pastel
 		Vector2 dUvDy;
 		if (longBottomEdge)
 		{
-			real xDelta = xMidVertex.x_ - xMinVertex.x_;
+			dreal xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			real dy =
+			dreal dy =
 				xMidVertex.y_ -
 
 				(xMinVertex.y_ + dyBottomDx * xDelta);
@@ -352,22 +352,22 @@ namespace Pastel
 
 				(xMinVertex.uv_ + dUvBottomDx * xDelta);
 
-			real invDy = inverse(dy);
+			dreal invDy = inverse(dy);
 
 			dUvDy = dUv * invDy;
 		}
 		else
 		{
-			real xDelta = xMidVertex.x_ - xMinVertex.x_;
+			dreal xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			real dy =
+			dreal dy =
 				(xMinVertex.y_ + dyTopDx * xDelta) -
 				xMidVertex.y_;
 			Vector2 dUv =
 				(xMinVertex.uv_ + dUvTopDx * xDelta) -
 				xMidVertex.uv_;
 
-			real invDy = inverse(dy);
+			dreal invDy = inverse(dy);
 
 			dUvDy = dUv * invDy;
 		}
@@ -381,7 +381,7 @@ namespace Pastel
 
 			if (xEnd - xBegin > 0)
 			{
-				real xOffset = ((real)xBegin + 0.5) - xLeft;
+				dreal xOffset = ((dreal)xBegin + 0.5) - xLeft;
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 
@@ -389,7 +389,7 @@ namespace Pastel
 				{
 					image(x, y) =
 						colorMixer(image(x, y),
-						textureSampler(uv, matrix2x2<real>(dUvDx, dUvDy)));
+						textureSampler(uv, matrix2x2<dreal>(dUvDx, dUvDy)));
 
 					uv += dUvDx;
 				}
@@ -416,7 +416,7 @@ namespace Pastel
 			dUvRightDy = uvRightDelta;
 			if (yRightDelta != 0)
 			{
-				real yRightDeltaInv = inverse(yRightDelta);
+				dreal yRightDeltaInv = inverse(yRightDelta);
 
 				dxRightDy *= yRightDeltaInv;
 				dUvRightDy *= yRightDeltaInv;
@@ -424,7 +424,7 @@ namespace Pastel
 
 			// Offset the scanline to pixel rows.
 
-			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
+			dreal yOffset = ((dreal)yMid + 0.5) - yMidVertex.y_;
 
 			xRight = yMidVertex.x_ + dxRightDy * yOffset;
 			uvRight = yMidVertex.uv_ + dUvRightDy * yOffset;
@@ -440,7 +440,7 @@ namespace Pastel
 			dUvLeftDy = uvLeftDelta;
 			if (yLeftDelta != 0)
 			{
-				real yLeftDeltaInv = inverse(yLeftDelta);
+				dreal yLeftDeltaInv = inverse(yLeftDelta);
 
 				dxLeftDy *= yLeftDeltaInv;
 				dUvLeftDy *= yLeftDeltaInv;
@@ -448,7 +448,7 @@ namespace Pastel
 
 			// Offset the scanline to pixel rows.
 
-			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
+			dreal yOffset = ((dreal)yMid + 0.5) - yMidVertex.y_;
 
 			xLeft = yMidVertex.x_ + dxLeftDy * yOffset;
 			uvLeft = yMidVertex.uv_ + dUvLeftDy * yOffset;
@@ -463,7 +463,7 @@ namespace Pastel
 
 			if (xEnd - xBegin > 0)
 			{
-				real xOffset = ((real)xBegin + 0.5) - xLeft;
+				dreal xOffset = ((dreal)xBegin + 0.5) - xLeft;
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 
@@ -471,7 +471,7 @@ namespace Pastel
 				{
 					image(x, y) =
 						colorMixer(image(x, y),
-						textureSampler(uv, matrix2x2<real>(dUvDx, dUvDy)));
+						textureSampler(uv, matrix2x2<dreal>(dUvDx, dUvDy)));
 
 					uv += dUvDx;
 				}

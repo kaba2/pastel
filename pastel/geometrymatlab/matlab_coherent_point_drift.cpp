@@ -48,11 +48,11 @@ namespace
 		ENSURE_OP(inputs, ==, Inputs);
 		ENSURE_OP(outputs, ==, Outputs);
 
-		arma::Mat<real> fromSet = 
-			matlabAsMatrix<real>(inputSet[FromSet]);
+		arma::Mat<dreal> fromSet = 
+			matlabAsMatrix<dreal>(inputSet[FromSet]);
 
-		arma::Mat<real> toSet = 
-			matlabAsMatrix<real>(inputSet[ToSet]);
+		arma::Mat<dreal> toSet = 
+			matlabAsMatrix<dreal>(inputSet[ToSet]);
 
 		auto matrix = matlabStringAsEnum<Cpd_Matrix>(
 			inputSet[Matrix],
@@ -74,14 +74,14 @@ namespace
 		integer orientation = 
 			matlabAsScalar<integer>(inputSet[Orientation]);
 
-		arma::Mat<real> Q0 = 
-			matlabAsMatrix<real>(inputSet[Q0i]);
+		arma::Mat<dreal> Q0 = 
+			matlabAsMatrix<dreal>(inputSet[Q0i]);
 
-		arma::Mat<real> S0 = 
-			matlabAsMatrix<real>(inputSet[S0i]);
+		arma::Mat<dreal> S0 = 
+			matlabAsMatrix<dreal>(inputSet[S0i]);
 
-		arma::Col<real> t0 = 
-			matlabAsMatrix<real>(inputSet[T0i]);
+		arma::Col<dreal> t0 = 
+			matlabAsMatrix<dreal>(inputSet[T0i]);
 
 		integer minIterations =
 			matlabAsScalar<integer>(inputSet[MinIterations]);
@@ -89,16 +89,16 @@ namespace
 		integer maxIterations =
 			matlabAsScalar<integer>(inputSet[MaxIterations]);
 
-		real minError = 
-			matlabAsScalar<real>(inputSet[MinError]);
+		dreal minError = 
+			matlabAsScalar<dreal>(inputSet[MinError]);
 
 		bool qSpecified = !Q0.is_empty();
 		bool sSpecified = !S0.is_empty();
 		bool tSpecified = !t0.is_empty();
 
-		const real* q0Pointer = Q0.memptr();
-		const real* s0Pointer = S0.memptr();
-		const real* t0Pointer = t0.memptr();
+		const dreal* q0Pointer = Q0.memptr();
+		const dreal* s0Pointer = S0.memptr();
+		const dreal* t0Pointer = t0.memptr();
 
 		auto match = coherentPointDrift(
 			std::move(fromSet), 
@@ -121,7 +121,7 @@ namespace
 		}
 		else
 		{
-			matlabCreateArray<real>(match.Q, outputSet[Qi]);
+			matlabCreateArray<dreal>(match.Q, outputSet[Qi]);
 		}
 
 		if (sSpecified)
@@ -131,7 +131,7 @@ namespace
 		}
 		else
 		{
-			matlabCreateArray<real>(match.S, outputSet[Si]);
+			matlabCreateArray<dreal>(match.S, outputSet[Si]);
 		}
 
 		if (tSpecified)
@@ -141,10 +141,10 @@ namespace
 		}
 		else
 		{
-			matlabCreateArray<real>(match.t, outputSet[Ti]);
+			matlabCreateArray<dreal>(match.t, outputSet[Ti]);
 		}
 
-		*matlabCreateScalar<real>(outputSet[Sigma2]) = match.sigma2;
+		*matlabCreateScalar<dreal>(outputSet[Sigma2]) = match.sigma2;
 	}
 
 	void addFunction()

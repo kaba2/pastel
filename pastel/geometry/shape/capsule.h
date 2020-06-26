@@ -92,11 +92,11 @@ namespace Pastel
 		Topology topology_;
 	};
 
-	using Capsule1 = Capsule<real, 1>;
-	using Capsule2 = Capsule<real, 2>;
-	using Capsule3 = Capsule<real, 3>;
-	using Capsule4 = Capsule<real, 4>;
-	using CapsuleD = Capsule<real, Dynamic>;
+	using Capsule1 = Capsule<dreal, 1>;
+	using Capsule2 = Capsule<dreal, 2>;
+	using Capsule3 = Capsule<dreal, 3>;
+	using Capsule4 = Capsule<dreal, 4>;
+	using CapsuleD = Capsule<dreal, Dynamic>;
 
 }
 

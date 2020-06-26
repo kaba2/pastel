@@ -9,7 +9,7 @@
 namespace
 {
 
-	using Real = real;
+	using Real = dreal;
 	using Poly = Polynomial<Real>;
 
 }

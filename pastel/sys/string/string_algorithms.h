@@ -72,17 +72,17 @@ namespace Pastel
 	*/
 	integer stringToInteger(const std::string& text);
 
-	//! Converts a string to a real number.
+	//! Converts a string to a dreal number.
 	/*!
 	Time complexity: linear
 	Exception safety: strong
 
 	Special meanings:
-	inf, +inf: (real)Infinity()
-	-inf: -(real)Infinity()
-	nan, +nan, -nan: (real)Nan()	
+	inf, +inf: (dreal)Infinity()
+	-inf: -(dreal)Infinity()
+	nan, +nan, -nan: (dreal)Nan()	
 	*/
-	real stringToReal(const std::string& text, 
+	dreal stringToReal(const std::string& text, 
 		integer* indexEnd = 0);
 
 	//! Converts an integer to a string.
@@ -111,8 +111,8 @@ namespace Pastel
 	std::string integerToString(integer number,
 		integer digits = -1, char padding = '0');
 
-	//! Converts a real number to a string.
-	std::string realToString(real number, integer digits = -1);
+	//! Converts a dreal number to a string.
+	std::string realToString(dreal number, integer digits = -1);
 
 }
 

@@ -15,27 +15,27 @@ TEST_CASE("SimilaritySimple (Transformation)")
 {
 	for (integer i = 0;i < 10000;++i)
 	{
-		ConformalAffine2D<real> transformation(
-			random<real>() * 2 + 1,
-			random<real>() * 2 * constantPi<real>(),
-			Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
+		ConformalAffine2D<dreal> transformation(
+			random<dreal>() * 2 + 1,
+			random<dreal>() * 2 * constantPi<dreal>(),
+			Vector2(random<dreal>() * 2 - 1, random<dreal>() * 2 - 1));
 
-		Vector2 aFrom(random<real>(), random<real>());
-		Vector2 bFrom(random<real>(), random<real>());
+		Vector2 aFrom(random<dreal>(), random<dreal>());
+		Vector2 bFrom(random<dreal>(), random<dreal>());
 
 		Vector2 aTo(transformPoint(transformation, aFrom));
 		Vector2 bTo(transformPoint(transformation, bFrom));
 
-		ConformalAffine2D<real> matchedTransformation =
+		ConformalAffine2D<dreal> matchedTransformation =
 			conformalAffine(aFrom, bFrom, aTo, bTo);
 
-		real scalingDelta = absoluteError<real>(
+		dreal scalingDelta = absoluteError<dreal>(
 			matchedTransformation.scaling(), 
 			transformation.scaling());
-		real angleDelta = absoluteError<real>(
+		dreal angleDelta = absoluteError<dreal>(
 			matchedTransformation.rotation(), 
 			transformation.rotation());
-		real tDelta = norm(
+		dreal tDelta = norm(
 			matchedTransformation.translation() - 
 			transformation.translation());
 
@@ -50,39 +50,39 @@ TEST_CASE("SimilarityLs (Transformation)")
 {
 	for (integer i = 0;i < 10000;++i)
 	{
-		ConformalAffine2D<real> transformation(
-			random<real>() * 2 + 1,
-			random<real>() * 2 * constantPi<real>(),
-			Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
+		ConformalAffine2D<dreal> transformation(
+			random<dreal>() * 2 + 1,
+			random<dreal>() * 2 * constantPi<dreal>(),
+			Vector2(random<dreal>() * 2 - 1, random<dreal>() * 2 - 1));
 
 		std::vector<Vector2> pattern;
 		std::vector<Vector2> transformedPattern;
 
 		for (integer i = 0;i < 1000;++i)
 		{
-			pattern.push_back(randomVector<real, 2>());
+			pattern.push_back(randomVector<dreal, 2>());
 			transformedPattern.push_back(
 				transformPoint(transformation, pattern.back()));
 		}
 
-		ConformalAffine2D<real> matchedTransformation =
+		ConformalAffine2D<dreal> matchedTransformation =
 			lsConformalAffine(
 				locationSet(
 					pattern,
-					Vector_Locator<real, 2>()
+					Vector_Locator<dreal, 2>()
 				),
 				locationSet(
 					transformedPattern,
-					Vector_Locator<real, 2>()
+					Vector_Locator<dreal, 2>()
 				));
 
-		real scalingDelta = absoluteError<real>(
+		dreal scalingDelta = absoluteError<dreal>(
 			matchedTransformation.scaling(), 
 			transformation.scaling());
-		real angleDelta = absoluteError<real>(
+		dreal angleDelta = absoluteError<dreal>(
 			matchedTransformation.rotation(), 
 			transformation.rotation());
-		real tDelta = norm(
+		dreal tDelta = norm(
 			matchedTransformation.translation() - 
 			transformation.translation());
 

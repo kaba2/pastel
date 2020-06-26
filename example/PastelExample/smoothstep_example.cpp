@@ -30,8 +30,8 @@ namespace
 
 		for (integer i = 0;i < Points;++i)
 		{
-			const real tFrom = (real)i / Points;
-			const real tTo = (real)(i + 1) / Points;
+			const dreal tFrom = (dreal)i / Points;
+			const dreal tTo = (dreal)(i + 1) / Points;
 
 			const Vector2 from(Width * tFrom, Height * cubicSmoothStep(tFrom));
 			const Vector2 to(Width * tTo, Height * cubicSmoothStep(tTo));
@@ -42,8 +42,8 @@ namespace
 
 		for (integer i = 0;i < Points;++i)
 		{
-			const real tFrom = (real)i / Points;
-			const real tTo = (real)(i + 1) / Points;
+			const dreal tFrom = (dreal)i / Points;
+			const dreal tTo = (dreal)(i + 1) / Points;
 
 			const Vector2 from(Width * tFrom, Height * quarticSmoothStep(tFrom * tFrom));
 			const Vector2 to(Width * tTo, Height * quarticSmoothStep(tTo * tTo));
@@ -54,8 +54,8 @@ namespace
 
 		for (integer i = 0;i < Points;++i)
 		{
-			const real tFrom = (real)i / Points;
-			const real tTo = (real)(i + 1) / Points;
+			const dreal tFrom = (dreal)i / Points;
+			const dreal tTo = (dreal)(i + 1) / Points;
 
 			const Vector2 from(Width * tFrom, Height * quinticSmoothStep(tFrom));
 			const Vector2 to(Width * tTo, Height * quinticSmoothStep(tTo));

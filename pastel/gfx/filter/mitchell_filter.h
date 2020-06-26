@@ -37,8 +37,8 @@ namespace Pastel
 		// Using default assignment.
 
 		explicit Mitchell_Filter(
-			real b = (real)1 / 3,
-			real c = (real)1 / 3)
+			dreal b = (dreal)1 / 3,
+			dreal c = (dreal)1 / 3)
 		: Filter(2, "mitchell")
 		, b_(b)
 		, c_(c)
@@ -49,7 +49,7 @@ namespace Pastel
 		{
 		}
 
-		virtual real evaluateInRange(real x) const
+		virtual dreal evaluateInRange(dreal x) const
 		{
 			// Let
 			// f(x) = ax^3 + bx^2 + cx + d
@@ -74,7 +74,7 @@ namespace Pastel
 			// Mitchell-Netravali cubic splines
 			// with B and C as the parameter.
 
-			real xAbs = abs(x);
+			dreal xAbs = abs(x);
 
 			if (xAbs < 1)
 			{
@@ -94,16 +94,16 @@ namespace Pastel
 		Mitchell_Filter(const Mitchell_Filter& that) = delete;
 		Mitchell_Filter& operator=(const Mitchell_Filter& that) = delete;
 
-		real b_;
-		real c_;
+		dreal b_;
+		dreal c_;
 	};
 
 	using MitchellFilterPtr = std::shared_ptr<Mitchell_Filter>;
 	using ConstMitchellFilterPtr = std::shared_ptr<const Mitchell_Filter>;
 
 	inline MitchellFilterPtr mitchellFilter(
-		real b = (real)1 / 3,
-		real c = (real)1 / 3)
+		dreal b = (dreal)1 / 3,
+		dreal c = (dreal)1 / 3)
 	{
 		return std::make_shared<Mitchell_Filter>(b, c);
 	}

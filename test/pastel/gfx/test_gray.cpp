@@ -46,8 +46,8 @@ TEST_CASE("Gray (Gray)")
 
 TEST_CASE("LinearLuminance (LinearLuminance)")
 {
-	real Width = 400;
-	real Height = 100;
+	dreal Width = 400;
+	dreal Height = 100;
 	Array<Color, 2> image(Vector2i(Width, Height));
 
 	real32 Step = 1 / Width;
@@ -68,8 +68,8 @@ TEST_CASE("LinearLuminance (LinearLuminance)")
 
 TEST_CASE("LinearLuma (LinearLuma)")
 {
-	real Width = 400;
-	real Height = 100;
+	dreal Width = 400;
+	dreal Height = 100;
 	Array<Color, 2> image(Vector2i(Width, Height));
 
 	real32 Step = 1 / Width;
@@ -89,8 +89,8 @@ TEST_CASE("LinearLuma (LinearLuma)")
 
 TEST_CASE("LinearLightness (LinearLightness)")
 {
-	real Width = 400;
-	real Height = 100;
+	dreal Width = 400;
+	dreal Height = 100;
 	Array<Color, 2> image(Vector2i(Width, Height));
 
 	real32 Step = 100 / Width;

@@ -30,9 +30,9 @@ namespace Pastel
 	PASTEL_STATIC_ASSERT(
 		UINT_MAX == 0xFFFFFFFF);
 
-	// Check that 'real' is a native floating point type.
+	// Check that 'dreal' is a native floating point type.
 	PASTEL_STATIC_ASSERT(
-		std::is_floating_point<real>::value);
+		std::is_floating_point<dreal>::value);
 
 	// Check that 'integer' is at least 32 bits wide.
 	PASTEL_STATIC_ASSERT(

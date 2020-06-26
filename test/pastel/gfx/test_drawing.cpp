@@ -430,9 +430,9 @@ TEST_CASE("Lines (Lines)")
 	integer steps = 128;
 
 	Vector2 center(50.5, 240.5);
-	real radius = 200;
+	dreal radius = 200;
 
-	real alphaStep = 2 * constantPi<real>() / steps;
+	dreal alphaStep = 2 * constantPi<dreal>() / steps;
 
 	for (integer i = 0;i < steps;++i)
 	{
@@ -461,8 +461,8 @@ TEST_CASE("MoreLines (MoreLines)")
 	for (integer i = 0;i < lines;++i)
 	{
 
-		const Vector2 from(random<real>() * 1000 - 180, random<real>() * 740 - 180);
-		const Vector2 to(random<real>() * 1000 - 180, random<real>() * 740 - 180);
+		const Vector2 from(random<dreal>() * 1000 - 180, random<dreal>() * 740 - 180);
+		const Vector2 to(random<dreal>() * 1000 - 180, random<dreal>() * 740 - 180);
 		drawSegment(Segment2(from, to), randomRgbColor(), arrayView(image));
 	}
 
@@ -476,10 +476,10 @@ TEST_CASE("EvenMoreLines (EvenMoreLines)")
 	integer BoxWidth = 100;
 	integer BoxHeight = 25;
 	integer Border = 10;
-	real YStart = 0.1;
-	real YEnd = 0.9;
-	real XYStep = (real)(YEnd - YStart) / (XLines - 1);
-	real YYStep = (real)(YEnd - YStart) / (YLines - 1);
+	dreal YStart = 0.1;
+	dreal YEnd = 0.9;
+	dreal XYStep = (dreal)(YEnd - YStart) / (XLines - 1);
+	dreal YYStep = (dreal)(YEnd - YStart) / (YLines - 1);
 
 	Array<Color, 2> image(Vector2i(XLines* BoxWidth, YLines * BoxHeight));
 

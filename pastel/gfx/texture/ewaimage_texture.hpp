@@ -19,19 +19,19 @@ namespace Pastel
 	{
 		ENSURE(maxFilter && minFilter);
 
-		real filterRadius =
+		dreal filterRadius =
 			std::max(minFilter->radius(), maxFilter->radius());
 
 		const integer tableSize = filterRadius * 1024;
-		real scaling = square(filterRadius) / tableSize;
+		dreal scaling = square(filterRadius) / tableSize;
 
-		std::vector<real> minFilterTable(tableSize);
-		std::vector<real> maxFilterTable(tableSize);
+		std::vector<dreal> minFilterTable(tableSize);
+		std::vector<dreal> maxFilterTable(tableSize);
 
 		for (integer i = 0;i < tableSize;++i)
 		{
 
-			const real t = std::sqrt(i * scaling);
+			const dreal t = std::sqrt(i * scaling);
 
 			minFilterTable[i] = minFilter->evaluate(t);
 			maxFilterTable[i] = maxFilter->evaluate(t);
@@ -45,8 +45,8 @@ namespace Pastel
 
 	template <typename Type, integer N>
 	Type EwaImage_Texture<Type, N>::operator()(
-		const Vector<real, N>& p_,
-		const Matrix<real>& m_) const
+		const Vector<dreal, N>& p_,
+		const Matrix<dreal>& m_) const
 	{
 		// Read ewaimatexture.txt for implementation documentation.
 
@@ -58,13 +58,13 @@ namespace Pastel
 		integer n = m_.height();
 
 		const Array<Type, N>& mostDetailedImage = mipMap_->mostDetailed();
-		Vector<real, N> imageExtent(mostDetailedImage.extent());
+		Vector<dreal, N> imageExtent(mostDetailedImage.extent());
 
 		// The derivative vectors along with 'uv' represent an affine
 		// transformation from the image plane to the texture plane.
 
-		const Vector<real, N> p(p_ * imageExtent);
-		Matrix<real> basis = m_;
+		const Vector<dreal, N> p(p_ * imageExtent);
+		Matrix<dreal> basis = m_;
 		for (integer i = 0;i < n;++i)
 		{
 			basis.column(i) *= imageExtent * filterRadius_;
@@ -73,7 +73,7 @@ namespace Pastel
 		// Find the ellipse that is obtained by applying
 		// that affine transformation to a unit sphere.
 
-		Matrix<real> quadraticForm =
+		Matrix<dreal> quadraticForm =
 			ellipsoidQuadraticForm(basis);
 
 		// We do not use the coefficients as computed.
@@ -112,16 +112,16 @@ namespace Pastel
 		// eigenvalues of a matrix. Until we have that we must
 		// restrict to 2D.
 
-		Vector<real, N> eigenValue = symmetricEigenValues(quadraticForm);
+		Vector<dreal, N> eigenValue = symmetricEigenValues(quadraticForm);
 
 		// The eigenvalues are returned in ascending order.
 
-		real majorAxisLength2 = inverse(eigenValue[0]);
-		real minorAxisLength2 = inverse(eigenValue[eigenValue.size() - 1]);
+		dreal majorAxisLength2 = inverse(eigenValue[0]);
+		dreal minorAxisLength2 = inverse(eigenValue[eigenValue.size() - 1]);
 
-		real eccentricity2 = majorAxisLength2/ minorAxisLength2;
+		dreal eccentricity2 = majorAxisLength2/ minorAxisLength2;
 
-		real MaxEccentricity2 = square(30);
+		dreal MaxEccentricity2 = square(30);
 		if (eccentricity2 > MaxEccentricity2)
 		{
 			// The ellipse is way too skinny. This can
@@ -141,12 +141,12 @@ namespace Pastel
 			// k = majorAxisLength / (minorAxisLength * MaxEccentricity)
 			// = eccentricity / MaxEccentricity
 
-			Vector<real, N> aMajorAxisCandidate(
+			Vector<dreal, N> aMajorAxisCandidate(
 				quadraticForm(1, 0), eigenValue[0] - quadraticForm(0, 0));
-			Vector<real, N> bMajorAxisCandidate(
+			Vector<dreal, N> bMajorAxisCandidate(
 				eigenValue[0] - quadraticForm(1, 1), quadraticForm(1, 0));
 
-			Vector<real, N> majorAxis;
+			Vector<dreal, N> majorAxis;
 
 			if (manhattanNorm(aMajorAxisCandidate) <
 				manhattanNorm(bMajorAxisCandidate))
@@ -160,7 +160,7 @@ namespace Pastel
 
 			majorAxis /= norm(majorAxis);
 
-			Vector<real, N> minorAxis = cross(majorAxis);
+			Vector<dreal, N> minorAxis = cross(majorAxis);
 
 			minorAxisLength2 *= (eccentricity2 / MaxEccentricity2);
 
@@ -171,17 +171,17 @@ namespace Pastel
 			// the minor axis has changed.
 
 			quadraticForm = ellipsoidQuadraticForm(
-				matrix2x2<real>(minorAxis, majorAxis));
+				matrix2x2<dreal>(minorAxis, majorAxis));
 		}
 
 		// Select an appropriate mipmap level.
 		// We want the minor axis to cover at least 'pixelsPerMinorAxis' pixels per 'minorAxis' length
 		// in the more detailed image (note that it is half of the minor diameter).
 
-		real invLn2 = inverse(constantLn2<real>());
-		real pixelsPerMinorAxis = 2;
+		dreal invLn2 = inverse(constantLn2<dreal>());
+		dreal pixelsPerMinorAxis = 2;
 
-		const real level = 0.5 * std::log(minorAxisLength2 /
+		const dreal level = 0.5 * std::log(minorAxisLength2 /
 			square(pixelsPerMinorAxis * filterRadius_)) * invLn2;
 
 		//return Type(level / (mipMap_->levels() - 1));
@@ -197,12 +197,12 @@ namespace Pastel
 
 		// Compute filter transition coefficient.
 
-		real transitionBegin = 0;
-		real transitionEnd = 0.15;
-		real transitionWidth = transitionEnd - transitionBegin;
-		real normalizedLevel = level / (real)(mipMap_->levels() - 1);
-		real tTransition = clamp((normalizedLevel - transitionBegin) / transitionWidth,
-			(real)0, (real)1);
+		dreal transitionBegin = 0;
+		dreal transitionEnd = 0.15;
+		dreal transitionWidth = transitionEnd - transitionBegin;
+		dreal normalizedLevel = level / (dreal)(mipMap_->levels() - 1);
+		dreal tTransition = clamp((normalizedLevel - transitionBegin) / transitionWidth,
+			(dreal)0, (dreal)1);
 
 		//return Type(tTransition);
 
@@ -232,14 +232,14 @@ namespace Pastel
 
 		const Array<Type, 2>& detailImage = (*mipMap_)(detailLevel);
 		Type detailSample =
-			sampleEwa(p, quadraticForm, bound, (real)1 / (1 << detailLevel), tTransition,
+			sampleEwa(p, quadraticForm, bound, (dreal)1 / (1 << detailLevel), tTransition,
 			detailImage);
 
 		integer coarseLevel = detailLevel + 1;
 
 		const Array<Type, 2>& coarseImage = (*mipMap_)(coarseLevel);
 		Type coarseSample =
-			sampleEwa(p, quadraticForm, bound, (real)1 / (1 << coarseLevel), tTransition,
+			sampleEwa(p, quadraticForm, bound, (dreal)1 / (1 << coarseLevel), tTransition,
 			coarseImage);
 
 		return linear(detailSample, coarseSample, level - detailLevel);
@@ -247,11 +247,11 @@ namespace Pastel
 
 	template <typename Type, integer N>
 	Type EwaImage_Texture<Type, N>::sampleEwa(
-		const Vector<real, N>& p,
-		const Matrix<real>& quadraticForm,
+		const Vector<dreal, N>& p,
+		const Matrix<dreal>& quadraticForm,
 		const AlignedBoxD& bound,
-		real scaling,
-		real tTransition,
+		dreal scaling,
+		dreal tTransition,
 		const Array<Type, N>& image) const
 	{
 		// Read ewaimatexture.txt for implementation documentation.
@@ -262,29 +262,29 @@ namespace Pastel
 
 		// Compute start values.
 
-		const Vector<real, N> pStart(Vector<real, N>(window.min()) + 0.5 - p * scaling);
+		const Vector<dreal, N> pStart(Vector<dreal, N>(window.min()) + 0.5 - p * scaling);
 
-		real formScaling = inverse(square(scaling));
+		dreal formScaling = inverse(square(scaling));
 
-		real fLeft = dot(pStart * quadraticForm, pStart) * formScaling;
-		Vector<real, N> dfLeft = (2 * (pStart * quadraticForm) + diagonal(quadraticForm)) * formScaling;
-		const Matrix<real> ddf = (2 * formScaling) * quadraticForm;
+		dreal fLeft = dot(pStart * quadraticForm, pStart) * formScaling;
+		Vector<dreal, N> dfLeft = (2 * (pStart * quadraticForm) + diagonal(quadraticForm)) * formScaling;
+		const Matrix<dreal> ddf = (2 * formScaling) * quadraticForm;
 
 		Type imageSum(0);
-		real weightSum = 0;
+		dreal weightSum = 0;
 
 		for (integer i = window.min().y();i < window.max().y();++i)
 		{
-			real f = fLeft;
-			real dfDu = dfLeft.x();
+			dreal f = fLeft;
+			dreal dfDu = dfLeft.x();
 
 			for (integer j = window.min().x();j < window.max().x();++j)
 			{
-				real fClamped = f < 0 ? 0 : f;
+				dreal fClamped = f < 0 ? 0 : f;
 
 				if (fClamped < filterTableSize_)
 				{
-					real weight = linear(maxFilterTable_[fClamped],
+					dreal weight = linear(maxFilterTable_[fClamped],
 						minFilterTable_[fClamped], tTransition);
 
 					imageSum += weight * extender_(image, Vector<integer, N>(j, i));

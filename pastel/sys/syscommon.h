@@ -13,16 +13,16 @@ namespace Pastel
 	/*!
 	Example:
 	Given a 2d horizontal line segment [xMin, xMax[ on row y,
-	xMin, xMax real numbers, y an integer.
+	xMin, xMax dreal numbers, y an integer.
 	Which pixels should be set? Answer:
 	[toPixelSpanPoint(xMin), toPixelSpanPoint(xMax)[
 	on row y.
 	*/
-	integer toPixelSpanPoint(real t);
+	integer toPixelSpanPoint(dreal t);
 
 	template <integer N>
 	Vector<integer, N> toPixelSpanPoint(
-		const Vector<real, N>& that);
+		const Vector<dreal, N>& that);
 
 }
 

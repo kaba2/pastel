@@ -15,7 +15,7 @@
 namespace Pastel
 {
 
-	//! A sub-ring of real numbers.
+	//! A sub-ring of dreal numbers.
 	struct Real_Ring_Concept
 	: Refines<Ordered_Ring_Concept>
 	{
@@ -56,7 +56,7 @@ namespace Pastel
 		);
 	};
 
-	//! A sub-ring of real numbers.
+	//! A sub-ring of dreal numbers.
 	template <typename T>
 	concept Real_Ring_Concept__ = 
 		Ordered_Ring_Concept_<T> &&

@@ -59,8 +59,8 @@ namespace Pastel
 	void drawFatSegment(
 		const GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		real startRadius,
-		real endRadius);
+		dreal startRadius,
+		dreal endRadius);
 
 	//! Draws a circle.
 	/*!
@@ -108,7 +108,7 @@ namespace Pastel
 	void drawArrow(
 		const GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		real radius);
+		dreal radius);
 
 	//! Draws a convex polygon.
 

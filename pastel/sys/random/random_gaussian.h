@@ -9,11 +9,11 @@
 namespace Pastel
 {
 
-	//! Returns a normal-distributed random real.
+	//! Returns a normal-distributed random dreal.
 	template <typename Real>
 	Real randomGaussian();
 
-	//! Returns a normal-distributed random real.
+	//! Returns a normal-distributed random dreal.
 	/*!
 	Precondition:
 	deviation >= 0

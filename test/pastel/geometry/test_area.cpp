@@ -11,32 +11,32 @@ using Real = Rational<integer>;
 TEST_CASE("BoxArea (area)")
 {
 	REQUIRE(
-		absoluteError<real>(boxArea(Vector1(2)), 0) < 0.001);
+		absoluteError<dreal>(boxArea(Vector1(2)), 0) < 0.001);
 	REQUIRE(
-		relativeError<real>(boxArea(Vector2(2, 2)), 8) < 0.001);
+		relativeError<dreal>(boxArea(Vector2(2, 2)), 8) < 0.001);
 	REQUIRE(
-		relativeError<real>(boxArea(Vector2(3, 6)), 18) < 0.001);
+		relativeError<dreal>(boxArea(Vector2(3, 6)), 18) < 0.001);
 	REQUIRE(
-		relativeError<real>(boxArea(Vector2(6, 3)), 18) < 0.001);
+		relativeError<dreal>(boxArea(Vector2(6, 3)), 18) < 0.001);
 	REQUIRE(
-		relativeError<real>(boxArea(Vector2(0, 6)), 12) < 0.001);
+		relativeError<dreal>(boxArea(Vector2(0, 6)), 12) < 0.001);
 	REQUIRE(
-		relativeError<real>(boxArea(Vector2(6, 0)), 12) < 0.001);
+		relativeError<dreal>(boxArea(Vector2(6, 0)), 12) < 0.001);
 
 	REQUIRE(
-		relativeError<real>(boxArea(Vector3(1, 2, 3)), 22) < 0.001);
+		relativeError<dreal>(boxArea(Vector3(1, 2, 3)), 22) < 0.001);
 	REQUIRE(
-		relativeError<real>(boxArea(Vector3(3, 2, 1)), 22) < 0.001);
+		relativeError<dreal>(boxArea(Vector3(3, 2, 1)), 22) < 0.001);
 	REQUIRE(
-		relativeError<real>(boxArea(Vector3(2, 3, 1)), 22) < 0.001);
+		relativeError<dreal>(boxArea(Vector3(2, 3, 1)), 22) < 0.001);
 	REQUIRE(
-		relativeError<real>(boxArea(Vector3(0, 2, 3)), 12) < 0.001);
+		relativeError<dreal>(boxArea(Vector3(0, 2, 3)), 12) < 0.001);
 	REQUIRE(
-		absoluteError<real>(boxArea(Vector3(3, 0, 0)), 0) < 0.001);
+		absoluteError<dreal>(boxArea(Vector3(3, 0, 0)), 0) < 0.001);
 	REQUIRE(
-		absoluteError<real>(boxArea(Vector3(0, 3, 0)), 0) < 0.001);
+		absoluteError<dreal>(boxArea(Vector3(0, 3, 0)), 0) < 0.001);
 	REQUIRE(
-		absoluteError<real>(boxArea(Vector3(0, 0, 3)), 0) < 0.001);
+		absoluteError<dreal>(boxArea(Vector3(0, 0, 3)), 0) < 0.001);
 }
 
 TEST_CASE("PolygonArea (area)")

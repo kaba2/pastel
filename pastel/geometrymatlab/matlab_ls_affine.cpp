@@ -41,14 +41,14 @@ namespace
 		ENSURE_OP(inputs, ==, Inputs);
 		ENSURE_OP(outputs, ==, Outputs);
 
-		arma::Mat<real> fromSet = 
-			matlabAsMatrix<real>(inputSet[FromSet]);
+		arma::Mat<dreal> fromSet = 
+			matlabAsMatrix<dreal>(inputSet[FromSet]);
 
-		arma::Mat<real> toSet = 
-			matlabAsMatrix<real>(inputSet[ToSet]);
+		arma::Mat<dreal> toSet = 
+			matlabAsMatrix<dreal>(inputSet[ToSet]);
 
-		arma::Mat<real> W = 
-			matlabAsMatrix<real>(inputSet[Wi]);
+		arma::Mat<dreal> W = 
+			matlabAsMatrix<dreal>(inputSet[Wi]);
 
 		auto matrix = matlabStringAsEnum<LsAffine_Matrix>(
 			inputSet[Matrix],
@@ -78,9 +78,9 @@ namespace
 			PASTEL_TAG(translation), translation,
 			PASTEL_TAG(orientation), orientation);
 
-		matlabCreateArray<real>(match.Q, outputSet[Qi]);
-		matlabCreateArray<real>(match.S, outputSet[Si]);
-		matlabCreateArray<real>(match.t, outputSet[Ti]);
+		matlabCreateArray<dreal>(match.Q, outputSet[Qi]);
+		matlabCreateArray<dreal>(match.S, outputSet[Si]);
+		matlabCreateArray<dreal>(match.t, outputSet[Ti]);
 	}
 
 	void addFunction()

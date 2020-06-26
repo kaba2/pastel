@@ -10,7 +10,7 @@ namespace Pastel
 
 	template <typename Type, integer N>
 	Type sampleLinear(
-		const Vector<real, N>& uv,
+		const Vector<dreal, N>& uv,
 		const Array<Type, N>& image,
 		const ArrayExtender<N, Type>& extender)
 	{
@@ -25,7 +25,7 @@ namespace Pastel
 		integer samples = (integer)1 << n;
 
 		Vector<integer, N> x = floor(uv - 0.5);
-		Vector<real, N> st = (uv - 0.5) - Vector<real, N>(x);
+		Vector<dreal, N> st = (uv - 0.5) - Vector<dreal, N>(x);
 		Tuple<Type, ModifyN<N, 1 << N>::Result> valueSet(ofDimension(samples));
 		Tuple<bool, N> s(ofDimension(n), false);
 		

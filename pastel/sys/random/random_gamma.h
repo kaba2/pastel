@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	//! Returns a gamma-distributed random real with scale 1.
+	//! Returns a gamma-distributed random dreal with scale 1.
 	/*!
 	Preconditions:
 	shape > 0
@@ -18,7 +18,7 @@ namespace Pastel
 	Real randomGamma(
 		const NoDeduction<Real>& shape);
 
-	//! Returns a gamma-distributed random real.
+	//! Returns a gamma-distributed random dreal.
 	/*!
 	Preconditions:
 	shape > 0

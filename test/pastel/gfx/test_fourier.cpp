@@ -59,7 +59,7 @@ namespace
 	{
 		integer n = input.size();
 
-		std::vector<std::complex<real> > output(n);
+		std::vector<std::complex<dreal> > output(n);
 		dft(range(input.begin(), input.end()),
 			range(output.begin(), output.end()));
 		inverseDft(
@@ -93,7 +93,7 @@ namespace
 	}
 
 	template <integer N>
-	bool testDft(const real (&input)[N])
+	bool testDft(const dreal (&input)[N])
 	{
 		return testDft(range(input));
 	}
@@ -109,7 +109,7 @@ namespace
 	{
 		integer n = input.size();
 
-		std::vector<real> output(input.begin(), input.end());
+		std::vector<dreal> output(input.begin(), input.end());
 		transform(
 			range(output.begin(), output.end()));
 
@@ -117,13 +117,13 @@ namespace
 		std::cout << "Input: " << std::endl;
 		std::copy(
 			input.begin(), input.end(),
-			std::ostream_iterator<real>(std::cout, " "));
+			std::ostream_iterator<dreal>(std::cout, " "));
 		std::cout << std::endl;
 
 		std::cout << "Output: " << std::endl;
 		std::copy(
 			output.begin(), output.end(),
-			std::ostream_iterator<real>(std::cout, " "));
+			std::ostream_iterator<dreal>(std::cout, " "));
 		std::cout << std::endl;
 		*/
 
@@ -155,7 +155,7 @@ namespace
 	}
 
 	template <integer N>
-	bool testDct(const real (&input)[N])
+	bool testDct(const dreal (&input)[N])
 	{
 		return testDct(range(input));
 	}
@@ -174,7 +174,7 @@ namespace
 	}
 
 	template <integer N>
-	bool testHaar(const real (&input)[N])
+	bool testHaar(const dreal (&input)[N])
 	{
 		return testHaar(range(input));
 	}
@@ -193,7 +193,7 @@ namespace
 	}
 
 	template <integer N>
-	bool testHadamard(const real (&input)[N])
+	bool testHadamard(const dreal (&input)[N])
 	{
 		return testHadamard(range(input));
 	}
@@ -206,11 +206,11 @@ TEST_CASE("Random (Fourier)")
 	{
 		integer n = (integer)1 << randomInteger(9);
 
-		std::vector<real> input;
+		std::vector<dreal> input;
 		input.reserve(n);
 		for (integer j = 0;j < n;++j)
 		{
-			input.push_back(random<real>(-1, 1));
+			input.push_back(random<dreal>(-1, 1));
 		}
 
 		testDct(range(input.begin(), input.end()));
@@ -221,56 +221,56 @@ TEST_CASE("Random (Fourier)")
 TEST_CASE("Simple (Fourier)")
 {
 	{
-		real input[] = {1};
+		dreal input[] = {1};
 		REQUIRE(testDft(input));
 		REQUIRE(testDct(input));
 		REQUIRE(testHaar(input));
 		REQUIRE(testHadamard(input));
 	}
 	{
-		real input[] = {1, 2};
+		dreal input[] = {1, 2};
 		REQUIRE(testDft(input));
 		REQUIRE(testDct(input));
 		REQUIRE(testHaar(input));
 		REQUIRE(testHadamard(input));
 	}
 	{
-		real input[] = {1, 2, 3, 4};
+		dreal input[] = {1, 2, 3, 4};
 		REQUIRE(testDft(input));
 		REQUIRE(testDct(input));
 		REQUIRE(testHaar(input));
 		REQUIRE(testHadamard(input));
 	}
 	{
-		real input[] = {4, 3, 2, 1};
+		dreal input[] = {4, 3, 2, 1};
 		REQUIRE(testDft(input));
 		REQUIRE(testDct(input));
 		REQUIRE(testHaar(input));
 		REQUIRE(testHadamard(input));
 	}
 	{
-		real input[] = {1, 2, 3, 4, 5, 6, 7, 8};
+		dreal input[] = {1, 2, 3, 4, 5, 6, 7, 8};
 		REQUIRE(testDft(input));
 		REQUIRE(testDct(input));
 		REQUIRE(testHaar(input));
 		REQUIRE(testHadamard(input));
 	}
 	{
-		real input[] = {1, 5, 2, 3, 4, 9, 5, 5};
+		dreal input[] = {1, 5, 2, 3, 4, 9, 5, 5};
 		REQUIRE(testDft(input));
 		REQUIRE(testDct(input));
 		REQUIRE(testHaar(input));
 		REQUIRE(testHadamard(input));
 	}
 	{
-		real input[] = {2, 5, 8, 9, 7, 4, -1, 1};
+		dreal input[] = {2, 5, 8, 9, 7, 4, -1, 1};
 		REQUIRE(testDft(input));
 		REQUIRE(testDct(input));
 		REQUIRE(testHaar(input));
 		REQUIRE(testHadamard(input));
 	}
 	{
-		real input[] = 
+		dreal input[] = 
 		{
 			0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8,
 			0, 8, 0, 7, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1

@@ -641,11 +641,11 @@ namespace Pastel
 		Tuple<Real, N> data_;
 	};
 
-	using Vector1 = Vector<real, 1>;
-	using Vector2 = Vector<real, 2>;
-	using Vector3 = Vector<real, 3>;
-	using Vector4 = Vector<real, 4>;
-	using VectorD = Vector<real, Dynamic>;
+	using Vector1 = Vector<dreal, 1>;
+	using Vector2 = Vector<dreal, 2>;
+	using Vector3 = Vector<dreal, 3>;
+	using Vector4 = Vector<dreal, 4>;
+	using VectorD = Vector<dreal, Dynamic>;
 
 	using Vector1i = Vector<integer, 1>;
 	using Vector2i = Vector<integer, 2>;

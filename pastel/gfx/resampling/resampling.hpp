@@ -25,7 +25,7 @@ namespace Pastel
 		const ConstFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
 		const typename boost::range_value<Input_RandomAccessConstRange>::type& border,
-		real blurFactor)
+		dreal blurFactor)
 	{
 		ENSURE_OP(blurFactor, >=, 1);
 
@@ -48,7 +48,7 @@ namespace Pastel
 		const ConstTableFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
 		const typename boost::range_value<Input_RandomAccessConstRange>::type& border,
-		real blurFactor)
+		dreal blurFactor)
 	{
 		ENSURE_OP(blurFactor, >=, 1);
 
@@ -61,14 +61,14 @@ namespace Pastel
 			return;
 		}
 
-		real xStep = (real)inputWidth / outputWidth;
+		dreal xStep = (dreal)inputWidth / outputWidth;
 
-		const real filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);
-		real invFilterFactor = inverse(filterFactor);
+		const dreal filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);
+		dreal invFilterFactor = inverse(filterFactor);
 
-		const real filterRadius = filter->radius() * filterFactor;
+		const dreal filterRadius = filter->radius() * filterFactor;
 
-		real xFilter = 0.5 * xStep;
+		dreal xFilter = 0.5 * xStep;
 
 		// xFilter + xStep * marginWidth > filterRadius
 		// =>
@@ -91,16 +91,16 @@ namespace Pastel
 			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
-			real xLocalFilter =
+			dreal xLocalFilter =
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
 
 			Computation_Element result(0);
-			real sumWeights = 0;
+			dreal sumWeights = 0;
 			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				real weight =
+				dreal weight =
 					filter->evaluateInRange(xLocalFilter);
 
 				if (i >= introEnd && i < mainEnd)
@@ -147,7 +147,7 @@ namespace Pastel
 		const NoDeduction<ArrayExtender<1, Input_Element>>& arrayExtender,
 		const ConstTableFilterPtr& filter,
 		const View<1, Output_Element, Output_View>& output,
-		real blurFactor)
+		dreal blurFactor)
 	{
 		ENSURE_OP(blurFactor, >=, 1);
 
@@ -168,14 +168,14 @@ namespace Pastel
 		}
 		*/
 
-		real xStep = (real)inputWidth / outputWidth;
+		dreal xStep = (dreal)inputWidth / outputWidth;
 
-		const real filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);
-		real invFilterFactor = inverse(filterFactor);
+		const dreal filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);
+		dreal invFilterFactor = inverse(filterFactor);
 
-		const real filterRadius = filter->radius() * filterFactor;
+		const dreal filterRadius = filter->radius() * filterFactor;
 
-		real xFilter = 0.5 * xStep;
+		dreal xFilter = 0.5 * xStep;
 
 		// xFilter + xStep * marginWidth > filterRadius
 		// =>
@@ -198,16 +198,16 @@ namespace Pastel
 			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
-			real xLocalFilter =
+			dreal xLocalFilter =
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
 
 			Computation_Element result(0);
-			real sumWeights = 0;
+			dreal sumWeights = 0;
 			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				real weight =
+				dreal weight =
 					filter->evaluateInRange(xLocalFilter);
 
 				result += weight *
@@ -229,16 +229,16 @@ namespace Pastel
 			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
-			real xLocalFilter =
+			dreal xLocalFilter =
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
 
 			Computation_Element result(0);
-			real sumWeights = 0;
+			dreal sumWeights = 0;
 			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				real weight =
+				dreal weight =
 					filter->evaluateInRange(xLocalFilter);
 				
 				Computation_Element in = input(i);
@@ -261,16 +261,16 @@ namespace Pastel
 			integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
-			real xLocalFilter =
+			dreal xLocalFilter =
 				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
 
 			// Compute the resampled value.
 
 			Computation_Element result(0);
-			real sumWeights = 0;
+			dreal sumWeights = 0;
 			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				real weight =
+				dreal weight =
 					filter->evaluateInRange(xLocalFilter);
 
 				result += weight *
@@ -297,7 +297,7 @@ namespace Pastel
 		const NoDeduction<ArrayExtender<1, Input_Element>>& arrayExtender,
 		const ConstFilterPtr& filter,
 		const View<1, Output_Element, Output_View>& output,
-		real blurFactor)
+		dreal blurFactor)
 	{
 		ENSURE_OP(blurFactor, >=, 1);
 
@@ -317,7 +317,7 @@ namespace Pastel
 			ResampleFunctor(
 				const ArrayExtender<1, Input_Element>& arrayExtender,
 				const ConstTableFilterPtr& filter,
-				real blurFactor)
+				dreal blurFactor)
 			: arrayExtender_(arrayExtender)
 			, filter_(filter)
 			, blurFactor_(blurFactor)
@@ -335,13 +335,13 @@ namespace Pastel
 		private:
 			const ArrayExtender<1, Input_Element>& arrayExtender_;
 			const ConstTableFilterPtr& filter_;
-			real blurFactor_;
+			dreal blurFactor_;
 		};
 
 		class AxisValue
 		{
 		public:
-			AxisValue(real value,
+			AxisValue(dreal value,
 				integer id)
 				: value_(value)
 				, axis_(id)
@@ -361,7 +361,7 @@ namespace Pastel
 				return axis_ < that.axis_;
 			}
 
-			real value_;
+			dreal value_;
 			integer axis_;
 		};
 
@@ -380,7 +380,7 @@ namespace Pastel
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,
 		const ConstTableFilterPtr& filter,
 		const View<N, Output_Element, Output_View>& output,
-		real blurFactor)
+		dreal blurFactor)
 	{
 		ENSURE_OP(blurFactor, >=, 1);
 
@@ -468,7 +468,7 @@ namespace Pastel
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,
 		const ConstFilterPtr& filter,
 		const View<N, Output_Element, Output_View>& output,
-		real blurFactor)
+		dreal blurFactor)
 	{
 		ENSURE_OP(blurFactor, >=, 1);
 

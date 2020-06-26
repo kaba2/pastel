@@ -275,12 +275,12 @@ namespace Pastel
 		return number;
 	}
 
-	inline real stringToReal(const std::string& text, integer* indexEnd)
+	inline dreal stringToReal(const std::string& text, integer* indexEnd)
 	{
 		integer trimmed = 0;
 		std::string nText = lowercase(ltrim(text, &trimmed));
 
-		real result = (real)Nan();
+		dreal result = (dreal)Nan();
 		integer matchSize = trimmed;
 		bool foundMatch = false;
 		bool positive = true;
@@ -300,20 +300,20 @@ namespace Pastel
 		if (startsWith(nText, "nan"))
 		{
 			matchSize += 3;
-			result = (real)Nan();
+			result = (dreal)Nan();
 			foundMatch = true;
 		}
 		else if (startsWith(nText, "inf"))
 		{
 			matchSize += 3;
-			result = (real)Infinity();
+			result = (dreal)Infinity();
 			foundMatch = true;
 		}
 		else
 		{
 			std::stringstream stream;
 			stream << nText;
-			real number = 0;
+			dreal number = 0;
 			stream >> number;
 			if (stream)
 			{
@@ -378,14 +378,14 @@ namespace Pastel
 		return padText + text;
 	}
 
-	inline std::string realToString(real number,
+	inline std::string realToString(dreal number,
 		integer digits)
 	{
-		if (number == (real)Infinity())
+		if (number == (dreal)Infinity())
 		{
 			return std::string("inf");
 		}
-		else if (number == -(real)Infinity())
+		else if (number == -(dreal)Infinity())
 		{
 			return std::string("-inf");
 		}

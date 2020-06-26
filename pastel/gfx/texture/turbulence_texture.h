@@ -12,7 +12,7 @@ namespace Pastel
 
 	template <integer N = 2>
 	class Turbulence_Texture
-		: public Texture<real, N>
+		: public Texture<dreal, N>
 	{
 	public:
 		Turbulence_Texture()
@@ -26,13 +26,13 @@ namespace Pastel
 		{
 		}
 
-		virtual real operator()(
-			const Vector<real, N>& p,
-			const Matrix<real>& m) const
+		virtual dreal operator()(
+			const Vector<dreal, N>& p,
+			const Matrix<dreal>& m) const
 		{
-			real scale = 1;
-			real value = 0;
-			real amplitude = 1;
+			dreal scale = 1;
+			dreal value = 0;
+			dreal amplitude = 1;
 
 			for (integer i = 0;i < octaves_;++i)
 			{
@@ -55,12 +55,12 @@ namespace Pastel
 			return octaves_;
 		}
 
-		void setLacunarity(real lacunarity)
+		void setLacunarity(dreal lacunarity)
 		{
 			lacunarity_ = lacunarity;
 		}
 
-		real lacunarity() const
+		dreal lacunarity() const
 		{
 			return lacunarity_;
 		}
@@ -73,7 +73,7 @@ namespace Pastel
 	private:
 		Noise_Texture<N> noise_;
 		integer octaves_;
-		real lacunarity_;
+		dreal lacunarity_;
 	};
 
 	template <integer N>

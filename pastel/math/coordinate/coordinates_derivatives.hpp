@@ -146,8 +146,8 @@ namespace Pastel
 
 		for (integer i = 0;i < n - 1;++i)
 		{
-			real c = std::cos(spherical[i + 1]);
-			real s = std::sin(spherical[i + 1]);
+			dreal c = std::cos(spherical[i + 1]);
+			dreal s = std::sin(spherical[i + 1]);
 
 			// The derivatives of sine are cyclic with
 			// a period of 4:

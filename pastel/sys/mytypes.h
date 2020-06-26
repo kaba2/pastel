@@ -137,12 +137,12 @@ namespace Pastel
 		using integer_half = IntegerOfSize<SizeInBits<integer>::value / 2>;
 		using uinteger_half = std::make_unsigned<integer_half>::type;
 	
-		//! Abstract native real type
+		//! Abstract native dreal type
 		/*!
 		Preconditions:
-		'real' is a native floating point type.
+		'dreal' is a native floating point type.
 		*/
-		using real = real64;
+		using dreal = real64;
 
 		//! Integer for holding hash integers.
 		/*!

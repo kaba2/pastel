@@ -12,7 +12,7 @@ namespace Pastel
 	Because operator& can be overloaded, the memory address
 	of a given object can't sometimes be obtained using it.
 	This function does the required fiddling to return the
-	real memory address of the object.
+	dreal memory address of the object.
 	*/
 	template <typename Type>
 	void* addressOf(Type& that);

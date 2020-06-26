@@ -18,7 +18,7 @@ TEST_CASE("Transform (TextureExample)")
 		gfxStorage().get<EwaImage_Texture<Color>*>("lena_texture");
 	ENSURE(inputTexture);
 
-	AffineTransformation<real> transform = affineRotation<real>(2, 0, 1, constantPi<real>() / 6);
+	AffineTransformation<dreal> transform = affineRotation<dreal>(2, 0, 1, constantPi<dreal>() / 6);
 	transform.translation() += 0.25;
 
 	Transform_Texture<Color> distortedTexture =
@@ -39,18 +39,18 @@ TEST_CASE("Radial (TextureExample)")
 
 	Array<Color, 2> image(Vector2i(768, 256));
 
-	real minRadius = 0.25;
-	real maxRadius = 0.5;
-	real angleBegin = constantPi<real>() / 10;
+	dreal minRadius = 0.25;
+	dreal maxRadius = 0.5;
+	dreal angleBegin = constantPi<dreal>() / 10;
 
-	const real angleEnd = 1.2423 * constantPi<real>();
+	const dreal angleEnd = 1.2423 * constantPi<dreal>();
 
 	Radial_Texture<Color> distortedTexture =
 		radialTexture(texture, Vector2(0.5),
 		Vector2(minRadius, angleBegin), Vector2(maxRadius, angleEnd));
 
-	AffineTransformation<real> textureFlip(
-		matrix2x2<real>(0, 1,
+	AffineTransformation<dreal> textureFlip(
+		matrix2x2<dreal>(0, 1,
 				1, 0),
 		Vector2(0, 0));
 
@@ -84,11 +84,11 @@ TEST_CASE("Radial (TextureExample)")
 		drawCircle(renderer, Sphere2(Vector2(0.5), minRadius), 40);
 		drawCircle(renderer, Sphere2(Vector2(0.5), maxRadius), 40);
 		drawSegment(renderer, Vector2(0.5) + Segment2(
-			transformPoint(affineRotation<real>(2, 0, 1, angleBegin), Vector2(minRadius, 0)),
-			transformPoint(affineRotation<real>(2, 0, 1, angleBegin), Vector2(maxRadius, 0))));
+			transformPoint(affineRotation<dreal>(2, 0, 1, angleBegin), Vector2(minRadius, 0)),
+			transformPoint(affineRotation<dreal>(2, 0, 1, angleBegin), Vector2(maxRadius, 0))));
 		drawSegment(renderer, Vector2(0.5) + Segment2(
-			transformPoint(affineRotation<real>(2, 0, 1, angleEnd), Vector2(minRadius, 0)),
-			transformPoint(affineRotation<real>(2, 0, 1, angleEnd), Vector2(maxRadius, 0))));
+			transformPoint(affineRotation<dreal>(2, 0, 1, angleEnd), Vector2(minRadius, 0)),
+			transformPoint(affineRotation<dreal>(2, 0, 1, angleEnd), Vector2(maxRadius, 0))));
 
 		savePcx(image, "radial_texture_input.pcx");
 	}

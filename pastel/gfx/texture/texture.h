@@ -22,8 +22,8 @@ namespace Pastel
 		virtual ~Texture() {}
 
 		virtual Type operator()(
-			const Vector<real, N>& p,
-			const Matrix<real>& m) const = 0;
+			const Vector<dreal, N>& p,
+			const Matrix<dreal>& m) const = 0;
 
 		virtual std::string name() const = 0;
 

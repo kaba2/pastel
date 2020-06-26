@@ -23,12 +23,12 @@ namespace Pastel
 	double-root, t0 == t1.
 
 	solutionsMustExist:
-	If it is known that under real arithmetic the equation
-	should have real solutions, then by toggling this
+	If it is known that under dreal arithmetic the equation
+	should have dreal solutions, then by toggling this
 	flag the discriminant will always be clamped to zero.
 
 	Returns:
-	Whether the equation has real solutions.
+	Whether the equation has dreal solutions.
 	*/
 	template <typename Real>
 	bool quadratic(

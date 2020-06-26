@@ -9,7 +9,7 @@
 
 TEST_CASE("pointkdtree_count_range (pointkdtree_count_range)")
 {
-	using Settings = PointKdTree_Settings<Vector_Locator<real, 2>>;
+	using Settings = PointKdTree_Settings<Vector_Locator<dreal, 2>>;
 
 	PointKdTree<Settings> tree;
 

@@ -8,9 +8,9 @@
 namespace
 {
 
-	std::vector<real> sample(integer size)
+	std::vector<dreal> sample(integer size)
 	{
-		std::vector<real> pmf(size, 0);
+		std::vector<dreal> pmf(size, 0);
 
 		integer n = 100 * size;
 		for (integer i = 0;i < n;++i)
@@ -31,17 +31,17 @@ TEST_CASE("RandomInteger (random)")
 {
 	auto test = [&](integer size)
 	{
-		std::vector<real> pmf = sample(size);
+		std::vector<dreal> pmf = sample(size);
 
 		for (integer i = 0;i < pmf.size();++i)
 		{
-			real correct = (real)1 / pmf.size();
-			real error = absoluteError<real>(pmf[i], correct);
+			dreal correct = (dreal)1 / pmf.size();
+			dreal error = absoluteError<dreal>(pmf[i], correct);
 			if (error > 0.1)
 			{
 				/*
 				std::cout << "error " << error << std::endl;
-				for (real p : pmf)
+				for (dreal p : pmf)
 				{
 					std::cout << p << " ";
 				}

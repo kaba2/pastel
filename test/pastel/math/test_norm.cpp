@@ -6,11 +6,11 @@
 
 TEST_CASE("Norm (Euclidean)")
 {
-	using Product = Product_Norm<real, Maximum_Norm<real>, Euclidean_Norm<real>>;
+	using Product = Product_Norm<dreal, Maximum_Norm<dreal>, Euclidean_Norm<dreal>>;
 	PASTEL_CONCEPT_CHECK(Product, Norm_Concept);
-	PASTEL_CONCEPT_CHECK(Minkowski_Norm<real>, Norm_Concept);
-	PASTEL_CONCEPT_CHECK(Maximum_Norm<real>, Norm_Concept);
-	PASTEL_CONCEPT_CHECK(Manhattan_Norm<real>, Norm_Concept);
-	PASTEL_CONCEPT_CHECK(Euclidean_Norm<real>, Norm_Concept);
-	PASTEL_CONCEPT_REJECT(Euclidean_Distance<real>, Norm_Concept);
+	PASTEL_CONCEPT_CHECK(Minkowski_Norm<dreal>, Norm_Concept);
+	PASTEL_CONCEPT_CHECK(Maximum_Norm<dreal>, Norm_Concept);
+	PASTEL_CONCEPT_CHECK(Manhattan_Norm<dreal>, Norm_Concept);
+	PASTEL_CONCEPT_CHECK(Euclidean_Norm<dreal>, Norm_Concept);
+	PASTEL_CONCEPT_REJECT(Euclidean_Distance<dreal>, Norm_Concept);
 }

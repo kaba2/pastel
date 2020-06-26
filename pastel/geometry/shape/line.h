@@ -103,11 +103,11 @@ namespace Pastel
 		Vector<Real, N> inverseDirection_;
 	};
 
-	using Line1 = Line<real, 1>;
-	using Line2 = Line<real, 2>;
-	using Line3 = Line<real, 3>;
-	using Line4 = Line<real, 4>;
-	using LineD = Line<real, Dynamic>;
+	using Line1 = Line<dreal, 1>;
+	using Line2 = Line<dreal, 2>;
+	using Line3 = Line<dreal, 3>;
+	using Line4 = Line<dreal, 4>;
+	using LineD = Line<dreal, Dynamic>;
 
 }
 

@@ -9,7 +9,7 @@ TEST_CASE("sphere_area (sphere_area)")
 {
 	// The surface area of a Euclidean unit n-ball,
 	// computed with Mathematica to 16 digits.
-	real correctSet[] =
+	dreal correctSet[] =
 	{
 		0,
 		0, 1.837877066409345, 2.531024246969291,
@@ -100,25 +100,25 @@ TEST_CASE("sphere_area (sphere_area)")
 		-344.3348756540148
 	};
 
-	REQUIRE(areaUnitSphere<real>(1) == 0);
-	REQUIRE(lnAreaUnitSphere<real>(1) == -(real)Infinity());
+	REQUIRE(areaUnitSphere<dreal>(1) == 0);
+	REQUIRE(lnAreaUnitSphere<dreal>(1) == -(dreal)Infinity());
 
-	integer elements = sizeof(correctSet) / sizeof(real);
+	integer elements = sizeof(correctSet) / sizeof(dreal);
 	for (integer n = 2; n < elements; ++n)
 	{
-		real correct = correctSet[n];
+		dreal correct = correctSet[n];
 
 		{
-			real maxError = 4e-14;
-			real measured = lnAreaUnitSphere<real>(n);
-			real error = relativeError<real>(measured, correct);
+			dreal maxError = 4e-14;
+			dreal measured = lnAreaUnitSphere<dreal>(n);
+			dreal error = relativeError<dreal>(measured, correct);
 			REQUIRE(error < maxError);
 		}
 
 		{
-			real maxError = 4e-14;
-			real measured = std::log(areaUnitSphere<real>(n));
-			real error = relativeError<real>(measured, correct);
+			dreal maxError = 4e-14;
+			dreal measured = std::log(areaUnitSphere<dreal>(n));
+			dreal error = relativeError<dreal>(measured, correct);
 			REQUIRE(error < maxError);
 		}
 	}

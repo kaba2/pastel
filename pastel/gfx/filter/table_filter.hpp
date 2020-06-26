@@ -13,8 +13,8 @@ namespace Pastel
 {
 
 	inline Table_Filter::Table_Filter(
-		const Array<real, 1>& data,
-		real radius)
+		const Array<dreal, 1>& data,
+		dreal radius)
 		: Filter(radius, "table")
 		, data_()
 		, center_(0)
@@ -41,9 +41,9 @@ namespace Pastel
 	{
 	}
 
-	inline real Table_Filter::evaluateInRange(real x) const
+	inline dreal Table_Filter::evaluateInRange(dreal x) const
 	{
-		real filterPos =
+		dreal filterPos =
 			center_ + x * scaling_;
 		
 		integer filterIndex =
@@ -66,16 +66,16 @@ namespace Pastel
 	{
 		ENSURE_OP(samplesPerRadius, >=, 0);
 
-		real filterRadius = filter->radius();
+		dreal filterRadius = filter->radius();
 		integer filterTableRadius =
 			std::ceil(samplesPerRadius * filterRadius);
 		integer filterTableSize =
 			filterTableRadius * 2 + 1;
-		Array<real, 1> filterTable(filterTableSize);
+		Array<dreal, 1> filterTable(filterTableSize);
 		
 		for (integer i = 0;i < filterTableSize;++i)
 		{
-			real filterPosition =
+			dreal filterPosition =
 				(2 * dequantizeUnsignedMatchEnds(i, filterTableSize) - 1) * filterRadius;
 			
 			filterTable(i) = filter->evaluateInRange(filterPosition);

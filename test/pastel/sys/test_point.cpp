@@ -25,14 +25,14 @@ TEST_CASE("Concept (point)")
 	pointAxis(addConst(point), 2);
 	pointLocator(addConst(point));
 
-	PASTEL_CONCEPT_REJECT(real*, Point_Concept);
-	PASTEL_STATIC_ASSERT(Point_Concept_<std::array<real, 2>>);
-	PASTEL_STATIC_ASSERT(Point_Concept_<Vector<real, 2>>);
-	PASTEL_STATIC_ASSERT(Real_Concept_<real>);
-	PASTEL_STATIC_ASSERT(Point_Concept_<real>);
+	PASTEL_CONCEPT_REJECT(dreal*, Point_Concept);
+	PASTEL_STATIC_ASSERT(Point_Concept_<std::array<dreal, 2>>);
+	PASTEL_STATIC_ASSERT(Point_Concept_<Vector<dreal, 2>>);
+	PASTEL_STATIC_ASSERT(Real_Concept_<dreal>);
+	PASTEL_STATIC_ASSERT(Point_Concept_<dreal>);
 
-	PASTEL_CONCEPT_CHECK(real, Real_Concept);
-	PASTEL_CONCEPT_CHECK(real, Point_Concept);
+	PASTEL_CONCEPT_CHECK(dreal, Real_Concept);
+	PASTEL_CONCEPT_CHECK(dreal, Point_Concept);
 	PASTEL_CONCEPT_CHECK(integer, Real_Ring_Concept);
 	PASTEL_CONCEPT_CHECK(integer, Point_Concept);
 	PASTEL_CONCEPT_CHECK(Rational<integer>, Point_Concept);
@@ -40,10 +40,10 @@ TEST_CASE("Concept (point)")
 	struct Something_Else {};
 	PASTEL_CONCEPT_REJECT(Something_Else, Point_Concept);
 
-	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<1>, Point_N<Vector<real, 1>>>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<1>, Point_N<Vector<real, -1>>>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<-1>, Point_N<Vector<real, 1>>>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<-1>, Point_N<Vector<real, -1>>>::value));
+	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<1>, Point_N<Vector<dreal, 1>>>::value));
+	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<1>, Point_N<Vector<dreal, -1>>>::value));
+	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<-1>, Point_N<Vector<dreal, 1>>>::value));
+	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<-1>, Point_N<Vector<dreal, -1>>>::value));
 
 	PASTEL_STATIC_ASSERT((EqualDimension_C<1, 1>::value));
 	PASTEL_STATIC_ASSERT((EqualDimension_C<0, 0>::value));
@@ -65,9 +65,9 @@ TEST_CASE("Concept (point)")
 
 TEST_CASE("AsVector (point)")
 {
-	std::array<real, 2> p = { {1, 2} };
-	Vector<real, 2> q = pointAsVector(p);
-	REQUIRE((q == Vector<real, 2>(1, 2)));
+	std::array<dreal, 2> p = { {1, 2} };
+	Vector<dreal, 2> q = pointAsVector(p);
+	REQUIRE((q == Vector<dreal, 2>(1, 2)));
 }
 
 TEST_CASE("Point (point)")
@@ -76,7 +76,7 @@ TEST_CASE("Point (point)")
 	PASTEL_STATIC_ASSERT(
 		(std::is_same<Point_PointId<integer>, integer>::value));
 	PASTEL_STATIC_ASSERT(
-		(std::is_same<Point_PointId<real>, real>::value));
+		(std::is_same<Point_PointId<dreal>, dreal>::value));
 
 	// Default-locator for rational numbers.
 	PASTEL_STATIC_ASSERT(
@@ -89,7 +89,7 @@ TEST_CASE("Real (point)")
 	PASTEL_STATIC_ASSERT(
 		(std::is_same<Point_Real<integer>, integer>::value));
 	PASTEL_STATIC_ASSERT(
-		(std::is_same<Point_Real<real>, real>::value));
+		(std::is_same<Point_Real<dreal>, dreal>::value));
 
 	// Default-locator for rational numbers.
 	PASTEL_STATIC_ASSERT(
@@ -116,7 +116,7 @@ TEST_CASE("Axis (point)")
 		REQUIRE(pointAxis(x, 1) == x[1]);
 	}
 	{
-		real x = 5;
+		dreal x = 5;
 
 		REQUIRE(pointAxis(x, 0) == 5);
 		REQUIRE(pointAxis(x, 1) == 5);
@@ -144,7 +144,7 @@ TEST_CASE("Dimension (point)")
 		PASTEL_STATIC_ASSERT(Point_N<Point>::value == 2);
 	}
 	{
-		using Point = real;
+		using Point = dreal;
 		Point x = 5;
 		REQUIRE(dimension(x) == 1);
 		PASTEL_STATIC_ASSERT(Point_N<Point>::value == 1);

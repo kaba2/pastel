@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	//! A real interval.
+	//! A dreal interval.
 
 	template <typename Real>
 	class Interval

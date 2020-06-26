@@ -53,8 +53,8 @@ namespace
 		for (integer i = 0;i < Samples;++i)
 		{
 			square.push_back(Vector2(
-				random<real>(),
-				random<real>()));
+				random<dreal>(),
+				random<dreal>()));
 		}
 		*/
 
@@ -64,11 +64,11 @@ namespace
 		const integer XSamples = 400;
 		const integer YSamples = 400;
 
-		const real xDelta = (real)1 / XSamples;
-		const real yDelta = (real)1 / YSamples;
+		const dreal xDelta = (dreal)1 / XSamples;
+		const dreal yDelta = (dreal)1 / YSamples;
 
-		const real xGridDelta = (real)1 / (XGrids - 1);
-		const real yGridDelta = (real)1 / (YGrids - 1);
+		const dreal xGridDelta = (dreal)1 / (XGrids - 1);
+		const dreal yGridDelta = (dreal)1 / (YGrids - 1);
 
 		for (integer y = 0; y < YGrids;++y)
 		{
@@ -136,7 +136,7 @@ namespace
 			for (integer i = 0;i < points;++i)
 			{
 				pointList.push_back(
-					(uniformlySampleSphere(Vector1((real)i / (points - 1))) + 1) / 2);
+					(uniformlySampleSphere(Vector1((dreal)i / (points - 1))) + 1) / 2);
 			}
 			draw(pointList, 150, 150, myRandoColor(), image);
 		}
@@ -148,7 +148,7 @@ namespace
 			for (integer i = 0;i < points;++i)
 			{
 				pointList.push_back(
-					(uniformlySampleHemisphere(Vector1((real)i / (points - 1))) + 1) / 2);
+					(uniformlySampleHemisphere(Vector1((dreal)i / (points - 1))) + 1) / 2);
 			}
 			draw(pointList, 0, 150, myRandoColor(), image);
 		}
@@ -160,7 +160,7 @@ namespace
 			for (integer i = 0;i < points;++i)
 			{
 				pointList.push_back(
-					(cosineSampleHemisphere(Vector1((real)i / (points - 1))) + 1) / 2);
+					(cosineSampleHemisphere(Vector1((dreal)i / (points - 1))) + 1) / 2);
 			}
 			draw(pointList, 0, 300, myRandoColor(), image);
 		}
@@ -172,7 +172,7 @@ namespace
 			for (integer i = 0;i < points;++i)
 			{
 				pointList.push_back(
-					shrink((randomVectorBall<real, 3>() + 1) / 2));
+					shrink((randomVectorBall<dreal, 3>() + 1) / 2));
 			}
 			draw(pointList, 150, 300, myRandoColor(), image);
 		}
@@ -217,7 +217,7 @@ namespace
 			for (integer i = 0;i < points;++i)
 			{
 				pointList.push_back(
-					(randomVectorBall<real, 2>() + 1) / 2);
+					(randomVectorBall<dreal, 2>() + 1) / 2);
 			}
 			draw(pointList, 300, 450, myRandoColor(), image);
 		}
@@ -333,7 +333,7 @@ namespace
 		Array<Color, 2> image(Vector2i(Width, Height), Color(1, 1, 1));
 		for (integer x = 0;x < Width;++x)
 		{
-			const real t = dequantizeUnsigned(x, Width);
+			const dreal t = dequantizeUnsigned(x, Width);
 			drawVerticalLine(x, 0, 
 				dequantizeUnsigned(histogram[x], maxBin + 1) * Height,
 				linear(Color(0, 0, 0), Color(0, 0, 0.2), t), 
@@ -347,8 +347,8 @@ namespace
 	{
 		testRunner().add("UniformSampling_1", test);
 		testRunner().add("UniformSampling_2", test2);
-		testRunner().add("UniformSampling_Distance_2", testDistance<real, 2>);
-		testRunner().add("UniformSampling_Distance_8", testDistance<real, 8>);
+		testRunner().add("UniformSampling_Distance_2", testDistance<dreal, 2>);
+		testRunner().add("UniformSampling_Distance_8", testDistance<dreal, 8>);
 	}
 
 	CallFunction run(addTest);

@@ -29,7 +29,7 @@ namespace Pastel
 		{
 		}
 
-		virtual real evaluateInRange(real x) const
+		virtual dreal evaluateInRange(dreal x) const
 		{
 			return 1 - std::abs(x);
 		}

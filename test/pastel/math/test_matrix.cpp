@@ -13,14 +13,14 @@
 namespace Pastel
 {
 
-	template class Matrix<real>;
+	template class Matrix<dreal>;
 
 }
 
 namespace
 {
 
-	using MatrixD = Matrix<real>;
+	using MatrixD = Matrix<dreal>;
 
 }
 
@@ -32,7 +32,7 @@ TEST_CASE("Implicit (Implicit)")
 
 	// The matrix is implicitly constructible
 	// from the matrix-expression.
-	f(identityMatrix<real>(3, 3));
+	f(identityMatrix<dreal>(3, 3));
 }
 
 TEST_CASE("Norm (Norm)")
@@ -42,19 +42,19 @@ TEST_CASE("Norm (Norm)")
 		4, -5, 6 };
 
 	{
-		real correct = 
+		dreal correct = 
 			square(-1) + square(2) + square(3) +
 			square(4) + square(-5) + square(6);
 		REQUIRE(frobeniusNorm2(m) == correct);
 	}
 
 	{
-		real correct = 4 + 5 + 6;
+		dreal correct = 4 + 5 + 6;
 		REQUIRE(maxNorm(m) == correct);
 	}
 
 	{
-		real correct = 3 + 6;
+		dreal correct = 3 + 6;
 		REQUIRE(manhattanNorm(m) == correct);
 	}
 }
@@ -66,7 +66,7 @@ TEST_CASE("Trace (Trace)")
 		4, -5, 6};
 
 	{
-		real correct = -1 + -5;
+		dreal correct = -1 + -5;
 		REQUIRE(trace(m) == correct);
 	}
 }
@@ -78,7 +78,7 @@ TEST_CASE("DiagonalProduct (DiagonalProduct)")
 		4, -5, 6};
 
 	{
-		real correct = -1 * -5;
+		dreal correct = -1 * -5;
 		REQUIRE(diagonalProduct(m) == correct);
 	}
 }
@@ -91,7 +91,7 @@ TEST_CASE("Determinant (Determinant)")
 		// VC2013 has a bug with singular initializer lists:
 		//m = { -1 };
 		{
-			real correct = -1;
+			dreal correct = -1;
 			REQUIRE(determinant(m) == correct);
 		}
 	}
@@ -101,7 +101,7 @@ TEST_CASE("Determinant (Determinant)")
 		m = {-1, 2,
 			4, -5};
 		{
-			real correct = (-1 * -5) - (2 * 4);
+			dreal correct = (-1 * -5) - (2 * 4);
 			REQUIRE(determinant(m) == correct);
 		}
 	}
@@ -112,13 +112,13 @@ TEST_CASE("Determinant (Determinant)")
 				4, -5, 5,
 				2, 3, 4};
 		{
-			real correct = 89;
+			dreal correct = 89;
 			REQUIRE(std::abs(determinant(m) - correct) < 0.0001);
 		}
 	}
 
 	//{
-	//	MatrixD m = randomRotation<real>(10);
+	//	MatrixD m = randomRotation<dreal>(10);
 	//	{
 	//		REQUIRE(std::abs(determinant(m) - 1) < 0.0001);
 	//	}
@@ -136,9 +136,9 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	}
 
 	// Constructs from a matrix expression.
-	MatrixD m = identityMatrix<real>(2, 3) * 2 + 5;
+	MatrixD m = identityMatrix<dreal>(2, 3) * 2 + 5;
 	{
-		real correctSet[] = 
+		dreal correctSet[] = 
 		{
 			7, 5, 5,
 			5, 7, 5
@@ -153,9 +153,9 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 			4, 5, 6};
 
 		// Adds a matrix expression.
-		test += identityMatrix<real>(2, 3);
+		test += identityMatrix<dreal>(2, 3);
 		{
-			real correctSet[] =
+			dreal correctSet[] =
 			{
 				2, 2, 3,
 				4, 6, 6
@@ -165,9 +165,9 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		}
 
 		// Subtracts a matrix expression.
-		test -= identityMatrix<real>(2, 3);
+		test -= identityMatrix<dreal>(2, 3);
 		{
-			real correctSet[] =
+			dreal correctSet[] =
 			{
 				1, 2, 3,
 				4, 5, 6
@@ -177,9 +177,9 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		}
 
 		// Multiplies with a matrix expression.
-		test *= identityMatrix<real>(3, 2);
+		test *= identityMatrix<dreal>(3, 2);
 		{
-			real correctSet[] =
+			dreal correctSet[] =
 			{
 				1, 2,
 				4, 5
@@ -192,7 +192,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	// Constructs an mxn identity matrix.
 	MatrixD a(4, 6);
 	{
-		real correctSet[] =
+		dreal correctSet[] =
 		{
 			1, 0, 0, 0, 0, 0,
 			0, 1, 0, 0, 0, 0,
@@ -208,7 +208,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		REQUIRE(a.size() == 4 * 6);
 	}
 
-	real dataSet[] = 
+	dreal dataSet[] = 
 	{
 		1, 2, 3,
 		4, 5, 6,
@@ -249,7 +249,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 
 	// Column ranges
 	{
-		real correctSet[] = 
+		dreal correctSet[] = 
 		{
 			2, 5, 8, 11
 		};
@@ -259,7 +259,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 
 	// Row ranges
 	{
-		real correctSet[] = 
+		dreal correctSet[] = 
 		{
 			4, 5, 6
 		};
@@ -275,7 +275,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		// Subtracts a constant from all elements.
 		test -= 1;
 		{
-			real correctSet[] = 
+			dreal correctSet[] = 
 			{
 				0, 1, 2,
 				3, 4, 5
@@ -287,7 +287,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		// Adds a constant to all elements.
 		test += 1;
 		{
-			real correctSet[] = 
+			dreal correctSet[] = 
 			{
 				1, 2, 3,
 				4, 5, 6
@@ -299,7 +299,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		// Multiplies all elements with a constant.
 		test *= 2;
 		{
-			real correctSet[] = 
+			dreal correctSet[] = 
 			{
 				2, 4, 6,
 				8, 10, 12
@@ -311,7 +311,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		// Divides all elements by a constant.
 		test /= 2;
 		{
-			real correctSet[] = 
+			dreal correctSet[] = 
 			{
 				1, 2, 3,
 				4, 5, 6
@@ -326,7 +326,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		2, 0, 1, 0, 1, 0,
 		0, 2, 0, 1, 0, 1};
 	{
-		real correctSet[] = 
+		dreal correctSet[] = 
 		{
 			1, 0, 1, 0, 1, 0,
 			0, 1, 0, 1, 0, 1,
@@ -340,10 +340,10 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	// The 2x2 identity-matrix repeated 2 times vertically,
 	// and 3 times horizontally.
 	MatrixD b = repeat(
-		identityMatrix<real>(2, 2),
+		identityMatrix<dreal>(2, 2),
 		2, 3);
 	{
-		real correctSet[] = 
+		dreal correctSet[] = 
 		{
 			1, 0, 1, 0, 1, 0,
 			0, 1, 0, 1, 0, 1,
@@ -357,7 +357,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	// You can refer to a submatrix of a matrix.
 
 	b(Vector2i(2, 0), Vector2i(4, 2)) = 
-		identityMatrix<real>(2, 2) * 2;
+		identityMatrix<dreal>(2, 2) * 2;
 
 	REQUIRE(a == b);
 
@@ -391,8 +391,8 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	// in a reversed manner by reversing the range
 	// values.
 
-	SubMatrix<real> v = c(Vector2i(0, 2), Vector2i(2, -1));
-	SubMatrix<real> v2 = c(Vector2i(0, 0), Vector2i(2, 3));
+	SubMatrix<dreal> v = c(Vector2i(0, 2), Vector2i(2, -1));
+	SubMatrix<dreal> v2 = c(Vector2i(0, 0), Vector2i(2, 3));
 
 	v2 = v;
 
@@ -534,13 +534,13 @@ TEST_CASE("MatrixArray (MatrixArray)")
 TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 {
 	{
-		Matrix<real> a = matrix1x1<real>(5);
+		Matrix<dreal> a = matrix1x1<dreal>(5);
 		REQUIRE(
 			a(0, 0) == 5);
 	}
 	{
-		Matrix<real> a = 
-			matrix2x2<real>(
+		Matrix<dreal> a = 
+			matrix2x2<dreal>(
 			1, 2,
 			3, 4);
 		REQUIRE(a(0, 0) == 1);
@@ -548,7 +548,7 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 		REQUIRE(a(1, 0) == 3);
 		REQUIRE(a(1, 1) == 4);
 
-		Matrix<real> b(2, 2);
+		Matrix<dreal> b(2, 2);
 
 		b = a;
 		REQUIRE(b(0, 0) == 1);
@@ -556,7 +556,7 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 		REQUIRE(b(1, 0) == 3);
 		REQUIRE(b(1, 1) == 4);
 
-		Matrix<real> c(b);
+		Matrix<dreal> c(b);
 		REQUIRE(c(0, 0) == 1);
 		REQUIRE(c(0, 1) == 2);
 		REQUIRE(c(1, 0) == 3);
@@ -565,8 +565,8 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 	}
 
 	{
-		Matrix<real> a = 
-			matrix3x3<real>(
+		Matrix<dreal> a = 
+			matrix3x3<dreal>(
 			1, 2, 3,
 			4, 5, 6,
 			7, 8, 9);
@@ -580,7 +580,7 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 		REQUIRE(a(2, 1) == 8);
 		REQUIRE(a(2, 2) == 9);
 
-		Matrix<real> b(3, 3);
+		Matrix<dreal> b(3, 3);
 
 		b = a;
 		REQUIRE(b(0, 0) == 1);
@@ -593,7 +593,7 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 		REQUIRE(b(2, 1) == 8);
 		REQUIRE(b(2, 2) == 9);
 
-		Matrix<real> c(b);
+		Matrix<dreal> c(b);
 		REQUIRE(c(0, 0) == 1);
 		REQUIRE(c(0, 1) == 2);
 		REQUIRE(c(0, 2) == 3);
@@ -606,8 +606,8 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 
 	}
 	{
-		Matrix<real> a =
-			matrix4x4<real>(
+		Matrix<dreal> a =
+			matrix4x4<dreal>(
 			1, 2, 3, 4,
 			5, 6, 7, 8,
 			9, 10, 11, 12,
@@ -629,7 +629,7 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 		REQUIRE(a(3, 2) == 15);
 		REQUIRE(a(3, 3) == 16);
 
-		Matrix<real> b(4, 4);
+		Matrix<dreal> b(4, 4);
 
 		b = a;
 		REQUIRE(b(0, 0) == 1);
@@ -649,7 +649,7 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 		REQUIRE(b(3, 2) == 15);
 		REQUIRE(b(3, 3) == 16);
 
-		Matrix<real> c(b);
+		Matrix<dreal> c(b);
 		REQUIRE(c(0, 0) == 1);
 		REQUIRE(c(0, 1) == 2);
 		REQUIRE(c(0, 2) == 3);
@@ -672,36 +672,36 @@ TEST_CASE("MatrixLowDimensional (MatrixLowDimensional)")
 
 TEST_CASE("MatrixSimpleArithmetic (MatrixSimpleArithmetic)")
 {
-	Matrix<real> a(2, 3);
+	Matrix<dreal> a(2, 3);
 
 	a = {1, 2, 3,
 		4, 5, 6};
 
-	Matrix<real> b(3, 2);
+	Matrix<dreal> b(3, 2);
 
 	b = {7, 8,
 		4, 3,
 		3, 6};
 
-	Matrix<real> c(a * b);
+	Matrix<dreal> c(a * b);
 	REQUIRE(c(0, 0) == 1 * 7 + 2 * 4 + 3 * 3);
 	REQUIRE(c(0, 1) == 1 * 8 + 2 * 3 + 3 * 6);
 	REQUIRE(c(1, 0) == 4 * 7 + 5 * 4 + 6 * 3);
 	REQUIRE(c(1, 1) == 4 * 8 + 5 * 3 + 6 * 6);
 
-	Matrix<real> d(1, 3);
+	Matrix<dreal> d(1, 3);
 	d = {5, 2, 6};
 
-	Matrix<real> e(3, 1);
+	Matrix<dreal> e(3, 1);
 	e(0, 0) = -3;
 	e(1, 0) = 6;
 	e(2, 0) = -4;
-	Matrix<real> f(d * e);
+	Matrix<dreal> f(d * e);
 
 	REQUIRE(f(0, 0) == 5 * -3 + 2 * 6 + 6 * -4);
 
-	Matrix<real> g =
-		matrix2x2<real>(
+	Matrix<dreal> g =
+		matrix2x2<dreal>(
 		1, 2,
 		3, 4);
 
@@ -718,10 +718,10 @@ TEST_CASE("MatrixSimpleArithmetic (MatrixSimpleArithmetic)")
 		{1, 2,
 		3, 4};
 	g /= 4;
-	REQUIRE(g(0, 0) == (real)1 / 4);
-	REQUIRE(g(0, 1) == (real)2 / 4);
-	REQUIRE(g(1, 0) == (real)3 / 4);
-	REQUIRE(g(1, 1) == (real)4 / 4);
+	REQUIRE(g(0, 0) == (dreal)1 / 4);
+	REQUIRE(g(0, 1) == (dreal)2 / 4);
+	REQUIRE(g(1, 0) == (dreal)3 / 4);
+	REQUIRE(g(1, 1) == (dreal)4 / 4);
 
 }
 
@@ -734,14 +734,14 @@ TEST_CASE("Inverse (Inverse)")
 
 	for (integer i = 0;i < matrices;++i)
 	{
-		Matrix<real> m = randomMatrix<real>(n, n);
+		Matrix<dreal> m = randomMatrix<dreal>(n, n);
 
-		Matrix<real> mInv = inverse(m);
+		Matrix<dreal> mInv = inverse(m);
 
-		real leftError =
-			manhattanNorm(m * mInv - identityMatrix<real>(n, n));
-		real rightError =
-			manhattanNorm(mInv * m - identityMatrix<real>(n, n));
+		dreal leftError =
+			manhattanNorm(m * mInv - identityMatrix<dreal>(n, n));
+		dreal rightError =
+			manhattanNorm(mInv * m - identityMatrix<dreal>(n, n));
 		if (leftError > 0.001 ||
 			rightError > 0.001)
 		{
@@ -761,10 +761,10 @@ TEST_CASE("MatrixMultiply (MatrixMultiply)")
 
 	for (integer i = 0;i < matrices;++i)
 	{
-		Matrix<real> a = randomMatrix<real>(n, n);
-		Matrix<real> b = randomMatrix<real>(n, n);
+		Matrix<dreal> a = randomMatrix<dreal>(n, n);
+		Matrix<dreal> b = randomMatrix<dreal>(n, n);
 
-		VectorD v = randomVectorCube<real, Dynamic>(n);
+		VectorD v = randomVectorCube<dreal, Dynamic>(n);
 
 		VectorD result1 = v * (a * b);
 		VectorD result2 = (v * a) * b;
@@ -773,8 +773,8 @@ TEST_CASE("MatrixMultiply (MatrixMultiply)")
 
 		VectorD result3 = v * a;
 
-		real error1 = norm(result1 - result2);
-		real error2 = norm(result3 - result2);
+		dreal error1 = norm(result1 - result2);
+		dreal error2 = norm(result3 - result2);
 		if (error1 > 0.001 ||
 			error2 > 0.001)
 		{
@@ -795,9 +795,9 @@ TEST_CASE("MatrixAssigns (MatrixAssigns)")
 	integer matrices = 100;
 	for (integer i = 0;i < matrices;++i)
 	{
-		Matrix<real> a = randomMatrix<real>(n, n);
+		Matrix<dreal> a = randomMatrix<dreal>(n, n);
 
-		Matrix<real> b(n, n);
+		Matrix<dreal> b(n, n);
 		b = a;
 
 		REQUIRE(b == a);
@@ -817,13 +817,13 @@ TEST_CASE("MatrixAssigns (MatrixAssigns)")
 
 		REQUIRE(a == b);
 
-		a += identityMatrix<real>(n, n) + (5 * b);
-		b += identityMatrix<real>(n, n) + (5 * b);
+		a += identityMatrix<dreal>(n, n) + (5 * b);
+		b += identityMatrix<dreal>(n, n) + (5 * b);
 
 		REQUIRE(a == b);
 
-		a += identityMatrix<real>(n, n) + (b * b);
-		b += identityMatrix<real>(n, n) + (b * b);
+		a += identityMatrix<dreal>(n, n) + (b * b);
+		b += identityMatrix<dreal>(n, n) + (b * b);
 
 		REQUIRE(a == b);
 	}
@@ -838,13 +838,13 @@ TEST_CASE("MatrixSolve (MatrixSolve)")
 
 	for (integer i = 0;i < iterations;++i)
 	{
-		Matrix<real> a = randomMatrix<real>(n, n);
+		Matrix<dreal> a = randomMatrix<dreal>(n, n);
 
-		VectorD b(randomVectorCube<real, Dynamic>(n));
+		VectorD b(randomVectorCube<dreal, Dynamic>(n));
 
 		VectorD x(solveLinear(a, b));
 
-		real error =
+		dreal error =
 			norm(a * x - b);
 
 		if (error > 0.001)

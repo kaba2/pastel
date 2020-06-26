@@ -30,8 +30,8 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Vector<real, N>& p,
-			const Matrix<real>& m) const
+			const Vector<dreal, N>& p,
+			const Matrix<dreal>& m) const
 		{
 			return color_;
 		}

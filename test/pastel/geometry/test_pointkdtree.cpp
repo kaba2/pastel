@@ -24,7 +24,7 @@ namespace
 	class Settings
 	{
 	public:
-		using Real = real;
+		using Real = dreal;
 		static constexpr integer N = N_;
 		using Locator = Vector_Locator<Real, N_>;
 	};
@@ -40,7 +40,7 @@ namespace
 	void testSearch(
 		SearchAlgorithm_PointKdTree searchAlgorithm)
 	{
-		Euclidean_Norm<real> norm;
+		Euclidean_Norm<dreal> norm;
 
 		/*
 			0   |
@@ -161,7 +161,7 @@ namespace
 		correctSet.push_back(iteratorSet[12]);
 		correctSet.push_back(iteratorSet[8]);
 
-		std::vector<real> distanceSet;
+		std::vector<dreal> distanceSet;
 		distanceSet.push_back(5);
 		distanceSet.push_back(4);
 		distanceSet.push_back(2);
@@ -236,7 +236,7 @@ TEST_CASE("various (PointKdTree)")
 	pointSet.reserve(m);
 	for (integer i = 0;i < m;++i)
 	{
-		pointSet.push_back(2 * randomVectorBall<real, 2>());
+		pointSet.push_back(2 * randomVectorBall<dreal, 2>());
 	}
 
 	std::vector<Point_ConstIterator> iteratorSet;
@@ -352,12 +352,12 @@ namespace
 
 		integer m = 10000;
 
-		std::vector<Vector<real, N> > pointSet;
+		std::vector<Vector<dreal, N> > pointSet;
 		pointSet.reserve(m);
 		for (integer i = 0;i < m;++i)
 		{
 
-			pointSet.push_back(2 * randomVectorSphere<real, N>());
+			pointSet.push_back(2 * randomVectorSphere<dreal, N>());
 		}
 
 		Tree tree;
@@ -365,7 +365,7 @@ namespace
 		tree.insertSet(pointSet);
 		tree.refine(SlidingMidpoint_SplitRule());
 
-		Euclidean_Norm<real> norm;
+		Euclidean_Norm<dreal> norm;
 		using Distance = decltype(norm());
 
 		{
@@ -382,7 +382,7 @@ namespace
 
 			searchNearest(
 				kdTreeNearestSet(addConst(tree)), 
-				Vector<real, N>(0), 
+				Vector<dreal, N>(0), 
 				PASTEL_TAG(report), report,
 				PASTEL_TAG(kNearest), m);
 
@@ -394,19 +394,19 @@ namespace
 
 			for (integer i = 0;i < count;++i)
 			{
-				REQUIRE(relativeError<real>(~distanceSet[i], ~norm(2)) < 0.001);
+				REQUIRE(relativeError<dreal>(~distanceSet[i], ~norm(2)) < 0.001);
 			}
 		}
 		{
 			integer outerCount = countNearest(
 				kdTreeNearestSet(tree), 
-				Vector<real, N>(0),
+				Vector<dreal, N>(0),
 				PASTEL_TAG(maxDistance2), norm(2.001));
 			REQUIRE(outerCount == m);
 
 			integer innerCount = countNearest(
 				kdTreeNearestSet(tree), 
-				Vector<real, N>(0),
+				Vector<dreal, N>(0),
 				PASTEL_TAG(maxDistance2), norm(1.999));
 			REQUIRE(innerCount == 0);
 		}

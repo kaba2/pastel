@@ -18,13 +18,13 @@ TEST_CASE("qr_decomposition (qr_decomposition)")
 
 	for (integer i = 0;i < attempts;++i)
 	{
-		Matrix<real> a = randomMatrix<real>(n, n);
-		Vector<real> b = randomVectorCube<real, Dynamic>(n);
-		QrDecomposition<real> qr(a);
-		Vector<real> qrSolution =
+		Matrix<dreal> a = randomMatrix<dreal>(n, n);
+		Vector<dreal> b = randomVectorCube<dreal, Dynamic>(n);
+		QrDecomposition<dreal> qr(a);
+		Vector<dreal> qrSolution =
 			solveLinear(qr, b);
 
-		real error =
+		dreal error =
 			norm(a * qrSolution  - b);
 
 		if (error > 0.001)

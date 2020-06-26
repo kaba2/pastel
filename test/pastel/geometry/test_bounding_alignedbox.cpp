@@ -12,7 +12,7 @@
 
 TEST_CASE("TransformedSphere (boundingAlignedBox)")
 {
-	using Real = real;
+	using Real = dreal;
 	using Point = Vector<Real, 2>;
 
 	{

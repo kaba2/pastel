@@ -111,11 +111,11 @@ namespace Pastel
 		Sphere<Real, N>& left, 
 		Sphere<Real, N>& right);
 
-	using Sphere1 = Sphere<real, 1>;
-	using Sphere2 = Sphere<real, 2>;
-	using Sphere3 = Sphere<real, 3>;
-	using Sphere4 = Sphere<real, 4>;
-	using SphereD = Sphere<real, Dynamic>;
+	using Sphere1 = Sphere<dreal, 1>;
+	using Sphere2 = Sphere<dreal, 2>;
+	using Sphere3 = Sphere<dreal, 3>;
+	using Sphere4 = Sphere<dreal, 4>;
+	using SphereD = Sphere<dreal, Dynamic>;
 
 }
 

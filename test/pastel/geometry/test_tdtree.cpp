@@ -24,7 +24,7 @@ namespace
 {
 
 	using Point = Vector2;
-	using Locator = Vector_Locator<real, 2>;
+	using Locator = Vector_Locator<dreal, 2>;
 	using Tree = TdTree<TdTree_Settings<Locator>>;
 	using ConstIterator = Tree::ConstIterator;
 
@@ -74,7 +74,7 @@ TEST_CASE("Grid (TdTree)")
 	REQUIRE(tree.bound() == 
 		AlignedBox2(Vector2(0, 0), Vector2(4, 4)));
 
-	REQUIRE(tree.timeToIndex(-(real)Infinity()) == 0);
+	REQUIRE(tree.timeToIndex(-(dreal)Infinity()) == 0);
 	REQUIRE(tree.timeToIndex(-2) == 0);
 	REQUIRE(tree.timeToIndex(-1) == 0);
 	REQUIRE(tree.timeToIndex(-0.5) == 0);
@@ -85,7 +85,7 @@ TEST_CASE("Grid (TdTree)")
 	REQUIRE(tree.timeToIndex(24.5) == 25);
 	REQUIRE(tree.timeToIndex(25.5) == 25);
 	REQUIRE(tree.timeToIndex(26) == 25);
-	REQUIRE(tree.timeToIndex((real)Infinity()) == 25);
+	REQUIRE(tree.timeToIndex((dreal)Infinity()) == 25);
 
 	std::unordered_set<ConstIterator, IteratorAddress_Hash> neighborSet;
 
@@ -123,7 +123,7 @@ TEST_CASE("Linear (TdTree)")
 	for (integer i = 0; i < n; ++i)
 	{
 		{
-			Vector2 timeInterval = { (real)i, (real)n };
+			Vector2 timeInterval = { (dreal)i, (dreal)n };
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			integer distance =
 				~searchNearest(
@@ -132,7 +132,7 @@ TEST_CASE("Linear (TdTree)")
 			REQUIRE(distance == square(i));
 		}
 		{
-			Vector2 timeInterval = { (real)0, (real)i + 1 };
+			Vector2 timeInterval = { (dreal)0, (dreal)i + 1 };
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			integer distance =
 				~searchNearest(
@@ -141,7 +141,7 @@ TEST_CASE("Linear (TdTree)")
 			REQUIRE(distance == 0);
 		}
 		{
-			Vector2 timeInterval = { (real)i, (real)i + 1 };
+			Vector2 timeInterval = { (dreal)i, (dreal)i + 1 };
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
 			integer distance =
 				~searchNearest(
@@ -153,10 +153,10 @@ TEST_CASE("Linear (TdTree)")
 
 	for (integer i = 0; i < n; ++i)
 	{
-		Vector4 timeInterval = { (real)i, (real)i + 1, (real)i + 5, (real)i + 6 };
+		Vector4 timeInterval = { (dreal)i, (dreal)i + 1, (dreal)i + 5, (dreal)i + 6 };
 		{
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
-			real distance =
+			dreal distance =
 				~searchNearest(
 					nearestSet, 
 					Point(i + 2, 0)).first;
@@ -166,7 +166,7 @@ TEST_CASE("Linear (TdTree)")
 
 		{
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
-			real distance =
+			dreal distance =
 				~searchNearest(
 					nearestSet, 
 					Point(i - 3, 0)).first;
@@ -176,7 +176,7 @@ TEST_CASE("Linear (TdTree)")
 
 		{
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
-			real distance =
+			dreal distance =
 				~searchNearest(
 					nearestSet, 
 					Point(i + 4, 0)).first;
@@ -187,7 +187,7 @@ TEST_CASE("Linear (TdTree)")
 
 		{
 			auto nearestSet = kdTreeNearestSet(tree, PASTEL_TAG(intervalSequence), timeInterval);
-			real distance =
+			dreal distance =
 				~searchNearest(
 					nearestSet, 
 					Point(i + 7, 0)).first;

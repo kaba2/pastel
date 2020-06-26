@@ -111,11 +111,11 @@ namespace Pastel
 	void swap(Plane<Real, N>& left,
 		Plane<Real, N>& right);
 
-	using Plane1 = Plane<real, 1>;
-	using Plane2 = Plane<real, 2>;
-	using Plane3 = Plane<real, 3>;
-	using Plane4 = Plane<real, 4>;
-	using PlaneD = Plane<real, Dynamic>;
+	using Plane1 = Plane<dreal, 1>;
+	using Plane2 = Plane<dreal, 2>;
+	using Plane3 = Plane<dreal, 3>;
+	using Plane4 = Plane<dreal, 4>;
+	using PlaneD = Plane<dreal, Dynamic>;
 
 }
 

@@ -14,7 +14,7 @@ namespace Pastel
 		const Array<bool, 2>& image,
 		integer maxWidth,
 		integer maxHeight,
-		real maxRatio,
+		dreal maxRatio,
 		Array<int32, 2>& labelImage)
 	{
 		// This is a greedy algorithm to segment a binary image
@@ -119,8 +119,8 @@ namespace Pastel
 
 							while(boxHeight < maxHeight &&
 								y + boxHeight < height &&
-								std::max((real)boxWidth / (boxHeight + 1),
-								(real)(boxHeight + 1) / boxWidth) <= maxRatio)
+								std::max((dreal)boxWidth / (boxHeight + 1),
+								(dreal)(boxHeight + 1) / boxWidth) <= maxRatio)
 							{
 								bool boxFits = true;
 
@@ -145,8 +145,8 @@ namespace Pastel
 
 							while(boxWidth < maxWidth &&
 								x + boxWidth < width &&
-								std::max((real)(boxWidth + 1) / boxHeight,
-								(real)boxHeight / (boxWidth + 1)) <= maxRatio)
+								std::max((dreal)(boxWidth + 1) / boxHeight,
+								(dreal)boxHeight / (boxWidth + 1)) <= maxRatio)
 							{
 								bool boxFits = true;
 

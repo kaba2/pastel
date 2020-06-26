@@ -129,22 +129,22 @@ namespace Pastel
 			rightDelta = vertex[2].position_ - vertex[0].position_;
 		}
 
-		real xLeftAdd = leftDelta.x();
+		dreal xLeftAdd = leftDelta.x();
 		if (leftDelta.y() != 0)
 		{
 			xLeftAdd /= leftDelta.y();
 		}
-		real xLeft = vertex[0].position_.x() +
+		dreal xLeft = vertex[0].position_.x() +
 
-			xLeftAdd * (((real)yBottom + 0.5) - vertex[0].position_.y());
+			xLeftAdd * (((dreal)yBottom + 0.5) - vertex[0].position_.y());
 
-		real xRightAdd = rightDelta.x();
+		dreal xRightAdd = rightDelta.x();
 		if (rightDelta.y() != 0)
 		{
 			xRightAdd /= rightDelta.y();
 		}
-		real xRight = vertex[0].position_.x() +
-			xRightAdd * (((real)yBottom + 0.5) - vertex[0].position_.y());
+		dreal xRight = vertex[0].position_.x() +
+			xRightAdd * (((dreal)yBottom + 0.5) - vertex[0].position_.y());
 
 		// Scan convert the bottom part.
 
@@ -168,7 +168,7 @@ namespace Pastel
 				xRightAdd /= rightDelta.y();
 			}
 			xRight = vertex[1].position_.x() +
-				xRightAdd * (((real)yMiddle + 0.5) - vertex[1].position_.y());
+				xRightAdd * (((dreal)yMiddle + 0.5) - vertex[1].position_.y());
 		}
 		else
 		{
@@ -179,7 +179,7 @@ namespace Pastel
 				xLeftAdd /= leftDelta.y();
 			}
 			xLeft = vertex[1].position_.x() +
-				xLeftAdd * (((real)yMiddle + 0.5) - vertex[1].position_.y());
+				xLeftAdd * (((dreal)yMiddle + 0.5) - vertex[1].position_.y());
 		}
 
 		// Scan convert the upper part

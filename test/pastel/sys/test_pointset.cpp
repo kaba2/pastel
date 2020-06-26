@@ -10,7 +10,7 @@
 
 TEST_CASE("Homogeneous (pointset_concept)")
 {
-	using Point = Vector<real, 2>;
+	using Point = Vector<dreal, 2>;
 	PASTEL_CONCEPT_CHECK(Point, Point_Concept);
 
 	using PointSet = std::vector<Point>;
@@ -40,7 +40,7 @@ TEST_CASE("Homogeneous (pointset_concept)")
 
 TEST_CASE("Heterogeneous (pointset_concept)")
 {
-	using Point = std::vector<real>;
+	using Point = std::vector<dreal>;
 	PASTEL_CONCEPT_CHECK(Point, Point_Concept);
 
 	using PointSet = std::vector<Point>;
@@ -76,7 +76,7 @@ TEST_CASE("Real (pointset_concept)")
 {
 	struct A {};
 
-	using Real = real;
+	using Real = dreal;
 	using PointId = A;
 	using Locator = Locator_Archetype<Real, A, 1>;
 
@@ -122,7 +122,7 @@ TEST_CASE("Real (pointset_concept)")
 
 TEST_CASE("Array (pointset_concept)")
 {
-	using Real = real;
+	using Real = dreal;
 	using Point = std::array<Real, 2>;
 
 	std::vector<Point> pointSet =
@@ -161,7 +161,7 @@ TEST_CASE("Array (pointset_concept)")
 
 TEST_CASE("Functions (pointset_concept)")
 {
-	using Real = real;
+	using Real = dreal;
 	using Point = std::array<Real, 2>;
 	using Locator = Array_Locator<Real, 2>;
 

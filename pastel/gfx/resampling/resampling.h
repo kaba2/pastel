@@ -24,7 +24,7 @@ namespace Pastel
 		const IndexExtenderPtr& indexExtender,
 		const typename boost::range_value<Input_RandomAccessConstRange>::type& border = 
 		typename boost::range_value<Input_RandomAccessConstRange>::type(),
-		real blurFactor = 1);
+		dreal blurFactor = 1);
 
 	template <
 		typename Computation_Element,
@@ -37,7 +37,7 @@ namespace Pastel
 		const IndexExtenderPtr& indexExtender,
 		const typename boost::range_value<Input_RandomAccessConstRange>::type& border = 
 		typename boost::range_value<Input_RandomAccessConstRange>::type(),
-		real blurFactor = 1);
+		dreal blurFactor = 1);
 
 	//! Resamples a 1-dimensional array to a different size.
 	/*!
@@ -56,7 +56,7 @@ namespace Pastel
 		const NoDeduction<ArrayExtender<1, Input_Element>>& arrayExtender,
 		const ConstTableFilterPtr& filter,
 		const View<1, Output_Element, Output_View>& output,
-		real blurFactor = 1);
+		dreal blurFactor = 1);
 
 	template <
 		typename Computation_Element,
@@ -69,7 +69,7 @@ namespace Pastel
 		const NoDeduction<ArrayExtender<1, Input_Element>>& arrayExtender,
 		const ConstFilterPtr& filter,
 		const View<1, Output_Element, Output_View>& output,
-		real blurFactor = 1);
+		dreal blurFactor = 1);
 
 	//! Resamples a multi-dimensional array to a different size.
 	/*!
@@ -93,7 +93,7 @@ namespace Pastel
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,
 		const ConstTableFilterPtr& filter,
 		const View<N, Output_Element, Output_View>& output,
-		real blurFactor = 1);
+		dreal blurFactor = 1);
 
 	//! Resamples a multi-dimensional array to a different size.
 	/*!
@@ -118,7 +118,7 @@ namespace Pastel
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,
 		const ConstFilterPtr& filter,
 		const View<N, Output_Element, Output_View>& output,
-		real blurFactor = 1);
+		dreal blurFactor = 1);
 
 }
 

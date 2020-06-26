@@ -9,10 +9,10 @@
 namespace
 {
 
-	bool check(real measured, real correct)
+	bool check(dreal measured, dreal correct)
 	{
-		real epsilon = 0.001;
-		return REPORT3((absoluteError<real>(measured, correct) > epsilon),
+		dreal epsilon = 0.001;
+		return REPORT3((absoluteError<dreal>(measured, correct) > epsilon),
 			measured, correct, epsilon);
 	}
 
@@ -20,42 +20,42 @@ namespace
 
 TEST_CASE("logarithms (logarithms)")
 {
-	check(floorLog2<real>(1), 0);
-	check(floorLog2<real>(1.1), 0);
-	check(floorLog2<real>(1.5), 0);
-	check(floorLog2<real>(1.9), 0);
+	check(floorLog2<dreal>(1), 0);
+	check(floorLog2<dreal>(1.1), 0);
+	check(floorLog2<dreal>(1.5), 0);
+	check(floorLog2<dreal>(1.9), 0);
 
-	check(floorLog2<real>(2), 1);
-	check(floorLog2<real>(2.1), 1);
-	check(floorLog2<real>(3), 1);
-	check(floorLog2<real>(3.9), 1);
+	check(floorLog2<dreal>(2), 1);
+	check(floorLog2<dreal>(2.1), 1);
+	check(floorLog2<dreal>(3), 1);
+	check(floorLog2<dreal>(3.9), 1);
 
-	check(floorLog2<real>(4), 2);
-	check(floorLog2<real>(4.1), 2);
-	check(floorLog2<real>(6), 2);
-	check(floorLog2<real>(7.9), 2);
+	check(floorLog2<dreal>(4), 2);
+	check(floorLog2<dreal>(4.1), 2);
+	check(floorLog2<dreal>(6), 2);
+	check(floorLog2<dreal>(7.9), 2);
 
-	check(floorLog2<real>(8), 3);
-	check(floorLog2<real>(8.1), 3);
-	check(floorLog2<real>(12), 3);
-	check(floorLog2<real>(15.9), 3);
+	check(floorLog2<dreal>(8), 3);
+	check(floorLog2<dreal>(8.1), 3);
+	check(floorLog2<dreal>(12), 3);
+	check(floorLog2<dreal>(15.9), 3);
 
-	check(floorLog2<real>(16), 4);
-	check(floorLog2<real>(16.1), 4);
-	check(floorLog2<real>(24), 4);
-	check(floorLog2<real>(31.9), 4);
+	check(floorLog2<dreal>(16), 4);
+	check(floorLog2<dreal>(16.1), 4);
+	check(floorLog2<dreal>(24), 4);
+	check(floorLog2<dreal>(31.9), 4);
 
-	check(floorLog2<real>(32), 5);
-	check(floorLog2<real>(32.1), 5);
-	check(floorLog2<real>(48), 5);
-	check(floorLog2<real>(63.9), 5);
+	check(floorLog2<dreal>(32), 5);
+	check(floorLog2<dreal>(32.1), 5);
+	check(floorLog2<dreal>(48), 5);
+	check(floorLog2<dreal>(63.9), 5);
 
-	check(log2<real>(1), 0);
-	check(log2<real>(2), 1);
-	check(log2<real>(4), 2);
-	check(log2<real>(8), 3);
-	check(log2<real>(16), 4);
-	check(log2<real>(32), 5);
+	check(log2<dreal>(1), 0);
+	check(log2<dreal>(2), 1);
+	check(log2<dreal>(4), 2);
+	check(log2<dreal>(8), 3);
+	check(log2<dreal>(16), 4);
+	check(log2<dreal>(32), 5);
 
 	REQUIRE(integerLog2(1) == 0);
 	REQUIRE(integerLog2(2) == 1);

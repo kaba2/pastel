@@ -35,20 +35,20 @@ namespace Pastel
 			{
 			}
 
-			TreePoint(real* data_, integer id_)
+			TreePoint(dreal* data_, integer id_)
 				: data(data_)
 				, id(id_)
 			{
 			}
 
-			real* data;
+			dreal* data;
 			integer id;
 		};
 
 		class TreePoint_Locator
 		{
 		public:
-			using Real = real;
+			using Real = dreal;
 			using Point = TreePoint;
 			static constexpr integer N = Dynamic;
 
@@ -91,7 +91,7 @@ namespace Pastel
 			explicit KdState(integer dimension)
 				: tree(TreePoint_Locator(dimension))
 				, indexMap()
-				, pointAllocator(dimension * sizeof(real))
+				, pointAllocator(dimension * sizeof(dreal))
 				, index(1)
 			{
 			}
@@ -99,7 +99,7 @@ namespace Pastel
 			explicit KdState(const KdState& that)
 				: tree(that.tree)
 				, indexMap()
-				, pointAllocator(that.tree.n() * sizeof(real))
+				, pointAllocator(that.tree.n() * sizeof(dreal))
 				, index(that.index)
 			{
 				// Remove points, but retain structure.
@@ -117,8 +117,8 @@ namespace Pastel
 						const TreePoint& treePoint =
 							range.front().point();
 						
-						real* data = (real*)pointAllocator.allocate();
-						real* thatData = treePoint.data;
+						dreal* data = (dreal*)pointAllocator.allocate();
+						dreal* thatData = treePoint.data;
 
 						std::copy(thatData, thatData + dimension, data);
 
@@ -140,8 +140,8 @@ namespace Pastel
 						const TreePoint& treePoint =
 							range.front().point();
 						
-						real* data = (real*)pointAllocator.allocate();
-						real* thatData = treePoint.data;
+						dreal* data = (dreal*)pointAllocator.allocate();
+						dreal* thatData = treePoint.data;
 
 						std::copy(thatData, thatData + dimension, data);
 
@@ -201,7 +201,7 @@ namespace Pastel
 			integer d = state->tree.n();
 			integer n = idSet.size();
 
-			Array<real> pointSet = matlabCreateArray<real>(
+			Array<dreal> pointSet = matlabCreateArray<dreal>(
 				n, d, outputSet[PointSet]);
 			for (integer i = 0;i < n;++i)
 			{
@@ -223,7 +223,7 @@ namespace Pastel
 					std::fill(
 						pointSet.columnBegin(i),
 						pointSet.columnEnd(i),
-						(real)Nan());
+						(dreal)Nan());
 				}
 			}
 		}
@@ -363,7 +363,7 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 			Tree& tree = state->tree;
 
-			Array<real> pointSet = matlabAsArray<real>(inputSet[PointSet]);
+			Array<dreal> pointSet = matlabAsArray<dreal>(inputSet[PointSet]);
 			integer points = pointSet.width();
 
 			Array<integer> result =
@@ -371,7 +371,7 @@ namespace Pastel
 			for (integer i = 0;i < points;++i)
 			{
 
-				real* data = (real*)state->pointAllocator.allocate();
+				dreal* data = (dreal*)state->pointAllocator.allocate();
 				std::copy(pointSet.cColumnBegin(i), pointSet.cColumnEnd(i), data);
 
 				integer index = state->index;
@@ -659,7 +659,7 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
-			Array<real> maxDistanceSet = matlabAsLinearizedArray<real>(inputSet[MaxDistanceSet]);
+			Array<dreal> maxDistanceSet = matlabAsLinearizedArray<dreal>(inputSet[MaxDistanceSet]);
 			integer kNearest = matlabAsScalar<integer>(inputSet[KNearest]);
 
 			auto norm = Norm();
@@ -685,15 +685,15 @@ namespace Pastel
 			Array<integer> nearestArray =
 				matlabCreateArray<integer>(kNearest, queries, outputSet[IdSet]);
 
-			Array<real> distanceArray;
+			Array<dreal> distanceArray;
 			if (wantDistance)
 			{
-				// Having the matlabCreateArray<real>() call directly
+				// Having the matlabCreateArray<dreal>() call directly
 				// inside the swap() function triggers an
 				// internal compiler error in Clang.
-				auto copyArray = matlabCreateArray<real>(kNearest, queries, outputSet[DistanceSet]);
+				auto copyArray = matlabCreateArray<dreal>(kNearest, queries, outputSet[DistanceSet]);
 				distanceArray.swap(copyArray);
-				boost::fill(distanceArray.range(), (real)Infinity());
+				boost::fill(distanceArray.range(), (dreal)Infinity());
 			}
 
 			using Block = tbb::blocked_range<integer>;
@@ -702,14 +702,14 @@ namespace Pastel
 			{
 				// The queries are a set of points given explicitly
 				// by their coordinates. Each column is a query point.
-				Array<real> querySet = matlabAsArray<real>(inputSet[QuerySet]);
+				Array<dreal> querySet = matlabAsArray<dreal>(inputSet[QuerySet]);
 				integer n = state->tree.n();
 
 				// Find the k-nearest-neighbors for each point.
 
 				auto search = [&](const Block& block)
 				{
-					Vector<real> query(ofDimension(n));
+					Vector<dreal> query(ofDimension(n));
 					for (integer i = block.begin(); i < block.end(); ++i)
 					{
 						std::copy(
@@ -827,13 +827,13 @@ namespace Pastel
 			std::string norm = matlabAsString(inputSet[Norm]);
 			if (norm == "euclidean")
 			{
-				kdSearchNearest_<Euclidean_Norm<real>>(
+				kdSearchNearest_<Euclidean_Norm<dreal>>(
 					outputs, outputSet,
 					inputs - 1, inputSet);
 			}
 			else if (norm == "maximum")
 			{
-				kdSearchNearest_<Maximum_Norm<real>>(
+				kdSearchNearest_<Maximum_Norm<dreal>>(
 					outputs, outputSet,
 					inputs - 1, inputSet);
 			}
@@ -872,7 +872,7 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
-			Array<real> maxDistanceSet = matlabAsLinearizedArray<real>(inputSet[MaxDistanceSet]);
+			Array<dreal> maxDistanceSet = matlabAsLinearizedArray<dreal>(inputSet[MaxDistanceSet]);
 			integer queries = mxGetNumberOfElements(inputSet[QuerySet]);
 			ENSURE_OP(maxDistanceSet.size(), ==, queries);
 
@@ -944,13 +944,13 @@ namespace Pastel
 			std::string norm = matlabAsString(inputSet[Norm]);
 			if (norm == "euclidean")
 			{
-				kdCountNearest_<Euclidean_Norm<real>>(
+				kdCountNearest_<Euclidean_Norm<dreal>>(
 					outputs, outputSet,
 					inputs - 1, inputSet);
 			}
 			else if (norm == "maximum")
 			{
-				kdCountNearest_<Maximum_Norm<real>>(
+				kdCountNearest_<Maximum_Norm<dreal>>(
 					outputs, outputSet,
 					inputs - 1, inputSet);
 			}

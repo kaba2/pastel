@@ -104,11 +104,11 @@ namespace Pastel
 		Matrix<Real> rotation_;
 	};
 
-	using Box1 = Box<real, 1>;
-	using Box2 = Box<real, 2>;
-	using Box3 = Box<real, 3>;
-	using Box4 = Box<real, 4>;
-	using BoxD = Box<real, Dynamic>;
+	using Box1 = Box<dreal, 1>;
+	using Box2 = Box<dreal, 2>;
+	using Box3 = Box<dreal, 3>;
+	using Box4 = Box<dreal, 4>;
+	using BoxD = Box<dreal, Dynamic>;
 
 }
 

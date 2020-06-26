@@ -41,16 +41,16 @@ namespace
 			return boundingAlignedBox(*object);
 		}
 
-		Tuple<real, 2> bound(const Sphere3* object, integer axis) const
+		Tuple<dreal, 2> bound(const Sphere3* object, integer axis) const
 		{
-			return Tuple<real, 2>(
+			return Tuple<dreal, 2>(
 				object->position()[axis] - object->radius(),
 				object->position()[axis] + object->radius());
 		}
 	};
 
 	bool sphereIntersector(const Sphere3* object,
-		const Line3& ray, real& t)
+		const Line3& ray, dreal& t)
 	{
 		const AlignedBox3 box = boundingAlignedBox(*object);
 
@@ -84,7 +84,7 @@ namespace
 
 	void testSphereTracing()
 	{
-		typedef KdTree<real, 3, SpherePolicy> Tree;
+		typedef KdTree<dreal, 3, SpherePolicy> Tree;
 		typedef Tree::ConstObjectIterator ConstObjectIterator;
 
 		SpherePolicy spherePolicy;
@@ -99,7 +99,7 @@ namespace
 		for (integer i = 0;i < spheres;++i)
 		{
 			Sphere3* sphere = (Sphere3*)allocator.allocate();
-			new(sphere) Sphere3(Vector3(1 * randomVectorBall<real, 3>()),
+			new(sphere) Sphere3(Vector3(1 * randomVectorBall<dreal, 3>()),
 				0.01);
 
 			sphereList.push_back(sphere);
@@ -112,7 +112,7 @@ namespace
 		std::cout << kdTree.nodes() << " nodes" << std::endl;
 		std::cout << "Depth of " << depth(kdTree) << std::endl;
 		std::cout << kdTree.objects() << " object references ("
-			<< (real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << std::endl;
+			<< (dreal)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << std::endl;
 
 		refineSurfaceAreaHeuristic(computeKdTreeMaxDepth(kdTree.objects()), 2, kdTree);
 		//refineSurfaceAreaHeuristic(0, 2, kdTree);
@@ -126,7 +126,7 @@ namespace
 		std::cout << "Of which " << kdTree.leaves() << " are leaf nodes." << std::endl;
 		std::cout << "Depth of " << depth(kdTree) << std::endl;
 		std::cout << kdTree.objects() << " object references ("
-			<< (real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << std::endl;
+			<< (dreal)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << std::endl;
 
 		std::vector<Color> palette;
 		falseColorPalette(palette, 256);
@@ -140,7 +140,7 @@ namespace
 
 		for (integer y = 0;y < height;++y)
 		{
-			const integer progress = 100 * ((real)y / (height - 1));
+			const integer progress = 100 * ((dreal)y / (height - 1));
 			if (progress != reportedProgress)
 			{
 				std::cout << progress << "% ";
@@ -150,8 +150,8 @@ namespace
 			{
 				const Line3 ray(
 					Vector3(
-					2 * ((real)(x + 0.5) / (width - 1)) - 1,
-					2 * ((real)(y + 0.5) / (height - 1)) - 1,
+					2 * ((dreal)(x + 0.5) / (width - 1)) - 1,
+					2 * ((dreal)(y + 0.5) / (height - 1)) - 1,
 					-2),
 					Vector3(0, 0, 1));
 

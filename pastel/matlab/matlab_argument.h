@@ -68,7 +68,7 @@ namespace Pastel
 	*/
 	std::string matlabAsString(const mxArray* input);
 
-	//! Retrieves a reference to a real matrix.
+	//! Retrieves a reference to a dreal matrix.
 	/*!
 	Preconditions:
 	mxIsNumeric(that)
@@ -98,7 +98,7 @@ namespace Pastel
 		const mxArray* input,
 		ArgumentSet&&... argumentSet);
 
-	//! Retrieves a reference to a real array.
+	//! Retrieves a reference to a dreal array.
 	/*!
 	Preconditions:
 	mxIsNumeric(that)
@@ -106,7 +106,7 @@ namespace Pastel
 	template <typename Type>
 	Array<Type> matlabAsArray(const mxArray* that);
 
-	//! Retrieves a reference to a linearized real array.
+	//! Retrieves a reference to a linearized dreal array.
 	/*!
 	Preconditions:
 	mxIsNumeric(that)
@@ -114,7 +114,7 @@ namespace Pastel
 	template <typename Type>
 	Array<Type> matlabAsLinearizedArray(const mxArray* that);
 
-	//! Reports all real arrays in a cell-array.
+	//! Reports all dreal arrays in a cell-array.
 	/*!
 	Preconditions:
 	mxIsCell(cellArray)

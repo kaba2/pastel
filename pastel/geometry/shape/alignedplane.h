@@ -196,11 +196,11 @@ namespace Pastel
 		integer axis_;
 	};
 
-	using AlignedPlane1 = AlignedPlane<real, 1>;
-	using AlignedPlane2 = AlignedPlane<real, 2>;
-	using AlignedPlane3 = AlignedPlane<real, 3>;
-	using AlignedPlane4 = AlignedPlane<real, 4>;
-	using AlignedPlaneD = AlignedPlane<real, Dynamic>;
+	using AlignedPlane1 = AlignedPlane<dreal, 1>;
+	using AlignedPlane2 = AlignedPlane<dreal, 2>;
+	using AlignedPlane3 = AlignedPlane<dreal, 3>;
+	using AlignedPlane4 = AlignedPlane<dreal, 4>;
+	using AlignedPlaneD = AlignedPlane<dreal, Dynamic>;
 
 }
 

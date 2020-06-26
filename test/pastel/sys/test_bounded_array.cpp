@@ -8,7 +8,7 @@
 TEST_CASE("bounded_array (bounded_array)")
 {
 	using Set = BoundedArray<BoundedArray_Settings<integer, 3>>;
-	using RealSet = BoundedArray<BoundedArray_Settings<real, 2>>;
+	using RealSet = BoundedArray<BoundedArray_Settings<dreal, 2>>;
 	Set a;
 	{
 		REQUIRE(a.empty());

@@ -47,7 +47,7 @@ namespace Pastel
 	*/
 	template <integer N, typename Vector_Range>
 	typename boost::range_value<Vector_Range>::type linear(
-		const Vector<real, N>& position,
+		const Vector<dreal, N>& position,
 		const Vector_Range& data);
 
 	//! Return midpoint of two points.

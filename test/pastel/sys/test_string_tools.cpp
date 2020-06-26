@@ -11,9 +11,9 @@ TEST_CASE("stringToReal (string_algorithms)")
 	REQUIRE(isNan(stringToReal("nan")));
 	REQUIRE(isNan(stringToReal("+nan")));
 	REQUIRE(isNan(stringToReal("-nan")));
-	REQUIRE(stringToReal("inf") == (real)Infinity());
-	REQUIRE(stringToReal("+inf") == (real)Infinity());
-	REQUIRE(stringToReal("-inf") == -(real)Infinity());
+	REQUIRE(stringToReal("inf") == (dreal)Infinity());
+	REQUIRE(stringToReal("+inf") == (dreal)Infinity());
+	REQUIRE(stringToReal("-inf") == -(dreal)Infinity());
 	REQUIRE(stringToReal("123") == 123);
 	REQUIRE(stringToReal("-123") == -123);
 	REQUIRE(stringToReal("+123") == +123);
@@ -26,9 +26,9 @@ TEST_CASE("stringToReal (string_algorithms)")
 
 TEST_CASE("realToString (string_algorithms)")
 {
-	REQUIRE(realToString((real)Infinity()) == "inf");
-	REQUIRE(realToString(-(real)Infinity()) == "-inf");
-	REQUIRE(realToString((real)Nan()) == "nan");
+	REQUIRE(realToString((dreal)Infinity()) == "inf");
+	REQUIRE(realToString(-(dreal)Infinity()) == "-inf");
+	REQUIRE(realToString((dreal)Nan()) == "nan");
 	REQUIRE(realToString(123) == "123");
 	REQUIRE(realToString(-123) == "-123");
 }

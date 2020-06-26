@@ -303,9 +303,9 @@ namespace Catch {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// RTX is a special version of Windows that is real time.
+// RTX is a special version of Windows that is dreal time.
 // This means that it is detected as Windows, but does not provide
-// the same set of capabilities as real Windows does.
+// the same set of capabilities as dreal Windows does.
 #if defined(UNDER_RTSS) || defined(RTX64_BUILD)
     #define CATCH_INTERNAL_CONFIG_NO_WINDOWS_SEH
     #define CATCH_INTERNAL_CONFIG_NO_ASYNC
@@ -14715,7 +14715,7 @@ namespace Catch {
 
         if (!token.empty()) {
             // If the tag pattern is the "hide and tag" shorthand (e.g. [.foo])
-            // we have to create a separate hide tag and shorten the real one
+            // we have to create a separate hide tag and shorten the dreal one
             if (token.size() > 1 && token[0] == '.') {
                 token.erase(token.begin());
                 TestSpec::PatternPtr pattern = std::make_shared<TestSpec::TagPattern>(".", m_substring);
@@ -16844,7 +16844,7 @@ namespace Catch {
     }
 
     void ListeningReporter::addReporter(IStreamingReporterPtr&& reporter) {
-        assert(!m_reporter && "Listening reporter can wrap only 1 real reporter");
+        assert(!m_reporter && "Listening reporter can wrap only 1 dreal reporter");
         m_reporter = std::move( reporter );
         m_preferences.shouldRedirectStdOut = m_reporter->getPreferences().shouldRedirectStdOut;
     }

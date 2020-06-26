@@ -36,8 +36,8 @@ namespace
 			
 			std::ifstream file("pointset.txt");
 
-			Vector3 minBound(infinity<real>());
-			Vector3 maxBound(-infinity<real>());
+			Vector3 minBound(infinity<dreal>());
+			Vector3 maxBound(-infinity<dreal>());
 			while(true)
 			{
 				Vector3 p;
@@ -55,7 +55,7 @@ namespace
 				pointSet.push_back(p);
 			}
 			
-			real ratio = (maxBound[1] - minBound[1]) / (maxBound[0] - minBound[0]);
+			dreal ratio = (maxBound[1] - minBound[1]) / (maxBound[0] - minBound[0]);
 
 			integer width = 2048;
 			integer height = width * ratio;
@@ -69,9 +69,9 @@ namespace
 			for (integer i = 0;i < pointSet.size();++i)
 			{
 				Vector2 p = shrink(pointSet[i]);
-				real z = pointSet[i][2];
+				dreal z = pointSet[i][2];
 
-				real hue = (z - minBound[2]) / (maxBound[2] - minBound[2]) * 0.75;
+				dreal hue = (z - minBound[2]) / (maxBound[2] - minBound[2]) * 0.75;
 				renderer.setColor(hsvToRgb(Color(hue, 1, 1)));
 				renderer.drawPoint(p);
 			}

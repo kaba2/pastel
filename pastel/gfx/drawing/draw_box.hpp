@@ -49,11 +49,11 @@ namespace Pastel
 		integer height = clippedBox.extent()[1];
 
 		Vector2 dp(
-			inverse((real)width),
-			inverse((real)height));
+			inverse((dreal)width),
+			inverse((dreal)height));
 
-		Matrix<real> m = 
-			matrix2x2<real>(
+		Matrix<dreal> m = 
+			matrix2x2<dreal>(
 			dp.x(), 0,
 			0, dp.y());
 

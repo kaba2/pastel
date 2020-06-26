@@ -14,7 +14,7 @@ namespace Pastel
 	{
 		ENSURE_OP(n, >=, 0);
 
-		return digamma<Real>(n + 1) + constantEulerMascheroni<real>();
+		return digamma<Real>(n + 1) + constantEulerMascheroni<dreal>();
 	}
 
 }

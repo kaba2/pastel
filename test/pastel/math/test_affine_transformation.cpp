@@ -8,14 +8,14 @@
 namespace Pastel
 {
 
-	template class AffineTransformation<real>;
+	template class AffineTransformation<dreal>;
 
 }
 
 namespace
 {
 
-		using Affine = AffineTransformation<real>;
+		using Affine = AffineTransformation<dreal>;
 
 }
 
@@ -24,7 +24,7 @@ TEST_CASE("affine_transformation (affine_transformation)")
 	// Constructs the identity transform.
 	Affine a(3);
 	{
-		REQUIRE(a.matrix() == identityMatrix<real>(3, 3));
+		REQUIRE(a.matrix() == identityMatrix<dreal>(3, 3));
 		REQUIRE(allEqual(a.translation(), 0));
 		REQUIRE(a.n() == 3);
 
@@ -33,7 +33,7 @@ TEST_CASE("affine_transformation (affine_transformation)")
 	}
 
 	// Constructs from a matrix expression.
-	Affine b(diagonalMatrix<real>(Vector3(1, 2, 3)));
+	Affine b(diagonalMatrix<dreal>(Vector3(1, 2, 3)));
 	{
 		REQUIRE(b.matrix() == diagonalMatrix(Vector3(1, 2, 3)));
 		REQUIRE(allEqual(b.translation(), 0));

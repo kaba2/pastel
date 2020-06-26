@@ -22,8 +22,8 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit MultiQuadric_Rbf(real beta = 1)
-			: Filter((real)Infinity(), "multiquadric")
+		explicit MultiQuadric_Rbf(dreal beta = 1)
+			: Filter((dreal)Infinity(), "multiquadric")
 			, beta_(beta)
 		{
 		}
@@ -32,7 +32,7 @@ namespace Pastel
 		{
 		}
 
-		virtual real evaluateInRange(real x) const
+		virtual dreal evaluateInRange(dreal x) const
 		{
 			return std::sqrt(x + square(beta_));
 		}
@@ -41,7 +41,7 @@ namespace Pastel
 		MultiQuadric_Rbf(const MultiQuadric_Rbf& that) = delete;
 		MultiQuadric_Rbf& operator=(const MultiQuadric_Rbf& that) = delete;
 
-		real beta_;
+		dreal beta_;
 	};
 
 	template <typename Real, integer N, typename Data, typename Output_View>

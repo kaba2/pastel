@@ -7,14 +7,14 @@
 namespace Pastel
 {
 
-	inline integer toPixelSpanPoint(real t)
+	inline integer toPixelSpanPoint(dreal t)
 	{
-		return std::ceil(t - (real)0.5);
+		return std::ceil(t - (dreal)0.5);
 	}
 
 	template <integer N>
 	inline Vector<integer, N> toPixelSpanPoint(
-		const Vector<real, N>& that)
+		const Vector<dreal, N>& that)
 	{
 		integer dimension = that.n();
 		Vector<integer, N> result(ofDimension(dimension));

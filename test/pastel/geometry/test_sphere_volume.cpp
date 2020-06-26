@@ -10,7 +10,7 @@ TEST_CASE("Euclidean (sphere_volume)")
 {
 	// Natural logarithms of the volumes of hyperspheres 
 	// in dimensions 0 -> 256. Computed with Maple to 16 digits.
-	real correctSet[] =
+	dreal correctSet[] =
 	{
 		0,
 		.6931471805599453, 1.144729885849400, 1.432411958301181, 1.596312591138855,
@@ -79,22 +79,22 @@ TEST_CASE("Euclidean (sphere_volume)")
 		-344.3220398706937, -346.1727527204242, -348.0254263494428, -349.8800530984944
 	};
 
-	integer elements = sizeof(correctSet) / sizeof(real);
+	integer elements = sizeof(correctSet) / sizeof(dreal);
 	for (integer n = 1; n < elements; ++n)
 	{
-		real correct = correctSet[n];
+		dreal correct = correctSet[n];
 
 		{
-			real maxError = 8e-15;
-			real measured = lnVolumeUnitSphere<real>(n);
-			real error = relativeError<real>(measured, correct);
+			dreal maxError = 8e-15;
+			dreal measured = lnVolumeUnitSphere<dreal>(n);
+			dreal error = relativeError<dreal>(measured, correct);
 			REQUIRE(error < maxError);
 		}
 
 		{
-			real maxError = 2e-14;
-			real measured = std::log(volumeUnitSphere<real>(n));
-			real error = relativeError<real>(measured, correct);
+			dreal maxError = 2e-14;
+			dreal measured = std::log(volumeUnitSphere<dreal>(n));
+			dreal error = relativeError<dreal>(measured, correct);
 			REQUIRE(error < maxError);
 		}
 	}
@@ -104,7 +104,7 @@ TEST_CASE("Manhattan (sphere_volume)")
 {
 	// The logarithm of the volume of an n-dimensional Manhattan 
 	// unit sphere, computed with Mathematica to 16 digits.
-	real correctSet[] =
+	dreal correctSet[] =
 	{
 		0,
 		0.6931471805599453, 0.6931471805599453, 0.2876820724517809,
@@ -195,30 +195,30 @@ TEST_CASE("Manhattan (sphere_volume)")
 		-989.8116003395342
 	};
 
-	integer elements = sizeof(correctSet) / sizeof(real);
+	integer elements = sizeof(correctSet) / sizeof(dreal);
 	for (integer n = 1; n < elements; ++n)
 	{
-		real correct = correctSet[n];
+		dreal correct = correctSet[n];
 
 		{
-			real maxError = 7e-15;
-			real measured = lnVolumeUnitSphereManhattan<real>(n);
-			real error = relativeError<real>(measured, correct);
+			dreal maxError = 7e-15;
+			dreal measured = lnVolumeUnitSphereManhattan<dreal>(n);
+			dreal error = relativeError<dreal>(measured, correct);
 			REQUIRE(error <= maxError);
 		}
 
 		{
-			real maxError = 7e-13;
-			real measured = volumeUnitSphereManhattan<real>(n);
+			dreal maxError = 7e-13;
+			dreal measured = volumeUnitSphereManhattan<dreal>(n);
 
 			if (std::exp(correct) == 0) {
 				REQUIRE(measured == 0);
 				continue;
 			}
 
-			if (measured > -(real)Infinity())
+			if (measured > -(dreal)Infinity())
 			{
-				real error = relativeError<real>(measured, std::exp(correct));
+				dreal error = relativeError<dreal>(measured, std::exp(correct));
 				REQUIRE(error <= maxError);
 			}
 		}

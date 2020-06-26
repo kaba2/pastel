@@ -20,9 +20,9 @@ TEST_CASE("2d (gradientfield)")
 	{
 		for (integer x = 0;x < Width;++x)
 		{
-			Vector2 p((real)x / 5, (real)y / 5);
+			Vector2 p((dreal)x / 5, (dreal)y / 5);
 
-			real grad = 
+			dreal grad = 
 				gradientField<real32, 2>()(floor(p), p - floor(p));
 
 			image(x, y) = fromColor + grad * deltaColor;

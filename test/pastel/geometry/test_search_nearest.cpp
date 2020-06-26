@@ -56,7 +56,7 @@ namespace
 	void test(
 		const Create& create,
 		const PointSet& pointSet,
-		const std::vector<real>& distanceSet)
+		const std::vector<dreal>& distanceSet)
 	{
 		auto result = create.createDataSet(pointSet);
 		const auto& dataSet = result.first;
@@ -65,14 +65,14 @@ namespace
 		auto nearestSet = create.createNearestSet(dataSet);
 		REQUIRE(setSize(nearestSet) == distanceSet.size());
 
-		std::vector<real> reorderedDistanceSet;
+		std::vector<dreal> reorderedDistanceSet;
 		for (integer i = 0;i < permutationSet.size();++i)
 		{
 			reorderedDistanceSet.push_back(
 				distanceSet[permutationSet[i]]);
 		}
 
-		Euclidean_Norm<real> norm;
+		Euclidean_Norm<dreal> norm;
 
 		integer j = 0;
 		RANGES_FOR(auto&& i, nearestSet)
@@ -118,7 +118,7 @@ namespace
 				countSet[permutationSet[i]]);
 		}
 
-		Euclidean_Norm<real> norm;
+		Euclidean_Norm<dreal> norm;
 
 		integer j = 0;
 		RANGES_FOR(auto&& i, nearestSet)
@@ -294,7 +294,7 @@ void testCase(const Create& create)
 
 	using PointSet = std::list<Vector2>;
 	using Point_Iterator = PointSet::iterator;
-	using Locator = Vector_Locator<real, 2>;
+	using Locator = Vector_Locator<dreal, 2>;
 
 	PointSet pointSet =
 	{
@@ -349,7 +349,7 @@ void testCase(const Create& create)
 	E -> 8 (2^2 + 2^2 = 8)
 	*/
 
-	std::vector<real> distanceSet =
+	std::vector<dreal> distanceSet =
 	{
 		5, 4, 2, 5, 2, 2, 4, 1, 1, 1, 1, 1, 1, 4, 8
 	};
@@ -359,7 +359,7 @@ void testCase(const Create& create)
 	{
 		0, 0, 1, 0, 2, 1, 0, 1, 1, 1, 2, 2, 1, 0, 0
 	};
-	testCount(create, pointSet, Euclidean_Norm<real>()[2.25], countSet);
+	testCount(create, pointSet, Euclidean_Norm<dreal>()[2.25], countSet);
 }
 
 //TEST_CASE("search_nearest (PointKdTree)")
@@ -405,7 +405,7 @@ void testGaussian(
 
 	integer k = 7;
 
-	auto norm = Maximum_Norm<real>();
+	auto norm = Maximum_Norm<dreal>();
 	using Distance = decltype(norm());
 
 	REQUIRE(pointSet.size() == n);
@@ -465,7 +465,7 @@ TEST_CASE("search_nearest gaussian tdtree")
 	auto aCreate = CreateBruteForce();
 
 	static constexpr integer N = 3;
-	using PointSet = std::vector<Vector<real, N>>;
+	using PointSet = std::vector<Vector<dreal, N>>;
 
 	integer n = 1000;
 	PointSet pointSet;
@@ -474,7 +474,7 @@ TEST_CASE("search_nearest gaussian tdtree")
 	for (integer i = 0; i < n; ++i)
 	{
 		pointSet.emplace_back(
-			randomGaussianVector<real, N>());
+			randomGaussianVector<dreal, N>());
 	}
 
 	{

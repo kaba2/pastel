@@ -32,7 +32,7 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		Filter(real radius,
+		Filter(dreal radius,
 			const std::string& name)
 		: radius_(radius)
 		, name_(name)
@@ -52,21 +52,21 @@ namespace Pastel
 		This function performs faster because
 		it can leave out range checking.
 		*/
-		virtual real evaluateInRange(real position) const = 0;
+		virtual dreal evaluateInRange(dreal position) const = 0;
 
-		void setRadius(real radius)
+		void setRadius(dreal radius)
 		{
 			ENSURE_OP(radius, >, 0);
 			radius_ = radius;
 			onSetRadius();
 		}
 		
-		real radius() const
+		dreal radius() const
 		{
 			return radius_;
 		}
 
-		real evaluate(real x) const
+		dreal evaluate(dreal x) const
 		{
 			if (x < -radius_ || x > radius_)
 			{
@@ -89,7 +89,7 @@ namespace Pastel
 		{
 		}
 
-		real radius_;
+		dreal radius_;
 		std::string name_;
 	};
 

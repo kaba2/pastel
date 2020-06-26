@@ -18,7 +18,7 @@ namespace Pastel
 	template <integer N, typename Image_View>
 	void ellipsoidElement(
 		const View<N, bool, Image_View>& image,
-		const NoDeduction<Vector<real, N>>& diameter);
+		const NoDeduction<Vector<dreal, N>>& diameter);
 
 	//! Creates an ellipsoidal structuring element.
 	/*!
@@ -56,8 +56,8 @@ namespace Pastel
 	template <integer N, typename Image_View>
 	void pEllipsoidElement(
 		const View<N, bool, Image_View>& image,
-		real power,
-		const NoDeduction<Vector<real, N>>& diameter);
+		dreal power,
+		const NoDeduction<Vector<dreal, N>>& diameter);
 
 	//! Creates an ellipsoid-like structuring element.
 	/*!
@@ -67,7 +67,7 @@ namespace Pastel
 	template <integer N, typename Image_View>
 	void pEllipsoidElement(
 		const View<N, bool, Image_View>& image,
-		real power);
+		dreal power);
 
 	//! Creates a diamond-shaped structuring element.
 	/*!
@@ -77,7 +77,7 @@ namespace Pastel
 	template <integer N, typename Image_View>
 	void diamondElement(
 		const View<N, bool, Image_View>& image,
-		const NoDeduction<Vector<real, N>>& diameter);
+		const NoDeduction<Vector<dreal, N>>& diameter);
 
 	//! Creates a diamond-shaped structuring element.
 	/*!
@@ -96,7 +96,7 @@ namespace Pastel
 	template <integer N, typename Image_View>
 	void boxElement(
 		const View<N, bool, Image_View>& image,
-		const NoDeduction<Vector<real, N>>& diameter);
+		const NoDeduction<Vector<dreal, N>>& diameter);
 
 	//! Creates a box-shaped structuring element.
 	/*!

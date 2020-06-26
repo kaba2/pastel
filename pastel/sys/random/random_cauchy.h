@@ -8,14 +8,14 @@
 namespace Pastel
 {
 
-	//! Returns a Cauchy-distributed random real.
+	//! Returns a Cauchy-distributed random dreal.
 	/*!
 	This function assumes scale = 1.
 	*/
 	template <typename Real>
 	Real randomCauchy();
 
-	//! Returns a Cauchy-distributed random real.
+	//! Returns a Cauchy-distributed random dreal.
 	/*!
 	Preconditions:
 	scale > 0

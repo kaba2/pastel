@@ -10,7 +10,7 @@ namespace
 {
 
 	using Real = Rational<integer>;
-	//using Real = real;
+	//using Real = dreal;
 
 	template <typename Type, integer N>
 	void someFunction(const Tuple<Type, N>& jorma)

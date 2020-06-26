@@ -81,7 +81,7 @@ namespace Pastel
 			}
 		}
 
-		// Because S is symmetric and real, the eigenvectors
+		// Because S is symmetric and dreal, the eigenvectors
 		// must be orthogonal to each other.
 		eigenVector[1] = cross(eigenVector[0]);
 	}

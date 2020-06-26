@@ -30,9 +30,9 @@ namespace
 
 		for (integer i = 0;i < 100;++i)
 		{
-			const Vector2 point = haltonSequence<real>(i, Vector<integer, 2>(3, 2));
+			const Vector2 point = haltonSequence<dreal>(i, Vector<integer, 2>(3, 2));
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -41,9 +41,9 @@ namespace
 
 		for (integer i = 100;i < 1000;++i)
 		{
-			const Vector2 point = haltonSequence<real>(i, Vector<integer, 2>(3, 2));
+			const Vector2 point = haltonSequence<dreal>(i, Vector<integer, 2>(3, 2));
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -52,9 +52,9 @@ namespace
 
 		for (integer i = 1000;i < 2000;++i)
 		{
-			const Vector2 point = haltonSequence<real>(i, Vector<integer, 2>(3, 2));
+			const Vector2 point = haltonSequence<dreal>(i, Vector<integer, 2>(3, 2));
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -63,9 +63,9 @@ namespace
 
 		for (integer i = 1000;i < 10000;++i)
 		{
-			const Vector2 point = haltonSequence<real>(i, Vector<integer, 2>(3, 2));
+			const Vector2 point = haltonSequence<dreal>(i, Vector<integer, 2>(3, 2));
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -74,9 +74,9 @@ namespace
 
 		for (integer i = 10000;i < 20000;++i)
 		{
-			const Vector2 point = haltonSequence<real>(i, Vector<integer, 2>(3, 2));
+			const Vector2 point = haltonSequence<dreal>(i, Vector<integer, 2>(3, 2));
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -85,9 +85,9 @@ namespace
 
 		for (integer i = 20000;i < 100000;++i)
 		{
-			const Vector2 point = haltonSequence<real>(i, Vector<integer, 2>(3, 2));
+			const Vector2 point = haltonSequence<dreal>(i, Vector<integer, 2>(3, 2));
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -108,9 +108,9 @@ namespace
 
 		for (integer i = 0;i < 100;++i)
 		{
-			const Vector2 point = hammersleySequence<real>(i, Vector<integer, 1>(2), 100000);
+			const Vector2 point = hammersleySequence<dreal>(i, Vector<integer, 1>(2), 100000);
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -119,9 +119,9 @@ namespace
 
 		for (integer i = 100;i < 1000;++i)
 		{
-			const Vector2 point = hammersleySequence<real>(i, Vector<integer, 1>(2), 100000);
+			const Vector2 point = hammersleySequence<dreal>(i, Vector<integer, 1>(2), 100000);
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -130,9 +130,9 @@ namespace
 
 		for (integer i = 1000;i < 2000;++i)
 		{
-			const Vector2 point = hammersleySequence<real>(i, Vector<integer, 1>(2), 100000);
+			const Vector2 point = hammersleySequence<dreal>(i, Vector<integer, 1>(2), 100000);
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -141,9 +141,9 @@ namespace
 
 		for (integer i = 1000;i < 10000;++i)
 		{
-			const Vector2 point = hammersleySequence<real>(i, Vector<integer, 1>(2), 100000);
+			const Vector2 point = hammersleySequence<dreal>(i, Vector<integer, 1>(2), 100000);
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -152,9 +152,9 @@ namespace
 
 		for (integer i = 10000;i < 20000;++i)
 		{
-			const Vector2 point = hammersleySequence<real>(i, Vector<integer, 1>(2), 100000);
+			const Vector2 point = hammersleySequence<dreal>(i, Vector<integer, 1>(2), 100000);
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));
 		}
@@ -163,9 +163,9 @@ namespace
 
 		for (integer i = 20000;i < 100000;++i)
 		{
-			const Vector2 point = hammersleySequence<real>(i, Vector<integer, 1>(2), 100000);
+			const Vector2 point = hammersleySequence<dreal>(i, Vector<integer, 1>(2), 100000);
 
-			color = linear(aColor, bColor, (real)i / 100000);
+			color = linear(aColor, bColor, (dreal)i / 100000);
 
 			drawPixel(point * Vector2(Width, Height), color, arrayView(image));		}
 

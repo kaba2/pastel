@@ -8,7 +8,7 @@
 template <typename Distance>
 void testBasic()
 {
-	auto distance = Distance((real)2);
+	auto distance = Distance((dreal)2);
 	auto copy = distance;
 	REQUIRE(copy == distance);
 	REQUIRE(copy <= distance);
@@ -23,7 +23,7 @@ void testBasic()
 
 TEST_CASE("Distance (Manhattan)")
 {
-	using Distance = Manhattan_Distance<real>;
+	using Distance = Manhattan_Distance<dreal>;
 	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
 
 	auto distance = Distance();
@@ -38,7 +38,7 @@ TEST_CASE("Distance (Manhattan)")
 
 TEST_CASE("Distance (Euclidean)")
 {
-	using Distance = Euclidean_Distance<real>;
+	using Distance = Euclidean_Distance<dreal>;
 	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
 
 	auto distance = Distance();
@@ -53,7 +53,7 @@ TEST_CASE("Distance (Euclidean)")
 
 TEST_CASE("Distance (Maximum)")
 {
-	using Distance = Maximum_Distance<real>;
+	using Distance = Maximum_Distance<dreal>;
 	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
 
 	auto distance = Distance();
@@ -68,7 +68,7 @@ TEST_CASE("Distance (Maximum)")
 
 TEST_CASE("Distance (Minkowski)")
 {
-	using Distance = Minkowski_Distance<real>;
+	using Distance = Minkowski_Distance<dreal>;
 	PASTEL_CONCEPT_CHECK(Distance, Distance_Concept);
 
 	auto distance = Distance();
@@ -83,7 +83,7 @@ TEST_CASE("Distance (Minkowski)")
 
 TEST_CASE("Distance (Product)")
 {
-	using Distance = Product_Distance<real, Euclidean_Distance<real>, Manhattan_Distance<real>>;
+	using Distance = Product_Distance<dreal, Euclidean_Distance<dreal>, Manhattan_Distance<dreal>>;
 
 	auto distance = Distance((integer)2);
 	testBasic<Distance>();

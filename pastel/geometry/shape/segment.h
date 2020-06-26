@@ -105,11 +105,11 @@ namespace Pastel
 		Topology endTopology_;
 	};
 
-	using Segment1 = Segment<real, 1>;
-	using Segment2 = Segment<real, 2>;
-	using Segment3 = Segment<real, 3>;
-	using Segment4 = Segment<real, 4>;
-	using SegmentD = Segment<real, Dynamic>;
+	using Segment1 = Segment<dreal, 1>;
+	using Segment2 = Segment<dreal, 2>;
+	using Segment3 = Segment<dreal, 3>;
+	using Segment4 = Segment<dreal, 4>;
+	using SegmentD = Segment<dreal, Dynamic>;
 
 	template <typename Real, integer N>
 	void swap(

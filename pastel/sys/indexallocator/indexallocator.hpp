@@ -226,7 +226,7 @@ namespace Pastel
 	inline integer IndexAllocator::toInternalIndex(integer index) const
 	{
 		/*
-		The real allocation information is in the leaves.
+		The dreal allocation information is in the leaves.
 		Leaves of the heap are stored sequentially after the
 		half-way of the array. Externally we number the
 		leaves from 0 to some N. Internally, we need

@@ -9,27 +9,27 @@
 namespace Pastel
 {
 
-	//! Returns a random real in [0, 1] with 32-bit resolution.
+	//! Returns a random dreal in [0, 1] with 32-bit resolution.
 	template <typename Real>
 	Real random();
 
-	//! Returns a random real in ]0, 1[ with 32-bit resolution.
+	//! Returns a random dreal in ]0, 1[ with 32-bit resolution.
 	template <typename Real>
 	Real randomOpen();
 
-	//! Returns a random real in ]0, 1] with 32-bit resolution.
+	//! Returns a random dreal in ]0, 1] with 32-bit resolution.
 	template <typename Real>
 	Real randomOpen0();
 
-	//! Returns a random real in [0, 1[ with 32-bit resolution.
+	//! Returns a random dreal in [0, 1[ with 32-bit resolution.
 	template <typename Real>
 	Real randomOpen1();
 
-	//! Returns a random real in [0, 1] with 53-bit resolution.
+	//! Returns a random dreal in [0, 1] with 53-bit resolution.
 	template <typename Real>
 	Real random53();
 
-	//! Returns a uniformly distributed random real in [minValue, maxValue].
+	//! Returns a uniformly distributed random dreal in [minValue, maxValue].
 	/*!
 	Time complexity: constant
 	Exception safety: nothrow

@@ -8,8 +8,8 @@
 
 TEST_CASE("Hsv (Hsv)")
 {
-	real Width = 512;
-	real Height = 128;
+	dreal Width = 512;
+	dreal Height = 128;
 	Array<Color, 2> image(Vector2i(Width, Height));
 
 	real32 HueStep = (real32)1 / Width;

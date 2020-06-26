@@ -5,7 +5,7 @@
 
 #include <pastel/sys/alignedbox.h>
 
-using Real_ = real;
+using Real_ = dreal;
 
 TEST_CASE("1d (AlignedBox)")
 {

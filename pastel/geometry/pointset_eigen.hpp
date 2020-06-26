@@ -95,7 +95,7 @@ namespace Pastel
 		integer n = locator.n();
 		ENSURE_OP(n, !=, Dynamic);
 
-		real beta = 1;
+		dreal beta = 1;
 		Vector<Real> meanPoint = 
 			pointSetMean(pointSet, locator);
 

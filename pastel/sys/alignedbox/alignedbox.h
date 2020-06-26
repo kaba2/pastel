@@ -377,11 +377,11 @@ namespace Pastel
 	void swap(AlignedBox<Real, N>& left,
 		AlignedBox<Real, N>& right);
 
-	using AlignedBox1 = AlignedBox<real, 1>;
-	using AlignedBox2 = AlignedBox<real, 2>;
-	using AlignedBox3 = AlignedBox<real, 3>;
-	using AlignedBox4 = AlignedBox<real, 4>;
-	using AlignedBoxD = AlignedBox<real, Dynamic>;
+	using AlignedBox1 = AlignedBox<dreal, 1>;
+	using AlignedBox2 = AlignedBox<dreal, 2>;
+	using AlignedBox3 = AlignedBox<dreal, 3>;
+	using AlignedBox4 = AlignedBox<dreal, 4>;
+	using AlignedBoxD = AlignedBox<dreal, Dynamic>;
 
 	using AlignedBox1i = AlignedBox<integer, 1>;
 	using AlignedBox2i = AlignedBox<integer, 2>;

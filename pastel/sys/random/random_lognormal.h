@@ -8,14 +8,14 @@
 namespace Pastel
 {
 
-	//! Returns a Log-normal-distributed random real.
+	//! Returns a Log-normal-distributed random dreal.
 	/*!
 	This function assumes logMean = 0 and logDeviation = 1.
 	*/
 	template <typename Real>
 	Real randomLogNormal();
 
-	//! Returns a Log-normal-distributed random real.
+	//! Returns a Log-normal-distributed random dreal.
 	/*!
 	Preconditions:
 	logDeviation > 0

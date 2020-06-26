@@ -17,29 +17,29 @@ namespace
 	class Custom_Point
 	{
 	public:
-		Custom_Point(real x_, real y_)
+		Custom_Point(dreal x_, dreal y_)
 			: x(x_)
 			, y(y_)
 		{
 
 		}
 
-		real x;
-		real y;
+		dreal x;
+		dreal y;
 	};
 
 	class Custom_Locator
 	{
 	public:
 		static constexpr integer N = 2;
-		using Real = real;
+		using Real = dreal;
 		using Point = Custom_Point;
 
 		void swap(Custom_Locator& that)
 		{
 		}
 
-		const real& operator()(const Point& point, integer i) const
+		const dreal& operator()(const Point& point, integer i) const
 		{
 			return i != 0 ? point.y : point.x;
 		}
@@ -62,7 +62,7 @@ namespace
 		const Point& a,
 		const Point& b)
 	{
-		using Real = real;
+		using Real = dreal;
 
 		auto keepGoing = [&](const auto& that)
 		{
@@ -126,14 +126,14 @@ TEST_CASE("Custom (distance_point_point)")
 	REQUIRE(~distance2(
 		location(a, Custom_Locator()), 
 		location(b, Custom_Locator()),
-		PASTEL_TAG(norm), Manhattan_Norm<real>()) == 6 + 2);
+		PASTEL_TAG(norm), Manhattan_Norm<dreal>()) == 6 + 2);
 }
 
 TEST_CASE("Pointer (distance_point_point)")
 {
-	using Point = real*;
+	using Point = dreal*;
 
-	real data[] = { 1, 4, -5, 2 };
+	dreal data[] = { 1, 4, -5, 2 };
 
 	Point a = &data[0];
 	Point b = &data[2];
@@ -143,7 +143,7 @@ TEST_CASE("Pointer (distance_point_point)")
 
 TEST_CASE("Array (distance_point_point)")
 {
-	using Point = std::array<real, 2>;
+	using Point = std::array<dreal, 2>;
 
 	Point a = { {1, 4} };
 	Point b = { {-5, 2} };
@@ -153,7 +153,7 @@ TEST_CASE("Array (distance_point_point)")
 
 TEST_CASE("Vector (distance_point_point)")
 {
-	using Point = Vector<real, 2>;
+	using Point = Vector<dreal, 2>;
 
 	Point a(1, 4);
 	Point b(-5, 2);

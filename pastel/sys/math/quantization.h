@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	//! Converts real [0, 1] to integer [0, numbers - 1].
+	//! Converts dreal [0, 1] to integer [0, numbers - 1].
 	/*!
 	[Quantization]
 
@@ -21,7 +21,7 @@ namespace Pastel
 	*/
 	integer quantizeUnsigned(real64 x, integer numbers);
 
-	//! Converts integer [0, numbers - 1] to real [0, 1].
+	//! Converts integer [0, numbers - 1] to dreal [0, 1].
 	/*!
 	x < 0 will be converted to 0.
 	x > numbers - 1 will be converted to 1.
@@ -31,7 +31,7 @@ namespace Pastel
 	*/
 	real64 dequantizeUnsignedMatchEnds(integer x, integer numbers);
 
-	//! Converts integer [0, numbers - 1] to real [0, 1].
+	//! Converts integer [0, numbers - 1] to dreal [0, 1].
 	/*!
 	x < 0 will be converted to 0.
 	x > numbers - 1 will be converted to 1.
@@ -40,7 +40,7 @@ namespace Pastel
 	*/
 	real64 dequantizeUnsigned(integer x, integer numbers);
 
-	//! Converts an integer [-2^(N - 1) , 2^(N - 1) - 1] to a real [-1, 1].
+	//! Converts an integer [-2^(N - 1) , 2^(N - 1) - 1] to a dreal [-1, 1].
 	/*!
 	Integer values below the range will be converted to -1.
 	Integer values above the range will be converted to 1.
@@ -48,7 +48,7 @@ namespace Pastel
 	template <integer N>
 	real64 dequantizeSigned(integer i);
 
-	//! Converts an integer [-2^(N - 1) , 2^(N - 1) - 1] to a real [-1, 1].
+	//! Converts an integer [-2^(N - 1) , 2^(N - 1) - 1] to a dreal [-1, 1].
 	/*!
 	Integer values below the range will be converted to -1.
 	Integer values above the range will be converted to 1.
@@ -60,7 +60,7 @@ namespace Pastel
 	real64 ditheredDequantizeSigned(integer i);
 	*/
 
-	//! Converts a real [-1, 1] to integer [-(2^(N - 1) - 1) , 2^(N - 1) - 1].
+	//! Converts a dreal [-1, 1] to integer [-(2^(N - 1) - 1) , 2^(N - 1) - 1].
 	/*!
 	Real values below the range will be converted to -(2^(N - 1) - 1).
 	Real values above the range will be converted to 2^(N - 1) - 1.

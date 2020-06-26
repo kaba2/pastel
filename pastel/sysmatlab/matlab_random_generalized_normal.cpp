@@ -36,16 +36,16 @@ namespace
 
 		integer m = matlabAsScalar<integer>(inputSet[M]);
 		integer n = matlabAsScalar<integer>(inputSet[N]);
-		real shape = matlabAsScalar<real>(inputSet[Shape]);
-		real scale = matlabAsScalar<real>(inputSet[Scale]);
+		dreal shape = matlabAsScalar<dreal>(inputSet[Shape]);
+		dreal scale = matlabAsScalar<dreal>(inputSet[Scale]);
 
-		Array<real> result =
-			matlabCreateArray<real>(Vector2i(m, n),
+		Array<dreal> result =
+			matlabCreateArray<dreal>(Vector2i(m, n),
 			outputSet[Result]);
 
-		for (real& element : result)
+		for (dreal& element : result)
 		{
-			element = randomGeneralizedGaussian<real>(shape, scale);
+			element = randomGeneralizedGaussian<dreal>(shape, scale);
 		}
 	}
 

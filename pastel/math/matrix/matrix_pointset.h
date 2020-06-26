@@ -44,7 +44,7 @@ namespace Pastel
 			sparseSet(
 				intervalSet(set.memptr(), set.memptr() + set.size()), 
 				set.n_rows), 
-			PointerRange_Locator<real>(dBegin, dEnd));
+			PointerRange_Locator<dreal>(dBegin, dEnd));
 	}
 
 }

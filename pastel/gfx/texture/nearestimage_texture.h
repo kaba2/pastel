@@ -43,8 +43,8 @@ namespace Pastel
 		}
 
 		virtual Element operator()(
-			const Vector<real, N>& p,
-			const Matrix<real>& m) const
+			const Vector<dreal, N>& p,
+			const Matrix<dreal>& m) const
 		{
 			const Vector<integer, N> x(p * extent_);
 
@@ -54,7 +54,7 @@ namespace Pastel
 		void setImage(const Array<Type, N>& image)
 		{
 			image_ = &image;
-			extent_ = Vector<real, N>(image.extent());
+			extent_ = Vector<dreal, N>(image.extent());
 		}
 
 		void setExtender(const ArrayExtender_& extender)
@@ -70,7 +70,7 @@ namespace Pastel
 	private:
 		const Array<Type, N>* image_;
 		ArrayExtender_ extender_;
-		Vector<real, N> extent_;
+		Vector<dreal, N> extent_;
 	};
 
 	template <typename Type, integer N>

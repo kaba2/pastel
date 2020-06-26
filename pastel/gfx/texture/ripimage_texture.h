@@ -36,8 +36,8 @@ namespace Pastel
 			const ArrayExtender_& extender = ArrayExtender_());
 
 		virtual Type operator()(
-			const Vector<real, N>& uv,
-			const Matrix<real>& m) const;
+			const Vector<dreal, N>& uv,
+			const Matrix<dreal>& m) const;
 
 		void setRipMap(const RipMap<Type, N>& ripMap)
 		{

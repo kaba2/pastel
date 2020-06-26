@@ -936,19 +936,19 @@ namespace Pastel
 {
 
 	using Integer1 = Tuple<integer, 1>;
-	using Type1 = Tuple<real, 1>;
+	using Type1 = Tuple<dreal, 1>;
 
 	using Integer2 = Tuple<integer, 2>;
-	using Type2 = Tuple<real, 2>;
+	using Type2 = Tuple<dreal, 2>;
 
 	using Integer3 = Tuple<integer, 3>;
-	using Type3 = Tuple<real, 3>;
+	using Type3 = Tuple<dreal, 3>;
 
 	using Integer4 = Tuple<integer, 4>;
-	using Type4 = Tuple<real, 4>;
+	using Type4 = Tuple<dreal, 4>;
 
 	using IntegerD = Tuple<integer, Dynamic>;
-	using TypeD = Tuple<real, Dynamic>;
+	using TypeD = Tuple<dreal, Dynamic>;
 
 }
 

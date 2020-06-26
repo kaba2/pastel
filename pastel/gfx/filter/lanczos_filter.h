@@ -27,7 +27,7 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit Lanczos_Filter(real radius = 2)
+		explicit Lanczos_Filter(dreal radius = 2)
 		: Filter(radius, "lanczos")
 		, invRadius_(inverse(radius))
 		{
@@ -37,9 +37,9 @@ namespace Pastel
 		{
 		}
 
-		virtual real evaluateInRange(real x) const
+		virtual dreal evaluateInRange(dreal x) const
 		{
-			return sinc<real>(x) * sinc<real>(x * invRadius_);
+			return sinc<dreal>(x) * sinc<dreal>(x * invRadius_);
 		}
 
 	private:
@@ -51,13 +51,13 @@ namespace Pastel
 			invRadius_ = inverse(radius());
 		}
 
-		real invRadius_;
+		dreal invRadius_;
 	};
 
 	using LanczosFilterPtr = std::shared_ptr<Lanczos_Filter>;
 	using ConstLanczosFilterPtr = std::shared_ptr<const Lanczos_Filter>;
 
-	inline LanczosFilterPtr lanczosFilter(real radius = 2)
+	inline LanczosFilterPtr lanczosFilter(dreal radius = 2)
 	{
 		return std::make_shared<Lanczos_Filter>(radius);
 	}

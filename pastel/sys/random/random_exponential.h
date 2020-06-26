@@ -9,14 +9,14 @@
 namespace Pastel
 {
 
-	//! Returns an exponentially-distributed random real.
+	//! Returns an exponentially-distributed random dreal.
 	/*!
 	This function assumes mean = 1.
 	*/
 	template <typename Real>
 	Real randomExponential();
 
-	//! Returns an exponentially-distributed random real.
+	//! Returns an exponentially-distributed random dreal.
 	/*!
 	Precondition:
 	mean > 0

@@ -10,7 +10,7 @@ namespace Pastel
 	typename RedBlackTree<Settings, Customization>::ConstIterator
 	quantile(
 		const RedBlackTree<Settings, Customization>& tree,
-		real alpha)
+		dreal alpha)
 	{
 		/*
 		Let n = tree.size(), and

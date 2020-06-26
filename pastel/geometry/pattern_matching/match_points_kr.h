@@ -83,7 +83,7 @@ namespace Pastel
 	and a point in the scene-set to accept them as a pair.
 	Measured in terms of the norm-bijection.
 
-	maxBias (real : 0.1):
+	maxBias (dreal : 0.1):
 	The maximum bias which to accept from a match.
 	The bias is the norm-bijection of the mean
 	error, divided by 'matchingDistance2'.
@@ -129,7 +129,7 @@ namespace Pastel
 		using Scene_ConstIterator = PointSet_Point<Scene_NearestSet>;
 		static constexpr integer N = Point_N<Model_ConstIterator>::value;
 		//using Real = Point_Real<Model_ConstIterator>;
-		using Real = real;
+		using Real = dreal;
 
 		integer kNearest = 
 			PASTEL_ARG_S(kNearest, 16);
@@ -138,8 +138,8 @@ namespace Pastel
 
 		using Distance = decltype(norm());
 
-		// This is deliberately real, not Real.
-		real minMatchRatio = 
+		// This is deliberately dreal, not Real.
+		dreal minMatchRatio = 
 			PASTEL_ARG_S(minMatchRatio, 0.8);
 
 		Distance matchingDistance2 = 
@@ -300,7 +300,7 @@ namespace Pastel
 					pairSet.size() >= bestPairSet.size())
 				{
 					// We have found a possible match.
-					//std::cout << pairSet.size() / (real)indexToModel.size() << std::endl;
+					//std::cout << pairSet.size() / (dreal)indexToModel.size() << std::endl;
 
 					// Compute the bias of the match.
 					// The bias is the norm of the mean difference

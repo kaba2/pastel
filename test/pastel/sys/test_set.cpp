@@ -30,7 +30,7 @@ TEST_CASE("Interval (Set)")
 	//PASTEL_CONCEPT_CHECK(
 	//	Interval_Set<integer>, Set_Concept(integer));
 	//PASTEL_CONCEPT_CHECK(
-	//	Interval_Set<integer>, Set_Concept(real));
+	//	Interval_Set<integer>, Set_Concept(dreal));
 	PASTEL_STATIC_ASSERT(
 		CorrectElement<Interval_Set<integer>, integer>::value);
 	{

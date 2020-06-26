@@ -37,23 +37,23 @@ namespace Pastel
 
 			ENSURE_OP(inputs, ==, Inputs);
 
-			const real* modelData = 
+			const dreal* modelData = 
 				mxGetPr(inputSet[ModelSet]);
 			integer modelPoints = 
 				mxGetN(inputSet[ModelSet]);
 
-			const real* sceneData = 
+			const dreal* sceneData = 
 				mxGetPr(inputSet[SceneSet]);
 			integer scenePoints = 
 				mxGetN(inputSet[SceneSet]);
-			real minMatchRatio = 
-				matlabAsScalar<real>(inputSet[MinMatchRatio]);
-			real relativeMatchingDistance = 
-				matlabAsScalar<real>(inputSet[RelativeMatchingDistance]);
-			real confidence =
-				matlabAsScalar<real>(inputSet[Confidence]);
+			dreal minMatchRatio = 
+				matlabAsScalar<dreal>(inputSet[MinMatchRatio]);
+			dreal relativeMatchingDistance = 
+				matlabAsScalar<dreal>(inputSet[RelativeMatchingDistance]);
+			dreal confidence =
+				matlabAsScalar<dreal>(inputSet[Confidence]);
 
-			ConformalAffine2D<real> similarity;
+			ConformalAffine2D<dreal> similarity;
 
 			bool success = pointPatternMatchVw(
 				range(
@@ -66,15 +66,15 @@ namespace Pastel
 				relativeMatchingDistance,
 				confidence,
 				similarity,
-				Pointer_Locator<real, 2>(),
-				Pointer_Locator<real, 2>());
+				Pointer_Locator<dreal, 2>(),
+				Pointer_Locator<dreal, 2>());
 
 			// Output the similarity.
 
 			if (outputs > 0)
 			{
-				Array<real> result =
-					matlabCreateArray<real>(4, 1, outputSet[Similarity]);
+				Array<dreal> result =
+					matlabCreateArray<dreal>(4, 1, outputSet[Similarity]);
 
 				result(0) = similarity.scaling();
 				result(1) = similarity.rotation();

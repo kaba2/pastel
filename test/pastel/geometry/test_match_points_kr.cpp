@@ -16,14 +16,14 @@
 TEST_CASE("matchPointsKr (matchPointsKr)")
 {
 	//using Real = Rational<integer>;
-	using Real = real;
+	using Real = dreal;
 	using Point = Vector<Real, 2>;
 	using Tree_Settings = PointKdTree_Settings<Vector_Locator<Real, 2>>;
 	using Tree = PointKdTree<Tree_Settings>;
 	
 	auto norm = Euclidean_Norm<Real>();
 
-	for (real sceneRatio : {1.0, 0.75, 0.65})
+	for (dreal sceneRatio : {1.0, 0.75, 0.65})
 	{
 		for (integer j = 0; j < 10; ++j)
 		{

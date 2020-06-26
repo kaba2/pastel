@@ -19,9 +19,9 @@ namespace Pastel
 	public:
 		Radial_Texture(
 			const Texture<Type, N>& texture,
-			const Vector<real, N>& center,
-			const Vector<real, N>& sphericalStart,
-			const Vector<real, N>& sphericalEnd)
+			const Vector<dreal, N>& center,
+			const Vector<dreal, N>& sphericalStart,
+			const Vector<dreal, N>& sphericalEnd)
 			: texture_(texture)
 			, center_(center)
 			, sphericalStart_(sphericalStart)
@@ -34,10 +34,10 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Vector<real, N>& p,
-			const Matrix<real>& m) const
+			const Vector<dreal, N>& p,
+			const Matrix<dreal>& m) const
 		{
-			Vector<real, N> spherical =
+			Vector<dreal, N> spherical =
 				sphericalStart_ + (sphericalEnd_ - sphericalStart_) * p;
 
 			return texture_(
@@ -52,17 +52,17 @@ namespace Pastel
 
 	private:
 		const Texture<Type, N>& texture_;
-		Vector<real, N> center_;
-		Vector<real, N> sphericalStart_;
-		Vector<real, N> sphericalEnd_;
+		Vector<dreal, N> center_;
+		Vector<dreal, N> sphericalStart_;
+		Vector<dreal, N> sphericalEnd_;
 	};
 
 	template <typename Type, integer N>
 	Radial_Texture<Type, N> radialTexture(
 		const Texture<Type, N>& texture,
-		const Vector<real, N>& center,
-		const Vector<real, N>& sphericalStart,
-		const Vector<real, N>& sphericalEnd)
+		const Vector<dreal, N>& center,
+		const Vector<dreal, N>& sphericalStart,
+		const Vector<dreal, N>& sphericalEnd)
 	{
 		return Radial_Texture<Type, N>(texture, center, sphericalStart, sphericalEnd);
 	}

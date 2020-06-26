@@ -22,7 +22,7 @@ TEST_CASE("1d (Noise)")
 		{
 			image(x, y) = fromColor +
 
-				perlinNoise<real>((real)x / 5) * deltaColor;
+				perlinNoise<dreal>((dreal)x / 5) * deltaColor;
 		}
 	}
 
@@ -44,9 +44,9 @@ TEST_CASE("2d (Noise)")
 		for (integer x = 0;x < Width;++x)
 		{
 			image(x, y) = fromColor +
-				perlinNoise(Vector2((real)x / 5,
+				perlinNoise(Vector2((dreal)x / 5,
 
-				(real)y / 5)) * deltaColor;
+				(dreal)y / 5)) * deltaColor;
 		}
 	}
 
@@ -68,9 +68,9 @@ TEST_CASE("3d (Noise)")
 		for (integer x = 0;x < Width;++x)
 		{
 			image(x, y) = fromColor +
-				perlinNoise(Vector3((real)x / 5,
+				perlinNoise(Vector3((dreal)x / 5,
 
-				(real)y / 5, 0)) * deltaColor;
+				(dreal)y / 5, 0)) * deltaColor;
 		}
 	}
 
@@ -92,9 +92,9 @@ TEST_CASE("Simplex2d (Noise)")
 		for (integer x = 0;x < Width;++x)
 		{
 			image(x, y) = fromColor +
-				simplexNoise(Vector2((real)x / 30,
+				simplexNoise(Vector2((dreal)x / 30,
 
-				(real)y / 30)) * deltaColor;
+				(dreal)y / 30)) * deltaColor;
 		}
 	}
 
@@ -117,7 +117,7 @@ TEST_CASE("Simplex3d (Noise)")
 		{
 			image(x, y) = fromColor +
 
-				simplexNoise(Vector3((real)x / 30, (real)y / 30, 0)) * deltaColor;
+				simplexNoise(Vector3((dreal)x / 30, (dreal)y / 30, 0)) * deltaColor;
 		}
 	}
 

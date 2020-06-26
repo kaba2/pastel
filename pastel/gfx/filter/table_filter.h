@@ -40,12 +40,12 @@ namespace Pastel
 		odd(data.width())
 		*/
 		Table_Filter(
-			const Array<real, 1>& data,
-			real radius);
+			const Array<dreal, 1>& data,
+			dreal radius);
 
 		virtual ~Table_Filter();
 
-		virtual real evaluateInRange(real position) const;
+		virtual dreal evaluateInRange(dreal position) const;
 
 	private:
 		Table_Filter(const Table_Filter& that) = delete;
@@ -53,9 +53,9 @@ namespace Pastel
 
 		virtual void onSetRadius();
 
-		Array<real, 1> data_;
+		Array<dreal, 1> data_;
 		integer center_;
-		real scaling_;
+		dreal scaling_;
 	};
 
 	using TableFilterPtr = std::shared_ptr<Table_Filter>;

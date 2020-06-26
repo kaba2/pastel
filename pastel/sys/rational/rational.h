@@ -176,7 +176,7 @@ namespace Pastel
 		//! Returns the n.
 		const Integer& n() const;
 
-		//! Returns an approximating real number.
+		//! Returns an approximating dreal number.
 		template <
 			typename Real,
 			Requires<std::is_floating_point<Real>> = 0>

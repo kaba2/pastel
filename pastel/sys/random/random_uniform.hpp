@@ -40,7 +40,7 @@ namespace Pastel
 	template <typename Real>
 	Real random53() 
 	{ 
-		// These real versions are due to Isaku Wada, 2002/01/09.
+		// These dreal versions are due to Isaku Wada, 2002/01/09.
 		// Modified from the official Mersenne Twister source code.
 
 		uint32 a = randomUint32() >> 5;

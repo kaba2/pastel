@@ -35,7 +35,7 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit Cubic_Filter(real negativeLobeness = (real)1 / 3)
+		explicit Cubic_Filter(dreal negativeLobeness = (dreal)1 / 3)
 		: Filter(2, "cubic")
 		, d_((negativeLobeness * 3) / 2)
 		{
@@ -45,7 +45,7 @@ namespace Pastel
 		{
 		}
 
-		virtual real evaluateInRange(real x) const
+		virtual dreal evaluateInRange(dreal x) const
 		{
 			// Let
 			// f(x) = ax^3 + bx^2 + cx + d
@@ -69,7 +69,7 @@ namespace Pastel
 			// cardinal cubic splines
 			// with d' as the parameter.
 
-			real xAbs = std::abs(x);
+			dreal xAbs = std::abs(x);
 
 			if (xAbs < 1)
 			{
@@ -88,13 +88,13 @@ namespace Pastel
 		Cubic_Filter(const Cubic_Filter& that) = delete;
 		Cubic_Filter& operator=(const Cubic_Filter& that) = delete;
 
-		real d_;
+		dreal d_;
 	};
 
 	using CubicFilterPtr = std::shared_ptr<Cubic_Filter>;
 	using ConstCubicFilterPtr = std::shared_ptr<const Cubic_Filter>;
 
-	inline CubicFilterPtr cubicFilter(real negativeLobeness = (real)1 / 3)
+	inline CubicFilterPtr cubicFilter(dreal negativeLobeness = (dreal)1 / 3)
 	{
 		return std::make_shared<Cubic_Filter>(negativeLobeness);
 	}

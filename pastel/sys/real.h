@@ -1,4 +1,4 @@
-// Description: An aggregate file for real numbers
+// Description: An aggregate file for dreal numbers
 
 #ifndef PASTELSYS_REALS_H
 #define PASTELSYS_REALS_H

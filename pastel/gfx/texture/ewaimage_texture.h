@@ -81,8 +81,8 @@ namespace Pastel
 			const FilterPtr& minFilter = triangleFilter());
 
 		virtual Type operator()(
-			const Vector<real, N>& p,
-			const Matrix<real>& m) const;
+			const Vector<dreal, N>& p,
+			const Matrix<dreal>& m) const;
 
 		void setMipMap(const MipMap<Type, N>& mipMap)
 		{
@@ -107,19 +107,19 @@ namespace Pastel
 
 	private:
 		Type sampleEwa(
-			const Vector<real, N>& uv,
-			const Matrix<real>& quadraticForm,
+			const Vector<dreal, N>& uv,
+			const Matrix<dreal>& quadraticForm,
 			const AlignedBoxD& bound,
-			real scaling,
-			real tTransition,
+			dreal scaling,
+			dreal tTransition,
 			const Array<Type, N>& image) const;
 
 		const MipMap<Type, N>* mipMap_;
 		ArrayExtender_ extender_;
-		std::vector<real> minFilterTable_;
-		std::vector<real> maxFilterTable_;
+		std::vector<dreal> minFilterTable_;
+		std::vector<dreal> maxFilterTable_;
 		integer filterTableSize_;
-		real filterRadius_;
+		dreal filterRadius_;
 	};
 
 }

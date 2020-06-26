@@ -1,4 +1,4 @@
-// Description: Floating point number as a real number
+// Description: Floating point number as a dreal number
 // Documentation: native_reals.txt
 
 #ifndef PASTELSYS_NATIVE_REAL_H

@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	//! Returns a beta-distributed random real.
+	//! Returns a beta-distributed random dreal.
 	/*!
 	Preconditions:
 	a > 0

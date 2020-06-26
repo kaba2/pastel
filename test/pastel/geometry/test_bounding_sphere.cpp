@@ -11,9 +11,9 @@
 TEST_CASE("boundingSphere (boundingSphere)")
 {
 	{
-		std::array<real, 2> a = { {-1, 0} };
-		std::array<real, 2> b = { {1, 0} };
-		Sphere<real, 2> bound = boundingSphere(a, b);
+		std::array<dreal, 2> a = { {-1, 0} };
+		std::array<dreal, 2> b = { {1, 0} };
+		Sphere<dreal, 2> bound = boundingSphere(a, b);
 
 		REQUIRE(abs(bound.radius() - 1) < 0.001);
 		REQUIRE(norm(bound.position()) < 0.001);
@@ -21,7 +21,7 @@ TEST_CASE("boundingSphere (boundingSphere)")
 	{
 		auto check = [&](
 			std::initializer_list<Vector2> pointSet,
-			real radius,
+			dreal radius,
 			Vector2 position)
 		{
 			using PointSet = decltype(pointSet);

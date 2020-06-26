@@ -22,16 +22,16 @@ namespace Pastel
 			return;
 		}
 
-		real sAdd1 = 0;
-		real sAdd2 = 0;
+		dreal sAdd1 = 0;
+		dreal sAdd2 = 0;
 
-		real xStart = clippedSegment.start().x();
-		real yStart = clippedSegment.start().y();
-		real xEnd = clippedSegment.end().x();
-		real yEnd = clippedSegment.end().y();
+		dreal xStart = clippedSegment.start().x();
+		dreal yStart = clippedSegment.start().y();
+		dreal xEnd = clippedSegment.end().x();
+		dreal yEnd = clippedSegment.end().y();
 
-		real dx = xEnd - xStart;
-		real dy = yEnd - yStart;
+		dreal dx = xEnd - xStart;
+		dreal dy = yEnd - yStart;
 
 		integer x = std::floor(xStart);
 		integer y = std::floor(yStart);
@@ -42,9 +42,9 @@ namespace Pastel
 
 		if (abs(dx) >= abs(dy))
 		{
-			real s =
-				2 * (((real)y + (real)0.5) - yStart) * dx -
-				2 * (((real)x + (real)0.5) - xStart) * dy;
+			dreal s =
+				2 * (((dreal)y + (dreal)0.5) - yStart) * dx -
+				2 * (((dreal)x + (dreal)0.5) - xStart) * dy;
 
 			if (dx >= 0)
 			{
@@ -155,9 +155,9 @@ namespace Pastel
 		}
 		else
 		{
-			real s =
-				2 * (((real)x + (real)0.5) - xStart) * dy -
-				2 * (((real)y + (real)0.5) - yStart) * dx;
+			dreal s =
+				2 * (((dreal)x + (dreal)0.5) - xStart) * dy -
+				2 * (((dreal)y + (dreal)0.5) - yStart) * dx;
 
 			if (dx >= 0)
 			{
@@ -287,16 +287,16 @@ namespace Pastel
 
 		integer factor = 1 << FixedPoint;
 
-		real sAdd1 = 0;
-		real sAdd2 = 0;
+		dreal sAdd1 = 0;
+		dreal sAdd2 = 0;
 
-		real xStart = clippedSegment.start().x();
-		real yStart = clippedSegment.start().y();
-		real xEnd = clippedSegment.end().x();
-		real yEnd = clippedSegment.end().y();
+		dreal xStart = clippedSegment.start().x();
+		dreal yStart = clippedSegment.start().y();
+		dreal xEnd = clippedSegment.end().x();
+		dreal yEnd = clippedSegment.end().y();
 
-		real dx = xEnd - xStart;
-		real dy = yEnd - yStart;
+		dreal dx = xEnd - xStart;
+		dreal dy = yEnd - yStart;
 
 		integer x = std::floor(xStart);
 		integer y = std::floor(yStart);
@@ -307,9 +307,9 @@ namespace Pastel
 
 		if (abs(dx) >= abs(dy))
 		{
-			real s =
-				2 * (((real)y + (real)0.5) - yStart) * dx -
-				2 * (((real)x + (real)0.5) - xStart) * dy;
+			dreal s =
+				2 * (((dreal)y + (dreal)0.5) - yStart) * dx -
+				2 * (((dreal)x + (dreal)0.5) - xStart) * dy;
 
 			if (dx >= 0)
 			{
@@ -436,9 +436,9 @@ namespace Pastel
 		}
 		else
 		{
-			real s =
-				2 * (((real)x + (real)0.5) - xStart) * dy -
-				2 * (((real)y + (real)0.5) - yStart) * dx;
+			dreal s =
+				2 * (((dreal)x + (dreal)0.5) - xStart) * dy -
+				2 * (((dreal)y + (dreal)0.5) - yStart) * dx;
 
 			if (dx >= 0)
 			{

@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	//! Returns a triangle-distributed random real.
+	//! Returns a triangle-distributed random dreal.
 	/*!
 	This function assumes that
 	min = -1, mode = 0, and max = 1.
@@ -16,7 +16,7 @@ namespace Pastel
 	template <typename Real>
 	Real randomTriangle();
 
-	//! Returns a triangle-distributed random real.
+	//! Returns a triangle-distributed random dreal.
 	/*!
 	Preconditions:
 	leftWidth > 0

@@ -24,7 +24,7 @@ namespace Pastel
 
 		Sub_Texture(
 			const Texture<Type, N>& texture,
-			const AlignedBox<real, N>& window)
+			const AlignedBox<dreal, N>& window)
 			: texture_(&texture)
 			, window_(window)
 		{
@@ -35,10 +35,10 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Vector<real, N>& p,
-			const Matrix<real>& m) const
+			const Vector<dreal, N>& p,
+			const Matrix<dreal>& m) const
 		{
-			Matrix<real> mNew(m);
+			Matrix<dreal> mNew(m);
 			for (integer i = 0;i < mNew.height();++i)
 			{
 				mNew.column(i) *= window_.extent(i);
@@ -59,13 +59,13 @@ namespace Pastel
 
 	private:
 		const Texture<Type, N>* texture_;
-		AlignedBox<real, N> window_;
+		AlignedBox<dreal, N> window_;
 	};
 
 	template <typename Type, integer N>
 	Sub_Texture<Type, N> subTexture(
 		const Texture<Type, N>& texture, 
-		const AlignedBox<real, N>& window)
+		const AlignedBox<dreal, N>& window)
 	{
 		return Sub_Texture<Type, N>(texture, window);
 	}

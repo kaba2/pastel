@@ -19,19 +19,19 @@ namespace
 
 	TEST_CASE("Chromaticity (Chromaticity)")
 	{
-		real Width = 500;
-		real Height = 500;
+		dreal Width = 500;
+		dreal Height = 500;
 		Array<Color, 2> image(Vector2i(Width, Height));
 
 		for (integer i = 0;i < 20;++i)
 		{
-			real Y = (real)(i + 1) / 20;
+			dreal Y = (dreal)(i + 1) / 20;
 			for (integer y = 0;y < Height;++y)
 			{
 				for (integer x = 0;x < Width;++x)
 				{
-					real u = (real)x / (Width - 1);
-					real v = (real)y / (Height - 1);
+					dreal u = (dreal)x / (Width - 1);
+					dreal v = (dreal)y / (Height - 1);
 
 					Color xyzColor =
 						xyyToXyz(

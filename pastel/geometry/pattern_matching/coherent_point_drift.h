@@ -53,26 +53,26 @@ namespace Pastel
     Input
     -----
 
-    fromSet ((d x n) real matrix):
+    fromSet ((d x n) dreal matrix):
     A set of n points, given as a matrix, where each column
     contains the coordinates of a d-dimensional point. 
 
-    toSet ((d x m) real matrix):
+    toSet ((d x m) dreal matrix):
     A set of m points, given as a matrix, where each column
     contains the coordinates of a d-dimensional point.
 
     Returns
     -------
 
-    Q ((d x d) real matrix):
+    Q ((d x d) dreal matrix):
     The estimated rotation/reflection; an orthogonal matrix.
     Initialized with Q0.
 
-    S ((d x d) real matrix):
+    S ((d x d) dreal matrix):
     The estimated scaling; a symmetric matrix.
     Initialized with S0.
 
-    t ((d x 1) real matrix):
+    t ((d x 1) dreal matrix):
     The estimated translation.
 	Initialized with t0.
 
@@ -82,20 +82,20 @@ namespace Pastel
     Optional input arguments
     ------------------------
 
-    Q0 ((d x d) real matrix : arma::Mat<Real>()):
+    Q0 ((d x d) dreal matrix : arma::Mat<Real>()):
     Initial guess on Q; an orthogonal matrix. Empty matrix is
     interpreted as a (d x d) identity matrix.
 
-    S0 ((d x d) real matrix : arma::Mat<Real>()):
+    S0 ((d x d) dreal matrix : arma::Mat<Real>()):
     Initial guess on S; a symmetric matrix. Empty matrix is
     interpreted as a (d x d) identity matrix.
 
-    t0 ((d x 1) real vector : arma::Col<Real>()): 
+    t0 ((d x 1) dreal vector : arma::Col<Real>()): 
     Initial guess on t. Empty matrix is
     interpreted as a (d x 1) zero matrix.
 
     noiseRatio (Real : 0.2):
-    A real number between (0, 1), which gives the weight for an 
+    A dreal number between (0, 1), which gives the weight for an 
     additive improper uniform distribution component for the Gaussian 
     mixture model. Larger noise-ratio makes the algorithm more 
     tolerant to noise, but declines convergence rate when the actual 
@@ -363,9 +363,9 @@ namespace Pastel
 			t = std::move(state.t);
             W = std::move(state.W);
 
-            real qError = arma::norm(qPrev - Q, "inf");
-            real sError = arma::norm(sPrev - S, "inf");
-            real tError = arma::norm(tPrev - t, "inf");
+            dreal qError = arma::norm(qPrev - Q, "inf");
+            dreal sError = arma::norm(sPrev - S, "inf");
+            dreal tError = arma::norm(tPrev - t, "inf");
 
 			if (std::max(std::max(qError, sError), tError) <= minError && 
                 iteration + 1 >= minIterations)

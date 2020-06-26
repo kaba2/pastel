@@ -304,7 +304,7 @@ namespace
 		const std::string& testName,
 		const std::string& name)
 	{
-		real yMax = -(real)Infinity();
+		dreal yMax = -(dreal)Infinity();
 		for (integer i = 0;i < 4;++i)
 		{
 			if (quad[i].y() > yMax)
@@ -442,9 +442,9 @@ TEST_CASE("Checker (Texture)")
 		arrayView(image),
 		Tuple<Vector2, 4>(
 		Vector2(0.5, 0),
-		Vector2(1, (real)150 / 500),
-		Vector2(0.5, (real)175 / 500),
-		Vector2(0, (real)150 / 500)));
+		Vector2(1, (dreal)150 / 500),
+		Vector2(0.5, (dreal)175 / 500),
+		Vector2(0, (dreal)150 / 500)));
 
 	savePcx(image, "texture_checker1_distorted2x.pcx");
 	*/
@@ -487,9 +487,9 @@ TEST_CASE("Checker (Texture)")
 			arrayView(image),
 			Tuple<Vector2, 4>(
 			Vector2(0.5, 0),
-			Vector2(1, (real)150 / 500),
-			Vector2(0.5, (real)175 / 500),
-			Vector2(0, (real)150 / 500)));
+			Vector2(1, (dreal)150 / 500),
+			Vector2(0.5, (dreal)175 / 500),
+			Vector2(0, (dreal)150 / 500)));
 
 		savePcx(image, "texture_lena1_ewa_distorted2x.pcx");
 	*/
@@ -545,8 +545,8 @@ TEST_CASE("Checker (Texture)")
 			mixTexture(
 			linearImageTexture(repeatedConstView(constArrayView(lenaTextureImage))),
 			colorTexture<Color>(Color(1)),
-			linearColorTexture<real>(0, 0, 1, 1)),
-			AffineTransformation<real>(identityMatrix<Real>(2, 2) * 10, Vector2())),
+			linearColorTexture<dreal>(0, 0, 1, 1)),
+			AffineTransformation<dreal>(identityMatrix<Real>(2, 2) * 10, Vector2())),
 			texture),
 			arrayView(image),
 			textureQuad);

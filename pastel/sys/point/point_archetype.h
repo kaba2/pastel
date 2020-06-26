@@ -13,7 +13,7 @@ namespace Pastel
 			return 0;
 		}
 
-		real pointAxis(integer i) const
+		dreal pointAxis(integer i) const
 		{
 			return 0;
 		}

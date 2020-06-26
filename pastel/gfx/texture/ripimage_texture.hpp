@@ -29,8 +29,8 @@ namespace Pastel
 
 	template <typename Type, integer N>
 	Type RipImage_Texture<Type, N>::operator()(
-		const Vector<real, N>& uv,
-		const Matrix<real>& m) const
+		const Vector<dreal, N>& uv,
+		const Matrix<dreal>& m) const
 	{
 		if (!ripMap_ || ripMap_->empty())
 		{
@@ -42,30 +42,30 @@ namespace Pastel
 		const Array<Type, N>& mostDetailedImage = 
 			ripMap_->mostDetailed();
 
-		Vector<real, N> radius =
-			max(abs(m)) * Vector<real, N>(mostDetailedImage.extent());
+		Vector<dreal, N> radius =
+			max(abs(m)) * Vector<dreal, N>(mostDetailedImage.extent());
 
 		if (allLessEqual(radius, 1))
 		{
 			// Magnification: just do linear interpolation.
 
 			return sampleLinear(
-				evaluate(uv * Vector<real, N>(mostDetailedImage.extent())),
+				evaluate(uv * Vector<dreal, N>(mostDetailedImage.extent())),
 				mostDetailedImage, extender_);
 		}
 
-		real invLn2 = inverse(constantLn2<real>());
+		dreal invLn2 = inverse(constantLn2<dreal>());
 
-		const Vector<real, N> level(max(evaluate(log(radius) * invLn2), 0));
+		const Vector<dreal, N> level(max(evaluate(log(radius) * invLn2), 0));
 
 		if (allLessEqual(level, 0))
 		{
 			return sampleLinear(
-				evaluate(uv * Vector<real, N>(mostDetailedImage.extent())),
+				evaluate(uv * Vector<dreal, N>(mostDetailedImage.extent())),
 				mostDetailedImage, extender_);
 		}
 
-		if (anyGreaterEqual(level, Vector<real, N>(ripMap_->levels() - 1)))
+		if (anyGreaterEqual(level, Vector<dreal, N>(ripMap_->levels() - 1)))
 		{
 			// Return the coarsest ripmap pixel.
 
@@ -76,7 +76,7 @@ namespace Pastel
 		// 2^n ripmaps.
 
 		Vector<integer, N> p(floor(level));
-		Vector<real, N> tDetail = level - Vector<real, N>(p);
+		Vector<dreal, N> tDetail = level - Vector<dreal, N>(p);
 
 		integer samples = (integer)1 << n;
 
@@ -88,7 +88,7 @@ namespace Pastel
 			const Array<Type, N>& image = (*ripMap_)(p);
 
 			valueSet[i] = sampleLinear(
-				evaluate(uv * Vector<real, N>(image.extent())),
+				evaluate(uv * Vector<dreal, N>(image.extent())),
 				image, extender_);
 
 			integer axis = 0;

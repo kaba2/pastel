@@ -49,7 +49,7 @@ namespace Pastel
 		const Array<bool, 2>& image,
 		integer maxWidth,
 		integer maxHeight,
-		real maxRatio,
+		dreal maxRatio,
 		Array<int32, 2>& labelImage);
 
 }

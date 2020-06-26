@@ -32,19 +32,19 @@ namespace
 		const AlignedBox2 window = renderer.viewWindow();
 
 		const Vector2 extent = region.extent();
-		const real xScaling = window.extent()[0] / bins;
-		const real yScaling = window.extent()[1] / extent.y();
+		const dreal xScaling = window.extent()[0] / bins;
+		const dreal yScaling = window.extent()[1] / extent.y();
 
-		real yPrevious = 0;
+		dreal yPrevious = 0;
 		for (integer x = 0;x <= bins;++x)
 		{
-			const real t = 
+			const dreal t = 
 				region.min().x() + extent.x() * dequantizeUnsignedMatchEnds(x, bins + 1);
 
-			const real y =
+			const dreal y =
 				window.min().y() + (function(t) - region.min().y()) * yScaling;
 
-			const real xPosition = window.min().x() + (real)x * xScaling;
+			const dreal xPosition = window.min().x() + (dreal)x * xScaling;
 
 			if (x > 0)
 			{
@@ -68,24 +68,24 @@ namespace
 	}
 
 	void drawHistogram(
-		const std::vector<real>& histogram,
-		real yMax,
+		const std::vector<dreal>& histogram,
+		dreal yMax,
 		const GfxRenderer<Color>& renderer)
 	{
 		const AlignedBox2 window = renderer.viewWindow();
 
 		const integer bins = histogram.size();
 
-		const real xMin = window.min().x();
-		const real yMin = window.min().y();
-		const real xDelta = window.extent()[0] / bins;
+		const dreal xMin = window.min().x();
+		const dreal yMin = window.min().y();
+		const dreal xDelta = window.extent()[0] / bins;
 
-		const real scaling = window.extent()[1] / yMax;
+		const dreal scaling = window.extent()[1] / yMax;
 
-		real xPosition = xMin;
+		dreal xPosition = xMin;
 		for (integer x = 0;x < bins;++x)
 		{
-			const real yPosition = yMin + histogram[x] * scaling;
+			const dreal yPosition = yMin + histogram[x] * scaling;
 
 			drawCircle(renderer,
 				Sphere2(Vector2(xPosition + xDelta / 2,
@@ -96,26 +96,26 @@ namespace
 	}
 
 	integer createHistogram(
-		const std::vector<real>& sampleSet,
-		std::vector<real>& resultHistogram,
-		real min,
-		real max,
+		const std::vector<dreal>& sampleSet,
+		std::vector<dreal>& resultHistogram,
+		dreal min,
+		dreal max,
 		integer bins)
 	{
 		const integer samples = sampleSet.size();
 
 		integer maxBinValue = 0;
-		std::vector<real> histogram(bins, 0);
+		std::vector<dreal> histogram(bins, 0);
 		for (integer i = 0;i < samples;++i)
 		{
-			real value = sampleSet[i];
+			dreal value = sampleSet[i];
 
 			if (value >= min && value <= max)
 			{
 				value -= min;
 				value /= (max - min);
 
-				real& binValue = histogram[
+				dreal& binValue = histogram[
 					quantizeUnsigned(value, bins)];
 
 				++binValue;
@@ -129,8 +129,8 @@ namespace
 		// Normalize the probability mass distribution
 		// to 1.
 
-		const real binSize = (max - min) / bins;
-		const real factor = 1 / (binSize * samples);
+		const dreal binSize = (max - min) / bins;
+		const dreal factor = 1 / (binSize * samples);
 		for (integer i = 0;i < bins;++i)
 		{
 			histogram[i] *= factor;
@@ -150,7 +150,7 @@ namespace
 	{
 		const integer samples = 100000;
 
-		std::vector<real> sampleSet;
+		std::vector<dreal> sampleSet;
 		sampleSet.reserve(samples);
 
 		for (integer i = 0;i < samples;++i)
@@ -161,7 +161,7 @@ namespace
 
 		const integer bins = 100;
 
-		std::vector<real> histogram(bins);
+		std::vector<dreal> histogram(bins);
 		computeHistogram(
 			range(sampleSet.begin(), sampleSet.end()),
 			region.min().x(), region.max().x(), bins,
@@ -203,18 +203,18 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomGaussian<real>, 1),
-				boost::bind(gaussianPdf<real>, _1, 1),
+				boost::bind(randomGaussian<dreal>, 1),
+				boost::bind(gaussianPdf<dreal>, _1, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGaussian<real>, std::sqrt(0.2)),
-				boost::bind(gaussianPdf<real>, _1, std::sqrt(0.2)),
+				boost::bind(randomGaussian<dreal>, std::sqrt(0.2)),
+				boost::bind(gaussianPdf<dreal>, _1, std::sqrt(0.2)),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGaussian<real>, std::sqrt(5.0)),
-				boost::bind(gaussianPdf<real>, _1, std::sqrt(5.0)),
+				boost::bind(randomGaussian<dreal>, std::sqrt(5.0)),
+				boost::bind(gaussianPdf<dreal>, _1, std::sqrt(5.0)),
 				renderer);
 
 			resample<Color>(
@@ -233,33 +233,33 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 0.5, 1),
-				boost::bind(generalizedGaussianPdf<real>, _1, 0.5, 1),
+				boost::bind(randomGeneralizedGaussian<dreal>, 0.5, 1),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 0.5, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 1, 1),
-				boost::bind(generalizedGaussianPdf<real>, _1, 1, 1),
+				boost::bind(randomGeneralizedGaussian<dreal>, 1, 1),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 1, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 1.5, 1),
-				boost::bind(generalizedGaussianPdf<real>, _1, 1.5, 1),
+				boost::bind(randomGeneralizedGaussian<dreal>, 1.5, 1),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 1.5, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 2, 1),
-				boost::bind(generalizedGaussianPdf<real>, _1, 2, 1),
+				boost::bind(randomGeneralizedGaussian<dreal>, 2, 1),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 2, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 3, 1),
-				boost::bind(generalizedGaussianPdf<real>, _1, 3, 1),
+				boost::bind(randomGeneralizedGaussian<dreal>, 3, 1),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 3, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 8, 1),
-				boost::bind(generalizedGaussianPdf<real>, _1, 8, 1),
+				boost::bind(randomGeneralizedGaussian<dreal>, 8, 1),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 8, 1),
 				renderer);
 
 			resample<Color>(
@@ -278,45 +278,45 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 0.5, 
-				varianceToGeneralizedGaussianScale<real>(0.5, 1)),
-				boost::bind(generalizedGaussianPdf<real>, _1, 0.5, 
-				varianceToGeneralizedGaussianScale<real>(0.5, 1)),
+				boost::bind(randomGeneralizedGaussian<dreal>, 0.5, 
+				varianceToGeneralizedGaussianScale<dreal>(0.5, 1)),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 0.5, 
+				varianceToGeneralizedGaussianScale<dreal>(0.5, 1)),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 1, 
-				varianceToGeneralizedGaussianScale<real>(1, 1)),
-				boost::bind(generalizedGaussianPdf<real>, _1, 1, 
-				varianceToGeneralizedGaussianScale<real>(1, 1)),
+				boost::bind(randomGeneralizedGaussian<dreal>, 1, 
+				varianceToGeneralizedGaussianScale<dreal>(1, 1)),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 1, 
+				varianceToGeneralizedGaussianScale<dreal>(1, 1)),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 1.5, 
-				varianceToGeneralizedGaussianScale<real>(1.5, 1)),
-				boost::bind(generalizedGaussianPdf<real>, _1, 1.5, 
-				varianceToGeneralizedGaussianScale<real>(1.5, 1)),
+				boost::bind(randomGeneralizedGaussian<dreal>, 1.5, 
+				varianceToGeneralizedGaussianScale<dreal>(1.5, 1)),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 1.5, 
+				varianceToGeneralizedGaussianScale<dreal>(1.5, 1)),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 2, 
-				varianceToGeneralizedGaussianScale<real>(2, 1)),
-				boost::bind(generalizedGaussianPdf<real>, _1, 2, 
-				varianceToGeneralizedGaussianScale<real>(2, 1)),
+				boost::bind(randomGeneralizedGaussian<dreal>, 2, 
+				varianceToGeneralizedGaussianScale<dreal>(2, 1)),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 2, 
+				varianceToGeneralizedGaussianScale<dreal>(2, 1)),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 3, 
-				varianceToGeneralizedGaussianScale<real>(3, 1)),
-				boost::bind(generalizedGaussianPdf<real>, _1, 3, 
-				varianceToGeneralizedGaussianScale<real>(3, 1)),
+				boost::bind(randomGeneralizedGaussian<dreal>, 3, 
+				varianceToGeneralizedGaussianScale<dreal>(3, 1)),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 3, 
+				varianceToGeneralizedGaussianScale<dreal>(3, 1)),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGeneralizedGaussian<real>, 8, 
-				varianceToGeneralizedGaussianScale<real>(8, 1)),
-				boost::bind(generalizedGaussianPdf<real>, _1, 8, 
-				varianceToGeneralizedGaussianScale<real>(8, 1)),
+				boost::bind(randomGeneralizedGaussian<dreal>, 8, 
+				varianceToGeneralizedGaussianScale<dreal>(8, 1)),
+				boost::bind(generalizedGaussianPdf<dreal>, _1, 8, 
+				varianceToGeneralizedGaussianScale<dreal>(8, 1)),
 				renderer);
 
 			resample<Color>(
@@ -335,18 +335,18 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomExponential<real>, 0.5),
-				boost::bind(exponentialPdf<real>, _1, 0.5),
+				boost::bind(randomExponential<dreal>, 0.5),
+				boost::bind(exponentialPdf<dreal>, _1, 0.5),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomExponential<real>, 1),
-				boost::bind(exponentialPdf<real>, _1, 1),
+				boost::bind(randomExponential<dreal>, 1),
+				boost::bind(exponentialPdf<dreal>, _1, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomExponential<real>, 1.5),
-				boost::bind(exponentialPdf<real>, _1, 1.5),
+				boost::bind(randomExponential<dreal>, 1.5),
+				boost::bind(exponentialPdf<dreal>, _1, 1.5),
 				renderer);
 
 			resample<Color>(
@@ -365,28 +365,28 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomGamma<real>, 1, 2),
-				boost::bind(gammaPdf<real>, _1, 1, 2),
+				boost::bind(randomGamma<dreal>, 1, 2),
+				boost::bind(gammaPdf<dreal>, _1, 1, 2),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGamma<real>, 2, 2),
-				boost::bind(gammaPdf<real>, _1, 2, 2),
+				boost::bind(randomGamma<dreal>, 2, 2),
+				boost::bind(gammaPdf<dreal>, _1, 2, 2),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGamma<real>, 3, 2),
-				boost::bind(gammaPdf<real>, _1, 3, 2),
+				boost::bind(randomGamma<dreal>, 3, 2),
+				boost::bind(gammaPdf<dreal>, _1, 3, 2),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGamma<real>, 5, 1),
-				boost::bind(gammaPdf<real>, _1, 5, 1),
+				boost::bind(randomGamma<dreal>, 5, 1),
+				boost::bind(gammaPdf<dreal>, _1, 5, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomGamma<real>, 9, 0.5),
-				boost::bind(gammaPdf<real>, _1, 9, 0.5),
+				boost::bind(randomGamma<dreal>, 9, 0.5),
+				boost::bind(gammaPdf<dreal>, _1, 9, 0.5),
 				renderer);
 
 			resample<Color>(
@@ -405,33 +405,33 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomLogNormal<real>, 0, (real)1 / 8),
-				boost::bind(logNormalPdf<real>, _1, 0, (real)1 / 8),
+				boost::bind(randomLogNormal<dreal>, 0, (dreal)1 / 8),
+				boost::bind(logNormalPdf<dreal>, _1, 0, (dreal)1 / 8),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomLogNormal<real>, 0, (real)1 / 4),
-				boost::bind(logNormalPdf<real>, _1, 0, (real)1 / 4),
+				boost::bind(randomLogNormal<dreal>, 0, (dreal)1 / 4),
+				boost::bind(logNormalPdf<dreal>, _1, 0, (dreal)1 / 4),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomLogNormal<real>, 0, (real)1 / 2),
-				boost::bind(logNormalPdf<real>, _1, 0, (real)1 / 2),
+				boost::bind(randomLogNormal<dreal>, 0, (dreal)1 / 2),
+				boost::bind(logNormalPdf<dreal>, _1, 0, (dreal)1 / 2),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomLogNormal<real>, 0, 1),
-				boost::bind(logNormalPdf<real>, _1, 0, 1),
+				boost::bind(randomLogNormal<dreal>, 0, 1),
+				boost::bind(logNormalPdf<dreal>, _1, 0, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomLogNormal<real>, 0, (real)3 / 2),
-				boost::bind(logNormalPdf<real>, _1, 0, (real)3 / 2),
+				boost::bind(randomLogNormal<dreal>, 0, (dreal)3 / 2),
+				boost::bind(logNormalPdf<dreal>, _1, 0, (dreal)3 / 2),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomLogNormal<real>, 0, 10),
-				boost::bind(logNormalPdf<real>, _1, 0, 10),
+				boost::bind(randomLogNormal<dreal>, 0, 10),
+				boost::bind(logNormalPdf<dreal>, _1, 0, 10),
 				renderer);
 
 			resample<Color>(
@@ -450,18 +450,18 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomLaplace<real>, 1),
-				boost::bind(laplacePdf<real>, _1, 1),
+				boost::bind(randomLaplace<dreal>, 1),
+				boost::bind(laplacePdf<dreal>, _1, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomLaplace<real>, 2),
-				boost::bind(laplacePdf<real>, _1, 2),
+				boost::bind(randomLaplace<dreal>, 2),
+				boost::bind(laplacePdf<dreal>, _1, 2),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomLaplace<real>, 4),
-				boost::bind(laplacePdf<real>, _1, 4),
+				boost::bind(randomLaplace<dreal>, 4),
+				boost::bind(laplacePdf<dreal>, _1, 4),
 				renderer);
 
 			resample<Color>(
@@ -480,18 +480,18 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomCauchy<real>, 0.5),
-				boost::bind(cauchyPdf<real>, _1, 0.5),
+				boost::bind(randomCauchy<dreal>, 0.5),
+				boost::bind(cauchyPdf<dreal>, _1, 0.5),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomCauchy<real>, 1),
-				boost::bind(cauchyPdf<real>, _1, 1),
+				boost::bind(randomCauchy<dreal>, 1),
+				boost::bind(cauchyPdf<dreal>, _1, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomCauchy<real>, 2),
-				boost::bind(cauchyPdf<real>, _1, 2),
+				boost::bind(randomCauchy<dreal>, 2),
+				boost::bind(cauchyPdf<dreal>, _1, 2),
 				renderer);
 
 			resample<Color>(
@@ -510,28 +510,28 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomBeta<real>, 0.5, 0.5),
-				boost::bind(betaPdf<real>, _1, 0.5, 0.5),
+				boost::bind(randomBeta<dreal>, 0.5, 0.5),
+				boost::bind(betaPdf<dreal>, _1, 0.5, 0.5),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomBeta<real>, 5, 1),
-				boost::bind(betaPdf<real>, _1, 5, 1),
+				boost::bind(randomBeta<dreal>, 5, 1),
+				boost::bind(betaPdf<dreal>, _1, 5, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomBeta<real>, 1, 3),
-				boost::bind(betaPdf<real>, _1, 1, 3),
+				boost::bind(randomBeta<dreal>, 1, 3),
+				boost::bind(betaPdf<dreal>, _1, 1, 3),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomBeta<real>, 2, 2),
-				boost::bind(betaPdf<real>, _1, 2, 2),
+				boost::bind(randomBeta<dreal>, 2, 2),
+				boost::bind(betaPdf<dreal>, _1, 2, 2),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomBeta<real>, 2, 5),
-				boost::bind(betaPdf<real>, _1, 2, 5),
+				boost::bind(randomBeta<dreal>, 2, 5),
+				boost::bind(betaPdf<dreal>, _1, 2, 5),
 				renderer);
 
 			resample<Color>(
@@ -550,28 +550,28 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomChiSquared<real>, 1),
-				boost::bind(chiSquaredPdf<real>, _1, 1),
+				boost::bind(randomChiSquared<dreal>, 1),
+				boost::bind(chiSquaredPdf<dreal>, _1, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomChiSquared<real>, 2),
-				boost::bind(chiSquaredPdf<real>, _1, 2),
+				boost::bind(randomChiSquared<dreal>, 2),
+				boost::bind(chiSquaredPdf<dreal>, _1, 2),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomChiSquared<real>, 3),
-				boost::bind(chiSquaredPdf<real>, _1, 3),
+				boost::bind(randomChiSquared<dreal>, 3),
+				boost::bind(chiSquaredPdf<dreal>, _1, 3),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomChiSquared<real>, 4),
-				boost::bind(chiSquaredPdf<real>, _1, 4),
+				boost::bind(randomChiSquared<dreal>, 4),
+				boost::bind(chiSquaredPdf<dreal>, _1, 4),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomChiSquared<real>, 5),
-				boost::bind(chiSquaredPdf<real>, _1, 5),
+				boost::bind(randomChiSquared<dreal>, 5),
+				boost::bind(chiSquaredPdf<dreal>, _1, 5),
 				renderer);
 
 			resample<Color>(
@@ -590,28 +590,28 @@ namespace
 			renderer.clear();
 			drawDistribution(
 				region,
-				boost::bind(randomTriangle<real>, 1, 1),
-				boost::bind(trianglePdf<real>, _1, 1, 1),
+				boost::bind(randomTriangle<dreal>, 1, 1),
+				boost::bind(trianglePdf<dreal>, _1, 1, 1),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomTriangle<real>, 0.5, 0.5),
-				boost::bind(trianglePdf<real>, _1, 0.5, 0.5),
+				boost::bind(randomTriangle<dreal>, 0.5, 0.5),
+				boost::bind(trianglePdf<dreal>, _1, 0.5, 0.5),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomTriangle<real>, 0.75, 0.75),
-				boost::bind(trianglePdf<real>, _1, 0.75, 0.75),
+				boost::bind(randomTriangle<dreal>, 0.75, 0.75),
+				boost::bind(trianglePdf<dreal>, _1, 0.75, 0.75),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomTriangle<real>, 0.5, 0.75),
-				boost::bind(trianglePdf<real>, _1, 0.5, 0.75),
+				boost::bind(randomTriangle<dreal>, 0.5, 0.75),
+				boost::bind(trianglePdf<dreal>, _1, 0.5, 0.75),
 				renderer);
 			drawDistribution(
 				region,
-				boost::bind(randomTriangle<real>, 0.1, 1),
-				boost::bind(trianglePdf<real>, _1, 0.1, 1),
+				boost::bind(randomTriangle<dreal>, 0.1, 1),
+				boost::bind(trianglePdf<dreal>, _1, 0.1, 1),
 				renderer);
 
 			resample<Color>(
@@ -625,20 +625,20 @@ namespace
 
 		/*
 		drawDistribution(renderer, 
-			uniformRandomDistribution<real, 1>(), -3, 3, 1);
+			uniformRandomDistribution<dreal, 1>(), -3, 3, 1);
 		savePcx(image, "random_uniform.pcx");
 
 		clear(background, arrayView(image));
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<real, 1>(1), Vector1(2)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<dreal, 1>(1), Vector1(2)), 0, 20, 0.5);
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<real, 1>(2), Vector1(2)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<dreal, 1>(2), Vector1(2)), 0, 20, 0.5);
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<real, 1>(3), Vector1(2)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<dreal, 1>(3), Vector1(2)), 0, 20, 0.5);
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<real, 1>(5), Vector1(1)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<dreal, 1>(5), Vector1(1)), 0, 20, 0.5);
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<real, 1>(9), Vector1(0.5)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<dreal, 1>(9), Vector1(0.5)), 0, 20, 0.5);
 		savePcx(image, "random_gamma.pcx");
 		*/
 	}
@@ -654,14 +654,14 @@ namespace
 
 		drawGraph(
 			AlignedBox2(-5, -5, 5, 5),
-			gamma<real>,
+			gamma<dreal>,
 			renderer);
 
 		renderer.setColor(Color(0, 0, 1));
 
 		drawGraph(
 			AlignedBox2(-5, -5, 5, 5),
-			lnGamma<real>,
+			lnGamma<dreal>,
 			renderer);
 
 		savePcx(image, "gamma.pcx");

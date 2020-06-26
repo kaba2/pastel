@@ -42,8 +42,8 @@ namespace Pastel
 			{
 			}
 
-			real x_;
-			real y_;
+			dreal x_;
+			dreal y_;
 
 			using tPoint = Vector1;
 			using tVector = Vector1;
@@ -217,13 +217,13 @@ namespace Pastel
 
 		// Compute delta's w.r.t. y.
 
-		real xLeftDelta = 0;
-		real yLeftDelta = 0;
+		dreal xLeftDelta = 0;
+		dreal yLeftDelta = 0;
 		Vector2 uvLeftDelta;
 		tVector tLeftDelta;
 
-		real xRightDelta = 0;
-		real yRightDelta = 0;
+		dreal xRightDelta = 0;
+		dreal yRightDelta = 0;
 		Vector2 uvRightDelta;
 		tVector tRightDelta;
 
@@ -262,13 +262,13 @@ namespace Pastel
 
 		// Compute delta's w.r.t. x.
 
-		real yBottomDelta = 0;
-		real xBottomDelta = 0;
+		dreal yBottomDelta = 0;
+		dreal xBottomDelta = 0;
 		Vector2 uvBottomDelta;
 		tVector tBottomDelta;
 
-		real yTopDelta = 0;
-		real xTopDelta = 0;
+		dreal yTopDelta = 0;
+		dreal xTopDelta = 0;
 		Vector2 uvTopDelta;
 		tVector tTopDelta;
 
@@ -307,24 +307,24 @@ namespace Pastel
 
 		// Compute boundary derivatives w.r.t. y.
 
-		real dxLeftDy = xLeftDelta;
+		dreal dxLeftDy = xLeftDelta;
 		Vector2 dUvLeftDy = uvLeftDelta;
 		tVector dtLeftDy = tLeftDelta;
 		if (yLeftDelta != 0)
 		{
-			real yLeftDeltaInv = inverse(yLeftDelta);
+			dreal yLeftDeltaInv = inverse(yLeftDelta);
 
 			dxLeftDy *= yLeftDeltaInv;
 			dUvLeftDy *= yLeftDeltaInv;
 			dtLeftDy *= yLeftDeltaInv;
 		}
 
-		real dxRightDy = xRightDelta;
+		dreal dxRightDy = xRightDelta;
 		Vector2 dUvRightDy = uvRightDelta;
 		tVector dtRightDy = tRightDelta;
 		if (yRightDelta != 0)
 		{
-			real yRightDeltaInv = inverse(yRightDelta);
+			dreal yRightDeltaInv = inverse(yRightDelta);
 
 			dxRightDy *= yRightDeltaInv;
 			dUvRightDy *= yRightDeltaInv;
@@ -333,24 +333,24 @@ namespace Pastel
 
 		// Compute boundary derivatives w.r.t. x.
 
-		real dyBottomDx = yBottomDelta;
+		dreal dyBottomDx = yBottomDelta;
 		Vector2 dUvBottomDx = uvBottomDelta;
 		tVector dtBottomDx = tBottomDelta;
 		if (xBottomDelta != 0)
 		{
-			real xBottomDeltaInv = inverse(xBottomDelta);
+			dreal xBottomDeltaInv = inverse(xBottomDelta);
 
 			dyBottomDx *= xBottomDeltaInv;
 			dUvBottomDx *= xBottomDeltaInv;
 			dtBottomDx *= xBottomDeltaInv;
 		}
 
-		real dyTopDx = yTopDelta;
+		dreal dyTopDx = yTopDelta;
 		Vector2 dUvTopDx = uvTopDelta;
 		tVector dtTopDx = tTopDelta;
 		if (xTopDelta != 0)
 		{
-			real xTopDeltaInv = inverse(xTopDelta);
+			dreal xTopDeltaInv = inverse(xTopDelta);
 
 			dyTopDx *= xTopDeltaInv;
 			dUvTopDx *= xTopDeltaInv;
@@ -359,13 +359,13 @@ namespace Pastel
 
 		// Offset the start scanline to pixel rows.
 
-		real yOffset = ((real)yMin + 0.5) - yMinVertex.y_;
+		dreal yOffset = ((dreal)yMin + 0.5) - yMinVertex.y_;
 
-		real xLeft = yMinVertex.x_ + dxLeftDy * yOffset;
+		dreal xLeft = yMinVertex.x_ + dxLeftDy * yOffset;
 		Vector2 uvLeft = yMinVertex.uv_ + dUvLeftDy * yOffset;
 		tPoint tLeft = yMinVertex.t_ + dtLeftDy * yOffset;
 
-		real xRight = yMinVertex.x_ + dxRightDy * yOffset;
+		dreal xRight = yMinVertex.x_ + dxRightDy * yOffset;
 		Vector2 uvRight = yMinVertex.uv_ + dUvRightDy * yOffset;
 		tPoint tRight = yMinVertex.t_ + dtRightDy * yOffset;
 
@@ -375,9 +375,9 @@ namespace Pastel
 		tVector dtDx;
 		if (longLeftEdge)
 		{
-			real yDelta = yMidVertex.y_ - yMinVertex.y_;
+			dreal yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			real dx =
+			dreal dx =
 				yMidVertex.x_ -
 				(yMinVertex.x_ + dxLeftDy * yDelta);
 			Vector2 dUv =
@@ -387,16 +387,16 @@ namespace Pastel
 				yMidVertex.t_ -
 				(yMinVertex.t_ + dtLeftDy * yDelta);
 
-			real invDx = inverse(dx);
+			dreal invDx = inverse(dx);
 
 			dUvDx = dUv * invDx;
 			dtDx = dt * invDx;
 		}
 		else
 		{
-			real yDelta = yMidVertex.y_ - yMinVertex.y_;
+			dreal yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			real dx =
+			dreal dx =
 				(yMinVertex.x_ + dxRightDy * yDelta) -
 				yMidVertex.x_;
 			Vector2 dUv =
@@ -406,7 +406,7 @@ namespace Pastel
 				(yMinVertex.t_ + dtRightDy * yDelta) -
 				yMidVertex.t_;
 
-			real invDx = inverse(dx);
+			dreal invDx = inverse(dx);
 
 			dUvDx = dUv * invDx;
 			dtDx = dt * invDx;
@@ -418,9 +418,9 @@ namespace Pastel
 		tVector dtDy;
 		if (longBottomEdge)
 		{
-			real xDelta = xMidVertex.x_ - xMinVertex.x_;
+			dreal xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			real dy =
+			dreal dy =
 				xMidVertex.y_ -
 				(xMinVertex.y_ + dyBottomDx * xDelta);
 			Vector2 dUv =
@@ -430,16 +430,16 @@ namespace Pastel
 				xMidVertex.t_ -
 				(xMinVertex.t_ + dtBottomDx * xDelta);
 
-			real invDy = inverse(dy);
+			dreal invDy = inverse(dy);
 
 			dUvDy = dUv * invDy;
 			dtDy = dt * invDy;
 		}
 		else
 		{
-			real xDelta = xMidVertex.x_ - xMinVertex.x_;
+			dreal xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			real dy =
+			dreal dy =
 				(xMinVertex.y_ + dyTopDx * xDelta) -
 				xMidVertex.y_;
 			Vector2 dUv =
@@ -449,7 +449,7 @@ namespace Pastel
 				(xMinVertex.t_ + dtTopDx * xDelta) -
 				xMidVertex.t_;
 
-			real invDy = inverse(dy);
+			dreal invDy = inverse(dy);
 
 			dUvDy = dUv * invDy;
 			dtDy = dt * invDy;
@@ -472,12 +472,12 @@ namespace Pastel
 
 			if (xEnd - xBegin > 0)
 			{
-				real xOffset = ((real)xBegin + 0.5) - xLeft;
+				dreal xOffset = ((dreal)xBegin + 0.5) - xLeft;
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 				tPoint t = tLeft + dtDx * xOffset;
 
-				const real& wh = t[0];
+				const dreal& wh = t[0];
 
 				// (d/dx) u(x, y)
 				// = (d/dx) (u(x, y) / w(x, y)) * w(x, y)
@@ -487,17 +487,17 @@ namespace Pastel
 
 				for (integer x = xBegin;x < xEnd;++x)
 				{
-					real w = inverse(wh);
+					dreal w = inverse(wh);
 
-					const real dwDx = -dtDx[0] * w * w;
-					const real dwDy = -dtDy[0] * w * w;
+					const dreal dwDx = -dtDx[0] * w * w;
+					const dreal dwDy = -dtDy[0] * w * w;
 
 					Vector2 dsDx = dUvDx * w + uv * dwDx;
 					Vector2 dsDy = dUvDy * w + uv * dwDy;
 
 					image(x, y) =
 						colorMixer(image(x, y),
-						textureSampler(uv * w, matrix2x2<real>(dsDx, dsDy)));
+						textureSampler(uv * w, matrix2x2<dreal>(dsDx, dsDy)));
 
 					uv += dUvDx;
 					t += dtDx;
@@ -532,7 +532,7 @@ namespace Pastel
 			dtRightDy = tRightDelta;
 			if (yRightDelta != 0)
 			{
-				real yRightDeltaInv = inverse(yRightDelta);
+				dreal yRightDeltaInv = inverse(yRightDelta);
 
 				dxRightDy *= yRightDeltaInv;
 				dUvRightDy *= yRightDeltaInv;
@@ -541,7 +541,7 @@ namespace Pastel
 
 			// Offset the scanline to pixel rows.
 
-			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
+			dreal yOffset = ((dreal)yMid + 0.5) - yMidVertex.y_;
 
 			xRight = yMidVertex.x_ + dxRightDy * yOffset;
 			uvRight = yMidVertex.uv_ + dUvRightDy * yOffset;
@@ -560,7 +560,7 @@ namespace Pastel
 			dtLeftDy = tLeftDelta;
 			if (yLeftDelta != 0)
 			{
-				real yLeftDeltaInv = inverse(yLeftDelta);
+				dreal yLeftDeltaInv = inverse(yLeftDelta);
 
 				dxLeftDy *= yLeftDeltaInv;
 				dUvLeftDy *= yLeftDeltaInv;
@@ -569,7 +569,7 @@ namespace Pastel
 
 			// Offset the scanline to pixel rows.
 
-			real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
+			dreal yOffset = ((dreal)yMid + 0.5) - yMidVertex.y_;
 
 			xLeft = yMidVertex.x_ + dxLeftDy * yOffset;
 			uvLeft = yMidVertex.uv_ + dUvLeftDy * yOffset;
@@ -585,12 +585,12 @@ namespace Pastel
 
 			if (xEnd - xBegin > 0)
 			{
-				real xOffset = ((real)xBegin + 0.5) - xLeft;
+				dreal xOffset = ((dreal)xBegin + 0.5) - xLeft;
 
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 				tPoint t = tLeft + dtDx * xOffset;
 
-				const real& wh = t[0];
+				const dreal& wh = t[0];
 
 				// (d/dx) u(x, y)
 				// = (d/dx) (u(x, y) / w(x, y)) * w(x, y)
@@ -606,17 +606,17 @@ namespace Pastel
 
 				for (integer x = xBegin;x < xEnd;++x)
 				{
-					real w = inverse(wh);
+					dreal w = inverse(wh);
 
-					const real dwDx = -dtDx[0] * w * w;
-					const real dwDy = -dtDy[0] * w * w;
+					const dreal dwDx = -dtDx[0] * w * w;
+					const dreal dwDy = -dtDy[0] * w * w;
 
 					Vector2 dsDx = dUvDx * w + uv * dwDx;
 					Vector2 dsDy = dUvDy * w + uv * dwDy;
 
 					image(x, y) =
 						colorMixer(image(x, y),
-						textureSampler(uv * w, matrix2x2<real>(dsDx, dsDy)));
+						textureSampler(uv * w, matrix2x2<dreal>(dsDx, dsDy)));
 
 					uv += dUvDx;
 					t += dtDx;

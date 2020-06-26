@@ -31,8 +31,8 @@ namespace Pastel
 
 	template <typename Type, integer N>
 	Type MipImage_Texture<Type, N>::operator()(
-		const Vector<real, N>& uv,
-		const Matrix<real>& m) const
+		const Vector<dreal, N>& uv,
+		const Matrix<dreal>& m) const
 	{
 		if (!mipMap_ || mipMap_->empty())
 		{
@@ -52,26 +52,26 @@ namespace Pastel
 		// The one of greatest length is used to ensure
 		// we get rid of aliasing. 
 
-		real d = 0;
+		dreal d = 0;
 		for (integer i = 0;i < n;++i)
 		{
-			const real dotMi = dot(m.cColumn(i) * Vector<real, N>(mostDetailedImage.extent()));
+			const dreal dotMi = dot(m.cColumn(i) * Vector<dreal, N>(mostDetailedImage.extent()));
 			if (dotMi > d)
 			{
 				d = dotMi;
 			}
 		}
 
-		real invLn2 = inverse(constantLn2<real>());
+		dreal invLn2 = inverse(constantLn2<dreal>());
 
-		const real level = 0.5 * std::log(d) * invLn2;
+		const dreal level = 0.5 * std::log(d) * invLn2;
 
 		// Handle the case where no filtering needs to be done.
 
 		if (level <= 0)
 		{
 			return sampleLinear(
-				evaluate(uv * Vector<real, N>(mostDetailedImage.extent())),
+				evaluate(uv * Vector<dreal, N>(mostDetailedImage.extent())),
 				mostDetailedImage, extender_);
 		}
 
@@ -94,7 +94,7 @@ namespace Pastel
 
 		Type detailSample =
 			sampleLinear(
-			evaluate(uv * Vector<real, N>(detailImage.extent())),
+			evaluate(uv * Vector<dreal, N>(detailImage.extent())),
 			detailImage, extender_);
 
 		// Then sample from the less detailed image.
@@ -106,13 +106,13 @@ namespace Pastel
 
 		Type coarseSample =
 			sampleLinear(
-			evaluate(uv * Vector<real, N>(coarseImage.extent())),
+			evaluate(uv * Vector<dreal, N>(coarseImage.extent())),
 			coarseImage, extender_);
 
 		// Linearly interpolate these samples by the 
 		// fractional detail level.
 
-		real tDetail = level - detailLevel;
+		dreal tDetail = level - detailLevel;
 		return linear(detailSample, coarseSample, tDetail);
 	}
 

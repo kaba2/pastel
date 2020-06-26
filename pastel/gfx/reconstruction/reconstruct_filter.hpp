@@ -116,7 +116,7 @@ namespace Pastel
 
 				searchNearest(
 					kdTree_, 
-					evaluate(Vector<real, N>(position) + 0.5),
+					evaluate(Vector<dreal, N>(position) + 0.5),
 					PASTEL_TAG(report), report,
 					PASTEL_TAG(norm), Maximum_Norm<Real>(),
 					PASTEL_TAG(kNearest), kdTree_.points(),
@@ -124,18 +124,18 @@ namespace Pastel
 
 				integer points = nearestSet.size();
 
-				real weightSum = 0;
+				dreal weightSum = 0;
 				typename Data::Data_ valueSum(0);
 
 				for (integer i = 0;i < points;++i)
 				{
 
-					//const real weight = filter_.evaluate(nearestSet[i].key() * invFilterStretch_);
+					//const dreal weight = filter_.evaluate(nearestSet[i].key() * invFilterStretch_);
 
-					Vector<real, N> delta = 
+					Vector<dreal, N> delta = 
 						nearestSet[i]->point().position_ - 
-						(Vector<real, N>(position) + 0.5);
-					real weight = 1;
+						(Vector<dreal, N>(position) + 0.5);
+					dreal weight = 1;
 					for (integer k = 0;k < N;++k)
 					{
 

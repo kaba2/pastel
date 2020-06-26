@@ -13,7 +13,7 @@
 // 5) Renamed functions to agree with style rules
 //    in Pastel.
 // 5) Added the dll-export keywords.
-// 6) Moved the functions to generate real
+// 6) Moved the functions to generate dreal
 //    numbers to random_uniform.h.
 
 /* 

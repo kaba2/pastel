@@ -29,7 +29,7 @@ namespace
 		const ConstFilterPtr& filter,
 		const Color& color,
 		Array<Color, 2>& image,
-		real maxFilterRadius = 2)
+		dreal maxFilterRadius = 2)
 	{
 		const integer width = image.width();
 		const integer height = image.height();
@@ -37,7 +37,7 @@ namespace
 		Vector2 previous;
 		for (integer i = 0;i < width;++i)
 		{
-			const real t = (((real)i / (width - 1)) - 0.5) * 2 * maxFilterRadius;
+			const dreal t = (((dreal)i / (width - 1)) - 0.5) * 2 * maxFilterRadius;
 			const Vector2 current(i, ((filter->evaluate(t) / filter->evaluate(0) + 1) / 2) * (height * 0.75));
 
 			if (i != 0)
@@ -55,13 +55,13 @@ namespace
 		const ConstFilterPtr& yFilter,
 		const Color& color,
 		Array<Color, 2>& image,
-		real xMaxFilterRadius = 2,
-		real yMaxFilterRadius = 2)
+		dreal xMaxFilterRadius = 2,
+		dreal yMaxFilterRadius = 2)
 	{
 		const integer width = image.width();
 		const integer height = image.height();
 		
-		const real normalization =
+		const dreal normalization =
 			inverse(xFilter->evaluate(0) * 
 			yFilter->evaluate(0));
 
@@ -73,7 +73,7 @@ namespace
 					dequantizeUnsigned(x, width), 
 					dequantizeUnsigned(y, height));
 				
-				const real value = 
+				const dreal value = 
 					xFilter->evaluate(2 * (uv.x() - 0.5) * xMaxFilterRadius) * 
 					yFilter->evaluate(2 * (uv.y() - 0.5) * yMaxFilterRadius);
 
@@ -86,12 +86,12 @@ namespace
 		const ConstFilterPtr& filter,
 		const Color& color,
 		Array<Color, 2>& image,
-		real xMaxFilterRadius = 2)
+		dreal xMaxFilterRadius = 2)
 	{
 		const integer width = image.width();
 		const integer height = image.height();
 		
-		const real normalization =
+		const dreal normalization =
 			inverse(filter->evaluate(0));
 
 		for (integer y = 0;y < height;++y)
@@ -102,9 +102,9 @@ namespace
 					dequantizeUnsigned(x, width), 
 					dequantizeUnsigned(y, height));
 
-				const real distance = norm(evaluate(2 * uv - 1));
+				const dreal distance = norm(evaluate(2 * uv - 1));
 				
-				const real value = 
+				const dreal value = 
 					filter->evaluate(distance * xMaxFilterRadius);
 
 				image(x, y) = color * value * normalization;
@@ -114,14 +114,14 @@ namespace
 
 	template <typename Image_View>
 	void drawSignal(
-		const Array<real, 1>& signal,
+		const Array<dreal, 1>& signal,
 		const ConstFilterPtr& filter,
 		const View<2, Color, Image_View>& image,
 		const Color& color)
 	{
-		Array<real, 1> resampledSignal(image.width());
-		resample<real>(constArrayView(signal), 
-			ArrayExtender<1, real>(0),
+		Array<dreal, 1> resampledSignal(image.width());
+		resample<dreal>(constArrayView(signal), 
+			ArrayExtender<1, dreal>(0),
 			filter, arrayView(resampledSignal));
 
 		const integer width = image.width();
@@ -146,11 +146,11 @@ namespace
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 
-		Array<real, 1> signal(Width);
+		Array<dreal, 1> signal(Width);
 
 		for (integer i = 0;i < Width;++i)
 		{
-			signal(i) = (perlinNoise<real>(i * 0.11) - 0.5) * 2;
+			signal(i) = (perlinNoise<dreal>(i * 0.11) - 0.5) * 2;
 		}
 
 		drawSignal(signal, filter, arrayView(image), Color(1));
@@ -159,9 +159,9 @@ namespace
 		{
 			clear(Color(0), arrayView(image));
 
-			Array<real, 1> resampledSignal(i);
-			resample<real>(constArrayView(signal), 
-				ArrayExtender<1, real>(0),
+			Array<dreal, 1> resampledSignal(i);
+			resample<dreal>(constArrayView(signal), 
+				ArrayExtender<1, dreal>(0),
 				filter, 
 				arrayView(resampledSignal));
 
@@ -169,7 +169,7 @@ namespace
 
 			for (integer k = 0;k < i;++k)
 			{
-				drawVerticalLine((k + 0.5) * ((real)Width / i), 0, Height, 
+				drawVerticalLine((k + 0.5) * ((dreal)Width / i), 0, Height, 
 					Color(0, 1, 0), arrayView(image),
 					TransparentColorMixer<Color>(0.5));
 			}
@@ -276,12 +276,12 @@ namespace
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 
-		const real Range = 3;
+		const dreal Range = 3;
 		const integer Steps = 20;
 		for (integer i = 0;i < Steps;++i)
 		{
 			drawFilter(cubicFilter(
-				linear((real)-Range, (real)(1 + Range), (real)i / (Steps - 1))), randomRgbColor(), image);
+				linear((dreal)-Range, (dreal)(1 + Range), (dreal)i / (Steps - 1))), randomRgbColor(), image);
 		}
 
 		savePcx(image, "filter_cubic.pcx");
@@ -294,14 +294,14 @@ namespace
 
 		Array<Color, 2> image(Vector2i(Width, Height));
 
-		const real bMin = 0;
-		const real bMax = 0.65;
+		const dreal bMin = 0;
+		const dreal bMax = 0.65;
 
 		const integer Steps = 5;
 		for (integer i = 0;i < Steps;++i)
 		{
-			const real b = linear(bMin, bMax, (real)i / (Steps - 1));
-			const real c = (1 - b) / 2;
+			const dreal b = linear(bMin, bMax, (dreal)i / (Steps - 1));
+			const dreal c = (1 - b) / 2;
 
 			drawFilter(mitchellFilter(b, c), randomRgbColor(), image);
 		}

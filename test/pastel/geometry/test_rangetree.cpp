@@ -16,7 +16,7 @@ namespace
 {
 
 	template <integer N>
-	using Point = Vector<real, N>;
+	using Point = Vector<dreal, N>;
 
 	class MultiLess
 	{

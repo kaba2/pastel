@@ -32,14 +32,14 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Vector<real, N>& p,
-			const Matrix<real>& m) const
+			const Vector<dreal, N>& p,
+			const Matrix<dreal>& m) const
 		{
 			integer n = p.size();
 			PENSURE_OP(n, ==, m.width());
 			PENSURE_OP(n, ==, m.height());
 
-			Vector<real, ModifyN<N, N + 1>::Result> bary = 
+			Vector<dreal, ModifyN<N, N + 1>::Result> bary = 
 				barycentric(p);
 
 			if (anyLess(bary, 0))

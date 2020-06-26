@@ -1125,7 +1125,7 @@ namespace
 
 		using ConstIterator = typename Tree::ConstIterator;
 
-		auto test = [&](real alpha, integer correct)
+		auto test = [&](dreal alpha, integer correct)
 		{
 			ConstIterator q = quantile(tree, alpha);
 			return q != tree.cend() && 

@@ -84,14 +84,14 @@ namespace Pastel
 	void drawFatSegment(
 		const GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		real startRadius,
-		real endRadius)
+		dreal startRadius,
+		dreal endRadius)
 	{
 		ENSURE_OP(startRadius, >=, 0);
 		ENSURE_OP(endRadius, >=, 0);
 
 		Vector2 delta = segment.end() - segment.start();
-		real normDelta = norm(delta);
+		dreal normDelta = norm(delta);
 
 		if (normDelta == 0)
 		{
@@ -132,12 +132,12 @@ namespace Pastel
 			return;
 		}
 
-		const real angleAdd = (2 * constantPi<real>()) / segments;
+		const dreal angleAdd = (2 * constantPi<dreal>()) / segments;
 
 		if (!renderer.filled())
 		{
-			real angle = 0;
-			real nextAngle = angleAdd;
+			dreal angle = 0;
+			dreal nextAngle = angleAdd;
 			for (integer i = 0;i < segments;++i)
 			{
 				drawSegment(
@@ -154,8 +154,8 @@ namespace Pastel
 		}
 		else
 		{
-			real angle = 0;
-			real nextAngle = angleAdd;
+			dreal angle = 0;
+			dreal nextAngle = angleAdd;
 			for (integer i = 0;i < segments;++i)
 			{
 				drawTriangle(
@@ -182,7 +182,7 @@ namespace Pastel
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 
 			(alignedBox.max() - alignedBox.min()) * 0.5,
-			matrix2x2<real>(Vector2(1, 0), Vector2(0, 1)));
+			matrix2x2<dreal>(Vector2(1, 0), Vector2(0, 1)));
 
 		drawBox(renderer, box);
 	}
@@ -197,7 +197,7 @@ namespace Pastel
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 
 			(alignedBox.max() - alignedBox.min()) * 0.5,
-			matrix2x2<real>(Vector2(1, 0), Vector2(0, 1)));
+			matrix2x2<dreal>(Vector2(1, 0), Vector2(0, 1)));
 
 		drawBox(renderer, box, textureQuad);
 	}
@@ -289,12 +289,12 @@ namespace Pastel
 	void drawArrow(
 		const GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		real radius)
+		dreal radius)
 	{
 		ENSURE_OP(radius, >=, 0);
 
 		Vector2 delta = segment.end() - segment.start();
-		real normDelta = norm(delta);
+		dreal normDelta = norm(delta);
 
 		if (normDelta < 2 * radius)
 		{
@@ -352,11 +352,11 @@ namespace Pastel
 		viewWindow.max() += viewWindow.extent() * 0.05;
 		Vector2 viewExtent = viewWindow.extent();
 
-		real aspectRatio = (real)4 / 3;
+		dreal aspectRatio = (dreal)4 / 3;
 
 		if (viewExtent.x() < aspectRatio * viewExtent.y())
 		{
-			real xExtentDelta =
+			dreal xExtentDelta =
 				aspectRatio * viewExtent.y() - viewExtent.x();
 
 			viewWindow.min().x() -= xExtentDelta / 2;
@@ -364,7 +364,7 @@ namespace Pastel
 		}
 		else
 		{
-			real yExtentDelta =
+			dreal yExtentDelta =
 				viewExtent.x() - aspectRatio * viewExtent.y();
 
 			viewWindow.min().y() -= yExtentDelta / 2;

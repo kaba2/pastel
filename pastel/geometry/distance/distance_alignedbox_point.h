@@ -51,7 +51,7 @@ namespace Pastel
 		// is inside the AlignedBox coordinate range,
 		// that particular distance is 0.
 		// Finally, the 1-dimensional squared distances
-		// are added together to obtain the real N-dimensional
+		// are added together to obtain the dreal N-dimensional
 		// squared distance.
 
 		auto distance = norm();

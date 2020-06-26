@@ -11,7 +11,7 @@ namespace Pastel
 
 		template <typename Type, integer N, typename Vector_Range>
 		Type linear(
-			const Vector<real, N>& position,
+			const Vector<dreal, N>& position,
 			const Vector_Range& data, 
 			integer index,
 			integer axis)
@@ -38,7 +38,7 @@ namespace Pastel
 
 	template <integer N, typename Vector_Range>
 	typename boost::range_value<Vector_Range>::type linear(
-		const Vector<real, N>& position,
+		const Vector<dreal, N>& position,
 		const Vector_Range& data)
 	{
 		typedef typename boost::range_value<Vector_Range>::type

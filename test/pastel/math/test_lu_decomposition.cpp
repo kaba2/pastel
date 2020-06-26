@@ -23,17 +23,17 @@ namespace
 		integer n = 10;
 		for (integer i = 0;i < 10000;++i)
 		{
-			Matrix<real> m = randomMatrix<real>(n, n);
+			Matrix<dreal> m = randomMatrix<dreal>(n, n);
 
-			LuDecomposition<real> lu(m);
+			LuDecomposition<dreal> lu(m);
 
 			if (!lu.singular())
 			{
-				Vector<real> b = randomVectorCube<real, Dynamic>(n);
-				Vector<real> x = solveLinear(lu, b);
+				Vector<dreal> b = randomVectorCube<dreal, Dynamic>(n);
+				Vector<dreal> x = solveLinear(lu, b);
 
-				const Vector<real> residual = m * x - b;
-				real normResidual = norm(residual);
+				const Vector<dreal> residual = m * x - b;
+				dreal normResidual = norm(residual);
 
 				if (normResidual > 0.0001)
 				{

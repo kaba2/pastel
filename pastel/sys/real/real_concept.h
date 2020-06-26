@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	//! A real number.
+	//! A dreal number.
 	struct Real_Concept
 	: Refines<
 		Real_Ring_Concept,
@@ -26,7 +26,7 @@ namespace Pastel
 	concept Real_Concept_ =
 		Real_Concept__<RemoveCvRef<T>>;
 
-	using Real_Archetype = real;
+	using Real_Archetype = dreal;
 
 }
 

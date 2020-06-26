@@ -102,7 +102,7 @@ namespace Pastel
 			PASTEL_ARG_SC(accept, allIndicator(), Indicator_Concept(PointId));
 
 		auto&& norm = 
-			PASTEL_ARG_SC_(norm, Euclidean_Norm<real>(), Norm_Concept_);
+			PASTEL_ARG_SC_(norm, Euclidean_Norm<dreal>(), Norm_Concept_);
 
 		using Distance = RemoveCvRef<decltype(norm())>;
 

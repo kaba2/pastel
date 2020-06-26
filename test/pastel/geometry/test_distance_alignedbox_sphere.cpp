@@ -7,9 +7,9 @@
 
 TEST_CASE("distance_alignedbox_sphere (distance_alignedbox_sphere)")
 {
-	using Box = AlignedBox<real, 2>;
-	using Sphere = Sphere<real, 2>;
-	using Point = Vector<real, 2>;
+	using Box = AlignedBox<dreal, 2>;
+	using Sphere = Sphere<dreal, 2>;
+	using Point = Vector<dreal, 2>;
 
 	{
 		// 5

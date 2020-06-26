@@ -94,10 +94,10 @@ namespace Pastel
 		Line<Real, N> line_;
 	};
 
-	using Ray1 = Ray<real, 1>;
-	using Ray2 = Ray<real, 2>;
-	using Ray3 = Ray<real, 3>;
-	using Ray4 = Ray<real, 4>;
+	using Ray1 = Ray<dreal, 1>;
+	using Ray2 = Ray<dreal, 2>;
+	using Ray3 = Ray<dreal, 3>;
+	using Ray4 = Ray<dreal, 4>;
 
 }
 

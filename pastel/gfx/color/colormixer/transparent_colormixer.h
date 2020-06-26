@@ -23,7 +23,7 @@ namespace Pastel
 		}
 
 		explicit TransparentColorMixer(
-			real opaqueness)
+			dreal opaqueness)
 			: opaqueness_(opaqueness)
 		{
 		}
@@ -40,22 +40,22 @@ namespace Pastel
 				opaqueness_ * texture;
 		}
 
-		void setOpaqueness(real opaqueness)
+		void setOpaqueness(dreal opaqueness)
 		{
 			opaqueness_ = opaqueness;
 		}
 
-		real opaqueness() const
+		dreal opaqueness() const
 		{
 			return opaqueness_;
 		}
 
 	private:
-		real opaqueness_;
+		dreal opaqueness_;
 	};
 
 	template <typename Type>
-	TransparentColorMixer<Type> transparentColorMixer(real opaqueness)
+	TransparentColorMixer<Type> transparentColorMixer(dreal opaqueness)
 	{
 		return TransparentColorMixer<Type>(opaqueness);
 	}
