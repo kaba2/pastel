@@ -8,8 +8,6 @@
 #include <pastel/sys/random/random_integer.h>
 #include <pastel/sys/downfilter.h>
 
-#include <boost/range/adaptor/reversed.hpp> 
-
 #include <algorithm>
 #include <iostream>
 #include <list>
@@ -31,13 +29,13 @@ namespace
 	protected:
 		using Fwd = RedBlackTree_Fwd<Settings_>;
 		PASTEL_FWD(Iterator);
-		PASTEL_FWD(Propagation_Class);
+		PASTEL_FWD(Propagation);
 
 		Map_Counting_Customization() {}
 
 		void updatePropagation(
 			const Iterator& iter,
-			Propagation_Class& propagation)
+			Propagation& propagation)
 		{
 			propagation.marked =
 				iter.data().marked ||
@@ -61,13 +59,13 @@ namespace
 	protected:
 		using Fwd = RedBlackTree_Fwd<Settings_>;
 		PASTEL_FWD(Iterator);
-		PASTEL_FWD(Propagation_Class);
+		PASTEL_FWD(Propagation);
 
 		Set_Counting_Customization() {}
 
 		void updatePropagation(
 			const Iterator& iter,
-			Propagation_Class& propagation)
+			Propagation& propagation)
 		{
 			propagation.blackHeight =
 				std::max(iter.left().propagation().blackHeight, iter.right().propagation().blackHeight) +
@@ -82,7 +80,7 @@ namespace
 
 	template <typename Data_, bool MultipleKeys>
 	using Counting_Settings =
-		RedBlackTree_Set_Settings<integer, Data_, LessThan, Propagation, void, MultipleKeys>;
+		RedBlackTree_Set_Settings<integer, Data_, LessThan, Propagation, Empty, MultipleKeys>;
 
 	class Data
 	{
@@ -102,8 +100,8 @@ namespace
 		bool marked;
 	};
 
-	using Set_Settings = Counting_Settings<void, false>;
-	using MultiSet_Settings = Counting_Settings<void, true>;
+	using Set_Settings = Counting_Settings<Empty, false>;
+	using MultiSet_Settings = Counting_Settings<Empty, true>;
 	using Map_Settings = Counting_Settings<Data, false>;
 	using MultiMap_Settings = Counting_Settings<Data, true>;
 
@@ -448,7 +446,7 @@ namespace
 			REQUIRE(!tree.sharesBottom());
 			REQUIRE(tree.sharesBottom(tree));
 			REQUIRE(tree.size() == 7);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 		{
 			Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
@@ -461,7 +459,7 @@ namespace
 			REQUIRE(copy.sharesBottom(copy));
 			REQUIRE(copy.sharesBottom(tree));
 			REQUIRE(copy.size() == 7);
-			REQUIRE(ranges::equal(copy.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(copy.crange().dereferenceKey(), range(correctSet)));
 
 			REQUIRE(testInvariants(tree));
 			REQUIRE(!tree.hasSeparateSentinels());
@@ -469,7 +467,7 @@ namespace
 			REQUIRE(tree.sharesBottom(tree));
 			REQUIRE(tree.sharesBottom(copy));
 			REQUIRE(tree.size() == 7);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 		{
 			Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
@@ -483,7 +481,7 @@ namespace
 			REQUIRE(copy.sharesBottom(copy));
 			REQUIRE(!copy.sharesBottom(tree));
 			REQUIRE(copy.size() == 7);
-			REQUIRE(ranges::equal(copy.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(copy.crange().dereferenceKey(), range(correctSet)));
 
 			REQUIRE(testInvariants(tree));
 			REQUIRE(!tree.hasSeparateSentinels());
@@ -491,7 +489,7 @@ namespace
 			REQUIRE(tree.sharesBottom(tree));
 			REQUIRE(!tree.sharesBottom(copy));
 			REQUIRE(tree.size() == 7);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 		{
 			Tree tree{ 1, 2, 3, 4, 5, 6, 7 };
@@ -504,7 +502,7 @@ namespace
 			REQUIRE(moved.sharesBottom(moved));
 			REQUIRE(moved.sharesBottom(tree));
 			REQUIRE(moved.size() == 7);
-			REQUIRE(ranges::equal(moved.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(moved.crange().dereferenceKey(), range(correctSet)));
 
 			REQUIRE(testInvariants(tree));
 			REQUIRE(!tree.hasSeparateSentinels());
@@ -525,7 +523,7 @@ namespace
 			REQUIRE(moved.sharesBottom(moved));
 			REQUIRE(moved.sharesBottom(tree));
 			REQUIRE(moved.size() == 7);
-			REQUIRE(ranges::equal(moved.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(moved.crange().dereferenceKey(), range(correctSet)));
 
 			REQUIRE(testInvariants(tree));
 			REQUIRE(!tree.hasSeparateSentinels());
@@ -646,7 +644,7 @@ namespace
 			REQUIRE(testInvariants(tree));
 
 			integer correctSet[] = { 1 };
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		tree.insert(5);
@@ -656,7 +654,7 @@ namespace
 			REQUIRE(testInvariants(tree));
 
 			integer correctSet[] = { 1, 5 };
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		tree.insert(3);
@@ -666,7 +664,7 @@ namespace
 			REQUIRE(testInvariants(tree));
 
 			integer correctSet[] = { 1, 3, 5 };
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		tree.insert(4);
@@ -676,7 +674,7 @@ namespace
 			REQUIRE(testInvariants(tree));
 
 			integer correctSet[] = { 1, 3, 4, 5 };
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		tree.insert(8);
@@ -686,7 +684,7 @@ namespace
 			REQUIRE(testInvariants(tree));
 
 			integer correctSet[] = { 1, 3, 4, 5, 8 };
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		tree.insert(7);
@@ -696,7 +694,7 @@ namespace
 			REQUIRE(testInvariants(tree));
 
 			integer correctSet[] = { 1, 3, 4, 5, 7, 8 };
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		tree.insert(6);
@@ -706,7 +704,7 @@ namespace
 			REQUIRE(testInvariants(tree));
 
 			integer correctSet[] = { 1, 3, 4, 5, 6, 7, 8 };
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		tree.insert(9);
@@ -716,7 +714,7 @@ namespace
 			REQUIRE(testInvariants(tree));
 
 			integer correctSet[] = { 1, 3, 4, 5, 6, 7, 8, 9 };
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		tree.insert(2);
@@ -726,7 +724,7 @@ namespace
 			REQUIRE(testInvariants(tree));
 
 			integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		integer correctSet[] =
@@ -735,9 +733,9 @@ namespace
 		};
 
 		{
-			REQUIRE(boost::distance(tree) == 9);
-			REQUIRE(boost::distance(tree.crange().dereferenceKey()) == 9);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::distance(tree) == 9);
+			REQUIRE(ranges::distance(tree.crange().dereferenceKey()) == 9);
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		{
@@ -748,8 +746,8 @@ namespace
 
 		{
 			REQUIRE(ranges::equal(
-				tree.crange().dereferenceKey() | boost::adaptors::reversed,
-				correctSet | boost::adaptors::reversed));
+				tree.crange().dereferenceKey() | ranges::views::reverse,
+				range(correctSet) | ranges::views::reverse));
 		}
 
 		{
@@ -766,7 +764,7 @@ namespace
 		{
 			integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			REQUIRE(tree.size() == 9);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -774,7 +772,7 @@ namespace
 		{
 			integer correctSet[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			REQUIRE(tree.size() == 9);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -782,7 +780,7 @@ namespace
 		{
 			integer correctSet[] = { 1, 2, 3, 5, 6, 7, 8, 9 };
 			REQUIRE(tree.size() == 8);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -790,7 +788,7 @@ namespace
 		{
 			integer correctSet[] = { 1, 2, 3, 5, 6, 8, 9 };
 			REQUIRE(tree.size() == 7);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -798,7 +796,7 @@ namespace
 		{
 			integer correctSet[] = { 2, 3, 5, 6, 8, 9 };
 			REQUIRE(tree.size() == 6);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -806,7 +804,7 @@ namespace
 		{
 			integer correctSet[] = { 2, 3, 5, 6, 8};
 			REQUIRE(tree.size() == 5);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -814,7 +812,7 @@ namespace
 		{
 			integer correctSet[] = { 2, 3, 6, 8 };
 			REQUIRE(tree.size() == 4);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -822,7 +820,7 @@ namespace
 		{
 			integer correctSet[] = { 2, 6, 8 };
 			REQUIRE(tree.size() == 3);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -830,7 +828,7 @@ namespace
 		{
 			integer correctSet[] = { 6, 8 };
 			REQUIRE(tree.size() == 2);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -838,7 +836,7 @@ namespace
 		{
 			integer correctSet[] = { 8 };
 			REQUIRE(tree.size() == 1);
-			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(correctSet)));
 			REQUIRE(testInvariants(tree));
 		}
 
@@ -1070,13 +1068,13 @@ namespace
 
 			integer correctSet[] =
 				{ 1, 2, 3, 4, 5 };
-			REQUIRE(ranges::equal(aTree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(aTree.crange().dereferenceKey(), range(correctSet)));
 
 			bTree.join(aTree);
 			REQUIRE(testInvariants(aTree));
 			REQUIRE(testInvariants(bTree));
 			REQUIRE(aTree.empty());
-			REQUIRE(ranges::equal(bTree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(bTree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		{
@@ -1095,7 +1093,7 @@ namespace
 
 			integer correctSet[] =
 				{ 1, 2, 3, 4, 5, 6, 7, 8 };
-			REQUIRE(ranges::equal(bTree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(bTree.crange().dereferenceKey(), range(correctSet)));
 		}
 
 		{
@@ -1114,7 +1112,7 @@ namespace
 
 			integer correctSet[] = 
 				{1, 2, 3, 4, 5, 6, 7, 8};
-			REQUIRE(ranges::equal(aTree.crange().dereferenceKey(), correctSet));
+			REQUIRE(ranges::equal(aTree.crange().dereferenceKey(), range(correctSet)));
 		}
 	}
 
@@ -1198,14 +1196,6 @@ namespace
 
 }
 
-TEST_CASE("VoidSet (RedBlackTree)")
-{
-	using Set = RedBlackTree_Set<void>;
-	Set tree;
-	REQUIRE(testInvariants(tree));
-	tree.insert(nullptr);
-}
-
 TEST_CASE("Set (RedBlackTree)")
 {
 	{
@@ -1239,7 +1229,7 @@ TEST_CASE("Set (RedBlackTree)")
 		Set tree({ 4, 2, 1, 1, 1, 3 });
 		integer correctSet[] = { 1, 2, 3, 4 };
 		REQUIRE(tree.size() == 4);
-		REQUIRE(ranges::equal(tree, correctSet));
+		REQUIRE(ranges::equal(tree, range(correctSet)));
 	}
 	{
 		Set tree;
@@ -1247,7 +1237,7 @@ TEST_CASE("Set (RedBlackTree)")
 
 		integer correctSet[] = { 1, 2, 3, 4 };
 		REQUIRE(tree.size() == 4);
-		REQUIRE(ranges::equal(tree, correctSet));
+		REQUIRE(ranges::equal(tree, range(correctSet)));
 	}
 }
 
@@ -1325,7 +1315,7 @@ TEST_CASE("MultiSet (RedBlackTree)")
 
 		integer correctSet[] =
 			{ 1, 1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 7, 7, 8 };
-		REQUIRE(ranges::equal(aTree.crange().dereferenceKey(), correctSet));
+		REQUIRE(ranges::equal(aTree.crange().dereferenceKey(), range(correctSet)));
 	}
 }
 
@@ -1339,10 +1329,10 @@ TEST_CASE("Map (RedBlackTree)")
 		REQUIRE(tree.size() == 7);
 
 		integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
-		REQUIRE(ranges::equal(tree.crange().dereferenceKey(), keySet));
+		REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(keySet)));
 
 		integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-		REQUIRE(ranges::equal(tree.crange().dereferenceData(), dataSet));
+		//REQUIRE(ranges::equal(tree.crange().dereferenceData(), range(dataSet)));
 
 		REQUIRE(*tree.begin().dereferenceKey() == 1);
 		REQUIRE(*tree.begin().dereferenceData() == 1);
@@ -1372,10 +1362,10 @@ TEST_CASE("MultiMap (RedBlackTree)")
 		REQUIRE(tree.size() == 7);
 
 		integer keySet[] = { 1, 2, 3, 4, 5, 6, 7 };
-		REQUIRE(ranges::equal(tree.crange().dereferenceKey(), keySet));
+		REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(keySet)));
 
 		integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-		REQUIRE(ranges::equal(tree.crange().dereferenceData(), dataSet));
+		//REQUIRE(ranges::equal(tree.crange().dereferenceData(), range(dataSet)));
 	}
 }
 
@@ -1397,7 +1387,7 @@ TEST_CASE("MultiSplit (RedBlackTree)")
 		}
 
 		std::vector<integer> correctSet = dataSet;
-		REQUIRE(ranges::equal(tree.range().dereferenceData(), correctSet));
+		//REQUIRE(ranges::equal(tree.range().dereferenceData(), range(correctSet)));
 
 		std::vector<integer> indexSet;
 		for (integer i = 0; i < 25; ++i)
@@ -1468,7 +1458,7 @@ TEST_CASE("MultiSplit (RedBlackTree)")
 
 			REQUIRE(testInvariants(aTree));
 			REQUIRE(aTree.size() == n);
-			REQUIRE(ranges::equal(aTree.range().dereferenceData(), correctSet));
+			//REQUIRE(ranges::equal(aTree.range().dereferenceData(), range(correctSet)));
 			REQUIRE(testInvariants(bTree));
 			REQUIRE(bTree.size() == 0);
 		}
@@ -1530,7 +1520,7 @@ TEST_CASE("MultiJoin (RedBlackTree)")
 
 				REQUIRE(testInvariants(aTree));
 				REQUIRE(testInvariants(bTree));
-				REQUIRE(ranges::equal(aTree.crange().dereferenceData(), correctSet));
+				//REQUIRE(ranges::equal(aTree.crange().dereferenceData(), range(correctSet)));
 			}
 		}
 	}

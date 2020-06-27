@@ -28,17 +28,17 @@ namespace Pastel
 			Iterator<NodePtr, Node_Settings, DereferenceToData>, 
 			NodePtr,
 			typename std::conditional<DereferenceToData, 
-			typename Node_Settings::Data_Class, 
-			const typename Node_Settings::Key_Class>::type,
+			typename Node_Settings::Data, 
+			const typename Node_Settings::Key>::type,
 			boost::bidirectional_traversal_tag>
 		{
 		public:
 			using Fwd = Node_Settings;
 
-			PASTEL_FWD(Key_Class);
-			PASTEL_FWD(Data_Class);
-			PASTEL_FWD(Propagation_Class);
-			PASTEL_FWD(SentinelData_Class);
+			PASTEL_FWD(Key);
+			PASTEL_FWD(Data);
+			PASTEL_FWD(Propagation);
+			PASTEL_FWD(SentinelData);
 			static constexpr bool UserDataInSentinelNodes =
 				Node_Settings::UserDataInSentinelNodes;
 
@@ -91,7 +91,7 @@ namespace Pastel
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			const Key_Class& key() const
+			const Key& key() const
 			{
 				PENSURE(isNormal());
 				return ((Key_Node<Node_Settings>*)node())->key();
@@ -102,7 +102,7 @@ namespace Pastel
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			const Propagation_Class& propagation() const
+			const Propagation& propagation() const
 			{
 				return ((Propagation_Node<Node_Settings>*)node())->propagation();
 			}
@@ -116,7 +116,7 @@ namespace Pastel
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			Data_Class& data() const
+			Data& data() const
 			{
 				PENSURE(!empty());
 				PENSURE(UserDataInSentinelNodes || !isSentinel());
@@ -131,7 +131,7 @@ namespace Pastel
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			SentinelData_Class& sentinelData() const
+			SentinelData& sentinelData() const
 			{
 				PENSURE(isSentinel());
 				return ((Sentinel_Node<Node_Settings>*)node())->sentinelData();
@@ -393,7 +393,7 @@ namespace Pastel
 
 			using DereferenceType = typename std::conditional<
 				DereferenceToData,
-				Data_Class, const Key_Class>::type;
+				Data, const Key>::type;
 
 			struct KeyTag {};
 			struct DataTag {};
@@ -402,12 +402,12 @@ namespace Pastel
 				DereferenceToData, 
 				DataTag, KeyTag>::type;
 
-			const Key_Class& dereference(KeyTag) const
+			const Key& dereference(KeyTag) const
 			{
 				return key();
 			}
 
-			Data_Class& dereference(DataTag) const
+			Data& dereference(DataTag) const
 			{
 				return data();
 			}

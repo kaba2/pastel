@@ -95,7 +95,7 @@ namespace Pastel
 
 			PASTEL_FWD(Iterator);
 			PASTEL_FWD(ConstIterator);
-			PASTEL_FWD(Propagation_Class);
+			PASTEL_FWD(Propagation);
 
 			//! Constructs an empty customization.
 			/*!
@@ -186,7 +186,7 @@ namespace Pastel
 			*/
 			void updatePropagation(
 				const Iterator& element,
-				Propagation_Class& propagation) {}
+				Propagation& propagation) {}
 
 		private:
 			// These functions will not be used, and so should

@@ -34,12 +34,8 @@ namespace Pastel
 		using Customization = Customization_<Settings_>;
 
 		PASTEL_FWD(Key);
-		PASTEL_FWD(Key_Class);
-
 		PASTEL_FWD(Propagation);
-		PASTEL_FWD(Propagation_Class);
 		PASTEL_FWD(Data);
-		PASTEL_FWD(Data_Class);
 		PASTEL_FWD(Less);
 
 		PASTEL_FWD(Iterator);
@@ -130,7 +126,7 @@ namespace Pastel
 		The sentinel's propagation, if exists, 
 		is default-constructed.
 		*/
-		RedBlackTree(std::initializer_list<std::pair<Key, Data_Class>> dataSet)
+		RedBlackTree(std::initializer_list<std::pair<Key, Data>> dataSet)
 		{
 			*this = dataSet;
 		}
@@ -194,7 +190,7 @@ namespace Pastel
 
 		Preserves sentinels.
 		*/
-		RedBlackTree& operator=(std::initializer_list<std::pair<Key, Data_Class>> dataSet)
+		RedBlackTree& operator=(std::initializer_list<std::pair<Key, Data>> dataSet)
 		{
 			auto construct = [&](RedBlackTree& copy)
 			{
@@ -321,8 +317,8 @@ namespace Pastel
 		the iterator points to the existing equivalent element.
 		*/
 		Insert_Return insert(
-			const Key_Class& key, 
-			const Data_Class& data = Data_Class());
+			const Key& key, 
+			const Data& data = Data());
 
 		//! Removes an element from the tree by its iterator.
 		/*!
@@ -365,7 +361,7 @@ namespace Pastel
 		This is a convenience function which calls
 		erase(equalRange(key)).
 		*/
-		Iterator erase(const Key_Class& key);
+		Iterator erase(const Key& key);
 
 		//! Splices an element from 'that' tree to this tree.
 		/*!
@@ -387,7 +383,7 @@ namespace Pastel
 		*/
 		template <typename DownFilter = All_DownFilter>
 		bool exists(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter = DownFilter()) const
 		{
 			return find(key, filter) != cend();
@@ -408,12 +404,12 @@ namespace Pastel
 		*/
 		template <typename DownFilter = All_DownFilter>
 		ConstIterator find(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter = DownFilter()) const;
 
 		template <typename DownFilter = All_DownFilter>
 		Iterator find(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter = DownFilter())
 		{
 			return cast(addConst(*this).find(
@@ -429,7 +425,7 @@ namespace Pastel
 		top-most element.
 		*/
 		FindEqual_Return findEqualAndUpper(
-			const Key_Class& key,
+			const Key& key,
 			const ConstIterator& start) const;
 
 		//! Finds the top-most element equivalent to key, and an upper bound.
@@ -438,7 +434,7 @@ namespace Pastel
 		findEqualAndUpper(key, croot()).
 		*/
 		FindEqual_Return findEqualAndUpper(
-			const Key_Class& key) const
+			const Key& key) const
 		{
 			return findEqualAndUpper(key, croot());
 		}
@@ -459,7 +455,7 @@ namespace Pastel
 		in redblacktree_fwd.h
 		*/
 		FindInsert_Return findInsert(
-			const Key_Class& key, 
+			const Key& key, 
 			const FindEqual_Return& equalRoot) const;
 
 		//! Finds the node at which to join another tree.
@@ -478,7 +474,7 @@ namespace Pastel
 		*/
 		template <typename DownFilter = All_DownFilter>
 		ConstRange equalRange(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter = DownFilter()) const
 		{
 			auto equalAndUpper = findEqualAndUpper(key);
@@ -488,7 +484,7 @@ namespace Pastel
 		}
 
 		std::pair<ConstIterator, ConstIterator> 
-			equal_range(const Key_Class& key) const
+			equal_range(const Key& key) const
 		{
 			ConstRange range = equalRange(key);
 			return std::make_pair(range.begin(), range.end());
@@ -502,14 +498,14 @@ namespace Pastel
 
 		template <typename DownFilter = All_DownFilter>
 		Range equalRange(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter = DownFilter())
 		{
 			return cast(addConst(*this).equalRange(key, filter));
 		}
 
 		std::pair<Iterator, Iterator> 
-			equal_range(const Key_Class& key)
+			equal_range(const Key& key)
 		{
 			Range range = equalRange(key);
 			return std::make_pair(range.begin(), range.end());
@@ -522,7 +518,7 @@ namespace Pastel
 		*/
 		template <typename DownFilter>
 		ConstIterator lowerBound(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter) const
 		{
 			return lowerBound(key, findEqualAndUpper(key), filter);
@@ -530,18 +526,18 @@ namespace Pastel
 
 		template <typename DownFilter = All_DownFilter>
 		Iterator lowerBound(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter = DownFilter())
 		{
 			return cast(addConst(*this).lowerBound(key, filter));
 		}
 
-		ConstIterator lower_bound(const Key_Class& key) const
+		ConstIterator lower_bound(const Key& key) const
 		{
 			return lowerBound(key);
 		}
 
-		Iterator lower_bound(const Key_Class& key)
+		Iterator lower_bound(const Key& key)
 		{
 			return lowerBound(key);
 		}
@@ -553,7 +549,7 @@ namespace Pastel
 		*/
 		template <typename DownFilter = All_DownFilter>
 		ConstIterator upperBound(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter = DownFilter()) const
 		{
 			return upperBound(key, findEqualAndUpper(key), filter);
@@ -561,18 +557,18 @@ namespace Pastel
 
 		template <typename DownFilter = All_DownFilter>
 		Iterator upperBound(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter = DownFilter())
 		{
 			return cast(addConst(*this).upperBound(key, filter));
 		}
 
-		ConstIterator upper_bound(const Key_Class& key) const
+		ConstIterator upper_bound(const Key& key) const
 		{
 			return upperBound(key);
 		}
 
-		Iterator upper_bound(const Key_Class& key)
+		Iterator upper_bound(const Key& key)
 		{
 			return upperBound(key);
 		}
@@ -654,7 +650,7 @@ namespace Pastel
 		*/
 		template <typename DownFilter = All_DownFilter>
 		RedBlackTree split(
-			const Key_Class& key,
+			const Key& key,
 			const DownFilter& filter = DownFilter())
 		{
 			return split(lowerBound(key, filter));
@@ -665,7 +661,7 @@ namespace Pastel
 		Time complexity: O(log(size()))
 		Exception safety: nothrow
 		*/
-		integer count(const Key_Class& key) const;
+		integer count(const Key& key) const;
 
 		//! Splits the sentinel node.
 		/*!
@@ -937,8 +933,8 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		Key_Node* allocateNode(
-			const Key_Class& key,
-			const Data_Class& data);
+			const Key& key,
+			const Data& data);
 
 		//! Deallocates a data-node.
 		/*!
@@ -1068,13 +1064,13 @@ namespace Pastel
 
 		template <typename DownFilter>
 		ConstIterator lowerBound(
-			const Key_Class& key,
+			const Key& key,
 			const FindEqual_Return& equalAndUpper,
 			const DownFilter& filter) const;
 
 		template <typename DownFilter>
 		Iterator lowerBound(
-			const Key_Class& key,
+			const Key& key,
 			const FindEqual_Return& equalAndUpper,
 			const DownFilter& filter)
 		{
@@ -1083,7 +1079,7 @@ namespace Pastel
 
 		template <typename DownFilter>
 		ConstIterator upperBound(
-			const Key_Class& key,
+			const Key& key,
 			const FindEqual_Return& equalAndUpper,
 			const DownFilter& filter) const
 		{
@@ -1098,7 +1094,7 @@ namespace Pastel
 
 		template <typename DownFilter>
 		Iterator upperBound(
-			const Key_Class& key,
+			const Key& key,
 			const FindEqual_Return& equalAndUpper,
 			const DownFilter& filter)
 		{
@@ -1111,7 +1107,7 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		EqualRange_Return equalRange(
-			const Key_Class& key, 
+			const Key& key, 
 			const FindEqual_Return& equalAndUpper,
 			EqualRange compute) const;
 
@@ -1124,14 +1120,14 @@ namespace Pastel
 		the key when traversing the tree in pre-order.
 		*/
 		ConstIterator findEqual(
-			const Key_Class& key,
+			const Key& key,
 			const ConstIterator& start) const
 		{
 			return findEqualAndUpper(key, start).equal;
 		}
 
 		Iterator findEqual(
-			const Key_Class& key,
+			const Key& key,
 			const ConstIterator& start)
 		{
 			return cast(addConst(*this).findEqual(key, start));;
@@ -1240,7 +1236,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		bool less(const Key_Class& left, const Key_Class& right) const
+		bool less(const Key& left, const Key& right) const
 		{
 			return Less()(left, right);
 		}
@@ -1445,11 +1441,11 @@ namespace Pastel
 	// Map
 
 	template <
-		typename Key = void, 
-		typename Data = void,
+		typename Key = Empty, 
+		typename Data = Empty,
 		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
+		typename Propagation = Empty,
+		typename SentinelData = Empty,
 		bool UserDataInSentinelNodes = false,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlackTree_Set = 
@@ -1460,11 +1456,11 @@ namespace Pastel
 	// Multi-map
 
 	template <
-		typename Key = void, 
-		typename Data = void,
+		typename Key = Empty, 
+		typename Data = Empty,
 		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
+		typename Propagation = Empty,
+		typename SentinelData = Empty,
 		bool UserDataInSentinelNodes = false,
 		template <typename> class Customization = Empty_RedBlackTree_Customization>
 	using RedBlackTree_MultiSet = 

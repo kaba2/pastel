@@ -105,17 +105,17 @@ The nodes of the red-black tree form the following inheritance hierarchy:
 	Node
 	  ^
 	  |
-	Propagation_Node --> Propagation_Class 
+	Propagation_Node
 	  ^    ^
 	  |    |
-	  |  Sentinel_Node --> SentinelData_Class
+	  |  Sentinel_Node
 	  |
-	Data_Node --> Data_Class 
+	Data_Node
 	  ^    ^
 	  |    |
-	  |  Sentinel_Node --> SentinelData_Class
+	  |  Sentinel_Node
 	  |
-	Key_Node --> Key_Class
+	Key_Node
 
 The `Node` contains the information common to all nodes, which means the children and the parent of the node, the color of the node, and the size of the subtree under that node (for efficient splits). The other node-types are derived from the `Node` to add additional user-defined data. Inheritance is used for two reasons. First, this way the data-types make use of the empty base-class optimization, in case some data is not used. Second, the sentinel data is not used for a data node, and user data and a key is not used for a sentinel node, which again saves memory. Each allocated node is either of the type `Sentinel_Node` or `Node`. The user may also specify the sentinel node to contain user-data, in which case the base class of `Sentinel_Node` is the `Data_Node`.
 

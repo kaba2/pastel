@@ -3,7 +3,6 @@
 #ifndef PASTELSYS_REDBLACKTREE_FWD_H
 #define PASTELSYS_REDBLACKTREE_FWD_H
 
-#include "pastel/sys/generic/class.h"
 #include "pastel/sys/range.h"
 
 #include <type_traits>
@@ -58,24 +57,13 @@ namespace Pastel
 		static constexpr bool UserDataInSentinelNodes_ =
 			UserDataInSentinelNodes;
 
-		struct Key_Tag;
-		using Key_Class = Class<Key, Key_Tag>;
-		using Key_Class_ = Key_Class;
-
-		struct Data_Tag;
-		using Data_Class = Class<Data, Data_Tag>;
-		using Data_Class_ = Data_Class;
-
-		struct Propagation_Tag;
-		using Propagation_Class = Class<Propagation, Propagation_Tag>;
-		using Propagation_Class_ = Propagation_Class;
-
-		struct SentinelData_Tag;
-		using SentinelData_Class = Class<SentinelData, SentinelData_Tag>;
-		using SentinelData_Class_ = SentinelData_Class;
+		using Key_ = Key;
+		using Data_ = Data;
+		using Propagation_ = Propagation;
+		using SentinelData_ = SentinelData;
 
 		static constexpr bool DereferenceToData =
-			!std::is_same<Data, void>::value;
+			!std::is_same<Data, Empty>::value;
 
 		class Node_Settings;
 		using Propagation_Node = RedBlackTree_::Propagation_Node<Node_Settings>;
@@ -85,10 +73,10 @@ namespace Pastel
 		{
 		public:
 			PASTEL_FWD(Key);
-			using Key_Class = Key_Class_;
-			using Propagation_Class = Propagation_Class_;
-			using Data_Class = Data_Class_;
-			using SentinelData_Class = SentinelData_Class_;
+			using Key = Key_;
+			using Propagation = Propagation_;
+			using Data = Data_;
+			using SentinelData = SentinelData_;
 			static constexpr bool UserDataInSentinelNodes =
 				UserDataInSentinelNodes_;
 			using EndBase = typename std::conditional<
@@ -200,11 +188,11 @@ namespace Pastel
 {
 
 	template <
-		typename Key_ = void, 
-		typename Data_ = void,
+		typename Key_ = Empty, 
+		typename Data_ = Empty,
 		typename Less_ = LessThan,
-		typename Propagation_ = void,
-		typename SentinelData_ = void,
+		typename Propagation_ = Empty,
+		typename SentinelData_ = Empty,
 		bool MultipleKeys_ = false,
 		bool UserDataInSentinelNodes_ = false>
 	class RedBlackTree_Set_Settings
@@ -231,11 +219,11 @@ namespace Pastel
 	// Map
 	
 	template <
-		typename Key = void, 
-		typename Data = void,
+		typename Key = Empty, 
+		typename Data = Empty,
 		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
+		typename Propagation = Empty,
+		typename SentinelData = Empty,
 		bool UserDataInSentinelNodes = false>
 	using RedBlackTree_Set_Fwd = 
 		RedBlackTree_Fwd<RedBlackTree_Set_Settings<
@@ -245,11 +233,11 @@ namespace Pastel
 	// Multi-map
 
 	template <
-		typename Key = void, 
-		typename Data = void,
+		typename Key = Empty, 
+		typename Data = Empty,
 		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
+		typename Propagation = Empty,
+		typename SentinelData = Empty,
 		bool UserDataInSentinelNodes = false>
 	using RedBlackTree_MultiSet_Fwd = 
 		RedBlackTree_Fwd<RedBlackTree_Set_Settings<

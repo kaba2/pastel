@@ -1,19 +1,20 @@
 #ifndef PASTELSYS_REFINABLE_PARTITION_FWD_H
 #define PASTELSYS_REFINABLE_PARTITION_FWD_H
 
-#include "pastel/sys/generic/class.h"
-
 #include <list>
 
 namespace Pastel
 {
 	
-	template <typename ElementData, typename SetData>
+	template <typename ElementData_, typename SetData_>
 	class RefinablePartition_Fwd
 	{
 	public:
 		class Element;
 		using ElementSet = std::list<Element>;
+
+		using ElementData = ElementData_;
+		using SetData = SetData_;
 
 		typedef typename ElementSet::iterator
 			Element_Iterator;
@@ -24,9 +25,6 @@ namespace Pastel
 		typedef typename ElementSet::const_iterator
 			Element_ConstIterator;
 	#endif
-
-		struct Element_Tag;
-		using ElementData_Class = Class<ElementData, Element_Tag>;
 
 		class Set;
 		using SetSet = std::list<Set>;
@@ -40,9 +38,6 @@ namespace Pastel
 		typedef typename SetSet::const_iterator
 			Set_ConstIterator;
 	#endif
-
-		struct Set_Tag;
-		using SetData_Class = Class<SetData, Set_Tag>;
 
 		using MemberSet = std::list<Element_Iterator>;
 

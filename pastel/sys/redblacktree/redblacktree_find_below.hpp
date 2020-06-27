@@ -18,7 +18,7 @@ namespace Pastel
 			return cend();
 		}
 
-		const Key_Class& key = below.key();
+		const Key& key = below.key();
 		ConstIterator minElement = cend();
 		ConstIterator minSubtree = cend();
 		ConstIterator node = below;

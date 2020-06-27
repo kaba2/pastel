@@ -2,7 +2,6 @@
 #define PASTELSYS_REFINABLE_PARTITION_SET_H
 
 #include "pastel/sys/refinable_partition/refinable_partition.h"
-#include "pastel/sys/generic/class.h"
 
 // For swap, FIX: replace with utility once C++11 support improves.
 #include <algorithm>
@@ -14,7 +13,6 @@ namespace Pastel
 		typename ElementData,
 		typename SetData>
 	class RefinablePartition_Fwd<ElementData, SetData>::Set
-		: public SetData_Class
 	{
 	public:
 		//! Move-constructs from another set.
@@ -25,7 +23,7 @@ namespace Pastel
 		FIX: Delete after emplace becomes available in Visual Studio.
 		*/
 		Set(Set&& that)
-			: SetData_Class(std::move((SetData_Class&&)that))
+			: data_(std::move((SetData&&)that))
 			, begin_(std::move(that.begin_))
 			, last_(std::move(that.last_))
 			, unmarkedBegin_(std::move(that.unmarkedBegin_))
@@ -40,8 +38,16 @@ namespace Pastel
 		template <typename Type>
 		Set& operator=(Type&& that)
 		{
-			((SetData_Class&)*this) = std::forward<Type>(that);
+			data() = std::forward<Type>(that);
 			return *this;
+		}
+
+		SetData& data() {
+			return data_;
+		}
+
+		const SetData& data() const {
+			return data_;
 		}
 
 		//! Returns the number of elements.
@@ -149,8 +155,8 @@ namespace Pastel
 			Split_Iterator split,
 			integer elements,
 			bool type,
-			SetData_Class data)
-			: SetData_Class(std::move(data))
+			SetData data)
+			: data_(std::move(data))
 			, begin_(begin)
 			, last_(elements > 0 ? std::prev(end) : end)
 			, unmarkedBegin_(begin)
@@ -400,6 +406,9 @@ namespace Pastel
 				--last_;
 			}
 		}
+
+		BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+		SetData data_;
 
 		//! The first iterator of the member-set.
 		Member_Iterator begin_;

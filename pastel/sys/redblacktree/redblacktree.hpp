@@ -67,8 +67,8 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::allocateNode(
-		const Key_Class& key, 
-		const Data_Class& data)
+		const Key& key, 
+		const Data& data)
 	-> Key_Node*
 	{
 		Key_Node* node = new Key_Node(key, data);
@@ -104,7 +104,7 @@ namespace Pastel
 
 		this->updatePropagation(
 			element,
-			(Propagation_Class&)element.propagation());
+			(Propagation&)element.propagation());
 
 		return true;
 	}

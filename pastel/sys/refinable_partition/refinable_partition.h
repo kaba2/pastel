@@ -26,25 +26,25 @@ namespace Pastel
 	part.
 	*/
 	template <
-		typename ElementData = void, 
-		typename SetData = void>
+		typename ElementData_ = Empty,
+		typename SetData_ = Empty>
 	class RefinablePartition
-		: public RefinablePartition_Fwd<ElementData, SetData>
+		: public RefinablePartition_Fwd<ElementData_, SetData_>
 	{
 	public:
-		using Fwd = RefinablePartition_Fwd<ElementData, SetData>;
+		using Fwd = RefinablePartition_Fwd<ElementData_, SetData_>;
 
 		PASTEL_FWD(Element);
 		PASTEL_FWD(ElementSet);
 		PASTEL_FWD(Element_Iterator);
 		PASTEL_FWD(Element_ConstIterator);
-		PASTEL_FWD(ElementData_Class);
+		PASTEL_FWD(ElementData);
 
 		PASTEL_FWD(Set);
 		PASTEL_FWD(SetSet);
 		PASTEL_FWD(Set_Iterator);
 		PASTEL_FWD(Set_ConstIterator);
-		PASTEL_FWD(SetData_Class);
+		PASTEL_FWD(SetData);
 
 		PASTEL_FWD(MemberSet);
 		PASTEL_FWD(Member_Iterator);
@@ -92,7 +92,7 @@ namespace Pastel
 				++set)
 			{
 				// Create a copy-set.
-				Set_Iterator copySet = copy.addSet(*set);
+				Set_Iterator copySet = copy.addSet(set->data());
 
 				// Then copy the elements from the
 				// set to the copy-set.
@@ -102,7 +102,7 @@ namespace Pastel
 				{
 					Element_Iterator element = *member;
 					Element_Iterator copyElement = 
-						copy.insertOne(copySet, *element);
+						copy.insertOne(copySet, element->data());
 					if (element->marked())
 					{
 						// If the element is marked,
@@ -192,7 +192,7 @@ namespace Pastel
 		strong
 		*/
 		Set_Iterator addSet(
-			SetData_Class setData = SetData_Class())
+			SetData setData = SetData())
 		{
 			return setSet_.emplace(
 				setSet_.end(), 
@@ -216,7 +216,7 @@ namespace Pastel
 		Set_Iterator addSet(
 			const ElementData_ConstIterator& begin,
 			const ElementData_ConstIterator& end,
-			SetData_Class setData = SetData_Class())
+			SetData setData = SetData())
 		{
 			Set_Iterator set =
 				addSet(std::move(setData));
@@ -317,7 +317,7 @@ namespace Pastel
 						setSet_.end(),
 						Set(set->begin_, set->unmarkedBegin_, 
 						splitSet_.end(), set->marked(),
-						!set->type(), *set));
+						!set->type(), set->data()));
 					
 					// Use the current set for the larger
 					// unmarked part.
@@ -332,7 +332,7 @@ namespace Pastel
 						Set(set->unmarkedBegin_, cast(set->cend()),
 						splitSet_.end(), set->unmarked(),
 						set->type(),
-						*set));
+						set->data()));
 
 					// Use the current set for the larger 
 					// marked part.
@@ -424,7 +424,7 @@ namespace Pastel
 		*/
 		Element_Iterator insertOne(
 			const Set_ConstIterator& set,
-			ElementData_Class elementData = ElementData_Class())
+			ElementData elementData = ElementData())
 		{
 			ENSURE(set != cSetEnd());
 

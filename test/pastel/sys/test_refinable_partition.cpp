@@ -22,7 +22,7 @@ namespace
 	typedef Partition::Element_ConstIterator 
 		Element_ConstIterator;
 
-	template <integer N, typename Type>
+	template <int N, typename Type>
 	bool same(Type (&data)[N], 
 		Partition::Set_ConstIterator set)
 	{
@@ -41,7 +41,7 @@ namespace
 		std::vector<Type> bSet;
 		while(iter != end)
 		{
-			bSet.push_back(**iter);
+			bSet.push_back((*iter)->data());
 			++iter;
 		}
 		std::sort(bSet.begin(), bSet.end());
@@ -68,7 +68,7 @@ TEST_CASE("Various (RefinablePartition)")
 		REQUIRE(partition.sets() == 1);
 		REQUIRE(partition.elements() == 5);
 		REQUIRE(same(data, partition.setBegin()));
-		REQUIRE(*partition.setBegin() == 0);
+		REQUIRE(partition.setBegin()->data() == 0);
 	}
 
 	partition.mark(
@@ -182,7 +182,7 @@ namespace
 			partition.cSetBegin()->cend(),
 			[&](const Element_ConstIterator& element)
 		{
-			std::cout << *element << " ";
+			std::cout << element->data() << " ";
 		});
 		std::cout << std::endl;
 	}

@@ -8,8 +8,8 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::insert(
-		const Key_Class& key, 
-		const Data_Class& data)
+		const Key& key, 
+		const Data& data)
 	-> Insert_Return
 	{
 		auto equalAndUpper = findEqualAndUpper(key);

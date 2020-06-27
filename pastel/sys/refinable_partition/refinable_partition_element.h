@@ -2,14 +2,12 @@
 #define PASTELSYS_REFINABLE_PARTITION_ELEMENT_H
 
 #include "pastel/sys/refinable_partition/refinable_partition.h"
-#include "pastel/sys/generic/class.h"
 
 namespace Pastel
 {
 
 	template <typename ElementData, typename SetData>
 	class RefinablePartition_Fwd<ElementData, SetData>::Element
-		: public ElementData_Class
 	{
 	public:
 		template <typename, typename>
@@ -25,7 +23,7 @@ namespace Pastel
 		FIX: Delete after emplace becomes available in Visual Studio.
 		*/
 		Element(Element&& that)
-			: ElementData_Class(std::move((ElementData_Class&&)that))
+			: data_(std::move((ElementData&&)that))
 			, set_(std::move(that.set_))
 			, member_(std::move(that.member_))
 			, type_(std::move(that.type_))
@@ -36,8 +34,16 @@ namespace Pastel
 		template <typename Type>
 		Element& operator=(Type&& that)
 		{
-			((ElementData_Class&)*this) = std::forward<Type>(that);
+			data() = std::forward<Type>(that);
 			return *this;
+		}
+
+		ElementData& data() {
+			return data_;
+		}
+
+		const ElementData& data() const {
+			return data_;
 		}
 
 		//! Returns the containing set.
@@ -83,8 +89,8 @@ namespace Pastel
 		Element(
 			Set_Iterator set,
 			Member_Iterator member,
-			ElementData_Class data)
-			: ElementData_Class(std::move(data))
+			ElementData data)
+			: data_(std::move(data))
 			, set_(set)
 			, member_(member)
 			, type_(set->type())
@@ -108,6 +114,8 @@ namespace Pastel
 
 			ASSERT(marked() == markIt);
 		}
+
+		ElementData data_;
 
 		//! The set which contains this element.
 		Set_Iterator set_;

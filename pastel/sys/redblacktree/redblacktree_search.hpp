@@ -9,7 +9,7 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	template <typename DownFilter>
 	auto RedBlackTree<Settings, Customization>::find(
-		const Key_Class& key,
+		const Key& key,
 		const DownFilter& filter) const
 	-> ConstIterator
 	{
@@ -20,7 +20,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::findEqualAndUpper(
-		const Key_Class& key,
+		const Key& key,
 		const ConstIterator& start) const
 		-> FindEqual_Return
 	{
@@ -64,7 +64,7 @@ namespace Pastel
 	template <typename Settings, template <typename> class Customization>
 	template <typename DownFilter>
 	auto RedBlackTree<Settings, Customization>::lowerBound(
-		const Key_Class& key,
+		const Key& key,
 		const FindEqual_Return& equalAndUpper,
 		const DownFilter& filter) const
 		-> ConstIterator
@@ -93,7 +93,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	auto RedBlackTree<Settings, Customization>::findInsert(
-		const Key_Class& key, 
+		const Key& key, 
 		const FindEqual_Return& equalAndUpper) const
 		-> FindInsert_Return
 	{
