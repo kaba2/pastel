@@ -58,6 +58,7 @@ link_libraries(${Boost_LIBRARIES})
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 include_directories(${EIGEN3_INCLUDE_DIRS})
+link_libraries(Eigen3::Eigen)
 
 find_package(TBB REQUIRED)
 # include_directories (${TbbIncludeDirectory})
