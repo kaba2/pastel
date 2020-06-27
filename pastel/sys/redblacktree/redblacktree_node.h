@@ -192,6 +192,7 @@ namespace Pastel
 			Propagation_Node& operator=(Propagation_Node that) = delete;
 
 		private:
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
 			Propagation propagation_;
 		};
 
@@ -225,6 +226,7 @@ namespace Pastel
 			Sentinel_Node(Sentinel_Node&& that) = delete;
 			Sentinel_Node& operator=(Sentinel_Node that) = delete;
 
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
 			SentinelData data_;
 		};
 
@@ -264,6 +266,7 @@ namespace Pastel
 			Data_Node& operator=(Data_Node that) = delete;
 
 		private:
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
 			Data data_;
 		};
 
@@ -303,6 +306,7 @@ namespace Pastel
 			Key_Node& operator=(Key_Node that) = delete;
 
 		private:
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
 			Key key_;
 		};
 
