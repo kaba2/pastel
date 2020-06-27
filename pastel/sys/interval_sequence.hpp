@@ -19,8 +19,8 @@ namespace Pastel
 		PENSURE(isIntervalSequence(aSet));
 		PENSURE(isIntervalSequence(bSet));
 
-		auto a = boost::begin(aSet);
-		auto aEnd = boost::end(aSet);
+		auto a = ranges::begin(aSet);
+		auto aEnd = ranges::end(aSet);
 
 		if (a == aEnd)
 		{
@@ -28,8 +28,8 @@ namespace Pastel
 			return;
 		}
 
-		auto b = boost::begin(bSet);
-		auto bEnd = boost::end(bSet);
+		auto b = ranges::begin(bSet);
+		auto bEnd = ranges::end(bSet);
 
 		integer t = *a;
 		while(a != aEnd)
@@ -132,8 +132,8 @@ namespace Pastel
 	bool isIntervalSequence(
 		const A_Range& aSet)
 	{
-		auto a = boost::begin(aSet);
-		auto aEnd = boost::end(aSet);
+		auto a = ranges::begin(aSet);
+		auto aEnd = ranges::end(aSet);
 
 		while(a != aEnd)
 		{

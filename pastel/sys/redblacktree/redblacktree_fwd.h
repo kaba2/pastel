@@ -106,11 +106,11 @@ namespace Pastel
 			typename NodePtr, 
 			bool DereferenceToData>
 		class Range_
-		: public boost::iterator_range<RedBlackTree_::Iterator<
+		: public ranges::subrange<RedBlackTree_::Iterator<
 			NodePtr, Node_Settings, DereferenceToData>>
 		{
 		public:
-			using Base = boost::iterator_range<RedBlackTree_::Iterator<
+			using Base = ranges::subrange<RedBlackTree_::Iterator<
 				NodePtr, Node_Settings, DereferenceToData>>;
 
 			//! Forwards all constructors to the underlying range.

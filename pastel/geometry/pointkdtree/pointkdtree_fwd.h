@@ -95,12 +95,12 @@ namespace Pastel
 		using Point_ConstIterator = 
 			typename PointSet::const_iterator;
 		using Point_ConstRange = 
-			boost::iterator_range<Point_ConstIterator>;
+			ranges::subrange<Point_ConstIterator>;
 
 		using PointData_ConstIterator = 
 			boost::indirect_iterator<Point_ConstIterator, const Point>;
 		using PointData_ConstRange = 
-			boost::iterator_range<PointData_ConstIterator>;
+			ranges::subrange<PointData_ConstIterator>;
 	};	
 
 }

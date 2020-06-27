@@ -545,7 +545,7 @@ namespace Pastel
 	// uniformlySampleSphere
 
 	template <typename Real, integer N, RequiresC<(N == 1)>>
-	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
+	Vector<Real, AddN<N>> uniformlySampleSphere(
 		const Vector<Real, N>& uv)
 	{
 		const Real angle = 2 * constantPi<Real>() * uv[0];
@@ -556,7 +556,7 @@ namespace Pastel
 	}
 
 	template <typename Real, integer N, RequiresC<(N == 2)>>
-	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
+	Vector<Real, AddN<N>> uniformlySampleSphere(
 		const Vector<Real, N>& uv)
 	{
 		const Real phi(2 * constantPi<Real>() * uv[0]);
@@ -572,7 +572,7 @@ namespace Pastel
 	// uniformlySampleHemisphere
 
 	template <typename Real, integer N, RequiresC<(N == 1)>>
-	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleHemisphere(
+	Vector<Real, AddN<N>> uniformlySampleHemisphere(
 		const Vector<Real, N>& uv)
 	{
 		const Real phi = constantPi<Real>() * uv[0];
@@ -582,7 +582,7 @@ namespace Pastel
 	}
 
 	template <typename Real, integer N, RequiresC<(N == 2)>>
-	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleHemisphere(
+	Vector<Real, AddN<N>> uniformlySampleHemisphere(
 		const Vector<Real, N>& uv)
 	{
 		const Real phi(2 * constantPi<Real>() * uv[0]);
@@ -598,7 +598,7 @@ namespace Pastel
 	// cosineSampleHemisphere
 
 	template <typename Real, integer N>
-	Vector<Real, ModifyN<N, N + 1>::Result> cosineSampleHemisphere(
+	Vector<Real, AddN<N>> cosineSampleHemisphere(
 		const Vector<Real, N>& uv)
 	{
 		// Malley's method:

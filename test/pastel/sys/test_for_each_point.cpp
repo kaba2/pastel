@@ -49,7 +49,7 @@ TEST_CASE("for_each_point (for_each_point)")
 			Box(Point(1, 2), Point(3, 5)),
 			report);
 
-		REQUIRE(boost::equal(pointSet, correctSet));
+		REQUIRE(ranges::equal(pointSet, correctSet));
 	}
 
 	{
@@ -68,7 +68,7 @@ TEST_CASE("for_each_point (for_each_point)")
 			Box(Point(1, 2), Point(3, 5)),
 			report);
 
-		REQUIRE(boost::equal(pointSet, correctSet));
+		REQUIRE(ranges::equal(pointSet, correctSet));
 	}
 }
 

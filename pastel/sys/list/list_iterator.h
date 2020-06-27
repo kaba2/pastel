@@ -24,8 +24,8 @@ namespace Pastel
 			typename std::conditional<
 				std::is_const<
 				typename std::remove_pointer<typename Settings::NodePtr>::type>::value,
-				const typename Settings::Node_Settings::Data_Class&,
-				typename Settings::Node_Settings::Data_Class&>::type,
+				const typename Settings::Node_Settings::Data,
+				typename Settings::Node_Settings::Data>::type,
 			boost::bidirectional_traversal_tag>
 		{
 		public:
@@ -33,8 +33,8 @@ namespace Pastel
 			PASTEL_FWD(Node_Settings);
 			PASTEL_FWD(NodePtr);
 
-			using Data_Class = typename Node_Settings::Data_Class;
-			using EndData_Class = typename Node_Settings::EndData_Class;
+			using Data = typename Node_Settings::Data;
+			using EndData = typename Node_Settings::EndData;
 			using EndBase = typename Node_Settings::EndBase;
 			static constexpr bool UserDataInEndNode =
 				Settings::UserDataInEndNode;
@@ -47,8 +47,8 @@ namespace Pastel
 
 				static constexpr bool value = 
 					std::is_convertible<typename That_Settings::NodePtr, NodePtr>::value &&
-					std::is_same<typename That_Node_Settings::Data_Class, Data_Class>::value &&
-					std::is_same<typename That_Node_Settings::EndData_Class, EndData_Class>::value;
+					std::is_same<typename That_Node_Settings::Data, Data>::value &&
+					std::is_same<typename That_Node_Settings::EndData, EndData>::value;
 			};
 
 			Iterator()
@@ -72,8 +72,8 @@ namespace Pastel
 
 			using DataRef = typename std::conditional<
 				std::is_const<typename std::remove_pointer<NodePtr>::type>::value,
-				const Data_Class&,
-				Data_Class&>::type;
+				const Data&,
+				Data&>::type;
 
 			//! Returns the data of the node.
 			/*!
@@ -87,7 +87,7 @@ namespace Pastel
 			{
 				PENSURE(!empty());
 				PENSURE(UserDataInEndNode || !isEnd());
-				return *((Data_Node<Data_Class>*)node());
+				return ((Data_Node<Data>*)node())->data();
 			}
 
 			//! Returns the end-data.
@@ -98,10 +98,10 @@ namespace Pastel
 			Time complexity: O(1)
 			Exception safety: nothrow
 			*/
-			EndData_Class& endData() const
+			EndData& endData() const
 			{
 				PENSURE(isEnd());
-				return *((End_Node<EndBase, EndData_Class>*)node());
+				return ((End_Node<EndBase, EndData>*)node())->data();
 			}
 
 			//! Returns whether this is a first iterator.

@@ -18,7 +18,7 @@ namespace Pastel
 	{
 		ENSURE_OP(bins, >, 0);
 
-		typedef typename boost::range_iterator<Real_ConstRange>::type
+		typedef ranges::iterator_t<Real_ConstRange>
 			Real_ConstIterator;
 		typedef typename boost::range_value<Real_ConstRange>::type
 			Real;

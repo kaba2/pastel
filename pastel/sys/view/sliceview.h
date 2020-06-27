@@ -35,13 +35,13 @@ namespace Pastel
 			ENSURE2(pivot >= 0 && pivot < view.extent()[fixedIndex], pivot, view.extent()[fixedIndex]);
 		}
 
-		const Vector<integer, ModifyN<N, N - 1>::Result>& extent() const
+		const Vector<integer, SubN<N>>& extent() const
 		{
 			return extent_;
 		}
 
 		ConstCursor constCursor(
-			const Vector<integer, ModifyN<N, N - 1>::Result>& position) const
+			const Vector<integer, SubN<N>>& position) const
 		{
 			Vector<integer, N> actualPosition(
 				extend(position, pivot_, fixedIndex_));
@@ -53,7 +53,7 @@ namespace Pastel
 	protected:
 		Contained_ConstView view_;
 		integer pivot_;
-		Vector<integer, ModifyN<N, N - 1>::Result> extent_;
+		Vector<integer, SubN<N>> extent_;
 		integer fixedIndex_;
 	};
 
@@ -102,7 +102,7 @@ namespace Pastel
 			ENSURE2(pivot >= 0 && pivot < view.extent()[fixedIndex], pivot, view.extent()[fixedIndex]);
 		}
 
-		Cursor cursor(const Vector<integer, ModifyN<N, N - 1>::Result>& position) const
+		Cursor cursor(const Vector<integer, SubN<N>>& position) const
 		{
 			Vector<integer, N> actualPosition(
 				extend(position, pivot_, fixedIndex_));

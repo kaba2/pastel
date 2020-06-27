@@ -110,8 +110,8 @@ namespace Pastel
 		using WordSet = std::array<Word, Words>;
 		using Word_Iterator = typename WordSet::iterator;
 		using Word_ConstIterator = typename WordSet::const_iterator; 
-		using Word_Range = boost::iterator_range<Word_Iterator>;
-		using Word_ConstRange = boost::iterator_range<Word_ConstIterator>;
+		using Word_Range = ranges::subrange<Word_Iterator>;
+		using Word_ConstRange = ranges::subrange<Word_ConstIterator>;
 
 		//! Constructs with zero.
 		/*!
@@ -715,7 +715,7 @@ namespace Pastel
 		*/
 		bool operator==(const MultiInteger& that) const
 		{
-			return boost::equal(wordSet_, that.wordSet_);
+			return ranges::equal(wordSet_, that.wordSet_);
 		}
 
 		//! Adds 'that' to this.

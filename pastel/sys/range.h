@@ -6,43 +6,43 @@
 
 #include "pastel/sys/mytypes.h"
 
-#include <boost/range/iterator_range.hpp>
-#include <boost/range/metafunctions.hpp>
+#include <range/v3/view/subrange.hpp>
+#include <range/v3/algorithm.hpp>
+#include <boost/iterator_adaptors.hpp>
 
 namespace Pastel
 {
 
 	template <typename Iterator>
-	boost::iterator_range<Iterator> range(
+	decltype(auto) range(
 		const Iterator& begin,
 		integer size)
 	{
 		//ENSURE_OP(size, >=, 0);
-		return boost::make_iterator_range(
-			begin, std::next(begin, size));
+		return ranges::subrange(begin, std::next(begin, size));
 	}
 
 	template <typename Iterator>
-	boost::iterator_range<Iterator> range(
+	decltype(auto) range(
 		const Iterator& begin,
 		const Iterator& end)
 	{
-		return boost::make_iterator_range(begin, end);
+		return ranges::subrange(begin, end);
 	}
 
 	template <typename Type, integer N>
-	boost::iterator_range<Type*> range(
+	decltype(auto) range(
 		Type (&that)[N])
 	{
-		return boost::make_iterator_range(
+		return ranges::subrange(
 			std::begin(that), std::end(that));
 	}
 	
 	template <typename Type>
-	boost::iterator_range<const Type*> range(
+	decltype(auto) range(
 		const std::initializer_list<Type>& that)
 	{
-		return boost::make_iterator_range(
+		return ranges::subrange(
 			std::begin(that), std::end(that));
 	}
 

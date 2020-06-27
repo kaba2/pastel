@@ -200,7 +200,7 @@ TEST_CASE("Simple (Simple)")
 		correctSet.emplace_back(2, 3);
 		correctSet.emplace_back(4, 1);
 
-		REQUIRE(boost::equal(resultSet, correctSet));
+		REQUIRE(ranges::equal(resultSet, correctSet));
 	}
 
 	{
@@ -211,7 +211,7 @@ TEST_CASE("Simple (Simple)")
 		REQUIRE(count == resultSet.size());
 
 		boost::sort(resultSet, order);
-		REQUIRE(boost::equal(resultSet, pointSet));
+		REQUIRE(ranges::equal(resultSet, pointSet));
 	}
 }
 
@@ -262,7 +262,7 @@ namespace
 			std::vector<Point> correctSet;
 			correctSet.emplace_back(point);
 
-			REQUIRE(boost::equal(resultSet, correctSet));
+			REQUIRE(ranges::equal(resultSet, correctSet));
 
 			Point a = point;
 			a[0] = nextGreater(a[0]);

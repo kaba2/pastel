@@ -77,49 +77,59 @@ namespace Pastel
 			Node* next_[2];
 		};
 
-		// Note: Writing EndData_Class instead of EndData_Class_
-		// triggers a bug in Visual Studio 2013.
-		template <typename Base, typename EndData_Class_>
-		class End_Node
-			: public Base
-			, public EndData_Class_
+		template <typename Base, typename EndData>
+		class End_Node : public Base
 		{
 		public:
-			End_Node()
+			End_Node() = default;
+
+			explicit End_Node(const EndData& data)
 				: Base()
-				, EndData_Class_()
+				, data_(data)
 			{
 			}
 
-			explicit End_Node(const EndData_Class_& data)
-				: Base()
-				, EndData_Class_(data)
-			{
+			EndData& data() {
+				return data_;
+			}
+
+			const EndData& data() const {
+				return data_;
 			}
 
 		private:
 			End_Node(const End_Node&) = delete;
 			End_Node& operator=(End_Node) = delete;
+
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+			EndData data_;
 		};
 
-		// Note: Writing Data_Class instead of Data_Class_
-		// triggers a bug in Visual Studio 2013.
-		template <typename Data_Class_>
-		class Data_Node
-			: public Node
-			, public Data_Class_
+		template <typename Data>
+		class Data_Node	: public Node
 		{
 		public:
 			template <typename... Type>
 			explicit Data_Node(Type&&... data)
 				: Node()
-				, Data_Class_(std::forward<Type>(data)...)
+				, data_(std::forward<Type>(data)...)
 			{
+			}
+
+			Data& data() {
+				return data_;
+			}
+
+			const Data& data() const {
+				return data_;
 			}
 
 		private:
 			Data_Node(const Data_Node&) = delete;
 			Data_Node& operator=(Data_Node) = delete;
+
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+			Data data_;
 		};
 
 	}

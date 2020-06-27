@@ -45,7 +45,7 @@ TEST_CASE("Simple (interval_sequence)")
 			10, 11
 		};
 
-		REQUIRE(boost::equal(cSet, correctSet));
+		REQUIRE(ranges::equal(cSet, correctSet));
 	}
 
 	std::vector<integer> emptySet;
@@ -76,6 +76,6 @@ TEST_CASE("Simple (interval_sequence)")
 			10, 11
 		};
 
-		REQUIRE(boost::equal(cSet, correctSet));
+		REQUIRE(ranges::equal(cSet, correctSet));
 	}
 }

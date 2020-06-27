@@ -13,7 +13,7 @@ namespace Pastel
 		typename ForwardIterator,
 		typename Predicate>
 	bool pairwiseAllOf(
-		const boost::iterator_range<ForwardIterator>& range,
+		const ranges::subrange<ForwardIterator>& range,
 		const Predicate& predicate)
 	{
 		if (range.empty())

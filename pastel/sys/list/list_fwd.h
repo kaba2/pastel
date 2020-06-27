@@ -3,7 +3,6 @@
 #ifndef PASTELSYS_LIST_FWD_H
 #define PASTELSYS_LIST_FWD_H
 
-#include "pastel/sys/generic/class.h"
 #include "pastel/sys/range.h"
 
 namespace Pastel
@@ -24,14 +23,14 @@ namespace Pastel
 		class Data_Node;
 
 		template <
-			typename Data_Class_,
-			typename EndData_Class_,
+			typename Data_,
+			typename EndData_,
 			typename EndBase_>
 		class Node_Settings
 		{
 		public:
-			using Data_Class = Data_Class_;
-			using EndData_Class = EndData_Class_;
+			using Data = Data_;
+			using EndData = EndData_;
 			using EndBase = EndBase_;
 		};
 
@@ -68,25 +67,17 @@ namespace Pastel
 		static constexpr bool UserDataInEndNode = 
 			Settings::UserDataInEndNode;
 
-		struct Data_Tag;
-		using Data_Class = 
-			Class<Data, Data_Tag>;
-
-		struct EndData_Tag;
-		using EndData_Class = 
-			Class<EndData, EndData_Tag>;
-
 		using Node = List_::Node;
-		using Data_Node = List_::Data_Node<Data_Class>;
+		using Data_Node = List_::Data_Node<Data>;
 
 		using EndBase = typename std::conditional<
 			UserDataInEndNode,
 			Data_Node, Node>::type;
 
-		using End_Node = List_::End_Node<EndBase, EndData_Class>;
+		using End_Node = List_::End_Node<EndBase, EndData>;
 
 		using Node_Settings =
-			List_::Node_Settings<Data_Class, EndData_Class, Node>;
+			List_::Node_Settings<Data, EndData, Node>;
 
 		using Iterator_Settings = List_::Iterator_Settings<
 			Node_Settings, Node*, UserDataInEndNode>;
@@ -95,8 +86,8 @@ namespace Pastel
 
 		using Iterator = List_::Iterator<Iterator_Settings>;
 		using ConstIterator = List_::Iterator<ConstIterator_Settings>;
-		using Range = boost::iterator_range<Iterator>;
-		using ConstRange = boost::iterator_range<ConstIterator>;
+		using Range = ranges::subrange<Iterator>;
+		using ConstRange = ranges::subrange<ConstIterator>;
 
 		// Compability with boost iterator ranges.
 

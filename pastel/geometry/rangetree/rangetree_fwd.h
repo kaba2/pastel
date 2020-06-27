@@ -35,8 +35,8 @@ namespace Pastel
 		using EntrySet = std::vector<Entry>;
 		using Entry_Iterator = typename EntrySet::iterator;
 		using Entry_ConstIterator = typename EntrySet::const_iterator;
-		using Entry_Range = boost::iterator_range<Entry_Iterator>;
-		using Entry_ConstRange = boost::iterator_range<Entry_ConstIterator>;
+		using Entry_Range = ranges::subrange<Entry_Iterator>;
+		using Entry_ConstRange = ranges::subrange<Entry_ConstIterator>;
 
 		using Node_Iterator = Node*;
 		using Node_ConstIterator = const Node*;

@@ -64,9 +64,9 @@ TEST_CASE("automaton_closure (automaton)")
 			std::end(correctClosure),
 			IteratorAddress_LessThan());
 
-		REQUIRE(boost::equal(range(correctClosure), closureMap[a]));
-		REQUIRE(boost::equal(range(correctClosure), closureMap[b]));
-		REQUIRE(boost::equal(range(correctClosure), closureMap[c]));
+		REQUIRE(ranges::equal(range(correctClosure), closureMap[a]));
+		REQUIRE(ranges::equal(range(correctClosure), closureMap[b]));
+		REQUIRE(ranges::equal(range(correctClosure), closureMap[c]));
 	}
 
 	{
@@ -76,7 +76,7 @@ TEST_CASE("automaton_closure (automaton)")
 			std::end(correctClosure),
 			IteratorAddress_LessThan());
 
-		REQUIRE(boost::equal(range(correctClosure), closureMap[d]));
+		REQUIRE(ranges::equal(range(correctClosure), closureMap[d]));
 	}
 
 	{
@@ -86,7 +86,7 @@ TEST_CASE("automaton_closure (automaton)")
 			std::end(correctClosure),
 			IteratorAddress_LessThan());
 
-		REQUIRE(boost::equal(range(correctClosure), closureMap[e]));
+		REQUIRE(ranges::equal(range(correctClosure), closureMap[e]));
 	}
 }
 

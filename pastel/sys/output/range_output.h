@@ -38,10 +38,10 @@ namespace Pastel
 	};
 
 	template <typename Range>
-	Range_Output<typename boost::range_iterator<Range>::type> rangeOutput(
+	Range_Output<ranges::iterator_t<Range>> rangeOutput(
 		const Range& range)
 	{
-		typedef typename boost::range_iterator<Range>::type
+		typedef ranges::iterator_t<Range>
 			Iterator;
 
 		return Range_Output<Iterator>(

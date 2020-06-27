@@ -142,7 +142,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	using CountingRange = boost::iterator_range<CountingIterator<Type>>;
+	using CountingRange = ranges::subrange<CountingIterator<Type>>;
 
 	template <typename Type>
 	CountingRange<Type> countingRange(

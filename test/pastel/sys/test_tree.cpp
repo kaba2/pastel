@@ -38,12 +38,12 @@ namespace
 	template <integer N>
 	bool same(const Tre& tree, integer (&correctSet)[N])
 	{
-		return boost::equal(range(correctSet), tree.crange(), EqualTo());
+		return ranges::equal(range(correctSet), tree.crange(), EqualTo());
 	}
 
 	bool same(const Tre& tree, const Tre& that)
 	{
-		return boost::equal(tree.crange(), that.crange(), EqualTo());
+		return ranges::equal(tree.crange(), that.crange(), EqualTo());
 	}
 
 }

@@ -76,7 +76,7 @@ namespace Pastel
 				}
 			}
 
-			void move(const Vector<integer, ModifyN<N, N - 1>::Result>& amount)
+			void move(const Vector<integer, SubN<N>>& amount)
 			{
 				cursor_.move(fixedIndex_, extend(amount, 0, fixedIndex_));
 			}

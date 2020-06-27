@@ -11,13 +11,13 @@ namespace Pastel
 	template <
 		typename Range,
 		typename Trindicator>
-	typename boost::range_iterator<Range>::type 
+	ranges::iterator_t<Range> 
 		fairStablePartition(
 			const Range& elementSet,
 			const Trindicator& trindicator)
 		{
-			using Iterator = typename boost::range_iterator<Range>::type;
-			using Type = typename boost::range_value<Range>::type;
+			using Iterator = ranges::iterator_t<Range>;
+			using Type = ranges::value_type_t<Range>;
 		
 			integer zeros = 0;
 			integer negatives = 0;

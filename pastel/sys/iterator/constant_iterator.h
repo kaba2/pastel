@@ -101,7 +101,7 @@ namespace Pastel
 
 	template <typename Type>
 	using ConstantRange = 
-		boost::iterator_range<ConstantIterator<Type>>;
+		ranges::subrange<ConstantIterator<Type>>;
 
 	template <typename Type>
 	ConstantRange<Type> constantRange(

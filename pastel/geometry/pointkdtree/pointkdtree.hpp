@@ -359,7 +359,7 @@ namespace Pastel
 	void PointKdTree<Settings, Customization>::erase(
 		const Point_ConstIterator_ConstRange& pointSet)
 	{
-		typedef typename boost::range_iterator<Point_ConstIterator_ConstRange>::type
+		typedef ranges::iterator_t<Point_ConstIterator_ConstRange>
 			Point_ConstIterator_ConstIterator;
 		
 		Point_ConstIterator_ConstIterator iter = 

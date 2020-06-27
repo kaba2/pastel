@@ -22,13 +22,13 @@ TEST_CASE("fair_stable_partition (fair_stable_partition)")
 				range(elementSet.begin(), elementSet.end()), 
 				trindicator);
 		
-		if (!boost::equal(leftSet, 
+		if (!ranges::equal(leftSet, 
 			range(elementSet.begin(), rightBegin)))
 		{
 			return false;
 		}
 
-		if (!boost::equal(rightSet, 
+		if (!ranges::equal(rightSet, 
 			range(rightBegin, elementSet.end())))
 		{
 			return false;

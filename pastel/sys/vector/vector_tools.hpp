@@ -150,14 +150,14 @@ namespace Pastel
 	}
 
 	template <typename Real, integer N, typename Expression>
-	inline Vector<Real, ModifyN<N, N - 1>::Result> shrink(
+	inline Vector<Real, SubN<N>> shrink(
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		PASTEL_STATIC_ASSERT(N > 1 || N == Dynamic);
 
 		integer size = that.size();
 
-		Vector<Real, ModifyN<N, N - 1>::Result> result(size - 1);
+		Vector<Real, SubN<N>> result(size - 1);
 		for (int i = 0;i < size - 1;++i)
 		{
 			result[i] = that[i];
@@ -167,7 +167,7 @@ namespace Pastel
 	}
 
 	template <typename Real, integer N, typename Expression>
-	inline Vector<Real, ModifyN<N, N - 1>::Result> shrink(
+	inline Vector<Real, SubN<N>> shrink(
 		const VectorExpression<Real, N, Expression>& that,
 		integer index)
 	{
@@ -175,7 +175,7 @@ namespace Pastel
 
 		integer size = that.size();
 
-		Vector<Real, ModifyN<N, N - 1>::Result> result(size - 1);
+		Vector<Real, SubN<N>> result(size - 1);
 		for (integer i = 0;i < index;++i)
 		{
 			result[i] = that[i];
@@ -193,7 +193,7 @@ namespace Pastel
 		integer N,
 		typename Expression>
 	class VectorExtend
-		: public VectorExpression<Real, ModifyN<N, N + 1>::Result, VectorExtend<Real, N, Expression> >
+		: public VectorExpression<Real, AddN<N>, VectorExtend<Real, N, Expression> >
 	{
 	public:
 

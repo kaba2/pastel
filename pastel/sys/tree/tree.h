@@ -29,8 +29,8 @@ namespace Pastel
 		using Iterator = Tree_::Iterator<Node*, Data_Class>;
 		using ConstIterator = Tree_::Iterator<const Node*, Data_Class>;
 
-		using Range = boost::iterator_range<Iterator>;
-		using ConstRange = boost::iterator_range<ConstIterator>;
+		using Range = ranges::subrange<Iterator>;
+		using ConstRange = ranges::subrange<ConstIterator>;
 
 	public:
 		//! Construct an empty tree.

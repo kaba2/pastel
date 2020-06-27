@@ -22,7 +22,7 @@ namespace Pastel
 	class SubArray
 	{
 	private:
-		static constexpr int Smaller = ModifyN<N, N - 1>::Result;
+		static constexpr int Smaller = SubN<N>;
 
 	public:
 		friend class ConstSubArray<Type, N>;
@@ -31,18 +31,18 @@ namespace Pastel
 			Iterator;
 		typedef SubArray_ConstIterator<Type, N> 
 			ConstIterator;
-		using Range = boost::iterator_range<Iterator>
+		using Range = ranges::subrange<Iterator>
 ;
-		using ConstRange = boost::iterator_range<ConstIterator>
+		using ConstRange = ranges::subrange<ConstIterator>
 ;
 
 		typedef SparseIterator<Type*> 
 			RowIterator;
 		typedef ConstSparseIterator<const Type*> 
 			ConstRowIterator;
-		using RowRange = boost::iterator_range<RowIterator>
+		using RowRange = ranges::subrange<RowIterator>
 ;
-		using ConstRowRange = boost::iterator_range<ConstRowIterator>
+		using ConstRowRange = ranges::subrange<ConstRowIterator>
 ;
 
 		// Using default copy constructor.
@@ -410,7 +410,7 @@ namespace Pastel
 	class ConstSubArray
 	{
 	private:
-		static constexpr int Smaller = ModifyN<N, N - 1>::Result;
+		static constexpr int Smaller = SubN<N>;
 
 	public:
 		friend class SubArray<Type, N>;
@@ -418,9 +418,9 @@ namespace Pastel
 		using ConstIterator = SubArray_ConstIterator<Type, N>;
 		using ConstRowIterator = ConstSparseIterator<const Type*>;
 
-		using ConstRange = boost::iterator_range<ConstIterator>
+		using ConstRange = ranges::subrange<ConstIterator>
 ;
-		using ConstRowRange = boost::iterator_range<ConstRowIterator>
+		using ConstRowRange = ranges::subrange<ConstRowIterator>
 ;
 
 		// Using default copy constructor.

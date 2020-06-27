@@ -28,7 +28,7 @@ namespace Pastel
 	template <
 		typename Range,
 		typename Trindicator>
-	typename boost::range_iterator<Range>::type 
+	ranges::iterator_t<Range> 
 		fairStablePartition(
 			const Range& elementSet,
 			const Trindicator& trindicator);

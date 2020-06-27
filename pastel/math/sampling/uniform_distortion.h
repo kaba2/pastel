@@ -106,11 +106,11 @@ namespace Pastel
 	*/
 
 	template <typename Real, integer N, RequiresC<(N == 1)> = 0>
-	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
+	Vector<Real, AddN<N>> uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, integer N, RequiresC<(N == 2)> = 0>
-	Vector<Real, ModifyN<N, N + 1>::Result> uniformlySampleSphere(
+	Vector<Real, AddN<N>> uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
 	// TODO: provide functions for 4d and up?
@@ -128,12 +128,12 @@ namespace Pastel
 	*/
 
 	template <typename Real, integer N, RequiresC<(N == 1)> = 0>
-	Vector<Real, ModifyN<N, N + 1>::Result>
+	Vector<Real, AddN<N>>
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, integer N, RequiresC<(N == 2)> = 0>
-	Vector<Real, ModifyN<N, N + 1>::Result>
+	Vector<Real, AddN<N>>
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 
@@ -153,7 +153,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, integer N>
-	Vector<Real, ModifyN<N, N + 1>::Result> cosineSampleHemisphere(
+	Vector<Real, AddN<N>> cosineSampleHemisphere(
 		const Vector<Real, N>& uv);
 
 }

@@ -9,13 +9,13 @@ namespace Pastel
 {
 
 	template <typename Real, integer N>
-	Vector<Real, ModifyN<N, N - 1>::Result> randomDirichlet(
+	Vector<Real, SubN<N>> randomDirichlet(
 		const Vector<Real, N>& shape)
 	{
 		PENSURE(allGreater(shape, 0));
 
 		integer n = shape.size() - 1;
-		Vector<Real, ModifyN<N, N - 1>::Result> u(ofDimension(n));
+		Vector<Real, SubN<N>> u(ofDimension(n));
 
 		Real gammaSum = 0;
 		for (integer i = 0;i < n;++i)

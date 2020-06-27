@@ -18,7 +18,7 @@ namespace Pastel
 		ENSURE_OP(axis, >=, 0);
 		ENSURE_OP(axis, <, subArray.n());
 
-		typedef SubArray<Type, ModifyN<N, N - 1>::Result>
+		typedef SubArray<Type, SubN<N>>
 			InputSlice;
 		typedef typename InputSlice::Iterator 
 			InputSliceIterator;
@@ -77,12 +77,12 @@ namespace Pastel
 		ENSURE_OP(axis, >=, 0);
 		ENSURE_OP(axis, <, dimension);
 
-		typedef SubArray<Type_A, ModifyN<N_A, N_A - 1>::Result>
+		typedef SubArray<Type_A, SubN<N_A>>
 			Slice_A;
 		typedef typename Slice_A::ConstIterator 
 			SliceIterator_A;
 
-		typedef SubArray<Type_B, ModifyN<N_B, N_B -1>::Result>
+		typedef SubArray<Type_B, SubN<N_B>>
 			Slice_B;
 		typedef typename Slice_B::Iterator 
 			SliceIterator_B;

@@ -223,7 +223,7 @@ namespace Pastel
 	}
 
 	template <typename Iterator>
-	boost::iterator_range<SparseIterator<Iterator> > sparseRange(
+	decltype(auto) sparseRange(
 		const Iterator& begin, const Iterator& end,
 		typename std::iterator_traits<Iterator>::difference_type delta)
 	{
@@ -235,7 +235,7 @@ namespace Pastel
 	}
 
 	template <typename ConstIterator>
-	boost::iterator_range<ConstSparseIterator<ConstIterator> > constSparseRange(
+	decltype(auto) constSparseRange(
 		const ConstIterator& begin, const ConstIterator& end,
 		typename std::iterator_traits<ConstIterator>::difference_type delta)
 	{

@@ -47,9 +47,9 @@ TEST_CASE("bounded_array (bounded_array)")
 		Set b = { 5, 3, 4 };
 
 		std::vector<integer> correctSet = { 5, 3, 4 };
-		REQUIRE(boost::equal(b.range(), range(correctSet.begin(), correctSet.end())));
-		REQUIRE(boost::equal(b.range(), correctSet));
-		REQUIRE(boost::equal(b, correctSet));
+		REQUIRE(ranges::equal(b.range(), range(correctSet.begin(), correctSet.end())));
+		REQUIRE(ranges::equal(b.range(), correctSet));
+		REQUIRE(ranges::equal(b, correctSet));
 
 		auto i = b.begin();
 		REQUIRE(*i == 5);
@@ -116,9 +116,9 @@ TEST_CASE("bounded_array (bounded_array)")
 		Set d(b);
 
 		Set correct = { 0, 1 };
-		REQUIRE(boost::equal(b, correct));
-		REQUIRE(boost::equal(c, correct));
-		REQUIRE(boost::equal(d, correct));
+		REQUIRE(ranges::equal(b, correct));
+		REQUIRE(ranges::equal(c, correct));
+		REQUIRE(ranges::equal(d, correct));
 	}
 }
 

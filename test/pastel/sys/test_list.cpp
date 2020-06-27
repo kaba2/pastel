@@ -20,7 +20,7 @@ namespace
 	bool equal(const Set& left, 
 		std::initializer_list<Type> right)
 	{
-		return boost::equal(left, right);
+		return ranges::equal(left, right);
 	}
 
 }
@@ -32,9 +32,9 @@ TEST_CASE("Iterators (List)")
 		REQUIRE(*a.begin() == 1);
 		REQUIRE(*a.last() == 3);
 		REQUIRE(a.last() == std::prev(a.end()));
-		REQUIRE(boost::equal(a.crange(), std::initializer_list<int>({1, 2, 3})));
-	}
-	{
+
+		REQUIRE(ranges::equal(a.crange(), std::initializer_list<int>({1, 2, 3})));
+
 		Iterator i = a.begin();
 		ConstIterator j = i;
 		REQUIRE(i == j);
@@ -74,9 +74,9 @@ TEST_CASE("Iterators (List)")
 		REQUIRE(*j == 4);
 	}
 	{
-		List_Set<integer, void> a;
+		List_Set<integer> a;
 		List_Set<integer, integer> b;
-		List_Set<void, integer> c;
+		List_Set<Empty, integer> c;
 		auto i = a.begin();
 		unused(i);
 		// The following should not compile.
@@ -127,7 +127,7 @@ TEST_CASE("CopyAndMove (List)")
 		Set b(a);
 		REQUIRE(testInvariants(a));
 		REQUIRE(testInvariants(b));
-		REQUIRE(boost::equal(a, b));
+		REQUIRE(ranges::equal(a, b));
 
 		Set c;
 		REQUIRE(testInvariants(c));
@@ -136,20 +136,20 @@ TEST_CASE("CopyAndMove (List)")
 		c = b;
 		REQUIRE(testInvariants(b));
 		REQUIRE(testInvariants(c));
-		REQUIRE(boost::equal(b, c));
+		REQUIRE(ranges::equal(b, c));
 		REQUIRE(c.end() == cEnd);
 
 		Set d = std::move(c);
 		REQUIRE(testInvariants(c));
 		REQUIRE(testInvariants(d));
-		REQUIRE(boost::equal(b, d));
+		REQUIRE(ranges::equal(b, d));
 		REQUIRE(c.empty());
 		REQUIRE(c.end() == cEnd);
 
 		c = std::move(d);
 		REQUIRE(testInvariants(c));
 		REQUIRE(testInvariants(d));
-		REQUIRE(boost::equal(b, c));
+		REQUIRE(ranges::equal(b, c));
 		REQUIRE(d.empty());
 		REQUIRE(c.end() == cEnd);
 
@@ -586,7 +586,7 @@ TEST_CASE("Splice (List)")
 			-4, 5
 		};
 		REQUIRE(b.size() == 14);
-		REQUIRE(boost::equal(b, correctSet));
+		REQUIRE(ranges::equal(b, correctSet));
 	}
 
 	b.splice(b.begin(), b, b.last());
@@ -601,7 +601,7 @@ TEST_CASE("Splice (List)")
 			-4
 		};
 		REQUIRE(b.size() == 14);
-		REQUIRE(boost::equal(b, correctSet));
+		REQUIRE(ranges::equal(b, correctSet));
 	}
 
 	b.splice(b.begin(), b);
@@ -616,7 +616,7 @@ TEST_CASE("Splice (List)")
 			-4
 		};
 		REQUIRE(b.size() == 14);
-		REQUIRE(boost::equal(b, correctSet));
+		REQUIRE(ranges::equal(b, correctSet));
 	}
 
 	c.splice(c.begin(), b);
@@ -632,7 +632,7 @@ TEST_CASE("Splice (List)")
 			-4
 		};
 		REQUIRE(c.size() == 14);
-		REQUIRE(boost::equal(c, correctSet));
+		REQUIRE(ranges::equal(c, correctSet));
 		REQUIRE(b.empty());
 		REQUIRE(b.size() == 0);
 	}
@@ -654,10 +654,10 @@ TEST_CASE("Splice (List)")
 		};
 
 		REQUIRE(b.size() == 1);
-		REQUIRE(boost::equal(b, bCorrectSet));
+		REQUIRE(ranges::equal(b, bCorrectSet));
 
 		REQUIRE(c.size() == 13);
-		REQUIRE(boost::equal(c, cCorrectSet));
+		REQUIRE(ranges::equal(c, cCorrectSet));
 	}
 
 	b.splice(b.begin(), c, c.begin());
@@ -676,10 +676,10 @@ TEST_CASE("Splice (List)")
 		};
 
 		REQUIRE(b.size() == 2);
-		REQUIRE(boost::equal(b, bCorrectSet));
+		REQUIRE(ranges::equal(b, bCorrectSet));
 
 		REQUIRE(c.size() == 12);
-		REQUIRE(boost::equal(c, cCorrectSet));
+		REQUIRE(ranges::equal(c, cCorrectSet));
 	}
 
 	Iterator iter(--c.end());

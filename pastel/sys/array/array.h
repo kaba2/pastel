@@ -35,8 +35,8 @@ namespace Pastel
 
 		using RowIterator = SparseIterator<Type*>;
 		using ConstRowIterator = ConstSparseIterator<const Type*>;
-		using RowRange = boost::iterator_range<RowIterator>;
-		using ConstRowRange = boost::iterator_range<ConstRowIterator>;
+		using RowRange = ranges::subrange<RowIterator>;
+		using ConstRowRange = ranges::subrange<ConstRowIterator>;
 
 		using Element = Type;
 		using Reference = Type&;
@@ -45,8 +45,8 @@ namespace Pastel
 		using Iterator = Type*;
 		using ConstIterator = const Type*;
 
-		using Range = boost::iterator_range<Iterator>;
-		using ConstRange = boost::iterator_range<ConstIterator>;
+		using Range = ranges::subrange<Iterator>;
+		using ConstRange = ranges::subrange<ConstIterator>;
 
 		using Cursor = Array_::Cursor<Type, N>;
 		using ConstCursor = Array_::ConstCursor<Type, N>;

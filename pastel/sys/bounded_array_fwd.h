@@ -29,8 +29,8 @@ namespace Pastel
 
 		using Iterator = BoundedArray_::Iterator<Element>;
 		using ConstIterator = BoundedArray_::Iterator<const Element>;
-		using Range = boost::iterator_range<Iterator>;
-		using ConstRange = boost::iterator_range<ConstIterator>;
+		using Range = ranges::subrange<Iterator>;
+		using ConstRange = ranges::subrange<ConstIterator>;
 
 		using iterator = Iterator;
 		using const_iterator = ConstIterator;

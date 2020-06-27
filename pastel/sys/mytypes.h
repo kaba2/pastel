@@ -24,6 +24,8 @@
 namespace Pastel
 {
 
+	class Empty {};
+
 	namespace Types
 	{
 

@@ -986,7 +986,7 @@ namespace Pastel
 
 		// Branch-sets
 		
-		boost::iterator_range<Branch_ConstIterator> cBranchRange(
+		ranges::subrange<Branch_ConstIterator> cBranchRange(
 			const State_ConstIterator& state,
 			const Optional<Symbol>& symbol) const
 		{

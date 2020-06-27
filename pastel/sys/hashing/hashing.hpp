@@ -85,8 +85,8 @@ namespace Pastel
 
 			uint32 hash = currentHash;
 
-			auto iter = boost::begin(input);
-			auto end = boost::end(input);
+			auto iter = ranges::begin(input);
+			auto end = ranges::end(input);
 			while(iter != end)
 			{
 				hash += *iter;

@@ -35,7 +35,8 @@ namespace Pastel
 		using Settings = Settings_;
 		using Fwd = List_Fwd<Settings>;
 
-		PASTEL_FWD(Data_Class);
+		PASTEL_FWD(Data);
+		PASTEL_FWD(EndData);
 		
 		PASTEL_FWD(Node);
 		PASTEL_FWD(End_Node);
@@ -245,12 +246,12 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		const Data_Class& front() const
+		const Data& front() const
 		{
 			return *cbegin();
 		}
 
-		Data_Class& front()
+		Data& front()
 		{
 			return removeConst(addConst(*this).front());
 		}
@@ -263,12 +264,12 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		const Data_Class& back() const
+		const Data& back() const
 		{
 			return *clast();
 		}
 
-		Data_Class& back()
+		Data& back()
 		{
 			return removeConst(addConst(*this).back());
 		}
@@ -539,8 +540,8 @@ namespace Pastel
 {
 
 	template <
-		typename Data_ = void, 
-		typename EndData_ = void,
+		typename Data_ = Empty, 
+		typename EndData_ = Empty,
 		bool UserDataInEndNode_ = false,
 		template <typename> class Customization_ = Empty_List_Customization>
 	using List_Set = List<
