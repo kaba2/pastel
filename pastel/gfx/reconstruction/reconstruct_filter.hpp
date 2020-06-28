@@ -15,7 +15,7 @@ namespace Pastel
 	namespace ReconstructFilter_
 	{
 
-		template <typename Real, integer N, typename Data>
+		template <typename Real, int N, typename Data>
 		class DataPoint
 		{
 		public:
@@ -39,12 +39,12 @@ namespace Pastel
 			Data data_;
 		};
 
-		template <typename Real_, integer N_, typename Data>
+		template <typename Real_, int N_, typename Data>
 		class DataPolicy
 		{
 		public:
 			using Real = Real_;
-			static constexpr integer N = N_;
+			static constexpr int N = N_;
 			using Point = DataPoint<Real, N, Data>;
 
 			explicit DataPolicy(
@@ -78,7 +78,7 @@ namespace Pastel
 		public:
 			using Locator = typename Tree::Locator:
 			using Real = typename Locator::Real;
-			static constexpr integer N = Locator::N;
+			static constexpr int N = Locator::N;
 
 			explicit ReconstructFunctor(
 				const Tree& kdTree,
@@ -162,7 +162,7 @@ namespace Pastel
 		};
 	}
 
-	template <typename Real, integer N, typename Data, typename Filter, typename Output_View>
+	template <typename Real, int N, typename Data, typename Filter, typename Output_View>
 	void reconstructFilter(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,

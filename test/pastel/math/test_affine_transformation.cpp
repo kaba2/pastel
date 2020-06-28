@@ -5,17 +5,10 @@
 
 #include "pastel/math/affine/affine_transformation.h"
 
-namespace Pastel
-{
-
-	template class AffineTransformation<dreal>;
-
-}
-
 namespace
 {
 
-		using Affine = AffineTransformation<dreal>;
+		using Affine = AffineTransformation<dreal, 3, 3>;
 
 }
 
@@ -24,7 +17,7 @@ TEST_CASE("affine_transformation (affine_transformation)")
 	// Constructs the identity transform.
 	Affine a(3);
 	{
-		REQUIRE(a.matrix() == identityMatrix<dreal>(3, 3));
+		REQUIRE(a.matrix() == identityMatrix<dreal, 3, 3>(3, 3));
 		REQUIRE(allEqual(a.translation(), 0));
 		REQUIRE(a.n() == 3);
 
@@ -33,9 +26,9 @@ TEST_CASE("affine_transformation (affine_transformation)")
 	}
 
 	// Constructs from a matrix expression.
-	Affine b(diagonalMatrix<dreal>(Vector3(1, 2, 3)));
+	Affine b(diagonalMatrix(Vector3(1, 2, 3)));
 	{
-		REQUIRE(b.matrix() == diagonalMatrix(Vector3(1, 2, 3)));
+		REQUIRE(b.matrix() == diagonalMatrix(Vector3(1, 2, 3)).toDenseMatrix());
 		REQUIRE(allEqual(b.translation(), 0));
 		REQUIRE(b.n() == 3);
 
@@ -47,7 +40,7 @@ TEST_CASE("affine_transformation (affine_transformation)")
 	Affine c(diagonalMatrix(Vector3(1, 2, 3)), Vector3(-1, 0, 1));
 	{
 		REQUIRE(c.translation() == Vector3(-1, 0, 1));
-		REQUIRE(c.matrix() == diagonalMatrix(Vector3(1, 2, 3)));
+		REQUIRE(c.matrix() == diagonalMatrix(Vector3(1, 2, 3)).toDenseMatrix());
 		REQUIRE(c.n() == 3);
 
 		REQUIRE(transformPoint(c, Vector3(1, 1, 1)) == Vector3(1 * 1 - 1, 1 * 2 - 0, 1 * 3 + 1));

@@ -172,7 +172,7 @@ namespace Pastel
 			return that / (Logical)proxy;
 		}
 
-		template <integer N, typename ConstCursor, typename Adapter>
+		template <int N, typename ConstCursor, typename Adapter>
 		class ConstAdaptedViewCursor
 		{
 		protected:
@@ -239,7 +239,7 @@ namespace Pastel
 			Adapter adapter_;
 		};
 
-		template <integer N, typename Cursor, typename Adapter>
+		template <int N, typename Cursor, typename Adapter>
 		class AdaptedViewCursor
 			: public ConstAdaptedViewCursor<N, Cursor, Adapter>
 		{

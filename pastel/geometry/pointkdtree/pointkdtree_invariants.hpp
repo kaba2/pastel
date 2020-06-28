@@ -13,7 +13,7 @@ namespace Pastel
 			typename Settings, template <typename> class Customization,
 			typename Locator = typename Settings::Locator,
 			typename Real = typename Locator::Real,
-			integer N = Locator::N>
+			int N = Locator::N>
 		bool testInvariants(
 			const PointKdTree<Settings, Customization>& tree,
 			const typename PointKdTree<Settings, Customization>::Cursor& cursor,
@@ -142,7 +142,7 @@ namespace Pastel
 		using Fwd = Settings;
 		PASTEL_FWD(Locator);
 		using Real = typename Locator::Real;
-		static constexpr integer N = Locator::N;
+		static constexpr int N = Locator::N;
 
 		AlignedBox<Real, N> bound(
 			Vector<Real, N>(ofDimension(tree.n()), -Infinity()),

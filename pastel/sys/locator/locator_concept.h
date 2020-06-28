@@ -32,7 +32,7 @@ namespace Pastel
 			/*!
 			If the dimension is dynamic, specify N = Dynamic.
 			*/
-			integer N = Type::N
+			int N = Type::N
 		>
 		auto requires_(Type&& t) -> decltype
 		(

@@ -60,7 +60,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> haltonSequence(integer n, 
 		const Vector<integer, N>& bases)
 	{
@@ -80,8 +80,8 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N>
-	Vector<Real, ModifyN<N, N + 1>::Result> hammersleySequence(
+	template <typename Real, int N>
+	Vector<Real, AddN<N>> hammersleySequence(
 		integer n, const Vector<integer, N>& bases, integer size)
 	{
 		PENSURE_OP(size, >=, 1);
@@ -90,7 +90,7 @@ namespace Pastel
 
 		integer dimension = bases.n();
 
-		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(dimension + 1));
+		Vector<Real, AddN<N>> result(ofDimension(dimension + 1));
 
 		for (integer i = 0;i < dimension;++i)
 		{

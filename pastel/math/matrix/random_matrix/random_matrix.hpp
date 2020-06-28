@@ -8,16 +8,22 @@
 namespace Pastel
 {
 
-	template <typename Real>
-	Matrix<Real> randomMatrix(integer m, integer n)
+	//! Returns a random (m x n)-matrix with elements from [-1, 1].
+	/*!
+	Preconditions:
+	m >= 0
+	n >= 0
+	*/
+	template <typename Real, int M = Dynamic, int N = Dynamic>
+	Matrix<Real, M, N> randomMatrix(integer m, integer n)
 	{
 		ENSURE_OP(m, >=, 0);
 		ENSURE_OP(n, >=, 0);
 
-		Matrix<Real> result(m, n);
-		for (auto& value : result)
+		Matrix<Real, M, N> result = Matrix<Real, M, N>::Zero(m, n);
+		for (int i = 0; i < result.size(); ++i)
 		{
-			value = random<Real>() * 2 - 1;
+			result(i) = random<Real>() * 2 - 1;
 		}
 
 		return result;

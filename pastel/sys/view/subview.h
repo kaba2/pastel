@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <integer N, typename Contained_ConstView>
+	template <int N, typename Contained_ConstView>
 	class ConstSubView
 	{
 	public:
@@ -59,7 +59,7 @@ namespace Pastel
 		Vector<integer, N> extent_;
 	};
 
-	template <integer N, typename Input_Element, typename Input_ConstView>
+	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstSubView<N, Input_ConstView> >
 		constSubView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
@@ -69,7 +69,7 @@ namespace Pastel
 			ConstSubView<N, Input_ConstView>(view.contained(), window));
 	}
 
-	template <integer N, typename Contained_View>
+	template <int N, typename Contained_View>
 	class SubView
 		: public ConstSubView<N, Contained_View>
 	{
@@ -109,7 +109,7 @@ namespace Pastel
 		}
 	};
 
-	template <integer N, typename Input_Element, typename Input_View>
+	template <int N, typename Input_Element, typename Input_View>
 	View<N, Input_Element, SubView<N, Input_View> >
 		subView(const View<N, Input_Element, Input_View>& view,
 			const AlignedBox<integer, N>& window)

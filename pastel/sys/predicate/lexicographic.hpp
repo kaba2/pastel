@@ -27,7 +27,7 @@ namespace Pastel
 		return leftSecondary < rightSecondary;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool lexicographicLess(
 		const Vector<Real, N>& left,
 		const Vector<Real, N>& right)

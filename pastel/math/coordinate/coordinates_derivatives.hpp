@@ -2,15 +2,18 @@
 #define PASTELMATH_COORDINATES_DERIVATIVES_HPP
 
 #include "pastel/math/coordinate/coordinates_derivatives.h"
-#include "pastel/math/matrix/matrix.h"
 
 #include "pastel/sys/math_functions.h"
+#include "pastel/sys/vector.h"
+
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {
 
-	template <typename Real, integer N>
-	Matrix<Real> cartesianToSphericalDerivative(
+	//! Derivative of the cartesianToSpherical function.
+	template <typename Real, int N>
+	Matrix<Real, N, N> cartesianToSphericalDerivative(
 		const Vector<Real, N>& cartesian)
 	{
 		integer n = cartesian.size();
@@ -25,7 +28,7 @@ namespace Pastel
 		// i:th row the derivative of the cartesianToSpherical
 		// function w.r.t. i:th cartesian coordinate.
 
-		Matrix<Real> result = constantMatrix<Real>(n, n, 0);
+		Matrix<Real, N, N> result = constantMatrix<Real, N, N>(n, n, 0);
 
 		Real squareSum = square(cartesian[n - 1]) + square(cartesian[n - 2]);
 
@@ -61,15 +64,16 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N>
-	Matrix<Real> sphericalToCartesianDerivative(
+	//! Derivative of the sphericalToCartesian function.
+	template <typename Real, int N>
+	Matrix<Real, N, N> sphericalToCartesianDerivative(
 		const Vector<Real, N>& spherical)
 	{
 		integer n = spherical.size();
 
 		ENSURE_OP(n, >=, 2);
 
-		Matrix<Real> result(n, n);
+		Matrix<Real, N, N> result(n, n);
 
 		Vector<Real, N> cosSpherical = cos(spherical);
 		Vector<Real, N> sinSpherical = sin(spherical);
@@ -121,7 +125,22 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N>
+	//! Partial derivatives of the sphericalToCartesian function.
+	/*!
+	Preconditions:
+	allGreaterEqual(index, 0)
+
+	Let	f : R^n -> R^n : f(r, alpha_1, ..., alpha_{n - 1})
+	where f = sphericalToCartesian.
+	
+	Using multi-index notation, this function computes df / d(index).
+	In other words,	
+
+	d^|index|f / ((dr_0)^index[0] (dalpha_1)^index[1] ... (dalpha_(n-1))^index[n - 1])
+	where
+	|index| = sum(index)
+	*/
+	template <typename Real, int N>
 	Vector<Real, N> sphericalToCartesianDerivative(
 		const Vector<Real, N>& spherical,
 		const Vector<integer, N>& index)

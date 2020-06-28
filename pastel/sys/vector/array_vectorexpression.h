@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	class ConstArray_VectorExpression
 		: public VectorExpression<Real, N, ConstArray_VectorExpression<Real, N> >
 	{
@@ -104,21 +104,21 @@ namespace Pastel
 		integer stride_;
 	};
 
-	template <integer N, typename Real>
+	template <int N, typename Real>
 	ConstArray_VectorExpression<Real, N> 
 		constVectorExpression(const Real* data, integer size, integer stride = 1)
 	{
 		return ConstArray_VectorExpression<Real, N>(data, size, stride);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	ConstArray_VectorExpression<Real, N> 
 		constVectorExpression(const Real (&data)[N])
 	{
 		return ConstArray_VectorExpression<Real, N>(data, N);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	class Array_VectorExpression
 		: public ConstArray_VectorExpression<Real, N>
 	{
@@ -188,7 +188,7 @@ namespace Pastel
 			return *this;
 		}
 
-		template <typename ThatReal, integer ThatN, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator=(
 			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
@@ -297,7 +297,7 @@ namespace Pastel
 			return (*this *= Pastel::inverse(that));
 		}
 
-		template <typename ThatReal, integer ThatN, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator+=(
 			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
@@ -324,7 +324,7 @@ namespace Pastel
 			return *this;
 		}
 
-		template <typename ThatReal, integer ThatN, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator-=(
 			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
@@ -351,7 +351,7 @@ namespace Pastel
 			return *this;
 		}
 
-		template <typename ThatReal, integer ThatN, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator*=(
 			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
@@ -378,7 +378,7 @@ namespace Pastel
 			return *this;
 		}
 
-		template <typename ThatReal, integer ThatN, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		const Array_VectorExpression& operator/=(
 			const VectorExpression<ThatReal, ThatN, Expression>& that) const
 		{
@@ -406,14 +406,14 @@ namespace Pastel
 		}
 	};
 
-	template <integer N, typename Real>
+	template <int N, typename Real>
 	Array_VectorExpression<Real, N> 
 		vectorExpression(Real* data, integer size)
 	{
 		return Array_VectorExpression<Real, N>(data, size);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Array_VectorExpression<Real, N> 
 		vectorExpression(const Real (&data)[N])
 	{

@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N_A, integer N_B,
+	template <typename Real, int N_A, int N_B,
 		typename AlignedBox_Output>
 	integer difference(
 		const AlignedBox<Real, N_A>& aBox,
@@ -21,7 +21,7 @@ namespace Pastel
 
 		// We prefer to use a static dimension
 		// for the reported boxes.
-		static constexpr integer N = (N_A == Dynamic) ? N_B : N_A;
+		static constexpr int N = (N_A == Dynamic) ? N_B : N_A;
 
 		// In case the dimension is static, this gives the compiler a 
 		// chance to unroll the loop.
@@ -157,7 +157,7 @@ namespace Pastel
 	}
 
 	template <
-		typename Real, integer N_A, integer N_B,
+		typename Real, int N_A, int N_B,
 		typename AlignedBox_Output>
 	integer symmetricDifference(
 		const AlignedBox<Real, N_A>& aBox,

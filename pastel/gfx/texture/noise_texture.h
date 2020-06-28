@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <integer N = 2>
+	template <int N = 2>
 	class Noise_Texture
 		: public Texture<dreal, N>
 	{
@@ -27,7 +27,7 @@ namespace Pastel
 
 		virtual dreal operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const
+			const Matrix<dreal, N, N>& m) const
 		{
 			return perlinNoise(
 				evaluate(p * scale_ + translation_));
@@ -64,7 +64,7 @@ namespace Pastel
 		Vector<dreal, N> translation_;
 	};
 
-	template <integer N>
+	template <int N>
 	Noise_Texture<N> noiseTexture()
 	{
 		return Noise_Texture<N>();

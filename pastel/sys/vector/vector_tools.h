@@ -14,22 +14,22 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	std::ostream& operator<<(std::ostream& stream,
 		const VectorExpression<Real, N, Expression>& vector);
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	std::istream& operator>>(std::istream& stream,
 		Vector<Real, N>& vector);
 
 	//! Returns the sum of elements.
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real sum(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the product of elements.
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real product(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the 'index'th natural basis axis.
@@ -40,10 +40,10 @@ namespace Pastel
 
 	template <
 		typename Real,
-		integer N>
+		int N>
 	class VectorUnitAxis;
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	inline VectorUnitAxis<Real, N> unitAxis(integer index);
 
 	//! Returns the 'index'th natural basis axis.
@@ -52,44 +52,44 @@ namespace Pastel
 	dimension > 0
 	*/
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	inline VectorUnitAxis<Real, N> unitAxis(
 		integer dimension, integer index);
 
 	//! Returns a subsequence of a vector.
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, SubN<N>> shrink(
 		const VectorExpression<Real, N, Expression>& that);
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, SubN<N>> shrink(
 		const VectorExpression<Real, N, Expression>& that,
 		integer index);
 
 	template <
 		typename Real,
-		integer N,
+		int N,
 		typename Expression>
 	class VectorExtend;
 
 	//! Returns an N + 1 vector appended from the left.
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const NoDeduction<Real>& left,
 		const VectorExpression<Real, N, Expression>& right);
 
 	//! Returns an N + 1 vector appended from the right.
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const NoDeduction<Real>& right);
 
 	//! Returns an N + 1 vector appended from a given position.
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const NoDeduction<Real>& right,
@@ -101,7 +101,7 @@ namespace Pastel
 	dot(that) = sum(that[i] * that[i])
 	*/
 
-	template <typename Real, integer N,
+	template <typename Real, int N,
 		typename Expression>
 		inline Real dot(
 		const VectorExpression<Real, N, Expression>& that);
@@ -112,19 +112,19 @@ namespace Pastel
 	dot(left, right) = sum(left[i] * right[i])
 	*/
 
-	template <typename Real, integer LeftN, integer RightN,
+	template <typename Real, int LeftN, int RightN,
 		typename LeftExpression, typename RightExpression>
 		inline Real dot(
 		const VectorExpression<Real, LeftN, LeftExpression>& left,
 		const VectorExpression<Real, RightN, RightExpression>& right);
 
 	//! Returns the squared Euclidean norm of a vector.
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real norm2(const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the norm bijection of a vector.
 	template <
-		typename Real, integer N, typename Expression, 
+		typename Real, int N, typename Expression, 
 		Norm_Concept_ Norm
 	>
 	auto norm2(const VectorExpression<Real, N, Expression>& that,
@@ -138,7 +138,7 @@ namespace Pastel
 
 	template <
 		typename Real, 
-		integer N, 
+		int N, 
 		typename Expression,
 		RequiresC<(N > 1 || N == Dynamic)> = 0>
 	Real norm(const VectorExpression<Real, N, Expression>& that);
@@ -151,7 +151,7 @@ namespace Pastel
 
 	template <
 		typename Real, 
-		integer N, 
+		int N, 
 		typename Expression,
 		RequiresC<(N == 1)> = 0>
 	Real norm(const VectorExpression<Real, 1, Expression>& that);
@@ -162,7 +162,7 @@ namespace Pastel
 	norm_1(that) := sum(abs(that[i]))
 	*/
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real manhattanNorm(
 		const VectorExpression<Real, N, Expression>& that);
 
@@ -171,7 +171,7 @@ namespace Pastel
 	powerSum(that) := sum(abs(that[i])^p)
 	*/
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real powerSum(
 		const VectorExpression<Real, N, Expression>& that,
 		const NoDeduction<Real>& metric);
@@ -188,7 +188,7 @@ namespace Pastel
 	for p e ]0, 1[.
 	*/
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real minkowskiNorm(
 		const VectorExpression<Real, N, Expression>& that,
 		const NoDeduction<Real>& metric);
@@ -199,7 +199,7 @@ namespace Pastel
 	norm_max(that) := max(abs(that[i])).
 	*/
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real maxNorm(
 		const VectorExpression<Real, N, Expression>& that);
 
@@ -208,23 +208,23 @@ namespace Pastel
 	Preconditions:
 	norm(that) > 0
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	inline Vector<Real, N> normalize(
 		const Vector<Real, N>& that);
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, N> normalize(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns a clockwise perpendicular to the given vector in 2D.
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, 2> cross(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the cross product of two vectors in 3D.
 
-	template <typename Real, integer N, typename ExpressionX,
+	template <typename Real, int N, typename ExpressionX,
 	typename ExpressionY>
 	Vector<Real, 3> cross(
 		const VectorExpression<Real, N, ExpressionX>& x,

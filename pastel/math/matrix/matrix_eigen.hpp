@@ -2,6 +2,8 @@
 #define PASTELMATH_MATRIX_EIGEN_HPP
 
 #include "pastel/math/matrix/matrix_eigen.h"
+
+#include "pastel/math/matrix/matrix.h"
 #include "pastel/math/matrix/matrix_trace.h"
 #include "pastel/math/matrix/matrix_determinant.h"
 
@@ -12,7 +14,7 @@ namespace Pastel
 
 	template <typename Real>
 	Vector<Real, 2> symmetricEigenValues(
-		const Matrix<Real>& matrix)
+		const Matrix<Real, 2, 2>& matrix)
 	{
 		// Let the matrix be
 		//
@@ -42,8 +44,8 @@ namespace Pastel
 
 	template <typename Real>
 	void symmetricEigenDecomposition(
-		const Matrix<Real>& matrix,
-		Matrix<Real>& eigenVector,
+		const Matrix<Real, 2, 2>& matrix,
+		Matrix<Real, 2, 2>& eigenVector,
 		Vector<Real, 2>& eigenValue)
 	{
 		eigenValue = symmetricEigenValues(matrix);

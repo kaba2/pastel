@@ -11,8 +11,8 @@ namespace Pastel
 	template <typename Real_ConstRange, typename Real_OutputIterator>
 	void computeHistogram(
 		const Real_ConstRange& dataSet,
-		const typename boost::range_value<Real_ConstRange>::type& min,
-		const typename boost::range_value<Real_ConstRange>::type& max,
+		const ranges::range_value_t<Real_ConstRange>& min,
+		const ranges::range_value_t<Real_ConstRange>& max,
 		integer bins,
 		const Real_OutputIterator& outputBegin)
 	{
@@ -20,7 +20,7 @@ namespace Pastel
 
 		typedef ranges::iterator_t<Real_ConstRange>
 			Real_ConstIterator;
-		typedef typename boost::range_value<Real_ConstRange>::type
+		typedef ranges::range_value_t<Real_ConstRange>
 			Real;
 
 		Real rangeDelta = max - min;

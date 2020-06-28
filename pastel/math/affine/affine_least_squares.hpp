@@ -6,13 +6,22 @@
 namespace Pastel
 {
 
-	template <typename Real>
-	AffineTransformation<Real> affineLeastSquares(
-		const Matrix<Real>& from,
-		const Matrix<Real>& to)
+	//! Least-squares affine transformation between paired point-sets.
+	/*!
+	returns:
+	The affine transformation with minimal least-squares error,
+	if PP^T is non-singular, and SingularMatrix_Exceptiocols() 
+	otherwise. As a special case, the n = 1 case is returned
+	as an exact translation (although here PP^T is always
+	singular).
+	*/
+	template <typename Real, int M, int N>
+	AffineTransformation<Real, M, N> affineLeastSquares(
+		const Matrix<Real, M, N>& from,
+		const Matrix<Real, M, N>& to)
 	{
-		ENSURE_OP(from.m(), ==, to.m());
-		ENSURE_OP(from.n(), ==, to.n());
+		ENSURE_OP(from.rows(), ==, to.rows());
+		ENSURE_OP(from.cols(), ==, to.cols());
 
 		// Let P = [p_1, ..., p_n] in R^{m x n}
 		// and R = [r_1, ..., r_n] in R^{m x n}
@@ -32,14 +41,14 @@ namespace Pastel
 		// P' = [p_1 - p', ..., p_n - p']
 		// R' = [r_1 - r', ..., r_n - r']
 
-		integer m = from.m();
-		integer n = from.n();
+		integer m = from.rows();
+		integer n = from.cols();
 
 		if (n == 0 || m == 0)
 		{
 			// No points to match, or zero dimension.
 			// Return the identity transformation in R^m.
-			return AffineTransformation<Real>(m);
+			return AffineTransformation<Real, M, N>(m);
 		}
 
 		if (n == 1)
@@ -47,38 +56,38 @@ namespace Pastel
 			// The P' P'^T is always singular when n = 1.
 			// We will make the transformation an exact
 			// translation.
-			return AffineTransformation<Real>(
-				identityMatrix<Real>(m, m),
-				to.column(0) - from.column(0));
+			return AffineTransformation<Real, M, N>(
+				identityMatrix<Real, M, N>(m, m),
+				to.col(0) - from.col(0));
 		}
 
 		// Compute centroids
-		Vector<Real, N> fromCentroid =
+		Vector<Real, M> fromCentroid =
 			sum(transpose(from)) / n;
-		Vector<Real, N> toCentroid =
+		Vector<Real, M> toCentroid =
 			sum(transpose(to)) / n;
 
 		// Compute PR^T and PP^T.
-		Matrix<Real> prt(m, m);
-		Matrix<Real> ppt(m, m);
+		Matrix<Real, M, M> prt = Matrix<Real, M, M>::Zero(m, m);
+		Matrix<Real, M, M> ppt = Matrix<Real, M, M>::Zero(m, m);
 		for (integer i = 0;i < n;++i)
 		{
-			ppt += outerProduct(from.column(i) - fromCentroid);
+			ppt += outerProduct(from.col(i) - fromCentroid);
 
 			// PR^T = [p_1, ..., p_n] [r_1, ..., r_n]^T
 			//      = [p_1, ..., p_n] [r_1^T; ...; r_n^T]
 			//      = sum_{i = 1}^n p_i r_i^T
 			prt += outerProduct(
-				from.column(i) - fromCentroid, 
-				to.column(i) - toCentroid);
+				from.col(i) - fromCentroid, 
+				to.col(i) - toCentroid);
 		}
 
 		// Compute A = (P' R'^T)(P' P'^T)^-1
 
-		Matrix<Real> a = prt * inverse(ppt);
+		Matrix<Real, M, M> a = prt * inverse(ppt);
 
 		// Compute b = r' - Ap'.
-		return AffineTransformation<Real>(
+		return AffineTransformation<Real, M>(
 			std::move(a), toCentroid - a * fromCentroid);
 	}
 

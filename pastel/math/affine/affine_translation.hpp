@@ -6,14 +6,15 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
-	AffineTransformation<Real> affineTranslation(
+	//! Returns a translating affine transformation.
+	template <typename Real, int N>
+	AffineTransformation<Real, N, N> affineTranslation(
 		const Vector<Real, N>& translation)
 	{
 		integer n = translation.n();
 
-		AffineTransformation<Real> result(
-			identityMatrix<Real>(n, n),
+		AffineTransformation<Real, N, N> result(
+			identityMatrix<Real, N, N>(n, n),
 			translation);
 
 		return result;

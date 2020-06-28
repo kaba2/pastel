@@ -22,7 +22,7 @@ namespace Pastel
 			Precondition:
 			N >= 0
 			*/
-			static constexpr integer N = UserDefinedInteger;
+			static constexpr int N = UserDefinedInteger;
 		};
 
 		template <typename Settings>

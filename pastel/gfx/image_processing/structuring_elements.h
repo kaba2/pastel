@@ -15,7 +15,7 @@ namespace Pastel
 	The structuring element is positioned at
 	the center of the view.
 	*/
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void ellipsoidElement(
 		const View<N, bool, Image_View>& image,
 		const NoDeduction<Vector<dreal, N>>& diameter);
@@ -25,7 +25,7 @@ namespace Pastel
 	This function simply calls
 	ellipsoidElement(image, image.extent())
 	*/
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void ellipsoidElement(
 		const View<N, bool, Image_View>& image);
 
@@ -53,7 +53,7 @@ namespace Pastel
 	For p e [1, 2[, the level set surface contains corners.
 	For p >= 2, the level set surface is smooth.
 	*/
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void pEllipsoidElement(
 		const View<N, bool, Image_View>& image,
 		dreal power,
@@ -64,7 +64,7 @@ namespace Pastel
 	This function simply calls
 	pEllipsoidElement(image, power, image.extent())
 	*/
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void pEllipsoidElement(
 		const View<N, bool, Image_View>& image,
 		dreal power);
@@ -74,7 +74,7 @@ namespace Pastel
 	The structuring element is positioned at
 	the center of the view.
 	*/
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void diamondElement(
 		const View<N, bool, Image_View>& image,
 		const NoDeduction<Vector<dreal, N>>& diameter);
@@ -84,7 +84,7 @@ namespace Pastel
 	This function simply calls
 	diamondElement(image, image.extent())
 	*/
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void diamondElement(
 		const View<N, bool, Image_View>& image);
 
@@ -93,7 +93,7 @@ namespace Pastel
 	The structuring element is positioned at
 	the center of the view.
 	*/
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void boxElement(
 		const View<N, bool, Image_View>& image,
 		const NoDeduction<Vector<dreal, N>>& diameter);
@@ -103,7 +103,7 @@ namespace Pastel
 	This function simply calls
 	boxElement(image, image.extent())
 	*/
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void boxElement(
 		const View<N, bool, Image_View>& image);
 

@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void generateUniformBallPointSet(
 		integer points,
 		integer dimension,
@@ -32,7 +32,7 @@ namespace Pastel
 		result.swap(pointSet);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void generateClusteredPointSet(
 		integer points,
 		integer dimension,
@@ -80,7 +80,7 @@ namespace Pastel
 		result.swap(pointSet);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void generateUniformCubePointSet(
 		integer points,
 		integer dimension,
@@ -102,7 +102,7 @@ namespace Pastel
 		result.swap(pointSet);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void generateGaussianPointSet(
 		integer points,
 		integer dimension,
@@ -124,7 +124,7 @@ namespace Pastel
 		result.swap(pointSet);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void scale(
 		const Vector<Real, N>& scaling,
 		std::vector<Vector<Real, N> >& pointSet)
@@ -141,7 +141,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void randomlyRotate(
 		std::vector<Vector<Real, N> >& pointSet)
 	{
@@ -153,14 +153,14 @@ namespace Pastel
 		integer points = pointSet.size();
 		integer dimension = pointSet.front().n();
 
-		Matrix<Real> rotation = randomRotation(dimension);
+		Matrix<Real, N, N> rotation = randomRotation(dimension);
 		for (integer i = 0;i < points;++i)
 		{
 			pointSet[i] = pointSet[i] * rotation;
 		}
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void randomlyReduceDimensionality(
 		integer dimensionality,
 		std::vector<Vector<Real, N> >& pointSet)

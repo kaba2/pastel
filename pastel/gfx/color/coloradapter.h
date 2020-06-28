@@ -167,7 +167,7 @@ namespace Pastel
 	using ByteColor_Color_Adapter = ReverseAdapter<ByteColor_To_Color>;
 
 	template <typename Integer,
-		int RedBits, integer GreenBits, integer BlueBits,
+		int RedBits, int GreenBits, int BlueBits,
 		int RedFrom = 0,
 		int GreenFrom = RedFrom + RedBits,
 		int BlueFrom = GreenFrom + GreenBits>
@@ -210,7 +210,7 @@ namespace Pastel
 	};
 
 	template <typename Integer,
-		int RedBits, integer GreenBits, integer BlueBits,
+		int RedBits, int GreenBits, int BlueBits,
 		int RedFrom = 0,
 		int GreenFrom = RedFrom + RedBits,
 		int BlueFrom = GreenFrom + GreenBits>

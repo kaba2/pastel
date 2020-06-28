@@ -8,11 +8,11 @@
 namespace Pastel
 {
 
-	template <typename Point_, typename Real_, integer N_>
+	template <typename Point_, typename Real_, int N_>
 	class Default_Locator
 	{
 	public:
-		static constexpr integer N = N_;
+		static constexpr int N = N_;
 		PASTEL_STATIC_ASSERT(N >= 0);
 
 		using Point = Point_;
@@ -44,7 +44,7 @@ namespace Pastel
 	class Default_Locator<Point_, Real_, Dynamic>
 	{
 	public:
-		static constexpr integer N = Dynamic;
+		static constexpr int N = Dynamic;
 
 		using Point = Point_;
 		using Real = Real_;

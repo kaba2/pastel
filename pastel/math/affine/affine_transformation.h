@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	//! An affine transformation in R^n.
-	template <typename Real>
+	template <typename Real, int M, int N>
 	class AffineTransformation
 	{
 	public:
@@ -18,16 +18,16 @@ namespace Pastel
 
 		//! Constructs R^n --> R^n identity transformation.
 		explicit AffineTransformation(integer n)
-			: matrix_(n, n)
+			: matrix_()
 			, translation_(ofDimension(n))
 		{
 			PENSURE_OP(n, >=, 0);
+			matrix_ = Matrix<Real, M, N>::Identity(n, n);
 		}
 
 		//! Move-constructs from another affine transformation.
 		AffineTransformation(AffineTransformation&& that)
-			: matrix_(that.n(), that.n())
-			, translation_(ofDimension(that.n()))
+			: AffineTransformation(that.n())
 		{
 			swap(that);
 		}
@@ -44,9 +44,9 @@ namespace Pastel
 		Note: implicitly convertible.
 		*/
 		AffineTransformation(
-			Matrix<Real> matrix)
+			Matrix<Real, M, N> matrix)
 			: matrix_(std::move(matrix))
-			, translation_(ofDimension(matrix_.m()))
+			, translation_(ofDimension(matrix_.rows()))
 		{
 		}
 
@@ -55,12 +55,12 @@ namespace Pastel
 		Note: This also takes care of matrix- and vector-expressions.
 		*/
 		AffineTransformation(
-			Matrix<Real> matrix,
-			Vector<Real> translation)
+			Matrix<Real, M, N> matrix,
+			Vector<Real, N> translation)
 			: matrix_(std::move(matrix))
 			, translation_(std::move(translation))
 		{
-			PENSURE_OP(matrix_.m(), ==, translation_.size());
+			PENSURE_OP(matrix_.rows(), ==, translation_.size());
 		}
 
 		//! Assigns from another affine transformation.
@@ -119,7 +119,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Matrix<Real>& matrix()
+		Matrix<Real, M, N>& matrix()
 		{
 			return matrix_;
 		}
@@ -129,7 +129,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		const Matrix<Real>& matrix() const
+		const Matrix<Real, M, N>& matrix() const
 		{
 			return matrix_;
 		}
@@ -139,7 +139,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Vector<Real>& translation()
+		Vector<Real, N>& translation()
 		{
 			return translation_;
 		}
@@ -149,7 +149,7 @@ namespace Pastel
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		const Vector<Real>& translation() const
+		const Vector<Real, N>& translation() const
 		{
 			return translation_;
 		}
@@ -161,38 +161,9 @@ namespace Pastel
 		// by forgetting to specify the dimension.
 		AffineTransformation() = delete;
 
-		Matrix<Real> matrix_;
-		Vector<Real> translation_;
+		Matrix<Real, M, N> matrix_;
+		Vector<Real, N> translation_;
 	};
-
-	//! Swaps two affine transformations.
-	template <typename Real>
-	void swap(
-		AffineTransformation<Real>& left,
-		AffineTransformation<Real>& right);
-
-	//! Returns the affine transformation as a homogeneous matrix.
-	template <typename Real>
-	Matrix<Real> asMatrix(
-		const AffineTransformation<Real>& that);
-
-	//! Transforms a vector by the affine transformation.
-	template <typename Real, integer N>
-	Vector<Real, N> transformVector(
-		const AffineTransformation<Real>& affine,
-		const Vector<Real, N>& vector);
-
-	//! Transforms a point by the affine transformation.
-	template <typename Real, integer N>
-	Vector<Real, N> transformPoint(
-		const AffineTransformation<Real>& affine,
-		const Vector<Real, N>& point);
-
-	//! Transforms a normal by the affine transformation.
-	template <typename Real, integer N>
-	Vector<Real, N> transformNormal(
-		const AffineTransformation<Real>& affineInverse,
-		const Vector<Real, N>& normal);
 
 }
 

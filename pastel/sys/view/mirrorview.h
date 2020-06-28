@@ -18,7 +18,7 @@ namespace Pastel
 	view(x_1, ..., (extent(k) - 1) - x_k, ..., x_n)
 	*/
 
-	template <integer N, integer MirrorIndex, typename Contained_ConstView>
+	template <int N, int MirrorIndex, typename Contained_ConstView>
 	class ConstMirrorView
 	{
 	public:
@@ -52,7 +52,7 @@ namespace Pastel
 		Contained_ConstView view_;
 	};
 
-	template <integer MirrorIndex, integer N, typename Input_Element, typename Input_ConstView>
+	template <integer MirrorIndex, int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstMirrorView<N, MirrorIndex, Input_ConstView> >
 		constMirrorView(
 		const ConstView<N, Input_Element, Input_ConstView>& view)
@@ -68,7 +68,7 @@ namespace Pastel
 	view(x_1, ..., (extent(k) - 1) - x_k, ..., x_n)
 	*/
 
-	template <integer N, integer MirrorIndex, typename Contained_View>
+	template <int N, int MirrorIndex, typename Contained_View>
 	class MirrorView
 		: public ConstMirrorView<N, MirrorIndex, Contained_View>
 	{
@@ -103,7 +103,7 @@ namespace Pastel
 		}
 	};
 
-	template <integer MirrorIndex, integer N, typename Input_Element, typename Input_View>
+	template <integer MirrorIndex, int N, typename Input_Element, typename Input_View>
 	View<N, Input_Element, MirrorView<N, MirrorIndex, Input_View> >
 		mirrorView(
 		const View<N, Input_Element, Input_View>& view)

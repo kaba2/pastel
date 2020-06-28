@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real>
+	template <typename Real, int M = Dynamic, int N = Dynamic>
 	class QrDecomposition
 	{
 	public:
@@ -40,7 +40,7 @@ namespace Pastel
 		Time complexity:
 		O(n^3)
 		*/
-		QrDecomposition(Matrix<Real> that);
+		QrDecomposition(Matrix<Real, M, N> that);
 
 		//! Copy-constructs from another decomposition.
 		QrDecomposition(const QrDecomposition& that);
@@ -77,7 +77,7 @@ namespace Pastel
 		Time complexity:
 		O(n^3)
 		*/
-		void decompose(Matrix<Real> that);
+		void decompose(const Matrix<Real, M, N>& that);
 
 		//! Returns the orthogonal matrix Q^T.
 		/*!
@@ -87,7 +87,7 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		const Matrix<Real>& qTransposed() const;
+		const Matrix<Real, M, N>& qTransposed() const;
 
 		//! Returns the upper triangular matrix R.
 		/*!
@@ -97,37 +97,15 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		const Matrix<Real>& r() const;
+		const Matrix<Real, M, N>& r() const;
 
 	private:
 		QrDecomposition() = delete;
 		void decompose();
 
-		Matrix<Real> q_;
-		Matrix<Real> r_;
+		Matrix<Real, M, N> q_;
+		Matrix<Real, M, N> r_;
 	};
-
-}
-
-namespace Pastel
-{
-
-	//! Computes the absolute determinant from a qr decomposition.
-	/*!
-	The determinant of the orthogonal matrix is either -1 or 1.
-	It would be costly to find out which. However, the
-	absolute value of the determinant can be found quickly
-	from the upper triangular matrix.
-	*/
-	template <typename Real>
-	Real absDeterminant(
-		const QrDecomposition<Real>& qr);
-
-	//! Solves the linear system QRx = b.
-	template <typename Real, integer N, typename Expression>
-	Vector<Real> solveLinear(
-		const QrDecomposition<Real>& qr,
-		const VectorExpression<Real, N, Expression>& b);
 
 }
 

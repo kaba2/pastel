@@ -6,7 +6,6 @@
 #include "pastel/sys/tree/tree_node.h"
 #include "pastel/sys/tree/tree_iterator.h"
 #include "pastel/sys/destruct.h"
-#include "pastel/sys/generic/class.h"
 
 namespace Pastel
 {
@@ -18,16 +17,13 @@ namespace Pastel
 	private:
 		using Data = Type;
 		
-		struct Data_Tag;
-        using Data_Class = Class<Data, Data_Tag>;
- 
 		using Node = Tree_::Node;
-		using Data_Node = Tree_::Data_Node<Data_Class>;
+		using Data_Node = Tree_::Data_Node<Data>;
 		using Sentinel_Node = Tree_::Sentinel_Node;
 
 	public:
-		using Iterator = Tree_::Iterator<Node*, Data_Class>;
-		using ConstIterator = Tree_::Iterator<const Node*, Data_Class>;
+		using Iterator = Tree_::Iterator<Node*, Data>;
+		using ConstIterator = Tree_::Iterator<const Node*, Data>;
 
 		using Range = ranges::subrange<Iterator>;
 		using ConstRange = ranges::subrange<ConstIterator>;
@@ -439,7 +435,7 @@ namespace Pastel
 		returns:
 		An iterator to the root node.
 		*/
-		Iterator insertRoot(Data_Class data = Data_Class())
+		Iterator insertRoot(Data data = Data())
 		{
 			ENSURE(empty());
 
@@ -472,7 +468,7 @@ namespace Pastel
 		Iterator insert(
 			const ConstIterator& here, 
 			bool right,
-			Data_Class data = Data_Class())
+			Data data = Data())
 		{
 			bool insertAtSentinel =
 				here.empty();
@@ -1043,7 +1039,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Data_Node* allocate(Data_Class data)
+		Data_Node* allocate(Data data)
 		{
 			Data_Node* node =
                 new Data_Node(sentinel_, std::move(data));

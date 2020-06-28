@@ -32,7 +32,7 @@ namespace Pastel
 
 	}
 
-	template <integer N, typename Type, typename Image_View>
+	template <int N, typename Type, typename Image_View>
 	void clear(
 		const NoDeduction<Type>& color,
 		const View<N, Type, Image_View>& image)
@@ -59,7 +59,7 @@ namespace Pastel
 	}
 
 	template <
-		integer N,
+		int N,
 		typename Input_Element,
 		typename Input_ConstView,
 		typename Output_Element,
@@ -102,7 +102,7 @@ namespace Pastel
 	}
 
 	template <
-		integer N,
+		int N,
 		typename Input_Element,
 		typename Input_ConstView,
 		typename Output_Element,
@@ -121,7 +121,7 @@ namespace Pastel
 	}
 
 	template <
-		integer N,
+		int N,
 		typename Output_Element,
 		typename Output_View,
 		typename TransformFunctor>

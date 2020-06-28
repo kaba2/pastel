@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <integer N, typename Contained_ConstView>
+	template <int N, typename Contained_ConstView>
 	class ConstRowView
 	{
 	public:
@@ -55,7 +55,7 @@ namespace Pastel
 		integer freeIndex_;
 	};
 
-	template <integer N, typename Input_Element, typename Input_ConstView>
+	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<1, Input_Element, ConstRowView<N, Input_ConstView> >
 		constRowView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
@@ -68,7 +68,7 @@ namespace Pastel
 			pivot));
 	}
 
-	template <integer N, typename Contained_View>
+	template <int N, typename Contained_View>
 	class RowView
 		: public ConstRowView<N, Contained_View>
 	{
@@ -107,7 +107,7 @@ namespace Pastel
 		}
 	};
 
-	template <integer N, typename Input_Element, typename Input_View>
+	template <int N, typename Input_Element, typename Input_View>
 	View<1, Input_Element, RowView<N, Input_View> > rowView(
 		const View<N, Input_Element, Input_View>& view,
 		integer freeIndex,

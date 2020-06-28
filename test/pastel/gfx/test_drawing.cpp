@@ -123,7 +123,7 @@ TEST_CASE("FloodFill (FloodFill)")
 namespace
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomPoint(
 		const AlignedBox<Real, N>& region)
 	{

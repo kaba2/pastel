@@ -22,8 +22,8 @@ namespace Pastel
 		const Output_RandomAccessRange& outputSet,
 		const ConstFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
-		const typename boost::range_value<Input_RandomAccessConstRange>::type& border = 
-		typename boost::range_value<Input_RandomAccessConstRange>::type(),
+		const ranges::range_value_t<Input_RandomAccessConstRange>& border = 
+		ranges::range_value_t<Input_RandomAccessConstRange>(),
 		dreal blurFactor = 1);
 
 	template <
@@ -35,8 +35,8 @@ namespace Pastel
 		const Output_RandomAccessRange& outputSet,
 		const ConstTableFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
-		const typename boost::range_value<Input_RandomAccessConstRange>::type& border = 
-		typename boost::range_value<Input_RandomAccessConstRange>::type(),
+		const ranges::range_value_t<Input_RandomAccessConstRange>& border = 
+		ranges::range_value_t<Input_RandomAccessConstRange>(),
 		dreal blurFactor = 1);
 
 	//! Resamples a 1-dimensional array to a different size.
@@ -82,7 +82,7 @@ namespace Pastel
 
 	template <
 		typename Computation_Element,
-		integer N,
+		int N,
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,
@@ -107,7 +107,7 @@ namespace Pastel
 
 	template <
 		typename Computation_Element,
-		integer N,
+		int N,
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,

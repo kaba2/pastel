@@ -45,7 +45,7 @@ namespace Pastel
 	Integer values below the range will be converted to -1.
 	Integer values above the range will be converted to 1.
 	*/
-	template <integer N>
+	template <int N>
 	real64 dequantizeSigned(integer i);
 
 	//! Converts an integer [-2^(N - 1) , 2^(N - 1) - 1] to a dreal [-1, 1].
@@ -56,7 +56,7 @@ namespace Pastel
 	*/
 
 	/*
-	template <integer N>
+	template <int N>
 	real64 ditheredDequantizeSigned(integer i);
 	*/
 
@@ -65,7 +65,7 @@ namespace Pastel
 	Real values below the range will be converted to -(2^(N - 1) - 1).
 	Real values above the range will be converted to 2^(N - 1) - 1.
 	*/
-	template <integer N>
+	template <int N>
 	integer quantizeSigned(real64 r);
 
 }

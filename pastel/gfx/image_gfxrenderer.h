@@ -71,7 +71,7 @@ namespace Pastel
 
 		Vector2 transform(const Vector2& point) const;
 
-		AffineTransformation<dreal> screenTransformation_;
+		AffineTransformation<dreal, 2, 2> screenTransformation_;
 		Array<Type>* image_;
 		std::vector<const Array<Type>*> textureImage_;
 		std::vector<const MipMap<Type>*> mipMap_;

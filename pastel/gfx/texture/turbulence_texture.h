@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <integer N = 2>
+	template <int N = 2>
 	class Turbulence_Texture
 		: public Texture<dreal, N>
 	{
@@ -28,7 +28,7 @@ namespace Pastel
 
 		virtual dreal operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const
+			const Matrix<dreal, N, N>& m) const
 		{
 			dreal scale = 1;
 			dreal value = 0;
@@ -76,7 +76,7 @@ namespace Pastel
 		dreal lacunarity_;
 	};
 
-	template <integer N>
+	template <int N>
 	Turbulence_Texture<N> turbulenceTexture()
 	{
 		return Turbulence_Texture<N>();

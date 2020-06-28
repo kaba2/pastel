@@ -37,7 +37,7 @@ namespace Pastel
 	call 'transform(mipMap, fitColor)'.
 	*/
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class MipMap
 	{
 	public:

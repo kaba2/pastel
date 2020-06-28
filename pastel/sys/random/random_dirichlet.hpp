@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, SubN<N>> randomDirichlet(
 		const Vector<Real, N>& shape)
 	{

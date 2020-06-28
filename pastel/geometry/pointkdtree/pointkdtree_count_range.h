@@ -34,7 +34,7 @@ namespace Pastel
 		typename Settings, template <typename> class Customization,
 		typename Locator = typename Settings::Locator,
 		typename Real = typename Locator::Real,
-		integer N = Locator::N>
+		int N = Locator::N>
 	integer countRange(
 		const PointKdTree<Settings, Customization>& kdTree,
 		const NoDeduction<AlignedBox<Real, N>>& range,

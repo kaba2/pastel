@@ -5,7 +5,6 @@
 
 #include "pastel/sys/tree.h"
 #include "pastel/sys/tuple.h"
-#include "pastel/sys/generic/class.h"
 
 namespace Pastel
 {
@@ -158,17 +157,17 @@ namespace Pastel
 			}
 		}
 
-		template <typename Data_Class>
+		template <typename Data>
 		class Data_Node
 			: public Node
-			, public Data_Class
+			, public Data
 		{
 		public:
     		explicit Data_Node(
     			Sentinel_Node* sentinel,
-    			Data_Class data)
+    			Data data)
 				: Node(sentinel)
-				, Data_Class(std::move(data))
+				, Data(std::move(data))
 			{
 			}
 
@@ -176,7 +175,7 @@ namespace Pastel
 			template <typename Type>
 			Data_Node& operator=(Type&& that)
 			{
-				((Data_Class&)*this) = std::forward<Type>(that);
+				((Data&)*this) = std::forward<Type>(that);
 				return *this;
 			}
 

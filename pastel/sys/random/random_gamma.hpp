@@ -94,7 +94,7 @@ namespace Pastel
 		return std::sqrt(variance / shape);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomGammaVector(
 		const NoDeduction<Real>& shape)
 	{		
@@ -104,7 +104,7 @@ namespace Pastel
 			N, shape);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomGammaVector(
 		integer dimension,
 		const NoDeduction<Real>& shape)

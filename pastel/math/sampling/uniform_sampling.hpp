@@ -13,14 +13,14 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorCube()
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorCube<Real, N>(N);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorCube(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
@@ -35,14 +35,14 @@ namespace Pastel
 		return direction;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorSphere()
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorSphere<Real, N>(N);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorSphere(integer dimension)
 	{
 		// A randomly distributed vector on the
@@ -83,14 +83,14 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorBall()
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorBall<Real, N>(N);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorBall(
 		integer dimension)
 	{
@@ -104,7 +104,7 @@ namespace Pastel
 		return sphere;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius)
@@ -114,7 +114,7 @@ namespace Pastel
 			minRadius, maxRadius, N);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
 		const NoDeduction<Real>& minRadius,
 		const NoDeduction<Real>& maxRadius,

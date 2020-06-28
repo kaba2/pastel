@@ -10,14 +10,14 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class Transform_Texture
 		: public Texture<Type, N>
 	{
 	public:
 		Transform_Texture(
 			const Texture<Type, N>& texture,
-			const AffineTransformation<dreal>& transformation)
+			const AffineTransformation<dreal, N, N>& transformation)
 			: texture_(&texture)
 			, invTransformation_(inverse(transformation))
 		{
@@ -25,7 +25,7 @@ namespace Pastel
 
 		Type operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const
+			const Matrix<dreal, N, N>& m) const
 		{
 			return (*texture_)(
 				transformPoint(invTransformation_, p),
@@ -39,13 +39,13 @@ namespace Pastel
 
 	private:
 		const Texture<Type, N>* texture_;
-		AffineTransformation<dreal> invTransformation_;
+		AffineTransformation<dreal, N, N> invTransformation_;
 	};
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Transform_Texture<Type, N> transformTexture(
 		const Texture<Type, N>& texture,
-		const AffineTransformation<dreal>& transformation)
+		const AffineTransformation<dreal, N, N>& transformation)
 	{
 		return Transform_Texture<Type, N>(texture, transformation);
 	}

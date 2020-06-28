@@ -37,7 +37,7 @@ namespace Pastel
 		Iterator end_;
 	};
 
-	template <typename Range>
+	template <ranges::forward_range Range>
 	Range_Output<ranges::iterator_t<Range>> rangeOutput(
 		const Range& range)
 	{

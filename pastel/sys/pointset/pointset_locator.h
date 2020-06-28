@@ -51,7 +51,7 @@ namespace Pastel
 	{
 		using Point = Set_Element<Set>;
 		using Real = Point_Real<Point>;
-		static constexpr integer N = Point_N<Point>::value;
+		static constexpr int N = Point_N<Point>::value;
 
 		return Default_Locator<Point, Real, N>(N);
 	}

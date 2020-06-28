@@ -12,7 +12,7 @@ namespace Pastel
 	namespace PermutedView_
 	{
 
-		template <integer N, typename ConstCursor>
+		template <int N, typename ConstCursor>
 		class ConstPermutedViewCursor
 		{
 		public:
@@ -74,7 +74,7 @@ namespace Pastel
 			Tuple<integer, N> permutation_;
 		};
 
-		template <integer N, typename Cursor>
+		template <int N, typename Cursor>
 		class PermutedViewCursor
 			: public ConstPermutedViewCursor<N, Cursor>
 		{

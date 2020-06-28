@@ -29,7 +29,7 @@ model vectors in ''F^n'' over ''F'', where ''F'' is an ordered field
 (such as real numbers or rational numbers).
 
 [[CppCode]]:
-	template <typename Real, integer N = Dynamic>
+	template <typename Real, int N = Dynamic>
 	class Vector;
 
 Parametrized element types
@@ -176,12 +176,12 @@ matching must be exact. The solution is either to evaluate the
 expression first, or make the function accept a vector expression:
 
 [[CppCode]]:
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void f(const Vector<Real, N>& v)
 	{
 	}
 	
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	void g(const VectorExpression<Real, N, Expression>& v)
 	{
 	}

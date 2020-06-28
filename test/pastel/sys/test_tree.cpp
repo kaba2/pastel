@@ -35,7 +35,7 @@ namespace
 	using Range = Tre::Range;
 	using ConstRange = Tre::ConstRange;
 
-	template <integer N>
+	template <int N>
 	bool same(const Tre& tree, integer (&correctSet)[N])
 	{
 		return ranges::equal(range(correctSet), tree.crange(), EqualTo());
@@ -180,7 +180,7 @@ TEST_CASE("Insert (Tree)")
 
 TEST_CASE("NoData (Tree)")
 {
-	Tree<void> tree;
+	Tree<Empty> tree;
 	tree.insertRoot();
 }
 
@@ -282,10 +282,9 @@ namespace
 		void print(const Tre& that)
 		{
 			ConstRange range = that.crange();
-			while(!range.empty())
+			for (auto&& x : range)
 			{
-				std::cout << range.front() << ", ";
-				range.pop_back();
+				std::cout << x << ", ";
 			}
 
 			std::cout << "end." << std::endl;

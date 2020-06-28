@@ -380,7 +380,7 @@ TEST_CASE("search_nearest (TdTree)")
 }
 
 template <
-	typename Range,
+	ranges::input_range Range,
 	typename A_Create,
 	typename B_Create>
 void testGaussian(
@@ -464,7 +464,7 @@ TEST_CASE("search_nearest gaussian tdtree")
 {
 	auto aCreate = CreateBruteForce();
 
-	static constexpr integer N = 3;
+	static constexpr int N = 3;
 	using PointSet = std::vector<Vector<dreal, N>>;
 
 	integer n = 1000;

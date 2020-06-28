@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		integer N,
+		int N,
 		typename Function>
 	class VectorLambda
 		: public VectorExpression<Real, N, VectorLambda<Real, N, Function>>
@@ -57,7 +57,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		integer N = Dynamic,
+		int N = Dynamic,
 		typename Function>
 	decltype(auto) lambdaVector(
 		const Function& function,

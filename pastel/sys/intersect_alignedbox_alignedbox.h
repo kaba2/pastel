@@ -21,7 +21,7 @@ namespace Pastel
 	Returns:
 	Whether the boxes intersect.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool intersect(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,

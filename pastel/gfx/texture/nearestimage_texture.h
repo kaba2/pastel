@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class NearestImage_Texture
 		: public Texture<Type, N>
 	{
@@ -44,7 +44,7 @@ namespace Pastel
 
 		virtual Element operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const
+			const Matrix<dreal, N, N>& m) const
 		{
 			const Vector<integer, N> x(p * extent_);
 
@@ -73,7 +73,7 @@ namespace Pastel
 		Vector<dreal, N> extent_;
 	};
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	NearestImage_Texture<Type, N> nearestImageTexture(
 		const Array<Type, N>& image,
 		const ArrayExtender<N, NoDeduction<Type>>& extender = ArrayExtender<N, Type>())

@@ -10,7 +10,7 @@ namespace Pastel
 	namespace VisitRows_
 	{
 
-		template <integer N, typename Contained_View, typename RowVisitorFunctor>
+		template <int N, typename Contained_View, typename RowVisitorFunctor>
 		class ConstRowViewVisitor
 		{
 		public:
@@ -37,7 +37,7 @@ namespace Pastel
 			integer freeIndex_;
 		};
 
-		template <integer N, typename Contained_View, typename RowVisitorFunctor>
+		template <int N, typename Contained_View, typename RowVisitorFunctor>
 		class RowViewVisitor
 		{
 		public:
@@ -66,7 +66,7 @@ namespace Pastel
 
 	}
 
-	template <integer N, 
+	template <int N, 
 		typename Input_Element, typename Input_ConstView,
 		typename RowVisitorFunctor>
 		void visitRows(const ConstView<N, Input_Element, Input_ConstView>& view,
@@ -93,7 +93,7 @@ namespace Pastel
 		visit(rectangle, rowViewVisitor);
 	}
 
-	template <integer N, 
+	template <int N, 
 		typename Input_Element, typename Input_View,
 		typename RowVisitorFunctor>
 
@@ -124,7 +124,7 @@ namespace Pastel
 	namespace VisitRows_
 	{
 
-		template <integer N, 
+		template <int N, 
 			typename Left_View, 
 			typename Right_View,
 			typename RowVisitorFunctor>
@@ -158,7 +158,7 @@ namespace Pastel
 			integer freeIndex_;
 		};
 
-		template <integer N, 
+		template <int N, 
 			typename Left_View, 
 			typename Right_View,
 			typename RowVisitorFunctor>
@@ -192,7 +192,7 @@ namespace Pastel
 			integer freeIndex_;
 		};
 
-		template <integer N, 
+		template <int N, 
 			typename Left_View, 
 			typename Right_View,
 			typename RowVisitorFunctor>
@@ -228,7 +228,7 @@ namespace Pastel
 
 	}
 
-	template <integer N, 
+	template <int N, 
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>
@@ -269,7 +269,7 @@ namespace Pastel
 		visit(leftRectangle, rowViewVisitor);
 	}
 
-	template <integer N, 
+	template <int N, 
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>
@@ -310,7 +310,7 @@ namespace Pastel
 		visit(leftRectangle, rowViewVisitor);
 	}
 
-	template <integer N, 
+	template <int N, 
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename RowVisitorFunctor>

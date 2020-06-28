@@ -46,7 +46,7 @@ namespace Pastel
 	template <
 		typename AlignedBox_ConstRange,
 		typename AlignedBox_Output>
-	typename boost::range_value<AlignedBox_ConstRange>::type 
+	ranges::range_value_t<AlignedBox_ConstRange> 
 		maximumClique(
 		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection,
@@ -60,7 +60,7 @@ namespace Pastel
 	See the documentation for the general function.
 	*/
 	template <typename AlignedBox_ConstRange>
-	typename boost::range_value<AlignedBox_ConstRange>::type 
+	ranges::range_value_t<AlignedBox_ConstRange> 
 		maximumClique(
 		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection = 1);

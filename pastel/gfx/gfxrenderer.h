@@ -46,8 +46,8 @@ namespace Pastel
 
 		// Transformation state
 
-		AffineTransformation<dreal> viewTransformation_;
-		AffineTransformation<dreal> modelTransformation_;
+		AffineTransformation<dreal, 2, 2> viewTransformation_;
+		AffineTransformation<dreal, 2, 2> modelTransformation_;
 		AlignedBox2 viewWindow_;
 	};
 
@@ -90,13 +90,13 @@ namespace Pastel
 		// Transformation state
 
 		void setViewTransformation(
-			const AffineTransformation<dreal>& viewTransformation);
-		AffineTransformation<dreal> viewTransformation() const;
+			const AffineTransformation<dreal, 2, 2>& viewTransformation);
+		AffineTransformation<dreal, 2, 2> viewTransformation() const;
 		virtual void onSetViewTransformation() {}
 
 		void setModelTransformation(
-			const AffineTransformation<dreal>& modelTransformation);
-		AffineTransformation<dreal> modelTransformation() const;
+			const AffineTransformation<dreal, 2, 2>& modelTransformation);
+		AffineTransformation<dreal, 2, 2> modelTransformation() const;
 		virtual void onSetModelTransformation() {}
 
 		void setViewWindow(

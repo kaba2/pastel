@@ -13,7 +13,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		integer N,
+		int N,
 		Requires<
 			Models<Vector<Real, N>, Point_Concept>
 		> = 0
@@ -23,7 +23,7 @@ namespace Pastel
 		return Default_Locator<Vector<Real, N>, Real, N>(point.n());
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	IntegerConstant<N> pointN(const Vector<Real, N>* point);
 
 

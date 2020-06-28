@@ -11,14 +11,14 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	RipImage_Texture<Type, N>::RipImage_Texture()
 		: ripMap_(0)
 		, extender_()
 	{
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	RipImage_Texture<Type, N>::RipImage_Texture(
 		const RipMap<Type, N>& ripMap,
 		const ArrayExtender_& extender)
@@ -27,10 +27,10 @@ namespace Pastel
 	{
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Type RipImage_Texture<Type, N>::operator()(
 		const Vector<dreal, N>& uv,
-		const Matrix<dreal>& m) const
+		const Matrix<dreal, N, N>& m) const
 	{
 		if (!ripMap_ || ripMap_->empty())
 		{
@@ -43,7 +43,7 @@ namespace Pastel
 			ripMap_->mostDetailed();
 
 		Vector<dreal, N> radius =
-			max(abs(m)) * Vector<dreal, N>(mostDetailedImage.extent());
+			asVector(max(abs(m))) * Vector<dreal, N>(mostDetailedImage.extent());
 
 		if (allLessEqual(radius, 1))
 		{
@@ -80,7 +80,7 @@ namespace Pastel
 
 		integer samples = (integer)1 << n;
 
-		Tuple<Type, ModifyN<N, 1 << N>::Result> valueSet(ofDimension(samples));
+		Tuple<Type, ModifyN<N, 1 << N>> valueSet(ofDimension(samples));
 		Tuple<bool, N> s(ofDimension(n), false);
 		for (integer i = 0;i < samples;++i)
 		{

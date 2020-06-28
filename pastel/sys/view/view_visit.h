@@ -11,21 +11,21 @@ namespace Pastel
 
 	//! Applies a functor to all positions: visitor(x).
 
-	template <integer N, typename VisitorFunctor>
+	template <int N, typename VisitorFunctor>
 	void visit(
 		const AlignedBox<integer, N>& rectangle,
 		const VisitorFunctor& visitor);
 
 	//! Applies a functor to elements of view: visitor(input(x)).
 
-	template <integer N, typename Type, typename Input_ConstView, typename VisitorFunctor>
+	template <int N, typename Type, typename Input_ConstView, typename VisitorFunctor>
 	void visit(
 		const ConstView<N, Type, Input_ConstView>& input,
 		const VisitorFunctor& visitor);
 
 	//! Applies a functor to elements of view: visitor(input(x)).
 
-	template <integer N, typename Type, typename Input_View, typename VisitorFunctor>
+	template <int N, typename Type, typename Input_View, typename VisitorFunctor>
 	void visit(
 		const View<N, Type, Input_View>& input,
 		const VisitorFunctor& visitor);
@@ -37,7 +37,7 @@ namespace Pastel
 	left.extent() == right.extent();
 	*/
 
-	template <integer N,
+	template <int N,
 		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_View,
 		typename VisitorFunctor>
@@ -53,7 +53,7 @@ namespace Pastel
 	left.extent() == right.extent();
 	*/
 
-	template <integer N,
+	template <int N,
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename VisitorFunctor>
@@ -69,7 +69,7 @@ namespace Pastel
 	left.extent() == right.extent();
 	*/
 
-	template <integer N,
+	template <int N,
 		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_ConstView,
 		typename VisitorFunctor>

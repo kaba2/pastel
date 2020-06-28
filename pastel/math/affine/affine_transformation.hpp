@@ -6,51 +6,57 @@
 namespace Pastel
 {
 
-	template <typename Real>
+	//! Swaps two affine transformations.
+	template <typename Real, int M, int N>
 	void swap(
-		AffineTransformation<Real>& left,
-		AffineTransformation<Real>& right)
+		AffineTransformation<Real, M, N>& left,
+		AffineTransformation<Real, M, N>& right)
 	{
 		left.swap(right);
 	}
 
-	template <typename Real>
-	Matrix<Real> asMatrix(
-		const AffineTransformation<Real>& that)
+	//! Returns the affine transformation as a homogeneous matrix.
+	template <typename Real, int M, int N>
+	Matrix<Real, AddN<M>, AddN<N>> asMatrix(
+		const AffineTransformation<Real, M, N>& that)
 	{
-		integer n = that.n();
-		Matrix<Real> result(n + 1, n + 1);
+		integer m = that.rows();
+		integer n = that.cols();
+		Matrix<Real, AddN<M>, AddN<N>> result = Matrix<Real, AddN<M>, AddN<N>>::Zero(m + 1, n + 1);
 		for (integer i = 0;i < n;++i)
 		{
-			result.column(i) = extend(that.matrix().column(i), 0);
+			result.col(i) = extend(that.matrix().col(i), 0);
 		}
-		result.column(n) = extend(that.translation(), 1);
+		result.col(n) = extend(that.translation(), 1);
 
 		return result;
 	}
 
-	template <typename Real, integer N>
+	//! Transforms a vector by the affine transformation.
+	template <typename Real, int M, int N>
 	Vector<Real, N> transformVector(
-		const AffineTransformation<Real>& affine,
+		const AffineTransformation<Real, M, N>& affine,
 		const Vector<Real, N>& vector)
 	{
 		// Ax
 		return affine.matrix() * vector;
 	}
 
-	template <typename Real, integer N>
+	//! Transforms a point by the affine transformation.
+	template <typename Real, int M, int N, int NV>
 	Vector<Real, N> transformPoint(
-		const AffineTransformation<Real>& affine,
-		const Vector<Real, N>& point)
+		const AffineTransformation<Real, M, N>& affine,
+		const Vector<Real, NV>& point)
 	{
 		// Ax + b
 		return affine.matrix() * point + affine.translation();
 	}
 
-	template <typename Real, integer N>
+	//! Transforms a normal by the affine transformation.
+	template <typename Real, int M, int N, int NV>
 	Vector<Real, N> transformNormal(
-		const AffineTransformation<Real>& affineInverse,
-		const Vector<Real, N>& normal)
+		const AffineTransformation<Real, M, N>& affineInverse,
+		const Vector<Real, NV>& normal)
 	{
 		// A^(-T) x
 		return transpose(affineInverse.matrix()) * normal;

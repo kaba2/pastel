@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void EwaImage_Texture<Type, N>::setFilter(
 		const FilterPtr& maxFilter,
 		const FilterPtr& minFilter)
@@ -43,10 +43,10 @@ namespace Pastel
 		filterRadius_ = filterRadius;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Type EwaImage_Texture<Type, N>::operator()(
 		const Vector<dreal, N>& p_,
-		const Matrix<dreal>& m_) const
+		const Matrix<dreal, N, N>& m_) const
 	{
 		// Read ewaimatexture.txt for implementation documentation.
 
@@ -55,7 +55,7 @@ namespace Pastel
 			return Type(0.5);
 		}
 
-		integer n = m_.height();
+		integer n = m_.rows();
 
 		const Array<Type, N>& mostDetailedImage = mipMap_->mostDetailed();
 		Vector<dreal, N> imageExtent(mostDetailedImage.extent());
@@ -64,16 +64,16 @@ namespace Pastel
 		// transformation from the image plane to the texture plane.
 
 		const Vector<dreal, N> p(p_ * imageExtent);
-		Matrix<dreal> basis = m_;
+		Matrix<dreal, N, N> basis = m_;
 		for (integer i = 0;i < n;++i)
 		{
-			basis.column(i) *= imageExtent * filterRadius_;
+			basis.col(i) = basis.col(i).cwiseProduct(asColumnMatrix(evaluate(imageExtent * filterRadius_)));
 		}
 
 		// Find the ellipse that is obtained by applying
 		// that affine transformation to a unit sphere.
 
-		Matrix<dreal> quadraticForm =
+		Matrix<dreal, N, N> quadraticForm =
 			ellipsoidQuadraticForm(basis);
 
 		// We do not use the coefficients as computed.
@@ -186,7 +186,7 @@ namespace Pastel
 
 		//return Type(level / (mipMap_->levels() - 1));
 
-		AlignedBoxD bound =
+		AlignedBox<dreal, N> bound =
 			ellipsoidBoundingAlignedBox(quadraticForm) + p;
 
 		// We want 'f' to give the value of
@@ -245,11 +245,11 @@ namespace Pastel
 		return linear(detailSample, coarseSample, level - detailLevel);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Type EwaImage_Texture<Type, N>::sampleEwa(
 		const Vector<dreal, N>& p,
-		const Matrix<dreal>& quadraticForm,
-		const AlignedBoxD& bound,
+		const Matrix<dreal, N, N>& quadraticForm,
+		const AlignedBox<dreal, N>& bound,
 		dreal scaling,
 		dreal tTransition,
 		const Array<Type, N>& image) const
@@ -268,7 +268,7 @@ namespace Pastel
 
 		dreal fLeft = dot(pStart * quadraticForm, pStart) * formScaling;
 		Vector<dreal, N> dfLeft = (2 * (pStart * quadraticForm) + diagonal(quadraticForm)) * formScaling;
-		const Matrix<dreal> ddf = (2 * formScaling) * quadraticForm;
+		const Matrix<dreal, N, N> ddf = (2 * formScaling) * quadraticForm;
 
 		Type imageSum(0);
 		dreal weightSum = 0;
@@ -296,7 +296,7 @@ namespace Pastel
 			}
 
 			fLeft += dfLeft.y();
-			dfLeft += ddf.cColumn(1);
+			dfLeft += asVector(ddf.col(1));
 		}
 
 		if (weightSum <= 0)

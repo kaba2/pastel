@@ -19,11 +19,11 @@ namespace Pastel
 
 	using Rgb888Adapter = Integer_To_Color<uint32, 8, 8, 8>;
 
-	template <integer N>
+	template <int N>
 	ConstView<N, Color, ConstAdaptedView<N, Rgb888Adapter, ConstArrayView<N, Array<uint32, N> > > >
 		constRgb888View(const Array<uint32, N>& image);
 
-	template <integer N>
+	template <int N>
 	View<N, Color, AdaptedView<N, Rgb888Adapter, ArrayView<N, Array<uint32, N> > > >
 		rgb888View(Array<uint32, N>& image);
 
@@ -32,7 +32,7 @@ namespace Pastel
 		const std::vector<Color>& palette,
 		Array<Color, 2>& colorImage);
 
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void scaleGrayscaleImage(
 		const View<N, real32, Image_View>& image);
 

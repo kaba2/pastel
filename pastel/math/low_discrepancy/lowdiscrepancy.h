@@ -39,7 +39,7 @@ namespace Pastel
 	The elements of 'bases' should be coprime to each other (not enforced!).
 	*/
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> haltonSequence(integer n, const Vector<integer, N>& bases);
 
 	//! Returns the n:th element of the Hammersley sequence.
@@ -55,8 +55,8 @@ namespace Pastel
 	samples you wish to draw.
 	*/
 
-	template <typename Real, integer N>
-	Vector<Real, ModifyN<N, N + 1>::Result> hammersleySequence(
+	template <typename Real, int N>
+	Vector<Real, AddN<N>> hammersleySequence(
 		integer n, const Vector<integer, N>& bases, integer size);
 
 }

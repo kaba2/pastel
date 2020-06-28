@@ -6,9 +6,10 @@
 namespace Pastel
 {
 
-	template <typename Real>
-	AffineTransformation<Real> inverse(
-		const AffineTransformation<Real>& that)
+	//! Returns the inverse of an affine transformation.
+	template <typename Real, int M, int N>
+	AffineTransformation<Real, M, N> inverse(
+		const AffineTransformation<Real, M, N>& that)
 	{
 		// (forall x)
 		//
@@ -23,28 +24,29 @@ namespace Pastel
 		// C = A^{-1} and d = -A^{-1}b
 
 		// Compute C = A^{-1}.
-		Matrix<Real> inverseMatrix(
+		Matrix<Real, M, N> inverseMatrix(
 			inverse(that.matrix()));
 
 		// Compute d = -A^{-1}b.
-		Vector<Real> inverseTranslation =
-			-inverseMatrix * that.translation();
+		Vector<Real, N> inverseTranslation =
+			(-inverseMatrix).eval() * that.translation();
 
-		AffineTransformation<Real> result(
+		AffineTransformation<Real, M, N> result(
 			std::move(inverseMatrix),
 			std::move(inverseTranslation));
 
 		return result;
 	}
 
-	template <typename Real>
-	AffineTransformation<Real> orthogonalInverse(
-		const AffineTransformation<Real>& that)
+	//! Returns the inverse of an orthogonal affine transformation.
+	template <typename Real, int M, int N>
+	AffineTransformation<Real, M, N> orthogonalInverse(
+		const AffineTransformation<Real, M, N>& that)
 	{
 		// C = A^{-1} = A^T and
 		// d = -A^{-1}b = -A^T b
 
-		AffineTransformation<Real> result(
+		AffineTransformation<Real, M, N> result(
 			transpose(that.matrix()),
 			-transpose(that.matrix()) * that.translation());
 

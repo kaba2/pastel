@@ -3,6 +3,10 @@
 
 #include "pastel/math/conformalaffine2d/conformalaffine2d_tools.h"
 
+#include "pastel/math/affine/affine_transformation.h"
+
+#include "pastel/sys/range.h"
+
 #include "pastel/sys/math/angles.h"
 #include "pastel/sys/vector/vector_tools.h"
 
@@ -11,7 +15,8 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	//! Applies a conformal affine transformation to a vector inplace.
+	template <typename Real, int N>
 	Vector<Real, N>& transformVectorInplace(
 		const ConformalAffine2D<Real>& transform,
 		Vector<Real, N>& that)
@@ -33,7 +38,8 @@ namespace Pastel
 		return that;
 	}
 
-	template <typename Real, integer N>
+	//! Applies a conformal affine transformation to a vector.
+	template <typename Real, int N>
 	Vector<Real, N> transformVector(
 		const ConformalAffine2D<Real>& transform,
 		const Vector<Real, N>& that)
@@ -49,7 +55,8 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N>
+	//! Applies a conformal affine transformation to a point inplace.
+	template <typename Real, int N>
 	Vector<Real, N>& transformPointInplace(
 		const ConformalAffine2D<Real>& transform,
 		Vector<Real, N>& that)
@@ -65,7 +72,8 @@ namespace Pastel
 		return that;
 	}
 
-	template <typename Real, integer N>
+	//! Applies a conformal affine transformation to a point.
+	template <typename Real, int N>
 	Vector<Real, N> transformPoint(
 		const ConformalAffine2D<Real>& transform,
 		const Vector<Real, N>& that)
@@ -80,14 +88,15 @@ namespace Pastel
 		return result;
 	}
 
+	//! Converts a ConformalAffine2D to an AffineTransformation.
 	template <typename Real>
-	AffineTransformation<Real> toAffine(
+	AffineTransformation<Real, 2, 2> toAffine(
 		const ConformalAffine2D<Real>& that)
 	{
 		const Real& scaling = that.scaling();
 		const Real& ccwRotation = that.rotation();
 
-		AffineTransformation<Real> result(
+		AffineTransformation<Real, 2, 2> result(
 			matrix2x2<Real>(
 			scaling * std::cos(ccwRotation), scaling * std::sin(ccwRotation),
 			-scaling * std::sin(ccwRotation), scaling * std::cos(ccwRotation)),
@@ -96,7 +105,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	ConformalAffine2D<Real> conformalAffine(
 		const Vector<Real, N>& aFrom, const Vector<Real, N>& bFrom,
 		const Vector<Real, N>& aTo, const Vector<Real, N>& bTo)

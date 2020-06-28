@@ -3,13 +3,11 @@
 
 #include "pastel/math/matrix/lu_decomposition.h"
 
-#include "pastel/math/matrix/matrix_tools.h"
-
 namespace Pastel
 {
 
-	template <typename Real>
-	LuDecomposition<Real>::LuDecomposition(integer n)
+	template <typename Real, int M, int N>
+	LuDecomposition<Real, M, N>::LuDecomposition(integer n)
 		: packedLu_(n, n)
 		, rowPermutation_(ofDimension(n))
 		, evenPermutation_(true)
@@ -27,21 +25,20 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real>
-	LuDecomposition<Real>::LuDecomposition(Matrix<Real> matrix)
+	template <typename Real, int M, int N>
+	LuDecomposition<Real, M, N>::LuDecomposition(Matrix<Real, M, N> matrix)
 		: packedLu_(std::move(matrix))
-		, rowPermutation_(ofDimension(packedLu_.n()))
+		, rowPermutation_(ofDimension(packedLu_.cols()))
 		, evenPermutation_(true)
 		, singular_(false)
-		, invLargestInRow_(ofDimension(packedLu_.n()), 1)
+		, invLargestInRow_(ofDimension(packedLu_.cols()), 1)
 	{
-		ENSURE_OP(packedLu_.m(), ==, packedLu_.n());
+		ENSURE_OP(packedLu_.rows(), ==, packedLu_.cols());
 		decompose();
 	}
 
-	template <typename Real>
-
-	LuDecomposition<Real>::LuDecomposition(const LuDecomposition& that)
+	template <typename Real, int M, int N>
+	LuDecomposition<Real, M, N>::LuDecomposition(const LuDecomposition& that)
 		: packedLu_(that.packedLu_)
 		, rowPermutation_(that.rowPermutation_)
 		, evenPermutation_(that.evenPermutation_)
@@ -50,19 +47,19 @@ namespace Pastel
 	{
 	}
 
-	template <typename Real>
-	LuDecomposition<Real>::LuDecomposition(LuDecomposition&& that)
-		: packedLu_(that.n(), that.n())
-		, rowPermutation_(ofDimension(that.n()))
+	template <typename Real, int M, int N>
+	LuDecomposition<Real, M, N>::LuDecomposition(LuDecomposition&& that)
+		: packedLu_(that.cols(), that.cols())
+		, rowPermutation_(ofDimension(that.cols()))
 		, evenPermutation_(true)
 		, singular_(false)
-		, invLargestInRow_(ofDimension(that.n()), 1)
+		, invLargestInRow_(ofDimension(that.cols()), 1)
 	{
 		swap(that);
 	}
 	
-	template <typename Real>
-	void LuDecomposition<Real>::swap(LuDecomposition& that)
+	template <typename Real, int M, int N>
+	void LuDecomposition<Real, M, N>::swap(LuDecomposition& that)
 	{
 		packedLu_.swap(that.packedLu_);
 		rowPermutation_.swap(that.rowPermutation_);
@@ -71,55 +68,55 @@ namespace Pastel
 		invLargestInRow_.swap(that.invLargestInRow_);
 	}
 
-	template <typename Real>
-	LuDecomposition<Real>& LuDecomposition<Real>::operator=(
+	template <typename Real, int M, int N>
+	LuDecomposition<Real, M, N>& LuDecomposition<Real, M, N>::operator=(
 		LuDecomposition that)
 	{
 		swap(that);
 		return *this;
 	}
 
-	template <typename Real>
-	bool LuDecomposition<Real>::decompose(Matrix<Real> matrix)
+	template <typename Real, int M, int N>
+	bool LuDecomposition<Real, M, N>::decompose(const Matrix<Real, M, N>& matrix)
 	{
-		packedLu_ = std::move(matrix);
+		packedLu_ = matrix;
 		return decompose();
 	}
 
-	template <typename Real>
-	integer LuDecomposition<Real>::n() const
+	template <typename Real, int M, int N>
+	integer LuDecomposition<Real, M, N>::n() const
 	{
-		return packedLu_.n();
+		return packedLu_.cols();
 	}
 
-	template <typename Real>
-	const Matrix<Real>& LuDecomposition<Real>::packedLu() const
+	template <typename Real, int M, int N>
+	const Matrix<Real, M, N>& LuDecomposition<Real, M, N>::packedLu() const
 	{
 		return packedLu_;
 	}
 
-	template <typename Real>
-	const Tuple<integer>& LuDecomposition<Real>::rowPermutation() const
+	template <typename Real, int M, int N>
+	const Tuple<integer, N>& LuDecomposition<Real, M, N>::rowPermutation() const
 	{
 		return rowPermutation_;
 	}
 
-	template <typename Real>
-	bool LuDecomposition<Real>::evenPermutation() const
+	template <typename Real, int M, int N>
+	bool LuDecomposition<Real, M, N>::evenPermutation() const
 	{
 		return evenPermutation_;
 	}
 
-	template <typename Real>
-	bool LuDecomposition<Real>::singular() const
+	template <typename Real, int M, int N>
+	bool LuDecomposition<Real, M, N>::singular() const
 	{
 		return singular_;
 	}
 
 	// Private
 
-	template <typename Real>
-	bool LuDecomposition<Real>::decompose()
+	template <typename Real, int M, int N>
+	bool LuDecomposition<Real, M, N>::decompose()
 	{
 		// This is Crout's algorithm to
 		// compute LUP-decomposition in-place.
@@ -149,8 +146,8 @@ namespace Pastel
 		singular_ = false;
 		evenPermutation_ = true;
 
-		integer width = packedLu_.width();
-		integer height = packedLu_.height();
+		integer width = packedLu_.cols();
+		integer height = packedLu_.rows();
 
 		ENSURE_OP(width, ==, height);
 
@@ -262,14 +259,15 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Real, integer N, typename Expression>
+	//! Solves the linear system PLUx = b.
+	template <typename Real, int M, int N>
 	Vector<Real> solveLinear(
-		const LuDecomposition<Real>& lu,
-		const VectorExpression<Real, N, Expression>& b)
+		const LuDecomposition<Real, M, N>& lu,
+		const Vector<Real, N>& b)
 	{
-		const Matrix<Real>& packedLu = lu.packedLu();
+		const Matrix<Real, M, N>& packedLu = lu.packedLu();
 
-		integer n = packedLu.width();
+		integer n = packedLu.cols();
 
 		ENSURE2(b.size() == n, b.size(), n);
 
@@ -281,7 +279,7 @@ namespace Pastel
 		// Ax = b <=> PLU x = b
 
 		// First solve Pz = b.
-		Vector<Real> x(ofDimension(n));
+		Vector<Real, N> x(ofDimension(n));
 
 		const Tuple<integer>& rowPermutation = lu.rowPermutation();
 		for (integer i = 0;i < n;++i)
@@ -298,9 +296,10 @@ namespace Pastel
 		return x;
 	}
 
-	template <typename Real>
+	//! Returns the determinant of PLU.
+	template <typename Real, int M, int N>
 	Real determinant(
-		const LuDecomposition<Real>& lu)
+		const LuDecomposition<Real, M, N>& lu)
 	{
 		if (lu.singular())
 		{

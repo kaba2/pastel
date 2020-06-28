@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian, integer k)
 	{
@@ -56,7 +56,7 @@ namespace Pastel
 		return cylinder;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> cylinderToCartesian(
 		const Vector<Real, N>& cylinder, integer k)
 	{
@@ -102,7 +102,7 @@ namespace Pastel
 		return cartesian;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian)
 	{
@@ -110,7 +110,7 @@ namespace Pastel
 			cartesian, cartesian.n() - 1);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> cylinderToCartesian(
 		const Vector<Real, N>& cylinder)
 	{
@@ -118,7 +118,7 @@ namespace Pastel
 			cylinder.n() - 1);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> cartesianToSpherical(
 		const Vector<Real, N>& cartesian)
 	{
@@ -126,7 +126,7 @@ namespace Pastel
 			cartesian.n());
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> sphericalToCartesian(
 		const Vector<Real, N>& spherical)
 	{

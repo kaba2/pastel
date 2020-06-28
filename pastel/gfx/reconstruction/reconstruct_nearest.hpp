@@ -16,7 +16,7 @@ namespace Pastel
 	namespace ReconstructNearest_
 	{
 
-		template <typename Real, integer N, typename Data>
+		template <typename Real, int N, typename Data>
 		class DataPoint
 		{
 		public:
@@ -41,12 +41,12 @@ namespace Pastel
 		};
 
 		template <
-			typename Real_, integer N_, typename Data>
+			typename Real_, int N_, typename Data>
 		class DataPolicy
 		{
 		public:
 			using Real = Real_;
-			static constexpr integer N = N_;
+			static constexpr int N = N_;
 			using Point = DataPoint<Real, N, Data>;
 
 			explicit DataPolicy(
@@ -78,7 +78,7 @@ namespace Pastel
 		public:
 			using Locator = typename Tree::Locator;
 			using Real = typename Locator::Real;
-			static constexpr integer N = Locator::N;
+			static constexpr int N = Locator::N;
 
 			explicit ReconstructFunctor(
 				const Tree& kdTree,
@@ -124,7 +124,7 @@ namespace Pastel
 		};
 	}
 
-	template <typename Real, integer N, typename Data, typename Output_View>
+	template <typename Real, int N, typename Data, typename Output_View>
 	void reconstructNearest(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -171,7 +171,7 @@ namespace Pastel
 			view, reconstructFunctor);
 	}
 
-	template <typename Real, integer N, typename Data, typename Output_View>
+	template <typename Real, int N, typename Data, typename Output_View>
 	void reconstructNearest(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -184,7 +184,7 @@ namespace Pastel
 			region, view, kNearest, 0);
 	}
 
-	template <typename Real, integer N, typename Data, typename Output_View>
+	template <typename Real, int N, typename Data, typename Output_View>
 	void reconstructNearest(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,

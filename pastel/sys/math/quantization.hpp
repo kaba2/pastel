@@ -21,7 +21,7 @@ namespace Pastel
 		return clamp((((real64)x) + 0.5) / numbers, 0, 1);
 	}
 
-	template <integer N>
+	template <int N>
 	inline real64 dequantizeSigned(integer i)
 	{
 		PASTEL_STATIC_ASSERT(N >= 2 && N <= 32);
@@ -32,7 +32,7 @@ namespace Pastel
 	}
 
 	/*
-	template <integer N>
+	template <int N>
 	inline real64 ditheredQuantizeSigned(integer i)
 	{
 		PASTEL_STATIC_ASSERT(N >= 2 && N <= 32);
@@ -53,7 +53,7 @@ namespace Pastel
 	}
 	*/
 
-	template <integer N>
+	template <int N>
 	inline integer quantizeSigned(real64 r)
 	{
 		PASTEL_STATIC_ASSERT(N >= 2 && N <= 32);

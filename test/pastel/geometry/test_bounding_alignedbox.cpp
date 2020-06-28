@@ -18,7 +18,7 @@ TEST_CASE("TransformedSphere (boundingAlignedBox)")
 	{
 		Sphere<Real, 2> sphere(Point(0, 0), 4);
 
-		AffineTransformation<Real> transform =
+		AffineTransformation<Real, 2, 2> transform =
 			affineScaling(Point(2, 1));								
 
 		AlignedBox<Real, 2> bound =
@@ -30,7 +30,7 @@ TEST_CASE("TransformedSphere (boundingAlignedBox)")
 	{
 		Sphere<Real, 2> sphere(Point(3, 5), 4);
 
-		AffineTransformation<Real> transform =
+		AffineTransformation<Real, 2, 2> transform =
 			affineScaling(Point(2, 1));								
 
 		AlignedBox<Real, 2> bound =
@@ -42,7 +42,7 @@ TEST_CASE("TransformedSphere (boundingAlignedBox)")
 	{
 		Sphere<Real, 2> sphere(Point(3, 5), 4);
 
-		AffineTransformation<Real> transform =
+		AffineTransformation<Real, 2, 2> transform =
 			affineTranslation(Point(1, -4)) * affineScaling(Point(2, 1));
 
 		AlignedBox<Real, 2> bound =

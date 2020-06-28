@@ -6,7 +6,7 @@
 #define PASTEL_UNARY_VECTOREXPRESSION_CLASS(CLASS, UNARY_FUNCTION) \
 	template <  \
 		typename Real,  \
-		integer N,  \
+		int N,  \
 		typename Expression>  \
 	class CLASS \
 		: public VectorExpression<Real, N, CLASS<Real, N, Expression> > \
@@ -49,7 +49,7 @@
 	};
 
 #define PASTEL_UNARY_VECTOREXPRESSION_FUNCTION(CLASS, VECTOR_FUNCTION) \
-	template <typename Real, integer N, typename Expression> \
+	template <typename Real, int N, typename Expression> \
 	inline const CLASS<Real, N, Expression> \
 		VECTOR_FUNCTION(const VectorExpression<Real, N, Expression>& x) \
 	{ \

@@ -143,28 +143,28 @@ namespace Pastel
 
 	template <typename Type>
 	void GfxRenderer<Type>::setViewTransformation(
-		const AffineTransformation<dreal>& viewTransformation)
+		const AffineTransformation<dreal, 2, 2>& viewTransformation)
 	{
 		state_.viewTransformation_ = viewTransformation;
 		onSetViewTransformation();
 	}
 
 	template <typename Type>
-	AffineTransformation<dreal> GfxRenderer<Type>::viewTransformation() const
+	AffineTransformation<dreal, 2, 2> GfxRenderer<Type>::viewTransformation() const
 	{
 		return state_.viewTransformation_;
 	}
 
 	template <typename Type>
 	void GfxRenderer<Type>::setModelTransformation(
-		const AffineTransformation<dreal>& modelTransformation)
+		const AffineTransformation<dreal, 2, 2>& modelTransformation)
 	{
 		state_.modelTransformation_ = modelTransformation;
 		onSetModelTransformation();
 	}
 
 	template <typename Type>
-	AffineTransformation<dreal> GfxRenderer<Type>::modelTransformation() const
+	AffineTransformation<dreal, 2, 2> GfxRenderer<Type>::modelTransformation() const
 	{
 		return state_.modelTransformation_;
 	}

@@ -115,12 +115,12 @@ namespace Pastel
 				Array<int32> result =
 					matlabCreateArray<int32>(leftMatchSet.size(), 2, outputSet[MatchSet]);
 
-				boost::copy(
-					range(leftMatchSet.cbegin(), leftMatchSet.cend()),
+				ranges::copy(
+					leftMatchSet,
 					result.rowBegin(0));
 
-				boost::copy(
-					range(rightMatchSet.cbegin(), rightMatchSet.cend()),
+				ranges::copy(
+					rightMatchSet,
 					result.rowBegin(1));
 			}
 		}

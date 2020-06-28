@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class LinearSimplex_Texture
 		: public Texture<Type, N>
 	{
@@ -22,7 +22,7 @@ namespace Pastel
 		}
 
 		explicit LinearSimplex_Texture(
-			const Tuple<Type, ModifyN<N, N + 1>::Result>& colorSimplex)
+			const Tuple<Type, AddN<N>>& colorSimplex)
 			: colorSimplex_(colorSimplex)
 		{
 		}
@@ -33,13 +33,13 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const
+			const Matrix<dreal, N, N>& m) const
 		{
 			integer n = p.size();
-			PENSURE_OP(n, ==, m.width());
-			PENSURE_OP(n, ==, m.height());
+			PENSURE_OP(n, ==, m.cols());
+			PENSURE_OP(n, ==, m.rows());
 
-			Vector<dreal, ModifyN<N, N + 1>::Result> bary = 
+			Vector<dreal, AddN<N>> bary = 
 				barycentric(p);
 
 			if (anyLess(bary, 0))
@@ -62,14 +62,14 @@ namespace Pastel
 		}
 
 	private:
-		Tuple<Type, ModifyN<N, N + 1>::Result> colorSimplex_;
+		Tuple<Type, AddN<N>> colorSimplex_;
 	};
 
-	template <typename Type, integer N>
-	LinearSimplex_Texture<Type, ModifyN<N, N - 1>::Result> linearSimplexTexture(
+	template <typename Type, int N>
+	LinearSimplex_Texture<Type, SubN<N>> linearSimplexTexture(
 		const Tuple<Type, N>& colorSimplex)
 	{
-		return LinearSimplex_Texture<Type, ModifyN<N, N - 1>::Result>(
+		return LinearSimplex_Texture<Type, SubN<N>>(
 			colorSimplex);
 	}
 

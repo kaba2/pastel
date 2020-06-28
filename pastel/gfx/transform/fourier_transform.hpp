@@ -38,9 +38,9 @@ namespace Pastel
 			const Complex_Range& outputRange)
 		{
 			typedef typename Complex_RealType<
-				typename boost::range_value<Complex_ConstRange>::type>::Result Real;
+				ranges::range_value_t<Complex_ConstRange>>::Result Real;
 			using Complex = std::complex<Real>;
-			typedef typename boost::range_iterator<Complex_ConstRange>::type
+			typedef ranges::iterator_t<Complex_ConstRange>
 				ConstIterator;
 
 			auto input = inputRange.begin();
@@ -161,7 +161,7 @@ namespace Pastel
 		{
 			using namespace Fourier_;
 
-			typedef typename boost::range_value<Complex_ConstRange>::type
+			typedef ranges::range_value_t<Complex_ConstRange>
 				InputComplex;
 			using Real = typename Complex_RealType<InputComplex>::Result;
 			using Complex = std::complex<Real>;

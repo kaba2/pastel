@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <integer N, typename Type>
+	template <int N, typename Type>
 	class ArrayExtender
 	{
 	public:

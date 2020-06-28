@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class LinearColor_Texture
 		: public Texture<Type, N>
 	{
@@ -37,7 +37,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const
+			const Matrix<dreal, N, N>& m) const
 		{
 			return linear(p, 
 				range(data_.begin(), data_.end()));
@@ -52,7 +52,7 @@ namespace Pastel
 		std::vector<Type> data_;
 	};
 
-	template <typename Type, integer N, typename Type_Range>
+	template <typename Type, int N, typename Type_Range>
 	LinearColor_Texture<Type, N> linearColorTexture(
 		const Type_Range& data)
 	{

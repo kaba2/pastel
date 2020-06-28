@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		integer N,
+		int N,
 		typename Expression>
 	class VectorNegation
 		: public VectorExpression<Real, N, VectorNegation<Real, N, Expression> >

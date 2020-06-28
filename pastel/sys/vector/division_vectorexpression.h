@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		integer N,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorDivision

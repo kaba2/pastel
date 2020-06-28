@@ -30,12 +30,12 @@ namespace Pastel
 
 	//! Returns a random vector exponentially distributed in each component.
 	
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomExponentialVector();
 
 	//! Returns a random vector exponentially distributed in each component.
 	
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomExponentialVector(integer dimension);
 
 	//! Probability density function of the Exponential distribution.

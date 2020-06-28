@@ -32,7 +32,7 @@ namespace Pastel
 		colorImage.swap(result);
 	}
 
-	template <integer N>
+	template <int N>
 	ConstView<N, Color, ConstAdaptedView<N, Rgb888Adapter, ConstArrayView<N, Array<uint32, N> > > >
 		constRgb888View(const Array<uint32, N>& image)
 	{
@@ -40,7 +40,7 @@ namespace Pastel
 			Rgb888Adapter());
 	}
 
-	template <integer N>
+	template <int N>
 	View<N, Color, AdaptedView<N, Rgb888Adapter, ArrayView<N, Array<uint32, N> > > >
 		rgb888View(Array<uint32, N>& image)
 	{
@@ -110,7 +110,7 @@ namespace Pastel
 
 	}
 
-	template <integer N, typename Image_View>
+	template <int N, typename Image_View>
 	void scaleGrayscaleImage(
 		const View<N, real32, Image_View>& image)
 	{

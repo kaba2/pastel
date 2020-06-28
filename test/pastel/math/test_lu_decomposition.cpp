@@ -13,9 +13,7 @@
 namespace
 {
 
-	using Real = Rational<integer>;
-
-	template <integer N>
+	template <int N>
 	void testLuCase()
 	{
 		integer bad = 0;
@@ -50,14 +48,14 @@ namespace
 TEST_CASE("lu_decomposition (lu_decomposition)")
 {
 	{
-		LuDecomposition<Real> lu(
-			matrix2x2<Real>(
-			1, Real(1, 2), 
-			Real(1, 2), 1));
-		Matrix<Real> correctPackedLu =
-			matrix2x2<Real>(
-			1, Real(1, 2), 
-			Real(1, 2), Real(3, 4));
+		LuDecomposition<dreal, 2, 2> lu(
+			matrix2x2<dreal>(
+			1, (dreal)1 / 2, 
+			(dreal)1 / 2, 1));
+		Matrix<dreal, 2, 2> correctPackedLu =
+			matrix2x2<dreal>(
+			1, (dreal)1 / 2, 
+			(dreal)1 / 2, (dreal)3 / 4);
 		Tuple<integer, 2> correctRowPermutation(
 			0, 1);
 		REQUIRE(lu.packedLu() == correctPackedLu);
@@ -67,16 +65,16 @@ TEST_CASE("lu_decomposition (lu_decomposition)")
 		//std::cout << lu.rowPermutation() << std::endl;
 	}
 	{
-		LuDecomposition<Real> lu(
-			matrix3x3<Real>(
+		LuDecomposition<dreal, 3, 3> lu(
+			matrix3x3<dreal>(
 			1, 2, 3,
 			4, 5, 6,
 			7, 8, 9));
-		Matrix<Real> correctPackedLu =
-			matrix3x3<Real>(
+		Matrix<dreal, 3, 3> correctPackedLu =
+			matrix3x3<dreal>(
 			7, 8, 9,
-			Real(1, 7), Real(6, 7), Real(12, 7),
-			Real(4, 7), Real(1, 2), 0);
+			(dreal)1 / 7, (dreal)6 / 7, (dreal)12 / 7,
+			(dreal)4 / 7, (dreal)1 / 2, 0);
 		Tuple<integer, 3> correctRowPermutation(
 			2, 0, 1);
 		REQUIRE(lu.packedLu() == correctPackedLu);

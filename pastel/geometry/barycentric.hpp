@@ -8,8 +8,8 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N, typename Vector_Range>
-	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
+	template <typename Real, int N, typename Vector_Range>
+	Vector<Real, AddN<N>> barycentric(
 		const Vector<Real, N>& point,
 		Vector_Range simplexRange)
 	{
@@ -18,7 +18,8 @@ namespace Pastel
 		PENSURE_OP(simplexRange.size(), ==, n + 1);
 		PENSURE_OP(point.n(), ==, simplexRange.front().n());
 
-		Matrix<Real> m(n + 1, n + 1);
+		Matrix<Real, AddN<N>, AddN<N>> m;
+		m.reisze(n + 1, n + 1);
 		for (integer i = 0;i < n + 1;++i)
 		{
 			m[i] = extend(simplexRange.front(), 1);
@@ -28,8 +29,8 @@ namespace Pastel
 		return solveLinear(m, extend(point, 1));
 	}
 
-	template <typename Real, integer N>
-	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
+	template <typename Real, int N>
+	Vector<Real, AddN<N>> barycentric(
 		const Vector<Real, N>& point)
 	{
 		// The linear system is trivial to solve in
@@ -52,7 +53,7 @@ namespace Pastel
 
 		integer n = point.n();
 
-		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(n));
+		Vector<Real, AddN<N>> result(ofDimension(n));
 
 		result[0] = 1 - sum(point);
 

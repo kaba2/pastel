@@ -11,13 +11,13 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Type sampleLinear(
 		const Vector<dreal, N>& uv,
 		const Array<Type, N>& image,
 		const ArrayExtender<N, Type>& extender);
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class LinearImage_Texture
 		: public Texture<Type, N>
 	{
@@ -50,7 +50,7 @@ namespace Pastel
 
 		virtual Element operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const
+			const Matrix<dreal, N, N>& m) const
 		{
 			return sampleLinear(
 				evaluate(p * extent_),
@@ -79,7 +79,7 @@ namespace Pastel
 		Vector<dreal, N> extent_;
 	};
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	LinearImage_Texture<Type, N> linearImageTexture(
 		const Array<Type, N>& image,
 		const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>())

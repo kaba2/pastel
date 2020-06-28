@@ -17,7 +17,7 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>::Array()
 		: extent_(0)
 		, stride_(0)
@@ -29,7 +29,7 @@ namespace Pastel
 		setStorageOrder(StorageOrder::RowMajor);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>::Array(
 		const Vector<integer, N>& extent,
 		const Alias<Type*>& dataAlias,
@@ -46,7 +46,7 @@ namespace Pastel
 		setStorageOrder(order);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>::Array(
 		const Vector<integer, N>& extent,
 		const Type& defaultData,
@@ -73,14 +73,14 @@ namespace Pastel
 		};
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>::Array(
 		const Array& that)
 		: Array(that, that.storageOrder())
 	{
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>::Array(
 		const Array& that,
 		StorageOrder order)
@@ -94,14 +94,14 @@ namespace Pastel
 		copyConstruct(that, order);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>::Array(Array&& that)
 		: Array()
 	{
 		swap(that);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>::Array(
 		const Array& that,
 		const Vector<integer, N>& extent,
@@ -110,7 +110,7 @@ namespace Pastel
 	{
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>::Array(
 		const Array& that,
 		const Vector<integer, N>& extent,
@@ -126,13 +126,13 @@ namespace Pastel
 		copyConstructLarger(that, defaultData, order);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>::~Array()
 	{
 		clear();
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::clear()
 	{
 		if (deleteData_ && data_)
@@ -148,7 +148,7 @@ namespace Pastel
 		deleteData_ = true;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::swap(Array& that)
 	{
 		extent_.swap(that.extent_);
@@ -159,7 +159,7 @@ namespace Pastel
 		std::swap(deleteData_, that.deleteData_);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::setExtent(
 		const Vector<integer, N>& extent,
 		const Type& defaultData)
@@ -186,13 +186,13 @@ namespace Pastel
 		}
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	const Vector<integer, N>& Array<Type, N>::extent() const
 	{
 		return extent_;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::reshape(
 		const Vector<integer, N>& extent)
 	{
@@ -210,25 +210,25 @@ namespace Pastel
 		}
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	bool Array<Type, N>::empty() const
 	{
 		return size_ == 0;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	integer Array<Type, N>::size() const
 	{
 		return size_;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	integer Array<Type, N>::n() const
 	{
 		return extent_.n();
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 
 	Array<Type, N>& Array<Type, N>::operator=(
 		const Array& that)
@@ -249,7 +249,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>& Array<Type, N>::operator=(
 		Array&& that)
 	{
@@ -262,7 +262,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>& Array<Type, N>::operator=(
 		const std::initializer_list<Type>& that)
 	{
@@ -271,7 +271,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Array<Type, N>& Array<Type, N>::operator=(const Type that)
 	{
 		// The parameter is deliberately taken by value,
@@ -280,7 +280,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::assign(const Array& that)
 	{
 		ENSURE(extent() == that.extent());
@@ -305,14 +305,14 @@ namespace Pastel
 		}
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Type& Array<Type, N>::operator()(
 		integer index)
 	{
 		return (Type&)((const Array&)*this)(index);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	const Type& Array<Type, N>::operator()(
 		integer index) const
 	{
@@ -321,14 +321,14 @@ namespace Pastel
 		return *((const Type*)data_ + index);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Type& Array<Type, N>::operator()(
 		const Vector<integer, N>& position)
 	{
 		return (Type&)((const Array&)*this)(position);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	const Type& Array<Type, N>::operator()(
 		const Vector<integer, N>& position) const
 	{
@@ -338,7 +338,7 @@ namespace Pastel
 		return *address(position);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	SubArray<Type, N> Array<Type, N>::operator()(
 		const Vector<integer, N>& min,
 		const Vector<integer, N>& max)
@@ -365,7 +365,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	ConstSubArray<Type, N> Array<Type, N>::operator()(
 		const Vector<integer, N>& min,
 		const Vector<integer, N>& max) const
@@ -373,7 +373,7 @@ namespace Pastel
 		return ((Array&)*this)(min, max);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	SubArray<Type, N> Array<Type, N>::operator()(
 		const Vector<integer, N>& min,
 		const Vector<integer, N>& max,
@@ -399,7 +399,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	ConstSubArray<Type, N> Array<Type, N>::operator()(
 		const Vector<integer, N>& min,
 		const Vector<integer, N>& max,
@@ -408,7 +408,7 @@ namespace Pastel
 		return ((Array&)*this)(min, max, delta);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	SubArray<Type, N> Array<Type, N>::operator()()
 	{
 		SubArray<Type, N> result(
@@ -417,14 +417,14 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	ConstSubArray<Type, N> Array<Type, N>::operator()() const
 	{
 
 		return ((Array&)*this)();
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::Cursor
 		Array<Type, N>::cursor(
 		const Vector<integer, N>& position)
@@ -432,7 +432,7 @@ namespace Pastel
 		return Cursor(&(*this)(position), stride_);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::ConstCursor
 		Array<Type, N>::constCursor(
 		const Vector<integer, N>& position) const
@@ -440,35 +440,35 @@ namespace Pastel
 		return ConstCursor(&(*this)(position), stride_);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::Iterator
 		Array<Type, N>::begin()
 	{
 		return data_;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::Iterator
 		Array<Type, N>::end()
 	{
 		return data_ + size_;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::Range
 		Array<Type, N>::range()
 	{
 		return Pastel::range(begin(), end());
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::ConstRange
 		Array<Type, N>::cRange() const
 	{
 		return Pastel::range(cbegin(), cend());
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::RowIterator 
 		Array<Type, N>::rowBegin(
 		const Vector<integer, N>& position, 
@@ -483,7 +483,7 @@ namespace Pastel
 			data_ + index, stride_[axis]);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::ConstRowIterator 
 		Array<Type, N>::cRowBegin(
 		const Vector<integer, N>& position, 
@@ -493,7 +493,7 @@ namespace Pastel
 			position, axis);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::RowIterator 
 		Array<Type, N>::rowEnd(
 		const Vector<integer, N>& position, 
@@ -503,7 +503,7 @@ namespace Pastel
 			(std::ptrdiff_t)extent_[axis];
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::ConstRowIterator 
 		Array<Type, N>::cRowEnd(
 		const Vector<integer, N>& position, 
@@ -513,7 +513,7 @@ namespace Pastel
 			position, axis);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::RowRange
 		Array<Type, N>::rowRange(
 		const Vector<integer, N>& position, 
@@ -524,7 +524,7 @@ namespace Pastel
 			rowEnd(position, axis));
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	typename Array<Type, N>::ConstRowRange
 		Array<Type, N>::cRowRange(
 		const Vector<integer, N>& position, 
@@ -535,7 +535,7 @@ namespace Pastel
 			cRowEnd(position, axis));
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Vector<integer, N> Array<Type, N>::position(
 		integer index) const
 	{
@@ -545,7 +545,7 @@ namespace Pastel
 		return Pastel::position(index, stride_, order_);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	integer Array<Type, N>::index(
 		const Vector<integer, N>& position) const
 	{
@@ -555,27 +555,27 @@ namespace Pastel
 		return linearIndex(position, stride_);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	const Type* Array<Type, N>::address(
 		const Vector<integer, N>& position) const
 	{
 		return data_ + index(position);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Type* Array<Type, N>::address(
 		const Vector<integer, N>& position)
 	{
 		return (Type*)((const Array&)*this).address(position);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	const Vector<integer, N>& Array<Type, N>::stride() const
 	{
 		return stride_;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::setStorageOrder(
 		StorageOrder order)
 	{
@@ -599,7 +599,7 @@ namespace Pastel
 		computeStride();
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	StorageOrder Array<Type, N>::storageOrder() const
 	{
 		if (order_[0] == 0)
@@ -612,7 +612,7 @@ namespace Pastel
 
 	// Private
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::copyConstruct(
 		const Array& that,
 		StorageOrder order)
@@ -659,7 +659,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	template <bool ThisInRowOrder>
 	void Array<Type, N>::copyInitialize(const Array& that)
 	{
@@ -691,7 +691,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::computeStride()
 	{
 		integer d = n();
@@ -717,7 +717,7 @@ namespace Pastel
 		stride_ = stride;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::allocate(
 		const Vector<integer, N>& extent)
 	{
@@ -739,7 +739,7 @@ namespace Pastel
 		deleteData_ = true;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::deallocate()
 	{
 		deallocateRaw((void*)data_);
@@ -751,7 +751,7 @@ namespace Pastel
 		deleteData_ = true;
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::construct(
 		const AlignedBox<integer, N>& region,
 		const Type& defaultData)
@@ -767,7 +767,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void Array<Type, N>::copyConstructLarger(
 		const Array& that,
 		const Type& defaultData,
@@ -873,7 +873,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void swap(Array<Type, N>& left, Array<Type, N>& right)
 	{
 		left.swap(right);

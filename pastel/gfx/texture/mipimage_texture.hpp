@@ -13,14 +13,14 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	MipImage_Texture<Type, N>::MipImage_Texture()
 		: mipMap_(0)
 		, extender_()
 	{
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	MipImage_Texture<Type, N>::MipImage_Texture(
 		const MipMap<Type, N>& mipMap,
 		const ArrayExtender_& extender)
@@ -29,17 +29,17 @@ namespace Pastel
 	{
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Type MipImage_Texture<Type, N>::operator()(
 		const Vector<dreal, N>& uv,
-		const Matrix<dreal>& m) const
+		const Matrix<dreal, N, N>& m) const
 	{
 		if (!mipMap_ || mipMap_->empty())
 		{
 			return Type();
 		}
 
-		integer n = m.height();
+		integer n = m.rows();
 
 		const Array<Type, N>& mostDetailedImage = 
 			mipMap_->mostDetailed();
@@ -55,7 +55,7 @@ namespace Pastel
 		dreal d = 0;
 		for (integer i = 0;i < n;++i)
 		{
-			const dreal dotMi = dot(m.cColumn(i) * Vector<dreal, N>(mostDetailedImage.extent()));
+			const dreal dotMi = (m.col(i).cwiseProduct(asColumnMatrix(Vector<dreal, N>(mostDetailedImage.extent())))).squaredNorm();
 			if (dotMi > d)
 			{
 				d = dotMi;

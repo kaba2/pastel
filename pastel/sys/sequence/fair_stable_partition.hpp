@@ -34,7 +34,7 @@ namespace Pastel
 			const Trindicator& trindicator)
 		{
 			using Iterator = ranges::iterator_t<Range>;
-			using Type = ranges::iter_value_t<Range>;
+			using Type = ranges::range_value_t<Range>;
 		
 			integer zeros = 0;
 			integer negatives = 0;

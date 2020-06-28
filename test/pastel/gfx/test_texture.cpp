@@ -546,7 +546,7 @@ TEST_CASE("Checker (Texture)")
 			linearImageTexture(repeatedConstView(constArrayView(lenaTextureImage))),
 			colorTexture<Color>(Color(1)),
 			linearColorTexture<dreal>(0, 0, 1, 1)),
-			AffineTransformation<dreal>(identityMatrix<Real>(2, 2) * 10, Vector2())),
+			AffineTransformation<dreal>(identityMatrix<Real, 2, 2>(2, 2) * 10, Vector2())),
 			texture),
 			arrayView(image),
 			textureQuad);

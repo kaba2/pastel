@@ -20,7 +20,7 @@ namespace Pastel
 		return Pastel::perlinNoise<Real, 1>(position);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Real perlinNoise(const Vector<Real, N>& position)
 	{
 		integer n = position.size();

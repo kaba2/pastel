@@ -16,7 +16,7 @@ namespace Pastel
 		template <
 			PointSet_Concept_ PointSet,
 			typename Real = PointSet_Real<PointSet>,
-			integer N = PointSet_Dimension<PointSet>::value
+			int N = PointSet_Dimension<PointSet>::value
 		>
 		std::pair<Real, integer> operator()(
 			const PointSet& pointSet,

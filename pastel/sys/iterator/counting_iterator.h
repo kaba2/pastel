@@ -154,7 +154,7 @@ namespace Pastel
 			countingIterator(end));
 	}
 
-	template <typename Range>
+	template <ranges::forward_range Range>
 	decltype(auto) countingRange(Range&& range)
 	{
 		return countingRange(

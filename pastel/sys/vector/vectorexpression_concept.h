@@ -19,7 +19,7 @@ namespace Pastel
 			Can be either Dynamic or a positive integer.
 			If N != Dynamic, then N == n().
 			*/
-			static constexpr integer N = UserDefinedInteger;
+			static constexpr int N = UserDefinedInteger;
 
 			//! The type of the elements.
 			using Real = UserDefinedType;

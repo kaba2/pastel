@@ -18,12 +18,12 @@ namespace Pastel
 		const Tuple<Vector2, 4>& textureQuad,
 		const ColorMixer& colorMixer)
 	{
-		Matrix<dreal> matrix = projectiveTransformation(textureQuad, quad);
+		Matrix<dreal, 3, 3> matrix = projectiveTransformation(textureQuad, quad);
 
-		const Vector3 a(wDivide(evaluate(extend(textureQuad[0], 1) * matrix)));
-		const Vector3 b(wDivide(evaluate(extend(textureQuad[1], 1) * matrix)));
-		const Vector3 c(wDivide(evaluate(extend(textureQuad[2], 1) * matrix)));
-		const Vector3 d(wDivide(evaluate(extend(textureQuad[3], 1) * matrix)));
+		const Vector3 a(wDivide(evaluate(evaluate(extend(textureQuad[0], 1)) * matrix)));
+		const Vector3 b(wDivide(evaluate(evaluate(extend(textureQuad[1], 1)) * matrix)));
+		const Vector3 c(wDivide(evaluate(evaluate(extend(textureQuad[2], 1)) * matrix)));
+		const Vector3 d(wDivide(evaluate(evaluate(extend(textureQuad[3], 1)) * matrix)));
 
 		drawTriangle(
 			Triangle3(a, b, d),

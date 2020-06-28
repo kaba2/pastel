@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <integer N, typename Contained_ConstView>
+	template <int N, typename Contained_ConstView>
 	class RepeatedConstView
 	{
 	public:
@@ -52,7 +52,7 @@ namespace Pastel
 		Vector<integer, N> extent_;
 	};
 
-	template <integer N, typename Input_Element, typename Input_ConstView>
+	template <int N, typename Input_Element, typename Input_ConstView>
 	ExtendedConstView<N, Input_Element, RepeatedConstView<N, Input_ConstView> >
 
 		repeatedConstView(const ConstView<N, Input_Element, Input_ConstView>& view)

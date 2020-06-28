@@ -11,7 +11,7 @@ namespace Pastel
 {
 
 	//! LU decomposition
-	template <typename Real>
+	template <typename Real, int M = Dynamic, int N = Dynamic>
 	class LuDecomposition
 	{
 	public:
@@ -28,9 +28,9 @@ namespace Pastel
 		//! Constructs with the decomposition of the given matrix.
 		/*!
 		Preconditions:
-		matrix.m() == matrix.n()
+		matrix.rows() == matrix.n()
 		*/
-		LuDecomposition(Matrix<Real> matrix);
+		LuDecomposition(Matrix<Real, M, N> matrix);
 
 		//! Copy-constructs from another decomposition.
 		LuDecomposition(const LuDecomposition& that);
@@ -45,7 +45,7 @@ namespace Pastel
 		LuDecomposition& operator=(LuDecomposition that);
 
 		//! Decomposes the given matrix.
-		bool decompose(Matrix<Real> matrix);
+		bool decompose(const Matrix<Real, M, N>& matrix);
 
 		integer n() const;
 
@@ -54,10 +54,10 @@ namespace Pastel
 		The diagonal belongs to the U matrix; the L has 1's 
 		on the diagonal.
 		*/
-		const Matrix<Real>& packedLu() const;
+		const Matrix<Real, M, N>& packedLu() const;
 
 		//! Returns the P as a permutation vector.
-		const Tuple<integer>& rowPermutation() const;
+		const Tuple<integer, N>& rowPermutation() const;
 
 		//! Returns whether the permutation in P is even.
 		bool evenPermutation() const;
@@ -70,29 +70,13 @@ namespace Pastel
 
 		bool decompose();
 
-		Matrix<Real> packedLu_;
-		Tuple<integer> rowPermutation_;
+		Matrix<Real, M, N> packedLu_;
+		Tuple<integer, N> rowPermutation_;
 		bool evenPermutation_;
 		bool singular_;
 
-		Vector<Real> invLargestInRow_;
+		Vector<Real, M> invLargestInRow_;
 	};
-
-}
-
-namespace Pastel
-{
-
-	//! Solves the linear system PLUx = b.
-	template <typename Real, integer N, typename Expression>
-	Vector<Real> solveLinear(
-		const LuDecomposition<Real>& lu,
-		const VectorExpression<Real, N, Expression>& b);
-
-	//! Returns the determinant of PLU.
-	template <typename Real>
-	Real determinant(
-		const LuDecomposition<Real>& lu);
 
 }
 

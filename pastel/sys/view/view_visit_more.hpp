@@ -14,7 +14,7 @@ namespace Pastel
 		class NormalTag {};
 		class TerminateTag {};
 
-		template <integer Index, integer N, typename Cursor, typename VisitPositionFunctor>
+		template <integer Index, int N, typename Cursor, typename VisitPositionFunctor>
 		void visitPositionDimension(
 			const Vector<integer, N>& extent,
 			const Vector<integer, N>& startPosition,
@@ -44,7 +44,7 @@ namespace Pastel
 			}
 		}
 
-		template <integer Index, integer N, typename Cursor, typename VisitPositionFunctor>
+		template <integer Index, int N, typename Cursor, typename VisitPositionFunctor>
 		void visitPositionDimension(
 			const Vector<integer, N>& extent,
 			const Vector<integer, N>& startPosition,
@@ -71,7 +71,7 @@ namespace Pastel
 
 	}
 
-	template <integer N, typename Input_Element, typename Input_ConstView, typename VisitPositionFunctor>
+	template <int N, typename Input_Element, typename Input_ConstView, typename VisitPositionFunctor>
 	void visitPosition(
 		const ConstView<N, Input_Element, Input_ConstView>& input,
 		const VisitPositionFunctor& visitPosition)
@@ -89,7 +89,7 @@ namespace Pastel
 			Tag());
 	}
 
-	template <integer N, typename Input_Element, typename Input_View, typename VisitPositionFunctor>
+	template <int N, typename Input_Element, typename Input_View, typename VisitPositionFunctor>
 	void visitPosition(
 		const View<N, Input_Element, Input_View>& input,
 		const VisitPositionFunctor& visitPosition)
@@ -112,7 +112,7 @@ namespace Pastel
 	namespace VisitPosition_
 	{
 
-		template <integer Index, integer N,
+		template <integer Index, int N,
 			typename Left_Cursor,
 			typename Right_Cursor,
 			typename VisitPositionFunctor>
@@ -148,7 +148,7 @@ namespace Pastel
 			}
 		}
 
-		template <integer Index, integer N,
+		template <integer Index, int N,
 			typename Left_Cursor,
 			typename Right_Cursor,
 			typename VisitPositionFunctor>
@@ -181,7 +181,7 @@ namespace Pastel
 
 	}
 
-	template <integer N,
+	template <int N,
 		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_View,
 		typename VisitPositionFunctor>
@@ -206,7 +206,7 @@ namespace Pastel
 			Tag());
 	}
 
-	template <integer N,
+	template <int N,
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename VisitPositionFunctor>
@@ -231,7 +231,7 @@ namespace Pastel
 			Tag());
 	}
 
-	template <integer N,
+	template <int N,
 		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_ConstView,
 		typename VisitPositionFunctor>

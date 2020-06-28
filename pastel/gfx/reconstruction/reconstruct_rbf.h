@@ -44,7 +44,7 @@ namespace Pastel
 		dreal beta_;
 	};
 
-	template <typename Real, integer N, typename Data, typename Output_View>
+	template <typename Real, int N, typename Data, typename Output_View>
 	void reconstructRbf(
 		const std::vector<Vector<Data, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -62,7 +62,7 @@ namespace Pastel
 	namespace ReconstructRbf_
 	{
 
-		template <typename Real, integer N, typename Data>
+		template <typename Real, int N, typename Data>
 		class ReconstructFunctor
 		{
 		public:
@@ -108,7 +108,7 @@ namespace Pastel
 
 	}
 
-	template <typename Real, integer N, typename Data, typename Output_View>
+	template <typename Real, int N, typename Data, typename Output_View>
 	void reconstructRbf(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -118,7 +118,7 @@ namespace Pastel
 	{
 		integer n = positionList.size();
 
-		Matrix<Real> a(n, n);
+		Matrix<Real> a = Matrix<Real>::Zero(n, n);
 
 		for (integer i = 0;i < n;++i)
 		{

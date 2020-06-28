@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 	//! Cholesky decomposition
-	template <typename Real>
+	template <typename Real, int M = Dynamic, int N = Dynamic>
 	class CholeskyDecomposition
 	{
 	public:
@@ -27,9 +27,9 @@ namespace Pastel
 		//! Constructs with the decomposition of the given matrix.
 		/*!
 		Preconditions:
-		that.m() == that.n()
+		that.rows() == that.n()
 		*/
-		CholeskyDecomposition(Matrix<Real> that);
+		CholeskyDecomposition(Matrix<Real, M, N> that);
 
 		//! Copy-constructs from another decomposition.
 		CholeskyDecomposition(const CholeskyDecomposition& that);
@@ -44,7 +44,7 @@ namespace Pastel
 		void swap(CholeskyDecomposition& that);
 
 		//! Returns the L matrix.
-		const Matrix<Real>& lower() const;
+		const Matrix<Real, M, N>& lower() const;
 
 		//! Returns whether the decomposition succeeded.
 		/*!
@@ -54,23 +54,15 @@ namespace Pastel
 		bool succeeded() const;
 
 		//! Decomposes the given matrix.
-		bool decompose(Matrix<Real> that);
+		bool decompose(const Matrix<Real, M, N>& that);
 
 	private:
 		CholeskyDecomposition() = delete;
 		bool decompose();
 
-		Matrix<Real> cholesky_;
+		Matrix<Real, M, N> cholesky_;
 		bool succeeded_;
 	};
-
-}
-
-namespace Pastel
-{
-
-	template <typename Real>
-	Real determinant(const CholeskyDecomposition<Real>& that);
 
 }
 

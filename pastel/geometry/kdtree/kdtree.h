@@ -15,7 +15,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N = Dynamic>
+	template <typename Real, int N = Dynamic>
 	class PointPolicy
 	{
 	public:
@@ -44,7 +44,7 @@ namespace Pastel
 	};
 	*/
 
-	template <typename Real, integer N = Dynamic,
+	template <typename Real, int N = Dynamic,
 		typename ObjectPolicy = PointPolicy<Real, N> >
 	class KdTree
 	{
@@ -80,7 +80,7 @@ namespace Pastel
 		using SplitNode = SplitNode_High;
 
 	public:
-		static constexpr integer N_ = N;
+		static constexpr int N_ = N;
 
 		using Real_ = Real;
 		using ObjectPolicy_ = ObjectPolicy;

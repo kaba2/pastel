@@ -17,7 +17,7 @@ namespace
 	using Real = Rational<integer>;
 	using Box = AlignedBox<Real, 2>;
 
-	template <integer N, integer M>
+	template <int N, int M>
 	void testCase(
 		const Box (&boxSet)[N],
 		const Box& correct,
@@ -26,8 +26,8 @@ namespace
 	{
 		std::vector<const Box*> resultSet;
 
-		Box clique = 
-			maximumClique(range(boxSet), 
+		Box clique = maximumClique(
+			range(boxSet), 
 			sweepDirection,
 			pushBackOutput(resultSet));
 		REQUIRE(correct.min() == clique.min());
@@ -62,7 +62,7 @@ namespace
 		*/
 	}
 
-	template <integer N>
+	template <int N>
 	void testCase(
 		const Box (&boxSet)[N],
 		const Box& correct,

@@ -8,35 +8,35 @@
 namespace Pastel
 {
 
-	template <typename Real>
-	CholeskyDecomposition<Real>::CholeskyDecomposition(
+	template <typename Real, int M, int N>
+	CholeskyDecomposition<Real, M, N>::CholeskyDecomposition(
 		integer n)
 		: cholesky_(n, n)
 		, succeeded_(true)
 	{
 	}
 
-	template <typename Real>
-	CholeskyDecomposition<Real>::CholeskyDecomposition(
-		Matrix<Real> that)
+	template <typename Real, int M, int N>
+	CholeskyDecomposition<Real, M, N>::CholeskyDecomposition(
+		Matrix<Real, M, N> that)
 		: cholesky_(std::move(that))
 		, succeeded_(false)
 	{
-		ENSURE2(that.width() == that.height(), that.width(), that.height());
+		ENSURE_OP(that.cols(), ==, that.rows());
 
 		decompose();
 	}
 
-	template <typename Real>
-	CholeskyDecomposition<Real>::CholeskyDecomposition(
+	template <typename Real, int M, int N>
+	CholeskyDecomposition<Real, M, N>::CholeskyDecomposition(
 		const CholeskyDecomposition& that)
 		: cholesky_(that.cholesky_)
 		, succeeded_(that.succeeded_)
 	{
 	}
 
-	template <typename Real>
-	CholeskyDecomposition<Real>::CholeskyDecomposition(
+	template <typename Real, int M, int N>
+	CholeskyDecomposition<Real, M, N>::CholeskyDecomposition(
 		CholeskyDecomposition&& that)
 		: cholesky_(that.n(), that.n())
 		, succeeded_(true)
@@ -44,55 +44,55 @@ namespace Pastel
 		swap(that);
 	}
 
-	template <typename Real>
-	CholeskyDecomposition<Real>& CholeskyDecomposition<Real>::operator=(
+	template <typename Real, int M, int N>
+	CholeskyDecomposition<Real, M, N>& CholeskyDecomposition<Real, M, N>::operator=(
 		CholeskyDecomposition that)
 	{
 		swap(that);
 		return *this;
 	}
 
-	template <typename Real>
-	void CholeskyDecomposition<Real>::swap(
+	template <typename Real, int M, int N>
+	void CholeskyDecomposition<Real, M, N>::swap(
 		CholeskyDecomposition& that)
 	{
 		cholesky_.swap(that.cholesky_);
 		std::swap(succeeded_, that.succeeded_);
 	}
 
-	template <typename Real>
-	const Matrix<Real>& CholeskyDecomposition<Real>::lower() const
+	template <typename Real, int M, int N>
+	const Matrix<Real, M, N>& CholeskyDecomposition<Real, M, N>::lower() const
 	{
 		return cholesky_;
 	}
 
-	template <typename Real>
-	bool CholeskyDecomposition<Real>::succeeded() const
+	template <typename Real, int M, int N>
+	bool CholeskyDecomposition<Real, M, N>::succeeded() const
 	{
 		return succeeded_;
 	}
 
-	template <typename Real>
-	bool CholeskyDecomposition<Real>::decompose(
-		Matrix<Real> that)
+	template <typename Real, int M, int N>
+	bool CholeskyDecomposition<Real, M, N>::decompose(
+		const Matrix<Real, M, N>& that)
 	{
-		ENSURE_OP(that.m(), ==, that.n());
+		ENSURE_OP(that.rows(), ==, that.n());
 
-		cholesky_ = std::move(that);
+		cholesky_ = that;
 		return decompose();
 	}
 
 	// Private
 
-	template <typename Real>
-	bool CholeskyDecomposition<Real>::decompose()
+	template <typename Real, int M, int N>
+	bool CholeskyDecomposition<Real, M, N>::decompose()
 	{
 		// See "Numerical Recipes: The art of scientific
 		// computing", 3rd ed, section 2.9: Cholesky Decomposition.
 
 		succeeded_ = false;
 
-		integer n = cholesky_.n();
+		integer n = cholesky_.cols();
 		for (integer i = 0;i < n;++i)
 		{
 			for (integer j = 0;j < n;++j)
@@ -137,11 +137,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Real>
-	Real determinant(const CholeskyDecomposition<Real>& that)
+	template <typename Real, int M, int N>
+	Real determinant(const CholeskyDecomposition<Real, M, N>& that)
 	{
-		const Matrix<Real>& lower = that.lower();
-		integer n = lower.n();
+		const Matrix<Real, M, N>& lower = that.lower();
+		integer n = lower.cols();
 
 		Real result = 1;
 		for (integer i = 0;i < n;++i)

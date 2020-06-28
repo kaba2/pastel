@@ -50,7 +50,7 @@ namespace Pastel
 	the defaults.
 	*/
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class EwaImage_Texture
 		: public Texture<Type, N>
 	{
@@ -82,7 +82,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const;
+			const Matrix<dreal, N, N>& m) const;
 
 		void setMipMap(const MipMap<Type, N>& mipMap)
 		{
@@ -108,8 +108,8 @@ namespace Pastel
 	private:
 		Type sampleEwa(
 			const Vector<dreal, N>& uv,
-			const Matrix<dreal>& quadraticForm,
-			const AlignedBoxD& bound,
+			const Matrix<dreal, N, N>& quadraticForm,
+			const AlignedBox<dreal, N>& bound,
 			dreal scaling,
 			dreal tTransition,
 			const Array<Type, N>& image) const;

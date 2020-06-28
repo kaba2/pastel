@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <integer N, typename Extent_Expression, typename Stride_Expression>
+	template <int N, typename Extent_Expression, typename Stride_Expression>
 	Vector<integer, N> numbers(
 		const VectorExpression<integer, N, Extent_Expression>& extent,
 		const VectorExpression<integer, N, Stride_Expression>& stride)
@@ -14,19 +14,33 @@ namespace Pastel
 		return (extent + abs(stride) - 1) / abs(stride);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	class SubArray;
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	class ConstSubArray;
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class SubArray_Iterator
 		: public boost::random_access_iterator_helper<
 		SubArray_Iterator<Type, N>, Type, integer>
 	{
 	public:
 		friend class SubArray<Type, N>;
+
+		SubArray_Iterator()
+		: begin_(nullptr)
+		, extent_(0)
+		, stride_(0)
+		, size_(0)
+		, extentStride_(0)
+		, data_(nullptr)
+		, index_(0)
+		, position_(0)
+		{
+		}
+
+		SubArray_Iterator(const SubArray_Iterator& that) = default;
 
 		Type& operator*() const
 		{
@@ -221,7 +235,7 @@ namespace Pastel
 		Vector<integer, N> position_;
 	};
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class SubArray_ConstIterator
 		: public boost::random_access_iterator_helper<
 		SubArray_ConstIterator<Type, N>, const Type, integer>

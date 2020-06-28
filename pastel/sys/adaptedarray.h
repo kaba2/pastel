@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <integer N, typename FromType, typename ToType, typename Adapter>
+	template <int N, typename FromType, typename ToType, typename Adapter>
 	class ConstAdaptedArray
 		: public ConstAbstractArray<N, FromType>
 	{
@@ -48,7 +48,7 @@ namespace Pastel
 		Adapter adapter_;
 	};
 
-	template <integer N, typename FromType, typename ToType, typename Adapter>
+	template <int N, typename FromType, typename ToType, typename Adapter>
 	class AdaptedArray
 		: public AbstractArray<N, FromType>
 	{

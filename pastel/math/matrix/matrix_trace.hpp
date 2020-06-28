@@ -2,18 +2,19 @@
 #define PASTELMATH_MATRIX_TRACE_HPP
 
 #include "pastel/math/matrix/matrix_trace.h"
+#include "pastel/math/matrix/matrix.h"
 
 #include <algorithm>
 
 namespace Pastel
 {
 
-	template <typename Real, typename Expression>
-	Real trace(
-		const MatrixExpression<Real, Expression>& matrix)
+	//! Returns the trace of the matrix.
+	template <typename Real, int M, int N>
+	Real trace(const Matrix<Real, M, N>& matrix)
 	{
-		integer n = matrix.width();
-		integer m = matrix.height();
+		integer n = matrix.cols();
+		integer m = matrix.rows();
 		integer minSize = std::min(n, m);
 
 		Real result = matrix(0, 0);

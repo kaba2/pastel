@@ -2,18 +2,25 @@
 #define PASTELMATH_MATRIX_DIAGONAL_PRODUCT_HPP
 
 #include "pastel/math/matrix/matrix_diagonal_product.h"
+#include "pastel/math/matrix/matrix.h"
 
 #include <algorithm>
 
 namespace Pastel
 {
 
-	template <typename Real, typename Expression>
+	//! Returns the product of the diagonal elements.
+	/*!
+	returns:
+	The diagonal product, if the matrix is not empty,
+	(Real)Nan() otherwise.
+	*/
+	template <typename Real, int M, int N>
 	Real diagonalProduct(
-		const MatrixExpression<Real, Expression>& matrix)
+		const Matrix<Real, M, N>& matrix)
 	{
-		integer n = matrix.width();
-		integer m = matrix.height();
+		integer n = matrix.cols();
+		integer m = matrix.rows();
 		integer minSize = std::min(n, m);
 
 		if (minSize == 0)

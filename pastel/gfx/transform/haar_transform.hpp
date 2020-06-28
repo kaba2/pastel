@@ -21,7 +21,7 @@ namespace Pastel
 			const Real_ConstRange& inputRange,
 			const Real_Range& outputRange)
 		{
-			typedef typename boost::range_value<Real_ConstRange>::type
+			typedef ranges::range_value_t<Real_ConstRange>
 				Real;
 
 			integer n = inputRange.size();
@@ -72,7 +72,7 @@ namespace Pastel
 			const Real_ConstRange& inputRange,
 			const Real_Range& outputRange)
 		{
-			typedef typename boost::range_value<Real_ConstRange>::type
+			typedef ranges::range_value_t<Real_ConstRange>
 				Real;
 
 			integer n = inputRange.size();

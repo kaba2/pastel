@@ -9,18 +9,18 @@
 
 TEST_CASE("orthonormal (orthonormal)")
 {
-	Matrix<dreal> m =
+	Matrix<dreal, 3, 3> m =
 		diagonalMatrix(Vector3(1, 2, 3));
 
 	m = orthonormalize(m);
 	{
-		REQUIRE(frobeniusNorm2(m - identityMatrix<dreal>(3, 3)) < square(0.0001));
+		REQUIRE(frobeniusNorm2(m - identityMatrix<dreal, 3, 3>(3, 3)) < square(0.0001));
 	}
 
-	m = randomMatrix<dreal>(3, 3);
+	m = randomMatrix<dreal, 3, 3>(3, 3);
 	m = orthonormalize(m);
 	{
 		REQUIRE(frobeniusNorm2(transpose(m) * m - 
-			identityMatrix<dreal>(3, 3)) < square(0.0001));
+			identityMatrix<dreal, 3, 3>(3, 3)) < square(0.0001));
 	}
 }

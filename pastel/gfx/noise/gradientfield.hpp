@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-		template <typename Real, integer N>
+		template <typename Real, int N>
 		GradientField<Real, N>&
 			GradientField<Real, N>::create()
 		{
@@ -17,7 +17,7 @@ namespace Pastel
 			return thePerlinNoise;
 		}
 
-		template <typename Real, integer N>
+		template <typename Real, int N>
 		GradientField<Real, N>::GradientField()
 			: permutation_()
 			, permutationMask_(0)
@@ -28,7 +28,7 @@ namespace Pastel
 			initialize(N);
 		}
 
-		template <typename Real, integer N>
+		template <typename Real, int N>
 		GradientField<Real, N>::GradientField(integer n)
 			: permutation_()
 			, permutationMask_(0)
@@ -39,7 +39,7 @@ namespace Pastel
 			initialize(n);
 		}
 
-		template <typename Real, integer N>
+		template <typename Real, int N>
 		void GradientField<Real, N>::initialize(integer n)
 		{
 			integer basicGradients = (integer)1 << (n - 1);
@@ -96,7 +96,7 @@ namespace Pastel
 
 		// Private
 
-		template <typename Real, integer N>
+		template <typename Real, int N>
 		Real GradientField<Real, N>::operator()(
 			const Vector<integer, N>& position,
 			const Vector<Real, N>& delta) const
@@ -259,12 +259,12 @@ namespace Pastel
 			return dotProduct * normalizationFactor_;
 		}
 
-		template <typename Real, integer N>
+		template <typename Real, int N>
 		GradientField<Real, N>::~GradientField()
 		{
 		}
 
-		template <typename Real, integer N>
+		template <typename Real, int N>
 		GradientField<Real, N>& gradientField()
 		{
 			return GradientField<Real, N>::create();

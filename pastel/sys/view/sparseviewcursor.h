@@ -12,7 +12,7 @@ namespace Pastel
 	namespace SparseView_
 	{
 
-		template <integer N, typename ConstCursor>
+		template <int N, typename ConstCursor>
 		class ConstSparseViewCursor
 		{
 		public:
@@ -68,7 +68,7 @@ namespace Pastel
 			Vector<integer, N> step_;
 		};
 
-		template <integer N, typename Cursor>
+		template <int N, typename Cursor>
 		class SparseViewCursor
 			: public ConstSparseViewCursor<N, Cursor>
 		{

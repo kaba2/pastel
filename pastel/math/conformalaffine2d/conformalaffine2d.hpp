@@ -20,7 +20,7 @@ namespace Pastel
 	ConformalAffine2D<Real>::ConformalAffine2D(
 		Real scaling, 
 		Real rotation,
-		Vector<Real> translation)
+		Vector<Real, 2> translation)
 		: scaling_(std::move(scaling))
 		, rotation_(std::move(rotation))
 		, translation_(std::move(translation))
@@ -89,13 +89,13 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Vector<Real>& ConformalAffine2D<Real>::translation()
+	Vector<Real, 2>& ConformalAffine2D<Real>::translation()
 	{
 		return translation_;
 	}
 
 	template <typename Real>
-	const Vector<Real>& ConformalAffine2D<Real>::translation() const
+	const Vector<Real, 2>& ConformalAffine2D<Real>::translation() const
 	{
 		return translation_;
 	}

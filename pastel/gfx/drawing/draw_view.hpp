@@ -39,7 +39,7 @@ namespace Pastel
 
 	}
 
-	template <integer N,
+	template <int N,
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View,
 		typename ColorMixer>
@@ -66,7 +66,7 @@ namespace Pastel
 			subView(image, clippedTextureBox), visitor);
 	}
 
-	template <integer N,
+	template <int N,
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View>
 	void drawView(

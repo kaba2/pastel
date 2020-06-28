@@ -48,6 +48,8 @@ if ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") OR
 	add_definitions (
 		# Eigen does bitwise operations between different enums
 		-Wno-deprecated-anon-enum-enum-conversion
+		# Eigen forward-declares inline functions with.
+		-Wno-undefined-inline
 		# Assigning objects to themselves is useful in testing.
 		-Wno-self-assign-overloaded
 		-Wno-self-move

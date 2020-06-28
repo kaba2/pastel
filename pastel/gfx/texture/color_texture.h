@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class Color_Texture
 		: public Texture<Type, N>
 	{
@@ -31,7 +31,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const
+			const Matrix<dreal, N, N>& m) const
 		{
 			return color_;
 		}
@@ -45,7 +45,7 @@ namespace Pastel
 		Type color_;
 	};
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Color_Texture<Type, N> colorTexture(
 		const NoDeduction<Type>& color)
 	{

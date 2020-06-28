@@ -18,18 +18,18 @@ namespace Pastel
 
 		template <
 			typename NodePtr,
-			typename Data_Class>
+			typename Data>
 		class Iterator
 			: public boost::iterator_adaptor<
-			Iterator<NodePtr, Data_Class>, 
+			Iterator<NodePtr, Data>, 
 			NodePtr,
-			Data_Class,
+			Data,
 			boost::bidirectional_traversal_tag>
 		{
 		private:
 			struct enabler {};
 
-			using Data_Node = Tree_::Data_Node<Data_Class>;
+			using Data_Node = Tree_::Data_Node<Data>;
 
 		public:
 			Iterator()
@@ -45,7 +45,7 @@ namespace Pastel
 			template <
 				typename That,
 				Requires<std::is_convertible<That, NodePtr>> = 0>
-			Iterator(const Iterator<That, Data_Class>& that)
+			Iterator(const Iterator<That, Data>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{
 			}
@@ -180,9 +180,9 @@ namespace Pastel
 				return result;
 			}
 
-			Data_Class& dereference() const
+			Data& dereference() const
 			{
-				return (Data_Class&)*((Data_Node*)this->base());
+				return (Data&)*((Data_Node*)this->base());
 			}
 
 			void increment()

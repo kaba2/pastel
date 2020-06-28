@@ -6,12 +6,13 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
-	AffineTransformation<Real> affineScaling(
+	//! Returns a scaling affine transformation.
+	template <typename Real, int N>
+	AffineTransformation<Real, N, N> affineScaling(
 		const Vector<Real, N>& scaling)
 	{
-		AffineTransformation<Real> result(
-			diagonalMatrix<Real>(scaling));
+		AffineTransformation<Real, N, N> result(
+			diagonalMatrix<Real, N>(scaling));
 
 		return result;
 	}

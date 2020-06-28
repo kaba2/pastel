@@ -25,7 +25,7 @@ namespace Pastel
 			return;
 		}
 
-		integer NoComponent = 0;
+		int NoComponent = 0;
 		integer nextComponent = 1;
 
 		// Handle the bottom left pixel.

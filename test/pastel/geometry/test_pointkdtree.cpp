@@ -20,12 +20,12 @@
 namespace
 {
 
-	template <integer N_>
+	template <int N_>
 	class Settings
 	{
 	public:
 		using Real = dreal;
-		static constexpr integer N = N_;
+		static constexpr int N = N_;
 		using Locator = Vector_Locator<Real, N_>;
 	};
 
@@ -344,7 +344,7 @@ TEST_CASE("Empty (PointKdTree)")
 namespace
 {
 
-	template <integer N>
+	template <int N>
 	void testCircular()
 	{
 		using Tree = PointKdTree<Settings<N>>;

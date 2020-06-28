@@ -18,7 +18,7 @@ namespace Pastel
 
 	template <
 		typename Type,
-		integer N,
+		int N,
 		Requires<
 			Models<std::array<Type, N>, Point_Concept>
 		> = 0
@@ -28,10 +28,10 @@ namespace Pastel
 		return Default_Locator<std::array<Type, N>, Type, N>(N);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	using Array_Locator = Default_Locator<std::array<Real, N>, Real, N>;
 
-	template <typename Real_, integer N_>
+	template <typename Real_, int N_>
 	decltype(auto) arrayLocator(integer n = N_)
 	{
 		return Array_Locator<Real_, N_>(n);

@@ -351,7 +351,7 @@ namespace Pastel
 			const Iterator& root,
 			const Direction_Range& directionSet)
 		{
-			typedef typename boost::range_iterator<Direction_Range>::type
+			typedef ranges::iterator_t<Direction_Range>
 				Direction_Iterator;
 
 			Iterator iter = root;
@@ -471,11 +471,11 @@ namespace Pastel
 	}
 
 	template <
-		typename AlignedBox_ConstRange,
+		ranges::forward_range AlignedBox_ConstRange,
 		typename AlignedBox_Output>
-		typename boost::range_value<AlignedBox_ConstRange>::type 
+		ranges::range_value_t<AlignedBox_ConstRange> 
 		maximumClique(
-		const AlignedBox_ConstRange& boxSet,
+		AlignedBox_ConstRange&& boxSet,
 		integer sweepDirection,
 		const AlignedBox_Output& report)
 	{
@@ -495,16 +495,16 @@ namespace Pastel
 
 		using namespace MaximumCliqueAlignedBox_;
 
-		typedef typename boost::range_iterator<AlignedBox_ConstRange>::type
+		typedef ranges::iterator_t<AlignedBox_ConstRange>
 			AlignedBox_ConstIterator;
-		using Box = typename boost::range_value<AlignedBox_ConstRange>::type;
+		using Box = ranges::range_value_t<AlignedBox_ConstRange>;
 		using Real = typename Box::Real_;
 
 		PASTEL_STATIC_ASSERT(Box::N_ == 2 || Box::N_ == Dynamic);
 
 		using Event = Event<Real, AlignedBox_ConstIterator>;
 		using Data = MaximumCliqueAlignedBox_::Data;
-		using Tree = RedBlackTree_Set<Event, void, LessThan, Data, void, false, MaximumClique_Customization>;
+		using Tree = RedBlackTree_Set<Event, Empty, LessThan, Data, Empty, false, MaximumClique_Customization>;
 		using Event_ConstIterator = typename Tree::ConstIterator;
 
 		ENSURE_OP(sweepDirection, >=, 0);
@@ -514,7 +514,7 @@ namespace Pastel
 		// that is not random access. However, it is
 		// worth it, since we can then reserve the size
 		// of 'eventSet' below beforehand.
-		integer n = boxSet.size();
+		integer n = ranges::size(boxSet);
 
 		// We allow the sweeping direction to be chosen freely.
 		// For convenience, we shall call the sweep direction the 
@@ -782,14 +782,15 @@ namespace Pastel
 		return clique;
 	}	
 
-	template <typename AlignedBox_ConstRange>
-	typename boost::range_value<AlignedBox_ConstRange>::type 
+	template <ranges::forward_range AlignedBox_ConstRange>
+	ranges::range_value_t<AlignedBox_ConstRange> 
 		maximumClique(
-		const AlignedBox_ConstRange& boxSet,
+		AlignedBox_ConstRange&& boxSet,
 		integer sweepDirection)
 	{
 		return Pastel::maximumClique(
-			boxSet, sweepDirection, Null_Output());
+			std::forward<AlignedBox_ConstRange>(boxSet), 
+			sweepDirection, Null_Output());
 	}
 
 }

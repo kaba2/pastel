@@ -15,7 +15,7 @@ namespace Pastel
 		typename Output_SearchRange,
 		typename Locator,
 		typename Real,
-		integer N>
+		int N>
 	void searchRangeAlgorithm(
 		const PointKdTree<Settings, Customization>& kdTree,
 		const NoDeduction<AlignedBox<Real, N>>& range,

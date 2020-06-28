@@ -2,19 +2,27 @@
 #define PASTELMATH_MATRIX_COFACTOR_HPP
 
 #include "pastel/math/matrix/matrix_cofactor.h"
+#include "pastel/math/matrix/matrix.h"
 
 namespace Pastel
 {
 
-	template <typename Real>
-	Matrix<Real> cofactor(
-		const Matrix<Real>& matrix)
+	//! Returns the cofactor matrix of the given matrix.
+	/*!
+	Preconditions:
+	matrix.rows() == matrix.cols()
+	matrix.rows() <= 3
+	*/
+	template <typename Real, int N>
+	Matrix<Real, N, N> cofactor(
+		const Matrix<Real, N, N>& matrix)
 	{
-		ENSURE_OP(matrix.m(), ==, matrix.n());
-		ENSURE_OP(matrix.m(), <=, 3);
+		ENSURE_OP(matrix.rows(), ==, matrix.cols());
+		ENSURE_OP(matrix.rows(), <=, 3);
 						
-		integer n = matrix.n();
-		Matrix<Real> cofactorMatrix(n, n);
+		integer n = matrix.rows();
+
+		Matrix<Real, N, N> cofactorMatrix = Matrix<Real, N, N>::Zero(n, n);
 
 		switch(n)
 		{

@@ -19,18 +19,18 @@ namespace Pastel
 	and computes a vector norm for it. 
 	*/
 	template <
-		typename Real, typename Expression, 
-		Norm_Concept_ Norm = Euclidean_Norm<Real>
+		typename T,
+		Norm_Concept_ Norm = Euclidean_Norm<typename MatrixExpr<T>::Scalar>
 	>
-	Real norm2(
-		const MatrixExpression<Real, Expression>& matrix,
+	typename MatrixExpr<T>::Scalar norm2(
+		const MatrixExpr<T>& matrix,
 		const Norm& norm = Norm())
 	{
 		integer k = 0;
 		auto result = norm();
-		for (integer i = 0;i < matrix.height();++i)
+		for (integer i = 0;i < matrix.rows();++i)
 		{
-			for (integer j = 0;j < matrix.width();++j)
+			for (integer j = 0;j < matrix.cols();++j)
 			{
 				result.set(k, matrix(i, j));
 				++k;
@@ -44,11 +44,10 @@ namespace Pastel
 	returns:
 	max(sum(abs(matrix)))
 	*/
-	template <typename Real, typename Expression>
-	Real manhattanNorm(
-		const MatrixExpression<Real, Expression>& matrix)
+	template <typename T>
+	typename MatrixExpr<T>::Scalar manhattanNorm(const MatrixExpr<T>& matrix)
 	{
-		return max(sum(abs(matrix)));
+		return sum(abs(matrix)).maxCoeff();
 	}
 
 	//! Returns the squared Frobenius matrix norm.
@@ -56,9 +55,8 @@ namespace Pastel
 	returns:
 	norm2(matrix)
 	*/
-	template <typename Real, typename Expression>
-	Real frobeniusNorm2(
-		const MatrixExpression<Real, Expression>& matrix)
+	template <typename T>
+	typename MatrixExpr<T>::Scalar frobeniusNorm2(const MatrixExpr<T>& matrix)
 	{
 		return norm2(matrix);
 	}
@@ -68,11 +66,10 @@ namespace Pastel
 	returns:
 	max(sum(abs(transpose(matrix))))
 	*/
-	template <typename Real, typename Expression>
-	Real maxNorm(
-		const MatrixExpression<Real, Expression>& matrix)
+	template <typename T>
+	typename MatrixExpr<T>::Scalar maxNorm(const MatrixExpr<T>& matrix)
 	{
-		return max(sum(abs(transpose(matrix))));
+		return sum(abs(transpose(matrix))).maxCoeff();
 	}
 }
 

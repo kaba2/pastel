@@ -38,7 +38,7 @@ namespace Pastel
 		using Point = typename Locator::Point;
 		using Real = typename Locator::Real;
 
-		static constexpr integer N = Locator::N;
+		static constexpr int N = Locator::N;
 		static constexpr int M = PointQuery::M;
 
 		using Tree = PointKdTree<Real, N, Locator>;

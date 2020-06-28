@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	std::ostream& operator<<(std::ostream& stream,
 		const VectorExpression<Real, N, Expression>& vector)
 	{
@@ -27,7 +27,7 @@ namespace Pastel
 		return stream;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 
 	std::istream& operator>>(std::istream& stream,
 		Vector<Real, N>& vector)
@@ -42,7 +42,7 @@ namespace Pastel
 		return stream;
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 
 	Real sum(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -58,7 +58,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 
 	Real product(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -77,7 +77,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		integer N>
+		int N>
 	class VectorUnitAxis
 		: public VectorExpression<Real, N, VectorUnitAxis<Real, N> >
 	{
@@ -126,7 +126,7 @@ namespace Pastel
 		integer size_;
 	};
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	VectorUnitAxis<Real, N> unitAxis(integer index)
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
@@ -137,7 +137,7 @@ namespace Pastel
 		return Pastel::unitAxis<Real, N>(N, index);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	VectorUnitAxis<Real, N> unitAxis(
 		integer dimension, integer index)
 	{
@@ -149,7 +149,7 @@ namespace Pastel
 		return VectorUnitAxis<Real, N>(index, dimension);
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, SubN<N>> shrink(
 		const VectorExpression<Real, N, Expression>& that)
 	{
@@ -166,7 +166,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, SubN<N>> shrink(
 		const VectorExpression<Real, N, Expression>& that,
 		integer index)
@@ -190,7 +190,7 @@ namespace Pastel
 
 	template <
 		typename Real,
-		integer N,
+		int N,
 		typename Expression>
 	class VectorExtend
 		: public VectorExpression<Real, AddN<N>, VectorExtend<Real, N, Expression> >
@@ -252,7 +252,7 @@ namespace Pastel
 		Real data_;
 	};
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const NoDeduction<Real>& left,
 		const VectorExpression<Real, N, Expression>& right)
@@ -261,7 +261,7 @@ namespace Pastel
 			(const Expression&)right, 0, left);
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const NoDeduction<Real>& right)
@@ -270,7 +270,7 @@ namespace Pastel
 			(const Expression&)left, left.size(), right);
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const NoDeduction<Real>& right,
@@ -280,7 +280,7 @@ namespace Pastel
 			(const Expression&)left, index, right);
 	}
 
-	template <typename Real, integer N,
+	template <typename Real, int N,
 		typename Expression>
 		inline Real dot(
 		const VectorExpression<Real, N, Expression>& that)
@@ -288,7 +288,7 @@ namespace Pastel
 		return sum(that * that);
 	}
 
-	template <typename Real, integer LeftN, integer RightN,
+	template <typename Real, int LeftN, int RightN,
 		typename LeftExpression, typename RightExpression>
 		inline Real dot(
 		const VectorExpression<Real, LeftN, LeftExpression>& left,
@@ -301,7 +301,7 @@ namespace Pastel
 	}
 
 	template <
-		typename Real, integer N, typename Expression, 
+		typename Real, int N, typename Expression, 
 		Norm_Concept_ Norm
 	>
 	auto norm2(const VectorExpression<Real, N, Expression>& that,
@@ -316,7 +316,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real norm2(const VectorExpression<Real, N, Expression>& that)
 	{
 		return dot(that, that);
@@ -324,7 +324,7 @@ namespace Pastel
 
 	template <
 		typename Real, 
-		integer N, 
+		int N, 
 		typename Expression,
 		RequiresC<(N > 1 || N == Dynamic)>>
 	Real norm(const VectorExpression<Real, N, Expression>& that)
@@ -334,7 +334,7 @@ namespace Pastel
 
 	template <
 		typename Real, 
-		integer N, 
+		int N, 
 		typename Expression,
 		RequiresC<(N == 1)>>
 	Real norm(const VectorExpression<Real, N, Expression>& that)
@@ -342,13 +342,13 @@ namespace Pastel
 		return abs(that[0]);
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real manhattanNorm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return sum(abs(that));
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real powerSum(
 		const VectorExpression<Real, N, Expression>& that,
 		const NoDeduction<Real>& metric)
@@ -357,7 +357,7 @@ namespace Pastel
 		return sum(pow(abs(that), metric));
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real minkowskiNorm(
 		const VectorExpression<Real, N, Expression>& that,
 		const NoDeduction<Real>& metric)
@@ -367,26 +367,26 @@ namespace Pastel
 		return pow(powerSum(that, metric), inverse(metric));
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real maxNorm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return max(abs(that));
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> normalize(const Vector<Real, N>& that)
 	{
 		return that / norm(that);
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> normalize(
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		return Pastel::normalize(evaluate(that));
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, 2> cross(
 		const VectorExpression<Real, N, Expression>& that)
 	{
@@ -398,7 +398,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N, typename ExpressionX,
+	template <typename Real, int N, typename ExpressionX,
 	typename ExpressionY>
 	Vector<Real, 3> cross(
 		const VectorExpression<Real, N, ExpressionX>& x,

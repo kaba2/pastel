@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class Combine_Texture
 		: public Texture<Type, N>
 	{
@@ -31,7 +31,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const
+			const Matrix<dreal, N, N>& m) const
 		{
 			return colorMixer_(
 				aTexture_(p, m),
@@ -50,7 +50,7 @@ namespace Pastel
 		const ColorMixer<Type>& colorMixer_;
 	};
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	Combine_Texture<Type, N> combineTexture(
 		const Texture<Type, N>& aTexture,
 		const Texture<Type, N>& bTexture,

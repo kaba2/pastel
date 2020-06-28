@@ -12,12 +12,12 @@ namespace
 	using Real = Rational<integer>;
 	//using Real = dreal;
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	void someFunction(const Tuple<Type, N>& jorma)
 	{
 	}
 
-	template <integer N>
+	template <int N>
 	void testNullPointerStatic()
 	{
 		Vector<Real, N> au2(0);
@@ -30,7 +30,7 @@ namespace
 		Vector<int, N> ai2(0.0);
 	}
 
-	template <integer N>
+	template <int N>
 	void testNullPointer()
 	{
 		integer n = (N == Dynamic) ? 3 : N;
@@ -407,7 +407,7 @@ TEST_CASE("VectorArray (VectorArray)")
 namespace
 {
 
-	template <integer N>
+	template <int N>
 	void testVectorArithmetic2()
 	{
 		integer size = (N == Dynamic) ? 100 : N;
@@ -727,7 +727,7 @@ namespace
 		}
 	}
 
-	template <integer N>
+	template <int N>
 	void testCollaboration()
 	{
 		integer size = (N == Dynamic) ? 10 : N;

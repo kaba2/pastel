@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <integer N>
+	template <int N>
 	integer linearIndex(
 		const Vector<integer, N>& point,
 		const Vector<integer, N>& stride)
@@ -15,7 +15,7 @@ namespace Pastel
 		return dot(point, stride);
 	}
 
-	template <integer N>
+	template <int N>
 	Vector<integer, N> position(
 		integer linearIndex,
 		const Vector<integer, N>& stride,
@@ -39,7 +39,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <integer N>
+	template <int N>
 	Vector<integer, N> position(
 		integer linearIndex,
 
@@ -61,7 +61,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <integer N, typename PositionVisitor>
+	template <int N, typename PositionVisitor>
 	integer forEach(
 		const AlignedBox<integer, N>& region,
 		PositionVisitor positionVisitor)
@@ -105,7 +105,7 @@ namespace Pastel
 		return visited;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> discreteToContinuous(
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,
@@ -117,7 +117,7 @@ namespace Pastel
 			continuousRange.extent();
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	AlignedBox<Real, N> discreteToContinuous(
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,
@@ -130,7 +130,7 @@ namespace Pastel
 			continuousRange, discreteRange, discreteBox.max()));
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<integer, N> continuousToDiscrete(
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,
@@ -143,7 +143,7 @@ namespace Pastel
 			Vector<Real, N>(discreteRange.extent())));
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	AlignedBox<integer, N> continuousToDiscrete(
 		const AlignedBox<Real, N>& continuousRange,
 		const AlignedBox<integer, N>& discreteRange,

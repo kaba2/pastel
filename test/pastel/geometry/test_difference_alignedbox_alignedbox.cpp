@@ -38,7 +38,7 @@ namespace
 		std::vector<AlignedBox2> boxSet;
 		difference(aBox, bBox, pushBackOutput(boxSet));
 
-		bool result = boost::equal(
+		bool result = ranges::equal(
 			range(boxSet.begin(), boxSet.end()),
 			range(correctSet.begin(), correctSet.end()),
 			equalBox);

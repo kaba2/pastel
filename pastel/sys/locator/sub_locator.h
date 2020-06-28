@@ -15,7 +15,7 @@ namespace Pastel
 	class Sub_Locator
 	{
 	public:
-		static constexpr integer N = Dynamic;
+		static constexpr int N = Dynamic;
 		using Real = typename Locator::Real;
 		using Point = typename Locator::Point;
 

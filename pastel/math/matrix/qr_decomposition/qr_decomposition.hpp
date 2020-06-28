@@ -9,8 +9,8 @@
 namespace Pastel
 {
 
-	template <typename Real>
-	QrDecomposition<Real>::QrDecomposition(integer m, integer n)
+	template <typename Real, int M, int N>
+	QrDecomposition<Real, M, N>::QrDecomposition(integer m, integer n)
 		: q_(m, m)
 		, r_(m, n)
 	{
@@ -18,25 +18,25 @@ namespace Pastel
 		ENSURE_OP(n, >=, 0);
 	}
 
-	template <typename Real>
-	QrDecomposition<Real>::QrDecomposition(
-		Matrix<Real> that)
-		: q_(that.m(), that.m())
+	template <typename Real, int M, int N>
+	QrDecomposition<Real, M, N>::QrDecomposition(
+		Matrix<Real, M, N> that)
+		: q_(that.rows(), that.rows())
 		, r_(std::move(that))
 	{
 		decompose();
 	}
 
-	template <typename Real>
-	QrDecomposition<Real>::QrDecomposition(
+	template <typename Real, int M, int N>
+	QrDecomposition<Real, M, N>::QrDecomposition(
 		const QrDecomposition& that)
 		: q_(that.q_)
 		, r_(that.r_)
 	{
 	}
 
-	template <typename Real>
-	QrDecomposition<Real>::QrDecomposition(
+	template <typename Real, int M, int N>
+	QrDecomposition<Real, M, N>::QrDecomposition(
 		QrDecomposition&& that)
 		: q_(that.m(), that.m())
 		, r_(that.m(), that.n())
@@ -44,61 +44,61 @@ namespace Pastel
 		swap(that);
 	}
 
-	template <typename Real>
-	integer QrDecomposition<Real>::m() const
+	template <typename Real, int M, int N>
+	integer QrDecomposition<Real, M, N>::m() const
 	{
-		return q_.m();
+		return q_.rows();
 	}
 
-	template <typename Real>
-	integer QrDecomposition<Real>::n() const
+	template <typename Real, int M, int N>
+	integer QrDecomposition<Real, M, N>::n() const
 	{
-		return r_.n();
+		return r_.cols();
 	}
 
-	template <typename Real>
-	void QrDecomposition<Real>::swap(
+	template <typename Real, int M, int N>
+	void QrDecomposition<Real, M, N>::swap(
 		QrDecomposition& that)
 	{
 		q_.swap(that.q_);
 		r_.swap(that.r_);
 	}
 
-	template <typename Real>
-	QrDecomposition<Real>& QrDecomposition<Real>::operator=(
+	template <typename Real, int M, int N>
+	QrDecomposition<Real, M, N>& QrDecomposition<Real, M, N>::operator=(
 		QrDecomposition that)
 	{
 		swap(that);
 		return *this;
 	}
 
-	template <typename Real>
-	const Matrix<Real>& QrDecomposition<Real>::qTransposed() const
+	template <typename Real, int M, int N>
+	const Matrix<Real, M, N>& QrDecomposition<Real, M, N>::qTransposed() const
 	{
 		return q_;
 	}
 
-	template <typename Real>
-	const Matrix<Real>& QrDecomposition<Real>::r() const
+	template <typename Real, int M, int N>
+	const Matrix<Real, M, N>& QrDecomposition<Real, M, N>::r() const
 	{
 		return r_;
 	}
 
-	template <typename Real>
-	void QrDecomposition<Real>::decompose(Matrix<Real> that)
+	template <typename Real, int M, int N>
+	void QrDecomposition<Real, M, N>::decompose(const Matrix<Real, M, N>& that)
 	{
-		integer m = that.m();
+		integer m = that.rows();
 
-		q_ = identityMatrix<Real>(m, m);
-		r_ = std::move(that);
+		q_ = identityMatrix<Real, M, N>(m, m);
+		r_ = that;
 
 		decompose();
 	}
 
 	// Private
 
-	template <typename Real>
-	void QrDecomposition<Real>::decompose()
+	template <typename Real, int M, int N>
+	void QrDecomposition<Real, M, N>::decompose()
 	{
 
 		/*
@@ -157,8 +157,8 @@ namespace Pastel
 		as well.
 		*/
 		
-		integer m = r_.m();
-		integer n = r_.n();
+		integer m = r_.rows();
+		integer n = r_.cols();
 
 		// We will reuse the memory space for v
 		// to avoid reallocation.
@@ -191,17 +191,25 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename Real>
+	//! Computes the absolute determinant from a qr decomposition.
+	/*!
+	The determinant of the orthogonal matrix is either -1 or 1.
+	It would be costly to find out which. However, the
+	absolute value of the determinant can be found quickly
+	from the upper triangular matrix.
+	*/
+	template <typename Real, int M, int N>
 	Real absDeterminant(
-		const QrDecomposition<Real>& qr)
+		const QrDecomposition<Real, M, N>& qr)
 	{
 		return abs(diagonalProduct(qr.r()));
 	}
 
-	template <typename Real, integer N, typename Expression>
+	//! Solves the linear system QRx = b.
+	template <typename Real, int M, int N>
 	Vector<Real> solveLinear(
-		const QrDecomposition<Real>& qr,
-		const VectorExpression<Real, N, Expression>& b)
+		const QrDecomposition<Real, M, N>& qr,
+		const Vector<Real, N>& b)
 	{
 		ENSURE_OP(qr.n(), ==, b.size());
 		

@@ -14,7 +14,7 @@ namespace Pastel
 {
 
 	template <
-		typename Real, integer N, 
+		typename Real, int N, 
 		typename Point_ConstRange, 
 		typename Locator>
 	Sphere<typename Locator::Real, Locator::N> 

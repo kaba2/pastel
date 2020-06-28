@@ -8,13 +8,13 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Real area(const AlignedBox<Real, N>& box)
 	{
 		return boxArea(box.max() - box.min());
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Real area(const Box<Real, N>& box)
 	{
 		return boxArea(2 * box.width());
@@ -26,7 +26,7 @@ namespace Pastel
 		return 0;
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real boxArea(const VectorExpression<Real, N, Expression>& width)
 	{
 		// area = 2 * sum_i(width[0] * ... * width[i - 1] * width[i + 1] * ... * width[N])

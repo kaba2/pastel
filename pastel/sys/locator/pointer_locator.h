@@ -11,11 +11,11 @@
 namespace Pastel
 {
 
-	template <typename Real_, integer N_ = Dynamic>
+	template <typename Real_, int N_ = Dynamic>
 	class Pointer_Locator
 	{
 	public:
-		static constexpr integer N = N_;
+		static constexpr int N = N_;
 		using Real = Real_;
 		using Point = const Real*;
 
@@ -47,7 +47,7 @@ namespace Pastel
 		integer n_;
 	};
 
-	template <typename Real_, integer N_ = Dynamic>
+	template <typename Real_, int N_ = Dynamic>
 	decltype(auto) pointerLocator(integer n = N_)
 	{
 		return Pointer_Locator<Real_, N_>(n);

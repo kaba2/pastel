@@ -6,8 +6,28 @@
 namespace Pastel
 {
 
-	template <typename Real>
-	AffineTransformation<Real> affineRotation(
+	//! Returns a rotating affine transformation.
+	/*!
+	The rotation is from the standard basis axis 
+	e_i towards axis e_j.
+
+	n:
+	The dimension of the rotation.
+
+	i, j:
+	The standard basis axes e_i and e_j to use as 
+	the rotation plane.
+
+	angle:
+	The rotation angle.
+
+	Preconditions:
+	n >= 0
+	0 <= i < n
+	0 <= j < n
+	*/
+	template <typename Real, int N>
+	AffineTransformation<Real, N, N> affineRotation(
 		integer n,
 		integer i, integer j,
 		const NoDeduction<Real>& angle)
@@ -33,7 +53,7 @@ namespace Pastel
 		// If instead i = 1, and j = 0, then it is
 		// the clockwise-rotation of Y to X.
 
-		AffineTransformation<Real> result(n);
+		AffineTransformation<Real, N, N> result(n);
 		
 		result.matrix()(i, i) = c;
 		result.matrix()(i, j) = -s;

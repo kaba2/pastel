@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <integer N, typename Contained_Array>
+	template <int N, typename Contained_Array>
 	class ConstArrayView
 	{
 	public:
@@ -44,7 +44,7 @@ namespace Pastel
 		const Contained_Array* array_;
 	};
 
-	template <integer N, typename Contained_Array>
+	template <int N, typename Contained_Array>
 	class ArrayView
 		: public ConstArrayView<N, Contained_Array>
 	{

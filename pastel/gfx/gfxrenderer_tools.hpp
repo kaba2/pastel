@@ -208,8 +208,8 @@ namespace Pastel
 		const Box2& box)
 	{
 		const Vector2& center = box.position();
-		const Vector2 x = box.rotation().cColumn(0) * box.width()[0];
-		const Vector2 y = box.rotation().cColumn(1) * box.width()[1];
+		const Vector2 x = asVector(box.rotation().col(0)) * box.width()[0];
+		const Vector2 y = asVector(box.rotation().col(1)) * box.width()[1];
 
 		Vector2 leftBottom = center - x - y;
 		Vector2 rightBottom = center + x - y;
@@ -249,8 +249,8 @@ namespace Pastel
 		const Tuple<Vector2, 4>& textureQuad)
 	{
 		const Vector2& center = box.position();
-		const Vector2 x = box.rotation().cColumn(0) * box.width()[0];
-		const Vector2 y = box.rotation().cColumn(1) * box.width()[1];
+		const Vector2 x = box.rotation().col(0) * box.width()[0];
+		const Vector2 y = box.rotation().col(1) * box.width()[1];
 
 		Vector2 leftBottom = center - x - y;
 		Vector2 rightBottom = center + x - y;

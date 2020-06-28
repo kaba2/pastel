@@ -18,7 +18,7 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class RipImage_Texture
 		: public Texture<Type, N>
 	{
@@ -37,7 +37,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<dreal, N>& uv,
-			const Matrix<dreal>& m) const;
+			const Matrix<dreal, N, N>& m) const;
 
 		void setRipMap(const RipMap<Type, N>& ripMap)
 		{

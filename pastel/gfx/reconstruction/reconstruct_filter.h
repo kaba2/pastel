@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N, typename Data, typename Filter, typename Output_View>
+	template <typename Real, int N, typename Data, typename Filter, typename Output_View>
 	void reconstructFilter(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,

@@ -41,7 +41,7 @@ namespace Pastel
 
 		PASTEL_FWD(Real);
 		PASTEL_FWD(Locator);
-		static constexpr integer N = Fwd::N;
+		static constexpr int N = Fwd::N;
 
 		PASTEL_FWD(NodeAllocator);
 		PASTEL_FWD(PointAllocator);

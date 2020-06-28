@@ -17,7 +17,7 @@ namespace Pastel
 	Dirichlet distribution is a multi-dimensional 
 	generalization of the beta-distribution.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, SubN<N>> randomDirichlet(
 		const Vector<Real, N>& shape);
 

@@ -12,10 +12,10 @@ namespace Pastel
 	template <
 		typename Real_,
 		typename Point_,
-		integer N_>
+		int N_>
 	struct Locator_Archetype
 	{
-		static constexpr integer N = N_;
+		static constexpr int N = N_;
 		using Real = Real_;
 		using Point = Point_;
 

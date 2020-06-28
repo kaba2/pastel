@@ -43,7 +43,7 @@ namespace Pastel
 		Maximum
 	};
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	struct MatchPointsKr_Return
 	{
 		bool success;
@@ -127,7 +127,7 @@ namespace Pastel
 
 		using Model_ConstIterator = PointSet_Point<Model_NearestSet>;
 		using Scene_ConstIterator = PointSet_Point<Scene_NearestSet>;
-		static constexpr integer N = Point_N<Model_ConstIterator>::value;
+		static constexpr int N = Point_N<Model_ConstIterator>::value;
 		//using Real = Point_Real<Model_ConstIterator>;
 		using Real = dreal;
 

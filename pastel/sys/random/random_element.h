@@ -3,21 +3,19 @@
 #ifndef PASTELSYS_RANDOM_ELEMENT_H
 #define PASTELSYS_RANDOM_ELEMENT_H
 
-#include "pastel/sys/input/indexed_input_concept.h"
-#include "pastel/sys/input/range_input.h"
 #include "pastel/sys/random/random_integer.h"
+#include "pastel/sys/range.h"
 
 #include <initializer_list>
 
 namespace Pastel
 {
 
-	template <Indexed_Input_Concept_ Indexed_Input>
-	decltype(auto) randomElement(
-		Indexed_Input input)
+	template <ranges::random_access_range Range>
+	decltype(auto) randomElement(Range&& elements)
 	{
-		PENSURE_OP(input.n(), >, 0);
-		return input[randomInteger(input.n())];
+		PENSURE_OP(ranges::size(elements), >, 0);
+		return elements[randomInteger(ranges::size(elements))];
 	}
 
 	template <typename Type>
@@ -25,7 +23,7 @@ namespace Pastel
 		const std::initializer_list<Type>& elementSet)
 	{
 		using Pastel::randomElement;
-		return randomElement(rangeInput(elementSet));
+		return randomElement(range(elementSet));
 	}
 
 }

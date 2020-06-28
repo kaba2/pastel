@@ -7,14 +7,14 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	inline void swap(Vector<Real, N>& left,
 		Vector<Real, N>& right)
 	{
 		left.swap(right);
 	}
 
-	template <typename Real, integer N, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> evaluate(
 		const VectorExpression<Real, N, Expression>& that)
 	{
@@ -22,14 +22,14 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Tuple<Real, N>& asTuple(
 		Vector<Real, N>& that)
 	{
 		return that.asTuple();
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	const Tuple<Real, N>& asTuple(
 		const Vector<Real, N>& that)
 	{

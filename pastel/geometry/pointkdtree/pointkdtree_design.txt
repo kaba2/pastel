@@ -77,7 +77,7 @@ Store arbitrary user points and require to supply a functor that
 gives projection to an axis given a point.
 
 [[CppCode]]:
-	template <typename Real, integer N, typename Point,
+	template <typename Real, int N, typename Point,
 	typename ProjectionFunctor>
 	class PointKdtree
 	{
@@ -99,7 +99,7 @@ Disadvantages:
 ### Proposition 3: generic programming with a policy
 
 [[CppCode]]:
-	template <typename Real, integer N, typename Locator>
+	template <typename Real, int N, typename Locator>
 	class PointKdTree
 	{
 	};

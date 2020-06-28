@@ -10,7 +10,7 @@ namespace Pastel
 
 	// Computes the square of 2-sparsity.
 	template <typename Real_Range>
-	typename boost::range_value<Real_Range>::type
+	ranges::range_value_t<Real_Range>
 		sparsity2(const Real_Range& input);
 
 }

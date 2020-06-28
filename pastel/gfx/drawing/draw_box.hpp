@@ -52,7 +52,7 @@ namespace Pastel
 			inverse((dreal)width),
 			inverse((dreal)height));
 
-		Matrix<dreal> m = 
+		Matrix<dreal, 2, 2> m = 
 			matrix2x2<dreal>(
 			dp.x(), 0,
 			0, dp.y());

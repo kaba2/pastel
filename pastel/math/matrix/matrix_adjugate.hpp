@@ -2,18 +2,27 @@
 #define PASTELMATH_MATRIX_ADJUGATE_HPP
 
 #include "pastel/math/matrix/matrix_adjugate.h"
+#include "pastel/math/matrix/matrix.h"
 
 namespace Pastel
 {
 
-	template <typename Real>
-	Matrix<Real> adjugate(
-		const Matrix<Real>& matrix)
+	//! Returns the adjugate matrix of the given matrix.
+	/*!
+	Preconditions:
+	matrix.rows() == matrix.cols()
+	matrix.rows() <= 3
+	*/
+	template <typename Real, int N>
+	Matrix<Real, N, N> adjugate(
+		const Matrix<Real, N, N>& matrix)
 	{
-		ENSURE_OP(matrix.width(), ==, matrix.height());
+		ENSURE_OP(matrix.cols(), ==, matrix.rows());
+		ENSURE_OP(matrix.rows(), <=, 3);
 
-		integer n = matrix.height();
-		Matrix<Real> adjugateMatrix(n, n);
+		integer n = matrix.rows();
+		
+		Matrix<Real, N, N> adjugateMatrix = Matrix<Real, N, N>::Zero(n, n);
 
 		switch(n)
 		{

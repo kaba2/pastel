@@ -27,7 +27,7 @@ namespace Pastel
 	};
 	*/
 
-	template <integer N, typename TransformFunctor, typename Contained_ConstView>
+	template <int N, typename TransformFunctor, typename Contained_ConstView>
 	class ConstTransformedView
 	{
 	public:
@@ -63,7 +63,7 @@ namespace Pastel
 		TransformFunctor transform_;
 	};
 
-	template <typename TransformFunctor, integer N, typename Input_Element, typename Input_ConstView>
+	template <typename TransformFunctor, int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstTransformedView<N, TransformFunctor, Input_ConstView> >
 		constTransformedView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,

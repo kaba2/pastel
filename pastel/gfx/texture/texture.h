@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class Texture
 	{
 	public:
@@ -23,7 +23,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const Vector<dreal, N>& p,
-			const Matrix<dreal>& m) const = 0;
+			const Matrix<dreal, N, N>& m) const = 0;
 
 		virtual std::string name() const = 0;
 

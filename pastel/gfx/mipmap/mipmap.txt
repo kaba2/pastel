@@ -20,7 +20,7 @@ Pastel implements the `MipMap` class for storing and manipulating
 mip-maps. It is declared as:
 
 [[CppCode]]:
-	template <typename Type, integer N = 2>
+	template <typename Type, int N = 2>
 	class MipMap;
 
 ### Memory requirements

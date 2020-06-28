@@ -31,7 +31,7 @@ namespace
 	class Custom_Locator
 	{
 	public:
-		static constexpr integer N = 2;
+		static constexpr int N = 2;
 		using Real = dreal;
 		using Point = Custom_Point;
 

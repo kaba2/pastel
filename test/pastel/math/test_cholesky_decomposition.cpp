@@ -13,7 +13,7 @@ TEST_CASE("cholesky_decomposition (cholesky_decomposition)")
 		1, 0.5, 
 		0.5, 1));
 	{
-		Matrix<dreal> correctLower =
+		Matrix<dreal, 2, 2> correctLower =
 			matrix2x2<dreal>(
 			1.000, 0.0000,
 			0.5000, 0.8660);

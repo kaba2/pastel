@@ -20,7 +20,7 @@ namespace Pastel
 		using FromPoint =  PointSet_PointId<From_PointSet>;
 		using ToPoint = PointSet_PointId<To_PointSet>;
 
-		static constexpr integer N = PointSet_Dimension<From_PointSet>::value;
+		static constexpr int N = PointSet_Dimension<From_PointSet>::value;
 
 		ENSURE_OP(setSize(fromSet), ==, setSize(toSet));
 

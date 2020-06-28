@@ -12,7 +12,7 @@ namespace Pastel
 	namespace TransformedView_
 	{
 
-		template <integer N, typename TransformFunctor, typename ConstCursor>
+		template <int N, typename TransformFunctor, typename ConstCursor>
 		class ConstTransformedViewCursor
 		{
 		public:

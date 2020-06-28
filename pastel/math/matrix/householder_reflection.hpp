@@ -3,22 +3,47 @@
 
 #include "pastel/math/matrix/householder_reflection.h"
 
+#include "pastel/sys/vector.h"
+#include "pastel/sys/math/sign.h"
+
+#include <cmath>
+
 namespace Pastel
 {
 
-	template <typename Real>
+	//! Multiplies A in RR^{m x n} by a Householder subspace-reflection.
+	/*!
+	Preconditions:
+	0 <= i < a.rows()
+	0 <= j < a.n()
+	x.n() == a.rows()
+
+	Postconditions:
+	A(1 : m, j : n) := (I - 2vv^T) A(1 : m, j : n),
+	
+	where
+
+		v = u / |u|, and
+		u = x + sgn(x_i) |x| e_i in RR^m.
+
+	The algorithm acts as if x(0 : i) = 0. Therefore the first i 
+	rows of A are always preserved. The first j rows of A are also
+	preserved. This is useful in those situations where the skipped
+	part of the matrix is known to be zero (e.g. QR-decomposition).
+	*/
+	template <typename Real, int M, int N>
 	void householder(
-		Matrix<Real>& a, const Vector<Real>& x, 
+		Matrix<Real, M, N>& a, const Vector<Real, M>& x, 
 		integer i, integer j)
 	{
 		ENSURE_OP(i, >=, 0);
-		ENSURE_OP(i, <, a.m());
+		ENSURE_OP(i, <, a.rows());
 		ENSURE_OP(j, >=, 0);
-		ENSURE_OP(j, <, a.n());
-		ENSURE_OP(x.n(), ==, a.m());
+		ENSURE_OP(j, <, a.cols());
+		ENSURE_OP(x.n(), ==, a.rows());
 
-		integer m = a.m();
-		integer n = a.n();
+		integer m = a.rows();
+		integer n = a.cols();
 
 		// Let
 		// 

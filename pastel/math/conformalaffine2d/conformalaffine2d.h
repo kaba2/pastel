@@ -36,7 +36,7 @@ namespace Pastel
 		ConformalAffine2D(
 			Real scaling,
 			Real rotation,
-			Vector<Real> translation);
+			Vector<Real, 2> translation);
 
 		//! Copies another transformation.
 		/*!
@@ -87,18 +87,18 @@ namespace Pastel
 		Exception safety: nothrow
 		Time complexity: constant
 		*/
-		Vector<Real>& translation();
+		Vector<Real, 2>& translation();
 
 		//! Returns the translation.
 		/*!
 		See the documentation for the non-const version.
 		*/
-		const Vector<Real>& translation() const;
+		const Vector<Real, 2>& translation() const;
 
 	private:
 		Real scaling_;
 		Real rotation_;
-		Vector<Real> translation_;
+		Vector<Real, 2> translation_;
 	};
 
 }

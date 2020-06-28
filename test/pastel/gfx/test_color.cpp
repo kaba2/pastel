@@ -53,7 +53,7 @@ namespace
 		Color lmsDesired(
 			xyzToLms(srgbToXyz(Color(1, 1, 1))));
 
-		Matrix<real32> observedToDesired = 
+		Matrix<real32, 3, 3> observedToDesired = 
 			xyzToLinearSrgbTransform() * 
 			lmsToXyzTransform();
 

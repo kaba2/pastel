@@ -55,7 +55,7 @@ namespace Pastel
 			gamma<Real>(invShape * 3));
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomGeneralizedGaussianVector(
 		const NoDeduction<Real>& shape, 
 		const NoDeduction<Real>& scale)
@@ -66,7 +66,7 @@ namespace Pastel
 			N, shape, scale);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> randomGeneralizedGaussianVector(
 		integer dimension,
 		const NoDeduction<Real>& shape, 

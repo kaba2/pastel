@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <integer N, typename Contained_ConstView>
+	template <int N, typename Contained_ConstView>
 	class ClampedConstView
 	{
 	public:
@@ -46,7 +46,7 @@ namespace Pastel
 		Contained_ConstView view_;
 	};
 
-	template <integer N, typename Input_Element, typename Input_ConstView>
+	template <int N, typename Input_Element, typename Input_ConstView>
 	ExtendedConstView<N, Input_Element, ClampedConstView<N, ConstView<N, Input_Element, Input_ConstView> > >
 
 		clampedConstView(const ConstView<N, Input_Element, Input_ConstView>& view)

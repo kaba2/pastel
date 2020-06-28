@@ -46,7 +46,7 @@ namespace Pastel
 		std::sort(partitionSet.begin(), partitionSet.end());
 
 		// Generate a random rotation matrix.
-		arma::Mat<Real> result = randomOrthogonal<Real>(n);
+		Matrix<Real> result = randomOrthogonal<Real>(n);
 
 		// Multiply the columns of the rotation matrix
 		// with square root of the diagonal element of D.
