@@ -24,27 +24,27 @@ TEST_CASE("AddRemove (IncidenceGraph)")
 	Vertex a = graph.insertVertex(1);
 	REQUIRE(graph.vertices() == 1);
 	REQUIRE(graph.edges() == 0);
-	REQUIRE(*a == 1);
+	REQUIRE(a->data() == 1);
 	REQUIRE(a->outgoingEdges() == 0);
 
 	Vertex b = graph.insertVertex(2);
 	REQUIRE(graph.vertices() == 2);
-	REQUIRE(*b == 2);
+	REQUIRE(b->data() == 2);
 	REQUIRE(b->outgoingEdges() == 0);
 
 	Vertex c = graph.insertVertex(3);
 	REQUIRE(graph.vertices() == 3);
-	REQUIRE(*c == 3);
+	REQUIRE(c->data() == 3);
 	REQUIRE(c->outgoingEdges() == 0);
 
 	*c = 4;
-	REQUIRE(*c == 4);
+	REQUIRE(c->data() == 4);
 
 	Edge e1 = graph.insertEdge(a, b, 1);
 	REQUIRE(e1->from() == a);
 	REQUIRE(e1->to() == b);
 	REQUIRE(graph.edges() == 1);
-	REQUIRE(*e1 == 1);
+	REQUIRE(e1->data() == 1);
 	REQUIRE(a->outgoingEdges() == 1);
 	REQUIRE(b->outgoingEdges() == 0);
 	REQUIRE(c->outgoingEdges() == 0);
@@ -53,7 +53,7 @@ TEST_CASE("AddRemove (IncidenceGraph)")
 	REQUIRE(e2->from() == b);
 	REQUIRE(e2->to() == c);
 	REQUIRE(graph.edges() == 2);
-	REQUIRE(*e2 == 2);
+	REQUIRE(e2->data() == 2);
 	REQUIRE(a->outgoingEdges() == 1);
 	REQUIRE(b->outgoingEdges() == 1);
 	REQUIRE(c->outgoingEdges() == 0);
@@ -62,7 +62,7 @@ TEST_CASE("AddRemove (IncidenceGraph)")
 	REQUIRE(e3->from() == c);
 	REQUIRE(e3->to() == a);
 	REQUIRE(graph.edges() == 3);
-	REQUIRE(*e3 == 3);
+	REQUIRE(e3->data() == 3);
 	REQUIRE(a->outgoingEdges() == 1);
 	REQUIRE(b->outgoingEdges() == 1);
 	REQUIRE(c->outgoingEdges() == 1);
@@ -71,7 +71,7 @@ TEST_CASE("AddRemove (IncidenceGraph)")
 	REQUIRE(e4->from() == b);
 	REQUIRE(e4->to() == a);
 	REQUIRE(graph.edges() == 4);
-	REQUIRE(*e4 == 4);
+	REQUIRE(e4->data() == 4);
 	REQUIRE(a->outgoingEdges() == 1);
 	REQUIRE(b->outgoingEdges() == 2);
 	REQUIRE(c->outgoingEdges() == 1);
@@ -80,7 +80,7 @@ TEST_CASE("AddRemove (IncidenceGraph)")
 	REQUIRE(e5->from() == c);
 	REQUIRE(e5->to() == b);
 	REQUIRE(graph.edges() == 5);
-	REQUIRE(*e5 == 5);
+	REQUIRE(e5->data() == 5);
 	REQUIRE(a->outgoingEdges() == 1);
 	REQUIRE(b->outgoingEdges() == 2);
 	REQUIRE(c->outgoingEdges() == 2);
@@ -89,7 +89,7 @@ TEST_CASE("AddRemove (IncidenceGraph)")
 	REQUIRE(e6->from() == a);
 	REQUIRE(e6->to() == c);
 	REQUIRE(graph.edges() == 6);
-	REQUIRE(*e6 == 6);
+	REQUIRE(e6->data() == 6);
 	REQUIRE(a->outgoingEdges() == 2);
 	REQUIRE(b->outgoingEdges() == 2);
 	REQUIRE(c->outgoingEdges() == 2);

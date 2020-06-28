@@ -132,8 +132,8 @@ namespace Pastel
 {
 	
 	template <
-		typename Data_ = void, 
-		typename EndData_ = void,
+		typename Data_ = Empty, 
+		typename EndData_ = Empty,
 		bool UserDataInEndNode_ = false>
 	class List_Set_Settings
 	{
@@ -144,8 +144,8 @@ namespace Pastel
 	};
 
 	template <
-		typename Data_ = void, 
-		typename EndData_ = void,
+		typename Data_ = Empty, 
+		typename EndData_ = Empty,
 		bool UserDataInEndNode_ = false>
 	using List_Set_Fwd = List_Fwd<
 		List_Set_Settings<Data_, EndData_, UserDataInEndNode_>>;

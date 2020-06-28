@@ -34,20 +34,18 @@ namespace Pastel
 
 		PASTEL_FWD(Settings);
 		static constexpr GraphType Type = Fwd::Type;
-		PASTEL_FWD(VertexData);
-		PASTEL_FWD(EdgeData);
 
 		PASTEL_FWD(Vertex);
 		PASTEL_FWD(VertexSet);
 		PASTEL_FWD(Vertex_Iterator);
 		PASTEL_FWD(Vertex_ConstIterator);
-		PASTEL_FWD(VertexData_Class);
+		PASTEL_FWD(VertexData);
 
 		PASTEL_FWD(Edge);
 		PASTEL_FWD(EdgeSet);
 		PASTEL_FWD(Edge_Iterator);
 		PASTEL_FWD(Edge_ConstIterator);
-		PASTEL_FWD(EdgeData_Class);
+		PASTEL_FWD(EdgeData);
 
 		PASTEL_FWD(Incidence_Link);
 		PASTEL_FWD(Incidence);
@@ -100,7 +98,7 @@ namespace Pastel
 				++vertex)
 			{
 				vertexMap[vertex] = 
-					copy.insertVertex(*vertex);
+					copy.insertVertex(vertex->data());
 			}
 
 			for (auto edge = that.cEdgeBegin();
@@ -110,7 +108,7 @@ namespace Pastel
 				copy.insertEdge(
 					vertexMap[edge->from()],
 					vertexMap[edge->to()],
-					*edge);
+					edge->data());
 			}
 
 			swap(copy);
@@ -207,7 +205,7 @@ namespace Pastel
 		strong
 		*/
 		Vertex_Iterator insertVertex(
-			VertexData_Class vertexData = VertexData_Class())
+			VertexData vertexData = VertexData())
 		{
 			// Construct the vertex.
 			vertexSet_.emplace_back(
@@ -336,7 +334,7 @@ namespace Pastel
 		Edge_Iterator insertEdge(
 			const Vertex_ConstIterator& from,
 			const Vertex_ConstIterator& to,
-			EdgeData_Class edgeData = EdgeData_Class())
+			EdgeData edgeData = EdgeData())
 		{
 			Vertex_Iterator mutableFrom = cast(from);
 			Vertex_Iterator mutableTo = cast(to);
@@ -587,8 +585,8 @@ namespace Pastel
 {
 
 	template <
-		typename VertexData = void, 
-		typename EdgeData = void, 
+		typename VertexData = Empty, 
+		typename EdgeData = Empty, 
 		template <typename> class Customization = No_Incidence_Graph_Customization>
 	using Directed_Graph = 
 		IncidenceGraph<IncidenceGraph_Settings<
@@ -596,8 +594,8 @@ namespace Pastel
 		Customization>;
 
 	template <
-		typename VertexData = void, 
-		typename EdgeData = void, 
+		typename VertexData = Empty, 
+		typename EdgeData = Empty, 
 		template <typename> class Customization = No_Incidence_Graph_Customization>
 	using Undirected_Graph = 
 		IncidenceGraph<IncidenceGraph_Settings<
@@ -605,8 +603,8 @@ namespace Pastel
 		Customization>;
 
 	template <
-		typename VertexData = void, 
-		typename EdgeData = void, 
+		typename VertexData = Empty, 
+		typename EdgeData = Empty, 
 		template <typename> class Customization = No_Incidence_Graph_Customization>
 	using Mixed_Graph = 
 		IncidenceGraph<IncidenceGraph_Settings<

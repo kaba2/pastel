@@ -2,137 +2,21 @@
 #define PASTELSYS_INCIDENCE_GRAPH_EDGE_H
 
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/generic/class.h"
 
 namespace Pastel
 {
 
-	namespace IncidenceGraph_
-	{
-
-		template <GraphType Type, typename Data>
-		class Directed_EdgeData;
-
-		template <typename Data>
-		class Directed_EdgeData<GraphType::Directed, Data>
-			: public Class<Data>
-		{
-		public:
-			typedef Class<Data> 
-				Base;
-
-			template <typename Data_>
-			Directed_EdgeData(
-				bool directed,
-				Data_&& data)
-				: Base(std::forward<Data_>(data))
-			{
-			}
-
-			bool directed() const
-			{
-				return true;
-			}
-
-		protected:
-			void setDirected(bool directed)
-			{
-			}
-
-		private:
-			Directed_EdgeData() = delete;
-			Directed_EdgeData(Directed_EdgeData&& that) = delete;
-			Directed_EdgeData(const Directed_EdgeData& that) = delete;
-			Directed_EdgeData& operator=(Directed_EdgeData that) = delete;
-		};
-
-		template <typename Data>
-		class Directed_EdgeData<GraphType::Undirected, Data>
-			: public Class<Data>
-		{
-		public:
-			typedef Class<Data> 
-				Base;
-
-			template <typename Data_>
-			Directed_EdgeData(
-				bool directed,
-				Data_&& data)
-				: Base(std::forward<Data_>(data))
-			{
-			}
-
-			bool directed() const
-			{
-				return false;
-			}
-
-		protected:
-			void setDirected(bool directed)
-			{
-			}
-
-		private:
-			Directed_EdgeData() = delete;
-			Directed_EdgeData(Directed_EdgeData&& that) = delete;
-			Directed_EdgeData(const Directed_EdgeData& that) = delete;
-			Directed_EdgeData& operator=(Directed_EdgeData that) = delete;
-		};
-
-		template <typename Data>
-		class Directed_EdgeData<GraphType::Mixed, Data>
-			: public Class<Data>
-		{
-		public:
-			typedef Class<Data> 
-				Base;
-
-			template <typename Data_>
-			Directed_EdgeData(
-				bool directed,
-				Data_&& data)
-				: Base(std::forward<Data_>(data))
-				, directed_(directed)
-			{
-			}
-
-			bool directed() const
-			{
-				return directed_;
-			}
-
-		protected:
-			void setDirected(bool directed)
-			{
-				directed_ = directed;
-			}
-
-		private:
-			Directed_EdgeData() = delete;
-			Directed_EdgeData(Directed_EdgeData&& that) = delete;
-			Directed_EdgeData(const Directed_EdgeData& that) = delete;
-			Directed_EdgeData& operator=(Directed_EdgeData that) = delete;
-		
-		private:
-			bool directed_;
-		};
-
-	}
-
 	template <typename Settings>
 	class IncidenceGraph_Fwd<Settings>::Edge
-		: public IncidenceGraph_::Directed_EdgeData<Type, EdgeData>
 	{
 	public:
 		template <typename, template <typename> class>
 		friend class Pastel::IncidenceGraph;
 
-		typedef IncidenceGraph_::Directed_EdgeData<Type, EdgeData>
-			Base;
-
 		// FIX: Delete after emplace becomes available in Visual Studio.
 		Edge(Edge&& that)
-			: Base(that.directed(), std::move((EdgeData_Class&&)that))
+			: data_(std::move(that.data_))
+			, directed_(that.directed_)
 			, from_(std::move(that.from_))
 			, to_(std::move(that.to_))
 		{
@@ -142,8 +26,16 @@ namespace Pastel
 		template <typename Type>
 		Edge& operator=(Type&& that)
 		{
-			((EdgeData_Class&)*this) = std::forward<Type>(that);
+			data() = std::forward<Type>(that);
 			return *this;
+		}
+
+		EdgeData& data() {
+			return data_;
+		}
+
+		const EdgeData& data() const {
+			return data_;
 		}
 
 		Vertex_Iterator from()
@@ -173,9 +65,21 @@ namespace Pastel
 			return from_->vertex();
 		}
 
+		void setDirected(bool directed) {
+			if constexpr (Type == GraphType::Mixed) {
+				directed_ = directed;
+			}
+		}
+
 		bool directed() const
 		{
-			return Base::directed();
+			if constexpr (Type == GraphType::Directed) {
+				return true;
+			} else if constexpr (Type == GraphType::Undirected) {
+				return false;
+			} else {
+				return directed_;
+			}
 		}
 
 	private:
@@ -184,13 +88,30 @@ namespace Pastel
 		Edge& operator=(const Edge& that) = delete;
 	
 	private:
-		explicit Edge(EdgeData_Class data, bool directed)
-			: Base(directed, std::move(data))
+
+		class DirectedEmpty {
+		public:
+			DirectedEmpty(bool directed) {};
+		};
+
+		using Directed = std::conditional_t<
+			Type == GraphType::Mixed,
+			bool,
+			DirectedEmpty
+		>;
+
+		explicit Edge(EdgeData data, bool directed)
+			: data_(std::move(data))
+			, directed_(directed)
 			, from_(0)
 			, to_(0)
 		{
 		}
 
+		BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+		EdgeData data_;
+		BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+		Directed directed_;
 		Incidence* from_;
 		Incidence* to_;
 	};

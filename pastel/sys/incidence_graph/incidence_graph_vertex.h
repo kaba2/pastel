@@ -2,7 +2,6 @@
 #define PASTELSYS_INCIDENCE_GRAPH_VERTEX_H
 
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/generic/class.h"
 
 #include <array>
 
@@ -11,7 +10,6 @@ namespace Pastel
 
 	template <typename Settings>
 	class IncidenceGraph_Fwd<Settings>::Vertex
-		: public VertexData_Class
 	{
 	public:
 		using Graph = IncidenceGraph_Fwd<Settings>;
@@ -28,7 +26,7 @@ namespace Pastel
 		function when support for emplace becomes available.
 		*/
 		Vertex(Vertex&& that)
-			: VertexData_Class(std::move((VertexData_Class&&)that))
+			: data_(std::move((VertexData&&)that))
 			, partitionSet_(std::move(that.partitionSet_))
 			, sentinel_()
 			, incidencesSet_(std::move(that.incidencesSet_))
@@ -60,13 +58,21 @@ namespace Pastel
 		template <typename Type>
 		Vertex& operator=(Type&& that)
 		{
-			((VertexData_Class&)*this) = std::forward<Type>(that);
+			data() = std::forward<Type>(that);
 			return *this;
 		}
 
 		~Vertex()
 		{
 			clear();
+		}
+
+		VertexData& data() {
+			return data_;
+		}
+
+		const VertexData& data() const {
+			return data_;
 		}
 
 		// Undirected incidences
@@ -188,8 +194,8 @@ namespace Pastel
 		Vertex& operator=(const Vertex& that) = delete;
 
 	private:
-		explicit Vertex(VertexData_Class data)
-			: VertexData_Class(std::move(data))
+		explicit Vertex(VertexData data)
+			: data_(std::move(data))
 			, partitionSet_()
 			, sentinel_()
 			, incidencesSet_()
@@ -366,6 +372,9 @@ namespace Pastel
 		{
 			return incidencesSet_[I];
 		}
+
+		BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+		VertexData data_;
 
 		//! Partition of incidences into lists of given incidence type.
 		/*!

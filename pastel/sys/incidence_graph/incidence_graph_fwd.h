@@ -4,7 +4,6 @@
 #define PASTELSYS_INCIDENCE_GRAPH_FWD_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/generic/class.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 
@@ -69,9 +68,6 @@ namespace Pastel
 		static constexpr GraphType Type = Settings::Type;
 		PASTEL_FWD(VertexData);
 		PASTEL_FWD(EdgeData);
-
-		using VertexData_Class = Class<VertexData>;
-		using EdgeData_Class = Class<EdgeData>;
 
 		PASTEL_STATIC_ASSERT(
 			Type == GraphType::Undirected ||
@@ -174,8 +170,8 @@ namespace Pastel
 
 	template <
 		GraphType Type_, 
-		typename VertexData_ = void, 
-		typename EdgeData_ = void>
+		typename VertexData_ = Empty, 
+		typename EdgeData_ = Empty>
 	class IncidenceGraph_Settings
 	{
 	public:
