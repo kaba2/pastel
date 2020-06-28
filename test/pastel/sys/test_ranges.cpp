@@ -10,7 +10,7 @@
 
 using namespace ranges;
 
-template <typename Range>
+template <ranges::input_range Range>
 void f(const Range& aSet)
 {
 	ranges::for_each(aSet, 

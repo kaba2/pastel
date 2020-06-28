@@ -110,6 +110,8 @@ namespace
 	using Map = RedBlackTree<Map_Settings, Map_Counting_Customization>;
 	using MultiMap = RedBlackTree<MultiMap_Settings, Map_Counting_Customization>;
 
+	auto DataAsInteger = ranges::views::transform([](auto&& x) {return (integer)x;});
+
 	template <typename Tree>
 	void testMapFilteredIterator()
 	{
@@ -1332,7 +1334,7 @@ TEST_CASE("Map (RedBlackTree)")
 		REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(keySet)));
 
 		integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-		//REQUIRE(ranges::equal(tree.crange().dereferenceData(), range(dataSet)));
+		REQUIRE(ranges::equal(tree.crange().dereferenceData() | DataAsInteger, range(dataSet)));
 
 		REQUIRE(*tree.begin().dereferenceKey() == 1);
 		REQUIRE(*tree.begin().dereferenceData() == 1);
@@ -1365,7 +1367,7 @@ TEST_CASE("MultiMap (RedBlackTree)")
 		REQUIRE(ranges::equal(tree.crange().dereferenceKey(), range(keySet)));
 
 		integer dataSet[] = { 1, 4, 9, 16, 25, 36, 49 };
-		//REQUIRE(ranges::equal(tree.crange().dereferenceData(), range(dataSet)));
+		REQUIRE(ranges::equal(tree.crange().dereferenceData() | DataAsInteger, range(dataSet)));
 	}
 }
 
@@ -1387,7 +1389,7 @@ TEST_CASE("MultiSplit (RedBlackTree)")
 		}
 
 		std::vector<integer> correctSet = dataSet;
-		//REQUIRE(ranges::equal(tree.range().dereferenceData(), range(correctSet)));
+		REQUIRE(ranges::equal(tree.range().dereferenceData() | DataAsInteger, correctSet));
 
 		std::vector<integer> indexSet;
 		for (integer i = 0; i < 25; ++i)
@@ -1458,7 +1460,7 @@ TEST_CASE("MultiSplit (RedBlackTree)")
 
 			REQUIRE(testInvariants(aTree));
 			REQUIRE(aTree.size() == n);
-			//REQUIRE(ranges::equal(aTree.range().dereferenceData(), range(correctSet)));
+			REQUIRE(ranges::equal(aTree.range().dereferenceData() | DataAsInteger, correctSet));
 			REQUIRE(testInvariants(bTree));
 			REQUIRE(bTree.size() == 0);
 		}
@@ -1520,7 +1522,7 @@ TEST_CASE("MultiJoin (RedBlackTree)")
 
 				REQUIRE(testInvariants(aTree));
 				REQUIRE(testInvariants(bTree));
-				//REQUIRE(ranges::equal(aTree.crange().dereferenceData(), range(correctSet)));
+				REQUIRE(ranges::equal(aTree.crange().dereferenceData() | DataAsInteger, correctSet));
 			}
 		}
 	}

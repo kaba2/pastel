@@ -39,7 +39,6 @@ message(STATUS
 
 add_definitions(
 	-DPASTEL_ENABLE_ASSERTS
-	-DBOOST_BIND_GLOBAL_PLACEHOLDERS
 )
 
 # Configure external libraries
@@ -56,9 +55,18 @@ find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 link_libraries(${Boost_LIBRARIES})
 
+add_definitions(
+	-DBOOST_BIND_GLOBAL_PLACEHOLDERS
+)
+
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 include_directories(${EIGEN3_INCLUDE_DIRS})
 link_libraries(Eigen3::Eigen)
+
+add_definitions (
+	# std::result_of was removed in C++20.
+	-DEIGEN_HAS_STD_RESULT_OF=0
+)
 
 find_package(TBB REQUIRED)
 # include_directories (${TbbIncludeDirectory})

@@ -14,12 +14,12 @@ namespace
 	// * extraneous  = 0. 
 
 	template <
-		integer N,
+		int N,
 		RequiresC<N == 1> = 0>
 	std::true_type f();
 
 	template <
-		integer N,
+		int N,
 		RequiresC<N != 1> = 0>
 	std::false_type f();
 
@@ -37,12 +37,12 @@ namespace
 	// SFINAE in the default template parameter type.
 
 	template <
-		integer N,
+		int N,
 		typename = RequiresC<N == 1>>
 	std::true_type g();
 
 	template <
-		integer N,
+		int N,
 		typename = RequiresC<N != 1>>
 	std::false_type g();
 
@@ -62,10 +62,10 @@ namespace
 	// Disadvantages:
 	// * garbles the return type.
 
-	template <integer N>
+	template <int N>
 	EnableIfC<N == 1, std::true_type> h();
 
-	template <integer N>
+	template <int N>
 	EnableIfC<N != 1, std::false_type> h();
 
 }
@@ -87,10 +87,10 @@ namespace
 	// Disadvantages:
 	// * garbles the parameter list
 
-	template <integer N>
+	template <int N>
 	std::true_type k(RequiresC<N == 1> = 0);
 
-	template <integer N>
+	template <int N>
 	std::false_type k(RequiresC<N != 1> = 0);
 
 }
@@ -149,41 +149,41 @@ namespace
 		// SFINAE in the default template parameter value.
 
 		template <
-			integer N,
+			int N,
 			RequiresC<N == 1> = 0>
 		std::true_type f();
 
 		template <
-			integer N,
+			int N,
 			RequiresC<N != 1> = 0>
 		std::false_type f();
 
 		// SFINAE in the default template parameter type.
 
 		template <
-			integer N,
+			int N,
 			typename = RequiresC<N == 1>>
 		std::true_type g();
 
 		template <
-			integer N,
+			int N,
 			typename = RequiresC<N != 1 >>
 		std::false_type g();
 
 		// SFINAE in the return type.
 
-		template <integer N>
+		template <int N>
 		EnableIfC<N == 1, std::true_type> h();
 
-		template <integer N>
+		template <int N>
 		EnableIfC<N != 1, std::false_type> h();
 
 		// SFINAE in the parameter
 
-		template <integer N>
+		template <int N>
 		std::true_type k(RequiresC<N == 1> = 0);
 
-		template <integer N>
+		template <int N>
 		std::false_type k(RequiresC<N != 1> = 0);
 	};
 
