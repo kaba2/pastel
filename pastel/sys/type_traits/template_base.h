@@ -11,7 +11,7 @@ namespace Pastel
 	{
 
 		template <template <typename...> class Template, typename... TypeSet>
-		Template_Class<TypeSet...> test(Template_Class<TypeSet...>&&);
+		Template<TypeSet...> test(Template<TypeSet...>&&);
 		
 		template <template <typename...> class Template>
 		inline void test(...);

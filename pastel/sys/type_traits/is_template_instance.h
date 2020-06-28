@@ -23,7 +23,7 @@ namespace Pastel
 			template <typename...> class Template,
 			typename... ArgumentSet>
 		struct IsTemplateInstance__<
-			Template_Class<ArgumentSet...>, Template>
+			Template<ArgumentSet...>, Template>
 		: std::true_type
 		{};
 

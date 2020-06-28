@@ -60,7 +60,7 @@ The problems with the above technique can be solved by grouping the template par
 	using RedBlack_Map = RedBlackTree<RedBlack_Map_Settings<Key_, Value_>>;
 
 	template <typename Key_>
-	using RedBlack_Set = RedBlackTree<RedBlack_Map_Settings<Key_, void>>;
+	using RedBlack_Set = RedBlackTree<RedBlack_Map_Settings<Key_>>;
 
 	template <typename Settings>
 	void f(const RedBlackTree<Settings>& tree) {}

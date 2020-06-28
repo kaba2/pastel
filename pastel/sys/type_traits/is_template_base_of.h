@@ -22,7 +22,7 @@ namespace Pastel
 	{
 	private:
 		template <typename... TypeSet>
-		static std::true_type test(const Template_Class<TypeSet...>&);
+		static std::true_type test(const Template<TypeSet...>&);
 
 		static std::false_type test(...);
 
