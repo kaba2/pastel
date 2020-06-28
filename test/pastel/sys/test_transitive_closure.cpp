@@ -46,7 +46,7 @@ TEST_CASE("TransitiveClosureAddition (transitive_closure)")
 
 	auto fn = [](const Vertex_Iterator& vertex) -> integer 
 	{
-		return *vertex;
+		return vertex->data();
 	};
 
 	auto op = [](integer left, integer right) -> integer 
@@ -182,7 +182,7 @@ TEST_CASE("TransitiveClosureUnion (transitive_closure)")
 
 	auto f = [](const Vertex_Iterator& vertex) -> const Set&
 	{
-		return *vertex;
+		return vertex->data();
 	};
 
 	auto op = [](Set&& left, const Set& right) -> Set
