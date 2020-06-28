@@ -3,10 +3,8 @@
 
 #include "pastel/gfx/transform/hadamard_transform.h"
 
+#include "pastel/sys/range.h"
 #include "pastel/sys/ensure.h"
-
-#include <boost/iterator/iterator_traits.hpp>
-#include <boost/range/algorithm/copy.hpp>
 
 #include <vector>
 #include <type_traits>
@@ -17,23 +15,24 @@ namespace Pastel
 	namespace Hadamard_
 	{
 
-		template <typename Real_RandomAccessRange>
+		template <ranges::random_access_range Real_RandomAccessRange>
 		void hadamardInplace(
-			const Real_RandomAccessRange& inputRange,
-			bool orthogonal, bool inversion)
+			Real_RandomAccessRange&& inputRange,
+			bool orthogonal, 
+			bool inversion)
 		{
-			typedef typename boost::range_value<Real_RandomAccessRange>::type
+			typedef ranges::range_value_t<Real_RandomAccessRange>
 				Real;
 
 			integer n = inputRange.size();
 			ENSURE1(isPowerOfTwo(n), n);
 
-			auto inputEnd = boost::end(inputRange);
+			auto inputEnd = ranges::end(inputRange);
 
 			integer k = 1;
 			while (k < n)
 			{
-				auto data = boost::begin(inputRange);
+				auto data = ranges::begin(inputRange);
 				auto kData = data;
 				while(data != inputEnd)
 				{
@@ -78,178 +77,228 @@ namespace Pastel
 		}
 
 		template <
-			typename Real_ConstRange, 
-			typename Real_Range>
+			ranges::input_range Real_ConstRange, 
+			ranges::output_range<ranges::range_value_t<Real_ConstRange>> Real_Range>
 		void hadamard(
-			const Real_ConstRange& inputRange,
+			Real_ConstRange&& inputRange,
 			bool orthogonal,
-			const Real_Range& outputRange)
+			Real_Range&& outputRange)
 		{
-			typedef typename boost::range_value<Real_ConstRange>::type
+			typedef ranges::range_value_t<Real_ConstRange>
 				Real;
 
 			// Copy the data to a temporary.
 			std::vector<Real> transform(
-				boost::begin(inputRange), boost::end(inputRange));
+				ranges::begin(inputRange), 
+				ranges::end(inputRange));
 
 			// Compute the transform for the temporary.
 			Hadamard_::hadamardInplace(
-				range(transform.begin(), transform.end()),
-				orthogonal, false);
+				transform, orthogonal, false);
 
 			// Copy the temporary to the output.
-			std::copy(
-				transform.begin(), transform.end(),
-				boost::begin(outputRange));
+			ranges::copy(
+				transform,
+				ranges::begin(outputRange));
 		}
 
-		template <typename Real_Range>
+		template <ranges::forward_range Real_Range>
 		void hadamard(
-			const Real_Range& inputOutput,
+			Real_Range&& inputOutput,
 			bool orthogonal)
 		{
-			if (std::is_same<
-				typename boost::range_category<Real_Range>::type,
-				std::random_access_iterator_tag>::value)
+			if constexpr (ranges::random_access_range<Real_Range>)
 			{
 				// Do the transform in-place.
 				Hadamard_::hadamardInplace(
-					range(inputOutput.begin(), inputOutput.end()),
+					std::forward<Real_Range>(inputOutput),
 					orthogonal, false);
 			}
 			else
 			{
 				// Need to use a temporary.
 				Hadamard_::hadamard(
-					inputOutput, orthogonal, inputOutput);
+					std::forward<Real_Range>(inputOutput), 
+					orthogonal, 
+					std::forward<Real_Range>(inputOutput));
 			}
 		}
 
 		template <
-			typename Real_ConstRange, 
-			typename Real_Range>
+			ranges::input_range Real_ConstRange, 
+			ranges::output_range<ranges::range_value_t<Real_ConstRange>> Real_Range>
 		void inverseHadamard(
-			const Real_ConstRange& inputRange,
+			Real_ConstRange&& inputRange,
 			bool orthogonal,
-			const Real_Range& outputRange)
+			Real_Range&& outputRange)
 		{
-			typedef typename boost::range_value<Real_ConstRange>::type
+			typedef ranges::range_value_t<Real_ConstRange>
 				Real;
 
 			// Copy the data to a temporary.
 			std::vector<Real> transform(
-				inputRange.begin(), inputRange.end());
+				ranges::begin(inputRange), 
+				ranges::end(inputRange));
 
 			// Compute the inverse transform for the temporary.
 			Hadamard_::hadamardInplace(
-				range(transform.begin(), transform.end()),
+				transform,
 				orthogonal, true);
 
 			// Copy the temporary to the output.
-			boost::copy(
-				range(transform.cbegin(), transform.cend()), 
-				boost::begin(outputRange));
+			ranges::copy(
+				transform, 
+				ranges::begin(outputRange));
 		}
 
-		template <typename Real_Range>
+		template <ranges::forward_range Real_Range>
 		void inverseHadamard(
-			const Real_Range& inputOutput,
+			Real_Range&& inputOutput,
 			bool orthogonal)
 		{
-			if (std::is_same<
-				typename boost::range_category<Real_Range>::type,
-				std::random_access_iterator_tag>::value)
+			if constexpr (ranges::random_access_range<Real_Range>)
 			{
 				// Do the transform in-place.
 				Hadamard_::hadamardInplace(
-					range(inputOutput.begin(), inputOutput.end()),
+					std::forward<Real_Range>(inputOutput),
 					orthogonal, true);
 			}
 			else
 			{
 				// Need to use a temporary.
 				Hadamard_::inverseHadamard(
-					inputOutput, orthogonal, inputOutput);
+					std::forward<Real_Range>(inputOutput), 
+					orthogonal, 
+					std::forward<Real_Range>(inputOutput));
 			}
 		}
 
 	}
 
+	//! Computes a Hadamard transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(input.size())
+	*/
 	template <
-		typename Real_ConstRange, 
-		typename Real_Range>
+		ranges::input_range Real_ConstRange, 
+		ranges::output_range<ranges::range_value_t<Real_ConstRange>> Real_Range>
 	void hadamard(
-		const Real_ConstRange& input,
-		const Real_Range& output)
+		Real_ConstRange&& input,
+		Real_Range&& output)
 	{
 		Hadamard_::hadamard(
-			input, false, output);
+			std::forward<Real_ConstRange>(input), false, 
+			std::forward<Real_Range>(output));
 	}
 
-	template <typename Real_Range>
+	//! Computes a Hadamard transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(input.size())
+	*/
+	template <ranges::forward_range Real_Range>
 	void hadamard(
-		const Real_Range& inputOutput)
+		Real_Range&& inputOutput)
 	{
 		Hadamard_::hadamard(
-			inputOutput, false);
+			std::forward<Real_Range>(inputOutput), false);
 	}
 
+	//! Computes an inverse Hadamard transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(inputOutput.size())
+	*/
 	template <
-		typename Real_ConstRange, 
-		typename Real_Range>
+		ranges::input_range Real_ConstRange, 
+		ranges::output_range<ranges::range_value_t<Real_ConstRange>> Real_Range>
 	void inverseHadamard(
-		const Real_ConstRange& input,
-		const Real_Range& output)
+		Real_ConstRange&& input,
+		Real_Range&& output)
 	{
 		Hadamard_::inverseHadamard(
-			input, false, output);
+			std::forward<Real_ConstRange>(input), false, 
+			std::forward<Real_Range>(output));
 	}
 
-	template <typename Real_Range>
+	//! Computes an inverse Hadamard transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(inputOutput.size())
+	*/
+	template <ranges::forward_range Real_Range>
 	void inverseHadamard(
-		const Real_Range& inputOutput)
+		Real_Range& inputOutput)
 	{
 		Hadamard_::inverseHadamard(
-			inputOutput, false);
+			std::forward<Real_Range>(inputOutput), false);
 	}
 
+	//! Computes an orthogonal Hadamard transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(inputOutput.size())
+	*/
 	template <
-		typename Real_ConstRange, 
-		typename Real_Range>
+		ranges::input_range Real_ConstRange, 
+		ranges::output_range<ranges::range_value_t<Real_ConstRange>> Real_Range>
 	void orthogonalHadamard(
-		const Real_ConstRange& input,
-		const Real_Range& output)
+		Real_ConstRange&& input,
+		Real_Range&& output)
 	{
 		Hadamard_::hadamard(
-			input, true, output);
+			std::forward<Real_ConstRange>(input), true, 
+			std::forward<Real_Range>(output));
 	}
 
-	template <typename Real_Range>
+	//! Computes an orthogonal Hadamard transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(inputOutput.size())
+	*/
+	template <ranges::forward_range Real_Range>
 	void orthogonalHadamard(
-		const Real_Range& inputOutput)
+		Real_Range&& inputOutput)
 	{
 		Hadamard_::hadamard(
-			inputOutput, true);
+			std::forward<Real_Range>(inputOutput), true);
 	}
 
+	//! Computes an inverse orthogonal Hadamard transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(inputOutput.size())
+	*/
 	template <
-		typename Real_ConstRange, 
-		typename Real_Range>
+		ranges::input_range Real_ConstRange, 
+		ranges::output_range<ranges::range_value_t<Real_ConstRange>> Real_Range>
 	void inverseOrthogonalHadamard(
-		const Real_ConstRange& input,
-		const Real_Range& output)
+		Real_ConstRange&& input,
+		Real_Range&& output)
 	{
 		Hadamard_::inverseHadamard(
-			input, true, output);
+			std::forward<Real_ConstRange>(input), true, 
+			std::forward<Real_Range>(output));
 	}
 
-	template <typename Real_Range>
+	//! Computes an inverse orthogonal Hadamard transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(inputOutput.size())
+	*/
+	template <ranges::forward_range Real_Range>
 	void inverseOrthogonalHadamard(
-		const Real_Range& inputOutput)
+		Real_Range&& inputOutput)
 	{
 		Hadamard_::inverseHadamard(
-			inputOutput, true);
+			std::forward<Real_Range>(inputOutput), true);
 	}
+
+	PASTEL_RANGE_ALGORITHM(hadamard, Hadamard);
+	PASTEL_RANGE_ALGORITHM(inverseHadamard, InverseHadamard);
+	PASTEL_RANGE_ALGORITHM(orthogonalHadamard, OrthogonalHadamard);
+	PASTEL_RANGE_ALGORITHM(inverseOrthogonalHadamard, InverseOrthogonalHadamard);
 
 }
 

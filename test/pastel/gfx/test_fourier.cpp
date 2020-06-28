@@ -92,7 +92,7 @@ namespace
 		return true;
 	}
 
-	template <integer N>
+	template <int N>
 	bool testDft(const dreal (&input)[N])
 	{
 		return testDft(range(input));
@@ -154,7 +154,7 @@ namespace
 		return true;
 	}
 
-	template <integer N>
+	template <int N>
 	bool testDct(const dreal (&input)[N])
 	{
 		return testDct(range(input));
@@ -173,7 +173,7 @@ namespace
 		return true;
 	}
 
-	template <integer N>
+	template <int N>
 	bool testHaar(const dreal (&input)[N])
 	{
 		return testHaar(range(input));
@@ -192,7 +192,7 @@ namespace
 		return true;
 	}
 
-	template <integer N>
+	template <int N>
 	bool testHadamard(const dreal (&input)[N])
 	{
 		return testHadamard(range(input));
