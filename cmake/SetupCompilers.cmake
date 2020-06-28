@@ -46,6 +46,8 @@ if ((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") OR
 
 	# Disable some warnings.
 	add_definitions (
+		# Eigen does bitwise operations between different enums
+		-Wno-deprecated-anon-enum-enum-conversion
 		# Assigning objects to themselves is useful in testing.
 		-Wno-self-assign-overloaded
 		-Wno-self-move
