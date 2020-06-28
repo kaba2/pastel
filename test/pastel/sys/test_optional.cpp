@@ -54,19 +54,17 @@ TEST_CASE("Optional (Optional)")
 
 	Optional<B> b;
 	REQUIRE(b.empty());
-	REQUIRE(b.b == 0);
+	REQUIRE(b->b == 0);
 
-	b.b = 3;
+	b->b = 3;
 	REQUIRE(b.empty());
-	REQUIRE(b.b == 3);
+	REQUIRE(b->b == 3);
 
 	b = B(2);
 	REQUIRE(!b.empty());
-	REQUIRE(b.b == 2);
+	REQUIRE(b->b == 2);
 
-	// Optional<Type> is implicitly convertible 
-	// to type.
-	f(a);
+	f(a.data());
 
 	// Type is implicitly convertible to Optional<Type>.
 	g(3);

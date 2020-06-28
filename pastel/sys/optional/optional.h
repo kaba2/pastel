@@ -3,7 +3,6 @@
 #ifndef PASTELSYS_OPTIONAL_H
 #define PASTELSYS_OPTIONAL_H
 
-#include "pastel/sys/generic/class.h"
 #include "pastel/sys/hashing.h"
 
 #include <utility>
@@ -15,32 +14,29 @@ namespace Pastel
 
 	template <typename Type>
 	class Optional
-		: public Class<Type>
 	{
 	public:
-		using Type_Class = Class<Type>
-;
 		Optional()
-			: Type_Class()
+			: data_()
 			, empty_(true)
 		{
 		}
 
 		Optional(Epsilon)
-			: Type_Class()
+			: data_()
 			, empty_(true)
 		{
 		}
 
 		Optional(const Optional& that)
-			: Type_Class(that.data())
+			: data_(that.data())
 			, empty_(that.empty_)
 		{
 		}
 
 		template <typename That>
 		Optional(const Optional<That>& that)
-			: Type_Class(that.data())
+			: data_(that.data())
 			, empty_(that.empty_)
 		{
 			// Note that this function never 
@@ -48,14 +44,14 @@ namespace Pastel
 		}
 
 		Optional(Optional&& that)
-			: Type_Class(std::move(that.data()))
+			: data_(std::move(that.data()))
 			, empty_(std::move(that.empty_))
 		{
 		}
 
 		template <typename That>
 		Optional(Optional<That>&& that)
-			: Type_Class(std::move(that.data()))
+			: data_(std::move(that.data()))
 			, empty_(std::move(that.empty_))
 		{
 			// Note that this function never 
@@ -63,14 +59,44 @@ namespace Pastel
 		}
 
 		Optional(Type that)
-			: Type_Class(std::move(that))
+			: data_(std::move(that))
 			, empty_(false)
 		{
 		}
 
+		Type& operator*()
+		{
+			return data_;
+		}
+
+		const Type& operator*() const
+		{
+			return data_;
+		}
+	
+		Type* operator->()
+		{
+			return &data_;
+		}
+
+		const Type* operator->() const
+		{
+			return &data_;
+		}
+
+		Type& data()
+		{
+			return data_;
+		}
+
+		const Type& data() const
+		{
+			return data_;
+		}
+
 		Optional& operator=(Optional that)
 		{
-			Type_Class::operator=(std::move(that.data()));
+			data_ = std::move(that.data());
 			empty_ = std::move(that.empty_);
 			return *this;
 		}
@@ -111,7 +137,7 @@ namespace Pastel
 		{
 			using std::swap;
 
-			swap((Type_Class&)*this, (Type_Class&)that);
+			swap((Type&)*this, (Type&)that);
 			swap(empty_, that.empty_);
 		}
 
@@ -142,16 +168,8 @@ namespace Pastel
 			return data() == that.data();
 		}
 
-		Type_Class& data()
-		{
-			return (Type_Class&)*this;
-		}
-
-		const Type_Class& data() const
-		{
-			return (const Type_Class&)*this;
-		}
-
+		BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+		Type data_;
 		bool empty_;
 	};
 
@@ -172,8 +190,7 @@ namespace std
 				return Pastel::computeHash(that.empty());
 			}
 			
-			return Pastel::computeHash(
-				(const typename Pastel::Class<Type>&)that);
+			return Pastel::computeHash(that.data());
 		}
 	};
 
