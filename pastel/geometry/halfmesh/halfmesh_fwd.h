@@ -3,7 +3,6 @@
 #ifndef PASTELGEOMETRY_HALFMESH_FWD_H
 #define PASTELGEOMETRY_HALFMESH_FWD_H
 
-#include "pastel/sys/generic/class.h"
 #include "pastel/sys/range.h"
 #include "pastel/sys/list/list_fwd.h"
 
@@ -48,22 +47,6 @@ namespace Pastel
 		PASTEL_FWD(PolygonData);
 		static constexpr bool MultipleEdges = Settings::MultipleEdges;
 		static constexpr bool Loops = Settings::Loops;
-
-		struct Vertex_Tag;
-		using VertexData_Class = 
-			Class<VertexData, Vertex_Tag>;
-
-		struct Half_Tag;
-		using HalfData_Class = 
-			Class<HalfData, Half_Tag>;
-
-		struct Edge_Tag;
-		using EdgeData_Class = 
-			Class<EdgeData, Edge_Tag>;
-
-		struct Polygon_Tag;
-		using PolygonData_Class = 
-			Class<PolygonData, Polygon_Tag>;
 
 		using Vertex = HalfMesh_::Vertex<Settings>;
 		using Half = HalfMesh_::Half<Settings>;

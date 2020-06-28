@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <integer N>
+	template <int N>
 	class Gf2
 	: boost::ring_operators<Gf2<N>
 	, boost::left_shiftable2<Gf2<N>, integer

@@ -44,8 +44,9 @@ namespace Pastel
 
 		PASTEL_FWD(Iterator);
 		PASTEL_FWD(ConstIterator);
-		PASTEL_FWD(Range);
-		PASTEL_FWD(ConstRange);
+
+		using Range = ranges::subrange<Iterator>;
+		using ConstRange = ranges::subrange<ConstIterator>;
 
 		PASTEL_FWD(iterator);
 		PASTEL_FWD(const_iterator);

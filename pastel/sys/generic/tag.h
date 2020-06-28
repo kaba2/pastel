@@ -24,7 +24,7 @@ namespace Pastel
 	the end of the string. That is, for "liquid",
 	N = 6 + 1 = 7.
 	*/
-	template <integer N>
+	template <int N>
 	constexpr tag_integer tagHash(
 		const char (&tagName)[N],
 		// Skip the null-character at the end.

@@ -16,32 +16,37 @@ namespace Pastel
 			: boost::less_than_comparable<Edge<Settings>
 			, boost::equality_comparable<Edge<Settings>
 			> >
-			, public HalfMesh_Fwd<Settings>::EdgeData_Class
 		{
 		public:
 			using Fwd = HalfMesh_Fwd<Settings>;
-			PASTEL_FWD(EdgeData_Class);
+			PASTEL_FWD(EdgeData);
 			PASTEL_FWD(Half_Iterator);
 			PASTEL_FWD(Half_ConstIterator);
 
-			operator EdgeData_Class&()
+			template <typename... Type>
+			Edge(Type&&... data)
+			: data_(std::forward<Type>(data)...)
 			{
-				return data();
 			}
 
-			operator const EdgeData_Class&() const
+			Edge(const Edge& that)
+			: data_(that.data_) 
 			{
-				return data();
 			}
 
-			EdgeData_Class& data()
+			Edge(Edge&& that)
+			: data_(std::move(that.data_))
 			{
-				return *this;
 			}
 
-			const EdgeData_Class& data() const
+			EdgeData& data()
 			{
-				return *this;
+				return data_;
+			}
+
+			const EdgeData& data() const
+			{
+				return data_;
 			}
 
 			Half_Iterator half()
@@ -54,30 +59,12 @@ namespace Pastel
 				return half_;
 			}
 
-		protected:
-			// Why protected rather than private?
-			// See corresponding region for Vertex.
-
-			template <typename... Type>
-			Edge(Type&&... data)
-			: EdgeData_Class(std::forward<Type>(data)...)
-			{
-			}
-
-			Edge(const Edge& that)
-			: EdgeData_Class(that) 
-			{
-			}
-
-			Edge(Edge&& that)
-			: EdgeData_Class(std::move(that))
-			{
-			}
-
 		private:
 			template <typename, template <typename> class>
 			friend class Pastel::HalfMesh;
 
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+			EdgeData data_;
 			Half_Iterator half_;
 		};
 

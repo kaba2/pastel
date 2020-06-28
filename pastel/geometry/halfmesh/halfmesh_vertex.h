@@ -16,32 +16,37 @@ namespace Pastel
 			: boost::less_than_comparable<Vertex<Settings>
 			, boost::equality_comparable<Vertex<Settings>
 			> >
-			, public HalfMesh_Fwd<Settings>::VertexData_Class
 		{
 		public:
 			using Fwd = HalfMesh_Fwd<Settings>;
-			PASTEL_FWD(VertexData_Class);
+			PASTEL_FWD(VertexData);
 			PASTEL_FWD(Half_Iterator);
 			PASTEL_FWD(Half_ConstIterator);
 
-			operator VertexData_Class&()
+			template <typename... Type>
+			Vertex(Type&&... data)
+			: data_(std::forward<Type>(data)...)
 			{
-				return data();
 			}
 
-			operator const VertexData_Class&() const
+			Vertex(const Vertex& that)
+			: data_(that.data_)
 			{
-				return data();
 			}
 
-			VertexData_Class& data()
+			Vertex(Vertex&& that)
+			: data_(std::move(that.data_))
 			{
-				return *this;
 			}
 
-			const VertexData_Class& data() const
+			VertexData& data()
 			{
-				return *this;
+				return data_;
+			}
+
+			const VertexData& data() const
+			{
+				return data_;
 			}
 
 			Half_Iterator half()
@@ -86,32 +91,12 @@ namespace Pastel
 				return half().empty();
 			}
 
-		protected:
-			// These functions are protected, rather than
-			// private, so that Vertex can be used as a base
-			// class. In particular, this is needed for the 
-			// Inherited_Class used in List.
-
-			template <typename... Type>
-			Vertex(Type&&... data)
-			: VertexData_Class(std::forward<Type>(data)...)
-			{
-			}
-
-			Vertex(const Vertex& that)
-			: VertexData_Class(that) 
-			{
-			}
-
-			Vertex(Vertex&& that)
-			: VertexData_Class(std::move(that))
-			{
-			}
-
 		private:
 			template <typename, template <typename> class>
 			friend class Pastel::HalfMesh;
 
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+			VertexData data_;
 			Half_Iterator half_;
 		};
 

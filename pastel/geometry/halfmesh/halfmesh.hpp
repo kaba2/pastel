@@ -24,7 +24,7 @@ namespace Pastel
 			Vertex_ConstIterator thatEnd = that.vertexEnd();
 			while(thatVertex != thatEnd)
 			{
-				Vertex_Iterator vertex = insertVertex(*thatVertex);
+				Vertex_Iterator vertex = insertVertex(thatVertex->data());
 				ASSERT(vertex.isNormal());
 
 				vertexMap.insert(
@@ -51,7 +51,7 @@ namespace Pastel
 				Edge_Iterator edge = insertEdgeEdge(insertEdge(
 					vertexMap[origin],
 					vertexMap[destination],
-					*thatEdge));
+					thatEdge->data()));
 				ASSERT(edge.isNormal());
 				unused(edge);
 

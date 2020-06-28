@@ -86,8 +86,6 @@ namespace Pastel
 
 		using Iterator = List_::Iterator<Iterator_Settings>;
 		using ConstIterator = List_::Iterator<ConstIterator_Settings>;
-		using Range = ranges::subrange<Iterator>;
-		using ConstRange = ranges::subrange<ConstIterator>;
 
 		// Compability with boost iterator ranges.
 

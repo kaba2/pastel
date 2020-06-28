@@ -391,30 +391,18 @@ namespace Pastel
 				return this->base();
 			}
 
-			using DereferenceType = typename std::conditional<
+			using DereferenceType = std::conditional_t<
 				DereferenceToData,
-				Data, const Key>::type;
-
-			struct KeyTag {};
-			struct DataTag {};
-
-			using DereferenceTag = typename std::conditional<
-				DereferenceToData, 
-				DataTag, KeyTag>::type;
-
-			const Key& dereference(KeyTag) const
-			{
-				return key();
-			}
-
-			Data& dereference(DataTag) const
-			{
-				return data();
-			}
+				Data, 
+				const Key>;
 
 			DereferenceType& dereference() const
 			{
-				return dereference(DereferenceTag());
+				if constexpr (DereferenceToData) {
+					return data();
+				} else {
+					return key();
+				}
 			}
 
 			void increment() 

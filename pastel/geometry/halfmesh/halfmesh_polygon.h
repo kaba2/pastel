@@ -16,32 +16,37 @@ namespace Pastel
 			: boost::less_than_comparable<Polygon<Settings>
 			, boost::equality_comparable<Polygon<Settings>
 			> >
-			, public HalfMesh_Fwd<Settings>::PolygonData_Class
 		{
 		public:
 			using Fwd = HalfMesh_Fwd<Settings>;
-			PASTEL_FWD(PolygonData_Class);
+			PASTEL_FWD(PolygonData);
 			PASTEL_FWD(Half_Iterator);
 			PASTEL_FWD(Half_ConstIterator);
 
-			operator PolygonData_Class&()
+			template <typename... Type>
+			Polygon(Type&&... data)
+			: data_(std::forward<Type>(data)...)
 			{
-				return data();
 			}
 
-			operator const PolygonData_Class&() const
+			Polygon(const Polygon& that)
+			: data_(that.data_) 
 			{
-				return data();
 			}
 
-			PolygonData_Class& data()
+			Polygon(Polygon&& that)
+			: data_(std::move(that.data_))
 			{
-				return *this;
 			}
 
-			const PolygonData_Class& data() const
+			PolygonData& data()
 			{
-				return *this;
+				return data_;
+			}
+
+			const PolygonData& data() const
+			{
+				return data_;
 			}
 
 			Half_Iterator half()
@@ -54,30 +59,12 @@ namespace Pastel
 				return half_;
 			}
 
-		protected:
-			// Why protected rather than private?
-			// See corresponding region for Vertex.
-
-			template <typename... Type>
-			Polygon(Type&&... data)
-			: PolygonData_Class(std::forward<Type>(data)...)
-			{
-			}
-
-			Polygon(const Polygon& that)
-			: PolygonData_Class(that) 
-			{
-			}
-
-			Polygon(Polygon&& that)
-			: PolygonData_Class(std::move(that))
-			{
-			}
-
 		private:
 			template <typename, template <typename> class>
 			friend class Pastel::HalfMesh;
 			
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+			PolygonData data_;
 			Half_Iterator half_;
 		};
 

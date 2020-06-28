@@ -6,8 +6,8 @@
 
 #include "pastel/sys/mytypes.h"
 
-#include <range/v3/view/subrange.hpp>
 #include <range/v3/algorithm.hpp>
+#include <range/v3/view.hpp>
 #include <boost/iterator_adaptors.hpp>
 
 namespace Pastel
@@ -30,7 +30,7 @@ namespace Pastel
 		return ranges::subrange(begin, end);
 	}
 
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	decltype(auto) range(
 		Type (&that)[N])
 	{

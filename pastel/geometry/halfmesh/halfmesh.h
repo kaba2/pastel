@@ -5,7 +5,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/generic/class.h"
 #include "pastel/sys/list.h"
 
 #include "pastel/geometry/halfmesh/halfmesh_concepts.h"
@@ -40,10 +39,10 @@ namespace Pastel
 		PASTEL_FWD(Edge);
 		PASTEL_FWD(Polygon);
 		
-		PASTEL_FWD(VertexData_Class);
-		PASTEL_FWD(HalfData_Class);
-		PASTEL_FWD(EdgeData_Class);
-		PASTEL_FWD(PolygonData_Class);
+		PASTEL_FWD(VertexData);
+		PASTEL_FWD(HalfData);
+		PASTEL_FWD(EdgeData);
+		PASTEL_FWD(PolygonData);
 		static constexpr bool MultipleEdges = Fwd::MultipleEdges;
 		static constexpr bool Loops = Fwd::Loops;
 
@@ -66,7 +65,7 @@ namespace Pastel
 		PASTEL_FWD(InsertEdge_Return);
 		PASTEL_FWD(InsertEdge_Return_Pair);
 
-		template <typename Range, typename To>
+		template <ranges::input_range Range, typename To>
 		struct IsConvertible
 		{
 			static constexpr bool value =
@@ -566,10 +565,10 @@ namespace Pastel
 {
 
 	template <
-		typename VertexData_ = void,
-		typename HalfData_ = void,
-		typename EdgeData_ = void,
-		typename PolygonData_ = void,
+		typename VertexData_ = Empty,
+		typename HalfData_ = Empty,
+		typename EdgeData_ = Empty,
+		typename PolygonData_ = Empty,
 		bool MultipleEdges_ = true,
 		bool Loops_ = true>
 	class HalfMesh_Settings
@@ -584,10 +583,10 @@ namespace Pastel
 	};
 
 	template <
-		typename VertexData_ = void,
-		typename HalfData_ = void,
-		typename EdgeData_ = void,
-		typename PolygonData_ = void,
+		typename VertexData_ = Empty,
+		typename HalfData_ = Empty,
+		typename EdgeData_ = Empty,
+		typename PolygonData_ = Empty,
 		bool MultipleEdges_ = true,
 		bool Loops_ = true,
 		template <typename> class Customization_ = Empty_HalfMesh_Customization>

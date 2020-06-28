@@ -82,34 +82,34 @@ namespace Pastel
 		// Parametrized absolute size types.
 
 		//! A native signed integer with the given number of bits.
-		template <integer N> struct IntegerOfSize_F {};
+		template <int N> struct IntegerOfSize_F {};
 		template <> struct IntegerOfSize_F<8> { using type = int8; };
 		template <> struct IntegerOfSize_F<16> { using type = int16; };
 		template <> struct IntegerOfSize_F<32> { using type = int32; };
 		template <> struct IntegerOfSize_F<64> { using type = int64; };
 
 		//! A native signed integer with the given number of bits.
-		template <integer N>
+		template <int N>
 		using IntegerOfSize = typename IntegerOfSize_F<N>::type;
 
 		//! A native unsigned integer with the given number of bits.
-		template <integer N> 
+		template <int N> 
 		struct UIntegerOfSize_F
 		{
 			using type = typename std::make_unsigned<IntegerOfSize<N>>::type;
 		};
 
 		//! A native unsigned integer with the given number of bits.
-		template <integer N>
+		template <int N>
 		using UIntegerOfSize = typename UIntegerOfSize_F<N>::type;
 
 		//! A native floating-point number with the given number of bits.
-		template <integer N> struct RealOfSize_F {};
+		template <int N> struct RealOfSize_F {};
 		template <> struct RealOfSize_F<32> { using type = real32; };
 		template <> struct RealOfSize_F<64> { using type = real64; };
 
 		//! A native floating-point number with the given number of bits.
-		template <integer N>
+		template <int N>
 		using RealOfSize = typename RealOfSize_F<N>::type;
 
 		template <typename Type>
@@ -192,7 +192,7 @@ namespace Pastel
 {
 
 	//! Returns the size of an array.
-	template <typename Type, integer N>
+	template <typename Type, int N>
 	constexpr integer arraySize(Type (&)[N])
 	{
 		return N;
