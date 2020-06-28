@@ -6,7 +6,6 @@
 #include <pastel/geometry/rangetree/rangetree.h>
 #include <pastel/sys/math/eps.h>
 #include <pastel/sys/for_each_point.h>
-#include <pastel/sys/input.h>
 
 #include <iostream>
 #include <queue>
@@ -15,7 +14,7 @@
 namespace
 {
 
-	template <integer N>
+	template <int N>
 	using Point = Vector<dreal, N>;
 
 	class MultiLess
@@ -33,10 +32,10 @@ namespace
 
 	using MultiLess_ = MultiLess;
 
-	template <integer N>
+	template <int N>
 	using Point_ = Point<N>;
 
-	template <integer N>
+	template <int N>
 	class Settings
 	{
 	public:
@@ -142,7 +141,7 @@ TEST_CASE("Simple (Simple)")
 	pointSet.emplace_back(6, 0);
 	pointSet.emplace_back(8, 2);
 
-	Tree tree(rangeInput(pointSet), 2);
+	Tree tree(pointSet, 2);
 	REQUIRE(testInvariants(tree));
 
 	std::vector<Point<2>> resultSet;
@@ -218,7 +217,7 @@ TEST_CASE("Simple (Simple)")
 namespace
 {
 
-	template <integer N>
+	template <int N>
 	void testSingular()
 	{
 		using Tree = RangeTree<Settings<N>>;
@@ -241,7 +240,7 @@ namespace
 			pointSet.emplace_back(point);
 		});
 
-		Tree tree(rangeInput(pointSet), N);
+		Tree tree(pointSet, N);
 		REQUIRE(testInvariants(tree));
 
 		forEachPoint(

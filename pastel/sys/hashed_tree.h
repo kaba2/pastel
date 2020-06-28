@@ -16,32 +16,29 @@ namespace Pastel
 	
 	template <typename Propagation>
 	class Hash_Propagation
-	: public Class<Propagation>
 	{
 	public:
-		using Propagation_Class = Class<Propagation>
-;
 		Hash_Propagation()
-		: Propagation_Class()
+		: data_()
 		, hash_(0)
 		{
 		}
 
 		template <typename That>
 		Hash_Propagation(That that)
-		: Propagation_Class(std::move(that))
+		: data_(std::move(that))
 		, hash_(0)
 		{
 		}
 
-		operator const Propagation_Class&() const
+		operator const Propagation&() const
 		{
-			return *this;
+			return data_;
 		}
 
-		operator Propagation_Class&()
+		operator Propagation&()
 		{
-			return *this;
+			return data_;
 		}
 
 		hash_integer hash() const
@@ -53,6 +50,7 @@ namespace Pastel
 		template <typename Settings>
 		friend class Hash_RedBlackTree_Customization;
 
+		Propagation data_;
 		hash_integer hash_;
 	};
 
@@ -80,21 +78,21 @@ namespace Pastel
 	template <
 		typename Key,
 		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
+		typename Propagation = Empty,
+		typename SentinelData = Empty,
 		typename Hash = std::hash<Key>>
 	using Hashed_Set = HashedTree<
-		RedBlackTree_Set_Settings<Key, void, Less, Propagation, SentinelData, false>, 
+		RedBlackTree_Set_Settings<Key, Empty, Less, Propagation, SentinelData, false>, 
 		Hash>;
 
 	template <
 		typename Key,
 		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
+		typename Propagation = Empty,
+		typename SentinelData = Empty,
 		typename Hash = std::hash<Key>>
 	using Hashed_MultiSet = HashedTree<
-		RedBlackTree_Set_Settings<Key, void, Less, Propagation, SentinelData, true>, 
+		RedBlackTree_Set_Settings<Key, Empty, Less, Propagation, SentinelData, true>, 
 		Hash>;
 
 }
@@ -106,8 +104,8 @@ namespace Pastel
 		typename Key,
 		typename Data,
 		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
+		typename Propagation = Empty,
+		typename SentinelData = Empty,
 		typename Hash = std::hash<Key>>
 	using Hashed_Map = HashedTree<
 		RedBlackTree_Set_Settings<Key, Data, Less, Propagation, SentinelData, false>,
@@ -117,8 +115,8 @@ namespace Pastel
 		typename Key,
 		typename Data,
 		typename Less = LessThan,
-		typename Propagation = void,
-		typename SentinelData = void,
+		typename Propagation = Empty,
+		typename SentinelData = Empty,
 		typename Hash = std::hash<Key>>
 	using Hashed_MultiMap = HashedTree<
 		RedBlackTree_Set_Settings<Key, Data, Less, Propagation, SentinelData, true>,

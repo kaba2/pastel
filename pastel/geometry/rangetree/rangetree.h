@@ -100,9 +100,9 @@ namespace Pastel
 		n is the size of pointSet,
 		d = orders.
 		*/
-		template <typename Point_Input>
+		template <ranges::input_range Point_Range>
 		explicit RangeTree(
-			Point_Input pointSet,
+			Point_Range pointSet,
 			integer orders)
 		: RangeTree()
 		{
@@ -111,18 +111,20 @@ namespace Pastel
 			orders_ = orders;
 			
 			std::vector<Point_Iterator> iteratorSet;
+
+			integer nHint = 0;
+			if constexpr (ranges::sized_range<Point_Range>) {
+				nHint = ranges::size(pointSet);
+			}
 			
-			integer nHint = pointSet.nHint();
 			iteratorSet.reserve(nHint);
 			pointSet_.reserve(nHint);
 	
-			while (!pointSet.empty())
+			for (auto&& point : pointSet)
 			{
-				pointSet_.emplace_back(pointSet.get());
+				pointSet_.emplace_back(point);
 				iteratorSet.emplace_back(
 					std::prev(pointSet_.end()));
-
-				pointSet.pop();
 			}
 
 			// Sort the points in increasing order by the last coordinate.
