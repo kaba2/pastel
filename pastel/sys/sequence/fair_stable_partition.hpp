@@ -2,22 +2,39 @@
 #define PASTELSYS_FAIR_STABLE_PARTITION_HPP
 
 #include "pastel/sys/sequence/fair_stable_partition.h"
+
 #include "pastel/sys/trindicator/trindicator_concept.h"
+#include "pastel/sys/range.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
 
+	//! Partitions a sequence fairly and stably.
+	/*!
+	Time complexity:
+	O(n)
+	where
+	n = boost::size(elementSet).
+
+	Space complexity: O(n)
+
+	Stable means that the ordering of elements is preserved.
+	Fair means that half of the elements with a zero indicator 
+	are interpreted as negative, and the others as positive.
+	When n >= 2, and at least one point has zero indicator,
+	both sets will be non-empty.
+	*/
 	template <
-		typename Range,
+		ranges::forward_range Range,
 		typename Trindicator>
 	ranges::iterator_t<Range> 
 		fairStablePartition(
-			const Range& elementSet,
+			Range&& elementSet,
 			const Trindicator& trindicator)
 		{
 			using Iterator = ranges::iterator_t<Range>;
-			using Type = ranges::value_type_t<Range>;
+			using Type = ranges::iter_value_t<Range>;
 		
 			integer zeros = 0;
 			integer negatives = 0;

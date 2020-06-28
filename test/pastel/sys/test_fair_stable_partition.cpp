@@ -19,7 +19,7 @@ TEST_CASE("fair_stable_partition (fair_stable_partition)")
 	{
 		auto rightBegin = 
 			fairStablePartition(
-				range(elementSet.begin(), elementSet.end()), 
+				elementSet, 
 				trindicator);
 		
 		if (!ranges::equal(leftSet, 
