@@ -3,7 +3,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/incidence_graph/incidence_graph_fwd.h"
-#include "pastel/sys/generic/class.h"
 #include "pastel/sys/optional/optional.h"
 #include "pastel/sys/iterator/second_iterator.h"
 #include "pastel/sys/hashing/iteratoraddress_hash.h"
@@ -40,11 +39,14 @@ namespace Pastel
 
 	template <
 		typename Symbol, 
-		typename StateData, 
-		typename TransitionData>
+		typename StateData_, 
+		typename TransitionData_>
 	class Automaton_Fwd
 	{
 	public:
+		using StateData = StateData_;		
+		using TransitionData = TransitionData_;
+
 		//! The start/final-labeling of the state.
 		using StateLabel = 
 			Automaton_::StateLabel<Symbol, StateData, TransitionData>;
@@ -72,11 +74,6 @@ namespace Pastel
 		typedef typename Graph_Fwd::Vertex_ConstIterator
 			State_ConstIterator;
 
-		//! The user-data for the states.
-		struct State_Tag;
-		using StateData_Class = 
-			Class<StateData, State_Tag>;
-;
 		//! The transitions.
 		/*!
 		The transitions are the edges of the graph, 
@@ -86,11 +83,6 @@ namespace Pastel
 			Transition_Iterator;
 		typedef typename Graph_Fwd::Edge_ConstIterator
 			Transition_ConstIterator;
-
-		//! The user-data for the transitions.
-		struct TransitionData_Tag;
-		using TransitionData_Class = 
-			Class<TransitionData, TransitionData_Tag>;
 
 		typedef typename Graph_Fwd::Incidence_Iterator
 			Incidence_Iterator;

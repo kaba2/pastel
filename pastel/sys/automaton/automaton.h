@@ -17,14 +17,14 @@ namespace Pastel
 	//! Finite-state automaton
 	template <
 		typename Symbol, 
-		typename StateData = void, 
-		typename TransitionData = void,
-		typename Customization = No_Automaton_Customization<Symbol, StateData, TransitionData>>
+		typename StateData_ = Empty, 
+		typename TransitionData_ = Empty,
+		typename Customization = No_Automaton_Customization<Symbol, StateData_, TransitionData_>>
 	class Automaton
 		: public Customization
 	{
 	private:
-		using Fwd = Automaton_Fwd<Symbol, StateData, TransitionData>;
+		using Fwd = Automaton_Fwd<Symbol, StateData_, TransitionData_>;
 
 		PASTEL_FWD(StateLabel);
 		PASTEL_FWD(TransitionLabel);
@@ -42,11 +42,11 @@ namespace Pastel
 	public:
 		PASTEL_FWD(State_Iterator);
 		PASTEL_FWD(State_ConstIterator);
-		PASTEL_FWD(StateData_Class);
+		PASTEL_FWD(StateData);
 
 		PASTEL_FWD(Transition_Iterator);
 		PASTEL_FWD(Transition_ConstIterator);
-		PASTEL_FWD(TransitionData_Class);
+		PASTEL_FWD(TransitionData);
 		
 		PASTEL_FWD(Incidence_Iterator);
 		PASTEL_FWD(Incidence_ConstIterator);
@@ -285,7 +285,7 @@ namespace Pastel
 		Exception safety:
 		strong + customization
 		*/
-		State_Iterator addState(StateData_Class stateData = StateData_Class())
+		State_Iterator addState(StateData stateData = StateData())
 		{
 			State_Iterator state = graph_.insertVertex(
 				StateLabel(std::move(stateData)));
@@ -364,7 +364,7 @@ namespace Pastel
 		void addStart(
 			const State_ConstIterator& state)
 		{
-			if (state->start())
+			if (state->data().start())
 			{
 				return;
 			}
@@ -372,8 +372,8 @@ namespace Pastel
 			Start_Iterator start = startSet_.insert(
 				startSet_.end(), state);
 
-			cast(state)->startPosition_ = start; 
-			cast(state)->setStart(true);
+			cast(state)->data().startPosition_ = start; 
+			cast(state)->data().setStart(true);
 
 			try
 			{
@@ -381,8 +381,8 @@ namespace Pastel
 			}
 			catch(...)
 			{
-				cast(state)->startPosition_ = startSet_.end(); 
-				cast(state)->setStart(false);
+				cast(state)->data().startPosition_ = startSet_.end(); 
+				cast(state)->data().setStart(false);
 				startSet_.erase(start);
 				throw;
 			}
@@ -408,7 +408,7 @@ namespace Pastel
 
 			Start_Iterator next =
 				startSet_.erase(state->startPosition_);
-			cast(state)->setStart(false);
+			cast(state)->data().setStart(false);
 
 			return next;
 		}
@@ -476,7 +476,7 @@ namespace Pastel
 		void addFinal(
 			const State_ConstIterator& state)
 		{
-			if (state->final())
+			if (state->data().final())
 			{
 				return;
 			}
@@ -484,8 +484,8 @@ namespace Pastel
 			Final_Iterator final = finalSet_.insert(
 				finalSet_.end(), state);
 
-			cast(state)->finalPosition_ = final;
-			cast(state)->setFinal(true);
+			cast(state)->data().finalPosition_ = final;
+			cast(state)->data().setFinal(true);
 
 			try
 			{
@@ -493,8 +493,8 @@ namespace Pastel
 			}
 			catch(...)
 			{
-				cast(state)->finalPosition_ = finalSet_.end();
-				cast(state)->setFinal(false);
+				cast(state)->data().finalPosition_ = finalSet_.end();
+				cast(state)->data().setFinal(false);
 				finalSet_.erase(final);
 				throw;
 			}
@@ -513,15 +513,15 @@ namespace Pastel
 		{
 			if (!state->final())
 			{
-				return state->finalPosition_;
+				return state->data().finalPosition_;
 			}
 
 			this->onRemoveFinal(state);
 
 			Final_Iterator next = 
-				finalSet_.erase(state->finalPosition_);
-			cast(state)->finalPosition_ = finalSet_.end();
-			cast(state)->setFinal(false);
+				finalSet_.erase(state->data().finalPosition_);
+			cast(state)->data().finalPosition_ = finalSet_.end();
+			cast(state)->data().setFinal(false);
 
 			return next;
 		}
@@ -642,7 +642,7 @@ namespace Pastel
 			const State_ConstIterator& fromState,
 			Optional<Symbol> symbol,
 			const State_ConstIterator& toState,
-			TransitionData_Class transitionData = TransitionData_Class())
+			TransitionData transitionData = TransitionData())
 		{
 			if (!this->canAddTransition(fromState, symbol, toState))
 			{

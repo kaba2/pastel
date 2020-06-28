@@ -18,19 +18,18 @@ namespace Pastel
 
 		template <
 			typename Symbol, 
-			typename StateData, 
-			typename TransitionData>
+			typename StateData_, 
+			typename TransitionData_>
 		class TransitionLabel
-			: public Automaton_Fwd<Symbol, StateData, TransitionData>::TransitionData_Class
 		{
 		public:
-			using Fwd = Automaton_Fwd<Symbol, StateData, TransitionData>;
+			using Fwd = Automaton_Fwd<Symbol, StateData_, TransitionData_>;
 
-			PASTEL_FWD(TransitionData_Class);
+			PASTEL_FWD(TransitionData);
 
 			// FIX: Delete after emplace becomes available in Visual Studio.
 			TransitionLabel(TransitionLabel&& that)
-				: TransitionData_Class(std::move((TransitionData_Class&&)that))
+				: data_(std::move((TransitionData&&)that))
 				, symbol_(std::move(that.symbol_))
 			{
 			}
@@ -44,8 +43,16 @@ namespace Pastel
 			template <typename Type>
 			TransitionLabel& operator=(Type&& that)
 			{
-				((TransitionData_Class&)*this) = std::forward<Type>(that);
+				data() = std::forward<Type>(that);
 				return *this;
+			}
+
+			TransitionData& data() {
+				return data_;
+			}
+
+			const TransitionData& data() const {
+				return data_;
 			}
 
 		private:
@@ -61,12 +68,14 @@ namespace Pastel
 
 			TransitionLabel(
 				Optional<Symbol> symbol,
-				TransitionData_Class transitionData)
-				: TransitionData_Class(std::move(transitionData))
+				TransitionData transitionData)
+				: data_(std::move(transitionData))
 				, symbol_(std::move(symbol))
 			{
 			}
 
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+			TransitionData data_;
 			Optional<Symbol> symbol_;
 		};
 

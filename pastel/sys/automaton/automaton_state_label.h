@@ -17,26 +17,25 @@ namespace Pastel
 
 		template <
 			typename Symbol,
-			typename StateData,
-			typename TransitionData>
+			typename StateData_,
+			typename TransitionData_>
 		class StateLabel
-			: public Automaton_Fwd<Symbol, StateData, TransitionData>::StateData_Class
 		{
 		private:
 			static constexpr uint32 FINAL_FLAG = 0x00000001;
 			static constexpr uint32 START_FLAG = 0x00000002;
 
-			typedef Automaton_Fwd<Symbol, StateData, TransitionData>
+			typedef Automaton_Fwd<Symbol, StateData_, TransitionData_>
 				Fwd;
 
 			PASTEL_FWD(Final_Iterator);
 			PASTEL_FWD(Start_Iterator);
-			PASTEL_FWD(StateData_Class);
+			PASTEL_FWD(StateData);
 
 		public:
 			// FIX: Delete after emplace becomes available in Visual Studio.
 			StateLabel(StateLabel&& that)
-				: StateData_Class(std::move((StateData_Class&&)that))
+				: data_(std::move((StateData&&)that))
 				, finalPosition_(std::move(that.finalPosition_))
 				, startPosition_(std::move(that.startPosition_))
 				, flags_(std::move(that.flags_))
@@ -47,8 +46,16 @@ namespace Pastel
 			template <typename Type>
 			StateLabel& operator=(Type&& that)
 			{
-				((StateData_Class&)*this) = std::forward<Type>(that);
+				data() = std::forward<Type>(that);
 				return *this;
+			}
+
+			StateData& data() {
+				return data_;
+			}
+
+			const StateData& data() const {
+				return data_;
 			}
 
 			bool final() const
@@ -72,9 +79,8 @@ namespace Pastel
 				typename, typename>
 				friend class Pastel::Automaton;
 
-			StateLabel(
-				StateData_Class stateData)
-				: StateData_Class(std::move(stateData))
+			StateLabel(StateData stateData)
+				: data_(std::move(stateData))
 				, finalPosition_()
 				, startPosition_()
 				, flags_(0)
@@ -111,6 +117,8 @@ namespace Pastel
 			or finalSet_.end() would break on splicing).
 			*/
 
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+			StateData data_;
 			Final_Iterator finalPosition_;
 			Start_Iterator startPosition_;
 			uint32 flags_;
