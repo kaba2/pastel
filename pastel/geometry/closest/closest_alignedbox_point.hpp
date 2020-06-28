@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Vector<Real, N> closest(
 		const AlignedBox<Real, N>& box,
 		const Vector<Real, N>& point)

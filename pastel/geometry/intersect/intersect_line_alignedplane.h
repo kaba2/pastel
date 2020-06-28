@@ -12,7 +12,7 @@ namespace Pastel
 
 	//! Finds the intersection between a line and an aligned plane.
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool intersect(
 		const Line<Real, N>& line,
 		const AlignedPlane<Real, N>& alignedPlane,

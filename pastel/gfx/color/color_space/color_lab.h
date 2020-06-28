@@ -6,18 +6,6 @@
 #define PASTELGFX_COLOR_LAB_H
 
 #include "pastel/gfx/color/color.h"
-
-namespace Pastel
-{
-
-	//! Converts XYZ color to CIELab color
-	Color xyzToLab(const Color& xyz);
-
-	//! Converts CIELab color to XYZ color
-	Color labToXyz(const Color& lab);
-
-}
-
 #include "pastel/gfx/color/color_space/color_lab.hpp"
 
 #endif

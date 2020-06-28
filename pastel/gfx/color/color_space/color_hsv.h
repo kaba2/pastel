@@ -6,18 +6,6 @@
 #define PASTELGFX_COLOR_HSV_H
 
 #include "pastel/gfx/color/color.h"
-
-namespace Pastel
-{
-
-	//! Converts sRGB color to HSV color.
-	Color rgbToHsv(const Color& rgb);
-
-	//! Converts HSV color to sRGB color.
-	Color hsvToRgb(const Color& hsv);
-
-}
-
 #include "pastel/gfx/color/color_space/color_hsv.hpp"
 
 #endif

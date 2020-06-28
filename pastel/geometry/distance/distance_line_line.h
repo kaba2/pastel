@@ -13,7 +13,7 @@ namespace Pastel
 {
 
 	//! Euclidean distance between two lines.
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	auto distance2(
 		const Line<Real, N>& aLine,
 		const Line<Real, N>& bLine)

@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& box,
 		const PASTEL_TRIANGLE(Real, N)& triangle)
@@ -22,7 +22,7 @@ namespace Pastel
 		// Then the test for aligned box-triangle overlap
 		// is used.
 
-		Matrix<Real> boxRotationInverse(
+		Matrix<Real, N, N> boxRotationInverse(
 			transpose(box.rotation()));
 
 		PASTEL_TRIANGLE(Real, N) transformedTriangle(

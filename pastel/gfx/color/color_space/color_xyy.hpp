@@ -6,6 +6,7 @@
 namespace Pastel
 {
 
+	//! Converts xyY color to XYZ color.
 	inline Color xyyToXyz(const Color& xyy)
 	{
 		// If y != 0, then
@@ -32,6 +33,7 @@ namespace Pastel
 			yRatio * (1 - xyy[0] - xyy[1]));
 	}
 
+	//! Converts XYZ color to xyY color.
 	inline Color xyzToXyy(const Color& xyz)
 	{
 		// x' = X / (X + Y + Z)

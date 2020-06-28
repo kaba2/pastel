@@ -50,7 +50,7 @@ namespace Pastel
 		public:
 			using Real = dreal;
 			using Point = TreePoint;
-			static constexpr integer N = Dynamic;
+			static constexpr int N = Dynamic;
 
 			explicit TreePoint_Locator(
 				integer dimension)
@@ -111,11 +111,9 @@ namespace Pastel
 				// Copy point data.
 				{
 					Point_ConstRange range = thatTree.range();
-					while(!range.empty())
+					for (auto&& p : range)
 					{
-
-						const TreePoint& treePoint =
-							range.front().point();
+						const TreePoint& treePoint = p.point();
 						
 						dreal* data = (dreal*)pointAllocator.allocate();
 						dreal* thatData = treePoint.data;
@@ -126,19 +124,15 @@ namespace Pastel
 
 						Point_ConstIterator iter = tree.insert(TreePoint(data, index));
 						indexMap.insert(std::make_pair(index, iter));
-
-						range.pop_front();
 					}
 				}
 
 				// Copy hidden data.
 				{
 					Point_ConstRange range = thatTree.hiddenRange();
-					while(!range.empty())
+					for (auto&& p : range)
 					{
-
-						const TreePoint& treePoint =
-							range.front().point();
+						const TreePoint& treePoint = p.point();
 						
 						dreal* data = (dreal*)pointAllocator.allocate();
 						dreal* thatData = treePoint.data;
@@ -150,8 +144,6 @@ namespace Pastel
 						Point_ConstIterator iter = tree.insert(
 							TreePoint(data, index), true);
 						indexMap.insert(std::make_pair(index, iter));
-
-						range.pop_front();
 					}
 				}
 			}
@@ -693,7 +685,7 @@ namespace Pastel
 				// internal compiler error in Clang.
 				auto copyArray = matlabCreateArray<dreal>(kNearest, queries, outputSet[DistanceSet]);
 				distanceArray.swap(copyArray);
-				boost::fill(distanceArray.range(), (dreal)Infinity());
+				ranges::fill(distanceArray.range(), (dreal)Infinity());
 			}
 
 			using Block = tbb::blocked_range<integer>;

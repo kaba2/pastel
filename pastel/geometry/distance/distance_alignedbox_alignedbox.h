@@ -24,7 +24,7 @@ namespace Pastel
 	The distance is computed assuming that the boxes are solid. 
 	*/
 	template <
-		typename Real, integer N, 
+		typename Real, int N, 
 		Norm_Concept_ Norm = Euclidean_Norm<Real>
 	>
 	auto distance2(
@@ -68,7 +68,7 @@ namespace Pastel
 	The distance is computed assuming that the boxes are solid. 
 	*/
 	template <
-		typename Real, integer N, 
+		typename Real, int N, 
 		Norm_Concept_ Norm = Euclidean_Norm<Real>
 	>
 	auto farthestDistance2(

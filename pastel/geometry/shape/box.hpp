@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>::Box()
 		: position_(0)
 		, width_(1)
@@ -15,7 +15,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>::Box(integer dimension)
 		: position_(ofDimension(dimension), 0)
 		, width_(ofDimension(dimension), 1)
@@ -23,11 +23,11 @@ namespace Pastel
 	{
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>::Box(
 		const Vector<Real, N>& position,
 		const Vector<Real, N>& width,
-		const Matrix<Real>& rotation)
+		const Matrix<Real, N, N>& rotation)
 		: position_(position)
 		, width_(width)
 		, rotation_(rotation)
@@ -35,74 +35,74 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>::Box(
 		integer dimension,
 		const Vector<Real, N>& position,
 		const Vector<Real, N>& width,
-		const Matrix<Real>& rotation)
+		const Matrix<Real, N, N>& rotation)
 		: position_(position)
 		, width_(width)
 		, rotation_(rotation)
 	{
 		PENSURE_OP(dimension, ==, position.size());
 		PENSURE_OP(dimension, ==, width.size());
-		PENSURE_OP(dimension, ==, rotation.width());
-		PENSURE_OP(dimension, ==, rotation.height());
+		PENSURE_OP(dimension, ==, rotation.cols());
+		PENSURE_OP(dimension, ==, rotation.rows());
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>::~Box()
 	{
 		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	integer Box<Real, N>::n() const
 	{
 		return position_.n();
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void Box<Real, N>::setPosition(
 		const Vector<Real, N>& position)
 	{
 		position_ = position;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	const Vector<Real, N>& Box<Real, N>::position() const
 	{
 		return position_;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void Box<Real, N>::setWidth(
 		const Vector<Real, N>& width)
 	{
 		width_ = width;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	const Vector<Real, N>& Box<Real, N>::width() const
 	{
 		return width_;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void Box<Real, N>::setRotation(
-		const Matrix<Real>& rotation)
+		const Matrix<Real, N, N>& rotation)
 	{
 		rotation_ = rotation;
 	}
 
-	template <typename Real, integer N>
-	const Matrix<Real>& Box<Real, N>::rotation() const
+	template <typename Real, int N>
+	const Matrix<Real, N, N>& Box<Real, N>::rotation() const
 	{
 		return rotation_;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>& Box<Real, N>::operator+=(
 		const Vector<Real, N>& that)
 	{
@@ -111,7 +111,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>& Box<Real, N>::operator-=(
 		const Vector<Real, N>& that)
 	{
@@ -120,7 +120,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>& Box<Real, N>::operator*=(
 		const Real& that)
 	{
@@ -129,7 +129,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>& Box<Real, N>::operator/=(
 		const Real& that)
 	{

@@ -25,7 +25,7 @@ namespace Pastel
 	*/
 	template <
 		typename Real, 
-		integer N,
+		int N,
 		Point_Concept_ Point,
 		typename... ArgumentSet
 	>
@@ -94,7 +94,7 @@ namespace Pastel
 	*/
 	template <
 		typename Real, 
-		integer N,
+		int N,
 		Point_Concept_ Point,
 		typename... ArgumentSet
 	>

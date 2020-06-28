@@ -18,7 +18,7 @@ namespace Pastel
 	Returns:
 	Whether the box and the point overlap.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& box,
 		const Vector<Real, N>& point);

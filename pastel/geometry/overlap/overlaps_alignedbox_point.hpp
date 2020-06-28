@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& alignedBox,
 		const Vector<Real, N>& point)

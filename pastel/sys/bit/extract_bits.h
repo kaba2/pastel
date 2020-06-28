@@ -20,7 +20,7 @@ namespace Pastel
 	(number >> FromBit) & (1 << Bits - 1);
 	*/
 
-	template <integer FromBit, integer Bits, typename Integer>
+	template <integer FromBit, int Bits, typename Integer>
 	Integer extractBits(const Integer& number);
 
 	template <typename Integer>

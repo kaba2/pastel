@@ -60,7 +60,7 @@ namespace Pastel
 		
 		// Using an enum here triggers a bug in
 		// Visual Studio 2015 RC.
-		static constexpr integer N = Locator::N;
+		static constexpr int N = Locator::N;
 
 		//! Constructs an empty tree.
 		/*!
@@ -68,7 +68,7 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		//template <
-		//	integer N_ = N,
+		//	int N_ = N,
 		//	Requires<
 		//		BoolConstant<(N_ >= 0)>
 		//	> = 0
@@ -615,8 +615,7 @@ namespace Pastel
 			// The partitioning must be stable for the children
 			// to stay ordered with respect to time, and fair so
 			// that the number of points is eventually decreased.
-			auto leftEnd = fairStablePartition(
-				range(pointSet.begin(), pointSet.end()), trindicator);
+			auto leftEnd = fairStablePartition(pointSet, trindicator);
 
 			// Set the split-point for the node.
 			node->split_ = *leftEnd;

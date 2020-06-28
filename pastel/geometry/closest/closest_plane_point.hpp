@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Real closest(
 		const Plane<Real, N>& plane,
 		const Vector<Real, N>& point)

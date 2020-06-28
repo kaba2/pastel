@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Capsule<Real, N>::Capsule()
 		: segment_()
 		, radius_(0)
@@ -14,7 +14,7 @@ namespace Pastel
 	{
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Capsule<Real, N>::Capsule(
 		const Vector<Real, N>& start,
 		const Vector<Real, N>& end,
@@ -27,7 +27,7 @@ namespace Pastel
 		PENSURE_OP(radius, >=, 0);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Capsule<Real, N>::Capsule(
 		const Segment<Real, N>& segment,
 		const Real& radius,
@@ -39,7 +39,7 @@ namespace Pastel
 		PENSURE_OP(radius, >=, 0);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void Capsule<Real, N>::swap(
 		Capsule& that)
 	{
@@ -50,26 +50,26 @@ namespace Pastel
 		swap(topology_, that.topology_);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool Capsule<Real, N>::empty() const
 	{
 		return radius_ == 0 &&
 			topology_ == Topology::Open;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Segment<Real, N>& Capsule<Real, N>::segment()
 	{
 		return segment_;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	const Segment<Real, N>& Capsule<Real, N>::segment() const
 	{
 		return segment_;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void Capsule<Real, N>::setRadius(const Real& radius)
 	{
 		PENSURE_OP(radius, >=, 0);
@@ -77,26 +77,26 @@ namespace Pastel
 		radius_ = radius;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	const Real& Capsule<Real, N>::radius() const
 	{
 		return radius_;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void Capsule<Real, N>::setTopology(
 		Topology topology)
 	{
 		topology_ = topology;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Topology Capsule<Real, N>::topology() const
 	{
 		return topology_;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Capsule<Real, N>& Capsule<Real, N>::operator+=(
 		const Vector<Real, N>& that)
 	{
@@ -105,7 +105,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Capsule<Real, N>& Capsule<Real, N>::operator-=(
 		const Vector<Real, N>& that)
 	{
@@ -114,7 +114,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Capsule<Real, N>& Capsule<Real, N>::operator*=(
 		const Real& that)
 	{
@@ -124,7 +124,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Capsule<Real, N>& Capsule<Real, N>::operator/=(
 		const Real& that)
 	{

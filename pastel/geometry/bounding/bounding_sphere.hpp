@@ -15,14 +15,14 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const PASTEL_SIMPLEX(Real, N, 0)& simplex)
 	{
 		return circumscribedSphere(simplex);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const PASTEL_SIMPLEX(Real, N, 1)& simplex)
 	{
@@ -32,7 +32,7 @@ namespace Pastel
 	namespace BoundingSphere
 	{
 
-		template <integer SubsetSize, integer Elements>
+		template <integer SubsetSize, int Elements>
 		void firstSubset(Tuple<integer, SubsetSize>& subset)
 		{
 			PASTEL_STATIC_ASSERT(SubsetSize > 0);
@@ -45,7 +45,7 @@ namespace Pastel
 			}
 		}
 
-		template <integer SubsetSize, integer Elements>
+		template <integer SubsetSize, int Elements>
 		bool nextSubset(Tuple<integer, SubsetSize>& subset)
 		{
 			PASTEL_STATIC_ASSERT(SubsetSize > 0);
@@ -90,7 +90,7 @@ namespace Pastel
 		template <integer K>
 		struct DimensionTag {};
 
-		template <typename Real, integer N, integer M>
+		template <typename Real, int N, int M>
 		Sphere<Real, N> boundingSphere(
 			const PASTEL_SIMPLEX(Real, N, M)& simplex,
 			DimensionTag<M>)
@@ -98,7 +98,7 @@ namespace Pastel
 			return circumscribedSphere(simplex);
 		}
 
-		template <typename Real, integer N, integer M, integer K>
+		template <typename Real, int N, int M, int K>
 		Sphere<Real, N> boundingSphere(
 			const PASTEL_SIMPLEX(Real, N, M)& simplex,
 			DimensionTag<K>)
@@ -164,7 +164,7 @@ namespace Pastel
 
 	}
 
-	template <typename Real, integer N, integer M>
+	template <typename Real, int N, int M>
 	Sphere<Real, N> boundingSphere(
 		const PASTEL_SIMPLEX(Real, N, M)& simplex)
 	{
@@ -194,14 +194,14 @@ namespace Pastel
 			BoundingSphere::DimensionTag<1>());
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
 		const Vector<Real, N>& aPoint)
 	{
 		return Sphere<Real, N>(aPoint, 0);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
@@ -211,14 +211,14 @@ namespace Pastel
 			norm(evaluate(bPoint - aPoint)) * 0.5);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
 		const PASTEL_SIMPLEX(Real, N, 0)& simplex)
 	{
 		return Sphere<Real, N>(simplex[0], 0);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
 		const PASTEL_SIMPLEX(Real, N, 1)& simplex)
 	{
@@ -227,7 +227,7 @@ namespace Pastel
 			norm(evaluate(simplex[1] - simplex[0])) * 0.5);
 	}
 
-	template <typename Real, integer N, integer M>
+	template <typename Real, int N, int M>
 	Sphere<Real, N> circumscribedSphere(
 		const PASTEL_SIMPLEX(Real, N, M)& simplex)
 	{
@@ -333,7 +333,7 @@ namespace Pastel
 		// D^T D is invertible iff D has full rank, that is,
 		// the d_i are linearly independent.
 
-		Matrix<Real> d(N, M);
+		Matrix<Real, N, M> d;
 		Vector<Real, M> b;
 
 		for (integer i = 0;i < M;++i)
@@ -346,7 +346,7 @@ namespace Pastel
 			b[i] = dot(delta) * 0.5;
 		}
 
-		Matrix<Real> ddt(M, M);
+		Matrix<Real, M, M> ddt;
 
 		for (integer i = 0;i < M;++i)
 		{

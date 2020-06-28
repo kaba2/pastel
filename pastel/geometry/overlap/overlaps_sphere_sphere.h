@@ -19,7 +19,7 @@ namespace Pastel
 	Returns:
 	Whether the spheres overlap.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const Sphere<Real, N>& aSphere,
 		const Sphere<Real, N>& bSphere);

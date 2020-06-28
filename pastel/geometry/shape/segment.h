@@ -20,7 +20,7 @@ namespace Pastel
 	p = P + t * (Q - P)
 	with 0 <= t <= 1
 	*/
-	template <typename Real, integer N = Dynamic>
+	template <typename Real, int N = Dynamic>
 	class Segment
 		: boost::multipliable<Segment<Real, N>, Real
 		, boost::dividable<Segment<Real, N>, Real
@@ -30,7 +30,7 @@ namespace Pastel
 	{
 	public:
 		using Real_ = Real;
-		static constexpr integer N_ = N;
+		static constexpr int N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -111,7 +111,7 @@ namespace Pastel
 	using Segment4 = Segment<dreal, 4>;
 	using SegmentD = Segment<dreal, Dynamic>;
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void swap(
 		Segment<Real, N>& left,
 		Segment<Real, N>& right);

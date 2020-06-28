@@ -3,7 +3,6 @@
 #ifndef PASTELGEOMETRY_SPLITRULE_CONCEPT_H
 #define PASTELGEOMETRY_SPLITRULE_CONCEPT_H
 
-#include "pastel/sys/input/input_concept.h"
 #include "pastel/sys/locator/locator_concept.h"
 #include "pastel/sys/real/real_concept.h"
 #include "pastel/geometry/shape/alignedbox.h"
@@ -43,12 +42,12 @@ namespace Pastel
 			plane can be thought to be on either side.
 			*/
 			template <
-				typename Point_Input,
+				ranges::forward_range Range,
 				typename Locator,
 				typename Real = typename Locator::Real,
-				integer N = Locator::N>
+				int N = Locator::N>
 			std::pair<Real, integer> operator()(
-				Point_Input pointSet,
+				Range pointSet,
 				const Locator& locator,
 				const AlignedBox<Real, N>& bound) const;
 		};

@@ -30,7 +30,7 @@ namespace Pastel
 	'width()' >= 0
 	*/
 
-	template <typename Real, integer N = Dynamic>
+	template <typename Real, int N = Dynamic>
 	class Box
 		: boost::multipliable<Box<Real, N>, Real
 		, boost::dividable<Box<Real, N>, Real
@@ -40,7 +40,7 @@ namespace Pastel
 	{
 	public:
 		using Real_ = Real;
-		static constexpr integer N_ = N;
+		static constexpr int N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -54,13 +54,13 @@ namespace Pastel
 		//! Constructs using the given information.
 		Box(const Vector<Real, N>& position,
 			const Vector<Real, N>& width,
-			const Matrix<Real>& rotation);
+			const Matrix<Real, N, N>& rotation);
 
 		//! Constructs using the given information.
 		Box(integer dimension,
 			const Vector<Real, N>& position,
 			const Vector<Real, N>& width,
-			const Matrix<Real>& rotation);
+			const Matrix<Real, N, N>& rotation);
 
 		// Used for concept checking.
 		~Box();
@@ -81,10 +81,10 @@ namespace Pastel
 		const Vector<Real, N>& position() const;
 
 		//! Sets the rotation of the box.
-		void setRotation(const Matrix<Real>& rotation);
+		void setRotation(const Matrix<Real, N, N>& rotation);
 
 		//! Returns the rotation of the box.
-		const Matrix<Real>& rotation() const;
+		const Matrix<Real, N, N>& rotation() const;
 
 		//! Translates the box by the given vector.
 		Box<Real, N>& operator+=(const Vector<Real, N>& that);
@@ -101,7 +101,7 @@ namespace Pastel
 	private:
 		Vector<Real, N> position_;
 		Vector<Real, N> width_;
-		Matrix<Real> rotation_;
+		Matrix<Real, N, N> rotation_;
 	};
 
 	using Box1 = Box<dreal, 1>;

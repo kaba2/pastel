@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox)
@@ -26,7 +26,7 @@ namespace Pastel
 		// Transpose of an orthogonal matrix
 		// is its inverse..
 
-		Matrix<Real> aRotationInverse(
+		Matrix<Real, N, N> aRotationInverse(
 			transpose(aBox.rotation()));
 
 		Box<Real, N> bBoxTransformed(
@@ -44,7 +44,7 @@ namespace Pastel
 			bBoxTransformed);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,
@@ -58,7 +58,7 @@ namespace Pastel
 		// Transpose of an orthogonal matrix
 		// is its inverse..
 
-		Matrix<Real> aRotationInverse(
+		Matrix<Real, N, N> aRotationInverse(
 			transpose(aBox.rotation()));
 
 		Box<Real, N> bBoxTransformed(
@@ -79,7 +79,7 @@ namespace Pastel
 			intersectionRange);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,
@@ -93,7 +93,7 @@ namespace Pastel
 		// Transpose of an orthogonal matrix
 		// is its inverse..
 
-		Matrix<Real> aRotationInverse(
+		Matrix<Real, N, N> aRotationInverse(
 			transpose(aBox.rotation()));
 
 		Box<Real, N> bBoxTransformed(

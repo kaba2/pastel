@@ -6,18 +6,6 @@
 #define PASTELGFX_COLOR_LCH_H
 
 #include "pastel/gfx/color/color.h"
-
-namespace Pastel
-{
-
-	//! Converts CIELab color to CIELch color.
-	Color labToLch(const Color& lab);
-
-	//! Converts CIELch color to CIELab color.
-	Color lchToLab(const Color& lch);
-
-}
-
 #include "pastel/gfx/color/color_space/color_lch.hpp"
 
 #endif

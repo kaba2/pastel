@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N> boundingBox(const AlignedBox<Real, N>& alignedBox)
 	{
 		integer n = alignedBox.n();
@@ -16,7 +16,7 @@ namespace Pastel
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 
 			(alignedBox.max() - alignedBox.min()) * 0.5,
-			identityMatrix<Real>(n));
+			identityMatrix<Real, N, N>(n));
 	}
 
 }

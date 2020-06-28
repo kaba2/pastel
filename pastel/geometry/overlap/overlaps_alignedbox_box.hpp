@@ -36,9 +36,9 @@ namespace Pastel
 		Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
 
-		const Matrix<Real>& boxRotation = box.rotation();
+		const Matrix<Real, 2, 2>& boxRotation = box.rotation();
 		const Vector<Real, 2>& boxWidth = box.width();
-		Matrix<Real> absRotation(abs(box.rotation()));
+		Matrix<Real, 2, 2> absRotation(abs(box.rotation()));
 
 		// Project to the aligned box's normals
 		// (the natural basis vectors).
@@ -206,10 +206,10 @@ namespace Pastel
 		Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
 
-		const Matrix<Real>& boxRotation = box.rotation();
+		const Matrix<Real, 2, 2>& boxRotation = box.rotation();
 		const Vector<Real, 2>& boxWidth = box.width();
 
-		Matrix<Real> absRotation(abs(box.rotation()));
+		Matrix<Real, 2, 2> absRotation(abs(box.rotation()));
 
 		Vector<Real, 2> someCommonPoint;
 
@@ -389,9 +389,9 @@ namespace Pastel
 		Vector<Real, 3> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
 
-		const Matrix<Real>& boxRotation = box.rotation();
+		const Matrix<Real, 3, 3>& boxRotation = box.rotation();
 		const Vector<Real, 3>& boxWidth = box.width();
-		Matrix<Real> absRotation(abs(box.rotation()));
+		Matrix<Real, 3, 3> absRotation(abs(box.rotation()));
 
 		// Test for projection axes from aligned box
 
@@ -641,9 +641,9 @@ namespace Pastel
 		Vector<Real, 3> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
 
-		const Matrix<Real>& boxRotation = box.rotation();
+		const Matrix<Real, 3, 3>& boxRotation = box.rotation();
 		const Vector<Real, 3>& boxWidth = box.width();
-		Matrix<Real> absRotation(abs(box.rotation()));
+		Matrix<Real, 3, 3> absRotation(abs(box.rotation()));
 
 		// Test for projection axes from aligned box
 

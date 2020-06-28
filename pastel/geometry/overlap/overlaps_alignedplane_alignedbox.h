@@ -17,7 +17,7 @@ namespace Pastel
 	Time complexity:
 	O(1)
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
 		const AlignedBox<Real, N>& box);
@@ -31,7 +31,7 @@ namespace Pastel
 	Returns:
 	overlaps(plane, box)
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
 		const AlignedBox<Real, N>& box,

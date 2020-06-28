@@ -5,18 +5,6 @@
 #define PASTELGFX_COLOR_YUV_H
 
 #include "pastel/gfx/color/color.h"
-
-namespace Pastel
-{
-
-	//! Converts sRGB color to YUV color.
-	Color rgbToYuv(const Color& rgb);
-
-	//! Converts YUV color to sRGB color.
-	Color yuvToRgb(const Color& yuv);
-
-}
-
 #include "pastel/gfx/color/color_yuv.hpp"
 
 #endif

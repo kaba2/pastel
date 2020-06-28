@@ -3,12 +3,17 @@
 
 #include "pastel/geometry/bounding/bounding_alignedbox_sphere.h"
 
+#include "pastel/geometry/shape/sphere.h"
+
+#include "pastel/math/affine/affine_transformation.h"
+
 #include "pastel/sys/vector/vector_tools.h"
 
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	//! Bounding aligned box of a sphere.
+	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere)
 	{
@@ -17,10 +22,11 @@ namespace Pastel
 			sphere.position() + sphere.radius());
 	}
 
-	template <typename Real, integer N>
+	//! Bounding aligned box of an affinely transformed sphere.
+	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere,
-		const AffineTransformation<Real>& transformation)
+		const AffineTransformation<Real, N, N>& transformation)
 	{
 		// One can show that:
 		//
@@ -51,8 +57,8 @@ namespace Pastel
 		Vector<Real, N> radius =
 			sqrt(
 				diagonal(
-					transformation.matrix() * 
-					transpose(transformation.matrix())
+					(transformation.matrix() * 
+					transpose(transformation.matrix())).eval()
 				)
 			) * sphere.radius();
 

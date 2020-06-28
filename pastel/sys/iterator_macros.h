@@ -53,8 +53,8 @@
 	class Name \
 	{ \
 	public: \
-		template <typename Range> \
-		void operator()(const Range& range) const \
+		template <ranges::input_range Range> \
+		void operator()(Range&& range) const \
 		{ \
 			FunctionName(range); \
 		} \

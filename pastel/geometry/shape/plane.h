@@ -35,7 +35,7 @@ namespace Pastel
 	required by the algorithms.
 	*/
 
-	template <typename Real, integer N = Dynamic>
+	template <typename Real, int N = Dynamic>
 	class Plane
 		: boost::multipliable<Plane<Real, N>, Real
 		, boost::dividable<Plane<Real, N>, Real
@@ -45,7 +45,7 @@ namespace Pastel
 	{
 	public:
 		using Real_ = Real;
-		static constexpr integer N_ = N;
+		static constexpr int N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -107,7 +107,7 @@ namespace Pastel
 		Vector<Real, N> normal_;
 	};
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void swap(Plane<Real, N>& left,
 		Plane<Real, N>& right);
 

@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Segment<Real, N>& segment)
 	{

@@ -18,12 +18,12 @@ namespace Pastel
 	e = ((1, 0, 0, ...), (0, 1, 0, ...), ...).
 	*/
 
-	template <typename Real, integer N = Dynamic>
+	template <typename Real, int N = Dynamic>
 	class AlignedPlane
 	{
 	public:
 		using Real_ = Real;
-		static constexpr integer N_ = N;
+		static constexpr int N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -105,7 +105,7 @@ namespace Pastel
 	class AlignedPlane<Real, Dynamic>
 	{
 	private:
-		static constexpr integer N = Dynamic;
+		static constexpr int N = Dynamic;
 
 	public:
 		// Using default copy constructor.

@@ -21,7 +21,7 @@ namespace Pastel
 
 	The box and the sphere are assumed to be solid.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	auto distance2(
 		const AlignedBox<Real, N>& box,
 		const Sphere<Real, N>& sphere)

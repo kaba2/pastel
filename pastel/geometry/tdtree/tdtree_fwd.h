@@ -34,7 +34,7 @@ namespace Pastel
 		using Real = Locator_Real<Locator>;
 
 		//! The compile-time dimension of the points.
-		static constexpr integer N = Locator_N<Locator>::value;
+		static constexpr int N = Locator_N<Locator>::value;
 
 		//! Temporal point
 		/*!
@@ -136,8 +136,8 @@ namespace Pastel
 		using EntrySet = std::vector<Entry>;
 		using Entry_Iterator = typename EntrySet::iterator;
 		using Entry_ConstIterator = typename EntrySet::const_iterator;
-		using Entry_Range = boost::iterator_range<Entry_Iterator>;
-		using Entry_ConstRange = boost::iterator_range<Entry_ConstIterator>;
+		using Entry_Range = ranges::subrange<Entry_Iterator>;
+		using Entry_ConstRange = ranges::subrange<Entry_ConstIterator>;
 	};
 
 }

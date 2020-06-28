@@ -20,7 +20,7 @@ namespace Pastel
 	S = {x | |x - c| <= r}
 	*/
 
-	template <typename Real, integer N = Dynamic>
+	template <typename Real, int N = Dynamic>
 	class Sphere
 		: boost::multipliable<Sphere<Real, N>, Real
 		, boost::dividable<Sphere<Real, N>, Real
@@ -30,7 +30,7 @@ namespace Pastel
 	{
 	public:
 		using Real_ = Real;
-		static constexpr integer N_ = N;
+		static constexpr int N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -106,7 +106,7 @@ namespace Pastel
 		Topology topology_;
 	};
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	void swap(
 		Sphere<Real, N>& left, 
 		Sphere<Real, N>& right);

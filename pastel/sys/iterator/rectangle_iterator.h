@@ -9,11 +9,11 @@
 namespace Pastel
 {
 
-	template <integer N_, bool RowMajor = true>
+	template <int N_, bool RowMajor = true>
 	class RectangleIterator
 	{
 	public:
-		static constexpr integer N = N_;
+		static constexpr int N = N_;
 
 		explicit RectangleIterator(
 			const Vector<integer, N>& max)

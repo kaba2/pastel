@@ -48,7 +48,7 @@ namespace Pastel
 
 	struct MultiInteger_Settings_Archetype
 	{
-		static constexpr integer N = 2;
+		static constexpr int N = 2;
 		using Word = uint32;
 		static constexpr bool Signed = true;
 	};

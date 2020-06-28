@@ -18,7 +18,7 @@ namespace Pastel
 	Time complexity:
 	O(n), where n is the dimension.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	auto distance2(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere)

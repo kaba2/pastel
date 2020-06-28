@@ -21,7 +21,7 @@ namespace Pastel
 	Returns:
 	Whether the sphere and the point overlap.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const Sphere<Real, N>& sphere,
 		const Vector<Real, N>& point);

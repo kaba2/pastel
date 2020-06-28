@@ -19,7 +19,7 @@ namespace Pastel
 
 	Note: Currently the box is assumed to be closed.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
 		const Box<Real, N>& box);
@@ -34,7 +34,7 @@ namespace Pastel
 	Returns:
 	overlaps(plane, box)
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
 		const Box<Real, N>& box,

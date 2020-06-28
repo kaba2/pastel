@@ -153,7 +153,7 @@ namespace Pastel
 		return std::pow((Real)2, (Real)n);
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Real volume(const Sphere<Real, N>& sphere)
 	{
 		return volumeUnitSphere<Real>(sphere.n()) * 

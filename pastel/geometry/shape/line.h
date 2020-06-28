@@ -18,7 +18,7 @@ namespace Pastel
 	This is not enforced by the system but is required
 	by the algorithms.
 	*/
-	template <typename Real, integer N = Dynamic>
+	template <typename Real, int N = Dynamic>
 	class Line
 		: boost::multipliable<Line<Real, N>, Real
 		, boost::dividable<Line<Real, N>, Real
@@ -28,7 +28,7 @@ namespace Pastel
 	{
 	public:
 		using Real_ = Real;
-		static constexpr integer N_ = N;
+		static constexpr int N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.

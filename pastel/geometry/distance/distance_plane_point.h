@@ -20,7 +20,7 @@ namespace Pastel
 	Time complexity:
 	O(plane.n())
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	auto distance2(
 		const Plane<Real, N>& plane,
 		const Vector<Real, N>& point)

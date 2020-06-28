@@ -20,7 +20,7 @@ namespace Pastel
 	namespace Overlaps_AlignedBox_Triangle
 	{
 
-		template <typename Real, integer N_>
+		template <typename Real, int N_>
 		bool overlaps2D(
 			const AlignedBox<Real, N_>& box,
 			const PASTEL_TRIANGLE(Real, N_)& triangle)
@@ -28,7 +28,7 @@ namespace Pastel
 			ENSURE_OP(box.n(), ==, 2);
 			ENSURE_OP(triangle.n(), ==, 2);
 
-			static constexpr integer N = 2;
+			static constexpr int N = 2;
 
 			// Using the separating axis theorem.
 
@@ -144,7 +144,7 @@ namespace Pastel
 			return true;
 		}
 
-		template <typename Real, integer N_>
+		template <typename Real, int N_>
 		bool overlaps3D(
 			const AlignedBox<Real, N_>& box,
 			const PASTEL_TRIANGLE(Real, N_)& triangle)
@@ -155,7 +155,7 @@ namespace Pastel
 			// To avoid dynamic allocations, we
 			// will create the temporaries using
 			// a fixed dimension.
-			static constexpr integer N = 3;
+			static constexpr int N = 3;
 
 			// Using the separating axis theorem.
 
@@ -375,7 +375,7 @@ namespace Pastel
 	
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& box,
 		const PASTEL_TRIANGLE(Real, N)& triangle)

@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N>& operator*=(Box<Real, N>& box,
 		const AffineTransformation<Real>& rigidTransform)
 	{
@@ -16,7 +16,7 @@ namespace Pastel
 		return box;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Box<Real, N> operator*(const Box<Real, N>& box,
 		const AffineTransformation<Real>& rigidTransform)
 	{

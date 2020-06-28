@@ -15,7 +15,7 @@ namespace Pastel
 	The triangle is considered to be closed and solid.
 	*/
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 		bool overlaps(
 			const Plane<Real, N>& plane,
 			const PASTEL_TRIANGLE(Real, N)& triangle);

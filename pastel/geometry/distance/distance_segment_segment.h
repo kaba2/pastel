@@ -17,7 +17,7 @@ namespace Pastel
 
 	Time complexity: O(aSegment.n())
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	auto distance2(
 		const Segment<Real, N>& aSegment,
 		const Segment<Real, N>& bSegment)

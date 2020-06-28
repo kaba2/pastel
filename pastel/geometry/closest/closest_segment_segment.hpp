@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Tuple<Real, 2> closest(
 		const Segment<Real, N>& aSegment,
 		const Segment<Real, N>& bSegment)

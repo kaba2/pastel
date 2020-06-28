@@ -48,6 +48,7 @@ namespace Pastel
 
 	}
 
+	//! Converts XYZ color to CIELab color
 	inline Color xyzToLab(const Color& xyz)
 	{
 		// CIE Illuminant D65
@@ -68,6 +69,7 @@ namespace Pastel
 			C * (fy - fz));
 	}
 
+	//! Converts CIELab color to XYZ color
 	inline Color labToXyz(const Color& lab)
 	{
 		// CIE Illuminant D65

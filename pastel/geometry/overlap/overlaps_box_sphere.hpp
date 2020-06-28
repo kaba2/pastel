@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& box,
 		const Sphere<Real, N>& sphere)
@@ -28,7 +28,7 @@ namespace Pastel
 		// Transpose of an orthogonal matrix
 		// is its inverse..
 
-		Matrix<Real> boxRotationInverse(
+		Matrix<Real, N, N> boxRotationInverse(
 			transpose(box.rotation()));
 
 		// The radius is not affected by a

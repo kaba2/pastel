@@ -11,7 +11,7 @@ namespace Pastel
 
 	//! Finds the minimum volume bounding sphere of an aligned box.
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const AlignedBox<Real, N>& alignedBox);
 

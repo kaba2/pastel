@@ -13,7 +13,7 @@ namespace Pastel
 	Preconditions:
 	aAlignedBox.dimension == bAlignedBox.n()
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& aAlignedBox,
 		const AlignedBox<Real, N>& bAlignedBox);
@@ -29,7 +29,7 @@ namespace Pastel
 	Returns:
 	If the aligned boxes ever overlap.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,

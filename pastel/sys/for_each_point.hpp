@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <
 		bool RowMajor,
-		integer N,
+		int N,
 		typename Vector_Output>
 	void forEachPoint(
 		AlignedBox<integer, N> box,

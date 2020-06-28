@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
 		const Box<Real, N>& box)
@@ -45,7 +45,7 @@ namespace Pastel
 		return centerDistance <= radius;
 	}
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
 		const Box<Real, N>& box,

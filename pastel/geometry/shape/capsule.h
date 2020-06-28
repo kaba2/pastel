@@ -18,7 +18,7 @@ namespace Pastel
 	Invariants:
 	radius() >= 0
 	*/
-	template <typename Real, integer N = Dynamic>
+	template <typename Real, int N = Dynamic>
 	class Capsule
 		: boost::multipliable<Capsule<Real, N>, Real
 		, boost::dividable<Capsule<Real, N>, Real
@@ -28,7 +28,7 @@ namespace Pastel
 	{
 	public:
 		using Real_ = Real;
-		static constexpr integer N_ = N;
+		static constexpr int N_ = N;
 
 		// Using default copy constructor.
 		// Using default assignment.

@@ -11,7 +11,7 @@ namespace Pastel
 
 	//! Returns the squared diameter of a box.
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Real diameter2(
 		const Box<Real, N>& box);
 

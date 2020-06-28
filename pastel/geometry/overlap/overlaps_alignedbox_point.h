@@ -22,7 +22,7 @@ namespace Pastel
 	Returns:
 	Whether the box and the point overlap.
 	*/
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& alignedBox,
 		const Vector<Real, N>& point);

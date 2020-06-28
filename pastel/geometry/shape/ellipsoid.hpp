@@ -3,14 +3,28 @@
 
 #include "pastel/geometry/shape/ellipsoid.h"
 
+#include "pastel/math/matrix/matrix.h"
 #include "pastel/math/matrix/matrix_inverse.h"
 
 namespace Pastel
 {
 
-	template <typename Real>
-	Matrix<Real> ellipsoidQuadraticForm(
-		const Matrix<Real>& basis)
+	//! Computes quadratic form coefficients for an ellipse.
+	/*!
+	An origin-centered ellipsoid Q is be given by:
+	Q = {p | f(p) = 1}
+	where
+	f(p) = p S p^T
+	p is in R^(1 x n)
+	S is in R^(n x n) and symmetric positive semi-definite
+
+	This function returns a matrix S such that
+	the set Q is an image of the unit sphere under
+	the given linear transformation.
+	*/
+	template <typename Real, int M, int N>
+	Matrix<Real, M, N> ellipsoidQuadraticForm(
+		const Matrix<Real, M, N>& basis)
 	{
 		// An origin-centered ellipsoid Q is given by the set:
 		// Q = {p | f(p) = 1}
@@ -53,9 +67,10 @@ namespace Pastel
 		return inverse(basis * transpose(basis));
 	}
 
-	template <typename Real>
-	AlignedBox<Real> ellipsoidBoundingAlignedBox(
-		const Matrix<Real>& quadraticForm)
+	//! Returns a minimum volume aligned box bounding the given ellipse.
+	template <typename Real, int M, int N>
+	AlignedBox<Real, N> ellipsoidBoundingAlignedBox(
+		const Matrix<Real, M, N>& quadraticForm)
 	{
 		// TODO: What if the 'quadraticForm'
 		// is not invertible?
@@ -133,10 +148,10 @@ namespace Pastel
 		// e_i^T x = +/- sqrt(e_i^T S^-1 e_i)
 		// = +/- sqrt(S^-1(i, i))
 
-		Vector<Real> radius = 
+		Vector<Real, N> radius = 
 			sqrt(diagonal(inverse(quadraticForm)));
 
-		return AlignedBox<Real>(-radius, radius);
+		return AlignedBox<Real, N>(-radius, radius);
 	}
 
 }

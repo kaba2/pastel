@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	//! Tests if an box and a triangle overlap.
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& box,
 		const PASTEL_TRIANGLE(Real, N)& triangle);

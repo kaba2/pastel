@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 		bool intersect(
 			const Line<Real, N>& line,
 			const Box<Real, N>& box,
@@ -22,7 +22,7 @@ namespace Pastel
 		Real tMin = -Infinity();
 		Real tMax = Infinity();
 
-		const Matrix<Real>& axes = box.rotation();
+		const Matrix<Real, N, N>& axes = box.rotation();
 		const Vector<Real, N>& width = box.width();
 
 		Vector<Real, N> p =

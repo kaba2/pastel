@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	integer intersect(
 		const Ray<Real, N>& ray,
 		const AlignedBox<Real, N>& alignedBox,

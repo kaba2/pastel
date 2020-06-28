@@ -6,6 +6,7 @@
 namespace Pastel
 {
 
+	//! Converts sRGB color to HSV color.
 	inline Color rgbToHsv(const Color& rgb)
 	{
 		Color result(0);
@@ -69,6 +70,7 @@ namespace Pastel
 		return result;
 	}
 
+	//! Converts HSV color to sRGB color.
 	inline Color hsvToRgb(const Color& hsv)
 	{
 		real32 g = 6 * hsv[0];

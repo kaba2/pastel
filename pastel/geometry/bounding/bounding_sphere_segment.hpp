@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	template <typename Real, integer N>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const Segment<Real, N>& segment)
 	{

@@ -68,7 +68,7 @@ namespace Pastel
 	public:
 		// See the documentation for Integer_Settings_Concept.
 		using Settings = Integer_Settings;
-		static constexpr integer N = Settings::N;
+		static constexpr int N = Settings::N;
 		static constexpr bool Signed = Settings::Signed;
 		using Word = typename Settings::Word;
 
@@ -432,7 +432,7 @@ namespace Pastel
 		*/
 		MultiInteger& setBits()
 		{
-			boost::fill(wordSet_, (Word)-1);
+			ranges::fill(wordSet_, (Word)-1);
 			signExtend();
 			return *this;
 		}
@@ -559,7 +559,7 @@ namespace Pastel
 		*/
 		MultiInteger& clearBits()
 		{
-			boost::fill(wordSet_, (Word)0);
+			ranges::fill(wordSet_, (Word)0);
 			signExtend();
 			return *this;
 		}
@@ -1310,19 +1310,19 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <integer N_, typename Word_, bool Signed_>
+	template <int N_, typename Word_, bool Signed_>
 	class Integer_Settings
 	{
 	public:
-		static constexpr integer N = N_; 
+		static constexpr int N = N_; 
 		using Word = Word_;
 		static constexpr bool Signed = Signed_;
 	};
 
-	template <integer N, typename Word = uinteger_half>
+	template <int N, typename Word = uinteger_half>
 	using Signed_Integer = MultiInteger<Integer_Settings<N, Word, true>>;
 
-	template <integer N, typename Word = uinteger_half>
+	template <int N, typename Word = uinteger_half>
 	using Unsigned_Integer = MultiInteger<Integer_Settings<N, Word, false>>;
 
 }
