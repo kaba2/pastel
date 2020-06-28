@@ -4,7 +4,6 @@
 #define PASTELSYS_SKIPLIST_NODE_H
 
 #include "pastel/sys/skiplist.h"
-#include "pastel/sys/generic/class.h"
 #include "pastel/sys/named_tuples.h"
 #include "pastel/sys/pointer/arrayptr.h"
 
@@ -171,10 +170,9 @@ namespace Pastel
 
 		template <
 			typename Key, 
-			typename Value_Class>
+			typename Value>
 		class Data_Node
-		: public Node
-		, public Value_Class
+		: public Node 
 		{
 		public:
 			Data_Node() = delete;
@@ -186,8 +184,8 @@ namespace Pastel
 				Key key,
 				That&&... value)
 			: Node()
-			, Value_Class(std::forward<That>(value)...)
 			, key_(std::move(key))
+			, value_(std::forward<That>(value)...)
 			{
 			}
 
@@ -196,18 +194,20 @@ namespace Pastel
 				return key_;
 			}
 
-			Value_Class& value()
+			Value& value()
 			{
-				return *this;
+				return value_;
 			}
 
-			const Value_Class& value() const
+			const Value& value() const
 			{
-				return *this;
+				return value_;
 			}
 
 		private:
 			Key key_;
+			BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS
+			Value value_;
 		};
 
 	}

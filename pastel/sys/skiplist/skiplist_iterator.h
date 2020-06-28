@@ -15,35 +15,23 @@ namespace Pastel
 	namespace SkipList_
 	{
 
-		template <typename Key, typename Value_Class>
-		struct Iterator_Value
-		{
-			using type = Value_Class;
-			static constexpr bool UseValue = true;
-		};
-
-		template <
-			typename Key,
-			typename Tag>
-		struct Iterator_Value<Key, Member_Class<void, Tag>>
-		{
-			using type = const Key;
-			static constexpr bool UseValue = false;
-		};
+		template <typename Key, typename Value>
+		using DereferenceType_ = std::conditional_t<
+			std::is_same_v<Value, Empty>, const Key, Value>;
 
 		template <
 			typename NodePtr,
 			typename Key,
-			typename Value_Class>
+			typename Value>
 		class Iterator
 			: public boost::iterator_adaptor<
-			Iterator<NodePtr, Key, Value_Class>, 
+			Iterator<NodePtr, Key, Value>, 
 			NodePtr,
-			typename Iterator_Value<Key, Value_Class>::type,
+			DereferenceType_<Key, Value>,
 			boost::bidirectional_traversal_tag>
 		{
 		private:
-			typedef SkipList_::Data_Node<Key, Value_Class>
+			typedef SkipList_::Data_Node<Key, Value>
 				Data_Node;
 
 		public:
@@ -60,7 +48,7 @@ namespace Pastel
 			template <
 				typename That,
 				Requires<std::is_convertible<That, NodePtr>> = 0>
-			Iterator(const Iterator<That, Key, Value_Class>& that)
+			Iterator(const Iterator<That, Key, Value>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{
 			}
@@ -70,12 +58,12 @@ namespace Pastel
 				return ((Data_Node*)this->base())->key();
 			}
 
-			Value_Class& value()
+			Value& value()
 			{
 				return ((Data_Node*)this->base())->value();
 			}
 
-			const Value_Class& value() const
+			const Value& value() const
 			{
 				return ((const Data_Node*)this->base())->value();
 			}
@@ -111,27 +99,24 @@ namespace Pastel
 		private:
 			friend class boost::iterator_core_access;
 
-			typedef Iterator_Value<Key, Value_Class>
-				Dereference;
-
-			using DereferenceType = typename Dereference::type;
+			using DereferenceType = DereferenceType_<Key, Value>;
 
 			struct KeyTag {};
 			struct ValueTag {};
 
-			typedef typename std::conditional<
-				Dereference::UseValue, 
+			using DereferenceTag = std::conditional_t<
+				!std::is_same_v<Value, Empty>,
 				ValueTag,
-				KeyTag>::type DereferenceTag;
+				KeyTag>;
 
 			const Key& dereference(KeyTag) const
 			{
 				return key();
 			}
 
-			Value_Class& dereference(ValueTag) const
+			Value& dereference(ValueTag) const
 			{
-				return (Value_Class&)value();
+				return (Value&)value();
 			}
 
 			DereferenceType& dereference() const

@@ -36,16 +36,13 @@ namespace Pastel
 		using Value = typename Settings::Value;
 		using Less = typename Settings::Less;
 
-		struct Value_Tag;
-		using Value_Class = Class<Value, Value_Tag>;
-		
 		static constexpr bool MultipleKeys = Settings::MultipleKeys;
 
 	private:
 		using Node = SkipList_::Node;
 		using Link = SkipList_::Link;
 		using LinkSet = SkipList_::LinkSet;
-		using Data_Node = SkipList_::Data_Node<Key, Value_Class>;
+		using Data_Node = SkipList_::Data_Node<Key, Value>;
 		using SuperNode = SkipList_::SuperNode;
 
 		enum
@@ -56,9 +53,9 @@ namespace Pastel
 
 	public:
 		using Iterator = 
-			SkipList_::Iterator<Node*, Key, Value_Class>;
+			SkipList_::Iterator<Node*, Key, Value>;
 		using ConstIterator = 
-			SkipList_::Iterator<const Node*, Key, Value_Class>;
+			SkipList_::Iterator<const Node*, Key, Value>;
 
 		// These are aliases for compatibility between boost ranges.
 		using iterator = Iterator;
@@ -116,7 +113,7 @@ namespace Pastel
 		Time complexity: O(dataSet.size())
 		Exception safety: strong
 		*/
-		SkipList(std::initializer_list<std::pair<Key, Value_Class>> dataSet)
+		SkipList(std::initializer_list<std::pair<Key, Value>> dataSet)
 		: SkipList()
 		{
 			RANGES_FOR(auto&& keyValue, dataSet)
@@ -839,6 +836,9 @@ namespace Pastel
 	class SkipList_Map_Settings
 	{
 	public:
+		static_assert(!std::is_same_v<Key_, void>);
+		static_assert(!std::is_same_v<Value_, void>);
+
 		using Key = Key_;
 		using Value = Value_;
 		using Less = Less_;
@@ -852,10 +852,10 @@ namespace Pastel
 	using SkipList_MultiMap = SkipList<SkipList_Map_Settings<Key, Value, Less, true>>;
 
 	template <typename Key, typename Less = LessThan>
-	using SkipList_Set = SkipList<SkipList_Map_Settings<Key, void, Less, false>>;
+	using SkipList_Set = SkipList<SkipList_Map_Settings<Key, Empty, Less, false>>;
 
 	template <typename Key, typename Less = LessThan>
-	using SkipList_MultiSet = SkipList<SkipList_Map_Settings<Key, void, Less, true>>;
+	using SkipList_MultiSet = SkipList<SkipList_Map_Settings<Key, Empty, Less, true>>;
 
 }
 

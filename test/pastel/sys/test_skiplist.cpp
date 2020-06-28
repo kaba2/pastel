@@ -6,8 +6,6 @@
 #include "pastel/sys/skiplist.h"
 #include "pastel/sys/random/random_integer.h"
 
-#include <boost/range/adaptor/reversed.hpp> 
-
 #include <iostream>
 #include <list>
 
@@ -47,7 +45,7 @@ namespace
 
 			REQUIRE(list.size() == 11);
 			REQUIRE(list.uniqueKeys() == 9);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 
 		list.erase(8);
@@ -61,7 +59,7 @@ namespace
 
 			REQUIRE(list.size() == 10);
 			REQUIRE(list.uniqueKeys() == 8);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 
 		list.erase(4);
@@ -75,7 +73,7 @@ namespace
 
 			REQUIRE(list.size() == 7);
 			REQUIRE(list.uniqueKeys() == 7);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 
 		list.erase(2);
@@ -89,7 +87,7 @@ namespace
 
 			REQUIRE(list.size() == 6);
 			REQUIRE(list.uniqueKeys() == 6);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 
 		list.erase(1);
@@ -103,7 +101,7 @@ namespace
 
 			REQUIRE(list.size() == 5);
 			REQUIRE(list.uniqueKeys() == 5);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 
 		list.erase(9);
@@ -117,7 +115,7 @@ namespace
 
 			REQUIRE(list.size() == 4);
 			REQUIRE(list.uniqueKeys() == 4);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 
 		list.erase(6);
@@ -131,7 +129,7 @@ namespace
 
 			REQUIRE(list.size() == 3);
 			REQUIRE(list.uniqueKeys() == 3);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 
 		list.erase(5);
@@ -145,7 +143,7 @@ namespace
 
 			REQUIRE(list.size() == 2);
 			REQUIRE(list.uniqueKeys() == 2);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 
 		list.erase(7);
@@ -159,7 +157,7 @@ namespace
 
 			REQUIRE(list.size() == 1);
 			REQUIRE(list.uniqueKeys() == 1);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 
 		list.erase(3);
@@ -212,13 +210,13 @@ namespace
 			// which compares the sizes of the ranges first.
 			// Adding the bidirectional-traversal tag fixed the
 			// bug. This line tests for that.
-			REQUIRE(boost::distance(list) == 11);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::distance(list) == 11);
+			REQUIRE(ranges::equal(list, range(correctSet)));
 
 			// Test iterator decrement.
 			REQUIRE(ranges::equal(
-				list | boost::adaptors::reversed, 
-				correctSet | boost::adaptors::reversed));
+				list | ranges::views::reverse, 
+				correctSet | ranges::views::reverse));
 		}
 
 		// Test lowerBound(), upperBound(), and find().
@@ -285,12 +283,12 @@ namespace
 			REQUIRE(list.size() == 11);
 			REQUIRE(!list.empty());
 			REQUIRE(listEnd == list.cend());
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 
 			REQUIRE(copyList.size() == 11);
 			REQUIRE(!copyList.empty());
 			REQUIRE(listEnd != copyList.cend());
-			REQUIRE(ranges::equal(copyList, correctSet));
+			REQUIRE(ranges::equal(copyList, range(correctSet)));
 
 			List moveList(std::move(copyList));
 			REQUIRE(testInvariants(moveList));
@@ -301,7 +299,7 @@ namespace
 
 			REQUIRE(moveList.size() == 11);
 			REQUIRE(!moveList.empty());
-			REQUIRE(ranges::equal(moveList, correctSet));
+			REQUIRE(ranges::equal(moveList, range(correctSet)));
 		}
 
 		// Test copy-assign, move-assign, and swap.
@@ -319,11 +317,11 @@ namespace
 
 			REQUIRE(list.size() == 11);
 			REQUIRE(!list.empty());
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 
 			REQUIRE(copyList.size() == 11);
 			REQUIRE(!copyList.empty());
-			REQUIRE(ranges::equal(copyList, correctSet));
+			REQUIRE(ranges::equal(copyList, range(correctSet)));
 
 			List moveList;
 			REQUIRE(testInvariants(moveList));
@@ -338,7 +336,7 @@ namespace
 
 			REQUIRE(moveList.size() == 11);
 			REQUIRE(!moveList.empty());
-			REQUIRE(ranges::equal(moveList, correctSet));
+			REQUIRE(ranges::equal(moveList, range(correctSet)));
 
 			moveList.swap(list);
 			REQUIRE(testInvariants(moveList));
@@ -554,7 +552,7 @@ namespace
 			// which derereference to the value.
 			REQUIRE(!list.empty());
 			REQUIRE(list.size() == 9);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 	}
 
@@ -594,7 +592,7 @@ namespace
 			// which derereference to the key.
 			REQUIRE(!list.empty());
 			REQUIRE(list.size() == 9);
-			REQUIRE(ranges::equal(list, correctSet));
+			REQUIRE(ranges::equal(list, range(correctSet)));
 		}
 	}
 
