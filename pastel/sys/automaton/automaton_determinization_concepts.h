@@ -25,8 +25,8 @@ namespace Pastel
 		using StateSet = Hashed_Set<
 			State_ConstIterator,
 			IteratorAddress_LessThan,
-			void,
-			void,
+			Empty,
+			Empty,
 			IteratorAddress_Hash>;
 
 		class State_Output

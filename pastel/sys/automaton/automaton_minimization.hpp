@@ -187,7 +187,7 @@ namespace Pastel
 			transition != automaton.cTransitionEnd();
 			++transition)
 		{
-			Optional<Symbol> symbol = transition->symbol();
+			Optional<Symbol> symbol = transition->data().symbol();
 			// The automaton should be deterministic.
 			ASSERT(!symbol.empty());
 
@@ -201,14 +201,14 @@ namespace Pastel
 
 			// See if we have already created a partition-set
 			// for this symbol.
-			auto search = searchSet.find(symbol);
+			auto search = searchSet.find(*symbol);
 			if (search == searchSet.end())
 			{
 				// There is no partition-set for this symbol.
 				// Create a new one.
 				search = searchSet.insert(
 					std::make_pair(
-					symbol,
+					*symbol,
 					transitionPartition.addSet())).first;
 			}
 			
@@ -250,7 +250,7 @@ namespace Pastel
 				[&](const CordElement_Iterator& element)
 			{
 				Transition_ConstIterator transition =
-					*element;
+					element->data();
 
 				statePartition.mark(
 					stateToElement[transition->from()]);
@@ -284,8 +284,7 @@ namespace Pastel
 					block->cbegin(), block->cend(),
 					[&](const BlockElement_Iterator& element)
 				{
-					State_ConstIterator state =
-						*element;
+					State_ConstIterator state = element->data();
 
 					for (auto incidence = state->cIncomingBegin();
 						incidence != state->cIncomingEnd();
@@ -325,13 +324,13 @@ namespace Pastel
 
 			// Pick any state from the block.
 			State_ConstIterator state =
-				**(block->cbegin());
-			if (state->final())
+				(*(block->cbegin()))->data();
+			if (state->data().final())
 			{
 				// If one of the states in the block is
 				// final, they all are. Therefore the
 				// minimal automaton state is final.
-				minimal.addFinal(*block);
+				minimal.addFinal(block->data());
 			}
 		}
 		
@@ -344,7 +343,7 @@ namespace Pastel
 
 			// Pick any state from the block...
 			State_ConstIterator state =
-				**(block->cbegin());
+				(*(block->cbegin()))->data();
 
 			// ... and report its transitions.
 			// The transitions are the same for all
@@ -361,9 +360,9 @@ namespace Pastel
 					relevantSet.count(transition->to()))
 				{
 					minimal.addTransition(
-						*(stateToElement[transition->from()]->set()), 
-						transition->symbol(), 
-						*(stateToElement[transition->to()]->set()));
+						(stateToElement[transition->from()]->set())->data(), 
+						transition->data().symbol(), 
+						(stateToElement[transition->to()]->set())->data());
 				}
 			}
 		}
@@ -374,7 +373,7 @@ namespace Pastel
 		if (relevantSet.count(startState))
 		{
 			minimal.addStart(
-				*(stateToElement[startState]->set()));
+				(stateToElement[startState]->set())->data());
 		}
 
 		return minimal;

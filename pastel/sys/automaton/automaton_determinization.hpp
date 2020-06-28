@@ -39,8 +39,8 @@ namespace Pastel
 		using StateSet = Hashed_Set<
 			State_ConstIterator,
 			IteratorAddress_LessThan,
-			void,
-			void,
+			Empty,
+			Empty,
 			IteratorAddress_Hash>;
 
 		if (automaton.states() == 0)
@@ -158,7 +158,7 @@ namespace Pastel
 					++incidence)
 				{
 					const Optional<Symbol>& symbol = 
-						incidence->edge()->symbol();
+						incidence->edge()->data().symbol();
 
 					if (symbol.empty())
 					{
@@ -167,7 +167,7 @@ namespace Pastel
 					}
 
 					StateSet& toStateSet = 
-						symbolStateSetMap[symbol];
+						symbolStateSetMap[*symbol];
 					
 					// Add all the states in the epsilon closure
 					// of 'state' into the 'toStateSet'.

@@ -37,7 +37,7 @@ TEST_CASE("automaton_determinization (automaton)")
 	//std::cout << automaton << std::endl;
 
 	using StateSet = Hashed_Set<
-		State, IteratorAddress_LessThan, void, void,
+		State, IteratorAddress_LessThan, Empty, Empty,
 		IteratorAddress_Hash>;
 
 	Autom det;
@@ -51,14 +51,13 @@ TEST_CASE("automaton_determinization (automaton)")
 	{
 		stateMap[&stateSet] = det.addState();
 
-		boost::for_each(stateSet.crange(),
-			[&](const State& state)
+		for (const State& state : stateSet) 
 		{
-			if (state->final())
+			if (state->data().final())
 			{
 				det.addFinal(stateMap[&stateSet]);
 			}
-		});
+		}
 
 		if (start)
 		{
