@@ -39,7 +39,7 @@ namespace Pastel {
         }
 
         void reshape(integer rows, integer cols) {
-            ENSURE_OP(rows * cols, ==, rows() * cols());
+            ENSURE_OP(rows * cols, ==, size());
             m_ = rows;
             n_ = cols;
         }

@@ -112,6 +112,16 @@ namespace Pastel
 		return m;
 	}
 
+	template <typename T>
+	Vector<typename MatrixExpr<T>::Scalar, MatrixExpr<T>::SizeAtCompileTime> asVector(const MatrixExpr<T>& right) {
+		int m = right.size();
+		Vector<typename MatrixExpr<T>::Scalar, MatrixExpr<T>::SizeAtCompileTime> v(ofDimension(m));
+		for (int i = 0; i < m; ++i) {
+			v[i] = right(i);
+		}
+		return v;
+	}
+
 	//! Returns a square diagonal matrix.
 	template <typename Real, int N>
 	Eigen::DiagonalMatrix<Real, N> diagonalMatrix(
@@ -378,16 +388,6 @@ namespace Pastel
 	void swap(Matrix<Real, M, N>& left, Matrix<Real, M, N>& right)
 	{
 		left.swap(right);
-	}
-
-	template <typename T>
-	Vector<typename MatrixExpr<T>::Scalar, MatrixExpr<T>::SizeAtCompileTime> asVector(const MatrixExpr<T>& right) {
-		int m = right.size();
-		Vector<typename MatrixExpr<T>::Scalar, MatrixExpr<T>::SizeAtCompileTime> v(ofDimension(m));
-		for (int i = 0; i < m; ++i) {
-			v[i] = right(i);
-		}
-		return v;
 	}
 
 	template <typename Real, int NV, int M, int N>
