@@ -22,9 +22,9 @@ namespace Pastel
     template <typename Real>
     struct Icp_Return
     {
-        arma::Mat<Real> Q;
-        arma::Mat<Real> S;
-        arma::Col<Real> t;
+        Matrix<Real> Q;
+        Matrix<Real> S;
+        ColMatrix<Real> t;
     };
 
     template <typename Real>
@@ -93,17 +93,17 @@ namespace Pastel
                    in the k-neighbor graph; the Biunique ICP 
                    algorithm.
 
-    Q0: (arma::Mat<Real> : arma::Mat<Real>()):
+    Q0: (Matrix<Real> : Matrix<Real>()):
     A (d, d) matrix by which to initialize the returned Q.
     If empty, then Q is initialized with the identity matrix,
     with fresh memory.
 
-    S0: (arma::Mat<Real> : arma::Mat<Real>()):
+    S0: (Matrix<Real> : Matrix<Real>()):
     A (d, d) matrix by which to initialize the returned S.
     If empty, then S is initialized with the identity matrix,
     with fresh memory.
 
-    t0: (arma::Col<Real> : arma::Col<Real>()):
+    t0: (ColMatrix<Real> : ColMatrix<Real>()):
     A (d, 1) matrix by which to initialize the returned t.
     If empty, then t is initialized with s - Q0 * m, where s 
     and m are the centroids of the scene and model point-sets, 
@@ -202,9 +202,9 @@ namespace Pastel
         auto&& report = 
             PASTEL_ARG_S(report, nullOutput());
 
-        arma::Mat<Real> Q = PASTEL_ARG_S(Q0, arma::Mat<Real>());
-        arma::Mat<Real> S = PASTEL_ARG_S(S0, arma::Mat<Real>());
-        arma::Col<Real> t = PASTEL_ARG_S(t0, arma::Col<Real>());
+        Matrix<Real> Q = PASTEL_ARG_S(Q0, Matrix<Real>());
+        Matrix<Real> S = PASTEL_ARG_S(S0, Matrix<Real>());
+        ColMatrix<Real> t = PASTEL_ARG_S(t0, ColMatrix<Real>());
 
         Real inlierThreshold = 0.25;
         Real lambdaThreshold = 0.1;
@@ -218,22 +218,22 @@ namespace Pastel
             // Clear a possible replicated strict flag.
             Q.reset();
             // The default for Q is the identity matrix.
-            Q = arma::eye<arma::Mat<Real>>(d, d);
+            Q = Matrix<Real>::Identity(d, d);
         }
 
-        ENSURE_OP(Q.n_rows, ==, d);
-        ENSURE_OP(Q.n_cols, ==, d);
+        ENSURE_OP(Q.rows(), ==, d);
+        ENSURE_OP(Q.cols(), ==, d);
 
         if (S.isempty())
         {
             // Clear a possible replicated strict flag.
             S.reset();
             // The default for S is the identity matrix.
-            S = arma::eye<arma::Mat<Real>>(d, d);
+            S = Matrix<Real>::Identity(d, d);
         }
 
-        ENSURE_OP(S.n_rows, ==, d);
-        ENSURE_OP(S.n_cols, ==, d);
+        ENSURE_OP(S.rows(), ==, d);
+        ENSURE_OP(S.cols(), ==, d);
 
         if (t.isempty())
         {
@@ -248,8 +248,8 @@ namespace Pastel
             t = sceneCentroid - Q * S * modelCentroid;
         }
 
-        ENSURE_OP(t.n_rows, ==, d);
-        ENSURE_OP(t.n_cols, ==, 1);
+        ENSURE_OP(t.rows(), ==, d);
+        ENSURE_OP(t.cols(), ==, 1);
         ENSURE_OP(kNearest, >=, 1);
         ENSURE_OP(minIterations, >=, 0);
         ENSURE_OP(minIterations, <=, maxIterations);
@@ -269,17 +269,17 @@ namespace Pastel
         kdTree.refine();
 
         Vector<Real> transformedPoint(ofDimension(d));
-        arma::Mat<arma::uword> neighborGraph(
-            2, kNearest * n, arma::fill::zeros);
+        Matrix<arma::uword> neighborGraph = Matrix<arma::uword>::Zero(
+            2, kNearest * n);
         for (integer iteration = 0;iteration < maxIterations;++iteration)
         {
             // Compute the transformed model-set.
-            arma::Mat<Real> transformedSet = 
-                Q * S * modelSet + t * arma::ones<arma::Mat<Real>>(1, n);
+            Matrix<Real> transformedSet = 
+                (Q * S * modelSet).colwise() + t;
 
             // Find nearest neighbors for each point in the
             // transformed model-set.
-            for (integer j = 0;j < transformedSet.n_cols;++j)
+            for (integer j = 0;j < transformedSet.cols();++j)
             {
                 for (integer i = 0;i < d;++i)
                 {
@@ -334,7 +334,7 @@ namespace Pastel
             lambda = 1 - (neighbors / n);
  
             // Mean-squared-distance between corresponding points.
-            meanDistance = arma::mean(distanceSet);
+            meanDistance = distanceSet.colwise().mean();
  
             // Compute the threshold for rejecting pairs based on
             // their distance.
@@ -342,9 +342,9 @@ namespace Pastel
             if (lambda > lambdaThreshold)
             {
                 // Compute centroids for both point-sets.
-                arma::Col<Real> aCentroid = arma::sum(aSet, 1) / aSet.n_cols;
-                arma::Col<Real> bCentroid = arma::sum(bSet, 1) / bSet.n_cols;
-                Real centroidDistance2 = arma::sum(arma::square(bCentroid - aCentroid));
+                ColMatrix<Real> aCentroid = aSet.rowwise().mean();
+                ColMatrix<Real> bCentroid = bSet.rowwise().mean();
+                Real centroidDistance2 = (bCentroid - aCentroid).squaredNorm();
  
                 t = t * std::pow(kNearest, lambda) + centroidDistance2;
             }
@@ -361,7 +361,7 @@ namespace Pastel
             aSet = modelSet(:, matchSet(1, :));
             bSet = sceneSet(:, matchSet(2, :));
 
-            Real meanDistance = arma::mean(distanceSet);
+            Real meanDistance = distanceSet.colwise().mean();
 
             // Compute a new estimate for the optimal transformation.
             auto lsMatch = lsAffine(

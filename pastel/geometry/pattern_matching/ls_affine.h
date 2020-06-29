@@ -6,7 +6,7 @@
 
 #include "pastel/sys/math/sign.h"
 
-#include <armadillo>
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {
@@ -29,14 +29,6 @@ namespace Pastel
 	{
 		Free,
 		Identity
-	};
-
-	template <typename Real>
-	struct LsAffine_Return
-	{
-		arma::Mat<Real> Q;
-		arma::Mat<Real> S;
-		arma::Col<Real> t;
 	};
 
 	//! Least-squares affine transformation between point-sets
@@ -65,22 +57,19 @@ namespace Pastel
 	Each column contains the coordinates of a d-dimensional point.
 	If W is not specified, it must hold that m = n.
 
-	Returns
-	-------
+	Output
+	------
 
 	Q ((d x d)-matrix):
 	An orthogonal matrix, representing a rotation or a reflection.
-	Initialized with Q0 (e.g. avoid reallocation using std::move).
 
 	S ((d x d)-matrix):
 	A symmetric matrix, representing a scaling. By the eigenvalue 
 	decomposition, a symmetric matrix is the composition of a 
 	rotation, axis-aligned scaling, and a reverse rotation. 
-	Initialized with S0 (e.g. avoid reallocation using std::move).
 
 	t ((d x 1)-matrix):
 	A vector, representing a translation. 
-	Initialized with t0 (e.g. avoid reallocation using std::move).
 
 	Optional arguments
 	------------------
@@ -111,33 +100,21 @@ namespace Pastel
 	scaling == Free; this would result in solutions 
 	with det(QS) = 0.
 
-	W (arma::Mat<Real> : arma::Mat<Real>()): 
+	W (Matrix<Real> : Matrix<Real>()): 
 	A non-negative (m x n) matrix, which contains the weights 
 	for the least-squares error metric. If W is not given, or is
 	the empty matrix, then it is required that m = n, and it 
 	is assumed that W is the (n x n) identity matrix. 
-
-	Q0 (arma::Mat<Real> : arma::Mat<ReaL>()):
-	A (d, d) matrix by which to initialize the returned Q.
-	If empty, then Q is initialized with the identity matrix,
-	with fresh memory.
-
-	S0 (arma::Mat<Real> : arma::Mat<ReaL>()):
-	A (d, d) matrix by which to initialize the returned S.
-	If empty, then S is initialized with the identity matrix,
-	with fresh memory.
-
-	t0 (arma::Col<Real> : arma::Col<ReaL>()):
-	A (d, 1) matrix by which to initialize the returned t.
-	If empty, then t is initialized with the zero matrix,
-	with fresh memory.
 	*/
 	template <
 		typename Real,
 		typename... ArgumentSet>
-	LsAffine_Return<Real> lsAffine(
-		arma::Mat<Real> fromSet,
-		arma::Mat<Real> toSet,
+	void lsAffine(
+		const MatrixView<Real>& fromSet,
+		const MatrixView<Real>& toSet,
+		const MatrixView<Real>& Qs,
+		const MatrixView<Real>& Ss,
+		const MatrixView<Real>& ts,
 		ArgumentSet&&... argumentSet)
 	{
 		// Least-Squares Transformations between Point-Sets_,
@@ -146,18 +123,25 @@ namespace Pastel
 		// 18th Scandinavian Conference on Image Analysis, 
 		// pp.501-511, June 17-20, 2013.
 
-		ENSURE_OP(fromSet.n_rows, ==, toSet.n_rows);
+		ENSURE_OP(fromSet.rows(), ==, toSet.rows());
 
-		arma::Mat<Real>& P = fromSet;
-		arma::Mat<Real>& R = toSet;
+		MapMatrix<Real> P(fromSet.data(), fromSet.rows(), fromSet.cols());
+		MapMatrix<Real> R(toSet.data(), toSet.rows(), toSet.cols());
 
-		integer d = fromSet.n_rows;
-		integer m = fromSet.n_cols;
-		integer n = toSet.n_cols;
+		integer d = P.rows();
+		integer m = P.cols();
+		integer n = R.cols();
 
 		ENSURE_OP(d, >, 0);
 		ENSURE_OP(m, >, 0);
 		ENSURE_OP(n, >, 0);
+
+        ENSURE_OP(Qs.rows(), ==, d);
+        ENSURE_OP(Qs.cols(), ==, d);
+        ENSURE_OP(Ss.rows(), ==, d);
+        ENSURE_OP(Ss.cols(), ==, d);
+        ENSURE_OP(ts.rows(), ==, d);
+        ENSURE_OP(ts.cols(), ==, 1);
 
 		LsAffine_Matrix matrix =
 			PASTEL_ARG_ENUM(matrix, LsAffine_Matrix::Free);
@@ -167,51 +151,28 @@ namespace Pastel
 			PASTEL_ARG_ENUM(translation, LsAffine_Translation::Free);
 		integer orientation =
 			PASTEL_ARG_S(orientation, (integer)1);
-		arma::Mat<Real> W = 
-			PASTEL_ARG_S(W, arma::Mat<Real>());
-		arma::Mat<Real> Q = 
-			PASTEL_ARG_S(Q0, arma::Mat<Real>());
-		arma::Mat<Real> S = 
-			PASTEL_ARG_S(S0, arma::Mat<Real>());
-		arma::Col<Real> t= 
-			PASTEL_ARG_S(t0, arma::Col<Real>());
+		MatrixView<Real> Ws = 
+			PASTEL_ARG_S(W, MatrixView<Real>());
+
+        MapMatrix<Real> Q(Qs.data(), d, d);
+        MapMatrix<Real> S(Ss.data(), d, d);
+        MapColMatrix<Real> t(ts.data(), d, 1);
+        MapMatrix<Real> W(Ws.data(), Ws.rows(), Ws.cols());
 
 		// Initialize Q, S, and t.
-		Q.eye(d, d);
-		S.eye(d, d);
-		t.zeros(d);
+		Q = Matrix<Real>::Identity(d, d);
+		S = Matrix<Real>::Identity(d, d);
+		t = ColMatrix<Real>::Zero(d, 1);
 
-        // We wish to preserve the memory storage
-        // of Q, S, and t. Store the memory addresses
-        // to check the preservation later.
-        const Real* qPointer = Q.memptr();
-        const Real* sPointer = S.memptr();
-        const Real* tPointer = t.memptr();
-
-		auto result = [&]()
-		{
-	        // Make sure that memory was not reallocated.
-	        ASSERT(Q.memptr() == qPointer);
-	        unused(qPointer);
-
-	        ASSERT(S.memptr() == sPointer);
-	        unused(sPointer);
-
-	        ASSERT(t.memptr() == tPointer);
-	        unused(tPointer);
-
-			return LsAffine_Return<Real>{std::move(Q), std::move(S), std::move(t)};
-		};
-
-		bool wSpecified = !W.is_empty();
+		bool wSpecified = !Ws.isEmpty();
 
 		// When W is not specified, we require
 		// the point-sets to have an equal number
 		// of points.
 		ENSURE2(
 			wSpecified || 
-			(fromSet.n_cols == toSet.n_cols), 
-			fromSet.n_cols, toSet.n_cols);
+			(P.cols() == R.cols()), 
+			P.cols(), R.cols());
 
 		// When Q = I, and S is not rigid, forcing the
 		// orientation results in solutions for which
@@ -230,6 +191,11 @@ namespace Pastel
 		ENSURE(!(matrix == LsAffine_Matrix::Free &&
 			scaling == LsAffine_Scaling::Diagonal));
 
+		// This case is not implemented, because
+		// Eigen does not have a Sylvester-equation solver.
+		ENSURE(!(scaling == LsAffine_Scaling::Free && 
+			matrix == LsAffine_Matrix::Identity));
+
 		// When Q = I and S = +/- I, a negative
 		// det(QS) is only possible in odd dimensions.
 		ENSURE(!(orientation < 0 &&
@@ -240,13 +206,13 @@ namespace Pastel
 		Real totalWeight = n;
 		if (wSpecified)
 		{
-			totalWeight = arma::accu(W);
+			totalWeight = W.sum();
 		}
 
 		ENSURE(!negative(totalWeight));
 
-		arma::Col<Real> fromCentroid(d);
-		arma::Col<Real> toCentroid(d);
+		ColMatrix<Real> fromCentroid(d, 1);
+		ColMatrix<Real> toCentroid(d, 1);
 
 		if (translation == LsAffine_Translation::Free)
 		{
@@ -254,38 +220,38 @@ namespace Pastel
 			{
 				// With weighting.
 				fromCentroid = 
-					P * W * arma::ones<arma::Mat<Real>>(n, 1) / totalWeight;
+					(P * W).rowwise().sum() / totalWeight;
 		        toCentroid = 
-		        	R * W.t() * (arma::ones<arma::Mat<Real>>(m, 1) / totalWeight);
+		        	(R * W.transpose()).rowwise().sum() / totalWeight;
 			}
 	    	else
 	    	{
 	        	// Without weighting.
-	        	fromCentroid = arma::sum(P, 1) / m;
-	        	toCentroid = arma::sum(R, 1) / n;
+	        	fromCentroid = P.rowwise().sum() / m;
+	        	toCentroid = R.rowwise().sum() / n;
 			}
 		 
 		    // Form the centered point-sets. The optimal transformation
 		    // will map fromCentroid to toCentroid. After this the problem
 		    // has been reduced from affine to linear.
-		    P.each_col() -= fromCentroid;
-		    R.each_col() -= toCentroid;
+		    P.colwise() -= fromCentroid;
+		    R.colwise() -= toCentroid;
 		}
 
-		arma::Mat<Real> PP(d, d);
-		arma::Mat<Real> RP(d, d);
+		Matrix<Real> PP(d, d);
+		Matrix<Real> RP(d, d);
 
 		if (wSpecified)
 		{
 		    // With weighting.
-		    PP = P * arma::diagmat(arma::sum(W, 1)) * P.t();
-		    RP = R * W.t() * P.t();
+		    PP = P * diagonalMatrix(asVector(W.rowwise().sum())) * P.transpose();
+		    RP = R * W.transpose() * P.transpose();
 		}
 		else
 		{
 		    // Without weighting.
-		    PP = P * P.t();
-		    RP = R * P.t();
+		    PP = P * P.transpose();
+		    RP = R * P.transpose();
 		}
 
 		if (scaling == LsAffine_Scaling::Free && 
@@ -293,16 +259,11 @@ namespace Pastel
 		{
 		    // f(x) = Sx
 		 
-		    // Find the optimal scaling.
-		    arma::Mat<Real> S_;
-		    if (!arma::syl(S_, PP, PP.t(), -(RP + RP.t())))
-		    {
-			    // In failure, the output matrix is resetted,
-			    // so we cannot use S as the output matrix.
-		    	return result();
-		    }
+		    // Find the optimal scaling; solve:
+			// PP^T S + S PP^T = RP^T + PR^T
 
-		    S = S_;
+			// Not implemented, since Eigen is missing
+			// a solver for Sylvester equations.
 
 			// Forced oriented solution would have det(QS) < 0;
 			// oriented solution is not implemented.
@@ -312,31 +273,23 @@ namespace Pastel
 		if (scaling == LsAffine_Scaling::Free && 
 			matrix == LsAffine_Matrix::Free)
 		{
+
 		    // f(x) = Ax
 		 
 		    // Compute the optimal linear transformation.
-		    //[UP, UR, X, DP, DR] = arma::gsvd(PP, RP);
-		    //A = UR * (DR * arma::pinv(DP)) * UP.t();
-		    arma::Mat<Real> pinvPP;
-		    if (!arma::pinv(pinvPP, PP))
-			{
-				return result();
-			}
-
-			arma::Mat<Real> A = RP * pinvPP;
+		    // [UP, UR, X, DP, DR] = gsvd(PP, RP);
+		    // A = UR * (DR * pinv(DP)) * UP.transpose();
+		    Matrix<Real> pinvPP = PP.completeOrthogonalDecomposition().pseudoInverse();
+			Matrix<Real> A = RP * pinvPP;
 
 			// Compute Q and S from A such that
 			// A = QS and S is symmetric positive semi-definite.
-			arma::Mat<Real> U;
-			arma::Mat<Real> V;
-			arma::Col<Real> s;
-			if (!arma::svd(U, s, V, A))
-			{
-				return result();
-			}
-
-			Q = U * V.t();
-			S = V * arma::diagmat(s) * V.t();
+			Eigen::JacobiSVD<Matrix<Real>> svd(A, Eigen::ComputeThinU | Eigen::ComputeThinV);
+			const auto& U = svd.matrixU();
+			const auto& V = svd.matrixV();
+			const auto& s = svd.singularValues();
+			Q = U * V.transpose();
+			S = V * diagonalMatrix(s) * V.transpose();
 
 			// Forced oriented solution would have det(QS) < 0;
 			// oriented solution is not implemented.
@@ -350,21 +303,16 @@ namespace Pastel
 		    // f(x) = sQx
 
 		    // Compute the optimal orthogonal transformation.
-		    arma::Mat<Real> U;
-			arma::Mat<Real> V;
-			arma::Col<Real> s;
-		    unused(s);
 
-		    if (!arma::svd(U, s, V, RP))
-			{
-				return result();
-			}
+			Eigen::JacobiSVD<Matrix<Real>> svd(RP, Eigen::ComputeThinU | Eigen::ComputeThinV);
+			const auto& U = svd.matrixU();
+			const auto& V = svd.matrixV();
 
 		    // Compute the optimal non-oriented orthogonal Q.
-		    Q = U * V.t();
+			Q = U * V.transpose();
 
 		    if (orientation != 0 &&
-		    	sign(arma::det(Q)) != sign(orientation))
+		    	sign(determinant(Q)) != sign(orientation))
 		    {
 		        // If orientation is to be forced at det(A) = g, where g = +- 1,
 		        // then A is given by:
@@ -372,11 +320,11 @@ namespace Pastel
 		        //    Q = UDV^T, where
 		        //    D = [1, ..., 1, g det(UV^T)].
 
-		        arma::Col<Real> s(d, arma::fill::ones);
+		        ColMatrix<Real> s = ColMatrix<Real>::Ones(d, 1);
 		        s(d - 1) = -1;
 
 		        // Compute the optimal oriented orthogonal Q.
-		        Q = U * arma::diagmat(s) * V.t();
+		        Q = U * diagonalMatrix(s) * V.transpose();
 		    }
 		}
 
@@ -391,10 +339,10 @@ namespace Pastel
 
 			// Compute the optimal diagonal scaling S.
 			// FIX: Make this orthogonality-maximizing.
-			S.diag() = RP.diag() / PP.diag();
+			S.diagonal() = RP.diagonal().array() / PP.diagonal().array();
 
 			// Compute det(QS) = det(S).
-			Real sDet = arma::prod(S.diag());
+			Real sDet = S.diagonal().prod();
 
 			if (orientation != 0 &&
 				sign(sDet) != sign(orientation))
@@ -405,7 +353,7 @@ namespace Pastel
 				// diagonal element of S for which 
 				// S_{ii} (RP^T)_{ii} is the smallest.
 				
-				arma::Col<Real> product = S.diag() * RP.diag();
+				ColMatrix<Real> product = S.diagonal() * RP.diagonal();
 
 				// Find smallest S_{ii} (RP^T)_{ii}.
 				integer iMin = 0;
@@ -434,7 +382,7 @@ namespace Pastel
 			// f(x) = sQx
 
 			// Compute the optimal scaling parameter.
-			Real s = arma::trace(Q.t() * RP) / arma::trace(PP);
+			Real s = (Q.transpose() * RP).trace() / PP.trace();
 			S *= s;
 
 			if (matrix == LsAffine_Matrix::Free)
@@ -443,7 +391,7 @@ namespace Pastel
 				{
 					// The orientation has already been handled
 					// in the selection of Q.
-					ASSERT(sign(arma::det(Q * S)) == sign(orientation));
+					ASSERT(sign(determinant(Q * S)) == sign(orientation));
 				}
 			}
 			else
@@ -473,8 +421,6 @@ namespace Pastel
 		    // Compute the optimal translation.
 		    t = toCentroid - Q * S * fromCentroid;
 		}
-
-		return result();
 	}
 
 }

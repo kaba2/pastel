@@ -20,16 +20,16 @@ namespace
 	{
 		enum Input
 		{
-			FromSet,
-			ToSet,
+			Pi,
+			Ri,
 			NoiseRatio,
-			Matrix,
+			Matrix_,
 			Scaling,
 			Translation,
 			Orientation,
-			Q0i,
-			S0i,
-			T0i,
+			Qi,
+			Si,
+			Ti,
 			MinIterations,
 			MaxIterations,
 			MinError,
@@ -38,9 +38,9 @@ namespace
 
 		enum Output
 		{
-			Qi,
-			Si,
-			Ti,
+			Qo,
+			So,
+			To,
 			Sigma2,
 			Outputs
 		};
@@ -48,14 +48,11 @@ namespace
 		ENSURE_OP(inputs, ==, Inputs);
 		ENSURE_OP(outputs, ==, Outputs);
 
-		arma::Mat<dreal> fromSet = 
-			matlabAsMatrix<dreal>(inputSet[FromSet]);
-
-		arma::Mat<dreal> toSet = 
-			matlabAsMatrix<dreal>(inputSet[ToSet]);
+		auto P = matlabAsMatrix<dreal>(inputSet[Pi]);
+		auto R = matlabAsMatrix<dreal>(inputSet[Ri]);
 
 		auto matrix = matlabStringAsEnum<Cpd_Matrix>(
-			inputSet[Matrix],
+			inputSet[Matrix_],
 			"free", Cpd_Matrix::Free,
 			"identity", Cpd_Matrix::Identity);
 
@@ -74,14 +71,9 @@ namespace
 		integer orientation = 
 			matlabAsScalar<integer>(inputSet[Orientation]);
 
-		arma::Mat<dreal> Q0 = 
-			matlabAsMatrix<dreal>(inputSet[Q0i]);
-
-		arma::Mat<dreal> S0 = 
-			matlabAsMatrix<dreal>(inputSet[S0i]);
-
-		arma::Col<dreal> t0 = 
-			matlabAsMatrix<dreal>(inputSet[T0i]);
+		auto Q = matlabAsMatrix<dreal>(inputSet[Qi]);
+		auto S = matlabAsMatrix<dreal>(inputSet[Si]);
+		auto t = matlabAsMatrix<dreal>(inputSet[Ti]);
 
 		integer minIterations =
 			matlabAsScalar<integer>(inputSet[MinIterations]);
@@ -92,59 +84,75 @@ namespace
 		dreal minError = 
 			matlabAsScalar<dreal>(inputSet[MinError]);
 
-		bool qSpecified = !Q0.is_empty();
-		bool sSpecified = !S0.is_empty();
-		bool tSpecified = !t0.is_empty();
+		integer d = P.rows();
+		integer n = P.cols();
+		integer m = R.cols();
 
-		const dreal* q0Pointer = Q0.memptr();
-		const dreal* s0Pointer = S0.memptr();
-		const dreal* t0Pointer = t0.memptr();
+		bool qSpecified = !Q.isEmpty();
+		if (!qSpecified) {
+			Q.resize(d, d);
+		}
 
-		auto match = coherentPointDrift(
-			std::move(fromSet), 
-			std::move(toSet),
+		bool sSpecified = !S.isEmpty();
+		if (!sSpecified) {
+			S.resize(d, d);
+		}
+
+		bool tSpecified = !t.isEmpty();
+		if (!tSpecified) {
+			t.resize(d, 1);
+		}
+
+		const dreal* q0Pointer = Q.data();
+		const dreal* s0Pointer = S.data();
+		const dreal* tPointer = t.data();
+
+		dreal sigma2 = coherentPointDrift(
+			P.view(), 
+			R.view(),
+			Q.view(),
+			S.view(),
+			t.view(),
+			PASTEL_TAG(initialize), true,
 			PASTEL_TAG(matrix), matrix,
 			PASTEL_TAG(scaling), scaling,
 			PASTEL_TAG(translation), translation,
 			PASTEL_TAG(orientation), orientation,
-			PASTEL_TAG(Q0), std::move(Q0),
-			PASTEL_TAG(S0), std::move(S0),
-			PASTEL_TAG(t0), std::move(t0),
 			PASTEL_TAG(minIterations), minIterations,
 			PASTEL_TAG(maxIterations), maxIterations,
 			PASTEL_TAG(minError), minError);
 
 		if (qSpecified)
 		{
-			ENSURE(match.Q.memptr() == q0Pointer);
-			outputSet[Qi] = (mxArray*)inputSet[Q0i];
+			ENSURE(Q.data() == q0Pointer);
+			outputSet[Qo] = (mxArray*)inputSet[Qi];
 		}
 		else
 		{
-			matlabCreateArray<dreal>(match.Q, outputSet[Qi]);
+			matlabCreateArray<dreal>(Q, outputSet[Qo]);
 		}
 
 		if (sSpecified)
 		{
-			ENSURE(match.S.memptr() == s0Pointer);
-			outputSet[Si] = (mxArray*)inputSet[S0i];
+			ENSURE(S.data() == s0Pointer);
+			outputSet[So] = (mxArray*)inputSet[Si];
 		}
 		else
 		{
-			matlabCreateArray<dreal>(match.S, outputSet[Si]);
+			matlabCreateArray<dreal>(S, outputSet[So]);
 		}
 
 		if (tSpecified)
 		{
-			ENSURE(match.t.memptr() == t0Pointer);
-			outputSet[Ti] = (mxArray*)inputSet[T0i];
+			ENSURE(t.data() == tPointer);
+			outputSet[To] = (mxArray*)inputSet[Ti];
 		}
 		else
 		{
-			matlabCreateArray<dreal>(match.t, outputSet[Ti]);
+			matlabCreateArray<dreal>(t, outputSet[To]);
 		}
 
-		*matlabCreateScalar<dreal>(outputSet[Sigma2]) = match.sigma2;
+		*matlabCreateScalar<dreal>(outputSet[Sigma2]) = sigma2;
 	}
 
 	void addFunction()

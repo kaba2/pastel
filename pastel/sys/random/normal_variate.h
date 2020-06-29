@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 	template <typename Real>
-	arma::Col<Real> random(
+	ColMatrix<Real> random(
 		const Normal_Distribution<Real>& distribution)
 	{
 		using Point = typename Normal_Distribution<Real>::Point;

@@ -17,22 +17,13 @@ namespace Pastel
     using Cpd_Translation = LsAffine_Translation;
 
     template <typename Real>
-    struct Cpd_Return
-    {
-        arma::Mat<Real> Q;
-        arma::Mat<Real> S;
-        arma::Col<Real> t;
-        Real sigma2;
-    };
-
-    template <typename Real>
     struct Cpd_State
     {
-        arma::Mat<Real> Q;
-        arma::Mat<Real> S;
-        arma::Col<Real> t;
+        MatrixView<Real> Q;
+        MatrixView<Real> S;
+        MatrixView<Real> t;
         Real sigma2;
-        arma::Mat<Real> W;
+        MatrixView<Real> W;
     };
 
     //! Coherent point drift algorithm.
@@ -46,7 +37,7 @@ namespace Pastel
 
     Finds matrices Q, S, and t such that
 
-        Q * S * fromSet + t * ones(1, n)
+        (Q * S * fromSet).colwise() + t
 
     matches toSet.
 
@@ -61,38 +52,33 @@ namespace Pastel
     A set of m points, given as a matrix, where each column
     contains the coordinates of a d-dimensional point.
 
+    Qs ((d x d) real matrix):
+    Initial guess on Q and storage for the solution; an orthogonal matrix. 
+    Use identity matrix if no better initial guess.
+
+    Ss ((d x d) real matrix):
+    Initial guess on S and storage for the solution; a symmetric matrix. 
+    Use identity matrix if no better initial guess.
+    
+    ts ((d x 1) real vector): 
+    Initial guess on t and storage for the solution; a column matrix. 
+    Use zero vector if no better initial guess.
+
     Returns
     -------
 
-    Q ((d x d) dreal matrix):
-    The estimated rotation/reflection; an orthogonal matrix.
-    Initialized with Q0.
-
-    S ((d x d) dreal matrix):
-    The estimated scaling; a symmetric matrix.
-    Initialized with S0.
-
-    t ((d x 1) dreal matrix):
-    The estimated translation.
-	Initialized with t0.
-
     sigma2 (Real):
-    The estimated variance is eye(d, d) * sigma2.
+    The estimated variance is Identity(d, d) * sigma2.
 
     Optional input arguments
     ------------------------
 
-    Q0 ((d x d) dreal matrix : arma::Mat<Real>()):
-    Initial guess on Q; an orthogonal matrix. Empty matrix is
-    interpreted as a (d x d) identity matrix.
-
-    S0 ((d x d) dreal matrix : arma::Mat<Real>()):
-    Initial guess on S; a symmetric matrix. Empty matrix is
-    interpreted as a (d x d) identity matrix.
-
-    t0 ((d x 1) dreal vector : arma::Col<Real>()): 
-    Initial guess on t. Empty matrix is
-    interpreted as a (d x 1) zero matrix.
+    initialize (bool : true):
+    Whether to initialize the matrices to defaults:
+    Q = identity
+    S = identity 
+    t = zero
+    If false, the passed matrices are used instead.
 
     noiseRatio (Real : 0.2):
     A dreal number between (0, 1), which gives the weight for an 
@@ -138,9 +124,12 @@ namespace Pastel
 		typename Real,
         typename... ArgumentSet
     >
-    Cpd_Return<Real> coherentPointDrift(
-        const arma::Mat<Real>& fromSet, 
-        const arma::Mat<Real>& toSet,
+    Real coherentPointDrift(
+        const MatrixView<Real>& fromSet, 
+        const MatrixView<Real>& toSet,
+        const MatrixView<Real>& Qs,
+        const MatrixView<Real>& Ss,
+        const MatrixView<Real>& ts,
         ArgumentSet&&... argumentSet)
     {
         // Point Set Registration: Coherent Point Drift,
@@ -148,20 +137,32 @@ namespace Pastel
         // IEEE Transactions on Pattern Analysis and Machine Intelligence,
         // Volume 32, Number 12, December 2010.
 
-        ENSURE_OP(fromSet.n_rows, ==, toSet.n_rows);
+        ENSURE_OP(fromSet.rows(), ==, toSet.rows());
 
-        integer d = toSet.n_rows;
-        integer m = fromSet.n_cols;
-        integer n = toSet.n_cols;
+		MapMatrix<Real> P(fromSet.data(), fromSet.rows(), fromSet.cols());
+		MapMatrix<Real> R(toSet.data(), toSet.rows(), toSet.cols());
+
+        integer d = P.rows();
+        integer m = P.cols();
+        integer n = R.cols();
 
         ENSURE_OP(d, >, 0);
         ENSURE_OP(m, >, 0);
         ENSURE_OP(n, >, 0);
+        
+        ENSURE_OP(Qs.rows(), ==, d);
+        ENSURE_OP(Qs.cols(), ==, d);
+        ENSURE_OP(Ss.rows(), ==, d);
+        ENSURE_OP(Ss.cols(), ==, d);
+        ENSURE_OP(ts.rows(), ==, d);
+        ENSURE_OP(ts.cols(), ==, 1);
 
         constexpr Real defaultMinError = 
             std::is_same<Real, float>::value ? 1e-4 : 1e-11;
 
         // Optional input arguments
+        bool initialize =
+            PASTEL_ARG_S(initialize, true);
         Real noiseRatio = 
             PASTEL_ARG_S(noiseRatio, 0.2);
         integer minIterations = 
@@ -178,12 +179,6 @@ namespace Pastel
             PASTEL_ARG_ENUM(translation, Cpd_Translation::Free);
         integer orientation = 
             PASTEL_ARG_S(orientation, (integer)1);
-        arma::Mat<Real> Q = 
-            PASTEL_ARG_S(Q0, arma::Mat<Real>());
-        arma::Mat<Real> S = 
-            PASTEL_ARG_S(S0, arma::Mat<Real>());
-        arma::Col<Real> t = 
-            PASTEL_ARG_S(t0, arma::Col<Real>());
 		auto&& report =
 			PASTEL_ARG_S(report, nullOutput());
 
@@ -192,70 +187,28 @@ namespace Pastel
         ENSURE_OP(minIterations, >=, 0);
         ENSURE_OP(minIterations, <=, maxIterations);
 
-        if (Q.is_empty())
-        {
-            // The initial Q was not specified.
-			
-			// Reset the matrix, to clear a possible
-			// replicated strict flag.
-			Q.reset();
+        MapMatrix<Real> Q(Qs.data(), d, d);
+        MapMatrix<Real> S(Ss.data(), d, d);
+        MapColMatrix<Real> t(ts.data(), d, 1);
 
-            // Use the identity matrix.
-            Q.eye(d, d);
+        if (initialize) {
+            // Initialize Q, S, and t.
+            Q = Matrix<Real>::Identity(d, d);
+            S = Matrix<Real>::Identity(d, d);
+            t = ColMatrix<Real>::Zero(d, 1);
         }
- 
-        ENSURE_OP(Q.n_rows, ==, d);
-        ENSURE_OP(Q.n_cols, ==, d);
-
-        if (S.is_empty())
-        {
-            // The initial S was not specified.
-			
-			// Reset the matrix, to clear a possible
-			// replicated strict flag.
-			S.reset();
-
-            // Use the identity matrix.
-            S.eye(d, d);
-        }
-
-        ENSURE_OP(S.n_rows, ==, d);
-        ENSURE_OP(S.n_cols, ==, d);
-
-        if (t.is_empty())
-        {
-            // The initial t was not specified.
-			
-			// Reset the matrix, to clear a possible
-			// replicated strict flag.
-			t.reset();
-
-			// Use the zero matrix.
-			t.zeros(d);
-        }
-
-        ENSURE_OP(t.n_rows, ==, d);
-        ENSURE_OP(t.n_cols, ==, 1);
-
-        // We wish to preserve the memory storage
-        // of Q, S, and t. Store the memory addresses
-        // to check the preservation later.
-        const Real* qPointer = Q.memptr();
-        const Real* sPointer = S.memptr();
-        const Real* tPointer = t.memptr();
 
         // Compute the transformed model-set according
-
         // to the initial guess.
-        arma::Mat<Real> transformedSet = 
-            Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);
+        Matrix<Real> transformedSet = 
+            (Q * S * P).colwise() + t;
 
         // Returns the transformed set centered on toSet.col(j).
         // Note that it is important that we return by decltype(auto),
         // to capture the expression template.
         auto deltaSet = [&](integer j) -> decltype(auto)
         {
-            return transformedSet - toSet.col(j) * arma::ones<arma::Mat<Real>>(1, m);
+            return transformedSet.colwise() - R.col(j);
         };
 
         // Compute a constant to be used later.
@@ -265,21 +218,22 @@ namespace Pastel
         Real sigma2 = 0;
         for (integer j = 0; j < n;++j)
         {
-            sigma2 += arma::accu(arma::square(deltaSet(j)));
+            sigma2 += deltaSet(j).array().square().sum();
         }
         sigma2 = sigma2 / (d * m * n);
 
         // The weighting matrix will be computed here.
-        arma::Mat<Real> W(m, n);
+        Matrix<Real> W(m, n);
+        MatrixView<Real> Ws(W.data(), m, n);
 
         // These will be used as temporary space for
         // computing the weighting matrix.
-        arma::Row<Real> expSet(m);
+        RowMatrix<Real> expSet(m);
 
         // These will store the previous estimate.
-        arma::Mat<Real> qPrev(d, d);
-        arma::Mat<Real> sPrev(d, d);
-        arma::Col<Real> tPrev(d);
+        Matrix<Real> qPrev(d, d);
+        Matrix<Real> sPrev(d, d);
+        ColMatrix<Real> tPrev(d, 1);
 
         for (integer iteration = 0; iteration < maxIterations; ++iteration)
         {
@@ -300,11 +254,8 @@ namespace Pastel
             // Compute the weighting matrix.
             for (integer j = 0;j < n;++j)
             {
-                expSet = 
-                    arma::exp(
-                        -arma::sum(arma::square(deltaSet(j))) / (2 * sigma2)
-                    );
-                W.col(j) = expSet.t() / (arma::accu(expSet) + f);
+                expSet = (-deltaSet(j).array().square().rowwise().sum() / (2 * sigma2)).exp();
+                W.col(j) = expSet.transpose() / (expSet.sum() + f);
             }
 
             // Store the previous transformation for comparison.
@@ -313,59 +264,40 @@ namespace Pastel
             tPrev = t;
 
             // Compute a new estimate for the optimal transformation.
-            auto lsMatch = lsAffine(
+            lsAffine(
                 fromSet, toSet,
+                Qs, Ss, ts,
                 PASTEL_TAG(matrix), matrix,
                 PASTEL_TAG(scaling), scaling,
                 PASTEL_TAG(translation), translation,
                 PASTEL_TAG(orientation), orientation,
-                PASTEL_TAG(W), W,
-                // This avoids the reallocation of 
-                // Q, S. and t.
-                PASTEL_TAG(Q0), std::move(Q),
-                PASTEL_TAG(S0), std::move(S),
-                PASTEL_TAG(t0), std::move(t)
+                PASTEL_TAG(W), Ws
                 );
 
-            Q = std::move(lsMatch.Q);
-            S = std::move(lsMatch.S);
-            t = std::move(lsMatch.t);
- 
             // Compute the transformed model-set.
             transformedSet = 
-                Q * S * fromSet + t * arma::ones<arma::Mat<Real>>(1, m);
+                (Q * S * P).colwise() + t;
 
             // Compute a new estimate for sigma^2.
             sigma2 = 0;
             for (integer j = 0;j < n;++j)
             {
                 sigma2 += 
-                    arma::accu(
-                        W.col(j).t() % arma::sum(arma::square(deltaSet(j))) 
-                    );
+                    (W.col(j).transpose().array() / deltaSet(j).array().square().rowwise().sum()).sum();
             }
-            sigma2 /= arma::accu(W) * d;
+            sigma2 /= W.sum() * d;
 
 			// Report the current estimate.
 			Cpd_State<Real> state = 
 			{
-				std::move(Q),
-				std::move(S),
-				std::move(t),
-				sigma2,
-                std::move(W)
+                Qs, Ss, ts, sigma2, Ws
 			};
 
 			report(addConst(state));
 
-			Q = std::move(state.Q);
-			S = std::move(state.S);
-			t = std::move(state.t);
-            W = std::move(state.W);
-
-            dreal qError = arma::norm(qPrev - Q, "inf");
-            dreal sError = arma::norm(sPrev - S, "inf");
-            dreal tError = arma::norm(tPrev - t, "inf");
+            dreal qError = maxNorm(qPrev - Q);
+            dreal sError = maxNorm(sPrev - S);
+            dreal tError = maxNorm(tPrev - t);
 
 			if (std::max(std::max(qError, sError), tError) <= minError && 
                 iteration + 1 >= minIterations)
@@ -378,17 +310,7 @@ namespace Pastel
             }
         }
 
-        // Make sure that memory was not reallocated.
-        ASSERT(Q.memptr() == qPointer);
-        unused(qPointer);
-
-        ASSERT(S.memptr() == sPointer);
-        unused(sPointer);
-
-        ASSERT(t.memptr() == tPointer);
-        unused(tPointer);
-
-        return {std::move(Q), std::move(S), std::move(t), sigma2};
+        return sigma2;
     }
 
 }

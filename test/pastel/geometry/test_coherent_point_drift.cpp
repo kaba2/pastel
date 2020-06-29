@@ -34,28 +34,32 @@ namespace
 
 	template <typename Real>
 	void testCase(
-		arma::Mat<Real> Q,
-		arma::Mat<Real> S,
-		arma::Col<Real> t,
-		arma::Mat<Real> fromSet,
+		MatrixView<Real> Ps,
+		MatrixView<Real> Qs,
+		MatrixView<Real> Ss,
+		MatrixView<Real> ts,
 		std::initializer_list<Cpd_Matrix> matrixSet,
 		std::initializer_list<Cpd_Scaling> scalingSet,
 		std::initializer_list<Cpd_Translation> translationSet)
 	{
 		Real threshold = 1e-4;
 
-		arma::Mat<Real> toSet = Q * S * fromSet + 
-			t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols);
+		MapMatrix<Real> P(Ps.data(), Ps.rows(), Ps.cols());
+		MapMatrix<Real> Q(Qs.data(), Qs.rows(), Qs.cols());
+		MapMatrix<Real> S(Ss.data(), Ss.rows(), Ss.cols());
+		MapColMatrix<Real> t(ts.data(), ts.rows(), ts.cols());
 
-		REQUIRE(fromSet.n_rows == 2);
+		Matrix<Real> R = (Q * S * P).colwise() + t;
+		MatrixView<Real> Rs(R.data(), R.rows(), R.cols());
 
-		Cpd_Return<Real> match;
+		REQUIRE(Ps.rows() == 2);
+
 		auto deltaNorm = [&]()
 		{
-			arma::Mat<Real> delta = 
-				(match.Q * match.S * fromSet + match.t * arma::ones<arma::Mat<Real>>(1, fromSet.n_cols)) - toSet;
+			Matrix<Real> delta = 
+				((Q * S * P).colwise() + t) - R;
 
-			return arma::norm(delta, "inf");
+			return maxNorm(delta);
 		};
 
 		RANGES_FOR(auto scaling, scalingSet)
@@ -77,8 +81,8 @@ namespace
 						orientation = 0;
 					}
 
-					match = coherentPointDrift(
-						fromSet, toSet,
+					coherentPointDrift(
+						Ps, Rs, Qs, Ss,	ts,
 						PASTEL_TAG(scaling), scaling,
 						PASTEL_TAG(translation), translation,
 						PASTEL_TAG(matrix), matrix,
@@ -102,29 +106,25 @@ namespace
 	template <typename Real>
 	void testRotation()
 	{
-		arma::Mat<Real> S(2, 2, arma::fill::eye);
-		arma::Col<Real> t(2, arma::fill::zeros);
+		Matrix<Real> S = Matrix<Real>::Identity(2, 2);
+		ColMatrix<Real> t = Matrix<Real>::Zero(2, 1);
 
-		arma::Mat<Real> fromSet = 
-		{
+		Matrix<Real> P(2, 3);
+		P <<
 			0, 1, 0,
-			0, 0, 1 
-		};
-		fromSet.reshape(2, 3);
+			0, 0, 1;
 
 		// Angle pi / 3 often matches to another minimum.
 		Real maxAngle = constantPi<Real>() / 4;
 		for (Real alpha = 0; alpha <= maxAngle; alpha += maxAngle / 10)
 		{
-			arma::Mat<Real> Q = 
-			{
+			Matrix<Real> Q(2, 2);
+			Q <<
 				std::cos(alpha), -std::sin(alpha),
-				std::sin(alpha), std::cos(alpha)
-			};
-			Q.reshape(2, 2);
+				std::sin(alpha), std::cos(alpha);
 
 			testCase(
-				Q, S, t, fromSet,
+				view(P), view(Q), view(S), view(t), 
 				{Cpd_Matrix::Free},
 				{Cpd_Scaling::Rigid, Cpd_Scaling::Conformal, Cpd_Scaling::Free},
 				{Cpd_Translation::Free, Cpd_Translation::Identity});
@@ -134,27 +134,23 @@ namespace
 	template <typename Real>
 	void testTranslation()
 	{
-		arma::Mat<Real> Q(2, 2, arma::fill::eye);
-		arma::Mat<Real> S(2, 2, arma::fill::eye);
+		Matrix<Real> Q = Matrix<Real>::Identity(2, 2);
+		Matrix<Real> S = Matrix<Real>::Identity(2, 2);
 
-		arma::Mat<Real> fromSet = 
-		{
+		Matrix<Real> fromSet(2, 7);
+		fromSet <<
 			0, 5, 10, 11, 12, 13, 15,
-			0, 6, 3, 7, 5, 6, -4
-		}; 
-		fromSet.reshape(2, 7);
+			0, 6, 3, 7, 5, 6, -4;
 
 		Real offsetMin = -1;
 		Real offsetMax = 1;
 		for (Real alpha = offsetMin; alpha <= offsetMax; alpha += (offsetMax - offsetMin) / 10)
 		{
-			arma::Col<Real> t = 
-			{
-				alpha, alpha
-			};
+			ColMatrix<Real> t(2, 1);
+			t << alpha, alpha;
 
 			testCase(
-				Q, S, t, fromSet,
+				view(fromSet), view(Q), view(S), view(t), 
 				{Cpd_Matrix::Free, Cpd_Matrix::Identity},
 				{Cpd_Scaling::Rigid, Cpd_Scaling::Conformal, Cpd_Scaling::Free},
 				{Cpd_Translation::Free});

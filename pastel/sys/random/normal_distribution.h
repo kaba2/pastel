@@ -4,8 +4,7 @@
 #define PASTELSYS_NORMAL_DISTRIBUTION_H
 
 #include "pastel/sys/real/real_concept.h"
-
-#include <armadillo>
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {
@@ -14,12 +13,12 @@ namespace Pastel
 	class Normal_Distribution
 	{
 	public:
-		using Point = arma::Col<Real>;
+		using Point = ColMatrix<Real>;
 
 		explicit Normal_Distribution(integer n = 1)
-		: mean_(n, arma::fill::zeros)
-		, scale_(n, arma::fill::ones)
-		, rotation_(n, n, arma::fill::eye)
+		: mean_(ColMatrix<Real>::Zero(n))
+		, scale_(ColMatrix<Real>::One(n))
+		, rotation_(Matrix<Real>::Identity(n, n))
 		, detCovariance_(1)
 		{
 		}
@@ -30,17 +29,17 @@ namespace Pastel
 		Normal_Distribution& operator=(Normal_Distribution&&) = default;
 
 		Normal_Distribution(
-			arma::Col<Real> mean,
-			arma::Col<Real> scale,
-			arma::Mat<Real> rotation)
+			ColMatrix<Real> mean,
+			ColMatrix<Real> scale,
+			Matrix<Real> rotation)
 		: mean_(std::move(mean))
 		, scale_(std::move(scale))
 		, rotation_(std::move(rotation))
 		, detCovariance_(0)
 		{
-			ENSURE_OP(mean.n_elem, ==, rotation.n_rows);
-			ENSURE_OP(mean.n_elem, ==, rotation.n_cols);
-			detCovariance_ = arma::prod(scale_);
+			ENSURE_OP(mean.n_elem, ==, rotation.rows());
+			ENSURE_OP(mean.n_elem, ==, rotation.cols());
+			detCovariance_ = scale_.prod();
 		}
 
 		integer n() const
@@ -54,9 +53,9 @@ namespace Pastel
 		PASTEL_GETTER(detCovariance);
 
 	private:
-		arma::Col<Real> mean_;
-		arma::Col<Real> scale_;
-		arma::Mat<Real> rotation_;
+		ColMatrix<Real> mean_;
+		ColMatrix<Real> scale_;
+		Matrix<Real> rotation_;
 		Real detCovariance_;
 	};
 

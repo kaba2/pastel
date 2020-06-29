@@ -6,7 +6,7 @@
 #include "pastel/math/matrix/random_matrix/random_orthogonal_matrix.h"
 #include "pastel/sys/random/random_uniform.h"
 
-#include <armadillo>
+#include "pastel/math/matrix.h"
 #include <algorithm>
 #include <vector>
 
@@ -73,7 +73,7 @@ namespace Pastel
 	condition >= 1
 	*/
 	template <typename Real>
-	arma::Mat<Real> randomSymmetricPositiveDefinite(
+	Matrix<Real> randomSymmetricPositiveDefinite(
 		integer n,
 		const NoDeduction<Real>& determinant,
 		const NoDeduction<Real>& condition)
@@ -90,7 +90,7 @@ namespace Pastel
 			a - std::log(condition);
 
 		// Generate a random rotation matrix.
-		arma::Mat<Real> result = randomRotation<Real>(n);
+		Matrix<Real> result = randomRotation<Real>(n);
 
 		// Multiply the columns of the rotation matrix
 		// with square roots of the diagonal elements of D.

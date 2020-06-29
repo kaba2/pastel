@@ -20,10 +20,10 @@ namespace
 	{
 		enum Input
 		{
-			FromSet,
-			ToSet,
+			Pi,
+			Ri,
 			Wi,
-			Matrix,
+			Matrix_,
 			Scaling,
 			Translation,
 			Orientation,
@@ -41,17 +41,12 @@ namespace
 		ENSURE_OP(inputs, ==, Inputs);
 		ENSURE_OP(outputs, ==, Outputs);
 
-		arma::Mat<dreal> fromSet = 
-			matlabAsMatrix<dreal>(inputSet[FromSet]);
-
-		arma::Mat<dreal> toSet = 
-			matlabAsMatrix<dreal>(inputSet[ToSet]);
-
-		arma::Mat<dreal> W = 
-			matlabAsMatrix<dreal>(inputSet[Wi]);
+		auto P = matlabAsMatrix<dreal>(inputSet[Pi]);
+		auto R = matlabAsMatrix<dreal>(inputSet[Ri]);
+		auto W = matlabAsMatrix<dreal>(inputSet[Wi]);
 
 		auto matrix = matlabStringAsEnum<LsAffine_Matrix>(
-			inputSet[Matrix],
+			inputSet[Matrix_],
 			"free", LsAffine_Matrix::Free,
 			"identity", LsAffine_Matrix::Identity);
 
@@ -70,17 +65,20 @@ namespace
 		integer orientation = 
 			matlabAsScalar<integer>(inputSet[Orientation]);
 
-		auto match = lsAffine(
-			fromSet, toSet,
-			PASTEL_TAG(W), W,
+		integer d = P.rows();
+
+		auto Q = matlabCreateMatrix<dreal>(d, d, outputSet[Qi]);
+		auto S = matlabCreateMatrix<dreal>(d, d, outputSet[Si]);
+		auto t = matlabCreateMatrix<dreal>(d, 1, outputSet[Ti]);
+
+		lsAffine(
+			P.view(), R.view(), 
+			Q, S, t,
+			PASTEL_TAG(W), W.view(),
 			PASTEL_TAG(matrix), matrix,
 			PASTEL_TAG(scaling), scaling,
 			PASTEL_TAG(translation), translation,
 			PASTEL_TAG(orientation), orientation);
-
-		matlabCreateArray<dreal>(match.Q, outputSet[Qi]);
-		matlabCreateArray<dreal>(match.S, outputSet[Si]);
-		matlabCreateArray<dreal>(match.t, outputSet[Ti]);
 	}
 
 	void addFunction()

@@ -21,10 +21,9 @@ namespace Pastel
 	returns:
 	The determinant of A, if that.n() > 0. Otherwise (Real)Nan().
 	*/
-	template <typename Real, int M, int N>
-	Real determinant(const Matrix<Real, M, N>& matrix)
+	template <typename T>
+	typename T::Scalar determinant(const Eigen::MatrixBase<T>& matrix)
 	{
-		ENSURE_OP(matrix.cols(), ==, matrix.rows());
 		return matrix.determinant();
 	}
 

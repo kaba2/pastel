@@ -9,7 +9,7 @@
 #include <pastel/sys/set/interval_set.h>
 #include <pastel/sys/locator/pointerrange_locator.h>
 
-#include <armadillo>
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {
@@ -21,29 +21,29 @@ namespace Pastel
 
 	Optional arguments:
 
-	dBegin, dEnd (0 <= integer <= set.n_rows):
+	dBegin, dEnd (0 <= integer <= set.rows()):
 	The range of rows which use as the coordinates 
 	of the points. 
-	Default: 0, set.n_rows.
+	Default: 0, set.rows().
 	*/
 	template <
 		typename Real,
 		typename... ArgumentSet>
 	decltype(auto) matrixPointSet(
-		const arma::Mat<Real>& set,
+		const MatrixView<Real>& set,
 		ArgumentSet&&... argumentSet)
 	{
 		const integer dBegin = PASTEL_ARG_S(dBegin, 0);
-		const integer dEnd = PASTEL_ARG_S(dEnd, set.n_rows);
+		const integer dEnd = PASTEL_ARG_S(dEnd, set.rows());
 
 		ENSURE_OP(dBegin, >=, 0);
 		ENSURE_OP(dBegin, <, dEnd);
-		ENSURE_OP(dEnd, <=, set.n_rows);
+		ENSURE_OP(dEnd, <=, set.rows());
 
 		return locationSet(
 			sparseSet(
-				intervalSet(set.memptr(), set.memptr() + set.size()), 
-				set.n_rows), 
+				intervalSet(set.data()(), set.data()() + set.size()), 
+				set.rows()), 
 			PointerRange_Locator<dreal>(dBegin, dEnd));
 	}
 

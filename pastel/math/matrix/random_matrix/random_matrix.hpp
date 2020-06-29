@@ -3,7 +3,7 @@
 
 #include "pastel/math/matrix/random_matrix/random_matrix.h"
 
-#include "pastel/sys/random/random_uniform.h"
+#include "pastel/sys/random/random_continuous.h"
 
 namespace Pastel
 {
@@ -15,18 +15,21 @@ namespace Pastel
 	n >= 0
 	*/
 	template <typename Real, int M = Dynamic, int N = Dynamic>
-	Matrix<Real, M, N> randomMatrix(integer m, integer n)
+	Matrix<Real, M, N> randomMatrix(integer m = M, integer n = N)
 	{
-		ENSURE_OP(m, >=, 0);
-		ENSURE_OP(n, >=, 0);
+		return generateMatrix<Real, M, N>([](int i, int j) {return random<Real>();}, m, n);
+	}
 
-		Matrix<Real, M, N> result = Matrix<Real, M, N>::Zero(m, n);
-		for (int i = 0; i < result.size(); ++i)
-		{
-			result(i) = random<Real>() * 2 - 1;
-		}
-
-		return result;
+	//! Returns a random (m x n)-matrix with standard-normally-distributed elements.
+	/*!
+	Preconditions:
+	m >= 0
+	n >= 0
+	*/
+	template <typename Real, int M = Dynamic, int N = Dynamic>
+	Matrix<Real, M, N> randomGaussianMatrix(integer m = M, integer n = N)
+	{
+		return generateMatrix<Real, M, N>([](int i, int j) {return randomGaussian<Real>();}, m, n);
 	}
 
 }

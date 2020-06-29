@@ -37,14 +37,14 @@ namespace
 		integer n = matlabAsScalar<integer>(inputSet[N]);
 		integer orientation = matlabAsScalar<integer>(inputSet[Orientation]);
 
-		arma::Mat<dreal> Q_ = randomOrthogonal<dreal>(n, 
+		Matrix<dreal> Q_ = randomOrthogonal<dreal>(n, 
 			PASTEL_TAG(orientation), orientation);
 
 		Array<dreal> Q =
 			matlabCreateArray<dreal>(Vector2i(n, n),
 			outputSet[Qi]);
 
-		std::copy(Q_.begin(), Q_.end(), Q.begin());
+		std::copy(Q_.data(), Q_.data() + Q_.size(), Q.begin());
 	}
 
 	void addFunction()

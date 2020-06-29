@@ -112,6 +112,22 @@ namespace Pastel
 		return m;
 	}
 
+	//! Returns a square diagonal matrix.
+	template <typename Real, int N>
+	Eigen::DiagonalMatrix<Real, N> diagonalMatrix(
+		const ColMatrix<Real, N>& diagonal)
+	{
+		return Pastel::diagonalMatrix(asVector(diagonal));
+	}
+
+	//! Returns a square diagonal matrix.
+	template <typename Real, int N>
+	Eigen::DiagonalMatrix<Real, N> diagonalMatrix(
+		const RowMatrix<Real, N>& diagonal)
+	{
+		return Pastel::diagonalMatrix(asVector(diagonal));
+	}
+
 	//! Returns the identity matrix.
 	/*!
 	Preconditions:

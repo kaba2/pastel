@@ -14,7 +14,7 @@ namespace Pastel
 	template <typename Real>
 	Real logPdf(
 		const Normal_Distribution<Real>& distribution,
-		const arma::Col<Real>& x)
+		const ColMatrix<Real>& x)
 	{
 		auto rotated = distribution.rotation() * (x - distribution.mean());
 
@@ -29,7 +29,7 @@ namespace Pastel
 	template <typename Real>
 	Real pdf(
 		const Normal_Distribution<Real>& distribution,
-		const arma::Col<Real>& x)
+		const ColMatrix<Real>& x)
 	{
 		return std::exp(logPdf(distribution, x));
 	}

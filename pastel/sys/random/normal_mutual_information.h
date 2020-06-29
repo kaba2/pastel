@@ -7,7 +7,7 @@
 #include "pastel/sys/set/set_concept.h"
 
 #include <type_traits>
-#include <armadillo>
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {
@@ -30,7 +30,7 @@ namespace Pastel
 	{
 		integer n = distribution.n();
 
-		arma::Mat<Real> covariance = variance(distribution);
+		Matrix<Real> covariance = variance(distribution);
 
 		Real result = -std::log(distribution.detCovariance());
 		
@@ -49,8 +49,8 @@ namespace Pastel
 				continue;
 			}
 
-			result += arma::log_det(
-				covariance.submat(*i, *i, *j - 1, *j - 1)).real();
+			result += std::log(determinant(
+				covariance.submat(*i, *i, *j - 1, *j - 1)));
 
 			i = j;
 			++j;

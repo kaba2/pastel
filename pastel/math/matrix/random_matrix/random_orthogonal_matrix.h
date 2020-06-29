@@ -7,7 +7,7 @@
 #include "pastel/sys/random/random_gaussian.h"
 #include "pastel/sys/math/sign.h"
 
-#include <armadillo>
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {
@@ -30,7 +30,7 @@ namespace Pastel
 	If positive, then det(Q) = +1.
 	*/
 	template <typename Real>
-	arma::Mat<Real> randomOrthogonal(
+	Matrix<Real> randomOrthogonal(
 		integer n, integer orientation = 0)
 	{
 		ENSURE_OP(n, >=, 0);
@@ -41,15 +41,15 @@ namespace Pastel
 		// Notices of the AMS,
 		// Volume 54, Number 5, 2007.
 
-		arma::Mat<Real> x(n, n);
+		Matrix<Real> x(n, n);
 
 		for (auto& value : x)
 		{
 			value = randomGaussian<Real>();
 		}
 
-		arma::Mat<Real> q(n, n);
-		arma::Mat<Real> r(n, n);
+		Matrix<Real> q(n, n);
+		Matrix<Real> r(n, n);
 
 		qr(q, r, x);
 

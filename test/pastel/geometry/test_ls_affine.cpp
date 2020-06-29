@@ -6,6 +6,7 @@
 #include <pastel/geometry/pattern_matching/ls_affine.h>
 #include <pastel/math/sampling/random_orthogonal.h>
 #include <pastel/sys/random.h>
+#include <pastel/math/matrix/random_matrix.h>
 
 namespace
 {
@@ -24,7 +25,9 @@ namespace
 		{
 			integer d = randomInteger(10) + 1;
 			integer n = randomInteger(100) + 10;
-			arma::Mat<Real> W(n, n, arma::fill::eye);
+			Matrix<Real> W = Matrix<Real>::Identity(n, n);
+			MatrixView<Real> Ws(W.data(), W.rows(), W.cols());
+
 			// Note that this is a multiple of the
 			// identity matrix, and so should not affect
 			// the solution at all. Note that if you
@@ -75,7 +78,7 @@ namespace
 				orientation = randomElement({0, 1});
 			}
 
-			arma::Mat<Real> Q(d, d, arma::fill::eye);
+			Matrix<Real> Q = Matrix<Real>::Identity(d, d);
 
 			if (matrix == LsAffine_Matrix::Free)
 			{
@@ -83,18 +86,19 @@ namespace
 					PASTEL_TAG(orientation), orientation);
 			}
 
-			arma::Mat<Real> S(d, d, arma::fill::eye);
+			Matrix<Real> S = Matrix<Real>::Identity(d, d);
 			if (scaling == LsAffine_Scaling::Free)
 			{
-				S = arma::randn<arma::Mat<Real>>(d, d);
-				S = S + S.t();
+				S = randomGaussianMatrix<Real>(d, d);
+				S = S + S.transpose();
 				if (matrix == LsAffine_Matrix::Free)
 				{
-					arma::Mat<Real> U, V;
-					arma::Col<Real> D;
-					arma::svd(U, D, V, Q * S);
-					Q = U * V.t();
-					S = V * arma::diagmat(D) * V.t();
+					Eigen::JacobiSVD<Matrix<Real>> svd(Q * S, Eigen::ComputeThinU | Eigen::ComputeThinV);
+					const auto& U = svd.matrixU();
+					const auto& V = svd.matrixV();
+					const auto& D = svd.singularValues();
+					Q = U * V.transpose();
+					S = V * diagonalMatrix(D) * V.transpose();
 				}
 			}
 
@@ -111,10 +115,10 @@ namespace
 				}	
 			}
 
-			arma::Col<Real> t(d, arma::fill::zeros);
+			ColMatrix<Real> t = ColMatrix<Real>::Zero(d, 1);
 			if (translation == LsAffine_Translation::Free)
 			{
-				t = arma::randn<arma::Col<Real>>(d, 1) * 10;
+				t = randomGaussianMatrix<Real, Dynamic, 1>(d, 1) * 10;
 			}
 
 			if (orientation < 0)
@@ -138,44 +142,30 @@ namespace
 			}
 
 			// Generate test point-sets.
-			arma::Mat<Real> P = arma::randn<arma::Mat<Real>>(d, n);
-			arma::Mat<Real> R = Q * S * P + t * arma::ones<arma::Mat<Real>>(1, n);
+			Matrix<Real> P = randomGaussianMatrix<Real>(d, n);
+			Matrix<Real> R = (Q * S * P).colwise() + t;
 
-			arma::Mat<Real> QE(d, d);
-			arma::Mat<Real> SE(d, d);
-			arma::Col<Real> tE(d);
-
-			const Real* qePointer = QE.memptr();
-			const Real* sePointer = SE.memptr();
-			const Real* tePointer = tE.memptr();
+			Matrix<Real> QE(d, d);
+			Matrix<Real> SE(d, d);
+			ColMatrix<Real> tE(d);
 
 			// Compute the transformation back by least-squares.
-			auto lsMatch = lsAffine(
-				P, R,
+			lsAffine(
+				view(P), view(R),
+				view(QE), view(SE), view(tE),
 				PASTEL_TAG(orientation), orientation,
 				PASTEL_TAG(matrix), matrix,
 				PASTEL_TAG(scaling), scaling,
 				PASTEL_TAG(translation), translation,
-				PASTEL_TAG(W), W,
-				PASTEL_TAG(Q0), std::move(QE),
-				PASTEL_TAG(S0), std::move(SE),
-				PASTEL_TAG(t0), std::move(tE));
-
-			QE = std::move(lsMatch.Q);
-			SE = std::move(lsMatch.S);
-			tE = std::move(lsMatch.t);
-
-			REQUIRE(qePointer == QE.memptr());
-			REQUIRE(sePointer == SE.memptr());
-			REQUIRE(tePointer == tE.memptr());
+				PASTEL_TAG(W), Ws);
 
 			// Check that the errors are small.
-			Real qError = arma::norm(QE - Q, "inf");
-			Real sError = arma::norm(SE - S, "inf");
-			Real tError = arma::norm(tE - t, "inf");
+			Real qError = maxNorm(QE - Q);
+			Real sError = maxNorm(SE - S);
+			Real tError = maxNorm(tE - t);
 
 			if (std::max(std::max(qError, sError), tError) > threshold ||
-				(orientation != 0 && sign(arma::det(QE * SE)) != sign(orientation)))
+				(orientation != 0 && sign(determinant(QE * SE)) != sign(orientation)))
 			{
 				std::cout << orientation << " " 
 					<< (integer)matrix << " "

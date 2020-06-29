@@ -7,9 +7,9 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/vector.h"
 
-#include "pastel/matlab/matlab_mex.h"
+#include "pastel/math/matrix.h"
 
-#include <armadillo>
+#include "pastel/matlab/matlab_mex.h"
 
 namespace Pastel
 {
@@ -44,7 +44,7 @@ namespace Pastel
 		typename To_Type,
 		typename From_Type>
 	Array<To_Type> matlabCreateArray(
-		const arma::Mat<From_Type>& from,
+		const Matrix<From_Type>& from,
 		mxArray*& output);
 
 	//! Retrieves a copy of a scalar number.
@@ -67,14 +67,6 @@ namespace Pastel
 	mxIsChar(input)
 	*/
 	std::string matlabAsString(const mxArray* input);
-
-	//! Retrieves a reference to a dreal matrix.
-	/*!
-	Preconditions:
-	mxIsNumeric(that)
-	*/
-	template <typename Type>
-	arma::Mat<Type> matlabAsMatrix(const mxArray* that);
 
 	//! Retrieves an enum given as strings.
 	/*!

@@ -22,7 +22,7 @@ namespace Pastel
 	decltype(auto) variance(const Normal_Distribution<Real>& distribution)
 	{
 		return distribution.rotation() * 
-			arma::diagmat(arma::square(distribution.scale())) * 
+			diagonalMatrix(distribution.scale().square()) * 
 			trans(distribution.rotation());
 	}
 

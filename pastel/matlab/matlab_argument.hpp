@@ -2,6 +2,7 @@
 #define PASTELMATLAB_MATLAB_ARGUMENT_HPP
 
 #include "pastel/matlab/matlab_argument.h"
+#include "pastel/matlab/matlab_matrix.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/sequence/copy_n.h"
@@ -39,7 +40,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	arma::Mat<Type> matlabCreateMatrix(
+	MatrixView<Type> matlabCreateMatrix(
 		integer height, integer width,
 		mxArray*& output)
 	{
@@ -49,7 +50,7 @@ namespace Pastel
 		output = mxCreateNumericMatrix(height, width, 
 			typeToMatlabClassId<Type>(), mxREAL);
 		
-		return matlabAsMatrix<Type>(output);
+		return matlabAsMatrixView<Type>(output);
 	}
 
 	template <typename Type>
@@ -65,16 +66,38 @@ namespace Pastel
 		typename To_Type,
 		typename From_Type>
 	Array<To_Type> matlabCreateArray(
-		const arma::Mat<From_Type>& from,
+		const MatrixView<From_Type>& from,
 		mxArray*& output)
 	{
 		Array<To_Type> to = matlabCreateArray<To_Type>(
-			Vector2i(from.n_cols, from.n_rows),
+			Vector2i(from.cols(), from.rows()),
 			output);
 
-		std::copy(from.begin(), from.end(), to.begin());
+		std::copy(from.data(), from.data() + from.size(), to.begin());
 
 		return to;
+	}
+
+	template <
+		typename To_Type,
+		typename From_Type>
+	Array<To_Type> matlabCreateArray(
+		const MatlabMatrix<From_Type>& from,
+		mxArray*& output)
+	{
+		return Pastel::matlabCreateArray<To_Type>(from.view(), output);
+	}
+
+	template <
+		typename To_Type,
+		typename From_Type,
+		int From_M,
+		int From_N>
+	Array<To_Type> matlabCreateArray(
+		const Matrix<From_Type, From_M, From_N>& from,
+		mxArray*& output)
+	{
+		return Pastel::matlabCreateArray<To_Type>(view(from));
 	}
 
 	template <typename Type>
@@ -222,44 +245,35 @@ namespace Pastel
 		return result;
 	}
 
+	//! Retrieves a reference to a dreal matrix.
+	/*!
+	Preconditions:
+	mxIsNumeric(that)
+	*/
 	template <typename Type>
-	arma::Mat<Type> matlabAsMatrix(
+	MatlabMatrix<Type> matlabAsMatrix(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
+		return MatlabMatrix<Type>(that);
+	}
+
+	//! Retrieves a reference to a dreal matrix.
+	/*!
+	Preconditions:
+	mxIsNumeric(that)
+	*/
+	template <typename Type>
+	MatrixView<Type> matlabAsMatrixView(
+		const mxArray* that)
+	{
+		ENSURE(mxIsNumeric(that));
+		ENSURE_OP(typeToMatlabClassId<Type>(), ==, mxGetClassID(that));
 
 		integer m = mxGetM(that);
 		integer n = mxGetN(that);
 
-		if (typeToMatlabClassId<Type>() == mxGetClassID(that))
-		{
-			// This controls whether the matrix can be
-			// reallocated to different sizes. At first I
-			// had it set to true. However, this caused
-			// problems later on, because I wanted to use
-			// an empty matrix on the Matlab side to 
-			// mean that the default should be used in the
-			// C++ side. Then I could not do Q.eye(d, d),
-			// for example. So we allow reallocations.
-			bool strict = false;
-
-			// The type of the array matches the requested
-			// type. Aliase the existing data.
-			return arma::Mat<Type>(
-				// Aliase the existing data.
-				(Type*)mxGetData(that), 
-				m, n,
-				// Use Matlab's memory for the matrix.
-				false,
-				strict);
-		}
-
-		// Copy the data into an array of the required type.
-		arma::Mat<Type> result(m, n);
-
-		matlabGetScalars(that, result.begin());
-
-		return result;
+		return MatrixView<Type>((Type*)mxGetData(that), m, n);
 	}
 
 	template <typename Type>
