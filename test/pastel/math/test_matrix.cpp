@@ -129,13 +129,12 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	// Constructs from a matrix expression.
 	MatrixD m = (identityMatrix<dreal>(2, 3) * 2).array() + 5;
 	{
-		dreal correctSet[] = 
-		{
+		MatrixD correct(2, 3);
+		correct <<
 			7, 5, 5,
-			5, 7, 5
-		};
+			5, 7, 5;
 
-		REQUIRE(ranges::equal(range(m), range(correctSet)));
+		REQUIRE(ranges::equal(range(m), range(correct)));
 	}
 
 	{
@@ -147,52 +146,48 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		// Adds a matrix expression.
 		test += identityMatrix<dreal>(2, 3);
 		{
-			dreal correctSet[] =
-			{
+			MatrixD correct(2, 3);
+			correct <<
 				2, 2, 3,
-				4, 6, 6
-			};
+				4, 6, 6;
 
-			REQUIRE(ranges::equal(range(test), range(correctSet)));
+			REQUIRE(ranges::equal(range(test), range(correct)));
 		}
 
 		// Subtracts a matrix expression.
 		test -= identityMatrix<dreal>(2, 3);
 		{
-			dreal correctSet[] =
-			{
+			MatrixD correct(2, 3);
+			correct <<
 				1, 2, 3,
-				4, 5, 6
-			};
+				4, 5, 6;
 
-			REQUIRE(ranges::equal(range(test), range(correctSet)));
+			REQUIRE(ranges::equal(range(test), range(correct)));
 		}
 
 		// Multiplies with a matrix expression.
 		test *= identityMatrix<dreal>(3, 2);
 		{
-			dreal correctSet[] =
-			{
+			MatrixD correct(2, 2);
+			correct <<
 				1, 2,
-				4, 5
-			};
+				4, 5;
 
-			REQUIRE(ranges::equal(range(test), range(correctSet)));
+			REQUIRE(ranges::equal(range(test), range(correct)));
 		}
 	}
 
 	// Constructs an mxn identity matrix.
-	MatrixD a(4, 6);
+	MatrixD a = MatrixD::Identity(4, 6);
 	{
-		dreal correctSet[] =
-		{
+		MatrixD correct(4, 6);
+		correct <<
 			1, 0, 0, 0, 0, 0,
 			0, 1, 0, 0, 0, 0,
 			0, 0, 1, 0, 0, 0,
-			0, 0, 0, 1, 0, 0
-		};
+			0, 0, 0, 1, 0, 0;
 
-		REQUIRE(ranges::equal(range(a), range(correctSet)));
+		REQUIRE(ranges::equal(range(a), range(correct)));
 		REQUIRE(a.rows() == 4);
 		REQUIRE(a.cols() == 6);
 		REQUIRE(a.size() == 4 * 6);
@@ -207,7 +202,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	};
 
 	// Constructs from a shared array.
-	Eigen::Map<MatrixD> shared(dataSet, 4, 3);
+	Eigen::Map<MatrixD, Eigen::RowMajor> shared(dataSet, 4, 3);
 	{
 		REQUIRE(ranges::equal(range(shared), range(dataSet)));
 	}
@@ -219,26 +214,6 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		REQUIRE(shared(i / 3, i % 3) == i + 1);
 	}
 
-	// Column ranges
-	{
-		dreal correctSet[] = 
-		{
-			2, 5, 8, 11
-		};
-
-		//REQUIRE(ranges::equal(shared.cColumnRange(1), range(correctSet)));
-	}
-
-	// Row ranges
-	{
-		dreal correctSet[] = 
-		{
-			4, 5, 6
-		};
-
-		//REQUIRE(ranges::equal(shared.cRowRange(1), range(correctSet)));
-	}
-
 	{
 		MatrixD test(3, 2);
 		test << 
@@ -248,49 +223,45 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		// Subtracts a constant from all elements.
 		test.array() -= 1;
 		{
-			dreal correctSet[] = 
-			{
+			MatrixD correct(2, 3);
+			correct <<
 				0, 1, 2,
-				3, 4, 5
-			};
+				3, 4, 5;
 
-			REQUIRE(ranges::equal(range(test), range(correctSet)));
+			REQUIRE(ranges::equal(range(test), range(correct)));
 		}
 
 		// Adds a constant to all elements.
 		test.array() += 1;
 		{
-			dreal correctSet[] = 
-			{
+			MatrixD correct(2, 3);
+			correct <<
 				1, 2, 3,
-				4, 5, 6
-			};
+				4, 5, 6;
 
-			REQUIRE(ranges::equal(range(test), range(correctSet)));
+			REQUIRE(ranges::equal(range(test), range(correct)));
 		}
 
 		// Multiplies all elements with a constant.
 		test *= 2;
 		{
-			dreal correctSet[] = 
-			{
+			MatrixD correct(2, 3);
+			correct <<
 				2, 4, 6,
-				8, 10, 12
-			};
+				8, 10, 12;
 
-			REQUIRE(ranges::equal(range(test), range(correctSet)));
+			REQUIRE(ranges::equal(range(test), range(correct)));
 		}
 
 		// Divides all elements by a constant.
 		test /= 2;
 		{
-			dreal correctSet[] = 
-			{
+			MatrixD correct(2, 3);
+			correct <<
 				1, 2, 3,
-				4, 5, 6
-			};
+				4, 5, 6;
 
-			REQUIRE(ranges::equal(range(test), range(correctSet)));
+			REQUIRE(ranges::equal(range(test), range(correct)));
 		}
 	}
 
@@ -299,15 +270,14 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		2, 0, 1, 0, 1, 0,
 		0, 2, 0, 1, 0, 1;
 	{
-		dreal correctSet[] = 
-		{
+		MatrixD correct(4, 6);
+		correct <<
 			1, 0, 1, 0, 1, 0,
 			0, 1, 0, 1, 0, 1,
 			2, 0, 1, 0, 1, 0,
-			0, 2, 0, 1, 0, 1
-		};
+			0, 2, 0, 1, 0, 1;
 
-		REQUIRE(ranges::equal(range(a), range(correctSet)));
+		REQUIRE(ranges::equal(range(a), range(correct)));
 	}
 
 	// The 2x2 identity-matrix repeated 2 times vertically,
@@ -318,15 +288,14 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 		I, I, I,
 		I, I, I;
 	{
-		dreal correctSet[] = 
-		{
+		MatrixD correct(4, 6);
+		correct <<
 			1, 0, 1, 0, 1, 0,
 			0, 1, 0, 1, 0, 1,
 			1, 0, 1, 0, 1, 0,
-			0, 1, 0, 1, 0, 1
-		};
+			0, 1, 0, 1, 0, 1;
 
-		REQUIRE(ranges::equal(range(b), range(correctSet)));
+		REQUIRE(ranges::equal(range(b), range(correct)));
 	}
 }
 

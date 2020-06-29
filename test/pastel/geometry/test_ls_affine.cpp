@@ -89,6 +89,11 @@ namespace
 			Matrix<Real> S = Matrix<Real>::Identity(d, d);
 			if (scaling == LsAffine_Scaling::Free)
 			{
+				if (matrix == LsAffine_Matrix::Identity) {
+					// This case is not implemented.
+					continue;
+				}
+
 				S = randomGaussianMatrix<Real>(d, d);
 				S = S + S.transpose();
 				if (matrix == LsAffine_Matrix::Free)

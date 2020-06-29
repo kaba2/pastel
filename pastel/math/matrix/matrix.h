@@ -51,7 +51,7 @@ namespace Pastel
 	template <typename Real, int N>
 	RowMatrix<Real, N> asRowMatrix(const Vector<Real, N>& v) {
 		int n = v.size();
-		RowMatrix<Real, N> m = ColMatrix<Real, N>::Zero(1, n);
+		RowMatrix<Real, N> m = RowMatrix<Real, N>::Zero(1, n);
 		for (int i = 0;i < n; ++i) {
 			m(0, i) = v[i];
 		}

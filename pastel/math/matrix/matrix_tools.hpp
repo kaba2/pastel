@@ -395,13 +395,7 @@ namespace Pastel
 		const Vector<Real, NV>& left,
 		const Matrix<Real, M, N>& right)
 	{
-		auto r = (asRowMatrix(left) * right).eval();
-		int n = r.rows();
-		Vector<Real, N> v(ofDimension(n));
-		for (int i = 0; i < n; ++i) {
-			v[i] = r(0, i);
-		}
-		return v;
+		return asVector(asRowMatrix(left) * right);
 	}
 
 	template <typename Real, int M, int N, int NV>
@@ -409,13 +403,7 @@ namespace Pastel
 		const Matrix<Real, M, N>& left,
 		const Vector<Real, NV>& right)
 	{
-		auto r = (left * asColumnMatrix(right)).eval();
-		int n = r.rows();
-		Vector<Real, M> v(ofDimension(n));
-		for (int i = 0; i < n; ++i) {
-			v[i] = r(i, 0);
-		}
-		return v;
+		return asVector(left * asColumnMatrix(right));
 	}
 
 	template <typename Real, int M, int N>
@@ -423,8 +411,8 @@ namespace Pastel
 		return Pastel::range(that.data(), that.data() + that.size());
 	}
 
-	template <typename T>
-	decltype(auto) range(const Eigen::Map<T>& that) {
+	template <typename T, int MapOptions>
+	decltype(auto) range(const Eigen::Map<T, MapOptions>& that) {
 		return Pastel::range(that.data(), that.data() + that.size());
 	}
 

@@ -209,7 +209,7 @@ namespace Pastel
 			totalWeight = W.sum();
 		}
 
-		ENSURE(!negative(totalWeight));
+		ENSURE_OP(totalWeight, >, 0);
 
 		ColMatrix<Real> fromCentroid(d, 1);
 		ColMatrix<Real> toCentroid(d, 1);
