@@ -95,7 +95,7 @@ namespace
 				}
 
 				S = randomGaussianMatrix<Real>(d, d);
-				S = S + S.transpose();
+				S = (S + S.transpose()).eval();
 				if (matrix == LsAffine_Matrix::Free)
 				{
 					Eigen::JacobiSVD<Matrix<Real>> svd(Q * S, Eigen::ComputeThinU | Eigen::ComputeThinV);
@@ -183,13 +183,13 @@ namespace
 					<< "t-error " << tError << std::endl
 					<< "threshold " << threshold << std::endl;
 
-				std::cout << "Q" << Q << std::endl;
-				std::cout << "S" << S << std::endl;
-				std::cout << "t" << t << std::endl;
+				std::cout << "Q" << std::endl << Q << std::endl;
+				std::cout << "S" << std::endl << S << std::endl;
+				std::cout << "t" << std::endl << t << std::endl;
 
-				std::cout << "QE" << QE << std::endl;
-				std::cout << "SE" << SE << std::endl;
-				std::cout << "tE" << tE << std::endl;
+				std::cout << "QE" << std::endl << QE << std::endl;
+				std::cout << "SE" << std::endl << SE << std::endl;
+				std::cout << "tE" << std::endl << tE << std::endl;
 
 				fails = fails + 1;
 			}
