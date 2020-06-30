@@ -254,7 +254,7 @@ namespace Pastel
             // Compute the weighting matrix.
             for (integer j = 0;j < n;++j)
             {
-                expSet = (-deltaSet(j).array().square().rowwise().sum() / (2 * sigma2)).exp();
+                expSet = (deltaSet(j).array().square().colwise().sum() / (-2 * sigma2)).exp();
                 W.col(j) = expSet.transpose() / (expSet.sum() + f);
             }
 
@@ -283,7 +283,7 @@ namespace Pastel
             for (integer j = 0;j < n;++j)
             {
                 sigma2 += 
-                    (W.col(j).transpose().array() / deltaSet(j).array().square().rowwise().sum()).sum();
+                    (W.col(j).transpose().array() * deltaSet(j).array().square().colwise().sum()).sum();
             }
             sigma2 /= W.sum() * d;
 

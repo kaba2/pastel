@@ -2,6 +2,7 @@
 #define PASTELMATH_MATRIX_VIEW_H
 
 #include "pastel/math/matrix.h"
+#include <iostream>
 
 namespace Pastel {
 
@@ -75,6 +76,15 @@ namespace Pastel {
     template <typename Real, int M, int N> 
     MatrixView<const Real> view(const Matrix<Real, M, N>& matrix) {
         return MatrixView<const Real>(matrix.data(), matrix.rows(), matrix.cols());
+    }
+
+	template <typename Real>
+	std::ostream& operator<<(
+		std::ostream& stream,
+		const MatrixView<Real>& that)
+	{
+        stream << matrix(that);
+        return stream;
     }
 
 }

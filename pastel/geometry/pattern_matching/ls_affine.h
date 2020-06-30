@@ -211,8 +211,8 @@ namespace Pastel
 
 		ENSURE_OP(totalWeight, >, 0);
 
-		ColMatrix<Real> fromCentroid(d, 1);
-		ColMatrix<Real> toCentroid(d, 1);
+		ColMatrix<Real> fromCentroid = ColMatrix<Real>::Zero(d);
+		ColMatrix<Real> toCentroid = ColMatrix<Real>::Zero(d);
 
 		if (translation == LsAffine_Translation::Free)
 		{
@@ -230,28 +230,25 @@ namespace Pastel
 	        	fromCentroid = P.rowwise().sum() / m;
 	        	toCentroid = R.rowwise().sum() / n;
 			}
-		 
-		    // Form the centered point-sets. The optimal transformation
-		    // will map fromCentroid to toCentroid. After this the problem
-		    // has been reduced from affine to linear.
-		    P.colwise() -= fromCentroid;
-		    R.colwise() -= toCentroid;
 		}
 
 		Matrix<Real> PP(d, d);
 		Matrix<Real> RP(d, d);
 
+		// The optimal transformation will map fromCentroid to toCentroid. 
+		// Centering the point-set reduces the problem from affine to linear.
+
 		if (wSpecified)
 		{
 		    // With weighting.
-		    PP = P * diagonalMatrix(asVector(W.rowwise().sum())) * P.transpose();
-		    RP = R * W.transpose() * P.transpose();
+		    PP = (P.colwise() - fromCentroid) * diagonalMatrix(asVector(W.rowwise().sum())) * (P.colwise() - fromCentroid).transpose();
+		    RP = (R.colwise() - toCentroid) * W.transpose() * (P.colwise() - fromCentroid).transpose();
 		}
 		else
 		{
 		    // Without weighting.
-		    PP = P * P.transpose();
-		    RP = R * P.transpose();
+		    PP = (P.colwise() - fromCentroid) * (P.colwise() - fromCentroid).transpose();
+		    RP = (R.colwise() - toCentroid) * (P.colwise() - fromCentroid).transpose();
 		}
 
 		if (scaling == LsAffine_Scaling::Free && 
