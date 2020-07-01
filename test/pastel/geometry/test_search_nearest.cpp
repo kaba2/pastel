@@ -362,11 +362,11 @@ void testCase(const Create& create)
 	testCount(create, pointSet, Euclidean_Norm<dreal>()[2.25], countSet);
 }
 
-//TEST_CASE("search_nearest (PointKdTree)")
-//{
-//	testCase(CreatePointKdTree<DepthFirst_SearchAlgorithm_PointKdTree>());
-//	testCase(CreatePointKdTree<BestFirst_SearchAlgorithm_PointKdTree>());
-//}
+TEST_CASE("search_nearest (PointKdTree)")
+{
+	testCase(CreatePointKdTree<DepthFirst_SearchAlgorithm_PointKdTree>());
+	testCase(CreatePointKdTree<BestFirst_SearchAlgorithm_PointKdTree>());
+}
 
 TEST_CASE("search_nearest (brute-force)")
 {
