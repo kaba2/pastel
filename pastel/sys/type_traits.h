@@ -12,5 +12,6 @@
 #include "pastel/sys/type_traits/is_template_base_of.h"
 #include "pastel/sys/type_traits/or.h"
 #include "pastel/sys/type_traits/template_base.h"
+#include "pastel/sys/type_traits/is_same_object.h"
 
 #endif

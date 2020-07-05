@@ -69,7 +69,7 @@ namespace
 
 		auto Q = matlabCreateMatrix<dreal>(d, d, outputSet[Qi]);
 		auto S = matlabCreateMatrix<dreal>(d, d, outputSet[Si]);
-		auto t = matlabCreateMatrix<dreal>(d, 1, outputSet[Ti]);
+		auto t = matlabCreateColMatrix<dreal>(d, outputSet[Ti]);
 
 		lsAffine(
 			P.view(), R.view(), 

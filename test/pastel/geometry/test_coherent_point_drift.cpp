@@ -37,7 +37,7 @@ namespace
 		MatrixView<Real> Ps,
 		MatrixView<Real> Qs,
 		MatrixView<Real> Ss,
-		MatrixView<Real> ts,
+		ColMatrixView<Real> ts,
 		std::initializer_list<Cpd_Matrix> matrixSet,
 		std::initializer_list<Cpd_Scaling> scalingSet,
 		std::initializer_list<Cpd_Translation> translationSet)

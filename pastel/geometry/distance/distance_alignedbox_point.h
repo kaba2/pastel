@@ -29,14 +29,13 @@ namespace Pastel
 		Point_Concept_ Point,
 		typename... ArgumentSet
 	>
+	requires 
+		IsEqualDim<N, Point_N<Point>::value>
 	auto distance2(
 		const AlignedBox<Real, N>& alignedBox,
 		const Point& point,
 		ArgumentSet&&... argumentSet)
 	{
-		PASTEL_STATIC_ASSERT(
-			(EqualDimension<IntegerConstant<N>, Point_N<Point>>::value));
-
 		PENSURE_OP(alignedBox.n(), ==, dimension(point));
 
 		auto&& norm = 
@@ -98,14 +97,13 @@ namespace Pastel
 		Point_Concept_ Point,
 		typename... ArgumentSet
 	>
+	requires 
+		IsEqualDim<N, Point_N<Point>::value>
 	auto farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
 		const Point& point,
 		ArgumentSet&&... argumentSet)
 	{
-		PASTEL_STATIC_ASSERT(
-			(EqualDimension<IntegerConstant<N>, Point_N<Point>>::value));
-
 		auto&& norm = 
 			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept_);
 

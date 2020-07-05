@@ -120,16 +120,25 @@ namespace Pastel
     The minimum error under which to accept the transformation 
     and stop iteration. For float 1e-4; for double 1e-11.
     */
-    template <
-		typename Real,
-        typename... ArgumentSet
+	template <
+		typename Real_from, int M_from, int N_from,
+		typename Real_to, int M_to, int N_to,
+		typename Real_Q, int M_Q, int N_Q,
+		typename Real_S, int M_S, int N_S,
+		typename Real_t, int M_t,
+		typename... ArgumentSet
     >
-    Real coherentPointDrift(
-        const MatrixView<Real>& fromSet, 
-        const MatrixView<Real>& toSet,
-        const MatrixView<Real>& Qs,
-        const MatrixView<Real>& Ss,
-        const MatrixView<Real>& ts,
+    requires 
+        IsPlain<Real_Q> &&
+        IsPlain<Real_S> && 
+        IsPlain<Real_t> && 
+        IsSameObject<Real_from, Real_to, Real_Q, Real_S, Real_t>
+    Real_from coherentPointDrift(
+		const MatrixView<Real_from, M_from, N_from>& fromSet,
+		const MatrixView<Real_to, M_to, N_to>& toSet,
+		const MatrixView<Real_Q, M_Q, N_Q>& Qs,
+		const MatrixView<Real_S, M_S, N_S>& Ss,
+		const ColMatrixView<Real_t, M_t>& ts,
         ArgumentSet&&... argumentSet)
     {
         // Point Set Registration: Coherent Point Drift,
@@ -139,8 +148,12 @@ namespace Pastel
 
         ENSURE_OP(fromSet.rows(), ==, toSet.rows());
 
-		MapMatrix<Real> P(fromSet.data(), fromSet.rows(), fromSet.cols());
-		MapMatrix<Real> R(toSet.data(), toSet.rows(), toSet.cols());
+        using Real = Real_from;
+
+		constexpr const int D = Common_Dimension<M_from, M_to, M_Q, M_S, M_t, N_Q, N_S>;
+
+		MapMatrix<Real, D, N_from> P = asMatrix(fromSet);
+		MapMatrix<Real, D, N_to> R = asMatrix(toSet);
 
         integer d = P.rows();
         integer m = P.cols();
@@ -187,20 +200,20 @@ namespace Pastel
         ENSURE_OP(minIterations, >=, 0);
         ENSURE_OP(minIterations, <=, maxIterations);
 
-        MapMatrix<Real> Q(Qs.data(), d, d);
-        MapMatrix<Real> S(Ss.data(), d, d);
-        MapColMatrix<Real> t(ts.data(), d, 1);
+        MapMatrix<Real, D, D> Q = asMatrix(Qs);
+        MapMatrix<Real, D, D> S = asMatrix(Ss);
+        MapColMatrix<Real, D> t = asMatrix(ts);
 
         if (initialize) {
             // Initialize Q, S, and t.
-            Q = Matrix<Real>::Identity(d, d);
-            S = Matrix<Real>::Identity(d, d);
-            t = ColMatrix<Real>::Zero(d, 1);
+            Q = Matrix<Real, D, D>::Identity(d, d);
+            S = Matrix<Real, D, D>::Identity(d, d);
+            t = ColMatrix<Real, D>::Zero(d, 1);
         }
 
         // Compute the transformed model-set according
         // to the initial guess.
-        Matrix<Real> transformedSet = 
+        Matrix<Real, D, N_from> transformedSet = 
             (Q * S * P).colwise() + t;
 
         // Returns the transformed set centered on toSet.col(j).
@@ -223,17 +236,17 @@ namespace Pastel
         sigma2 = sigma2 / (d * m * n);
 
         // The weighting matrix will be computed here.
-        Matrix<Real> W(m, n);
-        MatrixView<Real> Ws(W.data(), m, n);
+        Matrix<Real, N_from, N_to> W(m, n);
+        MatrixView<Real, N_from, N_to> Ws(W.data(), m, n);
 
         // These will be used as temporary space for
         // computing the weighting matrix.
-        RowMatrix<Real> expSet(m);
+        RowMatrix<Real, D> expSet(m);
 
         // These will store the previous estimate.
-        Matrix<Real> qPrev(d, d);
-        Matrix<Real> sPrev(d, d);
-        ColMatrix<Real> tPrev(d, 1);
+        Matrix<Real, D, D> qPrev(d, d);
+        Matrix<Real, D, D> sPrev(d, d);
+        ColMatrix<Real, D> tPrev(d, 1);
 
         for (integer iteration = 0; iteration < maxIterations; ++iteration)
         {

@@ -26,7 +26,7 @@ namespace Pastel
 			simplexRange.pop_front();
 		}
 
-		return solveLinear(m, extend(point, 1));
+		return solveLinearInplace(view(m), extend(point, 1));
 	}
 
 	template <typename Real, int N>

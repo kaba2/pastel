@@ -361,7 +361,7 @@ namespace Pastel
 		// u^T D^T D = b^T
 
 		Vector<Real, M> u = 
-			solveLinear(ddt, b);
+			solveLinearInplace(view(ddt), b);
 
 		Vector<Real, N> translation =
 			u * d;

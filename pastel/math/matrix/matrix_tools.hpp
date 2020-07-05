@@ -390,17 +390,17 @@ namespace Pastel
 		left.swap(right);
 	}
 
-	template <typename Real, int NV, int M, int N>
-	Vector<Real, N> operator *(
+	template <typename Real, int NV, typename Derived>
+	decltype(auto) operator *(
 		const Vector<Real, NV>& left,
-		const Matrix<Real, M, N>& right)
+		const MatrixExpr<Derived>& right)
 	{
 		return asVector(asRowMatrix(left) * right);
 	}
 
-	template <typename Real, int M, int N, int NV>
-	Vector<Real, M> operator *(
-		const Matrix<Real, M, N>& left,
+	template <typename Real, int NV, typename Derived>
+	decltype(auto) operator *(
+		const MatrixExpr<Derived>& left,
 		const Vector<Real, NV>& right)
 	{
 		return asVector(left * asColumnMatrix(right));

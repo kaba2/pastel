@@ -6,7 +6,7 @@
 
 namespace Pastel {
 
-    template <typename Real>
+    template <typename Real, int M, int N>
     class MatlabMatrix {
     public:
         MatlabMatrix(const mxArray* that) {
@@ -17,7 +17,7 @@ namespace Pastel {
 
             if (typeToMatlabClassId<Real>() == mxGetClassID(that)) {
                 // Types match; aliase the existing data.
-                view_ = MatrixView<Real>((Real*)mxGetData(that), m, n);
+                view_ = MatrixView<Real, M, N>((Real*)mxGetData(that), m, n);
             } 
             else {
                 // Types do not match; copy the data.
@@ -28,7 +28,7 @@ namespace Pastel {
 
         void resize(integer rows, integer cols) {
             data_.resize(rows * cols);
-            view_ = MatrixView<Real>(data_.data(), rows, cols);
+            view_ = MatrixView<Real, M, N>(data_.data(), rows, cols);
         }
 
         integer rows() const {
@@ -47,13 +47,13 @@ namespace Pastel {
             return (Real*)data_.data();
         }
 
-        const MatrixView<Real>& view() const {
+        const MatrixView<Real, M, N>& view() const {
             return view_;
         }
 
     private:
         std::vector<Real> data_;
-        MatrixView<Real> view_;
+        MatrixView<Real, M, N> view_;
     };
 
 }

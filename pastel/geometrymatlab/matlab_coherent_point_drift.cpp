@@ -73,7 +73,7 @@ namespace
 
 		auto Q = matlabAsMatrix<dreal>(inputSet[Qi]);
 		auto S = matlabAsMatrix<dreal>(inputSet[Si]);
-		auto t = matlabAsMatrix<dreal>(inputSet[Ti]);
+		auto t = matlabAsColMatrix<dreal>(inputSet[Ti]);
 
 		integer minIterations =
 			matlabAsScalar<integer>(inputSet[MinIterations]);

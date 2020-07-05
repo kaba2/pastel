@@ -92,7 +92,7 @@ namespace Pastel
 			matrix3x3<real32>(xyzRed, xyzGreen, xyzBlue);
 
 		Color primaryWeights(
-			solveLinear(primaryMatrix, xyzWhite));
+			solveLinearInplace(view(primaryMatrix), xyzWhite));
 
 		// Use the weights to form the final transformation
 		// matrix.

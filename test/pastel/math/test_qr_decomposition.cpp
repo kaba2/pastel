@@ -20,7 +20,7 @@ TEST_CASE("qr_decomposition (qr_decomposition)")
 	{
 		Matrix<dreal> a = randomMatrix<dreal>(n, n);
 		Vector<dreal> b = randomVectorCube<dreal, Dynamic>(n);
-		QrDecomposition<dreal> qr(a);
+		QrDecomposition<dreal> qr(view(a));
 		Vector<dreal> qrSolution =
 			solveLinear(qr, b);
 

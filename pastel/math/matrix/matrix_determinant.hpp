@@ -22,7 +22,7 @@ namespace Pastel
 	The determinant of A, if that.n() > 0. Otherwise (Real)Nan().
 	*/
 	template <typename T>
-	typename T::Scalar determinant(const Eigen::MatrixBase<T>& matrix)
+	typename T::Scalar determinant(const MatrixExpr<T>& matrix)
 	{
 		return matrix.determinant();
 	}

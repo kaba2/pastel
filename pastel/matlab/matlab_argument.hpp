@@ -39,8 +39,8 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Type>
-	MatrixView<Type> matlabCreateMatrix(
+	template <typename Type, int M = Dynamic, int N = Dynamic>
+	MatrixView<Type, M, N> matlabCreateMatrix(
 		integer height, integer width,
 		mxArray*& output)
 	{
@@ -50,7 +50,14 @@ namespace Pastel
 		output = mxCreateNumericMatrix(height, width, 
 			typeToMatlabClassId<Type>(), mxREAL);
 		
-		return matlabAsMatrixView<Type>(output);
+		return matlabAsMatrixView<Type, M, N>(output);
+	}
+
+	template <typename Type, int M = Dynamic>
+	ColMatrixView<Type, M> matlabCreateColMatrix(
+		integer height, mxArray*& output)
+	{
+		return matlabCreateMatrix<Type, M, 1>(height, 1, output);
 	}
 
 	template <typename Type>
@@ -64,9 +71,9 @@ namespace Pastel
 
 	template <
 		typename To_Type,
-		typename From_Type>
+		typename From_Type, int M, int N>
 	Array<To_Type> matlabCreateArray(
-		const MatrixView<From_Type>& from,
+		const MatrixView<From_Type, M, N>& from,
 		mxArray*& output)
 	{
 		Array<To_Type> to = matlabCreateArray<To_Type>(
@@ -80,9 +87,9 @@ namespace Pastel
 
 	template <
 		typename To_Type,
-		typename From_Type>
+		typename From_Type, int M, int N>
 	Array<To_Type> matlabCreateArray(
-		const MatlabMatrix<From_Type>& from,
+		const MatlabMatrix<From_Type, M, N>& from,
 		mxArray*& output)
 	{
 		return Pastel::matlabCreateArray<To_Type>(from.view(), output);
@@ -250,12 +257,19 @@ namespace Pastel
 	Preconditions:
 	mxIsNumeric(that)
 	*/
-	template <typename Type>
-	MatlabMatrix<Type> matlabAsMatrix(
+	template <typename Type, int M = Dynamic, int N = Dynamic>
+	MatlabMatrix<Type, M, N> matlabAsMatrix(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
-		return MatlabMatrix<Type>(that);
+		return MatlabMatrix<Type, M, N>(that);
+	}
+
+	template <typename Type, int M = Dynamic>
+	MatlabMatrix<Type, M, 1> matlabAsColMatrix(
+		const mxArray* that)
+	{
+		return matlabAsMatrix<Type, M, 1>(that);
 	}
 
 	//! Retrieves a reference to a dreal matrix.
@@ -263,8 +277,8 @@ namespace Pastel
 	Preconditions:
 	mxIsNumeric(that)
 	*/
-	template <typename Type>
-	MatrixView<Type> matlabAsMatrixView(
+	template <typename Type, int M = Dynamic, int N = Dynamic>
+	MatrixView<Type, M, N> matlabAsMatrixView(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
@@ -273,7 +287,14 @@ namespace Pastel
 		integer m = mxGetM(that);
 		integer n = mxGetN(that);
 
-		return MatrixView<Type>((Type*)mxGetData(that), m, n);
+		return MatrixView<Type, M, N>((Type*)mxGetData(that), m, n);
+	}
+
+	template <typename Type, int M = Dynamic>
+	ColMatrixView<Type, M> matlabAsColMatrixView(
+		const mxArray* that)
+	{
+		return matlabAsMatrixView<Type, M, 1>(that);
 	}
 
 	template <typename Type>

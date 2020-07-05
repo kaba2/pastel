@@ -626,10 +626,11 @@ TEST_CASE("MatrixSolve (MatrixSolve)")
 	for (integer i = 0;i < iterations;++i)
 	{
 		Matrix<dreal> a = randomMatrix<dreal>(n, n);
+		Matrix<dreal> aCopy = a;
 
 		VectorD b(randomVectorCube<dreal, Dynamic>(n));
 
-		VectorD x(solveLinear(a, b));
+		VectorD x(solveLinearInplace(view(aCopy), b));
 
 		dreal error =
 			norm(a * x - b);

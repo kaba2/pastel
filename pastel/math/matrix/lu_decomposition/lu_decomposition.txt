@@ -45,7 +45,7 @@ This packed matrix can be used in solving linear
 equations by using the functions 'solveUpperTriangular'
 and 'solveUnitLowerTriangular'. However, to make this even
 easier, Pastel provides an overload for 'solveLinear'
-which takes an LuDecomposition object instead of
+which takes an LuDecompositionInplace object instead of
 a matrix.
 
 See also

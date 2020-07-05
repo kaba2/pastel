@@ -38,6 +38,13 @@ namespace Pastel
 
 	class SingularMatrix_Exception {};
 
+}
+
+#include "pastel/math/matrix/matrix_view.h"
+#include "pastel/math/matrix/matrix_data.h"
+
+namespace Pastel {
+
 	template <typename Real, int N>
 	ColMatrix<Real, N> asColumnMatrix(const Vector<Real, N>& v) {
 		int n = v.size();
@@ -88,9 +95,28 @@ namespace Pastel
 		return that.eval();
 	}
 
+    template <typename Real, int M, int N>
+    MapMatrix<Real, M, N> asMatrix(const MatrixView<Real, M, N>& view) {
+        return MapMatrix<Real, M, N>(view.data(), view.rows(), view.cols());
+    }
+
+    template <typename Real, int M, int N>
+    Eigen::Map<const Matrix<Real, M, N>> asMatrix(const MatrixView<const Real, M, N>& view) {
+        return Eigen::Map<const Matrix<Real, M, N>>(view.data(), view.rows(), view.cols());
+    }
+
+    template <typename Real, int M, int N> 
+    MatrixView<Real, M, N> view(Matrix<Real, M, N>& matrix) {
+        return MatrixView<Real, M, N>(matrix.data(), matrix.rows(), matrix.cols());
+    }
+
+    template <typename Real, int M, int N> 
+    MatrixView<const Real, M, N> view(const Matrix<Real, M, N>& matrix) {
+        return MatrixView<const Real, M, N>(matrix.data(), matrix.rows(), matrix.cols());
+    }
+
 }
 
 #include "pastel/math/matrix/matrix_tools.h"
-#include "pastel/math/matrix/matrix_view.h"
 
 #endif

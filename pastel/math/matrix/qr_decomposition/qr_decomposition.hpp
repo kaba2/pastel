@@ -16,14 +16,18 @@ namespace Pastel
 	{
 		ENSURE_OP(m, >=, 0);
 		ENSURE_OP(n, >=, 0);
+		q_ = Matrix<Real, M, N>::Identity(m, m);
+		r_ = Matrix<Real, M, N>::Identity(m, m);
 	}
 
 	template <typename Real, int M, int N>
 	QrDecomposition<Real, M, N>::QrDecomposition(
-		Matrix<Real, M, N> that)
-		: q_(that.rows(), that.rows())
-		, r_(std::move(that))
+		const MatrixView<Real, M, N>& that)
+		: q_()
+		, r_()
 	{
+		q_ = Matrix<Real, M, N>::Identity(that.rows(), that.rows());
+		r_ = asMatrix(that);
 		decompose();
 	}
 
@@ -73,26 +77,15 @@ namespace Pastel
 	}
 
 	template <typename Real, int M, int N>
-	const Matrix<Real, M, N>& QrDecomposition<Real, M, N>::qTransposed() const
+	MatrixView<const Real, M, M> QrDecomposition<Real, M, N>::qTransposed() const
 	{
-		return q_;
+		return view(q_);
 	}
 
 	template <typename Real, int M, int N>
-	const Matrix<Real, M, N>& QrDecomposition<Real, M, N>::r() const
+	MatrixView<const Real, M, N> QrDecomposition<Real, M, N>::r() const
 	{
-		return r_;
-	}
-
-	template <typename Real, int M, int N>
-	void QrDecomposition<Real, M, N>::decompose(const Matrix<Real, M, N>& that)
-	{
-		integer m = that.rows();
-
-		q_ = identityMatrix<Real, M, N>(m, m);
-		r_ = that;
-
-		decompose();
+		return view(r_);
 	}
 
 	// Private
@@ -100,7 +93,6 @@ namespace Pastel
 	template <typename Real, int M, int N>
 	void QrDecomposition<Real, M, N>::decompose()
 	{
-
 		/*
 		QR decomposition
 		================
@@ -177,9 +169,9 @@ namespace Pastel
 			}
 
 			// Compute R := Q_{j + 1} ... Q_1 A.
-			householder(r_, v, j, j);
+			householderInplace(view(r_), v, j, j);
 			// Compute Q^T := Q_{j + 1} ... Q_1.
-			householder(q_, v, j, 0);
+			householderInplace(view(q_), v, j, 0);
 		}
 	}
 
@@ -206,10 +198,17 @@ namespace Pastel
 	}
 
 	//! Solves the linear system QRx = b.
-	template <typename Real, int M, int N>
+	template <
+		typename Real, int M, int N,
+		typename Real_b, int N_b
+	>
+	requires
+		IsPlain<Real> &&
+		IsSameObject<Real, Real_b> &&
+		IsEqualDim<N, N_b>
 	Vector<Real> solveLinear(
 		const QrDecomposition<Real, M, N>& qr,
-		const Vector<Real, N>& b)
+		const Vector<Real_b, N_b>& b)
 	{
 		ENSURE_OP(qr.n(), ==, b.size());
 		
@@ -221,7 +220,7 @@ namespace Pastel
 
 		// First solve Qy = b.
 
-		x = qr.qTransposed() * b;
+		x = asMatrix(qr.qTransposed()) * b;
 		
 		// Then solve Rx = y.
 		x = solveUpperTriangular(qr.r(), x);

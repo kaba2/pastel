@@ -18,7 +18,7 @@ namespace
 
 		PASTEL_CONCEPT_CHECK(Point, Point_Concept);
 		PASTEL_CONCEPT_CHECK(Euclidean_Distance<Real>, Distance_Concept);
-		PASTEL_STATIC_ASSERT(EqualDimension<IntegerConstant<2>, Point_N<Point>>::value);
+		PASTEL_STATIC_ASSERT(IsEqualDim<2, Point_N<Point>::value>);
 
 		{
 			/*

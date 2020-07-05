@@ -146,7 +146,7 @@ namespace Pastel
 			b[i] = dataList[i];
 		}
 		
-		Vector<Real, Dynamic> w = solveLinear(a, b);
+		Vector<Real, Dynamic> w = solveLinearInplace(view(a), b);
 
 		ReconstructRbf_::ReconstructFunctor<Real, N, Data>
 			reconstructFunctor(positionList, w, b, scaling, radialBasisFunction);

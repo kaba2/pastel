@@ -123,14 +123,6 @@ namespace Pastel
 	using Point_Dimension = 
 		Point_N<Point>;
 
-	template <int M, int N>
-	using EqualDimension_C = 
-		BoolConstant<(M == N || M < 0 || N < 0)>;
-
-	template <typename M, typename N>
-	using EqualDimension = 
-		EqualDimension_C<M::value, N::value>;
-
 }
 
 #endif

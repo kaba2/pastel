@@ -108,13 +108,18 @@ namespace Pastel
 	*/
 	template <
 		typename Real,
+		int M_from, int N_from,
+		int M_to, int N_to,
+		int M_Q, int N_Q,
+		int M_S, int N_S,
+		int M_t,
 		typename... ArgumentSet>
 	void lsAffine(
-		const MatrixView<Real>& fromSet,
-		const MatrixView<Real>& toSet,
-		const MatrixView<Real>& Qs,
-		const MatrixView<Real>& Ss,
-		const MatrixView<Real>& ts,
+		const MatrixView<Real, M_from, N_from>& fromSet,
+		const MatrixView<Real, M_to, N_to>& toSet,
+		const MatrixView<Real, M_Q, N_Q>& Qs,
+		const MatrixView<Real, M_S, N_S>& Ss,
+		const ColMatrixView<Real, M_t>& ts,
 		ArgumentSet&&... argumentSet)
 	{
 		// Least-Squares Transformations between Point-Sets_,
@@ -125,8 +130,10 @@ namespace Pastel
 
 		ENSURE_OP(fromSet.rows(), ==, toSet.rows());
 
-		MapMatrix<Real> P(fromSet.data(), fromSet.rows(), fromSet.cols());
-		MapMatrix<Real> R(toSet.data(), toSet.rows(), toSet.cols());
+		constexpr const int D = Common_Dimension<M_from, M_to, M_Q, M_S, M_t, N_Q, N_S>;
+
+		MapMatrix<Real, D> P = asMatrix(fromSet);
+		MapMatrix<Real, D> R = asMatrix(toSet);
 
 		integer d = P.rows();
 		integer m = P.cols();
@@ -154,15 +161,15 @@ namespace Pastel
 		MatrixView<Real> Ws = 
 			PASTEL_ARG_S(W, MatrixView<Real>());
 
-        MapMatrix<Real> Q(Qs.data(), d, d);
-        MapMatrix<Real> S(Ss.data(), d, d);
-        MapColMatrix<Real> t(ts.data(), d, 1);
+        MapMatrix<Real, D, D> Q = asMatrix(Qs);
+        MapMatrix<Real, D, D> S = asMatrix(Ss);
+        MapColMatrix<Real, D> t = asMatrix(ts);
         MapMatrix<Real> W(Ws.data(), Ws.rows(), Ws.cols());
 
 		// Initialize Q, S, and t.
-		Q = Matrix<Real>::Identity(d, d);
-		S = Matrix<Real>::Identity(d, d);
-		t = ColMatrix<Real>::Zero(d, 1);
+		Q = Matrix<Real, D, D>::Identity(d, d);
+		S = Matrix<Real, D, D>::Identity(d, d);
+		t = ColMatrix<Real, D>::Zero(d, 1);
 
 		bool wSpecified = !Ws.isEmpty();
 
@@ -211,8 +218,8 @@ namespace Pastel
 
 		ENSURE_OP(totalWeight, >, 0);
 
-		ColMatrix<Real> fromCentroid = ColMatrix<Real>::Zero(d);
-		ColMatrix<Real> toCentroid = ColMatrix<Real>::Zero(d);
+		ColMatrix<Real, D> fromCentroid = ColMatrix<Real, D>::Zero(d);
+		ColMatrix<Real, D> toCentroid = ColMatrix<Real, D>::Zero(d);
 
 		if (translation == LsAffine_Translation::Free)
 		{
@@ -231,9 +238,9 @@ namespace Pastel
 	        	toCentroid = R.rowwise().sum() / n;
 			}
 		}
-
-		Matrix<Real> PP(d, d);
-		Matrix<Real> RP(d, d);
+		
+		Matrix<Real, D, D> PP(d, d);
+		Matrix<Real, D, D> RP(d, d);
 
 		// The optimal transformation will map fromCentroid to toCentroid. 
 		// Centering the point-set reduces the problem from affine to linear.
@@ -276,12 +283,12 @@ namespace Pastel
 		    // Compute the optimal linear transformation.
 		    // [UP, UR, X, DP, DR] = gsvd(PP, RP);
 		    // A = UR * (DR * pinv(DP)) * UP.transpose();
-		    Matrix<Real> pinvPP = PP.completeOrthogonalDecomposition().pseudoInverse();
-			Matrix<Real> A = RP * pinvPP;
+		    Matrix<Real, D, D> pinvPP = PP.completeOrthogonalDecomposition().pseudoInverse();
+			Matrix<Real, D, D> A = RP * pinvPP;
 
 			// Compute Q and S from A such that
 			// A = QS and S is symmetric positive semi-definite.
-			Eigen::JacobiSVD<Matrix<Real>> svd(A, Eigen::ComputeThinU | Eigen::ComputeThinV);
+			Eigen::JacobiSVD<Matrix<Real, D, D>> svd(A, Eigen::ComputeThinU | Eigen::ComputeThinV);
 			const auto& U = svd.matrixU();
 			const auto& V = svd.matrixV();
 			const auto& s = svd.singularValues();
@@ -301,7 +308,7 @@ namespace Pastel
 
 		    // Compute the optimal orthogonal transformation.
 
-			Eigen::JacobiSVD<Matrix<Real>> svd(RP, Eigen::ComputeThinU | Eigen::ComputeThinV);
+			Eigen::JacobiSVD<Matrix<Real, D, D>> svd(RP, Eigen::ComputeThinU | Eigen::ComputeThinV);
 			const auto& U = svd.matrixU();
 			const auto& V = svd.matrixV();
 
@@ -317,7 +324,7 @@ namespace Pastel
 		        //    Q = UDV^T, where
 		        //    D = [1, ..., 1, g det(UV^T)].
 
-		        ColMatrix<Real> s = ColMatrix<Real>::Ones(d, 1);
+		        ColMatrix<Real, D> s = ColMatrix<Real, D>::Ones(d, 1);
 		        s(d - 1) = -1;
 
 		        // Compute the optimal oriented orthogonal Q.
@@ -350,7 +357,7 @@ namespace Pastel
 				// diagonal element of S for which 
 				// S_{ii} (RP^T)_{ii} is the smallest.
 				
-				ColMatrix<Real> product = S.diagonal() * RP.diagonal();
+				ColMatrix<Real, D> product = S.diagonal() * RP.diagonal();
 
 				// Find smallest S_{ii} (RP^T)_{ii}.
 				integer iMin = 0;

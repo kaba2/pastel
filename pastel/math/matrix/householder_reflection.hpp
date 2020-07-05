@@ -32,8 +32,10 @@ namespace Pastel
 	part of the matrix is known to be zero (e.g. QR-decomposition).
 	*/
 	template <typename Real, int M, int N>
-	void householder(
-		Matrix<Real, M, N>& a, const Vector<Real, M>& x, 
+	requires
+		IsPlain<Real>
+	void householderInplace(
+		const MatrixView<Real, M, N>& a, const Vector<Real, M>& x, 
 		integer i, integer j)
 	{
 		ENSURE_OP(i, >=, 0);

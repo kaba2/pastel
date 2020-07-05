@@ -40,27 +40,27 @@ TEST_CASE("Concept (point)")
 	struct Something_Else {};
 	PASTEL_CONCEPT_REJECT(Something_Else, Point_Concept);
 
-	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<1>, Point_N<Vector<dreal, 1>>>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<1>, Point_N<Vector<dreal, -1>>>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<-1>, Point_N<Vector<dreal, 1>>>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension<IntegerConstant<-1>, Point_N<Vector<dreal, -1>>>::value));
+	PASTEL_STATIC_ASSERT((IsEqualDim<1, Point_N<Vector<dreal, 1>>::value>));
+	PASTEL_STATIC_ASSERT((IsEqualDim<1, Point_N<Vector<dreal, -1>>::value>));
+	PASTEL_STATIC_ASSERT((IsEqualDim<-1, Point_N<Vector<dreal, 1>>::value>));
+	PASTEL_STATIC_ASSERT((IsEqualDim<-1, Point_N<Vector<dreal, -1>>::value>));
 
-	PASTEL_STATIC_ASSERT((EqualDimension_C<1, 1>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension_C<0, 0>::value));
+	PASTEL_STATIC_ASSERT((IsEqualDim<1, 1>));
+	PASTEL_STATIC_ASSERT((IsEqualDim<0, 0>));
 
-	PASTEL_STATIC_ASSERT((EqualDimension_C<0, 0>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension_C<0, -1>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension_C<-1, 0>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension_C<-1, -1>::value));
+	PASTEL_STATIC_ASSERT((IsEqualDim<0, 0>));
+	PASTEL_STATIC_ASSERT((IsEqualDim<0, -1>));
+	PASTEL_STATIC_ASSERT((IsEqualDim<-1, 0>));
+	PASTEL_STATIC_ASSERT((IsEqualDim<-1, -1>));
 
-	PASTEL_STATIC_ASSERT((EqualDimension_C<5, 5>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension_C<-1, 5>::value));
-	PASTEL_STATIC_ASSERT((EqualDimension_C<5, -1>::value));
+	PASTEL_STATIC_ASSERT((IsEqualDim<5, 5>));
+	PASTEL_STATIC_ASSERT((IsEqualDim<-1, 5>));
+	PASTEL_STATIC_ASSERT((IsEqualDim<5, -1>));
 
-	PASTEL_STATIC_ASSERT(!(EqualDimension_C<0, 1>::value));
-	PASTEL_STATIC_ASSERT(!(EqualDimension_C<1, 0>::value));
-	PASTEL_STATIC_ASSERT(!(EqualDimension_C<1, 2>::value));
-	PASTEL_STATIC_ASSERT(!(EqualDimension_C<2, 1>::value));
+	PASTEL_STATIC_ASSERT(!(IsEqualDim<0, 1>));
+	PASTEL_STATIC_ASSERT(!(IsEqualDim<1, 0>));
+	PASTEL_STATIC_ASSERT(!(IsEqualDim<1, 2>));
+	PASTEL_STATIC_ASSERT(!(IsEqualDim<2, 1>));
 }
 
 TEST_CASE("AsVector (point)")

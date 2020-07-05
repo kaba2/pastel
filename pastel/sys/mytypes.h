@@ -182,6 +182,33 @@ namespace Pastel
 
 		static constexpr int Dynamic = -1;
 
+		template <int M, int N>
+		constexpr bool IsEqualDim =
+			(M == Dynamic || N == Dynamic || M == N);
+
+		template <int M, int N>
+		constexpr bool IsAssignableDim =
+			(M == Dynamic || M == N);
+
+		template <int M, int N>
+		constexpr int Max = M > N ? M : N;
+
+		template <int... Ns>
+		struct Common_Dimension_;
+
+		template <int N, int... Ns>
+		struct Common_Dimension_<N, Ns...> {
+			static constexpr const int value = Max<N, Common_Dimension_<Ns...>::value>;
+		};
+
+		template <>
+		struct Common_Dimension_<> {
+			static constexpr const int value = -1;
+		};
+
+		template <int... Ns>
+		constexpr const int Common_Dimension = Common_Dimension_<Ns...>::value;
+
 	}
 
 	using namespace Pastel::Types;
@@ -221,5 +248,6 @@ namespace Pastel
 #include "range/v3/range_for.hpp"
 #include "pastel/sys/printable/printable_concept.h"
 #include "pastel/sys/hashing.h"
+#include "pastel/sys/type_traits.h"
 
 #endif

@@ -12,6 +12,7 @@ namespace Pastel
 	class QrDecomposition
 	{
 	public:
+		QrDecomposition() = delete;
 		// Using default copy constructor.
 		// Using default assignment.
 		// Using default destructor.
@@ -40,7 +41,7 @@ namespace Pastel
 		Time complexity:
 		O(n^3)
 		*/
-		QrDecomposition(Matrix<Real, M, N> that);
+		QrDecomposition(const MatrixView<Real, M, N>& that);
 
 		//! Copy-constructs from another decomposition.
 		QrDecomposition(const QrDecomposition& that);
@@ -69,15 +70,6 @@ namespace Pastel
 		//! Assigns from another decomposition.
 		QrDecomposition& operator=(QrDecomposition that);
 
-		//! Decomposes the given matrix.
-		/*!
-		Exception safety:
-		basic
-
-		Time complexity:
-		O(n^3)
-		*/
-		void decompose(const Matrix<Real, M, N>& that);
 
 		//! Returns the orthogonal matrix Q^T.
 		/*!
@@ -87,7 +79,7 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		const Matrix<Real, M, N>& qTransposed() const;
+		MatrixView<const Real, M, M> qTransposed() const;
 
 		//! Returns the upper triangular matrix R.
 		/*!
@@ -97,13 +89,12 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		const Matrix<Real, M, N>& r() const;
+		MatrixView<const Real, M, N> r() const;
 
 	private:
-		QrDecomposition() = delete;
 		void decompose();
 
-		Matrix<Real, M, N> q_;
+		Matrix<Real, M, M> q_;
 		Matrix<Real, M, N> r_;
 	};
 

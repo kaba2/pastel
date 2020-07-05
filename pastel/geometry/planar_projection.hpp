@@ -299,7 +299,7 @@ namespace Pastel
 		target[6] = to[2][1];
 		target[7] = to[3][1];
 
-		Vector<Real, 8> solution = solveLinear(matrix, target);
+		Vector<Real, 8> solution = solveLinearInplace(view(matrix), target);
 
 		return matrix3x3<Real>(
 			solution[0], solution[3], solution[6],
