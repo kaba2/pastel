@@ -11,12 +11,8 @@ namespace Pastel
 {
 
 	//! Returns the dimension of a point-set.
-	template <
-		PointSet_Concept_ PointSet,
-		Requires<
-			Not<Models<PointSet, Set_Concept>>
-		> = 0
-	>
+	template <PointSet_Concept_ PointSet>
+	requires (!Set_Concept_<PointSet>)
 	bool emptySet(const PointSet& pointSet)
 	{
 		return emptySet(pointSetSet(pointSet));

@@ -52,12 +52,8 @@ namespace Pastel
 	using Point_HasMemberSize = 
 		std::bool_constant<Point_HasMemberSize_<Type>>;
 
-	template <
-		Point_HasMemberSize_ Point,
-		Requires<
-			Not<Point_HasMemberDimension<Point>>
-		> = 0
-	>
+	template <Point_HasMemberSize_ Point>
+	requires (!Point_HasMemberDimension<Point>::value)
 	integer dimension(const Point& point)
 	{
 		return point.size();
@@ -70,13 +66,10 @@ namespace Pastel
 
 	// Dimension by being a number.
 
-	template <
-		Real_Ring_Concept_ Point,
-		Requires<
-			Not<Point_HasMemberSize<Point>>,
-			Not<Point_HasMemberDimension<Point>>
-		> = 0
-	>
+	template <Real_Ring_Concept_ Point>
+	requires
+		(!Point_HasMemberSize<Point>::value &&
+		!Point_HasMemberDimension<Point>::value)
 	integer dimension(const Point& point)
 	{
 		return 1;

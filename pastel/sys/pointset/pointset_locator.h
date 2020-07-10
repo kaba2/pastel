@@ -39,14 +39,11 @@ namespace Pastel
 	}
 
 	//! Returns the default locator of point-set elements.
-	template <
-		Set_Concept_ Set,
-		Requires<
-			Models<Set_Element<Set>, Point_Concept>,
-			// Give priority to the member-locator.
-			Not<HasMemberPointSetLocator<Set>>
-		> = 0
-	>
+	template <Set_Concept_ Set>
+	requires
+		(Point_Concept_<Set_Element<Set>> &&
+		// Give priority to the member-locator.
+		!HasMemberPointSetLocator<Set>::value)
 	decltype(auto) pointSetLocator(const Set& set)
 	{
 		using Point = Set_Element<Set>;

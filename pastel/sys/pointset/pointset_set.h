@@ -29,13 +29,10 @@ namespace Pastel
 	}
 
 
-	template <
-		Set_Concept_ Set,
-		Requires<
-			// Give priority to the member-locator.
-			Not<HasMemberPointSet<Set>>
-		> = 0
-	>
+	template <Set_Concept_ Set>
+	requires 
+		// Give priority to the member-locator.
+		(!HasMemberPointSet<Set>::value)
 	decltype(auto) pointSetSet(Set&& set)
 	{
 		return std::forward<Set>(set);
