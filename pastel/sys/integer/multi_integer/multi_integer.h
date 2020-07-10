@@ -139,12 +139,8 @@ namespace Pastel
 		Time complexity: O(N)
 		Exception safety: strong
 		*/
-		template <
-			bool Signed_ = Signed,
-			Requires<
-				BoolConstant<Signed_>
-			> = 0
-		>
+		template <bool Signed_ = Signed>
+		requires Signed_
 		MultiInteger(MinusInfinity)
 			: MultiInteger(Infinity())
 		{
@@ -182,13 +178,10 @@ namespace Pastel
 
 		The assigned value is mod(that, 2^N).
 		*/
-		template <
-			typename That_Integer,
-			Requires<
-				std::is_unsigned<That_Integer>,
-				Not<std::is_same<That_Integer, bool>>
-			> = 0
-		>
+		template <typename That_Integer>
+		requires 
+			(std::is_unsigned_v<That_Integer> &&
+			!std::is_same_v<That_Integer, bool>)
 		MultiInteger(That_Integer that)
 		: wordSet_()
 		{
@@ -207,12 +200,8 @@ namespace Pastel
 			signExtend();
 		}
 
-		template <
-			typename That_Integer,
-			Requires<
-				std::is_same<That_Integer, bool>
-			> = 0
-		>
+		template <typename That_Integer>
+		requires std::is_same_v<That_Integer, bool>
 		MultiInteger(That_Integer that)
 		: MultiInteger((integer)that)
 		{
@@ -225,10 +214,8 @@ namespace Pastel
 
 		The assigned value is mod(signedToTwosComplement(that), 2^N).
 		*/
-		template <
-			typename That_Integer,
-			Requires<std::is_signed<That_Integer>> = 0
-		>
+		template <typename That_Integer>
+		requires std::is_signed_v<That_Integer>
 		MultiInteger(That_Integer that)
 			: MultiInteger(signedToTwosComplement(that))
 		{
@@ -1226,10 +1213,8 @@ namespace Pastel
 		/*!
 		This calls asNative<Integer>().
 		*/
-		template <
-			typename Integer,
-			Requires<std::is_integral<Integer>> = 0
-		>
+		template <typename Integer>
+		requires std::is_integral_v<Integer>
 		explicit operator Integer() const
 		{
 			return asNative<Integer>();

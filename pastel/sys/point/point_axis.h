@@ -51,12 +51,8 @@ namespace Pastel
 	using Point_HasIndexing = 
 		std::bool_constant<Point_HasIndexing_<T>>;
 
-	template <
-		Point_HasIndexing_ Point,
-		Requires<
-			Not<Point_HasMemberPointAxis<Point>>
-		> = 0
-	>
+	template <Point_HasIndexing_ Point>
+	requires (!Point_HasMemberPointAxis<Point>::value)
 	decltype(auto) pointAxis(Point&& point, integer axis)
 	{
 		return std::forward<Point>(point)[axis];
@@ -82,13 +78,10 @@ namespace Pastel
 	using Point_HasMemberCall = 
 		std::bool_constant<Point_HasMemberCall_<T>>;
 
-	template <
-		Point_HasMemberCall_ Point,
-		Requires<
-			Not<Point_HasMemberPointAxis<Point>>,
-			Not<Point_HasIndexing<Point>>
-		> = 0
-	>
+	template <Point_HasMemberCall_ Point>
+	requires
+		(!Point_HasMemberPointAxis<Point>::value &&
+		!Point_HasIndexing<Point>::value)
 	decltype(auto) pointAxis(Point&& point, integer axis)
 	{
 		return std::forward<Point>(point)(axis);
@@ -100,14 +93,11 @@ namespace Pastel
 {
 	// Coordinates by being a number.
 
-	template <
-		Real_Ring_Concept_ Point,
-		Requires<
-			Not<Point_HasMemberCall<Point>>,
-			Not<Point_HasMemberPointAxis<Point>>,
-			Not<Point_HasIndexing<Point>>
-		> = 0
-	>
+	template <Real_Ring_Concept_ Point>
+	requires
+		(!Point_HasMemberCall<Point>::value &&
+		!Point_HasMemberPointAxis<Point>::value &&
+		!Point_HasIndexing<Point>::value)
 	Point pointAxis(Point point, integer axis)
 	{
 		return point;

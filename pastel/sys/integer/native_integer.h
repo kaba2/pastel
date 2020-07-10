@@ -19,17 +19,15 @@ namespace Pastel
 
 	// Integer
 
-	template <
-		typename Type, 
-		Requires<std::is_unsigned<Type>> = 0>
+	template <typename Type>
+	requires std::is_unsigned_v<Type>
 	bool even(const Type& that)
 	{
 		return (that & 1) == 0;
 	}
 
-	template <
-		typename Type, 
-		Requires<std::is_signed<Type>> = 0>
+	template <typename Type>
+	requires std::is_signed_v<Type>
 	bool even(const Type& that)
 	{
 		// This should read the following, but I can not 
@@ -43,17 +41,15 @@ namespace Pastel
 		return even((Unsigned)that);
 	}
 
-	template <
-		typename Type, 
-		Requires<std::is_integral<Type>> = 0>
+	template <typename Type>
+	requires std::is_integral_v<Type>
 	bool odd(const Type& that)
 	{
 		return !even(that);
 	}
 
-	template <
-		typename Type, 
-		Requires<std::is_integral<Type>> = 0>
+	template <typename Type>
+	requires std::is_integral_v<Type>
 	ScientificNotation asScientific(const Type& that)
 	{
 		return ScientificNotation {negative(that), 0, abs(that)};

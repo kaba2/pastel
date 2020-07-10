@@ -8,10 +8,8 @@ namespace Pastel
 
 	// Finite integer
 
-	template <
-		typename Type, 
-		Requires<std::is_integral<Type>> = 0
-	>
+	template <typename Type>
+	requires std::is_integral_v<Type>
 	integer bits(const Type& that)
 	{
 		return SizeInBits<Type>::value;
