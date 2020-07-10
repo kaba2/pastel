@@ -39,9 +39,8 @@ namespace Pastel
 			{
 			}
 
-			template <
-				typename That, 
-				Requires<std::is_convertible<That, Type>> = 0>
+			template <typename That>
+			requires std::is_convertible_v<That, Type>
 			Incidence_Iterator(const Incidence_Iterator<That>& that)
 				: Incidence_Iterator::iterator_adaptor_(that.base()) 
 			{

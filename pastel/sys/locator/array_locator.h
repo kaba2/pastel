@@ -18,11 +18,9 @@ namespace Pastel
 
 	template <
 		typename Type,
-		int N,
-		Requires<
-			Models<std::array<Type, N>, Point_Concept>
-		> = 0
+		int N
 	>
+	requires Point_Concept_<std::array<Type, N>>
 	decltype(auto) pointLocator(std::array<Type, N>&& point)
 	{
 		return Default_Locator<std::array<Type, N>, Type, N>(N);

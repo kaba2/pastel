@@ -26,7 +26,8 @@ namespace Pastel
 	form, and stores it in the bits of the corresponding unsigned integer 
 	type.
 	*/	
-	template <typename Integer, Requires<std::is_signed<Integer>> = 0>
+	template <typename Integer>
+	requires std::is_signed_v<Integer>
 	typename std::make_unsigned<Integer>::type 
 	signedToTwosComplement(const Integer& that)
 	{
@@ -58,7 +59,8 @@ namespace Pastel
 	representations the corresponding number -2^{n - 1} does 
 	not exist.
 	*/	
-	template <typename Finite_Integer, Requires<std::is_unsigned<Finite_Integer>> = 0>
+	template <typename Finite_Integer> 
+	requires std::is_unsigned_v<Finite_Integer>
 	typename std::make_signed<Finite_Integer>::type
 		twosComplementToSigned(const Finite_Integer& that)
 	{
@@ -128,7 +130,8 @@ namespace Pastel
 	A two's complement integer is negative if and only if
 	its most-significant bit is 1.
 	*/
-	template <typename Finite_Integer, Requires<std::is_unsigned<Finite_Integer>> = 0>
+	template <typename Finite_Integer> 
+	requires std::is_unsigned_v<Finite_Integer>
 	bool twosComplementNegative(const Finite_Integer& that)
 	{
 		// A two's complement integer is negative if and only if
@@ -147,7 +150,8 @@ namespace Pastel
 	where
 	that is interpreted by its two's complement value.
 	*/
-	template <typename Finite_Integer, Requires<std::is_unsigned<Finite_Integer>> = 0>
+	template <typename Finite_Integer> 
+	requires std::is_unsigned_v<Finite_Integer>
 	Finite_Integer arithmeticShiftRight(
 			const Finite_Integer& that, 
 			integer n)
@@ -186,7 +190,8 @@ namespace Pastel
 	n >= 0
 	Finite_Integer is an unsigned native integer.
 	*/
-	template <typename Finite_Integer, Requires<std::is_unsigned<Finite_Integer>> = 0>
+	template <typename Finite_Integer> 
+	requires std::is_unsigned_v<Finite_Integer>
 	Finite_Integer shiftRight(
 			const Finite_Integer& that, 
 			integer n)
@@ -211,7 +216,8 @@ namespace Pastel
 	n >= 0
 	Finite_Integer is a signed native integer.
 	*/
-	template <typename Finite_Integer, Requires<std::is_signed<Finite_Integer>> = 0>
+	template <typename Finite_Integer>
+	requires std::is_signed_v<Finite_Integer>
 	Finite_Integer shiftRight(
 			const Finite_Integer& that, 
 			integer n)
