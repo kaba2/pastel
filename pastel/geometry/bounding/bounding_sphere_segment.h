@@ -5,18 +5,19 @@
 
 #include "pastel/geometry/shape/sphere.h"
 #include "pastel/geometry/shape/segment.h"
+#include "pastel/geometry/bounding/bounding_sphere_pointset.h"
 
 namespace Pastel
 {
 
 	//! Finds the minimum volume bounding sphere of a line segment.
-
 	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
-		const Segment<Real, N>& segment);
+		const Segment<Real, N>& segment)
+	{
+		return Pastel::boundingSphere(segment.start(), segment.end());
+	}
 
 }
-
-#include "pastel/geometry/bounding/bounding_sphere_segment.hpp"
 
 #endif

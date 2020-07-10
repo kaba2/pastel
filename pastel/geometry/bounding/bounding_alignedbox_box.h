@@ -10,13 +10,24 @@ namespace Pastel
 {
 
 	//! Bounding aligned box of an oriented box.
-
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
-		const Box<Real, N>& box);
+		const Box<Real, N>& box)
+	{
+		// An oriented box is an affine 
+		// transformation of an aligned box.
+		// You can find the derivation in
+		// 'bounding_alignedbox_alignedbox.h'.
+		
+		Vector<Real, N> radius =
+			box.width() * abs(box.rotation());
+		
+		AlignedBox<Real, N> result(
+			box.position() - radius, box.position() + radius);
+
+		return result;
+	}
 
 }
-
-#include "pastel/geometry/bounding/bounding_alignedbox_box.hpp"
 
 #endif
