@@ -5,6 +5,7 @@
 
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/vector.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
@@ -20,7 +21,6 @@ namespace Pastel
 	(N - 1)-flat is a (hyper)plane.
 	Clearly it must be that M <= N.
 	*/
-
 	template <typename Real, int N, int M>
 	class Flat
 	{
@@ -34,19 +34,39 @@ namespace Pastel
 		// Using default assignment.
 
 		// Used for concept checking.
-		~Flat();
+		~Flat()
+		{
+			PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
+			PASTEL_STATIC_ASSERT(M <= N);
+		}
 
 		//! Sets the position of the flat.
-		void setPosition(const Vector<Real, N>& position);
+		void setPosition(const Vector<Real, N>& position)
+		{
+			position_ = position;
+		}
 
 		//! Returns the position of the flat.
-		const Vector<Real, N>& position() const;
+		const Vector<Real, N>& position() const
+		{
+			return position_;
+		}
 
 		//! Returns a specific tangent vector of the flat.
-		Vector<Real, N>& operator[](integer index);
+		Vector<Real, N>& operator[](integer index)
+		{
+			PENSURE2(index >= 0 && index < M, index, M);
+
+			return tangent_[index];
+		}
 
 		//! Returns a specific tangent vector of the flat.
-		const Vector<Real, N>& operator[](integer index) const;
+		const Vector<Real, N>& operator[](integer index) const
+		{
+			PENSURE2(index >= 0 && index < M, index, M);
+
+			return tangent_[index];
+		}
 
 	private:
 		Vector<Real, N> position_;
@@ -54,7 +74,5 @@ namespace Pastel
 	};
 
 }
-
-#include "pastel/geometry/shape/flat.hpp"
 
 #endif

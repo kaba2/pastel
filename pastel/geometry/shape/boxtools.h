@@ -16,10 +16,15 @@ namespace Pastel
 	of the Box are broken down and some geometric
 	algorithms work incorrectly.
 	*/
-
 	template <typename Real, int N>
 	Box<Real, N>& operator*=(Box<Real, N>& box,
-		const AffineTransformation<Real>& rigidTransform);
+		const AffineTransformation<Real>& rigidTransform)
+	{
+		box.setPosition(box.position() * rigidTransform);
+		box.setRotation(box.rotation() * rigidTransform);
+
+		return box;
+	}
 
 	//! Returns an box transformed by the given transformation.
 	/*!
@@ -28,13 +33,16 @@ namespace Pastel
 	of the Box are broken down and some geometric
 	algorithms work incorrectly.
 	*/
-
 	template <typename Real, int N>
 	Box<Real, N> operator*(const Box<Real, N>& box,
-		const AffineTransformation<Real>& rigidTransform);
+		const AffineTransformation<Real>& rigidTransform)
+	{
+		return Box<Real, N>(
+			box.position() * rigidTransform,
+			box.width(),
+			box.rotation() * rigidTransform);
+	}
 
 }
-
-#include "pastel/geometry/shape/box_tools.hpp"
 
 #endif

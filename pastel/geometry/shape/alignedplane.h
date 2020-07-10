@@ -204,6 +204,4 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/shape/alignedplane.hpp"
-
 #endif

@@ -35,44 +35,105 @@ namespace Pastel
 		// Using default destructor.
 
 		//! Construct a line parallel to x-axis.
-		Line();
+		Line()
+		: position_(0)
+		, direction_(unitAxis<Real, N>(0))
+		, inverseDirection_(inverse(direction_))
+		{
+			PASTEL_STATIC_ASSERT(N != Dynamic);
+		}
 
 		//! Construct a line parallel to x-axis.
-		explicit Line(integer dimension);
+		explicit Line(integer dimension)
+		: position_(ofDimension(dimension), 0)
+		, direction_(unitAxis<Real, N>(dimension, 0))
+		, inverseDirection_(inverse(direction_))
+		{
+		}
 
 		//! Construct a line given position and direction.
 		Line(const Vector<Real, N>& position,
-			const Vector<Real, N>& unitDirection);
+			const Vector<Real, N>& unitDirection)
+		: position_(position)
+		, direction_(unitDirection)
+		, inverseDirection_(inverse(unitDirection))
+		{
+			PASTEL_STATIC_ASSERT(N != Dynamic);
+		}
 
 		//! Construct a line given position and direction.
 		Line(integer dimension, 
 			const Vector<Real, N>& position,
-			const Vector<Real, N>& unitDirection);
+			const Vector<Real, N>& unitDirection)
+		: position_(position)
+		, direction_(unitDirection)
+		, inverseDirection_(inverse(unitDirection))
+		{
+			PENSURE_OP(dimension, ==, position.n());
+			PENSURE_OP(dimension, ==, unitDirection.n());
+		}
 
 		// Used for concept checking.
-		~Line();
+		~Line()
+		{
+			PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
+		}
 
 		//! Swaps two lines.
-		void swap(Line<Real, N>& that);
+		void swap(Line<Real, N>& that)
+		{
+			using std::swap;
+			using std::swap;
+
+			swap(position_, that.position_);
+			swap(direction_, that.direction_);
+			swap(inverseDirection_, that.inverseDirection_);
+		}
 
 		//! Sets the position and direction of the line.
 		void set(const Vector<Real, N>& position,
-			const Vector<Real, N>& unitDirection);
+			const Vector<Real, N>& unitDirection)
+		{
+			setPosition(position);
+			setDirection(unitDirection);
+		}
 
 		//! Returns the dimension of the line.
-		integer n() const;
+		integer n() const
+		{
+			return position_.n();
+		}
 
 		//! Sets the position of the line.
-		void setPosition(const Vector<Real, N>& position);
+		void setPosition(const Vector<Real, N>& position)
+		{
+			PENSURE_OP(position_.n(), ==, position.n());
+
+			position_ = position;
+		}
 
 		//! Returns the position of the line.
-		const Vector<Real, N>& position() const;
+		const Vector<Real, N>& position() const
+		{
+			return position_;
+		}
 
 		//! Sets the direction of the line.
-		void setDirection(const Vector<Real, N>& unitDirection);
+		void setDirection(const Vector<Real, N>& unitDirection)
+		{
+			PENSURE_OP(direction_.n(), ==, unitDirection.n());
+
+			direction_ = unitDirection;
+
+			inverseDirection_ =
+				inverse(unitDirection);
+		}
 
 		//! Returns the direction of the line.
-		const Vector<Real, N>& direction() const;
+		const Vector<Real, N>& direction() const
+		{
+			return direction_;
+		}
 
 		//! Returns the direction of the line inverted.
 		/*!
@@ -80,22 +141,52 @@ namespace Pastel
 		is meant to enable faster algorithms since
 		division is costly to compute.
 		*/
-		const Vector<Real, N>& inverseDirection() const;
+		const Vector<Real, N>& inverseDirection() const
+		{
+			return inverseDirection_;
+		}
 
 		//! Returns the point (position + t * direction).
-		Vector<Real, N> at(const Real& t) const;
+		Vector<Real, N> at(const Real& t) const
+		{
+			return position_ + direction_ * t;
+		}
 
 		//! Translates the line by the given vector.
-		Line<Real, N>& operator+=(const Vector<Real, N>& that);
+		Line<Real, N>& operator+=(const Vector<Real, N>& that)
+		{
+			position_ += that;
+
+			return *this;
+		}
 
 		//! Translates the line backwards by the given vector.
-		Line<Real, N>& operator-=(const Vector<Real, N>& that);
+		Line<Real, N>& operator-=(const Vector<Real, N>& that)
+		{
+			position_ -= that;
+
+			return *this;
+		}
 
 		//! Scales up the line without affecting position.
-		Line<Real, N>& operator*=(const Real& that);
+		Line<Real, N>& operator*=(const Real& that)
+		{
+			// Do nothing.
+			
+			unused(that);
+
+			return *this;
+		}
 
 		//! Scales down the line without affecting position.
-		Line<Real, N>& operator/=(const Real& that);
+		Line<Real, N>& operator/=(const Real& that)
+		{
+			PENSURE_OP(that, !=, 0);
+
+			// Do nothing.
+
+			return *this;
+		}
 
 	private:
 		Vector<Real, N> position_;
@@ -110,7 +201,5 @@ namespace Pastel
 	using LineD = Line<dreal, Dynamic>;
 
 }
-
-#include "pastel/geometry/shape/line.hpp"
 
 #endif
