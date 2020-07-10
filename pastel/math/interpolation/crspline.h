@@ -6,11 +6,12 @@
 
 #include "pastel/sys/mytypes.h"
 
+#include "pastel/math/hermite.h"
+
 namespace Pastel
 {
 
 	//! Evaluates a Catmull-Rom spline.
-
 	/*!
 	Given a sequence of points p = (p1, p2, ...),
 	a Catmull-Rom spline interpolates
@@ -30,19 +31,23 @@ namespace Pastel
 	one such segment is a special case of a
 	cubic Hermite curve, see cubicHermite() function.
 	*/
-
-	template <
-		typename PointType,
+	template <typename PointType,
 		typename Real>
 		PointType crSpline(
 		const PointType& previousPoint,
 		const PointType& startPoint,
 		const PointType& endPoint,
 		const PointType& nextPoint,
-		const Real& time);
+		const Real& time)
+	{
+		return cubicHermite(
+			startPoint,
+			(endPoint - previousPoint) * 0.5,
+			endPoint,
+			(nextPoint - startPoint) * 0.5,
+			time);
+	}
 
 }
-
-#include "pastel/math/crspline.hpp"
 
 #endif

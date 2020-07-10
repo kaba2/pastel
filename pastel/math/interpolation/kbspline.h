@@ -5,6 +5,7 @@
 #define PASTELMATH_KBSPLINE_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/math/hermite.h"
 
 namespace Pastel
 {
@@ -22,7 +23,6 @@ namespace Pastel
 	this curve is a special case of a cubic
 	Hermite curve, see cubicHermite().
 	*/
-
 	template <
 		typename PointType,
 		typename Real>
@@ -33,10 +33,37 @@ namespace Pastel
 		const Real& tension,
 		const Real& bias,
 		const Real& continuity,
-		const Real& time);
+		const Real& time)
+	{
+		Real mTension(1 - tension);
+		Real mBias(1 - bias);
+		Real pBias(1 + bias);
+		Real mContinuity(1 - continuity);
+		Real pContinuity(1 + continuity);
+
+		Real baFactor1 =
+			mTension * pBias *
+			mContinuity * Real(0.5);
+		Real cbFactor1 =
+			mTension * mBias *
+			pContinuity * Real(0.5);
+		Real baFactor2 =
+			mTension * pBias *
+			pContinuity * Real(0.5);
+		Real cbFactor2 =
+			mTension * mBias *
+			mContinuity * Real(0.5);
+
+		return hermite(
+			startPoint,
+			(startPoint - previousPoint) * baFactor1 +
+			(endPoint - startPoint) * cbFactor1,
+			endPoint,
+			(startPoint - previousPoint) * baFactor2 +
+			(endPoint - startPoint) * cbFactor2,
+			time);
+	}
 
 }
-
-#include "pastel/math/kbspline.hpp"
 
 #endif

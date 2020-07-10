@@ -3,8 +3,6 @@
 #ifndef PASTELMATH_MATRIX_H
 #define PASTELMATH_MATRIX_H
 
-#include "pastel/math/matrix/matrix_expression.h"
-
 #include "pastel/sys/array.h"
 #include "pastel/sys/memory_overlaps.h"
 #include "pastel/sys/iterator/sparse_iterator.h"
