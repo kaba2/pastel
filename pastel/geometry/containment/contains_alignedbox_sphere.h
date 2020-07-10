@@ -5,6 +5,8 @@
 
 #include "pastel/geometry/shape/alignedbox.h"
 #include "pastel/geometry/shape/sphere.h"
+#include "pastel/geometry/containment/contains_alignedbox_alignedbox.h"
+#include "pastel/geometry/bounding/bounding_alignedbox.h"
 
 namespace Pastel
 {
@@ -13,10 +15,12 @@ namespace Pastel
 	template <typename Real, int N>
 	bool contains(
 		const AlignedBox<Real, N>& outerBox,
-		const Sphere<Real, N>& innerSphere);
+		const Sphere<Real, N>& innerSphere)
+	{
+		return Pastel::contains(
+			outerBox, boundingAlignedBox(innerSphere));
+	}
 
 }
-
-#include "pastel/geometry/containment/contains_alignedbox_sphere.hpp"
 
 #endif

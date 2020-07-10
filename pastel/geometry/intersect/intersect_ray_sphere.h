@@ -9,6 +9,8 @@
 #include "pastel/geometry/shape/sphere.h"
 #include "pastel/sys/vector.h"
 
+#include "pastel/geometry/intersect/intersect_line_sphere.h"
+
 namespace Pastel
 {
 
@@ -28,15 +30,33 @@ namespace Pastel
 	will always be two intersections, even if the
 	hit is tangential.
 	*/
-
 	template <typename Real, int N>
 	integer intersect(
 		const Ray<Real, N>& ray,
 		const Sphere<Real, N>& sphere,
-		Vector<Real, 2>& hitList);
+		Vector<Real, 2>& hitList)
+	{
+		Vector<Real, 2> t;
+		if (!intersect(ray.line(), sphere, t))
+		{
+			return 0;
+		}
+
+		if (t[1] < 0)
+		{
+			return 0;
+		}
+
+		if (t[0] < 0)
+		{
+			hitList[0] = t[1];
+			return 1;
+		}
+
+		hitList = t;
+		return 2;
+	}
 
 }
-
-#include "pastel/geometry/intersect/intersect_ray_sphere.hpp"
 
 #endif

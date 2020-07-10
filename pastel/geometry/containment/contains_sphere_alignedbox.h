@@ -13,10 +13,20 @@ namespace Pastel
 	template <typename Real, int N>
 	bool contains(
 		const Sphere<Real, N>& outerSphere,
-		const AlignedBox<Real, N>& innerBox);
+		const AlignedBox<Real, N>& innerBox)
+	{
+		Vector<Real, N> boxCenter =
+			linear(innerBox.min(), innerBox.max(), 0.5);
+
+		Vector<Real, N> boxRadius =
+			innerBox.extent() / 2;
+
+		Real cornerDistance2 =
+			dot(abs(innerSphere.position() - boxCenter) + boxRadius);
+
+		return cornerDistance2 <= innerSphere.radius() * innerSphere.radius();
+	}
 
 }
-
-#include "pastel/geometry/containment/contains_sphere_alignedbox.hpp"
 
 #endif
