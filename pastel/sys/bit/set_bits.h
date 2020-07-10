@@ -17,7 +17,8 @@ namespace Pastel
 	Preconditions:
 	0 <= begin <= end
 	*/
-	template <typename Integer, Requires<std::is_unsigned<Integer>> = 0>
+	template <typename Integer>
+	requires std::is_unsigned_v<Integer>
 	Integer setBits(
 		const Integer& that,
 		integer begin,

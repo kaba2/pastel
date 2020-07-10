@@ -31,10 +31,15 @@ namespace Pastel
 			return std::numeric_limits<Type>::min();
 		}
 
-		template <typename Type>
-		requires
-			std::is_integral_v<Type> ||
-			std::is_floating_point_v<Type>
+		template <
+			typename Type,
+			Requires<
+				Or<
+					std::is_integral<Type>,
+					std::is_floating_point<Type>
+				>
+			> = 0
+		>
 		bool operator==(const Type& that) const
 		{
 			return that == (Type)*this;
@@ -46,8 +51,15 @@ namespace Pastel
 			return that != that;
 		}
 
-		template <typename Type>
-		requires std::is_floating_point_v<Type>
+		template <
+			typename Type,
+			Requires<
+				Or<
+					std::is_integral<Type>,
+					std::is_floating_point<Type>
+				>
+			> = 0
+		>
 		bool operator!=(const Type& that) const
 		{
 			return !(that == *this);

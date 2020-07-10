@@ -29,7 +29,8 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Type, Requires<NumberOfOneBits_::IsUnsigned<Type, 64>> = 0>
+	template <typename Type>
+	requires NumberOfOneBits_::IsUnsigned<Type, 64>::value
 	integer numberOfOneBits(Type that);
 
 	//! Returns the number of 1-bits in a 32-bit unsigned integer.
@@ -37,7 +38,8 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Type, Requires<NumberOfOneBits_::IsUnsigned<Type, 32>> = 0>
+	template <typename Type>
+	requires NumberOfOneBits_::IsUnsigned<Type, 32>::value
 	integer numberOfOneBits(Type that);
 
 	//! Returns the number of 1-bits in a 16-bit unsigned integer.
@@ -45,7 +47,8 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Type, Requires<NumberOfOneBits_::IsUnsigned<Type, 16>> = 0>
+	template <typename Type>
+	requires NumberOfOneBits_::IsUnsigned<Type, 16>::value
 	integer numberOfOneBits(Type that);
 
 	//! Returns the number of 1-bits in an 8-bit unsigned integer.
@@ -53,7 +56,8 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <typename Type, Requires<NumberOfOneBits_::IsUnsigned<Type, 8>> = 0>
+	template <typename Type>
+	requires NumberOfOneBits_::IsUnsigned<Type, 8>::value
 	integer numberOfOneBits(Type that);
 
 }

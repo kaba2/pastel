@@ -11,9 +11,8 @@ namespace Pastel
 
 	// Multiplicative group
 
-	template <
-		typename Type, 
-		Requires<std::is_floating_point<Type>> = 0>
+	template <typename Type>
+	requires std::is_floating_point_v<Type>
 	Type inverse(Type that)
 	{
 		return 1 / that;

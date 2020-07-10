@@ -6,7 +6,8 @@
 namespace Pastel
 {
 
-	template <typename Type, Requires<NumberOfOneBits_::IsUnsigned<Type, 64>>>
+	template <typename Type>
+	requires NumberOfOneBits_::IsUnsigned<Type, 64>::value
 	integer numberOfOneBits(Type that)
 	{
 		that = 
@@ -36,7 +37,8 @@ namespace Pastel
 		return (integer)that;
 	}
 
-	template <typename Type, Requires<NumberOfOneBits_::IsUnsigned<Type, 32>>>
+	template <typename Type>
+	requires NumberOfOneBits_::IsUnsigned<Type, 32>::value
 	integer numberOfOneBits(Type that)
 	{
 		that = 
@@ -62,7 +64,8 @@ namespace Pastel
 		return (integer)that;
 	}
 
-	template <typename Type, Requires<NumberOfOneBits_::IsUnsigned<Type, 16>>>
+	template <typename Type>
+	requires NumberOfOneBits_::IsUnsigned<Type, 16>::value
 	integer numberOfOneBits(Type that)
 	{
 		that = 
@@ -84,7 +87,8 @@ namespace Pastel
 		return (integer)that;
 	}
 
-	template <typename Type, Requires<NumberOfOneBits_::IsUnsigned<Type, 8>>>
+	template <typename Type>
+	requires NumberOfOneBits_::IsUnsigned<Type, 8>::value
 	integer numberOfOneBits(Type that)
 	{
 		that = 

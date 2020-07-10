@@ -37,22 +37,17 @@ namespace Pastel
 	// Support abs() for floating-point and signed integers.
 	using std::abs;
 
-	template <
-		typename Type, 
-		RequiresSome<
-			std::is_floating_point<Type>,
-			std::is_signed<Type>
-		> = 0
-	>
+	template <typename Type>
+	requires 
+		std::is_floating_point_v<Type> ||
+		std::is_signed_v<Type>
 	bool negative(const Type& that)
 	{
 		return that < 0;
 	}
 
-	template <
-		typename Type, 
-		Requires<std::is_unsigned<Type>> = 0
-	>
+	template <typename Type>
+	requires std::is_unsigned_v<Type>
 	bool negative(const Type& that)
 	{
 		// An unsigned integer is never negative.
