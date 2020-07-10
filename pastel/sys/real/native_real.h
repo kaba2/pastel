@@ -29,9 +29,8 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <
-		typename Type, 
-		Requires<std::is_floating_point<Type>> = 0>
+	template <typename Type>
+	requires std::is_floating_point_v<Type>
 	ScientificNotation asScientific(const Type& that)
 	{
 		return ieeeFloatAsScientific(that);

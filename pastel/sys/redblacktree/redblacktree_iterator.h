@@ -55,8 +55,8 @@ namespace Pastel
 
 			template <
 				typename That_NodePtr,
-				bool That_DereferenceToData,
-				Requires<std::is_convertible<That_NodePtr, NodePtr>> = 0>
+				bool That_DereferenceToData>
+			requires std::is_convertible_v<That_NodePtr, NodePtr>
 			Iterator(
 				const Iterator<That_NodePtr, Node_Settings, That_DereferenceToData>& that)
 				: Iterator::iterator_adaptor_(that.base()) 

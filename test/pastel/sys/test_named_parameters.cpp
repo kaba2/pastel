@@ -57,11 +57,9 @@ namespace
 
 	template <
 		typename Point,
-		typename... ArgumentSet,
-		Requires<
-			std::is_integral<Point>
-		> = 0
+		typename... ArgumentSet
 	>
+	requires std::is_integral_v<Point>
 	float distance(
 		const Point& a, const Point& b, 
 		ArgumentSet&&... argumentSet)

@@ -9,25 +9,22 @@ namespace Pastel
 
 	// Real
 
-	template <
-		typename Type, 
-		Requires<IsTemplateInstance<Type, Rational>> = 0>
+	template <typename Type>
+	requires IsTemplateInstance<Type, Rational>::value
 	bool isNan(const Type& that)
 	{
 		return that.isNan();
 	}
 
-	template <
-		typename Type, 
-		Requires<IsTemplateInstance<Type, Rational>> = 0>
+	template <typename Type>
+	requires IsTemplateInstance<Type, Rational>::value
 	bool isInfinity(const Type& that)
 	{
 		return that.isInfinity();
 	}
 
-	template <
-		typename Type, 
-		Requires<IsTemplateInstance<Type, Rational>> = 0>
+	template <typename Type>
+	requires IsTemplateInstance<Type, Rational>::value
 	bool isMinusInfinity(const Type& that)
 	{
 		return that.isMinusInfinity();

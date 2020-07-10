@@ -97,19 +97,8 @@ namespace Pastel
 		{
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ > 1)> = 0>
-		explicit Vector(const Real& that)
-			: data_(that)
-		{
-		}
-
 		// Allow implicit conversion for 1-d vectors.
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 1)> = 0>
-		Vector(const Real& that)
+		explicit(N > 1) Vector(const Real& that)
 			: data_(that)
 		{
 		}
@@ -136,27 +125,21 @@ namespace Pastel
 			}
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 2)> = 0>
-		Vector(const Real& x, const Real& y)
+		template <int N_ = N>
+		Vector(const Real& x, const Real& y) requires (N == 2)
 		{
 			set(x, y);
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 3)> = 0>
-		Vector(const Real& x, const Real& y, const Real& z)
+		template <int N_ = N>
+		Vector(const Real& x, const Real& y, const Real& z) requires (N == 3)
 		{
 			set(x, y, z);
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 4)> = 0>
+		template <int N_ = N>
 		Vector(const Real& x, const Real& y, 
-			const Real& z, const Real& w)
+			const Real& z, const Real& w) requires (N == 4)
 		{
 			set(x, y, z, w);
 		}
@@ -535,23 +518,19 @@ namespace Pastel
 			return data_;
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N>
 		void set(
-			const Real& x, const Real& y)
+			const Real& x, const Real& y) requires (N == 2)
 		{
 			Vector& v = *this;
 			v[0] = x;
 			v[1] = y;
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 3)> = 0>
+		template <int N_ = N>
 		void set(
 			const Real& x, const Real& y, 
-			const Real& z)
+			const Real& z) requires (N == 3)
 		{
 			Vector& v = *this;
 			v[0] = x;
@@ -559,12 +538,10 @@ namespace Pastel
 			v[2] = z;
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 4)> = 0>
+		template <int N_ = N>
 		void set(
 			const Real& x, const Real& y, 
-			const Real& z, const Real& w)
+			const Real& z, const Real& w) requires (N == 4)
 		{
 			Vector& v = *this;
 			v[0] = x;
@@ -573,66 +550,50 @@ namespace Pastel
 			v[3] = w;
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 1)> = 0>
-		Real& x()
+		template <int N_ = N>
+		Real& x() requires (N >= 1)
 		{
 			return (*this)[0];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 1)> = 0>
-		const Real& x() const
+		template <int N_ = N>
+		const Real& x() const requires (N >= 1)
 		{
 			return (*this)[0];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 2)> = 0>
-		Real& y()
+		template <int N_ = N>
+		Real& y() requires (N >= 2)
 		{
 			return (*this)[1];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 2)> = 0>
-		const Real& y() const
+		template <int N_ = N>
+		const Real& y() const requires (N >= 2)
 		{
 			return (*this)[1];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 3)> = 0>
-		Real& z()
+		template <int N_ = N>
+		Real& z() requires (N >= 3)
 		{
 			return (*this)[2];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 3)> = 0>
-		const Real& z() const
+		template <int N_ = N>
+		const Real& z() const requires (N >= 3)
 		{
 			return (*this)[2];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 4)> = 0>
-		Real& w()
+		template <int N_ = N>
+		Real& w() requires (N >= 4)
 		{
 			return (*this)[3];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 4)> = 0>
-		const Real& w() const
+		template <int N_ = N>
+		const Real& w() const requires (N >= 4)
 		{
 			return (*this)[3];
 		}

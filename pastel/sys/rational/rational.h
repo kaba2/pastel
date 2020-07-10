@@ -96,20 +96,17 @@ namespace Pastel
 		/*! 
 		Implicit conversion allowed.
 		*/
-		template <
-			typename That_Integer,
-			Requires<Rational_::IsNativeOrInteger<Integer, That_Integer>> = 0>
+		template <typename That_Integer>
+		requires Rational_::IsNativeOrInteger<Integer, That_Integer>::value
 		Rational(That_Integer wholes);
 
 		//! Constructs with the value (m / n).
 		template <
 			typename M_Integer, 
-			typename N_Integer,
-			Requires<
-				Rational_::IsNativeOrInteger<Integer, M_Integer>,
-				Rational_::IsNativeOrInteger<Integer, N_Integer>
-			> = 0
-		>
+			typename N_Integer>
+		requires 
+			Rational_::IsNativeOrInteger<Integer, M_Integer>::value &&
+			Rational_::IsNativeOrInteger<Integer, N_Integer>::value
 		Rational(
 			M_Integer m,
 			N_Integer n);
@@ -153,8 +150,8 @@ namespace Pastel
 		*/
 		template <
 			typename Real,
-			typename... ArgumentSet,
-			Requires<std::is_floating_point<Real>> = 0>
+			typename... ArgumentSet>
+		requires std::is_floating_point_v<Real>
 		Rational(
 			Real that,
 			ArgumentSet&&... argumentSet);
@@ -177,9 +174,8 @@ namespace Pastel
 		const Integer& n() const;
 
 		//! Returns an approximating dreal number.
-		template <
-			typename Real,
-			Requires<std::is_floating_point<Real>> = 0>
+		template <typename Real>
+		requires std::is_floating_point_v<Real>
 		Real asReal() const;
 
 		//! Returns the number as a ratio of integers.

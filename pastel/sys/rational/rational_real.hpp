@@ -12,9 +12,8 @@ namespace Pastel
 {
 
 	template <typename Integer>
-	template <
-		typename Real,
-		Requires<std::is_floating_point<Real>>>
+	template <typename Real>
+	requires std::is_floating_point_v<Real>
 	Real Rational<Integer>::asReal() const
 	{
 		// Handle the degenerate cases.
@@ -57,8 +56,8 @@ namespace Pastel
 	template <typename Integer>
 	template <
 		typename Real,
-		typename... ArgumentSet,
-		Requires<std::is_floating_point<Real>>>
+		typename... ArgumentSet>
+	requires std::is_floating_point_v<Real>
 	Rational<Integer>::Rational(
 		Real that,
 		ArgumentSet&&... argumentSet)
