@@ -20,7 +20,30 @@ namespace Pastel
 	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
-		const AlignedBox<Real, N>& box);
+		const AlignedBox<Real, N>& box)
+	{
+		PENSURE_OP(plane.n(), ==, box.n());
+
+		if (plane.position() >= box.max()[plane.axis()])
+		{
+			if (plane.position > box.max()[plane.axis()] ||
+				box.maxTopology()[plane.axis()] == Topology::Open)
+			{
+				return false;
+			}
+		}
+
+		if (plane.position() <= box.min()[plane.axis()])
+		{
+			if (plane.position() < box.min()[plane.axis()] ||
+				box.minTopology()[plane.axis()] == Topology::Open)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 	//! Tests if an aligned plane and an aligned box overlap.
 	/*!
@@ -35,10 +58,14 @@ namespace Pastel
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
 		const AlignedBox<Real, N>& box,
-		bool &boxOnPositiveSide);
+		bool &boxOnPositiveSide)
+	{
+		boxOnPositiveSide =
+			box.min()[plane.axis()] > plane.position();
+
+		return overlaps(plane, box);
+	}
 
 }
-
-#include "pastel/geometry/overlap/overlaps_alignedplane_alignedbox.hpp"
 
 #endif

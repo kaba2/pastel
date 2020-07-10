@@ -5,6 +5,7 @@
 
 #include "pastel/geometry/shape/alignedplane.h"
 #include "pastel/geometry/shape/box.h"
+#include "pastel/sys/mytypes.h"
 
 namespace Pastel
 {
@@ -22,7 +23,39 @@ namespace Pastel
 	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
-		const Box<Real, N>& box);
+		const Box<Real, N>& box)
+	{
+		PENSURE_OP(plane.n(), ==, box.n());
+
+		// FIX: The topology of the box is not
+		// handled correctly. The box is assumed
+		// to be closed.
+
+		// Compute the radius of the projection
+		// of the box onto the plane normal.
+
+		Real radius = 0;
+
+		integer n = plane.n();
+		for (integer i = 0;i < n;++i)
+		{
+			// Move on the edges of the box
+			// so that the positive axis direction
+			// is always chosen.
+			// When finished, we will be in the point
+			// where the box's surface is farthest from
+			// its origin. Because the box is symmetric
+			// w.r.t its axes, the minimal point
+			// is also found in -radius.
+
+			radius += abs(box.rotation()[i][plane.axis()]);
+		}
+
+		Real centerDistance =
+			abs(box.position()[plane.axis()] - plane.position());
+
+		return centerDistance <= radius;
+	}
 
 	//! Tests if an aligned plane and an box overlap.
 	/*!
@@ -38,10 +71,14 @@ namespace Pastel
 	bool overlaps(
 		const AlignedPlane<Real, N>& plane,
 		const Box<Real, N>& box,
-		bool& boxOnPositiveSide);
+		bool& boxOnPositiveSide)
+	{
+		boxOnPositiveSide =
+			box.position()[plane.axis()] > plane.position();
+
+		return overlaps(plane, box);
+	}
 
 }
-
-#include "pastel/geometry/overlap/overlaps_alignedplane_box.hpp"
 
 #endif
