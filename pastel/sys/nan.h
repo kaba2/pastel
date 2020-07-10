@@ -17,33 +17,24 @@ namespace Pastel
 	class Nan
 	{
 	public:
-		template <
-			typename Type,
-			Requires<std::is_floating_point<Type>> = 0
-		>
+		template <typename Type>
+		requires std::is_floating_point_v<Type>
 		operator Type() const
 		{
 			return std::numeric_limits<Type>::quiet_NaN();
 		}
 
-		template <
-			typename Type,
-			Requires<std::is_integral<Type>> = 0
-		>
+		template <typename Type>
+		requires std::is_integral_v<Type>
 		operator Type() const
 		{
 			return std::numeric_limits<Type>::min();
 		}
 
-		template <
-			typename Type,
-			Requires<
-				Or<
-					std::is_integral<Type>,
-					std::is_floating_point<Type>
-				>
-			> = 0
-		>
+		template <typename Type>
+		requires
+			std::is_integral_v<Type> ||
+			std::is_floating_point_v<Type>
 		bool operator==(const Type& that) const
 		{
 			return that == (Type)*this;
@@ -55,12 +46,8 @@ namespace Pastel
 			return that != that;
 		}
 
-		template <
-			typename Type,
-			Requires<
-				std::is_floating_point<Type>
-			> = 0
-		>
+		template <typename Type>
+		requires std::is_floating_point_v<Type>
 		bool operator!=(const Type& that) const
 		{
 			return !(that == *this);

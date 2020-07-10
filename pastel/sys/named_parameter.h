@@ -93,12 +93,11 @@ namespace Pastel
 			typename Default,
 			typename Condition,
 			typename Key,
-			typename... ArgumentSet,
-			Requires<
-				IsTag<Key>,
-				BoolConstant<(Tag_Hash<Key>::value == KeyHash)>
-			> ConceptCheck = 0
+			typename... ArgumentSet
 		>
+		requires 
+			IsTag<Key>::value && 
+			(Tag_Hash<Key>::value == KeyHash)
 		static constexpr bool argumentFoundFlag(
 			Default&& defaultValue,
 			Condition&& condition, 
@@ -133,11 +132,9 @@ namespace Pastel
 			typename Default,
 			typename Condition,
 			typename Value,
-			typename... ArgumentSet,
-			Requires<
-				Not<IsTag<Value>>
-			> = 0
+			typename... ArgumentSet
 		>
+		requires (!IsTag<Value>::value)
 		static constexpr decltype(auto) argument(
 			Default&& defaultValue,
 			Condition&& condition, 
@@ -153,12 +150,11 @@ namespace Pastel
 		template <
 			typename Default,
 			typename Condition,
-			typename Key,
-			Requires<
-				IsTag<Key>,
-				BoolConstant<(Tag_Hash<Key>::value == KeyHash)>
-			> ConceptCheck = 0
+			typename Key
 		>
+		requires
+			IsTag<Key>::value &&
+			(Tag_Hash<Key>::value == KeyHash)
 		static constexpr decltype(auto) argument(
 			Default&& defaultValue,
 			Condition&& condition, 
@@ -177,12 +173,11 @@ namespace Pastel
 		template <
 			typename Default,
 			typename Condition,
-			typename Key,
-			Requires<
-				IsTag<Key>,
-				BoolConstant<(Tag_Hash<Key>::value != KeyHash)>
-			> ConceptCheck = 0
+			typename Key
 		>
+		requires
+			IsTag<Key>::value &&
+			(Tag_Hash<Key>::value != KeyHash)
 		static constexpr decltype(auto) argument(
 			Default&& defaultValue,
 			Condition&&,
@@ -200,13 +195,12 @@ namespace Pastel
 			typename Condition,
 			typename Key,
 			typename Value,
-			typename... ArgumentSet,
-			Requires<
-				IsTag<Key>,
-				Not<IsTag<Value>>,
-				BoolConstant<(Tag_Hash<Key>::value == KeyHash)>
-			> ConceptCheck = 0
+			typename... ArgumentSet
 		>
+		requires
+			IsTag<Key>::value &&
+			(!IsTag<Value>::value) &&
+			(Tag_Hash<Key>::value == KeyHash)
 		static constexpr decltype(auto) argument(
 			Default&&,
 			Condition&& condition, 
@@ -241,13 +235,12 @@ namespace Pastel
 			typename Condition,
 			typename Key,
 			typename Value,
-			typename... ArgumentSet,
-			Requires<
-				IsTag<Key>,
-				BoolConstant<(Tag_Hash<Key>::value != KeyHash)>,
-				Not<IsTag<Value>>
-			> ConceptCheck = 0
+			typename... ArgumentSet
 		>
+		requires
+			IsTag<Key>::value &&
+			(Tag_Hash<Key>::value != KeyHash) &&
+			(!IsTag<Value>::value)
 		static constexpr decltype(auto) argument(
 			Default&& defaultValue,
 			Condition&& condition, 
@@ -270,13 +263,12 @@ namespace Pastel
 			typename Condition,
 			typename A_Key,
 			typename B_Key,
-			typename... ArgumentSet,
-			Requires<
-				IsTag<A_Key>,
-				IsTag<B_Key>,
-				BoolConstant<(Tag_Hash<A_Key>::value == KeyHash)>
-			> ConceptCheck = 0
+			typename... ArgumentSet
 		>
+		requires 
+			IsTag<A_Key>::value &&
+			IsTag<B_Key>::value &&
+			(Tag_Hash<A_Key>::value == KeyHash)
 		static constexpr decltype(auto) argument(
 			Default&& defaultValue,
 			Condition&& condition, 
@@ -301,13 +293,12 @@ namespace Pastel
 			typename Condition,
 			typename A_Key,
 			typename B_Key,
-			typename... ArgumentSet,
-			Requires<
-				IsTag<A_Key>,
-				IsTag<B_Key>,
-				BoolConstant<(Tag_Hash<A_Key>::value != KeyHash)>
-			> ConceptCheck = 0
+			typename... ArgumentSet
 		>
+		requires
+			IsTag<A_Key>::value &&
+			IsTag<B_Key>::value &&
+			(Tag_Hash<A_Key>::value != KeyHash)
 		static constexpr decltype(auto) argument(
 			Default&& defaultValue,
 			Condition&& condition, 

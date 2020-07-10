@@ -30,9 +30,8 @@ namespace Pastel
 			{
 			}
 
-			template <
-				typename That_Element,
-				Requires<std::is_convertible<That_Element, Element>> = 0>
+			template <typename That_Element>
+			requires std::is_convertible_v<That_Element, Element>
 			Iterator(const Iterator<That_Element>& that)
 				: Iterator::iterator_adaptor_(that.base()) 
 			{

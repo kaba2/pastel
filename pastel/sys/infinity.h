@@ -18,10 +18,8 @@ namespace Pastel
 	class Infinity_
 	{
 	public:
-		template <
-			typename Type,
-			Requires<std::is_integral<Type>> = 0
-		>
+		template <typename Type>
+		requires std::is_integral_v<Type>
 		operator Type() const
 		{
 			return Positive ? 
@@ -29,10 +27,8 @@ namespace Pastel
 				-std::numeric_limits<Type>::max();
 		}
 
-		template <
-			typename Type,
-			Requires<std::is_floating_point<Type>> = 0
-		>
+		template <typename Type>
+		requires std::is_floating_point_v<Type>
 		operator Type() const
 		{
 			return Positive ?
