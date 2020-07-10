@@ -42,7 +42,7 @@ namespace Pastel
 
 		return locationSet(
 			sparseSet(
-				intervalSet(set.data()(), set.data()() + set.size()), 
+				intervalSet(set.data(), set.data() + set.size()), 
 				set.rows()), 
 			PointerRange_Locator<dreal>(dBegin, dEnd));
 	}

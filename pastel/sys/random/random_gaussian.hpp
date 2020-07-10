@@ -64,7 +64,7 @@ namespace Pastel
 		return Pastel::randomGaussianVector<Real, N>(N);
 	}
 
-	template <typename Real, int N>
+	template <typename Real, int N = Dynamic>
 	Vector<Real, N> randomGaussianVector(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);

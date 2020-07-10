@@ -18,8 +18,6 @@
 
 // FIX: Remove when default error-message becomes available in C++17.
 #define PASTEL_STATIC_ASSERT(...) static_assert((__VA_ARGS__), #__VA_ARGS__);
-#define PASTEL_GETTER(name) \
-	const auto& name() const {return name##_;};
 
 namespace Pastel
 {

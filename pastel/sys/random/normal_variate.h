@@ -12,13 +12,10 @@ namespace Pastel
 	ColMatrix<Real> random(
 		const Normal_Distribution<Real>& distribution)
 	{
-		using Point = typename Normal_Distribution<Real>::Point;
-
-		Point result(distribution.n());
-		result.for_each([](Real& x){x = randomGaussian<Real>();});
+		auto x = randomGaussianVector<Real>(distribution.n());
 
 		return distribution.rotation() * 
-			(distribution.scale() % result);
+			(distribution.scale().array() * asColumnMatrix(x).array()).matrix();
 	}
 
 }

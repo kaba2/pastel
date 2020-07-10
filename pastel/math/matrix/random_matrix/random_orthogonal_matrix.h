@@ -6,6 +6,7 @@
 #include "pastel/math/matrix/matrix.h"
 #include "pastel/sys/random/random_gaussian.h"
 #include "pastel/sys/math/sign.h"
+#include "pastel/math/matrix/matrix_decompositions.h"
 
 #include "pastel/math/matrix.h"
 
@@ -43,15 +44,14 @@ namespace Pastel
 
 		Matrix<Real> x(n, n);
 
-		for (auto& value : x)
+		for (auto& value : view(x).range())
 		{
 			value = randomGaussian<Real>();
 		}
 
-		Matrix<Real> q(n, n);
-		Matrix<Real> r(n, n);
-
-		qr(q, r, x);
+		auto qr = x.colPivHouseholderQr();
+		Matrix<Real> q = qr.householderQ();
+		decltype(auto) r = qr.matrixR();
 
 		for (integer i = 0;i < n;++i)
 		{
@@ -63,7 +63,7 @@ namespace Pastel
 
 		if (orientation != 0)
 		{
-			if (sign(det(q)) != sign(orientation))
+			if (sign(q.determinant()) != sign(orientation))
 			{
 				// While the following gives the correct
 				// determinant, and preserves orthogonality,

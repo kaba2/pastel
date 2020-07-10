@@ -49,8 +49,10 @@ namespace Pastel
 				continue;
 			}
 
+			int n = *j - *i;
+
 			result += std::log(determinant(
-				covariance.submat(*i, *i, *j - 1, *j - 1)));
+				covariance.block(*i, *i, n, n)));
 
 			i = j;
 			++j;

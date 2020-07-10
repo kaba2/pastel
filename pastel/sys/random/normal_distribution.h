@@ -37,20 +37,31 @@ namespace Pastel
 		, rotation_(std::move(rotation))
 		, detCovariance_(0)
 		{
-			ENSURE_OP(mean.n_elem, ==, rotation.rows());
-			ENSURE_OP(mean.n_elem, ==, rotation.cols());
+			ENSURE_OP(mean.size(), ==, rotation.rows());
+			ENSURE_OP(mean.size(), ==, rotation.cols());
 			detCovariance_ = scale_.prod();
 		}
 
 		integer n() const
 		{
-			return mean_.n_elem;
+			return mean_.size();
 		}
 
-		PASTEL_GETTER(mean);
-		PASTEL_GETTER(scale);
-		PASTEL_GETTER(rotation);
-		PASTEL_GETTER(detCovariance);
+		const ColMatrix<Real>& mean() const {
+			return mean_;
+		}
+
+		const ColMatrix<Real>& scale() const {
+			return scale_;
+		}
+
+		const Matrix<Real>& rotation() const {
+			return rotation_;
+		}
+
+		Real detCovariance() const {
+			return detCovariance_;
+		}
 
 	private:
 		ColMatrix<Real> mean_;

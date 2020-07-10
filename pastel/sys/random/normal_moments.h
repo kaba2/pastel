@@ -22,8 +22,8 @@ namespace Pastel
 	decltype(auto) variance(const Normal_Distribution<Real>& distribution)
 	{
 		return distribution.rotation() * 
-			diagonalMatrix(distribution.scale().square()) * 
-			trans(distribution.rotation());
+			diagonalMatrix(distribution.scale().array().square().matrix().eval()) * 
+			distribution.rotation().transpose();
 	}
 
 }
