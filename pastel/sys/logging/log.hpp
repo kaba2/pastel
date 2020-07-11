@@ -77,7 +77,7 @@ namespace Pastel
 		return *this;
 	}
 
-	template <Printable_Concept_ Type>
+	template <Printable_Concept Type>
 	Log& Log::operator<<(const Type& value)
 	{
 		*this << asString(value);

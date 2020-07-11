@@ -66,7 +66,7 @@ namespace Pastel
 
 	// Dimension by being a number.
 
-	template <Real_Ring_Concept_ Point>
+	template <Real_Ring_Concept Point>
 	requires
 		(!Point_HasMemberSize<Point>::value &&
 		!Point_HasMemberDimension<Point>::value)
@@ -80,7 +80,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <Real_Ring_Concept_ Point>
+	template <Real_Ring_Concept Point>
 	IntegerConstant<1> pointN(const Point* point);
 
 	template <typename Real, std::size_t N>

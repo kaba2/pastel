@@ -26,7 +26,7 @@ namespace Pastel
 	template <
 		typename Real, 
 		int N,
-		Point_Concept_ Point,
+		Point_Concept Point,
 		typename... ArgumentSet
 	>
 	requires 
@@ -39,7 +39,7 @@ namespace Pastel
 		PENSURE_OP(alignedBox.n(), ==, dimension(point));
 
 		auto&& norm = 
-			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept);
+			PASTEL_ARG_C(norm, Euclidean_Norm<Real>(), Norm_Concept);
 		
 		// The distance computation between an AlignedBox and a point can
 		// be decomposed into separate computations on each
@@ -94,7 +94,7 @@ namespace Pastel
 	template <
 		typename Real, 
 		int N,
-		Point_Concept_ Point,
+		Point_Concept Point,
 		typename... ArgumentSet
 	>
 	requires 
@@ -105,7 +105,7 @@ namespace Pastel
 		ArgumentSet&&... argumentSet)
 	{
 		auto&& norm = 
-			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept);
+			PASTEL_ARG_C(norm, Euclidean_Norm<Real>(), Norm_Concept);
 
 		auto distance = norm();
 		

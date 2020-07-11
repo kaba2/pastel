@@ -12,13 +12,13 @@ namespace Pastel
 
 	//! A dreal number.
 	template <typename T>
-	concept Real_Concept__ = 
-		Real_Ring_Concept_<T> && 
-		Multiplicative_Group_Concept_<T>;
+	concept Real_Concept_ = 
+		Real_Ring_Concept<T> && 
+		Multiplicative_Group_Concept<T>;
 
 	template <typename T>
-	concept Real_Concept_ =
-		Real_Concept__<RemoveCvRef<T>>;
+	concept Real_Concept =
+		Real_Concept_<RemoveCvRef<T>>;
 
 	using Real_Archetype = dreal;
 

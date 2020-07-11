@@ -21,7 +21,7 @@ namespace Pastel
 	3) Run-time dimension n(p) for each point p (n, N < 0).
 	*/
 	template <typename T>
-	concept Locator_Concept__ = requires(T t, typename T::Point point) {
+	concept Locator_Concept_ = requires(T t, typename T::Point point) {
 		//! The type of the point-ids.
 		typename T::Point;
 		
@@ -60,8 +60,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Locator_Concept_ = 
-		Locator_Concept__<RemoveCvRef<T>>;
+	concept Locator_Concept = 
+		Locator_Concept_<RemoveCvRef<T>>;
 
 }
 

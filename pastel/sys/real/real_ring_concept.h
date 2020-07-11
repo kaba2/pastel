@@ -17,10 +17,10 @@ namespace Pastel
 
 	//! A sub-ring of dreal numbers.
 	template <typename T>
-	concept Real_Ring_Concept__ = 
-		Ordered_Ring_Concept_<T> &&
-		Ring_Concept_<T> &&
-		Additive_SemiGroup_Concept_<T> &&
+	concept Real_Ring_Concept_ = 
+		Ordered_Ring_Concept<T> &&
+		Ring_Concept<T> &&
+		Additive_SemiGroup_Concept<T> &&
 		requires(T t) {
 		//! Constructs with value 0.
 		T();
@@ -55,8 +55,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Real_Ring_Concept_ = 
-		Real_Ring_Concept__<RemoveCvRef<T>>;
+	concept Real_Ring_Concept = 
+		Real_Ring_Concept_<RemoveCvRef<T>>;
 
 	using Real_Ring_Archetype = integer;
 

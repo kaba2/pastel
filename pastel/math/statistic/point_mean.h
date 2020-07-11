@@ -21,7 +21,7 @@ namespace Pastel
 	returns:
 	[sum_{i = 1}^n x_i] / n
 	*/
-	template <PointSet_Concept_ PointSet>
+	template <PointSet_Concept PointSet>
 	auto pointMean(PointSet pointSet)
 		-> Vector<PointSet_Real<PointSet>, Locator_N<PointSet_Locator<PointSet>>::value>
 	{

@@ -16,9 +16,9 @@ namespace Pastel
 	an ordered ring.
 	*/
 	template <typename T>
-	concept Ordered_Field_Concept_ =
-		Ordered_Ring_Concept_<T> &&
-		Multiplicative_Group_Concept_<T>;
+	concept Ordered_Field_Concept =
+		Ordered_Ring_Concept<T> &&
+		Multiplicative_Group_Concept<T>;
 
 }
 

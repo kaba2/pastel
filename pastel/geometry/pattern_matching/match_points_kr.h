@@ -113,8 +113,8 @@ namespace Pastel
 	The bias of the match; in the range [0, 1].
 	*/
 	template <
-		NearestSet_Concept_ Model_NearestSet,
-		NearestSet_Concept_ Scene_NearestSet,
+		NearestSet_Concept Model_NearestSet,
+		NearestSet_Concept Scene_NearestSet,
 		typename... ArgumentSet
 	>
 	decltype(auto) matchPointsKr(
@@ -134,7 +134,7 @@ namespace Pastel
 		integer kNearest = 
 			PASTEL_ARG_S(kNearest, 16);
 
-		auto&& norm = PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept);
+		auto&& norm = PASTEL_ARG_C(norm, Euclidean_Norm<Real>(), Norm_Concept);
 
 		using Distance = decltype(norm());
 
@@ -148,7 +148,7 @@ namespace Pastel
 			PASTEL_ARG_S(maxBias, 0.1);
 		MatchPointsKr_MatchingMode matchingMode = 
 			PASTEL_ARG_S(matchingMode, MatchPointsKr_MatchingMode::First);
-		auto&& report = PASTEL_ARG_SC_(report, nullOutput(), Trivial_Concept);
+		auto&& report = PASTEL_ARG_C(report, nullOutput(), Trivial_Concept);
 
 		ENSURE_OP(kNearest, >, 0);
 		ENSURE(minMatchRatio >= 0);

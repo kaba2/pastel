@@ -57,8 +57,8 @@ namespace Pastel
 	The norm used to measure distance.
 	*/
 	template <
-		NearestSet_Concept_ NearestSet,
-		Point_Concept_ Search_Point,
+		NearestSet_Concept NearestSet,
+		Point_Concept Search_Point,
 		typename... ArgumentSet
 	>
 	integer countNearest(
@@ -72,18 +72,18 @@ namespace Pastel
 		using Real = Point_Real<Search_Point>;
 
 		auto&& report = 
-			PASTEL_ARG_SC_(report, nullOutput(), Trivial_Concept);
+			PASTEL_ARG_C(report, nullOutput(), Trivial_Concept);
 
 		auto&& accept = 
-			PASTEL_ARG_SC1(accept, allIndicator(), Indicator_Concept, PointId);
+			PASTEL_ARG_C1(accept, allIndicator(), Indicator_Concept, PointId);
 
 		auto&& norm = 
-			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept);
+			PASTEL_ARG_C(norm, Euclidean_Norm<Real>(), Norm_Concept);
 
 		using Distance = decltype(norm());
 
 		Distance maxDistance2 = 
-			PASTEL_ARG_SC_(maxDistance2, norm((Real)Infinity()), Distance_Concept);
+			PASTEL_ARG_C(maxDistance2, norm((Real)Infinity()), Distance_Concept);
 
 		if (~maxDistance2 == 0)
 		{

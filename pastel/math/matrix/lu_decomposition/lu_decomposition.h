@@ -271,8 +271,8 @@ namespace Pastel
 	b.size() == a.rows()
 	*/
 	template <
-		Real_Concept_ Real_A, int M_A, int N_A, 
-		Real_Concept_ Real_b, int M_b
+		Real_Concept Real_A, int M_A, int N_A, 
+		Real_Concept Real_b, int M_b
 	>
 	requires 
 		IsSameObject<Real_A, Real_b> &&

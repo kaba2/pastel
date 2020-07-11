@@ -9,19 +9,19 @@ TEST_CASE("indicator (indicator)")
 {
 	struct A {};
 
-	static_assert(Indicator_Concept_<decltype(allIndicator()), integer>);
-	static_assert(Indicator_Concept_<All_Indicator, integer>);
-	static_assert(Indicator_Concept_<All_Indicator, A>);
+	static_assert(Indicator_Concept<decltype(allIndicator()), integer>);
+	static_assert(Indicator_Concept<All_Indicator, integer>);
+	static_assert(Indicator_Concept<All_Indicator, A>);
 
-	static_assert(Indicator_Concept_<Complement_Indicator<All_Indicator>, integer>);
-	static_assert(Indicator_Concept_<Complement_Indicator<All_Indicator>, A>);
+	static_assert(Indicator_Concept<Complement_Indicator<All_Indicator>, integer>);
+	static_assert(Indicator_Concept<Complement_Indicator<All_Indicator>, A>);
 
-	static_assert(Indicator_Concept_<Empty_Indicator, integer>);
-	static_assert(Indicator_Concept_<Empty_Indicator, A>);
+	static_assert(Indicator_Concept<Empty_Indicator, integer>);
+	static_assert(Indicator_Concept<Empty_Indicator, A>);
 
 	{
 		using Indicator = Predicate_Indicator<integer, LessThan>;
-		static_assert(Indicator_Concept_<Indicator, integer>);
+		static_assert(Indicator_Concept<Indicator, integer>);
 	}
 }
 

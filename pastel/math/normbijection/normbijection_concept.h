@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 	template <typename T>
-	concept NormBijection_Concept__ = requires(T t, typename T::Real s) {
+	concept NormBijection_Concept_ = requires(T t, typename T::Real s) {
 		//! The computation type.
 		typename T::Real;
 
@@ -124,7 +124,7 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept NormBijection_Concept_ = NormBijection_Concept__<RemoveCvRef<T>>;
+	concept NormBijection_Concept = NormBijection_Concept_<RemoveCvRef<T>>;
 
 }
 

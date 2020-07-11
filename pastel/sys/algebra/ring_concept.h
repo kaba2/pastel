@@ -25,9 +25,9 @@ namespace Pastel
 	for all x, y, z in X, and
 	*/
 	template <typename T>
-	concept Ring_Concept__ = 
-		Additive_Group_Concept_<T> && 
-		Multiplicative_Monoid_Concept_<T> && 
+	concept Ring_Concept_ = 
+		Additive_Group_Concept<T> && 
+		Multiplicative_Monoid_Concept<T> && 
 		requires(T t) {
 		//! Adds 1 to the element, returns itself.
 		{++t} -> std::convertible_to<T>;
@@ -40,8 +40,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Ring_Concept_ = 
-		Ring_Concept__<RemoveCvRef<T>>;
+	concept Ring_Concept = 
+		Ring_Concept_<RemoveCvRef<T>>;
 
 }
 

@@ -19,8 +19,8 @@ namespace Pastel
 	and + : X^2 --> X is associative.
 	*/
 	template <typename T>
-	concept Additive_SemiGroup_Concept__ = 
-		Element_Concept_<T> && 
+	concept Additive_SemiGroup_Concept_ = 
+		Element_Concept<T> && 
 		requires(T t) {
 		//! Adds 'that' to the element.
 		t += t;
@@ -29,8 +29,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Additive_SemiGroup_Concept_ = 
-		Additive_SemiGroup_Concept__<RemoveCvRef<T>>;
+	concept Additive_SemiGroup_Concept = 
+		Additive_SemiGroup_Concept_<RemoveCvRef<T>>;
 
 	// For native types the operators += and + are inbuilt.
 
@@ -40,8 +40,8 @@ namespace Pastel
 	and * : X^2 --> X is associative.
 	*/
 	template <typename T>
-	concept Multiplicative_SemiGroup_Concept__ = 
-		Element_Concept_<T> && 
+	concept Multiplicative_SemiGroup_Concept_ = 
+		Element_Concept<T> && 
 		requires(T t) {
 		//! Multiplies 'that' to the element.
 		{t *= t} -> std::convertible_to<T>;
@@ -52,8 +52,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Multiplicative_SemiGroup_Concept_ = 
-		Multiplicative_SemiGroup_Concept__<RemoveCvRef<T>>;
+	concept Multiplicative_SemiGroup_Concept = 
+		Multiplicative_SemiGroup_Concept_<RemoveCvRef<T>>;
 
 	// For native types the operators *= and * are inbuilt.
 
@@ -66,7 +66,7 @@ namespace Pastel
 	/*!
 	The notation x^p means to multiply x with itself p times.
 	*/
-	template <Multiplicative_SemiGroup_Concept_ T>
+	template <Multiplicative_SemiGroup_Concept T>
 	T semiGroupPower(T x, integer p)
 	{
 		ENSURE_OP(p, >, 0);

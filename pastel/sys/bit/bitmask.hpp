@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <Finite_Integer_Concept_ Finite_Integer>
+	template <Finite_Integer_Concept Finite_Integer>
 	Finite_Integer singleBitMask(integer bit)
 	{
 		PENSURE_OP(bit, >=, 0);
@@ -32,7 +32,7 @@ namespace Pastel
 		return (Finite_Integer)1 << bit;
 	}
 
-	template <Finite_Integer_Concept_ Finite_Integer>
+	template <Finite_Integer_Concept Finite_Integer>
 	Finite_Integer bitMask(integer endBit)
 	{
 		PENSURE_OP(endBit, >=, 0);
@@ -46,7 +46,7 @@ namespace Pastel
 		return ((Finite_Integer)1 << endBit) - (Finite_Integer)1;
 	}
 
-	template <Finite_Integer_Concept_ Finite_Integer>
+	template <Finite_Integer_Concept Finite_Integer>
 	Finite_Integer bitMask(integer beginBit, integer endBit)
 	{
 		PENSURE_OP(beginBit, >=, 0);

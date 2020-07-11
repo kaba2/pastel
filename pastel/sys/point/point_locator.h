@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	template <Point_Concept_ Point>
+	template <Point_Concept Point>
 	decltype(auto) pointLocator(const Point& point)
 	{
 		return Default_Locator<Point, Point_Real<Point>, Point_N<Point>::value>(
@@ -26,11 +26,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <Point_Concept_ Point>
+	template <Point_Concept Point>
 	using Point_Locator = 
 		decltype(pointLocator(std::declval<Point>()));
 
-	template <Point_Concept_ Point>
+	template <Point_Concept Point>
 	using Point_Locator_F = 
 		Identity_F<Point_Locator<Point>>;
 

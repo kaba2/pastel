@@ -8,8 +8,8 @@ namespace Pastel
 {
 
 	template <
-		PointSet_Concept_ From_PointSet, 
-		PointSet_Concept_ To_PointSet
+		PointSet_Concept From_PointSet, 
+		PointSet_Concept To_PointSet
 	>
 	ConformalAffine2D<PointSet_Real<From_PointSet>> 
 		lsConformalAffine(

@@ -15,7 +15,7 @@ namespace Pastel
 {
 
 	//! Bounding aligned box of a point set.
-	template <PointSet_Concept_ PointSet>
+	template <PointSet_Concept PointSet>
 	auto boundingAlignedBox(PointSet pointSet)
 	-> AlignedBox<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value>
 	{

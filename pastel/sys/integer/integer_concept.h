@@ -18,9 +18,9 @@ namespace Pastel
 
 	//! An integer.
 	template <typename T>
-	concept Integer_Concept__ = 
-		Ordered_Ring_Concept_<T> &&
-		Printable_Concept_<T> && 
+	concept Integer_Concept_ = 
+		Ordered_Ring_Concept<T> &&
+		Printable_Concept<T> && 
 		requires(T t) {
 		//! Constructs with zero.
 		T();
@@ -72,8 +72,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Integer_Concept_ = 
-		Integer_Concept__<RemoveCvRef<T>>;
+	concept Integer_Concept = 
+		Integer_Concept_<RemoveCvRef<T>>;
 
 	using Integer_Archetype = integer;
 

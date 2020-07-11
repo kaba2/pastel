@@ -20,7 +20,7 @@ namespace Pastel
 	*/
 	template <
 		typename T,
-		Norm_Concept_ Norm = Euclidean_Norm<typename MatrixExpr<T>::Scalar>
+		Norm_Concept Norm = Euclidean_Norm<typename MatrixExpr<T>::Scalar>
 	>
 	typename MatrixExpr<T>::Scalar norm2(
 		const MatrixExpr<T>& matrix,

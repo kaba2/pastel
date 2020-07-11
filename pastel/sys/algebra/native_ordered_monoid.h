@@ -54,7 +54,7 @@ namespace Pastel
 		return false;
 	}
 
-	template <Arithmetic_Concept_ Type>
+	template <Arithmetic_Concept Type>
 	bool positive(const Type& that)
 	{
 		return that > 0;

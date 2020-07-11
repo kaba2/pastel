@@ -89,9 +89,9 @@ namespace Pastel
 		}
 
 		template <
-			Point_Concept_ Search_Point,
-			Norm_Concept_ Norm,
-			Distance_Concept_ Distance,
+			Point_Concept Search_Point,
+			Norm_Concept Norm,
+			Distance_Concept Distance,
 			typename Output
 		>
 		void findNearbyPointsets(
@@ -357,7 +357,7 @@ namespace Pastel
 		ENSURE_OP(nBruteForce, >=, 0);
 
 		auto&& timeIntervalSequence = 
-			PASTEL_ARG_SC_(
+			PASTEL_ARG_C(
 				intervalSequence, 
 				(Vector<Real, 2>({-(Real)Infinity(), (Real)Infinity()})),
 				Point_Concept);
@@ -366,7 +366,7 @@ namespace Pastel
 		using IntervalSequence = decltype(timeIntervalSequence_);
 
 		auto&& searchAlgorithmObject =
-			PASTEL_ARG_SC_(
+			PASTEL_ARG_C(
 				searchAlgorithm, 
 				DepthFirst_SearchAlgorithm_PointKdTree(),
 				Trivial_Concept);

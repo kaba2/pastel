@@ -86,8 +86,8 @@ namespace Pastel
 	 0  1  2  0  1  2 0 1 2 0 1 2 0
 	*/
 	template <
-		Integer_Concept_ Integer,
-		Integer_Concept_ N_Integer
+		Integer_Concept Integer,
+		Integer_Concept N_Integer
 	>
 	Integer mod(const Integer& x, const N_Integer& n)
 	{
@@ -133,7 +133,7 @@ namespace Pastel
 	Returns:
 	x - floor(x)
 	*/
-	template <Real_Concept_ Real>
+	template <Real_Concept Real>
 	Real realMod(const Real& x)
 	{
 		return x - floor(x);
@@ -147,7 +147,7 @@ namespace Pastel
 	This is a convenience function that returns
 	mod(x / n) * n
 	*/
-	template <Real_Concept_ Real>
+	template <Real_Concept Real>
 	Real realMod(const Real& x, const Real& n)
 	{
 		PENSURE_OP(n, >, 0);

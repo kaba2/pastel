@@ -10,14 +10,14 @@ namespace Pastel
 {
 
 	template <typename T, typename... Arguments>
-	concept Output_Concept__ = requires(T t, Arguments... arguments) {
+	concept Output_Concept_ = requires(T t, Arguments... arguments) {
 		//! Reports 'that'.
 		{t(arguments...)};
 	};
 
 	template <typename T, typename... Arguments>
-	concept Output_Concept_ = 
-		Output_Concept__<RemoveCvRef<T>, RemoveCvRef<Arguments>...>;
+	concept Output_Concept = 
+		Output_Concept_<RemoveCvRef<T>, RemoveCvRef<Arguments>...>;
 
 }
 

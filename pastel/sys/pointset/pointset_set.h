@@ -29,7 +29,7 @@ namespace Pastel
 	}
 
 
-	template <Set_Concept_ Set>
+	template <Set_Concept Set>
 	requires 
 		// Give priority to the member-locator.
 		(!HasMemberPointSet<Set>::value)
@@ -43,10 +43,10 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <PointSet_Concept_ PointSet>
+	template <PointSet_Concept PointSet>
 	using PointSet_Set = RemoveCvRef<decltype(pointSetSet(std::declval<PointSet>()))>;
 
-	template <PointSet_Concept_ PointSet>
+	template <PointSet_Concept PointSet>
 	struct PointSet_Set_F 
 		: Identity_F<PointSet_Set<PointSet>>
 	{};

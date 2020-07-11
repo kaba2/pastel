@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <NearestSet_Concept_ NearestSet>
+	template <NearestSet_Concept NearestSet>
 	integer nearestSetN(const NearestSet& nearestSet)
 	{
 		return pointSetN(nearestSet);

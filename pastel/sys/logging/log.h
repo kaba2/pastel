@@ -34,7 +34,7 @@ namespace Pastel
 		virtual Log& operator<<(const std::string& value);
 		virtual void finalize();
 
-		template <Printable_Concept_ Type>
+		template <Printable_Concept Type>
 		Log& operator<<(const Type& value);
 		
 		Log& operator<<(void (*function)(Log&));

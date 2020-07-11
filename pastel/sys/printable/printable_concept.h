@@ -13,13 +13,13 @@ namespace Pastel
 {
 	
 	template <typename T>
-	concept Printable_Concept__ = requires(T t) {
+	concept Printable_Concept_ = requires(T t) {
 		{asString(t)} -> std::convertible_to<std::string>;
 	};
 
 	template <typename T>
-	concept Printable_Concept_ =
-		Printable_Concept__<RemoveCvRef<T>>;
+	concept Printable_Concept =
+		Printable_Concept_<RemoveCvRef<T>>;
 
 	using Printable_Archetype = integer;
 

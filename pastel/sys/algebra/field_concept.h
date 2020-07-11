@@ -16,9 +16,9 @@ namespace Pastel
 	such that (X, *, 1) is a commutative group.
 	*/
 	template <typename T>
-	concept Field_Concept_ =
-		Ring_Concept_<T> &&
-		Multiplicative_Group_Concept_<T>;
+	concept Field_Concept =
+		Ring_Concept<T> &&
+		Multiplicative_Group_Concept<T>;
 
 }
 

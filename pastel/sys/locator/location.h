@@ -18,7 +18,7 @@ namespace Pastel
 	template <
 		typename Type,
 		typename Locator>
-	requires Locator_Concept_<Locator>
+	requires Locator_Concept<Locator>
 	class Location
 	{
 	public:

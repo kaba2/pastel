@@ -18,15 +18,15 @@ namespace Pastel
 	    f(n) in (n, k],   if n < k.
 	*/
 	template <typename T, typename Integer>
-	concept Director_Concept__ = 
-		Integer_Concept_<Integer> &&
+	concept Director_Concept_ = 
+		Integer_Concept<Integer> &&
 		requires(T f, Integer n) {
 		{f(n)} -> std::convertible_to<Integer>;
 	};
 
 	template <typename T, typename Integer>
-	concept Director_Concept_ = 
-		Director_Concept__<RemoveCvRef<T>, RemoveCvRef<Integer>>;
+	concept Director_Concept = 
+		Director_Concept_<RemoveCvRef<T>, RemoveCvRef<Integer>>;
 
 }
 

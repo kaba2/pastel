@@ -18,7 +18,7 @@ namespace Pastel
 	Whether the for-each was uninterrupted by the user.
 	*/
 	template <
-		Set_Concept_ Set,
+		Set_Concept Set,
 		typename Visit
 	>
 	bool forEach(

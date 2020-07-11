@@ -16,8 +16,8 @@ namespace Pastel
 
 	//! A set with a locator; a point-set.
 	template <
-		Set_Concept_ Set,
-		Locator_Concept_ Locator,
+		Set_Concept Set,
+		Locator_Concept Locator,
 		typename Base>
 	class LocationSet
 	: public Base
@@ -66,8 +66,8 @@ namespace Pastel
 
 	//! Constructs a location-set from a point-set and a locator.
 	template <
-		Set_Concept_ Set, 
-		Locator_Concept_ Locator
+		Set_Concept Set, 
+		Locator_Concept Locator
 	>
 	decltype(auto) locationSet(
 		const Set& set,

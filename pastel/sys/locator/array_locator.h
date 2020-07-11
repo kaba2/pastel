@@ -20,7 +20,7 @@ namespace Pastel
 		typename Type,
 		int N
 	>
-	requires Point_Concept_<std::array<Type, N>>
+	requires Point_Concept<std::array<Type, N>>
 	decltype(auto) pointLocator(std::array<Type, N>&& point)
 	{
 		return Default_Locator<std::array<Type, N>, Type, N>(N);

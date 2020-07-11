@@ -10,10 +10,10 @@
 namespace Pastel
 {
 
-	template <Set_Concept_ Set>
+	template <Set_Concept Set>
 	using Set_Element = ranges::range_value_t<Set>;
 	
-	template <Set_Concept_ Set>
+	template <Set_Concept Set>
 	using Set_Element_F = 
 		Identity_F<Set_Element<Set>>;
 

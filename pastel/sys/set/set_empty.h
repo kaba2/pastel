@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <Set_Concept_ Set>
+	template <Set_Concept Set>
 	bool emptySet(const Set& set)
 	{
 		return ranges::empty(set);

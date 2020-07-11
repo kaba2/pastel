@@ -15,7 +15,7 @@ namespace Pastel
 		typename Real,
 		int N
 	>
-	requires Point_Concept_<Vector<Real, N>>
+	requires Point_Concept<Vector<Real, N>>
 	decltype(auto) pointLocator(Vector<Real, N>&& point)
 	{
 		return Default_Locator<Vector<Real, N>, Real, N>(point.n());

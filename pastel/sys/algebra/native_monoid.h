@@ -11,7 +11,7 @@ namespace Pastel
 
 	// Additive monoid
 
-	template <Arithmetic_Concept_ Type>
+	template <Arithmetic_Concept Type>
 	bool zero(Type that)
 	{
 		return that == 0;
@@ -19,7 +19,7 @@ namespace Pastel
 
 	// Multiplicative monoid
 
-	template <Arithmetic_Concept_ Type>
+	template <Arithmetic_Concept Type>
 	bool one(Type that)
 	{
 		return that == 1;

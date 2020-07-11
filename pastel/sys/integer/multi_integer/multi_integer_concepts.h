@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <typename T>
-	concept MultiInteger_Settings_Concept__ = requires {
+	concept MultiInteger_Settings_Concept_ = requires {
 		//! The type of the underlying word.
 		/*!
 		A double-word type integer is required to exist,
@@ -47,8 +47,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept MultiInteger_Settings_Concept_ =
-		MultiInteger_Settings_Concept__<RemoveCvRef<T>>;
+	concept MultiInteger_Settings_Concept =
+		MultiInteger_Settings_Concept_<RemoveCvRef<T>>;
 
 	struct MultiInteger_Settings_Archetype
 	{

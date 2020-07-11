@@ -301,7 +301,7 @@ namespace Pastel
 
 	template <typename Settings, template <typename> class Customization>
 	template <
-		Set_Concept_ Point_Set,
+		Set_Concept Point_Set,
 		typename... ArgumentSet
 	>
 	void PointKdTree<Settings, Customization>::insertSet(
@@ -309,7 +309,7 @@ namespace Pastel
 		ArgumentSet&&... argumentSet)
 	{
 		bool hidden = PASTEL_ARG_S(hidden, false);
-		auto&& report = PASTEL_ARG_SC1(report, nullOutput(), Output_Concept, Point_ConstIterator);
+		auto&& report = PASTEL_ARG_C1(report, nullOutput(), Output_Concept, Point_ConstIterator);
 
 		if (emptySet(pointSet))
 		{

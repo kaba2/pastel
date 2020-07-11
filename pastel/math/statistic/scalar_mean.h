@@ -21,8 +21,8 @@ namespace Pastel
 	0, otherwise.
 	*/
 	template <
-		Real_Concept_ Real,
-		Set_Concept_ Real_Set
+		Real_Concept Real,
+		Set_Concept Real_Set
 	>
 	Real scalarMean(
 		const Real_Set& inputSet)

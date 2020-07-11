@@ -127,7 +127,7 @@ namespace Pastel
 		The split-rule to use.
 		*/
 		template <
-			PointSet_Concept_ PointSet_,
+			PointSet_Concept PointSet_,
 			typename... ArgumentSet
 		>
 		explicit TdTree(

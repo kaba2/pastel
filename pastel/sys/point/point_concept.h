@@ -14,16 +14,16 @@ namespace Pastel
 {
 
 	template <typename T>
-	concept Point_Concept__ = requires(T t) {
-		{removeReference(pointAxis(addConst(t), (integer)0))} -> Real_Ring_Concept_;
+	concept Point_Concept_ = requires(T t) {
+		{removeReference(pointAxis(addConst(t), (integer)0))} -> Real_Ring_Concept;
 		{dimension(addConst(t))} -> std::convertible_to<integer>;
-		// {removeReference(pointLocator(addConst(t)))} -> Locator_Concept_;
+		// {removeReference(pointLocator(addConst(t)))} -> Locator_Concept;
 		pointPointId(addConst(t));
 	};
 
 	template <typename T>
-	concept Point_Concept_ =
-		Point_Concept__<RemoveCvRef<T>>;
+	concept Point_Concept =
+		Point_Concept_<RemoveCvRef<T>>;
 
 }
 
@@ -36,7 +36,7 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <Point_Concept_ Point>
+	template <Point_Concept Point>
 	void printPoint(
 		std::ostream& stream, 
 		const Point& point)

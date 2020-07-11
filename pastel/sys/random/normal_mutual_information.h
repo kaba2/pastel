@@ -19,7 +19,7 @@ namespace Pastel
 	*/
 	template <
 		typename Real,
-		Set_Concept_ Set
+		Set_Concept Set
 	>
 	requires std::is_convertible_v<Set_Element<Set>, integer>
 	Real mutualInformation(

@@ -63,7 +63,7 @@ namespace Pastel
 	> > > >
 	{
 	public:
-		PASTEL_CONCEPT_CHECK(Integer_Settings, MultiInteger_Settings_Concept_);
+		PASTEL_CONCEPT_CHECK(Integer_Settings, MultiInteger_Settings_Concept);
 
 		// See the documentation for Integer_Settings_Concept.
 		using Settings = Integer_Settings;
@@ -784,7 +784,7 @@ namespace Pastel
 
 		//! Computes the remainder when divided by 'that'.
 		template <
-			Finite_Integer_Concept_ Finite_Integer,
+			Finite_Integer_Concept Finite_Integer,
 			Requires<
 				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>
 			> = 0
@@ -822,7 +822,7 @@ namespace Pastel
 		}
 
 		template <
-			Finite_Integer_Concept_ Finite_Integer,
+			Finite_Integer_Concept Finite_Integer,
 			Requires<
 				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>
 			> = 0
@@ -964,7 +964,7 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		template <
-			Finite_Integer_Concept_ Finite_Integer,
+			Finite_Integer_Concept Finite_Integer,
 			Requires<
 				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>
 			> = 0
@@ -1003,7 +1003,7 @@ namespace Pastel
 		}
 
 		template <
-			Finite_Integer_Concept_ Finite_Integer,
+			Finite_Integer_Concept Finite_Integer,
 			Requires<
 				Not<IsTemplateInstance<Finite_Integer, Pastel::MultiInteger>>
 			> = 0

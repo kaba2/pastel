@@ -26,10 +26,10 @@ TEST_CASE("Concept (point)")
 	pointLocator(addConst(point));
 
 	PASTEL_CONCEPT_REJECT(dreal*, Point_Concept);
-	PASTEL_STATIC_ASSERT(Point_Concept_<std::array<dreal, 2>>);
-	PASTEL_STATIC_ASSERT(Point_Concept_<Vector<dreal, 2>>);
-	PASTEL_STATIC_ASSERT(Real_Concept_<dreal>);
-	PASTEL_STATIC_ASSERT(Point_Concept_<dreal>);
+	PASTEL_STATIC_ASSERT(Point_Concept<std::array<dreal, 2>>);
+	PASTEL_STATIC_ASSERT(Point_Concept<Vector<dreal, 2>>);
+	PASTEL_STATIC_ASSERT(Real_Concept<dreal>);
+	PASTEL_STATIC_ASSERT(Point_Concept<dreal>);
 
 	PASTEL_CONCEPT_CHECK(dreal, Real_Concept);
 	PASTEL_CONCEPT_CHECK(dreal, Point_Concept);

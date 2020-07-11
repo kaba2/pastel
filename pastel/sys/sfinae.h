@@ -17,7 +17,7 @@ namespace Pastel
 {
 
 	template <typename T>
-	concept Arithmetic_Concept_ = std::is_arithmetic_v<RemoveCvRef<T>>;
+	concept Arithmetic_Concept = std::is_arithmetic_v<RemoveCvRef<T>>;
 
 	template <
 		bool Condition,

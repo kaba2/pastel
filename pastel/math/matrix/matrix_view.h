@@ -8,13 +8,13 @@ namespace Pastel {
     template <typename Real, int M = Dynamic, int N = Dynamic, bool ColumnMajor = true>
     requires 
         std::is_object_v<Real> &&
-        Real_Concept_<Real>
+        Real_Concept<Real>
     class MatrixView {
     public:
         template <typename Real_, int M_, int N_, bool ColumnMajor_>
         requires 
             std::is_object_v<Real_> &&
-            Real_Concept_<Real_>
+            Real_Concept<Real_>
         friend class MatrixView;
 
         MatrixView(Real* data = nullptr, integer m = 0, integer n = 0) 

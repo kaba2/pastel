@@ -49,9 +49,9 @@ namespace Pastel
 		}
 
 		template <
-			Point_Concept_ Search_Point,
-			Norm_Concept_ Norm,
-			Distance_Concept_ Distance,
+			Point_Concept Search_Point,
+			Norm_Concept Norm,
+			Distance_Concept Distance,
 			typename Output
 		>
 		void findNearbyPointsets(
@@ -71,7 +71,7 @@ namespace Pastel
 		PointSet pointSet_;
 	};
 
-	template <PointSet_Concept_ PointSet>
+	template <PointSet_Concept PointSet>
 	decltype(auto) bruteForceNearestSet(PointSet pointSet)
 	{
 		return BruteForce_NearestSet<PointSet>(std::move(pointSet));

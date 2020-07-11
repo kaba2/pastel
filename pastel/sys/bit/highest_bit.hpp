@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <Finite_Integer_Concept_ Finite_Integer>
+	template <Finite_Integer_Concept Finite_Integer>
 	integer highestBit(const Finite_Integer& data)
 	{
 		if (zero(data))

@@ -16,7 +16,7 @@ namespace Pastel
 	The index of the lowest 1-bit, if non-zero.
 	Otherwise -1.
 	*/
-	template <Finite_Integer_Concept_ Finite_Integer>
+	template <Finite_Integer_Concept Finite_Integer>
 	integer lowestBit(const Finite_Integer& data);
 
 }

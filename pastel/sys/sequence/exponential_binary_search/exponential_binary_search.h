@@ -27,8 +27,8 @@ namespace Pastel
 	See the documentation for directedBinarySearch().
 	*/
 	template <
-		Integer_Concept_ Integer, 
-		Step_Indicator_Concept_<Integer> Integer_Step_Indicator
+		Integer_Concept Integer, 
+		Step_Indicator_Concept<Integer> Integer_Step_Indicator
 	>
 	Integer exponentialBinarySearch(
 		const Integer& minLevel, 
@@ -69,8 +69,8 @@ namespace Pastel
 	true on [k, maxLevel).
 	*/
 	template <
-		Integer_Concept_ Integer, 
-		Director_Concept_<Integer> Integer_Director
+		Integer_Concept Integer, 
+		Director_Concept<Integer> Integer_Director
 	>
 	Integer directedExponentialBinarySearch(
 		const Integer& minLevel, 

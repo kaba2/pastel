@@ -15,7 +15,7 @@ namespace Pastel
 
 	template <typename T>
 	concept HasMemberPointSetLocator__ = requires(T t) {
-		{addConst(t).pointSetLocator()} -> Locator_Concept_;	
+		{addConst(t).pointSetLocator()} -> Locator_Concept;	
 	};
 
 	template <typename T>
@@ -39,9 +39,9 @@ namespace Pastel
 	}
 
 	//! Returns the default locator of point-set elements.
-	template <Set_Concept_ Set>
+	template <Set_Concept Set>
 	requires
-		(Point_Concept_<Set_Element<Set>> &&
+		(Point_Concept<Set_Element<Set>> &&
 		// Give priority to the member-locator.
 		!HasMemberPointSetLocator<Set>::value)
 	decltype(auto) pointSetLocator(const Set& set)

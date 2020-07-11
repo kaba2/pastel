@@ -18,18 +18,18 @@ namespace Pastel
 	'set' a bit loosely, for brevity.
 	*/
 	template <typename T>
-	concept Set_Concept__ = requires(T t) {
+	concept Set_Concept_ = requires(T t) {
 		t;
 		//Concept::holds<ranges::concepts::models<ranges::concepts::Range, Type>>()
 	};
 
 	template <typename T>
-	concept Set_Concept_ = 
-		Set_Concept__<RemoveCvRef<T>>;
+	concept Set_Concept = 
+		Set_Concept_<RemoveCvRef<T>>;
 
 	template <typename T>
-	concept Range_Concept_ = 
-		Set_Concept_<T>;
+	concept Range_Concept = 
+		Set_Concept<T>;
 	
 }
 

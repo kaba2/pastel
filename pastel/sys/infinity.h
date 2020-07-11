@@ -36,7 +36,7 @@ namespace Pastel
 				-std::numeric_limits<Type>::infinity();
 		}
 
-		template <Arithmetic_Concept_ Type>
+		template <Arithmetic_Concept Type>
 		bool operator==(const Type& that) const
 		{
 			return that == (Type)*this;
@@ -48,7 +48,7 @@ namespace Pastel
 			return inf == that;
 		}
 
-		template <Arithmetic_Concept_ Type>
+		template <Arithmetic_Concept Type>
 		bool operator!=(const Type& that) const
 		{
 			return !(that == *this);

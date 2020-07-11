@@ -8,11 +8,11 @@
 namespace Pastel
 {
 
-	template <Set_Concept_ Set>
+	template <Set_Concept Set>
 	using Set_Index = 
 		typename ranges::iterator_t<Set>;
 	
-	template <Set_Concept_ Set>
+	template <Set_Concept Set>
 	using Set_Index_F = 
 		Identity_F<Set_Index<Set>>;
 

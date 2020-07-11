@@ -20,7 +20,7 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <Integer_Concept_ Integer>
+	template <Integer_Concept Integer>
 	Integer roundUpTo(
 		const Integer& that, const Integer& to);
 
@@ -29,7 +29,7 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <Integer_Concept_ Integer>
+	template <Integer_Concept Integer>
 	Integer roundUpToOdd(const Integer& that);
 	
 	//! Rounds up to the next odd number.
@@ -48,7 +48,7 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <Integer_Concept_ Integer>
+	template <Integer_Concept Integer>
 	Integer roundUpToEven(const Integer& that);
 
 	//! Rounds up to the next even number.
@@ -93,7 +93,7 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <Integer_Concept_ Integer>
+	template <Integer_Concept Integer>
 	Integer roundUpToPowerOfTwo(
 		const Integer& that, 
 		integer power);

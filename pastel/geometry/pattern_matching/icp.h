@@ -166,8 +166,8 @@ namespace Pastel
             matchingType = "biunique"
     */
     template <
-        NearestSet_Concept_ Model_NearestSet,
-        NearestSet_Concept_ Scene_NearestSet,
+        NearestSet_Concept Model_NearestSet,
+        NearestSet_Concept Scene_NearestSet,
         typename... ArgumentSet
     >
     Icp_Return<Real> icp(

@@ -17,8 +17,8 @@ namespace Pastel
 	number of bits.
 	*/
 	template <typename T>
-	concept Finite_Integer_Concept__ = 
-		Integer_Concept_<T> && 
+	concept Finite_Integer_Concept_ = 
+		Integer_Concept<T> && 
 		requires(T t) {
 		//! Returns the binary not of the element.
 		{~t} -> std::convertible_to<T>;
@@ -27,8 +27,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Finite_Integer_Concept_ = 
-		Finite_Integer_Concept__<RemoveCvRef<T>>;
+	concept Finite_Integer_Concept = 
+		Finite_Integer_Concept_<RemoveCvRef<T>>;
 
 	using Finite_Integer_Archetype = integer;
 

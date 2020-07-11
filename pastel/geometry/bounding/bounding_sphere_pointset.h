@@ -15,8 +15,8 @@ namespace Pastel
 
 	//! Finds the minimum volume bounding sphere of two points.
 	template <
-		Point_Concept_ A_Point,
-		Point_Concept_ B_Point
+		Point_Concept A_Point,
+		Point_Concept B_Point
 	>
 	Sphere<Point_Real<A_Point>, Point_N<A_Point>::value> 
 		boundingSphere(
@@ -31,7 +31,7 @@ namespace Pastel
 	}
 
 	//! Finds a bounding sphere of a point set.
-	template <PointSet_Concept_ PointSet>
+	template <PointSet_Concept PointSet>
 	Sphere<PointSet_Real<PointSet>, PointSet_Dimension<PointSet>::value> 
 		boundingSphere(const PointSet& pointSet)
 	{

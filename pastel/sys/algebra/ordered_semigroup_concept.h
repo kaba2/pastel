@@ -21,13 +21,13 @@ namespace Pastel
 	for all c, x, y in X.
 	*/
 	template <typename T>
-	concept Ordered_Additive_SemiGroup_Concept__ =
-		Additive_SemiGroup_Concept_<T> && 
-		Ordered_Element_Concept_<T>;
+	concept Ordered_Additive_SemiGroup_Concept_ =
+		Additive_SemiGroup_Concept<T> && 
+		Ordered_Element_Concept<T>;
 
 	template <typename T>
-	concept Ordered_Additive_SemiGroup_Concept_ =
-		Ordered_Additive_SemiGroup_Concept__<RemoveCvRef<T>>;
+	concept Ordered_Additive_SemiGroup_Concept =
+		Ordered_Additive_SemiGroup_Concept_<RemoveCvRef<T>>;
 
 }
 

@@ -23,9 +23,9 @@ namespace Pastel
 	}
 
 	template <typename T>
-	concept PointKdTree_Settings_Concept_ = requires {
+	concept PointKdTree_Settings_Concept = requires {
 		typename T::Locator;
-		requires Locator_Concept_<typename T::Locator>;
+		requires Locator_Concept<typename T::Locator>;
 	};
 
 }

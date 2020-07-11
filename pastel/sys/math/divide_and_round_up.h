@@ -14,7 +14,7 @@ namespace Pastel
 	Time complexity: O(1)
 	Exception safety: nothrow
 	*/
-	template <Integer_Concept_ Integer>
+	template <Integer_Concept Integer>
 	Integer divideAndRoundUp(
 		const Integer& divide, 
 		const Integer& byThis)

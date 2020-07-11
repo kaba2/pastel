@@ -12,7 +12,7 @@ namespace Pastel
 	struct Distance_Native {};
 
 	template <typename T>
-	concept Distance_Concept__ =
+	concept Distance_Concept_ =
 		requires(T t, typename T::Real_ s) {
 			//! Constructs a zero distance.
 			T();
@@ -75,8 +75,8 @@ namespace Pastel
 		};
 
 	template <typename T>
-	concept Distance_Concept_ =
-		Distance_Concept__<RemoveCvRef<T>>;
+	concept Distance_Concept =
+		Distance_Concept_<RemoveCvRef<T>>;
 
 }
 

@@ -10,15 +10,15 @@ namespace Pastel
 {
 
 	template <typename T, typename Output, typename... Arguments>
-	concept Function_Concept__ =
+	concept Function_Concept_ =
 		requires(T t, Arguments... arguments) {
 		//! Returns the value of the function at given arguments.
 		{addConst(t)(arguments...)} -> std::convertible_to<Output>;
 	};
 
 	template <typename T, typename Output, typename... Arguments>
-	concept Function_Concept_ =
-		Function_Concept__<RemoveCvRef<T>, Output, Arguments...>;
+	concept Function_Concept =
+		Function_Concept_<RemoveCvRef<T>, Output, Arguments...>;
 
 }
 

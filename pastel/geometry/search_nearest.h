@@ -83,8 +83,8 @@ namespace Pastel
 	If the k:th nearest neighbor does not exist, nearestSet.notFound().
 	*/
 	template <
-		NearestSet_Concept_ NearestSet,
-		Point_Concept_ Search_Point,
+		NearestSet_Concept NearestSet,
+		Point_Concept Search_Point,
 		typename... ArgumentSet
 	>
 	auto searchNearest(
@@ -98,13 +98,13 @@ namespace Pastel
 		using Real = Point_Real<Search_Point>;
 
 		auto&& report = 
-			PASTEL_ARG_SC_(report, nullOutput(), Trivial_Concept);
+			PASTEL_ARG_C(report, nullOutput(), Trivial_Concept);
 
 		auto&& accept = 
-			PASTEL_ARG_SC1(accept, allIndicator(), Indicator_Concept, PointId);
+			PASTEL_ARG_C1(accept, allIndicator(), Indicator_Concept, PointId);
 
 		auto&& norm = 
-			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept);
+			PASTEL_ARG_C(norm, Euclidean_Norm<Real>(), Norm_Concept);
 
 		using Distance = decltype(norm());
 

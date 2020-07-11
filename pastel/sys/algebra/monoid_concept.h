@@ -20,16 +20,16 @@ namespace Pastel
 		    x + 0 = x = 0 + x, for all x in X.
 	*/
 	template <typename T>
-	concept Additive_Monoid_Concept__ =
-		Additive_SemiGroup_Concept_<T> && 
+	concept Additive_Monoid_Concept_ =
+		Additive_SemiGroup_Concept<T> && 
 		requires(T t) {
 			// Returns whether t == 0.
 			{zero(t)} -> std::convertible_to<bool>;
 	};
 
 	template <typename T>
-	concept Additive_Monoid_Concept_ =
-		Additive_Monoid_Concept__<RemoveCvRef<T>>;
+	concept Additive_Monoid_Concept =
+		Additive_Monoid_Concept_<RemoveCvRef<T>>;
 
 	//! A multiplicative monoid.
 	/*!
@@ -39,8 +39,8 @@ namespace Pastel
 		    x * 1 = x = 1 * x, for all x in X.
 	*/
 	template <typename T>
-	concept Multiplicative_Monoid_Concept__ =
-		Multiplicative_SemiGroup_Concept_<T> && 
+	concept Multiplicative_Monoid_Concept_ =
+		Multiplicative_SemiGroup_Concept<T> && 
 		requires(T t) {
 			// Returns whether t == 1.
 			{one(t)} -> std::convertible_to<bool>;
@@ -49,8 +49,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Multiplicative_Monoid_Concept_ =
-		Multiplicative_Monoid_Concept__<RemoveCvRef<T>>;
+	concept Multiplicative_Monoid_Concept =
+		Multiplicative_Monoid_Concept_<RemoveCvRef<T>>;
 
 }
 
@@ -61,7 +61,7 @@ namespace Pastel
 	/*!
 	The notation x^p means to multiply x with itself p times.
 	*/
-	template <Multiplicative_Monoid_Concept_ T>
+	template <Multiplicative_Monoid_Concept T>
 	T monoidPower(T x, integer p)
 	{
 		ENSURE_OP(p, >=, 0);

@@ -15,17 +15,17 @@ namespace Pastel
 {
 
 	template <typename T>
-	concept PointSet_Concept__ =
-		Set_Concept_<T> && 
+	concept PointSet_Concept_ =
+		Set_Concept<T> && 
 		requires(T t) {
 		// A point-set is a set together with a locator. 
 		pointSetLocator(addConst(t));
-		{removeReference(pointSetLocator(addConst(t)))} -> Locator_Concept_;
+		{removeReference(pointSetLocator(addConst(t)))} -> Locator_Concept;
 	};
 
 	template <typename T>
-	concept PointSet_Concept_ =
-		PointSet_Concept__<RemoveCvRef<T>>;
+	concept PointSet_Concept =
+		PointSet_Concept_<RemoveCvRef<T>>;
 
 }
 

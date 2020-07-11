@@ -8,8 +8,8 @@ namespace Pastel
 {
 
 	template <
-		Integer_Concept_ Integer,
-		Integer_Concept_ N_Integer
+		Integer_Concept Integer,
+		Integer_Concept N_Integer
 	>
 	Integer divideInfinity(const N_Integer& n)
 	{

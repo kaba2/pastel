@@ -93,7 +93,7 @@ namespace Pastel
 {
 	// Coordinates by being a number.
 
-	template <Real_Ring_Concept_ Point>
+	template <Real_Ring_Concept Point>
 	requires
 		(!Point_HasMemberCall<Point>::value &&
 		!Point_HasMemberPointAxis<Point>::value &&

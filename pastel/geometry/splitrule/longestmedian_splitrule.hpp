@@ -17,7 +17,7 @@ namespace Pastel
 	{
 	public:
 		template <
-			PointSet_Concept_ PointSet,
+			PointSet_Concept PointSet,
 			typename Real = PointSet_Real<PointSet>,
 			int N = PointSet_Dimension<PointSet>::value
 		>

@@ -15,12 +15,12 @@ namespace Pastel
 	whose order relation is total.
 	*/
 	template <typename T>
-	concept Linearly_Ordered_Element_Concept__ =
-		Ordered_Element_Concept_<T>;
+	concept Linearly_Ordered_Element_Concept_ =
+		Ordered_Element_Concept<T>;
 
 	template <typename T>
-	concept Linearly_Ordered_Element_Concept_ =
-		Linearly_Ordered_Element_Concept__<RemoveCvRef<T>>;
+	concept Linearly_Ordered_Element_Concept =
+		Linearly_Ordered_Element_Concept_<RemoveCvRef<T>>;
 
 }
 

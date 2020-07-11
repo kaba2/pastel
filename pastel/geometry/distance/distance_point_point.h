@@ -16,8 +16,8 @@ namespace Pastel
 
 	//! Computes the distance between points.
 	template <
-		Point_Concept_ A_Point,
-		Point_Concept_ B_Point, 
+		Point_Concept A_Point,
+		Point_Concept B_Point, 
 		typename Real = Point_Real<A_Point, B_Point>,
 		typename... ArgumentSet
 	>
@@ -27,12 +27,12 @@ namespace Pastel
 		ArgumentSet&&... argumentSet)
 	{
 		auto&& norm = 
-			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept);
+			PASTEL_ARG_C(norm, Euclidean_Norm<Real>(), Norm_Concept);
 
 		auto distance = norm();
 		using Distance = decltype(distance);
 		
-		auto&& keepGoing = PASTEL_ARG_SC1(keepGoing, allIndicator(), Indicator_Concept, Distance);
+		auto&& keepGoing = PASTEL_ARG_C1(keepGoing, allIndicator(), Indicator_Concept, Distance);
 
 		PENSURE_OP(dimension(aPoint), ==, dimension(bPoint));
 

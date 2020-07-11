@@ -18,7 +18,7 @@ namespace Pastel
 	// RequiresC instead avoids the bug.
 
 	template <
-		Arithmetic_Concept_ Type
+		Arithmetic_Concept Type
 	>
 	std::string asString(Type that)
 	{

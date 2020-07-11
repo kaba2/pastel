@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <Integer_Concept_ Integer>
+	template <Integer_Concept Integer>
 	Integer roundUpTo(
 		const Integer& that, const Integer& to)
 	{
@@ -25,7 +25,7 @@ namespace Pastel
 		return that;
 	}
 
-	template <Integer_Concept_ Integer>
+	template <Integer_Concept Integer>
 	Integer roundUpToOdd(const Integer& that)
 	{
 		return odd(that) ? that : (that + 1);
@@ -37,7 +37,7 @@ namespace Pastel
 		return Pastel::roundUpToOdd((integer)ceil(that));
 	}
 
-	template <Integer_Concept_ Integer>
+	template <Integer_Concept Integer>
 	Integer roundUpToEven(const Integer& that)
 	{
 		return even(that) ? that : (that + 1);
@@ -73,7 +73,7 @@ namespace Pastel
 			roundUpToPowerOfTwo(signedToTwosComplement(that)));
 	}
 
-	template <Integer_Concept_ Integer>
+	template <Integer_Concept Integer>
 	Integer roundUpToPowerOfTwo(
 		const Integer& that, 
 		integer power)

@@ -19,8 +19,8 @@ namespace Pastel
 	it is denoted by -x.
 	*/
 	template <typename T>
-	concept Additive_Group_Concept__ = 
-		Additive_Monoid_Concept_<T> && 
+	concept Additive_Group_Concept_ = 
+		Additive_Monoid_Concept<T> && 
 		requires(T t) {
 		//! Adds -that to the element.
 		{t -= t} -> std::convertible_to<T>;
@@ -31,8 +31,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Additive_Group_Concept_ = 
-		Additive_Group_Concept__<RemoveCvRef<T>>;
+	concept Additive_Group_Concept = 
+		Additive_Group_Concept_<RemoveCvRef<T>>;
 
 	//! A multiplicative group.
 	/*!
@@ -42,8 +42,8 @@ namespace Pastel
 	it is denoted by inverse(x).
 	*/
 	template <typename T>
-	concept Multiplicative_Group_Concept__ = 
-		Multiplicative_Monoid_Concept_<T> && 
+	concept Multiplicative_Group_Concept_ = 
+		Multiplicative_Monoid_Concept<T> && 
 		requires(T t) {
 		//! Multiplies with inverse(that) from the right.
 		{t /= t} -> std::convertible_to<T>;
@@ -54,8 +54,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Multiplicative_Group_Concept_ = 
-		Multiplicative_Group_Concept__<RemoveCvRef<T>>;
+	concept Multiplicative_Group_Concept = 
+		Multiplicative_Group_Concept_<RemoveCvRef<T>>;
 
 }
 
@@ -63,7 +63,7 @@ namespace Pastel
 {
 
 	//! Computes x^p, for p an integer.
-	template <Multiplicative_Group_Concept_ T>
+	template <Multiplicative_Group_Concept T>
 	T groupPower(T x, integer p)
 	{
 		T result = monoidPower(std::move(x), std::abs(p));

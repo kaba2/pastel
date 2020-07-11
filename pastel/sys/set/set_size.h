@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <Set_Concept_ Set>
+	template <Set_Concept Set>
 	integer setSize(Set&& set)
 	{
 		return ranges::distance(std::forward<Set>(set));

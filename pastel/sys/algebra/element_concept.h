@@ -15,7 +15,7 @@ namespace Pastel
 	be compared with == and !=.
 	*/
 	template <typename T>
-	concept Element_Concept__ = requires(T t) {
+	concept Element_Concept_ = requires(T t) {
 		//! Returns whether left == right.
 		{t == t} -> std::convertible_to<bool>;
 		//! Returns whether left != right.
@@ -23,8 +23,8 @@ namespace Pastel
 	};
 
 	template <typename T>
-	concept Element_Concept_ = 
-		Element_Concept__<RemoveCvRef<T>>;
+	concept Element_Concept = 
+		Element_Concept_<RemoveCvRef<T>>;
 
 }
 

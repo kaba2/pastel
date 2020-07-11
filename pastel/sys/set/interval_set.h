@@ -30,7 +30,7 @@ namespace Pastel
 			std::forward<End>(end));
 	}
 
-	template <Set_Concept_ Set>
+	template <Set_Concept Set>
 	decltype(auto) intervalSet(Set&& set)
 	{
 		return Pastel::intervalSet(

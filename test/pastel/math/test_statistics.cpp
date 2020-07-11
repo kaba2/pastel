@@ -30,7 +30,7 @@ TEST_CASE("statistics (statistics)")
 		using PointSet = RemoveCvRef<decltype(aSet)>;
 
 		PASTEL_CONCEPT_CHECK(PointSet, PointSet_Concept);
-		PASTEL_STATIC_ASSERT(PointSet_Concept_<PointSet>);
+		PASTEL_STATIC_ASSERT(PointSet_Concept<PointSet>);
 
 		REQUIRE(allEqual(pointMean(aSet), Real(11, 3)));
 		REQUIRE(allEqual(pointVariance(aSet, PASTEL_TAG(biased), false), Real(322, 15)));

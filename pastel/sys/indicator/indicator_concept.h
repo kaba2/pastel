@@ -16,8 +16,8 @@ namespace Pastel
 	The false-set is the complement of the true-set.
 	*/
 	template <typename T, typename Element>
-	concept Indicator_Concept_ = 
-		Function_Concept_<RemoveCvRef<T>, bool, RemoveCvRef<Element>>;
+	concept Indicator_Concept = 
+		Function_Concept<RemoveCvRef<T>, bool, RemoveCvRef<Element>>;
 
 }
 

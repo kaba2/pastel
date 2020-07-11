@@ -17,13 +17,13 @@ namespace Pastel
 	2) x >= 0 and y >= 0 ==> x * y >= 0, for all x, y in X.
 	*/
 	template <typename T>
-	concept Ordered_Ring_Concept__ =
-		Ordered_Additive_Group_Concept_<T> &&
-		Ring_Concept_<T>;
+	concept Ordered_Ring_Concept_ =
+		Ordered_Additive_Group_Concept<T> &&
+		Ring_Concept<T>;
 
 	template <typename T>
-	concept Ordered_Ring_Concept_ =
-		Ordered_Ring_Concept__<RemoveCvRef<T>>;
+	concept Ordered_Ring_Concept =
+		Ordered_Ring_Concept_<RemoveCvRef<T>>;
 
 }
 
