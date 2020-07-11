@@ -32,8 +32,12 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	template <typename That_Integer>
-	requires Rational_::IsNativeOrInteger<Integer, That_Integer>::value
+	template <
+		typename That_Integer,
+		Requires<
+			Rational_::IsNativeOrInteger<Integer, That_Integer>
+		>
+	>
 	Rational<Integer>::Rational(
 		That_Integer wholes)
 		: m_(wholes)
@@ -44,10 +48,12 @@ namespace Pastel
 	template <typename Integer>
 	template <
 		typename M_Integer, 
-		typename N_Integer>
-	requires
-		Rational_::IsNativeOrInteger<Integer, M_Integer>::value &&
-		Rational_::IsNativeOrInteger<Integer, N_Integer>::value
+		typename N_Integer,
+		Requires<
+			Rational_::IsNativeOrInteger<Integer, M_Integer>,
+			Rational_::IsNativeOrInteger<Integer, N_Integer>
+		>
+	>
 	Rational<Integer>::Rational(
 		M_Integer m,
 		N_Integer n)

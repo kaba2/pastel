@@ -39,13 +39,11 @@ namespace
 		dreal shape = matlabAsScalar<dreal>(inputSet[Shape]);
 		dreal scale = matlabAsScalar<dreal>(inputSet[Scale]);
 
-		Array<dreal> result =
-			matlabCreateArray<dreal>(Vector2i(m, n),
-			outputSet[Result]);
+		MatrixView<dreal> result = matlabCreateMatrix<dreal>(m, n, outputSet[Result]);
 
-		for (dreal& element : result)
+		for (integer i = 0; i < result.size(); ++i)
 		{
-			element = randomGeneralizedGaussian<dreal>(shape, scale);
+			result(i) = randomGeneralizedGaussian<dreal>(shape, scale);
 		}
 	}
 

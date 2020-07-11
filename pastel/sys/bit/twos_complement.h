@@ -14,6 +14,20 @@
 namespace Pastel
 {
 
+	//! Returns whether 'that' represents a negative value.
+	/*!
+	A two's complement integer is negative if and only if
+	its most-significant bit is 1.
+	*/
+	template <typename Finite_Integer> 
+	requires std::is_unsigned_v<Finite_Integer>
+	bool twosComplementNegative(const Finite_Integer& that)
+	{
+		// A two's complement integer is negative if and only if
+		// its most-significant bit is 1.
+		return (that & singleBitMask<Finite_Integer>(bits(that) - 1)) != 0;
+	}
+
 	//! Two's complement form from a signed integer
 	/*!
 	Preconditions:
@@ -123,20 +137,6 @@ namespace Pastel
 		}
 
 		return (Signed)that;
-	}
-
-	//! Returns whether 'that' represents a negative value.
-	/*!
-	A two's complement integer is negative if and only if
-	its most-significant bit is 1.
-	*/
-	template <typename Finite_Integer> 
-	requires std::is_unsigned_v<Finite_Integer>
-	bool twosComplementNegative(const Finite_Integer& that)
-	{
-		// A two's complement integer is negative if and only if
-		// its most-significant bit is 1.
-		return (that & singleBitMask<Finite_Integer>(bits(that) - 1)) != 0;
 	}
 
 	//! Arithmetic right-shift for integers in two's complement form.

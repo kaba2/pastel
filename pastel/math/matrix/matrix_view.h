@@ -3,18 +3,21 @@
 
 #include <iostream>
 
+#include "pastel/sys/algebra/ring_concept.h"
+#include "pastel/sys/set/sparse_set.h"
+
 namespace Pastel {
 
     template <typename Real, int M = Dynamic, int N = Dynamic, bool ColumnMajor = true>
     requires 
         std::is_object_v<Real> &&
-        Real_Concept<Real>
+        Ring_Concept<Real>
     class MatrixView {
     public:
         template <typename Real_, int M_, int N_, bool ColumnMajor_>
         requires 
             std::is_object_v<Real_> &&
-            Real_Concept<Real_>
+            Ring_Concept<Real_>
         friend class MatrixView;
 
         MatrixView(Real* data = nullptr, integer m = 0, integer n = 0) 
@@ -96,16 +99,54 @@ namespace Pastel {
             n_ = cols;
         }
 
+        decltype(auto) rowRange(integer row) const {
+            if constexpr (ColumnMajor) {
+                return Pastel::sparseSet(
+                    Pastel::range(
+                        data() + toIndex(row, 0), 
+                        data() + size()),
+                    rows());
+
+            } else {
+                return Pastel::range(
+                    data() + toIndex(row, 0), 
+                    data() + toIndex(row + 1, 0));
+            }
+        }
+
+        decltype(auto) columnRange(integer col) const {
+            if constexpr (!ColumnMajor) {
+                return Pastel::sparseSet(
+                    Pastel::range(
+                        data() + toIndex(0, col), 
+                        data() + size()),
+                    cols());
+
+            } else {
+                return Pastel::range(
+                    data() + toIndex(0, col), 
+                    data() + toIndex(0, col + 1));
+            }
+        }
+
         decltype(auto) range() const {
             return Pastel::range(data(), data() + size());
         }
 
-        Real& operator()(integer i, integer j) const {
+        integer toIndex(integer i, integer j) const {
             if constexpr (ColumnMajor) {
-                return data_[j * cols() + i];
+                return j * cols() + i;
             } else {
-                return data_[i * rows() + j];
+                return i * rows() + j;
             }
+        }
+
+        Real& operator()(integer i, integer j) const {
+            return data_[toIndex(i, j)];
+        }
+
+        Real& operator()(integer i) const {
+            return data_[i];
         }
 
         template <typename Real_, int M_, int N_, bool ColumnMajor_>

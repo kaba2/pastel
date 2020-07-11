@@ -137,22 +137,22 @@ namespace Pastel
 
 			// Output the pairing.
 
-			Array<int32> outPairSet = matlabCreateArray<int32>(
-				Vector2i(pairSet.size(), 2), outputSet[PairSet]);
+			MatrixView<int32> outPairSet = matlabCreateMatrix<int32>(
+				2, pairSet.size(), outputSet[PairSet]);
 
 			for (integer i = 0;i < pairSet.size();++i)
 			{
 				// The +1 is because Matlab has 1-based indexing.
-				outPairSet(i, 0) = (pairSet[i].second->point() - modelData) / n + 1;
-				outPairSet(i, 1) = (pairSet[i].first->point() - sceneData) / n + 1;
+				outPairSet(0, i) = (pairSet[i].second->point() - modelData) / n + 1;
+				outPairSet(1, i) = (pairSet[i].first->point() - sceneData) / n + 1;
 			}
 
 			// Output the translation.
 
-			Array<dreal> outTranslation =
-				matlabCreateArray<dreal>(Vector2i(1, n), outputSet[Translation]);
+			MatrixView<dreal> outTranslation =
+				matlabCreateMatrix<dreal>(n, 1, outputSet[Translation]);
 			std::copy(match.translation.begin(), match.translation.end(),
-				outTranslation.begin());
+				outTranslation.data());
 
 			// Output the bias.
 

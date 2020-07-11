@@ -188,12 +188,13 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 
 			KdState* state = asState(inputSet[State]);
-			Array<integer> idSet = matlabAsLinearizedArray<integer>(inputSet[IdSet]);
+			MatlabMatrix<integer> idSet_ = matlabAsVectorizedMatrix<integer>(inputSet[IdSet]);
+			auto idSet = idSet_.view();
 
 			integer d = state->tree.n();
 			integer n = idSet.size();
 
-			Array<dreal> pointSet = matlabCreateArray<dreal>(
+			MatrixView<dreal> pointSet = matlabCreateMatrix<dreal>(
 				n, d, outputSet[PointSet]);
 			for (integer i = 0;i < n;++i)
 			{
@@ -205,17 +206,14 @@ namespace Pastel
 					Point_ConstIterator pointIter =
 						iter->second;
 
-					std::copy(
-						pointIter->point().data,
-						pointIter->point().data + d,
-						pointSet.columnBegin(i));
+					ranges::copy(
+						Pastel::range(pointIter->point().data, pointIter->point().data + d),
+						ranges::begin(pointSet.columnRange(i))
+					);
 				}					
 				else
 				{
-					std::fill(
-						pointSet.columnBegin(i),
-						pointSet.columnEnd(i),
-						(dreal)Nan());
+					ranges::fill(pointSet.columnRange(i), (dreal)Nan());
 				}
 			}
 		}
@@ -355,16 +353,17 @@ namespace Pastel
 			KdState* state = asState(inputSet[State]);
 			Tree& tree = state->tree;
 
-			Array<dreal> pointSet = matlabAsArray<dreal>(inputSet[PointSet]);
-			integer points = pointSet.width();
+			MatlabMatrix<dreal> pointSet_ = matlabAsMatrix<dreal>(inputSet[PointSet]);
+			auto pointSet = pointSet_.view();
+			integer points = pointSet.cols();
 
-			Array<integer> result =
-				matlabCreateArray<integer>(points, 1, outputSet[IdSet]);
+			MatrixView<integer> result =
+				matlabCreateMatrix<integer>(points, 1, outputSet[IdSet]);
 			for (integer i = 0;i < points;++i)
 			{
 
 				dreal* data = (dreal*)state->pointAllocator.allocate();
-				std::copy(pointSet.cColumnBegin(i), pointSet.cColumnEnd(i), data);
+				ranges::copy(pointSet.columnRange(i), data);
 
 				integer index = state->index;
 				Point_ConstIterator iter = tree.insert(TreePoint(data, index));
@@ -403,7 +402,8 @@ namespace Pastel
 				return;
 			}
 
-			Array<integer> idSet = matlabAsLinearizedArray<integer>(inputSet[IdSet]);
+			MatlabMatrix<integer> idSet_ = matlabAsVectorizedMatrix<integer>(inputSet[IdSet]);
+			auto idSet = idSet_.view();
 
 			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
@@ -447,7 +447,8 @@ namespace Pastel
 				return;
 			}
 
-			Array<integer> idSet = matlabAsLinearizedArray<integer>(inputSet[IdSet]);
+			MatlabMatrix<integer> idSet_ = matlabAsVectorizedMatrix<integer>(inputSet[IdSet]);
+			auto idSet = idSet_.view();
 
 			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
@@ -489,7 +490,8 @@ namespace Pastel
 				return;
 			}
 
-			Array<integer> idSet = matlabAsLinearizedArray<integer>(inputSet[IdSet]);
+			MatlabMatrix<integer> idSet_ = matlabAsVectorizedMatrix<integer>(inputSet[IdSet]);
+			auto idSet = idSet_.view();
 
 			integer points = idSet.size();
 			for (integer i = 0;i < points;++i)
@@ -651,7 +653,8 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
-			Array<dreal> maxDistanceSet = matlabAsLinearizedArray<dreal>(inputSet[MaxDistanceSet]);
+			MatlabMatrix<dreal> maxDistanceSet_ = matlabAsVectorizedMatrix<dreal>(inputSet[MaxDistanceSet]);
+			auto maxDistanceSet = maxDistanceSet_.view();
 			integer kNearest = matlabAsScalar<integer>(inputSet[KNearest]);
 
 			auto norm = Norm();
@@ -674,16 +677,16 @@ namespace Pastel
 				queries = mxGetNumberOfElements(inputSet[QuerySet]);
 			}
 
-			Array<integer> nearestArray =
-				matlabCreateArray<integer>(kNearest, queries, outputSet[IdSet]);
+			MatrixView<integer> nearestArray =
+				matlabCreateMatrix<integer>(kNearest, queries, outputSet[IdSet]);
 
-			Array<dreal> distanceArray;
+			MatrixView<dreal> distanceArray;
 			if (wantDistance)
 			{
-				// Having the matlabCreateArray<dreal>() call directly
+				// Having the matlabCreateMatrix<dreal>() call directly
 				// inside the swap() function triggers an
 				// internal compiler error in Clang.
-				auto copyArray = matlabCreateArray<dreal>(kNearest, queries, outputSet[DistanceSet]);
+				auto copyArray = matlabCreateMatrix<dreal>(kNearest, queries, outputSet[DistanceSet]);
 				distanceArray.swap(copyArray);
 				ranges::fill(distanceArray.range(), (dreal)Infinity());
 			}
@@ -694,7 +697,8 @@ namespace Pastel
 			{
 				// The queries are a set of points given explicitly
 				// by their coordinates. Each column is a query point.
-				Array<dreal> querySet = matlabAsArray<dreal>(inputSet[QuerySet]);
+				MatlabMatrix<dreal> querySet_ = matlabAsMatrix<dreal>(inputSet[QuerySet]);
+				auto querySet = querySet_.view();
 				integer n = state->tree.n();
 
 				// Find the k-nearest-neighbors for each point.
@@ -704,9 +708,8 @@ namespace Pastel
 					Vector<dreal> query(ofDimension(n));
 					for (integer i = block.begin(); i < block.end(); ++i)
 					{
-						std::copy(
-							querySet.cColumnBegin(i),
-							querySet.cColumnEnd(i),
+						ranges::copy(
+							querySet.columnRange(i),
 							query.begin());
 
 						integer j = 0;
@@ -741,7 +744,8 @@ namespace Pastel
 			{
 				// The queries are over the points in the kd-tree,
 				// given by their ids.
-				Array<integer> querySet = matlabAsLinearizedArray<integer>(inputSet[QuerySet]);
+				MatlabMatrix<integer> querySet_ = matlabAsVectorizedMatrix<integer>(inputSet[QuerySet]);
+				auto querySet = querySet_.view();
 		
 				// Find the k-nearest-neighbors for each point.
 				auto search = [&](const Block& block)
@@ -864,17 +868,19 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
-			Array<dreal> maxDistanceSet = matlabAsLinearizedArray<dreal>(inputSet[MaxDistanceSet]);
+			MatlabMatrix<dreal> maxDistanceSet_ = matlabAsVectorizedMatrix<dreal>(inputSet[MaxDistanceSet]);
+			auto maxDistanceSet = maxDistanceSet_.view();
 			integer queries = mxGetNumberOfElements(inputSet[QuerySet]);
 			ENSURE_OP(maxDistanceSet.size(), ==, queries);
 
 			// The queries are over the points in the kd-tree,
 			// given by their ids.
-			Array<integer> querySet = matlabAsLinearizedArray<integer>(inputSet[QuerySet]);
+			MatlabMatrix<integer> querySet_ = matlabAsVectorizedMatrix<integer>(inputSet[QuerySet]);
+			auto querySet = querySet_.view();
 
 			// Create the result array.
-			Array<integer> result =
-				matlabCreateArray<integer>(queries, 1, outputSet[IdSet]);
+			MatrixView<integer> result =
+				matlabCreateMatrix<integer>(queries, 1, outputSet[IdSet]);
 
 			// Count the neighbors for each point.
 

@@ -73,8 +73,8 @@ namespace Pastel
 
 			if (outputs > 0)
 			{
-				Array<dreal> result =
-					matlabCreateArray<dreal>(4, 1, outputSet[Similarity]);
+				MatrixView<dreal> result =
+					matlabCreateMatrix<dreal>(4, 1, outputSet[Similarity]);
 
 				result(0) = similarity.scaling();
 				result(1) = similarity.rotation();

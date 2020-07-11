@@ -96,17 +96,23 @@ namespace Pastel
 		/*! 
 		Implicit conversion allowed.
 		*/
-		template <typename That_Integer>
-		requires Rational_::IsNativeOrInteger<Integer, That_Integer>::value
+		template <
+			typename That_Integer,
+			Requires<
+				Rational_::IsNativeOrInteger<Integer, That_Integer>
+			> = 0
+		>
 		Rational(That_Integer wholes);
 
 		//! Constructs with the value (m / n).
 		template <
 			typename M_Integer, 
-			typename N_Integer>
-		requires 
-			Rational_::IsNativeOrInteger<Integer, M_Integer>::value &&
-			Rational_::IsNativeOrInteger<Integer, N_Integer>::value
+			typename N_Integer,
+			Requires<
+				Rational_::IsNativeOrInteger<Integer, M_Integer>,
+				Rational_::IsNativeOrInteger<Integer, N_Integer>
+			> = 0
+		>
 		Rational(
 			M_Integer m,
 			N_Integer n);

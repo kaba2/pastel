@@ -40,11 +40,7 @@ namespace
 		Matrix<dreal> Q_ = randomOrthogonal<dreal>(n, 
 			PASTEL_TAG(orientation), orientation);
 
-		Array<dreal> Q =
-			matlabCreateArray<dreal>(Vector2i(n, n),
-			outputSet[Qi]);
-
-		std::copy(Q_.data(), Q_.data() + Q_.size(), Q.begin());
+		MatrixView<dreal> Q = matlabCreateMatrix<dreal>(view(Q_), outputSet[Qi]);
 	}
 
 	void addFunction()

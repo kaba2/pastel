@@ -38,8 +38,9 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 			ENSURE_OP(outputs, <=, Outputs);
 
-			Array<integer> graph = matlabAsArray<integer>(inputSet[Graph]);
-			ENSURE_OP(graph.height(), ==, 2);
+			MatlabMatrix<integer> graph_ = matlabAsMatrix<integer>(inputSet[Graph]);
+			MatrixView<integer> graph = graph_.view();
+			ENSURE_OP(graph.rows(), ==, 2);
 
 			std::string mode = matlabAsString(inputSet[Mode]);
 			ENSURE(mode == "maximum" || mode == "maximal");
@@ -48,8 +49,8 @@ namespace Pastel
 			integer nB = 0;
 
 			std::vector<std::vector<integer>> edgeSet;
-			edgeSet.resize(graph.width());
-			for (integer i = 0;i < graph.width();++i)
+			edgeSet.resize(graph.cols());
+			for (integer i = 0;i < graph.cols();++i)
 			{
 				integer from = graph(i, 0);
 				if (nA < from + 1)
@@ -112,16 +113,10 @@ namespace Pastel
 
 			if (outputs > 0)
 			{
-				Array<int32> result =
-					matlabCreateArray<int32>(leftMatchSet.size(), 2, outputSet[MatchSet]);
-
-				ranges::copy(
-					leftMatchSet,
-					result.rowBegin(0));
-
-				ranges::copy(
-					rightMatchSet,
-					result.rowBegin(1));
+				MatrixView<int32> result =
+					matlabCreateMatrix<int32>(2, leftMatchSet.size(), outputSet[MatchSet]);
+				ranges::copy(leftMatchSet, result.rowRange(0).begin());
+				ranges::copy(rightMatchSet, result.rowRange(1).begin());
 			}
 		}
 

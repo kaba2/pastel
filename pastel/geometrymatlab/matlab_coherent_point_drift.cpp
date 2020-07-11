@@ -129,7 +129,7 @@ namespace
 		}
 		else
 		{
-			matlabCreateArray<dreal>(Q, outputSet[Qo]);
+			matlabCreateMatrix<dreal>(Q.view(), outputSet[Qo]);
 		}
 
 		if (sSpecified)
@@ -139,7 +139,7 @@ namespace
 		}
 		else
 		{
-			matlabCreateArray<dreal>(S, outputSet[So]);
+			matlabCreateMatrix<dreal>(S.view(), outputSet[So]);
 		}
 
 		if (tSpecified)
@@ -149,7 +149,7 @@ namespace
 		}
 		else
 		{
-			matlabCreateArray<dreal>(t, outputSet[To]);
+			matlabCreateMatrix<dreal>(t.view(), outputSet[To]);
 		}
 
 		*matlabCreateScalar<dreal>(outputSet[Sigma2]) = sigma2;
