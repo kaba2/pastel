@@ -25,17 +25,12 @@ namespace Pastel
 		return text;
 	}
 
-	template <
-		typename Type,
-		RequiresC<
-			Or<
-				std::is_same<Type, char>,
-				std::is_same<Type, wchar_t>,
-				std::is_same<Type, char16_t>,
-				std::is_same<Type, char32_t>
-			>::value
-		> = 0
-		>
+	template <typename Type>
+	requires (
+		std::is_same_v<Type, char> ||
+		std::is_same_v<Type, wchar_t> ||
+		std::is_same_v<Type, char16_t> ||
+		std::is_same_v<Type, char32_t>)
 	std::string asString(const Type* that)
 	{
 		return {that};
