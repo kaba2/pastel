@@ -27,36 +27,36 @@ namespace Pastel
 	template <
 		int FromBits, 
 		int ToBits, 
-		typename Integer,
-		RequiresC<(ToBits < FromBits)> = 0>	
+		typename Integer>
+	requires (ToBits < FromBits)
 	Integer scaleInteger(const Integer& number);
 
 	template <
 		int FromBits, 
 		int ToBits, 
-		typename Integer,
-		RequiresC<(ToBits == FromBits)> = 0>	
+		typename Integer>
+	requires (ToBits == FromBits)
 	Integer scaleInteger(const Integer& number);
 
 	template <
 		int FromBits, 
 		int ToBits, 
-		typename Integer,
-		RequiresC<(ToBits > FromBits && ToBits <= 2 * FromBits)> = 0>	
+		typename Integer>
+	requires (ToBits > FromBits && ToBits <= 2 * FromBits)
 	Integer scaleInteger(const Integer& number);
 
 	template <
 		int FromBits, 
 		int ToBits, 
-		typename Integer,
-		RequiresC<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits)> = 0>	
+		typename Integer>
+	requires (ToBits > 2 * FromBits && ToBits <= 3 * FromBits)
 	Integer scaleInteger(const Integer& number);
 
 	template <
 		int FromBits, 
 		int ToBits, 
-		typename Integer,
-		RequiresC<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits)> = 0>	
+		typename Integer>
+	requires (ToBits > 3 * FromBits && ToBits <= 4 * FromBits)
 	Integer scaleInteger(const Integer& number);
 
 }

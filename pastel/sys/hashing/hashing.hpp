@@ -14,9 +14,8 @@ namespace Pastel
 		return hasher(that);
 	}
 
-	template <
-		typename Integer,
-		RequiresC<sizeof(Integer) == sizeof(uint32)>>
+	template <typename Integer>
+	requires (sizeof(Integer) == sizeof(uint32))
 	Integer combineHash(Integer left, Integer right)
 	{
 		// This code is from the Boost library.
@@ -33,9 +32,8 @@ namespace Pastel
 			(left << 6) + (left >> 2));
 	} 
 
-	template <
-		typename Integer,
-		RequiresC<sizeof(Integer) == sizeof(uint64)>>
+	template <typename Integer>
+	requires (sizeof(Integer) == sizeof(uint64))
 	Integer combineHash(Integer left, Integer right)
 	{ 
 		// This is 2^64 / [(1 + sqrt(5)) / 2].

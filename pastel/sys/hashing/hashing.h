@@ -19,15 +19,13 @@ namespace Pastel
 		const Type& that);
 
 	//! Combines an existing 32-bit hash with the hash of 'that'.
-	template <
-		typename Integer,
-		RequiresC<sizeof(Integer) == sizeof(uint32)> = 0>
+	template <typename Integer>
+	requires (sizeof(Integer) == sizeof(uint32))
 	Integer combineHash(Integer left, Integer right);
 
 	//! Combines an existing 64-bit hash with the hash of 'that'.
-	template <
-		typename Integer,
-		RequiresC<sizeof(Integer) == sizeof(uint64)> = 0>
+	template <typename Integer>
+	requires (sizeof(Integer) == sizeof(uint64))
 	Integer combineHash(Integer left, Integer right);
 
 	//! Sequentially combines the hashes of the input values.

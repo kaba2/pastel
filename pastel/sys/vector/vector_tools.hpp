@@ -325,8 +325,8 @@ namespace Pastel
 	template <
 		typename Real, 
 		int N, 
-		typename Expression,
-		RequiresC<(N > 1 || N == Dynamic)>>
+		typename Expression>
+		requires (N > 1 || N == Dynamic)
 	Real norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return std::sqrt(dot(that, that));
@@ -335,8 +335,8 @@ namespace Pastel
 	template <
 		typename Real, 
 		int N, 
-		typename Expression,
-		RequiresC<(N == 1)>>
+		typename Expression>
+		requires (N == 1)
 	Real norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return abs(that[0]);

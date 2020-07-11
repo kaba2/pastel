@@ -13,13 +13,7 @@ namespace Pastel
 
 	// Printable
 
-	// Visual Studio 2015 CTP6 has a bug in SFINAE overloading,
-	// which is triggered by using Requires here. The use of 
-	// RequiresC instead avoids the bug.
-
-	template <
-		Arithmetic_Concept Type
-	>
+	template <Arithmetic_Concept Type>
 	std::string asString(Type that)
 	{
 		std::stringstream stream;
@@ -47,12 +41,8 @@ namespace Pastel
 		return {that};
 	}
 
-	template <
-		typename Type,
-		RequiresC<
-			std::is_enum<Type>::value
-		> = 0
-		>
+	template <typename Type>
+	requires (std::is_enum<Type>::value)
 	std::string asString(Type that)
 	{
 		using Pastel::asString;

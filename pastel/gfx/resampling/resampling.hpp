@@ -373,8 +373,8 @@ namespace Pastel
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,
-		typename Output_View,
-		RequiresC<(N > 1)>>
+		typename Output_View>
+		requires (N > 1)
 	void resampleTable(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,
@@ -461,8 +461,8 @@ namespace Pastel
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,
-		typename Output_View,
-		RequiresC<(N > 1)>>
+		typename Output_View>
+		requires (N > 1)
 	void resample(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const NoDeduction<ArrayExtender<N, Input_Element>>& arrayExtender,

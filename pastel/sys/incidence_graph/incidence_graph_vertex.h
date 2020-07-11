@@ -323,27 +323,15 @@ namespace Pastel
 			sentinel->prev_ = sentinel;
 		}
 
-		/*
-		Visual Studio 2015 RC has a bug in that
-		we can't use RequiresC<...> = 0 here.
-		*/
-		template <
-			integer I,
-			typename = RequiresC<(I < IncidenceTypes)>
-		>
+		template <integer I>
+		requires (I < IncidenceTypes)
 		Incidence* begin_() const
 		{
 			return partitionSet_[I];
 		}
 
-		/*
-		Visual Studio 2015 RC has a bug in that
-		we can't use RequiresC<...> = 0 here.
-		*/
-		template <
-			integer I,
-			typename = RequiresC<(I < IncidenceTypes)>
-		>
+		template <integer I>
+		requires (I < IncidenceTypes)
 		Incidence* end_() const
 		{
 			if (incidencesSet_[I] > 0)
@@ -360,14 +348,8 @@ namespace Pastel
 			return (Incidence*)&sentinel_;
 		}
 
-		/*
-		Visual Studio 2015 RC has a bug in that
-		we can't use RequiresC<...> = 0 here.
-		*/
-		template <
-			integer I,
-			typename = RequiresC<(I < IncidenceTypes)>
-		> 
+		template <integer I>
+		requires (I < IncidenceTypes)
 		integer incidences_() const
 		{
 			return incidencesSet_[I];

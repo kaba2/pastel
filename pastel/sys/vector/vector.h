@@ -39,19 +39,8 @@ namespace Pastel
 		/*!
 		This constructor is disabled when N == Dynamic;
 		in this case the dimension must be specified.
-
-		Visual Studio 2015 RC has a bug which is
-		triggered _at link-time_ by the following 
-		constraint. 
-		FIX: Uncomment the following constraint when 
-		it is fixed in Visual Studio.
 		*/
-		#ifndef _MSC_VER
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 0)> = 0
-		>
-		#endif
+		template <int N_ = N> requires (N >= 0)
 		Vector()
 			: data_(ofDimension(N), 0)
 		{
