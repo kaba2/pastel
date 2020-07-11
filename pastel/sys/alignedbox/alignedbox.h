@@ -66,10 +66,7 @@ namespace Pastel
 		{
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 1)> = 0
-			>
+		template <int N_ = N> requires (N == 1)
 		AlignedBox(
 			const Real& xMin, 
 			const Real& xMax)
@@ -80,10 +77,7 @@ namespace Pastel
 		{
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 2)> = 0
-			>
+		template <int N_ = N> requires (N == 2)
 		AlignedBox(
 			const Real& xMin, const Real& yMin,
 			const Real& xMax, const Real& yMax)
@@ -94,10 +88,7 @@ namespace Pastel
 		{
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 3)> = 0
-			>
+		template <int N_ = N> requires (N == 3)
 		AlignedBox(
 			const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
@@ -108,9 +99,7 @@ namespace Pastel
 		{
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 4)> = 0>
+		template <int N_ = N> requires (N == 4)
 		AlignedBox(
 			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
@@ -303,7 +292,7 @@ namespace Pastel
 			return (*this *= inverse(that));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 1)> = 0>
+		template <int N_ = N> requires (N == 1)
 		void set(
 			const Real& xMin,
 			const Real& xMax)
@@ -312,7 +301,7 @@ namespace Pastel
 				Vector<Real, N>(xMax));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		void set(
 			const Real& xMin, const Real& yMin,
 			const Real& xMax, const Real& yMax)
@@ -321,7 +310,7 @@ namespace Pastel
 				Vector<Real, N>(xMax, yMax));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 3)> = 0>
+		template <int N_ = N> requires (N == 3)
 		void set(
 			const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
@@ -330,7 +319,7 @@ namespace Pastel
 				Vector<Real, N>(xMax, yMax, zMax));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 4)> = 0>
+		template <int N_ = N> requires (N == 4)
 		void set(
 			const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
@@ -339,19 +328,19 @@ namespace Pastel
 				Vector<Real, N>(xMax, yMax, zMax, wMax));
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 1)> = 0>
+		template <int N_ = N> requires (N >= 1)
 		Real width() const
 		{
 			return extent()[0];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 2)> = 0>
+		template <int N_ = N> requires (N >= 2)
 		Real height() const
 		{
 			return extent()[1];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 3)> = 0>
+		template <int N_ = N> requires (N >= 3)
 		Real depth() const
 		{
 			return extent()[2];

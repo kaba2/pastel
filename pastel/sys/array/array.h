@@ -349,19 +349,19 @@ namespace Pastel
 
 		// 1-dimensional special functions.
 
-		template <int N_ = N, RequiresC<(N_ >= 1)> = 0>
+		template <int N_ = N> requires (N >= 1)
 		integer width() const
 		{
 			return extent()[0];
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 1)> = 0>
+		template <int N_ = N> requires (N == 1)
 		Cursor cursor(integer x)
 		{
 			return cursor(Vector<integer, N>(x));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 1)> = 0>
+		template <int N_ = N> requires (N == 1)
 		ConstCursor constCursor(integer x) const
 		{
 			return constCursor(Vector<integer, N>(x));
@@ -369,103 +369,103 @@ namespace Pastel
 
 		// 2-dimensional special functions
 
-		template <int N_ = N, RequiresC<(N_ >= 2)> = 0>
+		template <int N_ = N> requires (N >= 2)
 		integer height() const
 		{
 			return extent()[1];
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		Type& operator()(integer x, integer y)
 		{
 			return operator()(Vector<integer, N>(x, y));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		const Type& operator()(integer x, integer y) const
 		{
 			return operator()(Vector<integer, N>(x, y));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		Cursor cursor(integer x, integer y)
 		{
 			return cursor(Vector<integer, N>(x, y));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		ConstCursor constCursor(integer x, integer y) const
 		{
 			return constCursor(Vector<integer, N>(x, y));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		RowRange rowRange(integer y)
 		{
 			return rowRange(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		ConstRowRange cRowRange(integer y) const
 		{
 			return cRowRange(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		RowIterator rowBegin(integer y)
 		{
 			return rowBegin(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		ConstRowIterator cRowBegin(integer y) const
 		{
 			return cRowBegin(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		RowIterator rowEnd(integer y)
 		{
 			return rowEnd(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		ConstRowIterator cRowEnd(integer y) const
 		{
 			return cRowEnd(Vector<integer, N>(0, y), 0);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		RowIterator columnBegin(integer x)
 		{
 			return rowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		ConstRowIterator cColumnBegin(integer x) const
 		{
 			return cRowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		RowIterator columnEnd(integer x)
 		{
 			return rowEnd(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		ConstRowIterator cColumnEnd(integer x) const
 		{
 			return cRowEnd(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		RowRange columnRange(integer x)
 		{
 			return rowRange(Vector<integer, N>(x, 0), 1);
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		ConstRowRange cColumnRange(integer x) const
 		{
 			return cRowRange(Vector<integer, N>(x, 0), 1);
@@ -473,31 +473,31 @@ namespace Pastel
 
 		// 3-dimensional special functions
 
-		template <int N_ = N, RequiresC<(N_ >= 3)> = 0> 
+		template <int N_ = N> requires (N >= 3) 
 		integer depth() const
 		{
 			return extent()[2];
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 3)> = 0>
+		template <int N_ = N> requires (N == 3)
 		Type& operator()(integer x, integer y, integer z)
 		{
 			return operator()(Vector<integer, N>(x, y, z));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 3)> = 0>
+		template <int N_ = N> requires (N == 3)
 		const Type& operator()(integer x, integer y, integer z) const
 		{
 			return operator()(Vector<integer, N>(x, y, z));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 3)> = 0>
+		template <int N_ = N> requires (N == 3)
 		Cursor cursor(integer x, integer y, integer z)
 		{
 			return cursor(Vector<integer, N>(x, y, z));
 		}
 
-		template <int N_ = N, RequiresC<(N_ == 3)> = 0>
+		template <int N_ = N> requires (N == 3)
 		ConstCursor constCursor(integer x, integer y, integer z) const
 		{
 			return constCursor(Vector<integer, N>(x, y, z));

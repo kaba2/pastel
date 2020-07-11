@@ -193,25 +193,19 @@ namespace Pastel
 			std::copy(that.begin(), that.end(), begin());
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		Tuple(const Type& x, const Type& y)
 		{
 			set(x, y);
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 3)> = 0>
+		template <int N_ = N> requires (N == 3)
 		Tuple(const Type& x, const Type& y, const Type& z)
 		{
 			set(x, y, z);
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 4)> = 0>
+		template <int N_ = N> requires (N == 4)
 		Tuple(const Type& x, const Type& y, 
 			const Type& z, const Type& w)
 		{
@@ -394,9 +388,7 @@ namespace Pastel
 				begin(), end(), that.begin());
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 2)> = 0>
+		template <int N_ = N> requires (N == 2)
 		void set(
 			const Type& x, const Type& y)
 		{
@@ -405,9 +397,7 @@ namespace Pastel
 			v[1] = y;
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 3)> = 0>
+		template <int N_ = N> requires (N == 3)
 		void set(
 			const Type& x, const Type& y, 
 			const Type& z)
@@ -418,9 +408,7 @@ namespace Pastel
 			v[2] = z;
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ == 4)> = 0>
+		template <int N_ = N> requires (N == 4)
 		void set(
 			const Type& x, const Type& y, 
 			const Type& z, const Type& w)
@@ -432,65 +420,49 @@ namespace Pastel
 			v[3] = w;
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 1)> = 0>
+		template <int N_ = N> requires (N >= 1)
 		Type& x()
 		{
 			return (*this)[0];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 1)> = 0>
+		template <int N_ = N> requires (N >= 1)
 		const Type& x() const
 		{
 			return (*this)[0];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 2)> = 0>
+		template <int N_ = N> requires (N >= 2)
 		Type& y()
 		{
 			return (*this)[1];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 2)> = 0>
+		template <int N_ = N> requires (N >= 2)
 		const Type& y() const
 		{
 			return (*this)[1];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 3)> = 0>
+		template <int N_ = N> requires (N >= 3)
 		Type& z()
 		{
 			return (*this)[2];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 3)> = 0>
+		template <int N_ = N> requires (N >= 3)
 		const Type& z() const
 		{
 			return (*this)[2];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 4)> = 0>
+		template <int N_ = N> requires (N >= 4)
 		Type& w()
 		{
 			return (*this)[3];
 		}
 
-		template <
-			int N_ = N,
-			RequiresC<(N_ >= 4)> = 0>
+		template <int N_ = N> requires (N >= 4)
 		const Type& w() const
 		{
 			return (*this)[3];

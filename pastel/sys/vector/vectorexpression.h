@@ -292,25 +292,25 @@ namespace Pastel
 				(const Expression&)right);
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 1)> = 0>
+		template <int N_ = N> requires (N >= 1)
 		Real x() const
 		{
 			return (*this)[0];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 2)> = 0>
+		template <int N_ = N> requires (N >= 2)
 		Real y() const
 		{
 			return (*this)[1];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 3)> = 0>
+		template <int N_ = N> requires (N >= 3)
 		Real z() const
 		{
 			return (*this)[2];
 		}
 
-		template <int N_ = N, RequiresC<(N_ >= 4)> = 0>
+		template <int N_ = N> requires (N >= 4)
 		Real w() const
 		{
 			return (*this)[3];
