@@ -18,11 +18,10 @@ namespace Pastel
 	template <
 		typename Type,
 		typename Locator>
+	requires Locator_Concept_<Locator>
 	class Location
 	{
 	public:
-		PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
-
 		Location(
 			const Type& point,
 			const Locator& locator)

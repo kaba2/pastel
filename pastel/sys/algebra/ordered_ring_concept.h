@@ -16,18 +16,6 @@ namespace Pastel
 	1) (X, +) is an ordered additive group, and
 	2) x >= 0 and y >= 0 ==> x * y >= 0, for all x, y in X.
 	*/
-	struct Ordered_Ring_Concept
-	: Refines<
-		Ordered_Additive_Group_Concept,
-		Ring_Concept>
-	{};
-
-	//! An ordered ring.
-	/*! 
-	An ordered ring is a ring (X, +, *) such that
-	1) (X, +) is an ordered additive group, and
-	2) x >= 0 and y >= 0 ==> x * y >= 0, for all x, y in X.
-	*/
 	template <typename T>
 	concept Ordered_Ring_Concept__ =
 		Ordered_Additive_Group_Concept_<T> &&

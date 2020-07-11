@@ -96,17 +96,17 @@ namespace Pastel
 		using Real = Point_Real<Search_Point>;
 
 		auto&& report = 
-			PASTEL_ARG_SC_(report, nullOutput(), Trivial_Concept_);
+			PASTEL_ARG_SC_(report, nullOutput(), Trivial_Concept);
 
 		auto&& accept = 
-			PASTEL_ARG_SC(accept, allIndicator(), Indicator_Concept(PointId));
+			PASTEL_ARG_SC1(accept, allIndicator(), Indicator_Concept, PointId);
 
 		auto&& norm = 
-			PASTEL_ARG_SC_(norm, Euclidean_Norm<dreal>(), Norm_Concept_);
+			PASTEL_ARG_SC_(norm, Euclidean_Norm<dreal>(), Norm_Concept);
 
 		using Distance = RemoveCvRef<decltype(norm())>;
 
-		const Distance maxDistance2 = PASTEL_ARG_SC(
+		const Distance maxDistance2 = PASTEL_ARG_SC_(
 			maxDistance2, Distance((Real)Infinity()), Distance_Concept);
 		
 		const Real protection = PASTEL_ARG_S(protection, 1.01);

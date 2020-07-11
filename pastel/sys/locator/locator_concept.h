@@ -20,63 +20,6 @@ namespace Pastel
 	2) Run-time dimension n for all points (N < 0).
 	3) Run-time dimension n(p) for each point p (n, N < 0).
 	*/
-	struct Locator_Concept
-	{
-		template <
-			typename Type,
-			//! The type of the point-ids.
-			typename PointId = typename Type::Point,
-			//! The type of the coordinates.
-			typename Real = typename Type::Real,
-			//! Compile-time dimension.
-			/*!
-			If the dimension is dynamic, specify N = Dynamic.
-			*/
-			int N = Type::N
-		>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				//! Returns the dimension of the points.
-				/*!
-				A non-negative number denotes that the
-				points all share the same dimension.
-				Negative number means the dimension changes
-				from point to point. 
-				*/
-				Concept::convertsTo<integer>(
-					addConst(t).n()
-				),
-
-				//! Returns the dimension of a point.
-				/*!
-				returns:
-				A non-negative integer denoting the
-				dimension of the given point.
-				*/
-				Concept::convertsTo<integer>(
-					addConst(t).n(std::declval<PointId>())
-				),
-
-				//! Returns the i:th coordinate of the given point.
-				/*!
-				Preconditions:
-				0 <= i < n()
-				*/
-				Concept::convertsTo<Real>(
-					addConst(t)(std::declval<PointId>(), (integer)0)
-				)
-			)
-		);
-	};
-
-	//! Computes coordinates for a point.
-	/*!
-	There are three kinds of locators:
-	1) Compile-time dimension N for all points.
-	2) Run-time dimension n for all points (N < 0).
-	3) Run-time dimension n(p) for each point p (n, N < 0).
-	*/
 	template <typename T>
 	concept Locator_Concept__ = requires(T t, typename T::Point point) {
 		//! The type of the point-ids.

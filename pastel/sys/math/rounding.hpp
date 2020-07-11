@@ -28,8 +28,6 @@ namespace Pastel
 	template <Integer_Concept_ Integer>
 	Integer roundUpToOdd(const Integer& that)
 	{
-		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
-
 		return odd(that) ? that : (that + 1);
 	}
 
@@ -42,8 +40,6 @@ namespace Pastel
 	template <Integer_Concept_ Integer>
 	Integer roundUpToEven(const Integer& that)
 	{
-		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
-
 		return even(that) ? that : (that + 1);
 	}
 
@@ -82,8 +78,6 @@ namespace Pastel
 		const Integer& that, 
 		integer power)
 	{
-		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
-
 		PENSURE(!negative(power));
 
 		Integer remainder = modPowerOfTwo(that, power);

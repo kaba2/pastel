@@ -16,32 +16,6 @@ namespace Pastel
 	>, <=, and >= are defined in the obvious
 	way.
 	*/
-	struct Ordered_Element_Concept
-		: Refines<Element_Concept>
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				//! Returns whether left < right.
-				Concept::convertsTo<bool>(t < t),
-				//! Returns whether left > right.
-				Concept::convertsTo<bool>(t > t),
-				//! Returns whether left <= right.
-				Concept::convertsTo<bool>(t <= t),
-				//! Returns whether left >= right.
-				Concept::convertsTo<bool>(t >= t)
-			)
-		);
-	};
-
-	//! An ordered-set element.
-	/*! 
-	An ordered-set is a set X together with
-	a partial order < in X. The other relations
-	>, <=, and >= are defined in the obvious
-	way.
-	*/
 	template <typename T>
 	concept Ordered_Element_Concept__ =
 		Element_Concept_<T> && 

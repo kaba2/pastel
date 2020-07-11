@@ -153,7 +153,7 @@ namespace Pastel
 
 		template <bool Value>
 		using BoolConstant = 
-			std::integral_constant<bool, Value>;
+			std::bool_constant<Value>;
 
 		template <integer Value>
 		using IntegerConstant = 

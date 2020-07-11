@@ -9,18 +9,19 @@ TEST_CASE("indicator (indicator)")
 {
 	struct A {};
 
-	PASTEL_CONCEPT_CHECK(All_Indicator, Indicator_Concept(integer));
-	PASTEL_CONCEPT_CHECK(All_Indicator, Indicator_Concept(A));
+	static_assert(Indicator_Concept_<decltype(allIndicator()), integer>);
+	static_assert(Indicator_Concept_<All_Indicator, integer>);
+	static_assert(Indicator_Concept_<All_Indicator, A>);
 
-	PASTEL_CONCEPT_CHECK(Complement_Indicator<All_Indicator>, Indicator_Concept(integer));
-	PASTEL_CONCEPT_CHECK(Complement_Indicator<All_Indicator>, Indicator_Concept(A));
+	static_assert(Indicator_Concept_<Complement_Indicator<All_Indicator>, integer>);
+	static_assert(Indicator_Concept_<Complement_Indicator<All_Indicator>, A>);
 
-	PASTEL_CONCEPT_CHECK(Empty_Indicator, Indicator_Concept(integer));
-	PASTEL_CONCEPT_CHECK(Empty_Indicator, Indicator_Concept(A));
+	static_assert(Indicator_Concept_<Empty_Indicator, integer>);
+	static_assert(Indicator_Concept_<Empty_Indicator, A>);
 
 	{
 		using Indicator = Predicate_Indicator<integer, LessThan>;
-		PASTEL_CONCEPT_CHECK(Indicator, Indicator_Concept(integer));
+		static_assert(Indicator_Concept_<Indicator, integer>);
 	}
 }
 

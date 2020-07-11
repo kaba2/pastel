@@ -14,10 +14,6 @@ namespace Pastel
 	A linearly-ordered set is an ordered-set
 	whose order relation is total.
 	*/
-	struct Linearly_Ordered_Element_Concept
-		: Refines<Ordered_Element_Concept>
-	{};
-
 	template <typename T>
 	concept Linearly_Ordered_Element_Concept__ =
 		Ordered_Element_Concept_<T>;

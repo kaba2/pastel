@@ -9,22 +9,6 @@
 namespace Pastel
 {
 
-	struct Output_Concept
-	{
-		template <
-			typename Type,
-			typename... ArgumentSet>
-		auto requires_(
-			Type&& t, 
-			ArgumentSet&&... argumentSet) -> decltype
-		(
-			conceptCheck(
-				//! Reports 'that'.
-				(t(argumentSet...), 0)
-			)
-		);
-	};
-
 	template <typename T, typename... Arguments>
 	concept Output_Concept__ = requires(T t, Arguments... arguments) {
 		//! Reports 'that'.

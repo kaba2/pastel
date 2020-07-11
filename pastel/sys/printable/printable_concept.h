@@ -12,17 +12,6 @@
 namespace Pastel
 {
 	
-	struct Printable_Concept
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				Concept::convertsTo<std::string>(asString(t))
-			)
-		);
-	};
-
 	template <typename T>
 	concept Printable_Concept__ = requires(T t) {
 		{asString(t)} -> std::convertible_to<std::string>;

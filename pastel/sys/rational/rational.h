@@ -59,7 +59,7 @@ namespace Pastel
 	public:
 		using Integer = Integer_;
 
-		PASTEL_CONCEPT_CHECK(Integer, Integer_Concept);
+		PASTEL_CONCEPT_CHECK(Integer_, Integer_Concept_);
 
 		//! Constructs with the value (0 / 1).
 		Rational();

@@ -9,8 +9,8 @@
 
 #define PASTEL_ARG(name, ...) Pastel::argument<Pastel::tagHash(#name)>(__VA_ARGS__, std::forward<ArgumentSet>(argumentSet)...)
 #define PASTEL_ARG_S(name, def) PASTEL_ARG(name, [&](){return def;}, Pastel::Argument_::returnTrue)
-#define PASTEL_ARG_SC(name, def, concept) PASTEL_ARG(name, [&](){return def;}, [](auto input){return Models<decltype(input), concept>();})
-#define PASTEL_ARG_SC_(name, def, concept) PASTEL_ARG(name, [&](){return def;}, [](auto input){return std::bool_constant<concept<decltype(input)>>();})
+#define PASTEL_ARG_SC_(name, def, concept) PASTEL_ARG(name, [&](){return def;}, [](auto input){return std::bool_constant<concept##_<decltype(input)>>();})
+#define PASTEL_ARG_SC1(name, def, concept, E) PASTEL_ARG(name, [&](){return def;}, [](auto input){return std::bool_constant<concept##_<decltype(input), E>>();})
 #define PASTEL_ARG_ENUM(name, def) PASTEL_ARG(name, [&](){return def;}, [](auto input){return std::is_same<RemoveCvRef<decltype(input)>, RemoveCvRef<decltype(def)>>();})
 
 #define PASTEL_ARG_T(name, ...) decltype(PASTEL_ARG(name, __VA_ARGS__))

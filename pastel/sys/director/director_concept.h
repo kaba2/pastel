@@ -17,30 +17,6 @@ namespace Pastel
 	    f(n) in [k, n],   if n >= k, and
 	    f(n) in (n, k],   if n < k.
 	*/
-	struct Director_Concept
-	{
-		template <
-			typename Type,
-			typename Integer>
-		auto requires_(Type&& f, Integer&& n) -> decltype
-		(
-			conceptCheck(
-				// For some reason isModelOf is not defined
-				// here. Probably because of circular header inclusions.
-				//isModelOf<Integer_Concept>(n),
-				f(n)
-			)
-		);
-	};
-
-	//! Director
-	/*! 
-	A director is a function f : ZZ --> ZZ
-	such that there exists k in ZZ such that
-	 
-	    f(n) in [k, n],   if n >= k, and
-	    f(n) in (n, k],   if n < k.
-	*/
 	template <typename T, typename Integer>
 	concept Director_Concept__ = 
 		Integer_Concept_<Integer> &&

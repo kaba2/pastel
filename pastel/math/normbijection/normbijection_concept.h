@@ -8,126 +8,123 @@
 namespace Pastel
 {
 
-	struct NormBijection_Concept
-	{
-		template <
-			typename Type,
-			//! The computation type.
-			typename Real = typename Type::Real>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				//! Computes the logarithm of the volume of the unit norm sphere.
-				Concept::convertsTo<Real>(
-					addConst(t).lnVolumeUnitSphere(
-						// dimension
-						std::declval<integer>()
-					)
-				),
+	template <typename T>
+	concept NormBijection_Concept__ = requires(T t, typename T::Real s) {
+		//! The computation type.
+		typename T::Real;
 
-				//! Maps a norm bijection value to a norm value.
-				Concept::convertsTo<Real>(
-					addConst(t).toNorm(
-						// normBijectionValue
-						std::declval<Real>()
-					)
-				),
-
-				//! Maps a norm bijection value to a logarithm of the norm value.
-				Concept::convertsTo<Real>(
-					addConst(t).toLnNorm(
-						// normBijectionValue
-						std::declval<Real>()
-					)
-				),
-
-				//! Maps a norm value to a norm bijection value.
-				Concept::convertsTo<Real>(
-					addConst(t).toBijection(
-						// norm
-						std::declval<Real>()
-					)
-				),
-
-				//! Returns a scaling value for norm bijection for scaling the norm value.
-				Concept::convertsTo<Real>(
-					addConst(t).scalingFactor(
-						// scaling
-						std::declval<Real>()
-					)
-				),
-				
-				//! Returns the norm bijection value along a standard basis axis.
-				/*!
-				Preconditions:
-				axisDistance >= 0
-
-				axisDistance:
-				A norm bijection value.
-				*/
-				Concept::convertsTo<Real>(
-					addConst(t).axis(
-						// axisDistance
-						std::declval<Real>()
-					)
-				),
-
-				//! Returns the norm bijection value along a standard basis axis.
-				/*!
-				axisDistance:
-				A norm bijection value (possibly negative).
-				*/
-				Concept::convertsTo<Real>(
-					addConst(t).signedAxis(
-						// axisDistance
-						std::declval<Real>()
-					)
-				),
-				
-				//! Adds distance along some standard basis axis.
-				/*!
-				distance:
-				A norm-bijection distance.
-
-				newAxisDistance:
-				A norm-bijection distance along a given standard 
-				basis axis.
-				*/
-				Concept::convertsTo<Real>(
-					addConst(t).addAxis(
-						// distance
-						std::declval<Real>(),
-						// newAxisDistance
-						std::declval<Real>()
-					)
-				),
-
-				//! Replace distance along some standard basis axis.
-				/*!
-				distance:
-				A norm-bijection distance.
-
-				oldAxisDistance:
-				The current norm-bijection distance along a given 
-				standard basis axis.
-
-				newAxisDistance:
-				The new norm-bijection distance along the given 
-				standard basis axis.
-				*/
-				Concept::convertsTo<Real>(
-					addConst(t).replaceAxis(
-						// distance
-						std::declval<Real>(),
-						// oldAxisDistance
-						std::declval<Real>(),
-						// newAxisDistance
-						std::declval<Real>()
-					)
-				)
+		//! Computes the logarithm of the volume of the unit norm sphere.
+		{
+			addConst(t).lnVolumeUnitSphere(
+				// dimension
+				(integer)0
 			)
-		);
+		} -> std::convertible_to<typename T::Real>;
+
+		//! Maps a norm bijection value to a norm value.
+		{
+			addConst(t).toNorm(
+				// normBijectionValue
+				s
+			)
+		} -> std::convertible_to<typename T::Real>;
+
+		//! Maps a norm bijection value to a logarithm of the norm value.
+		{
+			addConst(t).toLnNorm(
+				// normBijectionValue
+				s
+			)
+		} -> std::convertible_to<typename T::Real>;
+
+		//! Maps a norm value to a norm bijection value.
+		{
+			addConst(t).toBijection(
+				// norm
+				s
+			)
+		} -> std::convertible_to<typename T::Real>;
+
+		//! Returns a scaling value for norm bijection for scaling the norm value.
+		{
+			addConst(t).scalingFactor(
+				// scaling
+				s
+			)
+		} -> std::convertible_to<typename T::Real>;
+		
+		//! Returns the norm bijection value along a standard basis axis.
+		/*!
+		Preconditions:
+		axisDistance >= 0
+
+		axisDistance:
+		A norm bijection value.
+		*/
+		{
+			addConst(t).axis(
+				// axisDistance
+				s
+			)
+		} -> std::convertible_to<typename T::Real>;
+
+		//! Returns the norm bijection value along a standard basis axis.
+		/*!
+		axisDistance:
+		A norm bijection value (possibly negative).
+		*/
+		{
+			addConst(t).signedAxis(
+				// axisDistance
+				s
+			)
+		} -> std::convertible_to<typename T::Real>;
+		
+		//! Adds distance along some standard basis axis.
+		/*!
+		distance:
+		A norm-bijection distance.
+
+		newAxisDistance:
+		A norm-bijection distance along a given standard 
+		basis axis.
+		*/
+		{
+			addConst(t).addAxis(
+				// distance
+				s,
+				// newAxisDistance
+				s
+			)
+		} -> std::convertible_to<typename T::Real>;
+
+		//! Replace distance along some standard basis axis.
+		/*!
+		distance:
+		A norm-bijection distance.
+
+		oldAxisDistance:
+		The current norm-bijection distance along a given 
+		standard basis axis.
+
+		newAxisDistance:
+		The new norm-bijection distance along the given 
+		standard basis axis.
+		*/
+		{
+			addConst(t).replaceAxis(
+				// distance
+				s,
+				// oldAxisDistance
+				s,
+				// newAxisDistance
+				s
+			)
+		} -> std::convertible_to<typename T::Real>;
 	};
+
+	template <typename T>
+	concept NormBijection_Concept_ = NormBijection_Concept__<RemoveCvRef<T>>;
 
 }
 

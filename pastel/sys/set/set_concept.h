@@ -17,18 +17,6 @@ namespace Pastel
 	elements can occur multiple times. Here we use the term 
 	'set' a bit loosely, for brevity.
 	*/
-	struct Set_Concept
-	{
-		template <typename Type>
-		auto requires_(Type&&) -> void;
-		//decltype
-		//(
-		//	 conceptCheck(
-		//	 	Concept::holds<ranges::concepts::models<ranges::concepts::Range, Type>>()
-		//	 )
-		//);
-	};
-
 	template <typename T>
 	concept Set_Concept__ = requires(T t) {
 		t;
@@ -43,8 +31,6 @@ namespace Pastel
 	concept Range_Concept_ = 
 		Set_Concept_<T>;
 	
-	using Range_Concept = Set_Concept;
-
 }
 
 #include "pastel/sys/set/set_element.h"

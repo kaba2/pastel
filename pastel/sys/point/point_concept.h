@@ -13,20 +13,6 @@
 namespace Pastel
 {
 
-	struct Point_Concept
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				Concept::models<Real_Ring_Concept>(pointAxis(addConst(t), (integer)0)),
-				Concept::convertsTo<integer>(dimension(addConst(t))),
-				//Concept::models<Locator>(pointLocator(addConst(t))),
-				pointPointId(addConst(t))
-			)
-		);
-	};
-
 	template <typename T>
 	concept Point_Concept__ = requires(T t) {
 		{removeReference(pointAxis(addConst(t), (integer)0))} -> Real_Ring_Concept_;

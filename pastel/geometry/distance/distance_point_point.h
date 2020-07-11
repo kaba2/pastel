@@ -18,9 +18,7 @@ namespace Pastel
 	template <
 		Point_Concept_ A_Point,
 		Point_Concept_ B_Point, 
-		// We need to use Point_Real_F instead of Point_Real to
-		// avoid a bug in Visual Studio 2015 Update 1.
-		typename Real = typename Point_Real_F<A_Point, B_Point>::type,
+		typename Real = Point_Real<A_Point, B_Point>,
 		typename... ArgumentSet
 	>
 	auto distance2(
@@ -29,13 +27,12 @@ namespace Pastel
 		ArgumentSet&&... argumentSet)
 	{
 		auto&& norm = 
-			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept_);
+			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept);
 
 		auto distance = norm();
 		using Distance = decltype(distance);
 		
-		auto&& keepGoing = 
-			PASTEL_ARG_SC(keepGoing, allIndicator(), Indicator_Concept(Distance));
+		auto&& keepGoing = PASTEL_ARG_SC1(keepGoing, allIndicator(), Indicator_Concept, Distance);
 
 		PENSURE_OP(dimension(aPoint), ==, dimension(bPoint));
 

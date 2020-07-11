@@ -15,18 +15,6 @@ namespace Pastel
 	An ordered group (X, +, 0) is an ordered
 	monoid (X, +, 0) which is also a group.
 	*/
-	struct Ordered_Additive_Group_Concept
-	: Refines<
-		Ordered_Additive_Monoid_Concept,
-		Additive_Group_Concept>
-	{
-	};
-
-	//! An ordered additive group.
-	/*!
-	An ordered group (X, +, 0) is an ordered
-	monoid (X, +, 0) which is also a group.
-	*/
 	template <typename T>
 	concept Ordered_Additive_Group_Concept__ =
 		Ordered_Additive_Monoid_Concept_<T> && 

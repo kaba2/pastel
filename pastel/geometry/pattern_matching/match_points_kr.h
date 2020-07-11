@@ -134,7 +134,7 @@ namespace Pastel
 		integer kNearest = 
 			PASTEL_ARG_S(kNearest, 16);
 
-		auto&& norm = PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept_);
+		auto&& norm = PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept);
 
 		using Distance = decltype(norm());
 
@@ -148,7 +148,7 @@ namespace Pastel
 			PASTEL_ARG_S(maxBias, 0.1);
 		MatchPointsKr_MatchingMode matchingMode = 
 			PASTEL_ARG_S(matchingMode, MatchPointsKr_MatchingMode::First);
-		auto&& report = PASTEL_ARG_SC_(report, nullOutput(), Trivial_Concept_);
+		auto&& report = PASTEL_ARG_SC_(report, nullOutput(), Trivial_Concept);
 
 		ENSURE_OP(kNearest, >, 0);
 		ENSURE(minMatchRatio >= 0);

@@ -14,23 +14,11 @@ namespace Pastel
 	A set element is any type whose objects can 
 	be compared with == and !=.
 	*/
-	struct Element_Concept
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				//! Returns whether left == right.
-				Concept::convertsTo<bool>(t == t),
-				//! Returns whether left != right.
-				Concept::convertsTo<bool>(t != t)
-			)
-		);
-	};
-
 	template <typename T>
 	concept Element_Concept__ = requires(T t) {
+		//! Returns whether left == right.
 		{t == t} -> std::convertible_to<bool>;
+		//! Returns whether left != right.
 		{t != t} -> std::convertible_to<bool>;
 	};
 

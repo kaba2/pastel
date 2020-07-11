@@ -20,22 +20,6 @@ namespace Pastel
 		
 	for all c, x, y in X.
 	*/
-	struct Ordered_Additive_SemiGroup_Concept
-	: Refines<
-		Additive_SemiGroup_Concept,
-		Ordered_Element_Concept>
-	{};
-
-	//! An ordered additive semi-group.
-	/*! 
-	An ordered additive semi-group is
-	a semi-group (X, +, 0) which is also
-	an ordered set such that
-		
-		    x <= y ==> c + x <= c + y,
-		
-	for all c, x, y in X.
-	*/
 	template <typename T>
 	concept Ordered_Additive_SemiGroup_Concept__ =
 		Additive_SemiGroup_Concept_<T> && 

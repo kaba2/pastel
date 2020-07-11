@@ -13,29 +13,6 @@
 namespace Pastel
 {
 
-	struct NearestSet_Concept
-	: Refines<PointSet_Concept>
-	{
-		template <
-			typename Type,
-			typename Point = PointSet_Point<Type>
-		>
-		auto requires_(Type&& nearestSet) -> decltype
-		(
-			conceptCheck(
-				addConst(nearestSet).asPoint(std::declval<Point>()),
-				(addConst(nearestSet).findNearbyPointsets(
-					// Search-point
-					Point_Archetype(),
-					// Norm to use
-					Norm_Archetype(),
-					// Culling distance
-					Distance_Archetype(),
-					Output_Archetype()), 0)
-			)
-		);
-	};
-
 	template <typename T>
 	concept NearestSet_Concept__ = requires(T t) {
 		addConst(t).asPoint(std::declval<PointSet_Point<T>>());

@@ -133,11 +133,9 @@ namespace Pastel
 	Returns:
 	x - floor(x)
 	*/
-	template <typename Real>
+	template <Real_Concept_ Real>
 	Real realMod(const Real& x)
 	{
-		PASTEL_CONCEPT_CHECK(Real, Real_Concept);
-
 		return x - floor(x);
 	}
 
@@ -149,11 +147,9 @@ namespace Pastel
 	This is a convenience function that returns
 	mod(x / n) * n
 	*/
-	template <typename Real>
+	template <Real_Concept_ Real>
 	Real realMod(const Real& x, const Real& n)
 	{
-		PASTEL_CONCEPT_CHECK(Real, Real_Concept);
-
 		PENSURE_OP(n, >, 0);
 		return Pastel::realMod(x / n) * n;
 	}

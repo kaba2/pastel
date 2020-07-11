@@ -18,26 +18,6 @@ namespace Pastel
 	A semi-group is a pair (X, +), where X is a set 
 	and + : X^2 --> X is associative.
 	*/
-	struct Additive_SemiGroup_Concept
-	: Refines<Element_Concept>
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				//! Adds 'that' to the element.
-				Concept::hasType<Type&>(t += t),
-				//! Returns left + right.
-				Concept::convertsTo<Type>(t + t)
-			)
-		);
-	};
-
-	//! An additive semi-group.
-	/*!
-	A semi-group is a pair (X, +), where X is a set 
-	and + : X^2 --> X is associative.
-	*/
 	template <typename T>
 	concept Additive_SemiGroup_Concept__ = 
 		Element_Concept_<T> && 
@@ -53,28 +33,6 @@ namespace Pastel
 		Additive_SemiGroup_Concept__<RemoveCvRef<T>>;
 
 	// For native types the operators += and + are inbuilt.
-
-	//! A multiplicative semi-group.
-	/*!
-	A semi-group is a pair (X, *), where X is a set 
-	and * : X^2 --> X is associative.
-	*/
-	struct Multiplicative_SemiGroup_Concept
-	: Refines<Element_Concept>
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				//! Adds 'that' to the element.
-				Concept::hasType<Type&>(t *= t),
-				//! Returns left * right.
-				Concept::convertsTo<Type>(t * t),
-				//! Returns the power t^p, for p in NN^{> 0}.
-				Concept::convertsTo<Type>(pow(t, (integer)1))
-			)
-		);
-	};
 
 	//! A multiplicative semi-group.
 	/*!

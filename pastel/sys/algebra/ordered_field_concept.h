@@ -15,12 +15,10 @@ namespace Pastel
 	An ordered field is a field which is also
 	an ordered ring.
 	*/
-	struct Ordered_Field_Concept
-	: Refines<
-		Ordered_Ring_Concept,
-		Multiplicative_Group_Concept>
-	{
-	};
+	template <typename T>
+	concept Ordered_Field_Concept_ =
+		Ordered_Ring_Concept_<T> &&
+		Multiplicative_Group_Concept_<T>;
 
 }
 

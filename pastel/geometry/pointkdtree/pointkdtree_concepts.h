@@ -3,7 +3,6 @@
 #ifndef PASTELGEOMETRY_POINTKDTREE_CONCEPTS_H
 #define PASTELGEOMETRY_POINTKDTREE_CONCEPTS_H
 
-#include "pastel/geometry/pointkdtree/pointkdtree.h"
 #include "pastel/geometry/pointkdtree/pointkdtree_fwd.h"
 
 #include "pastel/sys/locator/locator_concept.h"
@@ -23,18 +22,10 @@ namespace Pastel
 
 	}
 
-	struct PointKdTree_Settings_Concept
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				Concept::exists<typename Type::Locator>(),
-				Concept::holds<
-					Models<typename Type::Locator, Locator_Concept>
-				>()
-			)
-		);
+	template <typename T>
+	concept PointKdTree_Settings_Concept_ = requires {
+		typename T::Locator;
+		requires Locator_Concept_<typename T::Locator>;
 	};
 
 }

@@ -22,7 +22,7 @@ namespace Pastel
 		: boost::multipliable<ConformalAffine2D<Real> >
 	{
 	public:
-		PASTEL_CONCEPT_CHECK(Real, Real_Concept);
+		PASTEL_CONCEPT_CHECK(Real, Real_Concept_);
 
 		// Using default copy constructor.
 		// Using default destructor.

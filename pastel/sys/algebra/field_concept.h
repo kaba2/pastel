@@ -15,11 +15,10 @@ namespace Pastel
 	A field (X, *, 1, +, 0) is a ring
 	such that (X, *, 1) is a commutative group.
 	*/
-	struct Field_Concept
-	: Refines<
-		Ring_Concept,
-		Multiplicative_Group_Concept>
-	{};
+	template <typename T>
+	concept Field_Concept_ =
+		Ring_Concept_<T> &&
+		Multiplicative_Group_Concept_<T>;
 
 }
 

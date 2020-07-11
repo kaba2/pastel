@@ -360,7 +360,7 @@ namespace Pastel
 			PASTEL_ARG_SC_(
 				intervalSequence, 
 				(Vector<Real, 2>({-(Real)Infinity(), (Real)Infinity()})),
-				Point_Concept_);
+				Point_Concept);
 
 		auto timeIntervalSequence_ = evaluate(pointAsVector(timeIntervalSequence));
 		using IntervalSequence = decltype(timeIntervalSequence_);
@@ -369,7 +369,7 @@ namespace Pastel
 			PASTEL_ARG_SC_(
 				searchAlgorithm, 
 				DepthFirst_SearchAlgorithm_PointKdTree(),
-				Trivial_Concept_);
+				Trivial_Concept);
 			
 		using SearchAlgorithm = RemoveCvRef<decltype(searchAlgorithmObject)>;
 

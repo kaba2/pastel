@@ -6,6 +6,7 @@
 #include "pastel/sys/allocator/pool_allocator.h"
 #include "pastel/sys/list.h"
 #include "pastel/sys/range.h"
+#include "pastel/geometry/pointkdtree/pointkdtree_concepts.h"
 
 #include <boost/iterator/indirect_iterator.hpp>
 

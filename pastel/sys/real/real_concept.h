@@ -11,12 +11,6 @@ namespace Pastel
 {
 
 	//! A dreal number.
-	struct Real_Concept
-	: Refines<
-		Real_Ring_Concept,
-		Multiplicative_Group_Concept>
-	{};
-
 	template <typename T>
 	concept Real_Concept__ = 
 		Real_Ring_Concept_<T> && 

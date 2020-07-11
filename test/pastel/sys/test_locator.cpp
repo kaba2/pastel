@@ -11,8 +11,7 @@ TEST_CASE("Archetype (Locator)")
 	struct A {};
 	using Locator = Locator_Archetype<dreal, A, 3>;
 	PASTEL_CONCEPT_CHECK(Locator, Locator_Concept);
-	PASTEL_CONCEPT_CHECK(Locator, Locator_Concept());
-	// PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(A));
+	// PASTEL_CONCEPT_CHECK1(Locator, Locator_Concept, A);
 	// PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(Locator_Point<Locator>, dreal));
 	// PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(A, dreal));
 	// PASTEL_CONCEPT_CHECK(Locator, Locator_Concept(A, Locator_Real<Locator>));

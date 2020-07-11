@@ -10,22 +10,9 @@
 namespace Pastel
 {
 
-	struct Norm_Concept
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				//! Returns a zero distance.
-				Concept::isModelOf<Distance_Concept>(
-					addConst(t)()
-				)
-			)
-		);
-	};
-
 	template <typename T>
 	concept Norm_Concept__ = requires(T t) {
+		//! Returns a zero distance.
 		{addConst(t)()} -> Distance_Concept_;
 	};
 

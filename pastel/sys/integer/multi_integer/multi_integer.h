@@ -62,10 +62,9 @@ namespace Pastel
 	, boost::shiftable2<MultiInteger<Integer_Settings>, integer
 	> > > >
 	{
-	private:
-		PASTEL_CONCEPT_CHECK(Integer_Settings, MultiInteger_Settings_Concept);
-
 	public:
+		PASTEL_CONCEPT_CHECK(Integer_Settings, MultiInteger_Settings_Concept_);
+
 		// See the documentation for Integer_Settings_Concept.
 		using Settings = Integer_Settings;
 		static constexpr int N = Settings::N;
@@ -1343,8 +1342,8 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <typename MultiInteger_Settings_Concept>
-	std::string MultiInteger<MultiInteger_Settings_Concept>::asString(
+	template <typename Integer_Settings>
+	std::string MultiInteger<Integer_Settings>::asString(
 		integer base) const
 	{
 		ENSURE_OP(base, >=, 2);

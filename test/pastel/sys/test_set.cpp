@@ -25,8 +25,6 @@ TEST_CASE("Interval (Set)")
 {
 	PASTEL_CONCEPT_CHECK(
 		Interval_Set<integer>, Set_Concept);
-	PASTEL_CONCEPT_CHECK(
-		Interval_Set<integer>, Set_Concept());
 	//PASTEL_CONCEPT_CHECK(
 	//	Interval_Set<integer>, Set_Concept(integer));
 	//PASTEL_CONCEPT_CHECK(

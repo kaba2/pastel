@@ -17,30 +17,6 @@ namespace Pastel
 	An ordered monoid (X, +, 0) is an additive monoid (X, +, 0)
 	which is also an ordered additive semigroup.
 	*/
-	struct Ordered_Additive_Monoid_Concept
-	: Refines<
-		Ordered_Additive_SemiGroup_Concept,
-		Additive_Monoid_Concept>
-	{
-		template <typename Type>
-		auto requires_(Type&& t) -> decltype
-		(
-			conceptCheck(
-				//! Returns whether 'that' > 0.
-				Concept::convertsTo<bool>(positive(t)),
-				//! Returns whether 'that' < 0.
-				Concept::convertsTo<bool>(negative(t)),
-				//! Returns the absolute value of 'that'.
-				Concept::convertsTo<Type>(abs(t))
-			)
-		);
-	};
-
-	//! An ordered additive monoid.
-	/*! 
-	An ordered monoid (X, +, 0) is an additive monoid (X, +, 0)
-	which is also an ordered additive semigroup.
-	*/
 	template <typename T>
 	concept Ordered_Additive_Monoid_Concept__ =
 		Ordered_Additive_SemiGroup_Concept_<T> && 

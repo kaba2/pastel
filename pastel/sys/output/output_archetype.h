@@ -15,8 +15,6 @@ namespace Pastel
 		void operator()(TypeSet&&...) const {}
 	};
 
-	PASTEL_CONCEPT_CHECK(Output_Archetype, Output_Concept(integer));
-
 }
 
 #endif

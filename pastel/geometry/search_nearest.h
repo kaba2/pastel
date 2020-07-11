@@ -98,13 +98,13 @@ namespace Pastel
 		using Real = Point_Real<Search_Point>;
 
 		auto&& report = 
-			PASTEL_ARG_SC_(report, nullOutput(), Trivial_Concept_);
+			PASTEL_ARG_SC_(report, nullOutput(), Trivial_Concept);
 
 		auto&& accept = 
-			PASTEL_ARG_SC(accept, allIndicator(), Indicator_Concept(PointId));
+			PASTEL_ARG_SC1(accept, allIndicator(), Indicator_Concept, PointId);
 
 		auto&& norm = 
-			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept_);
+			PASTEL_ARG_SC_(norm, Euclidean_Norm<Real>(), Norm_Concept);
 
 		using Distance = decltype(norm());
 

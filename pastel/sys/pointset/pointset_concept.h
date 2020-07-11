@@ -14,20 +14,6 @@
 namespace Pastel
 {
 
-	struct PointSet_Concept
-	: Refines<Set_Concept>
-	{
-		template <typename Type>
-		auto requires_(
-			Type&& t) -> decltype
-		(
-			conceptCheck(
-				// A point-set is a set together with a locator. 
-				Concept::models<Locator_Concept>(pointSetLocator(addConst(t)))
-			)
-		);
-	};
-
 	template <typename T>
 	concept PointSet_Concept__ =
 		Set_Concept_<T> && 
