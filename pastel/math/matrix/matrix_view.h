@@ -20,7 +20,7 @@ namespace Pastel {
             Ring_Concept<Real_>
         friend class MatrixView;
 
-        MatrixView(Real* data = nullptr, integer m = 0, integer n = 0) 
+        MatrixView(Real* data = nullptr, integer m = (M >= 0 ? M : 0), integer n = (N >= 0 ? N : 0)) 
         : data_(data)
         , m_(m)
         , n_(n)

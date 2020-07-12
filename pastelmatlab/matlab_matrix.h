@@ -19,14 +19,23 @@ namespace Pastel {
         , view_(data_.data(), rows, cols) {
         }
 
-        MatlabMatrix(const mxArray* that) 
+        MatlabMatrix(const mxArray* that)
+        : MatlabMatrix(that, mxGetM(that), mxGetN(that))
+        {
+        }
+
+        MatlabMatrix(const mxArray* that, integer rows, integer cols)
         : MatlabMatrix()
         {
             ENSURE(mxIsNumeric(that));
+            ENSURE_OP(rows, >=, 0);
+            ENSURE_OP(cols, >=, 0);
 
             integer m = mxGetM(that);
             integer n = mxGetN(that);
             Real* data = (Real*)mxGetData(that);
+            
+            ENSURE_OP(rows * cols, ==, m * n);
 
             if (typeToMatlabClassId<Real>() != mxGetClassID(that)) {
                 // Types do not match; copy the data.
@@ -35,13 +44,13 @@ namespace Pastel {
                 data = data_.data();
             }
 
-            view_ = MatrixView<Real, M, N>(data, m, n);
+            view_ = MatrixView<Real, M, N>(data, rows, cols);
         }
 
         MatlabMatrix(const MatlabMatrix& that)
         : data_(that.data_)
         , view_(that.view_) {
-            if (that.data_.data() == that.view_.data()) {
+            if (that.hasMemory()) {
                 view_ = MatrixView<Real, M, N>(data_.data(), that.rows(), that.cols());
             }
         }
@@ -54,14 +63,13 @@ namespace Pastel {
         MatlabMatrix& operator=(const MatlabMatrix& that) = delete;
         MatlabMatrix& operator=(MatlabMatrix&& that) = delete;
 
+        bool hasMemory() const {
+            return data_.data() == view_.data();
+        }
+
         void swap(MatlabMatrix& that) {
             data_.swap(that.data_);
             view_.swap(that.view_);
-        }
-
-        void reshape(integer rows, integer cols) {
-            ENSURE_OP(rows * cols, ==, size());
-            view_ = MatrixView<Real, M, N>(data(), rows, cols);
         }
 
         integer rows() const {
@@ -110,7 +118,7 @@ namespace Pastel {
 	MatlabMatrix<Type, M, 1> matlabAsColMatrix(
 		const mxArray* that)
 	{
-		return matlabAsMatrix<Type, M, 1>(that);
+		return MatlabMatrix<Type, M, 1>(that, mxGetNumberOfElements(that), 1);
 	}
 
 	//! Retrieves a reference to a linearized dreal array.
@@ -118,16 +126,13 @@ namespace Pastel {
 	Preconditions:
 	mxIsNumeric(that)
 	*/
-	template <typename Type>
-	MatlabMatrix<Type> matlabAsVectorizedMatrix(
+	template <typename Type, int M = Dynamic, int N = Dynamic>
+	MatlabMatrix<Type, M, N> matlabAsVectorizedMatrix(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
 
-		auto m = matlabAsMatrix<Type>(that);
-		m.reshape(m.size(), 1);
-
-		return m;
+		return MatlabMatrix<Type, M, N>(that, mxGetNumberOfElements(that), 1);
 	}
 
 }

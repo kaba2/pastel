@@ -34,13 +34,13 @@ namespace Pastel
 	*/
 	template <typename Type, int M = Dynamic, int N = Dynamic>
 	MatrixView<Type, M, N> matlabCreateMatrix(
-		integer height, integer width,
+		integer rows, integer cols,
 		mxArray*& output)
 	{
-		ENSURE_OP(width, >=, 0);
-		ENSURE_OP(height, >=, 0);
+		ENSURE_OP(cols, >=, 0);
+		ENSURE_OP(rows, >=, 0);
 
-		output = mxCreateNumericMatrix(height, width, 
+		output = mxCreateNumericMatrix(rows, cols, 
 			typeToMatlabClassId<Type>(), mxREAL);
 		
 		return matlabAsMatrixView<Type, M, N>(output);
@@ -48,9 +48,9 @@ namespace Pastel
 
 	template <typename Type, int M = Dynamic>
 	ColMatrixView<Type, M> matlabCreateColMatrix(
-		integer height, mxArray*& output)
+		integer rows, mxArray*& output)
 	{
-		return matlabCreateMatrix<Type, M, 1>(height, 1, output);
+		return matlabCreateMatrix<Type, M, 1>(rows, 1, output);
 	}
 
 	template <
@@ -61,7 +61,7 @@ namespace Pastel
 		mxArray*& output)
 	{
 		MatrixView<To_Type, M, N> to = matlabCreateMatrix<To_Type>(
-			from.cols(), from.rows(), output);
+			from.rows(), from.cols(), output);
 
 		std::copy(from.data(), from.data() + from.size(), to.data());
 
