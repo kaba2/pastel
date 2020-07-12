@@ -100,9 +100,9 @@ foreach (Filename ${CopySet})
 	EcCopyAsideExecutables("${Filename}")
 endforeach()
 
-# # Copy some data files.
-# file (COPY "${ProjectDirectory}/matlab/+pastelgeometry/fish.txt" 
-# 	DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/matlab/+pastelgeometry")
+# Copy some data files.
+file (COPY "${ProjectDirectory}/pastelmatlab/matlab/+pastelmatlab/fish.txt" 
+	DESTINATION "${ProjectMatlabDirectory}/+pastelmatlab")
 
 # Source file globs
 # -----------------

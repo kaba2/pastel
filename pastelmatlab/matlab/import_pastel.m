@@ -5,15 +5,6 @@
 %
 % where
 %
-% NAMESET is a string, or a cell-array of strings, which specifies the 
-% Pastel sub-libraries to find the matching package versions for. If 
-% NAMESET is a string, it is treated as if it were a cell-array 
-% containing that string. Each string must be one of
-%     sys
-%     math
-%     geometry
-% Default {'sys', 'math', 'geometry'}
-%
 % IDSET is a string, or a cell-array of strings, which specifies the
 % function or class in idSet{i} to import from nameSet{i}. If IDSET
 % is a string, it is reused for each element of NAMESET. If IDSET is
@@ -29,7 +20,7 @@
 function command = import_pastel(nameSet, idSet)
 
 if nargin < 1
-	nameSet = {'sys', 'math', 'geometry'};
+	nameSet = {'matlab'};
 end
 
 if nargin < 2
