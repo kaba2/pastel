@@ -13,7 +13,7 @@ end
 
 % Add Pastel to Matlab path so that
 % process_options is available.
-addpath(['${PastelDirectory}', '/matlab']);
+%addpath(['${PastelDirectory}', '/pastelmatlab']);
 
 % Optional input arguments
 mode = 'release';

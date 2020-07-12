@@ -16,3 +16,5 @@ find_package("Matlab_")
 include_directories (${MatlabIncludeDirectory})
 
 EcAddLibrary (library pastelmatlab "${PastelSourceGlobSet}")
+
+add_subdirectory (matlab)

@@ -61,6 +61,8 @@ add_definitions(
 	-DBOOST_BIND_GLOBAL_PLACEHOLDERS
 )
 
+set (BoostIncludeDirectory ${Boost_INCLUDE_DIRS})
+
 # Eigen3
 find_package(Eigen3 3.3 CONFIG REQUIRED NO_MODULE)
 link_libraries(Eigen3::Eigen)
