@@ -195,7 +195,7 @@ namespace Pastel
 			integer n = idSet.size();
 
 			MatrixView<dreal> pointSet = matlabCreateMatrix<dreal>(
-				n, d, outputSet[PointSet]);
+				d, n, outputSet[PointSet]);
 			for (integer i = 0;i < n;++i)
 			{
 				integer id = idSet(i);
@@ -678,7 +678,7 @@ namespace Pastel
 			}
 
 			MatrixView<integer> nearestArray =
-				matlabCreateMatrix<integer>(kNearest, queries, outputSet[IdSet]);
+				matlabCreateMatrix<integer>(queries, kNearest, outputSet[IdSet]);
 
 			MatrixView<dreal> distanceArray;
 			if (wantDistance)
@@ -686,7 +686,7 @@ namespace Pastel
 				// Having the matlabCreateMatrix<dreal>() call directly
 				// inside the swap() function triggers an
 				// internal compiler error in Clang.
-				auto copyArray = matlabCreateMatrix<dreal>(kNearest, queries, outputSet[DistanceSet]);
+				auto copyArray = matlabCreateMatrix<dreal>(queries, kNearest, outputSet[DistanceSet]);
 				distanceArray.swap(copyArray);
 				ranges::fill(distanceArray.range(), (dreal)Infinity());
 			}
@@ -719,10 +719,10 @@ namespace Pastel
 						{
 							if (point != state->tree.end())
 							{
-								nearestArray(j, i) = point->point().id;
+								nearestArray(i, j) = point->point().id;
 								if (wantDistance)
 								{
-									distanceArray(j, i) = ~distance;
+									distanceArray(i, j) = ~distance;
 								}
 							}
 							++j;
@@ -759,10 +759,10 @@ namespace Pastel
 						{
 							if (point != state->tree.end())
 							{
-								nearestArray(j, i) = point->point().id;
+								nearestArray(i, j) = point->point().id;
 								if (wantDistance)
 								{
-									distanceArray(j, i) = ~distance;
+									distanceArray(i, j) = ~distance;
 								}
 							}
 							++j;

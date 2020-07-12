@@ -42,5 +42,5 @@ if dimension > d
     error('Subspace dimension must be >= point-set dimension.');
 end
 
-R = pastelmath.random_orthogonal(d, 'orientation', 1);
+R = pastelmatlab.random_orthogonal(d, 'orientation', 1);
 projectedSet = R(1 : dimension, :) * pointSet;

@@ -14,21 +14,28 @@ namespace Pastel {
         , view_() {
         }
 
-        MatlabMatrix(const mxArray* that) {
+        MatlabMatrix(integer rows, integer cols)
+        : data_(rows * cols, 0)
+        , view_(data_.data(), rows, cols) {
+        }
+
+        MatlabMatrix(const mxArray* that) 
+        : MatlabMatrix()
+        {
             ENSURE(mxIsNumeric(that));
 
             integer m = mxGetM(that);
             integer n = mxGetN(that);
+            Real* data = (Real*)mxGetData(that);
 
-            if (typeToMatlabClassId<Real>() == mxGetClassID(that)) {
-                // Types match; aliase the existing data.
-                view_ = MatrixView<Real, M, N>((Real*)mxGetData(that), m, n);
-            } 
-            else {
+            if (typeToMatlabClassId<Real>() != mxGetClassID(that)) {
                 // Types do not match; copy the data.
-                resize(m, n);
+                data_.resize(m * n);
                 matlabGetScalars(that, data_.begin());
+                data = data_.data();
             }
+
+            view_ = MatrixView<Real, M, N>(data, m, n);
         }
 
         MatlabMatrix(const MatlabMatrix& that)
@@ -44,14 +51,17 @@ namespace Pastel {
             swap(that);
         }
 
+        MatlabMatrix& operator=(const MatlabMatrix& that) = delete;
+        MatlabMatrix& operator=(MatlabMatrix&& that) = delete;
+
         void swap(MatlabMatrix& that) {
             data_.swap(that.data_);
             view_.swap(that.view_);
         }
 
-        void resize(integer rows, integer cols) {
-            data_.resize(rows * cols);
-            view_ = MatrixView<Real, M, N>(data_.data(), rows, cols);
+        void reshape(integer rows, integer cols) {
+            ENSURE_OP(rows * cols, ==, size());
+            view_ = MatrixView<Real, M, N>(data(), rows, cols);
         }
 
         integer rows() const {
@@ -71,7 +81,7 @@ namespace Pastel {
         }
 
         Real* data() const {
-            return (Real*)data_.data();
+            return (Real*)view_.data();
         }
 
         const MatrixView<Real, M, N>& view() const {
@@ -115,7 +125,8 @@ namespace Pastel {
 		ENSURE(mxIsNumeric(that));
 
 		auto m = matlabAsMatrix<Type>(that);
-		m.resize(1, m.size());
+		m.reshape(m.size(), 1);
+
 		return m;
 	}
 

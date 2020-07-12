@@ -90,17 +90,17 @@ namespace
 
 		bool qSpecified = !Q.isEmpty();
 		if (!qSpecified) {
-			Q.resize(d, d);
+			MatlabMatrix<dreal>(d, d).swap(Q);
 		}
 
 		bool sSpecified = !S.isEmpty();
 		if (!sSpecified) {
-			S.resize(d, d);
+			MatlabMatrix<dreal>(d, d).swap(S);
 		}
 
 		bool tSpecified = !t.isEmpty();
 		if (!tSpecified) {
-			t.resize(d, 1);
+			MatlabMatrix<dreal, -1, 1>(d, 1).swap(t);
 		}
 
 		const dreal* q0Pointer = Q.data();

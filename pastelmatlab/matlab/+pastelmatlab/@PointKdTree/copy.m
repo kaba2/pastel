@@ -14,7 +14,7 @@
 function kdTreeCopy = copy(self)
     eval(import_pastel);
     
-    kdTreeCopy = pastelgeometry.PointKdTree(self.dimension());
+    kdTreeCopy = pastelmatlab.PointKdTree(self.dimension());
 
     kdTreeCopy.kdTree = pastelmatlab(...
         'pointkdtree_copy', ...
