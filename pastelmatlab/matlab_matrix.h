@@ -9,6 +9,11 @@ namespace Pastel {
     template <typename Real, int M = Dynamic, int N = Dynamic>
     class MatlabMatrix {
     public:
+        MatlabMatrix()
+        : data_()
+        , view_() {
+        }
+
         MatlabMatrix(const mxArray* that) {
             ENSURE(mxIsNumeric(that));
 
@@ -24,6 +29,24 @@ namespace Pastel {
                 resize(m, n);
                 matlabGetScalars(that, data_.begin());
             }
+        }
+
+        MatlabMatrix(const MatlabMatrix& that)
+        : data_(that.data_)
+        , view_(that.view_) {
+            if (that.data_.data() == that.view_.data()) {
+                view_ = MatrixView<Real, M, N>(data_.data(), that.rows(), that.cols());
+            }
+        }
+
+        MatlabMatrix(MatlabMatrix&& that)
+        : MatlabMatrix() {
+            swap(that);
+        }
+
+        void swap(MatlabMatrix& that) {
+            data_.swap(that.data_);
+            view_.swap(that.view_);
         }
 
         void resize(integer rows, integer cols) {

@@ -135,9 +135,9 @@ namespace Pastel {
 
         integer toIndex(integer i, integer j) const {
             if constexpr (ColumnMajor) {
-                return j * cols() + i;
+                return j * rows() + i;
             } else {
-                return i * rows() + j;
+                return i * cols() + j;
             }
         }
 

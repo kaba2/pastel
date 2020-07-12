@@ -299,6 +299,37 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	}
 }
 
+TEST_CASE("Matrix row and column ranges")
+{
+	{
+		dreal dataSet[4][3] = {
+			{1, 2, 3},
+			{4, 5, 6},
+			{7, 8, 9},
+			{10, 11, 12}
+		};
+
+		auto a = view(dataSet);
+		REQUIRE(ranges::size(a.rowRange(0)) == 3);
+		REQUIRE(ranges::size(a.rowRange(1)) == 3);
+		REQUIRE(ranges::size(a.rowRange(2)) == 3);
+		REQUIRE(ranges::size(a.rowRange(3)) == 3);
+
+		REQUIRE(ranges::equal(a.rowRange(0), range({1, 2, 3})));
+		REQUIRE(ranges::equal(a.rowRange(1), range({4, 5, 6})));
+		REQUIRE(ranges::equal(a.rowRange(2), range({7, 8, 9})));
+		REQUIRE(ranges::equal(a.rowRange(3), range({10, 11, 12})));
+
+		REQUIRE(ranges::size(a.columnRange(0)) == 4);
+		REQUIRE(ranges::size(a.columnRange(1)) == 4);
+		REQUIRE(ranges::size(a.columnRange(2)) == 4);
+
+		REQUIRE(ranges::equal(a.columnRange(0), range({1, 4, 7, 10})));
+		REQUIRE(ranges::equal(a.columnRange(1), range({2, 5, 8, 11})));
+		REQUIRE(ranges::equal(a.columnRange(2), range({3, 6, 9, 12})));
+	}
+}
+
 TEST_CASE("MatrixArray (MatrixArray)")
 {
 	MatrixD a(3, 3);
