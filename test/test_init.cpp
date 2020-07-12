@@ -1,3 +1,3 @@
 #define CATCH_CONFIG_MAIN
 
-#include "test/init.h"
+#include "test/test_init.h"

@@ -74,25 +74,6 @@ get_target_property(TbbIncludeDirectory TBB::tbb INTERFACE_INCLUDE_DIRECTORIES)
 get_target_property(TbbLibraryDirectory TBB::tbb IMPORTED_LOCATION_RELEASE)
 get_filename_component(TbbLibraryDirectory ${TbbLibraryDirectory} DIRECTORY)
 
-if (BuildMatlab)
-	set (MatlabDirectoryWindows "C:/Program Files/Polyspace/R2020a")
-	set (MatlabDirectoryMac "/Applications/MATLAB_R2020a.app")
-	set (MatlabDirectoryLinux "/mnt/c/Program Files/Polyspace/R2020a")
-
-	if (WIN32)
-		set (MatlabDirectory ${MatlabDirectoryWindows})
-	elseif(UNIX)
-		if (APPLE)
-			set (MatlabDirectory ${MatlabDirectoryMac})
-		else()
-			set (MatlabDirectory ${MatlabDirectoryLinux})
-		endif()
-	endif()
-
-	find_package("Matlab_")
-	include_directories (${MatlabIncludeDirectory})
-endif()
-
 message(STATUS "Range-v3: ${RangesIncludeDirectory}")
 message(STATUS "Boost: ${Boost_INCLUDE_DIRS} ${Boost_LIBRARIES}")
 message(STATUS "Eigen: ${EIGEN3_INCLUDE_DIRS}")
@@ -101,19 +82,18 @@ message(STATUS "TBB: ${TbbIncludeDirectory} ${TbbLibraryDirectory}")
 # Copy files
 # ----------
 
-# if (WIN32)
-# 	# Copy dll-libraries aside executables for
-# 	# Windows to find them, when running an
-# 	# executable.
+set (CopySet 
+	${ProjectDirectory}/test/pastel/gfx/lena.pcx
+	${ProjectDirectory}/test/pastel/gfx/resample_text.pcx
+	${ProjectDirectory}/test/pastel/gfx/testpcx_1bit.pcx
+	${ProjectDirectory}/test/pastel/gfx/testpcx_4bit.pcx
+	${ProjectDirectory}/test/pastel/gfx/testpcx_8bit.pcx
+	${ProjectDirectory}/test/pastel/gfx/testpcx_rgb.pcx
+)
 
-# 	set (DllPathSet 
-# 		"${BlasDllPath}"
-# 		"${LapackDllPath}")
-
-# 	foreach (DllPath ${DllPathSet})
-# 		EcCopyAsideExecutables("${DllPath}")
-# 	endforeach()
-# endif()
+foreach (Filename ${CopySet})
+	EcCopyAsideExecutables("${Filename}")
+endforeach()
 
 # # Copy some data files.
 # file (COPY "${ProjectDirectory}/matlab/+pastelgeometry/fish.txt" 
@@ -141,10 +121,47 @@ if (BuildTests)
 endif()
 
 if (BuildMatlab)
-	add_subdirectory (matlab)
+	add_subdirectory (pastelmatlab)
 endif()
 
 if (BuildExamples)
 	add_subdirectory (example)
 endif()
 
+# message (STATUS "CMAKE_INSTALL_LIBDIR = ${CMAKE_INSTALL_LIBDIR}")
+# message (STATUS "CMAKE_CURRENT_BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
+# message (STATUS "CMAKE_INSTALL_DATADIR = ${CMAKE_INSTALL_DATADIR}")
+
+# add_library(Pastel INTERFACE)
+# add_library(Pastel::Pastel ALIAS Pastel)
+# target_link_libraries(
+# 	Pastel
+# 	INTERFACE
+# 	PastelSys::PastelSys
+# 	PastelMath::PastelMath
+# 	PastelGeometry:PastelGeometry
+# 	PastelGfx::PastelGfx
+# )
+
+# install(
+# 	TARGETS
+#     Pastel
+#     EXPORT PastelConfig
+#     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+# )
+
+# export(
+# 	TARGETS
+#     Pastel
+#     NAMESPACE Pastel::
+#     FILE "${CMAKE_CURRENT_BINARY_DIR}/PastelConfig.cmake"
+# )
+
+# install(
+# 	EXPORT
+#     PastelConfig
+#     DESTINATION "${CMAKE_INSTALL_DATADIR}/Pastel/cmake"
+#     NAMESPACE Pastel::
+# )

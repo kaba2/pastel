@@ -179,7 +179,7 @@ endmacro()
 # Creates source-groups for files based on the physical directory tree.
 macro (EcCreateSourceGroups SourceSet)
 foreach (FilePath ${SourceSet})
-	message (STATUS ${FilePath})
+	# message (STATUS ${FilePath})
 
 	# Get the path to the source file, relative to the current directory.
 	file (RELATIVE_PATH FileRelativePath ${CMAKE_CURRENT_LIST_DIR} ${FilePath})
@@ -216,7 +216,8 @@ macro (EcAddLibrary Type LibraryName SourceGlobSet)
 	#message (STATUS "${LibraryName} is ${Type}" )
 
 	if ("${Type}" STREQUAL "library")
-		add_library (${LibraryName} STATIC ${SourceSet})
+		add_library(${LibraryName} ${SourceSet})
+		add_library(${LibraryName}::${LibraryName} ALIAS ${LibraryName})
 	elseif ("${Type}" STREQUAL "executable")
 		add_executable (${LibraryName} ${SourceSet})
 	else ()

@@ -1,6 +1,3 @@
-#define CATCH_CONFIG_RUNNER
-#include "test/test_init.h"
-
 #include "test_pastelgfx.h"
 
 #include <iostream>
@@ -10,10 +7,13 @@
 #include "pastel/gfx/color.h"
 #include "pastel/gfx/mipmap.h"
 
+#include "pastel/sys/callfunction.h"
 #include "pastel/sys/extender/arrayextender.h"
 #include "pastel/sys/extender/indexextenders.h"
 
-int main(int argc, const char* argv[])
+using namespace Pastel;
+
+void gfxInitialize()
 {
 	Array<Color> textureImage;
 	loadPcx("lena.pcx", textureImage);
@@ -34,7 +34,7 @@ int main(int argc, const char* argv[])
 	gfxStorage().set("lena_image", &textureImage);
 	gfxStorage().set("lena_mipmap", &mipMap);
 	gfxStorage().set("lena_texture", &texture);
-
-	return Catch::Session().run(argc, argv);
 }
+
+CallFunction run(gfxInitialize);
 

@@ -1,0 +1,13 @@
+Function registration
+=====================
+
+[[Parent]]: pastelmatlab.txt
+
+There is only one entry point to a mex file, the `mexFunction`, which
+transmits the passed-in arguments to the C++ side. 
+To support multiple functions, PastelMatlab defines the `mexFunction` in 
+such a way that the first parameter is assumed  to be a string which 
+specifies the actual function name to call inside the mex file. On call, 
+PastelMatlab redirects to the correct function, with the remaining 
+parameters transmitted as they are. These functions are registered
+callable by the functions found here.
