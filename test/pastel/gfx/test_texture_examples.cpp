@@ -14,8 +14,8 @@
 
 TEST_CASE("Transform (TextureExample)")
 {
-	Texture<Color>* inputTexture = 
-		gfxStorage().get<EwaImage_Texture<Color>*>("lena_texture");
+	auto inputTexture = 
+		gfxStorage().get<std::shared_ptr<EwaImage_Texture<Color>>>("lena_texture");
 	ENSURE(inputTexture);
 
 	AffineTransformation<dreal, 2, 2> transform = affineRotation<dreal, 2>(2, 0, 1, constantPi<dreal>() / 6);
@@ -34,8 +34,8 @@ TEST_CASE("Transform (TextureExample)")
 
 TEST_CASE("Radial (TextureExample)")
 {
-	EwaImage_Texture<Color>& texture = 
-		*gfxStorage().get<EwaImage_Texture<Color>*>("lena_texture");			
+	auto texture = 
+		*gfxStorage().get<std::shared_ptr<EwaImage_Texture<Color>>>("lena_texture");			
 
 	Array<Color, 2> image(Vector2i(768, 256));
 

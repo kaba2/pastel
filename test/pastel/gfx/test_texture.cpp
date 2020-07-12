@@ -31,7 +31,7 @@ TEST_CASE("EwaMagnification (Texture)")
 	integer Width = 400;
 	integer Height = 400;
 
-	Array<Color>* textureImagePtr = gfxStorage().get<Array<Color>*>("lena_image");
+	auto textureImagePtr = gfxStorage().get<std::shared_ptr<Array<Color>>>("lena_image");
 	ENSURE(textureImagePtr);
 	Array<Color>& textureImage = *textureImagePtr;
 

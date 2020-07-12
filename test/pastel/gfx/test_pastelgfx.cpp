@@ -11,29 +11,31 @@
 #include "pastel/sys/extender/arrayextender.h"
 #include "pastel/sys/extender/indexextenders.h"
 
+#include <memory>
+
 using namespace Pastel;
 
 void gfxInitialize()
 {
-	Array<Color> textureImage;
-	loadPcx("lena.pcx", textureImage);
+	auto textureImage = std::make_shared<Array<Color>>();
+	loadPcx("lena.pcx", *textureImage);
 
-	Array<real32> grayImage(textureImage.extent());
+	auto grayImage = std::make_shared<Array<real32>>(textureImage->extent());
 	std::transform(
-		textureImage.begin(), textureImage.end(),
-		grayImage.begin(), luma);
+		textureImage->begin(), textureImage->end(),
+		grayImage->begin(), luma);
 	
-	MipMap<Color> mipMap(constArrayView(textureImage));
-	EwaImage_Texture<Color> texture(mipMap, ArrayExtender<2, Color>(mirrorExtender()));
+	auto mipMap = std::make_shared<MipMap<Color>>(constArrayView(*textureImage));
+	auto texture = std::make_shared<EwaImage_Texture<Color>>(*mipMap, ArrayExtender<2, Color>(mirrorExtender()));
 	//NearestImage_Texture<Color> texture(textureImage, ArrayExtender<2, Color>(mirrorExtender()));
-	transform(mipMap, fitColor);
+	transform(*mipMap, fitColor);
 
 	//grayImage.setExtent(128, 128);
 
-	gfxStorage().set("lena_gray", &grayImage);
-	gfxStorage().set("lena_image", &textureImage);
-	gfxStorage().set("lena_mipmap", &mipMap);
-	gfxStorage().set("lena_texture", &texture);
+	gfxStorage().set("lena_gray", grayImage);
+	gfxStorage().set("lena_image", textureImage);
+	gfxStorage().set("lena_mipmap", mipMap);
+	gfxStorage().set("lena_texture", texture);
 }
 
 CallFunction run(gfxInitialize);
