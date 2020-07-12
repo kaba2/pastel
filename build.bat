@@ -1,13 +1,31 @@
 @echo off
 
-if not exist build (
-    mkdir build
+set buildDir=build
+if not exist %buildDir% (
+    echo Creating directory %buildDir%/...
+    mkdir %buildDir%
 )
 
-if exist "build\CMakeCache.txt" (
-    del "build\CMakeCache.txt"
+set buildType=Release
+if NOT [%1]==[] (
+    set buildType=%1
 )
-cmake -S . -G"Visual Studio 16 2019" -T "ClangCL" -DCMAKE_BUILD_TYPE=Release -B build "-DCMAKE_TOOLCHAIN_FILE=C:\code\vcpkg\scripts\buildsystems\vcpkg.cmake"
-REM cmake -S . -G"Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release -B build "-DCMAKE_TOOLCHAIN_FILE=C:\code\vcpkg\scripts\buildsystems\vcpkg.cmake"
 
-REM start build\Pastel.sln
+set toolchainFile="C:\code\vcpkg\scripts\buildsystems\vcpkg.cmake"
+
+if exist "%buildDir%\CMakeCache.txt" (
+    echo Removing existing CMakeCache.txt...
+    del "%buildDir%\CMakeCache.txt"
+)
+
+echo Type: %buildType%
+echo Directory: %buildDir%
+echo Toolchain: %toolchainFile%
+
+REM goto NARP
+
+cmake -S . -G"Visual Studio 16 2019" -T ClangCL -DCMAKE_BUILD_TYPE=%buildType% -B %buildDir% -DCMAKE_TOOLCHAIN_FILE=%toolchainFile%
+
+REM start %buildDir%\Pastel.sln
+
+:NARP
