@@ -202,7 +202,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	};
 
 	// Constructs from a shared array.
-	Eigen::Map<MatrixD, Eigen::RowMajor> shared(dataSet, 4, 3);
+	Eigen::Map<Matrix<dreal, Dynamic, Dynamic, false>> shared(dataSet, 4, 3);
 	{
 		REQUIRE(ranges::equal(range(shared), range(dataSet)));
 	}
@@ -215,7 +215,7 @@ TEST_CASE("MatrixExpressions (MatrixExpressions)")
 	}
 
 	{
-		MatrixD test(3, 2);
+		MatrixD test(2, 3);
 		test << 
 			1, 2, 3,
 			4, 5, 6;

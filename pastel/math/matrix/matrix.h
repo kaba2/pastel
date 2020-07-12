@@ -15,7 +15,7 @@ namespace Pastel
 
 	template <int M, int N, bool ColumnMajor>
 	constexpr int EigenOptions = Eigen::AutoAlign | (
-			(M == 1 && N != 1) ? Eigen::RowMajor : Eigen::ColMajor
+			((M == 1 && N != 1) || !ColumnMajor) ? Eigen::RowMajor : Eigen::ColMajor
 		);
 
 	template <typename Real, int M = Eigen::Dynamic, int N = Eigen::Dynamic, bool ColumnMajor = true>
